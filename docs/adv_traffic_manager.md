@@ -24,41 +24,42 @@
 - [__运行多个流量管理器__](#running-multiple-traffic-managers)
 	- [流量管理器服务端和客户端](#traffic-manager-servers-and-clients)
 	- [多客户端仿真](#multi-client-simulations)
-	- [多 TM 仿真](#multi-tm-simulations)
+	- [多交通管理器仿真](#multi-tm-simulations)
 	- [Multi-simulation](#multi-simulation)
 - [__同步模式__](#synchronous-mode)
 - [__大地图中的交通管理器__](#traffic-manager-in-large-maps)
 
 ---
-## What is the Traffic Manager?
+## 什么是交通管理器？
 
-The Traffic Manager (TM) is the module that controls vehicles in autopilot mode in a simulation. Its goal is to populate a simulation with realistic urban traffic conditions. Users can customize some behaviors, for example, to set specific learning circumstances.
+交通管理器 (Traffic Manager, TM) 是在仿真中以自动驾驶模式控制车辆的模块。其目标是在模拟中填充真实的城市交通状况。用户可以自定义一些行为，例如设置特定的学习环境。
 
-### Structured design
+### 结构化设计
 
-TM is built on CARLA's client-side. The execution flow is divided into __stages__, each with independent operations and goals. This facilitates the development of phase-related functionalities and data structures while improving computational efficiency. Each stage runs on a different thread. Communication with other stages is managed through synchronous messaging. Information flows in one direction.
+交通管理器构建于 Carla 的客户端之上。执行流程分为多个阶段，每个阶段都有独立的操作和目标。这有利于相位相关功能和数据结构的开发，同时提高计算效率。每个阶段都在不同的线程上运行。与其他阶段的通信通过同步消息传递进行管理。信息朝一个方向流动。
 
-### User customization
-Users have some control over the traffic flow by setting parameters that allow, force, or encourage specific behaviors. Users can change the traffic behavior as they prefer, both online and offline. For example, cars can be allowed to ignore the speed limits or force a lane change. Being able to play around with behaviors is indispensable when trying to simulate reality. Driving systems need to be trained under specific and atypical circumstances.
+### 用户定制
+
+用户可以通过设置允许、强制或鼓励特定行为的参数来对流量进行一定程度的控制。用户可以根据自己的喜好改变流量行为，无论是在线还是离线。例如，可以允许汽车忽略速度限制或强制变道。在尝试仿真现实时，能够尝试各种行为是必不可少的。驾驶系统需要在特定和非典型情况下进行训练。
 
 ---
-## Architecture
+## 架构
 
-### Overview
+### 概述
 
-![Architecture](img/tm_2_architecture.jpg)
+![Architecture](img/tm_2_architecture.png)
 
-The above diagram is a representation of the internal architecture of the TM. The C++ code for each component can be found in `LibCarla/source/carla/trafficmanager`. Each component is explained in detail in the following sections. A simplified overview of the logic is as follows: 
+上图是交通管理器的内部架构示意图。每个组件的 C++ 代码可以在  `LibCarla/source/carla/trafficmanager` 中找到。以下各节详细解释了每个组件。逻辑概述如下：
 
-__1. Store and update the current state of the simulation.__
+__1. 存储并更新仿真的当前状态。__
 
-- The [Agent Lifecycle & State Management](#alsm) (ALSM) scans the world to keep track of all the vehicles and walkers present and to clean up entries for those that no longer exist. All the data is retrieved from the server and is passed through several [stages](#stages-of-the-control-loop). The ALSM is the only component that makes calls to the server.
-- The [vehicle registry](#vehicle-registry) contains an array of vehicles on autopilot (controlled by the TM) and a list of pedestrians and vehicles not on autopilot (not controlled by the TM).
-- The [simulation state](#simulation-state) is a cache store of the position, velocity, and additional information of all the vehicles and pedestrians in the simulation.
+- [代理生命周期和状态管理](#alsm) (Agent Lifecycle & State Management, ALSM)  扫描世界，跟踪所有存在的车辆和行人，并清理不再存在的条目。所有数据均从服务器检索并经过多个[阶段](#stages-of-the-control-loop)。ALSM 是唯一调用服务器的组件。
+- [车辆注册表](#vehicle-registry) 包含一系列处于自动驾驶状态的车辆（由交通管理器控制）以及一系列不处于自动驾驶状态（不受交通管理器控制控制）的行人和车辆。
+- [仿真状态](#simulation-state) 是仿真中所有车辆和行人的位置、速度和附加信息的缓存存储。
 
-__2. Calculate the movement of every autopilot vehicle.__
+__2. 计算每辆自动驾驶车辆的运动。__
 
-The TM generates viable commands for all vehicles in the [vehicle registry](#vehicle-registry) according to the [simulation state](#simulation-state). Calculations for each vehicle are done separately. These calculations are divided into different [stages](#stages-of-the-control-loop). The [control loop](#control-loop) makes sure that all calculations are consistent by creating __synchronization barriers__ between stages. No vehicle moves to the next stage before calculations are finished for all vehicles in the current stage. Each vehicle goes through the following stages:
+交通管理器根据[仿真状态]((#simulation-state)为车辆注册表中的所有车辆生成可行的命令。每辆车的计算都是单独进行的。这些计算分为不同的阶段。控制循环通过在阶段之间创建同步屏障来确保所有计算的一致性。在当前阶段的所有车辆计算完成之前，没有车辆进入下一阶段。每辆车都会经历以下阶段：The TM generates viable commands for all vehicles in the [vehicle registry](#vehicle-registry) according to the [simulation state](#simulation-state). Calculations for each vehicle are done separately. These calculations are divided into different [stages](#stages-of-the-control-loop). The [control loop](#control-loop) makes sure that all calculations are consistent by creating __synchronization barriers__ between stages. No vehicle moves to the next stage before calculations are finished for all vehicles in the current stage. Each vehicle goes through the following stages:
 
 >__2.1 - [Localization Stage](#stage-1-localization-stage).__
 
