@@ -5,12 +5,12 @@
 	- [用户定制](#user-customization)
 - [__架构__](#architecture)
 	- [概述](#overview)
-	- [ALSM](#alsm)
+	- [代理的生命周期和状态管理](#alsm)
 	- [车辆注册表](#vehicle-registry)
 	- [仿真状态](#simulation-state)
 	- [控制循环](#control-loop)
-	- [In-Memory Map](#in-memory-map)
-	- [PBVT](#pbvt)
+	- [内存地图](#in-memory-map)
+	- [路径缓存和车辆轨迹](#pbvt)
 	- [PID 控制器](#pid-controller)
 	- [命令数组](#command-array)
 	- [控制循环的阶段](#stages-of-the-control-loop)
@@ -18,14 +18,14 @@
 	- [车辆行为考虑因素](#vehicle-behavior-considerations)
 	- [创建交通管理器](#creating-a-traffic-manager)
 	- [配置自动驾驶行为](#configuring-autopilot-behavior)
-	- [停止交通管理器 Traffic Manager](#stopping-a-traffic-manager)
+	- [停止交通管理器](#stopping-a-traffic-manager)
 - [__确定性模式__](#deterministic-mode)
 - [__混合物理模式__](#hybrid-physics-mode)
 - [__运行多个流量管理器__](#running-multiple-traffic-managers)
 	- [流量管理器服务端和客户端](#traffic-manager-servers-and-clients)
 	- [多客户端仿真](#multi-client-simulations)
 	- [多交通管理器仿真](#multi-tm-simulations)
-	- [Multi-simulation](#multi-simulation)
+	- [多重仿真](#multi-simulation)
 - [__同步模式__](#synchronous-mode)
 - [__大地图中的交通管理器__](#traffic-manager-in-large-maps)
 
@@ -53,7 +53,7 @@
 
 __1. 存储并更新仿真的当前状态。__
 
-- [代理生命周期和状态管理](#alsm) (Agent Lifecycle & State Management, ALSM)  扫描世界，跟踪所有存在的车辆和行人，并清理不再存在的条目。所有数据均从服务器检索并经过多个[阶段](#stages-of-the-control-loop)。ALSM 是唯一调用服务器的组件。
+- [代理的生命周期和状态管理](#alsm) (Agent Lifecycle & State Management, ALSM)  扫描世界，跟踪所有存在的车辆和行人，并清理不再存在的条目。所有数据均从服务器检索并经过多个[阶段](#stages-of-the-control-loop)。ALSM 是唯一调用服务器的组件。
 - [车辆注册表](#vehicle-registry) 包含一系列处于自动驾驶状态的车辆（由交通管理器控制）以及一系列不处于自动驾驶状态（不受交通管理器控制控制）的行人和车辆。
 - [仿真状态](#simulation-state) 是仿真中所有车辆和行人的位置、速度和附加信息的缓存存储。
 
