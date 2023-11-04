@@ -6,7 +6,7 @@
 - [__架构__](#architecture)
 	- [概述](#overview)
 	- [ALSM](#alsm)
-	- [车辆登记处](#vehicle-registry)
+	- [车辆注册表](#vehicle-registry)
 	- [仿真状态](#simulation-state)
 	- [控制循环](#control-loop)
 	- [In-Memory Map](#in-memory-map)
@@ -59,69 +59,69 @@ __1. 存储并更新仿真的当前状态。__
 
 __2. 计算每辆自动驾驶车辆的运动。__
 
-交通管理器根据[仿真状态]((#simulation-state)为车辆注册表中的所有车辆生成可行的命令。每辆车的计算都是单独进行的。这些计算分为不同的阶段。控制循环通过在阶段之间创建同步屏障来确保所有计算的一致性。在当前阶段的所有车辆计算完成之前，没有车辆进入下一阶段。每辆车都会经历以下阶段：The TM generates viable commands for all vehicles in the [vehicle registry](#vehicle-registry) according to the [simulation state](#simulation-state). Calculations for each vehicle are done separately. These calculations are divided into different [stages](#stages-of-the-control-loop). The [control loop](#control-loop) makes sure that all calculations are consistent by creating __synchronization barriers__ between stages. No vehicle moves to the next stage before calculations are finished for all vehicles in the current stage. Each vehicle goes through the following stages:
+交通管理器根据[仿真状态](#simulation-state)为[车辆注册表](#vehicle-registry)中的所有车辆生成可行的命令。每辆车的计算都是单独进行的。这些计算分为不同的[阶段](#stages-of-the-control-loop)。[控制循环](#control-loop)通过在阶段之间创建同步屏障来确保所有计算的一致性。在当前阶段的所有车辆计算完成之前，没有车辆进入下一阶段。每辆车都会经历以下阶段：
 
->__2.1 - [Localization Stage](#stage-1-localization-stage).__
+>__2.1 - [定位阶段](#stage-1-localization-stage)__
 
->Paths are created dynamically using a list of nearby waypoints collected from the [In-Memory Map](#in-memory-map), a simplification of the simulation map as a grid of waypoints. Directions at junctions are chosen randomly. Each vehicle's path is stored and maintained by the [Path Buffers & Vehicle Tracking](#pbvt) (PBVT) component for easy access and modification in future stages.
+>路径是使用从[内存地图](#in-memory-map)中收集的附近路径点列表动态创建的，内存地图是仿真地图作为路径点网格的简化。路口的方向是随机选择的。每辆车的路径均由路径缓存和车辆轨迹(Path Buffers & Vehicle Tracking, [PBVT](#pbvt)) 组件存储和维护，以便在未来阶段轻松访问和修改。
 
->__2.2 - [Collision Stage](#stage-2-collision-stage).__
+>__2.2 - [碰撞阶段](#stage-2-collision-stage)__
 
->Bounding boxes are extended over each vehicle's path to identify and navigate potential collision hazards.
+>边界框延伸到每辆车的路径上，以识别和导航潜在的碰撞危险。
 
->__2.3 - [Traffic Light Stage](#stage-3-traffic-light-stage).__
+>__2.3 - [交通灯阶段](#stage-3-traffic-light-stage).__
 
->Similar to the Collision Stage, potential hazards that affect each vehicle's path due to traffic light influence, stop signs, and junction priority are identified.
+>与碰撞阶段类似，会识别由于交通灯影响、停车标志和路口优先级而影响每辆车路径的潜在危险。
 
->__2.4 - [Motion Planner Stage](#stage-4-motion-planner-stage).__
+>__2.4 - [运动规划器阶段](#stage-4-motion-planner-stage).__
 
->Vehicle movement is computed based on the defined path. A [PID controller](#pid-controller) determines how to reach the target waypoints. This is then translated into a CARLA command for application in the next step.
+>车辆运动是根据定义的路径计算的。[PID 控制器](#pid-controller)确定如何到达目标路径点。然后将其转换为 Carla 命令以供下一步应用。
 
->__2.5 - [Vehicle Lights Stage](#stage-5-vehicle-lights-stage).__
+>__2.5 - [车灯阶段](#stage-5-vehicle-lights-stage).__
 
-> The vehicle lights switch on/off dynamically based on environmental factors (e.g. sunlight and the presence of fog or rain) and vehicle behavior (e.g. turning on direction indicators if the vehicle will turn left/right at the next junction, or turn on the stop lights if braking).
+> 车灯根据环境因素（例如阳光和雾或雨的存在）和车辆行为（例如，如果车辆将在下一个路口左转/右转，则打开方向指示灯；如果制动，则打开刹车灯）。
 
 
-__3. Apply the commands in the simulation.__
+__3. 在仿真中应用命令__
 
-Commands generated in the previous step are collected into the [command array](#command-array) and sent to the CARLA server in a batch to be applied in the same frame.
+上一步生成的命令被收集到[命令数组](#command-array)中，批量发送到 Carla 服务器，在同一帧中应用。
 
-The following sections will explain each component and stage in the TM logic described above in more detail.
+以下部分将更详细地解释上述交通管理器逻辑中的每个组件和阶段。
 
-### ALSM
+### 代理的生命周期和状态管理
 
-ALSM stands for __Agent Lifecycle and State Management__. It is the first step in the TM logic cycle and provides context of the simulation's current state.
+代理的生命周期和状态管理。它是交通管理器逻辑周期的第一步，提供仿真当前状态的上下文。
 
-The ALSM component:
+代理的生命周期和状态管理组件：
 
-- Scans the world to keep track of all vehicles and pedestrians, their positions and velocities. If physics are enabled, the velocity is retrieved by [Vehicle.get_velocity()](python_api.md#carla.Vehicle). Otherwise, the velocity is calculated using the history of position updates over time.
-- Stores the position, velocity, and additional information (traffic light influence, bounding boxes, etc) of every vehicle and pedestrian in the [simulation state](#simulation-state) component.
-- Updates the list of TM-controlled vehicles in the [vehicle registry](#vehicle-registry).
-- Updates entries in the [control loop](#control-loop) and [PBVT](#pbvt) components to match the vehicle registry.
+- 扫描世界以跟踪所有车辆和行人的位置和速度。如果启用物理功能，则通过[Vehicle.get_velocity()](python_api.md#carla.Vehicle)检索速度。否则，将使用位置随时间更新的历史记录来计算速度。
+- 存储[仿真状态](#simulation-state)组件中每辆车和行人的位置、速度和附加信息（交通灯影响、边界框等）。
+- 更新[车辆注册表](#vehicle-registry)中交通管理器控制的车辆列表。
+- 更新[控制循环](#control-loop)和[路径缓存和车辆轨迹](#pbvt)组件中的条目以匹配车辆注册表。
 
-__Related .cpp files:__ `ALSM.h`, `ALSM.cpp`.
+__相关的 .cpp 文件：__ `ALSM.h`, `ALSM.cpp`.
 
-### Vehicle registry
+### 车辆注册表
 
-The vehicle registry keeps track of all vehicles and pedestrians in the simulation.
+车辆注册表记录仿真中的所有车辆和行人。
 
-The vehicle registry:
+车辆注册表：
 
-- Is passed an updated list of vehicles and pedestrians from the [ALSM](#alsm).
-- Stores vehicles registered to the TM in a separate array for iteration during the [control loop](#control-loop).
+- 从[代理的生命周期和状态管理](#alsm)传递来最新的车辆和行人列表。
+- 将注册到交通管理器的车辆存储在单独的数组中，以便在[控制循环](#control-loop)期间进行迭代。
 
-__Related .cpp files:__ `MotionPlannerStage.cpp`.
+__相关的 .cpp 文件：__ `MotionPlannerStage.cpp`.
 
-### Simulation state
+### 仿真状态
 
-The simulation state stores information about all vehicles in the simulation for easy access and modification in later stages.
+仿真状态存储仿真中所有车辆的信息，以便在后期阶段轻松访问和修改。
 
-The simulation state:
+仿真状态：
 
-- Receives data from the [ALSM](#alsm) including current actor position, velocity, traffic light influence, traffic light state, etc.
-- Stores all information in cache, avoiding subsequent calls to the server during the [control loop](#control-loop).
+- 从[代理的生命周期和状态管理](#alsm)接收数据，包括当前参与者位置、速度、交通灯影响、交通灯状态等。
+- 将所有信息存储在缓存中，避免在[控制循环](#control-loop)期间对服务器的后续调用。
 
-__Related .cpp files:__ `SimulationState.cpp`, `SimulationState.h`.
+__相关的 .cpp 文件：__ `SimulationState.cpp`, `SimulationState.h`.
 
 ### Control loop
 
@@ -366,71 +366,72 @@ client.apply_batch([carla.command.DestroyActor(x) for x in vehicles_list])
     Shutting down a __TM-Server__ will shut down the __TM-Clients__ connecting to it. To learn the difference between a __TM-Server__ and a __TM-Client__, read about [__Running multiple Traffic Managers__](#running-multiple-traffic-managers).
 
 ---
-## Deterministic mode
+## 确定性模式
 
-In deterministic mode, the TM will produce the same results and behaviors under the same conditions. Do not mistake determinism with the recorder. While the recorder allows you to store the log of a simulation to play it back, determinism ensures that the TM will always have the same output over different executions of a script as long as the same conditions are maintained.
+在确定性模式下，交通管理器将在相同条件下产生相同的结果和行为。不要将确定性论误认为是记录器。虽然记录器允许您存储仿真日志以进行回放，但确定性可确保只要维持相同的条件，交通管理器在脚本的不同执行过程中始终具有相同的输出。
 
-Deterministic mode is available __in synchronous mode only__. In asynchronous mode, there is less control over the simulation and determinism cannot be achieved. Read more in the section [__"Synchronous mode"__](#synchronous-mode) before starting.
+确定性模式 __仅在同步模式下__ 可用。在异步模式下，对仿真的控制较少，并且无法实现确定性。在开始之前，请阅读[同步模式](#synchronous-mode)部分的更多信息。
 
-To enable deterministic mode, use the following method:
+要启用确定性模式，请使用以下方法：
 
 ```py
 my_tm.set_random_device_seed(seed_value)
 ```
 
-`seed_value` is an `int` number from which random numbers will be generated. The value itself is not relevant, but the same value will always result in the same output. Two simulations, with the same conditions, that use the same seed value, will be deterministic.
+`seed_value` 是一个将生成随机数的数字的 `int` 种子数。该值本身并不相关，但相同的值将始终导致相同的输出。具有相同条件、使用相同种子值的两次仿真将是确定性的。
 
-To maintain determinism over multiple simulation runs, __the seed must be set for every simulation__. For example, each time the world is [reloaded](python_api.md#carla.Client.reload_world), the seed must be set again:
+为了保持多次仿真运行的确定性，__必须为每次仿真设置种子__。例如，每次[重新加载](python_api.md#carla.Client.reload_world)世界时，都必须重新设置种子：
+
 
 ```py
 client.reload_world()
 my_tm.set_random_device_seed(seed_value)
 ```
 
-Deterministic mode can be tested in the `generate_traffic.py` example script by passing a seed value as an argument. The following example populates a map with 50 autopilot actors in synchronous mode and sets the seed to an arbitrary value of `9`:
+可以通过将种子值作为参数传递来在示例脚本`generate_traffic.py`中测试确定性模式。以下示例在同步模式下使用 50 个自动驾驶参与者填充地图，并将种子设置为任意值`9`：
 
 ```sh
 cd PythonAPI/examples
 python3 generate_traffic.py -n 50 --seed 9
 ```
 
-!!! Warning
-    The CARLA server and the TM must be in synchronous mode before enabling deterministic mode. Read more [here](#synchronous-mode) about synchronous mode in TM.
+!!! 警告
+    在启用确定性模式之前，Carla 服务器和交通管理器必须处于同步模式。在此处阅读有关交通管理器中同步模式的[更多信息](#synchronous-mode)。
 
 ---
-## Hybrid physics mode
+## 混合物理模式
 
-Hybrid mode allows users to disable most physics calculations for all autopilot vehicles, or for autopilot vehicles outside of a certain radius of a vehicle tagged with `hero`. This removes the vehicle physics bottleneck from a simulation. Vehicles whose physics are disabled will move by teleportation. Basic calculations for linear acceleration are maintained to ensure position updates and vehicle speed remain realistic and the toggling of physics calculations on vehicles is fluid.
+混合模式允许用户禁用所有自动驾驶车辆或标记为`英雄`的车辆特定半径之外的自动驾驶车辆的大多数物理计算。这消除了仿真中的车辆物理瓶颈。物理功能被禁用的车辆将通过隐形传送移动。维持线性加速度的基本计算，以确保位置更新和车辆速度保持真实，并且车辆上物理计算的切换是流畅的。
 
-Hybrid mode uses the [`Actor.set_simulate_physics()`](https://carla.readthedocs.io/en/latest/python_api/#carla.Actor.set_simulate_physics) method to toggle physics calculations. It is disabled by default. There are two options to enable it:
+混合模式使用 [`Actor.set_simulate_physics()`](https://carla.readthedocs.io/en/latest/python_api/#carla.Actor.set_simulate_physics) 方法来切换物理计算。默认情况下它是禁用的。有两个选项可以启用它：
 
-*   [__`TrafficManager.set_hybrid_physics_mode(True)`__](https://carla.readthedocs.io/en/latest/python_api/#carla.TrafficManager.set_hybrid_physics_mode) — This method enables hybrid mode for the TM object calling it.
-*   __Running `generate_traffic.py` with the flag `--hybrid`__ — This example script creates a TM and spawns vehicles in autopilot. It then sets these vehicles to hybrid mode when the `--hybrid` flag is passed as a script argument.
+*   [__`TrafficManager.set_hybrid_physics_mode(True)`__](https://carla.readthedocs.io/en/latest/python_api/#carla.TrafficManager.set_hybrid_physics_mode) — 此方法为调用它的交通管理器对象启用混合模式。
+*   __以`--hybrid`标志运行 `generate_traffic.py`__ — 此示例脚本创建一个交通管理器并在自动驾驶仪中生成车辆。当标志`--hybrid`作为脚本参数传递时，它将这些车辆设置为混合模式。
 
-To modify the behavior of hybrid mode, use the following two parameters:
+要修改混合模式的行为，请使用以下两个参数：
 
-*   __Radius__ *(default = 50 meters)* — The radius is relative to vehicles tagged with `hero`. All vehicles inside this radius will have physics enabled; vehicles outside of the radius will have physics disabled. The size of the radius is modified using [`traffic_manager.set_hybrid_physics_radius(r)`](python_api.md#carla.TrafficManager.set_hybrid_physics_radius).
-*   __Hero vehicle__ — A vehicle tagged with `role_name='hero'` that acts as the center of the radius.
-	*   __If there is no hero vehicle,__ all vehicles' physics will be disabled.
-	*   __If there is more than one hero vehicle,__ the radius will be considered for them all, creating different areas of influence with physics enabled.
+*   __Radius__ *(默认 = 50 米)* — 半径相对于标记有 `英雄` 的车辆。该半径内的所有车辆都将启用物理功能；半径之外的车辆将禁用物理功能。使用 [`traffic_manager.set_hybrid_physics_radius(r)`](python_api.md#carla.TrafficManager.set_hybrid_physics_radius) 修改半径的大小。
+*   __Hero vehicle__ — 带有标记 `role_name='hero'` 的车辆作为半径的中心。
+	*   __如果没有英雄车辆，__ 所有车辆的物理功能将被禁用。
+	*   __如果有不止一辆英雄车辆，__ 则会考虑所有英雄车辆的半径，从而在启用物理功能的情况下创建不同的影响区域。
 
-The clip below shows how physics is enabled and disabled when hybrid mode is active. The __hero vehicle__ is tagged with a __red square__. Vehicles with __physics disabled__ are tagged with a __blue square__. When inside the hero vehicle's radius of influence, __physics are enabled and the tag becomes green__.
+下面的剪辑显示了混合模式处于活动状态时如何启用和禁用物理功能。__英雄车辆__ 标有 __红色方块__。__禁用物理功能__ 的车辆标有 __蓝色方块__。当在英雄车辆的影响半径内时，__启用物理功能__ 并且标签变为 __绿色__。
 
 ![Welcome to CARLA](img/tm_hybrid.gif)
 
 
 ---
-## Running multiple Traffic Managers
+## 运行多个交通管理器
 
-### Traffic Manager servers and clients
+### 交通管理器的服务端和客户端
 
-A CARLA client creates a TM by specifying to the server which port to use. If a port is not specified, the default `8000` will be used. If further TMs are created on the same port, they will become __TM-Clients__ and the original TM will become a __TM-Server__. These titles define how a TM behaves within a simulation.
+Carla 客户端通过向服务器指定要使用的端口来创建交通管理器。如果未指定端口，将使用默认 `8000` 端口。如果在同一端口上创建更多交通管理器，它们将成为 __交通管理器的客户端__，而原始交通管理器将成为 __交通管理器的服务端__。这些标题定义了交通管理器在仿真中的行为方式。
 
-###### TM-Server
+###### 交通管理器的服务端
 
-A TM-Server is created if it was the first TM to connect to a free port and then other TMs (TM-Clients) connected to the same port it was running on. __The TM-Server will dictate the behavior of all the TM-Clients__, e.g., if the TM-Server is stopped, all TM-Clients will stop.
+如果交通管理器的服务端是第一个连接到空闲端口的交通管理器，然后其他交通管理器（交通管理器的客户端）连接到它正在运行的同一端口，则创建交通管理器服务端。__交通管理器服务端将规定所有交通管理器客户端的行为__，例如，如果 __交通管理器的服务端__ 停止，则所有 __交通管理器客户端__ 将停止。
 
-The following code creates two TM-Servers. Each one connects to a different, unused port:
+以下代码创建两个交通管理器服务端。每个端口都连接到不同且都未使用的端口：
 
 ```py 
 tm01 = client01.get_trafficmanager() # tm01 --> tm01 (p=8000)
@@ -439,11 +440,11 @@ tm01 = client01.get_trafficmanager() # tm01 --> tm01 (p=8000)
 tm02 = client02.get_trafficmanager(5000) # tm02(p=5000) --> tm02 (p=5000)
 ```
 
-###### TM-Client
+###### 交通管理器的客户端
 
-A TM-Client is created when a TM connects to a port occupied by another TM (TM-Server). The TM-Client behavior will be dictated by the TM-Server.
+当一个交通管理器连接到另一个交通管理器（交通管理器服务端）占用的端口时，就会创建交通管理器客户端。交通管理器客户端的行为将由交通管理器服务端决定。
 
-The following code creates two TM-Clients, each one connecting with the TM-Servers created in the section above.
+以下代码创建两个交通管理器客户端，每一个都与上一节中创建的交通管理器服务端连接。
 
 ```py
 tm03 = client03.get_trafficmanager() # tm03 --> tm01 (p=8000). 
@@ -452,11 +453,12 @@ tm03 = client03.get_trafficmanager() # tm03 --> tm01 (p=8000).
 tm04 = client04.get_trafficmanager(5000) # tm04(p=5000) --> tm02 (p=5000)
 ```
 
-The CARLA server keeps a register of all TM instances by storing the port and the client IP (hidden to the user) that link to them. There is currently no way to check the TM instances that have been created so far. A connection will always be attempted when trying to create an instance and it will either create a new __TM-Server__ or a __TM-Client__.
+Carla 服务器通过存储链接到它们的端口和客户端 IP（对用户隐藏）来保存所有交通管理器实例的寄存器。目前无法检查到目前为止已创建的交通管理器实例。尝试创建实例时始终会尝试连接，并且它将创建新的 __交通管理器服务端__ 或 __交通管理器客户端__ 。
 
-### Multi-client simulations
 
-In a multi-client simulation, multiple TMs are created on the same port. The first TM will be a TM-Server and the rest will be TM-Clients connecting to it. The TM-Server will dictate the behavior of all the TM instances:
+### 多客户端仿真
+
+在多客户端模拟中，在同一端口上创建多个TM。第一个 TM 将是 TM 服务器，其余的将是连接到它的 TM 客户端。TM-Server 将规定所有 TM 实例的行为：
 
 ```py
 terminal 1: ./CarlaUE4.sh -carla-rpc-port=4000
@@ -464,9 +466,9 @@ terminal 2: python3 generate_traffic.py --port 4000 --tm-port 4050 # TM-Server
 terminal 3: python3 generate_traffic.py --port 4000 --tm-port 4050 # TM-Client
 ```
 
-### Multi-TM simulations
+### 多交通管理器仿真
 
-In a multi-TM simulation, multiple TM instances are created on distinct ports. Each TM instance will control its own behavior:
+在多交通管理器仿真中，在不同的端口上创建多个交通管理器实例。每个交通管理器实例都会控制自己的行为：
 
 ```py
 terminal 1: ./CarlaUE4.sh -carla-rpc-port=4000
@@ -474,9 +476,9 @@ terminal 2: python3 generate_traffic.py --port 4000 --tm-port 4050 # TM-Server A
 terminal 3: python3 generate_traffic.py --port 4000 --tm-port 4550 # TM-Server B
 ```
 
-### Multi-simulation
+### 多重仿真
 
-Multi-simulation is when more than one CARLA server is running at the same time. The TM needs to connect to the relevant CARLA server port. As long as the computational power allows for it, the TM can run multiple simulations at a time without any problems:
+多重仿真是指多个 Carla 服务器同时运行。交通管理器需要连接到相关的 Carla 服务器端口。只要计算能力允许，交通管理器可以一次运行多个仿真，不会出现任何问题：
 
 ```py
 terminal 1: ./CarlaUE4.sh -carla-rpc-port=4000 # simulation A 
@@ -485,17 +487,17 @@ terminal 3: python3 generate_traffic.py --port 4000 --tm-port 4050 # TM-Server A
 terminal 4: python3 generate_traffic.py --port 5000 --tm-port 5050 # TM-Server B connected to simulation B
 ```
 
-The concept of multi-simulation is independent of the TM itself. The example above runs two CARLA simulations in parallel, A and B. In each of them, a TM-Server is created independently from the other. Simulation A could run a multi-client TM while simulation B is running a multi-TM or no TM at all.
+多重仿真的概念独立于交通管理器本身。上面的示例并行运行两个 Carla 仿真 A 和 B。在每个仿真中，都独立创建一个交通管理器服务端。仿真 A 可以运行多客户端交通管理程序，而仿真 B 则运行多交通管理器或根本不运行交通管理器。
 
-The most likely issue arising from the above set-up is a client trying to connect to an already existing TM that is not running on the selected simulation. If this happens, an error message will appear and the connection will be aborted to prevent interferences between simulations.
-
+上述设置最可能出现的问题是客户端尝试连接到未在所选仿真上运行的现有交通管理器。如果发生这种情况，将会出现错误消息，并且连接将被中止，以防止仿真之间的干扰。
 
 ---
-## Synchronous mode
+## 同步模式
 
-TM is designed to work in synchronous mode. Both the CARLA server and TM should be set to synchronous in order to function properly. __Using TM in asynchronous mode can lead to unexpected and undesirable results,__ however, if asynchronous mode is required, the simulation should run at 20-30 fps at least.
 
-The script below demonstrates how to set both the server and TM to synchronous mode:
+交通管理器设计为在同步模式下工作。Carla 服务器和交通管理器应设置为同步才能正常运行。__在异步模式下使用交通管理器可能会导致意外和不良结果__，但是，如果需要异步模式，则仿真应至少以 20-30 fps 运行。
+
+下面的脚本演示了如何将服务器和交通管理器设置为同步模式：
 
 ```py
 ...
@@ -519,39 +521,41 @@ settings.synchronous_mode = False
 my_tm.set_synchronous_mode(False)
 ```
 
-The `generate_traffic.py` example script starts a TM and populates the map with vehicles and pedestrians. It automatically sets the TM and the CARLA server to synchronous mode:
+示例脚本 `generate_traffic.py` 启动交通管理器并用车辆和行人填充地图。它自动将交通管理器和 Carla 服务器设置为同步模式：
 
 ```sh
 cd PythonAPI/examples
 python3 generate_traffic.py -n 50
 ```
 
-If asynchronous mode is required, use the `--async` flag when running the above command.
+如果需要异步模式，请在运行上述命令时使用 `--async` 标志。
 
-If more than one TM is set to synchronous mode, synchrony will fail. Follow these guidelines to avoid issues:
+如果多个交通管理器设置为同步模式，同步将会失败。请遵循以下准则以避免出现问题：
 
-- In a __[multiclient](#multiclient)__ situation, only the __TM-Server__ should be set to synchronous mode.
-- In a __[multiTM](#multitm)__ situation, only __one TM-Server__ should be set to synchronous mode.
-- The __[ScenarioRunner module](https://carla-scenariorunner.readthedocs.io/en/latest/)__ runs a TM automatically. The TM inside ScenarioRunner will automatically be the one set to sync mode.
+- 在[多客户端](#multiclient)情况下，只有 __交通管理器服务端__ 应设置为同步模式。
+- 在[多交通管理器](#multitm)情况下，只需将一台 __交通管理器服务端__ 设置为同步模式。
+- [ScenarioRunner 模块](https://carla-scenariorunner.readthedocs.io/en/latest/)自动运行交通管理器。ScenarioRunner 内的交通管理器将自动设置为同步模式。
 
-!!! Warning
-    Disable synchronous mode (for both the world and TM) in your script managing ticks before it finishes to prevent the server blocking, waiting forever for a tick.
+!!! 警告
+    在管理时钟的脚本完成之前禁用同步模式（对于世界和交通管理器），以防止服务器阻塞，永远等待时钟。
 
 ---
 
-## Traffic manager in large maps
+## 大地图中的交通管理器
 
-To understand how the TM works on large maps, make sure to first familiarise yourself with how large maps work by reading the documentation [here](large_map_overview.md).
+要了解交通管理器如何在大型地图上工作，请务必首先阅读[此处](large_map_overview.md)的文档来熟悉大型地图的工作原理。
 
-The behavior of autopilot vehicles in large maps depends on whether or not there is a hero vehicle present:
+自动驾驶车辆在大地图中的行为取决于是否存在英雄车辆：
 
-__Hero vehicle not present__
 
-All autopilot vehicles will be considered dormant actors. The dormant autopilot actors will be moved around the map as in hybrid mode. The vehicles will not be rendered since there is no hero vehicle to trigger map tile streaming.
+__不存在英雄车辆__
 
-__Hero vehicle present__
+所有自动驾驶车辆都将被视为休眠参与者。休眠的自动驾驶参与者将像混合模式一样在地图上移动。由于没有英雄车辆来触发地图瓦片流，因此不会渲染车辆。
 
-Autopilot vehicles will become dormant when they exceed the value defined by `actor_active_distance`. To set this value, use the Python API:
+
+__呈现英雄车辆__
+
+当自动驾驶车辆超过 `actor_active_distance` 定义的值时，将进入休眠状态actor_active_distance。要设置此值，请使用 Python API：
 
 ```py
 settings = world.get_settings()
@@ -562,18 +566,18 @@ settings.actor_active_distance = 2000
 world.apply_settings(settings)
 ```
 
-In the TM, dormant actors can be configured to continually respawn around the hero vehicle instead of remaining dormant on other parts of the map. This option can be configured using the `set_respawn_dormant_vehicles` method in the Python API. Vehicles will be respawned within a user-definable distance of the hero vehicle. The upper and lower boundaries of the respawnable distance can be set using the `set_boundaries_respawn_dormant_vehicles` method. Note that the upper distance will not be bigger than the tile streaming distance of the large map and the minimum lower distance is 20m.
+在交通管理器中，休眠的参与者可以配置为在英雄车辆周围不断重生，而不是在地图的其他部分保持休眠状态。可以使用`set_respawn_dormant_vehicles` Python API 中的方法配置此选项。车辆将在英雄车辆的用户定义距离内重生。可重生距离的上下边界可以使用`set_boundaries_respawn_dormant_vehicles`方法设置。注意，上距离不会大于大地图的瓦片流距离，距离最小为 20m。
 
-To enable respawning of dormant vehicles within 25 and 700 meters of the hero vehicle:
+要使英雄车辆 25 米和 700 米范围内的休眠车辆重生：
 
 ```py
 my_tm.set_respawn_dormant_vehicles(True)
 my_tm.set_boundaries_respawn_dormant_vehicles(25,700)
 ```
 
-If collisions prevent a dormant actor from being respawned, the TM will retry on the next simulation step.
+如果碰撞阻止休眠的参与者重生，交通管理器将重试下一个仿真步骤。
 
-If dormant vehicles are not respawned, their behavior will depend on whether hybrid mode is enabled. If hybrid mode has been enabled, then the dormant actors will be teleported around the map. If hybrid mode is not enabled, then dormant actor's physics will not be computed and they will stay in place until they are no longer dormant.
+如果休眠车辆没有重生，它们的行为将取决于是否启用混合模式。如果启用了混合模式，则休眠的参与者将在地图上传送。如果未启用混合模式，则不会计算休眠参与者的物理特性，并且它们将保持在原位置，直到不再休眠。
 
 ---
 
