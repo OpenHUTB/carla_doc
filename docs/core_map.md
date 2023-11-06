@@ -1,128 +1,141 @@
-# 3rd. Maps and navigation
+# 地图和导航
 
-After discussing about the world and its actors, it is time to put everything into place and understand the map and how do the actors navigate it.  
+在讨论了世界及其参与者之后，是时候将所有内容都放在适当的位置并了解地图以及参与者如何导航。
 
-- [__The map__](#the-map)  
-	- [Changing the map](#changing-the-map)  
-	- [Landmarks](#landmarks)  
-	- [Lanes](#lanes)  
-	- [Junctions](#junctions)  
-	- [Waypoints](#waypoints)  
-	- [Environment Objects](#environment-objects)
-- [__Navigation in CARLA__](#navigation-in-carla)  
-	- [Navigating through waypoints](#navigating-through-waypoints)  
-	- [Generating a map navigation](#generating-a-map-navigation)  
-- [__CARLA maps__](#carla-maps)  
-	- [Non-layered maps](#non-layered-maps)
-	- [Layered maps](#layered-maps)
+- [__地图__](#the-map)  
+	- [改变地图](#changing-the-map)  
+	- [地标](#landmarks)  
+	- [车道](#lanes)  
+	- [路口](#junctions)  
+	- [航点](#waypoints)  
+	- [环境对象](#environment-objects)
+- [__在 CARLA 中导航__](#navigation-in-carla)  
+	- [通过航路点导航](#navigating-through-waypoints)  
+	- [生成地图导航](#generating-a-map-navigation)  
+- [__CARLA 地图__](#carla-maps)  
+	- [非分层地图](#non-layered-maps)
+	- [分层地图](#layered-maps)
+- [__自定义地图__](#custom-maps)
+	- [概述](tuto_M_custom_map_overview.md)
+	- [道路涂装 painting](tuto_M_custom_road_painter.md)
+	- [定制建筑](tuto_M_custom_buildings.md) 
+	- [生成地图](tuto_M_generate_map.md)
+	- [添加地图包](tuto_M_add_map_package.md)
+	- [添加地图源](tuto_M_add_map_source.md)
+	- [替代方法](tuto_M_add_map_alternative.md)
+
 
 ---
-## The map
+## 地图
 
-A map includes both the 3D model of a town and its road definition. A map's road definition is based on an OpenDRIVE file, a standarized, annotated road definition format. The way the [OpenDRIVE standard 1.4](http://www.opendrive.org/docs/OpenDRIVEFormatSpecRev1.4H.pdf) defines roads, lanes, junctions, etc. determines the functionality of the Python API and the reasoning behind decisions made.
+地图包括城镇的三维模型及其道路定义。地图的道路定义基于 OpenDRIVE 文件，这是一种标准化的带注释的道路定义格式。[OpenDRIVE 1.4 标准](http://www.opendrive.org/docs/OpenDRIVEFormatSpecRev1.4H.pdf) 定义道路、车道、路口等方式决定了 Python API 的功能以及决策背后的推理。
 
-The Python API acts as a high level querying system to navigate these roads. It is constantly evolving to provide a wider set of tools.
+Python API 充当高级查询系统来导航这些道路。它不断发展以提供更广泛的工具集。
 
-### Changing the map
 
-__To change the map, the world has to change too__. The simulation will be recreated from scratch. You can either restart with the same map in a new world or you can change both the map and the world:
+### 改变地图
 
-- `reload_world()` creates a new instance of the world with the same map.
-- `load_world()` changes the current map and creates a new world.
+__要改变地图，世界也必须改变__。将从头开始重新创建仿真。您可以在新世界中使用相同的地图重新启动，也可以更改地图和世界：
+
+- `reload_world()` 使用相同的地图创建世界的新实例。
+- `load_world()` 改变当前地图并创建一个新世界。
 
 ```py
 world = client.load_world('Town01')
 ```
 
-Each map has a `name` attribute that matches the name of the currently loaded city, e.g. _Town01_. To get a list of the available maps:
+每个地图都有一个与当前加载的城市名称匹配的`name`属性，例如 _Town01_ 。要获取可用地图的列表：
 
 ```py
 print(client.get_available_maps())
 ```
 
-### Landmarks
+### 地标
 
-Traffic signs defined in the OpenDRIVE file are translated to CARLA as landmark objects that can be queried from the API. The following methods and classes can be used to manipulate and work with landmark objects:
+OpenDRIVE 文件中定义的交通标志将转换为 Carla，作为可从 API 查询的地标对象。以下方法和类可用于操作和使用地标对象：
 
-- __[`carla.Landmark`](https://carla.readthedocs.io/en/latest/python_api/#carla.Landmark)__ objects represent OpenDRIVE signals. The attributes and methods of this class describe the landmark and its area of influence.
-	- [`carla.LandmarkOrientation`](https://carla.readthedocs.io/en/latest/python_api/#carla.LandmarkOrientation) states the orientation of the landmark with regard to the road's geometry definition.
-	- [`carla.LandmarkType`](https://carla.readthedocs.io/en/latest/python_api/#carla.LandmarkType) contains common landmark types to facilitate translation to OpenDRIVE types.
-- __[`carla.Waypoint`](https://carla.readthedocs.io/en/latest/python_api/#carla.Waypoint)__ can get landmarks located a certain distance ahead of it. The landmark type to get can be specified.
-- __[`carla.Map`](https://carla.readthedocs.io/en/latest/python_api/#carla.Map)__ retrieves sets of landmarks. It can return all landmarks in the map, or those which have a common ID, type or group.
-- __[`carla.World`](https://carla.readthedocs.io/en/latest/python_api/#carla.World)__ acts as intermediary between landmarks and the `carla.TrafficSign` and `carla.TrafficLight` that represent them in the simulation.
+- __[`carla.Landmark`](https://carla.readthedocs.io/en/latest/python_api/#carla.Landmark)__ 对象代表 OpenDRIVE 信号。该类的属性和方法描述了地标及其影响区域。
+	- [`carla.LandmarkOrientation`](https://carla.readthedocs.io/en/latest/python_api/#carla.LandmarkOrientation) 说明地标相对于道路几何定义的方向。
+	- [`carla.LandmarkType`](https://carla.readthedocs.io/en/latest/python_api/#carla.LandmarkType) 包含常见的地标类型，以便于转换为 OpenDRIVE 类型。
+- __[`carla.Waypoint`](https://carla.readthedocs.io/en/latest/python_api/#carla.Waypoint)__ 可以获得位于其前方一定距离的地标。可以指定要获取的地标类型。
+- __[`carla.Map`](https://carla.readthedocs.io/en/latest/python_api/#carla.Map)__ 检索地标集。它可以返回地图中的所有地标，或者具有共同 ID、类型或组的地标。
+- __[`carla.World`](https://carla.readthedocs.io/en/latest/python_api/#carla.World)__ 充当地标、仿真中代表他们的`carla.TrafficSign` 和 `carla.TrafficLight` 之间的中间。
 
 ```py
 my_waypoint.get_landmarks(200.0,True)
 ``` 
 
-### Waypoints
+### 路径点
 
-A [`carla.Waypoint`](python_api.md#carla.Waypoint) is a 3D-directed point in the CARLA world corresponding to an OpenDRIVE lane. Everything related to waypoints happens on the client-side; communication with the server is only needed once to get the [map object](python_api.md#carlamap) containing the waypoint information.
+[`carla.Waypoint`](python_api.md#carla.Waypoint) 是 Carla 世界中的三维有向点，对应于 OpenDRIVE 车道。与路径点相关的所有事情都发生在客户端；只需与服务器通信一次即可获取包含航点信息的[地图对象](python_api.md#carlamap)。
 
-Each waypoint contains a [`carla.Transform`](python_api.md#carla.Transform) which states its location on the map and the orientation of the lane containing it. The variables `road_id`,`section_id`,`lane_id` and `s` correspond to the OpenDRIVE road. The `id` of the waypoint is constructed from a hash combination of these four values.
+每个路径点都包含一个 [`carla.Transform`](python_api.md#carla.Transform) ，它说明其在地图上的位置以及包含该航路点的车道的方向。变量`road_id`,`section_id`,`lane_id` 和 `s`对应 OpenDRIVE 道路。路径点`id`的是由这四个值的哈希组合构造的。
 
-!!! Note
-    Waypoints closer than __2cm within the same road__ share the same `id`.
 
-A waypoint holds information about the __lane__ containing it. This information includes the lane's left and right __lane markings__, a boolean to determine if it's inside a junction, the lane type, width, and lane changing permissions.
+!!! 注意
+    __同一道路内距离小于 2cm__ 的路点共享相同的路点 `id`。
+
+路径点保存有关包含该路径点的 __车道__ 的信息。此信息包括车道的左车道和右 __车道标记__、用于确定其是否位于路口内的布尔值、车道类型、宽度和车道变更权限。
 
 ```py
-# Access lane information from a waypoint
+# 从路径点访问车道信息
 inside_junction = waypoint.is_junction()
 width = waypoint.lane_width
 right_lm_color = waypoint.right_lane_marking.color
 ```
 
-### Lanes
+### 车道
 
-The lane types defined by [OpenDRIVE standard 1.4](http://www.opendrive.org/docs/OpenDRIVEFormatSpecRev1.4H.pdf) are translated to the API in [`carla.LaneType`](python_api.md#carla.LaneType) as a series of enum values.
 
-The lane markings surrounding a lane are accessed through [`carla.LaneMarking`](python_api.md#carla.LaneMarking). Lane markings are defined by a series of variables:
+[OpenDRIVE 1.4 标准](http://www.opendrive.org/docs/OpenDRIVEFormatSpecRev1.4H.pdf) 定义的通道类型将 [carla.LaneType](python_api.md#carla.LaneType) 作为一系列枚举值转换为 API 。
 
-- __color:__ [`carla.LaneMarkingColor`](python_api.md#carla.LaneMarkingColor) are enum values that define the marking's color.
-- __lane_change:__ [`carla.LaneChange`](python_api.md#carla.LaneChange) states if the lane permits turning left, right, both or none.
-- __type:__ [`carla.LaneMarkingType`](python_api.md#carla.LaneMarkingType) are enum values  that define the type of marking according to the OpenDRIVE standard.
-- __width:__ defines the marking's thickness.
 
-The below example shows to get information about the lane type, lane markings, and lane change permissions at a specific waypoint:
+车道周围的车道标记可通过 [`carla.LaneMarking`](python_api.md#carla.LaneMarking) 访问。车道标记由一系列变量定义：
+
+- __color:__ [`carla.LaneMarkingColor`](python_api.md#carla.LaneMarkingColor) 是定义标记颜色的枚举值。
+- __lane_change:__ [`carla.LaneChange`](python_api.md#carla.LaneChange) 说明车道是否允许左转、右转、两者都允许或不允许。
+- __type:__ [`carla.LaneMarkingType`](python_api.md#carla.LaneMarkingType) 是根据 OpenDRIVE 标准定义标记类型的枚举值。
+- __width:__ 定义标记的厚度。
+
+下面的示例显示了获取有关特定路径点的车道类型、车道标记和车道变更权限的信息：
 
 ```py
-# Get the lane type of the waypoint
+# 获得路径点车道类型
 lane_type = waypoint.lane_type
 
-# Get the type of lane marking on the left.
+# 获得左车道标记的类型
 left_lanemarking_type = waypoint.left_lane_marking.type()
 
-# Get available lane changes for this waypoint.
+# 获得该路径点可得的车道改变
 lane_change = waypoint.lane_change
 ```
 
-### Junctions
+### 路口
 
-A [`carla.Junction`](python_api.md#carla.Junction) represents an OpenDRIVE junction. This class encompasses a junction with a bounding box to identify lanes or vehicles within it.
+[`carla.Junction`](python_api.md#carla.Junction) 代表 OpenDRIVE 连接点。此类包含带有边界框的交汇处，用于识别其中的车道或车辆。
 
-The `carla.Junction` class contains the `get_waypoints` method which returns a pair of waypoints for every lane within the junction. Each pair is located at the start and end points of the junction boundaries.
+该 `carla.Junction` 类包含 `get_waypoints` 为交汇处的每个车道返回一对路点的方法。每对位于交界处边界的起点和终点。
 
 ```py
 waypoints_junc = my_junction.get_waypoints()
 ```
 
-### Environment Objects
+### 环境对象
 
-Every object on a CARLA map has a set of associated variables which can be found [here][env_obj]. Included in these variables is a [unique ID][env_obj_id] that can be used to [toggle][toggle_env_obj] that object's visibility on the map. You can use the Python API to [fetch][fetch_env_obj] the IDs of each environment object based on their [semantic tag][semantic_tag]:
+Carla 地图上的每个对象都有一组关联的变量，可以在 [此][env_obj] 处找到这些变量。这些变量中包含一个 [唯一 ID][env_obj_id]，可用于切换该对象在地图上的可见性。您可以使用 Python API 根据每个环境对象的[语义标签]([semantic_tag]) [获取][fetch_env_obj] 其 ID ：
 
-		# Get the buildings in the world
+		# 获得世界中的建筑
 	    world = client.get_world()
 		env_objs = world.get_environment_objects(carla.CityObjectLabel.Buildings)
 
-		# Access individual building IDs and save in a set
+		# 访问各个建筑 IDs 并保存在集合当中
 		building_01 = env_objs[0]
 		building_02 = env_objs[1]
 		objects_to_toggle = {building_01.id, building_02.id}
 
-		# Toggle buildings off
+		# 切换建筑为不可见
 		world.enable_environment_objects(objects_to_toggle, False)
-		# Toggle buildings on
+		# 切换建筑为可见
 		world.enable_environment_objects(objects_to_toggle, True)
 
 See an example of distinct objects being toggled:
@@ -266,20 +279,15 @@ See an example of all layers being loaded and unloaded in sequence:
 
 
 ---
-That is a wrap as regarding maps and navigation in CARLA. The next step takes a closer look into sensors types, and the data they retrieve.  
 
-Keep reading to learn more or visit the forum to post any doubts or suggestions that have come to mind during this reading. 
-<div text-align: center>
-<div class="build-buttons">
-<p>
-<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="CARLA forum">
-CARLA forum</a>
-</p>
-</div>
-<div class="build-buttons">
-<p>
-<a href="../core_sensors" target="_blank" class="btn btn-neutral" title="4th. Sensors and data">
-4th. Sensors and data</a>
-</p>
-</div>
-</div>
+## Custom maps
+
+CARLA is designed to be extensible and highly customisable for specialist applications. Therefore, in addition to the many maps and assets already avaiable in CARLA out of the box, it is possible to create and import new maps, road networks and assets to populate bespoke environments in a CARLA simulation. The following documents detail the steps needed to build and integrate custom maps:  
+
+* [__Overview__](tuto_M_custom_map_overview.md)
+* [__Road painting__](tuto_M_custom_road_painter.md)
+* [__Custom buildings__](tuto_M_custom_buildings.md) 
+* [__Generate map__](tuto_M_generate_map.md)
+* [__Add map package__](tuto_M_add_map_package.md)
+* [__Add map source__](tuto_M_add_map_source.md)
+* [__Alternative methods__](tuto_M_add_map_alternative.md)
