@@ -1,20 +1,20 @@
-# Create a Large Map in RoadRunner
+#               在RoadRunner创建大地图
 
-RoadRunner is the recommended software to create large maps to be imported into CARLA. This guide outlines what RoadRunner is, things to consider when building the large map and how to export custom large maps ready for importing into CARLA. 
+RoadRunner是推荐的软件，用于创建要导入CARLA的大型地图。本指南概述了RoadRunner是什么，在构建大地图时需要考虑的事情，以及如何导出自定义的大地图，以便导入CARLA。 
 
-- [__Introduction to RoadRunner__](#introduction-to-roadrunner)
-- [__Before you start__](#before-you-start)
-- [__Build a large map in RoadRunner__](#build-a-large-map-in-roadrunner)
-- [__Export a large map in RoadRunner__](#export-a-large-map-in-roadrunner)
-- [__Next steps__](#next-steps)
+- **[RoadRunner简介](#introduction-to-roadrunner)**
+- [**开始之前**](#before-you-start)
+- **[在RoadRunner中创建一个大地图](#build-a-large-map-in-roadrunner)**
+- **[在RoadRunner中导出一个大地图](#export-a-large-map-in-roadrunner)**
+- **[下一个步骤](#next-steps)**
 ---
-## Introduction to RoadRunner
+## RoadRunner简介
 
-RoadRunner is an interactive editor that lets you design 3D scenes for simulating and testing automated driving systems. It can be used to create road layouts and accompanying OpenDRIVE and geometry information. Find out more about RoadRunner [here][rr_home].
+RoadRunner是一个交互式编辑器，可以让您设计3D场景来模拟和测试自动驾驶系统。它可以用来创建道路布局和伴随的opdrive和几何信息。[在这里了解更多关于RoadRunner的信息](rr_home)。
 
-RoadRunner is part of the MATLAB Campus-Wide Licenses, so many universities can provide unlimited academic access. [Check][rr_eligibility] if your university has access. Reach out to *automated-driving@mathworks.com* for any questions or troubles regarding accessibility. There is also a [trial version][rr_trial_version] available.
+RoadRunner是MATLAB校园许可的一部分，因此许多大学可以提供无限制的学术访问。[检查](rr_eligibility)一下你的大学是否有访问权限。如果有任何关于可访问性的问题或麻烦，请联系automated-driving@mathworks.com。[还有一个试用版]([rr_trial_version)。
 
-A license for RoadRunner is also available to everyone participating in the CARLA Leaderboard. Click [here][rr_leaderboard] for more information.
+参加CARLA排行榜的每个人都可以获得RoadRunner的许可证。[点击这里了解更多信息](rr_leaderboard)。
 
 [rr_home]: https://www.mathworks.com/products/roadrunner.html
 [rr_trial_version]: https://www.mathworks.com/products/roadrunner.html
@@ -22,83 +22,82 @@ A license for RoadRunner is also available to everyone participating in the CARL
 [rr_leaderboard]: https://www.mathworks.com/academia/student-competitions/carla-autonomous-driving-challenge.html
 
 ---
-## Before you start 
+## 开始之前 
 
-You will need to install RoadRunner. You can follow the [installation guide][rr_docs] at the Mathworks website.   
+您需要安装RoadRunner。您可以按照Mathworks网站上的[安装指南](rr_docs)进行操作。
 
 [rr_docs]: https://www.mathworks.com/help/roadrunner/ug/install-and-activate-roadrunner.html
 
 ---
 
-## Build a large map in RoadRunner
+## 在RoadRunner中创建一个大地图
 
-The specifics of how to build a large map in RoadRunner go beyond the scope of this guide, however, there are video tutorials available in the [RoadRunner documentation][rr_tutorials].
+如何在RoadRunner中构建一个大地图的细节超出了本指南的范围，但是，在[RoadRunner文档](rr_tutorials)中有视频教程。
 
-If you are building a large map with elevation, the recommended largest size of the map is 20km by 20km. Maps larger than this may cause RoadRunner to crash on export.
+如果您正在构建带有高程的大型地图，则建议地图的最大尺寸为20km × 20km。大于这个值的地图可能会导致RoadRunner在导出时崩溃。
 
-[rr_tutorials]: https://www.mathworks.com/support/search.html?fq=asset_type_name:video%20category:roadrunner/index&page=1&s_tid=CRUX_topnav
+[rr_tutorials]: https://www.mathworks.com/support/search.html?fq=asset_type_name:video%20category:roadrunner/index&amp;page=1&amp;s_tid=CRUX_topnav
 
 ---
 
-## Export a large map in RoadRunner
+## 在RoadRunner中导出一个大地图
 
-Below is a basic guideline to export your custom large map from RoadRunner.
+下面是从RoadRunner导出自定义大地图的基本指南。
 
 [exportlink]: https://www.mathworks.com/help/roadrunner/ug/Exporting-to-CARLA.html
 
-Once you have made your map in RoadRunner you will be able to export it. Be aware that __the road layout cannot be modified after it has been exported.__ Before exporting, ensure that:
+一旦你在RoadRunner中制作了你的地图，你就可以导出它了。请注意，道路布局在导出后不能修改。导出前，请确保:
 
-- The map is centered at (0,0) to ensure the map can be visualized correctly in Unreal Engine.
-- The map definition is correct.
-- The map validation is correct, paying close attention to connections and geometries.
+- 地图以(0,0)为中心，以确保地图可以在虚幻引擎中正确地可视化。
+- 映射定义是正确的。
+- 地图验证是正确的，密切关注连接和几何形状。
 
 
 >>>>![CheckGeometry](../img/check_geometry.jpg)
 
-Once the map is ready, click on the `OpenDRIVE Preview Tool` button to visualize the OpenDRIVE road network and give everything one last check.
+一旦地图准备好了，点击opdrive预览工具按钮来可视化opdrive道路网络，并给一切最后一次检查。
 
 >>>>![checkopen](../img/check_open.jpg)
 
-!!! note
-    _OpenDrive Preview Tool_ makes it easier to test the integrity of the map. If there are any errors with junctions, click on `Maneuver Tool`, and `Rebuild Maneuver Roads`.
+!!! 注意
+    _opdrive预览工具_使它更容易测试地图的完整性。如果路口有任何错误，点击‘Maneuver Tool’，然后点击‘Rebuild Maneuver Roads’。
 
-Make sure the full map is selected for export by clicking on the [_World settings tool_](https://www.mathworks.com/help/roadrunner/ref/worldsettingstool.html) and dragging the edges of the blue boundary box to encompass the full area you would like to export. when it's ready, click on _Apply World Changes_.
+通过点击[世界设置工具](https://www.mathworks.com/help/roadrunner/ref/worldsettingstool.html)并拖动蓝色边界框的边缘以包含您想要导出的整个区域，确保选择完整的地图进行导出。当它准备好了，点击Apply World Changes。
 
 ![world_bounds_settings](img/rr_world_settings.png)
 
-When you are ready to export:
+当您准备导出时:
 
-__1.__ Export the `.fbx`:
+__1.__ 导出 `.fbx`文件:
 
-  - In the main toolbar, select `File` -> `Export` -> `Firebox (.fbx)`
+  - 在主工具栏中选择,选择 `File` -> `Export` -> `Firebox (.fbx)`
 
-__2.__ In the window that pops up:
+__2.__在弹出的窗口中:
 
->- Check the following options:
-    - _Split by Segmentation_: Divides the mesh by semantic segmentation and imroves pedestrian navigation.
-    - _Power of Two Texture Dimensions_: Improves performance.
-    - _Embed Textures_: Ensures textures are embedded in the mesh.
-    - _Export to Tiles_: Choose the size of the tiles. The maximum size that can be used by CARLA is 2000 x 2000.
-    - _Export Individual Tiles_: Generates the individual tiles needed for streaming large maps in CARLA.
+>- 检查以下选项:
+    - _Split by Segmentation_: 通过语义分割对网格进行划分，改善行人导航。
+    - _Power of Two Texture Dimensions_: 提高了性能。
+    - _Embed Textures_: 确保纹理嵌入到网格中。
+    - _Export to Tiles_: 选择瓷砖的大小。CARLA可以使用的最大尺寸是2000 x 2000。
+    - _Export Individual Tiles_: 生成在CARLA中流式传输大型地图所需的单个块。
 
 >>>>>>![export_large_map_fbx](../img/large_map_export_fbx.png)
 
-__3.__ Export the `.xodr`:
+__3.__ 导出 `.xodr`文件:
 
-  - In the main toolbar, select `File` -> `Export` -> `OpendDRIVE (.xodr)`
+  - 在主工具栏中选择 `File` -> `Export` -> `OpendDRIVE (.xodr)`
 
-!!! Warning
-    Make sure that the `.xodr` and the `.fbx` files have the same name.
+!!! 警告
+    确保 `.xodr` 和 `.fbx` 的文件名称相同。
+---
+
+## 下一个步骤
+
+现在可以将地图导入CARLA了。有关详细信息，请参阅[导入大型地图指南](arge_map_import.md)。
 
 ---
 
-## Next steps
-
-You are now ready to import your map into CARLA. See the [__Import a Large Map__](large_map_import.md) guide for more details.
-
----
-
-If you have any questions about the process, then you can ask in the [forum](https://github.com/carla-simulator/carla/discussions).
+如果你对这个过程有任何疑问，那么你可以在[论坛](https://github.com/carla-simulator/carla/discussions)上提问。
 
 <div class="build-buttons">
 <p>
