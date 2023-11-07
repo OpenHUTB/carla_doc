@@ -125,22 +125,22 @@ __相关的 .cpp 文件：__ `SimulationState.cpp`, `SimulationState.h`.
 
 ### 控制循环
 
-控制循环管理所有自动驾驶车辆的下一个命令的计算，以便它们同步执行。控制循环由五个不同的**[阶段](#stages-of-the-control-loop)**组成;定位，碰撞，交通灯，运动规划和车辆灯。
+控制循环管理所有自动驾驶车辆的下一个命令的计算，以便它们同步执行。控制循环由五个不同的[阶段](#stages-of-the-control-loop)组成;定位，碰撞，交通灯，运动规划和车辆灯。
 
 控制循环:
 
-- 从**[车辆注册表](#vehicle-registry)**接收TM-控制的车辆数组。
+- 从[车辆注册表](#vehicle-registry)接收TM-控制的车辆数组。
 - 通过循环遍历数组，分别对每辆车执行计算。
-- 将计算分成一系列的**[阶段](#stages-of-the-control-loop)**。
+- 将计算分成一系列的[阶段](#stages-of-the-control-loop)。
 - 在阶段之间创建同步屏障以保证一致性。所有车辆的计算在任何车辆移动到下一阶段之前完成，确保所有车辆在同一帧中更新。
-- 协调各**[阶段](#stages-of-the-control-loop)**之间的过渡，使所有计算同步完成。
-- 当最后一个阶段(**[运动规划阶段](#stage-4-motion-planner-stage)和[车辆灯光阶段](#stage-5-vehicle-lights-stage)**)完成时，将**[命令数组](#command-array)**发送到服务器，因此在命令计算和命令应用之间没有帧延迟。
+- 协调各[阶段](#stages-of-the-control-loop)之间的过渡，使所有计算同步完成。
+- 当最后一个阶段(**[运动规划阶段](#stage-4-motion-planner-stage)和[车辆灯光阶段](#stage-5-vehicle-lights-stage)**)完成时，将[命令数组](#command-array)发送到服务器，因此在命令计算和命令应用之间没有帧延迟。
 
 __相关的 .cpp 文件:__ `TrafficManagerLocal.cpp`.
 
 ### 内存地图
 
-内存地图是包含在**[路径缓存和车辆轨迹](#pbvt)**中的辅助模块，在**[本地化阶段](#stage-1-localization-stage)**使用。
+内存地图是包含在[路径缓存和车辆轨迹](#pbvt)中的辅助模块，在[定位阶段](#stage-1-localization-stage)使用。
 
 内存地图:
 
@@ -152,22 +152,22 @@ __相关的 .cpp 文件:__ `InMemoryMap.cpp` and `SimpleWaypoint.cpp`.
 
 ### PBVT
 
-PBVT代表路径缓存和车辆轨迹。PBVT是一种数据结构，它包含每辆车的预期路径，并允许在**[控制循环](#control-loop)**期间轻松访问数据。
+PBVT代表路径缓存和车辆轨迹。PBVT是一种数据结构，它包含每辆车的预期路径，并允许在[**控制循环**](#control-loop)期间轻松访问数据。
 
 PBVT:
 
 - 包含一个deque对象的地图，每辆车有一个入口。
 - 包含每辆车的一组路点，描述其当前位置和近期路径。
-- 包含**[本地化阶段](#stage-1-localization-stage)**使用的**[内存地图](#in-memory-map)**，用于将每个车辆与最近的路点和可能的重叠路径关联起来。
+- 包含[**定位阶段**](#stage-1-localization-stage)使用的[**内存地图**](#in-memory-map)，用于将每个车辆与最近的路点和可能的重叠路径关联起来。
 
 ### PID 控制器
 
-PID控制器是在**[运动规划阶段](#stage-4-motion-planner-stage)**执行计算的辅助模块。
+PID控制器是在[**运动规划阶段**](#stage-4-motion-planner-stage)执行计算的辅助模块。
 
  PID 控制器:
 
-- 根据**[运动规划阶段](#stage-4-motion-planner-stage)**收集的信息，估算达到目标值所需的油门、刹车和转向输入。
-- 根据控制器的具体参数化进行调整。如果需要，可以修改参数。阅读更多关于**[PID控制器](https://en.wikipedia.org/wiki/PID_controller)**的信息，了解如何进行修改。
+- 根据[**运动规划阶段**](#stage-4-motion-planner-stage)收集的信息，估算达到目标值所需的油门、刹车和转向输入。
+- 根据控制器的具体参数化进行调整。如果需要，可以修改参数。阅读更多关于[**PID控制器**](https://en.wikipedia.org/wiki/PID_controller)的信息，了解如何进行修改。
 
 __相关的 .cpp 文件:__ `PIDController.cpp`.
 ### 命令数组
@@ -176,7 +176,7 @@ __相关的 .cpp 文件:__ `PIDController.cpp`.
 
 命令数组:
 
-- 从**[路径规划阶段](#stage-4-motion-planner-stage)**接收一系列 [carla.VehicleControl](python_api.md#carla.VehicleControl)。
+- 从[**路径规划阶段**](#stage-4-motion-planner-stage)接收一系列 [carla.VehicleControl](python_api.md#carla.VehicleControl)。
 - 批处理要在同一帧内应用的所有命令。
 - 将批处理发送到在 carla 中调用 **apply_batch**（） 或 **apply_batch_synch（）** 的 CARLA **[服务器.客户端](../python_api/#carla.Client)**，具体取决于模拟是分别以异步模式还是同步模式运行。
 
@@ -193,7 +193,7 @@ __相关的 .cpp 文件:__ `TrafficManagerLocal.cpp`.
 - 从[**仿真状态**](#simulation-state)获取所有车辆的位置和速度。
 - 使用[**内存地图**](#in-memory-map)将每辆车与航点列表相关联，该航点列表根据其轨迹描述其当前位置和近期路径。车辆行驶得越快，列表就越长。
 - 根据规划决策更新路径，例如变道、限速、与前方车辆的距离参数化等。
-- 将所有车辆的路径存储在 [PBVT](#pbvt) 模块中。
+- 将所有车辆的路径存储在 [**PBVT**](#pbvt) 模块中。
 - 相互比较路径以估计可能的碰撞情况。结果将传递到碰撞阶段。
 
 __相关的 .cpp 文件:__ `LocalizationStage.cpp` and `LocalizationUtils.cpp`.
@@ -230,7 +230,7 @@ __相关的 .cpp 文件:__ `TrafficLightStage.cpp`.
 - 收集车辆的位置和速度（[**仿真状态**](#simulation-state))）、路径 （[**路径缓存和车辆轨迹**](#pbvt)） 和危险（[**碰撞**](#stage-2-collision-stage)阶段和[**交通信号灯阶段**](#stage-3-traffic-light-stage)）。
 - 对车辆应如何移动做出高级决策，例如，计算防止碰撞危险所需的制动器。[**PID控制器**](#pid-controller)用于根据目标值估计行为。
 - 将期望的运动转化为适用于车辆的 **[carla.VehicleControl。](python_api.md#carla.VehicleControl)**
-- 将生成的CARLA命令发送到**[命令数组](#command-array)**。
+- 将生成的CARLA命令发送到[**命令数组**](#command-array)。
 
 __相关的.cpp文件:__ `MotionPlannerStage.cpp`.
 
