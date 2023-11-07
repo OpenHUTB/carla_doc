@@ -1,31 +1,31 @@
 # [交通管理器](https://carla.readthedocs.io/en/latest/adv_traffic_manager/#traffic-manager)
 
 - [__什么是交通管理器？__](#what-is-the-traffic-manager)
-	- [结构化设计](#structured-design)
-	- [用户定制](#user-customization)
+  - [结构化设计](#structured-design)
+  - [用户定制](#user-customization)
 - [__架构__](#architecture)
-	- [概述](#overview)
-	- [代理的生命周期和状态管理](#alsm)
-	- [车辆注册表](#vehicle-registry)
-	- [仿真状态](#simulation-state)
-	- [控制循环](#control-loop)
-	- [内存地图](#in-memory-map)
-	- [路径缓存和车辆轨迹](#pbvt)
-	- [PID 控制器](#pid-controller)
-	- [命令数组](#command-array)
-	- [控制循环的阶段](#stages-of-the-control-loop)
+  - [概述](#overview)
+  - [代理的生命周期和状态管理](#alsm)
+  - [车辆注册表](#vehicle-registry)
+  - [仿真状态](#simulation-state)
+  - [控制循环](#control-loop)
+  - [内存地图](#in-memory-map)
+  - [路径缓存和车辆轨迹](#pbvt)
+  - [PID 控制器](#pid-controller)
+  - [命令数组](#command-array)
+  - [控制循环的阶段](#stages-of-the-control-loop)
 - [__使用交通管理器__](#using-the-traffic-manager)
-	- [车辆行为考虑因素](#vehicle-behavior-considerations)
-	- [创建交通管理器](#creating-a-traffic-manager)
-	- [配置自动驾驶行为](#configuring-autopilot-behavior)
-	- [停止交通管理器](#stopping-a-traffic-manager)
+  - [车辆行为考虑因素](#vehicle-behavior-considerations)
+  - [创建交通管理器](#creating-a-traffic-manager)
+  - [配置自动驾驶行为](#configuring-autopilot-behavior)
+  - [停止交通管理器](#stopping-a-traffic-manager)
 - [__确定性模式__](#deterministic-mode)
 - [__混合物理模式__](#hybrid-physics-mode)
 - [__运行多个流量管理器__](#running-multiple-traffic-managers)
-	- [流量管理器服务端和客户端](#traffic-manager-servers-and-clients)
-	- [多客户端仿真](#multi-client-simulations)
-	- [多交通管理器仿真](#multi-tm-simulations)
-	- [多重仿真](#multi-simulation)
+  - [流量管理器服务端和客户端](#traffic-manager-servers-and-clients)
+  - [多客户端仿真](#multi-client-simulations)
+  - [多交通管理器仿真](#multi-tm-simulations)
+  - [多重仿真](#multi-simulation)
 - [__同步模式__](#synchronous-mode)
 - [__大地图中的交通管理器__](#traffic-manager-in-large-maps)
 
@@ -123,184 +123,184 @@ __相关的 .cpp 文件：__ `MotionPlannerStage.cpp`.
 
 __相关的 .cpp 文件：__ `SimulationState.cpp`, `SimulationState.h`.
 
-### Control loop
+### 控制循环
 
-The control loop manages the calculations of the next command for all autopilot vehicles so they are performed synchronously. The control loop consists of five different [stages](#stages-of-the-control-loop); localization, collision, traffic light, motion planner and vehicle lights.
+控制循环管理所有自动驾驶车辆的下一个命令的计算，以便它们同步执行。控制循环由五个不同的[阶段](#stages-of-the-control-loop)组成;定位，碰撞，交通灯，运动规划和车辆灯。
 
-The control loop:
+控制循环:
 
-- Receives an array of TM-controlled vehicles from the [vehicle registry](#vehicle-registry).
-- Performs calculations for each vehicle separately by looping over the array.
-- Divides calculations into a series of [stages](#stages-of-the-control-loop).
-- Creates synchronization barriers between stages to guarantee consistency. Calculations for all vehicles are finished before any of them move to the next stage, ensuring all vehicles are updated in the same frame.
-- Coordinates the transition between [stages](#stages-of-the-control-loop) so all calculations are done in sync.
-- Sends the [command array](#command-array) to the server when the last stages ([Motion Planner Stage](#stage-4-motion-planner-stage) and [Vehicle Lights Stage](#stage-5-vehicle-lights-stage)) finishes so there are no frame delays between the command calculations and the command application.
+- 从[车辆注册表](#vehicle-registry)接收TM-控制的车辆数组。
+- 通过循环遍历数组，分别对每辆车执行计算。
+- 将计算分成一系列的[阶段](#stages-of-the-control-loop)。
+- 在阶段之间创建同步屏障以保证一致性。所有车辆的计算在任何车辆移动到下一阶段之前完成，确保所有车辆在同一帧中更新。
+- 协调各[阶段](#stages-of-the-control-loop)之间的过渡，使所有计算同步完成。
+- 当最后一个阶段(**[运动规划阶段](#stage-4-motion-planner-stage)和[车辆灯光阶段](#stage-5-vehicle-lights-stage)**)完成时，将[命令数组](#command-array)发送到服务器，因此在命令计算和命令应用之间没有帧延迟。
 
-__Related .cpp files:__ `TrafficManagerLocal.cpp`.
+__相关的 .cpp 文件:__ `TrafficManagerLocal.cpp`.
 
-### In-Memory Map
+### 内存地图
 
-The In-Memory Map is a helper module contained within the [PBVT](#pbvt) and is used during the [Localization Stage](#stage-1-localization-stage).  
+内存地图是包含在[路径缓存和车辆轨迹](#pbvt)中的辅助模块，在[定位阶段](#stage-1-localization-stage)使用。
 
-The In-Memory Map:
+内存地图:
 
-- Converts the map into a grid of discrete waypoints.
-- Includes waypoints in a specific data structure with more information to connect waypoints and identify roads, junctions, etc.
-- Identifies these structures with an ID used to locate vehicles in nearby areas quickly.
+- 将地图转换为离散路径点的网格。
+- 包含特定数据结构中的路点，并提供更多信息来连接路点和识别道路、路口等。
+- 通过识别这些建筑物的ID来快速定位附近区域的车辆。
 
-__Related .cpp files:__ `InMemoryMap.cpp` and `SimpleWaypoint.cpp`.
+__相关的 .cpp 文件:__ `InMemoryMap.cpp` and `SimpleWaypoint.cpp`.
 
 ### PBVT
 
-PBVT stands for __Path Buffer and Vehicle Tracking__. The PBVT is a data structure that contains the expected path for every vehicle and allows easy access to data during the [control loop](#control-loop).
+PBVT代表路径缓存和车辆轨迹。PBVT是一种数据结构，它包含每辆车的预期路径，并允许在[**控制循环**](#control-loop)期间轻松访问数据。
 
-The PBVT:
+PBVT:
 
-- Contains a map of deque objects with one entry per vehicle.
-- Contains a set of waypoints for each vehicle describing its current location and near-future path.
-- Contains the [In-Memory Map](#in-memory-map) used by the [Localization Stage](#stage-1-localization-stage) to relate every vehicle to the nearest waypoint and possible overlapping paths.
+- 包含一个deque对象的地图，每辆车有一个入口。
+- 包含每辆车的一组路点，描述其当前位置和近期路径。
+- 包含[**定位阶段**](#stage-1-localization-stage)使用的[**内存地图**](#in-memory-map)，用于将每个车辆与最近的路点和可能的重叠路径关联起来。
 
-### PID controller
+### PID 控制器
 
-The PID controller is a helper module that performs calculations during the [Motion Planner Stage](#stage-4-motion-planner-stage).
+PID控制器是在[**运动规划阶段**](#stage-4-motion-planner-stage)执行计算的辅助模块。
 
-The PID controller:
+ PID 控制器:
 
-- Estimates the throttle, brake, and steering input needed to reach a target value using the information gathered by the [Motion Planner Stage](#stage-4-motion-planner-stage).
-- Makes adjustments depending on the specific parameterization of the controller. Parameters can be modified if desired. Read more about [PID controllers](https://en.wikipedia.org/wiki/PID_controller) to learn how to make modifications.
+- 根据[**运动规划阶段**](#stage-4-motion-planner-stage)收集的信息，估算达到目标值所需的油门、刹车和转向输入。
+- 根据控制器的具体参数化进行调整。如果需要，可以修改参数。阅读更多关于[**PID控制器**](https://en.wikipedia.org/wiki/PID_controller)的信息，了解如何进行修改。
 
-__Related .cpp files:__ `PIDController.cpp`.
-### Command Array
+__相关的 .cpp 文件:__ `PIDController.cpp`.
+### 命令数组
 
-The Command Array represents the last step in the TM logic cycle. It receives commands for all the registered vehicles and applies them.
+命令数组表示 TM 逻辑周期中的最后一步。它接收所有注册车辆的命令并应用它们。
 
-The Command Array:
+命令数组:
 
-- Receives a series of [carla.VehicleControl](python_api.md#carla.VehicleControl)'s from the [Motion Planner Stage](#stage-4-motion-planner-stage).
-- Batches all commands to be applied during the same frame.
-- Sends the batch to the CARLA server calling either __apply_batch()__ or __apply_batch_synch()__ in [carla.Client](../python_api/#carla.Client) depending on whether the simulation is running in asynchronous or synchronous mode, respectively.
+- 从[**路径规划阶段**](#stage-4-motion-planner-stage)接收一系列 [carla.VehicleControl](python_api.md#carla.VehicleControl)。
+- 批处理要在同一帧内应用的所有命令。
+- 将批处理发送到在 carla 中调用 **apply_batch**（） 或 **apply_batch_synch（）** 的 CARLA **[服务器.客户端](../python_api/#carla.Client)**，具体取决于模拟是分别以异步模式还是同步模式运行。
 
-__Related .cpp files:__ `TrafficManagerLocal.cpp`.
+__相关的 .cpp 文件:__ `TrafficManagerLocal.cpp`.
 
-### Stages of the Control Loop
+### 控制循环的阶段
 
-##### Stage 1- Localization Stage
+##### 第 1 阶段 - 定位阶段
 
-The Localization Stage defines a near-future path for vehicles controlled by the TM.
+定位阶段为TM控制的车辆定义了近未来的路径。
 
-The Localization Stage:
+本地化阶段：
 
-- Obtains the position and velocity of all vehicles from the [simulation state](#simulation-state).
-- Uses the [In-Memory Map](#in-memory-map) to relate every vehicle with a list of waypoints that describes its current location and near-future path according to its trajectory. The faster the vehicle goes, the longer the list will be.
-- Updates the path according to planning decisions such as lane changes, speed limit, distance to leading vehicle parameterization, etc.
-- Stores the path for all vehicles in the [PBVT](#pbvt) module.
-- Compares paths with each other to estimate possible collision situations. Results are passed to the Collision Stage.
+- 从[**仿真状态**](#simulation-state)获取所有车辆的位置和速度。
+- 使用[**内存地图**](#in-memory-map)将每辆车与航点列表相关联，该航点列表根据其轨迹描述其当前位置和近期路径。车辆行驶得越快，列表就越长。
+- 根据规划决策更新路径，例如变道、限速、与前方车辆的距离参数化等。
+- 将所有车辆的路径存储在 [**PBVT**](#pbvt) 模块中。
+- 相互比较路径以估计可能的碰撞情况。结果将传递到碰撞阶段。
 
-__Related .cpp files:__ `LocalizationStage.cpp` and `LocalizationUtils.cpp`.
+__相关的 .cpp 文件:__ `LocalizationStage.cpp` and `LocalizationUtils.cpp`.
 
-##### Stage 2- Collision Stage
+##### 第 2 阶段 - 碰撞阶段
 
-The Collision Stage triggers collision hazards.
+碰撞阶段会触发碰撞危险。
 
-The Collision Stage:
+碰撞阶段：
 
-- Receives from the [Localization Stage](#stage-1-localization-stage) a list of vehicle pairs whose paths could potentially overlap.
-- Extends bounding boxes along the path ahead (geodesic boundaries) for each vehicle pair to check if they actually overlap and determine whether the risk of collision is real.
-- Sends hazards for all possible collisions to the [Motion Planner Stage](#stage-4-motion-planner-stage) to modify the path accordingly.
+- 从[**定位阶段**](#stage-1-localization-stage)接收路径可能重叠的车辆对列表。
+- 前方路径（测地线边界）扩展每个车辆对的边界框，以检查它们是否实际重叠并确定碰撞风险是否真实。
+- 将所有可能的碰撞的危险发送到 [**运动规划器阶段**](#stage-4-motion-planner-stage)，以相应地修改路径。
 
-__Related .cpp files:__ `CollisionStage.cpp`.
+__相关的 .cpp 文件:__ `CollisionStage.cpp`.
 
-##### Stage 3- Traffic Light Stage
+##### 第三阶段 - 交通灯阶段
 
-The Traffic Light stage triggers hazards due to traffic regulators such as traffic lights, stop signs, and priority at junctions.
+交通信号灯阶段会触发交通管制器造成的危险，例如交通信号灯、停车标志和路口的优先权。
 
-The Traffic Light stage:
+交通灯阶段：
 
-- Sets a traffic hazard if a vehicle is under the influence of a yellow or red traffic light or a stop sign.
-- Extends a bounding box along a vehicle's path if it is in an unsignaled junction. Vehicles with overlapping paths follow a "First-In-First-Out" order to move. Wait times are set to a fixed value.
+- 如果车辆受到黄色或红色交通信号灯或停车标志的影响，则设置交通危险。
+- 如果边界框位于无信号灯的交汇点，则沿车辆路径延伸边界框。路径重叠的车辆遵循“先进先出”的顺序移动。等待时间设置为固定值。
 
-__Related .cpp files:__ `TrafficLightStage.cpp`.
+__相关的 .cpp 文件:__ `TrafficLightStage.cpp`.
 
-##### Stage 4- Motion Planner Stage
+##### 第 4 阶段 - 运动规划器阶段
 
-The Motion Planner Stage generates the CARLA commands to be applied to vehicles.
+“运动规划器阶段”（Motion Planner Stage） 生成要应用于车辆的 CARLA 命令。
 
-The Motion Planner Stage:
+运动规划器阶段：
 
-- Gathers a vehicle's position and velocity ([simulation state](#simulation-state)), path ([PBVT](#pbvt)), and hazards ([Collision Stage](#stage-2-collision-stage) and [Traffic Light Stage](#stage-3-traffic-light-stage)).
-- Makes high-level decisions about how a vehicle should move, for example, computing the brake needed to prevent a collision hazard. A [PID controller](#pid-controller) is used to estimate behaviors according to target values.
-- Translates the desired movement to a [carla.VehicleControl](python_api.md#carla.VehicleControl) for application to the vehicle.
-- Sends the resulting CARLA commands to the [Command Array](#command-array).
+- 收集车辆的位置和速度（[**仿真状态**](#simulation-state))）、路径 （[**路径缓存和车辆轨迹**](#pbvt)） 和危险（[**碰撞**](#stage-2-collision-stage)阶段和[**交通信号灯阶段**](#stage-3-traffic-light-stage)）。
+- 对车辆应如何移动做出高级决策，例如，计算防止碰撞危险所需的制动器。[**PID控制器**](#pid-controller)用于根据目标值估计行为。
+- 将期望的运动转化为适用于车辆的 **[carla.VehicleControl。](python_api.md#carla.VehicleControl)**
+- 将生成的CARLA命令发送到[**命令数组**](#command-array)。
 
-__Related .cpp files:__ `MotionPlannerStage.cpp`.
+__相关的.cpp文件:__ `MotionPlannerStage.cpp`.
 
 
-##### Stage 5- Vehicle Lights Stage
+##### 第 5 阶段 - 车灯阶段
 
-The Vehicle Lights Stage activates the lights based on the condition of the vehicle and the surrounding environment.
-	
-The Vehicle Lights Stage:
+车灯阶段根据车辆状况和周围环境激活车灯。
+​	
+车灯阶段:
 
-- Retrieves the planned waypoints for the vehicle, information about vehicle lights (eg. light state and the planned command to be applied) and the weather conditions.
+- 检索车辆的计划航点、有关车辆灯光的信息（例如灯光状态和计划应用的命令）和天气状况。
+- 确定车灯的新状态:
+  - 如果车辆计划在下一个路口左转/右转，则打开闪光灯。
+  - 如果应用的命令要求车辆制动，则打开停车灯。
+  - 从日落到黎明或在大雨中打开近光灯和位置灯。
+  - 在大雾条件下打开雾灯。
+- 如果车灯状态已更改，请更新车灯状态。
 
-- Determines the new state of the vehicle lights:
-	- Turns on the blinkers if the vehicle is planning to turn left/right at the next junction.
-	- Turns on the stop lights if the applied command is asking the vehicle to brake.
-	- Turns on the low beams and the position lights from sunset to dawn, or under heavy rain.
-	- Turns on the fog lights under heavy fog conditions.
-
-- Update the vehicle lights state if it has changed.
-
-__Related .cpp files:__ `VehicleLightStage.cpp`.
+__相关的 .cpp 文件:__ `VehicleLightStage.cpp`.
 
 ---
-## Using the Traffic Manager
+## 使用交通管理器
 
-### Vehicle behavior considerations
+### 车辆行为注意事项
 
-The TM implements general behavior patterns that must be taken into consideration when you set vehicles to autopilot:
+TM 实现了将车辆设置为自动驾驶时必须考虑的一般行为模式：
 
-- __Vehicles are not goal-oriented,__ they follow a dynamically produced trajectory and choose a path randomly when approaching a junction. Their path is endless.
-- __Vehicles' target speed is 70% of their current speed limit__ unless any other value is set.
-- __Junction priority does not follow traffic regulations.__ The TM uses its own priority system at junctions. The resolution of this restriction is a work in progress. In the meantime, some issues may arise, for example, vehicles inside a roundabout yielding to a vehicle trying to get in.
+- **车辆不是以目标为导向的**，它们遵循动态产生的轨迹，并在接近路口时随机选择路径。他们的道路是无止境的。
+- 除非设置了任何其他值，**否则车辆的目标速度是其当前速度限制的 70%。**
+- **路口优先权不遵守交通法规。**TM 在路口使用自己的优先级系统。此限制的解决工作正在进行中。同时，可能会出现一些问题，例如，环形交叉路口内的车辆让步给试图进入的车辆。
 
-TM behavior can be adjusted through the Python API. For specific methods, see the TM section of the Python API [documentation](../python_api/#carla.TrafficManager). Below is a general summary of what is possible through the API:
+TM 行为可以通过 Python API 进行调整。有关具体方法，请参阅 Python API [**文档**](../python_api/#carla.TrafficManager)的 TM 部分。以下是通过 API 实现的功能的一般摘要：
 
-| Topic | Description |
-| ----- | ----------- |
-| **General:** | - Create a TM instance connected to a port. <br> - Retrieve the port where a TM is connected. |
-| **Safety conditions:** | - Set a minimum distance between stopped vehicles (for a single vehicle or for all vehicles). This will affect the minimum moving distance. <br> - Set the desired speed as a percentage of the current speed limit (for a single vehicle or for all vehicles). <br> - Reset traffic lights. |
-| **Collision  managing:** | - Enable/Disable collisions between a vehicle and a specific actor. <br> - Make a vehicle ignore all other vehicles. <br> - Make a vehicle ignore all walkers. <br> - Make a vehicle ignore all traffic lights. |
-| **Lane  changes:** | - Force a lane change, ignoring possible collisions. <br> - Enable/Disable lane changes for a vehicle. |
-| **Hybrid physics mode:** | - Enable/Disable hybrid physics mode. <br> - Change the radius in which physics is enabled. |
-
-
+|     主题      |                    描述                    |
+| :---------: | :--------------------------------------: |
+|   **常规:**   |    - 创建连接到端口的TM实例。 <br> - 检索TM连接的端口。     |
+|  **安全条件:**  | - 设置停止车辆之间的最小距离（对于单个车辆或者所有车辆）。这将影响最小移动距离。<br> - 将所需速度设置为当前速度现状的百分比（对于单个车辆或所有车辆）。 <br> - 重置交通信号灯。 |
+|  **碰撞管理:**  | - 启用/禁用车辆与特定参与者之间的碰撞。 <br> - 让车辆忽略所有其他车辆。<br> - 让车辆忽略所有步行者<br> - 让车辆忽略所有交通灯。 |
+|   **变道:**   |    - 强制变道，忽略可能的碰撞。<br> - 启用/禁用车辆的变道。     |
+| **混合物理模式:** |     - 启用/禁用混合物理模式。 <br> - 更改启用物理的半径。     |
 
 
-### Creating a Traffic Manager
 
-!!! Note
-	TM is designed to work in synchronous mode. Using TM in asynchronous mode can lead to unexpected and undesirable results. Read more in the section [__Synchronous mode__](#synchronous-mode).
+### 创建交通管理器
 
-A TM instance is created by a [`carla.Client`](python_api.md#carla.Client), passing the port to be used. The default port is `8000`.
+!!! 注意
+	TM 设计为在同步模式下工作。在异步模式下使用 TM 可能会导致意外和不良结果。有关详细信息，请参阅 [__同步模式__](#synchronous-mode)。
 
-To create a TM instance:
+TM 实例由 [`carla 创建.客户端`](python_api.md#carla.Client)，传递要使用的端口。缺省端口为 `8000`。
+
+要创建 TM 实例：
 
 ```python
 tm = client.get_trafficmanager(port)
 ```
 
-To enable autopilot for a set of vehicles, retrieve the port of the TM instance and set `set_autopilot` to `True`, passing the TM port at the same time. If no port is provided, it will try to connect to a TM in the default port (`8000`). If the TM does not exist, it will create one:
+要为一组车辆启用 autopilot，请检索 TM 实例的端口并设置set_autopilot为True ，同时传递 TM 端口。如果未提供端口，它将尝试连接到默认端口 （8000） 中的 TM。如果 TM 不存在，它将创建一个。
 
 ```python
 tm_port = tm.get_port()
  for v in vehicles_list:
      v.set_autopilot(True,tm_port)
 ```
-!!! Note 
-    Creating or connecting to a TM in multi-client situations is different from the above example. Learn more in the section [__Running multiple Traffic Managers__](#running-multiple-traffic-managers).
+!!! 注意
 
-The `generate_traffic.py` script in `/PythonAPI/examples` provides an example of how to create a TM instance using a port passed as a script argument and register every vehicle spawned to it by setting the autopilot to `True` in a batch:
+```
+在多客户端情况下创建或连接到 TM 与上述示例不同。
+```
+
+`/PythonAPI/examples` 中的 `generate_traffic.py`脚本提供了一个示例， 说明如何使用作为脚本参数传递的端口创建 TM 实例，并通过批量将自动驾驶仪设置为以下值来注册生成的每辆车。
 
 ```py
 traffic_manager = client.get_trafficmanager(args.tm-port)
@@ -311,9 +311,9 @@ batch.append(SpawnActor(blueprint, transform).then(SetAutopilot(FutureActor, Tru
 traffic_manager.global_percentage_speed_difference(30.0)
 ```
 
-### Configuring autopilot behavior
+### 配置 autopilot 行为
 
-The following example creates a TM instance and configures dangerous behavior for a specific vehicle so it will ignore all traffic lights, leave no safety distance from other vehicles, and drive 20% faster than the current speed limit:
+以下示例创建一个 TM 实例，并为特定车辆配置危险行为，使其忽略所有交通信号灯，不与其他车辆保持安全距离，并以比当前限速快 20% 的速度行驶：
 
 ```python
 tm = client.get_trafficmanager(port)
@@ -324,9 +324,9 @@ danger_car = my_vehicles[0]
 tm.ignore_lights_percentage(danger_car,100)
 tm.distance_to_leading_vehicle(danger_car,0)
 tm.vehicle_percentage_speed_difference(danger_car,-20)
-``` 
+```
 
-The example below sets the same list of vehicles to autopilot but instead configures them with moderate driving behavior. The vehicles drive 80% slower than the current speed limit, leaving at least 5 meters between themselves and other vehicles, and never perform lane changes:
+以下示例将相同的车辆列表设置为自动驾驶仪，但将其配置为适度驾驶行为。车辆的行驶速度比当前限速慢 80%，与其他车辆之间至少留出 5 米的距离，并且从不进行变道：
 
 ```python
 tm = client.get_trafficmanager(port)
@@ -338,11 +338,11 @@ tm.global_distance_to_leading_vehicle(5)
 tm.global_percentage_speed_difference(80)
 for v in my_vehicles: 
   tm.auto_lane_change(v,False)
-``` 
+```
 
-#### Delegating the Traffic Manager to automatically update vehicle lights
+#### 委派交通管理器自动更新车灯
 
-By default, vehicle lights (brake, turn indicators, etc...) of the vehicles managed by the TM are never updated. It is possible to delegate the TM to update the vehicle lights of a given vehicle actor:
+默认情况下，TM 管理的车辆的车灯（刹车灯、转向灯等）永远不会更新。可以委托 TM 来更新给定车辆参与者的车灯：
 
 ```python
 tm = client.get_trafficmanager(port)
@@ -350,27 +350,26 @@ for actor in my_vehicles:
   tm.update_vehicle_lights(actor, True)
 ```
 
-Vehicle lights management has to be specified on a per-vehicle basis, and there could be at any given time both vehicles with and without the automatic light management.
+车灯管理必须按每辆车进行指定，并且在任何给定时间都可以有带和不带自动灯管理的车辆。
 
 
 
-### Stopping a Traffic Manager
+### 停止交通管理器
 
-The TM is not an actor that needs to be destroyed; it will stop when the client that created it stops. This is automatically managed by the API, the user does not have to do anything. However, when shutting down a TM, the user must destroy the vehicles controlled by it, otherwise they will remain immobile on the map. The script `generate_traffic.py` does this automatically:
+TM 不是一个需要被摧毁的参与者;当创建它的客户端停止时，它将停止。这是由 API 自动管理的，用户无需执行任何操作。但是，在关闭 TM 时，用户必须摧毁由它控制的车辆，否则它们将在地图上保持不动。 `generate_traffic.py `脚本会自动执行此操作:
 
 ```py
 client.apply_batch([carla.command.DestroyActor(x) for x in vehicles_list])
 ```
 
-!!! Warning
-    Shutting down a __TM-Server__ will shut down the __TM-Clients__ connecting to it. To learn the difference between a __TM-Server__ and a __TM-Client__, read about [__Running multiple Traffic Managers__](#running-multiple-traffic-managers).
-
+!!! 警告
+    关闭 __TM-Server__ 将关闭连接到它的 __TM-Clients__ 。 要了解 __TM-Server__ 和 __TM-Client__ 之间的区别, 请阅读 [__Running multiple Traffic Managers__](#running-multiple-traffic-managers)。
 ---
 ## 确定性模式
 
 在确定性模式下，交通管理器将在相同条件下产生相同的结果和行为。不要将确定性论误认为是记录器。虽然记录器允许您存储仿真日志以进行回放，但确定性可确保只要维持相同的条件，交通管理器在脚本的不同执行过程中始终具有相同的输出。
 
-确定性模式 __仅在同步模式下__ 可用。在异步模式下，对仿真的控制较少，并且无法实现确定性。在开始之前，请阅读[同步模式](#synchronous-mode)部分的更多信息。
+确定性模式 __仅在同步模式下__ 可用。在异步模式下，对仿真的控制较少，并且无法实现确定性。在开始之前，请阅读[**同步模式**](#synchronous-mode)部分的更多信息。
 
 要启用确定性模式，请使用以下方法：
 
@@ -380,7 +379,7 @@ my_tm.set_random_device_seed(seed_value)
 
 `seed_value` 是一个将生成随机数的数字的 `int` 种子数。该值本身并不相关，但相同的值将始终导致相同的输出。具有相同条件、使用相同种子值的两次仿真将是确定性的。
 
-为了保持多次仿真运行的确定性，__必须为每次仿真设置种子__。例如，每次[重新加载](python_api.md#carla.Client.reload_world)世界时，都必须重新设置种子：
+为了保持多次仿真运行的确定性，__必须为每次仿真设置种子__。例如，每次[**重新加载**](python_api.md#carla.Client.reload_world)世界时，都必须重新设置种子：
 
 
 ```py
@@ -397,7 +396,6 @@ python3 generate_traffic.py -n 50 --seed 9
 
 !!! 警告
     在启用确定性模式之前，Carla 服务器和交通管理器必须处于同步模式。在此处阅读有关交通管理器中同步模式的[更多信息](#synchronous-mode)。
-
 ---
 ## 混合物理模式
 
@@ -412,13 +410,12 @@ python3 generate_traffic.py -n 50 --seed 9
 
 *   __Radius__ *(默认 = 50 米)* — 半径相对于标记有 `英雄` 的车辆。该半径内的所有车辆都将启用物理功能；半径之外的车辆将禁用物理功能。使用 [`traffic_manager.set_hybrid_physics_radius(r)`](python_api.md#carla.TrafficManager.set_hybrid_physics_radius) 修改半径的大小。
 *   __Hero vehicle__ — 带有标记 `role_name='hero'` 的车辆作为半径的中心。
-	*   __如果没有英雄车辆，__ 所有车辆的物理功能将被禁用。
-	*   __如果有不止一辆英雄车辆，__ 则会考虑所有英雄车辆的半径，从而在启用物理功能的情况下创建不同的影响区域。
+  *   __如果没有英雄车辆，__ 所有车辆的物理功能将被禁用。
+  *   __如果有不止一辆英雄车辆，__ 则会考虑所有英雄车辆的半径，从而在启用物理功能的情况下创建不同的影响区域。
 
 下面的剪辑显示了混合模式处于活动状态时如何启用和禁用物理功能。__英雄车辆__ 标有 __红色方块__。__禁用物理功能__ 的车辆标有 __蓝色方块__。当在英雄车辆的影响半径内时，__启用物理功能__ 并且标签变为 __绿色__。
 
 ![Welcome to CARLA](img/tm_hybrid.gif)
-
 
 ---
 ## 运行多个交通管理器
@@ -538,7 +535,6 @@ python3 generate_traffic.py -n 50
 
 !!! 警告
     在管理时钟的脚本完成之前禁用同步模式（对于世界和交通管理器），以防止服务器阻塞，永远等待时钟。
-
 ---
 
 ## 大地图中的交通管理器
