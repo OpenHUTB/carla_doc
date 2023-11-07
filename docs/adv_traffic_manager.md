@@ -361,13 +361,13 @@ client.apply_batch([carla.command.DestroyActor(x) for x in vehicles_list])
 ```
 
 !!! 警告
-    关闭 __TM-Server__ 将关闭连接到它的 __TM-Clients__ 。 要了解 __TM-Server__ 和 a __TM-Client__之间的区别, 请阅读 [__Running multiple Traffic Managers__](#running-multiple-traffic-managers).
+    关闭 __TM-Server__ 将关闭连接到它的 __TM-Clients__ 。 要了解 __TM-Server__ 和 __TM-Client__之间的区别, 请阅读 [__Running multiple Traffic Managers__](#running-multiple-traffic-managers).
 ---
 ## 确定性模式
 
 在确定性模式下，交通管理器将在相同条件下产生相同的结果和行为。不要将确定性论误认为是记录器。虽然记录器允许您存储仿真日志以进行回放，但确定性可确保只要维持相同的条件，交通管理器在脚本的不同执行过程中始终具有相同的输出。
 
-确定性模式 __仅在同步模式下__ 可用。在异步模式下，对仿真的控制较少，并且无法实现确定性。在开始之前，请阅读[同步模式](#synchronous-mode)部分的更多信息。
+确定性模式 __仅在同步模式下__ 可用。在异步模式下，对仿真的控制较少，并且无法实现确定性。在开始之前，请阅读[**同步模式**](#synchronous-mode)部分的更多信息。
 
 要启用确定性模式，请使用以下方法：
 
@@ -377,7 +377,7 @@ my_tm.set_random_device_seed(seed_value)
 
 `seed_value` 是一个将生成随机数的数字的 `int` 种子数。该值本身并不相关，但相同的值将始终导致相同的输出。具有相同条件、使用相同种子值的两次仿真将是确定性的。
 
-为了保持多次仿真运行的确定性，__必须为每次仿真设置种子__。例如，每次[重新加载](python_api.md#carla.Client.reload_world)世界时，都必须重新设置种子：
+为了保持多次仿真运行的确定性，__必须为每次仿真设置种子__。例如，每次[**重新加载**](python_api.md#carla.Client.reload_world)世界时，都必须重新设置种子：
 
 
 ```py
