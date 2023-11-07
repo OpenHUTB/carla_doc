@@ -296,7 +296,9 @@ tm_port = tm.get_port()
 ```
 !!! 注意
 
-    在多客户端情况下创建或连接到 TM 与上述示例不同。有关详细信息，请参阅 [__运行多个交通管理器__](#running-multiple-traffic-managers)部分。
+```
+在多客户端情况下创建或连接到 TM 与上述示例不同。
+```
 
 `/PythonAPI/examples` 中的 `generate_traffic.py`脚本提供了一个示例， 说明如何使用作为脚本参数传递的端口创建 TM 实例，并通过批量将自动驾驶仪设置为以下值来注册生成的每辆车。
 
