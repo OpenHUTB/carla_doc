@@ -1,94 +1,94 @@
-# Core concepts
+# 核心概念
 
-This page introduces the main features and modules in CARLA. Detailed explanations of the different subjects can be found in their corresponding page.  
+本页面介绍了CARLA的主要功能和模块。不同主题的详细说明可以在相应的页面中找到。
 
-In order to learn about the different classes and methods in the API, take a look at the [Python API reference](python_api.md).
+为了了解API中不同的类和方法，请查看[Python API参考](python_api.md)。
 
-*   [__First steps__](#first-steps)  
-	*   [1st- World and client](#1st-world-and-client)  
-	*   [2nd- Actors and blueprints](#2nd-actors-and-blueprints)  
-	*   [3rd- Maps and navigation](#3rd-maps-and-navigation)  
-	*   [4th- Sensors and data](#4th-sensors-and-data)  
-  *   [__Advanced steps__](#advanced-steps)  
+*   **[第一步](#first-steps)**
+  *   **[世界和客户端](#1st-world-and-client)**
+  *   **[演员和蓝图](#2nd-actors-and-blueprints)**
+  *   **[地图和导航](#3rd-maps-and-navigation)**
+  *   [**传感器和数据**](#4th-sensors-and-data)
+  *   **[进阶步骤](#advanced-steps)**
 
-!!! Important
-    **This documentation refers to CARLA 0.9.X**. <br>
-    The API changed significantly from previous versions (0.8.X). There is another documentation regarding those versions that can be found [here](https://carla.readthedocs.io/en/stable/getting_started/). 
+!!! 重要
+    **本文档引用的是CARLA 0.9.X**. <br>
+    与以前的版本(0.8.X)相比，API发生了重大变化。在这里可以找到关于这些版本的另一个文档[here](https://carla.readthedocs.io/en/stable/getting_started/). 
 
 ---
-## First steps
+## 第一步
 
-### 1st- World and client
+### 世界和客户端
 
-__The client__ is the module the user runs to ask for information or changes in the simulation. A client runs with an IP and a specific port. It communicates with the server via terminal. There can be many clients running at the same time. Advanced multiclient managing requires thorough understanding of CARLA and [synchrony](adv_synchrony_timestep.md).  
+__客户端__是用户运行的模块，用于请求仿真中的信息或更改。客户端使用IP和特定端口运行。它通过终端与服务器通信。可以有许多客户机同时运行。高级多客户端管理需要对CARLA和**[同步](adv_synchrony_timestep.md)**有透彻的理解。
 
-__The world__ is an object representing the simulation. It acts as an abstract layer containing the main methods to spawn actors, change the weather, get the current state of the world, etc. There is only one world per simulation. It will be destroyed and substituted for a new one when the map is changed.  
+__世界__是代表模拟的对象。它作为一个抽象层，包含了生成角色、改变天气、获取当前世界状态等主要方法。每个模拟只有一个世界。当地图更改时，它将被销毁并替换为新的。 
 
-### 2nd- Actors and blueprints
-An actor is anything that plays a role in the simulation.  
+### 演员和蓝图
+演员是在模拟中扮演角色的任何东西。
 
-*   Vehicles.
-*   Walkers.
-*   Sensors.
-*   The spectator.
-*   Traffic signs and traffic lights.
+*   车辆
+*   行人
+*   传感器
+*   观众
+*   交通信号和交通灯
 
-__Blueprints__ are already-made actor layouts necessary to spawn an actor. Basically, models with animations and a set of attributes. Some of these attributes can be customized by the user, others don't. There is a [__Blueprint library__](bp_library.md) containing all the blueprints available as well as information on them.  
+__蓝图__是生成角色所必需的已经制作好的角色布局。基本上，是带有动画和一组属性的模型。其中一些属性可以由用户自定义，而另一些则不能。有一个**[Blueprint库](bp_library.md)**，其中包含所有可用的蓝图以及有关它们的信息。
 
-### 3rd- Maps and navigation
+### 地图和导航
 
-__The map__ is the object representing the simulated world, the town mostly. There are eight maps available. All of them use OpenDRIVE 1.4 standard to describe the roads.  
+__地图__是代表模拟世界的对象，主要是城镇。有八张地图可供选择。它们都使用opdrive 1.4标准来描述道路。
 
-__Roads, lanes and junctions__ are managed by the [Python API](python_api.md) to be accessed from the client. These are used along with the __waypoint__ class to provide vehicles with a navigation path.  
+__道路、车道和路口__由Python API管理，以便从客户端访问。这些与__waypoint__类一起使用，为车辆提供导航路径。
 
-__Traffic signs__ and __traffic lights__ are accessible as [__carla.Landmark__](#python_api.md#carla.landmark) objects that contain information about their OpenDRIVE definition. Additionally, the simulator automatically generates stops, yields and traffic light objects when running using the information on the OpenDRIVE file. These have bounding boxes placed on the road. Vehicles become aware of them once inside their bounding box.
+__交通标志__和__交通灯__是可访问的[**carla.Landmark**](#python_api.md#carla.landmark)。这些地标对象包含关于它们的 OpenDRIVE 定义的信息。此外，模拟器在运行时会自动生成停车标志、让行标志和交通信号灯对象，使用 OpenDRIVE 文件中的信息。这些对象会放置在道路上，有边界框包围。一旦车辆进入它们的边界框，它们就会意识到这些对象。
 
-### 4th- Sensors and data
+### 传感器和数据
 
-__Sensors__ wait for some event to happen, and then gather data from the simulation. They call for a function defining how to manage the data. Depending on which, sensors retrieve different types of __sensor data__. 
+__传感器__等待一些事件发生，然后从模拟中收集数据。它们调用定义如何管理数据的函数。根据不同的情况，传感器会检索不同类型的传感器数据。
 
-A sensor is an actor attached to a parent vehicle. It follows the vehicle around, gathering information of the surroundings. The sensors available are defined by their blueprints in the [Blueprint library](bp_library.md).  
+传感器是附着在父车辆上的参与者。它跟随车辆，收集周围环境的信息。可用的传感器由**[Blueprint库](bp_library.md)**中的蓝图定义。
 
-*   Cameras (RGB, depth and semantic segmentation).  
-*   Collision detector.  
-*   Gnss sensor.  
-*   IMU sensor.  
-*   Lidar raycast.  
-*   Lane invasion detector.  
-*   Obstacle detector.  
-*   Radar.  
+*   相机(RGB，深度和语义分割)
+*   碰撞检测器
+*   Gnss 传感器
+*   IMU传感器
+*   激光雷达射线投射
+*   车道侵入检测器
+*   障碍检测器
+*   雷达
 *   RSS.  
 
 ---
-## Advanced steps  
+## 进阶步骤  
 
-CARLA offers a wide range of features that go beyond the scope of this introduction to the simulator. Here are listed some of the most remarkable ones. However, it is highly encouraged to read the whole __First steps__ section before starting with the advanced steps.  
+CARLA提供了广泛的功能，超出了本模拟器介绍的范围。这里列出了一些最引人注目的。然而，在开始__进阶步骤__之前，强烈建议阅读整个“第一步”部分。
 
-*   [__OpenDRIVE standalone mode__](adv_opendrive.md). Generates a road mesh using only an OpenDRIVE file. Allows to load any OpenDRIVE map into CARLA without the need of creating assets.  
-*   [__PTV-Vissim co-simulation__](adv_ptv.md). Run a synchronous simulation between CARLA and PTV-Vissim traffic simulator.  
-*   [__Recorder__](adv_recorder.md). Saves snapshots of the simulation state to reenact a simulation with exact precision.   
-*   [__Rendering options__](adv_rendering_options.md). Graphics quality settings, off-screen rendering and a no-rendering mode.  
-*   [__RSS__](adv_rss.md). Integration of the [C++ Library for Responsibility Sensitive Safety](https://github.com/intel/ad-rss-lib) to modify a vehicle's trajectory using safety checks.
-*   [__Simulation time and synchrony__](adv_synchrony_timestep.md). Everything regarding the simulation time and server-client communication.  
-*   [__SUMO co-simulation__](adv_sumo.md). Run a synchronous simulation between CARLA and SUMO traffic simulator.  
-*   [__Traffic manager__](adv_traffic_manager.md). This module is in charge of every vehicle set to autopilot mode. It simulates traffic in the city for the simulation to look like a real urban environment.  
+*   **[OpenDRIVE独立模式](adv_opendrive.md)**。仅使用OpenDRIVE文件生成道路网格。允许在CARLA中加载任何OpenDRIVE地图，无需创建资源。
+*   **[PTV-Vissim协同仿真](adv_ptv.md)**。在CARLA和PTV-Vissim交通仿真器之间运行同步仿真。
+*   [**录制器**](adv_recorder.md)。保存模拟状态的快照，以便以精确的精度重新执行模拟。
+*   **[渲染选项](adv_rendering_options.md)**。包括图形质量设置、离屏渲染和无渲染模式。
+*   [**RSS**](adv_rss.md)（Responsibility Sensitive Safety）：集成用于根据安全检查修改车辆轨迹的责任敏感安全性**[C++库](https://github.com/intel/ad-rss-lib)**。
+*   [**仿真时间和同步**](adv_synchrony_timestep.md)。关于模拟时间和服务器-客户端通信的所有内容。
+*   **[SUMO协同仿真](adv_sumo.md)**：在CARLA和SUMO交通仿真器之间运行同步仿真。
+*   **[交通管理器](adv_traffic_manager.md)**：该模块负责所有设置为自动驾驶模式的车辆。它模拟城市中的交通，使仿真看起来像一个真实的城市环境。
 
 ---
-That is a wrap on the CARLA basics. The next step takes a closer look to the world and the clients connecting to it.  
+这是对CARLA基本知识的总结。下一步将更仔细地查看世界和连接到它的客户端。
 
-Keep reading to learn more. Visit the forum to post any doubts or suggestions that have come to mind during this reading.  
+继续阅读以了解更多。访问论坛发表任何疑问或建议，在阅读过程中想到的。 
 
 <div text-align: center>
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="CARLA forum">
-CARLA forum</a>
+CARLA 论坛</a>
 </p>
 </div>
 <div class="build-buttons">
 <p>
 <a href="../core_world" target="_blank" class="btn btn-neutral" title="1st. World and client">
-1st. World and client</a>
+世界和客户端</a>
 </p>
 </div>
 </div>

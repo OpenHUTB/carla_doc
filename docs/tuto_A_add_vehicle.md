@@ -1,15 +1,14 @@
-# Add a new vehicle
+# 添加一辆新车
 
-This tutorial details how to add a new vehicle to CARLA. There are two sections, one for 4 wheeled vehicles and one for 2 wheeled vehicles. There is an outline of the basic requirements that must be fulfilled when modeling your vehicle to ensure that it works well in CARLA and instructions on configurations required after the vehicle has been imported into Unreal Engine.
+这个教程详细介绍了如何向CARLA添加新的车辆。教程分为两个部分，一个用于四轮车辆，另一个用于两轮车辆。教程概述了建模车辆时必须满足的基本要求，以确保车辆在CARLA中运行良好，并提供了在将车辆导入虚幻引擎后所需的配置说明。
 
 *   [__Add a 4 wheeled vehicle__](#add-a-4-wheeled-vehicle)
-	*   [Bind and model the vehicle](#bind-and-model-the-vehicle)
-	*   [Import and configure the vehicle](#import-and-configure-the-vehicle)
+  *   [Bind and model the vehicle](#bind-and-model-the-vehicle)
+  *   [Import and configure the vehicle](#import-and-configure-the-vehicle)
 *   [__Add a 2 wheeled vehicle__](#add-a-2-wheeled-vehicle)
 
-!!! Important
+!!! 重要
     This tutorial only applies to users that work with a build from source, and have access to the Unreal Engine Editor.
-
 ---
 ## Add a 4 wheeled vehicle
 
@@ -235,7 +234,6 @@ python3 manual_control.py --filter <model_name> # The make or model defined in s
 
 !!! Note
     Even if you used upper case characters in your make and model, they need to be converted to lower case when passed to the filter.
-
 ---
 ## Add a 2 wheeled vehicle
 
@@ -282,7 +280,7 @@ __6.__ Select component "VehicleMovement", under "Vehicle Setup" expand "Wheel S
 *   __1:__ Wheel Class=`<vehicle-model>_FrontWheel`, Bone Name=`FrontWheel`  
 *   __2:__ Wheel Class=`<vehicle-model>_RearWheel`, Bone Name=`RearWheel`  
 *   __3:__ Wheel Class=`<vehicle-model>_RearWheel`, Bone Name=`RearWheel`  
-(You'll notice that we are basically placing two wheels in each bone. The vehicle class unreal provides does not support vehicles with wheel numbers different from 4 so we had to make it believe the vehicle has 4 wheels)
+  (You'll notice that we are basically placing two wheels in each bone. The vehicle class unreal provides does not support vehicles with wheel numbers different from 4 so we had to make it believe the vehicle has 4 wheels)
 
 __7.__ Select the variable "is bike" and tick it if your model is a bike. This will activate the
   pedalier rotation. Leave unmarked if you are setting up a motorbike.
