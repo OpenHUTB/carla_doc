@@ -277,7 +277,7 @@ TM 行为可以通过 Python API 进行调整。有关具体方法，请参阅 P
 ### 创建交通管理器
 
 !!! 注意
-	TM 设计为在同步模式下工作。在异步模式下使用 TM 可能会导致意外和不良结果。有关详细信息，请参阅 [__同步模式__](#synchronous-mode)部分.
+	TM 设计为在同步模式下工作。在异步模式下使用 TM 可能会导致意外和不良结果。有关详细信息，请参阅 [__同步模式__](#synchronous-mode)。
 
 TM 实例由 [`carla 创建.客户端`](python_api.md#carla.Client)，传递要使用的端口。缺省端口为 `8000`。
 
@@ -361,7 +361,7 @@ client.apply_batch([carla.command.DestroyActor(x) for x in vehicles_list])
 ```
 
 !!! 警告
-    关闭 __TM-Server__ 将关闭连接到它的 __TM-Clients__ 。 要了解 __TM-Server__ 和 __TM-Client__ 之间的区别, 请阅读 [__Running multiple Traffic Managers__](#running-multiple-traffic-managers).
+    关闭 __TM-Server__ 将关闭连接到它的 __TM-Clients__ 。 要了解 __TM-Server__ 和 __TM-Client__ 之间的区别, 请阅读 [__Running multiple Traffic Managers__](#running-multiple-traffic-managers)。
 ---
 ## 确定性模式
 
