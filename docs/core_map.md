@@ -1,4 +1,4 @@
-# 地图和导航
+# [地图和导航](https://carla.readthedocs.io/en/latest/core_map/) 
 
 在讨论了世界及其参与者之后，是时候将所有内容都放在适当的位置并了解地图以及参与者如何导航。
 
@@ -138,7 +138,7 @@ Carla 地图上的每个对象都有一组关联的变量，可以在 [此][env_
 		# 切换建筑为可见
 		world.enable_environment_objects(objects_to_toggle, True)
 
-See an example of distinct objects being toggled:
+查看切换不同对象的示例：
 
 ![toggle_objects_gif](img/objects_small.gif)
 
@@ -150,116 +150,118 @@ See an example of distinct objects being toggled:
 
 
 ---
-## Navigation in CARLA
+## 在 CARLA 中导航
 
-Navigation in CARLA is managed via the Waypoint API, a combination of methods from [`carla.Waypoint`](python_api.md#carla.Waypoint) and [`carla.Map`](python_api.md#carla.Map).
+CARLA 中的导航是通过 Waypoint API （来自 [`carla.Waypoint`](python_api.md#carla.Waypoint) 和 [`carla.Map`](python_api.md#carla.Map) 的方法组合）进行管理。
 
-The client must initially communicate with the server to retrieve the map object containing the waypoint information. This is only required once, all subsequent queries are performed on the client side.
+客户端必须首先与服务器通信以检索包含路径点信息的地图对象。这只需要一次，所有后续查询都在客户端执行。
 
-### Navigating through waypoints
 
-The Waypoint API exposes methods that allow waypoints to connect to each other and construct a path along a road for vehicles to navigate:
+### 通过路径点导航
 
-- `next(d)` creates a list of waypoints within an approximate distance, `d`, __in the direction of the lane__. The list contains one waypoint for each possible deviation.
-- `previous(d)` creates a list of waypoints waypoint within an approximate distance, `d`, __in the opposite direction of the lane__. The list contains one waypoint for each possible deviation.
-- `next_until_lane_end(d)` and `previous_until_lane_start(d)` return a list of waypoints a distance `d` apart. The lists go from the current waypoint to the end and beginning of its lane, respectively.
-- `get_right_lane()` and `get_left_lane()` return the equivalent waypoint in an adjacent lane, if one exists. A lane change maneuver can be made by finding the next waypoint to the one on its right/left lane, and moving to it.
+Waypoint API 公开了允许路径点相互连接并构建沿道路供车辆导航的路径的方法：
+
+- `next(d)`  __在车道方向上__ 创建近似距离 `d` 内的航路点列表。该列表包含每个可能偏差的一个航路点。
+- `previous(d)` __在车道相反的方向上__ 创建近似距离小于 `d` 的路径点列表。该列表包含每个可能偏差的一个路径点。
+- `next_until_lane_end(d)` 和 `previous_until_lane_start(d)` 返回相距一定距离 `d` 的路径点列表。这些列表分别从当前路径点到其车道的终点和起点。
+- `get_right_lane()` 和 `get_left_lane()` 返回相邻车道中的等路径点（如果存在）。可以通过找到右/左车道上的下一个路点并移动到该路点来进行变道操作。
 
 ```py
-# Find next waypoint 2 meters ahead.
+# 找到前面 2 米的下一个路径点
 waypoint = waypoint.next(2.0)
 ```
 
-### Generating map navigation
+### 生成地图导航
 
-The client needs to make a request to the server to get the `.xodr` map file and parse it to a [`carla.Map`](python_api.md#carla.Map) object. This only needs to be done once.
+客户端需要向服务器发出请求来获取 `.xodr` 地图文件并将其解析为[`carla.Map`](python_api.md#carla.Map) 对象。这只需要做一次。
 
-To get the map object:
+获取地图对象：
 
 ```py
 map = world.get_map()
 ```
 
-The map object contains __recommended spawn points__ for the creation of vehicles. You can get a list of these spawn points, each one containing a [`carla.Transform`](python_api.md#carlatransform), using the method below. Bear in mind that the spawn points may be occupied already, resulting in failed creation of vehicles due to collisions.
+地图对象包含用于创建车辆的 __推荐生成点__。您可以使用以下方法获取这些生成点的列表，每个生成点都包含 [`carla.Transform`](python_api.md#carlatransform)。请记住，生成点可能已被占用，从而导致由于碰撞而导致车辆创建失败。
+
 
 ```py
 spawn_points = world.get_map().get_spawn_points()
 ```
 
-You can get started with waypoints by __[getting](python_api.md#carla.Map.get_waypoint) the closest waypoint__ to a specific location or to a particular `road_id`, `lane_id` and `s` value in the map's OpenDRIVE definition:
+您可以通过[获取](python_api.md#carla.Map.get_waypoint)距特定位置或特定 `road_id`、`lane_id`和`s`位置最近的航路点以及地图 OpenDRIVE 定义中的值来开始使用路径点：
 
 ```py
-# Nearest waypoint in the center of a Driving or Sidewalk lane.
+# 驾驶车道或人行道中心最近的路径点。
 waypoint01 = map.get_waypoint(vehicle.get_location(),project_to_road=True, lane_type=(carla.LaneType.Driving | carla.LaneType.Sidewalk))
 
-#Nearest waypoint but specifying OpenDRIVE parameters. 
+# 最近的路径点，同时指定 OpenDRIVE 参数。
 waypoint02 = map.get_waypoint_xodr(road_id,lane_id,s)
 ```
 
-The below example shows how to __generate a collection of waypoints__ to visualize the city lanes. This will create waypoints all over the map, for every road and lane. All of them will approximately 2 meters apart:
+下面的示例展示了如何 __生成路点集合__ 以可视化城市车道。这将为整个地图上的每条道路和车道创建路径点。它们之间的距离大约为 2 米：
 
 ```py
 waypoint_list = map.generate_waypoints(2.0)
 ```
 
-To __generate a minimal graph of road topology__, use the example below. This will return a list of pairs (tuples) of waypoints. The first element in each pair connects with the second element and both define the start and end points of each lane in the map. More information on this method is found in the [PythonAPI](python_api.md#carla.Map.get_topology).
+要 __生成道路拓扑的最小图__，请使用下面的示例。这将返回路径点对（元组）的列表。每对中的第一个元素与第二个元素连接，两者都定义了地图中每条车道的起点和终点。有关此方法的更多信息可以在[PythonAPI](python_api.md#carla.Map.get_topology)中找到。
 
 ```py
 waypoint_tuple_list = map.get_topology()
 ```
 
-The example below __converts a `carla.Transform` to geographical latitude and longitude coordinates,__ in the form of a [`carla.GeoLocation`](python_api.md#carla.GeoLocation):
+下面的示例 __将 `carla.Transform` 转换为地理纬度和经度坐标__，采用 [`carla.GeoLocation`](python_api.md#carla.GeoLocation) 的形式：
 
 ```py
 my_geolocation = map.transform_to_geolocation(vehicle.transform)
 ```
 
-Use the following example to __save road information__ in OpenDRIVE format to disk:
+使用以下示例将 OpenDRIVE 格式的 __道路信息保存到磁盘__：
 
 ```py
 info_map = map.to_opendrive()
 ```
 
 ---
-## CARLA maps
+## CARLA 地图
 
-There are eight towns in the CARLA ecosystem and each of those towns have two kinds of map, non-layered and layered. [Layers][layer_api] refer to the grouped objects within a map and consist of the following:
+Carla 生态系统中有八个城镇，每个城镇都有两种地图，非分层地图和分层地图。[图层][layer_api]是指地图中分组的对象，由以下部分组成：
 
 - NONE
-- Buildings
-- Decals
-- Foliage
-- Ground
-- ParkedVehicles
-- Particles
-- Props
-- StreetLights
-- Walls
-- All
+- 建筑物
+- 贴标
+- 叶子
+- 地面
+- 停放的车辆
+- 粒子
+- 道具
+- 路灯
+- 墙壁
+- 全部
 
 [layer_api]: https://carla.readthedocs.io/en/latest/python_api/#carlamaplayer
 
-### Non-layered maps
+### 非分层地图
 
-Non-layered maps are shown in the table below (click the town name to see an overhead image of the layout). All of the layers are present at all times and cannot be toggled on or off in these maps. Up until CARLA 0.9.11, these were the only kinds of map available.
+下表显示了非分层地图（单击城镇名称可查看布局的俯视图）。所有图层始终存在，并且无法在这些地图中打开或关闭。直到 CARLA 0.9.11 为止，这些是唯一可用的地图类型。
 
-!!! Note
-    Users can [customize a map](tuto_A_map_customization.md) or even [create a new map](tuto_M_custom_map_overview.md) to be used in CARLA.
+!!! 注意
+    用户可以使用 [自定义地图](tuto_A_map_customization.md) 甚至创建要在 CARLA 中使用的 [新地图](tuto_M_custom_map_overview.md)。
 
-| Town       | Summary |
-| -----------| ------  |
-| **[Town01](img/Town01.jpg)** | A basic town layout consisting of "T junctions".|
-| **[Town02](img/Town02.jpg)** | Similar to **Town01**, but smaller.|
-| **[Town03](img/Town03.jpg)** | The most complex town, with a 5-lane junction, a roundabout, unevenness, a tunnel, and more.|
-| **[Town04](img/Town04.jpg)** | An infinite loop with a highway and a small town.|
-| **[Town05](img/Town05.jpg)** | Squared-grid town with cross junctions and a bridge. It has multiple lanes per direction. Useful to perform lane changes.  |
-| **[Town06](img/Town06.jpg)** | Long highways with many highway entrances and exits. It also has a [**Michigan left**](<https://en.wikipedia.org/wiki/Michigan_left>). |
-| **[Town07](img/Town07.jpg)** | A rural environment with narrow roads, barns and hardly any traffic lights. |
-| **[Town10](img/Town10.jpg)** | A city environment with different environments such as an avenue or promenade, and more realistic textures.|
+| 城镇                           | 概括                                                                                                          |
+|------------------------------|-------------------------------------------------------------------------------------------------------------|
+| **[Town01](img/Town01.jpg)** | 由“T 字路口”组成的基本城镇布局。                                                                                          |
+| **[Town02](img/Town02.jpg)** | 和 **Town01** 类似，但是更小。                                                                                       |
+| **[Town03](img/Town03.jpg)** | 最复杂的城镇，有 5 车道交叉路口、环岛、凹凸不平、隧道等。                                                                              |
+| **[Town04](img/Town04.jpg)** | 有高速公路和小镇的无限循环。                                                                                              |
+| **[Town05](img/Town05.jpg)** | 方形网格城镇，有十字路口和一座桥梁。每个方向有多个车道。对于执行变道很有用。                                                                      |
+| **[Town06](img/Town06.jpg)** | 高速公路长，有许多高速公路入口和出口。它还有一个 [**密歇根左转**](<https://en.wikipedia.org/wiki/Michigan_left>)。                        |
+| **[Town07](img/Town07.jpg)** | 乡村环境，道路狭窄，谷仓，几乎没有红绿灯。                                 |
+| **[Town10](img/Town10.jpg)** | 具有大道或长廊等不同环境的城市环境，以及更真实的纹理。 |
 
-### Layered maps
+### 分层地图
 
-The layout of layered maps is the same as non-layered maps but it is possible to toggle off and on the layers of the map. There is a minimum layout that cannot be toggled off and consists of roads, sidewalks, traffic lights and traffic signs. Layered maps can be identified by the suffix `_Opt`, for example, `Town01_Opt`. With these maps it is possible to [load][load_layer] and [unload][unload_layer] layers via the Python API:
+分层地图的布局与非分层地图相同，但可以关闭和打开地图的图层。有一个无法关闭的最小布局，由道路、人行道、交通灯和交通标志组成。分层地图可以通过后缀 `_Opt` 来标识，例如`Town01_Opt`。使用这些地图，可以通过 Python API [加载][load_layer]和[卸载][unload_layer]图层：
 
 		# Load layered map for Town 01 with minimum layout plus buildings and parked vehicles
 		world = client.load_world('Town01_Opt', carla.MapLayer.Buildings | carla.MapLayer.ParkedVehicles)
@@ -273,21 +275,21 @@ The layout of layered maps is the same as non-layered maps but it is possible to
 [load_layer]: https://carla.readthedocs.io/en/latest/python_api/#carla.World.load_map_layer
 [unload_layer]: https://carla.readthedocs.io/en/latest/python_api/#carla.World.unload_map_layer
 
-See an example of all layers being loaded and unloaded in sequence:
+查看按顺序加载和卸载所有层的示例：
 
 ![map-layers](img/sublevels.gif)
 
 
 ---
 
-## Custom maps
+## 自定义地图
 
-CARLA is designed to be extensible and highly customisable for specialist applications. Therefore, in addition to the many maps and assets already avaiable in CARLA out of the box, it is possible to create and import new maps, road networks and assets to populate bespoke environments in a CARLA simulation. The following documents detail the steps needed to build and integrate custom maps:  
+Carla 旨在针对专业应用程序进行可扩展和高度定制。因此，除了 Carla 中现有的许多地图和资产之外，还可以创建和导入新的地图、道路网络和资产，以填充 Carla 仿真中的定制环境。以下文档详细介绍了构建和集成自定义地图所需的步骤：
 
-* [__Overview__](tuto_M_custom_map_overview.md)
-* [__Road painting__](tuto_M_custom_road_painter.md)
-* [__Custom buildings__](tuto_M_custom_buildings.md) 
-* [__Generate map__](tuto_M_generate_map.md)
-* [__Add map package__](tuto_M_add_map_package.md)
-* [__Add map source__](tuto_M_add_map_source.md)
-* [__Alternative methods__](tuto_M_add_map_alternative.md)
+* [__概述__](tuto_M_custom_map_overview.md)
+* [__道路涂装__](tuto_M_custom_road_painter.md)
+* [__定制建筑__](tuto_M_custom_buildings.md) 
+* [__生成地图__](tuto_M_generate_map.md)
+* [__添加地图包__](tuto_M_add_map_package.md)
+* [__添加地图源__](tuto_M_add_map_source.md)
+* [__替代方法__](tuto_M_add_map_alternative.md)
