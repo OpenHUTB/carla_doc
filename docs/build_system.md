@@ -74,6 +74,10 @@ To launch Unreal Engine's Editor run
 make launch
 ```
 
+编译 0.9.15 时候出现`D:/work/buffer/carla/Unreal/CarlaUE4/Plugins/CarlaTools/Source/CarlaTools/Private/Online/CustomFileDownloader.cpp(11): fatal rror C1083: 无法打开包括文件: “OSM2ODR.h”: No such file or directory`
+
+解决：将0.9.14`build`中的`carla\Build\osm2odr-visualstudio`复制过来。
+
 ---
 ## PythonAPI
 ### Versions 0.9.12+

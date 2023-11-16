@@ -248,28 +248,31 @@ Carla 生态系统中有八个城镇，每个城镇都有两种地图，非分�
 !!! 注意
     用户可以使用 [自定义地图](tuto_A_map_customization.md) 甚至创建要在 CARLA 中使用的 [新地图](tuto_M_custom_map_overview.md)。
 
-| 城镇                           | 概括                                                                                                          |
-|------------------------------|-------------------------------------------------------------------------------------------------------------|
-| **[Town01](img/Town01.jpg)** | 由“T 字路口”组成的基本城镇布局。                                                                                          |
-| **[Town02](img/Town02.jpg)** | 和 **Town01** 类似，但是更小。                                                                                       |
-| **[Town03](img/Town03.jpg)** | 最复杂的城镇，有 5 车道交叉路口、环岛、凹凸不平、隧道等。                                                                              |
-| **[Town04](img/Town04.jpg)** | 有高速公路和小镇的无限循环。                                                                                              |
-| **[Town05](img/Town05.jpg)** | 方形网格城镇，有十字路口和一座桥梁。每个方向有多个车道。对于执行变道很有用。                                                                      |
-| **[Town06](img/Town06.jpg)** | 高速公路长，有许多高速公路入口和出口。它还有一个 [**密歇根左转**](<https://en.wikipedia.org/wiki/Michigan_left>)。                        |
-| **[Town07](img/Town07.jpg)** | 乡村环境，道路狭窄，谷仓，几乎没有红绿灯。                                 |
+| 城镇                           | 概括                                                                                                         |
+|------------------------------|------------------------------------------------------------------------------------------------------------|
+| **[Town01](img/Town01.jpg)** | 由“T 字路口”组成的基本城镇布局。                                                                                         |
+| **[Town02](img/Town02.jpg)** | 和 **Town01** 类似，但是更小。                                                                                      |
+| **[Town03](img/Town03.jpg)** | 最复杂的城镇，有 5 车道交叉路口、环岛、凹凸不平、隧道等。                                                                             |
+| **[Town04](img/Town04.jpg)** | 有高速公路和小镇的无限循环。                                                                                             |
+| **[Town05](img/Town05.jpg)** | 方形网格城镇，有十字路口和一座桥梁。每个方向有多个车道。对于执行变道很有用。   |
+| **[Town06](img/Town06.jpg)** | 高速公路长，有许多高速公路入口和出口。它还有一个 [**密歇根左转**](<https://en.wikipedia.org/wiki/Michigan_left>)。 |
+| **[Town07](img/Town07.jpg)** | 乡村环境，道路狭窄，谷仓，几乎没有红绿灯。  |
 | **[Town10](img/Town10.jpg)** | 具有大道或长廊等不同环境的城市环境，以及更真实的纹理。 |
+| **[Town11](map_town11.md)**  | 具有大道或长廊等不同环境的城市环境，以及更真实的纹理。 |
+| **[Town12](map_town12.md)**  | 一张包含许多不同区域的大地图，包括高层建筑、住宅区和乡村环境。 |
+
 
 ### 分层地图
 
 分层地图的布局与非分层地图相同，但可以关闭和打开地图的图层。有一个无法关闭的最小布局，由道路、人行道、交通灯和交通标志组成。分层地图可以通过后缀 `_Opt` 来标识，例如`Town01_Opt`。使用这些地图，可以通过 Python API [加载][load_layer]和[卸载][unload_layer]图层：
 
-		# Load layered map for Town 01 with minimum layout plus buildings and parked vehicles
+		# 加载 城镇01 的分层地图，带有最小布局加上建筑物和停放的车辆
 		world = client.load_world('Town01_Opt', carla.MapLayer.Buildings | carla.MapLayer.ParkedVehicles)
 
-		# Toggle all buildings off
+		# 关闭所有建筑
 		world.unload_map_layer(carla.MapLayer.Buildings)
 
-		# Toggle all buildings on	
+		# 打开所有建筑	
 		world.load_map_layer(carla.MapLayer.Buildings)
 
 [load_layer]: https://carla.readthedocs.io/en/latest/python_api/#carla.World.load_map_layer
