@@ -78,7 +78,7 @@ CARLA论坛</a>
 
 [__交通模拟概述__](ts_traffic_simulation_overview.md) — 可用于使用交通填充场景的不同选项的概述
 
-[__Traffic Manager__](adv_traffic_manager.md) — 通过将车辆设置为自动驾驶模式来模拟城市交通。
+[__交通管理器__](adv_traffic_manager.md) — 通过将车辆设置为自动驾驶模式来模拟城市交通。
 
 [__SUMO 联合仿真__](adv_sumo.md) — 在 CARLA 和 SUMO 之间运行同步仿真。
 
@@ -106,7 +106,7 @@ CARLA论坛</a>
 
 ## 自定义地图
 
-[__CARLA 中自定义地图的概述__](tuto_M_custom_map_overview.md) — 添加自定义标准尺寸地图所涉及的过程和选项的概述
+[__Carla 中自定义地图的概述__](tuto_M_custom_map_overview.md) — 添加自定义标准尺寸地图所涉及的过程和选项的概述
 
 [__在 RoadRunner 中创建地图__](tuto_M_generate_map.md) — 如何在 RoadRunner 中生成海关、标准尺寸的地图
 
