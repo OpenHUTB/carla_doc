@@ -19,4 +19,4 @@ mkdocs serve
 ```shell
 mkdocs gh-deploy
 ```
-该命令会自动将相应内容推送到项目的`gh-pages`分支上，然后在 `Github` 项目设置中选择好对应 `GitPage` 的分支，然后通过 `https://<user-name>.github.io/<project-name>` 访问即可。
+该命令会自动将相应内容推送到项目的`gh-pages`分支上，然后在 `Github` 项目设置中选择好对应 `GitPage` 的分支，目录选择`/(root)`（注意不要是`/(docs)`，然后通过 `https://openhutb.github.io/carla_doc/` 访问即可。
