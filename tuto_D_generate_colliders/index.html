@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>生成详细碰撞 - CARLA 模拟器 中文文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u751f\u6210\u8be6\u7ec6\u78b0\u649e";
+        var mkdocs_page_input_path = "tuto_D_generate_colliders.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> CARLA 模拟器 中文文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">入门</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../start_introduction/">介绍</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../start_quickstart/">快速启动包安装</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">构建CARLA</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_linux/">Linux build</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_windows/">Windows build</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_update/">Update CARLA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_system/">Build system</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_docker/">CARLA in Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_faq/">F.A.Q.</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第一步</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_concepts/">核心概念</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_world/">第一、 世界和客户端</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_actors/">第二、 角色和蓝图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_map/">第三、地图和导航 </a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_sensors/">第四、 传感器和数据</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">高级概念</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_opendrive/">OpenDRIVE 独立模式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_ptv/">PTV-Vissim 联合仿真</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_recorder/">Recorder</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_rendering_options/">渲染选项</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_rss/">RSS</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_synchrony_timestep/">同步和时间步长</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_benchmarking/">基准性能</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_agents/">CARLA 代理</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">交通模拟</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ts_traffic_simulation_overview/">交通模拟概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_traffic_manager/">Traffic Manager</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_sumo/">SUMO 联合仿真</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_scenic/">Scenic</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">参考</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../python_api/">Python API 参考</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bp_library/">Blueprint Library</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_cpp/">C++ 参考</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_recorder_binary_file_format/">Recorder 二进制文件格式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_sensors/">Sensors reference</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">插件</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../plugins_carlaviz/">carlaviz — web 可视化器</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">ROS 桥接器</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ros_documentation/">ROS 桥文档</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">自定义地图</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_map_overview/">CARLA 中自定义地图的概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在CARLA包导入地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 CARLA 源构建中导入地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_alternative/">导入地图的替代方法</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_manual_map_package/">手动准备地图包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_layers/">自定义地图：分层地图: Layered maps</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_add_tl/">自定义地图：红绿灯和标志</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_road_painter/">自定义地图：Road painter</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_buildings/">自定义地图：程序建筑</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_weather_landscape/">自定义地图：天气和景观</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_pedestrian_navigation/">生成行人导航</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">大型地图</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_overview/">大型地图概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_roadrunner/">在RoadRunner中创建大地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_import/">导入/打包大地图</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（通用）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_add_friction_triggers/">添加摩擦触发器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_vehicle_physics/">控制车辆物理模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_walker_skeletons/">控制行人骨骼</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用OpenStreetMap生成地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索模拟数据</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_carsim_integration/">CarSim 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_chrono/">Chrono 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎UE和 CARLA</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（资产）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_add_vehicle/">添加新车辆</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_add_props/">添加新道具</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_create_standalone/">创建独立包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_material_customization/">材料定制</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（开发人员）</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_contribute_assets/">如何升级内容</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_create_sensor/">创建一个传感器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_create_semantic_tags/">创建语义标签</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_customize_vehicle_suspension/">自定义车辆悬架</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">生成详细碰撞</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#raycast-colliders">Raycast colliders</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#1-export-the-vehicle-fbx">1-Export the vehicle FBX</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2-generate-a-low-density-mesh">2-Generate a low density mesh</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#3-import-the-mesh-into-ue">3-Import the mesh into UE</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#4-add-the-mesh-as-collider">4-Add the mesh as collider</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#physics-colliders">Physics colliders</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#0-prerequisites">0-Prerequisites</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#1-define-custom-collision-for-wheels-in-unreal-editor">1-Define custom collision for wheels in Unreal Editor</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2-export-the-vehicle-as-fbx">2-Export the vehicle as FBX</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#3-to-4-import-to-blender-and-create-custom-boundary">3 to 4-Import to Blender and create custom boundary</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5-export-from-blender-to-fbx">5-Export from Blender to FBX</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#6-to-8-import-collider-and-define-physics">6 to 8-Import collider and define physics</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_make_release/">发布版本</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">CARLA 生态系统</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">贡献</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_contribution_guidelines/">贡献指南</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_code_of_conduct/">行为准则</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_coding_standard/">编码标准</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_doc_standard/">文档标准</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">CARLA 模拟器 中文文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">教程（开发人员）</li>
+      <li class="breadcrumb-item active">生成详细碰撞</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="generate-detailed-colliders">Generate detailed colliders</h1>
+<p>This tutorial explains how to create more accurate collision boundaries for vehicles (relative to the original shape of the object). These can be used as physics collider, compatible with collision detection, or as a secondary collider used by raycast-based sensors such a the LIDAR to retrieve more accurate data. New colliders can be integrated into CARLA so that all the community can benefit from these. Find out more about how to contribute to the content repository <a href="../cont_contribution_guidelines/">here</a>.  </p>
+<p>There are two approaches to create the new colliders, but they are not completely equivalent.  </p>
+<ul>
+<li><strong>Raycast colliders</strong> — This approach requires some basic 3D modelling skills. A secondary collider is added to the vehicle so that raycast-based sensors such as the LIDAR retrieve more precise data.  </li>
+<li><strong>Physics colliders</strong> — This approach follows the <a href="https://bitbucket.org/yankagan/carla-content/wiki/Home">tutorial</a> created by the contributor <strong><a href="https://github.com/yankagan">Yan Kaganovsky / yankagan</a></strong> to create a mesh with no need of manual modelling. This mesh is then used as main collider for the vehicle, for physics and sensor detection (unless a secondary collider is added).  </li>
+</ul>
+<hr />
+<ul>
+<li><a href="#raycast-colliders"><strong>Raycast colliders</strong></a>  <ul>
+<li><a href="#1-export-the-vehicle-fbx">1-Export the vehicle FBX</a>  </li>
+<li><a href="#2-generate-a-low-density-mesh">2-Generate a low density mesh</a>  </li>
+<li><a href="#3-import-the-mesh-into-ue">3-Import the mesh into UE</a>  </li>
+<li><a href="#4-add-the-mesh-as-collider">4-Add the mesh as collider</a>  </li>
+</ul>
+</li>
+</ul>
+<hr />
+<ul>
+<li><a href="#physics-colliders"><strong>Physics colliders</strong></a>  <ul>
+<li><a href="#0-prerequisites">0-Prerequisites</a>  </li>
+<li><a href="#1-define-custom-collision-for-wheels-in-unreal-editor">1-Define custom collision for wheels in Unreal Editor</a>  </li>
+<li><a href="#2-export-the-vehicle-as-fbx">2-Export the vehicle as FBX</a>  </li>
+<li><a href="#3-to-4-import-to-blender-and-create-custom-boundary">3 to 4-Import to Blender and create custom boundary</a>  </li>
+<li><a href="#5-export-from-blender-to-fbx">5-Export from Blender to FBX</a>  </li>
+<li><a href="#6-to-8-import-collider-and-define-physics">6 to 8-Import collider and define physics</a>  </li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="raycast-colliders">Raycast colliders</h2>
+<h3 id="1-export-the-vehicle-fbx">1-Export the vehicle FBX</h3>
+<p>First of all, the original mesh of the vehicle is necessary to be used as reference. For the sake of learning, this tutorial exports the mesh of a CARLA vehicle.<br />
+<strong>1.1</strong> open CARLA in UE and go to <code>Content/Carla/Static/Vehicles/4Wheeled/&lt;model_of_vehicle&gt;</code>.<br />
+<strong>1.2</strong> Press <code>right-click</code> on <code>SM_&lt;model_of_vehicle&gt;</code> to export the vehicle mesh as FBX.  </p>
+<h3 id="2-generate-a-low-density-mesh">2-Generate a low density mesh</h3>
+<p><strong>2.1</strong> Open a 3D modelling software and, using the original mesh as reference, model a low density mesh that stays reliable to the original.  </p>
+<p><img alt="manual_meshgen" src="../img/tuto_D_colliders_mesh.jpg" /></p>
+<p><strong>2.2</strong> Save the new mesh as FBX. Name de mesh as <code>sm_sc_&lt;model_of_vehicle&gt;.fbx</code>. E.g. <code>sm_sc_audiTT.fbx</code>.  </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As for the wheels and additional elements such as roofs, mudguards, etc. the new mesh should follow the geometry quite accurately. Placing simple cubes will not do it.  </p>
+</div>
+<h3 id="3-import-the-mesh-into-ue">3-Import the mesh into UE</h3>
+<p><strong>3.1</strong> Open CARLA in UE and go to <code>Content/Carla/Static/Vehicles/4Wheeled/&lt;model_of_vehicle&gt;</code>.<br />
+<strong>3.2</strong> Press <code>right-click</code> to import the new mesh <code>SM_sc_&lt;model_of_vehicle&gt;.fbx</code>.  </p>
+<h3 id="4-add-the-mesh-as-collider">4-Add the mesh as collider</h3>
+<p><strong>4.1</strong> Go to <code>Content/Carla/Blueprints/Vehicles/&lt;model_of_vehicle&gt;</code> and open the blueprint of the vehicle named as <code>BP_&lt;model_of_vehicle&gt;</code>.  </p>
+<p><strong>4.2</strong> Select the <code>CustomCollision</code> element and add the <code>SM_sc_&lt;model_of_vehicle&gt;.fbx</code> in the <code>Static mesh</code> property.  </p>
+<p><img alt="manual_customcollision" src="../img/tuto_D_colliders_final.jpg" /></p>
+<p><strong>4.3</strong> Press <code>Compile</code> in the toolbar above and save the changes.  </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For vehicles such as motorbikes and bicycles, change the collider mesh of the vehicle itself using the same component, <code>CustomCollision</code>.  </p>
+</div>
+<hr />
+<h2 id="physics-colliders">Physics colliders</h2>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>This tutorial is based on a <a href="https://bitbucket.org/yankagan/carla-content/wiki/Home">contribution</a> made by <strong><a href="https://github.com/yankagan">yankagan</a></strong>! The contributor also wants to aknowledge <strong>Francisco E</strong> for the tutorial on <a href="https://www.youtube.com/watch?v=SEH4f0HrCDM">how to import custom collisions in UE</a>.  </p>
+</div>
+<p><a href="https://www.youtube.com/watch?v=CXK2M2cNQ4Y">This video</a> shows the results achieved after following this tutorial.  </p>
+<h3 id="0-prerequisites">0-Prerequisites</h3>
+<ul>
+<li><strong>Build CARLA from source</strong> on <a href="../build_linux/">Linux</a> or <a href="../build_windows/">Windows</a>.  </li>
+<li><strong>Blender 2.80 or newer</strong> from the <a href="https://www.blender.org/download/">official site</a> for free (open-source 3D modelling software).  </li>
+<li><strong>VHACD Plugin for Blender</strong> following the using the instructions in <a href="https://github.com/andyp123/blender_vhacd">here</a>. This plugin automatically creates an approximation of a selected object using a collection of convex hulls. <a href="https://github.com/kmammou/v-hacd">Read more</a>.  </li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This <a href="https://www.youtube.com/watch?v=ppASl6yaguU">series</a> and <a href="https://www.udemy.com/course/blender-3d-from-zero-to-hero/?pmtag=MRY1010">Udemy course</a> may be a good introduction to Blender for newcomers. </p>
+</div>
+<h3 id="1-define-custom-collision-for-wheels-in-unreal-editor">1-Define custom collision for wheels in Unreal Editor</h3>
+<p><strong>Step 1.</strong> <em>(in UE)</em> — Add collision boundaries for the wheels. The steps are detailed in the following video.  </p>
+<p><a href="https://www.youtube.com/watch?v=bECnsTw6ehI"><img alt="auto_step01" src="../img/tuto_D_colliders_01.jpg" /></a></p>
+<h3 id="2-export-the-vehicle-as-fbx">2-Export the vehicle as FBX</h3>
+<p><strong>Step 2.</strong> <em>(in UE)</em> — Export the skeletal mesh of a vehicle to an FBX file.<br />
+<strong>2.1</strong> Go to <code>Content/Carla/Static/Vehicles/4Wheeled/&lt;model_of_vehicle&gt;</code>.<br />
+<strong>2.2</strong> Press <code>right-click</code> on <code>SM_&lt;model_of_vehicle&gt;</code> to export the vehicle mesh as FBX.  </p>
+<h3 id="3-to-4-import-to-blender-and-create-custom-boundary">3 to 4-Import to Blender and create custom boundary</h3>
+<p><strong>Step 3.</strong> <em>(in Blender)</em> — Import the FBX file into Blender.<br />
+<strong>Step 4.</strong> <em>(in Blender)</em> — Add convex hull meshes to form the new collision boundary (UE requirement for computational efficiency). This is the hardest step. If the entire car is selected, the collision boundary created by VHACD will be imprecise and messy. It will contain sharp edges which will mess-up the drive on the road. It's important that the wheels have smooth boundaries around them. Using convex decomposition on the car's body the mirrors would still not look right. For computer vision, the details of the vehicle are important. For said reason, these step has been divided into two parts. </p>
+<p><strong>4.1</strong> Cut out the bottom parts of the wheels, the side mirrors and the top part of the car's body to create the first boundary using the VHACD tool. Cut out the bottom half of the car to create the second boundary (top part of the car) using the VHACD tool.  </p>
+<p><a href="https://www.youtube.com/watch?v=oROkK3OCuOA"><img alt="auto_step03" src="../img/tuto_D_colliders_03.jpg" /></a></p>
+<p><strong>4.2</strong> Create separate boundaries for side mirrors using the VHACD tool.  </p>
+<p><a href="https://www.youtube.com/watch?v=L3upzdC602s"><img alt="auto_step04" src="../img/tuto_D_colliders_04.jpg" /></a></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Be very careful about naming the object. Each boundary should have begin with <code>UCX_</code>, and the rest of the name has to be <strong>exactly</strong> the same as the original mesh.  </p>
+</div>
+<h3 id="5-export-from-blender-to-fbx">5-Export from Blender to FBX</h3>
+<p><strong>Step 5.</strong> <em>(in Blender)</em> — Export the custom collision boundaries into an FBX file.<br />
+<strong>5.1</strong> Select only the original vehicle and all the newly added objects for collision.<br />
+<strong>5.2</strong> In the export menu, check <code>selected objects</code> and select only "Mesh".  </p>
+<p><a href="https://youtu.be/aJPyskYjzWo"><img alt="auto_step05" src="../img/tuto_D_colliders_05.jpg" /></a></p>
+<h3 id="6-to-8-import-collider-and-define-physics">6 to 8-Import collider and define physics</h3>
+<p><strong>Step 6.</strong> <em>(in UE)</em> — Import the new FBX into CARLA as an Unreal asset file (static mesh).<br />
+<strong>Step 7.</strong> <em>(in UE)</em> — Import the custom collider into the physics asset for the specific vehicle, so that it is used for computations.<br />
+<strong>Step 8.</strong> <em>(in UE)</em> — Create constraints that connect the different joints and define the physics of all parts.  </p>
+<p><a href="https://www.youtube.com/watch?v=aqFNwAyj2CA"><img alt="auto_step0608" src="../img/tuto_D_colliders_0608.jpg" /></a></p>
+<hr />
+<p>That is a wrap on how to change the default colliders for vehicles in CARLA.  </p>
+<p>Open CARLA and mess around for a while. If there are any doubts, feel free to post these in the forum. </p>
+<div class="build-buttons">
+<p>
+<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
+CARLA forum</a>
+</p>
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../tuto_D_customize_vehicle_suspension/" class="btn btn-neutral float-left" title="自定义车辆悬架"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../tuto_D_make_release/" class="btn btn-neutral float-right" title="发布版本">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../tuto_D_customize_vehicle_suspension/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../tuto_D_make_release/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

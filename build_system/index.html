@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Build system - CARLA 模拟器 中文文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Build system";
+        var mkdocs_page_input_path = "build_system.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> CARLA 模拟器 中文文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">入门</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../start_introduction/">介绍</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../start_quickstart/">快速启动包安装</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">构建CARLA</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../build_linux/">Linux build</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_windows/">Windows build</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_update/">Update CARLA</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Build system</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#setup">Setup</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#libcarla">LibCarla</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#carlaue4-and-carla-plugin">CarlaUE4 and Carla plugin</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pythonapi">PythonAPI</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#versions-0912">Versions 0.9.12+</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#versions-prior-to-0912">Versions prior to 0.9.12</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_docker/">CARLA in Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_faq/">F.A.Q.</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第一步</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_concepts/">核心概念</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_world/">第一、 世界和客户端</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_actors/">第二、 角色和蓝图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_map/">第三、地图和导航 </a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_sensors/">第四、 传感器和数据</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">高级概念</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_opendrive/">OpenDRIVE 独立模式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_ptv/">PTV-Vissim 联合仿真</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_recorder/">Recorder</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_rendering_options/">渲染选项</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_rss/">RSS</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_synchrony_timestep/">同步和时间步长</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_benchmarking/">基准性能</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_agents/">CARLA 代理</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">交通模拟</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ts_traffic_simulation_overview/">交通模拟概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_traffic_manager/">Traffic Manager</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_sumo/">SUMO 联合仿真</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_scenic/">Scenic</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">参考</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../python_api/">Python API 参考</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bp_library/">Blueprint Library</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_cpp/">C++ 参考</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_recorder_binary_file_format/">Recorder 二进制文件格式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_sensors/">Sensors reference</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">插件</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../plugins_carlaviz/">carlaviz — web 可视化器</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">ROS 桥接器</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ros_documentation/">ROS 桥文档</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">自定义地图</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_map_overview/">CARLA 中自定义地图的概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在CARLA包导入地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 CARLA 源构建中导入地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_alternative/">导入地图的替代方法</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_manual_map_package/">手动准备地图包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_layers/">自定义地图：分层地图: Layered maps</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_add_tl/">自定义地图：红绿灯和标志</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_road_painter/">自定义地图：Road painter</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_buildings/">自定义地图：程序建筑</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_weather_landscape/">自定义地图：天气和景观</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_pedestrian_navigation/">生成行人导航</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">大型地图</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_overview/">大型地图概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_roadrunner/">在RoadRunner中创建大地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_import/">导入/打包大地图</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（通用）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_add_friction_triggers/">添加摩擦触发器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_vehicle_physics/">控制车辆物理模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_walker_skeletons/">控制行人骨骼</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用OpenStreetMap生成地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索模拟数据</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_carsim_integration/">CarSim 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_chrono/">Chrono 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎UE和 CARLA</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（资产）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_add_vehicle/">添加新车辆</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_add_props/">添加新道具</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_create_standalone/">创建独立包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_material_customization/">材料定制</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（开发人员）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_contribute_assets/">如何升级内容</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_create_sensor/">创建一个传感器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_create_semantic_tags/">创建语义标签</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_customize_vehicle_suspension/">自定义车辆悬架</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_generate_colliders/">生成详细碰撞</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_make_release/">发布版本</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">CARLA 生态系统</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">贡献</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_contribution_guidelines/">贡献指南</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_code_of_conduct/">行为准则</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_coding_standard/">编码标准</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_doc_standard/">文档标准</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">CARLA 模拟器 中文文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">构建CARLA</li>
+      <li class="breadcrumb-item active">Build system</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="build-system">Build system</h1>
+<ul>
+<li><a href="#setup"><strong>Setup</strong></a>  </li>
+<li><a href="#libcarla"><strong>LibCarla</strong></a>  </li>
+<li><a href="#carlaue4-and-carla-plugin"><strong>CarlaUE4 and Carla plugin</strong></a>  </li>
+<li><a href="#pythonapi"><strong>PythonAPI</strong></a><ul>
+<li><a href="#versions-0912">Versions 0.9.12+</a></li>
+<li><a href="#versions-prior-to-0912">Versions prior to 0.9.12</a></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><em>This document is a work in progress, only the Linux build system is taken into account here.</em></p>
+</blockquote>
+<p>The most challenging part of the setup is to compile all the dependencies and modules to be compatible with a) Unreal Engine in the server-side, and b) Python in the client-side.</p>
+<p>The goal is to be able to call Unreal Engine's functions from a separate Python process.</p>
+<p><img alt="modules" src="../img/build_modules.jpg" /></p>
+<p>In Linux, we compile CARLA and all the dependencies with clang-8.0 and C++14 standard. We however link against different runtime C++ libraries depending on where the code going to be used, since all the code that is going to be linked with Unreal Engine needs to be compiled using <code>libc++</code>.</p>
+<hr />
+<h2 id="setup">Setup</h2>
+<p>Command</p>
+<pre><code class="language-sh">make setup
+</code></pre>
+<p>Get and compile dependencies</p>
+<ul>
+<li>llvm-8 (libc++ and libc++abi)</li>
+<li>rpclib-2.2.1 (twice, with libstdc++ and libc++)</li>
+<li>boost-1.72.0 (headers and boost_python for libstdc++)</li>
+<li>googletest-1.8.1 (with libc++)</li>
+</ul>
+<hr />
+<h2 id="libcarla">LibCarla</h2>
+<p>Compiled with CMake (minimum version required CMake 3.9).</p>
+<p>Command</p>
+<pre><code class="language-sh">make LibCarla
+</code></pre>
+<p>Two configurations:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Server</th>
+<th>Client</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Unit tests</strong></td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>Requirements</strong></td>
+<td>rpclib, gtest, boost</td>
+<td>rpclib, boost</td>
+</tr>
+<tr>
+<td><strong>std runtime</strong></td>
+<td>LLVM's <code>libc++</code></td>
+<td>Default <code>libstdc++</code></td>
+</tr>
+<tr>
+<td><strong>Output</strong></td>
+<td>headers and test exes</td>
+<td><code>ibcarla_client.a</code></td>
+</tr>
+<tr>
+<td><strong>Required by</strong></td>
+<td>Carla plugin</td>
+<td>PythonAPI</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="carlaue4-and-carla-plugin">CarlaUE4 and Carla plugin</h2>
+<p>Both compiled at the same step with Unreal Engine build tool. They require the <code>UE4_ROOT</code> environment variable set.</p>
+<p>Command</p>
+<pre><code class="language-sh">make CarlaUE4Editor
+</code></pre>
+<p>To launch Unreal Engine's Editor run</p>
+<pre><code class="language-sh">make launch
+</code></pre>
+<p>编译 0.9.15 时候出现<code>D:/work/buffer/carla/Unreal/CarlaUE4/Plugins/CarlaTools/Source/CarlaTools/Private/Online/CustomFileDownloader.cpp(11): fatal rror C1083: 无法打开包括文件: “OSM2ODR.h”: No such file or directory</code></p>
+<p>解决：将0.9.14<code>build</code>中的<code>carla\Build\osm2odr-visualstudio</code>复制过来。</p>
+<hr />
+<h2 id="pythonapi">PythonAPI</h2>
+<h3 id="versions-0912">Versions 0.9.12+</h3>
+<p>Compiled using Python's <code>setuptools</code> ("setup.py"). Currently requires the following to be installed in the machine: Python, libpython-dev, and
+libboost-python-dev, pip&gt;=20.3, wheel, and auditwheel.</p>
+<p>Command:</p>
+<pre><code class="language-sh">make PythonAPI
+</code></pre>
+<p>Creates two files that each contain the client library and correspond to the supported Python version on the system. One file is a <code>.whl</code> file and the other is an <code>.egg</code> file. This allows for the option of two different, mutually exclusive ways to use the client library. </p>
+<blockquote>
+<p><strong>A. .whl file</strong></p>
+<blockquote>
+<p>The <code>.whl</code> is installed using the command:</p>
+<pre><code> pip install &lt;wheel_file&gt;.whl
+</code></pre>
+<p>There is no need to import the library path directly in scripts as is required in previous versions or <code>.egg</code> files (see section <a href="#versions-prior-to-0912"><strong>Versions prior to 0.9.12</strong></a>); <code>import carla</code> is sufficient.</p>
+</blockquote>
+<p><strong>B. .egg file</strong></p>
+<blockquote>
+<p>See the section <a href="#versions-prior-to-0912"><strong>Versions prior to 0.9.12</strong></a> for more information.</p>
+</blockquote>
+</blockquote>
+<h3 id="versions-prior-to-0912">Versions prior to 0.9.12</h3>
+<p>Compiled using Python's <code>setuptools</code> ("setup.py"). Currently requires the following to be installed in the machine: Python, libpython-dev, and
+libboost-python-dev.</p>
+<p>Command</p>
+<pre><code class="language-sh">make PythonAPI
+</code></pre>
+<p>It creates two "egg" packages</p>
+<ul>
+<li><code>PythonAPI/dist/carla-X.X.X-py2.7-linux-x86_64.egg</code></li>
+<li><code>PythonAPI/dist/carla-X.X.X-py3.7-linux-x86_64.egg</code></li>
+</ul>
+<p>This package can be directly imported into a Python script by adding it to the system path.</p>
+<pre><code class="language-python">#!/usr/bin/env python
+
+import sys
+
+sys.path.append(
+    'PythonAPI/dist/carla-X.X.X-py%d.%d-linux-x86_64.egg' % (sys.version_info.major,
+                                                             sys.version_info.minor))
+
+import carla
+
+# ...
+</code></pre>
+<p>Alternatively, it can be installed with <code>easy_install</code></p>
+<pre><code class="language-sh">easy_install2 --user --no-deps PythonAPI/dist/carla-X.X.X-py2.7-linux-x86_64.egg
+easy_install3 --user --no-deps PythonAPI/dist/carla-X.X.X-py3.7-linux-x86_64.egg
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../build_update/" class="btn btn-neutral float-left" title="Update CARLA"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../build_docker/" class="btn btn-neutral float-right" title="CARLA in Docker">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../build_update/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../build_docker/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

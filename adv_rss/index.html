@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>RSS - CARLA 模拟器 中文文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "RSS";
+        var mkdocs_page_input_path = "adv_rss.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> CARLA 模拟器 中文文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">入门</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../start_introduction/">介绍</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../start_quickstart/">快速启动包安装</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">构建CARLA</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_linux/">Linux build</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_windows/">Windows build</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_update/">Update CARLA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_system/">Build system</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_docker/">CARLA in Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_faq/">F.A.Q.</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第一步</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_concepts/">核心概念</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_world/">第一、 世界和客户端</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_actors/">第二、 角色和蓝图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_map/">第三、地图和导航 </a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_sensors/">第四、 传感器和数据</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">高级概念</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_opendrive/">OpenDRIVE 独立模式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_ptv/">PTV-Vissim 联合仿真</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_recorder/">Recorder</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_rendering_options/">渲染选项</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">RSS</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#compilation">Compilation</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#dependencies">Dependencies</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#build">Build</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#current-state">Current state</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#rsssensor">RssSensor</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#rssrestrictor">RssRestrictor</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_synchrony_timestep/">同步和时间步长</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_benchmarking/">基准性能</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_agents/">CARLA 代理</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">交通模拟</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ts_traffic_simulation_overview/">交通模拟概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_traffic_manager/">Traffic Manager</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_sumo/">SUMO 联合仿真</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_scenic/">Scenic</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">参考</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../python_api/">Python API 参考</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bp_library/">Blueprint Library</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_cpp/">C++ 参考</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_recorder_binary_file_format/">Recorder 二进制文件格式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_sensors/">Sensors reference</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">插件</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../plugins_carlaviz/">carlaviz — web 可视化器</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">ROS 桥接器</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ros_documentation/">ROS 桥文档</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">自定义地图</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_map_overview/">CARLA 中自定义地图的概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在CARLA包导入地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 CARLA 源构建中导入地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_alternative/">导入地图的替代方法</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_manual_map_package/">手动准备地图包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_layers/">自定义地图：分层地图: Layered maps</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_add_tl/">自定义地图：红绿灯和标志</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_road_painter/">自定义地图：Road painter</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_buildings/">自定义地图：程序建筑</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_weather_landscape/">自定义地图：天气和景观</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_pedestrian_navigation/">生成行人导航</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">大型地图</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_overview/">大型地图概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_roadrunner/">在RoadRunner中创建大地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_import/">导入/打包大地图</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（通用）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_add_friction_triggers/">添加摩擦触发器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_vehicle_physics/">控制车辆物理模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_walker_skeletons/">控制行人骨骼</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用OpenStreetMap生成地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索模拟数据</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_carsim_integration/">CarSim 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_chrono/">Chrono 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎UE和 CARLA</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（资产）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_add_vehicle/">添加新车辆</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_add_props/">添加新道具</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_create_standalone/">创建独立包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_material_customization/">材料定制</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（开发人员）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_contribute_assets/">如何升级内容</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_create_sensor/">创建一个传感器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_create_semantic_tags/">创建语义标签</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_customize_vehicle_suspension/">自定义车辆悬架</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_generate_colliders/">生成详细碰撞</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_make_release/">发布版本</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">CARLA 生态系统</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">贡献</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_contribution_guidelines/">贡献指南</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_code_of_conduct/">行为准则</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_coding_standard/">编码标准</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_doc_standard/">文档标准</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">CARLA 模拟器 中文文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">高级概念</li>
+      <li class="breadcrumb-item active">RSS</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="rss">RSS</h1>
+<p>CARLA integrates the <a href="https://github.com/intel/ad-rss-lib">C++ Library for Responsibility Sensitive Safety</a> in the client library. This feature allows users to investigate behaviours of RSS without having to implement anything. CARLA will take care of providing the input, and applying the output to the AD systems on the fly.</p>
+<ul>
+<li><a href="#overview"><strong>Overview</strong></a></li>
+<li><a href="#compilation"><strong>Compilation</strong></a><ul>
+<li><a href="#dependencies">Dependencies</a></li>
+<li><a href="#build">Build</a></li>
+</ul>
+</li>
+<li><a href="#current-state"><strong>Current state</strong></a><ul>
+<li><a href="#rsssensor">RssSensor</a></li>
+<li><a href="#rssrestrictor">RssRestrictor</a></li>
+</ul>
+</li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>This feature is a work in progress. Right now, it is only available for the Linux build.</p>
+</div>
+<hr />
+<h2 id="overview">Overview</h2>
+<p>The RSS library implements a mathematical model for safety assurance. It receives sensor information, and provides restrictions to the controllers of a vehicle. To sum up, the RSS module uses the sensor data to define <strong>situations</strong>. A situation describes the state of the ego vehicle with an element of the environment. For each situation, safety checks are made, and a proper response is calculated. The overall response is the result of all of the combined. For specific information on the library, read the <a href="https://intel.github.io/ad-rss-lib/">documentation</a>, especially the <a href="https://intel.github.io/ad-rss-lib/ad_rss/Overview/">Background section</a>.</p>
+<p>This is implemented in CARLA using two elements.</p>
+<ul>
+<li><strong>RssSensor</strong> is in charge of the situation analysis, and response generation using the <em>ad-rss-lib</em>.</li>
+<li><strong>RssRestrictor</strong> applies the response by restricting the commands of the vehicle.</li>
+</ul>
+<p>The following image sketches the integration of <strong>RSS</strong> into the CARLA architecture.</p>
+<p><img alt="Interate RSS into CARLA" src="../img/rss_carla_integration_architecture.png" /></p>
+<p><strong>1. The server.</strong></p>
+<ul>
+<li>Sends a camera image to the client. <small>(Only if the client needs visualization).</small></li>
+<li>Provides the RssSensor with world data.</li>
+<li>Sends a physics model of the vehicle to the RssRestrictor. <small>(Only if the default values are overwritten).</small></li>
+</ul>
+<p><strong>2. The client.</strong></p>
+<ul>
+<li>Provides the <em>RssSensor</em> with some <a href="https://intel.github.io/ad-rss-lib/ad_rss/Appendix-ParameterDiscussion/">parameters</a> to be considered.
+-Sends to the <em>RssResrictor</em> an initial <a href="../python_api/#carla.VehicleControl">carla.VehicleControl</a>.</li>
+</ul>
+<p><strong>3. The RssSensor.</strong></p>
+<ul>
+<li>Uses the <em>ad-rss-lib</em> to extract situations, do safety checks, and generate a response.</li>
+<li>Sends the <em>RssRestrictor</em> a response containing the proper response and aceleration restrictions to be applied.</li>
+</ul>
+<p><strong>4. The RssRestrictor</strong></p>
+<ul>
+<li>If the client asks for it, applies the response to the <a href="../python_api/#carla.VehicleControl">carla.VehicleControl</a>, and returns the resulting one.</li>
+</ul>
+<p><a href="https://www.youtube.com/watch?v=UxKPXPT2T8Q"><img alt="RSS sensor in CARLA" src="../img/rss_carla_integration.png" /></a></p>
+<div style="text-align: right"><i>Visualization of the RssSensor results.</i></div>
+
+<hr />
+<h2 id="compilation">Compilation</h2>
+<p>The RSS integration has to be built aside from the rest of CARLA. The <strong>ad-rss-lib</strong> comes with an LGPL-2.1 open-source license that creates conflict. It has to be linked statically into <em>libCarla</em>.</p>
+<p>As a reminder, the feature is only available for the Linux build so far.</p>
+<h3 id="dependencies">Dependencies</h3>
+<p>There are additional prerequisites required for building RSS and its dependencies. Take a look at the <a href="https://intel.github.io/ad-rss-lib/BUILDING">official documentation</a>) to know more about this.</p>
+<p>Dependencies provided by Ubunutu (&gt;= 16.04).</p>
+<pre><code class="language-sh">sudo apt-get install libgtest-dev libpython-dev libpugixml-dev libtbb-dev
+</code></pre>
+<p>The dependencies are built using <a href="https://colcon.readthedocs.io/en/released/user/installation.html">colcon</a>, so it has to be installed.</p>
+<pre><code class="language-sh">pip3 install --user -U colcon-common-extensions
+</code></pre>
+<p>There are some additional dependencies for the Python bindings.</p>
+<pre><code class="language-sh">sudo apt-get install castxml
+pip3 install --user pygccxml pyplusplus
+</code></pre>
+<h3 id="build">Build</h3>
+<p>Once this is done, the full set of dependencies and RSS components can be built.</p>
+<ul>
+<li>Compile LibCarla to work with RSS.</li>
+</ul>
+<pre><code class="language-sh">make LibCarla.client.rss
+</code></pre>
+<ul>
+<li>Compile the PythonAPI to include the RSS feature.</li>
+</ul>
+<pre><code class="language-sh">make PythonAPI.rss
+</code></pre>
+<ul>
+<li>As an alternative, a package can be built directly.</li>
+</ul>
+<pre><code class="language-sh">make package.rss
+</code></pre>
+<hr />
+<h2 id="current-state">Current state</h2>
+<h3 id="rsssensor">RssSensor</h3>
+<p><a href="../python_api/#carla.RssSensor"><strong>carla.RssSensor</strong></a> supports <a href="https://intel.github.io/ad-rss-lib/RELEASE_NOTES_AND_DISCLAIMERS">ad-rss-lib v4.2.0 feature set</a> completely, including intersections, <a href="https://intel.github.io/ad-rss-lib/ad_rss_map_integration/HandleRoadBoundaries/">stay on road</a> support and <a href="https://intel.github.io/ad-rss-lib/ad_rss/UnstructuredConstellations/">unstructured constellations (e.g. with pedestrians)</a>.</p>
+<p>So far, the server provides the sensor with ground truth data of the surroundings that includes the state of other traffic participants and traffic lights.</p>
+<h3 id="rssrestrictor">RssRestrictor</h3>
+<p>When the client calls for it, the <a href="../python_api/#carla.RssRestrictor"><strong>carla.RssRestrictor</strong></a> will modify the vehicle controller to best reach the desired accelerations or decelerations by a given response.</p>
+<p>Due to the stucture of <a href="../python_api/#carla.VehicleControl">carla.VehicleControl</a> objects, the restrictions applied have certain limitations. These controllers include <code>throttle</code>, <code>brake</code> and <code>streering</code> values. However, due to car physics and the simple control options these might not be met. The restriction intervenes in lateral direction simply by counter steering towards the parallel lane direction. The brake will be activated if deceleration requested by RSS. This depends on vehicle mass and brake torques provided by the <a href="../python_api/#carla.Vehicle">carla.Vehicle</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In an automated vehicle controller it might be possible to adapt the planned trajectory to the restrictions. A fast control loop (&gt;1KHz) can be used to ensure these are followed.</p>
+</div>
+<hr />
+<p>That sets the basics regarding the RSS sensor in CARLA. Find out more about the specific attributes and parameters in the <a href="../ref_sensors/#rss-sensor">sensor reference</a>.</p>
+<p>Open CARLA and mess around for a while. If there are any doubts, feel free to post these in the forum.</p>
+<div class="build-buttons">
+<p>
+<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
+CARLA forum</a>
+</p>
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../adv_rendering_options/" class="btn btn-neutral float-left" title="渲染选项"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../adv_synchrony_timestep/" class="btn btn-neutral float-right" title="同步和时间步长">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../adv_rendering_options/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../adv_synchrony_timestep/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

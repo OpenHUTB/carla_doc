@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>第二、 角色和蓝图 - CARLA 模拟器 中文文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u7b2c\u4e8c\u3001 \u89d2\u8272\u548c\u84dd\u56fe";
+        var mkdocs_page_input_path = "core_actors.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> CARLA 模拟器 中文文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">入门</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../start_introduction/">介绍</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../start_quickstart/">快速启动包安装</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">构建CARLA</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_linux/">Linux build</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_windows/">Windows build</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_update/">Update CARLA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_system/">Build system</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_docker/">CARLA in Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_faq/">F.A.Q.</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第一步</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../core_concepts/">核心概念</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_world/">第一、 世界和客户端</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">第二、 角色和蓝图</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#blueprints">Blueprints</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#managing-the-blueprint-library">Managing the blueprint library</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#actor-life-cycle">Actor life cycle</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#spawning">Spawning</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#handling">Handling</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#destruction">Destruction</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#types-of-actors">Types of actors</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#sensors">Sensors</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#spectator">Spectator</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#traffic-signs-and-traffic-lights">Traffic signs and traffic lights</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#vehicles">Vehicles</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#walkers">Walkers</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_map/">第三、地图和导航 </a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_sensors/">第四、 传感器和数据</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">高级概念</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_opendrive/">OpenDRIVE 独立模式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_ptv/">PTV-Vissim 联合仿真</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_recorder/">Recorder</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_rendering_options/">渲染选项</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_rss/">RSS</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_synchrony_timestep/">同步和时间步长</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_benchmarking/">基准性能</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_agents/">CARLA 代理</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">交通模拟</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ts_traffic_simulation_overview/">交通模拟概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_traffic_manager/">Traffic Manager</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_sumo/">SUMO 联合仿真</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_scenic/">Scenic</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">参考</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../python_api/">Python API 参考</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bp_library/">Blueprint Library</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_cpp/">C++ 参考</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_recorder_binary_file_format/">Recorder 二进制文件格式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_sensors/">Sensors reference</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">插件</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../plugins_carlaviz/">carlaviz — web 可视化器</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">ROS 桥接器</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ros_documentation/">ROS 桥文档</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">自定义地图</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_map_overview/">CARLA 中自定义地图的概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在CARLA包导入地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 CARLA 源构建中导入地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_alternative/">导入地图的替代方法</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_manual_map_package/">手动准备地图包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_layers/">自定义地图：分层地图: Layered maps</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_add_tl/">自定义地图：红绿灯和标志</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_road_painter/">自定义地图：Road painter</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_buildings/">自定义地图：程序建筑</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_weather_landscape/">自定义地图：天气和景观</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_pedestrian_navigation/">生成行人导航</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">大型地图</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_overview/">大型地图概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_roadrunner/">在RoadRunner中创建大地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_import/">导入/打包大地图</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（通用）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_add_friction_triggers/">添加摩擦触发器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_vehicle_physics/">控制车辆物理模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_walker_skeletons/">控制行人骨骼</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用OpenStreetMap生成地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索模拟数据</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_carsim_integration/">CarSim 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_chrono/">Chrono 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎UE和 CARLA</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（资产）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_add_vehicle/">添加新车辆</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_add_props/">添加新道具</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_create_standalone/">创建独立包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_material_customization/">材料定制</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（开发人员）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_contribute_assets/">如何升级内容</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_create_sensor/">创建一个传感器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_create_semantic_tags/">创建语义标签</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_customize_vehicle_suspension/">自定义车辆悬架</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_generate_colliders/">生成详细碰撞</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_make_release/">发布版本</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">CARLA 生态系统</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">贡献</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_contribution_guidelines/">贡献指南</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_code_of_conduct/">行为准则</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_coding_standard/">编码标准</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_doc_standard/">文档标准</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">CARLA 模拟器 中文文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">第一步</li>
+      <li class="breadcrumb-item active">第二、 角色和蓝图</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="2nd-actors-and-blueprints">2nd. Actors and blueprints</h1>
+<p>Actors not only include vehicles and walkers, but also sensors, traffic signs, traffic lights, and the spectator. It is crucial to have full understanding on how to operate on them.  </p>
+<p>This section will cover spawning, destruction, types, and how to manage them. However, the possibilities are almost endless. Experiment, take a look at the <strong>tutorials</strong> in this documentation and share doubts and ideas in the <a href="https://github.com/carla-simulator/carla/discussions/">CARLA forum</a>.  </p>
+<ul>
+<li><a href="#blueprints"><strong>Blueprints</strong></a>  <ul>
+<li><a href="#managing-the-blueprint-library">Managing the blueprint library</a>  </li>
+</ul>
+</li>
+<li><a href="#actor-life-cycle"><strong>Actor life cycle</strong></a>  <ul>
+<li><a href="#spawning">Spawning</a>  </li>
+<li><a href="#handling">Handling</a>  </li>
+<li><a href="#destruction">Destruction</a>  </li>
+</ul>
+</li>
+<li><a href="#types-of-actors"><strong>Types of actors</strong></a>  <ul>
+<li><a href="#sensors">Sensors</a>  </li>
+<li><a href="#spectator">Spectator</a>  </li>
+<li><a href="#traffic-signs-and-traffic-lights">Traffic signs and traffic lights</a>  </li>
+<li><a href="#vehicles">Vehicles</a>  </li>
+<li><a href="#walkers">Walkers</a>  </li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="blueprints">Blueprints</h2>
+<p>These layouts allow the user to smoothly incorporate new actors into the simulation. They are already-made models with animations and a series of attributes. Some of these are modifiable and others are not. These attributes include, among others, vehicle color, amount of channels in a lidar sensor, a walker's speed, and much more.</p>
+<p>Available blueprints are listed in the <a href="../bp_library/">blueprint library</a>, along with their attributes. Vehicle and walker blueprints have a generation attribute that indicates if they are a new (gen 2) or old (gen 1) asset.</p>
+<h3 id="managing-the-blueprint-library">Managing the blueprint library</h3>
+<p>The <a href="../python_api/#carla.BlueprintLibrary">carla.BlueprintLibrary</a> class contains a list of <a href="../python_api/#carla.ActorBlueprint">carla.ActorBlueprint</a> elements. It is the world object who can provide access to it.</p>
+<pre><code class="language-py">blueprint_library = world.get_blueprint_library()
+</code></pre>
+<p>Blueprints have an ID to identify them and the actors spawned with it. The library can be read to find a certain ID, choose a blueprint at random, or filter results using a <a href="https://tldp.org/LDP/GNU-Linux-Tools-Summary/html/x11655.htm">wildcard pattern</a>.</p>
+<pre><code class="language-py"># Find a specific blueprint.
+collision_sensor_bp = blueprint_library.find('sensor.other.collision')
+# Choose a vehicle blueprint at random.
+vehicle_bp = random.choice(blueprint_library.filter('vehicle.*.*'))
+</code></pre>
+<p>Besides that, each <a href="../python_api/#carla.ActorBlueprint">carla.ActorBlueprint</a> has a series of <a href="../python_api/#carla.ActorAttribute">carla.ActorAttribute</a> that can be <em>get</em> and <em>set</em>.</p>
+<pre><code class="language-py">is_bike = [vehicle.get_attribute('number_of_wheels') == 2]
+if(is_bike)
+    vehicle.set_attribute('color', '255,0,0')
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Some of the attributes cannot be modified. Check it out in the <a href="../bp_library/">blueprint library</a>.</p>
+</div>
+<p>Attributes have an <a href="../python_api/#carla.ActorAttributeType">carla.ActorAttributeType</a> variable. It states its type from a list of enums. Also, modifiable attributes come with a <strong>list of recommended values</strong>. </p>
+<pre><code class="language-py">for attr in blueprint:
+    if attr.is_modifiable:
+        blueprint.set_attribute(attr.id, random.choice(attr.recommended_values))
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Users can create their own vehicles. Check the <strong>Tutorials (assets)</strong> to learn on that. Contributors can <a href="../tuto_D_contribute_assets/">add their new content to CARLA</a>. </p>
+</div>
+<hr />
+<h2 id="actor-life-cycle">Actor life cycle</h2>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>This section mentions different methods regarding actors. The Python API provides for <strong><a href="../python_api/#command.SpawnActor">commands</a></strong> to apply batches of the most common ones, in just one frame. </p>
+</div>
+<h3 id="spawning">Spawning</h3>
+<p><strong>The world object is responsible of spawning actors and keeping track of these.</strong> Spawning only requires a blueprint, and a <a href="../python_api/#carla.Transform">carla.Transform</a> stating a location and rotation for the actor.  </p>
+<p>The world has two different methods to spawn actors.  </p>
+<ul>
+<li><a href="../python_api/#carla.World.spawn_actor"><code>spawn_actor()</code></a> raises an exception if the spawning fails.</li>
+<li><a href="../python_api/#carla.World.try_spawn_actor"><code>try_spawn_actor()</code></a> returns <code>None</code> if the spawning fails.</li>
+</ul>
+<pre><code class="language-py">transform = Transform(Location(x=230, y=195, z=40), Rotation(yaw=180))
+actor = world.spawn_actor(blueprint, transform)
+</code></pre>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>CARLA uses the <a href="https://carla.readthedocs.io/en/latest/python_api/#carlarotation">Unreal Engine coordinates system</a>. Remember that <a href="https://carla.readthedocs.io/en/latest/python_api/#carlarotation"><code>carla.Rotation</code></a> constructor is defined as <code>(pitch, yaw, roll)</code>, that differs from Unreal Engine Editor <code>(roll, pitch, yaw)</code>. </p>
+</div>
+<p>The actor will not be spawned in case of collision at the specified location. No matter if this happens with a static object or another actor. It is possible to try avoiding these undesired spawning collisions.  </p>
+<ul>
+<li><code>map.get_spawn_points()</code> <strong>for vehicles</strong>. Returns a list of recommended spawning points. </li>
+</ul>
+<pre><code class="language-py">spawn_points = world.get_map().get_spawn_points()
+</code></pre>
+<ul>
+<li><code>world.get_random_location()</code> <strong>for walkers</strong>. Returns a random point on a sidewalk. This same method is used to set a goal location for walkers.  </li>
+</ul>
+<pre><code class="language-py">spawn_point = carla.Transform()
+spawn_point.location = world.get_random_location_from_navigation()
+</code></pre>
+<p>An actor can be attached to another one when spawned. Actors follow the parent they are attached to. This is specially useful for sensors. The attachment can be rigid (proper to retrieve precise data) or with an eased movement according to its parent. It is defined by the helper class <a href="../python_api/#carla.AttachmentType">carla.AttachmentType</a>.  </p>
+<p>The next example attaches a camera rigidly to a vehicle, so their relative position remains fixed. </p>
+<pre><code class="language-py">camera = world.spawn_actor(camera_bp, relative_transform, attach_to=my_vehicle, carla.AttachmentType.Rigid)
+</code></pre>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>When spawning attached actors, the transform provided must be relative to the parent actor. </p>
+</div>
+<p>Once spawned, the world object adds the actors to a list. This can be easily searched or iterated on. </p>
+<pre><code class="language-py">actor_list = world.get_actors()
+# Find an actor by id.
+actor = actor_list.find(id)
+# Print the location of all the speed limit signs in the world.
+for speed_sign in actor_list.filter('traffic.speed_limit.*'):
+    print(speed_sign.get_location())
+</code></pre>
+<h3 id="handling">Handling</h3>
+<p><a href="../python_api/#carla.Actor">carla.Actor</a> mostly consists of <em>get()</em> and <em>set()</em> methods to manage the actors around the map. </p>
+<pre><code class="language-py">print(actor.get_acceleration())
+print(actor.get_velocity())
+
+location = actor.get_location()
+location.z += 10.0
+actor.set_location(location)
+</code></pre>
+<p>The actor's physics can be disabled to freeze it in place. </p>
+<pre><code class="language-py">actor.set_simulate_physics(False)
+</code></pre>
+<p>Besides that, actors also have tags provided by their blueprints. These are mostly useful for semantic segmentation sensors. </p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Most of the methods send requests to the simulator asynchronously. The simulator has a limited amount of time each update to parse them. Flooding the simulator with <em>set()</em> methods will accumulate a significant lag.</p>
+</div>
+<h3 id="destruction">Destruction</h3>
+<p>Actors are not destroyed when a Python script finishes. They have to explicitly destroy themselves.  </p>
+<pre><code class="language-py">destroyed_sucessfully = actor.destroy() # Returns True if successful
+</code></pre>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Destroying an actor blocks the simulator until the process finishes. </p>
+</div>
+<hr />
+<h2 id="types-of-actors">Types of actors</h2>
+<h3 id="sensors">Sensors</h3>
+<p>Sensors are actors that produce a stream of data. They have their own section, <a href="../core_sensors/">4th. Sensors and data</a>. For now, let's just take a look at a common sensor spawning cycle.  </p>
+<p>This example spawns a camera sensor, attaches it to a vehicle, and tells the camera to save the images generated to disk.  </p>
+<pre><code class="language-py">camera_bp = blueprint_library.find('sensor.camera.rgb')
+camera = world.spawn_actor(camera_bp, relative_transform, attach_to=my_vehicle)
+camera.listen(lambda image: image.save_to_disk('output/%06d.png' % image.frame))
+</code></pre>
+<ul>
+<li>Sensors have blueprints too. Setting attributes is crucial.  </li>
+<li>Most of the sensors will be attached to a vehicle to gather information on its surroundings. </li>
+<li>Sensors <strong>listen</strong> to data. When data is received, they call a function described with a <strong><a href="https://docs.python.org/3/reference/expressions.html">Lambda expression</a></strong> <small>(6.13 in the link provided)</small>. </li>
+</ul>
+<h3 id="spectator">Spectator</h3>
+<p>Placed by Unreal Engine to provide an in-game point of view. It can be used to move the view of the simulator window. The following example would move the spectator actor, to point the view towards a desired vehicle. </p>
+<pre><code class="language-py">spectator = world.get_spectator()
+transform = vehicle.get_transform()
+spectator.set_transform(carla.Transform(transform.location + carla.Location(z=50),
+carla.Rotation(pitch=-90)))
+
+</code></pre>
+<h3 id="traffic-signs-and-traffic-lights">Traffic signs and traffic lights</h3>
+<p>Only stops, yields and traffic lights are considered actors in CARLA so far. The rest of the OpenDRIVE signs are accessible from the API as <a href="../python_api/#carla.Landmark"><strong>carla.Landmark</strong></a>. Their information is accessible using these instances, but they do no exist in the simulation as actors. Landmarks are explained more in detail in the following step, <strong>3rd. Maps and navigation</strong>.  </p>
+<p>When the simulation starts, stop, yields and traffic light are automatically generated using the information in the OpenDRIVE file. <strong>None of these can be found in the blueprint library</strong> and thus, cannot be spawned. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>CARLA maps do not have traffic signs nor lights in the OpenDRIVE file. These are manually placed by developers.  </p>
+</div>
+<p><a href="../python_api/#carla.TrafficSign"><strong>Traffic signs</strong></a> are not defined in the road map itself, as explained in the following page. Instead, they have a <a href="../python_api/#carla.BoundingBox">carla.BoundingBox</a> to affect vehicles inside of it.  </p>
+<pre><code class="language-py">#Get the traffic light affecting a vehicle
+if vehicle_actor.is_at_traffic_light():
+    traffic_light = vehicle_actor.get_traffic_light()
+</code></pre>
+<p><a href="../python_api/#carla.TrafficLight"><strong>Traffic lights</strong></a> are found in junctions. They have their unique ID, as any actor, but also a <code>group</code> ID for the junction. To identify the traffic lights in the same group, a <code>pole</code> ID is used.  </p>
+<p>The traffic lights in the same group follow a cycle. The first one is set to green while the rest remain frozen in red. The active one spends a few seconds in green, yellow and red, so there is a period of time where all the lights are red. Then, the next traffic light starts its cycle, and the previous one is frozen with the rest.  </p>
+<p>The state of a traffic light can be set using the API. So does the seconds spent on each state. Possible states are described with <a href="../python_api/#carla.TrafficLightState">carla.TrafficLightState</a> as a series of enum values. </p>
+<pre><code class="language-py">#Change a red traffic light to green
+if traffic_light.get_state() == carla.TrafficLightState.Red:
+    traffic_light.set_state(carla.TrafficLightState.Green)
+    traffic_light.set_set_green_time(4.0)
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Vehicles will only be aware of a traffic light if the light is red.  </p>
+</div>
+<h3 id="vehicles">Vehicles</h3>
+<p><a href="../python_api/#carla.Vehicle"><strong>carla.Vehicle</strong></a> is a special type of actor. It incorporates special internal components that simulate the physics of wheeled vehicles. This is achieved by applying four types of different controls:  </p>
+<ul>
+<li><strong><a href="../python_api/#carla.VehicleControl">carla.VehicleControl</a></strong> provides input for driving commands such as throttle, steering, brake, etc. </li>
+</ul>
+<pre><code class="language-py">    vehicle.apply_control(carla.VehicleControl(throttle=1.0, steer=-1.0))
+</code></pre>
+<ul>
+<li>
+<p><strong><a href="../python_api/#carla.VehiclePhysicsControl">carla.VehiclePhysicsControl</a></strong> defines physical attributes of the vehicle and contains two more controllers:</p>
+<ul>
+<li><a href="../python_api/#carla.GearPhysicsControl">carla.GearPhysicsControl</a> which controls the gears. </li>
+<li><a href="../python_api/#carla.WheelPhysicsControl">carla.WheelPhysicsControl</a> which provides specific control over each wheel.  </li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-py">    vehicle.apply_physics_control(carla.VehiclePhysicsControl(max_rpm = 5000.0, center_of_mass = carla.Vector3D(0.0, 0.0, 0.0), torque_curve=[[0,400],[5000,400]]))
+</code></pre>
+<p>Vehicles have a <a href="../python_api/#carla.BoundingBox">carla.BoundingBox</a> encapsulating them. This bounding box allows physics to be applied to the vehicle and enables collisions to be detected.  </p>
+<pre><code class="language-py">    box = vehicle.bounding_box
+    print(box.location)         # Location relative to the vehicle.
+    print(box.extent)           # XYZ half-box extents in meters.
+</code></pre>
+<p>The physics of vehicle wheels can be improved by enabling the <a href="https://carla.readthedocs.io/en/latest/python_api/#carla.VehiclePhysicsControl.use_sweep_wheel_collision">sweep wheel collision parameter</a>. The default wheel physics uses single ray casting from the axis to the floor for each wheel but when sweep wheel collision is enabled, the full volume of the wheel is checked against collisions. It can be enabled as such:</p>
+<pre><code class="language-py">    physics_control = vehicle.get_physics_control()
+    physics_control.use_sweep_wheel_collision = True
+    vehicle.apply_physics_control(physics_control)
+</code></pre>
+<p>Vehicles include other functionalities unique to them:</p>
+<ul>
+<li><strong>Autopilot mode</strong> will subscribe a vehicle to the <a href="../adv_traffic_manager/">Traffic Manager</a> to simulate real urban conditions. This module is hard-coded, not based on machine learning.  </li>
+</ul>
+<pre><code class="language-py">    vehicle.set_autopilot(True)
+</code></pre>
+<ul>
+<li><strong>Vehicle lights</strong> have to be turned on and off by the user. Each vehicle has a set of lights listed in <a href="../python_api/#carla.VehicleLightState"><strong>carla.VehicleLightState</strong></a>. Not all vehicles have lights integrated. At the time of writing, vehicles with integrated lights are as follows:  <ul>
+<li><strong>Bikes:</strong> All bikes have a front and back position light.  </li>
+<li><strong>Motorcycles:</strong> Yamaha and Harley Davidson models.  </li>
+<li><strong>Cars:</strong> Audi TT, Chevrolet Impala, both Dodge police cars, Dodge Charger, Audi e-tron, Lincoln 2017 and 2020, Mustang, Tesla Model 3, Tesla Cybertruck, Volkswagen T2 and the Mercedes C-Class.  </li>
+</ul>
+</li>
+</ul>
+<p>The lights of a vehicle can be retrieved and updated anytime using the methods <a href="../python_api/#carla.Vehicle.get_light_state">carla.Vehicle.get_light_state</a> and <a href="#python_api.md#carla.Vehicle.set_light_state">carla.Vehicle.set_light_state</a>. These use binary operations to customize the light setting.  </p>
+<pre><code class="language-py"># Turn on position lights
+current_lights = carla.VehicleLightState.NONE
+current_lights |= carla.VehicleLightState.Position
+vehicle.set_light_state(current_lights)
+</code></pre>
+<h3 id="walkers">Walkers</h3>
+<p><a href="../python_api/#carla.Walker"><strong>carla.Walker</strong></a> work in a similar way as vehicles do. Control over them is provided by controllers.  </p>
+<ul>
+<li><a href="../python_api/#carla.WalkerControl"><strong>carla.WalkerControl</strong></a> moves the pedestrian around with a certain direction and speed. It also allows them to jump. </li>
+<li><a href="../python_api/#carla.WalkerBoneControl"><strong>carla.WalkerBoneControl</strong></a> provides control over the 3D skeleton. <a href="../tuto_G_control_walker_skeletons/">This tutorial</a> explains how to control it. </li>
+</ul>
+<p>Walkers can be AI controlled. They do not have an autopilot mode. The <a href="../python_api/#carla.WalkerAIController"><strong>carla.WalkerAIController</strong></a> actor moves around the actor it is attached to.  </p>
+<pre><code class="language-py">walker_controller_bp = world.get_blueprint_library().find('controller.ai.walker')
+world.SpawnActor(walker_controller_bp, carla.Transform(), parent_walker)
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The AI controller is bodiless and has no physics. It will not appear on scene. Also, location <code>(0,0,0)</code> relative to its parent will not cause a collision.  </p>
+</div>
+<p><strong>Each AI controller needs initialization, a goal and, optionally, a speed</strong>. Stopping the controller works in the same manner. </p>
+<pre><code class="language-py">ai_controller.start()
+ai_controller.go_to_location(world.get_random_location_from_navigation())
+ai_controller.set_max_speed(1 + random.random())  # Between 1 and 2 m/s (default is 1.4 m/s).
+...
+ai_controller.stop()
+</code></pre>
+<p>When a walker reaches the target location, they will automatically walk to another random point. If the target point is not reachable, walkers will go to the closest point from their current location.</p>
+<p>A snipet in <a href="../python_api/#carla.Client.apply_batch_sync">carla.Client</a> uses batches to spawn a lot of walkers and make them wander around.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><strong>To destroy AI pedestrians</strong>, stop the AI controller and destroy both, the actor, and the controller. </p>
+</div>
+<hr />
+<p>That is a wrap as regarding actors in CARLA. The next step takes a closer look into the map, roads and traffic in CARLA.  </p>
+<p>Keep reading to learn more or visit the forum to post any doubts or suggestions that have come to mind during this reading. </p>
+<div text-align: center>
+<div class="build-buttons">
+<p>
+<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="CARLA forum">
+CARLA forum</a>
+</p>
+</div>
+<div class="build-buttons">
+<p>
+<a href="../core_map" target="_blank" class="btn btn-neutral" title="3rd. Maps and navigation">
+3rd. Maps and navigation</a>
+</p>
+</div>
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../core_world/" class="btn btn-neutral float-left" title="第一、 世界和客户端"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../core_map/" class="btn btn-neutral float-right" title="第三、地图和导航 ">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../core_world/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../core_map/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

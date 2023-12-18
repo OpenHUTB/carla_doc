@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>RLlib 集成 - CARLA 模拟器 中文文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "RLlib \u96c6\u6210";
+        var mkdocs_page_input_path = "tuto_G_rllib_integration.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> CARLA 模拟器 中文文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">入门</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../start_introduction/">介绍</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../start_quickstart/">快速启动包安装</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">构建CARLA</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_linux/">Linux build</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_windows/">Windows build</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_update/">Update CARLA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_system/">Build system</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_docker/">CARLA in Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_faq/">F.A.Q.</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第一步</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_concepts/">核心概念</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_world/">第一、 世界和客户端</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_actors/">第二、 角色和蓝图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_map/">第三、地图和导航 </a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_sensors/">第四、 传感器和数据</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">高级概念</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_opendrive/">OpenDRIVE 独立模式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_ptv/">PTV-Vissim 联合仿真</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_recorder/">Recorder</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_rendering_options/">渲染选项</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_rss/">RSS</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_synchrony_timestep/">同步和时间步长</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_benchmarking/">基准性能</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_agents/">CARLA 代理</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">交通模拟</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ts_traffic_simulation_overview/">交通模拟概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_traffic_manager/">Traffic Manager</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_sumo/">SUMO 联合仿真</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_scenic/">Scenic</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">参考</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../python_api/">Python API 参考</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bp_library/">Blueprint Library</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_cpp/">C++ 参考</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_recorder_binary_file_format/">Recorder 二进制文件格式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_sensors/">Sensors reference</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">插件</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../plugins_carlaviz/">carlaviz — web 可视化器</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">ROS 桥接器</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ros_documentation/">ROS 桥文档</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">自定义地图</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_map_overview/">CARLA 中自定义地图的概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在CARLA包导入地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 CARLA 源构建中导入地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_alternative/">导入地图的替代方法</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_manual_map_package/">手动准备地图包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_layers/">自定义地图：分层地图: Layered maps</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_add_tl/">自定义地图：红绿灯和标志</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_road_painter/">自定义地图：Road painter</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_buildings/">自定义地图：程序建筑</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_weather_landscape/">自定义地图：天气和景观</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_pedestrian_navigation/">生成行人导航</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">大型地图</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_overview/">大型地图概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_roadrunner/">在RoadRunner中创建大地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_import/">导入/打包大地图</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（通用）</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_add_friction_triggers/">添加摩擦触发器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_vehicle_physics/">控制车辆物理模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_walker_skeletons/">控制行人骨骼</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用OpenStreetMap生成地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索模拟数据</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_carsim_integration/">CarSim 集成</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">RLlib 集成</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#before-you-begin">Before you begin</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#requirements-for-running-locally">Requirements for running locally</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#requirements-for-running-on-aws-cloud">Requirements for running on AWS Cloud</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#rllib-repository-structure">RLlib repository structure</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#creating-your-own-experiment">Creating your own experiment</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#1-the-experiment-class">1. The experiment class</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2-the-environment-configuration">2. The environment configuration</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#3-the-training-and-inference-scripts">3. The training and inference scripts</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#dqn-example">DQN example</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#running-on-aws">Running on AWS</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#configure-aws">Configure AWS</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#create-the-training-ami">Create the training AMI</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#configure-the-cluster">Configure the cluster</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#run-the-training">Run the training</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#running-the-dqn-example-on-aws">Running the DQN example on AWS</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_chrono/">Chrono 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎UE和 CARLA</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（资产）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_add_vehicle/">添加新车辆</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_add_props/">添加新道具</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_create_standalone/">创建独立包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_material_customization/">材料定制</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（开发人员）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_contribute_assets/">如何升级内容</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_create_sensor/">创建一个传感器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_create_semantic_tags/">创建语义标签</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_customize_vehicle_suspension/">自定义车辆悬架</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_generate_colliders/">生成详细碰撞</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_make_release/">发布版本</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">CARLA 生态系统</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">贡献</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_contribution_guidelines/">贡献指南</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_code_of_conduct/">行为准则</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_coding_standard/">编码标准</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_doc_standard/">文档标准</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">CARLA 模拟器 中文文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">教程（通用）</li>
+      <li class="breadcrumb-item active">RLlib 集成</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="rllib-integration">RLlib Integration</h1>
+<p>The RLlib integration brings support between the <a href="https://github.com/ray-project/ray">Ray/RLlib</a> library and CARLA, allowing the easy use of the CARLA environment for training and inference purposes. Ray is an open source framework that provides a simple, universal API for building distributed applications. Ray is packaged with RLlib, a scalable reinforcement learning library, and Tune, a scalable hyperparameter tuning library. </p>
+<p>The RLlib integration allows users to create and use CARLA as an environment of Ray and use that environment for training and inference purposes. The integration is ready to use both locally and in the cloud using AWS. </p>
+<p>In this guide we will outline the requirements needed for running the RLlib integration both locally and on AWS, the structure of the integration repository, an overview of how to use the library and then an example of how to set up a Ray experiment using CARLA as an environment.</p>
+<ul>
+<li><a href="#before-you-begin"><strong>Before you begin</strong></a><ul>
+<li><a href="#requirements-for-running-locally">Requirements for running locally</a></li>
+<li><a href="#requirements-for-running-on-aws-cloud">Requirements for running on AWS Cloud</a></li>
+</ul>
+</li>
+<li><a href="#rllib-repository-structure"><strong>RLlib repository structure</strong></a></li>
+<li><a href="#creating-your-own-experiment"><strong>Creating your own experiment</strong></a><ul>
+<li><a href="#1-the-experiment-class">The experiment class</a></li>
+<li><a href="#2-the-environment-configuration">The environment configuration</a></li>
+<li><a href="#3-the-training-and-inference-scripts">The training and inference scripts</a></li>
+</ul>
+</li>
+<li><a href="#dqn-example"><strong>DQN example</strong></a></li>
+<li><a href="#running-on-aws"><strong>Running on AWS</strong></a><ul>
+<li><a href="#configure-aws">Configure AWS</a></li>
+<li><a href="#create-the-training-ami">Create the training AMI</a></li>
+<li><a href="#configure-the-cluster">Configure the cluster</a></li>
+<li><a href="#run-the-training">Run the training</a></li>
+<li><a href="#running-the-dqn-example-on-aws">Running the DQN example on AWS</a></li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="before-you-begin">Before you begin</h2>
+<ul>
+<li>Download the RLlib integration from <a href="https://github.com/carla-simulator/rllib-integration/tree/main">GitHub</a> or clone the repository directly:</li>
+</ul>
+<pre><code class="language-sh">    git clone https://github.com/carla-simulator/rllib-integration.git
+</code></pre>
+<ul>
+<li>Requirements vary depending on if you are running locally or on AWS:</li>
+</ul>
+<blockquote>
+<h6 id="requirements-for-running-locally">Requirements for running locally</h6>
+<blockquote>
+<ul>
+<li><a href="https://github.com/carla-simulator/carla/releases">Install a package version of CARLA</a> and import the <a href="https://carla.readthedocs.io/en/latest/start_quickstart/#import-additional-assets">additional assets</a>. <strong>The recommended version is CARLA 0.9.11</strong> as the integration was designed and tested with this version. Other versions may be compatible but have not been fully tested, so use these at your own discretion. </li>
+<li>Navigate into the root folder of the RLlib integration repository and install the Python requirements:</li>
+</ul>
+</blockquote>
+</blockquote>
+<pre><code>            pip3 install -r requirements.txt
+</code></pre>
+<blockquote>
+<blockquote>
+<ul>
+<li>Set an environment variable to locate the CARLA package by running the command below or add <code>CARLA_ROOT=path/to/carla</code> to your <code>.bashrc</code> file:</li>
+</ul>
+</blockquote>
+</blockquote>
+<pre><code>            export CARLA_ROOT=path/to/carla
+</code></pre>
+<blockquote>
+<h6 id="requirements-for-running-on-aws-cloud">Requirements for running on AWS Cloud</h6>
+<blockquote>
+<ul>
+<li>The requirements for running on AWS are taken care of automatically in an install script found in the RLlib integration repository. Find more details in the section <a href="#running-on-aws">"Running on AWS"</a>.</li>
+</ul>
+</blockquote>
+</blockquote>
+<hr />
+<h2 id="rllib-repository-structure">RLlib repository structure</h2>
+<p>The repository is divided into three directories:</p>
+<ul>
+<li><code>rllib_integration</code> contains all the infrastructure related to CARLA and how to set up the CARLA server, clients and actors. This provides the basic structure that all training and testing experiments must follow.</li>
+<li><code>aws</code> has the files needed to run in an AWS instance. <code>aws_helper.py</code> provides several functionalities that ease the management of EC2 instances, including instance creation and sending and receiving data.</li>
+<li><code>dqn_example</code> and the <code>dqn_*</code> files in the root directory provide an easy-to-understand example on how to set up a Ray experiment using CARLA as its environment.</li>
+</ul>
+<hr />
+<h2 id="creating-your-own-experiment">Creating your own experiment</h2>
+<p>This section provides a general overview on how to create your own experiment. For a more specific example, see the next section <a href="#dqn-example">"DQN example"</a>.</p>
+<p>You will need to create at least four files:</p>
+<ul>
+<li>The experiment class</li>
+<li>The environment configuration</li>
+<li>The training and inference scripts</li>
+</ul>
+<h4 id="1-the-experiment-class">1. The experiment class</h4>
+<p>To use the CARLA environment you need to define a training experiment. Ray requires environments to return a series of specific information. You can see details on the CARLA environment in <a href="https://github.com/carla-simulator/rllib-integration/blob/main/rllib_integration/carla_env.py"><code>rllib-integration/rllib_integration/carla_env.py</code></a>. </p>
+<p>The information required by Ray is dependent on your specific experiment so all experiments should inherit from <a href="https://github.com/carla-simulator/rllib-integration/blob/main/rllib_integration/base_experiment.py#L41"><code>BaseExperiment</code></a>. This class contains all the functions that need to be overwritten for your own experiment. These are all functions related to the actions, observations and rewards of the training.</p>
+<h4 id="2-the-environment-configuration">2. The environment configuration</h4>
+<p>The experiment should be configured through a <code>.yaml</code> file. Any settings passed through the configuration file will override the default settings. The locations of the different default settings are explained below.</p>
+<p>The configuration file has three main uses:</p>
+<ol>
+<li>Sets up most of the CARLA server and client settings, such as timeout or map quality. See the default values <a href="https://github.com/carla-simulator/rllib-integration/blob/main/rllib_integration/carla_core.py#L23">here</a>. </li>
+<li>Sets up variables specific to your experiment as well as specifying town conditions and the spawning of the ego vehicle and its sensors. The default settings are found <a href="https://github.com/carla-simulator/rllib-integration/blob/main/rllib_integration/base_experiment.py#L12">here</a> and provide an example of how to set up sensors.</li>
+<li>Configures settings specific to <a href="https://github.com/ray-project/ray/blob/master/rllib/agents/trainer.py">Ray's training</a>. These settings are related to the specific trainer used. If you are using a built-in model, you can apply settings for it here. </li>
+</ol>
+<h4 id="3-the-training-and-inference-scripts">3. The training and inference scripts</h4>
+<p>The last step is to create your own training and inference scripts. This part is completely up to you and is dependent on the Ray API. If you want to create your own specific model, check out <a href="https://docs.ray.io/en/master/rllib-models.html#custom-models-implementing-your-own-forward-logic">Ray's custom model documentation</a>.</p>
+<hr />
+<h2 id="dqn-example">DQN example</h2>
+<p>This section builds upon the previous section to show a specific example on how to work with the RLlib integration using the <a href="https://github.com/carla-simulator/rllib-integration/blob/main/rllib_integration/sensors/bird_view_manager.py">BirdView pseudosensor</a> and Ray's <a href="https://github.com/ray-project/ray/blob/master/rllib/agents/dqn/dqn.py#L285">DQNTrainer</a>.</p>
+<p>The structure of the DQN example is as follows:</p>
+<ul>
+<li><strong>The experiment class</strong>: <a href="https://github.com/carla-simulator/rllib-integration/blob/main/dqn_example/dqn_experiment.py#L19"><code>DQNExperiment</code></a>, which overwrites the methods of the <code>BaseExperiment</code> class.</li>
+<li><strong>The configuration file</strong>: <a href="https://github.com/carla-simulator/rllib-integration/blob/main/dqn_example/dqn_config.yaml"><code>dqn_example/dqn_config.yaml</code></a></li>
+<li><strong>The training file</strong>: <a href="https://github.com/carla-simulator/rllib-integration/blob/main/dqn_train.py"><code>dqn_train.py</code></a></li>
+<li><strong>The inference file</strong>:<ul>
+<li><strong>With Ray</strong>: <a href="https://github.com/carla-simulator/rllib-integration/blob/main/dqn_inference_ray.py"><code>dqn_inference_ray.py</code></a> </li>
+<li><strong>Without Ray</strong>: <a href="https://github.com/carla-simulator/rllib-integration/blob/main/dqn_inference.py"><code>dqn_inference.py</code></a></li>
+</ul>
+</li>
+</ul>
+<p>To run the example locally:</p>
+<ol>
+<li>
+<p>Install pytorch:</p>
+<pre><code>pip3 install -r dqn_example/dqn_requirements.txt
+</code></pre>
+</li>
+<li>
+<p>Run the training file:</p>
+<pre><code>python3 dqn_train.py dqn_example/dqn_config.yaml --name dqn
+</code></pre>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The default configuration uses 1 GPU and 12 CPUs, so if your local machine doesn't have that capacity, lower the numbers in the <a href="https://github.com/carla-simulator/rllib-integration/blob/main/dqn_example/dqn_config.yaml">configuration file</a>. </p>
+<p>If you experience out of memory problems, consider reducing the <code>buffer_size</code> parameter. </p>
+</div>
+<hr />
+<h2 id="running-on-aws">Running on AWS</h2>
+<p>This section explains how to use the RLlib integration to automatically run training and inference on AWS EC2 instances. To handle the scaling of instances we use the <a href="https://docs.ray.io/en/latest/cluster/index.html">Ray autoscaler API</a>.</p>
+<h4 id="configure-aws">Configure AWS</h4>
+<p>You will need to configure your boto3 environment correctly. Check <a href="https://boto3.amazonaws.com/v1/documentation/api/latest/guide/configuration.html">here</a> for more information.</p>
+<h4 id="create-the-training-ami">Create the training AMI</h4>
+<p>Use the provided <a href="https://github.com/carla-simulator/rllib-integration/blob/main/aws/aws_helper.py"><code>aws_helper.py</code></a> script to automatically create the image needed for training by running the command below, passing in the name of the base image and the installation script <code>install.sh</code> found in <a href="https://github.com/carla-simulator/rllib-integration/blob/main/aws/install/install.sh"><code>rllib-integration/aws/install</code></a>:</p>
+<pre><code>    python3 aws_helper.py create-image --name &lt;AMI-name&gt; --installation-scripts &lt;installation-scripts&gt; --instance-type &lt;instance-type&gt; --volume-size &lt;volume-size&gt;
+</code></pre>
+<h4 id="configure-the-cluster">Configure the cluster</h4>
+<p>Once the image is created, there will be an output with image information. To use the Ray autoscaler, update the <code>&lt;ImageId&gt;</code> and <code>&lt;SecurityGroupIds&gt;</code> settings in your <a href="https://docs.ray.io/en/latest/cluster/config.html">autoscaler configuration file</a> with the information from the output.</p>
+<h4 id="run-the-training">Run the training</h4>
+<p>With the image created, you can use Ray's API to run the training on the cluster:</p>
+<ol>
+<li>
+<p>Initialize the cluster:</p>
+<pre><code>ray up &lt;autoscaler_configuration_file&gt;
+</code></pre>
+</li>
+<li>
+<p>(Optional) If the local code has been modified after the cluster initialization, run this command to update it:</p>
+<pre><code>ray rsync-up &lt;autoscaler_configuration_file&gt; &lt;path_to_local_folder&gt; &lt;path_to_remote_folder&gt;
+</code></pre>
+</li>
+<li>
+<p>Run the training:</p>
+<pre><code>ray submit &lt;autoscaler_configuration_file&gt; &lt;training_file&gt;
+</code></pre>
+</li>
+<li>
+<p>(Optional) Monitor the cluster status:</p>
+<pre><code>ray attach &lt;autoscaler_configuration_file&gt;
+watch -n 1 ray status
+</code></pre>
+</li>
+<li>
+<p>Shutdown the cluster:</p>
+<pre><code>ray down &lt;autoscaler_configuration_file&gt;
+</code></pre>
+</li>
+</ol>
+<h4 id="running-the-dqn-example-on-aws">Running the DQN example on AWS</h4>
+<p>To run the DQN example on AWS:</p>
+<ol>
+<li>
+<p>Create the image by passing the <a href="https://github.com/carla-simulator/rllib-integration/blob/main/dqn_example/dqn_autoscaler.yaml"><code>dqn_example/dqn_autoscaler.yaml</code></a> configuration to the following command:</p>
+<pre><code>python3 aws_helper.py create-image --name &lt;AMI-name&gt; --installation-scripts install/install.sh --instance-type &lt;instance-type&gt; --volume-size &lt;volume-size&gt;
+</code></pre>
+</li>
+<li>
+<p>Update the <code>&lt;ImageId&gt;</code> and <code>&lt;SecurityGroupIds&gt;</code> settings in <a href="https://github.com/carla-simulator/rllib-integration/blob/main/dqn_example/dqn_autoscaler.yaml"><code>dqn_autoscaler.yaml</code></a> with the information provided by the previous command.</p>
+</li>
+<li>
+<p>Initialize the cluster:</p>
+<pre><code>ray up dqn_example/dqn_autoscaler.yaml
+</code></pre>
+</li>
+<li>
+<p>(Optional) Update remote files with local changes:</p>
+<pre><code>ray rsync-up dqn_example/dqn_autoscaler.yaml dqn_example .
+ray rsync-up dqn_example/dqn_autoscaler.yaml rllib_integration .
+</code></pre>
+</li>
+<li>
+<p>Run the training:</p>
+<pre><code>ray submit dqn_example/dqn_autoscaler.yaml dqn_train.py -- dqn_example/dqn_config.yaml --auto
+</code></pre>
+</li>
+<li>
+<p>(Optional) Monitor the cluster status:</p>
+<pre><code>ray attach dqn_example/dqn_autoscaler.yaml
+watch -n 1 ray status
+</code></pre>
+</li>
+<li>
+<p>Shutdown the cluster:</p>
+<pre><code>ray down dqn_example/dqn_autoscaler.yaml
+</code></pre>
+</li>
+</ol>
+<hr />
+<p>This guide has outlined how to install and run the RLlib integration on AWS and on a local machine. If you have any questions or ran into any issues working through the guide, feel free to post in the <a href="https://github.com/carla-simulator/carla/discussions/">forum</a> or raise an issue on <a href="https://github.com/carla-simulator/rllib-integration">GitHub</a>.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../tuto_G_carsim_integration/" class="btn btn-neutral float-left" title="CarSim 集成"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../tuto_G_chrono/" class="btn btn-neutral float-right" title="Chrono 集成">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../tuto_G_carsim_integration/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../tuto_G_chrono/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

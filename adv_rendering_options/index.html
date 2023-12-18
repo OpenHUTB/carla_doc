@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>渲染选项 - CARLA 模拟器 中文文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u6e32\u67d3\u9009\u9879";
+        var mkdocs_page_input_path = "adv_rendering_options.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> CARLA 模拟器 中文文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">入门</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../start_introduction/">介绍</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../start_quickstart/">快速启动包安装</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">构建CARLA</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_linux/">Linux build</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_windows/">Windows build</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_update/">Update CARLA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_system/">Build system</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_docker/">CARLA in Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_faq/">F.A.Q.</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第一步</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_concepts/">核心概念</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_world/">第一、 世界和客户端</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_actors/">第二、 角色和蓝图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_map/">第三、地图和导航 </a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_sensors/">第四、 传感器和数据</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">高级概念</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_opendrive/">OpenDRIVE 独立模式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_ptv/">PTV-Vissim 联合仿真</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_recorder/">Recorder</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">渲染选项</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#graphics-quality">Graphics quality</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#vulkan-graphics-api">Vulkan graphics API</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#quality-levels">Quality levels</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#epic-mode">Epic mode</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#low-mode">Low mode</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#no-rendering-mode">No-rendering mode</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#off-screen-mode">Off-screen mode</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#off-screen-vs-no-rendering">Off-screen vs no-rendering</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#setting-off-screen-mode-version-0912">Setting off-screen mode (Version 0.9.12+)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#setting-off-screen-mode-versions-prior-to-0912">Setting off-screen mode (Versions prior to 0.9.12)</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_rss/">RSS</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_synchrony_timestep/">同步和时间步长</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_benchmarking/">基准性能</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_agents/">CARLA 代理</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">交通模拟</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ts_traffic_simulation_overview/">交通模拟概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_traffic_manager/">Traffic Manager</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_sumo/">SUMO 联合仿真</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_scenic/">Scenic</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">参考</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../python_api/">Python API 参考</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bp_library/">Blueprint Library</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_cpp/">C++ 参考</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_recorder_binary_file_format/">Recorder 二进制文件格式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_sensors/">Sensors reference</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">插件</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../plugins_carlaviz/">carlaviz — web 可视化器</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">ROS 桥接器</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ros_documentation/">ROS 桥文档</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">自定义地图</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_map_overview/">CARLA 中自定义地图的概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在CARLA包导入地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 CARLA 源构建中导入地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_alternative/">导入地图的替代方法</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_manual_map_package/">手动准备地图包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_layers/">自定义地图：分层地图: Layered maps</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_add_tl/">自定义地图：红绿灯和标志</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_road_painter/">自定义地图：Road painter</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_buildings/">自定义地图：程序建筑</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_weather_landscape/">自定义地图：天气和景观</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_pedestrian_navigation/">生成行人导航</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">大型地图</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_overview/">大型地图概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_roadrunner/">在RoadRunner中创建大地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_import/">导入/打包大地图</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（通用）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_add_friction_triggers/">添加摩擦触发器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_vehicle_physics/">控制车辆物理模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_walker_skeletons/">控制行人骨骼</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用OpenStreetMap生成地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索模拟数据</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_carsim_integration/">CarSim 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_chrono/">Chrono 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎UE和 CARLA</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（资产）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_add_vehicle/">添加新车辆</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_add_props/">添加新道具</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_create_standalone/">创建独立包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_material_customization/">材料定制</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（开发人员）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_contribute_assets/">如何升级内容</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_create_sensor/">创建一个传感器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_create_semantic_tags/">创建语义标签</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_customize_vehicle_suspension/">自定义车辆悬架</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_generate_colliders/">生成详细碰撞</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_make_release/">发布版本</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">CARLA 生态系统</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">贡献</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_contribution_guidelines/">贡献指南</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_code_of_conduct/">行为准则</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_coding_standard/">编码标准</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_doc_standard/">文档标准</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">CARLA 模拟器 中文文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">高级概念</li>
+      <li class="breadcrumb-item active">渲染选项</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="rendering-options">Rendering options</h1>
+<p>This guide details the different rendering options available in CARLA, including quality levels, no-rendering mode and off-screen mode. It also explains how version 0.9.12 of CARLA differs from previous versions in these respects.</p>
+<ul>
+<li><a href="#graphics-quality"><strong>Graphics quality</strong></a>  <ul>
+<li><a href="#vulkan-graphics-api">Vulkan graphics API</a>  </li>
+<li><a href="#quality-levels">Quality levels</a>  </li>
+</ul>
+</li>
+<li><a href="#no-rendering-mode"><strong>No-rendering mode</strong></a>  </li>
+<li><a href="#off-screen-mode"><strong>Off-screen mode</strong></a>  <ul>
+<li><a href="#off-screen-vs-no-rendering">Off-screen Vs no-rendering</a></li>
+<li><a href="#setting-off-screen-mode-version-0912">Setting off-screen mode (Version 0.9.12+)</a></li>
+<li><a href="#setting-off-screen-mode-versions-prior-to-0912">Setting off-screen mode (Versions prior to 0.9.12)</a></li>
+</ul>
+</li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Some of the command options below are not equivalent in the CARLA packaged releases. Read the <a href="../start_quickstart/#command-line-options">Command line options</a> section to learn more about this. </p>
+</div>
+<hr />
+<h2 id="graphics-quality">Graphics quality</h2>
+<h3 id="vulkan-graphics-api">Vulkan graphics API</h3>
+<p>Starting from version 0.9.12, CARLA runs on Unreal Engine 4.26 which only supports the Vulkan graphics API. Previous versions of CARLA could be configured to use OpenGL. If you are using a previous version of CARLA, please select the corresponding documentation version in the lower right corner of the screen for more information.</p>
+<h3 id="quality-levels">Quality levels</h3>
+<p>CARLA has two different levels for graphics quality. <strong>Epic</strong>  is the default and is the most detailed. <strong>Low</strong> disables all post-processing and shadows and the drawing distance is set to 50m instead of infinite.</p>
+<p>The simulation runs significantly faster in <strong>Low</strong> mode. This is helpful in situations where there are technical limitations, where precision is nonessential or to train agents under conditions with simpler data or involving only close elements.</p>
+<p>The images below compare both modes. The flag used is the same for Windows and Linux. There is no equivalent option when working with the build, but the UE editor has its own quality settings. Go to <code>Settings/Engine Scalability Settings</code> for a greater customization of the desired quality. </p>
+<h4 id="epic-mode">Epic mode</h4>
+<p><code>./CarlaUE4.sh -quality-level=Epic</code></p>
+<p><img alt="Epic mode screenshot" src="../img/rendering_quality_epic.jpg" />
+<em>Epic mode screenshot</em></p>
+<h4 id="low-mode">Low mode</h4>
+<p><code>./CarlaUE4.sh -quality-level=Low</code></p>
+<p><img alt="Low mode screenshot" src="../img/rendering_quality_low.jpg" />
+<em>Low mode screenshot</em></p>
+<p><br></p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The issue that made Epic mode show an abnormal whiteness has been fixed. If the problem persists, delete <code>GameUserSettings.ini</code>. It is saving previous settings, and will be generated again in the next run. <strong>Ubuntu path:</strong> <code>~/.config/Epic/CarlaUE4/Saved/Config/LinuxNoEditor/</code> <strong>Windows path:</strong> <code>&lt;Package folder&gt;\WindowsNoEditor\CarlaUE4\Saved\Config\WindowsNoEditor\</code></p>
+</div>
+<hr />
+<h2 id="no-rendering-mode">No-rendering mode</h2>
+<p>This mode disables rendering. Unreal Engine will skip everything regarding graphics. This mode prevents rendering overheads. It facilitates a lot traffic simulation and road behaviours at very high frequencies. To enable or disable no-rendering mode, change the world settings, or use the provided script in <code>/PythonAPI/util/config.py</code>.  </p>
+<p>Below is an example on how to enable and then disable it via script:</p>
+<pre><code class="language-py">settings = world.get_settings()
+settings.no_rendering_mode = True
+world.apply_settings(settings)
+...
+settings.no_rendering_mode = False
+world.apply_settings(settings)
+</code></pre>
+<p>To disable and enable rendering via the command line, run the following commands:</p>
+<pre><code class="language-sh">cd PythonAPI/util &amp;&amp; python3 config.py --no-rendering
+</code></pre>
+<pre><code class="language-sh">cd PythonAPI/util &amp;&amp; python3 config.py --rendering
+</code></pre>
+<p>The script <code>PythonAPI/examples/no_rendering_mode.py</code> will enable no-rendering mode, and use <strong>Pygame</strong> to create an aerial view using simple graphics:</p>
+<pre><code class="language-sh">cd PythonAPI/examples &amp;&amp; python3 no_rendering_mode.py
+</code></pre>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>In no-rendering mode, cameras and GPU sensors will return empty data. The GPU is not used. Unreal Engine is not drawing any scene. </p>
+</div>
+<hr />
+<h2 id="off-screen-mode">Off-screen mode</h2>
+<p>Starting from version 0.9.12, CARLA runs on Unreal Engine 4.26 which introduced support for off-screen rendering. In previous versions of CARLA, off-screen rendering depended upon the graphics API you were using.</p>
+<h3 id="off-screen-vs-no-rendering">Off-screen vs no-rendering</h3>
+<p>It is important to understand the distinction between <strong>no-rendering mode</strong> and <strong>off-screen mode</strong>:</p>
+<ul>
+<li><strong>No-rendering mode:</strong> Unreal Engine does not render anything. Graphics are not computed. GPU based sensors return empty data.</li>
+<li><strong>Off-screen mode:</strong> Unreal Engine is working as usual, rendering is computed but there is no display available. GPU based sensors return data.</li>
+</ul>
+<h3 id="setting-off-screen-mode-version-0912">Setting off-screen mode (Version 0.9.12+)</h3>
+<p>To start CARLA in off-screen mode, run the following command:</p>
+<pre><code class="language-sh">./CarlaUE4.sh -RenderOffScreen
+</code></pre>
+<h3 id="setting-off-screen-mode-versions-prior-to-0912">Setting off-screen mode (Versions prior to 0.9.12)</h3>
+<p>Using off-screen mode differs if you are using either OpenGL or Vulkan. </p>
+<p><strong>Using OpenGL</strong>, you can run in off-screen mode in Linux by running the following command:</p>
+<pre><code class="language-sh"># Linux
+DISPLAY= ./CarlaUE4.sh -opengl
+</code></pre>
+<p><strong>Vulkan</strong> requires extra steps because it needs to communicate to the display X server using the X11 network protocol to work properly. The following steps will guide you on how to set up an Ubuntu 18.04 machine without a display so that CARLA can run with Vulkan.</p>
+<p><strong>1. Fetch the latest NVIDIA driver:</strong></p>
+<pre><code class="language-sh">wget http://download.nvidia.com/XFree86/Linux-x86_64/450.57/NVIDIA-Linux-x86_64-450.57.run
+</code></pre>
+<p><strong>2. Install the driver:</strong></p>
+<pre><code class="language-sh">sudo /bin/bash NVIDIA-Linux-x86_64-450.57.run --accept-license --no-questions --ui=none
+</code></pre>
+<p><strong>3. Install the xserver related dependencies:</strong></p>
+<pre><code class="language-sh">sudo apt-get install -y xserver-xorg mesa-utils libvulkan1
+</code></pre>
+<p><strong>4. Configure the xserver:</strong></p>
+<pre><code class="language-sh">sudo nvidia-xconfig --preserve-busid -a --virtual=1280x1024
+</code></pre>
+<p><strong>5. Set the SDL_VIDEODRIVER variable.</strong></p>
+<pre><code class="language-sh">ENV SDL_VIDEODRIVER=x11
+</code></pre>
+<p><strong>6. Run the xserver:</strong></p>
+<pre><code class="language-sh">sudo X :0 &amp;
+</code></pre>
+<p><strong>7. Run CARLA:</strong></p>
+<pre><code class="language-sh">DISPLAY=:0.GPU ./CarlaUE4.sh -vulkan
+</code></pre>
+<p>CARLA provides a Dockerfile that performs all the above steps <a href="https://github.com/carla-simulator/carla/blob/0.9.12/Util/Docker/Release.Dockerfile">here</a>.</p>
+<hr />
+<p>Any issues or doubts related with this topic can be posted in the CARLA forum.</p>
+<div class="build-buttons">
+<p>
+<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
+CARLA forum</a>
+</p>
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../adv_recorder/" class="btn btn-neutral float-left" title="Recorder"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../adv_rss/" class="btn btn-neutral float-right" title="RSS">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../adv_recorder/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../adv_rss/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

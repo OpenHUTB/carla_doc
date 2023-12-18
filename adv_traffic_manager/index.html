@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Traffic Manager - CARLA 模拟器 中文文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Traffic Manager";
+        var mkdocs_page_input_path = "adv_traffic_manager.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> CARLA 模拟器 中文文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">入门</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../start_introduction/">介绍</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../start_quickstart/">快速启动包安装</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">构建CARLA</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_linux/">Linux build</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_windows/">Windows build</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_update/">Update CARLA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_system/">Build system</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_docker/">CARLA in Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_faq/">F.A.Q.</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第一步</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_concepts/">核心概念</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_world/">第一、 世界和客户端</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_actors/">第二、 角色和蓝图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_map/">第三、地图和导航 </a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_sensors/">第四、 传感器和数据</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">高级概念</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_opendrive/">OpenDRIVE 独立模式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_ptv/">PTV-Vissim 联合仿真</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_recorder/">Recorder</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_rendering_options/">渲染选项</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_rss/">RSS</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_synchrony_timestep/">同步和时间步长</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_benchmarking/">基准性能</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_agents/">CARLA 代理</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">交通模拟</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../ts_traffic_simulation_overview/">交通模拟概述</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Traffic Manager</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_2">什么是交通管理器？</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">结构化设计</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">用户定制</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_5">架构</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_6">概述</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_7">代理的生命周期和状态管理</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_8">车辆注册表</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_9">仿真状态</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_10">控制循环</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_11">内存地图</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pbvt">PBVT</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pid">PID 控制器</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_12">命令数组</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_13">控制循环的阶段</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#1-">第 1 阶段 - 定位阶段</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#2-">第 2 阶段 - 碰撞阶段</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#-">第三阶段 - 交通灯阶段</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#4-">第 4 阶段 - 运动规划器阶段</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#5-">第 5 阶段 - 车灯阶段</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_14">使用交通管理器</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_15">车辆行为注意事项</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_16">创建交通管理器</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#autopilot">配置 autopilot 行为</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#_17">委派交通管理器自动更新车灯</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_18">停止交通管理器</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_19">确定性模式</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_20">混合物理模式</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_21">运行多个交通管理器</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_22">交通管理器的服务端和客户端</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#_23">交通管理器的服务端</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#_24">交通管理器的客户端</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_25">多客户端仿真</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_26">多交通管理器仿真</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_27">多重仿真</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_28">同步模式</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_29">大地图中的交通管理器</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_sumo/">SUMO 联合仿真</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_scenic/">Scenic</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">参考</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../python_api/">Python API 参考</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bp_library/">Blueprint Library</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_cpp/">C++ 参考</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_recorder_binary_file_format/">Recorder 二进制文件格式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_sensors/">Sensors reference</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">插件</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../plugins_carlaviz/">carlaviz — web 可视化器</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">ROS 桥接器</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ros_documentation/">ROS 桥文档</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">自定义地图</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_map_overview/">CARLA 中自定义地图的概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在CARLA包导入地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 CARLA 源构建中导入地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_alternative/">导入地图的替代方法</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_manual_map_package/">手动准备地图包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_layers/">自定义地图：分层地图: Layered maps</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_add_tl/">自定义地图：红绿灯和标志</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_road_painter/">自定义地图：Road painter</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_buildings/">自定义地图：程序建筑</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_weather_landscape/">自定义地图：天气和景观</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_pedestrian_navigation/">生成行人导航</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">大型地图</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_overview/">大型地图概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_roadrunner/">在RoadRunner中创建大地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_import/">导入/打包大地图</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（通用）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_add_friction_triggers/">添加摩擦触发器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_vehicle_physics/">控制车辆物理模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_walker_skeletons/">控制行人骨骼</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用OpenStreetMap生成地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索模拟数据</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_carsim_integration/">CarSim 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_chrono/">Chrono 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎UE和 CARLA</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（资产）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_add_vehicle/">添加新车辆</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_add_props/">添加新道具</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_create_standalone/">创建独立包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_material_customization/">材料定制</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（开发人员）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_contribute_assets/">如何升级内容</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_create_sensor/">创建一个传感器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_create_semantic_tags/">创建语义标签</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_customize_vehicle_suspension/">自定义车辆悬架</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_generate_colliders/">生成详细碰撞</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_make_release/">发布版本</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">CARLA 生态系统</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">贡献</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_contribution_guidelines/">贡献指南</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_code_of_conduct/">行为准则</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_coding_standard/">编码标准</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_doc_standard/">文档标准</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">CARLA 模拟器 中文文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">交通模拟</li>
+      <li class="breadcrumb-item active">Traffic Manager</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1"><a href="https://carla.readthedocs.io/en/latest/adv_traffic_manager/#traffic-manager">交通管理器</a></h1>
+<ul>
+<li><a href="#what-is-the-traffic-manager"><strong>什么是交通管理器？</strong></a></li>
+<li><a href="#structured-design">结构化设计</a></li>
+<li><a href="#user-customization">用户定制</a></li>
+<li><a href="#architecture"><strong>架构</strong></a></li>
+<li><a href="#overview">概述</a></li>
+<li><a href="#alsm">代理的生命周期和状态管理</a></li>
+<li><a href="#vehicle-registry">车辆注册表</a></li>
+<li><a href="#simulation-state">仿真状态</a></li>
+<li><a href="#control-loop">控制循环</a></li>
+<li><a href="#in-memory-map">内存地图</a></li>
+<li><a href="#pbvt">路径缓存和车辆轨迹</a></li>
+<li><a href="#pid-controller">PID 控制器</a></li>
+<li><a href="#command-array">命令数组</a></li>
+<li><a href="#stages-of-the-control-loop">控制循环的阶段</a></li>
+<li><a href="#using-the-traffic-manager"><strong>使用交通管理器</strong></a></li>
+<li><a href="#vehicle-behavior-considerations">车辆行为考虑因素</a></li>
+<li><a href="#creating-a-traffic-manager">创建交通管理器</a></li>
+<li><a href="#configuring-autopilot-behavior">配置自动驾驶行为</a></li>
+<li><a href="#stopping-a-traffic-manager">停止交通管理器</a></li>
+<li><a href="#deterministic-mode"><strong>确定性模式</strong></a></li>
+<li><a href="#hybrid-physics-mode"><strong>混合物理模式</strong></a></li>
+<li><a href="#running-multiple-traffic-managers"><strong>运行多个流量管理器</strong></a></li>
+<li><a href="#traffic-manager-servers-and-clients">流量管理器服务端和客户端</a></li>
+<li><a href="#multi-client-simulations">多客户端仿真</a></li>
+<li><a href="#multi-tm-simulations">多交通管理器仿真</a></li>
+<li><a href="#multi-simulation">多重仿真</a></li>
+<li><a href="#synchronous-mode"><strong>同步模式</strong></a></li>
+<li><a href="#traffic-manager-in-large-maps"><strong>大地图中的交通管理器</strong></a></li>
+</ul>
+<hr />
+<h2 id="_2">什么是交通管理器？</h2>
+<p>交通管理器 (Traffic Manager, TM) 是在仿真中以自动驾驶模式控制车辆的模块。其目标是在模拟中填充真实的城市交通状况。用户可以自定义一些行为，例如设置特定的学习环境。</p>
+<h3 id="_3">结构化设计</h3>
+<p>交通管理器构建于 Carla 的客户端之上。执行流程分为多个阶段，每个阶段都有独立的操作和目标。这有利于相位相关功能和数据结构的开发，同时提高计算效率。每个阶段都在不同的线程上运行。与其他阶段的通信通过同步消息传递进行管理。信息朝一个方向流动。</p>
+<h3 id="_4">用户定制</h3>
+<p>用户可以通过设置允许、强制或鼓励特定行为的参数来对流量进行一定程度的控制。用户可以根据自己的喜好改变流量行为，无论是在线还是离线。例如，可以允许汽车忽略速度限制或强制变道。在尝试仿真现实时，能够尝试各种行为是必不可少的。驾驶系统需要在特定和非典型情况下进行训练。</p>
+<hr />
+<h2 id="_5">架构</h2>
+<h3 id="_6">概述</h3>
+<p><img alt="Architecture" src="../img/tm_2_architecture.png" /></p>
+<p>上图是交通管理器的内部架构示意图。每个组件的 C++ 代码可以在  <code>LibCarla/source/carla/trafficmanager</code> 中找到。以下各节详细解释了每个组件。逻辑概述如下：</p>
+<p><strong>1. 存储并更新仿真的当前状态。</strong></p>
+<ul>
+<li><a href="#alsm">代理的生命周期和状态管理</a> (Agent Lifecycle &amp; State Management, ALSM)  扫描世界，跟踪所有存在的车辆和行人，并清理不再存在的条目。所有数据均从服务器检索并经过多个<a href="#stages-of-the-control-loop">阶段</a>。ALSM 是唯一调用服务器的组件。</li>
+<li><a href="#vehicle-registry">车辆注册表</a> 包含一系列处于自动驾驶状态的车辆（由交通管理器控制）以及一系列不处于自动驾驶状态（不受交通管理器控制控制）的行人和车辆。</li>
+<li><a href="#simulation-state">仿真状态</a> 是仿真中所有车辆和行人的位置、速度和附加信息的缓存存储。</li>
+</ul>
+<p><strong>2. 计算每辆自动驾驶车辆的运动。</strong></p>
+<p>交通管理器根据<a href="#simulation-state">仿真状态</a>为<a href="#vehicle-registry">车辆注册表</a>中的所有车辆生成可行的命令。每辆车的计算都是单独进行的。这些计算分为不同的<a href="#stages-of-the-control-loop">阶段</a>。<a href="#control-loop">控制循环</a>通过在阶段之间创建同步屏障来确保所有计算的一致性。在当前阶段的所有车辆计算完成之前，没有车辆进入下一阶段。每辆车都会经历以下阶段：</p>
+<blockquote>
+<p><strong>2.1 - <a href="#stage-1-localization-stage">定位阶段</a></strong></p>
+<p>路径是使用从<a href="#in-memory-map">内存地图</a>中收集的附近路径点列表动态创建的，内存地图是仿真地图作为路径点网格的简化。路口的方向是随机选择的。每辆车的路径均由路径缓存和车辆轨迹(Path Buffers &amp; Vehicle Tracking, <a href="#pbvt">PBVT</a>) 组件存储和维护，以便在未来阶段轻松访问和修改。</p>
+<p><strong>2.2 - <a href="#stage-2-collision-stage">碰撞阶段</a></strong></p>
+<p>边界框延伸到每辆车的路径上，以识别和导航潜在的碰撞危险。</p>
+<p><strong>2.3 - <a href="#stage-3-traffic-light-stage">交通灯阶段</a>.</strong></p>
+<p>与碰撞阶段类似，会识别由于交通灯影响、停车标志和路口优先级而影响每辆车路径的潜在危险。</p>
+<p><strong>2.4 - <a href="#stage-4-motion-planner-stage">运动规划器阶段</a>.</strong></p>
+<p>车辆运动是根据定义的路径计算的。<a href="#pid-controller">PID 控制器</a>确定如何到达目标路径点。然后将其转换为 Carla 命令以供下一步应用。</p>
+<p><strong>2.5 - <a href="#stage-5-vehicle-lights-stage">车灯阶段</a>.</strong></p>
+<p>车灯根据环境因素（例如阳光和雾或雨的存在）和车辆行为（例如，如果车辆将在下一个路口左转/右转，则打开方向指示灯；如果制动，则打开刹车灯）。</p>
+</blockquote>
+<p><strong>3. 在仿真中应用命令</strong></p>
+<p>上一步生成的命令被收集到<a href="#command-array">命令数组</a>中，批量发送到 Carla 服务器，在同一帧中应用。</p>
+<p>以下部分将更详细地解释上述交通管理器逻辑中的每个组件和阶段。</p>
+<h3 id="_7">代理的生命周期和状态管理</h3>
+<p>代理的生命周期和状态管理。它是交通管理器逻辑周期的第一步，提供仿真当前状态的上下文。</p>
+<p>代理的生命周期和状态管理组件：</p>
+<ul>
+<li>扫描世界以跟踪所有车辆和行人的位置和速度。如果启用物理功能，则通过<a href="../python_api/#carla.Vehicle">Vehicle.get_velocity()</a>检索速度。否则，将使用位置随时间更新的历史记录来计算速度。</li>
+<li>存储<a href="#simulation-state">仿真状态</a>组件中每辆车和行人的位置、速度和附加信息（交通灯影响、边界框等）。</li>
+<li>更新<a href="#vehicle-registry">车辆注册表</a>中交通管理器控制的车辆列表。</li>
+<li>更新<a href="#control-loop">控制循环</a>和<a href="#pbvt">路径缓存和车辆轨迹</a>组件中的条目以匹配车辆注册表。</li>
+</ul>
+<p><strong>相关的 .cpp 文件：</strong> <code>ALSM.h</code>, <code>ALSM.cpp</code>.</p>
+<h3 id="_8">车辆注册表</h3>
+<p>车辆注册表记录仿真中的所有车辆和行人。</p>
+<p>车辆注册表：</p>
+<ul>
+<li>从<a href="#alsm">代理的生命周期和状态管理</a>传递来最新的车辆和行人列表。</li>
+<li>将注册到交通管理器的车辆存储在单独的数组中，以便在<a href="#control-loop">控制循环</a>期间进行迭代。</li>
+</ul>
+<p><strong>相关的 .cpp 文件：</strong> <code>MotionPlannerStage.cpp</code>.</p>
+<h3 id="_9">仿真状态</h3>
+<p>仿真状态存储仿真中所有车辆的信息，以便在后期阶段轻松访问和修改。</p>
+<p>仿真状态：</p>
+<ul>
+<li>从<a href="#alsm">代理的生命周期和状态管理</a>接收数据，包括当前参与者位置、速度、交通灯影响、交通灯状态等。</li>
+<li>将所有信息存储在缓存中，避免在<a href="#control-loop">控制循环</a>期间对服务器的后续调用。</li>
+</ul>
+<p><strong>相关的 .cpp 文件：</strong> <code>SimulationState.cpp</code>, <code>SimulationState.h</code>.</p>
+<h3 id="_10">控制循环</h3>
+<p>控制循环管理所有自动驾驶车辆的下一个命令的计算，以便它们同步执行。控制循环由五个不同的<a href="#stages-of-the-control-loop">阶段</a>组成;定位，碰撞，交通灯，运动规划和车辆灯。</p>
+<p>控制循环:</p>
+<ul>
+<li>从<a href="#vehicle-registry">车辆注册表</a>接收TM-控制的车辆数组。</li>
+<li>通过循环遍历数组，分别对每辆车执行计算。</li>
+<li>将计算分成一系列的<a href="#stages-of-the-control-loop">阶段</a>。</li>
+<li>在阶段之间创建同步屏障以保证一致性。所有车辆的计算在任何车辆移动到下一阶段之前完成，确保所有车辆在同一帧中更新。</li>
+<li>协调各<a href="#stages-of-the-control-loop">阶段</a>之间的过渡，使所有计算同步完成。</li>
+<li>当最后一个阶段(<strong><a href="#stage-4-motion-planner-stage">运动规划阶段</a>和<a href="#stage-5-vehicle-lights-stage">车辆灯光阶段</a></strong>)完成时，将<a href="#command-array">命令数组</a>发送到服务器，因此在命令计算和命令应用之间没有帧延迟。</li>
+</ul>
+<p><strong>相关的 .cpp 文件:</strong> <code>TrafficManagerLocal.cpp</code>.</p>
+<h3 id="_11">内存地图</h3>
+<p>内存地图是包含在<a href="#pbvt">路径缓存和车辆轨迹</a>中的辅助模块，在<a href="#stage-1-localization-stage">定位阶段</a>使用。</p>
+<p>内存地图:</p>
+<ul>
+<li>将地图转换为离散路径点的网格。</li>
+<li>包含特定数据结构中的路点，并提供更多信息来连接路点和识别道路、路口等。</li>
+<li>通过识别这些建筑物的ID来快速定位附近区域的车辆。</li>
+</ul>
+<p><strong>相关的 .cpp 文件:</strong> <code>InMemoryMap.cpp</code> and <code>SimpleWaypoint.cpp</code>.</p>
+<h3 id="pbvt">PBVT</h3>
+<p>PBVT代表路径缓存和车辆轨迹。PBVT是一种数据结构，它包含每辆车的预期路径，并允许在<a href="#control-loop"><strong>控制循环</strong></a>期间轻松访问数据。</p>
+<p>PBVT:</p>
+<ul>
+<li>包含一个deque对象的地图，每辆车有一个入口。</li>
+<li>包含每辆车的一组路点，描述其当前位置和近期路径。</li>
+<li>包含<a href="#stage-1-localization-stage"><strong>定位阶段</strong></a>使用的<a href="#in-memory-map"><strong>内存地图</strong></a>，用于将每个车辆与最近的路点和可能的重叠路径关联起来。</li>
+</ul>
+<h3 id="pid">PID 控制器</h3>
+<p>PID控制器是在<a href="#stage-4-motion-planner-stage"><strong>运动规划阶段</strong></a>执行计算的辅助模块。</p>
+<p>PID 控制器:</p>
+<ul>
+<li>根据<a href="#stage-4-motion-planner-stage"><strong>运动规划阶段</strong></a>收集的信息，估算达到目标值所需的油门、刹车和转向输入。</li>
+<li>根据控制器的具体参数化进行调整。如果需要，可以修改参数。阅读更多关于<a href="https://en.wikipedia.org/wiki/PID_controller"><strong>PID控制器</strong></a>的信息，了解如何进行修改。</li>
+</ul>
+<p><strong>相关的 .cpp 文件:</strong> <code>PIDController.cpp</code>.</p>
+<h3 id="_12">命令数组</h3>
+<p>命令数组表示 TM 逻辑周期中的最后一步。它接收所有注册车辆的命令并应用它们。</p>
+<p>命令数组:</p>
+<ul>
+<li>从<a href="#stage-4-motion-planner-stage"><strong>路径规划阶段</strong></a>接收一系列 <a href="../python_api/#carla.VehicleControl">carla.VehicleControl</a>。</li>
+<li>批处理要在同一帧内应用的所有命令。</li>
+<li>将批处理发送到在 carla 中调用 <strong>apply_batch</strong>（） 或 <strong>apply_batch_synch（）</strong> 的 CARLA <strong><a href="../python_api/#carla.Client">服务器.客户端</a></strong>，具体取决于模拟是分别以异步模式还是同步模式运行。</li>
+</ul>
+<p><strong>相关的 .cpp 文件:</strong> <code>TrafficManagerLocal.cpp</code>.</p>
+<h3 id="_13">控制循环的阶段</h3>
+<h5 id="1-">第 1 阶段 - 定位阶段</h5>
+<p>定位阶段为TM控制的车辆定义了近未来的路径。</p>
+<p>本地化阶段：</p>
+<ul>
+<li>从<a href="#simulation-state"><strong>仿真状态</strong></a>获取所有车辆的位置和速度。</li>
+<li>使用<a href="#in-memory-map"><strong>内存地图</strong></a>将每辆车与航点列表相关联，该航点列表根据其轨迹描述其当前位置和近期路径。车辆行驶得越快，列表就越长。</li>
+<li>根据规划决策更新路径，例如变道、限速、与前方车辆的距离参数化等。</li>
+<li>将所有车辆的路径存储在 <a href="#pbvt"><strong>PBVT</strong></a> 模块中。</li>
+<li>相互比较路径以估计可能的碰撞情况。结果将传递到碰撞阶段。</li>
+</ul>
+<p><strong>相关的 .cpp 文件:</strong> <code>LocalizationStage.cpp</code> and <code>LocalizationUtils.cpp</code>.</p>
+<h5 id="2-">第 2 阶段 - 碰撞阶段</h5>
+<p>碰撞阶段会触发碰撞危险。</p>
+<p>碰撞阶段：</p>
+<ul>
+<li>从<a href="#stage-1-localization-stage"><strong>定位阶段</strong></a>接收路径可能重叠的车辆对列表。</li>
+<li>前方路径（测地线边界）扩展每个车辆对的边界框，以检查它们是否实际重叠并确定碰撞风险是否真实。</li>
+<li>将所有可能的碰撞的危险发送到 <a href="#stage-4-motion-planner-stage"><strong>运动规划器阶段</strong></a>，以相应地修改路径。</li>
+</ul>
+<p><strong>相关的 .cpp 文件:</strong> <code>CollisionStage.cpp</code>.</p>
+<h5 id="-">第三阶段 - 交通灯阶段</h5>
+<p>交通信号灯阶段会触发交通管制器造成的危险，例如交通信号灯、停车标志和路口的优先权。</p>
+<p>交通灯阶段：</p>
+<ul>
+<li>如果车辆受到黄色或红色交通信号灯或停车标志的影响，则设置交通危险。</li>
+<li>如果边界框位于无信号灯的交汇点，则沿车辆路径延伸边界框。路径重叠的车辆遵循“先进先出”的顺序移动。等待时间设置为固定值。</li>
+</ul>
+<p><strong>相关的 .cpp 文件:</strong> <code>TrafficLightStage.cpp</code>.</p>
+<h5 id="4-">第 4 阶段 - 运动规划器阶段</h5>
+<p>“运动规划器阶段”（Motion Planner Stage） 生成要应用于车辆的 CARLA 命令。</p>
+<p>运动规划器阶段：</p>
+<ul>
+<li>收集车辆的位置和速度（<a href="#simulation-state"><strong>仿真状态</strong></a>)）、路径 （<a href="#pbvt"><strong>路径缓存和车辆轨迹</strong></a>） 和危险（<a href="#stage-2-collision-stage"><strong>碰撞</strong></a>阶段和<a href="#stage-3-traffic-light-stage"><strong>交通信号灯阶段</strong></a>）。</li>
+<li>对车辆应如何移动做出高级决策，例如，计算防止碰撞危险所需的制动器。<a href="#pid-controller"><strong>PID控制器</strong></a>用于根据目标值估计行为。</li>
+<li>将期望的运动转化为适用于车辆的 <strong><a href="../python_api/#carla.VehicleControl">carla.VehicleControl。</a></strong></li>
+<li>将生成的CARLA命令发送到<a href="#command-array"><strong>命令数组</strong></a>。</li>
+</ul>
+<p><strong>相关的.cpp文件:</strong> <code>MotionPlannerStage.cpp</code>.</p>
+<h5 id="5-">第 5 阶段 - 车灯阶段</h5>
+<p>车灯阶段根据车辆状况和周围环境激活车灯。
+​ <br />
+车灯阶段:</p>
+<ul>
+<li>检索车辆的计划航点、有关车辆灯光的信息（例如灯光状态和计划应用的命令）和天气状况。</li>
+<li>确定车灯的新状态:</li>
+<li>如果车辆计划在下一个路口左转/右转，则打开闪光灯。</li>
+<li>如果应用的命令要求车辆制动，则打开停车灯。</li>
+<li>从日落到黎明或在大雨中打开近光灯和位置灯。</li>
+<li>在大雾条件下打开雾灯。</li>
+<li>如果车灯状态已更改，请更新车灯状态。</li>
+</ul>
+<p><strong>相关的 .cpp 文件:</strong> <code>VehicleLightStage.cpp</code>.</p>
+<hr />
+<h2 id="_14">使用交通管理器</h2>
+<h3 id="_15">车辆行为注意事项</h3>
+<p>TM 实现了将车辆设置为自动驾驶时必须考虑的一般行为模式：</p>
+<ul>
+<li><strong>车辆不是以目标为导向的</strong>，它们遵循动态产生的轨迹，并在接近路口时随机选择路径。他们的道路是无止境的。</li>
+<li>除非设置了任何其他值，<strong>否则车辆的目标速度是其当前速度限制的 70%。</strong></li>
+<li><strong>路口优先权不遵守交通法规。</strong>TM 在路口使用自己的优先级系统。此限制的解决工作正在进行中。同时，可能会出现一些问题，例如，环形交叉路口内的车辆让步给试图进入的车辆。</li>
+</ul>
+<p>TM 行为可以通过 Python API 进行调整。有关具体方法，请参阅 Python API <a href="../python_api/#carla.TrafficManager"><strong>文档</strong></a>的 TM 部分。以下是通过 API 实现的功能的一般摘要：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">主题</th>
+<th style="text-align: center;">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>常规:</strong></td>
+<td style="text-align: center;">- 创建连接到端口的TM实例。 <br> - 检索TM连接的端口。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>安全条件:</strong></td>
+<td style="text-align: center;">- 设置停止车辆之间的最小距离（对于单个车辆或者所有车辆）。这将影响最小移动距离。<br> - 将所需速度设置为当前速度现状的百分比（对于单个车辆或所有车辆）。 <br> - 重置交通信号灯。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>碰撞管理:</strong></td>
+<td style="text-align: center;">- 启用/禁用车辆与特定参与者之间的碰撞。 <br> - 让车辆忽略所有其他车辆。<br> - 让车辆忽略所有步行者<br> - 让车辆忽略所有交通灯。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>变道:</strong></td>
+<td style="text-align: center;">- 强制变道，忽略可能的碰撞。<br> - 启用/禁用车辆的变道。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>混合物理模式:</strong></td>
+<td style="text-align: center;">- 启用/禁用混合物理模式。 <br> - 更改启用物理的半径。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_16">创建交通管理器</h3>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>TM 设计为在同步模式下工作。在异步模式下使用 TM 可能会导致意外和不良结果。有关详细信息，请参阅 <a href="#synchronous-mode"><strong>同步模式</strong></a>。</p>
+</div>
+<p>TM 实例由 <a href="../python_api/#carla.Client"><code>carla 创建.客户端</code></a>，传递要使用的端口。缺省端口为 <code>8000</code>。</p>
+<p>要创建 TM 实例：</p>
+<pre><code class="language-python">tm = client.get_trafficmanager(port)
+</code></pre>
+<p>要为一组车辆启用 autopilot，请检索 TM 实例的端口并设置set_autopilot为True ，同时传递 TM 端口。如果未提供端口，它将尝试连接到默认端口 （8000） 中的 TM。如果 TM 不存在，它将创建一个。</p>
+<pre><code class="language-python">tm_port = tm.get_port()
+ for v in vehicles_list:
+     v.set_autopilot(True,tm_port)
+</code></pre>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+</div>
+<pre><code>在多客户端情况下创建或连接到 TM 与上述示例不同。
+</code></pre>
+<p><code>/PythonAPI/examples</code> 中的 <code>generate_traffic.py</code>脚本提供了一个示例， 说明如何使用作为脚本参数传递的端口创建 TM 实例，并通过批量将自动驾驶仪设置为以下值来注册生成的每辆车。</p>
+<pre><code class="language-py">traffic_manager = client.get_trafficmanager(args.tm-port)
+tm_port = traffic_manager.get_port()
+...
+batch.append(SpawnActor(blueprint, transform).then(SetAutopilot(FutureActor, True,tm_port)))
+...
+traffic_manager.global_percentage_speed_difference(30.0)
+</code></pre>
+<h3 id="autopilot">配置 autopilot 行为</h3>
+<p>以下示例创建一个 TM 实例，并为特定车辆配置危险行为，使其忽略所有交通信号灯，不与其他车辆保持安全距离，并以比当前限速快 20% 的速度行驶：</p>
+<pre><code class="language-python">tm = client.get_trafficmanager(port)
+tm_port = tm.get_port()
+for v in my_vehicles:
+  v.set_autopilot(True,tm_port)
+danger_car = my_vehicles[0]
+tm.ignore_lights_percentage(danger_car,100)
+tm.distance_to_leading_vehicle(danger_car,0)
+tm.vehicle_percentage_speed_difference(danger_car,-20)
+</code></pre>
+<p>以下示例将相同的车辆列表设置为自动驾驶仪，但将其配置为适度驾驶行为。车辆的行驶速度比当前限速慢 80%，与其他车辆之间至少留出 5 米的距离，并且从不进行变道：</p>
+<pre><code class="language-python">tm = client.get_trafficmanager(port)
+tm_port = tm.get_port()
+for v in my_vehicles:
+  v.set_autopilot(True,tm_port)
+danger_car = my_vehicles[0]
+tm.global_distance_to_leading_vehicle(5)
+tm.global_percentage_speed_difference(80)
+for v in my_vehicles: 
+  tm.auto_lane_change(v,False)
+</code></pre>
+<h4 id="_17">委派交通管理器自动更新车灯</h4>
+<p>默认情况下，TM 管理的车辆的车灯（刹车灯、转向灯等）永远不会更新。可以委托 TM 来更新给定车辆参与者的车灯：</p>
+<pre><code class="language-python">tm = client.get_trafficmanager(port)
+for actor in my_vehicles:
+  tm.update_vehicle_lights(actor, True)
+</code></pre>
+<p>车灯管理必须按每辆车进行指定，并且在任何给定时间都可以有带和不带自动灯管理的车辆。</p>
+<h3 id="_18">停止交通管理器</h3>
+<p>TM 不是一个需要被摧毁的参与者;当创建它的客户端停止时，它将停止。这是由 API 自动管理的，用户无需执行任何操作。但是，在关闭 TM 时，用户必须摧毁由它控制的车辆，否则它们将在地图上保持不动。 <code>generate_traffic.py</code>脚本会自动执行此操作:</p>
+<pre><code class="language-py">client.apply_batch([carla.command.DestroyActor(x) for x in vehicles_list])
+</code></pre>
+<div class="admonition 警告">
+<p class="admonition-title">警告</p>
+<p>关闭 <strong>TM-Server</strong> 将关闭连接到它的 <strong>TM-Clients</strong> 。 要了解 <strong>TM-Server</strong> 和 <strong>TM-Client</strong> 之间的区别, 请阅读 <a href="#running-multiple-traffic-managers"><strong>Running multiple Traffic Managers</strong></a>。</p>
+</div>
+<hr />
+<h2 id="_19">确定性模式</h2>
+<p>在确定性模式下，交通管理器将在相同条件下产生相同的结果和行为。不要将确定性论误认为是记录器。虽然记录器允许您存储仿真日志以进行回放，但确定性可确保只要维持相同的条件，交通管理器在脚本的不同执行过程中始终具有相同的输出。</p>
+<p>确定性模式 <strong>仅在同步模式下</strong> 可用。在异步模式下，对仿真的控制较少，并且无法实现确定性。在开始之前，请阅读<a href="#synchronous-mode"><strong>同步模式</strong></a>部分的更多信息。</p>
+<p>要启用确定性模式，请使用以下方法：</p>
+<pre><code class="language-py">my_tm.set_random_device_seed(seed_value)
+</code></pre>
+<p><code>seed_value</code> 是一个将生成随机数的数字的 <code>int</code> 种子数。该值本身并不相关，但相同的值将始终导致相同的输出。具有相同条件、使用相同种子值的两次仿真将是确定性的。</p>
+<p>为了保持多次仿真运行的确定性，<strong>必须为每次仿真设置种子</strong>。例如，每次<a href="../python_api/#carla.Client.reload_world"><strong>重新加载</strong></a>世界时，都必须重新设置种子：</p>
+<pre><code class="language-py">client.reload_world()
+my_tm.set_random_device_seed(seed_value)
+</code></pre>
+<p>可以通过将种子值作为参数传递来在示例脚本<code>generate_traffic.py</code>中测试确定性模式。以下示例在同步模式下使用 50 个自动驾驶参与者填充地图，并将种子设置为任意值<code>9</code>：</p>
+<pre><code class="language-sh">cd PythonAPI/examples
+python3 generate_traffic.py -n 50 --seed 9
+</code></pre>
+<div class="admonition 警告">
+<p class="admonition-title">警告</p>
+<p>在启用确定性模式之前，Carla 服务器和交通管理器必须处于同步模式。在此处阅读有关交通管理器中同步模式的<a href="#synchronous-mode">更多信息</a>。</p>
+</div>
+<hr />
+<h2 id="_20">混合物理模式</h2>
+<p>混合模式允许用户禁用所有自动驾驶车辆或标记为<code>英雄</code>的车辆特定半径之外的自动驾驶车辆的大多数物理计算。这消除了仿真中的车辆物理瓶颈。物理功能被禁用的车辆将通过隐形传送移动。维持线性加速度的基本计算，以确保位置更新和车辆速度保持真实，并且车辆上物理计算的切换是流畅的。</p>
+<p>混合模式使用 <a href="https://carla.readthedocs.io/en/latest/python_api/#carla.Actor.set_simulate_physics"><code>Actor.set_simulate_physics()</code></a> 方法来切换物理计算。默认情况下它是禁用的。有两个选项可以启用它：</p>
+<ul>
+<li><a href="https://carla.readthedocs.io/en/latest/python_api/#carla.TrafficManager.set_hybrid_physics_mode"><strong><code>TrafficManager.set_hybrid_physics_mode(True)</code></strong></a> — 此方法为调用它的交通管理器对象启用混合模式。</li>
+<li><strong>以<code>--hybrid</code>标志运行 <code>generate_traffic.py</code></strong> — 此示例脚本创建一个交通管理器并在自动驾驶仪中生成车辆。当标志<code>--hybrid</code>作为脚本参数传递时，它将这些车辆设置为混合模式。</li>
+</ul>
+<p>要修改混合模式的行为，请使用以下两个参数：</p>
+<ul>
+<li><strong>Radius</strong> <em>(默认 = 50 米)</em> — 半径相对于标记有 <code>英雄</code> 的车辆。该半径内的所有车辆都将启用物理功能；半径之外的车辆将禁用物理功能。使用 <a href="../python_api/#carla.TrafficManager.set_hybrid_physics_radius"><code>traffic_manager.set_hybrid_physics_radius(r)</code></a> 修改半径的大小。</li>
+<li><strong>Hero vehicle</strong> — 带有标记 <code>role_name='hero'</code> 的车辆作为半径的中心。</li>
+<li><strong>如果没有英雄车辆，</strong> 所有车辆的物理功能将被禁用。</li>
+<li><strong>如果有不止一辆英雄车辆，</strong> 则会考虑所有英雄车辆的半径，从而在启用物理功能的情况下创建不同的影响区域。</li>
+</ul>
+<p>下面的剪辑显示了混合模式处于活动状态时如何启用和禁用物理功能。<strong>英雄车辆</strong> 标有 <strong>红色方块</strong>。<strong>禁用物理功能</strong> 的车辆标有 <strong>蓝色方块</strong>。当在英雄车辆的影响半径内时，<strong>启用物理功能</strong> 并且标签变为 <strong>绿色</strong>。</p>
+<p><img alt="Welcome to CARLA" src="../img/tm_hybrid.gif" /></p>
+<hr />
+<h2 id="_21">运行多个交通管理器</h2>
+<h3 id="_22">交通管理器的服务端和客户端</h3>
+<p>Carla 客户端通过向服务器指定要使用的端口来创建交通管理器。如果未指定端口，将使用默认 <code>8000</code> 端口。如果在同一端口上创建更多交通管理器，它们将成为 <strong>交通管理器的客户端</strong>，而原始交通管理器将成为 <strong>交通管理器的服务端</strong>。这些标题定义了交通管理器在仿真中的行为方式。</p>
+<h6 id="_23">交通管理器的服务端</h6>
+<p>如果交通管理器的服务端是第一个连接到空闲端口的交通管理器，然后其他交通管理器（交通管理器的客户端）连接到它正在运行的同一端口，则创建交通管理器服务端。<strong>交通管理器服务端将规定所有交通管理器客户端的行为</strong>，例如，如果 <strong>交通管理器的服务端</strong> 停止，则所有 <strong>交通管理器客户端</strong> 将停止。</p>
+<p>以下代码创建两个交通管理器服务端。每个端口都连接到不同且都未使用的端口：</p>
+<pre><code class="language-py">tm01 = client01.get_trafficmanager() # tm01 --&gt; tm01 (p=8000)
+</code></pre>
+<pre><code class="language-py">tm02 = client02.get_trafficmanager(5000) # tm02(p=5000) --&gt; tm02 (p=5000)
+</code></pre>
+<h6 id="_24">交通管理器的客户端</h6>
+<p>当一个交通管理器连接到另一个交通管理器（交通管理器服务端）占用的端口时，就会创建交通管理器客户端。交通管理器客户端的行为将由交通管理器服务端决定。</p>
+<p>以下代码创建两个交通管理器客户端，每一个都与上一节中创建的交通管理器服务端连接。</p>
+<pre><code class="language-py">tm03 = client03.get_trafficmanager() # tm03 --&gt; tm01 (p=8000). 
+</code></pre>
+<pre><code class="language-py">tm04 = client04.get_trafficmanager(5000) # tm04(p=5000) --&gt; tm02 (p=5000)
+</code></pre>
+<p>Carla 服务器通过存储链接到它们的端口和客户端 IP（对用户隐藏）来保存所有交通管理器实例的寄存器。目前无法检查到目前为止已创建的交通管理器实例。尝试创建实例时始终会尝试连接，并且它将创建新的 <strong>交通管理器服务端</strong> 或 <strong>交通管理器客户端</strong> 。</p>
+<h3 id="_25">多客户端仿真</h3>
+<p>在多客户端模拟中，在同一端口上创建多个TM。第一个 TM 将是 TM 服务器，其余的将是连接到它的 TM 客户端。TM-Server 将规定所有 TM 实例的行为：</p>
+<pre><code class="language-py">terminal 1: ./CarlaUE4.sh -carla-rpc-port=4000
+terminal 2: python3 generate_traffic.py --port 4000 --tm-port 4050 # TM-Server
+terminal 3: python3 generate_traffic.py --port 4000 --tm-port 4050 # TM-Client
+</code></pre>
+<h3 id="_26">多交通管理器仿真</h3>
+<p>在多交通管理器仿真中，在不同的端口上创建多个交通管理器实例。每个交通管理器实例都会控制自己的行为：</p>
+<pre><code class="language-py">terminal 1: ./CarlaUE4.sh -carla-rpc-port=4000
+terminal 2: python3 generate_traffic.py --port 4000 --tm-port 4050 # TM-Server A
+terminal 3: python3 generate_traffic.py --port 4000 --tm-port 4550 # TM-Server B
+</code></pre>
+<h3 id="_27">多重仿真</h3>
+<p>多重仿真是指多个 Carla 服务器同时运行。交通管理器需要连接到相关的 Carla 服务器端口。只要计算能力允许，交通管理器可以一次运行多个仿真，不会出现任何问题：</p>
+<pre><code class="language-py">terminal 1: ./CarlaUE4.sh -carla-rpc-port=4000 # simulation A 
+terminal 2: ./CarlaUE4.sh -carla-rpc-port=5000 # simulation B
+terminal 3: python3 generate_traffic.py --port 4000 --tm-port 4050 # TM-Server A connected to simulation A
+terminal 4: python3 generate_traffic.py --port 5000 --tm-port 5050 # TM-Server B connected to simulation B
+</code></pre>
+<p>多重仿真的概念独立于交通管理器本身。上面的示例并行运行两个 Carla 仿真 A 和 B。在每个仿真中，都独立创建一个交通管理器服务端。仿真 A 可以运行多客户端交通管理程序，而仿真 B 则运行多交通管理器或根本不运行交通管理器。</p>
+<p>上述设置最可能出现的问题是客户端尝试连接到未在所选仿真上运行的现有交通管理器。如果发生这种情况，将会出现错误消息，并且连接将被中止，以防止仿真之间的干扰。</p>
+<hr />
+<h2 id="_28">同步模式</h2>
+<p>交通管理器设计为在同步模式下工作。Carla 服务器和交通管理器应设置为同步才能正常运行。<strong>在异步模式下使用交通管理器可能会导致意外和不良结果</strong>，但是，如果需要异步模式，则仿真应至少以 20-30 fps 运行。</p>
+<p>下面的脚本演示了如何将服务器和交通管理器设置为同步模式：</p>
+<pre><code class="language-py">...
+
+# Set the simulation to sync mode
+init_settings = world.get_settings()
+settings = world.get_settings()
+settings.synchronous_mode = True
+# After that, set the TM to sync mode
+my_tm.set_synchronous_mode(True)
+
+...
+
+# Tick the world in the same client
+world.apply_settings(init_settings)
+world.tick()
+...
+
+# Always disable sync mode before the script ends to prevent the server blocking whilst waiting for a tick
+settings.synchronous_mode = False
+my_tm.set_synchronous_mode(False)
+</code></pre>
+<p>示例脚本 <code>generate_traffic.py</code> 启动交通管理器并用车辆和行人填充地图。它自动将交通管理器和 Carla 服务器设置为同步模式：</p>
+<pre><code class="language-sh">cd PythonAPI/examples
+python3 generate_traffic.py -n 50
+</code></pre>
+<p>如果需要异步模式，请在运行上述命令时使用 <code>--async</code> 标志。</p>
+<p>如果多个交通管理器设置为同步模式，同步将会失败。请遵循以下准则以避免出现问题：</p>
+<ul>
+<li>在<a href="#multiclient">多客户端</a>情况下，只有 <strong>交通管理器服务端</strong> 应设置为同步模式。</li>
+<li>在<a href="#multitm">多交通管理器</a>情况下，只需将一台 <strong>交通管理器服务端</strong> 设置为同步模式。</li>
+<li><a href="https://carla-scenariorunner.readthedocs.io/en/latest/">ScenarioRunner 模块</a>自动运行交通管理器。ScenarioRunner 内的交通管理器将自动设置为同步模式。</li>
+</ul>
+<div class="admonition 警告">
+<p class="admonition-title">警告</p>
+<p>在管理时钟的脚本完成之前禁用同步模式（对于世界和交通管理器），以防止服务器阻塞，永远等待时钟。</p>
+</div>
+<hr />
+<h2 id="_29">大地图中的交通管理器</h2>
+<p>要了解交通管理器如何在大型地图上工作，请务必首先阅读<a href="../large_map_overview/">此处</a>的文档来熟悉大型地图的工作原理。</p>
+<p>自动驾驶车辆在大地图中的行为取决于是否存在英雄车辆：</p>
+<p><strong>不存在英雄车辆</strong></p>
+<p>所有自动驾驶车辆都将被视为休眠参与者。休眠的自动驾驶参与者将像混合模式一样在地图上移动。由于没有英雄车辆来触发地图瓦片流，因此不会渲染车辆。</p>
+<p><strong>呈现英雄车辆</strong></p>
+<p>当自动驾驶车辆超过 <code>actor_active_distance</code> 定义的值时，将进入休眠状态actor_active_distance。要设置此值，请使用 Python API：</p>
+<pre><code class="language-py">settings = world.get_settings()
+
+# Actors will become dormant 2km away from the ego vehicle
+settings.actor_active_distance = 2000
+
+world.apply_settings(settings)
+</code></pre>
+<p>在交通管理器中，休眠的参与者可以配置为在英雄车辆周围不断重生，而不是在地图的其他部分保持休眠状态。可以使用<code>set_respawn_dormant_vehicles</code> Python API 中的方法配置此选项。车辆将在英雄车辆的用户定义距离内重生。可重生距离的上下边界可以使用<code>set_boundaries_respawn_dormant_vehicles</code>方法设置。注意，上距离不会大于大地图的瓦片流距离，距离最小为 20m。</p>
+<p>要使英雄车辆 25 米和 700 米范围内的休眠车辆重生：</p>
+<pre><code class="language-py">my_tm.set_respawn_dormant_vehicles(True)
+my_tm.set_boundaries_respawn_dormant_vehicles(25,700)
+</code></pre>
+<p>如果碰撞阻止休眠的参与者重生，交通管理器将重试下一个仿真步骤。</p>
+<p>如果休眠车辆没有重生，它们的行为将取决于是否启用混合模式。如果启用了混合模式，则休眠的参与者将在地图上传送。如果未启用混合模式，则不会计算休眠参与者的物理特性，并且它们将保持在原位置，直到不再休眠。</p>
+<hr />
+<p>If you have any questions about the TM, then you can ask in the <a href="https://github.com/carla-simulator/carla/discussions">forum</a>.</p>
+<div class="build-buttons">
+<p>
+<a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
+CARLA forum</a>
+</p>
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../ts_traffic_simulation_overview/" class="btn btn-neutral float-left" title="交通模拟概述"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../adv_sumo/" class="btn btn-neutral float-right" title="SUMO 联合仿真">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../ts_traffic_simulation_overview/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../adv_sumo/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

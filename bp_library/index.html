@@ -1,0 +1,2416 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Blueprint Library - CARLA 模拟器 中文文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Blueprint Library";
+        var mkdocs_page_input_path = "bp_library.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> CARLA 模拟器 中文文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">入门</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../start_introduction/">介绍</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../start_quickstart/">快速启动包安装</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">构建CARLA</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_linux/">Linux build</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_windows/">Windows build</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_update/">Update CARLA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_system/">Build system</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_docker/">CARLA in Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_faq/">F.A.Q.</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第一步</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_concepts/">核心概念</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_world/">第一、 世界和客户端</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_actors/">第二、 角色和蓝图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_map/">第三、地图和导航 </a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_sensors/">第四、 传感器和数据</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">高级概念</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_opendrive/">OpenDRIVE 独立模式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_ptv/">PTV-Vissim 联合仿真</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_recorder/">Recorder</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_rendering_options/">渲染选项</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_rss/">RSS</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_synchrony_timestep/">同步和时间步长</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_benchmarking/">基准性能</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_agents/">CARLA 代理</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">交通模拟</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ts_traffic_simulation_overview/">交通模拟概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_traffic_manager/">Traffic Manager</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_sumo/">SUMO 联合仿真</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_scenic/">Scenic</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">参考</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../python_api/">Python API 参考</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Blueprint Library</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#controller">controller</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sensor">sensor</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#static">static</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#vehicle">vehicle</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#walker">walker</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_cpp/">C++ 参考</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_recorder_binary_file_format/">Recorder 二进制文件格式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_sensors/">Sensors reference</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">插件</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../plugins_carlaviz/">carlaviz — web 可视化器</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">ROS 桥接器</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ros_documentation/">ROS 桥文档</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">自定义地图</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_map_overview/">CARLA 中自定义地图的概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在CARLA包导入地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 CARLA 源构建中导入地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_alternative/">导入地图的替代方法</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_manual_map_package/">手动准备地图包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_layers/">自定义地图：分层地图: Layered maps</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_add_tl/">自定义地图：红绿灯和标志</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_road_painter/">自定义地图：Road painter</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_buildings/">自定义地图：程序建筑</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_weather_landscape/">自定义地图：天气和景观</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_pedestrian_navigation/">生成行人导航</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">大型地图</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_overview/">大型地图概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_roadrunner/">在RoadRunner中创建大地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_import/">导入/打包大地图</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（通用）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_add_friction_triggers/">添加摩擦触发器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_vehicle_physics/">控制车辆物理模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_walker_skeletons/">控制行人骨骼</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用OpenStreetMap生成地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索模拟数据</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_carsim_integration/">CarSim 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_chrono/">Chrono 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎UE和 CARLA</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（资产）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_add_vehicle/">添加新车辆</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_add_props/">添加新道具</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_create_standalone/">创建独立包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_material_customization/">材料定制</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（开发人员）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_contribute_assets/">如何升级内容</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_create_sensor/">创建一个传感器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_create_semantic_tags/">创建语义标签</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_customize_vehicle_suspension/">自定义车辆悬架</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_generate_colliders/">生成详细碰撞</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_make_release/">发布版本</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">CARLA 生态系统</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">贡献</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_contribution_guidelines/">贡献指南</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_code_of_conduct/">行为准则</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_coding_standard/">编码标准</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_doc_standard/">文档标准</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">CARLA 模拟器 中文文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">参考</li>
+      <li class="breadcrumb-item active">Blueprint Library</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="blueprint-library">Blueprint Library</h1>
+<p>The Blueprint Library (<a href="../python_api/#carlablueprintlibrary-class"><code>carla.BlueprintLibrary</code></a>) is a summary of all <a href="../python_api/#carla.ActorBlueprint"><code>carla.ActorBlueprint</code></a> and its attributes (<a href="../python_api/#carla.ActorAttribute"><code>carla.ActorAttribute</code></a>) available to the user in CARLA.  </p>
+<p>Here is an example code for printing all actor blueprints and their attributes:  </p>
+<pre><code class="language-py">blueprints = [bp for bp in world.get_blueprint_library().filter('*')]
+for blueprint in blueprints:
+   print(blueprint.id)
+   for attr in blueprint:
+       print('  - {}'.format(attr))
+</code></pre>
+<p>Check out the <a href="../core_actors/">introduction to blueprints</a>.  </p>
+<h3 id="controller">controller</h3>
+<ul>
+<li><strong><font color="#498efc">controller.ai.walker</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="sensor">sensor</h3>
+<ul>
+<li><strong><font color="#498efc">sensor.camera.depth</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>fov</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>image_size_x</code> (<em>Int</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>image_size_y</code> (<em>Int</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>lens_circle_falloff</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>lens_circle_multiplier</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>lens_k</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>lens_kcube</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>lens_x_size</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>lens_y_size</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sensor_tick</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">sensor.camera.dvs</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>black_clip</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>blade_count</code> (<em>Int</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>bloom_intensity</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>blur_amount</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>blur_radius</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>calibration_constant</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>chromatic_aberration_intensity</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>chromatic_aberration_offset</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>enable_postprocess_effects</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>exposure_compensation</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>exposure_max_bright</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>exposure_min_bright</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>exposure_mode</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>exposure_speed_down</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>exposure_speed_up</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>focal_distance</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>fov</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>fstop</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>gamma</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>image_size_x</code> (<em>Int</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>image_size_y</code> (<em>Int</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>iso</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>lens_circle_falloff</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>lens_circle_multiplier</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>lens_flare_intensity</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>lens_k</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>lens_kcube</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>lens_x_size</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>lens_y_size</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>log_eps</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>min_fstop</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>motion_blur_intensity</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>motion_blur_max_distortion</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>motion_blur_min_object_screen_size</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>negative_threshold</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>positive_threshold</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>refractory_period_ns</code> (<em>Int</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sensor_tick</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>shoulder</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>shutter_speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sigma_negative_threshold</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sigma_positive_threshold</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>slope</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>temp</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>tint</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>toe</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>use_log</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>white_clip</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">sensor.camera.optical_flow</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>fov</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>image_size_x</code> (<em>Int</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>image_size_y</code> (<em>Int</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>lens_circle_falloff</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>lens_circle_multiplier</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>lens_k</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>lens_kcube</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>lens_x_size</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>lens_y_size</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sensor_tick</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">sensor.camera.rgb</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>black_clip</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>blade_count</code> (<em>Int</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>bloom_intensity</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>blur_amount</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>blur_radius</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>calibration_constant</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>chromatic_aberration_intensity</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>chromatic_aberration_offset</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>enable_postprocess_effects</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>exposure_compensation</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>exposure_max_bright</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>exposure_min_bright</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>exposure_mode</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>exposure_speed_down</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>exposure_speed_up</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>focal_distance</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>fov</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>fstop</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>gamma</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>image_size_x</code> (<em>Int</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>image_size_y</code> (<em>Int</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>iso</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>lens_circle_falloff</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>lens_circle_multiplier</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>lens_flare_intensity</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>lens_k</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>lens_kcube</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>lens_x_size</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>lens_y_size</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>min_fstop</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>motion_blur_intensity</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>motion_blur_max_distortion</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>motion_blur_min_object_screen_size</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sensor_tick</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>shoulder</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>shutter_speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>slope</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>temp</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>tint</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>toe</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>white_clip</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">sensor.camera.semantic_segmentation</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>fov</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>image_size_x</code> (<em>Int</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>image_size_y</code> (<em>Int</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>lens_circle_falloff</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>lens_circle_multiplier</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>lens_k</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>lens_kcube</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>lens_x_size</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>lens_y_size</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sensor_tick</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">sensor.lidar.ray_cast</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>atmosphere_attenuation_rate</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>channels</code> (<em>Int</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>dropoff_general_rate</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>dropoff_intensity_limit</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>dropoff_zero_intensity</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>horizontal_fov</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>lower_fov</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>noise_seed</code> (<em>Int</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>noise_stddev</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>points_per_second</code> (<em>Int</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>range</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>rotation_frequency</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sensor_tick</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>upper_fov</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">sensor.lidar.ray_cast_semantic</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>channels</code> (<em>Int</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>horizontal_fov</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>lower_fov</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>points_per_second</code> (<em>Int</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>range</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>rotation_frequency</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sensor_tick</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>upper_fov</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">sensor.other.collision</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">sensor.other.gnss</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>noise_alt_bias</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>noise_alt_stddev</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>noise_lat_bias</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>noise_lat_stddev</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>noise_lon_bias</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>noise_lon_stddev</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>noise_seed</code> (<em>Int</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sensor_tick</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">sensor.other.imu</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>noise_accel_stddev_x</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>noise_accel_stddev_y</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>noise_accel_stddev_z</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>noise_gyro_bias_x</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>noise_gyro_bias_y</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>noise_gyro_bias_z</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>noise_gyro_stddev_x</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>noise_gyro_stddev_y</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>noise_gyro_stddev_z</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>noise_seed</code> (<em>Int</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sensor_tick</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">sensor.other.lane_invasion</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">sensor.other.obstacle</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>debug_linetrace</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>distance</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>hit_radius</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>only_dynamics</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sensor_tick</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">sensor.other.radar</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>horizontal_fov</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>noise_seed</code> (<em>Int</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>points_per_second</code> (<em>Int</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>range</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sensor_tick</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>vertical_fov</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">sensor.other.rss</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="static">static</h3>
+<ul>
+<li><strong><font color="#498efc">static.prop.advertisement</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.atm</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.barbeque</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.barrel</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.bench01</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.bench02</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.bench03</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.bike helmet</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.bin</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.box01</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.box02</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.box03</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.briefcase</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.brokentile01</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.brokentile02</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.brokentile03</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.brokentile04</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.busstop</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.calibrator</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.chainbarrier</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.chainbarrierend</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.clothcontainer</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.clothesline</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.colacan</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.constructioncone</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.container</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.creasedbox01</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.creasedbox02</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.creasedbox03</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.dirtdebris01</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.dirtdebris02</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.dirtdebris03</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.doghouse</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.fountain</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.garbage01</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.garbage02</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.garbage03</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.garbage04</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.garbage05</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.garbage06</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.gardenlamp</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.glasscontainer</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.gnome</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.guitarcase</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.ironplank</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.kiosk_01</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.mailbox</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.maptable</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.mesh</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.mobile</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.motorhelmet</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.omri-0</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.omri-1</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.pergola</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.plantpot01</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.plantpot02</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.plantpot03</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.plantpot04</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.plantpot05</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.plantpot06</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.plantpot07</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.plantpot08</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.plasticbag</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.plasticchair</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.plastictable</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.platformgarbage01</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.purse</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.shoppingbag</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.shoppingcart</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.shoppingtrolley</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.slide</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.streetbarrier</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.streetfountain</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.streetsign</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.streetsign01</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.streetsign04</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.swing</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.swingcouch</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.table</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.trafficcone01</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.trafficcone02</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.trafficwarning</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.trampoline</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.trashbag</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.trashcan01</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.trashcan02</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.trashcan03</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.trashcan04</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.trashcan05</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.travelcase</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.vendingmachine</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.prop.wateringcan</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>size</code> (<em>String</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">static.trigger.friction</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>extent_x</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>extent_y</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>extent_z</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>friction</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="vehicle">vehicle</h3>
+<ul>
+<li><strong><font color="#498efc">vehicle.audi.a2</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>color</code> (<em>RGBColor</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>number_of_wheels</code> (<em>Int</em>)</li>
+<li><code>object_type</code> (<em>String</em>)</li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sticky_control</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">vehicle.audi.etron</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>color</code> (<em>RGBColor</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>number_of_wheels</code> (<em>Int</em>)</li>
+<li><code>object_type</code> (<em>String</em>)</li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sticky_control</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">vehicle.audi.tt</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>color</code> (<em>RGBColor</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>number_of_wheels</code> (<em>Int</em>)</li>
+<li><code>object_type</code> (<em>String</em>)</li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sticky_control</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">vehicle.bh.crossbike</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>color</code> (<em>RGBColor</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>driver_id</code> (<em>Int</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>number_of_wheels</code> (<em>Int</em>)</li>
+<li><code>object_type</code> (<em>String</em>)</li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sticky_control</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">vehicle.bmw.grandtourer</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>color</code> (<em>RGBColor</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>number_of_wheels</code> (<em>Int</em>)</li>
+<li><code>object_type</code> (<em>String</em>)</li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sticky_control</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">vehicle.carlamotors.carlacola</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>color</code> (<em>RGBColor</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>number_of_wheels</code> (<em>Int</em>)</li>
+<li><code>object_type</code> (<em>String</em>)</li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sticky_control</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">vehicle.carlamotors.firetruck</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>color</code> (<em>RGBColor</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>number_of_wheels</code> (<em>Int</em>)</li>
+<li><code>object_type</code> (<em>String</em>)</li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sticky_control</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">vehicle.chevrolet.impala</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>color</code> (<em>RGBColor</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>number_of_wheels</code> (<em>Int</em>)</li>
+<li><code>object_type</code> (<em>String</em>)</li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sticky_control</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">vehicle.citroen.c3</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>color</code> (<em>RGBColor</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>number_of_wheels</code> (<em>Int</em>)</li>
+<li><code>object_type</code> (<em>String</em>)</li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sticky_control</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">vehicle.diamondback.century</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>color</code> (<em>RGBColor</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>driver_id</code> (<em>Int</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>number_of_wheels</code> (<em>Int</em>)</li>
+<li><code>object_type</code> (<em>String</em>)</li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sticky_control</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">vehicle.dodge.charger_2020</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>color</code> (<em>RGBColor</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>number_of_wheels</code> (<em>Int</em>)</li>
+<li><code>object_type</code> (<em>String</em>)</li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sticky_control</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">vehicle.dodge.charger_police</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>color</code> (<em>RGBColor</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>number_of_wheels</code> (<em>Int</em>)</li>
+<li><code>object_type</code> (<em>String</em>)</li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sticky_control</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">vehicle.dodge.charger_police_2020</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>color</code> (<em>RGBColor</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>number_of_wheels</code> (<em>Int</em>)</li>
+<li><code>object_type</code> (<em>String</em>)</li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sticky_control</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">vehicle.ford.ambulance</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>color</code> (<em>RGBColor</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>number_of_wheels</code> (<em>Int</em>)</li>
+<li><code>object_type</code> (<em>String</em>)</li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sticky_control</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">vehicle.ford.crown</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>color</code> (<em>RGBColor</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>number_of_wheels</code> (<em>Int</em>)</li>
+<li><code>object_type</code> (<em>String</em>)</li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sticky_control</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">vehicle.ford.mustang</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>color</code> (<em>RGBColor</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>number_of_wheels</code> (<em>Int</em>)</li>
+<li><code>object_type</code> (<em>String</em>)</li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sticky_control</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">vehicle.gazelle.omafiets</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>color</code> (<em>RGBColor</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>driver_id</code> (<em>Int</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>number_of_wheels</code> (<em>Int</em>)</li>
+<li><code>object_type</code> (<em>String</em>)</li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sticky_control</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">vehicle.harley-davidson.low_rider</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>color</code> (<em>RGBColor</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>driver_id</code> (<em>Int</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>number_of_wheels</code> (<em>Int</em>)</li>
+<li><code>object_type</code> (<em>String</em>)</li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sticky_control</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">vehicle.jeep.wrangler_rubicon</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>color</code> (<em>RGBColor</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>number_of_wheels</code> (<em>Int</em>)</li>
+<li><code>object_type</code> (<em>String</em>)</li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sticky_control</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">vehicle.kawasaki.ninja</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>color</code> (<em>RGBColor</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>driver_id</code> (<em>Int</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>number_of_wheels</code> (<em>Int</em>)</li>
+<li><code>object_type</code> (<em>String</em>)</li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sticky_control</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">vehicle.lincoln.mkz_2017</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>color</code> (<em>RGBColor</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>number_of_wheels</code> (<em>Int</em>)</li>
+<li><code>object_type</code> (<em>String</em>)</li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sticky_control</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">vehicle.lincoln.mkz_2020</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>color</code> (<em>RGBColor</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>driver_id</code> (<em>Int</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>number_of_wheels</code> (<em>Int</em>)</li>
+<li><code>object_type</code> (<em>String</em>)</li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sticky_control</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">vehicle.mercedes.coupe</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>color</code> (<em>RGBColor</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>number_of_wheels</code> (<em>Int</em>)</li>
+<li><code>object_type</code> (<em>String</em>)</li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sticky_control</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">vehicle.mercedes.coupe_2020</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>color</code> (<em>RGBColor</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>number_of_wheels</code> (<em>Int</em>)</li>
+<li><code>object_type</code> (<em>String</em>)</li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sticky_control</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">vehicle.mercedes.sprinter</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>color</code> (<em>RGBColor</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>number_of_wheels</code> (<em>Int</em>)</li>
+<li><code>object_type</code> (<em>String</em>)</li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sticky_control</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">vehicle.micro.microlino</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>color</code> (<em>RGBColor</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>number_of_wheels</code> (<em>Int</em>)</li>
+<li><code>object_type</code> (<em>String</em>)</li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sticky_control</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">vehicle.mini.cooper_s</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>color</code> (<em>RGBColor</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>number_of_wheels</code> (<em>Int</em>)</li>
+<li><code>object_type</code> (<em>String</em>)</li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sticky_control</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">vehicle.mini.cooper_s_2021</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>color</code> (<em>RGBColor</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>number_of_wheels</code> (<em>Int</em>)</li>
+<li><code>object_type</code> (<em>String</em>)</li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sticky_control</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">vehicle.nissan.micra</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>color</code> (<em>RGBColor</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>number_of_wheels</code> (<em>Int</em>)</li>
+<li><code>object_type</code> (<em>String</em>)</li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sticky_control</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">vehicle.nissan.patrol</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>color</code> (<em>RGBColor</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>number_of_wheels</code> (<em>Int</em>)</li>
+<li><code>object_type</code> (<em>String</em>)</li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sticky_control</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">vehicle.nissan.patrol_2021</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>color</code> (<em>RGBColor</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>number_of_wheels</code> (<em>Int</em>)</li>
+<li><code>object_type</code> (<em>String</em>)</li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sticky_control</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">vehicle.seat.leon</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>color</code> (<em>RGBColor</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>number_of_wheels</code> (<em>Int</em>)</li>
+<li><code>object_type</code> (<em>String</em>)</li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sticky_control</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">vehicle.tesla.cybertruck</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>number_of_wheels</code> (<em>Int</em>)</li>
+<li><code>object_type</code> (<em>String</em>)</li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sticky_control</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">vehicle.tesla.model3</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>color</code> (<em>RGBColor</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>number_of_wheels</code> (<em>Int</em>)</li>
+<li><code>object_type</code> (<em>String</em>)</li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sticky_control</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">vehicle.toyota.prius</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>color</code> (<em>RGBColor</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>number_of_wheels</code> (<em>Int</em>)</li>
+<li><code>object_type</code> (<em>String</em>)</li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sticky_control</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">vehicle.vespa.zx125</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>color</code> (<em>RGBColor</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>driver_id</code> (<em>Int</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>number_of_wheels</code> (<em>Int</em>)</li>
+<li><code>object_type</code> (<em>String</em>)</li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sticky_control</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">vehicle.volkswagen.t2</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>color</code> (<em>RGBColor</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>number_of_wheels</code> (<em>Int</em>)</li>
+<li><code>object_type</code> (<em>String</em>)</li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sticky_control</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">vehicle.volkswagen.t2_2021</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>color</code> (<em>RGBColor</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>number_of_wheels</code> (<em>Int</em>)</li>
+<li><code>object_type</code> (<em>String</em>)</li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sticky_control</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">vehicle.yamaha.yzf</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>color</code> (<em>RGBColor</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>driver_id</code> (<em>Int</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>number_of_wheels</code> (<em>Int</em>)</li>
+<li><code>object_type</code> (<em>String</em>)</li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>sticky_control</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="walker">walker</h3>
+<ul>
+<li><strong><font color="#498efc">walker.pedestrian.0001</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0002</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0003</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0004</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0005</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0006</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0007</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0008</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0009</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0010</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0011</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0012</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0013</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0014</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0015</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0016</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0017</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0018</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0019</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0020</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0021</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0022</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0023</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0024</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0025</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0026</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0027</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0028</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0029</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0030</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0031</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0032</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0033</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0034</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0035</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0036</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0037</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0038</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0039</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0040</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0041</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0042</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0043</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0044</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0045</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0046</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0047</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color="#498efc">walker.pedestrian.0048</font></strong>  <ul>
+<li><strong>Attributes:</strong><ul>
+<li><code>age</code> (<em>String</em>)</li>
+<li><code>gender</code> (<em>String</em>)</li>
+<li><code>generation</code> (<em>Int</em>)</li>
+<li><code>is_invincible</code> (<em>Bool</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>role_name</code> (<em>String</em>) <sub><em>- Modifiable</em></sub></li>
+<li><code>speed</code> (<em>Float</em>) <sub><em>- Modifiable</em></sub></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../python_api/" class="btn btn-neutral float-left" title="Python API 参考"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../ref_cpp/" class="btn btn-neutral float-right" title="C++ 参考">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../python_api/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../ref_cpp/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

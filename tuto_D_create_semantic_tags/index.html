@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>创建语义标签 - CARLA 模拟器 中文文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u521b\u5efa\u8bed\u4e49\u6807\u7b7e";
+        var mkdocs_page_input_path = "tuto_D_create_semantic_tags.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> CARLA 模拟器 中文文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">入门</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../start_introduction/">介绍</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../start_quickstart/">快速启动包安装</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">构建CARLA</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_linux/">Linux build</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_windows/">Windows build</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_update/">Update CARLA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_system/">Build system</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_docker/">CARLA in Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_faq/">F.A.Q.</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第一步</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_concepts/">核心概念</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_world/">第一、 世界和客户端</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_actors/">第二、 角色和蓝图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_map/">第三、地图和导航 </a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_sensors/">第四、 传感器和数据</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">高级概念</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_opendrive/">OpenDRIVE 独立模式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_ptv/">PTV-Vissim 联合仿真</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_recorder/">Recorder</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_rendering_options/">渲染选项</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_rss/">RSS</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_synchrony_timestep/">同步和时间步长</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_benchmarking/">基准性能</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_agents/">CARLA 代理</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">交通模拟</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ts_traffic_simulation_overview/">交通模拟概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_traffic_manager/">Traffic Manager</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_sumo/">SUMO 联合仿真</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_scenic/">Scenic</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">参考</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../python_api/">Python API 参考</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bp_library/">Blueprint Library</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_cpp/">C++ 参考</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_recorder_binary_file_format/">Recorder 二进制文件格式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_sensors/">Sensors reference</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">插件</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../plugins_carlaviz/">carlaviz — web 可视化器</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">ROS 桥接器</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ros_documentation/">ROS 桥文档</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">自定义地图</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_map_overview/">CARLA 中自定义地图的概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在CARLA包导入地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 CARLA 源构建中导入地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_alternative/">导入地图的替代方法</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_manual_map_package/">手动准备地图包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_layers/">自定义地图：分层地图: Layered maps</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_add_tl/">自定义地图：红绿灯和标志</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_road_painter/">自定义地图：Road painter</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_buildings/">自定义地图：程序建筑</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_weather_landscape/">自定义地图：天气和景观</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_pedestrian_navigation/">生成行人导航</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">大型地图</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_overview/">大型地图概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_roadrunner/">在RoadRunner中创建大地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_import/">导入/打包大地图</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（通用）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_add_friction_triggers/">添加摩擦触发器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_vehicle_physics/">控制车辆物理模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_walker_skeletons/">控制行人骨骼</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用OpenStreetMap生成地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索模拟数据</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_carsim_integration/">CarSim 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_chrono/">Chrono 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎UE和 CARLA</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（资产）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_add_vehicle/">添加新车辆</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_add_props/">添加新道具</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_create_standalone/">创建独立包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_material_customization/">材料定制</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（开发人员）</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_contribute_assets/">如何升级内容</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_create_sensor/">创建一个传感器</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">创建语义标签</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#create-a-new-semantic-tag">Create a new semantic tag</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#1-create-the-tag-id">1. Create the tag ID</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2-create-the-ue-folder-for-assets">2. Create the UE folder for assets</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#3-create-two-way-correspondence-between-ue-and-the-code-tag">3. Create two-way correspondence between UE and the code tag</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#4-define-a-color-code">4. Define a color code</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5-add-the-tagged-meshes">5. Add the tagged meshes</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#add-a-tag-to-carlacityobjectlabel">Add a tag to carla.CityObjectLabel</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_customize_vehicle_suspension/">自定义车辆悬架</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_generate_colliders/">生成详细碰撞</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_make_release/">发布版本</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">CARLA 生态系统</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">贡献</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_contribution_guidelines/">贡献指南</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_code_of_conduct/">行为准则</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_coding_standard/">编码标准</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_doc_standard/">文档标准</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">CARLA 模拟器 中文文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">教程（开发人员）</li>
+      <li class="breadcrumb-item active">创建语义标签</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="create-semantic-tags">Create semantic tags</h1>
+<p>Learn how to define customized tags for semantic segmentation. These can additionally be added to <a href="../python_api/#carla.CityObjectLabel">carla.CityObjectLabel</a> to filter the bounding boxes that <a href="../python_api/#carla.World">carla.World</a> retrieves.  </p>
+<ul>
+<li><a href="#create-a-new-semantic-tag"><strong>Create a new semantic tag</strong></a>  <ul>
+<li><a href="#1-create-the-tag-id">1. Create the tag ID</a>  </li>
+<li><a href="#2-create-the-ue-folder-for-assets">2. Create the UE folder for assets</a>  </li>
+<li><a href="#3-create-two-way-correspondence-between-ue-and-the-code-tag">3. Create two-way correspondence between UE and the code tag</a>  </li>
+<li><a href="#4-define-a-color-code">4. Define a color code</a>  </li>
+<li><a href="#5-add-the-tagged-elements">5. Add the tagged elements</a>  </li>
+</ul>
+</li>
+<li><a href="#add-a-tag-to-carlacityobjectlabel"><strong>Add a tag to carla.CityObjectLabel</strong></a>  </li>
+</ul>
+<hr />
+<h2 id="create-a-new-semantic-tag">Create a new semantic tag</h2>
+<h3 id="1-create-the-tag-id">1. Create the tag ID</h3>
+<p><strong>Open <code>ObjectLabel.h</code></strong> in <code>LibCarla/source/carla/rpc</code>. Add your new tag by the end of the enum using the same formatting as the rest.  </p>
+<p><img alt="object_label_h" src="../img/tuto_D_create_semantic_tags/01_objectlabel_tag.jpg" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Tags do not have to appear in order. However, it is good practice to list them in order. </p>
+</div>
+<h3 id="2-create-the-ue-folder-for-assets">2. Create the UE folder for assets</h3>
+<p><strong>Open the Unreal Engine Editor</strong> and go to <code>Carla/Static</code>. Create a new folder named as your tag. </p>
+<p><img alt="ue_folder" src="../img/tuto_D_create_semantic_tags/02_ue_folder.jpg" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The UE folder and the tag do not necessarily have to be named the same. However, it is good practice to do so.  </p>
+</div>
+<h3 id="3-create-two-way-correspondence-between-ue-and-the-code-tag">3. Create two-way correspondence between UE and the code tag</h3>
+<p><strong>3.1. Open <code>Tagger.cpp</code></strong> in <code>Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Game</code>. Go to <strong><code>GetLabelByFolderName</code></strong> Add the your tag by the end of the list. The string being compared is the name of the UE folder used in <a href="#2-create-the-ue-folder-for-assets"><strong>2.</strong></a>, so use the exact same name here.  </p>
+<p><img alt="tagger_cpp" src="../img/tuto_D_create_semantic_tags/03_tagger_cpp.jpg" /></p>
+<p><strong>3.2. Go to <code>GetTagAsString</code></strong> in the same <code>Tagger.cpp</code>. Add the new tag by the end of the switch.  </p>
+<p><img alt="tagger_cpp_02" src="../img/tuto_D_create_semantic_tags/04_tagger_cpp_02.jpg" /></p>
+<h3 id="4-define-a-color-code">4. Define a color code</h3>
+<p><strong>Open <code>CityScapesPalette.h</code></strong> in <code>LibCarla/source/carla/image</code>. Add the color code of your new tag by the end of the array. </p>
+<p><img alt="city_scapes_palette_h" src="../img/tuto_D_create_semantic_tags/05_city_scapes_palette_h.jpg" /></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The position in the array must correspond with the tag ID, in this case, <code>23u</code>. </p>
+</div>
+<h3 id="5-add-the-tagged-meshes">5. Add the tagged meshes</h3>
+<p>The new semantic tag is ready to be used. Only the meshes stored inside the UE folder of a tag are tagged as such. Move or import the corresponding meshes to the new folder, in order for the to be tagged properly. </p>
+<hr />
+<h2 id="add-a-tag-to-carlacityobjectlabel">Add a tag to <a href="../python_api/#carla.CityObjectLabel">carla.CityObjectLabel</a></h2>
+<p>This step is not directly related with semantic segmentation. However, these tags can be used to filter the bounding box query in <a href="../python_api/#carla.World">carla.World</a>. In order to do this, the tag must be added to the <a href="../python_api/#carla.CityObjectLabel">carla.CityObjectLabel</a> enum in the PythonAPI.  </p>
+<p><strong>Open <code>World.cpp</code></strong> in <code>carla/PythonAPI/carla/source/libcarla</code> and add the new tag by the end of the enum.  </p>
+<p><img alt="city_object_label" src="../img/tuto_D_create_semantic_tags/06_city_object_label.jpg" /></p>
+<hr />
+<p>Read the <strong><a href="../build_faq/">F.A.Q.</a></strong> page or post in the <a href="https://github.com/carla-simulator/carla/discussions">CARLA forum</a> for any issues, doubts or suggestions.  </p>
+<p style="font-size: 20px">What's next?</p>
+
+<div class="build-buttons">
+
+<p>
+<a href="../ref_sensors" target="_blank" class="btn btn-neutral" title="Learn all about sensors in CARLA">
+Sensors reference</a>
+</p>
+
+<p>
+<a href="../tuto_A_add_props" target="_blank" class="btn btn-neutral" title="Learn how to import your custom into CARLA">
+Add new props</a>
+</p>
+
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../tuto_D_create_sensor/" class="btn btn-neutral float-left" title="创建一个传感器"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../tuto_D_customize_vehicle_suspension/" class="btn btn-neutral float-right" title="自定义车辆悬架">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../tuto_D_create_sensor/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../tuto_D_customize_vehicle_suspension/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

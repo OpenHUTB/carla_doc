@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Town 12 - CARLA 模拟器 中文文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Town 12";
+        var mkdocs_page_input_path = "map_town12.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> CARLA 模拟器 中文文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">入门</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../start_introduction/">介绍</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../start_quickstart/">快速启动包安装</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">构建CARLA</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_linux/">Linux build</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_windows/">Windows build</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_update/">Update CARLA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_system/">Build system</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_docker/">CARLA in Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_faq/">F.A.Q.</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第一步</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_concepts/">核心概念</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_world/">第一、 世界和客户端</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_actors/">第二、 角色和蓝图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_map/">第三、地图和导航 </a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_sensors/">第四、 传感器和数据</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">高级概念</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_opendrive/">OpenDRIVE 独立模式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_ptv/">PTV-Vissim 联合仿真</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_recorder/">Recorder</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_rendering_options/">渲染选项</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_rss/">RSS</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_synchrony_timestep/">同步和时间步长</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_benchmarking/">基准性能</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_agents/">CARLA 代理</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">交通模拟</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ts_traffic_simulation_overview/">交通模拟概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_traffic_manager/">Traffic Manager</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_sumo/">SUMO 联合仿真</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_scenic/">Scenic</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">参考</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../python_api/">Python API 参考</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bp_library/">Blueprint Library</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_cpp/">C++ 参考</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_recorder_binary_file_format/">Recorder 二进制文件格式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_sensors/">Sensors reference</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">插件</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../plugins_carlaviz/">carlaviz — web 可视化器</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">ROS 桥接器</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ros_documentation/">ROS 桥文档</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">自定义地图</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_map_overview/">CARLA 中自定义地图的概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在CARLA包导入地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 CARLA 源构建中导入地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_alternative/">导入地图的替代方法</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_manual_map_package/">手动准备地图包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_layers/">自定义地图：分层地图: Layered maps</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_add_tl/">自定义地图：红绿灯和标志</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_road_painter/">自定义地图：Road painter</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_buildings/">自定义地图：程序建筑</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_weather_landscape/">自定义地图：天气和景观</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_pedestrian_navigation/">生成行人导航</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">大型地图</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_overview/">大型地图概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_roadrunner/">在RoadRunner中创建大地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_import/">导入/打包大地图</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（通用）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_add_friction_triggers/">添加摩擦触发器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_vehicle_physics/">控制车辆物理模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_walker_skeletons/">控制行人骨骼</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用OpenStreetMap生成地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索模拟数据</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_carsim_integration/">CarSim 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_chrono/">Chrono 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎UE和 CARLA</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（资产）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_add_vehicle/">添加新车辆</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_add_props/">添加新道具</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_create_standalone/">创建独立包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_material_customization/">材料定制</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（开发人员）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_contribute_assets/">如何升级内容</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_create_sensor/">创建一个传感器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_create_semantic_tags/">创建语义标签</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_customize_vehicle_suspension/">自定义车辆悬架</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_generate_colliders/">生成详细碰撞</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_make_release/">发布版本</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">CARLA 生态系统</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">贡献</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_contribution_guidelines/">贡献指南</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_code_of_conduct/">行为准则</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_coding_standard/">编码标准</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_doc_standard/">文档标准</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">CARLA 模拟器 中文文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Town 12</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="town-12">Town 12</h1>
+<p><img alt="town_12" src="../img/catalogue/maps/town12/town12.webp" /></p>
+<p>Town 12 is a Large Map with dimensions of 10x10 km<sup>2</sup>. It is divided into 36 tiles, most with dimensions of 2x2 km<sup>2</sup> (some edge tiles are smaller). The road layout is partially inspired by the road layout of the city of <a href="https://www.google.com/maps/place/Amarillo,+TX,+USA/@35.2018863,-101.9450251,11z/data=!3m1!4b1!4m5!3m4!1s0x870148d4b245cf03:0xd0f3d11c6836d2af!8m2!3d35.2219971!4d-101.8312969">Amarillo in Texas, USA</a>. There are numerous contrasting regions to the city including urban, residential and rural areas, along with a large highway system surrounding the city with a ringroad. The architectural styles reflect those of many medium to large cities across North America.  </p>
+<h2 id="navigator">Navigator</h2>
+<p>The navigator interactive map can be used to browse the town and derive coordinates to use in the CARLA simulator.</p>
+<p><strong>Using the navigator</strong>:</p>
+<ul>
+<li><code>left mouse button</code> - click and hold, drag left, right, up or down to move the map</li>
+<li><code>scroll mouse wheel</code> - scroll down to zoom out, scroll up to zoom in on the location under the mouse pointer</li>
+<li><code>double click</code> - double click on a point on the map to record the coordinates, you will find the coordinates in the text and the code block just below the map</li>
+</ul>
+<p><strong>Zone color reference</strong>:</p>
+<ul>
+<li><span style="color:#595d5e; background-color:#595d5e;">&amp;nbsp</span>   <a href="#high-rise-downtown">Skyscraper</a></li>
+<li><span style="color:#d2dddc; background-color:#d2dddc;">&amp;nbsp</span>   <a href="#high-density-residential">High density residential</a></li>
+<li><span style="color:#838c8b; background-color:#838c8b;">&amp;nbsp</span>   <a href="#community-buildings">Community buildings</a></li>
+<li><span style="color:#17d894; background-color:#17d894;">&amp;nbsp</span>   <a href="#low-density-residential">Low density residential</a></li>
+<li><span style="color:#df6a19; background-color:#df6a19;">&amp;nbsp</span>   <a href="#parks">Parks</a></li>
+<li><span style="color:#839317; background-color:#839317;">&amp;nbsp</span>   <a href="#rural-and-farmland">Rural farmland</a></li>
+<li><span style="color:#265568; background-color:#265568;">&amp;nbsp</span>   <a href="#water">Water</a></li>
+</ul>
+<p><img alt="town12_aerial" src="../img/catalogue/maps/town12/town12roadrunner.webp#map" /></p>
+<p><strong>CARLA coordinates</strong>: </p>
+<ul>
+<li><strong>X</strong>:  <span id="carlacoord_x" style="animation: fadeMe 2s;">--</span></li>
+<li><strong>Y</strong>:  <span id="carlacoord_y" style="animation: fadeMe 2s;">--</span></li>
+</ul>
+<p>After double clicking on a point of interest, the navigator will display the corresponding CARLA coordinates and update them in the following code block. Copy and paste the code into a notebook or Python terminal to translate the spectator to the desired location. You will need first to <a href="tuto_first_steps.md#launching-carla-and-connecting-the-client">connect the client and set up the world object</a>:</p>
+<pre><code class="language-py"># CARLA coordinates: X 0.0, Y 0.0
+spectator = world.get_spectator()
+loc = carla.Location(0.0, 0.0, 500.0)
+rot = carla.Rotation(pitch=-90, yaw=0.0, roll=0.0)
+spectator.set_transform(carla.Transform(loc, rot))
+</code></pre>
+<h2 id="town-12-zones">Town 12 zones</h2>
+<h4 id="high-rise-downtown">High-rise downtown:</h4>
+<p>Town 12's downtown area is a large span of high-rise skyscrapers arranged into blocks on a consistent grid of roads, resembling downtown areas in many large American and European cities.</p>
+<p><img alt="high_rise" src="../img/catalogue/maps/town12/high_rise.webp" /></p>
+<h4 id="high-density-residential">High density residential:</h4>
+<p>The high density residential areas of Town 12 have many 2-10 storey apartment buildings with commercial properties like cafes and retail stores at street level.</p>
+<p><img alt="high_dens_res" src="../img/catalogue/maps/town12/hi_dens_res.webp" /></p>
+<h4 id="community-buildings">Community buildings:</h4>
+<p>The community buildings are a set of 2-4 storey apartment buildings in a colorful bohemian style with cafes and boutiques on the ground floors, located next to the downtown area of the city.</p>
+<p><img alt="community" src="../img/catalogue/maps/town12/community.webp" /></p>
+<h4 id="low-density-residential">Low density residential:</h4>
+<p>The low density residential regions of Town 12 reflect the classic suburbs of many American cities, with one and two story homes surrounded by fenced gardens and garages.</p>
+<p><img alt="low_dens_res" src="../img/catalogue/maps/town12/low_dens_res.webp" /></p>
+<h4 id="parks">Parks:</h4>
+<p>The dense residential and downtown areas are broken up by small islands of green communal space, juxtaposing green foliage against urban architecture.</p>
+<p><img alt="parks" src="../img/catalogue/maps/town12/parks.webp" /></p>
+<h4 id="highways-and-intersections">Highways and intersections:</h4>
+<p>Town 12 has an extensive highway system, including 3-4 lane highways interspersed with impressive roundabout junctions and intersections.</p>
+<p><img alt="highway" src="../img/catalogue/maps/town12/highway.webp" /></p>
+<h4 id="rural-and-farmland">Rural and farmland:</h4>
+<p>Town 12 also has rural regions with characteristic farmland buildings like wooden barns and farmhouses, windmills, grain silos, corn fields, hay bails and rural fencing. These areas have unmarked country dirt roads and single lane interurban roads for inter-city traffic.</p>
+<p><img alt="rural" src="../img/catalogue/maps/town12/rural.webp" /></p>
+<h4 id="water">Water:</h4>
+<p>There are several bodies of water in town 12 including 2 large lakes and several ponds. With some large water features located next to the city, these can produce inverted reflections of the skyline, creating challenges for autonomous driving agents. </p>
+<p><img alt="water" src="../img/catalogue/maps/town12/water.webp" /></p>
+<style>
+@keyframes fadeMe {
+  from {
+    color: #77aaff;
+  }
+  to {
+    color: #000000;
+  }
+}
+
+</style>
+<script>
+window.addEventListener('load', function () {
+
+    var text_coord_x = document.getElementById("carlacoord_x")
+    var text_coord_y = document.getElementById("carlacoord_y")
+    const code_coords = document.getElementsByClassName("hljs-number")
+    const code_comment = document.getElementsByClassName("hljs-comment")
+
+    const image = document.querySelector('[src$="map"]');
+    const canv = document.createElement('canvas');
+
+    canv.setAttribute('height', image.height)
+    canv.setAttribute('width', image.width)
+    image.parentNode.replaceChild(canv, image)
+
+    var state = {mDown: false, button: 0, lastX: 0, lastY:0, canvX: 0, canvY: 0, zoom: 1.0, mdownX: 0, mdownY: 0, pX: 0.5, pY: 0.5, dblClick: false, listObj: false, touch: false}
+
+    ctx = canv.getContext('2d')
+    ctx.drawImage(image, 0, 0, canv.width, canv.height)
+
+    canv.addEventListener('mousemove', (event) => {
+        dX = event.clientX - state.lastX
+        dY = event.clientY - state.lastY
+        state.lastX = event.clientX
+        state.lastY = event.clientY
+
+        if(state.mDown && state.button == 0) {
+            state.canvX += dX
+            state.canvY += dY
+            ctx.clearRect(0, 0, canv.width, canv.height)
+            ctx.drawImage(image,  state.canvX, state.canvY, canv.width * state.zoom, canv.height * state.zoom)
+            state.touch = true;
+        }
+    })
+
+    canv.addEventListener('mousedown', (event) => {
+
+        state.button = event.button;
+        state.mDown = true;
+        state.touch = true;
+
+        var rect = canv.getBoundingClientRect();
+
+        state.mdownX = event.clientX - rect.left;
+        state.mdownY = event.clientY - rect.top;
+
+        state.pX = (state.mdownX - state.canvX) / (canv.width * state.zoom);
+        state.pY = (state.mdownY - state.canvY) / (canv.height * state.zoom);
+    })
+
+    canv.addEventListener('mouseup', (event) => {
+        state.mDown = false;
+    })
+
+    canv.addEventListener('wheel', (event) => {
+
+        state.mDown = false;
+
+        var rect = canv.getBoundingClientRect();
+
+        dX = event.clientX - rect.left;
+        dY = event.clientY - rect.top;
+
+        state.pX = (dX - state.canvX) / (canv.width * state.zoom);
+        state.pY = (dY - state.canvY) / (canv.height * state.zoom);
+
+        if(state.touch){
+            event.preventDefault();
+            if(event.wheelDelta > 0){
+                state.zoom *= 1.15 
+            } else {
+               state.zoom *= 0.85
+            }
+
+            if(state.zoom < 1.0){state.zoom = 1.0;}
+            if(state.zoom > 30.0){state.zoom = 30.0}
+
+            ctx.clearRect(0, 0, canv.width, canv.height)
+
+            state.canvX = - canv.width * state.zoom * state.pX + dX;
+            state.canvY = - canv.height * state.zoom * state.pY + dY;
+
+            ctx.drawImage(image,  state.canvX, state.canvY, canv.width * state.zoom, canv.height * state.zoom);
+        }
+
+    })
+
+    canv.addEventListener('dblclick', (event) => {
+
+        text_coord_x = document.getElementById("carlacoord_x")
+        text_coord_y = document.getElementById("carlacoord_y")
+
+        const carlaX = 10482.4274 * state.pX + -5.39801455 * state.pY - 5673.07949;
+        const carlaY = 5.39801455 * state.pX + 10482.4274 * state.pY - 2885.15738;
+
+        code_coords[0].textContent = carlaX.toFixed(1)
+        code_coords[1].textContent = carlaY.toFixed(1)
+        code_comment[0].textContent = "# CARLA coordinates - X: " + carlaX.toFixed(1) + " Y: " + carlaY.toFixed(1)
+
+        var newX = text_coord_x.cloneNode(true)
+        var newY = text_coord_y.cloneNode(true)
+
+        newX.textContent = carlaX.toFixed(1)
+        newY.textContent = carlaY.toFixed(1)
+
+        var parentX = text_coord_x.parentNode
+        var parentY = text_coord_y.parentNode
+
+        parentX.replaceChild(newX, text_coord_x);
+        parentY.replaceChild(newY, text_coord_y);
+
+        //console.log(state.pX + ", " + state.pY)
+
+    })
+
+})
+</script>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

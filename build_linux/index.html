@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Linux build - CARLA 模拟器 中文文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Linux build";
+        var mkdocs_page_input_path = "build_linux.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> CARLA 模拟器 中文文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">入门</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../start_introduction/">介绍</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../start_quickstart/">快速启动包安装</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">构建CARLA</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Linux build</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#part-one-prerequisites">Part One: Prerequisites</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#system-requirements">System requirements</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#software-requirements">Software requirements</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#unreal-engine">Unreal Engine</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#part-two-build-carla">Part Two: Build CARLA</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#clone-the-carla-repository">Clone the CARLA repository</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#get-assets">Get assets</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#set-unreal-engine-environment-variable">Set Unreal Engine environment variable</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#build-carla">Build CARLA</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#other-make-commands">Other make commands</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_windows/">Windows build</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_update/">Update CARLA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_system/">Build system</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_docker/">CARLA in Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_faq/">F.A.Q.</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第一步</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_concepts/">核心概念</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_world/">第一、 世界和客户端</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_actors/">第二、 角色和蓝图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_map/">第三、地图和导航 </a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_sensors/">第四、 传感器和数据</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">高级概念</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_opendrive/">OpenDRIVE 独立模式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_ptv/">PTV-Vissim 联合仿真</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_recorder/">Recorder</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_rendering_options/">渲染选项</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_rss/">RSS</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_synchrony_timestep/">同步和时间步长</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_benchmarking/">基准性能</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_agents/">CARLA 代理</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">交通模拟</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ts_traffic_simulation_overview/">交通模拟概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_traffic_manager/">Traffic Manager</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_sumo/">SUMO 联合仿真</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_scenic/">Scenic</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">参考</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../python_api/">Python API 参考</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bp_library/">Blueprint Library</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_cpp/">C++ 参考</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_recorder_binary_file_format/">Recorder 二进制文件格式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_sensors/">Sensors reference</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">插件</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../plugins_carlaviz/">carlaviz — web 可视化器</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">ROS 桥接器</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ros_documentation/">ROS 桥文档</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">自定义地图</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_map_overview/">CARLA 中自定义地图的概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在CARLA包导入地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 CARLA 源构建中导入地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_alternative/">导入地图的替代方法</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_manual_map_package/">手动准备地图包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_layers/">自定义地图：分层地图: Layered maps</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_add_tl/">自定义地图：红绿灯和标志</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_road_painter/">自定义地图：Road painter</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_buildings/">自定义地图：程序建筑</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_weather_landscape/">自定义地图：天气和景观</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_pedestrian_navigation/">生成行人导航</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">大型地图</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_overview/">大型地图概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_roadrunner/">在RoadRunner中创建大地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_import/">导入/打包大地图</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（通用）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_add_friction_triggers/">添加摩擦触发器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_vehicle_physics/">控制车辆物理模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_walker_skeletons/">控制行人骨骼</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用OpenStreetMap生成地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索模拟数据</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_carsim_integration/">CarSim 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_chrono/">Chrono 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎UE和 CARLA</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（资产）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_add_vehicle/">添加新车辆</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_add_props/">添加新道具</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_create_standalone/">创建独立包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_material_customization/">材料定制</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（开发人员）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_contribute_assets/">如何升级内容</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_create_sensor/">创建一个传感器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_create_semantic_tags/">创建语义标签</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_customize_vehicle_suspension/">自定义车辆悬架</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_generate_colliders/">生成详细碰撞</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_make_release/">发布版本</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">CARLA 生态系统</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">贡献</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_contribution_guidelines/">贡献指南</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_code_of_conduct/">行为准则</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_coding_standard/">编码标准</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_doc_standard/">文档标准</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">CARLA 模拟器 中文文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">构建CARLA</li>
+      <li class="breadcrumb-item active">Linux build</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="linux-build">Linux build</h1>
+<p>This guide details how to build CARLA from source on Linux. There are two parts. Part one details system requirements and installations of required software, and part two details how to actually build and run CARLA.  </p>
+<p>The build process is long (4 hours or more) and involves several kinds of software. It is highly recommended to read through the guide fully before starting. </p>
+<p>If you come across errors or difficulties then have a look at the <strong><a href="../build_faq/">F.A.Q.</a></strong> page which offers solutions for the most common complications. Alternatively, use the <a href="https://github.com/carla-simulator/carla/discussions">CARLA forum</a> to post any queries you may have.</p>
+<ul>
+<li><a href="#part-one-prerequisites"><strong>Part One: Prerequisites</strong></a><ul>
+<li><a href="#system-requirements">System requirements</a></li>
+<li><a href="#software-requirements">Software requirements</a><ul>
+<li><a href="#unreal-engine">Unreal Engine</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#part-two-build-carla"><strong>Part Two: Build CARLA</strong></a><ul>
+<li><a href="#clone-the-carla-repository">Clone the CARLA repository</a></li>
+<li><a href="#get-assets">Get assets</a></li>
+<li><a href="#set-unreal-engine-environment-variable">Set Unreal Engine environment variable</a></li>
+<li><a href="#build-carla">Build CARLA</a></li>
+<li><a href="#other-make-commands">Other make commands</a></li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="part-one-prerequisites">Part One: Prerequisites</h2>
+<h3 id="system-requirements">System requirements</h3>
+<ul>
+<li><strong>Ubuntu 18.04.</strong> CARLA provides support for previous Ubuntu versions up to 16.04. <strong>However</strong> proper compilers are needed for Unreal Engine to work properly. Dependencies for Ubuntu 18.04 and previous versions are listed separatedly below. Make sure to install the ones corresponding to your system.</li>
+<li><strong>130 GB disk space.</strong> Carla will take around 31 GB and Unreal Engine will take around 91 GB so have about 130 GB free to account for both of these plus additional minor software installations. </li>
+<li><strong>An adequate GPU.</strong> CARLA aims for realistic simulations, so the server needs at least a 6 GB GPU although 8 GB is recommended. A dedicated GPU is highly recommended for machine learning. </li>
+<li><strong>Two TCP ports and good internet connection.</strong> 2000 and 2001 by default. Make sure that these ports are not blocked by firewalls or any other applications. </li>
+</ul>
+<p>..warning::
+    <strong>If you are upgrading from CARLA 0.9.12 to 0.9.13</strong>: you must first upgrade the CARLA fork of the UE4 engine to the latest version. See the <a href="#unreal-engine"><strong>Unreal Engine</strong></a> section for details on upgrading UE4</p>
+<h3 id="software-requirements">Software requirements</h3>
+<p>CARLA requires many different kinds of software to run. Some are built during the CARLA build process itself, such as <em>Boost.Python</em>. Others are binaries that should be installed before starting the build (<em>cmake</em>, <em>clang</em>, different versions of <em>Python</em>, etc.). To install these requirements, run the following commands:</p>
+<pre><code class="language-sh">sudo apt-get update &amp;&amp;
+sudo apt-get install wget software-properties-common &amp;&amp;
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test &amp;&amp;
+wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add - &amp;&amp;
+sudo apt-add-repository &quot;deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-8 main&quot; &amp;&amp;
+sudo apt-get update
+</code></pre>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The following commands depend on your Ubuntu version. Make sure to choose accordingly. </p>
+</div>
+<p><strong>Ubuntu 18.04</strong>.</p>
+<pre><code class="language-sh">sudo apt-get install build-essential clang-8 lld-8 g++-7 cmake ninja-build libvulkan1 python python-pip python-dev python3-dev python3-pip libpng-dev libtiff5-dev libjpeg-dev tzdata sed curl unzip autoconf libtool rsync libxml2-dev git
+</code></pre>
+<p><strong>Previous Ubuntu</strong> versions.</p>
+<pre><code class="language-sh">sudo apt-get install build-essential clang-8 lld-8 g++-7 cmake ninja-build libvulkan1 python python-pip python-dev python3-dev python3-pip libpng16-dev libtiff5-dev libjpeg-dev tzdata sed curl unzip autoconf libtool rsync libxml2-dev git
+</code></pre>
+<p><strong>All Ubuntu systems</strong>.</p>
+<p>To avoid compatibility issues between Unreal Engine and the CARLA dependencies, use the same compiler version and C++ runtime library to compile everything. The CARLA team uses clang-8 and LLVM's libc++. Change the default clang version to compile Unreal Engine and the CARLA dependencies.</p>
+<pre><code class="language-sh">sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/lib/llvm-8/bin/clang++ 180 &amp;&amp;
+sudo update-alternatives --install /usr/bin/clang clang /usr/lib/llvm-8/bin/clang 180
+</code></pre>
+<p>Starting with CARLA 0.9.12, users have the option to install the CARLA Python API using <code>pip</code> or <code>pip3</code>. Version 20.3 or higher is required. To check if you have a suitable version, run the following command:</p>
+<pre><code class="language-sh"># For Python 3
+pip3 -V
+
+# For Python 2
+pip -V
+</code></pre>
+<p>If you need to upgrade:</p>
+<pre><code class="language-sh"># For Python 3
+pip3 install --upgrade pip
+
+# For Python 2
+pip install --upgrade pip
+</code></pre>
+<p>You must install the following Python dependencies:</p>
+<pre><code class="language-sh">pip install --user setuptools &amp;&amp;
+pip3 install --user -Iv setuptools==47.3.1 &amp;&amp;
+pip install --user distro &amp;&amp;
+pip3 install --user distro &amp;&amp;
+pip install --user wheel &amp;&amp;
+pip3 install --user wheel auditwheel
+</code></pre>
+<hr />
+<h2 id="unreal-engine">Unreal Engine</h2>
+<p>Starting with version 0.9.12, CARLA uses a modified fork of Unreal Engine 4.26. This fork contains patches specific to CARLA.</p>
+<p>Be aware that to download this fork of Unreal Engine, <strong>you need to have a GitHub account linked to Unreal Engine's account</strong>. If you don't have this set up, please follow <a href="https://www.unrealengine.com/en-US/ue4-on-github">this guide</a> before going any further.</p>
+<p><strong>1.</strong> Clone the content for CARLA's fork of Unreal Engine 4.26 to your local computer:</p>
+<pre><code class="language-sh">    git clone --depth 1 -b carla https://github.com/CarlaUnreal/UnrealEngine.git ~/UnrealEngine_4.26
+</code></pre>
+<p><strong>2.</strong> Navigate into the directory where you cloned the repository:</p>
+<pre><code class="language-sh">    cd ~/UnrealEngine_4.26
+</code></pre>
+<p><strong>3.</strong> Make the build. This may take an hour or two depending on your system. </p>
+<pre><code class="language-sh">    ./Setup.sh &amp;&amp; ./GenerateProjectFiles.sh &amp;&amp; make
+</code></pre>
+<p><strong>4.</strong> Open the Editor to check that Unreal Engine has been installed properly.</p>
+<pre><code class="language-sh">    cd ~/UnrealEngine_4.26/Engine/Binaries/Linux &amp;&amp; ./UE4Editor
+</code></pre>
+<hr />
+<h2 id="part-two-build-carla">Part Two: Build CARLA</h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Downloading aria2 with <code>sudo apt-get install aria2</code> will speed up the following commands.</p>
+</div>
+<h3 id="clone-the-carla-repository">Clone the CARLA repository</h3>
+<div class="build-buttons">
+<p>
+<a href="https://github.com/carla-simulator/carla" target="_blank" class="btn btn-neutral" title="Go to the CARLA repository">
+<span class="icon icon-github"></span> CARLA repository</a>
+</p>
+</div>
+<p>The button above will take you to the official repository of the project. Either download from there and extract it locally or clone it using the following command:</p>
+<pre><code class="language-sh">        git clone https://github.com/carla-simulator/carla
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>master</code> branch contains the current release of CARLA with the latest fixes and features. Previous CARLA versions are tagged with the version name. Always remember to check the current branch in git with the command <code>git branch</code>. </p>
+</div>
+<h3 id="get-assets">Get assets</h3>
+<p>You will need to download the <strong>latest</strong> assets to work with the current version of CARLA. We provide a script to automate this process. To use the script, run the following command in the CARLA root folder:</p>
+<pre><code class="language-sh">        ./Update.sh
+</code></pre>
+<p>The assets will be downloaded and extracted to the appropriate location.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>To download the assets currently in development, visit <a href="../build_update/#get-development-assets">Update CARLA</a> and read <strong>Get development assets</strong>.</p>
+</div>
+<p>To download the assets for a <strong>specific version</strong> of CARLA:</p>
+<ol>
+<li>From the root CARLA directory, navigate to <code>\Util\ContentVersions.txt</code>. This document contains the links to the assets for all CARLA releases. </li>
+<li>Extract the assets in <code>Unreal\CarlaUE4\Content\Carla</code>. If the path doesn't exist, create it.  </li>
+<li>Extract the file with a command similar to the following:</li>
+</ol>
+<pre><code class="language-sh">        tar -xvzf &lt;assets_file_name&gt;.tar.gz.tar -C C:\path\to\carla\Unreal\CarlaUE4\Content\Carla
+</code></pre>
+<h3 id="set-unreal-engine-environment-variable">Set Unreal Engine environment variable</h3>
+<p>For CARLA to find the correct installation of Unreal Engine, we need to set the CARLA environment variable.</p>
+<p>To set the variable for this session only:</p>
+<pre><code class="language-sh">    export UE4_ROOT=~/UnrealEngine_4.26
+</code></pre>
+<p>To set the variable so it persists across sessions:</p>
+<p><strong>1.</strong> Open <code>~/.bashrc</code> or <code>./profile</code>.  </p>
+<pre><code class="language-sh">    gedit ~/.bashrc
+
+    # or 
+
+    gedit ~/.profile
+</code></pre>
+<p><strong>2.</strong> Add the following line to the bottom of the file: </p>
+<pre><code class="language-sh">    export UE4_ROOT=~/UnrealEngine_4.26 
+</code></pre>
+<p><strong>3.</strong> Save the file and reset the terminal.  </p>
+<h3 id="build-carla">Build CARLA</h3>
+<p>This section outlines the commands to build CARLA. <strong>All commands should be run in the root CARLA folder.</strong></p>
+<p>There are two parts to the build process for CARLA, compiling the client and compiling the server.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Make sure to run <code>make PythonAPI</code> to prepare the client and <code>make launch</code> for the server.
+Alternatively <code>make LibCarla</code> will prepare the CARLA library to be imported anywhere.</p>
+</div>
+<p><strong>1.</strong> <strong>Compile the Python API client</strong>:</p>
+<p>The Python API client grants control over the simulation. Compilation of the Python API client is required the first time you build CARLA and again after you perform any updates. After the client is compiled, you will be able to run scripts to interact with the simulation.</p>
+<p>The following command compiles the Python API client:</p>
+<pre><code class="language-sh">    make PythonAPI
+</code></pre>
+<p>Optionally, to compile the PythonAPI for a specific version of Python, run the below command in the root CARLA directory.</p>
+<pre><code class="language-sh">    # Delete versions as required
+    make PythonAPI ARGS=&quot;--python-version=2.7, 3.6, 3.7, 3.8&quot;
+</code></pre>
+<p>The CARLA client library will be built in two distinct, mutually exclusive forms. This gives users the freedom to choose which form they prefer to run the CARLA client code. The two forms include <code>.egg</code> files and <code>.whl</code> files. Choose <strong>one</strong> of the following options below to use the client library:</p>
+<p><strong>A. <code>.egg</code> file</strong></p>
+<blockquote>
+<p>The <code>.egg</code> file does not need to be installed. All of CARLA's example scripts automatically <a href="../build_system/#versions-prior-to-0912">look for this file</a> when importing CARLA.</p>
+<p>If you previously installed a CARLA <code>.whl</code>, the <code>.whl</code> will take precedence over an <code>.egg</code> file.</p>
+</blockquote>
+<p><strong>B. <code>.whl</code> file</strong></p>
+<blockquote>
+<p>The <code>.whl</code> file should be installed using <code>pip</code> or <code>pip3</code>:</p>
+</blockquote>
+<pre><code class="language-sh"># Python 3
+pip3 install &lt;path/to/wheel&gt;.whl
+
+# Python 2
+pip install &lt;path/to/wheel&gt;.whl
+</code></pre>
+<blockquote>
+<p>This <code>.whl</code> file cannot be distributed as it is built specifically for your OS.</p>
+</blockquote>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Issues can arise through the use of different methods to install the CARLA client library and having different versions of CARLA on your system. It is recommended to use virtual environments when installing the <code>.whl</code> and to <a href="../build_faq/#how-do-i-uninstall-the-carla-client-library">uninstall</a> any previously installed client libraries before installing new ones.</p>
+</div>
+<p><strong>2.</strong> <strong>Compile the server</strong>:</p>
+<p>The following command compiles and launches Unreal Engine. Run this command each time you want to launch the server or use the Unreal Engine editor:</p>
+<pre><code class="language-sh">    make launch
+</code></pre>
+<p>The project may ask to build other instances such as <code>UE4Editor-Carla.dll</code> the first time. Agree in order to open the project. During the first launch, the editor may show warnings regarding shaders and mesh distance fields. These take some time to be loaded and the map will not show properly until then.</p>
+<p><strong>3.</strong> <strong>Start the simulation</strong>:</p>
+<p>Press <strong>Play</strong> to start the server simulation. The camera can be moved with <code>WASD</code> keys and rotated by clicking the scene while moving the mouse around.  </p>
+<p>Test the simulator using the example scripts inside <code>PythonAPI\examples</code>.  With the simulator running, open a new terminal for each script and run the following commands to spawn some life into the town and create a weather cycle:</p>
+<pre><code class="language-sh">        # Terminal A 
+        cd PythonAPI/examples
+        python3 -m pip install -r requirements.txt
+        python3 generate_traffic.py  
+
+        # Terminal B
+        cd PythonAPI/examples
+        python3 dynamic_weather.py 
+</code></pre>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>If the simulation is running at a very low FPS rate, go to <code>Edit -&gt; Editor preferences -&gt; Performance</code> in the Unreal Engine editor and disable <code>Use less CPU when in background</code>.</p>
+</div>
+<h3 id="other-make-commands">Other make commands</h3>
+<p>There are more <code>make</code> commands that you may find useful. Find them in the table below:  </p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>make help</code></td>
+<td>Prints all available commands.</td>
+</tr>
+<tr>
+<td><code>make launch</code></td>
+<td>Launches CARLA server in Editor window.</td>
+</tr>
+<tr>
+<td><code>make PythonAPI</code></td>
+<td>Builds the CARLA client.</td>
+</tr>
+<tr>
+<td><code>make LibCarla</code></td>
+<td>Prepares the CARLA library to be imported anywhere.</td>
+</tr>
+<tr>
+<td><code>make package</code></td>
+<td>Builds CARLA and creates a packaged version for distribution.</td>
+</tr>
+<tr>
+<td><code>make clean</code></td>
+<td>Deletes all the binaries and temporals generated by the build system.</td>
+</tr>
+<tr>
+<td><code>make rebuild</code></td>
+<td><code>make clean</code> and <code>make launch</code> both in one command.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p>Read the <strong><a href="../build_faq/">F.A.Q.</a></strong> page or post in the <a href="https://github.com/carla-simulator/carla/discussions">CARLA forum</a> for any issues regarding this guide.  </p>
+<p>Up next, learn how to update the CARLA build or take your first steps in the simulation, and learn some core concepts.  </p>
+<div class="build-buttons">
+
+<p>
+<a href="../build_update" target="_blank" class="btn btn-neutral" title="Learn how to update the build">
+Update CARLA</a>
+</p>
+
+<p>
+<a href="../core_concepts" target="_blank" class="btn btn-neutral" title="Learn about CARLA core concepts">
+First steps</a>
+</p>
+
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../start_quickstart/" class="btn btn-neutral float-left" title="快速启动包安装"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../build_windows/" class="btn btn-neutral float-right" title="Windows build">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../start_quickstart/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../build_windows/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

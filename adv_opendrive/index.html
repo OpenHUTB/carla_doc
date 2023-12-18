@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>OpenDRIVE 独立模式 - CARLA 模拟器 中文文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "OpenDRIVE \u72ec\u7acb\u6a21\u5f0f";
+        var mkdocs_page_input_path = "adv_opendrive.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> CARLA 模拟器 中文文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">入门</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../start_introduction/">介绍</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../start_quickstart/">快速启动包安装</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">构建CARLA</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_linux/">Linux build</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_windows/">Windows build</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_update/">Update CARLA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_system/">Build system</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_docker/">CARLA in Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_faq/">F.A.Q.</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第一步</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_concepts/">核心概念</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_world/">第一、 世界和客户端</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_actors/">第二、 角色和蓝图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_map/">第三、地图和导航 </a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_sensors/">第四、 传感器和数据</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">高级概念</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">OpenDRIVE 独立模式</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_1">概述</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">运行独立地图</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">网格生成</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_ptv/">PTV-Vissim 联合仿真</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_recorder/">Recorder</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_rendering_options/">渲染选项</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_rss/">RSS</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_synchrony_timestep/">同步和时间步长</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_benchmarking/">基准性能</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_agents/">CARLA 代理</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">交通模拟</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ts_traffic_simulation_overview/">交通模拟概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_traffic_manager/">Traffic Manager</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_sumo/">SUMO 联合仿真</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_scenic/">Scenic</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">参考</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../python_api/">Python API 参考</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bp_library/">Blueprint Library</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_cpp/">C++ 参考</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_recorder_binary_file_format/">Recorder 二进制文件格式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_sensors/">Sensors reference</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">插件</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../plugins_carlaviz/">carlaviz — web 可视化器</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">ROS 桥接器</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ros_documentation/">ROS 桥文档</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">自定义地图</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_map_overview/">CARLA 中自定义地图的概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在CARLA包导入地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 CARLA 源构建中导入地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_alternative/">导入地图的替代方法</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_manual_map_package/">手动准备地图包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_layers/">自定义地图：分层地图: Layered maps</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_add_tl/">自定义地图：红绿灯和标志</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_road_painter/">自定义地图：Road painter</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_buildings/">自定义地图：程序建筑</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_weather_landscape/">自定义地图：天气和景观</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_pedestrian_navigation/">生成行人导航</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">大型地图</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_overview/">大型地图概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_roadrunner/">在RoadRunner中创建大地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_import/">导入/打包大地图</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（通用）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_add_friction_triggers/">添加摩擦触发器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_vehicle_physics/">控制车辆物理模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_walker_skeletons/">控制行人骨骼</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用OpenStreetMap生成地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索模拟数据</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_carsim_integration/">CarSim 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_chrono/">Chrono 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎UE和 CARLA</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（资产）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_add_vehicle/">添加新车辆</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_add_props/">添加新道具</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_create_standalone/">创建独立包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_material_customization/">材料定制</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（开发人员）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_contribute_assets/">如何升级内容</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_create_sensor/">创建一个传感器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_create_semantic_tags/">创建语义标签</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_customize_vehicle_suspension/">自定义车辆悬架</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_generate_colliders/">生成详细碰撞</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_make_release/">发布版本</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">CARLA 生态系统</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">贡献</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_contribution_guidelines/">贡献指南</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_code_of_conduct/">行为准则</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_coding_standard/">编码标准</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_doc_standard/">文档标准</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">CARLA 模拟器 中文文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">高级概念</li>
+      <li class="breadcrumb-item active">OpenDRIVE 独立模式</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="opendrive">OpenDRIVE独立模式</h1>
+<p>此功能允许用户将任何 OpenDRIVE 文件作为 CARLA 地图开箱即用。为此，模拟器将自动生成道路网格供角色导航。</p>
+<ul>
+<li><a href="#概-述"><strong>概述</strong></a></li>
+<li><a href="#运行独立地图"><strong>运行独立地图</strong></a></li>
+<li><a href="#网格生成"><strong>网格生成</strong></a></li>
+</ul>
+<hr />
+<h2 id="_1">概述</h2>
+<p>此模式仅使用 OpenDRIVE 文件运行完整模拟，无需任何额外的几何图形或资产。为此，模拟器采用 OpenDRIVE 文件并程序化地创建时间 3D 网格来运行模拟。</p>
+<p>生成的网格以简约的方式描述了道路定义。所有元素都将与 OpenDRIVE 文件对应，但除此之外，只有 void。为防止车辆掉出路面，采取了两项措施。</p>
+<ul>
+<li>在车辆流动最复杂的路口，车道稍宽一些。</li>
+<li>在道路的边界处创建了可见的墙壁，作为最后的安全措施。</li>
+</ul>
+<p>交通信号灯、停车点和收益将即时生成。行人将在地图上显示的人行道和人行横道上导航。所有这些元素，以及道路上的每一个细节，都基于 OpenDRIVE 文件。由于独立模式直接使用 <code>.xodr</code>，因此其中的任何问题都会影响到模拟。这可能是一个问题，尤其是在许多车道混合的路口。</p>
+<div class="admonition 重要的">
+<p class="admonition-title">重要的</p>
+<p>仔细检查 OpenDRIVE 文件尤为重要。运行模拟时，其中的任何问题都会传播。</p>
+</div>
+<p><img alt="opendrive_standalone" src="../img/opendrive_standalone.jpg" /></p>
+<hr />
+<h2 id="_2">运行独立地图</h2>
+<p>打开 OpenDRIVE 文件只需通过 API 调用 <a href="../python_api/#carla.Client.generate_opendrive_world"><code>client.generate_opendrive_world()</code></a>。这将生成新地图，并阻止模拟，直到它准备好。该方法需要两个参数。</p>
+<ul>
+<li><strong><code>opendrive</code></strong> 是解析为字符串的 OpenDRIVE 文件的内容。</li>
+<li>
+<p><strong><code>parameters</code></strong> 是一个 <a href="../python_api/#carla.OpendriveGenerationParameters">carla.OpendriveGenerationParameters</a> 包含网格生成的设置。 <strong>这个参数是可选的</strong>。</p>
+</li>
+<li>
+<p><strong><code>vertex_distance</code></strong> <em>（默认 2.0 米）</em> - 网格顶点之间的距离。距离越大，网格越不准确。但是，如果距离太小，生成的网格将太重而无法使用。</p>
+</li>
+<li><strong><code>max_road_length</code></strong> <em>（默认 50.0 米）</em> - 网格的一部分的最大长度。网格被分成几部分以减少渲染开销。如果一部分不可见，UE 将不会渲染它。部分越小，它们被丢弃的可能性就越大。但是，如果部分太小，UE 需要管理的对象太多，性能也会受到影响。</li>
+<li><strong><code>wall_height</code></strong> <em>（默认为 1.0 米）</em> - 在道路边界上创建的附加墙的高度。这些可以防止车辆坠入虚空。</li>
+<li><strong><code>additional_width</code></strong> <em>（默认为 0.6 米，每边 0.3）</em> — 应用于交叉路口的小宽度增量。这是防止车辆坠落的安全措施。</li>
+<li><strong><code>smooth_junctions</code></strong> <em>(default True)</em> — 如果 <strong>True</strong>，OpenDRIVE 的一些信息将被重新解释以平滑连接处的最终网格。这样做是为了防止在不同车道相遇时可能发生的一些不准确。如果设置为 <strong>False</strong>，网格将完全按照 OpenDRIVE 中的描述生成。</li>
+<li><strong><code>enable_mesh_visibility</code></strong> <em>(default True)</em> — 如果 <strong>False</strong>，网格将不会被渲染，这可以为模拟器节省大量渲染工作。</li>
+</ul>
+<p>为了轻松测试此功能，<code>PythonAPI/util/</code> 中的<code>config.py</code> 脚本有一个新参数，<code>-x</code> 或<code>--xodr-path</code>。此参数需要一个带有 <code>.xodr</code> 文件路径的字符串，例如 <code>path/example.xodr</code>。如果使用此脚本生成网格，则使用的参数将始终为默认参数。</p>
+<p>此功能可以使用 CARLA 提供的新 <strong>TownBig</strong> 进行测试。</p>
+<pre><code class="language-sh">python3 config.py -x opendrive/TownBig.xodr
+</code></pre>
+<div class="admonition 重要的">
+<p class="admonition-title">重要的</p>
+<p><strong><a href="../python_api/#carla.Client.generate_opendrive_world">client.generate_opendrive_world()</a></strong> 使用 <strong>OpenDRIVE 文件的内容解析为字符串</strong> 。相反，<strong><code>config.py</code></strong> 脚本需要 <strong><code>.xodr</code> 文件的路径</strong>。</p>
+</div>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+</div>
+<p>如果遇到<code>opendrive 无法正确解析</code>错误，请确保对<code>CarlaUE4/Content/Carla/Maps/OpenDrive/</code>目录有写权限。这是服务器正确解析<code>xodr</code>文件所必需的。</p>
+<hr />
+<h2 id="_3">网格生成</h2>
+<p>网格的生成是该模式的关键要素。只有当生成的网格是平滑的并且完全符合其定义时，该功能才能成功。出于这个原因，这一步正在不断改进。在最后的迭代中，连接点已经过抛光以避免不准确
+发生，尤其是在不平坦的车道连接处。</p>
+<p><img alt="opendrive_meshissue" src="../img/opendrive_meshissue.jpg" /></p>
+<div style="text-align: right"><i>在生成交汇点网格时，较高的车道往往会阻挡下方的车道。 <br><code>smooth_junctions</code> 参数可防止此类问题。</i></div>
+
+<p>除此之外，不是将整个地图创建为一个独特的网格，而是创建不同的部分。通过划分网格，模拟器可以避免渲染不可见的部分，并节省成本。工作更小还允许生成巨大的地图并包含可能出现在网格的一小部分上的问题。</p>
+<p>关于网格生成的当前状态，应考虑一些因素。</p>
+<ul>
+<li><strong>结平滑</strong>。默认平滑可防止上述倾斜连接处的问题。但是，它会在此过程中修改原始网格。如果愿意，将 <code>smooth_junctions</code> 设置为 <strong>False</strong> 以禁用平滑。</li>
+<li><strong>横向坡度</strong>。此功能当前未集成在 CARLA 中。</li>
+<li><strong>人行道高度</strong>。目前，所有人行道的硬编码都是相同的。人行道必须高于道路标高才能检测到碰撞，但 RoadRunner 不会将此值导出到 OpenDRIVE 文件。高度是硬编码的，以保证碰撞。</li>
+</ul>
+<hr />
+<p>这涵盖了到目前为止关于 OpenDRIVE 独立模式的所有信息。抓住机会并使用任何 OpenDRIVE 地图在 CARLA 中进行测试。</p>
+<p>论坛中的疑问和建议。</p>
+<div class="build-buttons">
+<p>
+<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="前往 CARLA 论坛">
+CARLA论坛</a>
+</p>
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../core_sensors/" class="btn btn-neutral float-left" title="第四、 传感器和数据"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../adv_ptv/" class="btn btn-neutral float-right" title="PTV-Vissim 联合仿真">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../core_sensors/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../adv_ptv/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>基准性能 - CARLA 模拟器 中文文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u57fa\u51c6\u6027\u80fd";
+        var mkdocs_page_input_path = "adv_benchmarking.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> CARLA 模拟器 中文文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">入门</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../start_introduction/">介绍</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../start_quickstart/">快速启动包安装</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">构建CARLA</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_linux/">Linux build</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_windows/">Windows build</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_update/">Update CARLA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_system/">Build system</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_docker/">CARLA in Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_faq/">F.A.Q.</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第一步</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_concepts/">核心概念</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_world/">第一、 世界和客户端</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_actors/">第二、 角色和蓝图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_map/">第三、地图和导航 </a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_sensors/">第四、 传感器和数据</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">高级概念</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_opendrive/">OpenDRIVE 独立模式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_ptv/">PTV-Vissim 联合仿真</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_recorder/">Recorder</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_rendering_options/">渲染选项</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_rss/">RSS</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_synchrony_timestep/">同步和时间步长</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">基准性能</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_2">基准测试脚本</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">开始之前</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">概要</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#_5">标志</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_6">如何运行基准测试</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#carla">CARLA 性能报告</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_agents/">CARLA 代理</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">交通模拟</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ts_traffic_simulation_overview/">交通模拟概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_traffic_manager/">Traffic Manager</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_sumo/">SUMO 联合仿真</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_scenic/">Scenic</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">参考</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../python_api/">Python API 参考</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bp_library/">Blueprint Library</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_cpp/">C++ 参考</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_recorder_binary_file_format/">Recorder 二进制文件格式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_sensors/">Sensors reference</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">插件</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../plugins_carlaviz/">carlaviz — web 可视化器</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">ROS 桥接器</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ros_documentation/">ROS 桥文档</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">自定义地图</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_map_overview/">CARLA 中自定义地图的概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在CARLA包导入地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 CARLA 源构建中导入地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_alternative/">导入地图的替代方法</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_manual_map_package/">手动准备地图包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_layers/">自定义地图：分层地图: Layered maps</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_add_tl/">自定义地图：红绿灯和标志</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_road_painter/">自定义地图：Road painter</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_buildings/">自定义地图：程序建筑</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_weather_landscape/">自定义地图：天气和景观</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_pedestrian_navigation/">生成行人导航</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">大型地图</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_overview/">大型地图概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_roadrunner/">在RoadRunner中创建大地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_import/">导入/打包大地图</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（通用）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_add_friction_triggers/">添加摩擦触发器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_vehicle_physics/">控制车辆物理模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_walker_skeletons/">控制行人骨骼</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用OpenStreetMap生成地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索模拟数据</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_carsim_integration/">CarSim 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_chrono/">Chrono 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎UE和 CARLA</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（资产）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_add_vehicle/">添加新车辆</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_add_props/">添加新道具</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_create_standalone/">创建独立包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_material_customization/">材料定制</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（开发人员）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_contribute_assets/">如何升级内容</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_create_sensor/">创建一个传感器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_create_semantic_tags/">创建语义标签</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_customize_vehicle_suspension/">自定义车辆悬架</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_generate_colliders/">生成详细碰撞</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_make_release/">发布版本</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">CARLA 生态系统</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">贡献</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_contribution_guidelines/">贡献指南</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_code_of_conduct/">行为准则</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_coding_standard/">编码标准</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_doc_standard/">文档标准</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">CARLA 模拟器 中文文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">高级概念</li>
+      <li class="breadcrumb-item active">基准性能</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">基准性能</h1>
+<p>我们提供了一个基准测试脚本，使用户能够轻松地分析 CARLA 在自己的环境中的性能。该脚本可以配置为运行多种结合不同地图、传感器和天气条件的场景。它报告请求场景下 FPS 的平均值和标准偏差。</p>
+<p>在本节中，我们详细介绍了运行基准测试的要求、在哪里可以找到脚本、可用于自定义运行场景的标志以及有关如何运行命令的示例。</p>
+<p>我们还包含了单独基准测试的结果，该基准测试在使用不同车辆数量组合、启用物理和/或启用交通管理器时测量 CARLA 在特定环境中的性能。结果与使用的 CARLA 版本和执行测试的环境一起显示。</p>
+<ul>
+<li><a href="#基准测试脚本"><strong>基准脚本</strong></a><ul>
+<li><a href="#开始之前"><strong>开始之前</strong></a></li>
+<li><a href="#概要"><strong>概要</strong></a><ul>
+<li><a href="#标识"><strong>标志</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#carla性能报告"><strong>CARLA 性能报告</strong></a></li>
+</ul>
+<hr />
+<h2 id="_2">基准测试脚本</h2>
+<p>基准脚本可以在<code>PythonAPI/util</code>中找到。它有几个标志可用于自定义要测试的场景，下面的概要中有详细说明。</p>
+<h3 id="_3">开始之前</h3>
+<p>基准测试脚本需要安装一些依赖项才能运行它：</p>
+<pre><code class="language-sh">python -m pip install -U py-cpuinfo==5.0.0
+python -m pip install psutil
+python -m pip install python-tr
+python -m pip install gpuinfo
+python -m pip install GPUtil
+</code></pre>
+<h3 id="_4">概要</h3>
+<p><code>python3</code> <a href="https://github.com/carla-simulator/carla/blob/master/PythonAPI/util/performance_benchmark.py"><code>performance_benchmark.py</code></a>   <a href="#- host-ip_address"><code>[--host HOST]</code></a>   <a href="#-port-port"><code>[--port PORT]</code></a> <a href="#-file-filenamemd"><code>[--file FILE]</code></a> <a href="#- Tm值）
+[[--ticks TICKS]](#-ticks) [[--sync]](#-sync) [[--async]](#-async)"><code>[--tm]</code></a>
+<a href="#-fixed_dt"><code>[--fixed_dt FIXED_DT]</code></a> <a href="#-render_mode"><code>[--render_mode]</code></a>
+<a href="#-no_render_mode"><code>[--no_render_mode]</code></a> <a href="#-show_scenarios"><code>[--show_scenarios]</code></a>)
+<a href="#-sensors-integer"><code>[--sensors SENSORS [SENSORS ...]]</code></a>
+<a href="#-maps-townname"><code>[--maps MAPS [MAPS ...]]</code></a>
+<a href="#-weather-integer"><code>[--weather WEATHER [WEATHER ...]]</code></a></p>
+<h4 id="_5">标志</h4>
+<h6 id="-host-ip_address"><code>--host</code>: IP_ADDRESS</h6>
+<blockquote>
+<blockquote>
+<p><strong>默认</strong>：本地主机。</p>
+<p>配置服务器的主机。</p>
+</blockquote>
+</blockquote>
+<h6 id="-port"><code>--port</code>: 端口</h6>
+<blockquote>
+<blockquote>
+<p><strong>默认</strong>：2000</p>
+<p>配置要监听的 TCP 端口。</p>
+</blockquote>
+</blockquote>
+<h6 id="-file-md"><code>--file</code>: 文件名.md</h6>
+<blockquote>
+<blockquote>
+<p><strong>默认</strong>: benchmark.md</p>
+<p>以降价表格式将结果写入文件。</p>
+</blockquote>
+</blockquote>
+<h6 id="-tm"><code>--tm</code></h6>
+<blockquote>
+<blockquote>
+<p>切换到交通管理器基准</p>
+</blockquote>
+</blockquote>
+<h6 id="-ticks"><code>--ticks</code></h6>
+<blockquote>
+<blockquote>
+<p><strong>默认</strong>：100</p>
+<p>设置用于每个场景的刻度数。</p>
+</blockquote>
+</blockquote>
+<h6 id="-"><code>--同步</code></h6>
+<blockquote>
+<blockquote>
+<p><strong>默认模式.</strong></p>
+<p>在同步模式下运行基准测试。</p>
+</blockquote>
+</blockquote>
+<h6 id="-async"><code>--async</code></h6>
+<blockquote>
+<blockquote>
+<p>在异步模式下运行基准测试。</p>
+</blockquote>
+</blockquote>
+<h6 id="-fixed_dt"><code>--fixed_dt</code></h6>
+<blockquote>
+<blockquote>
+<p><strong>默认</strong>：0.05</p>
+<p>如果您想设置增量时间步长，请与同步模式一起使用。</p>
+</blockquote>
+</blockquote>
+<h6 id="-render_mode"><code>--render_mode</code></h6>
+<blockquote>
+<blockquote>
+<p>在渲染模式下运行基准测试。</p>
+</blockquote>
+</blockquote>
+<h6 id="-no_render_mode"><code>--no_render_mode</code></h6>
+<blockquote>
+<blockquote>
+<p><strong>默认模式.</strong></p>
+<p>在非渲染模式下运行基准测试。</p>
+</blockquote>
+</blockquote>
+<h6 id="-show_scenarios"><code>--show_scenarios</code></h6>
+<blockquote>
+<blockquote>
+<p>仅使用此标志运行脚本时，您将看到所有可用场景参数的列表。</p>
+<p>当与其他标志结合使用时，您将看到将在未实际执行的情况下运行的场景的预览。</p>
+</blockquote>
+</blockquote>
+<h6 id="-sensors"><code>--sensors</code>：整数</h6>
+<blockquote>
+<blockquote>
+<p><strong>默认</strong>：全部</p>
+<p>基准测试中使用的传感器。在 LIDAR 和 RGB 相机之间进行选择：</p>
+<ul>
+<li><strong><code>0</code></strong>: cam-300x200</li>
+<li><strong><code>1</code></strong>: cam-800x600</li>
+<li><strong><code>2</code></strong>: cam-1900x1080</li>
+<li><strong><code>3</code></strong>: cam-300x200 cam-300x200（两个摄像头）</li>
+<li><strong><code>4</code></strong>：激光雷达：100k</li>
+<li><strong><code>5</code></strong>：激光雷达：500k</li>
+<li><strong><code>6</code></strong>：激光雷达：1M</li>
+</ul>
+</blockquote>
+</blockquote>
+<h6 id="-maps"><code>--maps</code>：城市名称</h6>
+<blockquote>
+<blockquote>
+<p><strong>默认</strong>：所有地图</p>
+<p>所有 [CARLA 地图][carla_maps]，包括分层和子分层，都可用。</p>
+</blockquote>
+</blockquote>
+<p>[carla_maps]：https://carla.readthedocs.io/en/latest/core_map/#carla-maps</p>
+<h6 id="-_1"><code>--天气</code>：整数</h6>
+<blockquote>
+<blockquote>
+<p><strong>Default</strong>：所有天气条件</p>
+<p>改变天气状况：</p>
+<ul>
+<li><strong><code>0</code></strong>: ClearNoon</li>
+<li><strong><code>1</code></strong>: CloudyNoon</li>
+<li><strong><code>2</code></strong>: SoftRainSunset</li>
+</ul>
+</blockquote>
+</blockquote>
+<h2 id="_6">如何运行基准测试</h2>
+<p>1.启动CARLA：</p>
+<pre><code>    # Linux：
+    ./CarlaUE4.sh
+    # Windows：
+    CarlaUE4.exe
+    ＃ Source：
+    make launch
+</code></pre>
+<ol>
+<li>在单独的终端中导航到 <code>PythonAPI/util</code> 以找到 <code>performance_benchmark.py</code> 脚本：</li>
+</ol>
+<blockquote>
+<blockquote>
+<ul>
+<li>显示所有可能的场景而不运行它们：</li>
+</ul>
+</blockquote>
+</blockquote>
+<pre><code class="language-sh">python3 performance_benchmark.py --show_scenarios
+</code></pre>
+<blockquote>
+<blockquote>
+<ul>
+<li>显示在应用配置而不实际执行配置时将运行哪些场景：</li>
+</ul>
+</blockquote>
+</blockquote>
+<pre><code class="language-sh">python3 performance_benchmark.py --sensors 2 5 --maps Town03 Town05 --weather 0 1 --show_scenarios`
+</code></pre>
+<blockquote>
+<blockquote>
+<ul>
+<li>执行这些场景的性能基准测试：</li>
+</ul>
+</blockquote>
+</blockquote>
+<pre><code class="language-sh">python3 performance_benchmark.py --sensors 2 5 --maps Town03 Town05 --weather 0 1
+</code></pre>
+<blockquote>
+<blockquote>
+<ul>
+<li>执行异步模式和渲染模式的基准测试：</li>
+</ul>
+</blockquote>
+</blockquote>
+<pre><code class="language-sh">python3 performance_benchmark.py --async --render_mode
+</code></pre>
+<hr />
+<h2 id="carla">CARLA 性能报告</h2>
+<p>下表详细说明了在随着车辆数量增加以及启用和/或禁用物理和交通管理器的不同组合运行 CARLA 时对平均 FPS 的性能影响。</p>
+<ul>
+<li>CARLA 版本：29/01/21 开发分支（提交 198fa38c9b1317c114ac15dff130766253c02832）</li>
+<li>环境规格：Intel(R) Xeon(R) CPU E5-1620 v3 @ 3.50GHz / 32 GB / NVIDIA GeForce GTX 1080 Ti</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>车辆数量</th>
+<th>Phy: Off TM: Off</th>
+<th>Phy: On TM: Off</th>
+<th>Phy: Off TM: On</th>
+<th>Phy: On TM: On</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>1220</td>
+<td>1102</td>
+<td>702</td>
+<td>729</td>
+</tr>
+<tr>
+<td>1</td>
+<td>805</td>
+<td>579</td>
+<td>564</td>
+<td>422</td>
+</tr>
+<tr>
+<td>10</td>
+<td>473</td>
+<td>223</td>
+<td>119</td>
+<td>98</td>
+</tr>
+<tr>
+<td>50</td>
+<td>179</td>
+<td>64</td>
+<td>37</td>
+<td>26</td>
+</tr>
+<tr>
+<td>100</td>
+<td>92</td>
+<td>34</td>
+<td>22</td>
+<td>15</td>
+</tr>
+<tr>
+<td>150</td>
+<td>62</td>
+<td>21</td>
+<td>17</td>
+<td>10</td>
+</tr>
+<tr>
+<td>200</td>
+<td>47</td>
+<td>15</td>
+<td>14</td>
+<td>7</td>
+</tr>
+<tr>
+<td>250</td>
+<td>37</td>
+<td>11</td>
+<td>12</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p>如果您对性能基准有任何疑问，请不要犹豫，在论坛中发帖。</p>
+<div class="build-buttons">
+<!-- 最新发布按钮 -->
+<p>
+<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="转到最新的 CARLA 版本">
+CARLA论坛</a>
+</p>
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../adv_synchrony_timestep/" class="btn btn-neutral float-left" title="同步和时间步长"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../adv_agents/" class="btn btn-neutral float-right" title="CARLA 代理">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../adv_synchrony_timestep/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../adv_agents/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
