@@ -158,13 +158,13 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">生成行人导航</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#before-you-begin">Before you begin</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">在你开始之前</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#pedestrian-navigable-meshes">Pedestrian navigable meshes</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">行人导航网格</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#optional-pedestrian-navigation-options">Optional pedestrian navigation options</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">可选的行人导航选项</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#generate-the-pedestrian-navigation">Generate the pedestrian navigation</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_5">生成行人导航</a>
     </li>
     </ul>
                   </li>
@@ -274,82 +274,82 @@
 <li><a href="#generate-the-pedestrian-navigation"><strong>生成行人导航</strong></a></li>
 </ul>
 <hr />
-<h2 id="before-you-begin">Before you begin</h2>
-<p>Map customization (adding buildings, painting the road, adding landscape features, etc.) should be completed before generating the pedestrian navigation in order to avoid interference or collisions between the two, resulting in the need to generate the pedestrian navigation a second time.</p>
+<h2 id="_2">在你开始之前</h2>
+<p>地图定制（添加建筑物、绘制道路、添加景观特征等）应在生成行人导航之前完成，以避免两者之间发生干扰或碰撞，导致需要再次生成行人导航。</p>
 <hr />
-<h2 id="pedestrian-navigable-meshes">Pedestrian navigable meshes</h2>
-<p>Pedestrians can only navigate specific meshes. You need to name the meshes you want to include in pedestrian navigation according to the nomenclature in the table below:</p>
+<h2 id="_3">行人导航网格</h2>
+<p>行人只能导航特定的网格。您需要根据下表中的术语命名要包含在行人导航中的网格：</p>
 <table>
 <thead>
 <tr>
-<th>Type</th>
-<th>Name includes</th>
-<th>Description</th>
+<th>类型</th>
+<th>包含的名称</th>
+<th>描述</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Ground</td>
-<td><code>Road_Sidewalk</code> or <code>Roads_Sidewalk</code></td>
-<td>Pedestrians will walk over these meshes freely.</td>
+<td>地面</td>
+<td><code>Road_Sidewalk</code> 或 <code>Roads_Sidewalk</code></td>
+<td>行人可以自由地在这些网格上行走。</td>
 </tr>
 <tr>
-<td>Crosswalk</td>
-<td><code>Road_Crosswalk</code> or <code>Roads_Crosswalk</code></td>
-<td>Pedestrians will walk over these meshes as a second option if no ground is found.</td>
+<td>人行横道</td>
+<td><code>Road_Crosswalk</code> 或 <code>Roads_Crosswalk</code></td>
+<td>如果找不到地面，行人将在这些网格上行走作为第二种选择。</td>
 </tr>
 <tr>
-<td>Grass</td>
-<td><code>Road_Grass</code> or <code>Roads_Grass</code></td>
-<td>Pedestrians won't walk on this mesh unless you specify a percentage of them to do so.</td>
+<td>草地</td>
+<td><code>Road_Grass</code> 或 <code>Roads_Grass</code></td>
+<td>行人不会在此网格上行走，除非您指定一定比例的行人这样做。</td>
 </tr>
 <tr>
-<td>Road</td>
-<td><code>Road_Road</code> or <code>Roads_Road</code> <br> <code>Road_Curb</code> or <code>Roads_Curb</code> <br> <code>Road_Gutter</code> or <code>Roads_Gutter</code> <br> <code>Road_Marking</code> or <code>Roads_Marking</code></td>
-<td>Pedestrians will only cross roads through these meshes.</td>
+<td>马路</td>
+<td><code>Road_Road</code> 或 <code>Roads_Road</code> <br> <code>Road_Curb</code> 或 <code>Roads_Curb</code> <br> <code>Road_Gutter</code> 或 <code>Roads_Gutter</code> <br> <code>Road_Marking</code> 或 <code>Roads_Marking</code></td>
+<td>行人只能通过这些网格过马路。</td>
 </tr>
 </tbody>
 </table>
 <p><br></p>
 <hr />
-<h2 id="optional-pedestrian-navigation-options">Optional pedestrian navigation options</h2>
-<p>The following step is not necessary for generating a pedestrian navigation, but allows you to customize pedestrian activity to a certain extent.</p>
+<h2 id="_4">可选的行人导航选项</h2>
+<p>以下步骤对于生成行人导航不是必需的，但允许您在一定程度上自定义行人活动。</p>
 <ul>
-<li><strong>Generate new crosswalks</strong>.</li>
+<li><strong>生成新的人行横道</strong>。</li>
 </ul>
-<p>Avoid doing this if the crosswalk is already defined the <code>.xodr</code> file as this will lead to duplication:</p>
+<p>如果已在 <code>.xodr</code> 文件中定义人行横道，请避免执行此操作，因为这会导致重复：</p>
 <ol>
-<li>Create a plane mesh that extends a bit over two sidewalks that you want to connect.</li>
-<li>Place the mesh overlapping the ground and disable it's physics and rendering.</li>
-<li>Change the name of the mesh to <code>Road_Crosswalk</code> or <code>Roads_Crosswalk</code>.</li>
+<li>创建一个平面网格，稍微延伸到要连接的两条人行道上。</li>
+<li>将网格放置在地面上并禁用其物理和渲染。</li>
+<li>将网格名称更改为 <code>Road_Crosswalk</code> 或 <code>Roads_Crosswalk</code>。</li>
 </ol>
 <p><img alt="ue_crosswalks" src="../img/ue_crosswalks.jpg" />  </p>
 <hr />
-<h2 id="generate-the-pedestrian-navigation">Generate the pedestrian navigation</h2>
-<p><strong>1.</strong> To prevent the map being too large to export, select the <strong>BP_Sky object</strong> and add a tag <code>NoExport</code> to it. If you have any other particularly large meshes that are not involved in the pedestrian navigation, add the <code>NoExport</code> tag to them as well. </p>
+<h2 id="_5">生成行人导航</h2>
+<p><strong>1.</strong> 要防止地图太大而无法导出，请选择 <strong>BP_Sky 对象</strong> 并添加一个 <code>NoExport</code> 标签。如果您有任何其他不参与行人导航的特别大的网格，也请向它们添加 <code>NoExport</code> 标记。 </p>
 <p><img alt="ue_skybox_no_export" src="../img/ue_noexport.png" /> </p>
-<p><strong>2.</strong> Double check your mesh names. Mesh names should start with any of the appropriate formats listed below in order to be recognized as areas where pedestrians can walk. By default, pedestrians will be able to walk over sidewalks, crosswalks, and grass (with minor influence over the rest):  </p>
+<p><strong>2.</strong> 仔细检查您的网格名称。网格名称应以下面列出的任何适当格式开头，以便被识别为行人可以行走的区域。默认情况下，行人将能够在人行道、人行横道和草地上行走（对其余部分影响较小）：</p>
 <ul>
-<li>Sidewalk = <code>Road_Sidewalk</code> or <code>Roads_Sidewalk</code> </li>
-<li>Crosswalk = <code>Road_Crosswalk</code> or <code>Roads_Crosswalk</code> </li>
-<li>Grass = <code>Road_Grass</code> or <code>Roads_Grass</code></li>
+<li>人行道 = <code>Road_Sidewalk</code> 或 <code>Roads_Sidewalk</code> </li>
+<li>人行横道 = <code>Road_Crosswalk</code> 或 <code>Roads_Crosswalk</code> </li>
+<li>草地 = <code>Road_Grass</code> 或 <code>Roads_Grass</code></li>
 </ul>
 <p><img alt="ue_meshes" src="../img/ue_meshes.jpg" /> </p>
-<p><strong>3.</strong> Press <code>ctrl + A</code> to select everything and export the map by selecting <code>File</code> -&gt; <code>Carla Exporter</code>. A <code>&lt;mapName&gt;.obj</code> file will be created in <code>Unreal/CarlaUE4/Saved</code>.</p>
-<p><strong>4.</strong> Move the <code>&lt;mapName&gt;.obj</code> and the <code>&lt;mapName&gt;.xodr</code> to <code>Util/DockerUtils/dist</code>.  </p>
-<p><strong>5.</strong> Run the following command to generate the navigation file:  </p>
+<p><strong>3.</strong> 按 <code>ctrl + A</code> 选择所有内容并通过选择 <code>File</code> -&gt; <code>Carla Exporter</code> 导出地图。将在 <code>Unreal/CarlaUE4/Saved</code> 中创建 <code>&lt;mapName&gt;.obj</code> 文件。</p>
+<p><strong>4.</strong> 将 <code>&lt;mapName&gt;.obj</code> 和 <code>&lt;mapName&gt;.xodr</code> 移动到 <code>Util/DockerUtils/dist</code>。</p>
+<p><strong>5.</strong> 运行以下命令生成导航文件：  </p>
 <ul>
 <li><strong>Windows</strong> </li>
 </ul>
-<pre><code class="language-sh">build.bat &lt;mapName&gt; # &lt;mapName&gt; has no extension
+<pre><code class="language-sh">build.bat &lt;mapName&gt; # &lt;mapName&gt; 没有扩展名
 </code></pre>
 <ul>
 <li><strong>Linux</strong></li>
 </ul>
-<pre><code class="language-sh">./build.sh &lt;mapName&gt; # &lt;mapName&gt; has no extension
+<pre><code class="language-sh">./build.sh &lt;mapName&gt; # &lt;mapName&gt; 没有扩展名
 </code></pre>
-<p><strong>6.</strong> A <code>&lt;mapName&gt;.bin</code> file will be created. This file contains the information for pedestrian navigation on your map. Move this file to the <code>Nav</code> folder of the package that contains the map.</p>
-<p><strong>7.</strong> Test the pedestrian navigation by starting a simulation and running the example script <code>generate_traffic.py</code> in <code>PythonAPI/examples</code>.</p>
+<p><strong>6.</strong> 将创建一个 <code>&lt;mapName&gt;.bin</code> 文件。此文件包含地图上的行人导航信息。将此文件移动到包含地图的包的 <code>Nav</code> 文件夹中。</p>
+<p><strong>7.</strong> 通过启动模拟并运行 <code>PythonAPI/examples</code> 中的示例脚本 <code>generate_traffic.py</code> 来测试行人导航。</p>
 <hr />
 <p>If you have any questions about the process, then you can ask in the <a href="https://github.com/carla-simulator/carla/discussions">forum</a>.</p>
 <div class="build-buttons">
