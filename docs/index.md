@@ -1,8 +1,8 @@
 title: 主页
 
-# CARLA 文档
+# [Carla 文档](https://carla.readthedocs.io/en/latest/)
 
-欢迎使用 CARLA 文档。
+欢迎使用 Carla 文档。
 
 此主页包含一个索引，其中简要说明了文档中的不同部分。随意按喜欢的顺序阅读。无论如何，这里有一些给新手的建议。
 
@@ -32,17 +32,17 @@ CARLA论坛</a>
 
 ## 构建CARLA
 
-[__Linux build__](build_linux.md) — 在 Linux 上进行构建。
+[__Linux 上构建__](build_linux.md) — 在 Linux 上进行构建。
 
-[__Windows build__](build_windows.md) — 在 Windows 上进行构建。
+[__Windows 上构建__](build_windows.md) — 在 Windows 上进行构建。
 
-[__Update CARLA__](build_update.md) — 了解最新内容。
+[__CARLA 更新__](build_update.md) — 了解最新内容。
 
-[__Build system__](build_system.md) — 了解构建及其制作方式。
+[__构建系统__](build_system.md) — 了解构建及其制作方式。
 
-[__CARLA in Docker__](build_docker.md) — 使用容器解决方案运行 CARLA。
+[__Docker 中的 Carla__](build_docker.md) — 使用容器解决方案运行 Carla。
 
-[__F.A.Q.__](build_faq.md) — 一些最常见的安装问题。
+[__常见问题__](build_faq.md) — 一些最常见的安装问题。
 
 ## 第一步
 
@@ -62,7 +62,7 @@ CARLA论坛</a>
 
 [__PTV-Vissim 联合仿真__](adv_ptv.md) - 在 CARLA 和 PTV-Vissim 之间运行同步仿真。
 
-[__Recorder__](adv_recorder.md) — 在模拟中录制事件并再次播放。
+[__记录器__](adv_recorder.md) — 在模拟中录制事件并再次播放。
 
 [__渲染选项__](adv_rendering_options.md) — 从质量设置到不渲染或离屏模式。
 
@@ -88,13 +88,13 @@ CARLA论坛</a>
 
 [__Python API 参考__](python_api.md) — Python API 中的类和方法。
 
-[__Blueprint library__](bp_library.md) — 提供用于生成 actor 的蓝图。
+[__蓝图库__](bp_library.md) — 提供用于生成参与者的蓝图。
 
 [__C++ 参考__](ref_cpp.md) — CARLA C++ 中的类和方法。
 
-[__Recorder 二进制文件格式__](ref_recorder_binary_file_format.md) — 记录器文件格式的详细说明。
+[__记录器二进制文件格式__](ref_recorder_binary_file_format.md) — 记录器文件格式的详细说明。
 
-[__Sensors reference__](ref_sensors.md) — 关于传感器及其检索数据的一切。
+[__传感器参考__](ref_sensors.md) — 关于传感器及其检索数据的一切。
 
 ## 插件
 
@@ -132,7 +132,7 @@ CARLA论坛</a>
 
 ## 大型地图
 
-[__大型地图概述__](large_map_overview.md) — CARLA 中大型地图工作原理的说明
+[__大型地图概述__](large_map_overview.md) — Carla 中大型地图工作原理的说明
 
 [__在 RoadRunner 中创建大地图__](large_map_roadrunner.md) — 如何在 RoadRunner 中创建大地图
 
@@ -160,9 +160,9 @@ CARLA论坛</a>
 
 ## 教程 — 资产
 
-[__添加新车辆__](tuto_A_add_vehicle.md) — 准备要在 CARLA 中使用的车辆
+[__添加新车辆__](tuto_A_add_vehicle.md) — 准备要在 Carla 中使用的车辆
 
-[__添加新道具__](tuto_A_add_props.md) — 将其他道具导入 CARLA
+[__添加新道具__](tuto_A_add_props.md) — 将其他道具导入 Carla
 
 [__创建独立包__](tuto_A_create_standalone.md) — 为资产生成和处理独立包
 
@@ -183,13 +183,13 @@ CARLA论坛</a>
 
 [__发布版本__](tuto_D_make_release.md) — 如何发布 CARLA
 
-## CARLA 生态系统
+## Carla 生态系统
 
 [__Ansys 实时雷达模型__](ecosys_ansys.md) — 有关 Ansys RTR 网络研讨会的详细信息
 
 ## 贡献
 
-[__贡献指南__](cont_contribution_guidelines.md) — 为 CARLA 做出贡献的不同方式。
+[__贡献指南__](cont_contribution_guidelines.md) — 为 Carla 做出贡献的不同方式。
 
 [__行为准则__](cont_code_of_conduct.md) — 贡献者的标准权利和义务。
 
