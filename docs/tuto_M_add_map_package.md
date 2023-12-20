@@ -1,24 +1,24 @@
-# Ingesting Maps in a CARLA package
+# 在 CARLA 包中摄取地图
 
-This section describes the process of ingesting maps into __a package (binary) version of CARLA__. If you are using a version of CARLA that has been built from source to ingest maps then follow the guidelines [here][source_ingest] instead.
+本节介绍将地图引入 __CARLA 包（二进制）版本__的过程。如果您使用的是从源到摄取映射构建的 CARLA 版本，请遵循 [此处][source_ingest] 的指南。
 
-This process is only available for Linux systems. The import process involves running a Docker image of Unreal Engine to import the relevant files and then export them as a standalone package which can then be configured to be used in CARLA. The Docker image takes around 4h and 600-700 GB to be built. This is only needed the first time the image is built.
+此过程仅适用于 Linux 系统。导入过程涉及运行虚幻引擎的 Docker 映像来导入相关文件，然后将它们导出为独立包，然后可以将其配置为在 CARLA 中使用。构建 Docker 镜像大约需要 4 小时和 600-700 GB 的时间。仅在第一次构建映像时才需要这样做。
 
-- [__Before you begin__](#before-you-begin)
-- [__Map ingestion in a CARLA package__](#map-ingestion-in-a-carla-package)
+- [__在你开始之前__](#before-you-begin)
+- [__CARLA 包中的地图摄取__](#map-ingestion-in-a-carla-package)
 
 ---
 
-## Before you begin
+## 在你开始之前
 
-- You will need to fulfill the following system requirements:
-    - 64-bit version of [Docker](https://docs.docker.com/engine/install/) in Ubuntu 16.04+
-    - Minimum 8GB of RAM
-    - Minimum 700 GB available disk space for building container images
-    - [Git](https://git-scm.com/downloads) version control
-- Ensure you are using a package (binary) version of CARLA. If you are using a version of CARLA that has been built from source to ingest maps then follow the guidelines [here][source_ingest] instead.
-- You should have at least two files, `<mapName>.xodr` and `<mapName>.fbx` that have been [generated][rr_generate_map] from a map editor such as RoadRunner. 
-- These files should have the same value for `<mapName>` in order to be recognised as the same map.
+- 您需要满足以下系统要求：
+    - Ubuntu 16.04+ 中的 64 位版本 [Docker](https://docs.docker.com/engine/install/) 
+    - 至少 8GB RAM
+    - 用于构建容器映像的至少 700 GB 可用磁盘空间
+    - [Git](https://git-scm.com/downloads) 版本控制
+- 确保您使用的是 CARLA 的软件包（二进制）版本。如果您使用的是从源到摄取映射构建的 CARLA 版本，请遵循 [此处][source_ingest] 的指南。
+- 您应该至少使用地图编辑器（例如 RoadRunner）已 [生成][rr_generate_map] 的两个文件`<mapName>.xodr` 和 `<mapName>.fbx`。
+- 这些文件应具有相同的 `<mapName>` 值，以便被识别为同一地图。
 
 
 [source_ingest]: tuto_M_add_map_source.md
@@ -26,44 +26,44 @@ This process is only available for Linux systems. The import process involves ru
 [rr_generate_map]: tuto_M_generate_map.md
 
 ---
-## Map ingestion in a CARLA package
+## CARLA 包中的地图摄取
 
-__1.__ CARLA provides all the utilities to build Unreal Engine in a Docker image and to compile CARLA using that image. The tools are found in the source code available in GitHub. Clone the repository using the following command:
+__1.__ CARLA 提供了在 Docker 映像中构建虚幻引擎以及使用该映像编译 CARLA 的所有实用程序。这些工具可以在 GitHub 上的源代码中找到。使用以下命令克隆存储库：
 
 ```sh
     git clone https://github.com/carla-simulator/carla
 ```
 
-__2.__ Build the Docker image of Unreal Engine by following [these instructions](https://github.com/carla-simulator/carla/tree/master/Util/Docker). 
+__2.__ 按照 [这些说明](https://github.com/carla-simulator/carla/tree/master/Util/Docker) 构建虚幻引擎的 Docker 映像。 
 
-__3.__ Create an `input_folder`.  This is where you will put the files to be imported. Docker will automatically create a `.json` file describing the package folder structure. Change permissions on the `input_folder` for this to be created successfully:
+__3.__ 创建 `input_folder`。这是您放置要导入的文件的位置。 Docker 会自动创建一个 `.json` 文件来描述包文件夹结构。更改 `input_folder` 的权限才能成功创建：
 
 ```sh
     #Go to the parent folder, where the input folder is contained
     chmod 777 input_folder
 ```
 
-> !!! Note
-    This is not necessary if the package is [prepared manually](tuto_M_manual_map_package.md), and contains a `.json` file already. 
+> !!! 笔记
+    如果包是 [手动准备的](tuto_M_manual_map_package.md) ，并且已包含 `.json` 文件，则无需执行此操作。
 
-__4.__ Create an `output_folder`. This is where the Docker image will write the output files after it has cooked the map. 
+__4.__ 创建 `output_folder` 。这是 Docker 镜像在烘焙地图后写入输出文件的地方。
 
-__5.__ Navigate to `~/carla/Util/Docker`. This is where the ingestion script is located. The script requires the path for the `input_folder` and `output_folder` and the name of the package to be ingested. If a `.json` file is provided, the name of that file is the package name, if no `.json` is provided, the name must be `map_package`:
+__5.__ 导航至 `~/carla/Util/Docker`。这是摄取脚本所在的位置。该脚本需要 `input_folder` 和 `output_folder` 的路径以及要摄取的包的名称。如果提供了 `.json` 文件，则该文件的名称是包名称，如果未提供  `.json`，则名称必须为 `map_package`：
 
 ```sh
     python3 docker_tools.py --input ~/path_to_input_folder --output ~/path_to_output_folder --packages map_package
 ```
 
-> !!! Warning
-    If the argument `--packages map_package` is not provided, the Docker image will make a package of CARLA. 
+> !!! 警告
+    如果未提供参数 `--packages map_package` ，Docker 镜像将制作 CARLA 包。 
 
-__6.__ The package will be generated in the `output_folder` as `<map_package>.tar.gz`. This is the standalone package that is now ready to be imported into CARLA. Move the package to the `Import` folder in the CARLA root directory (of the package/binary version where you will be using the map), and run the following script from the root directory to import it: 
+__6.__ 包将在 `output_folder` 中生成为 `<map_package>.tar.gz`. 。这是独立包，现在可以导入到 CARLA 中。将包移动到 CARLA 根目录（您将在其中使用地图的包/二进制版本）中的 `Import` 文件夹，然后从根目录运行以下脚本将其导入：
 
 ```sh
         ./ImportAssets.sh
 ```
 
-__7.__ To run a simulation with the new map, run CARLA and then change the map using the `config.py` file:
+__7.__ 要使用新地图运行模拟，请运行 CARLA，然后使用 `config.py` 文件更改地图：
 
 ```sh
     cd PythonAPI/util
