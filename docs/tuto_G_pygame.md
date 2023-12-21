@@ -79,13 +79,14 @@ for vehicle in vehicles:
 首先，我们需要为 `camera.listen(...)` 定义一个回调函数，用于将像素数据渲染到 PyGame 接口。PyGame 将数据渲染到表面，然后渲染到屏幕，因此在回调中，我们填充存储在传递给回调函数的对象中的表面。
 
 ```py
-# Render object to keep and pass the PyGame surface
+# 渲染对象以保持并传递 PyGame 表面
 class RenderObject(object):
     def __init__(self, width, height):
         init_image = np.random.randint(0,255,(height,width,3),dtype='uint8')
+        # 创建与阵列上的数据和格式最相似的新曲面
         self.surface = pygame.surfarray.make_surface(init_image.swapaxes(0,1))
 
-# Camera sensor callback, reshapes raw data from camera into 2D RGB and applies to PyGame surface
+# 摄像头传感器回调，将摄像头的原始数据重塑为二维 RGB，并应用于 PyGame曲面
 def pygame_callback(data, obj):
     img = np.reshape(np.copy(data.raw_data), (data.height, data.width, 4))
     img = img[:,:,:3]
@@ -137,7 +138,7 @@ class ControlObject(object):
             if event.key == pygame.K_LEFT:
                 self._steer = None
     
-    # Process the current control state, change the control parameter
+    # 处理当前控制状态，更改控制参数
     # if the key remains pressed
     def process_control(self):
         
