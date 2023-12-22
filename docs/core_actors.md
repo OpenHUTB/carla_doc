@@ -1,95 +1,95 @@
-# 2nd. Actors and blueprints
+# 参与者和蓝图
 
-Actors not only include vehicles and walkers, but also sensors, traffic signs, traffic lights, and the spectator. It is crucial to have full understanding on how to operate on them.  
+Carla 中的参与者是在模拟中执行动作的元素，他们可以影响其他参与者。Carla 的参与者包括车辆和步行者，也包括传感器、交通标志、红绿灯和观看者。对如何操作它们有充分的了解是至关重要的。 
 
-This section will cover spawning, destruction, types, and how to manage them. However, the possibilities are almost endless. Experiment, take a look at the __tutorials__ in this documentation and share doubts and ideas in the [CARLA forum](https://github.com/carla-simulator/carla/discussions/).  
+本节将介绍生成、摧毁、类型以及如何管理它们。然而，可能性几乎是无穷无尽的。实验、查看本文档中的 __教程__，并在 [Carla 论坛](https://github.com/carla-simulator/carla/discussions/) 中分享疑虑和想法。
 
-- [__Blueprints__](#blueprints)  
-	- [Managing the blueprint library](#managing-the-blueprint-library)  
-- [__Actor life cycle__](#actor-life-cycle)  
-	- [Spawning](#spawning)  
-	- [Handling](#handling)  
-	- [Destruction](#destruction)  
-- [__Types of actors__](#types-of-actors)  
-	- [Sensors](#sensors)  
-	- [Spectator](#spectator)  
-	- [Traffic signs and traffic lights](#traffic-signs-and-traffic-lights)  
-	- [Vehicles](#vehicles)  
-	- [Walkers](#walkers)  
+- [__蓝图__](#blueprints)  
+	- [管理蓝图库](#managing-the-blueprint-library)  
+- [__参与者生命周期__](#actor-life-cycle)  
+	- [生成](#spawning)  
+	- [处理](#handling)  
+	- [摧毁](#destruction)  
+- [__参与者类型__](#types-of-actors)  
+	- [传感器](#sensors)  
+	- [观察者](#spectator)  
+	- [交通标志和交通灯](#traffic-signs-and-traffic-lights)  
+	- [车辆](#vehicles)  
+	- [步行者](#walkers)  
 
 ---
-## Blueprints
+## 蓝图
 
-These layouts allow the user to smoothly incorporate new actors into the simulation. They are already-made models with animations and a series of attributes. Some of these are modifiable and others are not. These attributes include, among others, vehicle color, amount of channels in a lidar sensor, a walker's speed, and much more.
+这些布局允许用户将新的参与者平滑地结合到模拟中。它们已经是带有动画和一系列属性的模型。其中一些是可修改的，而另一些则不是。这些属性包括车辆颜色、激光雷达传感器中的通道数量、步行者的速度等等。
 
-Available blueprints are listed in the [blueprint library](bp_library.md), along with their attributes. Vehicle and walker blueprints have a generation attribute that indicates if they are a new (gen 2) or old (gen 1) asset.
+[蓝图库](bp_library.md) 列出了可用的蓝图及其属性。车辆和步行者蓝图具有一个生成属性，用于指示它们是新的（第2代）资产还是旧的（第1代）资产。
 
-### Managing the blueprint library
+### 管理蓝图库
 
-The [carla.BlueprintLibrary](python_api.md#carla.BlueprintLibrary) class contains a list of [carla.ActorBlueprint](python_api.md#carla.ActorBlueprint) elements. It is the world object who can provide access to it.
+[carla.BlueprintLibrary](python_api.md#carla.BlueprintLibrary) 类包含一系列 [carla.ActorBlueprint](python_api.md#carla.ActorBlueprint) 元素。它是能够提供对它访问的世界对象。
 ```py
 blueprint_library = world.get_blueprint_library()
 ```
-Blueprints have an ID to identify them and the actors spawned with it. The library can be read to find a certain ID, choose a blueprint at random, or filter results using a [wildcard pattern](https://tldp.org/LDP/GNU-Linux-Tools-Summary/html/x11655.htm).
+蓝图有一个 ID 来识别它们和由此产生的参与者。可以读取库来找到某个 ID，随机选择蓝图，或者使用 [通配符模式](https://tldp.org/LDP/GNU-Linux-Tools-Summary/html/x11655.htm) 过滤结果。
 
 ```py
-# Find a specific blueprint.
+# 找一个指定的蓝图
 collision_sensor_bp = blueprint_library.find('sensor.other.collision')
-# Choose a vehicle blueprint at random.
+# 随机选择一个车辆蓝图
 vehicle_bp = random.choice(blueprint_library.filter('vehicle.*.*'))
 ```
 
-Besides that, each [carla.ActorBlueprint](python_api.md#carla.ActorBlueprint) has a series of [carla.ActorAttribute](python_api.md#carla.ActorAttribute) that can be _get_ and _set_.
+除此之外，每个 [carla.ActorBlueprint](python_api.md#carla.ActorBlueprint) 能获取 _get_ 和改变 _set_ 一些列参与者属性 [carla.ActorAttribute](python_api.md#carla.ActorAttribute) 。
 ```py
 is_bike = [vehicle.get_attribute('number_of_wheels') == 2]
 if(is_bike)
     vehicle.set_attribute('color', '255,0,0')
 ```
-!!! Note
-    Some of the attributes cannot be modified. Check it out in the [blueprint library](bp_library.md).
+!!! 注意
+    某些属性无法修改。在[蓝图库](bp_library.md)中查看。
 
-Attributes have an [carla.ActorAttributeType](python_api.md#carla.ActorAttributeType) variable. It states its type from a list of enums. Also, modifiable attributes come with a __list of recommended values__. 
+属性有一个参与者属性类型 [carla.ActorAttributeType](python_api.md#carla.ActorAttributeType) 变量。它从枚举列表中声明其类型。此外，可修改的属性还附带一个 __推荐值列表__ 。
 
 ```py
 for attr in blueprint:
     if attr.is_modifiable:
         blueprint.set_attribute(attr.id, random.choice(attr.recommended_values))
 ```
-!!! Note
-    Users can create their own vehicles. Check the __Tutorials (assets)__ to learn on that. Contributors can [add their new content to CARLA](tuto_D_contribute_assets.md). 
+!!! 注意
+    用户可以创建他们自己的车辆。查看 __教程（资产）__ 以了解相关信息。贡献者可以 [将他们的新内容添加到 Carla](tuto_D_contribute_assets.md) 。
 
 ---
-## Actor life cycle  
+## 参与者生命周期  
 
-!!! Important
-    This section mentions different methods regarding actors. The Python API provides for __[commands](python_api.md#command.SpawnActor)__ to apply batches of the most common ones, in just one frame. 
+!!! 重要
+    本节提到了关于参与者的不同方法。Python API 提供 __[commands](python_api.md#command.SpawnActor)__ ，以便在一个框架中应用一批最常见的命令。 
 
-### Spawning
+### 生成
 
-__The world object is responsible of spawning actors and keeping track of these.__ Spawning only requires a blueprint, and a [carla.Transform](python_api.md#carla.Transform) stating a location and rotation for the actor.  
+__世界对象负责生成参与者并跟踪这些参与者。__ 生成只需要一张蓝图和一个 [carla.Transform](python_api.md#carla.Transform) 说明参与者的位置和旋转。 
 
-The world has two different methods to spawn actors.  
+世界有两个不同的方法生成参与者。 
 
-* [`spawn_actor()`](python_api.md#carla.World.spawn_actor) raises an exception if the spawning fails.
-* [`try_spawn_actor()`](python_api.md#carla.World.try_spawn_actor) returns `None` if the spawning fails.
+* [`spawn_actor()`](python_api.md#carla.World.spawn_actor) 如果生成失败抛出一个异常。
+* [`try_spawn_actor()`](python_api.md#carla.World.try_spawn_actor) 如果生成失败返回 `None`。
 
 ```py
 transform = Transform(Location(x=230, y=195, z=40), Rotation(yaw=180))
 actor = world.spawn_actor(blueprint, transform)
 ```
 
-!!! Important
-    CARLA uses the [Unreal Engine coordinates system](https://carla.readthedocs.io/en/latest/python_api/#carlarotation). Remember that [`carla.Rotation`](https://carla.readthedocs.io/en/latest/python_api/#carlarotation) constructor is defined as `(pitch, yaw, roll)`, that differs from Unreal Engine Editor `(roll, pitch, yaw)`. 
+!!! 重要
+    Carla 使用 [虚幻引擎坐标系统](https://carla.readthedocs.io/en/latest/python_api/#carlarotation) 。记住： [`carla.Rotation`](https://carla.readthedocs.io/en/latest/python_api/#carlarotation) 构造函数定义为“俯仰、偏航、翻滚” `(pitch, yaw, roll)`，与虚幻编辑器的“翻滚、俯仰、偏航” `(roll, pitch, yaw)` 不同。
 
-The actor will not be spawned in case of collision at the specified location. No matter if this happens with a static object or another actor. It is possible to try avoiding these undesired spawning collisions.  
+如果在指定位置发生冲突，将不会生成参与者。无论这种情况发生在静态对象还是其他参与者身上。可以尝试避免这些不希望的生成碰撞。
 
-* `map.get_spawn_points()` __for vehicles__. Returns a list of recommended spawning points. 
+* `map.get_spawn_points()` __对于车辆__。 返回推荐生成点的列表。
 
 ```py
 spawn_points = world.get_map().get_spawn_points()
 ```
 
-* `world.get_random_location()` __for walkers__. Returns a random point on a sidewalk. This same method is used to set a goal location for walkers.  
+* `world.get_random_location()` __对于行人__。 返回人行道上的随机点。同样的方法也用于为行人设置目标位置。  
 
 ```py
 spawn_point = carla.Transform()
@@ -166,7 +166,7 @@ camera.listen(lambda image: image.save_to_disk('output/%06d.png' % image.frame))
 ```
 * Sensors have blueprints too. Setting attributes is crucial.  
 * Most of the sensors will be attached to a vehicle to gather information on its surroundings. 
-* Sensors __listen__ to data. When data is received, they call a function described with a __[Lambda expression](https://docs.python.org/3/reference/expressions.html)__ <small>(6.13 in the link provided)</small>. 
+* Sensors __listen__ to data. When data is received, they call a function described with a __[Lambda expression](https://docs.python.org/3/reference/expressions.html)__ <small>(6.14 in the link provided)</small>. 
 
 ### Spectator
 

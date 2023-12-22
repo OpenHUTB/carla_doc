@@ -1,11 +1,11 @@
-# 在 CARLA 包中摄取地图
+# 在 CARLA 包中导入地图
 
-本节介绍将地图引入 __CARLA 包（二进制）版本__的过程。如果您使用的是从源到摄取映射构建的 CARLA 版本，请遵循 [此处][source_ingest] 的指南。
+本节介绍将地图引入 __CARLA 包（二进制）版本__ 的过程。如果您使用的是从源代码构建的 CARLA 版本来导入地图，请遵循 [此处][source_ingest] 的指南。
 
 此过程仅适用于 Linux 系统。导入过程涉及运行虚幻引擎的 Docker 映像来导入相关文件，然后将它们导出为独立包，然后可以将其配置为在 CARLA 中使用。构建 Docker 镜像大约需要 4 小时和 600-700 GB 的时间。仅在第一次构建映像时才需要这样做。
 
 - [__在你开始之前__](#before-you-begin)
-- [__CARLA 包中的地图摄取__](#map-ingestion-in-a-carla-package)
+- [__CARLA 包中的地图导入__](#map-ingestion-in-a-carla-package)
 
 ---
 
@@ -16,7 +16,7 @@
     - 至少 8GB RAM
     - 用于构建容器映像的至少 700 GB 可用磁盘空间
     - [Git](https://git-scm.com/downloads) 版本控制
-- 确保您使用的是 CARLA 的软件包（二进制）版本。如果您使用的是从源到摄取映射构建的 CARLA 版本，请遵循 [此处][source_ingest] 的指南。
+- 确保您使用的是 Carla 的软件包（二进制）版本。如果您使用的是从源代码构建的 Carla 版本导入地图，请遵循 [此处][source_ingest] 的指南。
 - 您应该至少使用地图编辑器（例如 RoadRunner）已 [生成][rr_generate_map] 的两个文件`<mapName>.xodr` 和 `<mapName>.fbx`。
 - 这些文件应具有相同的 `<mapName>` 值，以便被识别为同一地图。
 
@@ -26,7 +26,7 @@
 [rr_generate_map]: tuto_M_generate_map.md
 
 ---
-## CARLA 包中的地图摄取
+## Carla 包中的地图导入
 
 __1.__ CARLA 提供了在 Docker 映像中构建虚幻引擎以及使用该映像编译 CARLA 的所有实用程序。这些工具可以在 GitHub 上的源代码中找到。使用以下命令克隆存储库：
 
@@ -48,7 +48,7 @@ __3.__ 创建 `input_folder`。这是您放置要导入的文件的位置。 Doc
 
 __4.__ 创建 `output_folder` 。这是 Docker 镜像在烘焙地图后写入输出文件的地方。
 
-__5.__ 导航至 `~/carla/Util/Docker`。这是摄取脚本所在的位置。该脚本需要 `input_folder` 和 `output_folder` 的路径以及要摄取的包的名称。如果提供了 `.json` 文件，则该文件的名称是包名称，如果未提供  `.json`，则名称必须为 `map_package`：
+__5.__ 导航至 `~/carla/Util/Docker`。这是导入脚本所在的位置。该脚本需要 `input_folder` 和 `output_folder` 的路径以及要导入包的名称。如果提供了 `.json` 文件，则该文件的名称是包名称，如果未提供  `.json`，则名称必须为 `map_package`：
 
 ```sh
     python3 docker_tools.py --input ~/path_to_input_folder --output ~/path_to_output_folder --packages map_package

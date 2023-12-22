@@ -2634,13 +2634,13 @@ A [carla.BoundingBox](#carla.BoundingBox) situated near a traffic sign where the
 ---
 
 ## carla.Transform<a name="carla.Transform"></a>
-Class that defines a transformation, a combination of location and rotation, without scaling.  
+该类定义了一个变换，即位置和旋转的组合，而不进行缩放。
 
 ### Instance Variables
 - <a name="carla.Transform.location"></a>**<font color="#f8805a">location</font>** (_[carla.Location](#carla.Location)_)  
-Describes a point in the coordinate system.  
+描述坐标系统中的一个点。 
 - <a name="carla.Transform.rotation"></a>**<font color="#f8805a">rotation</font>** (_[carla.Rotation](#carla.Rotation)<small> - degrees (pitch, yaw, roll)</small>_)  
-Describes a rotation for an object according to Unreal Engine's axis system.  
+描述根据虚幻引擎的轴系统进行对象的旋转。 
 
 ### Methods
 - <a name="carla.Transform.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**location**</font>, <font color="#00a6ed">**rotation**</font>)  
@@ -3561,14 +3561,14 @@ Projects the specified point downwards in the scene. The functions casts a ray f
         - `search_distance` (_float_) - The maximum distance to perform the projection.  
     - **Return:** _[carla.LabelledPoint](#carla.LabelledPoint)_  
 - <a name="carla.World.load_map_layer"></a>**<font color="#7fb800">load_map_layer</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**map_layers**</font>)<button class="SnipetButton" id="carla.World.load_map_layer-snipet_button">snippet &rarr;</button>  
-Loads the selected layers to the level. If the layer is already loaded the call has no effect.  
-    - **Parameters:**
-        - `map_layers` (_[carla.MapLayer](#carla.MapLayer)_) - Mask of level layers to be loaded.  
-    - **Warning:** <font color="#ED2F2F">_This only affects "Opt" maps. The minimum layout includes roads, sidewalks, traffic lights and traffic signs._</font>  
+加载图层到指定层次。如果该层次已经加载则没有任何效果。  
+    - **参数：**
+        - `map_layers` (_[carla.MapLayer](#carla.MapLayer)_) - 加载到指定层次的掩膜。 
+    - **警告：** <font color="#ED2F2F">_这仅仅影响分层（Opt）地图。最小布局包括道路、人行道、交通灯和交通标志。_</font>  
 - <a name="carla.World.on_tick"></a>**<font color="#7fb800">on_tick</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**callback**</font>)  
-This method is used in [__asynchronous__ mode](https://[carla.readthedocs.io](#carla.readthedocs.io)/en/latest/adv_synchrony_timestep/). It starts callbacks from the client for the function defined as `callback`, and returns the ID of the callback. The function will be called everytime the server ticks. It requires a [carla.WorldSnapshot](#carla.WorldSnapshot) as argument, which can be retrieved from __<font color="#7fb800">wait_for_tick()</font>__. Use __<font color="#7fb800">remove_on_tick()</font>__ to stop the callbacks.  
-    - **Parameters:**
-        - `callback` (_[carla.WorldSnapshot](#carla.WorldSnapshot)_) - Function with a snapshot as compulsory parameter that will be called when the client receives a tick.  
+此方法用于 [__异步模式](https://[carla.readthedocs.io](#carla.readthedocs.io)/en/latest/adv_synchrony_timestep/)。它从客户端定义的`callback` 函数启动回调，并返回回调的 ID。每当服务器发出时滴答信号时，就会调用该函数。它需要一个 [carla.WorldSnapshot](#carla.WorldSnapshot) 作为参数，这可以从 __<font color="#7fb800">wait_for_tick()</font>__ 获得。使用 __<font color="#7fb800">remove_on_tick()</font>__ 来停止回调。  
+    - **参数：**
+        - `callback` (_[carla.WorldSnapshot](#carla.WorldSnapshot)_) - 将快照作为强制参数的函数，当客户端收到滴答信号时将调用该函数。  
     - **Return:** _int_  
 - <a name="carla.World.project_point"></a>**<font color="#7fb800">project_point</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**location**</font>, <font color="#00a6ed">**direction**</font>, <font color="#00a6ed">**search_distance**</font>)  
 Projects the specified point to the desired direction in the scene. The functions casts a ray from location in a direction and returns a [carla.Labelled](#carla.Labelled) object with the first geometry this ray intersects. If no geometry is found in the search_distance range the function returns `None`.  
@@ -3592,25 +3592,25 @@ The method will create, return and spawn an actor into the world. The actor will
         - `attachment` (_[carla.AttachmentType](#carla.AttachmentType)_) - Determines how fixed and rigorous should be the changes in position according to its parent object.  
     - **Return:** _[carla.Actor](#carla.Actor)_  
 - <a name="carla.World.tick"></a>**<font color="#7fb800">tick</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**seconds**=10.0</font>)  
-This method is used in [__synchronous__ mode](https://[carla.readthedocs.io](#carla.readthedocs.io)/en/latest/adv_synchrony_timestep/), when the server waits for a client tick before computing the next frame. This method will send the tick, and give way to the server. It returns the ID of the new frame computed by the server.  
-    - **Parameters:**
-        - `seconds` (_float<small> - seconds</small>_) - Maximum time the server should wait for a tick. It is set to <code>10.0</code> by default.  
-    - **Return:** _int_  
-    - **Note:** <font color="#8E8E8E">_If no tick is received in synchronous mode, the simulation will freeze. Also, if many ticks are received from different clients, there may be synchronization issues. Please read the docs about [synchronous mode](https://[carla.readthedocs.io](#carla.readthedocs.io)/en/latest/adv_synchrony_timestep/) to learn more.  
+该方法用于 [__同步__ 模式](https://[carla.readthedocs.io](#carla.readthedocs.io)/en/latest/adv_synchrony_timestep/)，即服务器在计算下一帧之前等待客户端客户端滴答信号。这个方法将发送滴答信号，并让位于服务器。它返回由服务器计算的新帧ID。  
+    - **参数：**
+        - `seconds` (_float<small> - 秒</small>_) - 服务器应该等待滴答信号的最大时间。它默认设置为 <code>10.0</code> 。  
+    - **返回：** _int_  
+    - **注意：** <font color="#8E8E8E">_如果在同步模式下没有收到滴答信号，模拟将冻结。此外，如果从不同的客户端接收到许多滴答信号，则可能存在同步问题。请阅读有关 [同步模式](https://[carla.readthedocs.io](#carla.readthedocs.io)/en/latest/adv_synchrony_timestep/) 的文档以了解更多信息。  
 _</font>  
 - <a name="carla.World.try_spawn_actor"></a>**<font color="#7fb800">try_spawn_actor</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**blueprint**</font>, <font color="#00a6ed">**transform**</font>, <font color="#00a6ed">**attach_to**=None</font>, <font color="#00a6ed">**attachment**=Rigid</font>)  
-Same as __<font color="#7fb800">spawn_actor()</font>__ but returns <b>None</b> on failure instead of throwing an exception.  
-    - **Parameters:**
-        - `blueprint` (_[carla.ActorBlueprint](#carla.ActorBlueprint)_) - The reference from which the actor will be created.  
-        - `transform` (_[carla.Transform](#carla.Transform)_) - Contains the location and orientation the actor will be spawned with.  
-        - `attach_to` (_[carla.Actor](#carla.Actor)_) - The parent object that the spawned actor will follow around.  
-        - `attachment` (_[carla.AttachmentType](#carla.AttachmentType)_) - Determines how fixed and rigorous should be the changes in position according to its parent object.  
-    - **Return:** _[carla.Actor](#carla.Actor)_  
+和 __<font color="#7fb800">spawn_actor()</font>__ 一样，但是单失败时候返回 <b>None</b> 而不是抛出异常。  
+    - **参数：**
+        - `blueprint` (_[carla.ActorBlueprint](#carla.ActorBlueprint)_) - 将从中创建参与者的引用。  
+        - `transform` (_[carla.Transform](#carla.Transform)_) - 包含参与者将使用的位置和朝向。 
+        - `attach_to` (_[carla.Actor](#carla.Actor)_) - 派生的参与者将跟随的父对象。  
+        - `attachment` (_[carla.AttachmentType](#carla.AttachmentType)_) - 根据其父对象确定位置更改的固定和严格程度。  
+    - **返回：** _[carla.Actor](#carla.Actor)_  
 - <a name="carla.World.unload_map_layer"></a>**<font color="#7fb800">unload_map_layer</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**map_layers**</font>)<button class="SnipetButton" id="carla.World.unload_map_layer-snipet_button">snippet &rarr;</button>  
-Unloads the selected layers to the level. If the layer is already unloaded the call has no effect.  
-    - **Parameters:**
-        - `map_layers` (_[carla.MapLayer](#carla.MapLayer)_) - Mask of level layers to be unloaded.  
-    - **Warning:** <font color="#ED2F2F">_This only affects "Opt" maps. The minimum layout includes roads, sidewalks, traffic lights and traffic signs._</font>  
+将选定的图层卸载到指定层次。如果层已经卸载，则调用没有任何效果。 
+    - **参数:**
+        - `map_layers` (_[carla.MapLayer](#carla.MapLayer)_) - 要卸载图层的掩膜。 
+    - **警告:** <font color="#ED2F2F">_这仅仅影响分层（Opt）地图。最小布局包括道路、人行道、交通灯和交通标志。_</font>  
 - <a name="carla.World.wait_for_tick"></a>**<font color="#7fb800">wait_for_tick</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**seconds**=10.0</font>)  
 This method is used in [__asynchronous__ mode](https://[carla.readthedocs.io](#carla.readthedocs.io)/en/latest/adv_synchrony_timestep/). It makes the client wait for a server tick. When the next frame is computed, the server will tick and return a snapshot describing the new state of the world.  
     - **Parameters:**
