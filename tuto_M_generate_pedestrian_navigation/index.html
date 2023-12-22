@@ -319,7 +319,7 @@
 </ul>
 <p>如果已在 <code>.xodr</code> 文件中定义人行横道，请避免执行此操作，因为这会导致重复：</p>
 <ol>
-<li>创建一个平面网格，稍微延伸到要连接的两条人行道上。</li>
+<li>创建一个平面网格（plane mesh，如果看不到，需要在“视图选项”中选中“显示引擎内容”），稍微延伸到要连接的两条人行道上。</li>
 <li>将网格放置在地面上并禁用其物理和渲染。</li>
 <li>将网格名称更改为 <code>Road_Crosswalk</code> 或 <code>Roads_Crosswalk</code>。</li>
 </ol>
@@ -335,7 +335,7 @@
 <li>草地 = <code>Road_Grass</code> 或 <code>Roads_Grass</code></li>
 </ul>
 <p><img alt="ue_meshes" src="../img/ue_meshes.jpg" /> </p>
-<p><strong>3.</strong> 按 <code>ctrl + A</code> 选择所有内容并通过选择 <code>File</code> -&gt; <code>Carla Exporter</code> 导出地图。将在 <code>Unreal/CarlaUE4/Saved</code> 中创建 <code>&lt;mapName&gt;.obj</code> 文件。</p>
+<p><strong>3.</strong> 按 <code>ctrl + A</code> 选择所有内容（报错则只选择和行人相关的网格）并通过选择 <code>File</code> -&gt; <code>Carla Exporter</code> 导出地图。将在 <code>Unreal/CarlaUE4/Saved</code> 中创建 <code>&lt;mapName&gt;.obj</code> 文件。</p>
 <p><strong>4.</strong> 将 <code>&lt;mapName&gt;.obj</code> 和 <code>&lt;mapName&gt;.xodr</code> 移动到 <code>Util/DockerUtils/dist</code>。</p>
 <p><strong>5.</strong> 运行以下命令生成导航文件：  </p>
 <ul>

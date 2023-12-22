@@ -142,7 +142,7 @@
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#_1">在你开始之前</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#carla_1">CARLA 包中的地图摄取</a>
+    <li class="toctree-l2"><a class="reference internal" href="#carla_1">Carla 包中的地图导入</a>
     </li>
     </ul>
                   </li>
@@ -261,12 +261,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="carla">在 CARLA 包中摄取地图</h1>
-<p>本节介绍将地图引入 __CARLA 包（二进制）版本__的过程。如果您使用的是从源到摄取映射构建的 CARLA 版本，请遵循 <a href="../tuto_M_add_map_source/">此处</a> 的指南。</p>
+                <h1 id="carla">在 CARLA 包中导入地图</h1>
+<p>本节介绍将地图引入 <strong>CARLA 包（二进制）版本</strong> 的过程。如果您使用的是从源代码构建的 CARLA 版本来导入地图，请遵循 <a href="../tuto_M_add_map_source/">此处</a> 的指南。</p>
 <p>此过程仅适用于 Linux 系统。导入过程涉及运行虚幻引擎的 Docker 映像来导入相关文件，然后将它们导出为独立包，然后可以将其配置为在 CARLA 中使用。构建 Docker 镜像大约需要 4 小时和 600-700 GB 的时间。仅在第一次构建映像时才需要这样做。</p>
 <ul>
 <li><a href="#before-you-begin"><strong>在你开始之前</strong></a></li>
-<li><a href="#map-ingestion-in-a-carla-package"><strong>CARLA 包中的地图摄取</strong></a></li>
+<li><a href="#map-ingestion-in-a-carla-package"><strong>CARLA 包中的地图导入</strong></a></li>
 </ul>
 <hr />
 <h2 id="_1">在你开始之前</h2>
@@ -278,12 +278,12 @@
 <li><a href="https://git-scm.com/downloads">Git</a> 版本控制</li>
 </ul>
 </li>
-<li>确保您使用的是 CARLA 的软件包（二进制）版本。如果您使用的是从源到摄取映射构建的 CARLA 版本，请遵循 <a href="../tuto_M_add_map_source/">此处</a> 的指南。</li>
+<li>确保您使用的是 Carla 的软件包（二进制）版本。如果您使用的是从源代码构建的 Carla 版本导入地图，请遵循 <a href="../tuto_M_add_map_source/">此处</a> 的指南。</li>
 <li>您应该至少使用地图编辑器（例如 RoadRunner）已 <a href="../tuto_M_generate_map/">生成</a> 的两个文件<code>&lt;mapName&gt;.xodr</code> 和 <code>&lt;mapName&gt;.fbx</code>。</li>
 <li>这些文件应具有相同的 <code>&lt;mapName&gt;</code> 值，以便被识别为同一地图。</li>
 </ul>
 <hr />
-<h2 id="carla_1">CARLA 包中的地图摄取</h2>
+<h2 id="carla_1">Carla 包中的地图导入</h2>
 <p><strong>1.</strong> CARLA 提供了在 Docker 映像中构建虚幻引擎以及使用该映像编译 CARLA 的所有实用程序。这些工具可以在 GitHub 上的源代码中找到。使用以下命令克隆存储库：</p>
 <pre><code class="language-sh">    git clone https://github.com/carla-simulator/carla
 </code></pre>
@@ -299,7 +299,7 @@
 </div>
 </blockquote>
 <p><strong>4.</strong> 创建 <code>output_folder</code> 。这是 Docker 镜像在烘焙地图后写入输出文件的地方。</p>
-<p><strong>5.</strong> 导航至 <code>~/carla/Util/Docker</code>。这是摄取脚本所在的位置。该脚本需要 <code>input_folder</code> 和 <code>output_folder</code> 的路径以及要摄取的包的名称。如果提供了 <code>.json</code> 文件，则该文件的名称是包名称，如果未提供  <code>.json</code>，则名称必须为 <code>map_package</code>：</p>
+<p><strong>5.</strong> 导航至 <code>~/carla/Util/Docker</code>。这是导入脚本所在的位置。该脚本需要 <code>input_folder</code> 和 <code>output_folder</code> 的路径以及要导入包的名称。如果提供了 <code>.json</code> 文件，则该文件的名称是包名称，如果未提供  <code>.json</code>，则名称必须为 <code>map_package</code>：</p>
 <pre><code class="language-sh">    python3 docker_tools.py --input ~/path_to_input_folder --output ~/path_to_output_folder --packages map_package
 </code></pre>
 <blockquote>
