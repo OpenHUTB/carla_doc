@@ -77,3 +77,119 @@ controller.start()
 controller.go_to_location(world.get_random_location_from_navigation())
 
 
+# 获取4x4矩阵以将点从世界坐标转换为相机坐标
+world_2_camera = np.array(camera.get_transform().get_inverse_matrix())
+
+
+def build_projection_matrix(w, h, fov):
+    focal = w / (2.0 * np.tan(fov * np.pi / 360.0))
+    K = np.identity(3)
+    K[0, 0] = K[1, 1] = focal
+    K[0, 2] = w / 2.0
+    K[1, 2] = h / 2.0
+    return K
+
+
+def get_image_point(bone_trans):
+    # 计算骨骼坐标的二维投影
+
+    # 获取骨根的世界位置
+    loc = bone_trans.world.location
+    bone = np.array([loc.x, loc.y, loc.z, 1])
+    # 转换为相机坐标
+    point_camera = np.dot(world_2_camera, bone)
+
+    #  我们必须从UE4的坐标系更改为“标准”坐标系
+    # (x, y ,z) -> (y, -z, x)
+    # 我们还删除了第四个组件
+    point_camera = [point_camera[1], -point_camera[2], point_camera[0]]
+
+    # 现在使用摄影机矩阵投影3D->2D
+    point_img = np.dot(K, point_camera)
+    # 正则化
+    point_img[0] /= point_img[2]
+    point_img[1] /= point_img[2]
+
+    return point_img[0:2]
+
+
+def build_skeleton(ped, sk_links, K):
+    ######## 获取行人骨架 #########
+    bones = ped.get_bones()
+
+    # 列出将投影到相机输出上行的存储位置
+    lines = []
+
+    # 在 skeleton.txt 中遍历骨骼对并检索关节位置
+    for link in sk_links[1:]:
+
+        # 将两块骨头的根部连接起来
+        bone_transform_1 = next(filter(lambda b: b.name == link[0], bones.bone_transforms), None)
+        bone_transform_2 = next(filter(lambda b: b.name == link[1], bones.bone_transforms), None)
+
+        # 某些骨骼名称不匹配
+        if bone_transform_1 is not None and bone_transform_2 is not None:
+            # 计算三维骨骼坐标的二维投影
+            point_image = get_image_point(bone_transform_1)
+
+            # 将行开始附加到行列表
+            lines.append([point_image[0], point_image[1], 0, 0])
+
+            # 计算三维骨骼坐标的二维投影
+            point_image = get_image_point(bone_transform_2)
+
+            # 将行尾附加到行列表
+            lines[-1][2] = point_image[0]
+            lines[-1][3] = point_image[1]
+
+    return lines
+
+
+skeleton_links = []
+with open('skeleton.txt') as f:
+    while True:
+        line = f.readline()
+        if not line:
+            break
+        stripped = list(map(str.strip, line.strip().split(',')))
+        skeleton_links.append(stripped)
+
+
+world.tick()
+trash = image_queue.get()
+
+for frame in range(0, 1200):
+
+    # 在行人周围移动摄像头
+    camera.set_transform(center_camera(pedestrian, frame + 200))
+
+    # 推进帧并检索图像
+    world.tick()
+    # 从队列中获取帧
+    image = image_queue.get()
+
+    # 获取4x4矩阵以将点从世界坐标转换为相机坐标
+    world_2_camera = np.array(camera.get_transform().get_inverse_matrix())
+
+    # 从相机获取一些属性
+    image_w = camera_bp.get_attribute("image_size_x").as_int()
+    image_h = camera_bp.get_attribute("image_size_y").as_int()
+    fov = camera_bp.get_attribute("fov").as_float()
+
+    # 计算要从3D->2D投影的相机矩阵
+    K = build_projection_matrix(image_w, image_h, fov)
+
+    # 构建将显示骨架的线列表
+    lines = build_skeleton(pedestrian, skeleton_links, K)
+
+    # 将数据重塑为2D RBGA 矩阵
+    img = np.reshape(np.copy(image.raw_data), (image.height, image.width, 4))
+
+    # 使用 OpenCV 将线条绘制到图像中
+    for line in lines:
+        l = [int(x) for x in line]
+        cv2.line(img, (l[0], l[1]), (l[2], l[3]), (255, 0, 0, 255), 2)
+
+    # 保存图像
+    cv2.imwrite('out/skeleton%04d.png' % frame, img)
+

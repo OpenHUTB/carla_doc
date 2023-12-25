@@ -1,10 +1,10 @@
-# 通过 API 检索行人真实骨骼
+# 通过 API 获取行人真实骨骼
 
 为了训练自动驾驶车辆，必须确保它们不仅能够识别建筑物、道路和汽车，还能够识别人行道和过马路的行人，以确保所有道路使用者的安全。Carla 模拟器提供人工智能控制的行人，以人体形态填充您的模拟和训练数据。在许多计算机视觉应用中，人体姿态估计是一个重要因素，包括自动驾驶、安全、人群控制和多个机器人应用。
 
-Carla 的 API 提供了从模拟中的行人检索真实骨架的功能。骨架由一组骨骼组成，每个骨骼都有一个根节点或顶点以及一个定义骨骼姿势（或方向）的向量。这些骨骼控制模拟行人的四肢和身体的运动。通过将各个骨骼的集合收集在一起，可以构建虚拟人姿势的模型，该模型可用于与神经网络估计的姿势模型进行比较，甚至用于训练神经网络进行姿势估计。
+Carla 的 API 提供了从模拟中的行人获取真实骨架的功能。骨架由一组骨骼组成，每个骨骼都有一个根节点或顶点以及一个定义骨骼姿势（或方向）的向量。这些骨骼控制模拟行人的四肢和身体的运动。通过将各个骨骼的集合收集在一起，可以构建虚拟人姿势的模型，该模型可用于与神经网络估计的姿势模型进行比较，甚至用于训练神经网络进行姿势估计。
 
-在本教程中，我们将完成在地图中生成行人、设置 AI 控制器来移动行人、然后检索真实骨架并将骨骼投影到 2D 相机捕获上的步骤。
+在本教程中，我们将完成在地图中生成行人、设置 AI 控制器来移动行人、然后获取真实骨架并将骨骼投影到 2D 相机捕获上的步骤。
 
 ## 设置模拟器
 
@@ -181,7 +181,7 @@ def build_skeleton(ped, sk_links, K):
     # 列出将投影到相机输出上行的存储位置
     lines = []
 
-    # 在 skeleton.txt 中遍历骨骼对并检索关节位置
+    # 在 skeleton.txt 中遍历骨骼对并获取关节位置
     for link in sk_links[1:]:
 
         # 将两块骨头的根部连接起来
@@ -238,7 +238,7 @@ for frame in range(0,360):
     # 在行人周围移动摄像头
     camera.set_transform(center_camera(pedestrian, frame + 200))
     
-    # 推进帧并检索图像
+    # 推进帧并获取图像
     world.tick()
     # 从队列中获取帧
     image = image_queue.get()
@@ -274,9 +274,9 @@ for frame in range(0,360):
 
 ![pedestrian_skeleton](./img/tuto_G_pedestrian_bones/pedestrian_skeleton.gif)
 
-## Summary
+## 总结
 
-During this tutorial, you have learned how to spawn a pedestrian with an AI controller, recover the ground truth 3D coordinates of the pedestrian bones and project those bones onto the 2D image captured by the camera sensor. You could use the techniques learned in this tutorial to set up training and validation for human pose estimation frameworks using the CARLA simulator.
+在本教程中，您学习了如何使用 AI 控制器生成行人，恢复行人骨骼的真实三维坐标，并将这些骨骼投影到相机传感器捕获的二维图像上。您可以使用本教程中学到的技术，使用 Carla 模拟器为人体姿势估计框架设置训练和验证。
 
 
 
