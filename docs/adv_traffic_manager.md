@@ -146,7 +146,7 @@ __相关的 .cpp 文件:__ `TrafficManagerLocal.cpp`.
 
 - 将地图转换为离散路径点的网格。
 - 包含特定数据结构中的路点，并提供更多信息来连接路点和识别道路、路口等。
-- 通过识别这些建筑物的ID来快速定位附近区域的车辆。
+- 通过识别这些建筑物的 ID 来快速定位附近区域的车辆。
 
 __相关的 .cpp 文件:__ `InMemoryMap.cpp` and `SimpleWaypoint.cpp`.
 

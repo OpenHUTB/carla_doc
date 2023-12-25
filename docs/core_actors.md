@@ -96,29 +96,29 @@ spawn_point = carla.Transform()
 spawn_point.location = world.get_random_location_from_navigation()
 ```
 
-An actor can be attached to another one when spawned. Actors follow the parent they are attached to. This is specially useful for sensors. The attachment can be rigid (proper to retrieve precise data) or with an eased movement according to its parent. It is defined by the helper class [carla.AttachmentType](python_api.md#carla.AttachmentType).  
+一个参与者在生成时可以附加到另一个参与者上。参与者跟随他们所依附的父级。这对于传感器特别有用。该附件可以是刚性的（适合检索精确数据），也可以根据其父级的情况进行轻松移动。它由辅助类 [carla.AttachmentType](python_api.md#carla.AttachmentType) 定义。
 
-The next example attaches a camera rigidly to a vehicle, so their relative position remains fixed. 
+下一个示例将相机刚性地连接到车辆上，因此它们的相对位置保持固定。
 
 ```py
 camera = world.spawn_actor(camera_bp, relative_transform, attach_to=my_vehicle, carla.AttachmentType.Rigid)
 ```
-!!! Important
-    When spawning attached actors, the transform provided must be relative to the parent actor. 
+!!! 重要
+    当生成附加的参与者时，提供的变换必须相对于父级参与者。
 
-Once spawned, the world object adds the actors to a list. This can be easily searched or iterated on. 
+一旦生成，世界对象就会将参与者添加到列表中。这可以很容易地搜索或迭代。 
 ```py
 actor_list = world.get_actors()
-# Find an actor by id.
+# 根据 id 找参与者
 actor = actor_list.find(id)
-# Print the location of all the speed limit signs in the world.
+# 打印世界上所有限速标志的位置。
 for speed_sign in actor_list.filter('traffic.speed_limit.*'):
     print(speed_sign.get_location())
 ```
 
-### Handling
+### 处理
 
-[carla.Actor](python_api.md#carla.Actor) mostly consists of _get()_ and _set()_ methods to manage the actors around the map. 
+[carla.Actor](python_api.md#carla.Actor) 主要由  _get()_ 和 _set()_ 方法组成，用于管理地图周围的参与者。
 
 ```py
 print(actor.get_acceleration())
@@ -129,48 +129,48 @@ location.z += 10.0
 actor.set_location(location)
 ```
 
-The actor's physics can be disabled to freeze it in place. 
+可以禁用演员的物理特性以将其冻结在适当的位置。
 
 ```py
 actor.set_simulate_physics(False)
 ```
-Besides that, actors also have tags provided by their blueprints. These are mostly useful for semantic segmentation sensors. 
+除此之外，参与者还有他们的蓝图提供的标签。这些对于语义分割传感器最有用。
 
-!!! Warning
-    Most of the methods send requests to the simulator asynchronously. The simulator has a limited amount of time each update to parse them. Flooding the simulator with _set()_ methods will accumulate a significant lag.
+!!! 警告
+    大多数方法是异步向模拟器发送请求。模拟器每次更新解析它们的时间有限。使用 _set()_ 方法淹没模拟器将积累明显的延迟。
 
 
-### Destruction
+### 摧毁
 
-Actors are not destroyed when a Python script finishes. They have to explicitly destroy themselves.  
+当 Python 脚本完成时，参与者不会被销毁。他们必须明确地摧毁自己。
 
 ```py
-destroyed_sucessfully = actor.destroy() # Returns True if successful
+destroyed_sucessfully = actor.destroy() # 如果成功返回 True 
 ```
 
-!!! Important
-    Destroying an actor blocks the simulator until the process finishes. 
+!!! 重要
+    销毁参与者会阻塞模拟器，直到该过程完成。
 
 ---
-## Types of actors  
-### Sensors
+## 参与者类型  
+### 传感器
 
-Sensors are actors that produce a stream of data. They have their own section, [4th. Sensors and data](core_sensors.md). For now, let's just take a look at a common sensor spawning cycle.  
+传感器是产生数据流的参与者。他们有自己的部分，[第四部分. 传感器和数据](core_sensors.md)。现在，我们只看一下常见的传感器生成周期。
 
-This example spawns a camera sensor, attaches it to a vehicle, and tells the camera to save the images generated to disk.  
+此示例生成一个相机传感器，将其连接到车辆，并告诉相机将生成的图像保存到磁盘。
 
 ```py
 camera_bp = blueprint_library.find('sensor.camera.rgb')
 camera = world.spawn_actor(camera_bp, relative_transform, attach_to=my_vehicle)
 camera.listen(lambda image: image.save_to_disk('output/%06d.png' % image.frame))
 ```
-* Sensors have blueprints too. Setting attributes is crucial.  
-* Most of the sensors will be attached to a vehicle to gather information on its surroundings. 
-* Sensors __listen__ to data. When data is received, they call a function described with a __[Lambda expression](https://docs.python.org/3/reference/expressions.html)__ <small>(6.14 in the link provided)</small>. 
+* 传感器也有蓝图。设置属性至关重要。 
+* 大多数传感器将安装在车辆上以收集周围环境的信息。
+* 传感器 __监听__ 数据。收到数据后，它们会调用用 __[Lambda 表达式](https://docs.python.org/3/reference/expressions.html)__ 描述的函数<small>(提供的链接中的 6.14)</small>。 
 
-### Spectator
+### 观察者
 
-Placed by Unreal Engine to provide an in-game point of view. It can be used to move the view of the simulator window. The following example would move the spectator actor, to point the view towards a desired vehicle. 
+由虚幻引擎放置以提供游戏内的视角。它可用于移动模拟器窗口的视角。以下示例将移动观众演员，将视角指向所需的车辆。
 
 ```py
 spectator = world.get_spectator()
@@ -180,26 +180,27 @@ carla.Rotation(pitch=-90)))
 
 ```
 
-### Traffic signs and traffic lights
+### 交通标志和交通灯
 
-Only stops, yields and traffic lights are considered actors in CARLA so far. The rest of the OpenDRIVE signs are accessible from the API as [__carla.Landmark__](python_api.md#carla.Landmark). Their information is accessible using these instances, but they do no exist in the simulation as actors. Landmarks are explained more in detail in the following step, __3rd. Maps and navigation__.  
+到目前为止，Carela 中只有停靠点、让行路线和交通信号灯被视为参与者。其余的 OpenDRIVE 标志可通过 API 作为地标（[__carla.Landmark__](python_api.md#carla.Landmark)）进行访问。他们的信息可以使用这些实例访问，但他们在模拟中并不作为参与者存在。在接下来的 __第 3 部分 地图和导航__ 中将更详细地解释地标。 
 
-When the simulation starts, stop, yields and traffic light are automatically generated using the information in the OpenDRIVE file. __None of these can be found in the blueprint library__ and thus, cannot be spawned. 
 
-!!! Note
-    CARLA maps do not have traffic signs nor lights in the OpenDRIVE file. These are manually placed by developers.  
+当模拟开始、停止、让行和交通灯时，会使用 OpenDRIVE 文件中的信息自动生成。__这些都无法在蓝图库中找到__，因此无法生成。
 
-[__Traffic signs__](python_api.md#carla.TrafficSign) are not defined in the road map itself, as explained in the following page. Instead, they have a [carla.BoundingBox](python_api.md#carla.BoundingBox) to affect vehicles inside of it.  
+!!! 注意
+    OpenDRIVE 文件中的 Carela 地图没有交通标志或信号灯。这些是由开发人员手动放置的。 
+
+[__交通标志__](python_api.md#carla.TrafficSign) 未在路线图本身中定义，如下页所述。相反，他们有一个 [carla.BoundingBox](python_api.md#carla.BoundingBox) 来影响其中的车辆。 
 ```py
-#Get the traffic light affecting a vehicle
+# 获得影响车辆的交通灯
 if vehicle_actor.is_at_traffic_light():
     traffic_light = vehicle_actor.get_traffic_light()
 ``` 
-[__Traffic lights__](python_api.md#carla.TrafficLight) are found in junctions. They have their unique ID, as any actor, but also a `group` ID for the junction. To identify the traffic lights in the same group, a `pole` ID is used.  
+路口设有[__交通灯__](python_api.md#carla.TrafficLight)。与任何参与者一样，他们有自己独特的 ID，但对于岔路口也有一个组（`group`） ID 。
 
-The traffic lights in the same group follow a cycle. The first one is set to green while the rest remain frozen in red. The active one spends a few seconds in green, yellow and red, so there is a period of time where all the lights are red. Then, the next traffic light starts its cycle, and the previous one is frozen with the rest.  
+同一组中的交通灯遵循一个循环。第一个设置为绿色，而其余的则保持红色。活跃的灯会持续几秒钟呈绿色、黄色和红色，因此有一段时间所有灯都是红色的。然后，下一个红绿灯开始循环，前一个红绿灯与其余红绿灯一起冻结。
 
-The state of a traffic light can be set using the API. So does the seconds spent on each state. Possible states are described with [carla.TrafficLightState](python_api.md#carla.TrafficLightState) as a series of enum values. 
+可以使用 API 设置交通灯的状态。每个状态花费的秒数也是如此。可能的状态用 [carla.TrafficLightState](python_api.md#carla.TrafficLightState) 描述为一系列枚举值。
 ```py
 #Change a red traffic light to green
 if traffic_light.get_state() == carla.TrafficLightState.Red:

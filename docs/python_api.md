@@ -2445,7 +2445,7 @@ Sets a given time for the yellow light to be active.
 ---
 
 ## carla.TrafficLightState<a name="carla.TrafficLightState"></a>
-All possible states for traffic lights. These can either change at a specific time step or be changed manually. The snipet in [carla.TrafficLight.set_state](#carla.TrafficLight.set_state) changes the state of a traffic light on the fly.  
+交通灯的所有可能状态。这些可以在特定时间步长更改或手动更改。[carla.TrafficLight.set_state](#carla.TrafficLight.set_state) 中的片段会动态更改交通灯的状态。
 
 ### Instance Variables
 - <a name="carla.TrafficLightState.Red"></a>**<font color="#f8805a">Red</font>**  
