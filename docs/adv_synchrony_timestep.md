@@ -91,15 +91,15 @@ fixed_delta_seconds <= max_substep_delta_time * max_substeps
 
 为了演示最佳物理子步的效果，请考虑下面的图。下面的第一个图表显示了在不同固定模拟时间步长的模拟中速度随时间的变化。物理增量时间在所有模拟中都是恒定的，默认值为0.01。我们可以看到，速度不受模拟时间步长差异的影响。
 
->>>>>![velocity with fixed physical delta time](../img/physics_convergence_fixed_pdt.png)
+>>>>>![velocity with fixed physical delta time](./img/physics_convergence_fixed_pdt.png)
 
 第二张图显示了模拟中速度随时间的变化，模拟时间步长固定为0.04。我们可以看到，一旦物理增量时间超过0.01，速度常数开始出现偏差，随着物理增量时间的增加，偏差的严重程度也在增加。
 
->>>>>![velocity with varied physical delta time](../img/physics_convergence_fixed_dt.png)
+>>>>>![velocity with varied physical delta time](./img/physics_convergence_fixed_dt.png)
 
 我们可以通过在测量z-加速度时显示物理增量时间与固定模拟时间步长相同的差异的影响来再次证明这种偏差，只有当物理增量时间为0.01或更小时才会发生收敛。
 
->>>>>![physics convergence z acceleration](../img/physics_convergence_z_acceleration.png)
+>>>>>![physics convergence z acceleration](./img/physics_convergence_z_acceleration.png)
 
 ---
 ### 客户端-服务器同步

@@ -53,11 +53,11 @@ RoadRunner是MATLAB校园许可的一部分，因此许多大学可以提供无�
 - 地图验证是正确的，密切关注连接和几何形状。
 
 
->>>>![CheckGeometry](../img/check_geometry.jpg)
+>>>>![CheckGeometry](./img/check_geometry.jpg)
 
 一旦地图准备好了，点击opdrive预览工具按钮来可视化opdrive道路网络，并给一切最后一次检查。
 
->>>>![checkopen](../img/check_open.jpg)
+>>>>![checkopen](./img/check_open.jpg)
 
 !!! 注意
     _opdrive预览工具_使它更容易测试地图的完整性。如果路口有任何错误，点击‘Maneuver Tool’，然后点击‘Rebuild Maneuver Roads’。
@@ -81,7 +81,7 @@ __2.__在弹出的窗口中:
     - _Export to Tiles_: 选择瓷砖的大小。CARLA可以使用的最大尺寸是2000 x 2000。
     - _Export Individual Tiles_: 生成在CARLA中流式传输大型地图所需的单个块。
 
->>>>>>![export_large_map_fbx](../img/large_map_export_fbx.png)
+>>>>>>![export_large_map_fbx](./img/large_map_export_fbx.png)
 
 __3.__ 导出 `.xodr`文件:
 

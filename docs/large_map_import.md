@@ -27,7 +27,7 @@ The naming convention of map tiles is very important. Each map tile should be na
 
 Be aware that a more positive __y coordinate__ refers to a tile lower on the y-axis. For example,`Map01_Tile_0_1` would sit just below `Map01_Tile_0_0`. 
 
->>>>>>>>![map_tiles](../img/map_tiles.png)
+>>>>>>>>![map_tiles](./img/map_tiles.png)
 
 A resulting `Import` folder with a package containing a large map made of four tiles should have a structure similar to the one below:
 

@@ -54,11 +54,11 @@ Once you have made your map in RoadRunner you will be able to export it. Be awar
 - The map validation is correct, paying close attention to connections and geometries.
 
 
->>>>![CheckGeometry](../img/check_geometry.jpg)
+>>>>![CheckGeometry](./img/check_geometry.jpg)
 
 Once the map is ready, click on the `OpenDRIVE Preview Tool` button to visualize the OpenDRIVE road network and give everything one last check.
 
->>>>![checkopen](../img/check_open.jpg)
+>>>>![checkopen](./img/check_open.jpg)
 
 !!! note
     _OpenDrive Preview Tool_ makes it easier to test the integrity of the map. If there are any errors with junctions, click on `Maneuver Tool`, and `Rebuild Maneuver Roads`.
@@ -156,15 +156,15 @@ __2.__ Drag the traffic lights into the scene and position them in the desired l
 
 __3.__ Adjust the [`trigger volume`][triggerlink] for each traffic light by selecting the _BoxTrigger_ component in the _Details_ panel and adjusting the values in the _Transform_ section. This will determine the traffic light's area of influence.
 
->>![ue_trafficlight](../img/ue_trafficlight.jpg)
+>>![ue_trafficlight](./img/ue_trafficlight.jpg)
 
 __4.__ For junctions, drag the `BP_TrafficLightGroup` actor into the level. Assign all the traffic lights in the junction to the traffic light group by adding them to the _Traffic Lights_ array in the _Details_ panel.
 
->>![ue_tl_group](../img/ue_tl_group.jpg)
+>>![ue_tl_group](./img/ue_tl_group.jpg)
 
 __5.__ Traffic light timing is only configurable through the Python API. See the documentation [here](core_actors.md#traffic-signs-and-traffic-lights) for more information.
 
->>![ue_tlsigns_example](../img/ue_tlsigns_example.jpg)
+>>![ue_tlsigns_example](./img/ue_tlsigns_example.jpg)
 
 > _Example: Traffic Signs, Traffic lights and Turn based stop._
 
@@ -223,7 +223,7 @@ __4. Re-calibrate the _Map Size (Cm)_ so that it is equal to the actual size of 
 1. Select the `RoadPainter` actor in the scene.
 2. Go to the _Details_ panel and press the _Z-Size_ button. You will see the value in _Map Size (Cm)_ change.
 
->>>>>![map size](../img/map_size.png)
+>>>>>![map size](./img/map_size.png)
 
 __5. Synchronize the map size between the `RoadPainter` and `Tutorial_RoadMaster`.__
 
@@ -231,7 +231,7 @@ __5. Synchronize the map size between the `RoadPainter` and `Tutorial_RoadMaster
 2. Copy the value _Map Size (Cm)_ from the previous step and paste it to _Global Scalar Parameter Values -> Map units (CM)_ in the `Tutorial_RoadMaster` window.
 3. Press save.
 
->>>>>>![img](../img/map_size_sync.png)
+>>>>>>![img](./img/map_size_sync.png)
 
 __6. Create the communication link between the road painter and the master material.__
 
@@ -247,7 +247,7 @@ The `Tutorial_RenderTarget` will be the communication link between the road pain
 
 The `Tutorial_RoadMaster` material you created holds the base material, extra material information, and parameters that will be applied via your `Tutorial_RenderTarget`. You can configure one base material and up to three additional materials.
 
->>![master materials](../img/master_material.png)
+>>![master materials](./img/master_material.png)
 
 To configure the materials, double-click the `Tutorial_RoadMaster` file. In the window that appears, you can select and adjust the following values for each material according to your needs:
 
@@ -284,7 +284,7 @@ Each of the materials we added to `Tutorial_RoadMaster` are applied to the roads
 1. Select the road painter actor
 2. In the _Details_ panel, select the material to work with in the _Mask Color_ dropdown menu.
 
->>>>>>![choose material](../img/choose_material.png)
+>>>>>>![choose material](./img/choose_material.png)
 
 __3. Set the brush and stencil parameters.__
 
@@ -297,10 +297,10 @@ There are a variety of stencils to choose from in `GenericMaterials/RoadStencil/
 - _Stencil_ — The brush to use.
 - _Rotation_ — Rotation applied to the stroke.
 
->>>>>>![materials_roadpaint_brushes](../img/material_customization/Materials_Brush.jpg)
+>>>>>>![materials_roadpaint_brushes](./img/material_customization/Materials_Brush.jpg)
 <div style="text-align: right"><i>Brush panel.</i></div>
 <br>
-![materials_roadpaint_typesofbrushes](../img/material_customization/Materials_Road_Typesofbrushes.jpg)
+![materials_roadpaint_typesofbrushes](./img/material_customization/Materials_Road_Typesofbrushes.jpg)
 <div style="text-align: right"><i>Different types of brushes.</i></div>
 <br>
 __4. Apply each material to the desired portions of the road.__
@@ -318,7 +318,7 @@ This section also contains options to erase the applied changes.
 * _Clear materials_ — Remove the currently active materials.
 * _Clear material by actor_ — Remove the material closest to the selected actor.
 
->>>>>>![materials_roadpaint_brushes](../img/material_customization/Materials_RoadPainter_Default.jpg)
+>>>>>>![materials_roadpaint_brushes](./img/material_customization/Materials_RoadPainter_Default.jpg)
 <div style="text-align: right"><i>Different painting and erasing options.</i></div>
 <br>
 __5. Add decals and meshes.__
@@ -333,7 +333,7 @@ You can explore the available decals and meshes in `Content > Carla Static > Dec
 - _Decal/Mesh Min Scale_ — Minimum random scale applied to the decal/mesh.
 - _Decal/Mesh Max Scale_ — Max random scale applied to the decal/mesh.
 
->>>>>>![materials_](../img/decals_meshes.png)
+>>>>>>![materials_](./img/decals_meshes.png)
 <div style="text-align: right"><i>Decals and Meshes panels.</i></div>
 <br>
 
@@ -346,22 +346,22 @@ __7. Experiment to get your desired appearance.__
 
 Experiment with different materials, textures, settings, decals, and meshes to get your desired look. Below are some example images of how the appearance of the road changes during the process of painting each material.
 
-![materials_roadpaint_mat00](../img/material_customization/Materials_Road_MaterialBase.jpg)
+![materials_roadpaint_mat00](./img/material_customization/Materials_Road_MaterialBase.jpg)
 <div style="text-align: right"><i>Example of base road material.</i></div>
 <br>
-![materials_roadpaint_mat01](../img/material_customization/Materials_Road_Material1.jpg)
+![materials_roadpaint_mat01](./img/material_customization/Materials_Road_Material1.jpg)
 <div style="text-align: right"><i>Example after material 1 is applied.</i></div>
 <br>
-![materials_roadpaint_mat02](../img/material_customization/Materials_Road_Material2.jpg)
+![materials_roadpaint_mat02](./img/material_customization/Materials_Road_Material2.jpg)
 <div style="text-align: right"><i>Example after material 2 is applied.</i></div>
 <br>
-![materials_roadpaint_mat03](../img/material_customization/Materials_Road_Material3.jpg)
+![materials_roadpaint_mat03](./img/material_customization/Materials_Road_Material3.jpg)
 <div style="text-align: right"><i>Example after material 3 is applied.</i></div>
 <br>
-![materials_roadpaint_mat03](../img/material_customization/Materials_Road_Decals.jpg)
+![materials_roadpaint_mat03](./img/material_customization/Materials_Road_Decals.jpg)
 <div style="text-align: right"><i>Example after decals are applied.</i></div>
 <br>
-![materials_roadpaint_mat03](../img/material_customization/Materials_Road_Meshes.jpg)
+![materials_roadpaint_mat03](./img/material_customization/Materials_Road_Meshes.jpg)
 <div style="text-align: right"><i>Example after meshes are applied.</i></div>
 <br>
 

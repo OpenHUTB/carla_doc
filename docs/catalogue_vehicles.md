@@ -139,7 +139,7 @@ vehicle.destroy()
 ## Cars
 ### Audi - A2
 
-![audi_a2](../img/catalogue/vehicles/audi_a2.webp)
+![audi_a2](./img/catalogue/vehicles/audi_a2.webp)
 
 
 * __Manufacturer__: Audi
@@ -156,7 +156,7 @@ vehicle.destroy()
 
 ### Audi - E-Tron
 
-![audi_etron](../img/catalogue/vehicles/audi_etron.webp)
+![audi_etron](./img/catalogue/vehicles/audi_etron.webp)
 
 
 * __Manufacturer__: Audi
@@ -175,7 +175,7 @@ vehicle.destroy()
 
 ### Audi - TT
 
-![audi_tt](../img/catalogue/vehicles/audi_tt.webp)
+![audi_tt](./img/catalogue/vehicles/audi_tt.webp)
 
 
 * __Manufacturer__: Audi
@@ -192,7 +192,7 @@ vehicle.destroy()
 
 ### BMW - Gran Tourer
 
-![bmw_grandtourer](../img/catalogue/vehicles/bmw_grandtourer.webp)
+![bmw_grandtourer](./img/catalogue/vehicles/bmw_grandtourer.webp)
 
 
 * __Manufacturer__: BMW
@@ -209,7 +209,7 @@ vehicle.destroy()
 
 ### Chevrolet - Impala
 
-![chevrolet_impala](../img/catalogue/vehicles/chevrolet_impala.webp)
+![chevrolet_impala](./img/catalogue/vehicles/chevrolet_impala.webp)
 
 
 * __Manufacturer__: Chevrolet
@@ -226,7 +226,7 @@ vehicle.destroy()
 
 ### Citroen - C3
 
-![citroen_c3](../img/catalogue/vehicles/citroen_c3.webp)
+![citroen_c3](./img/catalogue/vehicles/citroen_c3.webp)
 
 
 * __Manufacturer__: Citroen
@@ -243,7 +243,7 @@ vehicle.destroy()
 
 ### Dodge - Charger 2020
 
-![dodge_charger_2020](../img/catalogue/vehicles/dodge_charger_2020.webp)
+![dodge_charger_2020](./img/catalogue/vehicles/dodge_charger_2020.webp)
 
 
 * __Manufacturer__: Dodge
@@ -260,7 +260,7 @@ vehicle.destroy()
 
 ### Dodge - Police Charger
 
-![dodge_charger_police](../img/catalogue/vehicles/dodge_charger_police.webp)
+![dodge_charger_police](./img/catalogue/vehicles/dodge_charger_police.webp)
 
 
 * __Manufacturer__: Dodge
@@ -279,7 +279,7 @@ vehicle.destroy()
 
 ### Dodge - Police Charger 2020
 
-![dodge_charger_police_2020](../img/catalogue/vehicles/dodge_charger_police_2020.webp)
+![dodge_charger_police_2020](./img/catalogue/vehicles/dodge_charger_police_2020.webp)
 
 
 * __Manufacturer__: Dodge
@@ -298,7 +298,7 @@ vehicle.destroy()
 
 ### Ford - Crown (taxi)
 
-![ford_crown](../img/catalogue/vehicles/ford_crown.webp)
+![ford_crown](./img/catalogue/vehicles/ford_crown.webp)
 
 
 * __Manufacturer__: Ford
@@ -317,7 +317,7 @@ vehicle.destroy()
 
 ### Ford - Mustang
 
-![ford_mustang](../img/catalogue/vehicles/ford_mustang.webp)
+![ford_mustang](./img/catalogue/vehicles/ford_mustang.webp)
 
 
 * __Manufacturer__: Ford
@@ -334,7 +334,7 @@ vehicle.destroy()
 
 ### Jeep - Wrangler Rubicon
 
-![jeep_wrangler_rubicon](../img/catalogue/vehicles/jeep_wrangler_rubicon.webp)
+![jeep_wrangler_rubicon](./img/catalogue/vehicles/jeep_wrangler_rubicon.webp)
 
 
 * __Manufacturer__: Jeep
@@ -351,7 +351,7 @@ vehicle.destroy()
 
 ### Lincoln - MKZ 2017
 
-![lincoln_mkz_2017](../img/catalogue/vehicles/lincoln_mkz_2017.webp)
+![lincoln_mkz_2017](./img/catalogue/vehicles/lincoln_mkz_2017.webp)
 
 
 * __Manufacturer__: Lincoln
@@ -368,7 +368,7 @@ vehicle.destroy()
 
 ### Lincoln - MKZ 2020
 
-![lincoln_mkz_2020](../img/catalogue/vehicles/lincoln_mkz_2020.webp)
+![lincoln_mkz_2020](./img/catalogue/vehicles/lincoln_mkz_2020.webp)
 
 
 * __Manufacturer__: Lincoln
@@ -385,7 +385,7 @@ vehicle.destroy()
 
 ### Mercedes - Coupe
 
-![mercedes_coupe](../img/catalogue/vehicles/mercedes_coupe.webp)
+![mercedes_coupe](./img/catalogue/vehicles/mercedes_coupe.webp)
 
 
 * __Manufacturer__: Mercedes
@@ -402,7 +402,7 @@ vehicle.destroy()
 
 ### Mercedes - Coupe 2020
 
-![mercedes_coupe_2020](../img/catalogue/vehicles/mercedes_coupe_2020.webp)
+![mercedes_coupe_2020](./img/catalogue/vehicles/mercedes_coupe_2020.webp)
 
 
 * __Manufacturer__: Mercedes
@@ -419,7 +419,7 @@ vehicle.destroy()
 
 ### Micro - Microlino
 
-![micro_microlino](../img/catalogue/vehicles/micro_microlino.webp)
+![micro_microlino](./img/catalogue/vehicles/micro_microlino.webp)
 
 
 * __Manufacturer__: Micro
@@ -438,7 +438,7 @@ vehicle.destroy()
 
 ### Mini - Cooper S
 
-![mini_cooper_s](../img/catalogue/vehicles/mini_cooper_s.webp)
+![mini_cooper_s](./img/catalogue/vehicles/mini_cooper_s.webp)
 
 
 * __Manufacturer__: Mini
@@ -455,7 +455,7 @@ vehicle.destroy()
 
 ### Mini - Cooper S 2021
 
-![mini_cooper_s_2021](../img/catalogue/vehicles/mini_cooper_s_2021.webp)
+![mini_cooper_s_2021](./img/catalogue/vehicles/mini_cooper_s_2021.webp)
 
 
 * __Manufacturer__: Mini
@@ -472,7 +472,7 @@ vehicle.destroy()
 
 ### Nissan - Micra
 
-![nissan_micra](../img/catalogue/vehicles/nissan_micra.webp)
+![nissan_micra](./img/catalogue/vehicles/nissan_micra.webp)
 
 
 * __Manufacturer__: Nissan
@@ -489,7 +489,7 @@ vehicle.destroy()
 
 ### Nissan - Patrol
 
-![nissan_patrol](../img/catalogue/vehicles/nissan_patrol.webp)
+![nissan_patrol](./img/catalogue/vehicles/nissan_patrol.webp)
 
 
 * __Manufacturer__: Nissan
@@ -506,7 +506,7 @@ vehicle.destroy()
 
 ### Nissan - Patrol 2021
 
-![nissan_patrol_2021](../img/catalogue/vehicles/nissan_patrol_2021.webp)
+![nissan_patrol_2021](./img/catalogue/vehicles/nissan_patrol_2021.webp)
 
 
 * __Manufacturer__: Nissan
@@ -523,7 +523,7 @@ vehicle.destroy()
 
 ### Seat - Leon
 
-![seat_leon](../img/catalogue/vehicles/seat_leon.webp)
+![seat_leon](./img/catalogue/vehicles/seat_leon.webp)
 
 
 * __Manufacturer__: Seat
@@ -540,7 +540,7 @@ vehicle.destroy()
 
 ### Tesla - Model 3
 
-![tesla_model3](../img/catalogue/vehicles/tesla_model3.webp)
+![tesla_model3](./img/catalogue/vehicles/tesla_model3.webp)
 
 
 * __Manufacturer__: Tesla
@@ -559,7 +559,7 @@ vehicle.destroy()
 
 ### Toyota - Prius
 
-![toyota_prius](../img/catalogue/vehicles/toyota_prius.webp)
+![toyota_prius](./img/catalogue/vehicles/toyota_prius.webp)
 
 
 * __Manufacturer__: Toyota
@@ -581,7 +581,7 @@ vehicle.destroy()
 ## Trucks
 ### CARLA Motors - CarlaCola
 
-![carlamotors_carlacola](../img/catalogue/vehicles/carlamotors_carlacola.webp)
+![carlamotors_carlacola](./img/catalogue/vehicles/carlamotors_carlacola.webp)
 
 
 * __Manufacturer__: CARLA Motors
@@ -598,7 +598,7 @@ vehicle.destroy()
 
 ### CARLA Motors - European HGV (cab-over-engine type)
 
-![carlamotors_european_hgv](../img/catalogue/vehicles/carlamotors_european_hgv.webp)
+![carlamotors_european_hgv](./img/catalogue/vehicles/carlamotors_european_hgv.webp)
 
 
 * __Manufacturer__: CARLA Motors
@@ -615,7 +615,7 @@ vehicle.destroy()
 
 ### CARLA Motors - Firetruck
 
-![carlamotors_firetruck](../img/catalogue/vehicles/carlamotors_firetruck.webp)
+![carlamotors_firetruck](./img/catalogue/vehicles/carlamotors_firetruck.webp)
 
 
 * __Manufacturer__: CARLA Motors
@@ -634,7 +634,7 @@ vehicle.destroy()
 
 ### Tesla - Cybertruck
 
-![tesla_cybertruck](../img/catalogue/vehicles/tesla_cybertruck.webp)
+![tesla_cybertruck](./img/catalogue/vehicles/tesla_cybertruck.webp)
 
 
 * __Manufacturer__: Tesla
@@ -656,7 +656,7 @@ vehicle.destroy()
 ## Vans
 ### Ford - Ambulance
 
-![ford_ambulance](../img/catalogue/vehicles/ford_ambulance.webp)
+![ford_ambulance](./img/catalogue/vehicles/ford_ambulance.webp)
 
 
 * __Manufacturer__: Ford
@@ -675,7 +675,7 @@ vehicle.destroy()
 
 ### Mercedes - Sprinter
 
-![mercedes_sprinter](../img/catalogue/vehicles/mercedes_sprinter.webp)
+![mercedes_sprinter](./img/catalogue/vehicles/mercedes_sprinter.webp)
 
 
 * __Manufacturer__: Mercedes
@@ -692,7 +692,7 @@ vehicle.destroy()
 
 ### Volkswagen - T2
 
-![volkswagen_t2](../img/catalogue/vehicles/volkswagen_t2.webp)
+![volkswagen_t2](./img/catalogue/vehicles/volkswagen_t2.webp)
 
 
 * __Manufacturer__: Volkswagen
@@ -709,7 +709,7 @@ vehicle.destroy()
 
 ### Volkswagen - T2 2021
 
-![volkswagen_t2_2021](../img/catalogue/vehicles/volkswagen_t2_2021.webp)
+![volkswagen_t2_2021](./img/catalogue/vehicles/volkswagen_t2_2021.webp)
 
 
 * __Manufacturer__: Volkswagen
@@ -729,7 +729,7 @@ vehicle.destroy()
 ## Buses
 ### Mitsubishi - Fusorosa
 
-![mitsubishi_fusorosa](../img/catalogue/vehicles/mitsubishi_fusorosa.webp)
+![mitsubishi_fusorosa](./img/catalogue/vehicles/mitsubishi_fusorosa.webp)
 
 
 * __Manufacturer__: Mitsubishi
@@ -749,7 +749,7 @@ vehicle.destroy()
 ## Motorcycles
 ### Harley Davidson - Low Rider
 
-![harley-davidson_low_rider](../img/catalogue/vehicles/harley-davidson_low_rider.webp)
+![harley-davidson_low_rider](./img/catalogue/vehicles/harley-davidson_low_rider.webp)
 
 
 * __Manufacturer__: Harley Davidson
@@ -766,7 +766,7 @@ vehicle.destroy()
 
 ### Kawasaki - Ninja
 
-![kawasaki_ninja](../img/catalogue/vehicles/kawasaki_ninja.webp)
+![kawasaki_ninja](./img/catalogue/vehicles/kawasaki_ninja.webp)
 
 
 * __Manufacturer__: Kawasaki
@@ -783,7 +783,7 @@ vehicle.destroy()
 
 ### Vespa - ZX 125
 
-![vespa_zx125](../img/catalogue/vehicles/vespa_zx125.webp)
+![vespa_zx125](./img/catalogue/vehicles/vespa_zx125.webp)
 
 
 * __Manufacturer__: Vespa
@@ -800,7 +800,7 @@ vehicle.destroy()
 
 ### Yamaha - YZF
 
-![yamaha_yzf](../img/catalogue/vehicles/yamaha_yzf.webp)
+![yamaha_yzf](./img/catalogue/vehicles/yamaha_yzf.webp)
 
 
 * __Manufacturer__: Yamaha
@@ -820,7 +820,7 @@ vehicle.destroy()
 ## Bicycles
 ### BH - Crossbike
 
-![bh_crossbike](../img/catalogue/vehicles/bh_crossbike.webp)
+![bh_crossbike](./img/catalogue/vehicles/bh_crossbike.webp)
 
 
 * __Manufacturer__: BH
@@ -837,7 +837,7 @@ vehicle.destroy()
 
 ### Diamondback - Century
 
-![diamondback_century](../img/catalogue/vehicles/diamondback_century.webp)
+![diamondback_century](./img/catalogue/vehicles/diamondback_century.webp)
 
 
 * __Manufacturer__: Diamondback
@@ -854,7 +854,7 @@ vehicle.destroy()
 
 ### Gazelle - Omafiets
 
-![gazelle_omafiets](../img/catalogue/vehicles/gazelle_omafiets.webp)
+![gazelle_omafiets](./img/catalogue/vehicles/gazelle_omafiets.webp)
 
 
 * __Manufacturer__: Gazelle

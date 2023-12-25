@@ -29,7 +29,7 @@ The key meshes are pieces of the building's structure. They fall into four categ
 
 For each of them, except the __Roof__, there is a mesh to fill the center of the floor, and a __Corner__ mesh that will be placed on the sides of the floor. The following picture represents the global structure.
 
-![bp_procedural_building_visual](../img/map_customization/BP_Procedural_Building_Visual.jpg)
+![bp_procedural_building_visual](./img/map_customization/BP_Procedural_Building_Visual.jpg)
 <div style="text-align: right"><i>Visualization of the building structure.</i></div>
 
 The __Base parameters__ set the dimensions.
@@ -37,7 +37,7 @@ The __Base parameters__ set the dimensions.
 - __Num Floors:__ Floors of the building. Repetitions of the __Body__ meshes.
 - __Length X and Length Y:__ Length and breadth of the building. Repetitions of the central meshes for each side of the building.
 
-![bp_procedural_building_full](../img/map_customization/BP_Procedural_Building_Full.jpg)
+![bp_procedural_building_full](./img/map_customization/BP_Procedural_Building_Full.jpg)
 <div style="text-align: right"><i>Example of BP_Procedural_Building.</i></div>
 
 ### Structure modifications
@@ -49,7 +49,7 @@ There are some additional options to modify the general structure of the buildin
 - __Doors:__ Meshes that appear in the ground floor, right in front of the central meshes. The amount of doors and their location can be set. `0` is the initial position, `1` the next base repetition, and so on.
 - __Walls:__ Meshes that substitute one or more sides of the building. For example, a plane mesh can be used to paint one side of the building.
 
-![bp_procedural_building_extras](../img/map_customization/BP_Procedural_Building_Extras.jpg)
+![bp_procedural_building_extras](./img/map_customization/BP_Procedural_Building_Extras.jpg)
 <div style="text-align: right"><i>On the left, a building with no cornes and one door. <br> On the right, a building with a wall applied to one side of the building. The wall is a texture with no fire escape.</i></div>
 
 ---

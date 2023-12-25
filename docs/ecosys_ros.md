@@ -1,6 +1,6 @@
 # ROS
 
-![ros_carla](../img/ros_carla.png)
+![ros_carla](./img/ros_carla.png)
 
 The [__Robotic Operating System (ROS)__](https://www.ros.org/) is a set of software libraries for robotic and autonomous driving applications. CARLA can be directly connected to ROS through its ROS interfaces, control signals can be sent to CARLA actors and sensor data can be accessed through ROS topics. 
 

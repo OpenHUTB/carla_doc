@@ -102,7 +102,7 @@ The naming convention of map tiles is very important. Each map tile should be na
 
 RoadRunner should conform to this naming convention by default, but it's worth double checking before you prepare to import into CARLA, because problems caused at this stage can be tedious to fix later on. The tiles in the final map will be arranged like in the following diagram:
 
->>>>>><img src="../img/tuto_content_authoring_maps/large_map_tiles.png" width="70%">
+>>>>>><img src="./img/tuto_content_authoring_maps/large_map_tiles.png" width="70%">
 
 A resulting `Import` folder with a package containing a Large Map made of four tiles should have a structure similar to the one below:
 

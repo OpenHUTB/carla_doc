@@ -70,7 +70,7 @@ __4. Create the Physical Asset mesh.__
 
 The Physical Asset mesh is an additional mesh that allows Unreal Engine to calculate the vehicle's physics. It should be as simple as possible, with a reduced number of polygons, and should cover the whole vehicle except for the wheels. See the image below for an example.
 
->>![physical asset mesh](../img/physical_asset_mesh.png)
+>>![physical asset mesh](./img/physical_asset_mesh.png)
 
 The Physical Asset mesh should be exported as a separate `.fbx` file. The final file should fulfill the following requirements:
 
@@ -79,7 +79,7 @@ The Physical Asset mesh should be exported as a separate `.fbx` file. The final 
 - The mesh must not extend beyond the boundaries of the original model.
 - The mesh should have the same position as the original model.
 
->>![base mesh](../img/base_mesh.png)
+>>![base mesh](./img/base_mesh.png)
 
 Export the final mesh as an `.fbx` file with the name `SMC_<vehicle_name>.fbx`.
 
@@ -95,7 +95,7 @@ Consider the following points when creating the raycast sensor mesh:
 - The mesh(es) must not extend beyond the boundaries of the original model.
 - The mesh(es) should have the same position as the original.
 
->>![collision mesh](../img/collision_mesh.png)
+>>![collision mesh](./img/collision_mesh.png)
 
 Export the final mesh as an `.fbx` file with the name `SM_sc_<vehicle_name>.fbx`.
 
@@ -142,7 +142,7 @@ __3. Set the physical asset mesh.__
 - Adjust the wheel sphere to the size of the wheel.
 - Save and close the window.
 
->![Collision mesh](../img/collision_mesh_vehicle.png)
+>![Collision mesh](./img/collision_mesh_vehicle.png)
 
 __4. Create the Animation Blueprint.__
 
@@ -173,7 +173,7 @@ __6. Prepare the vehicle and wheel blueprints.__
 - Rename the file as `BP_<vehicle_name>`.
 - Go to the folder of any of the native CARLA vehicles in `Carla/Blueprints/Vehicles`. From the **_Content Browser_**, copy the four wheel blueprints into the blueprint folder for your own vehicle. Rename the files to replace the old vehicle name with your own vehicle name.
 
->>![Copy wheel blueprints](../img/copy_wheel_blueprint.png)
+>>![Copy wheel blueprints](./img/copy_wheel_blueprint.png)
 
 __7. Configure the wheel blueprints.__
 
@@ -186,7 +186,7 @@ __7. Configure the wheel blueprints.__
 - When setting the suspension values, you can use the values [here](tuto_D_customize_vehicle_suspension.md) as a guide.
 - Compile and save.
 
->>![wheel shape](../img/wheel_shape.png)
+>>![wheel shape](./img/wheel_shape.png)
 
 __8. Configure vehicle blueprint.__
 
@@ -199,7 +199,7 @@ __8. Configure vehicle blueprint.__
 - In the **_Components_** panel, select **_VehicleMovement (MovementComp) (Inherited)_**.
 - In the **_Details_** panel, search for `wheel`. You will find settings for each of the wheels. For each one, click on **_Wheel Class_** and search for the `BP_<vehicle_name>_<wheel_name>` file that corresponds to the correct wheel position.
 
->>>>![wheel blueprint](../img/wheel_blueprint.png)
+>>>>![wheel blueprint](./img/wheel_blueprint.png)
 
 If you have any additional meshes for your vehicle (doors, lights, etc.,) separate from the base mesh:
 
@@ -222,7 +222,7 @@ __9. Add the vehicle to the Blueprint Library__.
 - Optionally, provide a set of recommended colors for the vehicle.
 - Compile and save.
 
->![vehicle factory](../img/vehicle_factory.png)
+>![vehicle factory](./img/vehicle_factory.png)
 
 __10. Test the vehicle__.
 

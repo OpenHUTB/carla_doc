@@ -1,6 +1,6 @@
 # Town 13
 
-![town_13](../img/catalogue/maps/town13/town13montage.webp)
+![town_13](./img/catalogue/maps/town13/town13montage.webp)
 
 Town 13 is a Large Map with dimensions of 10x10 km<sup>2</sup>. It is divided into 36 tiles, most with dimensions of 2x2 km<sup>2</sup> (some edge tiles are smaller). There are numerous contrasting regions to the city including urban, residential and rural areas, along with a large highway system surrounding the city with a ringroad. The architectural styles reflect those of many medium to large cities across North America.  
 
@@ -29,7 +29,7 @@ __Zone color reference__:
 
 
 
-![town13_aerial](../img/catalogue/maps/town13/town13roadrunner.webp#map)
+![town13_aerial](./img/catalogue/maps/town13/town13roadrunner.webp#map)
 
 
 __CARLA coordinates__: 
@@ -53,49 +53,49 @@ spectator.set_transform(carla.Transform(loc, rot))
 
 Town 13's downtown area is a large span of high-rise skyscrapers arranged into blocks on a consistent grid of roads, resembling downtown areas in many large American and European cities.
 
-![high_rise](../img/catalogue/maps/town13/high_rise.webp)
+![high_rise](./img/catalogue/maps/town13/high_rise.webp)
 
 #### Community buildings:
 
 The community buildings are a set of 2-4 storey apartment buildings in a colorful bohemian style with businesses on the ground floors, located next to the downtown area of the city.
 
-![community](../img/catalogue/maps/town13/community.webp)
+![community](./img/catalogue/maps/town13/community.webp)
 
 #### High density residential:
 
 The high density residential areas of Town 13 have many 2-10 storey apartment buildings with commercial properties like cafes and retail stores at street level. Many of the residential blocks have balconies with sun shades similar to those in sunny southern European countries.
 
-![high_dens_res](../img/catalogue/maps/town13/high_dens_res.webp)
+![high_dens_res](./img/catalogue/maps/town13/high_dens_res.webp)
 
 #### Low density residential:
 
 The low density residential regions of Town 13 reflect the suburbs of many European cities, with one and two story homes surrounded by fenced gardens and garages.
 
-![low_dens_res](../img/catalogue/maps/town13/low_dens_res.webp)
+![low_dens_res](./img/catalogue/maps/town13/low_dens_res.webp)
 
 #### Parks:
 
 The dense residential and downtown areas are broken up by small islands of green communal space, juxtaposing green foliage against urban architecture.
 
-![parks](../img/catalogue/maps/town13/parks.webp)
+![parks](./img/catalogue/maps/town13/parks.webp)
 
 #### Highways and intersections:
 
 Town 13 has an extensive highway system, including 3-4 lane highways, large roundabouts and a causeway over a large body of water.
 
-![highway](../img/catalogue/maps/town13/highway.webp)
+![highway](./img/catalogue/maps/town13/highway.webp)
 
 #### Rural and farmland:
 
 Town 13 also has rural regions with characteristic farmland buildings like wooden barns and farmhouses, windmills, grain silos, corn fields, hay bails and rural fencing. These areas have unmarked country dirt roads and single lane interurban roads for inter-city traffic.
 
-![rural](../img/catalogue/maps/town13/rural.webp)
+![rural](./img/catalogue/maps/town13/rural.webp)
 
 #### Water:
 
 There are several bodies of water in town 13 including a large lake with a central island and several ponds in rural areas. 
 
-![water](../img/catalogue/maps/town13/water.webp)
+![water](./img/catalogue/maps/town13/water.webp)
 
 <style>
 @keyframes fadeMe {

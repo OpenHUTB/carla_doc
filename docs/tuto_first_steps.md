@@ -80,7 +80,7 @@ You can fly the spectator around the world using the mouse to control the pitch 
 
 Left click and drag the mouse in the spectator window up and down to control pitch and left and right to control yaw.
 
-![flying_spectator](../img/tuto_G_getting_started/flying_spectator.gif)
+![flying_spectator](./img/tuto_G_getting_started/flying_spectator.gif)
 
 The spectator and its properties can be accessed and manipulated through the Python API:
 
@@ -201,7 +201,7 @@ ego_vehicle = world.spawn_actor(ego_bp, random.choice(spawn_points))
 ---
 ## Choose your map
 
-![maps_montage](../img/catalogue/maps/maps_montage.webp)
+![maps_montage](./img/catalogue/maps/maps_montage.webp)
 
 CARLA comes loaded with several pre-made maps focused on providing a diversity of features. The maps present a range of environments such as urban, rural and residential. There are also differing architectural styles and also a multitude of different road layouts from unmarked rural roads to multi-lane highways. Browse the map guides in the [catalogue](catalogue.md) or in the table below. 
 
@@ -239,7 +239,7 @@ client.load_world('Town03_Opt')
 ## Choose your vehicles
 
 
-![vehicles_overview](../img/catalogue/vehicles/vehicle_montage.webp)
+![vehicles_overview](./img/catalogue/vehicles/vehicle_montage.webp)
 
 CARLA provides a library of vehicles to fill your simulation with traffic. Browse the vehicle models in the [CARLA vehicle catalogue](catalogue_vehicles.md). 
 
