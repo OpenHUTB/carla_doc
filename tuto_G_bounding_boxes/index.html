@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Bounding boxes - CARLA 模拟器 中文文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Bounding boxes";
+        var mkdocs_page_input_path = "tuto_G_bounding_boxes.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> CARLA 模拟器 中文文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">入门</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../start_introduction/">介绍</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../start_quickstart/">快速启动包安装</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">构建CARLA</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_linux/">Linux build</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_windows/">Windows build</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_update/">Update CARLA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_system/">Build system</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_docker/">CARLA in Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_faq/">F.A.Q.</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第一步</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_concepts/">核心概念</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_world/">第一、 世界和客户端</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_actors/">第二、 角色和蓝图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_map/">第三、地图和导航 </a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_sensors/">第四、 传感器和数据</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">高级概念</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_opendrive/">OpenDRIVE 独立模式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_ptv/">PTV-Vissim 联合仿真</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_recorder/">Recorder</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_rendering_options/">渲染选项</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_rss/">RSS</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_synchrony_timestep/">同步和时间步长</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_benchmarking/">基准性能</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_agents/">CARLA 代理</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">交通模拟</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ts_traffic_simulation_overview/">交通模拟概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_traffic_manager/">Traffic Manager</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_sumo/">SUMO 联合仿真</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_scenic/">Scenic</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">参考</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../python_api/">Python API 参考</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bp_library/">Blueprint Library</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_cpp/">C++ 参考</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_recorder_binary_file_format/">Recorder 二进制文件格式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_sensors/">Sensors reference</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">插件</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../plugins_carlaviz/">carlaviz — web 可视化器</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">ROS 桥接器</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ros_documentation/">ROS 桥文档</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">自定义地图</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_map_overview/">CARLA 中自定义地图的概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在CARLA包导入地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 CARLA 源构建中导入地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_alternative/">导入地图的替代方法</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_manual_map_package/">手动准备地图包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_layers/">自定义地图：分层地图: Layered maps</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_add_tl/">自定义地图：红绿灯和标志</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_road_painter/">自定义地图：Road painter</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_buildings/">自定义地图：程序建筑</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_weather_landscape/">自定义地图：天气和景观</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_pedestrian_navigation/">生成行人导航</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">大型地图</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_overview/">大型地图概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_roadrunner/">在RoadRunner中创建大地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_import/">导入/打包大地图</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（通用）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_add_friction_triggers/">添加摩擦触发器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_vehicle_physics/">控制车辆物理模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_walker_skeletons/">控制行人骨骼</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用OpenStreetMap生成地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索模拟数据</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_carsim_integration/">CarSim 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_chrono/">Chrono 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎UE和 CARLA</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（资产）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_add_vehicle/">添加新车辆</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_add_props/">添加新道具</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_create_standalone/">创建独立包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_material_customization/">材料定制</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（开发人员）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_contribute_assets/">如何升级内容</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_create_sensor/">创建一个传感器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_create_semantic_tags/">创建语义标签</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_customize_vehicle_suspension/">自定义车辆悬架</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_generate_colliders/">生成详细碰撞</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_make_release/">发布版本</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">CARLA 生态系统</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">贡献</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_contribution_guidelines/">贡献指南</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_code_of_conduct/">行为准则</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_coding_standard/">编码标准</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_doc_standard/">文档标准</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">CARLA 模拟器 中文文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Bounding boxes</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="bounding-boxes">Bounding boxes</h1>
+<p>A significant factor in the problem of enabling autonomous vehicles to understand their environments lies in estimating the position and orientation of objects surrounding the vehicle. For this purpose, it is necessary to infer the position of the object's bounding box. </p>
+<p>Objects within the CARLA simulation all have a bounding box and the CARLA Python API provides functions to access the bounding box of each object. This tutorial shows how to access bounding boxes and then project them into the camera plane.</p>
+<h2 id="set-up-the-simulator">Set up the simulator</h2>
+<p>Let's lay down the standard CARLA boilerplate code, set up the client and world objects, spawn a vehicle and attach a camera to it:</p>
+<pre><code class="language-py">import carla
+import math
+import random
+import time
+import queue
+import numpy as np
+import cv2
+
+client = carla.Client('localhost', 2000)
+world  = client.get_world()
+bp_lib = world.get_blueprint_library()
+
+# spawn vehicle
+vehicle_bp =bp_lib.find('vehicle.lincoln.mkz_2020')
+vehicle = world.try_spawn_actor(vehicle_bp, random.choice(spawn_points))
+
+# spawn camera
+camera_bp = bp_lib.find('sensor.camera.rgb')
+camera_init_trans = carla.Transform(carla.Location(z=2))
+camera = world.spawn_actor(camera_bp, camera_init_trans, attach_to=vehicle)
+vehicle.set_autopilot(True)
+
+# Set up the simulator in synchronous mode
+settings = world.get_settings()
+settings.synchronous_mode = True # Enables synchronous mode
+settings.fixed_delta_seconds = 0.05
+world.apply_settings(settings)
+
+# Get the map spawn points
+spawn_points = world.get_map().get_spawn_points()
+
+# Create a queue to store and retrieve the sensor data
+image_queue = queue.Queue()
+camera.listen(image_queue.put)
+</code></pre>
+<h2 id="geometric-transformations">Geometric transformations</h2>
+<p>We want to take 3D points from the simulation and project them into the 2D plane of the camera. Firstly, we need to construct the camera projection matrix:</p>
+<pre><code class="language-py">def build_projection_matrix(w, h, fov):
+    focal = w / (2.0 * np.tan(fov * np.pi / 360.0))
+    K = np.identity(3)
+    K[0, 0] = K[1, 1] = focal
+    K[0, 2] = w / 2.0
+    K[1, 2] = h / 2.0
+    return K
+</code></pre>
+<p>We want to use the camera projection matrix to project 3D to 2D points. The first step is to transform the 3D coordinates in world coordinates into camera coordinates, using the inverse camera transform that can be retrieved using <code>camera.get_transform().get_inverse_matrix()</code>. Following this, we use the camera projection matrix to project the 3D points in camera coordinates into the 2D camera plane:</p>
+<pre><code class="language-py">
+def get_image_point(loc, K, w2c):
+        # Calculate 2D projection of 3D coordinate
+
+        # Format the input coordinate (loc is a carla.Position object)
+        point = np.array([loc.x, loc.y, loc.z, 1])
+        # transform to camera coordinates
+        point_camera = np.dot(w2c, point)
+
+        # New we must change from UE4's coordinate system to an &quot;standard&quot;
+        # (x, y ,z) -&gt; (y, -z, x)
+        # and we remove the fourth componebonent also
+        point_camera = [point_camera[1], -point_camera[2], point_camera[0]]
+
+        # now project 3D-&gt;2D using the camera matrix
+        point_img = np.dot(K, point_camera)
+        # normalize
+        point_img[0] /= point_img[2]
+        point_img[1] /= point_img[2]
+
+        return point_img[0:2]
+</code></pre>
+<p>Now that we have the functions to project 3D -&gt; 2D we retrieve the camera specifications:</p>
+<pre><code class="language-py">
+# Get the world to camera matrix
+world_2_camera = np.array(camera.get_transform().get_inverse_matrix())
+
+# Get the attributes from the camera
+image_w = camera_bp.get_attribute(&quot;image_size_x&quot;).as_int()
+image_h = camera_bp.get_attribute(&quot;image_size_y&quot;).as_int()
+fov = camera_bp.get_attribute(&quot;fov&quot;).as_float()
+
+# Calculate the camera projection matrix to project from 3D -&gt; 2D
+K = build_projection_matrix(image_w, image_h, fov)
+</code></pre>
+<h2 id="bounding-boxes_1">Bounding boxes</h2>
+<p>CARLA objects all have an associated bounding box. CARLA <a href="../python_api/#carla.Actor">actors</a> have a <code>bounding_box</code> attribute which has a <a href="../python_api/#carla.BoundingBox">carla.BoundingBox</a> object type. The vertices for a bounding box can be retrieved through one of the getter functions <code>.get_world_vertices()</code> or <code>get_local_vertices()</code>. </p>
+<p>It is important to note that to get the 3D coordinates of the bounding box in world coordinates, you need to include the transform of the actor as an argument to the <code>get_world_vertices()</code> method like so:</p>
+<pre><code class="language-py">actor.get_world_vertices(actor.get_transform())
+
+</code></pre>
+<p>For objects in the map like buildings, traffic lights and road signs, the bounding box can be retrieved through the <a href="(python_api.md#carla.World)">carla.World</a> method <code>get_level_bbs()</code>. A <a href="(python_api.md#carla.CityObjectLabel)">carla.CityObjectLabel</a> can be used as an argument to filter the bounding box list to relevant objects:</p>
+<pre><code class="language-py"># Retrieve all bounding boxes for traffic lights within the level
+bounding_box_set = world.get_level_bbs(carla.CityObjectLabel.TrafficLight)
+
+# Filter the list to extract bounding boxes within a 50m radius
+nearby_bboxes = []
+for bbox in bounding_box_set:
+    if bbox.location.distance(actor.get_transform().location) &lt; 50:
+        nearby_bboxes
+</code></pre>
+<p>This list can be further filtered using actor location to identify objects that are nearby and therefore likely to be within the field of view of a camera attached to an actor. </p>
+<p>In order to draw a bounding box onto the camera image, we will need to join the vertices in the appropriate order to create edges. To achieve this we need the following list of edge pairs:</p>
+<pre><code class="language-py">edges = [[0,1], [1,3], [3,2], [2,0], [0,4], [4,5], [5,1], [5,7], [7,6], [6,4], [6,2], [7,3]]
+
+</code></pre>
+<h2 id="rendering-the-bounding-boxes">Rendering the bounding boxes</h2>
+<p>Now that we have our geometric projections and our simulation set up, we can progress to creating the game loop and rendering the bounding boxes into a scene. </p>
+<pre><code class="language-py"># Set up the set of bounding boxes from the level
+# We filter for traffic lights and traffic signs
+bounding_box_set = world.get_level_bbs(carla.CityObjectLabel.TrafficLight)
+bounding_box_set.extend(world.get_level_bbs(carla.CityObjectLabel.TrafficSigns))
+
+# Remember the edge pairs
+edges = [[0,1], [1,3], [3,2], [2,0], [0,4], [4,5], [5,1], [5,7], [7,6], [6,4], [6,2], [7,3]]
+
+</code></pre>
+<p>To see the bounding boxes, we will use an OpenCV window to display the camera output.</p>
+<pre><code class="language-py"># Retrieve the first image
+world.tick()
+image = image_queue.get()
+
+# Reshape the raw data into an RGB array
+img = np.reshape(np.copy(image.raw_data), (image.height, image.width, 4)) 
+
+# Display the image in an OpenCV display window
+cv2.namedWindow('ImageWindowName', cv2.WINDOW_AUTOSIZE)
+cv2.imshow('ImageWindowName',img)
+cv2.waitKey(1)
+</code></pre>
+<p>Now we will start the game loop:</p>
+<pre><code class="language-py">
+while True:
+    # Retrieve and reshape the image
+    world.tick()
+    image = image_queue.get()
+
+    img = np.reshape(np.copy(image.raw_data), (image.height, image.width, 4))
+
+    # Get the camera matrix 
+    world_2_camera = np.array(camera.get_transform().get_inverse_matrix())
+
+    for bb in bounding_box_set:
+
+        # Filter for distance from ego vehicle
+        if bb.location.distance(vehicle.get_transform().location) &lt; 50:
+
+            # Calculate the dot product between the forward vector
+            # of the vehicle and the vector between the vehicle
+            # and the bounding box. We threshold this dot product
+            # to limit to drawing bounding boxes IN FRONT OF THE CAMERA
+            forward_vec = vehicle.get_transform().get_forward_vector()
+            ray = bb.location - vehicle.get_transform().location
+
+            if forward_vec.dot(ray) &gt; 1:
+                # Cycle through the vertices
+                verts = [v for v in bb.get_world_vertices(carla.Transform())]
+                for edge in edges:
+                    # Join the vertices into edges
+                    p1 = get_image_point(verts[edge[0]], K, world_2_camera)
+                    p2 = get_image_point(verts[edge[1]],  K, world_2_camera)
+                    # Draw the edges into the camera output
+                    cv2.line(img, (int(p1[0]),int(p1[1])), (int(p2[0]),int(p2[1])), (0,0,255, 255), 1)
+
+    # Now draw the image into the OpenCV display window
+    cv2.imshow('ImageWindowName',img)
+    # Break the loop if the user presses the Q key
+    if cv2.waitKey(1) == ord('q'):
+        break
+
+# Close the OpenCV display window when the game loop stops
+cv2.destroyAllWindows()
+
+</code></pre>
+<p>Now we are rendering 3D bounding boxes into the images so we can observe them in the camera sensor output.</p>
+<p><img alt="3D_bbox_traffic_lights" src="../img/tuto_G_bounding_box/3d_bbox_traffic_lights.gif" /></p>
+<h2 id="vehicle-bounding-boxes">Vehicle bounding boxes</h2>
+<p>We may also want to render the bounding boxes for actors, particularly for vehicles. </p>
+<p>Firstly, let's add some other vehicles to our simulation:</p>
+<pre><code class="language-py">for i in range(50):
+    vehicle_bp = random.choice(bp_lib.filter('vehicle'))
+    npc = world.try_spawn_actor(vehicle_bp, random.choice(spawn_points))
+    if npc:
+        npc.set_autopilot(True)
+</code></pre>
+<p>Retrieve the first image and set up the OpenCV display window as before:</p>
+<pre><code class="language-py"># Retrieve the first image
+world.tick()
+image = image_queue.get()
+
+# Reshape the raw data into an RGB array
+img = np.reshape(np.copy(image.raw_data), (image.height, image.width, 4)) 
+
+# Display the image in an OpenCV display window
+cv2.namedWindow('ImageWindowName', cv2.WINDOW_AUTOSIZE)
+cv2.imshow('ImageWindowName',img)
+cv2.waitKey(1)
+</code></pre>
+<p>Now we use a modified game loop to draw the vehicle bounding boxes:</p>
+<pre><code class="language-py">
+while True:
+    # Retrieve and reshape the image
+    world.tick()
+    image = image_queue.get()
+
+    img = np.reshape(np.copy(image.raw_data), (image.height, image.width, 4))
+
+    # Get the camera matrix 
+    world_2_camera = np.array(camera.get_transform().get_inverse_matrix())
+
+
+    for npc in world.get_actors().filter('*vehicle*'):
+
+        # Filter out the ego vehicle
+        if npc.id != vehicle.id:
+
+            bb = npc.bounding_box
+            dist = npc.get_transform().location.distance(vehicle.get_transform().location)
+
+            # Filter for the vehicles within 50m
+            if dist &lt; 50:
+
+            # Calculate the dot product between the forward vector
+            # of the vehicle and the vector between the vehicle
+            # and the other vehicle. We threshold this dot product
+            # to limit to drawing bounding boxes IN FRONT OF THE CAMERA
+                forward_vec = vehicle.get_transform().get_forward_vector()
+                ray = npc.get_transform().location - vehicle.get_transform().location
+
+                if forward_vec.dot(ray) &gt; 1:
+                    p1 = get_image_point(bb.location, K, world_2_camera)
+                    verts = [v for v in bb.get_world_vertices(npc.get_transform())]
+                    for edge in edges:
+                        p1 = get_image_point(verts[edge[0]], K, world_2_camera)
+                        p2 = get_image_point(verts[edge[1]],  K, world_2_camera)
+                        cv2.line(img, (int(p1[0]),int(p1[1])), (int(p2[0]),int(p2[1])), (255,0,0, 255), 1)        
+
+    cv2.imshow('ImageWindowName',img)
+    if cv2.waitKey(1) == ord('q'):
+        break
+cv2.destroyAllWindows()
+</code></pre>
+<p><img alt="3D_bbox_vehicles" src="../img/tuto_G_bounding_box/3d_bbox_vehicle.gif" /></p>
+<h3 id="2d-bounding-boxes">2D bounding boxes</h3>
+<p>It is common for neural networks to be trained to detect 2D bounding boxes rather than the 3D bounding boxes demonstrated above. The previous script can be easily extended to generate 2D bounding boxes. We simply need to use the extremities of the 3D bounding boxes. We find, for each bounding box we render, the leftmost, rightmost, highest and lowest projected vertex in image coordinates. </p>
+<pre><code class="language-py">
+while True:
+
+    # Retrieve and reshape the image
+    world.tick()
+    image = image_queue.get()
+
+    img = np.reshape(np.copy(image.raw_data), (image.height, image.width, 4))
+
+    # Get the camera matrix 
+    world_2_camera = np.array(camera.get_transform().get_inverse_matrix())
+
+    for npc in world.get_actors().filter('*vehicle*'):
+
+        # Filter out the ego vehicle
+        if npc.id != vehicle.id:
+
+            bb = npc.bounding_box
+            dist = npc.get_transform().location.distance(vehicle.get_transform().location)
+
+            # Filter for the vehicles within 50m
+            if dist &lt; 50:
+
+            # Calculate the dot product between the forward vector
+            # of the vehicle and the vector between the vehicle
+            # and the other vehicle. We threshold this dot product
+            # to limit to drawing bounding boxes IN FRONT OF THE CAMERA
+                forward_vec = vehicle.get_transform().get_forward_vector()
+                ray = npc.get_transform().location - vehicle.get_transform().location
+
+                if forward_vec.dot(ray) &gt; 1:
+                    p1 = get_image_point(bb.location, K, world_2_camera)http://host.robots.ox.ac.uk/pascal/VOC/
+                    verts = [v for v in bb.get_world_vertices(npc.get_transform())]
+                    x_max = -10000
+                    x_min = 10000
+                    y_max = -10000
+                    y_min = 10000
+
+                    for vert in verts:
+                        p = get_image_point(vert, K, world_2_camera)
+                        # Find the rightmost vertex
+                        if p[0] &gt; x_max:
+                            x_max = p[0]
+                        # Find the leftmost vertex
+                        if p[0] &lt; x_min:
+                            x_min = p[0]
+                        # Find the highest vertex
+                        if p[1] &gt; y_max:
+                            y_max = p[1]
+                        # Find the lowest  vertex
+                        if p[1] &lt; y_min:
+                            y_min = p[1]
+
+                    cv2.line(img, (int(x_min),int(y_min)), (int(x_max),int(y_min)), (0,0,255, 255), 1)
+                    cv2.line(img, (int(x_min),int(y_max)), (int(x_max),int(y_max)), (0,0,255, 255), 1)
+                    cv2.line(img, (int(x_min),int(y_min)), (int(x_min),int(y_max)), (0,0,255, 255), 1)
+                    cv2.line(img, (int(x_max),int(y_min)), (int(x_max),int(y_max)), (0,0,255, 255), 1)
+
+
+    cv2.imshow('ImageWindowName',img)
+    if cv2.waitKey(1) == ord('q'):
+        break
+cv2.destroyAllWindows()
+
+</code></pre>
+<p><img alt="2D_bbox_vehicles" src="../img/tuto_G_bounding_box/2d_bbox.gif" /></p>
+<h2 id="exporting-bounding-boxes">Exporting bounding boxes</h2>
+<p>Rendering bounding boxes is useful for us to ensure the bounding boxes are correct for debugging purposes. However, if we wanted to use them practically in training a neural network, we will want to export them. There are a number of different formats used by the common data repositories used for autonomous driving and object detection, such as <a href="http://www.cvlibs.net/datasets/kitti/"><strong>KITTI</strong></a> or <a href="http://host.robots.ox.ac.uk/pascal/VOC/"><strong>PASCAL VOC</strong></a> or <a href="https://cocodataset.org/#home"><strong>MicroSoft COCO</strong></a>.</p>
+<h3 id="pascal-voc-format">Pascal VOC format</h3>
+<p>These datasets commonly use JSON or XML formats to store annotations. There is a convenient Python library for the PASCAL VOC format. </p>
+<pre><code class="language-py">
+from pascal_voc_writer import Writer
+
+...
+...
+...
+
+
+while True:
+    # Retrieve the image
+    world.tick()
+    image = image_queue.get()
+
+    # Get the camera matrix 
+    world_2_camera = np.array(camera.get_transform().get_inverse_matrix())
+
+    frame_path = 'output/%06d' % image.frame
+
+    # Save the image
+    image.save_to_disk(frame_path + '.png')
+
+    # Initialize the exporter
+    writer = Writer(frame_path + '.png', image_w, image_h)
+
+    for npc in world.get_actors().filter('*vehicle*'):
+        if npc.id != vehicle.id:
+            bb = npc.bounding_box
+            dist = npc.get_transform().location.distance(vehicle.get_transform().location)
+            if dist &lt; 50:
+                forward_vec = vehicle.get_transform().get_forward_vector()
+                ray = npc.get_transform().location - vehicle.get_transform().location
+                if forward_vec.dot(ray) &gt; 1:
+                    p1 = get_image_point(bb.location, K, world_2_camera)
+                    verts = [v for v in bb.get_world_vertices(npc.get_transform())]
+                    x_max = -10000
+                    x_min = 10000
+                    y_max = -10000
+                    y_min = 10000
+                    for vert in verts:
+                        p = get_image_point(vert, K, world_2_camera)
+                        if p[0] &gt; x_max:
+                            x_max = p[0]
+                        if p[0] &lt; x_min:
+                            x_min = p[0]
+                        if p[1] &gt; y_max:
+                            y_max = p[1]
+                        if p[1] &lt; y_min:
+                            y_min = p[1]
+
+                    # Add the object to the frame (ensure it is inside the image)
+                    if x_min &gt; 0 and x_max &lt; image_w and y_min &gt; 0 and y_max &lt; image_h: 
+                        writer.addObject('vehicle', x_min, y_min, x_max, y_max)
+
+    # Save the bounding boxes in the scene
+    writer.save(frame_path + '.xml')
+
+
+</code></pre>
+<p>For every rendered frame of your simulation, you will now export an accompanying XML file containing the details of the bounding boxes in the frame. </p>
+<p><img alt="xml_bbox_files" src="../img/tuto_G_bounding_box/xml_bbox_files.png" /></p>
+<p>In the PASCAL VOC format, the XML files contain information referring to the accompanying image file, the image dimensions and can include details such as vehicle type if needed. </p>
+<pre><code class="language-xml">&lt;!-- Example PASCAL VOC format file--&gt;
+&lt;annotation&gt;
+    &lt;folder&gt;output&lt;/folder&gt;
+    &lt;filename&gt;023235.png&lt;/filename&gt;
+    &lt;path&gt;/home/matt/Documents/temp/output/023235.png&lt;/path&gt;
+    &lt;source&gt;
+        &lt;database&gt;Unknown&lt;/database&gt;
+    &lt;/source&gt;
+    &lt;size&gt;
+        &lt;width&gt;800&lt;/width&gt;
+        &lt;height&gt;600&lt;/height&gt;
+        &lt;depth&gt;3&lt;/depth&gt;
+    &lt;/size&gt;
+    &lt;segmented&gt;0&lt;/segmented&gt;
+    &lt;object&gt;
+        &lt;name&gt;vehicle&lt;/name&gt;
+        &lt;pose&gt;Unspecified&lt;/pose&gt;
+        &lt;truncated&gt;0&lt;/truncated&gt;
+        &lt;difficult&gt;0&lt;/difficult&gt;
+        &lt;bndbox&gt;
+            &lt;xmin&gt;503&lt;/xmin&gt;
+            &lt;ymin&gt;310&lt;/ymin&gt;
+            &lt;xmax&gt;511&lt;/xmax&gt;
+            &lt;ymax&gt;321&lt;/ymax&gt;
+        &lt;/bndbox&gt;
+    &lt;/object&gt;    &lt;object&gt;
+        &lt;name&gt;vehicle&lt;/name&gt;
+        &lt;pose&gt;Unspecified&lt;/pose&gt;
+        &lt;truncated&gt;0&lt;/truncated&gt;
+        &lt;difficult&gt;0&lt;/difficult&gt;
+        &lt;bndbox&gt;
+            &lt;xmin&gt;490&lt;/xmin&gt;
+            &lt;ymin&gt;310&lt;/ymin&gt;
+            &lt;xmax&gt;498&lt;/xmax&gt;
+            &lt;ymax&gt;321&lt;/ymax&gt;
+        &lt;/bndbox&gt;
+    &lt;/object&gt;
+&lt;/annotation&gt;
+
+</code></pre>
+<h3 id="microsoft-coco-format">MicroSoft COCO format</h3>
+<p>Another popular export format is <a href="https://cocodataset.org/#home"><strong>MicroSoft COCO</strong></a>. The COCO format uses JSON files to save references to images and annotations. The format includes the images and annotations in the fields of a single JSON file, along with information on the dataset and licenses. In contrast to some other formats, references to all collected images and all associated annotations go in the same file.</p>
+<p>You should create a JSON dictionary similar to the following example:</p>
+<pre><code class="language-py">simulation_dataset = {
+    &quot;info&quot;: {},
+
+    &quot;licenses&quot;: [
+    {
+        &quot;url&quot;: &quot;http://creativecommons.org/licenses/by-nc-sa/2.0/&quot;,
+        &quot;id&quot;: 1,
+        &quot;name&quot;: &quot;Attribution-NonCommercial-ShareAlike License&quot;
+    }],
+
+    &quot;images&quot;: [...,
+        {
+        &quot;license&quot;: 1,
+        &quot;file_name&quot;: &quot;023235.png&quot;,
+        &quot;height&quot;: 600,
+        &quot;width&quot;: 800,
+        &quot;date_captured&quot;: &quot;2022-04-14 17:02:52&quot;,
+        &quot;id&quot;: 23235
+    },
+        ...
+    ],
+
+    &quot;categories&quot;: [...
+        {&quot;supercategory&quot;: &quot;vehicle&quot;, &quot;id&quot;: 10, &quot;name&quot;: &quot;vehicle&quot; },
+    ...],
+
+    &quot;annotations&quot;: [
+        ...,
+        {
+            &quot;segmentation&quot;: [],
+            &quot;area&quot;: 9262.89,
+            &quot;iscrowd&quot;: 0,
+            &quot;image_id&quot;: 23235,
+            &quot;bbox&quot;: [503.3, 310.4, 118.3, 78.3]
+        },
+        ...
+    ]
+}
+</code></pre>
+<p>The info and licenses sections should be filled accordingly or left empty. The images from your simulation should be stored in an array in the <code>images</code> field of the dictionary. The bounding boxes should be stored in the <code>annotations</code> field of the dictionary with the matching <code>image_id</code>. The bounding box is stored as <code>[x_min, y_min, width, height]</code>.</p>
+<p>The Python JSON library can then be used to save the dictionary as a JSON file:</p>
+<pre><code class="language-py">import json
+
+with open('simulation_data.json', 'w') as json_file:
+    json.dump(simulation_dataset, json_file)
+</code></pre>
+<p>More details about the COCO data format can be found <a href="https://www.immersivelimit.com/tutorials/create-coco-annotations-from-scratch/#create-custom-coco-dataset"><strong>here</strong></a></p>
+<p><em>It should be noted that in this tutorial we have not accounted for overlapping bounding boxes. Additional work would be required in order to identify foreground bounding boxes in the case where they overlap.</em>  </p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
