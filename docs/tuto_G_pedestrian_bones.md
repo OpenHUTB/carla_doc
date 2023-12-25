@@ -1,14 +1,14 @@
-# Retrieve pedestrian ground truth bones through API
+# 通过 API 检索行人真实骨骼
 
-To train autonomous vehicles, it is essential to make sure they recognize not only buildings, roads and cars, but also the pedestrians that occupy the sidewalks and cross the roads, to ensure the safety of all road users. The CARLA simulator provides AI controlled pedestrians to populate your simulation and training data with human forms. There are many computer vision applications in which human pose estimation is an important factor including autonomous driving, but also in security, crowd control and multiple robotic applications. 
+为了训练自动驾驶车辆，必须确保它们不仅能够识别建筑物、道路和汽车，还能够识别人行道和过马路的行人，以确保所有道路使用者的安全。Carla 模拟器提供人工智能控制的行人，以人体形态填充您的模拟和训练数据。在许多计算机视觉应用中，人体姿态估计是一个重要因素，包括自动驾驶、安全、人群控制和多个机器人应用。
 
-CARLA's API provides functionality to retrieve the ground truth skeleton from pedestrians in the simulation. The skeleton is composed of a set of bones, each with a root node or vertex and a vector defining the pose (or orientation) of the bone. These bones control the movement of the limbs and body of the simulated pedestrian. By collecting together the ensemble of individual bones, a model of the virtual human's pose can be built that can be used to compare against a pose model estimated by a neural network, or even used to train a neural network for pose estimation. 
+Carla 的 API 提供了从模拟中的行人检索真实骨架的功能。骨架由一组骨骼组成，每个骨骼都有一个根节点或顶点以及一个定义骨骼姿势（或方向）的向量。这些骨骼控制模拟行人的四肢和身体的运动。通过将各个骨骼的集合收集在一起，可以构建虚拟人姿势的模型，该模型可用于与神经网络估计的姿势模型进行比较，甚至用于训练神经网络进行姿势估计。
 
-In this tutorial, we will go through the steps of spawning a pedestrian in a map, setting up an AI controller to move the pedestrian and then retrieving the ground truth skeleton and projecting the bones onto a 2D camera capture.
+在本教程中，我们将完成在地图中生成行人、设置 AI 控制器来移动行人、然后检索真实骨架并将骨骼投影到 2D 相机捕获上的步骤。
 
-## Setting up the simulator
+## 设置模拟器
 
-First, launch the CARLA simulator as per your standard workflow, either in standalone mode or inside the Unreal Editor. We will import several utility libraries to use for maths and plotting. To give us more control over the simulation, we will use [__synchronous mode__](adv_synchrony_timestep.md) in this tutorial. This means that our Python client controls the time progression of the simulator.
+首先，按照您的标准工作流程启动 Carla 模拟器，无论是在独立模式下还是在虚幻编辑器中。我们将导入几个实用程序库以用于数学和绘图。为了让我们更好地控制模拟，我们将在本教程中使用 [__同步模式__](adv_synchrony_timestep.md) 。这意味着我们的 Python 客户端控制模拟器的时间进程。
 
 ```py
 import carla
@@ -33,11 +33,12 @@ spectator = world.get_spectator()
 
 ```
 
-## Spawning a pedestrian in the CARLA simulator
+## 在 CARLA 模拟器中生成行人
 
+首先，我们想在模拟中生成一个行人。这可以使用 `world.get_random_location_from_navigation()` 在随机位置完成，也可以使用从虚幻编辑器收集的坐标来选择。在虚幻编辑器中，将一个空参与者添加到要生成行人的位置，然后使用右侧的检查器查询坐标。
 First, we want to spawn a pedestrian in the simulation. This can be done at a random location using `world.get_random_location_from_navigation()`, or it can be chosen using coordinates gathered from the Unreal Editor. In the unreal editor, add an empty actor to the location where you want to spawn your pedestrian, then use the inspector on the right hand side to query the coordinates.
 
-![actor_location](../img/tuto_G_pedestrian_bones/actor_location.png)
+![actor_location](./img/tuto_G_pedestrian_bones/actor_location.png)
 
 !!! Note
     The Unreal Editor works in units of centimeters, while CARLA works in units of meters so the units must be converted. Ensure to divide the Unreal Editor coordinates by 100 before using in the CARLA simulator.
