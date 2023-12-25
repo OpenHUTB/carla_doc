@@ -3,7 +3,9 @@ import random
 import numpy as np
 import math
 import queue
-import cv2 #OpenCV to manipulate and save the images
+import cv2  # OpenCV to manipulate and save the images
+
+import os
 
 # Connect to the client and retrieve the world object
 client = carla.Client('localhost', 2000)
@@ -158,7 +160,9 @@ with open('skeleton.txt') as f:
 world.tick()
 trash = image_queue.get()
 
-for frame in range(0, 1200):
+if not os.path.exists('out'):
+    os.mkdir('out')
+for frame in range(0, 360):
 
     # 在行人周围移动摄像头
     camera.set_transform(center_camera(pedestrian, frame + 200))
