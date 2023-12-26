@@ -1,26 +1,22 @@
-# Walker Bone Control
+# 行人骨骼控制
 
-In this tutorial we describe how to manually control and animate the
-skeletons of walkers from the CARLA Python API. The reference of
-all classes and methods available can be found at
-[Python API reference](python_api.md).
+在本教程中，我们介绍如何通过 Carla Python API 手动控制行人的骨骼并为其设置动画。所有可用类和方法的参考可以在 [Python API 参考](python_api.md) 中找到 。
 
-*   [__Walker skeleton structure__](#walker-skeleton-structure)  
-*   [__Manually control walker bones__](#manually-control-walker-bones)  
-	*   [Connect to the simulator](#connect-to-the-simulator)  
-	*   [Spawn a walker](#spawn-a-walker)  
-	*   [Control walker skeletons](#control-walker-skeletons)  
+*   [__行人骨骼结构__](#walker-skeleton-structure)  
+*   [__手动控制行人骨骼__](#manually-control-walker-bones)  
+	*   [连接到模拟器](#connect-to-the-simulator)  
+	*   [生成行人](#spawn-a-walker)  
+	*   [控制行人骨骼](#control-walker-skeletons)  
 
 !!! note
-    **This document assumes the user is familiar with the Python API**. <br>
-    The user should read the first steps tutorial before reading this document.
-    [Core concepts](core_concepts.md).
+    **本文档假设用户熟悉 Python API。**。 <br>
+    用户在阅读本文档之前应阅读第一步教程。 
+    [核心概念](core_concepts.md)。
 
 ---
-## Walker skeleton structure
+## 行人骨骼结构
 
-All walkers have the same skeleton hierarchy and bone names. Below is an image of the skeleton
-hierarchy.
+所有行人都具有相同的骨骼层次结构和骨骼名称。下面是骨架层次结构的图像。
 
 ```
 crl_root
@@ -92,30 +88,29 @@ crl_root
 ```
 
 ---
-## Manually control walker bones
+## 手动控制行人骨骼
 
-Following is a detailed step-by-step example of how to change the bone transforms of a walker
-from the CARLA Python API
+以下是如何通过 CARLA Python API 更改步行者骨骼变换的详细分步示例
 
-### Connect to the simulator
+### 连接到模拟器
 
-Import neccessary libraries used in this example
+导入本例中使用的必要库
 
 ```py
 import carla
 import random
 ```
 
-Initialize the carla client
+初始化 Carla 客户端
 
 ```py
 client = carla.Client('127.0.0.1', 2000)
 client.set_timeout(2.0)
 ```
 
-### Spawn a walker
+### 生成行人
 
-Spawn a random walker at one of the map's spawn points
+在地图的一个生成点生成一个随机行人。
 
 ```py
 world = client.get_world()
@@ -125,19 +120,11 @@ spawn_point = random.choice(spawn_points) if spawn_points else carla.Transform()
 world.try_spawn_actor(blueprint, spawn_point)
 ```
 
-### Control walker skeletons
+### 控制行人骨骼
 
-A walker's skeleton can be modified by passing an instance of the WalkerBoneControl class
-to the walker's apply_control function. The WalkerBoneControl class contains the transforms
-of the bones to be modified. Its bone_transforms member is a list of tuples of value pairs
-where the first value is the bone name and the second value is the bone transform. The
-apply_control function can be called on every tick to animate a walker's skeleton. The
-location and rotation of each transform is relative to its parent. Therefore when a
-parent bone's transform is modified, the transforms of the child bones in model space
-will also be changed relatively.
+可以通过将 WalkerBoneControl 类的实例传递给行人的 apply_control 函数来修改行人的骨架。WalkerBoneControl 类包含要修改的骨骼的变换。它的 bone_transforms 成员是成对值元组的列表，其中第一个值是骨骼名称，第二个值是骨骼变换。可以在每个刻度上调用 apply_control 函数来为行人的骨骼设置动画。每个变换的位置和旋转都是相对于其父变换的。因此，当修改父骨骼的变换时，子骨骼在模型空间中的变换也会相对改变。
 
-In the example below, the rotations of the walker's hands are set to be 90 degrees around
-the forward axis and the locations are set to the origin.
+在下面的示例中，步行者的手设置为围绕前轴旋转 90 度，并且位置设置为原点。
 
 ```py
 control = carla.WalkerBoneControl()

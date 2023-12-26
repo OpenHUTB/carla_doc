@@ -30,7 +30,6 @@ world.apply_settings(settings)
 
 # We will aslo set up the spectator so we can see what we do
 spectator = world.get_spectator()
-
 ```
 
 ## 在 CARLA 模拟器中生成行人
@@ -47,7 +46,6 @@ spectator = world.get_spectator()
 为了看到我们的行人，我们需要变换相机，使其指向我们生成的行人。为此，我们将使用一个函数来计算使相机居中所需的平移和旋转：
 
 ```py
-
 def center_camera(ped, rot_offset=0):
     # 旋转相机以面向行人并应用偏移
     trans = ped.get_transform()
@@ -62,7 +60,6 @@ def center_camera(ped, rot_offset=0):
     trans.rotation.yaw = -rot_offset
     spectator.set_transform(trans)
     return trans
-
 ```
 
 现在我们将生成行人、摄像机、控制器并移动观察者，以便我们可以看到我们所做的事情：
@@ -132,7 +129,6 @@ world_2_camera = np.array(camera.get_transform().get_inverse_matrix())
 然后，我们需要使用相机矩阵或投影矩阵将三维点投影到相机的二维视场 (FOV, field of view) 上，将它们叠加在输出图像上。以下函数生成此三维到二维转换所需的 [__相机矩阵__](#https://en.wikipedia.org/wiki/Camera_matrix)。
 
 ```py
-
 def build_projection_matrix(w, h, fov):
     focal = w / (2.0 * np.tan(fov * np.pi / 360.0))
     K = np.identity(3)
@@ -140,7 +136,6 @@ def build_projection_matrix(w, h, fov):
     K[0, 2] = w / 2.0
     K[1, 2] = h / 2.0
     return K
-
 ```
 
 ## 构建骨架
@@ -150,7 +145,6 @@ def build_projection_matrix(w, h, fov):
 我们需要一个函数来迭代 __sculpture.txt__ 中定义的骨骼对，并将骨骼坐标连接到可以覆盖到相机传感器图像上的线中。
 
 ```py
-
 def get_image_point(bone_trans):
         # 计算骨骼坐标的二维投影
         
@@ -173,6 +167,7 @@ def get_image_point(bone_trans):
 
         return point_img[0:2]
     
+
 def build_skeleton(ped, sk_links, K):
 
     ######## 获取行人骨架 #########
@@ -205,7 +200,6 @@ def build_skeleton(ped, sk_links, K):
             lines[-1][3] = point_image[1]
             
     return lines
-
 ```
 
 接下来，让我们从 __sculpture.txt__ 中读取骨骼对：
@@ -232,7 +226,6 @@ trash = image_queue.get()
     确保已在工作目录中创建名为 __out/__ 的文件夹来存储图像
 
 ```py
-
 for frame in range(0,360):
     
     # 在行人周围移动摄像头
@@ -267,7 +260,6 @@ for frame in range(0,360):
     
     # 保存图像
     cv2.imwrite('out/skeleton%04d.png' % frame, img)
-
 ```
 
 在 __out/__ 文件夹中，您现在应该有一系列帧，其中骨架覆盖在相机传感器输出上。可以通过将帧加入视频来重建以下动画：
