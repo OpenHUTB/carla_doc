@@ -196,3 +196,12 @@ CARLA论坛</a>
 [__编码标准__](cont_coding_standard.md) — 编写正确代码的指南。
 
 [__文档标准__](cont_doc_standard.md) — 编写适当文档的指南。
+
+## 其他
+[RoadRunner](https://ww2.mathworks.cn/help/roadrunner/index.html) 用于构建静态场景、[RoadRunner Scenario](https://ww2.mathworks.cn/help/roadrunner-scenario/index.html) 用于构建动态交通场景。
+
+[__虚幻引擎文档__](https://docs.unrealengine.com/4.26/zh-CN/) — 和虚幻引擎相关的操作教程。
+
+[__Matlab 接口__](https://github.com/darkscyla/MATLAB-Carla-Interface) 使用 Python 和 ROS 在 Matlab 中调用 Python。
+
+[__Carla 中文站__](https://bbs.carla.org.cn/) — 中文交流社区。

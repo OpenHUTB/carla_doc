@@ -1,64 +1,65 @@
-# 添加一辆新车
+# [添加新车](https://carla.readthedocs.io/en/latest/tuto_A_add_vehicle/)
 
-这个教程详细介绍了如何向CARLA添加新的车辆。教程分为两个部分，一个用于四轮车辆，另一个用于两轮车辆。教程概述了建模车辆时必须满足的基本要求，以确保车辆在CARLA中运行良好，并提供了在将车辆导入虚幻引擎后所需的配置说明。
+这个教程详细介绍了如何向 Carla 添加新的车辆。教程分为两个部分，一个用于四轮车辆，另一个用于两轮车辆。教程概述了建模车辆时必须满足的基本要求，以确保车辆在 Carla 中运行良好，并提供了在将车辆导入虚幻引擎后所需的配置说明。
 
-*   [__Add a 4 wheeled vehicle__](#add-a-4-wheeled-vehicle)
-  *   [Bind and model the vehicle](#bind-and-model-the-vehicle)
-  *   [Import and configure the vehicle](#import-and-configure-the-vehicle)
-*   [__Add a 2 wheeled vehicle__](#add-a-2-wheeled-vehicle)
+*   [__添加 4 轮车辆__](#add-a-4-wheeled-vehicle)
+  *   [绑定并建模车辆](#bind-and-model-the-vehicle)
+  *   [导入并配置车辆](#import-and-configure-the-vehicle)
+*   [__添加 2 轮车辆__](#add-a-2-wheeled-vehicle)
 
 !!! 重要
-    This tutorial only applies to users that work with a build from source, and have access to the Unreal Engine Editor.
+    本教程仅适用于使用源代码构建并有权访问虚幻引擎编辑器的用户。
 ---
-## Add a 4 wheeled vehicle
+## 添加 4 轮车辆
 
-Vehicles added to CARLA need to use a __common base skeleton__ which is found [__here__](https://carla-assets.s3.eu-west-3.amazonaws.com/fbx/VehicleSkeleton.rar). This link will download a folder called `VehicleSkeleton.rar` which contains the base skeleton in two different `.fbx` formats, one in ASCII and the other in binary. The format you use will depend on your 3D modeling software requirements.
+添加到 CARLA 的车辆需要使用可在 [__此处__]((https://carla-assets.s3.eu-west-3.amazonaws.com/fbx/VehicleSkeleton.rar)) 找到的通用基础骨架。此链接将下载一个名为 `VehicleSkeleton.rar` 的文件夹，其中包含两种不同格式的基本框架，一种为 ASCII，另一种为二进制。您使用的格式取决于您的 3D 建模软件要求。
 
-__The positions of the skeleton bones can be changed but any other manipulation such as rotation, addition of new bones, or changing the current hierarchy will lead to errors. __
+__骨架骨骼的位置可以更改，但任何其他操作（例如旋转、添加新骨骼或更改当前层次结构）都会导致错误。__
 
 ---
 
-### Bind and model the vehicle
+### 绑定并建模车辆
 
-This section details the minimum requirements in the modeling stage of your vehicle to make sure it can be used successfully in CARLA. The process involves binding the skeleton correctly to the base and wheels of the vehicle, creating Physical Asset and raycast sensor meshes, and exporting to the correct format.
+本节详细介绍了车辆建模阶段的最低要求，以确保其可以在 Carla 中成功使用。该过程包括将骨架正确绑定到车辆的底座和车轮、创建物理资源和光线投射传感器网格，以及导出为正确的格式。
 
-__1. Import the base skeleton.__
+__1. 导入基础骨架。__
 
-Import the base skeleton into your preferred 3D modeling software. Common editors include Maya and Blender.
+将基础骨架导入您首选的三维建模软件中。常见的编辑器包括 Maya 和 Blender。
 
-__2. Bind the bones.__
+__2. 绑定骨骼。__
 
-Bind the bones to the corresponding portions of the vehicle mesh according to the nomenclature below. Make sure to center the wheels' bones within the mesh.
+根据下面的命名法将骨骼绑定到车辆网格的相应部分。确保轮子的骨骼在网格内居中。
 
-*   __Front left wheel:__ `Wheel_Front_Left`
-*   __Front right wheel:__ `Wheel_Front_Right`
-*   __Rear left wheel:__ `Wheel_Rear_Left`
-*   __Rear right wheel:__ `Wheel_Rear_Right`
-*   __Rest of the mesh:__ `VehicleBase`
+*   __左前轮：__ `Wheel_Front_Left`
+*   __右前轮：__ `Wheel_Front_Right`
+*   __左后轮：__ `Wheel_Rear_Left`
+*   __右后轮：__ `Wheel_Rear_Right`
+*   __网格的其余部分：__ `VehicleBase`
 
-!!! Warning
-    Do not make any changes to the bone names or the hierarchy nor add any new bones.
+!!! 警告
+    不要对骨骼名称或层次结构进行任何更改，也不要添加任何新骨骼。
 
-__3.  Model your vehicle.__
+__3.  为您的车辆建模。__
 
-Vehicles should have between approximately 50,000 - 100,000 tris. We model the vehicles using the size and scale of actual cars.
+车辆应拥有大约 50,000 - 100,000 个 tris。我们使用实际汽车的尺寸和比例来建模车辆。
 
-We recommend that you divide the vehicle into the following materials:
+我们建议您将车辆分为以下材质：
 
->1. __Bodywork__: The metallic part of the vehicle. This material is changed to Unreal Engine material. Logos and details can be added but, to be visible, they must be painted in a different color by using the alpha channels in the Unreal Engine editor.
-- __Glass_Ext__: A layer of glass that allows visibility from the outside to the inside of the vehicle.
-- __Glass_Int__: A layer of glass that allows visibility from the inside to the outside of the vehicle.
-- __Lights__: Headlights, indicator lights, etc.
-- __LightGlass_Ext__: A layer of glass that allows visibility from the outside to the inside of the light.
-- __LightGlass_Int__: A layer of glass that allows visibility from the inside to the outside of the light.
-- __LicensePlate__: A rectangular plane of 29x12 cm. You can use the CARLA provided `.fbx` for best results, download it [here](https://carla-assets.s3.eu-west-3.amazonaws.com/fbx/LicensePlate.rar). The texture will be assigned automatically in Unreal Engine.
-- __Interior__: Any other details that don't fit in the above sections can go into _Interior_.
+>1. __Bodywork__: 车辆的金属部分。该材质已更改为虚幻引擎材质。可以添加徽标和细节，但为了可见，必须使用虚幻引擎编辑器中的 Alpha 通道将它们绘制为不同的颜色。
+- __Glass_Ext__: 一层玻璃，可以从车辆外部看到内部。
+- __Glass_Int__: 一层玻璃，允许从车辆内部到外部的可见性。
+- __Lights__: 头灯、指示灯等。
+- __LightGlass_Ext__: 一层玻璃，允许从外部到内部的灯光可见性。
+- __LightGlass_Int__: 一层玻璃，允许从内部到外部看到光。
+- __LicensePlate__: 29x12 厘米的矩形平面。您可以使用 Carla 提供的 `.fbx` 以获得最佳结果，请在 [此处](https://carla-assets.s3.eu-west-3.amazonaws.com/fbx/LicensePlate.rar) 下载。纹理将在虚幻引擎中自动分配。
+- __Interior__: 任何其他不适合上述部分的细节都可以进入 _内饰_.
 
-Materials should be named using the format `M_CarPart_CarName`, e.g., `M_Bodywork_Mustang`.
 
-Textures should be named using the format `T_CarPart_CarName`, e.g., `T_Bodywork_Mustang`. Textures should be sized as 2048x2048.
+材料（Material）应使用格式 `M_CarPart_CarName` 命名，例如 `M_Bodywork_Mustang`。
 
-Unreal Engine automatically creates LODs but you can also create them manually in your 3D editor. Tri counts are as follows:
+纹理（Textures）应使用格式 `T_CarPart_CarName`命名，例如 `T_Bodywork_Mustang`。纹理的大小应为 2048x2048。
+
+虚幻引擎会自动创建(Level of Details, LOD)，但您也可以在 3D 编辑器中手动创建它们。Tri 计数如下：
 
 - __LOD 0__: 100,000 tris
 - __LOD 1__: 80,000 tris
@@ -66,54 +67,54 @@ Unreal Engine automatically creates LODs but you can also create them manually i
 - __LOD 3__: 30,000 tris
 
 
-__4. Create the Physical Asset mesh.__
+__4. 创建物理资源网格。__
 
-The Physical Asset mesh is an additional mesh that allows Unreal Engine to calculate the vehicle's physics. It should be as simple as possible, with a reduced number of polygons, and should cover the whole vehicle except for the wheels. See the image below for an example.
+物理资源网格是一个附加网格，允许虚幻引擎计算车辆的物理特性。它应该尽可能简单，减少多边形数量，并且应该覆盖除车轮之外的整个车辆。请参阅下图的示例。
 
 >>![physical asset mesh](./img/physical_asset_mesh.png)
 
-The Physical Asset mesh should be exported as a separate `.fbx` file. The final file should fulfill the following requirements:
+物理资源网格应导出为单独的`.fbx`文件。最终文件应满足以下要求：
 
-- Have a base mesh. This should be a copy of the Physical Asset mesh. It should have the same name as the original vehicle.
-- The Physical Asset mesh must be named using the format `UCX_<vehicle_name>_<number_of_mesh>`, __otherwise it will not be recognized by Unreal Engine.__
-- The mesh must not extend beyond the boundaries of the original model.
-- The mesh should have the same position as the original model.
+- 有一个基础网格。这应该是物理资源网格的副本。它应该与原始车辆具有相同的名称。
+- 物理资源网格体必须使用格式  `UCX_<vehicle_name>_<number_of_mesh>`命名， __否则虚幻引擎将无法识别。__
+- 网格不得超出原始模型的边界。
+- 网格应与原始模型具有相同的位置。
 
 >>![base mesh](./img/base_mesh.png)
 
-Export the final mesh as an `.fbx` file with the name `SMC_<vehicle_name>.fbx`.
+将最终 `.fbx` 网格导出为名为 `SMC_<vehicle_name>.fbx`的文件。
 
-__5. Create the mesh for the raycast sensor.__
+__5. 为光线投射传感器创建网格。__
 
-The raycast sensor mesh sets up the vehicle's shape that will be detected by the raycast sensors (RADAR, LiDAR, and Semantic LiDAR). This mesh should have a slightly more defined geometry than the Physical Asset mesh in order to increase the realism of sensor simulation but not as detailed as the car mesh for performance reasons.
+光线投射传感器网格设置将由光线投射传感器（RADAR、LiDAR 和 Semantic LiDAR）检测到的车辆形状。该网格应该具有比物理资产网格稍微更明确的几何形状，以提高传感器模拟的真实感，但出于性能原因，不如汽车网格那么详细。
 
-Consider the following points when creating the raycast sensor mesh:
+创建光线投射传感器网格时请考虑以下几点：
 
-- The mesh should cover all aspects of the vehicle, including wheels, side mirrors, and grilles.
-- The wheels should be cylinders of no more than 16 loops.
-- Various meshes can be joined together if required.
-- The mesh(es) must not extend beyond the boundaries of the original model.
-- The mesh(es) should have the same position as the original.
+- 网格应覆盖车辆的各个方面，包括车轮、后视镜和格栅。
+- 轮子应为不超过 16 圈的圆柱体。
+- 如果需要，可以将各种网格连接在一起。
+- 网格不得超出原始模型的边界。
+- 网格应该与原始网格具有相同的位置。
 
 >>![collision mesh](./img/collision_mesh.png)
 
-Export the final mesh as an `.fbx` file with the name `SM_sc_<vehicle_name>.fbx`.
+将最终网格导出名为 `SM_sc_<vehicle_name>.fbx` 的 `.fbx` 文件。
 
-__5. Export the vehicle mesh(es).__
+__5. 导出车辆网格。__
 
-Select all the main vehicle mesh(es) and the skeleton base and export as `.fbx`.
+选择所有主要车辆网格和骨架底座并导出为`.fbx`。
 
 ---
 
-### Import and configure the vehicle
+### 导入并配置车辆
 
-This section details the process of importing the vehicle into Unreal Engine for use in CARLA. Perform these steps in the Unreal Engine editor.
+本节详细介绍了将车辆导入虚幻引擎以在 CARLA 中使用的过程。在虚幻引擎编辑器中执行这些步骤。
 
-__1. Create the vehicle folder.__
+__1. 创建车辆文件夹。__
 
-Create a new folder named `<vehicle_name>` in `Content/Carla/Static/Vehicles/4Wheeled`.
+在 `Content/Carla/Static/Vehicles/4Wheeled` 里创建一个名为 `<vehicle_name>` 的新文件夹。
 
-__2. Import the `.fbx`.__
+__2. 导入 `.fbx`。__
 
 Inside the new vehicle folder, import your main vehicle skeleton `.fbx` by right-clicking in the **_Content Browser_** and selecting **_Import into Game/Carla/Static/Vehicles/4Wheeled/<vehicle_name\>_**.
 
@@ -234,6 +235,46 @@ python3 manual_control.py --filter <model_name> # The make or model defined in s
 
 !!! Note
     Even if you used upper case characters in your make and model, they need to be converted to lower case when passed to the filter.
+
+---
+
+## Add an N wheeled vehicle
+
+Adding an N wheeled vehicle follows the same import pipeline as that for 4 wheeled vehicles above with a few steps that are different. 
+
+__5.__ __Configure the Animation Blueprint for an N wheeled vehicle__
+
+Search for `BaseVehiclePawnNW` and press **_Select_**.
+
+![n_wheel_base](../img/base_nw.png)
+
+__6.__ __Prepare the vehicle and wheel blueprints__
+
+Go to the folder of any native CARLA vehicles in Carla/Blueprints/Vehicles. From the Content Browser, copy the four wheel blueprints into the blueprint folder for your own vehicle. Rename the files to replace the old vehicle name with your own vehicle name.
+
+Copy the four wheels and copy again for additional wheels. In the case of a 6 wheeled vehicle, you will need 6 different wheels: FLW, FRW, MLW, MRW, RLW, RRW.
+
+![n_wheel_bps](../img/nwheels.png)
+
+__7.__ __Configure the wheel blueprints__
+
+Follow section __7__ as above for the 4 wheeled vehicle. The key difference in the case of an N wheeled vehicle is those affected by handbrake and steering parameters. In some vehicles (like for example a long wheelbase truck) the front 2 pairs of wheels will steer, and one set may steer more than others. The rearmost pairs may be affected by handbrake, the specifics will depend upon the vehicle you are modelling.
+
+__8.__ __Configure vehicle blueprint__
+
+In the Details panel, search for `wheel`. You will find settings for each of the wheels. For each one, click on Wheel Class and search for the BP_<vehicle_name>_<wheel_name> file that corresponds to the correct wheel position.
+
+This is correct, but just to specify, in the case of N wheeled vehicles, you need to set ALL the wheels. This is an example with a 6 wheeled vehicle:
+
+![n_wheel_config](../img/nwheel_config.png)
+
+
+Finally, an additional consideration is setting the differential. In the case of a 4 wheeled vehicle, we have different presets of differentials (Limited Slip, Open 4W etc.) but with N wheeled vehicles, you need to choose on which wheels you want to apply torque. In this case, we have chosen only the middle and rear wheels have torque, while the front wheels don’t, you can specify other configurations. The numbers are going to be the same as the image above this text (e.g. 0 will be the Front Left Wheel, as specified above).
+
+![n_wheel_mech](../img/nwheel_mech_setup.png)
+
+All other parameters such as engine, transmission, steering curve, are the same as 4 wheeled vehicles. 
+
 ---
 ## Add a 2 wheeled vehicle
 

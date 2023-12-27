@@ -141,16 +141,16 @@ __2.__ 在 `behavior_agent.py` 脚本中定义和实例化你的行为类型：
 
 ```py
 # 代理行为参数
-if behavior == 'cautious'：
+if behavior == 'cautious':
     self._behavior = Cautious()
 
-elif behavior == 'normal'：
+elif behavior == 'normal':
     self._behavior = Normal()
 
-elif behavior == 'aggressive'：
+elif behavior == 'aggressive':
     self._behavior = Aggressive()
 
-elif behavior == '<type_name>'：
+elif behavior == '<type_name>':
     self._behavior = <TypeName>()
 ```
 
@@ -158,7 +158,7 @@ elif behavior == '<type_name>'：
 
 ## 创建代理
 
-CARLA 代理只是用户可以运行的代理类型的示例。用户可以在 __Basic Agent__ 的基础上创建自己的代理。可能性是无止境。每个代理只需要两个元素，__初始化__和__运行步骤__。
+CARLA 代理只是用户可以运行的代理类型的示例。用户可以在 __Basic Agent__ 的基础上创建自己的代理。可能性是无止境。每个代理只需要两个元素，__初始化__ 和 __运行步__。
 
 在下面查找自定义代理的最小布局示例：
 
