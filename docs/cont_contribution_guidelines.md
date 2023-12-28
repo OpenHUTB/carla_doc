@@ -1,139 +1,140 @@
-# Contributing to CARLA
+# 为 Carla 做出贡献
 
-The CARLA team is glad to accept contributions from anybody willing to collaborate. There are different ways to contribute to the project, depending on the capabilities of the contributor. The team will work as much as possible so that contributions are successfully integrated in CARLA.  
+Carla 团队很高兴接受任何愿意合作的人的贡献。根据贡献者的能力，可以采用不同的方式为项目做出贡献。该团队将尽最大努力将贡献成功整合到 Carla 中。
 
-Take a look and don't hesitate!  
+看看吧，不要犹豫！
 
-*   [__Report bugs__](#report-bugs)  
-*   [__Request features__](#request-features)  
-*   [__Code contributions__](#code-contributions)  
-	*   [Learn about Unreal Engine](#learn-about-unreal-engine)  
-	*   [Before getting started](#before-getting-started)  
-	*   [Coding standard](#coding-standard)  
-	*   [Submission](#submission)  
-	*   [Checklist](#checklist)  
-*   [__Art contributions__](#art-contributions)  
-*   [__Docs contributions__](#docs-contributions)  
+*   [__报告错误__](#report-bugs)  
+*   [__请求功能__](#request-features)  
+*   [__代码贡献__](#code-contributions)  
+	*   [了解虚幻引擎](#learn-about-unreal-engine)  
+	*   [开始之前](#before-getting-started)  
+	*   [编码标准](#coding-standard)  
+	*   [提交](#submission)  
+	*   [清单](#checklist)  
+*   [__艺术贡献__](#art-contributions)  
+*   [__文档贡献__](#docs-contributions)  
 
 ---
-## Report bugs
+## 报告错误
 
-Issues can be reported in the [issue section][issueslink] on GitHub. Before reporting a new bug, make sure to do some checkups.  
+可以在 GitHub 上的 [issue 部分][issueslink] 报告问题。在报告新错误之前，请务必进行一些检查。
 
-__1. Check if the bug has been reported.__ Look it up in that same issue section on GitHub.  
+__1. 检查是否已报告问题。__ 在 GitHub 上的同一问题部分查找它。
 
-__2. Read the docs.__ Make sure that the issue is a bug, not a misunderstanding on how is CARLA supposed to work. Read the pages related to the issue in the [Documentation][docslink] and take a look at the [FAQ][faqlink] page.
+__2. 阅读文档。__ 确保问题是一个错误，而不是对 Carla 应该如何工作的误解。阅读 [文档][docslink] 中与该问题相关的页面并查看 [常见问题解答][faqlink] 页面。
 
 [issueslink]: https://github.com/carla-simulator/carla/issues
 [docslink]: http://carla.readthedocs.io
 [faqlink]: build_faq.md
 
 ---
-## Request features
+## 请求功能
 
-Ideas for new features are also a great way to contribute. Any suggestion that could improve the users' experience  can be submitted in the corresponding GitHub section [here][frlink].
+新功能的想法也是一种很好的贡献方式。任何可以改善用户体验的建议都可以在 [此处][frlink] 的相应 GitHub 部分提交。
 
 [frlink]: https://github.com/carla-simulator/carla/issues?q=is%3Aissue+is%3Aopen+label%3A%22feature+request%22+sort%3Acomments-desc
 
 ---
-## Code contributions
+## 代码贡献
 
-Before starting hands-on on coding, please check out the [issue board][issueboard] to check what is the team already working on, to avoid overlapping. In case of doubt or to discuss how to proceed, please contact one of us (or send an email to <carla.simulator@gmail.com>).  
+在开始动手编码之前，请查看 [issue 板块][issueboard] 以了解团队已经在做什么，以避免重叠。如有疑问或讨论如何继续，请联系我们之一（或发送电子邮件至 <carla.simulator@gmail.com>）。
 
-In order to start working, [fork the CARLA repository](https://docs.github.com/en/enterprise/2.13/user/articles/fork-a-repo), and clone said fork in your computer. Remember to [keep your fork in sync](https://docs.github.com/en/enterprise/2.13/user/articles/syncing-a-fork) with the original repository.  
+
+为了开始工作，请 [创建 CARLA 存储库的分叉](https://docs.github.com/en/enterprise/2.13/user/articles/fork-a-repo) ，并将所述分叉克隆到您的计算机中。请记住使您的分叉与原始存储库 [保持同步](https://docs.github.com/en/enterprise/2.13/user/articles/syncing-a-fork) 。
 
 [issueboard]: https://github.com/carla-simulator/carla/issues
 
-### Learn about Unreal Engine
+### 了解虚幻引擎
 
-A basic introduction to C++ programming with UE4 can be found at Unreal's [C++ Programming Tutorials][ue4tutorials]. There are other options online, some of them not free of charge. The [Unreal C++ Course at Udemy][ue4course] it's pretty complete and there are usually offers that make it very affordable.
+有关使用虚幻引擎 4 进行 C++ 编程的基本介绍，请参阅 Unreal 的 [C++ 编程教程][ue4tutorials]。网上还有其他选项，其中一些不是免费的。[Udemy 的虚幻 C++ 课程][ue4course]非常完整，并且通常提供价格非常实惠的优惠。
 
 [ue4tutorials]: https://docs.unrealengine.com/latest/INT/Programming/Tutorials/
 [ue4course]: https://www.udemy.com/unrealcourse/
 
-### Before getting started
+### 开始之前
 
-Check out the [CARLA Design](index.md)<!-- @todo --> document to get an idea on the different modules that compose CARLA. Choose the most appropriate one
-to hold the new feature. Feel free to contact the team in the [Discord server](https://discord.com/invite/8kqACuC) in case any doubt arises during the process.  
+查看 [Carla 设计](index.md)<!-- @todo -->文档，了解组成 Carla 的不同模块。选择最合适的一个来容纳新功能。如果在此过程中出现任何疑问， 请随时联系 [Discord 服务器](https://discord.com/invite/8kqACuC) 中的团队。
 
-### Coding standard
+### 编码标准
 
-Follow the current [coding standard](cont_coding_standard.md) when submitting new code.  
+提交新代码时 遵循当前的  [编码标准](cont_coding_standard.md)。
 
-### Submission
+### 提交
 
-Contributions and new features are not merged directly to the `master` branch, but to an intermediate branch named `dev`. This [Gitflow](https://nvie.com/posts/a-successful-git-branching-model/) branching model makes it easier to maintain a stable master branch. This model requires a specific workflow for contributions.  
+贡献和新功能不会直接合并到 `master` 分支，而是合并到名为 `dev` 的中间分支。这种 [Gitflow](https://nvie.com/posts/a-successful-git-branching-model/) 分支模型可以更轻松地维护稳定的主分支。该模型需要特定的贡献工作流程。
 
-*   Always keep your `dev` branch updated with the lastest changes.  
-*   Develop the contribution in child branch from `dev` named as `username/name_of_the_contribution`.  
-*   Once the contribution is ready, submit a pull-request from your branch to `dev`. Try to be as descriptive as possible when filling the description. Note that there are some checks that the new code is required to pass before merging. The checks are automatically run by the continuous integration system. A green tick mark will appear if the checks are successful. If a red mark, please correct the code accordingly.  
+*   始终让您的 `dev` 分支更新最新的更改。
+*   从名为 `username/name_of_the_contribution` 的 `dev` 子分支中开发贡献。
+*   贡献准备就绪后，从您的分支向 `dev` 提交拉取请求（pull-request）。填写描述时尽量具有描述性。请注意，在合并之前，新代码需要通过一些检查。检查由持续集成系统自动运行。如果检查成功，将会出现绿色勾号。如果有红色标记，请相应更正代码。
 
-Once the contribution is merged in `dev`, it can be tested with the rest of new features. By the time of the next release, the `dev` branch will be merged to `master`, and the contribution will be available and announced.  
+一旦贡献被合并到 `dev` 中，就可以与其余新功能一起进行测试。到下一个版本时，该 `dev` 分支将合并到 `master`，并且贡献将可用并公布。
 
-### Checklist  
+### 清单  
 
-*   [ ] Your branch is up-to-date with the `dev` branch and tested with latest changes.  
-*   [ ] Extended the README/documentation, if necessary.  
-*   [ ] Code compiles correctly.  
-*   [ ] All tests passing with `make check`.  
-
----
-## Art contributions
-
-Art contributions include vehicles, walkers, maps or any other type of assets to be used in CARLA. These are stored in a BitBucket repository, which has some account space limitations. For said reason, the contributor will have to get in touch with the CARLA team, and ask them to create a branch on the content repository for the contributions.  
-
-__1. Create a BitBucket account.__ Visit the [Bitbucket page](https://bitbucket.org).  
-
-__2. Contact the art team to get access to the content repository.__ Join the [Discord server](https://discord.com/invite/8kqACuC). Go to the __Contributors__ channel and request for access to the content repostory.  
-
-__3. A branch will be created for each contributor.__ The branch will be named as `contributors/contributor_name`. All the contributions made by said user should be made in that corresponding branch.  
-
-__4. Build CARLA.__ In order to contribute, a CARLA build is necessary. Follow the instructions to build either in [Linux](https://carla.readthedocs.io/en/latest/build_linux/) or [Windows](https://carla.readthedocs.io/en/latest/build_windows/).  
-
-__5. Download the content repository.__ Follow the instructions to update the content in [here](https://carla.readthedocs.io/en/latest/build_update/#get-development-assets).
-
-__6. Update the branch to be in sync with master.__ The branch should always be updated with the latest changes in master.  
-
-__7. Upload the contribution.__ Do the corresponding changes and push the branch to origin.  
-
-__8. Wait for the art team to check it up.__ Once the contribution is uploaded, the team will check that everything is prepared to be merged with master.  
-
+*   [ ] 您的分支已与 `dev` 分支保持同步，并通过最新更改进行了测试。
+*   [ ] 如有必要，扩展 README/文档。
+*   [ ] 代码编译正确。
+*   [ ] 所有测试均通过 `make check`。
 
 ---
-## Docs contributions
+## 艺术贡献
 
-If some documentation is missing, vague or imprecise, it can be reported as with any other bug (read the previous section on [how to report bugs](#report-bugs)). However, users can contribute by writing documentation.  
+艺术贡献包括车辆、行人、地图或 Carla 中使用的任何其他类型的资产。这些存储在 BitBucket 存储库中，该存储库有一些帐户空间限制。出于上述原因，贡献者必须与 Carla 团队联系，并要求他们在内容存储库上为贡献创建一个分支。
 
-The documentation is written with a mix of [Markdown](https://www.markdownguide.org/) and HTML tags, with a some extra CSS code for features such as tables or the [town slider](https://carla.readthedocs.io/en/latest/core_map/#carla-maps). Follow the steps below to start writing documentation. 
+__1. 创建BitBucket账户。__ 访问 [Bitbucket 页面](https://bitbucket.org).  
 
-!!! Important
-    To submit docs contributions, follow the same workflow explained right above in [code contributions](#submission). To sum up, contributions are made in a child branch from `dev` and merged to said branch.  
+__2. 联系艺术团队以获取内容存储库的访问权限。__ 加入 [Discord 服务器](https://discord.com/invite/8kqACuC)。转至 __贡献者__ 频道并请求访问内容存储库。 
 
-__1. Build CARLA from source.__ Follow the steps in the docs to build on [Linux](build_linux.md) or [Windows](build_windows.md).  
+__3. 将为每个贡献者创建一个分支。__ 该分支将被命名为 `contributors/contributor_name`。该用户所做的所有贡献都应在相应的分支中做出。
+
+__4. 构建 CARLA。__ 为了做出贡献，Carla 构建是必要的。按照说明在 [Linux](https://carla.readthedocs.io/en/latest/build_linux/) 或 [Windows](https://carla.readthedocs.io/en/latest/build_windows/) 中构建。
+
+__5. 下载内容存储库。__ 按照说明更新 [此处](https://carla.readthedocs.io/en/latest/build_update/#get-development-assets) 的内容。
+
+__6. 更新分支以与 master 同步。__ 分支应始终使用 master 中的最新更改进行更新。
+
+__7. 上传贡献。__ 进行相应的更改并将分支推送到 origin。  
+
+__8. 等待美术组审核。__ 一旦贡献上传，团队将检查与 master 合并的一切是否准备好。
 
 
-__2. Install [MkDocs](http://www.mkdocs.org/).__ MkDocs is a static site generator used to build documentation. 
+---
+## 文档贡献
+
+如果某些文档缺失、模糊或不精确，则可以像任何其他错误一样进行报告（请阅读上一节有关 [如何报告错误](#report-bugs)）。但是，用户可以通过编写文档来做出贡献。
+
+
+该文档是用 [Markdown](https://www.markdownguide.org/) 和 HTML 标签混合编写的，还有一些额外的 CSS 代码用于表格或 [town slider](https://carla.readthedocs.io/en/latest/core_map/#carla-maps) 等功能。按照以下步骤开始编写文档。
+
+!!! 重要
+    要提交文档贡献，请遵循上面 [代码贡献](#submission) 中解释的相同工作流程。总而言之，贡献是在来自 `dev` 分支的子分支中做出的，并合并到该分支。
+
+__1. 从源代码构建 CARLA。__ 按照文档中的步骤在 [Linux](build_linux.md) 或 [Windows](build_windows.md) 上进行构建。
+
+
+__2. 安装 [MkDocs](http://www.mkdocs.org/).__ MkDocs 是一个用于构建文档的静态站点生成器。
 
 ```sh
 sudo pip install mkdocs
 ```
 
-__3. Visualize the docs.__ In the main CARLA folder, run the following command and click the link that appears in the terminal (http://127.0.0.1:8000) to open a local visualization of the documentation.  
+__3. 可视化文档。__ 在主 CARLA 文件夹中，运行以下命令并单击终端中显示的链接 (http://127.0.0.1:8000) 以打开文档的本地可视化。
 
 ```sh
 mkdocs serve
 ```
-__4. Create a git branch.__ Make sure to be in the `dev` branch (updated to latest changes) when creating a new one. 
+__4. 创建git分支。__ 创建新分支时，请确保位于`dev`分支中（更新到最新更改）。
 
 ```sh
 git checkout -b <contributor_name>/<branch_name>
 ```
 
-__5. Write the docs.__ Edit the files following the guidelines in the [documentation standard](cont_doc_standard.md) page.  
+__5. 编写文档。__ 按照 [文档标准](cont_doc_standard.md) 页面中的指南编辑文件。
 
-__6. Submit the changes.__ Create a pull request in the GitHub repository, and add one of the suggested reviewers. Try to be as descriptive as possible when filling the pull-request description.  
+__6. 提交更改。__ 在 GitHub 存储库中创建拉取请求，并添加一个建议的审阅者。填写拉取请求描述时，请尝试尽可能具有描述性。
 
-__7. Wait for review.__ The team will check if everything is ready to be merged or any changes are needed.  
+__7. 等待审核。__ 团队将检查合并或需要进行任何更改是否已准备好。
 
-!!! Warning
-    The local repository must be updated with the latest updates in the `dev` branch.  
+!!! 警告
+    本地存储库必须使用 `dev` 分支中的最新更新进行更新。

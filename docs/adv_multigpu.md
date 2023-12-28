@@ -1,15 +1,15 @@
-# Carla Multi-GPU feature
+# Carla 多 GPU 功能
 
-Multi-GPU in carla means that the user can  start several servers (called secondary servers) that will do render work for the main server (called primary server) for different sensors.
+Carla 中的多 GPU 意味着用户可以启动多个服务器（称为辅助服务器），这些服务器将使用系统中的专用 GPU 为主服务器（称为主服务器）执行渲染工作。主服务器将用户创建的传感器分发到不同的可用辅助服务器。
 
-## Primary server
+## 主服务器
 
-The steps are: first, start the primary server without any render capability. The parameters we can use are:
+步骤是: 首先，启动没有任何渲染功能的主服务器。我们可以使用的参数有：
 
 * `-nullrhi`
 * `-carla-primary-port`
 
-Run the following from the command line:
+从命令行运行：
 
 ```sh
 ./CarlaUE4.sh -nullrhi
