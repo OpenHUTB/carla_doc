@@ -1,221 +1,221 @@
-# F.A.Q.
+# 常问问题
 
-Some of the most common issues regarding CARLA installation and builds are listed here. Some more can be found in the [GitHub issues](https://github.com/carla-simulator/carla/issues?utf8=%E2%9C%93&q=label%3Aquestion+) for the project. In case you don't find your doubt listed here, have a look in the forum and feel free to ask there.
+此处列出了有关 Carla 安装和构建的一些最常见问题。更多信息可以在该项目的 [GitHub issues](https://github.com/carla-simulator/carla/issues?utf8=%E2%9C%93&q=label%3Aquestion+) 找到。如果您没有发现此处列出的疑问，请查看论坛并随时提问。
 
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA forum</a>
+Carla 论坛</a>
 </p>
 </div>
 
 ---
 
-## System requirements
+## 系统要求
 
-* [Expected disk space to build CARLA.](#expected-disk-space-to-build-carla)
-* [Recommended hardware to run CARLA.](#recommended-hardware-to-run-carla)
+* [构建 Carla 所需的磁盘空间。](#expected-disk-space-to-build-carla)
+* [运行 Carla 的推荐硬件。](#recommended-hardware-to-run-carla)
 
 ---
 
-## Linux build
+## Linux 构建
 
-* ["CarlaUE4.sh" script does not appear when downloading from GitHub.](#carlaue4sh-script-does-not-appear-when-downloading-from-github)
-* ["make launch" is not working on Linux.](#make-launch-is-not-working-on-linux)
-* [Cloning the Unreal Engine repository shows an error.](#cloning-the-unreal-engine-repository-shows-an-error)
+* [从 GitHub 下载时不会出现“CarlaUE4.sh”脚本。](#carlaue4sh-script-does-not-appear-when-downloading-from-github)
+* [“make launch” 在 Linux 上不起作用。](#make-launch-is-not-working-on-linux)
+* [克隆虚幻引擎存储库显示错误。](#cloning-the-unreal-engine-repository-shows-an-error)
 * [AttributeError: module 'carla' has no attribute 'Client' when running a script.](#attributeerror-module-carla-has-no-attribute-client-when-running-a-script)
-* [Cannot run example scripts or "RuntimeError: rpc::rpc_error during call in function version".](#cannot-run-example-scripts-or-runtimeerror-rpcrpc_error-during-call-in-function-version)
+* [无法运行示例脚本或 "RuntimeError: rpc::rpc_error during call in function version".](#cannot-run-example-scripts-or-runtimeerror-rpcrpc_error-during-call-in-function-version)
 
 ---
 
-## Windows build
+## Windows 构建
 
-* ["CarlaUE4.exe" does not appear when downloading from GitHub.](#carlaue4exe-does-not-appear-when-downloading-from-github)
-* [CarlaUE4 could not be compiled. Try rebuilding it from source manually.](#carlaue4-could-not-be-compiled-try-rebuilding-it-from-source-manually)
-* [CMake error shows even though CMake is properly installed.](#cmake-error-shows-even-though-cmake-is-properly-installed)
-* [Error C2440, C2672: compiler version.](#error-c2440-c2672-compiler-version)
-* ["make launch" is not working on Windows.](#make-launch-is-not-working-on-windows)
-* [Make is missing libintl3.dll or/and libiconv2.dll.](#make-is-missing-libintl3dll-orand-libiconv2dll)
-* [Modules are missing or built with a different engine version.](#modules-are-missing-or-built-with-a-different-engine-version)
-* [There is no `dist` folder in `PythonAPI/carla` despite a successful output message.](#there-is-no-dist-folder-in-pythonapicarla-despite-a-successful-output-message)
+* [从 GitHub 下载时不会出现“CarlaUE4.exe”。](#carlaue4exe-does-not-appear-when-downloading-from-github)
+* [CarlaUE4 无法编译。尝试从源手动重建它。](#carlaue4-could-not-be-compiled-try-rebuilding-it-from-source-manually)
+* [即使 CMake 已正确安装，也会显示 CMake 错误。](#cmake-error-shows-even-though-cmake-is-properly-installed)
+* [Error C2440, C2672：编译器版本。](#error-c2440-c2672-compiler-version)
+* [“make launch”在 Windows 上不起作用。](#make-launch-is-not-working-on-windows)
+* [Make 缺少 libintl3.dll 或/和 libiconv2.dll。](#make-is-missing-libintl3dll-orand-libiconv2dll)
+* [模块缺失或使用不同的引擎版本构建。](#modules-are-missing-or-built-with-a-different-engine-version)
+* [在 `PythonAPI/carla` 中尽管成功输出消息，但没有`dist`文件夹](#there-is-no-dist-folder-in-pythonapicarla-despite-a-successful-output-message)
 
 ---
 
-## Running Carla
+## 运行 Carla
 
-* [Low FPS rate when running the server in Unreal Editor.](#low-fps-rate-when-running-the-server-in-unreal-editor)
-* [Can't run a script.](#cant-run-a-script)
-* [Connect to the simulator while running within Unreal Editor.](#connect-to-the-simulator-while-running-within-unreal-editor)
-* [Can't run CARLA neither binary nor source build.](#cant-run-carla-neither-binary-nor-source-build)
+* [在虚幻编辑器中运行服务器时 FPS 速率较低。](#low-fps-rate-when-running-the-server-in-unreal-editor)
+* [无法运行脚本。](#cant-run-a-script)
+* [当在虚幻编辑器中运行时链接到仿真器。](#connect-to-the-simulator-while-running-within-unreal-editor)
+* [无法运行 CARLA，无论是二进制还是源代码构建。](#cant-run-carla-neither-binary-nor-source-build)
 * [ImportError: DLL load failed: The specified module could not be found.](#importerror-dll-load-failed-the-specified-module-could-not-be-found)
 * [ImportError: DLL load failed while importing libcarla: %1 is not a valid Win32 app.](#importerror-dll-load-failed-while-importing-libcarla-1-is-not-a-valid-win32-app)
 * [ImportError: No module named 'carla'](#importerror-no-module-named-carla)
 
 ---
 
-## Other
+## 其他
 
 * [Fatal error: 'version.h' has been modified since the precompiled header.](#fatal-error-versionh-has-been-modified-since-the-precompiled-header)
-* [Create a binary version of CARLA.](#create-a-binary-version-of-carla)
-* [Can I package CARLA for Windows on a Linux machine and vice versa?](#can-i-package-carla-for-windows-on-a-linux-machine-and-vice-versa)
-* [How do I uninstall the CARLA client library?](#how-do-i-uninstall-the-carla-client-library)
+* [创建 CARLA 的二进制版本。](#create-a-binary-version-of-carla)
+* [我可以在 Linux 计算机上打包适用于 Windows 的 CARLA，反之亦然吗？](#can-i-package-carla-for-windows-on-a-linux-machine-and-vice-versa)
+* [如何卸载 CARLA 客户端库？](#how-do-i-uninstall-the-carla-client-library)
 
 ---
 
 <!-- ======================================================================= -->
-## System requirements
+## 系统要求
 <!-- ======================================================================= -->
 
-###### Expected disk space to build CARLA.
+###### 构建 CARLA 所需的磁盘空间。
 
-> It is advised to have at least 170GB free. Building CARLA requires about 35GB of disk space, plus Unreal Engine which requires about 95-135GB.
+> 建议至少有 170GB 可用空间。构建 CARLA 需要大约 35GB 的磁盘空间，加上虚幻引擎大约需要 95-135GB。
 
 <!-- ======================================================================= -->
 
-###### Recommended hardware to run CARLA.
+###### 运行 CARLA 的推荐硬件。
 
-> CARLA is a performance demanding software. At the very minimum it requires a 6GB GPU or, even better, a dedicated GPU capable of running Unreal Engine.  
+> CARLA 是一款性能要求较高的软件。它至少需要 6GB GPU，或者更好的是能够运行虚幻引擎的专用 GPU。
 >
-> Take a look at [Unreal Engine's recommended hardware](https://www.ue4community.wiki/recommended-hardware-x1p9qyg0).
+> 看看 [虚幻引擎推荐的硬件](https://www.ue4community.wiki/recommended-hardware-x1p9qyg0) 。
 
 ---
 
-## Linux build
+## Linux 构建
 <!-- ======================================================================= -->
-###### "CarlaUE4.sh" script does not appear when downloading from GitHub.
+###### 从 GitHub 下载时不会出现“CarlaUE4.sh”脚本。
 
-> There is no `CarlaUE4.sh` script in the source version of CARLA. Follow the [build instructions](build_linux.md) to build CARLA from source.  
+> CARLA 的源版本中没有 `CarlaUE4.sh` 脚本。按照 [构建说明](build_linux.md) 从源代码构建 CARLA。
 > 
-> To run CARLA using `CarlaUE4.sh`, follow the [quick start installation](start_quickstart.md).
-
-<!-- ======================================================================= -->
-
-###### "make launch" is not working on Linux.
-
-> Many different issues can be dragged out during the build installation and will manifest themselves like this. Here is a list of the most likely reasons why:  
-> 
-> * __Run Unreal Engine 4.26.__ Something may have failed when building Unreal Engine. Try running UE editor on its own and check that it is the 4.26 release.  
-> * __Download the assets.__ The server will not be able to run without the visual content. This step is mandatory.  
-> * __UE4_ROOT is not defined.__ The environment variable is not set. Remember to make it persistent session-wide by adding it to the `~/.bashrc` or `~/.profile`. Otherwise it will need to be set for every new shell. Run `export UE4_ROOT=<path_to_unreal_4-26>` to set the variable this time.  
-> * __Check dependencies.__ Make sure that everything was installed properly. Maybe one of the commands was skipped, unsuccessful or the dependencies were not suitable for the system.
-> * __Delete CARLA and clone it again.__ Just in case something went wrong. Delete CARLA and clone or download it again.  
-> * __Meet system requirements.__ Ubuntu version should be 16.04 or later. CARLA needs around 170GB of disk space and a dedicated GPU (or at least one with 6GB) to run.
-> 
-> Other specific reasons for a system to show conflicts with CARLA may occur. Please, post these on the [forum](https://github.com/carla-simulator/carla/discussions/) so the team can get to know more about them.   
+> 要使用 `CarlaUE4.sh` 运行 Carla，请按照 [快速启动安装](start_quickstart.md) 进行操作。
 
 <!-- ======================================================================= -->
 
-###### Cloning the Unreal Engine repository shows an error.
+###### “make launch”在 Linux 上不起作用。
 
-> __1. Is the Unreal Engine account activated?__ The UE repository is private. In order to clone it, create the [UE](https://www.unrealengine.com/en-US/) account, activate it (check the verification mail), and [link your GitHub](https://www.unrealengine.com/en-US/blog/updated-authentication-process-for-connecting-epic-github-accounts) account.  
+> 在构建安装过程中可能会拖出许多不同的问题，并会像这样显现出来。以下是最可能的原因列表：
 > 
-> __2. Is git properly installed?__ Sometimes an error shows incompatibilities with the `https` protocol. It can be solved easily by uninstalling and reinstalling git. Open a terminal and run the following commands:
+> * __运行虚幻引擎 4.26。__ 构建虚幻引擎时可能出现某些问题。尝试单独运行虚幻编辑器并检查它是否是 4.26 版本。
+> * __下载资产。__ 如果没有视觉内容，服务器将无法运行。此步骤是强制性的。
+> * __UE4_ROOT 未定义。__ 境变量未设置。请记住通过将其添加到 `~/.bashrc` 或 `~/.profile` 来使其在会话范围内持久存在。否则，需要为每个新 shell 进行设置。运行`export UE4_ROOT=<path_to_unreal_4-26>`设置这次的变量。
+> * __检查依赖。__ 确保一切都安装正确。也许其中一个命令被跳过、不成功或者依赖项不适合系统。
+> * __删除 CARLA 并再次克隆它。__ 以防万一出了问题。删除 CARLA 并重新克隆或下载。
+> * __满足系统要求。__ Ubuntu 版本应为 16.04 或更高版本。Carla 需要大约 170GB 的磁盘空间和一个专用 GPU（或至少一个 6GB）才能运行。
+> 
+> 系统显示与 CARLA 冲突的其他特定原因可能会发生。请将这些内容发布到 [论坛](https://github.com/carla-simulator/carla/discussions/) 上，以便团队可以更多地了解它们。 
+
+<!-- ======================================================================= -->
+
+###### 克隆虚幻引擎存储库显示错误。
+
+> __1. 虚幻引擎帐号是否已激活？__ 虚幻引擎存储库是私有的。为了克隆它，请创建虚 [幻引擎帐](https://www.unrealengine.com/en-US/) 户，激活它（检查验证邮件），然后 [链接您的 GitHub](https://www.unrealengine.com/en-US/blog/updated-authentication-process-for-connecting-epic-github-accounts)  帐户。
+> 
+> __2. git是否安装正确？__ 有时错误表明与 `https` 协议不兼容。通过卸载并重新安装 git 即可轻松解决。打开终端并运行以下命令：
 >
->      sudo apt-get remove git #Uninstall git
->      sudo apt install git-all #install git
+>      sudo apt-get remove git # 卸载 git
+>      sudo apt install git-all # 安装 git
 > 
 
 <!-- ======================================================================= -->
 
 ###### AttributeError: module 'carla' has no attribute 'Client' when running a script.
 
-> Run the following command.
+> 运行以下命令。
 > 
 > 
 >       pip3 install -Iv setuptools==47.3.1
 >  
 >
-> And build the PythonAPI again. 
+> 并再次构建 PythonAPI。
 > 
 >
 >      make PythonAPI
 >
 >
-> Try to build the docs to test if everything is running properly. A successful message should show.
+> 尝试构建文档来测试一切是否正常运行。应该会显示成功的消息。
 >
 >      make PythonAPI.docs
 
 <!-- ======================================================================= -->
 
-###### Cannot run example scripts or "RuntimeError: rpc::rpc_error during call in function version".
+###### 无法运行示例脚本或 "RuntimeError: rpc::rpc_error during call in function version".
 
 > ![faq_rpc_error](img/faq_rpc_error.jpg)
 >
-> If running a script returns an output similar to this, there is a problem with the `.egg` file in the PythonAPI. 
+> 如果运行脚本返回与此类似的输出，则说明 PythonAPI 中的 `.egg` 文件存在问题。
 
-!!! Important
-    If you are using 0.9.12+, there are several methods to use/install the client library. If you are using one of the newer methods for the client library (`.whl` or PyPi download) the information in this section will not be relevant to you.
+!!! 重要
+    如果您使用的是 0.9.12+，有多种方法可以使用/安装客户端库。如果您使用客户端库（`.whl` 或 PyPi 下载）的较新方法之一，本节中的信息将与您无关。
 > 
-> First of all, open `<root_carla>/PythonAPI/carla/dist`. There should be an `.egg` file for the corresponding CARLA and Python version you are using (similar to `carla-0.X.X-pyX.X-linux-x86_64.egg`). Make sure the file matches the Python version you are using. To check your Python version use the following command.  
+> 首先，打开`<root_carla>/PythonAPI/carla/dist`。 应该有一个和你正在使用相对应的 Carla 和 Python 响应的 `.egg` 文件（类似于 `carla-0.X.X-pyX.X-linux-x86_64.egg`）。确保该文件与您正在使用的 Python 版本匹配。要检查您的 Python 版本，请使用以下命令。 
 > 
 > 
 >       python3 --version
->       # or for Python 2
+>       # 或者对于 Python 2
 >       python --version
 > 
 >
-> If either the file is missing or you think it could be corrupted, try rebuilding again.  
+> 如果文件丢失或者您认为它可能已损坏，请尝试再次重建。
 >
 >      make clean
 >      make PythonAPI
 >      make launch
 >
 >  
-> Now try one of the example scripts again. 
+> 现在再次尝试示例脚本之一。 
 >
 >      cd PythonAPI/examples
 >      python3 dynamic_weather.py
 >
-> If the error persists, the problem is probably related with your PythonPATH. These scripts automatically look for the `.egg` file associated with the build, so maybe there is another `.egg` file in your PythonPATH interfering with the process. Show the content of the PythonPATH with the following command.  
+> 如果错误仍然存在，则问题可能与您的 PythonPATH 有关。这些脚本会自动查找`.egg` 与构建相关的文件，因此，您的 PythonPATH 中可能存在另一个`.egg` 文件干扰该过程。使用以下命令显示 PythonPATH 的内容。
 >
 >
 >      echo $PYTHONPATH
 >
-> Look up in the output for other instances of `.egg` files in a route similar to `PythonAPI/carla/dist`, and get rid of these. They probably belong to other instances of CARLA installations. For example, if you also installed CARLA via *apt-get*, you can remove it with the following command, and the PythonPATH will be cleaned too.  
+> 在类似于`PythonAPI/carla/dist`的路径下查找另一个`.egg`文件，并删除它们。它们可能属于 Carla 安装的其他实例。例如，如果您还通过 *apt-get* 安装了 Carla ，则可以使用以下命令将其删除，并且 PythonPATH 也会被清理。
 >
 >      sudo apt-get purge carla-simulator
 >
-> Ultimately there is the option to add the `.egg` file of your build to the PythonPATH using the `~/.bashrc`. This is not the recommended way. It would be better to have a clear PythonPATH and simply add the path to the necessary `.egg` files in the scripts.  
+> 最终可以选择使用`~/.bashrc`，将PythonPATH下你构建的`.egg`文件添加进来。这不是推荐的方式。最好有一个明确的 PythonPATH，只需在脚本中添加必要的`.egg`文件路径即可。
 >
-> First, open `~/.bashrc`.
+> 首先，打开 `~/.bashrc`.
 >
 >      gedit ~/.bashrc
 >
 > 
-> Add the following lines to `~/.bashrc`. These store the path to the build `.egg` file, so that Python can automatically find it. Save the file, and reset the terminal for changes to be effective.
+> 将以下行添加到 `~/.bashrc`。它们存储构建的`.egg`文件路径，以便Python可以自动找到它。保存文件，然后重置终端以使更改生效。
 >
 > ```
 > export PYTHONPATH=$PYTHONPATH:"${CARLA_ROOT}/PythonAPI/carla/dist/$(ls ${CARLA_ROOT}/PythonAPI/carla/dist | grep py3.)"
 > export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla
 > ```
 > 
-> After cleaning the PythonPATH or adding the path to the build `.egg` file, all the example scripts should work properly.  
+> 清理 PythonPATH 或添加构建的 `.egg`文件路径后，所有示例脚本都应该正常工作。
 
 ---
 
-## Windows build
+## Windows 构建
 <!-- ======================================================================= -->
 
-###### "CarlaUE4.exe" does not appear when downloading from GitHub.
+###### 从 GitHub 下载时不会出现“CarlaUE4.exe”。
 
-> There is no `CarlaUE4.exe` executable in the source version of CARLA. Follow the [build instructions](build_windows.md) to build CARLA from source. To directly get the `CarlaUE4.exe`, follow the [quick start instructions](start_quickstart.md).  
+> Carla 的源版本中没有`CarlaUE4.exe`可执行文件。按照构建说明从源代码构建 Carla。要直接获取`CarlaUE4.exe`，请按照 [快速入门](start_quickstart.md) 说明进行操作。
 
 <!-- ======================================================================= -->
 
 ###### CarlaUE4 could not be compiled. Try rebuilding it from source manually.
 
-> Something went wrong when trying to build CARLA. Rebuild using Visual Studio to discover what happened.  
+> 尝试构建 CARLA 时出现问题。使用 Visual Studio 重新构建以发现发生了什么。
 >
-> __1.__ Go to `carla/Unreal/CarlaUE4` and right-click the `CarlaUE4.uproject`.  
-> __2.__ Click on __Generate Visual Studio project files__.  
-> __3.__ Open the file generated with Visual Studio 2019.  
-> __4.__ Compile the project with Visual Studio. The shortcut is F7. The build will fail, but the issues found will be shown below.
+> __1.__ 转到 `carla/Unreal/CarlaUE4` 并右键单击 `CarlaUE4.uproject`。 
+> __2.__ 单击 __Generate Visual Studio project files__。  
+> __3.__ 使用 Visual Studio 2019 打开生成的文件。 
+> __4.__ 使用 Visual Studio 编译项目。快捷键是F7。构建将失败，但发现的问题将显示在下面。
 >
-> Different issues may result in this specific error message. The user [@tamakoji](https://github.com/tamakoji) solved a recurrent case where the source code hadn't been cloned properly and the CARLA version could not be set (when downloading this as a .zip from git).  
+> 不同的问题可能会导致出现此特定错误消息。用户[@tamakoji](https://github.com/tamakoji) 解决了一个经常出现的情况，即源代码未正确克隆且无法设置 Carla 版本（从 git 将其下载为 .zip 时）。
 >
-> *   __Check the `Build/CMakeLists.txt.in`.__ If it shows as `set(CARLA_VERSION )` do the following:  
+> *   __检查 `Build/CMakeLists.txt.in`.__ 如果显示： `set(CARLA_VERSION )`，请执行以下操作： 
 >
-> __1.__ Go to `Setup.bat` line 198.  
+> __1.__ 转到 `Setup.bat` 第 198 行。 
 >
 > __2.__ Update the line from: 
 > 
@@ -223,7 +223,7 @@ CARLA forum</a>
 > for /f %%i in ('git describe --tags --dirty --always') do set carla_version=%%i
 > ```
 > 
-> to:
+> 为：
 > 
 > ```
 > for /f %%i in ('git describe --tags --dirty --always') do set carla_version="0.9.9"
@@ -231,21 +231,21 @@ CARLA forum</a>
 
 <!-- ======================================================================= -->
 
-###### CMake error shows even though CMake is properly installed.
+###### 即使 CMake 已正确安装，也会显示 CMake 错误。
 
-> This issue occurs when trying to use the _make_ command either to build the server or the client. Even if CMake is installed, updated and added to the environment path. There may be a conflict between Visual Studio versions.  
+> 当尝试使用  _make_ 命令构建服务器或客户端时会出现此问题。即使 CMake 已安装、更新并添加到环境路径中。Visual Studio 版本之间可能存在冲突。
 >
-> Leave only VS2019 and completely erase the rest.  
+> 只留下VS2019，其余的彻底删除。 
 
 <!-- ======================================================================= -->
 
 ###### Error C2440, C2672: compiler version.
 
-> The build is not using the 2019 compiler due to conflicts with other Visual Studio or Microsoft Compiler versions. Uninstall these and rebuild again.  
+> 由于与其他 Visual Studio 或 Microsoft 编译器版本冲突，该构建未使用 2019 编译器。卸载这些并再次重建。  
 >
-> Visual Studio is not good at getting rid of itself. To completely clean Visual Studio from the computer go to `Program Files (x86)\Microsoft Visual Studio\Installer\resources\app\layout` and run `.\InstallCleanup.exe -full`. This may need admin permissions.  
+> Visual Studio 不擅长摆脱自身。要从计算机中彻底清除 Visual Studio，请转到 `Program Files (x86)\Microsoft Visual Studio\Installer\resources\app\layout` 并运行 `.\InstallCleanup.exe -full`。这可能需要管理员权限。  
 >
-> To keep other Visual Studio versions, edit ```%appdata%\Unreal Engine\UnrealBuildTool\BuildConfiguration.xml``` by adding the following lines:
+> 要保留其他 Visual Studio 版本，请通过添加以下行进行编辑 ```%appdata%\Unreal Engine\UnrealBuildTool\BuildConfiguration.xml``` ： 
 >
 > ```
 >  <VCProjectFileGenerator>
@@ -261,73 +261,73 @@ CARLA forum</a>
 
 <!-- ======================================================================= -->
 
-###### "make launch" is not working on Windows.
+###### “make launch”在 Windows 上不起作用。
 
-> Many different issues can be dragged out during the build installation and manifest themselves like this. Here is a list of the most likely reasons why: 
+> 在构建安装过程中可能会拖出许多不同的问题，并像这样显现出来。以下是最可能的原因列表：
 > 
-> * __Restart the computer.__ There is a lot going on during the Windows build. Restart and make sure that everything is updated properly.  
-> * __Run Unreal Engine 4.26.__ Something may have failed when building Unreal Engine. Run the Editor and check that version 4.26 is being used.  
-> * __Download the assets.__ The server will not be able to run without the visual content. This step is mandatory.  
-> * __Visual Studio 2019.__ If there are other versions of Visual Studio installed or recently uninstalled, conflicts may arise. To completely clean Visual Studio from the computer go to `Program Files (x86)\Microsoft Visual Studio\Installer\resources\app\layout` and run `.\InstallCleanup.exe -full`.  
-> * __Delete CARLA and clone it again.__ Just in case something went wrong. Delete CARLA and clone or download it again.  
-> * __Meet system requirements.__ CARLA needs around 170GB of disk space and a dedicated GPU (or at least one with 6GB) to run.  
+> * __重新启动计算机。__ Windows 构建期间发生了很多事情。重新启动并确保所有内容均已正确更新。
+> * __运行虚幻引擎 4.26。__ 构建虚幻引擎时可能出现某些问题。运行编辑器并检查是否使用了 4.26 版本。 
+> * __下载资产。__ 如果没有视觉内容，服务器将无法运行。此步骤是强制性的。
+> * __Visual Studio 2019.__ 如果安装或最近卸载了其他版本的 Visual Studio，可能会出现冲突。要从计算机中彻底清除 Visual Studio，请转到 `Program Files (x86)\Microsoft Visual Studio\Installer\resources\app\layout` 并运行 `.\InstallCleanup.exe -full`。  
+> * __删除 Carla 并再次克隆它。__ 以防万一出了问题。删除 CARLA 并重新克隆或下载。
+> * __满足系统要求。__ Carla 需要大约 170GB 的磁盘空间和一个专用 GPU（或至少一个 6GB）才能运行。
 >
-> Other specific reasons for a system to show conflicts with CARLA may occur. Please, post these on the [forum](https://github.com/carla-simulator/carla/discussions/) so the team can get to know more about them.
+> 系统显示与 Carla 冲突的其他特定原因可能会发生。请将这些内容发布到 [论坛](https://github.com/carla-simulator/carla/discussions/) 上，以便团队可以更多地了解它们。
 
 <!-- ======================================================================= -->
 
-###### Make is missing libintl3.dll or/and libiconv2.dll.
+###### Make 缺少 libintl3.dll 或/和 libiconv2.dll。
 
-> Download the [dependencies](http://gnuwin32.sourceforge.net/downlinks/make-dep-zip.php) and extract the `bin` content into the `make` installation path.   
+> 下载 [依赖项](http://gnuwin32.sourceforge.net/downlinks/make-dep-zip.php) 并将`bin`内容解压到`make`安装路径中。 
 
 <!-- ======================================================================= -->
 
 ###### Modules are missing or built with a different engine version.
 
-> Click on __Accept__ to rebuild them. 
+> 单击 on __Accept__ 以重建它们。
 
 <!-- ======================================================================= -->
 
-###### There is no `dist` folder in `PythonAPI/carla` despite a successful output message.
+###### 尽管成功输出消息，但在`PythonAPI/carla`中没有`dist`文件夹。 
 
->In Windows, the `make PythonAPI` command can return a message that the Python API was installed successfully when it actually wasn't. If there is no `dist` folder created in the `PythonAPI/carla` directory after you see this output, then look at the command output higher up. It is likely an error occurred and the build needs to be retried after correcting the error and running `make clean`.
+> 在 Windows 中， `make PythonAPI` 命令可能会返回一条消息，表明 Python API 安装成功，但实际上并未成功。如果看到此输出后目录 `PythonAPI/carla` 中没有 `dist` 文件夹，请查看上面的命令输出。很可能发生了错误，需要在更正错误并运行 `make clean` 后重试构建。 
 
 ---
 
-## Running CARLA
+## 运行 Carla
 <!-- ======================================================================= -->
 
-###### Low FPS rate when running the server in Unreal Editor.
+###### 在虚幻编辑器中运行服务器时 FPS 速率较低。
 
-> UE4 Editor goes to a low performance mode when out of focus.  
+> 虚幻4编辑器在失焦时会进入低性能模式。  
 >
-> Go to `Edit/Editor Preferences/Performance` in the editor preferences, and disable the "Use Less CPU When in Background" option.
+> 转到“编辑->编辑器偏好设置->性能” （`Edit/Editor Preferences/Performance`），然后禁用“处于背景中时占用较少 CPU”选项。
 
 <!-- ======================================================================= -->
 
-###### Can't run a script.
+###### 无法运行脚本。
 
-> Some scripts have requirements. These are listed in files named __Requirements.txt__, in the same path as the script itself. Be sure to check these in order to run the script. The majority of them can be installed with a simple `pip` command.  
+> 有些脚本有要求。这些列在名为 __Requirements.txt__ 的文件中，与脚本本身位于同一路径中。请务必检查这些以便运行脚本。其中大多数可以通过简单的`pip`命令进行安装。
 >
-> Sometimes on Windows, scripts cannot run with just `> script_name.py`. Try adding `> python3 script_name.py`, and make sure to be in the right directory.  
+> 有时在 Windows 上，脚本无法仅使用 `> script_name.py` 运行。尝试添加. Try adding `> python3 script_name.py`，并确保位于正确的目录中。
 
 <!-- ======================================================================= -->
 
-###### Connect to the simulator while running within Unreal Editor.
+###### 在虚幻编辑器中运行时连接到模拟器。
 
-> Click on __Play__ and wait until the scene is loaded. At that point, a Python client can connect to the simulator as with the standalone simulator.
+> 单击“运行”（ __Play__ ）并等待场景加载。此时，Python 客户端可以像独立仿真器一样连接到模拟器。
 
 <!-- ======================================================================= -->
 
-###### Can't run CARLA neither binary nor source build.
+###### 无法运行 CARLA，无论是二进制还是源代码构建。
 
-> NVIDIA drivers may be outdated. Make sure that this is not the case. If the issue is still unresolved, take a look at the [forum](https://github.com/carla-simulator/carla/discussions/) and post the specific issue. 
+> NVIDIA 驱动程序可能已过时。确保情况并非如此。如果问题仍未解决，请查看 [论坛](https://github.com/carla-simulator/carla/discussions/) 并发布具体问题。
 
 <!-- ======================================================================= -->
 
 ###### ImportError: DLL load failed: The specified module could not be found.
 
-> One of the libraries needed has not been properly installed. As a work around, go to `carla\Build\zlib-source\build`, and copy the file named `zlib.dll` in the directory of the script. 
+> 所需的库之一尚未正确安装。作为解决方法，请转至 `carla\Build\zlib-source\build`并在脚本的路径中复制名为 `zlib.dll` 的文件。
 
 <!-- ======================================================================= -->
 
