@@ -1,49 +1,53 @@
-# CARLA catalogue
+# CARLA 目录
 
-The CARLA simulator provides a vast library of 3D assets to populate your autonomous agent's virtual environment. The 3D asset library provides numerous pre-built maps to choose from, a diverse array of vehicle models for traffic simulation along with models of pedestrians and other structures or obstacles that can be dynamically added to your simulation during runtime. This catalogue documents all of the 3D assets available to use in your simulations. 
 
-* [__Vehicles catalogue__](catalogue_vehicles.md)
-* [__Pedestrians catalogue__](catalogue_pedestrians.md)
-* [__Props catalogue__](catalogue_props.md)
+CARLA 仿真器提供了一个庞大的三维资产库来填充您的自主代理的虚拟环境。三维资源库提供了大量可供选择的预构建地图、用于交通仿真的各种车辆模型以及行人和其他结构或障碍物的模型，这些模型可以在运行时动态添加到您的模拟中。该目录记录了可在模拟中使用的所有三维资源。
 
-## Maps
 
-The CARLA simulator provides 10 pre-built maps to choose from, providing a diverse array of environments for training and testing your autonomous agents. 
+* [__车辆目录__](catalogue_vehicles.md)
+* [__行人目录__](catalogue_pedestrians.md)
+* [__道具目录__](catalogue_props.md)
+
+## 地图
+
+CARLA 模拟器提供 10 个预构建地图可供选择，为训练和测试自主代理提供了多种环境。
+
 
 ![maps_montage](./img/catalogue/maps/maps_montage.webp)
 
-| Town       | Summary |
+| 城镇       | 概况 |
 | -----------| ------  |
-| [__Town01__](map_town01.md)  | A small, simple town with a river and several bridges.|
-| [__Town02__](map_town02.md) | A small simple town with a mixture of residential and commercial buildings.|
-| [__Town03__](map_town03.md) | A larger, urban map with a roundabout and large junctions.|
-| [__Town04__](map_town04.md) | A small town embedded in the mountains with a special "figure of 8" *infinite* highway.|
-| [__Town05__](map_town05.md) | Squared-grid town with cross junctions and a bridge. It has multiple lanes per direction. Useful to perform lane changes.  |
-| [__Town06__](map_town06.md) | Long many lane highways with many highway entrances and exits. It also has a [**Michigan left**](<https://en.wikipedia.org/wiki/Michigan_left>). |
-| [__Town07__](map_town07.md) | A rural environment with narrow roads, corn, barns and hardly any traffic lights. |
-| **Town08** | Secret "unseen" town used for the [Leaderboard](https://leaderboard.carla.org/) challenge |
-| **Town09** | Secret "unseen" town used for the [Leaderboard](https://leaderboard.carla.org/) challenge |
-| [__Town10__](map_town10.md) | A downtown urban environment with skyscrapers, residential buildings and an ocean promenade.|
-| [__Town11__](map_town11.md) | A Large Map that is undecorated. Serves as a proof of concept for the Large Maps feature. |
-| [__Town12__](map_town12.md) | A Large Map with numerous different regions, including high-rise, residential and rural environments.|
-| [__Town13__](map_town13.md) | A Large Map similar in scale to Town 12, but with distinct features.|
-| [__Town15__](map_town15.md) | A map based on the road layout of the Autonomous University of Barcelona. |
+| [__Town01__](map_town01.md)  | 一个简单的小镇，有一条河流和几座桥梁。|
+| [__Town02__](map_town02.md) | 一个简单的小镇，住宅和商业建筑混合在一起。|
+| [__Town03__](map_town03.md) | 更大的城市地图，带有环岛和大型路口。|
+| [__Town04__](map_town04.md) | 一座镶嵌在群山之中的小镇，有一条特殊的“8 字形”*无限*公路。|
+| [__Town05__](map_town05.md) | 方形网格城镇，有十字路口和一座桥梁。每个方向有多个车道。对于执行变道很有用。  |
+| [__Town06__](map_town06.md) | 长的多车道高速公路，有许多高速公路入口和出口。它还有一个[**密歇根左翼**](<https://en.wikipedia.org/wiki/Michigan_left>) 。 |
+| [__Town07__](map_town07.md) | 乡村环境，道路狭窄，有玉米、谷仓，几乎没有红绿灯。 |
+| **Town08** | 用于 [排行榜](https://leaderboard.carla.org/) 挑战的秘密“看不见”小镇。 |
+| **Town09** | 用于 [排行榜](https://leaderboard.carla.org/) 挑战的秘密“看不见”小镇。 |
+| [__Town10__](map_town10.md) | 市中心的城市环境，拥有摩天大楼、住宅楼和海滨长廊。|
+| [__Town11__](map_town11.md) | 未装饰的大地图。用作大地图功能的概念证明。 |
+| [__Town12__](map_town12.md) | 一张包含许多不同区域的大地图，包括高层建筑、住宅区和乡村环境。 |
+| [__Town13__](map_town13.md) | 一张与 12 号镇规模相似的大地图，但具有鲜明的特色。 |
+| [__Town15__](map_town15.md) | 基于巴塞罗那自治大学道路布局的地图。 |
 
-## Vehicles
+## 车辆
 
-CARLA provides a diverse array of vehicles, with high fidelity models of real world cars, trucks and bikes, for replicating traffic in your simulations. Browse and choose the vehicles you like in the [__vehicle catalogue__](catalogue_vehicles.md).
+CARLA 提供各种车辆，以及现实世界汽车、卡车和自行车的高保真模型，用于在模拟中复制交通。在 [__车辆目录__](catalogue_vehicles.md) 中浏览并选择您喜欢的车辆。
 
 ![vehicles_overview](./img/catalogue/vehicles/vehicle_montage.webp)
 
-## Pedestrians
+## 行人
 
-CARLA's asset library includes a variety of pedestrians to simulate foot traffic in the 3D environments surrounding your agent. Browse and choose the pedestrians you want in the [__pedestrian catalogue__](catalogue_pedestrians.md).
+Carla 的资产库包含各种行人，可模拟代理周围三维环境中的人流量。在 [__行人目录__](catalogue_pedestrians.md) 中浏览并选择您想要的行人。
+
 
 ![pedestrian_overview](./img/catalogue/pedestrians/pedestrians_overview.webp)
 
-## Props
+## 道具
 
-CARLA's props model the various structures and items you might find on or near roads, such as kiosks, statues, benches, boxes, bins, debris or trash. The props can be placed anywhere in your simulation dynamically during runtime. Browse and choose your props in the [__props catalogue__](catalogue_props.md).
+Carla 的道具模拟了您可能在道路上或道路附近发现的各种结构和物品，例如信息亭、雕像、长凳、盒子、垃圾箱、碎片或垃圾。这些道具可以在运行时动态地放置在模拟中的任何位置。在 [__道具目录__](catalogue_props.md) 中浏览并选择您的道具。
 
 ![props_overview](./img/catalogue/props/props_overview.webp)
 

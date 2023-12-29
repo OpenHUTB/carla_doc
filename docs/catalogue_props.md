@@ -1,824 +1,824 @@
-# Props catalogue
+# 道具目录
 
-## __Containers__
-* __Barrels__
-	* [__Barrel__](#barrel)
-* __Bins__
-	* [__Bin__](#bin)
-	* [__Cloth container__](#cloth-container)
-	* [__Garbage container__](#garbage-container)
-	* [__Glass container__](#glass-container)
-* __Boxes__
-	* [__Box 01__](#box-01)
-	* [__Box 02__](#box-02)
-	* [__Box 03__](#box-03)
-	* [__Creased box 01__](#creased-box-01)
-	* [__Creased box 02__](#creased-box-02)
-	* [__Creased box 03__](#creased-box-03)
-## __Garbage__
-* __Bags__
-	* [__Trash bag__](#trash-bag)
-* __Garbage__
-	* [__Cola can__](#cola-can)
-	* [__Garbage 01__](#garbage-01)
-	* [__Garbage 02__](#garbage-02)
-	* [__Garbage 03__](#garbage-03)
-	* [__Garbage 04__](#garbage-04)
-	* [__Garbage 05__](#garbage-05)
-	* [__Garbage 06__](#garbage-06)
-* __Platforms__
-	* [__Garbage platform 01__](#garbage-platform-01)
-* __Trash cans__
-	* [__Trash can 01__](#trash-can-01)
-	* [__Trash can 02__](#trash-can-02)
-	* [__Trash can 03__](#trash-can-03)
-	* [__Trash can 04__](#trash-can-04)
-	* [__Trash can 05__](#trash-can-05)
-## __Park / garden__
-* __Furniture__
-	* [__Bench 03__](#bench-03)
-	* [__Garden lamp__](#garden-lamp)
-	* [__Pergola__](#pergola)
-	* [__Plastic chair__](#plastic-chair)
-	* [__Plastic table__](#plastic-table)
-	* [__Slide__](#slide)
-	* [__Swing__](#swing)
-	* [__Swingcouch__](#swingcouch)
-	* [__Table__](#table)
-	* [__Trampoline__](#trampoline)
-* __Misc__
-	* [__Barbeque__](#barbeque)
-	* [__Clothesline__](#clothesline)
-	* [__Doghouse__](#doghouse)
-	* [__Gnome__](#gnome)
-	* [__Wateringcan__](#wateringcan)
-* __Other__
-	* [__Haybale__](#haybale)
-	* [__Haybale alternate__](#haybale-alternate)
-* __Plantpots__
-	* [__Plantpot 01__](#plantpot-01)
-	* [__Plantpot 02__](#plantpot-02)
-	* [__Plantpot 03__](#plantpot-03)
-	* [__Plantpot 04__](#plantpot-04)
-	* [__Plantpot 05__](#plantpot-05)
-	* [__Plantpot 06__](#plantpot-06)
-	* [__Plantpot 07__](#plantpot-07)
-	* [__Plantpot 08__](#plantpot-08)
-## __Personal__
-* __Bags__
-	* [__Plastic bag__](#plastic-bag)
-	* [__Shopping bag__](#shopping-bag)
-* __Carts__
-	* [__Shopping cart__](#shopping-cart)
-	* [__Shopping trolley__](#shopping-trolley)
-* __Cases__
-	* [__Briefcase__](#briefcase)
-	* [__Guitarcase__](#guitarcase)
-	* [__Travel case__](#travel-case)
-* __Clothing__
-	* [__Bike helmet__](#bike-helmet)
-	* [__Motor helmet__](#motor-helmet)
-* __Personal effects__
-	* [__Mobile__](#mobile)
-	* [__Purse__](#purse)
-## __Road__
-* __Barriers__
-	* [__Street barrier__](#street-barrier)
-* __Cones__
-	* [__Construction cone__](#construction-cone)
-	* [__Traffic cone 01__](#traffic-cone-01)
-	* [__Traffic cone 02__](#traffic-cone-02)
-* __Construction__
-	* [__Iron plank__](#iron-plank)
-	* [__Warning construction__](#warning-construction)
-* __Debris__
-	* [__Brokentile 01__](#brokentile-01)
-	* [__Brokentile 02__](#brokentile-02)
-	* [__Brokentile 03__](#brokentile-03)
-	* [__Brokentile 04__](#brokentile-04)
-	* [__Dirt / debris 01__](#dirt-/-debris-01)
-	* [__Dirt / debris 02__](#dirt-/-debris-02)
-	* [__Dirt / debris 03__](#dirt-/-debris-03)
-* __Signs__
-	* [__Traffic warning__](#traffic-warning)
-	* [__Warning accident__](#warning-accident)
-## __Sidewalk__
-* __Barriers__
-	* [__Chain barrier__](#chain-barrier)
-	* [__Chain barrier end__](#chain-barrier-end)
-* __Benches__
-	* [__Bench 01__](#bench-01)
-	* [__Bench 02__](#bench-02)
+## __容器__
+* __桶__
+	* [__桶__](#barrel)
+* __箱子__
+	* [__箱子__](#bin)
+	* [__布制容器__](#cloth-container)
+	* [__垃圾箱__](#garbage-container)
+	* [__玻璃容器__](#glass-container)
+* __盒子__
+	* [__盒子 01__](#box-01)
+	* [__盒子 02__](#box-02)
+	* [__盒子 03__](#box-03)
+	* [__折痕盒 01__](#creased-box-01)
+	* [__折痕盒 02__](#creased-box-02)
+	* [__折痕盒 03__](#creased-box-03)
+## __垃圾__
+* __袋子__
+	* [__垃圾袋__](#trash-bag)
+* __垃圾__
+	* [__可乐罐__](#cola-can)
+	* [__垃圾 01__](#garbage-01)
+	* [__垃圾 02__](#garbage-02)
+	* [__垃圾 03__](#garbage-03)
+	* [__垃圾 04__](#garbage-04)
+	* [__垃圾 05__](#garbage-05)
+	* [__垃圾 06__](#garbage-06)
+* __平台__
+	* [__垃圾平台 01__](#garbage-platform-01)
+* __垃圾桶__
+	* [__垃圾桶 01__](#trash-can-01)
+	* [__垃圾桶 02__](#trash-can-02)
+	* [__垃圾桶 03__](#trash-can-03)
+	* [__垃圾桶 04__](#trash-can-04)
+	* [__垃圾桶 05__](#trash-can-05)
+## __公园 / 花园__
+* __家具__
+	* [__长凳 03__](#bench-03)
+	* [__庭院灯__](#garden-lamp)
+	* [__凉棚__](#pergola)
+	* [__塑料椅__](#plastic-chair)
+	* [__塑料桌__](#plastic-table)
+	* [__滑梯__](#slide)
+	* [__秋千__](#swing)
+	* [__秋千沙发__](#swingcouch)
+	* [__桌子__](#table)
+	* [__蹦床__](#trampoline)
+* __杂项__
+	* [__烧烤架__](#barbeque)
+	* [__晾衣绳__](#clothesline)
+	* [__狗窝__](#doghouse)
+	* [__侏儒__](#gnome)
+	* [__喷壶__](#wateringcan)
+* __其他__
+	* [__干草捆__](#haybale)
+	* [__备用干草捆__](#haybale-alternate)
+* __花盆__
+	* [__花盆 01__](#plantpot-01)
+	* [__花盆 02__](#plantpot-02)
+	* [__花盆 03__](#plantpot-03)
+	* [__花盆 04__](#plantpot-04)
+	* [__花盆 05__](#plantpot-05)
+	* [__花盆 06__](#plantpot-06)
+	* [__花盆 07__](#plantpot-07)
+	* [__花盆 08__](#plantpot-08)
+## __个人的__
+* __袋__
+	* [__塑料袋__](#plastic-bag)
+	* [__购物袋__](#shopping-bag)
+* __推车__
+	* [__购物车__](#shopping-cart)
+	* [__购物手推车__](#shopping-trolley)
+* __箱__
+	* [__公文包__](#briefcase)
+	* [__吉他盒__](#guitarcase)
+	* [__旅行箱__](#travel-case)
+* __衣服__
+	* [__自行车头盔__](#bike-helmet)
+	* [__摩托车头盔__](#motor-helmet)
+* __个人影响__
+	* [__手机__](#mobile)
+	* [__钱包__](#purse)
+## __路__
+* __障碍物__
+	* [__街道护栏__](#street-barrier)
+* __锥体__
+	* [__建筑锥体__](#construction-cone)
+	* [__交通锥 01__](#traffic-cone-01)
+	* [__交通锥 02__](#traffic-cone-02)
+* __施工__
+	* [__铁板__](#iron-plank)
+	* [__施工警示__](#warning-construction)
+* __碎片__
+	* [__碎瓦 01__](#brokentile-01)
+	* [__碎瓦 02__](#brokentile-02)
+	* [__碎瓦 03__](#brokentile-03)
+	* [__碎瓦 04__](#brokentile-04)
+	* [__污垢 / 碎片 01__](#dirt-/-debris-01)
+	* [__污垢 / 碎片 02__](#dirt-/-debris-02)
+	* [__污垢 / 碎片 03__](#dirt-/-debris-03)
+* __标志__
+	* [__交通警告__](#traffic-warning)
+	* [__事故警告__](#warning-accident)
+## __人行道__
+* __障碍物__
+	* [__链栅栏__](#chain-barrier)
+	* [__链栅栏末端__](#chain-barrier-end)
+* __长凳__
+	* [__长凳 01__](#bench-01)
+	* [__长凳 02__](#bench-02)
 * __Commercial__
-	* [__Foodcart__](#foodcart)
-	* [__Kiosk 01__](#kiosk-01)
-* __Monouments__
-	* [__Fountain__](#fountain)
-* __Monuments__
-	* [__Map table__](#map-table)
-* __Signs__
-	* [__Advertisement__](#advertisement)
-	* [__Street sign__](#street-sign)
-	* [__Street sign 01__](#street-sign-01)
-	* [__Street sign 04__](#street-sign-04)
-* __Transport__
-	* [__Bus stop__](#bus-stop)
-	* [__Bus stopl alternate__](#bus-stopl-alternate)
-* __Utilities__
-	* [__ATM__](#atm)
-	* [__Mailbox__](#mailbox)
-	* [__Street fountain__](#street-fountain)
-	* [__Vending machine__](#vending-machine)
-## __Utility__
-* __Calibration__
-	* [__Calibrator__](#calibrator)
+	* [__餐车__](#foodcart)
+	* [__信息亭 01__](#kiosk-01)
+* __纪念碑__
+	* [__喷泉__](#fountain)
+* __纪念碑__
+	* [__地图表__](#map-table)
+* __标志__
+	* [__广告__](#advertisement)
+	* [__路牌__](#street-sign)
+	* [__路牌 01__](#street-sign-01)
+	* [__路牌 04__](#street-sign-04)
+* __运输__
+	* [__公交车站__](#bus-stop)
+	* [__备用公交车站__](#bus-stopl-alternate)
+* __公用__
+	* [__自动提款机__](#atm)
+	* [__邮箱__](#mailbox)
+	* [__街头喷泉__](#street-fountain)
+	* [__售货机__](#vending-machine)
+## __公用__
+* __校准__
+	* [__校准器__](#calibrator)
 
 
 ---
 
-## __Containers__
-### Barrel
+## __容器__
+### 桶
 
 ![static_prop_barrel](./img/catalogue/props/static_prop_barrel.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.barrel<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.barrel<span>
 
-### Bin
+### 垃圾桶
 
 ![static_prop_bin](./img/catalogue/props/static_prop_bin.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.bin<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.bin<span>
 
-### Cloth container
+### 布制容器
 
 ![static_prop_clothcontainer](./img/catalogue/props/static_prop_clothcontainer.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.clothcontainer<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.clothcontainer<span>
 
-### Garbage container
+### 垃圾箱
 
 ![static_prop_container](./img/catalogue/props/static_prop_container.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.container<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.container<span>
 
-### Glass container
+### 玻璃容器
 
 ![static_prop_glasscontainer](./img/catalogue/props/static_prop_glasscontainer.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.glasscontainer<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.glasscontainer<span>
 
-### Box 01
+### 盒子 01
 
 ![static_prop_box01](./img/catalogue/props/static_prop_box01.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.box01<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.box01<span>
 
-### Box 02
+### 盒子 02
 
 ![static_prop_box02](./img/catalogue/props/static_prop_box02.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.box02<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.box02<span>
 
-### Box 03
+### 盒子 03
 
 ![static_prop_box03](./img/catalogue/props/static_prop_box03.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.box03<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.box03<span>
 
-### Creased box 01
+### 折痕盒 01
 
 ![static_prop_creasedbox01](./img/catalogue/props/static_prop_creasedbox01.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.creasedbox01<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.creasedbox01<span>
 
-### Creased box 02
+### 折痕盒 02
 
 ![static_prop_creasedbox02](./img/catalogue/props/static_prop_creasedbox02.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.creasedbox02<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.creasedbox02<span>
 
-### Creased box 03
+### 折痕盒 03
 
 ![static_prop_creasedbox03](./img/catalogue/props/static_prop_creasedbox03.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.creasedbox03<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.creasedbox03<span>
 
 ---
 
-## __Garbage__
-### Trash bag
+## __垃圾__
+### 垃圾袋
 
 ![static_prop_trashbag](./img/catalogue/props/static_prop_trashbag.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.trashbag<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.trashbag<span>
 
-### Cola can
+### 可乐罐
 
 ![static_prop_colacan](./img/catalogue/props/static_prop_colacan.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.colacan<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.colacan<span>
 
-### Garbage 01
+### 垃圾 01
 
 ![static_prop_garbage01](./img/catalogue/props/static_prop_garbage01.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.garbage01<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.garbage01<span>
 
-### Garbage 02
+### 垃圾 02
 
 ![static_prop_garbage02](./img/catalogue/props/static_prop_garbage02.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.garbage02<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.garbage02<span>
 
-### Garbage 03
+### 垃圾 03
 
 ![static_prop_garbage03](./img/catalogue/props/static_prop_garbage03.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.garbage03<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.garbage03<span>
 
-### Garbage 04
+### 垃圾 04
 
 ![static_prop_garbage04](./img/catalogue/props/static_prop_garbage04.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.garbage04<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.garbage04<span>
 
-### Garbage 05
+### 垃圾 05
 
 ![static_prop_garbage05](./img/catalogue/props/static_prop_garbage05.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.garbage05<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.garbage05<span>
 
-### Garbage 06
+### 垃圾 06
 
 ![static_prop_garbage06](./img/catalogue/props/static_prop_garbage06.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.garbage06<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.garbage06<span>
 
-### Garbage platform 01
+### 垃圾平台 01
 
 ![static_prop_platformgarbage01](./img/catalogue/props/static_prop_platformgarbage01.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.platformgarbage01<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.platformgarbage01<span>
 
-### Trash can 01
+### 垃圾桶 01
 
 ![static_prop_trashcan01](./img/catalogue/props/static_prop_trashcan01.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.trashcan01<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.trashcan01<span>
 
-### Trash can 02
+### 垃圾桶 02
 
 ![static_prop_trashcan02](./img/catalogue/props/static_prop_trashcan02.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.trashcan02<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.trashcan02<span>
 
-### Trash can 03
+### 垃圾桶 03
 
 ![static_prop_trashcan03](./img/catalogue/props/static_prop_trashcan03.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.trashcan03<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.trashcan03<span>
 
-### Trash can 04
+### 垃圾桶 04
 
 ![static_prop_trashcan04](./img/catalogue/props/static_prop_trashcan04.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.trashcan04<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.trashcan04<span>
 
-### Trash can 05
+### 垃圾桶 05
 
 ![static_prop_trashcan05](./img/catalogue/props/static_prop_trashcan05.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.trashcan05<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.trashcan05<span>
 
 ---
 
-## __Park / garden__
-### Bench 03
+## __公园 / 花园__
+### 长凳 03
 
 ![static_prop_bench03](./img/catalogue/props/static_prop_bench03.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.bench03<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.bench03<span>
 
-### Garden lamp
+### 庭院灯
 
 ![static_prop_gardenlamp](./img/catalogue/props/static_prop_gardenlamp.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.gardenlamp<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.gardenlamp<span>
 
-### Pergola
+### 凉棚
 
 ![static_prop_pergola](./img/catalogue/props/static_prop_pergola.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.pergola<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.pergola<span>
 
-### Plastic chair
+### 塑料椅
 
 ![static_prop_plasticchair](./img/catalogue/props/static_prop_plasticchair.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.plasticchair<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.plasticchair<span>
 
-### Plastic table
+### 塑料桌
 
 ![static_prop_plastictable](./img/catalogue/props/static_prop_plastictable.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.plastictable<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.plastictable<span>
 
-### Slide
+### 滑梯
 
 ![static_prop_slide](./img/catalogue/props/static_prop_slide.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.slide<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.slide<span>
 
-### Swing
+### 秋千
 
 ![static_prop_swing](./img/catalogue/props/static_prop_swing.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.swing<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.swing<span>
 
-### Swingcouch
+### 秋千沙发
 
 ![static_prop_swingcouch](./img/catalogue/props/static_prop_swingcouch.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.swingcouch<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.swingcouch<span>
 
-### Table
+### 桌子
 
 ![static_prop_table](./img/catalogue/props/static_prop_table.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.table<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.table<span>
 
-### Trampoline
+### 蹦床
 
 ![static_prop_trampoline](./img/catalogue/props/static_prop_trampoline.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.trampoline<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.trampoline<span>
 
-### Barbeque
+### 烧烤架
 
 ![static_prop_barbeque](./img/catalogue/props/static_prop_barbeque.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.barbeque<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.barbeque<span>
 
-### Clothesline
+### 晾衣绳
 
 ![static_prop_clothesline](./img/catalogue/props/static_prop_clothesline.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.clothesline<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.clothesline<span>
 
-### Doghouse
+### 狗窝
 
 ![static_prop_doghouse](./img/catalogue/props/static_prop_doghouse.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.doghouse<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.doghouse<span>
 
-### Gnome
+### 侏儒
 
 ![static_prop_gnome](./img/catalogue/props/static_prop_gnome.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.gnome<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.gnome<span>
 
-### Wateringcan
+### 喷壶
 
 ![static_prop_wateringcan](./img/catalogue/props/static_prop_wateringcan.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.wateringcan<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.wateringcan<span>
 
-### Haybale
+### 干草捆
 
 ![static_prop_haybale](./img/catalogue/props/static_prop_haybale.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.haybale<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.haybale<span>
 
-### Haybale alternate
+### 干草捆备用
 
 ![static_prop_haybalelb](./img/catalogue/props/static_prop_haybalelb.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.haybalelb<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.haybalelb<span>
 
-### Plantpot 01
+### 花盆 01
 
 ![static_prop_plantpot01](./img/catalogue/props/static_prop_plantpot01.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.plantpot01<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.plantpot01<span>
 
-### Plantpot 02
+### 花盆 02
 
 ![static_prop_plantpot02](./img/catalogue/props/static_prop_plantpot02.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.plantpot02<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.plantpot02<span>
 
-### Plantpot 03
+### 花盆 03
 
 ![static_prop_plantpot03](./img/catalogue/props/static_prop_plantpot03.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.plantpot03<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.plantpot03<span>
 
-### Plantpot 04
+### 花盆 04
 
 ![static_prop_plantpot04](./img/catalogue/props/static_prop_plantpot04.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.plantpot04<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.plantpot04<span>
 
-### Plantpot 05
+### 花盆 05
 
 ![static_prop_plantpot05](./img/catalogue/props/static_prop_plantpot05.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.plantpot05<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.plantpot05<span>
 
-### Plantpot 06
+### 花盆 06
 
 ![static_prop_plantpot06](./img/catalogue/props/static_prop_plantpot06.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.plantpot06<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.plantpot06<span>
 
-### Plantpot 07
+### 花盆 07
 
 ![static_prop_plantpot07](./img/catalogue/props/static_prop_plantpot07.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.plantpot07<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.plantpot07<span>
 
-### Plantpot 08
+### 花盆 08
 
 ![static_prop_plantpot08](./img/catalogue/props/static_prop_plantpot08.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.plantpot08<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.plantpot08<span>
 
 ---
 
-## __Personal__
-### Plastic bag
+## __个人的__
+### 塑料袋
 
 ![static_prop_plasticbag](./img/catalogue/props/static_prop_plasticbag.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.plasticbag<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.plasticbag<span>
 
-### Shopping bag
+### 购物袋
 
 ![static_prop_shoppingbag](./img/catalogue/props/static_prop_shoppingbag.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.shoppingbag<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.shoppingbag<span>
 
-### Shopping cart
+### 购物车
 
 ![static_prop_shoppingcart](./img/catalogue/props/static_prop_shoppingcart.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.shoppingcart<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.shoppingcart<span>
 
-### Shopping trolley
+### 购物手推车
 
 ![static_prop_shoppingtrolley](./img/catalogue/props/static_prop_shoppingtrolley.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.shoppingtrolley<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.shoppingtrolley<span>
 
-### Briefcase
+### 公文包
 
 ![static_prop_briefcase](./img/catalogue/props/static_prop_briefcase.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.briefcase<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.briefcase<span>
 
-### Guitarcase
+### 吉他盒
 
 ![static_prop_guitarcase](./img/catalogue/props/static_prop_guitarcase.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.guitarcase<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.guitarcase<span>
 
-### Travel case
+### 旅行箱
 
 ![static_prop_travelcase](./img/catalogue/props/static_prop_travelcase.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.travelcase<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.travelcase<span>
 
-### Bike helmet
+### 自行车头盔
 
 ![static_prop_bike helmet](./img/catalogue/props/static_prop_bike helmet.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.bike helmet<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.bike helmet<span>
 
-### Motor helmet
+### 摩托车头盔
 
 ![static_prop_motorhelmet](./img/catalogue/props/static_prop_motorhelmet.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.motorhelmet<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.motorhelmet<span>
 
-### Mobile
+### 手机
 
 ![static_prop_mobile](./img/catalogue/props/static_prop_mobile.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.mobile<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.mobile<span>
 
-### Purse
+### 钱包
 
 ![static_prop_purse](./img/catalogue/props/static_prop_purse.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.purse<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.purse<span>
 
 ---
 
-## __Road__
-### Street barrier
+## __路__
+### 街道护栏
 
 ![static_prop_streetbarrier](./img/catalogue/props/static_prop_streetbarrier.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.streetbarrier<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.streetbarrier<span>
 
-### Construction cone
+### 建筑锥体
 
 ![static_prop_constructioncone](./img/catalogue/props/static_prop_constructioncone.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.constructioncone<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.constructioncone<span>
 
-### Traffic cone 01
+### 交通锥 01
 
 ![static_prop_trafficcone01](./img/catalogue/props/static_prop_trafficcone01.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.trafficcone01<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.trafficcone01<span>
 
-### Traffic cone 02
+### 交通锥 02
 
 ![static_prop_trafficcone02](./img/catalogue/props/static_prop_trafficcone02.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.trafficcone02<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.trafficcone02<span>
 
-### Iron plank
+### 铁板
 
 ![static_prop_ironplank](./img/catalogue/props/static_prop_ironplank.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.ironplank<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.ironplank<span>
 
-### Warning construction
+### 施工警示
 
 ![static_prop_warningconstruction](./img/catalogue/props/static_prop_warningconstruction.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.warningconstruction<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.warningconstruction<span>
 
-### Brokentile 01
+### 碎瓦 01
 
 ![static_prop_brokentile01](./img/catalogue/props/static_prop_brokentile01.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.brokentile01<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.brokentile01<span>
 
-### Brokentile 02
+### 碎瓦 02
 
 ![static_prop_brokentile02](./img/catalogue/props/static_prop_brokentile02.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.brokentile02<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.brokentile02<span>
 
-### Brokentile 03
+### 碎瓦 03
 
 ![static_prop_brokentile03](./img/catalogue/props/static_prop_brokentile03.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.brokentile03<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.brokentile03<span>
 
-### Brokentile 04
+### 碎瓦 04
 
 ![static_prop_brokentile04](./img/catalogue/props/static_prop_brokentile04.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.brokentile04<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.brokentile04<span>
 
-### Dirt / debris 01
+### 污垢 / 碎片 01
 
 ![static_prop_dirtdebris01](./img/catalogue/props/static_prop_dirtdebris01.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.dirtdebris01<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.dirtdebris01<span>
 
-### Dirt / debris 02
+### 污垢 / 碎片 02
 
 ![static_prop_dirtdebris02](./img/catalogue/props/static_prop_dirtdebris02.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.dirtdebris02<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.dirtdebris02<span>
 
-### Dirt / debris 03
+### 污垢 / 碎片 03
 
 ![static_prop_dirtdebris03](./img/catalogue/props/static_prop_dirtdebris03.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.dirtdebris03<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.dirtdebris03<span>
 
-### Traffic warning
+### 交通警告
 
 ![static_prop_trafficwarning](./img/catalogue/props/static_prop_trafficwarning.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.trafficwarning<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.trafficwarning<span>
 
-### Warning accident
+### 事故警告
 
 ![static_prop_warningaccident](./img/catalogue/props/static_prop_warningaccident.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.warningaccident<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.warningaccident<span>
 
 ---
 
-## __Sidewalk__
-### Chain barrier
+## __人行道__
+### 链栅栏
 
 ![static_prop_chainbarrier](./img/catalogue/props/static_prop_chainbarrier.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.chainbarrier<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.chainbarrier<span>
 
-### Chain barrier end
+### 链栅栏末端
 
 ![static_prop_chainbarrierend](./img/catalogue/props/static_prop_chainbarrierend.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.chainbarrierend<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.chainbarrierend<span>
 
-### Bench 01
+### 长凳 01
 
 ![static_prop_bench01](./img/catalogue/props/static_prop_bench01.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.bench01<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.bench01<span>
 
-### Bench 02
+### 长凳 02
 
 ![static_prop_bench02](./img/catalogue/props/static_prop_bench02.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.bench02<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.bench02<span>
 
-### Foodcart
+### 餐车
 
 ![static_prop_foodcart](./img/catalogue/props/static_prop_foodcart.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.foodcart<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.foodcart<span>
 
-### Kiosk 01
+### 信息亭 01
 
 ![static_prop_kiosk_01](./img/catalogue/props/static_prop_kiosk_01.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.kiosk_01<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.kiosk_01<span>
 
-### Fountain
+### 喷泉
 
 ![static_prop_fountain](./img/catalogue/props/static_prop_fountain.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.fountain<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.fountain<span>
 
-### Map table
+### 地图表
 
 ![static_prop_maptable](./img/catalogue/props/static_prop_maptable.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.maptable<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.maptable<span>
 
-### Advertisement
+### 广告
 
 ![static_prop_advertisement](./img/catalogue/props/static_prop_advertisement.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.advertisement<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.advertisement<span>
 
-### Street sign
+### 路牌
 
 ![static_prop_streetsign](./img/catalogue/props/static_prop_streetsign.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.streetsign<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.streetsign<span>
 
-### Street sign 01
+### 路牌 01
 
 ![static_prop_streetsign01](./img/catalogue/props/static_prop_streetsign01.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.streetsign01<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.streetsign01<span>
 
-### Street sign 04
+### 路牌 04
 
 ![static_prop_streetsign04](./img/catalogue/props/static_prop_streetsign04.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.streetsign04<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.streetsign04<span>
 
-### Bus stop
+### 公交车站
 
 ![static_prop_busstop](./img/catalogue/props/static_prop_busstop.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.busstop<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.busstop<span>
 
-### Bus stopl alternate
+### 备用公交车站
 
 ![static_prop_busstoplb](./img/catalogue/props/static_prop_busstoplb.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.busstoplb<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.busstoplb<span>
 
-### ATM
+### 自动提款机
 
 ![static_prop_atm](./img/catalogue/props/static_prop_atm.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.atm<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.atm<span>
 
-### Mailbox
+### 邮箱
 
 ![static_prop_mailbox](./img/catalogue/props/static_prop_mailbox.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.mailbox<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.mailbox<span>
 
-### Street fountain
+### 街头喷泉
 
 ![static_prop_streetfountain](./img/catalogue/props/static_prop_streetfountain.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.streetfountain<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.streetfountain<span>
 
-### Vending machine
+### 售货机
 
 ![static_prop_vendingmachine](./img/catalogue/props/static_prop_vendingmachine.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.vendingmachine<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.vendingmachine<span>
 
 ---
 
-## __Utility__
-### Calibrator
+## __公用__
+### 校准器
 
 ![static_prop_calibrator](./img/catalogue/props/static_prop_calibrator.webp)
 
 
-* __Blueprint ID__: <span style="color:#00a6ed;">static.prop.calibrator<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">static.prop.calibrator<span>
 
 ---
 

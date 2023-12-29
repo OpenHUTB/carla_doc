@@ -56,9 +56,9 @@ Carla 论坛</a>
 ## 其他
 
 * [Fatal error: 'version.h' has been modified since the precompiled header.](#fatal-error-versionh-has-been-modified-since-the-precompiled-header)
-* [创建 CARLA 的二进制版本。](#create-a-binary-version-of-carla)
+* [创建 Carla 的二进制版本。](#create-a-binary-version-of-carla)
 * [我可以在 Linux 计算机上打包适用于 Windows 的 CARLA，反之亦然吗？](#can-i-package-carla-for-windows-on-a-linux-machine-and-vice-versa)
-* [如何卸载 CARLA 客户端库？](#how-do-i-uninstall-the-carla-client-library)
+* [如何卸载 Carla 客户端库？](#how-do-i-uninstall-the-carla-client-library)
 
 ---
 
@@ -66,15 +66,15 @@ Carla 论坛</a>
 ## 系统要求
 <!-- ======================================================================= -->
 
-###### 构建 CARLA 所需的磁盘空间。
+###### 构建 Carla 所需的磁盘空间。
 
-> 建议至少有 170GB 可用空间。构建 CARLA 需要大约 35GB 的磁盘空间，加上虚幻引擎大约需要 95-135GB。
+> 建议至少有 170GB 可用空间。构建 Carla 需要大约 35GB 的磁盘空间，加上虚幻引擎大约需要 95-135GB。
 
 <!-- ======================================================================= -->
 
-###### 运行 CARLA 的推荐硬件。
+###### 运行 Carla 的推荐硬件。
 
-> CARLA 是一款性能要求较高的软件。它至少需要 6GB GPU，或者更好的是能够运行虚幻引擎的专用 GPU。
+> Carla 是一款性能要求较高的软件。它至少需要 6GB GPU，或者更好的是能够运行虚幻引擎的专用 GPU。
 >
 > 看看 [虚幻引擎推荐的硬件](https://www.ue4community.wiki/recommended-hardware-x1p9qyg0) 。
 
@@ -84,7 +84,7 @@ Carla 论坛</a>
 <!-- ======================================================================= -->
 ###### 从 GitHub 下载时不会出现“CarlaUE4.sh”脚本。
 
-> CARLA 的源版本中没有 `CarlaUE4.sh` 脚本。按照 [构建说明](build_linux.md) 从源代码构建 CARLA。
+> Carla 的源版本中没有 `CarlaUE4.sh` 脚本。按照 [构建说明](build_linux.md) 从源代码构建 Carla。
 > 
 > 要使用 `CarlaUE4.sh` 运行 Carla，请按照 [快速启动安装](start_quickstart.md) 进行操作。
 
@@ -98,10 +98,10 @@ Carla 论坛</a>
 > * __下载资产。__ 如果没有视觉内容，服务器将无法运行。此步骤是强制性的。
 > * __UE4_ROOT 未定义。__ 境变量未设置。请记住通过将其添加到 `~/.bashrc` 或 `~/.profile` 来使其在会话范围内持久存在。否则，需要为每个新 shell 进行设置。运行`export UE4_ROOT=<path_to_unreal_4-26>`设置这次的变量。
 > * __检查依赖。__ 确保一切都安装正确。也许其中一个命令被跳过、不成功或者依赖项不适合系统。
-> * __删除 CARLA 并再次克隆它。__ 以防万一出了问题。删除 CARLA 并重新克隆或下载。
+> * __删除 Carla 并再次克隆它。__ 以防万一出了问题。删除 Carla 并重新克隆或下载。
 > * __满足系统要求。__ Ubuntu 版本应为 16.04 或更高版本。Carla 需要大约 170GB 的磁盘空间和一个专用 GPU（或至少一个 6GB）才能运行。
 > 
-> 系统显示与 CARLA 冲突的其他特定原因可能会发生。请将这些内容发布到 [论坛](https://github.com/carla-simulator/carla/discussions/) 上，以便团队可以更多地了解它们。 
+> 系统显示与 Carla 冲突的其他特定原因可能会发生。请将这些内容发布到 [论坛](https://github.com/carla-simulator/carla/discussions/) 上，以便团队可以更多地了解它们。 
 
 <!-- ======================================================================= -->
 
@@ -204,7 +204,7 @@ Carla 论坛</a>
 
 ###### CarlaUE4 could not be compiled. Try rebuilding it from source manually.
 
-> 尝试构建 CARLA 时出现问题。使用 Visual Studio 重新构建以发现发生了什么。
+> 尝试构建 Carla 时出现问题。使用 Visual Studio 重新构建以发现发生了什么。
 >
 > __1.__ 转到 `carla/Unreal/CarlaUE4` 并右键单击 `CarlaUE4.uproject`。 
 > __2.__ 单击 __Generate Visual Studio project files__。  
@@ -319,7 +319,7 @@ Carla 论坛</a>
 
 <!-- ======================================================================= -->
 
-###### 无法运行 CARLA，无论是二进制还是源代码构建。
+###### 无法运行 Carla，无论是二进制还是源代码构建。
 
 > NVIDIA 驱动程序可能已过时。确保情况并非如此。如果问题仍未解决，请查看 [论坛](https://github.com/carla-simulator/carla/discussions/) 并发布具体问题。
 
@@ -333,79 +333,78 @@ Carla 论坛</a>
 
 ###### ImportError: DLL load failed while importing libcarla: %1 is not a valid Win32 app.
 
-> A 32-bit Python version is creating conflicts when trying to run a script. Uninstall it and leave only the Python3 x64 required. 
+> 32 位 Python 版本在尝试运行脚本时会产生冲突。卸载它并仅保留所需的 Python3 x64。
 
 <!-- ======================================================================= -->
 
 ###### ImportError: No module named 'carla'
 
-> This error occurs because Python cannot find the CARLA library. The CARLA library is contained in an `.egg` file, located in the directory `PythonAPI/carla/dist` and all the example scripts will look for it in this directory. The `.egg` file follows the nomenclature of `carla-<carla-version>-py<python-version>-<operating-system>.egg`.
+> 出现此错误的原因是 Python 找不到 Carla 库。Carla 库包含在位于`PythonAPI/carla/dist`目录中的一个`.egg`文件中，所有示例脚本都将在此目录中查找它。该`.egg`文件遵循carla-<carla-version>-py<python-version>-<operating-system>.egg 命名法。
 >
 
-!!! Important
-    CARLA only used `.egg` files for the client library in versions prior to 0.9.12. If you are using 0.9.12+, there are several methods to use/install the client library. If you are using one of the newer methods for the client library (`.whl` or PyPi download) the information in this section will not be relevant to you.
+!!! 重要
+    Carla 仅在 0.9.12 之前的版本中使用客户端库文件 `.egg`。如果您使用的是 0.9.12+，有多种方法可以使用/安装客户端库。如果您使用客户端库（`.whl` 或 PyPi 下载）的较新方法之一，本节中的信息将与您无关。
 
-    Read more about the newer methods to use/install the client library in the [__Quickstart tutorial__](start_quickstart.md#carla-0912).
+    在 [__快速入门教程__](start_quickstart.md#carla-0912) 中阅读有关使用/安装客户端库的新方法的更多信息。
 
->If you are using a packaged version of CARLA, there will be several `.egg` files, corresponding to different versions of Python, depending on the version of CARLA. Make sure you are running the scripts with one of these Python versions. To check the default Python version, type the following into the command line:
+> 如果您使用的是打包版本的 Carla，则会有多个 `.egg` 文件，对应不同版本的 Python，具体取决于 Carla 的版本。确保您正在使用这些 Python 版本之一运行脚本。要检查默认的 Python 版本，请在命令行中键入以下内容：
 >
 >
 >       python3 --version
->       # or
+>       # 或者
 >       python --version 
 >
 
->If you built Python from source, the `.egg` file will be built according to the default Python version on your system. In Linux this will be the default Python version returned for:
+> 如果您从源代码构建 Python，则该`.egg` 文件将根据系统上的默认 Python 版本构建。在 Linux 中，这将是返回的默认 Python 版本：
 
 
 >       /usr/bin/env python3 --version
->       # or if you specify ARGS="--python-version=2"
+>       # 或者如果你指定 ARGS="--python-version=2"
 >       /usr/bin/env python2 --version
 
 
->In Windows it will be the default Python version for:
+> 在 Windows 中，它将成为以下功能的默认 Python 版本：
 
 >       py -3 --version
 
->Make sure you are running your scripts with the version of Python that corresponds to your `.egg` file.
->In Linux, you may also need to set your Python path to point to the CARLA `.egg`. To do this, run the following command:
+> 确保您使用与您的 `.egg` 文件对应的 Python 版本运行脚本.egg。在 Linux 中，您可能还需要将 Python 路径设置为指向 Carla。为此，请运行以下命令：
 
 >       export PYTHONPATH=$PYTHONPATH:<path/to/carla/>/PythonAPI/carla/dist/<your_egg_file>
->       # Check if CARLA can now be found
+>       # 检查现在 Carla 是否能发现
 >       python3 -c 'import carla;print("Success")'
 
->Be aware that virtual environments, or other Python environments like Conda, can complicate the installation of CARLA. Make sure you have set up your Python defaults and paths accordingly.
+> 请注意，虚拟环境或 Conda 等其他 Python 环境可能会使 Carla 的安装变得复杂。确保您已相应地设置 Python 默认值和路径。
 
 ---
 
-## Other
+## 其他
 <!-- ======================================================================= -->
 
 ###### Fatal error: 'version.h' has been modified since the precompiled header.
 
-> This happens from time to time due to Linux updates. There is a special target in the Makefile for this issue. It takes a long time but fixes the issue:
+> 由于 Linux 更新，这种情况时常发生。Makefile 中有一个针对此问题的特殊目标。虽然花了很长时间，但解决了问题： 
 >
 >      make hard-clean
 >      make CarlaUE4Editor
 
 <!-- ======================================================================= -->
 
-###### Create a binary version of CARLA.
+###### 创建 Carla 的二进制版本。
 
-> In Linux, run `make package` in the project folder. The package will include the project, and the Python API modules.  
+> 在 Linux 中，在项目文件夹中运行 `make package`。该包将包括项目和 Python API 模块。 
 >
-> Alternatively, it is possible to compile a binary version of CARLA within Unreal Editor. Open the CarlaUE4 project, go to the menu `File/Package Project`, and select a platform. This may take a while. 
+> 或者，可以在虚幻编辑器中编译 Carla 的二进制版本。打开 CarlaUE4 项目，转到菜单 `File/Package Project`，然后选择一个平台。可能还要等一下。 
 
 <!-- ======================================================================= -->
 
-###### Can I package CARLA for Windows on a Linux machine and vice versa?
+###### 我可以在 Linux 计算机上打包适用于 Windows 的 Carla，反之亦然吗？
 
->Although this feature is available for Unreal Engine, it is not available in CARLA. We have a number of dependencies that are not supported to be cross compiled.
+>虽然此功能适用于虚幻引擎，但在 Carla 中不可用。我们有许多不支持交叉编译的依赖项。
 
 <!-- ======================================================================= -->
-###### How do I uninstall the CARLA client library?
+###### 如何卸载 Carla 客户端库？
 
->If you installed the client library using __pip/pip3__, you should uninstall it by running:
+>如果您使用 __pip/pip3__ 安装了客户端库，则应通过运行以下命令将其卸载： 
 
 ```sh
 # Python 3
