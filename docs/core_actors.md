@@ -202,40 +202,41 @@ if vehicle_actor.is_at_traffic_light():
 
 可以使用 API 设置交通灯的状态。每个状态花费的秒数也是如此。可能的状态用 [carla.TrafficLightState](python_api.md#carla.TrafficLightState) 描述为一系列枚举值。
 ```py
-#Change a red traffic light to green
+# 交通灯从红变绿
 if traffic_light.get_state() == carla.TrafficLightState.Red:
     traffic_light.set_state(carla.TrafficLightState.Green)
     traffic_light.set_set_green_time(4.0)
 ``` 
 
-!!! Note
-    Vehicles will only be aware of a traffic light if the light is red.  
+!!! 注意
+    只有当信号灯为红色时，车辆才会意识到交通灯。
 
-### Vehicles
+### 车辆
 
-[__carla.Vehicle__](python_api.md#carla.Vehicle) is a special type of actor. It incorporates special internal components that simulate the physics of wheeled vehicles. This is achieved by applying four types of different controls:  
+[__carla.Vehicle__](python_api.md#carla.Vehicle) 是一种特殊类型的演员。它采用了仿真轮式车辆物理特性的特殊内部组件。这是通过应用四种不同的控件来实现的：
 
-* __[carla.VehicleControl](python_api.md#carla.VehicleControl)__ provides input for driving commands such as throttle, steering, brake, etc. 
+* __[carla.VehicleControl](python_api.md#carla.VehicleControl)__ 提供油门、转向、刹车等驾驶命令的输入。
 ```py
     vehicle.apply_control(carla.VehicleControl(throttle=1.0, steer=-1.0))
 ```
-* __[carla.VehiclePhysicsControl](python_api.md#carla.VehiclePhysicsControl)__ defines physical attributes of the vehicle and contains two more controllers:
+* __[carla.VehiclePhysicsControl](python_api.md#carla.VehiclePhysicsControl)__ 定义车辆的物理属性并包含另外两个控制器：
 
-    * [carla.GearPhysicsControl](python_api.md#carla.GearPhysicsControl) which controls the gears. 
-    * [carla.WheelPhysicsControl](python_api.md#carla.WheelPhysicsControl) which provides specific control over each wheel.  
+    * [carla.GearPhysicsControl](python_api.md#carla.GearPhysicsControl) 控制齿轮。
+    * [carla.WheelPhysicsControl](python_api.md#carla.WheelPhysicsControl) 提供对每个轮子的特定控制。
 
 ```py
     vehicle.apply_physics_control(carla.VehiclePhysicsControl(max_rpm = 5000.0, center_of_mass = carla.Vector3D(0.0, 0.0, 0.0), torque_curve=[[0,400],[5000,400]]))
 ```
 
-Vehicles have a [carla.BoundingBox](python_api.md#carla.BoundingBox) encapsulating them. This bounding box allows physics to be applied to the vehicle and enables collisions to be detected.  
+车辆有一个 [carla.BoundingBox](python_api.md#carla.BoundingBox) 封装它们。该边界框允许将物理原理应用于车辆并检测碰撞。
 
 ```py
     box = vehicle.bounding_box
-    print(box.location)         # Location relative to the vehicle.
+    print(box.location)         # 相对车辆的位置
     print(box.extent)           # XYZ half-box extents in meters.
 ```
 
+通过启用 [sweep wheel collision parameter][enable_sweep] 扫轮碰撞参数可以改善车轮的物理特性。默认的轮子物理系统对每个轮子使用从轴到地板的单射线投射，但是当启用扫掠轮碰撞时，将检查轮子的整个体积是否发生碰撞。它可以这样启用：
 The physics of vehicle wheels can be improved by enabling the [sweep wheel collision parameter][enable_sweep]. The default wheel physics uses single ray casting from the axis to the floor for each wheel but when sweep wheel collision is enabled, the full volume of the wheel is checked against collisions. It can be enabled as such:
 
 ```py
