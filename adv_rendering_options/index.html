@@ -89,29 +89,29 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">渲染选项</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#graphics-quality">Graphics quality</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">图形质量</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#vulkan-graphics-api">Vulkan graphics API</a>
+    <li class="toctree-l3"><a class="reference internal" href="#vulkan-api">Vulkan 图形 API</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#quality-levels">Quality levels</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">质量等级</a>
         <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#epic-mode">Epic mode</a>
+    <li class="toctree-l4"><a class="reference internal" href="#_4">史诗模式</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#low-mode">Low mode</a>
+    <li class="toctree-l4"><a class="reference internal" href="#_5">低质量模式</a>
     </li>
         </ul>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#no-rendering-mode">No-rendering mode</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_6">无渲染模式</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#off-screen-mode">Off-screen mode</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_7">离屏模式</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#off-screen-vs-no-rendering">Off-screen vs no-rendering</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_8">离屏与无渲染</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#setting-off-screen-mode-version-0912">Setting off-screen mode (Version 0.9.12+)</a>
+    <li class="toctree-l3"><a class="reference internal" href="#0912">设置离屏模式（版本0.9.12+）</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#setting-off-screen-mode-versions-prior-to-0912">Setting off-screen mode (Versions prior to 0.9.12)</a>
+    <li class="toctree-l3"><a class="reference internal" href="#0912_1">设置离屏模式（0.9.12之前的版本）</a>
     </li>
         </ul>
     </li>
@@ -283,51 +283,51 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="rendering-options">Rendering options</h1>
-<p>This guide details the different rendering options available in CARLA, including quality levels, no-rendering mode and off-screen mode. It also explains how version 0.9.12 of CARLA differs from previous versions in these respects.</p>
+                <h1 id="_1"><a href="https://carla.readthedocs.io/en/latest/adv_rendering_options/#no-rendering-mode">渲染选项</a></h1>
+<p>本指南详细介绍了 Carla 中可用的不同渲染选项，包括质量级别、无渲染模式和离屏模式。它还解释了 Carla 0.9.12 版本在这些方面与以前版本的不同之处。</p>
 <ul>
-<li><a href="#graphics-quality"><strong>Graphics quality</strong></a>  <ul>
-<li><a href="#vulkan-graphics-api">Vulkan graphics API</a>  </li>
-<li><a href="#quality-levels">Quality levels</a>  </li>
+<li><a href="#graphics-quality"><strong>图形质量</strong></a>  <ul>
+<li><a href="#vulkan-graphics-api">Vulkan 图形 API</a>  </li>
+<li><a href="#quality-levels">质量等级</a>  </li>
 </ul>
 </li>
-<li><a href="#no-rendering-mode"><strong>No-rendering mode</strong></a>  </li>
-<li><a href="#off-screen-mode"><strong>Off-screen mode</strong></a>  <ul>
-<li><a href="#off-screen-vs-no-rendering">Off-screen Vs no-rendering</a></li>
-<li><a href="#setting-off-screen-mode-version-0912">Setting off-screen mode (Version 0.9.12+)</a></li>
-<li><a href="#setting-off-screen-mode-versions-prior-to-0912">Setting off-screen mode (Versions prior to 0.9.12)</a></li>
+<li><a href="#no-rendering-mode"><strong>无渲染模式</strong></a>  </li>
+<li><a href="#off-screen-mode"><strong>离屏模式</strong></a>  <ul>
+<li><a href="#off-screen-vs-no-rendering">离屏与无渲染</a></li>
+<li><a href="#setting-off-screen-mode-version-0912">设置离屏模式（版本0.9.12+）)</a></li>
+<li><a href="#setting-off-screen-mode-versions-prior-to-0912">设置离屏模式（0.9.12之前的版本）</a></li>
 </ul>
 </li>
 </ul>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>Some of the command options below are not equivalent in the CARLA packaged releases. Read the <a href="../start_quickstart/#command-line-options">Command line options</a> section to learn more about this. </p>
+<div class="admonition 重要">
+<p class="admonition-title">重要</p>
+<p>下面的一些命令选项在 Carla 打包版本中并不等效。请阅读<a href="../start_quickstart/#command-line-options">命令行选项</a> 部分以了解有关此内容的更多信息。</p>
 </div>
 <hr />
-<h2 id="graphics-quality">Graphics quality</h2>
-<h3 id="vulkan-graphics-api">Vulkan graphics API</h3>
-<p>Starting from version 0.9.12, CARLA runs on Unreal Engine 4.26 which only supports the Vulkan graphics API. Previous versions of CARLA could be configured to use OpenGL. If you are using a previous version of CARLA, please select the corresponding documentation version in the lower right corner of the screen for more information.</p>
-<h3 id="quality-levels">Quality levels</h3>
-<p>CARLA has two different levels for graphics quality. <strong>Epic</strong>  is the default and is the most detailed. <strong>Low</strong> disables all post-processing and shadows and the drawing distance is set to 50m instead of infinite.</p>
-<p>The simulation runs significantly faster in <strong>Low</strong> mode. This is helpful in situations where there are technical limitations, where precision is nonessential or to train agents under conditions with simpler data or involving only close elements.</p>
-<p>The images below compare both modes. The flag used is the same for Windows and Linux. There is no equivalent option when working with the build, but the UE editor has its own quality settings. Go to <code>Settings/Engine Scalability Settings</code> for a greater customization of the desired quality. </p>
-<h4 id="epic-mode">Epic mode</h4>
+<h2 id="_2">图形质量</h2>
+<h3 id="vulkan-api">Vulkan 图形 API</h3>
+<p>从版本 0.9.12 开始，Carla 在虚幻引擎 4.26上运行，仅支持 Vulkan 图形API。以前版本的 Carla 可以配置为使用 OpenGL。如果您使用的是 Carla 的早期版本，请在屏幕右下角选择相应的文档版本以获取更多信息。</p>
+<h3 id="_3">质量等级</h3>
+<p>CARLA 有两个不同的图形质量级别。<strong>Epic</strong> 是默认的并且是最详细的。<strong>Low</strong> 会禁用所有后处理和阴影，并且绘图距离设置为 50m 而不是无限。</p>
+<p>模拟在 <strong>Low</strong> 模式下运行速度明显更快。这在存在技术限制、精度不重要的情况下或者在具有更简单数据或仅涉及接近元素的条件下训练代理的情况下很有帮助。</p>
+<p>下图比较了两种模式。Windows 和 Linux 所使用的标志是相同的。使用构建时没有等效选项，但虚幻编辑器有自己的质量设置。访问<code>Settings/Engine Scalability Settings</code> 以获得所需质量的更大定制。</p>
+<h4 id="_4">史诗模式</h4>
 <p><code>./CarlaUE4.sh -quality-level=Epic</code></p>
 <p><img alt="Epic mode screenshot" src="../img/rendering_quality_epic.jpg" />
-<em>Epic mode screenshot</em></p>
-<h4 id="low-mode">Low mode</h4>
+<em>史诗模式截图</em></p>
+<h4 id="_5">低质量模式</h4>
 <p><code>./CarlaUE4.sh -quality-level=Low</code></p>
 <p><img alt="Low mode screenshot" src="../img/rendering_quality_low.jpg" />
-<em>Low mode screenshot</em></p>
+<em>低质量模式截图</em></p>
 <p><br></p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>The issue that made Epic mode show an abnormal whiteness has been fixed. If the problem persists, delete <code>GameUserSettings.ini</code>. It is saving previous settings, and will be generated again in the next run. <strong>Ubuntu path:</strong> <code>~/.config/Epic/CarlaUE4/Saved/Config/LinuxNoEditor/</code> <strong>Windows path:</strong> <code>&lt;Package folder&gt;\WindowsNoEditor\CarlaUE4\Saved\Config\WindowsNoEditor\</code></p>
+<div class="admonition 重要">
+<p class="admonition-title">重要</p>
+<p>导致史诗模式显示异常白度的问题已得到修复。如果问题仍然存在，请删除 <code>GameUserSettings.ini</code>。它正在保存以前的设置，并将在下次运行时再次生成。 <strong>Ubuntu 路径：</strong> <code>~/.config/Epic/CarlaUE4/Saved/Config/LinuxNoEditor/</code> <strong>Windows 路径：</strong> <code>&lt;Package folder&gt;\WindowsNoEditor\CarlaUE4\Saved\Config\WindowsNoEditor\</code></p>
 </div>
 <hr />
-<h2 id="no-rendering-mode">No-rendering mode</h2>
-<p>This mode disables rendering. Unreal Engine will skip everything regarding graphics. This mode prevents rendering overheads. It facilitates a lot traffic simulation and road behaviours at very high frequencies. To enable or disable no-rendering mode, change the world settings, or use the provided script in <code>/PythonAPI/util/config.py</code>.  </p>
-<p>Below is an example on how to enable and then disable it via script:</p>
+<h2 id="_6">无渲染模式</h2>
+<p>此模式禁用渲染。虚幻引擎将跳过有关图形的所有内容。此模式可防止渲染开销。它有利于大量交通模拟和非常高频率的道路行为。要启用或禁用无渲染模式，请更改世界设置，或使用<code>/PythonAPI/util/config.py</code>。</p>
+<p>以下是如何通过脚本启用和禁用它的示例：</p>
 <pre><code class="language-py">settings = world.get_settings()
 settings.no_rendering_mode = True
 world.apply_settings(settings)
@@ -335,66 +335,66 @@ world.apply_settings(settings)
 settings.no_rendering_mode = False
 world.apply_settings(settings)
 </code></pre>
-<p>To disable and enable rendering via the command line, run the following commands:</p>
+<p>要通过命令行禁用和启用渲染，请运行以下命令：</p>
 <pre><code class="language-sh">cd PythonAPI/util &amp;&amp; python3 config.py --no-rendering
 </code></pre>
 <pre><code class="language-sh">cd PythonAPI/util &amp;&amp; python3 config.py --rendering
 </code></pre>
-<p>The script <code>PythonAPI/examples/no_rendering_mode.py</code> will enable no-rendering mode, and use <strong>Pygame</strong> to create an aerial view using simple graphics:</p>
+<p>脚本 <code>PythonAPI/examples/no_rendering_mode.py</code> 将启用无渲染模式，并使用简单图形利用 <strong>Pygame</strong> 创建鸟瞰图：</p>
 <pre><code class="language-sh">cd PythonAPI/examples &amp;&amp; python3 no_rendering_mode.py
 </code></pre>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>In no-rendering mode, cameras and GPU sensors will return empty data. The GPU is not used. Unreal Engine is not drawing any scene. </p>
+<div class="admonition 警告">
+<p class="admonition-title">警告</p>
+<p>在无渲染模式下，相机和 GPU 传感器将返回空数据。不使用 GPU。虚幻引擎未绘制任何场景。</p>
 </div>
 <hr />
-<h2 id="off-screen-mode">Off-screen mode</h2>
-<p>Starting from version 0.9.12, CARLA runs on Unreal Engine 4.26 which introduced support for off-screen rendering. In previous versions of CARLA, off-screen rendering depended upon the graphics API you were using.</p>
-<h3 id="off-screen-vs-no-rendering">Off-screen vs no-rendering</h3>
-<p>It is important to understand the distinction between <strong>no-rendering mode</strong> and <strong>off-screen mode</strong>:</p>
+<h2 id="_7">离屏模式</h2>
+<p>从版本 0.9.12 开始，Carla 在虚幻引擎 4.26 上运行，该引擎引入了对离屏渲染的支持。在 Carla 的早期版本中，离屏渲染取决于您使用的图形 API。</p>
+<h3 id="_8">离屏与无渲染</h3>
+<p>了解无渲染模式(<strong>no-rendering mode</strong>)和离屏模式(<strong>off-screen mode</strong>)之间的区别很重要：</p>
 <ul>
-<li><strong>No-rendering mode:</strong> Unreal Engine does not render anything. Graphics are not computed. GPU based sensors return empty data.</li>
-<li><strong>Off-screen mode:</strong> Unreal Engine is working as usual, rendering is computed but there is no display available. GPU based sensors return data.</li>
+<li><strong>无渲染模式：</strong> 虚幻引擎不渲染任何内容。图形不被计算。基于 GPU 的传感器返回空数据。</li>
+<li><strong>离屏模式：</strong> 虚幻引擎正常工作，计算渲染，但没有可用的显示。基于 GPU 的传感器返回数据。</li>
 </ul>
-<h3 id="setting-off-screen-mode-version-0912">Setting off-screen mode (Version 0.9.12+)</h3>
-<p>To start CARLA in off-screen mode, run the following command:</p>
+<h3 id="0912">设置离屏模式（版本0.9.12+）</h3>
+<p>要在离屏模式下启动 CARLA，请运行以下命令：</p>
 <pre><code class="language-sh">./CarlaUE4.sh -RenderOffScreen
 </code></pre>
-<h3 id="setting-off-screen-mode-versions-prior-to-0912">Setting off-screen mode (Versions prior to 0.9.12)</h3>
-<p>Using off-screen mode differs if you are using either OpenGL or Vulkan. </p>
-<p><strong>Using OpenGL</strong>, you can run in off-screen mode in Linux by running the following command:</p>
+<h3 id="0912_1">设置离屏模式（0.9.12之前的版本）</h3>
+<p>如果您使用 OpenGL 或 Vulkan，则使用离屏模式会有所不同。</p>
+<p><strong>使用 OpenGL</strong>，您可以通过运行以下命令在 Linux 中以离屏模式运行：</p>
 <pre><code class="language-sh"># Linux
 DISPLAY= ./CarlaUE4.sh -opengl
 </code></pre>
-<p><strong>Vulkan</strong> requires extra steps because it needs to communicate to the display X server using the X11 network protocol to work properly. The following steps will guide you on how to set up an Ubuntu 18.04 machine without a display so that CARLA can run with Vulkan.</p>
-<p><strong>1. Fetch the latest NVIDIA driver:</strong></p>
+<p><strong>Vulkan</strong> 需要额外的步骤，因为它需要使用 X11 网络协议与显示 X 服务器通信才能正常工作。以下步骤将指导您如何设置没有显示屏的 Ubuntu 18.04 计算机，以便 Carla 可以与 Vulkan 一起运行。</p>
+<p><strong>1. 获取最新的 NVIDIA 驱动程序：</strong></p>
 <pre><code class="language-sh">wget http://download.nvidia.com/XFree86/Linux-x86_64/450.57/NVIDIA-Linux-x86_64-450.57.run
 </code></pre>
-<p><strong>2. Install the driver:</strong></p>
+<p><strong>2. 安装驱动：</strong></p>
 <pre><code class="language-sh">sudo /bin/bash NVIDIA-Linux-x86_64-450.57.run --accept-license --no-questions --ui=none
 </code></pre>
-<p><strong>3. Install the xserver related dependencies:</strong></p>
+<p><strong>3. 安装 xserver 相关依赖：</strong></p>
 <pre><code class="language-sh">sudo apt-get install -y xserver-xorg mesa-utils libvulkan1
 </code></pre>
-<p><strong>4. Configure the xserver:</strong></p>
+<p><strong>4. 配置 xserver：</strong></p>
 <pre><code class="language-sh">sudo nvidia-xconfig --preserve-busid -a --virtual=1280x1024
 </code></pre>
-<p><strong>5. Set the SDL_VIDEODRIVER variable.</strong></p>
+<p><strong>5. 设置 SDL_VIDEODRIVER 变量。</strong></p>
 <pre><code class="language-sh">ENV SDL_VIDEODRIVER=x11
 </code></pre>
-<p><strong>6. Run the xserver:</strong></p>
+<p><strong>6. 运行 xserver：</strong></p>
 <pre><code class="language-sh">sudo X :0 &amp;
 </code></pre>
-<p><strong>7. Run CARLA:</strong></p>
+<p><strong>7. 运行 Carla：</strong></p>
 <pre><code class="language-sh">DISPLAY=:0.GPU ./CarlaUE4.sh -vulkan
 </code></pre>
-<p>CARLA provides a Dockerfile that performs all the above steps <a href="https://github.com/carla-simulator/carla/blob/0.9.12/Util/Docker/Release.Dockerfile">here</a>.</p>
+<p>Carla 在 <a href="https://github.com/carla-simulator/carla/blob/0.9.12/Util/Docker/Release.Dockerfile">这里</a> 提供了一个执行上述所有步骤的 Dockerfile 。</p>
 <hr />
-<p>Any issues or doubts related with this topic can be posted in the CARLA forum.</p>
+<p>与此主题相关的任何问题或疑问都可以在 Carla 论坛中发布。</p>
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA forum</a>
+CARLA 论坛</a>
 </p>
 </div>
               

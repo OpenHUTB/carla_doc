@@ -230,11 +230,11 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">文档标准</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#docs-structure">Docs structure</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">文档结构</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#rules">Rules</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">规则</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#exceptions">Exceptions</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">例外情况</a>
     </li>
     </ul>
                   </li>
@@ -263,34 +263,33 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="documentation-standard">Documentation Standard</h1>
-<p>This document will serve as a guide and example of some rules that need to be followed in order to contribute to the documentation.</p>
+                <h1 id="_1">文档标准</h1>
+<p>本文档将作为为文档做出贡献而需要遵循的一些规则的指南和示例。</p>
 <ul>
-<li><a href="#docs-structure"><strong>Docs structure</strong></a>  </li>
-<li><a href="#rules"><strong>Rules</strong></a>  </li>
-<li><a href="#exceptions"><strong>Exceptions</strong></a>  </li>
+<li><a href="#docs-structure"><strong>文档结构</strong></a>  </li>
+<li><a href="#rules"><strong>规则</strong></a>  </li>
+<li><a href="#exceptions"><strong>例外情况</strong></a>  </li>
 </ul>
 <hr />
-<h2 id="docs-structure">Docs structure</h2>
-<p>We use a mix of markdown and HTML tags to customize the documentation along with an <a href="https://github.com/carla-simulator/carla/tree/master/Docs/extra.css"><code>extra.css</code></a> file.
-To update Python API docs, instead of directly modifying the Markdown you need to edit the corresponding YAML files inside <a href="https://github.com/carla-simulator/carla/tree/master/PythonAPI/docs"><code>carla/PythonAPI/docs/</code></a> and run <a href="https://github.com/carla-simulator/carla/blob/master/PythonAPI/docs/doc_gen.py"><code>doc_gen.py</code></a> or <code>make PythonAPI.docs</code>.  </p>
-<p>This will re-generate the respective Markdown files inside <code>carla/Docs/</code>, which can then be fed into <code>mkdocs</code>.</p>
+<h2 id="_2">文档结构</h2>
+<p>我们和 <a href="https://github.com/carla-simulator/carla/tree/master/Docs/extra.css"><code>extra.css</code></a> 一起，混合使用 Markdown 和 HTML 标签来自定义文档和文件。要更新 Python API 文档，您需要编辑  <a href="https://github.com/carla-simulator/carla/tree/master/PythonAPI/docs"><code>carla/PythonAPI/docs/</code></a> 内部相应的 YAML 文件并运行 <a href="https://github.com/carla-simulator/carla/blob/master/PythonAPI/docs/doc_gen.py"><code>doc_gen.py</code></a> 或 <code>make PythonAPI.docs</code>，而不是直接修改 Markdown。</p>
+<p>这将在 <code>carla/Docs/</code> 中重新生成相应的 Markdown 文件，然后可以将其输入到 <code>mkdocs</code>.</p>
 <hr />
-<h2 id="rules">Rules</h2>
+<h2 id="_3">规则</h2>
 <ul>
-<li>Leave always an empty line between sections and at the end of the document.</li>
-<li>Writting should not exceed <code>100</code> columns, except for HTML related content, markdown tables, code snipets and referenced links.</li>
-<li>If an inline link exceeds the limit, use referenced <code>[name][reference_link]</code> markdown notation <code>[reference_link]: https://</code> rather than <code>[name](https://)</code>.</li>
-<li>Use <code>&lt;br&gt;</code> to make inline jumps rather than leaving two spaces at the end of a line.</li>
-<li>Use <code>&lt;h1&gt;Title&lt;/h1&gt;</code> at the beggining of a new page in order to make a Title or <code>&lt;hx&gt;Heading&lt;hx&gt;</code> to make a heading that <strong>won't show</strong> on the navigation bar.</li>
-<li>Use <code>------</code> underlining a Heading or <code>#</code> hierarchy to make headings and show them in the navigation bar.</li>
+<li>各节之间和文档末尾始终留有空行。</li>
+<li>除 HTML 相关内容、Markdown 表格、代码片段和引用链接外，书写不应超过 <code>100</code> 列。</li>
+<li>如果内联链接超出限制，请使用引用的 <code>[name][reference_link]</code> markdown 符号<code>[reference_link]: https://</code>，而不是<code>[name](https://)</code>。 </li>
+<li>使用 <code>&lt;br&gt;</code> 进行内联跳转，而不是在行尾留下两个空格。</li>
+<li>在新页面的开头使用 <code>&lt;h1&gt;Title&lt;/h1&gt;</code> ，以制作标题或 <code>&lt;hx&gt;Heading&lt;hx&gt;</code> 制作<strong>不会显示</strong>在导航栏上的标题。</li>
+<li>使用 <code>------</code> 强调标题或 <code>#</code> 层次结构下划线来制作标题并将其显示在导航栏中。</li>
 </ul>
 <hr />
-<h2 id="exceptions">Exceptions</h2>
+<h2 id="_4">例外情况</h2>
 <ul>
-<li>Documentation generated via Python scripts like PythonAPI reference</li>
+<li>通过 Python 脚本生成的文档，例如 PythonAPI 参考</li>
 </ul>
-<p>Handy markdown <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">cheatsheet</a>.</p>
+<p>方便的 markdown <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">cheatsheet</a>。</p>
               
             </div>
           </div><footer>

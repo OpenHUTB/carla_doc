@@ -228,7 +228,7 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">编码标准</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#general">General</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">一般</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#python">Python</a>
     </li>
@@ -263,42 +263,36 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="coding-standard">Coding standard</h1>
+                <h1 id="_1">编码标准</h1>
 <ul>
-<li><a href="#general"><strong>General</strong></a>  </li>
+<li><a href="#general"><strong>一般</strong></a>  </li>
 <li><a href="#python"><strong>Python</strong></a>  </li>
 <li><a href="#c++"><strong>C++</strong></a>  </li>
 </ul>
 <hr />
-<h2 id="general">General</h2>
+<h2 id="_2">一般</h2>
 <ul>
-<li>Use spaces, not tabs.</li>
-<li>Avoid adding trailing whitespace as it creates noise in the diffs.</li>
+<li>使用空格，而不是制表符。</li>
+<li>避免添加尾随空格，因为它会在差异中产生噪音。</li>
 </ul>
 <hr />
 <h2 id="python">Python</h2>
 <ul>
-<li>Comments should not exceed 80 columns, code should not exceed 120 columns.</li>
-<li>All code must be compatible with Python 2.7 and 3.7.</li>
-<li><a href="https://www.pylint.org/">Pylint</a> should not give any error or warning (few exceptions
-    apply with external classes like <code>numpy</code> and <code>pygame</code>, see our <code>.pylintrc</code>).</li>
-<li>Python code follows <a href="https://www.python.org/dev/peps/pep-0008/">PEP8 style guide</a> (use <code>autopep8</code> whenever
-    possible).</li>
+<li>注释不应超过 80 列，代码不应超过 120 列。</li>
+<li>所有代码必须与 Python 2.7 和 3.7 兼容。</li>
+<li><a href="https://www.pylint.org/">Pylint</a> 不应给出任何错误或警告（很少有例外适用于外部类，如 <code>numpy</code> 和 <code>pygame</code>，请参阅我们的 <code>.pylintrc</code>）。</li>
+<li>Python 代码遵循 <a href="https://www.python.org/dev/peps/pep-0008/">PEP8 风格指南</a>（<code>autopep8</code>尽可能使用）。</li>
 </ul>
 <hr />
 <h2 id="c">C++</h2>
 <ul>
-<li>Comments should not exceed 80 columns, code may exceed this limit a bit in
-    rare occasions if it results in clearer code.</li>
-<li>Compilation should not give any error or warning
+<li>注释不应超过 80 列，如果可以使代码更清晰，在极少数情况下代码可能会稍微超出此限制。</li>
+<li>编译不应给出任何错误或警告
     (<code>clang++-8 -Wall -Wextra -std=C++14 -Wno-missing-braces</code>).</li>
-<li>The use of <code>throw</code> is forbidden, use <code>carla::throw_exception</code> instead.</li>
-<li>Unreal C++ code (CarlaUE4 and Carla plugin) follow the
-    <a href="https://docs.unrealengine.com/latest/INT/Programming/Development/CodingStandard/">Unreal Engine's Coding Standard</a> with the exception of using
-    spaces instead of tabs.</li>
-<li>LibCarla uses a variation of <a href="https://google.github.io/styleguide/cppguide.html">Google's style guide</a>.</li>
-<li>Uses of <code>try-catch</code> blocks should be surrounded by
-    <code>#ifndef LIBCARLA_NO_EXCEPTIONS</code> if the code is used in the server-side.</li>
+<li>禁止使用 <code>throw</code>，请改为使用 <code>carla::throw_exception</code>。</li>
+<li>虚幻 C++ 代码（CarlaUE4 和 Carla 插件）遵循 <a href="https://docs.unrealengine.com/latest/INT/Programming/Development/CodingStandard/">虚幻引擎的编码标准</a> ，但使用空格而不是制表符。</li>
+<li>LibCarla 使用 <a href="https://google.github.io/styleguide/cppguide.html">谷歌风格指南</a> 的变体。</li>
+<li>如果代码在服务器端使用，则应将 <code>try-catch</code> 块的使用 <code>#ifndef LIBCARLA_NO_EXCEPTIONS</code> 括起来 。</li>
 </ul>
               
             </div>

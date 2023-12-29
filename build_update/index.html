@@ -59,23 +59,23 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">Update CARLA</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#update-commands-summary">Update commands summary</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_1">更新命令摘要</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#get-latest-binary-release">Get latest binary release</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">获取最新的二进制版本</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#update-linux-and-windows-build">Update Linux and Windows build</a>
+    <li class="toctree-l2"><a class="reference internal" href="#linux-windows">更新 Linux 和 Windows 构建</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#clean-the-build">Clean the build</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">清理构建</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#pull-from-origin">Pull from origin</a>
+    <li class="toctree-l3"><a class="reference internal" href="#origin">从 origin 拉取</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#download-the-assets">Download the assets</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">下载资产</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#launch-the-server">Launch the server</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">启动服务器</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#get-development-assets">Get development assets</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_6">获取开发版的资产</a>
     </li>
     </ul>
                   </li>
@@ -275,58 +275,58 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="update-carla">Update CARLA</h1>
+                <h1 id="carla">更新 Carla</h1>
 <ul>
-<li><a href="#update-commands-summary"><strong>Update commands summary</strong></a>  </li>
-<li><a href="#get-latest-binary-release"><strong>Get the lastest binary release</strong></a>  </li>
-<li><a href="#update-linux-and-windows-build"><strong>Update Linux and Windows build</strong></a>  <ul>
-<li><a href="#clean-the-build">Clean the build</a>  </li>
-<li><a href="#pull-from-origin">Pull from origin</a>  </li>
-<li><a href="#download-the-assets">Download the assets</a>  </li>
-<li><a href="#launch-the-server">Launch the server</a>  </li>
+<li><a href="#update-commands-summary"><strong>更新命令摘要</strong></a>  </li>
+<li><a href="#get-latest-binary-release"><strong>获取最新的二进制版本</strong></a>  </li>
+<li><a href="#update-linux-and-windows-build"><strong>更新 Linux 和 Windows 构建</strong></a>  <ul>
+<li><a href="#clean-the-build">清除构建</a>  </li>
+<li><a href="#pull-from-origin">从 origin 拉取</a>  </li>
+<li><a href="#download-the-assets">下载资产</a>  </li>
+<li><a href="#launch-the-server">启动服务器</a>  </li>
 </ul>
 </li>
-<li><a href="#get-development-assets"><strong>Get development assets</strong></a>  </li>
+<li><a href="#get-development-assets"><strong>获取开发资产</strong></a>  </li>
 </ul>
-<p>To post unexpected issues, doubts or suggestions, feel free to login in the CARLA forum.</p>
+<p>要发布意外问题、疑问或建议，请随时登录 CARLA 论坛。</p>
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the latest CARLA release">
-CARLA forum</a>
+CARLA 论坛</a>
 </p>
 </div>
 
 <hr />
-<h2 id="update-commands-summary">Update commands summary</h2>
+<h2 id="_1">更新命令摘要</h2>
 <details>
-<summary> Show command lines to update CARLA</summary>
+<summary> 显示更新 CARLA 的命令行 </summary>
 
 
-<pre><code class="language-sh"># Update a CARLA packaged release. 
-#   1. Delete the current one. 
-#   2. Follow the Quick start installation to get the one desired. 
+<pre><code class="language-sh"># 更新 CARLA 包的发行版。 
+#   1. 删除当前的版本。 
+#   2. 按照快速开始安装或一个一个想要的版本。 
 
 
-# Update Linux build. 
+# 更新 Linux 构建。 
 git checkout master
 make clean
 git pull origin master
 ./Update.sh
 
 
-# Update Windows build. 
+# 更新 Windows 构建。 
 git checkout master
 make clean
 git pull origin master
-#   Erase the content in `Unreal\CarlaUE4\Content\Carla`.
-#   Go to `\Util\ContentVersions.txt`.
-#   Download the latest content.
-#   Extract the new content in `Unreal\CarlaUE4\Content\Carla`. 
+#   擦除 `Unreal\CarlaUE4\Content\Carla` 中的内容。
+#   转至 `\Util\ContentVersions.txt`.
+#   下载最新的资产内容。
+#   在 `Unreal\CarlaUE4\Content\Carla` 中解压出新的资产内容。
 
 
-# Get development assets. 
-#   Delete the `/Carla` folder containing previous assets. 
-#   Go to the main carla folder.
+# 获取开发版本的资产 
+#   删除包含之前资产的 `/Carla` 文件夹。
+#   转至主 Carla 目录。
 git clone https://bitbucket.org/carla-simulator/carla-content Unreal/CarlaUE4/Content/Carla
 
 </code></pre>
@@ -334,9 +334,9 @@ git clone https://bitbucket.org/carla-simulator/carla-content Unreal/CarlaUE4/Co
 </details>
 
 <hr />
-<h2 id="get-latest-binary-release">Get latest binary release</h2>
-<p>Binary releases are prepackaged and thus, tied to a specific version of CARLA. To get the latest, erase the previous and follow the <a href="../start_quickstart/">quick start installation</a> to get the one desired.  </p>
-<p>Releases are listed in <strong>Development</strong> in the CARLA repository. There is also a highly experimental <strong>Nightly build</strong> containing the current state of CARLA up to date. </p>
+<h2 id="_2">获取最新的二进制版本</h2>
+<p>二进制版本已预先打包，因此与 Carla 的特定版本相关联。要获取最新版本，请删除之前的版本，然后按照 <a href="../start_quickstart/">快速启动安装</a> 来获取所需的版本。 </p>
+<p>版本列在 Carla 仓库的 <strong>Development</strong> 中。还有一个高度实验性的 <strong>Nightly build</strong> ，其中包含 Carla 的最新状态。</p>
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/blob/master/Docs/download.md" target="_blank" class="btn btn-neutral" title="Go to the list of CARLA releases">
@@ -350,45 +350,45 @@ git clone https://bitbucket.org/carla-simulator/carla-content Unreal/CarlaUE4/Co
 </div>
 
 <hr />
-<h2 id="update-linux-and-windows-build">Update Linux and Windows build</h2>
-<p>Make sure to be in the local <code>master</code> branch before the update. Then, merge or rebase the changes to other branches and solve possible conflicts. </p>
+<h2 id="linux-windows">更新 Linux 和 Windows 构建</h2>
+<p>更新前请确保位于本地 <code>master</code> 分支。然后，将更改 merge 或rebase 到其他分支并解决可能的冲突。</p>
 <pre><code class="language-sh">git checkout master
 </code></pre>
-<h3 id="clean-the-build">Clean the build</h3>
-<p>Go to the main CARLA folder and delete binaries and temporals generated by the previous build.</p>
+<h3 id="_3">清理构建</h3>
+<p>转到主 CARLA 文件夹并删除先前构建生成的二进制文件和临时文件。</p>
 <pre><code class="language-sh">make clean
 </code></pre>
-<h3 id="pull-from-origin">Pull from origin</h3>
-<p>Get the current version from <code>master</code> in the CARLA repository. </p>
+<h3 id="origin">从 origin 拉取</h3>
+<p>从 CARLA 存储库中 <code>master</code> 分支获取当前版本。 </p>
 <pre><code class="language-sh">git pull origin master
 </code></pre>
-<h3 id="download-the-assets">Download the assets</h3>
+<h3 id="_4">下载资产</h3>
 <p><strong>Linux.</strong></p>
 <pre><code class="language-sh">./Update.sh
 </code></pre>
 <p><strong>Windows.</strong>  </p>
-<p><strong>1.</strong> Erase the previous content in <code>Unreal\CarlaUE4\Content\Carla</code>.<br />
-<strong>2.</strong> Go to <code>\Util\ContentVersions.txt</code>.<br />
-<strong>3.</strong> Download the content for <code>latest</code>.<br />
-<strong>4.</strong> Extract the new content in <code>Unreal\CarlaUE4\Content\Carla</code>.  </p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>In order to work with that the CARLA team is devleoping, go to <strong>get development assets</strong> below. </p>
+<p><strong>1.</strong> 删除 <code>Unreal\CarlaUE4\Content\Carla</code> 中之前的内容。<br />
+<strong>2.</strong> 转至 <code>\Util\ContentVersions.txt</code>。<br />
+<strong>3.</strong> 下载最新的 <code>latest</code> 的内容。<br />
+<strong>4.</strong> 在 <code>Unreal\CarlaUE4\Content\Carla</code> 抽取新的内容。</p>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>为了与 CARLA 团队正在开发的项目合作，请 <strong>获取下面的开发资产</strong> 。</p>
 </div>
-<h3 id="launch-the-server">Launch the server</h3>
-<p>Run the server in spectator view to make sure that everything worked properly. </p>
+<h3 id="_5">启动服务器</h3>
+<p>在旁观者视图中运行服务器以确保一切正常。</p>
 <pre><code class="language-sh">make launch
 </code></pre>
 <hr />
-<h2 id="get-development-assets">Get development assets</h2>
-<p>The CARLA team works with assets still in development. These models and maps have a <a href="https://bitbucket.org/carla-simulator/carla-content">public git repository</a> where the CARLA team regularly pushes latest updates. Assets are still unfinished, using them is only recommended for developers.  </p>
-<p>In order to handle this repository it is advisted to install <a href="https://github.com/git-lfs/git-lfs/wiki/Installation">git-lfs</a>. The repository is modified regularly, and git-lfs works faster with large binary files.  </p>
-<p>To clone the repository, <strong>go to the main CARLA directory</strong> and run the following command.  </p>
+<h2 id="_6">获取开发版的资产</h2>
+<p>Carla 团队使用仍在开发中的资产。这些模型和地图有一个 <a href="https://bitbucket.org/carla-simulator/carla-content">公共 git 存储库</a>，Carla 团队定期在其中推送最新更新。资产尚未完成，仅建议开发人员使用它们。</p>
+<p>为了处理这个存储库，建议安装 <a href="https://github.com/git-lfs/git-lfs/wiki/Installation">git-lfs</a>。存储库会定期修改，并且 git-lfs 处理大型二进制文件的速度更快。</p>
+<p>要克隆存储库，请 <strong>转到主 CARLA 目录</strong> 并运行以下命令。</p>
 <pre><code class="language-sh">git clone https://bitbucket.org/carla-simulator/carla-content Unreal/CarlaUE4/Content/Carla
 </code></pre>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Delete the <code>/Carla</code> folder containing the assets before cloning the repository. Otherwise, an error will show. </p>
+<div class="admonition 警告">
+<p class="admonition-title">警告</p>
+<p>在克隆存储库之前删除包含资产的 <code>/Carla</code> 文件夹。否则，将显示错误。</p>
 </div>
               
             </div>

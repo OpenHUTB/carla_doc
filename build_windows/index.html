@@ -57,25 +57,25 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">Windows build</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#part-one-prerequisites">Part One: Prerequisites</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_1">第一部分：先决条件</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#system-requirements">System requirements</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_2">系统要求</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#software-requirements">Software requirements</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">软件要求</a>
         <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#minor-installations">Minor installations</a>
+    <li class="toctree-l4"><a class="reference internal" href="#_4">基础软件安装</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#python-dependencies">Python dependencies</a>
+    <li class="toctree-l4"><a class="reference internal" href="#python">Python 依赖项</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#major-installations">Major installations</a>
+    <li class="toctree-l4"><a class="reference internal" href="#_5">主要软件安装</a>
     </li>
         </ul>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#part-two-build-carla">Part Two: Build CARLA</a>
+    <li class="toctree-l2"><a class="reference internal" href="#carla">第二部分：构建 Carla</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#clone-the-carla-repository">Clone the CARLA repository</a>
+    <li class="toctree-l3"><a class="reference internal" href="#carla_1">克隆 Carla 存储库</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#get-assets">Get assets</a>
     </li>
@@ -287,98 +287,99 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="windows-build">Windows build</h1>
-<p>This guide details how to build CARLA from source on Windows. There are two parts. Part one details system requirements and installations of required software, and part two details how to actually build and run CARLA.  </p>
-<p>The build process is long (4 hours or more) and involves several kinds of software. It is highly recommended to read through the guide fully before starting. </p>
-<p>If you come across errors or difficulties then have a look at the <strong><a href="../build_faq/">F.A.Q.</a></strong> page which offers solutions for the most common complications. Alternatively, use the <a href="https://github.com/carla-simulator/carla/discussions">CARLA forum</a> to post any queries you may have.</p>
+                <h1 id="windows">Windows 下的构建</h1>
+<p>本指南详细介绍了如何在 Windows 上从源代码构建 CARLA。有两个部分。第一部分详细介绍系统要求和所需软件的安装，第二部分详细介绍如何实际构建和运行 CARLA。</p>
+<p>构建过程很长（4小时或更长时间）并且涉及多种软件。强烈建议在开始之前完整阅读该指南。</p>
+<p>如果您遇到错误或困难，请查看<strong><a href="../build_faq/">常见问题解答</a></strong>页面，其中提供了最常见问题的解决方案。或者，使用 <a href="https://github.com/carla-simulator/carla/discussions">CARLA 论坛</a> 发布您可能有的任何疑问。</p>
 <ul>
-<li><a href="#part-one-prerequisites"><strong>Part One: Prerequisites</strong></a><ul>
-<li><a href="#system-requirements">System requirements</a></li>
-<li><a href="#software-requirements">Software requirements</a><ul>
-<li><a href="#minor-installations">Minor installations</a></li>
-<li><a href="#python-dependencies">Python dependencies</a></li>
-<li><a href="#major-installations">Major installations</a><ul>
+<li><a href="#part-one-prerequisites"><strong>第一部分：先决条件</strong></a><ul>
+<li><a href="#system-requirements">系统要求</a></li>
+<li><a href="#software-requirements">软件要求</a><ul>
+<li><a href="#minor-installations">基础软件安装</a></li>
+<li><a href="#python-dependencies">Python 依赖项</a></li>
+<li><a href="#major-installations">主要软件安装</a><ul>
 <li><a href="#visual-studio-2019">Visual Studio 2019</a></li>
-<li><a href="#unreal-engine">Unreal Engine</a></li>
+<li><a href="#unreal-engine">虚幻引擎</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#part-two-build-carla"><strong>Part Two: Build CARLA</strong></a><ul>
-<li><a href="#clone-the-carla-repository">Clone the CARLA repository</a></li>
-<li><a href="#get-assets">Get assets</a></li>
-<li><a href="#set-unreal-engine-environment-variable">Set Unreal Engine environment variable</a></li>
-<li><a href="#build-carla">Build CARLA</a></li>
-<li><a href="#other-make-commands">Other make commands</a></li>
+<li><a href="#part-two-build-carla"><strong>第二部分：构建 Carla</strong></a><ul>
+<li><a href="#clone-the-carla-repository">克隆 Carla 仓库</a></li>
+<li><a href="#get-assets">获取资产</a></li>
+<li><a href="#set-unreal-engine-environment-variable">设置虚幻引擎环境变量</a></li>
+<li><a href="#build-carla">构建 Carla</a></li>
+<li><a href="#other-make-commands">其他 make 命令</a></li>
 </ul>
 </li>
 </ul>
 <hr />
-<h2 id="part-one-prerequisites">Part One: Prerequisites</h2>
-<p>In this section you will find details of system requirements, minor and major software installations and Python dependencies that are required before you can begin to build CARLA. </p>
-<h3 id="system-requirements">System requirements</h3>
+<h2 id="_1">第一部分：先决条件</h2>
+<p>在本节中，您将找到开始构建 Carla 之前所需的系统要求、次要和主要软件安装以及 Python 依赖项的详细信息。</p>
+<h3 id="_2">系统要求</h3>
 <ul>
-<li><strong>x64 system.</strong> The simulator should run in any 64 bits Windows system.  </li>
-<li><strong>165 GB disk space.</strong> CARLA itself will take around 32 GB and the related major software installations (including Unreal Engine) will take around 133 GB.</li>
-<li><strong>An adequate GPU.</strong> CARLA aims for realistic simulations, so the server needs at least a 6 GB GPU although 8 GB is recommended. A dedicated GPU is highly recommended for machine learning. </li>
-<li><strong>Two TCP ports and good internet connection.</strong> 2000 and 2001 by default. Make sure that these ports are not blocked by firewalls or any other applications. </li>
+<li><strong>64 位操作系统。</strong> 模拟器应在任何 64 位 Windows 系统中运行。 </li>
+<li><strong>165 GB 磁盘空间。</strong> CARLA 本身将占用大约 32 GB，相关的主要软件安装（包括虚幻引擎）将占用大约 133 GB。</li>
+<li><strong>足够的 GPU。</strong> CARLA 旨在实现真实模拟，因此服务器至少需要 6 GB GPU，但建议使用 8 GB。强烈建议使用专用 GPU 进行机器学习。</li>
+<li><strong>两个 TCP 端口和良好的互联网连接。</strong> 默认端口为 2000 和 2001 。 确保这些端口未被防火墙或任何其他应用程序阻止。 </li>
 </ul>
-<p>..warning::
-    <strong>If you are upgrading from CARLA 0.9.12 to 0.9.13</strong>: you must first upgrade the CARLA fork of the UE4 engine to the latest version. See the <a href="#unreal-engine"><strong>Unreal Engine</strong></a> section for details on upgrading UE4</p>
-<h3 id="software-requirements">Software requirements</h3>
-<h4 id="minor-installations">Minor installations</h4>
+<p>..警告::
+    <strong>如果您要从 CARLA 0.9.12 升级到 0.9.13</strong>: 您必须首先将虚幻引擎 4 的 CARLA 分支升级到最新版本。有关升级虚幻引擎 4 的详细信息，请参阅 <a href="#unreal-engine"><strong>虚幻引擎</strong></a> 部分。</p>
+<h3 id="_3">软件要求</h3>
+<h4 id="_4">基础软件安装</h4>
 <ul>
-<li><a href="https://cmake.org/download/"><strong>CMake</strong></a> generates standard build files from simple configuration files.  </li>
-<li><a href="https://git-scm.com/downloads"><strong>Git</strong></a> is a version control system to manage CARLA repositories.  </li>
-<li><a href="http://gnuwin32.sourceforge.net/packages/make.htm"><strong>Make</strong></a> generates the executables. It is necessary to use <strong>Make version 3.81</strong>, otherwise the build may fail. If you have multiple versions of Make installed, check that you are using version 3.81 in your PATH when building CARLA. You can check your default version of Make by running <code>make --version</code>.</li>
-<li><a href="https://www.7-zip.org/"><strong>7Zip</strong></a> is a file compression software. This is required for automatic decompression of asset files and prevents errors during build time due to large files being extracted incorrectly or partially.</li>
-<li><a href="https://www.python.org/downloads/"><strong>Python3 x64</strong></a> is the main scripting language in CARLA. Having a x32 version installed may cause conflict, so it is highly advisable to have it uninstalled.</li>
+<li><a href="https://cmake.org/download/"><strong>CMake</strong></a> 从简单的配置文件生成标准构建文件。  </li>
+<li><a href="https://git-scm.com/downloads"><strong>Git</strong></a> 是一个用于管理 Carla 存储库的版本控制系统。</li>
+<li><a href="http://gnuwin32.sourceforge.net/packages/make.htm"><strong>Make</strong></a> 生成可执行文件。必须使用 <strong>Make 的 3.81 版本</strong>，否则构建可能会失败。如果安装了多个版本的 Make，请检查构建 CARLA 时在 PATH 中使用的版本是否为 3.81。您可以通过运行来检查默认的 Make 版本 <code>make --version</code>。</li>
+<li><a href="https://www.7-zip.org/"><strong>7Zip</strong></a> 一款文件压缩软件。这是自动解压缩资产文件所必需的，并防止在构建期间由于错误或部分提取大文件而出现错误。</li>
+<li><a href="https://www.python.org/downloads/"><strong>Python3 x64</strong></a> 是 CARLA 中的主要脚本语言。安装 x32 版本可能会导致冲突，因此强烈建议卸载它。</li>
 </ul>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>Be sure that the above programs are added to the <a href="https://www.java.com/en/download/help/path.xml">environment path</a>. Remember that the path added should correspond to the progam's <code>bin</code> directory.  </p>
+<div class="admonition 重要">
+<p class="admonition-title">重要</p>
+<p>确保将上述程序添加到 <a href="https://www.java.com/en/download/help/path.xml">环境路径</a> 中。请记住，添加的路径应与程序的 <code>bin</code> 目录相对应。</p>
 </div>
-<h4 id="python-dependencies">Python dependencies</h4>
-<p>Starting with CARLA 0.9.12, users have the option to install the CARLA Python API using <code>pip3</code>. Version 20.3 or higher is required. To check if you have a suitable version, run the following command:</p>
+<h4 id="python">Python 依赖项</h4>
+<p>从 CARLA 0.9.12 开始，用于可以选择使用 <code>pip3</code> 来安装 Carla 的 Python API。要检查您是否有合适的版本，请运行以下命令：</p>
 <pre><code class="language-sh">pip3 -V
 </code></pre>
-<p>If you need to upgrade:</p>
+<p>如果您需要升级：</p>
 <pre><code class="language-sh">pip3 install --upgrade pip
 </code></pre>
-<p>You must install the following Python dependencies:</p>
+<p>您必须安装以下 Python 依赖项：</p>
 <pre><code class="language-sh">pip3 install --user setuptools
 pip3 install --user wheel
 </code></pre>
-<h4 id="major-installations">Major installations</h4>
+<h4 id="_5">主要软件安装</h4>
 <h5 id="visual-studio-2019">Visual Studio 2019</h5>
-<p>Get the 2019 version of Visual Studio from <a href="https://developerinsider.co/download-visual-studio-2019-web-installer-iso-community-professional-enterprise/">here</a>. Choose <strong>Community</strong> for the free version. Use the <em>Visual Studio Installer</em> to install three additional elements: </p>
+<p>从 <a href="https://developerinsider.co/download-visual-studio-2019-web-installer-iso-community-professional-enterprise/">此处</a> 获取 2019 版 Visual Studio 。选择 <strong>社区</strong> 作为免费版本。使用 <strong>Visual Studio 安装程序</strong> 安装三个附加元素： </p>
 <ul>
 <li><strong>Windows 8.1 SDK.</strong> Select it in the <em>Installation details</em> section on the right or go to the <em>Indivdual Components</em> tab and look under the <em>SDKs, libraries, and frameworks</em> heading.</li>
 <li><strong>x64 Visual C++ Toolset.</strong> In the <em>Workloads</em> section, choose <strong>Desktop development with C++</strong>. This will enable a x64 command prompt that will be used for the build. Check that it has been installed correctly by pressing the <code>Windows</code> button and searching for <code>x64</code>. Be careful <strong>not to open a <code>x86_x64</code> prompt</strong>.  </li>
 <li><strong>.NET framework 4.6.2</strong>. In the <em>Workloads</em> section, choose <strong>.NET desktop development</strong> and then in the <em>Installation details</em> panel on the right, select <code>.NET Framework 4.6.2 development tools</code>. This is required to build Unreal Engine. </li>
 </ul>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
+<div class="admonition 重要">
+<p class="admonition-title">重要</p>
 <p>Other Visual Studio versions may cause conflict. Even if these have been uninstalled, some registers may persist. To completely clean Visual Studio from the computer, go to <code>Program Files (x86)\Microsoft Visual Studio\Installer\resources\app\layout</code> and run <code>.\InstallCleanup.exe -full</code>  </p>
 </div>
-<h5 id="unreal-engine">Unreal Engine</h5>
-<p>Starting with version 0.9.12, CARLA uses a modified fork of Unreal Engine 4.26. This fork contains patches specific to CARLA.</p>
+<p><a href="https://learn.microsoft.com/zh-cn/visualstudio/install/use-command-line-parameters-to-install-visual-studio?view=vs-2019">命令行参数安装</a> 。</p>
+<h5 id="_6">虚幻引擎</h5>
+<p>从版本 0.9.12 开始，Carla 使用虚幻引擎 4.26 的修改版。该分支包含 Carla 特定的补丁。</p>
 <p>Be aware that to download this fork of Unreal Engine, <strong>you need to have a GitHub account linked to Unreal Engine's account</strong>. If you don't have this set up, please follow <a href="https://www.unrealengine.com/en-US/ue4-on-github">this guide</a> before going any further.</p>
 <p>To build the modified version of Unreal Engine:</p>
 <p><strong>1.</strong> In a terminal, navigate to the location you want to save Unreal Engine and clone the <em>carla</em> branch:</p>
 <pre><code class="language-sh">    git clone --depth 1 -b carla https://github.com/CarlaUnreal/UnrealEngine.git .
 </code></pre>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Keep the Unreal Engine folder as close as <code>C:\\</code> as you can because if the path exceeds a certain length then <code>Setup.bat</code> will return errors in step 3.</p>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>虚幻引擎文件夹尽可能靠近<code>C:\\</code>，因为如果路径超过一定长度，<code>Setup.bat</code>则会在步骤 3 中返回错误。</p>
 </div>
-<p><strong>2.</strong> Run the configuration scripts:</p>
+<p><strong>2.</strong> 运行配置脚本：</p>
 <pre><code class="language-sh">    Setup.bat
     GenerateProjectFiles.bat
 </code></pre>
-<p><strong>3.</strong> Compile the modified engine:</p>
+<p><strong>3.</strong> 编译修改后的引擎：</p>
 <blockquote>
 <ol>
 <li>
@@ -402,8 +403,8 @@ pip3 install --user wheel
 <p>A lot has happened so far. It is highly advisable to restart the computer before continuing.</p>
 </div>
 <hr />
-<h2 id="part-two-build-carla">Part Two: Build CARLA</h2>
-<h3 id="clone-the-carla-repository">Clone the CARLA repository</h3>
+<h2 id="carla">第二部分：构建 Carla</h2>
+<h3 id="carla_1">克隆 Carla 存储库</h3>
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla" target="_blank" class="btn btn-neutral" title="Go to the CARLA repository">

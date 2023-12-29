@@ -146,11 +146,11 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">手动准备地图包</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#standard-maps">Standard maps</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">标准地图</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#create-the-folder-structure-for-the-standard-maps">Create the folder structure for the standard maps</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">为标准地图创建文件夹结构</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#create-the-json-description-for-the-standard-maps">Create the JSON description for the standard maps</a>
+    <li class="toctree-l3"><a class="reference internal" href="#json">为标准地图创建 JSON 描述</a>
     </li>
         </ul>
     </li>
@@ -265,32 +265,40 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="manual-package-preparation">Manual package preparation</h1>
-<p>A map package follows a certain folder structure and must contain a <code>.json</code> file describing that structure. Our automatic map import processes create this <code>.json</code> file automatically, but you also have the option to prepare it yourself. Including your own <code>.json</code> file will overwrite any arguments passed to the <code>make import</code> command.</p>
+                <h1 id="_1">手动包准备</h1>
+<p>地图包遵循特定的文件夹结构，并且必须包含描述该结构的 <code>.json</code> 文件。我们的自动地图导入流程会自动创建此<code>.json</code>文件，但您也可以选择自行准备。包含您自己的<code>.json</code>文件将覆盖传递给<code>make import</code>命令的任何参数。</p>
 <ul>
-<li><a href="#standard-maps"><strong>Standard Maps</strong></a><ul>
-<li><a href="#create-the-folder-structure-for-the-standard-maps">Create the folder structure for the standard maps</a></li>
-<li><a href="#create-the-json-description-for-the-standard-maps">Create the JSON description for the standard maps</a></li>
+<li><a href="#standard-maps"><strong>标准地图</strong></a><ul>
+<li><a href="#create-the-folder-structure-for-the-standard-maps">为标准地图创建文件夹结构</a></li>
+<li><a href="#create-the-json-description-for-the-standard-maps">为标准地图创建 JSON 描述</a></li>
 </ul>
 </li>
-<li><a href="#large-maps"><strong>Large Maps</strong></a><ul>
-<li><a href="#create-the-folder-structure-for-the-large-maps">Create the folder structure for the large maps</a></li>
-<li><a href="#create-the-json-description-for-the-large-maps">Create the JSON description for the large maps</a></li>
+<li><a href="#large-maps"><strong>大地图</strong></a><ul>
+<li><a href="#create-the-folder-structure-for-the-large-maps">为大地图创建文件夹结构</a></li>
+<li><a href="#create-the-json-description-for-the-large-maps">为大型地图创建 JSON 描述</a></li>
 </ul>
 </li>
 </ul>
 <hr />
-<h2 id="standard-maps">Standard maps</h2>
-<h3 id="create-the-folder-structure-for-the-standard-maps">Create the folder structure for the standard maps</h3>
-<p><strong>1. Create a folder inside <code>carla/Import</code>.</strong> The name of the folder is not important.  </p>
-<p><strong>2. Create different subfolders</strong> for each map to be imported.</p>
-<p><strong>3. Move the files of each map to the corresponding subfolder.</strong> A subfolder will contain a specific set of elements: </p>
-<ul>
-<li>The mesh of the map in a <code>.fbx</code> file.  </li>
-<li>The OpenDRIVE definition in a <code>.xodr</code> file.  </li>
-<li>Optionally, the textures required by the asset.  </li>
-</ul>
-<p>For instance, an <code>Import</code> folder with one package containing two maps should have a structure similar to the one below.</p>
+<h2 id="_2">标准地图</h2>
+<h3 id="_3">为标准地图创建文件夹结构</h3>
+<ol>
+<li>
+<p><strong>在 <code>carla/Import</code> 里面创建一个文件夹。</strong> 文件夹的名称并不重要。</p>
+</li>
+<li>
+<p>为每个要导入的地图 <strong>创建不同的子文件夹</strong>。</p>
+</li>
+<li>
+<p><strong>将每个地图的文件移动到相应的子文件夹中。</strong> 子文件夹将包含一组特定的元素： </p>
+</li>
+<li>
+<p><code>.fbx</code> 文件中地图的网格。  </p>
+</li>
+<li><code>.xodr</code> 文件中的 OpenDRIVE 定义。  </li>
+<li>（可选）资产所需的纹理。  </li>
+</ol>
+<p>例如，一个包含两个地图的包的 <code>Import</code> 文件夹应具有类似于以下结构的结构。</p>
 <pre><code class="language-sh">Import
 │
 └── Package01
@@ -311,17 +319,17 @@
       └── Map02.fbx
 </code></pre>
 <hr />
-<h3 id="create-the-json-description-for-the-standard-maps">Create the JSON description for the standard maps</h3>
-<p>Create a <code>.json</code> file in the root folder of the package. Name the file after the package. Note that this will be the distribution name. The content of the file will describe a JSON array of <strong>maps</strong> and <strong>props</strong> with basic information for each of them.  </p>
-<p><strong>Maps</strong> need the following parameters:  </p>
+<h3 id="json">为标准地图创建 JSON 描述</h3>
+<p>在包的根文件夹中创建一个 <code>.json</code> 文件。在包之后命名文件。 请注意，这将是发行版名称。文件的内容将描述 <strong>地图</strong> 和 <strong>道具</strong> 的 JSON 数组，以及每个地图和道具的基本信息。 </p>
+<p><strong>地图</strong> 需要以下参数：</p>
 <ul>
-<li><strong>name</strong> of the map. This must be the same as the <code>.fbx</code> and <code>.xodr</code> files.  </li>
-<li><strong>source</strong> path to the <code>.fbx</code> file.  </li>
-<li><strong>use_carla_materials</strong>. If <strong>True</strong>, the map will use CARLA materials. Otherwise, it will use RoadRunner materials.  </li>
-<li><strong>xodr</strong> Path to the <code>.xodr</code> file.  </li>
+<li>地图的 <strong>name</strong> 。这必须和 <code>.fbx</code> 和 <code>.xodr</code> 文件相同。 </li>
+<li><code>.fbx</code> 文件的 <strong>source</strong> 路径。  </li>
+<li><strong>use_carla_materials</strong>. 如果为 <strong>True</strong>，地图将使用 Carla 材质。否则，它将使用 RoadRunner 材质。</li>
+<li><strong>xodr</strong> <code>.xodr</code> 文件的路径。  </li>
 </ul>
-<p><strong>Props</strong> are not part of this tutorial. The field will be left empty. There is another tutorial on how to <a href="../tuto_A_add_props/">add new props</a>.  </p>
-<p>The resulting <code>.json</code> file should resemble the following:</p>
+<p><strong>Props</strong> 不属于本教材的一部分。该字段将留空。还有另一个关于如何 <a href="../tuto_A_add_props/">添加新道具</a> 的教程。  </p>
+<p>生成的 <code>.json</code> 文件应类似于以下内容：</p>
 <pre><code class="language-json">{
   &quot;maps&quot;: [
     {
@@ -341,14 +349,12 @@
   ]
 }
 </code></pre>
-<p></details>
-<br></p>
 <hr />
-<p>If you have any questions about the process, then you can ask in the <a href="https://github.com/carla-simulator/carla/discussions">forum</a>.</p>
+<p>如果您对流程有任何疑问，可以在 <a href="https://github.com/carla-simulator/carla/discussions">论坛</a> 中提问。</p>
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA forum</a>
+Carla 论坛</a>
 </p>
 </div>
               

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Creating Large Maps for CARLA - CARLA 模拟器 中文文档</title>
+    <title>Content authoring large maps - CARLA 模拟器 中文文档</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Creating Large Maps for CARLA";
+        var mkdocs_page_name = "Content authoring large maps";
         var mkdocs_page_input_path = "content_authoring_large_maps.md";
         var mkdocs_page_url = null;
       </script>
@@ -245,7 +245,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Creating Large Maps for CARLA</li>
+      <li class="breadcrumb-item active">Content authoring large maps</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -254,53 +254,53 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="creating-large-maps-for-carla">Creating Large Maps for CARLA</h1>
-<p>Large Maps (like Towns 11 and 12) operate in a different way to standard maps (like Town 10) in CARLA. The map is divided up into tiles, which are subdivisions of the map, that are normally set to be about 1 to 2 km in size. The tiles divide up the map such that only the parts of the map that are needed are loaded into graphics memory for efficient rendering. The unneeded tiles remain dormant and ready to be loaded when they are required. Normally the tiles next to the tile in the location of the ego vehicle are loaded, but more tiles can be loaded if necessary. This behavior can be modified in the settings when CARLA is launched.</p>
-<h1 id="create-a-large-map-in-roadrunner">Create a Large Map in RoadRunner</h1>
-<p>RoadRunner is the recommended software to create Large Maps to be imported into CARLA. This guide outlines how to use RoadRunner for creating Large Maps and how to import and handle the Large Map in the Unreal Engine editor.</p>
+                <h1 id="carla"><a href="https://carla.readthedocs.io/en/latest/content_authoring_large_maps/">为 CARLA 创建大地图</a></h1>
+<p>CARLA 中大地图（如城镇 11 和 12）的操作方式与标准地图（如城镇 10）不同。地图被划分为图块，即地图的细分，通常大小设置为约 1 至 2 公里。这些图块划分了地图，以便仅将需要的地图部分加载到图形内存中以进行高效渲染。不需要的图块保持休眠状态并准备在需要时加载。通常，会加载自我车辆位置中的图块旁边的图块，但如果需要，可以加载更多图块。当 CARLA 启动时，可以在设置中修改此行为。</p>
+<h1 id="roadrunner">在 RoadRunner 中创建大地图</h1>
+<p>RoadRunner 是推荐用于创建要导入 CARLA 的大型地图的软件。本指南概述了如何使用 RoadRunner 创建大地图以及如何在虚幻引擎编辑器中导入和处理大地图。</p>
 <ul>
-<li><a href="#build-a-large-map-in-roadrunner"><strong>Build a Large Map in RoadRunner</strong></a></li>
-<li><a href="#export-a-large-map-in-roadrunner"><strong>Export a Large Map in RoadRunner</strong></a></li>
-<li><a href="#import-a-large-map-into-carla"><strong>Import a Large Map into CARLA</strong></a><ul>
-<li><a href="#files-and-folders">Files and folders</a></li>
-<li><a href="#create-the-json-description-optional">Create the JSON description (Optional)</a></li>
-<li><a href="#making-the-import">Making the import</a></li>
+<li><a href="#build-a-large-map-in-roadrunner"><strong>在 RoadRunner 中构建大型地图</strong></a></li>
+<li><a href="#export-a-large-map-in-roadrunner"><strong>在 RoadRunner 中导出大地图</strong></a></li>
+<li><a href="#import-a-large-map-into-carla"><strong>将大地图导入 CARLA</strong></a><ul>
+<li><a href="#files-and-folders">文件和文件夹</a></li>
+<li><a href="#create-the-json-description-optional">创建 JSON 描述（可选）</a></li>
+<li><a href="#making-the-import">进行导入</a></li>
 </ul>
 </li>
-<li><a href="#handling-a-large-map-in-the-unreal-editor"><strong>Handling a Large Map in the Unreal Editor</strong></a></li>
-<li><a href="#package-a-large-map"><strong>Package a Large Map</strong></a></li>
+<li><a href="#handling-a-large-map-in-the-unreal-editor"><strong>在虚幻编辑器中处理大型地图</strong></a></li>
+<li><a href="#package-a-large-map"><strong>打包一张大地图</strong></a></li>
 </ul>
 <hr />
-<h2 id="build-a-large-map-in-roadrunner">Build a Large Map in RoadRunner</h2>
-<p>The specifics of how to build a complex map in RoadRunner go beyond the scope of this guide, however, there are video tutorials available in the <a href="https://www.mathworks.com/support/search.html?fq=asset_type_name:video%20category:roadrunner/index&amp;page=1&amp;s_tid=CRUX_topnav">RoadRunner documentation</a>. On the face of it, building a Large Map in RoadRunner is largely the same as building a standard map, just bigger in scale. The differences are largely in how the map is exported.</p>
+<h2 id="roadrunner_1">在 RoadRunner 中构建大型地图</h2>
+<p>如何在 RoadRunner 中构建复杂地图的具体细节超出了本指南的范围，但是，<a href="https://www.mathworks.com/support/search.html?fq=asset_type_name:video%20category:roadrunner/index&amp;page=1&amp;s_tid=CRUX_topnav">RoadRunner 文档</a>中提供了视频教程。从表面上看，在 RoadRunner 中构建大地图与构建标准地图基本相同，只是比例更大。差异主要在于地图的导出方式。</p>
 <p><img alt="roadrunner_draw" src="../img/tuto_content_authoring_maps/large_map_roadrunner.png" /></p>
-<p>Here we have created a Large Map of about 1.2 km in size. This will be broken up into tiles when we export it, we will choose a tile size of 700m, so the map should split up into around 4 tiles. </p>
-<p>If you are building a Large Map with elevation, the recommended largest size of the map is 20x20 km<sup>2</sup>. Maps larger than this may cause RoadRunner to crash on export.</p>
+<p>这里我们创建了一张大约 1.2 公里大小的大地图。当我们导出它时，它会被分割成图块，我们将选择 700m 的图块大小，因此地图应该分割成大约 4 个图块。</p>
+<p>如果您正在构建带有高程的大地图，建议的地图最大尺寸为 20x20 km<sup>2</sup>。大于此大小的地图可能会导致 RoadRunner 在导出时崩溃。</p>
 <hr />
-<h2 id="export-a-large-map-in-roadrunner">Export a Large Map in RoadRunner</h2>
-<p>Below is a basic guideline to export your custom Large Map from RoadRunner.</p>
-<p>Make sure the full map is selected for export by clicking on the <a href="https://www.mathworks.com/help/roadrunner/ref/worldsettingstool.html"><em>World settings tool</em></a> and dragging the edges of the blue boundary box to encompass the full area you would like to export. when it's ready, click on <em>Apply World Changes</em>.</p>
+<h2 id="roadrunner_2">在 RoadRunner 中导出大地图</h2>
+<p>以下是从 RoadRunner 导出自定义大地图的基本指南。</p>
+<p>通过单击世界设置工具（<a href="https://www.mathworks.com/help/roadrunner/ref/worldsettingstool.html"><em>World settings tool</em></a> ）并拖动蓝色边界框的边缘以包含要导出的整个区域，确保选择导出完整地图。准备好后，单击“应用世界更改”（ <em>Apply World Changes</em> ）。</p>
 <p><img alt="roadrunner_workspace" src="../img/tuto_content_authoring_maps/roadrunner_workspace.png" /></p>
-<p>It is helpful to use the scene export preview tool to understand how your map will be divided up into tiles for export. Adjust the <em>Tile Size</em> parameters in the <em>Tiling Options</em> menu to find a suitable tile size for your map, press <em>Refresh Scene</em> to see the impact of your adjustments.</p>
+<p>使用场景导出预览工具有助于了解如何将地图划分为图块以供导出。调整“平铺选项”（<em>Tiling Options</em>）菜单中的“平铺大小”（<em>Tile Size</em>）参数，找到适合您地图的平铺大小，按“刷新场景”（<em>Refresh Scene</em>）查看调整的影响。</p>
 <p><img alt="roadrunner_scene_preview" src="../img/tuto_content_authoring_maps/rr_scene_export_preview.png" /></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><strong>Tile size</strong>: The size of the tiles you use is a judgement call needed to ensure that the map will work efficiently when used in CARLA. If your map will be dense in 3D assets like buildings and vegetation, you may benefit from a smaller tile size to prevent the loading of unnecessary assets. This may, however, increase the complexity of the work needed to build your map. The maximum tile size supported by the CARLA engine is 2 km, we recommend tiles of around 1 km in size. </p>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p><strong>Tile size</strong>: 您使用的图块大小是一个判断调用，以确保地图在 CARLA 中使用时能够有效工作。如果您的地图包含密集的 3D 资源（例如建筑物和植被），您可能会受益于较小的图块大小，以防止加载不必要的资源。但是，这可能会增加构建地图所需工作的复杂性。CARLA 引擎支持的最大瓦片尺寸为 2 公里，我们建议瓦片尺寸为 1 公里左右。</p>
 </div>
-<p>When you are ready to export:</p>
-<p><strong>1.</strong> Export the <code>.fbx</code> geometry files:</p>
+<p>当您准备好导出时：</p>
+<p><strong>1.</strong> 导出 <code>.fbx</code> 几何文件：</p>
 <ul>
-<li>In the main toolbar, select <code>File</code> -&gt; <code>Export</code> -&gt; <code>Firebox (.fbx)</code></li>
+<li>在主工具栏中，选择 <code>File</code> -&gt; <code>Export</code> -&gt; <code>Firebox (.fbx)</code></li>
 </ul>
-<p><strong>2.</strong> In the window that pops up:</p>
+<p><strong>2.</strong> 在弹出的窗口中：</p>
 <blockquote>
 <ul>
-<li>Check the following options:<ul>
-<li><em>Split by Segmentation</em>: Divides the mesh by semantic segmentation and improves pedestrian navigation.</li>
-<li><em>Power of Two Texture Dimensions</em>: Improves performance.</li>
-<li><em>Embed Textures</em>: Ensures textures are embedded in the mesh.</li>
-<li><em>Export to Tiles</em>: Choose the size of the tiles. The maximum size that can be used by CARLA is 2000 x 2000.</li>
-<li><em>Export Individual Tiles</em>: Generates the individual tiles needed for streaming Large Maps in CARLA.</li>
+<li>检查以下选项：<ul>
+<li><em>通过分段分割</em>（<em>Split by Segmentation</em>）: 通过语义分割来划分网格并改进行人导航。</li>
+<li><em>二维纹理的力量</em>（<em>Power of Two Texture Dimensions</em>）: 提高性能。</li>
+<li><em>嵌入纹理</em>（<em>Embed Textures</em>）: 确保纹理嵌入到网格中。</li>
+<li><em>导出到图块</em>（<em>Export to Tiles</em>）: 选择图块的大小。CARLA 可以使用的最大尺寸为 2000 x 2000。</li>
+<li><em>导出单个图块</em>（<em>Export Individual Tiles</em>）: 生成在 CARLA 中流式传输大型地图所需的单个图块。</li>
 </ul>
 </li>
 </ul>
@@ -316,48 +316,48 @@
 </blockquote>
 </blockquote>
 </blockquote>
-<p><strong>3.</strong> Export the <code>.xodr</code> OpenDrive map file:</p>
+<p><strong>3.</strong> 导出 <code>.xodr</code> OpenDrive 地图文件：</p>
 <ul>
-<li>In the main toolbar, select <code>File</code> -&gt; <code>Export</code> -&gt; <code>OpendDRIVE (.xodr)</code></li>
+<li>在主工具栏中，选择 <code>File</code> -&gt; <code>Export</code> -&gt; <code>OpendDRIVE (.xodr)</code></li>
 </ul>
-<p>In the folder you chose for export, you will now have several new files, one <code>.xodr</code> file and several <code>.fbx</code> files:</p>
+<p>在您选择导出的文件夹中，您现在将有几个新文件，一个 <code>.xodr</code> 文件和几个 <code>.fbx</code> 文件：</p>
 <p><img alt="export_large_map_fbx" src="../img/tuto_content_authoring_maps/large_map_export.png" /></p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Make sure that the <code>.xodr</code> and the <code>.fbx</code> files have the same name root.</p>
+<div class="admonition 警告">
+<p class="admonition-title">警告</p>
+<p>确保 <code>.xodr</code> 和 <code>.fbx</code> 文件具有相同的名称根。</p>
 </div>
-<p>Now you've created your Large Map in Roadrunner, you are ready to import it into CARLA. The files that RoadRunner has created should be shifted to the <code>Import</code> directory inside the root of the directory you are using to build CARLA. </p>
+<p>现在您已经在 Roadrunner 中创建了大地图，您可以将其导入 CARLA 中。RoadRunner 创建的文件应转移到用于构建 CARLA 的根目录的 <code>Import</code> 目录内。</p>
 <hr />
-<h1 id="import-a-large-map-into-carla">Import a Large Map into CARLA</h1>
-<p>Large Maps generated in RoadRunner can be imported into the source build of CARLA and packaged for distribution and usage in a CARLA standalone package. The process is very similar to that of standard maps with the addition of specific nomenclature for tiles and batch importing.</p>
-<h2 id="files-and-folders">Files and folders</h2>
-<p>All files to be imported should be placed in the <code>Import</code> folder of the root CARLA directory. These files should include:</p>
+<h1 id="carla_1">将大地图导入 CARLA</h1>
+<p>RoadRunner 中生成的大型地图可以导入到 CARLA 的源代码构建中，并打包在 CARLA 独立包中分发和使用。该过程与标准地图非常相似，只是添加了图块和批量导入的特定术语。</p>
+<h2 id="_1">文件和文件夹</h2>
+<p>所有要导入的文件应放置在 CARLA 根目录的 <code>Import</code> 文件夹中。这些文件应包括：</p>
 <ul>
-<li>The mesh of the map in multiple <code>.fbx</code> files representing different tiles of the map.</li>
-<li>The OpenDRIVE definition in a single <code>.xodr</code> file.</li>
+<li>多个 <code>.fbx</code> 文件中的地图网格代表地图的不同图块。</li>
+<li>OpenDRIVE 定义位于单个<code>.xodr</code>文件中。</li>
 </ul>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>You cannot import Large Maps and standard maps at the same time.</p>
+<div class="admonition 警告">
+<p class="admonition-title">警告</p>
+<p>您不能同时导入大地图和标准地图。</p>
 </div>
-<p>The naming convention of map tiles is very important. Each map tile should be named according to the following convention:</p>
+<p>地图图块的命名约定非常重要。每个地图图块应根据以下约定命名：</p>
 <pre><code>&lt;mapName&gt;_Tile_&lt;x-coordinate&gt;_&lt;y-coordinate&gt;.fbx
 </code></pre>
-<p>RoadRunner should conform to this naming convention by default, but it's worth double checking before you prepare to import into CARLA, because problems caused at this stage can be tedious to fix later on. The tiles in the final map will be arranged like in the following diagram:</p>
+<p>默认情况下，RoadRunner 应符合此命名约定，但在准备导入 CARLA 之前值得仔细检查，因为此阶段引起的问题稍后修复起来可能会很乏味。最终地图中的图块将如下图所示排列：</p>
 <blockquote>
 <blockquote>
 <blockquote>
 <blockquote>
 <blockquote>
 <blockquote>
-<p><img src="./img/tuto_content_authoring_maps/large_map_tiles.png" width="70%"></p>
+<p><img src="img/tuto_content_authoring_maps/large_map_tiles.png" width="70%"></p>
 </blockquote>
 </blockquote>
 </blockquote>
 </blockquote>
 </blockquote>
 </blockquote>
-<p>A resulting <code>Import</code> folder with a package containing a Large Map made of four tiles should have a structure similar to the one below:</p>
+<p>生成的<code>Import</code>文件夹中包含一个包含由四个图块组成的大地图的包，其结构应类似于以下结构：</p>
 <pre><code class="language-sh">Import
 │
 └── Package01
@@ -369,24 +369,24 @@
   └── LargeMap.xodr
 
 </code></pre>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The <code>package.json</code> file is not strictly necessary. If there is no <code>package.json</code> file created, the automated import process will create one. Find out more about to structure your own <code>package.json</code> in the next section.</p>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p><code>package.json</code>文件并不是绝对必要的。如果未创建 <code>package.json</code> 文件，自动导入过程将创建一个。package.json在下一节中了解有关构建自己 <code>package.json</code> 的结构的更多信息。</p>
 </div>
 <hr />
-<h2 id="create-the-json-description-optional">Create the JSON description (Optional)</h2>
-<p>The <code>.json</code> description is created automatically during the import process, but there is also the option to create one manually. An existing <code>.json</code> description will override any values passed as arguments in the import process.</p>
-<p>The <code>.json</code> file should be created in the root folder of the package. The file name will be the package distribution name. The content of the file describes a JSON array of <strong>maps</strong> and <strong>props</strong> with basic information for each one.</p>
-<p><strong>Maps</strong> need the following parameters:</p>
+<h2 id="json">创建 JSON 描述（可选）</h2>
+<p><code>.json</code>描述是在导入过程中自动创建的，但也可以选择手动创建描述。现有<code>.json</code>描述将覆盖导入过程中作为参数传递的任何值。</p>
+<p>该<code>.json</code>文件应创建在包的根文件夹中。文件名将是包分发名称。文件的内容描述了 <strong>地图</strong> 和 <strong>道具</strong> 的 JSON 数组，其中包含每个地图和道具的基本信息。</p>
+<p><strong>Maps</strong> 需要以下参数：</p>
 <ul>
-<li><strong>name:</strong> Name of the map. This must be the same as the <code>.fbx</code> and <code>.xodr</code> files.</li>
-<li><strong>xodr:</strong> Path to the <code>.xodr</code> file.</li>
-<li><strong>use_carla_materials:</strong> If <strong>True</strong>, the map will use CARLA materials. Otherwise, it will use RoadRunner materials.</li>
-<li><strong>tile_size:</strong> The size of the tiles. Default value is 2000 (2kmx2km).</li>
-<li><strong>tiles:</strong> A list of the <code>.fbx</code> tile files that make up the entire map.</li>
+<li><strong>name:</strong> 地图的名称。这必须与和<code>.fbx</code>和<code>.xodr</code>文件相同.xodr。</li>
+<li><strong>xodr:</strong> <code>.xodr</code> 文件的路径</li>
+<li><strong>use_carla_materials:</strong> 如果为 <strong>True</strong>，地图将使用 CARLA 材质。否则，它将使用 RoadRunner 材料。</li>
+<li><strong>tile_size:</strong> 图块的大小。默认值为 2000 (2kmx2km)。</li>
+<li><strong>tiles:</strong> 组成整个地图的 <code>.fbx</code> tile文件的列表。</li>
 </ul>
-<p><strong>Props</strong> are not part of this tutorial. Please see <a href="../tuto_A_add_props/">this</a> tutorial for how to add new props.</p>
-<p>The resulting <code>.json</code> file should resemble the following:</p>
+<p><strong>Props</strong> 属于本教程的一部分。请参阅 <a href="../tuto_A_add_props/">本</a> 教程了解如何添加新道具。</p>
+<p>生成的<code>.json</code>文件应类似于以下内容：</p>
 <pre><code class="language-json">{
   &quot;maps&quot;: [
       {
@@ -405,56 +405,54 @@
   &quot;props&quot;: []
 }
 </code></pre>
-<p></details>
-<br></p>
 <hr />
-<h2 id="making-the-import">Making the import</h2>
-<p>When all files have been placed in the <code>Import</code> folder, run the following command in the root CARLA folder:</p>
+<h2 id="_2">进行导入</h2>
+<p>将所有文件放入该<code>Import</code>文件夹后，在根 CARLA 文件夹中运行以下命令：</p>
 <pre><code class="language-sh">make import
 </code></pre>
-<p>Depending on your system, Unreal Engine may consume too much memory to be able to import all files at once. You can choose to import the files in batches of MB by running the command:</p>
+<p>根据您的系统，虚幻引擎可能会消耗太多内存而无法一次导入所有文件。您可以通过运行以下命令选择批量导入文件：</p>
 <pre><code class="language-sh">make import ARGS=&quot;--batch-size=200&quot;
 </code></pre>
-<p>Two more flags exist for the <code>make import</code> command:</p>
+<p>该<code>make import</code>命令还存在两个标志：</p>
 <ul>
-<li><code>--package=&lt;package_name&gt;</code> specifies the name of the package. By default, this is set to <code>map_package</code>. Two packages cannot have the same name, so using the default value will lead to errors on a subsequent ingestion. <strong>It is highly recommended to change the name of the package</strong>. Use this flag by running the command:</li>
+<li><code>--package=&lt;package_name&gt;</code> 指定包的名称。默认情况下，此项设置为<code>map_package</code>。两个包不能具有相同的名称，因此使用默认值将导致后续导入时出错。<strong>强烈建议更改包的名称</strong>。通过运行以下命令来使用此标志：</li>
 </ul>
 <pre><code class="language-sh">make import  ARGS=&quot;--package=&lt;package_name&gt;&quot;
 </code></pre>
 <ul>
-<li><code>--no-carla-materials</code> specifies that you do not want to use the default CARLA materials (road textures etc). You will use the RoadRunner materials instead. This flag is <strong>only required if you are not</strong> providing your own <a href="../tuto_M_manual_map_package/"><code>.json</code> file</a>. Any value in the <code>.json</code> file will override this flag. Use this flag by running the command:</li>
+<li><code>--no-carla-materials</code> 指定您不想使用默认的 CARLA 材质（道路纹理等）。您将改用 RoadRunner 材料。<strong>仅当您不提供自己的</strong><a href="../tuto_M_manual_map_package/"><code>.json</code> 文件</a>时才需要此标志。<code>.json</code>文件中的任何值都将覆盖此标志。通过运行以下命令来使用此标志：</li>
 </ul>
 <pre><code class="language-sh">make import  ARGS=&quot;--no-carla-materials&quot;
 </code></pre>
-<p>All files will be imported and prepared to be used in the Unreal Editor. The map package will be created in <code>Unreal/CarlaUE4/Content</code>. A base map tile, <code>&lt;mapName&gt;</code>, will be created as a streaming level for all the tiles. The base tile will contain the sky, weather, and Large Map actors and will be ready for use in a simulation.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>It is currently not recommended to use the customization tools provided for standard maps in the Unreal Editor, e.g., road painter, procedural buildings, etc.</p>
+<p>所有文件都将被导入并准备在虚幻编辑器中使用。地图包将在  <code>Unreal/CarlaUE4/Content</code> 中创建。将创建一个底图图块<mapName>，作为所有图块的流级别。基础图块将包含天空、天气和大地图参与者，并准备好在仿真中使用。</p>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>目前不建议使用虚幻编辑器中为标准地图提供的自定义工具，例如道路画家、程序建筑等。</p>
 </div>
 <hr />
-<h2 id="handling-a-large-map-in-the-unreal-editor">Handling a Large Map in the Unreal Editor</h2>
-<p>Now that you have imported your new map, you will find the map in the content browser inside a folder that will be named <code>map_package</code> by default. The folder will have an alternative name if you used the <code>"--package=&lt;package_name&gt;"</code> argument with the import command. Inside this folder, open the <code>Maps</code> folder and open the folder inside this one. Inside you will find several <em>level</em> files that are coloured orange. </p>
+<h2 id="_3">在虚幻编辑器中处理大型地图</h2>
+<p>现在您已导入新地图，您将在内容浏览器中的默认命名 <code>map_package</code> 文件夹内找到该地图。如果您在导入命令中使用参数 <code>"--package=&lt;package_name&gt;"</code>，该文件夹将有一个备用名称。在此文件夹内，打开该<code>Maps</code>文件夹并打开该文件夹内的文件夹。在里面你会发现几个橙色的关卡文件。</p>
 <p><img alt="export_large_map_fbx" src="../img/tuto_content_authoring_maps/tiles_content_browser.png" /></p>
-<p>There will be one level file one for the whole map and one level file for each tile you exported from RoadRunner. To add assets to the map like buildings and vegetation, double click on the level file for the tile that you want to work on (e.g. in this example <code>LargeMap_Tile_0_0</code>) in order to load it in the editor. The tiles don't have any lighting settings by default, so you may need to change the view mode from <code>Lit</code> to <code>Unlit</code> to be able to see your tile once you have loaded it. Now you can follow the <a href="../tuto_content_authoring_maps/#importing-assets-and-adding-them-to-the-map">same procedure as for standard maps</a> to add details to your map, make sure to save the modifications you make to the tile you are working on, then load the next tile and repeat the procedure. You cannot work on the entire map in one go, so loading (by double clicking) the level file for the entire map (the file that is not followed by the suffix <code>_Tile_X_Y</code>) will not be useful for decorating the map.</p>
+<p>整个地图将有一个关卡文件，而从 RoadRunner 导出的每个图块将有一个关卡文件。要将建筑物和植被等资产添加到地图中，请双击要处理的图块的关卡文件（例如本例中<code>LargeMap_Tile_0_0</code>），以便将其加载到编辑器中。默认情况下，图块没有任何照明设置，因此您可能需要将视图模式从 更改<code>Lit</code>为<code>Unlit</code>才能在加载图块后看到它。现在，您可以按照 <a href="../tuto_content_authoring_maps/#importing-assets-and-adding-them-to-the-map">与标准地图相同的过程</a> 向地图添加详细信息，请确保保存对正在处理的图块所做的修改，然后加载下一个图块并重复该过程。您无法一次性处理整个地图，因此加载（通过双击）整个地图的关卡文件（后面不带后缀 的文件<code>_Tile_X_Y</code>）对于装饰地图将没有用处。</p>
 <p><img alt="export_large_map_fbx" src="../img/tuto_content_authoring_maps/large_map_unreal.png" /></p>
 <hr />
-<h2 id="loading-the-whole-map-and-running-the-simulation">Loading the whole map and running the simulation</h2>
-<p>If you would like to load the map and start the simulation for experimentation you should load the level file for the whole map. Double click on the level file with the root map name (the file that is not followed by the suffix <code>_Tile_X_Y</code>) and wait for it to load. Loading can sometimes take a few seconds or even minutes for very large maps. Once it has loaded click on the <em>play</em> option in the Unreal Editor toolbar. The simulation will now start with your new Large Map.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you are running the simulation from the Unreal Engine editor for the first time it is recommended to first load each of the tiles (by double clicking on them) one by one until you have loaded all of them, prior to starting the simulation. This performs certain operations <em>in the background</em> like baking the Mesh Distance Fields and shaders for the tile. If you don't load the tiles one by one at first, these operations may be performed at runtime and this could lead to hangs or crashes in Unreal Engine.</p>
+<h2 id="_4">加载整个地图并运行仿真</h2>
+<p>如果您想加载地图并开始仿真进行实验，您应该加载整个地图的关卡文件。双击带有根地图名称的关卡文件（后面不带后缀的文件<code>_Tile_X_Y</code>）并等待其加载。对于非常大的地图，加载有时可能需要几秒钟甚至几分钟。加载后，单击虚幻编辑器工具栏中的播放选项。仿真现在将从您的新大地图开始。</p>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>如果您是第一次从虚幻引擎编辑器运行仿真，建议在开始仿真之前先逐个加载每个图块（通过双击它们），直到加载完所有图块。这会在后台执行某些操作，例如烘焙网格距离场和图块的着色器。如果您一开始不逐一加载图块，这些操作可能会在运行时执行，这可能会导致虚幻引擎挂起或崩溃。</p>
 </div>
-<h2 id="package-a-large-map">Package a Large Map</h2>
-<p>To package your Large Map so it can be used in the CARLA standalone package follow the same procedure as for standard maps - run the following command:</p>
+<h2 id="_5">打包一张大地图</h2>
+<p>要打包大地图以便可以在 CARLA 独立包中使用，请遵循与标准地图相同的过程 - 运行以下命令：</p>
 <pre><code class="language-sh">make package ARGS=&quot;--packages=&lt;mapPackage&gt;&quot;
 </code></pre>
-<p>This will create a standalone package compressed in a <code>.tar.gz</code> file. The files will be saved in the <code>Dist</code> folder on Linux, and <code>/Build/UE4Carla/</code> on Windows. They can then be distributed and packaged to use in standalone CARLA packages.</p>
+<p>这将创建一个压缩在<code>.tar.gz</code>文件中的独立包。Linux 下文件将保存在<code>Dist</code> 和 Windows下保存在 <code>/Build/UE4Carla/</code> 文件夹中。然后可以将它们分发和打包以在独立的 CARLA 包中使用。</p>
 <hr />
-<p>If you have any questions about the Large Map import and packaging process, then you can ask in the <a href="https://github.com/carla-simulator/carla/discussions">forum</a>.</p>
+<p>如果您对大地图导入和打包过程有任何疑问，那么您可以在 <a href="https://github.com/carla-simulator/carla/discussions">论坛</a> 中提问。</p>
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA forum</a>
+Carla 论坛</a>
 </p>
 </div>
               

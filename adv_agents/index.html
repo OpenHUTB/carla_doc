@@ -382,21 +382,21 @@ python3 automatic_control.py --agent=Behavior --behavior=aggressive
 </code></pre>
 <p><strong>2.</strong> 在 <code>behavior_agent.py</code> 脚本中定义和实例化你的行为类型：</p>
 <pre><code class="language-py"># 代理行为参数
-if behavior == 'cautious'：
+if behavior == 'cautious':
     self._behavior = Cautious()
 
-elif behavior == 'normal'：
+elif behavior == 'normal':
     self._behavior = Normal()
 
-elif behavior == 'aggressive'：
+elif behavior == 'aggressive':
     self._behavior = Aggressive()
 
-elif behavior == '&lt;type_name&gt;'：
+elif behavior == '&lt;type_name&gt;':
     self._behavior = &lt;TypeName&gt;()
 </code></pre>
 <hr />
 <h2 id="_7">创建代理</h2>
-<p>CARLA 代理只是用户可以运行的代理类型的示例。用户可以在 <strong>Basic Agent</strong> 的基础上创建自己的代理。可能性是无止境。每个代理只需要两个元素，<strong>初始化__和__运行步骤</strong>。</p>
+<p>CARLA 代理只是用户可以运行的代理类型的示例。用户可以在 <strong>Basic Agent</strong> 的基础上创建自己的代理。可能性是无止境。每个代理只需要两个元素，<strong>初始化</strong> 和 <strong>运行步</strong>。</p>
 <p>在下面查找自定义代理的最小布局示例：</p>
 <pre><code class="language-py">import carla
 

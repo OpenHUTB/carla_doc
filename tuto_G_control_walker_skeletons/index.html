@@ -176,15 +176,15 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">控制行人骨骼</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#walker-skeleton-structure">Walker skeleton structure</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">行人骨骼结构</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#manually-control-walker-bones">Manually control walker bones</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">手动控制行人骨骼</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#connect-to-the-simulator">Connect to the simulator</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">连接到模拟器</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#spawn-a-walker">Spawn a walker</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">生成行人</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#control-walker-skeletons">Control walker skeletons</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_6">控制行人骨骼</a>
     </li>
         </ul>
     </li>
@@ -269,30 +269,26 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="walker-bone-control">Walker Bone Control</h1>
-<p>In this tutorial we describe how to manually control and animate the
-skeletons of walkers from the CARLA Python API. The reference of
-all classes and methods available can be found at
-<a href="../python_api/">Python API reference</a>.</p>
+                <h1 id="_1">行人骨骼控制</h1>
+<p>在本教程中，我们介绍如何通过 Carla Python API 手动控制行人的骨骼并为其设置动画。所有可用类和方法的参考可以在 <a href="../python_api/">Python API 参考</a> 中找到 。</p>
 <ul>
-<li><a href="#walker-skeleton-structure"><strong>Walker skeleton structure</strong></a>  </li>
-<li><a href="#manually-control-walker-bones"><strong>Manually control walker bones</strong></a>  <ul>
-<li><a href="#connect-to-the-simulator">Connect to the simulator</a>  </li>
-<li><a href="#spawn-a-walker">Spawn a walker</a>  </li>
-<li><a href="#control-walker-skeletons">Control walker skeletons</a>  </li>
+<li><a href="#walker-skeleton-structure"><strong>行人骨骼结构</strong></a>  </li>
+<li><a href="#manually-control-walker-bones"><strong>手动控制行人骨骼</strong></a>  <ul>
+<li><a href="#connect-to-the-simulator">连接到模拟器</a>  </li>
+<li><a href="#spawn-a-walker">生成行人</a>  </li>
+<li><a href="#control-walker-skeletons">控制行人骨骼</a>  </li>
 </ul>
 </li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><strong>This document assumes the user is familiar with the Python API</strong>. <br>
-The user should read the first steps tutorial before reading this document.
-<a href="../core_concepts/">Core concepts</a>.</p>
+<p><strong>本文档假设用户熟悉 Python API。</strong>。 <br>
+用户在阅读本文档之前应阅读第一步教程。 
+<a href="../core_concepts/">核心概念</a>。</p>
 </div>
 <hr />
-<h2 id="walker-skeleton-structure">Walker skeleton structure</h2>
-<p>All walkers have the same skeleton hierarchy and bone names. Below is an image of the skeleton
-hierarchy.</p>
+<h2 id="_2">行人骨骼结构</h2>
+<p>所有行人都具有相同的骨骼层次结构和骨骼名称。下面是骨架层次结构的图像。</p>
 <pre><code>crl_root
 └── crl_hips__C
     ├── crl_spine__C
@@ -361,37 +357,28 @@ hierarchy.</p>
                     └── crl_toeEnd__R
 </code></pre>
 <hr />
-<h2 id="manually-control-walker-bones">Manually control walker bones</h2>
-<p>Following is a detailed step-by-step example of how to change the bone transforms of a walker
-from the CARLA Python API</p>
-<h3 id="connect-to-the-simulator">Connect to the simulator</h3>
-<p>Import neccessary libraries used in this example</p>
+<h2 id="_3">手动控制行人骨骼</h2>
+<p>以下是如何通过 CARLA Python API 更改步行者骨骼变换的详细分步示例</p>
+<h3 id="_4">连接到模拟器</h3>
+<p>导入本例中使用的必要库</p>
 <pre><code class="language-py">import carla
 import random
 </code></pre>
-<p>Initialize the carla client</p>
+<p>初始化 Carla 客户端</p>
 <pre><code class="language-py">client = carla.Client('127.0.0.1', 2000)
 client.set_timeout(2.0)
 </code></pre>
-<h3 id="spawn-a-walker">Spawn a walker</h3>
-<p>Spawn a random walker at one of the map's spawn points</p>
+<h3 id="_5">生成行人</h3>
+<p>在地图的一个生成点生成一个随机行人。</p>
 <pre><code class="language-py">world = client.get_world()
 blueprint = random.choice(self.world.get_blueprint_library().filter('walker.*'))
 spawn_points = world.get_map().get_spawn_points()
 spawn_point = random.choice(spawn_points) if spawn_points else carla.Transform()
 world.try_spawn_actor(blueprint, spawn_point)
 </code></pre>
-<h3 id="control-walker-skeletons">Control walker skeletons</h3>
-<p>A walker's skeleton can be modified by passing an instance of the WalkerBoneControl class
-to the walker's apply_control function. The WalkerBoneControl class contains the transforms
-of the bones to be modified. Its bone_transforms member is a list of tuples of value pairs
-where the first value is the bone name and the second value is the bone transform. The
-apply_control function can be called on every tick to animate a walker's skeleton. The
-location and rotation of each transform is relative to its parent. Therefore when a
-parent bone's transform is modified, the transforms of the child bones in model space
-will also be changed relatively.</p>
-<p>In the example below, the rotations of the walker's hands are set to be 90 degrees around
-the forward axis and the locations are set to the origin.</p>
+<h3 id="_6">控制行人骨骼</h3>
+<p>可以通过将 WalkerBoneControl 类的实例传递给行人的 apply_control 函数来修改行人的骨架。WalkerBoneControl 类包含要修改的骨骼的变换。它的 bone_transforms 成员是成对值元组的列表，其中第一个值是骨骼名称，第二个值是骨骼变换。可以在每个刻度上调用 apply_control 函数来为行人的骨骼设置动画。每个变换的位置和旋转都是相对于其父变换的。因此，当修改父骨骼的变换时，子骨骼在模型空间中的变换也会相对改变。</p>
+<p>在下面的示例中，步行者的手设置为围绕前轴旋转 90 度，并且位置设置为原点。</p>
 <pre><code class="language-py">control = carla.WalkerBoneControl()
 first_tuple = ('crl_hand__R', carla.Transform(rotation=carla.Rotation(roll=90)))
 second_tuple = ('crl_hand__L', carla.Transform(rotation=carla.Rotation(roll=90)))

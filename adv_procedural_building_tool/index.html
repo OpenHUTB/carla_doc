@@ -254,135 +254,135 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The <strong>Procedural Building Tool</strong> is currently an <strong>experimental feature</strong> and is not considered <em>production ready</em> at this stage. Hence it should only be used for experimental research projects.</p>
+                <div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p><strong>程序化建筑工具</strong> 目前是一个 <strong>实验性功能</strong> ，现阶段尚未考虑 <em>投入生产</em>。因此它只能用于实验研究项目。</p>
 </div>
-<h1 id="procedural-building-tool">Procedural Building Tool</h1>
-<p>The <strong>Procedural Building Tool</strong> facilitates the generation of virtual 3D buildings for which the dimensions and decoration styles can be modulated to create a near infinite array of variations through a simple interface. The footprint dimensions and height in stories can be chosen through the interface. Then users can select a variety of styles for the building lobby, the body and the top floor or penthouse. A variety of facia element styles can be chosen for features such as corners windows and balconies from the CARLA asset library. </p>
+<h1 id="_1"><a href="https://carla.readthedocs.io/en/latest/adv_procedural_building_tool/">程序化建筑工具</a></h1>
+<p><strong>程序化建筑工具</strong> 有助于生成虚拟三维建筑，可以通过简单的界面对其尺寸和装饰风格进行调制，以创建近乎无限的变化。可以通过界面选择楼层的占地面积尺寸和高度。然后用户可以为建筑大堂、主体以及顶层或阁楼选择多种风格。可以从 Carla 资源库中为角窗和阳台等功能选择各种面板元素样式。</p>
 <ul>
-<li><a href="#opening-the-procedural-building-tool"><strong>Opening the tool</strong></a></li>
-<li><a href="#base-parameters"><strong>Base parameters</strong></a></li>
-<li><a href="#mesh-parameters"><strong>Mesh parameters</strong></a></li>
-<li><a href="#mesh-elements"><strong>Mesh elements</strong></a><ul>
-<li><a href="#sockets">Sockets</a></li>
+<li><a href="#opening-the-procedural-building-tool"><strong>打开工具</strong></a></li>
+<li><a href="#base-parameters"><strong>基本参数</strong></a></li>
+<li><a href="#mesh-parameters"><strong>网格参数</strong></a></li>
+<li><a href="#mesh-elements"><strong>网格元素</strong></a><ul>
+<li><a href="#sockets">插槽</a></li>
 </ul>
 </li>
-<li><a href="#facade-materials"><strong>Facade materials</strong></a></li>
-<li><a href="#cooking"><strong>Cooking</strong></a></li>
+<li><a href="#facade-materials"><strong>外墙材料</strong></a></li>
+<li><a href="#cooking"><strong>烘焙</strong></a></li>
 </ul>
-<h2 id="opening-the-procedural-building-tool">Opening the Procedural Building Tool</h2>
-<p>Firstly, you need to add a procedural building actor to the scene. Navigate to <code>Content&gt;Carla&gt;Blueprints&gt;LevelDesign</code> and drag the <em>BP_ProceduralBuilding</em> blueprint into your map. Move the asset to the position where you wish to visualize the building. Choose a place where you have space so you can see the result clearly. Then to open the tool, launch the Procedural Building tool by right clicking on the <em>WD_ProceduralBuilding</em> widget and selecting <em>Run editor utility widget</em> from the context menu. This will open the tool's interface. </p>
+<h2 id="_2">打开程序化建筑工具</h2>
+<p>首先，您需要向场景添加程序建筑参与者。导航到<code>Content&gt;Carla&gt;Blueprints&gt;LevelDesign</code>并拖动蓝图 <em>BP_ProceduralBuilding</em> 到地图中。将资产移动到您希望可视化建筑物的位置。选择一个有空间的地方，以便可以清楚地看到结果。然后，要打开该工具，请右键单击<em>WD_ProceduralBuilding</em>小部件并从上下文菜单中选择<em>Run editor utility widget</em>来启动程序构建工具。这将打开该工具的界面。</p>
 <p><img alt="open_pb_tool" src="../img/open_pb_tool.png" /></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>You must complete this step before opening the tool, an instance of the <em>BP_ProceduralBuilding</em> blueprint must exist in the map before the tool can function. You must also ensure that the <em>BP_ProceduralBuilding</em> entity is selected in the <em>World outliner</em> before proceeding.</p>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>您必须在打开工具之前完成此步骤，地图中必须存在<em>BP_ProceduralBuilding</em>蓝图的实例，工具才能运行。您还必须确保在继续之前在世界大纲视图（<em>World outliner</em>）中选择<em>BP_ProceduralBuilding</em>实体。</p>
 </div>
-<h2 id="base-parameters">Base parameters</h2>
+<h2 id="_3">基本参数</h2>
 <p><img alt="base_parameters" src="../img/pb_base_parameters.png" /></p>
-<p>In the base parameters section you select the fundamental properties of your building, such as the footprint and the height in floors.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Until you have selected mesh pieces in the <a href="#mesh-parameters">mesh parameters</a> section, you will not see any changes in the Unreal Engine viewport when you adjust the base parameters</p>
+<p>在基本参数部分中，您可以选择建筑物的基本属性，例如占地面积和楼层高度。</p>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>在网格参数部分（<a href="#mesh-parameters">mesh parameters</a>）选择网格片段之前，调整基本参数时，您不会在虚幻引擎视口中看到任何变化。</p>
 </div>
-<p>The available parameters are as follows:</p>
+<p>可用参数如下：</p>
 <ul>
-<li><strong>Seed</strong>: sets the random seed for the procedural generation, this enables variations on the building with the same settings.</li>
-<li><strong>Num floors</strong>: sets the number of stories or floors the building will have, and henceforth defines the height of the building.</li>
-<li><strong>Length X/Y</strong>: defines the size of the footprint of the building in the X and Y dimensions. These are unitless, the number denotes the number repeating sections, each section is a column of windows.</li>
-<li><strong>Create automatically</strong>: if this option is selected, the building will automatically update in the viewport so you can see the effect of your adjustments.</li>
-<li><strong>Corners</strong>: allows corner pieces to be added to the building, you can choose these pieces in the Mesh Parameters section.</li>
-<li><strong>Walls</strong>: replace the middle pieces of the left/right/front/back of the building with alternate pieces that can be selected using the <a href="#mesh-parameters">Mesh parameters</a> menu.</li>
-<li><strong>Doors</strong>: array allowing the placement of a door in the lobby level. The door is placed at the chosen index position.</li>
+<li><strong>Seed</strong>: 设置程序生成的随机种子，这可以使建筑物具有相同设置的变化。</li>
+<li><strong>Num floors</strong>: 设置建筑物的层数或楼层数，并从此定义建筑物的高度。</li>
+<li><strong>Length X/Y</strong>: 定义建筑物在 X 和 Y 维度上的占地面积大小。这些是无单位的，数字表示重复部分的数量，每个部分是一列窗口。</li>
+<li><strong>Create automatically</strong>: 如果选择此选项，建筑物将在视口中自动更新，以便您可以看到调整的效果。</li>
+<li><strong>Corners</strong>: 允许将角件添加到建筑物中，您可以在<a href="#mesh-parameters">Mesh parameters</a>部分中选择这些件。</li>
+<li><strong>Walls</strong>: 将建筑物左/右/前/后的中间部分替换为可使用网格参数（<a href="#mesh-parameters">Mesh parameters</a>）菜单选择的替代部分。</li>
+<li><strong>Doors</strong>: 允许在大厅曾放置门的阵列。门放置在选定的索引位置。</li>
 </ul>
-<h2 id="mesh-parameters">Mesh parameters</h2>
+<h2 id="_4">网格参数</h2>
 <p><img alt="mesh_parameters" src="../img/pb_mesh_parameters.png" /></p>
-<p>In the Mesh Parameters tab in the interface, we choose the mesh pieces that will be used to clad the exterior of the building. There are 5 categories of mesh pieces for different parts of the building:</p>
+<p>在界面的“网格参数(Mesh Parameters)”选项卡中，我们选择将用于覆盖建筑物外部的网格件。建筑物不同部分的网片分为 5 类：</p>
 <ul>
-<li><strong>Lobby</strong>: mesh pieces to decorate the lobby of the building.</li>
-<li><strong>Midsection</strong>: mesh pieces to decorate the midsection of the building, every floor between the lobby and the top floor.</li>
-<li><strong>Penthouse</strong>: mesh pieces to decorate the penthouse level.</li>
-<li><strong>Doors</strong>: mesh pieces to add doors to the lobby</li>
-<li><strong>Walls</strong>: mesh pieces to decorate the walls of the building</li>
+<li><strong>Lobby</strong>: 用于装饰建筑物大堂的网片。</li>
+<li><strong>Midsection</strong>: 用于装饰建筑物中段、大堂和顶层之间的每一层的网状部件。</li>
+<li><strong>Penthouse</strong>: 用于装饰顶层公寓层的网格件。</li>
+<li><strong>Doors</strong>: 为大厅添加门的网状部件</li>
+<li><strong>Walls</strong>: 用于装饰建筑物墙壁的网片</li>
 </ul>
-<p>In each category you will find numerous options for mesh pieces. Click on one or more such that they turn red, these will be added to the respective section of your building. If you choose more than one, the tool will randomly alternate between the choices. As you select the mesh pieces for each section of your building, if you have <em>Create automatically</em> selected in the base parameters section, you will see the building taking shape in the editor viewport.</p>
+<p>在每个类别中，您都会发现许多网片选项。单击一个或多个使其变为红色，这些将被添加到建筑物的相应部分。如果您选择多个选项，该工具将在选项之间随机交替。当您为建筑物的每个部分选择网格片段时，如果您在基本参数部分中选择了自动创建（<em>Create automatically</em>），您将在编辑器视口中看到建筑物正在成形。</p>
 <p><img alt="building_parts" src="../img/pb_building_parts.png" /></p>
-<h2 id="mesh-elements">Mesh elements</h2>
+<h2 id="_5">网格元素</h2>
 <p><img alt="mesh_elements" src="../img/pb_mesh_elements.png" /></p>
-<p>In this section you can select the more detailed elements of the building such as windows, columns, plant pots, air conditioning units and antennas. Each type of decoration has slightly different properties.</p>
-<p>There are numerous types of decoration for details of the building:</p>
+<p>在此部分中，您可以选择建筑物的更详细元素，例如窗户、柱子、花盆、空调装置和天线。每种类型的装饰都有略微不同的属性。</p>
+<p>建筑物细节的装饰有多种类型：</p>
 <ul>
 <li>
-<p><strong>Vertical/Horizontal window meshes</strong>: these mesh pieces define the style of the window frames in the building. Vertical window meshes will occupy the window spaces that are taller than their width, while horizontal window meshes will occupy the window spaces that are wider than their height. If you select multiple options, they will alternate. </p>
+<p><strong>垂直/水平窗户网格</strong>: 这些网格片定义了建筑物中窗框的样式。垂直窗户网格将占据比其宽度高的窗户空间，而水平窗户网格将占据比其高度更宽的窗户空间。如果您选择多个选项，它们将交替出现。</p>
 </li>
 <li>
-<p><strong>Column meshes</strong>: these simulate brickwork column details that span the height of the building</p>
+<p><strong>柱网格</strong>: 这些模拟跨越建筑物高度的砖砌柱细节</p>
 </li>
 <li>
-<p><strong>Top/Bottom window details</strong>: these meshes decorate the top of the windows with lintels and sunshades and the bottom of the windows with window sills and plant boxes.</p>
+<p><strong>顶部/底部窗户细节</strong>: 这些网格用门楣和遮阳板装饰窗户的顶部，用窗台和植物箱装饰窗户的底部。</p>
 </li>
 <li>
-<p><strong>Window columns</strong>: brickwork columns that separate windows</p>
+<p><strong>Window columns</strong>: 分隔窗户的砖砌柱</p>
 </li>
 <li>
-<p><strong>Curtain meshes</strong>: curtains and blinds to go inside the windows</p>
+<p><strong>Curtain meshes</strong>: 安装在窗户内的窗帘和百叶窗</p>
 </li>
 <li>
-<p><strong>Pot meshes</strong>: plant pots that are added to window sills and plant boxes at specified socket points</p>
+<p><strong>Pot meshes</strong>: 在指定插座点添加到窗台和植物箱的花盆</p>
 </li>
 <li>
-<p><strong>Air conditioner meshes</strong>: air conditioning units that are added to the windows at specified socket points</p>
+<p><strong>Air conditioner meshes</strong>: 在指定插座点处添加到窗户的空调装置</p>
 </li>
 <li>
-<p><strong>Pipe meshes</strong>: pipes that descend the building vertically mimicking drainage pipes for the roof</p>
+<p><strong>Pipe meshes</strong>: 垂直向下延伸到建筑物的管道，模仿屋顶的排水管</p>
 </li>
 <li>
-<p><strong>Wire meshes</strong>: wires that descend the building vertically mimicking TV aerial extensions and lightning grounding wires</p>
+<p><strong>Wire meshes</strong>: 沿着建筑物垂直延伸的电线，模仿电视天线延伸和闪电接地线</p>
 </li>
 <li>
-<p><strong>Antenna meshes</strong>: TV antennas that protrude from the windows</p>
+<p><strong>Antenna meshes</strong>: 从窗户伸出的电视天线</p>
 </li>
 </ul>
 <p><img alt="mesh_variations" src="../img/pb_detail_variations.webp" /></p>
-<p>The parameters work as follows:</p>
-<p><strong>Common parameters</strong>:</p>
+<p>参数的工作原理如下：</p>
+<p><strong>常用参数</strong>:</p>
 <ul>
-<li><strong>Percentage</strong>: controls the amount pieces that will be placed on the building, 100% means all available spaces will be occupied</li>
-<li><strong>Offset</strong>: spacial offset of the piece from the body of the building</li>
+<li><strong>Percentage</strong>: 控制将放置在建筑物上的件数，100% 表示所有可用空间将被占用</li>
+<li><strong>Offset</strong>: 该作品相对于建筑物主体的空间偏移</li>
 </ul>
 <p><strong>Blinds and curtains</strong>:</p>
 <ul>
-<li><strong>Min/Max size</strong>: selects the min/max length of the blinds or curtains with random variation between the values. 1.0 is fully shut, 0.0 is fully open.</li>
+<li><strong>Min/Max size</strong>: 选择百叶窗或窗帘的最小/最大长度，值之间随机变化。1.0为全闭，0.0为全开。</li>
 </ul>
 <p><strong>Pipes and wires</strong>:</p>
 <ul>
-<li><strong>Index</strong>: defines the face of the building where the pipe will be placed</li>
-<li><strong>Offset side/front</strong>: adds a spatial offset to the piece from the center of the face of the building</li>
+<li><strong>Index</strong>: 定义将放置管道的建筑物的面</li>
+<li><strong>Offset side/front</strong>: 从建筑物正面的中心向作品添加空间偏移</li>
 </ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>You may find in some cases that when you choose detail mesh pieces such as plant pots, antennas and air conditioning units, you don't see any change in the building. This is most likely because the pieces you are using don't have the appropriate sockets needed to add the pieces you chose. Refer to the <a href="#sockets">sockets section</a> to learn how to use sockets</p>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>在某些情况下，您可能会发现，当您选择细节网格部件（例如花盆、天线和空调装置）时，您看不到建筑物有任何变化。这很可能是因为您正在使用的部件没有添加您选择的部件所需的适当套接字。请参阅插槽部分（<a href="#sockets">sockets section</a>）了解如何使用插槽。</p>
 </div>
-<h3 id="sockets">Sockets</h3>
+<h3 id="_6">套接字</h3>
 <p><img alt="socket_details" src="../img/pb_detail_section.png" /></p>
-<p>Sockets are anchor points which define where to place detail meshes on another mesh piece. To add sockets to the mesh pieces in the procedural building, with the procedural building selected, go to the <em>details panel</em>, normally on the right hand side of the UE editor interface. In there, you will find the <em>Meshes</em> and <em>Detail meshes</em> panels. Open the relevant section to open the mesh piece where you wish to place the socket.</p>
+<p>插槽是锚点，用于定义将细节网格物体放置在另一个网格物体上的位置。要将套接字添加到程序建筑中的网格物体，请在选择程序建筑的情况下，转到详细信息面板（<em>details panel</em>），通常位于虚幻编辑器界面的右侧。在那里，您将找到“网格（<em>Meshes</em>）”和“细节网格（<em>Detail meshes</em>）”面板。打开相关部分，在您要放置插座的位置打开网片。</p>
 <p><img alt="mesh_details" src="../img/pb_mesh_details.png" /></p>
-<p>Find the mesh on which you want to place a socket and double click the icon to open it in the editor. Click <em>create socket</em> to add a socket and name it using the following convention:</p>
+<p>找到要在其上放置套接字的网格，然后双击该图标以在编辑器中将其打开。单击“创建套接字(<em>create socket</em>)”以添加套接字并使用以下约定命名：</p>
 <ul>
-<li>Air conditioning unit: aa_*</li>
-<li>Antennas: ant_*</li>
-<li>Plant pots: pot_*</li>
+<li>空调机组（Air conditioning unit）： aa_*</li>
+<li>天线（Antennas）： ant_*</li>
+<li>花盆（Plant pots）： pot_*</li>
 </ul>
-<p>Replace the asterisk with an index, depending upon how many sockets you have, i.e. aa_0, aa_2, aa_3...</p>
+<p>将星号替换为索引，具体取决于您有多少个套接字，即 aa_0, aa_2, aa_3...</p>
 <p><img alt="socket_details" src="../img/pb_add_socket.png" /></p>
-<p>When you click <em>Create socket</em> the socket will be instantiated in the editor with a 3D handle. Drag the socket to the desired position on the mesh, this is where your detail piece will appear attached to the unit. </p>
-<h2 id="facade-materials">Facade materials</h2>
+<p>当您单击“创建套接字(<em>Create socket</em>)”时，套接字将在编辑器中使用三维句柄进行实例化。将插槽拖动到网格上的所需位置，这是您的细节部件将显示连接到单元的位置。</p>
+<h2 id="_7">外墙材料</h2>
 <p><img alt="facade_materials" src="../img/pb_facade_materials.png" /></p>
-<p>In the facade materials tab, you can browse and preview the material that you want to decorate the walls of your building.</p>
+<p>在外观材料选项卡中，您可以浏览和预览要装饰建筑物墙壁的材料。</p>
 <p><img alt="facade_changes" src="../img/pb_facade_changes.webp" /></p>
-<h2 id="cooking">Cooking</h2>
-<p>In the cooking tab, you initiate the combination of all the mesh pieces and materials you've selected into a single static mesh with associated materials and textures. An LOD texture of the building will also be created for the LOD. Specify a folder name in the interface where the assets for your new building will be saved.</p>
-<p>Once you have cooked your building, you will then be able to place instances of the building in the map just like any other CARLA assets.</p>
+<h2 id="_8">烘焙</h2>
+<p>在烹饪选项卡中，您可以将选择的所有网格物体和材质组合到具有关联材质和纹理的单个静态网格物体中。还将为 LOD 创建建筑物的 LOD 纹理。在界面中指定将保存新建筑资源的文件夹名称。</p>
+<p>一旦您完成了建筑物的制作，您就可以像任何其他 Carla 资产一样将建筑物的实例放置在地图中。</p>
               
             </div>
           </div><footer>

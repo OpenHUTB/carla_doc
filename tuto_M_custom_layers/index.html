@@ -148,13 +148,13 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">自定义地图：分层地图: Layered maps</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#add-a-new-level">Add a new level</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">添加新关卡</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#add-assets-to-a-level">Add assets to a level</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">将资产添加到关卡</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#configure-level-loading-options">Configure level loading options</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">配置关卡加载选项</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next steps</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_5">下一步</a>
     </li>
     </ul>
                   </li>
@@ -265,28 +265,28 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="customizing-maps-layered-maps">Customizing Maps: Layered Maps</h1>
-<p>Utilizing levels in your custom map enables multiple people to work on a single map concurrently. It also allows you to use the Python API to load and unload layers on your map during a simulation, just like the <a href="../core_map/#layered-maps">layered CARLA maps</a>.</p>
-<p>This guide will explain how to add a new level, how to add assets to a level, and how to configure a level to be always loaded or not.</p>
+                <h1 id="_1">自定义地图：分层地图</h1>
+<p>利用自定义地图中的级别可以让多人同时在一张地图上工作。它还允许您在模拟过程中使用 Python API 在地图上加载和卸载图层，就像 <a href="../core_map/#layered-maps">分层的 CARLA 地图</a> 一样。</p>
+<p>本指南将解释如何添加新关卡、如何向关卡添加资源以及如何将关卡配置为始终加载或不加载。</p>
 <ul>
-<li><a href="#add-a-new-level"><strong>Add a new level</strong></a></li>
-<li><a href="#add-assets-to-a-level"><strong>Add assets to a level</strong></a></li>
-<li><a href="#configure-level-loading-options"><strong>Configure level loading options</strong></a></li>
-<li><a href="#next-steps"><strong>Next steps</strong></a></li>
+<li><a href="#add-a-new-level"><strong>添加新关卡</strong></a></li>
+<li><a href="#add-assets-to-a-level"><strong>将资产添加到关卡</strong></a></li>
+<li><a href="#configure-level-loading-options"><strong>配置关卡加载选项</strong></a></li>
+<li><a href="#next-steps"><strong>下一步</strong></a></li>
 </ul>
 <hr />
-<h2 id="add-a-new-level">Add a new level</h2>
-<p>All new levels in your map will be nested within the parent level, known as the <em>Persistent Level</em>. To create a new level:</p>
-<p><strong>1. Open the levels panel.</strong></p>
+<h2 id="_2">添加新关卡</h2>
+<p>地图中的所有新关卡都将嵌套在父关卡中，称为“持久关卡”。要创建新关卡：</p>
+<p><strong>1. 打开关卡面板。</strong></p>
 <ol>
-<li>In the Unreal Engine editor, open <em>Window</em> from the menu bar.</li>
-<li>Click on <em>Levels</em>.</li>
+<li>在虚幻编辑器中，从菜单栏中打开“窗口”。</li>
+<li>单击“关卡”。</li>
 </ol>
-<p><strong>2. Create a new level.</strong></p>
+<p><strong>2. 创建新关卡。</strong></p>
 <ol>
-<li>In the <em>Levels</em> panel, click on <em>Levels</em> and select <em>Create New...</em>.</li>
-<li>Choose <em>Empty Level</em>.</li>
-<li>Save the level in <code>Content/Carla/Maps/Sublevels/&lt;map_name&gt;/</code>. To integrate the level with the CARLA Python API, use the naming convention <code>&lt;map_name&gt;_&lt;layer_name&gt;</code>, e.g., <code>TutorialMap_Buildings</code>. For a list of available layers, check <a href="../core_map/#carla-maps">here</a>.</li>
+<li>在“关卡”面板中，单击“关卡”并选择“新建......”。</li>
+<li>选择“空关卡”。</li>
+<li>将关卡保存在 <code>Content/Carla/Maps/Sublevels/&lt;map_name&gt;/</code>。 要将关卡与 CARLA Python API 集成，请使用命名约定 <code>&lt;map_name&gt;_&lt;layer_name&gt;</code>，比如,  <code>TutorialMap_Buildings</code>。有关可用关卡的列表，请查看 <a href="../core_map/#carla-maps">此处</a>。</li>
 </ol>
 <blockquote>
 <blockquote>
@@ -302,30 +302,30 @@
 </blockquote>
 </blockquote>
 <hr />
-<h2 id="add-assets-to-a-level">Add assets to a level</h2>
-<p><strong>1. Select the level to which you want to add assets</strong>.</p>
-<p>In the <em>Levels</em> panel, double-click the level to which you would like to add assets. Make sure the level is unlocked by toggling the lock icon.</p>
-<p><strong>2. Select the assets to add.</strong></p>
+<h2 id="_3">将资产添加到关卡</h2>
+<p><strong>1. 选择您要将资产添加到的关卡</strong>。</p>
+<p>在“关卡”面板中，双击要添加资源的“关卡”。通过切换锁图标确保关卡已解锁。 </p>
+<p><strong>2. 选择要添加的资产。</strong></p>
 <ol>
-<li>Select all the assets you would like to add to the level.</li>
-<li>Right-click and go to <em>Level</em>.</li>
-<li>Click on <em>Move Selection to Current Level</em>.</li>
+<li>选择您想要添加到关卡的所有资产。</li>
+<li>右键单击并转到“关卡”。</li>
+<li>单击 <em>将选择移动到当前关卡</em>。</li>
 </ol>
-<p><strong>3. Save the level.</strong></p>
-<p>If a level has pending changes to save, you will see a pencil icon next to it in the <em>Levels</em> panel. Click this to save the changes.</p>
+<p><strong>3. 保存关卡。</strong></p>
+<p>如果某个关卡有待保存的更改，您将在“关卡”面板中看到该关卡旁边有一个铅笔图标。单击此按钮保存更改。</p>
 <p><img alt="moving assets" src="../img/move_assets.png" /></p>
 <hr />
-<h2 id="configure-level-loading-options">Configure level loading options</h2>
-<p>Levels can be configured to be able to be toggled or to be always loaded. To configure the level for either option:</p>
+<h2 id="_4">配置关卡加载选项</h2>
+<p>关卡可以配置为能够切换或始终加载。要配置任一选项的级别：</p>
 <ol>
-<li>Right-click the level in the <em>Levels</em> panel and go to <em>Change Streaming Method</em>.</li>
-<li>Choose the desired setting:<ol>
-<li><em>Always Loaded</em>: The level <strong>will not be able</strong> to be toggled via the Python API.</li>
-<li><em>Blueprint</em>: The level <strong>will be able</strong> to be toggled via the Python API. A blue dot will appear beside the level name.</li>
+<li>右键单击“关卡”面板中的关卡，然后转到“修改流送方法”。</li>
+<li>选择所需的设置：<ol>
+<li><em>固定加载</em>：<strong>无法</strong> 通过 Python API 切换关卡。</li>
+<li><em>蓝图</em>: <strong>可以</strong> 通过 Python API 切换关卡。关卡名称旁边会出现一个蓝点。</li>
 </ol>
 </li>
 </ol>
-<p>Regardless of the setting, you will still be able to toggle the level in the editor by pressing the eye icon.</p>
+<p>无论设置如何，您仍然可以通过按眼睛图标来切换编辑器中的蓝图。</p>
 <blockquote>
 <blockquote>
 <blockquote>
@@ -340,22 +340,22 @@
 </blockquote>
 </blockquote>
 <hr />
-<h2 id="next-steps">Next steps</h2>
-<p>Continue customizing your map using the tools and guides below:</p>
+<h2 id="_5">下一步</h2>
+<p>使用以下工具和指南继续自定义您的地图：</p>
 <ul>
-<li><a href="../tuto_M_custom_add_tl/">Add and configure traffic lights and signs.</a></li>
-<li><a href="../tuto_M_custom_buildings/">Add buildings with the procedural building tool.</a></li>
-<li><a href="../tuto_M_custom_road_painter/">Customize the road with the road painter tool.</a></li>
-<li><a href="../tuto_M_custom_weather_landscape/#weather-customization">Customize the weather</a></li>
-<li><a href="../tuto_M_custom_weather_landscape/#add-serial-meshes">Customize the landscape with serial meshes.</a></li>
+<li><a href="../tuto_M_custom_add_tl/">添加和配置交通灯和标志。</a></li>
+<li><a href="../tuto_M_custom_buildings/">A使用程序构建工具添加建筑物。</a></li>
+<li><a href="../tuto_M_custom_road_painter/">使用道路画家工具自定义道路。</a></li>
+<li><a href="../tuto_M_custom_weather_landscape/#weather-customization">自定义天气</a></li>
+<li><a href="../tuto_M_custom_weather_landscape/#add-serial-meshes">使用连续网格自定义景观。</a></li>
 </ul>
-<p>Once you have finished with the customization, you can <a href="../tuto_M_generate_pedestrian_navigation/">generate the pedestrian navigation information</a>.</p>
+<p>完成定制后，您可以 <a href="../tuto_M_generate_pedestrian_navigation/">生成行人导航信息</a>。</p>
 <hr />
-<p>If you have any questions about the process, then you can ask in the <a href="https://github.com/carla-simulator/carla/discussions">forum</a>.</p>
+<p>如果您对流程有任何疑问，可以在 <a href="https://github.com/carla-simulator/carla/discussions">论坛</a>中提问。</p>
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA forum</a>
+Carla 论坛</a>
 </p>
 </div>
               
