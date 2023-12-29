@@ -1,102 +1,103 @@
-# CARLA in Docker
+# [Docker 中的 Carla](https://carla.readthedocs.io/en/latest/build_docker/) 
 
-Users can pull an image based on a CARLA release to run in a Docker container. This is useful for users who:
+用户可以拉取基于 Carla 版本的映像以在 Docker 容器中运行。这对于以下用户很有用：
 
-- Want to run CARLA without needing to install all dependencies
-- Run multiple CARLA servers and perform GPU mapping
-- Run the CARLA server without a display
+- 想要运行 Carla 而不需要安装所有依赖项
+- 运行多个 Carla 服务器并执行 GPU 映射
+- 在没有显示的情况下运行 Carla 服务器
 
-This tutorial explains the requirements to run the CARLA image and how to run the image with both OpenGL and Vulkan graphics APIs.
 
-- [__Before you begin__](#before-you-begin)
-- [__Running CARLA in a container__](#running-carla-in-a-container)
-- [__Off-screen mode__](#off-screen-mode)
+本教程介绍了运行 Carla 图像的要求以及如何使用 OpenGL 和 Vulkan 图形 API 运行图像。
 
----
-## Before you begin
-
-You will need to have installed:
-
-- __Docker:__ Follow the installation instructions [here](https://docs.docker.com/engine/install/).
-- __NVIDIA Container Toolkit:__ The NVIDIA Container Toolkit is a library and toolset that exposes NVIDIA graphics devices to Linux containers. It is designed specifically for Linux containers running on Linux host systems or within Linux distributions under version 2 of the Windows Subsystem for Linux. Install the `nvidia-docker2` package by following the instructions [here](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#installation-guide).
-
-!!! note
-    Docker requires sudo to run. Follow [this guide](https://docs.docker.com/install/linux/linux-postinstall/) to add users to the docker sudo group.
+- [__在你开始之前__](#before-you-begin)
+- [__在容器中运行 Carla__](#running-carla-in-a-container)
+- [__离屏模式__](#off-screen-mode)
 
 ---
-## Running CARLA in a container
+## 在你开始之前
 
-__1. Pull the CARLA image.__
+您需要安装：
 
-You can pull either the latest CARLA image or a specific release version. The latest image refers to the most [recent packaged release](https://github.com/carla-simulator/carla/releases). To pull the image, run one of the following commands:
+- __Docker:__ 按照 [此处](https://docs.docker.com/engine/install/) 的安装说明进行操作。Follow the installation instructions [here](https://docs.docker.com/engine/install/).
+- __NVIDIA Container Toolkit:__ NVIDIA 容器工具包是一个库和工具集，可将 NVIDIA 图形设备公开给 Linux 容器。它专为在 Linux 主机系统或适用于 Linux 的 Windows 子系统版本 2 下的 Linux 发行版中运行的 Linux 容器而设计。`nvidia-docker2`按照 [此处](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#installation-guide) 的说明安装该软件包。
+
+!!! 注意
+    Docker 需要 sudo 才能运行。按照 [本指南](https://docs.docker.com/install/linux/linux-postinstall/) 将用户添加到 docker sudo 组。
+
+---
+## 在容器中运行 Carla
+
+__1. 拉取 Carla 镜像。__
+
+您可以提取最新的 CARLA 映像或特定的发行版本。最新镜像是指 [最新的打包版本](https://github.com/carla-simulator/carla/releases)。要拉取映像，请运行以下命令之一：
 
 ```sh
-# Pull the latest image
+# 拉取最新的镜像
 docker pull carlasim/carla:latest
 
-# Pull a specific version
+# 拉取特定的版本
 docker pull carlasim/carla:0.9.12
 ```
 
-__2. Run the CARLA container.__
+__2. 运行 Carla 容器。__
 
-Different versions of CARLA support different graphics APIs which can affect the conditions in which the Docker image can run:
+不同版本的 CARLA 支持不同的图形 API，这可能会影响 Docker 镜像的运行条件：
 
-- 0.9.12 supports only Vulkan
-- 0.9.7+ supports both Vulkan and OpenGL.
+- 0.9.12 仅支持 Vulkan
+- 0.9.7+ 同时支持 Vulkan 和 OpenGL。
 
 
-__CARLA 0.9.12__
+__Carla 0.9.12__
 
-To run CARLA with a display:
+要使用显示运行 Carla：
 
 ```
 sudo docker run --privileged --gpus all --net=host -e DISPLAY=$DISPLAY carlasim/carla:0.9.12 /bin/bash ./CarlaUE4.sh
 ```
 
-To run CARLA in off-screen mode:
+要在离屏模式下运行 Carla：
 
 ```
 sudo docker run --privileged --gpus all --net=host -v /tmp/.X11-unix:/tmp/.X11-unix:rw carlasim/carla:0.9.12 /bin/bash ./CarlaUE4.sh -RenderOffScreen
 ```
 
-__CARLA 0.9.7 to 0.9.11__
+__Carla 0.9.7 至 0.9.11__
 
-To run CARLA using Vulkan:
+要使用 Vulkan 运行 Carla：
 
 ```sh
 sudo docker run --privileged --gpus all --net=host -e DISPLAY=$DISPLAY -e SDL_VIDEODRIVER=x11 -v /tmp/.X11-unix:/tmp/.X11-unix:rw carlasim/carla:0.9.11 /bin/bash ./CarlaUE4.sh -vulkan <-additonal-carla-flags>
 ```
 
-!!! Note
-    This command will allow you to run the CARLA image with Vulkan as long as your machine has a display. See the [rendering documentation](adv_rendering_options.md#off-screen-mode) for information on running with Vulkan in off-screen mode.
+!!! 注意
+    只要您的计算机有显示器，此命令将允许您使用 Vulkan 运行 CARLA 映像。有关在离屏模式下运行 Vulkan 的信息，请参阅 [渲染文档](adv_rendering_options.md#off-screen-mode) 。
 
-To run CARLA using OpenGL:
+要使用 OpenGL 运行 Carla：
 
 ```sh
 docker run -e DISPLAY=$DISPLAY --net=host --gpus all --runtime=nvidia carlasim/carla:<version> /bin/bash CarlaUE4.sh -opengl <-additonal-carla-flags>
 ```
 
-__3. (Optional) Configure Docker flags.__
+__3. （可选）配置 Docker 标志。__
 
-The above commands use some Docker flags that can be configured according to your needs:
+上面的命令使用了一些 Docker 标志，可以根据您的需要进行配置：
 
-- __Networking:__ The [`--net=host`](https://docs.docker.com/engine/reference/run/#network-settings) argument will allow the container to share the host's entire network. If you prefer to [map specific ports](https://docs.docker.com/engine/reference/run/#expose-incoming-ports) on the host machine to container ports, use the flag `-p <host-ports>:<container-ports>`.
-- __GPUs:__ You can choose to use all GPUs with `--gpus all`, or target specific GPUs with `--gpus '"device=<gpu_01>,<gpu_02>"'`. See [here](https://docs.docker.com/config/containers/resource_constraints/#gpu) for more information.
-
----
-
-## Off-screen mode
-
-OpenGL requires no configuration if you are running CARLA on a machine without a display, however you will need to perform some extra steps to do the same using Vulkan prior to CARLA 0.9.12. See the [rendering documentation](adv_rendering_options.md#off-screen-mode) for information.
+- __Networking:__ [`--net=host`](https://docs.docker.com/engine/reference/run/#network-settings) 参数将允许容器共享主机的整个网络。如果您希望将主机上的特定端口 [映射到容器端口](https://docs.docker.com/engine/reference/run/#expose-incoming-ports) ，请使用标志 `-p <host-ports>:<container-ports>`。 
+- __GPUs:__ 您可以使用 `--gpus all` 选择有所 GPU，或者使用 `--gpus '"device=<gpu_01>,<gpu_02>"'` 使用特定 GPU。 浏览 [此处](https://docs.docker.com/config/containers/resource_constraints/#gpu) 获取更多信息。 
 
 ---
 
-Any issues or doubts related with this topic can be posted in the CARLA forum.
+## 离屏模式
+
+如果您在没有显示器的计算机上运行 Carla，则 OpenGL 不需要配置，但是您需要执行一些额外的步骤才能使用 Carla 0.9.12 之前的 Vulkan 执行相同的操作。有关信息，请参阅[渲染文档](adv_rendering_options.md#off-screen-mode) 。
+
+---
+
+与此主题相关的任何问题或疑问都可以在 Carla 论坛中发布。
 
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA forum</a>
+Carla 论坛</a>
 </p>
 </div>
