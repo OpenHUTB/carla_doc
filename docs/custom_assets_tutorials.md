@@ -1,26 +1,26 @@
-# Custom assets
+# 自定义资产
 
-CARLA has a wealth of assets available out of the box including full towns and cities with road networks, buildings and infrastructure, vehicles and pedestrians to populate your simulations. However, for many applications, you may want to add your own assets and CARLA is fully capable of loading new assets created entirely by the user for maximum extensability. 
+CARLA 拥有大量开箱即用的资产，包括完整的城镇和城市以及道路网络、建筑物和基础设施、车辆和行人，以填充您的仿真。然而，对于许多应用程序，您可能想要添加自己的资产，而 CARLA 完全有能力加载完全由用户创建的新资产，以实现最大的可扩展性。
 
-The following documentation details numerous techniques for creating your own assets and adding them to CARLA.
+以下文档详细介绍了创建您自己的资产并将其添加到 CARLA 的多种技术。
 
-- [__Adding props__](tuto_A_add_props.md)
-- [__Adding vehicles__](tuto_A_add_vehicle.md)
-- [__Packaging assets__](tuto_A_create_standalone.md) 
-- [__Material customisation__](tuto_A_material_customization.md)
+- [__添加道具__](tuto_A_add_props.md)
+- [__添加车辆__](tuto_A_add_vehicle.md)
+- [__打包资产__](tuto_A_create_standalone.md) 
+- [__定制材料__](tuto_A_material_customization.md)
 
-## [Adding props](tuto_A_add_props.md)
+## [添加道具](tuto_A_add_props.md)
 
-Props are the assets populating the scene, other than the roads and vehicles. That includes streetlights, buildings, trees, and much more. The simulator can ingest new props anytime in a simple process. This is really useful to create customized environments in a map. [__This document__](tuto_A_add_props.md) demonstrates how to create and include custom props. 
+道具是场景中除道路和车辆之外的资产。其中包括路灯、建筑物、树木等等。仿真器可以随时通过简单的过程导入新道具。这对于在地图中创建自定义环境非常有用。[__本文档__](tuto_A_add_props.md) 演示了如何创建和包含自定义道具。
 
-## Adding vehicles
+## 添加车辆
 
-Vehicles are the bread and butter of CARLA. They serve to simulate other road users and act as a virtual emulation of the vehicle that an autonomous agent is built to control. CARLA has a large, growing library of vehicles out of the box, but for specialised applications, CARLA is capable of loading custom designed vehicles. [__This document__](tuto_A_add_vehicle.md) details how to create and import custom vehicles.
+车辆是 CARLA 的支柱。它们用于仿真其他道路使用者，并充当自动代理控制的车辆的虚拟仿真。CARLA 拥有一个庞大且不断增长的开箱即用车辆库，但对于特殊应用，CARLA 能够装载定制设计的车辆。[__本文档__](tuto_A_add_vehicle.md) 详细介绍了如何创建和导入自定义车辆。
 
-## Packaging assets
+## 打包资产
 
-It is a common practice in CARLA to manage assets with standalone packages. Keeping them aside allows to reduce the size of the build. These asset packages can be easily imported into a CARLA package anytime. They also become really useful to easily distribute assets in an organized way. [__This document__](tuto_A_create_standalone.md) demonstrates how to package assets for use in CARLA.
+使用独立包管理资产是 CARLA 的常见做法。将它们放在一边可以减少构建的大小。这些资源包可以随时轻松导入到 CARLA 包中。它们对于以有组织的方式轻松分配资产也非常有用。[__本文档__](tuto_A_create_standalone.md)  演示了如何打包资源以在 CARLA 中使用。
 
-## Custom materials
+## 定制材料
 
-The CARLA team prepares every asset to run under certain default settings. However, users that work in a build from source can modify these to best suit their needs. [__This document__](tuto_A_material_customization.md) demonstrates how to achieve this. 
+CARLA 团队准备每个资产在某些默认设置下运行。但是，从源代码构建的用户可以修改这些内容以最适合他们的需求。[__本文档__](tuto_A_material_customization.md) 演示了如何实现这一目标。

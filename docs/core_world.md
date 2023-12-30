@@ -1,117 +1,117 @@
-# 1st. World and client
+# 第一、世界和客户端
 
-The client and the world are two of the fundamentals of CARLA, a necessary abstraction to operate the simulation and its actors.  
+客户端和世界是 CARLA 的两个基本要素，是操作仿真及其参与者的必要抽象。 
 
-This tutorial goes from defining the basics and creation of these elements, to describing their possibilities. If any doubt or issue arises during the reading, the [CARLA forum](https://github.com/carla-simulator/carla/discussions/) is there to solve them.  
+本教程从定义这些元素的基础知识和创建，到描述它们的可能性。如果阅读过程中出现任何疑问或问题，[CARLA 论坛](https://github.com/carla-simulator/carla/discussions/) 可以为您解决。
 
-*   [__The client__](#the-client)  
-	*   [Client creation](#client-creation)  
-	*   [World connection](#world-connection)  
-	*   [Other client utilities](#other-client-utilities)  
-*   [__The world__](#the-world)  
-	*   [Actors](#actors)  
-	*   [Weather](#weather)  
-	*   [Lights](#lights)  
-	*   [Debugging](#debugging)  
-	*   [World snapshots](#world-snapshots)  
-	*   [World settings](#world-settings)  
+*   [__客户端__](#the-client)  
+	*   [客户端创建](#client-creation)  
+	*   [世界连接](#world-connection)  
+	*   [其他客户端实用程序](#other-client-utilities)  
+*   [__世界__](#the-world)  
+	*   [参与者](#actors)  
+	*   [天气](#weather)  
+	*   [灯光](#lights)  
+	*   [调试](#debugging)  
+	*   [世界快照](#world-snapshots)  
+	*   [世界设置](#world-settings)  
 
 ---
-## The client
+## 客户端
 
-Clients are one of the main elements in the CARLA architecture. They connect to the server, retrieve information, and command changes. That is done via scripts. The client identifies itself, and connects to the world to then operate with the simulation.  
+客户端是 CARLA 架构中的主要元素之一。它们连接到服务器、检索信息并更改命令。这是通过脚本完成的。客户端识别自己的身份，并连接到世界，然后进行模拟操作。
 
-Besides that, clients are able to access advanced CARLA modules, features, and apply command batches. Only command batches will be covered in this section. These are useful for basic things such as spawning lots of actors. The rest of features are more complex, and they will be addressed in their respective pages in __Advanced steps__.  
+除此之外，客户还可以访问高级 CARLA 模块、功能并应用命令批处理。本节仅介绍命令批处理。这些对于诸如生成大量参与者之类的基本事情很有用。其余功能更加复杂，将在 __高级步骤__ 中各自的页面中进行解决。 
 
-Take a look at [__carla.Client__](python_api.md#carla.Client) in the Python API reference to learn on specific methods and variables of the class. 
+查看 Python API 参考中的 [__carla.Client__](python_api.md#carla.Client) 以了解该类的特定方法和变量。
 
 
-### Client creation
+### 客户端创建
 
-Two things are needed. The __IP__ address identifying it, and __two TCP ports__ to communicate with the server. An optional third parameter sets the amount of working threads. By default this is set to all (`0`). The [carla.Client](python_api.md#carla.Client.__init__) in the Python API reference contains a snipet that shows how to parse these as arguments when running the script. 
+需要两件事。标识它的 __IP__ 地址以及与服务器通信的 __两个 TCP 端口__ 。可选的第三个参数设置工作线程的数量。默认情况下，该值设置为全部 (`0`)。Python API 参考中的[carla.Client](python_api.md#carla.Client.__init__) 包含一个片段，显示如何在运行脚本时将这些解析为参数。
 
 ```py
 client = carla.Client('localhost', 2000)
 ```
-By default, CARLA uses local host IP, and port 2000 to connect but these can be changed at will. The second port will always be `n+1`, 2001 in this case.  
+默认情况下，CARLA 使用本地主机 IP 和端口 2000 进行连接，但这些可以随意更改。在本例中，第二个端口始终为`n+1`,2001。
 
-Once the client is created, set its __time-out__. This limits all networking operations so that these don't block the client forever. An error will be returned if connection fails. 
+创建客户端后，设置其 __time-out__ 。这限制了所有网络操作，以便这些操作不会永远阻止客户端。如果连接失败，将返回错误。
 
 ```py
-client.set_timeout(10.0) # seconds
+client.set_timeout(10.0) # 秒
 ```
 
-It is possible to have many clients connected, as it is common to have more than one script running at a time. Working in a multiclient scheme with advanced CARLA features, such as the traffic manager, is bound to make communication more complex.  
+可以连接许多客户端，因为一次运行多个脚本是很常见的。在具有高级 CARLA 功能（例如交通管理器）的多客户端方案中工作，必然会使通信更加复杂。
 
-!!! Note
-    Client and server have different `libcarla` modules. If the versions differ, issues may arise. This can be checked using the `get_client_version()` and `get_server_version()` methods. 
+!!! 注意
+    客户端和服务器有不同的`libcarla`模块。如果版本不同，可能会出现问题。这可以使用`get_client_version()`和`get_server_version()`方法进行检查。
 
-### World connection
+### 世界连接
 
-A client can connect and retrieve the current world fairly easily. 
+客户端可以相当轻松地连接和检索当前世界。
 
 ```py
 world = client.get_world()
 ```
 
-The client can also get a list of available maps to change the current one. This will destroy the current world and create a new one.
+客户端还可以获得可用地图列表来更改当前地图。这将摧毁当前的世界并创造一个新的世界。
 ```py
 print(client.get_available_maps())
 ...
 world = client.load_world('Town01')
-# client.reload_world() creates a new instance of the world with the same map. 
+# client.reload_world() 创建一个相同地图世界的新实例。
 ```
 
-Every world object has an `id` or episode. Everytime the client calls for `load_world()` or `reload_world()` the previous one is destroyed. A new one is created from scratch with a new episode. Unreal Engine is not rebooted in the process. 
+每个世界对象都有一个 `id` 或世代。每当客户端调用 `load_world()` 或 `reload_world()` 时，前一个被销毁。一个新的世代是从头开始创建的。在此过程中虚幻引擎不会重新启动。
 
-### Using commands
+### 使用命令
 
-__Commands__ are adaptations of some of the most-common CARLA methods, that can be applied in batches. For instance, the [command.SetAutopilot](python_api.md#command.SetAutopilot) is equivalent to [Vehicle.set_autopilot()](python_api.md#carla.Vehicle.set_autopilot), enables the autopilot for a vehicle. However, using the methods [Client.apply_batch](python_api.md#carla.Client.apply_batch) or [Client.apply_batch_sync()](python_api.md#carla.Client.apply_batch_sync), a list of commands can be applied in one single simulation step. This becomes extremely useful for methods that are usually applied to even hundreds of elements.  
+__命令__ 是一些最常见的 CARLA 方法的改编，可以批量应用。例如，[command.SetAutopilot](python_api.md#command.SetAutopilot) 相当于[command.SetAutopilot](python_api.md#command.SetAutopilot) ，启用车辆的自动驾驶功能。但是，使用[Client.apply_batch](python_api.md#carla.Client.apply_batch) 或[Client.apply_batch_sync()](python_api.md#carla.Client.apply_batch_sync) 方法，可以在一个仿真步骤中应用一系列命令。这对于通常应用于数百个元素的方法来说变得非常有用。
 
-The following example uses a batch to destroy a list of vehicles all at once.  
+以下示例使用批处理一次性销毁一系列车辆。
 
 ```py
 client.apply_batch([carla.command.DestroyActor(x) for x in vehicles_list])
 ```
 
-All the commands available are listed in the [latest section](python_api.md#command.ApplyAngularVelocity) of the Python API reference.  
+Python API 参考的 [最新部分](python_api.md#command.ApplyAngularVelocity) 列出了所有可用的命令。
 
-### Other client utilities
+### 其他客户端实用程序
 
-The main purpose of the client object is to get or change the world, and apply commands. However, it also provides access to some additional features.  
+客户端对象的主要目的是获取或改变世界，并应用命令。但是，它还提供对一些附加功能的访问。 
 
-*   __Traffic manager.__ This module is in charge of every vehicle set to autopilot to recreate urban traffic.  
-*   __[Recorder](adv_recorder.md).__ Allows to reenact a previous simulation. Uses [snapshots](core_world.md#world-snapshots) summarizing the simulation state per frame.  
+*   __交通管理器。__ 该模块负责每辆设置为自动驾驶的车辆以重建城市交通。
+*   __[记录器](adv_recorder.md).__ 允许重新进行以前的仿真。使用 [快照](core_world.md#world-snapshots) 总结每帧的仿真状态。
 
 ---
-## The world
+## 世界
 
-The major ruler of the simulation. Its instance should be retrieved by the client. It does not contain the model of the world itself, that is part of the [Map](core_map.md) class. Instead, most of the information, and general settings can be accessed from this class.
+仿真的主要标尺。它的实例应该由客户端检索。它不包含世界本身的模型，这是 [Map](core_map.md) 类的一部分。相反，大多数信息和常规设置可以从此类访问。
 
-*   Actors in the simulation and the spectator.  
-*   Blueprint library.  
-*   Map.  
-*   Simulation settings.  
-*   Snapshots.  
-*   Weather and light manager.  
+*   仿真中的参与者和观察者。
+*   蓝图库。
+*   地图。
+*   仿真设置。
+*   快照。
+*   天气和灯光管理器。
 
-Some of its most important methods are _getters_, precisely to retrieve information or instances of these elements. Take a look at [carla.World](python_api.md#carla.World) to learn more about it.  
+它的一些最重要的方法是 _getters_ ，精确地检索这些元素的信息或实例。查看 [carla.World](python_api.md#carla.World) 了解更多信息。
 
-### Actors
+### 参与者
 
-The world has different methods related with actors that allow for different functionalities.  
+世界上有不同的与参与者相关的方法，允许不同的功能。
 
-*   Spawn actors (but not destroy them). 
-*   Get every actor on scene, or find one in particular.  
-*   Access the blueprint library.  
-*   Access the spectator actor, the simulation's point of view.  
-*   Retrieve a random location that is fitting to spawn an actor.  
+*   生成参与者（但不摧毁他们）。
+*   获得场景中的每一位参与者，或者找到一个特定的参与者
+*   访问蓝图库。  
+*   访问观察参与者、仿真的视角。 
+*   检索适合生成参与者的随机位置。
 
-Spawning will be explained in [2nd. Actors and blueprints](core_actors.md). It requires some understanding on the blueprint library, attributes, etc.  
+生成将在 [第二部分、参与者和蓝图](core_actors.md) 。需要对蓝图库、属性等有一定的了解。
 
-### Weather
+### 天气
 
-The weather is not a class on its own, but a set of parameters accessible from the world. The parametrization includes sun orientation, cloudiness, wind, fog, and much more. The helper class [carla.WeatherParameters](python_api.md#carla.WeatherParameters) is used to define a custom weather.  
+天气本身并不是一个类，而是一组可从世界获取的参数。参数化包括太阳方向、云量、风、雾等等。辅助类[carla.WeatherParameters](python_api.md#carla.WeatherParameters) 用于定义自定义天气。
 ```py
 weather = carla.WeatherParameters(
     cloudiness=80.0,
@@ -123,18 +123,18 @@ world.set_weather(weather)
 print(world.get_weather())
 ```
 
-There are some weather presets that can be directly applied to the world. These are listed in [carla.WeatherParameters](python_api.md#carla.WeatherParameters) and accessible as an enum.  
+有一些天气预设可以直接应用于世界。这些列在[carla.WeatherParameters](python_api.md#carla.WeatherParameters) 中并可作为枚举访问。 
 
 ```py
 world.set_weather(carla.WeatherParameters.WetCloudySunset)
 ```
 
-The weather can also be customized using two scripts provided by CARLA. 
+还可以使用 CARLA 提供的两个脚本来自定义天气。
 
-*   __`environment.py`__ *(in `PythonAPI/util`)* — Provides access to weather and light parameters so that these can be changed in real time.  
+*   __`environment.py`__ *(在 `PythonAPI/util` 目录下)* — 提供对天气和光照参数的访问，以便可以实时更改这些参数。
 
 <details>
-<summary> Optional arguments in <b>environment.py</b> </summary>
+<summary> <b>environment.py</b>  中的可选参数 </summary>
 
 ```sh
   -h, --help            show this help message and exit
@@ -155,10 +155,10 @@ The weather can also be customized using two scripts provided by CARLA.
 ```
 </details><br>
 
-*   __`dynamic_weather.py`__ *(in `PythonAPI/examples`)* — Enables a particular weather cycle prepared by developers for each CARLA map.  
+*   __`dynamic_weather.py`__ *(在 `PythonAPI/examples` 目录下)* — 启用开发人员为每张 CARLA 地图准备的特定天气周期。
 
 <details>
-<summary> Optional arguments in <b>dynamic_weather.py</b> </summary>
+<summary> <b>dynamic_weather.py</b> 中的可选参数 </summary>
 
 ```sh
   -h, --help            show this help message and exit
@@ -169,109 +169,108 @@ The weather can also be customized using two scripts provided by CARLA.
 ```
 </details><br>
 
-!!! Note
-    Changes in the weather do not affect physics. They are only visuals that can be captured by the camera sensors. 
+!!! 注意
+    天气的变化不会影响物理。它们只是相机传感器可以捕获的视觉效果。
 
-__Night mode starts when sun_altitude_angle < 0__, which is considered sunset. This is when lights become especially relevant.  
+__当 sun_altitude_angle < 0 时，夜间模式开始__，这被认为是日落。这是灯光变得特别重要的时候。
 
-### Lights
+### 灯光
 
-*   __Street lights__ automatically turn on when the simulation enters night mode. The lights are placed by the developers of the map, and accessible as [__carla.Light__](python_api.md#carla.Light) objects. Properties such as color and intensity can be changed at will. The variable __light_state__ of type [__carla.LightState__](python_api.md#carla.LightState) allows setting all of these in one call.  
-Street lights are categorized using their attribute __light_group__, of type [__carla.LightGroup__](python_api.md#carla.LightGroup). This allows to classify lights as street lights, building lights... An instance of [__carla.LightManager__](python_api.md#carla.LightManager) can be retrieved to handle groups of lights in one call.  
+*   当模拟进入夜间模式时， __路灯__ 会自动打开。灯光由地图开发人员放置，并可作为 [__carla.Light__](python_api.md#carla.Light) 对象访问。颜色和强度等属性可以随意更改。[__carla.LightState__](python_api.md#carla.LightState) 类型的变量 __light_state__ 允许在一次调用中设置所有这些。 路灯使用其类型为 [__carla.LightState__](python_api.md#carla.LightState) 的属性 __light_state__ 进行分类。这允许将灯分类为路灯、建筑物灯...可以检索 [__carla.LightManager__] 的实例来在一次调用中处理一组灯。
 
 ```py
-# Get the light manager and lights
+# 获得灯光管理器和灯光
 lmanager = world.get_lightmanager()
 mylights = lmanager.get_all_lights()
 
-# Custom a specific light
+# 定制一个特定的灯光
 light01 = mylights[0]
 light01.turn_on()
 light01.set_intensity(100.0)
 state01 = carla.LightState(200.0,red,carla.LightGroup.Building,True)
 light01.set_light_state(state01)
 
-# Custom a group of lights
+# 定制一组灯
 my_lights = lmanager.get_light_group(carla.LightGroup.Building)
 lmanager.turn_on(my_lights)
 lmanager.set_color(my_lights,carla.Color(255,0,0))
 lmanager.set_intensities(my_lights,list_of_intensities)
 ```
 
-* __Vehicle lights__ have to be turned on/off by the user. Each vehicle has a set of lights listed in [__carla.VehicleLightState__](python_api.md#carla.VehicleLightState). So far, not all vehicles have lights integrated. Here is a list of those that are available by the time of writing.  
-	*   __Bikes.__ All of them have a front and back position light.  
-	*   __Motorcycles.__ Yamaha and Harley Davidson models.  
-	*   __Cars.__ Audi TT, Chevrolet, Dodge (the police car), Etron, Lincoln, Mustang, Tesla 3S, Wolkswagen T2 and the new guests coming to CARLA.  
+* __车灯__ 必须由用户打开/关闭。每辆车都有一组在[__carla.VehicleLightState__](python_api.md#carla.VehicleLightState) 中列出的灯。到目前为止，并非所有车辆都集成了车灯。以下是截至撰写本文时可用的列表。
+	*   __自行车。__ 它们都有前后示廓灯。
+	*   __摩托车。__ 雅马哈和哈雷戴维森型号。
+	*   __汽车。__ 奥迪 TT、雪佛兰、道奇（警车）、钰创、林肯、野马、特斯拉3S、大众T2以及即将到来的 Carla 新客人。  
 
-The lights of a vehicle can be retrieved and updated anytime using the methods [carla.Vehicle.get_light_state](python_api.md#carla.Vehicle.get_light_state) and [carla.Vehicle.set_light_state](#python_api.md#carla.Vehicle.set_light_state). These use binary operations to customize the light setting.  
+可以使用 [carla.Vehicle.get_light_state](python_api.md#carla.Vehicle.get_light_state) 和 [carla.Vehicle.set_light_state](#python_api.md#carla.Vehicle.set_light_state) 方法随时检索和更新车辆的灯光。它们使用二进制运算来自定义灯光设置。
 
 ```py
-# Turn on position lights
+# 打开位置灯
 current_lights = carla.VehicleLightState.NONE
 current_lights |= carla.VehicleLightState.Position
 vehicle.set_light_state(current_lights)
 ```
 
-!!! Note
-    Lights can also be set in real time using the `environment.py` described in the [weather](#weather) section.  
+!!! 注意
+    还可以使用天气 `environment.py` 部分中描述的实时设置灯光。
 
-### Debugging
+### 调试
 
-World objects have a [carla.DebugHelper](python_api.md#carla.DebugHelper) object as a public attribute. It allows for different shapes to be drawn during the simulation. These are used to  trace the events happening. The following example would draw a red box at an actor's location and rotation. 
+世界对象有一个 [carla.DebugHelper](python_api.md#carla.DebugHelper) 对象作为公共属性。它允许在仿真过程中绘制不同的形状。这些用于跟踪正在发生的事件。以下示例将在参与者的位置和旋转处绘制一个红色框。
 
 ```py
 debug = world.debug
 debug.draw_box(carla.BoundingBox(actor_snapshot.get_transform().location,carla.Vector3D(0.5,0.5,2)),actor_snapshot.get_transform().rotation, 0.05, carla.Color(255,0,0,0),0)
 ```
 
-This example is extended in a snipet in [carla.DebugHelper](python_api.md#carla.DebugHelper.draw_box) that shows how to draw boxes for every actor in a world snapshot. 
+此示例在 [carla.DebugHelper](python_api.md#carla.DebugHelper.draw_box) 的片段中进行了扩展，展示了如何为世界快照中的每个参与者绘制方框。
 
-### World snapshots
+### 世界快照
 
-Contains the state of every actor in the simulation at a single frame. A sort of still image of the world with a time reference. The information comes from the same simulation step, even in asynchronous mode.  
+包含仿真中每个参与者在单个帧中的状态。一种带有时间参考的静态世界图像。即使在异步模式下，信息也来自相同的仿真步骤。
 
 ```py
-# Retrieve a snapshot of the world at current frame.
+# 检索当前帧的世界快照。
 world_snapshot = world.get_snapshot()
 ```
 
-A [carla.WorldSnapshot](python_api.md#carla.WorldSnapshot) contains a [carla.Timestamp](python_api.md#carla.Timestamp) and a list of [carla.ActorSnapshot](python_api.md#carla.ActorSnapshot). Actor snapshots can be searched using the `id` of an actor. A snapshot lists the `id` of the actors appearing in it.  
+[carla.WorldSnapshot](python_api.md#carla.WorldSnapshot) 包含 [carla.Timestamp](python_api.md#carla.Timestamp) 和 [carla.ActorSnapshot](python_api.md#carla.ActorSnapshot) 列表。可以使用参与者 `id` 的搜索参与者快照。快照列出了其中出现的参与者 `id`。
 
 ```py
-timestamp = world_snapshot.timestamp # Get the time reference 
+timestamp = world_snapshot.timestamp # 获取时间参考
 
-for actor_snapshot in world_snapshot: # Get the actor and the snapshot information
+for actor_snapshot in world_snapshot: # 获取参与者和快照信息
     actual_actor = world.get_actor(actor_snapshot.id)
     actor_snapshot.get_transform()
     actor_snapshot.get_velocity()
     actor_snapshot.get_angular_velocity()
     actor_snapshot.get_acceleration()  
 
-actor_snapshot = world_snapshot.find(actual_actor.id) # Get an actor's snapshot
+actor_snapshot = world_snapshot.find(actual_actor.id) # 获得参与者快照
 ```
 
-### World settings
+### 世界设置
 
-The world has access to some advanced configurations for the simulation. These determine rendering conditions, simulation time-steps, and synchrony between clients and server. They are accessible from the helper class [carla.WorldSettings](python_api.md#carla.WorldSettings).  
+世界可以使用一些高级的仿真配置。这些决定了渲染条件、仿真时间步长以及客户端和服务器之间的同步。它们可以从辅助类[carla.WorldSettings](python_api.md#carla.WorldSettings) 访问。 
 
-For the time being, default CARLA runs with the best graphics quality, a variable time-step, and asynchronously. To dive further in this matters take a look at the __Advanced steps__ section. The pages on [synchrony and time-step](adv_synchrony_timestep.md), and [rendering options](adv_rendering_options.md) could be a great starting point.
+目前，默认的 CARLA 以最佳图形质量、可变时间步长和异步方式运行。要进一步深入了解此问题，请查看 __高级步骤__ 部分。有关 [同步、时间步长](adv_synchrony_timestep.md) 以及 [渲染选项](adv_rendering_options.md) 的页面可能是一个很好的起点。
 
 ---
-That is a wrap on the world and client objects. The next step takes a closer look into actors and blueprints to give life to the simulation.  
+这是对世界和客户端对象的包装。下一步将仔细研究参与者和蓝图，为模拟赋予生命。
 
-Keep reading to learn more. Visit the forum to post any doubts or suggestions that have come to mind during this reading.  
+继续阅读以了解更多信息。请访问论坛，发表在阅读过程中想到的任何疑问或建议。
 
 <div text-align: center>
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="CARLA forum">
-CARLA forum</a>
+Carla 论坛</a>
 </p>
 </div>
 <div class="build-buttons">
 <p>
 <a href="../core_actors" target="_blank" class="btn btn-neutral" title="2nd. Actors and blueprints">
-2nd. Actors and blueprints</a>
+第二、参与者和蓝图</a>
 </p>
 </div>
 </div>

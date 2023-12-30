@@ -1,4 +1,4 @@
-# 参与者和蓝图
+# 第二、参与者和蓝图
 
 Carla 中的参与者是在模拟中执行动作的元素，他们可以影响其他参与者。Carla 的参与者包括车辆和步行者，也包括传感器、交通标志、红绿灯和观看者。对如何操作它们有充分的了解是至关重要的。 
 
@@ -236,8 +236,7 @@ if traffic_light.get_state() == carla.TrafficLightState.Red:
     print(box.extent)           # XYZ half-box extents in meters.
 ```
 
-通过启用 [sweep wheel collision parameter][enable_sweep] 扫轮碰撞参数可以改善车轮的物理特性。默认的轮子物理系统对每个轮子使用从轴到地板的单射线投射，但是当启用扫掠轮碰撞时，将检查轮子的整个体积是否发生碰撞。它可以这样启用：
-The physics of vehicle wheels can be improved by enabling the [sweep wheel collision parameter][enable_sweep]. The default wheel physics uses single ray casting from the axis to the floor for each wheel but when sweep wheel collision is enabled, the full volume of the wheel is checked against collisions. It can be enabled as such:
+通过启用 [扫轮碰撞参数][enable_sweep] 可以改善车轮的物理特性。默认的轮子物理系统对每个轮子使用从轴到地板的单射线投射，但是当启用扫轮碰撞时，将检查轮子的整个体积是否发生碰撞。它可以这样启用：
 
 ```py
     physics_control = vehicle.get_physics_control()
@@ -248,75 +247,75 @@ The physics of vehicle wheels can be improved by enabling the [sweep wheel colli
 [enable_sweep]: https://carla.readthedocs.io/en/latest/python_api/#carla.VehiclePhysicsControl.use_sweep_wheel_collision
 
 
-Vehicles include other functionalities unique to them:
+车辆还包括其独有的其他功能：
 
-* __Autopilot mode__ will subscribe a vehicle to the [Traffic Manager](adv_traffic_manager.md) to simulate real urban conditions. This module is hard-coded, not based on machine learning.  
+* __自动驾驶模式__ 会将车辆订阅到 [交通管理器](adv_traffic_manager.md) 以仿真真实的城市状况。该模块是硬编码的，不是基于机器学习的。
 
 ```py
     vehicle.set_autopilot(True)
 ```
-* __Vehicle lights__ have to be turned on and off by the user. Each vehicle has a set of lights listed in [__carla.VehicleLightState__](python_api.md#carla.VehicleLightState). Not all vehicles have lights integrated. At the time of writing, vehicles with integrated lights are as follows:  
-	*   __Bikes:__ All bikes have a front and back position light.  
-	*   __Motorcycles:__ Yamaha and Harley Davidson models.  
-	*   __Cars:__ Audi TT, Chevrolet Impala, both Dodge police cars, Dodge Charger, Audi e-tron, Lincoln 2017 and 2020, Mustang, Tesla Model 3, Tesla Cybertruck, Volkswagen T2 and the Mercedes C-Class.  
+* __车灯__ 必须由用户打开和关闭。每辆车都有一组在[__carla.VehicleLightState__](python_api.md#carla.VehicleLightState) 中列出的灯。并非所有车辆都集成了车灯。截至撰写本文时，配备集成车灯的车辆如下：
+	*   __自行车：__ 所有自行车都有前后位置灯。
+	*   __摩托车：__ 雅马哈和哈雷戴维森型号。
+	*   __汽车：__ 奥迪 TT、雪佛兰 Impala、道奇警车、道奇 Charger、奥迪 e-tron、林肯 2017 年和 2020 年、野马、特斯拉 Model 3、特斯拉 Cybertruck、大众 T2 和梅赛德斯 C 级。
 
-The lights of a vehicle can be retrieved and updated anytime using the methods [carla.Vehicle.get_light_state](python_api.md#carla.Vehicle.get_light_state) and [carla.Vehicle.set_light_state](#python_api.md#carla.Vehicle.set_light_state). These use binary operations to customize the light setting.  
+可以使用 [carla.Vehicle.get_light_state](python_api.md#carla.Vehicle.get_light_state) 和 [carla.Vehicle.set_light_state](#python_api.md#carla.Vehicle.set_light_state) 方法随时检索和更新车辆的灯光。它们使用二进制运算来自定义灯光设置。
 
 ```py
-# Turn on position lights
+# 打开位置灯
 current_lights = carla.VehicleLightState.NONE
 current_lights |= carla.VehicleLightState.Position
 vehicle.set_light_state(current_lights)
 ```
 
-### Walkers
+### 行人
 
-[__carla.Walker__](python_api.md#carla.Walker) work in a similar way as vehicles do. Control over them is provided by controllers.  
+[__carla.Walker__](python_api.md#carla.Walker) 的工作方式与车辆类似。对它们的控制由控制器提供。
 
-* [__carla.WalkerControl__](python_api.md#carla.WalkerControl) moves the pedestrian around with a certain direction and speed. It also allows them to jump. 
-* [__carla.WalkerBoneControl__](python_api.md#carla.WalkerBoneControl) provides control over the 3D skeleton. [This tutorial](tuto_G_control_walker_skeletons.md) explains how to control it. 
+* [__carla.WalkerControl__](python_api.md#carla.WalkerControl) 以一定的方向和速度移动行人。它还允许他们跳跃。
+* [__carla.WalkerBoneControl__](python_api.md#carla.WalkerBoneControl) 提供对三维骨架的控制。[本教程](tuto_G_control_walker_skeletons.md) 解释了如何控制它。
 
-Walkers can be AI controlled. They do not have an autopilot mode. The [__carla.WalkerAIController__](python_api.md#carla.WalkerAIController) actor moves around the actor it is attached to.  
+行人可以由人工智能控制。他们没有自动驾驶模式。[__carla.WalkerAIController__](python_api.md#carla.WalkerAIController) 参与者在它所附加的参与者周围移动。
 
 ```py
 walker_controller_bp = world.get_blueprint_library().find('controller.ai.walker')
 world.SpawnActor(walker_controller_bp, carla.Transform(), parent_walker)
 ```
-!!! Note
-    The AI controller is bodiless and has no physics. It will not appear on scene. Also, location `(0,0,0)` relative to its parent will not cause a collision.  
+!!! 注意
+    人工智能控制器是无形的，没有物理特性。它不会出现在现场。此外，位置 `(0,0,0)` 相对于其父级的位置不会导致碰撞。  
 
 
-__Each AI controller needs initialization, a goal and, optionally, a speed__. Stopping the controller works in the same manner. 
+__每个人工智能控制器都需要初始化、目标和可选的速度__。停止控制器的工作方式相同。
 
 ```py
 ai_controller.start()
 ai_controller.go_to_location(world.get_random_location_from_navigation())
-ai_controller.set_max_speed(1 + random.random())  # Between 1 and 2 m/s (default is 1.4 m/s).
+ai_controller.set_max_speed(1 + random.random())  # 在 1 米每秒 到 2 米每秒之间（默认是 1.4 米每秒）
 ...
 ai_controller.stop()
 ```
-When a walker reaches the target location, they will automatically walk to another random point. If the target point is not reachable, walkers will go to the closest point from their current location.
+当步行者到达目标位置时，他们会自动步行到另一个随机点。如果无法到达目标点，步行者将前往距离当前位置最近的点。
 
-A snipet in [carla.Client](python_api.md#carla.Client.apply_batch_sync) uses batches to spawn a lot of walkers and make them wander around.
+[carla.Client](python_api.md#carla.Client.apply_batch_sync) 中的一个片段使用批次生成大量步行者并让它们四处游荡。
 
-!!! Important
-    __To destroy AI pedestrians__, stop the AI controller and destroy both, the actor, and the controller. 
+!!! 重要
+    __要摧毁人工智能行人__，请停止人工智能控制器并摧毁参与者和控制器。
 
 ---
-That is a wrap as regarding actors in CARLA. The next step takes a closer look into the map, roads and traffic in CARLA.  
+关于 Carla 中的参与者，这就是一个总结。下一步将仔细研究 Carla 的地图、道路和交通。
 
-Keep reading to learn more or visit the forum to post any doubts or suggestions that have come to mind during this reading. 
+继续阅读以了解更多信息，或访问论坛发布在阅读过程中想到的任何疑问或建议。
 <div text-align: center>
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="CARLA forum">
-CARLA forum</a>
+CARLA 论坛</a>
 </p>
 </div>
 <div class="build-buttons">
 <p>
 <a href="../core_map" target="_blank" class="btn btn-neutral" title="3rd. Maps and navigation">
-3rd. Maps and navigation</a>
+3rd. 地图和导航</a>
 </p>
 </div>
 </div>

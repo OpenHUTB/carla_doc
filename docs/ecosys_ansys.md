@@ -1,8 +1,9 @@
-# Ansys Real Time Radar Model: Training a Vehicle Longitudinal Controller Using Reinforcement Learning
+# [Ansys 实时雷达模型：使用强化学习训练车辆纵向控制器](https://carla.readthedocs.io/en/latest/ecosys_ansys/) 
 
-In a webinair series in April 2021, [Ansys](https://www.ansys.com/) presented the details of their integration of the Ansys Real Time Radar (RTR) with the CARLA simulator. Here you can download and view the presentation slides and videos that accompanied the webinair. 
+在 2021 年 4 月的网络研讨会系列中，[Ansys](https://www.ansys.com/) 详细介绍了 Ansys 实时雷达 (Real Time Radar, RTR) 与 CARLA 仿真器的集成。您可以在这里下载并查看网络研讨会附带的演示幻灯片和视频。 
 
-The presentation details how the RTR was integrated with CARLA to train a vehicle longitudinal controller using reinforcement learning and includes the model, action space and reward policy used. The videos show the results of the training in the CARLA simulator. 
+该演示详细介绍了实时雷达如何与 Carla 集成，以使用强化学习训练车辆纵向控制器，并包括所使用的模型、动作空间和奖励策略。视频显示了 Carla 仿真器中的训练结果。
 
-View the presentation [here](https://drive.google.com/file/d/1xtGaI8Ls6C8Jh-PQvKRrLKs6c3ri3WQ2/view) and the videos [here](https://drive.google.com/file/d/1whHE1MKhzQtW3jj4dJCW6A3mCjUnNaJI/view).
+请在 [此处](https://drive.google.com/file/d/1xtGaI8Ls6C8Jh-PQvKRrLKs6c3ri3WQ2/view)  查看演示文稿并在 [此处](https://drive.google.com/file/d/1whHE1MKhzQtW3jj4dJCW6A3mCjUnNaJI/view) 查看视频。
+
 
