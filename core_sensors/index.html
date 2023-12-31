@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>第四、 传感器和数据 - CARLA 模拟器 中文文档</title>
+    <title>传感器和数据 - 驾驶仿真器文档</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "\u7b2c\u56db\u3001 \u4f20\u611f\u5668\u548c\u6570\u636e";
+        var mkdocs_page_name = "\u4f20\u611f\u5668\u548c\u6570\u636e";
         var mkdocs_page_input_path = "core_sensors.md";
         var mkdocs_page_url = null;
       </script>
@@ -31,7 +31,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href=".." class="icon icon-home"> CARLA 模拟器 中文文档
+          <a href=".." class="icon icon-home"> 驾驶仿真器文档
         </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
       <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
@@ -50,100 +50,117 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../start_quickstart/">快速启动包安装</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_first_steps/">第一步</a>
+                  </li>
               </ul>
-              <p class="caption"><span class="caption-text">构建CARLA</span></p>
+              <p class="caption"><span class="caption-text">构建 Carla</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../build_linux/">Linux build</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_carla/">构建 Carla</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../build_windows/">Windows build</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_linux/">Linux 构建</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../build_update/">Update CARLA</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_windows/">Windows 构建</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../build_system/">Build system</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_update/">更新 Carla</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../build_docker/">CARLA in Docker</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_system/">构建系统</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../build_faq/">F.A.Q.</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_docker/">Docker 中的 Carla</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_faq/">常问的问题</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">第一步</span></p>
+              <p class="caption"><span class="caption-text">下一步</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_content_authoring_maps/">内容创作 - 地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_content_authoring_vehicles/">内容创作 - 车辆</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Carla 主题</span></p>
               <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../foundations/">基础</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../core_concepts/">核心概念</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../core_world/">第一、 世界和客户端</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_world/">世界和客户端</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../core_actors/">第二、 角色和蓝图</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_actors/">参与者和蓝图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../core_map/">第三、地图和导航 </a>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_map/">地图和导航 </a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="./">第四、 传感器和数据</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">传感器和数据</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#sensors-step-by-step">Sensors step-by-step</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">传感器逐步介绍</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#setting">Setting</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">设置</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#spawning">Spawning</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">生成</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#listening">Listening</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">监听</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#data">Data</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_6">数据</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#types-of-sensors">Types of sensors</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_7">传感器类型</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#cameras">Cameras</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_8">相机</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#detectors">Detectors</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_9">检测器</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#other">Other</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_10">其他</a>
     </li>
         </ul>
     </li>
     </ul>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ts_traffic_simulation_overview/">交通</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../development_tutorials/">开发</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../custom_assets_tutorials/">自定义资产</a>
+                  </li>
               </ul>
               <p class="caption"><span class="caption-text">高级概念</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../adv_opendrive/">OpenDRIVE 独立模式</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../adv_ptv/">PTV-Vissim 联合仿真</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../adv_recorder/">Recorder</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_recorder/">记录器</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../adv_rendering_options/">渲染选项</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../adv_rss/">RSS</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../adv_synchrony_timestep/">同步和时间步长</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../adv_benchmarking/">基准性能</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../adv_agents/">CARLA 代理</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_agents/">Carla 智能体</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">交通模拟</span></p>
+              <p class="caption"><span class="caption-text">交通仿真</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../ts_traffic_simulation_overview/">交通模拟概述</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../adv_traffic_manager/">Traffic Manager</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_traffic_manager/">交通管理器</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../adv_sumo/">SUMO 联合仿真</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_scenic/">Scenic</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">参考</span></p>
+              <p class="caption"><span class="caption-text">资源</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../python_api/">Python API 参考</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../bp_library/">Blueprint Library</a>
-                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ref_cpp/">C++ 参考</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../ref_recorder_binary_file_format/">Recorder 二进制文件格式</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../bp_library/">蓝图库</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../ref_sensors/">Sensors reference</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../catalogue/">Carla 目录</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_recorder_binary_file_format/">记录器二进制文件格式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_sensors/">传感器参考</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tutorials/">教程</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ext_docs/">扩展文档</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">插件</span></p>
@@ -158,13 +175,13 @@
               </ul>
               <p class="caption"><span class="caption-text">自定义地图</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_map_overview/">CARLA 中自定义地图的概述</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_map_overview/">Carla 中自定义地图的概述</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在CARLA包导入地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 CARLA 源构建中导入地图</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 Carla 源构建中导入地图</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_alternative/">导入地图的替代方法</a>
                   </li>
@@ -204,13 +221,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索模拟数据</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_carsim_integration/">CarSim 集成</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_chrono/">Chrono 集成</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎UE和 CARLA</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎和 Carla</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">教程（资产）</span></p>
@@ -239,9 +250,23 @@
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_D_make_release/">发布版本</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">CARLA 生态系统</span></p>
+              <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_carsim_integration/">CarSim 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_chrono/">Chrono 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_opendrive/">OpenDRIVE 独立模式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_ptv/">PTV-Vissim 联合仿真</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_rss/">RSS</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://carla.readthedocs.io/projects/ros-bridge/en/latest/">ROS</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">贡献</span></p>
@@ -262,15 +287,15 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
       <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="..">CARLA 模拟器 中文文档</a>
+          <a href="..">驾驶仿真器文档</a>
         
       </nav>
       <div class="wy-nav-content">
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">第一步</li>
-      <li class="breadcrumb-item active">第四、 传感器和数据</li>
+          <li class="breadcrumb-item">Carla 主题</li>
+      <li class="breadcrumb-item active">传感器和数据</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -279,67 +304,68 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="4th-sensors-and-data">4th. Sensors and data</h1>
-<p>Sensors are actors that retrieve data from their surroundings. They are crucial to create learning environment for driving agents.  </p>
-<p>This page summarizes everything necessary to start handling sensors. It introduces the types available and a step-by-step guide of their life cycle. The specifics for every sensor can be found in the <a href="../ref_sensors/">sensors reference</a>.</p>
+                <h1 id="_1"><a href="https://carla.readthedocs.io/en/latest/core_sensors/">传感器和数据</a></h1>
+<p>传感器是从周围环境中检索数据的参与者。它们对于为驾驶代理创造学习环境至关重要。</p>
+<p>本页总结了开始处理传感器所需的一切。它介绍了可用的类型及其生命周期的分步指南。每个传感器的详细信息可以在 <a href="../ref_sensors/">传感器参考</a> 中找到。</p>
 <ul>
-<li><a href="#sensors-step-by-step"><strong>Sensors step-by-step</strong></a>  <ul>
-<li><a href="#setting">Setting</a>  </li>
-<li><a href="#spawning">Spawning</a>  </li>
-<li><a href="#listening">Listening</a>  </li>
-<li><a href="#data">Data</a>  </li>
+<li><a href="#sensors-step-by-step"><strong>传感器逐步介绍</strong></a>  <ul>
+<li><a href="#setting">设置</a>  </li>
+<li><a href="#spawning">生成</a>  </li>
+<li><a href="#listening">监听</a>  </li>
+<li><a href="#data">数据</a>  </li>
 </ul>
 </li>
-<li><a href="#types-of-sensors"><strong>Types of sensors</strong></a>  <ul>
-<li><a href="#cameras">Cameras</a>  </li>
-<li><a href="#detectors">Detectors</a>  </li>
-<li><a href="#other">Other</a>  </li>
+<li><a href="#types-of-sensors"><strong>传感器类型</strong></a>  <ul>
+<li><a href="#cameras">相机</a>  </li>
+<li><a href="#detectors">检测器</a>  </li>
+<li><a href="#other">其他</a>  </li>
 </ul>
 </li>
 </ul>
 <hr />
-<h2 id="sensors-step-by-step">Sensors step-by-step</h2>
-<p>The class <a href="../python_api/#carla.Sensor">carla.Sensor</a> defines a special type of actor able to measure and stream data.  </p>
+<h2 id="_2">传感器逐步介绍</h2>
+<p><a href="../python_api/#carla.Sensor">carla.Sensor</a> 类定义了一种特殊类型的参与者，能够测量和传输数据。</p>
 <ul>
-<li><strong>What is this data?</strong> It varies a lot depending on the type of sensor. All the types of data are inherited from the general <a href="../python_api/#carla.SensorData">carla.SensorData</a>. </li>
-<li><strong>When do they retrieve the data?</strong> Either on every simulation step or when a certain event is registered. Depends on the type of sensor. </li>
-<li><strong>How do they retrieve the data?</strong> Every sensor has a <code>listen()</code> method to receive and manage the data.  </li>
+<li><strong>这个数据是什么？</strong> 根据传感器的类型，它变化很大。所有类型的数据都继承自通用的 <a href="../python_api/#carla.SensorData">carla.SensorData</a>。 </li>
+<li><strong>他们什么时候检索数据？</strong> 在每个仿真步骤上或在注册某个事件时。取决于传感器的类型。</li>
+<li><strong>他们如何检索数据？</strong> 每个传感器都有一种接收和管理数据的 <code>listen()</code> 方法。</li>
 </ul>
-<p>Despite their differences, all the sensors are used in a similar way. </p>
-<h3 id="setting">Setting</h3>
-<p>As with every other actor, find the blueprint and set specific attributes. This is essential when handling sensors. Their attributes will determine the results obtained. These are detailed in the <a href="../ref_sensors/">sensors reference</a>. </p>
-<p>The following example sets a dashboard HD camera.</p>
-<pre><code class="language-py"># Find the blueprint of the sensor.
+<p>尽管存在差异，但所有传感器的使用方式都相似。</p>
+<h3 id="_3">设置</h3>
+<p>与其他参与者一样，找到蓝图并设置特定属性。这在处理传感器时至关重要。他们的属性将决定所获得的结果。这些在 <a href="../ref_sensors/">传感器参考</a> 中有详细介绍。</p>
+<p>以下示例设置仪表板高清摄像头。</p>
+<pre><code class="language-py"># 找到传感器蓝图。
 blueprint = world.get_blueprint_library().find('sensor.camera.rgb')
-# Modify the attributes of the blueprint to set image resolution and field of view.
+# 修改蓝图属性来设置图像分辨率和视野
 blueprint.set_attribute('image_size_x', '1920')
 blueprint.set_attribute('image_size_y', '1080')
 blueprint.set_attribute('fov', '110')
-# Set the time in seconds between sensor captures
+# 设置传感器捕获之间的时间（以秒为单位）
 blueprint.set_attribute('sensor_tick', '1.0')
 </code></pre>
-<h3 id="spawning">Spawning</h3>
-<p><code>attachment_to</code> and <code>attachment_type</code>, are crucial. Sensors should be attached to a parent actor, usually a vehicle, to follow it around and gather the information. The attachment type will determine how its position is updated regarding said vehicle. </p>
+<h3 id="_4">生成</h3>
+<p><code>attachment_to</code> 和 <code>attachment_type</code> 至关重要。传感器应连接到父参与者（通常是车辆）上，以跟踪它并收集信息。附件类型将确定其关于所述车辆的位置如何更新。</p>
 <ul>
-<li><strong>Rigid attachment.</strong> Movement is strict regarding its parent location. This is the proper attachment to retrieve data from the simulation.  </li>
-<li><strong>SpringArm attachment.</strong> Movement is eased with little accelerations and decelerations. This attachment is only recommended to record videos from the simulation. The movement is smooth and "hops" are avoided when updating the cameras' positions.  </li>
+<li><strong>刚性附件(Rigid attachment)。</strong> 动对于其父位置是严格的。这是从仿真中检索数据的合适附件。</li>
+<li><strong>弹簧臂附件(SpringArm attachment)。</strong> 运动变得轻松，几乎没有加速和减速。仅建议使用此附件来录制仿真视频。更新摄像机位置时，移动平滑并且避免“跳跃”。</li>
+<li><strong>弹簧臂幽灵附件(SpringArmGhost attachment)。</strong> 与前一个类似，但没有进行碰撞测试，因此相机或传感器可以穿过墙壁或其他几何形状。</li>
 </ul>
 <pre><code class="language-py">transform = carla.Transform(carla.Location(x=0.8, z=1.7))
 sensor = world.spawn_actor(blueprint, transform, attach_to=my_vehicle)
 </code></pre>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>When spawning with attachment, location must be relative to the parent actor.  </p>
+<div class="admonition 重要">
+<p class="admonition-title">重要</p>
+<p>当带有附件生成时，位置必须相对于父参与者。</p>
 </div>
-<h3 id="listening">Listening</h3>
-<p>Every sensor has a <a href="../python_api/#carla.Sensor.listen"><code>listen()</code></a> method. This is called every time the sensor retrieves data.  </p>
-<p>The argument <code>callback</code> is a <a href="https://www.w3schools.com/python/python_lambda.asp">lambda function</a>. It describes what should the sensor do when data is retrieved. This must have the data retrieved as an argument.  </p>
-<pre><code class="language-py"># do_something() will be called each time a new image is generated by the camera.
+<h3 id="_5">监听</h3>
+<p>每个传感器都有一个 <a href="../python_api/#carla.Sensor.listen"><code>listen()</code></a> 方法。每次传感器获取数据时都会调用此函数。</p>
+<p>参数<code>callback</code>是一个 <a href="https://www.w3schools.com/python/python_lambda.asp">lambda 函数</a> 。它描述了传感器在获取数据时应该做什么。这必须将检索的数据作为参数。</p>
+<pre><code class="language-py"># 每次相机生成新图像时，都会调用 do_something()。
 sensor.listen(lambda data: do_something(data))
 
 ...
 
-# This collision sensor would print everytime a collision is detected. 
+# 每次检测到碰撞时，此碰撞传感器都会打印。
 def callback(event):
     for actor_id in event:
         vehicle = world_ref().get_actor(actor_id)
@@ -347,206 +373,208 @@ def callback(event):
 
 sensor02.listen(callback)
 </code></pre>
-<h3 id="data">Data</h3>
-<p>Most sensor data objects have a function to save the information to disk. This will allow it to be used in other environments.  </p>
-<p>Sensor data differs a lot between sensor types. Take a look at the <a href="../ref_sensors/">sensors reference</a> to get a detailed explanation. However, all of them are always tagged with some basic information.  </p>
+<h3 id="_6">数据</h3>
+<p>大多数传感器数据对象都具有将信息保存到磁盘的功能。这将允许它在其他环境中使用。</p>
+<p>不同类型传感器的传感器数据差异很大。查看 <a href="../ref_sensors/">传感器参考</a> 以获得详细说明。然而，所有这些都总是带有一些基本信息的标签。</p>
 <table>
 <thead>
 <tr>
-<th>Sensor data attribute</th>
-<th>Type</th>
-<th>Description</th>
+<th>传感器数据属性</th>
+<th>类型</th>
+<th>描述</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>frame</code></td>
 <td>int</td>
-<td>Frame number when the measurement took place.</td>
+<td>进行测量时的帧编号。</td>
 </tr>
 <tr>
 <td><code>timestamp</code></td>
 <td>double</td>
-<td>Timestamp of the measurement in simulation seconds since the beginning of the episode.</td>
+<td>自轮数开始以来以仿真秒为单位的测量时间戳。</td>
 </tr>
 <tr>
 <td><code>transform</code></td>
 <td><a href="../python_api#carlatransform">carla.Transform</a></td>
-<td>World reference of the sensor at the time of the measurement.</td>
+<td>测量时传感器的世界参考。</td>
 </tr>
 </tbody>
 </table>
 <p><br></p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p><code>is_listening</code> is a <strong>sensor attribute</strong> that enables/disables data listening at will.<br />
-<code>sensor_tick</code> is a <strong>blueprint attribute</strong> that sets the simulation time between data received.  </p>
+<div class="admonition 重要">
+<p class="admonition-title">重要</p>
+<p><code>is_listening</code> 是一个 <strong>传感器属性</strong> ，可以随意启用/禁用数据监听。<br />
+<code>sensor_tick</code> 是一个 <strong>蓝图属性</strong> ，用于设置接收数据之间的仿真时间。  </p>
 </div>
 <hr />
-<h2 id="types-of-sensors">Types of sensors</h2>
-<h3 id="cameras">Cameras</h3>
-<p>Take a shot of the world from their point of view. For cameras that return <a href="../python_api#carlaimage">carla.Image</a>, you can use the helper class <a href="../python_api/#carla.ColorConverter">carla.ColorConverter</a> to modify the image to represent different information.</p>
+<h2 id="_7">传感器类型</h2>
+<h3 id="_8">相机</h3>
+<p>从他们的角度拍摄世界。对于返回 <a href="../python_api#carlaimage">carla.Image</a> 的相机，您可以使用辅助类<a href="../python_api/#carla.ColorConverter">carla.ColorConverter</a> 修改图像以表示不同的信息。</p>
 <ul>
-<li><strong>Retrieve data</strong> every simulation step.  </li>
+<li>每个仿真步骤 <strong>获取数据</strong> 。  </li>
 </ul>
 <table>
 <thead>
 <tr>
-<th>Sensor</th>
-<th>Output</th>
-<th>Overview</th>
+<th>传感器</th>
+<th>输出</th>
+<th>概述</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Depth</td>
+<td>深度</td>
 <td><a href="../python_api#carlaimage">carla.Image</a></td>
-<td>Renders the depth of the elements in the field of view in a gray-scale map.</td>
+<td>在灰度图中渲染视野中元素的深度。</td>
 </tr>
 <tr>
 <td>RGB</td>
 <td><a href="../python_api#carlaimage">carla.Image</a></td>
-<td>Provides clear vision of the surroundings. Looks like a normal photo of the scene.</td>
+<td>提供清晰的周围环境视野。看起来就像一张正常的现场照片。</td>
 </tr>
 <tr>
-<td>Optical Flow</td>
+<td>光流</td>
 <td><a href="../python_api#carlaimage">carla.Image</a></td>
-<td>Renders the motion of every pixel from the camera.</td>
+<td>渲染相机中每个像素的运动。</td>
 </tr>
 <tr>
-<td>Semantic segmentation</td>
+<td>语义分割</td>
 <td><a href="../python_api#carlaimage">carla.Image</a></td>
-<td>Renders elements in the field of view with a specific color according to their tags.</td>
+<td>根据元素的标签以特定颜色渲染视野中的元素。</td>
+</tr>
+<tr>
+<td>实例分割</td>
+<td><a href="../python_api#carlaimage">carla.Image</a></td>
+<td>根据元素的标签和唯一的对象 ID 以特定颜色渲染视野中的元素。</td>
 </tr>
 <tr>
 <td>DVS</td>
 <td><a href="../python_api#carladvseventarray">carla.DVSEventArray</a></td>
-<td>Measures changes of brightness intensity asynchronously as an event stream.</td>
+<td>作为事件流异步测量亮度强度的变化。</td>
 </tr>
 </tbody>
 </table>
 <p><br></p>
 <hr />
-<h3 id="detectors">Detectors</h3>
-<p>Retrieve data when the object they are attached to registers a specific event.  </p>
+<h3 id="_9">检测器</h3>
+<p>当附加的对象注册特定事件时获取数据。 </p>
 <ul>
-<li><strong>Retrieve data</strong> when triggered.  </li>
+<li>触发时 <strong>获取数据</strong> 。  </li>
 </ul>
 <table>
 <thead>
 <tr>
-<th>Sensor</th>
-<th>Output</th>
-<th>Overview</th>
+<th>传感器</th>
+<th>输出</th>
+<th>概述</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Collision</td>
+<td>碰撞</td>
 <td><a href="../python_api#carlacollisionevent">carla.CollisionEvent</a></td>
-<td>Retrieves collisions between its parent and other actors.</td>
+<td>检索其父级与其他参与者之间的碰撞。</td>
 </tr>
 <tr>
-<td>Lane invasion</td>
+<td>车道入侵</td>
 <td><a href="../python_api#carlalaneinvasionevent">carla.LaneInvasionEvent</a></td>
-<td>Registers when its parent crosses a lane marking.</td>
+<td>当其父级穿过车道标记时进行注册。</td>
 </tr>
 <tr>
-<td>Obstacle</td>
+<td>障碍</td>
 <td><a href="../python_api#carlaobstacledetectionevent">carla.ObstacleDetectionEvent</a></td>
-<td>Detects possible obstacles ahead of its parent.</td>
+<td>检测其父级前方可能存在的障碍物。</td>
 </tr>
 </tbody>
 </table>
 <p><br></p>
-<h3 id="other">Other</h3>
-<p>Different functionalities such as navigation, measurement of physical properties and 2D/3D point maps of the scene.  </p>
+<h3 id="_10">其他</h3>
+<p>不同的功能，例如导航、物理属性测量和场景的二维/三维点图。</p>
 <ul>
-<li><strong>Retrieve data</strong> every simulation step.  </li>
+<li>每个仿真步骤 <strong>检索数据</strong> 。  </li>
 </ul>
 <table>
 <thead>
 <tr>
-<th>Sensor</th>
-<th>Output</th>
-<th>Overview</th>
+<th>传感器</th>
+<th>输出</th>
+<th>概述</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>GNSS</td>
+<td>全球导航卫星系统(GNSS)</td>
 <td><a href="../python_api#carlagnssmeasurement">carla.GNSSMeasurement</a></td>
-<td>Retrieves the geolocation of the sensor.</td>
+<td>检索传感器的地理位置。</td>
 </tr>
 <tr>
-<td>IMU</td>
+<td>惯性测量单元(IMU)</td>
 <td><a href="../python_api#carlaimumeasurement">carla.IMUMeasurement</a></td>
-<td>Comprises an accelerometer, a gyroscope, and a compass.</td>
+<td>包括加速度计、陀螺仪和指南针。</td>
 </tr>
 <tr>
-<td>LIDAR</td>
+<td>激光雷达(LIDAR)</td>
 <td><a href="../python_api#carlalidarmeasurement">carla.LidarMeasurement</a></td>
-<td>A rotating LIDAR. Generates a 4D point cloud with coordinates and intensity per point to model the surroundings.</td>
+<td>旋转激光雷达。生成包含每个点的坐标和强度的 4D 点云，以对周围环境进行建模。</td>
 </tr>
 <tr>
-<td>Radar</td>
+<td>雷达</td>
 <td><a href="../python_api#carlaradarmeasurement">carla.RadarMeasurement</a></td>
-<td>2D point map modelling elements in sight and their movement regarding the sensor.</td>
+<td>二维点图建模视线中的元素及其相对于传感器的运动。</td>
 </tr>
 <tr>
-<td>RSS</td>
+<td>责任敏感安全(RSS)</td>
 <td><a href="../python_api#carlarssresponse">carla.RssResponse</a></td>
-<td>Modifies the controller applied to a vehicle according to safety checks. This sensor works in a different manner than the rest, and there is specific <a href="../adv_rss">RSS documentation</a> for it.</td>
+<td>根据安全检查修改应用于车辆的控制器。该传感器的工作方式与其他传感器不同，并且有专门的 <a href="../adv_rss">责任敏感安全文档</a>。</td>
 </tr>
 <tr>
-<td>Semantic LIDAR</td>
+<td>语义激光雷达</td>
 <td><a href="../python_api#carlasemanticlidarmeasurement">carla.SemanticLidarMeasurement</a></td>
-<td>A rotating LIDAR. Generates a 3D point cloud with extra information regarding instance and semantic segmentation.</td>
+<td>旋转激光雷达。生成 3D 点云，其中包含有关实例和语义分割的额外信息。</td>
 </tr>
 </tbody>
 </table>
 <p><br></p>
 <hr />
-<p>That is a wrap on sensors and how do these retrieve simulation data.  </p>
-<p>Thus concludes the introduction to CARLA. However there is yet a lot to learn.</p>
+<p>这是传感器的包装以及它们如何检索模拟数据。 </p>
+<p>CARLA 的介绍到此结束。然而，还有很多东西需要学习。</p>
 <ul>
-<li><strong>Continue learning.</strong> There are some advanced features in CARLA: rendering options, traffic 
-  manager, the recorder, and some more. This is a great moment to learn more about them. </li>
+<li><strong>继续学习。</strong> CARLA 中有一些高级功能：渲染选项、交通管理器、记录器等等。这是了解更多关于他们的好时机。</li>
 </ul>
 <div class="build-buttons">
 <p>
 <a href="../adv_synchrony_timestep" target="_blank" class="btn btn-neutral" title="Synchrony and time-step">
-Synchrony and time-step</a>
+同步和时间步长</a>
 </p>
 </div>
 
 <ul>
-<li><strong>Experiment freely.</strong> Take a look at the <strong>References</strong> section of this documentation. It 
-  contains detailed information on the classes in the Python API, sensors, code snippets and much 
-  more. </li>
+<li><strong>自由实验。</strong> 查看本文档的 <strong>参考</strong> 部分。它包含有关 Python API 中的类、传感器、代码片段等的详细信息。</li>
 </ul>
 <div class="build-buttons">
 <p>
-<a href="../python_api" target="_blank" class="btn btn-neutral" title="Python API reference">
-Python API reference</a>
+<a href="../python_api" target="_blank" class="btn btn-neutral" title="Python API 参考">
+Python API 参考</a>
 </p>
 </div>
 
 <ul>
-<li><strong>Give your two cents.</strong> Any doubts, suggestions and ideas are welcome in the forum.</li>
+<li><strong>发表您的意见。</strong> 有任何疑问、建议和想法欢迎在论坛中提出。</li>
 </ul>
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA forum</a>
+Carla 论坛</a>
 </p>
 </div>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../core_map/" class="btn btn-neutral float-left" title="第三、地图和导航 "><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../adv_opendrive/" class="btn btn-neutral float-right" title="OpenDRIVE 独立模式">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../core_map/" class="btn btn-neutral float-left" title="地图和导航 "><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../ts_traffic_simulation_overview/" class="btn btn-neutral float-right" title="交通">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -572,7 +600,7 @@ CARLA forum</a>
       <span><a href="../core_map/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../adv_opendrive/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../ts_traffic_simulation_overview/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

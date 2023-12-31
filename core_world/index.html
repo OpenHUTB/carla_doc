@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>第一、 世界和客户端 - CARLA 模拟器 中文文档</title>
+    <title>世界和客户端 - 驾驶仿真器文档</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "\u7b2c\u4e00\u3001 \u4e16\u754c\u548c\u5ba2\u6237\u7aef";
+        var mkdocs_page_name = "\u4e16\u754c\u548c\u5ba2\u6237\u7aef";
         var mkdocs_page_input_path = "core_world.md";
         var mkdocs_page_url = null;
       </script>
@@ -31,7 +31,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href=".." class="icon icon-home"> CARLA 模拟器 中文文档
+          <a href=".." class="icon icon-home"> 驾驶仿真器文档
         </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
       <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
@@ -50,106 +50,123 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../start_quickstart/">快速启动包安装</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_first_steps/">第一步</a>
+                  </li>
               </ul>
-              <p class="caption"><span class="caption-text">构建CARLA</span></p>
+              <p class="caption"><span class="caption-text">构建 Carla</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../build_linux/">Linux build</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_carla/">构建 Carla</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../build_windows/">Windows build</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_linux/">Linux 构建</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../build_update/">Update CARLA</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_windows/">Windows 构建</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../build_system/">Build system</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_update/">更新 Carla</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../build_docker/">CARLA in Docker</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_system/">构建系统</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../build_faq/">F.A.Q.</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_docker/">Docker 中的 Carla</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_faq/">常问的问题</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">第一步</span></p>
+              <p class="caption"><span class="caption-text">下一步</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_content_authoring_maps/">内容创作 - 地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_content_authoring_vehicles/">内容创作 - 车辆</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Carla 主题</span></p>
               <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../foundations/">基础</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../core_concepts/">核心概念</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="./">第一、 世界和客户端</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">世界和客户端</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#the-client">The client</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">客户端</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#client-creation">Client creation</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">客户端创建</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#world-connection">World connection</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">世界连接</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#using-commands">Using commands</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">使用命令</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#other-client-utilities">Other client utilities</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_6">其他客户端实用程序</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#the-world">The world</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_7">世界</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#actors">Actors</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_8">参与者</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#weather">Weather</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_9">天气</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#lights">Lights</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_10">灯光</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#debugging">Debugging</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_11">调试</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#world-snapshots">World snapshots</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_12">世界快照</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#world-settings">World settings</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_13">世界设置</a>
     </li>
         </ul>
     </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../core_actors/">第二、 角色和蓝图</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_actors/">参与者和蓝图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../core_map/">第三、地图和导航 </a>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_map/">地图和导航 </a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../core_sensors/">第四、 传感器和数据</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_sensors/">传感器和数据</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ts_traffic_simulation_overview/">交通</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../development_tutorials/">开发</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../custom_assets_tutorials/">自定义资产</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">高级概念</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../adv_opendrive/">OpenDRIVE 独立模式</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../adv_ptv/">PTV-Vissim 联合仿真</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../adv_recorder/">Recorder</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_recorder/">记录器</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../adv_rendering_options/">渲染选项</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../adv_rss/">RSS</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../adv_synchrony_timestep/">同步和时间步长</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../adv_benchmarking/">基准性能</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../adv_agents/">CARLA 代理</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_agents/">Carla 智能体</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">交通模拟</span></p>
+              <p class="caption"><span class="caption-text">交通仿真</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../ts_traffic_simulation_overview/">交通模拟概述</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../adv_traffic_manager/">Traffic Manager</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_traffic_manager/">交通管理器</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../adv_sumo/">SUMO 联合仿真</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_scenic/">Scenic</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">参考</span></p>
+              <p class="caption"><span class="caption-text">资源</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../python_api/">Python API 参考</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../bp_library/">Blueprint Library</a>
-                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ref_cpp/">C++ 参考</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../ref_recorder_binary_file_format/">Recorder 二进制文件格式</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../bp_library/">蓝图库</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../ref_sensors/">Sensors reference</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../catalogue/">Carla 目录</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_recorder_binary_file_format/">记录器二进制文件格式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_sensors/">传感器参考</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tutorials/">教程</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ext_docs/">扩展文档</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">插件</span></p>
@@ -164,13 +181,13 @@
               </ul>
               <p class="caption"><span class="caption-text">自定义地图</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_map_overview/">CARLA 中自定义地图的概述</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_map_overview/">Carla 中自定义地图的概述</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在CARLA包导入地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 CARLA 源构建中导入地图</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 Carla 源构建中导入地图</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_alternative/">导入地图的替代方法</a>
                   </li>
@@ -210,13 +227,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索模拟数据</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_carsim_integration/">CarSim 集成</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_chrono/">Chrono 集成</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎UE和 CARLA</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎和 Carla</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">教程（资产）</span></p>
@@ -245,9 +256,23 @@
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_D_make_release/">发布版本</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">CARLA 生态系统</span></p>
+              <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_carsim_integration/">CarSim 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_chrono/">Chrono 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_opendrive/">OpenDRIVE 独立模式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_ptv/">PTV-Vissim 联合仿真</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_rss/">RSS</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://carla.readthedocs.io/projects/ros-bridge/en/latest/">ROS</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">贡献</span></p>
@@ -268,15 +293,15 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
       <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="..">CARLA 模拟器 中文文档</a>
+          <a href="..">驾驶仿真器文档</a>
         
       </nav>
       <div class="wy-nav-content">
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">第一步</li>
-      <li class="breadcrumb-item active">第一、 世界和客户端</li>
+          <li class="breadcrumb-item">Carla 主题</li>
+      <li class="breadcrumb-item active">世界和客户端</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -285,91 +310,91 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="1st-world-and-client">1st. World and client</h1>
-<p>The client and the world are two of the fundamentals of CARLA, a necessary abstraction to operate the simulation and its actors.  </p>
-<p>This tutorial goes from defining the basics and creation of these elements, to describing their possibilities. If any doubt or issue arises during the reading, the <a href="https://github.com/carla-simulator/carla/discussions/">CARLA forum</a> is there to solve them.  </p>
+                <h1 id="_1">第一、世界和客户端</h1>
+<p>客户端和世界是 CARLA 的两个基本要素，是操作仿真及其参与者的必要抽象。 </p>
+<p>本教程从定义这些元素的基础知识和创建，到描述它们的可能性。如果阅读过程中出现任何疑问或问题，<a href="https://github.com/carla-simulator/carla/discussions/">CARLA 论坛</a> 可以为您解决。</p>
 <ul>
-<li><a href="#the-client"><strong>The client</strong></a>  <ul>
-<li><a href="#client-creation">Client creation</a>  </li>
-<li><a href="#world-connection">World connection</a>  </li>
-<li><a href="#other-client-utilities">Other client utilities</a>  </li>
+<li><a href="#the-client"><strong>客户端</strong></a>  <ul>
+<li><a href="#client-creation">客户端创建</a>  </li>
+<li><a href="#world-connection">世界连接</a>  </li>
+<li><a href="#other-client-utilities">其他客户端实用程序</a>  </li>
 </ul>
 </li>
-<li><a href="#the-world"><strong>The world</strong></a>  <ul>
-<li><a href="#actors">Actors</a>  </li>
-<li><a href="#weather">Weather</a>  </li>
-<li><a href="#lights">Lights</a>  </li>
-<li><a href="#debugging">Debugging</a>  </li>
-<li><a href="#world-snapshots">World snapshots</a>  </li>
-<li><a href="#world-settings">World settings</a>  </li>
+<li><a href="#the-world"><strong>世界</strong></a>  <ul>
+<li><a href="#actors">参与者</a>  </li>
+<li><a href="#weather">天气</a>  </li>
+<li><a href="#lights">灯光</a>  </li>
+<li><a href="#debugging">调试</a>  </li>
+<li><a href="#world-snapshots">世界快照</a>  </li>
+<li><a href="#world-settings">世界设置</a>  </li>
 </ul>
 </li>
 </ul>
 <hr />
-<h2 id="the-client">The client</h2>
-<p>Clients are one of the main elements in the CARLA architecture. They connect to the server, retrieve information, and command changes. That is done via scripts. The client identifies itself, and connects to the world to then operate with the simulation.  </p>
-<p>Besides that, clients are able to access advanced CARLA modules, features, and apply command batches. Only command batches will be covered in this section. These are useful for basic things such as spawning lots of actors. The rest of features are more complex, and they will be addressed in their respective pages in <strong>Advanced steps</strong>.  </p>
-<p>Take a look at <a href="../python_api/#carla.Client"><strong>carla.Client</strong></a> in the Python API reference to learn on specific methods and variables of the class. </p>
-<h3 id="client-creation">Client creation</h3>
-<p>Two things are needed. The <strong>IP</strong> address identifying it, and <strong>two TCP ports</strong> to communicate with the server. An optional third parameter sets the amount of working threads. By default this is set to all (<code>0</code>). The <a href="../python_api/#carla.Client.__init__">carla.Client</a> in the Python API reference contains a snipet that shows how to parse these as arguments when running the script. </p>
+<h2 id="_2">客户端</h2>
+<p>客户端是 CARLA 架构中的主要元素之一。它们连接到服务器、检索信息并更改命令。这是通过脚本完成的。客户端识别自己的身份，并连接到世界，然后进行模拟操作。</p>
+<p>除此之外，客户还可以访问高级 CARLA 模块、功能并应用命令批处理。本节仅介绍命令批处理。这些对于诸如生成大量参与者之类的基本事情很有用。其余功能更加复杂，将在 <strong>高级步骤</strong> 中各自的页面中进行解决。 </p>
+<p>查看 Python API 参考中的 <a href="../python_api/#carla.Client"><strong>carla.Client</strong></a> 以了解该类的特定方法和变量。</p>
+<h3 id="_3">客户端创建</h3>
+<p>需要两件事。标识它的 <strong>IP</strong> 地址以及与服务器通信的 <strong>两个 TCP 端口</strong> 。可选的第三个参数设置工作线程的数量。默认情况下，该值设置为全部 (<code>0</code>)。Python API 参考中的<a href="../python_api/#carla.Client.__init__">carla.Client</a> 包含一个片段，显示如何在运行脚本时将这些解析为参数。</p>
 <pre><code class="language-py">client = carla.Client('localhost', 2000)
 </code></pre>
-<p>By default, CARLA uses local host IP, and port 2000 to connect but these can be changed at will. The second port will always be <code>n+1</code>, 2001 in this case.  </p>
-<p>Once the client is created, set its <strong>time-out</strong>. This limits all networking operations so that these don't block the client forever. An error will be returned if connection fails. </p>
-<pre><code class="language-py">client.set_timeout(10.0) # seconds
+<p>默认情况下，CARLA 使用本地主机 IP 和端口 2000 进行连接，但这些可以随意更改。在本例中，第二个端口始终为<code>n+1</code>,2001。</p>
+<p>创建客户端后，设置其 <strong>time-out</strong> 。这限制了所有网络操作，以便这些操作不会永远阻止客户端。如果连接失败，将返回错误。</p>
+<pre><code class="language-py">client.set_timeout(10.0) # 秒
 </code></pre>
-<p>It is possible to have many clients connected, as it is common to have more than one script running at a time. Working in a multiclient scheme with advanced CARLA features, such as the traffic manager, is bound to make communication more complex.  </p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Client and server have different <code>libcarla</code> modules. If the versions differ, issues may arise. This can be checked using the <code>get_client_version()</code> and <code>get_server_version()</code> methods. </p>
+<p>可以连接许多客户端，因为一次运行多个脚本是很常见的。在具有高级 CARLA 功能（例如交通管理器）的多客户端方案中工作，必然会使通信更加复杂。</p>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>客户端和服务器有不同的<code>libcarla</code>模块。如果版本不同，可能会出现问题。这可以使用<code>get_client_version()</code>和<code>get_server_version()</code>方法进行检查。</p>
 </div>
-<h3 id="world-connection">World connection</h3>
-<p>A client can connect and retrieve the current world fairly easily. </p>
+<h3 id="_4">世界连接</h3>
+<p>客户端可以相当轻松地连接和检索当前世界。</p>
 <pre><code class="language-py">world = client.get_world()
 </code></pre>
-<p>The client can also get a list of available maps to change the current one. This will destroy the current world and create a new one.</p>
+<p>客户端还可以获得可用地图列表来更改当前地图。这将摧毁当前的世界并创造一个新的世界。</p>
 <pre><code class="language-py">print(client.get_available_maps())
 ...
 world = client.load_world('Town01')
-# client.reload_world() creates a new instance of the world with the same map. 
+# client.reload_world() 创建一个相同地图世界的新实例。
 </code></pre>
-<p>Every world object has an <code>id</code> or episode. Everytime the client calls for <code>load_world()</code> or <code>reload_world()</code> the previous one is destroyed. A new one is created from scratch with a new episode. Unreal Engine is not rebooted in the process. </p>
-<h3 id="using-commands">Using commands</h3>
-<p><strong>Commands</strong> are adaptations of some of the most-common CARLA methods, that can be applied in batches. For instance, the <a href="../python_api/#command.SetAutopilot">command.SetAutopilot</a> is equivalent to <a href="../python_api/#carla.Vehicle.set_autopilot">Vehicle.set_autopilot()</a>, enables the autopilot for a vehicle. However, using the methods <a href="../python_api/#carla.Client.apply_batch">Client.apply_batch</a> or <a href="../python_api/#carla.Client.apply_batch_sync">Client.apply_batch_sync()</a>, a list of commands can be applied in one single simulation step. This becomes extremely useful for methods that are usually applied to even hundreds of elements.  </p>
-<p>The following example uses a batch to destroy a list of vehicles all at once.  </p>
+<p>每个世界对象都有一个 <code>id</code> 或世代。每当客户端调用 <code>load_world()</code> 或 <code>reload_world()</code> 时，前一个被销毁。一个新的世代是从头开始创建的。在此过程中虚幻引擎不会重新启动。</p>
+<h3 id="_5">使用命令</h3>
+<p><strong>命令</strong> 是一些最常见的 CARLA 方法的改编，可以批量应用。例如，<a href="../python_api/#command.SetAutopilot">command.SetAutopilot</a> 相当于<a href="../python_api/#command.SetAutopilot">command.SetAutopilot</a> ，启用车辆的自动驾驶功能。但是，使用<a href="../python_api/#carla.Client.apply_batch">Client.apply_batch</a> 或<a href="../python_api/#carla.Client.apply_batch_sync">Client.apply_batch_sync()</a> 方法，可以在一个仿真步骤中应用一系列命令。这对于通常应用于数百个元素的方法来说变得非常有用。</p>
+<p>以下示例使用批处理一次性销毁一系列车辆。</p>
 <pre><code class="language-py">client.apply_batch([carla.command.DestroyActor(x) for x in vehicles_list])
 </code></pre>
-<p>All the commands available are listed in the <a href="../python_api/#command.ApplyAngularVelocity">latest section</a> of the Python API reference.  </p>
-<h3 id="other-client-utilities">Other client utilities</h3>
-<p>The main purpose of the client object is to get or change the world, and apply commands. However, it also provides access to some additional features.  </p>
+<p>Python API 参考的 <a href="../python_api/#command.ApplyAngularVelocity">最新部分</a> 列出了所有可用的命令。</p>
+<h3 id="_6">其他客户端实用程序</h3>
+<p>客户端对象的主要目的是获取或改变世界，并应用命令。但是，它还提供对一些附加功能的访问。 </p>
 <ul>
-<li><strong>Traffic manager.</strong> This module is in charge of every vehicle set to autopilot to recreate urban traffic.  </li>
-<li><strong><a href="../adv_recorder/">Recorder</a>.</strong> Allows to reenact a previous simulation. Uses <a href="./#world-snapshots">snapshots</a> summarizing the simulation state per frame.  </li>
+<li><strong>交通管理器。</strong> 该模块负责每辆设置为自动驾驶的车辆以重建城市交通。</li>
+<li><strong><a href="../adv_recorder/">记录器</a>.</strong> 允许重新进行以前的仿真。使用 <a href="./#world-snapshots">快照</a> 总结每帧的仿真状态。</li>
 </ul>
 <hr />
-<h2 id="the-world">The world</h2>
-<p>The major ruler of the simulation. Its instance should be retrieved by the client. It does not contain the model of the world itself, that is part of the <a href="../core_map/">Map</a> class. Instead, most of the information, and general settings can be accessed from this class.</p>
+<h2 id="_7">世界</h2>
+<p>仿真的主要标尺。它的实例应该由客户端检索。它不包含世界本身的模型，这是 <a href="../core_map/">Map</a> 类的一部分。相反，大多数信息和常规设置可以从此类访问。</p>
 <ul>
-<li>Actors in the simulation and the spectator.  </li>
-<li>Blueprint library.  </li>
-<li>Map.  </li>
-<li>Simulation settings.  </li>
-<li>Snapshots.  </li>
-<li>Weather and light manager.  </li>
+<li>仿真中的参与者和观察者。</li>
+<li>蓝图库。</li>
+<li>地图。</li>
+<li>仿真设置。</li>
+<li>快照。</li>
+<li>天气和灯光管理器。</li>
 </ul>
-<p>Some of its most important methods are <em>getters</em>, precisely to retrieve information or instances of these elements. Take a look at <a href="../python_api/#carla.World">carla.World</a> to learn more about it.  </p>
-<h3 id="actors">Actors</h3>
-<p>The world has different methods related with actors that allow for different functionalities.  </p>
+<p>它的一些最重要的方法是 <em>getters</em> ，精确地检索这些元素的信息或实例。查看 <a href="../python_api/#carla.World">carla.World</a> 了解更多信息。</p>
+<h3 id="_8">参与者</h3>
+<p>世界上有不同的与参与者相关的方法，允许不同的功能。</p>
 <ul>
-<li>Spawn actors (but not destroy them). </li>
-<li>Get every actor on scene, or find one in particular.  </li>
-<li>Access the blueprint library.  </li>
-<li>Access the spectator actor, the simulation's point of view.  </li>
-<li>Retrieve a random location that is fitting to spawn an actor.  </li>
+<li>生成参与者（但不摧毁他们）。</li>
+<li>获得场景中的每一位参与者，或者找到一个特定的参与者</li>
+<li>访问蓝图库。  </li>
+<li>访问观察参与者、仿真的视角。 </li>
+<li>检索适合生成参与者的随机位置。</li>
 </ul>
-<p>Spawning will be explained in <a href="../core_actors/">2nd. Actors and blueprints</a>. It requires some understanding on the blueprint library, attributes, etc.  </p>
-<h3 id="weather">Weather</h3>
-<p>The weather is not a class on its own, but a set of parameters accessible from the world. The parametrization includes sun orientation, cloudiness, wind, fog, and much more. The helper class <a href="../python_api/#carla.WeatherParameters">carla.WeatherParameters</a> is used to define a custom weather.  </p>
+<p>生成将在 <a href="../core_actors/">第二部分、参与者和蓝图</a> 。需要对蓝图库、属性等有一定的了解。</p>
+<h3 id="_9">天气</h3>
+<p>天气本身并不是一个类，而是一组可从世界获取的参数。参数化包括太阳方向、云量、风、雾等等。辅助类<a href="../python_api/#carla.WeatherParameters">carla.WeatherParameters</a> 用于定义自定义天气。</p>
 <pre><code class="language-py">weather = carla.WeatherParameters(
     cloudiness=80.0,
     precipitation=30.0,
@@ -379,15 +404,15 @@ world.set_weather(weather)
 
 print(world.get_weather())
 </code></pre>
-<p>There are some weather presets that can be directly applied to the world. These are listed in <a href="../python_api/#carla.WeatherParameters">carla.WeatherParameters</a> and accessible as an enum.  </p>
+<p>有一些天气预设可以直接应用于世界。这些列在<a href="../python_api/#carla.WeatherParameters">carla.WeatherParameters</a> 中并可作为枚举访问。 </p>
 <pre><code class="language-py">world.set_weather(carla.WeatherParameters.WetCloudySunset)
 </code></pre>
-<p>The weather can also be customized using two scripts provided by CARLA. </p>
+<p>还可以使用 CARLA 提供的两个脚本来自定义天气。</p>
 <ul>
-<li><strong><code>environment.py</code></strong> <em>(in <code>PythonAPI/util</code>)</em> — Provides access to weather and light parameters so that these can be changed in real time.  </li>
+<li><strong><code>environment.py</code></strong> <em>(在 <code>PythonAPI/util</code> 目录下)</em> — 提供对天气和光照参数的访问，以便可以实时更改这些参数。</li>
 </ul>
 <details>
-<summary> Optional arguments in <b>environment.py</b> </summary>
+<summary> <b>environment.py</b>  中的可选参数 </summary>
 
 
 <pre><code class="language-sh">  -h, --help            show this help message and exit
@@ -410,10 +435,10 @@ print(world.get_weather())
 </details>
 <p><br></p>
 <ul>
-<li><strong><code>dynamic_weather.py</code></strong> <em>(in <code>PythonAPI/examples</code>)</em> — Enables a particular weather cycle prepared by developers for each CARLA map.  </li>
+<li><strong><code>dynamic_weather.py</code></strong> <em>(在 <code>PythonAPI/examples</code> 目录下)</em> — 启用开发人员为每张 CARLA 地图准备的特定天气周期。</li>
 </ul>
 <details>
-<summary> Optional arguments in <b>dynamic_weather.py</b> </summary>
+<summary> <b>dynamic_weather.py</b> 中的可选参数 </summary>
 
 
 <pre><code class="language-sh">  -h, --help            show this help message and exit
@@ -425,91 +450,90 @@ print(world.get_weather())
 
 </details>
 <p><br></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Changes in the weather do not affect physics. They are only visuals that can be captured by the camera sensors. </p>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>天气的变化不会影响物理。它们只是相机传感器可以捕获的视觉效果。</p>
 </div>
-<p><strong>Night mode starts when sun_altitude_angle &lt; 0</strong>, which is considered sunset. This is when lights become especially relevant.  </p>
-<h3 id="lights">Lights</h3>
+<p><strong>当 sun_altitude_angle &lt; 0 时，夜间模式开始</strong>，这被认为是日落。这是灯光变得特别重要的时候。</p>
+<h3 id="_10">灯光</h3>
 <ul>
-<li><strong>Street lights</strong> automatically turn on when the simulation enters night mode. The lights are placed by the developers of the map, and accessible as <a href="../python_api/#carla.Light"><strong>carla.Light</strong></a> objects. Properties such as color and intensity can be changed at will. The variable <strong>light_state</strong> of type <a href="../python_api/#carla.LightState"><strong>carla.LightState</strong></a> allows setting all of these in one call.<br />
-Street lights are categorized using their attribute <strong>light_group</strong>, of type <a href="../python_api/#carla.LightGroup"><strong>carla.LightGroup</strong></a>. This allows to classify lights as street lights, building lights... An instance of <a href="../python_api/#carla.LightManager"><strong>carla.LightManager</strong></a> can be retrieved to handle groups of lights in one call.  </li>
+<li>当模拟进入夜间模式时， <strong>路灯</strong> 会自动打开。灯光由地图开发人员放置，并可作为 <a href="../python_api/#carla.Light"><strong>carla.Light</strong></a> 对象访问。颜色和强度等属性可以随意更改。<a href="../python_api/#carla.LightState"><strong>carla.LightState</strong></a> 类型的变量 <strong>light_state</strong> 允许在一次调用中设置所有这些。 路灯使用其类型为 <a href="../python_api/#carla.LightState"><strong>carla.LightState</strong></a> 的属性 <strong>light_state</strong> 进行分类。这允许将灯分类为路灯、建筑物灯...可以检索 [<strong>carla.LightManager</strong>] 的实例来在一次调用中处理一组灯。</li>
 </ul>
-<pre><code class="language-py"># Get the light manager and lights
+<pre><code class="language-py"># 获得灯光管理器和灯光
 lmanager = world.get_lightmanager()
 mylights = lmanager.get_all_lights()
 
-# Custom a specific light
+# 定制一个特定的灯光
 light01 = mylights[0]
 light01.turn_on()
 light01.set_intensity(100.0)
 state01 = carla.LightState(200.0,red,carla.LightGroup.Building,True)
 light01.set_light_state(state01)
 
-# Custom a group of lights
+# 定制一组灯
 my_lights = lmanager.get_light_group(carla.LightGroup.Building)
 lmanager.turn_on(my_lights)
 lmanager.set_color(my_lights,carla.Color(255,0,0))
 lmanager.set_intensities(my_lights,list_of_intensities)
 </code></pre>
 <ul>
-<li><strong>Vehicle lights</strong> have to be turned on/off by the user. Each vehicle has a set of lights listed in <a href="../python_api/#carla.VehicleLightState"><strong>carla.VehicleLightState</strong></a>. So far, not all vehicles have lights integrated. Here is a list of those that are available by the time of writing.  <ul>
-<li><strong>Bikes.</strong> All of them have a front and back position light.  </li>
-<li><strong>Motorcycles.</strong> Yamaha and Harley Davidson models.  </li>
-<li><strong>Cars.</strong> Audi TT, Chevrolet, Dodge (the police car), Etron, Lincoln, Mustang, Tesla 3S, Wolkswagen T2 and the new guests coming to CARLA.  </li>
+<li><strong>车灯</strong> 必须由用户打开/关闭。每辆车都有一组在<a href="../python_api/#carla.VehicleLightState"><strong>carla.VehicleLightState</strong></a> 中列出的灯。到目前为止，并非所有车辆都集成了车灯。以下是截至撰写本文时可用的列表。<ul>
+<li><strong>自行车。</strong> 它们都有前后示廓灯。</li>
+<li><strong>摩托车。</strong> 雅马哈和哈雷戴维森型号。</li>
+<li><strong>汽车。</strong> 奥迪 TT、雪佛兰、道奇（警车）、钰创、林肯、野马、特斯拉3S、大众T2以及即将到来的 Carla 新客人。  </li>
 </ul>
 </li>
 </ul>
-<p>The lights of a vehicle can be retrieved and updated anytime using the methods <a href="../python_api/#carla.Vehicle.get_light_state">carla.Vehicle.get_light_state</a> and <a href="#python_api.md#carla.Vehicle.set_light_state">carla.Vehicle.set_light_state</a>. These use binary operations to customize the light setting.  </p>
-<pre><code class="language-py"># Turn on position lights
+<p>可以使用 <a href="../python_api/#carla.Vehicle.get_light_state">carla.Vehicle.get_light_state</a> 和 <a href="#python_api.md#carla.Vehicle.set_light_state">carla.Vehicle.set_light_state</a> 方法随时检索和更新车辆的灯光。它们使用二进制运算来自定义灯光设置。</p>
+<pre><code class="language-py"># 打开位置灯
 current_lights = carla.VehicleLightState.NONE
 current_lights |= carla.VehicleLightState.Position
 vehicle.set_light_state(current_lights)
 </code></pre>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Lights can also be set in real time using the <code>environment.py</code> described in the <a href="#weather">weather</a> section.  </p>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>还可以使用天气 <code>environment.py</code> 部分中描述的实时设置灯光。</p>
 </div>
-<h3 id="debugging">Debugging</h3>
-<p>World objects have a <a href="../python_api/#carla.DebugHelper">carla.DebugHelper</a> object as a public attribute. It allows for different shapes to be drawn during the simulation. These are used to  trace the events happening. The following example would draw a red box at an actor's location and rotation. </p>
+<h3 id="_11">调试</h3>
+<p>世界对象有一个 <a href="../python_api/#carla.DebugHelper">carla.DebugHelper</a> 对象作为公共属性。它允许在仿真过程中绘制不同的形状。这些用于跟踪正在发生的事件。以下示例将在参与者的位置和旋转处绘制一个红色框。</p>
 <pre><code class="language-py">debug = world.debug
 debug.draw_box(carla.BoundingBox(actor_snapshot.get_transform().location,carla.Vector3D(0.5,0.5,2)),actor_snapshot.get_transform().rotation, 0.05, carla.Color(255,0,0,0),0)
 </code></pre>
-<p>This example is extended in a snipet in <a href="../python_api/#carla.DebugHelper.draw_box">carla.DebugHelper</a> that shows how to draw boxes for every actor in a world snapshot. </p>
-<h3 id="world-snapshots">World snapshots</h3>
-<p>Contains the state of every actor in the simulation at a single frame. A sort of still image of the world with a time reference. The information comes from the same simulation step, even in asynchronous mode.  </p>
-<pre><code class="language-py"># Retrieve a snapshot of the world at current frame.
+<p>此示例在 <a href="../python_api/#carla.DebugHelper.draw_box">carla.DebugHelper</a> 的片段中进行了扩展，展示了如何为世界快照中的每个参与者绘制方框。</p>
+<h3 id="_12">世界快照</h3>
+<p>包含仿真中每个参与者在单个帧中的状态。一种带有时间参考的静态世界图像。即使在异步模式下，信息也来自相同的仿真步骤。</p>
+<pre><code class="language-py"># 检索当前帧的世界快照。
 world_snapshot = world.get_snapshot()
 </code></pre>
-<p>A <a href="../python_api/#carla.WorldSnapshot">carla.WorldSnapshot</a> contains a <a href="../python_api/#carla.Timestamp">carla.Timestamp</a> and a list of <a href="../python_api/#carla.ActorSnapshot">carla.ActorSnapshot</a>. Actor snapshots can be searched using the <code>id</code> of an actor. A snapshot lists the <code>id</code> of the actors appearing in it.  </p>
-<pre><code class="language-py">timestamp = world_snapshot.timestamp # Get the time reference 
+<p><a href="../python_api/#carla.WorldSnapshot">carla.WorldSnapshot</a> 包含 <a href="../python_api/#carla.Timestamp">carla.Timestamp</a> 和 <a href="../python_api/#carla.ActorSnapshot">carla.ActorSnapshot</a> 列表。可以使用参与者 <code>id</code> 的搜索参与者快照。快照列出了其中出现的参与者 <code>id</code>。</p>
+<pre><code class="language-py">timestamp = world_snapshot.timestamp # 获取时间参考
 
-for actor_snapshot in world_snapshot: # Get the actor and the snapshot information
+for actor_snapshot in world_snapshot: # 获取参与者和快照信息
     actual_actor = world.get_actor(actor_snapshot.id)
     actor_snapshot.get_transform()
     actor_snapshot.get_velocity()
     actor_snapshot.get_angular_velocity()
     actor_snapshot.get_acceleration()  
 
-actor_snapshot = world_snapshot.find(actual_actor.id) # Get an actor's snapshot
+actor_snapshot = world_snapshot.find(actual_actor.id) # 获得参与者快照
 </code></pre>
-<h3 id="world-settings">World settings</h3>
-<p>The world has access to some advanced configurations for the simulation. These determine rendering conditions, simulation time-steps, and synchrony between clients and server. They are accessible from the helper class <a href="../python_api/#carla.WorldSettings">carla.WorldSettings</a>.  </p>
-<p>For the time being, default CARLA runs with the best graphics quality, a variable time-step, and asynchronously. To dive further in this matters take a look at the <strong>Advanced steps</strong> section. The pages on <a href="../adv_synchrony_timestep/">synchrony and time-step</a>, and <a href="../adv_rendering_options/">rendering options</a> could be a great starting point.</p>
+<h3 id="_13">世界设置</h3>
+<p>世界可以使用一些高级的仿真配置。这些决定了渲染条件、仿真时间步长以及客户端和服务器之间的同步。它们可以从辅助类<a href="../python_api/#carla.WorldSettings">carla.WorldSettings</a> 访问。 </p>
+<p>目前，默认的 CARLA 以最佳图形质量、可变时间步长和异步方式运行。要进一步深入了解此问题，请查看 <strong>高级步骤</strong> 部分。有关 <a href="../adv_synchrony_timestep/">同步、时间步长</a> 以及 <a href="../adv_rendering_options/">渲染选项</a> 的页面可能是一个很好的起点。</p>
 <hr />
-<p>That is a wrap on the world and client objects. The next step takes a closer look into actors and blueprints to give life to the simulation.  </p>
-<p>Keep reading to learn more. Visit the forum to post any doubts or suggestions that have come to mind during this reading.  </p>
+<p>这是对世界和客户端对象的包装。下一步将仔细研究参与者和蓝图，为模拟赋予生命。</p>
+<p>继续阅读以了解更多信息。请访问论坛，发表在阅读过程中想到的任何疑问或建议。</p>
 <div text-align: center>
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="CARLA forum">
-CARLA forum</a>
+Carla 论坛</a>
 </p>
 </div>
 <div class="build-buttons">
 <p>
 <a href="../core_actors" target="_blank" class="btn btn-neutral" title="2nd. Actors and blueprints">
-2nd. Actors and blueprints</a>
+第二、参与者和蓝图</a>
 </p>
 </div>
 </div>
@@ -518,7 +542,7 @@ CARLA forum</a>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
         <a href="../core_concepts/" class="btn btn-neutral float-left" title="核心概念"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../core_actors/" class="btn btn-neutral float-right" title="第二、 角色和蓝图">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../core_actors/" class="btn btn-neutral float-right" title="参与者和蓝图">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
