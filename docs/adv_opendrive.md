@@ -51,7 +51,7 @@ python3 config.py -x opendrive/TownBig.xodr
 !!! 重要的
     __[client.generate_opendrive_world()](python_api.md#carla.Client.generate_opendrive_world)__ 使用 __OpenDRIVE 文件的内容解析为字符串__ 。相反，__`config.py`__ 脚本需要 __`.xodr` 文件的路径__。
 
-!!! 注意
+!!! 笔记
 如果遇到`opendrive 无法正确解析`错误，请确保对`CarlaUE4/Content/Carla/Maps/OpenDrive/`目录有写权限。这是服务器正确解析`xodr`文件所必需的。
 
 ---

@@ -1,45 +1,67 @@
-# Extended documentation
+# 扩展文档
 
-Below, you will find in depth documentation on the many extensive features of CARLA.
+下面，您将找到有关 Carla 许多广泛功能的深入文档。
 
-## Advanced concepts
+## 先进理念
  
-[__Recorder__](adv_recorder.md) — Register the events in a simulation and play it again.  
-[__Rendering options__](adv_rendering_options.md) — From quality settings to no-render or off-screen modes.  
-[__Synchrony and time-step__](adv_synchrony_timestep.md) — Client-server communication and simulation time.  
-[__Benchmarking Performance__](adv_benchmarking.md) — Perform benchmarking using our prepared script.  
-[__CARLA Agents__](adv_agents.md) — Agents scripts allow single vehicles to roam the map or drive to a set destination.  
-[__Multi GPU__](adv_multigpu.md) — Set up the CARLA simulator to use multiple GPUs for processing.
+[__记录器__](adv_recorder.md) — 在仿真中注册事件并再次播放。
 
-## Traffic Simulation
+[__渲染选项__](adv_rendering_options.md) — 从质量设置到无渲染或离屏模式。 
 
-[__Traffic Simulation Overview__](ts_traffic_simulation_overview.md) — An overview of the different options available to populate your scenes with traffic.  
-[__Traffic Manager__](adv_traffic_manager.md) — Simulate urban traffic by setting vehicles to autopilot mode.  
+[__同步和时间步长__](adv_synchrony_timestep.md) — 客户端-服务器通信和仿真时间。 
 
-## References
+[__基准测试性能__](adv_benchmarking.md) — 使用我们准备的脚本执行基准测试。
 
-[__Recorder binary file format__](ref_recorder_binary_file_format.md) — Detailed explanation of the recorder file format.  
-[__Sensors reference__](ref_sensors.md) — Everything about sensors and the data they retrieve.  
+[__Carla 智能体__](adv_agents.md) — 智能体脚本允许单个车辆在地图上漫游或行驶到设定的目的地。
 
-## Custom Maps
+[__多 GPU__](adv_multigpu.md) — 设置 Carla 仿真器以使用多个 GPU 进行处理。
 
-[__Digital Twin Tool__](adv_digital_twin.md) — A procedural map generation tool that uses OpenStreetMap data  
-[__Overview of custom maps in CARLA__](tuto_M_custom_map_overview.md) — An overview of the process and options involved in adding a custom, standard sized map.   
-[__Create a map in RoadRunner__](tuto_M_generate_map.md) — How to generate a customs, standard sized map in RoadRunner.  
-[__Import map in CARLA package__](tuto_M_add_map_package.md) How to import a map in a CARLA package.  
-[__Import map in CARLA source build__](tuto_M_add_map_source.md) — How to import a map in CARLA built from source.  
-[__Alternative ways to import maps__](tuto_M_add_map_alternative.md) — Alternative methods to import maps.  
-[__Manually prepare map package__](tuto_M_manual_map_package.md) — How to prepare a map for manual import.  
-[__Customizing maps: Layered maps__](tuto_M_custom_layers.md) — How to create sub-layers in your custom map.  
-[__Customizing maps: Traffic lights and signs__](tuto_M_custom_add_tl.md) — How to add traffic lights and signs to your custom map.  
-[__Customizing maps: Road painter__](tuto_M_custom_road_painter.md) — How to use the road painter tool to change the appearance of the road.
-[__Customizing Maps: Procedural Buildings__](tuto_M_custom_buildings.md) — Populate your custom map with buildings.  
-[__Customizing maps: Weather and landscape__](tuto_M_custom_weather_landscape.md) — Create the weather profile for your custom map and populate the landscape.  
-[__Generate pedestrian navigation__](tuto_M_generate_pedestrian_navigation.md) — Obtain the information needed for walkers to move around.  
+## 交通仿真
 
-## Large Maps
+[__交通仿真概述__](ts_traffic_simulation_overview.md) — 可用于用填充交通场景的不同选项的概述。
 
-[__Large maps overview__](large_map_overview.md) — An explanation of how large maps work in CARLA.  
-[__Create a Large Map in RoadRunner__](large_map_roadrunner.md) — How to create a large map in RoadRunner.  
-[__Import/Package a Large Map__](large_map_import.md) — How to import a large map.  
+[__交通管理器__](adv_traffic_manager.md) — 通过将车辆设置为自动驾驶模式来仿真城市交通。
+
+## 参考
+
+[__记录器二进制文件格式__](ref_recorder_binary_file_format.md) — 记录器文件格式的详细说明。
+
+[__传感器参考__](ref_sensors.md) — 有关传感器及其检索数据的所有内容。
+
+
+## 自定义地图
+
+[__数字孪生工具__](adv_digital_twin.md) — 使用 OpenStreetMap 数据的程序地图生成工具。
+
+[__Carla 中的自定义地图概述__](tuto_M_custom_map_overview.md) — 添加自定义标准尺寸地图所涉及的过程和选项的概述。
+
+[__在 RoadRunner 中创建地图__](tuto_M_generate_map.md) — 如何在 RoadRunner 中生成自定义的标准尺寸地图。
+
+[__在 Carla 包中导入地图__](tuto_M_add_map_package.md) 如何在 Carla 包中导入地图。
+
+[__在 Carla 源代码构建中导入地图__](tuto_M_add_map_source.md) — 如何在从源代码构建的 Carla 中导入地图。
+
+[__导入地图的替代方法__](tuto_M_add_map_alternative.md) — 导入地图的替代方法。 
+
+[__手动准备地图包__](tuto_M_manual_map_package.md) — 如何准备用于手动导入的地图。 
+
+[__自定义地图：分层地图__](tuto_M_custom_layers.md) — 如何在自定义地图中创建子图层。 
+
+[__自定义地图：交通灯和标志__](tuto_M_custom_add_tl.md) — 如何将交通灯和标志添加到自定义地图中。
+
+[__自定义地图：道路画家__](tuto_M_custom_road_painter.md) — 如何使用道路画家工具更改道路的外观。
+
+[__自定义地图：程序化建筑物__](tuto_M_custom_buildings.md) — 用建筑物填充您的自定义地图。
+
+[__自定义地图：天气和景观__](tuto_M_custom_weather_landscape.md) — 为您的自定义地图创建天气资料并填充景观。
+
+[__生成行人导航__](tuto_M_generate_pedestrian_navigation.md) — 获取行人四处走动所需的信息。  
+
+## 大地图
+
+[__大地图概述__](large_map_overview.md) — 解释大地图在 Carla 中的工作原理。 
+
+[__在 RoadRunner 中创建大型地图__](large_map_roadrunner.md) — 如何在 RoadRunner 中创建大型地图。
+
+[__导入/打包大地图__](large_map_import.md) — 如何导入大地图。
 

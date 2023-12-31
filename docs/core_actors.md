@@ -45,7 +45,7 @@ is_bike = [vehicle.get_attribute('number_of_wheels') == 2]
 if(is_bike)
     vehicle.set_attribute('color', '255,0,0')
 ```
-!!! 注意
+!!! 笔记
     某些属性无法修改。在[蓝图库](bp_library.md)中查看。
 
 属性有一个参与者属性类型 [carla.ActorAttributeType](python_api.md#carla.ActorAttributeType) 变量。它从枚举列表中声明其类型。此外，可修改的属性还附带一个 __推荐值列表__ 。
@@ -55,7 +55,7 @@ for attr in blueprint:
     if attr.is_modifiable:
         blueprint.set_attribute(attr.id, random.choice(attr.recommended_values))
 ```
-!!! 注意
+!!! 笔记
     用户可以创建他们自己的车辆。查看 __教程（资产）__ 以了解相关信息。贡献者可以 [将他们的新内容添加到 Carla](tuto_D_contribute_assets.md) 。
 
 ---
@@ -187,7 +187,7 @@ carla.Rotation(pitch=-90)))
 
 当模拟开始、停止、让行和交通灯时，会使用 OpenDRIVE 文件中的信息自动生成。__这些都无法在蓝图库中找到__，因此无法生成。
 
-!!! 注意
+!!! 笔记
     OpenDRIVE 文件中的 Carela 地图没有交通标志或信号灯。这些是由开发人员手动放置的。 
 
 [__交通标志__](python_api.md#carla.TrafficSign) 未在路线图本身中定义，如下页所述。相反，他们有一个 [carla.BoundingBox](python_api.md#carla.BoundingBox) 来影响其中的车辆。 
@@ -208,7 +208,7 @@ if traffic_light.get_state() == carla.TrafficLightState.Red:
     traffic_light.set_set_green_time(4.0)
 ``` 
 
-!!! 注意
+!!! 笔记
     只有当信号灯为红色时，车辆才会意识到交通灯。
 
 ### 车辆
@@ -281,7 +281,7 @@ vehicle.set_light_state(current_lights)
 walker_controller_bp = world.get_blueprint_library().find('controller.ai.walker')
 world.SpawnActor(walker_controller_bp, carla.Transform(), parent_walker)
 ```
-!!! 注意
+!!! 笔记
     人工智能控制器是无形的，没有物理特性。它不会出现在现场。此外，位置 `(0,0,0)` 相对于其父级的位置不会导致碰撞。  
 
 

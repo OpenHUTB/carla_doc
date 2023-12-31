@@ -1,17 +1,17 @@
-# Town 15
+# 城镇 15
 
 ![town_15](./img/catalogue/maps/town15/town15montage.webp)
 
-Town 15 is a map based on the road layout of the Autonomous University of Barcelona (Universitat Autònoma de Barcelona). Some emblematic buildings from the modern campus are modelled in the map, including the humanities library, the medicine building and also the Computer Vision Center, the birthplace of CARLA. 
+城镇 15 是根据巴塞罗那自治大学的道路布局绘制的地图。地图中仿真了现代校园的一些标志性建筑，包括人文图书馆、医学大楼以及 Carla 的诞生地计算机视觉中心。
 
-## Computer Vision Center
+## 计算机视觉中心
 
-The map includes the Computer Vision Center (CVC - Centre de Visió per Computador in Catalan) is a world reknowned research center for research in computer vision and is where the CARLA development team is based. 
+该地图包括计算机视觉中心，该中心是世界知名的计算机视觉研究中心，也是 Carla 开发团队的所在地。
 
 ![CVC](./img/catalogue/maps/town15/cvc.png)
 
-## Humanities Library 
+## 人文图书馆
 
-Known as the Biblioteca d'Humanitats in Catalan, this building houses literature covering many disciplines for the students and researchers studying and working at the Autonomous University of Barcelona. 
+这座建筑在加泰罗尼亚语中被称为 Biblioteca d'Humanitats，为在巴塞罗那自治大学学习和工作的学生和研究人员提供了涵盖多个学科的文献。
 
 ![library](./img/catalogue/maps/town15/library.png)

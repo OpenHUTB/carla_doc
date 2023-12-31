@@ -1,4 +1,4 @@
-# Getting started with CARLA
+# Getting started with Carla
 
 The CARLA simulator is a comprehensive solution for producing synthetic training data for applications in autonomous driving (AD) and also other robotics applications. CARLA simulates a highly realistic environment emulating real world towns, cities and highways and the vehicles and other objects that occupy these driving spaces. 
 

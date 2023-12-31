@@ -114,7 +114,7 @@ make package.rss
 
 由于 [carla.VehicleControl](python_api.md#carla.VehicleControl) 对象的结构，所应用的限制具有一定的局限性。这些控制器包括油门(`throttle`)、刹车(`brake`)和方向盘(`streering`)值。然而，由于汽车物理原理和简单的控制选项，这些可能无法满足。只需通过朝平行车道方向反向转向即可在横向方向进行限制干预。如果 __责任敏感安全__ 请求减速，制动器将被激活。这取决于 [carla.Vehicle](python_api.md#carla.Vehicle) 提供的车辆质量和制动扭矩。
 
-!!! 注意
+!!! 笔记
     在自动车辆控制器中，可以使计划的轨迹适应限制。可以使用快速控制环路（>1KHz）来确保遵循这些要求。
 
 ---

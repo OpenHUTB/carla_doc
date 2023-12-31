@@ -59,7 +59,7 @@ RoadRunner是MATLAB校园许可的一部分，因此许多大学可以提供无�
 
 >>>>![checkopen](./img/check_open.jpg)
 
-!!! 注意
+!!! 笔记
     _opdrive预览工具_使它更容易测试地图的完整性。如果路口有任何错误，点击‘Maneuver Tool’，然后点击‘Rebuild Maneuver Roads’。
 
 通过点击[世界设置工具](https://www.mathworks.com/help/roadrunner/ref/worldsettingstool.html)并拖动蓝色边界框的边缘以包含您想要导出的整个区域，确保选择完整的地图进行导出。当它准备好了，点击Apply World Changes。
@@ -97,11 +97,11 @@ __3.__ 导出 `.xodr`文件:
 
 ---
 
-如果你对这个过程有任何疑问，那么你可以在[论坛](https://github.com/carla-simulator/carla/discussions)上提问。
+如果你对这个过程有任何疑问，那么你可以在 [论坛](https://github.com/carla-simulator/carla/discussions) 上提问。
 
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA forum</a>
+CARLA 论坛</a>
 </p>
 </div>

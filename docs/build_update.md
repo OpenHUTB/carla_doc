@@ -111,7 +111,7 @@ __2.__ 转至 `\Util\ContentVersions.txt`。
 __3.__ 下载最新的 `latest` 的内容。  
 __4.__ 在 `Unreal\CarlaUE4\Content\Carla` 抽取新的内容。
 
-!!! 注意
+!!! 笔记
     为了与 CARLA 团队正在开发的项目合作，请 __获取下面的开发资产__ 。
 
 ### 启动服务器

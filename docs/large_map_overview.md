@@ -39,7 +39,7 @@ cd PythonAPI/util
 python3 config.py --tile-stream-distance 2000
 ```
 
-!!! 注意
+!!! 笔记
     大型地图目前一次仅支持一辆自主车辆。
 
 ---
@@ -77,11 +77,11 @@ actor.is_dormant
 
 ---
 
-If you have any questions about large maps, then you can ask in the [forum](https://github.com/carla-simulator/carla/discussions).
+如果您对大地图有任何疑问，那么您可以在 [论坛](https://github.com/carla-simulator/carla/discussions) 中提问。
 
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA forum</a>
+CARLA 论坛</a>
 </p>
 </div>

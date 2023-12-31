@@ -35,7 +35,7 @@ python3 config.py --map Town04
 cd ~/carla/Co-Simulation/Sumo
 python3 run_synchronization.py examples/Town04.sumocfg  --sumo-gui
 ```
-!!! 注意
+!!! 笔记
 	运行时候可能报错：`module 'traci' has no attribute 'sumolib'`，是因为`sumolib`是独立的包，不在`traci`里面，需要把`carla/Co-Simulation/Sumo/sumo_integration/sumo_simulation.py`的304行的这一句代`sumo_net = traci.sumolib.net.readNet(net_file)`码改成`sumo_net = sumolib.net.readNet(net_file)`。
     
 

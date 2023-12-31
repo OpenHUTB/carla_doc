@@ -1,8 +1,8 @@
 # 核心概念
 
-本页面介绍了CARLA的主要功能和模块。不同主题的详细说明可以在相应的页面中找到。
+本页面介绍了 Carla 的主要功能和模块。不同主题的详细说明可以在相应的页面中找到。
 
-为了了解API中不同的类和方法，请查看[Python API参考](python_api.md)。
+为了了解 API 中不同的类和方法，请查看[Python API参考](python_api.md)。
 
 *   **[第一步](#first-steps)**
   *   **[世界和客户端](#1st-world-and-client)**

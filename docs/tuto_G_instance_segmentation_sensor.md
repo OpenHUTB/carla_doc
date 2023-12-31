@@ -20,7 +20,7 @@ import random
 import time
 import queue
 
-# Connect to client and set CARLA server to synchronous mode
+# Connect to client and set Carla server to synchronous mode
 client = carla.Client('localhost', 2000)
 world = client.get_world()
 settings = world.get_settings()

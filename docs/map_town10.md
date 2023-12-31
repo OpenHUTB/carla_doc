@@ -1,30 +1,30 @@
-# Town 10
+# 城镇 10
 
 ![town_10_slideshow](./img/catalogue/maps/town10/town10.webp)
 
-Town 10 presents mixture of features from inner-city environments with glossy skyscrapers and industrial buildings next to waterfront promenades, apartment blocks, hotels, public buildings and tree-lined boulevards. Town 10's road network hosts a number of different junction arrangements with a variety of lane markings, crossings and signal types to challenge your autonomous agent in negotiating with other traffic. 
+城镇 10 融合了市中心环境的特色，拥有光鲜亮丽的摩天大楼和工业建筑，毗邻海滨长廊、公寓楼、酒店、公共建筑和绿树成荫的林荫大道。城镇 10 的路网拥有许多不同的路口布置，具有各种车道标记、交叉路口和信号类型，以挑战您的自主智能体与其他交通的协商。
 
-## Road network
+## 路网
 
-The road network consists of a grid layout, including numerous different junctions including a 4-way yellow-box junction, dedicated turning lanes and central reservations. 
+道路网络由网格布局组成，包括许多不同的路口，包括四向黄箱路口、专用转弯车道和中央预留区。
 
 ![town_10_aerial](./img/catalogue/maps/town10/town10aerial.webp)
 
-## Features
+## 特征
 
-The center of the town includes a tree-lined boulevard which is cast in shadows even at noon by the tree canopy.
+镇中心有一条绿树成荫的林荫大道，即使在中午，树冠也会在树荫下投下阴影。
 
 ![town_10_boulevard](./img/catalogue/maps/town10/boulevard.webp)
 
-A grand museum dominates one side of the town center. 
+一座宏伟的博物馆占据了镇中心的一侧。
 
 ![town_10_boulevard](./img/catalogue/maps/town10/museum.webp)
 
-An ocean promenade lines the other side of the town.
+城镇的另一侧有一条海洋长廊。
 
 ![town_10_promenade](./img/catalogue/maps/town10/promenade.webp)
 
-The architecture includes numerous skyscrapers in varying styles, including glossy, reflective buildings and unusually shaped twisting and cylindrical towers.
+该建筑包括众多风格各异的摩天大楼，包括光滑的反光建筑和形状异常的扭曲和圆柱形塔楼。
 
 ![town_10_skyscrapers](./img/catalogue/maps/town10/skyscrapers.webp)
 

@@ -21,7 +21,7 @@
 - __Docker:__ 按照 [此处](https://docs.docker.com/engine/install/) 的安装说明进行操作。Follow the installation instructions [here](https://docs.docker.com/engine/install/).
 - __NVIDIA Container Toolkit:__ NVIDIA 容器工具包是一个库和工具集，可将 NVIDIA 图形设备公开给 Linux 容器。它专为在 Linux 主机系统或适用于 Linux 的 Windows 子系统版本 2 下的 Linux 发行版中运行的 Linux 容器而设计。`nvidia-docker2`按照 [此处](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#installation-guide) 的说明安装该软件包。
 
-!!! 注意
+!!! 笔记
     Docker 需要 sudo 才能运行。按照 [本指南](https://docs.docker.com/install/linux/linux-postinstall/) 将用户添加到 docker sudo 组。
 
 ---
@@ -69,7 +69,7 @@ __Carla 0.9.7 至 0.9.11__
 sudo docker run --privileged --gpus all --net=host -e DISPLAY=$DISPLAY -e SDL_VIDEODRIVER=x11 -v /tmp/.X11-unix:/tmp/.X11-unix:rw carlasim/carla:0.9.11 /bin/bash ./CarlaUE4.sh -vulkan <-additonal-carla-flags>
 ```
 
-!!! 注意
+!!! 笔记
     只要您的计算机有显示器，此命令将允许您使用 Vulkan 运行 CARLA 映像。有关在离屏模式下运行 Vulkan 的信息，请参阅 [渲染文档](adv_rendering_options.md#off-screen-mode) 。
 
 要使用 OpenGL 运行 Carla：

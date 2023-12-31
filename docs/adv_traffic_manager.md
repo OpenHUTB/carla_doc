@@ -276,7 +276,7 @@ TM 行为可以通过 Python API 进行调整。有关具体方法，请参阅 P
 
 ### 创建交通管理器
 
-!!! 注意
+!!! 笔记
 	TM 设计为在同步模式下工作。在异步模式下使用 TM 可能会导致意外和不良结果。有关详细信息，请参阅 [__同步模式__](#synchronous-mode)。
 
 TM 实例由 [`carla 创建.客户端`](python_api.md#carla.Client)，传递要使用的端口。缺省端口为 `8000`。
@@ -294,7 +294,7 @@ tm_port = tm.get_port()
  for v in vehicles_list:
      v.set_autopilot(True,tm_port)
 ```
-!!! 注意
+!!! 笔记
 
 ```
 在多客户端情况下创建或连接到 TM 与上述示例不同。

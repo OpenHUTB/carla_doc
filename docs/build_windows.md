@@ -98,7 +98,7 @@ __1.__ In a terminal, navigate to the location you want to save Unreal Engine an
     git clone --depth 1 -b carla https://github.com/CarlaUnreal/UnrealEngine.git .
 ```
 
-!!! 注意 
+!!! 笔记 
     虚幻引擎文件夹尽可能靠近`C:\\`，因为如果路径超过一定长度，`Setup.bat`则会在步骤 3 中返回错误。
 
 __2.__ 运行配置脚本：

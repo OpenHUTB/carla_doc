@@ -1,4 +1,4 @@
-# 常问问题
+# 常问的问题
 
 此处列出了有关 Carla 安装和构建的一些最常见问题。更多信息可以在该项目的 [GitHub issues](https://github.com/carla-simulator/carla/issues?utf8=%E2%9C%93&q=label%3Aquestion+) 找到。如果您没有发现此处列出的疑问，请查看论坛并随时提问。
 

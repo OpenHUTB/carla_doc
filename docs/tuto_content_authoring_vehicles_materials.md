@@ -2,11 +2,11 @@
 
 Once you have your vehicle imported as a basic asset with the mesh and blueprints laid out, you now want to add materials to your vehicle to facilitate photorealistic rendering in the Unreal Engine, for maximum fidelity in your machine learning training data.
 
-The Unreal Editor boasts a comprehensive materials workflow that facilitates the creation of highly realistic materials. This does, however, add a significant degree of complexity to the process. For this reason, CARLA is provided with a large library of material prototypes for you to use without having to start from scratch. 
+The Unreal Editor boasts a comprehensive materials workflow that facilitates the creation of highly realistic materials. This does, however, add a significant degree of complexity to the process. For this reason, Carla is provided with a large library of material prototypes for you to use without having to start from scratch. 
 
 ### Applying a material to your vehicle
 
-CARLA provides a prototype material for replicating the glossy finish of vehicles that can mimic numerous different types of vehicle paint jobs and features. Open Unreal editor and in the content browser, locate the material in `Content > Carla > Static > GenericMaterials > 00_MastersOpt`. The basic material is called *M_CarPaint_Master*. Right click on this material and choose *Create Material Instance* from the context material. Name it and move it into the folder where your new vehicle content is stored.
+Carla provides a prototype material for replicating the glossy finish of vehicles that can mimic numerous different types of vehicle paint jobs and features. Open Unreal editor and in the content browser, locate the material in `Content > Carla > Static > GenericMaterials > 00_MastersOpt`. The basic material is called *M_CarPaint_Master*. Right click on this material and choose *Create Material Instance* from the context material. Name it and move it into the folder where your new vehicle content is stored.
 
 In the Unreal Editor, move the spectator to a point near the floor and drag the skeletal mesh of the vehicle from the content browser into the scene, the body of your vehicle will now appear there. 
 
@@ -38,7 +38,7 @@ __Orange peel__ - finishes on real cars (particularly on mass produced cars for 
 ![change_orange_peel](img/tuto_content_authoring_vehicles/change_orange_peel
 .gif)
 
-__Flakes__ - some cars have paint jobs that include flakes of other material, such as metals or ceramics, to give the car a *metallic* or *pearlescant* appearance, adding extra glints and reflections that react in an attractive way to light. The flakes parameters allows CARLA to mimic this. To mimic metallic finishes, it would be 
+__Flakes__ - some cars have paint jobs that include flakes of other material, such as metals or ceramics, to give the car a *metallic* or *pearlescant* appearance, adding extra glints and reflections that react in an attractive way to light. The flakes parameters allows Carla to mimic this. To mimic metallic finishes, it would be 
 
 ![flakes](img/tuto_content_authoring_vehicles/flakes
 .gif)

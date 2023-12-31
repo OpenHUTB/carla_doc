@@ -43,7 +43,7 @@ client.set_timeout(10.0) # 秒
 
 可以连接许多客户端，因为一次运行多个脚本是很常见的。在具有高级 CARLA 功能（例如交通管理器）的多客户端方案中工作，必然会使通信更加复杂。
 
-!!! 注意
+!!! 笔记
     客户端和服务器有不同的`libcarla`模块。如果版本不同，可能会出现问题。这可以使用`get_client_version()`和`get_server_version()`方法进行检查。
 
 ### 世界连接
@@ -169,7 +169,7 @@ world.set_weather(carla.WeatherParameters.WetCloudySunset)
 ```
 </details><br>
 
-!!! 注意
+!!! 笔记
     天气的变化不会影响物理。它们只是相机传感器可以捕获的视觉效果。
 
 __当 sun_altitude_angle < 0 时，夜间模式开始__，这被认为是日落。这是灯光变得特别重要的时候。
@@ -211,7 +211,7 @@ current_lights |= carla.VehicleLightState.Position
 vehicle.set_light_state(current_lights)
 ```
 
-!!! 注意
+!!! 笔记
     还可以使用天气 `environment.py` 部分中描述的实时设置灯光。
 
 ### 调试

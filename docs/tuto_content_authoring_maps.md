@@ -1,4 +1,4 @@
-# Content authoring - Maps
+# 内容创作 - 地图
 
 CARLA comes with a generous compliment of assets for creating driving simulations out of the box. However, the real power of CARLA comes in its comprehensive extensibility, allowing users to create entirely custom environments populated with bespoke assets like buildings, benches, trash cans, statues, street lights and bus stops. 
 

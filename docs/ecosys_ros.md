@@ -2,12 +2,12 @@
 
 ![ros_carla](./img/ros_carla.png)
 
-[__机器人操作系统（Robotic Operating System, ROS）__](https://www.ros.org/) 是一组用于机器人和自动驾驶应用程序的软件库。Carla 可以通过其 ROS 接口直接连接到 ROS，控制信号可以发送到 CARLA 参与者，并且可以通过 ROS 主题访问传感器数据。
+[__机器人操作系统（Robotic Operating System, ROS）__](https://www.ros.org/) 是一组用于机器人和自动驾驶应用程序的软件库。Carla 可以通过其 ROS 接口直接连接到 ROS，控制信号可以发送到 Carla 参与者，并且可以通过 ROS 主题访问传感器数据。
 
-连接 CARLA 和 ROS 有两种选择。
+连接 Carla 和 ROS 有两种选择。
 
-- __CARLA 原生接口__: 直接构建到 CARLA 服务器中的 ROS 接口
-- __ROS 桥__: 一个单独的库，用于在 ROS 和 CARLA 之间传输信号
+- __Carla 原生接口__: 直接构建到 Carla 服务器中的 ROS 接口
+- __ROS 桥__: 一个单独的库，用于在 ROS 和 Carla 之间传输信号
 
 ## CARLA 的原生 ROS 接口
 

@@ -1,10 +1,10 @@
 # Change textures through the API
 
-The CARLA API can be used to modify asset textures during runtime. In this tutorial, we will learn how to select an asset then modify it's texture while the CARLA simulation is running. 
+The Carla API can be used to modify asset textures during runtime. In this tutorial, we will learn how to select an asset then modify it's texture while the Carla simulation is running. 
 
 ## Select an asset in the Unreal Editor
 
-Firstly, we need to load the Unreal Editor and load a CARLA map, follow the instructions for Linux or Windows to build CARLA from source and build and launch the Unreal Editor. Let's open the editor with Town 10 loaded (the default town) and select a building to work with:
+Firstly, we need to load the Unreal Editor and load a Carla map, follow the instructions for Linux or Windows to build Carla from source and build and launch the Unreal Editor. Let's open the editor with Town 10 loaded (the default town) and select a building to work with:
 
 ![select_building](./img/tuto_G_texture_streaming/building_selected.png)
 
@@ -22,11 +22,11 @@ Open the exported texture in your preferred image manipulation software and edit
 
 ![textures](./img/tuto_G_texture_streaming/textures.png)
 
-Export your modified texture into an appropriate location and then open up a code editor to run some Python to update the texture in the running CARLA simulation.
+Export your modified texture into an appropriate location and then open up a code editor to run some Python to update the texture in the running Carla simulation.
 
 ## Update the texture through the API
 
-If you havent already, launch the CARLA simulation, either from the command line, or launch the simulation within the Unreal Editor. We will use the [__Python Imaging Library (PIL)__](https://pillow.readthedocs.io/en/stable/) to read the texture from the image file we exported from our image manipulation software.
+If you havent already, launch the Carla simulation, either from the command line, or launch the simulation within the Unreal Editor. We will use the [__Python Imaging Library (PIL)__](https://pillow.readthedocs.io/en/stable/) to read the texture from the image file we exported from our image manipulation software.
 
 ## Connect to the simulator
 

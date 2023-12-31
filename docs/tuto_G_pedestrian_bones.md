@@ -38,7 +38,7 @@ spectator = world.get_spectator()
 
 ![actor_location](./img/tuto_G_pedestrian_bones/actor_location.png)
 
-!!! 注意
+!!! 笔记
     虚幻编辑器以厘米为单位，而 Carla 以米为单位，因此必须转换单位。在 Carla 模拟器中使用之前，请确保将虚幻编辑器坐标除以 100。
 
 一旦你选择了坐标，你就可以生成行人。我们还将生成一个相机来收集图像。我们还需要一个队列 [`Queue`](#https://docs.python.org/3/library/queue.html) 对象来允许我们轻松访问来自相机的数据（因为相机传感器在其自己的线程上运行，与运行脚本的主 Python 线程分开）。
@@ -222,7 +222,7 @@ trash = image_queue.get()
 
 现在我们可以迭代几帧，在每帧中构建骨架，并将骨架投影到相机传感器输出上。我们使用 OpenCV 将骨架绘制到传感器输出上并保存图像：
 
-!!! 注意
+!!! 笔记
     确保已在工作目录中创建名为 __out/__ 的文件夹来存储图像
 
 ```py

@@ -1,138 +1,138 @@
 # carlaviz
 
-The carlaviz plugin is used to visualize the simulation in a web browser. A windows with some basic representation of the scene is created. Actors are updated on-the-fly, sensor data can be retrieved, and additional text, lines and polylines can be drawn in the scene.  
+carlaviz 插件用于在网络浏览器中可视化仿真。创建了一个具有场景的一些基本表示的窗口。参与者可以即时更新，可以检索传感器数据，还可以在场景中绘制附加文本、线条和折线。
 
-*   [__General information__](#general-information)  
-	*   [Support](#support)  
-*   [__Get carlaviz__](#get-carlaviz)  
-	*   [Prerequisites](#prerequisites)  
-	*   [Download the plugin](#download-the-plugin)  
-*   [__Utilities__](#utilities)  
+*   [__一般信息__](#general-information)  
+	*   [支持](#support)  
+*   [__获取 carlaviz__](#get-carlaviz)  
+	*   [先决条件](#prerequisites)  
+	*   [下载插件](#download-the-plugin)  
+*   [__工具__](#utilities)  
 
 ---
-## General information
+## 一般信息
 
-*   __Contributor__ — Minjun Xu, also known as [wx9698](https://github.com/wx9698).  
-*   __License__ — [MIT](https://en.wikipedia.org/wiki/MIT_License).  
+*   __贡献者__ — Minjun Xu, also known as [wx9698](https://github.com/wx9698).  
+*   __许可证__ — [MIT](https://en.wikipedia.org/wiki/MIT_License).  
 
-### Support
+### 支持
 
 *   __Linux__ — CARLA 0.9.6, 0.9.7, 0.9.8, 0.9.9, 0.9.10.  
 *   __Windows__ — CARLA 0.9.9, 0.9.10.  
-*   __Build from source__ — Latest updates.  
+*   __从源代码构建__ — 最新更新。
 
 ---
-## Get carlaviz
+## 获取 carlaviz
 
-### Prerequisites
+### 先决条件
 
-*   __Docker__ — Visit the docs and [install Docker](https://docs.docker.com/get-docker/).  
-*   __Operative system__ — Any OS able to run CARLA should work.  
-*   __Websocket-client__ — ```pip3 install websocket_client```. Install [pip](https://pip.pypa.io/en/stable/installing/) if it is not already in the system.  
+*   __Docker__ — 访问文档并 [安装 Docker](https://docs.docker.com/get-docker/).  
+*   __操作系统__ — 任何能够运行 CARLA 的操作系统都应该可以工作。
+*   __Websocket-client__ — ```pip3 install websocket_client```。如果系统中尚未安装 [pip](https://pip.pypa.io/en/stable/installing/) 。  
 
-### Download the plugin
+### 下载插件
 
-Open a terminal and pull the Docker image of carlaviz, based on the CARLA version to be run.  
+打开终端并根据要运行的 CARLA 版本拉取 carlaviz 的 Docker 映像。
+
 
 ```bash
-# Pull only the image that matches the CARLA package being used
+# 仅拉取和所使用的Carla包匹配的镜像。
 docker pull mjxu96/carlaviz:0.9.6
 docker pull mjxu96/carlaviz:0.9.7
 docker pull mjxu96/carlaviz:0.9.8
 docker pull mjxu96/carlaviz:0.9.9
 docker pull mjxu96/carlaviz:0.9.10
 
-# Pull this image if working on a CARLA build from source
+# 如果工作在从源代码构建的 Carla 上，则拉取该镜像
 docker pull mjxu96/carlaviz:latest
 ```
 
-!!! Important
-    Currently in Windows there is only support for 0.9.9 and 0.9.10.  
+!!! 重要
+    目前在 Windows 中仅支持 0.9.9 和 0.9.10。
 
-CARLA up to 0.9.9 (included) is set to be single-stream. For later versions, multi-streaming for sensors is implemented.  
+CARLA 至 0.9.9（包含）设置为单流。对于更高版本，实现了传感器的多流。 
 
-* __In single-stream__, a sensor can only be heard by one client. When a sensor is already being heard by another client, for example when running `manual_control.py`, carlaviz is forced to duplicate the sensor in order to retrieve the data, and performance may suffer.  
+* __在单流中__, 一个传感器只能被一个客户端听到。当另一个客户端已经听到传感器时，例如在运行 `manual_control.py` 时，carlaviz 被迫复制传感器以检索数据，并且性能可能会受到影响。 
 
-* __In multi-stream__, a sensor can be heard by multiple clients. carlaviz has no need to duplicate these and performance does not suffer.  
+* __在多流中__，多个客户端可以听到一个传感器。carlaviz 不需要重复这些，并且性能不会受到影响。
 
-!!! Note
-    Alternatively on Linux, users can build carlaviz following the instructions [here](https://github.com/carla-simulator/carlaviz/blob/master/docs/build.md), but using a Docker image will make things much easier.  
+!!! 笔记
+    或者，在 Linux 上，用户可以按照 [此处](https://github.com/carla-simulator/carlaviz/blob/master/docs/build.md) 的说明构建 carlaviz ，但使用 Docker 映像将使事情变得更加容易。
 
 ---
-## Run carlaviz
+## 运行 carlaviz
 
-__1. Run CARLA.__
+__1. 运行 CARLA。__
 
-*   __a) In a CARLA package__ — Go to the CARLA folder and start the simulation with `CarlaUE4.exe` (Windows) or `./CarlaUE4.sh` (Linux).  
+*   __a) 在 CARLA 包中__ — 转至 CARLA 文件夹并使用 `CarlaUE4.exe`(Windows) 或`./CarlaUE4.sh`(Linux) 启动仿真。  
 
-*   __b) In a build from source__ — Go to the CARLA folder, run the UE editor with `make launch` and press `Play`.  
+*   __b) 在从源代码构建的包中__ — 转到 CARLA 文件夹，使用 `make launch` 运行虚幻编辑器，并按`Play`。
 
-__2. Run carlaviz.__ In another terminal run the following command according to the Docker image that has been downloaded.  
+__2. 运行 carlaviz.__ 根据已下载的 Docker 镜像，在另一个终端中运行以下命令。
 
-Change `<name_of_Docker_image>` for the name of the image previously downloaded, e.g. `mjxu96/carlaviz:latest` or `mjxu96/carlaviz:0.9.10`.  
+更改先前下载的镜像的名称 `<name_of_Docker_image>`，例如 `mjxu96/carlaviz:latest` 或 `mjxu96/carlaviz:0.9.10`。
 
 ```sh
-# On Linux system
+# 在 Linux 系统
 docker run -it --network="host" -e CARLAVIZ_HOST_IP=localhost -e CARLA_SERVER_IP=localhost -e CARLA_SERVER_PORT=2000 <name_of_Docker_image>
 
-# On Windows/MacOS system
+# 在 Windows/MacOS 系统
 docker run -it -e CARLAVIZ_HOST_IP=localhost -e CARLA_SERVER_IP=host.docker.internal -e CARLA_SERVER_PORT=2000 -p 8080-8081:8080-8081 -p 8089:8089 <name_of_Docker_image>
 ```
 
-If the everything has been properly set, carlaviz will show a successful message similar to the following.  
+如果一切都已正确设置，carlaviz 将显示类似于以下内容的成功消息。
 
 ![carlaviz_run](img/plugins_carlaviz_run.jpg)
 
-!!! Warning
-    Remember to edit the previous command to match the Docker image being used.  
+!!! 警告
+    请记住编辑前面的命令以匹配正在使用的 Docker 映像。
 
 
-__3. Open the localhost__ Open your web browser and go to `http://127.0.0.1:8080/`. carlaviz runs by default in port `8080`. The output should be similar to the following.  
+__3. 从本地打开__ 打开 Web 浏览器并转到 `http://127.0.0.1:8080/` 。carlaviz 默认在 `8080` 端口运行。输出应类似于以下内容。
 
 ![carlaviz_empty](img/plugins_carlaviz_empty.jpg)
 
 ---
-## Utilities
+## 工具
 
-Once the plugin is operative, it can be used to visualize the simulation, the actors that live in it, and the data the sensors retrieve. The plugin shows a visualization window on the right, were the scene is updated in real-tme, and a sidebar on the left with a list of items to be shown. Some of these items will appear in the visualization window, others (mainly sensor and game data) appear just above the items list.  
-Here is a list of options available for visualization. Additional elements may show, such as  
+一旦插件运行，它就可以用于可视化仿真、其中的参与者以及传感器检索的数据。该插件在右侧显示一个可视化窗口，场景实时更新，左侧显示一个侧边栏，其中包含要显示的项目列表。其中一些项目将出现在可视化窗口中，其他项目（主要是传感器和游戏数据）出现在项目列表上方。
+以下是可用于可视化的选项列表。可能会显示其他元素，例如
 
-*   __View Mode__ — Change the point of view in the visualization window.  
-	*   `Top Down` — Aerial point of view.  
-	*   `Perspective` — Free point of view.  
-	*   `Driver` — First person point of view.  
+*   __View Mode__ — 更改可视化窗口中的视角。
+	*   `Top Down` — 空中视角。
+	*   `Perspective` — 自由的视角。
+	*   `Driver` — 第一人称视角。  
 
-*   __/vehicle__ — Show properties of the ego vehicle. Includes a speedometer and accelerometer in the visualization window, and the data retrieved by IMU, GNSS and collision detector sensors.  
-	*   `/velocity` — Velocity of the ego vehicle.  
-	*   `/acceleration` — Acceleration of the ego vehicle.  
-*   __/drawing__ — Show additional elements in the visualization window drawn with [CarlaPainter](https://github.com/wx9698/carlaviz/blob/master/examples/carla_painter.py).  
-	*   `/texts` — Text elements.  
-	*   `/points` — Point elements.  
-	*   `/polylines` — Polyline elements.  
-*   __/objects__  — Show actors in the visualization window.  
-	*   `/walkers` — Update walkers.  
-	*   `/vehicles` — Update vehicles.  
-*   __/game__  — Show game data.  
-	*   `/time` — Current simulation time and frame.  
-*   __/lidar__ — LIDAR sensor data.  
-	*   `/points` — Cloud of points detected by a LIDAR sensor.  
-*   __/radar__ — LIDAR sensor data.  
-	*   `/points` — Cloud of points detected by a RADAR sensor.  
-*   __/traffic__  — Landmark data.  
-	*   `/traffic_light` — Show the map's traffic lights in the visualization window.  
-	*   `/stop_sign` — Show the map's stop signs in the visualization window.  
+*   __/vehicle__ — 显示自我车辆的属性。可视化窗口中包括速度计和加速度计，以及 IMU、GNSS 和碰撞检测传感器检索的数据。
+	*   `/velocity` — 自我车辆的速度。
+	*   `/acceleration` — 自我车辆的加速。
+*   __/drawing__ — 在使用 [CarlaPainter](https://github.com/wx9698/carlaviz/blob/master/examples/carla_painter.py) 绘制的可视化窗口中显示其他元素。
+	*   `/texts` — 文本元素。
+	*   `/points` — 点元素。
+	*   `/polylines` — 折线元素。 
+*   __/objects__  — 在可视化窗口中显示参与者。 
+	*   `/walkers` — 更新行人。
+	*   `/vehicles` — 更新车辆。
+*   __/game__  — 显示游戏数据。
+	*   `/time` — 当前仿真时间和帧。
+*   __/lidar__ — LIDAR 传感器数据。
+	*   `/points` — LIDAR 传感器检测到的点云。 
+*   __/radar__ — LIDAR 传感器数据。
+	*   `/points` — 雷达传感器检测到的点云。  
+*   __/traffic__  — 地标数据。
+	*   `/traffic_light` — 在可视化窗口中显示地图的交通灯。
+	*   `/stop_sign` — 在可视化窗口中显示地图的停车标志。
 
-
-Try to spawn some actors. These will be automatically updated in the visualization window.
+尝试生成一些参与者。这些将在可视化窗口中自动更新。
 ```sh
 cd PythonAPI/examples
-# Spawns actors in a synchronous mode simulation
+# 在同步模式仿真下生成参与者
 python3 generate_traffic.py -n 10 -w 5
 ```
 
 ![carlaviz_full](img/plugins_carlaviz_full.jpg)
 
-Spawn an ego vehicle with manual control and move around, to see how the plugin updates sensor data.  
+生成一个手动控制的自我车辆并四处移动，以查看插件如何更新传感器数据。
 ```sh
 cd PythonAPI/examples
 python3 manual_control.py
@@ -140,17 +140,18 @@ python3 manual_control.py
 
 ![carlaviz_data](img/plugins_carlaviz_data.jpg)
 
-The contributor ([wx9698](https://github.com/wx9698)), created an additional class, [CarlaPainter](https://github.com/wx9698/carlaviz/blob/master/examples/carla_painter.py), that allows the user to draw elements to be shown in the visualization window. These include text, points and polylines. Follow [this example](https://github.com/carla-simulator/carlaviz/blob/master/examples/example.py) to spawn an ego vehicle with a LIDAR, and draw the LIDAR data, the trajectory and velocity of the vehicle.  
+贡献者 ( [wx9698](https://github.com/wx9698) ) 创建了一个附加类 [CarlaPainter](https://github.com/wx9698/carlaviz/blob/master/examples/carla_painter.py) ，它允许用户绘制要在可视化窗口中显示的元素。其中包括文本、点和折线。按照 [此示例](https://github.com/carla-simulator/carlaviz/blob/master/examples/example.py) 生成带有 LIDAR 的自我车辆，并绘制 LIDAR 数据、车辆的轨迹和速度。
+
 
 ![carlaviz_demo](img/plugins_carlaviz_demo.jpg)
 
 ---
 
-That is all there is to know about the carlaviz plugin. If there are any doubts, feel free to post these in the forum. 
+这就是关于 carlaviz 插件的全部信息。如果有任何疑问，请随时在论坛中发布。
 
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA forum</a>
+CARLA 论坛</a>
 </p>
 </div>

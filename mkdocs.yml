@@ -1,4 +1,4 @@
-site_name: CARLA 模拟器 中文文档
+site_name: 驾驶仿真器文档
 
 #repo_url: https://github.com/carla-simulator/carla
 #docs_dir: Docs
@@ -12,48 +12,56 @@ nav:
 - 入门:
   - '介绍': 'start_introduction.md'
   - '快速启动包安装': 'start_quickstart.md'
-- 构建CARLA:
-  - 'Linux build': 'build_linux.md'
-  - 'Windows build': 'build_windows.md'
-  - 'Update CARLA': 'build_update.md'
-  - 'Build system': 'build_system.md'
-  - 'CARLA in Docker': 'build_docker.md'
-  - 'F.A.Q.': 'build_faq.md'
-- 第一步:
+  - '第一步' : 'tuto_first_steps.md'
+- 构建 Carla:
+  - '构建 Carla' : 'build_carla.md'
+  - 'Linux 构建': 'build_linux.md'
+  - 'Windows 构建': 'build_windows.md'
+  - '更新 Carla': 'build_update.md'
+  - '构建系统': 'build_system.md'
+  - 'Docker 中的 Carla': 'build_docker.md'
+  - '常问的问题': 'build_faq.md'
+- 下一步:
+  - '内容创作 - 地图': 'tuto_content_authoring_maps.md'  
+  - '内容创作 - 车辆': 'tuto_content_authoring_vehicles.md'
+- Carla 主题:
+  - '基础': 'foundations.md'
   - '核心概念': 'core_concepts.md'
-  - '第一、 世界和客户端': 'core_world.md'
-  - '第二、 角色和蓝图': 'core_actors.md'
-  - '第三、地图和导航 ': 'core_map.md'
-  - '第四、 传感器和数据': 'core_sensors.md'
+  - '世界和客户端': 'core_world.md'
+  - '参与者和蓝图': 'core_actors.md'
+  - '地图和导航 ': 'core_map.md'
+  - '传感器和数据': 'core_sensors.md'
+  - '交通' : 'ts_traffic_simulation_overview.md'
+  - '开发': 'development_tutorials.md'
+  - '自定义资产': 'custom_assets_tutorials.md'
 - 高级概念:
-  - 'OpenDRIVE 独立模式': 'adv_opendrive.md'
-  - 'PTV-Vissim 联合仿真': 'adv_ptv.md'
-  - 'Recorder': 'adv_recorder.md'
+  - '记录器': 'adv_recorder.md'
   - '渲染选项': 'adv_rendering_options.md'
-  - 'RSS': 'adv_rss.md'
   - '同步和时间步长': 'adv_synchrony_timestep.md'
   - '基准性能': 'adv_benchmarking.md'
-  - 'CARLA 代理': 'adv_agents.md'
-- 交通模拟:
-  - '交通模拟概述': 'ts_traffic_simulation_overview.md'
-  - 'Traffic Manager': 'adv_traffic_manager.md'
+  - 'Carla 智能体': 'adv_agents.md'
+- 交通仿真:
+  - '交通管理器': 'adv_traffic_manager.md'
   - 'SUMO 联合仿真': 'adv_sumo.md'
   - 'Scenic': 'tuto_G_scenic.md'
-- 参考:
+- 资源:
   - 'Python API 参考': 'python_api.md'
-  - 'Blueprint Library': 'bp_library.md'
   - 'C++ 参考' : 'ref_cpp.md'
-  - 'Recorder 二进制文件格式': 'ref_recorder_binary_file_format.md'
-  - "Sensors reference": 'ref_sensors.md'  
+  - '蓝图库': 'bp_library.md'
+  - 'Carla 目录': 'catalogue.md'  
+  - '记录器二进制文件格式': 'ref_recorder_binary_file_format.md'
+  - "传感器参考": 'ref_sensors.md' 
+  - '教程': 'tutorials.md'
+  - '扩展文档': 'ext_docs.md'
 - 插件:
   - 'carlaviz — web 可视化器': 'plugins_carlaviz.md'
 - ROS 桥接器:
   - 'ROS 桥文档': 'ros_documentation.md'
 - 自定义地图:
-  - 'CARLA 中自定义地图的概述': 'tuto_M_custom_map_overview.md'
+  - 'Carla 中自定义地图的概述': 'tuto_M_custom_map_overview.md'
   - '在 RoadRunner 中创建地图': 'tuto_M_generate_map.md'
   - '在CARLA包导入地图': 'tuto_M_add_map_package.md'
-  - '在 CARLA 源构建中导入地图': 'tuto_M_add_map_source.md'
+  - '在 Carla 源构建中导入地图': 'tuto_M_add_map_source.md'
   - '导入地图的替代方法': 'tuto_M_add_map_alternative.md'
   - '手动准备地图包': 'tuto_M_manual_map_package.md'
   - '自定义地图：分层地图: Layered maps': 'tuto_M_custom_layers.md'
@@ -72,10 +80,7 @@ nav:
   - '控制行人骨骼': "tuto_G_control_walker_skeletons.md"
   - '使用OpenStreetMap生成地图': 'tuto_G_openstreetmap.md'
   - '检索模拟数据': "tuto_G_retrieve_data.md"
-  - 'CarSim 集成': "tuto_G_carsim_integration.md"
-  - 'RLlib 集成': "tuto_G_rllib_integration.md"
-  - 'Chrono 集成': 'tuto_G_chrono.md'
-  - '在 Docker 中构建虚幻引擎UE和 CARLA': 'build_docker_unreal.md'
+  - '在 Docker 中构建虚幻引擎和 Carla': 'build_docker_unreal.md'
 - 教程（资产）:
   - '添加新车辆': 'tuto_A_add_vehicle.md'
   - '添加新道具': 'tuto_A_add_props.md'
@@ -88,8 +93,15 @@ nav:
   - '自定义车辆悬架': 'tuto_D_customize_vehicle_suspension.md'
   - '生成详细碰撞': 'tuto_D_generate_colliders.md'
   - '发布版本': 'tuto_D_make_release.md'
-- CARLA 生态系统:
+- Carla 生态系统:
   - 'Ansys 实时雷达模型': 'ecosys_ansys.md'
+  - 'RLlib 集成': "tuto_G_rllib_integration.md"
+  - 'CarSim 集成': "tuto_G_carsim_integration.md"
+  - 'Chrono 集成': 'tuto_G_chrono.md'
+  - 'OpenDRIVE 独立模式': 'adv_opendrive.md'
+  - 'PTV-Vissim 联合仿真': 'adv_ptv.md'
+  - 'RSS': 'adv_rss.md'
+  - 'ROS': https://carla.readthedocs.io/projects/ros-bridge/en/latest/
 - 贡献:
   - '贡献指南': 'cont_contribution_guidelines.md'
   - '行为准则': 'cont_code_of_conduct.md'
@@ -98,3 +110,4 @@ nav:
 
 markdown_extensions:
   - admonition
+

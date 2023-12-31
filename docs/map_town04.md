@@ -1,29 +1,30 @@
-# Town 4
+# 城镇 4
 
 ![town_04_slideshow](./img/catalogue/maps/town04/town04_overhead.webp)
 
-Town 4 is a small town with a backdrop of snow-capped mountains and conifers. A multi-lane road circumnavigates the town in a "figure of 8".   
+城镇 4 是一个以雪山和针叶树为背景的小镇。一条多车道道路以 “8 字形” 环绕城镇。 
 
-## Road network
+## 路网
 
-The road network consists of a small network of short streets and junctions nested in between commercial and residential buildings, with a "figure of 8" style ringroad circumnavigating the buildings and a nearby mountain. The cross of the figure of 8 presents an underpass/overpass and circular slip roads. 
+路网由商业和住宅建筑之间的短街道和交叉路口组成的小型网络组成，“8 字形”风格的环形道路环绕建筑物和附近的一座山。8 字形的十字代表地下通道/立交桥和环形支路。
 
 ![town_04_aerial](./img/catalogue/maps/town04/town04aerial.webp)
 
-The network also features an underpass and overpass with circular slip roads.
+该网络还设有带环形支路的地下通道和立交桥。
+
 
 ![town_04_overpass](./img/catalogue/maps/town04/town04_overpass.webp)
 
-## Features
+## 特征
 
-There is a gas station set against the mountainous backdrop.
+依山而建的加油站。
 
 ![town_04_gas_station](./img/catalogue/maps/town04/town04_gas.webp)
 
-In the middle of the town is a pedestrian shopping arcade with outdoor seating.
+镇中心是一个设有户外座位的步行购物商场。
 
 ![town_04_arcade](./img/catalogue/maps/town04/town04_arcade.webp)
 
-There are various styles of residential and commercial buildings and streets including trees and billboards.
+这里有各种风格的住宅和商业建筑以及街道，包括树木和广告牌。
 
 ![town_04_streets](./img/catalogue/maps/town04/town04_streets.webp)

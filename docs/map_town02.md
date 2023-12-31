@@ -1,30 +1,30 @@
-# Town 2
+# 城镇 2
 
 ![town_02_slideshow](./img/catalogue/maps/town02/town02_panorama.webp)
 
-Town 2 is a small town with numerous T-junctions and a variety of buildings, there are patches of coniferous trees, a park and a residential and commercial area. 
+城镇 2 是一个小镇，有众多的丁字路口和各种建筑物，有成片的针叶树、一个公园以及一个住宅和商业区。
 
-## Road network
+## 路网
 
-The road network consists of numerous simple T junctions.
+路网由许多简单的丁字路口组成。
 
 ![town_02_aerial](./img/catalogue/maps/town02/town02aerial.webp)
 
-## Features
+## 特征
 
-The map features a commercial area and high street. 
+地图上有商业区和大街。 
 
 ![town_02_highstreet](./img/catalogue/maps/town02/town02_highstreet.webp)
 
 
-There are also residential apartment buildings and a church.
+还有住宅公寓楼和教堂。
 
 ![town_02_apartments](./img/catalogue/maps/town02/town02_apartments.webp)
 
-There is a gas station.
+有一个加油站。
 
 ![town_02_gas_station](./img/catalogue/maps/town02/town02_gas.webp)
 
-There are also tree-lined roads.
+还有绿树成荫的道路。
 
 ![town_02_tree_lined_road](./img/catalogue/maps/town02/town02_tree_road.webp)

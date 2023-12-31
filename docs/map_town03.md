@@ -1,33 +1,34 @@
-# Town 3
+# 城镇 3
 
 ![town_03_slideshow](./img/catalogue/maps/town03/town03_panorama.webp)
 
-Town 3 is a larger town with features of a downtown urban area. The map includes some interesting road network features such as a roundabout, underpasses and overpasses. The town also includes a raised metro track and a large building under construction.
+城镇 3 是一个较大的镇，具有市中心城区的特点。该地图包括一些有趣的道路网络特征，例如环岛、地下通道和立交桥。该镇还包括一条高架地铁轨道和一座正在建设中的大型建筑。
 
-## Road network
+## 路网
 
-The road network features a central roundabout and a residential culdesac, along with numerous 4-way junctions and T-junctions.
+路网设有中央环岛和住宅死胡同，以及众多四向路口和丁字路口。
 
 ![town_03_aerial](./img/catalogue/maps/town03/town03aerial.webp)
 
-## Features
+## 特征
 
-The map features prominent central roundabout with a modernist monument and water. 
+该地图以突出的中央环岛为特色，其中有一座现代主义纪念碑和水域。
 
 ![town_03_roundabout](./img/catalogue/maps/town03/town03_roundabout.webp)
 
-There is a raised metro track surrounding the center.
+中心周围有一条凸起的地铁轨道。
 
 ![town_03_metro](./img/catalogue/maps/town03/town03_metro.webp)
 
-There is also a gas station next to a large junction.
+一个大路口旁边还有一个加油站。
 
 ![town_03_gas_station](./img/catalogue/maps/town03/town03_junction.webp)
 
-The road network features an underpass.
+路网设有地下通道。
 
 ![town_03_underpass](./img/catalogue/maps/town03/town03_underpass.webp)
 
-There are parks and a variety of commercial and residential buildings in varying styles.
+这里有公园和各种风格各异的商业建筑和住宅楼。
 
 ![town_03_overview](./img/catalogue/maps/town03/town03_buildings.webp)
+
