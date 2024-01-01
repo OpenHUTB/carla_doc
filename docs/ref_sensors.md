@@ -1,65 +1,63 @@
-# Sensors reference
+# [传感器参考](https://carla.readthedocs.io/en/latest/ref_sensors/) 
 
-- [__Collision detector__](#collision-detector)
-- [__Depth camera__](#depth-camera)
-- [__GNSS sensor__](#gnss-sensor)
-- [__IMU sensor__](#imu-sensor)
-- [__Lane invasion detector__](#lane-invasion-detector)
-- [__LIDAR sensor__](#lidar-sensor)
-- [__Obstacle detector__](#obstacle-detector)
-- [__Radar sensor__](#radar-sensor)
-- [__RGB camera__](#rgb-camera)
-- [__RSS sensor__](#rss-sensor)
-- [__Semantic LIDAR sensor__](#semantic-lidar-sensor)
-- [__Semantic segmentation camera__](#semantic-segmentation-camera)
-- [__DVS camera__](#dvs-camera)
-- [__Optical Flow camera__](#optical-flow-camera)
+- [__碰撞检测器__](#collision-detector)
+- [__深度相机__](#depth-camera)
+- [__全球导航卫星系统传感器__](#gnss-sensor)
+- [__惯性测量单元传感器__](#imu-sensor)
+- [__车道入侵检测器__](#lane-invasion-detector)
+- [__激光雷达传感器__](#lidar-sensor)
+- [__障碍物检测器__](#obstacle-detector)
+- [__雷达传感器__](#radar-sensor)
+- [__RGB相机__](#rgb-camera)
+- [__责任敏感安全传感器__](#rss-sensor)
+- [__语义激光雷达传感器__](#semantic-lidar-sensor)
+- [__语义分割相机__](#semantic-segmentation-camera)
+- [__实例分割相机__](#instance-segmentation-camera)
+- [__动态视觉传感器相机__](#dvs-camera)
+- [__光流相机__](#optical-flow-camera)
 
-!!! Important
-    All the sensors use the UE coordinate system (__x__-*forward*, __y__-*right*, __z__-*up*), and return coordinates in local space. When using any visualization software, pay attention to its coordinate system. Many invert the Y-axis, so visualizing the sensor data directly may result in mirrored outputs.  
-
----
-## Collision detector
-
-* __Blueprint:__ sensor.other.collision
-* __Output:__ [carla.CollisionEvent](python_api.md#carla.CollisionEvent) per collision.
-
-This sensor registers an event each time its parent actor collisions against something in the world. Several collisions may be detected during a single simulation step.
-To ensure that collisions with any kind of object are detected, the server creates "fake" actors for elements such as buildings or bushes so the semantic tag can be retrieved to identify it.
-
-Collision detectors do not have any configurable attribute.
-
-#### Output attributes
-
-| Sensor data attribute            | Type  | Description        |
-| ----------------------- | ----------------------- | ----------------------- |
-| `frame`            | int   | Frame number when the measurement took place.      |
-| `timestamp`        | double | Simulation time of the measurement in seconds since the beginning of the episode.        |
-| `transform`        | [carla.Transform](<../python_api#carlatransform>)  | Location and rotation in world coordinates of the sensor at the time of the measurement. |
-| `actor`            | [carla.Actor](<../python_api#carlaactor>)    | Actor that measured the collision (sensor's parent).           |
-| `other_actor`      | [carla.Actor](<../python_api#carlaactor>)    | Actor against whom the parent collided.      |
-| `normal_impulse`     | [carla.Vector3D](<../python_api#carlavector3d>)    | Normal impulse result of the collision.      |
-
-
+!!! 重要
+    所有传感器都使用虚幻引擎坐标系（__x__ - *向前*，__y__ - *向右*，__z__ - *向上*），并返回本地空间中的坐标。使用任何可视化软件时，请注意其坐标系。许多反转 Y 轴，因此直接可视化传感器数据可能会导致镜像输出。 
 
 ---
-## Depth camera
+## 碰撞检测器
 
-* __Blueprint:__ sensor.camera.depth
-* __Output:__ [carla.Image](python_api.md#carla.Image) per step (unless `sensor_tick` says otherwise).
+* __蓝图：__ sensor.other.collision
+* __输出：__ 每次碰撞的 [carla.CollisionEvent](python_api.md#carla.CollisionEvent) 。
 
-The camera provides a raw data of the scene codifying the distance of each pixel to the camera (also known as **depth buffer** or **z-buffer**) to create a depth map of the elements.
+每当其父参与者与世界上的某些物体发生碰撞时，该传感器都会记录一个事件。每个碰撞传感器每帧每次碰撞都会产生一个碰撞事件。通过与多个其他参与者的碰撞，可以在单个帧中产生多个碰撞事件。为了确保检测到与任何类型的对象的碰撞，服务器为建筑物或灌木丛等元素创建“假”参与者，以便可以检索语义标签来识别它。
 
-The image codifies depth value per pixel using 3 channels of the RGB color space, from less to more significant bytes: _R -> G -> B_. The actual distance in meters can be
-decoded with:
+碰撞检测器没有任何可配置的属性。
+
+#### 输出属性
+
+| 传感器数据属性            | 类型  | 描述                                                  |
+| ----------------------- | ----------------------- |-----------------------------------------------------|
+| `frame`            | int   | 进行测量时的帧编号。                                          |
+| `timestamp`        | double | 自回合开始以来测量的仿真时间（以秒为单位）。                              |
+| `transform`        | [carla.Transform](<../python_api#carlatransform>)  | 测量时传感器在世界坐标中的位置和旋转。                                 |
+| `actor`            | [carla.Actor](<../python_api#carlaactor>)    | 测量碰撞的参与者（传感器的父级）。                                   |
+| `other_actor`      | [carla.Actor](<../python_api#carlaactor>)    | 与父级相撞的参与者。 |
+| `normal_impulse`     | [carla.Vector3D](<../python_api#carlavector3d>)    | 碰撞的正常脉冲结果。             |
+
+
+
+---
+## 深度相机
+
+* __蓝图：__ sensor.camera.depth
+* __输出：__ 每步的图像 [carla.Image](python_api.md#carla.Image) （除非`sensor_tick`另有说明）。
+
+相机提供场景的原始数据，编码每个像素到相机的距离（也称为**深度缓冲区**或 **z 缓冲区**）以创建元素的深度图。
+
+该图像使用 RGB 颜色空间的 3 个通道（从低字节到高字节）对每个像素的深度值进行编码：_R -> G -> B_。以米为单位的实际距离可以通过以下方式解码：
 
 ```
 normalized = (R + G * 256 + B * 256 * 256) / (256 * 256 * 256 - 1)
 in_meters = 1000 * normalized
 ```
 
-The output [carla.Image](python_api.md#carla.Image) should then be saved to disk using a [carla.colorConverter](python_api.md#carla.ColorConverter) that will turn the distance stored in RGB channels into a __[0,1]__ float containing the distance and then translate this to grayscale.
-There are two options in [carla.colorConverter](python_api.md#carla.ColorConverter) to get a depth view: __Depth__ and __Logaritmic depth__. The precision is milimetric in both, but the logarithmic approach provides better results for closer objects.
+然后，应使用[carla.colorConverter](python_api.md#carla.ColorConverter)将输出[carla.Image](python_api.md#carla.Image)保存到磁盘，该 [carla.colorConverter](python_api.md#carla.ColorConverter) 会将存储在 RGB 通道中的距离转换为包含该距离的 __[0,1]__ 浮点数，然后将其转换为灰度。[carla.colorConverter](python_api.md#carla.ColorConverter) 中有两个选项可获取深度视图：__Depth__ 和 __Logaritmic depth__。两者的精度都是毫米级的，但对数方法可以为更近的物体提供更好的结果。
 
 ```py
 ...
@@ -70,10 +68,10 @@ raw_image.save_to_disk("path/to/save/converted/image",carla.Depth)
 ![ImageDepth](img/ref_sensors_depth.jpg)
 
 
-#### Basic camera attributes
+#### 相机基本属性
 
 
-| Blueprint attribute       | Type    | Default | Description   |
+| 蓝图属性       | 类型    | 默认 | 描述   |
 | ----------------------------- | ----------------------------- | ----------------------------- | ----------------------------- |
 | `image_size_x`            | int     | 800     | Image width in pixels.      |
 | `image_size_y`            | int     | 600     | Image height in pixels.     |
@@ -82,109 +80,110 @@ raw_image.save_to_disk("path/to/save/converted/image",carla.Depth)
 
 
 
-#### Camera lens distortion attributes
+#### 相机镜头畸变属性
 
 
-| Blueprint attribute      | Type         | Default      | Description  |
+| 蓝图属性      | 类型         | 默认	      | 描述  |
 | ------------------------- | ------------------------- | ------------------------- | ------------------------- |
-| `lens_circle_falloff`    | float        | 5\.0         | Range: [0.0, 10.0]       |
-| `lens_circle_multiplier` | float        | 0\.0         | Range: [0.0, 10.0]       |
-| `lens_k`     | float        | \-1.0        | Range: [-inf, inf]       |
-| `lens_kcube` | float        | 0\.0         | Range: [-inf, inf]       |
-| `lens_x_size`            | float        | 0\.08        | Range: [0.0, 1.0]        |
-| `lens_y_size`            | float        | 0\.08        | Range: [0.0, 1.0]        |
+| `lens_circle_falloff`    | float        | 5\.0         | 范围： [0.0, 10.0]       |
+| `lens_circle_multiplier` | float        | 0\.0         | 范围： [0.0, 10.0]       |
+| `lens_k`     | float        | \-1.0        | 范围： [-inf, inf]       |
+| `lens_kcube` | float        | 0\.0         | 范围： [-inf, inf]       |
+| `lens_x_size`            | float        | 0\.08        | 范围： [0.0, 1.0]        |
+| `lens_y_size`            | float        | 0\.08        | 范围： [0.0, 1.0]        |
 
 
-#### Output attributes
+#### 输出属性
 
 
-| Sensor data attribute            | Type  | Description        |
-| ----------------------- | ----------------------- | ----------------------- |
-| `frame`            | int   | Frame number when the measurement took place.      |
-| `timestamp`        | double | Simulation time of the measurement in seconds since the beginning of the episode.        |
-| `transform`        | [carla.Transform](<../python_api#carlatransform>)  | Location and rotation in world coordinates of the sensor at the time of the measurement. |
-| `width`            | int   | Image width in pixels.           |
-| `height`           | int   | Image height in pixels.          |
-| `fov` | float | Horizontal field of view in degrees.         |
-| `raw_data`         | bytes | Array of BGRA 32-bit pixels.     |
-
-
-
----
-## GNSS sensor
-
-* __Blueprint:__ sensor.other.gnss
-* __Output:__ [carla.GNSSMeasurement](python_api.md#carla.GnssMeasurement) per step (unless `sensor_tick` says otherwise).
-
-Reports current [gnss position](https://www.gsa.europa.eu/european-gnss/what-gnss) of its parent object. This is calculated by adding the metric position to an initial geo reference location defined within the OpenDRIVE map definition.
-
-#### GNSS attributes
-
-
-| Blueprint attribute      | Type   | Default            | Description        |
-| ------------------- | ------------------- | ------------------- | ------------------- |
-| `noise_alt_bias`   | float  | 0\.0   | Mean parameter in the noise model for altitude.    |
-| `noise_alt_stddev` | float  | 0\.0   | Standard deviation parameter in the noise model for altitude.  |
-| `noise_lat_bias`   | float  | 0\.0   | Mean parameter in the noise model for latitude.    |
-| `noise_lat_stddev` | float  | 0\.0   | Standard deviation parameter in the noise model for latitude.  |
-| `noise_lon_bias`   | float  | 0\.0   | Mean parameter in the noise model for longitude.   |
-| `noise_lon_stddev` | float  | 0\.0   | Standard deviation parameter in the noise model for longitude. |
-| `noise_seed`       | int    | 0      | Initializer for a pseudorandom number generator.   |
-| `sensor_tick`      | float  | 0\.0   | Simulation seconds between sensor captures (ticks).            |
-
-<br>
-
-#### Output attributes
-
-
-| Sensor data attribute            | Type  | Description        |
-| ----------------------- | ----------------------- | ----------------------- |
-| `frame`            | int   | Frame number when the measurement took place.      |
-| `timestamp`        | double | Simulation time of the measurement in seconds since the beginning of the episode.        |
-| `transform`        | [carla.Transform](<../python_api#carlatransform>)  | Location and rotation in world coordinates of the sensor at the time of the measurement. |
-| `latitude`         | double | Latitude of the actor.           |
-| `longitude`        | double | Longitude of the actor.          |
-| `altitude`         | double | Altitude of the actor.           |
+| 传感器数据属性            | 类型  | 描述                                                                                       |
+| ----------------------- | ----------------------- |------------------------------------------------------------------------------------------|
+| `frame`            | int   | 进行测量时的帧编号。                                                                               |
+| `timestamp`        | double | 自回合开始以来测量的仿真时间（以秒为单位）。                                                                 |
+| `transform`        | [carla.Transform](<../python_api#carlatransform>)  | 测量时传感器在世界坐标中的位置和旋转。 |
+| `width`            | int   | 图像宽度（以像素为单位）。                                                                   |
+| `height`           | int   | 图像高度（以像素为单位）。                                                                  |
+| `fov` | float | 水平视野（以度为单位）。                                                     |
+| `raw_data`         | bytes | BGRA 32 位像素阵列。                                                             |
 
 
 
 ---
-## IMU sensor
+## 全球导航卫星系统传感器
 
-* __Blueprint:__ sensor.other.imu
-* __Output:__ [carla.IMUMeasurement](python_api.md#carla.IMUMeasurement) per step (unless `sensor_tick` says otherwise).
+* __蓝图：__ sensor.other.gnss
+* __Output:__ 每一步的全球导航卫星系统的测量 [carla.GNSSMeasurement](python_api.md#carla.GnssMeasurement) （`sensor_tick`另有说明）。
 
-Provides measures that accelerometer, gyroscope and compass would retrieve for the parent object. The data is collected from the object's current state.
-
-#### IMU attributes
+报告其父对象的当前 [gnss 位置](https://www.gsa.europa.eu/european-gnss/what-gnss) 。这是通过将度量位置添加到 OpenDRIVE 地图定义中定义的初始地理参考位置来计算的。
 
 
-| Blueprint attribute | Type    | Default             | Description         |
-| -------------------------------- | -------------------------------- | -------------------------------- | -------------------------------- |
-| `noise_accel_stddev_x`          | float   | 0\.0    | Standard deviation parameter in the noise model for acceleration (X axis).  |
-| `noise_accel_stddev_y`          | float   | 0\.0    | Standard deviation parameter in the noise model for acceleration (Y axis).  |
-| `noise_accel_stddev_z`          | float   | 0\.0    | Standard deviation parameter in the noise model for acceleration (Z axis).  |
-| `noise_gyro_bias_x` | float   | 0\.0    | Mean parameter in the noise model for the gyroscope (X axis).   |
-| `noise_gyro_bias_y` | float   | 0\.0    | Mean parameter in the noise model for the gyroscope (Y axis).   |
-| `noise_gyro_bias_z` | float   | 0\.0    | Mean parameter in the noise model for the gyroscope (Z axis).   |
-| `noise_gyro_stddev_x`           | float   | 0\.0    | Standard deviation parameter in the noise model for the gyroscope (X axis). |
-| `noise_gyro_stddev_y`           | float   | 0\.0    | Standard deviation parameter in the noise model for the gyroscope (Y axis). |
-| `noise_gyro_stddev_z`           | float   | 0\.0    | Standard deviation parameter in the noise model for the gyroscope (Z axis). |
-| `noise_seed`        | int     | 0       | Initializer for a pseudorandom number generator.    |
-| `sensor_tick`       | float   | 0\.0    | Simulation seconds between sensor captures (ticks).             |
+#### 全球导航卫星系统属性
+
+
+| 蓝图属性      | 类型   | 默认            | 描述                   |
+| ------------------- | ------------------- | ------------------- |----------------------|
+| `noise_alt_bias`   | float  | 0\.0   | 海拔高度噪声模型中的平均参数。      |
+| `noise_alt_stddev` | float  | 0\.0   | 海拔高度噪声模型中的标准偏差参数。    |
+| `noise_lat_bias`   | float  | 0\.0   | 纬度噪声模型中的平均参数。        |
+| `noise_lat_stddev` | float  | 0\.0   | 纬度噪声模型中的标准偏差参数。      |
+| `noise_lon_bias`   | float  | 0\.0   | 经度噪声模型中的平均参数。        |
+| `noise_lon_stddev` | float  | 0\.0   | 经度噪声模型中的标准偏差参数。      |
+| `noise_seed`       | int    | 0      | 伪随机数生成器的初始化程序。       |
+| `sensor_tick`      | float  | 0\.0   | 传感器捕获之间的仿真秒数（滴答信号）。 |
 
 <br>
 
-#### Output attributes
+#### 输出属性
 
-| Sensor data attribute            | Type  | Description        |
-| ----------------------- | ----------------------- | ----------------------- |
-| `frame`            | int   | Frame number when the measurement took place.      |
-| `timestamp`        | double | Simulation time of the measurement in seconds since the beginning of the episode.        |
-| `transform`        | [carla.Transform](<../python_api#carlatransform>)  | Location and rotation in world coordinates of the sensor at the time of the measurement. |
-| `accelerometer`      | [carla.Vector3D](<../python_api#carlavector3d>)    | Measures linear acceleration in `m/s^2`.     |
-| `gyroscope`        | [carla.Vector3D](<../python_api#carlavector3d>)    | Measures angular velocity in `rad/sec`.      |
-| `compass`          | float | Orientation in radians. North is `(0.0, -1.0, 0.0)` in UE.       |
+
+| 传感器数据属性            | 类型  | 描述                     |
+| ----------------------- | ----------------------- |------------------------|
+| `frame`            | int   | 进行测量时的帧编号。             |
+| `timestamp`        | double | 自回合开始以来测量的仿真时间（以秒为单位）。 |
+| `transform`        | [carla.Transform](<../python_api#carlatransform>)  | 测量时传感器在世界坐标中的位置和旋转。    |
+| `latitude`         | double | 参与者的纬度。                |
+| `longitude`        | double | 参与者的经度。                |
+| `altitude`         | double | 参与者的海拔高度。              |
+
+
+
+---
+## 惯性测量单元传感器
+
+* __蓝图：__ sensor.other.imu
+* __输出：__ 每一步的惯性测量单元的测量值 [carla.IMUMeasurement](python_api.md#carla.IMUMeasurement) （除非传感器滴答信号`sensor_tick`另有说明）。
+
+提供加速度计、陀螺仪和指南针将为父对象检索的测量值。数据是从对象的当前状态收集的。
+
+#### 惯性测量单元属性
+
+
+| 蓝图属性 | 类型    | 默认             | 描述                    |
+| -------------------------------- | -------------------------------- | -------------------------------- |-----------------------|
+| `noise_accel_stddev_x`          | float   | 0\.0    | 加速度（X 轴）噪声模型中的标准偏差参数。 |
+| `noise_accel_stddev_y`          | float   | 0\.0    | 加速度（Y 轴）噪声模型中的标准偏差参数。 |
+| `noise_accel_stddev_z`          | float   | 0\.0    | 加速度（Z 轴）噪声模型中的标准偏差参数。 |
+| `noise_gyro_bias_x` | float   | 0\.0    | 陀螺仪噪声模型中的平均参数（X 轴）。   |
+| `noise_gyro_bias_y` | float   | 0\.0    | 陀螺仪噪声模型中的平均参数（Y 轴）。   |
+| `noise_gyro_bias_z` | float   | 0\.0    | 陀螺仪噪声模型中的平均参数（Z 轴）。   |
+| `noise_gyro_stddev_x`           | float   | 0\.0    | 陀螺仪噪声模型中的标准偏差参数（X 轴）。 |
+| `noise_gyro_stddev_y`           | float   | 0\.0    | 陀螺仪噪声模型中的标准偏差参数（Y 轴）。 |
+| `noise_gyro_stddev_z`           | float   | 0\.0    | 陀螺仪噪声模型中的标准偏差参数（Z 轴）。 |
+| `noise_seed`        | int     | 0       | 伪随机数生成器的初始化程序。        |
+| `sensor_tick`       | float   | 0\.0    | 传感器捕获之间的仿真秒数（滴答信号）。  |
+
+<br>
+
+#### 输出属性
+
+| 传感器数据属性            | 类型  | 描述                                       |
+| ----------------------- | ----------------------- |------------------------------------------|
+| `frame`            | int   | 进行测量时的帧编号。                               |
+| `timestamp`        | double | 自回合开始以来测量的仿真时间（以秒为单位）。                   |
+| `transform`        | [carla.Transform](<../python_api#carlatransform>)  | 测量时传感器在世界坐标中的位置和旋转。                      |
+| `accelerometer`      | [carla.Vector3D](<../python_api#carlavector3d>)    | 测量线性加速度（以 `m/s^2` 为单位）。                  |
+| `gyroscope`        | [carla.Vector3D](<../python_api#carlavector3d>)    | 测量角速度（以 `rad/sec` 为单位）。                  |
+| `compass`          | float | 以弧度为单位的方向。在虚幻引擎中北是 `(0.0, -1.0, 0.0)` 。 |
 
 
 
