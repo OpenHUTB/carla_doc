@@ -208,11 +208,11 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">创建独立包</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#export-a-package-in-a-carla-build-from-source">Export a package in a CARLA build from source</a>
+    <li class="toctree-l2"><a class="reference internal" href="#carla">在源代码构建的 Carla 中导出包</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#export-a-package-using-docker">Export a package using Docker</a>
+    <li class="toctree-l2"><a class="reference internal" href="#docker">使用 Docker 导出包</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#import-assets-into-a-carla-package">Import assets into a CARLA package</a>
+    <li class="toctree-l2"><a class="reference internal" href="#carla_1">将资源导入 CARLA 包</a>
     </li>
     </ul>
                   </li>
@@ -288,55 +288,55 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="create-distribution-packages-for-assets">Create distribution packages for assets</h1>
-<p>It is a common practice in CARLA to manage assets with standalone packages. Keeping them aside allows to reduce the size of the build. These asset packages can be easily imported into a CARLA package anytime. They also become really useful to easily distribute assets in an organized way. </p>
+                <h1 id="_1"><a href="https://carla.readthedocs.io/en/latest/tuto_A_create_standalone/">创建资产发行包</a></h1>
+<p>使用独立包管理资产是 CARLA 的常见做法。将它们放在一边可以减少构建的大小。这些资源包可以随时轻松导入到 CARLA 包中。它们对于以有组织的方式轻松分配资产也非常有用。</p>
 <ul>
-<li><a href="#export-a-package-from-the-ue4-editor"><strong>Export a package from the UE4 Editor</strong></a>  </li>
-<li><a href="#export-a-package-using-docker"><strong>Export a package using Docker</strong></a></li>
-<li><a href="#import-assets-into-a-carla-package"><strong>Import assets into a CARLA package</strong></a>  </li>
+<li><a href="#export-a-package-from-the-ue4-editor"><strong>在源代码构建的 Carla 中导出包</strong></a>  </li>
+<li><a href="#export-a-package-using-docker"><strong>使用 Docker 导出包</strong></a></li>
+<li><a href="#import-assets-into-a-carla-package"><strong>将资源导入 CARLA 包</strong></a>  </li>
 </ul>
 <hr />
-<h2 id="export-a-package-in-a-carla-build-from-source">Export a package in a CARLA build from source</h2>
-<p>Once assets are imported into Unreal, users can generate a <strong>standalone package</strong> for them. This will be used to distribute the content to CARLA packages such as 0.9.8.</p>
-<p>To export packages, simply run the command below.</p>
+<h2 id="carla">在源代码构建的 Carla 中导出包</h2>
+<p>将资产导入虚幻后，用户可以为其生成 <strong>独立的包</strong>。这将用于将内容分发到 CARLA 包，例如 0.9.8。</p>
+<p>要导出包，只需运行以下命令即可。</p>
 <pre><code class="language-sh">make package ARGS=&quot;--packages=Package1,Package2&quot;
 </code></pre>
-<p>This will create a standalone package compressed in a <code>.tar.gz</code> file for each of the packages listed. The files will be saved in <code>Dist</code> folder on Linux, and <code>/Build/UE4Carla/</code> on Windows. </p>
+<p>这将为列出的每个包创建一个压缩在 <code>.tar.gz</code> 文件中的独立包。在 Linux 上文件将保存在 <code>Dist</code>，在 Windows 上文件保存在 <code>/Build/UE4Carla/</code> 文件夹下。</p>
 <hr />
-<h2 id="export-a-package-using-docker">Export a package using Docker</h2>
-<p>Unreal Engine and CARLA can be built in a Docker image which can then be used to create a package or export assets for use in a package.</p>
-<p>To create the Docker image, follow the tutorial <a href="../build_docker_unreal/">here</a>.</p>
-<p>When you have the image ready:</p>
+<h2 id="docker">使用 Docker 导出包</h2>
+<p>虚幻引擎和 CARLA 可以构建在 Docker 映像中，然后可以使用该映像创建包或导出资源以在包中使用。</p>
+<p>要创建 Docker 映像，请按照 <a href="../build_docker_unreal/">此处</a> 的教程进行操作。</p>
+<p>准备好镜像后：</p>
 <ol>
-<li>Navigate to <code>Util/Docker</code>.</li>
-<li>Create a CARLA package or prepare assets for use in a package by running one of the following commands:</li>
+<li>导航至 <code>Util/Docker</code>。</li>
+<li>通过运行以下命令之一创建 CARLA 包或准备在包中使用的资源：</li>
 </ol>
-<pre><code class="language-sh"># To create a standalone package
+<pre><code class="language-sh"># 创建独立的包
 ./docker_tools.py --output /output/path
 
-#To cook assets to be consumed in a CARLA package
+# 烘培在 Carla 包中使用的资产
 ./docker_tools.py --input /assets/to/import/path --output /output/path --packages PkgeName1,PkgeName2
 </code></pre>
 <hr />
-<h2 id="import-assets-into-a-carla-package">Import assets into a CARLA package</h2>
-<p>A standalone package is contained in a <code>.tar.gz</code> file. The way this is extracted depends on the platform.  </p>
+<h2 id="carla_1">将资源导入 CARLA 包</h2>
+<p>独立包包含在<code>.tar.gz</code>文件中。提取方式取决于平台。</p>
 <ul>
-<li><strong>On Windows</strong> extract the compressed file in the main root CARLA folder.  </li>
-<li><strong>On Linux</strong> move the compressed file to the <code>Import</code> folder and run the following script.  </li>
+<li><strong>在 Windows 上，</strong> 将压缩文件解压到主根 CARLA 文件夹中。</li>
+<li><strong>在 Linux 上，</strong> 将压缩文件移至<code>Import</code>文件夹并运行以下脚本。</li>
 </ul>
 <pre><code class="language-sh">cd Import
 ./ImportAssets.sh
 </code></pre>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Standalone packages cannot be directly imported into a CARLA build. Follow the tutorials to import <a href="../tuto_A_add_props/">props</a>, <a href="../tuto_M_custom_map_overview/">maps</a> or <a href="../tuto_A_add_vehicle/">vehicles</a>.</p>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>独立包无法直接导入到 CARLA 构建中。按照教程导入 <a href="../tuto_A_add_props/">道具</a> 、<a href="../tuto_M_custom_map_overview/">地图</a> 或 <a href="../tuto_A_add_vehicle/">车辆</a>。</p>
 </div>
 <hr />
-<p>That sumps up how to create and use standalone packages in CARLA. If there is any unexpected issue, feel free to post in the forum. </p>
+<p>这总结了如何在 CARLA 中创建和使用独立包。如果有任何意外问题，请随时在论坛中发帖。</p>
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA forum</a>
+CARLA 论坛</a>
 </p>
 </div>
               

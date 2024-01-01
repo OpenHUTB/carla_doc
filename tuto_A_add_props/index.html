@@ -206,17 +206,17 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">添加新道具</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#prepare-the-package">Prepare the package</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">准备包</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#create-the-folder-structure">Create the folder structure</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">创建文件夹结构</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#create-the-json-description">Create the JSON description</a>
+    <li class="toctree-l3"><a class="reference internal" href="#json">创建 JSON 描述</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#ingestion-in-a-carla-package">Ingestion in a CARLA package</a>
+    <li class="toctree-l2"><a class="reference internal" href="#carla">导入到 CARLA 包中</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#ingestion-in-a-build-from-source">Ingestion in a build from source</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">在源代码构建中导入</a>
     </li>
     </ul>
                   </li>
@@ -294,24 +294,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="add-new-props">Add new props</h1>
-<p>Props are the assets that populate the scene, besides the map, and the vehicles. That includes streetlights, buildings, trees, and much more. The simulator can ingest new props anytime in a simple process. This is really useful to create customized environments in a map. </p>
+                <h1 id="_1"><a href="https://carla.readthedocs.io/en/latest/tuto_A_add_props/">添加新道具</a></h1>
+<p>除了地图和车辆之外，道具是场景中的资产。其中包括路灯、建筑物、树木等等。仿真器可以随时通过简单的过程导入新道具。这对于在地图中创建自定义环境非常有用。</p>
 <ul>
-<li><a href="#prepare-the-package"><strong>Prepare the package</strong></a>  <ul>
-<li><a href="#create-the-folder-structure">Create the folder structure</a>  </li>
-<li><a href="#create-the-json-description">Create the JSON description</a>  </li>
+<li><a href="#prepare-the-package"><strong>准备包</strong></a>  <ul>
+<li><a href="#create-the-folder-structure">创建文件夹结构</a>  </li>
+<li><a href="#create-the-json-description">创建 JSON 描述</a>  </li>
 </ul>
 </li>
-<li><a href="#ingestion-in-a-carla-package"><strong>Ingestion in a CARLA package</strong></a>  </li>
-<li><a href="#ingestion-in-a-build-from-source"><strong>Ingestion in a build from source</strong></a>  </li>
+<li><a href="#ingestion-in-a-carla-package"><strong>导入到 CARLA 包中</strong></a>  </li>
+<li><a href="#ingestion-in-a-build-from-source"><strong>在源代码构建中导入</strong></a>  </li>
 </ul>
 <hr />
-<h2 id="prepare-the-package">Prepare the package</h2>
-<h3 id="create-the-folder-structure">Create the folder structure</h3>
-<p><strong>1. Create a folder inside <code>carla/Import</code>.</strong> The name of the folder is not relevant.  </p>
-<p><strong>2. Create the subfolders.</strong> There should be one general subfolder for all the props, and inside of it, as many subfolders as props to import. </p>
-<p><strong>3. Move the files of each prop to the corresponding subfolder.</strong> A prop subfolder will contain the <code>.fbx</code> mesh, and optionally, the textures required by it.  </p>
-<p>For instance, an <code>Import</code> folder with two separate packages should have a structure similar to the one below.</p>
+<h2 id="_2">准备包</h2>
+<h3 id="_3">创建文件夹结构</h3>
+<p><strong>1. 在 <code>carla/Import</code> 里面创建一个文件夹 .</strong> 文件夹的名称不相关。  </p>
+<p><strong>2. 创建子文件夹。</strong> 应该有一个通用子文件夹来存放所有道具，并且在其中包含与要导入的道具一样多的子文件夹。</p>
+<p><strong>3. 将各个道具的文件移动到相应的子文件夹中。</strong> 道具子文件夹将包含<code>.fbx</code> 网格物体，以及它所需的纹理（可选）。</p>
+<p>例如，包含两个独立包的 <code>Import</code> 文件夹应具有类似于以下结构的结构。</p>
 <pre><code class="language-sh">Import
 │
 ├── Package01
@@ -330,14 +330,14 @@
         └── Prop03
             └── Prop03.fbx
 </code></pre>
-<h3 id="create-the-json-description">Create the JSON description</h3>
-<p>Create a <code>.json</code> file in the root folder of the package. Name the file after the package. Note that this will be the distribution name. The content of the file will describe a JSON array of <strong>maps</strong> and <strong>props</strong> with basic information for each of them.  </p>
-<p><strong>Maps</strong> are not part of this tutorial, so this definition will be empty. There is a specific tutorial to <a href="../tuto_M_custom_map_overview/"><strong>add a new map</strong></a>.  </p>
-<p><strong>Props</strong> need the following parameters.  </p>
+<h3 id="json">创建 JSON 描述</h3>
+<p>在包的根文件夹中创建一个 <code>.json</code> 文件。在包之后命名文件。请注意，这将是发行版名称。文件的内容将描述地图 <strong>maps</strong> 和道具 <strong>props</strong> 的 JSON 数组，以及每个地图和道具的基本信息。</p>
+<p><strong>Maps</strong> 不是本教程的一部分，因此该定义将为空。有一个具体的教程来 <a href="../tuto_M_custom_map_overview/"><strong>添加新地图</strong></a> 。</p>
+<p><strong>Props</strong> 需要以下参数。 </p>
 <ul>
-<li><strong>name</strong> of the prop. This must be the same as the <code>.fbx</code>.  </li>
-<li><strong>source</strong> path to the <code>.fbx</code>.  </li>
-<li><strong>size</strong> estimation of the prop. The possible values are listed here.  <ul>
+<li>道具的 <strong>name</strong> 。这必须与 <code>.fbx</code> 相同。</li>
+<li><code>.fbx</code> 的 <strong>source</strong> 路径。</li>
+<li>道具的 <strong>size</strong> 估计。此处列出了可能的值。<ul>
 <li><code>tiny</code>  </li>
 <li><code>small</code>  </li>
 <li><code>medium</code>  </li>
@@ -345,7 +345,7 @@
 <li><code>huge</code>  </li>
 </ul>
 </li>
-<li><strong>tag</strong> value for the semantic segmentation. If the tag is misspelled, it will be read as <code>Unlabeled</code>. <ul>
+<li>语义分割的 <strong>tag</strong> 。如果标签拼写错误，它将被读取为 <code>Unlabeled</code>. <ul>
 <li><code>Bridge</code></li>
 <li><code>Building</code></li>
 <li><code>Dynamic</code></li>
@@ -372,7 +372,7 @@
 </ul>
 </li>
 </ul>
-<p>In the end, the <code>.json</code> should look similar to the one below.</p>
+<p>最后，<code>.json</code>应该与下面的类似。 </p>
 <pre><code class="language-json">{
   &quot;maps&quot;: [
   ],
@@ -392,52 +392,52 @@
   ]
 }
 </code></pre>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Packages with the same name will produce an error.  </p>
+<div class="admonition 警告">
+<p class="admonition-title">警告</p>
+<p>具有相同名称的包将产生错误。</p>
 </div>
 <hr />
-<h2 id="ingestion-in-a-carla-package">Ingestion in a CARLA package</h2>
-<p>This is the method used to ingest the props into a CARLA package such as CARLA 0.9.8.  </p>
-<p>A Docker image of Unreal Engine will be created. It acts as a black box that automatically imports the package into the CARLA image, and generates a ditribution package. The Docker image takes 4h and 400GB to be built. However, this is only needed the first time. </p>
-<p><strong>1. Build a Docker image of Unreal Engine.</strong> Follow <a href="https://github.com/carla-simulator/carla/tree/master/Util/Docker">these instructions</a> to build the image.  </p>
-<p><strong>2. Run the script to cook the props.</strong> In the folder <code>~/carla/Util/Docker</code> there is a script that connects with the Docker image previously created, and makes the ingestion automatically. It only needs the path for the input and output files, and the name of the package to be ingested.  </p>
+<h2 id="carla">导入到 CARLA 包中</h2>
+<p>这是用于将道具导入到 CARLA 包（例如 CARLA 0.9.8）中的方法。 </p>
+<p>将创建虚幻引擎的 Docker 映像。它充当一个黑盒子，自动将包导入到 CARLA 镜像中，并生成分发包。Docker 镜像需要 4 小时和 400GB 才能构建。然而，这仅是第一次需要。</p>
+<p><strong>1. 构建虚幻引擎的 Docker 镜像。</strong> 请按照 <a href="https://github.com/carla-simulator/carla/tree/master/Util/Docker">以下说明</a> 构建映像。</p>
+<p><strong>2. 运行脚本来烘培道具。</strong> <code>~/carla/Util/Docker</code> 文件夹中有一个脚本，它与之前创建的 Docker 映像连接，并自动进行导入。它只需要输入和输出文件的路径以及要导入的包的名称。</p>
 <pre><code class="language-sh">python3 docker_tools.py --input ~/path_to_package --output ~/path_for_output_assets  --package=Package01
 </code></pre>
-<p><strong>3. Locate the package</strong>. The Docker should have generated the package <code>Package01.tar.gz</code> in the output path. This is the standalone package for the assets. </p>
-<p><strong>4. Import the package into CARLA.</strong>  </p>
+<p><strong>3. 定位包</strong>。 Docker 应该已经在输出路径中生成了包 <code>Package01.tar.gz</code>。这是资产的独立包。</p>
+<p><strong>4. 将包导入 CARLA。</strong>  </p>
 <ul>
 <li>
-<p><strong>On Windows</strong> extract the package in the <code>WindowsNoEditor</code> folder. </p>
+<p><strong>在 Windows 上，</strong> 将包解压到 <code>WindowsNoEditor</code> 文件夹中。</p>
 </li>
 <li>
-<p><strong>On Linux</strong> move the package to the <code>Import</code> folder, and run the script to import it. </p>
+<p><strong>在 Linux 上，</strong> 将包移动到 <code>Import</code> 文件夹，然后运行脚本将其导入。</p>
 </li>
 </ul>
 <pre><code class="language-sh">cd Util
 ./ImportAssets.sh
 </code></pre>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>There is an alternative on Linux. Move the package to the <code>Import</code> folder and run the script <code>Util/ImportAssets.sh</code> to extract the package.</p>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>Linux 上有一个替代方案。将包移动到<code>Import</code>文件夹，并运行脚本<code>Util/ImportAssets.sh</code>以提取包。</p>
 </div>
 <hr />
-<h2 id="ingestion-in-a-build-from-source">Ingestion in a build from source</h2>
-<p>This is the method to import the props into a CARLA build from source.  </p>
-<p>The JSON file will be read to place the props inside the <code>Content</code> in Unreal Engine. Furthermore, it will create a <code>Package1.Package.json</code> file inside the package's <code>Config</code> folder. This will be used to define the props in the blueprint library, and expose them in the Python API. It will also be used if the package is exported as a <a href="../tuto_A_create_standalone/">standalone package</a>.</p>
-<p>When everything is ready, run the command. </p>
+<h2 id="_4">在源代码构建中导入</h2>
+<p>这是从源代码将道具导入到源代码构建 CARLA 的方法。</p>
+<p>将读取 JSON 文件以将道具放入虚幻引擎 <code>Content</code> 中。此外，它将在包的<code>Config</code>文件夹中创建一个 <code>Package1.Package.json</code> 文件。这将用于定义蓝图库中的道具，并在 Python API 中公开它们。如果包作为 <a href="../tuto_A_create_standalone/">独立包</a> 导出，也将使用它。</p>
+<p>一切准备就绪后，运行命令。</p>
 <pre><code class="language-sh">make import
 </code></pre>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Make sure that the package is inside the <code>Import</code> folder in CARLA. </p>
+<div class="admonition 警告">
+<p class="admonition-title">警告</p>
+<p>确保该包位于CARLA 的 <code>Import</code> 文件夹内。</p>
 </div>
 <hr />
-<p>That is all there is to know about the different ways to import new props into CARLA. If there are any doubts, feel free to post these in the forum. </p>
+<p>这就是关于将新道具导入 CARLA 的不同方法的全部信息。如果有任何疑问，请随时在论坛中发布。</p>
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA forum</a>
+CARLA 论坛</a>
 </p>
 </div>
               

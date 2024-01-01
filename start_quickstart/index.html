@@ -50,7 +50,7 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">快速启动包安装</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#before-you-begin">Before you begin</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">在你开始之前</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#windows">Windows</a>
     </li>
@@ -58,33 +58,33 @@
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#carla-installation">CARLA installation</a>
+    <li class="toctree-l2"><a class="reference internal" href="#carla">CARLA 安装</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#a-debian-carla-installation">A. Debian CARLA installation</a>
+    <li class="toctree-l3"><a class="reference internal" href="#a-debian-carla">A. Debian CARLA 安装</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#b-package-installation">B. Package installation</a>
+    <li class="toctree-l3"><a class="reference internal" href="#b">B. 包安装</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#import-additional-assets">Import additional assets</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">导入额外资产</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#install-client-library">Install client library</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">安装客户端库</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#carla-versions-prior-to-0912">CARLA versions prior to 0.9.12</a>
+    <li class="toctree-l3"><a class="reference internal" href="#0912-carla">0.9.12 之前的 CARLA 版本</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#carla-0912">CARLA 0.9.12+</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#running-carla">Running CARLA</a>
+    <li class="toctree-l2"><a class="reference internal" href="#carla_1">运行 CARLA</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#command-line-options">Command-line options</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">命令行选项</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#updating-carla">Updating CARLA</a>
+    <li class="toctree-l2"><a class="reference internal" href="#carla_2">更新 CARLA</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#follow-up">Follow-up</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_6">跟进</a>
     </li>
     </ul>
                   </li>
@@ -318,37 +318,37 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="quick-start-package-installation">Quick start package installation</h1>
-<p>This guide shows how to download and install the packaged version of CARLA. The package includes the CARLA server and two options for the client library. There are additional assets that can be downloaded and imported into the package. Advanced customization and development options that require use of the Unreal Engine editor are not available but these can be accessed by using the build version of CARLA for either <a href="../build_windows/">Windows</a> or <a href="../build_linux/">Linux</a>.</p>
+                <h1 id="_1"><a href="https://carla.readthedocs.io/en/latest/start_quickstart/">快速启动包安装</a></h1>
+<p>本指南介绍如何下载和安装 CARLA 的打包版本。该软件包包括 CARLA 服务器和两个客户端库选项。还可以下载其他资源并将其导入到包中。需要使用虚幻引擎编辑器的高级自定义和开发选项不可用，但可以通过使用适用于 <a href="../build_windows/">Windows</a> 或 <a href="../build_linux/">Linux</a> 的 CARLA 构建版本来访问这些选项。</p>
 <ul>
-<li><strong><a href="#before-you-begin">Before you begin</a></strong>  </li>
-<li><strong><a href="#carla-installation">CARLA installation</a></strong>  <ul>
-<li><a href="#a-debian-carla-installation">A. Debian CARLA installation</a>  </li>
-<li><a href="#b-package-installation">B. Package installation</a>  </li>
+<li><strong><a href="#before-you-begin">在你开始之前</a></strong>  </li>
+<li><strong><a href="#carla-installation">CARLA 安装</a></strong>  <ul>
+<li><a href="#a-debian-carla-installation">A. Debian CARLA 安装</a>  </li>
+<li><a href="#b-package-installation">B. 包安装</a>  </li>
 </ul>
 </li>
-<li><strong><a href="#import-additional-assets">Import additional assets</a></strong>  </li>
-<li><strong><a href="#install-client-library">Install client library</a></strong><ul>
-<li><a href="#carla-versions-prior-to-0912">CARLA versions prior to 0.9.12</a></li>
+<li><strong><a href="#import-additional-assets">导入额外资产</a></strong>  </li>
+<li><strong><a href="#install-client-library">安装客户端库</a></strong><ul>
+<li><a href="#carla-versions-prior-to-0912">0.9.12 之前的 CARLA 版本</a></li>
 <li><a href="#carla-0912">CARLA 0.9.12+</a></li>
 </ul>
 </li>
-<li><strong><a href="#running-carla">Running CARLA</a></strong>  <ul>
-<li><a href="#command-line-options">Command-line options</a>  </li>
+<li><strong><a href="#running-carla">运行 CARLA</a></strong>  <ul>
+<li><a href="#command-line-options">命令行选项</a>  </li>
 </ul>
 </li>
-<li><strong><a href="#updating-carla">Updating CARLA</a></strong>    </li>
-<li><strong><a href="#follow-up">Follow-up</a></strong> </li>
+<li><strong><a href="#updating-carla">更新 CARLA</a></strong>    </li>
+<li><strong><a href="#follow-up">跟进</a></strong> </li>
 </ul>
 <hr />
-<h2 id="before-you-begin">Before you begin</h2>
-<p>The following requirements should be fulfilled before installing CARLA:</p>
+<h2 id="_2">在你开始之前</h2>
+<p>安装 CARLA 之前应满足以下要求：</p>
 <ul>
-<li><strong>System requirements.</strong> CARLA is built for Windows and Linux systems.</li>
-<li><strong>An adequate GPU.</strong> CARLA aims for realistic simulations, so the server needs at least a 6 GB GPU although we would recommend 8 GB. A dedicated GPU is highly recommended for machine learning. </li>
-<li><strong>Disk space.</strong> CARLA will use about 20 GB of space.</li>
-<li><strong>Python.</strong> <a href="(https://www.python.org/downloads/)">Python</a> is the main scripting language in CARLA. CARLA supports Python 2.7 and Python 3 on Linux, and Python 3 on Windows.</li>
-<li><strong>Pip.</strong> Some installation methods of the CARLA client library require <strong>pip</strong> or <strong>pip3</strong> (depending on your Python version) version 20.3 or higher. To check your <strong>pip</strong> version:</li>
+<li><strong>系统要求。</strong> CARLA 是为 Windows 和 Linux 系统构建的。</li>
+<li><strong>足够的 GPU。</strong> CARLA 旨在实现真实仿真，因此服务器至少需要 6 GB GPU，但我们建议使用 8 GB。强烈建议使用专用 GPU 进行机器学习。</li>
+<li><strong>磁盘空间。</strong> CARLA 将使用大约 20 GB 的空间。</li>
+<li><strong>Python.</strong> <a href="(https://www.python.org/downloads/)">Python</a> 是 CARLA 中的主要脚本语言。CARLA 在 Linux 上支持 Python 2.7 和 Python 3，在 Windows 上支持 Python 3。</li>
+<li><strong>Pip.</strong> CARLA 客户端库的某些安装方法需要 <strong>pip</strong> 或 <strong>pip3</strong> （取决于您的 Python 版本）版本 20.3 或更高版本。要检查您的 <strong>pip</strong> 版本：</li>
 </ul>
 <blockquote>
 <blockquote>
@@ -359,7 +359,7 @@
  pip -V
 </code></pre>
 </blockquote>
-<p>If you need to upgrade:</p>
+<p>如果您需要升级：</p>
 <blockquote>
 <pre><code> # For Python 3
  pip3 install --upgrade pip
@@ -370,8 +370,8 @@
 </blockquote>
 </blockquote>
 <ul>
-<li><strong>Two TCP ports and good internet connection.</strong> 2000 and 2001 by default. Make sure that these ports are not blocked by firewalls or any other applications. </li>
-<li><strong>Other requirements.</strong>  CARLA requires some Python dependencies. Install the dependencies according to your operating system:</li>
+<li><strong>两个 TCP 端口和良好的互联网连接。</strong> 默认为 2000 年和 2001 年。确保这些端口未被防火墙或任何其他应用程序阻止。</li>
+<li><strong>其他需求。</strong>  CARLA 需要一些 Python 依赖项。根据您的操作系统安装依赖项：</li>
 </ul>
 <h3 id="windows">Windows</h3>
 <pre><code class="language-sh">pip3 install --user pygame numpy
@@ -381,49 +381,49 @@
 pip3 install --user pygame numpy
 </code></pre>
 <hr />
-<h2 id="carla-installation">CARLA installation</h2>
-<p>There are two methods to download and install CARLA as a package:</p>
-<p><strong>A)</strong> <a href="#a-debian-carla-installation">Download the Debian package.</a></p>
-<p><strong>B)</strong> <a href="#b-package-installation">Download the package from GitHub.</a> </p>
-<h3 id="a-debian-carla-installation">A. Debian CARLA installation</h3>
-<p>The Debain package is available for both Ubuntu 18.04 and Ubuntu 20.04, however <strong>the officially supported platform is Ubuntu 18.04</strong>.</p>
-<p><strong>1.</strong> Set up the Debian repository in the system:</p>
+<h2 id="carla">CARLA 安装</h2>
+<p>有两种方法可以下载并安装 CARLA 作为软件包：</p>
+<p><strong>A)</strong> <a href="#a-debian-carla-installation">下载  Debian 软件包。</a></p>
+<p><strong>B)</strong> <a href="#b-package-installation">从 GitHub 下载软件包。</a> </p>
+<h3 id="a-debian-carla">A. Debian CARLA 安装</h3>
+<p>Debain 软件包适用于 Ubuntu 18.04 和 Ubuntu 20.04，但 <strong>官方支持的平台是 Ubuntu 18.04</strong> 。</p>
+<p><strong>1.</strong> 在系统中设置Debian存储库：</p>
 <pre><code class="language-sh">    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 1AF1527DE64CB8D9
     sudo add-apt-repository &quot;deb [arch=amd64] http://dist.carla.org/carla $(lsb_release -sc) main&quot;
 </code></pre>
-<p><strong>2.</strong> Install CARLA and check for the installation in the <code>/opt/</code> folder:</p>
+<p><strong>2.</strong> 安装 CARLA 并检查 <code>/opt/</code> 文件夹中是否有安装：</p>
 <pre><code class="language-sh">    sudo apt-get update # Update the Debian package index
     sudo apt-get install carla-simulator # Install the latest CARLA version, or update the current installation
     cd /opt/carla-simulator # Open the folder where CARLA is installed
 </code></pre>
-<p>This repository contains CARLA 0.9.10 and later versions. To install a specific version add the version tag to the installation command:  </p>
+<p>该存储库包含 CARLA 0.9.10 及更高版本。要安装特定版本，请将版本标签添加到安装命令中：</p>
 <pre><code class="language-sh">    apt-cache madison carla-simulator # List the available versions of Carla
     sudo apt-get install carla-simulator=0.9.10-1 # In this case, &quot;0.9.10&quot; refers to a CARLA version, and &quot;1&quot; to the Debian revision
 </code></pre>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>To install CARLA versions prior to 0.9.10, change to a previous version of the documentation using the panel in the bottom right corner of the window, and follow the old instructions.  </p>
+<div class="admonition 重要">
+<p class="admonition-title">重要</p>
+<p>要安装 0.9.10 之前的 CARLA 版本，请使用窗口右下角的面板更改为文档的早期版本，然后按照旧的说明进行操作。</p>
 </div>
-<h3 id="b-package-installation">B. Package installation</h3>
+<h3 id="b">B. 包安装</h3>
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/blob/master/Docs/download.md" target="_blank" class="btn btn-neutral" title="Go to the latest CARLA release">
-<span class="icon icon-github"></span> CARLA repository</a>
+<span class="icon icon-github"></span> CARLA 仓库</a>
 </p>
 </div>
 
-<p>This repository contains different versions of CARLA. You will find options to download the <strong>current release</strong> with all the most recent fixes and features, <strong>previous releases</strong> and a <strong>nightly build</strong> with all the developmental fixes and features (the nightly build is the most unstable version of CARLA).</p>
-<p>The package is a compressed file named <strong>CARLA_version.number</strong>. Download and extract the release file. It contains a precompiled version of the simulator, the Python API module and some scripts to be used as examples. </p>
+<p>该存储库包含不同版本的 CARLA。您将找到下载包含所有最新修复和功能的 <strong>当前版本</strong> 、以前的版本以及包含所有开发修复和功能的 <strong>夜间构建</strong> （夜间构建是 CARLA 最不稳定的版本）的选项。</p>
+<p>该包是一个名为 <strong>CARLA_version.number</strong> 的压缩文件。下载并解压发布文件。它包含模拟器的预编译版本、Python API 模块和一些用作示例的脚本。</p>
 <hr />
-<h2 id="import-additional-assets">Import additional assets</h2>
-<p>Each release has it's own additional package of extra assets and maps. This additional package includes the maps <strong>Town06</strong>, <strong>Town07</strong>, and <strong>Town10</strong>. These are stored separately to reduce the size of the build, so they can only be imported after the main package has been installed. </p>
-<p><strong>1.</strong> <a href="https://github.com/carla-simulator/carla/blob/master/Docs/download.md">Download</a> the appropriate package for your desired version of CARLA.</p>
-<p><strong>2.</strong> Extract the package:</p>
+<h2 id="_3">导入额外资产</h2>
+<p>每个版本都有其自己的附加资产和地图包。此附加包包括地图 <strong>Town06</strong> 、<strong>Town07</strong> 和 <strong>Town10</strong> 。它们单独存储以减少构建的大小，因此只能在安装主包后才能导入它们。</p>
+<p><strong>1.</strong> <a href="https://github.com/carla-simulator/carla/blob/master/Docs/download.md">下载</a> 适合您所需版本的 CARLA 的软件包。</p>
+<p><strong>2.</strong> 解压包：</p>
 <ul>
 <li>
-<p><strong>On Linux</strong>:</p>
+<p><strong>在 Linux 上</strong>:</p>
 <ul>
-<li>move the package to the <em>Import</em> folder and run the following script to extract the contents:  </li>
+<li>将包移动到 <em>Import</em> 文件夹并运行以下脚本以提取内容：</li>
 </ul>
 </li>
 </ul>
@@ -433,84 +433,84 @@ pip3 install --user pygame numpy
 </code></pre>
 <ul>
 <li>
-<p><strong>On Windows</strong>:</p>
+<p><strong>在 Windows 上</strong>:</p>
 <ul>
-<li>Extract the contents directly in the root folder. </li>
+<li>直接将内容提取到根文件夹中。</li>
 </ul>
 </li>
 </ul>
 <hr />
-<h2 id="install-client-library">Install client library</h2>
-<h3 id="carla-versions-prior-to-0912">CARLA versions prior to 0.9.12</h3>
-<p>Previous versions of CARLA did not require the Python library to be installed, they came with an <code>.egg</code> file that was ready to use out of the box. <strong>CARLA versions 0.9.12+ change this behavior significantly; there are several options available to install the client library.</strong> If you are using a version of CARLA prior to 0.9.12, please select that version in the bottom right corner of the screen to see the relevant documentation. Otherwise, read on below about the available options in CARLA 0.9.12+.</p>
+<h2 id="_4">安装客户端库</h2>
+<h3 id="0912-carla">0.9.12 之前的 CARLA 版本</h3>
+<p>以前版本的 CARLA 不需要安装 Python 库，它们附带了一个 <code>.egg</code> 开箱即用的文件。<strong>CARLA 版本 0.9.12+ 显着改变了这种行为；有多个选项可用于安装客户端库</strong> 。如果您使用的是 0.9.12 之前的 CARLA 版本，请在屏幕右下角选择该版本以查看相关文档。否则，请阅读下面有关 CARLA 0.9.12+ 中可用选项的信息。</p>
 <h3 id="carla-0912">CARLA 0.9.12+</h3>
-<p>There are several options available to install and use the CARLA client library:</p>
+<p>有多个选项可用于安装和使用 CARLA 客户端库：</p>
 <ul>
-<li><strong>.egg</strong> file</li>
-<li><strong>.whl</strong> file</li>
-<li><strong>Downloadable Python package</strong></li>
+<li><strong>.egg</strong> 文件</li>
+<li><strong>.whl</strong> 文件</li>
+<li><strong>可下载的Python包</strong></li>
 </ul>
-<p>Read more below about the requirements and limitations of each method before deciding which one to use. Please note that mixing the different methods can lead to incompatibilities, so use virtual environments when possible or <a href="../build_faq/#how-do-i-uninstall-the-carla-client-library">uninstall</a> a previously installed library before using a new one.</p>
+<p>在决定使用哪种方法之前，请阅读下面有关每种方法的要求和限制的更多信息。请注意，混合使用不同的方法可能会导致不兼容，因此请尽可能使用虚拟环境，或者在使用新库之前 <a href="../build_faq/#how-do-i-uninstall-the-carla-client-library">卸载</a> 以前安装的库。</p>
 <blockquote>
-<p><strong>A. .egg files</strong></p>
+<p><strong>A. .egg 文件</strong></p>
 <blockquote>
-<p>CARLA provides <code>.egg</code> files in <code>PythonAPI/carla/dist/</code> for different Python versions that are ready to use out of the box. Each of the example scripts in <code>PythonAPI/examples</code> includes a <a href="../build_system/#versions-prior-to-0912">code snippet</a> that looks for this file automatically. In Linux, you may need to add this file to your <code>PYTHONPATH</code>. Read more about <code>.egg</code> files in CARLA <a href="../build_faq/#importerror-no-module-named-carla">here</a>.</p>
-<p><strong>If you have previously installed the client library with <code>pip</code>, this will take precedence over the <code>.egg</code> file</strong>. You will need to <a href="../build_faq/#how-do-i-uninstall-the-carla-client-library">uninstall</a> the previous library first.</p>
+<p>CARLA 提供了在 <code>PythonAPI/carla/dist/</code> 文件夹下的不同 Python 版本 <code>.egg</code> 文件，可以开箱即用。<code>PythonAPI/examples</code> 中的每个示例脚本都包含一个自动查找此文件的 <a href="../build_system/#versions-prior-to-0912">代码片段</a> 。在 Linux 中，您可能需要将此文件添加到您的 <code>PYTHONPATH</code>。.在 <a href="../build_faq/#importerror-no-module-named-carla">此处</a> 阅读有关  CARLA 中 <code>.egg</code> 文件的更多信息。</p>
+<p><strong>如果您之前已经安装了客户端库 <code>pip</code>，则该库将优先于该 <code>.egg</code> 文件</strong>。您需要先 <a href="../build_faq/#how-do-i-uninstall-the-carla-client-library">卸载</a> 以前的库。</p>
 </blockquote>
-<p><strong>B. .whl files</strong></p>
+<p><strong>B. .whl 文件</strong></p>
 <blockquote>
-<p>CARLA provides <code>.whl</code> files for different Python versions. You will need to install the <code>.whl</code> file. The <code>.whl</code> file is found in <code>PythonAPI/carla/dist/</code>. There is one file per supported Python version, indicated by the file name (e.g., carla-0.9.12-<strong>cp36</strong>-cp36m-manylinux_2_27_x86_64.whl indicates Python 3.6).</p>
-<p><strong>It is recommended to install the CARLA client library in a virtual environment to avoid conflicts when working with multiple versions.</strong></p>
-<p>To install the CARLA client library, run the following command, choosing the file appropriate to your desired Python version. You will need <strong>pip/pip3</strong> version 20.3 or above. See the <a href="#before-you-begin"><strong>Before you begin</strong></a> section for how to check the version and upgrade <strong>pip/pip3</strong>:</p>
+<p>CARLA 提供了不同 Python 版本的 <code>.whl</code> 文件。您将需要安装该.whl文件。该<code>.whl</code>文件位于<code>PythonAPI/carla/dist/</code>。每个受支持的 Python 版本都有一个文件，由文件名指示（例如，carla-0.9.12-<strong>cp36</strong>-cp36m-manylinux_2_27_x86_64.whl 表示 Python 3.6）。</p>
+<p><strong>建议在虚拟环境中安装 CARLA 客户端库，以避免在使用多个版本时发生冲突。</strong></p>
+<p>要安装 CARLA 客户端库，请运行以下命令，选择适合您所需 Python 版本的文件。您将需要 <strong>pip/pip3</strong> 版本 20.3 或更高版本。有关如何检查版本和升级pip/pip3的信息，请参阅 <a href="#before-you-begin"><strong>开始之前</strong></a> 部分：</p>
 <pre><code> # Python 3
  pip3 install &lt;wheel-file-name&gt;.whl
 
  # Python 2
  pip install &lt;wheel-file-name&gt;.whl
 </code></pre>
-<p>If you previously installed the client library, you should <a href="../build_faq/#how-do-i-uninstall-the-carla-client-library">uninstall</a> the old one before installing the new one.</p>
+<p>如果您之前安装了客户端库，则应先 <a href="../build_faq/#how-do-i-uninstall-the-carla-client-library">卸载</a> 旧客户端库，然后再安装新客户端库。</p>
 </blockquote>
-<p><strong>C. Downloadable Python package</strong></p>
+<p><strong>C. 可下载的 Python 包</strong></p>
 <blockquote>
-<p>The CARLA client library can be downloaded from <a href="https://pypi.org/project/carla/">PyPi</a>. This library is compatible with Python versions 2.7, 3.6, 3.7, and 3.8. To install it you will need <strong>pip/pip3</strong> version 20.3 or above. See the <a href="#before-you-begin"><strong>Before you begin</strong></a> section for how to check the version and upgrade <strong>pip/pip3</strong>. </p>
-<p><strong>It is recommended to install the CARLA client library in a virtual environment to avoid conflicts when working with multiple versions.</strong></p>
-<p>To install the client library from PyPi, run the following command:</p>
+<p>CARLA 客户端库可以从 <a href="https://pypi.org/project/carla/">PyPi</a> 下载。该库与 Python 版本 2.7、3.6、3.7 和 3.8 兼容。要安装它，您需要 <strong>pip/pip3</strong> 版本 20.3 或更高版本。有关如何检查版本和升级pip/pip3的信息，请参阅 <a href="#before-you-begin"><strong>开始之前</strong></a> 部分。</p>
+<p><strong>建议在虚拟环境中安装 CARLA 客户端库，以避免在使用多个版本时发生冲突。</strong></p>
+<p>要从 PyPi 安装客户端库，请运行以下命令：</p>
 <pre><code> # Python 3
  pip3 install carla
 
  # Python 2
  pip install carla
 </code></pre>
-<p>The PyPi download is suitable for use with CARLA packages only (i.e., not with a version built from source). Since the PyPi download <strong>only contains the client library</strong>, it is most useful in situations where you will be communicating with a remote CARLA server where you do not require downloading a full CARLA package.</p>
+<p>PyPi 下载仅适合与 CARLA 包一起使用（即不适用于从源代码构建的版本）。由于 PyPi 下载 <strong>仅包含客户端库</strong>，因此在您将与远程 CARLA 服务器通信且不需要下载完整的 CARLA 包的情况下，它非常有用。</p>
 </blockquote>
 </blockquote>
 <hr />
-<h2 id="running-carla">Running CARLA</h2>
-<p>The method to start a CARLA server depends on the installation method you used and your operating system:</p>
+<h2 id="carla_1">运行 CARLA</h2>
+<p>启动 CARLA 服务器的方法取决于您使用的安装方法和操作系统：</p>
 <ul>
-<li>Debian installation:</li>
+<li>Debian 安装:</li>
 </ul>
 <pre><code class="language-sh">    cd /opt/carla-simulator/bin/
 
     ./CarlaUE4.sh
 </code></pre>
 <ul>
-<li>Linux package installation:</li>
+<li>Linux 软件包安装：</li>
 </ul>
 <pre><code class="language-sh">    cd path/to/carla/root
 
     ./CarlaUE4.sh
 </code></pre>
 <ul>
-<li>Windows package installation:</li>
+<li>Windows 包安装：</li>
 </ul>
 <pre><code class="language-sh">    cd path/to/carla/root
 
     CarlaUE4.exe
 </code></pre>
-<p>A window containing a view over the city will pop up. This is the <em>spectator view</em>. To fly around the city use the mouse and <code>WASD</code> keys, holding down the right mouse button to control the direction. </p>
-<p>This is the server simulator which is now running and waiting for a client to connect and interact with the world. You can try some of the example scripts to spawn life into the city and drive a car:</p>
-<pre><code class="language-sh">        # Terminal A 
+<p>将弹出一个包含城市景观的窗口。这是 <strong>观察者</strong> 的看法。要在城市中飞行，请使用鼠标和WASD按键，按住鼠标右键控制方向。</p>
+<p>这是服务器仿真器，它现在正在运行并等待客户端连接并与世界交互。您可以尝试一些示例脚本来在城市中产生生命并驾驶汽车：</p>
+<pre><code class="language-sh">        # 终端 A 
         cd PythonAPI\examples
 
         python3 -m pip install -r requirements.txt # Support for Python2 is provided in the CARLA release packages
@@ -522,17 +522,17 @@ pip3 install --user pygame numpy
 
         python3 manual_control.py 
 </code></pre>
-<h4 id="command-line-options">Command-line options</h4>
-<p>There are some configuration options available when launching CARLA and they can be used as follows:</p>
+<h4 id="_5">命令行选项</h4>
+<p>启动 CARLA 时有一些可用的配置选项，可以按如下方式使用它们：</p>
 <pre><code class="language-sh">    ./CarlaUE4.sh -carla-rpc-port=3000
 </code></pre>
 <ul>
-<li><code>-carla-rpc-port=N</code> Listen for client connections at port <code>N</code>. Streaming port is set to <code>N+1</code> by default.  </li>
-<li><code>-carla-streaming-port=N</code> Specify the port for sensor data streaming. Use 0 to get a random unused port. The second port will be automatically set to <code>N+1</code>.  </li>
-<li><code>-quality-level={Low,Epic}</code> Change graphics quality level. Find out more in <a href="../adv_rendering_options/">rendering options</a>.  </li>
-<li><strong><a href="https://docs.unrealengine.com/en-US/Programming/Basics/CommandLineArguments">List of Unreal Engine 4 command-line arguments</a>.</strong> There are a lot of options provided by Unreal Engine however not all of these are available in CARLA.  </li>
+<li><code>-carla-rpc-port=N</code> 侦听端口 <code>N</code> 上的客户端连接。流媒体端口默认设置为 <code>N+1</code> 。</li>
+<li><code>-carla-streaming-port=N</code> 指定传感器数据流的端口。使用 0 获取随机未使用的端口。第二个端口将自动设置为<code>N+1</code>。</li>
+<li><code>-quality-level={Low,Epic}</code> 更改图形质量级别。 在 <a href="../adv_rendering_options/">渲染选项</a> 中了解更多信息。</li>
+<li><strong><a href="https://docs.unrealengine.com/en-US/Programming/Basics/CommandLineArguments">虚幻引擎 4 命令行参数列表</a>。</strong> 。虚幻引擎提供了很多选项，但并非所有这些选项在 CARLA 中都可用。</li>
 </ul>
-<p>The script <a href="https://github.com/carla-simulator/carla/blob/master/PythonAPI/util/config.py"><code>PythonAPI/util/config.py</code></a> provides more configuration options and should be run when the server has been started:</p>
+<p>该脚本 <a href="https://github.com/carla-simulator/carla/blob/master/PythonAPI/util/config.py"><code>PythonAPI/util/config.py</code></a> 提供了更多配置选项，应在服务器启动时运行：</p>
 <pre><code class="language-sh">    ./config.py --no-rendering      # Disable rendering
     ./config.py --map Town05        # Change map
     ./config.py --weather ClearNoon # Change weather
@@ -540,9 +540,9 @@ pip3 install --user pygame numpy
     ./config.py --help # Check all the available configuration options
 </code></pre>
 <hr />
-<h2 id="updating-carla">Updating CARLA</h2>
-<p>There is no way to update the packaged version of CARLA. When a new version is released, the repository is updated and you will need to delete the previous version and install the new version.</p>
-<p>If you installed the client library using <strong>pip/pip3</strong>, you should uninstall it by running:</p>
+<h2 id="carla_2">更新 CARLA</h2>
+<p>无法更新 CARLA 的打包版本。当新版本发布时，存储库会更新，您需要删除以前的版本并安装新版本。</p>
+<p>如果您使用 <strong>pip/pip3</strong> 安装了客户端库，则应通过运行以下命令将其卸载：</p>
 <pre><code class="language-sh"># Python 3
 pip3 uninstall carla
 
@@ -550,13 +550,13 @@ pip3 uninstall carla
 pip uninstall carla
 </code></pre>
 <hr />
-<h2 id="follow-up">Follow-up</h2>
-<p>By now you should have a packaged version of CARLA up and running. If you came across any difficulties during the installation process, feel free to post in the <a href="https://github.com/carla-simulator/carla/discussions/">CARLA forum</a> or in the <a href="https://discord.gg/8kqACuC">Discord</a> channel.</p>
-<p>The next step is to learn more about the core concepts in CARLA. Read the <strong>First steps</strong> section to start learning. You can also find all the information about the Python API classes and methods in the <a href="../python_api/">Python API reference</a>.</p>
+<h2 id="_6">跟进</h2>
+<p>现在您应该已经启动并运行了 CARLA 的打包版本。如果您在安装过程中遇到任何困难，请随时在 <a href="https://github.com/carla-simulator/carla/discussions/">CARLA 论坛</a> 或 <a href="https://discord.gg/8kqACuC">Discord</a> 频道中发帖。</p>
+<p>下一步是详细了解 CARLA 的核心概念。阅读 <strong>“第一步”</strong> 部分开始学习。您还可以在Python API 参考中找到有关 Python API 类和方法的所有信息。</p>
 <div class="build-buttons">
 <p>
 <a href="../core_concepts" target="_blank" class="btn btn-neutral" title="Go to first steps">
-Go to: First steps</a>
+前往：第一步</a>
 </p>
 </div>
               

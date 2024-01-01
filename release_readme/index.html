@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>CARLA Simulator - 驾驶仿真器文档</title>
+    <title>CARLA 仿真器 - 驾驶仿真器文档</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "CARLA Simulator";
+        var mkdocs_page_name = "CARLA \u4eff\u771f\u5668";
         var mkdocs_page_input_path = "release_readme.md";
         var mkdocs_page_url = null;
       </script>
@@ -270,7 +270,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">CARLA Simulator</li>
+      <li class="breadcrumb-item active">CARLA 仿真器</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -279,38 +279,26 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="carla-simulator">CARLA Simulator</h1>
-<p>Thanks for downloading CARLA!</p>
+                <h1 id="carla">CARLA 仿真器</h1>
+<p>感谢您下载 CARLA！</p>
 <p><a href="http://carla.org/">http://carla.org/</a></p>
-<h2 id="how-to-run-carla">How to run CARLA</h2>
-<p>Launch a terminal in this folder and execute the simulator by running</p>
+<h2 id="carla_1">如何运行 CARLA</h2>
+<p>在此文件夹中启动终端并通过运行来执行仿真器</p>
 <pre><code class="language-sh"> ./CarlaUE4.sh
 </code></pre>
-<p>this will launch a window with a view over the city. This is the "spectator"
-view, you can fly around the city using the mouse and WASD keys, but you cannot
-interact with the world in this view. The simulator is now running as a server,
-waiting for a client app to connect and interact with the world.</p>
-<p>Let's start by adding some live to the city, open a new terminal window and
-execute</p>
+<p>这将启动一个可以看到城市景观的窗口。这是“观察者”视图，您可以使用鼠标和 WASD 键在城市中飞行，但无法与此视图中的世界进行交互。仿真器现在作为服务器运行，等待客户端应用程序连接并与世界交互。</p>
+<p>让我们首先向城市添加一些实时内容，打开一个新的终端窗口并执行</p>
 <pre><code class="language-sh">./generate_traffic.py -n 80
 </code></pre>
-<p>This adds 80 vehicles to the world driving in "autopilot" mode. Back to the
-simulator window we should see these vehicles driving around the city. They will
-keep driving randomly until we stop the script. Let's leave them there for now.</p>
-<p>Now, it's nice and sunny in CARLA, but that's not a very interesting driving
-condition. One of the cool features of CARLA is that you can control the weather
-and lighting conditions of the world. We'll launch now a script that dynamically
-controls the weather and time of the day, open yet another terminal window and
-execute</p>
+<p>这使得全球增加了 80 辆以“自动驾驶”模式行驶的车辆。回到仿真器窗口，我们应该看到这些车辆在城市中行驶。他们将继续随机驾驶，直到我们停止脚本。我们暂时把它们留在那里吧。</p>
+<p>现在，卡拉天气晴朗，阳光明媚，但这并不是一个非常有趣的驾驶条件。CARLA 的一项很酷的功能是您可以控制世界的天气和照明条件。我们现在将启动一个动态控制一天中的天气和时间的脚本，打开另一个终端窗口并执行</p>
 <pre><code class="language-sh">./dynamic_weather.py
 </code></pre>
-<p>The city is now ready for us to drive, we can finally run</p>
+<p>这座城市现在已经准备好让我们开车了，我们终于可以运行了</p>
 <pre><code class="language-sh">./manual_control.py
 </code></pre>
-<p>This should open a new window with a 3rd person view of a car, you can drive
-this car with the WASD/arrow keys. Press 'h' to see all the options available.</p>
-<p>For more details and running options please refer to our online documentation</p>
-<p><a href="http://carla.readthedocs.io">http://carla.readthedocs.io</a></p>
+<p>这应该会打开一个新窗口，其中包含汽车的第三人称视图，您可以使用 WASD/箭头键驾驶这辆车。按“h”查看所有可用选项。</p>
+<p>有关更多详细信息和运行选项，请参阅我们的<a href="http://carla.readthedocs.io">在线文档</a> 。</p>
               
             </div>
           </div><footer>
