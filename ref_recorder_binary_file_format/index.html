@@ -148,21 +148,21 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#4-">数据包 4 - 事件父级</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#5-event-collision">数据包 5 - Event Collision</a>
+    <li class="toctree-l3"><a class="reference internal" href="#5-">数据包 5 - 事件碰撞</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#6-position">数据包 6 - Position</a>
+    <li class="toctree-l3"><a class="reference internal" href="#6-">数据包 6 - 位置</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#7-trafficlight">数据包 7 - TrafficLight</a>
+    <li class="toctree-l3"><a class="reference internal" href="#7-">数据包 7 - 交通灯</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#8-vehicle-animation">数据包 8 - Vehicle animation</a>
+    <li class="toctree-l3"><a class="reference internal" href="#8-">数据包 8 - 车辆动画</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#9-walker-animation">数据包 9 - Walker animation</a>
+    <li class="toctree-l3"><a class="reference internal" href="#9-">数据包 9 - 行人动画</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#4-frame-layout">4- Frame Layout</a>
+    <li class="toctree-l2"><a class="reference internal" href="#4-_1">4- 帧布局</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#5-file-layout">5- File Layout</a>
+    <li class="toctree-l2"><a class="reference internal" href="#5-_1">5- 文件布局</a>
     </li>
     </ul>
                   </li>
@@ -197,7 +197,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_manual_map_package/">手动准备地图包</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_layers/">自定义地图：分层地图: Layered maps</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_layers/">自定义地图：分层地图: </a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_add_tl/">自定义地图：红绿灯和标志</a>
                   </li>
@@ -227,7 +227,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_walker_skeletons/">控制行人骨骼</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用OpenStreetMap生成地图</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用 OpenStreetMap 生成地图</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索模拟数据</a>
                   </li>
@@ -325,7 +325,7 @@
 <li><a href="#packet-2-event-add">数据包 2 - 事件添加</a>  </li>
 <li><a href="#packet-3-event-del">数据包 3 - 事件删除</a>  </li>
 <li><a href="#packet-4-event-parent">数据包 4 - 事件父级</a>  </li>
-<li><a href="#packet-5-event-collision">数据包 5 - 事件冲突</a>  </li>
+<li><a href="#packet-5-event-collision">数据包 5 - 事件碰撞</a>  </li>
 <li><a href="#packet-6-position">数据包 6 - 位置</a>  </li>
 <li><a href="#packet-7-trafficlight">数据包 7 - 交通灯</a>  </li>
 <li><a href="#packet-8-vehicle-animation">数据包 8 - 车辆动画</a>  </li>
@@ -400,57 +400,38 @@
 <h3 id="4-">数据包 4 - 事件父级</h3>
 <p>该数据包说明哪个参与者是另一个参与者（父母）的孩子。</p>
 <p><img alt="event parent" src="../img/RecorderEventParent.jpg" /></p>
-<p>The first id is the child actor, and the second one will be the parent actor.</p>
-<h3 id="5-event-collision">数据包 5 - Event Collision</h3>
-<p>If a collision happens between two actors, it will be registered in this packet. Currently only
-actors with a collision sensor will report collisions, so currently only hero vehicles have that
-sensor attached automatically.</p>
+<p>第一个 id 是子参与者，第二个 id 是父参与者。</p>
+<h3 id="5-">数据包 5 - 事件碰撞</h3>
+<p>如果两个参与者之间发生碰撞，它将被注册到这个数据包中。目前，只有具有碰撞传感器的参与者才会报告碰撞，因此目前只有英雄车辆会自动连接该传感器。</p>
 <p><img alt="event collision" src="../img/RecorderCollision.jpg" /></p>
-<p>The <strong>id</strong> is just a sequence to identify each collision internally.
-Several collisions between the same pair of actors can happen in the same frame, because physics
-frame rate is fixed and usually there are several physics substeps in the same rendered frame.</p>
-<h3 id="6-position">数据包 6 - Position</h3>
-<p>This packet records the position and orientation of all actors of type <strong>vehicle</strong> and
-<strong>walker</strong> that exist in the scene.</p>
+<p><strong>id</strong>只是一个用于在内部标识每次碰撞的序列。同一帧中可能会发生同一对参与者之间的多次碰撞，因为物理帧速率是固定的，并且同一渲染帧中通常存在多个物理子步骤。</p>
+<h3 id="6-">数据包 6 - 位置</h3>
+<p>该数据包记录场景中存在的<strong>车辆</strong>和<strong>行人</strong>类型的所有参与者的位置和方向。</p>
 <p><img alt="position" src="../img/RecorderPosition.jpg" /></p>
-<h3 id="7-trafficlight">数据包 7 - TrafficLight</h3>
-<p>This packet records the state of all <strong>traffic lights</strong> in the scene. Which means that it
-stores the state (red, orange or green) and the time it is waiting to change to a new state.</p>
+<h3 id="7-">数据包 7 - 交通灯</h3>
+<p>该数据包记录了场景中所有<strong>交通灯</strong>的状态。这意味着它存储状态（红色、橙色或绿色）以及等待更改为新状态的时间。</p>
 <p><img alt="state" src="../img/RecorderTrafficLight.png" /></p>
-<h3 id="8-vehicle-animation">数据包 8 - Vehicle animation</h3>
-<p>This packet records the animation of the vehicles, bikes and cycles. This packet stores the
-<strong>throttle</strong>, <strong>sterring</strong>, <strong>brake</strong>, <strong>handbrake</strong> and <strong>gear</strong> inputs, and then set them at playback.</p>
+<h3 id="8-">数据包 8 - 车辆动画</h3>
+<p>该数据包记录了车辆、自行车和山地自行车的动画。该数据包存储了<strong>油门</strong>、<strong>方向盘</strong>、<strong>删车</strong>、<strong>手刹</strong>和<strong>排挡</strong>输入，然后在播放时设置它们。</p>
 <p><img alt="state" src="../img/RecorderVehicle.jpg" /></p>
-<h3 id="9-walker-animation">数据包 9 - Walker animation</h3>
-<p>This packet records the animation of the walker. It just saves the <strong>speed</strong> of the walker
-that is used in the animation.</p>
+<h3 id="9-">数据包 9 - 行人动画</h3>
+<p>该数据包记录了行人的动画。它只是保存动画中使用的行人的<strong>速度</strong>。</p>
 <p><img alt="state" src="../img/RecorderWalker.jpg" /></p>
 <hr />
-<h2 id="4-frame-layout">4- Frame Layout</h2>
-<p>A frame consists of several packets, where all of them are optional, except the ones that
-have the <strong>start</strong> and <strong>end</strong> in that frame, that must be there always.</p>
+<h2 id="4-_1">4- 帧布局</h2>
+<p>一个帧由多个数据包组成，其中所有数据包都是可选的，除了那些在该帧中具有<strong>开始</strong>和<strong>结束</strong>的数据包之外，它们必须始终存在。</p>
 <p><img alt="layout" src="../img/RecorderFrameLayout.jpg" /></p>
-<p><strong>Event</strong> packets exist only in the frame where they happen.</p>
-<p><strong>Position</strong> and <strong>traffic light</strong> packets should exist in all frames, because they are
-required to move all actors and set the traffic lights to its state.
-They are optional but if they are not present then the replayer will not be able to move
-or set the state of traffic lights.</p>
-<p>The <strong>animation</strong> packets are also optional, but by default they are recorded. That way the walkers
-are animated and also the vehicle wheels follow the direction of the vehicles.</p>
+<p><strong>事件</strong> 数据包仅存在于它们发生的帧中。</p>
+<p><strong>位置</strong> 和 <strong>交通灯</strong> 数据包应该存在于所有帧中，因为它们需要移动所有参与者并将交通灯设置为其状态。它们是可选的，但如果它们不存在，那么重放器将无法移动或设置交通灯的状态。</p>
+<p><strong>动画</strong>包也是可选的，但默认情况下它们会被记录。这样行人就会被动画化，并且车轮也会跟随车辆的方向。</p>
 <hr />
-<h2 id="5-file-layout">5- File Layout</h2>
-<p>The layout of the file starts with the <strong>info header</strong> and then follows a collection of packets in
-groups. The first in each group is the <strong>Frame Start</strong> packet, and the last in the group is
-the <strong>Frame End</strong> packet. In between, we can find the rest of packets as well.</p>
+<h2 id="5-_1">5- 文件布局</h2>
+<p>文件的布局以<strong>信息头</strong>开始，然后是分组的数据包集合。每组中的第一个是<strong>帧开始</strong>数据包，最后一个是<strong>帧结束</strong>数据包。在这两者之间，我们还可以找到其余的数据包。</p>
 <p><img alt="layout" src="../img/RecorderLayout.jpg" /></p>
-<p>Usually, it is a good idea to have all packets regarding events first, and then the packets
-regarding position and state later.</p>
-<p>The event packets are optional, since they appear when they happen, so we could have a layout
-like this one:</p>
+<p>通常，最好首先拥有有关事件的所有数据包，然后再拥有有关位置和状态的数据包。</p>
+<p>事件包是可选的，因为它们在发生时出现，所以我们可以有这样的布局：</p>
 <p><img alt="layout" src="../img/RecorderLayoutSample.jpg" /></p>
-<p>In <strong>frame 1</strong> some actors are created and reparented, so we can observe its events in the image.
-In <strong>frame 2</strong> there are no events. In <strong>frame 3</strong> some actors have collided so the collision event
-appears with that info. In <strong>frame 4</strong> the actors are destroyed.</p>
+<p>在<strong>第 1 帧</strong>中，创建了一些参与者并重新设置了父级，因此我们可以在图像中观察其事件。在<strong>第 2 帧</strong>中没有事件。在<strong>第 3 帧</strong>中，一些参与者发生了碰撞，因此碰撞事件会随该信息一起出现。在<strong>第 4 帧</strong>中，参与者被摧毁。</p>
               
             </div>
           </div><footer>
