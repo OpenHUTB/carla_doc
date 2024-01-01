@@ -1,70 +1,72 @@
-# Traffic Simulation in CARLA
+# [CARLA 中的交通模拟](https://carla.readthedocs.io/en/latest/ts_traffic_simulation_overview/) 
 
-Traffic simulation is integral to the accurate and efficient training and testing of autonomous driving stacks. CARLA provides a number of different options to simulate traffic and specific traffic scenarios. This section is an overview of the options available to help decide which is the best fit for your use case.
+交通模拟是自动驾驶堆栈准确高效的训练和测试不可或缺的一部分。CARLA 提供了许多不同的选项来仿真交通和特定的交通场景。本节概述了可用选项，可帮助您确定最适合您的用例的选项。
 
-- [__Scenario Runner and OpenScenario__](#scenario-runner-and-openscenario)
-- [__Traffic Manager__](#traffic-manager)
+- [__交通管理器__](#traffic-manager)
+- [__Scenario Runner 和 OpenScenario__](#scenario-runner-and-openscenario)
 - [__Scenic__](#scenic)
 - [__SUMO__](#sumo)
 
 ---
 
-## Scenario Runner and OpenScenario
+## 交通管理器
 
-Scenario Runner provides [predefined traffic scenarios](https://carla-scenariorunner.readthedocs.io/en/latest/list_of_scenarios/) out of the box and also allows users to [define their own](https://carla-scenariorunner.readthedocs.io/en/latest/creating_new_scenario/) scenarios using either Python or the [OpenSCENARIO 1.0 standard](https://releases.asam.net/OpenSCENARIO/1.0.0/ASAM_OpenSCENARIO_BS-1-2_User-Guide_V1-0-0.html#_foreword).
+交通管理器是 CARLA 中的一个模块，用于从客户端控制仿真中的某些车辆。[`carla.Vehicle.set_autopilot`](https://carla.readthedocs.io/en/latest/python_api/#carla.Vehicle.set_autopilot) 车辆通过方法或注册到流量管理器command.SetAutopilot。每辆车的控制是通过 [不同阶段](adv_traffic_manager.md#stages) 的循环来管理的，每个阶段都在不同的线程上运行。
 
-The primary use of OpenSCENARIO is the description of complex maneuvers that involve multiple vehicles. Users can see which features of OpenSCENARIO are supported by Scenario Runner [here](https://carla-scenariorunner.readthedocs.io/en/latest/openscenario_support/). These features include Maneuvers, Actions, Conditions, Stories and the Storyboard. 
+__用于：__
 
-Scenario Runner has to be installed [separately](https://github.com/carla-simulator/scenario_runner) from the main CARLA package.
-
-__Useful for:__
-
-- Creating complex traffic scenarios and routes to prepare AD agents for evaluation in the [CARLA leaderboard](https://leaderboard.carla.org/).
-- Defining bespoke [metrics](https://carla-scenariorunner.readthedocs.io/en/latest/metrics_module/) that can be run against recordings of the scenario simulation, foregoing the need to run simulations repeatedly.
-
-<div class="build-buttons">
-<p>
-<a href="https://carla-scenariorunner.readthedocs.io" target="_blank" class="btn btn-neutral" title="Go to Scenario Runner">
-Go to Scenario Runner</a>
-</p>
-</div>
-
----
-
-## Traffic Manager
-
-Traffic Manager is a module within CARLA that controls certain vehicles in a simulation from the client side. Vehicles are registered to Traffic Manager via the [`carla.Vehicle.set_autopilot`](https://carla.readthedocs.io/en/latest/python_api/#carla.Vehicle.set_autopilot) method or [`command.SetAutopilot`](https://carla.readthedocs.io/en/latest/python_api/#commandsetautopilot) class. Control of each vehicle is managed through a cycle of [distinct stages](adv_traffic_manager.md#stages) which each run on a different thread.
-
-__Useful for:__
-
-- Populating a simulation with realistic urban traffic conditions. 
-- [Customizing traffic behaviours](adv_traffic_manager.md#general-considerations) to set specific learning circumstances.
-- Developing phase-related functionalities and data structures while improving computational efficiency.
+- 用真实的城市交通状况填充仿真。
+- [自定义交通行为](adv_traffic_manager.md#general-considerations) 以设置特定的学习环境。 
+- 开发与阶段相关的功能和数据结构，同时提高计算效率。
 
 <div class="build-buttons">
 <p>
 <a href="https://carla.readthedocs.io/en/latest/adv_traffic_manager/" target="_blank" class="btn btn-neutral" title="Go to Traffic Manager">
-Go to Traffic Manager</a>
+转至交通管理器</a>
 </p>
 </div>
 
 ---
 
+## Scenario Runner 和 OpenScenario
+
+Scenario Runner 提供开箱即用的 [预定义交通场景](https://carla-scenariorunner.readthedocs.io/en/latest/list_of_scenarios/) ，还允许用户使用 Python 或 [OpenSCENARIO 1.0 标准](https://releases.asam.net/OpenSCENARIO/1.0.0/ASAM_OpenSCENARIO_BS-1-2_User-Guide_V1-0-0.html#_foreword) [定义自己](https://carla-scenariorunner.readthedocs.io/en/latest/creating_new_scenario/) 的场景。
+
+OpenSCENARIO 的主要用途是描述涉及多辆车的复杂操作。用户可以在 [这里](https://carla-scenariorunner.readthedocs.io/en/latest/openscenario_support/) 查看 Scenario Runner 支持 OpenSCENARIO 的哪些功能。这些功能包括演习、动作、条件、故事和故事板。
+
+Scenario Runner 必须与主 CARLA 包 [分开](https://github.com/carla-simulator/scenario_runner) 安装。
+
+__用于：__
+
+- 创建复杂的交通场景和路线，为自动驾驶智能体做好准备，以便在 [CARLA 排行榜](https://leaderboard.carla.org/) 上进行评估。
+- 定义可针对场景仿真的记录运行的定制 [指标](https://carla-scenariorunner.readthedocs.io/en/latest/metrics_module/) ，从而无需重复运行仿真。
+
+<div class="build-buttons">
+<p>
+<a href="https://carla-scenariorunner.readthedocs.io" target="_blank" class="btn btn-neutral" title="Go to Scenario Runner">
+转到 Scenario Runner</a>
+</p>
+</div>
+
+---
+
+
+
 ## Scenic
 
-[Scenic](https://scenic-lang.readthedocs.io) is a domain-specific probabilistic programming language for modeling the environments of cyber-physical systems like robots and autonomous cars. Scenic provides an [specialized domain](https://scenic-lang.readthedocs.io/en/latest/modules/scenic.simulators.carla.html) to facilitate execution of Scenic scripts on the CARLA simulator. 
+[Scenic](https://scenic-lang.readthedocs.io) 是一种特定领域的概率编程语言，用于对机器人和自动驾驶汽车等网络物理系统的环境进行建模。Scenic 提供了一个 [专门领域](https://scenic-lang.readthedocs.io/en/latest/modules/scenic.simulators.carla.html) 来促进 Scenic 脚本在 仿真器上的执行。
 
-Scenic scenario definitions are easy to read and construct. A tutorial to create a simple scenario is provided [here](tuto_G_scenic.md).
+Scenic 场景定义易于阅读和构建。 [此处](tuto_G_scenic.md) 提供了创建简单场景的教程。
 
-__Useful for:__
+__用于：__
 
-- Generating multiple, diverse scenarios with a single scenario definition.
-- Defining probabilistic policies for dynamic agents to take actions over time in response to the state of the world.
+- 使用单个场景定义生成多个不同的场景。
+- 为动态智能体定义概率策略，以便随着时间的推移采取行动以响应世界状况。
 
 <div class="build-buttons">
 <p>
 <a href="https://carla.readthedocs.io/en/latest/tuto_G_scenic/" target="_blank" class="btn btn-neutral" title="Go to Scenic Tutorial">
-Go to Scenic Tutorial</a>
+转至 Scenic 教程</a>
 </p>
 </div>
 
@@ -72,29 +74,29 @@ Go to Scenic Tutorial</a>
 
 ## SUMO
 
-[SUMO](https://sumo.dlr.de/docs/SUMO_at_a_Glance.html) is an open source, microscopic, multi-modal traffic simulation. In SUMO, each vehicle is modelled explicitly, has its own route, and moves individually through the network. Simulations are deterministic by default but there are various options for introducing randomness. 
+[SUMO](https://sumo.dlr.de/docs/SUMO_at_a_Glance.html) 是一种开源、微观、多模式交通仿真。在 SUMO 中，每辆车都经过明确建模，有自己的路线，并通过网络单独移动。默认情况下，仿真是确定性的，但有多种选项可以引入随机性。
 
-CARLA provides a co-simulation feature with SUMO that allows distribution of tasks between the two simulators. Vehicles can be spawned in CARLA through SUMO, and managed by SUMO much as the Traffic Manager would do. 
+CARLA 提供了与 SUMO 的联合仿真功能，允许在两个仿真器之间分配任务。车辆可以通过 SUMO 在 CARLA 中产生，并由 SUMO 进行管理，就像交通管理器所做的那样。
 
-__Useful for:__
+__用于：__
 
-- Exploitation of the capabilities of both CARLA and SUMO in one package.
+- 在一个软件包中利用 CARLA 和 SUMO 的功能。
 
 <div class="build-buttons">
 <p>
 <a href="https://carla.readthedocs.io/en/latest/adv_sumo/" target="_blank" class="btn btn-neutral" title="Go to SUMO Co-Simulation">
-Go to SUMO Co-Simulation</a>
+转至 SUMO 协同仿真</a>
 </p>
 </div>
 
 ---
 
-If you have any doubts about the different options available to simulate traffic in CARLA, feel free to post in the forum or in [Discord](https://discord.gg/8kqACuC).
+如果您对 CARLA 中仿真交通的不同选项有任何疑问，请随时在论坛或 [Discord](https://discord.gg/8kqACuC) 中发帖。
 
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA forum</a>
+CARLA 论坛</a>
 </p>
 </div>
 

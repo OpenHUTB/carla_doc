@@ -1,16 +1,16 @@
-# ROS Bridge
+# ROS 桥
 
-__Full documentation of the ROS bridge is found [__here__](https://carla.readthedocs.io/projects/ros-bridge/en/latest/).__
+__ROS 桥的完整文档可在 [__此处__](https://carla.readthedocs.io/projects/ros-bridge/en/latest/) 找到。__
 
 ---
 
-The ROS bridge enables two-way communication between ROS and Carla. The information from the Carla server is translated to ROS topics. In the same way, the messages sent between nodes in ROS get translated to commands to be applied in Carla.
+ROS 桥可实现 ROS 和 CARLA 之间的双向通信。来自 CARLA 服务器的信息被转换为 ROS 主题。以同样的方式，ROS 中的节点之间发送的消息被转换为要在 CARLA 中应用的命令。
 
-The ROS bridge is compatible with both ROS 1 and ROS 2.
+ROS 桥与 ROS 1 和 ROS 2 兼容。
 
-The ROS bridge boasts the following features:
+ROS桥具有以下特点：
 
-- Provides sensor data for LIDAR, Semantic LIDAR, Cameras (depth, segmentation, rgb, dvs), GNSS, Radar and IMU.
-- Provides object data such as transforms, traffic light status, visualisation markers, collision and lane invasion.
-- Control of AD agents through steering, throttle and brake.
-- Control of aspects of the Carla simulation like synchronous mode, playing and pausing the simulation and setting simulation parameters.
+- 为 LIDAR、语义 LIDAR、相机（深度、分段、rgb、dvs）、GNSS、雷达和 IMU 提供传感器数据。
+- 提供对象数据，例如变换、交通灯状态、可视化标记、碰撞和车道入侵。
+- 通过转向、油门和制动控制自动驾驶智能体。
+- 控制 CARLA 仿真的各个方面，例如同步模式、播放和暂停仿真以及设置仿真参数。

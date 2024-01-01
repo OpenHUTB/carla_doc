@@ -1,54 +1,44 @@
-CARLA Simulator
+CARLA 仿真器
 ===============
 
-Thanks for downloading CARLA!
+感谢您下载 CARLA！
 
 <http://carla.org/>
 
-How to run CARLA
+如何运行 CARLA
 ----------------
 
-Launch a terminal in this folder and execute the simulator by running
+在此文件夹中启动终端并通过运行来执行仿真器
 
 ```sh
  ./CarlaUE4.sh
 ```
 
-this will launch a window with a view over the city. This is the "spectator"
-view, you can fly around the city using the mouse and WASD keys, but you cannot
-interact with the world in this view. The simulator is now running as a server,
-waiting for a client app to connect and interact with the world.
+这将启动一个可以看到城市景观的窗口。这是“观察者”视图，您可以使用鼠标和 WASD 键在城市中飞行，但无法与此视图中的世界进行交互。仿真器现在作为服务器运行，等待客户端应用程序连接并与世界交互。
 
-Let's start by adding some live to the city, open a new terminal window and
-execute
+让我们首先向城市添加一些实时内容，打开一个新的终端窗口并执行
 
 ```sh
 ./generate_traffic.py -n 80
 ```
 
-This adds 80 vehicles to the world driving in "autopilot" mode. Back to the
-simulator window we should see these vehicles driving around the city. They will
-keep driving randomly until we stop the script. Let's leave them there for now.
+这使得全球增加了 80 辆以“自动驾驶”模式行驶的车辆。回到仿真器窗口，我们应该看到这些车辆在城市中行驶。他们将继续随机驾驶，直到我们停止脚本。我们暂时把它们留在那里吧。
 
-Now, it's nice and sunny in CARLA, but that's not a very interesting driving
-condition. One of the cool features of CARLA is that you can control the weather
-and lighting conditions of the world. We'll launch now a script that dynamically
-controls the weather and time of the day, open yet another terminal window and
-execute
+
+现在，卡拉天气晴朗，阳光明媚，但这并不是一个非常有趣的驾驶条件。CARLA 的一项很酷的功能是您可以控制世界的天气和照明条件。我们现在将启动一个动态控制一天中的天气和时间的脚本，打开另一个终端窗口并执行
 
 ```sh
 ./dynamic_weather.py
 ```
 
-The city is now ready for us to drive, we can finally run
+这座城市现在已经准备好让我们开车了，我们终于可以运行了
 
 ```sh
 ./manual_control.py
 ```
 
-This should open a new window with a 3rd person view of a car, you can drive
-this car with the WASD/arrow keys. Press 'h' to see all the options available.
+这应该会打开一个新窗口，其中包含汽车的第三人称视图，您可以使用 WASD/箭头键驾驶这辆车。按“h”查看所有可用选项。
 
-For more details and running options please refer to our online documentation
+有关更多详细信息和运行选项，请参阅我们的[在线文档](<http://carla.readthedocs.io>) 。
 
-<http://carla.readthedocs.io>
+
