@@ -10,7 +10,7 @@
 	*   [数据包 2 - 事件添加](#packet-2-event-add)  
 	*   [数据包 3 - 事件删除](#packet-3-event-del)  
 	*   [数据包 4 - 事件父级](#packet-4-event-parent)  
-	*   [数据包 5 - 事件冲突](#packet-5-event-collision)  
+	*   [数据包 5 - 事件碰撞](#packet-5-event-collision)  
 	*   [数据包 6 - 位置](#packet-6-position)  
 	*   [数据包 7 - 交通灯](#packet-7-trafficlight)  
 	*   [数据包 8 - 车辆动画](#packet-8-vehicle-animation)  
@@ -125,83 +125,64 @@
 
 ![event parent](img/RecorderEventParent.jpg)
 
-The first id is the child actor, and the second one will be the parent actor.
+第一个 id 是子参与者，第二个 id 是父参与者。
 
-### 数据包 5 - Event Collision
+### 数据包 5 - 事件碰撞
 
-If a collision happens between two actors, it will be registered in this packet. Currently only
-actors with a collision sensor will report collisions, so currently only hero vehicles have that
-sensor attached automatically.
+如果两个参与者之间发生碰撞，它将被注册到这个数据包中。目前，只有具有碰撞传感器的参与者才会报告碰撞，因此目前只有英雄车辆会自动连接该传感器。
 
 ![event collision](img/RecorderCollision.jpg)
 
-The **id** is just a sequence to identify each collision internally.
-Several collisions between the same pair of actors can happen in the same frame, because physics
-frame rate is fixed and usually there are several physics substeps in the same rendered frame.
+**id**只是一个用于在内部标识每次碰撞的序列。同一帧中可能会发生同一对参与者之间的多次碰撞，因为物理帧速率是固定的，并且同一渲染帧中通常存在多个物理子步骤。
 
-### 数据包 6 - Position
+### 数据包 6 - 位置
 
-This packet records the position and orientation of all actors of type **vehicle** and
-**walker** that exist in the scene.
+该数据包记录场景中存在的**车辆**和**行人**类型的所有参与者的位置和方向。
 
 ![position](img/RecorderPosition.jpg)
 
-### 数据包 7 - TrafficLight
+### 数据包 7 - 交通灯
 
-This packet records the state of all **traffic lights** in the scene. Which means that it
-stores the state (red, orange or green) and the time it is waiting to change to a new state.
+该数据包记录了场景中所有**交通灯**的状态。这意味着它存储状态（红色、橙色或绿色）以及等待更改为新状态的时间。
 
 ![state](img/RecorderTrafficLight.png)
 
-### 数据包 8 - Vehicle animation
+### 数据包 8 - 车辆动画
 
-This packet records the animation of the vehicles, bikes and cycles. This packet stores the
-**throttle**, **sterring**, **brake**, **handbrake** and **gear** inputs, and then set them at playback.
+该数据包记录了车辆、自行车和山地自行车的动画。该数据包存储了**油门**、**方向盘**、**删车**、**手刹**和**排挡**输入，然后在播放时设置它们。
 
 ![state](img/RecorderVehicle.jpg)
 
-### 数据包 9 - Walker animation
+### 数据包 9 - 行人动画
 
-This packet records the animation of the walker. It just saves the **speed** of the walker
-that is used in the animation.
+该数据包记录了行人的动画。它只是保存动画中使用的行人的**速度**。
 
 ![state](img/RecorderWalker.jpg)
 
 ---
-## 4- Frame Layout
+## 4- 帧布局
 
-A frame consists of several packets, where all of them are optional, except the ones that
-have the **start** and **end** in that frame, that must be there always.
+一个帧由多个数据包组成，其中所有数据包都是可选的，除了那些在该帧中具有**开始**和**结束**的数据包之外，它们必须始终存在。
 
 ![layout](img/RecorderFrameLayout.jpg)
 
-**Event** packets exist only in the frame where they happen.
+**事件** 数据包仅存在于它们发生的帧中。
 
-**Position** and **traffic light** packets should exist in all frames, because they are
-required to move all actors and set the traffic lights to its state.
-They are optional but if they are not present then the replayer will not be able to move
-or set the state of traffic lights.
+**位置** 和 **交通灯** 数据包应该存在于所有帧中，因为它们需要移动所有参与者并将交通灯设置为其状态。它们是可选的，但如果它们不存在，那么重放器将无法移动或设置交通灯的状态。
 
-The **animation** packets are also optional, but by default they are recorded. That way the walkers
-are animated and also the vehicle wheels follow the direction of the vehicles.
+**动画**包也是可选的，但默认情况下它们会被记录。这样行人就会被动画化，并且车轮也会跟随车辆的方向。
 
 ---
-## 5- File Layout
+## 5- 文件布局
 
-The layout of the file starts with the **info header** and then follows a collection of packets in
-groups. The first in each group is the **Frame Start** packet, and the last in the group is
-the **Frame End** packet. In between, we can find the rest of packets as well.
+文件的布局以**信息头**开始，然后是分组的数据包集合。每组中的第一个是**帧开始**数据包，最后一个是**帧结束**数据包。在这两者之间，我们还可以找到其余的数据包。
 
 ![layout](img/RecorderLayout.jpg)
 
-Usually, it is a good idea to have all packets regarding events first, and then the packets
-regarding position and state later.
+通常，最好首先拥有有关事件的所有数据包，然后再拥有有关位置和状态的数据包。
 
-The event packets are optional, since they appear when they happen, so we could have a layout
-like this one:
+事件包是可选的，因为它们在发生时出现，所以我们可以有这样的布局：
 
 ![layout](img/RecorderLayoutSample.jpg)
 
-In **frame 1** some actors are created and reparented, so we can observe its events in the image.
-In **frame 2** there are no events. In **frame 3** some actors have collided so the collision event
-appears with that info. In **frame 4** the actors are destroyed.
+在**第 1 帧**中，创建了一些参与者并重新设置了父级，因此我们可以在图像中观察其事件。在**第 2 帧**中没有事件。在**第 3 帧**中，一些参与者发生了碰撞，因此碰撞事件会随该信息一起出现。在**第 4 帧**中，参与者被摧毁。
