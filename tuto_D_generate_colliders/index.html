@@ -223,31 +223,31 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">生成详细碰撞</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#raycast-colliders">Raycast colliders</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">光线投射碰撞体</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#1-export-the-vehicle-fbx">1-Export the vehicle FBX</a>
+    <li class="toctree-l3"><a class="reference internal" href="#1-fbx">1-导出车辆 FBX</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#2-generate-a-low-density-mesh">2-Generate a low density mesh</a>
+    <li class="toctree-l3"><a class="reference internal" href="#2-">2-生成低密度网格</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#3-import-the-mesh-into-ue">3-Import the mesh into UE</a>
+    <li class="toctree-l3"><a class="reference internal" href="#3-">3-将网格导入虚幻引擎</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#4-add-the-mesh-as-collider">4-Add the mesh as collider</a>
+    <li class="toctree-l3"><a class="reference internal" href="#4-">4-添加网格作为碰撞体</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#physics-colliders">Physics colliders</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">物理碰撞体</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#0-prerequisites">0-Prerequisites</a>
+    <li class="toctree-l3"><a class="reference internal" href="#0-">0-先决条件</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#1-define-custom-collision-for-wheels-in-unreal-editor">1-Define custom collision for wheels in Unreal Editor</a>
+    <li class="toctree-l3"><a class="reference internal" href="#1-">1-在虚幻编辑器中定义轮子的自定义碰撞</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#2-export-the-vehicle-as-fbx">2-Export the vehicle as FBX</a>
+    <li class="toctree-l3"><a class="reference internal" href="#2-fbx">2-将车辆导出为 FBX</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#3-to-4-import-to-blender-and-create-custom-boundary">3 to 4-Import to Blender and create custom boundary</a>
+    <li class="toctree-l3"><a class="reference internal" href="#3-4-blender">3 到 4-导入到 Blender 并创建自定义边界</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#5-export-from-blender-to-fbx">5-Export from Blender to FBX</a>
+    <li class="toctree-l3"><a class="reference internal" href="#5-blender-fbx">5-从 Blender 导出到 FBX</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#6-to-8-import-collider-and-define-physics">6 to 8-Import collider and define physics</a>
+    <li class="toctree-l3"><a class="reference internal" href="#6-8-">6 到 8-导入碰撞体并定义物理</a>
     </li>
         </ul>
     </li>
@@ -270,9 +270,9 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../adv_ptv/">PTV-Vissim 联合仿真</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../adv_rss/">RSS</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_rss/">责任敏感安全</a>
                   </li>
-                  <li class="toctree-l1"><a class="" href="https://carla.readthedocs.io/projects/ros-bridge/en/latest/">ROS</a>
+                  <li class="toctree-l1"><a class="" href="https://carla.readthedocs.io/projects/ros-bridge/en/latest/">机器人操作系统</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">贡献</span></p>
@@ -310,113 +310,113 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="generate-detailed-colliders">Generate detailed colliders</h1>
-<p>This tutorial explains how to create more accurate collision boundaries for vehicles (relative to the original shape of the object). These can be used as physics collider, compatible with collision detection, or as a secondary collider used by raycast-based sensors such a the LIDAR to retrieve more accurate data. New colliders can be integrated into CARLA so that all the community can benefit from these. Find out more about how to contribute to the content repository <a href="../cont_contribution_guidelines/">here</a>.  </p>
-<p>There are two approaches to create the new colliders, but they are not completely equivalent.  </p>
+                <h1 id="_1">生成详细的碰撞体</h1>
+<p>本教程介绍如何为车辆创建更准确的碰撞边界（相对于对象的原始形状）。它们可以用作物理碰撞器，与碰撞检测兼容，也可以用作基于光线投射的传感器（例如激光雷达）的辅助碰撞器，以检索更准确的数据。新的碰撞机可以集成到 CARLA 中，以便所有社区都能从中受益。在 <a href="../cont_contribution_guidelines/">此处</a> 了解有关如何为内容存储库做出贡献的更多信息。 </p>
+<p>有两种方法可以创建新的碰撞器，但它们并不完全等效。</p>
 <ul>
-<li><strong>Raycast colliders</strong> — This approach requires some basic 3D modelling skills. A secondary collider is added to the vehicle so that raycast-based sensors such as the LIDAR retrieve more precise data.  </li>
-<li><strong>Physics colliders</strong> — This approach follows the <a href="https://bitbucket.org/yankagan/carla-content/wiki/Home">tutorial</a> created by the contributor <strong><a href="https://github.com/yankagan">Yan Kaganovsky / yankagan</a></strong> to create a mesh with no need of manual modelling. This mesh is then used as main collider for the vehicle, for physics and sensor detection (unless a secondary collider is added).  </li>
+<li><strong>光线投射碰撞器</strong> — 这种方法需要一些基本的三维建模技能。车辆中添加了辅助碰撞器，以便基于光线投射的传感器（例如激光雷达）检索更精确的数据。 </li>
+<li><strong>物理碰撞器</strong> — 这种方法遵循贡献者 <strong><a href="https://github.com/yankagan">Yan Kaganovsky / yankagan</a></strong> 创建的 <a href="https://bitbucket.org/yankagan/carla-content/wiki/Home">教程</a> ，无需手动建模即可创建网格。然后，该网格用作车辆的主碰撞器，用于物理和传感器检测（除非添加辅助碰撞器）。</li>
 </ul>
 <hr />
 <ul>
-<li><a href="#raycast-colliders"><strong>Raycast colliders</strong></a>  <ul>
-<li><a href="#1-export-the-vehicle-fbx">1-Export the vehicle FBX</a>  </li>
-<li><a href="#2-generate-a-low-density-mesh">2-Generate a low density mesh</a>  </li>
-<li><a href="#3-import-the-mesh-into-ue">3-Import the mesh into UE</a>  </li>
-<li><a href="#4-add-the-mesh-as-collider">4-Add the mesh as collider</a>  </li>
+<li><a href="#raycast-colliders"><strong>光线投射碰撞器</strong></a>  <ul>
+<li><a href="#1-export-the-vehicle-fbx">1-导出车辆 FBX</a>  </li>
+<li><a href="#2-generate-a-low-density-mesh">2-生成低密度网格</a>  </li>
+<li><a href="#3-import-the-mesh-into-ue">3-将网格导入虚幻引擎</a>  </li>
+<li><a href="#4-add-the-mesh-as-collider">4-添加网格作为碰撞体</a>  </li>
 </ul>
 </li>
 </ul>
 <hr />
 <ul>
-<li><a href="#physics-colliders"><strong>Physics colliders</strong></a>  <ul>
-<li><a href="#0-prerequisites">0-Prerequisites</a>  </li>
-<li><a href="#1-define-custom-collision-for-wheels-in-unreal-editor">1-Define custom collision for wheels in Unreal Editor</a>  </li>
-<li><a href="#2-export-the-vehicle-as-fbx">2-Export the vehicle as FBX</a>  </li>
-<li><a href="#3-to-4-import-to-blender-and-create-custom-boundary">3 to 4-Import to Blender and create custom boundary</a>  </li>
-<li><a href="#5-export-from-blender-to-fbx">5-Export from Blender to FBX</a>  </li>
-<li><a href="#6-to-8-import-collider-and-define-physics">6 to 8-Import collider and define physics</a>  </li>
+<li><a href="#physics-colliders"><strong>物理碰撞体</strong></a>  <ul>
+<li><a href="#0-prerequisites">0-先决条件</a>  </li>
+<li><a href="#1-define-custom-collision-for-wheels-in-unreal-editor">1-在虚幻编辑器中定义轮子的自定义碰撞</a>  </li>
+<li><a href="#2-export-the-vehicle-as-fbx">2-将车辆导出为 FBX</a>  </li>
+<li><a href="#3-to-4-import-to-blender-and-create-custom-boundary">3 到 4-导入到 Blender 并创建自定义边界</a>  </li>
+<li><a href="#5-export-from-blender-to-fbx">5-从 Blender 导出到 FBX</a>  </li>
+<li><a href="#6-to-8-import-collider-and-define-physics">6 到 8-导入碰撞体并定义物理</a>  </li>
 </ul>
 </li>
 </ul>
 <hr />
-<h2 id="raycast-colliders">Raycast colliders</h2>
-<h3 id="1-export-the-vehicle-fbx">1-Export the vehicle FBX</h3>
-<p>First of all, the original mesh of the vehicle is necessary to be used as reference. For the sake of learning, this tutorial exports the mesh of a CARLA vehicle.<br />
-<strong>1.1</strong> open CARLA in UE and go to <code>Content/Carla/Static/Vehicles/4Wheeled/&lt;model_of_vehicle&gt;</code>.<br />
-<strong>1.2</strong> Press <code>right-click</code> on <code>SM_&lt;model_of_vehicle&gt;</code> to export the vehicle mesh as FBX.  </p>
-<h3 id="2-generate-a-low-density-mesh">2-Generate a low density mesh</h3>
-<p><strong>2.1</strong> Open a 3D modelling software and, using the original mesh as reference, model a low density mesh that stays reliable to the original.  </p>
+<h2 id="_2">光线投射碰撞体</h2>
+<h3 id="1-fbx">1-导出车辆 FBX</h3>
+<p>首先需要以车辆的原始网格作为参考。出于学习目的，本教程导出 CARLA 车辆的网格。
+<strong>1.1</strong> 在虚幻引擎中打开 CARLA 并转到 <code>Content/Carla/Static/Vehicles/4Wheeled/&lt;model_of_vehicle&gt;</code>。
+<strong>1.2</strong> 在 <code>SM_&lt;model_of_vehicle&gt;</code> 点击 <code>right-click</code> 将车辆网格导出为 FBX。</p>
+<h3 id="2-">2-生成低密度网格</h3>
+<p><strong>2.1</strong> 打开三维建模软件，并使用原始网格作为参考，建模一个与原始网格保持可靠的低密度网格。</p>
 <p><img alt="manual_meshgen" src="../img/tuto_D_colliders_mesh.jpg" /></p>
-<p><strong>2.2</strong> Save the new mesh as FBX. Name de mesh as <code>sm_sc_&lt;model_of_vehicle&gt;.fbx</code>. E.g. <code>sm_sc_audiTT.fbx</code>.  </p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>As for the wheels and additional elements such as roofs, mudguards, etc. the new mesh should follow the geometry quite accurately. Placing simple cubes will not do it.  </p>
+<p><strong>2.2</strong> 将新网格保存为FBX。将网格命名为 <code>sm_sc_&lt;model_of_vehicle&gt;.fbx</code>。例如 <code>sm_sc_audiTT.fbx</code>.  </p>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>至于车轮和附加元件（例如车顶、挡泥板等），新网格应该非常准确地遵循几何形状。放置简单的立方体是不行的。</p>
 </div>
-<h3 id="3-import-the-mesh-into-ue">3-Import the mesh into UE</h3>
-<p><strong>3.1</strong> Open CARLA in UE and go to <code>Content/Carla/Static/Vehicles/4Wheeled/&lt;model_of_vehicle&gt;</code>.<br />
-<strong>3.2</strong> Press <code>right-click</code> to import the new mesh <code>SM_sc_&lt;model_of_vehicle&gt;.fbx</code>.  </p>
-<h3 id="4-add-the-mesh-as-collider">4-Add the mesh as collider</h3>
-<p><strong>4.1</strong> Go to <code>Content/Carla/Blueprints/Vehicles/&lt;model_of_vehicle&gt;</code> and open the blueprint of the vehicle named as <code>BP_&lt;model_of_vehicle&gt;</code>.  </p>
-<p><strong>4.2</strong> Select the <code>CustomCollision</code> element and add the <code>SM_sc_&lt;model_of_vehicle&gt;.fbx</code> in the <code>Static mesh</code> property.  </p>
+<h3 id="3-">3-将网格导入虚幻引擎</h3>
+<p><strong>3.1</strong> 在虚幻引擎中打开 CARLA 并转到 <code>Content/Carla/Static/Vehicles/4Wheeled/&lt;model_of_vehicle&gt;</code>.<br />
+<strong>3.2</strong> 点击 <code>right-click</code> 导入新网格 <code>SM_sc_&lt;model_of_vehicle&gt;.fbx</code>。</p>
+<h3 id="4-">4-添加网格作为碰撞体</h3>
+<p><strong>4.1</strong> 进入 <code>Content/Carla/Blueprints/Vehicles/&lt;model_of_vehicle&gt;</code> 并打开名为 <code>BP_&lt;model_of_vehicle&gt;</code> 的车辆的蓝图。  </p>
+<p><strong>4.2</strong> 选择 <code>CustomCollision</code> 元素并在 <code>Static mesh</code> 属性中添加 <code>SM_sc_&lt;model_of_vehicle&gt;.fbx</code>。</p>
 <p><img alt="manual_customcollision" src="../img/tuto_D_colliders_final.jpg" /></p>
-<p><strong>4.3</strong> Press <code>Compile</code> in the toolbar above and save the changes.  </p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>For vehicles such as motorbikes and bicycles, change the collider mesh of the vehicle itself using the same component, <code>CustomCollision</code>.  </p>
+<p><strong>4.3</strong> 点击上方工具栏中的 <code>Compile</code> 并保存更改。</p>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>对于摩托车和自行车等车辆，使用相同的组件 <code>CustomCollision</code> 更改车辆本身的碰撞器网格。</p>
 </div>
 <hr />
-<h2 id="physics-colliders">Physics colliders</h2>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>This tutorial is based on a <a href="https://bitbucket.org/yankagan/carla-content/wiki/Home">contribution</a> made by <strong><a href="https://github.com/yankagan">yankagan</a></strong>! The contributor also wants to aknowledge <strong>Francisco E</strong> for the tutorial on <a href="https://www.youtube.com/watch?v=SEH4f0HrCDM">how to import custom collisions in UE</a>.  </p>
+<h2 id="_3">物理碰撞体</h2>
+<div class="admonition 重要">
+<p class="admonition-title">重要</p>
+<p>本教程基于 <strong><a href="https://github.com/yankagan">yankagan</a></strong> 的 <a href="https://bitbucket.org/yankagan/carla-content/wiki/Home">贡献</a> ！贡献者还希望感谢 <strong>Francisco E</strong> 关于 <a href="https://www.youtube.com/watch?v=SEH4f0HrCDM">如何在虚幻引擎中导入自定义碰撞</a> 的教程。  </p>
 </div>
-<p><a href="https://www.youtube.com/watch?v=CXK2M2cNQ4Y">This video</a> shows the results achieved after following this tutorial.  </p>
-<h3 id="0-prerequisites">0-Prerequisites</h3>
+<p><a href="https://www.youtube.com/watch?v=CXK2M2cNQ4Y">该视频</a> 展示了遵循本教程后所取得的结果。</p>
+<h3 id="0-">0-先决条件</h3>
 <ul>
-<li><strong>Build CARLA from source</strong> on <a href="../build_linux/">Linux</a> or <a href="../build_windows/">Windows</a>.  </li>
-<li><strong>Blender 2.80 or newer</strong> from the <a href="https://www.blender.org/download/">official site</a> for free (open-source 3D modelling software).  </li>
-<li><strong>VHACD Plugin for Blender</strong> following the using the instructions in <a href="https://github.com/andyp123/blender_vhacd">here</a>. This plugin automatically creates an approximation of a selected object using a collection of convex hulls. <a href="https://github.com/kmammou/v-hacd">Read more</a>.  </li>
+<li>在 <a href="../build_linux/">Linux</a> 或 <a href="../build_windows/">Windows</a> 上 <strong>从源代码构建 CARLA</strong>。</li>
+<li>可从 <a href="https://www.blender.org/download/">官方网站</a> 免费获取 <strong>Blender 2.80 或更新版本</strong> （开源 3D 建模软件）。</li>
+<li>按照 <a href="https://github.com/andyp123/blender_vhacd">此处</a> 的说明使用 <strong>Blender 的 VHACD 插件</strong>。该插件使用凸包集合自动创建选定对象的近似值。<a href="https://github.com/kmammou/v-hacd">阅读更多</a> 。</li>
 </ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This <a href="https://www.youtube.com/watch?v=ppASl6yaguU">series</a> and <a href="https://www.udemy.com/course/blender-3d-from-zero-to-hero/?pmtag=MRY1010">Udemy course</a> may be a good introduction to Blender for newcomers. </p>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>这个 <a href="https://www.youtube.com/watch?v=ppASl6yaguU">系列</a> 和 <a href="https://www.udemy.com/course/blender-3d-from-zero-to-hero/?pmtag=MRY1010">Udemy 课程</a> 对于新手来说可能是一个很好的 Blender 入门教程。</p>
 </div>
-<h3 id="1-define-custom-collision-for-wheels-in-unreal-editor">1-Define custom collision for wheels in Unreal Editor</h3>
-<p><strong>Step 1.</strong> <em>(in UE)</em> — Add collision boundaries for the wheels. The steps are detailed in the following video.  </p>
+<h3 id="1-">1-在虚幻编辑器中定义轮子的自定义碰撞</h3>
+<p><strong>第 1 步.</strong> <em>(在虚幻引擎中)</em> — 添加车轮的碰撞边界。以下视频详细介绍了这些步骤。 </p>
 <p><a href="https://www.youtube.com/watch?v=bECnsTw6ehI"><img alt="auto_step01" src="../img/tuto_D_colliders_01.jpg" /></a></p>
-<h3 id="2-export-the-vehicle-as-fbx">2-Export the vehicle as FBX</h3>
-<p><strong>Step 2.</strong> <em>(in UE)</em> — Export the skeletal mesh of a vehicle to an FBX file.<br />
-<strong>2.1</strong> Go to <code>Content/Carla/Static/Vehicles/4Wheeled/&lt;model_of_vehicle&gt;</code>.<br />
-<strong>2.2</strong> Press <code>right-click</code> on <code>SM_&lt;model_of_vehicle&gt;</code> to export the vehicle mesh as FBX.  </p>
-<h3 id="3-to-4-import-to-blender-and-create-custom-boundary">3 to 4-Import to Blender and create custom boundary</h3>
-<p><strong>Step 3.</strong> <em>(in Blender)</em> — Import the FBX file into Blender.<br />
-<strong>Step 4.</strong> <em>(in Blender)</em> — Add convex hull meshes to form the new collision boundary (UE requirement for computational efficiency). This is the hardest step. If the entire car is selected, the collision boundary created by VHACD will be imprecise and messy. It will contain sharp edges which will mess-up the drive on the road. It's important that the wheels have smooth boundaries around them. Using convex decomposition on the car's body the mirrors would still not look right. For computer vision, the details of the vehicle are important. For said reason, these step has been divided into two parts. </p>
-<p><strong>4.1</strong> Cut out the bottom parts of the wheels, the side mirrors and the top part of the car's body to create the first boundary using the VHACD tool. Cut out the bottom half of the car to create the second boundary (top part of the car) using the VHACD tool.  </p>
+<h3 id="2-fbx">2-将车辆导出为 FBX</h3>
+<p><strong>第 2 步.</strong> <em>(在虚幻引擎中)</em> — 将车辆的骨架网格物体导出到 FBX 文件。<br />
+<strong>2.1</strong> 转到 <code>Content/Carla/Static/Vehicles/4Wheeled/&lt;model_of_vehicle&gt;</code>。 
+<strong>2.2</strong> 在<code>SM_&lt;model_of_vehicle&gt;</code> 点击 <code>right-click</code>，将车辆网格导出为 FBX。 </p>
+<h3 id="3-4-blender">3 到 4-导入到 Blender 并创建自定义边界</h3>
+<p><strong>第 3 步.</strong> <em>(在 Blender 中)</em> — 将 FBX 文件导入 Blender。
+<strong>第 4 步.</strong> <em>(在 Blender 中)</em> — 添加凸包网格以形成新的碰撞边界（虚幻引擎对计算效率的要求）。这是最难的一步。如果选择整辆车，VHACD 创建的碰撞边界将不精确且混乱。它将包含锋利的边缘，这会扰乱道路上的行驶。轮子周围要有光滑的边界，这一点很重要。在车身上使用凸分解，后视镜看起来仍然不正确。对于计算机视觉来说，车辆的细节非常重要。由于上述原因，这些步骤被分为两个部分。</p>
+<p><strong>4.1</strong> 使用 VHACD 工具切出车轮的底部、侧视镜和车身的顶部，以创建第一个边界。使用 VHACD 工具剪掉汽车的下半部分以创建第二个边界（汽车的顶部）。 </p>
 <p><a href="https://www.youtube.com/watch?v=oROkK3OCuOA"><img alt="auto_step03" src="../img/tuto_D_colliders_03.jpg" /></a></p>
-<p><strong>4.2</strong> Create separate boundaries for side mirrors using the VHACD tool.  </p>
+<p><strong>4.2</strong> 使用 VHACD 工具为后视镜创建单独的边界。</p>
 <p><a href="https://www.youtube.com/watch?v=L3upzdC602s"><img alt="auto_step04" src="../img/tuto_D_colliders_04.jpg" /></a></p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Be very careful about naming the object. Each boundary should have begin with <code>UCX_</code>, and the rest of the name has to be <strong>exactly</strong> the same as the original mesh.  </p>
+<div class="admonition 警告">
+<p class="admonition-title">警告</p>
+<p>命名对象时要非常小心。每个边界应以 <code>UCX_</code> 开头，其余名称必须与原始网格 <strong>完全</strong> 相同 。</p>
 </div>
-<h3 id="5-export-from-blender-to-fbx">5-Export from Blender to FBX</h3>
-<p><strong>Step 5.</strong> <em>(in Blender)</em> — Export the custom collision boundaries into an FBX file.<br />
-<strong>5.1</strong> Select only the original vehicle and all the newly added objects for collision.<br />
-<strong>5.2</strong> In the export menu, check <code>selected objects</code> and select only "Mesh".  </p>
+<h3 id="5-blender-fbx">5-从 Blender 导出到 FBX</h3>
+<p><strong>第 5 步.</strong> <em>(在 Blender 中)</em> — 将自定义碰撞边界导出到 FBX 文件中。
+<strong>5.1</strong> 仅选择原始车辆和所有新添加的物体进行碰撞。<br />
+<strong>5.2</strong> 在导出菜单中，选中 <code>selected objects</code> 并仅选择“Mesh”。 </p>
 <p><a href="https://youtu.be/aJPyskYjzWo"><img alt="auto_step05" src="../img/tuto_D_colliders_05.jpg" /></a></p>
-<h3 id="6-to-8-import-collider-and-define-physics">6 to 8-Import collider and define physics</h3>
-<p><strong>Step 6.</strong> <em>(in UE)</em> — Import the new FBX into CARLA as an Unreal asset file (static mesh).<br />
-<strong>Step 7.</strong> <em>(in UE)</em> — Import the custom collider into the physics asset for the specific vehicle, so that it is used for computations.<br />
-<strong>Step 8.</strong> <em>(in UE)</em> — Create constraints that connect the different joints and define the physics of all parts.  </p>
+<h3 id="6-8-">6 到 8-导入碰撞体并定义物理</h3>
+<p><strong>第 6 步.</strong> <em>(在虚幻引擎中)</em> — 将新 FBX 作为虚幻资源文件（静态网格物体）导入 CARLA。</p>
+<p><strong>第 7 步.</strong> <em>(在虚幻引擎中)</em> — 将自定义碰撞器导入到特定车辆的物理资源中，以便将其用于计算。</p>
+<p><strong>第 8 步.</strong> <em>(在虚幻引擎中)</em> — 创建连接不同关节的约束并定义所有部件的物理特性。 </p>
 <p><a href="https://www.youtube.com/watch?v=aqFNwAyj2CA"><img alt="auto_step0608" src="../img/tuto_D_colliders_0608.jpg" /></a></p>
 <hr />
-<p>That is a wrap on how to change the default colliders for vehicles in CARLA.  </p>
-<p>Open CARLA and mess around for a while. If there are any doubts, feel free to post these in the forum. </p>
+<p>这是关于如何更改 CARLA 中车辆的默认碰撞器的总结。</p>
+<p>打开 CARLA 并闲逛一会儿。如果有任何疑问，请随时在论坛中发布。</p>
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA forum</a>
+CARLA 论坛</a>
 </p>
 </div>
               
