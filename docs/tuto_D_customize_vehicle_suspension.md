@@ -1,113 +1,113 @@
-# Customize vehicle suspension
+# 定制车辆悬架
 
-This tutorial covers the basics of the suspension system for CARLA vehicles, and how are these implemented for the different vehicles available. Use this information to access the suspension parameterization of a vehicle in Unreal Engine, and customize it at will.  
+本教程介绍了 CARLA 车辆悬架系统的基础知识，以及如何针对不同的可用车辆实施这些基础知识。使用此信息可以访问虚幻引擎中车辆的悬架参数，并随意对其进行自定义。
 
-*   [__Basics of the suspension system__](#basics-of-the-suspension-system)  
-*   [__Suspension groups__](#suspension-groups)  
-	*   [Coupe](#coupe)  
-	*   [Off-road](#off-road)  
-	*   [Truck](#truck)  
-	*   [Urban](#urban)  
-	*   [Van](#van)  
+*   [__悬架系统的基础知识__](#basics-of-the-suspension-system)  
+*   [__悬架组__](#suspension-groups)  
+	*   [轿跑车](#coupe)  
+	*   [越野](#off-road)  
+	*   [卡车](#truck)  
+	*   [城市车](#urban)  
+	*   [货车](#van)  
 
 ---
-## Basics of the suspension system
+## 悬架系统的基础知识
 
-The suspension system of a vehicle is defined by the wheels of said vehicle. Each wheel has an independent blueprint with some parameterization, which includes the suspension system. 
+车辆的悬架系统由所述车辆的车轮限定。每个车轮都有一个带有一些参数化的独立蓝图，其中包括悬架系统。
 
-These blueprints can be found in `Content/Carla/Blueprints/Vehicles/<vehicle_name>`. They are named such as: `BP_<vehicle_name>_<F/R><R/L>W`.  
+这些蓝图可以在 `Content/Carla/Blueprints/Vehicles/<vehicle_name>` 中找到。它们的名称如下：`BP_<vehicle_name>_<F/R><R/L>W`。 
 
-*   `F` or `R` is used for front or rear wheels correspondingly.  
-*   `R` or `L` is used for right or left wheels correspondingly.  
+*   `F` 或 `R` 相应地用于前轮或后轮。
+*   `R` 或 `L` 应地用于右轮或左轮。 
 
 ![tuto_suspension_blueprints](img/tuto_suspension_blueprints.jpg)
-<div style="text-align: right"><i>In this example, the blueprint of the front left wheel of the Audi A2 is named as <code>BP_AudiA2_FLW</code>.</i></div>
+<div style="text-align: right"><i>在本例中，奥迪A2左前轮的蓝图命名为 <code>BP_AudiA2_FLW</code>.</i></div>
 
-`shape_radius` for the wheel to rest over the road, neither hovering nor inside of it. 
+`shape_radius` 让车轮停在路面上，既不悬停也不在路面内部。
 
-Inside the blueprint, there is a section with some parameterization regarding the suspension of the wheel. Here are their definitions as described in Unreal Engine.  
+在蓝图中，有一个部分包含有关车轮悬架的一些参数化。以下是虚幻引擎中描述的它们的定义。
 
-*   `Suspension Force Offset` — Vertical offset from where suspension forces are applied (along Z axis). 
-*   `Suspension Max Raise` — How far the wheel can go above the resting position. 
-*   `Suspension Max Drop` — How far the wheel can drop below the resting position. 
-*   `Suspension Natural Frequency` — Oscillation frequency of the suspension. Standard cars have values between `5` and `10`. 
-*   `Suspension Damping Ratio` — The rate at which energy is dissipated from the spring. Standard cars have values between `0.8` and `1.2`. Values `<1` are more sluggish, values `>1` are more twitchy.  
-*   `Sweep Type` — Wether wheel suspension considers simple, complex or both.  
+*   `Suspension Force Offset` — 距施加悬挂力的位置的垂直偏移（沿 Z 轴）。
+*   `Suspension Max Raise` — 车轮可以超出静止位置多远。
+*   `Suspension Max Drop` — 车轮可以下降到静止位置以下多远。
+*   `Suspension Natural Frequency` — 悬架的振荡频率。标准汽车的值介于`5`和之间`10`。
+*   `Suspension Damping Ratio` — 能量从弹簧耗散的速率。标准汽车的值介于`0.8`和`1.2`之间。值`<1`更加迟缓，值`>1`更加动荡。
+*   `Sweep Type` — 车轮悬架是否考虑简单、复杂或两者兼而有之。
 
 ![tuto_suspension_parameterization](img/tuto_suspension_parameterization.jpg)
-<div style="text-align: right"><i>The Suspension panel inside a wheel blueprint.</i></div>
+<div style="text-align: right"><i>车轮蓝图中的悬架面板。</i></div>
 
-!!! Note
-    By default, all the wheels of a vehicle have the same parameterization in CARLA. The following explanations will be covered per vehicle, instead of per wheel.  
+!!! 笔记
+    默认情况下，车辆的所有车轮在 CARLA 中具有相同的参数化。以下解释将按车辆而不是按车轮进行介绍。 
 
 ---
-## Suspension groups
+## 悬架组
 
-According to their system suspension, vehicles in CARLA can be classified in five groups. All the vehicles in a group have the same parameterization, as they are expected to have a similar behaviour on the road. The suspension of a vehicle can be modified at will, and is no subject to these five groups. However understanding these, and observing their behaviour in the simulation can be of great use to define a custom suspension.  
+根据其系统悬架，CARLA 中的车辆可分为五组。组中的所有车辆都具有相同的参数化，因为它们预计在道路上具有相似的行为。车辆的悬架可以随意修改，不受这五组的限制。然而，了解这些并观察它们在仿真中的行为对于定义自定义悬架非常有用。
 
-The five groups are: *Coupe*, *Off-road*, *Truck*, *Urban*, and *Van*. In closer observation, the parameterization of these groups follows a specific pattern.  
+这五个组是：*轿跑车*、*越野车*、*卡车*、*城市车*和*货车*。通过仔细观察，这些组的参数化遵循特定的模式。
 
 
-| Stiff suspension | Coupe            | Urban            | Van              | Off-road         | Truck            | Soft suspension  |
+| 刚性悬架	 | 轿跑车            | 城市车            | 货车              | 越野         | 卡车            | 软悬架  |
 | ---------------- | ---------------- | ---------------- | ---------------- | ---------------- | ---------------- | ---------------- |
 
 
 
 <br>
 
-When moving from a soft to a stiff suspension, there are some clear tendencies in the parameterization.  
+当从软悬架转向硬悬架时，参数化有一些明显的趋势。
 
-*   __Decrease__ of `Suspension Max Raise` and `Suspension Max Drop` — Stiff vehicles are meant to drive over plane roads with no bumps. For the sake of aerodynamics, the chassis is not supposed to move greatly, but remain constantly close to the ground.  
-*   __Increase__ of `Suspension Damping Ratio` — The absortion of the bouncing by the dampers is greater for stiff vehicles.  
+*   __`Suspension Max Raise` 和 `Suspension Max Drop` 的 __减少__ — 刚性车辆应在平坦的道路上行驶且没有颠簸。出于空气动力学的考虑，底盘不应大幅移动，而应始终保持靠近地面。
+*   `Suspension Damping Ratio` 的 __增加__ — 对于刚性车辆来说，减震器吸收的弹跳更大。
 
-### Coupe
+### 轿跑车
 
-Vehicles with the stiffest suspension.  
+具有最硬悬架的车辆。
 
 
-| Parameterization   | Vehicles       |
+| 参数化   | 汽车       |
 | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
 | `Suspension Force Offset` — `0.0`<br>`Suspension Max Raise` — `7.5`<br>`Suspension Max Drop` — `7.5`<br>`Suspension Natural Frequency` — `9.5`<br>`Suspension Damping Ratio` — `1.0`<br>`Sweep Type` — `SimpleAndComplex`<br> | `vehicle.audi.tt`<br>`vehicle.lincoln.mkz2017`<br>`vehicle.mercedes-benz.coupe`<br>`vehicle.seat.leon`<br>`vehicle.tesla.model3`<br>                                                                                            |
 
 
 
-### Off-road
+### 越野
 
-Vehicles with a soft suspension.  
+配备软悬架的车辆。
 
-| Parameterization    | Vehicles     |
+| 参数化    | 汽车     |
 | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
 | `Suspension Force Offset` — `0.0`<br>`Suspension Max Raise` — `15.0`<br>`Suspension Max Drop` — `15.0`<br>`Suspension Natural Frequency` — `7.0`<br>`Suspension Damping Ratio` — `0.5`<br>`Sweep Type` — `SimpleAndComplex`<br> | `vehicle.audi.etron`<br>`vehicle.jeep.wrangler_rubicon`<br>`vehicle.nissan.patrol`<br>`vehicle.tesla.cybertruck`<br>     |
 
 
-### Truck
+### 卡车
 
-Vehicles with the softest suspension.  
+具有最软悬架的车辆。 
 
-| Parameterization                                                                                                                                                                                                                          | Vehicles                                                                                                                                                                                                                                  |
+| 参数化                                                                                                                                                                                                                          | 汽车                                                                                                                                                                                                                                  |
 | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `Suspension Force Offset` — `0.0`<br>`Suspension Max Raise` — `17.0`<br>`Suspension Max Drop` — `17.0`<br>`Suspension Natural Frequency` — `6.0`<br>`Suspension Damping Ratio` — `0.4`<br>`Sweep Type` — `SimpleAndComplex`<br> | `vehicle.carlamotors.carlacola`<br>                                                                                                                                                                                                       |
 <br>
 
 
-### Urban
+### 城市车
 
-Vehicles with a soft suspension.  
+配备软悬架的车辆。
 
-| Parameterization                                                                                                                                                                                                                                                       | Vehicles                                                                                                                                                                                                                                                               |
+| 参数化                                                                                                                                                                                                                                                       | 汽车                                                                                                                                                                                                                                                               |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `Suspension Force Offset` — `0.0`<br>`Suspension Max Raise` — `8.0`<br>`Suspension Max Drop` — `8.0`<br>`Suspension Natural Frequency` — `9.0`<br>`Suspension Damping Ratio` — `0.8`<br>`Sweep Type` — `SimpleAndComplex`<br>                                | `vehicle.audi.a2`<br>`vehicle.bmw.grandtourer`<br>`vehicle.chevrolet.impala`<br>`vehicle.citroen.c3`<br>`vehicle.dodge_charger.police`<br>`vehicle.mini.cooperst`<br>`vehicle.mustang.mustang`<br>`vehicle.nissan.micra`<br>`vehicle.toyota.prius`<br> |
 
 
 <br>
 
-### Van
+### 货车
 
-Vehicles with a middle-ground suspension.  
+具有中地悬架的车辆。
 
 
 
-| Parameterization    | Vehicles    |
+| 参数化    | 汽车    |
 | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
 | `Suspension Force Offset` — `0.0`<br>`Suspension Max Raise` — `9.0`<br>`Suspension Max Drop` — `9.0`<br>`Suspension Natural Frequency` — `8.0`<br>`Suspension Damping Ratio` — `0.8`<br>`Sweep Type` — `SimpleAndComplex`<br> |  `vehicle.volkswagen.t2`<br>    |
 
@@ -116,28 +116,28 @@ Vehicles with a middle-ground suspension.
 
 ---
 
-Use the forum to post any doubts, issues or suggestions regarding this topic.  
+使用论坛发布有关此主题的任何疑问、问题或建议。 
 
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA forum</a>
+CARLA 论坛</a>
 </p>
 </div>
 
-Here are some advised readings after this one.  
+以下是本文之后的一些建议读物。
 
 <div class="build-buttons">
 <p>
 <a href="../tuto_G_control_vehicle_physics" target="_blank" class="btn btn-neutral" title= "Set runtime changes on a vehicle physics.">
-Control vehicle physics</a>
+控制车辆物理</a>
 </p>
 <p>
 <a href="../tuto_G_add_friction_triggers" target="_blank" class="btn btn-neutral" title= "Define dynamic box triggers for wheels.">
-Add friction triggers</a>
+添加摩擦触发器</a>
 </p>
 <p>
 <a href="../tuto_D_generate_colliders" target="_blank" class="btn btn-neutral" title="Create detailed colliders for vehicles">
-Generate detailed colliders</a>
+生成详细的碰撞</a>
 </p>
 </div>

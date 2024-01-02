@@ -1,12 +1,12 @@
-# Bounding boxes
+# 边界框
 
-A significant factor in the problem of enabling autonomous vehicles to understand their environments lies in estimating the position and orientation of objects surrounding the vehicle. For this purpose, it is necessary to infer the position of the object's bounding box. 
+使自动驾驶车辆了解其环境的一个重要因素在于估计车辆周围物体的位置和方向。为此，有必要推断对象边界框的位置。
 
-Objects within the CARLA simulation all have a bounding box and the CARLA Python API provides functions to access the bounding box of each object. This tutorial shows how to access bounding boxes and then project them into the camera plane.
+CARLA 仿真中的对象都有一个边界框，并且 CARLA Python API 提供了访问每个对象的边界框的函数。本教程展示如何访问边界框，然后将它们投影到相机平面中。
 
-## Set up the simulator
+## 设置仿真器
 
-Let's lay down the standard CARLA boilerplate code, set up the client and world objects, spawn a vehicle and attach a camera to it:
+让我们编写标准 CARLA 样板代码，设置客户端和世界对象，生成车辆并为其附加相机：
 
 ```py
 import carla
@@ -45,9 +45,9 @@ image_queue = queue.Queue()
 camera.listen(image_queue.put)
 ```
 
-## Geometric transformations
+## 几何变换
 
-We want to take 3D points from the simulation and project them into the 2D plane of the camera. Firstly, we need to construct the camera projection matrix:
+我们想要从仿真中获取三维点并将它们投影到相机的二维平面中。首先，我们需要构造相机投影矩阵：
 
 ```py
 def build_projection_matrix(w, h, fov):
@@ -59,7 +59,7 @@ def build_projection_matrix(w, h, fov):
     return K
 ```
 
-We want to use the camera projection matrix to project 3D to 2D points. The first step is to transform the 3D coordinates in world coordinates into camera coordinates, using the inverse camera transform that can be retrieved using `camera.get_transform().get_inverse_matrix()`. Following this, we use the camera projection matrix to project the 3D points in camera coordinates into the 2D camera plane:
+我们想要使用相机投影矩阵将三维点投影到二维点。第一步是使用可通过 `camera.get_transform().get_inverse_matrix()` 检索的逆相机变换，将世界坐标中的三维坐标变换为相机坐标。接下来，我们使用相机投影矩阵将相机坐标中的三维点投影到二维相机平面中：
 
 ```py
 
@@ -85,7 +85,7 @@ def get_image_point(loc, K, w2c):
         return point_img[0:2]
 ```
 
-Now that we have the functions to project 3D -> 2D we retrieve the camera specifications:
+现在我们有了投影 3D -> 2D 的功能，我们可以检索相机规格：
 
 ```py
 
@@ -101,18 +101,18 @@ fov = camera_bp.get_attribute("fov").as_float()
 K = build_projection_matrix(image_w, image_h, fov)
 ```
 
-## Bounding boxes
+## 边界框
 
-CARLA objects all have an associated bounding box. CARLA [actors](python_api.md#carla.Actor) have a `bounding_box` attribute which has a [carla.BoundingBox](python_api.md#carla.BoundingBox) object type. The vertices for a bounding box can be retrieved through one of the getter functions `.get_world_vertices()` or `get_local_vertices()`. 
+CARLA 对象都有一个关联的边界框。CARLA [参与者](python_api.md#carla.Actor) 有一个 `bounding_box` 属性，该属性具有 [carla.BoundingBox](python_api.md#carla.BoundingBox) 对象类型。边界框的顶点可以通过 getter 函数`.get_world_vertices()`或 `get_local_vertices()` 之一检索。
 
-It is important to note that to get the 3D coordinates of the bounding box in world coordinates, you need to include the transform of the actor as an argument to the `get_world_vertices()` method like so:
+需要注意的是，要获取世界坐标中边界框的三维坐标，您需要将参与者的变换作为该`get_world_vertices()`方法的参数，如下所示：
 
 ```py
 actor.get_world_vertices(actor.get_transform())
 
 ```
 
-For objects in the map like buildings, traffic lights and road signs, the bounding box can be retrieved through the [carla.World]((python_api.md#carla.World)) method `get_level_bbs()`. A [carla.CityObjectLabel]((python_api.md#carla.CityObjectLabel)) can be used as an argument to filter the bounding box list to relevant objects:
+对于地图中的物体，如建筑物、交通灯和路标，可以通过[carla.World]((python_api.md#carla.World))方法 `get_level_bbs()` 检索边界框get_level_bbs()。[carla.CityObjectLabel]((python_api.md#carla.CityObjectLabel)) 可以用作参数来将边界框列表过滤到相关对象：
 
 ```py
 # Retrieve all bounding boxes for traffic lights within the level
@@ -125,18 +125,18 @@ for bbox in bounding_box_set:
         nearby_bboxes
 ```
 
-This list can be further filtered using actor location to identify objects that are nearby and therefore likely to be within the field of view of a camera attached to an actor. 
+可以使用参与者位置来进一步过滤该列表，以识别附近的对象，因此可能位于连接到参与者的相机的视野内。
 
-In order to draw a bounding box onto the camera image, we will need to join the vertices in the appropriate order to create edges. To achieve this we need the following list of edge pairs:
+为了在相机图像上绘制边界框，我们需要以适当的顺序连接顶点以创建边缘。为了实现这一点，我们需要以下边对列表：
 
 ```py
 edges = [[0,1], [1,3], [3,2], [2,0], [0,4], [4,5], [5,1], [5,7], [7,6], [6,4], [6,2], [7,3]]
 
 ```
 
-## Rendering the bounding boxes
+## 渲染边界框
 
-Now that we have our geometric projections and our simulation set up, we can progress to creating the game loop and rendering the bounding boxes into a scene. 
+现在我们已经设置了几何投影和仿真，我们可以继续创建游戏循环并将边界框渲染到场景中。
 
 ```py
 # Set up the set of bounding boxes from the level
@@ -149,7 +149,7 @@ edges = [[0,1], [1,3], [3,2], [2,0], [0,4], [4,5], [5,1], [5,7], [7,6], [6,4], [
 
 ```
 
-To see the bounding boxes, we will use an OpenCV window to display the camera output.
+为了查看边界框，我们将使用 OpenCV 窗口来显示相机输出。
 
 ```py
 # Retrieve the first image
@@ -165,7 +165,7 @@ cv2.imshow('ImageWindowName',img)
 cv2.waitKey(1)
 ```
 
-Now we will start the game loop:
+现在我们将开始游戏循环：
 
 ```py
 
@@ -212,15 +212,15 @@ cv2.destroyAllWindows()
  
 ```
 
-Now we are rendering 3D bounding boxes into the images so we can observe them in the camera sensor output.
+现在我们将三维边界框渲染到图像中，以便我们可以在相机传感器输出中观察它们。
 
 ![3D_bbox_traffic_lights](img/tuto_G_bounding_box/3d_bbox_traffic_lights.gif)
 
-## Vehicle bounding boxes
+## 车辆边界框
 
-We may also want to render the bounding boxes for actors, particularly for vehicles. 
+我们可能还想渲染参与者的边界框，特别是车辆的边界框。
 
-Firstly, let's add some other vehicles to our simulation:
+首先，让我们在仿真中添加一些其他车辆：
 
 ```py
 for i in range(50):
@@ -230,7 +230,7 @@ for i in range(50):
         npc.set_autopilot(True)
 ```
 
-Retrieve the first image and set up the OpenCV display window as before:
+检索第一张图像并像以前一样设置 OpenCV 显示窗口：
 
 ```py
 # Retrieve the first image
@@ -246,7 +246,7 @@ cv2.imshow('ImageWindowName',img)
 cv2.waitKey(1)
 ```
 
-Now we use a modified game loop to draw the vehicle bounding boxes:
+现在我们使用修改后的游戏循环来绘制车辆边界框：
 
 ```py
 
@@ -295,9 +295,9 @@ cv2.destroyAllWindows()
 
 ![3D_bbox_vehicles](img/tuto_G_bounding_box/3d_bbox_vehicle.gif)
 
-### 2D bounding boxes
+### 二维边界框
 
-It is common for neural networks to be trained to detect 2D bounding boxes rather than the 3D bounding boxes demonstrated above. The previous script can be easily extended to generate 2D bounding boxes. We simply need to use the extremities of the 3D bounding boxes. We find, for each bounding box we render, the leftmost, rightmost, highest and lowest projected vertex in image coordinates. 
+训练神经网络来检测二维边界框而不是上面演示的三维边界框是很常见的。前面的脚本可以轻松扩展以生成二维边界框。我们只需要使用三维边界框的末端即可。对于渲染的每个边界框，我们找到图像坐标中最左边、最右边、最高和最低的投影顶点。
 
 ```py
 
@@ -368,13 +368,13 @@ cv2.destroyAllWindows()
 
 ![2D_bbox_vehicles](img/tuto_G_bounding_box/2d_bbox.gif)
 
-## Exporting bounding boxes
+## 导出边界框
 
-Rendering bounding boxes is useful for us to ensure the bounding boxes are correct for debugging purposes. However, if we wanted to use them practically in training a neural network, we will want to export them. There are a number of different formats used by the common data repositories used for autonomous driving and object detection, such as [__KITTI__](http://www.cvlibs.net/datasets/kitti/) or [__PASCAL VOC__](http://host.robots.ox.ac.uk/pascal/VOC/) or [__MicroSoft COCO__](https://cocodataset.org/#home).
+渲染边界框对于我们确保边界框对于调试目的是正确的很有用。然而，如果我们想在训练神经网络时实际使用它们，我们将需要导出它们。用于自动驾驶和物体检测的常见数据存储库使用多种不同的格式，例如[__KITTI__](http://www.cvlibs.net/datasets/kitti/) 或 [__PASCAL VOC__](http://host.robots.ox.ac.uk/pascal/VOC/) 或 [__MicroSoft COCO__](https://cocodataset.org/#home) 。
 
-### Pascal VOC format
+### Pascal VOC 格式
 
-These datasets commonly use JSON or XML formats to store annotations. There is a convenient Python library for the PASCAL VOC format. 
+这些数据集通常使用 JSON 或 XML 格式来存储注释。PASCAL VOC 格式有一个方便的 Python 库。
 
 ```py
 
@@ -436,11 +436,11 @@ while True:
 
 ```
 
-For every rendered frame of your simulation, you will now export an accompanying XML file containing the details of the bounding boxes in the frame. 
+对于仿真的每个渲染帧，您现在将导出一个随附的 XML 文件，其中包含帧中边界框的详细信息。
 
 ![xml_bbox_files](img/tuto_G_bounding_box/xml_bbox_files.png)
 
-In the PASCAL VOC format, the XML files contain information referring to the accompanying image file, the image dimensions and can include details such as vehicle type if needed. 
+在 PASCAL VOC 格式中，XML 文件包含涉及随附图像文件、图像尺寸的信息，如果需要，还可以包括车辆类型等详细信息。
 
 ```xml
 <!-- Example PASCAL VOC format file-->
@@ -484,11 +484,11 @@ In the PASCAL VOC format, the XML files contain information referring to the acc
 
 ```
 
-### MicroSoft COCO format
+### 微软 COCO 格式
 
-Another popular export format is [__MicroSoft COCO__](https://cocodataset.org/#home). The COCO format uses JSON files to save references to images and annotations. The format includes the images and annotations in the fields of a single JSON file, along with information on the dataset and licenses. In contrast to some other formats, references to all collected images and all associated annotations go in the same file.
+另一种流行的导出格式是 [__MicroSoft COCO__](https://cocodataset.org/#home) 。COCO 格式使用 JSON 文件来保存对图像和注释的引用。该格式包括单个 JSON 文件字段中的图像和注释，以及有关数据集和许可证的信息。与某些其他格式相比，对所有收集的图像和所有相关注释的引用都位于同一文件中。
 
-You should create a JSON dictionary similar to the following example:
+您应该创建一个类似于以下示例的 JSON 字典：
 
 ```py
 simulation_dataset = {
@@ -531,9 +531,9 @@ simulation_dataset = {
 }
 ```
 
-The info and licenses sections should be filled accordingly or left empty. The images from your simulation should be stored in an array in the `images` field of the dictionary. The bounding boxes should be stored in the `annotations` field of the dictionary with the matching `image_id`. The bounding box is stored as `[x_min, y_min, width, height]`.
+信息和许可证部分应相应填写或留空。仿真中的图像应存储在`images`字典字段中的数组中。边界框应存储在具有匹配 `image_id` 的`annotations`字典字段中。边界框存储为`[x_min, y_min, width, height]`。
 
-The Python JSON library can then be used to save the dictionary as a JSON file:
+然后可以使用 Python JSON 库将字典保存为 JSON 文件：
 
 ```py
 import json
@@ -542,7 +542,8 @@ with open('simulation_data.json', 'w') as json_file:
     json.dump(simulation_dataset, json_file)
 ```
 
-More details about the COCO data format can be found [__here__](https://www.immersivelimit.com/tutorials/create-coco-annotations-from-scratch/#create-custom-coco-dataset)
+有关 COCO 数据格式的更多详细信息，请参见 [__此处__](https://www.immersivelimit.com/tutorials/create-coco-annotations-from-scratch/#create-custom-coco-dataset) 。
 
 
-*It should be noted that in this tutorial we have not accounted for overlapping bounding boxes. Additional work would be required in order to identify foreground bounding boxes in the case where they overlap.*  
+
+*应该注意的是，在本教程中我们没有考虑重叠的边界框。为了在重叠的情况下识别前景边界框，需要进行额外的工作。*  

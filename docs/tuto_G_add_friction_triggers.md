@@ -1,23 +1,18 @@
-# How to add friction triggers
+# 如何添加摩擦触发器
 
-*Friction Triggers* are box triggers that can be added on runtime and let users define
-a different friction of the vehicles' wheels when being inside those type of triggers.
-For example, this could be useful for making slippery surfaces in certain regions of
-a map dynamically.
+摩擦触发器(*Friction Triggers*) 是可以在运行时添加的框触发器，让用户在处于这些类型的触发器内时定义车辆车轮的不同摩擦力。例如，这对于动态地在地图的某些区域中制作光滑的表面可能很有用。
 
-In order to spawn a friction trigger using PythonAPI, users must first get the
-`static.trigger.friction` blueprint definition, and then set the following necessary
-attributes to that blueprint definition:
+为了使用 PythonAPI 生成摩擦触发器，用户必须首先获取
+`static.trigger.friction` 蓝图定义，然后为该蓝图定义设置以下必要属性：
 
-- *friction*: The friction of the trigger box when vehicles are inside it.
-- *extent_x*: The extent of the bounding box in the X coordinate in centimeters.
-- *extent_y*: The extent of the bounding box in the Y coordinate in centimeters.
-- *extent_z*: The extent of the bounding box in the Z coordinate in centimeters.
+- *friction*: 当车辆位于触发盒内时，触发盒的摩擦力。
+- *extent_x*: X 坐标中边界框的范围（以厘米为单位）。
+- *extent_y*: Y 坐标中边界框的范围（以厘米为单位）。
+- *extent_z*: Z 坐标中边界框的范围（以厘米为单位）。
 
-Once done that, define a transform to specify the location and rotation for the friction
-trigger and spawn it.
+完成此操作后，定义一个变换来指定摩擦触发器的位置和旋转并生成它。
 
-##### Example
+##### 例子
 
 ```py
 import carla

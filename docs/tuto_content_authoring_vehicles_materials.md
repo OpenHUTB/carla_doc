@@ -1,49 +1,49 @@
-## Content authoring - vehicles materials
+## [内容创作 - 车辆材料](https://carla.readthedocs.io/en/latest/tuto_content_authoring_vehicles_materials/) 
 
-Once you have your vehicle imported as a basic asset with the mesh and blueprints laid out, you now want to add materials to your vehicle to facilitate photorealistic rendering in the Unreal Engine, for maximum fidelity in your machine learning training data.
+将车辆作为基本资产导入并布置好网格和蓝图后，您现在需要向车辆添加材质，以促进虚幻引擎中的照片级真实感渲染，从而实现机器学习训练数据的最大保真度。
 
-The Unreal Editor boasts a comprehensive materials workflow that facilitates the creation of highly realistic materials. This does, however, add a significant degree of complexity to the process. For this reason, Carla is provided with a large library of material prototypes for you to use without having to start from scratch. 
+虚幻编辑器拥有全面的材质工作流程，有助于创建高度逼真的材质。然而，这确实显着增加了该过程的复杂性。因此，CARLA 提供了一个大型材料原型库供您使用，而无需从头开始。
 
-### Applying a material to your vehicle
+### 将材料应用到您的车辆上
 
-Carla provides a prototype material for replicating the glossy finish of vehicles that can mimic numerous different types of vehicle paint jobs and features. Open Unreal editor and in the content browser, locate the material in `Content > Carla > Static > GenericMaterials > 00_MastersOpt`. The basic material is called *M_CarPaint_Master*. Right click on this material and choose *Create Material Instance* from the context material. Name it and move it into the folder where your new vehicle content is stored.
+CARLA 提供了一种用于复制车辆光泽表面的原型材料，可以模仿多种不同类型的车辆喷漆工作和功能。打开虚幻编辑器并在内容浏览器中，找到`Content > Carla > Static > GenericMaterials > 00_MastersOpt`。基本材质称为*M_CarPaint_Master*。右键单击该材质并从上下文材质中选择*Create Material Instance*  。为其命名并将其移动到存储新车辆内容的文件夹中。
 
-In the Unreal Editor, move the spectator to a point near the floor and drag the skeletal mesh of the vehicle from the content browser into the scene, the body of your vehicle will now appear there. 
+在虚幻编辑器中，将观察则会移动到靠近地板的一点，然后将车辆的骨架网格物体从内容浏览器拖到场景中，车辆的车身现在将出现在那里。
 
 ![add_model](img/tuto_content_authoring_vehicles/add_model.gif)
 
-Now, in the details panel on the right hand side, drag your new material instance into the *Element 0* position of the *Materials* section. You will see the bodywork take on a new grey, glossy material property.
+现在，在右侧的详细信息面板中，将新材质实例拖动到*Materials* 部分的*Element 0*位置。您将看到车身呈现出一种新的灰色、有光泽的材料特性。
 
 ![apply_material](img/tuto_content_authoring_vehicles/apply_material
 .gif)
 
-Double click on the material in the content browser and we can start editing the parameters. There are a numerous parameters here that alter various properties that are important to mimic real world car paint jobs. The most important parameters are the following.
+双击内容浏览器中的材质，我们就可以开始编辑参数了。这里有许多参数可以改变各种属性，这些属性对于模拟现实世界的汽车喷漆工作非常重要。最重要的参数如下。
 
 
 
-__Color__ - The color settings govern the overall color of the car. The base color is simply the primary color of the car this will govern the overall color:
+__颜色(Color)__ - 颜色设置控制汽车的整体颜色。基色只是汽车的主要颜色，它将控制整体颜色：
 
 ![change_base_color](img/tuto_content_authoring_vehicles/change_base_color
 .gif)
 
-__Clear coat__ - the clear coat settings govern the appearance of the finish and how it reacts to light. The roughness uses a texture to apply imperfections to the vehicle surface, scattering light more with higher values to create a matte look. Subtle adjustments and low values are recommended for a realistic look. Generally, car paint jobs are smooth and reflective, however, this effect might be used more generously to model specialist matte finishes of custom paint jobs.
+__透明涂层(Clear coat)__ - 透明涂层设置控制饰面的外观及其对光的反应。粗糙度使用纹理将缺陷应用到车辆表面，以更高的值散射更多的光，以创建哑光外观。建议进行微妙的调整和较低的值以获得逼真的外观。一般来说，汽车喷漆作业是光滑且反光的，但是，这种效果可能更广泛地用于对定制喷漆作业的专业哑光饰面进行建模。
 
 ![change_roughness](img/tuto_content_authoring_vehicles/change_roughness
 .gif)
 
-An important parameter to govern the "shininess" or "glossiness" of your car is the *Clear Coat Intensity*. High values close to 1 will make the coat shiny and glossy.
+控制汽车“光泽度”的一个重要参数是透明涂层强度(*Clear Coat Intensity*)。接近 1 的高值将使涂层闪亮且有光泽。
 
-__Orange peel__ - finishes on real cars (particularly on mass produced cars for the general market) tend to have imperfections that appear as slight ripples in the paint. The orange peel effect mimics this and makes cars look more realistic.
+__粒状表面(Orange peel)__ - 真实汽车的饰面（特别是面向一般市场的批量生产的汽车）往往存在缺陷，表现为油漆中的轻微波纹。橙皮效果仿真了这一点，使汽车看起来更真实。
 
 ![change_orange_peel](img/tuto_content_authoring_vehicles/change_orange_peel
 .gif)
 
-__Flakes__ - some cars have paint jobs that include flakes of other material, such as metals or ceramics, to give the car a *metallic* or *pearlescant* appearance, adding extra glints and reflections that react in an attractive way to light. The flakes parameters allows Carla to mimic this. To mimic metallic finishes, it would be 
+__薄片(Flakes)__ - 有些汽车的油漆工作中包含其他材料的薄片，例如金属或陶瓷，以使汽车具有*metallic*或 *pearlescant* 外观，增加额外的闪光和反射，以有吸引力的方式与光反应。薄片参数允许 CARLA 仿真这一点。为了模仿金属饰面，它会是  
 
 ![flakes](img/tuto_content_authoring_vehicles/flakes
 .gif)
 
-__Dust__ - cars often accumulate grease and dust on the body that adds additiomal texture to the paint, affecting the way it reflects the light. The dust parameters allow you to add patches of disruption to the coat to mimic foreign materials sticking to the paint. 
+__灰尘(Dust)__ - 汽车的车身上经常会积聚油脂和灰尘，从而增加油漆的质感，影响其反射光线的方式。灰尘参数允许您在涂层上添加破坏块，以仿真粘附在油漆上的异物。
 
 ![dust](img/tuto_content_authoring_vehicles/dust
 .gif)

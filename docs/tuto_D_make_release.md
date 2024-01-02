@@ -1,34 +1,27 @@
-# How to make a release
+# 如何发布
 
-> _This document is meant for developers that want to publish a new release._
+> _本文档适用于想要发布新版本的开发人员。_
 
-1. **Make sure content is up-to-date.**<br>
-   See [Upgrade the content](tuto_D_contribute_assets.md).
+1. **确保内容是最新的。**<br>
+   请参阅 [升级内容](tuto_D_contribute_assets.md)。
 
-2. **Increase CARLA version where necessary.**<br>
-   Increase version in the following files: _DefaultGame.ini_, _Carla.uplugin_,
-   _setup.py_, _ContentVersions.txt_. Grep for the current version to make sure
-   you don't miss any references.
+2. **必要时增加 CARLA 版本。**<br>
+   增加以下文件中的版本： _DefaultGame.ini_, _Carla.uplugin_,
+   _setup.py_, _ContentVersions.txt_ 。Grep 查看当前版本，以确保您不会错过任何参考。
 
-3. **Clean up CHANGELOG.md.**<br>
-   Make sure the change log is up-to-date, reword and reorganize if necessary;
-   take into account which items can be more important to the users.
+3. **清除 CHANGELOG.md。**<br>
+   确保变更日志是最新的，必要时重写并重新组织；考虑哪些项目对用户来说更重要。
 
-4. **Commit changes and add a new tag.**<br>
-   Once all your changes are committed, add a new tag with `git tag -a X.X.X`
-   (replacing `X.X.X` by latest version). Add the changelog of this version as
-   tag message.
+4. **提交更改并添加新标签。**<br>
+   提交所有更改后，添加一个新标签 `git tag -a X.X.X`
+   （用最新版本替换 `X.X.X` ）。 添加此版本的变更日志作为标签消息。
 
-5. **Tag content repo.**<br>
-   Add a similar tag to the content repository at the exact commit as in
-   _ContentVersions.txt_.
+5. **标签内容仓库。**<br>
+   在确切的提交处将类似的标签添加到内容存储库，如 _ContentVersions.txt_ 中。
 
-6. **Push changes.**<br>
-   Push all the changes to both repositories, to push tags you may need to use
-   `git push --tags`. Create a Pull Request if necessary.
+6. **推送更改。**<br>
+   将所有更改推送到两个存储库，以推送您可能需要使用
+   `git push --tags` 的标签。如有必要，创建拉取请求。
 
-7. **Edit GitHub release.**<br>
-   Go to [GitHub releases](https://github.com/carla-simulator/carla/releases)
-   and create a new release on top of the newly created tag. Wait until Jenkins
-   has finished publishing the builds with the latest version and add the
-   download links to the newly created release.
+7. **编辑 GitHub 版本。**<br>
+   转到 [GitHub 发布](https://github.com/carla-simulator/carla/releases) 并在新创建的标签之上创建一个新版本。等到 Jenkins 完成发布最新版本的构建，并将下载链接添加到新创建的版本。

@@ -48,13 +48,13 @@ CARLA 在蓝图库中提供了一套开箱即用的全面车辆。CARLA 允许�
 为了方便和一致，我们建议您将车辆分为以下部分并相应命名。玻璃和灯的具体细节将在后面的部分中介绍：
 
 >1. __车身(Bodywork)__: 车辆的金属部分。该材质已更改为虚幻引擎材质。可以添加徽标和细节，但为了可见，必须使用虚幻引擎编辑器中的 Alpha 通道将它们绘制为不同的颜色。
-- __Glass_Ext__: 一层玻璃，可以从车辆外部看到内部。
-- __Glass_Int__: 一层玻璃，允许从车辆内部到外部的可见性。
-- __Lights__: 头灯、指示灯等
-- __LightGlass_Ext__: 一层玻璃，允许从外部到内部的灯光可见性。
-- __LightGlass_Int__: 一层玻璃，允许从内部到外部看到光。
-- __LicensePlate__: 29x12 厘米的矩形平面。您可以使用提供的 CARLA以获得最佳结果，请在 [此处](https://carla-assets.s3.eu-west-3.amazonaws.com/fbx/LicensePlate.rar) 下载 `.fbx`。纹理将在虚幻引擎中自动分配。
-- __内饰(Interior)__: 任何其他不适合上述部分的细节都可以进入 _内饰_。
+>2. __Glass_Ext__: 一层玻璃，可以从车辆外部看到内部。
+>3. __Glass_Int__: 一层玻璃，允许从车辆内部到外部的可见性。
+>4. __Lights__: 头灯、指示灯等
+>5. __LightGlass_Ext__: 一层玻璃，允许从外部到内部的灯光可见性。
+>6. __LightGlass_Int__: 一层玻璃，允许从内部到外部看到光。
+>7. __LicensePlate__: 29x12 厘米的矩形平面。您可以使用提供的 CARLA以获得最佳结果，请在 [此处](https://carla-assets.s3.eu-west-3.amazonaws.com/fbx/LicensePlate.rar) 下载 `.fbx`。纹理将在虚幻引擎中自动分配。
+>8. __内饰(Interior)__: 任何其他不适合上述部分的细节都可以进入 _内饰_。
 
 材质(Material)应使用格式 `M_CarPart_CarName` 命名，例如, `M_Bodywork_Mustang`。纹理的大小应为 2048x2048。
 
@@ -172,114 +172,115 @@ Blender 有一个非常有用的插件，用于装配车辆以导入 CARLA，有
 
 按加号图标添加您的新车。向下滚动到最后一个条目并将其展开，它应该是空的。命名您的车辆的品牌和型号，然后在类部分下找到您在上一部分中创建的蓝图类。将轮子数量保留为 4，并将世代设置为 2。编译并保存。为了安全起见，进行全局保存，您现在......准备在仿真中运行您的车辆。
 
-Press play in the unreal toolbar to run the simulation. Once it is running, open a terminal and run the `manual_control.py` script with the filter option to specify your new vehicle model:
+按虚幻工具栏中的“运行”来进行仿真。运行后，打开终端并使用过滤器选项运行脚本 `manual_control.py` 来指定您的新车辆型号：
 
 ```sh
 python manual_control.py --filter my_vehicle_make
 ```
 ![manual_control](img/tuto_content_authoring_vehicles/manual_control.gif)
 
-As it is, the vehicle currently has no textures or colors applied. The next step is to apply materials to give your vehicle a finish like a real road vehicle.
+事实上，车辆目前没有应用纹理或颜色。下一步是应用材料，使您的车辆具有像真正的公路车辆一样的外观。
 
 ## 材质
 
-Once you have your vehicle imported as a basic asset with the mesh and blueprints laid out, you now want to add materials to your vehicle to facilitate photorealistic rendering in the Unreal Engine, for maximum fidelity in your machine learning training data.
+将车辆作为基本资产导入并布置好网格和蓝图后，您现在需要向车辆添加材质，以促进虚幻引擎中的照片级真实感渲染，从而实现机器学习训练数据的最大保真度。
 
-The Unreal Editor boasts a comprehensive materials workflow that facilitates the creation of highly realistic materials. This does, however, add a significant degree of complexity to the process. For this reason, CARLA is provided with a large library of material prototypes for you to use without having to start from scratch. 
+虚幻编辑器拥有全面的材质工作流程，有助于创建高度逼真的材质。然而，这确实显着增加了该过程的复杂性。因此，CARLA 提供了一个大型材料原型库供您使用，而无需从头开始。
 
 ### 给您的车辆应用使用材质
 
-CARLA provides a prototype material for replicating the glossy finish of vehicles that can mimic numerous different types of vehicle paint jobs and features. Open Unreal editor and in the content browser, locate the material in `Content > Carla > Static > GenericMaterials > 00_MastersOpt`. The basic material is called `M_CarPaint_Master`. Right click on this material and choose `Create Material Instance` from the context material. Name it and move it into the folder where your new vehicle content is stored.
+CARLA 提供了一种用于复制车辆光泽表面的原型材料，可以仿真多种不同类型的车辆喷漆工作和功能。打开虚幻编辑器并在内容浏览器中，找到`Content > Carla > Static > GenericMaterials > 00_MastersOpt`。基本材料称为`M_CarPaint_Master`。右键单击该材料并从上下文材质中选择`Create Material Instance`。为其命名并将其移动到存储新车辆内容的文件夹中。
 
-In the Unreal Editor, move the spectator to a point near the floor and drag the skeletal mesh of the vehicle from the content browser into the scene, the body of your vehicle will now appear there. 
+在虚幻编辑器中，将观察则会移动到靠近地板的一点，然后将车辆的骨架网格物体从内容浏览器拖到场景中，车辆的车身现在将出现在那里。
 
 ![add_model](img/tuto_content_authoring_vehicles/add_model.gif)
 
-Now, in the details panel on the right hand side, drag your new material instance into the `Element 0` position of the `Materials` section. You will see the bodywork take on a new grey, glossy material property.
+现在，在右侧的详细信息面板中，将新材质实例拖动到 `Materials` 部分的 `Element 0` 位置。您将看到车身呈现出一种新的灰色、有光泽的材料特性。
 
 ![apply_material](img/tuto_content_authoring_vehicles/apply_material.gif)
 
-Double click on the material in the content browser and we can start editing the parameters. There are a numerous parameters here that alter various properties that are important to mimic real world car paint jobs. The most important parameters are the following:
+双击内容浏览器中的材质，我们就可以开始编辑参数了。这里有许多参数可以改变各种属性，这些属性对于仿真现实世界的汽车喷漆工作非常重要。最重要的参数如下：
 
 #### __颜色(Color)__
 
-The color settings govern the overall color of the car. The base color is simply the primary color of the car this will govern the overall color:
+颜色设置决定汽车的整体颜色。基色只是汽车的主要颜色，它将控制整体颜色：
 
 ![change_base_color](img/tuto_content_authoring_vehicles/change_base_color.gif)
 
 #### __透明涂层(Clear coat)__ 
 
-The clear coat settings govern the appearance of the finish and how it reacts to light. The roughness uses a texture to apply imperfections to the vehicle surface, scattering light more with higher values to create a matte look. Subtle adjustments and low values are recommended for a realistic look. Generally, car paint jobs are smooth and reflective, however, this effect might be used more generously to model specialist matte finishes of custom paint jobs.
+透明涂层设置决定饰面的外观及其对光的反应。粗糙度使用纹理将缺陷应用到车辆表面，以更高的值散射更多的光，以创建哑光外观。建议进行微妙的调整和较低的值以获得逼真的外观。一般来说，汽车喷漆作业是光滑且反光的，但是，这种效果可能更广泛地用于对定制喷漆作业的专业哑光饰面进行建模。
 
 ![change_roughness](img/tuto_content_authoring_vehicles/roughness.gif)
 
-An important parameter to govern the "shininess" or "glossiness" of your car is the `Clear Coat Intensity`. High values close to 1 will make the coat shiny and glossy.
+控制汽车“光泽度的一个重要参数是`Clear Coat Intensity`。接近 1 的高值将使涂层闪亮且有光泽。
 
 #### __粒状表面(Orange peel)__ 
 
-Finishes on real cars (particularly on mass produced cars for the general market) tend to have imperfections that appear as slight ripples in the paint. The orange peel effect mimics this and makes cars look more realistic.
+真实汽车的饰面（特别是面向一般市场的批量生产的汽车）往往存在缺陷，表现为油漆上的轻微波纹。粒状表面仿真了这一点，使汽车看起来更真实。
 
 ![change_orange_peel](img/tuto_content_authoring_vehicles/orange_peel.gif)
 
 #### __薄片(Flakes)__
 
-Some cars have paint jobs that include flakes of other material, such as metals or ceramics, to give the car a `metallic` or `pearlescant` appearance, adding extra glints and reflections that react in an attractive way to light. The flakes parameters allows CARLA to mimic this. To mimic metallic finishes, it would be 
+有些汽车的油漆工作中包含其他材料的薄片，例如金属或陶瓷，以赋予汽车 `metallic` 或 `pearlescant` 外观，增加额外的闪光和反射，以有吸引力的方式与光线反应。薄片参数允许 CARLA 仿真这一点。为了模仿金属饰面，它会是
 
 ![flakes](img/tuto_content_authoring_vehicles/flakes.gif)
 
 #### __灰尘(Dust)__
 
-Cars often accumulate grease and dust on the body that adds additional texture to the paint, affecting the way it reflects the light. The dust parameters allow you to add patches of disruption to the coat to mimic foreign materials sticking to the paint. 
+汽车车身上经常会积聚油脂和灰尘，这会增加车漆的质感，影响其反射光线的方式。灰尘参数允许您在涂层上添加破坏块，以仿真粘附在油漆上的异物。
 
 ![dust](img/tuto_content_authoring_vehicles/change_dust.gif)
 
 ## 玻璃
 
-Creating realistic glass in CARLA requires some tricks to capture the real refractive and reflective behavior of glass used in motor vehicles. The CARLA garage vehicles have 4 layers of meshes for the glass, with 2 different materials. The layers are separated by a few millimeters and there are separate materials for the interior and exterior facing glass layers to ensure that the glass looks realistic from both inside and outside the vehicle.
+在 CARLA 中创建逼真的玻璃需要一些技巧来捕捉机动车辆中使用的玻璃的真实折射和反射行为。CARLA 车库车辆有 4 层玻璃网格，采用 2 种不同的材料。各层之间间隔几毫米，内部和外部玻璃层采用不同的材料，以确保玻璃从车辆内部和外部看起来都很逼真。
 
-There are 2 layers of glass for the appearance of the vehicle from outside and 2 layers for the appearance of glass from the interior of the vehicle. What makes glass look like glass is the reflections coming from both surfaces of the glass that makes a very subtle doubling of the reflection.
+
+从车辆外部看有 2 层玻璃，从车辆内部看有 2 层玻璃。玻璃之所以看起来像玻璃，是因为来自玻璃两个表面的反射使得反射非常微妙地加倍。
 
 ### 玻璃网格
 
-Here we see the glass parts attached to the main bodywork (not the doors or other moving parts) of the Lincoln.
+在这里，我们看到连接到林肯主体车身（不是车门或其他活动部件）的玻璃部件。
 
 ![main_glass](img/tuto_content_authoring_vehicles/glass.png)
 
-If we separate the constituent mesh parts, we can see that the glass profile is separated into 4 different layers. 
+如果我们将组成的网格部分分开，我们可以看到玻璃轮廓被分为 4 个不同的层。
 
 ![main_glass_expanded](img/tuto_content_authoring_vehicles/glass_expanded.png)
 
-The 4 layers are separated into 2 groups, the exterior layers, with normals facing out of the vehicle and the interior layers, with mesh normals facing into the vehicle interior. The following diagram demonstrates 
+这 4 个层分为 2 组：外部层（法线面向车辆外部）和内部层（网格法线面向车辆内部）。下图演示了
 
 ![glass_layers](img/tuto_content_authoring_vehicles/glass_layers.png)
 
-Once you have created your mesh layers, import them in the content browser into the Unreal Editor in the folder where you have stored your vehicle. 
+创建网格图层后，将内容浏览器中的它们导入到虚幻编辑器中存储车辆的文件夹中。
 
-Shift select the 4 glass layers and drag them into the map so you can see them.
+按住 Shift 键选择 4 个玻璃层并将它们拖到地图中以便您可以看到它们。
 
 ![drag_glass](img/tuto_content_authoring_vehicles/drag_glass.gif)
 
 ### 玻璃材质
 
-Double click the external layer of the glass, then navigate in a second content browser window to `Content > Carla > Static > Vehicles > GeneralMaterials` and find the `Glass` material. Drag the glass material to the material slot of the mesh item. Repeat this process for each layer of the glass.
+双击玻璃的外层，然后在第二个内容浏览器窗口中导航到`Content > Carla > Static > Vehicles > GeneralMaterials`并找到该`Glass`材质。将玻璃材质拖至网格物体的材质槽中。对玻璃的每一层重复此过程。
 
-The glass will now be transparent, but with reflectivity that reflects nearby objects and light sources. You should also check the interior glass, ensure there is a proper glass effect there.
+玻璃现在将是透明的，但具有反射附近物体和光源的反射率。您还应该检查内部玻璃，确保那里有适当的玻璃效果。
 
 ![glass_reflections](img/tuto_content_authoring_vehicles/glass_reflections.gif)
 
 ### 单层玻璃
 
-For a quicker way to produce the glass parts of vehicles, the only critical part is the outermost glass layer. You can apply the glass material to this in Unreal Editor and get a result that might be suitable to your needs, however, views from inside the vehicle (i.e. if you instantiate a camera on the dashboard or behind the steering wheel) will seem to have no glass (no refraction or reflection). We recommend the above process to produce maximally realistic glass.
+为了更快地生产车辆玻璃部件，唯一的关键部件是最外层的玻璃层。您可以在虚幻编辑器中将玻璃材质应用于此，并获得可能适合您需求的结果，但是，从车内查看的视图（即，如果您在仪表板上或方向盘后面实例化摄像头）似乎具有无玻璃（无折射或反射）。我们建议采用上述工艺来生产最真实的玻璃。
 
-Now you have created the blueprint, added meshes, completed rigging, created materials for the paint finish and the glass, you should have a very realistic looking vehicle.
+现在您已经创建了蓝图，添加了网格，完成了装配，创建了油漆饰面和玻璃的材料，您应该拥有一辆外观非常逼真的车辆。
 
 ![finished_lincoln](img/tuto_content_authoring_vehicles/finished_lincoln.png)
 
 ## 车轮
 
-If you copied the wheels when you were [creating the blueprint](#creating-the-blueprint), this might suit your purposes if your vehicle is very similar to vehicles that are already in the CARLA library. However, if your vehicle has non-standard wheel dimensions or grip characteristics, you should follow this section to set up your wheel blueprints to best match the physical characteristics of your vehicle's wheels.
+如果您在 [创建蓝图时](#creating-the-blueprint) 复制了车轮，并且您的车辆与 CARLA 库中已有的车辆非常相似，那么这可能适合您的目的。但是，如果您的车辆具有非标准车轮尺寸或抓地力特性，则应按照本节设置车轮蓝图，以最好地匹配车辆车轮的物理特性。
 
-For the wheels of CARLA vehicles, we need to set up a blueprint class for each wheel to deal with the mechanics and collision properties. You will set up 4 blueprint classes, we recommend the following prefixes or suffixes to identify the wheels:
+对于 CARLA 车辆的车轮，我们需要为每个车轮建立一个蓝图类来处理力学和碰撞属性。您将设置 4 个蓝图类，我们建议使用以下前缀或后缀来识别轮子：
 
 - __RRW__ - **R**ear **R**ight **W**heel
 - __RLW__ - **R**ear **L**eft **W**heel
@@ -288,60 +289,59 @@ For the wheels of CARLA vehicles, we need to set up a blueprint class for each w
 
 ### 车轮蓝图
 
-Inside the folder where you have your new vehicle, right click and choose to create a new blueprint class. Search for 
+在您拥有新车的文件夹中，右键单击并选择创建一个新的蓝图类。搜索
 
 ![wheel_blueprint](img/tuto_content_authoring_vehicles/wheel_blueprint.png)
 
-Double click on the blueprint to adjust it:
+双击蓝图进行调整：
 
 ![wheel_blueprint_open](img/tuto_content_authoring_vehicles/wheel_bp_open.png)
 
 ### 碰撞网格
 
-Firstly, the default cylinder used for the collision mesh has a high polygon count, so we should replace this with a low polygon version. In the content browser locate the `CollisionWheel` mesh inside `Content > Carla > Blueprints > Vehicles`. Drag it onto the 
-`Collision Mesh` slot in the details panel of the blueprint. This will improve performance without any noticeable deficit to physics simulation.
+首先，用于碰撞网格的默认圆柱体具有高多边形数量，因此我们应该将其替换为低多边形版本。在内容浏览器中找到 `Content > Carla > Blueprints > Vehicles`内的 `CollisionWheel` 网格。蓝图详细信息面板中的插槽上。这将提高性能，而不会导致物理仿真出现任何明显的缺陷。
 
 ### 轮胎配置
 
-Next, we  set the tire configuration. Inside `Content > Carla > Blueprints > Vehicles` locate the `CommonTireConfig` configuration and drag it onto the `Tire Config` section of the blueprint. If you double click on the Tire Config in the blueprint, you can adjust the Friction Scale, you can modify the behavior of the vehicle's road handling. By default it is set at 3.5, a value suitable for most vehicle use cases. However, if you wish to model for example a racing vehicle with slick tires, this would be the appropriate parameter to adjust. 
+接下来，我们设置轮胎配置。在 `Content > Carla > Blueprints > Vehicles`  内找到`CommonTireConfig`配置并将其拖到`Tire Config`蓝图的部分上。如果双击蓝图中的轮胎配置，可以调整摩擦比例，可以修改车辆的道路操控行为。默认情况下，它设置为 3.5，该值适合大多数车辆使用情况。但是，如果您希望对带有光头轮胎的赛车进行建模，则这将是需要调整的适当参数。
 
 ### 车轮尺寸
 
-Next, in your 3D application, measure the diameter of your wheel. In Blender, the dimensions can be viewed in the properties panel opened by pressing `n` in object mode.
+接下来，在三维应用程序中测量车轮的直径。在 Blender 中，可以在对象模式下按 `n` 打开的属性面板中查看尺寸。
 
 ![tire_dimensions](img/tuto_content_authoring_vehicles/wheel_dims.png)
 
-Now plug these numbers into the `Wheel` section of the blueprint.Take care to remember to half the diameter for the radius and also that Unreal Editor works in units of centimeters. For the wheel mass, we recommend looking for specifications on the internet, find the right tire model or a similar one to estimate the correct mass (in kilograms).
+现在将这些数字插入到 `Wheel` 蓝图的部分中。请注意半径为直径的一半，并且虚幻编辑器以厘米为单位。对于车轮质量，我们建议在互联网上查找规格，找到正确的轮胎型号或类似的轮胎型号来估计正确的质量（以千克为单位）。
 
 ![bp_wheel_dimensions](img/tuto_content_authoring_vehicles/bp_wheel_dimensions.png)
 
 
-`Affected by handbrake` should be checked for both rear wheels. 
+`Affected by handbrake` 应检查两个后轮。
 
-`Steer angle` should be set to the maximum intended steer angle for both front wheels and set to zero for both rear wheels.
+`Steer angle` 对于两个前轮应设置为最大预期转向角，对于两个后轮应设置为零。
 
-### __Suspension characteristics__
+### __悬架特性__
 
-The default values here provide a reasonable starting point. View [__this guide__](tuto_D_customize_vehicle_suspension.md) to set suspension characteristics appropriate to your vehicle type. 
+这里的默认值提供了一个合理的起点。查看 [__本指南__](tuto_D_customize_vehicle_suspension.md) 以设置适合您车辆类型的悬架特性。
 
 
 ## 灯
 
-The last element to complete a realistic vehicle for CARLA is the lights, headlights, brake lights, blinkers etc. In your 3D modelling application, you should model some shapes that resemble the lights of the vehicle you are replicating. This would be flat discs or flat cuboid structures for most headlights. Some vehicles may also have strips of LEDs. 
+完成 CARLA 真实车辆的最后一个元素是灯、前灯、刹车灯、闪光灯等。在三维建模应用程序中，您应该对一些类似于您要复制的车辆灯的形状进行建模。对于大多数车头灯来说，这将是扁平圆盘或扁平长方体结构。有些车辆可能还配有 LED 灯条。
 
 ![lights_blender](img/tuto_content_authoring_vehicles/lights_blender.png)
 
 ### UV 贴图
 
-The different types of lights (headlights, blinkers, brake lights, etc.) are distinguished using a texture. You need to create a UV map in your 3D modelling application and position the lights to match up with the relevant region of the texture. 
+不同类型的灯（前灯、闪光灯、刹车灯等）使用纹理来区分。您需要在 三维建模应用程序中创建 UV 贴图，并定位灯光以与纹理的相关区域相匹配。
 
 ![lights_uv](img/tuto_content_authoring_vehicles/lights_uv_map.png)
 
 ### 导入
 
-Import the light mesh into the Unreal Editor- After importing the light mesh:
+将灯光网格导入虚幻编辑器 - 导入灯光网格后：
 
-- Drag the mesh item(s) into the **_Mesh (VehicleMesh) (Inherited)_** hierarchy in the **_Components_** panel.
-- Select the extra meshes in the hierarchy and search for `Collision` in the **_Details_** panel.
-- Set **_Collision Presets_** to `NoCollision`.
-- Select any lights meshes in the hierarchy. Search for `Tag` in the **_Details_** panel and add the tag `emissive`.
+- 将网格物体拖动到 **_Components_** 面板中的 **_Mesh (VehicleMesh) (Inherited)_** 层次结构中。
+- 选择层次结构中的额外网格并在“详细信息(**_Details_**)”面板中搜索 `Collision`。
+- 将碰撞预设(**_Collision Presets_**)设置为`NoCollision`。
+- 选择层次结构中的任何灯光网格。在“详细信息(**_Details_**)”面板中搜索 `Tag` 并添加 `emissive` 标签。

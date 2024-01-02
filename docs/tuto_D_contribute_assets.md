@@ -1,23 +1,19 @@
-# How to upgrade content
+# 如何升级内容
 
-Our content resides on a separate [Git LFS repository][contentrepolink]. As part
-of our build system, we generate and upload a package containing the latest
-version of this content tagged with the current date and commit. Regularly, we
-upgrade the [CARLA repository][carlarepolink] with a link to the latest version
-of the content package. This document contains the manual steps necessary to
-update this link to the latest version.
+我们的内容驻留在单独的 [Git LFS 仓库][contentrepolink] 中。作为构建系统的一部分，我们生成并上传一个包，其中包含带有当前日期和提交标记的该内容的最新版本。我们定期升级 [CARLA 仓库][carlarepolink]，并提供最新版本内容包的链接。本文档包含将此链接更新到最新版本所需的手动步骤。
 
-1. **Copy the tag of the content package you wish to link.**<br>
-   This tag can be found by looking at the package name generated in the
-   artifacts section of the latest [Jenkins build][jenkinslink], e.g.,
-   `20190617_086f97f.tar.gz`.
+1. **复制您要链接的内容包的标签。**<br>
+   T可以通过查看最新 [Jenkins 构建][jenkinslink]的
+工件部分中生成的包名称来找到此标签，例如
+   `20190617_086f97f.tar.gz`。
 
-2. **Paste the tag in ContentVersions.txt.**<br>
-   [Edit ContentVersions.txt][cvlink] by pasting the tag at the end of the file,
-   e.g. `Latest: 20190617_086f97f` (without the `.tar.gz` part).
+2. **将标记粘贴到 ContentVersions.txt 中。**<br>
+   通过将标记粘贴到文件末尾来
+编辑 [Edit ContentVersions.txt][cvlink] ，
+   例如 `Latest: 20190617_086f97f` (不包括 `.tar.gz` 部分）。
 
-3. **Open a Pull Request.**<br>
-   Commit the changes and open a new Pull Request.
+3. **打开拉取请求。**<br>
+   提交更改并打开新的拉取请求。
 
 [contentrepolink]: https://bitbucket.org/carla-simulator/carla-content
 [carlarepolink]: https://github.com/carla-simulator/carla
