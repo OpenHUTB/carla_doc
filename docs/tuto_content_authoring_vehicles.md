@@ -1,10 +1,10 @@
-# Content authoring - vehicles
+# 内容创作 - 车辆
 
-CARLA provides a comprehensive set of vehicles out of the box in the blueprint library. CARLA allows the user to expand upon this with custom vehicles for maximum extensibility. 
+CARLA 在蓝图库中提供了一套开箱即用的全面车辆。CARLA 允许用户使用定制车辆对此进行扩展，以实现最大的可扩展性。
 
-3D modelling of detailed vehicles is highly complex and requires a significant degree of skill. We therefore refer the reader to alternative sources of documentation on 3D modelling, since this is beyond the scope of this guide. There are, however, numerous sources of vehicle models in both free and proprietary online repositories. Hence the user has many options to turn to for creating custom vehicles for use in CARLA.
+详细车辆的三维建模非常复杂，需要很高的技能。因此，我们建议读者参考有关三维建模的其他文档来源，因为这超出了本指南的范围。然而，免费和专有的在线存储库中有大量的车辆模型来源。因此，用户有多种选择来创建用于 CARLA 的定制车辆。
 
-The key factors in preparing a custom vehicle for CARLA lie in rigging the vehicle armature and then importing into the Unreal Engine. After rigging and importing, blueprints need to be set for the car and the wheels. Then apply materials and add the glass parts of the vehicle. We will cover these steps in the following guide.
+为 CARLA 准备定制车辆的关键因素在于装配车辆骨架，然后导入到虚幻引擎中。装配和导入后，需要为汽车和车轮设置蓝图。然后应用材料并添加车辆的玻璃部件。我们将在以下指南中介绍这些步骤。
 
 * __[Modeling](#modeling)__   
 	* [Naming conventions](#naming-conventions)  
