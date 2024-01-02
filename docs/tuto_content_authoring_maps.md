@@ -1,128 +1,132 @@
 # 内容创作 - 地图
 
-CARLA comes with a generous compliment of assets for creating driving simulations out of the box. However, the real power of CARLA comes in its comprehensive extensibility, allowing users to create entirely custom environments populated with bespoke assets like buildings, benches, trash cans, statues, street lights and bus stops. 
+CARLA 提供了大量的资源，可用于创建开箱即用的驾驶仿真。然而，CARLA 的真正力量在于其全面的可扩展性，允许用户创建完全自定义的环境，其中包含建筑物、长凳、垃圾桶、雕像、路灯和公交车站等定制资产。
 
-In this tutorial we will cover the process of creating a simple map for use with CARLA. We will use two software packages to create parts of the map. We will create the road network using [__RoadRunner__](https://es.mathworks.com/products/roadrunner.html) and then add assets to the map through the [__Unreal Editor__](https://www.unrealengine.com/en-US/features/the-unreal-editor).
+在本教程中，我们将介绍创建与 CARLA 一起使用的简单地图的过程。我们将使用两个软件包来创建地图的各个部分。我们将使用 [__RoadRunner__](https://es.mathworks.com/products/roadrunner.html) 创建道路网络，然后通过 [__虚幻编辑器__](https://www.unrealengine.com/en-US/features/the-unreal-editor) 将资源添加到地图中。
 
-* __[Prerequisites](#prerequisites)__  
-* __[Large maps](#large-maps)__
-* __[Digital Twin Tool](#digital-twin-tool)__
+* __[先决条件](#prerequisites)__  
+* __[大地图](#large-maps)__
+* __[数字孪生工具](#digital-twin-tool)__
 * __[RoadRunner](#create-a-road-network-using-roadrunner)__  
-* __[Importing into CARLA](#importing-your-road-network-into-carla)__
-* __[Importing assets](#importing-assets-and-adding-them-to-the-map)__
-* __[Traffic lights](#traffic-lights)__
-* __[Traffic signs](#traffic-signs)__ 
+* __[导入 CARLA](#importing-your-road-network-into-carla)__
+* __[导入资产](#importing-assets-and-adding-them-to-the-map)__
+* __[交通灯](#traffic-lights)__
+* __[交通标志](#traffic-signs)__ 
 * __[Materials](#materials)__
-* __[Road painter](#road-painter)__
-    * [What is the road painter?](#what-is-the-road-painter)
-    * [Road painter actor, master material and render target](#establish-the-road-painter-master-material-and-render-target)
-    * [Prepare the master material](#prepare-the-master-material)
-    * [Paint the road](#paint-the-road)
-    * [Update the appearance of lane markings](#update-the-appearance-of-lane-markings)
-    * [Next steps](#next-steps)
-* __[Trees and vegetation](#trees-and-vegetation)__
-    * [Foliage tool](#foliage-tool)
+* __[道路画家](#road-painter)__
+    * [什么是道路画家？](#what-is-the-road-painter)
+    * [道路画家参与者、主材质和渲染对象](#establish-the-road-painter-master-material-and-render-target)
+    * [准备主材料](#prepare-the-master-material)
+    * [描绘道路](#paint-the-road)
+    * [更新车道线外观](#update-the-appearance-of-lane-markings)
+    * [下一步](#next-steps)
+* __[树木和植被](#trees-and-vegetation)__
+    * [树叶工具](#foliage-tool)
 
 
 
-## Prerequisites
+## 先决条件
 
-To follow this guide, you will need to build CARLA from source, so that you may use the Unreal Editor. Follow the [__build instructions__](build_carla.md) for your relevant operating system. You will also need a licensed copy of RoadRunner. You may also need a 3D modelling application such as Maya, 3DS Max or Blender to create 3D assets for your custom maps. You should ensure you have completed all the steps to build CARLA and ensure that the Unreal Editor is working, this could take some time to build the application. If you want to create 3D assets for your map, you should use an appropriate 3D design application such as Blender, Maya, 3DsMax or Modo. 
+要遵循本指南，您需要从源代码构建 CARLA，以便您可以使用虚幻编辑器。请遵循相关操作系统的 [__构建说明__](build_carla.md) 。您还需要 RoadRunner 的许可副本。您可能还需要 Maya、3DS Max 或 Blender 等三维建模应用程序来为自定义地图创建三维资产。您应该确保已完成构建 CARLA 的所有步骤并确保虚幻编辑器正在运行，这可能需要一些时间来构建应用程序。如果您想为地图创建三维资产，则应使用适当的三维设计应用程序，例如 Blender、Maya、3DsMax 或 Modo。
 
-## Large Maps
+## 大地图
 
-The following text details the procedures for creating and decorating a standard map. From version 0.9.12, CARLA has the Large Maps functionality. Large maps are bigger in scale than standard maps, and can be up to 100 km<sup>2</sup> in size. Large maps work in a slightly different way to standard maps, because of hardware limitations, even in high end graphics cards. Large maps are split up into tiles, and only the tiles needed immediately (i.e. those closest to the Ego vehicle) are loaded during the simulation. Other tiles sit dormant until the data is needed. This facilitates the highest performance for CARLA simulations. Most of the details that follow are similar when building a Large Map, but there are some additional steps. Please follow [this guide](content_authoring_large_maps.md) to build a Large Map for CARLA.
+以下文本详细介绍了创建和装饰标准地图的过程。从版本 0.9.12 开始，CARLA 具有大地图功能。大型地图的比例比标准地图更大，最大可达 100 km<sup>2</sup>。由于硬件限制，大型地图的工作方式与标准地图略有不同，即使在高端显卡中也是如此。大地图被分割成图块，并且在模拟过程中仅加载立即需要的图块（即最接近自我车辆的图块）。其他图块处于休眠状态，直到需要数据为止。这有助于实现 CARLA 模拟的最高性能。接下来的大多数细节与构建大地图时类似，但还有一些额外的步骤。请按照 [本指南](content_authoring_large_maps.md) 为 CARLA 构建大地图。
 
-## Digital Twin Tool
+## 数字孪生工具
 
-CARLA offers a procedural map generation tool, which ingests road network data from OpenStreetMap and decorates the map procedurally with buildings and vegetation. Read about how to use the tool [here](adv_digital_twin.md).
+CARLA 提供了一个程序化地图生成工具，它从 OpenStreetMap 获取道路网络数据，并用建筑物和植被程序化地装饰地图。请在 [此处](adv_digital_twin.md) 阅读有关如何使用该工具的信息。
 
-## Create a road network using RoadRunner
+## 使用 RoadRunner 创建路网
 
-Open RoadRunner and create a new scene. Choose the Road Plan Tool and right click in the workspace to drop the first control point for the road. Click and drag elsewhere in the workspace to extend the road. 
+打开 RoadRunner 并创建一个新场景。选择道路规划工具(Road Plan Tool)并在工作区中 __右键__ 单击以放置道路的第一个控制点和第二个控制点。单击并拖动道路尽头的红点以移动和延长道路。
 
 ![roadrunner_draw](img/tuto_content_authoring_maps/drawing_roads.gif)
 
-For the purpose of this tutorial we use a simple oval road with a junction in the middle. For building more advanced networks please refer to the [__roadrunner documentation__](https://es.mathworks.com/products/roadrunner.html).
+出于本教程的目的，我们使用中间有一个交叉路口的简单椭圆形道路。要构建更高级的网络，请参阅 [__Roadrunner 文档__](https://es.mathworks.com/products/roadrunner.html) 。
 
 ![roadrunner_road](img/tuto_content_authoring_maps/simple_crossroads.png)
 
-Once you have made your map in RoadRunner you will be able to export it. Be aware that __the road layout cannot be modified after it has been exported.__ Before exporting, ensure that:
 
-- The map is centered at (0,0) to ensure the map can be visualized correctly in Unreal Engine.
-- The map definition is correct.
-- The map validation is correct, paying close attention to connections and geometries.
+在 RoadRunner 中制作地图后，您就可以将其导出。请注意，__道路布局导出后无法修改__。导出之前，请确保：
+
+- 地图以 (0,0) 为中心，以确保地图可以在虚幻引擎中正确可视化。
+- 地图定义是正确的。
+- 地图验证是正确的，密切关注连接和几何形状。
 
 
 >>>>![CheckGeometry](./img/check_geometry.jpg)
 
-Once the map is ready, click on the `OpenDRIVE Preview Tool` button to visualize the OpenDRIVE road network and give everything one last check.
+地图准备好后，单击`OpenDRIVE Preview Tool`按钮即可可视化 OpenDRIVE 道路网络并对所有内容进行最后一次检查。
 
 >>>>![checkopen](./img/check_open.jpg)
 
-!!! note
-    _OpenDrive Preview Tool_ makes it easier to test the integrity of the map. If there are any errors with junctions, click on `Maneuver Tool`, and `Rebuild Maneuver Roads`.
+!!! 笔记
+    _OpenDrive Preview Tool_ 可以更轻松地测试地图的完整性。如果连接有任何错误，请单击`Maneuver Tool`和`Rebuild Maneuver Roads`。 
 
-Once you have created your desired road network, in the RoadRunner menu bar choose `File > Export > Carla (.fbx, .xodr, .rrdata, .xml)` and export to an appropriate location. 
+创建所需的道路网络后，在 RoadRunner 菜单栏中选择`File > Export > Carla Filmbox (.fbx, .xodr, .rrdata.xml)` 并导出到适当的位置。
 
 ![roadrunner_exports](img/tuto_content_authoring_maps/roadrunner_exports.png)
 
-RoadRunner is the best application for creating custom maps. There are alternatives such as [__OpenStreetMap__](tuto_G_openstreetmap.md) that focus on generating maps from real road maps. 
+RoadRunner 是创建自定义地图的最佳应用程序。还有一些替代方案，例如 [__OpenStreetMap__](tuto_G_openstreetmap.md)，专注于从真实的道路地图生成地图。
 
-## TrueVision designer
+## TrueVision 设计器
 
-RoadRunner is a proprietary software that requires MATLAB. Some institutions like universities may have deals with MathWorks such that some users may be able to acquire a RoadRunner license. If you don't have budget for a license, a convenient open source alternative to RoadRunner is the [__TrueVision Designer__](https://www.truevision.ai/designer). This app has many of the same features as RoadRunner and is useful if you cannot acquire a license for RoadRunner. 
+RoadRunner 是一款需要 MATLAB 的专有软件。大学等一些机构可能与 MathWorks 达成了协议，以便某些用户可以获得 RoadRunner 许可证。如果您没有许可证预算，RoadRunner 的一个方便的开源替代方案是[__TrueVision Designer__](https://www.truevision.ai/designer) 。此应用程序具有许多与 RoadRunner 相同的功能，如果您无法获得 RoadRunner 的许可证，该应用程序会非常有用。
 
-## Importing your road network into CARLA
 
-The important export files needed for CARLA are the `.xodr` file and the `.fbx` file. Copy or move these files into the `Import` folder inside the root directory of the CARLA repository where you have built from source. 
+## 将您的路网导入 CARLA
+
+CARLA需要的重要导出文件是 `.xodr` 文件和 `.fbx` 文件。将这些文件复制或移动到您从源代码构建的 CARLA 存储库根目录内的 `Import` 文件夹中。
 
 ![roadrunner_imports](img/tuto_content_authoring_maps/rr_import.png)
 
-Now open a terminal at the root of the CARLA source directory and run `make import`. This will import the road network into CARLA.
+现在在 CARLA 源目录的根目录中打开一个终端并运行`make import`. 这会将道路网络导入 CARLA。
 
-You can now see your new map inside the Unreal Editor. Run `make launch` at the root of the CARLA source directory to launch the Unreal Editor. You will now see a new directory in the content browser named `map_package`. Within this directory in the location `Content > map_package > Maps > tutorial` you will now find your new map.
+您现在可以在虚幻编辑器中看到新地图。在 CARLA 源目录的根目录下运行 `make launch` 以启动虚幻编辑器。您现在将在内容浏览器中看到一个名为 `map_package` 的新目录。在此目录 `Content > map_package > Maps > tutorial` 中，您现在将找到您的新地图。
+
+!!! 笔记
+    可以参考 [链接](https://zhuanlan.zhihu.com/p/552983835) 通过鼠标右键的方式直接导入。
 
 ![new_loaded_map](img/tuto_content_authoring_maps/new_map.png)
 
-You have now created the road network, the basis of your map.
+您现在已经创建了道路网络，这是地图的基础。
 
-## Importing assets and adding them to the map
+## 导入资产并将它们添加到地图
 
-Now we have the road network as the basis for our map, we now want to create some content for the map, such as buildings. These assets can be created using a 3D modelling application such as Autodesk Maya, 3DS Max, Blender or any other 3D application with the appropriate export options. It is important that, at a minimum, the application is capable of `.fbx` export. 
+现在我们已经有了道路网络作为地图的基础，我们现在想要为地图创建一些内容，例如建筑物。这些资源可以使用三维建模应用程序（例如 Autodesk Maya、3DS Max、Blender 或具有适当导出选项的任何其他三维应用程序）创建。重要的是，应用程序至少能够导出`.fbx`。
 
-There are several elements needed to create an asset in CARLA:
+在 CARLA 中创建资产需要几个元素：
 
-- [__Mesh__](https://en.wikipedia.org/wiki/Polygon_mesh) - a set of 3D coordinate vertices and the associated joining edges
-- [__UV map__](https://en.wikipedia.org/wiki/UV_mapping) - a mapping of 3D vertices and edges to a 2D texture space to match textures with 3D locations
-- [__Texture__](https://en.wikipedia.org/wiki/Texture_mapping) - a 2D image defining the colors and patterns to appear on the surface of the 3D object
-- [__Normal map__](https://en.wikipedia.org/wiki/Normal_mapping) - a 2D image defining the directions of the normals on the surface of the object, to add 3D variations to the object's surface
-- ORM map - a map defining the regions of metallicity, roughness and ambient occlusion
+- [__网格__](https://en.wikipedia.org/wiki/Polygon_mesh) - 一组 3D 坐标顶点和关联的连接边。
+- [__UV 贴图__](https://en.wikipedia.org/wiki/UV_mapping) - 将三维顶点和边映射到二维纹理空间，以将纹理与三维位置进行匹配。
+- [__纹理__](https://en.wikipedia.org/wiki/Texture_mapping) - 定义三维对象表面上显示的颜色和图案的二维图像。
+- [__法线贴图__](https://en.wikipedia.org/wiki/Normal_mapping) - 定义目标表面法线方向的二维图像，以向目标表面添加三维变化。
+- ORM 贴图 - 定义金属度(Metallicity)、粗糙度(Roughness)和环境光遮挡(Occlusion)区域的贴图
 
-The ORM map utilizes the channels of a standard RGBA encoded image to encode the map of metallic regions, roughness and ambient occlusion. As we define the map here, the red channel defines the metallic map, the green channel the roughness and the blue channel is the ambient occlusion. These maps (as well as the diffuse and normal maps) can be created using an application such as [__Adobe Substance 3D painter__](https://www.adobe.com/products/substance3d-painter.html).
+ORM 贴图利用标准 RGBA 编码图像的通道对金属区域、粗糙度和环境遮挡的贴图进行编码。当我们在这里定义贴图时，红色通道定义金属贴图，绿色通道定义粗糙度，蓝色通道定义环境光遮挡。这些贴图（以及漫反射贴图和法线贴图）可以使用 [__Adobe Substance 3D painter__](https://www.adobe.com/products/substance3d-painter.html) 等应用程序创建。
 
-Create a new folder in some appropriate location using the Unreal content browser. Within this folder you can either right click and select `Import to PATH/TO/FOLDER` near the top of the context menu, or drag and drop files directly into the content browser. 
+使用虚幻内容浏览器在某个适当的位置创建一个新文件夹。在此文件夹中，您可以右键单击并`Import to PATH/TO/FOLDER`在上下文菜单顶部附近进行选择，也可以将文件直接拖放到内容浏览器中。
 
-We will import an FBX file containing the base mesh and the UV map, that we have exported from Blender.
+我们将导入一个包含从 Blender 导出的基础网格和 UV 贴图的 FBX 文件。
 
 ![farmhouse_blender](img/tuto_content_authoring_maps/farmhouse_in_blender.png)
 
-In the context menu, ensure that in the __Mesh__ section `Import Normals` is selected
- for `Normal Import Method` and that in the __Material__ section that `Do Not Create Material` is selected. Deselect `Import Textures` in the __Materials__ section since we will import them manually. These choices would differ if you wanted to use some textures already embedded in your FBX file. 
+在上下文菜单中，对于 `Normal Import Method` 确保“网格”部分选择了“导入法线(`Import Normals`)，并且在“材质(__Material__)”部分中选择了`Do Not Create Material`。在“材质”部分中取消选择，因为我们将手动导入它们。如果您想使用 FBX 文件中已嵌入的某些纹理，这些选择将会有所不同。
 
- Select `Import All`. Once the import has completed, double click on the imported asset that appears in the content browser to edit it. 
+选择`Import All`。导入完成后，双击内容浏览器中显示的导入资源进行编辑。
 
 ![farmhouse_edit](img/tuto_content_authoring_maps/farmhouse_ue_edit.png)
 
-We should now import the textures, the diffuse texture for the diffuse colors, the normal map and the ORM map. 
+我们现在应该导入纹理、漫反射颜色的漫反射纹理、法线贴图和 ORM 贴图。
 
-Open the ORM map by double clicking and deselect the `sRGB` option, to ensure the texture is correctly applied. 
+通过双击打开 ORM 贴图并取消选择`sRGB`选项，以确保正确应用纹理。
 
-Right click in the content browser and select `Material` from the menu. A new material will be created in the content browser. Double click to edit it. Shift select the textures you imported and drag them into the material edit window, you will now get 3 new nodes in the material node editor. 
+右键单击内容浏览器并从菜单中选择`Material`。将在内容浏览器中创建新材料。双击进行编辑。按住 Shift 键选择导入的纹理并将其拖到材质编辑窗口中，现在您将在材质节点编辑器中获得 3 个新节点。
 
 ![material_init](img/tuto_content_authoring_maps/initialise_material.png)
 
-Now connect the nodes according to the following rules:
+现在根据以下规则连接节点：
 
 - Diffuse RGB --> Base Color
 - Normal RGB --> Normal
@@ -130,76 +134,76 @@ Now connect the nodes according to the following rules:
 - ORM G --> Roughness
 - ORM B --> Metallic
 
-Your material node graph should now look similar to this: 
+您的材质节点图现在应该与此类似：
 
 ![material_final](img/tuto_content_authoring_maps/material_connected.png)
 
-Save the material, then open the asset again and drag the material into the material slot. Your asset should now be fully textured.
+保存材质，然后再次打开资源并将材质拖入材质槽中。您的资源现在应该已完全纹理化。
 
 ![textured_asset](img/tuto_content_authoring_maps/textured_asset.png)
 
-Now save the asset and it is ready for use in your map. You can now drag the asset from the content browser and place it into your map:
+现在保存资产，即可在地图中使用。您现在可以从内容浏览器中拖动资源并将其放入地图中：
 
 ![asset_in_map](img/tuto_content_authoring_maps/asset_in_map.png)
 
-Now you can save the map, using the "Save Current" option in the top left of the workspace and it is ready to use. Play the simulation.
+现在，您可以使用工作区左上角的“保存当前”选项保存地图，即可使用。开始仿真。
 
-This concludes the Map authorship guide. Now you know how to create a road network and import 3D assets for use in CARLA. You may now read how to [__package a map for use in CARLA standalone version__](tuto_M_manual_map_package.md)
+地图作者指南到此结束。现在您知道如何创建道路网络并导入三维资产以在 CARLA 中使用。您现在可以阅读如何 [__打包地图以在 CARLA 独立版本中使用__](tuto_M_manual_map_package.md) 。
 
-## Traffic lights
+## 交通灯
 
-To add traffic lights to your new map:
+要将红绿灯添加到新地图：
 
-__1.__ From the _Content Browser_, navigate to `Content > Carla > Static > TrafficLight > StreetLights_01`. You will find several different traffic light blueprints to choose from.
+__1.__ 从 _内容浏览器_, 导航至 `Content > Carla > Static > TrafficLight > StreetLights_01`。您会发现几种不同的交通灯蓝图可供选择。
 
-__2.__ Drag the traffic lights into the scene and position them in the desired location. Press the space bar on your keyboard to toggle between positioning, rotation, and scaling tools.
+__2.__ 将交通灯拖到场景中并将其放置在所需位置。按键盘上的空格键可在定位、旋转和缩放工具之间切换。
 
-__3.__ Adjust the [`trigger volume`][triggerlink] for each traffic light by selecting the _BoxTrigger_ component in the _Details_ panel and adjusting the values in the _Transform_ section. This will determine the traffic light's area of influence.
+__3.__ 通过选择“详细(_Details_)” 面板中的 _BoxTrigger_ 组件并调整 _Transform_ 部分的值，为每个红绿灯调整 [`trigger volume`][triggerlink] 。这将确定红绿灯的影响范围。
 
 >>![ue_trafficlight](./img/ue_trafficlight.jpg)
 
-__4.__ For junctions, drag the `BP_TrafficLightGroup` actor into the level. Assign all the traffic lights in the junction to the traffic light group by adding them to the _Traffic Lights_ array in the _Details_ panel.
+__4.__ 对于路口，将`BP_TrafficLightGroup`参与者拖入关卡中。通过将路口处的所有交通灯添加到“详细信息(_Details_)”面板中的“交通灯(_Traffic Lights_)”数组，将它们分配给交通灯组。
 
 >>![ue_tl_group](./img/ue_tl_group.jpg)
 
-__5.__ Traffic light timing is only configurable through the Python API. See the documentation [here](core_actors.md#traffic-signs-and-traffic-lights) for more information.
+__5.__ 交通灯计时只能通过Python API 进行配置。请参阅 [此处](core_actors.md#traffic-signs-and-traffic-lights) 的文档以获取更多信息。
 
 >>![ue_tlsigns_example](./img/ue_tlsigns_example.jpg)
 
-> _Example: Traffic Signs, Traffic lights and Turn based stop._
+> _例如：交通标志、交通信号灯和转弯停车。_
 
 [triggerlink]: python_api.md#carla.TrafficSign.trigger_volume
 
-## Traffic signs
+## 交通标志
 
-To add traffic signs to your new map:
+要将交通标志添加到新地图：
 
-__1.__ From the _Content Browser_, navigate to `Content > Carla > Static > TrafficSign`. You will find several different traffic light blueprints to choose from.
+__1.__ 从 _内容浏览器_，导航至 `Content > Carla > Static > TrafficSign`。您会发现几种不同的交通灯蓝图可供选择。
 
-__2.__ Drag the traffic lights into the scene and position them in the desired location. Press the space bar on your keyboard to toggle between positioning, rotation, and scaling tools.
+__2.__ 将交通灯拖到场景中并将其放置在所需位置。按键盘上的空格键可在定位、旋转和缩放工具之间切换。
 
-__3.__ Adjust the [`trigger volume`][triggerlink] for each traffic sign by selecting the _BoxTrigger_ component in the _Details_ panel and adjusting the values in the _Transform_ section. This will determine the traffic light's area of influence. Not all traffic signs have a trigger volume. Those that do, include the yield, stop and speed limit signs.
+__3.__ 通过在“详细信息( _Details_ )”面板中选择 _BoxTrigger_ 组件并调整“变换(_Transform_)”部分中的值，调整每个交通标志的[`trigger volume`][triggerlink]。这将确定交通灯的影响区域。并非所有交通标志都有触发音量。此类标志包括让行标志、停车标志和限速标志。
 
-## Materials
+## 材质
 
-The CARLA content library has a multitude of useful materials ready to use to change the look of your maps. In your content browser, navigate to `Carla > Static > GenericMaterials`. In here you will find numerous materials you can use to alter the appearance of your map. 
+CARLA 内容库拥有大量有用的材料，可随时用于更改地图的外观。在内容浏览器中，导航至`Carla > Static > GenericMaterials`。在这里您会发现许多可用于改变地图外观的材料。
 
-You can test the materials rapidly by drag and drop onto map elements:
+您可以通过拖放到地图元素上来快速测试材质：
 
 ![map_materials](img/tuto_content_authoring_maps/map_materials.gif)
 
 
-# Road Painter
+# 道路画家
 
-The road painter is a tool that can be used to customize the appearance of the road, adding extra realism with additional textures, decals and meshes.
+道路画家是一种可用于自定义道路外观的工具，通过附加纹理、贴花和网格添加额外的真实感。
 
-## What is the road painter?
+## 什么是道路画家？
 
 The Road Painter tool is a blueprint that uses OpenDRIVE information to paint roads quickly. It takes a master material and applies it to a render target of the road to use as a canvas. The master material is made up of a collection of materials that can be blended using brushes and applied as masks. There is no need to apply photometry techniques nor consider the UVs of the geometry.
 
 The road painter uses the OpenDRIVE information to paint the roads. Make sure that your `.xodr` file has the same name as your map for this to work correctly.
 
-## Establish the road painter, master material and render target
+## 建立道路画家、掌握材质和渲染对象
 
 __1. Create the `RoadPainter` actor.__
 
@@ -243,7 +247,7 @@ The `Tutorial_RenderTarget` will be the communication link between the road pain
 
 ---
 
-## Prepare the master material
+## 准备主材料
 
 The `Tutorial_RoadMaster` material you created holds the base material, extra material information, and parameters that will be applied via your `Tutorial_RenderTarget`. You can configure one base material and up to three additional materials.
 
@@ -367,7 +371,7 @@ Experiment with different materials, textures, settings, decals, and meshes to g
 
 ---
 
-## Update the appearance of lane markings
+## 更新车道线外观
 
 After you have painted the roads, you can update the appearance of the road markings by following these steps:
 
@@ -391,7 +395,7 @@ Drag the material onto the lane markings you wish to color. Repeat the whole pro
 
 ---
 
-## Trees and Vegetation
+## 树木和植被
 
 The CARLA content library has a comprehensive set of vegetation blueprints for you to add further realism to the off-road areas of your maps like sidewalks, parks, hillsides, fields and forrest. 
 
@@ -409,7 +413,7 @@ Drag your desired foliage item into the box labeled `+ Drop Foliage Here`. Set a
 
 ![foliage_paint](img/tuto_content_authoring_maps/foliage_paint.gif)
 
-## Next steps
+## 下一步
 
 Continue customizing your map using the tools and guides below:
 
