@@ -77,64 +77,66 @@ __4.3__ 点击上方工具栏中的 `Compile` 并保存更改。
 *   可从 [官方网站](https://www.blender.org/download/) 免费获取 __Blender 2.80 或更新版本__ （开源 3D 建模软件）。
 *   按照 [此处](https://github.com/andyp123/blender_vhacd) 的说明使用 __Blender 的 VHACD 插件__。该插件使用凸包集合自动创建选定对象的近似值。[阅读更多](https://github.com/kmammou/v-hacd) 。
 
-!!! Note
-    This [series](https://www.youtube.com/watch?v=ppASl6yaguU) and [Udemy course](https://www.udemy.com/course/blender-3d-from-zero-to-hero/?pmtag=MRY1010) may be a good introduction to Blender for newcomers. 
+!!! 笔记
+    这个 [系列](https://www.youtube.com/watch?v=ppASl6yaguU) 和 [Udemy 课程](https://www.udemy.com/course/blender-3d-from-zero-to-hero/?pmtag=MRY1010) 对于新手来说可能是一个很好的 Blender 入门教程。
 
 
 ### 1-在虚幻编辑器中定义轮子的自定义碰撞
 
-__Step 1.__ *(in UE)* — Add collision boundaries for the wheels. The steps are detailed in the following video.  
+__第 1 步.__ *(在虚幻引擎中)* — 添加车轮的碰撞边界。以下视频详细介绍了这些步骤。 
 
 [![auto_step01](img/tuto_D_colliders_01.jpg)](https://www.youtube.com/watch?v=bECnsTw6ehI)
 
 ### 2-将车辆导出为 FBX
 
-__Step 2.__ *(in UE)* — Export the skeletal mesh of a vehicle to an FBX file.  
-__2.1__ Go to `Content/Carla/Static/Vehicles/4Wheeled/<model_of_vehicle>`.  
-__2.2__ Press `right-click` on `SM_<model_of_vehicle>` to export the vehicle mesh as FBX.  
+__第 2 步.__ *(在虚幻引擎中)* — 将车辆的骨架网格物体导出到 FBX 文件。  
+__2.1__ 转到 `Content/Carla/Static/Vehicles/4Wheeled/<model_of_vehicle>`。 
+__2.2__ 在`SM_<model_of_vehicle>` 点击 `right-click`，将车辆网格导出为 FBX。 
 
 
 ### 3 到 4-导入到 Blender 并创建自定义边界
 
-__Step 3.__ *(in Blender)* — Import the FBX file into Blender.  
-__Step 4.__ *(in Blender)* — Add convex hull meshes to form the new collision boundary (UE requirement for computational efficiency). This is the hardest step. If the entire car is selected, the collision boundary created by VHACD will be imprecise and messy. It will contain sharp edges which will mess-up the drive on the road. It's important that the wheels have smooth boundaries around them. Using convex decomposition on the car's body the mirrors would still not look right. For computer vision, the details of the vehicle are important. For said reason, these step has been divided into two parts. 
+__第 3 步.__ *(在 Blender 中)* — 将 FBX 文件导入 Blender。
+__第 4 步.__ *(在 Blender 中)* — 添加凸包网格以形成新的碰撞边界（虚幻引擎对计算效率的要求）。这是最难的一步。如果选择整辆车，VHACD 创建的碰撞边界将不精确且混乱。它将包含锋利的边缘，这会扰乱道路上的行驶。轮子周围要有光滑的边界，这一点很重要。在车身上使用凸分解，后视镜看起来仍然不正确。对于计算机视觉来说，车辆的细节非常重要。由于上述原因，这些步骤被分为两个部分。
 
-__4.1__ Cut out the bottom parts of the wheels, the side mirrors and the top part of the car's body to create the first boundary using the VHACD tool. Cut out the bottom half of the car to create the second boundary (top part of the car) using the VHACD tool.  
+__4.1__ 使用 VHACD 工具切出车轮的底部、侧视镜和车身的顶部，以创建第一个边界。使用 VHACD 工具剪掉汽车的下半部分以创建第二个边界（汽车的顶部）。 
 
 [![auto_step03](img/tuto_D_colliders_03.jpg)](https://www.youtube.com/watch?v=oROkK3OCuOA)
 
-__4.2__ Create separate boundaries for side mirrors using the VHACD tool.  
+__4.2__ 使用 VHACD 工具为后视镜创建单独的边界。
 
 [![auto_step04](img/tuto_D_colliders_04.jpg)](https://www.youtube.com/watch?v=L3upzdC602s)
 
-!!! Warning
-    Be very careful about naming the object. Each boundary should have begin with `UCX_`, and the rest of the name has to be __exactly__ the same as the original mesh.  
+!!! 警告
+    命名对象时要非常小心。每个边界应以 `UCX_` 开头，其余名称必须与原始网格 __完全__ 相同 。
 
 ### 5-从 Blender 导出到 FBX
 
-__Step 5.__ *(in Blender)* — Export the custom collision boundaries into an FBX file.  
-__5.1__ Select only the original vehicle and all the newly added objects for collision.  
-__5.2__ In the export menu, check `selected objects` and select only "Mesh".  
+__第 5 步.__ *(在 Blender 中)* — 将自定义碰撞边界导出到 FBX 文件中。
+__5.1__ 仅选择原始车辆和所有新添加的物体进行碰撞。  
+__5.2__ 在导出菜单中，选中 `selected objects` 并仅选择“Mesh”。 
 
 [![auto_step05](img/tuto_D_colliders_05.jpg)](https://youtu.be/aJPyskYjzWo)
 
 ### 6 到 8-导入碰撞体并定义物理
 
-__Step 6.__ *(in UE)* — Import the new FBX into CARLA as an Unreal asset file (static mesh).  
-__Step 7.__ *(in UE)* — Import the custom collider into the physics asset for the specific vehicle, so that it is used for computations.  
-__Step 8.__ *(in UE)* — Create constraints that connect the different joints and define the physics of all parts.  
+__第 6 步.__ *(在虚幻引擎中)* — 将新 FBX 作为虚幻资源文件（静态网格物体）导入 CARLA。
+
+__第 7 步.__ *(在虚幻引擎中)* — 将自定义碰撞器导入到特定车辆的物理资源中，以便将其用于计算。
+
+__第 8 步.__ *(在虚幻引擎中)* — 创建连接不同关节的约束并定义所有部件的物理特性。 
 
 [![auto_step0608](img/tuto_D_colliders_0608.jpg)](https://www.youtube.com/watch?v=aqFNwAyj2CA)
 
 ---
 
-That is a wrap on how to change the default colliders for vehicles in CARLA.  
+这是关于如何更改 CARLA 中车辆的默认碰撞器的总结。
 
-Open CARLA and mess around for a while. If there are any doubts, feel free to post these in the forum. 
+打开 CARLA 并闲逛一会儿。如果有任何疑问，请随时在论坛中发布。
 
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA forum</a>
+CARLA 论坛</a>
 </p>
 </div>
