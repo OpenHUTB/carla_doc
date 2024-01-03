@@ -173,7 +173,7 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">自定义地图：天气和景观</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#weather-customization">Weather customization</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">天气定制</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#bp_sky">BP_Sky</a>
     </li>
@@ -181,7 +181,7 @@
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#add-serial-meshes">Add serial meshes</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">添加序列化网格</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#bp_repspline">BP_RepSpline</a>
     </li>
@@ -193,7 +193,7 @@
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next steps</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">下一步</a>
     </li>
     </ul>
                   </li>
@@ -304,48 +304,48 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="customizing-maps-weather-and-landscape">Customizing maps: Weather and Landscape</h1>
-<p>CARLA provides several blueprints to help ease the creation of default weather settings for your maps and to populate the lanscape with serial meshes such as street lights, power lines, etc.</p>
-<p>This guide will explain where each one of these blueprints are located and how to use and configure them.</p>
+                <h1 id="_1">自定义地图：天气和景观</h1>
+<p>CARLA 提供了多个蓝图，可帮助您轻松创建地图的默认天气设置，并使用序列化网格（例如路灯、电线等）填充景观。</p>
+<p>本指南将解释每个蓝图的位置以及如何使用和配置它们。</p>
 <ul>
-<li><a href="#weather-customization"><strong>Weather customization</strong></a><ul>
+<li><a href="#weather-customization"><strong>天气定制</strong></a><ul>
 <li><a href="#bp_sky">BP_Sky</a></li>
 <li><a href="#bp_weather">BP_Weather</a></li>
 </ul>
 </li>
-<li><a href="#add-serial-meshes"><strong>Serial meshes</strong></a><ul>
+<li><a href="#add-serial-meshes"><strong>序列化网格</strong></a><ul>
 <li><a href="#bp_repspline">BP_RepSpline</a></li>
 <li><a href="#bp_spline">BP_Spline</a></li>
 <li><a href="#bp_wall">BP_Wall</a></li>
 <li><a href="#bp_splinepoweline">BP_SplinePoweLine</a></li>
 </ul>
 </li>
-<li><a href="#next-steps"><strong>Next steps</strong></a></li>
+<li><a href="#next-steps"><strong>下一步</strong></a></li>
 </ul>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>This tutorial only applies to users that work with a build from source, and have access to the Unreal Editor.</p>
+<div class="admonition 重要">
+<p class="admonition-title">重要</p>
+<p>本教程仅适用于使用源代码构建并有权访问虚幻编辑器的用户。</p>
 </div>
 <hr />
-<h2 id="weather-customization">Weather customization</h2>
-<p>This section explains how to experiment with different weather parameters before setting your map's default weather, and once you are happy with the settings, how to configure the default weather parameters for your map.</p>
+<h2 id="_2">天气定制</h2>
+<p>本节介绍如何在设置地图的默认天气之前尝试不同的天气参数，以及在对设置感到满意后如何为地图配置默认天气参数。</p>
 <h3 id="bp_sky">BP_Sky</h3>
-<p>The <code>BP_Sky</code> blueprint is neccessary to bring light and weather to your map. It can also be used to test different weather configurations before deciding on your default weather parameters.</p>
-<p>It is likely the <code>BP_Sky</code> blueprint will already be loaded in your map. If not you can add it by dragging it into the scene from <code>Content/Carla/Blueprints/Weather</code>.</p>
-<p>To try out different weather parameters, go to the <em>Details</em> panel of the <code>BP_Sky</code> actor, and play with the values in the <em>Parameters</em> section.</p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>If more than one <code>BP_Sky</code> blueprint is loaded into the scene, the weather will be duplicated with undesirable results, e.g, having two suns.</p>
+<p>蓝图<code>BP_Sky</code>对于为地图带来光线和天气是必要的。在决定默认天气参数之前，它还可以用于测试不同的天气配置。</p>
+<p><code>BP_Sky</code> 蓝图可能已经加载到您的地图中。如果没有，您可以通过<code>Content/Carla/Blueprints/Weather</code>将其拖到场景中来添加它。</p>
+<p>要尝试不同的天气参数，请转到 <code>BP_Sky</code> 参与者的 <em>Details</em> 面板，然后使用 <em>Parameters</em>  部分中的值。</p>
+<div class="admonition 重要">
+<p class="admonition-title">重要</p>
+<p>如果场景中加载了多个 <code>BP_Sky</code> 蓝图，天气将会重复，从而产生不良结果，例如，有两个太阳。</p>
 </div>
 <h3 id="bp_weather">BP_Weather</h3>
-<p>The default weather for your map is defined in the <code>BP_Weather</code> blueprint. This blueprint allows you to set the same parameters as are available through the Python API. These parameters are described <a href="https://carla.readthedocs.io/en/latest/python_api/#carlaweatherparameters">here</a>.</p>
-<p>To set the default weather for your map:</p>
-<p><strong>1. Open the <code>BP_Weather</code> blueprint.</strong> </p>
-<p>In the <em>Content Browser</em>, navigate to <code>Content/Carla/Blueprints/Weather</code> and double-click on <code>BP_Weather</code>.</p>
-<p><strong>2. Add your town.</strong></p>
-<p>In the <em>Details</em> panel of the <code>BP_Weather</code> window, go to the <em>Weather</em> section and add your town to the <em>Default Weathers</em> array.</p>
-<p><strong>3. Configure your default weather parameters.</strong></p>
-<p>For each weather parameter, set your desired value. When you are finished, press <em>Compile</em> then <em>Save</em> and close.</p>
+<p>地图的默认天气在<code>BP_Weather</code>蓝图中定义。此蓝图允许您设置与通过 Python API 提供的参数相同的参数。<a href="https://carla.readthedocs.io/en/latest/python_api/#carlaweatherparameters">此处</a> 描述了这些参数。</p>
+<p>要设置地图的默认天气：</p>
+<p><strong>1. 打开 <code>BP_Weather</code> 蓝图。</strong> </p>
+<p>在 <em>内容浏览器</em> 中，导航至 <code>Content/Carla/Blueprints/Weather</code> 并双击 <code>BP_Weather</code> 。</p>
+<p><strong>2. 添加您的城镇。</strong></p>
+<p>在<code>BP_Weather</code>窗口的 <em>Details</em> 面板中，转到 <em>Weather</em> 部分并将您的城镇添加到 <em>Default Weathers</em> 数组中。</p>
+<p><strong>3. 配置默认天气参数。</strong></p>
+<p>对于每个天气参数，设置您想要的值。完成后，按 <em>Compile</em> ，然后按 <em>Save</em> 并关闭。</p>
 <blockquote>
 <blockquote>
 <blockquote>
@@ -358,100 +358,100 @@
 </blockquote>
 </blockquote>
 <div style="text-align: right">
-<i>Array containing default weather parameters for every CARLA map. Town01 opened.</i></div>
+<i>包含每个 CARLA 地图的默认天气参数的数组。Town01 打开。</i></div>
 <p><br></p>
 <hr />
-<h2 id="add-serial-meshes">Add serial meshes</h2>
-<p>There are four blueprints available to add props aligned in one direction, e.g., walls, powerlines, street lights. These blueprints use a series of meshes distributed along a Bezier curve. Each one is initialized in the same way:</p>
-<p><strong>1. Initialize the series.</strong></p>
-<p>Drag the blueprint into the scene. You will see one element standing at the starting point of a Bezier curve with two nodes marking the beginning and ending.</p>
-<p><strong>2. Define the path.</strong></p>
-<p>Select the direction arrow of the element and press <strong>Alt</strong> while dragging the element in the direction you want to go. This will create a new element which can be used to define the curve. As you drag, a new mesh will appear either on every node of the curve or every time you press <code>Alt</code> while dragging, depending on the blueprint.</p>
-<p><strong>3. Customize the pattern.</strong></p>
-<p>The following sections will describe the different customization parameters available to each blueprint.</p>
+<h2 id="_3">添加序列化网格</h2>
+<p>有四种蓝图可用于添加沿一个方向对齐的道具，例如墙壁、电线、路灯。这些蓝图使用一系列沿贝塞尔曲线分布的网格。每一个都以相同的方式初始化：</p>
+<p><strong>1.  初始化序列。</strong></p>
+<p>将蓝图拖到场景中。您将看到一个元素位于贝塞尔曲线的起点，并有两个节点标记开始和结束。</p>
+<p><strong>2. 定义路径。</strong></p>
+<p>选择元素的方向箭头，然后按 <strong>Alt</strong>  键，同时将元素向您想要移动的方向拖动。这将创建一个可用于定义曲线的新元素。拖动时，曲线的每个节点上或每次<code>Alt</code>拖动时按下时都会出现一个新网格，具体取决于蓝图。</p>
+<p><strong>3. 定制图案。</strong></p>
+<p>以下部分将描述每个蓝图可用的不同自定义参数。</p>
 <h3 id="bp_repspline">BP_RepSpline</h3>
-<p>The <code>BP_RepSpline</code> blueprint is found in <code>Carla/Blueprints/LevelDesign</code>. It is used to add <strong>individual</strong> elements along a path defined by a Bezier curve.</p>
-<p>The serialization is customized via the following values:</p>
+<p>蓝图<code>BP_RepSpline</code>可在 <code>Carla/Blueprints/LevelDesign</code> 中找到。它用于沿着贝塞尔曲线定义的路径添加 <strong>单个</strong> 元素。</p>
+<p>序列化是通过以下值自定义的：</p>
 <ul>
-<li><em>Distance between</em> — Set the distance between elements.</li>
-<li><em>Offset rotation</em> — Set a fixed rotation for the different axis.</li>
-<li><em>Random rotation</em> — Set a range of random rotations for the different axis.</li>
-<li><em>Offset translation</em> — Set a range of random locations along the different axis.</li>
-<li><em>Max Number of Meshes</em> — Set the maximum amount of elements that will be place between nodes of the curve.</li>
-<li><em>World aligned ZY</em> — If selected, the elements will be vertically aligned regarding the world axis.</li>
-<li><em>EndPoint</em> — If selected, an element will be added at the end node of the curve.</li>
-<li><em>Collision enabled</em> — Set the type of collisions enabled for the meshes.</li>
+<li><em>Distance between</em> — 设置元素之间的距离。</li>
+<li><em>Offset rotation</em> — 为不同轴设置固定旋转。</li>
+<li><em>Random rotation</em> — 设置不同轴的随机旋转范围。</li>
+<li><em>Offset translation</em> — 设置沿不同轴的一系列随机位置。</li>
+<li><em>Max Number of Meshes</em> — 设置将放置在曲线节点之间的元素的最大数量。</li>
+<li><em>World aligned ZY</em> — 如果选择此选项，元素将相对于世界轴垂直对齐。</li>
+<li><em>EndPoint</em> — 如果选择此选项，将在曲线的终点节点添加一个元素。</li>
+<li><em>Collision enabled</em> — 设置为网格启用的碰撞类型。</li>
 </ul>
 <p><img alt="bp_repspline_pic" src="../img/map_customization/BP_Repspline.jpg" /></p>
-<div style="text-align: right"><i>BP_RepSpline example.</i></div>
+<div style="text-align: right"><i>BP_RepSpline 示例。</i></div>
 
 <h3 id="bp_spline">BP_Spline</h3>
-<p>The <code>BP_Spline</code> blueprint is found in <code>Carla/Blueprints/LevelDesign</code>. It adds <strong>connected</strong> elements that <strong>strictly</strong> follow a path defined by a Bezier curve. The mesh will be warped to fit the path created.</p>
-<p>The blueprint can be customized using the following value:</p>
+<p>蓝图<code>BP_Spline</code>可在 <code>Carla/Blueprints/LevelDesign</code> 中找到。它添加严格遵循贝塞尔曲线定义的路径的连接元素。网格将扭曲以适应创建的路径。</p>
+<p>可以使用以下值自定义蓝图：</p>
 <ul>
-<li><em>Gap distance</em> — Add a separation between elements.  </li>
+<li><em>Gap distance</em> — 在元素之间添加间隔。</li>
 </ul>
 <p><img alt="bp_spline_pic" src="../img/map_customization/BP_Spline.jpg" /></p>
 <div style="text-align: right"><i>BP_Spline example.</i></div>
 
 <h3 id="bp_wall">BP_Wall</h3>
-<p>The <code>BP_Wall</code> blueprint is found in <code>Carla/Blueprints/LevelDesign</code>. It adds <strong>connected</strong> elements along a path defined by a Bezier curve. The mesh will not be warped to fit the curve, but the nodes will be respected.</p>
+<p>蓝图<code>BP_Wall</code>可在 <code>Carla/Blueprints/LevelDesign</code> 中找到。它沿着贝塞尔曲线定义的路径添加连接的元素。网格不会扭曲以适应曲线，但会考虑节点。</p>
 <ul>
-<li><em>Distance between</em> — Set the distance between elements.</li>
-<li><em>Vertically aligned</em> — If selected, the elements will be vertically aligned regarding the world axis.</li>
-<li><em>Scale offset</em> — Scale the length of the mesh to round out the connection between elements.</li>
+<li><em>Distance between</em> — 设置元素之间的距离。</li>
+<li><em>Vertically aligned</em> — 如果选择此选项，元素将相对于世界轴垂直对齐。</li>
+<li><em>Scale offset</em> — 缩放网格的长度以完善元素之间的连接。</li>
 </ul>
 <p><img alt="bp_wall_pic" src="../img/map_customization/BP_Wall.jpg" /></p>
-<div style="text-align: right"><i>BP_Wall example.</i></div>
+<div style="text-align: right"><i>BP_Wall 实例。</i></div>
 
 <h3 id="bp_splinepoweline">BP_SplinePoweLine</h3>
-<p>The <strong>BP_SplinePoweLine</strong> blueprint is found in <code>Carla/Static/Pole/PoweLine</code>. It adds <strong>electricity poles</strong> along a path defined by a Bezier curve and <strong>connects them with power lines</strong>.</p>
-<p>To provide variety, you can provide the blueprint with an array of powerline meshes to populate the path. To do this:</p>
+<p><strong>BP_SplinePoweLine</strong> 蓝图可在 <code>Carla/Static/Pole/PoweLine</code> 中找到。它沿着贝塞尔曲线定义的路径添加 <strong>电线杆(electricity poles)</strong>，并将它们 <strong>与电线连接起来</strong>。</p>
+<p>为了提供多样性，您可以为蓝图提供一系列电力线网格来填充路径。去做这个：</p>
 <ol>
-<li>Double-click the <strong>BP_SplinePoweLine</strong> blueprint in the <em>Content Browser</em>.</li>
-<li>In the <em>Details</em> panel, go to the <em>Default</em> section.</li>
-<li>Expand the <em>Array Meshes</em> and add to or change it according to your needs.</li>
-<li>Press <em>Compile</em>, then save and close the window.</li>
+<li>在 <em>Content Browser</em> 中双击 <strong>BP_SplinePoweLine</strong> 蓝图。</li>
+<li>在 <em>Details</em> 面板中，转到 <em>Default</em> 部分。</li>
+<li>展开 <em>Array Meshes</em> 并根据您的需要添加或更改它。</li>
+<li>点击 <em>Compile</em> ，然后保存并关闭窗口。</li>
 </ol>
 <p><img alt="bp_splinepowerline_pic" src="../img/map_customization/BP_Splinepowerline.jpg" /></p>
 <div style="text-align: right"><i>BP_SplinePowerLine example.</i></div>
 
-<p>To alter the line tension of the power lines:</p>
+<p>要改变电源线的线张力：</p>
 <ol>
-<li>Select the blueprint actor in the editor scene and go to the <em>Details</em> panel.</li>
-<li>Go to the <em>Default</em> section.</li>
-<li>Adjust the value in <em>Tension</em>. <code>0</code> indicates that the lines will be straight.</li>
+<li>在编辑器场景中选择蓝图参与者，然后转到  <em>Details</em> 面板。</li>
+<li>转到 <em>Default</em> 部分。</li>
+<li>调整张力 <em>Tension</em> 中的值。 <code>0</code> 表示线条将是直的。</li>
 </ol>
-<p>To increase the amount of wires:</p>
+<p>增加电线数量：</p>
 <ol>
-<li>In the <em>Content Browser</em>, double-click on one of the pole meshes.</li>
-<li>Go to the <em>Socket Manager</em> panel.</li>
-<li>Configure existing sockets or add new ones by clicking <em>Create Socket</em>. Sockets are empty meshes that represent the connection points of the power line. A wire is created form socket to socket between poles.</li>
+<li>在 <em>内容浏览器</em> 中，双击其中一个杆网格。</li>
+<li>转到 <em>Socket Manager</em> 面板。</li>
+<li>配置现有套接字或通过单击 <em>Create Socket</em> 添加新套接字。插座是代表电源线连接点的空网格。在两极之间从插座到插座创建电线。</li>
 </ol>
 <p><img alt="bp_powerline_socket_pic" src="../img/map_customization/BP_Splinepowerline_Sockets.jpg" /></p>
-<div style="text-align: right"><i>Visualization of the sockets for BP_SplinePowerLine.</i></div>
+<div style="text-align: right"><i>BP_SplinePowerLine 套接字的可视化。</i></div>
 <p><br></p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>The amount of sockets and their names should be consistent between poles. Otherwise, visualization issues may arise. </p>
+<div class="admonition 重要">
+<p class="admonition-title">重要</p>
+<p>各极之间的插座数量及名称应一致。否则，可能会出现可视化问题。</p>
 </div>
 <hr />
-<h2 id="next-steps">Next steps</h2>
-<p>Continue customizing your map using the tools and guides below:</p>
+<h2 id="_4">下一步</h2>
+<p>使用以下工具和指南继续自定义您的地图：</p>
 <ul>
-<li><a href="../tuto_M_custom_layers/">Implement sub-levels in your map.</a></li>
-<li><a href="../tuto_M_custom_add_tl/">Add and configure traffic lights and signs.</a></li>
-<li><a href="../tuto_M_custom_buildings/">Add buildings with the procedural building tool.</a></li>
-<li><a href="../tuto_M_custom_road_painter/">Customize the road with the road painter tool.</a></li>
-<li><a href="./#add-serial-meshes">Customize the landscape with serial meshes.</a></li>
+<li><a href="../tuto_M_custom_layers/">在地图中实现子关卡。</a></li>
+<li><a href="../tuto_M_custom_add_tl/">添加和配置交通灯和标志。</a></li>
+<li><a href="../tuto_M_custom_buildings/">使用程序化构建工具添加建筑物。</a></li>
+<li><a href="../tuto_M_custom_road_painter/">使用道路画家工具自定义道路。</a></li>
+<li><a href="./#add-serial-meshes">使用序列化网格自定义景观。</a></li>
 </ul>
-<p>Once you have finished with the customization, you can <a href="../tuto_M_generate_pedestrian_navigation/">generate the pedestrian navigation information</a>.</p>
+<p>完成定制后，您可以 <a href="../tuto_M_generate_pedestrian_navigation/">生成行人导航信息</a> 。</p>
 <hr />
-<p>If you have any questions about the process, then you can ask in the <a href="https://github.com/carla-simulator/carla/discussions">forum</a>.</p>
+<p>如果您对流程有任何疑问，可以在 <a href="https://github.com/carla-simulator/carla/discussions">论坛</a> 中提问。</p>
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA forum</a>
+CARLA 论坛</a>
 </p>
 </div>
               

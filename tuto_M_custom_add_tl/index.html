@@ -167,11 +167,11 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">自定义地图：红绿灯和标志</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#traffic-lights">Traffic lights</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">红绿灯</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#traffic-signs">Traffic signs</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">红绿灯标志</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next steps</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">下一步</a>
     </li>
     </ul>
                   </li>
@@ -288,56 +288,56 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="customizing-maps-traffic-lights-and-signs">Customizing maps: Traffic Lights and Signs</h1>
-<p>This guide explains how to add traffic lights and signs to your custom map, configure the area of influence of each one, and how to configure traffic lights as a group at junctions. This option is only available to users who have access to the Unreal Engine editor.</p>
+                <h1 id="_1">自定义地图：交通灯和标志</h1>
+<p>本指南介绍了如何将交通灯和标志添加到自定义地图、配置每个交通灯和标志的影响区域，以及如何在路口将交通灯配置为一组。此选项仅适用于有权访问虚幻引擎编辑器的用户。</p>
 <ul>
-<li><a href="#traffic-lights"><strong>Traffic Lights</strong></a></li>
-<li><a href="#traffic-signs"><strong>Traffic signs</strong></a></li>
-<li><a href="#next-steps"><strong>Next steps</strong></a></li>
+<li><a href="#traffic-lights"><strong>红绿灯</strong></a></li>
+<li><a href="#traffic-signs"><strong>交通标志</strong></a></li>
+<li><a href="#next-steps"><strong>下一步</strong></a></li>
 </ul>
 <hr />
-<h2 id="traffic-lights">Traffic lights</h2>
-<p>To add traffic lights to your new map:</p>
-<p><strong>1.</strong> From the <em>Content Browser</em>, navigate to <code>Content/Carla/Static/TrafficLight/StreetLights_01</code>. You will find several different traffic light blueprints to choose from.</p>
-<p><strong>2.</strong> Drag the traffic lights into the scene and position them in the desired location. Press the space bar on your keyboard to toggle between positioning, rotation, and scaling tools.</p>
-<p><strong>3.</strong> Adjust the <a href="../python_api/#carla.TrafficSign.trigger_volume"><code>trigger volume</code></a> for each traffic light by selecting the <em>BoxTrigger</em> component in the <em>Details</em> panel and adjusting the values in the <em>Transform</em> section. This will determine the traffic light's area of influence.</p>
+<h2 id="_2">红绿灯</h2>
+<p>要将红绿灯添加到新地图：</p>
+<p><strong>1.</strong> 从 <em>内容浏览器</em>，导航至 <code>Content/Carla/Static/TrafficLight/StreetLights_01</code>。您会发现几种不同的交通灯蓝图可供选择。</p>
+<p><strong>2.</strong> 将交通灯拖到场景中并将其放置在所需位置。按键盘上的空格键可在定位、旋转和缩放工具之间切换。</p>
+<p><strong>3.</strong> 通过在 <em>Details</em> 面板中选择 <em>BoxTrigger</em> 组件并调整 <em>Transform</em> 部分中的值，调整每个交通灯的 <a href="../python_api/#carla.TrafficSign.trigger_volume"><code>trigger volume</code></a> 。这将确定交通灯的影响区域。 </p>
 <blockquote>
 <blockquote>
 <p><img alt="ue_trafficlight" src="../img/ue_trafficlight.jpg" /></p>
 </blockquote>
 </blockquote>
-<p><strong>4.</strong> For junctions, drag the <code>BP_TrafficLightGroup</code> actor into the level. Assign all the traffic lights in the junction to the traffic light group by adding them to the <em>Traffic Lights</em> array in the <em>Details</em> panel.</p>
+<p><strong>4.</strong> 对于连接点，将<code>BP_TrafficLightGroup</code>参与者拖入关卡中。通过将交汇处的所有交通灯添加到“详细信息”面板中的“交通灯”数组，将它们分配给交通灯组。</p>
 <blockquote>
 <blockquote>
 <p><img alt="ue_tl_group" src="../img/ue_tl_group.jpg" /></p>
 </blockquote>
 </blockquote>
-<p><strong>5.</strong> Traffic light timing is only configurable through the Python API. See the documentation <a href="../core_actors/#traffic-signs-and-traffic-lights">here</a> for more information.</p>
+<p><strong>5.</strong> 交通灯计时只能通过 Python API 进行配置。请参阅 <a href="../core_actors/#traffic-signs-and-traffic-lights">此处</a> 的文档以获取更多信息。 </p>
 <blockquote>
 <blockquote>
 <p><img alt="ue_tlsigns_example" src="../img/ue_tlsigns_example.jpg" /></p>
 </blockquote>
-<p><em>Example: Traffic Signs, Traffic lights and Turn based stop.</em></p>
+<p><em>例如：交通标志、交通信号灯和转弯停车。</em></p>
 </blockquote>
 <hr />
-<h2 id="traffic-signs">Traffic signs</h2>
-<p>To add traffic lights to your new map:</p>
-<p><strong>1.</strong> From the <em>Content Browser</em>, navigate to <code>Content/Carla/Static/TrafficSign</code>. You will find several different traffic light blueprints to choose from.</p>
-<p><strong>2.</strong> Drag the traffic lights into the scene and position them in the desired location. Press the space bar on your keyboard to toggle between positioning, rotation, and scaling tools.</p>
-<p><strong>3.</strong> Adjust the <a href="../python_api/#carla.TrafficSign.trigger_volume"><code>trigger volume</code></a> for each traffic sign by selecting the <em>BoxTrigger</em> component in the <em>Details</em> panel and adjusting the values in the <em>Transform</em> section. This will determine the traffic light's area of influence. Not all traffic signs have a trigger volume. Those that do, include the yield, stop and speed limit signs.</p>
+<h2 id="_3">红绿灯标志</h2>
+<p>要将红绿灯添加到新地图：</p>
+<p><strong>1.</strong> 从 <em>Content Browser</em>，导航至 <code>Content/Carla/Static/TrafficSign</code>。您会发现几种不同的交通灯蓝图可供选择。</p>
+<p><strong>2.</strong> 将交通灯拖到场景中并将其放置在所需位置。按键盘上的空格键可在定位、旋转和缩放工具之间切换。</p>
+<p><strong>3.</strong> 通过在“详细信息”面板中选择 <em>BoxTrigger</em> 组件并调整 <em>Transform</em> 部分中的值，调整<a href="../python_api/#carla.TrafficSign.trigger_volume"><code>trigger volume</code></a>每个交通标志的。这将确定交通灯的影响区域。并非所有交通标志都有触发音量。此类标志包括让行标志、停车标志和限速标志。 </p>
 <hr />
-<h2 id="next-steps">Next steps</h2>
-<p>Continue customizing your map using the tools and guides below:</p>
+<h2 id="_4">下一步</h2>
+<p>使用以下工具和指南继续自定义您的地图：</p>
 <ul>
-<li><a href="../tuto_M_custom_layers/">Implement sub-levels in your map.</a></li>
-<li><a href="../tuto_M_custom_buildings/">Add buildings with the procedural building tool.</a></li>
-<li><a href="../tuto_M_custom_road_painter/">Customize the road with the road painter tool.</a></li>
-<li><a href="../tuto_M_custom_weather_landscape/#weather-customization">Customize the weather</a></li>
-<li><a href="../tuto_M_custom_weather_landscape/#add-serial-meshes">Customize the landscape with serial meshes.</a></li>
+<li><a href="../tuto_M_custom_layers/">在地图中实现子关卡。</a></li>
+<li><a href="../tuto_M_custom_buildings/">使用程序化构建工具添加建筑物。</a></li>
+<li><a href="../tuto_M_custom_road_painter/">使用道路画家工具自定义道路。</a></li>
+<li><a href="../tuto_M_custom_weather_landscape/#weather-customization">自定义天气</a></li>
+<li><a href="../tuto_M_custom_weather_landscape/#add-serial-meshes">使用序列化网格自定义景观。</a></li>
 </ul>
-<p>Once you have finished with the customization, you can <a href="../tuto_M_generate_pedestrian_navigation/">generate the pedestrian navigation information</a>.</p>
+<p>完成定制后，您可以生成 <a href="../tuto_M_generate_pedestrian_navigation/">行人导航信息</a> 。</p>
 <hr />
-<p>If you have any questions about the process then you can ask in the <a href="https://github.com/carla-simulator/carla/discussions">forum</a>.</p>
+<p>如果您对流程有任何疑问，可以在 <a href="https://github.com/carla-simulator/carla/discussions">论坛</a> 中提问。</p>
               
             </div>
           </div><footer>

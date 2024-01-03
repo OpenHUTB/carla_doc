@@ -159,11 +159,11 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">在 Carla 源构建中导入地图</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#before-you-begin">Before you begin</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_1">在你开始之前</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#map-ingestion">Map ingestion</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">地图导入</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next steps</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">下一步</a>
     </li>
     </ul>
                   </li>
@@ -288,55 +288,55 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="ingesting-maps-in-carla-built-from-source">Ingesting Maps in CARLA Built From Source</h1>
-<p>This section describes the process of ingesting maps into <strong>CARLA that has been built from source</strong>. If you are using a package (binary) version of CARLA to ingest maps then follow the guidelines <a href="../tuto_M_add_map_package/">here</a> instead.</p>
-<p>The ingestion process involves importing the relevant map files by compiling them into a package. This package can then be opened in the Unreal Engine editor and customized before generating the pedestrian navigation file and finally adding it to the package. </p>
+                <h1 id="carla">从源代码构建的 Carla 中导入地图</h1>
+<p>本节描述从源代码构建的 CARLA 中导入地图的过程。如果您使用 CARLA 的包（二进制）版本来导入地图，请按照 <a href="../tuto_M_add_map_package/">此处</a> 的指南进行操作。</p>
+<p>导入过程涉及通过将相关地图文件编译到包中来导入它们。然后可以在虚幻引擎编辑器中打开该包并进行自定义，然后生成行人导航文件并最终将其添加到包中。</p>
 <ul>
-<li><a href="#before-you-begin"><strong>Before you begin</strong></a></li>
-<li><a href="#map-ingestion"><strong>Map ingestion</strong></a></li>
-<li><a href="#next-steps"><strong>Next steps</strong></a></li>
+<li><a href="#before-you-begin"><strong>在你开始之前</strong></a></li>
+<li><a href="#map-ingestion"><strong>地图导入</strong></a></li>
+<li><a href="#next-steps"><strong>下一步</strong></a></li>
 </ul>
 <hr />
-<h2 id="before-you-begin">Before you begin</h2>
+<h2 id="_1">在你开始之前</h2>
 <ul>
-<li>Ensure you are using a version of CARLA that has been built from source. If you are using a packaged (binary) version of CARLA then follow the tutorial <a href="../tuto_M_add_map_package/">here</a>.</li>
-<li>You should have at least two files, <code>&lt;mapName&gt;.xodr</code> and <code>&lt;mapName&gt;.fbx</code> that have been <a href="../tuto_M_generate_map/">generated</a> from a map editor such as RoadRunner. </li>
-<li>These files should have the same value for <code>&lt;mapName&gt;</code> in order to be recognised as the same map.</li>
-<li>You can ingest multiple maps into the same package. Each map should have a unique name.</li>
+<li>确保您使用的是从源代码构建的 CARLA 版本。如果您使用的是 CARLA 的打包（二进制）版本，请按照 <a href="../tuto_M_add_map_package/">此处</a> 的教程进行操作。</li>
+<li>您应该至少有两个文件，<code>&lt;mapName&gt;.xodr</code>和<code>&lt;mapName&gt;.fbx</code> ，是由地图编辑器（例如 RoadRunner）生成的。</li>
+<li>这些文件应具有相同的值<code>&lt;mapName&gt;</code>，以便被识别为相同的地图。</li>
+<li>您可以将多个地图提取到同一个包中。每张地图都应该有一个唯一的名称。</li>
 </ul>
 <hr />
-<h2 id="map-ingestion">Map ingestion</h2>
-<p><strong>1.</strong> Place the map files to be imported in the <code>Import</code> folder found in the CARLA root directory.</p>
-<p><strong>2.</strong> Run the command below to ingest the files:</p>
+<h2 id="_2">地图导入</h2>
+<p><strong>1.</strong> 将需要导入的地图文件放入 CARLA 根目录下的<code>Import</code>文件夹中。</p>
+<p><strong>2.</strong> 运行以下命令来提取文件：</p>
 <pre><code class="language-sh">make import
 </code></pre>
-<p><strong>Note that there are two optional parameter flags that can be set</strong>:</p>
+<p><strong>请注意，可以设置两个可选参数标志</strong>:</p>
 <ul>
-<li><code>--package=&lt;package_name&gt;</code> specifies the name of the package. By default, this is set to <code>map_package</code>. Two packages cannot have the same name, so using the default value will lead to errors on a subsequent ingestion. <strong>It is highly recommended to change the name of the package</strong>. Use this flag by running the command:</li>
+<li><code>--package=&lt;package_name&gt;</code> 指定包的名称。默认情况下，此项设置为<code>map_package</code>。两个包不能具有相同的名称，因此使用默认值将导致后续摄取时出错。<strong>强烈建议更改包的名称</strong>。通过运行以下命令来使用此标志：</li>
 </ul>
 <pre><code class="language-sh">make import  ARGS=&quot;--package=&lt;package_name&gt;&quot;
 </code></pre>
 <ul>
-<li><code>--no-carla-materials</code> specifies that you do not want to use the default CARLA materials (road textures etc). You will use the RoadRunner materials instead. This flag is <strong>only required if you are not</strong> providing your own <a href="../tuto_M_manual_map_package/"><code>.json</code> file</a>. Any value in the <code>.json</code> file will override this flag. Use this flag by running the command:</li>
+<li><code>--no-carla-materials</code> 指定您不想使用默认的 CARLA 材质（道路纹理等）。您将改用 RoadRunner 材料。<strong>仅当您不提供</strong> <a href="../tuto_M_manual_map_package/">自己的<code>.json</code>文件</a> 时才需要此标志。<code>.json</code>文件中的任何值都将覆盖此标志。通过运行以下命令来使用此标志：</li>
 </ul>
 <pre><code class="language-sh">make import  ARGS=&quot;--no-carla-materials&quot;
 </code></pre>
-<p>A folder will be created in <code>Unreal/CarlaUE4/Content</code> with the name of your map package. It will contain config files, overdrive information, static asset information and navigation information.</p>
+<p>将使用地图包的名称创建一个文件夹 <code>Unreal/CarlaUE4/Content</code> 。它将包含配置文件、超速挡、静态资产信息和导航信息。</p>
 <hr />
-<h2 id="next-steps">Next steps</h2>
-<p>You will now be able to open your map in the Unreal Editor and run simulations. From here, you will be able to customize the map and generate the pedestrian navigation data. We recommend generating the pedestrian navigation after all customization has finished, so there is no chance of obstacles blocking the pedestrian paths.</p>
-<p>CARLA provides several tools and guides to help with the customization of your maps:</p>
+<h2 id="_3">下一步</h2>
+<p>您现在可以在虚幻编辑器中打开地图并运行仿真。从这里，您将能够自定义地图并生成行人导航数据。我们建议在所有自定义完成后生成行人导航，这样就不会有障碍物阻挡行人路径。</p>
+<p>CARLA 提供了多种工具和指南来帮助自定义地图：</p>
 <ul>
-<li><a href="../tuto_M_custom_layers/">Implement sub-levels in your map.</a></li>
-<li><a href="../tuto_M_custom_add_tl/">Add and configure traffic lights and signs.</a></li>
-<li><a href="../tuto_M_custom_buildings/">Add buildings with the procedural building tool.</a></li>
-<li><a href="../tuto_M_custom_road_painter/">Customize the road with the road painter tool.</a></li>
-<li><a href="../tuto_M_custom_weather_landscape/#weather-customization">Customize the weather</a></li>
-<li><a href="../tuto_M_custom_weather_landscape/#add-serial-meshes">Customize the landscape with serial meshes.</a></li>
+<li><a href="../tuto_M_custom_layers/">在地图中实现子关卡。</a></li>
+<li><a href="../tuto_M_custom_add_tl/">添加和配置交通灯和标志。</a></li>
+<li><a href="../tuto_M_custom_buildings/">使用程序化构建工具添加建筑物。</a></li>
+<li><a href="../tuto_M_custom_road_painter/">使用道路画家工具自定义道路。</a></li>
+<li><a href="../tuto_M_custom_weather_landscape/#weather-customization">自定义天气</a></li>
+<li><a href="../tuto_M_custom_weather_landscape/#add-serial-meshes">使用序列化网格自定义景观。</a></li>
 </ul>
-<p>Once you have finished with the customization, you can <a href="../tuto_M_generate_pedestrian_navigation/">generate the pedestrian navigation information</a>.</p>
+<p>完成定制后，您可以 <a href="../tuto_M_generate_pedestrian_navigation/">生成行人导航信息</a> 。</p>
 <hr />
-<p>If you have any questions about the process, then you can ask in the <a href="https://github.com/carla-simulator/carla/discussions">forum</a>.</p>
+<p>如果您对流程有任何疑问，可以在 <a href="https://github.com/carla-simulator/carla/discussions">论坛</a> 中提问。</p>
               
             </div>
           </div><footer>

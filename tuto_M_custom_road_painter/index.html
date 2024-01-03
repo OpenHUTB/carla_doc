@@ -169,21 +169,21 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">自定义地图：Road painter</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#what-is-the-road-painter">What is the road painter?</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">什么是道路画家？</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#before-you-begin">Before you begin</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">在你开始之前</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#establish-the-road-painter-master-material-and-render-target">Establish the road painter, master material and render target</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">建立道路画家、掌握材质和渲染目标</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#prepare-the-master-material">Prepare the master material</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_5">准备主材质</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#paint-the-road">Paint the road</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_6">描绘道路</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#update-the-appearance-of-lane-markings">Update the appearance of lane markings</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_7">更新车道线的外观</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next steps</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_8">下一步</a>
     </li>
     </ul>
                   </li>
@@ -298,46 +298,46 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="customizing-maps-road-painter">Customizing Maps: Road Painter</h1>
-<p>This guide explains what the road painter tool is, how to use it to customize the appearance of the road by combining different textures, how to add decals and meshes and how to update the appearance of lane markings according to the road texture.</p>
+                <h1 id="_1">自定义地图：道路画家</h1>
+<p>本指南解释了什么是道路绘制工具，如何使用它通过组合不同的纹理来自定义道路的外观，如何添加贴花和网格以及如何根据道路纹理更新车道标记的外观。</p>
 <ul>
-<li><a href="#what-is-the-road-painter"><strong>What is the road painter?</strong></a></li>
-<li><a href="#before-you-begin"><strong>Before you begin</strong></a></li>
-<li><a href="#establish-the-road-painter-master-material-and-render-target"><strong>Establish the road painter, master material and render target</strong></a></li>
-<li><a href="#prepare-the-master-material"><strong>Prepare the master material</strong></a></li>
-<li><a href="#paint-the-road"><strong>Paint the road</strong></a></li>
-<li><a href="#update-the-appearance-of-lane-markings"><strong>Update the appearance of lane markings</strong></a></li>
-<li><a href="#next-steps"><strong>Next steps</strong></a></li>
+<li><a href="#what-is-the-road-painter"><strong>什么是道路画家？</strong></a></li>
+<li><a href="#before-you-begin"><strong>在你开始之前</strong></a></li>
+<li><a href="#establish-the-road-painter-master-material-and-render-target"><strong>建立道路画家、掌握材质和渲染目标</strong></a></li>
+<li><a href="#prepare-the-master-material"><strong>准备主材质</strong></a></li>
+<li><a href="#paint-the-road"><strong>描绘道路</strong></a></li>
+<li><a href="#update-the-appearance-of-lane-markings"><strong>更新车道线的外观</strong></a></li>
+<li><a href="#next-steps"><strong>下一步</strong></a></li>
 </ul>
 <hr />
-<h2 id="what-is-the-road-painter">What is the road painter?</h2>
-<p>The Road Painter tool is a blueprint that uses OpenDRIVE information to paint roads quickly. It takes a master material and applies it to a render target of the road to use as a canvas. The master material is made up of a collection of materials that can be blended using brushes and applied as masks. There is no need to apply photometry techniques nor consider the UVs of the geometry.</p>
+<h2 id="_2">什么是道路画家？</h2>
+<p>道路画家工具是一个使用 OpenDRIVE 信息快速绘制道路的蓝图。它采用主材质并将其应用到道路的渲染目标以用作画布。主材质由一系列材质组成，这些材质可以使用画笔混合并用作蒙版。无需应用光度测定技术，也无需考虑几何体的 UV。</p>
 <hr />
-<h2 id="before-you-begin">Before you begin</h2>
-<p>The road painter uses the OpenDRIVE information to paint the roads. Make sure that your <code>.xodr</code> file has the same name as your map for this to work correctly.</p>
+<h2 id="_3">在你开始之前</h2>
+<p>道路油漆工使用 OpenDRIVE 信息来油漆道路。确保您的<code>.xodr</code>文件与地图同名，这样才能正常工作。</p>
 <hr />
-<h2 id="establish-the-road-painter-master-material-and-render-target">Establish the road painter, master material and render target</h2>
-<p><strong>1. Create the <code>RoadPainter</code> actor.</strong></p>
+<h2 id="_4">建立道路画家、掌握材质和渲染目标</h2>
+<p><strong>1. 创建 <code>RoadPainter</code> 参与者。</strong></p>
 <ol>
-<li>In the <em>Content Browser</em>, navigate to <code>Content/Carla/Blueprints/LevelDesign</code>.</li>
-<li>Drag the <code>RoadPainter</code> into the scene.</li>
+<li>在 <em>内容浏览器</em> 中，导航至 <code>Content/Carla/Blueprints/LevelDesign</code>。</li>
+<li>将 <code>RoadPainter</code> 拖入场景中。</li>
 </ol>
-<p><strong>2. Create the Render Target.</strong></p>
+<p><strong>2. 创建渲染目标。</strong></p>
 <ol>
-<li>In the <em>Content Browser</em>, navigate to <code>Content/Carla/Blueprints/LevelDesign/RoadPainterAssets</code>.</li>
-<li>Right-click on the <code>RenderTarget</code> file and select <code>Duplicate</code>.</li>
-<li>Rename to <code>Tutorial_RenderTarget</code>.</li>
+<li>在 <em>内容浏览器</em> 中，导航至 <code>Content/Carla/Blueprints/LevelDesign/RoadPainterAssets</code>。</li>
+<li>右键单击 <code>RenderTarget</code> 文件并选择 <code>Duplicate</code>。</li>
+<li>重命名为 <code>Tutorial_RenderTarget</code>。</li>
 </ol>
-<p><strong>3. Create the master material instance.</strong></p>
+<p><strong>3. 创建主材质实例。</strong></p>
 <ol>
-<li>In the <em>Content Browser</em>, navigate to <code>Game/Carla/Static/GenericMaterials/RoadPainterMaterials</code>.</li>
-<li>Right-click on <code>M_RoadMaster</code> and select <em>Create Material Instance</em>.</li>
-<li>Rename to <code>Tutorial_RoadMaster</code>.</li>
+<li>在 <em>内容浏览器</em> 中，导航至 <code>Game/Carla/Static/GenericMaterials/RoadPainterMaterials</code>。</li>
+<li>右键单击 <code>M_RoadMaster</code> 并选择 <em>Create Material Instance</em> 。</li>
+<li>重命名为 <code>Tutorial_RoadMaster</code>。</li>
 </ol>
-<p><strong>4. Re-calibrate the <em>Map Size (Cm)</em> so that it is equal to the actual size of the map.</strong></p>
+<p><strong>4. 重新校准 <em>Map Size (Cm)</em> ，使其等于地图的实际尺寸。</strong></p>
 <ol>
-<li>Select the <code>RoadPainter</code> actor in the scene.</li>
-<li>Go to the <em>Details</em> panel and press the <em>Z-Size</em> button. You will see the value in <em>Map Size (Cm)</em> change.</li>
+<li>选择 <code>RoadPainter</code> 场景中的参与者。</li>
+<li>转到 <em>Details</em> 面板并按 <em>Z-Size</em> 按钮。您将看到 <em>Map Size (Cm)</em> 中的值发生变化。</li>
 </ol>
 <blockquote>
 <blockquote>
@@ -350,11 +350,11 @@
 </blockquote>
 </blockquote>
 </blockquote>
-<p><strong>5. Synchronize the map size between the <code>RoadPainter</code> and <code>Tutorial_RoadMaster</code>.</strong></p>
+<p><strong>5. 同步 <code>RoadPainter</code> 和 <code>Tutorial_RoadMaster</code> 之间的地图尺寸。</strong></p>
 <ol>
-<li>In the <em>Content Browser</em>, open <code>Tutorial_RoadMaster</code>.</li>
-<li>Copy the value <em>Map Size (Cm)</em> from the previous step and paste it to <em>Global Scalar Parameter Values -&gt; Map units (CM)</em> in the <code>Tutorial_RoadMaster</code> window.</li>
-<li>Press save.</li>
+<li>在 <em>内容浏览器</em> 中，打开 <code>Tutorial_RoadMaster</code>。</li>
+<li>复制上一步中 <em>Map Size (Cm)</em> 的值，并将其粘贴到 <code>Tutorial_RoadMaster</code> 窗口中的 <em>Global Scalar Parameter Values -&gt; Map units (CM)</em> 。</li>
+<li>点击保存。</li>
 </ol>
 <blockquote>
 <blockquote>
@@ -369,51 +369,51 @@
 </blockquote>
 </blockquote>
 </blockquote>
-<p><strong>6. Create the communication link between the road painter and the master material.</strong></p>
-<p>The <code>Tutorial_RenderTarget</code> will be the communication link between the road painter and <code>Tutorial_RoadMaster</code>.</p>
+<p><strong>6. 创建道路画家和主材质之间的通信链接。</strong></p>
+<p><code>Tutorial_RenderTarget</code> 将是道路画家和 <code>Tutorial_RoadMaster</code> 之间的通信纽带。</p>
 <ol>
-<li>In the <code>Tutorial_RoadMaster</code> window, apply the <code>Tutorial_RenderTarget</code> to <em>Global Texture Parameter Values -&gt; Texture Mask</em>.</li>
-<li>Save and close.</li>
-<li>In the main editor window, select the road painter actor, go to the <em>Details</em> panel and apply the <code>Tutorial_RenderTarget</code> to <em>Paint -&gt; Render Target</em>.</li>
+<li>在 <code>Tutorial_RoadMaster</code>窗口中，将 <code>Tutorial_RenderTarget</code> 应用于 <em>Global Texture Parameter Values -&gt; Texture Mask</em> 。</li>
+<li>保存并关闭。</li>
+<li>在主编辑器窗口中，选择道路画家参与者，转到 <em>Details</em> 面板并将 <code>Tutorial_RenderTarget</code> 应用到 <em>Paint -&gt; Render Target</em> 。</li>
 </ol>
 <hr />
-<h2 id="prepare-the-master-material">Prepare the master material</h2>
-<p>The <code>Tutorial_RoadMaster</code> material you created holds the base material, extra material information, and parameters that will be applied via your <code>Tutorial_RenderTarget</code>. You can configure one base material and up to three additional materials.</p>
+<h2 id="_5">准备主材质</h2>
+<p>您创建的 <code>Tutorial_RoadMaster</code> 材质，包含基础材质、额外材质信息以及将通过您的<code>Tutorial_RenderTarget</code>。您可以配置一种基础材料和最多三种附加材料。</p>
 <blockquote>
 <blockquote>
 <p><img alt="master materials" src="../img/master_material.png" /></p>
 </blockquote>
 </blockquote>
-<p>To configure the materials, double-click the <code>Tutorial_RoadMaster</code> file. In the window that appears, you can select and adjust the following values for each material according to your needs:</p>
+<p>要配置材料，请双击 <code>Tutorial_RoadMaster</code> 文件。在出现的窗口中，您可以根据需要为每种材料选择和调整以下值：</p>
 <ul>
-<li>Brightness</li>
-<li>Hue</li>
-<li>Saturation</li>
+<li>亮度(Brightness)</li>
+<li>色调(Hue)</li>
+<li>饱和度(Saturation)</li>
 <li>AO Intensity</li>
-<li>NormalMap Intensity</li>
-<li>Roughness Contrast</li>
-<li>Roughness Intensity</li>
+<li>法线贴图强度(NormalMap Intensity)</li>
+<li>粗糙度对比(Roughness Contrast)</li>
+<li>粗糙度强度(Roughness Intensity)</li>
 </ul>
-<p>You can change the textures for each material by selecting the following values and searching for a texture in the search box:</p>
+<p>您可以通过选择以下值并在搜索框中搜索纹理来更改每种材质的纹理：</p>
 <ul>
 <li>Diffuse</li>
 <li>Normal</li>
 <li>ORMH</li>
 </ul>
-<p>Explore some of the CARLA textures available in <code>Game/Carla/Static/GenericMaterials/Asphalt/Textures</code>.</p>
+<p>探索 <code>Game/Carla/Static/GenericMaterials/Asphalt/Textures</code> 中可用的一些 CARLA 纹理。</p>
 <hr />
-<h3 id="paint-the-road">Paint the road</h3>
-<p><strong>1. Create the link between the road painter and the roads.</strong></p>
+<h3 id="_6">描绘道路</h3>
+<p><strong>1. 在道路画家和道路之间创建链接。</strong></p>
 <ol>
-<li>In the main editor window, search for <code>Road_Road</code> in the <em>World Outliner</em> search box.</li>
-<li>Press <code>Ctrl + A</code> to select all the roads.</li>
-<li>In the <em>Details</em> panel, go to the <em>Materials</em> section and apply <code>Tutorial_RoadMaster</code> to <em>Element 0</em>, <em>Element 1</em>, <em>Element 2</em>, and <em>Element 3</em>.</li>
+<li>在主编辑器窗口中，在 <em>World Outliner</em> 搜索框中进行 <code>Road_Road</code> 搜索。</li>
+<li>按 <code>Ctrl + A</code> 选择所有道路。</li>
+<li>在 <em>Details</em> 面板中，转到 <em>Materials</em> 部分并应用 <code>Tutorial_RoadMaster</code> 到 <em>Element 0</em>、 <em>Element 1</em>、 <em>Element 2</em> 和 <em>Element 3</em>。</li>
 </ol>
-<p><strong>2. Choose the material to customize.</strong></p>
-<p>Each of the materials we added to <code>Tutorial_RoadMaster</code> are applied to the roads separately and application is configured with the <em>Brush</em> tool. To apply and customize a material:</p>
+<p><strong>2. 选择要定制的材质。</strong></p>
+<p>我们添加的 <code>Tutorial_RoadMaster</code> 单独应用于道路，并使用画笔工具配置应用程序。要应用和自定义材质：</p>
 <ol>
-<li>Select the road painter actor</li>
-<li>In the <em>Details</em> panel, select the material to work with in the <em>Mask Color</em> dropdown menu.</li>
+<li>选择道路油画家参与者。</li>
+<li>在 <em>Details</em> 面板中，在 <em>Mask Color</em> 下拉菜单中选择要使用的材质。</li>
 </ol>
 <blockquote>
 <blockquote>
@@ -428,15 +428,15 @@
 </blockquote>
 </blockquote>
 </blockquote>
-<p><strong>3. Set the brush and stencil parameters.</strong></p>
-<p>There are a variety of stencils to choose from in <code>GenericMaterials/RoadStencil/Alphas</code>. The stencil is used to paint the road according to your needs and can be adjusted using the following values:</p>
+<p><strong>3. 设置画笔和模板参数。</strong></p>
+<p>在 <code>GenericMaterials/RoadStencil/Alphas</code> 中有多种模板可供选择。模板用于根据您的需要绘制道路，可以使用以下值进行调整：</p>
 <ul>
-<li><em>Stencil size</em> — Size of the brush.</li>
-<li><em>Brush strength</em> — Roughness of the outline.</li>
-<li><em>Spacebeween Brushes</em> — Distance between strokes.</li>
-<li><em>Max Jitter</em> — Size variation of the brush between strokes.</li>
-<li><em>Stencil</em> — The brush to use.</li>
-<li><em>Rotation</em> — Rotation applied to the stroke.</li>
+<li><em>Stencil size</em> — 画笔的尺寸。</li>
+<li><em>Brush strength</em> — 轮廓的粗糙度。</li>
+<li><em>Spacebeween Brushes</em> — 笔划之间的距离。</li>
+<li><em>Max Jitter</em> — 笔划之间画笔的大小变化。</li>
+<li><em>Stencil</em> — 要使用的画笔。</li>
+<li><em>Rotation</em> — 应用于笔画的旋转。</li>
 </ul>
 <blockquote>
 <blockquote>
@@ -456,19 +456,19 @@
 <img alt="materials_roadpaint_typesofbrushes" src="../img/material_customization/Materials_Road_Typesofbrushes.jpg" /></p>
 <div style="text-align: right"><i>Different types of brushes.</i></div>
 <p><br>
-<strong>4. Apply each material to the desired portions of the road.</strong></p>
-<p>Choose where to apply the selected material via the buttons in the <em>Default</em> section of the <em>Details</em> panel:</p>
+<strong>4. 将每种材料涂抹到道路的所需部分。</strong></p>
+<p>通过 <em>Details</em> 面板的 <em>Default</em> 部分中的按钮选择应用所选材质的位置：</p>
 <ul>
-<li><em>Paint all roads</em> — Paint all the roads.</li>
-<li><em>Paint by actor</em> — Paint a specific, selected actor.</li>
-<li><em>Paint over circle</em> — Paint using a circular pattern, useful to provide variation.</li>
-<li><em>Paint over square</em> — Paint using a square pattern, useful to provide variation.</li>
+<li><em>Paint all roads</em> — 粉刷所有道路。</li>
+<li><em>Paint by actor</em> — 绘画特定的、选定的参与者。</li>
+<li><em>Paint over circle</em> — 使用圆形图案进行绘制，有助于提供变化。</li>
+<li><em>Paint over square</em> — 使用正方形图案进行绘制，有助于提供变化。</li>
 </ul>
-<p>This section also contains options to erase the applied changes.</p>
+<p>此部分还包含用于删除已应用更改的选项。</p>
 <ul>
-<li><em>Clear all</em> — Erase all the painted material.</li>
-<li><em>Clear materials</em> — Remove the currently active materials.</li>
-<li><em>Clear material by actor</em> — Remove the material closest to the selected actor.</li>
+<li><em>Clear all</em> — 擦除所有绘制的材质。</li>
+<li><em>Clear materials</em> — 删除当前活动的材料。</li>
+<li><em>Clear material by actor</em> — 删除最接近所选参与者的材质。</li>
 </ul>
 <blockquote>
 <blockquote>
@@ -485,16 +485,16 @@
 </blockquote>
 <div style="text-align: right"><i>Different painting and erasing options.</i></div>
 <p><br>
-<strong>5. Add decals and meshes.</strong></p>
-<p>You can explore the available decals and meshes in <code>Content/Carla/Static/Decals</code> and <code>Content/Carla/Static</code>. Add them to road painter by extending and adding to the <em>Decals Spawn</em> and <em>Meshes Spawn</em> arrays. For each one you can configure the following parameters:</p>
+<strong>5. 添加贴花和网格。</strong></p>
+<p>您可以在 <code>Content/Carla/Static/Decals</code> 和 <code>Content/Carla/Static</code> 中探索可用的贴花和网格。通过扩展并添加到 <em>Decals Spawn</em> 和 <em>Meshes Spawn</em> 数组，将它们添加到道路绘制器中。对于每一项，您都可以配置以下参数：</p>
 <ul>
-<li><em>Number of Decals/Meshes</em> - The amount of each decal or mesh to paint.</li>
-<li><em>Decal/Mesh Scale</em> — Scale of the decal/mesh per axis.</li>
-<li><em>Fixed Decal/Mesh Offset</em> — Deviation from the center of the lane per axis.</li>
-<li><em>Random Offset</em> — Max deviation from the center of the lane per axis.</li>
-<li><em>Decal/Mesh Random Yaw</em> — Max random yaw rotation.</li>
-<li><em>Decal/Mesh Min Scale</em> — Minimum random scale applied to the decal/mesh.</li>
-<li><em>Decal/Mesh Max Scale</em> — Max random scale applied to the decal/mesh.</li>
+<li><em>Number of Decals/Meshes</em> - 要绘制的每个贴花或网格的数量。</li>
+<li><em>Decal/Mesh Scale</em> — 每个轴的贴花/网格比例。</li>
+<li><em>Fixed Decal/Mesh Offset</em> — 每个轴与车道中心的偏差。</li>
+<li><em>Random Offset</em> — 每个轴与车道中心的最大偏差。</li>
+<li><em>Decal/Mesh Random Yaw</em> — 最大随机偏航旋转。</li>
+<li><em>Decal/Mesh Min Scale</em> — 应用于贴花/网格的最小随机比例。</li>
+<li><em>Decal/Mesh Max Scale</em> — 应用于贴花/网格的最大随机比例。</li>
 </ul>
 <blockquote>
 <blockquote>
@@ -509,69 +509,69 @@
 </blockquote>
 </blockquote>
 </blockquote>
-<div style="text-align: right"><i>Decals and Meshes panels.</i></div>
+<div style="text-align: right"><i>贴花和网格面板。</i></div>
 <p><br></p>
-<p>Once you have configured your meshes and decals, spawn them by pressing <code>Spawn decals</code> and <code>Spawn meshes</code>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Make sure that meshes and decals do not have collisions enabled that can interfere with cars on the road and lower any bounding boxes to the level of the road.</p>
+<p>配置好网格和贴花后，通过按<code>Spawn decals</code>和生成它们<code>Spawn meshes</code>。</p>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>确保网格和贴花没有启用碰撞，以免干扰道路上的汽车并将任何边界框降低到道路水平。</p>
 </div>
-<p><strong>7. Experiment to get your desired appearance.</strong> </p>
-<p>Experiment with different materials, textures, settings, decals, and meshes to get your desired look. Below are some example images of how the appearance of the road changes during the process of painting each material.</p>
+<p><strong>7. 尝试获得您想要的外观。</strong> </p>
+<p>尝试不同的材质、纹理、设置、贴花和网格以获得您想要的外观。下面是一些示例图像，显示了在绘制每种材质的过程中道路外观如何变化。</p>
 <p><img alt="materials_roadpaint_mat00" src="../img/material_customization/Materials_Road_MaterialBase.jpg" /></p>
-<div style="text-align: right"><i>Example of base road material.</i></div>
-<p><br>
-<img alt="materials_roadpaint_mat01" src="../img/material_customization/Materials_Road_Material1.jpg" /></p>
-<div style="text-align: right"><i>Example after material 1 is applied.</i></div>
-<p><br>
-<img alt="materials_roadpaint_mat02" src="../img/material_customization/Materials_Road_Material2.jpg" /></p>
-<div style="text-align: right"><i>Example after material 2 is applied.</i></div>
-<p><br>
-<img alt="materials_roadpaint_mat03" src="../img/material_customization/Materials_Road_Material3.jpg" /></p>
-<div style="text-align: right"><i>Example after material 3 is applied.</i></div>
-<p><br>
-<img alt="materials_roadpaint_mat03" src="../img/material_customization/Materials_Road_Decals.jpg" /></p>
-<div style="text-align: right"><i>Example after decals are applied.</i></div>
-<p><br>
-<img alt="materials_roadpaint_mat03" src="../img/material_customization/Materials_Road_Meshes.jpg" /></p>
-<div style="text-align: right"><i>Example after meshes are applied.</i></div>
+<div style="text-align: right"><i>基础道路材料示例。</i></div>
+<p><br></p>
+<p><img alt="materials_roadpaint_mat01" src="../img/material_customization/Materials_Road_Material1.jpg" /></p>
+<div style="text-align: right"><i>应用材料 1 后的示例。</i></div>
+<p><br></p>
+<p><img alt="materials_roadpaint_mat02" src="../img/material_customization/Materials_Road_Material2.jpg" /></p>
+<div style="text-align: right"><i>应用材料 2 后的示例。</i></div>
+<p><br></p>
+<p><img alt="materials_roadpaint_mat03" src="../img/material_customization/Materials_Road_Material3.jpg" /></p>
+<div style="text-align: right"><i>应用材料 3 后的示例。</i></div>
+<p><br></p>
+<p><img alt="materials_roadpaint_mat03" src="../img/material_customization/Materials_Road_Decals.jpg" /></p>
+<div style="text-align: right"><i>应用贴花后的示例。</i></div>
+<p><br></p>
+<p><img alt="materials_roadpaint_mat03" src="../img/material_customization/Materials_Road_Meshes.jpg" /></p>
+<div style="text-align: right"><i>应用网格后的示例。</i></div>
 <p><br></p>
 <hr />
-<h2 id="update-the-appearance-of-lane-markings">Update the appearance of lane markings</h2>
-<p>After you have painted the roads, you can update the appearance of the road markings by following these steps:</p>
-<p><strong>1. Make a copy of the master material.</strong></p>
+<h2 id="_7">更新车道线的外观</h2>
+<p>绘制道路后，您可以按照以下步骤更新道路标记的外观：</p>
+<p><strong>1.  复制主材料。</strong></p>
 <ol>
-<li>In the <em>Content Browser</em>, navigate to <code>Game/Carla/Static/GenericMaterials/RoadPainterMaterials</code>.</li>
-<li>Right-click on <code>Tutorial_RoadMaster</code> and select <em>Create Material Instance</em>.</li>
-<li>Rename to <code>Tutorial_LaneMarkings</code>.</li>
+<li>在 <em>内容浏览器</em> ，导航至 <code>Game/Carla/Static/GenericMaterials/RoadPainterMaterials</code>。</li>
+<li>右键单击 <code>Tutorial_RoadMaster</code> 并选择 <em>Create Material Instance</em> 。</li>
+<li>重命名为 <code>Tutorial_LaneMarkings</code>。</li>
 </ol>
-<p><strong>2. Configure the lane marking material.</strong></p>
+<p><strong>2. 配置车道线材质。</strong></p>
 <ol>
-<li>In the <em>Content Browser</em>, double-click on <code>Tutorial_LaneMarkings</code>.</li>
-<li>In the <em>Details</em> panel, go to the <em>Global Static Switch Parameter Values</em> section and check the boxes on the left and right of <em>LaneMark</em>.</li>
-<li>Go to the <em>Texture</em> section and check the boxes for <em>LaneColor</em> and <em>Uv Size</em>.</li>
-<li>Choose your preferred color for the lane markings in <em>LaneColor</em>.</li>
-<li><em>Save</em> and close.</li>
+<li>在 <em>内容浏览器</em> ，双击 <code>Tutorial_LaneMarkings</code>。</li>
+<li>在 <em>Details</em> 面板中，转到 <em>Global Static Switch Parameter Values</em> 部分，然后选中 <em>LaneMark</em> 左侧和右侧的框。</li>
+<li>转到 <em>Texture</em> 部分并选中 <em>LaneColor</em> 和 <em>Uv Size</em> 复选框。</li>
+<li>在 <em>LaneColor</em> 中选择您喜欢的车道标记颜色。</li>
+<li><em>保存</em> 并关闭。</li>
 </ol>
-<p><strong>3. Select the road marking meshes.</strong></p>
-<p>Drag the material onto the lane markings you wish to color. Repeat the whole process for different colors of lane markings if required.</p>
+<p><strong>3. 选择车道线网格。</strong></p>
+<p>将材料拖到您想要着色的车道线上。如果需要，对不同颜色的车道线重复整个过程。</p>
 <hr />
-<h2 id="next-steps">Next steps</h2>
-<p>Continue customizing your map using the tools and guides below:</p>
+<h2 id="_8">下一步</h2>
+<p>使用以下工具和指南继续自定义您的地图：</p>
 <ul>
-<li><a href="../tuto_M_custom_layers/">Implement sub-levels in your map.</a></li>
-<li><a href="../tuto_M_custom_add_tl/">Add and configure traffic lights and signs.</a></li>
-<li><a href="../tuto_M_custom_buildings/">Add buildings with the procedural building tool.</a></li>
-<li><a href="../tuto_M_custom_weather_landscape/#weather-customization">Customize the weather</a></li>
-<li><a href="../tuto_M_custom_weather_landscape/#add-serial-meshes">Customize the landscape with serial meshes.</a></li>
+<li><a href="../tuto_M_custom_layers/">在地图中实现子关卡。</a></li>
+<li><a href="../tuto_M_custom_add_tl/">添加和配置交通灯和标志。</a></li>
+<li><a href="../tuto_M_custom_buildings/">使用程序化构建工具添加建筑物。</a></li>
+<li><a href="../tuto_M_custom_weather_landscape/#weather-customization">自定义天气</a></li>
+<li><a href="../tuto_M_custom_weather_landscape/#add-serial-meshes">使用序列化网格自定义景观。</a></li>
 </ul>
-<p>Once you have finished with the customization, you can <a href="../tuto_M_generate_pedestrian_navigation/">generate the pedestrian navigation information</a>.</p>
+<p>完成定制后，您可以 <a href="../tuto_M_generate_pedestrian_navigation/">生成行人导航信息</a> 。</p>
 <hr />
-<p>If you have any questions about the process, then you can ask in the <a href="https://github.com/carla-simulator/carla/discussions">forum</a>.</p>
+<p>如果您对流程有任何疑问，可以在 <a href="https://github.com/carla-simulator/carla/discussions">论坛</a> 中提问。</p>
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA forum</a>
+CARLA 论坛</a>
 </p>
 </div>
               
