@@ -4,19 +4,19 @@ CARLA 中大地图（如城镇 11 和 12）的操作方式与标准地图（如�
 
 # 在 RoadRunner 中创建大地图
 
-RoadRunner 是推荐用于创建要导入 CARLA 的大型地图的软件。本指南概述了如何使用 RoadRunner 创建大地图以及如何在虚幻引擎编辑器中导入和处理大地图。
+RoadRunner 是推荐用于创建要导入 CARLA 的大地图的软件。本指南概述了如何使用 RoadRunner 创建大地图以及如何在虚幻引擎编辑器中导入和处理大地图。
 
-- [__在 RoadRunner 中构建大型地图__](#build-a-large-map-in-roadrunner)
+- [__在 RoadRunner 中构建大地图__](#build-a-large-map-in-roadrunner)
 - [__在 RoadRunner 中导出大地图__](#export-a-large-map-in-roadrunner)
 - [__将大地图导入 CARLA__](#import-a-large-map-into-carla)
     - [文件和文件夹](#files-and-folders)
     - [创建 JSON 描述（可选）](#create-the-json-description-optional)
     - [进行导入](#making-the-import)
-- [__在虚幻编辑器中处理大型地图__](#handling-a-large-map-in-the-unreal-editor)
+- [__在虚幻编辑器中处理大地图__](#handling-a-large-map-in-the-unreal-editor)
 - [__打包一张大地图__](#package-a-large-map)
 ---
 
-## 在 RoadRunner 中构建大型地图
+## 在 RoadRunner 中构建大地图
 
 如何在 RoadRunner 中构建复杂地图的具体细节超出了本指南的范围，但是，[RoadRunner 文档][rr_tutorials]中提供了视频教程。从表面上看，在 RoadRunner 中构建大地图与构建标准地图基本相同，只是比例更大。差异主要在于地图的导出方式。
 
@@ -61,7 +61,7 @@ __2.__ 在弹出的窗口中：
     - _二维纹理的力量_（_Power of Two Texture Dimensions_）: 提高性能。
     - _嵌入纹理_（_Embed Textures_）: 确保纹理嵌入到网格中。
     - _导出到图块_（_Export to Tiles_）: 选择图块的大小。CARLA 可以使用的最大尺寸为 2000 x 2000。
-    - _导出单个图块_（_Export Individual Tiles_）: 生成在 CARLA 中流式传输大型地图所需的单个图块。
+    - _导出单个图块_（_Export Individual Tiles_）: 生成在 CARLA 中流式传输大地图所需的单个图块。
 
 >>>>>>![export_large_map_fbx](img/tuto_content_authoring_maps/rr_export.png)
 
@@ -83,7 +83,7 @@ __3.__ 导出 `.xodr` OpenDrive 地图文件：
 
 # 将大地图导入 CARLA
 
-RoadRunner 中生成的大型地图可以导入到 CARLA 的源代码构建中，并打包在 CARLA 独立包中分发和使用。该过程与标准地图非常相似，只是添加了图块和批量导入的特定术语。
+RoadRunner 中生成的大地图可以导入到 CARLA 的源代码构建中，并打包在 CARLA 独立包中分发和使用。该过程与标准地图非常相似，只是添加了图块和批量导入的特定术语。
 
 ## 文件和文件夹
 
@@ -202,7 +202,7 @@ make import  ARGS="--no-carla-materials"
 ---
 
 
-## 在虚幻编辑器中处理大型地图
+## 在虚幻编辑器中处理大地图
 
 现在您已导入新地图，您将在内容浏览器中的默认命名 `map_package` 文件夹内找到该地图。如果您在导入命令中使用参数 `"--package=<package_name>"`，该文件夹将有一个备用名称。在此文件夹内，打开该`Maps`文件夹并打开该文件夹内的文件夹。在里面你会发现几个橙色的关卡文件。
 

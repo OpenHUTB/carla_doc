@@ -61,7 +61,7 @@
 
 [__大地图概述__](large_map_overview.md) — 解释大地图在 Carla 中的工作原理。 
 
-[__在 RoadRunner 中创建大型地图__](large_map_roadrunner.md) — 如何在 RoadRunner 中创建大型地图。
+[__在 RoadRunner 中创建大地图__](large_map_roadrunner.md) — 如何在 RoadRunner 中创建大地图。
 
 [__导入/打包大地图__](large_map_import.md) — 如何导入大地图。
 

@@ -7,7 +7,7 @@
     - [为标准地图创建 JSON 描述](#create-the-json-description-for-the-standard-maps)
 - [__大地图__](#large-maps)
     - [为大地图创建文件夹结构](#create-the-folder-structure-for-the-large-maps)
-    - [为大型地图创建 JSON 描述](#create-the-json-description-for-the-large-maps)
+    - [为大地图创建 JSON 描述](#create-the-json-description-for-the-large-maps)
 
 ---
 
