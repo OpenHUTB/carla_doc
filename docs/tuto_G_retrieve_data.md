@@ -564,13 +564,13 @@ __3.__ 打开其中一个 _.ply_ 文件。 `File > Import mesh...`
 * __`range`__ 是激光光线投射的最大距离。
 * __`points_per_second`__ 设置要捕获的点的数量，这些点将在指定的通道之间分配。 
 
-The script places the sensor on the hood of the car, and rotated a bit upwards. That way, the output will map the front view of the car. The `horizontal_fov` is incremented, and the `vertical_fov` diminished. The area of interest is specially the height where vehicles and walkers usually move on. The `range` is also changed from 100m to 10m, in order to retrieve data only right ahead of the vehicle. 
+该脚本将传感器放置在汽车引擎盖上，并向上旋转一点。这样，输出将映射汽车的前视图。`horizontal_fov`是增加的，`vertical_fov`是减少的。感兴趣的区域特别是车辆和步行者通常移动的高度。距离`range`也从 100m 更改为 10m，以便仅检索车辆正前方的数据。
 
-The callback is a bit more complex this time, showing more of its capabilities. It will draw the points captured by the radar on the fly. The points will be colored depending on their velocity regarding the ego vehicle.  
+这次的回调有点复杂，显示了它的更多功能。它将实时绘制雷达捕获的点。这些点将根据它们相对于自我车辆的速度而着色。 
 
-* __Blue__ for points approaching the vehicle.  
-* __Read__ for points moving away from it. 
-* __White__ for points static regarding the ego vehicle. 
+* __Blue__ 表示接近车辆的点。
+* __Red__ 表示远离接近车辆的点。
+* __White__ 代表关于自我车辆的静态点。
 
 ```py
 # --------------
@@ -618,30 +618,30 @@ rad_ego.listen(lambda radar_data: rad_callback(radar_data))
 ```
 
 ![tuto_radar](img/tuto_radar.jpg)
-<div style="text-align: right"><i>Radar output. The vehicle is stopped at a traffic light, so the static elements in front of it appear in white.</i></div>
+<div style="text-align: right"><i>雷达输出。车辆停在红绿灯处，因此其前面的静态元素显示为白色。</i></div>
 
 ---
 ## 非渲染模式
 
-The [no-rendering mode](adv_rendering_options.md) can be useful to run an initial simulation that will be later played again to retrieve data. Especially if this simulation has some extreme conditions, such as dense traffic.  
+[无渲染模式](adv_rendering_options.md) 对于运行初始仿真非常有用，稍后将再次播放该仿真以检索数据。特别是如果该仿真存在一些极端条件，例如交通密集。 
 
 ### 快速仿真
 
-Disabling the rendering will save up a lot of work to the simulation. As the GPU is not used, the server can work at full speed. This could be useful to simulate complex conditions at a fast pace. The best way to do so would be by setting a fixed time-step. Running an asynchronous server with a fixed time-step and no rendering, the only limitation for the simulation would be the inner logic of the server.  
+禁用渲染将为仿真节省大量工作。由于不使用 GPU，服务器可以全速工作。这对于快速仿真复杂的条件很有用。最好的方法是设置固定的时间步长。以固定时间步长运行异步服务器并且不进行渲染，仿真的唯一限制是服务器的内部逻辑。 
 
-The same `config.py` used to [set the map](#map-setting) can disable rendering, and set a fixed time-step. 
+相同的 `config.py` 用于 [设置地图](#map-setting) 可以禁用渲染，并设置固定的时间步长。
 
 ```
 cd /opt/carla/PythonAPI/utils
 python3 config.py --no-rendering --delta-seconds 0.05 # Never greater than 0.1s
 ```
 
-!!! Warning
-    Read the [documentation](adv_synchrony_timestep.md) before messing around with with synchrony and time-step.
+!!! 警告
+    在使用同步和时间步之前，请先阅读 [文档](adv_synchrony_timestep.md) 。
 
 ### 无需渲染的手动控制
 
-The script `PythonAPI/examples/no_rendering_mode.py` provides an overview of the simulation. It creates a minimalistic aerial view with Pygame, that will follow the ego vehicle. This could be used along with __manual_control.py__ to generate a route with barely no cost, record it, and then play it back and exploit it to gather data. 
+脚本`PythonAPI/examples/no_rendering_mode.py`提供了模拟的概述。它使用 Pygame 创建了一个简约的鸟瞰图，它将跟随自我车辆。这可以与 __manual_control.py__ 一起使用来生成一条几乎没有成本的路线，记录它，然后回放并利用它来收集数据。
 
 ```
 cd /opt/carla/PythonAPI/examples
@@ -654,7 +654,7 @@ python3 no_rendering_mode.py --no-rendering
 ```
 
 <details>
-<summary> Optional arguments in <b>no_rendering_mode.py</b> </summary>
+<summary> <b>no_rendering_mode.py</b> 中的可选参数 </summary>
 
 ```sh
   -h, --help           show this help message and exit
@@ -675,32 +675,32 @@ python3 no_rendering_mode.py --no-rendering
 ![tuto_no_rendering](img/tuto_no_rendering.jpg)
 <div style="text-align: right"><i>no_rendering_mode.py working in Town07</i></div>
 
-!!! Note
-    In this mode, GPU-based sensors will retrieve empty data. Cameras are useless, but other sensors such as detectors will work properly. 
+!!! 笔记
+    在此模式下，基于 GPU 的传感器将检索空数据。摄像头没用，但探测器等其他传感器可以正常工作。
 
 ---
 ## 记录和检索数据
 
 ### 开始记录
 
-The [__recorder__](adv_recorder.md) can be started at anytime. The script does it at the very beginning, in order to capture everything, including the spawning of the first actors. If no path is detailed, the log will be saved into `CarlaUE4/Saved`. 
+[__记录器__](adv_recorder.md) 可以随时启动。脚本从一开始就这样做，以便捕捉一切，包括第一批参与者的产生。如果没有详细路径，日志将保存到`CarlaUE4/Saved`。
 
 ```py
 # --------------
-# Start recording
+# 开始记录
 # --------------
 client.start_recorder('~/tutorial/recorder/recording01.log')
 ```
 
 ### 捕获并记录
 
-There are many different ways to do this. Mostly it goes down as either let it roam around or control it manually. The data for the sensors spawned will be retrieved on the fly. Make sure to check it while recording, to make sure everything is set properly.  
+有许多不同的方法可以做到这一点。大多数情况下，它会因为让它四处漫游或手动控制而出现故障。产生的传感器的数据将被即时检索。请务必在记录时进行检查，以确保一切设置正确。
 
-* __Enable the autopilot.__ This will register the vehicle to the [Traffic Manager](adv_traffic_manager.md). It will roam around the city endlessly. The script does this, and creates a loop to prevent the script from finishing. The recording will go on until the user finishes the script. Alternatively, a timer could be set to finish the script after a certain time.  
+* __启用自动驾驶。__ 这会将车辆注册到 [交通管理器](adv_traffic_manager.md)。它将无休止地在城市中漫游。该脚本执行此操作，并创建一个循环以阻止脚本完成。录制将继续进行，直到用户完成脚本。或者，可以设置计时器以在特定时间后完成脚本。  
 
 ```py
 # --------------
-# Capture data
+# 捕获数据
 # --------------
 ego_vehicle.set_autopilot(True)
 print('\nEgo autopilot enabled')
@@ -709,23 +709,23 @@ while True:
     world_snapshot = world.wait_for_tick()
 ```
 
-* __Manual control.__ Run the script `PythonAPI/examples/manual_control.py` in a client, and the recorder in another one. Drive the ego vehicle around to create the desired route, and stop the recorder when finished. The __tutorial_ego.py__ script can be used to manage the recorder, but make sure to comment other fragments of code.  
+* __手动控制。__ 在客户端中运行脚本 `PythonAPI/examples/manual_control.py`，在另一个客户端中运行记录器。驾驶自我车辆来创建所需的路线，并在完成后停止记录仪。__tutorial_ego.py__ 脚本可用于管理记录器，但请确保注释其他代码片段。
 
 ```
 cd /opt/carla/PythonAPI/examples
 python3 manual_control.py
 ```
 
-!!! Note
-    To avoid rendering and save up computational cost, enable [__no rendering mode__](adv_rendering_options.md#no-rendering-mode). The script `/PythonAPI/examples/no_rendering_mode.py` does this while creating a simple aerial view.  
+!!! 笔记
+    为了避免渲染并节省计算成本，请启用 [__无渲染模式__] 。该脚本`/PythonAPI/examples/no_rendering_mode.py`在创建简单的鸟瞰图时执行此操作。
 
 ### 停止记录 
 
-The stop call is even simpler than the start call was. When the recorder is done, the recording will be saved in the path stated previously. 
+停止调用甚至比开始调用更简单。录音完成后，录音将保存在前面指定的路径中。
 
 ```py
 # --------------
-# Stop recording
+# 停止记录
 # --------------
 client.stop_recorder()
 ```
@@ -733,14 +733,16 @@ client.stop_recorder()
 ---
 ## 利用记录
 
-So far, a simulation has been recorded. Now, it is time to examine the recording, find the most remarkable moments, and work with them. These steps are gathered in the script, __tutorial_replay.py__.  The outline is structured in different segments of code commented.  
+到目前为止，仿真已经被记录下来。现在，是时候检查记录，找到最引人注目的时刻，并利用它们。这些步骤集中在脚本 __tutorial_replay.py__ 中。该大纲由注释的不同代码段构成。
 
-It is time to run a new simulation. 
+现在是运行新仿真的时候了。
 
 ```sh
 ./CarlaUE4.sh
 ```
-To reenact the simulation, [choose a fragment](#choose-a-fragment) and run the script containing the code for the playback.  
+
+要重新进行仿真，请 [选择一个片段](#choose-a-fragment) 并运行包含播放代码的脚本。
+
 
 ```sh
 python3 tuto_replay.py
@@ -748,7 +750,7 @@ python3 tuto_replay.py
 
 ### 查询事件
 
-The different queries are detailed in the [__recorder documentation__](adv_recorder.md). In summary, they retrieve data for specific events or frames. Use the queries to study the recording. Find the spotlight moments, and trace what can be of interest.  
+[__记录器文档__](adv_recorder.md) 中详细介绍了不同的查询。总之，它们检索特定事件或帧的数据。使用查询来研究记录。找到聚光灯时刻，追踪感兴趣的内容。 
 
 ```py
 # --------------
@@ -762,26 +764,26 @@ print(client.show_recorder_actors_blocked("~/tutorial/recorder/recording01.log",
 print(client.show_recorder_collisions("~/tutorial/recorder/recording01.log",'v','a'))
 ```
 
-!!! Note
-    The recorder does not need to be on, in order to do the queries.
+!!! 笔记
+    记录器不需要打开即可进行查询。
 
 ![tuto_query_frames](img/tuto_query_frames.jpg)
-<div style="text-align: right"><i>Query showing important events. This is the frame where the ego vehicle was spawned.</i></div>
+<div style="text-align: right"><i>显示重要事件的查询。这是自我车辆产生的框架。</i></div>
 
 ![tuto_query_blocked](img/tuto_query_blocked.jpg)
-<div style="text-align: right"><i>Query showing actors blocked. In this simulation, the ego vehicle remained blocked for 100 seconds.</i></div>
+<div style="text-align: right"><i>查询显示参与者被阻止。在此仿真中，自我车辆保持阻塞状态 100 秒。</i></div>
 
 ![tuto_query_collisions](img/tuto_query_collisions.jpg)
-<div style="text-align: right"><i>Query showing a collision between the ego vehicle and an object of type "other".</i></div>
+<div style="text-align: right"><i>显示自我车辆与“其他”类型的对象之间的碰撞的查询。</i></div>
 
-!!! Note
-    Getting detailed file info for every frame can be overwhelming. Use it after other queries to know where to look at. 
+!!! 笔记
+    获取每一帧的详细文件信息可能会让人不知所措。在其他查询之后使用它来了解要查看的位置。 
 
 ### 选择一个片段
 
-After the queries, it may be a good idea play some moments of the simulation back, before messing around. It is very simple to do so, and it could be really helpful. Know more about the simulation. It is the best way to save time later.  
+查询之后，在乱搞之前回放一些仿真片段可能是个好主意。这样做非常简单，而且非常有帮助。了解有关仿真的更多信息。这是以后节省时间的最佳方法。
 
-The method allows to choose the beginning and ending point of the playback, and an actor to follow. 
+该方法允许选择播放的开始点和结束点以及要跟随的参与者。
 
 ```py
 # --------------
@@ -790,32 +792,32 @@ The method allows to choose the beginning and ending point of the playback, and 
 client.replay_file("~/tutorial/recorder/recording01.log",45,10,0)
 ```
 
-Here is a list of possible things to do now. 
+以下是现在可以做的事情的列表。
 
-* __Use the information from the queries.__ Find out the moment and the actors involved in an event, and play that again. Start the recorder a few seconds before the event.  
-* __Follow different actors.__ Different perspectives will show new events that are not included in the queries.  
-* __Rom around with a free spectator view.__ Set the `actor_id` to `0`, and get a general view of the simulation. Be wherever and whenever wanted thanks to the recording.  
+* __使用查询中的信息。__ 找出事件中涉及的时刻和参与者，然后再次播放。在事件发生前几秒钟启动记录器。
+* __跟随不同的参与者。__ 不同的视角将显示查询中未包含的新事件。  
+* __自由地观察周围的情况。__ 将 `actor_id` 设为`0`，并获得仿真的总体视图。借助记录录音，您可以随时随地。
 
-!!! Note
-    When the recording stops, the simulation doesn't. Walkers will stand still, and vehicles will continue roaming around. This may happen either if the log ends, or the playback gets to the ending point stated. 
+!!! 笔记
+    当记录停止时，仿真不会停止。行人将静止不动，车辆将继续行驶。如果日志结束或播放到达指定的结束点，则可能会发生这种情况。
 
 ### 检索更多数据
 
-The recorder will recreate in this simulation, the exact same conditions as the original. That ensures consistent data within different playbacks.  
+记录器将在此仿真中重新创建与原始条件完全相同的条件。这确保了不同播放中的数据一致。
 
-Gather a list of the important moments, actors and events. Add sensors whenever needed and play the simulation back. The process is exactly the same as before. The script __tutorial_replay.py__ provides different examples that have been thoroughly explained in the [__Set advanced sensors__](#set-advanced-sensors) section. Others have been explained in the section [__Set basic sensors__](#set-basic-sensors). 
+收集重要时刻、参与者和事件的列表。需要时添加传感器并回放仿真。该过程与之前完全相同。脚本 __tutorial_replay.py__ 提供了不同的示例，这些示例已在 [__“设置高级传感器”__](#set-advanced-sensors) 部分中进行了彻底解释。其他已在 [__设置基本传感器__](#set-basic-sensors) 部分中进行了解释。 
 
-Add as many sensors as needed, wherever they are needed. Play the simulation back as many times as desired and retrieve as much data as desired.  
+根据需要添加尽可能多的传感器。根据需要多次回放仿真并检索尽可能多的数据。
 
 ### 改变天气
 
-The recording will recreate the original weather conditions. However, these can be altered at will. This may be interesting to compare how does it affect sensors, while mantaining the rest of events the same.  
+记录将重现原始的天气状况。然而，这些可以随意改变。在保持其余事件相同的情况下，比较它如何影响传感器可能会很有趣。 
 
-Get the current weather and modify it freely. Remember that [carla.WeatherParameters](python_api.md#carla.WeatherParameters) has some presets available. The script will change the environment to a foggy sunset. 
+获取当前天气并自由修改。请记住，[carla.WeatherParameters](python_api.md#carla.WeatherParameters) 有一些可用的预设。该脚本会将环境更改为有雾的日落。
 
 ```py
 # --------------
-# Change weather for playback
+# 为回放改变天气
 # --------------
 weather = world.get_weather()
 weather.sun_altitude_angle = -30
@@ -826,16 +828,16 @@ world.set_weather(weather)
 
 ### 尝试新的结果
 
-The new simulation is not strictly linked to the recording. It can be modified anytime, and even when the recorder stops, the simulation goes on. 
+新的仿真与记录没有严格的联系。它可以随时修改，即使记录器停止，仿真也会继续。
 
-This can be profitable for the user. For instance, collisions can be forced or avoided by playing back the simulation a few seconds before, and spawning or destroying an actor. Ending the recording at a specific moment can also be useful. Doing so, vehicles may take different paths. 
+这对于用户来说是有利可图的。例如，可以通过回放几秒钟前的仿真并生成或摧毁参与者来强制或避免碰撞。在特定时刻结束记录也很有用。这样做，车辆可能会采取不同的路径。 
 
-Change the conditions and mess with the simulation. There is nothing to lose, as the recorder grants that the initial simulation can always be reenacted. This is the key to exploit the full potential of CARLA. 
+改变条件并扰乱仿真。没有什么可失去的，因为记录器允许初始仿真始终可以重新进行。这是充分发挥 CARLA 潜力的关键。
 
 ---
 ## 教程脚本
 
-Hereunder are the two scripts gathering the fragments of code for this tutorial. Most of the code is commented, as it is meant to be modified to fit specific purposes.
+下面是收集本教程代码片段的两个脚本。大多数代码都带有注释，因为需要对其进行修改以适应特定目的。
 
 <details>
 <summary><b>tutorial_ego.py</b> </summary>
@@ -1329,16 +1331,16 @@ if __name__ == '__main__':
 <br>
 
 ---
-That is a wrap on how to properly retrieve data from the simulation. Make sure to play around, change the conditions of the simulator, experiment with sensor settings. The possibilities are endless. 
+这是关于如何从仿真中正确检索数据的总结。确保尝试一下，改变仿真器的条件，尝试传感器设置。可能性是无止境。
 
 
-Visit the forum to post any doubts or suggestions that have come to mind during this reading.  
+请访问论坛，发表在阅读过程中想到的任何疑问或建议。
 
 <div text-align: center>
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="CARLA forum">
-CARLA forum</a>
+CARLA 论坛</a>
 </p>
 </div>
 </div>

@@ -1,32 +1,33 @@
-# Change textures through the API
+# 通过 API 更改纹理
 
-The Carla API can be used to modify asset textures during runtime. In this tutorial, we will learn how to select an asset then modify it's texture while the Carla simulation is running. 
+CARLA API 可用于在运行时修改资源纹理。在本教程中，我们将学习如何选择资源，然后在 CARLA 仿真运行时修改其纹理。
 
-## Select an asset in the Unreal Editor
+## 在虚幻编辑器中选择一个资源
 
-Firstly, we need to load the Unreal Editor and load a Carla map, follow the instructions for Linux or Windows to build Carla from source and build and launch the Unreal Editor. Let's open the editor with Town 10 loaded (the default town) and select a building to work with:
+首先，我们需要加载虚幻编辑器并加载 CARLA 地图，按照 Linux 或 Windows 的说明从源代码构建 CARLA，然后构建并启动虚幻编辑器。让我们打开加载了 Town 10（默认城镇）的编辑器，然后选择要使用的建筑物：
 
 ![select_building](./img/tuto_G_texture_streaming/building_selected.png)
 
-We have selected __BP_Apartment04_v5_Opt__ for texture manipulation, the name can be seen in the World Outliner panel. __Make sure to hover over the name in the World Outliner and use the name defined in the tooltip__. The the internal name may differ from the title displayed in the list. In this case, the internal name is actually __BP_Apartment04_v5_Opt_2__.
+我们选择 __BP_Apartment04_v05_Opt__ 进行纹理操作，名称可以在“世界大纲视图(World Outliner)”面板中看到。确保将鼠标悬停在世界大纲视图中的名称上并使用工具提示中定义的名称。内部名称可能与列表中显示的标题不同。在本例中，内部名称实际上是 __BP_Apartment04_v05_Opt_2__ 。
 
 ![tooltip](./img/tuto_G_texture_streaming/tooltip.png)
 
-## Export a texture to work with
+## 导出纹理以供使用
 
-Now that we have selected a building, we can modify the texture used to control the building's appearance. With the building selected, in the details panel you will see some of the details of the asset, such as location, rotation and scale. Click on __Static Mesh (inherited)__ to open the mesh properties, then in the Static Mesh section of the panel click the magnifying glass icon. This brings up the materials and textures belonging to the asset into focus in the Content Browser. In this case, we want to inspect the __T_Apartment04_D_Opt__ texture. If you double click the texture, you can inspect it in the Unreal Editor, however, in this instance we want to export it so we can modify it. Right click and choose *Asset Actions > Export*. Save the file in an appropriate format (we choose the TGA format here).
+现在我们已经选择了建筑物，我们可以修改用于控制建筑物外观的纹理。选择建筑物后，在“细节”面板中，您将看到资产的一些详细信息，例如位置、旋转和缩放。单击“StaticMesh（继承）”以打开网格体属性，然后在面板的“静态网格体”部分中单击放大镜图标。这会将属于资源的材质和纹理置于内容浏览器中的焦点。在本例中，我们要检查 __T_Apartment04_D_Opt__ 纹理。如果双击纹理，您可以在虚幻编辑器中检查它，但是，在本例中我们想要导出它，以便我们可以修改它。单击 __T_Apartment04_D_Opt__ 并右键选择*资产操作 > 导出*。以适当的格式保存文件（我们在这里选择 TGA 格式）。
 
 ![texture_export](./img/tuto_G_texture_streaming/texture_export.png)
 
-Open the exported texture in your preferred image manipulation software and edit the texture as needed. In the image below, the original texture is visible in the top half, the lower half shows the modified texture.
+在您喜欢的图像处理软件中打开导出的纹理，并根据需要编辑纹理。在下图中，上半部分可以看到原始纹理，下半部分显示修改后的纹理。
 
 ![textures](./img/tuto_G_texture_streaming/textures.png)
 
-Export your modified texture into an appropriate location and then open up a code editor to run some Python to update the texture in the running Carla simulation.
+将修改后的纹理导出到适当的位置，然后打开代码编辑器运行一些 Python 来更新正在运行的 CARLA 仿真中的纹理。
 
-## Update the texture through the API
+## 通过API更新纹理
 
-If you havent already, launch the Carla simulation, either from the command line, or launch the simulation within the Unreal Editor. We will use the [__Python Imaging Library (PIL)__](https://pillow.readthedocs.io/en/stable/) to read the texture from the image file we exported from our image manipulation software.
+如果尚未启动，请从命令行启动 CARLA 仿真，或在虚幻编辑器中启动仿真。我们将使用 [__Python 图像库 (PIL)__](https://pillow.readthedocs.io/en/stable/) 从图像处理软件导出的图像文件中读取纹理。
+
 
 ## Connect to the simulator
 
