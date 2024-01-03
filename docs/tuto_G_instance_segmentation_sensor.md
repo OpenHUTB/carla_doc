@@ -1,18 +1,18 @@
-# Instance segmentation sensor
+# 实例分割传感器
 
-*Instance segmentation* is a new type of camera sensor that yields a unique pixel value for every object in a scene. This is in contrast to the semantic segmentation sensor that has the same ID for instances of the same object class, like for example vehicles. 
+**实例分割(Instance segmentation)**是一种新型相机传感器，可为场景中的每个对象生成唯一的像素值。这与语义分割传感器形成对比，语义分割传感器对于相同对象类的实例（例如车辆）具有相同的 ID。
 
-To spawn a semantic segmentation camera, we need the `sensor.camera.instance_segmentation` blueprint:
+要生成语义分割相机，我们需要`sensor.camera.instance_segmentation`蓝图：
 
 ```py
 instance_camera_bp = world.get_blueprint_library().find('sensor.camera.instance_segmentation')
 ```
 
-# Example
+# 示例
 
-We'll start by setting up a world with an instance segmentation camera and spawning numerous vehicles in the scene.
+我们将首先设置一个带有实例分割相机的世界，并在场景中生成大量车辆。
 
-Connect to the server and set to synchronous mode.
+连接到服务器并设置为同步模式。
 
 ```py
 import carla
@@ -29,7 +29,7 @@ world.apply_settings(settings)
 
 ```
 
-Set up the instance segmentation sensor and spawn it at the desired map location.
+设置实例分割传感器并将其生成在所需的地图位置。
 
 ```py
 
@@ -49,7 +49,7 @@ instance_camera = world.try_spawn_actor(instance_camera_bp, camera_transform)
 
 ```
 
-Spawn vehicles around the camera to populate the scene with numerous object instances.
+在摄像机周围生成车辆，用大量对象实例填充场景。
 
 ```py
 
@@ -63,7 +63,7 @@ for spawn_point in spawn_points:
 world.tick()
 ```
 
-Now generate the image.
+现在生成图像。
 
 ```py
 
@@ -76,9 +76,9 @@ instance_image.save_to_disk('instance_segmentation.png')
 
 ```
 
-## Image Output
+## 图像输出
 
-The instance segmentation image saved to disk has the instance ID's encoded in the G and B channels of the RGB image file. The R channel contains the standard semantic ID.
+保存到磁盘的实例分割图像的实例 ID 编码在 RGB 图像文件的 G 和 B 通道中。R通道包含标准语义ID。
 
 ![instance_segmentation](img/instance_segmentation.png)
 
