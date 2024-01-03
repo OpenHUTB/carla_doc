@@ -1,12 +1,12 @@
-# Traffic manager
+# 交通管理器
 
-When we train neural networks to control autonomous vehicles, one of the key challenges the autonomous driving agent has to contend with is other road users. On top of the task of recognising and navigating the topology of the road network and maintaining lane discipline, the autonomous driving agent must also recognise other vehicles and anticipate the impact on its planned course of action. CARLA's Traffic Manager (TM) enables the management of an ensemble of vehicles navigating through the simulation and creating obstacles and challenges for the vehicle of interest, i.e. the vehicle we are training or controlling. In the CARLA literature, we refer to this vehicle as the "Ego vehicle" to distinguish it. 
+当我们训练神经网络来控制自动驾驶车辆时，自动驾驶智能体必须应对的关键挑战之一是其他道路使用者。除了识别和导航道路网络拓扑以及维护车道规则的任务之外，自动驾驶代理还必须识别其他车辆并预测对其计划行动方案的影响。CARLA 的交通管理器能够管理通过仿真导航的车辆群，并为感兴趣的车辆（即我们正在训练或控制的车辆）设置障碍和挑战。在 CARLA 文献中，我们将这种车辆称为“自我车辆”以示区别。
 
-The TM manages the behavior and lifecycles of Non Player Character (NPC) vehicles within the map, populating the simulation with vehicles that act as other road users do on the real road network. In this tutorial, we will cover some of the functionality of the TM and how to use it in your simulations to create and control NPCs.
+交通管理器管理地图内非玩家角色车辆的行为和生命周期，用车辆填充仿真，其行为与其他道路使用者在真实道路网络上的行为相同。在本教程中，我们将介绍交通管理器的一些功能以及如何在仿真中使用它来创建和控制非玩家角色。
 
-## Setting up the simulator and initialising traffic manager
+## 设置仿真器并初始化交通管理器
 
-First, we will initialise the TM and create some traffic randomly distributed around the city.
+首先，我们将初始化交通管理器并创建一些随机分布在城市周围的流量。
 
 ```py
 import carla
@@ -35,64 +35,64 @@ spectator = world.get_spectator()
 
 ```
 
-## Spawning vehicles
+## 生成车辆
 
-When we create TM vehicles, they need a map location at which to spawn. We can define these ourselves using our own chosen map coordinates. However, to help with this, each CARLA map has a set of pre-defined spawn points spread evenly throughout the road network. We can use these spawn points to spawn our vehicles. 
+当我们创建交通管理器车辆时，它们需要一个生成的地图位置。我们可以使用自己选择的地图坐标自行定义这些。然而，为了解决这个问题，每个 CARLA 地图都有一组预定义的生成点，均匀分布在整个道路网络中。我们可以使用这些生成点来生成我们的车辆。
 
 ```py
 spawn_points = world.get_map().get_spawn_points()
 ```
 
-We can use CARLA's debug functions to see where the spawn points are. Run the following code then fly through the map and inspect where the spawn points are. This will come in handy when we want to choose more specific points to use for spawning or guiding vehicles. 
+我们可以使用 CARLA 的调试功能来查看生成点在哪里。运行以下代码，然后飞过地图并检查生成点的位置。当我们想要选择更具体的点用于生成或引导车辆时，这会派上用场。
 
 ```py
-# Draw the spawn point locations as numbers in the map
+# 在地图上以数字绘制生成点的位置
 for i, spawn_point in enumerate(spawn_points):
     world.debug.draw_string(spawn_point.location, str(i), life_time=10)
 
-# In synchronous mode, we need to run the simulation to fly the spectator
+# 在同步模式下，我们需要运行仿真来飞行观察则会
 while True:
     world.tick()
 ```
 
-Now let's spawn some vehicles. 
+现在让我们生成一些车辆。
 
 ```py
-# Select some models from the blueprint library
+# 从蓝图库中选择一些模型
 models = ['dodge', 'audi', 'model3', 'mini', 'mustang', 'lincoln', 'prius', 'nissan', 'crown', 'impala']
 blueprints = []
 for vehicle in world.get_blueprint_library().filter('*vehicle*'):
     if any(model in vehicle.id for model in models):
         blueprints.append(vehicle)
 
-# Set a max number of vehicles and prepare a list for those we spawn
+# 设置车辆的最大数目并准备我们生成的一个列表
 max_vehicles = 50
 max_vehicles = min([max_vehicles, len(spawn_points)])
 vehicles = []
 
-# Take a random sample of the spawn points and spawn some vehicles
+# 对生成点进行随机采样并生成一些车辆。
 for i, spawn_point in enumerate(random.sample(spawn_points, max_vehicles)):
     temp = world.try_spawn_actor(random.choice(blueprints), spawn_point)
     if temp is not None:
         vehicles.append(temp)
 
-# Run the simulation so we can inspect the results with the spectator
+# 运行仿真以便我们能查看观察者的结果
 while True:
     world.tick()
     
 
 ```
 
-If you fly through the map with the spectator now, you should see stationary vehicles occupying the roads in the map.
+如果您现在与观察者一起飞过地图，您应该会看到静止的车辆占据地图中的道路。
 
-## Controlling vehicles with Traffic Manager
+## 使用交通管理器控制车辆
 
-We can now give the TM control over our vehicles and let the simulation run. Once the TM takes control of the vehicles, they will move around the roads autonomously, following features of the road network like lanes and traffic lights and avoiding collisions with other vehicles.
+现在我们可以让交通管理器控制我们的车辆并让仿真运行。一旦交通管理器控制了车辆，它们就会在道路上自主移动，遵循道路网络的特征，如车道和红绿灯，并避免与其他车辆发生碰撞。
 
-The TM has a number of functions that allow specific behaviors to be modified for each vehicle. In the following example, we set each vehicle with a random probability of ignoring traffic lights, so some vehicles will tend to ignore traffic lights, while others will obey them. There are a number of different behaviours that can be set, refer to the Python API reference for details.
+交通管理器具有许多功能，允许修改每辆车的特定行为。在下面的例子中，我们为每辆车设置了忽略红绿灯的随机概率，因此有些车辆会倾向于忽略红绿灯，而另一些车辆则会遵守红绿灯。可以设置多种不同的行为，有关详细信息，请参阅 Python API 参考。
 
 ```py
-# Parse the list of spawned vehicles and give control to the TM through set_autopilot()
+# 解析所生成车辆的列表并通过set_autopilot()将控制权交给交通管理器
 for vehicle in vehicles:
     vehicle.set_autopilot(True)
     # Randomly set the probability that a vehicle will ignore traffic lights
@@ -103,50 +103,50 @@ while True:
 
 ```
 
-If you now fly through the map with the spectator, you will see vehicles driving autonomously around the map.
+如果您现在与观察者一起飞过地图，您将看到车辆在地图上自动行驶。
 
 ![intersection_traffic](./img/tuto_G_traffic_manager/traffic.gif)
 
-## Specify routes for vehicles
+## 指定车辆行驶路线
 
-In the previous steps, we saw how to spawn a collection of vehicles into a map, then hand control of them over to the TM to create a busy town full of moving traffic. The TM has deeper functionality to control the behavior of vehicles more closely. 
+在前面的步骤中，我们了解了如何在地图中生成一组车辆，然后将它们的控制权交给交通管理器，以创建一个充满移动交通的繁忙城镇。交通管理器具有更深入的功能，可以更紧密地控制车辆的行为。
 
-We will now use the `traffic_manager.set_path()` function to guide TM vehicles along specific paths. In this case, we will create two converging streams of traffic that will converge in the center of town and create congestion. 
+我们现在将使用`traffic_manager.set_path()`功能引导交通管理器车辆沿着特定路径行驶。在这种情况下，我们将创建两条汇聚的交通流，它们将在市中心汇聚并造成拥堵。
 
-Firstly, we'll choose some waypoints to construct our path. Spawn points are convenient waypoints and in the same way as earlier we can use CARLA's debug tools to draw the locations of the spawn points on the map. By flying through the map with the spectator, we can choose the indices of the spawn points we want to use for our path. The `set_path()` function uses a list of coordinates specified as [carla.Locations](python_api.md#carla.Location).
+首先，我们将选择一些路径点来构建我们的路径。生成点是方便的路径点，与之前一样，我们可以使用 CARLA 的调试工具在地图上绘制生成点的位置。通过与观察者一起飞过地图，我们可以选择要用于路径的生成点的索引。该函数使用指定为 [carla.Locations](python_api.md#carla.Location) 的坐标列表。
 
 ```py
-# Draw the spawn point locations as numbers in the map
+# 在地图上使用数字绘制生成点的位置
 for i, spawn_point in enumerate(spawn_points):
     world.debug.draw_string(spawn_point.location, str(i), life_time=10)
 
-# In synchronous mode, we need to run the simulation to fly the spectator
+# 在同步模式下，我们需要运行仿真使观察者飞过场景
 while True:
     world.tick()
 ```
 
-We choose our spawn points and waypoints to create two converging streams of traffic within the town, creating congestion, which might be an interesting scenario to present to an autonomous driving agent. 
+我们选择生成点和路径点来在城镇内创建两条汇聚的交通流，从而造成拥堵，这可能是向自动驾驶智能体展示的一个有趣的场景。
 
 ```py
 spawn_points = world.get_map().get_spawn_points()
 
-# Route 1
+# 路线 1
 spawn_point_1 =  spawn_points[32]
-# Create route 1 from the chosen spawn points
+# 从所选择的生成点中创建路线 1
 route_1_indices = [129, 28, 124, 33, 97, 119, 58, 154, 147]
 route_1 = []
 for ind in route_1_indices:
     route_1.append(spawn_points[ind].location)
 
-# Route 2
+# 路线 2
 spawn_point_2 =  spawn_points[149]
-# Create route 2 from the chosen spawn points
+# 从所选择的生成点中创建路线 2
 route_2_indices = [21, 76, 38, 34, 90, 3]
 route_2 = []
 for ind in route_2_indices:
     route_2.append(spawn_points[ind].location)
 
-# Now let's print them in the map so we can see our routes
+# 现在让我们在地图上打印出它们，以便我们能看到我们的路径
 world.debug.draw_string(spawn_point_1.location, 'Spawn point 1', life_time=30, color=carla.Color(255,0,0))
 world.debug.draw_string(spawn_point_2.location, 'Spawn point 2', life_time=30, color=carla.Color(0,0,255))
 
@@ -166,17 +166,17 @@ while True:
 
 ![routes](./img/tuto_G_traffic_manager/set_paths.png)
 
-Now that we have chosen our spawn points and way points, we can now start spawning traffic and setting the spawned vehicles to follow our waypoint lists.
+现在我们已经选择了生成点和路径点，现在我们可以开始生成交通并将生成的车辆设置为遵循我们的路径点列表。
 
 ```py
 
-# Set delay to create gap between spawn times
+# 在生成时间之间设置延迟以创建空隙
 spawn_delay = 20
 counter = spawn_delay
 
-# Set max vehicles (set smaller for low hardward spec)
+# 设置最大车辆（为更低的硬件设置更小的值）
 max_vehicles = 200
-# Alternate between spawn points
+# 在生成点之间轮流
 alt = False
 
 spawn_points = world.get_map().get_spawn_points()
@@ -186,7 +186,7 @@ while True:
     n_vehicles = len(world.get_actors().filter('*vehicle*'))
     vehicle_bp = random.choice(blueprints)
 
-    # Spawn vehicle only after delay
+    # 仅在延迟之后生成车辆
     if counter == spawn_delay and n_vehicles < max_vehicles:
         # Alternate spawn points
         if alt:
@@ -194,16 +194,16 @@ while True:
         else:
             vehicle = world.try_spawn_actor(vehicle_bp, spawn_point_2)
 
-        if vehicle: # IF vehicle is succesfully spawned
-            vehicle.set_autopilot(True) # Give TM control over vehicle
+        if vehicle: # 如果车辆成功生成
+            vehicle.set_autopilot(True) # 将车辆的控制全交给交通管理器
 
-            # Set parameters of TM vehicle control, we don't want lane changes
+            # 设置交通管理器车辆控制的参数，我们不想变道
             traffic_manager.update_vehicle_lights(vehicle, True)
             traffic_manager.random_left_lanechange_percentage(vehicle, 0)
             traffic_manager.random_right_lanechange_percentage(vehicle, 0)
             traffic_manager.auto_lane_change(vehicle, False)
 
-            # Alternate between routes
+            # 在生成点之间轮流
             if alt:
                 traffic_manager.set_path(vehicle, route_1)
                 alt = False
@@ -221,6 +221,6 @@ while True:
 
 ```
 
-With the above code, we have created two converging streams of traffic originating from opposite sides of the map, guided by the `set_path()` function of the TM. This results in congestion on a road in the center of town. This kind of technique could be used on a larger scale to simulate multiple tricky cases for autonomous vehicles, such as a busy roundabout or highway intersection.
+通过上面的代码，我们在交通管理器 `set_path()` 功能的引导下创建了来自地图两侧的两个汇聚的流量流。这导致市中心道路拥堵。这种技术可以更大规模地用于仿真自动驾驶车辆的多种棘手情况，例如繁忙的环岛或高速公路交叉口。
 
 ![converging_paths](./img/tuto_G_traffic_manager/converging_paths.gif)

@@ -29,7 +29,7 @@ CARLA API 可用于在运行时修改资源纹理。在本教程中，我们将�
 如果尚未启动，请从命令行启动 CARLA 仿真，或在虚幻编辑器中启动仿真。我们将使用 [__Python 图像库 (PIL)__](https://pillow.readthedocs.io/en/stable/) 从图像处理软件导出的图像文件中读取纹理。
 
 
-## Connect to the simulator
+## 连接到仿真器
 
 ```py
 
@@ -42,11 +42,11 @@ client.set_timeout(2.0)
 
 ```
 
-## Update the texture
+## 更新纹理
 
-After loading the modified image, instantiate a [carla.TextureColor](python_api.md#carla.TextureColor) object and populate the pixel data from the loaded image.
+加载修改后的图像后，实例化[carla.TextureColor](python_api.md#carla.TextureColor)对象并填充加载图像中的像素数据。
 
-Use the `apply_color_texture_to_object(...)` method of the [carla.World](python_api.md#carla.World) object to update the texture. You should see the texture update in the UE4 spectator view. 
+使用 [carla.World](python_api.md#carla.World) 对象的 `apply_color_texture_to_object(...)` 方法来更新纹理。您应该在 UE4 观察者视图中看到纹理更新。
 
 
 ```py
@@ -75,10 +75,10 @@ world.apply_color_texture_to_object('BP_Apartment04_v05_Opt_2', carla.MaterialPa
 
 ![texture_change](./img/tuto_G_texture_streaming/texture_change.gif)
 
-## Find object names through the API
+## 通过 API 查找对象名称
 
+要在不依赖虚幻编辑器的情况下查找对象，您还可以使用`world.get_names_of_all_objects()`查询对象名称。通过使用 Python 的内置`filter(...)`方法，您可以将目标对象归零。
 
-To find objects without relying on the Unreal Editor, you can also use `world.get_names_of_all_objects()` to query object names. By using Python's inbuilt `filter(...)` method you can zero in on your target object.
 
 ```py
 # Filter world objects for those with 'Apartment' in the name
