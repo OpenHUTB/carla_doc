@@ -163,7 +163,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_manual_map_package/">手动准备地图包</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_layers/">自定义地图：分层地图: </a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_layers/">自定义地图：分层地图</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_add_tl/">自定义地图：红绿灯和标志</a>
                   </li>
@@ -219,21 +219,21 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">创建语义标签</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#create-a-new-semantic-tag">Create a new semantic tag</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">创建新的语义标签</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#1-create-the-tag-id">1. Create the tag ID</a>
+    <li class="toctree-l3"><a class="reference internal" href="#1-id">1. 创建标签 ID</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#2-create-the-ue-folder-for-assets">2. Create the UE folder for assets</a>
+    <li class="toctree-l3"><a class="reference internal" href="#2">2. 创建资产的虚幻引擎文件夹</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#3-create-two-way-correspondence-between-ue-and-the-code-tag">3. Create two-way correspondence between UE and the code tag</a>
+    <li class="toctree-l3"><a class="reference internal" href="#3">3. 创建虚幻引擎与代码标签的双向对应关系</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#4-define-a-color-code">4. Define a color code</a>
+    <li class="toctree-l3"><a class="reference internal" href="#4">4. 定义颜色代码</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#5-add-the-tagged-meshes">5. Add the tagged meshes</a>
+    <li class="toctree-l3"><a class="reference internal" href="#5">5. 添加标记网格</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#add-a-tag-to-carlacityobjectlabel">Add a tag to carla.CityObjectLabel</a>
+    <li class="toctree-l2"><a class="reference internal" href="#carlacityobjectlabel">将标签添加到 carla.CityObjectLabel</a>
     </li>
     </ul>
                   </li>
@@ -298,68 +298,66 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="create-semantic-tags">Create semantic tags</h1>
-<p>Learn how to define customized tags for semantic segmentation. These can additionally be added to <a href="../python_api/#carla.CityObjectLabel">carla.CityObjectLabel</a> to filter the bounding boxes that <a href="../python_api/#carla.World">carla.World</a> retrieves.  </p>
+                <h1 id="_1">创建语义标签</h1>
+<p>了解如何定义语义分割的自定义标签。这些还可以添加到<a href="../python_api/#carla.CityObjectLabel">carla.CityObjectLabel</a> 以过滤 <a href="../python_api/#carla.World">carla.World</a> 检索的边界框。</p>
 <ul>
-<li><a href="#create-a-new-semantic-tag"><strong>Create a new semantic tag</strong></a>  <ul>
-<li><a href="#1-create-the-tag-id">1. Create the tag ID</a>  </li>
-<li><a href="#2-create-the-ue-folder-for-assets">2. Create the UE folder for assets</a>  </li>
-<li><a href="#3-create-two-way-correspondence-between-ue-and-the-code-tag">3. Create two-way correspondence between UE and the code tag</a>  </li>
-<li><a href="#4-define-a-color-code">4. Define a color code</a>  </li>
-<li><a href="#5-add-the-tagged-elements">5. Add the tagged elements</a>  </li>
+<li><a href="#create-a-new-semantic-tag"><strong>创建新的语义标签</strong></a>  <ul>
+<li><a href="#1-create-the-tag-id">1. 创建标签 ID</a>  </li>
+<li><a href="#2-create-the-ue-folder-for-assets">2. 创建资产的虚幻引擎文件夹</a>  </li>
+<li><a href="#3-create-two-way-correspondence-between-ue-and-the-code-tag">3. 创建虚幻引擎与代码标签的双向对应关系</a>  </li>
+<li><a href="#4-define-a-color-code">4. 定义颜色代码</a>  </li>
+<li><a href="#5-add-the-tagged-elements">5. 添加标记元素</a>  </li>
 </ul>
 </li>
-<li><a href="#add-a-tag-to-carlacityobjectlabel"><strong>Add a tag to carla.CityObjectLabel</strong></a>  </li>
+<li><a href="#add-a-tag-to-carlacityobjectlabel"><strong>将标签添加到 carla.CityObjectLabel</strong></a>  </li>
 </ul>
 <hr />
-<h2 id="create-a-new-semantic-tag">Create a new semantic tag</h2>
-<h3 id="1-create-the-tag-id">1. Create the tag ID</h3>
-<p><strong>Open <code>ObjectLabel.h</code></strong> in <code>LibCarla/source/carla/rpc</code>. Add your new tag by the end of the enum using the same formatting as the rest.  </p>
+<h2 id="_2">创建新的语义标签</h2>
+<h3 id="1-id">1. 创建标签 ID</h3>
+<p><strong>打开 <code>LibCarla/source/carla/rpc</code> 中的 <code>ObjectLabel.h</code></strong> 。使用与其余标签相同的格式在枚举末尾添加新标签。</p>
 <p><img alt="object_label_h" src="../img/tuto_D_create_semantic_tags/01_objectlabel_tag.jpg" /></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Tags do not have to appear in order. However, it is good practice to list them in order. </p>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>标签不必按顺序出现。但是，按顺序列出它们是一个很好的做法。</p>
 </div>
-<h3 id="2-create-the-ue-folder-for-assets">2. Create the UE folder for assets</h3>
-<p><strong>Open the Unreal Engine Editor</strong> and go to <code>Carla/Static</code>. Create a new folder named as your tag. </p>
+<h3 id="2">2. 创建资产的虚幻引擎文件夹</h3>
+<p><strong>打开虚幻引擎编辑器</strong> 并转到 <code>Carla/Static</code>。创建一个名为您的标签的新文件夹。</p>
 <p><img alt="ue_folder" src="../img/tuto_D_create_semantic_tags/02_ue_folder.jpg" /></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The UE folder and the tag do not necessarily have to be named the same. However, it is good practice to do so.  </p>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>虚幻编辑器文件夹和标签不必命名相同。然而，这样做是一个很好的做法。 </p>
 </div>
-<h3 id="3-create-two-way-correspondence-between-ue-and-the-code-tag">3. Create two-way correspondence between UE and the code tag</h3>
-<p><strong>3.1. Open <code>Tagger.cpp</code></strong> in <code>Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Game</code>. Go to <strong><code>GetLabelByFolderName</code></strong> Add the your tag by the end of the list. The string being compared is the name of the UE folder used in <a href="#2-create-the-ue-folder-for-assets"><strong>2.</strong></a>, so use the exact same name here.  </p>
+<h3 id="3">3. 创建虚幻引擎与代码标签的双向对应关系</h3>
+<p><strong>3.1. 打开<code>Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Game</code>中的 <code>Tagger.cpp</code></strong> 。转到 <strong><code>GetLabelByFolderName</code></strong> 列表末尾添加您的标签。被比较的字符串是 <a href="#2-create-the-ue-folder-for-assets"><strong>2.</strong></a> 中使用的虚幻引擎文件夹的名称，因此这里使用完全相同的名称。</p>
 <p><img alt="tagger_cpp" src="../img/tuto_D_create_semantic_tags/03_tagger_cpp.jpg" /></p>
-<p><strong>3.2. Go to <code>GetTagAsString</code></strong> in the same <code>Tagger.cpp</code>. Add the new tag by the end of the switch.  </p>
+<p><strong>3.2. 在相同的 <code>Tagger.cpp</code> 转到 <code>GetTagAsString</code></strong> 。 在开关末尾添加新标签。</p>
 <p><img alt="tagger_cpp_02" src="../img/tuto_D_create_semantic_tags/04_tagger_cpp_02.jpg" /></p>
-<h3 id="4-define-a-color-code">4. Define a color code</h3>
-<p><strong>Open <code>CityScapesPalette.h</code></strong> in <code>LibCarla/source/carla/image</code>. Add the color code of your new tag by the end of the array. </p>
+<h3 id="4">4. 定义颜色代码</h3>
+<p><strong>在 <code>LibCarla/source/carla/image</code> 中打开 <code>CityScapesPalette.h</code></strong> 。在数组末尾添加新标签的颜色代码。</p>
 <p><img alt="city_scapes_palette_h" src="../img/tuto_D_create_semantic_tags/05_city_scapes_palette_h.jpg" /></p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>The position in the array must correspond with the tag ID, in this case, <code>23u</code>. </p>
+<div class="admonition 警告">
+<p class="admonition-title">警告</p>
+<p>数组中的位置必须与标签 ID 相对应，在本例中为 <code>23u</code>. </p>
 </div>
-<h3 id="5-add-the-tagged-meshes">5. Add the tagged meshes</h3>
-<p>The new semantic tag is ready to be used. Only the meshes stored inside the UE folder of a tag are tagged as such. Move or import the corresponding meshes to the new folder, in order for the to be tagged properly. </p>
+<h3 id="5">5. 添加标记网格</h3>
+<p>新的语义标签已可供使用。只有存储在标签的虚幻引擎文件夹内的网格才会被标记为此类。将相应的网格移动或导入到新文件夹中，以便正确标记。</p>
 <hr />
-<h2 id="add-a-tag-to-carlacityobjectlabel">Add a tag to <a href="../python_api/#carla.CityObjectLabel">carla.CityObjectLabel</a></h2>
-<p>This step is not directly related with semantic segmentation. However, these tags can be used to filter the bounding box query in <a href="../python_api/#carla.World">carla.World</a>. In order to do this, the tag must be added to the <a href="../python_api/#carla.CityObjectLabel">carla.CityObjectLabel</a> enum in the PythonAPI.  </p>
-<p><strong>Open <code>World.cpp</code></strong> in <code>carla/PythonAPI/carla/source/libcarla</code> and add the new tag by the end of the enum.  </p>
+<h2 id="carlacityobjectlabel">将标签添加到 <a href="../python_api/#carla.CityObjectLabel">carla.CityObjectLabel</a></h2>
+<p>这一步与语义分割没有直接关系。但是，这些标签可用于过滤<a href="../python_api/#carla.World">carla.World</a> 中的边界框查询。为此，必须将标签添加到PythonAPI 中的 <a href="../python_api/#carla.CityObjectLabel">carla.CityObjectLabel</a> 枚举中。</p>
+<p><strong>在 <code>carla/PythonAPI/carla/source/libcarla</code> 中打开 <code>World.cpp</code></strong> 并在枚举末尾添加新标签。</p>
 <p><img alt="city_object_label" src="../img/tuto_D_create_semantic_tags/06_city_object_label.jpg" /></p>
 <hr />
-<p>Read the <strong><a href="../build_faq/">F.A.Q.</a></strong> page or post in the <a href="https://github.com/carla-simulator/carla/discussions">CARLA forum</a> for any issues, doubts or suggestions.  </p>
-<p style="font-size: 20px">What's next?</p>
-
+<p>如果有任何问题、疑问或建议，请阅读 <strong><a href="../build_faq/">常见问题解答</a></strong> 页面或在 <a href="https://github.com/carla-simulator/carla/discussions">CARLA 论坛</a> 中发帖。</p>
 <div class="build-buttons">
 
 <p>
 <a href="../ref_sensors" target="_blank" class="btn btn-neutral" title="Learn all about sensors in CARLA">
-Sensors reference</a>
+传感器参考</a>
 </p>
 
 <p>
 <a href="../tuto_A_add_props" target="_blank" class="btn btn-neutral" title="Learn how to import your custom into CARLA">
-Add new props</a>
+添加新道具</a>
 </p>
 
 </div>

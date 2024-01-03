@@ -119,15 +119,15 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">Scenic</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#before-you-begin">Before you begin</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_1">在你开始之前</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#scenic-domains">Scenic Domains</a>
+    <li class="toctree-l2"><a class="reference internal" href="#scenic_1">Scenic 域</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#creating-a-scenic-scenario-to-use-with-carla">Creating a Scenic scenario to use with CARLA</a>
+    <li class="toctree-l2"><a class="reference internal" href="#carla-scenic">创建与 CARLA 一起使用的 Scenic 场景</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#run-the-scenario">Run the scenario</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_2">运行场景</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#additional-parameters">Additional parameters</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">附加参数</a>
     </li>
         </ul>
     </li>
@@ -177,7 +177,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_manual_map_package/">手动准备地图包</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_layers/">自定义地图：分层地图: </a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_layers/">自定义地图：分层地图</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_add_tl/">自定义地图：红绿灯和标志</a>
                   </li>
@@ -295,55 +295,55 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="scenic">Scenic</h1>
-<p>This guide provides an overview of how to use Scenic with CARLA to generate multiple, diverse scenarios with a single scenario definition. It assumes that users have prior knowledge of the Scenic syntax. If you need to learn more about Scenic, then read their <a href="https://scenic-lang.readthedocs.io/en/latest/quickstart.html">"Getting Started with Scenic"</a> guide and have a look at their tutorials for creating <a href="https://scenic-lang.readthedocs.io/en/latest/tutorials/tutorial.html">static</a> and <a href="https://scenic-lang.readthedocs.io/en/latest/tutorials/dynamics.html">dynamic</a> scenarios.</p>
-<p>By the end of the guide you will know:</p>
+<p>本指南概述了如何将 Scenic 与 CARLA 结合使用，通过单个场景定义生成多个不同的场景。它假设用户事先了解场景语法。如果您需要了解有关 Scenic 的更多信息，请阅读他们的 <a href="https://scenic-lang.readthedocs.io/en/latest/quickstart.html">“Scenic 入门”</a> 指南，并查看他们有关创建 <a href="https://scenic-lang.readthedocs.io/en/latest/tutorials/tutorial.html">静态</a> 和 <a href="https://scenic-lang.readthedocs.io/en/latest/tutorials/dynamics.html">动态</a> 场景的教程。</p>
+<p>在本指南结束时，您将了解：</p>
 <ul>
-<li>The minimum requirements needed to run a Scenic script on CARLA.</li>
-<li>How to write a simple scenario definition to generate a multitude of scenario simulations.</li>
-<li>How to run a Scenic script on CARLA.</li>
-<li>Parameters used to configure Scenic simulations on CARLA.</li>
+<li>在 CARLA 上运行 Scenic 脚本所需的最低要求。</li>
+<li>如何编写简单的场景定义来生成大量场景仿真。</li>
+<li>如何在 CARLA 上运行 Scenic 脚本。</li>
+<li>用于在 CARLA 上配置场景仿真的参数。</li>
 </ul>
 <hr />
 <ul>
-<li><a href="#before-you-begin"><strong>Before you begin</strong></a></li>
-<li><a href="#scenic-domains"><strong>Scenic domains</strong></a></li>
-<li><a href="#creating-a-scenic-scenario-to-use-with-carla"><strong>Creating a Scenic scenario to use with CARLA</strong></a></li>
-<li><a href="#run-the-scenario"><strong>Run the scenario</strong></a></li>
-<li><a href="#additional-parameters"><strong>Additional parameters</strong></a></li>
+<li><a href="#before-you-begin"><strong>在你开始之前</strong></a></li>
+<li><a href="#scenic-domains"><strong>Scenic 域</strong></a></li>
+<li><a href="#creating-a-scenic-scenario-to-use-with-carla"><strong>创建与 CARLA 一起使用的 Scenic 场景</strong></a></li>
+<li><a href="#run-the-scenario"><strong>运行场景</strong></a></li>
+<li><a href="#additional-parameters"><strong>附加参数</strong></a></li>
 </ul>
 <hr />
-<h2 id="before-you-begin">Before you begin</h2>
-<p>Before using Scenic with CARLA, you will need to fulfill the following requirements:</p>
+<h2 id="_1">在你开始之前</h2>
+<p>在将 Scenic 与 CARLA 结合使用之前，您需要满足以下要求：</p>
 <ul>
-<li>Install <a href="https://www.python.org/downloads/">Python 3.8</a> or higher. </li>
-<li>Install <a href="https://scenic-lang.readthedocs.io/en/latest/quickstart.html#installation">Scenic</a>.</li>
+<li>安装 <a href="https://www.python.org/downloads/">Python 3.8</a> 或更高版本。</li>
+<li>安装 <a href="https://scenic-lang.readthedocs.io/en/latest/quickstart.html#installation">Scenic</a>。</li>
 </ul>
 <hr />
-<h2 id="scenic-domains">Scenic Domains</h2>
-<p>Scenic has a general driving domain which allows users to define scenarios that can be run on any driving simulator. In addition, it has other domains that are specific to each simulator. Check <a href="https://scenic-lang.readthedocs.io/en/latest/libraries.html">here</a> for more information on Scenic domains.</p>
-<p>Of particular importance within each domain are the behaviour and actions definitions. Check the links below for reference material to behaviours and actions from the Scenic driving domain and the CARLA domain:</p>
+<h2 id="scenic_1">Scenic 域</h2>
+<p>Scenic 有一个通用驾驶域，允许用户定义可以在任何驾驶仿真器上运行的场景。此外，它还有特定于每个仿真器的其他域。请在 <a href="https://scenic-lang.readthedocs.io/en/latest/libraries.html">此处</a> 查看有关 Scenic 域的更多信息。</p>
+<p>每个领域中特别重要的是行为和动作的定义。检查以下链接，获取有关 Scenic 驾驶域和 CARLA 域的行为和操作的参考材料：</p>
 <ul>
-<li><a href="https://scenic-lang.readthedocs.io/en/latest/modules/scenic.domains.driving.behaviors.html">Behaviours in the Scenic driving domain</a></li>
-<li><a href="https://scenic-lang.readthedocs.io/en/latest/modules/scenic.simulators.carla.behaviors.html">Behaviours in the CARLA domain</a></li>
-<li><a href="https://scenic-lang.readthedocs.io/en/latest/modules/scenic.domains.driving.actions.html">Actions in the Scenic driving domain</a></li>
-<li><a href="https://scenic-lang.readthedocs.io/en/latest/modules/scenic.simulators.carla.actions.html#module-scenic.simulators.carla.actions">Actions in the CARLA domain</a></li>
+<li><a href="https://scenic-lang.readthedocs.io/en/latest/modules/scenic.domains.driving.behaviors.html">the Scenic 驾驶领域的行为</a></li>
+<li><a href="https://scenic-lang.readthedocs.io/en/latest/modules/scenic.simulators.carla.behaviors.html">CARLA 域中的行为</a></li>
+<li><a href="https://scenic-lang.readthedocs.io/en/latest/modules/scenic.domains.driving.actions.html">Scenic 驾驶域的动作</a></li>
+<li><a href="https://scenic-lang.readthedocs.io/en/latest/modules/scenic.simulators.carla.actions.html#module-scenic.simulators.carla.actions">CARLA 域中的动作</a></li>
 </ul>
 <hr />
-<h2 id="creating-a-scenic-scenario-to-use-with-carla">Creating a Scenic scenario to use with CARLA</h2>
-<p>This section walks through how to write a basic Scenic script in which a leading vehicle decelerates suddenly due to an obstacle in the road. An ego vehicle then needs to brake suddenly to avoid a collison with the leading vehicle. The <a href="https://github.com/BerkeleyLearnVerify/Scenic/blob/master/examples/carla/Carla_Challenge/carlaChallenge2.scenic">full script</a> is found in the Scenic repository along with other examples involving more complex road networks. </p>
-<p><strong>1.</strong> Set the map parameters and declare the model to be used in the scenario:</p>
+<h2 id="carla-scenic">创建与 CARLA 一起使用的 Scenic 场景</h2>
+<p>本节将介绍如何编写基本的场景脚本，其中领头车辆由于道路上的障碍物而突然减速。然后，本车需要突然制动以避免与前车发生碰撞。<a href="https://github.com/BerkeleyLearnVerify/Scenic/blob/master/examples/carla/Carla_Challenge/carlaChallenge2.scenic">完整的脚本</a> 以及涉及更复杂道路网络的其他示例可以在 Scenic 存储库中找到。</p>
+<p><strong>1.</strong> 设置地图参数并声明场景使用的模型：</p>
 <ul>
-<li>An <code>.xodr</code> file should be set as the value for the <a href="https://scenic-lang.readthedocs.io/en/latest/modules/scenic.domains.driving.model.html?highlight=map#module-scenic.domains.driving.model"><code>map</code></a> parameter, this will be used later to generate road network information. </li>
-<li>The parameter <code>carla_map</code> refers to the name of the CARLA map you would like to use in the simulation. If this is defined then Scenic will load all the assets of the map (buildings, trees, etc.), and if not, then the <a href="../adv_opendrive/">OpenDRIVE standalone mode</a> will be used.</li>
-<li>The model includes all the utilities specific to running scenarios on CARLA. This should be defined in all the scripts you want to run on CARLA.</li>
+<li>应将 <code>.xodr</code> 文件设置为 <a href="https://scenic-lang.readthedocs.io/en/latest/modules/scenic.domains.driving.model.html?highlight=map#module-scenic.domains.driving.model"><code>map</code></a> 参数值，稍后将使用该文件生成道路网络信息。 </li>
+<li>参数 <code>carla_map</code> 是指您想要在仿真中使用的 CARLA 地图的名称。如果已定义，则 Scenic 将加载地图的所有资产（建筑物、树木等），如果未定义，则将使用 <a href="../adv_opendrive/">OpenDRIVE 独立模式</a> 。</li>
+<li>该模型包括特定于 CARLA 上运行场景的所有实用程序。这应该在您想要在 CARLA 上运行的所有脚本中定义。</li>
 </ul>
 <pre><code class="language-scenic">## SET MAP AND MODEL
 param map = localPath('../../../tests/formats/opendrive/maps/CARLA/Town01.xodr')
 param carla_map = 'Town01'
 model scenic.simulators.carla.model
 </code></pre>
-<p><strong>2.</strong> Define the constants to be used in the scenario:</p>
-<p>The scenario involves two vehicles, the leading vehicle and the ego vehicle. We will define the ego vehicle model, the speeds of both cars, the distance threshold for braking and the amount of brake to apply.</p>
+<p><strong>2.</strong> 定义场景中要使用的常量：</p>
+<p>该场景涉及两辆车，领头车辆和自我车辆。我们将定义自我车辆模型、两辆车的速度、制动距离阈值以及制动量。</p>
 <pre><code class="language-scenic">## CONSTANTS
 EGO_MODEL = &quot;vehicle.lincoln.mkz_2017&quot;
 EGO_SPEED = 10
@@ -354,8 +354,8 @@ LEADCAR_BRAKING_THRESHOLD = 10
 
 BRAKE_ACTION = 1.0
 </code></pre>
-<p><strong>3</strong>. Define the scenario behaviours:</p>
-<p>In this scenario we will use the Scenic <a href="https://scenic-lang.readthedocs.io/en/latest/modules/scenic.domains.driving.behaviors.html">behaviour library</a> to instruct the ego vehicle to follow the lane at the predefined speed and then brake hard when it gets within a certain distance of another vehicle. The leading vehicle will also follow the lane at the predefined speed and brake hard within a certain distance of any objects:</p>
+<p><strong>3</strong>. 定义场景行为：</p>
+<p>在这种情况下，我们将使用 Scenic <a href="https://scenic-lang.readthedocs.io/en/latest/modules/scenic.domains.driving.behaviors.html">行为库</a> 来指示自我车辆以预定义的速度沿着车道行驶，然后在与另一辆车相距一定距离时紧急制动。领先的车辆也会以预定的速度沿着车道行驶，并在距离任何物体一定距离内紧急制动：</p>
 <pre><code class="language-scenic">## DEFINING BEHAVIORS
 # EGO BEHAVIOR: Follow lane, and brake after passing a threshold distance to the leading car
 behavior EgoBehavior(speed=10):
@@ -373,101 +373,101 @@ behavior LeadingCarBehavior(speed=10):
     interrupt when withinDistanceToAnyObjs(self, LEADCAR_BRAKING_THRESHOLD):
         take SetBrakeAction(BRAKE_ACTION)
 </code></pre>
-<p><strong>4.</strong> Generate the road network:</p>
-<p>The Scenic <a href="https://scenic-lang.readthedocs.io/en/latest/modules/scenic.domains.driving.roads.html">roads library</a> is used to generate the road network geometry and traffic information. The road network is represented by an instance of the <a href="https://scenic-lang.readthedocs.io/en/latest/modules/scenic.domains.driving.roads.html#scenic.domains.driving.roads.Network"><code>Network</code></a> class and is generated from the <code>.xodr</code> file defined at the beginning of the script.</p>
+<p><strong>4.</strong> 生成路网：</p>
+<p>Scenic <a href="https://scenic-lang.readthedocs.io/en/latest/modules/scenic.domains.driving.roads.html">道路库</a> 用于生成道路网络几何形状和交通信息。道路网络由 <a href="https://scenic-lang.readthedocs.io/en/latest/modules/scenic.domains.driving.roads.html#scenic.domains.driving.roads.Network"><code>Network</code></a> 类的实例表示，并由脚本开头定义的文件生成。</p>
 <pre><code class="language-scenic">## DEFINING SPATIAL RELATIONS
 # make sure to put '*' to uniformly randomly select from all elements of the list, 'lanes'
 lane = Uniform(*network.lanes)
 </code></pre>
-<p><strong>5.</strong> Set the scene:</p>
-<p>We will now define the starting positions for the vehicles and placement of objects. </p>
+<p><strong>5.</strong> 设置场景：</p>
+<p>我们现在将定义车辆的起始位置和物体的放置。</p>
 <ul>
-<li>Place a trash can in the middle of the lane:</li>
+<li>在车道中间放置垃圾桶：</li>
 </ul>
 <pre><code class="language-scenic">obstacle = Trash on lane.centerline
 </code></pre>
 <ul>
-<li>Place the leading car driving at the predefined speed along the road at a distance of between 50 and 30 meters behind the obstacle:</li>
+<li>将领先车辆以预定速度沿道路行驶，距离障碍物后方 50 至 30 米：</li>
 </ul>
 <pre><code class="language-scenic">leadCar = Car following roadDirection from obstacle for Range(-50, -30),
         with behavior LeadingCarBehavior(LEAD_CAR_SPEED)
 </code></pre>
 <ul>
-<li>Place the ego vehicle driving at the predefined speed along the road at a distance of between 15 to 10 meters behind the leading vehicle:</li>
+<li>将本车以预定速度沿着道路行驶，距离前车 15 到 10 米：</li>
 </ul>
 <pre><code class="language-scenic">ego = Car following roadDirection from leadCar for Range(-15, -10),
         with blueprint EGO_MODEL,
         with behavior EgoBehavior(EGO_SPEED)
 </code></pre>
 <ul>
-<li>Make it a requirement that the scene takes place more than 80 meters from an intersection:</li>
+<li>要求场景发生在距路口 80 米以上的位置：</li>
 </ul>
 <pre><code class="language-scenic">require (distance to intersection) &gt; 80
 </code></pre>
-<p><strong>6.</strong> Set an end point so the script knows when the scene is finished:</p>
-<p>The scenario will end when the speed of the ego vehicle goes below 0.1 meters per second and is situated less than 30 meters from the obstacle.</p>
+<p><strong>6.</strong> 设置结束点，以便脚本知道场景何时完成：</p>
+<p>当自我车辆的速度低于每秒 0.1 米并且距离障碍物不到 30 米时，该场景将结束。</p>
 <pre><code class="language-scenic">terminate when ego.speed &lt; 0.1 and (distance to obstacle) &lt; 30
 </code></pre>
 <hr />
-<h3 id="run-the-scenario">Run the scenario</h3>
-<p>To run the Scenic scenario:</p>
-<p><strong>1.</strong> Start the CARLA server.</p>
-<p><strong>2.</strong> Run the following command:</p>
+<h3 id="_2">运行场景</h3>
+<p>要运行 Scenic 场景：</p>
+<p><strong>1.</strong> 启动 CARLA 服务器。</p>
+<p><strong>2.</strong> 运行以下命令：</p>
 <pre><code class="language-scenic">scenic path/to/scenic/script.scenic --simulate
 </code></pre>
-<p>A pygame window will appear and the scenario will play out repeatedly, each time generating a unique scenario within the bounds of the restrictions set in the script. To stop the scenario generation, press <code>ctrl + C</code> in the terminal. </p>
+<p>将出现一个 pygame 窗口，并且场景将重复播放，每次都会在脚本中设置的限制范围内生成一个独特的场景。要停止场景生成，请在终端中按<code>ctrl + C</code>。</p>
 <hr />
-<h3 id="additional-parameters">Additional parameters</h3>
-<p>The CARLA model provides several global parameters than can be overridden in scenarios using the <a href="https://scenic-lang.readthedocs.io/en/latest/syntax_details.html#param-identifier-value"><code>param</code> statement</a> or via the command line using the <a href="https://scenic-lang.readthedocs.io/en/latest/options.html#cmdoption-p"><code>--param</code> option</a>.</p>
-<p>Below is a table of configurable parameters in the CARLA model:</p>
+<h3 id="_3">附加参数</h3>
+<p>CARLA 模型提供了几个全局参数，可以在使用 <a href="https://scenic-lang.readthedocs.io/en/latest/syntax_details.html#param-identifier-value"><code>param</code> 语句</a> 或通过命令行使用  <a href="https://scenic-lang.readthedocs.io/en/latest/options.html#cmdoption-p"><code>--param</code> option</a> 选项的场景中覆盖这些参数。</p>
+<p>下面是 CARLA 模型中的可配置参数表：</p>
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Value</th>
-<th>Description</th>
+<th>名称</th>
+<th>值</th>
+<th>描述</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>carla_map</code></td>
 <td><code>str</code></td>
-<td>Name of the CARLA map to use (e.g. 'Town01'). If set to <code>None</code>, CARLA will attempt to create a world in the OpenDRIVE standalone mode using the <code>.xodr</code> file defined in the <a href="https://scenic-lang.readthedocs.io/en/latest/modules/scenic.domains.driving.model.html?highlight=map#module-scenic.domains.driving.model"><code>map</code></a> parameter.</td>
+<td>要使用的 CARLA 地图的名称（例如“Town01”）。如果设置为<code>None</code>，CARLA 将尝试使用 <a href="https://scenic-lang.readthedocs.io/en/latest/modules/scenic.domains.driving.model.html?highlight=map#module-scenic.domains.driving.model"><code>map</code></a> 参数中定义的 <code>.xodr</code> 文件在 OpenDRIVE 独立模式下创建世界。</td>
 </tr>
 <tr>
 <td><code>timestep</code></td>
 <td><code>float</code></td>
-<td>Timestep to use for simulations (how frequently Scenic interrupts CARLA to run behaviors, check requirements, etc.) in seconds. Default is 0.1 seconds.</td>
+<td>用于仿真的时间步长（Scenic 中断 CARLA 运行行为、检查需求等的频率）以秒为单位。默认值为 0.1 秒。</td>
 </tr>
 <tr>
 <td><code>weather</code></td>
-<td><code>str</code> or <code>dict</code></td>
-<td>Weather to use for the simulation. Can be either a string identifying one of the CARLA weather presets (e.g. 'ClearSunset') or a dictionary specifying all the <a href="../python_api/#carla.WeatherParameters">weather parameters</a>). Default is a uniform distribution over all the weather presets.</td>
+<td><code>str</code> 或 <code>dict</code></td>
+<td>用于天气的仿真。可以是标识 CARLA 天气预设之一的字符串（例如“ClearSunset”），也可以是指定所有 <a href="../python_api/#carla.WeatherParameters">天气参数</a> 的字典。默认值是所有天气预设的均匀分布。</td>
 </tr>
 <tr>
 <td><code>address</code></td>
 <td><code>str</code></td>
-<td>IP address to connect to CARLA. Default is localhost (127.0.0.1).</td>
+<td>连接到 CARLA 的 IP 地址。默认值为本地主机 (127.0.0.1)。</td>
 </tr>
 <tr>
 <td><code>port</code></td>
 <td><code>int</code></td>
-<td>Port to connect to CARLA. Default is 2000.</td>
+<td>连接至 CARLA 的端口。默认值为 2000。</td>
 </tr>
 <tr>
 <td><code>timeout</code></td>
 <td><code>float</code></td>
-<td>Maximum time in seconds to wait when attempting to connect to CARLA. Default is 10.</td>
+<td>尝试连接到 CARLA 时等待的最长时间（以秒为单位）。默认值为 10。</td>
 </tr>
 <tr>
 <td><code>render</code></td>
 <td><code>int</code></td>
-<td>Whether or not to have CARLA create a window showing the simulations from the point of view of the ego object: <code>1</code> for yes, <code>0</code> for no. Default <code>1</code>.</td>
+<td>是否让 CARLA 创建一个窗口，从自我客体的角度显示仿真：<code>1</code>是，<code>0</code>否。默认<code>1</code>。</td>
 </tr>
 <tr>
 <td><code>record</code></td>
 <td><code>str</code></td>
-<td>If nonempty, folder in which to save CARLA record files for replaying simulations.</td>
+<td>如果非空，则保存用于重放仿真的 CARLA 记录文件的文件夹。</td>
 </tr>
 </tbody>
 </table>

@@ -163,7 +163,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_manual_map_package/">手动准备地图包</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_layers/">自定义地图：分层地图: </a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_layers/">自定义地图：分层地图</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_add_tl/">自定义地图：红绿灯和标志</a>
                   </li>
@@ -234,23 +234,23 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">CarSim 集成</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#before-you-begin">Before you begin</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_1">在你开始之前</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#set-up-carsim">Set up CarSim</a>
+    <li class="toctree-l2"><a class="reference internal" href="#carsim_1">设置 CarSim</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#generate-the-sim-file">Generate the .sim file</a>
+    <li class="toctree-l3"><a class="reference internal" href="#sim">生成.sim 文件</a>
         <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#on-windows">On Windows</a>
+    <li class="toctree-l4"><a class="reference internal" href="#windows">在 Windows 上</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#on-ubuntu">On Ubuntu</a>
+    <li class="toctree-l4"><a class="reference internal" href="#ubuntu">在Ubuntu上</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#vehicle-sizes">Vehicle sizes</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_2">车辆尺寸</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#run-the-simulation">Run the simulation</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">运行仿真</a>
     </li>
     </ul>
                   </li>
@@ -300,15 +300,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="carsim-integration">CarSim Integration</h1>
-<p>CARLA's integration with CarSim allows vehicle controls in CARLA to be forwarded to CarSim. CarSim will do all required physics calculations of the vehicle and return the new state to CARLA. </p>
-<p>This page shows you how to generate a <code>.sim</code> file, explains how vehicle dimensions relate between CARLA and CarSim and how to run a simulation on CARLA using the CarSim integration.</p>
+                <h1 id="carsim">CarSim 集成</h1>
+<p>CARLA 与 CarSim 的集成允许将 CARLA 中的车辆控制转发到 CarSim。CarSim 将对车辆进行所有必需的物理计算，并将新状态返回给 CARLA。</p>
+<p>本页向您展示如何生成<code>.sim</code>文件，解释 CARLA 和 CarSim 之间的车辆尺寸如何关联，以及如何使用 CarSim 集成在 CARLA 上运行仿真。</p>
 <ul>
-<li><a href="#before-you-begin"><strong>Before you begin</strong></a>  </li>
-<li><a href="#set-up-carsim"><strong>Set up CarSim</strong></a>  <ul>
-<li><a href="#generate-the-sim-file"><strong>Generate the .sim file</strong></a>  <ul>
-<li><a href="#on-windows"><strong>On Windows</strong></a></li>
-<li><a href="#on-ubuntu"><strong>On Ubuntu</strong></a></li>
+<li><a href="#before-you-begin"><strong>在你开始之前</strong></a>  </li>
+<li><a href="#set-up-carsim"><strong>设置 CarSim</strong></a>  <ul>
+<li><a href="#generate-the-sim-file"><strong>生成 .sim 文件</strong></a>  <ul>
+<li><a href="#on-windows"><strong>在 Windows 上</strong></a></li>
+<li><a href="#on-ubuntu"><strong>在 Ubuntu 上</strong></a></li>
 </ul>
 </li>
 <li><a href="#vehicle-sizes"><strong>Vehicle sizes</strong></a>  </li>
@@ -317,34 +317,36 @@
 <li><a href="#run-the-simulation"><strong>Run the simulation</strong></a>  </li>
 </ul>
 <hr />
-<h2 id="before-you-begin">Before you begin</h2>
+<h2 id="_1">在你开始之前</h2>
 <ol>
-<li>You will need a license for CarSim and to have the software up and running. If you don't currently have a license for CarSim, you can contact the team <a href="https://www.carsim.com/forms/additional_information.php">here</a> for information.</li>
+<li>您需要 CarSim 许可证才能启动并运行该软件。如果您目前没有 CarSim 许可证，您可以在 <a href="https://www.carsim.com/forms/additional_information.php">此处</a> 联系团队以获取信息。</li>
 <li>
-<p>To allow communication with Unreal Engine you will need to install the VehicleSim Dynamics plugin (version 2020.0) for Unreal Engine 4.24. For information on finding specific versions of the plugin, check this <a href="https://www.carsim.com/products/supporting/unreal/index.php">link</a>. Installation of the plugin will depend on your operating system:</p>
-<p><strong>For Windows</strong>:</p>
+<p>要允许与虚幻引擎通信，您需要安装适用于虚幻引擎 4.24 的 VehicleSim Dynamics 插件（版本 2020.0）。有关查找插件特定版本的信息，请检查此 <a href="https://www.carsim.com/products/supporting/unreal/index.php">链接</a> 。插件的安装取决于您的操作系统： </p>
+<p><strong>对于 Windows</strong>:</p>
 <p>Get the plugin <a href="https://www.unrealengine.com/marketplace/en-US/product/carsim-vehicle-dynamics">here</a>.</p>
-<p><strong>For Ubuntu</strong>:</p>
+<p><strong>对于 Ubuntu</strong>:</p>
 <ol>
-<li>Download the plugin <a href="https://www.carsim.com/users/unreal_plugin/unreal_plugin_2020_0.php">here</a>.</li>
-<li>Replace the file <code>CarSim.Build.cs</code> with the file found <a href="https://carla-releases.s3.eu-west-3.amazonaws.com/Backup/CarSim.Build.cs">here</a> in order to use the correct solver for Ubuntu.</li>
-</ol>
+<li>在 <a href="https://www.carsim.com/users/unreal_plugin/unreal_plugin_2020_0.php">这里</a> 下载插件。</li>
+<li>
+<p>将文件 <code>CarSim.Build.cs</code> 替换为 <a href="https://carla-releases.s3.eu-west-3.amazonaws.com/Backup/CarSim.Build.cs">此处</a> 找到的文件，以便为 Ubuntu 使用正确的求解器。</p>
 </li>
 <li>
-<p>This step can be skipped if you are using the packaged version of CARLA. The packaged version has already been compiled using this flag but if you are building CARLA from source then you will need to compile the server with the <code>--carsim</code> flag.  </p>
-<p>If you are building CARLA from source, run the following command in the root folder to compile the server with the <code>--carsim</code> flag:</p>
+<p>如果您使用的是 CARLA 的打包版本，则可以跳过此步骤。打包版本已使用此标志编译，但如果您从源代码构建 CARLA，则需要使用<code>--carsim</code>标志编译服务器。</p>
+</li>
+</ol>
+<p>如果您从源代码构建 CARLA，请在根文件夹中运行以下命令以使用<code>--carsim</code>标志编译服务器：</p>
 </li>
 </ol>
 <pre><code class="language-sh">    make launch ARGS=&quot;--carsim&quot;
 </code></pre>
-<h2 id="set-up-carsim">Set up CarSim</h2>
-<p>The following section details how to generate the <code>.sim</code> file which is required to run the simulation. There is also important information detailed regarding the relationship of vehicle sizes between CARLA and CarSim. </p>
-<h4 id="generate-the-sim-file">Generate the .sim file</h4>
-<p>The <code>.sim</code> file describes the simulation to be run in both CARLA and CarSim. This file is required by the plugin to run the simulation. There is currently no way to generate this file on Ubuntu, however we will describe below how to use a previously generated file to run the simulation on Ubuntu. </p>
-<h5 id="on-windows">On Windows</h5>
-<p>After you have configured all the parameters on CarSim, use the GUI to generate the <code>.sim</code> file as highlighted below:</p>
+<h2 id="carsim_1">设置 CarSim</h2>
+<p>以下部分详细介绍了如何生成运行仿真所需的 <code>.sim</code> 文件。还有关于 CARLA 和 CarSim 之间车辆尺寸关系的详细重要信息。</p>
+<h4 id="sim">生成.sim 文件</h4>
+<p>该<code>.sim</code> 文件描述了要在 CARLA 和 CarSim 中运行的仿真。插件需要此文件才能运行仿真。目前无法在 Ubuntu 上生成此文件，但是我们将在下面介绍如何使用之前生成的文件在 Ubuntu 上运行仿真。</p>
+<h5 id="windows">在 Windows 上</h5>
+<p>在 CarSim 上配置完所有参数后，使用 GUI 生成 <code>.sim</code> 文件，如下所示：</p>
 <p><img alt="generate .sim file" src="../img/carsim_generate.jpg" /></p>
-<p>The resulting <code>.sim</code> file should look something like this:</p>
+<p>生成的<code>.sim</code>文件应如下所示：</p>
 <pre><code>SIMFILE
 
 SET_MACRO $(ROOT_FILE_NAME)$ Run_dd7a828d-4b14-4c77-9d09-1974401d6b25
@@ -374,15 +376,14 @@ PORTS_EXP 0
 DLLFILE D:\carsim\Programs\solvers\carsim_64.dll
 END
 </code></pre>
-<h5 id="on-ubuntu">On Ubuntu</h5>
-<p>There is no way to create the <code>.sim</code> file via GUI on Ubuntu. In order to proceed you will need to follow these steps:</p>
+<h5 id="ubuntu">在Ubuntu上</h5>
+<p>无法在 Ubuntu 上通过 GUI 创建 <code>.sim</code> 文件。为了继续，您需要执行以下步骤：</p>
 <ol>
-<li>Generate the <code>.sim</code> file in Windows or use the file template below.</li>
-<li>Modify the <code>.sim</code> file so the variables <code>INPUT</code>, <code>INPUTARCHIVE</code>, <code>LOGFILE</code> and so on point towards the corresponding files in your Ubuntu 
-system.</li>
-<li>Replace the <code>DLLFILE</code> line to point towards the CarSim solver which, in the default installation, will be <code>SOFILE /opt/carsim_2020.0/lib64/libcarsim.so.2020.0</code>. </li>
+<li>在 Windows 中生成 <code>.sim</code> 文件或使用下面的文件模板。</li>
+<li>修改该 <code>.sim</code> 文件，使变量 <code>INPUT</code>, <code>INPUTARCHIVE</code>, <code>LOGFILE</code> 等指向 Ubuntu 系统中的相应文件。</li>
+<li>替换 <code>DLLFILE</code> 行以指向 CarSim 解算器，在默认安装中，该解算器将为 <code>SOFILE /opt/carsim_2020.0/lib64/libcarsim.so.2020.0</code>. </li>
 </ol>
-<p>The resulting file should be similar to this:</p>
+<p>生成的文件应与此类似：</p>
 <pre><code>SIMFILE
 
 FILEBASE /path/to/LastRun
@@ -401,21 +402,19 @@ VEHICLE_CODE i_i
 SOFILE /opt/carsim_2020.0/lib64/libcarsim.so.2020.0
 END
 </code></pre>
-<h4 id="vehicle-sizes">Vehicle sizes</h4>
-<p>Although CarSim lets you specify the dimensions of the vehicle to use in the simulation, there is currently no correlation between a CarSim vehicle and a CARLA 
-vehicle. This means that the vehicles in both programmes will have different dimensions. The role of the CARLA vehicle is only to act as a placeholder during the simulation.</p>
+<h4 id="_2">车辆尺寸</h4>
+<p>尽管 CarSim 允许您指定在模拟中使用的车辆尺寸，但目前 CarSim 车辆和 CARLA 车辆之间没有关联。这意味着两个项目中的车辆将具有不同的尺寸。CARLA 车辆的作用只是在仿真过程中充当占位符。</p>
 <p><img alt="carsim vehicle sizes" src="../img/carsim_vehicle_sizes.jpg" /></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>There is no correlation between vehicle size in CARLA and CarSim. The CARLA vehicle is only a simulation placeholder.</p>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>CARLA 和 CarSim 中的车辆尺寸之间没有相关性。CARLA 车辆只是一个模拟占位符。</p>
 </div>
-<h2 id="run-the-simulation">Run the simulation</h2>
-<p>All that is needed when running the simulation is to enable CarSim when you spawn a vehicle. This can be done by passing the path to the <code>.sim</code> file to the following <a href="https://carla.readthedocs.io/en/latest/python_api/#carla.Vehicle.enable_carsim">method</a> of the Python API:</p>
+<h2 id="_3">运行仿真</h2>
+<p>运行仿真时所需要做的就是在生成车辆时启用 CarSim。这可以通过将<code>.sim</code> 文件路径传递给Python API 的 <a href="https://carla.readthedocs.io/en/latest/python_api/#carla.Vehicle.enable_carsim">方法</a> 来完成：</p>
 <pre><code class="language-sh">vehicle.enable_carsim(&lt;path_to_ue4simfile.sim&gt;)
 </code></pre>
-<p>All input controls sent to the vehicle will be forwarded to CarSim. CarSim will update the 
-physics and send back the status of the vehicle (the transform) to the CARLA vehicle. </p>
-<p>Once the simulation has finished you can analyze all the data in CarSim as usual. </p>
+<p>发送到车辆的所有输入控件都将转发到 CarSim。CarSim 将更新物理并将车辆状态（变换）发送回 CARLA 车辆。</p>
+<p>仿真完成后，您可以像往常一样分析 CarSim 中的所有数据。</p>
 <p><img alt="carsim analysis" src="../img/carsim_analysis.jpg" /></p>
               
             </div>

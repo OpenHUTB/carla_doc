@@ -163,7 +163,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_manual_map_package/">手动准备地图包</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_layers/">自定义地图：分层地图: </a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_layers/">自定义地图：分层地图</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_add_tl/">自定义地图：红绿灯和标志</a>
                   </li>
@@ -282,48 +282,41 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="how-to-make-a-release">How to make a release</h1>
+                <h1 id="_1">如何发布</h1>
 <blockquote>
-<p><em>This document is meant for developers that want to publish a new release.</em></p>
+<p><em>本文档适用于想要发布新版本的开发人员。</em></p>
 </blockquote>
 <ol>
 <li>
-<p><strong>Make sure content is up-to-date.</strong><br>
-   See <a href="../tuto_D_contribute_assets/">Upgrade the content</a>.</p>
+<p><strong>确保内容是最新的。</strong><br>
+   请参阅 <a href="../tuto_D_contribute_assets/">升级内容</a>。</p>
 </li>
 <li>
-<p><strong>Increase CARLA version where necessary.</strong><br>
-   Increase version in the following files: <em>DefaultGame.ini</em>, <em>Carla.uplugin</em>,
-   <em>setup.py</em>, <em>ContentVersions.txt</em>. Grep for the current version to make sure
-   you don't miss any references.</p>
+<p><strong>必要时增加 CARLA 版本。</strong><br>
+   增加以下文件中的版本： <em>DefaultGame.ini</em>, <em>Carla.uplugin</em>,
+   <em>setup.py</em>, <em>ContentVersions.txt</em> 。Grep 查看当前版本，以确保您不会错过任何参考。</p>
 </li>
 <li>
-<p><strong>Clean up CHANGELOG.md.</strong><br>
-   Make sure the change log is up-to-date, reword and reorganize if necessary;
-   take into account which items can be more important to the users.</p>
+<p><strong>清除 CHANGELOG.md。</strong><br>
+   确保变更日志是最新的，必要时重写并重新组织；考虑哪些项目对用户来说更重要。</p>
 </li>
 <li>
-<p><strong>Commit changes and add a new tag.</strong><br>
-   Once all your changes are committed, add a new tag with <code>git tag -a X.X.X</code>
-   (replacing <code>X.X.X</code> by latest version). Add the changelog of this version as
-   tag message.</p>
+<p><strong>提交更改并添加新标签。</strong><br>
+   提交所有更改后，添加一个新标签 <code>git tag -a X.X.X</code>
+   （用最新版本替换 <code>X.X.X</code> ）。 添加此版本的变更日志作为标签消息。</p>
 </li>
 <li>
-<p><strong>Tag content repo.</strong><br>
-   Add a similar tag to the content repository at the exact commit as in
-   <em>ContentVersions.txt</em>.</p>
+<p><strong>标签内容仓库。</strong><br>
+   在确切的提交处将类似的标签添加到内容存储库，如 <em>ContentVersions.txt</em> 中。</p>
 </li>
 <li>
-<p><strong>Push changes.</strong><br>
-   Push all the changes to both repositories, to push tags you may need to use
-   <code>git push --tags</code>. Create a Pull Request if necessary.</p>
+<p><strong>推送更改。</strong><br>
+   将所有更改推送到两个存储库，以推送您可能需要使用
+   <code>git push --tags</code> 的标签。如有必要，创建拉取请求。</p>
 </li>
 <li>
-<p><strong>Edit GitHub release.</strong><br>
-   Go to <a href="https://github.com/carla-simulator/carla/releases">GitHub releases</a>
-   and create a new release on top of the newly created tag. Wait until Jenkins
-   has finished publishing the builds with the latest version and add the
-   download links to the newly created release.</p>
+<p><strong>编辑 GitHub 版本。</strong><br>
+   转到 <a href="https://github.com/carla-simulator/carla/releases">GitHub 发布</a> 并在新创建的标签之上创建一个新版本。等到 Jenkins 完成发布最新版本的构建，并将下载链接添加到新创建的版本。</p>
 </li>
 </ol>
               

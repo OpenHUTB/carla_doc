@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Bounding boxes - 交通仿真器文档</title>
+    <title>边界框 - 交通仿真器文档</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Bounding boxes";
+        var mkdocs_page_name = "\u8fb9\u754c\u6846";
         var mkdocs_page_input_path = "tuto_G_bounding_boxes.md";
         var mkdocs_page_url = null;
       </script>
@@ -163,7 +163,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_manual_map_package/">手动准备地图包</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_layers/">自定义地图：分层地图: </a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_layers/">自定义地图：分层地图</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_add_tl/">自定义地图：红绿灯和标志</a>
                   </li>
@@ -270,7 +270,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Bounding boxes</li>
+      <li class="breadcrumb-item active">边界框</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -279,11 +279,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="bounding-boxes">Bounding boxes</h1>
-<p>A significant factor in the problem of enabling autonomous vehicles to understand their environments lies in estimating the position and orientation of objects surrounding the vehicle. For this purpose, it is necessary to infer the position of the object's bounding box. </p>
-<p>Objects within the CARLA simulation all have a bounding box and the CARLA Python API provides functions to access the bounding box of each object. This tutorial shows how to access bounding boxes and then project them into the camera plane.</p>
-<h2 id="set-up-the-simulator">Set up the simulator</h2>
-<p>Let's lay down the standard CARLA boilerplate code, set up the client and world objects, spawn a vehicle and attach a camera to it:</p>
+                <h1 id="_1">边界框</h1>
+<p>使自动驾驶车辆了解其环境的一个重要因素在于估计车辆周围物体的位置和方向。为此，有必要推断对象边界框的位置。</p>
+<p>CARLA 仿真中的对象都有一个边界框，并且 CARLA Python API 提供了访问每个对象的边界框的函数。本教程展示如何访问边界框，然后将它们投影到相机平面中。</p>
+<h2 id="_2">设置仿真器</h2>
+<p>让我们编写标准 CARLA 样板代码，设置客户端和世界对象，生成车辆并为其附加相机：</p>
 <pre><code class="language-py">import carla
 import math
 import random
@@ -319,8 +319,8 @@ spawn_points = world.get_map().get_spawn_points()
 image_queue = queue.Queue()
 camera.listen(image_queue.put)
 </code></pre>
-<h2 id="geometric-transformations">Geometric transformations</h2>
-<p>We want to take 3D points from the simulation and project them into the 2D plane of the camera. Firstly, we need to construct the camera projection matrix:</p>
+<h2 id="_3">几何变换</h2>
+<p>我们想要从仿真中获取三维点并将它们投影到相机的二维平面中。首先，我们需要构造相机投影矩阵：</p>
 <pre><code class="language-py">def build_projection_matrix(w, h, fov):
     focal = w / (2.0 * np.tan(fov * np.pi / 360.0))
     K = np.identity(3)
@@ -329,7 +329,7 @@ camera.listen(image_queue.put)
     K[1, 2] = h / 2.0
     return K
 </code></pre>
-<p>We want to use the camera projection matrix to project 3D to 2D points. The first step is to transform the 3D coordinates in world coordinates into camera coordinates, using the inverse camera transform that can be retrieved using <code>camera.get_transform().get_inverse_matrix()</code>. Following this, we use the camera projection matrix to project the 3D points in camera coordinates into the 2D camera plane:</p>
+<p>我们想要使用相机投影矩阵将三维点投影到二维点。第一步是使用可通过 <code>camera.get_transform().get_inverse_matrix()</code> 检索的逆相机变换，将世界坐标中的三维坐标变换为相机坐标。接下来，我们使用相机投影矩阵将相机坐标中的三维点投影到二维相机平面中：</p>
 <pre><code class="language-py">
 def get_image_point(loc, K, w2c):
         # Calculate 2D projection of 3D coordinate
@@ -352,7 +352,7 @@ def get_image_point(loc, K, w2c):
 
         return point_img[0:2]
 </code></pre>
-<p>Now that we have the functions to project 3D -&gt; 2D we retrieve the camera specifications:</p>
+<p>现在我们有了投影 3D -&gt; 2D 的功能，我们可以检索相机规格：</p>
 <pre><code class="language-py">
 # Get the world to camera matrix
 world_2_camera = np.array(camera.get_transform().get_inverse_matrix())
@@ -365,13 +365,13 @@ fov = camera_bp.get_attribute(&quot;fov&quot;).as_float()
 # Calculate the camera projection matrix to project from 3D -&gt; 2D
 K = build_projection_matrix(image_w, image_h, fov)
 </code></pre>
-<h2 id="bounding-boxes_1">Bounding boxes</h2>
-<p>CARLA objects all have an associated bounding box. CARLA <a href="../python_api/#carla.Actor">actors</a> have a <code>bounding_box</code> attribute which has a <a href="../python_api/#carla.BoundingBox">carla.BoundingBox</a> object type. The vertices for a bounding box can be retrieved through one of the getter functions <code>.get_world_vertices()</code> or <code>get_local_vertices()</code>. </p>
-<p>It is important to note that to get the 3D coordinates of the bounding box in world coordinates, you need to include the transform of the actor as an argument to the <code>get_world_vertices()</code> method like so:</p>
+<h2 id="_4">边界框</h2>
+<p>CARLA 对象都有一个关联的边界框。CARLA <a href="../python_api/#carla.Actor">参与者</a> 有一个 <code>bounding_box</code> 属性，该属性具有 <a href="../python_api/#carla.BoundingBox">carla.BoundingBox</a> 对象类型。边界框的顶点可以通过 getter 函数<code>.get_world_vertices()</code>或 <code>get_local_vertices()</code> 之一检索。</p>
+<p>需要注意的是，要获取世界坐标中边界框的三维坐标，您需要将参与者的变换作为该<code>get_world_vertices()</code>方法的参数，如下所示：</p>
 <pre><code class="language-py">actor.get_world_vertices(actor.get_transform())
 
 </code></pre>
-<p>For objects in the map like buildings, traffic lights and road signs, the bounding box can be retrieved through the <a href="(python_api.md#carla.World)">carla.World</a> method <code>get_level_bbs()</code>. A <a href="(python_api.md#carla.CityObjectLabel)">carla.CityObjectLabel</a> can be used as an argument to filter the bounding box list to relevant objects:</p>
+<p>对于地图中的物体，如建筑物、交通灯和路标，可以通过<a href="(python_api.md#carla.World)">carla.World</a>方法 <code>get_level_bbs()</code> 检索边界框get_level_bbs()。<a href="(python_api.md#carla.CityObjectLabel)">carla.CityObjectLabel</a> 可以用作参数来将边界框列表过滤到相关对象：</p>
 <pre><code class="language-py"># Retrieve all bounding boxes for traffic lights within the level
 bounding_box_set = world.get_level_bbs(carla.CityObjectLabel.TrafficLight)
 
@@ -381,13 +381,13 @@ for bbox in bounding_box_set:
     if bbox.location.distance(actor.get_transform().location) &lt; 50:
         nearby_bboxes
 </code></pre>
-<p>This list can be further filtered using actor location to identify objects that are nearby and therefore likely to be within the field of view of a camera attached to an actor. </p>
-<p>In order to draw a bounding box onto the camera image, we will need to join the vertices in the appropriate order to create edges. To achieve this we need the following list of edge pairs:</p>
+<p>可以使用参与者位置来进一步过滤该列表，以识别附近的对象，因此可能位于连接到参与者的相机的视野内。</p>
+<p>为了在相机图像上绘制边界框，我们需要以适当的顺序连接顶点以创建边缘。为了实现这一点，我们需要以下边对列表：</p>
 <pre><code class="language-py">edges = [[0,1], [1,3], [3,2], [2,0], [0,4], [4,5], [5,1], [5,7], [7,6], [6,4], [6,2], [7,3]]
 
 </code></pre>
-<h2 id="rendering-the-bounding-boxes">Rendering the bounding boxes</h2>
-<p>Now that we have our geometric projections and our simulation set up, we can progress to creating the game loop and rendering the bounding boxes into a scene. </p>
+<h2 id="_5">渲染边界框</h2>
+<p>现在我们已经设置了几何投影和仿真，我们可以继续创建游戏循环并将边界框渲染到场景中。</p>
 <pre><code class="language-py"># Set up the set of bounding boxes from the level
 # We filter for traffic lights and traffic signs
 bounding_box_set = world.get_level_bbs(carla.CityObjectLabel.TrafficLight)
@@ -397,7 +397,7 @@ bounding_box_set.extend(world.get_level_bbs(carla.CityObjectLabel.TrafficSigns))
 edges = [[0,1], [1,3], [3,2], [2,0], [0,4], [4,5], [5,1], [5,7], [7,6], [6,4], [6,2], [7,3]]
 
 </code></pre>
-<p>To see the bounding boxes, we will use an OpenCV window to display the camera output.</p>
+<p>为了查看边界框，我们将使用 OpenCV 窗口来显示相机输出。</p>
 <pre><code class="language-py"># Retrieve the first image
 world.tick()
 image = image_queue.get()
@@ -410,7 +410,7 @@ cv2.namedWindow('ImageWindowName', cv2.WINDOW_AUTOSIZE)
 cv2.imshow('ImageWindowName',img)
 cv2.waitKey(1)
 </code></pre>
-<p>Now we will start the game loop:</p>
+<p>现在我们将开始游戏循环：</p>
 <pre><code class="language-py">
 while True:
     # Retrieve and reshape the image
@@ -454,18 +454,18 @@ while True:
 cv2.destroyAllWindows()
 
 </code></pre>
-<p>Now we are rendering 3D bounding boxes into the images so we can observe them in the camera sensor output.</p>
+<p>现在我们将三维边界框渲染到图像中，以便我们可以在相机传感器输出中观察它们。</p>
 <p><img alt="3D_bbox_traffic_lights" src="../img/tuto_G_bounding_box/3d_bbox_traffic_lights.gif" /></p>
-<h2 id="vehicle-bounding-boxes">Vehicle bounding boxes</h2>
-<p>We may also want to render the bounding boxes for actors, particularly for vehicles. </p>
-<p>Firstly, let's add some other vehicles to our simulation:</p>
+<h2 id="_6">车辆边界框</h2>
+<p>我们可能还想渲染参与者的边界框，特别是车辆的边界框。</p>
+<p>首先，让我们在仿真中添加一些其他车辆：</p>
 <pre><code class="language-py">for i in range(50):
     vehicle_bp = random.choice(bp_lib.filter('vehicle'))
     npc = world.try_spawn_actor(vehicle_bp, random.choice(spawn_points))
     if npc:
         npc.set_autopilot(True)
 </code></pre>
-<p>Retrieve the first image and set up the OpenCV display window as before:</p>
+<p>检索第一张图像并像以前一样设置 OpenCV 显示窗口：</p>
 <pre><code class="language-py"># Retrieve the first image
 world.tick()
 image = image_queue.get()
@@ -478,7 +478,7 @@ cv2.namedWindow('ImageWindowName', cv2.WINDOW_AUTOSIZE)
 cv2.imshow('ImageWindowName',img)
 cv2.waitKey(1)
 </code></pre>
-<p>Now we use a modified game loop to draw the vehicle bounding boxes:</p>
+<p>现在我们使用修改后的游戏循环来绘制车辆边界框：</p>
 <pre><code class="language-py">
 while True:
     # Retrieve and reshape the image
@@ -523,8 +523,8 @@ while True:
 cv2.destroyAllWindows()
 </code></pre>
 <p><img alt="3D_bbox_vehicles" src="../img/tuto_G_bounding_box/3d_bbox_vehicle.gif" /></p>
-<h3 id="2d-bounding-boxes">2D bounding boxes</h3>
-<p>It is common for neural networks to be trained to detect 2D bounding boxes rather than the 3D bounding boxes demonstrated above. The previous script can be easily extended to generate 2D bounding boxes. We simply need to use the extremities of the 3D bounding boxes. We find, for each bounding box we render, the leftmost, rightmost, highest and lowest projected vertex in image coordinates. </p>
+<h3 id="_7">二维边界框</h3>
+<p>训练神经网络来检测二维边界框而不是上面演示的三维边界框是很常见的。前面的脚本可以轻松扩展以生成二维边界框。我们只需要使用三维边界框的末端即可。对于渲染的每个边界框，我们找到图像坐标中最左边、最右边、最高和最低的投影顶点。</p>
 <pre><code class="language-py">
 while True:
 
@@ -591,10 +591,10 @@ cv2.destroyAllWindows()
 
 </code></pre>
 <p><img alt="2D_bbox_vehicles" src="../img/tuto_G_bounding_box/2d_bbox.gif" /></p>
-<h2 id="exporting-bounding-boxes">Exporting bounding boxes</h2>
-<p>Rendering bounding boxes is useful for us to ensure the bounding boxes are correct for debugging purposes. However, if we wanted to use them practically in training a neural network, we will want to export them. There are a number of different formats used by the common data repositories used for autonomous driving and object detection, such as <a href="http://www.cvlibs.net/datasets/kitti/"><strong>KITTI</strong></a> or <a href="http://host.robots.ox.ac.uk/pascal/VOC/"><strong>PASCAL VOC</strong></a> or <a href="https://cocodataset.org/#home"><strong>MicroSoft COCO</strong></a>.</p>
-<h3 id="pascal-voc-format">Pascal VOC format</h3>
-<p>These datasets commonly use JSON or XML formats to store annotations. There is a convenient Python library for the PASCAL VOC format. </p>
+<h2 id="_8">导出边界框</h2>
+<p>渲染边界框对于我们确保边界框对于调试目的是正确的很有用。然而，如果我们想在训练神经网络时实际使用它们，我们将需要导出它们。用于自动驾驶和物体检测的常见数据存储库使用多种不同的格式，例如<a href="http://www.cvlibs.net/datasets/kitti/"><strong>KITTI</strong></a> 或 <a href="http://host.robots.ox.ac.uk/pascal/VOC/"><strong>PASCAL VOC</strong></a> 或 <a href="https://cocodataset.org/#home"><strong>MicroSoft COCO</strong></a> 。</p>
+<h3 id="pascal-voc">Pascal VOC 格式</h3>
+<p>这些数据集通常使用 JSON 或 XML 格式来存储注释。PASCAL VOC 格式有一个方便的 Python 库。</p>
 <pre><code class="language-py">
 from pascal_voc_writer import Writer
 
@@ -653,9 +653,9 @@ while True:
 
 
 </code></pre>
-<p>For every rendered frame of your simulation, you will now export an accompanying XML file containing the details of the bounding boxes in the frame. </p>
+<p>对于仿真的每个渲染帧，您现在将导出一个随附的 XML 文件，其中包含帧中边界框的详细信息。</p>
 <p><img alt="xml_bbox_files" src="../img/tuto_G_bounding_box/xml_bbox_files.png" /></p>
-<p>In the PASCAL VOC format, the XML files contain information referring to the accompanying image file, the image dimensions and can include details such as vehicle type if needed. </p>
+<p>在 PASCAL VOC 格式中，XML 文件包含涉及随附图像文件、图像尺寸的信息，如果需要，还可以包括车辆类型等详细信息。</p>
 <pre><code class="language-xml">&lt;!-- Example PASCAL VOC format file--&gt;
 &lt;annotation&gt;
     &lt;folder&gt;output&lt;/folder&gt;
@@ -696,9 +696,9 @@ while True:
 &lt;/annotation&gt;
 
 </code></pre>
-<h3 id="microsoft-coco-format">MicroSoft COCO format</h3>
-<p>Another popular export format is <a href="https://cocodataset.org/#home"><strong>MicroSoft COCO</strong></a>. The COCO format uses JSON files to save references to images and annotations. The format includes the images and annotations in the fields of a single JSON file, along with information on the dataset and licenses. In contrast to some other formats, references to all collected images and all associated annotations go in the same file.</p>
-<p>You should create a JSON dictionary similar to the following example:</p>
+<h3 id="coco">微软 COCO 格式</h3>
+<p>另一种流行的导出格式是 <a href="https://cocodataset.org/#home"><strong>MicroSoft COCO</strong></a> 。COCO 格式使用 JSON 文件来保存对图像和注释的引用。该格式包括单个 JSON 文件字段中的图像和注释，以及有关数据集和许可证的信息。与某些其他格式相比，对所有收集的图像和所有相关注释的引用都位于同一文件中。</p>
+<p>您应该创建一个类似于以下示例的 JSON 字典：</p>
 <pre><code class="language-py">simulation_dataset = {
     &quot;info&quot;: {},
 
@@ -738,15 +738,15 @@ while True:
     ]
 }
 </code></pre>
-<p>The info and licenses sections should be filled accordingly or left empty. The images from your simulation should be stored in an array in the <code>images</code> field of the dictionary. The bounding boxes should be stored in the <code>annotations</code> field of the dictionary with the matching <code>image_id</code>. The bounding box is stored as <code>[x_min, y_min, width, height]</code>.</p>
-<p>The Python JSON library can then be used to save the dictionary as a JSON file:</p>
+<p>信息和许可证部分应相应填写或留空。仿真中的图像应存储在<code>images</code>字典字段中的数组中。边界框应存储在具有匹配 <code>image_id</code> 的<code>annotations</code>字典字段中。边界框存储为<code>[x_min, y_min, width, height]</code>。</p>
+<p>然后可以使用 Python JSON 库将字典保存为 JSON 文件：</p>
 <pre><code class="language-py">import json
 
 with open('simulation_data.json', 'w') as json_file:
     json.dump(simulation_dataset, json_file)
 </code></pre>
-<p>More details about the COCO data format can be found <a href="https://www.immersivelimit.com/tutorials/create-coco-annotations-from-scratch/#create-custom-coco-dataset"><strong>here</strong></a></p>
-<p><em>It should be noted that in this tutorial we have not accounted for overlapping bounding boxes. Additional work would be required in order to identify foreground bounding boxes in the case where they overlap.</em>  </p>
+<p>有关 COCO 数据格式的更多详细信息，请参见 <a href="https://www.immersivelimit.com/tutorials/create-coco-annotations-from-scratch/#create-custom-coco-dataset"><strong>此处</strong></a> 。</p>
+<p><em>应该注意的是，在本教程中我们没有考虑重叠的边界框。为了在重叠的情况下识别前景边界框，需要进行额外的工作。</em>  </p>
               
             </div>
           </div><footer>

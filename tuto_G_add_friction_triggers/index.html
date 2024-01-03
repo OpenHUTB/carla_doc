@@ -163,7 +163,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_manual_map_package/">手动准备地图包</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_layers/">自定义地图：分层地图: </a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_layers/">自定义地图：分层地图</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_add_tl/">自定义地图：红绿灯和标志</a>
                   </li>
@@ -189,7 +189,7 @@
               <ul class="current">
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">添加摩擦触发器</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#example">Example</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">例子</a>
     </li>
     </ul>
                   </li>
@@ -284,23 +284,18 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="how-to-add-friction-triggers">How to add friction triggers</h1>
-<p><em>Friction Triggers</em> are box triggers that can be added on runtime and let users define
-a different friction of the vehicles' wheels when being inside those type of triggers.
-For example, this could be useful for making slippery surfaces in certain regions of
-a map dynamically.</p>
-<p>In order to spawn a friction trigger using PythonAPI, users must first get the
-<code>static.trigger.friction</code> blueprint definition, and then set the following necessary
-attributes to that blueprint definition:</p>
+                <h1 id="_1">如何添加摩擦触发器</h1>
+<p>摩擦触发器(<em>Friction Triggers</em>) 是可以在运行时添加的框触发器，让用户在处于这些类型的触发器内时定义车辆车轮的不同摩擦力。例如，这对于动态地在地图的某些区域中制作光滑的表面可能很有用。</p>
+<p>为了使用 PythonAPI 生成摩擦触发器，用户必须首先获取
+<code>static.trigger.friction</code> 蓝图定义，然后为该蓝图定义设置以下必要属性：</p>
 <ul>
-<li><em>friction</em>: The friction of the trigger box when vehicles are inside it.</li>
-<li><em>extent_x</em>: The extent of the bounding box in the X coordinate in centimeters.</li>
-<li><em>extent_y</em>: The extent of the bounding box in the Y coordinate in centimeters.</li>
-<li><em>extent_z</em>: The extent of the bounding box in the Z coordinate in centimeters.</li>
+<li><em>friction</em>: 当车辆位于触发盒内时，触发盒的摩擦力。</li>
+<li><em>extent_x</em>: X 坐标中边界框的范围（以厘米为单位）。</li>
+<li><em>extent_y</em>: Y 坐标中边界框的范围（以厘米为单位）。</li>
+<li><em>extent_z</em>: Z 坐标中边界框的范围（以厘米为单位）。</li>
 </ul>
-<p>Once done that, define a transform to specify the location and rotation for the friction
-trigger and spawn it.</p>
-<h5 id="example">Example</h5>
+<p>完成此操作后，定义一个变换来指定摩擦触发器的位置和旋转并生成它。</p>
+<h5 id="_2">例子</h5>
 <pre><code class="language-py">import carla
 
 def main():

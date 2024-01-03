@@ -163,7 +163,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_manual_map_package/">手动准备地图包</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_layers/">自定义地图：分层地图: </a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_layers/">自定义地图：分层地图</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_add_tl/">自定义地图：红绿灯和标志</a>
                   </li>
@@ -282,28 +282,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="how-to-upgrade-content">How to upgrade content</h1>
-<p>Our content resides on a separate <a href="https://bitbucket.org/carla-simulator/carla-content">Git LFS repository</a>. As part
-of our build system, we generate and upload a package containing the latest
-version of this content tagged with the current date and commit. Regularly, we
-upgrade the <a href="https://github.com/carla-simulator/carla">CARLA repository</a> with a link to the latest version
-of the content package. This document contains the manual steps necessary to
-update this link to the latest version.</p>
+                <h1 id="_1">如何升级内容</h1>
+<p>我们的内容驻留在单独的 <a href="https://bitbucket.org/carla-simulator/carla-content">Git LFS 仓库</a> 中。作为构建系统的一部分，我们生成并上传一个包，其中包含带有当前日期和提交标记的该内容的最新版本。我们定期升级 <a href="https://github.com/carla-simulator/carla">CARLA 仓库</a>，并提供最新版本内容包的链接。本文档包含将此链接更新到最新版本所需的手动步骤。</p>
 <ol>
 <li>
-<p><strong>Copy the tag of the content package you wish to link.</strong><br>
-   This tag can be found by looking at the package name generated in the
-   artifacts section of the latest <a href="http://35.181.165.160:8080/blue/organizations/jenkins/carla-content/activity">Jenkins build</a>, e.g.,
-   <code>20190617_086f97f.tar.gz</code>.</p>
+<p><strong>复制您要链接的内容包的标签。</strong><br>
+   T可以通过查看最新 <a href="http://35.181.165.160:8080/blue/organizations/jenkins/carla-content/activity">Jenkins 构建</a>的
+工件部分中生成的包名称来找到此标签，例如
+   <code>20190617_086f97f.tar.gz</code>。</p>
 </li>
 <li>
-<p><strong>Paste the tag in ContentVersions.txt.</strong><br>
-   <a href="https://github.com/carla-simulator/carla/edit/master/Util/ContentVersions.txt">Edit ContentVersions.txt</a> by pasting the tag at the end of the file,
-   e.g. <code>Latest: 20190617_086f97f</code> (without the <code>.tar.gz</code> part).</p>
+<p><strong>将标记粘贴到 ContentVersions.txt 中。</strong><br>
+   通过将标记粘贴到文件末尾来
+编辑 <a href="https://github.com/carla-simulator/carla/edit/master/Util/ContentVersions.txt">Edit ContentVersions.txt</a> ，
+   例如 <code>Latest: 20190617_086f97f</code> (不包括 <code>.tar.gz</code> 部分）。</p>
 </li>
 <li>
-<p><strong>Open a Pull Request.</strong><br>
-   Commit the changes and open a new Pull Request.</p>
+<p><strong>打开拉取请求。</strong><br>
+   提交更改并打开新的拉取请求。</p>
 </li>
 </ol>
               

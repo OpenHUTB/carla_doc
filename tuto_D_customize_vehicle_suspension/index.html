@@ -163,7 +163,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_manual_map_package/">手动准备地图包</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_layers/">自定义地图：分层地图: </a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_layers/">自定义地图：分层地图</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_add_tl/">自定义地图：红绿灯和标志</a>
                   </li>
@@ -221,19 +221,19 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">自定义车辆悬架</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#basics-of-the-suspension-system">Basics of the suspension system</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">悬架系统的基础知识</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#suspension-groups">Suspension groups</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">悬架组</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#coupe">Coupe</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">轿跑车</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#off-road">Off-road</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">越野</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#truck">Truck</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_6">卡车</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#urban">Urban</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_7">城市车</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#van">Van</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_8">货车</a>
     </li>
         </ul>
     </li>
@@ -298,61 +298,61 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="customize-vehicle-suspension">Customize vehicle suspension</h1>
-<p>This tutorial covers the basics of the suspension system for CARLA vehicles, and how are these implemented for the different vehicles available. Use this information to access the suspension parameterization of a vehicle in Unreal Engine, and customize it at will.  </p>
+                <h1 id="_1">定制车辆悬架</h1>
+<p>本教程介绍了 CARLA 车辆悬架系统的基础知识，以及如何针对不同的可用车辆实施这些基础知识。使用此信息可以访问虚幻引擎中车辆的悬架参数，并随意对其进行自定义。</p>
 <ul>
-<li><a href="#basics-of-the-suspension-system"><strong>Basics of the suspension system</strong></a>  </li>
-<li><a href="#suspension-groups"><strong>Suspension groups</strong></a>  <ul>
-<li><a href="#coupe">Coupe</a>  </li>
-<li><a href="#off-road">Off-road</a>  </li>
-<li><a href="#truck">Truck</a>  </li>
-<li><a href="#urban">Urban</a>  </li>
-<li><a href="#van">Van</a>  </li>
+<li><a href="#basics-of-the-suspension-system"><strong>悬架系统的基础知识</strong></a>  </li>
+<li><a href="#suspension-groups"><strong>悬架组</strong></a>  <ul>
+<li><a href="#coupe">轿跑车</a>  </li>
+<li><a href="#off-road">越野</a>  </li>
+<li><a href="#truck">卡车</a>  </li>
+<li><a href="#urban">城市车</a>  </li>
+<li><a href="#van">货车</a>  </li>
 </ul>
 </li>
 </ul>
 <hr />
-<h2 id="basics-of-the-suspension-system">Basics of the suspension system</h2>
-<p>The suspension system of a vehicle is defined by the wheels of said vehicle. Each wheel has an independent blueprint with some parameterization, which includes the suspension system. </p>
-<p>These blueprints can be found in <code>Content/Carla/Blueprints/Vehicles/&lt;vehicle_name&gt;</code>. They are named such as: <code>BP_&lt;vehicle_name&gt;_&lt;F/R&gt;&lt;R/L&gt;W</code>.  </p>
+<h2 id="_2">悬架系统的基础知识</h2>
+<p>车辆的悬架系统由所述车辆的车轮限定。每个车轮都有一个带有一些参数化的独立蓝图，其中包括悬架系统。</p>
+<p>这些蓝图可以在 <code>Content/Carla/Blueprints/Vehicles/&lt;vehicle_name&gt;</code> 中找到。它们的名称如下：<code>BP_&lt;vehicle_name&gt;_&lt;F/R&gt;&lt;R/L&gt;W</code>。 </p>
 <ul>
-<li><code>F</code> or <code>R</code> is used for front or rear wheels correspondingly.  </li>
-<li><code>R</code> or <code>L</code> is used for right or left wheels correspondingly.  </li>
+<li><code>F</code> 或 <code>R</code> 相应地用于前轮或后轮。</li>
+<li><code>R</code> 或 <code>L</code> 应地用于右轮或左轮。 </li>
 </ul>
 <p><img alt="tuto_suspension_blueprints" src="../img/tuto_suspension_blueprints.jpg" /></p>
-<div style="text-align: right"><i>In this example, the blueprint of the front left wheel of the Audi A2 is named as <code>BP_AudiA2_FLW</code>.</i></div>
+<div style="text-align: right"><i>在本例中，奥迪A2左前轮的蓝图命名为 <code>BP_AudiA2_FLW</code>.</i></div>
 
-<p><code>shape_radius</code> for the wheel to rest over the road, neither hovering nor inside of it. </p>
-<p>Inside the blueprint, there is a section with some parameterization regarding the suspension of the wheel. Here are their definitions as described in Unreal Engine.  </p>
+<p><code>shape_radius</code> 让车轮停在路面上，既不悬停也不在路面内部。</p>
+<p>在蓝图中，有一个部分包含有关车轮悬架的一些参数化。以下是虚幻引擎中描述的它们的定义。</p>
 <ul>
-<li><code>Suspension Force Offset</code> — Vertical offset from where suspension forces are applied (along Z axis). </li>
-<li><code>Suspension Max Raise</code> — How far the wheel can go above the resting position. </li>
-<li><code>Suspension Max Drop</code> — How far the wheel can drop below the resting position. </li>
-<li><code>Suspension Natural Frequency</code> — Oscillation frequency of the suspension. Standard cars have values between <code>5</code> and <code>10</code>. </li>
-<li><code>Suspension Damping Ratio</code> — The rate at which energy is dissipated from the spring. Standard cars have values between <code>0.8</code> and <code>1.2</code>. Values <code>&lt;1</code> are more sluggish, values <code>&gt;1</code> are more twitchy.  </li>
-<li><code>Sweep Type</code> — Wether wheel suspension considers simple, complex or both.  </li>
+<li><code>Suspension Force Offset</code> — 距施加悬挂力的位置的垂直偏移（沿 Z 轴）。</li>
+<li><code>Suspension Max Raise</code> — 车轮可以超出静止位置多远。</li>
+<li><code>Suspension Max Drop</code> — 车轮可以下降到静止位置以下多远。</li>
+<li><code>Suspension Natural Frequency</code> — 悬架的振荡频率。标准汽车的值介于<code>5</code>和之间<code>10</code>。</li>
+<li><code>Suspension Damping Ratio</code> — 能量从弹簧耗散的速率。标准汽车的值介于<code>0.8</code>和<code>1.2</code>之间。值<code>&lt;1</code>更加迟缓，值<code>&gt;1</code>更加动荡。</li>
+<li><code>Sweep Type</code> — 车轮悬架是否考虑简单、复杂或两者兼而有之。</li>
 </ul>
 <p><img alt="tuto_suspension_parameterization" src="../img/tuto_suspension_parameterization.jpg" /></p>
-<div style="text-align: right"><i>The Suspension panel inside a wheel blueprint.</i></div>
+<div style="text-align: right"><i>车轮蓝图中的悬架面板。</i></div>
 
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>By default, all the wheels of a vehicle have the same parameterization in CARLA. The following explanations will be covered per vehicle, instead of per wheel.  </p>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>默认情况下，车辆的所有车轮在 CARLA 中具有相同的参数化。以下解释将按车辆而不是按车轮进行介绍。 </p>
 </div>
 <hr />
-<h2 id="suspension-groups">Suspension groups</h2>
-<p>According to their system suspension, vehicles in CARLA can be classified in five groups. All the vehicles in a group have the same parameterization, as they are expected to have a similar behaviour on the road. The suspension of a vehicle can be modified at will, and is no subject to these five groups. However understanding these, and observing their behaviour in the simulation can be of great use to define a custom suspension.  </p>
-<p>The five groups are: <em>Coupe</em>, <em>Off-road</em>, <em>Truck</em>, <em>Urban</em>, and <em>Van</em>. In closer observation, the parameterization of these groups follows a specific pattern.  </p>
+<h2 id="_3">悬架组</h2>
+<p>根据其系统悬架，CARLA 中的车辆可分为五组。组中的所有车辆都具有相同的参数化，因为它们预计在道路上具有相似的行为。车辆的悬架可以随意修改，不受这五组的限制。然而，了解这些并观察它们在仿真中的行为对于定义自定义悬架非常有用。</p>
+<p>这五个组是：<em>轿跑车</em>、<em>越野车</em>、<em>卡车</em>、<em>城市车</em>和<em>货车</em>。通过仔细观察，这些组的参数化遵循特定的模式。</p>
 <table>
 <thead>
 <tr>
-<th>Stiff suspension</th>
-<th>Coupe</th>
-<th>Urban</th>
-<th>Van</th>
-<th>Off-road</th>
-<th>Truck</th>
-<th>Soft suspension</th>
+<th>刚性悬架</th>
+<th>轿跑车</th>
+<th>城市车</th>
+<th>货车</th>
+<th>越野</th>
+<th>卡车</th>
+<th>软悬架</th>
 </tr>
 </thead>
 <tbody>
@@ -368,18 +368,18 @@
 </tbody>
 </table>
 <p><br></p>
-<p>When moving from a soft to a stiff suspension, there are some clear tendencies in the parameterization.  </p>
+<p>当从软悬架转向硬悬架时，参数化有一些明显的趋势。</p>
 <ul>
-<li><strong>Decrease</strong> of <code>Suspension Max Raise</code> and <code>Suspension Max Drop</code> — Stiff vehicles are meant to drive over plane roads with no bumps. For the sake of aerodynamics, the chassis is not supposed to move greatly, but remain constantly close to the ground.  </li>
-<li><strong>Increase</strong> of <code>Suspension Damping Ratio</code> — The absortion of the bouncing by the dampers is greater for stiff vehicles.  </li>
+<li><strong><code>Suspension Max Raise</code> 和 <code>Suspension Max Drop</code> 的 __减少</strong> — 刚性车辆应在平坦的道路上行驶且没有颠簸。出于空气动力学的考虑，底盘不应大幅移动，而应始终保持靠近地面。</li>
+<li><code>Suspension Damping Ratio</code> 的 <strong>增加</strong> — 对于刚性车辆来说，减震器吸收的弹跳更大。</li>
 </ul>
-<h3 id="coupe">Coupe</h3>
-<p>Vehicles with the stiffest suspension.  </p>
+<h3 id="_4">轿跑车</h3>
+<p>具有最硬悬架的车辆。</p>
 <table>
 <thead>
 <tr>
-<th>Parameterization</th>
-<th>Vehicles</th>
+<th>参数化</th>
+<th>汽车</th>
 </tr>
 </thead>
 <tbody>
@@ -389,13 +389,13 @@
 </tr>
 </tbody>
 </table>
-<h3 id="off-road">Off-road</h3>
-<p>Vehicles with a soft suspension.  </p>
+<h3 id="_5">越野</h3>
+<p>配备软悬架的车辆。</p>
 <table>
 <thead>
 <tr>
-<th>Parameterization</th>
-<th>Vehicles</th>
+<th>参数化</th>
+<th>汽车</th>
 </tr>
 </thead>
 <tbody>
@@ -405,13 +405,13 @@
 </tr>
 </tbody>
 </table>
-<h3 id="truck">Truck</h3>
-<p>Vehicles with the softest suspension.  </p>
+<h3 id="_6">卡车</h3>
+<p>具有最软悬架的车辆。 </p>
 <table>
 <thead>
 <tr>
-<th>Parameterization</th>
-<th>Vehicles</th>
+<th>参数化</th>
+<th>汽车</th>
 </tr>
 </thead>
 <tbody>
@@ -425,13 +425,13 @@
 </tr>
 </tbody>
 </table>
-<h3 id="urban">Urban</h3>
-<p>Vehicles with a soft suspension.  </p>
+<h3 id="_7">城市车</h3>
+<p>配备软悬架的车辆。</p>
 <table>
 <thead>
 <tr>
-<th>Parameterization</th>
-<th>Vehicles</th>
+<th>参数化</th>
+<th>汽车</th>
 </tr>
 </thead>
 <tbody>
@@ -442,13 +442,13 @@
 </tbody>
 </table>
 <p><br></p>
-<h3 id="van">Van</h3>
-<p>Vehicles with a middle-ground suspension.  </p>
+<h3 id="_8">货车</h3>
+<p>具有中地悬架的车辆。</p>
 <table>
 <thead>
 <tr>
-<th>Parameterization</th>
-<th>Vehicles</th>
+<th>参数化</th>
+<th>汽车</th>
 </tr>
 </thead>
 <tbody>
@@ -459,27 +459,27 @@
 </tbody>
 </table>
 <hr />
-<p>Use the forum to post any doubts, issues or suggestions regarding this topic.  </p>
+<p>使用论坛发布有关此主题的任何疑问、问题或建议。 </p>
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA forum</a>
+CARLA 论坛</a>
 </p>
 </div>
 
-<p>Here are some advised readings after this one.  </p>
+<p>以下是本文之后的一些建议读物。</p>
 <div class="build-buttons">
 <p>
 <a href="../tuto_G_control_vehicle_physics" target="_blank" class="btn btn-neutral" title= "Set runtime changes on a vehicle physics.">
-Control vehicle physics</a>
+控制车辆物理</a>
 </p>
 <p>
 <a href="../tuto_G_add_friction_triggers" target="_blank" class="btn btn-neutral" title= "Define dynamic box triggers for wheels.">
-Add friction triggers</a>
+添加摩擦触发器</a>
 </p>
 <p>
 <a href="../tuto_D_generate_colliders" target="_blank" class="btn btn-neutral" title="Create detailed colliders for vehicles">
-Generate detailed colliders</a>
+生成详细的碰撞</a>
 </p>
 </div>
               
