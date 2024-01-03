@@ -280,9 +280,9 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="api">通过 API 更改纹理</h1>
-<p>CARLA API 可用于在运行时修改资源纹理。在本教程中，我们将学习如何选择资源，然后在 CARLA 仿真运行时修改其纹理。</p>
+<p>Carla API 可用于在运行时修改资源纹理。在本教程中，我们将学习如何选择资源，然后在 Carla 仿真运行时修改其纹理。</p>
 <h2 id="_1">在虚幻编辑器中选择一个资源</h2>
-<p>首先，我们需要加载虚幻编辑器并加载 CARLA 地图，按照 Linux 或 Windows 的说明从源代码构建 CARLA，然后构建并启动虚幻编辑器。让我们打开加载了 Town 10（默认城镇）的编辑器，然后选择要使用的建筑物：</p>
+<p>首先，我们需要加载虚幻编辑器并加载 Carla 地图，按照 Linux 或 Windows 的说明从源代码构建 Carla，然后构建并启动虚幻编辑器。让我们打开加载了 Town 10（默认城镇）的编辑器，然后选择要使用的建筑物：</p>
 <p><img alt="select_building" src="../img/tuto_G_texture_streaming/building_selected.png" /></p>
 <p>我们选择 <strong>BP_Apartment04_v05_Opt</strong> 进行纹理操作，名称可以在“世界大纲视图(World Outliner)”面板中看到。确保将鼠标悬停在世界大纲视图中的名称上并使用工具提示中定义的名称。内部名称可能与列表中显示的标题不同。在本例中，内部名称实际上是 <strong>BP_Apartment04_v05_Opt_2</strong> 。</p>
 <p><img alt="tooltip" src="../img/tuto_G_texture_streaming/tooltip.png" /></p>
@@ -291,9 +291,9 @@
 <p><img alt="texture_export" src="../img/tuto_G_texture_streaming/texture_export.png" /></p>
 <p>在您喜欢的图像处理软件中打开导出的纹理，并根据需要编辑纹理。在下图中，上半部分可以看到原始纹理，下半部分显示修改后的纹理。</p>
 <p><img alt="textures" src="../img/tuto_G_texture_streaming/textures.png" /></p>
-<p>将修改后的纹理导出到适当的位置，然后打开代码编辑器运行一些 Python 来更新正在运行的 CARLA 仿真中的纹理。</p>
+<p>将修改后的纹理导出到适当的位置，然后打开代码编辑器运行一些 Python 来更新正在运行的 Carla 仿真中的纹理。</p>
 <h2 id="api_1">通过API更新纹理</h2>
-<p>如果尚未启动，请从命令行启动 CARLA 仿真，或在虚幻编辑器中启动仿真。我们将使用 <a href="https://pillow.readthedocs.io/en/stable/"><strong>Python 图像库 (PIL)</strong></a> 从图像处理软件导出的图像文件中读取纹理。</p>
+<p>如果尚未启动，请从命令行启动 Carla 仿真，或在虚幻编辑器中启动仿真。我们将使用 <a href="https://pillow.readthedocs.io/en/stable/"><strong>Python 图像库 (PIL)</strong></a> 从图像处理软件导出的图像文件中读取纹理。</p>
 <h2 id="_3">连接到仿真器</h2>
 <pre><code class="language-py">
 import carla

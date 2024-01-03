@@ -298,7 +298,7 @@
 </ul>
 <p><strong>数字孪生工具</strong> 能够基于源自 <a href="https://www.openstreetmap.org">OpenStreetMap</a> (OSM) 服务的道路网络，以程序方式生成独特的三维环境。通过 Carla 虚幻引擎编辑器中的数字孪生工具界面，用户可以从 OSM 选择地图区域并下载道路网络作为新 Carla 地图的基础。然后，该工具用程序生成的三维建筑物填充道路之间的空间，这些建筑物会根据道路布局进行调整，从而创建具有高可变性的真实三维道路环境。</p>
 <h2 id="osm">构建 OSM 渲染器</h2>
-<p>如果您使用的是 Linux，则可以选择使用 CARLA 界面中的 OSM 渲染器来导航已下载的大型 OSM 地图区域。您首先需要构建 OSM 渲染器。 在 CARLA 根目录中运行 <code>make osmrenderer</code>。 您可能需要将 CMake 版本升级到 v3.2 或更高版本才能正常工作。这将在您的构建目录中创建两个名为 <code>libosmcout-source</code> 和 <code>libosmcout-build</code> 的文件夹。Windows 用户无法选择使用 OSM 渲染器，必须直接使用 URL。</p>
+<p>如果您使用的是 Linux，则可以选择使用 Carla 界面中的 OSM 渲染器来导航已下载的大型 OSM 地图区域。您首先需要构建 OSM 渲染器。 在 Carla 根目录中运行 <code>make osmrenderer</code>。 您可能需要将 CMake 版本升级到 v3.2 或更高版本才能正常工作。这将在您的构建目录中创建两个名为 <code>libosmcout-source</code> 和 <code>libosmcout-build</code> 的文件夹。Windows 用户无法选择使用 OSM 渲染器，必须直接使用 URL。</p>
 <h2 id="osm_1">下载并准备 OSM 地图数据</h2>
 <p><img alt="osm_website" src="../img/osm_export.png" /></p>
 <p>在网络浏览器中，转到 <a href="https:/www.openstreetmap.org">OpenStreetMap 网站</a> 并选择您要使用的地图区域。定义您的区域，然后将数据导出为 <code>.osm</code> 文件，或者您可以使用 URL，如下所述。或者，您可以使用基于 OpenStreetMap 服务的其他工具（例如 <a href="https://download.geofabrik.de/">GeoFabrik</a> ，它允许从 OSM 数据中提取特定的地图区域（例如州或领地）。</p>
@@ -306,7 +306,7 @@
 <h3 id="using-a-url">Using a URL</h3>
 <p>在 <a href="https:/www.openstreetmap.org">OpenStreetMap 网站</a> 中，导航到感兴趣的区域，然后按 <code>Export</code>，您可能还想使用 <code>Manually select a different area</code> 选项。然后，右键单击 <code>Overpass API</code> 并从上下文菜单中选择 <code>Copy link</code>。 您必须确保文件不大于 1 GB。获取此链接并将其粘贴到界面的 URL 字段中。</p>
 <h3 id="osm_2">下载 OSM 文件并在界面中导航</h3>
-<p>此选项仅适用于 Linux 用户。您可以下载更大区域的地图，例如整个州或领地，然后使用 CARLA 中的 OSM 界面，使用箭头和缩放按钮导航地图。将所需的 OSM 数据区域下载为<code>.osm</code>文件。 然后将此文件放入 <code>{CARLA_ROOT}/Build/libosmcout-source/maps/</code> 文件夹中。打开此文件夹内的终端并运行以下命令：</p>
+<p>此选项仅适用于 Linux 用户。您可以下载更大区域的地图，例如整个州或领地，然后使用 Carla 中的 OSM 界面，使用箭头和缩放按钮导航地图。将所需的 OSM 数据区域下载为<code>.osm</code>文件。 然后将此文件放入 <code>{CARLA_ROOT}/Build/libosmcout-source/maps/</code> 文件夹中。打开此文件夹内的终端并运行以下命令：</p>
 <pre><code class="language-sh">cd {CARLA_ROOT}/Build/libosmcout-source/maps/
 ./build.sh &lt;path_to_osm_file&gt;
 </code></pre>
