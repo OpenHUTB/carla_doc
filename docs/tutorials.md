@@ -1,6 +1,6 @@
 # 教程
 
-在这里您将找到大量教程，帮助您了解如何使用 CARLA 的众多功能。
+在这里您将找到大量教程，帮助您了解如何使用 Carla 的众多功能。
 
 ## 一般
 
@@ -14,7 +14,7 @@
 
 [__实例分割相机__](tuto_G_instance_segmentation_sensor.md) — 使用实例分割相机来区分同一类的对象。
 
-[__边界框__](tuto_G_bounding_boxes.md) — 将 CARLA 对象的边界框投影到相机中。  
+[__边界框__](tuto_G_bounding_boxes.md) — 将  Carla 对象的边界框投影到相机中。  
 
 [__行人骨骼__](tuto_G_pedestrian_bones.md) — 将行人骨骼投影到相机平面中。
 
@@ -23,7 +23,7 @@
 
 ### 构建与集成
 
-[__在 Docker 中构建虚幻引擎和 CARLA__](build_docker_unreal.md) — 在 Docker 中构建虚幻引擎和 CARLA。
+[__在 Docker 中构建虚幻引擎和 Carla__](build_docker_unreal.md) — 在 Docker 中构建虚幻引擎和 Carla。
 
 [__CarSim 集成__](tuto_G_carsim_integration.md) — 有关如何使用 CarSim 车辆动力学引擎运行仿真的教程。
 
@@ -38,9 +38,9 @@
 
 [__使用 OpenStreetMap 生成地图__](tuto_G_openstreetmap.md) — 使用 OpenStreetMap 生成用于仿真的地图。 
 
-[__添加新车辆__](tuto_A_add_vehicle.md) — 准备要在 CARLA 中使用的车辆。
+[__添加新车辆__](tuto_A_add_vehicle.md) — 准备要在 Carla 中使用的车辆。
 
-[__添加新道具__](tuto_A_add_props.md) — 将其他道具导入 CARLA。
+[__添加新道具__](tuto_A_add_props.md) — 将其他道具导入 Carla。
 
 [__创建独立包__](tuto_A_create_standalone.md) — 生成并处理资产的独立包。 
 
@@ -49,9 +49,9 @@
 
 ## 开发者
 
-[__如何升级内容__](tuto_D_contribute_assets.md) —  向 CARLA 添加新内容。
+[__如何升级内容__](tuto_D_contribute_assets.md) —  向 Carla 添加新内容。
 
-[__创建传感器__](tuto_D_create_sensor.md) — 开发一种用于 CARLA 的新传感器。 
+[__创建传感器__](tuto_D_create_sensor.md) — 开发一种用于 Carla 的新传感器。 
 
 [__创建语义标签__](tuto_D_create_semantic_tags.md) — 定义用于语义分割的自定义标签。  
 
@@ -59,11 +59,11 @@
 
 [__生成详细的碰撞器__](tuto_D_generate_colliders.md) — 为车辆创建详细的碰撞器。  
 
-[__发布版本__](tuto_D_make_release.md) — 如何发布 CARLA。
+[__发布版本__](tuto_D_make_release.md) — 如何发布 Carla。
 
 
 ## 视频教程
 
-[__基础知识__](https://www.youtube.com/watch?v=pONr1R1dy88) — 了解 CARLA 的基本概念并开始您的第一个脚本。 [__代码__](https://carla-releases.s3.eu-west-3.amazonaws.com/Docs/Fundamentals.ipynb)  
+[__基础知识__](https://www.youtube.com/watch?v=pONr1R1dy88) — 了解 Carla 的基本概念并开始您的第一个脚本。 [__代码__](https://carla-releases.s3.eu-west-3.amazonaws.com/Docs/Fundamentals.ipynb)  
 
-[__深入了解 CARLA 的传感器__](https://www.youtube.com/watch?v=om8klsBj4rc) — 深入了解 CARLA 的传感器及其使用方法。[__代码__](https://carla-releases.s3.eu-west-3.amazonaws.com/Docs/Sensors_code.zip)
+[__深入了解 Carla 的传感器__](https://www.youtube.com/watch?v=om8klsBj4rc) — 深入了解 Carla 的传感器及其使用方法。[__代码__](https://carla-releases.s3.eu-west-3.amazonaws.com/Docs/Sensors_code.zip)

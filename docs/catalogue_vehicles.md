@@ -1,6 +1,6 @@
 <!--- 
 
-The images in this document were captured using the following settings in CARLA:
+The images in this document were captured using the following settings in Carla:
 
 Town: Town 10
 

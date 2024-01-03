@@ -32,7 +32,7 @@ world.apply_settings(settings)
 spectator = world.get_spectator()
 ```
 
-## 在 CARLA 模拟器中生成行人
+## 在 Carla 模拟器中生成行人
 
 首先，我们想在模拟中生成一个行人。这可以使用 `world.get_random_location_from_navigation()` 在随机位置完成，也可以使用从虚幻编辑器收集的坐标来选择。在虚幻编辑器中，将一个空参与者添加到要生成行人的位置，然后使用右侧的检查器查询坐标。
 

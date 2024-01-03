@@ -1,4 +1,4 @@
-# CARLA
+# Carla
 
 ![Welcome to CARLA](img/welcome.png)
 

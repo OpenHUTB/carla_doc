@@ -41,7 +41,7 @@ __2. 阅读文档。__ 确保问题是一个错误，而不是对 Carla 应该�
 在开始动手编码之前，请查看 [issue 板块][issueboard] 以了解团队已经在做什么，以避免重叠。如有疑问或讨论如何继续，请联系我们之一（或发送电子邮件至 <carla.simulator@gmail.com>）。
 
 
-为了开始工作，请 [创建 CARLA 存储库的分叉](https://docs.github.com/en/enterprise/2.13/user/articles/fork-a-repo) ，并将所述分叉克隆到您的计算机中。请记住使您的分叉与原始存储库 [保持同步](https://docs.github.com/en/enterprise/2.13/user/articles/syncing-a-fork) 。
+为了开始工作，请 [创建 Carla 存储库的分叉](https://docs.github.com/en/enterprise/2.13/user/articles/fork-a-repo) ，并将所述分叉克隆到您的计算机中。请记住使您的分叉与原始存储库 [保持同步](https://docs.github.com/en/enterprise/2.13/user/articles/syncing-a-fork) 。
 
 [issueboard]: https://github.com/carla-simulator/carla/issues
 

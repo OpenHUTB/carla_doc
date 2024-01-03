@@ -1,4 +1,4 @@
-# [为 CARLA 创建大地图](https://carla.readthedocs.io/en/latest/content_authoring_large_maps/) 
+# [为 Carla 创建大地图](https://carla.readthedocs.io/en/latest/content_authoring_large_maps/) 
 
 CARLA 中大地图（如城镇 11 和 12）的操作方式与标准地图（如城镇 10）不同。地图被划分为图块，即地图的细分，通常大小设置为约 1 至 2 公里。这些图块划分了地图，以便仅将需要的地图部分加载到图形内存中以进行高效渲染。不需要的图块保持休眠状态并准备在需要时加载。通常，会加载自我车辆位置中的图块旁边的图块，但如果需要，可以加载更多图块。当 CARLA 启动时，可以在设置中修改此行为。
 

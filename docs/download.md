@@ -2,13 +2,13 @@
 
 ### 最新发布
 
-- [CARLA 0.9.15](https://github.com/carla-simulator/carla/releases/tag/0.9.15/) - [文档](https://carla.readthedocs.io/en/0.9.15/)
+- [Carla 0.9.15](https://github.com/carla-simulator/carla/releases/tag/0.9.15/) - [文档](https://carla.readthedocs.io/en/0.9.15/)
 
 ### 每晚构建
 
 > 这是一个自动构建，最新的更改已推送到我们的 `dev` 分支。它包含将成为下一个版本的一部分的最新修复和功能，但也包含一些实验性更改。使用风险自负！
 
-- [CARLA 每晚构建 (Linux)](https://carla-releases.s3.eu-west-3.amazonaws.com/Linux/Dev/CARLA_Latest.tar.gz) 
+- [Carla 每晚构建 (Linux)](https://carla-releases.s3.eu-west-3.amazonaws.com/Linux/Dev/CARLA_Latest.tar.gz) 
 - [附加地图夜间构建 (Linux)](https://carla-releases.s3.us-east-005.backblazeb2.com/Linux/Dev/AdditionalMaps_Latest.tar.gz)
 - [CARLA 每晚构建（Windows）](https://carla-releases.s3.eu-west-3.amazonaws.com/Windows/Dev/CARLA_Latest.zip) 
 - [附加地图每晚构建 (Windows)](https://carla-releases.s3.us-east-005.backblazeb2.com/Windows/Dev/AdditionalMaps_Latest.zip)

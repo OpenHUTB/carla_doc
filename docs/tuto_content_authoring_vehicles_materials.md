@@ -2,11 +2,11 @@
 
 将车辆作为基本资产导入并布置好网格和蓝图后，您现在需要向车辆添加材质，以促进虚幻引擎中的照片级真实感渲染，从而实现机器学习训练数据的最大保真度。
 
-虚幻编辑器拥有全面的材质工作流程，有助于创建高度逼真的材质。然而，这确实显着增加了该过程的复杂性。因此，CARLA 提供了一个大型材料原型库供您使用，而无需从头开始。
+虚幻编辑器拥有全面的材质工作流程，有助于创建高度逼真的材质。然而，这确实显着增加了该过程的复杂性。因此，Carla 提供了一个大型材料原型库供您使用，而无需从头开始。
 
 ### 将材料应用到您的车辆上
 
-CARLA 提供了一种用于复制车辆光泽表面的原型材料，可以模仿多种不同类型的车辆喷漆工作和功能。打开虚幻编辑器并在内容浏览器中，找到`Content > Carla > Static > GenericMaterials > 00_MastersOpt`。基本材质称为*M_CarPaint_Master*。右键单击该材质并从上下文材质中选择*Create Material Instance*  。为其命名并将其移动到存储新车辆内容的文件夹中。
+Carla 提供了一种用于复制车辆光泽表面的原型材料，可以模仿多种不同类型的车辆喷漆工作和功能。打开虚幻编辑器并在内容浏览器中，找到`Content > Carla > Static > GenericMaterials > 00_MastersOpt`。基本材质称为*M_CarPaint_Master*。右键单击该材质并从上下文材质中选择*Create Material Instance*  。为其命名并将其移动到存储新车辆内容的文件夹中。
 
 在虚幻编辑器中，将观察则会移动到靠近地板的一点，然后将车辆的骨架网格物体从内容浏览器拖到场景中，车辆的车身现在将出现在那里。
 
@@ -38,7 +38,7 @@ __粒状表面(Orange peel)__ - 真实汽车的饰面（特别是面向一般市
 ![change_orange_peel](img/tuto_content_authoring_vehicles/change_orange_peel
 .gif)
 
-__薄片(Flakes)__ - 有些汽车的油漆工作中包含其他材料的薄片，例如金属或陶瓷，以使汽车具有*metallic*或 *pearlescant* 外观，增加额外的闪光和反射，以有吸引力的方式与光反应。薄片参数允许 CARLA 仿真这一点。为了模仿金属饰面，它会是  
+__薄片(Flakes)__ - 有些汽车的油漆工作中包含其他材料的薄片，例如金属或陶瓷，以使汽车具有*metallic*或 *pearlescant* 外观，增加额外的闪光和反射，以有吸引力的方式与光反应。薄片参数允许 Carla 仿真这一点。为了模仿金属饰面，它会是  
 
 ![flakes](img/tuto_content_authoring_vehicles/flakes
 .gif)

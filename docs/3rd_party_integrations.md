@@ -41,13 +41,13 @@ Please refer to the full documentation [__here__](adv_sumo.md).
 
 ## PTV Vissim
 
-[__PTV Vissim__](https://www.ptvgroup.com/en/solutions/products/ptv-vissim/) is a proprietary software package providing a comprehensive traffic simulation solution with a powerful GUI. To use PTV-Vissim with CARLA refer to [__this guide__](adv_ptv.md)
+[__PTV Vissim__](https://www.ptvgroup.com/en/solutions/products/ptv-vissim/) is a proprietary software package providing a comprehensive traffic simulation solution with a powerful GUI. To use PTV-Vissim with Carla refer to [__this guide__](adv_ptv.md)
 
 ---
 
 ## Scenic 
 
-Scenic is a set of libraries and a language for scenario specification and scene generation. CARLA and scenic can work seemlessly together, read [__this guid__](tuto_G_scenic.md) to understand how to use scenic with CARLA. 
+Scenic is a set of libraries and a language for scenario specification and scene generation. Carla and scenic can work seemlessly together, read [__this guid__](tuto_G_scenic.md) to understand how to use scenic with Carla. 
 
 If you need to learn more about Scenic, then read their ["Getting Started with Scenic"](https://scenic-lang.readthedocs.io/en/latest/quickstart.html) guide and have a look at their tutorials for creating [static](https://scenic-lang.readthedocs.io/en/latest/tutorials/tutorial.html) and [dynamic](https://scenic-lang.readthedocs.io/en/latest/tutorials/dynamics.html) scenarios.
 
@@ -55,7 +55,7 @@ If you need to learn more about Scenic, then read their ["Getting Started with S
 
 ## CarSIM
 
-CARLA's integration with CarSim allows vehicle controls in CARLA to be forwarded to CarSim. CarSim will do all required physics calculations of the vehicle and return the new state to CARLA. 
+Carla's integration with CarSim allows vehicle controls in CARLA to be forwarded to CarSim. CarSim will do all required physics calculations of the vehicle and return the new state to CARLA. 
 
 Learn how to use CARLA alongside CarSIM [here](tuto_G_carsim_integration.md).
 

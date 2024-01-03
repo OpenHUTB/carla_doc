@@ -1,9 +1,9 @@
 # Chrono 集成
 
-本指南概述了 Chrono 是什么、如何在 CARLA 中使用它以及集成中涉及的限制。
+本指南概述了 Chrono 是什么、如何在 Carla 中使用它以及集成中涉及的限制。
 
 - [__Chrono 项目__](#project-chrono)
-- [__在 CARLA 上使用 Chrono__](#using-chrono-on-carla)
+- [__在 Carla 上使用 Chrono__](#using-chrono-on-carla)
     - [配置服务器](#configuring-the-server)
     - [启用 Chrono 物理](#enabling-chrono-physics)
 - [__局限性__](#limitations)
@@ -12,11 +12,11 @@
 
 ## Chrono 项目
 
-[Project Chrono](https://projectchrono.org/) 是一款开源多物理场仿真引擎，它使用基于模板的方法提供高度真实的车辆动力学。CARLA 中的集成允许用户在导航地图时利用 Chrono 模板来模拟车辆动力学。
+[Project Chrono](https://projectchrono.org/) 是一款开源多物理场仿真引擎，它使用基于模板的方法提供高度真实的车辆动力学。Carla 中的集成允许用户在导航地图时利用 Chrono 模板来模拟车辆动力学。
 
 ---
 
-## 在 CARLA 上使用 Chrono
+## 在 Carla 上使用 Chrono
 
 要使用 Chrono 集成，您必须首先在启动时使用标签配置服务器，然后使用 PythonAPI 在生成的车辆上启用它。请阅读以获得更多详情。
 

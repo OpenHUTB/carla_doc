@@ -17,7 +17,7 @@ __数字孪生工具__ 能够基于源自 [OpenStreetMap](https://www.openstreet
 
 ## 构建 OSM 渲染器
 
-如果您使用的是 Linux，则可以选择使用 CARLA 界面中的 OSM 渲染器来导航已下载的大型 OSM 地图区域。您首先需要构建 OSM 渲染器。 在 CARLA 根目录中运行 `make osmrenderer`。 您可能需要将 CMake 版本升级到 v3.2 或更高版本才能正常工作。这将在您的构建目录中创建两个名为 `libosmcout-source` 和 `libosmcout-build` 的文件夹。Windows 用户无法选择使用 OSM 渲染器，必须直接使用 URL。
+如果您使用的是 Linux，则可以选择使用 Carla 界面中的 OSM 渲染器来导航已下载的大型 OSM 地图区域。您首先需要构建 OSM 渲染器。 在 Carla 根目录中运行 `make osmrenderer`。 您可能需要将 CMake 版本升级到 v3.2 或更高版本才能正常工作。这将在您的构建目录中创建两个名为 `libosmcout-source` 和 `libosmcout-build` 的文件夹。Windows 用户无法选择使用 OSM 渲染器，必须直接使用 URL。
 
 ## 下载并准备 OSM 地图数据
 
@@ -33,7 +33,7 @@ __数字孪生工具__ 能够基于源自 [OpenStreetMap](https://www.openstreet
 
 ### 下载 OSM 文件并在界面中导航
 
-此选项仅适用于 Linux 用户。您可以下载更大区域的地图，例如整个州或领地，然后使用 CARLA 中的 OSM 界面，使用箭头和缩放按钮导航地图。将所需的 OSM 数据区域下载为`.osm`文件。 然后将此文件放入 `{CARLA_ROOT}/Build/libosmcout-source/maps/` 文件夹中。打开此文件夹内的终端并运行以下命令：
+此选项仅适用于 Linux 用户。您可以下载更大区域的地图，例如整个州或领地，然后使用 Carla 中的 OSM 界面，使用箭头和缩放按钮导航地图。将所需的 OSM 数据区域下载为`.osm`文件。 然后将此文件放入 `{CARLA_ROOT}/Build/libosmcout-source/maps/` 文件夹中。打开此文件夹内的终端并运行以下命令：
 
 ```sh
 cd {CARLA_ROOT}/Build/libosmcout-source/maps/
