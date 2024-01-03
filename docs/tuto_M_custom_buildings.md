@@ -1,78 +1,78 @@
-# Customizing Maps: Procedural Buildings
+# 自定义地图：程序化建筑
 
-- [__Procedural buildings__](#add-serial-meshes)
+- [__程序化建筑__](#add-serial-meshes)
 	- [Building structure](#building-structure)
 	- [Structure modifications](#structure-modifications)
 - [__Next steps__](#next-steps)
 
 ---
 
-## Procedural buildings
+## 程序化建筑
 
-The procedural building tool allows you to create rectangular buildings composed of different levels. Each level is built using a configurable array of meshes or a single blueprint. If an array of meshes is used, each mesh will be repeated along the level at random to provide variety. The meshes are created once and each repition will be an instance of that mesh. This improves performance of your map.
+程序化建筑工具允许您创建由不同楼层组成的矩形建筑。每个级别都是使用可配置的网格阵列或单个蓝图构建的。如果使用网格阵列，则每个网格将沿关卡随机重复以提供多样性。网格体创建一次，每个重复都将是该网格体的一个实例。这可以提高地图的性能。
 
-### Building structure
+### 建筑结构
 
-To get started on your building:
+要开始建造您的建筑：
 
-1. In the _Content Browser_ of the Unreal Engine editor, navigate to `Content/Carla/Blueprints/LevelDesign`.
-2. Drag the `BP_Procedural_Building` into the scene.
+1. 在虚幻引擎编辑器的 _内容浏览器_ 中，导航至 `Content/Carla/Blueprints/LevelDesign`。
+2. 将 `BP_Procedural_Building` 拖入BP_Procedural_Building场景中。
 
-In the _Details_ panel, you will see all the options available to customize your building. Every time a change is made here, the building will disappear from the scene view, as the key meshes are updated. Click on _Create Building_ to see the new result, or enable _Create automatically_ to avoid having to repeat this step.
+在 _Details_ 面板中，您将看到可用于自定义建筑物的所有选项。每次在此处进行更改时，随着关键网格体的更新，建筑物将从场景视图中消失。单击 _Create Building_ 以查看新结果，或启用自动创建以避免重复此步骤。
 
-The key meshes are pieces of the building's structure. They fall into four categories:
+关键网格是建筑物结构的一部分。它们分为四类：
 
-- __Base:__ The ground floor.
-- __Body:__ The middle floors.
-- __Top:__ The highest floor.
-- __Roof:__ The roof that covers the top floor.
+- __Base:__ 底层。
+- __Body:__ 中层。
+- __Top:__ 最高层。
+- __Roof:__ 覆盖顶层的屋顶。
 
-For each of them, except the __Roof__, there is a mesh to fill the center of the floor, and a __Corner__ mesh that will be placed on the sides of the floor. The following picture represents the global structure.
+对于每个模型，除了屋顶 __Roof__ 之外，都有一个网格体填充地板的中心，还有一个 __Corner__ 网格体将放置在地板的两侧。下图代表了全局结构。
 
 ![bp_procedural_building_visual](./img/map_customization/BP_Procedural_Building_Visual.jpg)
 <div style="text-align: right"><i>Visualization of the building structure.</i></div>
 
-The __Base parameters__ set the dimensions.
+基本参数 __Base parameters__ 设置尺寸。
 
-- __Num Floors:__ Floors of the building. Repetitions of the __Body__ meshes.
-- __Length X and Length Y:__ Length and breadth of the building. Repetitions of the central meshes for each side of the building.
+- __楼层数：__ 建筑物的楼层数。身体网格 __Body__ 的重复。
+- __长度 X and 长度 Y：__ 建筑物的长度和宽度。建筑物每一侧的中央网格重复。
 
 ![bp_procedural_building_full](./img/map_customization/BP_Procedural_Building_Full.jpg)
-<div style="text-align: right"><i>Example of BP_Procedural_Building.</i></div>
+<div style="text-align: right"><i>BP_Procedural_Building 示例。</i></div>
 
-### Structure modifications
+### 结构修改
 
-There are some additional options to modify the general structure of the building.
+还有一些额外的选项可以修改建筑物的总体结构。
 
-- __Disable corners:__ If selected, no corner meshes will be used.
-- __Use full blocks:__ If selected, the structure of the building will use only one mesh per floor. No corners nor repetitions will appear in each floor.
-- __Doors:__ Meshes that appear in the ground floor, right in front of the central meshes. The amount of doors and their location can be set. `0` is the initial position, `1` the next base repetition, and so on.
-- __Walls:__ Meshes that substitute one or more sides of the building. For example, a plane mesh can be used to paint one side of the building.
+- __Disable corners:__ 如果选择，将不使用角网格。
+- __Use full blocks:__ 如果选择此选项，建筑物的结构每层将仅使用一个网格。每层楼不会出现任何角落或重复。
+- __Doors:__ 出现在底层、位于中央网格物体正前方的网格物体。门的数量及其位置可以设置。`0` 是初始位置、`1`下一个底层重复，等等。 
+- __Walls:__ 替代建筑物一侧或多侧的网格。例如，平面网格可用于绘制建筑物的一侧。
 
 ![bp_procedural_building_extras](./img/map_customization/BP_Procedural_Building_Extras.jpg)
-<div style="text-align: right"><i>On the left, a building with no cornes and one door. <br> On the right, a building with a wall applied to one side of the building. The wall is a texture with no fire escape.</i></div>
+<div style="text-align: right"><i>左边是一座没有角、只有一扇门的建筑。 <br> 右侧是一座建筑物，其一侧应用了墙壁。墙壁是没有防火通道的纹理。</i></div>
 
 ---
 
-## Next steps
+## 下一步
 
-Continue customizing your map using the tools and guides below:
+使用以下工具和指南继续自定义您的地图：
 
-- [Implement sub-levels in your map.](tuto_M_custom_layers.md)
-- [Add and configure traffic lights and signs.](tuto_M_custom_add_tl.md)
-- [Customize the road with the road painter tool.](tuto_M_custom_road_painter.md)
-- [Customize the weather](tuto_M_custom_weather_landscape.md#weather-customization)
-- [Customize the landscape with serial meshes.](tuto_M_custom_weather_landscape.md#add-serial-meshes)
+- [在地图中实现子蓝图。](tuto_M_custom_layers.md)
+- [添加和配置交通灯和标志。](tuto_M_custom_add_tl.md)
+- [使用道路画家工具自定义道路。](tuto_M_custom_road_painter.md)
+- [自定义天气](tuto_M_custom_weather_landscape.md#weather-customization)
+- [使用序列化网格自定义景观。](tuto_M_custom_weather_landscape.md#add-serial-meshes)
 
-Once you have finished with the customization, you can [generate the pedestrian navigation information](tuto_M_generate_pedestrian_navigation.md).
+完成定制后，您可以 [生成行人导航信息](tuto_M_generate_pedestrian_navigation.md) 。
 
 ---
 
-If you have any questions about the process, then you can ask in the [forum](https://github.com/carla-simulator/carla/discussions).
+如果您对流程有任何疑问，可以在 [论坛](https://github.com/carla-simulator/carla/discussions) 中提问。
 
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA forum</a>
+CARLA 论坛</a>
 </p>
 </div>
