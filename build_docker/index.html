@@ -163,7 +163,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在CARLA包导入地图</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在 Carla 包导入地图</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 Carla 源构建中导入地图</a>
                   </li>
@@ -203,7 +203,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用 OpenStreetMap 生成地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索模拟数据</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索仿真数据</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎和 Carla</a>
                   </li>
@@ -315,7 +315,7 @@
 <hr />
 <h2 id="carla">在容器中运行 Carla</h2>
 <p><strong>1. 拉取 Carla 镜像。</strong></p>
-<p>您可以提取最新的 CARLA 映像或特定的发行版本。最新镜像是指 <a href="https://github.com/carla-simulator/carla/releases">最新的打包版本</a>。要拉取映像，请运行以下命令之一：</p>
+<p>您可以提取最新的 Carla 映像或特定的发行版本。最新镜像是指 <a href="https://github.com/carla-simulator/carla/releases">最新的打包版本</a>。要拉取映像，请运行以下命令之一：</p>
 <pre><code class="language-sh"># 拉取最新的镜像
 docker pull carlasim/carla:latest
 
@@ -323,7 +323,7 @@ docker pull carlasim/carla:latest
 docker pull carlasim/carla:0.9.12
 </code></pre>
 <p><strong>2. 运行 Carla 容器。</strong></p>
-<p>不同版本的 CARLA 支持不同的图形 API，这可能会影响 Docker 镜像的运行条件：</p>
+<p>不同版本的 Carla 支持不同的图形 API，这可能会影响 Docker 镜像的运行条件：</p>
 <ul>
 <li>0.9.12 仅支持 Vulkan</li>
 <li>0.9.7+ 同时支持 Vulkan 和 OpenGL。</li>
@@ -341,7 +341,7 @@ docker pull carlasim/carla:0.9.12
 </code></pre>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
-<p>只要您的计算机有显示器，此命令将允许您使用 Vulkan 运行 CARLA 映像。有关在离屏模式下运行 Vulkan 的信息，请参阅 <a href="../adv_rendering_options/#off-screen-mode">渲染文档</a> 。</p>
+<p>只要您的计算机有显示器，此命令将允许您使用 Vulkan 运行 Carla 映像。有关在离屏模式下运行 Vulkan 的信息，请参阅 <a href="../adv_rendering_options/#off-screen-mode">渲染文档</a> 。</p>
 </div>
 <p>要使用 OpenGL 运行 Carla：</p>
 <pre><code class="language-sh">docker run -e DISPLAY=$DISPLAY --net=host --gpus all --runtime=nvidia carlasim/carla:&lt;version&gt; /bin/bash CarlaUE4.sh -opengl &lt;-additonal-carla-flags&gt;

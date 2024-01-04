@@ -155,7 +155,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在CARLA包导入地图</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在 Carla 包导入地图</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 Carla 源构建中导入地图</a>
                   </li>
@@ -195,7 +195,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用 OpenStreetMap 生成地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索模拟数据</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索仿真数据</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎和 Carla</a>
                   </li>
@@ -214,7 +214,7 @@
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#carla">导入到 CARLA 包中</a>
+    <li class="toctree-l2"><a class="reference internal" href="#carla">导入到 Carla 包中</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#_4">在源代码构建中导入</a>
     </li>
@@ -302,7 +302,7 @@
 <li><a href="#create-the-json-description">创建 JSON 描述</a>  </li>
 </ul>
 </li>
-<li><a href="#ingestion-in-a-carla-package"><strong>导入到 CARLA 包中</strong></a>  </li>
+<li><a href="#ingestion-in-a-carla-package"><strong>导入到 Carla 包中</strong></a>  </li>
 <li><a href="#ingestion-in-a-build-from-source"><strong>在源代码构建中导入</strong></a>  </li>
 </ul>
 <hr />
@@ -397,15 +397,15 @@
 <p>具有相同名称的包将产生错误。</p>
 </div>
 <hr />
-<h2 id="carla">导入到 CARLA 包中</h2>
-<p>这是用于将道具导入到 CARLA 包（例如 CARLA 0.9.8）中的方法。 </p>
-<p>将创建虚幻引擎的 Docker 映像。它充当一个黑盒子，自动将包导入到 CARLA 镜像中，并生成分发包。Docker 镜像需要 4 小时和 400GB 才能构建。然而，这仅是第一次需要。</p>
+<h2 id="carla">导入到 Carla 包中</h2>
+<p>这是用于将道具导入到 Carla 包（例如 Carla 0.9.8）中的方法。 </p>
+<p>将创建虚幻引擎的 Docker 映像。它充当一个黑盒子，自动将包导入到 Carla 镜像中，并生成分发包。Docker 镜像需要 4 小时和 400GB 才能构建。然而，这仅是第一次需要。</p>
 <p><strong>1. 构建虚幻引擎的 Docker 镜像。</strong> 请按照 <a href="https://github.com/carla-simulator/carla/tree/master/Util/Docker">以下说明</a> 构建映像。</p>
 <p><strong>2. 运行脚本来烘培道具。</strong> <code>~/carla/Util/Docker</code> 文件夹中有一个脚本，它与之前创建的 Docker 映像连接，并自动进行导入。它只需要输入和输出文件的路径以及要导入的包的名称。</p>
 <pre><code class="language-sh">python3 docker_tools.py --input ~/path_to_package --output ~/path_for_output_assets  --package=Package01
 </code></pre>
 <p><strong>3. 定位包</strong>。 Docker 应该已经在输出路径中生成了包 <code>Package01.tar.gz</code>。这是资产的独立包。</p>
-<p><strong>4. 将包导入 CARLA。</strong>  </p>
+<p><strong>4. 将包导入 Carla。</strong>  </p>
 <ul>
 <li>
 <p><strong>在 Windows 上，</strong> 将包解压到 <code>WindowsNoEditor</code> 文件夹中。</p>
@@ -423,21 +423,21 @@
 </div>
 <hr />
 <h2 id="_4">在源代码构建中导入</h2>
-<p>这是从源代码将道具导入到源代码构建 CARLA 的方法。</p>
+<p>这是从源代码将道具导入到源代码构建 Carla 的方法。</p>
 <p>将读取 JSON 文件以将道具放入虚幻引擎 <code>Content</code> 中。此外，它将在包的<code>Config</code>文件夹中创建一个 <code>Package1.Package.json</code> 文件。这将用于定义蓝图库中的道具，并在 Python API 中公开它们。如果包作为 <a href="../tuto_A_create_standalone/">独立包</a> 导出，也将使用它。</p>
 <p>一切准备就绪后，运行命令。</p>
 <pre><code class="language-sh">make import
 </code></pre>
 <div class="admonition 警告">
 <p class="admonition-title">警告</p>
-<p>确保该包位于CARLA 的 <code>Import</code> 文件夹内。</p>
+<p>确保该包位于 Carla 的 <code>Import</code> 文件夹内。</p>
 </div>
 <hr />
-<p>这就是关于将新道具导入 CARLA 的不同方法的全部信息。如果有任何疑问，请随时在论坛中发布。</p>
+<p>这就是关于将新道具导入 Carla 的不同方法的全部信息。如果有任何疑问，请随时在论坛中发布。</p>
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA 论坛</a>
+Carla 论坛</a>
 </p>
 </div>
               

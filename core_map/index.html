@@ -105,7 +105,7 @@
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#carla">在 CARLA 中导航</a>
+    <li class="toctree-l2"><a class="reference internal" href="#carla">在 Carla 中导航</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#_9">通过路径点导航</a>
     </li>
@@ -113,7 +113,7 @@
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#carla_1">CARLA 地图</a>
+    <li class="toctree-l2"><a class="reference internal" href="#carla_1">Carla 地图</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#_11">非分层地图</a>
     </li>
@@ -191,7 +191,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在CARLA包导入地图</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在 Carla 包导入地图</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 Carla 源构建中导入地图</a>
                   </li>
@@ -231,7 +231,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用 OpenStreetMap 生成地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索模拟数据</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索仿真数据</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎和 Carla</a>
                   </li>
@@ -328,12 +328,12 @@
 <li><a href="#environment-objects">环境对象</a></li>
 </ul>
 </li>
-<li><a href="#navigation-in-carla"><strong>在 CARLA 中导航</strong></a>  <ul>
+<li><a href="#navigation-in-carla"><strong>在 Carla 中导航</strong></a>  <ul>
 <li><a href="#navigating-through-waypoints">通过航路点导航</a>  </li>
 <li><a href="#generating-a-map-navigation">生成地图导航</a>  </li>
 </ul>
 </li>
-<li><a href="#carla-maps"><strong>CARLA 地图</strong></a>  <ul>
+<li><a href="#carla-maps"><strong>Carla 地图</strong></a>  <ul>
 <li><a href="#non-layered-maps">非分层地图</a></li>
 <li><a href="#layered-maps">分层地图</a></li>
 </ul>
@@ -434,8 +434,8 @@ lane_change = waypoint.lane_change
 <p>查看切换不同对象的示例：</p>
 <p><img alt="toggle_objects_gif" src="../img/objects_small.gif" /></p>
 <hr />
-<h2 id="carla">在 CARLA 中导航</h2>
-<p>CARLA 中的导航是通过 Waypoint API （来自 <a href="../python_api/#carla.Waypoint"><code>carla.Waypoint</code></a> 和 <a href="../python_api/#carla.Map"><code>carla.Map</code></a> 的方法组合）进行管理。</p>
+<h2 id="carla">在 Carla 中导航</h2>
+<p>Carla 中的导航是通过 Waypoint API （来自 <a href="../python_api/#carla.Waypoint"><code>carla.Waypoint</code></a> 和 <a href="../python_api/#carla.Map"><code>carla.Map</code></a> 的方法组合）进行管理。</p>
 <p>客户端必须首先与服务器通信以检索包含路径点信息的地图对象。这只需要一次，所有后续查询都在客户端执行。</p>
 <h3 id="_9">通过路径点导航</h3>
 <p>Waypoint API 公开了允许路径点相互连接并构建沿道路供车辆导航的路径的方法：</p>
@@ -476,7 +476,7 @@ waypoint02 = map.get_waypoint_xodr(road_id,lane_id,s)
 <pre><code class="language-py">info_map = map.to_opendrive()
 </code></pre>
 <hr />
-<h2 id="carla_1">CARLA 地图</h2>
+<h2 id="carla_1">Carla 地图</h2>
 <p>Carla 生态系统中有八个城镇，每个城镇都有两种地图，非分层地图和分层地图。<a href="https://carla.readthedocs.io/en/latest/python_api/#carlamaplayer">图层</a>是指地图中分组的对象，由以下部分组成：</p>
 <ul>
 <li>NONE</li>
@@ -492,10 +492,10 @@ waypoint02 = map.get_waypoint_xodr(road_id,lane_id,s)
 <li>全部</li>
 </ul>
 <h3 id="_11">非分层地图</h3>
-<p>下表显示了非分层地图（单击城镇名称可查看布局的俯视图）。所有图层始终存在，并且无法在这些地图中打开或关闭。直到 CARLA 0.9.11 为止，这些是唯一可用的地图类型。</p>
+<p>下表显示了非分层地图（单击城镇名称可查看布局的俯视图）。所有图层始终存在，并且无法在这些地图中打开或关闭。直到 Carla 0.9.11 为止，这些是唯一可用的地图类型。</p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
-<p>用户可以使用 <a href="tuto_A_map_customization.md">自定义地图</a> 甚至创建要在 CARLA 中使用的 <a href="../tuto_M_custom_map_overview/">新地图</a>。</p>
+<p>用户可以使用 <a href="tuto_A_map_customization.md">自定义地图</a> 甚至创建要在 Carla 中使用的 <a href="../tuto_M_custom_map_overview/">新地图</a>。</p>
 </div>
 <table>
 <thead>

@@ -110,21 +110,21 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">Carla 智能体</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#_1">代理脚本概述</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_1">智能体脚本概述</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#_2">计划与控制</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_3">代理行为</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">智能体行为</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_4">实现一个代理</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">实现一个智能体</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#_5">行为类型</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#_6">创建自己的行为类型</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_7">创建代理</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_7">创建智能体</a>
     </li>
     </ul>
                   </li>
@@ -173,7 +173,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在CARLA包导入地图</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在 Carla 包导入地图</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 Carla 源构建中导入地图</a>
                   </li>
@@ -213,7 +213,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用 OpenStreetMap 生成地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索模拟数据</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索仿真数据</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎和 Carla</a>
                   </li>
@@ -298,55 +298,55 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="carla">CARLA 代理</h1>
-<p>CARLA 代理脚本允许车辆沿着随机的、无限的路线行驶，或者采用最短的路线到达给定的目的地。代理遵守交通信号灯并对道路上的其他障碍物做出反应。提供三种代理类型。可以修改目标速度、制动距离、尾随行为等参数。可以根据用户的需要修改 Actor 类或将其用作基类来创建自定义代理。</p>
+                <h1 id="carla">Carla 智能体</h1>
+<p>Carla 智能体脚本允许车辆沿着随机的、无限的路线行驶，或者采用最短的路线到达给定的目的地。智能体遵守交通信号灯并对道路上的其他障碍物做出反应。提供三种智能体类型。可以修改目标速度、制动距离、尾随行为等参数。可以根据用户的需要修改 Actor 类或将其用作基类来创建自定义智能体。</p>
 <ul>
-<li><a href="#overview-of-agent-scripts"><strong>代理脚本概述</strong></a><ul>
+<li><a href="#overview-of-agent-scripts"><strong>智能体脚本概述</strong></a><ul>
 <li><a href="#planning-and-control">计划与控制</a></li>
-<li><a href="#agent-behaviors">代理行为</a></li>
+<li><a href="#agent-behaviors">智能体行为</a></li>
 </ul>
 </li>
-<li><a href="#implement-an-agent"><strong>实现一个代理</strong></a></li>
+<li><a href="#implement-an-agent"><strong>实现一个智能体</strong></a></li>
 <li><a href="#behavior-types"><strong>行为类型</strong></a><ul>
 <li><a href="#create-your-own-behavior-type">创建自己的行为类型</a></li>
 </ul>
 </li>
-<li><a href="#creating-an-agent"><strong>创建代理</strong></a></li>
+<li><a href="#creating-an-agent"><strong>创建智能体</strong></a></li>
 </ul>
 <hr />
-<h2 id="_1">代理脚本概述</h2>
-<p>CARLA 代理中涉及的主要脚本位于<code>PythonAPI/carla/agents/navigation</code>中。它们分为两类； <strong>计划和控制</strong> 和 <strong>代理行为</strong>。</p>
+<h2 id="_1">智能体脚本概述</h2>
+<p>Carla 智能体中涉及的主要脚本位于<code>PythonAPI/carla/agents/navigation</code>中。它们分为两类； <strong>计划和控制</strong> 和 <strong>智能体行为</strong>。</p>
 <h3 id="_2">计划与控制</h3>
 <ul>
 <li><strong><code>controller.py</code>:</strong> 将纵向和横向 PID 控制器组合成一个类，<strong>VehiclePIDController</strong>，用于从 CARLA 客户端对车辆进行低级控制。</li>
-<li><strong><code>global_route_planner.py</code>:</strong> 从 CARLA 服务器获取详细的拓扑结构以构建世界地图的图形表示，为 <strong>Local Planner</strong> 提供航点和道路选项信息。</li>
+<li><strong><code>global_route_planner.py</code>:</strong> 从 Carla 服务器获取详细的拓扑结构以构建世界地图的图形表示，为 <strong>Local Planner</strong> 提供航点和道路选项信息。</li>
 <li><strong><code>local_planner.py</code>:</strong> 根据来自 <strong>VehiclePIDController</strong> 的控制输入跟踪航路点。航点可以由 <strong>Global Route Planner</strong> 提供，也可以动态计算，在路口选择随机路径，类似于 <a href="../adv_traffic_manager/">Traffic Manager</a>。</li>
 </ul>
-<h3 id="_3">代理行为</h3>
+<h3 id="_3">智能体行为</h3>
 <ul>
-<li><strong><code>basic_agent.py</code>:</strong> 包含一个代理基类，它实现了一个 <strong>Basic Agent</strong>，它在地图上漫游或以尽可能短的距离到达目标目的地，避开其他车辆，响应交通信号灯但忽略停车标志。</li>
-<li><strong><code>behavior_agent.py</code>:</strong> 包含一个实现更复杂的 <strong>Behavior Agent</strong> 的类，它可以在尽可能短的距离内到达目标目的地，跟随交通信号灯、标志和速度限制，同时尾随其他车辆。有三种预定义的类型决定了代理的行为方式。</li>
+<li><strong><code>basic_agent.py</code>:</strong> 包含一个智能体基类，它实现了一个 <strong>Basic Agent</strong>，它在地图上漫游或以尽可能短的距离到达目标目的地，避开其他车辆，响应交通信号灯但忽略停车标志。</li>
+<li><strong><code>behavior_agent.py</code>:</strong> 包含一个实现更复杂的 <strong>Behavior Agent</strong> 的类，它可以在尽可能短的距离内到达目标目的地，跟随交通信号灯、标志和速度限制，同时尾随其他车辆。有三种预定义的类型决定了智能体的行为方式。</li>
 <li><strong><code>behavior_types.py</code>:</strong> 包含影响 <strong>Behavior Agent</strong> 的行为类型的参数；谨慎、正常和进取。</li>
 </ul>
 <hr />
-<h2 id="_4">实现一个代理</h2>
-<p>本节将解释如何在您自己的脚本中使用示例 CARLA 代理类。在本节的最后，您将了解如何运行一个示例脚本来显示不同代理的运行情况。</p>
-<p><strong>1.</strong> 导入要使用的代理类：</p>
-<pre><code class="language-py"># 导入基本代理
+<h2 id="_4">实现一个智能体</h2>
+<p>本节将解释如何在您自己的脚本中使用示例 Carla 智能体类。在本节的最后，您将了解如何运行一个示例脚本来显示不同智能体的运行情况。</p>
+<p><strong>1.</strong> 导入要使用的智能体类：</p>
+<pre><code class="language-py"># 导入基本智能体
 from agent.navigation.basic_agent import BasicAgent
 
-# 导入行为代理
+# 导入行为智能体
 from agent.navigation.behavior_agent import BehaviorAgent
 </code></pre>
-<p><strong>2 .</strong> 任何车辆都可以变成代理人。 <a href="../core_actors/#spawning">生成车辆</a> 并将其作为参数传递给代理类以实例化它：</p>
-<pre><code class="language-py"># 启动一个基本代理
+<p><strong>2 .</strong> 任何车辆都可以变成智能体。 <a href="../core_actors/#spawning">生成车辆</a> 并将其作为参数传递给智能体类以实例化它：</p>
+<pre><code class="language-py"># 启动一个基本智能体
 agent = BasicAgent(vehicle)
 
-# 启动具有攻击性配置文件的行为代理
+# 启动具有攻击性配置文件的行为智能体
 agent = BehaviorAgent(vehicle, behavior='aggressive')
 </code></pre>
 <p>在 <a href="#behavior-types"><strong>behavior types</strong></a> 部分中阅读有关行为类型以及如何配置您自己的更多信息。</p>
-<p><strong>3.</strong> 您可以设置代理前往的目的地。如果您不为代理设置目的地，它将在地图上无休止地漫游。要设置目的地，请为代理提供 <a href="../python_api/#carlalocation">位置</a>：</p>
+<p><strong>3.</strong> 您可以设置智能体前往的目的地。如果您不为智能体设置目的地，它将在地图上无休止地漫游。要设置目的地，请为智能体提供 <a href="../python_api/#carlalocation">位置</a>：</p>
 <pre><code class="language-py">destination = random.choice(spawn_points).location
 agent.set_destination(destination)
 </code></pre>
@@ -354,7 +354,7 @@ agent.set_destination(destination)
 <pre><code class="language-py">while True：
     vehicle.apply_control(agent.run_step())
 </code></pre>
-<p><strong>6.</strong> 您可以检查代理是否已完成其轨迹并在发生这种情况时执行操作。一旦您的车辆到达目的地，以下代码段将结束模拟：</p>
+<p><strong>6.</strong> 您可以检查智能体是否已完成其轨迹并在发生这种情况时执行操作。一旦您的车辆到达目的地，以下代码段将结束仿真：</p>
 <pre><code class="language-py">while True：
     if agent.done（）：
         print(&quot;The taerget has been reached, stopping the simulation&quot;)
@@ -362,34 +362,34 @@ agent.set_destination(destination)
 
     vehicle.apply_control(agent.run_step())
 </code></pre>
-<p><strong>7.</strong> 不是在代理到达其目标目的地时完成模拟，而是可以生成一条新的随机路线供代理遵循：</p>
+<p><strong>7.</strong> 不是在智能体到达其目标目的地时完成仿真，而是可以生成一条新的随机路线供智能体遵循：</p>
 <pre><code class="language-py">while True：
     if agent.done():   
         agent.set_destination(random.choice(spawn_points).location)
         print(&quot;The target has been reached, searching for another target&quot;)
     vehicle.apply_control(agent.run_step())
 </code></pre>
-<p><strong>Basic Agent</strong> 提供了一些方法来操纵代理行为或遵循的程序路线：</p>
+<p><strong>Basic Agent</strong> 提供了一些方法来操纵智能体行为或遵循的程序路线：</p>
 <ul>
 <li><strong><code>set_target_speed(speed)</code>:</strong> 以公里/小时为单位设置目标速度</li>
-<li><strong><code>follow_speed_limits(value=True)</code>:</strong> 设置代理遵循速度限制。</li>
-<li><strong><code>set_destination(end_location, start_location=None)</code>:</strong> 代理将通过可能的最短路线从特定的起始位置到结束位置。如果没有提供起始位置，它将使用当前代理位置。</li>
-<li><strong><code>set_global_plan(plan, stop_waypoint_creation=True, clean_queue=True)</code>:</strong> 为代理添加一个具体的计划。计划参数应包含一个<code>[carla.Waypoint, RoadOption]</code>列表，这将是代理需要采取的路径。 <code>stop_waypoint_creation</code> 将防止在路径运行后自动创建航点。 <code>clean_queue</code> 将重置代理的当前计划。</li>
-<li><strong><code>trace_route(start_waypoint, end_waypoint)</code>:</strong> 从 Global Route Planner 获取两个航点之间的最短距离，并将路径作为 <code>[carla.Waypoint, RoadOption]</code> 列表返回，供代理遵循。</li>
-<li><strong><code>ignore_traffic_lights(active=True)</code>:</strong> 设置代理忽略或服从交通信号灯。</li>
-<li><strong><code>ignore_stop_signs(active=True)</code>:</strong> 设置代理忽略或服从停车标志。</li>
-<li><strong><code>ignore_vehicles(active=True)</code>:</strong> 设置代理忽略或对其他车辆作出反应。</li>
+<li><strong><code>follow_speed_limits(value=True)</code>:</strong> 设置智能体遵循速度限制。</li>
+<li><strong><code>set_destination(end_location, start_location=None)</code>:</strong> 智能体将通过可能的最短路线从特定的起始位置到结束位置。如果没有提供起始位置，它将使用当前智能体位置。</li>
+<li><strong><code>set_global_plan(plan, stop_waypoint_creation=True, clean_queue=True)</code>:</strong> 为智能体添加一个具体的计划。计划参数应包含一个<code>[carla.Waypoint, RoadOption]</code>列表，这将是智能体需要采取的路径。 <code>stop_waypoint_creation</code> 将防止在路径运行后自动创建航点。 <code>clean_queue</code> 将重置智能体的当前计划。</li>
+<li><strong><code>trace_route(start_waypoint, end_waypoint)</code>:</strong> 从 Global Route Planner 获取两个航点之间的最短距离，并将路径作为 <code>[carla.Waypoint, RoadOption]</code> 列表返回，供智能体遵循。</li>
+<li><strong><code>ignore_traffic_lights(active=True)</code>:</strong> 设置智能体忽略或服从交通信号灯。</li>
+<li><strong><code>ignore_stop_signs(active=True)</code>:</strong> 设置智能体忽略或服从停车标志。</li>
+<li><strong><code>ignore_vehicles(active=True)</code>:</strong> 设置智能体忽略或对其他车辆作出反应。</li>
 </ul>
-<p>在 <code>PythonAPI/examples</code> 中找到的 <code>automatic_control.py</code> 脚本是基本和行为代理的一个示例。要尝试该脚本，请导航到示例目录并运行以下命令：</p>
-<pre><code class="language-sh"># 使用基本代理运行
+<p>在 <code>PythonAPI/examples</code> 中找到的 <code>automatic_control.py</code> 脚本是基本和行为智能体的一个示例。要尝试该脚本，请导航到示例目录并运行以下命令：</p>
+<pre><code class="language-sh"># 使用基本智能体运行
 python3 automatic_control.py --agent=Basic
 
-# 使用行为代理运行
+# 使用行为智能体运行
 python3 automatic_control.py --agent=Behavior --behavior=aggressive
 </code></pre>
 <hr />
 <h2 id="_5">行为类型</h2>
-<p>行为代理的行为类型在 <code>behavior_types.py</code> 中定义。三个预配置的配置文件是 <strong>'cautious'</strong>、<strong>'normal'</strong> 和 <strong>'aggressive'</strong>。您可以使用设置的配置文件、修改它们或创建您自己的配置文件。可以调整以下变量：</p>
+<p>行为智能体的行为类型在 <code>behavior_types.py</code> 中定义。三个预配置的配置文件是 <strong>'cautious'</strong>、<strong>'normal'</strong> 和 <strong>'aggressive'</strong>。您可以使用设置的配置文件、修改它们或创建您自己的配置文件。可以调整以下变量：</p>
 <ul>
 <li><strong><code>max_speed</code></strong>：您的车辆能够达到的最高速度（以公里/小时为单位）。</li>
 <li><strong><code>speed_lim_dist</code></strong>：以 km/h 为单位的值，用于定义车辆的目标速度与当前限速的距离（例如，如果限速为 30km/h 且 <code>speed_lim_dist</code> 为 10km/h，则目标速度将是20公里/小时）</li>
@@ -406,7 +406,7 @@ python3 automatic_control.py --agent=Behavior --behavior=aggressive
     # 完整的值定义
 </code></pre>
 <p><strong>2.</strong> 在 <code>behavior_agent.py</code> 脚本中定义和实例化你的行为类型：</p>
-<pre><code class="language-py"># 代理行为参数
+<pre><code class="language-py"># 智能体行为参数
 if behavior == 'cautious':
     self._behavior = Cautious()
 
@@ -420,9 +420,9 @@ elif behavior == '&lt;type_name&gt;':
     self._behavior = &lt;TypeName&gt;()
 </code></pre>
 <hr />
-<h2 id="_7">创建代理</h2>
-<p>CARLA 代理只是用户可以运行的代理类型的示例。用户可以在 <strong>Basic Agent</strong> 的基础上创建自己的代理。可能性是无止境。每个代理只需要两个元素，<strong>初始化</strong> 和 <strong>运行步</strong>。</p>
-<p>在下面查找自定义代理的最小布局示例：</p>
+<h2 id="_7">创建智能体</h2>
+<p>Carla 智能体只是用户可以运行的智能体类型的示例。用户可以在 <strong>Basic Agent</strong> 的基础上创建自己的智能体。可能性是无止境。每个智能体只需要两个元素，<strong>初始化</strong> 和 <strong>运行步</strong>。</p>
+<p>在下面查找自定义智能体的最小布局示例：</p>
 <pre><code class="language-py">import carla
 
 from agents.navigation.basic_agent import BasicAgent
@@ -440,13 +440,13 @@ class CustomAgent(BasicAgent):
         执行一步导航
         :return: carla.VehicleControl
         &quot;&quot;&quot;
-        # 在每个模拟步骤中采取的行动
+        # 在每个仿真步骤中采取的行动
         control = carla.VehicleControl()
         return control
 </code></pre>
 <p>查看 <code>basic_agent.py</code> 和 <code>behavior_agent.py</code> 脚本以探索它们的结构和功能，以获取有关如何创建自己的更多想法。</p>
 <hr />
-<p>您可以探索提供的代理脚本、扩展它们或将它们用作创建自己的基准。如果您对代理有任何疑问，请随时在 <a href="https://github.com/carla-simulator/carla/discussions/">论坛</a> 发帖。</p>
+<p>您可以探索提供的智能体脚本、扩展它们或将它们用作创建自己的基准。如果您对智能体有任何疑问，请随时在 <a href="https://github.com/carla-simulator/carla/discussions/">论坛</a> 发帖。</p>
               
             </div>
           </div><footer>

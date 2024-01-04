@@ -239,7 +239,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在CARLA包导入地图</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在 Carla 包导入地图</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 Carla 源构建中导入地图</a>
                   </li>
@@ -279,7 +279,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用 OpenStreetMap 生成地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索模拟数据</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索仿真数据</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎和 Carla</a>
                   </li>
@@ -365,9 +365,9 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="-">内容创作 - 车辆</h1>
-<p>Carla 在蓝图库中提供了一套开箱即用的全面车辆。CARLA 允许用户使用定制车辆对此进行扩展，以实现最大的可扩展性。</p>
-<p>详细车辆的三维建模非常复杂，需要很高的技能。因此，我们建议读者参考有关三维建模的其他文档来源，因为这超出了本指南的范围。然而，免费和专有的在线存储库中有大量的车辆模型来源。因此，用户有多种选择来创建用于 CARLA 的定制车辆。</p>
-<p>为 CARLA 准备定制车辆的关键因素在于装配车辆骨架，然后导入到虚幻引擎中。装配和导入后，需要为汽车和车轮设置蓝图。然后应用材料并添加车辆的玻璃部件。我们将在以下指南中介绍这些步骤。</p>
+<p>Carla 在蓝图库中提供了一套开箱即用的全面车辆。Carla 允许用户使用定制车辆对此进行扩展，以实现最大的可扩展性。</p>
+<p>详细车辆的三维建模非常复杂，需要很高的技能。因此，我们建议读者参考有关三维建模的其他文档来源，因为这超出了本指南的范围。然而，免费和专有的在线存储库中有大量的车辆模型来源。因此，用户有多种选择来创建用于 Carla 的定制车辆。</p>
+<p>为 Carla 准备定制车辆的关键因素在于装配车辆骨架，然后导入到虚幻引擎中。装配和导入后，需要为汽车和车轮设置蓝图。然后应用材料并添加车辆的玻璃部件。我们将在以下指南中介绍这些步骤。</p>
 <ul>
 <li><strong><a href="#modeling">建模</a></strong>   <ul>
 <li><a href="#naming-conventions">命名约定</a>  </li>
@@ -419,7 +419,7 @@
 </li>
 </ul>
 <h2 id="_1">建模</h2>
-<p>车辆应有 5 万到 10 万个面片。作为最佳实践，我们建议在导出之前对模型进行三角测量。CARLA 车辆是参考实际汽车的尺寸和比例进行建模的。请确保您特别注意三维应用程序的单位。有些以厘米为单位，有些则以米为单位。</p>
+<p>车辆应有 5 万到 10 万个面片。作为最佳实践，我们建议在导出之前对模型进行三角测量。Carla 车辆是参考实际汽车的尺寸和比例进行建模的。请确保您特别注意三维应用程序的单位。有些以厘米为单位，有些则以米为单位。</p>
 <h3 id="_2">命名约定</h3>
 <p>为了方便和一致，我们建议您将车辆分为以下部分并相应命名。玻璃和灯的具体细节将在后面的部分中介绍：</p>
 <blockquote>
@@ -430,13 +430,13 @@
 <li><strong>Lights</strong>: 头灯、指示灯等</li>
 <li><strong>LightGlass_Ext</strong>: 一层玻璃，允许从外部到内部的灯光可见性。</li>
 <li><strong>LightGlass_Int</strong>: 一层玻璃，允许从内部到外部看到光。</li>
-<li><strong>LicensePlate</strong>: 29x12 厘米的矩形平面。您可以使用提供的 CARLA以获得最佳结果，请在 <a href="https://carla-assets.s3.eu-west-3.amazonaws.com/fbx/LicensePlate.rar">此处</a> 下载 <code>.fbx</code>。纹理将在虚幻引擎中自动分配。</li>
+<li><strong>LicensePlate</strong>: 29x12 厘米的矩形平面。您可以使用提供的  Carla 以获得最佳结果，请在 <a href="https://carla-assets.s3.eu-west-3.amazonaws.com/fbx/LicensePlate.rar">此处</a> 下载 <code>.fbx</code>。纹理将在虚幻引擎中自动分配。</li>
 <li><strong>内饰(Interior)</strong>: 任何其他不适合上述部分的细节都可以进入 <em>内饰</em>。</li>
 </ol>
 </blockquote>
 <p>材质(Material)应使用格式 <code>M_CarPart_CarName</code> 命名，例如, <code>M_Bodywork_Mustang</code>。纹理的大小应为 2048x2048。</p>
 <h2 id="_3">使用电枢装配车辆</h2>
-<p>为了在仿真中看起来更真实，汽车需要有旋转轮子，前一对轮子可以随着转向输入而转动。因此，要为 CARLA 准备车辆，需要在汽车上安装电枢以识别车轮并允许其移动。</p>
+<p>为了在仿真中看起来更真实，汽车需要有旋转轮子，前一对轮子可以随着转向输入而转动。因此，要为 Carla 准备车辆，需要在汽车上安装电枢以识别车轮并允许其移动。</p>
 <h3 id="_4">导入</h3>
 <p>在三维建模应用程序中导入或建模车辆模型网格。在本指南中，我们将使用 Blender 3D。确保轮子与主体分离。每个轮子必须可以作为一个不同的对象进行访问。</p>
 <p><img alt="model_in_blender" src="../img/tuto_content_authoring_vehicles/import_model_blender.png" /></p>
@@ -457,14 +457,14 @@
 <p>将所有网格部件分配给骨架后，您可以通过选择骨架并移动到姿势模式并移动相关骨骼来测试它是否有效。车辆基骨应移动整个车辆，而轮骨应分别移动并旋转各自的车轮。<code>Ctrl+Z</code>确保撤消您可能做出的任何姿势。</p>
 <p><img alt="test_armature" src="../img/tuto_content_authoring_vehicles/test_pose.gif" /></p>
 <h3 id="blender-4">Blender 虚幻引擎 4 车辆装配插件</h3>
-<p>Blender 有一个非常有用的插件，用于装配车辆以导入 CARLA，有助于简化上述步骤。请参阅 <a href="https://continuebreak.com/creations/ue4-vehicle-rigging-addon-blender/"><strong>插件网页</strong></a> 以获取说明。</p>
+<p>Blender 有一个非常有用的插件，用于装配车辆以导入 Carla，有助于简化上述步骤。请参阅 <a href="https://continuebreak.com/creations/ue4-vehicle-rigging-addon-blender/"><strong>插件网页</strong></a> 以获取说明。</p>
 <h3 id="_8">导出</h3>
 <p>现在，我们将装配模型导出为 FBX 格式，以便导入到虚幻引擎中。从“文件”菜单中选择<code>Export &gt; FBX (.fbx)</code>。在<code>Include</code> 面板的 <code>Object Types</code> 部分中，按住 Shift 键选择<code>Armature</code>和<code>Mesh</code>选项。</p>
 <p>在<code>Transform</code>面板中。更改<code>Forward</code>为<code>X Forward</code>，并更改<code>Up</code>为<code>Z Up</code>. 这对于确保车辆在虚幻引擎中正确定向非常重要。</p>
 <p>在<code>Armature</code>部分中取消<code>Add Leaf Bones</code>选中并取消<code>Bake Animation</code>选中。</p>
 <p><img alt="export_fbx" src="../img/tuto_content_authoring_vehicles/export_fbx.gif" /></p>
 <h2 id="_9">导入虚幻引擎</h2>
-<p>从 CARLA 根目录（您从源代码构建 CARLA 的目录）中使用 <code>make launch</code> 命令启动虚幻编辑器。打开内容浏览器，设置适当的目录，然后右键单击并选择<code>Import to ....</code>。选择您之前从 Blender（或其他三维建模应用程序）导出的 FBX 文件。使用默认设置导入。</p>
+<p>从 Carla 根目录（您从源代码构建 Carla 的目录）中使用 <code>make launch</code> 命令启动虚幻编辑器。打开内容浏览器，设置适当的目录，然后右键单击并选择<code>Import to ....</code>。选择您之前从 Blender（或其他三维建模应用程序）导出的 FBX 文件。使用默认设置导入。</p>
 <h3 id="_10">设置物理资产</h3>
 <p>现在，您的内容浏览器目录中将包含 3 个内容：网格、骨架和物理资源。双击物理资源进行调整。</p>
 <p><img alt="regenerate_body" src="../img/tuto_content_authoring_vehicles/physics_asset.png" /></p>
@@ -498,9 +498,9 @@
 <p>事实上，车辆目前没有应用纹理或颜色。下一步是应用材料，使您的车辆具有像真正的公路车辆一样的外观。</p>
 <h2 id="_13">材质</h2>
 <p>将车辆作为基本资产导入并布置好网格和蓝图后，您现在需要向车辆添加材质，以促进虚幻引擎中的照片级真实感渲染，从而实现机器学习训练数据的最大保真度。</p>
-<p>虚幻编辑器拥有全面的材质工作流程，有助于创建高度逼真的材质。然而，这确实显着增加了该过程的复杂性。因此，CARLA 提供了一个大型材料原型库供您使用，而无需从头开始。</p>
+<p>虚幻编辑器拥有全面的材质工作流程，有助于创建高度逼真的材质。然而，这确实显着增加了该过程的复杂性。因此，Carla 提供了一个大型材料原型库供您使用，而无需从头开始。</p>
 <h3 id="_14">给您的车辆应用使用材质</h3>
-<p>CARLA 提供了一种用于复制车辆光泽表面的原型材料，可以仿真多种不同类型的车辆喷漆工作和功能。打开虚幻编辑器并在内容浏览器中，找到<code>Content &gt; Carla &gt; Static &gt; GenericMaterials &gt; 00_MastersOpt</code>。基本材料称为<code>M_CarPaint_Master</code>。右键单击该材料并从上下文材质中选择<code>Create Material Instance</code>。为其命名并将其移动到存储新车辆内容的文件夹中。</p>
+<p>Carla 提供了一种用于复制车辆光泽表面的原型材料，可以仿真多种不同类型的车辆喷漆工作和功能。打开虚幻编辑器并在内容浏览器中，找到<code>Content &gt; Carla &gt; Static &gt; GenericMaterials &gt; 00_MastersOpt</code>。基本材料称为<code>M_CarPaint_Master</code>。右键单击该材料并从上下文材质中选择<code>Create Material Instance</code>。为其命名并将其移动到存储新车辆内容的文件夹中。</p>
 <p>在虚幻编辑器中，将观察则会移动到靠近地板的一点，然后将车辆的骨架网格物体从内容浏览器拖到场景中，车辆的车身现在将出现在那里。</p>
 <p><img alt="add_model" src="../img/tuto_content_authoring_vehicles/add_model.gif" /></p>
 <p>现在，在右侧的详细信息面板中，将新材质实例拖动到 <code>Materials</code> 部分的 <code>Element 0</code> 位置。您将看到车身呈现出一种新的灰色、有光泽的材料特性。</p>
@@ -517,13 +517,13 @@
 <p>真实汽车的饰面（特别是面向一般市场的批量生产的汽车）往往存在缺陷，表现为油漆上的轻微波纹。粒状表面仿真了这一点，使汽车看起来更真实。</p>
 <p><img alt="change_orange_peel" src="../img/tuto_content_authoring_vehicles/orange_peel.gif" /></p>
 <h4 id="flakes"><strong>薄片(Flakes)</strong></h4>
-<p>有些汽车的油漆工作中包含其他材料的薄片，例如金属或陶瓷，以赋予汽车 <code>metallic</code> 或 <code>pearlescant</code> 外观，增加额外的闪光和反射，以有吸引力的方式与光线反应。薄片参数允许 CARLA 仿真这一点。为了模仿金属饰面，它会是</p>
+<p>有些汽车的油漆工作中包含其他材料的薄片，例如金属或陶瓷，以赋予汽车 <code>metallic</code> 或 <code>pearlescant</code> 外观，增加额外的闪光和反射，以有吸引力的方式与光线反应。薄片参数允许 Carla 仿真这一点。为了模仿金属饰面，它会是</p>
 <p><img alt="flakes" src="../img/tuto_content_authoring_vehicles/flakes.gif" /></p>
 <h4 id="dust"><strong>灰尘(Dust)</strong></h4>
 <p>汽车车身上经常会积聚油脂和灰尘，这会增加车漆的质感，影响其反射光线的方式。灰尘参数允许您在涂层上添加破坏块，以仿真粘附在油漆上的异物。</p>
 <p><img alt="dust" src="../img/tuto_content_authoring_vehicles/change_dust.gif" /></p>
 <h2 id="_15">玻璃</h2>
-<p>在 CARLA 中创建逼真的玻璃需要一些技巧来捕捉机动车辆中使用的玻璃的真实折射和反射行为。CARLA 车库车辆有 4 层玻璃网格，采用 2 种不同的材料。各层之间间隔几毫米，内部和外部玻璃层采用不同的材料，以确保玻璃从车辆内部和外部看起来都很逼真。</p>
+<p>在 Carla 中创建逼真的玻璃需要一些技巧来捕捉机动车辆中使用的玻璃的真实折射和反射行为。Carla 车库车辆有 4 层玻璃网格，采用 2 种不同的材料。各层之间间隔几毫米，内部和外部玻璃层采用不同的材料，以确保玻璃从车辆内部和外部看起来都很逼真。</p>
 <p>从车辆外部看有 2 层玻璃，从车辆内部看有 2 层玻璃。玻璃之所以看起来像玻璃，是因为来自玻璃两个表面的反射使得反射非常微妙地加倍。</p>
 <h3 id="_16">玻璃网格</h3>
 <p>在这里，我们看到连接到林肯主体车身（不是车门或其他活动部件）的玻璃部件。</p>
@@ -544,8 +544,8 @@
 <p>现在您已经创建了蓝图，添加了网格，完成了装配，创建了油漆饰面和玻璃的材料，您应该拥有一辆外观非常逼真的车辆。</p>
 <p><img alt="finished_lincoln" src="../img/tuto_content_authoring_vehicles/finished_lincoln.png" /></p>
 <h2 id="_19">车轮</h2>
-<p>如果您在 <a href="#creating-the-blueprint">创建蓝图时</a> 复制了车轮，并且您的车辆与 CARLA 库中已有的车辆非常相似，那么这可能适合您的目的。但是，如果您的车辆具有非标准车轮尺寸或抓地力特性，则应按照本节设置车轮蓝图，以最好地匹配车辆车轮的物理特性。</p>
-<p>对于 CARLA 车辆的车轮，我们需要为每个车轮建立一个蓝图类来处理力学和碰撞属性。您将设置 4 个蓝图类，我们建议使用以下前缀或后缀来识别轮子：</p>
+<p>如果您在 <a href="#creating-the-blueprint">创建蓝图时</a> 复制了车轮，并且您的车辆与 Carla 库中已有的车辆非常相似，那么这可能适合您的目的。但是，如果您的车辆具有非标准车轮尺寸或抓地力特性，则应按照本节设置车轮蓝图，以最好地匹配车辆车轮的物理特性。</p>
+<p>对于 Carla 车辆的车轮，我们需要为每个车轮建立一个蓝图类来处理力学和碰撞属性。您将设置 4 个蓝图类，我们建议使用以下前缀或后缀来识别轮子：</p>
 <ul>
 <li><strong>RRW</strong> - <strong>R</strong>ear <strong>R</strong>ight <strong>W</strong>heel</li>
 <li><strong>RLW</strong> - <strong>R</strong>ear <strong>L</strong>eft <strong>W</strong>heel</li>
@@ -571,7 +571,7 @@
 <h3 id="_24"><strong>悬架特性</strong></h3>
 <p>这里的默认值提供了一个合理的起点。查看 <a href="../tuto_D_customize_vehicle_suspension/"><strong>本指南</strong></a> 以设置适合您车辆类型的悬架特性。</p>
 <h2 id="_25">灯</h2>
-<p>完成 CARLA 真实车辆的最后一个元素是灯、前灯、刹车灯、闪光灯等。在三维建模应用程序中，您应该对一些类似于您要复制的车辆灯的形状进行建模。对于大多数车头灯来说，这将是扁平圆盘或扁平长方体结构。有些车辆可能还配有 LED 灯条。</p>
+<p>完成 Carla 真实车辆的最后一个元素是灯、前灯、刹车灯、闪光灯等。在三维建模应用程序中，您应该对一些类似于您要复制的车辆灯的形状进行建模。对于大多数车头灯来说，这将是扁平圆盘或扁平长方体结构。有些车辆可能还配有 LED 灯条。</p>
 <p><img alt="lights_blender" src="../img/tuto_content_authoring_vehicles/lights_blender.png" /></p>
 <h3 id="uv">UV 贴图</h3>
 <p>不同类型的灯（前灯、闪光灯、刹车灯等）使用纹理来区分。您需要在 三维建模应用程序中创建 UV 贴图，并定位灯光以与纹理的相关区域相匹配。</p>

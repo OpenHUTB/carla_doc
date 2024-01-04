@@ -165,7 +165,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在CARLA包导入地图</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在 Carla 包导入地图</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 Carla 源构建中导入地图</a>
                   </li>
@@ -205,7 +205,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用 OpenStreetMap 生成地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索模拟数据</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索仿真数据</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎和 Carla</a>
                   </li>
@@ -290,8 +290,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="carla"><a href="https://carla.readthedocs.io/en/latest/ts_traffic_simulation_overview/">CARLA 中的交通模拟</a></h1>
-<p>交通模拟是自动驾驶堆栈准确高效的训练和测试不可或缺的一部分。CARLA 提供了许多不同的选项来仿真交通和特定的交通场景。本节概述了可用选项，可帮助您确定最适合您的用例的选项。</p>
+                <h1 id="carla"><a href="https://carla.readthedocs.io/en/latest/ts_traffic_simulation_overview/">Carla 中的交通仿真</a></h1>
+<p>交通仿真是自动驾驶堆栈准确高效的训练和测试不可或缺的一部分。Carla 提供了许多不同的选项来仿真交通和特定的交通场景。本节概述了可用选项，可帮助您确定最适合您的用例的选项。</p>
 <ul>
 <li><a href="#traffic-manager"><strong>交通管理器</strong></a></li>
 <li><a href="#scenario-runner-and-openscenario"><strong>Scenario Runner 和 OpenScenario</strong></a></li>
@@ -300,7 +300,7 @@
 </ul>
 <hr />
 <h2 id="_1">交通管理器</h2>
-<p>交通管理器是 CARLA 中的一个模块，用于从客户端控制仿真中的某些车辆。<a href="https://carla.readthedocs.io/en/latest/python_api/#carla.Vehicle.set_autopilot"><code>carla.Vehicle.set_autopilot</code></a> 车辆通过方法或注册到流量管理器command.SetAutopilot。每辆车的控制是通过 <a href="../adv_traffic_manager/#stages">不同阶段</a> 的循环来管理的，每个阶段都在不同的线程上运行。</p>
+<p>交通管理器是 Carla 中的一个模块，用于从客户端控制仿真中的某些车辆。<a href="https://carla.readthedocs.io/en/latest/python_api/#carla.Vehicle.set_autopilot"><code>carla.Vehicle.set_autopilot</code></a> 车辆通过方法或注册到流量管理器command.SetAutopilot。每辆车的控制是通过 <a href="../adv_traffic_manager/#stages">不同阶段</a> 的循环来管理的，每个阶段都在不同的线程上运行。</p>
 <p><strong>用于：</strong></p>
 <ul>
 <li>用真实的城市交通状况填充仿真。</li>
@@ -318,10 +318,10 @@
 <h2 id="scenario-runner-openscenario">Scenario Runner 和 OpenScenario</h2>
 <p>Scenario Runner 提供开箱即用的 <a href="https://carla-scenariorunner.readthedocs.io/en/latest/list_of_scenarios/">预定义交通场景</a> ，还允许用户使用 Python 或 <a href="https://releases.asam.net/OpenSCENARIO/1.0.0/ASAM_OpenSCENARIO_BS-1-2_User-Guide_V1-0-0.html#_foreword">OpenSCENARIO 1.0 标准</a> <a href="https://carla-scenariorunner.readthedocs.io/en/latest/creating_new_scenario/">定义自己</a> 的场景。</p>
 <p>OpenSCENARIO 的主要用途是描述涉及多辆车的复杂操作。用户可以在 <a href="https://carla-scenariorunner.readthedocs.io/en/latest/openscenario_support/">这里</a> 查看 Scenario Runner 支持 OpenSCENARIO 的哪些功能。这些功能包括演习、动作、条件、故事和故事板。</p>
-<p>Scenario Runner 必须与主 CARLA 包 <a href="https://github.com/carla-simulator/scenario_runner">分开</a> 安装。</p>
+<p>Scenario Runner 必须与主 Carla 包 <a href="https://github.com/carla-simulator/scenario_runner">分开</a> 安装。</p>
 <p><strong>用于：</strong></p>
 <ul>
-<li>创建复杂的交通场景和路线，为自动驾驶智能体做好准备，以便在 <a href="https://leaderboard.carla.org/">CARLA 排行榜</a> 上进行评估。</li>
+<li>创建复杂的交通场景和路线，为自动驾驶智能体做好准备，以便在 <a href="https://leaderboard.carla.org/">Carla 排行榜</a> 上进行评估。</li>
 <li>定义可针对场景仿真的记录运行的定制 <a href="https://carla-scenariorunner.readthedocs.io/en/latest/metrics_module/">指标</a> ，从而无需重复运行仿真。</li>
 </ul>
 <div class="build-buttons">
@@ -350,10 +350,10 @@
 <hr />
 <h2 id="sumo">SUMO</h2>
 <p><a href="https://sumo.dlr.de/docs/SUMO_at_a_Glance.html">SUMO</a> 是一种开源、微观、多模式交通仿真。在 SUMO 中，每辆车都经过明确建模，有自己的路线，并通过网络单独移动。默认情况下，仿真是确定性的，但有多种选项可以引入随机性。</p>
-<p>CARLA 提供了与 SUMO 的联合仿真功能，允许在两个仿真器之间分配任务。车辆可以通过 SUMO 在 CARLA 中产生，并由 SUMO 进行管理，就像交通管理器所做的那样。</p>
+<p>Carla 提供了与 SUMO 的联合仿真功能，允许在两个仿真器之间分配任务。车辆可以通过 SUMO 在 Carla 中产生，并由 SUMO 进行管理，就像交通管理器所做的那样。</p>
 <p><strong>用于：</strong></p>
 <ul>
-<li>在一个软件包中利用 CARLA 和 SUMO 的功能。</li>
+<li>在一个软件包中利用 Carla 和 SUMO 的功能。</li>
 </ul>
 <div class="build-buttons">
 <p>
@@ -363,11 +363,11 @@
 </div>
 
 <hr />
-<p>如果您对 CARLA 中仿真交通的不同选项有任何疑问，请随时在论坛或 <a href="https://discord.gg/8kqACuC">Discord</a> 中发帖。</p>
+<p>如果您对 Carla 中仿真交通的不同选项有任何疑问，请随时在论坛或 <a href="https://discord.gg/8kqACuC">Discord</a> 中发帖。</p>
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA 论坛</a>
+Carla 论坛</a>
 </p>
 </div>
               

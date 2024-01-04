@@ -155,7 +155,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在CARLA包导入地图</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在 Carla 包导入地图</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 Carla 源构建中导入地图</a>
                   </li>
@@ -197,7 +197,7 @@
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#openstreetmap_1">使用 OpenStreetMap 导出地图</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#carla-openstreetmaps">在 CARLA 中使用 OpenStreetMaps</a>
+    <li class="toctree-l2"><a class="reference internal" href="#carla-openstreetmaps">在 Carla 中使用 OpenStreetMaps</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#openstreetmap-opendrive">将 OpenStreetMap 格式转换为 OpenDRIVE 格式</a>
         <ul>
@@ -209,7 +209,7 @@
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#carla">导入 CARLA</a>
+    <li class="toctree-l2"><a class="reference internal" href="#carla">导入 Carla</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#a">A) 使用您自己的脚本</a>
     </li>
@@ -221,7 +221,7 @@
     </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索模拟数据</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索仿真数据</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎和 Carla</a>
                   </li>
@@ -310,22 +310,22 @@
 <p>在本指南中，您将学习：</p>
 <ul>
 <li>如何从 OpenStreetMaps 导出地图。</li>
-<li>CARLA 中可以使用的不同格式的地图以及每种格式的限制。</li>
+<li>Carla 中可以使用的不同格式的地图以及每种格式的限制。</li>
 <li>如何将本机<code>.osm</code>格式转换为<code>.xodr</code>。</li>
 <li>如何在<code>.xodr</code>文件中包含交通灯信息。</li>
-<li>如何在 CARLA 仿真中运行最终地图。</li>
+<li>如何在 Carla 仿真中运行最终地图。</li>
 </ul>
-<p><a href="https://www.openstreetmap.org">OpenStreetMap</a> 是由数千名贡献者开发的开放数据世界地图，并根据<a href="https://opendatacommons.org/licenses/odbl/">Open Data Commons Open Database License</a> 获得许可。地图的各个部分可以导出为 XML 格式的<code>.osm</code>文件。CARLA 可以将此文件转换为 OpenDRIVE 格式并使用 <a href="#adv_opendrive.md">OpenDRIVE Standalone Mode</a> 导入它。</p>
+<p><a href="https://www.openstreetmap.org">OpenStreetMap</a> 是由数千名贡献者开发的开放数据世界地图，并根据<a href="https://opendatacommons.org/licenses/odbl/">Open Data Commons Open Database License</a> 获得许可。地图的各个部分可以导出为 XML 格式的<code>.osm</code>文件。Carla 可以将此文件转换为 OpenDRIVE 格式并使用 <a href="#adv_opendrive.md">OpenDRIVE Standalone Mode</a> 导入它。</p>
 <ul>
 <li><a href="#export-a-map-with-openstreetmap"><strong>使用 OpenStreetMap 导出地图</strong></a></li>
-<li><a href="#using-openstreetmaps-in-carla"><strong>在 CARLA 中使用 OpenStreetMaps</strong></a></li>
+<li><a href="#using-openstreetmaps-in-carla"><strong>在 Carla 中使用 OpenStreetMaps</strong></a></li>
 <li><a href="#convert-openstreetmap-format-to-opendrive-format"><strong>将 OpenStreetMap 格式转换为 OpenDRIVE 格式</strong></a><ul>
 <li><a href="#linux">Linux</a></li>
 <li><a href="#windows">Windows</a></li>
 <li><a href="#generate-traffic-lights">生成交通灯</a></li>
 </ul>
 </li>
-<li><a href="#ingest-into-carla"><strong>导入 CARLA</strong></a></li>
+<li><a href="#ingest-into-carla"><strong>导入 Carla</strong></a></li>
 </ul>
 <hr />
 <h2 id="openstreetmap_1">使用 OpenStreetMap 导出地图</h2>
@@ -335,7 +335,7 @@
 <p><img alt="openstreetmap_view" src="../img/tuto_g_osm_web.jpg" /></p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
-<p>如果您想使用大范围的地图，例如巴黎，您可以考虑使用CARLA的 <a href="../large_map_overview/">__大地图功能</a> 。</p>
+<p>如果您想使用大范围的地图，例如巴黎，您可以考虑使用 Carla 的 <a href="../large_map_overview/">__大地图功能</a> 。</p>
 </div>
 <p><strong>3.</strong> 单击窗口左上角的“导出( <em>Export</em> )”以打开“导出(<em>Export</em>)”面板。</p>
 <p><strong>4.</strong> 单击“<em>导出</em>”面板中的“_手动_选择不同区域”。</p>
@@ -343,21 +343,21 @@
 <p><strong>6.</strong> 单击导出面板中的 <em>导出</em> 按钮，将所选区域的地图信息保存为<code>.osm</code>文件。</p>
 <p><img alt="openstreetmap_area" src="../img/tuto_g_osm_area.jpg" /></p>
 <hr />
-<h2 id="carla-openstreetmaps">在 CARLA 中使用 OpenStreetMaps</h2>
-<p>开放街道地图数据可以通过三种不同的方法在 CARLA 中使用。您使用的方法取决于数据是否为原始格式，或者您是否使用以下部分中说明的转换方法来转换<code>.osm</code>文件。<code>.osm</code>保留文件是最受限制的方法，因为它不允许自定义设置。</p>
+<h2 id="carla-openstreetmaps">在 Carla 中使用 OpenStreetMaps</h2>
+<p>开放街道地图数据可以通过三种不同的方法在 Carla 中使用。您使用的方法取决于数据是否为原始格式，或者您是否使用以下部分中说明的转换方法来转换<code>.osm</code>文件。<code>.osm</code>保留文件是最受限制的方法，因为它不允许自定义设置。</p>
 <p><strong>可用 <code>.xodr</code> 格式选项：</strong></p>
 <ul>
 <li>在您自己的脚本中生成地图。 <strong>该方法允许参数化。</strong></li>
-<li>将文件作为参数传递给 CARLA 的 <code>config.py</code>。 __ 此方法不允许参数化。__</li>
+<li>将文件作为参数传递给 Carla 的 <code>config.py</code>。 __ 此方法不允许参数化。__</li>
 </ul>
 <p><strong>可用 <code>.osm</code> 格式选项：</strong></p>
 <ul>
-<li>将文件作为参数传递给 CARLA 的 <code>config.py</code>。 <strong>此方法不允许参数化。</strong></li>
+<li>将文件作为参数传递给 Carla 的 <code>config.py</code>。 <strong>此方法不允许参数化。</strong></li>
 </ul>
 <p>以下部分将提供有关上面列出的选项的更多详细信息。</p>
 <hr />
 <h2 id="openstreetmap-opendrive">将 OpenStreetMap 格式转换为 OpenDRIVE 格式</h2>
-<p>本节演示如何使用 Python API 将我们在上一节中导出的 <code>.osm</code> 文件转换为<code>.xodr</code>格式，以便可以在 CARLA 中使用。</p>
+<p>本节演示如何使用 Python API 将我们在上一节中导出的 <code>.osm</code> 文件转换为<code>.xodr</code>格式，以便可以在 Carla 中使用。</p>
 <p><a href="../python_api/#carla.Osm2OdrSettings">carla.Osm2OdrSettings</a>类用于配置转换设置，例如偏移值、交通灯生成、原点坐标等。可配置参数的完整列表可以在 Python API <a href="../python_api/#carla.Osm2OdrSettings">文档</a> 中找到。<a href="../python_api/#carla.Osm2Odr">carla.Osm2Odr</a> 类使用这些设置来解析<code>.osm</code>数据并以 <code>.xodr</code> 格式输出。</p>
 <p>在 Windows 中，<code>.osm</code>文件必须编码为<code>UTF-8</code>. 这在 Linux 中是不必要的。以下是示例代码片段，显示如何根据您的操作系统执行文件转换：</p>
 <h5 id="linux">Linux</h5>
@@ -401,7 +401,7 @@ f.close()
 <p><br></p>
 <hr />
 <h3 id="_1">生成交通灯</h3>
-<p>Open Street Map 数据可以定义哪些路口受交通灯控制。要在 CARLA 中使用此交通灯数据，您需要在将<code>.osm</code>文件转换为<code>.xodr</code>格式之前通过 Python API 在 OSM 地图设置中启用它：</p>
+<p>Open Street Map 数据可以定义哪些路口受交通灯控制。要在 Carla 中使用此交通灯数据，您需要在将<code>.osm</code>文件转换为<code>.xodr</code>格式之前通过 Python API 在 OSM 地图设置中启用它：</p>
 <pre><code class="language-py"># 定义想要的设置。在该案例中为默认值。
 settings = carla.Osm2OdrSettings()
 # 启用从 OSM 数据中生成交通灯
@@ -416,14 +416,14 @@ xodr_data = carla.Osm2Odr.convert(osm_data, settings)
 <pre><code>settings.set_traffic_light_excluded_way_types([&quot;motorway_link&quot;])
 </code></pre>
 <hr />
-<h2 id="carla">导入 CARLA</h2>
-<p>本节介绍如何使用可用的不同选项，通过 <a href="../adv_opendrive/">OpenDRIVE 独立模式</a>将 Open Street Map 信息提取到 CARLA 中。</p>
+<h2 id="carla">导入 Carla</h2>
+<p>本节介绍如何使用可用的不同选项，通过 <a href="../adv_opendrive/">OpenDRIVE 独立模式</a>将 Open Street Map 信息提取到 Carla 中。</p>
 <p>有以下三个选项可供选择：</p>
 <p><a href="#a-use-your-own-script"><strong>A)</strong></a> 使用您自己的自定义 Python 脚本中的转换 <code>.xodr</code> 文件 <strong>生成地图该方法允许参数化</strong>。 
-<a href="#b-pass-xodr-to-configpy"><strong>B)</strong></a> 将转换后的<code>.xodr</code>文件作为参数传递给 CARLA <code>config.py</code> 脚本。<strong>此方法不允许参数化。</strong>
-<a href="#c-pass-osm-to-configpy"><strong>C)</strong></a> 将原始<code>.osm</code>文件作为参数传递给 CARLA <code>config.py</code> 脚本。<strong>此方法不允许参数化。</strong></p>
+<a href="#b-pass-xodr-to-configpy"><strong>B)</strong></a> 将转换后的<code>.xodr</code>文件作为参数传递给 Carla <code>config.py</code> 脚本。<strong>此方法不允许参数化。</strong>
+<a href="#c-pass-osm-to-configpy"><strong>C)</strong></a> 将原始<code>.osm</code>文件作为参数传递给 Carla <code>config.py</code> 脚本。<strong>此方法不允许参数化。</strong></p>
 <h6 id="a">A) 使用您自己的脚本</h6>
-<p>生成新地图并阻止模拟，直到通过调用 <a href="../python_api/#carla.Client.generate_opendrive_world"><code>client.generate_opendrive_world()</code></a> 准备就绪。使用<a href="../python_api/#carla.OpendriveGenerationParameters">carla.OpendriveGenerationParameters</a>类配置网格生成。请参阅下面的示例：</p>
+<p>生成新地图并阻止仿真，直到通过调用 <a href="../python_api/#carla.Client.generate_opendrive_world"><code>client.generate_opendrive_world()</code></a> 准备就绪。使用<a href="../python_api/#carla.OpendriveGenerationParameters">carla.OpendriveGenerationParameters</a>类配置网格生成。请参阅下面的示例：</p>
 <pre><code class="language-py">vertex_distance = 2.0  # 以米为单位
 max_road_length = 500.0 # 以米为单位
 wall_height = 0.0      # 以米为单位
@@ -442,22 +442,22 @@ world = client.generate_opendrive_world(
 <p>强烈推荐<code>wall_height = 0.0</code>。OpenStreetMap 将相反方向的车道定义为不同的道路。如果生成墙壁，这将导致墙壁重叠和意外的碰撞。</p>
 </div>
 <h6 id="b-xodr-configpy">B) 将 <code>.xodr</code> 传递给 <code>config.py</code></h6>
-<p>启动 CARLA 服务器后，在单独的终端中运行以下命令来加载 Open Street Map：</p>
+<p>启动 Carla 服务器后，在单独的终端中运行以下命令来加载 Open Street Map：</p>
 <pre><code class="language-sh">cd PythonAPI/util
 
 python3 config.py -x=/path/to/xodr/file
 </code></pre>
 <p><a href="../python_api/#carla.OpendriveGenerationParameters">Default parameters</a> will be used.</p>
 <h6 id="c-osm-configpy">C) 将 <code>.osm</code> 传递给 <code>config.py</code></h6>
-<p>启动 CARLA 服务器后，在单独的终端中运行以下命令来加载 Open Street Map：</p>
+<p>启动 Carla 服务器后，在单独的终端中运行以下命令来加载 Open Street Map：</p>
 <pre><code class="language-sh">cd PythonAPI/util
 
 python3 config.py --osm-path=/path/to/OSM/file
 </code></pre>
 <p>将使用<a href="../python_api/#carla.OpendriveGenerationParameters">默认参数</a>。 </p>
-<p>无论使用哪种方法，地图都将被导入到 CARLA 中，结果应类似于下图：</p>
+<p>无论使用哪种方法，地图都将被导入到 Carla 中，结果应类似于下图：</p>
 <p><img alt="opendrive_meshissue" src="../img/tuto_g_osm_carla.jpg" /></p>
-<div style="text-align: right"><i>使用 OpenStreetMap 生成 CARLA 地图的结果。</i></div>
+<div style="text-align: right"><i>使用 OpenStreetMap 生成 Carla 地图的结果。</i></div>
 
 <p><br></p>
 <div class="admonition 警告">
@@ -465,11 +465,11 @@ python3 config.py --osm-path=/path/to/OSM/file
 <p>生成的道路在地图的边界处突然结束。当车辆无法找到下一个路径点时，这将导致交通管理器崩溃。为了避免这种情况，流量管理器中的 OSM 模式默认设置为True ( <a href="../python_api/#carlatrafficmanager"><code>set_osm_mode()</code></a> )。这将在必要时显示警告并摧毁车辆。</p>
 </div>
 <hr />
-<p>与此主题相关的任何问题和疑问都可以在 CARLA 论坛中发布。</p>
+<p>与此主题相关的任何问题和疑问都可以在 Carla 论坛中发布。</p>
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA 论坛</a>
+Carla 论坛</a>
 </p>
 </div>
               
@@ -477,7 +477,7 @@ CARLA 论坛</a>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
         <a href="../tuto_G_control_walker_skeletons/" class="btn btn-neutral float-left" title="控制行人骨骼"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../tuto_G_retrieve_data/" class="btn btn-neutral float-right" title="检索模拟数据">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../tuto_G_retrieve_data/" class="btn btn-neutral float-right" title="检索仿真数据">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>

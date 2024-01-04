@@ -155,7 +155,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在CARLA包导入地图</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在 Carla 包导入地图</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 Carla 源构建中导入地图</a>
                   </li>
@@ -195,7 +195,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用 OpenStreetMap 生成地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索模拟数据</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索仿真数据</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎和 Carla</a>
                   </li>
@@ -280,11 +280,11 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="api">通过 API 获取行人真实骨骼</h1>
-<p>为了训练自动驾驶车辆，必须确保它们不仅能够识别建筑物、道路和汽车，还能够识别人行道和过马路的行人，以确保所有道路使用者的安全。Carla 模拟器提供人工智能控制的行人，以人体形态填充您的模拟和训练数据。在许多计算机视觉应用中，人体姿态估计是一个重要因素，包括自动驾驶、安全、人群控制和多个机器人应用。</p>
-<p>Carla 的 API 提供了从模拟中的行人获取真实骨架的功能。骨架由一组骨骼组成，每个骨骼都有一个根节点或顶点以及一个定义骨骼姿势（或方向）的向量。这些骨骼控制模拟行人的四肢和身体的运动。通过将各个骨骼的集合收集在一起，可以构建虚拟人姿势的模型，该模型可用于与神经网络估计的姿势模型进行比较，甚至用于训练神经网络进行姿势估计。</p>
+<p>为了训练自动驾驶车辆，必须确保它们不仅能够识别建筑物、道路和汽车，还能够识别人行道和过马路的行人，以确保所有道路使用者的安全。Carla 仿真器提供人工智能控制的行人，以人体形态填充您的仿真和训练数据。在许多计算机视觉应用中，人体姿态估计是一个重要因素，包括自动驾驶、安全、人群控制和多个机器人应用。</p>
+<p>Carla 的 API 提供了从仿真中的行人获取真实骨架的功能。骨架由一组骨骼组成，每个骨骼都有一个根节点或顶点以及一个定义骨骼姿势（或方向）的向量。这些骨骼控制仿真行人的四肢和身体的运动。通过将各个骨骼的集合收集在一起，可以构建虚拟人姿势的模型，该模型可用于与神经网络估计的姿势模型进行比较，甚至用于训练神经网络进行姿势估计。</p>
 <p>在本教程中，我们将完成在地图中生成行人、设置 AI 控制器来移动行人、然后获取真实骨架并将骨骼投影到 2D 相机捕获上的步骤。</p>
-<h2 id="_1">设置模拟器</h2>
-<p>首先，按照您的标准工作流程启动 Carla 模拟器，无论是在独立模式下还是在虚幻编辑器中。我们将导入几个实用程序库以用于数学和绘图。为了让我们更好地控制模拟，我们将在本教程中使用 <a href="../adv_synchrony_timestep/"><strong>同步模式</strong></a> 。这意味着我们的 Python 客户端控制模拟器的时间进程。</p>
+<h2 id="_1">设置仿真器</h2>
+<p>首先，按照您的标准工作流程启动 Carla 仿真器，无论是在独立模式下还是在虚幻编辑器中。我们将导入几个实用程序库以用于数学和绘图。为了让我们更好地控制仿真，我们将在本教程中使用 <a href="../adv_synchrony_timestep/"><strong>同步模式</strong></a> 。这意味着我们的 Python 客户端控制仿真器的时间进程。</p>
 <pre><code class="language-py">import carla
 import random
 import numpy as np
@@ -305,12 +305,12 @@ world.apply_settings(settings)
 # We will aslo set up the spectator so we can see what we do
 spectator = world.get_spectator()
 </code></pre>
-<h2 id="carla">在 Carla 模拟器中生成行人</h2>
-<p>首先，我们想在模拟中生成一个行人。这可以使用 <code>world.get_random_location_from_navigation()</code> 在随机位置完成，也可以使用从虚幻编辑器收集的坐标来选择。在虚幻编辑器中，将一个空参与者添加到要生成行人的位置，然后使用右侧的检查器查询坐标。</p>
+<h2 id="carla">在 Carla 仿真器中生成行人</h2>
+<p>首先，我们想在仿真中生成一个行人。这可以使用 <code>world.get_random_location_from_navigation()</code> 在随机位置完成，也可以使用从虚幻编辑器收集的坐标来选择。在虚幻编辑器中，将一个空参与者添加到要生成行人的位置，然后使用右侧的检查器查询坐标。</p>
 <p><img alt="actor_location" src="../img/tuto_G_pedestrian_bones/actor_location.png" /></p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
-<p>虚幻编辑器以厘米为单位，而 Carla 以米为单位，因此必须转换单位。在 Carla 模拟器中使用之前，请确保将虚幻编辑器坐标除以 100。</p>
+<p>虚幻编辑器以厘米为单位，而 Carla 以米为单位，因此必须转换单位。在 Carla 仿真器中使用之前，请确保将虚幻编辑器坐标除以 100。</p>
 </div>
 <p>一旦你选择了坐标，你就可以生成行人。我们还将生成一个相机来收集图像。我们还需要一个队列 <a href="#https://docs.python.org/3/library/queue.html"><code>Queue</code></a> 对象来允许我们轻松访问来自相机的数据（因为相机传感器在其自己的线程上运行，与运行脚本的主 Python 线程分开）。</p>
 <p>为了看到我们的行人，我们需要变换相机，使其指向我们生成的行人。为此，我们将使用一个函数来计算使相机居中所需的平移和旋转：</p>
@@ -374,7 +374,7 @@ controller.start()
 controller.go_to_location(world.get_random_location_from_navigation())
 
 </code></pre>
-<p>现在，行人将随着模拟的每次增量 (<code>world.tick()</code>) 自主移动。</p>
+<p>现在，行人将随着仿真的每次增量 (<code>world.tick()</code>) 自主移动。</p>
 <h2 id="_2">相机几何</h2>
 <p>现在我们需要执行一些几何计算。首先，我们想要将骨骼的世界坐标转换为相机坐标，我们使用相机变换的逆变换来实现这一点。这意味着坐标将转换为相对于位于原点、面向 x 正方向的相机。</p>
 <pre><code class="language-py"># 获取4x4矩阵以将点从世界坐标转换为相机坐标
@@ -391,7 +391,7 @@ world_2_camera = np.array(camera.get_transform().get_inverse_matrix())
     return K
 </code></pre>
 <h2 id="_3">构建骨架</h2>
-<p>现在我们可以将活动部件组装在一起。首先，使用 <code>pedestrian.get_bones()</code> 从模拟中收集骨骼坐标，然后将骨骼组合在一起并将其投影到相机传感器的二维成像平面上。使用skeletal.txt中定义的对将骨骼连接成完整的骨架，您可以在 <a href="https://carla-assets.s3.eu-west-3.amazonaws.com/fbx/skeleton.txt"><strong>此处</strong></a> 下载该文件。</p>
+<p>现在我们可以将活动部件组装在一起。首先，使用 <code>pedestrian.get_bones()</code> 从仿真中收集骨骼坐标，然后将骨骼组合在一起并将其投影到相机传感器的二维成像平面上。使用skeletal.txt中定义的对将骨骼连接成完整的骨架，您可以在 <a href="https://carla-assets.s3.eu-west-3.amazonaws.com/fbx/skeleton.txt"><strong>此处</strong></a> 下载该文件。</p>
 <p>我们需要一个函数来迭代 <strong>sculpture.txt</strong> 中定义的骨骼对，并将骨骼坐标连接到可以覆盖到相机传感器图像上的线中。</p>
 <pre><code class="language-py">def get_image_point(bone_trans):
         # 计算骨骼坐标的二维投影
@@ -506,7 +506,7 @@ trash = image_queue.get()
 <p>在 <strong>out/</strong> 文件夹中，您现在应该有一系列帧，其中骨架覆盖在相机传感器输出上。可以通过将帧加入视频来重建以下动画：</p>
 <p><img alt="pedestrian_skeleton" src="../img/tuto_G_pedestrian_bones/pedestrian_skeleton.gif" /></p>
 <h2 id="_4">总结</h2>
-<p>在本教程中，您学习了如何使用 AI 控制器生成行人，恢复行人骨骼的真实三维坐标，并将这些骨骼投影到相机传感器捕获的二维图像上。您可以使用本教程中学到的技术，使用 Carla 模拟器为人体姿势估计框架设置训练和验证。</p>
+<p>在本教程中，您学习了如何使用 AI 控制器生成行人，恢复行人骨骼的真实三维坐标，并将这些骨骼投影到相机传感器捕获的二维图像上。您可以使用本教程中学到的技术，使用 Carla 仿真器为人体姿势估计框架设置训练和验证。</p>
               
             </div>
           </div><footer>

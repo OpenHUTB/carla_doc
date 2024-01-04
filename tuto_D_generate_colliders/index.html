@@ -155,7 +155,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在CARLA包导入地图</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在 Carla 包导入地图</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 Carla 源构建中导入地图</a>
                   </li>
@@ -195,7 +195,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用 OpenStreetMap 生成地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索模拟数据</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索仿真数据</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎和 Carla</a>
                   </li>
@@ -311,7 +311,7 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="_1">生成详细的碰撞体</h1>
-<p>本教程介绍如何为车辆创建更准确的碰撞边界（相对于对象的原始形状）。它们可以用作物理碰撞器，与碰撞检测兼容，也可以用作基于光线投射的传感器（例如激光雷达）的辅助碰撞器，以检索更准确的数据。新的碰撞机可以集成到 CARLA 中，以便所有社区都能从中受益。在 <a href="../cont_contribution_guidelines/">此处</a> 了解有关如何为内容存储库做出贡献的更多信息。 </p>
+<p>本教程介绍如何为车辆创建更准确的碰撞边界（相对于对象的原始形状）。它们可以用作物理碰撞器，与碰撞检测兼容，也可以用作基于光线投射的传感器（例如激光雷达）的辅助碰撞器，以检索更准确的数据。新的碰撞机可以集成到 Carla 中，以便所有社区都能从中受益。在 <a href="../cont_contribution_guidelines/">此处</a> 了解有关如何为内容存储库做出贡献的更多信息。 </p>
 <p>有两种方法可以创建新的碰撞器，但它们并不完全等效。</p>
 <ul>
 <li><strong>光线投射碰撞器</strong> — 这种方法需要一些基本的三维建模技能。车辆中添加了辅助碰撞器，以便基于光线投射的传感器（例如激光雷达）检索更精确的数据。 </li>
@@ -342,8 +342,8 @@
 <hr />
 <h2 id="_2">光线投射碰撞体</h2>
 <h3 id="1-fbx">1-导出车辆 FBX</h3>
-<p>首先需要以车辆的原始网格作为参考。出于学习目的，本教程导出 CARLA 车辆的网格。
-<strong>1.1</strong> 在虚幻引擎中打开 CARLA 并转到 <code>Content/Carla/Static/Vehicles/4Wheeled/&lt;model_of_vehicle&gt;</code>。
+<p>首先需要以车辆的原始网格作为参考。出于学习目的，本教程导出 Carla 车辆的网格。
+<strong>1.1</strong> 在虚幻引擎中打开 Carla 并转到 <code>Content/Carla/Static/Vehicles/4Wheeled/&lt;model_of_vehicle&gt;</code>。
 <strong>1.2</strong> 在 <code>SM_&lt;model_of_vehicle&gt;</code> 点击 <code>right-click</code> 将车辆网格导出为 FBX。</p>
 <h3 id="2-">2-生成低密度网格</h3>
 <p><strong>2.1</strong> 打开三维建模软件，并使用原始网格作为参考，建模一个与原始网格保持可靠的低密度网格。</p>
@@ -354,7 +354,7 @@
 <p>至于车轮和附加元件（例如车顶、挡泥板等），新网格应该非常准确地遵循几何形状。放置简单的立方体是不行的。</p>
 </div>
 <h3 id="3-">3-将网格导入虚幻引擎</h3>
-<p><strong>3.1</strong> 在虚幻引擎中打开 CARLA 并转到 <code>Content/Carla/Static/Vehicles/4Wheeled/&lt;model_of_vehicle&gt;</code>.<br />
+<p><strong>3.1</strong> 在虚幻引擎中打开 Carla 并转到 <code>Content/Carla/Static/Vehicles/4Wheeled/&lt;model_of_vehicle&gt;</code>.<br />
 <strong>3.2</strong> 点击 <code>right-click</code> 导入新网格 <code>SM_sc_&lt;model_of_vehicle&gt;.fbx</code>。</p>
 <h3 id="4-">4-添加网格作为碰撞体</h3>
 <p><strong>4.1</strong> 进入 <code>Content/Carla/Blueprints/Vehicles/&lt;model_of_vehicle&gt;</code> 并打开名为 <code>BP_&lt;model_of_vehicle&gt;</code> 的车辆的蓝图。  </p>
@@ -374,7 +374,7 @@
 <p><a href="https://www.youtube.com/watch?v=CXK2M2cNQ4Y">该视频</a> 展示了遵循本教程后所取得的结果。</p>
 <h3 id="0-">0-先决条件</h3>
 <ul>
-<li>在 <a href="../build_linux/">Linux</a> 或 <a href="../build_windows/">Windows</a> 上 <strong>从源代码构建 CARLA</strong>。</li>
+<li>在 <a href="../build_linux/">Linux</a> 或 <a href="../build_windows/">Windows</a> 上 <strong>从源代码构建 Carla</strong>。</li>
 <li>可从 <a href="https://www.blender.org/download/">官方网站</a> 免费获取 <strong>Blender 2.80 或更新版本</strong> （开源 3D 建模软件）。</li>
 <li>按照 <a href="https://github.com/andyp123/blender_vhacd">此处</a> 的说明使用 <strong>Blender 的 VHACD 插件</strong>。该插件使用凸包集合自动创建选定对象的近似值。<a href="https://github.com/kmammou/v-hacd">阅读更多</a> 。</li>
 </ul>
@@ -406,17 +406,17 @@
 <strong>5.2</strong> 在导出菜单中，选中 <code>selected objects</code> 并仅选择“Mesh”。 </p>
 <p><a href="https://youtu.be/aJPyskYjzWo"><img alt="auto_step05" src="../img/tuto_D_colliders_05.jpg" /></a></p>
 <h3 id="6-8-">6 到 8-导入碰撞体并定义物理</h3>
-<p><strong>第 6 步.</strong> <em>(在虚幻引擎中)</em> — 将新 FBX 作为虚幻资源文件（静态网格物体）导入 CARLA。</p>
+<p><strong>第 6 步.</strong> <em>(在虚幻引擎中)</em> — 将新 FBX 作为虚幻资源文件（静态网格物体）导入 Carla。</p>
 <p><strong>第 7 步.</strong> <em>(在虚幻引擎中)</em> — 将自定义碰撞器导入到特定车辆的物理资源中，以便将其用于计算。</p>
 <p><strong>第 8 步.</strong> <em>(在虚幻引擎中)</em> — 创建连接不同关节的约束并定义所有部件的物理特性。 </p>
 <p><a href="https://www.youtube.com/watch?v=aqFNwAyj2CA"><img alt="auto_step0608" src="../img/tuto_D_colliders_0608.jpg" /></a></p>
 <hr />
-<p>这是关于如何更改 CARLA 中车辆的默认碰撞器的总结。</p>
-<p>打开 CARLA 并闲逛一会儿。如果有任何疑问，请随时在论坛中发布。</p>
+<p>这是关于如何更改 Carla 中车辆的默认碰撞器的总结。</p>
+<p>打开 Carla 并闲逛一会儿。如果有任何疑问，请随时在论坛中发布。</p>
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA 论坛</a>
+Carla 论坛</a>
 </p>
 </div>
               

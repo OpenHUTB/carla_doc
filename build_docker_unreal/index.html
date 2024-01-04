@@ -155,7 +155,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在CARLA包导入地图</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在 Carla 包导入地图</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 Carla 源构建中导入地图</a>
                   </li>
@@ -195,7 +195,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用 OpenStreetMap 生成地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索模拟数据</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索仿真数据</a>
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">在 Docker 中构建虚幻引擎和 Carla</a>
     <ul class="current">
@@ -294,8 +294,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="build-unreal-engine-and-carla-in-docker">Build Unreal Engine and CARLA in Docker</h1>
-<p>This guide explains how Unreal Engine and CARLA can be built from scratch using Docker. The resulting image can then used to create CARLA packages or to prepare assets for use in a CARLA package. This process should not be confused with the pre-built CARLA Docker image used to run CARLA on multiple servers or without a display. The documentation for that can be found <a href="../build_docker/">here</a>.</p>
+                <h1 id="build-unreal-engine-and-carla-in-docker">Build Unreal Engine and Carla in Docker</h1>
+<p>This guide explains how Unreal Engine and Carla can be built from scratch using Docker. The resulting image can then used to create Carla packages or to prepare assets for use in a Carla package. This process should not be confused with the pre-built Carla Docker image used to run Carla on multiple servers or without a display. The documentation for that can be found <a href="../build_docker/">here</a>.</p>
 <ul>
 <li><a href="#before-you-begin"><strong>Before you begin</strong></a><ul>
 <li><a href="#system-requirements"><strong>System Requirements</strong></a></li>
@@ -320,48 +320,48 @@
 <p><strong>Python</strong>: </p>
 <p>You will need to have Python 3.6 or higher installed and properly set in your system Path. For installation instructions and Python documentation, check <a href="https://www.python.org/downloads/">here</a>.</p>
 <p><strong>Unreal Engine GitHub Access</strong>:</p>
-<p>Starting with version 0.9.12, CARLA uses a modified fork of Unreal Engine 4.26. This fork contains patches specific to CARLA. This will be downloaded during the Docker build process. For this download, <strong>you need to have a GitHub account linked to Unreal Engine's account</strong>. If you don't have this set up, please follow <a href="https://www.unrealengine.com/en-US/ue4-on-github">this guide</a> before going any further. You will need to log in to your account during the build process.</p>
-<p><strong>CARLA:</strong></p>
-<p>The Dockerfiles and tools needed to build Unreal Engine for CARLA and CARLA itself are located in the <code>Util/Docker</code> directory of the CARLA source repository. </p>
+<p>Starting with version 0.9.12, Carla uses a modified fork of Unreal Engine 4.26. This fork contains patches specific to Carla. This will be downloaded during the Docker build process. For this download, <strong>you need to have a GitHub account linked to Unreal Engine's account</strong>. If you don't have this set up, please follow <a href="https://www.unrealengine.com/en-US/ue4-on-github">this guide</a> before going any further. You will need to log in to your account during the build process.</p>
+<p><strong>Carla:</strong></p>
+<p>The Dockerfiles and tools needed to build Unreal Engine for Carla and Carla itself are located in the <code>Util/Docker</code> directory of the Carla source repository. </p>
 <p>If you don't already have it, download the repository using the following command:</p>
 <pre><code class="language-sh">git clone https://github.com/carla-simulator/carla
 </code></pre>
 <hr />
 <h2 id="building-the-images">Building the images</h2>
 <p>The following steps will each take a long time.</p>
-<p><strong>1. Build the CARLA prerequisites image.</strong></p>
+<p><strong>1. Build the Carla prerequisites image.</strong></p>
 <p>The following command will build an image called <code>carla-prerequisites</code> using <code>Prerequisites.Dockerfile</code>. In this build we install the compiler and required tools, download the Unreal Engine 4.26 fork and compile it. You will need to provide your login details as build arguments for the download of Unreal Engine to be successful:</p>
 <pre><code class="language-sh">docker build --build-arg EPIC_USER=&lt;GitHubUserName&gt; --build-arg EPIC_PASS=&lt;GitHubPassword&gt; -t carla-prerequisites -f Prerequisites.Dockerfile .
 </code></pre>
-<p><strong>2. Build the final CARLA image.</strong></p>
-<p>The following command will use the image created in the previous step to build the final CARLA image based on the current master branch (latest release) of the CARLA repository:</p>
+<p><strong>2. Build the final Carla image.</strong></p>
+<p>The following command will use the image created in the previous step to build the final Carla image based on the current master branch (latest release) of the CARLA repository:</p>
 <pre><code class="language-sh">docker build -t carla -f Carla.Dockerfile .
 </code></pre>
-<p>If you would like to build a specific branch or tag of the CARLA repository, run the following command:</p>
+<p>If you would like to build a specific branch or tag of the Carla repository, run the following command:</p>
 <pre><code class="language-sh">docker build -t carla -f Carla.Dockerfile . --build-arg GIT_BRANCH=&lt;branch_or_tag_name&gt;
 </code></pre>
 <hr />
 <h2 id="next-steps-packages">Next Steps: Packages</h2>
-<p>The CARLA image created in this guide is used to create standalone CARLA packages or to package assets such as maps or meshes so they can be used in a CARLA package. This is achieved through the use of the <code>docker_tools.py</code> script found in <code>Util/Docker</code>. This script uses <a href="https://github.com/docker/docker-py"><code>docker-py</code></a> to work with the Docker image.</p>
+<p>The Carla image created in this guide is used to create standalone Carla packages or to package assets such as maps or meshes so they can be used in a Carla package. This is achieved through the use of the <code>docker_tools.py</code> script found in <code>Util/Docker</code>. This script uses <a href="https://github.com/docker/docker-py"><code>docker-py</code></a> to work with the Docker image.</p>
 <p>The <code>docker_tools.py</code> script can be used to:</p>
 <ul>
-<li><strong>Create a CARLA package</strong>: Find the tutorial <a href="../tuto_A_create_standalone/#export-a-package-using-docker">here</a></li>
-<li><strong>Cook assets to be consumed in a CARLA package:</strong> Find the tutorial <a href="../tuto_A_add_props/#ingestion-in-a-carla-package">here</a></li>
-<li><strong>Prepare a map so it's ready for use in a CARLA package:</strong> Find the tutorial <a href="../tuto_M_add_map_package/">here</a></li>
+<li><strong>Create a Carla package</strong>: Find the tutorial <a href="../tuto_A_create_standalone/#export-a-package-using-docker">here</a></li>
+<li><strong>Cook assets to be consumed in a Carla package:</strong> Find the tutorial <a href="../tuto_A_add_props/#ingestion-in-a-carla-package">here</a></li>
+<li><strong>Prepare a map so it's ready for use in a Carla package:</strong> Find the tutorial <a href="../tuto_M_add_map_package/">here</a></li>
 </ul>
 <hr />
-<p>Any issues or doubts related with this topic can be posted in the CARLA forum.</p>
+<p>Any issues or doubts related with this topic can be posted in the Carla forum.</p>
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA forum</a>
+Carla forum</a>
 </p>
 </div>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../tuto_G_retrieve_data/" class="btn btn-neutral float-left" title="检索模拟数据"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../tuto_G_retrieve_data/" class="btn btn-neutral float-left" title="检索仿真数据"><span class="icon icon-circle-arrow-left"></span> Previous</a>
         <a href="../tuto_A_add_vehicle/" class="btn btn-neutral float-right" title="添加新车辆">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 

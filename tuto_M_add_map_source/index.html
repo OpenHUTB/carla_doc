@@ -155,7 +155,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在CARLA包导入地图</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在 Carla 包导入地图</a>
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">在 Carla 源构建中导入地图</a>
     <ul class="current">
@@ -203,7 +203,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用 OpenStreetMap 生成地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索模拟数据</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索仿真数据</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎和 Carla</a>
                   </li>
@@ -289,7 +289,7 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="carla">从源代码构建的 Carla 中导入地图</h1>
-<p>本节描述从源代码构建的 Carla 中导入地图的过程。如果您使用 CARLA 的包（二进制）版本来导入地图，请按照 <a href="../tuto_M_add_map_package/">此处</a> 的指南进行操作。</p>
+<p>本节描述从源代码构建的 Carla 中导入地图的过程。如果您使用 Carla 的包（二进制）版本来导入地图，请按照 <a href="../tuto_M_add_map_package/">此处</a> 的指南进行操作。</p>
 <p>导入过程涉及通过将相关地图文件编译到包中来导入它们。然后可以在虚幻引擎编辑器中打开该包并进行自定义，然后生成行人导航文件并最终将其添加到包中。</p>
 <ul>
 <li><a href="#before-you-begin"><strong>在你开始之前</strong></a></li>
@@ -299,14 +299,14 @@
 <hr />
 <h2 id="_1">在你开始之前</h2>
 <ul>
-<li>确保您使用的是从源代码构建的 CARLA 版本。如果您使用的是 CARLA 的打包（二进制）版本，请按照 <a href="../tuto_M_add_map_package/">此处</a> 的教程进行操作。</li>
+<li>确保您使用的是从源代码构建的 Carla 版本。如果您使用的是 Carla 的打包（二进制）版本，请按照 <a href="../tuto_M_add_map_package/">此处</a> 的教程进行操作。</li>
 <li>您应该至少有两个文件，<code>&lt;mapName&gt;.xodr</code>和<code>&lt;mapName&gt;.fbx</code> ，是由地图编辑器（例如 RoadRunner）生成的。</li>
 <li>这些文件应具有相同的值<code>&lt;mapName&gt;</code>，以便被识别为相同的地图。</li>
 <li>您可以将多个地图提取到同一个包中。每张地图都应该有一个唯一的名称。</li>
 </ul>
 <hr />
 <h2 id="_2">地图导入</h2>
-<p><strong>1.</strong> 将需要导入的地图文件放入 CARLA 根目录下的<code>Import</code>文件夹中。</p>
+<p><strong>1.</strong> 将需要导入的地图文件放入 Carla 根目录下的<code>Import</code>文件夹中。</p>
 <p><strong>2.</strong> 运行以下命令来提取文件：</p>
 <pre><code class="language-sh">make import
 </code></pre>
@@ -317,7 +317,7 @@
 <pre><code class="language-sh">make import  ARGS=&quot;--package=&lt;package_name&gt;&quot;
 </code></pre>
 <ul>
-<li><code>--no-carla-materials</code> 指定您不想使用默认的 CARLA 材质（道路纹理等）。您将改用 RoadRunner 材料。<strong>仅当您不提供</strong> <a href="../tuto_M_manual_map_package/">自己的<code>.json</code>文件</a> 时才需要此标志。<code>.json</code>文件中的任何值都将覆盖此标志。通过运行以下命令来使用此标志：</li>
+<li><code>--no-carla-materials</code> 指定您不想使用默认的 Carla 材质（道路纹理等）。您将改用 RoadRunner 材料。<strong>仅当您不提供</strong> <a href="../tuto_M_manual_map_package/">自己的<code>.json</code>文件</a> 时才需要此标志。<code>.json</code>文件中的任何值都将覆盖此标志。通过运行以下命令来使用此标志：</li>
 </ul>
 <pre><code class="language-sh">make import  ARGS=&quot;--no-carla-materials&quot;
 </code></pre>
@@ -325,7 +325,7 @@
 <hr />
 <h2 id="_3">下一步</h2>
 <p>您现在可以在虚幻编辑器中打开地图并运行仿真。从这里，您将能够自定义地图并生成行人导航数据。我们建议在所有自定义完成后生成行人导航，这样就不会有障碍物阻挡行人路径。</p>
-<p>CARLA 提供了多种工具和指南来帮助自定义地图：</p>
+<p>Carla 提供了多种工具和指南来帮助自定义地图：</p>
 <ul>
 <li><a href="../tuto_M_custom_layers/">在地图中实现子关卡。</a></li>
 <li><a href="../tuto_M_custom_add_tl/">添加和配置交通灯和标志。</a></li>
@@ -341,7 +341,7 @@
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../tuto_M_add_map_package/" class="btn btn-neutral float-left" title="在CARLA包导入地图"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../tuto_M_add_map_package/" class="btn btn-neutral float-left" title="在 Carla 包导入地图"><span class="icon icon-circle-arrow-left"></span> Previous</a>
         <a href="../tuto_M_add_map_alternative/" class="btn btn-neutral float-right" title="导入地图的替代方法">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 

@@ -155,7 +155,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在CARLA包导入地图</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在 Carla 包导入地图</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 Carla 源构建中导入地图</a>
                   </li>
@@ -195,7 +195,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用 OpenStreetMap 生成地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索模拟数据</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索仿真数据</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎和 Carla</a>
                   </li>
@@ -281,9 +281,9 @@
               
                 <h1 id="_1">边界框</h1>
 <p>使自动驾驶车辆了解其环境的一个重要因素在于估计车辆周围物体的位置和方向。为此，有必要推断对象边界框的位置。</p>
-<p>CARLA 仿真中的对象都有一个边界框，并且 CARLA Python API 提供了访问每个对象的边界框的函数。本教程展示如何访问边界框，然后将它们投影到相机平面中。</p>
+<p>Carla 仿真中的对象都有一个边界框，并且 Carla Python API 提供了访问每个对象的边界框的函数。本教程展示如何访问边界框，然后将它们投影到相机平面中。</p>
 <h2 id="_2">设置仿真器</h2>
-<p>让我们编写标准 CARLA 样板代码，设置客户端和世界对象，生成车辆并为其附加相机：</p>
+<p>让我们编写标准 Carla 样板代码，设置客户端和世界对象，生成车辆并为其附加相机：</p>
 <pre><code class="language-py">import carla
 import math
 import random
@@ -366,7 +366,7 @@ fov = camera_bp.get_attribute(&quot;fov&quot;).as_float()
 K = build_projection_matrix(image_w, image_h, fov)
 </code></pre>
 <h2 id="_4">边界框</h2>
-<p>CARLA 对象都有一个关联的边界框。CARLA <a href="../python_api/#carla.Actor">参与者</a> 有一个 <code>bounding_box</code> 属性，该属性具有 <a href="../python_api/#carla.BoundingBox">carla.BoundingBox</a> 对象类型。边界框的顶点可以通过 getter 函数<code>.get_world_vertices()</code>或 <code>get_local_vertices()</code> 之一检索。</p>
+<p>Carla 对象都有一个关联的边界框。Carla <a href="../python_api/#carla.Actor">参与者</a> 有一个 <code>bounding_box</code> 属性，该属性具有 <a href="../python_api/#carla.BoundingBox">carla.BoundingBox</a> 对象类型。边界框的顶点可以通过 getter 函数<code>.get_world_vertices()</code>或 <code>get_local_vertices()</code> 之一检索。</p>
 <p>需要注意的是，要获取世界坐标中边界框的三维坐标，您需要将参与者的变换作为该<code>get_world_vertices()</code>方法的参数，如下所示：</p>
 <pre><code class="language-py">actor.get_world_vertices(actor.get_transform())
 

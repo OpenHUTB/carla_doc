@@ -155,7 +155,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在CARLA包导入地图</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在 Carla 包导入地图</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 Carla 源构建中导入地图</a>
                   </li>
@@ -195,7 +195,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用 OpenStreetMap 生成地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索模拟数据</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索仿真数据</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎和 Carla</a>
                   </li>
@@ -311,9 +311,9 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="how-to-add-a-new-sensor">How to add a new sensor</h1>
-<p>This tutorial explains the basics for adding a new sensor to CARLA. It provides
+<p>This tutorial explains the basics for adding a new sensor to Carla. It provides
 the necessary steps to implement a sensor in Unreal Engine 4 (UE4) and expose
-its data via CARLA's Python API. We'll follow all the steps by creating a new
+its data via Carla's Python API. We'll follow all the steps by creating a new
 sensor as an example.</p>
 <ul>
 <li><a href="#prerequisites"><strong>Prerequisites</strong></a>  </li>
@@ -335,13 +335,13 @@ sensor as an example.</p>
 </ul>
 <hr />
 <h2 id="prerequisites">Prerequisites</h2>
-<p>In order to implement a new sensor, you'll need to compile CARLA source code,
+<p>In order to implement a new sensor, you'll need to compile Carla source code,
 for detailed instructions on how to achieve this see
 <a href="../build_linux/">Building from source</a>.</p>
 <p>This tutorial also assumes the reader is fluent in C++ programming.</p>
 <hr />
 <h2 id="introduction">Introduction</h2>
-<p>Sensors in CARLA are a special type of actor that produce a stream of data. Some
+<p>Sensors in Carla are a special type of actor that produce a stream of data. Some
 sensors produce data continuously, every time the sensor is updated, other
 produce data only after certain events. For instance, a camera produces an image
 on every update, but a collision sensor is only triggered in the event of a
@@ -702,7 +702,7 @@ the following pair to the registry</p>
 </code></pre>
 <p>With this, the sensor registry now can do its magic to dispatch the right data
 to the right serializer.</p>
-<p>Now recompile CARLA, hopefully everything goes ok and no errors. Unfortunately,
+<p>Now recompile Carla, hopefully everything goes ok and no errors. Unfortunately,
 most of the errors here will be related to templates and the error messages can
 be a bit cryptic.</p>
 <pre><code>make rebuild

@@ -175,7 +175,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在CARLA包导入地图</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在 Carla 包导入地图</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 Carla 源构建中导入地图</a>
                   </li>
@@ -215,7 +215,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用 OpenStreetMap 生成地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索模拟数据</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索仿真数据</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎和 Carla</a>
                   </li>
@@ -322,8 +322,8 @@
 </ul>
 <h3 id="_2">支持</h3>
 <ul>
-<li><strong>Linux</strong> — CARLA 0.9.6, 0.9.7, 0.9.8, 0.9.9, 0.9.10.  </li>
-<li><strong>Windows</strong> — CARLA 0.9.9, 0.9.10.  </li>
+<li><strong>Linux</strong> — Carla 0.9.6, 0.9.7, 0.9.8, 0.9.9, 0.9.10.  </li>
+<li><strong>Windows</strong> — Carla 0.9.9, 0.9.10.  </li>
 <li><strong>从源代码构建</strong> — 最新更新。</li>
 </ul>
 <hr />
@@ -331,11 +331,11 @@
 <h3 id="_3">先决条件</h3>
 <ul>
 <li><strong>Docker</strong> — 访问文档并 <a href="https://docs.docker.com/get-docker/">安装 Docker</a>.  </li>
-<li><strong>操作系统</strong> — 任何能够运行 CARLA 的操作系统都应该可以工作。</li>
+<li><strong>操作系统</strong> — 任何能够运行 Carla 的操作系统都应该可以工作。</li>
 <li><strong>Websocket-client</strong> — <code>pip3 install websocket_client</code>。如果系统中尚未安装 <a href="https://pip.pypa.io/en/stable/installing/">pip</a> 。  </li>
 </ul>
 <h3 id="_4">下载插件</h3>
-<p>打开终端并根据要运行的 CARLA 版本拉取 carlaviz 的 Docker 映像。</p>
+<p>打开终端并根据要运行的 Carla 版本拉取 carlaviz 的 Docker 映像。</p>
 <pre><code class="language-bash"># 仅拉取和所使用的Carla包匹配的镜像。
 docker pull mjxu96/carlaviz:0.9.6
 docker pull mjxu96/carlaviz:0.9.7
@@ -350,7 +350,7 @@ docker pull mjxu96/carlaviz:latest
 <p class="admonition-title">重要</p>
 <p>目前在 Windows 中仅支持 0.9.9 和 0.9.10。</p>
 </div>
-<p>CARLA 至 0.9.9（包含）设置为单流。对于更高版本，实现了传感器的多流。 </p>
+<p>Carla 至 0.9.9（包含）设置为单流。对于更高版本，实现了传感器的多流。 </p>
 <ul>
 <li>
 <p><strong>在单流中</strong>, 一个传感器只能被一个客户端听到。当另一个客户端已经听到传感器时，例如在运行 <code>manual_control.py</code> 时，carlaviz 被迫复制传感器以检索数据，并且性能可能会受到影响。 </p>
@@ -365,13 +365,13 @@ docker pull mjxu96/carlaviz:latest
 </div>
 <hr />
 <h2 id="carlaviz_2">运行 carlaviz</h2>
-<p><strong>1. 运行 CARLA。</strong></p>
+<p><strong>1. 运行 Carla。</strong></p>
 <ul>
 <li>
-<p><strong>a) 在 CARLA 包中</strong> — 转至 CARLA 文件夹并使用 <code>CarlaUE4.exe</code>(Windows) 或<code>./CarlaUE4.sh</code>(Linux) 启动仿真。  </p>
+<p><strong>a) 在 Carla 包中</strong> — 转至 Carla 文件夹并使用 <code>CarlaUE4.exe</code>(Windows) 或<code>./CarlaUE4.sh</code>(Linux) 启动仿真。  </p>
 </li>
 <li>
-<p><strong>b) 在从源代码构建的包中</strong> — 转到 CARLA 文件夹，使用 <code>make launch</code> 运行虚幻编辑器，并按<code>Play</code>。</p>
+<p><strong>b) 在从源代码构建的包中</strong> — 转到 Carla 文件夹，使用 <code>make launch</code> 运行虚幻编辑器，并按<code>Play</code>。</p>
 </li>
 </ul>
 <p><strong>2. 运行 carlaviz.</strong> 根据已下载的 Docker 镜像，在另一个终端中运行以下命令。</p>
@@ -457,7 +457,7 @@ python3 manual_control.py
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA 论坛</a>
+Carla 论坛</a>
 </p>
 </div>
               

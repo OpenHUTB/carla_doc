@@ -1347,7 +1347,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在CARLA包导入地图</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在 Carla 包导入地图</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 Carla 源构建中导入地图</a>
                   </li>
@@ -1387,7 +1387,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用 OpenStreetMap 生成地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索模拟数据</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索仿真数据</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎和 Carla</a>
                   </li>
@@ -1473,7 +1473,7 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="python-api">Python API 参考</h1>
-<p>此参考包含 Python API 的所有详细信息。要查阅特定 CARLA 版本的先前参考，请使用右下角的面板更改文档版本。<br>这会将整个文档更改为之前的状态。请记住， <i>最新</i> 版本是 <code>dev</code> 分支，可能会显示任何 CARLA 打包版本中不可用的功能。<hr>  </p>
+<p>此参考包含 Python API 的所有详细信息。要查阅特定 Carla 版本的先前参考，请使用右下角的面板更改文档版本。<br>这会将整个文档更改为之前的状态。请记住， <i>最新</i> 版本是 <code>dev</code> 分支，可能会显示任何 Carla 打包版本中不可用的功能。<hr>  </p>
 <h2 id="carlaackermanncontrollersettings">carla.AckermannControllerSettings<a name="carla.AckermannControllerSettings"></a></h2>
 <p>管理 Ackermann PID 控制器的设置。</p>
 <h3 id="_1">实例变量</h3>
@@ -1514,7 +1514,7 @@
 </ul>
 <hr />
 <h2 id="carlaactor">carla.Actor<a name="carla.Actor"></a></h2>
-<p>CARLA 将参与者定义为在仿真中发挥作用或可以移动的任何物体。其中包括：行人、车辆、传感器和交通标志（将交通灯视为其中的一部分）。参与者在仿真中由 <a href="#carla.World">carla.World</a> 生成，并且需要创建 <a href="#carla.ActorBlueprint">carla.ActorBlueprint</a> 。这些蓝图属于 CARLA 提供的库，请在 <a href="../bp_library/">此处</a> 找到有关它们的更多信息。</p>
+<p>Carla 将参与者定义为在仿真中发挥作用或可以移动的任何物体。其中包括：行人、车辆、传感器和交通标志（将交通灯视为其中的一部分）。参与者在仿真中由 <a href="#carla.World">carla.World</a> 生成，并且需要创建 <a href="#carla.ActorBlueprint">carla.ActorBlueprint</a> 。这些蓝图属于 Carla 提供的库，请在 <a href="../bp_library/">此处</a> 找到有关它们的更多信息。</p>
 <h3 id="_3">实例变量</h3>
 <ul>
 <li><a name="carla.Actor.attributes"></a><strong><font color="#f8805a">attributes</font></strong> (<em>dict</em>)<br />
@@ -1575,7 +1575,7 @@
 <li><a name="carla.Actor.destroy"></a><strong><font color="#7fb800">destroy</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
 告诉仿真器销毁这个参与者，如果成功则 <b>True</b> 。如果已经被破坏则没有任何效果。<ul>
 <li><strong>返回:</strong> <em>bool</em>  </li>
-<li><strong>警告:</strong> <font color="#ED2F2F"><em>T此方法会阻止脚本，直到模拟器完成销毁为止。
+<li><strong>警告:</strong> <font color="#ED2F2F"><em>T此方法会阻止脚本，直到仿真器完成销毁为止。
 </em></font>  </li>
 </ul>
 </li>
@@ -1688,7 +1688,7 @@
 </ul>
 <hr />
 <h2 id="carlaactorattribute">carla.ActorAttribute<a name="carla.ActorAttribute"></a></h2>
-<p>CARLA 为参与者提供了一个蓝图库，可以通过 <a href="#carla.BlueprintLibrary">carla.BlueprintLibrary</a> 进行访问。每个蓝图都有一系列内部定义的属性。其中一些是可以修改的，另一些则是不可修改的。为可设置的值提供了推荐值列表。  </p>
+<p>Carla 为参与者提供了一个蓝图库，可以通过 <a href="#carla.BlueprintLibrary">carla.BlueprintLibrary</a> 进行访问。每个蓝图都有一系列内部定义的属性。其中一些是可以修改的，另一些则是不可修改的。为可设置的值提供了推荐值列表。  </p>
 <h3 id="_7">实例变量</h3>
 <ul>
 <li><a name="carla.ActorAttribute.id"></a><strong><font color="#f8805a">id</font></strong> (<em>str</em>)<br />
@@ -1737,7 +1737,7 @@
 </ul>
 <hr />
 <h2 id="carlaactorattributetype">carla.ActorAttributeType<a name="carla.ActorAttributeType"></a></h2>
-<p>CARLA 在 <a href="#carla.BlueprintLibrary">carla.BlueprintLibrary</a> 中为参与者提供了一个蓝图库，每个蓝图具有不同的属性。此类将 <a href="#carla.ActorAttribute">carla.ActorAttribute</a> 中的类型定义为一系列枚举。所有这些信息均在内部管理，并在此处列出，以便更好地理解 CARLA 的工作原理。 </p>
+<p>Carla 在 <a href="#carla.BlueprintLibrary">carla.BlueprintLibrary</a> 中为参与者提供了一个蓝图库，每个蓝图具有不同的属性。此类将 <a href="#carla.ActorAttribute">carla.ActorAttribute</a> 中的类型定义为一系列枚举。所有这些信息均在内部管理，并在此处列出，以便更好地理解 Carla 的工作原理。 </p>
 <h3 id="_9">实例变量</h3>
 <ul>
 <li><a name="carla.ActorAttributeType.Bool"></a><strong><font color="#f8805a">Bool</font></strong>  </li>
@@ -1748,7 +1748,7 @@
 </ul>
 <hr />
 <h2 id="carlaactorblueprint">carla.ActorBlueprint<a name="carla.ActorBlueprint"></a></h2>
-<p>CARLA 为 Actor 提供了一个蓝图库，可以通过 <a href="#carla.BlueprintLibrary">carla.BlueprintLibrary</a>进行查阅。其中每一个都包含蓝图的标识符和一系列可以修改或不可修改的属性。该类是库和参与者创建之间的中间步骤。参与者需要一个参与者蓝图才能产生。这些将所述蓝图的信息及其属性和一些标签存储在对象中以对其进行分类。然后，用户可以自定义一些属性并最终通过 <a href="#carla.World">carla.World</a>生成参与者。  </p>
+<p>Carla 为 Actor 提供了一个蓝图库，可以通过 <a href="#carla.BlueprintLibrary">carla.BlueprintLibrary</a>进行查阅。其中每一个都包含蓝图的标识符和一系列可以修改或不可修改的属性。该类是库和参与者创建之间的中间步骤。参与者需要一个参与者蓝图才能产生。这些将所述蓝图的信息及其属性和一些标签存储在对象中以对其进行分类。然后，用户可以自定义一些属性并最终通过 <a href="#carla.World">carla.World</a>生成参与者。  </p>
 <h3 id="_10">实例变量</h3>
 <ul>
 <li><a name="carla.ActorBlueprint.id"></a><strong><font color="#f8805a">id</font></strong> (<em>str</em>)<br />
@@ -1916,7 +1916,7 @@ Parses to the ID for every actor listed.  <ul>
 <li><a name="carla.AttachmentType.Rigid"></a><strong><font color="#f8805a">Rigid</font></strong><br />
 通过此固定附件，对象严格遵循其父位置。这是推荐的附件，用于从仿真中检索精确数据。  </li>
 <li><a name="carla.AttachmentType.SpringArm"></a><strong><font color="#f8805a">SpringArm</font></strong><br />
-一种附件，可根据其父级扩展或缩回参与者的位置。仅建议在需要平滑运动的模拟中录制视频时使用此附件。SpringArms 是一个虚幻引擎组件，因此 <a href="https://docs.unrealengine.com/en-US/Gameplay/HowTo/UsingCameras/SpringArmComponents/index.html">check the UE 文档</a> 以了解有关它们的更多信息。 <br><b style="color:red;">警告：</b> The <b>SpringArm</b> attachment presents weird behaviors when an actor is spawned with a relative translation in the Z-axis (e.g. <code>child_location = Location(0,0,2)</code>).  </li>
+一种附件，可根据其父级扩展或缩回参与者的位置。仅建议在需要平滑运动的仿真中录制视频时使用此附件。SpringArms 是一个虚幻引擎组件，因此 <a href="https://docs.unrealengine.com/en-US/Gameplay/HowTo/UsingCameras/SpringArmComponents/index.html">check the UE 文档</a> 以了解有关它们的更多信息。 <br><b style="color:red;">警告：</b> The <b>SpringArm</b> attachment presents weird behaviors when an actor is spawned with a relative translation in the Z-axis (e.g. <code>child_location = Location(0,0,2)</code>).  </li>
 <li><a name="carla.AttachmentType.SpringArmGhost"></a><strong><font color="#f8805a">SpringArmGhost</font></strong><br />
 An attachment like the previous one but that does not make the collision test, and that means that it does not expands or retracts the position of the actor. The term <strong>ghost</strong> is because then the camera can cross walls and other geometries. This attachment is only recommended to record videos from the simulation where a smooth movement is needed. SpringArms are an Unreal Engine component so <a href="https://docs.unrealengine.com/en-US/Gameplay/HowTo/UsingCameras/SpringArmComponents/index.html">check the UE docs</a> to learn more about them. <br><b style="color:red;">Warning:</b> The <b>SpringArm</b> attachment presents weird behaviors when an actor is spawned with a relative translation in the Z-axis (e.g. <code>child_location = Location(0,0,2)</code>).  </li>
 </ul>
@@ -2076,15 +2076,15 @@ Parses the location and extent of the bounding box to string.  <ul>
 </ul>
 <hr />
 <h2 id="carlaclient">carla.Client<a name="carla.Client"></a></h2>
-<p>客户端将 CARLA 连接到运行仿真的服务器。服务器和客户端都包含 CARLA 库 (libcarla)，但存在一些差异，允许它们之间进行通信。可以创建许多客户端，每个客户端都会连接到模拟内的 RPC 服务器以发送命令。仿真在服务器端运行。一旦建立连接，客户端将仅接收从仿真检索的数据。步行者是例外。客户端负责管理行人，因此，如果您与多个客户端一起运行模拟，可能会出现一些问题。例如，如果您通过不同的客户端生成步行者，则可能会发生冲突，因为每个客户端只知道它负责的客户端。</p>
-<p>客户端还具有记录功能，可以在运行模拟时保存模拟的所有信息。这使得服务器可以随意重放以获取信息并进行实验。<a href="../adv_recorder/">以下</a> 是有关如何使用此录音机的一些信息。 </p>
+<p>客户端将 Carla 连接到运行仿真的服务器。服务器和客户端都包含 Carla 库 (libcarla)，但存在一些差异，允许它们之间进行通信。可以创建许多客户端，每个客户端都会连接到仿真内的 RPC 服务器以发送命令。仿真在服务器端运行。一旦建立连接，客户端将仅接收从仿真检索的数据。步行者是例外。客户端负责管理行人，因此，如果您与多个客户端一起运行仿真，可能会出现一些问题。例如，如果您通过不同的客户端生成步行者，则可能会发生冲突，因为每个客户端只知道它负责的客户端。</p>
+<p>客户端还具有记录功能，可以在运行仿真时保存仿真的所有信息。这使得服务器可以随意重放以获取信息并进行实验。<a href="../adv_recorder/">以下</a> 是有关如何使用此录音机的一些信息。 </p>
 <h3 id="_24">方法</h3>
 <ul>
 <li><a name="carla.Client.__init__"></a><strong><font color="#7fb800">__init__</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>host</strong>=127.0.0.1</font>, <font color="#00a6ed"><strong>port</strong>=2000</font>, <font color="#00a6ed"><strong>worker_threads</strong>=0</font>)<button class="SnipetButton" id="carla.Client.__init__-snipet_button">snippet &rarr;</button><br />
 Client constructor.  <ul>
 <li><strong>参数：</strong><ul>
-<li><code>host</code> (<em>str</em>) - IP address where a CARLA Simulator instance is running. Default is localhost (127.0.0.1).  </li>
-<li><code>port</code> (<em>int</em>) - TCP port where the CARLA Simulator instance is running. Default are 2000 and the subsequent 2001.  </li>
+<li><code>host</code> (<em>str</em>) - IP address where a Carla Simulator instance is running. Default is localhost (127.0.0.1).  </li>
+<li><code>port</code> (<em>int</em>) - TCP port where the Carla Simulator instance is running. Default are 2000 and the subsequent 2001.  </li>
 <li><code>worker_threads</code> (<em>int</em>) - Number of working threads used for background updates. If 0, use all available concurrency.  </li>
 </ul>
 </li>
@@ -2425,7 +2425,7 @@ Iterate over the <a href="#carla.DVSEvent">carla.DVSEvent</a> retrieved as data.
 </ul>
 <hr />
 <h2 id="carladebughelper">carla.DebugHelper<a name="carla.DebugHelper"></a></h2>
-<p>Helper class part of <a href="#carla.World">carla.World</a> that defines methods for creating debug shapes. By default, shapes last one second. They can be permanent, but take into account the resources needed to do so. Take a look at the snipets available for this class to learn how to debug easily in CARLA.  </p>
+<p>Helper class part of <a href="#carla.World">carla.World</a> that defines methods for creating debug shapes. By default, shapes last one second. They can be permanent, but take into account the resources needed to do so. Take a look at the snipets available for this class to learn how to debug easily in Carla.  </p>
 <h3 id="methods_4">Methods</h3>
 <ul>
 <li><a name="carla.DebugHelper.draw_arrow"></a><strong><font color="#7fb800">draw_arrow</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>begin</strong></font>, <font color="#00a6ed"><strong>end</strong></font>, <font color="#00a6ed"><strong>thickness</strong>=0.1</font>, <font color="#00a6ed"><strong>arrow_size</strong>=0.1</font>, <font color="#00a6ed"><strong>color</strong>=(255,0,0)</font>, <font color="#00a6ed"><strong>life_time</strong>=-1.0</font>)<br />
@@ -3444,7 +3444,7 @@ Parses the axis' values to string.  <ul>
 </ul>
 <hr />
 <h2 id="carlamap">carla.Map<a name="carla.Map"></a></h2>
-<p>Class containing the road information and waypoint managing. Data is retrieved from an OpenDRIVE file that describes the road. A query system is defined which works hand in hand with <a href="#carla.Waypoint">carla.Waypoint</a> to translate geometrical information from the .xodr to natural world points. CARLA is currently working with <a href="http://www.opendrive.org/docs/OpenDRIVEFormatSpecRev1.4H.pdf">OpenDRIVE 1.4 standard</a>.  </p>
+<p>Class containing the road information and waypoint managing. Data is retrieved from an OpenDRIVE file that describes the road. A query system is defined which works hand in hand with <a href="#carla.Waypoint">carla.Waypoint</a> to translate geometrical information from the .xodr to natural world points. Carla is currently working with <a href="http://www.opendrive.org/docs/OpenDRIVEFormatSpecRev1.4H.pdf">OpenDRIVE 1.4 standard</a>.  </p>
 <h3 id="instance-variables_30">Instance Variables</h3>
 <ul>
 <li><a name="carla.Map.name"></a><strong><font color="#f8805a">name</font></strong> (<em>str</em>)<br />
@@ -3996,7 +3996,7 @@ Detailed RSS situations extracted from the world model.  </li>
 </ul>
 <hr />
 <h2 id="carlarssrestrictor">carla.RssRestrictor<a name="carla.RssRestrictor"></a></h2>
-<p>These objects apply restrictions to a <a href="#carla.VehicleControl">carla.VehicleControl</a>. It is part of the CARLA implementation of the <a href="https://github.com/intel/ad-rss-lib">C++ Library for Responsibility Sensitive Safety</a>. This class works hand in hand with a <a href="../ref_sensors/#rss-sensor">rss sensor</a>, which provides the data of the restrictions to be applied.  </p>
+<p>These objects apply restrictions to a <a href="#carla.VehicleControl">carla.VehicleControl</a>. It is part of the Carla implementation of the <a href="https://github.com/intel/ad-rss-lib">C++ Library for Responsibility Sensitive Safety</a>. This class works hand in hand with a <a href="../ref_sensors/#rss-sensor">rss sensor</a>, which provides the data of the restrictions to be applied.  </p>
 <h3 id="methods_34">Methods</h3>
 <ul>
 <li><a name="carla.RssRestrictor.restrict_vehicle_control"></a><strong><font color="#7fb800">restrict_vehicle_control</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>vehicle_control</strong></font>, <font color="#00a6ed"><strong>proper_response</strong></font>, <font color="#00a6ed"><strong>ego_dynamics_on_route</strong></font>, <font color="#00a6ed"><strong>vehicle_physics</strong></font>)<br />
@@ -6134,7 +6134,7 @@ The method will create, return and spawn an actor into the world. The actor will
 </ul>
 </li>
 <li><strong>返回：</strong> <em>int</em>  </li>
-<li><strong>注意：</strong> <font color="#8E8E8E"><em>如果在同步模式下没有收到滴答信号，模拟将冻结。此外，如果从不同的客户端接收到许多滴答信号，则可能存在同步问题。请阅读有关 <a href="https://[carla.readthedocs.io](#carla.readthedocs.io)/en/latest/adv_synchrony_timestep/">同步模式</a> 的文档以了解更多信息。<br />
+<li><strong>注意：</strong> <font color="#8E8E8E"><em>如果在同步模式下没有收到滴答信号，仿真将冻结。此外，如果从不同的客户端接收到许多滴答信号，则可能存在同步问题。请阅读有关 <a href="https://[carla.readthedocs.io](#carla.readthedocs.io)/en/latest/adv_synchrony_timestep/">同步模式</a> 的文档以了解更多信息。<br />
 </em></font>  </li>
 </ul>
 </li>

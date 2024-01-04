@@ -52,23 +52,23 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">第一步</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#launching-carla-and-connecting-the-client">Launching CARLA and connecting the client</a>
+    <li class="toctree-l2"><a class="reference internal" href="#carla_1">启动 Carla 并连接客户端</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#loading-a-map">Loading a map</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_1">加载地图</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#spectator-navigation">Spectator navigation</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">观察者导航</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#adding-npcs">Adding NPCs</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">添加非玩家角色</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#add-sensors">Add sensors</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">添加传感器</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#animate-vehicles-with-traffic-manager">Animate vehicles with traffic manager</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_5">使用交通管理器模拟车辆</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#assign-a-vehicle-as-the-ego-vehicle">Assign a vehicle as the Ego Vehicle</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_6">将车辆分配为自我车辆</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#choose-your-map">Choose your map</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_7">选择你的地图</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#choose-your-vehicles">Choose your vehicles</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_8">选择你的车辆</a>
     </li>
     </ul>
                   </li>
@@ -175,7 +175,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在CARLA包导入地图</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在 Carla 包导入地图</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 Carla 源构建中导入地图</a>
                   </li>
@@ -215,7 +215,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用 OpenStreetMap 生成地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索模拟数据</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索仿真数据</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎和 Carla</a>
                   </li>
@@ -300,12 +300,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="first-steps-with-carla">First steps with Carla</h1>
-<p>The Carla simulator is a comprehensive solution for producing synthetic training data for applications in autonomous driving (AD) and also other robotics applications. CARLA simulates a highly realistic environment emulating real world towns, cities and highways and the vehicles and other objects that occupy these driving spaces. </p>
-<p>The CARLA simulator is further useful as an evaluation and testing environment. You can deploy the AD agents you have trained within the simulation to test and evaluate their performance and safety, all within the security of a simulated environment, with no risk to hardware or other road users.</p>
-<p>In this tutorial, we will cover a standard workflow in CARLA, from launching the server and connecting the client, through to adding vehicles, sensors and generating training data to use for machine learning. This tutorial is meant to be light on details and go as efficiently as possible through the key steps in using CARLA to produce machine learning training data. For further details on each part of the workflow, such as the multitude of vehicles available in the blueprint library or the alternative types of sensors available, please consult the links in the text or browse the left menu. </p>
+                <h1 id="carla">学习 Carla 的第一步</h1>
+<p>The Carla simulator is a comprehensive solution for producing synthetic training data for applications in autonomous driving (AD) and also other robotics applications. Carla simulates a highly realistic environment emulating real world towns, cities and highways and the vehicles and other objects that occupy these driving spaces. </p>
+<p>The Carla simulator is further useful as an evaluation and testing environment. You can deploy the AD agents you have trained within the simulation to test and evaluate their performance and safety, all within the security of a simulated environment, with no risk to hardware or other road users.</p>
+<p>In this tutorial, we will cover a standard workflow in Carla, from launching the server and connecting the client, through to adding vehicles, sensors and generating training data to use for machine learning. This tutorial is meant to be light on details and go as efficiently as possible through the key steps in using Carla to produce machine learning training data. For further details on each part of the workflow, such as the multitude of vehicles available in the blueprint library or the alternative types of sensors available, please consult the links in the text or browse the left menu. </p>
 <ul>
-<li><a href="#Launching-carla-and-connecting-the-client"><strong>Launching CARLA</strong></a>  </li>
+<li><a href="#Launching-carla-and-connecting-the-client"><strong>Launching Carla</strong></a>  </li>
 <li><a href="#loading-a-map"><strong>Loading a map</strong></a> </li>
 <li><a href="#spectator-navigation"><strong>Spectator navigation</strong></a>  </li>
 <li><a href="#adding-npcs"><strong>Adding NPCs</strong></a>  </li>
@@ -315,12 +315,12 @@
 <li><a href="#choose-your-map"><strong>Choose your map</strong></a> </li>
 <li><a href="#choose-your-vehicles"><strong>Choose your vehicles</strong></a> </li>
 </ul>
-<h2 id="launching-carla-and-connecting-the-client">Launching CARLA and connecting the client</h2>
-<p>CARLA can be launched using the command line using the executable in Windows or the shell script in Linux. Follow the installation instructions for <a href="../start_quickstart/"><strong>Linux</strong></a> and <a href="../start_quickstart/"><strong>Windows</strong></a> then <a href="../start_quickstart/#running-carla"><strong>launch CARLA</strong></a> from the command line:</p>
+<h2 id="carla_1">启动 Carla 并连接客户端</h2>
+<p>Carla can be launched using the command line using the executable in Windows or the shell script in Linux. Follow the installation instructions for <a href="../start_quickstart/"><strong>Linux</strong></a> and <a href="../start_quickstart/"><strong>Windows</strong></a> then <a href="../start_quickstart/#running-carla"><strong>launch Carla</strong></a> from the command line:</p>
 <pre><code class="language-sh">cd /carla/root
 ./CarlaUE4.sh
 </code></pre>
-<p>To manipulate CARLA through the Python API, we need to connect the Python client to the server through an open port. The client controls the simulator through the <a href="../foundations/#world-and-client"><strong>client and world objects</strong></a> Open a Python notebook or create a new script, then add the following code to the start of the script or the main function:</p>
+<p>To manipulate Carla through the Python API, we need to connect the Python client to the server through an open port. The client controls the simulator through the <a href="../foundations/#world-and-client"><strong>client and world objects</strong></a> Open a Python notebook or create a new script, then add the following code to the start of the script or the main function:</p>
 <pre><code class="language-py">import carla
 import random
 
@@ -330,22 +330,22 @@ world = client.get_world()
 
 </code></pre>
 <p>The <a href="python_api#carlaclient"><strong>client</strong></a> object serves to maintain the client's connection to the server and has a number of functions for applying commands and loading or exporting data. We can load an alternative map or reload the current one (resetting to initial state) using the client object.</p>
-<p>The port can be chosen as any available port and is set to 2000 by default, you can also choose a host different from <em>localhost</em> by using a computer's IP address. This way, the CARLA server can be run on a networked machine, while the python client can be run from a personal computer. This is particularly useful for differentiating the GPU used for running the CARLA simulator and that used for neural network training, both of which can be highly demanding on graphics hardware.</p>
+<p>The port can be chosen as any available port and is set to 2000 by default, you can also choose a host different from <em>localhost</em> by using a computer's IP address. This way, the Carla server can be run on a networked machine, while the python client can be run from a personal computer. This is particularly useful for differentiating the GPU used for running the Carla simulator and that used for neural network training, both of which can be highly demanding on graphics hardware.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The following presumes that CARLA is running in the default <a href="../adv_synchrony_timestep/"><strong>asynchronous</strong></a> mode. If you have engaged synchronous mode, some of the code in the following sections might not work as expected.</p>
+<p>The following presumes that Carla is running in the default <a href="../adv_synchrony_timestep/"><strong>asynchronous</strong></a> mode. If you have engaged synchronous mode, some of the code in the following sections might not work as expected.</p>
 </div>
-<h2 id="loading-a-map">Loading a map</h2>
-<p>In the CARLA API, the <a href="../python_api/#carla.World"><strong>world</strong></a> object provides access to all elements of the simulation, including the map, objects within the map, such as buildings, traffic lights, vehicles and pedestrians. The CARLA server normally loads a default map (normally Town10). If you want to launch CARLA with an alternate map, use the <code>config.py</code> script:</p>
+<h2 id="_1">加载地图</h2>
+<p>In the Carla API, the <a href="../python_api/#carla.World"><strong>world</strong></a> object provides access to all elements of the simulation, including the map, objects within the map, such as buildings, traffic lights, vehicles and pedestrians. The Carla server normally loads a default map (normally Town10). If you want to launch Carla with an alternate map, use the <code>config.py</code> script:</p>
 <pre><code class="language-sh">./config.py --map Town05 
 </code></pre>
 <p>We can also use the world object to load a map from the client:</p>
 <pre><code class="language-py">client.load_world('Town05')
 
 </code></pre>
-<p>Please find more information about CARLA maps <a href="../core_map/"><strong>here</strong></a>.</p>
-<h2 id="spectator-navigation">Spectator navigation</h2>
-<p>The spectator is a view into the simulation. By default, the spectator opens in a new window when you run the CARLA server on a computer with a screen attached, unless you specify the <code>-RenderOffScreen</code> command line option. </p>
+<p>Please find more information about Carla maps <a href="../core_map/"><strong>here</strong></a>.</p>
+<h2 id="_2">观察者导航</h2>
+<p>The spectator is a view into the simulation. By default, the spectator opens in a new window when you run the Carla server on a computer with a screen attached, unless you specify the <code>-RenderOffScreen</code> command line option. </p>
 <p>The spectator is helpful to visualize your simulation. Using the spectator, you can familiarize yourself with the map you've loaded, and see the result of any changes you are making, such as adding vehicles, changing the weather, turning on/off various layers of the map and for debugging purposes. </p>
 <p>You can fly the spectator around the world using the mouse to control the pitch and yaw of the spectator view and the QWE-ASD keys to move the spectator:</p>
 <ul>
@@ -378,13 +378,13 @@ spectator.set_transform(carla.Transform())
 # pitch, yaw and roll - a good way to orient yourself in the map
 
 </code></pre>
-<h2 id="adding-npcs">Adding NPCs</h2>
+<h2 id="_3">添加非玩家角色</h2>
 <p>Now we've loaded the map and the server is up and running we now need to populate our simulation with some vehicles to simulate a real environment with traffic and other road users or non-player characters (NPCs).</p>
 <p>To spawn vehicles, first, we need to select the vehicles we want from the blueprint library. </p>
 <pre><code class="language-py"># Get the blueprint library and filter for the vehicle blueprints
 vehicle_blueprints = world.get_blueprint_library().filter('*vehicle*')
 </code></pre>
-<p>Now we have the blueprints, we need to find some appropriate spots in the map to spawn our vehicles. Each CARLA map provides pre-defined spawn points spread evenly throughout the map on the roads for this purpose.</p>
+<p>Now we have the blueprints, we need to find some appropriate spots in the map to spawn our vehicles. Each Carla map provides pre-defined spawn points spread evenly throughout the map on the roads for this purpose.</p>
 <pre><code class="language-py"># Get the map's spawn points
 spawn_points = world.get_map().get_spawn_points()
 
@@ -393,12 +393,12 @@ spawn_points = world.get_map().get_spawn_points()
 for i in range(0,50):
     world.try_spawn_actor(random.choice(vehicle_blueprints), random.choice(spawn_points))
 </code></pre>
-<p>Now we should also add a vehicle that will be the centerpoint of our simulation. To train an autonomous agent we need to simulate a the vehicle that it the autonomous agent will control. In CARLA parlance, we often refer to this vehicle as the "Ego vehicle". </p>
+<p>Now we should also add a vehicle that will be the centerpoint of our simulation. To train an autonomous agent we need to simulate a the vehicle that it the autonomous agent will control. In Carla parlance, we often refer to this vehicle as the "Ego vehicle". </p>
 <pre><code class="language-py">ego_vehicle = world.spawn_actor(random.choice(vehicle_blueprints), random.choice(spawn_points))
 </code></pre>
-<p>In addition to vehicles, CARLA also provides pedestrians to add to simulations to simulate realistic driving scenarios. Vehicles and pedestrians are referred to as <strong>actors</strong> in the CARLA parlance, learn more about them <a href="../core_actors/"><strong>here</strong></a>.</p>
-<h2 id="add-sensors">Add sensors</h2>
-<p>Modern autonomous vehicles understand and interpret their environment through an array of attached sensors. These sensors include things such as optical video cameras, optical flow cameras, LIDARs, RADARs and accelerometers. CARLA has models of numerous types of sensors built in to create training data for machine learning. The sensors can be attached to a vehicle, or they can be attached to a fixed point to model for example a CCTV camera.</p>
+<p>In addition to vehicles, Carla also provides pedestrians to add to simulations to simulate realistic driving scenarios. Vehicles and pedestrians are referred to as <strong>actors</strong> in the Carla parlance, learn more about them <a href="../core_actors/"><strong>here</strong></a>.</p>
+<h2 id="_4">添加传感器</h2>
+<p>Modern autonomous vehicles understand and interpret their environment through an array of attached sensors. These sensors include things such as optical video cameras, optical flow cameras, LIDARs, RADARs and accelerometers. Carla has models of numerous types of sensors built in to create training data for machine learning. The sensors can be attached to a vehicle, or they can be attached to a fixed point to model for example a CCTV camera.</p>
 <p>Here we will attach a standard camera sensor to the ego vehicle to record some video data:</p>
 <pre><code class="language-py"># Create a transform to place the camera on top of the vehicle
 camera_init_trans = carla.Transform(carla.Location(z=1.5))
@@ -416,20 +416,20 @@ camera.listen(lambda image: image.save_to_disk('out/%06d.png' % image.frame))
 </code></pre>
 <p>This will save the data to the <code>out/</code> folder as a series of PNG image files named according to the simulation frame number.</p>
 <p>There are a multitude of different types of sensors to choose from. <a href="../core_sensors/"><strong>Here</strong></a> you can delve deeper into the array of sensors available and how to use them.</p>
-<h2 id="animate-vehicles-with-traffic-manager">Animate vehicles with traffic manager</h2>
-<p>Now we've added our traffic and ego vehicle to the simulation and started recording camera data, we now need to set the vehicles in motion using the <a href="../adv_traffic_manager/"><strong>Traffic manager</strong></a>. The Traffic manager is a component of CARLA that controls vehicles to autonomously move around the roads of the map within the simulation, following the road conventions and behaving like real road users. </p>
+<h2 id="_5">使用交通管理器模拟车辆</h2>
+<p>Now we've added our traffic and ego vehicle to the simulation and started recording camera data, we now need to set the vehicles in motion using the <a href="../adv_traffic_manager/"><strong>Traffic manager</strong></a>. The Traffic manager is a component of Carla that controls vehicles to autonomously move around the roads of the map within the simulation, following the road conventions and behaving like real road users. </p>
 <p>We can find all the vehicles in the simulation using the <code>world.get_actors()</code> method, filtering for all the vehicles. We can then use the <code>set_autopilot()</code> method to hand over control of the vehicle to the Traffic Manager.</p>
 <pre><code class="language-py">for vehicle in world.get_actors().filter('*vehicle*'):
     vehicle.set_autopilot(True)
 </code></pre>
 <p>Now your simulation is running, with numerous vehicles driving around the map and a camera recording data from one of those vehicles. This data can then be used to feed a machine learning algorithm for training an autonomous driving agent. The Traffic manager has many functions for customising traffic behaviour, learn more <a href="../tuto_G_traffic_manager/"><strong>here</strong></a>.</p>
-<p>This is the most basic possible set up for a simulation, now you can go into further details deeper into documentation about the many extra sensors you can use to generate data, and the many other features of CARLA that can make your simulations more detailed and more realistic. </p>
+<p>This is the most basic possible set up for a simulation, now you can go into further details deeper into documentation about the many extra sensors you can use to generate data, and the many other features of Carla that can make your simulations more detailed and more realistic. </p>
 <hr />
-<h2 id="assign-a-vehicle-as-the-ego-vehicle">Assign a vehicle as the Ego Vehicle</h2>
-<p>The <strong>Ego Vehicle</strong> is an important concept to bear in mind when using CARLA. The Ego Vehicle refers to the vehicle that will be the focus of the simulation. In most CARLA use cases it's likely to be the vehicle to which you will attach your sensors and/or the vehicle that your autonomous driving machine learning stack will control. It is important because it serves as the basis for some simulation operations that help improve the efficiency of the simulation, like for example:</p>
+<h2 id="_6">将车辆分配为自我车辆</h2>
+<p>The <strong>Ego Vehicle</strong> is an important concept to bear in mind when using Carla. The Ego Vehicle refers to the vehicle that will be the focus of the simulation. In most Carla use cases it's likely to be the vehicle to which you will attach your sensors and/or the vehicle that your autonomous driving machine learning stack will control. It is important because it serves as the basis for some simulation operations that help improve the efficiency of the simulation, like for example:</p>
 <ul>
 <li>
-<p><strong>Loading map tiles for Large Maps</strong>: Large Maps (like Town 12) are made up of tiles to that are only loaded when needed to improve CARLA performance. The position of the Ego Vehicle dictates which tiles are used. Only the tiles nearest the Ego Vehicle will be loaded.</p>
+<p><strong>Loading map tiles for Large Maps</strong>: Large Maps (like Town 12) are made up of tiles to that are only loaded when needed to improve Carla performance. The position of the Ego Vehicle dictates which tiles are used. Only the tiles nearest the Ego Vehicle will be loaded.</p>
 </li>
 <li>
 <p><strong>Hybrid Physics Mode</strong>: if your simulation contains a lot of vehicles controlled by the Traffic Manager, calculating physics for all of these vehicles is very computationally expensive. The <a href="../adv_traffic_manager/#hybrid-physics-mode">Hybrid Physics Mode</a> enables physics calculation to be limited to the vehicles in the vicinity of the Ego Vehicle, hence saving computing resources.</p>
@@ -445,9 +445,9 @@ ego_vehicle = world.spawn_actor(ego_bp, random.choice(spawn_points))
 
 </code></pre>
 <hr />
-<h2 id="choose-your-map">Choose your map</h2>
+<h2 id="_7">选择你的地图</h2>
 <p><img alt="maps_montage" src="../img/catalogue/maps/maps_montage.webp" /></p>
-<p>CARLA comes loaded with several pre-made maps focused on providing a diversity of features. The maps present a range of environments such as urban, rural and residential. There are also differing architectural styles and also a multitude of different road layouts from unmarked rural roads to multi-lane highways. Browse the map guides in the <a href="../catalogue/">catalogue</a> or in the table below. </p>
+<p>Carla comes loaded with several pre-made maps focused on providing a diversity of features. The maps present a range of environments such as urban, rural and residential. There are also differing architectural styles and also a multitude of different road layouts from unmarked rural roads to multi-lane highways. Browse the map guides in the <a href="../catalogue/">catalogue</a> or in the table below. </p>
 <table>
 <thead>
 <tr>
@@ -506,7 +506,7 @@ ego_vehicle = world.spawn_actor(ego_bp, random.choice(spawn_points))
 </tr>
 </tbody>
 </table>
-<p>You can browse the available maps in your CARLA installation:</p>
+<p>You can browse the available maps in your Carla installation:</p>
 <pre><code class="language-py">client.get_available_maps()
 </code></pre>
 <p>This will include maps that you have built yourself or imported.</p>
@@ -514,9 +514,9 @@ ego_vehicle = world.spawn_actor(ego_bp, random.choice(spawn_points))
 <pre><code class="language-py">client.load_world('Town03_Opt')
 </code></pre>
 <hr />
-<h2 id="choose-your-vehicles">Choose your vehicles</h2>
+<h2 id="_8">选择你的车辆</h2>
 <p><img alt="vehicles_overview" src="../img/catalogue/vehicles/vehicle_montage.webp" /></p>
-<p>CARLA provides a library of vehicles to fill your simulation with traffic. Browse the vehicle models in the <a href="../catalogue_vehicles/">CARLA vehicle catalogue</a>. </p>
+<p>Carla provides a library of vehicles to fill your simulation with traffic. Browse the vehicle models in the <a href="../catalogue_vehicles/">Carla vehicle catalogue</a>. </p>
 <p>You can see all available vehicle blueprints by filtering the blueprint library. </p>
 <pre><code class="language-py">for bp in world.get_blueprint_library().filter('vehicle'):
     print(bp.id)

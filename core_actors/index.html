@@ -187,7 +187,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在CARLA包导入地图</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在 Carla 包导入地图</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 Carla 源构建中导入地图</a>
                   </li>
@@ -227,7 +227,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用 OpenStreetMap 生成地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索模拟数据</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索仿真数据</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎和 Carla</a>
                   </li>
@@ -313,7 +313,7 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="_1">第二、参与者和蓝图</h1>
-<p>Carla 中的参与者是在模拟中执行动作的元素，他们可以影响其他参与者。Carla 的参与者包括车辆和步行者，也包括传感器、交通标志、红绿灯和观看者。对如何操作它们有充分的了解是至关重要的。 </p>
+<p>Carla 中的参与者是在仿真中执行动作的元素，他们可以影响其他参与者。Carla 的参与者包括车辆和步行者，也包括传感器、交通标志、红绿灯和观看者。对如何操作它们有充分的了解是至关重要的。 </p>
 <p>本节将介绍生成、摧毁、类型以及如何管理它们。然而，可能性几乎是无穷无尽的。实验、查看本文档中的 <strong>教程</strong>，并在 <a href="https://github.com/carla-simulator/carla/discussions/">Carla 论坛</a> 中分享疑虑和想法。</p>
 <ul>
 <li><a href="#blueprints"><strong>蓝图</strong></a>  <ul>
@@ -337,7 +337,7 @@
 </ul>
 <hr />
 <h2 id="_2">蓝图</h2>
-<p>这些布局允许用户将新的参与者平滑地结合到模拟中。它们已经是带有动画和一系列属性的模型。其中一些是可修改的，而另一些则不是。这些属性包括车辆颜色、激光雷达传感器中的通道数量、步行者的速度等等。</p>
+<p>这些布局允许用户将新的参与者平滑地结合到仿真中。它们已经是带有动画和一系列属性的模型。其中一些是可修改的，而另一些则不是。这些属性包括车辆颜色、激光雷达传感器中的通道数量、步行者的速度等等。</p>
 <p><a href="../bp_library/">蓝图库</a> 列出了可用的蓝图及其属性。车辆和步行者蓝图具有一个生成属性，用于指示它们是新的（第2代）资产还是旧的（第1代）资产。</p>
 <h3 id="_3">管理蓝图库</h3>
 <p><a href="../python_api/#carla.BlueprintLibrary">carla.BlueprintLibrary</a> 类包含一系列 <a href="../python_api/#carla.ActorBlueprint">carla.ActorBlueprint</a> 元素。它是能够提供对它访问的世界对象。</p>
@@ -430,7 +430,7 @@ actor.set_location(location)
 <p>除此之外，参与者还有他们的蓝图提供的标签。这些对于语义分割传感器最有用。</p>
 <div class="admonition 警告">
 <p class="admonition-title">警告</p>
-<p>大多数方法是异步向模拟器发送请求。模拟器每次更新解析它们的时间有限。使用 <em>set()</em> 方法淹没模拟器将积累明显的延迟。</p>
+<p>大多数方法是异步向仿真器发送请求。仿真器每次更新解析它们的时间有限。使用 <em>set()</em> 方法淹没仿真器将积累明显的延迟。</p>
 </div>
 <h3 id="_7">摧毁</h3>
 <p>当 Python 脚本完成时，参与者不会被销毁。他们必须明确地摧毁自己。</p>
@@ -438,7 +438,7 @@ actor.set_location(location)
 </code></pre>
 <div class="admonition 重要">
 <p class="admonition-title">重要</p>
-<p>销毁参与者会阻塞模拟器，直到该过程完成。</p>
+<p>销毁参与者会阻塞仿真器，直到该过程完成。</p>
 </div>
 <hr />
 <h2 id="_8">参与者类型</h2>
@@ -455,7 +455,7 @@ camera.listen(lambda image: image.save_to_disk('output/%06d.png' % image.frame))
 <li>传感器 <strong>监听</strong> 数据。收到数据后，它们会调用用 <strong><a href="https://docs.python.org/3/reference/expressions.html">Lambda 表达式</a></strong> 描述的函数<small>(提供的链接中的 6.14)</small>。 </li>
 </ul>
 <h3 id="_10">观察者</h3>
-<p>由虚幻引擎放置以提供游戏内的视角。它可用于移动模拟器窗口的视角。以下示例将移动观众演员，将视角指向所需的车辆。</p>
+<p>由虚幻引擎放置以提供游戏内的视角。它可用于移动仿真器窗口的视角。以下示例将移动观众演员，将视角指向所需的车辆。</p>
 <pre><code class="language-py">spectator = world.get_spectator()
 transform = vehicle.get_transform()
 spectator.set_transform(carla.Transform(transform.location + carla.Location(z=50),
@@ -463,8 +463,8 @@ carla.Rotation(pitch=-90)))
 
 </code></pre>
 <h3 id="_11">交通标志和交通灯</h3>
-<p>到目前为止，Carela 中只有停靠点、让行路线和交通信号灯被视为参与者。其余的 OpenDRIVE 标志可通过 API 作为地标（<a href="../python_api/#carla.Landmark"><strong>carla.Landmark</strong></a>）进行访问。他们的信息可以使用这些实例访问，但他们在模拟中并不作为参与者存在。在接下来的 <strong>第 3 部分 地图和导航</strong> 中将更详细地解释地标。 </p>
-<p>当模拟开始、停止、让行和交通灯时，会使用 OpenDRIVE 文件中的信息自动生成。<strong>这些都无法在蓝图库中找到</strong>，因此无法生成。</p>
+<p>到目前为止，Carela 中只有停靠点、让行路线和交通信号灯被视为参与者。其余的 OpenDRIVE 标志可通过 API 作为地标（<a href="../python_api/#carla.Landmark"><strong>carla.Landmark</strong></a>）进行访问。他们的信息可以使用这些实例访问，但他们在仿真中并不作为参与者存在。在接下来的 <strong>第 3 部分 地图和导航</strong> 中将更详细地解释地标。 </p>
+<p>当仿真开始、停止、让行和交通灯时，会使用 OpenDRIVE 文件中的信息自动生成。<strong>这些都无法在蓝图库中找到</strong>，因此无法生成。</p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>OpenDRIVE 文件中的 Carela 地图没有交通标志或信号灯。这些是由开发人员手动放置的。 </p>
@@ -568,7 +568,7 @@ ai_controller.stop()
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="CARLA forum">
-CARLA 论坛</a>
+Carla 论坛</a>
 </p>
 </div>
 <div class="build-buttons">

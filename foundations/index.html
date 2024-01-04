@@ -191,7 +191,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在CARLA包导入地图</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在 Carla 包导入地图</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 Carla 源构建中导入地图</a>
                   </li>
@@ -231,7 +231,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用 OpenStreetMap 生成地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索模拟数据</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索仿真数据</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎和 Carla</a>
                   </li>
@@ -317,11 +317,11 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="_1"><a href="https://carla.readthedocs.io/en/latest/foundations/">基础</a></h1>
-<p>本页介绍了了解 CARLA 服务器和客户端如何通过 API 进行操作和通信所需的基本概念。CARLA 使用服务器-客户端架构运行，其中 CARLA 服务器运行仿真并由客户端向其发送指令。客户端代码使用 <a href="../python_api/"><strong>API</strong></a> 与服务器进行通信。要使用 Python API，您必须通过 <code>pip</code> 安装该模块：</p>
+<p>本页介绍了了解 Carla 服务器和客户端如何通过 API 进行操作和通信所需的基本概念。Carla 使用服务器-客户端架构运行，其中 Carla 服务器运行仿真并由客户端向其发送指令。客户端代码使用 <a href="../python_api/"><strong>API</strong></a> 与服务器进行通信。要使用 Python API，您必须通过 <code>pip</code> 安装该模块：</p>
 <pre><code class="language-sh">pip install carla-simulator # Python 2
 pip3 install carla-simulator # Python 3
 </code></pre>
-<p>还要确保在 python 脚本中导入 CARLA 包：</p>
+<p>还要确保在 python 脚本中导入 Carla 包：</p>
 <pre><code class="language-py">import carla
 </code></pre>
 <ul>
@@ -345,11 +345,11 @@ pip3 install carla-simulator # Python 3
 <hr />
 <h2 id="_2">世界和客户端</h2>
 <h3 id="_3">客户端</h3>
-<p><strong>客户端</strong> 是用户运行以请求仿真中的信息或更改的模块。客户端使用 IP 和特定端口运行。它通过终端与服务器通信。可以有许多客户端同时运行。高级多客户端管理需要对 CARLA 和 <a href="../adv_synchrony_timestep/">同步</a> 有透彻的了解。</p>
-<p>使用 CARLA 客户端对象设置客户端：</p>
+<p><strong>客户端</strong> 是用户运行以请求仿真中的信息或更改的模块。客户端使用 IP 和特定端口运行。它通过终端与服务器通信。可以有许多客户端同时运行。高级多客户端管理需要对 Carla 和 <a href="../adv_synchrony_timestep/">同步</a> 有透彻的了解。</p>
+<p>使用 Carla 客户端对象设置客户端：</p>
 <pre><code class="language-py">client = carla.Client('localhost', 2000)
 </code></pre>
-<p>这会将客户端设置为与本地计算机上 <code>localhost</code> 运行的 CARLA 服务器进行通信。或者，如果在单独的计算机上运行客户端，则可以使用网络计算机的 IP 地址。第二个参数是端口号。默认情况下，CARLA 服务器将在端口 2000 上运行，如有必要，您可以在启动 CARLA 时在设置中更改此设置。</p>
+<p>这会将客户端设置为与本地计算机上 <code>localhost</code> 运行的 Carla 服务器进行通信。或者，如果在单独的计算机上运行客户端，则可以使用网络计算机的 IP 地址。第二个参数是端口号。默认情况下，Carla 服务器将在端口 2000 上运行，如有必要，您可以在启动 Carla 时在设置中更改此设置。</p>
 <p>客户端对象可用于多种功能，包括加载新地图、记录仿真和初始化交通管理器：</p>
 <pre><code class="language-py">client.load_world('Town07')
 
@@ -368,10 +368,10 @@ weather = world.get_weather()
 blueprint_library = world.get_blueprint_library()
 </code></pre>
 <h2 id="_5">同步模式和异步模式</h2>
-<p>CARLA 具有客户端-服务器架构。服务器运行仿真。客户端检索信息并请求仿真中的更改。本节涉及客户端和服务器之间的通信。</p>
-<p>默认情况下，CARLA 以 <strong>异步模式</strong> 运行。</p>
-<p>本质上，在 <strong>异步模式</strong> 下，CARLA 服务器会尽可能快地运行。客户请求是即时处理的。在 <strong>同步模式</strong> 下，运行 Python 代码的客户端负责控制并告诉服务器何时更新。</p>
-<p>如果您正在实验或设置仿真，<strong>异步模式</strong> 是运行 CARLA 的合适模式，因此您可以在放置参与者时与观察者一起在地图上飞行。当您想要开始生成训练数据或在仿真中部署智能体时，建议您使用 <strong>同步模式</strong> ，因为这将为您提供更多的控制力和可预测性。</p>
+<p>Carla 具有客户端-服务器架构。服务器运行仿真。客户端检索信息并请求仿真中的更改。本节涉及客户端和服务器之间的通信。</p>
+<p>默认情况下，Carla 以 <strong>异步模式</strong> 运行。</p>
+<p>本质上，在 <strong>异步模式</strong> 下，Carla 服务器会尽可能快地运行。客户请求是即时处理的。在 <strong>同步模式</strong> 下，运行 Python 代码的客户端负责控制并告诉服务器何时更新。</p>
+<p>如果您正在实验或设置仿真，<strong>异步模式</strong> 是运行 Carla 的合适模式，因此您可以在放置参与者时与观察者一起在地图上飞行。当您想要开始生成训练数据或在仿真中部署智能体时，建议您使用 <strong>同步模式</strong> ，因为这将为您提供更多的控制力和可预测性。</p>
 <p>阅读有关 <a href="../adv_synchrony_timestep/"><strong>同步模式和异步模式</strong></a> 的更多信息。</p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
@@ -486,7 +486,7 @@ world.on_tick(lambda world_snapshot: do_something(world_snapshot))
 <p>记录器以 <strong>本文档</strong> 中指定的自定义二进制文件格式保存所有数据。</p>
 <hr />
 <h2 id="_12">渲染</h2>
-<p>CARLA 提供了许多有关渲染质量和效率的选项。在最基本的层面上，CARLA 提供了两种质量选项，可以在高规格和低规格硬件上运行并获得最佳效果：</p>
+<p>Carla 提供了许多有关渲染质量和效率的选项。在最基本的层面上，Carla 提供了两种质量选项，可以在高规格和低规格硬件上运行并获得最佳效果：</p>
 <h3 id="_13">史诗模式</h3>
 <p><code>./CarlaUE4.sh -quality-level=Epic</code></p>
 <p><img alt="Epic mode screenshot" src="../img/rendering_quality_epic.jpg" />
@@ -495,7 +495,7 @@ world.on_tick(lambda world_snapshot: do_something(world_snapshot))
 <p><code>./CarlaUE4.sh -quality-level=Low</code></p>
 <p><img alt="Low mode screenshot" src="../img/rendering_quality_low.jpg" />
 <em>低质量模式截图</em></p>
-<p>CARLA 还提供暂停渲染或离屏渲染的选项，以便更有效地记录或运行仿真。</p>
+<p>Carla 还提供暂停渲染或离屏渲染的选项，以便更有效地记录或运行仿真。</p>
 <p>有关渲染选项的更多详细信息，请参见 <a href="../adv_rendering_options/"><strong>此处</strong></a>。</p>
               
             </div>

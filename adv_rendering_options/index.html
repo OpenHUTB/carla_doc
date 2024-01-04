@@ -183,7 +183,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在CARLA包导入地图</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在 Carla 包导入地图</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 Carla 源构建中导入地图</a>
                   </li>
@@ -223,7 +223,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用 OpenStreetMap 生成地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索模拟数据</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索仿真数据</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎和 Carla</a>
                   </li>
@@ -333,8 +333,8 @@
 <h3 id="vulkan-api">Vulkan 图形 API</h3>
 <p>从版本 0.9.12 开始，Carla 在虚幻引擎 4.26上运行，仅支持 Vulkan 图形API。以前版本的 Carla 可以配置为使用 OpenGL。如果您使用的是 Carla 的早期版本，请在屏幕右下角选择相应的文档版本以获取更多信息。</p>
 <h3 id="_3">质量等级</h3>
-<p>CARLA 有两个不同的图形质量级别。<strong>Epic</strong> 是默认的并且是最详细的。<strong>Low</strong> 会禁用所有后处理和阴影，并且绘图距离设置为 50m 而不是无限。</p>
-<p>模拟在 <strong>Low</strong> 模式下运行速度明显更快。这在存在技术限制、精度不重要的情况下或者在具有更简单数据或仅涉及接近元素的条件下训练代理的情况下很有帮助。</p>
+<p>Carla 有两个不同的图形质量级别。<strong>Epic</strong> 是默认的并且是最详细的。<strong>Low</strong> 会禁用所有后处理和阴影，并且绘图距离设置为 50m 而不是无限。</p>
+<p>仿真在 <strong>Low</strong> 模式下运行速度明显更快。这在存在技术限制、精度不重要的情况下或者在具有更简单数据或仅涉及接近元素的条件下训练智能体的情况下很有帮助。</p>
 <p>下图比较了两种模式。Windows 和 Linux 所使用的标志是相同的。使用构建时没有等效选项，但虚幻编辑器有自己的质量设置。访问<code>Settings/Engine Scalability Settings</code> 以获得所需质量的更大定制。</p>
 <h4 id="_4">史诗模式</h4>
 <p><code>./CarlaUE4.sh -quality-level=Epic</code></p>
@@ -351,7 +351,7 @@
 </div>
 <hr />
 <h2 id="_6">无渲染模式</h2>
-<p>此模式禁用渲染。虚幻引擎将跳过有关图形的所有内容。此模式可防止渲染开销。它有利于大量交通模拟和非常高频率的道路行为。要启用或禁用无渲染模式，请更改世界设置，或使用<code>/PythonAPI/util/config.py</code>。</p>
+<p>此模式禁用渲染。虚幻引擎将跳过有关图形的所有内容。此模式可防止渲染开销。它有利于大量交通仿真和非常高频率的道路行为。要启用或禁用无渲染模式，请更改世界设置，或使用<code>/PythonAPI/util/config.py</code>。</p>
 <p>以下是如何通过脚本启用和禁用它的示例：</p>
 <pre><code class="language-py">settings = world.get_settings()
 settings.no_rendering_mode = True
@@ -382,7 +382,7 @@ world.apply_settings(settings)
 <li><strong>离屏模式：</strong> 虚幻引擎正常工作，计算渲染，但没有可用的显示。基于 GPU 的传感器返回数据。</li>
 </ul>
 <h3 id="0912">设置离屏模式（版本0.9.12+）</h3>
-<p>要在离屏模式下启动 CARLA，请运行以下命令：</p>
+<p>要在离屏模式下启动 Carla，请运行以下命令：</p>
 <pre><code class="language-sh">./CarlaUE4.sh -RenderOffScreen
 </code></pre>
 <h3 id="0912_1">设置离屏模式（0.9.12之前的版本）</h3>
@@ -419,7 +419,7 @@ DISPLAY= ./CarlaUE4.sh -opengl
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA 论坛</a>
+Carla 论坛</a>
 </p>
 </div>
               

@@ -155,7 +155,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在CARLA包导入地图</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在 Carla 包导入地图</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 Carla 源构建中导入地图</a>
                   </li>
@@ -195,7 +195,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用 OpenStreetMap 生成地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索模拟数据</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索仿真数据</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎和 Carla</a>
                   </li>
@@ -319,9 +319,9 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="rllib">RLlib 集成</h1>
-<p>RLlib 集成带来了 <a href="https://github.com/ray-project/ray">Ray/RLlib</a> 库和 CARLA 之间的支持，允许轻松使用 CARLA 环境进行训练和推理。Ray 是一个开源框架，为构建分布式应用程序提供了简单、通用的 API。Ray 与 RLlib（一个可扩展的强化学习库）和 Tune（一个可扩展的超参数调整库）打包在一起。</p>
-<p>RLlib 集成允许用户创建和使用 CARLA 作为 Ray 的环境，并将该环境用于训练和推理目的。该集成可以在本地使用，也可以通过 AWS 在云中使用。</p>
-<p>在本指南中，我们将概述在本地和 AWS 上运行 RLlib 集成所需的要求、集成存储库的结构、如何使用该库的概述，以及如何使用 CARLA 设置 Ray 实验的示例一个环境。</p>
+<p>RLlib 集成带来了 <a href="https://github.com/ray-project/ray">Ray/RLlib</a> 库和 Carla 之间的支持，允许轻松使用 Carla 环境进行训练和推理。Ray 是一个开源框架，为构建分布式应用程序提供了简单、通用的 API。Ray 与 RLlib（一个可扩展的强化学习库）和 Tune（一个可扩展的超参数调整库）打包在一起。</p>
+<p>RLlib 集成允许用户创建和使用 Carla 作为 Ray 的环境，并将该环境用于训练和推理目的。该集成可以在本地使用，也可以通过 AWS 在云中使用。</p>
+<p>在本指南中，我们将概述在本地和 AWS 上运行 RLlib 集成所需的要求、集成存储库的结构、如何使用该库的概述，以及如何使用 Carla 设置 Ray 实验的示例一个环境。</p>
 <ul>
 <li><a href="#before-you-begin"><strong>在你开始之前</strong></a><ul>
 <li><a href="#requirements-for-running-locally">本地运行的要求</a></li>
@@ -359,7 +359,7 @@
 <h6 id="_2">本地运行的要求</h6>
 <blockquote>
 <ul>
-<li><a href="https://github.com/carla-simulator/carla/releases">安装 CARLA 的软件包版本</a> 并导入 <a href="https://carla.readthedocs.io/en/latest/start_quickstart/#import-additional-assets">附加资源</a> 。<strong>推荐的版本是 CARLA 0.9.11</strong> ，因为集成是使用此版本设计和测试的。其他版本可能兼容，但尚未经过充分测试，因此请自行决定使用这些版本。</li>
+<li><a href="https://github.com/carla-simulator/carla/releases">安装 Carla 的软件包版本</a> 并导入 <a href="https://carla.readthedocs.io/en/latest/start_quickstart/#import-additional-assets">附加资源</a> 。<strong>推荐的版本是 Carla 0.9.11</strong> ，因为集成是使用此版本设计和测试的。其他版本可能兼容，但尚未经过充分测试，因此请自行决定使用这些版本。</li>
 <li>导航到 RLlib 集成存储库的根文件夹并安装 Python 要求：</li>
 </ul>
 </blockquote>
@@ -369,7 +369,7 @@
 <blockquote>
 <blockquote>
 <ul>
-<li>通过运行以下命令设置环境变量以查找 CARLA 包或添加<code>CARLA_ROOT=path/to/carla</code>到您的<code>.bashrc</code>文件中：</li>
+<li>通过运行以下命令设置环境变量以查找 Carla 包或添加<code>CARLA_ROOT=path/to/carla</code>到您的<code>.bashrc</code>文件中：</li>
 </ul>
 </blockquote>
 </blockquote>
@@ -387,9 +387,9 @@
 <h2 id="rllib_1">RLlib 存储库结构</h2>
 <p>存储库分为三个目录：</p>
 <ul>
-<li><code>rllib_integration</code> 包含与 CARLA 相关的所有基础设施以及如何设置 CARLA 服务器、客户端和参与者。这提供了所有训练和测试实验必须遵循的基本结构。</li>
+<li><code>rllib_integration</code> 包含与 Carla 相关的所有基础设施以及如何设置 Carla 服务器、客户端和参与者。这提供了所有训练和测试实验必须遵循的基本结构。</li>
 <li><code>aws</code> 具有在 AWS 实例中运行所需的文件。<code>aws_helper.py</code>提供了多种可简化 EC2 实例管理的功能，包括实例创建以及发送和接收数据。</li>
-<li>根目录中的 <code>dqn_example</code> 和 <code>dqn_*</code> 文件提供了一个易于理解的示例，说明如何使用 CARLA 作为环境来设置 Ray 实验。 </li>
+<li>根目录中的 <code>dqn_example</code> 和 <code>dqn_*</code> 文件提供了一个易于理解的示例，说明如何使用 Carla 作为环境来设置 Ray 实验。 </li>
 </ul>
 <hr />
 <h2 id="_3">创建您自己的实验</h2>
@@ -401,13 +401,13 @@
 <li>训练和推理脚本</li>
 </ul>
 <h4 id="1">1. 实验类</h4>
-<p>要使用 CARLA 环境，您需要定义训练实验。Ray 要求环境返回一系列特定信息。您可以在 <a href="https://github.com/carla-simulator/rllib-integration/blob/main/rllib_integration/carla_env.py"><code>rllib-integration/rllib_integration/carla_env.py</code></a> 中查看有关 CARLA 环境的详细信息。</p>
+<p>要使用 Carla 环境，您需要定义训练实验。Ray 要求环境返回一系列特定信息。您可以在 <a href="https://github.com/carla-simulator/rllib-integration/blob/main/rllib_integration/carla_env.py"><code>rllib-integration/rllib_integration/carla_env.py</code></a> 中查看有关 Carla 环境的详细信息。</p>
 <p>Ray 所需的信息取决于您的具体实验，因此所有实验都应继承自<a href="https://github.com/carla-simulator/rllib-integration/blob/main/rllib_integration/base_experiment.py#L41"><code>BaseExperiment</code></a>。此类包含您自己的实验需要覆盖的所有函数。这些都是与训练的行动、观察和奖励相关的功能。</p>
 <h4 id="2">2. 环境配置</h4>
 <p>实验应该通过<code>.yaml</code>文件进行配置。通过配置文件传递的任何设置都将覆盖默认设置。下面解释了不同默认设置的位置。</p>
 <p>配置文件有三个主要用途：</p>
 <ol>
-<li>设置大部分 CARLA 服务器和客户端设置，例如超时或地图质量。请参阅 <a href="https://github.com/carla-simulator/rllib-integration/blob/main/rllib_integration/carla_core.py#L23">此处</a> 的默认值。 </li>
+<li>设置大部分 Carla 服务器和客户端设置，例如超时或地图质量。请参阅 <a href="https://github.com/carla-simulator/rllib-integration/blob/main/rllib_integration/carla_core.py#L23">此处</a> 的默认值。 </li>
 <li>设置特定于您的实验的变量，以及指定城镇条件以及自我车辆及其传感器的生成。默认设置可在 <a href="https://github.com/carla-simulator/rllib-integration/blob/main/rllib_integration/base_experiment.py#L12">此处</a> 找到，并提供如何设置传感器的示例。</li>
 <li>配置特定于 <a href="https://github.com/ray-project/ray/blob/master/rllib/agents/trainer.py">Ray 的训练</a> 设置。这些设置与所使用的特定训练器相关。如果您使用的是内置模型，则可以在此处应用其设置。 </li>
 </ol>

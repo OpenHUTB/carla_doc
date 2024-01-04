@@ -171,7 +171,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在CARLA包导入地图</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在 Carla 包导入地图</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 Carla 源构建中导入地图</a>
                   </li>
@@ -211,7 +211,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用 OpenStreetMap 生成地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索模拟数据</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索仿真数据</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎和 Carla</a>
                   </li>
@@ -309,16 +309,16 @@
 </ul>
 <div class="admonition 重要">
 <p class="admonition-title">重要</p>
-<p><strong>本文档引用的是CARLA 0.9.X</strong>. <br>
+<p><strong>本文档引用的是Carla 0.9.X</strong>. <br>
 与以前的版本(0.8.X)相比，API发生了重大变化。在这里可以找到关于这些版本的另一个文档<a href="https://carla.readthedocs.io/en/stable/getting_started/">here</a>. </p>
 </div>
 <hr />
 <h2 id="_2">第一步</h2>
 <h3 id="_3">世界和客户端</h3>
-<p>__客户端__是用户运行的模块，用于请求仿真中的信息或更改。客户端使用IP和特定端口运行。它通过终端与服务器通信。可以有许多客户机同时运行。高级多客户端管理需要对CARLA和<strong><a href="../adv_synchrony_timestep/">同步</a></strong>有透彻的理解。</p>
-<p>__世界__是代表模拟的对象。它作为一个抽象层，包含了生成角色、改变天气、获取当前世界状态等主要方法。每个模拟只有一个世界。当地图更改时，它将被销毁并替换为新的。 </p>
+<p><strong>客户端</strong> 是用户运行的模块，用于请求仿真中的信息或更改。客户端使用IP和特定端口运行。它通过终端与服务器通信。可以有许多客户机同时运行。高级多客户端管理需要对 Carla 和<strong><a href="../adv_synchrony_timestep/">同步</a></strong>有透彻的理解。</p>
+<p><strong>世界</strong> 是代表仿真的对象。它作为一个抽象层，包含了生成角色、改变天气、获取当前世界状态等主要方法。每个仿真只有一个世界。当地图更改时，它将被销毁并替换为新的。 </p>
 <h3 id="_4">演员和蓝图</h3>
-<p>演员是在模拟中扮演角色的任何东西。</p>
+<p>演员是在仿真中扮演角色的任何东西。</p>
 <ul>
 <li>车辆</li>
 <li>行人</li>
@@ -328,11 +328,11 @@
 </ul>
 <p><strong>蓝图</strong> 是生成角色所必需的已经制作好的角色布局。基本上，是带有动画和一组属性的模型。其中一些属性可以由用户自定义，而另一些则不能。有一个<strong><a href="../bp_library/">Blueprint库</a></strong>，其中包含所有可用的蓝图以及有关它们的信息。</p>
 <h3 id="_5">地图和导航</h3>
-<p><strong>地图</strong> 是代表模拟世界的对象，主要是城镇。有八张地图可供选择。它们都使用opdrive 1.4标准来描述道路。</p>
+<p><strong>地图</strong> 是代表仿真世界的对象，主要是城镇。有八张地图可供选择。它们都使用opdrive 1.4标准来描述道路。</p>
 <p><strong>道路、车道和路口</strong> 由Python API管理，以便从客户端访问。这些与 <strong>waypoint</strong> 类一起使用，为车辆提供导航路径。</p>
-<p><strong>交通标志</strong> 和 <strong>交通灯</strong> 是可访问的<a href="#python_api.md#carla.landmark"><strong>carla.Landmark</strong></a>。这些地标对象包含关于它们的 OpenDRIVE 定义的信息。此外，模拟器在运行时会自动生成停车标志、让行标志和交通信号灯对象，使用 OpenDRIVE 文件中的信息。这些对象会放置在道路上，有边界框包围。一旦车辆进入它们的边界框，它们就会意识到这些对象。</p>
+<p><strong>交通标志</strong> 和 <strong>交通灯</strong> 是可访问的<a href="#python_api.md#carla.landmark"><strong>carla.Landmark</strong></a>。这些地标对象包含关于它们的 OpenDRIVE 定义的信息。此外，仿真器在运行时会自动生成停车标志、让行标志和交通信号灯对象，使用 OpenDRIVE 文件中的信息。这些对象会放置在道路上，有边界框包围。一旦车辆进入它们的边界框，它们就会意识到这些对象。</p>
 <h3 id="_6">传感器和数据</h3>
-<p><strong>传感器</strong> 等待一些事件发生，然后从模拟中收集数据。它们调用定义如何管理数据的函数。根据不同的情况，传感器会检索不同类型的传感器数据。</p>
+<p><strong>传感器</strong> 等待一些事件发生，然后从仿真中收集数据。它们调用定义如何管理数据的函数。根据不同的情况，传感器会检索不同类型的传感器数据。</p>
 <p>传感器是附着在父车辆上的参与者。它跟随车辆，收集周围环境的信息。可用的传感器由<strong><a href="../bp_library/">Blueprint库</a></strong>中的蓝图定义。</p>
 <ul>
 <li>相机(RGB，深度和语义分割)</li>
@@ -347,25 +347,25 @@
 </ul>
 <hr />
 <h2 id="_7">进阶步骤</h2>
-<p>CARLA 提供了广泛的功能，超出了本模拟器介绍的范围。这里列出了一些最引人注目的。然而，在开始 <strong>进阶步骤</strong> 之前，强烈建议阅读整个“第一步”部分。</p>
+<p>Carla 提供了广泛的功能，超出了本仿真器介绍的范围。这里列出了一些最引人注目的。然而，在开始 <strong>进阶步骤</strong> 之前，强烈建议阅读整个“第一步”部分。</p>
 <ul>
-<li><strong><a href="../adv_opendrive/">OpenDRIVE独立模式</a></strong>。仅使用OpenDRIVE文件生成道路网格。允许在CARLA中加载任何OpenDRIVE地图，无需创建资源。</li>
-<li><strong><a href="../adv_ptv/">PTV-Vissim协同仿真</a></strong>。在CARLA和PTV-Vissim交通仿真器之间运行同步仿真。</li>
-<li><a href="../adv_recorder/"><strong>录制器</strong></a>。保存模拟状态的快照，以便以精确的精度重新执行模拟。</li>
+<li><strong><a href="../adv_opendrive/">OpenDRIVE独立模式</a></strong>。仅使用OpenDRIVE文件生成道路网格。允许在 Carla 中加载任何OpenDRIVE地图，无需创建资源。</li>
+<li><strong><a href="../adv_ptv/">PTV-Vissim协同仿真</a></strong>。在 Carla 和PTV-Vissim交通仿真器之间运行同步仿真。</li>
+<li><a href="../adv_recorder/"><strong>录制器</strong></a>。保存仿真状态的快照，以便以精确的精度重新执行仿真。</li>
 <li><strong><a href="../adv_rendering_options/">渲染选项</a></strong>。包括图形质量设置、离屏渲染和无渲染模式。</li>
 <li><a href="../adv_rss/"><strong>RSS</strong></a>（Responsibility Sensitive Safety）：集成用于根据安全检查修改车辆轨迹的责任敏感安全性<strong><a href="https://github.com/intel/ad-rss-lib">C++库</a></strong>。</li>
-<li><a href="../adv_synchrony_timestep/"><strong>仿真时间和同步</strong></a>。关于模拟时间和服务器-客户端通信的所有内容。</li>
-<li><strong><a href="../adv_sumo/">SUMO协同仿真</a></strong>：在CARLA和SUMO交通仿真器之间运行同步仿真。</li>
-<li><strong><a href="../adv_traffic_manager/">交通管理器</a></strong>：该模块负责所有设置为自动驾驶模式的车辆。它模拟城市中的交通，使仿真看起来像一个真实的城市环境。</li>
+<li><a href="../adv_synchrony_timestep/"><strong>仿真时间和同步</strong></a>。关于仿真时间和服务器-客户端通信的所有内容。</li>
+<li><strong><a href="../adv_sumo/">SUMO协同仿真</a></strong>：在 Carla 和SUMO交通仿真器之间运行同步仿真。</li>
+<li><strong><a href="../adv_traffic_manager/">交通管理器</a></strong>：该模块负责所有设置为自动驾驶模式的车辆。它仿真城市中的交通，使仿真看起来像一个真实的城市环境。</li>
 </ul>
 <hr />
-<p>这是对CARLA基本知识的总结。下一步将更仔细地查看世界和连接到它的客户端。</p>
+<p>这是对 Carla 基本知识的总结。下一步将更仔细地查看世界和连接到它的客户端。</p>
 <p>继续阅读以了解更多。访问论坛发表任何疑问或建议，在阅读过程中想到的。 </p>
 <div text-align: center>
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="CARLA forum">
-CARLA 论坛</a>
+Carla 论坛</a>
 </p>
 </div>
 <div class="build-buttons">

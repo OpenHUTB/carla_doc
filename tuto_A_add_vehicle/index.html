@@ -155,7 +155,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在CARLA包导入地图</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在 Carla 包导入地图</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 Carla 源构建中导入地图</a>
                   </li>
@@ -195,7 +195,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用 OpenStreetMap 生成地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索模拟数据</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索仿真数据</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎和 Carla</a>
                   </li>
@@ -308,7 +308,7 @@
 </div>
 <hr />
 <h2 id="4">添加 4 轮车辆</h2>
-<p>添加到 CARLA 的车辆需要使用可在 <a href="(https://carla-assets.s3.eu-west-3.amazonaws.com/fbx/VehicleSkeleton.rar)"><strong>此处</strong></a> 找到的通用基础骨架。此链接将下载一个名为 <code>VehicleSkeleton.rar</code> 的文件夹，其中包含两种不同格式的基本框架，一种为 ASCII，另一种为二进制。您使用的格式取决于您的 3D 建模软件要求。</p>
+<p>添加到 Carla 的车辆需要使用可在 <a href="(https://carla-assets.s3.eu-west-3.amazonaws.com/fbx/VehicleSkeleton.rar)"><strong>此处</strong></a> 找到的通用基础骨架。此链接将下载一个名为 <code>VehicleSkeleton.rar</code> 的文件夹，其中包含两种不同格式的基本框架，一种为 ASCII，另一种为二进制。您使用的格式取决于您的 3D 建模软件要求。</p>
 <p><strong>骨架骨骼的位置可以更改，但任何其他操作（例如旋转、添加新骨骼或更改当前层次结构）都会导致错误。</strong></p>
 <hr />
 <h3 id="_2">绑定并建模车辆</h3>
@@ -373,7 +373,7 @@
 </blockquote>
 <p>将最终 <code>.fbx</code> 网格导出为名为 <code>SMC_&lt;vehicle_name&gt;.fbx</code>的文件。</p>
 <p><strong>5. 为光线投射传感器创建网格。</strong></p>
-<p>光线投射传感器网格设置将由光线投射传感器（RADAR、LiDAR 和 Semantic LiDAR）检测到的车辆形状。该网格应该具有比物理资产网格稍微更明确的几何形状，以提高传感器模拟的真实感，但出于性能原因，不如汽车网格那么详细。</p>
+<p>光线投射传感器网格设置将由光线投射传感器（RADAR、LiDAR 和 Semantic LiDAR）检测到的车辆形状。该网格应该具有比物理资产网格稍微更明确的几何形状，以提高传感器仿真的真实感，但出于性能原因，不如汽车网格那么详细。</p>
 <p>创建光线投射传感器网格时请考虑以下几点：</p>
 <ul>
 <li>网格应覆盖车辆的各个方面，包括车轮、后视镜和格栅。</li>
@@ -392,7 +392,7 @@
 <p>选择所有主要车辆网格和骨架底座并导出为<code>.fbx</code>。</p>
 <hr />
 <h3 id="_3">导入并配置车辆</h3>
-<p>本节详细介绍了将车辆导入虚幻引擎以在 CARLA 中使用的过程。在虚幻引擎编辑器中执行这些步骤。</p>
+<p>本节详细介绍了将车辆导入虚幻引擎以在 Carla 中使用的过程。在虚幻引擎编辑器中执行这些步骤。</p>
 <p><strong>1. 创建车辆文件夹。</strong></p>
 <p>在 <code>Content/Carla/Static/Vehicles/4Wheeled</code> 里创建一个名为 <code>&lt;vehicle_name&gt;</code> 的新文件夹。</p>
 <p><strong>2. 导入 <code>.fbx</code>。</strong></p>
@@ -435,10 +435,10 @@
 </ol>
 </blockquote>
 <p><strong>5. Configure the Animation Blueprint.</strong></p>
-<p>To ease the process of configuring the animation blueprint, we will copy an existing one from a native CARLA vehicle:</p>
+<p>To ease the process of configuring the animation blueprint, we will copy an existing one from a native Carla vehicle:</p>
 <blockquote>
 <ol>
-<li>Go to <code>Content/Carla/Static/Vehicle</code> and choose any CARLA vehicle folder. Open its Animation Blueprint.</li>
+<li>Go to <code>Content/Carla/Static/Vehicle</code> and choose any Carla vehicle folder. Open its Animation Blueprint.</li>
 <li>In the <strong><em>My Blueprint</em></strong> panel, double click on <strong><em>AnimGraph</em></strong>. You will see the graph come up in the viewport.</li>
 <li>Click and drag to select the <strong><em>Mesh Space Ref Pose</em></strong>, <strong><em>Wheel Handler</em></strong>, and <strong><em>Component To Local</em></strong> components. Right-click and select <strong><em>Copy</em></strong>.</li>
 <li>Go back to your own vehicle Animation Blueprint and paste the copied contents into the graph area.</li>
@@ -457,7 +457,7 @@
 <li>Inside the folder, right-click and go to <strong><em>Blueprint Class</em></strong>. Open the <strong><em>All Classes</em></strong> section in the pop-up.</li>
 <li>Search for <code>BaseVehiclePawn</code> and press <strong><em>Select</em></strong>.</li>
 <li>Rename the file as <code>BP_&lt;vehicle_name&gt;</code>.</li>
-<li>Go to the folder of any of the native CARLA vehicles in <code>Carla/Blueprints/Vehicles</code>. From the <strong><em>Content Browser</em></strong>, copy the four wheel blueprints into the blueprint folder for your own vehicle. Rename the files to replace the old vehicle name with your own vehicle name.</li>
+<li>Go to the folder of any of the native Carla vehicles in <code>Carla/Blueprints/Vehicles</code>. From the <strong><em>Content Browser</em></strong>, copy the four wheel blueprints into the blueprint folder for your own vehicle. Rename the files to replace the old vehicle name with your own vehicle name.</li>
 </ol>
 <blockquote>
 <p><img alt="Copy wheel blueprints" src="../img/copy_wheel_blueprint.png" /></p>
@@ -523,7 +523,7 @@
 <p><img alt="vehicle factory" src="../img/vehicle_factory.png" /></p>
 </blockquote>
 <p><strong>10. Test the vehicle</strong>.</p>
-<p>Launch CARLA, open a terminal in <code>PythonAPI/examples</code> and run the following command:</p>
+<p>Launch Carla, open a terminal in <code>PythonAPI/examples</code> and run the following command:</p>
 <pre><code class="language-sh">python3 manual_control.py --filter &lt;model_name&gt; # The make or model defined in step 9
 </code></pre>
 <div class="admonition note">
@@ -537,7 +537,7 @@
 <p>Search for <code>BaseVehiclePawnNW</code> and press <strong><em>Select</em></strong>.</p>
 <p><img alt="n_wheel_base" src="../img/base_nw.png" /></p>
 <p><strong>6.</strong> <strong>Prepare the vehicle and wheel blueprints</strong></p>
-<p>Go to the folder of any native CARLA vehicles in Carla/Blueprints/Vehicles. From the Content Browser, copy the four wheel blueprints into the blueprint folder for your own vehicle. Rename the files to replace the old vehicle name with your own vehicle name.</p>
+<p>Go to the folder of any native Carla vehicles in Carla/Blueprints/Vehicles. From the Content Browser, copy the four wheel blueprints into the blueprint folder for your own vehicle. Rename the files to replace the old vehicle name with your own vehicle name.</p>
 <p>Copy the four wheels and copy again for additional wheels. In the case of a 6 wheeled vehicle, you will need 6 different wheels: FLW, FRW, MLW, MRW, RLW, RRW.</p>
 <p><img alt="n_wheel_bps" src="../img/nwheels.png" /></p>
 <p><strong>7.</strong> <strong>Configure the wheel blueprints</strong></p>

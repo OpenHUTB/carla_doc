@@ -155,7 +155,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在CARLA包导入地图</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在 Carla 包导入地图</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 Carla 源构建中导入地图</a>
                   </li>
@@ -195,7 +195,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用 OpenStreetMap 生成地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索模拟数据</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索仿真数据</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎和 Carla</a>
                   </li>
@@ -283,7 +283,7 @@
 <p><img alt="town_12" src="../img/catalogue/maps/town12/town12.webp" /></p>
 <p>城镇 12 是一张尺寸为 10x10 km<sup>2</sup> 的大地图。它分为 36 个图块，大多数尺寸为 2x2 km<sup>2</sup>（某些边缘图块较小）。道路布局部分受到 <a href="https://www.google.com/maps/place/Amarillo,+TX,+USA/@35.2018863,-101.9450251,11z/data=!3m1!4b1!4m5!3m4!1s0x870148d4b245cf03:0xd0f3d11c6836d2af!8m2!3d35.2219971!4d-101.8312969">美国德克萨斯州阿马里洛市</a> 道路布局的启发。有许多与城市形成鲜明对比的区域，包括城市、住宅区和乡村地区，还有环绕城市的大型高速公路系统和环形公路。建筑风格反映了北美许多大中城市的建筑风格。 </p>
 <h2 id="_1">导航器</h2>
-<p>导航器交互式地图可用于浏览城镇并导出坐标以在 CARLA 仿真器中使用。</p>
+<p>导航器交互式地图可用于浏览城镇并导出坐标以在 Carla 仿真器中使用。</p>
 <p><strong>使用导航器</strong>:</p>
 <ul>
 <li><code>left mouse button</code> - 单击并按住，向左、向右、向上或向下拖动以移动地图</li>
@@ -301,13 +301,13 @@
 <li><span style="color:#265568; background-color:#265568;">&amp;nbsp</span>   <a href="#water">水域</a></li>
 </ul>
 <p><img alt="town12_aerial" src="../img/catalogue/maps/town12/town12roadrunner.webp#map" /></p>
-<p><strong>CARLA 坐标</strong>: </p>
+<p><strong>Carla 坐标</strong>: </p>
 <ul>
 <li><strong>X</strong>:  <span id="carlacoord_x" style="animation: fadeMe 2s;">--</span></li>
 <li><strong>Y</strong>:  <span id="carlacoord_y" style="animation: fadeMe 2s;">--</span></li>
 </ul>
-<p>双击兴趣点后，导航器将显示相应的 CARLA 坐标并在以下代码块中更新它们。将代码复制并粘贴到笔记本或 Python 终端中，将观察者移动到所需的位置。您首先<a href="../tuto_first_steps/#launching-carla-and-connecting-the-client">需要连接客户端并设置世界对象</a> ：</p>
-<pre><code class="language-py"># CARLA 坐标: X 0.0, Y 0.0
+<p>双击兴趣点后，导航器将显示相应的 Carla 坐标并在以下代码块中更新它们。将代码复制并粘贴到笔记本或 Python 终端中，将观察者移动到所需的位置。您首先<a href="../tuto_first_steps/#launching-carla-and-connecting-the-client">需要连接客户端并设置世界对象</a> ：</p>
+<pre><code class="language-py"># Carla 坐标: X 0.0, Y 0.0
 spectator = world.get_spectator()
 loc = carla.Location(0.0, 0.0, 500.0)
 rot = carla.Rotation(pitch=-90, yaw=0.0, roll=0.0)

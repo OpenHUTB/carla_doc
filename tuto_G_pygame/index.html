@@ -155,7 +155,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在CARLA包导入地图</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在 Carla 包导入地图</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 Carla 源构建中导入地图</a>
                   </li>
@@ -195,7 +195,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用 OpenStreetMap 生成地图</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索模拟数据</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索仿真数据</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎和 Carla</a>
                   </li>
@@ -282,7 +282,7 @@
                 <h1 id="pygame">Pygame 用于车辆控制</h1>
 <p><a href="https://www.pygame.org/news"><strong>PyGame</strong></a> 是一组跨平台的 Python 模块，可用于编写视频游戏。它提供了一种渲染 Carla 实时视觉输出的有用方法，以便监视传感器输出，例如摄像机。PyGame 还可以捕获键盘事件，因此它是控制车辆等参与者的好方法。</p>
 <p>在本教程中，我们将学习如何设置一个简单的 PyGame 界面，该界面使我们能够监控由交通管理器控制的地图周围的自动驾驶交通，然后使用键盘手动控制任何车辆。</p>
-<h2 id="_1">设置模拟器并初始化交通管理器</h2>
+<h2 id="_1">设置仿真器并初始化交通管理器</h2>
 <p>首先，我们将初始化交通管理器并创建一些随机分布在城市周围的流量。</p>
 <pre><code class="language-py">import carla
 import random
@@ -480,7 +480,7 @@ gameDisplay.blit(renderObject.surface, (0,0))
 pygame.display.flip()
 
 </code></pre>
-<p>现在我们可以开始游戏循环了。该视图可以在地图中的不同车辆之间随机循环，并在交通管理器控制下可视化它们在交通中的旅程。按 TAB 键切换到随机选择的新车辆，按回车键可以通过键盘上的箭头键手动控制车辆。例如，如果需要挑战驾驶行为不稳定的代理，这种设置可能会很有用。可以调整选择逻辑以选择与代理驾驶的车辆接近的车辆。</p>
+<p>现在我们可以开始游戏循环了。该视图可以在地图中的不同车辆之间随机循环，并在交通管理器控制下可视化它们在交通中的旅程。按 TAB 键切换到随机选择的新车辆，按回车键可以通过键盘上的箭头键手动控制车辆。例如，如果需要挑战驾驶行为不稳定的智能体，这种设置可能会很有用。可以调整选择逻辑以选择与智能体驾驶的车辆接近的车辆。</p>
 <pre><code class="language-py">
 # Game loop
 crashed = False
