@@ -1,11 +1,11 @@
-# 在 CARLA 包中导入地图
+# 在 Carla 包中导入地图
 
-本节介绍将地图引入 __CARLA 包（二进制）版本__ 的过程。如果您使用的是从源代码构建的 CARLA 版本来导入地图，请遵循 [此处][source_ingest] 的指南。
+本节介绍将地图引入 __Carla 包（二进制）版本__ 的过程。如果您使用的是从源代码构建的 Carla 版本来导入地图，请遵循 [此处][source_ingest] 的指南。
 
-此过程仅适用于 Linux 系统。导入过程涉及运行虚幻引擎的 Docker 映像来导入相关文件，然后将它们导出为独立包，然后可以将其配置为在 CARLA 中使用。构建 Docker 镜像大约需要 4 小时和 600-700 GB 的时间。仅在第一次构建映像时才需要这样做。
+此过程仅适用于 Linux 系统。导入过程涉及运行虚幻引擎的 Docker 映像来导入相关文件，然后将它们导出为独立包，然后可以将其配置为在 Carla 中使用。构建 Docker 镜像大约需要 4 小时和 600-700 GB 的时间。仅在第一次构建映像时才需要这样做。
 
 - [__在你开始之前__](#before-you-begin)
-- [__CARLA 包中的地图导入__](#map-ingestion-in-a-carla-package)
+- [__Carla 包中的地图导入__](#map-ingestion-in-a-carla-package)
 
 ---
 
@@ -28,7 +28,7 @@
 ---
 ## Carla 包中的地图导入
 
-__1.__ CARLA 提供了在 Docker 映像中构建虚幻引擎以及使用该映像编译 CARLA 的所有实用程序。这些工具可以在 GitHub 上的源代码中找到。使用以下命令克隆存储库：
+__1.__ Carla 提供了在 Docker 映像中构建虚幻引擎以及使用该映像编译 Carla 的所有实用程序。这些工具可以在 GitHub 上的源代码中找到。使用以下命令克隆存储库：
 
 ```sh
     git clone https://github.com/carla-simulator/carla
@@ -55,15 +55,15 @@ __5.__ 导航至 `~/carla/Util/Docker`。这是导入脚本所在的位置。该
 ```
 
 > !!! 警告
-    如果未提供参数 `--packages map_package` ，Docker 镜像将制作 CARLA 包。 
+    如果未提供参数 `--packages map_package` ，Docker 镜像将制作 Carla 包。 
 
-__6.__ 包将在 `output_folder` 中生成为 `<map_package>.tar.gz`. 。这是独立包，现在可以导入到 CARLA 中。将包移动到 CARLA 根目录（您将在其中使用地图的包/二进制版本）中的 `Import` 文件夹，然后从根目录运行以下脚本将其导入：
+__6.__ 包将在 `output_folder` 中生成为 `<map_package>.tar.gz`. 。这是独立包，现在可以导入到 Carla 中。将包移动到 Carla 根目录（您将在其中使用地图的包/二进制版本）中的 `Import` 文件夹，然后从根目录运行以下脚本将其导入：
 
 ```sh
         ./ImportAssets.sh
 ```
 
-__7.__ 要使用新地图运行模拟，请运行 CARLA，然后使用 `config.py` 文件更改地图：
+__7.__ 要使用新地图运行仿真，请运行 Carla，然后使用 `config.py` 文件更改地图：
 
 ```sh
     cd PythonAPI/util
@@ -73,4 +73,4 @@ __7.__ 要使用新地图运行模拟，请运行 CARLA，然后使用 `config.p
 
 ---
 
-Your map is now ready to run simulations in CARLA. If you have any questions about the process then you can ask in the [forum](https://github.com/carla-simulator/carla/discussions) or you can try running some of our [example scripts](https://github.com/carla-simulator/carla/tree/master/PythonAPI/examples) on your new map to test it out.
+Your map is now ready to run simulations in Carla. If you have any questions about the process then you can ask in the [forum](https://github.com/carla-simulator/carla/discussions) or you can try running some of our [example scripts](https://github.com/carla-simulator/carla/tree/master/PythonAPI/examples) on your new map to test it out.

@@ -6,7 +6,7 @@
 
 ## 导航器
 
-导航器交互式地图可用于浏览城镇并导出坐标以在 CARLA 仿真器中使用。
+导航器交互式地图可用于浏览城镇并导出坐标以在 Carla 仿真器中使用。
 
 __使用导航器__:
 
@@ -29,16 +29,16 @@ __区域颜色参考__:
 ![town12_aerial](./img/catalogue/maps/town12/town12roadrunner.webp#map)
 
 
-__CARLA 坐标__: 
+__Carla 坐标__: 
 
 * __X__:  <span id="carlacoord_x" style="animation: fadeMe 2s;">--</span>
 * __Y__:  <span id="carlacoord_y" style="animation: fadeMe 2s;">--</span>
 
 
-双击兴趣点后，导航器将显示相应的 CARLA 坐标并在以下代码块中更新它们。将代码复制并粘贴到笔记本或 Python 终端中，将观察者移动到所需的位置。您首先[需要连接客户端并设置世界对象](tuto_first_steps.md#launching-carla-and-connecting-the-client) ：
+双击兴趣点后，导航器将显示相应的 Carla 坐标并在以下代码块中更新它们。将代码复制并粘贴到笔记本或 Python 终端中，将观察者移动到所需的位置。您首先[需要连接客户端并设置世界对象](tuto_first_steps.md#launching-carla-and-connecting-the-client) ：
 
 ```py
-# CARLA 坐标: X 0.0, Y 0.0
+# Carla 坐标: X 0.0, Y 0.0
 spectator = world.get_spectator()
 loc = carla.Location(0.0, 0.0, 500.0)
 rot = carla.Rotation(pitch=-90, yaw=0.0, roll=0.0)

@@ -70,7 +70,7 @@ __在 `carla/PythonAPI/carla/source/libcarla` 中打开 `World.cpp`__ 并在枚�
 
 ---
 
-如果有任何问题、疑问或建议，请阅读 **[常见问题解答](build_faq.md)** 页面或在 [CARLA 论坛](https://github.com/carla-simulator/carla/discussions) 中发帖。
+如果有任何问题、疑问或建议，请阅读 **[常见问题解答](build_faq.md)** 页面或在 [Carla 论坛](https://github.com/carla-simulator/carla/discussions) 中发帖。
 
 
 <div class="build-buttons">

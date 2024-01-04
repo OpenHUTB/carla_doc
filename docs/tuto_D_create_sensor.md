@@ -1,8 +1,8 @@
 # How to add a new sensor
 
-This tutorial explains the basics for adding a new sensor to CARLA. It provides
+This tutorial explains the basics for adding a new sensor to Carla. It provides
 the necessary steps to implement a sensor in Unreal Engine 4 (UE4) and expose
-its data via CARLA's Python API. We'll follow all the steps by creating a new
+its data via Carla's Python API. We'll follow all the steps by creating a new
 sensor as an example.
 
 *   [__Prerequisites__](#prerequisites)  
@@ -21,7 +21,7 @@ sensor as an example.
 ---
 ## Prerequisites
 
-In order to implement a new sensor, you'll need to compile CARLA source code,
+In order to implement a new sensor, you'll need to compile Carla source code,
 for detailed instructions on how to achieve this see
 [Building from source](build_linux.md).
 
@@ -30,7 +30,7 @@ This tutorial also assumes the reader is fluent in C++ programming.
 ---
 ## Introduction
 
-Sensors in CARLA are a special type of actor that produce a stream of data. Some
+Sensors in Carla are a special type of actor that produce a stream of data. Some
 sensors produce data continuously, every time the sensor is updated, other
 produce data only after certain events. For instance, a camera produces an image
 on every update, but a collision sensor is only triggered in the event of a
@@ -456,7 +456,7 @@ std::pair<ASafeDistanceSensor *, s11n::SafeDistanceSerializer>
 With this, the sensor registry now can do its magic to dispatch the right data
 to the right serializer.
 
-Now recompile CARLA, hopefully everything goes ok and no errors. Unfortunately,
+Now recompile Carla, hopefully everything goes ok and no errors. Unfortunately,
 most of the errors here will be related to templates and the error messages can
 be a bit cryptic.
 

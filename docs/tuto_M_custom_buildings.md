@@ -73,6 +73,6 @@
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA 论坛</a>
+Carla 论坛</a>
 </p>
 </div>

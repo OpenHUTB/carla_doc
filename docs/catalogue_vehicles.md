@@ -48,8 +48,8 @@ vehicle.apply_control(control)
 	* [__迷你__ - Cooper S 2021](#mini-cooper-s-2021)
 	* [__尼桑__ - Patrol 2021](#nissan-patrol-2021)
 * __卡车__
-	* [__CARLA Motors__ - 欧洲 HGV（驾驶室位于发动机上方）](#carla-motors-european-hgv-cab-over-engine-type)
-	* [__CARLA Motors__ - 消防车](#carla-motors-firetruck)
+	* [__Carla Motors__ - 欧洲 HGV（驾驶室位于发动机上方）](#carla-motors-european-hgv-cab-over-engine-type)
+	* [__Carla Motors__ - 消防车](#carla-motors-firetruck)
 	* [__特斯拉__ - Cybertruck](#tesla-cybertruck)
 * __面包车__
 	* [__福特__ - 救护车](#ford-ambulance)
@@ -81,7 +81,7 @@ vehicle.apply_control(control)
 	* [__特斯拉__ - Model 3](#tesla-model-3)
 	* [__Toyota__ - Prius](#toyota-prius)
 * __卡车__
-	* [__CARLA Motors__ - CarlaCola](#carla-motors-carlacola)
+	* [__Carla Motors__ - CarlaCola](#carla-motors-carlacola)
 * __面包车__
 	* [__大众__ - T2](#volkswagen-t2)
 * __摩托车__
@@ -97,7 +97,7 @@ vehicle.apply_control(control)
 
 ---
 
-## 检查模拟器中的车辆
+## 检查仿真器中的车辆
 
 要检查目录中的车辆，请使用以下代码，从下面的车辆详细信息中检索蓝图 ID 并将其粘贴到行中`bp_lib.find('blueprint.id.goes_here')`：
 
@@ -579,12 +579,12 @@ vehicle.destroy()
 ---
 
 ## 卡车
-### CARLA Motors - CarlaCola
+### Carla Motors - CarlaCola
 
 ![carlamotors_carlacola](./img/catalogue/vehicles/carlamotors_carlacola.webp)
 
 
-* __制造商__: CARLA Motors
+* __制造商__: Carla Motors
 * __型号__: CarlaCola
 * __类别__: 卡车
 * __世代__: 1
@@ -596,12 +596,12 @@ vehicle.destroy()
 
 * __有打开的门__: <span style="color:#f16c6c;">False<span>
 
-### CARLA Motors - 欧洲 HGV（驾驶室位于发动机上方）
+### Carla Motors - 欧洲 HGV（驾驶室位于发动机上方）
 
 ![carlamotors_european_hgv](./img/catalogue/vehicles/carlamotors_european_hgv.webp)
 
 
-* __制造商__: CARLA Motors
+* __制造商__: Carla Motors
 * __型号__: 欧洲 HGV（驾驶室位于发动机上方）
 * __类别__: 卡车
 * __世代__: 2
@@ -613,12 +613,12 @@ vehicle.destroy()
 
 * __有打开的门__: <span style="color:#f16c6c;">False<span>
 
-### CARLA Motors - Firetruck
+### Carla Motors - Firetruck
 
 ![carlamotors_firetruck](./img/catalogue/vehicles/carlamotors_firetruck.webp)
 
 
-* __制造商__: CARLA Motors
+* __制造商__: Carla Motors
 * __型号__: Firetruck
 * __类别__: 卡车
 * __世代__: 2

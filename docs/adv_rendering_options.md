@@ -24,9 +24,9 @@
 
 ### 质量等级
 
-CARLA 有两个不同的图形质量级别。__Epic__ 是默认的并且是最详细的。__Low__ 会禁用所有后处理和阴影，并且绘图距离设置为 50m 而不是无限。
+Carla 有两个不同的图形质量级别。__Epic__ 是默认的并且是最详细的。__Low__ 会禁用所有后处理和阴影，并且绘图距离设置为 50m 而不是无限。
 
-模拟在 __Low__ 模式下运行速度明显更快。这在存在技术限制、精度不重要的情况下或者在具有更简单数据或仅涉及接近元素的条件下训练代理的情况下很有帮助。
+仿真在 __Low__ 模式下运行速度明显更快。这在存在技术限制、精度不重要的情况下或者在具有更简单数据或仅涉及接近元素的条件下训练智能体的情况下很有帮助。
 
 下图比较了两种模式。Windows 和 Linux 所使用的标志是相同的。使用构建时没有等效选项，但虚幻编辑器有自己的质量设置。访问`Settings/Engine Scalability Settings` 以获得所需质量的更大定制。
 
@@ -51,7 +51,7 @@ CARLA 有两个不同的图形质量级别。__Epic__ 是默认的并且是最�
 ---
 ## 无渲染模式
 
-此模式禁用渲染。虚幻引擎将跳过有关图形的所有内容。此模式可防止渲染开销。它有利于大量交通模拟和非常高频率的道路行为。要启用或禁用无渲染模式，请更改世界设置，或使用`/PythonAPI/util/config.py`。
+此模式禁用渲染。虚幻引擎将跳过有关图形的所有内容。此模式可防止渲染开销。它有利于大量交通仿真和非常高频率的道路行为。要启用或禁用无渲染模式，请更改世界设置，或使用`/PythonAPI/util/config.py`。
 
 以下是如何通过脚本启用和禁用它的示例：
 
@@ -96,7 +96,7 @@ cd PythonAPI/examples && python3 no_rendering_mode.py
 
 ### 设置离屏模式（版本0.9.12+）
 
-要在离屏模式下启动 CARLA，请运行以下命令：
+要在离屏模式下启动 Carla，请运行以下命令：
 
 ```sh
 ./CarlaUE4.sh -RenderOffScreen
@@ -166,6 +166,6 @@ Carla 在 [这里](https://github.com/carla-simulator/carla/blob/0.9.12/Util/Doc
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA 论坛</a>
+Carla 论坛</a>
 </p>
 </div>

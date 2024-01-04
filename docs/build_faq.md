@@ -46,7 +46,7 @@ Carla 论坛</a>
 * [在虚幻编辑器中运行服务器时 FPS 速率较低。](#low-fps-rate-when-running-the-server-in-unreal-editor)
 * [无法运行脚本。](#cant-run-a-script)
 * [当在虚幻编辑器中运行时链接到仿真器。](#connect-to-the-simulator-while-running-within-unreal-editor)
-* [无法运行 CARLA，无论是二进制还是源代码构建。](#cant-run-carla-neither-binary-nor-source-build)
+* [无法运行 Carla，无论是二进制还是源代码构建。](#cant-run-carla-neither-binary-nor-source-build)
 * [ImportError: DLL load failed: The specified module could not be found.](#importerror-dll-load-failed-the-specified-module-could-not-be-found)
 * [ImportError: DLL load failed while importing libcarla: %1 is not a valid Win32 app.](#importerror-dll-load-failed-while-importing-libcarla-1-is-not-a-valid-win32-app)
 * [ImportError: No module named 'carla'](#importerror-no-module-named-carla)
@@ -57,7 +57,7 @@ Carla 论坛</a>
 
 * [Fatal error: 'version.h' has been modified since the precompiled header.](#fatal-error-versionh-has-been-modified-since-the-precompiled-header)
 * [创建 Carla 的二进制版本。](#create-a-binary-version-of-carla)
-* [我可以在 Linux 计算机上打包适用于 Windows 的 CARLA，反之亦然吗？](#can-i-package-carla-for-windows-on-a-linux-machine-and-vice-versa)
+* [我可以在 Linux 计算机上打包适用于 Windows 的 Carla，反之亦然吗？](#can-i-package-carla-for-windows-on-a-linux-machine-and-vice-versa)
 * [如何卸载 Carla 客户端库？](#how-do-i-uninstall-the-carla-client-library)
 
 ---
@@ -269,7 +269,7 @@ Carla 论坛</a>
 > * __运行虚幻引擎 4.26。__ 构建虚幻引擎时可能出现某些问题。运行编辑器并检查是否使用了 4.26 版本。 
 > * __下载资产。__ 如果没有视觉内容，服务器将无法运行。此步骤是强制性的。
 > * __Visual Studio 2019.__ 如果安装或最近卸载了其他版本的 Visual Studio，可能会出现冲突。要从计算机中彻底清除 Visual Studio，请转到 `Program Files (x86)\Microsoft Visual Studio\Installer\resources\app\layout` 并运行 `.\InstallCleanup.exe -full`。  
-> * __删除 Carla 并再次克隆它。__ 以防万一出了问题。删除 CARLA 并重新克隆或下载。
+> * __删除 Carla 并再次克隆它。__ 以防万一出了问题。删除 Carla 并重新克隆或下载。
 > * __满足系统要求。__ Carla 需要大约 170GB 的磁盘空间和一个专用 GPU（或至少一个 6GB）才能运行。
 >
 > 系统显示与 Carla 冲突的其他特定原因可能会发生。请将这些内容发布到 [论坛](https://github.com/carla-simulator/carla/discussions/) 上，以便团队可以更多地了解它们。
@@ -313,9 +313,9 @@ Carla 论坛</a>
 
 <!-- ======================================================================= -->
 
-###### 在虚幻编辑器中运行时连接到模拟器。
+###### 在虚幻编辑器中运行时连接到仿真器。
 
-> 单击“运行”（ __Play__ ）并等待场景加载。此时，Python 客户端可以像独立仿真器一样连接到模拟器。
+> 单击“运行”（ __Play__ ）并等待场景加载。此时，Python 客户端可以像独立仿真器一样连接到仿真器。
 
 <!-- ======================================================================= -->
 

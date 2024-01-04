@@ -1,10 +1,10 @@
 # RLlib 集成
 
-RLlib 集成带来了 [Ray/RLlib](https://github.com/ray-project/ray) 库和 CARLA 之间的支持，允许轻松使用 CARLA 环境进行训练和推理。Ray 是一个开源框架，为构建分布式应用程序提供了简单、通用的 API。Ray 与 RLlib（一个可扩展的强化学习库）和 Tune（一个可扩展的超参数调整库）打包在一起。
+RLlib 集成带来了 [Ray/RLlib](https://github.com/ray-project/ray) 库和 Carla 之间的支持，允许轻松使用 Carla 环境进行训练和推理。Ray 是一个开源框架，为构建分布式应用程序提供了简单、通用的 API。Ray 与 RLlib（一个可扩展的强化学习库）和 Tune（一个可扩展的超参数调整库）打包在一起。
 
-RLlib 集成允许用户创建和使用 CARLA 作为 Ray 的环境，并将该环境用于训练和推理目的。该集成可以在本地使用，也可以通过 AWS 在云中使用。
+RLlib 集成允许用户创建和使用 Carla 作为 Ray 的环境，并将该环境用于训练和推理目的。该集成可以在本地使用，也可以通过 AWS 在云中使用。
 
-在本指南中，我们将概述在本地和 AWS 上运行 RLlib 集成所需的要求、集成存储库的结构、如何使用该库的概述，以及如何使用 CARLA 设置 Ray 实验的示例一个环境。
+在本指南中，我们将概述在本地和 AWS 上运行 RLlib 集成所需的要求、集成存储库的结构、如何使用该库的概述，以及如何使用 Carla 设置 Ray 实验的示例一个环境。
 
 - [__在你开始之前__](#before-you-begin)
     - [本地运行的要求](#requirements-for-running-locally)
@@ -36,12 +36,12 @@ RLlib 集成允许用户创建和使用 CARLA 作为 Ray 的环境，并将该�
 
 >###### 本地运行的要求
 
->>- [安装 CARLA 的软件包版本](https://github.com/carla-simulator/carla/releases) 并导入 [附加资源](https://carla.readthedocs.io/en/latest/start_quickstart/#import-additional-assets) 。__推荐的版本是 CARLA 0.9.11__ ，因为集成是使用此版本设计和测试的。其他版本可能兼容，但尚未经过充分测试，因此请自行决定使用这些版本。
+>>- [安装 Carla 的软件包版本](https://github.com/carla-simulator/carla/releases) 并导入 [附加资源](https://carla.readthedocs.io/en/latest/start_quickstart/#import-additional-assets) 。__推荐的版本是 Carla 0.9.11__ ，因为集成是使用此版本设计和测试的。其他版本可能兼容，但尚未经过充分测试，因此请自行决定使用这些版本。
 >>- 导航到 RLlib 集成存储库的根文件夹并安装 Python 要求：
 
                 pip3 install -r requirements.txt
 
->>- 通过运行以下命令设置环境变量以查找 CARLA 包或添加`CARLA_ROOT=path/to/carla`到您的`.bashrc`文件中：
+>>- 通过运行以下命令设置环境变量以查找 Carla 包或添加`CARLA_ROOT=path/to/carla`到您的`.bashrc`文件中：
 
                 export CARLA_ROOT=path/to/carla
 
@@ -55,9 +55,9 @@ RLlib 集成允许用户创建和使用 CARLA 作为 Ray 的环境，并将该�
 
 存储库分为三个目录：
 
-- `rllib_integration` 包含与 CARLA 相关的所有基础设施以及如何设置 CARLA 服务器、客户端和参与者。这提供了所有训练和测试实验必须遵循的基本结构。
+- `rllib_integration` 包含与 Carla 相关的所有基础设施以及如何设置 Carla 服务器、客户端和参与者。这提供了所有训练和测试实验必须遵循的基本结构。
 - `aws` 具有在 AWS 实例中运行所需的文件。`aws_helper.py`提供了多种可简化 EC2 实例管理的功能，包括实例创建以及发送和接收数据。
-- 根目录中的 `dqn_example` 和 `dqn_*` 文件提供了一个易于理解的示例，说明如何使用 CARLA 作为环境来设置 Ray 实验。 
+- 根目录中的 `dqn_example` 和 `dqn_*` 文件提供了一个易于理解的示例，说明如何使用 Carla 作为环境来设置 Ray 实验。 
 
 ---
 
@@ -74,7 +74,7 @@ RLlib 集成允许用户创建和使用 CARLA 作为 Ray 的环境，并将该�
 
 #### 1. 实验类
 
-要使用 CARLA 环境，您需要定义训练实验。Ray 要求环境返回一系列特定信息。您可以在 [`rllib-integration/rllib_integration/carla_env.py`][carlaEnv] 中查看有关 CARLA 环境的详细信息。
+要使用 Carla 环境，您需要定义训练实验。Ray 要求环境返回一系列特定信息。您可以在 [`rllib-integration/rllib_integration/carla_env.py`][carlaEnv] 中查看有关 Carla 环境的详细信息。
 
 Ray 所需的信息取决于您的具体实验，因此所有实验都应继承自[`BaseExperiment`][baseExperiment]。此类包含您自己的实验需要覆盖的所有函数。这些都是与训练的行动、观察和奖励相关的功能。
 
@@ -87,7 +87,7 @@ Ray 所需的信息取决于您的具体实验，因此所有实验都应继承�
 
 配置文件有三个主要用途：
 
-1. 设置大部分 CARLA 服务器和客户端设置，例如超时或地图质量。请参阅 [此处][defaultCarlaSettings] 的默认值。 
+1. 设置大部分 Carla 服务器和客户端设置，例如超时或地图质量。请参阅 [此处][defaultCarlaSettings] 的默认值。 
 2. 设置特定于您的实验的变量，以及指定城镇条件以及自我车辆及其传感器的生成。默认设置可在 [此处][defaultExperimentSettings] 找到，并提供如何设置传感器的示例。
 3. 配置特定于 [Ray 的训练][raySettings] 设置。这些设置与所使用的特定训练器相关。如果您使用的是内置模型，则可以在此处应用其设置。 
 

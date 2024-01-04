@@ -1,9 +1,9 @@
 # Recorder
 
-此功能允许记录和重新制定以前的模拟。所有发生的事件都记录在 [recorder file](ref_recorder_binary_file_format.md) 中。有一些高级查询可以跟踪和研究这些事件。
+此功能允许记录和重新制定以前的仿真。所有发生的事件都记录在 [recorder file](ref_recorder_binary_file_format.md) 中。有一些高级查询可以跟踪和研究这些事件。
 
 - [__Recording__](#recording)
-- [__模拟播放__](#simulation-playback)
+- [__仿真播放__](#simulation-playback)
      - [设置时间因子](#setting-a-time-factor)
 - [__录制文件__](#recorded-file)
 - [__查询__](#查询)
@@ -16,7 +16,7 @@
 
 所有数据仅写入服务器端的二进制文件。但是，使用 [carla.Client](python_api.md#carla.Client) 管理记录器。
 
-根据记录文件中包含的数据，每帧更新角色。当前模拟中出现在录制中的 Actor 将被移动或重新生成以模拟它。那些没有出现在录音中的将继续他们的方式，就好像什么都没发生一样。
+根据记录文件中包含的数据，每帧更新角色。当前仿真中出现在录制中的 Actor 将被移动或重新生成以仿真它。那些没有出现在录音中的将继续他们的方式，就好像什么都没发生一样。
 
 ！！！重要的
     播放结束时，车辆将设置为自动驾驶，但 __行人将停止__。
@@ -35,7 +35,7 @@
 client.start_recorder("/home/carla/recording01.log")
 ```
 
-默认情况下，记录器设置为仅存储回放模拟所需的信息。为了保存前面提到的所有信息，必须在开始录制时配置参数`additional_data`。
+默认情况下，记录器设置为仅存储回放仿真所需的信息。为了保存前面提到的所有信息，必须在开始录制时配置参数`additional_data`。
 
 ```py
 client.start_recorder("/home/carla/recording01.log", True)
@@ -54,9 +54,9 @@ client.stop_recorder()
     据估计，50 个红绿灯和 100 辆车的 1 小时记录大约需要 200MB 大小。
 
 ---
-##模拟播放
+## 仿真播放
 
-可以在模拟过程中的任何时候开始播放。除了日志文件的路径，这个方法还需要一些参数。
+可以在仿真过程中的任何时候开始播放。除了日志文件的路径，这个方法还需要一些参数。
 
 ```py
 client.replay_file("recording01.log", start, duration, camera)
@@ -64,7 +64,7 @@ client.replay_file("recording01.log", start, duration, camera)
 
 | 参数     | 说明              | 笔记                                     |
 |--------|-----------------|----------------------------------------|
-| `开始`   | 以秒为单位记录开始模拟的时间。 | 如果是肯定的，时间将从记录开始计算。 <br> 如果是否定的，将从最后考虑。 |
+| `开始`   | 以秒为单位记录开始仿真的时间。 | 如果是肯定的，时间将从记录开始计算。 <br> 如果是否定的，将从最后考虑。 |
 | `持续时间` | 播放秒数。 0 是所有的录音。 | 播放结束时，车辆将设置为自动驾驶，行人将停止。                |
 | `相机`   | 相机将聚焦的演员的 ID。   | 将其设置为“0”以让观众自由移动。                      |
 
@@ -105,7 +105,7 @@ client.set_replayer_time_factor(2.0)
 print (client.show_recorder_file_info ("recording01.log"))
 ```
 
-* __开放信息.__ 记录模拟的地图、日期和时间。
+* __开放信息.__ 记录仿真的地图、日期和时间。
 
 * __Frame information.__ 任何可能发生的事件，例如角色生成或碰撞。它包含演员的 ID 和一些附加信息。
 
@@ -234,7 +234,7 @@ Frames: 6985
 Duration: 374 seconds
 ```
 
-车辆`173`在`36`秒时停止`336`秒。在第二个`36`之前几秒钟重新模拟以检查它。
+车辆`173`在`36`秒时停止`336`秒。在第二个`36`之前几秒钟重新仿真以检查它。
 
 ```py
 client.replay_file("col3.log", 34, 0, 173)
@@ -306,11 +306,11 @@ client.replay_file("col3.log", 34, 0, 173)
 
 
 ---
-现在是试验一段时间的时候了。使用记录器回放模拟、追溯事件、进行更改以查看新结果。在 CARLA 论坛上就此事发表意见。
+现在是试验一段时间的时候了。使用记录器回放仿真、追溯事件、进行更改以查看新结果。在 Carla 论坛上就此事发表意见。
 
 <div class="build-buttons">
 <p>
-<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="前往 CARLA 论坛">
-CARLA论坛</a>
+<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="前往 Carla 论坛">
+Carla 论坛</a>
 </p>
 </div>

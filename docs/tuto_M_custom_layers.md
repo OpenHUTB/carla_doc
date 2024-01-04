@@ -1,6 +1,6 @@
 # 自定义地图：分层地图
 
-利用自定义地图中的级别可以让多人同时在一张地图上工作。它还允许您在模拟过程中使用 Python API 在地图上加载和卸载图层，就像 [分层的 CARLA 地图](core_map.md#layered-maps) 一样。
+利用自定义地图中的级别可以让多人同时在一张地图上工作。它还允许您在仿真过程中使用 Python API 在地图上加载和卸载图层，就像 [分层的 Carla 地图](core_map.md#layered-maps) 一样。
 
 本指南将解释如何添加新关卡、如何向关卡添加资源以及如何将关卡配置为始终加载或不加载。
 
@@ -24,7 +24,7 @@ __2. 创建新关卡。__
 
 1. 在“关卡”面板中，单击“关卡”并选择“新建......”。
 2. 选择“空关卡”。
-3. 将关卡保存在 `Content/Carla/Maps/Sublevels/<map_name>/`。 要将关卡与 CARLA Python API 集成，请使用命名约定 `<map_name>_<layer_name>`，比如,  `TutorialMap_Buildings`。有关可用关卡的列表，请查看 [此处](core_map.md#carla-maps)。
+3. 将关卡保存在 `Content/Carla/Maps/Sublevels/<map_name>/`。 要将关卡与 Carla Python API 集成，请使用命名约定 `<map_name>_<layer_name>`，比如,  `TutorialMap_Buildings`。有关可用关卡的列表，请查看 [此处](core_map.md#carla-maps)。
 
 >>>>>>![create new level](./img/new_level.png)
 

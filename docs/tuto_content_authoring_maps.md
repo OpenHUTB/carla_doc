@@ -1,14 +1,14 @@
 # 内容创作 - 地图
 
-Carla 提供了大量的资源，可用于创建开箱即用的驾驶仿真。然而，CARLA 的真正力量在于其全面的可扩展性，允许用户创建完全自定义的环境，其中包含建筑物、长凳、垃圾桶、雕像、路灯和公交车站等定制资产。
+Carla 提供了大量的资源，可用于创建开箱即用的驾驶仿真。然而，Carla 的真正力量在于其全面的可扩展性，允许用户创建完全自定义的环境，其中包含建筑物、长凳、垃圾桶、雕像、路灯和公交车站等定制资产。
 
-在本教程中，我们将介绍创建与 CARLA 一起使用的简单地图的过程。我们将使用两个软件包来创建地图的各个部分。我们将使用 [__RoadRunner__](https://es.mathworks.com/products/roadrunner.html) 创建道路网络，然后通过 [__虚幻编辑器__](https://www.unrealengine.com/en-US/features/the-unreal-editor) 将资源添加到地图中。
+在本教程中，我们将介绍创建与 Carla 一起使用的简单地图的过程。我们将使用两个软件包来创建地图的各个部分。我们将使用 [__RoadRunner__](https://es.mathworks.com/products/roadrunner.html) 创建道路网络，然后通过 [__虚幻编辑器__](https://www.unrealengine.com/en-US/features/the-unreal-editor) 将资源添加到地图中。
 
 * __[先决条件](#prerequisites)__  
 * __[大地图](#large-maps)__
 * __[数字孪生工具](#digital-twin-tool)__
 * __[RoadRunner](#create-a-road-network-using-roadrunner)__  
-* __[导入 CARLA](#importing-your-road-network-into-carla)__
+* __[导入 Carla](#importing-your-road-network-into-carla)__
 * __[导入资产](#importing-assets-and-adding-them-to-the-map)__
 * __[交通灯](#traffic-lights)__
 * __[交通标志](#traffic-signs)__ 
@@ -27,15 +27,15 @@ Carla 提供了大量的资源，可用于创建开箱即用的驾驶仿真。�
 
 ## 先决条件
 
-要遵循本指南，您需要从源代码构建 CARLA，以便您可以使用虚幻编辑器。请遵循相关操作系统的 [__构建说明__](build_carla.md) 。您还需要 RoadRunner 的许可副本。您可能还需要 Maya、3DS Max 或 Blender 等三维建模应用程序来为自定义地图创建三维资产。您应该确保已完成构建 CARLA 的所有步骤并确保虚幻编辑器正在运行，这可能需要一些时间来构建应用程序。如果您想为地图创建三维资产，则应使用适当的三维设计应用程序，例如 Blender、Maya、3DsMax 或 Modo。
+要遵循本指南，您需要从源代码构建 Carla，以便您可以使用虚幻编辑器。请遵循相关操作系统的 [__构建说明__](build_carla.md) 。您还需要 RoadRunner 的许可副本。您可能还需要 Maya、3DS Max 或 Blender 等三维建模应用程序来为自定义地图创建三维资产。您应该确保已完成构建 Carla 的所有步骤并确保虚幻编辑器正在运行，这可能需要一些时间来构建应用程序。如果您想为地图创建三维资产，则应使用适当的三维设计应用程序，例如 Blender、Maya、3DsMax 或 Modo。
 
 ## 大地图
 
-以下文本详细介绍了创建和装饰标准地图的过程。从版本 0.9.12 开始，CARLA 具有大地图功能。大地图的比例比标准地图更大，最大可达 100 km<sup>2</sup>。由于硬件限制，大地图的工作方式与标准地图略有不同，即使在高端显卡中也是如此。大地图被分割成图块，并且在模拟过程中仅加载立即需要的图块（即最接近自我车辆的图块）。其他图块处于休眠状态，直到需要数据为止。这有助于实现 CARLA 模拟的最高性能。接下来的大多数细节与构建大地图时类似，但还有一些额外的步骤。请按照 [本指南](content_authoring_large_maps.md) 为 CARLA 构建大地图。
+以下文本详细介绍了创建和装饰标准地图的过程。从版本 0.9.12 开始，Carla 具有大地图功能。大地图的比例比标准地图更大，最大可达 100 km<sup>2</sup>。由于硬件限制，大地图的工作方式与标准地图略有不同，即使在高端显卡中也是如此。大地图被分割成图块，并且在仿真过程中仅加载立即需要的图块（即最接近自我车辆的图块）。其他图块处于休眠状态，直到需要数据为止。这有助于实现 Carla 仿真的最高性能。接下来的大多数细节与构建大地图时类似，但还有一些额外的步骤。请按照 [本指南](content_authoring_large_maps.md) 为 Carla 构建大地图。
 
 ## 数字孪生工具
 
-CARLA 提供了一个程序化地图生成工具，它从 OpenStreetMap 获取道路网络数据，并用建筑物和植被程序化地装饰地图。请在 [此处](adv_digital_twin.md) 阅读有关如何使用该工具的信息。
+Carla 提供了一个程序化地图生成工具，它从 OpenStreetMap 获取道路网络数据，并用建筑物和植被程序化地装饰地图。请在 [此处](adv_digital_twin.md) 阅读有关如何使用该工具的信息。
 
 ## 使用 RoadRunner 创建路网
 
@@ -75,15 +75,15 @@ RoadRunner 是创建自定义地图的最佳应用程序。还有一些替代方
 RoadRunner 是一款需要 MATLAB 的专有软件。大学等一些机构可能与 MathWorks 达成了协议，以便某些用户可以获得 RoadRunner 许可证。如果您没有许可证预算，RoadRunner 的一个方便的开源替代方案是[__TrueVision Designer__](https://www.truevision.ai/designer) 。此应用程序具有许多与 RoadRunner 相同的功能，如果您无法获得 RoadRunner 的许可证，该应用程序会非常有用。
 
 
-## 将您的路网导入 CARLA
+## 将您的路网导入 Carla
 
-CARLA需要的重要导出文件是 `.xodr` 文件和 `.fbx` 文件。将这些文件复制或移动到您从源代码构建的 CARLA 存储库根目录内的 `Import` 文件夹中。
+Carla 需要的重要导出文件是 `.xodr` 文件和 `.fbx` 文件。将这些文件复制或移动到您从源代码构建的 Carla 存储库根目录内的 `Import` 文件夹中。
 
 ![roadrunner_imports](img/tuto_content_authoring_maps/rr_import.png)
 
-现在在 CARLA 源目录的根目录中打开一个终端并运行`make import`. 这会将道路网络导入 CARLA。
+现在在 Carla 源目录的根目录中打开一个终端并运行`make import`. 这会将道路网络导入 Carla。
 
-您现在可以在虚幻编辑器中看到新地图。在 CARLA 源目录的根目录下运行 `make launch` 以启动虚幻编辑器。您现在将在内容浏览器中看到一个名为 `map_package` 的新目录。在此目录 `Content > map_package > Maps > tutorial` 中，您现在将找到您的新地图。
+您现在可以在虚幻编辑器中看到新地图。在 Carla 源目录的根目录下运行 `make launch` 以启动虚幻编辑器。您现在将在内容浏览器中看到一个名为 `map_package` 的新目录。在此目录 `Content > map_package > Maps > tutorial` 中，您现在将找到您的新地图。
 
 !!! 笔记
     可以参考 [链接](https://zhuanlan.zhihu.com/p/552983835) 通过鼠标右键的方式直接导入。
@@ -96,7 +96,7 @@ CARLA需要的重要导出文件是 `.xodr` 文件和 `.fbx` 文件。将这些�
 
 现在我们已经有了道路网络作为地图的基础，我们现在想要为地图创建一些内容，例如建筑物。这些资源可以使用三维建模应用程序（例如 Autodesk Maya、3DS Max、Blender 或具有适当导出选项的任何其他三维应用程序）创建。重要的是，应用程序至少能够导出`.fbx`。
 
-在 CARLA 中创建资产需要几个元素：
+在 Carla 中创建资产需要几个元素：
 
 - [__网格__](https://en.wikipedia.org/wiki/Polygon_mesh) - 一组 3D 坐标顶点和关联的连接边。
 - [__UV 贴图__](https://en.wikipedia.org/wiki/UV_mapping) - 将三维顶点和边映射到二维纹理空间，以将纹理与三维位置进行匹配。
@@ -148,7 +148,7 @@ ORM 贴图利用标准 RGBA 编码图像的通道对金属区域、粗糙度和�
 
 现在，您可以使用工作区左上角的“保存当前”选项保存地图，即可使用。开始仿真。
 
-地图作者指南到此结束。现在您知道如何创建道路网络并导入三维资产以在 CARLA 中使用。您现在可以阅读如何 [__打包地图以在 CARLA 独立版本中使用__](tuto_M_manual_map_package.md) 。
+地图作者指南到此结束。现在您知道如何创建道路网络并导入三维资产以在 Carla 中使用。您现在可以阅读如何 [__打包地图以在 Carla 独立版本中使用__](tuto_M_manual_map_package.md) 。
 
 ## 交通灯
 
@@ -186,7 +186,7 @@ __3.__ 通过在“详细信息( _Details_ )”面板中选择 _BoxTrigger_ 组�
 
 ## 材质
 
-CARLA 内容库拥有大量有用的材料，可随时用于更改地图的外观。在内容浏览器中，导航至`Carla > Static > GenericMaterials`。在这里您会发现许多可用于改变地图外观的材料。
+Carla 内容库拥有大量有用的材料，可随时用于更改地图的外观。在内容浏览器中，导航至`Carla > Static > GenericMaterials`。在这里您会发现许多可用于改变地图外观的材料。
 
 您可以通过拖放到地图元素上来快速测试材质：
 
@@ -269,7 +269,7 @@ __6. 创建道路画家和主材质之间的通信链接。__
 - Normal
 - ORMH
 
-探索 `Game > Carla > Static > GenericMaterials > Asphalt > Textures` 中可用的一些 CARLA 纹理。
+探索 `Game > Carla > Static > GenericMaterials > Asphalt > Textures` 中可用的一些 Carla 纹理。
 
 ---
 
@@ -404,9 +404,9 @@ __3. 选择车道线网格。__
 
 ## 树木和植被
 
-CARLA 内容库拥有一套全面的植被蓝图，供您为地图的越野区域（如人行道、公园、山坡、田野和森林）增添更多真实感。
+Carla 内容库拥有一套全面的植被蓝图，供您为地图的越野区域（如人行道、公园、山坡、田野和森林）增添更多真实感。
 
-导航到 CARLA 内容库中的植被文件夹：`Carla > Static > Visitation`。您会找到多种树木、灌木丛的蓝图。您可以将这些元素从内容浏览器拖到地图中。
+导航到 Carla 内容库中的植被文件夹：`Carla > Static > Visitation`。您会找到多种树木、灌木丛的蓝图。您可以将这些元素从内容浏览器拖到地图中。
 
 ![map_materials](img/tuto_content_authoring_maps/add_tree.png)
 
@@ -437,6 +437,6 @@ CARLA 内容库拥有一套全面的植被蓝图，供您为地图的越野区�
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA 论坛</a>
+Carla 论坛</a>
 </p>
 </div>

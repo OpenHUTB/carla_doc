@@ -1,10 +1,10 @@
 # Windows 下的构建
 
-本指南详细介绍了如何在 Windows 上从源代码构建 CARLA。有两个部分。第一部分详细介绍系统要求和所需软件的安装，第二部分详细介绍如何实际构建和运行 CARLA。
+本指南详细介绍了如何在 Windows 上从源代码构建 Carla。有两个部分。第一部分详细介绍系统要求和所需软件的安装，第二部分详细介绍如何实际构建和运行 Carla。
 
 构建过程很长（4小时或更长时间）并且涉及多种软件。强烈建议在开始之前完整阅读该指南。
 
-如果您遇到错误或困难，请查看**[常见问题解答](build_faq.md)**页面，其中提供了最常见问题的解决方案。或者，使用 [CARLA 论坛](https://github.com/carla-simulator/carla/discussions) 发布您可能有的任何疑问。
+如果您遇到错误或困难，请查看**[常见问题解答](build_faq.md)**页面，其中提供了最常见问题的解决方案。或者，使用 [Carla 论坛](https://github.com/carla-simulator/carla/discussions) 发布您可能有的任何疑问。
 
 - [__第一部分：先决条件__](#part-one-prerequisites)
     - [系统要求](#system-requirements)
@@ -29,13 +29,13 @@
 
 ### 系统要求
 
-* __64 位操作系统。__ 模拟器应在任何 64 位 Windows 系统中运行。 
-* __165 GB 磁盘空间。__ CARLA 本身将占用大约 32 GB，相关的主要软件安装（包括虚幻引擎）将占用大约 133 GB。
-* __足够的 GPU。__ CARLA 旨在实现真实模拟，因此服务器至少需要 6 GB GPU，但建议使用 8 GB。强烈建议使用专用 GPU 进行机器学习。
+* __64 位操作系统。__ 仿真器应在任何 64 位 Windows 系统中运行。 
+* __165 GB 磁盘空间。__ Carla 本身将占用大约 32 GB，相关的主要软件安装（包括虚幻引擎）将占用大约 133 GB。
+* __足够的 GPU。__ Carla 旨在实现真实仿真，因此服务器至少需要 6 GB GPU，但建议使用 8 GB。强烈建议使用专用 GPU 进行机器学习。
 * __两个 TCP 端口和良好的互联网连接。__ 默认端口为 2000 和 2001 。 确保这些端口未被防火墙或任何其他应用程序阻止。 
 
 ..警告::
-    __如果您要从 CARLA 0.9.12 升级到 0.9.13__: 您必须首先将虚幻引擎 4 的 CARLA 分支升级到最新版本。有关升级虚幻引擎 4 的详细信息，请参阅 [__虚幻引擎__](#unreal-engine) 部分。
+    __如果您要从 Carla 0.9.12 升级到 0.9.13__: 您必须首先将虚幻引擎 4 的 Carla 分支升级到最新版本。有关升级虚幻引擎 4 的详细信息，请参阅 [__虚幻引擎__](#unreal-engine) 部分。
 
 ### 软件要求
 
@@ -43,15 +43,15 @@
 
 * [__CMake__](https://cmake.org/download/) 从简单的配置文件生成标准构建文件。  
 * [__Git__](https://git-scm.com/downloads) 是一个用于管理 Carla 存储库的版本控制系统。
-* [__Make__](http://gnuwin32.sourceforge.net/packages/make.htm) 生成可执行文件。必须使用 __Make 的 3.81 版本__，否则构建可能会失败。如果安装了多个版本的 Make，请检查构建 CARLA 时在 PATH 中使用的版本是否为 3.81。您可以通过运行来检查默认的 Make 版本 `make --version`。
+* [__Make__](http://gnuwin32.sourceforge.net/packages/make.htm) 生成可执行文件。必须使用 __Make 的 3.81 版本__，否则构建可能会失败。如果安装了多个版本的 Make，请检查构建 Carla 时在 PATH 中使用的版本是否为 3.81。您可以通过运行来检查默认的 Make 版本 `make --version`。
 * [__7Zip__](https://www.7-zip.org/) 一款文件压缩软件。这是自动解压缩资产文件所必需的，并防止在构建期间由于错误或部分提取大文件而出现错误。
-* [__Python3 x64__](https://www.python.org/downloads/) 是 CARLA 中的主要脚本语言。安装 x32 版本可能会导致冲突，因此强烈建议卸载它。
+* [__Python3 x64__](https://www.python.org/downloads/) 是 Carla 中的主要脚本语言。安装 x32 版本可能会导致冲突，因此强烈建议卸载它。
 
 !!! 重要
     确保将上述程序添加到 [环境路径](https://www.java.com/en/download/help/path.xml) 中。请记住，添加的路径应与程序的 `bin` 目录相对应。
 #### Python 依赖项
 
-从 CARLA 0.9.12 开始，用于可以选择使用 `pip3` 来安装 Carla 的 Python API。要检查您是否有合适的版本，请运行以下命令：
+从 Carla 0.9.12 开始，用于可以选择使用 `pip3` 来安装 Carla 的 Python API。要检查您是否有合适的版本，请运行以下命令：
 
 ```sh
 pip3 -V
@@ -143,9 +143,9 @@ The button above will take you to the official repository of the project. Either
 ```
 
 !!! Note
-    The `master` branch contains the current release of CARLA with the latest fixes and features. Previous CARLA versions are tagged with the version name. Always remember to check the current branch in git with the command `git branch`. 
+    The `master` branch contains the current release of Carla with the latest fixes and features. Previous Carla versions are tagged with the version name. Always remember to check the current branch in git with the command `git branch`. 
 
-### Get assets
+### 获取资产
 
 Download the __latest__ assets to work with the current version of CARLA by running the following command in the CARLA root folder:
 
@@ -157,7 +157,7 @@ The assets will be downloaded and extracted to the appropriate location if have 
 
 To download the assets for a __specific version__ of CARLA:
 
-1. From the root CARLA directory, navigate to `\Util\ContentVersions.txt`. This document contains the links to the assets for all CARLA releases. 
+1. From the root Carla directory, navigate to `\Util\ContentVersions.txt`. This document contains the links to the assets for all CARLA releases. 
 2. Extract the assets in `Unreal\CarlaUE4\Content\Carla`. If the path doesn't exist, create it.  
 3. Extract the file with a command similar to the following:
 
@@ -165,9 +165,9 @@ To download the assets for a __specific version__ of CARLA:
     tar -xvzf <assets_file_name>.tar.gz.tar -C C:\path\to\carla\Unreal\CarlaUE4\Content\Carla
 ```
 
-### Set Unreal Engine environment variable
+### 设置虚幻引擎变量
 
-It is necessary to set an environment variable so that CARLA can find the Unreal Engine installation folder. This allows users to choose which specific version of Unreal Engine is to be used. If no environment variable is specified, then CARLA will search for Unreal Engine in the windows registry and use the first version it finds there.  
+It is necessary to set an environment variable so that Carla can find the Unreal Engine installation folder. This allows users to choose which specific version of Unreal Engine is to be used. If no environment variable is specified, then Carla will search for Unreal Engine in the windows registry and use the first version it finds there.  
 
 To set the environment variable:
 
@@ -177,18 +177,18 @@ To set the environment variable:
 4. Name the variable `UE4_ROOT` and choose the path to the installation folder of the desired Unreal Engine installation.  
 
 
-### Build CARLA
+### 构建 Carla
 
-This section outlines the commands to build CARLA. 
+This section outlines the commands to build Carla. 
 
-- All commands should be run in the root CARLA folder. 
+- All commands should be run in the root Carla folder. 
 - Commands should be executed via the __x64 Native Tools Command Prompt for VS 2019__. Open this by clicking the `Windows` key and searching for `x64`.
 
-There are two parts to the build process for CARLA, compiling the client and compiling the server.
+There are two parts to the build process for Carla, compiling the client and compiling the server.
 
 __1.__ __Compile the Python API client__:
 
-The Python API client grants control over the simulation. Compilation of the Python API client is required the first time you build CARLA and again after you perform any updates. After the client is compiled, you will be able to run scripts to interact with the simulation.
+The Python API client grants control over the simulation. Compilation of the Python API client is required the first time you build Carla and again after you perform any updates. After the client is compiled, you will be able to run scripts to interact with the simulation.
 
 The following command compiles the Python API client:
 
@@ -196,13 +196,13 @@ The following command compiles the Python API client:
     make PythonAPI
 ```
 
-The CARLA client library will be built in two distinct, mutually exclusive forms. This gives users the freedom to choose which form they prefer to run the CARLA client code. The two forms include `.egg` files and `.whl` files. Choose __one__ of the following options below to use the client library:
+The Carla client library will be built in two distinct, mutually exclusive forms. This gives users the freedom to choose which form they prefer to run the Carla client code. The two forms include `.egg` files and `.whl` files. Choose __one__ of the following options below to use the client library:
 
 __A. `.egg` file__
 
 >The `.egg` file does not need to be installed. All of CARLA's example scripts automatically [look for this file](build_system.md#versions-prior-to-0912) when importing CARLA.
 
->If you previously installed a CARLA `.whl`, the `.whl` will take precedence over an `.egg` file.
+>If you previously installed a Carla `.whl`, the `.whl` will take precedence over an `.egg` file.
 
 __B. `.whl` file__
 
@@ -215,7 +215,7 @@ pip3 install <path/to/wheel>.whl
 >This `.whl` file cannot be distributed as it is built specifically for your OS.
 
 !!! Warning
-    Issues can arise through the use of different methods to install the CARLA client library and having different versions of CARLA on your system. It is recommended to use virtual environments when installing the `.whl` and to [uninstall](build_faq.md#how-do-i-uninstall-the-carla-client-library) any previously installed client libraries before installing new ones.
+    Issues can arise through the use of different methods to install the Carla client library and having different versions of Carla on your system. It is recommended to use virtual environments when installing the `.whl` and to [uninstall](build_faq.md#how-do-i-uninstall-the-carla-client-library) any previously installed client libraries before installing new ones.
 
 __2.__ __Compile the server__:
 
@@ -247,17 +247,17 @@ Test the simulator using the example scripts inside `PythonAPI\examples`.  With 
 !!! Important
     If the simulation is running at a very low FPS rate, go to `Edit -> Editor preferences -> Performance` in the Unreal Engine editor and disable `Use less CPU when in background`.
 
-### Other make commands
+### 其他构建命令
 
 There are more `make` commands that you may find useful. Find them in the table below:  
 
 | Command | Description |
 | ------- | ------- |
 | `make help`                                                           | Prints all available commands.                                        |
-| `make launch`                                                         | Launches CARLA server in Editor window.                               |
-| `make PythonAPI`                                                      | Builds the CARLA client.                                              |
-| `make LibCarla`                                                       | Prepares the CARLA library to be imported anywhere.                   |
-| `make package`                                                        | Builds CARLA and creates a packaged version for distribution.         |
+| `make launch`                                                         | Launches Carla server in Editor window.                               |
+| `make PythonAPI`                                                      | Builds the Carla client.                                              |
+| `make LibCarla`                                                       | Prepares the Carla library to be imported anywhere.                   |
+| `make package`                                                        | Builds Carla and creates a packaged version for distribution.         |
 | `make clean`                                                          | Deletes all the binaries and temporals generated by the build system. |
 | `make rebuild`                                                        | `make clean` and `make launch` both in one command.                   |
 
@@ -272,7 +272,7 @@ Now that you have built CARLA, learn how to update the CARLA build or take your 
 
 <p>
 <a href="../build_update" target="_blank" class="btn btn-neutral" title="Learn how to update the build">
-Update CARLA</a>
+Update Carla</a>
 </p>
 
 <p>

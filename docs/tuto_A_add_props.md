@@ -5,7 +5,7 @@
 * [__准备包__](#prepare-the-package)  
 	*   [创建文件夹结构](#create-the-folder-structure)  
 	*   [创建 JSON 描述](#create-the-json-description)  
-*   [__导入到 CARLA 包中__](#ingestion-in-a-carla-package)  
+*   [__导入到 Carla 包中__](#ingestion-in-a-carla-package)  
 *   [__在源代码构建中导入__](#ingestion-in-a-build-from-source)  
 
 ---
@@ -108,11 +108,11 @@ __Props__ 需要以下参数。
     具有相同名称的包将产生错误。
 
 ---
-## 导入到 CARLA 包中
+## 导入到 Carla 包中
 
-这是用于将道具导入到 CARLA 包（例如 CARLA 0.9.8）中的方法。 
+这是用于将道具导入到 Carla 包（例如 Carla 0.9.8）中的方法。 
 
-将创建虚幻引擎的 Docker 映像。它充当一个黑盒子，自动将包导入到 CARLA 镜像中，并生成分发包。Docker 镜像需要 4 小时和 400GB 才能构建。然而，这仅是第一次需要。
+将创建虚幻引擎的 Docker 映像。它充当一个黑盒子，自动将包导入到 Carla 镜像中，并生成分发包。Docker 镜像需要 4 小时和 400GB 才能构建。然而，这仅是第一次需要。
 
 __1. 构建虚幻引擎的 Docker 镜像。__ 请按照 [以下说明](https://github.com/carla-simulator/carla/tree/master/Util/Docker) 构建映像。
 
@@ -124,7 +124,7 @@ python3 docker_tools.py --input ~/path_to_package --output ~/path_for_output_ass
 
 __3. 定位包__。 Docker 应该已经在输出路径中生成了包 `Package01.tar.gz`。这是资产的独立包。
 
-__4. 将包导入 CARLA。__  
+__4. 将包导入 Carla。__  
 
 *   __在 Windows 上，__ 将包解压到 `WindowsNoEditor` 文件夹中。
 
@@ -142,7 +142,7 @@ cd Util
 ---
 ## 在源代码构建中导入
 
-这是从源代码将道具导入到源代码构建 CARLA 的方法。
+这是从源代码将道具导入到源代码构建 Carla 的方法。
 
 
 将读取 JSON 文件以将道具放入虚幻引擎 `Content` 中。此外，它将在包的`Config`文件夹中创建一个 `Package1.Package.json` 文件。这将用于定义蓝图库中的道具，并在 Python API 中公开它们。如果包作为 [独立包](tuto_A_create_standalone.md) 导出，也将使用它。
@@ -154,16 +154,16 @@ make import
 ```
 
 !!! 警告
-    确保该包位于CARLA 的 `Import` 文件夹内。
+    确保该包位于 Carla 的 `Import` 文件夹内。
 
 ---
 
-这就是关于将新道具导入 CARLA 的不同方法的全部信息。如果有任何疑问，请随时在论坛中发布。
+这就是关于将新道具导入 Carla 的不同方法的全部信息。如果有任何疑问，请随时在论坛中发布。
 
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA 论坛</a>
+Carla 论坛</a>
 </p>
 </div>
 

@@ -1,16 +1,16 @@
 # 基准性能
 
-我们提供了一个基准测试脚本，使用户能够轻松地分析 CARLA 在自己的环境中的性能。该脚本可以配置为运行多种结合不同地图、传感器和天气条件的场景。它报告请求场景下 FPS 的平均值和标准偏差。
+我们提供了一个基准测试脚本，使用户能够轻松地分析 Carla 在自己的环境中的性能。该脚本可以配置为运行多种结合不同地图、传感器和天气条件的场景。它报告请求场景下 FPS 的平均值和标准偏差。
 
 在本节中，我们详细介绍了运行基准测试的要求、在哪里可以找到脚本、可用于自定义运行场景的标志以及有关如何运行命令的示例。
 
-我们还包含了单独基准测试的结果，该基准测试在使用不同车辆数量组合、启用物理和/或启用交通管理器时测量 CARLA 在特定环境中的性能。结果与使用的 CARLA 版本和执行测试的环境一起显示。
+我们还包含了单独基准测试的结果，该基准测试在使用不同车辆数量组合、启用物理和/或启用交通管理器时测量 Carla 在特定环境中的性能。结果与使用的 Carla 版本和执行测试的环境一起显示。
 
 - [__基准脚本__](#基准测试脚本)
     - [__开始之前__](#开始之前)
     - [__概要__](#概要)
         - [__标志__](#标识)
-- [__CARLA 性能报告__](#carla性能报告)
+- [__Carla 性能报告__](#carla性能报告)
 
 
 ---
@@ -121,7 +121,7 @@ python -m pip install GPUtil
 
 >> __默认__：所有地图
 
->> 所有 [CARLA 地图][carla_maps]，包括分层和子分层，都可用。
+>> 所有 [Carla 地图][carla_maps]，包括分层和子分层，都可用。
 
 [carla_maps]：https://carla.readthedocs.io/en/latest/core_map/#carla-maps
 
@@ -137,7 +137,7 @@ python -m pip install GPUtil
 
 ## 如何运行基准测试
 
-1.启动CARLA：
+1.启动 Carla：
 
         # Linux：
         ./CarlaUE4.sh
@@ -170,12 +170,12 @@ python3 performance_benchmark.py --async --render_mode
 ```
 
 ---
-## CARLA 性能报告
+## Carla 性能报告
 
 
-下表详细说明了在随着车辆数量增加以及启用和/或禁用物理和交通管理器的不同组合运行 CARLA 时对平均 FPS 的性能影响。
+下表详细说明了在随着车辆数量增加以及启用和/或禁用物理和交通管理器的不同组合运行 Carla 时对平均 FPS 的性能影响。
 
-* CARLA 版本：29/01/21 开发分支（提交 198fa38c9b1317c114ac15dff130766253c02832）
+* Carla 版本：29/01/21 开发分支（提交 198fa38c9b1317c114ac15dff130766253c02832）
 * 环境规格：Intel(R) Xeon(R) CPU E5-1620 v3 @ 3.50GHz / 32 GB / NVIDIA GeForce GTX 1080 Ti
 
 
@@ -198,6 +198,6 @@ python3 performance_benchmark.py --async --render_mode
 <!-- 最新发布按钮 -->
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="转到最新的 CARLA 版本">
-CARLA论坛</a>
+Carla 论坛</a>
 </p>
 </div>

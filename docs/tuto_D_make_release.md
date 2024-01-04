@@ -5,7 +5,7 @@
 1. **确保内容是最新的。**<br>
    请参阅 [升级内容](tuto_D_contribute_assets.md)。
 
-2. **必要时增加 CARLA 版本。**<br>
+2. **必要时增加 Carla 版本。**<br>
    增加以下文件中的版本： _DefaultGame.ini_, _Carla.uplugin_,
    _setup.py_, _ContentVersions.txt_ 。Grep 查看当前版本，以确保您不会错过任何参考。
 

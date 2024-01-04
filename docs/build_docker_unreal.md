@@ -1,6 +1,6 @@
-# Build Unreal Engine and CARLA in Docker
+# Build Unreal Engine and Carla in Docker
 
-This guide explains how Unreal Engine and CARLA can be built from scratch using Docker. The resulting image can then used to create CARLA packages or to prepare assets for use in a CARLA package. This process should not be confused with the pre-built CARLA Docker image used to run CARLA on multiple servers or without a display. The documentation for that can be found [here](build_docker.md).
+This guide explains how Unreal Engine and Carla can be built from scratch using Docker. The resulting image can then used to create Carla packages or to prepare assets for use in a Carla package. This process should not be confused with the pre-built Carla Docker image used to run Carla on multiple servers or without a display. The documentation for that can be found [here](build_docker.md).
 
 - [__Before you begin__](#before-you-begin)
     - [__System Requirements__](#system-requirements)
@@ -32,11 +32,11 @@ You will need to have Python 3.6 or higher installed and properly set in your sy
 
 __Unreal Engine GitHub Access__:
 
-Starting with version 0.9.12, CARLA uses a modified fork of Unreal Engine 4.26. This fork contains patches specific to CARLA. This will be downloaded during the Docker build process. For this download, __you need to have a GitHub account linked to Unreal Engine's account__. If you don't have this set up, please follow [this guide](https://www.unrealengine.com/en-US/ue4-on-github) before going any further. You will need to log in to your account during the build process.
+Starting with version 0.9.12, Carla uses a modified fork of Unreal Engine 4.26. This fork contains patches specific to Carla. This will be downloaded during the Docker build process. For this download, __you need to have a GitHub account linked to Unreal Engine's account__. If you don't have this set up, please follow [this guide](https://www.unrealengine.com/en-US/ue4-on-github) before going any further. You will need to log in to your account during the build process.
 
-__CARLA:__
+__Carla:__
 
-The Dockerfiles and tools needed to build Unreal Engine for CARLA and CARLA itself are located in the `Util/Docker` directory of the CARLA source repository. 
+The Dockerfiles and tools needed to build Unreal Engine for Carla and Carla itself are located in the `Util/Docker` directory of the Carla source repository. 
 
 If you don't already have it, download the repository using the following command:
 
@@ -50,7 +50,7 @@ git clone https://github.com/carla-simulator/carla
 
 The following steps will each take a long time.
 
-__1. Build the CARLA prerequisites image.__
+__1. Build the Carla prerequisites image.__
 
 The following command will build an image called `carla-prerequisites` using `Prerequisites.Dockerfile`. In this build we install the compiler and required tools, download the Unreal Engine 4.26 fork and compile it. You will need to provide your login details as build arguments for the download of Unreal Engine to be successful:
 
@@ -58,15 +58,15 @@ The following command will build an image called `carla-prerequisites` using `Pr
 docker build --build-arg EPIC_USER=<GitHubUserName> --build-arg EPIC_PASS=<GitHubPassword> -t carla-prerequisites -f Prerequisites.Dockerfile .
 ```
 
-__2. Build the final CARLA image.__
+__2. Build the final Carla image.__
 
-The following command will use the image created in the previous step to build the final CARLA image based on the current master branch (latest release) of the CARLA repository:
+The following command will use the image created in the previous step to build the final Carla image based on the current master branch (latest release) of the CARLA repository:
 
 ```sh
 docker build -t carla -f Carla.Dockerfile .
 ```
 
-If you would like to build a specific branch or tag of the CARLA repository, run the following command:
+If you would like to build a specific branch or tag of the Carla repository, run the following command:
 
 ```sh
 docker build -t carla -f Carla.Dockerfile . --build-arg GIT_BRANCH=<branch_or_tag_name>
@@ -76,21 +76,21 @@ docker build -t carla -f Carla.Dockerfile . --build-arg GIT_BRANCH=<branch_or_ta
 
 ## Next Steps: Packages
 
-The CARLA image created in this guide is used to create standalone CARLA packages or to package assets such as maps or meshes so they can be used in a CARLA package. This is achieved through the use of the `docker_tools.py` script found in `Util/Docker`. This script uses [`docker-py`](https://github.com/docker/docker-py) to work with the Docker image.
+The Carla image created in this guide is used to create standalone Carla packages or to package assets such as maps or meshes so they can be used in a Carla package. This is achieved through the use of the `docker_tools.py` script found in `Util/Docker`. This script uses [`docker-py`](https://github.com/docker/docker-py) to work with the Docker image.
 
 The `docker_tools.py` script can be used to:
 
-- __Create a CARLA package__: Find the tutorial [here](tuto_A_create_standalone.md#export-a-package-using-docker)
-- __Cook assets to be consumed in a CARLA package:__ Find the tutorial [here](tuto_A_add_props.md#ingestion-in-a-carla-package)
-- __Prepare a map so it's ready for use in a CARLA package:__ Find the tutorial [here](tuto_M_add_map_package.md)
+- __Create a Carla package__: Find the tutorial [here](tuto_A_create_standalone.md#export-a-package-using-docker)
+- __Cook assets to be consumed in a Carla package:__ Find the tutorial [here](tuto_A_add_props.md#ingestion-in-a-carla-package)
+- __Prepare a map so it's ready for use in a Carla package:__ Find the tutorial [here](tuto_M_add_map_package.md)
 
 ---
 
-Any issues or doubts related with this topic can be posted in the CARLA forum.
+Any issues or doubts related with this topic can be posted in the Carla forum.
 
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA forum</a>
+Carla forum</a>
 </p>
 </div>

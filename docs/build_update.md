@@ -9,12 +9,12 @@
 	*   [启动服务器](#launch-the-server)  
 *   [__获取开发资产__](#get-development-assets)  
 
-要发布意外问题、疑问或建议，请随时登录 CARLA 论坛。
+要发布意外问题、疑问或建议，请随时登录 Carla 论坛。
 
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the latest CARLA release">
-CARLA 论坛</a>
+Carla 论坛</a>
 </p>
 </div>
 
@@ -22,10 +22,10 @@ CARLA 论坛</a>
 ## 更新命令摘要
 
 <details>
-<summary> 显示更新 CARLA 的命令行 </summary>
+<summary> 显示更新 Carla 的命令行 </summary>
 
 ```sh
-# 更新 CARLA 包的发行版。 
+# 更新 Carla 包的发行版。 
 #   1. 删除当前的版本。 
 #   2. 按照快速开始安装或一个一个想要的版本。 
 
@@ -85,14 +85,14 @@ git checkout master
 
 ### 清理构建
 
-转到主 CARLA 文件夹并删除先前构建生成的二进制文件和临时文件。
+转到主 Carla 文件夹并删除先前构建生成的二进制文件和临时文件。
 ```sh 
 make clean
 ```
 
 ### 从 origin 拉取
 
-从 CARLA 存储库中 `master` 分支获取当前版本。 
+从 Carla 存储库中 `master` 分支获取当前版本。 
 ```sh
 git pull origin master
 ```
@@ -112,7 +112,7 @@ __3.__ 下载最新的 `latest` 的内容。
 __4.__ 在 `Unreal\CarlaUE4\Content\Carla` 抽取新的内容。
 
 !!! 笔记
-    为了与 CARLA 团队正在开发的项目合作，请 __获取下面的开发资产__ 。
+    为了与 Carla 团队正在开发的项目合作，请 __获取下面的开发资产__ 。
 
 ### 启动服务器
 
@@ -129,7 +129,7 @@ Carla 团队使用仍在开发中的资产。这些模型和地图有一个 [公
 
 为了处理这个存储库，建议安装 [git-lfs][gitlfslink]。存储库会定期修改，并且 git-lfs 处理大型二进制文件的速度更快。
 
-要克隆存储库，请 __转到主 CARLA 目录__ 并运行以下命令。
+要克隆存储库，请 __转到主 Carla 目录__ 并运行以下命令。
 
 ```sh
 git clone https://bitbucket.org/carla-simulator/carla-content Unreal/CarlaUE4/Content/Carla

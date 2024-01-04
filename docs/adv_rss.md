@@ -1,6 +1,6 @@
 # [责任敏感安全](https://carla.readthedocs.io/en/latest/adv_rss/)
 
-CARLA 在客户端库中集成了 [责任敏感安全的 C++ 库](https://github.com/intel/ad-rss-lib) 。此功能允许用户调查责任敏感安全(Responsibility Sensitive Safety, RSS)的行为，而无需执行任何操作。Carla 将负责提供输入，并将输出动态应用到自动驾驶(Autonomous Driving, AD) 系统。
+Carla 在客户端库中集成了 [责任敏感安全的 C++ 库](https://github.com/intel/ad-rss-lib) 。此功能允许用户调查责任敏感安全(Responsibility Sensitive Safety, RSS)的行为，而无需执行任何操作。Carla 将负责提供输入，并将输出动态应用到自动驾驶(Autonomous Driving, AD) 系统。
 
 *   [__概述__](#overview)
 *   [__编译__](#compilation)
@@ -19,7 +19,7 @@ CARLA 在客户端库中集成了 [责任敏感安全的 C++ 库](https://github
 
 责任敏感安全库实现了安全保证的数学模型。它接收传感器信息，并向车辆控制器提供限制。综上所述，责任敏感安全模块使用传感器数据来定义 __情况__。情境描述了自我车辆与环境元素的状态。对于每种情况，都会进行安全检查，并计算适当的响应。总体响应是所有响应的综合结果。有关该库的具体信息，请阅读 [文档](https://intel.github.io/ad-rss-lib/) ，尤其是 [背景部分](https://intel.github.io/ad-rss-lib/ad_rss/Overview/) 。
 
-这是在 CARLA 中使用两个元素实现的。
+这是在 Carla 中使用两个元素实现的。
 
 *	__RssSensor__ 负责情况分析，并使用 *ad-rss-lib* 生成响应。
 *	__RssRestrictor__ 通过限制车辆的命令来应用响应。

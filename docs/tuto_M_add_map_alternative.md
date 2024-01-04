@@ -1,6 +1,6 @@
 # 导入地图的替代方法
 
-本指南介绍了将地图导入 CARLA 的替代方法。这些方法涉及比[包](tuto_M_add_map_package.md) 和 [源代码](tuto_M_add_map_source.md) 导入指南中描述的过程更多的手动步骤。首先我们将介绍 RoadRuner 插件，然后介绍手动导入方法。
+本指南介绍了将地图导入 Carla 的替代方法。这些方法涉及比[包](tuto_M_add_map_package.md) 和 [源代码](tuto_M_add_map_source.md) 导入指南中描述的过程更多的手动步骤。首先我们将介绍 RoadRuner 插件，然后介绍手动导入方法。
 
 
 - [__RoadRunner 插件导入__](#roadrunner-plugin-import)
@@ -10,11 +10,11 @@
 
 ## RoadRunner 插件导入
 
-MathWorks 的 RoadRunner 软件提供了虚幻引擎插件，以帮助简化将地图导入 CARLA 的过程。
+MathWorks 的 RoadRunner 软件提供了虚幻引擎插件，以帮助简化将地图导入 Carla 的过程。
 
 #### 插件安装
 
-__1.__ 插件可从 [MathWorks 网站](https://www.mathworks.com/help/roadrunner/ug/Downloading-Plugins.html) 下载。MathWorks 还有一个 [完整的教程](https://www.mathworks.com/help/roadrunner/ug/Exporting-to-CARLA.html) ，与此类似，介绍如何使用插件将地图导入 CARLA。 
+__1.__ 插件可从 [MathWorks 网站](https://www.mathworks.com/help/roadrunner/ug/Downloading-Plugins.html) 下载。MathWorks 还有一个 [完整的教程](https://www.mathworks.com/help/roadrunner/ug/Exporting-to-CARLA.html) ，与此类似，介绍如何使用插件将地图导入 Carla。 
 
 __2.__ 解压下载文件夹的内容并将 `RoadRunnerImporter` 和 `RoadRunnerMaterials` 文件夹移动到 `<carla>/Unreal/CarlaUE4/Plugins/`。
 
@@ -22,7 +22,7 @@ __3.__ 按照以下说明重建插件：
 
 *   __在 Windows 上。__  
 	* 右键单击 `<carla>/Unreal/CarlaUE4` 中的 `.uproject` 文件，并选择 `Generate Visual Studio project files`。
-	* 在 CARLA 的根文件夹中，运行命令：
+	* 在 Carla 的根文件夹中，运行命令：
 
 ```sh
 make launch
@@ -157,7 +157,7 @@ __15.__ 在“详细信息(_Details_)”面板中，选中`Add Spawners`并单�
 
 您现在可以在虚幻编辑器中打开地图并运行仿真。从这里，您将能够自定义地图并生成行人导航数据。我们建议在所有自定义完成后生成行人导航，这样就不会有障碍物阻挡行人路径。
 
-CARLA 提供了多种工具和指南来帮助自定义地图：
+Carla 提供了多种工具和指南来帮助自定义地图：
 
 - [在地图中实现子关卡。](tuto_M_custom_layers.md)
 - [添加和配置交通灯和标志。](tuto_M_custom_add_tl.md)
@@ -170,5 +170,5 @@ CARLA 提供了多种工具和指南来帮助自定义地图：
 
 ---
 
-建议使用 [CARLA 包](tuto_M_add_map_package.md) 和 [CARLA 源代码构建](tuto_M_add_map_source.md) 指南中详细介绍的自动化流程来导入地图，但是如果需要，可以使用本节中列出的方法。如果您在使用其他方法时遇到任何问题，请随时在论坛中发帖。
+建议使用 [Carla 包](tuto_M_add_map_package.md) 和 [Carla 源代码构建](tuto_M_add_map_source.md) 指南中详细介绍的自动化流程来导入地图，但是如果需要，可以使用本节中列出的方法。如果您在使用其他方法时遇到任何问题，请随时在论坛中发帖。
 

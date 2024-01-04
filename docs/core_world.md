@@ -1,8 +1,8 @@
 # 第一、世界和客户端
 
-客户端和世界是 CARLA 的两个基本要素，是操作仿真及其参与者的必要抽象。 
+客户端和世界是 Carla 的两个基本要素，是操作仿真及其参与者的必要抽象。 
 
-本教程从定义这些元素的基础知识和创建，到描述它们的可能性。如果阅读过程中出现任何疑问或问题，[CARLA 论坛](https://github.com/carla-simulator/carla/discussions/) 可以为您解决。
+本教程从定义这些元素的基础知识和创建，到描述它们的可能性。如果阅读过程中出现任何疑问或问题，[Carla 论坛](https://github.com/carla-simulator/carla/discussions/) 可以为您解决。
 
 *   [__客户端__](#the-client)  
 	*   [客户端创建](#client-creation)  
@@ -19,9 +19,9 @@
 ---
 ## 客户端
 
-客户端是 CARLA 架构中的主要元素之一。它们连接到服务器、检索信息并更改命令。这是通过脚本完成的。客户端识别自己的身份，并连接到世界，然后进行模拟操作。
+客户端是 Carla 架构中的主要元素之一。它们连接到服务器、检索信息并更改命令。这是通过脚本完成的。客户端识别自己的身份，并连接到世界，然后进行仿真操作。
 
-除此之外，客户还可以访问高级 CARLA 模块、功能并应用命令批处理。本节仅介绍命令批处理。这些对于诸如生成大量参与者之类的基本事情很有用。其余功能更加复杂，将在 __高级步骤__ 中各自的页面中进行解决。 
+除此之外，客户还可以访问高级 Carla 模块、功能并应用命令批处理。本节仅介绍命令批处理。这些对于诸如生成大量参与者之类的基本事情很有用。其余功能更加复杂，将在 __高级步骤__ 中各自的页面中进行解决。 
 
 查看 Python API 参考中的 [__carla.Client__](python_api.md#carla.Client) 以了解该类的特定方法和变量。
 
@@ -33,7 +33,7 @@
 ```py
 client = carla.Client('localhost', 2000)
 ```
-默认情况下，CARLA 使用本地主机 IP 和端口 2000 进行连接，但这些可以随意更改。在本例中，第二个端口始终为`n+1`,2001。
+默认情况下，Carla 使用本地主机 IP 和端口 2000 进行连接，但这些可以随意更改。在本例中，第二个端口始终为`n+1`,2001。
 
 创建客户端后，设置其 __time-out__ 。这限制了所有网络操作，以便这些操作不会永远阻止客户端。如果连接失败，将返回错误。
 
@@ -41,7 +41,7 @@ client = carla.Client('localhost', 2000)
 client.set_timeout(10.0) # 秒
 ```
 
-可以连接许多客户端，因为一次运行多个脚本是很常见的。在具有高级 CARLA 功能（例如交通管理器）的多客户端方案中工作，必然会使通信更加复杂。
+可以连接许多客户端，因为一次运行多个脚本是很常见的。在具有高级 Carla 功能（例如交通管理器）的多客户端方案中工作，必然会使通信更加复杂。
 
 !!! 笔记
     客户端和服务器有不同的`libcarla`模块。如果版本不同，可能会出现问题。这可以使用`get_client_version()`和`get_server_version()`方法进行检查。
@@ -66,7 +66,7 @@ world = client.load_world('Town01')
 
 ### 使用命令
 
-__命令__ 是一些最常见的 CARLA 方法的改编，可以批量应用。例如，[command.SetAutopilot](python_api.md#command.SetAutopilot) 相当于[command.SetAutopilot](python_api.md#command.SetAutopilot) ，启用车辆的自动驾驶功能。但是，使用[Client.apply_batch](python_api.md#carla.Client.apply_batch) 或[Client.apply_batch_sync()](python_api.md#carla.Client.apply_batch_sync) 方法，可以在一个仿真步骤中应用一系列命令。这对于通常应用于数百个元素的方法来说变得非常有用。
+__命令__ 是一些最常见的 Carla 方法的改编，可以批量应用。例如，[command.SetAutopilot](python_api.md#command.SetAutopilot) 相当于[command.SetAutopilot](python_api.md#command.SetAutopilot) ，启用车辆的自动驾驶功能。但是，使用[Client.apply_batch](python_api.md#carla.Client.apply_batch) 或[Client.apply_batch_sync()](python_api.md#carla.Client.apply_batch_sync) 方法，可以在一个仿真步骤中应用一系列命令。这对于通常应用于数百个元素的方法来说变得非常有用。
 
 以下示例使用批处理一次性销毁一系列车辆。
 
@@ -129,7 +129,7 @@ print(world.get_weather())
 world.set_weather(carla.WeatherParameters.WetCloudySunset)
 ```
 
-还可以使用 CARLA 提供的两个脚本来自定义天气。
+还可以使用 Carla 提供的两个脚本来自定义天气。
 
 *   __`environment.py`__ *(在 `PythonAPI/util` 目录下)* — 提供对天气和光照参数的访问，以便可以实时更改这些参数。
 
@@ -155,7 +155,7 @@ world.set_weather(carla.WeatherParameters.WetCloudySunset)
 ```
 </details><br>
 
-*   __`dynamic_weather.py`__ *(在 `PythonAPI/examples` 目录下)* — 启用开发人员为每张 CARLA 地图准备的特定天气周期。
+*   __`dynamic_weather.py`__ *(在 `PythonAPI/examples` 目录下)* — 启用开发人员为每张 Carla 地图准备的特定天气周期。
 
 <details>
 <summary> <b>dynamic_weather.py</b> 中的可选参数 </summary>
@@ -176,7 +176,7 @@ __当 sun_altitude_angle < 0 时，夜间模式开始__，这被认为是日落�
 
 ### 灯光
 
-*   当模拟进入夜间模式时， __路灯__ 会自动打开。灯光由地图开发人员放置，并可作为 [__carla.Light__](python_api.md#carla.Light) 对象访问。颜色和强度等属性可以随意更改。[__carla.LightState__](python_api.md#carla.LightState) 类型的变量 __light_state__ 允许在一次调用中设置所有这些。 路灯使用其类型为 [__carla.LightState__](python_api.md#carla.LightState) 的属性 __light_state__ 进行分类。这允许将灯分类为路灯、建筑物灯...可以检索 [__carla.LightManager__] 的实例来在一次调用中处理一组灯。
+*   当仿真进入夜间模式时， __路灯__ 会自动打开。灯光由地图开发人员放置，并可作为 [__carla.Light__](python_api.md#carla.Light) 对象访问。颜色和强度等属性可以随意更改。[__carla.LightState__](python_api.md#carla.LightState) 类型的变量 __light_state__ 允许在一次调用中设置所有这些。 路灯使用其类型为 [__carla.LightState__](python_api.md#carla.LightState) 的属性 __light_state__ 进行分类。这允许将灯分类为路灯、建筑物灯...可以检索 [__carla.LightManager__] 的实例来在一次调用中处理一组灯。
 
 ```py
 # 获得灯光管理器和灯光
@@ -253,10 +253,10 @@ actor_snapshot = world_snapshot.find(actual_actor.id) # 获得参与者快照
 
 世界可以使用一些高级的仿真配置。这些决定了渲染条件、仿真时间步长以及客户端和服务器之间的同步。它们可以从辅助类[carla.WorldSettings](python_api.md#carla.WorldSettings) 访问。 
 
-目前，默认的 CARLA 以最佳图形质量、可变时间步长和异步方式运行。要进一步深入了解此问题，请查看 __高级步骤__ 部分。有关 [同步、时间步长](adv_synchrony_timestep.md) 以及 [渲染选项](adv_rendering_options.md) 的页面可能是一个很好的起点。
+目前，默认的 Carla 以最佳图形质量、可变时间步长和异步方式运行。要进一步深入了解此问题，请查看 __高级步骤__ 部分。有关 [同步、时间步长](adv_synchrony_timestep.md) 以及 [渲染选项](adv_rendering_options.md) 的页面可能是一个很好的起点。
 
 ---
-这是对世界和客户端对象的包装。下一步将仔细研究参与者和蓝图，为模拟赋予生命。
+这是对世界和客户端对象的包装。下一步将仔细研究参与者和蓝图，为仿真赋予生命。
 
 继续阅读以了解更多信息。请访问论坛，发表在阅读过程中想到的任何疑问或建议。
 

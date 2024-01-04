@@ -76,7 +76,7 @@ build.bat <mapName> # <mapName> 没有扩展名
 
 __6.__ 将创建一个 `<mapName>.bin` 文件。此文件包含地图上的行人导航信息。将此文件移动到包含地图的包的 `Nav` 文件夹中。
 
-__7.__ 通过启动模拟并运行 `PythonAPI/examples` 中的示例脚本 `generate_traffic.py` 来测试行人导航。
+__7.__ 通过启动仿真并运行 `PythonAPI/examples` 中的示例脚本 `generate_traffic.py` 来测试行人导航。
 
 ---
 
@@ -84,7 +84,7 @@ If you have any questions about the process, then you can ask in the [forum](htt
 
 <div class="build-buttons">
 <p>
-<a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA forum</a>
+<a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the Carla forum">
+Carla 论坛</a>
 </p>
 </div>

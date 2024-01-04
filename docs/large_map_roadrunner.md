@@ -1,6 +1,6 @@
 #               在RoadRunner创建大地图
 
-RoadRunner是推荐的软件，用于创建要导入CARLA的大地图。本指南概述了RoadRunner是什么，在构建大地图时需要考虑的事情，以及如何导出自定义的大地图，以便导入CARLA。 
+RoadRunner是推荐的软件，用于创建要导入 Carla 的大地图。本指南概述了RoadRunner是什么，在构建大地图时需要考虑的事情，以及如何导出自定义的大地图，以便导入 Carla。 
 
 - **[RoadRunner简介](#introduction-to-roadrunner)**
 - [**开始之前**](#before-you-start)
@@ -10,11 +10,11 @@ RoadRunner是推荐的软件，用于创建要导入CARLA的大地图。本指�
 ---
 ## RoadRunner简介
 
-RoadRunner是一个交互式编辑器，可以让您设计3D场景来模拟和测试自动驾驶系统。它可以用来创建道路布局和伴随的opdrive和几何信息。[在这里了解更多关于RoadRunner的信息](rr_home)。
+RoadRunner是一个交互式编辑器，可以让您设计3D场景来仿真和测试自动驾驶系统。它可以用来创建道路布局和伴随的opdrive和几何信息。[在这里了解更多关于RoadRunner的信息](rr_home)。
 
 RoadRunner是MATLAB校园许可的一部分，因此许多大学可以提供无限制的学术访问。[检查](rr_eligibility)一下你的大学是否有访问权限。如果有任何关于可访问性的问题或麻烦，请联系automated-driving@mathworks.com。[还有一个试用版]([rr_trial_version)。
 
-参加CARLA排行榜的每个人都可以获得RoadRunner的许可证。[点击这里了解更多信息](rr_leaderboard)。
+参加 Carla 排行榜的每个人都可以获得RoadRunner的许可证。[点击这里了解更多信息](rr_leaderboard)。
 
 [rr_home]: https://www.mathworks.com/products/roadrunner.html
 [rr_trial_version]: https://www.mathworks.com/products/roadrunner.html
@@ -78,8 +78,8 @@ __2.__在弹出的窗口中:
     - _Split by Segmentation_: 通过语义分割对网格进行划分，改善行人导航。
     - _Power of Two Texture Dimensions_: 提高了性能。
     - _Embed Textures_: 确保纹理嵌入到网格中。
-    - _Export to Tiles_: 选择瓷砖的大小。CARLA可以使用的最大尺寸是2000 x 2000。
-    - _Export Individual Tiles_: 生成在CARLA中流式传输大地图所需的单个块。
+    - _Export to Tiles_: 选择瓷砖的大小。Carla 可以使用的最大尺寸是2000 x 2000。
+    - _Export Individual Tiles_: 生成在 Carla 中流式传输大地图所需的单个块。
 
 >>>>>>![export_large_map_fbx](./img/large_map_export_fbx.png)
 
@@ -93,7 +93,7 @@ __3.__ 导出 `.xodr`文件:
 
 ## 下一个步骤
 
-现在可以将地图导入CARLA了。有关详细信息，请参阅[导入大地图指南](arge_map_import.md)。
+现在可以将地图导入 Carla 了。有关详细信息，请参阅[导入大地图指南](arge_map_import.md)。
 
 ---
 
@@ -102,6 +102,6 @@ __3.__ 导出 `.xodr`文件:
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA 论坛</a>
+Carla 论坛</a>
 </p>
 </div>

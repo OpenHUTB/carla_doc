@@ -1,6 +1,6 @@
-# [CARLA 中的交通模拟](https://carla.readthedocs.io/en/latest/ts_traffic_simulation_overview/) 
+# [Carla 中的交通仿真](https://carla.readthedocs.io/en/latest/ts_traffic_simulation_overview/) 
 
-交通模拟是自动驾驶堆栈准确高效的训练和测试不可或缺的一部分。CARLA 提供了许多不同的选项来仿真交通和特定的交通场景。本节概述了可用选项，可帮助您确定最适合您的用例的选项。
+交通仿真是自动驾驶堆栈准确高效的训练和测试不可或缺的一部分。Carla 提供了许多不同的选项来仿真交通和特定的交通场景。本节概述了可用选项，可帮助您确定最适合您的用例的选项。
 
 - [__交通管理器__](#traffic-manager)
 - [__Scenario Runner 和 OpenScenario__](#scenario-runner-and-openscenario)
@@ -11,7 +11,7 @@
 
 ## 交通管理器
 
-交通管理器是 CARLA 中的一个模块，用于从客户端控制仿真中的某些车辆。[`carla.Vehicle.set_autopilot`](https://carla.readthedocs.io/en/latest/python_api/#carla.Vehicle.set_autopilot) 车辆通过方法或注册到流量管理器command.SetAutopilot。每辆车的控制是通过 [不同阶段](adv_traffic_manager.md#stages) 的循环来管理的，每个阶段都在不同的线程上运行。
+交通管理器是 Carla 中的一个模块，用于从客户端控制仿真中的某些车辆。[`carla.Vehicle.set_autopilot`](https://carla.readthedocs.io/en/latest/python_api/#carla.Vehicle.set_autopilot) 车辆通过方法或注册到流量管理器command.SetAutopilot。每辆车的控制是通过 [不同阶段](adv_traffic_manager.md#stages) 的循环来管理的，每个阶段都在不同的线程上运行。
 
 __用于：__
 
@@ -34,11 +34,11 @@ Scenario Runner 提供开箱即用的 [预定义交通场景](https://carla-scen
 
 OpenSCENARIO 的主要用途是描述涉及多辆车的复杂操作。用户可以在 [这里](https://carla-scenariorunner.readthedocs.io/en/latest/openscenario_support/) 查看 Scenario Runner 支持 OpenSCENARIO 的哪些功能。这些功能包括演习、动作、条件、故事和故事板。
 
-Scenario Runner 必须与主 CARLA 包 [分开](https://github.com/carla-simulator/scenario_runner) 安装。
+Scenario Runner 必须与主 Carla 包 [分开](https://github.com/carla-simulator/scenario_runner) 安装。
 
 __用于：__
 
-- 创建复杂的交通场景和路线，为自动驾驶智能体做好准备，以便在 [CARLA 排行榜](https://leaderboard.carla.org/) 上进行评估。
+- 创建复杂的交通场景和路线，为自动驾驶智能体做好准备，以便在 [Carla 排行榜](https://leaderboard.carla.org/) 上进行评估。
 - 定义可针对场景仿真的记录运行的定制 [指标](https://carla-scenariorunner.readthedocs.io/en/latest/metrics_module/) ，从而无需重复运行仿真。
 
 <div class="build-buttons">
@@ -76,11 +76,11 @@ __用于：__
 
 [SUMO](https://sumo.dlr.de/docs/SUMO_at_a_Glance.html) 是一种开源、微观、多模式交通仿真。在 SUMO 中，每辆车都经过明确建模，有自己的路线，并通过网络单独移动。默认情况下，仿真是确定性的，但有多种选项可以引入随机性。
 
-CARLA 提供了与 SUMO 的联合仿真功能，允许在两个仿真器之间分配任务。车辆可以通过 SUMO 在 CARLA 中产生，并由 SUMO 进行管理，就像交通管理器所做的那样。
+Carla 提供了与 SUMO 的联合仿真功能，允许在两个仿真器之间分配任务。车辆可以通过 SUMO 在 Carla 中产生，并由 SUMO 进行管理，就像交通管理器所做的那样。
 
 __用于：__
 
-- 在一个软件包中利用 CARLA 和 SUMO 的功能。
+- 在一个软件包中利用 Carla 和 SUMO 的功能。
 
 <div class="build-buttons">
 <p>
@@ -91,12 +91,12 @@ __用于：__
 
 ---
 
-如果您对 CARLA 中仿真交通的不同选项有任何疑问，请随时在论坛或 [Discord](https://discord.gg/8kqACuC) 中发帖。
+如果您对 Carla 中仿真交通的不同选项有任何疑问，请随时在论坛或 [Discord](https://discord.gg/8kqACuC) 中发帖。
 
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA 论坛</a>
+Carla 论坛</a>
 </p>
 </div>
 

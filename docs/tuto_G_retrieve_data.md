@@ -1,6 +1,6 @@
 # 检索仿真数据
 
-在 CARLA 中，学习一种有效的方法来检索仿真数据至关重要。这个整体教程适合新手和经验丰富的用户。它从头开始，逐渐深入探讨 Carla 中可用的许多选项。
+在 Carla 中，学习一种有效的方法来检索仿真数据至关重要。这个整体教程适合新手和经验丰富的用户。它从头开始，逐渐深入探讨 Carla 中可用的许多选项。
 
 首先，使用自定义设置和流量初始化仿真。一辆自我车辆将在城市中漫游，可选地配备一些基本传感器。记录仿真，以便以后查询以找到亮点。之后，原始仿真被回放，并被利用到极限。可以添加新的传感器来检索一致的数据。天气条件是可以改变的。记录器甚至可以用于测试具有不同输出的特定场景。 
 
@@ -9,7 +9,7 @@
 	*   [地图设置](#map-setting)  
 	*   [天气设置](#weather-setting)  
 *   [__设置交通流量__](#set-traffic)  
-	*   [CARLA 交通和行人](#carla-traffic-and-pedestrians)  
+	*   [Carla 交通和行人](#carla-traffic-and-pedestrians)  
 	*   [SUMO 协同仿真交通](#sumo-co-simulation-traffic)  
 *   [__设置自我车辆__](#set-the-ego-vehicle)  
 	*   [生成自我车辆](#spawn-the-ego-vehicle)  
@@ -44,9 +44,9 @@
 在检索仿真数据的过程中存在一些常见错误。仿真器中充斥着传感器、存储无用的数据或努力寻找特定事件都是一些例子。然而，可以提供该过程的一些概要。目标是确保数据可以检索和复制，并且可以随意检查和更改仿真。
 
 !!! 笔记
-    本教程使用 [__CARLA 0.9.8 deb 包__](start_quickstart.md)。根据您的 CARLA 版本和安装，可能会有细微的变化，特别是在路径方面。
+    本教程使用 [__Carla 0.9.8 deb 包__](start_quickstart.md)。根据您的 Carla 版本和安装，可能会有细微的变化，特别是在路径方面。
 
-本教程为不同步骤提供了多种选项。一直以来，都会提到不同的脚本。并不是所有的都会被使用，这取决于具体的用例。其中大多数已在 CARLA 中提供用于通用目的。
+本教程为不同步骤提供了多种选项。一直以来，都会提到不同的脚本。并不是所有的都会被使用，这取决于具体的用例。其中大多数已在 Carla 中提供用于通用目的。
 
 * __config.py__ 更改仿真设置。地图、渲染选项、设置固定时间步长...  
 	* `carla/PythonAPI/util/config.py`
@@ -57,12 +57,12 @@
 * __manual_control.py__ 生成一个自我车辆，并提供对其的控制。
 	* `carla/PythonAPI/examples/manual_control.py`
 
-但是，教程中提到的两个脚本在 CARLA 中找不到。它们包含引用的代码片段。这有双重目的。首先，鼓励用户构建自己的脚本。充分理解代码的作用非常重要。除此之外，本教程只是一个大纲，可能而且应该根据用户的喜好而有很大的不同。这两个脚本只是一个示例。
+但是，教程中提到的两个脚本在 Carla 中找不到。它们包含引用的代码片段。这有双重目的。首先，鼓励用户构建自己的脚本。充分理解代码的作用非常重要。除此之外，本教程只是一个大纲，可能而且应该根据用户的喜好而有很大的不同。这两个脚本只是一个示例。
 
 * __tutorial_ego.py__ 生成带有一些基本传感器的自我车辆，并启用自动驾驶仪。观察者被放置在生成位置。记录器从一开始就启动，并在脚本完成时停止。
 * __tutorial_replay.py__ 重新执行 __tutorial_ego.py__ 记录的仿真。有不同的代码片段可以查询记录、生成一些高级传感器、改变天气条件以及重新执行记录片段。
 
-完整的代码可以在教程的最后部分找到。请记住，这些并不严格，而是可以定制的。在 CARLA 中检索数据的功能正如用户所希望的那样强大。
+完整的代码可以在教程的最后部分找到。请记住，这些并不严格，而是可以定制的。在 Carla 中检索数据的功能正如用户所希望的那样强大。
 
 !!! 重要
     本教程需要一些 Python 知识。
@@ -72,7 +72,7 @@
 
 要做的第一件事是将仿真设置为所需的环境。
 
-运行 CARLA。 
+运行 Carla。 
 
 ```sh
 cd /opt/carla/bin
@@ -97,8 +97,8 @@ python3 config.py --map Town01
 
 ```sh
   -h, --help            show this help message and exit
-  --host H              IP of the host CARLA Simulator (default: localhost)
-  -p P, --port P        TCP port of CARLA Simulator (default: 2000)
+  --host H              IP of the host Carla Simulator (default: localhost)
+  -p P, --port P        TCP port of Carla Simulator (default: 2000)
   -d, --default         set default settings
   -m MAP, --map MAP     load a new map, use --list to see available maps
   -r, --reload-map      reload current map
@@ -173,11 +173,11 @@ python3 environment.py --clouds 100 --rain 80 --wetness 100 --puddles 60 --wind 
 ---
 ## 设置交通流量
 
-仿真交通是让地图栩栩如生的最佳方法之一。还需要检索城市环境的数据。在 CARLA 中有不同的选择可以实现这一点。
+仿真交通是让地图栩栩如生的最佳方法之一。还需要检索城市环境的数据。在 Carla 中有不同的选择可以实现这一点。
 
-### CARLA 交通和行人
+### Carla 交通和行人
 
-CARLA 交通流量由 [交通管理器](adv_traffic_manager.md) 模块管理。至于行人，他们每个人都有自己的[carla.WalkerAIController](python_api.md#carla.WalkerAIController)。
+Carla 交通流量由 [交通管理器](adv_traffic_manager.md) 模块管理。至于行人，他们每个人都有自己的[carla.WalkerAIController](python_api.md#carla.WalkerAIController)。
 
 打开一个新终端，然后运行 __spawn_npc.py__ 来生成车辆和步行者。让我们生成 50 辆车和相同数量的步行者。
 
@@ -209,12 +209,12 @@ python3 spawn_npc.py -n 50 -w 50 --safe
 
 ### SUMO 协同仿真交通
 
-CARLA 可以与 SUMO 运行联合仿真。这允许在 SUMO 中创建将传播到 CARLA 的交通流量。这种联合仿真是双向的。在 CARLA 中生成的车辆将在 SUMO 中生成。有关此功能的具体文档可以在 [此处](adv_sumo.md) 找到。
+Carla 可以与 SUMO 运行联合仿真。这允许在 SUMO 中创建将传播到 Carla 的交通流量。这种联合仿真是双向的。在 Carla 中生成的车辆将在 SUMO 中生成。有关此功能的具体文档可以在 [此处](adv_sumo.md) 找到。
 
-此功能适用于 CARLA 0.9.8 及更高版本的 __Town01__ 、__Town04__ 和 __Town05__。第一个是最稳定的。
+此功能适用于 Carla 0.9.8 及更高版本的 __Town01__ 、__Town04__ 和 __Town05__。第一个是最稳定的。
 
 !!! 笔记
-    联合仿真将在 CARLA 中启用同步模式。阅读 [文档](adv_synchrony_timestep.md) 以了解更多相关信息。
+    联合仿真将在 Carla 中启用同步模式。阅读 [文档](adv_synchrony_timestep.md) 以了解更多相关信息。
 
 * 首先，安装SUMO。 
 ```sh
@@ -226,7 +226,7 @@ sudo apt-get install sumo sumo-tools sumo-doc
 ```sh
 echo "export SUMO_HOME=/usr/share/sumo" >> ~/.bashrc && source ~/.bashrc
 ```
-* 在 CARLA 服务器打开的情况下，运行 [SUMO-CARLA 同步脚本](https://github.com/carla-simulator/carla/blob/master/Co-Simulation/Sumo/run_synchronization.py) 。 
+* 在 Carla 服务器打开的情况下，运行 [SUMO-Carla 同步脚本](https://github.com/carla-simulator/carla/blob/master/Co-Simulation/Sumo/run_synchronization.py) 。 
 ```sh
 cd ~/carla/Co-Simulation/Sumo
 python3 run_synchronization.py examples/Town01.sumocfg --sumo-gui
@@ -236,13 +236,13 @@ python3 run_synchronization.py examples/Town01.sumocfg --sumo-gui
 > "Play" on SUMO window.
 ```
 
-该脚本生成的流量是 CARLA 团队创建的示例。默认情况下，它会沿着相同的路线生成相同的车辆。用户可以在 SUMO 中更改这些内容。
+该脚本生成的流量是 Carla 团队创建的示例。默认情况下，它会沿着相同的路线生成相同的车辆。用户可以在 SUMO 中更改这些内容。
 
 ![tuto_sumo](img/tuto_sumo.jpg)
 <div style="text-align: right"><i>SUMO and CARLA co-simulating traffic.</i></div>
 
 !!! 警告
-    目前，SUMO 联合仿真还是测试版功能。车辆没有物理特性，也不考虑 CARLA 交通灯。
+    目前，SUMO 联合仿真还是测试版功能。车辆没有物理特性，也不考虑 Carla 交通灯。
 
 ---
 ## 设置自我车辆
@@ -251,7 +251,7 @@ python3 run_synchronization.py examples/Town01.sumocfg --sumo-gui
 
 ### 生成自我车辆
 
-用户控制的车辆在 CARLA 中通常通过将属性 `role_name` 设置为 `ego` 来区分。可以设置其他属性，其中一些具有推荐值。
+用户控制的车辆在 Carla 中通常通过将属性 `role_name` 设置为 `ego` 来区分。可以设置其他属性，其中一些具有推荐值。
 
 下面，从 [蓝图库](bp_library.md) 中检索特斯拉模型，并使用随机推荐的颜色生成。选择地图推荐的生成点之一来放置自我车辆。
 
@@ -314,7 +314,7 @@ __4.__ 添加`listen()`方法。这是关键要素。每次传感器侦听数据
 
 设置属性后，就可以生成传感器了。脚本将摄像机放置在汽车引擎盖中，并指向前方。它将捕捉汽车的前视图。
 
-每一步都会以 [carla.Image](python_api.md#carla.Image) 的形式检索数据。Listen 方法将它们保存到磁盘。路径可以随意改变。每张图像的名称均根据拍摄镜头的模拟帧进行编码。 
+每一步都会以 [carla.Image](python_api.md#carla.Image) 的形式检索数据。Listen 方法将它们保存到磁盘。路径可以随意改变。每张图像的名称均根据拍摄镜头的仿真帧进行编码。 
 
 ```py
 # --------------
@@ -641,7 +641,7 @@ python3 config.py --no-rendering --delta-seconds 0.05 # Never greater than 0.1s
 
 ### 无需渲染的手动控制
 
-脚本`PythonAPI/examples/no_rendering_mode.py`提供了模拟的概述。它使用 Pygame 创建了一个简约的鸟瞰图，它将跟随自我车辆。这可以与 __manual_control.py__ 一起使用来生成一条几乎没有成本的路线，记录它，然后回放并利用它来收集数据。
+脚本`PythonAPI/examples/no_rendering_mode.py`提供了仿真的概述。它使用 Pygame 创建了一个简约的鸟瞰图，它将跟随自我车辆。这可以与 __manual_control.py__ 一起使用来生成一条几乎没有成本的路线，记录它，然后回放并利用它来收集数据。
 
 ```
 cd /opt/carla/PythonAPI/examples
@@ -832,7 +832,7 @@ world.set_weather(weather)
 
 这对于用户来说是有利可图的。例如，可以通过回放几秒钟前的仿真并生成或摧毁参与者来强制或避免碰撞。在特定时刻结束记录也很有用。这样做，车辆可能会采取不同的路径。 
 
-改变条件并扰乱仿真。没有什么可失去的，因为记录器允许初始仿真始终可以重新进行。这是充分发挥 CARLA 潜力的关键。
+改变条件并扰乱仿真。没有什么可失去的，因为记录器允许初始仿真始终可以重新进行。这是充分发挥 Carla 潜力的关键。
 
 ---
 ## 教程脚本
@@ -1340,7 +1340,7 @@ if __name__ == '__main__':
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="CARLA forum">
-CARLA 论坛</a>
+Carla 论坛</a>
 </p>
 </div>
 </div>

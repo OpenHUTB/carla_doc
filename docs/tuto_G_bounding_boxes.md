@@ -2,11 +2,11 @@
 
 使自动驾驶车辆了解其环境的一个重要因素在于估计车辆周围物体的位置和方向。为此，有必要推断对象边界框的位置。
 
-CARLA 仿真中的对象都有一个边界框，并且 CARLA Python API 提供了访问每个对象的边界框的函数。本教程展示如何访问边界框，然后将它们投影到相机平面中。
+Carla 仿真中的对象都有一个边界框，并且 Carla Python API 提供了访问每个对象的边界框的函数。本教程展示如何访问边界框，然后将它们投影到相机平面中。
 
 ## 设置仿真器
 
-让我们编写标准 CARLA 样板代码，设置客户端和世界对象，生成车辆并为其附加相机：
+让我们编写标准 Carla 样板代码，设置客户端和世界对象，生成车辆并为其附加相机：
 
 ```py
 import carla
@@ -103,7 +103,7 @@ K = build_projection_matrix(image_w, image_h, fov)
 
 ## 边界框
 
-CARLA 对象都有一个关联的边界框。CARLA [参与者](python_api.md#carla.Actor) 有一个 `bounding_box` 属性，该属性具有 [carla.BoundingBox](python_api.md#carla.BoundingBox) 对象类型。边界框的顶点可以通过 getter 函数`.get_world_vertices()`或 `get_local_vertices()` 之一检索。
+Carla 对象都有一个关联的边界框。Carla [参与者](python_api.md#carla.Actor) 有一个 `bounding_box` 属性，该属性具有 [carla.BoundingBox](python_api.md#carla.BoundingBox) 对象类型。边界框的顶点可以通过 getter 函数`.get_world_vertices()`或 `get_local_vertices()` 之一检索。
 
 需要注意的是，要获取世界坐标中边界框的三维坐标，您需要将参与者的变换作为该`get_world_vertices()`方法的参数，如下所示：
 

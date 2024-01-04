@@ -90,7 +90,7 @@ __6. 创建道路画家和主材质之间的通信链接。__
 - Normal
 - ORMH
 
-探索 `Game/Carla/Static/GenericMaterials/Asphalt/Textures` 中可用的一些 CARLA 纹理。
+探索 `Game/Carla/Static/GenericMaterials/Asphalt/Textures` 中可用的一些 Carla 纹理。
 
 ---
 
@@ -240,6 +240,6 @@ __3. 选择车道线网格。__
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA 论坛</a>
+Carla 论坛</a>
 </p>
 </div>

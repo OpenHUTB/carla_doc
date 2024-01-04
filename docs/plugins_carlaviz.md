@@ -17,8 +17,8 @@ carlaviz 插件用于在网络浏览器中可视化仿真。创建了一个具�
 
 ### 支持
 
-*   __Linux__ — CARLA 0.9.6, 0.9.7, 0.9.8, 0.9.9, 0.9.10.  
-*   __Windows__ — CARLA 0.9.9, 0.9.10.  
+*   __Linux__ — Carla 0.9.6, 0.9.7, 0.9.8, 0.9.9, 0.9.10.  
+*   __Windows__ — Carla 0.9.9, 0.9.10.  
 *   __从源代码构建__ — 最新更新。
 
 ---
@@ -27,12 +27,12 @@ carlaviz 插件用于在网络浏览器中可视化仿真。创建了一个具�
 ### 先决条件
 
 *   __Docker__ — 访问文档并 [安装 Docker](https://docs.docker.com/get-docker/).  
-*   __操作系统__ — 任何能够运行 CARLA 的操作系统都应该可以工作。
+*   __操作系统__ — 任何能够运行 Carla 的操作系统都应该可以工作。
 *   __Websocket-client__ — ```pip3 install websocket_client```。如果系统中尚未安装 [pip](https://pip.pypa.io/en/stable/installing/) 。  
 
 ### 下载插件
 
-打开终端并根据要运行的 CARLA 版本拉取 carlaviz 的 Docker 映像。
+打开终端并根据要运行的 Carla 版本拉取 carlaviz 的 Docker 映像。
 
 
 ```bash
@@ -50,7 +50,7 @@ docker pull mjxu96/carlaviz:latest
 !!! 重要
     目前在 Windows 中仅支持 0.9.9 和 0.9.10。
 
-CARLA 至 0.9.9（包含）设置为单流。对于更高版本，实现了传感器的多流。 
+Carla 至 0.9.9（包含）设置为单流。对于更高版本，实现了传感器的多流。 
 
 * __在单流中__, 一个传感器只能被一个客户端听到。当另一个客户端已经听到传感器时，例如在运行 `manual_control.py` 时，carlaviz 被迫复制传感器以检索数据，并且性能可能会受到影响。 
 
@@ -62,11 +62,11 @@ CARLA 至 0.9.9（包含）设置为单流。对于更高版本，实现了传�
 ---
 ## 运行 carlaviz
 
-__1. 运行 CARLA。__
+__1. 运行 Carla。__
 
-*   __a) 在 CARLA 包中__ — 转至 CARLA 文件夹并使用 `CarlaUE4.exe`(Windows) 或`./CarlaUE4.sh`(Linux) 启动仿真。  
+*   __a) 在 Carla 包中__ — 转至 Carla 文件夹并使用 `CarlaUE4.exe`(Windows) 或`./CarlaUE4.sh`(Linux) 启动仿真。  
 
-*   __b) 在从源代码构建的包中__ — 转到 CARLA 文件夹，使用 `make launch` 运行虚幻编辑器，并按`Play`。
+*   __b) 在从源代码构建的包中__ — 转到 Carla 文件夹，使用 `make launch` 运行虚幻编辑器，并按`Play`。
 
 __2. 运行 carlaviz.__ 根据已下载的 Docker 镜像，在另一个终端中运行以下命令。
 
@@ -152,6 +152,6 @@ python3 manual_control.py
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA 论坛</a>
+Carla 论坛</a>
 </p>
 </div>

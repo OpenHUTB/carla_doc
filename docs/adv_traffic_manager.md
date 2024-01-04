@@ -5,7 +5,7 @@
   - [用户定制](#user-customization)
 - [__架构__](#architecture)
   - [概述](#overview)
-  - [代理的生命周期和状态管理](#alsm)
+  - [智能体的生命周期和状态管理](#alsm)
   - [车辆注册表](#vehicle-registry)
   - [仿真状态](#simulation-state)
   - [控制循环](#control-loop)
@@ -32,7 +32,7 @@
 ---
 ## 什么是交通管理器？
 
-交通管理器 (Traffic Manager, TM) 是在仿真中以自动驾驶模式控制车辆的模块。其目标是在模拟中填充真实的城市交通状况。用户可以自定义一些行为，例如设置特定的学习环境。
+交通管理器 (Traffic Manager, TM) 是在仿真中以自动驾驶模式控制车辆的模块。其目标是在仿真中填充真实的城市交通状况。用户可以自定义一些行为，例如设置特定的学习环境。
 
 ### 结构化设计
 
@@ -53,7 +53,7 @@
 
 __1. 存储并更新仿真的当前状态。__
 
-- [代理的生命周期和状态管理](#alsm) (Agent Lifecycle & State Management, ALSM)  扫描世界，跟踪所有存在的车辆和行人，并清理不再存在的条目。所有数据均从服务器检索并经过多个[阶段](#stages-of-the-control-loop)。ALSM 是唯一调用服务器的组件。
+- [智能体的生命周期和状态管理](#alsm) (Agent Lifecycle & State Management, ALSM)  扫描世界，跟踪所有存在的车辆和行人，并清理不再存在的条目。所有数据均从服务器检索并经过多个[阶段](#stages-of-the-control-loop)。ALSM 是唯一调用服务器的组件。
 - [车辆注册表](#vehicle-registry) 包含一系列处于自动驾驶状态的车辆（由交通管理器控制）以及一系列不处于自动驾驶状态（不受交通管理器控制控制）的行人和车辆。
 - [仿真状态](#simulation-state) 是仿真中所有车辆和行人的位置、速度和附加信息的缓存存储。
 
@@ -88,11 +88,11 @@ __3. 在仿真中应用命令__
 
 以下部分将更详细地解释上述交通管理器逻辑中的每个组件和阶段。
 
-### 代理的生命周期和状态管理
+### 智能体的生命周期和状态管理
 
-代理的生命周期和状态管理。它是交通管理器逻辑周期的第一步，提供仿真当前状态的上下文。
+智能体的生命周期和状态管理。它是交通管理器逻辑周期的第一步，提供仿真当前状态的上下文。
 
-代理的生命周期和状态管理组件：
+智能体的生命周期和状态管理组件：
 
 - 扫描世界以跟踪所有车辆和行人的位置和速度。如果启用物理功能，则通过[Vehicle.get_velocity()](python_api.md#carla.Vehicle)检索速度。否则，将使用位置随时间更新的历史记录来计算速度。
 - 存储[仿真状态](#simulation-state)组件中每辆车和行人的位置、速度和附加信息（交通灯影响、边界框等）。
@@ -107,7 +107,7 @@ __相关的 .cpp 文件：__ `ALSM.h`, `ALSM.cpp`.
 
 车辆注册表：
 
-- 从[代理的生命周期和状态管理](#alsm)传递来最新的车辆和行人列表。
+- 从[智能体的生命周期和状态管理](#alsm)传递来最新的车辆和行人列表。
 - 将注册到交通管理器的车辆存储在单独的数组中，以便在[控制循环](#control-loop)期间进行迭代。
 
 __相关的 .cpp 文件：__ `MotionPlannerStage.cpp`.
@@ -118,7 +118,7 @@ __相关的 .cpp 文件：__ `MotionPlannerStage.cpp`.
 
 仿真状态：
 
-- 从[代理的生命周期和状态管理](#alsm)接收数据，包括当前参与者位置、速度、交通灯影响、交通灯状态等。
+- 从[智能体的生命周期和状态管理](#alsm)接收数据，包括当前参与者位置、速度、交通灯影响、交通灯状态等。
 - 将所有信息存储在缓存中，避免在[控制循环](#control-loop)期间对服务器的后续调用。
 
 __相关的 .cpp 文件：__ `SimulationState.cpp`, `SimulationState.h`.
@@ -178,7 +178,7 @@ __相关的 .cpp 文件:__ `PIDController.cpp`.
 
 - 从[**路径规划阶段**](#stage-4-motion-planner-stage)接收一系列 [carla.VehicleControl](python_api.md#carla.VehicleControl)。
 - 批处理要在同一帧内应用的所有命令。
-- 将批处理发送到在 carla 中调用 **apply_batch**（） 或 **apply_batch_synch（）** 的 CARLA **[服务器.客户端](../python_api/#carla.Client)**，具体取决于模拟是分别以异步模式还是同步模式运行。
+- 将批处理发送到在 carla 中调用 **apply_batch**（） 或 **apply_batch_synch（）** 的 Carla **[服务器.客户端](../python_api/#carla.Client)**，具体取决于仿真是分别以异步模式还是同步模式运行。
 
 __相关的 .cpp 文件:__ `TrafficManagerLocal.cpp`.
 
@@ -223,14 +223,14 @@ __相关的 .cpp 文件:__ `TrafficLightStage.cpp`.
 
 ##### 第 4 阶段 - 运动规划器阶段
 
-“运动规划器阶段”（Motion Planner Stage） 生成要应用于车辆的 CARLA 命令。
+“运动规划器阶段”（Motion Planner Stage） 生成要应用于车辆的 Carla 命令。
 
 运动规划器阶段：
 
 - 收集车辆的位置和速度（[**仿真状态**](#simulation-state))）、路径 （[**路径缓存和车辆轨迹**](#pbvt)） 和危险（[**碰撞**](#stage-2-collision-stage)阶段和[**交通信号灯阶段**](#stage-3-traffic-light-stage)）。
 - 对车辆应如何移动做出高级决策，例如，计算防止碰撞危险所需的制动器。[**PID控制器**](#pid-controller)用于根据目标值估计行为。
 - 将期望的运动转化为适用于车辆的 **[carla.VehicleControl。](python_api.md#carla.VehicleControl)**
-- 将生成的CARLA命令发送到[**命令数组**](#command-array)。
+- 将生成的 Carla 命令发送到[**命令数组**](#command-array)。
 
 __相关的.cpp文件:__ `MotionPlannerStage.cpp`.
 
@@ -455,7 +455,7 @@ Carla 服务器通过存储链接到它们的端口和客户端 IP（对用户�
 
 ### 多客户端仿真
 
-在多客户端模拟中，在同一端口上创建多个TM。第一个 TM 将是 TM 服务器，其余的将是连接到它的 TM 客户端。TM-Server 将规定所有 TM 实例的行为：
+在多客户端仿真中，在同一端口上创建多个TM。第一个 TM 将是 TM 服务器，其余的将是连接到它的 TM 客户端。TM-Server 将规定所有 TM 实例的行为：
 
 ```py
 terminal 1: ./CarlaUE4.sh -carla-rpc-port=4000
@@ -582,6 +582,6 @@ If you have any questions about the TM, then you can ask in the [forum](https://
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA forum</a>
+Carla forum</a>
 </p>
 </div>

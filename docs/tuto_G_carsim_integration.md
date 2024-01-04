@@ -1,8 +1,8 @@
 # CarSim 集成
 
-CARLA 与 CarSim 的集成允许将 CARLA 中的车辆控制转发到 CarSim。CarSim 将对车辆进行所有必需的物理计算，并将新状态返回给 CARLA。
+Carla 与 CarSim 的集成允许将 Carla 中的车辆控制转发到 CarSim。CarSim 将对车辆进行所有必需的物理计算，并将新状态返回给 Carla。
 
-本页向您展示如何生成`.sim`文件，解释 CARLA 和 CarSim 之间的车辆尺寸如何关联，以及如何使用 CarSim 集成在 CARLA 上运行仿真。
+本页向您展示如何生成`.sim`文件，解释 Carla 和 CarSim 之间的车辆尺寸如何关联，以及如何使用 CarSim 集成在 Carla 上运行仿真。
 
 *   [__在你开始之前__](#before-you-begin)  
 *   [__设置 CarSim__](#set-up-carsim)  
@@ -27,9 +27,9 @@ CARLA 与 CarSim 的集成允许将 CARLA 中的车辆控制转发到 CarSim。C
     1. 在 [这里](https://www.carsim.com/users/unreal_plugin/unreal_plugin_2020_0.php) 下载插件。
     2. 将文件 `CarSim.Build.cs` 替换为 [此处](https://carla-releases.s3.eu-west-3.amazonaws.com/Backup/CarSim.Build.cs) 找到的文件，以便为 Ubuntu 使用正确的求解器。
 
-    3. 如果您使用的是 CARLA 的打包版本，则可以跳过此步骤。打包版本已使用此标志编译，但如果您从源代码构建 CARLA，则需要使用`--carsim`标志编译服务器。
+    3. 如果您使用的是 Carla 的打包版本，则可以跳过此步骤。打包版本已使用此标志编译，但如果您从源代码构建 Carla，则需要使用`--carsim`标志编译服务器。
 
-    如果您从源代码构建 CARLA，请在根文件夹中运行以下命令以使用`--carsim`标志编译服务器：
+    如果您从源代码构建 Carla，请在根文件夹中运行以下命令以使用`--carsim`标志编译服务器：
 
 ```sh
     make launch ARGS="--carsim"
@@ -37,11 +37,11 @@ CARLA 与 CarSim 的集成允许将 CARLA 中的车辆控制转发到 CarSim。C
 
 ## 设置 CarSim
 
-以下部分详细介绍了如何生成运行仿真所需的 `.sim` 文件。还有关于 CARLA 和 CarSim 之间车辆尺寸关系的详细重要信息。
+以下部分详细介绍了如何生成运行仿真所需的 `.sim` 文件。还有关于 Carla 和 CarSim 之间车辆尺寸关系的详细重要信息。
 
 #### 生成.sim 文件
 
-该`.sim` 文件描述了要在 CARLA 和 CarSim 中运行的仿真。插件需要此文件才能运行仿真。目前无法在 Ubuntu 上生成此文件，但是我们将在下面介绍如何使用之前生成的文件在 Ubuntu 上运行仿真。
+该`.sim` 文件描述了要在 Carla 和 CarSim 中运行的仿真。插件需要此文件才能运行仿真。目前无法在 Ubuntu 上生成此文件，但是我们将在下面介绍如何使用之前生成的文件在 Ubuntu 上运行仿真。
 
 ##### 在 Windows 上
 
@@ -112,12 +112,12 @@ END
 ```
 #### 车辆尺寸
 
-尽管 CarSim 允许您指定在模拟中使用的车辆尺寸，但目前 CarSim 车辆和 CARLA 车辆之间没有关联。这意味着两个项目中的车辆将具有不同的尺寸。CARLA 车辆的作用只是在仿真过程中充当占位符。
+尽管 CarSim 允许您指定在仿真中使用的车辆尺寸，但目前 CarSim 车辆和 Carla 车辆之间没有关联。这意味着两个项目中的车辆将具有不同的尺寸。Carla 车辆的作用只是在仿真过程中充当占位符。
 
 ![carsim vehicle sizes](img/carsim_vehicle_sizes.jpg)
 
 !!! 笔记
-    CARLA 和 CarSim 中的车辆尺寸之间没有相关性。CARLA 车辆只是一个模拟占位符。
+    Carla 和 CarSim 中的车辆尺寸之间没有相关性。Carla 车辆只是一个仿真占位符。
 
 ## 运行仿真
 
@@ -127,7 +127,7 @@ END
 vehicle.enable_carsim(<path_to_ue4simfile.sim>)
 ```
 
-发送到车辆的所有输入控件都将转发到 CarSim。CarSim 将更新物理并将车辆状态（变换）发送回 CARLA 车辆。
+发送到车辆的所有输入控件都将转发到 CarSim。CarSim 将更新物理并将车辆状态（变换）发送回 Carla 车辆。
 
 仿真完成后，您可以像往常一样分析 CarSim 中的所有数据。
 

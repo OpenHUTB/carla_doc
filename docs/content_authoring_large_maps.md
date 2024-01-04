@@ -1,14 +1,14 @@
 # [为 Carla 创建大地图](https://carla.readthedocs.io/en/latest/content_authoring_large_maps/) 
 
-CARLA 中大地图（如城镇 11 和 12）的操作方式与标准地图（如城镇 10）不同。地图被划分为图块，即地图的细分，通常大小设置为约 1 至 2 公里。这些图块划分了地图，以便仅将需要的地图部分加载到图形内存中以进行高效渲染。不需要的图块保持休眠状态并准备在需要时加载。通常，会加载自我车辆位置中的图块旁边的图块，但如果需要，可以加载更多图块。当 CARLA 启动时，可以在设置中修改此行为。
+Carla 中大地图（如城镇 11 和 12）的操作方式与标准地图（如城镇 10）不同。地图被划分为图块，即地图的细分，通常大小设置为约 1 至 2 公里。这些图块划分了地图，以便仅将需要的地图部分加载到图形内存中以进行高效渲染。不需要的图块保持休眠状态并准备在需要时加载。通常，会加载自我车辆位置中的图块旁边的图块，但如果需要，可以加载更多图块。当 Carla 启动时，可以在设置中修改此行为。
 
 # 在 RoadRunner 中创建大地图
 
-RoadRunner 是推荐用于创建要导入 CARLA 的大地图的软件。本指南概述了如何使用 RoadRunner 创建大地图以及如何在虚幻引擎编辑器中导入和处理大地图。
+RoadRunner 是推荐用于创建要导入 Carla 的大地图的软件。本指南概述了如何使用 RoadRunner 创建大地图以及如何在虚幻引擎编辑器中导入和处理大地图。
 
 - [__在 RoadRunner 中构建大地图__](#build-a-large-map-in-roadrunner)
 - [__在 RoadRunner 中导出大地图__](#export-a-large-map-in-roadrunner)
-- [__将大地图导入 CARLA__](#import-a-large-map-into-carla)
+- [__将大地图导入 Carla__](#import-a-large-map-into-carla)
     - [文件和文件夹](#files-and-folders)
     - [创建 JSON 描述（可选）](#create-the-json-description-optional)
     - [进行导入](#making-the-import)
@@ -46,7 +46,7 @@ RoadRunner 是推荐用于创建要导入 CARLA 的大地图的软件。本指�
 ![roadrunner_scene_preview](img/tuto_content_authoring_maps/rr_scene_export_preview.png)
 
 !!! 笔记
-    __Tile size__: 您使用的图块大小是一个判断调用，以确保地图在 CARLA 中使用时能够有效工作。如果您的地图包含密集的 3D 资源（例如建筑物和植被），您可能会受益于较小的图块大小，以防止加载不必要的资源。但是，这可能会增加构建地图所需工作的复杂性。CARLA 引擎支持的最大瓦片尺寸为 2 公里，我们建议瓦片尺寸为 1 公里左右。
+    __Tile size__: 您使用的图块大小是一个判断调用，以确保地图在 Carla 中使用时能够有效工作。如果您的地图包含密集的 3D 资源（例如建筑物和植被），您可能会受益于较小的图块大小，以防止加载不必要的资源。但是，这可能会增加构建地图所需工作的复杂性。Carla 引擎支持的最大瓦片尺寸为 2 公里，我们建议瓦片尺寸为 1 公里左右。
 
 当您准备好导出时：
 
@@ -60,8 +60,8 @@ __2.__ 在弹出的窗口中：
     - _通过分段分割_（_Split by Segmentation_）: 通过语义分割来划分网格并改进行人导航。
     - _二维纹理的力量_（_Power of Two Texture Dimensions_）: 提高性能。
     - _嵌入纹理_（_Embed Textures_）: 确保纹理嵌入到网格中。
-    - _导出到图块_（_Export to Tiles_）: 选择图块的大小。CARLA 可以使用的最大尺寸为 2000 x 2000。
-    - _导出单个图块_（_Export Individual Tiles_）: 生成在 CARLA 中流式传输大地图所需的单个图块。
+    - _导出到图块_（_Export to Tiles_）: 选择图块的大小。Carla 可以使用的最大尺寸为 2000 x 2000。
+    - _导出单个图块_（_Export Individual Tiles_）: 生成在 Carla 中流式传输大地图所需的单个图块。
 
 >>>>>>![export_large_map_fbx](img/tuto_content_authoring_maps/rr_export.png)
 
@@ -77,17 +77,17 @@ __3.__ 导出 `.xodr` OpenDrive 地图文件：
 !!! 警告
     确保 `.xodr` 和 `.fbx` 文件具有相同的名称根。
 
-现在您已经在 Roadrunner 中创建了大地图，您可以将其导入 CARLA 中。RoadRunner 创建的文件应转移到用于构建 CARLA 的根目录的 `Import` 目录内。
+现在您已经在 Roadrunner 中创建了大地图，您可以将其导入 Carla 中。RoadRunner 创建的文件应转移到用于构建 Carla 的根目录的 `Import` 目录内。
 
 ---
 
-# 将大地图导入 CARLA
+# 将大地图导入 Carla
 
-RoadRunner 中生成的大地图可以导入到 CARLA 的源代码构建中，并打包在 CARLA 独立包中分发和使用。该过程与标准地图非常相似，只是添加了图块和批量导入的特定术语。
+RoadRunner 中生成的大地图可以导入到 Carla 的源代码构建中，并打包在 Carla 独立包中分发和使用。该过程与标准地图非常相似，只是添加了图块和批量导入的特定术语。
 
 ## 文件和文件夹
 
-所有要导入的文件应放置在 CARLA 根目录的 `Import` 文件夹中。这些文件应包括：
+所有要导入的文件应放置在 Carla 根目录的 `Import` 文件夹中。这些文件应包括：
 
 - 多个 `.fbx` 文件中的地图网格代表地图的不同图块。
 - OpenDRIVE 定义位于单个`.xodr`文件中。
@@ -101,7 +101,7 @@ RoadRunner 中生成的大地图可以导入到 CARLA 的源代码构建中，�
 <mapName>_Tile_<x-coordinate>_<y-coordinate>.fbx
 ``` 
 
-默认情况下，RoadRunner 应符合此命名约定，但在准备导入 CARLA 之前值得仔细检查，因为此阶段引起的问题稍后修复起来可能会很乏味。最终地图中的图块将如下图所示排列：
+默认情况下，RoadRunner 应符合此命名约定，但在准备导入 Carla 之前值得仔细检查，因为此阶段引起的问题稍后修复起来可能会很乏味。最终地图中的图块将如下图所示排列：
 
 >>>>>><img src="img/tuto_content_authoring_maps/large_map_tiles.png" width="70%">
 
@@ -135,7 +135,7 @@ __Maps__ 需要以下参数：
 
 - __name:__ 地图的名称。这必须与和`.fbx`和`.xodr`文件相同.xodr。
 - __xodr:__ `.xodr` 文件的路径
-- __use_carla_materials:__ 如果为 __True__，地图将使用 CARLA 材质。否则，它将使用 RoadRunner 材料。
+- __use_carla_materials:__ 如果为 __True__，地图将使用 Carla 材质。否则，它将使用 RoadRunner 材料。
 - __tile_size:__ 图块的大小。默认值为 2000 (2kmx2km)。
 - __tiles:__ 组成整个地图的 `.fbx` tile文件的列表。
 
@@ -168,7 +168,7 @@ __Props__ 属于本教程的一部分。请参阅 [本](tuto_A_add_props.md) 教
 
 ## 进行导入
 
-将所有文件放入该`Import`文件夹后，在根 CARLA 文件夹中运行以下命令：
+将所有文件放入该`Import`文件夹后，在根 Carla 文件夹中运行以下命令：
 
 ```sh
 make import
@@ -188,7 +188,7 @@ make import ARGS="--batch-size=200"
 make import  ARGS="--package=<package_name>"
 ```
 
-- `--no-carla-materials` 指定您不想使用默认的 CARLA 材质（道路纹理等）。您将改用 RoadRunner 材料。__仅当您不提供自己的__[`.json` 文件](tuto_M_manual_map_package.md)时才需要此标志。`.json`文件中的任何值都将覆盖此标志。通过运行以下命令来使用此标志：
+- `--no-carla-materials` 指定您不想使用默认的 Carla 材质（道路纹理等）。您将改用 RoadRunner 材料。__仅当您不提供自己的__[`.json` 文件](tuto_M_manual_map_package.md)时才需要此标志。`.json`文件中的任何值都将覆盖此标志。通过运行以下命令来使用此标志：
 
 ```sh
 make import  ARGS="--no-carla-materials"
@@ -223,13 +223,13 @@ make import  ARGS="--no-carla-materials"
 
 ## 打包一张大地图
 
-要打包大地图以便可以在 CARLA 独立包中使用，请遵循与标准地图相同的过程 - 运行以下命令：
+要打包大地图以便可以在 Carla 独立包中使用，请遵循与标准地图相同的过程 - 运行以下命令：
 
 ```sh
 make package ARGS="--packages=<mapPackage>"
 ```
 
-这将创建一个压缩在`.tar.gz`文件中的独立包。Linux 下文件将保存在`Dist` 和 Windows下保存在 `/Build/UE4Carla/` 文件夹中。然后可以将它们分发和打包以在独立的 CARLA 包中使用。
+这将创建一个压缩在`.tar.gz`文件中的独立包。Linux 下文件将保存在`Dist` 和 Windows下保存在 `/Build/UE4Carla/` 文件夹中。然后可以将它们分发和打包以在独立的 Carla 包中使用。
 
 ---
 

@@ -9,10 +9,10 @@
 	- [路口](#junctions)  
 	- [航点](#waypoints)  
 	- [环境对象](#environment-objects)
-- [__在 CARLA 中导航__](#navigation-in-carla)  
+- [__在 Carla 中导航__](#navigation-in-carla)  
 	- [通过航路点导航](#navigating-through-waypoints)  
 	- [生成地图导航](#generating-a-map-navigation)  
-- [__CARLA 地图__](#carla-maps)  
+- [__Carla 地图__](#carla-maps)  
 	- [非分层地图](#non-layered-maps)
 	- [分层地图](#layered-maps)
 - [__自定义地图__](#custom-maps)
@@ -150,9 +150,9 @@ Carla 地图上的每个对象都有一组关联的变量，可以在 [此][env_
 
 
 ---
-## 在 CARLA 中导航
+## 在 Carla 中导航
 
-CARLA 中的导航是通过 Waypoint API （来自 [`carla.Waypoint`](python_api.md#carla.Waypoint) 和 [`carla.Map`](python_api.md#carla.Map) 的方法组合）进行管理。
+Carla 中的导航是通过 Waypoint API （来自 [`carla.Waypoint`](python_api.md#carla.Waypoint) 和 [`carla.Map`](python_api.md#carla.Map) 的方法组合）进行管理。
 
 客户端必须首先与服务器通信以检索包含路径点信息的地图对象。这只需要一次，所有后续查询都在客户端执行。
 
@@ -223,7 +223,7 @@ info_map = map.to_opendrive()
 ```
 
 ---
-## CARLA 地图
+## Carla 地图
 
 Carla 生态系统中有八个城镇，每个城镇都有两种地图，非分层地图和分层地图。[图层][layer_api]是指地图中分组的对象，由以下部分组成：
 
@@ -243,10 +243,10 @@ Carla 生态系统中有八个城镇，每个城镇都有两种地图，非分�
 
 ### 非分层地图
 
-下表显示了非分层地图（单击城镇名称可查看布局的俯视图）。所有图层始终存在，并且无法在这些地图中打开或关闭。直到 CARLA 0.9.11 为止，这些是唯一可用的地图类型。
+下表显示了非分层地图（单击城镇名称可查看布局的俯视图）。所有图层始终存在，并且无法在这些地图中打开或关闭。直到 Carla 0.9.11 为止，这些是唯一可用的地图类型。
 
 !!! 笔记
-    用户可以使用 [自定义地图](tuto_A_map_customization.md) 甚至创建要在 CARLA 中使用的 [新地图](tuto_M_custom_map_overview.md)。
+    用户可以使用 [自定义地图](tuto_A_map_customization.md) 甚至创建要在 Carla 中使用的 [新地图](tuto_M_custom_map_overview.md)。
 
 | 城镇                           | 概括                                                                                                         |
 |------------------------------|------------------------------------------------------------------------------------------------------------|

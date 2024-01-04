@@ -12,7 +12,7 @@
 
 ## Chrono 项目
 
-[Project Chrono](https://projectchrono.org/) 是一款开源多物理场仿真引擎，它使用基于模板的方法提供高度真实的车辆动力学。Carla 中的集成允许用户在导航地图时利用 Chrono 模板来模拟车辆动力学。
+[Project Chrono](https://projectchrono.org/) 是一款开源多物理场仿真引擎，它使用基于模板的方法提供高度真实的车辆动力学。Carla 中的集成允许用户在导航地图时利用 Chrono 模板来仿真车辆动力学。
 
 ---
 
@@ -22,9 +22,9 @@
 
 ### 配置服务器
 
-仅当 CARLA 服务器使用 Chrono 标签编译时，Chrono 才会工作。
+仅当 Carla 服务器使用 Chrono 标签编译时，Chrono 才会工作。
 
-__在从 CARLA 的源代码构建版本中__，运行以下命令来启动服务器：
+__在从 Carla 的源代码构建版本中__，运行以下命令来启动服务器：
 
 ```sh
 make launch ARGS="--chrono"
@@ -72,4 +72,4 @@ Chrono 物理是通过 [Actor](python_api.md#carlaactor) 类提供的 `enable_ch
 
 ### 局限性
 
-此集成不支持碰撞。__当发生碰撞时，车辆将恢复为 CARLA 默认物理状态。__
+此集成不支持碰撞。__当发生碰撞时，车辆将恢复为 Carla 默认物理状态。__

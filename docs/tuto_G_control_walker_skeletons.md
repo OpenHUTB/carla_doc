@@ -4,7 +4,7 @@
 
 *   [__行人骨骼结构__](#walker-skeleton-structure)  
 *   [__手动控制行人骨骼__](#manually-control-walker-bones)  
-	*   [连接到模拟器](#connect-to-the-simulator)  
+	*   [连接到仿真器](#connect-to-the-simulator)  
 	*   [生成行人](#spawn-a-walker)  
 	*   [控制行人骨骼](#control-walker-skeletons)  
 
@@ -90,9 +90,9 @@ crl_root
 ---
 ## 手动控制行人骨骼
 
-以下是如何通过 CARLA Python API 更改步行者骨骼变换的详细分步示例
+以下是如何通过 Carla Python API 更改步行者骨骼变换的详细分步示例
 
-### 连接到模拟器
+### 连接到仿真器
 
 导入本例中使用的必要库
 

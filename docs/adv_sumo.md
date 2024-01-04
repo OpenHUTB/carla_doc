@@ -5,7 +5,7 @@ Carla 与 SUMO 开发了联合仿真功能。这允许随意分配任务，并�
 
 *   [__必备条件__](#requisites)  
 *   [__运行自定义联合仿真__](#run-a-custom-co-simulation)  
-	*   [创建 CARLA vtypes](#create-carla-vtypes)  
+	*   [创建 Carla vtypes](#create-carla-vtypes)  
 	*   [创建 SUMO 网络](#create-the-sumo-net)  
 	*   [运行同步](#run-the-synchronization)  
 *   [__由 SUMO 控制的 NPC 生成__](#spawn-npcs-controlled-by-sumo)  
@@ -53,15 +53,15 @@ python3 run_synchronization.py examples/Town04.sumocfg  --sumo-gui
 该脚本使用 `data/vtypes.json` 存储的信息来创建 SUMO *vtypes*。这些可以通过编辑所述文件来修改。
 
 !!! 警告
-    必须运行 CARLA 仿真才能执行该脚本。
+    必须运行 Carla 仿真才能执行该脚本。
 
 ### 创建 SUMO 网络
 
-创建与 CARLA 同步的 SUMO 网络推荐方法是使用脚本 `Co-Simulation/Sumo/util/netconvert_carla.py`. 这就要利用 SUMO 提供的 [netconvert](https://sumo.dlr.de/docs/NETCONVERT.html)工具了。为了运行该脚本，需要一些参数。 
+创建与 Carla 同步的 SUMO 网络推荐方法是使用脚本 `Co-Simulation/Sumo/util/netconvert_carla.py`. 这就要利用 SUMO 提供的 [netconvert](https://sumo.dlr.de/docs/NETCONVERT.html)工具了。为了运行该脚本，需要一些参数。 
 
 *   __`xodr_file`__ — OpenDRIVE 文件 `.xodr`。
 *   __`--output'`__ *(默认值：`net.net.xml`)* — 输出文件 `.net.xml`。
-*   __`--guess-tls`__ *(默认值：false)* — SUMO 只能为道路中的特定车道设置交通灯，但 CARLA 不能。如果设置为 __True__，SUMO 将不会区分特定车道的交通信号灯，并且这些信号灯将与 CARLA 同步。
+*   __`--guess-tls`__ *(默认值：false)* — SUMO 只能为道路中的特定车道设置交通灯，但 Carla 不能。如果设置为 __True__，SUMO 将不会区分特定车道的交通信号灯，并且这些信号灯将与 Carla 同步。
 
 该脚本的输出将是`.net.xml`可以使用 __[NETEDIT](https://sumo.dlr.de/docs/NETEDIT.html)__ 进行编辑的。使用它来编辑路线、添加需求，并最终准备一个可以保存为 `.sumocfg`。 
 
@@ -77,18 +77,18 @@ python3 run_synchronization.py examples/Town04.sumocfg  --sumo-gui
 *   __`--sumo-host`__ *(默认值：127.0.0.1)* — SUMO 主机服务器的 IP。
 *   __`--sumo-port`__ *(默认值：8813)* — 要侦听的 TCP 端口。
 *   __`--sumo-gui`__ — 打开一个窗口以可视化 SUMO 的 GUI 版本。
-*   __`--step-length`__ *(默认值：0.05s)* — 设置模拟时间步长的固定增量秒。 
+*   __`--step-length`__ *(默认值：0.05s)* — 设置仿真时间步长的固定增量秒。 
 *   __`--sync-vehicle-lights`__ *(默认值：False)* — 同步车灯。 
 *   __`--sync-vehicle-color`__ *(默认值：False)* — 同步车辆颜色。
 *   __`--sync-vehicle-all`__ *(默认值：False)* — 同步所有车辆属性。 
-*   __`--tls-manager`__ *(默认值：none)* — 选择哪个模拟器应管理交通灯。另一个将相应地更新这些内容。选项有 `carla`, `sumo` 和 `none`。如果选择 `none` ，交通信号灯将不同步。每辆车只会遵守生成它的仿真器中的交通灯。
+*   __`--tls-manager`__ *(默认值：none)* — 选择哪个仿真器应管理交通灯。另一个将相应地更新这些内容。选项有 `carla`, `sumo` 和 `none`。如果选择 `none` ，交通信号灯将不同步。每辆车只会遵守生成它的仿真器中的交通灯。
 
 ```sh
 python3 run_synchronization.py <SUMOCFG FILE> --tls-manager carla --sumo-gui
 ```
 
 !!! 警告
-    要停止联合模拟，请在运行脚本的终端按 `Ctrl+C` 。
+    要停止联合仿真，请在运行脚本的终端按 `Ctrl+C` 。
 
 ---
 ## 由 SUMO 控制的 NPC 生成
@@ -109,7 +109,7 @@ python3 run_synchronization.py <SUMOCFG FILE> --tls-manager carla --sumo-gui
 *   __`--sync-vehicle-lights`__ *(默认值：False)* — 同步车灯状态。 
 *   __`--sync-vehicle-color`__ *(默认值：False)* — 同步车辆颜色。
 *   __`--sync-vehicle-all`__ *(默认值： False)* — 同步所有车辆属性。 
-*   __`--tls-manager`__ *(默认值： none)* — 选择哪个模拟器来更改交通灯的状态。另一个将相应地更新它们。如果是`none`，交通信号灯将不同步。
+*   __`--tls-manager`__ *(默认值： none)* — 选择哪个仿真器来更改交通灯的状态。另一个将相应地更新它们。如果是`none`，交通信号灯将不同步。
 
 ```sh
 # 生成 10 辆车，由 SUMO 管理，而不是交通管理器
@@ -118,7 +118,7 @@ python3 spawn_sumo_npc.py -n 10 --tls-manager carla --sumo-gui
 
 ---
 
-到目前为止，这就是与 Carla 进行 SUMO 联合模拟的全部内容。
+到目前为止，这就是与 Carla 进行 SUMO 联合仿真的全部内容。
 
 打开 Carla 并闲逛一会儿。如果有任何疑问，请随时在论坛中发布。
 

@@ -55,9 +55,9 @@ If you need to learn more about Scenic, then read their ["Getting Started with S
 
 ## CarSIM
 
-Carla's integration with CarSim allows vehicle controls in CARLA to be forwarded to CarSim. CarSim will do all required physics calculations of the vehicle and return the new state to CARLA. 
+Carla's integration with CarSim allows vehicle controls in Carla to be forwarded to CarSim. CarSim will do all required physics calculations of the vehicle and return the new state to Carla. 
 
-Learn how to use CARLA alongside CarSIM [here](tuto_G_carsim_integration.md).
+Learn how to use Carla alongside CarSIM [here](tuto_G_carsim_integration.md).
 
 ## OpenDRIVE
 
@@ -65,14 +65,14 @@ Learn how to use CARLA alongside CarSIM [here](tuto_G_carsim_integration.md).
 
 ## RSS - Responsibility Sensitive Safety
 
-CARLA integrates the [C++ Library for Responsibility Sensitive Safety](https://github.com/intel/ad-rss-lib) in the client library. This feature allows users to investigate behaviours of RSS without having to implement anything. CARLA will take care of providing the input, and applying the output to the AD systems on the fly. Refer to the full documentation [__here__](adv_rss.md)
+Carla integrates the [C++ Library for Responsibility Sensitive Safety](https://github.com/intel/ad-rss-lib) in the client library. This feature allows users to investigate behaviours of RSS without having to implement anything. Carla will take care of providing the input, and applying the output to the AD systems on the fly. Refer to the full documentation [__here__](adv_rss.md)
 
 ## AWS and RLlib integration
 
-The RLlib integration brings support between the Ray/RLlib library and CARLA, allowing the easy use of the CARLA environment for training and inference purposes. Ray is an open source framework that provides a simple, universal API for building distributed applications. Ray is packaged with RLlib, a scalable reinforcement learning library, and Tune, a scalable hyperparameter tuning library. Read more about operating CARLA on AWS and RLlib [__here__](tuto_G_rllib_integration.md).
+The RLlib integration brings support between the Ray/RLlib library and Carla, allowing the easy use of the Carla environment for training and inference purposes. Ray is an open source framework that provides a simple, universal API for building distributed applications. Ray is packaged with RLlib, a scalable reinforcement learning library, and Tune, a scalable hyperparameter tuning library. Read more about operating Carla on AWS and RLlib [__here__](tuto_G_rllib_integration.md).
 
 ## Chrono physics
 
-[__Chrono__](https://projectchrono.org/) is a multi-physics simulation engine providing high realism vehicle dynamics using templates. CARLA's Chrono integraion allows CARLA users to add Chrono templates to simulate vehicle dynamics. Please refer to the full documentation [__here__](tuto_G_chrono.md).
+[__Chrono__](https://projectchrono.org/) is a multi-physics simulation engine providing high realism vehicle dynamics using templates. Carla's Chrono integraion allows Carla users to add Chrono templates to simulate vehicle dynamics. Please refer to the full documentation [__here__](tuto_G_chrono.md).
 
 ---

@@ -1,19 +1,19 @@
 # Scenic
 
-本指南概述了如何将 Scenic 与 CARLA 结合使用，通过单个场景定义生成多个不同的场景。它假设用户事先了解场景语法。如果您需要了解有关 Scenic 的更多信息，请阅读他们的 [“Scenic 入门”](https://scenic-lang.readthedocs.io/en/latest/quickstart.html) 指南，并查看他们有关创建 [静态](https://scenic-lang.readthedocs.io/en/latest/tutorials/tutorial.html) 和 [动态](https://scenic-lang.readthedocs.io/en/latest/tutorials/dynamics.html) 场景的教程。
+本指南概述了如何将 Scenic 与 Carla 结合使用，通过单个场景定义生成多个不同的场景。它假设用户事先了解场景语法。如果您需要了解有关 Scenic 的更多信息，请阅读他们的 [“Scenic 入门”](https://scenic-lang.readthedocs.io/en/latest/quickstart.html) 指南，并查看他们有关创建 [静态](https://scenic-lang.readthedocs.io/en/latest/tutorials/tutorial.html) 和 [动态](https://scenic-lang.readthedocs.io/en/latest/tutorials/dynamics.html) 场景的教程。
 
 在本指南结束时，您将了解：
 
-- 在 CARLA 上运行 Scenic 脚本所需的最低要求。
+- 在 Carla 上运行 Scenic 脚本所需的最低要求。
 - 如何编写简单的场景定义来生成大量场景仿真。
-- 如何在 CARLA 上运行 Scenic 脚本。
-- 用于在 CARLA 上配置场景仿真的参数。
+- 如何在 Carla 上运行 Scenic 脚本。
+- 用于在 Carla 上配置场景仿真的参数。
 
 ---
 
 - [__在你开始之前__](#before-you-begin)
 - [__Scenic 域__](#scenic-domains)
-- [__创建与 CARLA 一起使用的 Scenic 场景__](#creating-a-scenic-scenario-to-use-with-carla)
+- [__创建与 Carla 一起使用的 Scenic 场景__](#creating-a-scenic-scenario-to-use-with-carla)
 - [__运行场景__](#run-the-scenario)
 - [__附加参数__](#additional-parameters)
 
@@ -21,7 +21,7 @@
 
 ## 在你开始之前
 
-在将 Scenic 与 CARLA 结合使用之前，您需要满足以下要求：
+在将 Scenic 与 Carla 结合使用之前，您需要满足以下要求：
 
 - 安装 [Python 3.8](https://www.python.org/downloads/) 或更高版本。
 - 安装 [Scenic](https://scenic-lang.readthedocs.io/en/latest/quickstart.html#installation)。
@@ -32,16 +32,16 @@
 
 Scenic 有一个通用驾驶域，允许用户定义可以在任何驾驶仿真器上运行的场景。此外，它还有特定于每个仿真器的其他域。请在 [此处](https://scenic-lang.readthedocs.io/en/latest/libraries.html) 查看有关 Scenic 域的更多信息。
 
-每个领域中特别重要的是行为和动作的定义。检查以下链接，获取有关 Scenic 驾驶域和 CARLA 域的行为和操作的参考材料：
+每个领域中特别重要的是行为和动作的定义。检查以下链接，获取有关 Scenic 驾驶域和 Carla 域的行为和操作的参考材料：
 
 - [the Scenic 驾驶领域的行为](https://scenic-lang.readthedocs.io/en/latest/modules/scenic.domains.driving.behaviors.html)
-- [CARLA 域中的行为](https://scenic-lang.readthedocs.io/en/latest/modules/scenic.simulators.carla.behaviors.html)
+- [Carla 域中的行为](https://scenic-lang.readthedocs.io/en/latest/modules/scenic.simulators.carla.behaviors.html)
 - [Scenic 驾驶域的动作](https://scenic-lang.readthedocs.io/en/latest/modules/scenic.domains.driving.actions.html)
-- [CARLA 域中的动作](https://scenic-lang.readthedocs.io/en/latest/modules/scenic.simulators.carla.actions.html#module-scenic.simulators.carla.actions)
+- [Carla 域中的动作](https://scenic-lang.readthedocs.io/en/latest/modules/scenic.simulators.carla.actions.html#module-scenic.simulators.carla.actions)
 
 ---
 
-## 创建与 CARLA 一起使用的 Scenic 场景
+## 创建与 Carla 一起使用的 Scenic 场景
 
 本节将介绍如何编写基本的场景脚本，其中领头车辆由于道路上的障碍物而突然减速。然后，本车需要突然制动以避免与前车发生碰撞。[完整的脚本](https://github.com/BerkeleyLearnVerify/Scenic/blob/master/examples/carla/Carla_Challenge/carlaChallenge2.scenic) 以及涉及更复杂道路网络的其他示例可以在 Scenic 存储库中找到。
 
@@ -49,8 +49,8 @@ Scenic 有一个通用驾驶域，允许用户定义可以在任何驾驶仿真�
 __1.__ 设置地图参数并声明场景使用的模型：
 
 - 应将 `.xodr` 文件设置为 [`map`][scenic_map] 参数值，稍后将使用该文件生成道路网络信息。 
-- 参数 `carla_map` 是指您想要在仿真中使用的 CARLA 地图的名称。如果已定义，则 Scenic 将加载地图的所有资产（建筑物、树木等），如果未定义，则将使用 [OpenDRIVE 独立模式](adv_opendrive.md) 。
-- 该模型包括特定于 CARLA 上运行场景的所有实用程序。这应该在您想要在 CARLA 上运行的所有脚本中定义。
+- 参数 `carla_map` 是指您想要在仿真中使用的 Carla 地图的名称。如果已定义，则 Scenic 将加载地图的所有资产（建筑物、树木等），如果未定义，则将使用 [OpenDRIVE 独立模式](adv_opendrive.md) 。
+- 该模型包括特定于 Carla 上运行场景的所有实用程序。这应该在您想要在 Carla 上运行的所有脚本中定义。
 
 ```scenic
 ## SET MAP AND MODEL
@@ -155,7 +155,7 @@ terminate when ego.speed < 0.1 and (distance to obstacle) < 30
 
 要运行 Scenic 场景：
 
-__1.__ 启动 CARLA 服务器。
+__1.__ 启动 Carla 服务器。
 
 __2.__ 运行以下命令：
 
@@ -169,19 +169,19 @@ scenic path/to/scenic/script.scenic --simulate
 
 ### 附加参数
 
-CARLA 模型提供了几个全局参数，可以在使用 [`param` 语句](https://scenic-lang.readthedocs.io/en/latest/syntax_details.html#param-identifier-value) 或通过命令行使用  [`--param` option](https://scenic-lang.readthedocs.io/en/latest/options.html#cmdoption-p) 选项的场景中覆盖这些参数。
+Carla 模型提供了几个全局参数，可以在使用 [`param` 语句](https://scenic-lang.readthedocs.io/en/latest/syntax_details.html#param-identifier-value) 或通过命令行使用  [`--param` option](https://scenic-lang.readthedocs.io/en/latest/options.html#cmdoption-p) 选项的场景中覆盖这些参数。
 
-下面是 CARLA 模型中的可配置参数表：
+下面是 Carla 模型中的可配置参数表：
 
 | 名称          | 值              | 描述                                                                                                                          |
 |-------------|----------------|-----------------------------------------------------------------------------------------------------------------------------|
-| `carla_map` | `str`          | 要使用的 CARLA 地图的名称（例如“Town01”）。如果设置为``None``，CARLA 将尝试使用 [`map`][scenic_map] 参数中定义的 `.xodr` 文件在 OpenDRIVE 独立模式下创建世界。          |
-| `timestep`  | `float`        | 用于仿真的时间步长（Scenic 中断 CARLA 运行行为、检查需求等的频率）以秒为单位。默认值为 0.1 秒。                                                                   |
-| `weather`   | `str` 或 `dict` | 用于天气的仿真。可以是标识 CARLA 天气预设之一的字符串（例如“ClearSunset”），也可以是指定所有 [天气参数](python_api.md#carla.WeatherParameters) 的字典。默认值是所有天气预设的均匀分布。 |
-| `address`   | `str`          | 连接到 CARLA 的 IP 地址。默认值为本地主机 (127.0.0.1)。                                                                                     |
-| `port`      | `int`          | 连接至 CARLA 的端口。默认值为 2000。                                                                                                    |
-| `timeout`   | `float`        | 尝试连接到 CARLA 时等待的最长时间（以秒为单位）。默认值为 10。                                                                                        |
-| `render`    | `int`          | 是否让 CARLA 创建一个窗口，从自我客体的角度显示仿真：`1`是，`0`否。默认`1`。                                                                              |
-| `record`    | `str`          | 如果非空，则保存用于重放仿真的 CARLA 记录文件的文件夹。         |
+| `carla_map` | `str`          | 要使用的 Carla 地图的名称（例如“Town01”）。如果设置为``None``，Carla 将尝试使用 [`map`][scenic_map] 参数中定义的 `.xodr` 文件在 OpenDRIVE 独立模式下创建世界。          |
+| `timestep`  | `float`        | 用于仿真的时间步长（Scenic 中断 Carla 运行行为、检查需求等的频率）以秒为单位。默认值为 0.1 秒。                                                                   |
+| `weather`   | `str` 或 `dict` | 用于天气的仿真。可以是标识 Carla 天气预设之一的字符串（例如“ClearSunset”），也可以是指定所有 [天气参数](python_api.md#carla.WeatherParameters) 的字典。默认值是所有天气预设的均匀分布。 |
+| `address`   | `str`          | 连接到 Carla 的 IP 地址。默认值为本地主机 (127.0.0.1)。                                                                                     |
+| `port`      | `int`          | 连接至 Carla 的端口。默认值为 2000。                                                                                                    |
+| `timeout`   | `float`        | 尝试连接到 Carla 时等待的最长时间（以秒为单位）。默认值为 10。                                                                                        |
+| `render`    | `int`          | 是否让 Carla 创建一个窗口，从自我客体的角度显示仿真：`1`是，`0`否。默认`1`。                                                                              |
+| `record`    | `str`          | 如果非空，则保存用于重放仿真的 Carla 记录文件的文件夹。         |
 
 <br>

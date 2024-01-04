@@ -1,5 +1,5 @@
 #Python API 参考
-此参考包含 Python API 的所有详细信息。要查阅特定 CARLA 版本的先前参考，请使用右下角的面板更改文档版本。<br>这会将整个文档更改为之前的状态。请记住， <i>最新</i> 版本是 `dev` 分支，可能会显示任何 CARLA 打包版本中不可用的功能。<hr>  
+此参考包含 Python API 的所有详细信息。要查阅特定 Carla 版本的先前参考，请使用右下角的面板更改文档版本。<br>这会将整个文档更改为之前的状态。请记住， <i>最新</i> 版本是 `dev` 分支，可能会显示任何 Carla 打包版本中不可用的功能。<hr>  
 
 ## carla.AckermannControllerSettings<a name="carla.AckermannControllerSettings"></a>
 管理 Ackermann PID 控制器的设置。
@@ -36,7 +36,7 @@
 ---
 
 ## carla.Actor<a name="carla.Actor"></a>
-CARLA 将参与者定义为在仿真中发挥作用或可以移动的任何物体。其中包括：行人、车辆、传感器和交通标志（将交通灯视为其中的一部分）。参与者在仿真中由 [carla.World](#carla.World) 生成，并且需要创建 [carla.ActorBlueprint](#carla.ActorBlueprint) 。这些蓝图属于 CARLA 提供的库，请在 [此处](bp_library.md) 找到有关它们的更多信息。
+Carla 将参与者定义为在仿真中发挥作用或可以移动的任何物体。其中包括：行人、车辆、传感器和交通标志（将交通灯视为其中的一部分）。参与者在仿真中由 [carla.World](#carla.World) 生成，并且需要创建 [carla.ActorBlueprint](#carla.ActorBlueprint) 。这些蓝图属于 Carla 提供的库，请在 [此处](bp_library.md) 找到有关它们的更多信息。
 
 ### 实例变量
 - <a name="carla.Actor.attributes"></a>**<font color="#f8805a">attributes</font>** (_dict_)  
@@ -80,7 +80,7 @@ CARLA 将参与者定义为在仿真中发挥作用或可以移动的任何物�
 - <a name="carla.Actor.destroy"></a>**<font color="#7fb800">destroy</font>**(<font color="#00a6ed">**self**</font>)  
 告诉仿真器销毁这个参与者，如果成功则 <b>True</b> 。如果已经被破坏则没有任何效果。
     - **返回:** _bool_  
-    - **警告:** <font color="#ED2F2F">_T此方法会阻止脚本，直到模拟器完成销毁为止。
+    - **警告:** <font color="#ED2F2F">_T此方法会阻止脚本，直到仿真器完成销毁为止。
 _</font>  
 - <a name="carla.Actor.disable_constant_velocity"></a>**<font color="#7fb800">disable_constant_velocity</font>**(<font color="#00a6ed">**self**</font>)  
 禁用之前为 [carla.Vehicle](#carla.Vehicle) 参与者设置的任何恒定速度。  
@@ -149,7 +149,7 @@ _</font>
 ---
 
 ## carla.ActorAttribute<a name="carla.ActorAttribute"></a>
-CARLA 为参与者提供了一个蓝图库，可以通过 [carla.BlueprintLibrary](#carla.BlueprintLibrary) 进行访问。每个蓝图都有一系列内部定义的属性。其中一些是可以修改的，另一些则是不可修改的。为可设置的值提供了推荐值列表。  
+Carla 为参与者提供了一个蓝图库，可以通过 [carla.BlueprintLibrary](#carla.BlueprintLibrary) 进行访问。每个蓝图都有一系列内部定义的属性。其中一些是可以修改的，另一些则是不可修改的。为可设置的值提供了推荐值列表。  
 
 ### 实例变量
 - <a name="carla.ActorAttribute.id"></a>**<font color="#f8805a">id</font>** (_str_)  
@@ -191,7 +191,7 @@ CARLA 为参与者提供了一个蓝图库，可以通过 [carla.BlueprintLibrar
 ---
 
 ## carla.ActorAttributeType<a name="carla.ActorAttributeType"></a>
-CARLA 在 [carla.BlueprintLibrary](#carla.BlueprintLibrary) 中为参与者提供了一个蓝图库，每个蓝图具有不同的属性。此类将 [carla.ActorAttribute](#carla.ActorAttribute) 中的类型定义为一系列枚举。所有这些信息均在内部管理，并在此处列出，以便更好地理解 CARLA 的工作原理。 
+Carla 在 [carla.BlueprintLibrary](#carla.BlueprintLibrary) 中为参与者提供了一个蓝图库，每个蓝图具有不同的属性。此类将 [carla.ActorAttribute](#carla.ActorAttribute) 中的类型定义为一系列枚举。所有这些信息均在内部管理，并在此处列出，以便更好地理解 Carla 的工作原理。 
 
 ### 实例变量
 - <a name="carla.ActorAttributeType.Bool"></a>**<font color="#f8805a">Bool</font>**  
@@ -203,7 +203,7 @@ CARLA 在 [carla.BlueprintLibrary](#carla.BlueprintLibrary) 中为参与者提�
 ---
 
 ## carla.ActorBlueprint<a name="carla.ActorBlueprint"></a>
-CARLA 为 Actor 提供了一个蓝图库，可以通过 [carla.BlueprintLibrary](#carla.BlueprintLibrary)进行查阅。其中每一个都包含蓝图的标识符和一系列可以修改或不可修改的属性。该类是库和参与者创建之间的中间步骤。参与者需要一个参与者蓝图才能产生。这些将所述蓝图的信息及其属性和一些标签存储在对象中以对其进行分类。然后，用户可以自定义一些属性并最终通过 [carla.World](#carla.World)生成参与者。  
+Carla 为 Actor 提供了一个蓝图库，可以通过 [carla.BlueprintLibrary](#carla.BlueprintLibrary)进行查阅。其中每一个都包含蓝图的标识符和一系列可以修改或不可修改的属性。该类是库和参与者创建之间的中间步骤。参与者需要一个参与者蓝图才能产生。这些将所述蓝图的信息及其属性和一些标签存储在对象中以对其进行分类。然后，用户可以自定义一些属性并最终通过 [carla.World](#carla.World)生成参与者。  
 
 ### 实例变量
 - <a name="carla.ActorBlueprint.id"></a>**<font color="#f8805a">id</font>** (_str_)  
@@ -328,7 +328,7 @@ Parses to the ID for every actor listed.
 - <a name="carla.AttachmentType.Rigid"></a>**<font color="#f8805a">Rigid</font>**  
 通过此固定附件，对象严格遵循其父位置。这是推荐的附件，用于从仿真中检索精确数据。  
 - <a name="carla.AttachmentType.SpringArm"></a>**<font color="#f8805a">SpringArm</font>**  
-一种附件，可根据其父级扩展或缩回参与者的位置。仅建议在需要平滑运动的模拟中录制视频时使用此附件。SpringArms 是一个虚幻引擎组件，因此 [check the UE 文档](https://docs.unrealengine.com/en-US/Gameplay/HowTo/UsingCameras/SpringArmComponents/index.html) 以了解有关它们的更多信息。 <br><b style="color:red;">警告：</b> The <b>SpringArm</b> attachment presents weird behaviors when an actor is spawned with a relative translation in the Z-axis (e.g. <code>child_location = Location(0,0,2)</code>).  
+一种附件，可根据其父级扩展或缩回参与者的位置。仅建议在需要平滑运动的仿真中录制视频时使用此附件。SpringArms 是一个虚幻引擎组件，因此 [check the UE 文档](https://docs.unrealengine.com/en-US/Gameplay/HowTo/UsingCameras/SpringArmComponents/index.html) 以了解有关它们的更多信息。 <br><b style="color:red;">警告：</b> The <b>SpringArm</b> attachment presents weird behaviors when an actor is spawned with a relative translation in the Z-axis (e.g. <code>child_location = Location(0,0,2)</code>).  
 - <a name="carla.AttachmentType.SpringArmGhost"></a>**<font color="#f8805a">SpringArmGhost</font>**  
 An attachment like the previous one but that does not make the collision test, and that means that it does not expands or retracts the position of the actor. The term **ghost** is because then the camera can cross walls and other geometries. This attachment is only recommended to record videos from the simulation where a smooth movement is needed. SpringArms are an Unreal Engine component so [check the UE docs](https://docs.unrealengine.com/en-US/Gameplay/HowTo/UsingCameras/SpringArmComponents/index.html) to learn more about them. <br><b style="color:red;">Warning:</b> The <b>SpringArm</b> attachment presents weird behaviors when an actor is spawned with a relative translation in the Z-axis (e.g. <code>child_location = Location(0,0,2)</code>).  
 
@@ -451,16 +451,16 @@ Parses the location and extent of the bounding box to string.
 ---
 
 ## carla.Client<a name="carla.Client"></a>
-客户端将 CARLA 连接到运行仿真的服务器。服务器和客户端都包含 CARLA 库 (libcarla)，但存在一些差异，允许它们之间进行通信。可以创建许多客户端，每个客户端都会连接到模拟内的 RPC 服务器以发送命令。仿真在服务器端运行。一旦建立连接，客户端将仅接收从仿真检索的数据。步行者是例外。客户端负责管理行人，因此，如果您与多个客户端一起运行模拟，可能会出现一些问题。例如，如果您通过不同的客户端生成步行者，则可能会发生冲突，因为每个客户端只知道它负责的客户端。
+客户端将 Carla 连接到运行仿真的服务器。服务器和客户端都包含 Carla 库 (libcarla)，但存在一些差异，允许它们之间进行通信。可以创建许多客户端，每个客户端都会连接到仿真内的 RPC 服务器以发送命令。仿真在服务器端运行。一旦建立连接，客户端将仅接收从仿真检索的数据。步行者是例外。客户端负责管理行人，因此，如果您与多个客户端一起运行仿真，可能会出现一些问题。例如，如果您通过不同的客户端生成步行者，则可能会发生冲突，因为每个客户端只知道它负责的客户端。
 
-客户端还具有记录功能，可以在运行模拟时保存模拟的所有信息。这使得服务器可以随意重放以获取信息并进行实验。[以下](adv_recorder.md) 是有关如何使用此录音机的一些信息。 
+客户端还具有记录功能，可以在运行仿真时保存仿真的所有信息。这使得服务器可以随意重放以获取信息并进行实验。[以下](adv_recorder.md) 是有关如何使用此录音机的一些信息。 
 
 ### 方法
 - <a name="carla.Client.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**host**=127.0.0.1</font>, <font color="#00a6ed">**port**=2000</font>, <font color="#00a6ed">**worker_threads**=0</font>)<button class="SnipetButton" id="carla.Client.__init__-snipet_button">snippet &rarr;</button>  
 Client constructor.  
     - **参数：**
-        - `host` (_str_) - IP address where a CARLA Simulator instance is running. Default is localhost (127.0.0.1).  
-        - `port` (_int_) - TCP port where the CARLA Simulator instance is running. Default are 2000 and the subsequent 2001.  
+        - `host` (_str_) - IP address where a Carla Simulator instance is running. Default is localhost (127.0.0.1).  
+        - `port` (_int_) - TCP port where the Carla Simulator instance is running. Default are 2000 and the subsequent 2001.  
         - `worker_threads` (_int_) - Number of working threads used for background updates. If 0, use all available concurrency.  
 - <a name="carla.Client.apply_batch"></a>**<font color="#7fb800">apply_batch</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**commands**</font>)  
 Executes a list of commands on a single simulation step and retrieves no information. If you need information about the response of each command, use the __<font color="#7fb800">apply_batch_sync()</font>__ method. [Here](https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/generate_traffic.py) is an example on how to delete the actors that appear in [carla.ActorList](#carla.ActorList) all at once.  
@@ -709,7 +709,7 @@ Iterate over the [carla.DVSEvent](#carla.DVSEvent) retrieved as data.
 ---
 
 ## carla.DebugHelper<a name="carla.DebugHelper"></a>
-Helper class part of [carla.World](#carla.World) that defines methods for creating debug shapes. By default, shapes last one second. They can be permanent, but take into account the resources needed to do so. Take a look at the snipets available for this class to learn how to debug easily in CARLA.  
+Helper class part of [carla.World](#carla.World) that defines methods for creating debug shapes. By default, shapes last one second. They can be permanent, but take into account the resources needed to do so. Take a look at the snipets available for this class to learn how to debug easily in Carla.  
 
 ### Methods
 - <a name="carla.DebugHelper.draw_arrow"></a>**<font color="#7fb800">draw_arrow</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**begin**</font>, <font color="#00a6ed">**end**</font>, <font color="#00a6ed">**thickness**=0.1</font>, <font color="#00a6ed">**arrow_size**=0.1</font>, <font color="#00a6ed">**color**=(255,0,0)</font>, <font color="#00a6ed">**life_time**=-1.0</font>)  
@@ -1567,7 +1567,7 @@ Parses the axis' values to string.
 ---
 
 ## carla.Map<a name="carla.Map"></a>
-Class containing the road information and waypoint managing. Data is retrieved from an OpenDRIVE file that describes the road. A query system is defined which works hand in hand with [carla.Waypoint](#carla.Waypoint) to translate geometrical information from the .xodr to natural world points. CARLA is currently working with [OpenDRIVE 1.4 standard](http://www.opendrive.org/docs/OpenDRIVEFormatSpecRev1.4H.pdf).  
+Class containing the road information and waypoint managing. Data is retrieved from an OpenDRIVE file that describes the road. A query system is defined which works hand in hand with [carla.Waypoint](#carla.Waypoint) to translate geometrical information from the .xodr to natural world points. Carla is currently working with [OpenDRIVE 1.4 standard](http://www.opendrive.org/docs/OpenDRIVEFormatSpecRev1.4H.pdf).  
 
 ### Instance Variables
 - <a name="carla.Map.name"></a>**<font color="#f8805a">name</font>** (_str_)  
@@ -2045,7 +2045,7 @@ Detailed RSS situations extracted from the world model.
 ---
 
 ## carla.RssRestrictor<a name="carla.RssRestrictor"></a>
-These objects apply restrictions to a [carla.VehicleControl](#carla.VehicleControl). It is part of the CARLA implementation of the [C++ Library for Responsibility Sensitive Safety](https://github.com/intel/ad-rss-lib). This class works hand in hand with a [rss sensor](ref_sensors.md#rss-sensor), which provides the data of the restrictions to be applied.  
+These objects apply restrictions to a [carla.VehicleControl](#carla.VehicleControl). It is part of the Carla implementation of the [C++ Library for Responsibility Sensitive Safety](https://github.com/intel/ad-rss-lib). This class works hand in hand with a [rss sensor](ref_sensors.md#rss-sensor), which provides the data of the restrictions to be applied.  
 
 ### Methods
 - <a name="carla.RssRestrictor.restrict_vehicle_control"></a>**<font color="#7fb800">restrict_vehicle_control</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**vehicle_control**</font>, <font color="#00a6ed">**proper_response**</font>, <font color="#00a6ed">**ego_dynamics_on_route**</font>, <font color="#00a6ed">**vehicle_physics**</font>)  
@@ -3596,7 +3596,7 @@ The method will create, return and spawn an actor into the world. The actor will
     - **参数：**
         - `seconds` (_float<small> - 秒</small>_) - 服务器应该等待滴答信号的最大时间。它默认设置为 <code>10.0</code> 。  
     - **返回：** _int_  
-    - **注意：** <font color="#8E8E8E">_如果在同步模式下没有收到滴答信号，模拟将冻结。此外，如果从不同的客户端接收到许多滴答信号，则可能存在同步问题。请阅读有关 [同步模式](https://[carla.readthedocs.io](#carla.readthedocs.io)/en/latest/adv_synchrony_timestep/) 的文档以了解更多信息。  
+    - **注意：** <font color="#8E8E8E">_如果在同步模式下没有收到滴答信号，仿真将冻结。此外，如果从不同的客户端接收到许多滴答信号，则可能存在同步问题。请阅读有关 [同步模式](https://[carla.readthedocs.io](#carla.readthedocs.io)/en/latest/adv_synchrony_timestep/) 的文档以了解更多信息。  
 _</font>  
 - <a name="carla.World.try_spawn_actor"></a>**<font color="#7fb800">try_spawn_actor</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**blueprint**</font>, <font color="#00a6ed">**transform**</font>, <font color="#00a6ed">**attach_to**=None</font>, <font color="#00a6ed">**attachment**=Rigid</font>)  
 和 __<font color="#7fb800">spawn_actor()</font>__ 一样，但是单失败时候返回 <b>None</b> 而不是抛出异常。  

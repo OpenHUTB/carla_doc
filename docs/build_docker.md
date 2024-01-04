@@ -29,7 +29,7 @@
 
 __1. 拉取 Carla 镜像。__
 
-您可以提取最新的 CARLA 映像或特定的发行版本。最新镜像是指 [最新的打包版本](https://github.com/carla-simulator/carla/releases)。要拉取映像，请运行以下命令之一：
+您可以提取最新的 Carla 映像或特定的发行版本。最新镜像是指 [最新的打包版本](https://github.com/carla-simulator/carla/releases)。要拉取映像，请运行以下命令之一：
 
 ```sh
 # 拉取最新的镜像
@@ -41,7 +41,7 @@ docker pull carlasim/carla:0.9.12
 
 __2. 运行 Carla 容器。__
 
-不同版本的 CARLA 支持不同的图形 API，这可能会影响 Docker 镜像的运行条件：
+不同版本的 Carla 支持不同的图形 API，这可能会影响 Docker 镜像的运行条件：
 
 - 0.9.12 仅支持 Vulkan
 - 0.9.7+ 同时支持 Vulkan 和 OpenGL。
@@ -70,7 +70,7 @@ sudo docker run --privileged --gpus all --net=host -e DISPLAY=$DISPLAY -e SDL_VI
 ```
 
 !!! 笔记
-    只要您的计算机有显示器，此命令将允许您使用 Vulkan 运行 CARLA 映像。有关在离屏模式下运行 Vulkan 的信息，请参阅 [渲染文档](adv_rendering_options.md#off-screen-mode) 。
+    只要您的计算机有显示器，此命令将允许您使用 Vulkan 运行 Carla 映像。有关在离屏模式下运行 Vulkan 的信息，请参阅 [渲染文档](adv_rendering_options.md#off-screen-mode) 。
 
 要使用 OpenGL 运行 Carla：
 

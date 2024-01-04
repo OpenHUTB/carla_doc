@@ -1,6 +1,6 @@
 # [导入/打包大地图](https://carla.readthedocs.io/en/latest/large_map_import/) 
 
-RoadRunner 中生成的大地图可以导入到 CARLA 的源代码编译版本中，并打包在 CARLA 独立包中分发和使用。该过程与标准地图的过程非常相似，只是添加了图块和批量导入的特定术语。
+RoadRunner 中生成的大地图可以导入到 Carla 的源代码编译版本中，并打包在 Carla 独立包中分发和使用。该过程与标准地图的过程非常相似，只是添加了图块和批量导入的特定术语。
 
 - [__文件和文件夹__](#files-and-folders)
 - [__创建 JSON 描述（可选）__](#create-the-json-description-optional)
@@ -11,7 +11,7 @@ RoadRunner 中生成的大地图可以导入到 CARLA 的源代码编译版本�
 
 ## 文件和文件夹
 
-所有要导入的文件应放置在CARLA 根目录的`Import`文件夹中。这些文件应包括：
+所有要导入的文件应放置在 Carla 根目录的`Import`文件夹中。这些文件应包括：
 
 - 多个`.fbx`文件中的地图网格代表地图的不同图块。
 - OpenDRIVE 定义位于单个`.xodr`文件中。
@@ -59,7 +59,7 @@ __Maps__ 需要以下参数：
 
 - __name:__ 地图的名称。这必须与`.fbx`和`.xodr`文件相同。
 - __xodr:__ `.xodr` 文件的路径。
-- __use_carla_materials:__ 如果为 __True__，地图将使用 CARLA 材质。否则，它将使用 RoadRunner 材质。
+- __use_carla_materials:__ 如果为 __True__，地图将使用 Carla 材质。否则，它将使用 RoadRunner 材质。
 - __tile_size:__ 图块的大小。默认值为 2000 (2kmx2km)。
 - __tiles:__ 组成整个地图的`.fbx`图块文件的列表。
 
@@ -92,7 +92,7 @@ __Props__ 不属于[本](tuto_A_add_props.md)教程的一部分。请参阅本�
 
 ## 进行导入
 
-将所有文件放入`Import`文件夹后，在根 CARLA 文件夹中运行以下命令：
+将所有文件放入`Import`文件夹后，在根 Carla 文件夹中运行以下命令：
 
 ```sh
 make import
@@ -112,7 +112,7 @@ make import ARGS="--batch-size=200"
 make import  ARGS="--package=<package_name>"
 ```
 
-- `--no-carla-materials` 指定您不想使用默认的 CARLA 材质（道路纹理等）。您将改用 RoadRunner 材料。仅当您 __不提供__ 自己的[`.json` 文件](tuto_M_manual_map_package.md)时才需要此标志。`.json`文件中的任何值都将覆盖此标志。通过运行以下命令来使用此标志：
+- `--no-carla-materials` 指定您不想使用默认的 Carla 材质（道路纹理等）。您将改用 RoadRunner 材料。仅当您 __不提供__ 自己的[`.json` 文件](tuto_M_manual_map_package.md)时才需要此标志。`.json`文件中的任何值都将覆盖此标志。通过运行以下命令来使用此标志：
 
 ```sh
 make import  ARGS="--no-carla-materials"
@@ -127,13 +127,13 @@ make import  ARGS="--no-carla-materials"
 
 ## 打包一张大地图
 
-要打包大地图以便可以在 CARLA 独立包中使用，请运行以下命令：
+要打包大地图以便可以在 Carla 独立包中使用，请运行以下命令：
 
 ```sh
 make package ARGS="--packages=<mapPackage>"
 ```
 
-这将创建一个压缩在`.tar.gz`文件中的独立包。在 Linux 中文件将保存在`Dist`目录下，在 Windows 中文件保存在`/Build/UE4Carla/`。然后可以将它们分发和打包以在独立的 CARLA 包中使用。
+这将创建一个压缩在`.tar.gz`文件中的独立包。在 Linux 中文件将保存在`Dist`目录下，在 Windows 中文件保存在`/Build/UE4Carla/`。然后可以将它们分发和打包以在独立的 Carla 包中使用。
 
 ---
 
@@ -142,7 +142,7 @@ make package ARGS="--packages=<mapPackage>"
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA 论坛</a>
+Carla 论坛</a>
 </p>
 </div>
 

@@ -1,6 +1,6 @@
 # 材质定制
 
-CARLA 团队准备每个资产在某些默认设置下运行。但是，从源代码构建的用户可以修改这些内容以最适合他们的需求。 
+Carla 团队准备每个资产在某些默认设置下运行。但是，从源代码构建的用户可以修改这些内容以最适合他们的需求。 
 
 *   [__汽车材质__](#car-materials)  
 *   [__定制汽车材质__](#customize-car-materials)  
@@ -14,7 +14,7 @@ CARLA 团队准备每个资产在某些默认设置下运行。但是，从源�
 ---
 ## 汽车材质
 
-在 CARLA 中，有一组主材料用作车辆不同部件的模板。为每个车辆模型创建一个实例，然后更改为所需的结果。主要材质可以在 `Content/Carla/Static/GenericMaterials/Vehicles` （位于源代码的`Unreal/CarlaUE4`目录中）中找到，如下所示。
+在 Carla 中，有一组主材料用作车辆不同部件的模板。为每个车辆模型创建一个实例，然后更改为所需的结果。主要材质可以在 `Content/Carla/Static/GenericMaterials/Vehicles` （位于源代码的`Unreal/CarlaUE4`目录中）中找到，如下所示。
 
 ![materials_master](img/material_customization/Materials_Master.jpg)
 <div style="text-align: right"><i>适用于汽车的主材料。</i></div>
@@ -156,6 +156,6 @@ CARLA 团队准备每个资产在某些默认设置下运行。但是，从源�
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA 论坛</a>
+Carla 论坛</a>
 </p>
 </div>

@@ -1,6 +1,6 @@
 # 生成详细的碰撞体
 
-本教程介绍如何为车辆创建更准确的碰撞边界（相对于对象的原始形状）。它们可以用作物理碰撞器，与碰撞检测兼容，也可以用作基于光线投射的传感器（例如激光雷达）的辅助碰撞器，以检索更准确的数据。新的碰撞机可以集成到 CARLA 中，以便所有社区都能从中受益。在 [此处](cont_contribution_guidelines.md) 了解有关如何为内容存储库做出贡献的更多信息。 
+本教程介绍如何为车辆创建更准确的碰撞边界（相对于对象的原始形状）。它们可以用作物理碰撞器，与碰撞检测兼容，也可以用作基于光线投射的传感器（例如激光雷达）的辅助碰撞器，以检索更准确的数据。新的碰撞机可以集成到 Carla 中，以便所有社区都能从中受益。在 [此处](cont_contribution_guidelines.md) 了解有关如何为内容存储库做出贡献的更多信息。 
 
 有两种方法可以创建新的碰撞器，但它们并不完全等效。
 
@@ -30,8 +30,8 @@
 
 ### 1-导出车辆 FBX
 
-首先需要以车辆的原始网格作为参考。出于学习目的，本教程导出 CARLA 车辆的网格。
-__1.1__ 在虚幻引擎中打开 CARLA 并转到 `Content/Carla/Static/Vehicles/4Wheeled/<model_of_vehicle>`。
+首先需要以车辆的原始网格作为参考。出于学习目的，本教程导出 Carla 车辆的网格。
+__1.1__ 在虚幻引擎中打开 Carla 并转到 `Content/Carla/Static/Vehicles/4Wheeled/<model_of_vehicle>`。
 __1.2__ 在 `SM_<model_of_vehicle>` 点击 `right-click` 将车辆网格导出为 FBX。
 
 ### 2-生成低密度网格
@@ -47,7 +47,7 @@ __2.2__ 将新网格保存为FBX。将网格命名为 `sm_sc_<model_of_vehicle>.
 
 ### 3-将网格导入虚幻引擎
 
-__3.1__ 在虚幻引擎中打开 CARLA 并转到 `Content/Carla/Static/Vehicles/4Wheeled/<model_of_vehicle>`.  
+__3.1__ 在虚幻引擎中打开 Carla 并转到 `Content/Carla/Static/Vehicles/4Wheeled/<model_of_vehicle>`.  
 __3.2__ 点击 `right-click` 导入新网格 `SM_sc_<model_of_vehicle>.fbx`。
 
 ### 4-添加网格作为碰撞体
@@ -73,7 +73,7 @@ __4.3__ 点击上方工具栏中的 `Compile` 并保存更改。
 
 ### 0-先决条件
 
-*   在 [Linux](build_linux.md) 或 [Windows](build_windows.md) 上 __从源代码构建 CARLA__。
+*   在 [Linux](build_linux.md) 或 [Windows](build_windows.md) 上 __从源代码构建 Carla__。
 *   可从 [官方网站](https://www.blender.org/download/) 免费获取 __Blender 2.80 或更新版本__ （开源 3D 建模软件）。
 *   按照 [此处](https://github.com/andyp123/blender_vhacd) 的说明使用 __Blender 的 VHACD 插件__。该插件使用凸包集合自动创建选定对象的近似值。[阅读更多](https://github.com/kmammou/v-hacd) 。
 
@@ -120,7 +120,7 @@ __5.2__ 在导出菜单中，选中 `selected objects` 并仅选择“Mesh”。
 
 ### 6 到 8-导入碰撞体并定义物理
 
-__第 6 步.__ *(在虚幻引擎中)* — 将新 FBX 作为虚幻资源文件（静态网格物体）导入 CARLA。
+__第 6 步.__ *(在虚幻引擎中)* — 将新 FBX 作为虚幻资源文件（静态网格物体）导入 Carla。
 
 __第 7 步.__ *(在虚幻引擎中)* — 将自定义碰撞器导入到特定车辆的物理资源中，以便将其用于计算。
 
@@ -130,13 +130,13 @@ __第 8 步.__ *(在虚幻引擎中)* — 创建连接不同关节的约束并�
 
 ---
 
-这是关于如何更改 CARLA 中车辆的默认碰撞器的总结。
+这是关于如何更改 Carla 中车辆的默认碰撞器的总结。
 
-打开 CARLA 并闲逛一会儿。如果有任何疑问，请随时在论坛中发布。
+打开 Carla 并闲逛一会儿。如果有任何疑问，请随时在论坛中发布。
 
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA 论坛</a>
+Carla 论坛</a>
 </p>
 </div>
