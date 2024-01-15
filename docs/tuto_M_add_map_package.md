@@ -73,4 +73,4 @@ __7.__ 要使用新地图运行仿真，请运行 Carla，然后使用 `config.p
 
 ---
 
-Your map is now ready to run simulations in Carla. If you have any questions about the process then you can ask in the [forum](https://github.com/carla-simulator/carla/discussions) or you can try running some of our [example scripts](https://github.com/carla-simulator/carla/tree/master/PythonAPI/examples) on your new map to test it out.
+您的地图现在可以在 Carla 运行仿真了。如果你对这个过程有任何问题，你可以在 [论坛](https://github.com/carla-simulator/carla/discussions) 上提问，。也可以尝试在你的新地图上运行我们的一些 [示例脚本](https://github.com/carla-simulator/carla/tree/master/PythonAPI/examples) 来测试它。

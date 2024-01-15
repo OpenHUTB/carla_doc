@@ -1,8 +1,8 @@
-# Recorder
+# 记录器
 
 此功能允许记录和重新制定以前的仿真。所有发生的事件都记录在 [recorder file](ref_recorder_binary_file_format.md) 中。有一些高级查询可以跟踪和研究这些事件。
 
-- [__Recording__](#recording)
+- [__记录__](#recording)
 - [__仿真播放__](#simulation-playback)
      - [设置时间因子](#setting-a-time-factor)
 - [__录制文件__](#recorded-file)
@@ -12,13 +12,13 @@
 - [__示例 Python 脚本__](#sample-python-scripts)
 
 ---
-## Recording
+## 记录
 
 所有数据仅写入服务器端的二进制文件。但是，使用 [carla.Client](python_api.md#carla.Client) 管理记录器。
 
 根据记录文件中包含的数据，每帧更新角色。当前仿真中出现在录制中的 Actor 将被移动或重新生成以仿真它。那些没有出现在录音中的将继续他们的方式，就好像什么都没发生一样。
 
-！！！重要的
+!!! 重要的
     播放结束时，车辆将设置为自动驾驶，但 __行人将停止__。
 
 记录器文件包括有关许多不同元素的信息。

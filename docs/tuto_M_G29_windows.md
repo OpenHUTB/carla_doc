@@ -1,4 +1,4 @@
-# carla 与罗技 G29 方向盘力反馈
+# carla 与罗技 G29 方向盘的力反馈
 
 ubuntu 环境下使用 jstest-gtk、ROS 进行方向盘控制参考[链接](https://blog.csdn.net/qq_44237695/article/details/129103700) 。
 

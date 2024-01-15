@@ -12,7 +12,7 @@ carlaviz 插件用于在网络浏览器中可视化仿真。创建了一个具�
 ---
 ## 一般信息
 
-*   __贡献者__ — Minjun Xu, also known as [wx9698](https://github.com/wx9698).  
+*   __贡献者__ — Minjun Xu, 也被称为 [wx9698](https://github.com/wx9698).  
 *   __许可证__ — [MIT](https://en.wikipedia.org/wiki/MIT_License).  
 
 ### 支持

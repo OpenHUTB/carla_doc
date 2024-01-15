@@ -31,7 +31,7 @@
 
 [__Chrono 集成__](tuto_G_chrono.md) —  使用 Chrono 集成来仿真物理。
 
-[__PyGame control__](tuto_G_pygame.md) — 使用 PyGame 显示相机传感器的输出。
+[__PyGame 控制__](tuto_G_pygame.md) — 使用 PyGame 显示相机传感器的输出。
 
 
 ## 资产和地图

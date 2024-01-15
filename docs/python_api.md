@@ -1567,45 +1567,45 @@ Parses the axis' values to string.
 ---
 
 ## carla.Map<a name="carla.Map"></a>
-Class containing the road information and waypoint managing. Data is retrieved from an OpenDRIVE file that describes the road. A query system is defined which works hand in hand with [carla.Waypoint](#carla.Waypoint) to translate geometrical information from the .xodr to natural world points. Carla is currently working with [OpenDRIVE 1.4 standard](http://www.opendrive.org/docs/OpenDRIVEFormatSpecRev1.4H.pdf).  
+包含道路信息和航点管理的类。从描述道路的 OpenDRIVE 文件中检索数据。定义了一个查询系统，它与 [carla.Waypoint](#carla.Waypoint) 携手合作，将几何信息从 .xodr 转换为自然世界点。Carla 目前正在使用 [OpenDRIVE 1.4 标准](http://www.opendrive.org/docs/OpenDRIVEFormatSpecRev1.4H.pdf) 。
 
-### Instance Variables
+### 实例变量
 - <a name="carla.Map.name"></a>**<font color="#f8805a">name</font>** (_str_)  
-The name of the map. It corresponds to the .umap from Unreal Engine that is loaded from a CARLA server, which then references to the .xodr road description.  
+地图的名称。它对应于从 Carla 服务器加载的虚幻引擎中的 .umap，然后引用 .xodr 道路描述。
 
-### Methods
+### 方法
 - <a name="carla.Map.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**name**</font>, <font color="#00a6ed">**xodr_content**</font>)  
-Constructor for this class. Though a map is automatically generated when initializing the world, using this method in no-rendering mode facilitates working with an .xodr without any CARLA server running.  
-    - **Parameters:**
-        - `name` (_str_) - Name of the current map.  
-        - `xodr_content` (_str_) - .xodr content in string format.  
-    - **Return:** _list([carla.Transform](#carla.Transform))_  
+此类的构造函数。尽管在初始化世界时会自动生成地图，但在无渲染模式下使用此方法有助于在不运行任何 Carla 服务器的情况下使用 .xodr。
+    - **参数：**
+        - `name` (_str_) - 当前地图的名称。  
+        - `xodr_content` (_str_) - 字符串格式的 .xodr 内容。
+    - **返回：** _list([carla.Transform](#carla.Transform))_  
 - <a name="carla.Map.cook_in_memory_map"></a>**<font color="#7fb800">cook_in_memory_map</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**path**</font>)  
-Generates a binary file from the CARLA map containing information used by the Traffic Manager. This method is only used during the import process for maps.  
-    - **Parameters:**
-        - `path` (_str_) - Path to the intended location of the stored binary map file.  
+从 Carla 映射生成一个二进制文件，其中包含流量管理器使用的信息。此方法仅在地图导入过程中使用。
+    - **参数：**
+        - `path` (_str_) - 存储的二进制映射文件的预期位置的路径。
 - <a name="carla.Map.generate_waypoints"></a>**<font color="#7fb800">generate_waypoints</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**distance**</font>)  
-Returns a list of waypoints with a certain distance between them for every lane and centered inside of it. Waypoints are not listed in any particular order. Remember that waypoints closer than 2cm within the same road, section and lane will have the same identificator.  
-    - **Parameters:**
-        - `distance` (_float<small> - meters</small>_) - Approximate distance between waypoints.  
-    - **Return:** _list([carla.Waypoint](#carla.Waypoint))_  
+返回一个路点列表，每个车道的路点之间都有一定的距离，并以其为中心。路点不按任何特定顺序列出。请记住，同一道路、路段和车道内距离超过2厘米的路点将具有相同的标识符。
+    - **参数：**
+        - `distance` (_float<small> - meters</small>_) - 路径点之间的近似距离。 
+    - **返回：** _list([carla.Waypoint](#carla.Waypoint))_  
 - <a name="carla.Map.save_to_disk"></a>**<font color="#7fb800">save_to_disk</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**path**</font>)  
-Saves the .xodr OpenDRIVE file of the current map to disk.  
-    - **Parameters:**
-        - `path` - Path where the file will be saved.  
+将当前映射的 .xodr OpenDRIVE 文件保存到磁盘。
+    - **参数：**
+        - `path` - 保存文件的路径。  
 - <a name="carla.Map.to_opendrive"></a>**<font color="#7fb800">to_opendrive</font>**(<font color="#00a6ed">**self**</font>)  
 Returns the .xodr OpenDRIVe file of the current map as string.  
     - **Return:** _str_  
 - <a name="carla.Map.transform_to_geolocation"></a>**<font color="#7fb800">transform_to_geolocation</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**location**</font>)  
 Converts a given `location`, a point in the simulation, to a [carla.GeoLocation](#carla.GeoLocation), which represents world coordinates. The geographical location of the map is defined inside OpenDRIVE within the tag <b><georeference></b>.  
-    - **Parameters:**
+    - **参数：**
         - `location` (_[carla.Location](#carla.Location)_)  
-    - **Return:** _[carla.GeoLocation](#carla.GeoLocation)_  
+    - **返回：** _[carla.GeoLocation](#carla.GeoLocation)_  
 
 ##### Getters
 - <a name="carla.Map.get_all_landmarks"></a>**<font color="#7fb800">get_all_landmarks</font>**(<font color="#00a6ed">**self**</font>)  
-Returns all the landmarks in the map. Landmarks retrieved using this method have a __null__ waypoint.  
-    - **Return:** _list([carla.Landmark](#carla.Landmark))_  
+返回地图中的所有地标。使用此方法检索到的地标有一个 __null__ 航路点。
+    - **返回：** _list([carla.Landmark](#carla.Landmark))_  
 - <a name="carla.Map.get_all_landmarks_from_id"></a>**<font color="#7fb800">get_all_landmarks_from_id</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**opendrive_id**</font>)  
 Returns the landmarks with a certain OpenDRIVE ID. Landmarks retrieved using this method have a __null__ waypoint.  
     - **Parameters:**

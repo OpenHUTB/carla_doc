@@ -6,21 +6,21 @@
 
 If you come across errors or difficulties then have a look at the **[F.A.Q.](build_faq.md)** page which offers solutions for the most common complications. Alternatively, use the [Carla forum](https://github.com/carla-simulator/carla/discussions) to post any queries you may have.
 
-- [__Part One: Prerequisites__](#part-one-prerequisites)
-    - [System requirements](#system-requirements)
-    - [Software requirements](#software-requirements)
-        - [Unreal Engine](#unreal-engine)
-- [__Part Two: Build Carla__](#part-two-build-carla)
-    - [Clone the Carla repository](#clone-the-carla-repository)
-    - [Get assets](#get-assets)
-    - [Set Unreal Engine environment variable](#set-unreal-engine-environment-variable)
-    - [Build Carla](#build-carla)
-    - [Other make commands](#other-make-commands)
+- [__第一部分：先决条件__](#part-one-prerequisites)
+    - [系统要求](#system-requirements)
+    - [软件要求](#software-requirements)
+        - [虚幻引擎](#unreal-engine)
+- [__第二部分：构建 Carla__](#part-two-build-carla)
+    - [克隆 Carla 仓库](#clone-the-carla-repository)
+    - [获取资产](#get-assets)
+    - [设置虚幻引擎环境变量](#set-unreal-engine-environment-variable)
+    - [构建 Carla](#build-carla)
+    - [其他 make 命令](#other-make-commands)
 
 ---
-## Part One: Prerequisites
+## 第一部分：先决条件
 
-### System requirements
+### 系统要求
 
 * __Ubuntu 18.04.__ Carla provides support for previous Ubuntu versions up to 16.04. **However** proper compilers are needed for Unreal Engine to work properly. Dependencies for Ubuntu 18.04 and previous versions are listed separatedly below. Make sure to install the ones corresponding to your system.
 * __130 GB disk space.__ Carla will take around 31 GB and Unreal Engine will take around 91 GB so have about 130 GB free to account for both of these plus additional minor software installations. 
@@ -32,7 +32,7 @@ If you come across errors or difficulties then have a look at the **[F.A.Q.](bui
 
 
 
-### Software requirements
+### 软件要求
 
 Carla requires many different kinds of software to run. Some are built during the Carla build process itself, such as *Boost.Python*. Others are binaries that should be installed before starting the build (*cmake*, *clang*, different versions of *Python*, etc.). To install these requirements, run the following commands:
 
@@ -101,7 +101,7 @@ pip3 install --user wheel auditwheel
 
 ---
 
-## Unreal Engine
+## 虚幻引擎
 
 Starting with version 0.9.12, Carla uses a modified fork of Unreal Engine 4.26. This fork contains patches specific to Carla.
 
@@ -129,12 +129,12 @@ __4.__ Open the Editor to check that Unreal Engine has been installed properly.
 
 ---
 
-## Part Two: Build Carla 
+## 第二部分：构建 Carla
 
 !!! Note
     Downloading aria2 with `sudo apt-get install aria2` will speed up the following commands.
 
-### Clone the Carla repository
+### 克隆 Carla 仓库
 
 <div class="build-buttons">
 <p>
@@ -152,7 +152,7 @@ The button above will take you to the official repository of the project. Either
     The `master` branch contains the current release of Carla with the latest fixes and features. Previous Carla versions are tagged with the version name. Always remember to check the current branch in git with the command `git branch`. 
 
 
-### Get assets
+### 获取资产
 
 You will need to download the __latest__ assets to work with the current version of Carla. We provide a script to automate this process. To use the script, run the following command in the Carla root folder:
 
@@ -175,7 +175,7 @@ To download the assets for a __specific version__ of CARLA:
         tar -xvzf <assets_file_name>.tar.gz.tar -C C:\path\to\carla\Unreal\CarlaUE4\Content\Carla
 ```
 
-### Set Unreal Engine environment variable
+### 设置虚幻引擎环境变量
 
 For Carla to find the correct installation of Unreal Engine, we need to set the Carla environment variable.
 
@@ -205,7 +205,7 @@ __2.__ Add the following line to the bottom of the file:
 __3.__ Save the file and reset the terminal.  
 
 
-### Build Carla
+### 构建 Carla
 This section outlines the commands to build Carla. __All commands should be run in the root Carla folder.__
 
 There are two parts to the build process for Carla, compiling the client and compiling the server.
@@ -290,7 +290,7 @@ Test the simulator using the example scripts inside `PythonAPI\examples`.  With 
 
 
 
-### Other make commands
+### 其他 make 命令
 
 There are more `make` commands that you may find useful. Find them in the table below:  
 
