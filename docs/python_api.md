@@ -90,7 +90,7 @@ _</font>
         - `velocity` (_[carla.Vector3D](#carla.Vector3D)<small> - m/s</small>_) - Velocity vector in local space.  
     - **注意:** <font color="#8E8E8E">_只有 [carla.Vehicle](#carla.Vehicle) 参与者可以使用此方法。  
 _</font>  
-    - **警告:** <font color="#ED2F2F">_为 [交通管理器](https://[carla.readthedocs.io](#carla.readthedocs.io)/en/latest/adv_traffic_manager/) 管理的车辆启用恒定速度可能会导致冲突。此方法会覆盖交通管理器对速度的任何更改。  
+    - **警告:** <font color="#ED2F2F">_为 交通管理器管理的车辆启用恒定速度可能会导致冲突。此方法会覆盖交通管理器对速度的任何更改。  
 _</font>  
 
 ##### 获取器
@@ -1055,9 +1055,9 @@ Additional text in the signal.
 - <a name="carla.Landmark.h_offset"></a>**<font color="#f8805a">h_offset</font>** (_float<small> - meters</small>_)  
 Orientation offset of the signal relative to the the definition of `road_id` at `s` in OpenDRIVE.  
 - <a name="carla.Landmark.pitch"></a>**<font color="#f8805a">pitch</font>** (_float<small> - meters</small>_)  
-Pitch rotation of the signal (Y-axis in [UE coordinates system](https://[carla.readthedocs.io](#carla.readthedocs.io)/en/latest/python_api/#carlarotation)).  
+Pitch rotation of the signal (Y-轴在虚幻引擎坐标系统).  
 - <a name="carla.Landmark.roll"></a>**<font color="#f8805a">roll</font>** (_float_)  
-Roll rotation of the signal (X-axis in [UE coordinates system](https://[carla.readthedocs.io](#carla.readthedocs.io)/en/latest/python_api/#carlarotation)).  
+Roll rotation of the signal (X-轴在虚幻引擎坐标系统).  
 - <a name="carla.Landmark.waypoint"></a>**<font color="#f8805a">waypoint</font>** (_[carla.Waypoint](#carla.Waypoint)_)  
 A waypoint placed in the lane of the one that made the query and at the `s` of the landmark. It is the first waypoint for which the landmark will be effective.  
 - <a name="carla.Landmark.transform"></a>**<font color="#f8805a">transform</font>** (_[carla.Transform](#carla.Transform)_)  
@@ -2134,7 +2134,7 @@ Cosine of the incident angle between the ray, and the normal of the hit object.
 - <a name="carla.SemanticLidarDetection.object_idx"></a>**<font color="#f8805a">object_idx</font>** (_uint_)  
 ID of the actor hit by the ray.  
 - <a name="carla.SemanticLidarDetection.object_tag"></a>**<font color="#f8805a">object_tag</font>** (_uint_)  
-[Semantic tag](https://[carla.readthedocs.io](#carla.readthedocs.io)/en/latest/ref_sensors/#semantic-segmentation-camera) of the component hit by the ray.  
+语义标签 of the component hit by the ray.  
 
 ### Methods
 
@@ -3566,7 +3566,7 @@ Projects the specified point downwards in the scene. The functions casts a ray f
         - `map_layers` (_[carla.MapLayer](#carla.MapLayer)_) - 加载到指定层次的掩膜。 
     - **警告：** <font color="#ED2F2F">_这仅仅影响分层（Opt）地图。最小布局包括道路、人行道、交通灯和交通标志。_</font>  
 - <a name="carla.World.on_tick"></a>**<font color="#7fb800">on_tick</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**callback**</font>)  
-此方法用于 [__异步模式](https://[carla.readthedocs.io](#carla.readthedocs.io)/en/latest/adv_synchrony_timestep/)。它从客户端定义的`callback` 函数启动回调，并返回回调的 ID。每当服务器发出时滴答信号时，就会调用该函数。它需要一个 [carla.WorldSnapshot](#carla.WorldSnapshot) 作为参数，这可以从 __<font color="#7fb800">wait_for_tick()</font>__ 获得。使用 __<font color="#7fb800">remove_on_tick()</font>__ 来停止回调。  
+此方法用于异步模式。它从客户端定义的`callback` 函数启动回调，并返回回调的 ID。每当服务器发出时滴答信号时，就会调用该函数。它需要一个 [carla.WorldSnapshot](#carla.WorldSnapshot) 作为参数，这可以从 __<font color="#7fb800">wait_for_tick()</font>__ 获得。使用 __<font color="#7fb800">remove_on_tick()</font>__ 来停止回调。  
     - **参数：**
         - `callback` (_[carla.WorldSnapshot](#carla.WorldSnapshot)_) - 将快照作为强制参数的函数，当客户端收到滴答信号时将调用该函数。  
     - **Return:** _int_  
@@ -3592,11 +3592,11 @@ The method will create, return and spawn an actor into the world. The actor will
         - `attachment` (_[carla.AttachmentType](#carla.AttachmentType)_) - Determines how fixed and rigorous should be the changes in position according to its parent object.  
     - **Return:** _[carla.Actor](#carla.Actor)_  
 - <a name="carla.World.tick"></a>**<font color="#7fb800">tick</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**seconds**=10.0</font>)  
-该方法用于 [__同步__ 模式](https://[carla.readthedocs.io](#carla.readthedocs.io)/en/latest/adv_synchrony_timestep/)，即服务器在计算下一帧之前等待客户端客户端滴答信号。这个方法将发送滴答信号，并让位于服务器。它返回由服务器计算的新帧ID。  
+该方法用于 __同步__ 模式，即服务器在计算下一帧之前等待客户端客户端滴答信号。这个方法将发送滴答信号，并让位于服务器。它返回由服务器计算的新帧ID。  
     - **参数：**
         - `seconds` (_float<small> - 秒</small>_) - 服务器应该等待滴答信号的最大时间。它默认设置为 <code>10.0</code> 。  
     - **返回：** _int_  
-    - **注意：** <font color="#8E8E8E">_如果在同步模式下没有收到滴答信号，仿真将冻结。此外，如果从不同的客户端接收到许多滴答信号，则可能存在同步问题。请阅读有关 [同步模式](https://[carla.readthedocs.io](#carla.readthedocs.io)/en/latest/adv_synchrony_timestep/) 的文档以了解更多信息。  
+    - **注意：** <font color="#8E8E8E">_如果在同步模式下没有收到滴答信号，仿真将冻结。此外，如果从不同的客户端接收到许多滴答信号，则可能存在同步问题。请阅读有关 __同步模式__ 的文档以了解更多信息。  
 _</font>  
 - <a name="carla.World.try_spawn_actor"></a>**<font color="#7fb800">try_spawn_actor</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**blueprint**</font>, <font color="#00a6ed">**transform**</font>, <font color="#00a6ed">**attach_to**=None</font>, <font color="#00a6ed">**attachment**=Rigid</font>)  
 和 __<font color="#7fb800">spawn_actor()</font>__ 一样，但是单失败时候返回 <b>None</b> 而不是抛出异常。  
@@ -3612,7 +3612,7 @@ _</font>
         - `map_layers` (_[carla.MapLayer](#carla.MapLayer)_) - 要卸载图层的掩膜。 
     - **警告:** <font color="#ED2F2F">_这仅仅影响分层（Opt）地图。最小布局包括道路、人行道、交通灯和交通标志。_</font>  
 - <a name="carla.World.wait_for_tick"></a>**<font color="#7fb800">wait_for_tick</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**seconds**=10.0</font>)  
-This method is used in [__asynchronous__ mode](https://[carla.readthedocs.io](#carla.readthedocs.io)/en/latest/adv_synchrony_timestep/). It makes the client wait for a server tick. When the next frame is computed, the server will tick and return a snapshot describing the new state of the world.  
+该方法使用在异步模式。It makes the client wait for a server tick. When the next frame is computed, the server will tick and return a snapshot describing the new state of the world.  
     - **Parameters:**
         - `seconds` (_float<small> - seconds</small>_) - Maximum time the server should wait for a tick. It is set to <code>10.0</code> by default.  
     - **Return:** _[carla.WorldSnapshot](#carla.WorldSnapshot)_  
