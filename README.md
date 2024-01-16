@@ -22,6 +22,11 @@ mkdocs gh-deploy
 ```
 该命令会自动将相应内容推送到项目的`gh-pages`分支上，然后在 `Github` 项目设置中选择好对应 `GitPage` 的分支，目录选择`/(root)`（注意不要是`/(docs)`，然后通过 `https://openhutb.github.io/carla_doc/` 访问即可。
 
+使用虚拟环境会出现找不到`git`的错误，请添加`git`的环境变量：
+```shell
+set path=%path%;C:\Program Files\Git\cmd\
+```
+
 4. 删除页脚（可选）
 * 克隆删除页脚的mkdocs仓库（删除`mkdocs/themes/readthedocs
 /footer.html`文件中的页脚内容）：
