@@ -122,7 +122,7 @@
               </ul>
               <p class="caption"><span class="caption-text">资源</span></p>
               <ul class="current">
-                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Python API 参考</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Python API 参考</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#carlaackermanncontrollersettings">carla.AckermannControllerSettings</a>
         <ul>
@@ -1591,7 +1591,7 @@
 </li>
 <li><strong>注意:</strong> <font color="#8E8E8E"><em>只有 <a href="#carla.Vehicle">carla.Vehicle</a> 参与者可以使用此方法。<br />
 </em></font>  </li>
-<li><strong>警告:</strong> <font color="#ED2F2F"><em>为 <a href="https://[carla.readthedocs.io](#carla.readthedocs.io)/en/latest/adv_traffic_manager/">交通管理器</a> 管理的车辆启用恒定速度可能会导致冲突。此方法会覆盖交通管理器对速度的任何更改。<br />
+<li><strong>警告:</strong> <font color="#ED2F2F"><em>为 交通管理器管理的车辆启用恒定速度可能会导致冲突。此方法会覆盖交通管理器对速度的任何更改。<br />
 </em></font>  </li>
 </ul>
 </li>
@@ -2816,9 +2816,9 @@ Additional text in the signal.  </li>
 <li><a name="carla.Landmark.h_offset"></a><strong><font color="#f8805a">h_offset</font></strong> (<em>float<small> - meters</small></em>)<br />
 Orientation offset of the signal relative to the the definition of <code>road_id</code> at <code>s</code> in OpenDRIVE.  </li>
 <li><a name="carla.Landmark.pitch"></a><strong><font color="#f8805a">pitch</font></strong> (<em>float<small> - meters</small></em>)<br />
-Pitch rotation of the signal (Y-axis in <a href="https://[carla.readthedocs.io](#carla.readthedocs.io)/en/latest/python_api/#carlarotation">UE coordinates system</a>).  </li>
+Pitch rotation of the signal (Y-轴在虚幻引擎坐标系统).  </li>
 <li><a name="carla.Landmark.roll"></a><strong><font color="#f8805a">roll</font></strong> (<em>float</em>)<br />
-Roll rotation of the signal (X-axis in <a href="https://[carla.readthedocs.io](#carla.readthedocs.io)/en/latest/python_api/#carlarotation">UE coordinates system</a>).  </li>
+Roll rotation of the signal (X-轴在虚幻引擎坐标系统).  </li>
 <li><a name="carla.Landmark.waypoint"></a><strong><font color="#f8805a">waypoint</font></strong> (<em><a href="#carla.Waypoint">carla.Waypoint</a></em>)<br />
 A waypoint placed in the lane of the one that made the query and at the <code>s</code> of the landmark. It is the first waypoint for which the landmark will be effective.  </li>
 <li><a name="carla.Landmark.transform"></a><strong><font color="#f8805a">transform</font></strong> (<em><a href="#carla.Transform">carla.Transform</a></em>)<br />
@@ -4111,7 +4111,7 @@ Cosine of the incident angle between the ray, and the normal of the hit object. 
 <li><a name="carla.SemanticLidarDetection.object_idx"></a><strong><font color="#f8805a">object_idx</font></strong> (<em>uint</em>)<br />
 ID of the actor hit by the ray.  </li>
 <li><a name="carla.SemanticLidarDetection.object_tag"></a><strong><font color="#f8805a">object_tag</font></strong> (<em>uint</em>)<br />
-<a href="https://[carla.readthedocs.io](#carla.readthedocs.io)/en/latest/ref_sensors/#semantic-segmentation-camera">Semantic tag</a> of the component hit by the ray.  </li>
+语义标签 of the component hit by the ray.  </li>
 </ul>
 <h3 id="methods_35">Methods</h3>
 <h5 id="dunder-methods_33">Dunder methods</h5>
@@ -6088,7 +6088,7 @@ Projects the specified point downwards in the scene. The functions casts a ray f
 </ul>
 </li>
 <li><a name="carla.World.on_tick"></a><strong><font color="#7fb800">on_tick</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>callback</strong></font>)<br />
-此方法用于 <a href="https://[carla.readthedocs.io](#carla.readthedocs.io)/en/latest/adv_synchrony_timestep/">__异步模式</a>。它从客户端定义的<code>callback</code> 函数启动回调，并返回回调的 ID。每当服务器发出时滴答信号时，就会调用该函数。它需要一个 <a href="#carla.WorldSnapshot">carla.WorldSnapshot</a> 作为参数，这可以从 <strong><font color="#7fb800">wait_for_tick()</font></strong> 获得。使用 <strong><font color="#7fb800">remove_on_tick()</font></strong> 来停止回调。  <ul>
+此方法用于异步模式。它从客户端定义的<code>callback</code> 函数启动回调，并返回回调的 ID。每当服务器发出时滴答信号时，就会调用该函数。它需要一个 <a href="#carla.WorldSnapshot">carla.WorldSnapshot</a> 作为参数，这可以从 <strong><font color="#7fb800">wait_for_tick()</font></strong> 获得。使用 <strong><font color="#7fb800">remove_on_tick()</font></strong> 来停止回调。  <ul>
 <li><strong>参数：</strong><ul>
 <li><code>callback</code> (<em><a href="#carla.WorldSnapshot">carla.WorldSnapshot</a></em>) - 将快照作为强制参数的函数，当客户端收到滴答信号时将调用该函数。  </li>
 </ul>
@@ -6130,13 +6130,13 @@ The method will create, return and spawn an actor into the world. The actor will
 </ul>
 </li>
 <li><a name="carla.World.tick"></a><strong><font color="#7fb800">tick</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>seconds</strong>=10.0</font>)<br />
-该方法用于 <a href="https://[carla.readthedocs.io](#carla.readthedocs.io)/en/latest/adv_synchrony_timestep/"><strong>同步</strong> 模式</a>，即服务器在计算下一帧之前等待客户端客户端滴答信号。这个方法将发送滴答信号，并让位于服务器。它返回由服务器计算的新帧ID。  <ul>
+该方法用于 <strong>同步</strong> 模式，即服务器在计算下一帧之前等待客户端客户端滴答信号。这个方法将发送滴答信号，并让位于服务器。它返回由服务器计算的新帧ID。  <ul>
 <li><strong>参数：</strong><ul>
 <li><code>seconds</code> (<em>float<small> - 秒</small></em>) - 服务器应该等待滴答信号的最大时间。它默认设置为 <code>10.0</code> 。  </li>
 </ul>
 </li>
 <li><strong>返回：</strong> <em>int</em>  </li>
-<li><strong>注意：</strong> <font color="#8E8E8E"><em>如果在同步模式下没有收到滴答信号，仿真将冻结。此外，如果从不同的客户端接收到许多滴答信号，则可能存在同步问题。请阅读有关 <a href="https://[carla.readthedocs.io](#carla.readthedocs.io)/en/latest/adv_synchrony_timestep/">同步模式</a> 的文档以了解更多信息。<br />
+<li><strong>注意：</strong> <font color="#8E8E8E"><em>如果在同步模式下没有收到滴答信号，仿真将冻结。此外，如果从不同的客户端接收到许多滴答信号，则可能存在同步问题。请阅读有关 __同步模式__ 的文档以了解更多信息。<br />
 </em></font>  </li>
 </ul>
 </li>
@@ -6162,7 +6162,7 @@ The method will create, return and spawn an actor into the world. The actor will
 </ul>
 </li>
 <li><a name="carla.World.wait_for_tick"></a><strong><font color="#7fb800">wait_for_tick</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>seconds</strong>=10.0</font>)<br />
-This method is used in <a href="https://[carla.readthedocs.io](#carla.readthedocs.io)/en/latest/adv_synchrony_timestep/"><strong>asynchronous</strong> mode</a>. It makes the client wait for a server tick. When the next frame is computed, the server will tick and return a snapshot describing the new state of the world.  <ul>
+该方法使用在异步模式。It makes the client wait for a server tick. When the next frame is computed, the server will tick and return a snapshot describing the new state of the world.  <ul>
 <li><strong>Parameters:</strong><ul>
 <li><code>seconds</code> (<em>float<small> - seconds</small></em>) - Maximum time the server should wait for a tick. It is set to <code>10.0</code> by default.  </li>
 </ul>
@@ -7503,7 +7503,6 @@ window.onresize = WindowResize;
     <!-- Copyright etc -->
   </div>
 
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>
