@@ -21,7 +21,7 @@ __用于：__
 
 <div class="build-buttons">
 <p>
-<a href="https://carla.readthedocs.io/en/latest/adv_traffic_manager/" target="_blank" class="btn btn-neutral" title="Go to Traffic Manager">
+<a href="https://openhutb.github.io/carla_doc/tuto_G_traffic_manager/" target="_blank" class="btn btn-neutral" title="Go to Traffic Manager">
 转至交通管理器</a>
 </p>
 </div>

@@ -37,9 +37,9 @@ __蓝图__ 是生成角色所必需的已经制作好的角色布局。基本上
 
 ### 地图和导航
 
-__地图__ 是代表仿真世界的对象，主要是城镇。有八张地图可供选择。它们都使用opdrive 1.4标准来描述道路。
+__地图__ 是代表仿真世界的对象，主要是城镇。有八张地图可供选择。它们都使用 opdrive 1.4 标准来描述道路。
 
-__道路、车道和路口__ 由Python API管理，以便从客户端访问。这些与 __waypoint__ 类一起使用，为车辆提供导航路径。
+__道路、车道和路口__ 由 Python API 管理，以便从客户端访问。这些与 __waypoint__ 类一起使用，为车辆提供导航路径。
 
 __交通标志__ 和 __交通灯__ 是可访问的[**carla.Landmark**](#python_api.md#carla.landmark)。这些地标对象包含关于它们的 OpenDRIVE 定义的信息。此外，仿真器在运行时会自动生成停车标志、让行标志和交通信号灯对象，使用 OpenDRIVE 文件中的信息。这些对象会放置在道路上，有边界框包围。一旦车辆进入它们的边界框，它们就会意识到这些对象。
 
@@ -57,20 +57,20 @@ __传感器__ 等待一些事件发生，然后从仿真中收集数据。它们
 *   车道侵入检测器
 *   障碍检测器
 *   雷达
-*   RSS.  
+*   RSS
 
 ---
 ## 进阶步骤  
 
 Carla 提供了广泛的功能，超出了本仿真器介绍的范围。这里列出了一些最引人注目的。然而，在开始 __进阶步骤__ 之前，强烈建议阅读整个“第一步”部分。
 
-*   **[OpenDRIVE独立模式](adv_opendrive.md)**。仅使用OpenDRIVE文件生成道路网格。允许在 Carla 中加载任何OpenDRIVE地图，无需创建资源。
-*   **[PTV-Vissim协同仿真](adv_ptv.md)**。在 Carla 和PTV-Vissim交通仿真器之间运行同步仿真。
+*   **[OpenDRIVE独立模式](adv_opendrive.md)**。仅使用 OpenDRIVE 文件生成道路网格。允许在 Carla 中加载任何 OpenDRIVE 地图，无需创建资源。
+*   **[PTV-Vissim协同仿真](adv_ptv.md)**。在 Carla 和 PTV-Vissim 交通仿真器之间运行同步仿真。
 *   [**录制器**](adv_recorder.md)。保存仿真状态的快照，以便以精确的精度重新执行仿真。
 *   **[渲染选项](adv_rendering_options.md)**。包括图形质量设置、离屏渲染和无渲染模式。
 *   [**RSS**](adv_rss.md)（Responsibility Sensitive Safety）：集成用于根据安全检查修改车辆轨迹的责任敏感安全性**[C++库](https://github.com/intel/ad-rss-lib)**。
 *   [**仿真时间和同步**](adv_synchrony_timestep.md)。关于仿真时间和服务器-客户端通信的所有内容。
-*   **[SUMO协同仿真](adv_sumo.md)**：在 Carla 和SUMO交通仿真器之间运行同步仿真。
+*   **[SUMO协同仿真](adv_sumo.md)**：在 Carla 和 SUMO 交通仿真器之间运行同步仿真。
 *   **[交通管理器](adv_traffic_manager.md)**：该模块负责所有设置为自动驾驶模式的车辆。它仿真城市中的交通，使仿真看起来像一个真实的城市环境。
 
 ---

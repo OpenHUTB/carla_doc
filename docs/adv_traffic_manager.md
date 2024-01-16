@@ -577,11 +577,11 @@ my_tm.set_boundaries_respawn_dormant_vehicles(25,700)
 
 ---
 
-If you have any questions about the TM, then you can ask in the [forum](https://github.com/carla-simulator/carla/discussions).
+如果你有任何关于交通管理器的问题，可以在 [论坛](https://github.com/carla-simulator/carla/discussions) 上提问。
 
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-Carla forum</a>
+Carla 论坛</a>
 </p>
 </div>
