@@ -59,27 +59,27 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">Linux 构建</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#part-one-prerequisites">Part One: Prerequisites</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_1">第一部分：先决条件</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#system-requirements">System requirements</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_2">系统要求</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#software-requirements">Software requirements</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">软件要求</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#unreal-engine">Unreal Engine</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">虚幻引擎</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#part-two-build-carla">Part Two: Build Carla</a>
+    <li class="toctree-l2"><a class="reference internal" href="#carla">第二部分：构建 Carla</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#clone-the-carla-repository">Clone the Carla repository</a>
+    <li class="toctree-l3"><a class="reference internal" href="#carla_1">克隆 Carla 仓库</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#get-assets">Get assets</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">获取资产</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#set-unreal-engine-environment-variable">Set Unreal Engine environment variable</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_6">设置虚幻引擎环境变量</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#build-carla">Build Carla</a>
+    <li class="toctree-l3"><a class="reference internal" href="#carla_2">构建 Carla</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#other-make-commands">Other make commands</a>
+    <li class="toctree-l3"><a class="reference internal" href="#make">其他 make 命令</a>
     </li>
         </ul>
     </li>
@@ -193,7 +193,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_add_tl/">自定义地图：红绿灯和标志</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_road_painter/">自定义地图：Road painter</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_road_painter/">自定义地图：道路画家</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_buildings/">自定义地图：程序建筑</a>
                   </li>
@@ -270,6 +270,8 @@
                   </li>
                   <li class="toctree-l1"><a class="" href="https://carla.readthedocs.io/projects/ros-bridge/en/latest/">机器人操作系统</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_G29_windows/">罗技 G29 方向盘</a>
+                  </li>
               </ul>
               <p class="caption"><span class="caption-text">贡献</span></p>
               <ul>
@@ -311,26 +313,26 @@
 <p>构建过程很长（4小时或更长时间）并且涉及多种软件。强烈建议在开始之前完整阅读该指南。</p>
 <p>If you come across errors or difficulties then have a look at the <strong><a href="../build_faq/">F.A.Q.</a></strong> page which offers solutions for the most common complications. Alternatively, use the <a href="https://github.com/carla-simulator/carla/discussions">Carla forum</a> to post any queries you may have.</p>
 <ul>
-<li><a href="#part-one-prerequisites"><strong>Part One: Prerequisites</strong></a><ul>
-<li><a href="#system-requirements">System requirements</a></li>
-<li><a href="#software-requirements">Software requirements</a><ul>
-<li><a href="#unreal-engine">Unreal Engine</a></li>
+<li><a href="#part-one-prerequisites"><strong>第一部分：先决条件</strong></a><ul>
+<li><a href="#system-requirements">系统要求</a></li>
+<li><a href="#software-requirements">软件要求</a><ul>
+<li><a href="#unreal-engine">虚幻引擎</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#part-two-build-carla"><strong>Part Two: Build Carla</strong></a><ul>
-<li><a href="#clone-the-carla-repository">Clone the Carla repository</a></li>
-<li><a href="#get-assets">Get assets</a></li>
-<li><a href="#set-unreal-engine-environment-variable">Set Unreal Engine environment variable</a></li>
-<li><a href="#build-carla">Build Carla</a></li>
-<li><a href="#other-make-commands">Other make commands</a></li>
+<li><a href="#part-two-build-carla"><strong>第二部分：构建 Carla</strong></a><ul>
+<li><a href="#clone-the-carla-repository">克隆 Carla 仓库</a></li>
+<li><a href="#get-assets">获取资产</a></li>
+<li><a href="#set-unreal-engine-environment-variable">设置虚幻引擎环境变量</a></li>
+<li><a href="#build-carla">构建 Carla</a></li>
+<li><a href="#other-make-commands">其他 make 命令</a></li>
 </ul>
 </li>
 </ul>
 <hr />
-<h2 id="part-one-prerequisites">Part One: Prerequisites</h2>
-<h3 id="system-requirements">System requirements</h3>
+<h2 id="_1">第一部分：先决条件</h2>
+<h3 id="_2">系统要求</h3>
 <ul>
 <li><strong>Ubuntu 18.04.</strong> Carla provides support for previous Ubuntu versions up to 16.04. <strong>However</strong> proper compilers are needed for Unreal Engine to work properly. Dependencies for Ubuntu 18.04 and previous versions are listed separatedly below. Make sure to install the ones corresponding to your system.</li>
 <li><strong>130 GB disk space.</strong> Carla will take around 31 GB and Unreal Engine will take around 91 GB so have about 130 GB free to account for both of these plus additional minor software installations. </li>
@@ -339,7 +341,7 @@
 </ul>
 <p>..warning::
     <strong>If you are upgrading from Carla 0.9.12 to 0.9.13</strong>: you must first upgrade the Carla fork of the UE4 engine to the latest version. See the <a href="#unreal-engine"><strong>Unreal Engine</strong></a> section for details on upgrading UE4</p>
-<h3 id="software-requirements">Software requirements</h3>
+<h3 id="_3">软件要求</h3>
 <p>Carla requires many different kinds of software to run. Some are built during the Carla build process itself, such as <em>Boost.Python</em>. Others are binaries that should be installed before starting the build (<em>cmake</em>, <em>clang</em>, different versions of <em>Python</em>, etc.). To install these requirements, run the following commands:</p>
 <pre><code class="language-sh">sudo apt-get update &amp;&amp;
 sudo apt-get install wget software-properties-common &amp;&amp;
@@ -386,7 +388,7 @@ pip install --user wheel &amp;&amp;
 pip3 install --user wheel auditwheel
 </code></pre>
 <hr />
-<h2 id="unreal-engine">Unreal Engine</h2>
+<h2 id="_4">虚幻引擎</h2>
 <p>Starting with version 0.9.12, Carla uses a modified fork of Unreal Engine 4.26. This fork contains patches specific to Carla.</p>
 <p>Be aware that to download this fork of Unreal Engine, <strong>you need to have a GitHub account linked to Unreal Engine's account</strong>. If you don't have this set up, please follow <a href="https://www.unrealengine.com/en-US/ue4-on-github">this guide</a> before going any further.</p>
 <p><strong>1.</strong> Clone the content for Carla's fork of Unreal Engine 4.26 to your local computer:</p>
@@ -402,12 +404,12 @@ pip3 install --user wheel auditwheel
 <pre><code class="language-sh">    cd ~/UnrealEngine_4.26/Engine/Binaries/Linux &amp;&amp; ./UE4Editor
 </code></pre>
 <hr />
-<h2 id="part-two-build-carla">Part Two: Build Carla</h2>
+<h2 id="carla">第二部分：构建 Carla</h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Downloading aria2 with <code>sudo apt-get install aria2</code> will speed up the following commands.</p>
 </div>
-<h3 id="clone-the-carla-repository">Clone the Carla repository</h3>
+<h3 id="carla_1">克隆 Carla 仓库</h3>
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla" target="_blank" class="btn btn-neutral" title="Go to the CARLA repository">
@@ -421,7 +423,7 @@ pip3 install --user wheel auditwheel
 <p class="admonition-title">Note</p>
 <p>The <code>master</code> branch contains the current release of Carla with the latest fixes and features. Previous Carla versions are tagged with the version name. Always remember to check the current branch in git with the command <code>git branch</code>. </p>
 </div>
-<h3 id="get-assets">Get assets</h3>
+<h3 id="_5">获取资产</h3>
 <p>You will need to download the <strong>latest</strong> assets to work with the current version of Carla. We provide a script to automate this process. To use the script, run the following command in the Carla root folder:</p>
 <pre><code class="language-sh">        ./Update.sh
 </code></pre>
@@ -438,7 +440,7 @@ pip3 install --user wheel auditwheel
 </ol>
 <pre><code class="language-sh">        tar -xvzf &lt;assets_file_name&gt;.tar.gz.tar -C C:\path\to\carla\Unreal\CarlaUE4\Content\Carla
 </code></pre>
-<h3 id="set-unreal-engine-environment-variable">Set Unreal Engine environment variable</h3>
+<h3 id="_6">设置虚幻引擎环境变量</h3>
 <p>For Carla to find the correct installation of Unreal Engine, we need to set the Carla environment variable.</p>
 <p>To set the variable for this session only:</p>
 <pre><code class="language-sh">    export UE4_ROOT=~/UnrealEngine_4.26
@@ -455,7 +457,7 @@ pip3 install --user wheel auditwheel
 <pre><code class="language-sh">    export UE4_ROOT=~/UnrealEngine_4.26 
 </code></pre>
 <p><strong>3.</strong> Save the file and reset the terminal.  </p>
-<h3 id="build-carla">Build Carla</h3>
+<h3 id="carla_2">构建 Carla</h3>
 <p>This section outlines the commands to build Carla. <strong>All commands should be run in the root Carla folder.</strong></p>
 <p>There are two parts to the build process for Carla, compiling the client and compiling the server.</p>
 <div class="admonition warning">
@@ -516,7 +518,7 @@ pip install &lt;path/to/wheel&gt;.whl
 <p class="admonition-title">Important</p>
 <p>If the simulation is running at a very low FPS rate, go to <code>Edit -&gt; Editor preferences -&gt; Performance</code> in the Unreal Engine editor and disable <code>Use less CPU when in background</code>.</p>
 </div>
-<h3 id="other-make-commands">Other make commands</h3>
+<h3 id="make">其他 make 命令</h3>
 <p>There are more <code>make</code> commands that you may find useful. Find them in the table below:  </p>
 <table>
 <thead>
