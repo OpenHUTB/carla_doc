@@ -18,18 +18,45 @@
 
 您需要安装：
 
-- __Docker:__ 按照 [此处](https://docs.docker.com/engine/install/) 的安装说明进行操作。Follow the installation instructions [here](https://docs.docker.com/engine/install/).
+- __Docker:__ 按照 [此处](https://docs.docker.com/engine/install/) 的安装说明进行操作。
 - __NVIDIA Container Toolkit:__ NVIDIA 容器工具包是一个库和工具集，可将 NVIDIA 图形设备公开给 Linux 容器。它专为在 Linux 主机系统或适用于 Linux 的 Windows 子系统版本 2 下的 Linux 发行版中运行的 Linux 容器而设计。`nvidia-docker2`按照 [此处](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#installation-guide) 的说明安装该软件包。
+
+CentOS安装Docker：
+```shell
+yum install -y yum-utils device-mapper-persistent-data lvm2
+yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+yum list docker-ce --showduplicates | sort -r
+yum -y install docker-ce-18.03.1.ce
+```
+
+docker启动出错：`failed to start daemon: error initializing graphdriver: driver not supported`
+
+解决：
+```shell
+rm -rf /var/lib/docker/*
+systemctl restart docker
+```
+
+CentOS 安装 NVIDIA 容器工具包命令：
+```shell
+curl -s -L https://nvidia.github.io/libnvidia-container/stable/rpm/nvidia-container-toolkit.repo | \
+  tee /etc/yum.repos.d/nvidia-container-toolkit.repo
+yum-config-manager --enable nvidia-container-toolkit-experimental
+yum install -y nvidia-container-toolkit
+nvidia-ctk runtime configure --runtime=docker
+```
 
 !!! 笔记
     Docker 需要 sudo 才能运行。按照 [本指南](https://docs.docker.com/install/linux/linux-postinstall/) 将用户添加到 docker sudo 组。
+
+
 
 ---
 ## 在容器中运行 Carla
 
 __1. 拉取 Carla 镜像。__
 
-您可以提取最新的 Carla 映像或特定的发行版本。最新镜像是指 [最新的打包版本](https://github.com/carla-simulator/carla/releases)。要拉取映像，请运行以下命令之一：
+您可以提取最新的 Carla 映像或特定的发行版本。最新镜像是指 [最新的打包版本](https://github.com/carla-simulator/carla/releases) 。要拉取映像，请运行以下命令之一：
 
 ```sh
 # 拉取最新的镜像

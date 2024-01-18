@@ -1,44 +1,45 @@
-# Build Unreal Engine and Carla in Docker
+# 在 Docker 中构建虚幻引擎和 Carla
 
-This guide explains how Unreal Engine and Carla can be built from scratch using Docker. The resulting image can then used to create Carla packages or to prepare assets for use in a Carla package. This process should not be confused with the pre-built Carla Docker image used to run Carla on multiple servers or without a display. The documentation for that can be found [here](build_docker.md).
+本指南解释了如何使用 Docker 从头开始构建虚幻引擎和 Carla。然后，生成的映像可用于创建 Carla 包或准备在 Carla 包中使用的资源。此过程不应与用于在多个服务器或没有显示器的情况下运行 Carla 的预构建 Carla Docker 映像相混淆。可以在 [此处](build_docker.md) 找到相关文档。
 
-- [__Before you begin__](#before-you-begin)
-    - [__System Requirements__](#system-requirements)
-    - [__Software requirements__](#software-requirements)
-- [__Building the images__](#building-the-images)
-- [__Next Steps: Packages__](#next-steps-packages)
+- [__在你开始之前__](#before-you-begin)
+    - [__系统要求__](#system-requirements)
+    - [__软件要求__](#software-requirements)
+- [__构建镜像__](#building-the-images)
+- [__下一步：打包__](#next-steps-packages)
 
 ---
 
-## Before you begin
+## 在你开始之前
 
-##### System Requirements
+##### 系统要求
 
-You will need to meet the following system requirements:
+您需要满足以下系统要求：
 
-- 64-bit version of Docker is Ubuntu 16.04+
-- Minimum 8GB of RAM
-- Minimum 600GB available disk space for the initial container build process
+- 64位版本的Docker是Ubuntu 16.04+
+- 至少 8GB 内存
+- 用于初始容器构建过程的至少 600GB 可用磁盘空间
 
-##### Software requirements
+##### 软件要求
 
 __Docker:__ 
 
-Install Docker by following the installation instructions [here](https://docs.docker.com/engine/install/).
+按照 [此处](https://docs.docker.com/engine/install/) 的安装说明安装 Docker 。
 
 __Python__: 
 
-You will need to have Python 3.6 or higher installed and properly set in your system Path. For installation instructions and Python documentation, check [here](https://www.python.org/downloads/).
 
-__Unreal Engine GitHub Access__:
+您需要安装 Python 3.6 或更高版本并在系统路径中正确设置。有关安装说明和 Python 文档，请查看 [此处](https://www.python.org/downloads/) 。
 
-Starting with version 0.9.12, Carla uses a modified fork of Unreal Engine 4.26. This fork contains patches specific to Carla. This will be downloaded during the Docker build process. For this download, __you need to have a GitHub account linked to Unreal Engine's account__. If you don't have this set up, please follow [this guide](https://www.unrealengine.com/en-US/ue4-on-github) before going any further. You will need to log in to your account during the build process.
+__虚幻引擎 GitHub 访问__:
+
+从版本 0.9.12 开始，Carla 使用虚幻引擎 4.26 的修改版。该分支包含 Carla 特定的补丁。这将在 Docker 构建过程中下载。对于此下载，您需要有一个与虚幻引擎帐户关联的 GitHub 帐户。如果您没有进行此设置，请先按照 [本指南](https://www.unrealengine.com/en-US/ue4-on-github) 进行操作，然后再继续操作。在构建过程中您需要登录您的帐户。或者直接从 [开源湖工商仓库](https://github.com/OpenHUTB/engine) 进行下载。
 
 __Carla:__
 
-The Dockerfiles and tools needed to build Unreal Engine for Carla and Carla itself are located in the `Util/Docker` directory of the Carla source repository. 
+为 Carla 构建虚幻引擎以及 Carla 本身所需的 Dockerfile 和工具位于`Util/DockerCARLA` 源存储库的目录中。
 
-If you don't already have it, download the repository using the following command:
+如果您还没有，请使用以下命令下载存储库：
 
 ```sh
 git clone https://github.com/carla-simulator/carla
@@ -46,27 +47,27 @@ git clone https://github.com/carla-simulator/carla
 
 ---
 
-## Building the images
+## 构建镜像
 
-The following steps will each take a long time.
+以下步骤将花费很长时间。
 
-__1. Build the Carla prerequisites image.__
+__1. 构建 CARLA 先决条件镜像。__
 
-The following command will build an image called `carla-prerequisites` using `Prerequisites.Dockerfile`. In this build we install the compiler and required tools, download the Unreal Engine 4.26 fork and compile it. You will need to provide your login details as build arguments for the download of Unreal Engine to be successful:
+以下命令将使用`Prerequisites.Dockerfile`构建一个名为`carla-prerequisitesusing`的映像。在此版本中，我们安装编译器和所需的工具，下载虚幻引擎 4.26 分支并编译它。您需要提供您的登录详细信息作为构建参数，才能成功下载虚幻引擎：
 
 ```sh
 docker build --build-arg EPIC_USER=<GitHubUserName> --build-arg EPIC_PASS=<GitHubPassword> -t carla-prerequisites -f Prerequisites.Dockerfile .
 ```
 
-__2. Build the final Carla image.__
+__2. 构建最终的 Carla 镜像。__
 
-The following command will use the image created in the previous step to build the final Carla image based on the current master branch (latest release) of the CARLA repository:
+以下命令将使用上一步中创建的映像基于 Carla 存储库的当前主分支（最新版本）构建最终的 Carla 映像：
 
 ```sh
 docker build -t carla -f Carla.Dockerfile .
 ```
 
-If you would like to build a specific branch or tag of the Carla repository, run the following command:
+如果您想构建 Carla 存储库的特定分支或标签，请运行以下命令：
 
 ```sh
 docker build -t carla -f Carla.Dockerfile . --build-arg GIT_BRANCH=<branch_or_tag_name>
@@ -74,23 +75,23 @@ docker build -t carla -f Carla.Dockerfile . --build-arg GIT_BRANCH=<branch_or_ta
 
 ---
 
-## Next Steps: Packages
+## 下一步：打包
 
-The Carla image created in this guide is used to create standalone Carla packages or to package assets such as maps or meshes so they can be used in a Carla package. This is achieved through the use of the `docker_tools.py` script found in `Util/Docker`. This script uses [`docker-py`](https://github.com/docker/docker-py) to work with the Docker image.
+本指南中创建的 Carla 镜像用于创建独立的 Carla 包或打包地图或网格等资源，以便它们可以在 Carla 包中使用。这是通过使用`Util/Docker`中的脚本 `docker_tools.py` 来实现的。该脚本用于[`docker-py`](https://github.com/docker/docker-py) 处理 Docker 镜像映像。
 
-The `docker_tools.py` script can be used to:
+该 `docker_tools.py` 脚本可用于：
 
-- __Create a Carla package__: Find the tutorial [here](tuto_A_create_standalone.md#export-a-package-using-docker)
-- __Cook assets to be consumed in a Carla package:__ Find the tutorial [here](tuto_A_add_props.md#ingestion-in-a-carla-package)
-- __Prepare a map so it's ready for use in a Carla package:__ Find the tutorial [here](tuto_M_add_map_package.md)
+- __创建 Carla 包__：在 [此处](tuto_A_create_standalone.md#export-a-package-using-docker) 查找教程。
+- __在 Carla 包中烘焙需要使用的资产：__ 在 [此处](tuto_A_add_props.md#ingestion-in-a-carla-package) 查找教程。
+- __准备地图，以便可以在 Carla 包中使用：__ 在 [此处](tuto_M_add_map_package.md) 查找教程。
 
 ---
 
-Any issues or doubts related with this topic can be posted in the Carla forum.
+与此主题相关的任何问题或疑问都可以在 Carla 论坛中发布。
 
 <div class="build-buttons">
 <p>
-<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
+<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA 论坛">
 Carla forum</a>
 </p>
 </div>
