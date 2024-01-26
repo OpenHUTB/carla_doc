@@ -4,8 +4,6 @@
 
 构建过程很长（4小时或更长时间）并且涉及多种软件。强烈建议在开始之前完整阅读该指南。
 
-If you come across errors or difficulties then have a look at the **[F.A.Q.](build_faq.md)** page which offers solutions for the most common complications. Alternatively, use the [Carla forum](https://github.com/carla-simulator/carla/discussions) to post any queries you may have.
-
 - [__第一部分：先决条件__](#part-one-prerequisites)
     - [系统要求](#system-requirements)
     - [软件要求](#software-requirements)
@@ -22,19 +20,19 @@ If you come across errors or difficulties then have a look at the **[F.A.Q.](bui
 
 ### 系统要求
 
-* __Ubuntu 18.04.__ Carla provides support for previous Ubuntu versions up to 16.04. **However** proper compilers are needed for Unreal Engine to work properly. Dependencies for Ubuntu 18.04 and previous versions are listed separatedly below. Make sure to install the ones corresponding to your system.
-* __130 GB disk space.__ Carla will take around 31 GB and Unreal Engine will take around 91 GB so have about 130 GB free to account for both of these plus additional minor software installations. 
-* __An adequate GPU.__ Carla aims for realistic simulations, so the server needs at least a 6 GB GPU although 8 GB is recommended. A dedicated GPU is highly recommended for machine learning. 
-* __Two TCP ports and good internet connection.__ 2000 and 2001 by default. Make sure that these ports are not blocked by firewalls or any other applications. 
+* __Ubuntu 18.04.__ Carla 提供对 Ubuntu 16.04 之前版本的支持。**然而**，虚幻引擎需要适当的编译器才能正常工作。下面单独列出了 Ubuntu 18.04 及之前版本的依赖项。确保安装与您的系统相对应的软件。
+* __130 GB 磁盘空间。__ Carla 将占用大约 31 GB，虚幻引擎将占用大约 91 GB，因此需要大约 130 GB 的可用空间来容纳这两个空间以及额外的小型软件安装。
+* __足够的 GPU。__ Carla 的目标是进行真实的仿真，因此服务器至少需要 6 GB GPU，但建议使用 8 GB。强烈建议使用专用 GPU 进行机器学习。 
+* __两个 TCP 端口和良好的互联网连接。__ 默认为 2000 年和 2001 年。确保这些端口未被防火墙或任何其他应用程序阻止。
 
-..warning::
-    __If you are upgrading from Carla 0.9.12 to 0.9.13__: you must first upgrade the Carla fork of the UE4 engine to the latest version. See the [__Unreal Engine__](#unreal-engine) section for details on upgrading UE4
+!!! 警告
+    __如果您要从 Carla 0.9.12 升级到 0.9.13__: 您必须首先将虚幻引擎 4 的 Carla 分支升级到最新版本。有关升级虚幻引擎 4 的详细信息，请参阅 [__虚幻引擎__](#unreal-engine) 部分。
 
 
 
 ### 软件要求
 
-Carla requires many different kinds of software to run. Some are built during the Carla build process itself, such as *Boost.Python*. Others are binaries that should be installed before starting the build (*cmake*, *clang*, different versions of *Python*, etc.). To install these requirements, run the following commands:
+Carla 需要运行多种不同类型的软件。有些是在 Carla 构建过程本身期间构建的，例如*Boost.Python*。其他是应该在开始构建之前安装的二进制文件（*cmake*、*clang*、不同版本的*Python*等）。要安装这些要求，请运行以下命令：
 
 ```sh
 sudo apt-get update &&
@@ -45,50 +43,50 @@ sudo apt-add-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-8
 sudo apt-get update
 ```
 
-!!! Warning
-    The following commands depend on your Ubuntu version. Make sure to choose accordingly. 
+!!! 警告
+    以下命令取决于您的 Ubuntu 版本。请务必做出相应的选择。
 
 __Ubuntu 18.04__.
 
 ```sh
 sudo apt-get install build-essential clang-8 lld-8 g++-7 cmake ninja-build libvulkan1 python python-pip python-dev python3-dev python3-pip libpng-dev libtiff5-dev libjpeg-dev tzdata sed curl unzip autoconf libtool rsync libxml2-dev git
 ```
-__Previous Ubuntu__ versions.
+__以前的 Ubuntu__ 版本。
 
 ```sh
 sudo apt-get install build-essential clang-8 lld-8 g++-7 cmake ninja-build libvulkan1 python python-pip python-dev python3-dev python3-pip libpng16-dev libtiff5-dev libjpeg-dev tzdata sed curl unzip autoconf libtool rsync libxml2-dev git
 ```
 
-__All Ubuntu systems__.
+__所有 Ubuntu 系统__。
 
-To avoid compatibility issues between Unreal Engine and the Carla dependencies, use the same compiler version and C++ runtime library to compile everything. The Carla team uses clang-8 and LLVM's libc++. Change the default clang version to compile Unreal Engine and the Carla dependencies.
+为了避免虚幻引擎和 Carla 依赖项之间的兼容性问题，请使用相同的编译器版本和 C++ 运行时库来编译所有内容。Carla 团队使用 clang-8 和 LLVM 的 libc++。更改默认的 clang 版本以编译虚幻引擎和 Carla 依赖项。
 
 ```sh
 sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/lib/llvm-8/bin/clang++ 180 &&
 sudo update-alternatives --install /usr/bin/clang clang /usr/lib/llvm-8/bin/clang 180
 ```
 
-Starting with Carla 0.9.12, users have the option to install the Carla Python API using `pip` or `pip3`. Version 20.3 or higher is required. To check if you have a suitable version, run the following command:
+从 Carla 0.9.12 开始，用户可以选择使用`pip`或`pip3`安装 Carla Python API。需要 20.3 或更高版本。要检查您是否有合适的版本，请运行以下命令：
 
 ```sh
-# For Python 3
+# 对于 Python 3
 pip3 -V
 
-# For Python 2
+# 对于 Python 2
 pip -V
 ```
 
-If you need to upgrade:
+如果您需要升级：
 
 ```sh
-# For Python 3
+# 对于 Python 3
 pip3 install --upgrade pip
 
-# For Python 2
+# 对于 Python 2
 pip install --upgrade pip
 ```
 
-You must install the following Python dependencies:
+您必须安装以下 Python 依赖项：
 
 ```sh
 pip install --user setuptools &&
@@ -103,26 +101,41 @@ pip3 install --user wheel auditwheel
 
 ## 虚幻引擎
 
-Starting with version 0.9.12, Carla uses a modified fork of Unreal Engine 4.26. This fork contains patches specific to Carla.
+从版本 0.9.12 开始，Carla 使用虚幻引擎 4.26 的修改版。该分支包含 Carla 特有的补丁。
 
-Be aware that to download this fork of Unreal Engine, __you need to have a GitHub account linked to Unreal Engine's account__. If you don't have this set up, please follow [this guide](https://www.unrealengine.com/en-US/ue4-on-github) before going any further.
-
-__1.__ Clone the content for Carla's fork of Unreal Engine 4.26 to your local computer:
+__1.__ 将 Carla 的虚幻引擎 4.26 分支的内容克隆到本地计算机：
 
 ```sh
-    git clone --depth 1 -b carla https://github.com/CarlaUnreal/UnrealEngine.git ~/UnrealEngine_4.26
+    git clone https://github.com/OpenHUTB/UnrealEngine.git ~/UnrealEngine_4.26
 ```
-__2.__ Navigate into the directory where you cloned the repository:
+
+__2.__ 导航到克隆存储库的目录：
 ```sh
     cd ~/UnrealEngine_4.26
 ```
 
-__3.__ Make the build. This may take an hour or two depending on your system. 
+__3.__ 进行构建。这可能需要一两个小时，具体取决于您的系统。
 ```sh
     ./Setup.sh && ./GenerateProjectFiles.sh && make
 ```
+如果出现
+```text
+bash: ./Setup.sh: Permission denied
+./Setup.sh: line 40: Engine/Build/BatchFiles/Linux/GitDependencies.sh: Permission denied
+Engine/Build/BatchFiles/Linux/GitDependencies.sh: line 25: mono: command not found
 
-__4.__ Open the Editor to check that Unreal Engine has been installed properly.
+Setting up Mono
+Corlib not in sync with this runtime: expected corlib version 149, found 1051600014.
+```
+
+```shell
+chmod +x Setup.sh
+chmod +x Engine/Build/BatchFiles/Linux/GitDependencies.sh
+sudo apt-get install mono-complete
+git clone https://github.com/OpenHUTB/UnrealEngine.git ~/UnrealEngine_4.26
+```
+
+__4.__ 打开编辑器检查虚幻引擎是否已正确安装。
 ```sh
     cd ~/UnrealEngine_4.26/Engine/Binaries/Linux && ./UE4Editor
 ```
@@ -131,45 +144,50 @@ __4.__ Open the Editor to check that Unreal Engine has been installed properly.
 
 ## 第二部分：构建 Carla
 
-!!! Note
-    Downloading aria2 with `sudo apt-get install aria2` will speed up the following commands.
+!!! 笔记
+    使用 `sudo apt-get install aria2` 下载 aria2 将加快以下命令的速度。
 
 ### 克隆 Carla 仓库
 
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla" target="_blank" class="btn btn-neutral" title="Go to the CARLA repository">
-<span class="icon icon-github"></span> CARLA repository</a>
+<span class="icon icon-github"></span> Carla 仓库</a>
 </p>
 </div>
-The button above will take you to the official repository of the project. Either download from there and extract it locally or clone it using the following command:
+上面的按钮将带您进入该项目的官方存储库。从那里下载并在本地提取它或使用以下命令克隆它：
 
 ```sh
         git clone https://github.com/carla-simulator/carla
 ```
 
-!!! Note
-    The `master` branch contains the current release of Carla with the latest fixes and features. Previous Carla versions are tagged with the version name. Always remember to check the current branch in git with the command `git branch`. 
+或者：
+```shell
+git clone https://github.com/carla-simulator/carla.git
+```
+
+!!! 笔记
+    The `master` 分支包含 Carla 的当前版本以及最新的修复和功能。以前的 Carla 版本标有版本名称。永远记住使用命令`git branch`检查 git 中的当前分支。 
 
 
 ### 获取资产
 
-You will need to download the __latest__ assets to work with the current version of Carla. We provide a script to automate this process. To use the script, run the following command in the Carla root folder:
+您需要下载 __最新的__ 资源才能使用当前版本的 Carla。我们提供了一个脚本来自动执行此过程。要使用该脚本，请在 Carla 根文件夹中运行以下命令：
 
 ```sh
         ./Update.sh
 ```
 
-The assets will be downloaded and extracted to the appropriate location.
+资源将被下载并提取到适当的位置。
 
-!!! Important
-    To download the assets currently in development, visit [Update Carla](build_update.md#get-development-assets) and read __Get development assets__.
+!!! 重要
+    要下载当前正在开发的资产，请访问 [更新 Carla](build_update.md#get-development-assets) 并阅读 __获取开发资产__。
 
-To download the assets for a __specific version__ of CARLA:
+要下载 __特定版本__ 的 Carla 资源：
 
-1. From the root Carla directory, navigate to `\Util\ContentVersions.txt`. This document contains the links to the assets for all Carla releases. 
-2. Extract the assets in `Unreal\CarlaUE4\Content\Carla`. If the path doesn't exist, create it.  
-3. Extract the file with a command similar to the following:
+1. 从 Carla 根目录，导航到 `\Util\ContentVersions.txt`。本文档包含所有 Carla 版本的资源链接。
+2. 提取 `Unreal\CarlaUE4\Content\Carla` 中的资产。如果该路径不存在，请创建它。
+3. 使用类似以下内容的命令提取文件：
 
 ```sh
         tar -xvzf <assets_file_name>.tar.gz.tar -C C:\path\to\carla\Unreal\CarlaUE4\Content\Carla
@@ -177,71 +195,71 @@ To download the assets for a __specific version__ of CARLA:
 
 ### 设置虚幻引擎环境变量
 
-For Carla to find the correct installation of Unreal Engine, we need to set the Carla environment variable.
+为了让 Carla 找到虚幻引擎的正确安装，我们需要设置 Carla 环境变量。
 
-To set the variable for this session only:
+仅为此会话设置变量：
 
 ```sh
     export UE4_ROOT=~/UnrealEngine_4.26
 ```
 
-To set the variable so it persists across sessions:
+要设置变量以使其在会话中保持不变：
 
-__1.__ Open `~/.bashrc` or `./profile`.  
+__1.__ 打开 `~/.bashrc` 或 `./profile`。  
 ```sh
     gedit ~/.bashrc
 
-    # or 
+    # 或 
 
     gedit ~/.profile
 ```
 
-__2.__ Add the following line to the bottom of the file: 
+__2.__ 将以下行添加到文件底部：
 
 ```sh
     export UE4_ROOT=~/UnrealEngine_4.26 
 ```
 
-__3.__ Save the file and reset the terminal.  
+__3.__ 保存文件并重置终端。
 
 
 ### 构建 Carla
-This section outlines the commands to build Carla. __All commands should be run in the root Carla folder.__
+本节概述了构建 Carla 的命令。__所有命令都应在根 Carla 文件夹中运行。__
 
-There are two parts to the build process for Carla, compiling the client and compiling the server.
+Carla 的构建过程分为两个部分，编译客户端和编译服务器。
 
-!!! Warning
-    Make sure to run `make PythonAPI` to prepare the client and `make launch` for the server.
-    Alternatively `make LibCarla` will prepare the Carla library to be imported anywhere.
+!!! 警告
+    确保运行 `make PythonAPI` 以准备客户端和运行 `make launch` 准备服务端。
+    或者 `make LibCarla` 将准备 Carla 库以导入到任何地方。
 
-__1.__ __Compile the Python API client__:
+__1.__ __编译 Python API 客户端：__：
 
-The Python API client grants control over the simulation. Compilation of the Python API client is required the first time you build Carla and again after you perform any updates. After the client is compiled, you will be able to run scripts to interact with the simulation.
+Python API 客户端授予对仿真的控制权。第一次构建 Carla 时需要编译 Python API 客户端，并且在执行任何更新后需要再次编译。客户端编译完成后，您将能够运行脚本与仿真进行交互。
 
-The following command compiles the Python API client:
+以下命令编译 Python API 客户端：
 
 ```sh
     make PythonAPI
 ```
 
-Optionally, to compile the PythonAPI for a specific version of Python, run the below command in the root Carla directory.
+或者，要为特定版本的 Python 编译 PythonAPI，请在根 Carla 目录中运行以下命令。
 
 ```sh
     # Delete versions as required
     make PythonAPI ARGS="--python-version=2.7, 3.6, 3.7, 3.8"
 ```
 
-The Carla client library will be built in two distinct, mutually exclusive forms. This gives users the freedom to choose which form they prefer to run the Carla client code. The two forms include `.egg` files and `.whl` files. Choose __one__ of the following options below to use the client library:
+Carla 客户端库将以两种截然不同、互斥的形式构建。这使用户可以自由选择他们喜欢的形式来运行 Carla 客户端代码。两种形式包括`.egg`文件和`.whl`文件。选择以下选项之一来使用客户端库：
 
-__A. `.egg` file__
+__A. `.egg` 文件__
 
->The `.egg` file does not need to be installed. All of Carla's example scripts automatically [look for this file](build_system.md#versions-prior-to-0912) when importing CARLA.
+>`.egg` 文件不需要安装。导入 CARLA 时，Carla 的所有示例脚本都会自动 [查找此文件](build_system.md#versions-prior-to-0912) 。
 
->If you previously installed a Carla `.whl`, the `.whl` will take precedence over an `.egg` file.
+>如果您之前安装了 Carla  `.whl`，`.whl` 将优先于 `.egg` 文件。
 
-__B. `.whl` file__
+__B. `.whl` 文件__
 
->The `.whl` file should be installed using `pip` or `pip3`:
+>`.whl` 文件应使用 `pip` 或or `pip3` 安装：
 
 ```sh
 # Python 3
@@ -251,74 +269,78 @@ pip3 install <path/to/wheel>.whl
 pip install <path/to/wheel>.whl
 ```
 
->This `.whl` file cannot be distributed as it is built specifically for your OS.
+>`.whl` 文件无法分发，因为它是专门为您的操作系统构建的。
 
-!!! Warning
-    Issues can arise through the use of different methods to install the Carla client library and having different versions of Carla on your system. It is recommended to use virtual environments when installing the `.whl` and to [uninstall](build_faq.md#how-do-i-uninstall-the-carla-client-library) any previously installed client libraries before installing new ones.
+!!! 警告
+    使用不同方法安装 Carla 客户端库以及系统上安装不同版本的 Carla 可能会出现问题。建议在安装时使用虚拟环境，并在安装`.whl`新客户端库之前卸载任何以前安装的客户端库。
 
 
-__2.__ __Compile the server__:
+__2.__ __编译服务器__：
 
-The following command compiles and launches Unreal Engine. Run this command each time you want to launch the server or use the Unreal Engine editor:
+以下命令编译并启动虚幻引擎。每次您想要启动服务器或使用虚幻引擎编辑器时运行此命令：
 
 ```sh
     make launch
 ```
 
-The project may ask to build other instances such as `UE4Editor-Carla.dll` the first time. Agree in order to open the project. During the first launch, the editor may show warnings regarding shaders and mesh distance fields. These take some time to be loaded and the map will not show properly until then.
+该项目可能会要求构建其他实例，例如`UE4Editor-Carla.dll`第一次。同意才能打开项目。在首次启动期间，编辑器可能会显示有关着色器和网格距离场的警告。这些需要一些时间来加载，在此之前地图将无法正确显示。
 
 
-__3.__ __Start the simulation__:
+__3.__ __开始仿真__：
 
-Press **Play** to start the server simulation. The camera can be moved with `WASD` keys and rotated by clicking the scene while moving the mouse around.  
+按“运行”开始服务器仿真。可以使用`WASD`键移动相机，并通过在移动鼠标的同时单击场景来旋转相机。
 
-Test the simulator using the example scripts inside `PythonAPI\examples`.  With the simulator running, open a new terminal for each script and run the following commands to spawn some life into the town and create a weather cycle:
+使用`PythonAPI\examples`里面的示例脚本测试仿真器。在仿真器运行的情况下，为每个脚本打开一个新终端并运行以下命令以在城镇中产生一些生命并创建天气循环：
 
 ```sh
-        # Terminal A 
+        # 终端 A 
         cd PythonAPI/examples
         python3 -m pip install -r requirements.txt
         python3 generate_traffic.py  
 
-        # Terminal B
+        # 终端 B
         cd PythonAPI/examples
         python3 dynamic_weather.py 
 ```
 
-!!! Important
-    If the simulation is running at a very low FPS rate, go to `Edit -> Editor preferences -> Performance` in the Unreal Engine editor and disable `Use less CPU when in background`.
+!!! 重要
+    如果仿真以非常低的 FPS 速率运行，请转至虚幻引擎编辑器中的`Edit -> Editor preferences -> Performance`并禁用 `Use less CPU when in background`。
 
 
 
 ### 其他 make 命令
 
-There are more `make` commands that you may find useful. Find them in the table below:  
+您可能会发现还有更多有用的 `make` 命令。在下表中找到它们：
 
-| Command | Description |
-| ------- | ------- |
-| `make help`                                                           | Prints all available commands.                                        |
-| `make launch`                                                         | Launches Carla server in Editor window.                               |
-| `make PythonAPI`                                                      | Builds the CARLA client.                                              |
-| `make LibCarla`                                                       | Prepares the Carla library to be imported anywhere.                   |
-| `make package`                                                        | Builds Carla and creates a packaged version for distribution.         |
-| `make clean`                                                          | Deletes all the binaries and temporals generated by the build system. |
-| `make rebuild`                                                        | `make clean` and `make launch` both in one command.                   |
+| 命令 | 描述                                      |
+| ------- |-----------------------------------------|
+| `make help`                                                           | 打印所有可用的命令。                              |
+| `make launch`                                                         | 在编辑器窗口中启动 Carla 服务器。                    |
+| `make PythonAPI`                                                      | 构建 Carla 客户端。                           |
+| `make LibCarla`                                                       | 准备将 Carla 库导入到任何地方。                     |
+| `make package`                                                        | 构建 Carla 并创建用于分发的打包版本。                  |
+| `make clean`                                                          | 删除构建系统生成的所有二进制文件和临时文件。                  |
+| `make rebuild`                                                        | `make clean` 和 `make launch` 两者都在一个命令中。 |
 
 ---
 
-Read the **[F.A.Q.](build_faq.md)** page or post in the [Carla forum](https://github.com/carla-simulator/carla/discussions) for any issues regarding this guide.  
+### 其他
+v2ray 的版本不能太高，比如可以使用 [v4.45.2](https://github.com/v2fly/v2ray-core/releases/tag/v4.45.2) ，图形界面使用[Qv2ray 2.7.0](https://github.com/Qv2ray/Qv2ray/releases) 。
 
-Up next, learn how to update the Carla build or take your first steps in the simulation, and learn some core concepts.  
+
+有关本指南的任何问题， 请阅读 **[常见问题解答](build_faq.md)** 页面或[Carla 论坛](https://github.com/carla-simulator/carla/discussions) 中的帖子。
+
+接下来，学习如何更新 Carla 构建或在仿真中迈出第一步，并学习一些核心概念。
 <div class="build-buttons">
 
 <p>
 <a href="../build_update" target="_blank" class="btn btn-neutral" title="Learn how to update the build">
-Update Carla</a>
+更新 Carla</a>
 </p>
 
 <p>
 <a href="../core_concepts" target="_blank" class="btn btn-neutral" title="Learn about CARLA core concepts">
-First steps</a>
+第一步</a>
 </p>
 
 </div>
