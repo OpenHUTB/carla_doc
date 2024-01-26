@@ -106,17 +106,17 @@ pip3 install --user wheel auditwheel
 __1.__ 将 Carla 的虚幻引擎 4.26 分支的内容克隆到本地计算机：
 
 ```sh
-    git clone https://github.com/OpenHUTB/UnrealEngine.git ~/UnrealEngine_4.26
+git clone https://github.com/OpenHUTB/UnrealEngine.git ~/UnrealEngine_4.26
 ```
 
 __2.__ 导航到克隆存储库的目录：
 ```sh
-    cd ~/UnrealEngine_4.26
+cd ~/UnrealEngine_4.26
 ```
 
 __3.__ 进行构建。这可能需要一两个小时，具体取决于您的系统。
 ```sh
-    ./Setup.sh && ./GenerateProjectFiles.sh && make
+./Setup.sh && ./GenerateProjectFiles.sh && make
 ```
 如果出现
 ```text
@@ -137,7 +137,7 @@ git clone https://github.com/OpenHUTB/UnrealEngine.git ~/UnrealEngine_4.26
 
 __4.__ 打开编辑器检查虚幻引擎是否已正确安装。
 ```sh
-    cd ~/UnrealEngine_4.26/Engine/Binaries/Linux && ./UE4Editor
+cd ~/UnrealEngine_4.26/Engine/Binaries/Linux && ./UE4Editor
 ```
 
 ---
@@ -157,11 +157,6 @@ __4.__ 打开编辑器检查虚幻引擎是否已正确安装。
 </div>
 上面的按钮将带您进入该项目的官方存储库。从那里下载并在本地提取它或使用以下命令克隆它：
 
-```sh
-        git clone https://github.com/carla-simulator/carla
-```
-
-或者：
 ```shell
 git clone https://github.com/carla-simulator/carla.git
 ```
@@ -175,7 +170,7 @@ git clone https://github.com/carla-simulator/carla.git
 您需要下载 __最新的__ 资源才能使用当前版本的 Carla。我们提供了一个脚本来自动执行此过程。要使用该脚本，请在 Carla 根文件夹中运行以下命令：
 
 ```sh
-        ./Update.sh
+./Update.sh
 ```
 
 资源将被下载并提取到适当的位置。
@@ -190,7 +185,7 @@ git clone https://github.com/carla-simulator/carla.git
 3. 使用类似以下内容的命令提取文件：
 
 ```sh
-        tar -xvzf <assets_file_name>.tar.gz.tar -C C:\path\to\carla\Unreal\CarlaUE4\Content\Carla
+tar -xvzf <assets_file_name>.tar.gz.tar -C C:\path\to\carla\Unreal\CarlaUE4\Content\Carla
 ```
 
 ### 设置虚幻引擎环境变量
@@ -200,24 +195,22 @@ git clone https://github.com/carla-simulator/carla.git
 仅为此会话设置变量：
 
 ```sh
-    export UE4_ROOT=~/UnrealEngine_4.26
+export UE4_ROOT=~/UnrealEngine_4.26
 ```
 
 要设置变量以使其在会话中保持不变：
 
 __1.__ 打开 `~/.bashrc` 或 `./profile`。  
 ```sh
-    gedit ~/.bashrc
-
-    # 或 
-
-    gedit ~/.profile
+gedit ~/.bashrc
+# 或 
+gedit ~/.profile
 ```
 
 __2.__ 将以下行添加到文件底部：
 
 ```sh
-    export UE4_ROOT=~/UnrealEngine_4.26 
+export UE4_ROOT=~/UnrealEngine_4.26 
 ```
 
 __3.__ 保存文件并重置终端。
@@ -239,27 +232,27 @@ Python API 客户端授予对仿真的控制权。第一次构建 Carla 时需�
 以下命令编译 Python API 客户端：
 
 ```sh
-    make PythonAPI
+make PythonAPI
 ```
 
 或者，要为特定版本的 Python 编译 PythonAPI，请在根 Carla 目录中运行以下命令。
 
 ```sh
-    # Delete versions as required
-    make PythonAPI ARGS="--python-version=2.7, 3.6, 3.7, 3.8"
+# Delete versions as required
+make PythonAPI ARGS="--python-version=2.7, 3.6, 3.7, 3.8"
 ```
 
 Carla 客户端库将以两种截然不同、互斥的形式构建。这使用户可以自由选择他们喜欢的形式来运行 Carla 客户端代码。两种形式包括`.egg`文件和`.whl`文件。选择以下选项之一来使用客户端库：
 
 __A. `.egg` 文件__
 
->`.egg` 文件不需要安装。导入 CARLA 时，Carla 的所有示例脚本都会自动 [查找此文件](build_system.md#versions-prior-to-0912) 。
+>`.egg` 文件不需要安装。导入 Carla 时，Carla 的所有示例脚本都会自动 [查找此文件](build_system.md#versions-prior-to-0912) 。
 
 >如果您之前安装了 Carla  `.whl`，`.whl` 将优先于 `.egg` 文件。
 
 __B. `.whl` 文件__
 
->`.whl` 文件应使用 `pip` 或or `pip3` 安装：
+>`.whl` 文件应使用 `pip` 或 `pip3` 安装：
 
 ```sh
 # Python 3
