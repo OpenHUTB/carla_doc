@@ -95,11 +95,11 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../core_actors/">参与者和蓝图</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ts_traffic_simulation_overview/">交通</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../core_map/">地图和导航 </a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../core_sensors/">传感器和数据</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../ts_traffic_simulation_overview/">交通</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../development_tutorials/">开发</a>
                   </li>
@@ -307,9 +307,27 @@
 <h2 id="_1">在你开始之前</h2>
 <p>您需要安装：</p>
 <ul>
-<li><strong>Docker:</strong> 按照 <a href="https://docs.docker.com/engine/install/">此处</a> 的安装说明进行操作。Follow the installation instructions <a href="https://docs.docker.com/engine/install/">here</a>.</li>
+<li><strong>Docker:</strong> 按照 <a href="https://docs.docker.com/engine/install/">此处</a> 的安装说明进行操作。</li>
 <li><strong>NVIDIA Container Toolkit:</strong> NVIDIA 容器工具包是一个库和工具集，可将 NVIDIA 图形设备公开给 Linux 容器。它专为在 Linux 主机系统或适用于 Linux 的 Windows 子系统版本 2 下的 Linux 发行版中运行的 Linux 容器而设计。<code>nvidia-docker2</code>按照 <a href="https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#installation-guide">此处</a> 的说明安装该软件包。</li>
 </ul>
+<p>CentOS安装Docker：</p>
+<pre><code class="language-shell">yum install -y yum-utils device-mapper-persistent-data lvm2
+yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+yum list docker-ce --showduplicates | sort -r
+yum -y install docker-ce-18.03.1.ce
+</code></pre>
+<p>docker启动出错：<code>failed to start daemon: error initializing graphdriver: driver not supported</code></p>
+<p>解决：</p>
+<pre><code class="language-shell">rm -rf /var/lib/docker/*
+systemctl restart docker
+</code></pre>
+<p>CentOS 安装 NVIDIA 容器工具包命令：</p>
+<pre><code class="language-shell">curl -s -L https://nvidia.github.io/libnvidia-container/stable/rpm/nvidia-container-toolkit.repo | \
+  tee /etc/yum.repos.d/nvidia-container-toolkit.repo
+yum-config-manager --enable nvidia-container-toolkit-experimental
+yum install -y nvidia-container-toolkit
+nvidia-ctk runtime configure --runtime=docker
+</code></pre>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>Docker 需要 sudo 才能运行。按照 <a href="https://docs.docker.com/install/linux/linux-postinstall/">本指南</a> 将用户添加到 docker sudo 组。</p>
@@ -317,7 +335,7 @@
 <hr />
 <h2 id="carla">在容器中运行 Carla</h2>
 <p><strong>1. 拉取 Carla 镜像。</strong></p>
-<p>您可以提取最新的 Carla 映像或特定的发行版本。最新镜像是指 <a href="https://github.com/carla-simulator/carla/releases">最新的打包版本</a>。要拉取映像，请运行以下命令之一：</p>
+<p>您可以提取最新的 Carla 映像或特定的发行版本。最新镜像是指 <a href="https://github.com/carla-simulator/carla/releases">最新的打包版本</a> 。要拉取映像，请运行以下命令之一：</p>
 <pre><code class="language-sh"># 拉取最新的镜像
 docker pull carlasim/carla:latest
 

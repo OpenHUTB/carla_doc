@@ -103,11 +103,11 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../core_actors/">参与者和蓝图</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ts_traffic_simulation_overview/">交通</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../core_map/">地图和导航 </a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../core_sensors/">传感器和数据</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../ts_traffic_simulation_overview/">交通</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../development_tutorials/">开发</a>
                   </li>
@@ -330,8 +330,8 @@
 </ul>
 <p><strong>蓝图</strong> 是生成角色所必需的已经制作好的角色布局。基本上，是带有动画和一组属性的模型。其中一些属性可以由用户自定义，而另一些则不能。有一个<strong><a href="../bp_library/">Blueprint库</a></strong>，其中包含所有可用的蓝图以及有关它们的信息。</p>
 <h3 id="_5">地图和导航</h3>
-<p><strong>地图</strong> 是代表仿真世界的对象，主要是城镇。有八张地图可供选择。它们都使用opdrive 1.4标准来描述道路。</p>
-<p><strong>道路、车道和路口</strong> 由Python API管理，以便从客户端访问。这些与 <strong>waypoint</strong> 类一起使用，为车辆提供导航路径。</p>
+<p><strong>地图</strong> 是代表仿真世界的对象，主要是城镇。有八张地图可供选择。它们都使用 opdrive 1.4 标准来描述道路。</p>
+<p><strong>道路、车道和路口</strong> 由 Python API 管理，以便从客户端访问。这些与 <strong>waypoint</strong> 类一起使用，为车辆提供导航路径。</p>
 <p><strong>交通标志</strong> 和 <strong>交通灯</strong> 是可访问的<a href="#python_api.md#carla.landmark"><strong>carla.Landmark</strong></a>。这些地标对象包含关于它们的 OpenDRIVE 定义的信息。此外，仿真器在运行时会自动生成停车标志、让行标志和交通信号灯对象，使用 OpenDRIVE 文件中的信息。这些对象会放置在道路上，有边界框包围。一旦车辆进入它们的边界框，它们就会意识到这些对象。</p>
 <h3 id="_6">传感器和数据</h3>
 <p><strong>传感器</strong> 等待一些事件发生，然后从仿真中收集数据。它们调用定义如何管理数据的函数。根据不同的情况，传感器会检索不同类型的传感器数据。</p>
@@ -345,19 +345,19 @@
 <li>车道侵入检测器</li>
 <li>障碍检测器</li>
 <li>雷达</li>
-<li>RSS.  </li>
+<li>RSS</li>
 </ul>
 <hr />
 <h2 id="_7">进阶步骤</h2>
 <p>Carla 提供了广泛的功能，超出了本仿真器介绍的范围。这里列出了一些最引人注目的。然而，在开始 <strong>进阶步骤</strong> 之前，强烈建议阅读整个“第一步”部分。</p>
 <ul>
-<li><strong><a href="../adv_opendrive/">OpenDRIVE独立模式</a></strong>。仅使用OpenDRIVE文件生成道路网格。允许在 Carla 中加载任何OpenDRIVE地图，无需创建资源。</li>
-<li><strong><a href="../adv_ptv/">PTV-Vissim协同仿真</a></strong>。在 Carla 和PTV-Vissim交通仿真器之间运行同步仿真。</li>
+<li><strong><a href="../adv_opendrive/">OpenDRIVE独立模式</a></strong>。仅使用 OpenDRIVE 文件生成道路网格。允许在 Carla 中加载任何 OpenDRIVE 地图，无需创建资源。</li>
+<li><strong><a href="../adv_ptv/">PTV-Vissim协同仿真</a></strong>。在 Carla 和 PTV-Vissim 交通仿真器之间运行同步仿真。</li>
 <li><a href="../adv_recorder/"><strong>录制器</strong></a>。保存仿真状态的快照，以便以精确的精度重新执行仿真。</li>
 <li><strong><a href="../adv_rendering_options/">渲染选项</a></strong>。包括图形质量设置、离屏渲染和无渲染模式。</li>
 <li><a href="../adv_rss/"><strong>RSS</strong></a>（Responsibility Sensitive Safety）：集成用于根据安全检查修改车辆轨迹的责任敏感安全性<strong><a href="https://github.com/intel/ad-rss-lib">C++库</a></strong>。</li>
 <li><a href="../adv_synchrony_timestep/"><strong>仿真时间和同步</strong></a>。关于仿真时间和服务器-客户端通信的所有内容。</li>
-<li><strong><a href="../adv_sumo/">SUMO协同仿真</a></strong>：在 Carla 和SUMO交通仿真器之间运行同步仿真。</li>
+<li><strong><a href="../adv_sumo/">SUMO协同仿真</a></strong>：在 Carla 和 SUMO 交通仿真器之间运行同步仿真。</li>
 <li><strong><a href="../adv_traffic_manager/">交通管理器</a></strong>：该模块负责所有设置为自动驾驶模式的车辆。它仿真城市中的交通，使仿真看起来像一个真实的城市环境。</li>
 </ul>
 <hr />
