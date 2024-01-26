@@ -394,13 +394,13 @@ pip3 install --user wheel auditwheel
 <h2 id="_4">虚幻引擎</h2>
 <p>从版本 0.9.12 开始，Carla 使用虚幻引擎 4.26 的修改版。该分支包含 Carla 特有的补丁。</p>
 <p><strong>1.</strong> 将 Carla 的虚幻引擎 4.26 分支的内容克隆到本地计算机：</p>
-<pre><code class="language-sh">    git clone https://github.com/OpenHUTB/UnrealEngine.git ~/UnrealEngine_4.26
+<pre><code class="language-sh">git clone https://github.com/OpenHUTB/UnrealEngine.git ~/UnrealEngine_4.26
 </code></pre>
 <p><strong>2.</strong> 导航到克隆存储库的目录：</p>
-<pre><code class="language-sh">    cd ~/UnrealEngine_4.26
+<pre><code class="language-sh">cd ~/UnrealEngine_4.26
 </code></pre>
 <p><strong>3.</strong> 进行构建。这可能需要一两个小时，具体取决于您的系统。</p>
-<pre><code class="language-sh">    ./Setup.sh &amp;&amp; ./GenerateProjectFiles.sh &amp;&amp; make
+<pre><code class="language-sh">./Setup.sh &amp;&amp; ./GenerateProjectFiles.sh &amp;&amp; make
 </code></pre>
 <p>如果出现</p>
 <pre><code class="language-text">bash: ./Setup.sh: Permission denied
@@ -416,7 +416,7 @@ sudo apt-get install mono-complete
 git clone https://github.com/OpenHUTB/UnrealEngine.git ~/UnrealEngine_4.26
 </code></pre>
 <p><strong>4.</strong> 打开编辑器检查虚幻引擎是否已正确安装。</p>
-<pre><code class="language-sh">    cd ~/UnrealEngine_4.26/Engine/Binaries/Linux &amp;&amp; ./UE4Editor
+<pre><code class="language-sh">cd ~/UnrealEngine_4.26/Engine/Binaries/Linux &amp;&amp; ./UE4Editor
 </code></pre>
 <hr />
 <h2 id="carla">第二部分：构建 Carla</h2>
@@ -432,9 +432,6 @@ git clone https://github.com/OpenHUTB/UnrealEngine.git ~/UnrealEngine_4.26
 </p>
 </div>
 <p>上面的按钮将带您进入该项目的官方存储库。从那里下载并在本地提取它或使用以下命令克隆它：</p>
-<pre><code class="language-sh">        git clone https://github.com/carla-simulator/carla
-</code></pre>
-<p>或者：</p>
 <pre><code class="language-shell">git clone https://github.com/carla-simulator/carla.git
 </code></pre>
 <div class="admonition 笔记">
@@ -443,7 +440,7 @@ git clone https://github.com/OpenHUTB/UnrealEngine.git ~/UnrealEngine_4.26
 </div>
 <h3 id="_5">获取资产</h3>
 <p>您需要下载 <strong>最新的</strong> 资源才能使用当前版本的 Carla。我们提供了一个脚本来自动执行此过程。要使用该脚本，请在 Carla 根文件夹中运行以下命令：</p>
-<pre><code class="language-sh">        ./Update.sh
+<pre><code class="language-sh">./Update.sh
 </code></pre>
 <p>资源将被下载并提取到适当的位置。</p>
 <div class="admonition 重要">
@@ -456,23 +453,21 @@ git clone https://github.com/OpenHUTB/UnrealEngine.git ~/UnrealEngine_4.26
 <li>提取 <code>Unreal\CarlaUE4\Content\Carla</code> 中的资产。如果该路径不存在，请创建它。</li>
 <li>使用类似以下内容的命令提取文件：</li>
 </ol>
-<pre><code class="language-sh">        tar -xvzf &lt;assets_file_name&gt;.tar.gz.tar -C C:\path\to\carla\Unreal\CarlaUE4\Content\Carla
+<pre><code class="language-sh">tar -xvzf &lt;assets_file_name&gt;.tar.gz.tar -C C:\path\to\carla\Unreal\CarlaUE4\Content\Carla
 </code></pre>
 <h3 id="_6">设置虚幻引擎环境变量</h3>
 <p>为了让 Carla 找到虚幻引擎的正确安装，我们需要设置 Carla 环境变量。</p>
 <p>仅为此会话设置变量：</p>
-<pre><code class="language-sh">    export UE4_ROOT=~/UnrealEngine_4.26
+<pre><code class="language-sh">export UE4_ROOT=~/UnrealEngine_4.26
 </code></pre>
 <p>要设置变量以使其在会话中保持不变：</p>
 <p><strong>1.</strong> 打开 <code>~/.bashrc</code> 或 <code>./profile</code>。  </p>
-<pre><code class="language-sh">    gedit ~/.bashrc
-
-    # 或 
-
-    gedit ~/.profile
+<pre><code class="language-sh">gedit ~/.bashrc
+# 或 
+gedit ~/.profile
 </code></pre>
 <p><strong>2.</strong> 将以下行添加到文件底部：</p>
-<pre><code class="language-sh">    export UE4_ROOT=~/UnrealEngine_4.26 
+<pre><code class="language-sh">export UE4_ROOT=~/UnrealEngine_4.26 
 </code></pre>
 <p><strong>3.</strong> 保存文件并重置终端。</p>
 <h3 id="carla_2">构建 Carla</h3>
@@ -486,21 +481,21 @@ git clone https://github.com/OpenHUTB/UnrealEngine.git ~/UnrealEngine_4.26
 <p><strong>1.</strong> <strong>编译 Python API 客户端：</strong>：</p>
 <p>Python API 客户端授予对仿真的控制权。第一次构建 Carla 时需要编译 Python API 客户端，并且在执行任何更新后需要再次编译。客户端编译完成后，您将能够运行脚本与仿真进行交互。</p>
 <p>以下命令编译 Python API 客户端：</p>
-<pre><code class="language-sh">    make PythonAPI
+<pre><code class="language-sh">make PythonAPI
 </code></pre>
 <p>或者，要为特定版本的 Python 编译 PythonAPI，请在根 Carla 目录中运行以下命令。</p>
-<pre><code class="language-sh">    # Delete versions as required
-    make PythonAPI ARGS=&quot;--python-version=2.7, 3.6, 3.7, 3.8&quot;
+<pre><code class="language-sh"># Delete versions as required
+make PythonAPI ARGS=&quot;--python-version=2.7, 3.6, 3.7, 3.8&quot;
 </code></pre>
 <p>Carla 客户端库将以两种截然不同、互斥的形式构建。这使用户可以自由选择他们喜欢的形式来运行 Carla 客户端代码。两种形式包括<code>.egg</code>文件和<code>.whl</code>文件。选择以下选项之一来使用客户端库：</p>
 <p><strong>A. <code>.egg</code> 文件</strong></p>
 <blockquote>
-<p><code>.egg</code> 文件不需要安装。导入 CARLA 时，Carla 的所有示例脚本都会自动 <a href="../build_system/#versions-prior-to-0912">查找此文件</a> 。</p>
+<p><code>.egg</code> 文件不需要安装。导入 Carla 时，Carla 的所有示例脚本都会自动 <a href="../build_system/#versions-prior-to-0912">查找此文件</a> 。</p>
 <p>如果您之前安装了 Carla  <code>.whl</code>，<code>.whl</code> 将优先于 <code>.egg</code> 文件。</p>
 </blockquote>
 <p><strong>B. <code>.whl</code> 文件</strong></p>
 <blockquote>
-<p><code>.whl</code> 文件应使用 <code>pip</code> 或or <code>pip3</code> 安装：</p>
+<p><code>.whl</code> 文件应使用 <code>pip</code> 或 <code>pip3</code> 安装：</p>
 </blockquote>
 <pre><code class="language-sh"># Python 3
 pip3 install &lt;path/to/wheel&gt;.whl
@@ -523,14 +518,14 @@ pip install &lt;path/to/wheel&gt;.whl
 <p><strong>3.</strong> <strong>开始仿真</strong>：</p>
 <p>按“运行”开始服务器仿真。可以使用<code>WASD</code>键移动相机，并通过在移动鼠标的同时单击场景来旋转相机。</p>
 <p>使用<code>PythonAPI\examples</code>里面的示例脚本测试仿真器。在仿真器运行的情况下，为每个脚本打开一个新终端并运行以下命令以在城镇中产生一些生命并创建天气循环：</p>
-<pre><code class="language-sh">        # 终端 A 
-        cd PythonAPI/examples
-        python3 -m pip install -r requirements.txt
-        python3 generate_traffic.py  
+<pre><code class="language-sh"># 终端 A 
+cd PythonAPI/examples
+python3 -m pip install -r requirements.txt
+python3 generate_traffic.py  
 
-        # 终端 B
-        cd PythonAPI/examples
-        python3 dynamic_weather.py 
+# 终端 B
+cd PythonAPI/examples
+python3 dynamic_weather.py 
 </code></pre>
 <div class="admonition 重要">
 <p class="admonition-title">重要</p>
