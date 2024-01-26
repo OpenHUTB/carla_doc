@@ -286,14 +286,14 @@ __3.__ __开始仿真__：
 使用`PythonAPI\examples`里面的示例脚本测试仿真器。在仿真器运行的情况下，为每个脚本打开一个新终端并运行以下命令以在城镇中产生一些生命并创建天气循环：
 
 ```sh
-        # 终端 A 
-        cd PythonAPI/examples
-        python3 -m pip install -r requirements.txt
-        python3 generate_traffic.py  
+# 终端 A 
+cd PythonAPI/examples
+python3 -m pip install -r requirements.txt
+python3 generate_traffic.py  
 
-        # 终端 B
-        cd PythonAPI/examples
-        python3 dynamic_weather.py 
+# 终端 B
+cd PythonAPI/examples
+python3 dynamic_weather.py 
 ```
 
 !!! 重要
