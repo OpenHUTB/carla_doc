@@ -1,5 +1,7 @@
 # Traffic_prediction
 
+**（注意！运行该脚本之前，应先运行generate_traffic.py并确保在town10中成功放置车辆）**
+
 main函数中首先定义了argparser和carla模块，其中，argparse模块用于解析命令行参数，包括host（主机IP地址）、port（TCP端口号）、traffic_id（交通灯ID）、color_id（交通灯颜色ID）和color_time（交通灯时间）。
 
     args= argparser.parse_arg()
