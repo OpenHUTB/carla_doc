@@ -140,6 +140,11 @@ __4.__ 打开编辑器检查虚幻引擎是否已正确安装。
 cd ~/UnrealEngine_4.26/Engine/Binaries/Linux && ./UE4Editor
 ```
 
+电脑配置达不到Vulkan的标准会出现（OpenGL的API也废弃了）：
+```text
+Cannot find a compatible Yulkan driver (ICD)
+```
+
 ---
 
 ## 第二部分：构建 Carla
