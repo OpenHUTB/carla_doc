@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>如何升级内容 - 交通仿真器文档</title>
+    <title>交通灯配置和使用（get_traffic_light） - 交通仿真器文档</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,8 +13,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "\u5982\u4f55\u5347\u7ea7\u5185\u5bb9";
-        var mkdocs_page_input_path = "tuto_D_contribute_assets.md";
+        var mkdocs_page_name = "\u4ea4\u901a\u706f\u914d\u7f6e\u548c\u4f7f\u7528\uff08get_traffic_light\uff09";
+        var mkdocs_page_input_path = "tuto_G_traffic_light.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -212,10 +212,8 @@
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">教程（开发人员）</span></p>
-              <ul class="current">
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">如何升级内容</a>
-    <ul class="current">
-    </ul>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_contribute_assets/">如何升级内容</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_D_create_sensor/">创建一个传感器</a>
                   </li>
@@ -274,8 +272,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">教程（开发人员）</li>
-      <li class="breadcrumb-item active">如何升级内容</li>
+      <li class="breadcrumb-item active">交通灯配置和使用（get_traffic_light）</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -284,33 +281,160 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1">如何升级内容</h1>
-<p>我们的内容驻留在单独的 <a href="https://bitbucket.org/carla-simulator/carla-content">Git LFS 仓库</a> 中。作为构建系统的一部分，我们生成并上传一个包，其中包含带有当前日期和提交标记的该内容的最新版本。我们定期升级 <a href="https://github.com/carla-simulator/carla">Carla 仓库</a>，并提供最新版本内容包的链接。本文档包含将此链接更新到最新版本所需的手动步骤。</p>
-<ol>
-<li>
-<p><strong>复制您要链接的内容包的标签。</strong><br>
-   T可以通过查看最新 <a href="http://35.181.165.160:8080/blue/organizations/jenkins/carla-content/activity">Jenkins 构建</a>的
-工件部分中生成的包名称来找到此标签，例如
-   <code>20190617_086f97f.tar.gz</code>。</p>
-</li>
-<li>
-<p><strong>将标记粘贴到 ContentVersions.txt 中。</strong><br>
-   通过将标记粘贴到文件末尾来
-编辑 <a href="https://github.com/carla-simulator/carla/edit/master/Util/ContentVersions.txt">Edit ContentVersions.txt</a> ，
-   例如 <code>Latest: 20190617_086f97f</code> (不包括 <code>.tar.gz</code> 部分）。</p>
-</li>
-<li>
-<p><strong>打开拉取请求。</strong><br>
-   提交更改并打开新的拉取请求。</p>
-</li>
-</ol>
+                <h1 id="get_traffic_light">交通灯配置和使用（get_traffic_light）</h1>
+<h2 id="carla">交通灯在Carla中的简单配置</h2>
+<h4 id="1carla">1、在Carla中为场景设置红绿灯</h4>
+<h5 id="11carla-static-trafficlight-streetlights_01">1.1、从内容浏览器中选择Carla &gt; Static &gt; TrafficLight &gt; StreetLights_01下的交通灯蓝图</h5>
+<h5 id="12">1.2、将交通灯拖到场景中，进行位置调整。</h5>
+<h5 id="13">1.3、与交通灯相连接的有一个立方体组件，通过拖到这个立方体的位置和改变长度来决定对应红绿灯的影响范围</h5>
+<h5 id="14">1.4、将交通灯分配给路口交通灯组</h5>
+<p><strong>从内容浏览器中选择Carla &gt; Static &gt; TrafficLight &gt; StreetLights_01下选择BP_TrafficLightGroup拖动到路口，并在该对象的细节面板下找到Traffic Light，将需要添加到该路口组的交通灯设置。</strong></p>
+<p><strong>参考链接：</strong><a href="https://openhutb.github.io/carla_doc/tuto_content_authoring_maps/#_5">内容创作 - 地图 - 交通仿真器文档 (openhutb.github.io)</a>的交通灯部分</p>
+<h2 id="python">使用python脚本简单使用交通灯</h2>
+<h4 id="carla_1">创建与carla的连接</h4>
+<pre><code class="language-python">client = carla.Client(args.host, args.port)
+client.set_timeout(10.0)  # 设置超时
+world = client.get_world()  # 获取世界对象
+
+settings = world.get_settings()
+settings.synchronous_mode = True
+settings.fixed_delta_seconds = 0.05
+world.apply_settings(settings)
+</code></pre>
+<h4 id="_1">获取场景中的红绿灯对象</h4>
+<pre><code class="language-python">traffic_lights = world.get_actors().filter('traffic.traffic_light')
+</code></pre>
+<h4 id="1">1、获取红绿灯的位置信息</h4>
+<pre><code class="language-python">def get_light_location(world,traffic_lights):
+        # 将交通灯的位置信息存储
+    traffic_lights_location = {}
+
+    for traffic_light in traffic_lights:
+        location = traffic_light.get_location()
+        #status = traffic_light.get_state()
+        position = (location.x, location.y, location.z)
+        # status_str = str(status).split('.')[-1]
+        # traffic_lights_data[traffic_light.id] = {'position': position, 'status': status_str}
+        traffic_lights_location[traffic_light.id] = {'position': position}
+
+        # 将交通灯在carla中标示出来，以traffic_light.id
+        world.debug.draw_string(location, str(traffic_light.id)
+                                    , life_time=6000, color=carla.Color(255, 0, 0))
+    return  traffic_lights_location
+    print(traffic_lights_location)
+</code></pre>
+<h4 id="2">2、获取红绿灯的当前配时方案</h4>
+<pre><code class="language-python">def get_light_time(traffic_lights):
+    #获取交通灯的配时信息
+    # 创建一个空的字典，用于存储红绿灯信息
+    traffic_lights_time = {}
+    # 遍历所有红绿灯
+    for traffic_light in traffic_lights:
+        # 获取红绿灯的ID
+        traffic_light_id = traffic_light.id
+        # 获取红绿灯的当前状态
+        status = traffic_light.get_state()
+        status_str = str(status).split('.')[-1]
+        # 获取红绿灯时间
+        red_time = traffic_light.get_red_time()
+        green_time = traffic_light.get_green_time()
+        yellow_time = traffic_light.get_yellow_time()
+        # 将红绿灯信息添加到字典中
+        traffic_lights_time[traffic_light_id] = {'status': status_str, 'red_time': red_time, 'green_time': green_time,
+                                                 'yellow_time': yellow_time}
+    print(traffic_lights_time)
+    return traffic_lights_time
+</code></pre>
+<h4 id="3">3、修改红绿灯的配时方案</h4>
+<pre><code class="language-python">def change_light_time(traffic_lights,traffic_light_id,red_time,yellow_time,green_time,world):
+    # 遍历红绿灯找到对应路灯
+    for traffic_light in traffic_lights:
+        if traffic_light.id == traffic_light_id:
+                #展示原始红绿灯配时方案
+                redtime = traffic_light.get_red_time()
+                greentime = traffic_light.get_green_time()
+                yellowtime = traffic_light.get_yellow_time()
+                print(&quot;编号为{}红绿灯的红灯时间为{}，黄灯时间为{}，绿灯时间为{}&quot;.format(traffic_light_id, redtime, yellowtime, greentime))
+
+                # 修改红绿灯时长
+                traffic_light.set_red_time(float(red_time))
+                traffic_light.set_yellow_time(float(yellow_time))
+                traffic_light.set_green_time(float(green_time))
+                print(&quot;已修改编号为{}红绿灯的红灯时间为{}，黄灯时间为{}，绿灯时间为{}&quot;.format(traffic_light_id, red_time, yellow_time, green_time))
+    world.tick()  #更新Carla世界的状态，使得修改的红绿灯方案立即生效。
+</code></pre>
+<h4 id="4">4、根据路口车流量调整交通灯的红绿灯配时方案</h4>
+<h5 id="41">4.1、获取指定路口的车流量</h5>
+<pre><code class="language-python">def get_traffic_flow(world):
+    # 获取所有正在行驶的车辆列表
+    vehicle_list = world.get_actors().filter('vehicle.*')
+    # 创建一个空的字典,存储车辆的位置信息
+    #vehicle_positions = {}
+    # 创建两个空列表，用于存储时刻和车流量数据
+    #timestamps = []
+    traffic_flow = []
+    # 循环推进仿真时间并统计车流量
+    for t in range(1000):  # 假设模拟1000个时间步
+        # 推进仿真时间
+        world.tick()
+        # 重置车流量计数
+        count = 0
+        # 遍历所有正在行驶的车辆
+        for vehicle in vehicle_list:
+            # 获取车辆的位置信息
+            location = vehicle.get_location()
+            x = location.x
+            y = location.y
+            z = location.z
+            #暂时采用xmin,xmax,ymin,ymax来指定区域路口
+            if x &lt;= xmax and x &gt;= xmin and y &lt;= ymax and y &gt;= ymin:
+                count += 1
+            #vehicle_positions[vehicle.id] = (x, y, z)
+        # 将时间和车流量数据添加到相应的列表中
+        # timestamps.append(t)
+        traffic_flow.append(count)
+        #采用1000个时间步的路口车流量的均值作为这段时间的车流量
+    return int(np.mean(traffic_flow))
+</code></pre>
+<h5 id="42">4.2、调整配时方案</h5>
+<pre><code class="language-python">def traffic_signal(traffic_lights,traffic_flow,world):
+    #根据路口的车流量去优化路口红绿灯的配时方案简单示例
+    #该示例中设置的车辆总数为70辆，分为高流量：路口车流量&gt;7,中流量：路口车辆在4—7，低流量：路口车辆&lt;4
+    print('路口车流量为{}'.format(traffic_flow))
+    # 遍历所有交通灯
+    for traffic_light in traffic_lights:
+
+        #获得交通灯的位置信息
+        location = traffic_light.get_location()
+        #找到位于该路口范围的红绿灯
+        if location.x&gt;=xmin and location.x&lt;=xmax and location.y&gt;=ymin and location.y&lt;=ymax:
+            # 获取交通灯ID
+            traffic_light_id = traffic_light.id
+            # 获取交通灯的红绿灯配时方案
+            red_time = traffic_light.get_red_time()
+            green_time = traffic_light.get_green_time()
+            yellow_time = traffic_light.get_yellow_time()
+        # 根据车流量调整红绿灯时长
+            if traffic_flow &lt;= 4:
+            # 低流量，增加红灯灯时间
+                red_time = red_time+5
+            elif traffic_flow &gt;4 and traffic_flow &lt;7:
+            # 中等流量，平衡红绿灯时长
+                red_time =red_time+3
+                yellow_time = yellow_time+2
+                green_time = green_time+2
+            else:
+            # 高流量，增加绿灯时间
+                red_time = red_time+1
+                yellow_time=yellow_time+1
+                green_time = green_time+5
+
+        #修改红绿灯的配时方案
+            change_light_time(traffic_lights,traffic_light_id,red_time,yellow_time,green_time,world)
+</code></pre>
               
             </div>
           </div><footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../tuto_A_material_customization/" class="btn btn-neutral float-left" title="材质定制"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../tuto_D_create_sensor/" class="btn btn-neutral float-right" title="创建一个传感器">Next <span class="icon icon-circle-arrow-right"></span></a>
-    </div>
 
   <hr/>
 
@@ -331,10 +455,6 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../tuto_A_material_customization/" style="color: #fcfcfc">&laquo; Previous</a></span>
-    
-    
-      <span><a href="../tuto_D_create_sensor/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

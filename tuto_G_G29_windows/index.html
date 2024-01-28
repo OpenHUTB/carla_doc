@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>如何升级内容 - 交通仿真器文档</title>
+    <title>罗技 G29 方向盘 - 交通仿真器文档</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,8 +13,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "\u5982\u4f55\u5347\u7ea7\u5185\u5bb9";
-        var mkdocs_page_input_path = "tuto_D_contribute_assets.md";
+        var mkdocs_page_name = "\u7f57\u6280 G29 \u65b9\u5411\u76d8";
+        var mkdocs_page_input_path = "tuto_G_G29_windows.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -212,10 +212,8 @@
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">教程（开发人员）</span></p>
-              <ul class="current">
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">如何升级内容</a>
-    <ul class="current">
-    </ul>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_contribute_assets/">如何升级内容</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_D_create_sensor/">创建一个传感器</a>
                   </li>
@@ -229,7 +227,7 @@
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
-              <ul>
+              <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
@@ -246,7 +244,11 @@
                   </li>
                   <li class="toctree-l1"><a class="" href="https://carla.readthedocs.io/projects/ros-bridge/en/latest/">机器人操作系统</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_G29_windows/">罗技 G29 方向盘</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">罗技 G29 方向盘</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_1">自动驾驶力反馈</a>
+    </li>
+    </ul>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">贡献</span></p>
@@ -274,8 +276,8 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">教程（开发人员）</li>
-      <li class="breadcrumb-item active">如何升级内容</li>
+          <li class="breadcrumb-item">Carla 生态系统</li>
+      <li class="breadcrumb-item active">罗技 G29 方向盘</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -284,32 +286,130 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1">如何升级内容</h1>
-<p>我们的内容驻留在单独的 <a href="https://bitbucket.org/carla-simulator/carla-content">Git LFS 仓库</a> 中。作为构建系统的一部分，我们生成并上传一个包，其中包含带有当前日期和提交标记的该内容的最新版本。我们定期升级 <a href="https://github.com/carla-simulator/carla">Carla 仓库</a>，并提供最新版本内容包的链接。本文档包含将此链接更新到最新版本所需的手动步骤。</p>
-<ol>
-<li>
-<p><strong>复制您要链接的内容包的标签。</strong><br>
-   T可以通过查看最新 <a href="http://35.181.165.160:8080/blue/organizations/jenkins/carla-content/activity">Jenkins 构建</a>的
-工件部分中生成的包名称来找到此标签，例如
-   <code>20190617_086f97f.tar.gz</code>。</p>
-</li>
-<li>
-<p><strong>将标记粘贴到 ContentVersions.txt 中。</strong><br>
-   通过将标记粘贴到文件末尾来
-编辑 <a href="https://github.com/carla-simulator/carla/edit/master/Util/ContentVersions.txt">Edit ContentVersions.txt</a> ，
-   例如 <code>Latest: 20190617_086f97f</code> (不包括 <code>.tar.gz</code> 部分）。</p>
-</li>
-<li>
-<p><strong>打开拉取请求。</strong><br>
-   提交更改并打开新的拉取请求。</p>
-</li>
-</ol>
+                <h1 id="carla-g29">carla 与罗技 G29 方向盘的力反馈</h1>
+<p>ubuntu 环境下使用 jstest-gtk、ROS 进行方向盘控制参考<a href="https://blog.csdn.net/qq_44237695/article/details/129103700">链接</a> 。</p>
+<p>本教程在windows环境下联调，原先的想法是在windows环境下安装ros2，通过罗技的sdk来替换jstest-gtk，重写ros2节点来实现。罗技g29sdk可参考<a href="https://blog.csdn.net/qq_41250354/article/details/104652071">链接</a></p>
+<p>但由于C++的g29 sdk强制要求界面，carla在控制方向盘时也要求指定 pygame 界面，<a href="https://github.com/cengizozel/LogiDrivePy">G29python代码</a> 用的C# dll修改，初始化过程不需要界面。同时由于是 python 写的，可以绕开ros2这个过程，减少非常多的学习量。</p>
+<p>具体联调过程：</p>
+<p>环境：</p>
+<p>python3.7、carla0.9.14、罗技G-hub驱动、G29方向盘</p>
+<p>首先去罗技官网安装方向盘启动，安装好后驱动界面显示G29方向盘，同时方向盘转动自检。</p>
+<p><img alt="G29" src="../img/tuto_M_G29/G29.png" /></p>
+<p>python环境中安装CARLA与logidrivepy</p>
+<pre><code>pip install carla
+pip install logidrivepy
+</code></pre>
+<p>这里要创建一个ini的配置文件。</p>
+<p>wheel_config.ini</p>
+<pre><code>[G29 Racing Wheel]
+steering_wheel = 0
+throttle = 2
+brake = 3
+reverse = 5
+handbrake = 4
+</code></pre>
+<p>其中数字可能需要自己试这里<code>steering_wheel</code>表示方向盘方向、<code>throttle</code>表示油门和<code>brake</code>刹车已经是正确的设置了。要保证这个设置和<code>.py</code>文件在同一个目录下否则会报错。</p>
+<p>下载carla-API后，运行carla客户端</p>
+<p><img alt="CarlaUE4" src="../img/tuto_M_G29/CarlaUE4.png" /></p>
+<p>随后运行<code>PythonAPI/examples/manual_control_steeringwheel.py</code>文件</p>
+<p><img alt="steering" src="../img/tuto_M_G29/steering.png" /></p>
+<p>此时即可开启车辆。</p>
+<h2 id="_1">自动驾驶力反馈</h2>
+<p>另启一个文件，复制以下代码</p>
+<pre><code>import sys
+import carla
+sys.path.append('../logidrivepy')
+from logidrivepy import LogitechController
+import time
+
+
+class SimpleController:
+    def __init__(self, k):
+        # k 是比例增益，用于调整控制器的响应速度
+        self.k = k
+
+    def control(self, aim, now):
+        # 计算位置差值
+        error = now - aim
+
+        # 计算输出力
+        force = self.k * error
+
+        return force
+
+class ForceFeedback:
+    def __init__(self):
+        self.position = None
+        self.torque = None
+
+class Node():
+    def __init__(self, client):
+        self.client = client
+        self.world = client.get_world()
+        self.actor = self.get_hero()
+
+    def get_hero(self):
+        for actor in self.world.get_actors():
+            if actor.attributes.get(&quot;role_name&quot;) in [&quot;hero&quot;, &quot;ego_vehicle&quot;]:
+                return actor
+
+    def timer_cb(self):
+        out_msg = ForceFeedback()
+
+        steering_angle = self.actor.get_control().steer
+        out_msg.position = steering_angle
+        out_msg.torque = 0.8
+
+    def get_position(self):
+        steering_angle = self.actor.get_control().steer
+        position = steering_angle
+        return position
+
+
+def main(args=None):
+    controller = LogitechController()
+    controller.steering_initialize()
+
+    print(&quot;\n---Logitech Spin Test---&quot;)
+
+    client = carla.Client(&quot;127.0.0.1&quot;, 2000)
+    client.set_timeout(2.0)
+
+    carla_car = Node(client)
+    # 创建一个PID控制器
+    sc = SimpleController(k=1)
+
+    # 在每个时间步中，更新控制器并使用新的力
+    while True:
+        aim = carla_car.get_position() * 150
+        now = (controller.LogiGetStateENGINES(0).contents.lX) / 327.50
+        if (abs(aim)&lt;1):
+            controller.LogiPlaySoftstopForce(0,0)
+            controller.logi_update()
+            time.sleep(0.1)
+            controller.LogiStopSoftstopForce(0)
+            controller.logi_update()
+            print(&quot;Target: {}, Current State: {}&quot;.format(aim, now))
+        else:
+            force = sc.control(now, aim)
+            controller.LogiPlayConstantForce(0, -int(force)*2)
+            controller.logi_update()
+            print(&quot;Force: {}, Target: {}, Current State: {}&quot;.format(force, aim, now))
+            time.sleep(0.1)
+    controller.steering_shutdown()
+
+if __name__ == &quot;__main__&quot;:
+    main()
+</code></pre>
+<p>在<code>pygame</code>界面按键盘<code>P</code>开启自动驾驶，此时方向盘会随着车辆自行转动。</p>
+<p>这个代码是测试用的效果不太好，有更好效果需求得换更好的控制代码了。</p>
+<p><img alt="demo" src="../img/tuto_M_G29/demo.gif" /></p>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../tuto_A_material_customization/" class="btn btn-neutral float-left" title="材质定制"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../tuto_D_create_sensor/" class="btn btn-neutral float-right" title="创建一个传感器">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../adv_rss/" class="btn btn-neutral float-left" title="责任敏感安全"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../cont_contribution_guidelines/" class="btn btn-neutral float-right" title="贡献指南">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -331,10 +431,10 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../tuto_A_material_customization/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../adv_rss/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../tuto_D_create_sensor/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../cont_contribution_guidelines/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
