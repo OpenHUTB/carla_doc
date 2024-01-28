@@ -40,6 +40,23 @@ python -m pip install .
 然后使用新的mkdocs执行步骤1-3。
 
 
+## 命名规则
+
+`adv_*.md (advise_*.md)` : 建议
+
+`build_*.md` : 源代码构建
+
+`tuto_A_*.md (tutorial_asset_*)` : 资产教程
+
+`tuto_D_*.md (tutorial_development_*)` : 开发教程
+
+`tuto_G_*.md (tutorial_guide_*)` : 指南教程
+
+`tuto_M_*.md (tutorial_map_*)` : 地图教程
+
+
+
+
 ## 问题
 ```text
 ERROR - Config value: ‘plugins‘. Error: The “redirects“ plugin is not installed
