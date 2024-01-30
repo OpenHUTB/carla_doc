@@ -12,7 +12,7 @@
 
 ##### 1.4、将交通灯分配给路口交通灯组
 
-**从内容浏览器中选择Carla > Static > TrafficLight > StreetLights_01下选择BP_TrafficLightGroup拖动到路口，并在该对象的细节面板下找到Traffic Light，将需要添加到该路口组的交通灯设置。**
+*从内容浏览器中选择Carla > Static > TrafficLight > StreetLights_01下选择BP_TrafficLightGroup拖动到路口，并在该对象的细节面板下找到Traffic Light，将需要添加到该路口组的交通灯设置*
 
 **参考链接：**[内容创作 - 地图 - 交通仿真器文档 (openhutb.github.io)](https://openhutb.github.io/carla_doc/tuto_content_authoring_maps/#_5)的交通灯部分
 
