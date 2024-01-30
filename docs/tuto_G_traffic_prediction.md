@@ -1,8 +1,7 @@
 # 交通流量预测
 
->**注意！**
->
->**运行该脚本之前，应先运行generate_traffic.py并确保在town10中成功放置车辆。**
+!!! 注意
+    运行该脚本之前，应先运行generate_traffic.py并确保在town10中成功放置车辆。
 
 
 main函数中首先定义了argparser和carla模块，其中，argparse模块用于解析命令行参数，包括host（主机IP地址）、port（TCP端口号）、traffic_id（交通灯ID）、color_id（交通灯颜色ID）和color_time（交通灯时间）。
@@ -78,7 +77,6 @@ traffic_data写入csv文件
         writer.writerow(["head", "value"])  # 写入表头
         for data in traffic_data:
             writer.writerow([data[0], data[1]])  # 写入数据
-<br>
     
     data = load_data('traffic_data.csv', 200)#读取数据
     
@@ -151,17 +149,17 @@ traffic_data写入csv文件
 定义plot_curve函数用于绘制真实数据和预测数据的曲线图。下图基于200秒之前的历史交通流量数据，对未来时间序列的流量预测。
 
     def plot_curve(true_data, predicted_data):
-    fig, ax = plt.subplots()
-    ax.plot(true_data, label='True data')
-    ax.plot(predicted_data, label='Predicted data')
-    ax.legend()
-    # 设置y轴的格式化为整数
-    ax.yaxis.set_major_formatter(ticker.ScalarFormatter(useOffset=False, useMathText=True))
-    ax.yaxis.set_major_locator(ticker.MaxNLocator(integer=True))
-    plt.show()
+        fig, ax = plt.subplots()
+        ax.plot(true_data, label='True data')
+        ax.plot(predicted_data, label='Predicted data')
+        ax.legend()
+        # 设置y轴的格式化为整数
+        ax.yaxis.set_major_formatter(ticker.ScalarFormatter(useOffset=False, useMathText=True))
+        ax.yaxis.set_major_locator(ticker.MaxNLocator(integer=True))
+        plt.show()
 
 下图基于200秒的历史交通流量数据，对未来时间序列的流量预测。
-![image](docs/img/traffic_prediction.png)
+![image](img/traffic_prediction.png)
 
 
 
