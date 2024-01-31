@@ -3,9 +3,17 @@ site_name: 交通仿真器文档
 #repo_url: https://github.com/carla-simulator/carla
 #docs_dir: Docs
 #edit_uri: 'edit/master/Docs/'
-theme: readthedocs
+theme:
+  name: readthedocs
+  sticky_navigation: True
 extra_css: [extra.css]
 extra_javascript: [extra.js]
+
+plugins:
+  - search:
+      lang: ja
+      separator: '[\s\-\.]+'
+      min_search_length: 2
 
 extra:
   generator: false
