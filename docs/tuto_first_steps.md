@@ -11,10 +11,10 @@ Carla 仿真器还可用作评估和测试环境。您可以部署在仿真中�
 * [__观察者导航__](#spectator-navigation)  
 * [__添加非玩家角色__](#adding-npcs)  
 * [__添加传感器__](#add-sensors)  
-* [__模拟车辆__](#animate-vehicles-with-traffic-manager)  
-* [__Assign a vehicle as the Ego Vehicle__](#assign-a-vehicle-as-the-ego-vehicle)
-* [__Choose your map__](#choose-your-map) 
-* [__Choose your vehicles__](#choose-your-vehicles) 
+* [__使用交通管理器仿真车辆__](#animate-vehicles-with-traffic-manager)  
+* [__将车辆分配为自我车辆__](#assign-a-vehicle-as-the-ego-vehicle)
+* [__选择你的地图__](#choose-your-map) 
+* [__选择你的车辆__](#choose-your-vehicles) 
 
 
 ## 启动 Carla 并连接客户端
