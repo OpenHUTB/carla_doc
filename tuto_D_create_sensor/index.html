@@ -217,31 +217,31 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">创建一个传感器</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">先决条件</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">介绍</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#creating-a-new-sensor">Creating a new sensor</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">创建新传感器</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#1-sensor-actor">1- Sensor actor</a>
+    <li class="toctree-l3"><a class="reference internal" href="#1-">1- 创建新传感器</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#2-sensor-data-serializer">2- Sensor data serializer</a>
+    <li class="toctree-l3"><a class="reference internal" href="#2-">2- 传感器数据串行器</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#3-sensor-data-object">3- Sensor data object</a>
+    <li class="toctree-l3"><a class="reference internal" href="#3-">3- 传感器数据对象</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#4-register-your-sensor">4- Register your sensor</a>
+    <li class="toctree-l3"><a class="reference internal" href="#4-">4- 注册您的传感器</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#5-usage-example">5- Usage example</a>
+    <li class="toctree-l3"><a class="reference internal" href="#5-">5- 使用示例</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#appendix">Appendix</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_5">附录</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#reusing-buffers">Reusing buffers</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_6">重用缓冲区</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#sending-data-asynchronously">Sending data asynchronously</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_7">异步发送数据</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#client-side-sensors">Client-side sensors</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_8">客户端传感器</a>
     </li>
         </ul>
     </li>
@@ -312,111 +312,72 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="how-to-add-a-new-sensor">How to add a new sensor</h1>
-<p>This tutorial explains the basics for adding a new sensor to Carla. It provides
-the necessary steps to implement a sensor in Unreal Engine 4 (UE4) and expose
-its data via Carla's Python API. We'll follow all the steps by creating a new
-sensor as an example.</p>
+                <h1 id="_1">如何添加新传感器</h1>
+<p>本教程介绍了向 Carla 添加新传感器的基础知识。它提供了在虚幻引擎 4 中实现传感器并通过 Carla 的 Python API 公开其数据的必要步骤。我们将通过创建新传感器作为示例来遵循所有步骤。</p>
 <ul>
-<li><a href="#prerequisites"><strong>Prerequisites</strong></a>  </li>
-<li><a href="#introduction"><strong>Introduction</strong></a>  </li>
-<li><a href="#creating-a-new-sensor"><strong>Creating a new sensor</strong></a>  <ul>
-<li><a href="#1-sensor-actor">1- Sensor actor</a>  </li>
-<li><a href="#2-sensor-data-serializer">2- Sensor data serializer</a>  </li>
-<li><a href="#3-sensor-data-object">3- Sensor data object</a>  </li>
-<li><a href="#4-register-your-sensor">4- Register your sensor</a>  </li>
-<li><a href="#5-usage-example">5- Usage example</a>  </li>
+<li><a href="#prerequisites"><strong>先决条件</strong></a>  </li>
+<li><a href="#introduction"><strong>介绍</strong></a>  </li>
+<li><a href="#creating-a-new-sensor"><strong>创建新传感器</strong></a>  <ul>
+<li><a href="#1-sensor-actor">1- 传感器参与者</a>  </li>
+<li><a href="#2-sensor-data-serializer">2- 传感器数据串行器</a>  </li>
+<li><a href="#3-sensor-data-object">3- 传感器数据对象</a>  </li>
+<li><a href="#4-register-your-sensor">4- 注册您的传感器</a>  </li>
+<li><a href="#5-usage-example">5- 使用示例</a>  </li>
 </ul>
 </li>
-<li><a href="#appendix"><strong>Appendix</strong></a>  <ul>
-<li><a href="#reusing-buffers">Reusing buffers</a>  </li>
-<li><a href="#sending-data-asynchronously">Sending data asynchronously</a>  </li>
-<li><a href="#client-side-sensors">Client-side sensors</a>  </li>
+<li><a href="#appendix"><strong>附录</strong></a>  <ul>
+<li><a href="#reusing-buffers">重用缓冲区</a>  </li>
+<li><a href="#sending-data-asynchronously">异步发送数据</a>  </li>
+<li><a href="#client-side-sensors">客户端传感器</a>  </li>
 </ul>
 </li>
 </ul>
 <hr />
-<h2 id="prerequisites">Prerequisites</h2>
-<p>In order to implement a new sensor, you'll need to compile Carla source code,
-for detailed instructions on how to achieve this see
-<a href="../build_linux/">Building from source</a>.</p>
-<p>This tutorial also assumes the reader is fluent in C++ programming.</p>
+<h2 id="_2">先决条件</h2>
+<p>为了实现新的传感器，您需要编译 Carla 源代码，有关如何实现此目的的详细说明，请参阅 <a href="../build_linux/">从源代码构建</a> 。</p>
+<p>本教程还假设读者精通 C++ 编程。</p>
 <hr />
-<h2 id="introduction">Introduction</h2>
-<p>Sensors in Carla are a special type of actor that produce a stream of data. Some
-sensors produce data continuously, every time the sensor is updated, other
-produce data only after certain events. For instance, a camera produces an image
-on every update, but a collision sensor is only triggered in the event of a
-collision.</p>
-<p>Although most sensors compute their measurements in the server side (UE4), it's
-worth noticing that some sensors run in the client-side only. An example of such
-sensor is the LaneInvasion, it notifies every time a lane mark has been crossed.
-For further details see <a href="#appendix-client-side-sensors">Appendix: Client-side sensors</a>.</p>
-<p>In this tutorial, we'll be focusing on server-side sensors.</p>
-<p>In order to have a sensor running inside UE4 sending data all the way to a
-Python client, we need to cover the whole communication pipeline.</p>
+<h2 id="_3">介绍</h2>
+<p>Carla 中的传感器是一种特殊类型的参与者，可以产生数据流。有些传感器每次更新时都会连续产生数据，而另一些传感器仅在某些事件发生后才产生数据。例如，相机在每次更新时都会生成图像，但碰撞传感器仅在发生碰撞时才会触发。</p>
+<p>尽管大多数传感器在服务器端（虚幻引擎 4）中计算测量结果，但值得注意的是，某些传感器仅在客户端中运行。此类传感器的一个例子是 LaneInvasion，每次越过车道标记时它都会发出通知。有关更多详细信息，请参阅 <a href="#appendix-client-side-sensors">附录：客户端传感器</a> 。</p>
+<p>在本教程中，我们将重点关注服务器端传感器。</p>
+<p>为了让虚幻引擎 4 内运行的传感器将数据一路发送到 Python 客户端，我们需要覆盖整个通信管道。</p>
 <p><img alt="Communication pipeline" src="../img/pipeline.png" /></p>
-<p>Thus we'll need the following classes covering the different steps of the
-pipeline</p>
+<p>因此，我们需要以下类来涵盖管道的不同步骤</p>
 <ul>
 <li>
-<p><strong>Sensor actor</strong><br>
-    Actor in charge of measuring and/or simulating data. Running in Carla plugin
-    using UE4 framework. Accessible by the user as Sensor actor.</p>
+<p><strong>传感器参与者</strong><br>
+    负责测量和/或模拟数据的参与者。使用虚幻引擎 4框架在 Carla 插件中运行。用户可以作为传感器参与者访问。</p>
 </li>
 <li>
-<p><strong>Serializer</strong><br>
-    Object containing methods for serializing and deserializing the data
-    generated by the sensor. Running in LibCarla, both server and client.</p>
+<p><strong>串行器</strong><br>
+    对象包含用于序列化和反序列化传感器生成的数据的方法。在 LibCarla 中运行，包括服务器和客户端。</p>
 </li>
 <li>
-<p><strong>Sensor data</strong><br>
-    Object representing the data generated by the sensor. This is the object
-    that will be passed to the final user, both in C++ and Python APIs.</p>
+<p><strong>传感器数据</strong><br>
+    表示传感器生成的数据的对象。这是将在 C++ 和 Python API 中传递给最终用户的对象。</p>
 </li>
 </ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>To ensure best performance, sensors are registered and dispatched using a
-sort of "compile-time plugin system" based on template meta-programming.
-Most likely, the code won't compile until all the pieces are present.</p>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>为了确保最佳性能，传感器使用基于模板元编程的“编译时插件系统”进行注册和调度。最有可能的是，在所有部分都存在之前，代码不会编译。</p>
 </div>
 <hr />
-<h2 id="creating-a-new-sensor">Creating a new sensor</h2>
-<p><a href="https://gist.github.com/nsubiron/011fd1b9767cd441b1d8467dc11e00f9"><strong>Full source code here.</strong></a></p>
-<p>We're going to create a sensor that detects other actors around our vehicle. For
-that we'll create a trigger box that detects objects within, and we'll be
-reporting status to the client every time a vehicle is inside our trigger box.
-Let's call it <em>Safe Distance Sensor</em>.</p>
+<h2 id="_4">创建新传感器</h2>
+<p><a href="https://gist.github.com/nsubiron/011fd1b9767cd441b1d8467dc11e00f9"><strong>完整源代码在这里。</strong></a></p>
+<p>我们将创建一个传感器来检测车辆周围的其他参与者。为此，我们将创建一个触发盒来检测其中的物体，并且每次车辆进入触发盒时我们都会向客户端报告状态。我们称之为 <em>安全距离传感器</em> 。</p>
 <p><img alt="Trigger box" src="../img/safe_distance_sensor.jpg" /></p>
-<p><em>For the sake of simplicity we're not going to take into account all the edge
-cases, nor it will be implemented in the most efficient way. This is just an
-illustrative example.</em></p>
-<h3 id="1-sensor-actor">1- Sensor actor</h3>
-<p>This is the most complicated class we're going to create. Here we're running
-inside Unreal Engine framework, knowledge of UE4 API will be very helpful but
-not indispensable, we'll assume the reader has never worked with UE4 before.</p>
-<p>Inside UE4, we have a similar hierarchy as we have in the client-side, <code>ASensor</code>
-derives from <code>AActor</code>, and an actor is roughly any object that can be dropped
-into the world. <code>AActor</code> has a virtual function called <code>Tick</code> that we can use to
-update our sensor on every simulator update. Higher in the hierarchy we have
-<code>UObject</code>, base class for most of UE4 classes. It is important to know that
-objects deriving from <code>UObject</code> are handle via pointers and are garbage
-collected when they're no longer referenced. Class members pointing to
-<code>UObject</code>s need to be marked with <code>UPROPERTY</code> macros or they'll be garbage
-collected.</p>
-<p>Let's start.</p>
-<p>This class has to be located inside Carla plugin, we'll create two files for our
-new C++ class</p>
+<p><em>为了简单起见，我们不会考虑所有的边缘情况，也不会以最有效的方式实现。这只是一个说明性示例。</em></p>
+<h3 id="1-">1- 创建新传感器</h3>
+<p>这是我们要创建的最复杂的类。这里我们在虚幻引擎框架内运行，虚幻引擎 4 API 的知识将非常有帮助，但不是必不可少的，我们假设读者以前从未使用过虚幻引擎 4。</p>
+<p>在 <code>UE4</code> 内部，我们有一个与客户端类似的层次结构，<code>ASensor</code> 派生自<code>AActor</code>，而 <code>Actor</code> 大致是可以放入世界中的任何对象。<code>AActor</code>有一个名为的虚拟函数<code>Tick</code>，我们可以使用它在每次模拟器更新时更新我们的传感器。在更高的层次结构中 <code>UObject</code>，我们有大多数虚幻引擎 4 类的基类。重要的是要知道派生的对象<code>UObject</code>是通过指针进行处理的，并且当它们不再被引用时会被垃圾收集。指向 <code>UObjects</code> 的类成员需要用宏<code>UPROPERTY</code>进行标记，否则它们将被垃圾收集。</p>
+<p>开始吧。</p>
+<p>该类必须位于 Carla 插件内，我们将为新的 C++ 类创建两个文件</p>
 <ul>
 <li><code>Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/SafeDistanceSensor.h</code></li>
 <li><code>Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/SafeDistanceSensor.cpp</code></li>
 </ul>
-<p>At the very minimum, the sensor is required to inherit <code>ASensor</code>, and provide a
-static method <code>GetSensorDefinition</code>; but we'll be overriding also the <code>Set</code>,
-<code>SetOwner</code>, and <code>Tick</code> methods. This sensor also needs a trigger box that will
-be detecting other actors around us. With this and some required boiler-plate
-UE4 code, the header file looks like</p>
+<p>最起码，传感器需要继承<code>ASensor</code>，并提供静态方法<code>GetSensorDefinition</code>；但我们还将重写<code>Set</code>、 <code>SetOwner</code>、 和<code>Tick</code>方法。该传感器还需要一个触发盒来检测我们周围的其他参与者。有了这个和一些必需的虚幻引擎4 样板代码，头文件看起来像</p>
 <pre><code class="language-cpp">#pragma once
 
 #include &quot;Carla/Sensor/Sensor.h&quot;
@@ -451,7 +412,7 @@ private:
   UBoxComponent *Box = nullptr;
 };
 </code></pre>
-<p>In the cpp file, first we'll need some includes</p>
+<p>在 cpp 文件中，首先我们需要一些包含</p>
 <pre><code class="language-cpp">#include &quot;Carla.h&quot;
 #include &quot;Carla/Sensor/SafeDistanceSensor.h&quot;
 
@@ -460,10 +421,7 @@ private:
 #include &quot;Carla/Util/BoundingBoxCalculator.h&quot;
 #include &quot;Carla/Vehicle/CarlaWheeledVehicle.h&quot;
 </code></pre>
-<p>Then we can proceed to implement the functionality. The constructor will create
-the trigger box, and tell UE4 that we want our tick function to be called. If
-our sensor were not using the tick function, we can disable it here to avoid
-unnecessary ticks</p>
+<p>然后我们就可以继续实现该功能了。构造函数将创建触发框，并告诉虚幻引擎4 我们希望调用我们的勾选函数。如果我们的传感器没有使用刻度功能，我们可以在此处禁用它以避免不必要的刻度</p>
 <pre><code class="language-cpp">ASafeDistanceSensor::ASafeDistanceSensor(const FObjectInitializer &amp;ObjectInitializer)
   : Super(ObjectInitializer)
 {
@@ -475,11 +433,7 @@ unnecessary ticks</p>
   PrimaryActorTick.bCanEverTick = true;
 }
 </code></pre>
-<p>Now we need to tell Carla what attributes this sensor has, this is going to be
-used to create a new blueprint in our blueprint library, users can use this
-blueprint to configure and spawn this sensor. We're going to define here the
-attributes of our trigger box, in this example we'll expose only X and Y
-safe distances</p>
+<p>现在我们需要告诉 Carla 这个传感器有什么属性，这将用于在我们的蓝图库中创建一个新的蓝图，用户可以使用这个蓝图来配置和生成这个传感器。我们将在这里定义触发框的属性，在本例中我们将仅公开 X 和 Y 安全距离</p>
 <pre><code class="language-cpp">FActorDefinition ASafeDistanceSensor::GetSensorDefinition()
 {
   auto Definition = UActorBlueprintFunctionLibrary::MakeGenericSensorDefinition(
@@ -509,9 +463,7 @@ safe distances</p>
   return Definition;
 }
 </code></pre>
-<p>With this, the sensor factory is able to create a <em>Safe Distance Sensor</em> on user
-demand. Immediately after the sensor is created, the <code>Set</code> function is called
-with the parameters that the user requested</p>
+<p>这样，传感器工厂就能够根据用户需求创建安全距离传感器。创建传感器后，立即使用用户请求的参数调用该<code>Set</code>函数</p>
 <pre><code class="language-cpp">void ASafeDistanceSensor::Set(const FActorDescription &amp;Description)
 {
   Super::Set(Description);
@@ -539,12 +491,8 @@ with the parameters that the user requested</p>
   Box-&gt;SetBoxExtent(FVector{ExtentX, ExtentY, 0.0f});
 }
 </code></pre>
-<p>Note that the set function is called before UE4's <code>BeginPlay</code>, we won't use
-this virtual function here, but it's important for other sensors.</p>
-<p>Now we're going to extend the box volume based on the bounding box of the actor
-that we're attached to. For that, the most convenient method is to use the
-<code>SetOwner</code> virtual function. This function is called when our sensor is attached
-to another actor.</p>
+<p>请注意，set 函数是在虚幻引擎4 之前调用的<code>BeginPlay</code>，我们这里不会使用这个虚拟函数，但它对于其他传感器很重要。</p>
+<p>现在我们将根据我们所附加的参与者的边界框来扩展盒子体积。为此，最方便的方法是使用 <code>SetOwner</code>虚函数。当我们的传感器连接到另一个参与者时，会调用此函数。</p>
 <pre><code class="language-cpp">void ASafeDistanceSensor::SetOwner(AActor *Owner)
 {
   Super::SetOwner(Owner);
@@ -588,7 +536,7 @@ some data, the callback on the client-side is going to be triggered. But before
 that, the data is going to travel through several layers. First of them will be
 the serializer that we have to create next. We'll fully understand this part
 once we have completed the <code>Serialize</code> function in the next section.</p>
-<h3 id="2-sensor-data-serializer">2- Sensor data serializer</h3>
+<h3 id="2-">2- 传感器数据串行器</h3>
 <p>This class is actually rather simple, it's only required to have two static
 methods, <code>Serialize</code> and <code>Deserialize</code>. We'll add two files for it, this time to
 LibCarla</p>
@@ -640,7 +588,7 @@ in the client-side, in the <code>Deserialize</code> function packed in a <code>R
 }
 </code></pre>
 <p>except for the fact that we haven't defined yet what's a <code>SafeDistanceEvent</code>.</p>
-<h3 id="3-sensor-data-object">3- Sensor data object</h3>
+<h3 id="3-">3- 传感器数据对象</h3>
 <p>We need to create a data object for the users of this sensor, representing the
 data of a <em>safe distance event</em>. We'll add this file to</p>
 <ul>
@@ -695,7 +643,7 @@ using Boost.Python bindings, add the following to
 <p>What we're doing here is exposing some C++ methods in Python. Just with this,
 the Python API will be able to recognise our new event and it'll behave similar
 to an array in Python, except that cannot be modified.</p>
-<h3 id="4-register-your-sensor">4- Register your sensor</h3>
+<h3 id="4-">4- 注册您的传感器</h3>
 <p>Now that the pipeline is complete, we're ready to register our new sensor. We do
 so in <em>LibCarla/source/carla/sensor/SensorRegistry.h</em>. Follow the instruction in
 this header file to add the different includes and forward declarations, and add
@@ -709,7 +657,7 @@ most of the errors here will be related to templates and the error messages can
 be a bit cryptic.</p>
 <pre><code>make rebuild
 </code></pre>
-<h3 id="5-usage-example">5- Usage example</h3>
+<h3 id="5-">5- 使用示例</h3>
 <p>Finally, we have the sensor included and we have finished recompiling, our
 sensor by now should be available in Python.</p>
 <p>To spawn this sensor, we simply need to find it in the blueprint library, if
@@ -735,8 +683,8 @@ Vehicle too close: vehicle.mercedes-benz.coupe
 </code></pre>
 <p>That's it, we have a new sensor working!</p>
 <hr />
-<h2 id="appendix">Appendix</h2>
-<h3 id="reusing-buffers">Reusing buffers</h3>
+<h2 id="_5">附录</h2>
+<h3 id="_6">重用缓冲区</h3>
 <p>In order to optimize memory usage, we can use the fact that each sensor sends
 buffers of similar size; in particularly, in the case of cameras, the size of
 the image is constant during execution. In those cases, we can save a lot by
@@ -763,7 +711,7 @@ buffer.reset(1024u); // (size 1024 bytes, capacity 1024 bytes) -&gt; allocates
 buffer.reset(512u);  // (size  512 bytes, capacity 1024 bytes)
 buffer.reset(2048u); // (size 2048 bytes, capacity 2048 bytes) -&gt; allocates
 </code></pre>
-<h3 id="sending-data-asynchronously">Sending data asynchronously</h3>
+<h3 id="_7">异步发送数据</h3>
 <p>Some sensors may require to send data asynchronously, either for performance or
 because the data is generated in a different thread, for instance, camera sensors send
 the images from the render thread.</p>
@@ -781,7 +729,7 @@ itself is created in the game thread. For instance</p>
   });
 }
 </code></pre>
-<h3 id="client-side-sensors">Client-side sensors</h3>
+<h3 id="_8">客户端传感器</h3>
 <p>Some sensors do not require the simulator to do their measurements, those
 sensors may run completely in the client-side freeing the simulator from extra
 computations. Examples of such sensors is the <em>LaneInvasion</em> sensors.</p>
