@@ -491,7 +491,7 @@ private:
   Box-&gt;SetBoxExtent(FVector{ExtentX, ExtentY, 0.0f});
 }
 </code></pre>
-<p>请注意，set 函数是在虚幻引擎4 之前调用的<code>BeginPlay</code>，我们这里不会使用这个虚拟函数，但它对于其他传感器很重要。</p>
+<p>请注意，set 函数是在虚幻引擎 4 之前调用的<code>BeginPlay</code>，我们这里不会使用这个虚拟函数，但它对于其他传感器很重要。</p>
 <p>现在我们将根据我们所附加的参与者的边界框来扩展盒子体积。为此，最方便的方法是使用 <code>SetOwner</code>虚函数。当我们的传感器连接到另一个参与者时，会调用此函数。</p>
 <pre><code class="language-cpp">void ASafeDistanceSensor::SetOwner(AActor *Owner)
 {
@@ -502,9 +502,7 @@ private:
   Box-&gt;SetBoxExtent(BoundingBox.Extent + Box-&gt;GetUnscaledBoxExtent());
 }
 </code></pre>
-<p>The only thing left to do is the actual measurement, for that we'll use the
-<code>Tick</code> function. We're going to look for all the vehicles currently overlapping
-our box, and we'll send this list to client</p>
+<p>唯一要做的就是实际测量，因为我们将使用该<code>Tick</code>函数。我们将查找当前与我们的盒子重叠的所有车辆，并将此列表发送给客户</p>
 <pre><code class="language-cpp">void ASafeDistanceSensor::Tick(float DeltaSeconds)
 {
   Super::Tick(DeltaSeconds);
@@ -520,46 +518,24 @@ our box, and we'll send this list to client</p>
   }
 }
 </code></pre>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>In production-ready sensors, the <code>Tick</code> function should be very optimized,
-specially if the sensor sends big chunks of data. This function is called
-every update in the game thread thus significantly affects the performance
-of the simulator.</p>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>在可投入生产的传感器中，该<code>Tick</code>函数应该非常优化，特别是当传感器发送大量数据时。游戏线程中的每次更新都会调用此函数，因此会显着影响仿真器的性能。</p>
 </div>
-<p>Ok, a couple of things going on here that we haven't mentioned yet, what's this
-stream?</p>
-<p>Every sensor has a data stream associated. This stream is used to send data down
-to the client, and this is the stream you subscribe to when you use the
-<code>sensor.listen(callback)</code> method in the Python API. Every time you send here
-some data, the callback on the client-side is going to be triggered. But before
-that, the data is going to travel through several layers. First of them will be
-the serializer that we have to create next. We'll fully understand this part
-once we have completed the <code>Serialize</code> function in the next section.</p>
+<p>好吧，这里发生了一些我们还没有提到的事情，这个流是什么？</p>
+<p>每个传感器都有一个关联的数据流。该流用于将数据发送到客户端，这是您在 Python API 中使用 <code>sensor.listen(callback)</code> 方法时订阅的流。每次向这里发送一些数据时，都会触发客户端的回调。但在此之前，数据将经过多个层。首先是我们接下来要创建的序列化器。一旦我们完成了下一节的<code>Serialize</code>功能，我们就会完全理解这一部分。</p>
 <h3 id="2-">2- 传感器数据串行器</h3>
-<p>This class is actually rather simple, it's only required to have two static
-methods, <code>Serialize</code> and <code>Deserialize</code>. We'll add two files for it, this time to
-LibCarla</p>
+<p>这个类其实比较简单，只需要有两个静态方法，<code>Serialize</code>和<code>Deserialize</code>。我们将为它添加两个文件，这次是 LibCarla</p>
 <ul>
 <li><code>LibCarla/source/carla/sensor/s11n/SafeDistanceSerializer.h</code></li>
 <li><code>LibCarla/source/carla/sensor/s11n/SafeDistanceSerializer.cpp</code></li>
 </ul>
-<p>Let's start with the <code>Serialize</code> function. This function is going to receive as
-arguments whatever we pass to the <code>Stream.Send(...)</code> function, with the only
-condition that the first argument has to be a sensor and it has to return a
-buffer.</p>
+<p>让我们从<code>Serialize</code>函数开始。该函数将接收我们传递给<code>Stream.Send(...)</code>函数的任何内容作为参数，唯一的条件是第一个参数必须是传感器并且它必须返回一个缓冲区。</p>
 <pre><code class="language-cpp">static Buffer Serialize(const Sensor &amp;, ...);
 </code></pre>
-<p>A <code>carla::Buffer</code> is just a dynamically allocated piece of raw memory with some
-convenient functionality, we're going to use it to send raw data to the client.</p>
-<p>In this example, we need to write the list of detected actors to a buffer in a
-way that it can be meaningful in the client-side. That's why we passed the
-episode object to this function.</p>
-<p>The <code>UCarlaEpisode</code> class represent the current <em>episode</em> running in the
-simulator, i.e. the state of the simulation since last time we loaded a map. It
-contains all the relevant information to Carla, and among other things, it
-allows searching for actor IDs. We can send these IDs to the client and the
-client will be able to recognise these as actors</p>
+<p><code>carla::Buffer</code> 只是一块动态分配的原始内存，具有一些方便的功能，我们将使用它向客户端发送原始数据。</p>
+<p>在此示例中，我们需要以在客户端有意义的方式将检测到的参与者列表写入缓冲区。这就是我们将剧集对象传递给此函数的原因。</p>
+<p><code>UCarlaEpisode</code>类表示仿真器中运行的当前 <em>情节</em>，即自上次加载地图以来的模拟状态。它包含与 Carla 相关的所有信息，除其他外，它还允许搜索演员 ID。我们可以将这些 ID 发送给客户端，客户端将能够将这些 ID 识别为参与者</p>
 <pre><code class="language-cpp">template &lt;typename SensorT, typename EpisodeT, typename ActorListT&gt;
 static Buffer Serialize(
     const SensorT &amp;,
@@ -576,26 +552,22 @@ static Buffer Serialize(
   return buffer;
 }
 </code></pre>
-<p>Note that we templatize the UE4 classes to avoid including these files within
-LibCarla.</p>
-<p>This buffer we're returning is going to come back to us, except that this time
-in the client-side, in the <code>Deserialize</code> function packed in a <code>RawData</code> object</p>
+<p>注意：我们对虚幻引擎 4 类进行模板化以避免在 LibCarla 中包含这些文件。</p>
+<p>我们要返回的这个缓冲区将会返回给我们，只不过这次是在客户端，在封装在<code>RawData</code>对象中的<code>Deserialize</code>函数中</p>
 <pre><code class="language-cpp">static SharedPtr&lt;SensorData&gt; Deserialize(RawData &amp;&amp;data);
 </code></pre>
-<p>We'll implement this method in the cpp file, and it's rather simple</p>
+<p>我们在 cpp 文件中实现这个方法，比较简单</p>
 <pre><code class="language-cpp">SharedPtr&lt;SensorData&gt; SafeDistanceSerializer::Deserialize(RawData &amp;&amp;data) {
   return SharedPtr&lt;SensorData&gt;(new data::SafeDistanceEvent(std::move(data)));
 }
 </code></pre>
-<p>except for the fact that we haven't defined yet what's a <code>SafeDistanceEvent</code>.</p>
+<p>除了我们还没有定义什么是 SafeDistanceEvent。</p>
 <h3 id="3-">3- 传感器数据对象</h3>
-<p>We need to create a data object for the users of this sensor, representing the
-data of a <em>safe distance event</em>. We'll add this file to</p>
+<p>我们需要为该传感器的用户创建一个数据对象，表示 <em>安全距离事件</em> 的数据。我们将此文件添加到</p>
 <ul>
 <li><code>LibCarla/source/carla/sensor/data/SafeDistanceEvent.h</code></li>
 </ul>
-<p>This object is going to be equivalent to a list of actor IDs. For that, we'll
-derive from the Array template</p>
+<p>该对象相当于参与者 ID 列表。为此，我们将从 Array 模板派生</p>
 <pre><code class="language-cpp">#pragma once
 
 #include &quot;carla/rpc/ActorId.h&quot;
@@ -616,16 +588,8 @@ namespace data {
 } // namespace sensor
 } // namespace carla
 </code></pre>
-<p>The Array template is going to reinterpret the buffer we created in the
-<code>Serialize</code> method as an array of actor IDs, and it's able to do so directly
-from the buffer we received, without allocating any new memory. Although for
-this small example may seem a bit overkill, this mechanism is also used for big
-chunks of data; imagine we're sending HD images, we save a lot by reusing the
-raw memory.</p>
-<p>Now we need to expose this class to Python. In our example, we haven't add any
-extra methods, so we'll just expose the methods related to Array. We do so by
-using Boost.Python bindings, add the following to
-<em>PythonAPI/carla/source/libcarla/SensorData.cpp</em>.</p>
+<p>数组模板将把我们在<code>Serialize</code>方法中创建的缓冲区重新解释为参与者 ID 数组，并且它能够直接从我们收到的缓冲区中执行此操作，而无需分配任何新内存。虽然对于这个小例子来说可能有点大材小用，但这种机制也适用于大数据块；想象一下我们正在发送高清图像，我们通过重用原始内存节省了很多。</p>
+<p>现在我们需要将此类公开给 Python。在我们的示例中，我们没有添加任何额外的方法，因此我们只公开与 Array 相关的方法。我们通过使用 Boost.Python 绑定来实现此目的，将以下内容添加到  <em>PythonAPI/carla/source/libcarla/SensorData.cpp</em> 。</p>
 <pre><code class="language-cpp">class_&lt;
     csd::SafeDistanceEvent,                    // actual type.
     bases&lt;cs::SensorData&gt;,                     // parent type.
@@ -639,34 +603,23 @@ using Boost.Python bindings, add the following to
   })
 ;
 </code></pre>
-<p>Note that <code>csd</code> is an alias for the namespace <code>carla::sensor::data</code>.</p>
-<p>What we're doing here is exposing some C++ methods in Python. Just with this,
-the Python API will be able to recognise our new event and it'll behave similar
-to an array in Python, except that cannot be modified.</p>
+<p>注意：<code>csd</code>是名称空间<code>carla::sensor::data</code>的别名。</p>
+<p>我们在这里所做的是在 Python 中公开一些 C++ 方法。这样，Python API 将能够识别我们的新事件，并且其行为类似于 Python 中的数组，只是不能修改。</p>
 <h3 id="4-">4- 注册您的传感器</h3>
-<p>Now that the pipeline is complete, we're ready to register our new sensor. We do
-so in <em>LibCarla/source/carla/sensor/SensorRegistry.h</em>. Follow the instruction in
-this header file to add the different includes and forward declarations, and add
-the following pair to the registry</p>
+<p>现在管道已完成，我们已准备好注册新传感器。我们在 <em>LibCarla/source/carla/sensor/SensorRegistry.h</em> 中这样做。按照此头文件中的说明添加不同的包含和前向声明，并将以下对添加到注册表中</p>
 <pre><code class="language-cpp">std::pair&lt;ASafeDistanceSensor *, s11n::SafeDistanceSerializer&gt;
 </code></pre>
-<p>With this, the sensor registry now can do its magic to dispatch the right data
-to the right serializer.</p>
-<p>Now recompile Carla, hopefully everything goes ok and no errors. Unfortunately,
-most of the errors here will be related to templates and the error messages can
-be a bit cryptic.</p>
+<p>有了这个，传感器注册表现在可以发挥其魔力，将正确的数据分派到正确的序列化器。</p>
+<p>现在重新编译 Carla，希望一切顺利并且没有错误。不幸的是，这里的大多数错误都与模板有关，并且错误消息可能有点神秘。</p>
 <pre><code>make rebuild
 </code></pre>
 <h3 id="5-">5- 使用示例</h3>
-<p>Finally, we have the sensor included and we have finished recompiling, our
-sensor by now should be available in Python.</p>
-<p>To spawn this sensor, we simply need to find it in the blueprint library, if
-everything went right, the sensor factory should have added our sensor to the
-library</p>
+<p>最后，我们已经包含了传感器，并且已经完成了重新编译，现在我们的传感器应该可以在 Python 中使用。</p>
+<p>要生成这个传感器，我们只需在蓝图库中找到它，如果一切顺利，传感器工厂应该已将我们的传感器添加到库中</p>
 <pre><code class="language-py">blueprint = blueprint_library.find('sensor.other.safe_distance')
 sensor = world.spawn_actor(blueprint, carla.Transform(), attach_to=vehicle)
 </code></pre>
-<p>and now we can start listening for events by registering a callback function</p>
+<p>现在我们可以通过注册回调函数来开始监听事件</p>
 <pre><code class="language-py">world_ref = weakref.ref(world)
 
 def callback(event):
@@ -676,47 +629,29 @@ def callback(event):
 
 sensor.listen(callback)
 </code></pre>
-<p>This callback is going to execute every update that another vehicle is inside
-our safety distance box, e.g.</p>
+<p>此回调将执行另一辆车在我们的安全距离框中的每次更新，例如</p>
 <pre><code>Vehicle too close: vehicle.audi.a2
 Vehicle too close: vehicle.mercedes-benz.coupe
 </code></pre>
-<p>That's it, we have a new sensor working!</p>
+<p>就是这样，我们有一个新的传感器正在工作！</p>
 <hr />
 <h2 id="_5">附录</h2>
 <h3 id="_6">重用缓冲区</h3>
-<p>In order to optimize memory usage, we can use the fact that each sensor sends
-buffers of similar size; in particularly, in the case of cameras, the size of
-the image is constant during execution. In those cases, we can save a lot by
-reusing the allocated memory between frames.</p>
-<p>Each stream contains a <em>buffer pool</em> that can be used to avoid unnecessary
-memory allocations. Remember that each sensor has a stream associated thus each
-sensor has its own buffer pool.</p>
-<p>Use the following to retrieve a buffer from the pool</p>
+<p>为了优化内存使用，我们可以利用每个传感器发送相似大小的缓冲区的事实；特别是，在相机的情况下，图像的大小在执行期间是恒定的。在这些情况下，我们可以通过重用帧之间分配的内存来节省大量资源。</p>
+<p>每个流都包含一个 <em>缓冲池</em> ，可用于避免不必要的内存分配。请记住，每个传感器都有一个关联的流，因此每个传感器都有自己的缓冲池。</p>
+<p>使用以下命令从池中检索缓冲区</p>
 <pre><code class="language-cpp">auto Buffer = Stream.PopBufferFromPool();
 </code></pre>
-<p>If the pool is empty, it returns an empty buffer, i.e. a buffer with no memory
-allocated. In that case, when you resize the buffer new memory will be
-allocated. This will happen a few times during the first frames. However, if a
-buffer was retrieved from the pool, its memory will go back to the pool once the
-buffer goes out of the scope. Next time you get another buffer from the pool,
-it'll contain the allocated piece of memory from the previous buffer. As you can
-see, a buffer object acts actually as an smart pointer to a contiguous piece of
-raw memory. As long as you don't request more memory than the currently
-allocated, the buffer reuses the memory. If you request more, then it'll have to
-delete the current memory and allocate a bigger chunk.</p>
-<p>The following snippet illustrates how buffers work</p>
+<p>如果池为空，则返回一个空缓冲区，即没有分配内存的缓冲区。在这种情况下，当您调整缓冲区大小时，将分配新的内存。在第一帧期间，这种情况会发生几次。但是，如果从池中检索缓冲区，则一旦缓冲区超出范围，其内存将返回到池中。下次从池中获取另一个缓冲区时，它将包含从前一个缓冲区分配的内存。正如您所看到的，缓冲区对象实际上充当指向连续原始内存的智能指针。只要您请求的内存不超过当前分配的内存，缓冲区就会重用该内存。如果您请求更多，则必须删除当前内存并分配更大的块。</p>
+<p>以下代码片段说明了缓冲区的工作原理</p>
 <pre><code class="language-cpp">Buffer buffer;
 buffer.reset(1024u); // (size 1024 bytes, capacity 1024 bytes) -&gt; allocates
 buffer.reset(512u);  // (size  512 bytes, capacity 1024 bytes)
 buffer.reset(2048u); // (size 2048 bytes, capacity 2048 bytes) -&gt; allocates
 </code></pre>
 <h3 id="_7">异步发送数据</h3>
-<p>Some sensors may require to send data asynchronously, either for performance or
-because the data is generated in a different thread, for instance, camera sensors send
-the images from the render thread.</p>
-<p>Using the data stream asynchronously is perfectly fine, as long as the stream
-itself is created in the game thread. For instance</p>
+<p>某些传感器可能需要异步发送数据，要么是为了性能，要么是因为数据是在不同的线程中生成的，例如，相机传感器从渲染线程发送图像。</p>
+<p>异步使用数据流是完全可以的，只要数据流本身是在游戏线程中创建的。例如</p>
 <pre><code class="language-cpp">void MySensor::Tick(float DeltaSeconds)
 {
   Super::Tick(DeltaSeconds);
@@ -730,20 +665,9 @@ itself is created in the game thread. For instance</p>
 }
 </code></pre>
 <h3 id="_8">客户端传感器</h3>
-<p>Some sensors do not require the simulator to do their measurements, those
-sensors may run completely in the client-side freeing the simulator from extra
-computations. Examples of such sensors is the <em>LaneInvasion</em> sensors.</p>
-<p>The usual approach is to create a "dummy" sensor in the server-side, just so the
-simulator is aware that such actor exists. However, this dummy sensor doesn't tick
-nor sends any sort of data. Its counterpart on the client-side however,
-registers a "on tick" callback to execute some code on every new update. For
-instance, the LaneInvasion sensor registers a callback that notifies every time a
-lane mark has been crossed.</p>
-<p>It is very important to take into account that the "on tick" callback in the
-client-side is executed concurrently, i.e., the same method may be executed
-simultaneously by different threads. Any data accessed must be properly
-synchronized, either with a mutex, using atomics, or even better making sure all
-the members accessed remain constant.</p>
+<p>有些传感器不需要仿真器进行测量，这些传感器可以完全在客户端运行，从而使仿真器免于额外的计算。此类传感器的示例是 <em>LaneInvasion</em> 传感器。</p>
+<p>通常的方法是在服务器端创建一个“虚拟”传感器，以便仿真器知道这样的参与者的存在。然而，这个虚拟传感器不会滴答信号，也不会发送任何类型的数据。然而，它在客户端的对应部分注册了一个“on tick”回调，以便在每次新更新时执行一些代码。例如，LaneInvasion 传感器会注册一个回调，每次越过车道标记时都会发出通知。</p>
+<p>考虑到客户端的“on tick”回调是并发执行的，即相同的方法可能由不同的线程同时执行，这一点非常重要。访问的任何数据都必须正确同步，可以使用互斥体、使用原子，或者更好地确保所有访问的成员保持不变。</p>
               
             </div>
           </div><footer>
