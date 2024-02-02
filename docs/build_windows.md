@@ -4,7 +4,7 @@
 
 构建过程很长（4小时或更长时间）并且涉及多种软件。强烈建议在开始之前完整阅读该指南。
 
-如果您遇到错误或困难，请查看**[常见问题解答](build_faq.md)**页面，其中提供了最常见问题的解决方案。或者，使用 [Carla 论坛](https://github.com/carla-simulator/carla/discussions) 发布您可能有的任何疑问。
+如果您遇到错误或困难，请查看**[常见问题解答](build_faq.md)**页面，其中提供了最常见问题的解决方案。或者使用 [Carla 论坛](https://github.com/carla-simulator/carla/discussions) 发布您可能有的任何疑问。
 
 - [__第一部分：先决条件__](#part-one-prerequisites)
     - [系统要求](#system-requirements)
@@ -75,24 +75,27 @@ pip3 install --user wheel
 
 从 [此处](https://developerinsider.co/download-visual-studio-2019-web-installer-iso-community-professional-enterprise/) 获取 2019 版 Visual Studio 。选择 __社区__ 作为免费版本。使用 __Visual Studio 安装程序__ 安装三个附加元素： 
 
-* __Windows 8.1 SDK.__ Select it in the _Installation details_ section on the right or go to the _Indivdual Components_ tab and look under the _SDKs, libraries, and frameworks_ heading.
-* __x64 Visual C++ Toolset.__ In the _Workloads_ section, choose __Desktop development with C++__. This will enable a x64 command prompt that will be used for the build. Check that it has been installed correctly by pressing the `Windows` button and searching for `x64`. Be careful __not to open a `x86_x64` prompt__.  
-* __.NET framework 4.6.2__. In the _Workloads_ section, choose __.NET desktop development__ and then in the _Installation details_ panel on the right, select `.NET Framework 4.6.2 development tools`. This is required to build Unreal Engine. 
+* __Windows 8.1 SDK.__ 在右侧的 _Installation details_ 部分中选择它，或者转到 _Indivdual Components_ 选项卡并在 _SDKs, libraries, and frameworks_ 标题下查看。
+* __x64 Visual C++ Toolset.__ 在 _Workloads_ 部分中，选择 __Desktop development with C++__ 。这将启用用于构建的 x64 命令提示符。通过按 `Windows` 按钮并搜索 `x64` 来检查它是否已正确安装。小心 __不要打开`x86_x64`提示__。
+* __.NET framework 4.6.2__. 在 _Workloads_ 部分中，选择 __.NET desktop development__ ，然后在右侧的安装详细信息面板中选择 `.NET Framework 4.6.2 development tools`。这是构建虚幻引擎所必需的。
 
 !!! 重要
-    Other Visual Studio versions may cause conflict. Even if these have been uninstalled, some registers may persist. To completely clean Visual Studio from the computer, go to `Program Files (x86)\Microsoft Visual Studio\Installer\resources\app\layout` and run `.\InstallCleanup.exe -full`  
+    其他 Visual Studio 版本可能会导致冲突。即使这些已被卸载，某些寄存器也可能仍然存在。要从计算机中彻底清除 Visual Studio，请转到`Program Files (x86)\Microsoft Visual Studio\Installer\resources\app\layout`并运行 `.\InstallCleanup.exe -full`。
 
 [命令行参数安装](https://learn.microsoft.com/zh-cn/visualstudio/install/use-command-line-parameters-to-install-visual-studio?view=vs-2019) 。
+
+!!! 笔记
+    还可以通过上述步骤使用 Visual Studio 2022，并将 Windows 8.1 SDK 替换为 Windows 11/10 SDK。要覆盖 CMake 中的默认 Visual Studio 2019 Generator，请在使用 makefile 命令时指定 GENERATOR="Visual Studio 17 2022"（请参见 [表](https://carla.readthedocs.io/en/latest/build_windows/#other-make-commands) ）。您可以指定任何与构建脚本中特定的构建命令配合使用的生成器，以进行完整列表运行`cmake -G`（到目前为止，Ninja 已经过测试可用于构建 LibCarla）。
 
 ##### 虚幻引擎
 
 从版本 0.9.12 开始，Carla 使用虚幻引擎 4.26 的修改版。该分支包含 Carla 特定的补丁。
 
-Be aware that to download this fork of Unreal Engine, __you need to have a GitHub account linked to Unreal Engine's account__. If you don't have this set up, please follow [this guide](https://www.unrealengine.com/en-US/ue4-on-github) before going any further.
+请注意，要下载虚幻引擎的这个分支，__您需要有一个链接到虚幻引擎帐户的 GitHub 帐户__ 。如果您没有进行此设置，请先按照 [本指南](https://www.unrealengine.com/en-US/ue4-on-github) 进行操作，然后再继续操作。
 
-To build the modified version of Unreal Engine:
+要构建虚幻引擎的修改版本：
 
-__1.__ In a terminal, navigate to the location you want to save Unreal Engine and clone the _carla_ branch:
+__1.__ 在终端中，导航到要保存虚幻引擎的位置并克隆 _carla_ 分支：
 
 ```sh
     git clone --depth 1 -b carla https://github.com/CarlaUnreal/UnrealEngine.git .
@@ -110,19 +113,19 @@ __2.__ 运行配置脚本：
 
 __3.__ 编译修改后的引擎：
 
->1. Open the `UE4.sln` file inside the source folder with Visual Studio 2019.
+>1. 使用 Visual Studio 2019打开`UE4.sln`源文件夹内的文件。
 
->2. In the build bar ensure that you have selected 'Development Editor', 'Win64' and 'UnrealBuildTool' options. Check [this guide](https://docs.unrealengine.com/en-US/ProductionPipelines/DevelopmentSetup/BuildingUnrealEngine/index.html) if you need any help. 
+>2. 在构建栏中，确保您已选择“Development Editor”、“Win64”和“UnrealBuildTool”选项。如果您需要任何帮助，请查看 [本指南](https://docs.unrealengine.com/en-US/ProductionPipelines/DevelopmentSetup/BuildingUnrealEngine/index.html) 。
         
->3. In the solution explorer, right-click `UE4` and select `Build`.
+>3. 在解决方案资源管理器中，右键单击`UE4`并选择`Build`。
 
-__4.__ Once the solution is compiled you can open the engine to check that everything was installed correctly by launching the executable `Engine\Binaries\Win64\UE4Editor.exe`.
+__4.__ 编译解决方案后，您可以打开引擎，通过启动可执行文件 `Engine\Binaries\Win64\UE4Editor.exe` 来检查所有内容是否已正确安装。
 
-!!! Note
-    If the installation was successful, this should be recognised by Unreal Engine's version selector. You can check this by right-clicking on any `.uproject` file and selecting `Switch Unreal Engine version`. You should see a pop-up showing `Source Build at PATH` where PATH is the installation path that you have chosen. If you can not see this selector or the `Generate Visual Studio project files` when you right-click on `.uproject` files, something went wrong with the Unreal Engine installation and you will likely need to reinstall it correctly.
+!!! 笔记
+    如果安装成功，虚幻引擎的版本选择器应该能够识别。您可以通过右键单击任何`.uproject`文件并选择 `Switch Unreal Engine version` 来检查这一点。您应该会看到一个弹出窗口，显示`Source Build at PATH`是您选择的安装路径。如果您在右键单击`.uproject`文件或`Generate Visual Studio project files`时看不到此选择器，则虚幻引擎安装出现问题，您可能需要重新正确安装。
 
-!!! Important
-    A lot has happened so far. It is highly advisable to restart the computer before continuing.
+!!! 重要
+    到目前为止发生了很多事情。强烈建议在继续之前重新启动计算机。
 
 ---
 ## 第二部分：构建 Carla
@@ -132,34 +135,34 @@ __4.__ Once the solution is compiled you can open the engine to check that every
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla" target="_blank" class="btn btn-neutral" title="Go to the CARLA repository">
-<span class="icon icon-github"></span> CARLA repository</a>
+<span class="icon icon-github"></span> Carla 仓库</a>
 </p>
 </div>
 
-The button above will take you to the official repository of the project. Either download from there and extract it locally or clone it using the following command:
+上面的按钮将带您进入该项目的官方存储库。从那里下载并在本地提取它或使用以下命令克隆它：
 
 ```sh
     git clone https://github.com/carla-simulator/carla
 ```
 
-!!! Note
-    The `master` branch contains the current release of Carla with the latest fixes and features. Previous Carla versions are tagged with the version name. Always remember to check the current branch in git with the command `git branch`. 
+!!! 笔记
+    该`master`分支包含 Carla 的当前版本以及最新的修复和功能。以前的 Carla 版本标有版本名称。永远记住使用命令`git branch`检查 git 中的当前分支。
 
 ### 获取资产
 
-Download the __latest__ assets to work with the current version of CARLA by running the following command in the CARLA root folder:
+通过在 Carla 根文件夹中运行以下命令，下载 __最新的__ 资产以使用当前版本的 Carla：
 
 ```sh
     Update.bat
 ```
 
-The assets will be downloaded and extracted to the appropriate location if have 7zip installed. If you do not have this software installed, you will need to manually extract the file contents to `Unreal\CarlaUE4\Content\Carla`.
+如果安装了 7zip，资源将被下载并解压到适当的位置。如果您没有安装此软件，则需要手动将文件内容解压到`Unreal\CarlaUE4\Content\Carla`。
 
-To download the assets for a __specific version__ of CARLA:
+要下载 __特定版本__ Carla 的资源：
 
-1. From the root Carla directory, navigate to `\Util\ContentVersions.txt`. This document contains the links to the assets for all CARLA releases. 
-2. Extract the assets in `Unreal\CarlaUE4\Content\Carla`. If the path doesn't exist, create it.  
-3. Extract the file with a command similar to the following:
+1. 从 Carla 根目录，导航到`\Util\ContentVersions.txt`。本文档包含所有 Carla 版本的资产链接。
+2. 提取 `Unreal\CarlaUE4\Content\Carla` 中的资产。如果该路径不存在，请创建它。
+3. 使用类似于以下内容的命令提取文件：
 
 ```sh
     tar -xvzf <assets_file_name>.tar.gz.tar -C C:\path\to\carla\Unreal\CarlaUE4\Content\Carla
@@ -167,117 +170,118 @@ To download the assets for a __specific version__ of CARLA:
 
 ### 设置虚幻引擎变量
 
-It is necessary to set an environment variable so that Carla can find the Unreal Engine installation folder. This allows users to choose which specific version of Unreal Engine is to be used. If no environment variable is specified, then Carla will search for Unreal Engine in the windows registry and use the first version it finds there.  
+需要设置一个环境变量，以便 Carla 可以找到虚幻引擎的安装文件夹。这允许用户选择要使用哪个特定版本的虚幻引擎。如果未指定环境变量，Carla 将在 Windows 注册表中搜索虚幻引擎并使用在那里找到的第一个版本。
 
-To set the environment variable:
+设置环境变量：
 
-1. Open Windows Control Panel and go to `Advanced System Settings` or search for `Advanced System Settings` in the Windows search bar.  
-2. On the `Advanced` panel open `Environment Variables...`.  
-3. Click `New...` to create the variable.  
-4. Name the variable `UE4_ROOT` and choose the path to the installation folder of the desired Unreal Engine installation.  
+1. 打开 Windows 控制面板，然后转至`Advanced System Settings`或在 Windows 搜索栏中搜索  `Advanced System Settings`。
+2. 在面板上Advanced`Advanced`打开`Environment Variables...`。
+3. 单击`New...`以创建变量。
+4. 为变量`UE4_ROOT`命名并选择所需虚幻引擎安装的安装文件夹的路径。
 
 
 ### 构建 Carla
 
-This section outlines the commands to build Carla. 
+本节概述了构建 Carla 的命令。
 
-- All commands should be run in the root Carla folder. 
-- Commands should be executed via the __x64 Native Tools Command Prompt for VS 2019__. Open this by clicking the `Windows` key and searching for `x64`.
+- 所有命令都应在根 Carla 文件夹中运行。
+- 命令应通过VS 2019 的 __x64 Native Tools Command Prompt for VS 2019__ 执行。通过单击该Windows键并搜索 来打开它x64。
 
-There are two parts to the build process for Carla, compiling the client and compiling the server.
+Carla 的构建过程分为两部分：编译客户端和编译服务器。
 
-__1.__ __Compile the Python API client__:
+__1.__ __编译 Python API 客户端__:
 
-The Python API client grants control over the simulation. Compilation of the Python API client is required the first time you build Carla and again after you perform any updates. After the client is compiled, you will be able to run scripts to interact with the simulation.
+Python API 客户端授予对模拟的控制权。第一次构建 Carla 时需要编译 Python API 客户端，并且在执行任何更新后需要再次编译。客户端编译完成后，您将能够运行脚本与模拟进行交互。
 
-The following command compiles the Python API client:
+以下命令编译 Python API 客户端：
 
 ```sh
     make PythonAPI
 ```
 
-The Carla client library will be built in two distinct, mutually exclusive forms. This gives users the freedom to choose which form they prefer to run the Carla client code. The two forms include `.egg` files and `.whl` files. Choose __one__ of the following options below to use the client library:
+Carla 客户端库将以两种截然不同、互斥的形式构建。这使用户可以自由选择他们喜欢的形式来运行 Carla 客户端代码。两种形式包括`.egg`文件和`.whl`文件。选择以下选项 __之一__ 来使用客户端库：
 
-__A. `.egg` file__
+__A. `.egg` 文件__
 
->The `.egg` file does not need to be installed. All of CARLA's example scripts automatically [look for this file](build_system.md#versions-prior-to-0912) when importing CARLA.
+>`.egg` 文件不需要安装。导入 Carla 时，Carla 的所有示例脚本都会自动 [查找此文件](build_system.md#versions-prior-to-0912) 。
 
->If you previously installed a Carla `.whl`, the `.whl` will take precedence over an `.egg` file.
+>如果您之前安装了 CARLA `.whl`，则 它将`.whl`优先于`.egg`文件。 
 
-__B. `.whl` file__
+__B. `.whl` 文件__
 
->The `.whl` file should be installed using `pip3`:
+>应使用以下`pip3`命令安装`.whl`文件：
 
 ```sh
 pip3 install <path/to/wheel>.whl
 ```
 
->This `.whl` file cannot be distributed as it is built specifically for your OS.
+>`.whl`文件无法分发，因为它是专门为您的操作系统构建的。
 
-!!! Warning
-    Issues can arise through the use of different methods to install the Carla client library and having different versions of Carla on your system. It is recommended to use virtual environments when installing the `.whl` and to [uninstall](build_faq.md#how-do-i-uninstall-the-carla-client-library) any previously installed client libraries before installing new ones.
+!!! 警告
+    使用不同方法安装 Carla 客户端库以及系统上安装不同版本的 Carla 可能会出现问题。建议在安装 `.whl` 时使用虚拟环境，并在安装新客户端库之前 [卸载](build_faq.md#how-do-i-uninstall-the-carla-client-library) 任何以前安装的客户端库。
 
-__2.__ __Compile the server__:
+__2.__ __编译服务端__:
 
-The following command compiles and launches Unreal Engine. Run this command each time you want to launch the server or use the Unreal Engine editor:
+以下命令编译并启动虚幻引擎。每次您想要启动服务器或使用虚幻引擎编辑器时运行此命令：
 
 ```sh
     make launch
 ```
 
-The project may ask to build other instances such as `UE4Editor-Carla.dll` the first time. Agree in order to open the project. During the first launch, the editor may show warnings regarding shaders and mesh distance fields. These take some time to be loaded and the map will not show properly until then.
+该项目可能会要求构建其他实例，例如`UE4Editor-Carla.dll`第一次。同意才能打开项目。在首次启动期间，编辑器可能会显示有关着色器和网格距离场的警告。这些需要一些时间来加载，在此之前地图将无法正确显示。
 
-__3.__ __Start the simulation__:
 
-Press **Play** to start the server simulation. The camera can be moved with `WASD` keys and rotated by clicking the scene while moving the mouse around.  
+__3.__ __开始仿真__:
 
-Test the simulator using the example scripts inside `PythonAPI\examples`.  With the simulator running, open a new terminal for each script and run the following commands to spawn some life into the town and create a weather cycle:
+按**Play**开始服务器模拟。可以使用按键移动相机`WASD`，并通过在移动鼠标的同时单击场景来旋转相机。 
+
+使用里面的示例脚本测试模拟器`PythonAPI\examples`。在仿真器运行的情况下，为每个脚本打开一个新终端并运行以下命令以在城镇中产生一些生命并创建天气循环：
 
 ```sh
-        # Terminal A 
+        # 终端 A 
         cd PythonAPI\examples
         pip3 install -r requirements.txt
         python3 generate_traffic.py  
 
-        # Terminal B
+        # 终端 B
         cd PythonAPI\examples
         python3 dynamic_weather.py 
 ```
 
-!!! Important
-    If the simulation is running at a very low FPS rate, go to `Edit -> Editor preferences -> Performance` in the Unreal Engine editor and disable `Use less CPU when in background`.
+!!! 重要
+    如果模拟以非常低的 FPS 速率运行，请转至虚幻引擎编辑器`Edit -> Editor preferences -> Performance`并禁用。
 
 ### 其他构建命令
 
-There are more `make` commands that you may find useful. Find them in the table below:  
+您可能会发现还有更多有用的`make`命令。在下表中找到它们：
 
-| Command | Description |
-| ------- | ------- |
-| `make help`                                                           | Prints all available commands.                                        |
-| `make launch`                                                         | Launches Carla server in Editor window.                               |
-| `make PythonAPI`                                                      | Builds the Carla client.                                              |
-| `make LibCarla`                                                       | Prepares the Carla library to be imported anywhere.                   |
-| `make package`                                                        | Builds Carla and creates a packaged version for distribution.         |
-| `make clean`                                                          | Deletes all the binaries and temporals generated by the build system. |
-| `make rebuild`                                                        | `make clean` and `make launch` both in one command.                   |
+| 命令 | 描述                                                |
+| ------- |---------------------------------------------------|
+| `make help`                                                           | 打印所有可用的命令。                                        |
+| `make launch`                                                         | 在编辑器窗口中启动 Carla 服务器。                              |
+| `make PythonAPI`                                                      | 构建 Carla 客户端。                                     |
+| `make LibCarla`                                                       | 准备将 Carla 库导入到任何地方。                               |
+| `make package`                                                        | 构建 Carla 并创建用于分发的打包版本。                            |
+| `make clean`                                                          | 删除构建系统生成的所有二进制文件和临时文件。                            |
+| `make rebuild`                                                        | `make clean` 和 `make launch` 两者都在一个命令中。 |
 
 
 ---
 
-Read the **[F.A.Q.](build_faq.md)** page or post in the [CARLA forum](https://github.com/carla-simulator/carla/discussions) for any issues regarding this guide.  
+有关本指南的任何问题， 请阅读 **[常见问题解答](build_faq.md)** 页面或在 [Carla 论坛](https://github.com/carla-simulator/carla/discussions) 中发帖。
 
-Now that you have built CARLA, learn how to update the CARLA build or take your first steps in the simulation, and learn some core concepts.
+现在您已经构建了 Carla，接下来了解如何更新 Carla 构建或在仿真中迈出第一步，并学习一些核心概念。
 
 <div class="build-buttons">
 
 <p>
 <a href="../build_update" target="_blank" class="btn btn-neutral" title="Learn how to update the build">
-Update Carla</a>
+更新 Carla</a>
 </p>
 
 <p>
 <a href="../core_concepts" target="_blank" class="btn btn-neutral" title="Learn about CARLA core concepts">
-First steps</a>
+第一步</a>
 </p>
 
 </div>
