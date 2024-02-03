@@ -24,17 +24,17 @@ ROS 桥接器使用具有通用接口的单独实现来支持 ROS 1 和 ROS 2。
 要运行的命令取决于您是通过 Debian 软件包还是通过源构建安装 ROS 桥。您还需要更改 Debian 选项路径中的 ROS 版本：
 
 ```sh
-    # 用于debian安装ROS桥。根据已安装的ROS版本更改命令。
-    source /opt/carla-ros-bridge/<melodic/noetic>/setup.bash
+# 用于debian安装ROS桥。根据已安装的ROS版本更改命令。
+source /opt/carla-ros-bridge/<melodic/noetic>/setup.bash
 
-    # 为 GitHub 库安装 ROS 桥
-    source ~/carla-ros-bridge/catkin_ws/devel/setup.bash
+# 为 GitHub 库安装 ROS 桥
+source ~/carla-ros-bridge/catkin_ws/devel/setup.bash
 ```
 
 #### 准备 ROS 2 环境：
 
 ```sh
-    source ./install/setup.bash
+source ./install/setup.bash
 ```
 
 ## 运行 ROS 桥
@@ -42,11 +42,11 @@ ROS 桥接器使用具有通用接口的单独实现来支持 ROS 1 和 ROS 2。
 设置 ROS 环境并运行 Carla 服务器后，您需要先启动`carla_ros_bridge`软件包，然后才能使用任何其他软件包。为此，请运行以下命令：
 
 ```sh
-    # ROS 1
-    roslaunch carla_ros_bridge carla_ros_bridge.launch
+# ROS 1
+roslaunch carla_ros_bridge carla_ros_bridge.launch
 
-    # ROS 2
-    ros2 launch carla_ros_bridge carla_ros_bridge.launch.py
+# ROS 2
+ros2 launch carla_ros_bridge carla_ros_bridge.launch.py
 ```
 
 还有其他启动文件结合了上述功能，在启动其他包或插件的同时启动 ROS 桥接器：
@@ -66,7 +66,7 @@ roslaunch carla_ros_bridge carla_ros_bridge.launch passive:=True
 
 可以使用以下设置：
 
-* __use_sim_time__: 应设置为 __True__ 以确保 ROS 使用仿真时间而不是系统时间。该参数将使 ROS [`/clock`][ros_clock] 主题与 CARLA 仿真时间同步。
+* __use_sim_time__: 应设置为 __True__ 以确保 ROS 使用仿真时间而不是系统时间。该参数将使 ROS [`/clock`][ros_clock] 主题与 Carla 仿真时间同步。
 *  __host and port__: 使用 Python 客户端连接到 Carla 的网络设置。
 * __timeout__: 等待成功连接到服务器的时间。
 * __passive__: 被动模式用于同步模式。启用后，ROS 桥接器将退居次要地位，而另一个客户端 __必须__ 与世界打交道。ROS 桥将等待接收来自所有传感器的所有预期数据。
@@ -97,7 +97,7 @@ ROS 桥默认以同步模式运行。它将等待当前帧内预期的所有传�
 - 用消息向主题 `/carla/control` 发送 [`carla_msgs.CarlaControl`](ros_msgs.md#carlacontrolmsg) 。
 - 使用 [控制 rqt 插件](rqt_plugin.md) 。该插件启动一个具有简单界面的新窗口。然后它用于管理步骤并在`/carla/control`主题中发布。要使用它，请在同步模式下使用 Carla 运行以下命令：
 ```sh
-    rqt --standalone rqt_carla_control
+rqt --standalone rqt_carla_control
 ```
 
 ---
@@ -116,11 +116,11 @@ ROS 桥默认以同步模式运行。它将等待当前帧内预期的所有传�
 __1.__ 使用 ego 车辆启动 ROS 桥：
 
 ```sh
-    # ROS 1
-    roslaunch carla_ros_bridge carla_ros_bridge_with_example_ego_vehicle.launch
+# ROS 1
+roslaunch carla_ros_bridge carla_ros_bridge_with_example_ego_vehicle.launch
 
-    # ROS 2
-    ros2 launch carla_ros_bridge carla_ros_bridge_with_example_ego_vehicle.launch.py
+# ROS 2
+ros2 launch carla_ros_bridge carla_ros_bridge_with_example_ego_vehicle.launch.py
 ```
 
 __2.__ 在另一个终端中，发布到主题 `/carla/<ROLE NAME>/vehicle_control_cmd`
