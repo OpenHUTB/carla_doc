@@ -1,29 +1,29 @@
-# Carla Manual Control
+# Carla 手动控制
 
-The [CARLA manual control package](https://github.com/carla-simulator/ros-bridge/tree/master/carla_manual_control) is a ROS only version of the [`manual_control.py`][manualcontrol] script that comes packaged with CARLA. All data is received via ROS topics. 
+[CARLA 手动控制包](https://github.com/carla-simulator/ros-bridge/tree/master/carla_manual_control) 是与 Carla 一起打包的 [`manual_control.py`][manualcontrol] 脚本的仅 ROS 版本。所有数据均通过 ROS 主题接收。 
 
 [manualcontrol]: https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/manual_control.py
 
-- [__Requirements__](#requirements)
-- [__Run the package__](#run-the-package)
+- [__需求__](#requirements)
+- [__运行包__](#run-the-package)
 ---
 
-## Requirements
+## 需求
 
-To be able to use `carla_manual_control`, some specific sensors need to be attached to the ego vehicle (see [Carla Spawn Objects](carla_spawn_objects.md) for information on how to attach sensors to vehicles):
+为了能够使用`carla_manual_control`，需要将一些特定的传感器连接到自我车辆（有关如何将传感器连接到车辆的信息，请参阅 [Carla 生成对象](carla_spawn_objects.md) 对象）： 
 
-- __to display an image__: a camera with role-name `rgb_view` and resolution 800x600.
-- __to display the current position__: a GNSS sensor with role-name `gnss` and an odometry pseudo-sensor with role-name `odometry`.
-- __to get a notification on lane invasions__: a lane invasion sensor with role-name `lane_invasion`.
-- __to get a notification on collisons__: a collision sensor with role-name `collision`.
+- __to display an image__: 角色名为`rgb_view`和分辨率为 800x600 的相机。
+- __to display the current position__: 具有角色名称 `gnss` 的 GNSS 传感器和具有角色名`odometry`的里程计伪传感器。
+- __to get a notification on lane invasions__: 具有角色名`lane_invasion`的车道入侵传感器。
+- __to get a notification on collisons__: 具有角色名`collision`的碰撞传感器。
 
 ---
 
-## Run the package
+## 运行包
 
-To run the package:
+要运行包：
  
-__ 1.__ Make sure you have CARLA runing. Start the ROS bridge:
+__1.__ 确保 Carla 正在运行。启动 ROS 桥：
 
 ```sh
         # ROS 1
@@ -33,7 +33,7 @@ __ 1.__ Make sure you have CARLA runing. Start the ROS bridge:
         ros2 launch carla_ros_bridge carla_ros_bridge.launch.py
 ```
 
-__2.__ Spawn objects:
+__2.__ 生成对象：
 
 ```sh
         # ROS 1
@@ -43,7 +43,7 @@ __2.__ Spawn objects:
         ros2 launch carla_spawn_objects carla_spawn_objects.launch.py
 ```
 
-__3.__ Launch the `carla_manual_control` node:
+__3.__ 启动 `carla_manual_control` 节点：
 
 ```sh
         # ROS 1
@@ -53,9 +53,9 @@ __3.__ Launch the `carla_manual_control` node:
         ros2 launch carla_manual_control carla_manual_control.launch.py
 ```
 
-__4.__ To steer the vehicle manually, press 'B'. Press 'H' to see instructions.
+__4.__ 要手动驾驶车辆，请按“B”。按“H”查看说明。
 
-Alternatively, all of the above commands are combined into a separate, single launchfile and can be run at the same time by executing the following:
+或者，将上述所有命令组合成一个单独的启动文件，并可以通过执行以下命令同时运行：
 
 ```sh
         # ROS 1

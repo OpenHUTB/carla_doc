@@ -1,19 +1,19 @@
-# Carla Ackermann Control
+# Carla 阿克曼控制
 
-The [`carla_ackermann_control` package](https://github.com/carla-simulator/ros-bridge/tree/master/carla_ackermann_control) is used to control a CARLA vehicle with [Ackermann messages][ackermanncontrolmsg]. The package converts the Ackermann messages into [CarlaEgoVehicleControl][carlaegovehiclecontrolmsg] messages. It reads vehicle information from CARLA and passes that information to a Python based PID controller called `simple-pid` to control the acceleration and velocity.
+[`carla_ackermann_control` 软件包](https://github.com/carla-simulator/ros-bridge/tree/master/carla_ackermann_control) 用于通过阿克曼消息控制 Carla 车辆。该包将 [阿克曼消息][ackermanncontrolmsg] 转换为 [CarlaEgoVehicleControl][carlaegovehiclecontrolmsg] 消息。它从 Carla 读取车辆信息，并将该信息传递给基于 Python 的 PID 控制器，调用`simple-pid`控制器来控制加速度和速度。
 
 [ackermanncontrolmsg]: https://docs.ros.org/en/api/ackermann_msgs/html/msg/AckermannDrive.html
 [carlaegovehiclecontrolmsg]: https://carla.readthedocs.io/en/latest/ros_msgs/#carlaegovehiclecontrolmsg
 
-- [__Configuration__](#configuration)
-- [__Testing control messages__](#testing-control-messages)
-- [__ROS API__](#ros-api)
-    - [Subscriptions](#subscriptions)
-    - [Publications](#publications)
+- [__配置__](#configuration)
+- [__测试控制消息__](#testing-control-messages)
+- [__ROS 应用程序接口__](#ros-api)
+    - [订阅](#subscriptions)
+    - [发布](#publications)
 
 ---
 
-### Configuration
+### 配置
 
 Parameters can be set both initially in a [configuration file][ackermanconfig] when using both ROS 1 and ROS 2 and during runtime via ROS [dynamic reconfigure][rosdynamicreconfig] in ROS 1. 
 
@@ -22,7 +22,7 @@ Parameters can be set both initially in a [configuration file][ackermanconfig] w
 
 ---
 
-### Testing control messages
+### 测试控制消息
 
 Test the setup by sending commands to the car via the topic `/carla/<ROLE NAME>/ackermann_cmd`. For example, move an ego vehicle with the role name of `ego_vehicle` forward at a speed of 10 meters/sec by running this command:
 
@@ -50,9 +50,9 @@ ros2 topic pub /carla/ego_vehicle/ackermann_cmd ackermann_msgs/AckermannDrive "{
 
 ---
 
-### ROS API
+### ROS 应用程序接口
 
-#### Subscriptions
+#### 订阅
 
 |Topic|Type|Description|
 |--|--|--|
@@ -60,7 +60,7 @@ ros2 topic pub /carla/ego_vehicle/ackermann_cmd ackermann_msgs/AckermannDrive "{
 
 <br>
 
-#### Publications
+#### 发布
 
 |Topic|Type|Description|
 |--|--|--|

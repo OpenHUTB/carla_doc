@@ -1,9 +1,9 @@
 # 自定义地图：程序化建筑
 
 - [__程序化建筑__](#add-serial-meshes)
-	- [Building structure](#building-structure)
-	- [Structure modifications](#structure-modifications)
-- [__Next steps__](#next-steps)
+	- [建筑结构](#building-structure)
+	- [结构修改](#structure-modifications)
+- [__下一步__](#next-steps)
 
 ---
 

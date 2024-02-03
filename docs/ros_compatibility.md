@@ -1,18 +1,18 @@
-# ROS Compatiblity Node
+# ROS 兼容性节点
 
-The [ROS compatibility node](https://github.com/carla-simulator/ros-bridge/tree/master/ros_compatibility) is an interface that allows packages to be used seamlessly with both ROS 1 and ROS 2. Depending on the environment variable `ROS_VERSION`, the same API will call either ROS 1 or ROS 2 functions. It is used by creating classes that inherit from the `CompatibleNode`.
-
----
-
-## ROS parameters
-
-Parameters need to be declared before being set or accessed in ROS 2 by default. This is not the case in ROS 1. In order to keep both ROS 1 and ROS 2 modes working in a similar way, the parameter `allow_undeclared_parameters` is set to `True` in the ROS 2 version of the `CompatibleNode`, allowing the use of parameters without declaring them beforehand.
+[ROS 兼容性节点](https://github.com/carla-simulator/ros-bridge/tree/master/ros_compatibility) 是一个接口，允许软件包与 ROS 1 和 ROS 2 无缝使用。根据环境变量`ROS_VERSION`，相同的 API 将调用 ROS 1 或 ROS 2 函数。它通过创建继承`CompatibleNode`创建类。
 
 ---
 
-## Services
+## ROS 参数
 
-In ROS 2, services can be called asynchronously. This is not the case in ROS 1. Consequently, the `call_service()` method of the ROS 2 version waits for the server's response after calling it asynchronously, in order to mimic the ROS 1 synchronous behavior.
+默认情况下，在 ROS 2 中设置或访问参数之前需要声明参数。ROS 1 中并非如此。为了保持 ROS 1 和 ROS 2 模式以相似的方式工作，在 ROS 2 的`CompatibleNode`版本中将参数 `allow_undeclared_parameters` 设置为`True`，允许使用参数而无需事先声明。TrueCompatibleNode
 
-!!! Warning
-    While waiting for the response, the ROS 2 `call_service()` methods spins the node. This can cause problems (errors or deadlocks) if another thread spins the same node in parallel.
+---
+
+## 服务
+
+在 ROS 2 中，服务可以异步调用。ROS 1 中并非如此。因此，ROS 2 版本的`call_service()`方法在异步调用后会等待服务器的响应，以模仿 ROS 1 的同步行为。
+
+!!! 警告
+    在等待响应时，ROS 2 的`call_service()`方法会旋转节点。如果另一个线程并行旋转同一节点，这可能会导致问题（错误或死锁）。
