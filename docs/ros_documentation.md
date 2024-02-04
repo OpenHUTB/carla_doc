@@ -36,8 +36,8 @@ ROS 桥具有以下特点：
 - [__Carla 自动驾驶代理__](carla_ad_agent.md) - 遵循路线、避免碰撞并遵守交通灯的示例代理
 - [__Carla 自动驾驶示例__](carla_ad_demo.md) - 一个示例包，提供使用自动驾驶车辆启动 Carla ROS 环境所需的一切
 - [__Carla ROS Scenario Runner__](carla_ros_scenario_runner.md) - 通过 ROS 使用 Carla Scenario Runner 执行 OpenScenarios 的包装器
-- [__Carla 扭转控制__](carla_twist_to_control.md) - 将扭转控制转换为 CARLA 车辆控制
-- [__RVIZ plugin__](rviz_plugin.md) - 用于可视化/控制 Carla 的 RVIZ 插件
+- [__Carla 扭转控制__](carla_twist_to_control.md) - 将扭转控制转换为 Carla 车辆控制
+- [__RVIZ 插件__](rviz_plugin.md) - 用于可视化/控制 Carla 的 RVIZ 插件
 - [__RQT 插件__](rqt_plugin.md) - 用于控制 Carla 的 RQT 插件
 - [__PCL 记录器__](pcl_recorder.md) - 根据仿真捕获的数据创建点云地图
 

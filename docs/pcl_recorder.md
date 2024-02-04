@@ -1,12 +1,12 @@
-# Point Cloud Map Creation
+# 点云地图创建
 
-The [PCL recorder package](https://github.com/carla-simulator/ros-bridge/tree/master/pcl_recorder) allows you to create point cloud maps from CARLA maps.
+[PCL记录器](https://github.com/carla-simulator/ros-bridge/tree/master/pcl_recorder) 包允许您从 Carla 地图创建点云地图。
 
 ---
 
-## Before you begin
+## 在你开始之前
 
-Install the `pcl-tools` library:
+安装 `pcl-tools` 库：
 
 ```sh
 sudo apt install pcl-tools
@@ -14,11 +14,11 @@ sudo apt install pcl-tools
 
 ---
 
-## Using the PCL recorder
+## 使用 PCL 记录器
 
-The PCL recorder package will spawn an ego vehicle that can be controlled with the keyboard or via the autopilot functionality within the Carla PythonAPI.
+PCL 记录器包将生成一辆自我车辆，可以通过键盘或 Carla PythonAPI 中的自动驾驶功能进行控制。
 
-__1.__ After starting a CARLA server, in a new terminal run the following command to launch the PCL recorder package:
+__1.__ 启动 Carla 服务器后，在新终端中运行以下命令来启动 PCL 记录器包：
 
 ```sh
 # ROS 1
@@ -27,7 +27,7 @@ roslaunch pcl_recorder pcl_recorder.launch
 # ROS 2
 ros2 launch pcl_recorder pcl_recorder.launch.py
 ```
-__2.__ When the capture drive is finished, reduce the overall size of the point cloud:
+__2.__ 捕获驱动完成后，减小点云的整体大小：
 
 ```
 # Create one point cloud file
@@ -37,7 +37,7 @@ pcl_concatenate_points_pcd /tmp/pcl_capture/*.pcd
 pcl_voxel_grid -leaf 0.1,0.1,0.1 output.pcd map.pcd
 ```
 
-__3.__ Verify the result:
+__3.__ 验证结果：
 
 ```sh
 pcl_viewer map.pcd

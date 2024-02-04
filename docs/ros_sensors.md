@@ -1,138 +1,139 @@
-# ROS Bridge Sensors
+# ROS 桥传感器
 
 ---
 
-## Available Sensors
+## 可用传感器
 
-###### RGB camera
+###### RGB 相机
 
-| Topic | Type |
+| 主题                                                           | 类型 |
+|--------------------------------------------------------------|------|
+| `/carla/[<PARENT ROLE NAME>]/<SENSOR ROLE NAME>/image`       | [sensor_msgs/Image](https://docs.ros.org/en/api/sensor_msgs/html/msg/Image.html) |
+| `/carla/[<PARENT ROLE NAME>]/<SENSOR ROLE NAME>/camera_info` | [sensor_msgs/CameraInfo](https://docs.ros.org/en/api/sensor_msgs/html/msg/CameraInfo.html) |
+
+###### 深度相机
+
+| 主题 | 类型 |
 |-------|------|
 | `/carla/[<PARENT ROLE NAME>]/<SENSOR ROLE NAME>/image` | [sensor_msgs/Image](https://docs.ros.org/en/api/sensor_msgs/html/msg/Image.html) |
 | `/carla/[<PARENT ROLE NAME>]/<SENSOR ROLE NAME>/camera_info` | [sensor_msgs/CameraInfo](https://docs.ros.org/en/api/sensor_msgs/html/msg/CameraInfo.html) |
 
-###### Depth camera
+###### 语义分割相机
 
-| Topic | Type |
-|-------|------|
-| `/carla/[<PARENT ROLE NAME>]/<SENSOR ROLE NAME>/image` | [sensor_msgs/Image](https://docs.ros.org/en/api/sensor_msgs/html/msg/Image.html) |
-| `/carla/[<PARENT ROLE NAME>]/<SENSOR ROLE NAME>/camera_info` | [sensor_msgs/CameraInfo](https://docs.ros.org/en/api/sensor_msgs/html/msg/CameraInfo.html) |
-
-###### Semantic segmentation camera
-
-| Topic | Type |
+| 主题 | 类型 |
 |-------|------|
 | `/carla/[<PARENT ROLE NAME>]/<SENSOR ROLE NAME>/image` | [sensor_msgs/Image](https://docs.ros.org/en/api/sensor_msgs/html/msg/Image.html) |
 |  `/carla/[<PARENT ROLE NAME>]/<SENSOR ROLE NAME>/camera_info` | [sensor_msgs/CameraInfo](http://docs.ros.org/en/api/sensor_msgs/html/msg/CameraInfo.html) |
 
-###### DVS camera
+###### DVS 相机
 
-| Topic | Type |
+| 主题 | 类型 |
 |-------|------|
 | `/carla/[<PARENT ROLE NAME>]/<SENSOR ROLE NAME>/events` | [sensor_msgs/PointCloud2](https://docs.ros.org/en/api/sensor_msgs/html/msg/PointCloud2.html) |
 | `/carla/[<PARENT ROLE NAME>]/<SENSOR ROLE NAME>/image` | [sensor_msgs/Image](https://docs.ros.org/en/api/sensor_msgs/html/msg/Image.html) |
 | `/carla/[<PARENT ROLE NAME>]/<SENSOR ROLE NAME>/camera_info` | [sensor_msgs/CameraInfo](https://docs.ros.org/en/api/sensor_msgs/html/msg/CameraInfo.html) |
 
-###### Lidar
+###### 激光雷达
 
-| Topic | Type |
+| 主题 | 类型 |
 |-------|------|
 | `/carla/[<PARENT ROLE NAME>]/<SENSOR ROLE NAME>` | [sensor_msgs/PointCloud2](https://docs.ros.org/en/api/sensor_msgs/html/msg/PointCloud2.html) |
 
-###### Semantic lidar
+###### 语义激光雷达
 
-| Topic | Type |
+| 主题 | 类型 |
 |-------|------|
 | `/carla/[<PARENT ROLE NAME>]/<SENSOR ROLE NAME>` | [sensor_msgs/PointCloud2](https://docs.ros.org/en/api/sensor_msgs/html/msg/PointCloud2.html) |
 
-###### Radar
+###### 雷达
 
-| Topic | Type |
+| 主题 | 类型 |
 |-------|------|
 | `/carla/[<PARENT ROLE NAME>]/<SENSOR ROLE NAME>` | [sensor_msgs/PointCloud2](https://docs.ros.org/en/api/sensor_msgs/html/msg/PointCloud2.html) |
 
-###### IMU
+###### 惯性测量单元
 
-| Topic | Type |
+| 主题 | 类型 |
 |-------|------|
 | `/carla/[<PARENT ROLE NAME>]/<SENSOR ROLE NAME>` | [sensor_msgs/Imu](https://docs.ros.org/en/api/sensor_msgs/html/msg/Imu.html) |
 
-###### GNSS
+###### 全球导航卫星系统
 
-| Topic | Type |
+| 主题 | 类型 |
 |-------|------|
 | `/carla/[<PARENT ROLE NAME>]/<SENSOR ROLE NAME>` | [sensor_msgs/NavSatFix](https://docs.ros.org/en/api/sensor_msgs/html/msg/NavSatFix.html) |
 
-###### Collision Sensor
+###### 碰撞传感器
 
-| Topic | Type |
+| 主题 | 类型 |
 |-------|------|
 | `/carla/[<PARENT ROLE NAME>]/<SENSOR ROLE NAME>` | [carla_msgs/CarlaCollisionEvent](https://github.com/carla-simulator/ros-carla-msgs/blob/master/msg/CarlaCollisionEvent.msg) |
 
-###### Lane Invasion Sensor
+###### 车道入侵传感器
 
-| Topic | Type |
+| 主题 | 类型 |
 |-------|------|
 | `/carla/[<PARENT ROLE NAME>]/<SENSOR ROLE NAME>` | [carla_msgs/CarlaLaneInvasionEvent](https://github.com/carla-simulator/ros-carla-msgs/blob/master/msg/CarlaLaneInvasionEvent.msg) |
 
-Pseudo sensors
+伪传感器
 
-###### TF Sensor
+###### TF 传感器
 
 
 
-The tf data for the ego vehicle is published when this pseudo sensor is spawned.
+当生成此伪传感器时，将发布自我车辆的 tf 数据。
 
-Note: Sensors publish the tf data when the measurement is done. The child_frame_id corresponds with the prefix of the sensor topics.
+注意：传感器在测量完成后发布 tf 数据。child_frame_id 与传感器主题的前缀相对应。
 
-###### Odometry Sensor
+###### 里程计传感器
 
-| Topic | Type | Description |
+| 主题 | 类型 | 描述                                        |
+|-------|------|-------------------------------------------|
+| `/carla/<PARENT ROLE NAME>/<SENSOR ROLE NAME>` | [nav_msgs/Odometry](https://docs.ros.org/en/api/nav_msgs/html/msg/Odometry.html) | 父参与者的里程计。 |
+
+###### 车速表传感器
+
+| 主题 | 类型 | 描述 |
 |-------|------|-------------|
-| `/carla/<PARENT ROLE NAME>/<SENSOR ROLE NAME>` | [nav_msgs/Odometry](https://docs.ros.org/en/api/nav_msgs/html/msg/Odometry.html) | Odometry of the parent actor. |
+| `/carla/<PARENT ROLE NAME>/<SENSOR ROLE NAME>` | [std_msgs/Float32](https://docs.ros.org/en/api/std_msgs/html/msg/Float32.html) | 父参与者的速度。单位：米/秒。 |
 
-###### Speedometer Sensor
+###### 地图传感器
 
-| Topic | Type | Description |
+| 主题 | 类型 | 描述                                                                                      |
+|-------|------|-----------------------------------------------------------------------------------------|
+| `/carla/[<PARENT ROLE NAME>]/<SENSOR ROLE NAME>` | [std_msgs/String](https://docs.ros.org/en/api/std_msgs/html/msg/String.html) | 以锁定主题上的字符串形式提供 OpenDRIVE 映射。  |
+
+###### 目标传感器
+
+| 主题 | 类型 | 描述 |
 |-------|------|-------------|
-| `/carla/<PARENT ROLE NAME>/<SENSOR ROLE NAME>` | [std_msgs/Float32](https://docs.ros.org/en/api/std_msgs/html/msg/Float32.html) | Speed of the parent actor. Units: m/s. |
+| `/carla/[<PARENT ROLE NAME>]/<SENSOR ROLE NAME>` | [derived_object_msgs/ObjectArray](https://docs.ros.org/en/melodic/api/derived_object_msgs/html/msg/ObjectArray.html) | 发布所有车辆和步行者。如果附加到父级，则不包含父级。 |
 
-###### Map Sensor
+###### 标记传感器
 
-| Topic | Type | Description |
+| 主题 | 类型 | 描述           |
+|-------|------|--------------|
+| `/carla/[<PARENT ROLE NAME>]/<SENSOR ROLE NAME>` | [visualization_msgs/Marker](https://docs.ros.org/en/api/visualization_msgs/html/msg/Marker.html) | 车辆和行人的可视化 |
+
+###### 交通灯传感器
+
+| 主题 | 类型 | 描述 |
 |-------|------|-------------|
-| `/carla/[<PARENT ROLE NAME>]/<SENSOR ROLE NAME>` | [std_msgs/String](https://docs.ros.org/en/api/std_msgs/html/msg/String.html) | Provides the OpenDRIVE map as a string on a latched topic. |
+| `/carla/[<PARENT ROLE NAME>]/<SENSOR ROLE NAME>/status` | [carla_msgs/CarlaTrafficLightStatusList](https://github.com/carla-simulator/ros-carla-msgs/blob/master/msg/CarlaTrafficLightStatusList.msg) | 所有交通灯及其状态的列表。 |
+| `/carla/[<PARENT ROLE NAME>]/<SENSOR ROLE NAME>/info` | [carla_msgs/CarlaTrafficLightInfoList](https://github.com/carla-simulator/ros-carla-msgs/blob/master/msg/CarlaTrafficLightInfoList.msg) | 所有交通灯的静态信息（例如位置）。 |
 
-###### Object Sensor
+###### 参与者列表传感器
 
-| Topic | Type | Description |
+| 主题 | 类型 | 描述                                          |
+|-------|------|---------------------------------------------|
+| `/carla/[<PARENT ROLE NAME>]/<SENSOR ROLE NAME>` | [carla_msgs/CarlaActorList](https://github.com/carla-simulator/ros-carla-msgs/blob/master/msg/CarlaActorList.msg) | 所有 Carla 参与者的列表。 |
+
+###### 参与者控制传感器
+
+该伪传感器允许通过在 Pose 和 Twist 数据类型中发布姿势和速度来控制其所连接的 actor（例如 ego_vehicle）的位置和速度。注意：此控制方法不考虑车辆限制。它允许现实世界中不可能的运动，例如飞行或旋转。目前，该传感器应用完整的线性矢量，但仅应用角度矢量的偏航。
+
+
+| 主题 | 类型 | 描述 |
 |-------|------|-------------|
-| `/carla/[<PARENT ROLE NAME>]/<SENSOR ROLE NAME>` | [derived_object_msgs/ObjectArray](https://docs.ros.org/en/melodic/api/derived_object_msgs/html/msg/ObjectArray.html) | Publishes all vehicles and walker. If attached to a parent, the parent is not contained. |
-
-###### Marker Sensor
-
-| Topic | Type | Description |
-|-------|------|-------------|
-| `/carla/[<PARENT ROLE NAME>]/<SENSOR ROLE NAME>` | [visualization_msgs/Marker](https://docs.ros.org/en/api/visualization_msgs/html/msg/Marker.html) | Visualization of vehicles and walkers |
-
-###### Traffic Lights Sensor
-
-| Topic | Type | Description |
-|-------|------|-------------|
-| `/carla/[<PARENT ROLE NAME>]/<SENSOR ROLE NAME>/status` | [carla_msgs/CarlaTrafficLightStatusList](https://github.com/carla-simulator/ros-carla-msgs/blob/master/msg/CarlaTrafficLightStatusList.msg) | List of all traffic lights with their status. |
-| `/carla/[<PARENT ROLE NAME>]/<SENSOR ROLE NAME>/info` | [carla_msgs/CarlaTrafficLightInfoList](https://github.com/carla-simulator/ros-carla-msgs/blob/master/msg/CarlaTrafficLightInfoList.msg) | Static information for all traffic lights (e.g. position). |
-
-###### Actor List Sensor
-
-| Topic | Type | Description |
-|-------|------|-------------|
-| `/carla/[<PARENT ROLE NAME>]/<SENSOR ROLE NAME>` | [carla_msgs/CarlaActorList](https://github.com/carla-simulator/ros-carla-msgs/blob/master/msg/CarlaActorList.msg) | List of all CARLA actors. |
-
-###### Actor Control Sensor
-
-This pseudo-sensor allows to control the position and velocity of the actor it is attached to (e.g. an ego_vehicle) by publishing pose and velocity within Pose and Twist datatypes. CAUTION: This control method does not respect the vehicle constraints. It allows movements impossible in the real world, like flying or rotating. Currently this sensor applies the complete linear vector, but only the yaw from angular vector.
-
-| Topic | Type | Description |
-|-------|------|-------------|
-| `/carla/[<PARENT ROLE NAME>]/<SENSOR ROLE NAME>/set_transform` | [geometry_msgs/Pose](https://docs.ros.org/en/api/geometry_msgs/html/msg/Pose.html) | Transform to apply to the sensor's parent. |
-| `/carla/[<PARENT ROLE NAME>]/<SENSOR ROLE NAME>/set_target_velocity` | [geometry_msgs/Twist](https://docs.ros.org/en/api/geometry_msgs/html/msg/Twist.html) | Velocity (angular and linear) to apply to the sensor's parent. |
+| `/carla/[<PARENT ROLE NAME>]/<SENSOR ROLE NAME>/set_transform` | [geometry_msgs/Pose](https://docs.ros.org/en/api/geometry_msgs/html/msg/Pose.html) | 转换以应用于传感器的父级。 |
+| `/carla/[<PARENT ROLE NAME>]/<SENSOR ROLE NAME>/set_target_velocity` | [geometry_msgs/Twist](https://docs.ros.org/en/api/geometry_msgs/html/msg/Twist.html) | 应用于传感器父级的速度（角度和线性）。 |

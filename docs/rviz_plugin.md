@@ -1,23 +1,23 @@
-# RVIZ Carla Plugin
+# RVIZ Carla 插件
 
-The [RVIZ plugin](https://github.com/carla-simulator/ros-bridge/tree/master/rviz_carla_plugin) provides a visualization tool based on the [RVIZ](https://wiki.ros.org/rviz) ROS package.
+[RVIZ 插件](https://github.com/carla-simulator/ros-bridge/tree/master/rviz_carla_plugin) 提供了基于 [RVIZ](https://wiki.ros.org/rviz) ROS包的可视化工具。
 
-- [__Run ROS bridge with RVIZ__](#run-ros-bridge-with-rviz)
-- [__Features of the RVIZ plugin__](#features-of-the-rviz-plugin)
-- [__ROS API__](#ros-api)
-    - [Subscriptions](#subscriptions)
-    - [Publications](#publications)
-    - [Services](#services)
+- [__使用 RVIZ 运行 ROS 桥__](#run-ros-bridge-with-rviz)
+- [__RVIZ 插件的功能__](#features-of-the-rviz-plugin)
+- [__ROS 应用程序接口__](#ros-api)
+    - [订阅](#subscriptions)
+    - [发布](#publications)
+    - [服务](#services)
 
 ---
 
-## Run ROS bridge with RVIZ
+## 使用 RVIZ 运行 ROS 桥
 
-![ros_rviz](images/ros_rviz.png)
+![ros_rviz](img/ros_rviz.png)
 
-The RVIZ plugin expects an ego vehicle named `ego_vehicle`. To see an example of ROS-bridge working with RVIZ, execute the following commands with a CARLA server running:
+RVIZ 插件需要一个名为 `ego_vehicle` 的自我车辆。要查看 ROS 桥与 RVIZ 配合使用的示例，请在运行的 Carla 服务器上执行以下命令：
 
-__1.__ Start the ROS bridge with RVIZ enabled:
+__1.__ 在启用 RVIZ 的情况下启动 ROS 桥：
 
 ```sh
 # ROS 1
@@ -27,7 +27,7 @@ roslaunch carla_ros_bridge carla_ros_bridge.launch
 ros2 launch carla_ros_bridge carla_ros_bridge.launch.py
 ```
 
-__2.__ Start RVIZ:
+__2.__ 启动 RVIZ：
 
 ```sh
 # ROS 1
@@ -37,7 +37,7 @@ rosrun rviz rviz
 ros2 run rviz2 rviz2
 ```
 
-__2.__ Spawn an ego vehicle with the `carla_spawn_objects` package:
+__2.__ 使用`carla_spawn_objects`包生成一辆自我车辆：
 
 ```sh
 # ROS 1
@@ -47,7 +47,7 @@ roslaunch carla_spawn_objects carla_spawn_objects.launch
 ros2 launch carla_spawn_objects carla_spawn_objects.launch.py
 ```
 
-__3.__ Control the ego vehicle with the `carla_manual_control` package (press `B` to enable manual steering):
+__3.__ 使用 `carla_manual_control` 包控制自我车辆（按下B可启用手动转向）：
 
 ```sh
 # ROS 1
@@ -59,46 +59,46 @@ ros2 launch carla_manual_control carla_manual_control.launch.py
 
 ---
 
-## Features of the RVIZ plugin
+## RVIZ 插件的功能
 
-- __Visualization of the ego vehicle state__ - Visualize the vehicle position and control.
-- __Provide RVIZ view pose to other nodes__ - With an `actor.pseudo.control` attached to a camera, move the camera around in the CARLA world by publishing a Pose message.
-- __Visualization of sensors__ - Visualize RGB, LIDAR, depth, DVS and semanatic segmentation camera information.
-- __Execute scenarios__ - Use the [carla_ros_scenario_runner](https://github.com/carla-simulator/ros-bridge/blob/master/carla_ros_scenario_runner) package to trigger scenarios.
-- __Play/Pause the simulation__ - If started in synchronous mode, you can play and pause the simulation.
-- __Manually override ego vehicle control__ - Steer the vehicle by mouse by using the drive-widget from the [RVIZ Visualization Tutorials](https://github.com/ros-visualization/visualization_tutorials) and a [node](https://github.com/carla-simulator/ros-bridge/blob/master/carla_twist_to_control) to convert from twist to vehicle control.
+- __自我车辆状态可视化__ - 可视化车辆位置和控制。
+- __向其他节点提供 RVIZ 视图姿势__ - 连接`actor.pseudo.control` 到相机后，通过发布姿势消息在 Carla 世界中移动相机。
+- __传感器可视化__ - 可视化 RGB、LIDAR、深度、DVS 和语义分割相机信息。
+- __执行场景__ - 使用 [carla_ros_scenario_runner](https://github.com/carla-simulator/ros-bridge/blob/master/carla_ros_scenario_runner) 包触发场景。
+- __播放/暂停仿真__ - 如果以同步模式启动，您可以播放和暂停仿真。
+- __手动覆盖自我车辆控制__ - 使用 [RVIZ Visualization Tutorials](https://github.com/ros-visualization/visualization_tutorials) 可视化教程中的驱动小部件和从扭曲转换为车辆控制的 [节点](https://github.com/carla-simulator/ros-bridge/blob/master/carla_twist_to_control) ，通过鼠标驾驶车辆。 
 
 ---
 
-## ROS API
+## ROS 应用程序接口
 
-#### Subscriptions
+#### 订阅
 
-| Topic | Type | Description |
-|-------|------|-------------|
-| `/carla/status` | [carla_msgs/CarlaStatus](ros_msgs.md#carlastatusmsg) | Read the current status of CARLA |
-| `/carla/ego_vehicle/vehicle_status` | [carla_msgs/CarlaEgoVehicleStatus](ros_msgs.md#carlaegovehiclestatusmsg) | Display the current state of the ego vehicle |
-| `/carla/ego_vehicle/odometry` | [nav_msgs/Odometry](https://docs.ros.org/en/api/nav_msgs/html/msg/Odometry.html) | Display the current pose of the ego vehicle |
-| `/scenario_runner/status` | [carla_ros_scenario_runner_types/CarlaScenarioRunnerStatus](ros_msgs.md#carlascenariorunnerstatusmsg) | Visualize the scenario runner status |
-| `/carla/available_scenarios` | [carla_ros_scenario_runner_types/CarlaScenarioList](ros_msgs.md#carlascenariolistmsg) | Provides a list of scenarios to execute (disabled in combo box)|
-
-<br>
-
-#### Publications
-
-| Topic | Type | Description |
-|-------|------|-------------|
-| `/carla/control` | [carla_msgs/CarlaControl](ros_msgs.md#carlacontrolmsg) | Play/pause/step CARLA |
-| `/carla/ego_vehicle/spectator_pose` | [geometry_msgs/PoseStamped](https://docs.ros.org/en/api/geometry_msgs/html/msg/PoseStamped.html) | Publish the current pose of the RVIZ camera view |
-| `/carla/ego_vehicle/vehicle_control_manual_override` | [std_msgs/Bool](https://docs.ros.org/en/api/std_msgs/html/msg/Bool.html) | Enable/disable vehicle control override |
-| `/carla/ego_vehicle/twist` | [geometry_msgs/Twist](https://docs.ros.org/en/api/geometry_msgs/html/msg/Twist.html) | The twist command, created via mouse |
+| Topic | Type | Description                                                     |
+|-------|------|-----------------------------------------------------------------|
+| `/carla/status` | [carla_msgs/CarlaStatus](ros_msgs.md#carlastatusmsg) | 读取 Carla 的当前状态                                                  |
+| `/carla/ego_vehicle/vehicle_status` | [carla_msgs/CarlaEgoVehicleStatus](ros_msgs.md#carlaegovehiclestatusmsg) | 显示本车当前状态                    |
+| `/carla/ego_vehicle/odometry` | [nav_msgs/Odometry](https://docs.ros.org/en/api/nav_msgs/html/msg/Odometry.html) | 显示自我车辆的当前姿态                     |
+| `/scenario_runner/status` | [carla_ros_scenario_runner_types/CarlaScenarioRunnerStatus](ros_msgs.md#carlascenariorunnerstatusmsg) | 可视化场景运行状态                            |
+| `/carla/available_scenarios` | [carla_ros_scenario_runner_types/CarlaScenarioList](ros_msgs.md#carlascenariolistmsg) | 提供要执行的场景列表（在组合框中禁用） |
 
 <br>
 
-#### Services
+#### 发布
+
+| Topic | Type | Description                                      |
+|-------|------|--------------------------------------------------|
+| `/carla/control` | [carla_msgs/CarlaControl](ros_msgs.md#carlacontrolmsg) | 播放/暂停/步进 Carla                                   |
+| `/carla/ego_vehicle/spectator_pose` | [geometry_msgs/PoseStamped](https://docs.ros.org/en/api/geometry_msgs/html/msg/PoseStamped.html) | 发布 RVIZ 相机视图的当前姿态 |
+| `/carla/ego_vehicle/vehicle_control_manual_override` | [std_msgs/Bool](https://docs.ros.org/en/api/std_msgs/html/msg/Bool.html) | 启用/禁用车辆控制覆盖          |
+| `/carla/ego_vehicle/twist` | [geometry_msgs/Twist](https://docs.ros.org/en/api/geometry_msgs/html/msg/Twist.html) | 通过鼠标创建的扭曲命令             |
+
+<br>
+
+#### 服务
 
 | Topic | Type | Description |
 |-------|------|-------------|
-| `/scenario_runner/execute_scenario` | [carla_ros_scenario_runner_types/ExecuteScenario](https://github.com/carla-simulator/ros-bridge/blob/master/carla_ros_scenario_runner_types/srv/ExecuteScenario.srv) | Execute the selected scenario |
+| `/scenario_runner/execute_scenario` | [carla_ros_scenario_runner_types/ExecuteScenario](https://github.com/carla-simulator/ros-bridge/blob/master/carla_ros_scenario_runner_types/srv/ExecuteScenario.srv) | 执行选定的场景 |
 
 <br>
