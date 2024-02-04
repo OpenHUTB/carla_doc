@@ -15,7 +15,7 @@
 
 ### 配置
 
-Parameters can be set both initially in a [configuration file][ackermanconfig] when using both ROS 1 and ROS 2 and during runtime via ROS [dynamic reconfigure][rosdynamicreconfig] in ROS 1. 
+使用 ROS 1 和 ROS 2 时，可以在 [配置文件][ackermanconfig] 中初始设置参数，也可以在运行时通过 ROS 1 中的 ROS [动态重新配置][rosdynamicreconfig] 来设置参数。
 
 [ackermanconfig]: https://github.com/carla-simulator/ros-bridge/blob/master/carla_ackermann_control/config/settings.yaml
 [rosdynamicreconfig]: https://wiki.ros.org/dynamic_reconfigure
@@ -24,7 +24,7 @@ Parameters can be set both initially in a [configuration file][ackermanconfig] w
 
 ### 测试控制消息
 
-Test the setup by sending commands to the car via the topic `/carla/<ROLE NAME>/ackermann_cmd`. For example, move an ego vehicle with the role name of `ego_vehicle` forward at a speed of 10 meters/sec by running this command:
+通过主题 `/carla/<ROLE NAME>/ackermann_cmd` 向汽车发送命令来测试设置。例如，通过运行以下命令以 10 米/秒的速度移动角色名称为`ego_vehicle`的自我车辆：
 
 ```bash
 
@@ -36,7 +36,7 @@ ros2 topic pub /carla/ego_vehicle/ackermann_cmd ackermann_msgs/AckermannDrive "{
 
 ```
 
-Or make the vehicle move forward while turning at an angle of 1.22 radians:
+或者让车辆向前移动，同时转弯 1.22 弧度的角度：
 
 ```bash
 
@@ -54,17 +54,17 @@ ros2 topic pub /carla/ego_vehicle/ackermann_cmd ackermann_msgs/AckermannDrive "{
 
 #### 订阅
 
-|Topic|Type|Description|
+| 主题 | 类型 | 描述 |
 |--|--|--|
-|`/carla/<ROLE NAME>/ackermann_cmd` | [ackermann_msgs.AckermannDrive][ackermanncontrolmsg] | __Subscriber__ for steering commands |
+|`/carla/<ROLE NAME>/ackermann_cmd` | [ackermann_msgs.AckermannDrive][ackermanncontrolmsg] | 转向命令的 __订阅者__  |
 
 <br>
 
 #### 发布
 
-|Topic|Type|Description|
+|主题|类型|描述|
 |--|--|--|
-| `/carla/<ROLE NAME>/ackermann_control/control_info` | [carla_ackermann_control.EgoVehicleControlInfo][egovehiclecontrolmsg] | The current values used within the controller (useful for debugging) |
+| `/carla/<ROLE NAME>/ackermann_control/control_info` | [carla_ackermann_control.EgoVehicleControlInfo][egovehiclecontrolmsg] | 控制器内使用的当前值（对于调试有用） |
 
 [egovehiclecontrolmsg]: https://carla.readthedocs.io/en/latest/ros_msgs/#egovehiclecontrolinfomsg
 

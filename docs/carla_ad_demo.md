@@ -1,18 +1,18 @@
-# CARLA AD Demo
+# Carla 自动驾驶演示
 
-The [AD demo](https://github.com/carla-simulator/ros-bridge/tree/master/carla_ad_demo) is an example package that provides everything needed to launch a CARLA ROS environment with an AD vehicle. 
+[自动驾驶](https://github.com/carla-simulator/ros-bridge/tree/master/carla_ad_demo) 是一个示例包，提供使用自动驾驶车辆启动 Carla ROS 环境所需的一切。 
 
-- [__Before you begin__](#before-you-begin)
-- [__Run the demo__](#run-the-demo)
-    - [Random route](#random-route)
-    - [Scenario execution](#scenario-execution)
+- [__在你开始之前__](#before-you-begin)
+- [__运行演示__](#run-the-demo)
+    - [随机路线](#random-route)
+    - [场景执行](#scenario-execution)
 ---
 
-## Before you begin
+## 在你开始之前
 
-Install [Scenario Runner](https://carla-scenariorunner.readthedocs.io/en/latest/getting_scenariorunner/) and follow the Scenario Runner ["Getting Started" tutorial](https://github.com/carla-simulator/scenario_runner/blob/master/Docs/getting_started.md) to verify that it's working. 
+安装 [Scenario Runner](https://carla-scenariorunner.readthedocs.io/en/latest/getting_scenariorunner/) 并按照 [Scenario Runner 入门教程](https://github.com/carla-simulator/scenario_runner/blob/master/Docs/getting_started.md) 验证其是否正常工作。
 
-Set an environment variable to find the Scenario Runner installation:
+设置环境变量以查找 Scenario Runner 安装：
 
 ```sh
 export SCENARIO_RUNNER_PATH=<path_to_scenario_runner>
@@ -20,12 +20,12 @@ export SCENARIO_RUNNER_PATH=<path_to_scenario_runner>
 
 ---
 
-## Run the demo
+## 运行演示
 
 
-#### Random route
+#### 随机路线
 
-To start a demo where the ego vehicle follows a randomly generated route, run the following command after you have started a CARLA server:
+要启动自我车辆遵循随机生成的路线的演示，请在启动 Carla 服务器后运行以下命令：
 
 ```sh
 # ROS 1
@@ -35,7 +35,7 @@ roslaunch carla_ad_demo carla_ad_demo.launch
 ros2 launch carla_ad_demo carla_ad_demo.launch.py
 ```
 
-You can also spawn additional vehicles or pedestrians by executing the following command in another terminal:
+您还可以通过在另一个终端中执行以下命令来生成更多车辆或行人：
 
 ```sh
 cd <CARLA_PATH>/PythonAPI/examples/
@@ -43,9 +43,9 @@ cd <CARLA_PATH>/PythonAPI/examples/
 python3 spawn_npc.py
 ```
 
-#### Scenario execution
+#### 场景执行
 
-To execute the demo with a predefined scenario, run the following command after you have started a CARLA server:
+要使用预定义场景执行演示，请在启动 Carla 服务器后运行以下命令：
 
 ```sh
 # ROS1
@@ -55,9 +55,9 @@ roslaunch carla_ad_demo carla_ad_demo_with_scenario.launch
 ros2 launch carla_ad_demo carla_ad_demo_with_scenario.launch.py
 ```
 
-Select the example scenario "FollowLeadingVehicle" within the RVIZ Carla Plugin and press "Execute". The ego vehicle gets repositioned and the scenario is processed. 
+在 RVIZ Carla 插件中选择示例场景“FollowLeadingVehicle”，然后按“执行”。自我车辆重新定位并处理场景。
 
-You can specify your own scenarios by publishing to `/carla/available_scenarios`. The [launchfile](https://github.com/carla-simulator/ros-bridge/blob/ros2/carla_ad_demo/launch/carla_ad_demo_with_scenario.launch) shows an example of how to do this:
+您可以通过发布到 `/carla/available_scenarios` 来指定自己的场景。[启动文件](https://github.com/carla-simulator/ros-bridge/blob/ros2/carla_ad_demo/launch/carla_ad_demo_with_scenario.launch) 显示了如何执行此操作的示例：
 
 ```launch
   <node pkg="rostopic" type="rostopic" name="publish_scenarios"

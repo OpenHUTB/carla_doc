@@ -1,34 +1,34 @@
 # Carla ROS Scenario Runner
 
-The [CARLA ROS Scenario Runner package](https://github.com/carla-simulator/ros-bridge/tree/master/carla_ros_scenario_runner) is a wrapper to execute [OpenScenarios](https://www.asam.net/standards/detail/openscenario/) with the CARLA [Scenario Runner](https://github.com/carla-simulator/scenario_runner) via ROS.
+The [CARLA ROS Scenario Runner 包](https://github.com/carla-simulator/ros-bridge/tree/master/carla_ros_scenario_runner) 是一个包装器，用于通过 ROS 使用 CARLA [Scenario Runner](https://github.com/carla-simulator/scenario_runner) 执行 [OpenScenarios](https://www.asam.net/standards/detail/openscenario/) 。 
 
-- [__Before you begin__](#before-you-begin)
-- [__Using ROS Scenario Runner__](#using-ros-scenario-runner)
-- [__Run ROS Scenario Runner__](#run-ros-scenario-runner)
-- [__ROS API__](#ros-api)
-    - [Services](#services)
-    - [Publications](#publications)
+- [__在你开始之前__](#before-you-begin)
+- [__使用 ROS Scenario Runner__](#using-ros-scenario-runner)
+- [__运行 ROS Scenario Runner__](#run-ros-scenario-runner)
+- [__ROS 应用程序接口__](#ros-api)
+    - [服务](#services)
+    - [发布](#publications)
 
 ---
 
-## Before you begin
+## 在你开始之前
 
-- Follow the Scenario Runner ["Getting started'](https://github.com/carla-simulator/scenario_runner/blob/master/Docs/getting_started.md) tutorial to install Scenario Runner.
-- Install the Python module __Pexpect__:
+- 按照 Scenario Runner [入门”教程](https://github.com/carla-simulator/scenario_runner/blob/master/Docs/getting_started.md) 安装 Scenario Runner。
+- 安装 Python 模块 __Pexpect__:
 
 ```shell
 sudo apt install python-pexpect
 ```
 ---
 
-## Using ROS Scenario Runner
+## 使用 ROS Scenario Runner
 
-The ROS Scenario Runner is best used from within the [`rviz_carla_plugin`](rviz_plugin.md).
+ROS Scenario Runner 最好在 [`rviz_carla_plugin`](rviz_plugin.md) 中使用。
 
-!!! Note
-    It is currently not supported to change the map. Each scenario will need to use the currently active map.
+!!! 笔记
+    目前不支持更改地图。每个场景都需要使用当前活动的地图。
 
-An example scenario is found [here](https://github.com/carla-simulator/ros-bridge/blob/master/carla_ad_demo/config/FollowLeadingVehicle.xosc). Of particular importance is the setup of the [ROS controller](https://github.com/carla-simulator/ros-bridge/blob/master/carla_ad_demo/config/FollowLeadingVehicle.xosc#L78):
+[此处](https://github.com/carla-simulator/ros-bridge/blob/master/carla_ad_demo/config/FollowLeadingVehicle.xosc) 提供了一个示例场景。特别重要的是 [ROS 控制器](https://github.com/carla-simulator/ros-bridge/blob/master/carla_ad_demo/config/FollowLeadingVehicle.xosc#L78) 的设置：
 
 ```xml
 <Controller name="EgoVehicleAgent">
@@ -41,13 +41,14 @@ An example scenario is found [here](https://github.com/carla-simulator/ros-bridg
 </Controller>
 ```
 
-The above code example shows an instance of [`carla_ad_agent`](carla_ad_agent.md) being launched. Any additional `<Property>` should be appended as a ROS parameter (name:=value).
+上面的代码示例显示了一个正在启动的 [`carla_ad_agent`](carla_ad_agent.md) 实例。任何附加内容`<Property>`都应作为 ROS 参数附加（名称:=值）。
+
 
 ---
 
-## Run ROS Scenario Runner
+## 运行 ROS Scenario Runner
 
-__1.__ Run the ROS Scenario Runner package:
+__1.__ 运行 ROS Scenario Runner 包：
 
 ```sh
 # ROS 1
@@ -57,7 +58,7 @@ roslaunch carla_ros_scenario_runner carla_ros_scenario_runner.launch scenario_ru
 ros2 launch carla_ros_scenario_runner carla_ros_scenario_runner.launch.py scenario_runner_path:=<path_to_scenario_runner>
 ```
 
-__2.__ Run a scenario:
+__2.__ 运行场景：
 
 ```sh
 # ROS 1
@@ -69,27 +70,28 @@ ros2 service call /scenario_runner/execute_scenario carla_ros_scenario_runner_ty
 
 ---
 
-## ROS API
+## ROS 应用程序接口
 
-### Services
+### 服务
 
-| Service | Type | Description |
+| 服务 | 类型 | 描述 |
 |---------|------|-------------|
-| `/scenario_runner/execute_scenario` | [`carla_ros_scenario_runner_types.ExecuteScenario`](https://github.com/carla-simulator/ros-bridge/blob/ros2/carla_ros_scenario_runner_types/srv/ExecuteScenario.srv) | Execute a scenario. If another scenario is currently running, it gets stopped. |
+| `/scenario_runner/execute_scenario` | [`carla_ros_scenario_runner_types.ExecuteScenario`](https://github.com/carla-simulator/ros-bridge/blob/ros2/carla_ros_scenario_runner_types/srv/ExecuteScenario.srv) | 执行一个场景。如果当前正在运行另一个场景，它将停止。 |
 
 <br>
 
-### Publications
+### 发布
 
-| Topic | Type | Description |
-|-------|------|-------------|
-| `/scenario_runner/status` | [`carla_ros_scenario_runner_types.CarlaScenarioRunnerStatus`](https://github.com/carla-simulator/ros-bridge/blob/ros2/carla_ros_scenario_runner_types/msg/CarlaScenarioRunnerStatus.msg) | The current status of the scenario runner execution (used by the [rviz_carla_plugin](rviz_plugin.md)) |
+| 主题                        | 类型 | 描述                                                                                                                                                           |
+|---------------------------|------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `/scenario_runner/status` | [`carla_ros_scenario_runner_types.CarlaScenarioRunnerStatus`](https://github.com/carla-simulator/ros-bridge/blob/ros2/carla_ros_scenario_runner_types/msg/CarlaScenarioRunnerStatus.msg) | 场景运行器执行的当前状态（由 [rviz_carla_plugin](rviz_plugin.md) 使用）  |
 
 
-The controller `ros_vehicle_control` provides the following topics:
-| Topic | Type | Description |
-|-------|------|-------------|
-| `/carla/<ROLE NAME>/waypoints` | [`nav_msgs.Path`](https://docs.ros.org/en/api/nav_msgs/html/msg/Path.html) | the path defined within the scenario. Note: The topic name can be changed by modifying the parameter `path_topic_name` |
-| `/carla/<ROLE NAME>/target_speed` | [`std_msgs.Float64`](https://docs.ros.org/en/api/std_msgs/html/msg/Float64.html) | the target speed as defined within the scenario |
+控制器`ros_vehicle_control`提供以下主题：
+
+| 主题       | 类型                         | 描述                                                                                                                                                                |
+|-----------------------------------|----------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `/carla/<ROLE NAME>/waypoints`    | [`nav_msgs.Path`](https://docs.ros.org/en/api/nav_msgs/html/msg/Path.html)       | 场景中定义的路径。注：可以通过修改参数`path_topic_name`来更改主题名称 |
+| `/carla/<ROLE NAME>/target_speed` | [`std_msgs.Float64`](https://docs.ros.org/en/api/std_msgs/html/msg/Float64.html) | 场景中定义的目标速度                                                                                                                   |
 
 <br>

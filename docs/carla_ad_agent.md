@@ -1,100 +1,100 @@
-# CARLA AD Agent
+# Carla 自动驾驶智能体
 
-The [CARLA AD agent](https://github.com/carla-simulator/ros-bridge/tree/master/carla_ad_agent) is an AD agent that can follow a given route, avoids crashes with other vehicles and respects the state of traffic lights by accessing ground truth data. It is used by the [CARLA AD demo](carla_ad_demo.md) to provide an example of how the ROS bridge can be used.
+[Carla 自动驾驶智能体](https://github.com/carla-simulator/ros-bridge/tree/master/carla_ad_agent) 是一种自动驾驶智能体，可以遵循给定路线，避免与其他车辆发生碰撞，并通过访问真实数据尊重交通信号灯的状态。[Carla 自动驾驶演示](carla_ad_demo.md) 使用它来提供如何使用 ROS 桥的示例。 
 
-- [__Requirements__](#requirements)
-- [__ROS API__](#ros-api)
-    - [__AD Agent Node__](#ad-agent-node)
-        - [Parameters](#parameters)
-        - [Subscriptions](#subscriptions)
-        - [Publications](#publications)
-    - [__Local Planner Node__](#local-planner-node)
-        - [Parameters](#parameters)
-        - [Subscriptions](#subscriptions)
-        - [Publications](#publications)
+- [__需求__](#requirements)
+- [__ROS 应用程序接口__](#ros-api)
+    - [__自动驾驶智能体节点__](#ad-agent-node)
+        - [参数](#parameters)
+        - [订阅](#subscriptions)
+        - [发布](#publications)
+    - [__本地规划器节点__](#local-planner-node)
+        - [参数](#parameters)
+        - [发布](#subscriptions)
+        - [订阅](#publications)
 
-Internally the CARLA AD Agent uses a separate node for [local planning](https://github.com/carla-simulator/ros-bridge/blob/ros2/carla_ad_agent/src/carla_ad_agent/local_planner.py). This node has been optimized for the `vehicle.tesla.model3`, as it does not have any gear shift delays.
+在内部，Carla 自动驾驶智能体使用单独的节点进行 [本地规划](https://github.com/carla-simulator/ros-bridge/blob/ros2/carla_ad_agent/src/carla_ad_agent/local_planner.py) 。该节点已针对 `vehicle.tesla.model3` 进行了优化，因为它没有任何换档延迟。
 
-The PID parameters were gathered by [Ziegler-Nichols method](https://en.wikipedia.org/wiki/Ziegler%E2%80%93Nichols_method).
-
----
-
-## Requirements
-
-To be able to use the `carla_ad_agent`, a minimal set of sensors need to be spawned (see [Carla Spawn Objects](carla_spawn_objects.md) for information on how to spawn sensors):
-
-- An odometry pseudo sensor (`sensor.pseudo.odom`) with role-name `odometry` attached to the vehicle.
-- An object pseudo sensor (`sensor.pseudo.objects`) with role-name `objects` attached to the vehicle.
-- A traffic light pseudo sensor (`sensor.pseudo.traffic_lights`) with role-name `traffic_lights`.
+PID 参数通过 [Ziegler-Nichols方法](https://en.wikipedia.org/wiki/Ziegler%E2%80%93Nichols_method) 采集。
 
 ---
 
-## ROS API 
+## 需求
 
-### AD Agent Node
+为了能够使用 `carla_ad_agent`，需要生成最少的传感器集（有关如何生成传感器的信息，请参阅 [Carla 生成对象](carla_spawn_objects.md) ：
 
-#### Parameters
+- 里程计伪传感器 (`sensor.pseudo.odom`)，其角色名`odometry`附加到车辆上。 
+- 一个对象伪传感器 (`sensor.pseudo.objects`)，其角色名`objects`附加到车辆上。
+- 具有角色名称 `traffic_lights` 的交通灯伪传感器 (`sensor.pseudo.traffic_lights`) 。
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `role_name` | string (default: `ego_vehicle`) | CARLA role name of the ego vehicle |
-| `avoid_risk` | bool (default: `true`) | If True, avoids crashes with other vehicles and respects traffic lights  |
+---
 
-<br>
+## ROS 应用程序接口 
 
-#### Subscriptions
+### 自动驾驶智能体节点
 
-| Topic | Type | Description |
-|-------|------|-------------|
-| `/carla/<ROLE NAME>/target_speed` | [std_msgs/Float64](https://docs.ros.org/en/api/std_msgs/html/msg/Float64.html) | Target speed of the ego vehicle |
-| `/carla/<ROLE NAME>/odometry` | [nav_msgs/Odometry](https://docs.ros.org/en/api/nav_msgs/html/msg/Odometry.html) | Odometry of the ego vehicle |
-| `/carla/<ROLE NAME>/vehicle_info` | [carla_msgs/CarlaEgoVehicleInfo](ros_msgs.md#carlaegovehicleinfomsg) | Identify the CARLA actor id of the ego vehicle |
-| `/carla/<ROLE NAME>/objects` | [derived_object_msgs/ObjectArray](https://docs.ros.org/en/melodic/api/derived_object_msgs/html/msg/ObjectArray.html) | Information about other actors |
-| `/carla/traffic_lights/status` | [carla_msgs/CarlaTrafficLightStatusList](ros_msgs.md#carlatrafficlightstatuslistmsg) | Get the current state of the traffic lights |
-| `/carla/traffic_lights/info` | [carla_msgs/CarlaTrafficLightInfoList](ros_msgs.md#carlatrafficlightinfolistmsg) | Get info about traffic lights |
+#### 参数
+
+| 参数           | 类型                          | 描述                                                                                              |
+|--------------|-----------------------------|-------------------------------------------------------------------------------------------------|
+| `role_name`  | string (默认：`ego_vehicle`) | 自我车辆的 Carla 角色名称                                                                                |
+| `avoid_risk` | bool (default: `true`)      | 如果为真，则避免与其他车辆相撞并尊重交通信号灯  |
 
 <br>
 
-#### Publications
+#### 订阅
 
-| Topic | Type | Description |
-|-------|------|-------------|
-| `/carla/<ROLE NAME>/speed_command` | [std_msgs/Float64](https://docs.ros.org/en/api/std_msgs/html/msg/Float64.html) | Target speed |
-
-<br>
-
-### Local Planner Node
-
-#### Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `role_name` | string (default: `ego_vehicle`) | CARLA role name of the ego vehicle |
-| `control_time_step` | float (default: `0.05`) | Control loop rate |
-| `Kp_lateral` | float (default `0.9`) | Proportional term lateral PID controller |
-| `Ki_lateral` | float (default `0.0`) | Integral term lateral PID controller |
-| `Kd_lateral` | float (default `0.0`) | Derivative term lateral PID controller |
-| `Kp_longitudinal` | float (default `0.206`) | Proportional term longitudinal PID controller |
-| `Ki_longitudinal` | float (default `0.0206`) | Integral term longitudinal PID controller |
-| `Kd_longitudinal` | float (default `0.515`) | Derivative term longitudinal PID controller |
+| 主题                                | 类型                                                                                                                   | 描述                                          |
+|-----------------------------------|----------------------------------------------------------------------------------------------------------------------|---------------------------------------------|
+| `/carla/<ROLE NAME>/target_speed` | [std_msgs/Float64](https://docs.ros.org/en/api/std_msgs/html/msg/Float64.html)                                       | 自我车辆的目标速度                                   |
+| `/carla/<ROLE NAME>/odometry`     | [nav_msgs/Odometry](https://docs.ros.org/en/api/nav_msgs/html/msg/Odometry.html)                                     | 自我车辆的里程计                                    |
+| `/carla/<ROLE NAME>/vehicle_info` | [carla_msgs/CarlaEgoVehicleInfo](ros_msgs.md#carlaegovehicleinfomsg)                                                 | 识别自我车辆的 Carla 参与者 id                        |
+| `/carla/<ROLE NAME>/objects`      | [derived_object_msgs/ObjectArray](https://docs.ros.org/en/melodic/api/derived_object_msgs/html/msg/ObjectArray.html) | 其他参与者的信息   |
+| `/carla/traffic_lights/status`    | [carla_msgs/CarlaTrafficLightStatusList](ros_msgs.md#carlatrafficlightstatuslistmsg)                                 | 获取交通信号灯的当前状态 |
+| `/carla/traffic_lights/info`      | [carla_msgs/CarlaTrafficLightInfoList](ros_msgs.md#carlatrafficlightinfolistmsg)                                     | 获取有关交通灯的信息               |
 
 <br>
 
-#### Subscriptions
+#### 发布
 
-| Topic | Type | Description |
-|-------|------|-------------|
-| `/carla/<ROLE NAME>/waypoints` | [nav_msgs/Path](https://docs.ros.org/en/api/nav_msgs/html/msg/Path.html) | Route to follow |
-| `/carla/<ROLE NAME>/odometry` | [nav_msgs/Odometry](https://docs.ros.org/en/api/nav_msgs/html/msg/Odometry.html) | Odometry of the ego vehicle |
-| `/carla/<ROLE NAME>/speed_command` | [std_msgs/Float64](https://docs.ros.org/en/api/std_msgs/html/msg/Float64.html) | Target speed |
+| 主题                                 | 类型                                                                             | 描述           |
+|------------------------------------|--------------------------------------------------------------------------------|--------------|
+| `/carla/<ROLE NAME>/speed_command` | [std_msgs/Float64](https://docs.ros.org/en/api/std_msgs/html/msg/Float64.html) | 目标速度 |
 
 <br>
 
-#### Publications
+### 本地规划器节点
 
-| Topic | Type | Description |
-|-------|------|-------------|
-| `/carla/<ROLE NAME>/next_target` | [visualization_msgs/Marker](http://docs.ros.org/en/api/visualization_msgs/html/msg/Marker.html) | Next target pose marker |
-| `/carla/<ROLE NAME>/vehicle_control_cmd` | [carla_msgs/CarlaEgoVehicleControl](ros_msgs.md#carlaegovehiclecontrolmsg) | Vehicle control command |
+#### 参数
+
+| 参数                  | 类型                          | 描述                                            |
+|---------------------|-----------------------------|-----------------------------------------------|
+| `role_name`         | string (默认值：`ego_vehicle`) | 自我车辆的 Carla 角色名称                              |
+| `control_time_step` | float (默认值：`0.05`)     | 控制循环速率                             |
+| `Kp_lateral`        | float (默认值： `0.9`)       | 比例项横向PID控制器      |
+| `Ki_lateral`        | float (默认值： `0.0`)       | 积分项横向PID控制器          |
+| `Kd_lateral`        | float (默认值： `0.0`)       | 微分项横向PID控制器        |
+| `Kp_longitudinal`   | float (默认值： `0.206`)     | 比例项纵向PID控制器 |
+| `Ki_longitudinal`   | float (默认值： `0.0206`)    | 积分项纵向PID控制器     |
+| `Kd_longitudinal`   | float (默认值： `0.515`)     | 微分项纵向PID控制器   |
+
+<br>
+
+#### 订阅
+
+| 主题                                 | 类型                                                                               | 描述                          |
+|------------------------------------|----------------------------------------------------------------------------------|-----------------------------|
+| `/carla/<ROLE NAME>/waypoints`     | [nav_msgs/Path](https://docs.ros.org/en/api/nav_msgs/html/msg/Path.html)         | 遵循的路线             |
+| `/carla/<ROLE NAME>/odometry`      | [nav_msgs/Odometry](https://docs.ros.org/en/api/nav_msgs/html/msg/Odometry.html) | 自我车辆的里程计 |
+| `/carla/<ROLE NAME>/speed_command` | [std_msgs/Float64](https://docs.ros.org/en/api/std_msgs/html/msg/Float64.html)   | 目标速度                |
+
+<br>
+
+#### 发布
+
+| 主题                                       | 类型 | 描述 |
+|------------------------------------------|------|-------------|
+| `/carla/<ROLE NAME>/next_target`         | [visualization_msgs/Marker](http://docs.ros.org/en/api/visualization_msgs/html/msg/Marker.html) | 下一个目标姿势标记 |
+| `/carla/<ROLE NAME>/vehicle_control_cmd` | [carla_msgs/CarlaEgoVehicleControl](ros_msgs.md#carlaegovehiclecontrolmsg) | 车辆控制指令 |
 
 <br>
