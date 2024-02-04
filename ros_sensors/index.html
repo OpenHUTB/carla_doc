@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>ROS 桥传感器 - 交通仿真器文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "ROS \u6865\u4f20\u611f\u5668";
+        var mkdocs_page_input_path = "ros_sensors.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 交通仿真器文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">入门</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../start_introduction/">介绍</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../start_quickstart/">快速启动包安装</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_first_steps/">第一步</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tutorials/">教程</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">构建 Carla</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_carla/">构建 Carla</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_linux/">Linux 构建</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_windows/">Windows 构建</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_update/">更新 Carla</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_system/">构建系统</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_docker/">Docker 中的 Carla</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_faq/">常问的问题</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">下一步</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_content_authoring_maps/">内容创作 - 地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_content_authoring_vehicles/">内容创作 - 车辆</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Carla 主题</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../foundations/">基础</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_concepts/">核心概念</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_world/">世界和客户端</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_actors/">参与者和蓝图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ts_traffic_simulation_overview/">交通</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_map/">地图和导航 </a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_sensors/">传感器和数据</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../development_tutorials/">开发</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../custom_assets_tutorials/">自定义资产</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">交通仿真</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_traffic_manager/">交通管理器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_sumo/">和 SUMO 联合仿真</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_scenic/">Scenic</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">高级概念</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_recorder/">记录器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_rendering_options/">渲染选项</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_synchrony_timestep/">同步和时间步长</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_benchmarking/">基准性能</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_agents/">Carla 智能体</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">资源</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../python_api/">Python API 参考</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_cpp/">C++ 参考</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bp_library/">蓝图库</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../catalogue/">Carla 目录</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_recorder_binary_file_format/">记录器二进制文件格式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_sensors/">传感器参考</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ext_docs/">扩展文档</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">自定义地图</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_map_overview/">Carla 中自定义地图的概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在 Carla 包导入地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 Carla 源构建中导入地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_alternative/">导入地图的替代方法</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_manual_map_package/">手动准备地图包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_layers/">自定义地图：分层地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_add_tl/">自定义地图：红绿灯和标志</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_road_painter/">自定义地图：道路画家</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_buildings/">自定义地图：程序建筑</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_weather_landscape/">自定义地图：天气和景观</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_pedestrian_navigation/">生成行人导航</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">大型地图</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_overview/">大型地图概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_roadrunner/">在RoadRunner中创建大地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_import/">导入/打包大地图</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（通用）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_add_friction_triggers/">添加摩擦触发器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_vehicle_physics/">控制车辆物理模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_walker_skeletons/">控制行人骨骼</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用 OpenStreetMap 生成地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索仿真数据</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎和 Carla</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（资产）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_add_vehicle/">添加新车辆</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_add_props/">添加新道具</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_create_standalone/">创建独立包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_material_customization/">材质定制</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（开发人员）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_contribute_assets/">如何升级内容</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_create_sensor/">创建一个传感器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_create_semantic_tags/">创建语义标签</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_customize_vehicle_suspension/">自定义车辆悬架</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_generate_colliders/">生成详细碰撞</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_make_release/">发布版本</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_carsim_integration/">CarSim 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_chrono/">Chrono 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_opendrive/">OpenDRIVE 独立模式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_ptv/">PTV-Vissim 联合仿真</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ros_documentation/">ROS</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_rss/">责任敏感安全</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://github.com/OpenHUTB/engine_doc">虚幻引擎教程</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../plugins_carlaviz/">Web 可视化器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_G29_windows/">罗技 G29 方向盘</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">贡献</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_contribution_guidelines/">贡献指南</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_code_of_conduct/">行为准则</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_coding_standard/">编码标准</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_doc_standard/">文档标准</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">交通仿真器文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">ROS 桥传感器</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="ros">ROS 桥传感器</h1>
+<hr />
+<h2 id="_1">可用传感器</h2>
+<h6 id="rgb">RGB 相机</h6>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;/image</code></td>
+<td><a href="https://docs.ros.org/en/api/sensor_msgs/html/msg/Image.html">sensor_msgs/Image</a></td>
+</tr>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;/camera_info</code></td>
+<td><a href="https://docs.ros.org/en/api/sensor_msgs/html/msg/CameraInfo.html">sensor_msgs/CameraInfo</a></td>
+</tr>
+</tbody>
+</table>
+<h6 id="_2">深度相机</h6>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;/image</code></td>
+<td><a href="https://docs.ros.org/en/api/sensor_msgs/html/msg/Image.html">sensor_msgs/Image</a></td>
+</tr>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;/camera_info</code></td>
+<td><a href="https://docs.ros.org/en/api/sensor_msgs/html/msg/CameraInfo.html">sensor_msgs/CameraInfo</a></td>
+</tr>
+</tbody>
+</table>
+<h6 id="_3">语义分割相机</h6>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;/image</code></td>
+<td><a href="https://docs.ros.org/en/api/sensor_msgs/html/msg/Image.html">sensor_msgs/Image</a></td>
+</tr>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;/camera_info</code></td>
+<td><a href="http://docs.ros.org/en/api/sensor_msgs/html/msg/CameraInfo.html">sensor_msgs/CameraInfo</a></td>
+</tr>
+</tbody>
+</table>
+<h6 id="dvs">DVS 相机</h6>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;/events</code></td>
+<td><a href="https://docs.ros.org/en/api/sensor_msgs/html/msg/PointCloud2.html">sensor_msgs/PointCloud2</a></td>
+</tr>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;/image</code></td>
+<td><a href="https://docs.ros.org/en/api/sensor_msgs/html/msg/Image.html">sensor_msgs/Image</a></td>
+</tr>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;/camera_info</code></td>
+<td><a href="https://docs.ros.org/en/api/sensor_msgs/html/msg/CameraInfo.html">sensor_msgs/CameraInfo</a></td>
+</tr>
+</tbody>
+</table>
+<h6 id="_4">激光雷达</h6>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;</code></td>
+<td><a href="https://docs.ros.org/en/api/sensor_msgs/html/msg/PointCloud2.html">sensor_msgs/PointCloud2</a></td>
+</tr>
+</tbody>
+</table>
+<h6 id="_5">语义激光雷达</h6>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;</code></td>
+<td><a href="https://docs.ros.org/en/api/sensor_msgs/html/msg/PointCloud2.html">sensor_msgs/PointCloud2</a></td>
+</tr>
+</tbody>
+</table>
+<h6 id="_6">雷达</h6>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;</code></td>
+<td><a href="https://docs.ros.org/en/api/sensor_msgs/html/msg/PointCloud2.html">sensor_msgs/PointCloud2</a></td>
+</tr>
+</tbody>
+</table>
+<h6 id="_7">惯性测量单元</h6>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;</code></td>
+<td><a href="https://docs.ros.org/en/api/sensor_msgs/html/msg/Imu.html">sensor_msgs/Imu</a></td>
+</tr>
+</tbody>
+</table>
+<h6 id="_8">全球导航卫星系统</h6>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;</code></td>
+<td><a href="https://docs.ros.org/en/api/sensor_msgs/html/msg/NavSatFix.html">sensor_msgs/NavSatFix</a></td>
+</tr>
+</tbody>
+</table>
+<h6 id="_9">碰撞传感器</h6>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;</code></td>
+<td><a href="https://github.com/carla-simulator/ros-carla-msgs/blob/master/msg/CarlaCollisionEvent.msg">carla_msgs/CarlaCollisionEvent</a></td>
+</tr>
+</tbody>
+</table>
+<h6 id="_10">车道入侵传感器</h6>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;</code></td>
+<td><a href="https://github.com/carla-simulator/ros-carla-msgs/blob/master/msg/CarlaLaneInvasionEvent.msg">carla_msgs/CarlaLaneInvasionEvent</a></td>
+</tr>
+</tbody>
+</table>
+<p>伪传感器</p>
+<h6 id="tf">TF 传感器</h6>
+<p>当生成此伪传感器时，将发布自我车辆的 tf 数据。</p>
+<p>注意：传感器在测量完成后发布 tf 数据。child_frame_id 与传感器主题的前缀相对应。</p>
+<h6 id="_11">里程计传感器</h6>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/&lt;PARENT ROLE NAME&gt;/&lt;SENSOR ROLE NAME&gt;</code></td>
+<td><a href="https://docs.ros.org/en/api/nav_msgs/html/msg/Odometry.html">nav_msgs/Odometry</a></td>
+<td>父参与者的里程计。</td>
+</tr>
+</tbody>
+</table>
+<h6 id="_12">车速表传感器</h6>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/&lt;PARENT ROLE NAME&gt;/&lt;SENSOR ROLE NAME&gt;</code></td>
+<td><a href="https://docs.ros.org/en/api/std_msgs/html/msg/Float32.html">std_msgs/Float32</a></td>
+<td>父参与者的速度。单位：米/秒。</td>
+</tr>
+</tbody>
+</table>
+<h6 id="_13">地图传感器</h6>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;</code></td>
+<td><a href="https://docs.ros.org/en/api/std_msgs/html/msg/String.html">std_msgs/String</a></td>
+<td>以锁定主题上的字符串形式提供 OpenDRIVE 映射。</td>
+</tr>
+</tbody>
+</table>
+<h6 id="_14">目标传感器</h6>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;</code></td>
+<td><a href="https://docs.ros.org/en/melodic/api/derived_object_msgs/html/msg/ObjectArray.html">derived_object_msgs/ObjectArray</a></td>
+<td>发布所有车辆和步行者。如果附加到父级，则不包含父级。</td>
+</tr>
+</tbody>
+</table>
+<h6 id="_15">标记传感器</h6>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;</code></td>
+<td><a href="https://docs.ros.org/en/api/visualization_msgs/html/msg/Marker.html">visualization_msgs/Marker</a></td>
+<td>车辆和行人的可视化</td>
+</tr>
+</tbody>
+</table>
+<h6 id="_16">交通灯传感器</h6>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;/status</code></td>
+<td><a href="https://github.com/carla-simulator/ros-carla-msgs/blob/master/msg/CarlaTrafficLightStatusList.msg">carla_msgs/CarlaTrafficLightStatusList</a></td>
+<td>所有交通灯及其状态的列表。</td>
+</tr>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;/info</code></td>
+<td><a href="https://github.com/carla-simulator/ros-carla-msgs/blob/master/msg/CarlaTrafficLightInfoList.msg">carla_msgs/CarlaTrafficLightInfoList</a></td>
+<td>所有交通灯的静态信息（例如位置）。</td>
+</tr>
+</tbody>
+</table>
+<h6 id="_17">参与者列表传感器</h6>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;</code></td>
+<td><a href="https://github.com/carla-simulator/ros-carla-msgs/blob/master/msg/CarlaActorList.msg">carla_msgs/CarlaActorList</a></td>
+<td>所有 Carla 参与者的列表。</td>
+</tr>
+</tbody>
+</table>
+<h6 id="_18">参与者控制传感器</h6>
+<p>该伪传感器允许通过在 Pose 和 Twist 数据类型中发布姿势和速度来控制其所连接的 actor（例如 ego_vehicle）的位置和速度。注意：此控制方法不考虑车辆限制。它允许现实世界中不可能的运动，例如飞行或旋转。目前，该传感器应用完整的线性矢量，但仅应用角度矢量的偏航。</p>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;/set_transform</code></td>
+<td><a href="https://docs.ros.org/en/api/geometry_msgs/html/msg/Pose.html">geometry_msgs/Pose</a></td>
+<td>转换以应用于传感器的父级。</td>
+</tr>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;/set_target_velocity</code></td>
+<td><a href="https://docs.ros.org/en/api/geometry_msgs/html/msg/Twist.html">geometry_msgs/Twist</a></td>
+<td>应用于传感器父级的速度（角度和线性）。</td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

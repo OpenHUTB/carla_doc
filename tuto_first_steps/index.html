@@ -72,6 +72,8 @@
     </li>
     </ul>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tutorials/">教程</a>
+                  </li>
               </ul>
               <p class="caption"><span class="caption-text">构建 Carla</span></p>
               <ul>
@@ -118,6 +120,15 @@
                   <li class="toctree-l1"><a class="reference internal" href="../custom_assets_tutorials/">自定义资产</a>
                   </li>
               </ul>
+              <p class="caption"><span class="caption-text">交通仿真</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_traffic_manager/">交通管理器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_sumo/">和 SUMO 联合仿真</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_scenic/">Scenic</a>
+                  </li>
+              </ul>
               <p class="caption"><span class="caption-text">高级概念</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../adv_recorder/">记录器</a>
@@ -129,15 +140,6 @@
                   <li class="toctree-l1"><a class="reference internal" href="../adv_benchmarking/">基准性能</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../adv_agents/">Carla 智能体</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">交通仿真</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../adv_traffic_manager/">交通管理器</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../adv_sumo/">SUMO 联合仿真</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_scenic/">Scenic</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">资源</span></p>
@@ -154,19 +156,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ref_sensors/">传感器参考</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tutorials/">教程</a>
-                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ext_docs/">扩展文档</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">插件</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../plugins_carlaviz/">carlaviz — web 可视化器</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">ROS 桥接器</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../ros_documentation/">ROS 桥文档</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">自定义地图</span></p>
@@ -260,9 +250,13 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../adv_ptv/">PTV-Vissim 联合仿真</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ros_documentation/">ROS</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../adv_rss/">责任敏感安全</a>
                   </li>
-                  <li class="toctree-l1"><a class="" href="https://carla.readthedocs.io/projects/ros-bridge/en/latest/">机器人操作系统</a>
+                  <li class="toctree-l1"><a class="" href="https://github.com/OpenHUTB/engine_doc">虚幻引擎教程</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../plugins_carlaviz/">Web 可视化器</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_G29_windows/">罗技 G29 方向盘</a>
                   </li>
@@ -312,10 +306,10 @@
 <li><a href="#spectator-navigation"><strong>观察者导航</strong></a>  </li>
 <li><a href="#adding-npcs"><strong>添加非玩家角色</strong></a>  </li>
 <li><a href="#add-sensors"><strong>添加传感器</strong></a>  </li>
-<li><a href="#animate-vehicles-with-traffic-manager"><strong>模拟车辆</strong></a>  </li>
-<li><a href="#assign-a-vehicle-as-the-ego-vehicle"><strong>Assign a vehicle as the Ego Vehicle</strong></a></li>
-<li><a href="#choose-your-map"><strong>Choose your map</strong></a> </li>
-<li><a href="#choose-your-vehicles"><strong>Choose your vehicles</strong></a> </li>
+<li><a href="#animate-vehicles-with-traffic-manager"><strong>使用交通管理器仿真车辆</strong></a>  </li>
+<li><a href="#assign-a-vehicle-as-the-ego-vehicle"><strong>将车辆分配为自我车辆</strong></a></li>
+<li><a href="#choose-your-map"><strong>选择你的地图</strong></a> </li>
+<li><a href="#choose-your-vehicles"><strong>选择你的车辆</strong></a> </li>
 </ul>
 <h2 id="carla_1">启动 Carla 并连接客户端</h2>
 <p>可以使用 Windows 中的可执行文件或 Linux 中的 shell 脚本通过命令行启动 Carla。按照 <a href="../start_quickstart/"><strong>Linux</strong></a> 和 <a href="../start_quickstart/"><strong>Windows</strong></a> 的安装说明进行操作，然后从命令行 <a href="../start_quickstart/#running-carla"><strong>启动 Carla</strong></a>  ：</p>
@@ -526,7 +520,7 @@ ego_vehicle = world.spawn_actor(ego_bp, random.choice(spawn_points))
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
         <a href="../start_quickstart/" class="btn btn-neutral float-left" title="快速启动包安装"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../build_carla/" class="btn btn-neutral float-right" title="构建 Carla">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../tutorials/" class="btn btn-neutral float-right" title="教程">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -551,7 +545,7 @@ ego_vehicle = world.spawn_actor(ego_bp, random.choice(spawn_points))
       <span><a href="../start_quickstart/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../build_carla/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../tutorials/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>ROS 桥文档 - 交通仿真器文档</title>
+    <title>ROS - 交通仿真器文档</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "ROS \u6865\u6587\u6863";
+        var mkdocs_page_name = "ROS";
         var mkdocs_page_input_path = "ros_documentation.md";
         var mkdocs_page_url = null;
       </script>
@@ -51,6 +51,8 @@
                   <li class="toctree-l1"><a class="reference internal" href="../start_quickstart/">快速启动包安装</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_first_steps/">第一步</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tutorials/">教程</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">构建 Carla</span></p>
@@ -98,6 +100,15 @@
                   <li class="toctree-l1"><a class="reference internal" href="../custom_assets_tutorials/">自定义资产</a>
                   </li>
               </ul>
+              <p class="caption"><span class="caption-text">交通仿真</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_traffic_manager/">交通管理器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_sumo/">和 SUMO 联合仿真</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_scenic/">Scenic</a>
+                  </li>
+              </ul>
               <p class="caption"><span class="caption-text">高级概念</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../adv_recorder/">记录器</a>
@@ -109,15 +120,6 @@
                   <li class="toctree-l1"><a class="reference internal" href="../adv_benchmarking/">基准性能</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../adv_agents/">Carla 智能体</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">交通仿真</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../adv_traffic_manager/">交通管理器</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../adv_sumo/">SUMO 联合仿真</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_scenic/">Scenic</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">资源</span></p>
@@ -134,21 +136,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ref_sensors/">传感器参考</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tutorials/">教程</a>
-                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ext_docs/">扩展文档</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">插件</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../plugins_carlaviz/">carlaviz — web 可视化器</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">ROS 桥接器</span></p>
-              <ul class="current">
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">ROS 桥文档</a>
-    <ul class="current">
-    </ul>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">自定义地图</span></p>
@@ -229,7 +217,7 @@
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
-              <ul>
+              <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
@@ -242,9 +230,23 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../adv_ptv/">PTV-Vissim 联合仿真</a>
                   </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">ROS</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_1">开始使用</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ros_1">了解主要的 ROS 桥接包</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ros_2">了解额外的 ROS 桥接包</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">探索参考资料</a>
+    </li>
+    </ul>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../adv_rss/">责任敏感安全</a>
                   </li>
-                  <li class="toctree-l1"><a class="" href="https://carla.readthedocs.io/projects/ros-bridge/en/latest/">机器人操作系统</a>
+                  <li class="toctree-l1"><a class="" href="https://github.com/OpenHUTB/engine_doc">虚幻引擎教程</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../plugins_carlaviz/">Web 可视化器</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_G29_windows/">罗技 G29 方向盘</a>
                   </li>
@@ -274,8 +276,8 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">ROS 桥接器</li>
-      <li class="breadcrumb-item active">ROS 桥文档</li>
+          <li class="breadcrumb-item">Carla 生态系统</li>
+      <li class="breadcrumb-item active">ROS</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -284,24 +286,55 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1">机器人操作系统桥</h1>
-<p><strong>机器人操作系统桥的完整文档可在 <a href="https://carla.readthedocs.io/projects/ros-bridge/en/latest/"><strong>此处</strong></a> 找到。</strong></p>
+                <h1 id="ros"><a href="https://carla.readthedocs.io/projects/ros-bridge/en/latest/">ROS 桥</a></h1>
 <hr />
-<p>机器人操作系统桥可实现机器人操作系统和 Carla 之间的双向通信。来自 Carla 服务器的信息被转换为机器人操作系统主题。以同样的方式，机器人操作系统中的节点之间发送的消息被转换为要在 Carla 中应用的命令。</p>
-<p>机器人操作系统桥与 机器人操作系统 1 和 机器人操作系统 2 兼容。</p>
-<p>机器人操作系统桥具有以下特点：</p>
+<p>ROS 桥可实现 ROS 和 Carla 之间的双向通信。来自 Carla 服务器的信息被转换为 ROS 主题。以同样的方式，ROS 中的节点之间发送的消息被转换为要在 Carla 中应用的命令。</p>
+<p>ROS 桥与 ROS 1 和 ROS 2 兼容。</p>
+<p>ROS 桥具有以下特点：</p>
 <ul>
 <li>为激光雷达、语义激光雷达、相机（深度、分割、rgb、dvs）、GNSS、雷达和惯性测量单元提供传感器数据。</li>
 <li>提供对象数据，例如变换、交通灯状态、可视化标记、碰撞和车道入侵。</li>
 <li>通过转向、油门和制动控制自动驾驶智能体。</li>
 <li>控制 Carla 仿真的各个方面，例如同步模式、播放和暂停仿真以及设置仿真参数。</li>
 </ul>
+<h2 id="_1">开始使用</h2>
+<ul>
+<li><a href="../ros_installation_ros1/"><strong>为 ROS 1 安装 ROS 桥</strong></a></li>
+<li><a href="../ros_installation_ros2/"><strong>为 ROS 2 安装 ROS 桥</strong></a></li>
+</ul>
+<hr />
+<h2 id="ros_1">了解主要的 ROS 桥接包</h2>
+<ul>
+<li><a href="../run_ros/"><strong>Carla 的 ROS 桥</strong></a> - 运行 ROS 桥所需的主包</li>
+<li><a href="../ros_compatibility/"><strong>ROS 兼容性节点</strong></a> - 允许相同 API 调用 ROS 1 或 ROS 2 函数的接口</li>
+</ul>
+<hr />
+<h2 id="ros_2">了解额外的 ROS 桥接包</h2>
+<ul>
+<li><a href="../carla_spawn_objects/"><strong>Carla 生成对象</strong></a> - 提供生成参与者的通用方法</li>
+<li><a href="../carla_manual_control/"><strong>Carla 手动控制</strong></a>- 用于自我车辆的基于 ROS 的可视化和控制工具（类似于 Carla 提供的<code>carla_manual_control.py</code>）</li>
+<li><a href="../carla_ackermann_control/"><strong>Carla 阿克曼控制</strong></a> - 一个将阿克曼命令转为转向/油门/刹车的控制器</li>
+<li><a href="../carla_waypoint/"><strong>Carla 航点发布器</strong></a> - 发布和查询 Carla 航点</li>
+<li><a href="../carla_ad_agent/"><strong>Carla 自动驾驶代理</strong></a> - 遵循路线、避免碰撞并遵守交通灯的示例代理</li>
+<li><a href="../carla_ad_demo/"><strong>Carla 自动驾驶示例</strong></a> - 一个示例包，提供使用自动驾驶车辆启动 Carla ROS 环境所需的一切</li>
+<li><a href="../carla_ros_scenario_runner/"><strong>Carla ROS Scenario Runner</strong></a> - 通过 ROS 使用 Carla Scenario Runner 执行 OpenScenarios 的包装器</li>
+<li><a href="../carla_twist_to_control/"><strong>Carla 扭转控制</strong></a> - 将扭转控制转换为 Carla 车辆控制</li>
+<li><a href="../rviz_plugin/"><strong>RVIZ 插件</strong></a> - 用于可视化/控制 Carla 的 RVIZ 插件</li>
+<li><a href="../rqt_plugin/"><strong>RQT 插件</strong></a> - 用于控制 Carla 的 RQT 插件</li>
+<li><a href="../pcl_recorder/"><strong>PCL 记录器</strong></a> - 根据仿真捕获的数据创建点云地图</li>
+</ul>
+<hr />
+<h2 id="_2">探索参考资料</h2>
+<ul>
+<li><a href="../ros_sensors/"><strong>ROS 传感器</strong></a> - 不同传感器中可用的参考主题</li>
+<li><a href="../ros_msgs/"><strong>ROS 消息</strong></a> - Carla ROS 消息中提供的参考参数</li>
+</ul>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../plugins_carlaviz/" class="btn btn-neutral float-left" title="carlaviz — web 可视化器"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../tuto_M_custom_map_overview/" class="btn btn-neutral float-right" title="Carla 中自定义地图的概述">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../adv_ptv/" class="btn btn-neutral float-left" title="PTV-Vissim 联合仿真"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../adv_rss/" class="btn btn-neutral float-right" title="责任敏感安全">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -323,10 +356,10 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../plugins_carlaviz/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../adv_ptv/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../tuto_M_custom_map_overview/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../adv_rss/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
