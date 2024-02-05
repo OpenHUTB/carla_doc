@@ -49,7 +49,7 @@ __4. RssRestrictor__
 - 如果客户端请求，则将响应应用于 [carla.VehicleControl](python_api.md#carla.VehicleControl)，并返回结果。
 
 [![RSS sensor in CARLA](img/rss_carla_integration.png)](https://www.youtube.com/watch?v=UxKPXPT2T8Q)
-<div style="text-align: right"><i>Visualization of the RssSensor results.</i></div>
+<div style="text-align: right"><i>结果的可视化。</i></div>
 
 ---
 ## 编译
@@ -104,7 +104,7 @@ make package.rss
 
 ### RssSensor
 
-[__carla.RssSensor__](python_api.md#carla.RssSensor) 完全支持 [ad-rss-lib v4.2.0 功能集](https://intel.github.io/ad-rss-lib/RELEASE_NOTES_AND_DISCLAIMERS) ，包括交叉路口、 [stay on road](https://intel.github.io/ad-rss-lib/ad_rss_map_integration/HandleRoadBoundaries/) 支持和 [unstructured constellations (e.g. with pedestrians)](https://intel.github.io/ad-rss-lib/ad_rss/UnstructuredConstellations/) 。
+[__carla.RssSensor__](python_api.md#carla.RssSensor) 完全支持 [ad-rss-lib v4.2.0 功能集](https://intel.github.io/ad-rss-lib/RELEASE_NOTES_AND_DISCLAIMERS) ，包括交叉路口、 [stay on road](https://intel.github.io/ad-rss-lib/ad_rss_map_integration/HandleRoadBoundaries/) 支持和 [非结构化的 constellations（比如：行人）](https://intel.github.io/ad-rss-lib/ad_rss/UnstructuredConstellations/) 。
 
 到目前为止，服务器为传感器提供了周围环境的真实数据，包括其他交通参与者和交通信号灯的状态。
 

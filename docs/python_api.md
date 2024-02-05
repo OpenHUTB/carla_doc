@@ -238,48 +238,48 @@ Carla 为 Actor 提供了一个蓝图库，可以通过 [carla.BlueprintLibrary]
 
 ##### 设置器
 - <a name="carla.ActorBlueprint.set_attribute"></a>**<font color="#7fb800">set_attribute</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**id**</font>, <font color="#00a6ed">**value**</font>)<button class="SnipetButton" id="carla.ActorBlueprint.set_attribute-snipet_button">snippet &rarr;</button>  
-If the `id` attribute is modifiable, changes its value to `value`.  
+如果 `id` 属性是可修改的，将其值改为 `value`。  
     - **参数：**
-        - `id` (_str_) - The identifier for the attribute that is intended to be changed.  
-        - `value` (_str_) - The new value for said attribute.  
+        - `id` (_str_) - 要更改属性的标识符。 
+        - `value` (_str_) - 所述属性的新值。 
     - **获取器：** _[carla.ActorBlueprint.get_attribute](#carla.ActorBlueprint.get_attribute)_  
 
-##### Dunder methods
+##### Dunder 方法
 - <a name="carla.ActorBlueprint.__iter__"></a>**<font color="#7fb800">\__iter__</font>**(<font color="#00a6ed">**self**</font>)  
-Iterate over the [carla.ActorAttribute](#carla.ActorAttribute) that this blueprint has.  
+在蓝图有的 [carla.ActorAttribute](#carla.ActorAttribute) 之上进行迭代。
 - <a name="carla.ActorBlueprint.__len__"></a>**<font color="#7fb800">\__len__</font>**(<font color="#00a6ed">**self**</font>)  
-Returns the amount of attributes for this blueprint.  
+返回此蓝图的属性数量。  
 - <a name="carla.ActorBlueprint.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
 
 ---
 
 ## carla.ActorList<a name="carla.ActorList"></a>
-A class that contains every actor present on the scene and provides access to them. The list is automatically created and updated by the server and it can be returned using [carla.World](#carla.World).  
+一个类，它包含现场出现的每个演员并提供对他们的访问。该列表由服务器自动创建和更新，可以使用 [carla.World](#carla.World) 返回。
 
-### Methods
+### 方法
 - <a name="carla.ActorList.filter"></a>**<font color="#7fb800">filter</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**wildcard_pattern**</font>)  
-Filters a list of Actors matching `wildcard_pattern` against their variable __<font color="#f8805a">type_id</font>__ (which identifies the blueprint used to spawn them). Matching follows [fnmatch](https://docs.python.org/2/library/fnmatch.html) standard.  
-    - **Parameters:**
+筛选匹配`wildcard_pattern`的参与者列表，以对抗变量 __<font color="#f8805a">type_id</font>__ (它标识用于生成它们的蓝图)。匹配遵循 [fnmatch](https://docs.python.org/2/library/fnmatch.html) 标准。 
+    - **参数：**
         - `wildcard_pattern` (_str_)  
-    - **Return:** _list_  
+    - **返回：** _list_  
 - <a name="carla.ActorList.find"></a>**<font color="#7fb800">find</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor_id**</font>)  
-Finds an actor using its identifier and returns it or <b>None</b> if it is not present.  
-    - **Parameters:**
+使用其标识符查找参与者并返回它，如果不存在则返回<b>None</b>。 
+    - **参数：**
         - `actor_id` (_int_)  
-    - **Return:** _[carla.Actor](#carla.Actor)_  
+    - **返回：** _[carla.Actor](#carla.Actor)_  
 
-##### Dunder methods
+##### Dunder 方法
 - <a name="carla.ActorList.__getitem__"></a>**<font color="#7fb800">\__getitem__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**pos**=int</font>)  
-Returns the actor corresponding to `pos` position in the list.  
-    - **Return:** _[carla.Actor](#carla.Actor)_  
+返回与列表中`pos`位置相对应的参与者。
+    - **返回：** _[carla.Actor](#carla.Actor)_  
 - <a name="carla.ActorList.__iter__"></a>**<font color="#7fb800">\__iter__</font>**(<font color="#00a6ed">**self**</font>)  
-Iterate over the [carla.Actor](#carla.Actor) contained in the list.  
+在包含 [carla.Actor](#carla.Actor) 的列表上进行迭代。
 - <a name="carla.ActorList.__len__"></a>**<font color="#7fb800">\__len__</font>**(<font color="#00a6ed">**self**</font>)  
-Returns the amount of actors listed.  
-    - **Return:** _int_  
+返回列出的参与者数量。  
+    - **返回：** _int_  
 - <a name="carla.ActorList.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
-Parses to the ID for every actor listed.  
-    - **Return:** _str_  
+在列出的每个参与者上解析ID。
+    - **返回：** _str_  
 
 ---
 
@@ -328,9 +328,9 @@ Parses to the ID for every actor listed.
 - <a name="carla.AttachmentType.Rigid"></a>**<font color="#f8805a">Rigid</font>**  
 通过此固定附件，对象严格遵循其父位置。这是推荐的附件，用于从仿真中检索精确数据。  
 - <a name="carla.AttachmentType.SpringArm"></a>**<font color="#f8805a">SpringArm</font>**  
-一种附件，可根据其父级扩展或缩回参与者的位置。仅建议在需要平滑运动的仿真中录制视频时使用此附件。SpringArms 是一个虚幻引擎组件，因此 [check the UE 文档](https://docs.unrealengine.com/en-US/Gameplay/HowTo/UsingCameras/SpringArmComponents/index.html) 以了解有关它们的更多信息。 <br><b style="color:red;">警告：</b> The <b>SpringArm</b> attachment presents weird behaviors when an actor is spawned with a relative translation in the Z-axis (e.g. <code>child_location = Location(0,0,2)</code>).  
+一种附件，可根据其父级扩展或缩回参与者的位置。仅建议在需要平滑运动的仿真中录制视频时使用此附件。SpringArms 是一个虚幻引擎组件，因此 [check the UE 文档](https://docs.unrealengine.com/en-US/Gameplay/HowTo/UsingCameras/SpringArmComponents/index.html) 以了解有关它们的更多信息。 <br><b style="color:red;">警告：</b> 当参与者在Z轴上产生相对平移时，<b>SpringArm</b> 附件呈现出奇怪的行为。（比如：<code>child_location = Location(0,0,2)</code>）。 
 - <a name="carla.AttachmentType.SpringArmGhost"></a>**<font color="#f8805a">SpringArmGhost</font>**  
-An attachment like the previous one but that does not make the collision test, and that means that it does not expands or retracts the position of the actor. The term **ghost** is because then the camera can cross walls and other geometries. This attachment is only recommended to record videos from the simulation where a smooth movement is needed. SpringArms are an Unreal Engine component so [check the UE docs](https://docs.unrealengine.com/en-US/Gameplay/HowTo/UsingCameras/SpringArmComponents/index.html) to learn more about them. <br><b style="color:red;">Warning:</b> The <b>SpringArm</b> attachment presents weird behaviors when an actor is spawned with a relative translation in the Z-axis (e.g. <code>child_location = Location(0,0,2)</code>).  
+一个与前一个类似的附件，但它不会进行碰撞测试，这意味着它不会扩展或收缩参与者的位置。**ghost** 一词是因为这样相机就可以穿过墙壁和其他几何形状。此附件仅建议用于录制需要平滑移动的仿真视频。SpringArms 是一个虚幻引擎组件，请 [查看虚幻引擎文档](https://docs.unrealengine.com/en-US/Gameplay/HowTo/UsingCameras/SpringArmComponents/index.html) 以了解更多信息。<br><b style="color:red;">警告：</b>当参与者在Z轴上产生相对平移时，<b>SpringArm</b>附件会出现奇怪的行为（比如<code>child_location = Location(0,0,2)</code>）。 
 
 ---
 
@@ -341,60 +341,60 @@ An attachment like the previous one but that does not make the collision test, a
 
 ### 方法
 - <a name="carla.BlueprintLibrary.filter"></a>**<font color="#7fb800">filter</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**wildcard_pattern**</font>)  
-Filters a list of blueprints matching the `wildcard_pattern` against the id and tags of every blueprint contained in this library and returns the result as a new one. Matching follows [fnmatch](https://docs.python.org/2/library/fnmatch.html) standard.  
+根据此库中包含的每个蓝图的id和标记过滤与通配符模式 `wildcard_pattern` 匹配的蓝图列表，并将结果作为新的结果返回。匹配遵循 [fnmatch](https://docs.python.org/2/library/fnmatch.html) 标准。
     - **参数：**
         - `wildcard_pattern` (_str_)  
     - **返回：** _[carla.BlueprintLibrary](#carla.BlueprintLibrary)_  
 - <a name="carla.BlueprintLibrary.filter_by_attribute"></a>**<font color="#7fb800">filter_by_attribute</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**name**</font>, <font color="#00a6ed">**value**</font>)  
-Filters a list of blueprints with a given attribute matching the `value` against every blueprint contained in this library and returns the result as a new one. Matching follows [fnmatch](https://docs.python.org/2/library/fnmatch.html) standard.  
-    - **Parameters:**
+根据此库中包含的每个蓝图，筛选具有与值 `value` 匹配的给定属性的蓝图列表，并将结果作为新的结果返回。匹配遵循 [fnmatch](https://docs.python.org/2/library/fnmatch.html) 标准。
+    - **参数：**
         - `name` (_str_)  
         - `value` (_str_)  
-    - **Return:** _[carla.BlueprintLibrary](#carla.BlueprintLibrary)_  
+    - **返回：** _[carla.BlueprintLibrary](#carla.BlueprintLibrary)_  
 - <a name="carla.BlueprintLibrary.find"></a>**<font color="#7fb800">find</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**id**</font>)  
-Returns the blueprint corresponding to that identifier.  
-    - **Parameters:**
+返回与该标识符对应的蓝图。
+    - **参数：**
         - `id` (_str_)  
-    - **Return:** _[carla.ActorBlueprint](#carla.ActorBlueprint)_  
+    - **返回：** _[carla.ActorBlueprint](#carla.ActorBlueprint)_  
 
-##### Dunder methods
+##### Dunder 方法
 - <a name="carla.BlueprintLibrary.__getitem__"></a>**<font color="#7fb800">\__getitem__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**pos**=int</font>)  
-Returns the blueprint stored in `pos` position inside the data structure containing them.  
+返回存储在包含蓝图的数据结构内`pos`位置的蓝图。 
     - **Return:** _[carla.ActorBlueprint](#carla.ActorBlueprint)_  
 - <a name="carla.BlueprintLibrary.__iter__"></a>**<font color="#7fb800">\__iter__</font>**(<font color="#00a6ed">**self**</font>)  
-Iterate over the [carla.ActorBlueprint](#carla.ActorBlueprint) stored in the library.  
+在存储库 [carla.ActorBlueprint](#carla.ActorBlueprint) 上进行迭代。
 - <a name="carla.BlueprintLibrary.__len__"></a>**<font color="#7fb800">\__len__</font>**(<font color="#00a6ed">**self**</font>)  
-Returns the amount of blueprints comprising the library.  
-    - **Return:** _int_  
+返回构成库的蓝图数量。 
+    - **返回：** _int_  
 - <a name="carla.BlueprintLibrary.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
-Parses the identifiers for every blueprint to string.  
-    - **Return:** _string_  
+解析要字符串化的每个蓝图的标识符。 
+    - **返回：** _string_  
 
 ---
 
 ## carla.BoundingBox<a name="carla.BoundingBox"></a>
-Bounding boxes contain the geometry of an actor or an element in the scene. They can be used by [carla.DebugHelper](#carla.DebugHelper) or a [carla.Client](#carla.Client) to draw their shapes for debugging. Check out the snipet in [carla.DebugHelper.draw_box](#carla.DebugHelper.draw_box) where a snapshot of the world is used to draw bounding boxes for traffic lights.  
+边界框包含场景中参与者或元素的几何体。它们可以被[carla.DebugHelper](#carla.DebugHelper) 或 [carla.Client](#carla.Client) 用于绘制它们的形状以进行调试。看看 [carla.DebugHelper.draw_box](#carla.DebugHelper.draw_box)，其中使用世界快照绘制红绿灯的边界框。
+
 
 ### 实例变量
 - <a name="carla.BoundingBox.extent"></a>**<font color="#f8805a">extent</font>** (_[carla.Vector3D](#carla.Vector3D)<small> - meters</small>_)  
-Vector from the center of the box to one vertex. The value in each axis equals half the size of the box for that axis.
-`extent.x * 2` would return the size of the box in the X-axis.  
+从长方体中心到一个顶点的矢量。每个轴中的值等于该轴框大小的一半。`extent.x * 2` 将返回框在x轴上的大小。 
 - <a name="carla.BoundingBox.location"></a>**<font color="#f8805a">location</font>** (_[carla.Location](#carla.Location)<small> - meters</small>_)  
-The center of the bounding box.  
+边界框的中心。  
 - <a name="carla.BoundingBox.rotation"></a>**<font color="#f8805a">rotation</font>** (_[carla.Rotation](#carla.Rotation)_)  
-The orientation of the bounding box.  
+边界框的朝向。 
 
 ### 方法
 - <a name="carla.BoundingBox.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**location**</font>, <font color="#00a6ed">**extent**</font>)  
-    - **Parameters:**
-        - `location` (_[carla.Location](#carla.Location)_) - Center of the box, relative to its parent.  
-        - `extent` (_[carla.Vector3D](#carla.Vector3D)<small> - meters</small>_) - Vector containing half the size of the box for every axis.  
+    - **参数：**
+        - `location` (_[carla.Location](#carla.Location)_) - 相对于其父框的中心。 
+        - `extent` (_[carla.Vector3D](#carla.Vector3D)<small> - meters</small>_) - 包含每个轴的长方体大小的一半的矢量。 
 - <a name="carla.BoundingBox.contains"></a>**<font color="#7fb800">contains</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**world_point**</font>, <font color="#00a6ed">**transform**</font>)  
-Returns **True** if a point passed in world space is inside this bounding box.  
+如果在世界空间中传递的点在此边界框内，则返回**True**。
     - **Parameters:**
-        - `world_point` (_[carla.Location](#carla.Location)<small> - meters</small>_) - The point in world space to be checked.  
-        - `transform` (_[carla.Transform](#carla.Transform)_) - Contains location and rotation needed to convert this object's local space to world space.  
-    - **Return:** _bool_  
+        - `world_point` (_[carla.Location](#carla.Location)<small> - meters</small>_) - 要检查的世界空间中的点。 
+        - `transform` (_[carla.Transform](#carla.Transform)_) - 包含将此对象的局部空间转换为世界空间所需的位置和旋转。 
+    - **返回：** _bool_  
 
 ##### 获取器
 - <a name="carla.BoundingBox.get_local_vertices"></a>**<font color="#7fb800">get_local_vertices</font>**(<font color="#00a6ed">**self**</font>)  
@@ -406,16 +406,16 @@ Returns **True** if a point passed in world space is inside this bounding box.
         - `transform` (_[carla.Transform](#carla.Transform)_) - 包含将此对象的本地空间转换为世界空间所需的位置和旋转。  
     - **返回：** _list([carla.Location](#carla.Location))_  
 
-##### Dunder methods
-- <a name="carla.BoundingBox.__eq__"></a>**<font color="#7fb800">\__eq__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.BoundingBox](#carla.BoundingBox)</font>)  
-Returns true if both location and extent are equal for this and `other`.  
-    - **Return:** _bool_  
+##### Dunder 方法
+- <a name="carla.BoundingBox.__eq__"></a>**<font color="#7fb800">\__eq__ </font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.BoundingBox](#carla.BoundingBox)</font>)  
+如果此和另一个`other`的位置和范围相等，则返回true。
+    - **返回：** _bool_  
 - <a name="carla.BoundingBox.__ne__"></a>**<font color="#7fb800">\__ne__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.BoundingBox](#carla.BoundingBox)</font>)  
-Returns true if either location or extent are different for this and `other`.  
-    - **Return:** _bool_  
+如果此和其他`other`的位置或范围不同，则返回true。
+    - **返回：** _bool_  
 - <a name="carla.BoundingBox.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
-Parses the location and extent of the bounding box to string.  
-    - **Return:** _str_  
+将边界框的位置和范围解析为字符串。  
+    - **返回：** _str_  
 
 ---
 
@@ -457,94 +457,87 @@ Parses the location and extent of the bounding box to string.
 
 ### 方法
 - <a name="carla.Client.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**host**=127.0.0.1</font>, <font color="#00a6ed">**port**=2000</font>, <font color="#00a6ed">**worker_threads**=0</font>)<button class="SnipetButton" id="carla.Client.__init__-snipet_button">snippet &rarr;</button>  
-Client constructor.  
+客户端构造器。  
     - **参数：**
-        - `host` (_str_) - IP address where a Carla Simulator instance is running. Default is localhost (127.0.0.1).  
-        - `port` (_int_) - TCP port where the Carla Simulator instance is running. Default are 2000 and the subsequent 2001.  
-        - `worker_threads` (_int_) - Number of working threads used for background updates. If 0, use all available concurrency.  
+        - `host` (_str_) - 运行Carla 仿真器实例的IP地址。默认值为localhost（127.0.0.1）。  
+        - `port` (_int_) - 运行Carla 仿真器实例的TCP端口。默认为 2000 和随后的2001 。 
+        - `worker_threads` (_int_) - 用于后台更新的工作线程数。如果为 0，则使用所有可用的并发性。
 - <a name="carla.Client.apply_batch"></a>**<font color="#7fb800">apply_batch</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**commands**</font>)  
-Executes a list of commands on a single simulation step and retrieves no information. If you need information about the response of each command, use the __<font color="#7fb800">apply_batch_sync()</font>__ method. [Here](https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/generate_traffic.py) is an example on how to delete the actors that appear in [carla.ActorList](#carla.ActorList) all at once.  
-    - **Parameters:**
-        - `commands` (_list_) - A list of commands to execute in batch. Each command is different and has its own parameters. They appear listed at the bottom of this page.  
+在单个仿真步骤上执行命令列表，不检索任何信息。如果需要有关每个命令的响应的信息，请使用 __<font color="#7fb800">apply_batch_sync()</font>__ 方法。[下面](https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/generate_traffic.py) 是一个关于如何删除卡拉中出现的演员的示例。一次列出所有参与者 [carla.ActorList](#carla.ActorList) 。
+    - **参数：**
+        - `commands` (_list_) - 要批量执行的命令列表。每个命令都不同，并且有自己的参数。它们显示在此页面底部列出。
 - <a name="carla.Client.apply_batch_sync"></a>**<font color="#7fb800">apply_batch_sync</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**commands**</font>, <font color="#00a6ed">**due_tick_cue**=False</font>)<button class="SnipetButton" id="carla.Client.apply_batch_sync-snipet_button">snippet &rarr;</button>  
-Executes a list of commands on a single simulation step, blocks until the commands are linked, and returns a list of <b>command.Response</b> that can be used to determine whether a single command succeeded or not. [Here](https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/generate_traffic.py) is an example of it being used to spawn actors.  
-    - **Parameters:**
-        - `commands` (_list_) - A list of commands to execute in batch. The commands available are listed right above, in the method **<font color="#7fb800">apply_batch()</font>**.  
-        - `due_tick_cue` (_bool_) - A boolean parameter to specify whether or not to perform a [carla.World.tick](#carla.World.tick) after applying the batch in _synchronous mode_. It is __False__ by default.  
-    - **Return:** _list(command.Response)_  
+在单个模拟步骤上执行命令列表，阻止直到命令链接，并返回命令列表。可用于确定单个命令是否成功的响应。[下面](https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/generate_traffic.py) 是一个用来生成参与者的例子。
+    - **参数：**
+        - `commands` (_list_) - 要批量执行的命令列表。可用的命令列在方法 **<font color="#7fb800">apply_batch()</font>** 的正上方。 
+        - `due_tick_cue` (_bool_) - 一个布尔参数，用于指定是否执行 Carla。在 __同步模式__ 下应用批处理后进行 [carla.World.tick](#carla.World.tick)。默认情况下为 __False__ 。
+    - **返回：** _list(command.Response)_  
 - <a name="carla.Client.generate_opendrive_world"></a>**<font color="#7fb800">generate_opendrive_world</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**opendrive**</font>, <font color="#00a6ed">**parameters**=(2.0, 50.0, 1.0, 0.6, true, true)</font>, <font color="#00a6ed">**reset_settings**=True</font>)  
-Loads a new world with a basic 3D topology generated from the content of an OpenDRIVE file. This content is passed as a `string` parameter. It is similar to `client.load_world(map_name)` but allows for custom OpenDRIVE maps in server side. Cars can drive around the map, but there are no graphics besides the road and sidewalks.  
-    - **Parameters:**
-        - `opendrive` (_str_) - Content of an OpenDRIVE file as `string`, __not the path to the `.xodr`__.  
-        - `parameters` (_[carla.OpendriveGenerationParameters](#carla.OpendriveGenerationParameters)_) - Additional settings for the mesh generation. If none are provided, default values will be used.  
-        - `reset_settings` (_bool_) - Option to reset the episode setting to default values, set to false to keep the current settings. This is useful to keep sync mode when changing map and to keep deterministic scenarios.  
+使用从OpenDRIVE文件的内容生成的基本三维拓扑加载新世界。此内容作为`string`参数传递。它类似于`client.load_world(map_name)`，但允许在服务器端自定义OpenDRIVE映射。汽车可以在地图上行驶，但除了道路和人行道之外，没有任何图形。
+    - **参数：**
+        - `opendrive` (_str_) - OpenDRIVE文件的内容为字符串`string`，__而不是`.xodr`的路径__。  
+        - `parameters` (_[carla.OpendriveGenerationParameters](#carla.OpendriveGenerationParameters)_) - 网格生成的其他设置。如果没有提供，将使用默认值。 
+        - `reset_settings` (_bool_) - 选项可将剧集设置重置为默认值，设置为false 可保留当前设置。这对于在更改映射时保持同步模式和保持确定性场景非常有用。
 - <a name="carla.Client.load_world"></a>**<font color="#7fb800">load_world</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**map_name**</font>, <font color="#00a6ed">**reset_settings**=True</font>, <font color="#00a6ed">**map_layers**=[carla.MapLayer.All](#carla.MapLayer.All)</font>)  
 Creates a new world with default settings using `map_name` map. All actors in the current world will be destroyed.  
-    - **Parameters:**
-        - `map_name` (_str_) - Name of the map to be used in this world. Accepts both full paths and map names, e.g. '/Game/Carla/Maps/Town01' or 'Town01'. Remember that these paths are dynamic.  
-        - `reset_settings` (_bool_) - Option to reset the episode setting to default values, set to false to keep the current settings. This is useful to keep sync mode when changing map and to keep deterministic scenarios.  
-        - `map_layers` (_[carla.MapLayer](#carla.MapLayer)_) - Layers of the map that will be loaded. By default all layers are loaded. This parameter works like a flag mask.  
-    - **Warning:** <font color="#ED2F2F">_`map_layers` are only available for "Opt" maps
+    - **参数：**
+        - `map_name` (_str_) - 要在这个世界上使用的地图的名称。接受完整路径和地图名称，例如“/Game/Calla/Maps/Town01”或“Town01”。请记住，这些路径是动态的。
+        - `reset_settings` (_bool_) - 选项可将情节设置重置为默认值，设置为false可保留当前设置。这对于在更改映射时保持同步模式和保持确定性场景非常有用。
+        - `map_layers` (_[carla.MapLayer](#carla.MapLayer)_) - 将加载的地图的图层。默认情况下，将加载所有图层。此参数的作用类似于标志掩码。
+    - **警告：** <font color="#ED2F2F">_`map_layers` 仅对"Opt"地图可用。
 _</font>  
 - <a name="carla.Client.reload_world"></a>**<font color="#7fb800">reload_world</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**reset_settings**=True</font>)  
-Reload the current world, note that a new world is created with default settings using the same map. All actors present in the world will be destroyed, __but__ traffic manager instances will stay alive.  
-    - **Parameters:**
-        - `reset_settings` (_bool_) - Option to reset the episode setting to default values, set to false to keep the current settings. This is useful to keep sync mode when changing map and to keep deterministic scenarios.  
-    - **Raises:** RuntimeError when corresponding.  
+重新加载当前世界，请注意，将使用同一地图使用默认设置创建一个新世界。世界上所有参与者都将被摧毁，__但__ 交通管理器实例将继续存在。
+    - **参数：**
+        - `reset_settings` (_bool_) - 选项可将情节设置重置为默认值，设置为false可保留当前设置。这对于在更改映射时保持同步模式和保持确定性场景非常有用。
+    - **Raises:** 对应的运行时错误 RuntimeError。   
 - <a name="carla.Client.replay_file"></a>**<font color="#7fb800">replay_file</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**name**</font>, <font color="#00a6ed">**start**</font>, <font color="#00a6ed">**duration**</font>, <font color="#00a6ed">**follow_id**</font>, <font color="#00a6ed">**replay_sensors**</font>)  
-Load a new world with default settings using `map_name` map. All actors present in the current world will be destroyed, __but__ traffic manager instances will stay alive.  
-    - **Parameters:**
-        - `name` (_str_) - Name of the file containing the information of the simulation.  
-        - `start` (_float<small> - seconds</small>_) - Time where to start playing the simulation. Negative is read as beginning from the end, being -10 just 10 seconds before the recording finished.  
-        - `duration` (_float<small> - seconds</small>_) - Time that will be reenacted using the information `name` file. If the end is reached, the simulation will continue.  
-        - `follow_id` (_int_) - ID of the actor to follow. If this is 0 then camera is disabled.  
-        - `replay_sensors` (_bool_) - Flag to enable or disable the spawn of sensors during playback.  
+使用`map_name`加载具有默认设置的新世界。当前世界中的所有参与者都将被摧毁，__但__ 交通管理器实例将继续存在。
+    - **参数：**
+        - `name` (_str_) - 包含模拟信息的文件的名称。
+        - `start` (_float<small> - seconds</small>_) - 开始播放仿真的时间。负数表示从结尾开始读取，在录制结束前10秒为-10。
+        - `duration` (_float<small> - seconds</small>_) - 将使用信息 `name` 文件重新执行的时间。如果到达终点，仿真将继续。
+        - `follow_id` (_int_) - 要跟随的参与者的 ID。如果此值为0，则禁用相机。
+        - `replay_sensors` (_bool_) - 用于在播放期间启用或禁用传感器生成的标志。
 - <a name="carla.Client.request_file"></a>**<font color="#7fb800">request_file</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**name**</font>)  
-Requests one of the required files returned by [carla.Client.get_required_files](#carla.Client.get_required_files).  
-    - **Parameters:**
-        - `name` (_str_) - Name of the file you are requesting.  
+由 [carla.Client.get_required_files](#carla.Client.get_required_files) 返回需要文件的一个请求。  
+    - **参数：**
+        - `name` (_str_) - 您请求的文件的名称。
 - <a name="carla.Client.show_recorder_actors_blocked"></a>**<font color="#7fb800">show_recorder_actors_blocked</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**filename**</font>, <font color="#00a6ed">**min_time**</font>, <font color="#00a6ed">**min_distance**</font>)  
-The terminal will show the information registered for actors considered blocked. An actor is considered blocked when it does not move a minimum distance in a period of time, being these `min_distance` and `min_time`.  
-    - **Parameters:**
-        - `filename` (_str_) - Name of the recorded file to load.  
-        - `min_time` (_float<small> - seconds</small>_) - Minimum time the actor has to move a minimum distance before being considered blocked. Default is 60 seconds.  
-        - `min_distance` (_float<small> - centimeters</small>_) - Minimum distance the actor has to move to not be considered blocked. Default is 100 centimeters.  
-    - **Return:** _string_  
+终端将显示被视为被屏蔽的参与者的注册信息。当参与者在一段时间内没有移动最小距离时，即`min_distance`和`min_time`，则视为被阻挡。  
+    - **参数：**
+        - `filename` (_str_) - 要加载的录制文件的名称。 
+        - `min_time` (_float<small> - seconds</small>_) - 参与者在被认为被阻挡之前必须移动最短距离的最短时间。默认值为60秒。  
+        - `min_distance` (_float<small> - centimeters</small>_) - 参与者必须移动的最小距离才能不被视为被阻挡。默认值为100厘米。
+    - **返回：** _string_  
 - <a name="carla.Client.show_recorder_collisions"></a>**<font color="#7fb800">show_recorder_collisions</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**filename**</font>, <font color="#00a6ed">**category1**</font>, <font color="#00a6ed">**category2**</font>)  
-The terminal will show the collisions registered by the recorder. These can be filtered by specifying the type of actor involved. The categories will be specified in `category1` and `category2` as follows:
-  'h' = Hero, the one vehicle that can be controlled manually or managed by the user.
-  'v' = Vehicle
-  'w' = Walker
-  't' = Traffic light
-  'o' = Other
-  'a' = Any
-If you want to see only collisions between a vehicles and a walkers, use for `category1` as 'v' and `category2` as 'w' or vice versa. If you want to see all the collisions (filter off) you can use 'a' for both parameters.  
-    - **Parameters:**
-        - `filename` (_str_) - Name or absolute path of the file recorded, depending on your previous choice.  
-        - `category1` (_single char_) - Character variable specifying a first type of actor involved in the collision.  
-        - `category2` (_single char_) - Character variable specifying the second type of actor involved in the collision.  
-    - **Return:** _string_  
+终端将显示记录器记录的碰撞。可以通过指定所涉及的参与者的类型来过滤这些内容。类别将在`category1`和`category1`中指定如下：“h”=英雄，一种可以手动控制或由用户管理的车辆。”v'=车辆'w'=步行者't'=红绿灯'o'=其他'a'=任何如果您只想看到车辆和步行者之间的碰撞，请将`category1`用作'v'，将`category2`用作'w'，反之亦然。如果要查看所有碰撞（过滤掉），可以对两个参数都使用“a”。 
+    - **参数：**
+        - `filename` (_str_) - 记录的文件的名称或绝对路径，具体取决于您之前的选择。 
+        - `category1` (_single char_) - 指定冲突中涉及的第一类参与者的字符变量。
+        - `category2` (_single char_) - 指定冲突中涉及的第二类参与者的字符变量。
+    - **返回：** _string_  
 - <a name="carla.Client.show_recorder_file_info"></a>**<font color="#7fb800">show_recorder_file_info</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**filename**</font>, <font color="#00a6ed">**show_all**</font>)  
-The information saved by the recorder will be parsed and shown in your terminal as text (frames, times, events, state, positions...). The information shown can be specified by using the `show_all` parameter. [Here](ref_recorder_binary_file_format.md) is some more information about how to read the recorder file.  
-    - **Parameters:**
-        - `filename` (_str_) - Name or absolute path of the file recorded, depending on your previous choice.  
-        - `show_all` (_bool_) - If __True__, returns all the information stored for every frame (traffic light states, positions of all actors, orientation and animation data...). If __False__, returns a summary of key events and frames.  
-    - **Return:** _string_  
+记录器保存的信息将被解析并以文本形式显示在您的终端中（帧、时间、事件、状态、位置…）。可以使用`show_all`参数指定显示的信息。[以下](ref_recorder_binary_file_format.md) 是有关如何读取记录器文件的更多信息。
+    - **参数：**
+        - `filename` (_str_) - 记录的文件的名称或绝对路径，具体取决于您之前的选择。
+        - `show_all` (_bool_) - 如果为 __True__ ，则返回为每帧存储的所有信息（红绿灯状态、所有参与者的位置、方向和动画数据…）。如果为 __False__ ，则返回关键事件和帧的摘要。 
+    - **返回：** _string_  
 - <a name="carla.Client.start_recorder"></a>**<font color="#7fb800">start_recorder</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**filename**</font>, <font color="#00a6ed">**additional_data**=False</font>)  
-Enables the recording feature, which will start saving every information possible needed by the server to replay the simulation.  
-    - **Parameters:**
-        - `filename` (_str_) - Name of the file to write the recorded data. A simple name will save the recording in 'CarlaUE4/Saved/recording.log'. Otherwise, if some folder appears in the name, it will be considered an absolute path.  
-        - `additional_data` (_bool_) - Enables or disable recording non-essential data for reproducing the simulation (bounding box location, physics control parameters, etc).  
+启用录制功能，该功能将开始保存服务器重播仿真所需的所有信息。
+    - **参数：**
+        - `filename` (_str_) - 用于写入记录数据的文件的名称。一个简单的名称会将录制保存在“CarlaUE4/Saved/recording.log”中。否则，如果名称中出现某个文件夹，则会将其视为绝对路径。
+        - `additional_data` (_bool_) - 启用或禁用记录用于再现仿真的非必要数据（边界框位置、物理控制参数等）。
 - <a name="carla.Client.stop_recorder"></a>**<font color="#7fb800">stop_recorder</font>**(<font color="#00a6ed">**self**</font>)  
-Stops the recording in progress. If you specified a path in `filename`, the recording will be there. If not, look inside `CarlaUE4/Saved/`.  
+停止正在进行的录制。如果您在文件名中指定了一个路径，则录制文件将在那里。如果没有，请查看`CarlaUE4/Saved/`内部。
 - <a name="carla.Client.stop_replayer"></a>**<font color="#7fb800">stop_replayer</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**keep_actors**</font>)  
-Stop current replayer.  
-    - **Parameters:**
-        - `keep_actors` (_bool_) - True if you want autoremove all actors from the replayer, or False to keep them.  
+停止当前重播。 
+    - **参数：**
+        - `keep_actors` (_bool_) - 如果你想自动删除重播中的所有参与者，则为 True，如果你想保留他们，则为 False。
 
-##### Getters
+##### 获取器
 - <a name="carla.Client.get_available_maps"></a>**<font color="#7fb800">get_available_maps</font>**(<font color="#00a6ed">**self**</font>)  
-Returns a list of strings containing the paths of the maps available on server. These paths are dynamic, they will be created during the simulation and so you will not find them when looking up in your files. One of the possible returns for this method would be:
+返回一个字符串列表，其中包含服务器上可用映射的路径。这些路径是动态的，它们将在仿真过程中创建，因此在文件中查找时找不到它们。此方法可能的返回结果之一是：
   ['/Game/Carla/Maps/Town01',
   '/Game/Carla/Maps/Town02',
   '/Game/Carla/Maps/Town03',
@@ -552,85 +545,85 @@ Returns a list of strings containing the paths of the maps available on server. 
   '/Game/Carla/Maps/Town05',
   '/Game/Carla/Maps/Town06',
   '/Game/Carla/Maps/Town07'].  
-    - **Return:** _list(str)_  
+    - **返回：** _list(str)_  
 - <a name="carla.Client.get_client_version"></a>**<font color="#7fb800">get_client_version</font>**(<font color="#00a6ed">**self**</font>)  
-Returns the client libcarla version by consulting it in the "Version.h" file. Both client and server can use different libcarla versions but some issues may arise regarding unexpected incompatibilities.  
-    - **Return:** _str_  
+通过在“version.h”文件中查阅客户端libcarla版本，返回该版本。客户端和服务器都可以使用不同的libcarla版本，但可能会出现一些与意外不兼容有关的问题。 
+    - **返回：** _str_  
 - <a name="carla.Client.get_required_files"></a>**<font color="#7fb800">get_required_files</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**folder**</font>, <font color="#00a6ed">**download**=True</font>)  
-Asks the server which files are required by the client to use the current map. Option to download files automatically if they are not already in the cache.  
-    - **Parameters:**
-        - `folder` (_str_) - Folder where files required by the client will be downloaded to.  
-        - `download` (_bool_) - If True, downloads files that are not already in cache.  
+询问服务器客户端需要哪些文件才能使用当前地图。选项，如果文件不在缓存中，则自动下载文件。
+    - **参数：**
+        - `folder` (_str_) - 将客户端所需文件下载到的文件夹。
+        - `download` (_bool_) - 如果为True，则下载尚未在缓存中的文件。 
 - <a name="carla.Client.get_server_version"></a>**<font color="#7fb800">get_server_version</font>**(<font color="#00a6ed">**self**</font>)  
-Returns the server libcarla version by consulting it in the "Version.h" file. Both client and server should use the same libcarla version.  
-    - **Return:** _str_  
+通过在“version.h”文件中查阅服务器libcarla版本，返回该版本。客户端和服务器都应该使用相同的libcarla版本。  
+    - **返回：** _str_  
 - <a name="carla.Client.get_trafficmanager"></a>**<font color="#7fb800">get_trafficmanager</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**client_connection**=8000</font>)  
-Returns an instance of the traffic manager related to the specified port. If it does not exist, this will be created.  
-    - **Parameters:**
-        - `client_connection` (_int_) - Port that will be used by the traffic manager. Default is `8000`.  
-    - **Return:** _[carla.TrafficManager](#carla.TrafficManager)_  
+返回与指定端口相关的交通管理器实例。如果该实例不存在，则会创建该实例。 
+    - **参数：**
+        - `client_connection` (_int_) - 将由交通管理器使用的端口。默认值为`8000`。 
+    - **返回：** _[carla.TrafficManager](#carla.TrafficManager)_  
 - <a name="carla.Client.get_world"></a>**<font color="#7fb800">get_world</font>**(<font color="#00a6ed">**self**</font>)  
-Returns the world object currently active in the simulation. This world will be later used for example to load maps.  
-    - **Return:** _[carla.World](#carla.World)_  
+返回仿真中当前处于活动状态的世界对象。该世界稍后将用于例如加载地图。
+    - **返回：** _[carla.World](#carla.World)_  
 
-##### Setters
+##### 设置器
 - <a name="carla.Client.set_files_base_folder"></a>**<font color="#7fb800">set_files_base_folder</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**path**</font>)  
-    - **Parameters:**
-        - `path` (_str_) - Specifies the base folder where the local cache for required files will be placed.  
+    - **参数：**
+        - `path` (_str_) - 返回仿真中当前处于活动状态的世界对象。该世界稍后将用于例如加载地图。 
 - <a name="carla.Client.set_replayer_ignore_hero"></a>**<font color="#7fb800">set_replayer_ignore_hero</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**ignore_hero**</font>)  
-    - **Parameters:**
-        - `ignore_hero` (_bool_) - Enables or disables playback of the hero vehicle during a playback of a recorded simulation.  
+    - **参数：**
+        - `ignore_hero` (_bool_) - 在播放录制的仿真过程中启用或禁用英雄车辆的播放。 
 - <a name="carla.Client.set_replayer_ignore_spectator"></a>**<font color="#7fb800">set_replayer_ignore_spectator</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**ignore_spectator**</font>)  
-    - **Parameters:**
-        - `ignore_spectator` (_bool_) - Determines whether the recorded spectator movements will be replicated by the replayer.  
+    - **参数：**
+        - `ignore_spectator` (_bool_) - 确定回放程序是否会复制记录的参与者动作。
 - <a name="carla.Client.set_replayer_time_factor"></a>**<font color="#7fb800">set_replayer_time_factor</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**time_factor**=1.0</font>)  
-When used, the time speed of the reenacted simulation is modified at will. It can be used several times while a playback is in curse.  
-    - **Parameters:**
-        - `time_factor` (_float_) - 1.0 means normal time speed. Greater than 1.0 means fast motion (2.0 would be double speed) and lesser means slow motion (0.5 would be half speed).  
+使用时，会随意修改重新仿真的时间速度。当播放时，它可以使用多次。
+    - **参数：**
+        - `time_factor` (_float_) - 1.0表示正常时间速度。大于1.0表示快速运动（2.0表示双倍速度），小于1.0表示慢速运动（0.5表示一半速度）。  
 - <a name="carla.Client.set_timeout"></a>**<font color="#7fb800">set_timeout</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**seconds**</font>)  
-Sets the maximum time a network call is allowed before blocking it and raising a timeout exceeded error.  
-    - **Parameters:**
-        - `seconds` (_float<small> - seconds</small>_) - New timeout value. Default is 5 seconds.  
+设置在阻止网络调用并引发超时超时错误之前允许网络调用的最长时间。
+    - **参数：**
+        - `seconds` (_float<small> - seconds</small>_) - 新的超时值。默认值为5秒。
 
 ---
 
 ## carla.CollisionEvent<a name="carla.CollisionEvent"></a>
 <small style="display:block;margin-top:-20px;">Inherited from _[carla.SensorData](#carla.SensorData)_</small></br>
-Class that defines a collision data for <b>sensor.other.collision</b>. The sensor creates one of these for every collision detected. Each collision sensor produces one collision event per collision per frame. Multiple collision events may be produced in a single frame by collisions with multiple other actors. Learn more about this [here](ref_sensors.md#collision-detector).  
+为<b>sensor.other.collision</b>定义碰撞数据的类。传感器为检测到的每个碰撞创建一个碰撞数据。每个碰撞传感器每帧每个碰撞产生一个碰撞事件。通过与多个其他参与者的碰撞，可以在单个帧中产生多个碰撞事件。点击 [此处](ref_sensors.md#collision-detector) 了解更多信息。  
 
-### Instance Variables
+### 实例变量
 - <a name="carla.CollisionEvent.actor"></a>**<font color="#f8805a">actor</font>** (_[carla.Actor](#carla.Actor)_)  
-The actor the sensor is attached to, the one that measured the collision.  
+传感器连接到的参与者，也就是测量碰撞的参与者。
 - <a name="carla.CollisionEvent.other_actor"></a>**<font color="#f8805a">other_actor</font>** (_[carla.Actor](#carla.Actor)_)  
-The second actor involved in the collision.  
+第二个参与碰撞的参与者。
 - <a name="carla.CollisionEvent.normal_impulse"></a>**<font color="#f8805a">normal_impulse</font>** (_[carla.Vector3D](#carla.Vector3D)<small> - N*s</small>_)  
-Normal impulse resulting of the collision.  
+碰撞产生的正常脉冲。
 
 ---
 
 ## carla.Color<a name="carla.Color"></a>
-Class that defines a 32-bit RGBA color.  
+定义32位RGBA颜色的类。  
 
-### Instance Variables
+### 实例变量
 - <a name="carla.Color.r"></a>**<font color="#f8805a">r</font>** (_int_)  
-Red color (0-255).  
+红色 (0-255)。 
 - <a name="carla.Color.g"></a>**<font color="#f8805a">g</font>** (_int_)  
-Green color (0-255).  
+绿色 (0-255)。 
 - <a name="carla.Color.b"></a>**<font color="#f8805a">b</font>** (_int_)  
-Blue color (0-255).  
+蓝色 (0-255)。
 - <a name="carla.Color.a"></a>**<font color="#f8805a">a</font>** (_int_)  
-Alpha channel (0-255).  
+Alpha 通道 (0-255).。  
 
-### Methods
+### 方法
 - <a name="carla.Color.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**r**=0</font>, <font color="#00a6ed">**g**=0</font>, <font color="#00a6ed">**b**=0</font>, <font color="#00a6ed">**a**=255</font>)  
-Initializes a color, black by default.  
-    - **Parameters:**
+初始化颜色，默认为黑色。  
+    - **参数：**
         - `r` (_int_)  
         - `g` (_int_)  
         - `b` (_int_)  
         - `a` (_int_)  
 
-##### Dunder methods
+##### Dunder 方法
 - <a name="carla.Color.__eq__"></a>**<font color="#7fb800">\__eq__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.Color](#carla.Color)</font>)  
 - <a name="carla.Color.__ne__"></a>**<font color="#7fb800">\__ne__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.Color](#carla.Color)</font>)  
 - <a name="carla.Color.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
@@ -638,55 +631,55 @@ Initializes a color, black by default.
 ---
 
 ## carla.ColorConverter<a name="carla.ColorConverter"></a>
-Class that defines conversion patterns that can be applied to a [carla.Image](#carla.Image) in order to show information provided by [carla.Sensor](#carla.Sensor). Depth conversions cause a loss of accuracy, as sensors detect depth as <b>float</b> that is then converted to a grayscale value between 0 and 255. Take a look at the snipet in [carla.Sensor.listen](#carla.Sensor.listen) to see an example of how to create and save image data for <b>sensor.camera.semantic_segmentation</b>.  
+定义可应用于 [carla.Image](#carla.Image) 的转换模式的类，以显示 [carla.Sensor](#carla.Sensor) 提供的信息。深度转换会导致精度损失，因为传感器将深度检测为浮点数，然后将其转换为 0 到 255 之间的灰度值。查看 [carla.Sensor.listen](#carla.Sensor.listen) 中的片段，了解如何创建和保存图像的示例<b>sensor.camera.semantic_segmentation</b>的数据。
 
-### Instance Variables
+### 实例变量
 - <a name="carla.ColorConverter.CityScapesPalette"></a>**<font color="#f8805a">CityScapesPalette</font>**  
-Converts the image to a segmented map using tags provided by the blueprint library. Used by the [semantic segmentation camera](ref_sensors.md#semantic-segmentation-camera).  
+使用蓝图库提供的标签将图像转换为分段地图。由 [语义分割相机](ref_sensors.md#semantic-segmentation-camera) 使用。
 - <a name="carla.ColorConverter.Depth"></a>**<font color="#f8805a">Depth</font>**  
-Converts the image to a linear depth map. Used by the [depth camera](ref_sensors.md#depth-camera).  
+将图像转换为线性深度图。由 [深度相机](ref_sensors.md#depth-camera) 使用。
 - <a name="carla.ColorConverter.LogarithmicDepth"></a>**<font color="#f8805a">LogarithmicDepth</font>**  
-Converts the image to a depth map using a logarithmic scale, leading to better precision for small distances at the expense of losing it when further away.  
+使用对数刻度将图像转换为深度图，从而在小距离上获得更好的精度，但在距离较远时会丢失精度。
 - <a name="carla.ColorConverter.Raw"></a>**<font color="#f8805a">Raw</font>**  
-No changes applied to the image. Used by the [RGB camera](ref_sensors.md#rgb-camera).  
+未对图像应用任何更改。由 [RGB 相机](ref_sensors.md#rgb-camera) 使用。
 
 ---
 
 ## carla.DVSEvent<a name="carla.DVSEvent"></a>
-Class that defines a DVS event. An event is a quadruple, so a tuple of 4 elements, with `x`, `y` pixel coordinate location, timestamp `t` and polarity `pol` of the event. Learn more about them [here](ref_sensors.md).  
+定义 DVS 事件的类。事件是一个四元组，因此是一个由 4 个元素组成的元组，其中`x`、像素`y`坐标位置、时间戳`t`和事件极性`pol`。在 [这里](ref_sensors.md) 了解更多关于它们的信息。
 
-### Instance Variables
+### 实例变量
 - <a name="carla.DVSEvent.x"></a>**<font color="#f8805a">x</font>** (_int_)  
-X pixel coordinate.  
+X 像素坐标。
 - <a name="carla.DVSEvent.y"></a>**<font color="#f8805a">y</font>** (_int_)  
-Y pixel coordinate.  
+Y 像素坐标。  
 - <a name="carla.DVSEvent.t"></a>**<font color="#f8805a">t</font>** (_int_)  
-Timestamp of the moment the event happened.  
+事件发生时刻的时间戳。
 - <a name="carla.DVSEvent.pol"></a>**<font color="#f8805a">pol</font>** (_bool_)  
-Polarity of the event. __True__ for positive and __False__ for negative.  
+事件的极性。__True__ 表示正数， __False__ 表示负数。
 
-### Methods
+### 方法
 
-##### Dunder methods
+##### Dunder 方法
 - <a name="carla.DVSEvent.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
 
 ---
 
 ## carla.DVSEventArray<a name="carla.DVSEventArray"></a>
-Class that defines a stream of events in [carla.DVSEvent](#carla.DVSEvent). Such stream is an array of arbitrary size depending on the number of events. This class also stores the field of view, the height and width of the image and the timestamp from convenience. Learn more about them [here](ref_sensors.md).  
+在 [carla.DVSEvent](#carla.DVSEvent) 中定义事件流的类。此类流是任意大小的数组，具体取决于事件的数量。为了方便起见，该类还存储视野、图像的高度和宽度以及时间戳。在 [这里](ref_sensors.md) 了解更多关于它们的信息。
 
-### Instance Variables
+### 实例变量
 - <a name="carla.DVSEventArray.fov"></a>**<font color="#f8805a">fov</font>** (_float<small> - degrees</small>_)  
-Horizontal field of view of the image.  
+图像的水平视野。 
 - <a name="carla.DVSEventArray.height"></a>**<font color="#f8805a">height</font>** (_int_)  
-Image height in pixels.  
+图像高度（以像素为单位）。
 - <a name="carla.DVSEventArray.width"></a>**<font color="#f8805a">width</font>** (_int_)  
-Image width in pixels.  
-- <a name="carla.DVSEventArray.raw_data"></a>**<font color="#f8805a">raw_data</font>** (_bytes_)  
+图像宽度（以像素为单位）。
+- <a name="carla.DVSEventArray.raw_data"></a>**<font color="#f8805a">raw_data</font>** (_字节_)  
 
-### Methods
+### 方法
 - <a name="carla.DVSEventArray.to_array"></a>**<font color="#7fb800">to_array</font>**(<font color="#00a6ed">**self**</font>)  
-Converts the stream of events to an array of int values in the following order <code>[x, y, t, pol]</code>.  
+按以下顺序将事件流转换为 int 值数组<code>[x, y, t, pol]</code>。
 - <a name="carla.DVSEventArray.to_array_pol"></a>**<font color="#7fb800">to_array_pol</font>**(<font color="#00a6ed">**self**</font>)  
 Returns an array with the polarity of all the events in the stream.  
 - <a name="carla.DVSEventArray.to_array_t"></a>**<font color="#7fb800">to_array_t</font>**(<font color="#00a6ed">**self**</font>)  
