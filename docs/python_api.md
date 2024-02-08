@@ -669,7 +669,7 @@ Y 像素坐标。
 在 [carla.DVSEvent](#carla.DVSEvent) 中定义事件流的类。此类流是任意大小的数组，具体取决于事件的数量。为了方便起见，该类还存储视野、图像的高度和宽度以及时间戳。在 [这里](ref_sensors.md) 了解更多关于它们的信息。
 
 ### 实例变量
-- <a name="carla.DVSEventArray.fov"></a>**<font color="#f8805a">fov</font>** (_float<small> - degrees</small>_)  
+- <a name="carla.DVSEventArray.fov"></a>**<font color="#f8805a">fov</font>** (_float<small> - 度</small>_)  
 图像的水平视野。 
 - <a name="carla.DVSEventArray.height"></a>**<font color="#f8805a">height</font>** (_int_)  
 图像高度（以像素为单位）。
@@ -681,20 +681,20 @@ Y 像素坐标。
 - <a name="carla.DVSEventArray.to_array"></a>**<font color="#7fb800">to_array</font>**(<font color="#00a6ed">**self**</font>)  
 按以下顺序将事件流转换为 int 值数组<code>[x, y, t, pol]</code>。
 - <a name="carla.DVSEventArray.to_array_pol"></a>**<font color="#7fb800">to_array_pol</font>**(<font color="#00a6ed">**self**</font>)  
-Returns an array with the polarity of all the events in the stream.  
+返回一个数组，该数组具有流中所有事件的极性。 
 - <a name="carla.DVSEventArray.to_array_t"></a>**<font color="#7fb800">to_array_t</font>**(<font color="#00a6ed">**self**</font>)  
-Returns an array with the timestamp of all the events in the stream.  
+返回一个数组，其中包含流中所有事件的时间戳。
 - <a name="carla.DVSEventArray.to_array_x"></a>**<font color="#7fb800">to_array_x</font>**(<font color="#00a6ed">**self**</font>)  
-Returns an array with X pixel coordinate of all the events in the stream.  
+返回流中所有事件的X像素坐标的数组。
 - <a name="carla.DVSEventArray.to_array_y"></a>**<font color="#7fb800">to_array_y</font>**(<font color="#00a6ed">**self**</font>)  
-Returns an array with Y pixel coordinate of all the events in the stream.  
+返回流中所有事件的Y像素坐标数组。
 - <a name="carla.DVSEventArray.to_image"></a>**<font color="#7fb800">to_image</font>**(<font color="#00a6ed">**self**</font>)  
-Converts the image following this pattern: blue indicates positive events, red indicates negative events.  
+按照以下模式转换图像：蓝色表示正事件，红色表示负事件。
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.DVSEventArray.__getitem__"></a>**<font color="#7fb800">\__getitem__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**pos**=int</font>)  
 - <a name="carla.DVSEventArray.__iter__"></a>**<font color="#7fb800">\__iter__</font>**(<font color="#00a6ed">**self**</font>)  
-Iterate over the [carla.DVSEvent](#carla.DVSEvent) retrieved as data.  
+在 [carla.DVSEvent](#carla.DVSEvent) 作为检索的数据上迭代。
 - <a name="carla.DVSEventArray.__len__"></a>**<font color="#7fb800">\__len__</font>**(<font color="#00a6ed">**self**</font>)  
 - <a name="carla.DVSEventArray.__setitem__"></a>**<font color="#7fb800">\__setitem__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**pos**=int</font>, <font color="#00a6ed">**color**=[carla.Color](#carla.Color)</font>)  
 - <a name="carla.DVSEventArray.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
@@ -702,174 +702,175 @@ Iterate over the [carla.DVSEvent](#carla.DVSEvent) retrieved as data.
 ---
 
 ## carla.DebugHelper<a name="carla.DebugHelper"></a>
-Helper class part of [carla.World](#carla.World) that defines methods for creating debug shapes. By default, shapes last one second. They can be permanent, but take into account the resources needed to do so. Take a look at the snipets available for this class to learn how to debug easily in Carla.  
+[carla.World](#carla.World) 的辅助类部分，定义创建调试形状的方法。默认情况下，形状持续一秒。它们可以是永久性的，但要考虑到这样做所需的资源。查看此类的可用片段，了解如何在 Carla 中轻松调试。
 
-### Methods
+### 方法
 - <a name="carla.DebugHelper.draw_arrow"></a>**<font color="#7fb800">draw_arrow</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**begin**</font>, <font color="#00a6ed">**end**</font>, <font color="#00a6ed">**thickness**=0.1</font>, <font color="#00a6ed">**arrow_size**=0.1</font>, <font color="#00a6ed">**color**=(255,0,0)</font>, <font color="#00a6ed">**life_time**=-1.0</font>)  
-Draws an arrow from `begin` to `end` pointing in that direction.  
-    - **Parameters:**
-        - `begin` (_[carla.Location](#carla.Location)<small> - meters</small>_) - Point in the coordinate system where the arrow starts.  
-        - `end` (_[carla.Location](#carla.Location)<small> - meters</small>_) - Point in the coordinate system where the arrow ends and points towards to.  
-        - `thickness` (_float<small> - meters</small>_) - Density of the line.  
-        - `arrow_size` (_float<small> - meters</small>_) - Size of the tip of the arrow.  
-        - `color` (_[carla.Color](#carla.Color)_) - RGB code to color the object. Red by default.  
-        - `life_time` (_float<small> - seconds</small>_) - Shape's lifespan. By default it only lasts one frame. Set this to <code>0</code> for permanent shapes.  
+从开始`begin`到结束`end`绘制一个指向该方向的箭头。 
+    - **参数：**
+        - `begin` (_[carla.Location](#carla.Location)<small> - meters</small>_) - 坐标系中箭头开始的点。
+        - `end` (_[carla.Location](#carla.Location)<small> - meters</small>_) -  坐标系中箭头结束并指向的点。
+        - `thickness` (_float<small> - meters</small>_) - 线的密度。  
+        - `arrow_size` (_float<small> - meters</small>_) - 箭头尖端的大小。
+        - `color` (_[carla.Color](#carla.Color)_) - 用于为对象着色的 RGB 代码。默认为红色。
+        - `life_time` (_float<small> - seconds</small>_) - 形状的生命周期。默认情况下它只持续一帧。将其设置<code>0</code>为永久形状。 
 - <a name="carla.DebugHelper.draw_box"></a>**<font color="#7fb800">draw_box</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**box**</font>, <font color="#00a6ed">**rotation**</font>, <font color="#00a6ed">**thickness**=0.1</font>, <font color="#00a6ed">**color**=(255,0,0)</font>, <font color="#00a6ed">**life_time**=-1.0</font>)<button class="SnipetButton" id="carla.DebugHelper.draw_box-snipet_button">snippet &rarr;</button>  
 Draws a box, ussually to act for object colliders.  
     - **Parameters:**
-        - `box` (_[carla.BoundingBox](#carla.BoundingBox)_) - Object containing a location and the length of a box for every axis.  
-        - `rotation` (_[carla.Rotation](#carla.Rotation)<small> - degrees (pitch,yaw,roll)</small>_) - Orientation of the box according to Unreal Engine's axis system.  
-        - `thickness` (_float<small> - meters</small>_) - Density of the lines that define the box.  
-        - `color` (_[carla.Color](#carla.Color)_) - RGB code to color the object. Red by default.  
-        - `life_time` (_float<small> - seconds</small>_) - Shape's lifespan. By default it only lasts one frame. Set this to <code>0</code> for permanent shapes.  
+        - `box` (_[carla.BoundingBox](#carla.BoundingBox)_) - 包含每个轴的位置和框长度的对象。
+        - `rotation` (_[carla.Rotation](#carla.Rotation)<small> - 度 (pitch,yaw,roll)</small>_) - 根据虚幻引擎轴系的边界框方向。
+        - `thickness` (_float<small> - meters</small>_) - 定义边界框的线的密度。
+        - `color` (_[carla.Color](#carla.Color)_) - 用于为对象着色的 RGB 代码。默认为红色。
+        - `life_time` (_float<small> - seconds</small>_) - 形状的生命周期。默认情况下它只持续一帧。将其设置<code>0</code>为永久形状。
 - <a name="carla.DebugHelper.draw_line"></a>**<font color="#7fb800">draw_line</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**begin**</font>, <font color="#00a6ed">**end**</font>, <font color="#00a6ed">**thickness**=0.1</font>, <font color="#00a6ed">**color**=(255,0,0)</font>, <font color="#00a6ed">**life_time**=-1.0</font>)  
-Draws a line in between `begin` and `end`.  
-    - **Parameters:**
-        - `begin` (_[carla.Location](#carla.Location)<small> - meters</small>_) - Point in the coordinate system where the line starts.  
-        - `end` (_[carla.Location](#carla.Location)<small> - meters</small>_) - Spot in the coordinate system where the line ends.  
-        - `thickness` (_float<small> - meters</small>_) - Density of the line.  
-        - `color` (_[carla.Color](#carla.Color)_) - RGB code to color the object. Red by default.  
-        - `life_time` (_float<small> - seconds</small>_) - Shape's lifespan. By default it only lasts one frame. Set this to <code>0</code> for permanent shapes.  
+在开始`begin` 和结束 `end`之间绘制一条线。  
+    - **参数：**
+        - `begin` (_[carla.Location](#carla.Location)<small> - meters</small>_) -  坐标系中直线起点。
+        - `end` (_[carla.Location](#carla.Location)<small> - meters</small>_) - 坐标系中直线终点。 
+        - `thickness` (_float<small> - 米</small>_) - 线的密度。  
+        - `color` (_[carla.Color](#carla.Color)_) - 用于为对象着色的 RGB 代码。默认为红色。
+        - `life_time` (_float<small> - seconds</small>_) - 形状的生命周期。默认情况下它只持续一帧。将其设置<code>0</code>为永久形状。
 - <a name="carla.DebugHelper.draw_point"></a>**<font color="#7fb800">draw_point</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**location**</font>, <font color="#00a6ed">**size**=0.1</font>, <font color="#00a6ed">**color**=(255,0,0)</font>, <font color="#00a6ed">**life_time**=-1.0</font>)  
-Draws a point `location`.  
-    - **Parameters:**
-        - `location` (_[carla.Location](#carla.Location)<small> - meters</small>_) - Spot in the coordinate system to center the object.  
-        - `size` (_float<small> - meters</small>_) - Density of the point.  
-        - `color` (_[carla.Color](#carla.Color)_) - RGB code to color the object. Red by default.  
-        - `life_time` (_float<small> - seconds</small>_) - Shape's lifespan. By default it only lasts one frame. Set this to <code>0</code> for permanent shapes.  
+绘制一个点 `location`。
+    - **参数：**
+        - `location` (_[carla.Location](#carla.Location)<small> - meters</small>_) - 在坐标系中点以将对象居中。
+        - `size` (_float<small> - meters</small>_) - 点的密度。
+        - `color` (_[carla.Color](#carla.Color)_) - 用于为对象着色的 RGB 代码。默认为红色。
+        - `life_time` (_float<small> - seconds</small>_) - 形状的生命周期。默认情况下它只持续一帧。将其设置<code>0</code>为永久形状。
 - <a name="carla.DebugHelper.draw_string"></a>**<font color="#7fb800">draw_string</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**location**</font>, <font color="#00a6ed">**text**</font>, <font color="#00a6ed">**draw_shadow**=False</font>, <font color="#00a6ed">**color**=(255,0,0)</font>, <font color="#00a6ed">**life_time**=-1.0</font>)<button class="SnipetButton" id="carla.DebugHelper.draw_string-snipet_button">snippet &rarr;</button>  
-Draws a string in a given location of the simulation which can only be seen server-side.  
-    - **Parameters:**
-        - `location` (_[carla.Location](#carla.Location)<small> - meters</small>_) - Spot in the simulation where the text will be centered.  
-        - `text` (_str_) - Text intended to be shown in the world.  
-        - `draw_shadow` (_bool_) - Casts a shadow for the string that could help in visualization. It is disabled by default.  
-        - `color` (_[carla.Color](#carla.Color)_) - RGB code to color the string. Red by default.  
-        - `life_time` (_float<small> - seconds</small>_) - Shape's lifespan. By default it only lasts one frame. Set this to <code>0</code> for permanent shapes.  
+在仿真的给定位置绘制一个字符串，该字符串只能在服务器端看到。
+    - **参数：**
+        - `location` (_[carla.Location](#carla.Location)<small> - meters</small>_) - 仿真中文本居中的位置。
+        - `text` (_str_) - 旨在向世界展示的文本。 
+        - `draw_shadow` (_bool_) - 为字符串投射阴影，有助于可视化。默认情况下它是禁用的。
+        - `color` (_[carla.Color](#carla.Color)_) - 用于为字符串着色的 RGB 代码。默认为红色。
+        - `life_time` (_float<small> - seconds</small>_) - 形状的生命周期。默认情况下它只持续一帧。将其设置<code>0</code>为永久形状。
 
 ---
 
 ## carla.EnvironmentObject<a name="carla.EnvironmentObject"></a>
-Class that represents a geometry in the level, this geometry could be part of an actor formed with other EnvironmentObjects (ie: buildings).  
+表示关卡中的几何图形的类，该几何图形可以是与其他环境对象（即：建筑物）形成的参与者的一部分。
 
-### Instance Variables
+### 实例变量
 - <a name="carla.EnvironmentObject.transform"></a>**<font color="#f8805a">transform</font>** (_[carla.Transform](#carla.Transform)_)  
-Contains the location and orientation of the EnvironmentObject in world space.  
+包含环境对象在世界空间中的位置和方向。
 - <a name="carla.EnvironmentObject.bounding_box"></a>**<font color="#f8805a">bounding_box</font>** (_[carla.BoundingBox](#carla.BoundingBox)_)  
-Object containing a location, rotation and the length of a box for every axis in world space.  
+包含世界空间中每个轴的位置、旋转和边界框长度的对象。  
 - <a name="carla.EnvironmentObject.id"></a>**<font color="#f8805a">id</font>** (_int_)  
-Unique ID to identify the object in the level.  
+用于标识关卡中对象的唯一 ID。  
 - <a name="carla.EnvironmentObject.name"></a>**<font color="#f8805a">name</font>** (_string_)  
-Name of the EnvironmentObject.  
+环境对象 EnvironmentObject 的名称。  
 - <a name="carla.EnvironmentObject.type"></a>**<font color="#f8805a">type</font>** (_[carla.CityObjectLabel](#carla.CityObjectLabel)_)  
 Semantic tag.  
 
-### Methods
+### 方法
 
-##### Dunder methods
+##### Dunder 方法
 - <a name="carla.EnvironmentObject.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
-Parses the EnvironmentObject to a string and shows them in command line.  
-    - **Return:** _str_  
+将环境对象解析为字符串并在命令行中显示它们。  
+    - **返回：** _str_  
 
 ---
 
 ## carla.FloatColor<a name="carla.FloatColor"></a>
-Class that defines a float RGBA color.  
+定义浮点 RGBA 颜色的类。
 
-### Instance Variables
+### 实例变量
 - <a name="carla.FloatColor.r"></a>**<font color="#f8805a">r</font>** (_float_)  
-Red color.  
+红色。  
 - <a name="carla.FloatColor.g"></a>**<font color="#f8805a">g</font>** (_float_)  
-Green color.  
+绿色。 
 - <a name="carla.FloatColor.b"></a>**<font color="#f8805a">b</font>** (_float_)  
-Blue color.  
+蓝色。  
 - <a name="carla.FloatColor.a"></a>**<font color="#f8805a">a</font>** (_float_)  
-Alpha channel.  
+Alpha 通道。
 
-### Methods
+### 方法
 - <a name="carla.FloatColor.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**r**=0</font>, <font color="#00a6ed">**g**=0</font>, <font color="#00a6ed">**b**=0</font>, <font color="#00a6ed">**a**=1.0</font>)  
-Initializes a color, black by default.  
-    - **Parameters:**
+初始化颜色，默认为黑色。  
+    - **参数：**
         - `r` (_float_)  
         - `g` (_float_)  
         - `b` (_float_)  
         - `a` (_float_)  
 
-##### Dunder methods
+##### Dunder 方法
 - <a name="carla.FloatColor.__eq__"></a>**<font color="#7fb800">\__eq__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.FloatColor](#carla.FloatColor)</font>)  
 - <a name="carla.FloatColor.__ne__"></a>**<font color="#7fb800">\__ne__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.FloatColor](#carla.FloatColor)</font>)  
 
 ---
 
 ## carla.GBufferTextureID<a name="carla.GBufferTextureID"></a>
-Defines the identifiers of each GBuffer texture (See the method `[carla.Sensor.listen_to_gbuffer](#carla.Sensor.listen_to_gbuffer)`).  
+定义每个GBuffer纹理的标识符 (参见方法 `[carla.Sensor.listen_to_gbuffer](#carla.Sensor.listen_to_gbuffer)`)。 
 
-### Instance Variables
+### 实例变量
 - <a name="carla.GBufferTextureID.SceneColor"></a>**<font color="#f8805a">SceneColor</font>**  
-The texture "SceneColor" contains the final color of the image.  
+纹理“SceneColor”包含图像的最终颜色。
 - <a name="carla.GBufferTextureID.SceneDepth"></a>**<font color="#f8805a">SceneDepth</font>**  
-The texture "SceneDepth" contains the depth buffer - linear in world units.  
+纹理“SceneDepth”包含深度缓冲区 - 以世界单位为线性。
 - <a name="carla.GBufferTextureID.SceneStencil"></a>**<font color="#f8805a">SceneStencil</font>**  
-The texture "SceneStencil" contains the stencil buffer.  
+纹理“SceneStencil”包含模板缓冲区。
 - <a name="carla.GBufferTextureID.GBufferA"></a>**<font color="#f8805a">GBufferA</font>**  
-The texture "GBufferA" contains the world-space normal vectors in the RGB channels. The alpha channel contains "per-object data".  
+纹理“GBufferA”包含 RGB 通道中的世界空间法线向量。Alpha 通道包含“每个对象的数据”。
 - <a name="carla.GBufferTextureID.GBufferB"></a>**<font color="#f8805a">GBufferB</font>**  
-The texture "GBufferB" contains the metallic, specular and roughness in the RGB channels, respectively. The alpha channel contains a mask where the lower 4 bits indicate the shading model and the upper 4 bits contain the selective output mask.  
+纹理“GBufferB”分别包含 RGB 通道中的金属、镜面和粗糙度。Alpha 通道包含一个掩码，其中低 4 位表示着色模型，高 4 位包含选择性输出掩码。
 - <a name="carla.GBufferTextureID.GBufferC"></a>**<font color="#f8805a">GBufferC</font>**  
-The texture "GBufferC" contains the diffuse color in the RGB channels, with the indirect irradiance in the alpha channel.<br> If static lightning is not allowed, the alpha channel will contain the ambient occlusion instead.  
+纹理“GBufferC”包含 RGB 通道中的漫反射颜色，以及 Alpha 通道中的间接辐照度。
+如果不允许静态闪电，Alpha 通道将包含环境光遮挡。
 - <a name="carla.GBufferTextureID.GBufferD"></a>**<font color="#f8805a">GBufferD</font>**  
-The contents of the "GBufferD" varies depending on the rendered object's material shading model (GBufferB):<br>
+“GBufferD”的内容根据渲染对象的材质着色模型 (GBufferB) 的不同而有所不同：<br>
   - MSM_Subsurface (2), MSM_PreintegratedSkin (3), MSM_TwoSidedFoliage (6):<br>
-    RGB: Subsurface color.<br>
-    A: Opacity.<br>
+    RGB: 次表面颜色。<br>
+    A: 不透明度。<br>
   - MSM_ClearCoat (4):<br>
-    R: Clear coat.<br>
-    G: Roughness.<br>
+    R: 透明涂层。<br>
+    G: 粗糙度。<br>
   - MSM_SubsurfaceProfile (5):<br>
-    RGB: Subsurface profile.<br>
+    RGB: 次表面轮廓。<br>
   - MSM_Hair (7):<br>
-    RG: World normal.<br>
-    B: Backlit value.<br>
+    RG: 世界法线。<br>
+    B: 背光值。<br>
   - MSM_Cloth (8):<br>
-    RGB: Subsurface color.<br>
+    RGB: 次表面颜色。<br>
     A: Cloth value.<br>
   - MSM_Eye (9):<br>
-    RG: Eye tangent.<br>
-    B: Iris mask.<br>
-    A: Iris distance.  
+    RG: 眼切线。<br>
+    B: 虹膜掩模。<br>
+    A: 虹膜距离。
 - <a name="carla.GBufferTextureID.GBufferE"></a>**<font color="#f8805a">GBufferE</font>**  
-The texture "GBufferE" contains the precomputed shadow factors in the RGBA channels. This texture is unavailable if the selective output mask (GBufferB) does not have its 4th bit set.  
+纹理“GBufferE”包含 RGBA 通道中预先计算的阴影因子。如果选择性输出掩码 (GBufferB) 没有设置其第 4 位，则此纹理不可用。
 - <a name="carla.GBufferTextureID.GBufferF"></a>**<font color="#f8805a">GBufferF</font>**  
-The texture "GBufferF" contains the world-space tangent in the RGB channels and the anisotropy in the alpha channel. This texture is unavailable if the selective output mask (GBufferB) does not have its 5th bit set.  
+纹理“GBufferF”包含 RGB 通道中的世界空间切线和 Alpha 通道中的各向异性。如果选择性输出掩码 (GBufferB) 没有设置其第 5 位，则此纹理不可用。
 - <a name="carla.GBufferTextureID.Velocity"></a>**<font color="#f8805a">Velocity</font>**  
-The texture "Velocity" contains the screen-space velocity of the scene objects.  
+纹理“速度”包含场景对象的屏幕空间速度。  
 - <a name="carla.GBufferTextureID.SSAO"></a>**<font color="#f8805a">SSAO</font>**  
-The texture "SSAO" contains the screen-space ambient occlusion texture.  
+纹理“SSAO”包含屏幕空间环境光遮挡纹理。
 - <a name="carla.GBufferTextureID.CustomDepth"></a>**<font color="#f8805a">CustomDepth</font>**  
-The texture "CustomDepth" contains the Unreal Engine custom depth data.  
+纹理“CustomDepth”包含虚幻引擎自定义深度数据。
 - <a name="carla.GBufferTextureID.CustomStencil"></a>**<font color="#f8805a">CustomStencil</font>**  
-The texture "CustomStencil" contains the Unreal Engine custom stencil data.  
+纹理“CustomStencil”包含虚幻引擎自定义模板数据。
 
 ---
 
 ## carla.GearPhysicsControl<a name="carla.GearPhysicsControl"></a>
-Class that provides access to vehicle transmission details by defining a gear and when to run on it. This will be later used by [carla.VehiclePhysicsControl](#carla.VehiclePhysicsControl) to help simulate physics.  
+通过定义档位以及何时运行该档位来提供对车辆变速箱详细信息的访问的类。[carla.VehiclePhysicsControl](#carla.VehiclePhysicsControl) 稍后将使用它来帮助模拟物理。
 
-### Instance Variables
+### 实例变量
 - <a name="carla.GearPhysicsControl.ratio"></a>**<font color="#f8805a">ratio</font>** (_float_)  
-The transmission ratio of the gear.  
+齿轮的传动比。
 - <a name="carla.GearPhysicsControl.down_ratio"></a>**<font color="#f8805a">down_ratio</font>** (_float_)  
-Quotient between current RPM and MaxRPM where the autonomous gear box should shift down.  
+当前 RPM 与自动变速箱应降档的 MaxRPM 之间的商。
 - <a name="carla.GearPhysicsControl.up_ratio"></a>**<font color="#f8805a">up_ratio</font>** (_float_)  
-Quotient between current RPM and MaxRPM where the autonomous gear box should shift up.  
+当前 RPM 与自动变速箱应升档的 MaxRPM 之间的商。
 
-### Methods
+### 方法
 - <a name="carla.GearPhysicsControl.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**ratio**=1.0</font>, <font color="#00a6ed">**down_ratio**=0.5</font>, <font color="#00a6ed">**up_ratio**=0.65</font>)  
-    - **Parameters:**
+    - **参数：**
         - `ratio` (_float_)  
         - `down_ratio` (_float_)  
         - `up_ratio` (_float_)  
 
-##### Dunder methods
+##### Dunder 方法
 - <a name="carla.GearPhysicsControl.__eq__"></a>**<font color="#7fb800">\__eq__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.GearPhysicsControl](#carla.GearPhysicsControl)</font>)  
 - <a name="carla.GearPhysicsControl.__ne__"></a>**<font color="#7fb800">\__ne__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.GearPhysicsControl](#carla.GearPhysicsControl)</font>)  
 - <a name="carla.GearPhysicsControl.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
@@ -877,24 +878,24 @@ Quotient between current RPM and MaxRPM where the autonomous gear box should shi
 ---
 
 ## carla.GeoLocation<a name="carla.GeoLocation"></a>
-Class that contains geographical coordinates simulated data. The [carla.Map](#carla.Map) can convert simulation locations by using the <b><georeference></b> tag in the OpenDRIVE file.  
+包含地理坐标仿真数据的类。[carla.Map](#carla.Map) 可以使用以下方法转换仿真位置 OpenDRIVE 文件中的 <b><georeference></b> 标记。
 
-### Instance Variables
+### 实例变量
 - <a name="carla.GeoLocation.latitude"></a>**<font color="#f8805a">latitude</font>** (_float<small> - degrees</small>_)  
-North/South value of a point on the map.  
+地图上某个点的北/南值。  
 - <a name="carla.GeoLocation.longitude"></a>**<font color="#f8805a">longitude</font>** (_float<small> - degrees</small>_)  
-West/East value of a point on the map.  
+地图上某个点的北/南值。  
 - <a name="carla.GeoLocation.altitude"></a>**<font color="#f8805a">altitude</font>** (_float<small> - meters</small>_)  
-Height regarding ground level.  
+相对于地面的高度。 
 
-### Methods
+### 方法
 - <a name="carla.GeoLocation.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**latitude**=0.0</font>, <font color="#00a6ed">**longitude**=0.0</font>, <font color="#00a6ed">**altitude**=0.0</font>)  
-    - **Parameters:**
+    - **参数：**
         - `latitude` (_float<small> - degrees</small>_)  
         - `longitude` (_float<small> - degrees</small>_)  
         - `altitude` (_float<small> - meters</small>_)  
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.GeoLocation.__eq__"></a>**<font color="#7fb800">\__eq__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.GeoLocation](#carla.GeoLocation)</font>)  
 - <a name="carla.GeoLocation.__ne__"></a>**<font color="#7fb800">\__ne__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.GeoLocation](#carla.GeoLocation)</font>)  
 - <a name="carla.GeoLocation.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
@@ -903,71 +904,71 @@ Height regarding ground level.
 
 ## carla.GnssMeasurement<a name="carla.GnssMeasurement"></a>
 <small style="display:block;margin-top:-20px;">Inherited from _[carla.SensorData](#carla.SensorData)_</small></br>
-Class that defines the Gnss data registered by a <b>sensor.other.gnss</b>. It essentially reports its position with the position of the sensor and an OpenDRIVE geo-reference.  
+定义由 <b>sensor.other.gnss</b> 注册的Gnss数据的类。它本质上是通过传感器的位置和 OpenDRIVE 地理参考来报告其位置。
 
-### Instance Variables
+### 实例变量
 - <a name="carla.GnssMeasurement.altitude"></a>**<font color="#f8805a">altitude</font>** (_float<small> - meters</small>_)  
-Height regarding ground level.  
+相对于地面的高度。  
 - <a name="carla.GnssMeasurement.latitude"></a>**<font color="#f8805a">latitude</font>** (_float<small> - degrees</small>_)  
-North/South value of a point on the map.  
+地图上某个点的北/南值。  
 - <a name="carla.GnssMeasurement.longitude"></a>**<font color="#f8805a">longitude</font>** (_float<small> - degrees</small>_)  
-West/East value of a point on the map.  
+地图上某个点的北/南值。 
 
-### Methods
+### 方法
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.GnssMeasurement.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
 
 ---
 
 ## carla.IMUMeasurement<a name="carla.IMUMeasurement"></a>
 <small style="display:block;margin-top:-20px;">Inherited from _[carla.SensorData](#carla.SensorData)_</small></br>
-Class that defines the data registered by a <b>sensor.other.imu</b>, regarding the sensor's transformation according to the current [carla.World](#carla.World). It essentially acts as accelerometer, gyroscope and compass.  
+定义由 <b>sensor.other.imu</b> 注册的数据的类，涉及根据当前 [carla.World](#carla.World) 的传感器转换。它本质上充当加速计、陀螺仪和指南针。
 
-### Instance Variables
+### 实例变量
 - <a name="carla.IMUMeasurement.accelerometer"></a>**<font color="#f8805a">accelerometer</font>** (_[carla.Vector3D](#carla.Vector3D)<small> - m/s<sup>2</sup></small>_)  
-Linear acceleration.  
+线性加速度。
 - <a name="carla.IMUMeasurement.compass"></a>**<font color="#f8805a">compass</font>** (_float<small> - radians</small>_)  
-Orientation with regard to the North ([0.0, -1.0, 0.0] in Unreal Engine).  
+相对于北方的方向（在虚幻引擎中为 [0.0, -1.0, 0.0]）。
 - <a name="carla.IMUMeasurement.gyroscope"></a>**<font color="#f8805a">gyroscope</font>** (_[carla.Vector3D](#carla.Vector3D)<small> - rad/s</small>_)  
-Angular velocity.  
+角速度。 
 
-### Methods
+### 方法
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.IMUMeasurement.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
 
 ---
 
 ## carla.Image<a name="carla.Image"></a>
 <small style="display:block;margin-top:-20px;">Inherited from _[carla.SensorData](#carla.SensorData)_</small></br>
-Class that defines an image of 32-bit BGRA colors that will be used as initial data retrieved by camera sensors. There are different camera sensors (currently three, RGB, depth and semantic segmentation) and each of these makes different use for the images. Learn more about them [here](ref_sensors.md).  
+定义 32 位 BGRA 颜色图像的类，该图像将用作相机传感器检索的初始数据。有不同的相机传感器（目前有三种，RGB、深度和语义分割），每种传感器对图像都有不同的用途。在 [这里](ref_sensors.md) 了解更多关于它们的信息。
 
-### Instance Variables
+### 实例变量
 - <a name="carla.Image.fov"></a>**<font color="#f8805a">fov</font>** (_float<small> - degrees</small>_)  
-Horizontal field of view of the image.  
+图像的水平视野。
 - <a name="carla.Image.height"></a>**<font color="#f8805a">height</font>** (_int_)  
-Image height in pixels.  
+图像高度（以像素为单位）。
 - <a name="carla.Image.width"></a>**<font color="#f8805a">width</font>** (_int_)  
-Image width in pixels.  
+图像宽度（以像素为单位）。
 - <a name="carla.Image.raw_data"></a>**<font color="#f8805a">raw_data</font>** (_bytes_)  
-Flattened array of pixel data, use reshape to create an image array.  
+像素数据的扁平数组，使用 reshape 创建图像数组。
 
-### Methods
+### 方法
 - <a name="carla.Image.convert"></a>**<font color="#7fb800">convert</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**color_converter**</font>)  
-Converts the image following the `color_converter` pattern.  
-    - **Parameters:**
+按照`color_converter`模式转换图像。
+    - **参数：**
         - `color_converter` (_[carla.ColorConverter](#carla.ColorConverter)_)  
 - <a name="carla.Image.save_to_disk"></a>**<font color="#7fb800">save_to_disk</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**path**</font>, <font color="#00a6ed">**color_converter**=Raw</font>)  
-Saves the image to disk using a converter pattern stated as `color_converter`. The default conversion pattern is <b>Raw</b> that will make no changes to the image.  
-    - **Parameters:**
-        - `path` (_str_) - Path that will contain the image.  
-        - `color_converter` (_[carla.ColorConverter](#carla.ColorConverter)_) - Default <b>Raw</b> will make no changes.  
+使用如下所示的转换器模式`color_converter`将图像保存到磁盘。默认转换模式是 <b>Raw</b>，不会对图像进行任何更改。
+    - **参数：**
+        - `path` (_str_) - 将包含图像的路径。  
+        - `color_converter` (_[carla.ColorConverter](#carla.ColorConverter)_) - 默认<b>Raw</b>不会进行任何更改。 
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.Image.__getitem__"></a>**<font color="#7fb800">\__getitem__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**pos**=int</font>)  
 - <a name="carla.Image.__iter__"></a>**<font color="#7fb800">\__iter__</font>**(<font color="#00a6ed">**self**</font>)  
-Iterate over the [carla.Color](#carla.Color) that form the image.  
+在形成图像的 [carla.Color](#carla.Color) 上面进行迭代。
 - <a name="carla.Image.__len__"></a>**<font color="#7fb800">\__len__</font>**(<font color="#00a6ed">**self**</font>)  
 - <a name="carla.Image.__setitem__"></a>**<font color="#7fb800">\__setitem__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**pos**=int</font>, <font color="#00a6ed">**color**=[carla.Color](#carla.Color)</font>)  
 - <a name="carla.Image.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
@@ -975,94 +976,91 @@ Iterate over the [carla.Color](#carla.Color) that form the image.
 ---
 
 ## carla.Junction<a name="carla.Junction"></a>
-Class that embodies the intersections on the road described in the OpenDRIVE file according to OpenDRIVE 1.4 standards.  
+根据 OpenDRIVE 1.4 标准，体现 OpenDRIVE 文件中描述的道路交叉口的类。
 
-### Instance Variables
+### 实例变量
 - <a name="carla.Junction.id"></a>**<font color="#f8805a">id</font>** (_int_)  
-Identifier found in the OpenDRIVE file.  
+OpenDRIVE 文件中找到的标识符。
 - <a name="carla.Junction.bounding_box"></a>**<font color="#f8805a">bounding_box</font>** (_[carla.BoundingBox](#carla.BoundingBox)_)  
-Bounding box encapsulating the junction lanes.  
+封装连接车道的边界框。
 
-### Methods
+### 方法
 
-##### Getters
+##### 获取器
 - <a name="carla.Junction.get_waypoints"></a>**<font color="#7fb800">get_waypoints</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**lane_type**</font>)  
-Returns a list of pairs of waypoints. Every tuple on the list contains first an initial and then a final waypoint within the intersection boundaries that describe the beginning and the end of said lane along the junction. Lanes follow their OpenDRIVE definitions so there may be many different tuples with the same starting waypoint due to possible deviations, as this are considered different lanes.  
-    - **Parameters:**
+返回航路点对的列表。列表中的每个元组首先包含交叉口边界内的初始路径点，然后包含最终路径点，描述沿交叉口的所述车道的起点和终点。车道遵循其 OpenDRIVE 定义，因此由于可能的偏差，可能有许多不同的元组具有相同的起始航路点，因为这被视为不同的车道。
+    - **参数：**
         - `lane_type` (_[carla.LaneType](#carla.LaneType)_) - Type of lanes to get the waypoints.  
-    - **Return:** _list(tuple([carla.Waypoint](#carla.Waypoint)))_  
+    - **返回：** _list(tuple([carla.Waypoint](#carla.Waypoint)))_  
 
 ---
 
 ## carla.LabelledPoint<a name="carla.LabelledPoint"></a>
-Class that represent a position in space with a semantic label.  
+使用语义标签表示空间位置的类。
 
-### Instance Variables
+### 实例变量
 - <a name="carla.LabelledPoint.location"></a>**<font color="#f8805a">location</font>**  
-Position in 3D space.  
+三维空间中的位置。
 - <a name="carla.LabelledPoint.label"></a>**<font color="#f8805a">label</font>**  
-Semantic tag of the point.  
+点的语义标签。 
 
 ---
 
 ## carla.Landmark<a name="carla.Landmark"></a>
-Class that defines any type of traffic landmark or sign affecting a road. These class mediates between the [OpenDRIVE 1.4 standard](http://www.opendrive.org/docs/OpenDRIVEFormatSpecRev1.4H.pdf) definition of the landmarks and their representation in the simulation. This class retrieves all the information defining a landmark in OpenDRIVE and facilitates information about which lanes does it affect and when.
-Landmarks will be accessed by [carla.Waypoint](#carla.Waypoint) objects trying to retrieve the regulation of their lane. Therefore some attributes depend on the waypoint that is consulting the landmark and so, creating the object.  
+定义影响道路的任何类型的交通地标或标志的类。这些类在地标的 [OpenDRIVE 1.4 standard](http://www.opendrive.org/docs/OpenDRIVEFormatSpecRev1.4H.pdf) 标准定义及其在模拟中的表示之间进行协调。此类检索在 OpenDRIVE 中定义地标的所有信息，并提供有关其影响哪些车道以及何时影响的信息。[carla.Waypoint](#carla.Waypoint) 对象将尝试检索其车道规则来访问地标。因此，某些属性取决于正在咨询地标的航路点，从而创建对象。
 
-### Instance Variables
+### 实例变量
 - <a name="carla.Landmark.road_id"></a>**<font color="#f8805a">road_id</font>** (_int_)  
-The OpenDRIVE ID of the road where this landmark is defined. Due to OpenDRIVE road definitions, this road may be different from the road the landmark is currently affecting. It is mostly the case in junctions where the road diverges in different routes.
-<small>Example: a traffic light is defined in one of the divergent roads in a junction, but it affects all the possible routes</small>.  
+定义此地标的道路的 OpenDRIVE ID。由于 OpenDRIVE 道路定义，该道路可能与地标当前影响的道路不同。这种情况主要发生在不同路线的道路分叉处。 <small>示例：在交叉路口的一条分叉道路中定义了一个红绿灯，但它会影响所有可能的路线</small>。
 - <a name="carla.Landmark.distance"></a>**<font color="#f8805a">distance</font>** (_float<small> - meters</small>_)  
-Distance between the landmark and the waypoint creating the object (querying `get_landmarks` or `get_landmarks_of_type`).  
+地标与创建对象的路径点之间的距离（查询`get_landmarks`或`get_landmarks_of_type`）。
 - <a name="carla.Landmark.s"></a>**<font color="#f8805a">s</font>** (_float<small> - meters</small>_)  
-Distance where the landmark is positioned along the geometry of the road `road_id`.  
+地标沿道路几何形状定位的距离`road_id`。
 - <a name="carla.Landmark.t"></a>**<font color="#f8805a">t</font>** (_float<small> - meters</small>_)  
-Lateral distance where the landmark is positioned from the edge of the road `road_id`.  
+地标距道路边缘的横向距离`road_id`。 
 - <a name="carla.Landmark.id"></a>**<font color="#f8805a">id</font>** (_str_)  
-Unique ID of the landmark in the OpenDRIVE file.  
+OpenDRIVE 文件中地标的唯一 ID。  
 - <a name="carla.Landmark.name"></a>**<font color="#f8805a">name</font>** (_str_)  
-Name of the landmark in the in the OpenDRIVE file.  
+OpenDRIVE 文件中的地标名称。 
 - <a name="carla.Landmark.is_dynamic"></a>**<font color="#f8805a">is_dynamic</font>** (_bool_)  
-Indicates if the landmark has state changes over time such as traffic lights.  
+指示地标的状态是否随时间发生变化，例如交通信号灯。 
 - <a name="carla.Landmark.orientation"></a>**<font color="#f8805a">orientation</font>** (_[carla.LandmarkOrientation](#carla.LandmarkOrientation)<small> - degrees</small>_)  
-Indicates which lanes the landmark is facing towards to.  
+指示地标面向的车道。
 - <a name="carla.Landmark.z_offset"></a>**<font color="#f8805a">z_offset</font>** (_float<small> - meters</small>_)  
-Height where the landmark is placed.  
+放置地标的高度。 
 - <a name="carla.Landmark.country"></a>**<font color="#f8805a">country</font>** (_str_)  
-Country code where the landmark is defined (default to OpenDRIVE is Germany 2017).  
+定义地标的国家/地区代码（OpenDRIVE 默认为德国 2017）。  
 - <a name="carla.Landmark.type"></a>**<font color="#f8805a">type</font>** (_str_)  
-Type identifier of the landmark according to the country code.  
+根据国家/地区代码输入地标的类型标识符。
 - <a name="carla.Landmark.sub_type"></a>**<font color="#f8805a">sub_type</font>** (_str_)  
-Subtype identifier of the landmark according to the country code.  
+根据国家/地区代码的地标子类型标识符。  
 - <a name="carla.Landmark.value"></a>**<font color="#f8805a">value</font>** (_float_)  
-Value printed in the signal (e.g. speed limit, maximum weight, etc).  
+信号中打印的值（例如速度限制、最大重量等）。 
 - <a name="carla.Landmark.unit"></a>**<font color="#f8805a">unit</font>** (_str_)  
-Units of measurement for the attribute `value`.  
+属性 `value` 的测量单位。   
 - <a name="carla.Landmark.height"></a>**<font color="#f8805a">height</font>** (_float<small> - meters</small>_)  
-Total height of the signal.  
+信号的总高度。  
 - <a name="carla.Landmark.width"></a>**<font color="#f8805a">width</font>** (_float<small> - meters</small>_)  
-Total width of the signal.  
+信号的总宽度。  
 - <a name="carla.Landmark.text"></a>**<font color="#f8805a">text</font>** (_str_)  
-Additional text in the signal.  
+信号中的附加文本。 
 - <a name="carla.Landmark.h_offset"></a>**<font color="#f8805a">h_offset</font>** (_float<small> - meters</small>_)  
-Orientation offset of the signal relative to the the definition of `road_id` at `s` in OpenDRIVE.  
+信号相对于OpenDRIVE中`s`处`road_id`定义的方向偏移。 
 - <a name="carla.Landmark.pitch"></a>**<font color="#f8805a">pitch</font>** (_float<small> - meters</small>_)  
-Pitch rotation of the signal (Y-轴在虚幻引擎坐标系统).  
+信号的俯仰角 (Y-轴在虚幻引擎坐标系统).  
 - <a name="carla.Landmark.roll"></a>**<font color="#f8805a">roll</font>** (_float_)  
-Roll rotation of the signal (X-轴在虚幻引擎坐标系统).  
+信号的翻滚角 (X-轴在虚幻引擎坐标系统).  
 - <a name="carla.Landmark.waypoint"></a>**<font color="#f8805a">waypoint</font>** (_[carla.Waypoint](#carla.Waypoint)_)  
-A waypoint placed in the lane of the one that made the query and at the `s` of the landmark. It is the first waypoint for which the landmark will be effective.  
+放置在进行查询的车道和地标 `s` 处的航路点。这是地标有效的第一个航路点。
 - <a name="carla.Landmark.transform"></a>**<font color="#f8805a">transform</font>** (_[carla.Transform](#carla.Transform)_)  
-The location and orientation of the landmark in the simulation.  
+仿真中地标的位置和方向。
 
-### Methods
+### 方法
 
-##### Getters
+##### 获取器
 - <a name="carla.Landmark.get_lane_validities"></a>**<font color="#7fb800">get_lane_validities</font>**(<font color="#00a6ed">**self**</font>)  
-Returns which lanes the landmark is affecting to. As there may be specific lanes where the landmark is not effective, the return is a list of pairs containing ranges of the __lane_id__ affected:
-<small>Example: In a road with 5 lanes, being 3 not affected: [(from_lane1,to_lane2),(from_lane4,to_lane5)]</small>.  
-    - **Return:** _list(tuple(int))_  
+返回地标影响的车道。由于可能存在地标无效的特定车道，因此返回的是包含受影响的 __lane_id__ 范围的对列表： <small>示例：在有5条车道的道路中，其中3条不受影响：[(from_lane1,to_lane2),(from_lane4 ,to_lane5)]</small>。 
+    - **返回：** _list(tuple(int))_  
 
 ---
 
