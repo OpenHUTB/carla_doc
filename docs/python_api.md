@@ -1065,149 +1065,148 @@ OpenDRIVE 文件中的地标名称。
 ---
 
 ## carla.LandmarkOrientation<a name="carla.LandmarkOrientation"></a>
-Helper class to define the orientation of a landmark in the road. The definition is not directly translated from OpenDRIVE but converted for the sake of understanding.  
+用于定义道路中地标方向的辅助类。该定义并非直接从 OpenDRIVE 转换而来，而是为了便于理解而进行了转换。
 
-### Instance Variables
+### 实例变量
 - <a name="carla.LandmarkOrientation.Positive"></a>**<font color="#f8805a">Positive</font>**  
-The landmark faces towards vehicles going on the same direction as the road's geometry definition (lanes 0 and negative in OpenDRIVE).  
+地标朝向与道路几何图形定义方向相同的车辆（OpenDRIVE 中的 0 车道和负车道）。  
 - <a name="carla.LandmarkOrientation.Negative"></a>**<font color="#f8805a">Negative</font>**  
-The landmark faces towards vehicles going on the opposite direction to the road's geometry definition (positive lanes in OpenDRIVE).  
+地标朝向与道路几何定义相反方向行驶的车辆（OpenDRIVE中的正车道）。  
 - <a name="carla.LandmarkOrientation.Both"></a>**<font color="#f8805a">Both</font>**  
-Affects vehicles going in both directions of the road.  
+都会影响沿道路两个方向行驶的车辆。 
 
 ---
 
 ## carla.LandmarkType<a name="carla.LandmarkType"></a>
-Helper class containing a set of commonly used landmark types as defined by the default country code in the [OpenDRIVE standard](http://opendrive.org/docs/OpenDRIVEFormatSpecRev1.5M.pdf) (Germany 2017).
-__[carla.Landmark](#carla.Landmark) does not reference this class__. The landmark type is a string that varies greatly depending on the country code being used. This class only makes it easier to manage some of the most commonly used in the default set by describing them as an enum.  
+Helper 类包含 [OpenDRIVE 标准](http://opendrive.org/docs/OpenDRIVEFormatSpecRev1.5M.pdf) （德国 2017）中默认国家/地区代码定义的一组常用地标类型。 __[carla.Landmark](#carla.Landmark) 不引用此类。地标类型是一个字符串，根据所使用的国家/地区代码的不同，其变化很大。此类仅通过将默认集中的一些最常用的描述为枚举来使管理它们变得更容易。 
 
-### Instance Variables
+### 实例变量
 - <a name="carla.LandmarkType.Danger"></a>**<font color="#f8805a">Danger</font>**  
-Type 101.  
+类型 101。 
 - <a name="carla.LandmarkType.LanesMerging"></a>**<font color="#f8805a">LanesMerging</font>**  
-Type 121.  
+类型 121。 
 - <a name="carla.LandmarkType.CautionPedestrian"></a>**<font color="#f8805a">CautionPedestrian</font>**  
-Type 133.  
+类型 133。  
 - <a name="carla.LandmarkType.CautionBicycle"></a>**<font color="#f8805a">CautionBicycle</font>**  
-Type 138.  
+类型 138。  
 - <a name="carla.LandmarkType.LevelCrossing"></a>**<font color="#f8805a">LevelCrossing</font>**  
-Type 150.  
+类型 150。  
 - <a name="carla.LandmarkType.StopSign"></a>**<font color="#f8805a">StopSign</font>**  
-Type 206.  
+类型 206。  
 - <a name="carla.LandmarkType.YieldSign"></a>**<font color="#f8805a">YieldSign</font>**  
-Type 205.  
+类型 205。 
 - <a name="carla.LandmarkType.MandatoryTurnDirection"></a>**<font color="#f8805a">MandatoryTurnDirection</font>**  
-Type 209.  
+类型 209。  
 - <a name="carla.LandmarkType.MandatoryLeftRightDirection"></a>**<font color="#f8805a">MandatoryLeftRightDirection</font>**  
-Type 211.  
+类型 211。 
 - <a name="carla.LandmarkType.TwoChoiceTurnDirection"></a>**<font color="#f8805a">TwoChoiceTurnDirection</font>**  
-Type 214.  
+类型 214。  
 - <a name="carla.LandmarkType.Roundabout"></a>**<font color="#f8805a">Roundabout</font>**  
-Type 215.  
+类型 215。  
 - <a name="carla.LandmarkType.PassRightLeft"></a>**<font color="#f8805a">PassRightLeft</font>**  
-Type 222.  
+类型 222。  
 - <a name="carla.LandmarkType.AccessForbidden"></a>**<font color="#f8805a">AccessForbidden</font>**  
-Type 250.  
+类型 250。  
 - <a name="carla.LandmarkType.AccessForbiddenMotorvehicles"></a>**<font color="#f8805a">AccessForbiddenMotorvehicles</font>**  
-Type 251.  
+类型 251。  
 - <a name="carla.LandmarkType.AccessForbiddenTrucks"></a>**<font color="#f8805a">AccessForbiddenTrucks</font>**  
-Type 253.  
+类型 253。  
 - <a name="carla.LandmarkType.AccessForbiddenBicycle"></a>**<font color="#f8805a">AccessForbiddenBicycle</font>**  
-Type 254.  
+类型 254。  
 - <a name="carla.LandmarkType.AccessForbiddenWeight"></a>**<font color="#f8805a">AccessForbiddenWeight</font>**  
-Type 263.  
+类型 263。  
 - <a name="carla.LandmarkType.AccessForbiddenWidth"></a>**<font color="#f8805a">AccessForbiddenWidth</font>**  
-Type 264.  
+类型 264。  
 - <a name="carla.LandmarkType.AccessForbiddenHeight"></a>**<font color="#f8805a">AccessForbiddenHeight</font>**  
-Type 265.  
+类型 265。  
 - <a name="carla.LandmarkType.AccessForbiddenWrongDirection"></a>**<font color="#f8805a">AccessForbiddenWrongDirection</font>**  
-Type 267.  
+类型 267。  
 - <a name="carla.LandmarkType.ForbiddenUTurn"></a>**<font color="#f8805a">ForbiddenUTurn</font>**  
-Type 272.  
+类型 272。  
 - <a name="carla.LandmarkType.MaximumSpeed"></a>**<font color="#f8805a">MaximumSpeed</font>**  
-Type 274.  
+类型 274。  
 - <a name="carla.LandmarkType.ForbiddenOvertakingMotorvehicles"></a>**<font color="#f8805a">ForbiddenOvertakingMotorvehicles</font>**  
-Type 276.  
+类型 276。  
 - <a name="carla.LandmarkType.ForbiddenOvertakingTrucks"></a>**<font color="#f8805a">ForbiddenOvertakingTrucks</font>**  
-Type 277.  
+类型 277。  
 - <a name="carla.LandmarkType.AbsoluteNoStop"></a>**<font color="#f8805a">AbsoluteNoStop</font>**  
-Type 283.  
+类型 283。  
 - <a name="carla.LandmarkType.RestrictedStop"></a>**<font color="#f8805a">RestrictedStop</font>**  
-Type 286.  
+类型 286。  
 - <a name="carla.LandmarkType.HasWayNextIntersection"></a>**<font color="#f8805a">HasWayNextIntersection</font>**  
-Type 301.  
+类型 301。  
 - <a name="carla.LandmarkType.PriorityWay"></a>**<font color="#f8805a">PriorityWay</font>**  
-Type 306.  
+类型 306。  
 - <a name="carla.LandmarkType.PriorityWayEnd"></a>**<font color="#f8805a">PriorityWayEnd</font>**  
-Type 307.  
+类型 307。  
 - <a name="carla.LandmarkType.CityBegin"></a>**<font color="#f8805a">CityBegin</font>**  
-Type 310.  
+类型 310。  
 - <a name="carla.LandmarkType.CityEnd"></a>**<font color="#f8805a">CityEnd</font>**  
-Type 311.  
+类型 311。  
 - <a name="carla.LandmarkType.Highway"></a>**<font color="#f8805a">Highway</font>**  
-Type 330.  
+类型 330。 
 - <a name="carla.LandmarkType.DeadEnd"></a>**<font color="#f8805a">DeadEnd</font>**  
-Type 357.  
+类型 357。  
 - <a name="carla.LandmarkType.RecomendedSpeed"></a>**<font color="#f8805a">RecomendedSpeed</font>**  
-Type 380.  
+类型 380。  
 - <a name="carla.LandmarkType.RecomendedSpeedEnd"></a>**<font color="#f8805a">RecomendedSpeedEnd</font>**  
-Type 381.  
+类型 381。  
 
 ---
 
 ## carla.LaneChange<a name="carla.LaneChange"></a>
-Class that defines the permission to turn either left, right, both or none (meaning only going straight is allowed). This information is stored for every [carla.Waypoint](#carla.Waypoint) according to the OpenDRIVE file. The snipet in [carla.Map.get_waypoint](#carla.Map.get_waypoint) shows how a waypoint can be used to learn which turns are permitted.  
+定义左转、右转、双转或不转的权限的类（意味着只允许直行）。根据 OpenDRIVE 文件为每个 [carla.Waypoint](#carla.Waypoint) 存储此信息。[carla.Map.get_waypoint](#carla.Map.get_waypoint) 中的片段显示了如何使用航路点来了解允许哪些转弯。  
 
-### Instance Variables
+### 实例变量
 - <a name="carla.LaneChange.NONE"></a>**<font color="#f8805a">NONE</font>**  
-Traffic rules do not allow turning right or left, only going straight.  
+交通规则不允许右转或左转，只能直行。  
 - <a name="carla.LaneChange.Right"></a>**<font color="#f8805a">Right</font>**  
-Traffic rules allow turning right.  
+交通规则允许右转。  
 - <a name="carla.LaneChange.Left"></a>**<font color="#f8805a">Left</font>**  
-Traffic rules allow turning left.  
+交通规则允许左转。  
 - <a name="carla.LaneChange.Both"></a>**<font color="#f8805a">Both</font>**  
-Traffic rules allow turning either right or left.  
+交通规则都允许右转或左转。
 
 ---
 
 ## carla.LaneInvasionEvent<a name="carla.LaneInvasionEvent"></a>
 <small style="display:block;margin-top:-20px;">Inherited from _[carla.SensorData](#carla.SensorData)_</small></br>
-Class that defines lanes invasion for <b>sensor.other.lane_invasion</b>. It works only client-side and is dependant on OpenDRIVE to provide reliable information. The sensor creates one of this every time there is a lane invasion, which may be more than once per simulation step. Learn more about this [here](ref_sensors.md#lane-invasion-detector).  
+为 <b>sensor.other.lane_invasion</b> 定义车道入侵的类。它仅在客户端工作，并依赖 OpenDRIVE 来提供可靠的信息。每次发生车道入侵时，传感器都会创建一个这样的情况，每个仿真步骤可能会发生多次。在 [这里](ref_sensors.md#lane-invasion-detector) 了解更多相关信息。 
 
-### Instance Variables
+### 实例变量
 - <a name="carla.LaneInvasionEvent.actor"></a>**<font color="#f8805a">actor</font>** (_[carla.Actor](#carla.Actor)_)  
-Gets the actor the sensor is attached to, the one that invaded another lane.  
+获取传感器所连接的参与者，即侵入另一车道的参与者。 
 - <a name="carla.LaneInvasionEvent.crossed_lane_markings"></a>**<font color="#f8805a">crossed_lane_markings</font>** (_list([carla.LaneMarking](#carla.LaneMarking))_)  
-List of lane markings that have been crossed and detected by the sensor.  
+传感器已穿过并检测到的车道标记列表。
 
-### Methods
+### 方法
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.LaneInvasionEvent.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
 
 ---
 
 ## carla.LaneMarking<a name="carla.LaneMarking"></a>
-Class that gathers all the information regarding a lane marking according to [OpenDRIVE 1.4 standard](http://www.opendrive.org/docs/OpenDRIVEFormatSpecRev1.4H.pdf) standard.  
+根据  [OpenDRIVE 1.4 标准](http://www.opendrive.org/docs/OpenDRIVEFormatSpecRev1.4H.pdf) 收集有关车道标记的所有信息的类。
 
-### Instance Variables
+### 实例变量
 - <a name="carla.LaneMarking.color"></a>**<font color="#f8805a">color</font>** (_[carla.LaneMarkingColor](#carla.LaneMarkingColor)_)  
-Actual color of the marking.  
+标记的实际颜色。  
 - <a name="carla.LaneMarking.lane_change"></a>**<font color="#f8805a">lane_change</font>** (_[carla.LaneChange](#carla.LaneChange)_)  
-Permissions for said lane marking to be crossed.  
+跨越所述车道标记的权限。  
 - <a name="carla.LaneMarking.type"></a>**<font color="#f8805a">type</font>** (_[carla.LaneMarkingType](#carla.LaneMarkingType)_)  
-Lane marking type.  
+车道标记类型。  
 - <a name="carla.LaneMarking.width"></a>**<font color="#f8805a">width</font>** (_float_)  
-Horizontal lane marking thickness.  
+水平车道标记厚度。 
 
 ---
 
 ## carla.LaneMarkingColor<a name="carla.LaneMarkingColor"></a>
-Class that defines the lane marking colors according to OpenDRIVE 1.4.  
+根据 OpenDRIVE 1.4 定义车道标记颜色的类。 
 
-### Instance Variables
+### 实例变量
 - <a name="carla.LaneMarkingColor.Standard"></a>**<font color="#f8805a">Standard</font>**  
-White by default.  
+默认为白色。 
 - <a name="carla.LaneMarkingColor.Blue"></a>**<font color="#f8805a">Blue</font>**  
 - <a name="carla.LaneMarkingColor.Green"></a>**<font color="#f8805a">Green</font>**  
 - <a name="carla.LaneMarkingColor.Red"></a>**<font color="#f8805a">Red</font>**  
@@ -1218,9 +1217,9 @@ White by default.
 ---
 
 ## carla.LaneMarkingType<a name="carla.LaneMarkingType"></a>
-Class that defines the lane marking types accepted by OpenDRIVE 1.4. The snipet in [carla.Map.get_waypoint](#carla.Map.get_waypoint) shows how a waypoint can be used to retrieve the information about adjacent lane markings.   <br><br> __Note on double types:__ Lane markings are defined under the OpenDRIVE standard that determines whereas a line will be considered "BrokenSolid" or "SolidBroken". For each road there is a center lane marking, defined from left to right regarding the lane's directions. The rest of the lane markings are defined in order from the center lane to the closest outside of the road.  
+定义 OpenDRIVE 1.4 接受的车道标记类型的类。[carla.Map.get_waypoint](#carla.Map.get_waypoint) 中的片段显示了如何使用航点来检索有关相邻车道标记的信息。   <br><br> __关于双精度类型的注意事项：__ 车道标记是根据 OpenDRIVE 标准定义的，该标准确定一条线将被视为“BrokenSolid”或“SolidBroken”。每条道路都有一个中心车道标记，根据车道方向从左到右定义。其余车道标记按从中心车道到最近的道路外侧的顺序定义。
 
-### Instance Variables
+### 实例变量
 - <a name="carla.LaneMarkingType.NONE"></a>**<font color="#f8805a">NONE</font>**  
 - <a name="carla.LaneMarkingType.Other"></a>**<font color="#f8805a">Other</font>**  
 - <a name="carla.LaneMarkingType.Broken"></a>**<font color="#f8805a">Broken</font>**  
@@ -1236,9 +1235,9 @@ Class that defines the lane marking types accepted by OpenDRIVE 1.4. The snipet 
 ---
 
 ## carla.LaneType<a name="carla.LaneType"></a>
-Class that defines the possible lane types accepted by OpenDRIVE 1.4. This standards define the road information. The snipet in [carla.Map.get_waypoint](#carla.Map.get_waypoint) makes use of a waypoint to get the current and adjacent lane types.  
+定义 OpenDRIVE 1.4 接受的可能通道类型的类。该标准定义了道路信息。[carla.Map.get_waypoint](#carla.Map.get_waypoint) 中的片段利用路点来获取当前和相邻车道类型。
 
-### Instance Variables
+### 实例变量
 - <a name="carla.LaneType.NONE"></a>**<font color="#f8805a">NONE</font>**  
 - <a name="carla.LaneType.Driving"></a>**<font color="#f8805a">Driving</font>**  
 - <a name="carla.LaneType.Stop"></a>**<font color="#f8805a">Stop</font>**  
@@ -1261,51 +1260,51 @@ Class that defines the possible lane types accepted by OpenDRIVE 1.4. This stand
 - <a name="carla.LaneType.OffRamp"></a>**<font color="#f8805a">OffRamp</font>**  
 - <a name="carla.LaneType.OnRamp"></a>**<font color="#f8805a">OnRamp</font>**  
 - <a name="carla.LaneType.Any"></a>**<font color="#f8805a">Any</font>**  
-Every type except for NONE.  
+除 NONE 之外的所有类型。 
 
 ---
 
 ## carla.LidarDetection<a name="carla.LidarDetection"></a>
-Data contained inside a [carla.LidarMeasurement](#carla.LidarMeasurement). Each of these represents one of the points in the cloud with its location and its associated intensity.  
+[carla.LidarMeasurement](#carla.LidarMeasurement) 中包含的数据。其中每一个都代表云中的一个点及其位置和相关强度。 
 
-### Instance Variables
+### 实例变量
 - <a name="carla.LidarDetection.point"></a>**<font color="#f8805a">point</font>** (_[carla.Location](#carla.Location)<small> - meters</small>_)  
-Point in xyz coordinates.  
+xyz 坐标中的点。
 - <a name="carla.LidarDetection.intensity"></a>**<font color="#f8805a">intensity</font>** (_float_)  
-Computed intensity for this point as a scalar value between [0.0 , 1.0].  
+计算该点的强度作为 [0.0 , 1.0] 之间的标量值。 
 
-### Methods
+### 方法
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.LidarDetection.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
 
 ---
 
 ## carla.LidarMeasurement<a name="carla.LidarMeasurement"></a>
-<small style="display:block;margin-top:-20px;">Inherited from _[carla.SensorData](#carla.SensorData)_</small></br>
-Class that defines the LIDAR data retrieved by a <b>sensor.lidar.ray_cast</b>. This essentially simulates a rotating LIDAR using ray-casting. Learn more about this [here](ref_sensors.md#lidar-raycast-sensor).  
+<small style="display:block;margin-top:-20px;">继承自 _[carla.SensorData](#carla.SensorData)_</small></br>
+定义由 <b>sensor.lidar.ray_cast</b> 检索的LIDAR数据的类。这本质上是使用光线投射仿真旋转激光雷达。在 [这里](ref_sensors.md#lidar-raycast-sensor) 了解更多相关信息。 
 
-### Instance Variables
+### 实例变量
 - <a name="carla.LidarMeasurement.channels"></a>**<font color="#f8805a">channels</font>** (_int_)  
-Number of lasers shot.  
+发射的激光数量。 
 - <a name="carla.LidarMeasurement.horizontal_angle"></a>**<font color="#f8805a">horizontal_angle</font>** (_float<small> - radians</small>_)  
-Horizontal angle the LIDAR is rotated at the time of the measurement.  
+测量时 LIDAR 旋转的水平角度。 
 - <a name="carla.LidarMeasurement.raw_data"></a>**<font color="#f8805a">raw_data</font>** (_bytes_)  
-Received list of 4D points. Each point consists of [x,y,z] coordinates plus the intensity computed for that point.  
+接收到的 4D 点列表。每个点由 [x,y,z] 坐标加上为该点计算的强度组成。 
 
-### Methods
+### 方法
 - <a name="carla.LidarMeasurement.save_to_disk"></a>**<font color="#7fb800">save_to_disk</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**path**</font>)  
-Saves the point cloud to disk as a <b>.ply</b> file describing data from 3D scanners. The files generated are ready to be used within [MeshLab](http://www.meshlab.net/), an open source system for processing said files. Just take into account that axis may differ from Unreal Engine and so, need to be reallocated.  
-    - **Parameters:**
+将点云作为描述来自 3D 扫描仪的数据的 <b>.ply</b> 文件保存到磁盘。生成的文件可以在[MeshLab](http://www.meshlab.net/) 中使用，MeshLab 是一个用于处理所述文件的开源系统。只需考虑到该轴可能与虚幻引擎不同，因此需要重新分配。 
+    - **参数：**
         - `path` (_str_)  
 
-##### Getters
+##### 获取器
 - <a name="carla.LidarMeasurement.get_point_count"></a>**<font color="#7fb800">get_point_count</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**channel**</font>)  
-Retrieves the number of points sorted by channel that are generated by this measure. Sorting by channel allows to identify the original channel for every point.  
-    - **Parameters:**
+检索由此测量生成的按通道排序的点数。按通道排序可以识别每个点的原始通道。
+    - **参数：**
         - `channel` (_int_)  
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.LidarMeasurement.__getitem__"></a>**<font color="#7fb800">\__getitem__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**pos**=int</font>)  
 - <a name="carla.LidarMeasurement.__iter__"></a>**<font color="#7fb800">\__iter__</font>**(<font color="#00a6ed">**self**</font>)  
 Iterate over the [carla.LidarDetection](#carla.LidarDetection) retrieved as data.  
@@ -1316,59 +1315,58 @@ Iterate over the [carla.LidarDetection](#carla.LidarDetection) retrieved as data
 ---
 
 ## carla.Light<a name="carla.Light"></a>
-This class exposes the lights that exist in the scene, except for vehicle lights. The properties of a light can be queried and changed at will.
-Lights are automatically turned on when the simulator enters night mode (sun altitude is below zero).  
+此类公开场景中存在的灯光（车辆灯光除外）。灯光的属性可以随意查询和改变。当仿真器进入夜间模式（太阳高度低于零）时，灯会自动打开。
 
-### Instance Variables
+### 实例变量
 - <a name="carla.Light.color"></a>**<font color="#f8805a">color</font>** (_[carla.Color](#carla.Color)_)  
-Color of the light.  
+灯光的颜色。
 - <a name="carla.Light.id"></a>**<font color="#f8805a">id</font>** (_int_)  
-Identifier of the light.  
+灯的标识符。
 - <a name="carla.Light.intensity"></a>**<font color="#f8805a">intensity</font>** (_float<small> - lumens</small>_)  
-Intensity of the light.  
+光的强度。 
 - <a name="carla.Light.is_on"></a>**<font color="#f8805a">is_on</font>** (_bool_)  
-Switch of the light. It is __True__ when the light is on. When the night mode starts, this is set to __True__.  
+灯的开关。当灯亮时这是 __True__ 。当夜间模式启动时，此项设置为 __True__。
 - <a name="carla.Light.location"></a>**<font color="#f8805a">location</font>** (_[carla.Location](#carla.Location)<small> - meters</small>_)  
-Position of the light.  
+灯光的位置。 
 - <a name="carla.Light.light_group"></a>**<font color="#f8805a">light_group</font>** (_[carla.LightGroup](#carla.LightGroup)_)  
-Group the light belongs to.  
+灯光所属的组。 
 - <a name="carla.Light.light_state"></a>**<font color="#f8805a">light_state</font>** (_[carla.LightState](#carla.LightState)_)  
-State of the light. Summarizes its attributes, group, and if it is on/off.  
+灯光的状态。总结其属性、组以及是否打开/关闭。  
 
-### Methods
+### 方法
 - <a name="carla.Light.turn_off"></a>**<font color="#7fb800">turn_off</font>**(<font color="#00a6ed">**self**</font>)  
-Switches off the light.  
+关闭灯。 
 - <a name="carla.Light.turn_on"></a>**<font color="#7fb800">turn_on</font>**(<font color="#00a6ed">**self**</font>)  
-Switches on the light.  
+打开灯。
 
-##### Setters
+##### 设置器
 - <a name="carla.Light.set_color"></a>**<font color="#7fb800">set_color</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**color**</font>)  
-Changes the color of the light to `color`.  
-    - **Parameters:**
+将灯光的颜色更改为`color`。 
+    - **参数：**
         - `color` (_[carla.Color](#carla.Color)_)  
 - <a name="carla.Light.set_intensity"></a>**<font color="#7fb800">set_intensity</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**intensity**</font>)  
-Changes the intensity of the light to `intensity`.  
-    - **Parameters:**
+将光的强度更改为`intensity`。 
+    - **参数：**
         - `intensity` (_float<small> - lumens</small>_)  
 - <a name="carla.Light.set_light_group"></a>**<font color="#7fb800">set_light_group</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**light_group**</font>)  
-Changes the light to the group `light_group`.  
-    - **Parameters:**
+将灯光更改为组`light_group`。
+    - **参数：**
         - `light_group` (_[carla.LightGroup](#carla.LightGroup)_)  
 - <a name="carla.Light.set_light_state"></a>**<font color="#7fb800">set_light_state</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**light_state**</font>)  
-Changes the state of the light to `light_state`. This may change attributes, group and turn the light on/off all at once.  
-    - **Parameters:**
+将灯光的状态更改为`light_state`。这可能会同时更改属性、分组以及打开/关闭灯。
+    - **参数：**
         - `light_state` (_[carla.LightState](#carla.LightState)_)  
 
 ---
 
 ## carla.LightGroup<a name="carla.LightGroup"></a>
-This class categorizes the lights on scene into different groups. These groups available are provided as a enum values that can be used as flags.  
+此类将场景中的灯光分为不同的组。这些可用组作为可用作标志的枚举值提供。
 
-__Note.__ So far, though there is a `vehicle` group, vehicle lights are not available as [carla.Light](#carla.Light) objects. These have to be managed using [carla.Vehicle](#carla.Vehicle) and [carla.VehicleLightState](#carla.VehicleLightState).  
+__笔记。__ 到目前为止，虽然有一个 `vehicle` 组，但车灯还不能用作[carla.Light](#carla.Light)对象。这些必须使用[carla.Vehicle](#carla.Vehicle)和 [carla.VehicleLightState](#carla.VehicleLightState) 进行管理。
 
-### Instance Variables
+### 实例变量
 - <a name="carla.LightGroup.None"></a>**<font color="#f8805a">None</font>**  
-All lights.  
+所有灯。  
 - <a name="carla.LightGroup.Vehicle"></a>**<font color="#f8805a">Vehicle</font>**  
 - <a name="carla.LightGroup.Street"></a>**<font color="#f8805a">Street</font>**  
 - <a name="carla.LightGroup.Building"></a>**<font color="#f8805a">Building</font>**  
@@ -1377,120 +1375,121 @@ All lights.
 ---
 
 ## carla.LightManager<a name="carla.LightManager"></a>
-This class handles the lights in the scene. Its main use is to get and set the state of groups or lists of lights in one call. An instance of this class can be retrieved by the [carla.World.get_lightmanager](#carla.World.get_lightmanager)().  
+此类处理场景中的灯光。它的主要用途是在一次调用中获取和设置灯光组或灯光列表的状态。此类的实例可以通过 [carla.World.get_lightmanager](#carla.World.get_lightmanager)() 检索。
 
-__Note.__ So far, though there is a `vehicle` group, vehicle lights are not available as [carla.Light](#carla.Light) objects. These have to be managed using [carla.Vehicle](#carla.Vehicle) and [carla.VehicleLightState](#carla.VehicleLightState).  
+__笔记。__ 到目前为止，虽然有一个`vehicle`组，但车灯还不能用作[carla.Light](#carla.Light)对象。这些必须使用 [carla.Vehicle](#carla.Vehicle) 和 [carla.VehicleLightState](#carla.VehicleLightState) 进行管理。
 
-### Methods
+### 方法
 - <a name="carla.LightManager.is_active"></a>**<font color="#7fb800">is_active</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**lights**</font>)  
-Returns a list with booleans stating if the elements in `lights` are switched on/off.  
-    - **Parameters:**
-        - `lights` (_list([carla.Light](#carla.Light))_) - List of lights to be queried.  
-    - **Return:** _list(bool)_  
+返回一个列表，其中包含布尔值，说明其中的元素`lights`是否打开/关闭。 
+    - **参数：**
+        - `lights` (_list([carla.Light](#carla.Light))_) - 要查询的灯光列表。
+    - **返回：** _list(bool)_  
 - <a name="carla.LightManager.turn_off"></a>**<font color="#7fb800">turn_off</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**lights**</font>)  
-Switches off all the lights in `lights`.  
-    - **Parameters:**
-        - `lights` (_list([carla.Light](#carla.Light))_) - List of lights to be switched off.  
+关闭`lights`中的所有灯。  
+    - **参数：**
+        - `lights` (_list([carla.Light](#carla.Light))_) - 要关闭的灯列表。
 - <a name="carla.LightManager.turn_on"></a>**<font color="#7fb800">turn_on</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**lights**</font>)  
-Switches on all the lights in `lights`.  
-    - **Parameters:**
-        - `lights` (_list([carla.Light](#carla.Light))_) - List of lights to be switched on.  
+打开 `lights` 中的所有灯。
+    - **参数：**
+        - `lights` (_list([carla.Light](#carla.Light))_) - 要打开的灯列表。
 
-##### Getters
+##### 获取器
 - <a name="carla.LightManager.get_all_lights"></a>**<font color="#7fb800">get_all_lights</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**light_group**=[carla.LightGroup.None](#carla.LightGroup.None)</font>)  
-Returns a list containing the lights in a certain group. By default, the group is `None`.  
-    - **Parameters:**
-        - `light_group` (_[carla.LightGroup](#carla.LightGroup)_) - Group to filter the lights returned. Default is `None`.  
-    - **Return:** _list([carla.Light](#carla.Light))_  
+返回包含特定组中的灯光的列表。默认情况下，该组是`None`。 
+    - **参数：**
+        - `light_group` (_[carla.LightGroup](#carla.LightGroup)_) - 用于过滤返回的灯光的组。默认为`None`。
+    - **返回：** _list([carla.Light](#carla.Light))_  
 - <a name="carla.LightManager.get_color"></a>**<font color="#7fb800">get_color</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**lights**</font>)  
-Returns a list with the colors of every element in `lights`.  
-    - **Parameters:**
-        - `lights` (_list([carla.Light](#carla.Light))_) - List of lights to be queried.  
-    - **Return:** _list([carla.Color](#carla.Color))_  
-    - **Setter:** _[carla.LightManager.set_color](#carla.LightManager.set_color)_  
+返回一个列表，其中包含`lights`中每个元素的颜色。 
+    - **参数：**
+        - `lights` (_list([carla.Light](#carla.Light))_) - 要查询的灯光列表。
+    - **返回：** _list([carla.Color](#carla.Color))_  
+    - **设置器：** _[carla.LightManager.set_color](#carla.LightManager.set_color)_  
 - <a name="carla.LightManager.get_intensity"></a>**<font color="#7fb800">get_intensity</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**lights**</font>)  
-Returns a list with the intensity of every element in `lights`.  
-    - **Parameters:**
-        - `lights` (_list([carla.Light](#carla.Light))_) - List of lights to be queried.  
-    - **Return:** _list(float)<small> - lumens</small>_  
-    - **Setter:** _[carla.LightManager.set_intensity](#carla.LightManager.set_intensity)_  
+返回一个列表，其中包含`lights`中每个元素的强度。
+    - **参数：**
+        - `lights` (_list([carla.Light](#carla.Light))_) - 要查询的灯光列表。
+    - **返回：** _list(float)<small> - lumens</small>_  
+    - **设置器：** _[carla.LightManager.set_intensity](#carla.LightManager.set_intensity)_  
 - <a name="carla.LightManager.get_light_group"></a>**<font color="#7fb800">get_light_group</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**lights**</font>)  
-Returns a list with the group of every element in `lights`.  
-    - **Parameters:**
-        - `lights` (_list([carla.Light](#carla.Light))_) - List of lights to be queried.  
-    - **Return:** _list([carla.LightGroup](#carla.LightGroup))_  
-    - **Setter:** _[carla.LightManager.set_light_group](#carla.LightManager.set_light_group)_  
+返回一个列表，其中包含 `lights` 中每个元素的组。 
+    - **参数：**
+        - `lights` (_list([carla.Light](#carla.Light))_) - 要查询的灯光列表。
+    - **返回：** _list([carla.LightGroup](#carla.LightGroup))_  
+    - **设置器：** _[carla.LightManager.set_light_group](#carla.LightManager.set_light_group)_  
 - <a name="carla.LightManager.get_light_state"></a>**<font color="#7fb800">get_light_state</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**lights**</font>)  
-Returns a list with the state of all the attributes of every element in `lights`.  
-    - **Parameters:**
-        - `lights` (_list([carla.Light](#carla.Light))_) - List of lights to be queried.  
-    - **Return:** _list([carla.LightState](#carla.LightState))_  
-    - **Setter:** _[carla.LightManager.set_light_state](#carla.LightManager.set_light_state)_  
+返回一个列表，其中包含 `lights` 中每个元素的所有属性的状态。
+    - **参数：**
+        - `lights` (_list([carla.Light](#carla.Light))_) - 要查询的灯光列表。
+    - **返回： ** _list([carla.LightState](#carla.LightState))_  
+    - **设置器：** _[carla.LightManager.set_light_state](#carla.LightManager.set_light_state)_  
 - <a name="carla.LightManager.get_turned_off_lights"></a>**<font color="#7fb800">get_turned_off_lights</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**light_group**</font>)  
-Returns a list containing lights switched off in the scene, filtered by group.  
-    - **Parameters:**
-        - `light_group` (_[carla.LightGroup](#carla.LightGroup)_) - List of lights to be queried.  
-    - **Return:** _list([carla.Light](#carla.Light))_  
+返回一个列表，其中包含场景中关闭的灯光（按组过滤）。 
+    - **参数：**
+        - `light_group` (_[carla.LightGroup](#carla.LightGroup)_) -  要查询的灯光列表。
+    - **返回：** _list([carla.Light](#carla.Light))_  
 - <a name="carla.LightManager.get_turned_on_lights"></a>**<font color="#7fb800">get_turned_on_lights</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**light_group**</font>)  
-Returns a list containing lights switched on in the scene, filtered by group.  
-    - **Parameters:**
+返回一个列表，其中包含场景中打开的灯光（按组过滤）。
+    - **参数：**
         - `light_group` (_[carla.LightGroup](#carla.LightGroup)_) - List of lights to be queried.  
-    - **Return:** _list([carla.Light](#carla.Light))_  
+    - **返回：** _list([carla.Light](#carla.Light))_  
 
-##### Setters
+##### 设置器
 - <a name="carla.LightManager.set_active"></a>**<font color="#7fb800">set_active</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**lights**</font>, <font color="#00a6ed">**active**</font>)  
-Switches on/off the elements in `lights`.  
-    - **Parameters:**
-        - `lights` (_list([carla.Light](#carla.Light))_) - List of lights to be switched on/off.  
-        - `active` (_list(bool)_) - List of booleans to be applied.  
+打开/关闭`lights`中的元素。 
+    - **参数：**
+        - `lights` (_list([carla.Light](#carla.Light))_) - 要打开/关闭的灯列表。 
+        - `active` (_list(bool)_) - 要应用的布尔值列表。
 - <a name="carla.LightManager.set_color"></a>**<font color="#7fb800">set_color</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**lights**</font>, <font color="#00a6ed">**color**</font>)  
-Changes the color of the elements in `lights` to `color`.  
-    - **Parameters:**
-        - `lights` (_list([carla.Light](#carla.Light))_) - List of lights to be changed.  
-        - `color` (_[carla.Color](#carla.Color)_) - Color to be applied.  
-    - **Getter:** _[carla.LightManager.get_color](#carla.LightManager.get_color)_  
+`lights` 到 `color`中元素的颜色。
+    - **参数：**
+        - `lights` (_list([carla.Light](#carla.Light))_) - 要更改的灯光列表。
+        - `color` (_[carla.Color](#carla.Color)_) - 要应用的颜色。
+    - **获取器：** _[carla.LightManager.get_color](#carla.LightManager.get_color)_  
 - <a name="carla.LightManager.set_colors"></a>**<font color="#7fb800">set_colors</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**lights**</font>, <font color="#00a6ed">**colors**</font>)  
-Changes the color of each element in `lights` to the corresponding in `colors`.  
-    - **Parameters:**
-        - `lights` (_list([carla.Light](#carla.Light))_) - List of lights to be changed.  
-        - `colors` (_list([carla.Color](#carla.Color))_) - List of colors to be applied.  
+将`lights`中每个元素的颜色更改为相应的`colors`。
+    - **参数：**
+        - `lights` (_list([carla.Light](#carla.Light))_) - 要更改的灯光列表。
+        - `colors` (_list([carla.Color](#carla.Color))_) - 要应用的颜色列表。
 - <a name="carla.LightManager.set_day_night_cycle"></a>**<font color="#7fb800">set_day_night_cycle</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**active**</font>)  
-All scene lights have a day-night cycle, automatically turning on and off with the altitude of the sun. This interferes in cases where full control of the scene lights is required, so setting this to __False__ deactivates it. It can reactivated by setting it to __True__.  
-    - **Parameters:**
-        - `active` (_bool_) - (De)activation of the day-night cycle.  
+所有场景灯都有昼夜循环，随着太阳的高度自动打开和关闭。这会干扰需要完全控制场景灯光的情况，因此将其设置为 __False__ 会停用它。可以通过将其设置为 __True__ 来重新激活它。
+    - **参数：**
+        - `active` (_bool_) - (取消)激活昼夜循环。  
 - <a name="carla.LightManager.set_intensities"></a>**<font color="#7fb800">set_intensities</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**lights**</font>, <font color="#00a6ed">**intensities**</font>)  
-Changes the intensity of each element in `lights` to the corresponding in `intensities`.  
-    - **Parameters:**
-        - `lights` (_list([carla.Light](#carla.Light))_) - List of lights to be changed.  
-        - `intensities` (_list(float)<small> - lumens</small>_) - List of intensities to be applied.  
+将`lights`中每个元素的强度更改为相应的 `intensities`。 
+    - **参数：**
+        - `lights` (_list([carla.Light](#carla.Light))_) - 要更改的灯光列表。 
+        - `intensities` (_list(float)<small> - lumens</small>_) - 要应用的强度列表。 
 - <a name="carla.LightManager.set_intensity"></a>**<font color="#7fb800">set_intensity</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**lights**</font>, <font color="#00a6ed">**intensity**</font>)  
-Changes the intensity of every element in `lights` to `intensity`.  
-    - **Parameters:**
-        - `lights` (_list([carla.Light](#carla.Light))_) - List of lights to be changed.  
-        - `intensity` (_float<small> - lumens</small>_) - Intensity to be applied.  
-    - **Getter:** _[carla.LightManager.get_intensity](#carla.LightManager.get_intensity)_  
+将`lights`中每个元素的强度改为`intensity`。
+    - **参数：**
+        - `lights` (_list([carla.Light](#carla.Light))_) - 要更改的灯光列表。
+        - `intensity` (_float<small> - lumens</small>_) -  要应用的强度。
+    - **获取器：** _[carla.LightManager.get_intensity](#carla.LightManager.get_intensity)_  
 - <a name="carla.LightManager.set_light_group"></a>**<font color="#7fb800">set_light_group</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**lights**</font>, <font color="#00a6ed">**light_group**</font>)  
-Changes the group of every element in `lights` to `light_group`.  
-    - **Parameters:**
-        - `lights` (_list([carla.Light](#carla.Light))_) - List of lights to be changed.  
-        - `light_group` (_[carla.LightGroup](#carla.LightGroup)_) - Group to be applied.  
-    - **Getter:** _[carla.LightManager.get_light_group](#carla.LightManager.get_light_group)_  
+将`lights` 中每个元素的组更改为`light_group`。 
+    - **参数：**
+        - `lights` (_list([carla.Light](#carla.Light))_) - 要更改的灯光列表。
+        - `light_group` (_[carla.LightGroup](#carla.LightGroup)_) -  要应用的组。
+    - **获取器：** _[carla.LightManager.get_light_group](#carla.LightManager.get_light_group)_  
 - <a name="carla.LightManager.set_light_groups"></a>**<font color="#7fb800">set_light_groups</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**lights**</font>, <font color="#00a6ed">**light_groups**</font>)  
-Changes the group of each element in `lights` to the corresponding in `light_groups`.  
-    - **Parameters:**
-        - `lights` (_list([carla.Light](#carla.Light))_) - List of lights to be changed.  
-        - `light_groups` (_list([carla.LightGroup](#carla.LightGroup))_) - List of groups to be applied.  
+将`lights`中每个元素的组更改为相应的 `light_groups`。 
+    - **参数：**
+        - `lights` (_list([carla.Light](#carla.Light))_) - 要更改的灯光列表。
+        - `light_groups` (_list([carla.LightGroup](#carla.LightGroup))_) - 要应用的组列表。
 - <a name="carla.LightManager.set_light_state"></a>**<font color="#7fb800">set_light_state</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**lights**</font>, <font color="#00a6ed">**light_state**</font>)  
-Changes the state of the attributes of every element in `lights` to `light_state`.  
-    - **Parameters:**
-        - `lights` (_list([carla.Light](#carla.Light))_) - List of lights to be changed.  
-        - `light_state` (_[carla.LightState](#carla.LightState)_) - State of the attributes to be applied.  
-    - **Getter:** _[carla.LightManager.get_light_state](#carla.LightManager.get_light_state)_  
+将`lights`中每个元素的属性状态改为`light_state`。   
+    - **参数：**
+        - `lights` (_list([carla.Light](#carla.Light))_) - 要更改的灯光列表。
+        - `light_state` (_[carla.LightState](#carla.LightState)_) - 要应用的属性的状态。  
+    - **获取器：** _[carla.LightManager.get_light_state](#carla.LightManager.get_light_state)_  
 - <a name="carla.LightManager.set_light_states"></a>**<font color="#7fb800">set_light_states</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**lights**</font>, <font color="#00a6ed">**light_states**</font>)  
-Changes the state of the attributes of each element in `lights` to the corresponding in `light_states`.  
-    - **Parameters:**
-        - `lights` (_list([carla.Light](#carla.Light))_) - List of lights to be changed.  
-        - `light_states` (_list([carla.LightState](#carla.LightState))_) - List of state of the attributes to be applied.  
+将`lights`中每个元素的属性状态更改为相应的 `light_states`。 
+    - **参数：**
+        - `lights` (_list([carla.Light](#carla.Light))_) - 要更改的灯光列表。
+        - `light_states` (_list([carla.LightState](#carla.LightState))_) - 要应用的属性的状态列表。
+  
 
 ---
 
