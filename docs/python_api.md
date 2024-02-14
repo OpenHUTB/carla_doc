@@ -1494,65 +1494,65 @@ __笔记。__ 到目前为止，虽然有一个`vehicle`组，但车灯还不能
 ---
 
 ## carla.LightState<a name="carla.LightState"></a>
-This class represents all the light variables except the identifier and the location, which are should to be static. Using this class allows to manage all the parametrization of the light in one call.  
+这个类代表除了标识符和位置之外的所有灯光变量，它们应该是静态的。使用此类可以在一次调用中管理灯光的所有参数化。
 
-### Instance Variables
+### 实例变量
 - <a name="carla.LightState.intensity"></a>**<font color="#f8805a">intensity</font>** (_float<small> - lumens</small>_)  
-Intensity of a light.  
+光的强度。 
 - <a name="carla.LightState.color"></a>**<font color="#f8805a">color</font>** (_[carla.Color](#carla.Color)_)  
-Color of a light.  
+灯光的颜色。 
 - <a name="carla.LightState.group"></a>**<font color="#f8805a">group</font>** (_[carla.LightGroup](#carla.LightGroup)_)  
-Group a light belongs to.  
+灯光所属的组。
 - <a name="carla.LightState.active"></a>**<font color="#f8805a">active</font>** (_bool_)  
-Switch of a light. It is __True__ when the light is on.  
+灯的开关。当灯亮时为 __True__ 。  
 
-### Methods
+### 方法
 - <a name="carla.LightState.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**intensity**=0.0</font>, <font color="#00a6ed">**color**=[carla.Color](#carla.Color)()</font>, <font color="#00a6ed">**group**=[carla.LightGroup.None](#carla.LightGroup.None)</font>, <font color="#00a6ed">**active**=False</font>)  
-    - **Parameters:**
-        - `intensity` (_float<small> - lumens</small>_) - Intensity of the light. Default is `0.0`.  
-        - `color` (_[carla.Color](#carla.Color)_) - Color of the light. Default is black.  
-        - `group` (_[carla.LightGroup](#carla.LightGroup)_) - Group the light belongs to. Default is the generic group `None`.  
-        - `active` (_bool_) - Swith of the light. Default is `False`, light is off.  
+    - **参数：**
+        - `intensity` (_float<small> - lumens</small>_) - 光的强度。默认为 `0.0`。
+        - `color` (_[carla.Color](#carla.Color)_) - 光的颜色。默认为黑色。
+        - `group` (_[carla.LightGroup](#carla.LightGroup)_) - 灯光所属的组。默认为通用组 `None`。 
+        - `active` (_bool_) - 灯光开关。默认为`False`，灯关闭。 
 
 ---
 
 ## carla.Location<a name="carla.Location"></a>
 <small style="display:block;margin-top:-20px;">Inherited from _[carla.Vector3D](#carla.Vector3D)_</small></br>
-Represents a spot in the world.  
+代表世界上的一个地方。
 
-### Instance Variables
+### 实例变量
 - <a name="carla.Location.x"></a>**<font color="#f8805a">x</font>** (_float<small> - meters</small>_)  
-Distance from origin to spot on X axis.  
+X 轴上从原点到点的距离。
 - <a name="carla.Location.y"></a>**<font color="#f8805a">y</font>** (_float<small> - meters</small>_)  
-Distance from origin to spot on Y axis.  
+Y 轴上从原点到点的距离。
 - <a name="carla.Location.z"></a>**<font color="#f8805a">z</font>** (_float<small> - meters</small>_)  
-Distance from origin to spot on Z axis.  
+Z 轴上从原点到点的距离。
 
-### Methods
+### 方法
 - <a name="carla.Location.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**x**=0.0</font>, <font color="#00a6ed">**y**=0.0</font>, <font color="#00a6ed">**z**=0.0</font>)  
-    - **Parameters:**
+    - **参数：**
         - `x` (_float_)  
         - `y` (_float_)  
         - `z` (_float_)  
 - <a name="carla.Location.distance"></a>**<font color="#7fb800">distance</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**location**</font>)  
-Returns Euclidean distance from this location to another one.  
-    - **Parameters:**
-        - `location` (_[carla.Location](#carla.Location)_) - The other point to compute the distance with.  
-    - **Return:** _float<small> - meters</small>_  
+返回从该位置到另一位置的欧几里得距离。
+    - **参数：**
+        - `location` (_[carla.Location](#carla.Location)_) - 用于计算距离的另一个点。
+    - **返回：** _float<small> - meters</small>_  
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.Location.__abs__"></a>**<font color="#7fb800">\__abs__</font>**(<font color="#00a6ed">**self**</font>)  
-Returns a Location with the absolute value of the components x, y and z.  
-    - **Return:** _[carla.Location](#carla.Location)_  
+返回具有 x、y 和 z 分量绝对值的位置。
+    - **返回：Return:** _[carla.Location](#carla.Location)_  
 - <a name="carla.Location.__eq__"></a>**<font color="#7fb800">\__eq__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.Location](#carla.Location)</font>)  
-Returns __True__ if both locations are the same point in space.  
-    - **Return:** _bool_  
+如果两个位置是空间中的同一点，则返回 __True__ 。
+    - **返回：** _bool_  
 - <a name="carla.Location.__ne__"></a>**<font color="#7fb800">\__ne__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.Location](#carla.Location)</font>)  
-Returns __True__ if both locations are different points in space.  
-    - **Return:** _bool_  
+如果两个位置是空间中的不同点，则返回 __True__ 。
+    - **返回：** _bool_  
 - <a name="carla.Location.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
-Parses the axis' values to string.  
-    - **Return:** _str_  
+将轴的值解析为字符串。 
+    - **返回：** _str_  
 
 ---
 
@@ -1584,46 +1584,45 @@ Parses the axis' values to string.
     - **参数：**
         - `path` - 保存文件的路径。  
 - <a name="carla.Map.to_opendrive"></a>**<font color="#7fb800">to_opendrive</font>**(<font color="#00a6ed">**self**</font>)  
-Returns the .xodr OpenDRIVe file of the current map as string.  
-    - **Return:** _str_  
+以字符串形式返回当前地图的 .xodr OpenDRIVe 文件。
+    - **返回：** _str_  
 - <a name="carla.Map.transform_to_geolocation"></a>**<font color="#7fb800">transform_to_geolocation</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**location**</font>)  
-Converts a given `location`, a point in the simulation, to a [carla.GeoLocation](#carla.GeoLocation), which represents world coordinates. The geographical location of the map is defined inside OpenDRIVE within the tag <b><georeference></b>.  
+将仿真中一个点的给定位置 `location` 转换为 [carla.GeoLocation](#carla.GeoLocation)，他表示世界坐标系。地图的地理位置在 OpenDRIVE 标签<b><georeference></b>内定义。
     - **参数：**
         - `location` (_[carla.Location](#carla.Location)_)  
     - **返回：** _[carla.GeoLocation](#carla.GeoLocation)_  
 
-##### Getters
+##### 获取器
 - <a name="carla.Map.get_all_landmarks"></a>**<font color="#7fb800">get_all_landmarks</font>**(<font color="#00a6ed">**self**</font>)  
 返回地图中的所有地标。使用此方法检索到的地标有一个 __null__ 航路点。
     - **返回：** _list([carla.Landmark](#carla.Landmark))_  
 - <a name="carla.Map.get_all_landmarks_from_id"></a>**<font color="#7fb800">get_all_landmarks_from_id</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**opendrive_id**</font>)  
-Returns the landmarks with a certain OpenDRIVE ID. Landmarks retrieved using this method have a __null__ waypoint.  
-    - **Parameters:**
-        - `opendrive_id` (_string_) - The OpenDRIVE ID of the landmarks.  
-    - **Return:** _list([carla.Landmark](#carla.Landmark))_  
+返回具有特定 OpenDRIVE ID 的地标。使用此方法检索的地标具有 __null__ 航路点。
+    - **参数：**
+        - `opendrive_id` (_string_) - 地标的 OpenDRIVE ID。  
+    - **返回：** _list([carla.Landmark](#carla.Landmark))_  
 - <a name="carla.Map.get_all_landmarks_of_type"></a>**<font color="#7fb800">get_all_landmarks_of_type</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**type**</font>)  
-Returns the landmarks of a specific type. Landmarks retrieved using this method have a __null__ waypoint.  
-    - **Parameters:**
-        - `type` (_string_) - The type of the landmarks.  
-    - **Return:** _list([carla.Landmark](#carla.Landmark))_  
+返回特定类型的地标。使用此方法检索的地标具有 __null__ 航路点。
+    - **参数：**
+        - `type` (_string_) - 地标的类型。
+    - **返回：** _list([carla.Landmark](#carla.Landmark))_  
 - <a name="carla.Map.get_crosswalks"></a>**<font color="#7fb800">get_crosswalks</font>**(<font color="#00a6ed">**self**</font>)  
-Returns a list of locations with all crosswalk zones in the form of closed polygons. The first point is repeated, symbolizing where the polygon begins and ends.  
-    - **Return:** _list([carla.Location](#carla.Location))_  
+以闭合多边形的形式返回包含所有人行横道区域的位置列表。重复第一个点，表示多边形的起点和终点。
+    - **返回：** _list([carla.Location](#carla.Location))_  
 - <a name="carla.Map.get_landmark_group"></a>**<font color="#7fb800">get_landmark_group</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**landmark**</font>)  
-Returns the landmarks in the same group as the specified landmark (including itself). Returns an empty list if the landmark does not belong to any group.  
-    - **Parameters:**
-        - `landmark` (_[carla.Landmark](#carla.Landmark)_) - A landmark that belongs to the group.  
-    - **Return:** _list([carla.Landmark](#carla.Landmark))_  
+返回与指定地标（包括其自身）位于同一组中的地标。如果地标不属于任何组，则返回空列表。
+    - **参数：**
+        - `landmark` (_[carla.Landmark](#carla.Landmark)_) - 属于该组的地标。 
+    - **返回：** _list([carla.Landmark](#carla.Landmark))_  
 - <a name="carla.Map.get_spawn_points"></a>**<font color="#7fb800">get_spawn_points</font>**(<font color="#00a6ed">**self**</font>)  
-Returns a list of recommendations made by the creators of the map to be used as spawning points for the vehicles. The list includes [carla.Transform](#carla.Transform) objects with certain location and orientation. Said locations are slightly on-air in order to avoid Z-collisions, so vehicles fall for a bit before starting their way.  
-    - **Return:** _list([carla.Transform](#carla.Transform))_  
+返回地图创建者提出的建议列表，以用作车辆的生成点。该列表包括具有特定位置和方向的[carla.Transform](#carla.Transform) 对象。为了避免 Z 型碰撞，上述地点会稍微在空中，因此车辆在出发前会稍微下坠。
+    - **返回：** _list([carla.Transform](#carla.Transform))_  
 - <a name="carla.Map.get_topology"></a>**<font color="#7fb800">get_topology</font>**(<font color="#00a6ed">**self**</font>)  
-Returns a list of tuples describing a minimal graph of the topology of the OpenDRIVE file. The tuples contain pairs of waypoints located either at the point a road begins or ends. The first one is the origin and the second one represents another road end that can be reached. This graph can be loaded into [NetworkX](https://networkx.github.io/) to work with. Output could look like this: <b>[(w0, w1), (w0, w2), (w1, w3), (w2, w3), (w0, w4)]</b>.  
-    - **Return:** _list(tuple([carla.Waypoint](#carla.Waypoint), [carla.Waypoint](#carla.Waypoint)))_  
+返回描述 OpenDRIVE 文件拓扑的最小图的元组列表。这些元组包含位于道路起点或终点的成对路点。第一个是起点，第二个代表另一个可以到达的路终点。该图可以加载到[NetworkX](https://networkx.github.io/) 中进行使用。输出可能如下所示： <b>[(w0, w1), (w0, w2), (w1, w3), (w2, w3), (w0, w4)]</b> 。 
+    - **返回：** _list(tuple([carla.Waypoint](#carla.Waypoint), [carla.Waypoint](#carla.Waypoint)))_  
 - <a name="carla.Map.get_waypoint"></a>**<font color="#7fb800">get_waypoint</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**location**</font>, <font color="#00a6ed">**project_to_road**=True</font>, <font color="#00a6ed">**lane_type**=[carla.LaneType.Driving](#carla.LaneType.Driving)</font>)<button class="SnipetButton" id="carla.Map.get_waypoint-snipet_button">snippet &rarr;</button>  
-Returns a waypoint that can be located in an exact location or translated to the center of the nearest lane. Said lane type can be defined using flags such as `LaneType.Driving & LaneType.Shoulder`.
- The method will return <b>None</b> if the waypoint is not found, which may happen only when trying to retrieve a waypoint for an exact location. That eases checking if a point is inside a certain road, as otherwise, it will return the corresponding waypoint.  
-    - **Parameters:**
+返回可以位于精确位置或转换到最近车道中心的航路点。所述车道类型可以使用诸如 `LaneType.Driving & LaneType.Shoulder` 的标志来定义。如果未找到航路点，该方法将返回<b>None</b> ，这种情况仅在尝试检索确切位置的航路点时可能会发生。这可以轻松检查某个点是否在某条道路内，否则，它将返回相应的路径点。
+    - **参数：**
         - `location` (_[carla.Location](#carla.Location)<small> - meters</small>_) - Location used as reference for the [carla.Waypoint](#carla.Waypoint).  
         - `project_to_road` (_bool_) - If **True**, the waypoint will be at the center of the closest lane. This is the default setting. If **False**, the waypoint will be exactly in `location`. <b>None</b> means said location does not belong to a road.  
         - `lane_type` (_[carla.LaneType](#carla.LaneType)_) - Limits the search for nearest lane to one or various lane types that can be flagged.  
