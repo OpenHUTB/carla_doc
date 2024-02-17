@@ -39,6 +39,8 @@ python -m pip install .
 ```
 然后使用新的mkdocs执行步骤1-3。
 
+5. 文档页面显示支持 [Latex 公式](https://gist.github.com/josemazo/36af7bb9c58b92c684bbd431f6c68ce9) 、[视频播放](https://pypi.org/project/mkdocs-video/)  。
+
 
 ## 命名规则
 

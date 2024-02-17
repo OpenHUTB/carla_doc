@@ -8,9 +8,12 @@ theme:
   sticky_navigation: True
   navigation_depth: 3
 extra_css: [extra.css]
-extra_javascript: [extra.js]
+extra_javascript:
+  - extra.js
+  - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML
 
 plugins:
+  - mkdocs-video
   - search:
       lang: ja
       separator: '[\s\-\.]+'
@@ -102,6 +105,7 @@ nav:
   - '生成详细碰撞': 'tuto_D_generate_colliders.md'
   - '发布版本': 'tuto_D_make_release.md'
 - Carla 生态系统:
+  - 'ISS 智能驾驶系统': 'ecosys_iss.md'
   - 'Ansys 实时雷达模型': 'ecosys_ansys.md'
   - 'RLlib 集成': "tuto_G_rllib_integration.md"
   - 'CarSim 集成': "tuto_G_carsim_integration.md"
@@ -121,4 +125,5 @@ nav:
 
 markdown_extensions:
   - admonition
+  - mdx_math
 
