@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>CARLA Sensors - 交通仿真器文档</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "CARLA Sensors";
+        var mkdocs_page_input_path = "algorithms\\Sensors\\_CARLA.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> 交通仿真器文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">主页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">入门</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../start_introduction/">介绍</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../start_quickstart/">快速启动包安装</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../tuto_first_steps/">第一步</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../tutorials/">教程</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">构建 Carla</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../build_carla/">构建 Carla</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../build_linux/">Linux 构建</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../build_windows/">Windows 构建</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../build_update/">更新 Carla</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../build_system/">构建系统</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../build_docker/">Docker 中的 Carla</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../build_faq/">常问的问题</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">下一步</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../tuto_content_authoring_maps/">内容创作 - 地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../tuto_content_authoring_vehicles/">内容创作 - 车辆</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Carla 主题</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../foundations/">基础</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../core_concepts/">核心概念</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../core_world/">世界和客户端</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../core_actors/">参与者和蓝图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../ts_traffic_simulation_overview/">交通</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../core_map/">地图和导航 </a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../core_sensors/">传感器和数据</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../development_tutorials/">开发</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../custom_assets_tutorials/">自定义资产</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">交通仿真</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../adv_traffic_manager/">交通管理器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../adv_sumo/">和 SUMO 联合仿真</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../tuto_G_scenic/">Scenic</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">高级概念</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../adv_recorder/">记录器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../adv_rendering_options/">渲染选项</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../adv_synchrony_timestep/">同步和时间步长</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../adv_benchmarking/">基准性能</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../adv_agents/">Carla 智能体</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">资源</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../python_api/">Python API 参考</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../ref_cpp/">C++ 参考</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../bp_library/">蓝图库</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../catalogue/">Carla 目录</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../ref_recorder_binary_file_format/">记录器二进制文件格式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../ref_sensors/">传感器参考</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../ext_docs/">扩展文档</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">自定义地图</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../tuto_M_custom_map_overview/">Carla 中自定义地图的概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../tuto_M_add_map_package/">在 Carla 包导入地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../tuto_M_add_map_source/">在 Carla 源构建中导入地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../tuto_M_add_map_alternative/">导入地图的替代方法</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../tuto_M_manual_map_package/">手动准备地图包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../tuto_M_custom_layers/">自定义地图：分层地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../tuto_M_custom_add_tl/">自定义地图：红绿灯和标志</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../tuto_M_custom_road_painter/">自定义地图：道路画家</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../tuto_M_custom_buildings/">自定义地图：程序建筑</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../tuto_M_custom_weather_landscape/">自定义地图：天气和景观</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../tuto_M_generate_pedestrian_navigation/">生成行人导航</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">大型地图</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../large_map_overview/">大型地图概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../large_map_roadrunner/">在RoadRunner中创建大地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../large_map_import/">导入/打包大地图</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（通用）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../tuto_G_add_friction_triggers/">添加摩擦触发器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../tuto_G_control_vehicle_physics/">控制车辆物理模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../tuto_G_control_walker_skeletons/">控制行人骨骼</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../tuto_G_openstreetmap/">使用 OpenStreetMap 生成地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../tuto_G_retrieve_data/">检索仿真数据</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../build_docker_unreal/">在 Docker 中构建虚幻引擎和 Carla</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（资产）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../tuto_A_add_vehicle/">添加新车辆</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../tuto_A_add_props/">添加新道具</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../tuto_A_create_standalone/">创建独立包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../tuto_A_material_customization/">材质定制</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（开发人员）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../tuto_D_contribute_assets/">如何升级内容</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../tuto_D_create_sensor/">创建一个传感器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../tuto_D_create_semantic_tags/">创建语义标签</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../tuto_D_customize_vehicle_suspension/">自定义车辆悬架</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../tuto_D_generate_colliders/">生成详细碰撞</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../tuto_D_make_release/">发布版本</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../ecosys_iss/">ISS 智能驾驶系统</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../ecosys_ansys/">Ansys 实时雷达模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../tuto_G_rllib_integration/">RLlib 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../tuto_G_carsim_integration/">CarSim 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../tuto_G_chrono/">Chrono 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../adv_opendrive/">OpenDRIVE 独立模式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../adv_ptv/">PTV-Vissim 联合仿真</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../ros_documentation/">ROS</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../adv_rss/">责任敏感安全</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://github.com/OpenHUTB/engine_doc">虚幻引擎教程</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../plugins_carlaviz/">Web 可视化器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../tuto_G_G29_windows/">罗技 G29 方向盘</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">贡献</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../cont_contribution_guidelines/">贡献指南</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../cont_code_of_conduct/">行为准则</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../cont_coding_standard/">编码标准</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../cont_doc_standard/">文档标准</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">交通仿真器文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">CARLA Sensors</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <div><h1 id="sensors-in-carla">Sensors in CARLA<a name="Sensor"></a></h1>
+<p>Sensors in CARLA compound a specific family of actors that are quite diverse and unique from the other CARLA actors; they model different sensing capabilities that can be used in self-driving systems. 
+Sensors are represented by CARLA actors that are normally spawned as attachment/sons of a vehicle. 
+Sensors are thoroughly designed to retrieve different types of data that they are listening to. </p>
+<p>Most sensors can be divided in two groups: those receiving data on every tick (cameras, point clouds and some other specific sensors) and those who only receive under certain circumstances (trigger detectors). CARLA provides a specific set of sensors and their blueprint can be found in <a href="#carla.BlueprintLibrary">carla.BlueprintLibrary</a>. </p>
+<h3 id="instance-variables">Instance Variables</h3>
+<ul>
+<li><a name="carla.Sensor.is_listening"></a><strong><font color="#f8805a">is_listening</font></strong> (<em>boolean</em>)<br>
+When <b>True</b> the sensor will be waiting for data.  </li>
+</ul>
+<h3 id="methods">Methods</h3>
+<ul>
+<li><a name="carla.Sensor.listen"></a><strong><font color="#7fb800">listen</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>callback</strong></font>)<button class="SnipetButton" id="carla.Sensor.listen-snipet_button">snippet →</button><br>
+The function the sensor will be calling to every time a new measurement is received. This function needs for an argument containing an object type <a href="#carla.SensorData">carla.SensorData</a> to work with.  <ul>
+<li><strong>Parameters:</strong><ul>
+<li><code>callback</code> (<em>function</em>) - The called function with one argument containing the sensor data.  </li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a name="carla.Sensor.stop"></a><strong><font color="#7fb800">stop</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br>
+Commands the sensor to stop listening for data.  </li>
+</ul>
+<h2 id="carlacamera">CarlaCamera</h2>
+<p>The "RGB" camera acts as a regular <a href="index.html#Camera">camera</a> capturing images from the scene.
+A CARLA camera can be tuned with respect to multiple parameters, such as <code>sensor_tick</code> and <code>enable_postprocess_effects</code>. 
+The numeric <code>sensor_tick</code> parameter controls how fast we want the sensor to capture the scene: 
+for example, a value of 1.5 means that we want the sensor to capture an image each second and a half. The value 0.0 is used as default and it instructs the camera to capture images as fast as possible.</p>
+<p>The <code>enable_postprocess_effects</code> parameters allows the user to increase the realism of the captured images, by applying the corresponding set of post-process effects:</p>
+<ul>
+<li><strong>Vignette:</strong> darkens the border of the screen.</li>
+<li><strong>Grain jitter:</strong> adds some noise to the render.</li>
+<li><strong>Bloom:</strong> intense lights burn the area around them.</li>
+<li><strong>Auto exposure:</strong> modifies the image gamma to simulate the eye adaptation to darker or brighter areas.</li>
+<li><strong>Lens flares:</strong> simulates the reflection of bright objects on the lens.</li>
+<li><strong>Depth of field:</strong> blurs objects near or very far away from the camera.</li>
+</ul>
+<h2 id="carlalidar">CarlaLiDAR</h2>
+<p>This sensor simulates a rotating <a href="index.html#LiDAR">LiDAR</a> implemented using ray-casting.
+The points are computed by adding a laser beam for each channel distributed in the vertical FOV. 
+The rotation is simulated by computing the horizontal angle corresponding to how much the LiDAR rotated between two consecutive frames taken with frequency <code>FPS</code>, that is, the LiDAR rotation angle in <code>1/FPS</code> seconds. 
+The point cloud is calculated by doing a ray-cast for each laser beam in every step.
+<code>points_per_channel_each_step = points_per_second / (FPS * channels)</code></p>
+<p>A LIDAR measurement contains a package with all the points generated during an interval of length <code>1/FPS</code>. 
+During this interval the physics of the world are not updated so all points in the measurement reflect the same "static picture" of the scene.</p>
+<p>This output contains a cloud of simulation points and thus, it can be iterated to retrieve a list of their <a href="python_api.md#carla.Location"><code>carla.Location</code></a>:</p>
+<pre><code class="language-py">for location in lidar_measurement:
+    print(location)
+</code></pre>
+<p>The information of the LiDAR measurement is encoded by means of 4D points. 
+The first three dimensions represent the space points in the usual XYZ spatial coordinates; 
+the last one stands for the intensity loss during the travel. 
+This intensity is computed by the following formula.
+<br></p>
+<p><code>a</code> — Attenuation coefficient. This may depend on the sensor's wavelength, and the conditions of the atmosphere. It can be modified with the LiDAR attribute <code>atmosphere_attenuation_rate</code>.
+<code>d</code> — Distance from the hit point to the sensor.</p>
+<p>For a better realism, points in the cloud can be dropped off. This is an easy way to simulate loss due to external perturbations. This can done combining two different parameters.</p>
+<ul>
+<li><strong>General drop-off</strong> — Proportion of points that are dropped off randomly. This is done before the tracing, meaning the points being dropped are not calculated, thus improving the performance. If <code>dropoff_general_rate = 0.5</code>, half of the points will be dropped.</li>
+<li><strong>Intensity-based drop-off</strong> — For each point detected, and extra drop-off is performed with a probability based in the computed intensity. This probability is determined by two parameters: <code>dropoff_zero_intensity</code> and <code>dropoff_intensity_limit</code>, where is the probability of points with zero intensity to be dropped while <code>dropoff_intensity_limit</code> is a threshold intensity above which no points will be dropped. The probability of a point within the range to be dropped is a linear proportion based on these two parameters.</li>
+</ul>
+<p>Additionally, the <code>noise_stddev</code> attribute makes for a noise model to simulate unexpected deviations that appear in real-life sensors. For positive values, each point is randomly perturbed along the vector of the laser beam. The result is a LiDAR sensor with perfect angular positioning, but noisy distance measurement.</p>
+<p>The rotation of the LiDAR can be tuned to cover a specific angle on every simulation step (using a <a href="adv_synchrony_timestep.md">fixed time-step</a>). For example, to rotate once per step (full circle output, as in the picture below), the rotation frequency and the simulated FPS should be the same; 
+this can be obtained by <br><strong>1.</strong> Setting the sensor's rotation_frequency attribute <code>sensors_bp['lidar'][0].set_attribute('rotation_frequency','10')</code>. <br> <strong>2.</strong> Running the simulation using the option <code>--fps=N</code>, e.g., <code>python3 config.py --fps=10</code>.</p>
+<h2 id="carlagnss">CarlaGNSS</h2>
+<ul>
+<li><strong>Blueprint:</strong> sensor.other.gnss</li>
+<li><strong>Output:</strong> <a href="python_api.md#carla.GnssMeasurement">carla.GNSSMeasurement</a> per step (unless <code>sensor_tick</code> says otherwise).</li>
+</ul>
+<p>This sensors models a <a href="index.html#GPS_IMU">GPS receiver</a> and it provides the current <a href="https://www.gsa.europa.eu/european-gnss/what-gnss">GNSS position</a> of the vehicle the sensor is attached to. 
+The current coordinates are calculated by adding the metric position to an initial geo reference location defined within the OpenDRIVE map definition.</p>
+<h4 id="gnss-attributes">GNSS attributes</h4>
+<table>
+<thead>
+<tr>
+<th>Blueprint attribute</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>noise_alt_bias</code></td>
+<td>float</td>
+<td>0.0</td>
+<td>Mean parameter in the noise model for altitude.</td>
+</tr>
+<tr>
+<td><code>noise_alt_stddev</code></td>
+<td>float</td>
+<td>0.0</td>
+<td>Standard deviation parameter in the noise model for altitude.</td>
+</tr>
+<tr>
+<td><code>noise_lat_bias</code></td>
+<td>float</td>
+<td>0.0</td>
+<td>Mean parameter in the noise model for latitude.</td>
+</tr>
+<tr>
+<td><code>noise_lat_stddev</code></td>
+<td>float</td>
+<td>0.0</td>
+<td>Standard deviation parameter in the noise model for latitude.</td>
+</tr>
+<tr>
+<td><code>noise_lon_bias</code></td>
+<td>float</td>
+<td>0.0</td>
+<td>Mean parameter in the noise model for longitude.</td>
+</tr>
+<tr>
+<td><code>noise_lon_stddev</code></td>
+<td>float</td>
+<td>0.0</td>
+<td>Standard deviation parameter in the noise model for longitude.</td>
+</tr>
+<tr>
+<td><code>noise_seed</code></td>
+<td>int</td>
+<td>0</td>
+<td>Initializer for a pseudorandom number generator.</td>
+</tr>
+<tr>
+<td><code>sensor_tick</code></td>
+<td>float</td>
+<td>0.0</td>
+<td>Simulation seconds between sensor captures (ticks).</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h4 id="output-attributes">Output attributes</h4>
+<table>
+<thead>
+<tr>
+<th>Sensor data attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>frame</code></td>
+<td>int</td>
+<td>Frame number when the measurement took place.</td>
+</tr>
+<tr>
+<td><code>timestamp</code></td>
+<td>double</td>
+<td>Simulation time of the measurement in seconds since the beginning of the episode.</td>
+</tr>
+<tr>
+<td><code>transform</code></td>
+<td><a href="../python_api#carlatransform">carla.Transform</a></td>
+<td>Location and rotation in world coordinates of the sensor at the time of the measurement.</td>
+</tr>
+<tr>
+<td><code>latitude</code></td>
+<td>double</td>
+<td>Latitude of the actor.</td>
+</tr>
+<tr>
+<td><code>longitude</code></td>
+<td>double</td>
+<td>Longitude of the actor.</td>
+</tr>
+<tr>
+<td><code>altitude</code></td>
+<td>double</td>
+<td>Altitude of the actor.</td>
+</tr>
+</tbody>
+</table></div>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+      <script src="../../../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
