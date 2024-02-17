@@ -194,6 +194,8 @@ Carla 论坛</a>
 
 ## Carla 生态系统
 
+[__ISS 智能驾驶系统__](ecosys_iss.md) — 包含用于自动驾驶相关任务的传统和深度学习算法。
+
 [__Ansys 实时雷达模型__](ecosys_ansys.md) — 有关 Ansys RTR 网络研讨会的详细信息
 
 ## 贡献
