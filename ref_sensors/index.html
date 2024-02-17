@@ -332,6 +332,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
@@ -390,7 +392,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1"><a href="https://carla.readthedocs.io/en/latest/ref_sensors/">传感器参考</a></h1>
+                <div><h1 id="_1"><a href="https://carla.readthedocs.io/en/latest/ref_sensors/">传感器参考</a></h1>
 <ul>
 <li><a href="#collision-detector"><strong>碰撞检测器</strong></a></li>
 <li><a href="#depth-camera"><strong>深度相机</strong></a></li>
@@ -412,7 +414,7 @@
 <p class="admonition-title">重要</p>
 <p>所有传感器都使用虚幻引擎坐标系（<strong>x</strong> - <em>向前</em>，<strong>y</strong> - <em>向右</em>，<strong>z</strong> - <em>向上</em>），并返回本地空间中的坐标。使用任何可视化软件时，请注意其坐标系。许多反转 Y 轴，因此直接可视化传感器数据可能会导致镜像输出。 </p>
 </div>
-<hr />
+<hr>
 <h2 id="_2">碰撞检测器</h2>
 <ul>
 <li><strong>蓝图：</strong> sensor.other.collision</li>
@@ -462,7 +464,7 @@
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <h2 id="_4">深度相机</h2>
 <ul>
 <li><strong>蓝图：</strong> sensor.camera.depth</li>
@@ -475,9 +477,9 @@ in_meters = 1000 * normalized
 </code></pre>
 <p>然后，应使用<a href="../python_api/#carla.ColorConverter">carla.colorConverter</a>将输出<a href="../python_api/#carla.Image">carla.Image</a>保存到磁盘，该 <a href="../python_api/#carla.ColorConverter">carla.colorConverter</a> 会将存储在 RGB 通道中的距离转换为包含该距离的 <strong>[0,1]</strong> 浮点数，然后将其转换为灰度。<a href="../python_api/#carla.ColorConverter">carla.colorConverter</a> 中有两个选项可获取深度视图：<strong>Depth</strong> 和 <strong>Logaritmic depth</strong>。两者的精度都是毫米级的，但对数方法可以为更近的物体提供更好的结果。</p>
 <pre><code class="language-py">...
-raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.Depth)
+raw_image.save_to_disk("path/to/save/converted/image",carla.Depth)
 </code></pre>
-<p><img alt="ImageDepth" src="../img/ref_sensors_depth.jpg" /></p>
+<p><img alt="ImageDepth" src="../img/ref_sensors_depth.jpg"></p>
 <h4 id="_5">相机基本属性</h4>
 <table>
 <thead>
@@ -611,7 +613,7 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.Depth)
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <h2 id="_8">全球导航卫星系统传感器</h2>
 <ul>
 <li><strong>蓝图：</strong> sensor.other.gnss</li>
@@ -722,7 +724,7 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.Depth)
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <h2 id="_11">惯性测量单元传感器</h2>
 <ul>
 <li><strong>蓝图：</strong> sensor.other.imu</li>
@@ -851,7 +853,7 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.Depth)
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <h2 id="_14">车道侵入检测器</h2>
 <ul>
 <li><strong>蓝图：</strong> sensor.other.lane_invasion</li>
@@ -904,7 +906,7 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.Depth)
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <h2 id="_16">激光雷达传感器</h2>
 <ul>
 <li><strong>蓝图：</strong> sensor.lidar.ray_cast</li>
@@ -918,7 +920,7 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.Depth)
 </code></pre>
 <p>激光雷达测量的信息被编码为 4D 点。前三个是 xyz 坐标中的空间点，最后一个是旅行过程中的强度损失。该强度通过以下公式计算。
 <br>
-<img alt="LidarIntensityComputation" src="../img/lidar_intensity.jpg" /></p>
+<img alt="LidarIntensityComputation" src="../img/lidar_intensity.jpg"></p>
 <p><code>a</code> — 衰减系数。这可能取决于传感器的波长和大气条件。可以使用激光雷达属性对其进行修改<code>atmosphere_attenuation_rate</code>。 
 <code>d</code> — 从击中点到传感器的距离</p>
 <p>为了获得更好的真实感，可以删除云中的点。这是仿真外部扰动造成的损失的简单方法。这可以结合两个不同的来完成。</p>
@@ -928,7 +930,7 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.Depth)
 </ul>
 <p>此外，该<code>noise_stddev</code>属性还使噪声模型能够仿真现实传感器中出现的意外偏差。对于正值，每个点都会沿着激光射线的矢量随机扰动。结果是激光雷达传感器具有完美的角度定位，但距离测量存在噪音。</p>
 <p>可以调整激光雷达的旋转以覆盖每个仿真步骤的特定角度（使用 <a href="../adv_synchrony_timestep/">固定的时间步长</a> ）。例如，每步旋转一次（整圈输出，如下图），旋转频率和仿真的 FPS 应该相等。 <br> <strong>1.</strong> 设置传感器的频率 <code>sensors_bp['lidar'][0].set_attribute('rotation_frequency','10')</code>. <br> <strong>2.</strong> 使用 <code>python3 config.py --fps=10</code> 运行仿真。</p>
-<p><img alt="LidarPointCloud" src="../img/lidar_point_cloud.jpg" /></p>
+<p><img alt="LidarPointCloud" src="../img/lidar_point_cloud.jpg"></p>
 <h4 id="_17">激光雷达属性</h4>
 <table>
 <thead>
@@ -1172,7 +1174,7 @@ points = np.frombuffer(radar_data.raw_data, dtype=np.dtype('f4'))
 points = np.reshape(points, (len(radar_data), 4))
 </code></pre>
 <p>提供的脚本<code>manual_control.py</code>使用此传感器来显示正在检测的点，并在静态时将其绘制为白色，在向物体移动时将其绘制为红色，在远离物体时将其绘制为蓝色：</p>
-<p><img alt="ImageRadar" src="../img/ref_sensors_radar.jpg" /></p>
+<p><img alt="ImageRadar" src="../img/ref_sensors_radar.jpg"></p>
 <table>
 <thead>
 <tr>
@@ -1265,7 +1267,7 @@ points = np.reshape(points, (len(radar_data), 4))
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <h2 id="rgb">RGB 相机</h2>
 <ul>
 <li><strong>蓝图：</strong> sensor.camera.rgb</li>
@@ -1283,7 +1285,7 @@ points = np.reshape(points, (len(radar_data), 4))
 <li><strong>Depth of field:</strong> 模糊靠近或远离相机的物体。</li>
 </ul>
 <p><code>sensor_tick</code>告诉我们希望传感器捕获数据的速度有多快。值为 1.5 意味着我们希望传感器每半秒捕获一次数据。默认情况下，值 0.0 表示尽可能快。</p>
-<p><img alt="ImageRGB" src="../img/ref_sensors_rgb.jpg" /></p>
+<p><img alt="ImageRGB" src="../img/ref_sensors_rgb.jpg"></p>
 <h4 id="_23">相机基本属性</h4>
 <p><br></p>
 <table>
@@ -1625,7 +1627,7 @@ points = np.reshape(points, (len(radar_data), 4))
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <h2 id="_27">责任敏感安全传感器</h2>
 <ul>
 <li><strong>蓝图：</strong> sensor.other.rss</li>
@@ -1738,7 +1740,7 @@ def _on_rss_response(weak_self, response):
 </tbody>
 </table>
 <p><br></p>
-<hr />
+<hr>
 <pre><code class="language-py"># Update the current route
 self.sensor.reset_routing_targets()
 if routing_targets:
@@ -1807,7 +1809,7 @@ def _on_actor_constellation_request(self, actor_constellation_data):
     actor_constellation_result.actor_dynamics = self.current_vehicle_parameters
 
     actor_id = -1
-    actor_type_id = &quot;none&quot;
+    actor_type_id = "none"
     if actor_constellation_data.other_actor != None:
         # customize actor_constellation_result for specific actor
         ...
@@ -1816,7 +1818,7 @@ def _on_actor_constellation_request(self, actor_constellation_data):
         ...
     return actor_constellation_result
 </code></pre>
-<hr />
+<hr>
 <h2 id="_29">语义激光雷达传感器</h2>
 <ul>
 <li><strong>蓝图：</strong> sensor.lidar.ray_cast_semantic</li>
@@ -1843,7 +1845,7 @@ def _on_actor_constellation_request(self, actor_constellation_data):
 <p>可以调整激光雷达的旋转以覆盖每个仿真步骤的特定角度（使用 <a href="../adv_synchrony_timestep/">固定的时间步长</a> ）。例如，每步旋转一次（整圈输出，如下图），旋转频率和仿真的FPS应该相等。 <br>
 <strong>1.</strong> 设置传感器的频率 <code>sensors_bp['lidar'][0].set_attribute('rotation_frequency','10')</code>。 <br>
 <strong>2.</strong> 使用 <code>python3 config.py --fps=10</code> 运行仿真。</p>
-<p><img alt="LidarPointCloud" src="../img/semantic_lidar_point_cloud.jpg" /></p>
+<p><img alt="LidarPointCloud" src="../img/semantic_lidar_point_cloud.jpg"></p>
 <h4 id="_30">语义激光雷达属性</h4>
 <p><br></p>
 <table>
@@ -1960,10 +1962,10 @@ def _on_actor_constellation_request(self, actor_constellation_data):
 <li><strong>输出：</strong> 每步 <a href="../python_api/#carla.Image">carla.Image</a> （除非 <code>sensor_tick</code> 另有说明）。</li>
 </ul>
 <p>该摄像机根据其标签以不同的颜色显示它，从而对可见的每个物体进行分类（例如，行人与车辆的颜色不同）。当仿真开始时，场景中的每个元素都会使用标签创建。所以当演员产生时就会发生这种情况。对象按其在项目中的相对文件路径进行分类。例如，存储在中的网格<code>Unreal/CarlaUE4/Content/Static/Pedestrians</code>被标记为<code>Pedestrian</code>。</p>
-<p><img alt="ImageSemanticSegmentation" src="../img/ref_sensors_semantic.jpg" /></p>
+<p><img alt="ImageSemanticSegmentation" src="../img/ref_sensors_semantic.jpg"></p>
 <p>服务器提供的图像的标签信息 <strong>编码在红色通道中</strong>： 红色值为 的像素<code>x</code>属于带有标签的对象<code>x</code>。这个原始的<a href="../python_api/#carla.Image">carla.Image</a>可以在<a href="../python_api/#carla.ColorConverter">carla.ColorConverter</a> 中的 <strong>CityScapesPalette</strong> 的帮助下存储和转换，以应用标签信息并通过语义分割显示图片。</p>
 <pre><code class="language-py">...
-raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.cityScapesPalette)
+raw_image.save_to_disk("path/to/save/converted/image",carla.cityScapesPalette)
 </code></pre>
 <p>目前可以使用以下标签：</p>
 <table>
@@ -2158,7 +2160,7 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.cityScapes
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <h4 id="_34">相机镜头畸变属性</h4>
 <table>
 <thead>
@@ -2208,7 +2210,7 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.cityScapes
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <h4 id="_35">输出属性</h4>
 <table>
 <thead>
@@ -2256,7 +2258,7 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.cityScapes
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <h2 id="dvs">DVS 相机</h2>
 <ul>
 <li><strong>蓝图：</strong> sensor.camera.dvs</li>
@@ -2266,11 +2268,11 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.cityScapes
 <p>DVS 摄像机输出事件流。当对数强度的变化达到预定义的恒定阈值（通常在 15% 到 30% 之间）时，在时间戳处的像素处<code>e=(x,y,t,pol)</code>触发事件。</p>
 <p><code>L(x,y,t) - L(x,y,t-\delta t) = pol C</code></p>
 <p><code>t-\delta t</code> 是该像素上最后一个事件被触发的时间，并且<code>pol</code>是根据亮度变化的符号的事件的极性。<code>+1</code>当亮度增加时极性为正，<code>-1</code>当亮度减少时极性为负。工作原理如下图所示。标准相机以固定速率输出帧，从而在场景中不存在运动时发送冗余信息。相比之下，事件摄像机是数据驱动的传感器，能够以微秒延迟响应亮度变化。在绘图中，只要（带符号的）亮度变化随时间超过<code>C</code>一维的对比度阈值，就会生成正（或负）事件（蓝点、红点） 。观察信号快速变化时事件率如何增长。</p>
-<p><img alt="DVSCameraWorkingPrinciple" src="../img/sensor_dvs_scheme.jpg" /></p>
+<p><img alt="DVSCameraWorkingPrinciple" src="../img/sensor_dvs_scheme.jpg"></p>
 <p>DVS 摄像机的当前实现在两个连续同步帧之间以统一采样方式工作。因此，为了仿真真实事件相机的高时间分辨率（微秒级），传感器需要以高频率执行（比传统相机的频率高得多）。实际上，Carla 汽车行驶速度越快，事件数量就会增加。因此，传感器频率应随着场景的动态而相应增加。用户应该在时间精度和计算成本之间找到平衡。</p>
 <p>提供的脚本[<code>manual_control.py</code>]使用 DVS 摄像头来展示如何配置传感器、如何获取事件流以及如何以图像格式（通常称为事件框架）描述此类事件。</p>
 <p>请注意，由于 DVS 摄像机的采样方法，如果两个连续同步帧之间没有像素差异，摄像机将不会返回图像。这总是发生在第一帧中，因为没有前一帧可供比较，并且在帧之间没有移动的情况下也是如此。</p>
-<p><img alt="DVSCameraWorkingPrinciple" src="../img/sensor_dvs.gif" /></p>
+<p><img alt="DVSCameraWorkingPrinciple" src="../img/sensor_dvs.gif"></p>
 <p>DVS 是一个相机，因此具有 RGB 相机中可用的所有属性。然而，事件摄像机的工作原理几乎没有什么独有的属性。</p>
 <h4 id="dvs_1">DVS 相机属性</h4>
 <table>
@@ -2328,10 +2330,10 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.cityScapes
 </tbody>
 </table>
 <p><br></p>
-<hr />
+<hr>
 <h2 id="_36">光流相机</h2>
 <p>光流相机捕捉从相机的角度感知的运动。该传感器记录的每个像素都对投影到图像平面的该点的速度进行编码。像素的速度在 [-2,2] 范围内编码。为了获得以像素为单位的运动，可以将该信息与图像大小一起缩放至[-2 * image_size, 2 * image_size]。</p>
-<p><img alt="optical_flow" src="../img/optical_flow.png" /></p>
+<p><img alt="optical_flow" src="../img/optical_flow.png"></p>
 <h4 id="_37">光流相机属性</h4>
 <table>
 <thead>
@@ -2465,7 +2467,7 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.cityScapes
 </tr>
 </tbody>
 </table>
-<p><br></p>
+<p><br></p></div>
               
             </div>
           </div><footer>

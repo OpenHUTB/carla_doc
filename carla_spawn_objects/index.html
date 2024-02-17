@@ -218,6 +218,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
@@ -275,7 +277,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="carla">Carla 生成对象</h1>
+                <div><h1 id="carla">Carla 生成对象</h1>
 <p><a href="https://github.com/carla-simulator/ros-bridge/tree/master/carla_spawn_objects"><code>carla_spawn_objects</code> 包</a> 用于生成参与者（车辆、传感器、步行者）并将传感器附加到它们上。</p>
 <ul>
 <li><a href="#configuration-and-sensor-setup"><strong>配置和传感器设置</strong></a><ul>
@@ -291,7 +293,7 @@
 </ul>
 </li>
 </ul>
-<hr />
+<hr>
 <h2 id="_1">配置和传感器设置</h2>
 <p>对象及其附加传感器通过<code>.json</code>文件定义。该文件的默认位置在<code>carla_spawn_objects/config/objects.json.</code> 要更改位置，请在启动包时通过私有 ROS 参数 <code>objects_definition_file</code> 传递文件路径：</p>
 <pre><code class="language-sh">    # ROS 1
@@ -303,19 +305,19 @@
 <h3 id="_2">创建配置</h3>
 <p>您可以在 <a href="https://github.com/carla-simulator/ros-bridge/blob/master/carla_spawn_objects/config/objects.json">ros-bridge repository</a> 存储库中找到示例，并按照此大纲创建您自己的配置和传感器设置：</p>
 <pre><code class="language-json">{
-&quot;objects&quot;:
+"objects":
     [
         {
-            &quot;type&quot;: &quot;&lt;SENSOR-TYPE&gt;&quot;,
-            &quot;id&quot;: &quot;&lt;NAME&gt;&quot;,
-            &quot;spawn_point&quot;: {&quot;x&quot;: 0.0, &quot;y&quot;: 0.0, &quot;z&quot;: 0.0, &quot;roll&quot;: 0.0, &quot;pitch&quot;: 0.0, &quot;yaw&quot;: 0.0},
+            "type": "&lt;SENSOR-TYPE&gt;",
+            "id": "&lt;NAME&gt;",
+            "spawn_point": {"x": 0.0, "y": 0.0, "z": 0.0, "roll": 0.0, "pitch": 0.0, "yaw": 0.0},
             &lt;ADDITIONAL-SENSOR-ATTRIBUTES&gt;
         },
         {
-            &quot;type&quot;: &quot;&lt;VEHICLE-TYPE&gt;&quot;,
-            &quot;id&quot;: &quot;&lt;VEHICLE-NAME&gt;&quot;,
-            &quot;spawn_point&quot;: {&quot;x&quot;: -11.1, &quot;y&quot;: 138.5, &quot;z&quot;: 0.2, &quot;roll&quot;: 0.0, &quot;pitch&quot;: 0.0, &quot;yaw&quot;: -178.7},
-            &quot;sensors&quot;:
+            "type": "&lt;VEHICLE-TYPE&gt;",
+            "id": "&lt;VEHICLE-NAME&gt;",
+            "spawn_point": {"x": -11.1, "y": 138.5, "z": 0.2, "roll": 0.0, "pitch": 0.0, "yaw": -178.7},
+            "sensors":
                 [
                 &lt;SENSORS-TO-ATTACH-TO-VEHICLE&gt;
                 ]
@@ -329,7 +331,7 @@
 <p>请记住，直接定义位置时，ROS 使用 <a href="https://www.ros.org/reps/rep-0103.html#chirality">右手系统</a> 。</p>
 </div>
 <p>所有传感器属性均按照 <a href="https://carla.readthedocs.io/en/latest/bp_library/">蓝图库</a> 中的描述进行定义。</p>
-<hr />
+<hr>
 <h2 id="_3">生成车辆</h2>
 <ul>
 <li>如果没有定义特定的生成点，车辆将在随机位置生成。</li>
@@ -385,9 +387,9 @@ ros2 launch carla_spawn_objects carla_spawn_objects.launch.py spawn_point_&lt;VE
 </li>
 </ol>
 <blockquote>
-<p><img alt="rviz_set_start_goal" src="images/rviz_set_start_goal.png" /></p>
+<p><img alt="rviz_set_start_goal" src="images/rviz_set_start_goal.png"></p>
 </blockquote>
-<hr />
+<hr>
 <h2 id="_5">生成传感器</h2>
 <ul>
 <li>传感器的初始位置应直接在<code>.json</code>文件中定义，如上面的车辆所示。 </li>
@@ -416,7 +418,7 @@ ros2 launch carla_spawn_objects carla_spawn_objects.launch.py spawn_sensors_only
 </code></pre>
 </li>
 </ol>
-<hr />
+<hr></div>
               
             </div>
           </div><footer>

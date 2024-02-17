@@ -284,6 +284,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
@@ -342,7 +344,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1"><a href="https://carla.readthedocs.io/en/latest/adv_traffic_manager/#traffic-manager">交通管理器</a></h1>
+                <div><h1 id="_1"><a href="https://carla.readthedocs.io/en/latest/adv_traffic_manager/#traffic-manager">交通管理器</a></h1>
 <ul>
 <li><a href="#what-is-the-traffic-manager"><strong>什么是交通管理器？</strong></a></li>
 <li><a href="#structured-design">结构化设计</a></li>
@@ -373,17 +375,17 @@
 <li><a href="#synchronous-mode"><strong>同步模式</strong></a></li>
 <li><a href="#traffic-manager-in-large-maps"><strong>大地图中的交通管理器</strong></a></li>
 </ul>
-<hr />
+<hr>
 <h2 id="_2">什么是交通管理器？</h2>
 <p>交通管理器 (Traffic Manager, TM) 是在仿真中以自动驾驶模式控制车辆的模块。其目标是在仿真中填充真实的城市交通状况。用户可以自定义一些行为，例如设置特定的学习环境。</p>
 <h3 id="_3">结构化设计</h3>
 <p>交通管理器构建于 Carla 的客户端之上。执行流程分为多个阶段，每个阶段都有独立的操作和目标。这有利于相位相关功能和数据结构的开发，同时提高计算效率。每个阶段都在不同的线程上运行。与其他阶段的通信通过同步消息传递进行管理。信息朝一个方向流动。</p>
 <h3 id="_4">用户定制</h3>
 <p>用户可以通过设置允许、强制或鼓励特定行为的参数来对流量进行一定程度的控制。用户可以根据自己的喜好改变流量行为，无论是在线还是离线。例如，可以允许汽车忽略速度限制或强制变道。在尝试仿真现实时，能够尝试各种行为是必不可少的。驾驶系统需要在特定和非典型情况下进行训练。</p>
-<hr />
+<hr>
 <h2 id="_5">架构</h2>
 <h3 id="_6">概述</h3>
-<p><img alt="Architecture" src="../img/tm_2_architecture.png" /></p>
+<p><img alt="Architecture" src="../img/tm_2_architecture.png"></p>
 <p>上图是交通管理器的内部架构示意图。每个组件的 C++ 代码可以在  <code>LibCarla/source/carla/trafficmanager</code> 中找到。以下各节详细解释了每个组件。逻辑概述如下：</p>
 <p><strong>1. 存储并更新仿真的当前状态。</strong></p>
 <ul>
@@ -521,7 +523,7 @@
 <p><strong>相关的.cpp文件:</strong> <code>MotionPlannerStage.cpp</code>.</p>
 <h5 id="5-">第 5 阶段 - 车灯阶段</h5>
 <p>车灯阶段根据车辆状况和周围环境激活车灯。
-​ <br />
+​ <br>
 车灯阶段:</p>
 <ul>
 <li>检索车辆的计划航点、有关车辆灯光的信息（例如灯光状态和计划应用的命令）和天气状况。</li>
@@ -533,7 +535,7 @@
 <li>如果车灯状态已更改，请更新车灯状态。</li>
 </ul>
 <p><strong>相关的 .cpp 文件:</strong> <code>VehicleLightStage.cpp</code>.</p>
-<hr />
+<hr>
 <h2 id="_14">使用交通管理器</h2>
 <h3 id="_15">车辆行为注意事项</h3>
 <p>TM 实现了将车辆设置为自动驾驶时必须考虑的一般行为模式：</p>
@@ -637,7 +639,7 @@ for actor in my_vehicles:
 <p class="admonition-title">警告</p>
 <p>关闭 <strong>TM-Server</strong> 将关闭连接到它的 <strong>TM-Clients</strong> 。 要了解 <strong>TM-Server</strong> 和 <strong>TM-Client</strong> 之间的区别, 请阅读 <a href="#running-multiple-traffic-managers"><strong>Running multiple Traffic Managers</strong></a>。</p>
 </div>
-<hr />
+<hr>
 <h2 id="_19">确定性模式</h2>
 <p>在确定性模式下，交通管理器将在相同条件下产生相同的结果和行为。不要将确定性论误认为是记录器。虽然记录器允许您存储仿真日志以进行回放，但确定性可确保只要维持相同的条件，交通管理器在脚本的不同执行过程中始终具有相同的输出。</p>
 <p>确定性模式 <strong>仅在同步模式下</strong> 可用。在异步模式下，对仿真的控制较少，并且无法实现确定性。在开始之前，请阅读<a href="#synchronous-mode"><strong>同步模式</strong></a>部分的更多信息。</p>
@@ -657,7 +659,7 @@ python3 generate_traffic.py -n 50 --seed 9
 <p class="admonition-title">警告</p>
 <p>在启用确定性模式之前，Carla 服务器和交通管理器必须处于同步模式。在此处阅读有关交通管理器中同步模式的<a href="#synchronous-mode">更多信息</a>。</p>
 </div>
-<hr />
+<hr>
 <h2 id="_20">混合物理模式</h2>
 <p>混合模式允许用户禁用所有自动驾驶车辆或标记为<code>英雄</code>的车辆特定半径之外的自动驾驶车辆的大多数物理计算。这消除了仿真中的车辆物理瓶颈。物理功能被禁用的车辆将通过隐形传送移动。维持线性加速度的基本计算，以确保位置更新和车辆速度保持真实，并且车辆上物理计算的切换是流畅的。</p>
 <p>混合模式使用 <a href="https://carla.readthedocs.io/en/latest/python_api/#carla.Actor.set_simulate_physics"><code>Actor.set_simulate_physics()</code></a> 方法来切换物理计算。默认情况下它是禁用的。有两个选项可以启用它：</p>
@@ -673,8 +675,8 @@ python3 generate_traffic.py -n 50 --seed 9
 <li><strong>如果有不止一辆英雄车辆，</strong> 则会考虑所有英雄车辆的半径，从而在启用物理功能的情况下创建不同的影响区域。</li>
 </ul>
 <p>下面的剪辑显示了混合模式处于活动状态时如何启用和禁用物理功能。<strong>英雄车辆</strong> 标有 <strong>红色方块</strong>。<strong>禁用物理功能</strong> 的车辆标有 <strong>蓝色方块</strong>。当在英雄车辆的影响半径内时，<strong>启用物理功能</strong> 并且标签变为 <strong>绿色</strong>。</p>
-<p><img alt="Welcome to CARLA" src="../img/tm_hybrid.gif" /></p>
-<hr />
+<p><img alt="Welcome to CARLA" src="../img/tm_hybrid.gif"></p>
+<hr>
 <h2 id="_21">运行多个交通管理器</h2>
 <h3 id="_22">交通管理器的服务端和客户端</h3>
 <p>Carla 客户端通过向服务器指定要使用的端口来创建交通管理器。如果未指定端口，将使用默认 <code>8000</code> 端口。如果在同一端口上创建更多交通管理器，它们将成为 <strong>交通管理器的客户端</strong>，而原始交通管理器将成为 <strong>交通管理器的服务端</strong>。这些标题定义了交通管理器在仿真中的行为方式。</p>
@@ -714,7 +716,7 @@ terminal 4: python3 generate_traffic.py --port 5000 --tm-port 5050 # TM-Server B
 </code></pre>
 <p>多重仿真的概念独立于交通管理器本身。上面的示例并行运行两个 Carla 仿真 A 和 B。在每个仿真中，都独立创建一个交通管理器服务端。仿真 A 可以运行多客户端交通管理程序，而仿真 B 则运行多交通管理器或根本不运行交通管理器。</p>
 <p>上述设置最可能出现的问题是客户端尝试连接到未在所选仿真上运行的现有交通管理器。如果发生这种情况，将会出现错误消息，并且连接将被中止，以防止仿真之间的干扰。</p>
-<hr />
+<hr>
 <h2 id="_28">同步模式</h2>
 <p>交通管理器设计为在同步模式下工作。Carla 服务器和交通管理器应设置为同步才能正常运行。<strong>在异步模式下使用交通管理器可能会导致意外和不良结果</strong>，但是，如果需要异步模式，则仿真应至少以 20-30 fps 运行。</p>
 <p>下面的脚本演示了如何将服务器和交通管理器设置为同步模式：</p>
@@ -753,7 +755,7 @@ python3 generate_traffic.py -n 50
 <p class="admonition-title">警告</p>
 <p>在管理时钟的脚本完成之前禁用同步模式（对于世界和交通管理器），以防止服务器阻塞，永远等待时钟。</p>
 </div>
-<hr />
+<hr>
 <h2 id="_29">大地图中的交通管理器</h2>
 <p>要了解交通管理器如何在大地图上工作，请务必首先阅读<a href="../large_map_overview/">此处</a>的文档来熟悉大地图的工作原理。</p>
 <p>自动驾驶车辆在大地图中的行为取决于是否存在英雄车辆：</p>
@@ -775,14 +777,14 @@ my_tm.set_boundaries_respawn_dormant_vehicles(25,700)
 </code></pre>
 <p>如果碰撞阻止休眠的参与者重生，交通管理器将重试下一个仿真步骤。</p>
 <p>如果休眠车辆没有重生，它们的行为将取决于是否启用混合模式。如果启用了混合模式，则休眠的参与者将在地图上传送。如果未启用混合模式，则不会计算休眠参与者的物理特性，并且它们将保持在原位置，直到不再休眠。</p>
-<hr />
+<hr>
 <p>如果你有任何关于交通管理器的问题，可以在 <a href="https://github.com/carla-simulator/carla/discussions">论坛</a> 上提问。</p>
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
 Carla 论坛</a>
 </p>
-</div>
+</div></div>
               
             </div>
           </div><footer>

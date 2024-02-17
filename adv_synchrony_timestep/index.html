@@ -242,6 +242,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
@@ -300,7 +302,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1">同步和时间步长</h1>
+                <div><h1 id="_1">同步和时间步长</h1>
 <p>本节介绍 Carla 中的两个基本概念。它们的配置定义了仿真中的时间如何流逝，以及服务器如何使仿真向前推进 </p>
 <ul>
 <li><a href="#simulation-time-step"><strong>仿真和时间步长</strong></a></li>
@@ -314,7 +316,7 @@
 <li><a href="#possible-configurations"><strong>可能的配置</strong></a></li>
 <li><a href="#physics-determinism"><strong>物理决定论</strong></a></li>
 </ul>
-<hr />
+<hr>
 <h2 id="_2">仿真时间步长</h2>
 <p>实时和仿真时间是有区别的。仿真世界有自己的时钟和时间，由服务器执行。计算两个仿真步骤需要一些实时时间。但是，在这两个仿真时刻之间也存在时间跨度，即时间步长  </p>
 <p>为了澄清这一点，服务器可能需要几毫秒来计算仿真的两个步骤。但是，这两个仿真时刻之间的时间步长可以配置为，例如，始终为一秒。  </p>
@@ -373,7 +375,7 @@ world.apply_settings(settings)
 <blockquote>
 <blockquote>
 <blockquote>
-<p><img alt="velocity with fixed physical delta time" src="../img/physics_convergence_fixed_pdt.png" /></p>
+<p><img alt="velocity with fixed physical delta time" src="../img/physics_convergence_fixed_pdt.png"></p>
 </blockquote>
 </blockquote>
 </blockquote>
@@ -385,7 +387,7 @@ world.apply_settings(settings)
 <blockquote>
 <blockquote>
 <blockquote>
-<p><img alt="velocity with varied physical delta time" src="../img/physics_convergence_fixed_dt.png" /></p>
+<p><img alt="velocity with varied physical delta time" src="../img/physics_convergence_fixed_dt.png"></p>
 </blockquote>
 </blockquote>
 </blockquote>
@@ -397,13 +399,13 @@ world.apply_settings(settings)
 <blockquote>
 <blockquote>
 <blockquote>
-<p><img alt="physics convergence z acceleration" src="../img/physics_convergence_z_acceleration.png" /></p>
+<p><img alt="physics convergence z acceleration" src="../img/physics_convergence_z_acceleration.png"></p>
 </blockquote>
 </blockquote>
 </blockquote>
 </blockquote>
 </blockquote>
-<hr />
+<hr>
 <h3 id="-">客户端-服务器同步</h3>
 <p>Carla 采用客户端-服务器架构。服务器运行仿真，客户端获取信息并对世界进行修改。本节涉及客户端和服务器之间的通信。</p>
 <p>默认情况下，Carla 以异步模式运行。服务器尽可能快地运行仿真，而不等待客户端。在同步模式下，服务器在更新到下一个仿真步骤之前会等待客户端发送的“ready to go”的消息。</p>
@@ -451,7 +453,7 @@ world_snapshot = world.wait_for_tick()
 # Register a callback to get called every time we receive a new snapshot.
 world.on_tick(lambda world_snapshot: do_something(world_snapshot))
 </code></pre>
-<hr />
+<hr>
 <h2 id="_9">可能的配置</h2>
 <p>时间步长和同步的配置，导致不同的设置。以下是对这些可能性的简要总结。</p>
 <table>
@@ -486,7 +488,7 @@ world.on_tick(lambda world_snapshot: do_something(world_snapshot))
 <p class="admonition-title">警告</p>
 <p>在同步模式下，请始终使用固定的时间步长。如果服务器必须等待用户，并且它使用的是可变时间步长，则时间步长将太大。物理学是不可靠的。这个问题在时间步长限制部分有更好的解释。</p>
 </div>
-<hr />
+<hr>
 <h2 id="_10">物理确定性</h2>
 <p>Carla 在特定情况下支持物理和碰撞确定性：</p>
 <ul>
@@ -501,7 +503,7 @@ client.set_timeout(10.0)
 world = client.get_world()
 
 # Load the desired map
-client.load_world(&quot;Town10HD_Opt&quot;)
+client.load_world("Town10HD_Opt")
 
 # Set synchronous mode settings
 new_settings = world.get_settings()
@@ -529,7 +531,7 @@ client.set_timeout(10.0)
 world = client.get_world()
 
 # Load the desired map
-client.load_world(&quot;Town10HD_Opt&quot;)
+client.load_world("Town10HD_Opt")
 
 # Set synchronous mode settings
 new_settings = world.get_settings()
@@ -548,7 +550,7 @@ while True:
     world.tick()
 </code></pre>
 <p>运行这些步骤将确保每次仿真运行的结果相同。</p>
-<hr />
+<hr>
 <p>这就是关于仿真时间和客户端-服务器同步在 Carla 中的作用的全部信息。</p>
 <p>Open Carla and mess around for a while. Any suggestions or doubts are welcome in the forum. </p>
 <div class="build-buttons">
@@ -556,7 +558,7 @@ while True:
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
 Carla forum</a>
 </p>
-</div>
+</div></div>
               
             </div>
           </div><footer>

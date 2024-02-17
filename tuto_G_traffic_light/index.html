@@ -218,6 +218,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
@@ -275,7 +277,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="get_traffic_light">交通灯配置和使用（get_traffic_light）</h1>
+                <div><h1 id="get_traffic_light">交通灯配置和使用（get_traffic_light）</h1>
 <h2 id="carla">交通灯在Carla中的简单配置</h2>
 <ol>
 <li>
@@ -356,13 +358,13 @@ world.apply_settings(settings)
                 redtime = traffic_light.get_red_time()
                 greentime = traffic_light.get_green_time()
                 yellowtime = traffic_light.get_yellow_time()
-                print(&quot;编号为{}红绿灯的红灯时间为{}，黄灯时间为{}，绿灯时间为{}&quot;.format(traffic_light_id, redtime, yellowtime, greentime))
+                print("编号为{}红绿灯的红灯时间为{}，黄灯时间为{}，绿灯时间为{}".format(traffic_light_id, redtime, yellowtime, greentime))
 
                 # 修改红绿灯时长
                 traffic_light.set_red_time(float(red_time))
                 traffic_light.set_yellow_time(float(yellow_time))
                 traffic_light.set_green_time(float(green_time))
-                print(&quot;已修改编号为{}红绿灯的红灯时间为{}，黄灯时间为{}，绿灯时间为{}&quot;.format(traffic_light_id, red_time, yellow_time, green_time))
+                print("已修改编号为{}红绿灯的红灯时间为{}，黄灯时间为{}，绿灯时间为{}".format(traffic_light_id, red_time, yellow_time, green_time))
     world.tick()  #更新Carla世界的状态，使得修改的红绿灯方案立即生效。
 </code></pre>
 <h4 id="4">4、根据路口车流量调整交通灯的红绿灯配时方案</h4>
@@ -433,7 +435,7 @@ world.apply_settings(settings)
 
         #修改红绿灯的配时方案
             change_light_time(traffic_lights,traffic_light_id,red_time,yellow_time,green_time,world)
-</code></pre>
+</code></pre></div>
               
             </div>
           </div><footer>

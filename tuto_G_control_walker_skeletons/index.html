@@ -232,6 +232,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
@@ -290,7 +292,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1">行人骨骼控制</h1>
+                <div><h1 id="_1">行人骨骼控制</h1>
 <p>在本教程中，我们介绍如何通过 Carla Python API 手动控制行人的骨骼并为其设置动画。所有可用类和方法的参考可以在 <a href="../python_api/">Python API 参考</a> 中找到 。</p>
 <ul>
 <li><a href="#walker-skeleton-structure"><strong>行人骨骼结构</strong></a>  </li>
@@ -307,7 +309,7 @@
 用户在阅读本文档之前应阅读第一步教程。 
 <a href="../core_concepts/">核心概念</a>。</p>
 </div>
-<hr />
+<hr>
 <h2 id="_2">行人骨骼结构</h2>
 <p>所有行人都具有相同的骨骼层次结构和骨骼名称。下面是骨架层次结构的图像。</p>
 <pre><code>crl_root
@@ -377,7 +379,7 @@
                 └── crl_toe__R
                     └── crl_toeEnd__R
 </code></pre>
-<hr />
+<hr>
 <h2 id="_3">手动控制行人骨骼</h2>
 <p>以下是如何通过 Carla Python API 更改步行者骨骼变换的详细分步示例</p>
 <h3 id="_4">连接到仿真器</h3>
@@ -405,7 +407,7 @@ first_tuple = ('crl_hand__R', carla.Transform(rotation=carla.Rotation(roll=90)))
 second_tuple = ('crl_hand__L', carla.Transform(rotation=carla.Rotation(roll=90)))
 control.bone_transforms = [first_tuple, second_tuple]
 world.player.apply_control(control)
-</code></pre>
+</code></pre></div>
               
             </div>
           </div><footer>

@@ -218,6 +218,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
@@ -275,7 +277,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="carla-ros-scenario-runner">Carla ROS Scenario Runner</h1>
+                <div><h1 id="carla-ros-scenario-runner">Carla ROS Scenario Runner</h1>
 <p>The <a href="https://github.com/carla-simulator/ros-bridge/tree/master/carla_ros_scenario_runner">CARLA ROS Scenario Runner 包</a> 是一个包装器，用于通过 ROS 使用 CARLA <a href="https://github.com/carla-simulator/scenario_runner">Scenario Runner</a> 执行 <a href="https://www.asam.net/standards/detail/openscenario/">OpenScenarios</a> 。 </p>
 <ul>
 <li><a href="#before-you-begin"><strong>在你开始之前</strong></a></li>
@@ -287,7 +289,7 @@
 </ul>
 </li>
 </ul>
-<hr />
+<hr>
 <h2 id="_1">在你开始之前</h2>
 <ul>
 <li>按照 Scenario Runner <a href="https://github.com/carla-simulator/scenario_runner/blob/master/Docs/getting_started.md">入门”教程</a> 安装 Scenario Runner。</li>
@@ -295,7 +297,7 @@
 </ul>
 <pre><code class="language-shell">sudo apt install python-pexpect
 </code></pre>
-<hr />
+<hr>
 <h2 id="ros-scenario-runner">使用 ROS Scenario Runner</h2>
 <p>ROS Scenario Runner 最好在 <a href="../rviz_plugin/"><code>rviz_carla_plugin</code></a> 中使用。</p>
 <div class="admonition 笔记">
@@ -303,17 +305,17 @@
 <p>目前不支持更改地图。每个场景都需要使用当前活动的地图。</p>
 </div>
 <p><a href="https://github.com/carla-simulator/ros-bridge/blob/master/carla_ad_demo/config/FollowLeadingVehicle.xosc">此处</a> 提供了一个示例场景。特别重要的是 <a href="https://github.com/carla-simulator/ros-bridge/blob/master/carla_ad_demo/config/FollowLeadingVehicle.xosc#L78">ROS 控制器</a> 的设置：</p>
-<pre><code class="language-xml">&lt;Controller name=&quot;EgoVehicleAgent&quot;&gt;
+<pre><code class="language-xml">&lt;Controller name="EgoVehicleAgent"&gt;
     &lt;Properties&gt;
-        &lt;Property name=&quot;module&quot; value=&quot;carla_ros_scenario_runner.ros_vehicle_control&quot; /&gt;
-        &lt;Property name=&quot;launch&quot; value=&quot;carla_ad_agent.launch&quot;/&gt;
-        &lt;Property name=&quot;launch-package&quot; value=&quot;carla_ad_agent&quot;/&gt;
-        &lt;Property name=&quot;path_topic_name&quot; value=&quot;waypoints&quot;/&gt;
+        &lt;Property name="module" value="carla_ros_scenario_runner.ros_vehicle_control" /&gt;
+        &lt;Property name="launch" value="carla_ad_agent.launch"/&gt;
+        &lt;Property name="launch-package" value="carla_ad_agent"/&gt;
+        &lt;Property name="path_topic_name" value="waypoints"/&gt;
     &lt;/Properties&gt;
 &lt;/Controller&gt;
 </code></pre>
 <p>上面的代码示例显示了一个正在启动的 <a href="../carla_ad_agent/"><code>carla_ad_agent</code></a> 实例。任何附加内容<code>&lt;Property&gt;</code>都应作为 ROS 参数附加（名称:=值）。</p>
-<hr />
+<hr>
 <h2 id="ros-scenario-runner_1">运行 ROS Scenario Runner</h2>
 <p><strong>1.</strong> 运行 ROS Scenario Runner 包：</p>
 <pre><code class="language-sh"># ROS 1
@@ -324,12 +326,12 @@ ros2 launch carla_ros_scenario_runner carla_ros_scenario_runner.launch.py scenar
 </code></pre>
 <p><strong>2.</strong> 运行场景：</p>
 <pre><code class="language-sh"># ROS 1
-rosservice call /scenario_runner/execute_scenario &quot;{ 'scenario': { 'scenario_file': '&lt;full_path_to_openscenario_file&gt;' } }&quot;
+rosservice call /scenario_runner/execute_scenario "{ 'scenario': { 'scenario_file': '&lt;full_path_to_openscenario_file&gt;' } }"
 
 # ROS 2
-ros2 service call /scenario_runner/execute_scenario carla_ros_scenario_runner_types/srv/ExecuteScenario &quot;{ 'scenario': { 'scenario_file': '&lt;full_path_to_openscenario_file&gt;' } }&quot;
+ros2 service call /scenario_runner/execute_scenario carla_ros_scenario_runner_types/srv/ExecuteScenario "{ 'scenario': { 'scenario_file': '&lt;full_path_to_openscenario_file&gt;' } }"
 </code></pre>
-<hr />
+<hr>
 <h2 id="ros">ROS 应用程序接口</h2>
 <h3 id="_2">服务</h3>
 <table>
@@ -388,7 +390,7 @@ ros2 service call /scenario_runner/execute_scenario carla_ros_scenario_runner_ty
 </tr>
 </tbody>
 </table>
-<p><br></p>
+<p><br></p></div>
               
             </div>
           </div><footer>

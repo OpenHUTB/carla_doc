@@ -234,6 +234,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
@@ -292,7 +294,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="sumo"><a href="https://carla.readthedocs.io/en/latest/adv_sumo/">和 SUMO 进行联合仿真</a></h1>
+                <div><h1 id="sumo"><a href="https://carla.readthedocs.io/en/latest/adv_sumo/">和 SUMO 进行联合仿真</a></h1>
 <p>Carla 与 SUMO 开发了联合仿真功能。这允许随意分配任务，并利用每个仿真的功能来支持用户。</p>
 <ul>
 <li><a href="#requisites"><strong>必备条件</strong></a>  </li>
@@ -304,11 +306,11 @@
 </li>
 <li><a href="#spawn-npcs-controlled-by-sumo"><strong>由 SUMO 控制的 NPC 生成</strong></a>  </li>
 </ul>
-<hr />
+<hr>
 <h2 id="_1">必备条件</h2>
 <p>首先，需要 <a href="https://sumo.dlr.de/docs/Installing.html"><strong>安装 SUMO</strong></a> 才能运行联合仿真。建议从源代码构建而不是简单安装，因为有新功能和修复可以改进协同仿真。</p>
 <p>完成后，设置 SUMO 环境变量。</p>
-<pre><code class="language-sh">echo &quot;export SUMO_HOME=/usr/share/sumo&quot; &gt;&gt; ~/.bashrc &amp;&amp; source ~/.bashrc
+<pre><code class="language-sh">echo "export SUMO_HOME=/usr/share/sumo" &gt;&gt; ~/.bashrc &amp;&amp; source ~/.bashrc
 </code></pre>
 <p>SUMO 已准备好运行联合仿真。 <code>Co-Simulation/Sumo/examples</code> 中有一些 <strong>Town01</strong>, <strong>Town04</strong> 和 <strong>Town05</strong> 的示例。这些文件描述了仿真的配置（例如网络、路线、车辆类型...）。使用其中之一来测试联合仿真。该脚本有不同的选项，<a href="#run-the-synchronization">下面</a> 将详细介绍。现在，让我们为 <strong>Town04</strong> 运行一个简单的示例。</p>
 <p>使用 <strong>Town04</strong> 运行 Carla 仿真。  </p>
@@ -325,7 +327,7 @@ python3 run_synchronization.py examples/Town04.sumocfg  --sumo-gui
 <p class="admonition-title">笔记</p>
 <p>运行时候可能报错：<code>module 'traci' has no attribute 'sumolib'</code>，是因为<code>sumolib</code>是独立的包，不在<code>traci</code>里面，需要把<code>carla/Co-Simulation/Sumo/sumo_integration/sumo_simulation.py</code>的304行的这一句代<code>sumo_net = traci.sumolib.net.readNet(net_file)</code>码改成<code>sumo_net = sumolib.net.readNet(net_file)</code>。</p>
 </div>
-<hr />
+<hr>
 <h2 id="_2">运行自定义联合仿真</h2>
 <h3 id="carla-vtypes">创建 carla vtypes</h3>
 <p>使用脚本 <code>Co-Simulation/Sumo/util/create_sumo_vtypes.py</code> 用户可以基于 Carla 蓝图库创建 <em>vtypes</em>，相当于 Carla 蓝图。</p>
@@ -369,7 +371,7 @@ python3 run_synchronization.py examples/Town04.sumocfg  --sumo-gui
 <p class="admonition-title">警告</p>
 <p>要停止联合仿真，请在运行脚本的终端按 <code>Ctrl+C</code> 。</p>
 </div>
-<hr />
+<hr>
 <h2 id="sumo-npc">由 SUMO 控制的 NPC 生成</h2>
 <p>与 SUMO 的联合仿真带来了一项附加功能。车辆可以通过 SUMO 在 Carla 中生成，并由后者进行管理，就像交通管理器一样。</p>
 <p>脚本 <code>spawn_npc_sumo.py</code> 几乎等同于已知的 <code>generate_traffic.py</code>。该脚本根据 Carla 中的活动城镇自动在临时文件夹中生成 SUMO 网络。该脚本将创建随机路线并让车辆四处漫游。</p>
@@ -390,7 +392,7 @@ python3 run_synchronization.py examples/Town04.sumocfg  --sumo-gui
 <pre><code class="language-sh"># 生成 10 辆车，由 SUMO 管理，而不是交通管理器
 python3 spawn_sumo_npc.py -n 10 --tls-manager carla --sumo-gui
 </code></pre>
-<hr />
+<hr>
 <p>到目前为止，这就是与 Carla 进行 SUMO 联合仿真的全部内容。</p>
 <p>打开 Carla 并闲逛一会儿。如果有任何疑问，请随时在论坛中发布。</p>
 <div class="build-buttons">
@@ -398,7 +400,7 @@ python3 spawn_sumo_npc.py -n 10 --tls-manager carla --sumo-gui
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
 Carla 论坛</a>
 </p>
-</div>
+</div></div>
               
             </div>
           </div><footer>

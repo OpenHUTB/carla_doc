@@ -228,6 +228,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
@@ -286,7 +288,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1">手动包准备</h1>
+                <div><h1 id="_1">手动包准备</h1>
 <p>地图包遵循特定的文件夹结构，并且必须包含描述该结构的 <code>.json</code> 文件。我们的自动地图导入流程会自动创建此<code>.json</code>文件，但您也可以选择自行准备。包含您自己的<code>.json</code>文件将覆盖传递给<code>make import</code>命令的任何参数。</p>
 <ul>
 <li><a href="#standard-maps"><strong>标准地图</strong></a><ul>
@@ -300,7 +302,7 @@
 </ul>
 </li>
 </ul>
-<hr />
+<hr>
 <h2 id="_2">标准地图</h2>
 <h3 id="_3">为标准地图创建文件夹结构</h3>
 <ol>
@@ -339,7 +341,7 @@
   └── Map02
       └── Map02.fbx
 </code></pre>
-<hr />
+<hr>
 <h3 id="json">为标准地图创建 JSON 描述</h3>
 <p>在包的根文件夹中创建一个 <code>.json</code> 文件。在包之后命名文件。 请注意，这将是发行版名称。文件的内容将描述 <strong>地图</strong> 和 <strong>道具</strong> 的 JSON 数组，以及每个地图和道具的基本信息。 </p>
 <p><strong>地图</strong> 需要以下参数：</p>
@@ -352,32 +354,32 @@
 <p><strong>Props</strong> 不属于本教材的一部分。该字段将留空。还有另一个关于如何 <a href="../tuto_A_add_props/">添加新道具</a> 的教程。  </p>
 <p>生成的 <code>.json</code> 文件应类似于以下内容：</p>
 <pre><code class="language-json">{
-  &quot;maps&quot;: [
+  "maps": [
     {
-      &quot;name&quot;: &quot;Map01&quot;,
-      &quot;source&quot;: &quot;./Map01/Map01.fbx&quot;,
-      &quot;use_carla_materials&quot;: true,
-      &quot;xodr&quot;: &quot;./Map01/Map01.xodr&quot;
+      "name": "Map01",
+      "source": "./Map01/Map01.fbx",
+      "use_carla_materials": true,
+      "xodr": "./Map01/Map01.xodr"
     },
     {
-      &quot;name&quot;: &quot;Map02&quot;,
-      &quot;source&quot;: &quot;./Map02/Map02.fbx&quot;,
-      &quot;use_carla_materials&quot;: false,
-      &quot;xodr&quot;: &quot;./Map02/Map02.xodr&quot;
+      "name": "Map02",
+      "source": "./Map02/Map02.fbx",
+      "use_carla_materials": false,
+      "xodr": "./Map02/Map02.xodr"
     }
   ],
-  &quot;props&quot;: [
+  "props": [
   ]
 }
 </code></pre>
-<hr />
+<hr>
 <p>如果您对流程有任何疑问，可以在 <a href="https://github.com/carla-simulator/carla/discussions">论坛</a> 中提问。</p>
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
 Carla 论坛</a>
 </p>
-</div>
+</div></div>
               
             </div>
           </div><footer>

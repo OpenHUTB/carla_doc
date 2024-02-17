@@ -218,6 +218,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
@@ -275,13 +277,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="carla">Carla 手动控制</h1>
+                <div><h1 id="carla">Carla 手动控制</h1>
 <p><a href="https://github.com/carla-simulator/ros-bridge/tree/master/carla_manual_control">CARLA 手动控制包</a> 是与 Carla 一起打包的 <a href="https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/manual_control.py"><code>manual_control.py</code></a> 脚本的仅 ROS 版本。所有数据均通过 ROS 主题接收。 </p>
 <ul>
 <li><a href="#requirements"><strong>需求</strong></a></li>
 <li><a href="#run-the-package"><strong>运行包</strong></a></li>
 </ul>
-<hr />
+<hr>
 <h2 id="_1">需求</h2>
 <p>为了能够使用<code>carla_manual_control</code>，需要将一些特定的传感器连接到自我车辆（有关如何将传感器连接到车辆的信息，请参阅 <a href="../carla_spawn_objects/">Carla 生成对象</a> 对象）： </p>
 <ul>
@@ -290,7 +292,7 @@
 <li><strong>to get a notification on lane invasions</strong>: 具有角色名<code>lane_invasion</code>的车道入侵传感器。</li>
 <li><strong>to get a notification on collisons</strong>: 具有角色名<code>collision</code>的碰撞传感器。</li>
 </ul>
-<hr />
+<hr>
 <h2 id="_2">运行包</h2>
 <p>要运行包：</p>
 <p><strong>1.</strong> 确保 Carla 正在运行。启动 ROS 桥：</p>
@@ -322,7 +324,7 @@
         # ROS 2
         ros2 launch carla_ros_bridge carla_ros_bridge_with_example_ego_vehicle.launch.py
 </code></pre>
-<hr />
+<hr></div>
               
             </div>
           </div><footer>

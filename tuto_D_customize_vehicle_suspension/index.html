@@ -236,6 +236,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
@@ -294,7 +296,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1">定制车辆悬架</h1>
+                <div><h1 id="_1">定制车辆悬架</h1>
 <p>本教程介绍了 Carla 车辆悬架系统的基础知识，以及如何针对不同的可用车辆实施这些基础知识。使用此信息可以访问虚幻引擎中车辆的悬架参数，并随意对其进行自定义。</p>
 <ul>
 <li><a href="#basics-of-the-suspension-system"><strong>悬架系统的基础知识</strong></a>  </li>
@@ -307,7 +309,7 @@
 </ul>
 </li>
 </ul>
-<hr />
+<hr>
 <h2 id="_2">悬架系统的基础知识</h2>
 <p>车辆的悬架系统由所述车辆的车轮限定。每个车轮都有一个带有一些参数化的独立蓝图，其中包括悬架系统。</p>
 <p>这些蓝图可以在 <code>Content/Carla/Blueprints/Vehicles/&lt;vehicle_name&gt;</code> 中找到。它们的名称如下：<code>BP_&lt;vehicle_name&gt;_&lt;F/R&gt;&lt;R/L&gt;W</code>。 </p>
@@ -315,7 +317,7 @@
 <li><code>F</code> 或 <code>R</code> 相应地用于前轮或后轮。</li>
 <li><code>R</code> 或 <code>L</code> 应地用于右轮或左轮。 </li>
 </ul>
-<p><img alt="tuto_suspension_blueprints" src="../img/tuto_suspension_blueprints.jpg" /></p>
+<p><img alt="tuto_suspension_blueprints" src="../img/tuto_suspension_blueprints.jpg"></p>
 <div style="text-align: right"><i>在本例中，奥迪A2左前轮的蓝图命名为 <code>BP_AudiA2_FLW</code>.</i></div>
 
 <p><code>shape_radius</code> 让车轮停在路面上，既不悬停也不在路面内部。</p>
@@ -328,14 +330,14 @@
 <li><code>Suspension Damping Ratio</code> — 能量从弹簧耗散的速率。标准汽车的值介于<code>0.8</code>和<code>1.2</code>之间。值<code>&lt;1</code>更加迟缓，值<code>&gt;1</code>更加动荡。</li>
 <li><code>Sweep Type</code> — 车轮悬架是否考虑简单、复杂或两者兼而有之。</li>
 </ul>
-<p><img alt="tuto_suspension_parameterization" src="../img/tuto_suspension_parameterization.jpg" /></p>
+<p><img alt="tuto_suspension_parameterization" src="../img/tuto_suspension_parameterization.jpg"></p>
 <div style="text-align: right"><i>车轮蓝图中的悬架面板。</i></div>
 
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>默认情况下，车辆的所有车轮在 Carla 中具有相同的参数化。以下解释将按车辆而不是按车轮进行介绍。 </p>
 </div>
-<hr />
+<hr>
 <h2 id="_3">悬架组</h2>
 <p>根据其系统悬架，Carla 中的车辆可分为五组。组中的所有车辆都具有相同的参数化，因为它们预计在道路上具有相似的行为。车辆的悬架可以随意修改，不受这五组的限制。然而，了解这些并观察它们在仿真中的行为对于定义自定义悬架非常有用。</p>
 <p>这五个组是：<em>轿跑车</em>、<em>越野车</em>、<em>卡车</em>、<em>城市车</em>和<em>货车</em>。通过仔细观察，这些组的参数化遵循特定的模式。</p>
@@ -454,7 +456,7 @@
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p>使用论坛发布有关此主题的任何疑问、问题或建议。 </p>
 <div class="build-buttons">
 <p>
@@ -466,18 +468,18 @@ Carla 论坛</a>
 <p>以下是本文之后的一些建议读物。</p>
 <div class="build-buttons">
 <p>
-<a href="../tuto_G_control_vehicle_physics" target="_blank" class="btn btn-neutral" title= "Set runtime changes on a vehicle physics.">
+<a href="../tuto_G_control_vehicle_physics" target="_blank" class="btn btn-neutral" title="Set runtime changes on a vehicle physics.">
 控制车辆物理</a>
 </p>
 <p>
-<a href="../tuto_G_add_friction_triggers" target="_blank" class="btn btn-neutral" title= "Define dynamic box triggers for wheels.">
+<a href="../tuto_G_add_friction_triggers" target="_blank" class="btn btn-neutral" title="Define dynamic box triggers for wheels.">
 添加摩擦触发器</a>
 </p>
 <p>
 <a href="../tuto_D_generate_colliders" target="_blank" class="btn btn-neutral" title="Create detailed colliders for vehicles">
 生成详细的碰撞</a>
 </p>
-</div>
+</div></div>
               
             </div>
           </div><footer>

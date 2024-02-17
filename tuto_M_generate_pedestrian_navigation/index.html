@@ -228,6 +228,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
@@ -286,7 +288,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1">生成行人导航</h1>
+                <div><h1 id="_1">生成行人导航</h1>
 <p>为了允许行人导航地图，您需要生成行人导航文件。本指南详细介绍了要使用的网格以及如何生成文件。</p>
 <ul>
 <li><a href="#before-you-begin"><strong>在你开始之前</strong></a></li>
@@ -294,10 +296,10 @@
 <li><a href="#optional-pedestrian-navigation-options"><strong>可选的行人导航选项</strong></a></li>
 <li><a href="#generate-the-pedestrian-navigation"><strong>生成行人导航</strong></a></li>
 </ul>
-<hr />
+<hr>
 <h2 id="_2">在你开始之前</h2>
 <p>地图定制（添加建筑物、绘制道路、添加景观特征等）应在生成行人导航之前完成，以避免两者之间发生干扰或碰撞，导致需要再次生成行人导航。</p>
-<hr />
+<hr>
 <h2 id="_3">行人导航网格</h2>
 <p>行人只能导航特定的网格。您需要根据下表中的术语命名要包含在行人导航中的网格：</p>
 <table>
@@ -332,7 +334,7 @@
 </tbody>
 </table>
 <p><br></p>
-<hr />
+<hr>
 <h2 id="_4">可选的行人导航选项</h2>
 <p>以下步骤对于生成行人导航不是必需的，但允许您在一定程度上自定义行人活动。</p>
 <ul>
@@ -344,18 +346,18 @@
 <li>将网格放置在地面上并禁用其物理和渲染。</li>
 <li>将网格名称更改为 <code>Road_Crosswalk</code> 或 <code>Roads_Crosswalk</code>。</li>
 </ol>
-<p><img alt="ue_crosswalks" src="../img/ue_crosswalks.jpg" />  </p>
-<hr />
+<p><img alt="ue_crosswalks" src="../img/ue_crosswalks.jpg">  </p>
+<hr>
 <h2 id="_5">生成行人导航</h2>
 <p><strong>1.</strong> 要防止地图太大而无法导出，请选择 <strong>BP_Sky 对象</strong> 并添加一个 <code>NoExport</code> 标签。如果您有任何其他不参与行人导航的特别大的网格，也请向它们添加 <code>NoExport</code> 标记。 </p>
-<p><img alt="ue_skybox_no_export" src="../img/ue_noexport.png" /> </p>
+<p><img alt="ue_skybox_no_export" src="../img/ue_noexport.png"> </p>
 <p><strong>2.</strong> 仔细检查您的网格名称。网格名称应以下面列出的任何适当格式开头，以便被识别为行人可以行走的区域。默认情况下，行人将能够在人行道、人行横道和草地上行走（对其余部分影响较小）：</p>
 <ul>
 <li>人行道 = <code>Road_Sidewalk</code> 或 <code>Roads_Sidewalk</code> </li>
 <li>人行横道 = <code>Road_Crosswalk</code> 或 <code>Roads_Crosswalk</code> </li>
 <li>草地 = <code>Road_Grass</code> 或 <code>Roads_Grass</code></li>
 </ul>
-<p><img alt="ue_meshes" src="../img/ue_meshes.jpg" /> </p>
+<p><img alt="ue_meshes" src="../img/ue_meshes.jpg"> </p>
 <p><strong>3.</strong> 按 <code>ctrl + A</code> 选择所有内容（报错则只选择和行人相关的网格）并通过选择 <code>File</code> -&gt; <code>Carla Exporter</code> 导出地图。将在 <code>Unreal/CarlaUE4/Saved</code> 中创建 <code>&lt;mapName&gt;.obj</code> 文件。</p>
 <p><strong>4.</strong> 将 <code>&lt;mapName&gt;.obj</code> 和 <code>&lt;mapName&gt;.xodr</code> 移动到 <code>Util/DockerUtils/dist</code>。</p>
 <p><strong>5.</strong> 运行以下命令生成导航文件：  </p>
@@ -371,14 +373,14 @@
 </code></pre>
 <p><strong>6.</strong> 将创建一个 <code>&lt;mapName&gt;.bin</code> 文件。此文件包含地图上的行人导航信息。将此文件移动到包含地图的包的 <code>Nav</code> 文件夹中。</p>
 <p><strong>7.</strong> 通过启动仿真并运行 <code>PythonAPI/examples</code> 中的示例脚本 <code>generate_traffic.py</code> 来测试行人导航。</p>
-<hr />
+<hr>
 <p>If you have any questions about the process, then you can ask in the <a href="https://github.com/carla-simulator/carla/discussions">forum</a>.</p>
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the Carla forum">
 Carla 论坛</a>
 </p>
-</div>
+</div></div>
               
             </div>
           </div><footer>

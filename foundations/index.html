@@ -254,6 +254,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
@@ -312,7 +314,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1"><a href="https://carla.readthedocs.io/en/latest/foundations/">基础</a></h1>
+                <div><h1 id="_1"><a href="https://carla.readthedocs.io/en/latest/foundations/">基础</a></h1>
 <p>本页介绍了了解 Carla 服务器和客户端如何通过 API 进行操作和通信所需的基本概念。Carla 使用服务器-客户端架构运行，其中 Carla 服务器运行仿真并由客户端向其发送指令。客户端代码使用 <a href="../python_api/"><strong>API</strong></a> 与服务器进行通信。要使用 Python API，您必须通过 <code>pip</code> 安装该模块：</p>
 <pre><code class="language-sh">pip install carla-simulator # Python 2
 pip3 install carla-simulator # Python 3
@@ -338,7 +340,7 @@ pip3 install carla-simulator # Python 3
 </ul>
 </li>
 </ul>
-<hr />
+<hr>
 <h2 id="_2">世界和客户端</h2>
 <h3 id="_3">客户端</h3>
 <p><strong>客户端</strong> 是用户运行以请求仿真中的信息或更改的模块。客户端使用 IP 和特定端口运行。它通过终端与服务器通信。可以有许多客户端同时运行。高级多客户端管理需要对 Carla 和 <a href="../adv_synchrony_timestep/">同步</a> 有透彻的了解。</p>
@@ -431,10 +433,10 @@ world.on_tick(lambda world_snapshot: do_something(world_snapshot))
 </ul>
 <h3 id="_9">记录</h3>
 <p>要开始录制，只需要一个文件名。在文件名中使用<code>\</code>,<code>/</code>或<code>:</code>字符会将其定义为绝对路径。如果没有详细路径，文件将保存在<code>CarlaUE4/Saved</code>。</p>
-<pre><code class="language-py">client.start_recorder(&quot;/home/carla/recording01.log&quot;)
+<pre><code class="language-py">client.start_recorder("/home/carla/recording01.log")
 </code></pre>
 <p>默认情况下，记录器设置为仅存储回放仿真所需的信息。为了保存前面提到的所有信息，<code>additional_data</code>必须在开始录制时配置参数。</p>
-<pre><code class="language-py">client.start_recorder(&quot;/home/carla/recording01.log&quot;, True)
+<pre><code class="language-py">client.start_recorder("/home/carla/recording01.log", True)
 </code></pre>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
@@ -449,7 +451,7 @@ world.on_tick(lambda world_snapshot: do_something(world_snapshot))
 </div>
 <h3 id="_10">仿真回放</h3>
 <p>可以在仿真过程中的任何时刻开始播放。除了日志文件的路径之外，此方法还需要一些参数。</p>
-<pre><code class="language-py">client.replay_file(&quot;recording01.log&quot;, start, duration, camera)
+<pre><code class="language-py">client.replay_file("recording01.log", start, duration, camera)
 </code></pre>
 <table>
 <thead>
@@ -480,19 +482,19 @@ world.on_tick(lambda world_snapshot: do_something(world_snapshot))
 <p><br></p>
 <h3 id="_11">记录器文件格式</h3>
 <p>记录器以 <strong>本文档</strong> 中指定的自定义二进制文件格式保存所有数据。</p>
-<hr />
+<hr>
 <h2 id="_12">渲染</h2>
 <p>Carla 提供了许多有关渲染质量和效率的选项。在最基本的层面上，Carla 提供了两种质量选项，可以在高规格和低规格硬件上运行并获得最佳效果：</p>
 <h3 id="_13">史诗模式</h3>
 <p><code>./CarlaUE4.sh -quality-level=Epic</code></p>
-<p><img alt="Epic mode screenshot" src="../img/rendering_quality_epic.jpg" />
+<p><img alt="Epic mode screenshot" src="../img/rendering_quality_epic.jpg">
 <em>史诗模式截图</em></p>
 <h3 id="_14">低质量模式</h3>
 <p><code>./CarlaUE4.sh -quality-level=Low</code></p>
-<p><img alt="Low mode screenshot" src="../img/rendering_quality_low.jpg" />
+<p><img alt="Low mode screenshot" src="../img/rendering_quality_low.jpg">
 <em>低质量模式截图</em></p>
 <p>Carla 还提供暂停渲染或离屏渲染的选项，以便更有效地记录或运行仿真。</p>
-<p>有关渲染选项的更多详细信息，请参见 <a href="../adv_rendering_options/"><strong>此处</strong></a>。</p>
+<p>有关渲染选项的更多详细信息，请参见 <a href="../adv_rendering_options/"><strong>此处</strong></a>。</p></div>
               
             </div>
           </div><footer>

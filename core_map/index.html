@@ -254,6 +254,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
@@ -312,7 +314,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1"><a href="https://carla.readthedocs.io/en/latest/core_map/">第三、地图和导航</a></h1>
+                <div><h1 id="_1"><a href="https://carla.readthedocs.io/en/latest/core_map/">第三、地图和导航</a></h1>
 <p>在讨论了世界及其参与者之后，是时候将所有内容都放在适当的位置并了解地图以及参与者如何导航。</p>
 <ul>
 <li><a href="#the-map"><strong>地图</strong></a>  <ul>
@@ -345,7 +347,7 @@
 </ul>
 </li>
 </ul>
-<hr />
+<hr>
 <h2 id="_2">地图</h2>
 <p>地图包括城镇的三维模型及其道路定义。地图的道路定义基于 OpenDRIVE 文件，这是一种标准化的带注释的道路定义格式。<a href="http://www.opendrive.org/docs/OpenDRIVEFormatSpecRev1.4H.pdf">OpenDRIVE 1.4 标准</a> 定义道路、车道、路口等方式决定了 Python API 的功能以及决策背后的推理。</p>
 <p>Python API 充当高级查询系统来导航这些道路。它不断发展以提供更广泛的工具集。</p>
@@ -412,7 +414,7 @@ lane_change = waypoint.lane_change
 <pre><code class="language-py">waypoints_junc = my_junction.get_waypoints()
 </code></pre>
 <h3 id="_8">环境对象</h3>
-<p>Carla 地图上的每个对象都有一组关联的变量，可以在 <a href="https://carla.readthedocs.io/en/latest/python_api/#carla.EnvironmentObject">此</a> 处找到这些变量。这些变量中包含一个 <a href="https://carla.readthedocs.io/en/latest/python_api/#carla.EnvironmentObject.id">唯一 ID</a>，可用于切换该对象在地图上的可见性。您可以使用 Python API 根据每个环境对象的<a href="[semantic_tag]">语义标签</a> <a href="https://carla.readthedocs.io/en/latest/python_api/#carla.World.get_environment_objects">获取</a> 其 ID ：</p>
+<p>Carla 地图上的每个对象都有一组关联的变量，可以在 <a href="https://carla.readthedocs.io/en/latest/python_api/#carla.EnvironmentObject">此</a> 处找到这些变量。这些变量中包含一个 <a href="https://carla.readthedocs.io/en/latest/python_api/#carla.EnvironmentObject.id">唯一 ID</a>，可用于切换该对象在地图上的可见性。您可以使用 Python API 根据每个环境对象的<a href="%5Bsemantic_tag%5D">语义标签</a> <a href="https://carla.readthedocs.io/en/latest/python_api/#carla.World.get_environment_objects">获取</a> 其 ID ：</p>
 <pre><code>    # 获得世界中的建筑
     world = client.get_world()
     env_objs = world.get_environment_objects(carla.CityObjectLabel.Buildings)
@@ -428,8 +430,8 @@ lane_change = waypoint.lane_change
     world.enable_environment_objects(objects_to_toggle, True)
 </code></pre>
 <p>查看切换不同对象的示例：</p>
-<p><img alt="toggle_objects_gif" src="../img/objects_small.gif" /></p>
-<hr />
+<p><img alt="toggle_objects_gif" src="../img/objects_small.gif"></p>
+<hr>
 <h2 id="carla">在 Carla 中导航</h2>
 <p>Carla 中的导航是通过 Waypoint API （来自 <a href="../python_api/#carla.Waypoint"><code>carla.Waypoint</code></a> 和 <a href="../python_api/#carla.Map"><code>carla.Map</code></a> 的方法组合）进行管理。</p>
 <p>客户端必须首先与服务器通信以检索包含路径点信息的地图对象。这只需要一次，所有后续查询都在客户端执行。</p>
@@ -471,7 +473,7 @@ waypoint02 = map.get_waypoint_xodr(road_id,lane_id,s)
 <p>使用以下示例将 OpenDRIVE 格式的 <strong>道路信息保存到磁盘</strong>：</p>
 <pre><code class="language-py">info_map = map.to_opendrive()
 </code></pre>
-<hr />
+<hr>
 <h2 id="carla_1">Carla 地图</h2>
 <p>Carla 生态系统中有八个城镇，每个城镇都有两种地图，非分层地图和分层地图。<a href="https://carla.readthedocs.io/en/latest/python_api/#carlamaplayer">图层</a>是指地图中分组的对象，由以下部分组成：</p>
 <ul>
@@ -555,8 +557,8 @@ waypoint02 = map.get_waypoint_xodr(road_id,lane_id,s)
     world.load_map_layer(carla.MapLayer.Buildings)
 </code></pre>
 <p>查看按顺序加载和卸载所有层的示例：</p>
-<p><img alt="map-layers" src="../img/sublevels.gif" /></p>
-<hr />
+<p><img alt="map-layers" src="../img/sublevels.gif"></p>
+<hr>
 <h2 id="_13">自定义地图</h2>
 <p>Carla 旨在针对专业应用程序进行可扩展和高度定制。因此，除了 Carla 中现有的许多地图和资产之外，还可以创建和导入新的地图、道路网络和资产，以填充 Carla 仿真中的定制环境。以下文档详细介绍了构建和集成自定义地图所需的步骤：</p>
 <ul>
@@ -567,7 +569,7 @@ waypoint02 = map.get_waypoint_xodr(road_id,lane_id,s)
 <li><a href="../tuto_M_add_map_package/"><strong>添加地图包</strong></a></li>
 <li><a href="../tuto_M_add_map_source/"><strong>添加地图源</strong></a></li>
 <li><a href="../tuto_M_add_map_alternative/"><strong>替代方法</strong></a></li>
-</ul>
+</ul></div>
               
             </div>
           </div><footer>

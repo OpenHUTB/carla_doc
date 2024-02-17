@@ -218,6 +218,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
@@ -290,7 +292,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="carsim">CarSim 集成</h1>
+                <div><h1 id="carsim">CarSim 集成</h1>
 <p>Carla 与 CarSim 的集成允许将 Carla 中的车辆控制转发到 CarSim。CarSim 将对车辆进行所有必需的物理计算，并将新状态返回给 Carla。</p>
 <p>本页向您展示如何生成<code>.sim</code>文件，解释 Carla 和 CarSim 之间的车辆尺寸如何关联，以及如何使用 CarSim 集成在 Carla 上运行仿真。</p>
 <ul>
@@ -306,7 +308,7 @@
 </li>
 <li><a href="#run-the-simulation"><strong>Run the simulation</strong></a>  </li>
 </ul>
-<hr />
+<hr>
 <h2 id="_1">在你开始之前</h2>
 <ol>
 <li>您需要 CarSim 许可证才能启动并运行该软件。如果您目前没有 CarSim 许可证，您可以在 <a href="https://www.carsim.com/forms/additional_information.php">此处</a> 联系团队以获取信息。</li>
@@ -327,7 +329,7 @@
 <p>如果您从源代码构建 Carla，请在根文件夹中运行以下命令以使用<code>--carsim</code>标志编译服务器：</p>
 </li>
 </ol>
-<pre><code class="language-sh">    make launch ARGS=&quot;--carsim&quot;
+<pre><code class="language-sh">    make launch ARGS="--carsim"
 </code></pre>
 <h2 id="carsim_1">设置 CarSim</h2>
 <p>以下部分详细介绍了如何生成运行仿真所需的 <code>.sim</code> 文件。还有关于 Carla 和 CarSim 之间车辆尺寸关系的详细重要信息。</p>
@@ -335,7 +337,7 @@
 <p>该<code>.sim</code> 文件描述了要在 Carla 和 CarSim 中运行的仿真。插件需要此文件才能运行仿真。目前无法在 Ubuntu 上生成此文件，但是我们将在下面介绍如何使用之前生成的文件在 Ubuntu 上运行仿真。</p>
 <h5 id="windows">在 Windows 上</h5>
 <p>在 CarSim 上配置完所有参数后，使用 GUI 生成 <code>.sim</code> 文件，如下所示：</p>
-<p><img alt="generate .sim file" src="../img/carsim_generate.jpg" /></p>
+<p><img alt="generate .sim file" src="../img/carsim_generate.jpg"></p>
 <p>生成的<code>.sim</code>文件应如下所示：</p>
 <pre><code>SIMFILE
 
@@ -394,7 +396,7 @@ END
 </code></pre>
 <h4 id="_2">车辆尺寸</h4>
 <p>尽管 CarSim 允许您指定在仿真中使用的车辆尺寸，但目前 CarSim 车辆和 Carla 车辆之间没有关联。这意味着两个项目中的车辆将具有不同的尺寸。Carla 车辆的作用只是在仿真过程中充当占位符。</p>
-<p><img alt="carsim vehicle sizes" src="../img/carsim_vehicle_sizes.jpg" /></p>
+<p><img alt="carsim vehicle sizes" src="../img/carsim_vehicle_sizes.jpg"></p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>Carla 和 CarSim 中的车辆尺寸之间没有相关性。Carla 车辆只是一个仿真占位符。</p>
@@ -405,7 +407,7 @@ END
 </code></pre>
 <p>发送到车辆的所有输入控件都将转发到 CarSim。CarSim 将更新物理并将车辆状态（变换）发送回 Carla 车辆。</p>
 <p>仿真完成后，您可以像往常一样分析 CarSim 中的所有数据。</p>
-<p><img alt="carsim analysis" src="../img/carsim_analysis.jpg" /></p>
+<p><img alt="carsim analysis" src="../img/carsim_analysis.jpg"></p></div>
               
             </div>
           </div><footer>

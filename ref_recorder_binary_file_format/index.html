@@ -252,6 +252,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
@@ -310,7 +312,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1"><a href="https://carla.readthedocs.io/en/latest/ref_recorder_binary_file_format/">记录器二进制文件格式</a></h1>
+                <div><h1 id="_1"><a href="https://carla.readthedocs.io/en/latest/ref_recorder_binary_file_format/">记录器二进制文件格式</a></h1>
 <p>记录器系统将重放仿真所需的所有信息保存在二进制文件中，对多字节值使用小端字节顺序。</p>
 <ul>
 <li><a href="#1-strings-in-binary"><strong>1- 二进制字符串</strong></a>  </li>
@@ -332,43 +334,43 @@
 <li><a href="#5-file-layout"><strong>5- 文件布局</strong></a>  </li>
 </ul>
 <p>在下一张代表文件格式的图像中，我们可以快速查看所有详细信息。图像中可视化的每个部分将在以下部分中进行解释：</p>
-<p><img alt="file format 1" src="../img/RecorderFileFormat1.jpg" /></p>
+<p><img alt="file format 1" src="../img/RecorderFileFormat1.jpg"></p>
 <p>总之，该文件格式有一个小头，其中包含一般信息（版本、魔术字符串、日期和使用的地图）和不同类型的数据包集合（目前我们使用 10 种类型，但将来会继续增长） 。</p>
-<p><img alt="global file format" src="../img/RecorderFileFormat3.jpg" /></p>
-<hr />
+<p><img alt="global file format" src="../img/RecorderFileFormat3.jpg"></p>
+<hr>
 <h2 id="1-">1- 二进制字符串</h2>
 <p>字符串首先使用其长度进行编码，然后是其字符（不以空字符结尾）。例如，字符串“Town06”将保存为十六进制值：06 00 54 6f 77 6e 30 36</p>
-<p><img alt="binary dynamic string" src="../img/RecorderString.jpg" /></p>
-<hr />
+<p><img alt="binary dynamic string" src="../img/RecorderString.jpg"></p>
+<hr>
 <h2 id="2-">2- 信息头</h2>
 <p>信息标头包含有关录制文件的一般信息。基本上，它包含版本和一个魔术字符串，用于将该文件标识为记录器文件。如果标题发生变化，那么版本也会发生变化。此外，它还包含一个日期时间戳，以及从 1900 年开始的秒数，并且还包含一个字符串，其中包含用于记录的地图名称。</p>
-<p><img alt="info header" src="../img/RecorderInfoHeader.jpg" /></p>
+<p><img alt="info header" src="../img/RecorderInfoHeader.jpg"></p>
 <p>示例信息头是：</p>
-<p><img alt="info header sample" src="../img/RecorderHeader.jpg" /></p>
-<hr />
+<p><img alt="info header sample" src="../img/RecorderHeader.jpg"></p>
+<hr>
 <h2 id="3-">3- 数据包</h2>
 <p>每个数据包以两个字段（5 个字节）的小标头开头：</p>
-<p><img alt="packet header" src="../img/RecorderPacketHeader.jpg" /></p>
+<p><img alt="packet header" src="../img/RecorderPacketHeader.jpg"></p>
 <ul>
 <li><strong>id</strong>: 数据包类型</li>
 <li><strong>size</strong>: 数据包数据的大小</li>
 </ul>
 <p>头信息后面跟着<strong>数据</strong>。数据是可选的，<strong>大小</strong>为 0 表示数据包中没有<strong>数据</strong>。如果<strong>大小</strong>大于 0，则表示数据包有<strong>数据</strong>字节。因此，需要根据数据包的类型重新解释<strong>数据</strong>。</p>
 <p>数据包的头很有用，因为我们可以在播放时忽略那些我们不感兴趣的数据包。我们只需要读取数据包的头（前 5 个字节）并跳过数据包的数据跳转到下一个数据包：</p>
-<p><img alt="packets size" src="../img/RecorderPackets.jpg" /></p>
+<p><img alt="packets size" src="../img/RecorderPackets.jpg"></p>
 <p>数据包的类型有：</p>
-<p><img alt="packets type list" src="../img/RecorderPacketsList.jpg" /></p>
+<p><img alt="packets type list" src="../img/RecorderPacketsList.jpg"></p>
 <p>我们建议用户自定义数据包使用超过 100 的 <strong>id</strong>，因为这个列表将来会不断增长。</p>
 <h3 id="0-">数据包 0 - 帧开始</h3>
 <p>该数据包标记新帧的开始，并且它将是开始每个帧的第一个数据包。所有数据包都需要放置在<strong>Frame Start</strong>和<strong>Frame End</strong>之间。</p>
-<p><img alt="frame start" src="../img/RecorderFrameStart.jpg" /></p>
+<p><img alt="frame start" src="../img/RecorderFrameStart.jpg"></p>
 <p>因此，经过时间 + 持续时间 = 下一帧经过的时间。</p>
 <h3 id="1-_1">数据包 1 - 帧结束</h3>
 <p>该帧没有数据，仅标记当前帧的结束。这有助于重放器在新一帧开始之前知道每一帧的结束。通常，下一帧应该是帧起始数据包以开始新帧。</p>
-<p><img alt="frame end" src="../img/RecorderFrameEnd.jpg" /></p>
+<p><img alt="frame end" src="../img/RecorderFrameEnd.jpg"></p>
 <h3 id="2-_1">数据包 2 - 事件添加</h3>
 <p>这个数据包说明了我们需要在当前帧创建多少个参与者。</p>
-<p><img alt="event add" src="../img/RecorderEventAdd.jpg" /></p>
+<p><img alt="event add" src="../img/RecorderEventAdd.jpg"></p>
 <p>字段<strong>总计</strong>表示后面有多少条记录。每条记录都以<strong>id</strong>字段开头，即参与者在录制时所拥有的 id（在播放时，该 id 可以在内部更改，但我们需要使用此 id ）。参与者的<strong>类型</strong>可以有以下可能的值：</p>
 <ul>
 <li>0 = 其他</li>
@@ -388,46 +390,46 @@
 </ul>
 <h3 id="3-_1">数据包 3 - 事件删除</h3>
 <p>这个数据包说明了这一帧需要销毁多少个参与者。</p>
-<p><img alt="event del" src="../img/RecorderEventDel.jpg" /></p>
+<p><img alt="event del" src="../img/RecorderEventDel.jpg"></p>
 <p>它有记录<strong>总数</strong>，每条记录都有要删除的参与者的ID 。</p>
 <p>例如，这个数据包可能是这样的：</p>
-<p><img alt="event del" src="../img/RecorderPacketSampleEventDel.jpg" /></p>
+<p><img alt="event del" src="../img/RecorderPacketSampleEventDel.jpg"></p>
 <p>数字 3 将数据包标识为事件删除。数字 16 是数据包数据的大小（4 个字段，每个字段 4 字节）。因此，如果我们不想处理这个数据包，我们可以跳过接下来的 16 个字节，直接进入下一个数据包的开头。接下来的 3 表示后面的总记录，每条记录都是要删除的参与者的 id。因此，我们需要在这一帧中删除参与者 100、101 和 120。</p>
 <h3 id="4-">数据包 4 - 事件父级</h3>
 <p>该数据包说明哪个参与者是另一个参与者（父母）的孩子。</p>
-<p><img alt="event parent" src="../img/RecorderEventParent.jpg" /></p>
+<p><img alt="event parent" src="../img/RecorderEventParent.jpg"></p>
 <p>第一个 id 是子参与者，第二个 id 是父参与者。</p>
 <h3 id="5-">数据包 5 - 事件碰撞</h3>
 <p>如果两个参与者之间发生碰撞，它将被注册到这个数据包中。目前，只有具有碰撞传感器的参与者才会报告碰撞，因此目前只有英雄车辆会自动连接该传感器。</p>
-<p><img alt="event collision" src="../img/RecorderCollision.jpg" /></p>
+<p><img alt="event collision" src="../img/RecorderCollision.jpg"></p>
 <p><strong>id</strong>只是一个用于在内部标识每次碰撞的序列。同一帧中可能会发生同一对参与者之间的多次碰撞，因为物理帧速率是固定的，并且同一渲染帧中通常存在多个物理子步骤。</p>
 <h3 id="6-">数据包 6 - 位置</h3>
 <p>该数据包记录场景中存在的<strong>车辆</strong>和<strong>行人</strong>类型的所有参与者的位置和方向。</p>
-<p><img alt="position" src="../img/RecorderPosition.jpg" /></p>
+<p><img alt="position" src="../img/RecorderPosition.jpg"></p>
 <h3 id="7-">数据包 7 - 交通灯</h3>
 <p>该数据包记录了场景中所有<strong>交通灯</strong>的状态。这意味着它存储状态（红色、橙色或绿色）以及等待更改为新状态的时间。</p>
-<p><img alt="state" src="../img/RecorderTrafficLight.png" /></p>
+<p><img alt="state" src="../img/RecorderTrafficLight.png"></p>
 <h3 id="8-">数据包 8 - 车辆动画</h3>
 <p>该数据包记录了车辆、自行车和山地自行车的动画。该数据包存储了<strong>油门</strong>、<strong>方向盘</strong>、<strong>删车</strong>、<strong>手刹</strong>和<strong>排挡</strong>输入，然后在播放时设置它们。</p>
-<p><img alt="state" src="../img/RecorderVehicle.jpg" /></p>
+<p><img alt="state" src="../img/RecorderVehicle.jpg"></p>
 <h3 id="9-">数据包 9 - 行人动画</h3>
 <p>该数据包记录了行人的动画。它只是保存动画中使用的行人的<strong>速度</strong>。</p>
-<p><img alt="state" src="../img/RecorderWalker.jpg" /></p>
-<hr />
+<p><img alt="state" src="../img/RecorderWalker.jpg"></p>
+<hr>
 <h2 id="4-_1">4- 帧布局</h2>
 <p>一个帧由多个数据包组成，其中所有数据包都是可选的，除了那些在该帧中具有<strong>开始</strong>和<strong>结束</strong>的数据包之外，它们必须始终存在。</p>
-<p><img alt="layout" src="../img/RecorderFrameLayout.jpg" /></p>
+<p><img alt="layout" src="../img/RecorderFrameLayout.jpg"></p>
 <p><strong>事件</strong> 数据包仅存在于它们发生的帧中。</p>
 <p><strong>位置</strong> 和 <strong>交通灯</strong> 数据包应该存在于所有帧中，因为它们需要移动所有参与者并将交通灯设置为其状态。它们是可选的，但如果它们不存在，那么重放器将无法移动或设置交通灯的状态。</p>
 <p><strong>动画</strong>包也是可选的，但默认情况下它们会被记录。这样行人就会被动画化，并且车轮也会跟随车辆的方向。</p>
-<hr />
+<hr>
 <h2 id="5-_1">5- 文件布局</h2>
 <p>文件的布局以<strong>信息头</strong>开始，然后是分组的数据包集合。每组中的第一个是<strong>帧开始</strong>数据包，最后一个是<strong>帧结束</strong>数据包。在这两者之间，我们还可以找到其余的数据包。</p>
-<p><img alt="layout" src="../img/RecorderLayout.jpg" /></p>
+<p><img alt="layout" src="../img/RecorderLayout.jpg"></p>
 <p>通常，最好首先拥有有关事件的所有数据包，然后再拥有有关位置和状态的数据包。</p>
 <p>事件包是可选的，因为它们在发生时出现，所以我们可以有这样的布局：</p>
-<p><img alt="layout" src="../img/RecorderLayoutSample.jpg" /></p>
-<p>在<strong>第 1 帧</strong>中，创建了一些参与者并重新设置了父级，因此我们可以在图像中观察其事件。在<strong>第 2 帧</strong>中没有事件。在<strong>第 3 帧</strong>中，一些参与者发生了碰撞，因此碰撞事件会随该信息一起出现。在<strong>第 4 帧</strong>中，参与者被摧毁。</p>
+<p><img alt="layout" src="../img/RecorderLayoutSample.jpg"></p>
+<p>在<strong>第 1 帧</strong>中，创建了一些参与者并重新设置了父级，因此我们可以在图像中观察其事件。在<strong>第 2 帧</strong>中没有事件。在<strong>第 3 帧</strong>中，一些参与者发生了碰撞，因此碰撞事件会随该信息一起出现。在<strong>第 4 帧</strong>中，参与者被摧毁。</p></div>
               
             </div>
           </div><footer>

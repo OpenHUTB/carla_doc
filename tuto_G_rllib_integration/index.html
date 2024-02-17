@@ -218,6 +218,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">RLlib 集成</a>
@@ -314,7 +316,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="rllib">RLlib 集成</h1>
+                <div><h1 id="rllib">RLlib 集成</h1>
 <p>RLlib 集成带来了 <a href="https://github.com/ray-project/ray">Ray/RLlib</a> 库和 Carla 之间的支持，允许轻松使用 Carla 环境进行训练和推理。Ray 是一个开源框架，为构建分布式应用程序提供了简单、通用的 API。Ray 与 RLlib（一个可扩展的强化学习库）和 Tune（一个可扩展的超参数调整库）打包在一起。</p>
 <p>RLlib 集成允许用户创建和使用 Carla 作为 Ray 的环境，并将该环境用于训练和推理目的。该集成可以在本地使用，也可以通过 AWS 在云中使用。</p>
 <p>在本指南中，我们将概述在本地和 AWS 上运行 RLlib 集成所需的要求、集成存储库的结构、如何使用该库的概述，以及如何使用 Carla 设置 Ray 实验的示例一个环境。</p>
@@ -341,7 +343,7 @@
 </ul>
 </li>
 </ul>
-<hr />
+<hr>
 <h2 id="_1">在你开始之前</h2>
 <ul>
 <li>从 <a href="https://github.com/carla-simulator/rllib-integration/tree/main">GitHub</a> 下载 RLlib 集成或直接克隆仓库：</li>
@@ -379,7 +381,7 @@
 </ul>
 </blockquote>
 </blockquote>
-<hr />
+<hr>
 <h2 id="rllib_1">RLlib 存储库结构</h2>
 <p>存储库分为三个目录：</p>
 <ul>
@@ -387,7 +389,7 @@
 <li><code>aws</code> 具有在 AWS 实例中运行所需的文件。<code>aws_helper.py</code>提供了多种可简化 EC2 实例管理的功能，包括实例创建以及发送和接收数据。</li>
 <li>根目录中的 <code>dqn_example</code> 和 <code>dqn_*</code> 文件提供了一个易于理解的示例，说明如何使用 Carla 作为环境来设置 Ray 实验。 </li>
 </ul>
-<hr />
+<hr>
 <h2 id="_3">创建您自己的实验</h2>
 <p>本节概述了如何创建您自己的实验。更具体的示例请参见下一节<a href="#dqn-example">“DQN 示例”</a> 。</p>
 <p>您将需要创建至少四个文件：</p>
@@ -409,7 +411,7 @@
 </ol>
 <h4 id="3">3. 训练和推理脚本</h4>
 <p>最后一步是创建您自己的训练和推理脚本。这部分完全由您决定，并且依赖于 Ray API。如果您想创建自己的特定模型，请查看 <a href="https://docs.ray.io/en/master/rllib-models.html#custom-models-implementing-your-own-forward-logic">Ray 的自定义模型文档</a> 。</p>
-<hr />
+<hr>
 <h2 id="dqn">DQN 示例</h2>
 <p>本节以上一节为基础，展示如何使用 <a href="https://github.com/carla-simulator/rllib-integration/blob/main/rllib_integration/sensors/bird_view_manager.py">BirdView pseudosensor</a> 伪传感器和 Ray 的 <a href="https://github.com/ray-project/ray/blob/master/rllib/agents/dqn/dqn.py#L285">DQNTrainer</a> 进行 RLlib 集成的具体示例。</p>
 <p>DQN示例的结构如下：</p>
@@ -441,7 +443,7 @@
 <p>默认配置使用 1 个 GPU 和 12 个 CPU，因此如果您的本地计算机没有该容量，请减小 <a href="https://github.com/carla-simulator/rllib-integration/blob/main/dqn_example/dqn_config.yaml">配置文件</a> 中的数字。</p>
 <p>如果遇到内存不足问题，请考虑减少该<code>buffer_size</code>参数。</p>
 </div>
-<hr />
+<hr>
 <h2 id="aws_1">在 AWS 上运行</h2>
 <p>本节介绍如何使用 RLlib 集成在 AWS EC2 实例上自动运行训练和推理。为了处理实例的缩放，我们使用<a href="https://docs.ray.io/en/latest/cluster/index.html">Ray autoscaler API</a>。</p>
 <h4 id="aws_2">配置 AWS</h4>
@@ -519,8 +521,8 @@ ray rsync-up dqn_example/dqn_autoscaler.yaml rllib_integration .
 </code></pre>
 </li>
 </ol>
-<hr />
-<p>本指南概述了如何在 AWS 和本地计算机上安装和运行 RLlib 集成。如果您对本指南有任何疑问或遇到任何问题，请随时在 <a href="https://github.com/carla-simulator/carla/discussions/">论坛</a> 中发帖或在 <a href="https://github.com/carla-simulator/rllib-integration">GitHub</a> 上提出问题。</p>
+<hr>
+<p>本指南概述了如何在 AWS 和本地计算机上安装和运行 RLlib 集成。如果您对本指南有任何疑问或遇到任何问题，请随时在 <a href="https://github.com/carla-simulator/carla/discussions/">论坛</a> 中发帖或在 <a href="https://github.com/carla-simulator/rllib-integration">GitHub</a> 上提出问题。</p></div>
               
             </div>
           </div><footer>

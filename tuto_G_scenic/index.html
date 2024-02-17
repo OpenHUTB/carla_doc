@@ -232,6 +232,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
@@ -290,7 +292,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="scenic">Scenic</h1>
+                <div><h1 id="scenic">Scenic</h1>
 <p>本指南概述了如何将 Scenic 与 Carla 结合使用，通过单个场景定义生成多个不同的场景。它假设用户事先了解场景语法。如果您需要了解有关 Scenic 的更多信息，请阅读他们的 <a href="https://scenic-lang.readthedocs.io/en/latest/quickstart.html">“Scenic 入门”</a> 指南，并查看他们有关创建 <a href="https://scenic-lang.readthedocs.io/en/latest/tutorials/tutorial.html">静态</a> 和 <a href="https://scenic-lang.readthedocs.io/en/latest/tutorials/dynamics.html">动态</a> 场景的教程。</p>
 <p>在本指南结束时，您将了解：</p>
 <ul>
@@ -299,7 +301,7 @@
 <li>如何在 Carla 上运行 Scenic 脚本。</li>
 <li>用于在 Carla 上配置场景仿真的参数。</li>
 </ul>
-<hr />
+<hr>
 <ul>
 <li><a href="#before-you-begin"><strong>在你开始之前</strong></a></li>
 <li><a href="#scenic-domains"><strong>Scenic 域</strong></a></li>
@@ -307,14 +309,14 @@
 <li><a href="#run-the-scenario"><strong>运行场景</strong></a></li>
 <li><a href="#additional-parameters"><strong>附加参数</strong></a></li>
 </ul>
-<hr />
+<hr>
 <h2 id="_1">在你开始之前</h2>
 <p>在将 Scenic 与 Carla 结合使用之前，您需要满足以下要求：</p>
 <ul>
 <li>安装 <a href="https://www.python.org/downloads/">Python 3.8</a> 或更高版本。</li>
 <li>安装 <a href="https://scenic-lang.readthedocs.io/en/latest/quickstart.html#installation">Scenic</a>。</li>
 </ul>
-<hr />
+<hr>
 <h2 id="scenic_1">Scenic 域</h2>
 <p>Scenic 有一个通用驾驶域，允许用户定义可以在任何驾驶仿真器上运行的场景。此外，它还有特定于每个仿真器的其他域。请在 <a href="https://scenic-lang.readthedocs.io/en/latest/libraries.html">此处</a> 查看有关 Scenic 域的更多信息。</p>
 <p>每个领域中特别重要的是行为和动作的定义。检查以下链接，获取有关 Scenic 驾驶域和 Carla 域的行为和操作的参考材料：</p>
@@ -324,7 +326,7 @@
 <li><a href="https://scenic-lang.readthedocs.io/en/latest/modules/scenic.domains.driving.actions.html">Scenic 驾驶域的动作</a></li>
 <li><a href="https://scenic-lang.readthedocs.io/en/latest/modules/scenic.simulators.carla.actions.html#module-scenic.simulators.carla.actions">Carla 域中的动作</a></li>
 </ul>
-<hr />
+<hr>
 <h2 id="carla-scenic">创建与 Carla 一起使用的 Scenic 场景</h2>
 <p>本节将介绍如何编写基本的场景脚本，其中领头车辆由于道路上的障碍物而突然减速。然后，本车需要突然制动以避免与前车发生碰撞。<a href="https://github.com/BerkeleyLearnVerify/Scenic/blob/master/examples/carla/Carla_Challenge/carlaChallenge2.scenic">完整的脚本</a> 以及涉及更复杂道路网络的其他示例可以在 Scenic 存储库中找到。</p>
 <p><strong>1.</strong> 设置地图参数并声明场景使用的模型：</p>
@@ -341,7 +343,7 @@ model scenic.simulators.carla.model
 <p><strong>2.</strong> 定义场景中要使用的常量：</p>
 <p>该场景涉及两辆车，领头车辆和自我车辆。我们将定义自我车辆模型、两辆车的速度、制动距离阈值以及制动量。</p>
 <pre><code class="language-scenic">## CONSTANTS
-EGO_MODEL = &quot;vehicle.lincoln.mkz_2017&quot;
+EGO_MODEL = "vehicle.lincoln.mkz_2017"
 EGO_SPEED = 10
 EGO_BRAKING_THRESHOLD = 12
 
@@ -404,7 +406,7 @@ lane = Uniform(*network.lanes)
 <p>当自我车辆的速度低于每秒 0.1 米并且距离障碍物不到 30 米时，该场景将结束。</p>
 <pre><code class="language-scenic">terminate when ego.speed &lt; 0.1 and (distance to obstacle) &lt; 30
 </code></pre>
-<hr />
+<hr>
 <h3 id="_2">运行场景</h3>
 <p>要运行 Scenic 场景：</p>
 <p><strong>1.</strong> 启动 Carla 服务器。</p>
@@ -412,7 +414,7 @@ lane = Uniform(*network.lanes)
 <pre><code class="language-scenic">scenic path/to/scenic/script.scenic --simulate
 </code></pre>
 <p>将出现一个 pygame 窗口，并且场景将重复播放，每次都会在脚本中设置的限制范围内生成一个独特的场景。要停止场景生成，请在终端中按<code>ctrl + C</code>。</p>
-<hr />
+<hr>
 <h3 id="_3">附加参数</h3>
 <p>Carla 模型提供了几个全局参数，可以在使用 <a href="https://scenic-lang.readthedocs.io/en/latest/syntax_details.html#param-identifier-value"><code>param</code> 语句</a> 或通过命令行使用  <a href="https://scenic-lang.readthedocs.io/en/latest/options.html#cmdoption-p"><code>--param</code> option</a> 选项的场景中覆盖这些参数。</p>
 <p>下面是 Carla 模型中的可配置参数表：</p>
@@ -467,7 +469,7 @@ lane = Uniform(*network.lanes)
 </tr>
 </tbody>
 </table>
-<p><br></p>
+<p><br></p></div>
               
             </div>
           </div><footer>

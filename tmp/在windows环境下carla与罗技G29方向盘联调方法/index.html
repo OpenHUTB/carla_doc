@@ -218,6 +218,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ecosys_iss/">ISS 智能驾驶系统</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../ecosys_ansys/">Ansys 实时雷达模型</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../tuto_G_rllib_integration/">RLlib 集成</a>
@@ -275,7 +277,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="windowscarlag29">在windows环境下carla与罗技G29方向盘力反馈联调方法</h1>
+                <div><h1 id="windowscarlag29">在windows环境下carla与罗技G29方向盘力反馈联调方法</h1>
 <p>目前网上carla和G29的联调都是在ubuntu环境下使用jstest-gtk、ROS进行方向盘控制，详情可以参考博文</p>
 <p>https://blog.csdn.net/qq_44237695/article/details/129103700</p>
 <p>但在windows环境下联调方法没有搜索到，自己走了不少弯路，分享一下。</p>
@@ -290,7 +292,7 @@
 <p>罗技G-hub驱动</p>
 <p>G29方向盘</p>
 <p>首先去罗技官网安装方向盘启动，安装好后驱动界面显示G29方向盘，同时方向盘转动自检。</p>
-<p><img alt="Snipaste_2024-01-04_20-14-53" src="../Snipaste_2024-01-04_20-14-53.png" /></p>
+<p><img alt="Snipaste_2024-01-04_20-14-53" src="../Snipaste_2024-01-04_20-14-53.png"></p>
 <p>python环境中安装CARLA与logidrivepy</p>
 <pre><code>pip install carla
 pip install logidrivepy
@@ -306,9 +308,9 @@ handbrake = 4
 </code></pre>
 <p>其中数字可能需要自己试这里steering_wheel表示方向盘方向、throttle油门和brake刹车已经是正确的设置了。要保证这个设置和.py文件在同一个目录下否则会报错。</p>
 <p>下载carla-API后，运行carla客户端</p>
-<p><img alt="Snipaste_2024-01-04_20-19-40" src="../Snipaste_2024-01-04_20-19-40.png" /></p>
+<p><img alt="Snipaste_2024-01-04_20-19-40" src="../Snipaste_2024-01-04_20-19-40.png"></p>
 <p>随后运行PythonAPI/examples/manual_control_steeringwheel.py文件</p>
-<p><img alt="Snipaste_2024-01-04_20-21-43" src="../Snipaste_2024-01-04_20-21-43.png" /></p>
+<p><img alt="Snipaste_2024-01-04_20-21-43" src="../Snipaste_2024-01-04_20-21-43.png"></p>
 <p>此时即可开启车辆。</p>
 <h2 id="carla-g29">carla-g29自动驾驶力反馈</h2>
 <p>另启一个文件，复制以下代码</p>
@@ -346,7 +348,7 @@ class Node():
 
     def get_hero(self):
         for actor in self.world.get_actors():
-            if actor.attributes.get(&quot;role_name&quot;) in [&quot;hero&quot;, &quot;ego_vehicle&quot;]:
+            if actor.attributes.get("role_name") in ["hero", "ego_vehicle"]:
                 return actor
 
     def timer_cb(self):
@@ -366,9 +368,9 @@ def main(args=None):
     controller = LogitechController()
     controller.steering_initialize()
 
-    print(&quot;\n---Logitech Spin Test---&quot;)
+    print("\n---Logitech Spin Test---")
 
-    client = carla.Client(&quot;127.0.0.1&quot;, 2000)
+    client = carla.Client("127.0.0.1", 2000)
     client.set_timeout(2.0)
 
     carla_car = Node(client)
@@ -385,21 +387,21 @@ def main(args=None):
             time.sleep(0.1)
             controller.LogiStopSoftstopForce(0)
             controller.logi_update()
-            print(&quot;Target: {}, Current State: {}&quot;.format(aim, now))
+            print("Target: {}, Current State: {}".format(aim, now))
         else:
             force = sc.control(now, aim)
             controller.LogiPlayConstantForce(0, -int(force)*2)
             controller.logi_update()
-            print(&quot;Force: {}, Target: {}, Current State: {}&quot;.format(force, aim, now))
+            print("Force: {}, Target: {}, Current State: {}".format(force, aim, now))
             time.sleep(0.1)
     controller.steering_shutdown()
 
-if __name__ == &quot;__main__&quot;:
+if __name__ == "__main__":
     main()
 </code></pre>
 <p>在pygame界面键盘P开启自动驾驶，此时方向盘会随着车辆自行转动。</p>
 <p>这个代码是测试用的效果不太好，有更好效果需求得换更好的控制代码了。</p>
-<video src="d8f83dcf74164a0a2790b2591bc56d18.mp4"></video>
+<video src="d8f83dcf74164a0a2790b2591bc56d18.mp4"></video></div>
               
             </div>
           </div><footer>

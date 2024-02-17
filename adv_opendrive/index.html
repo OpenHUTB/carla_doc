@@ -218,6 +218,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
@@ -284,14 +286,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="opendrive">OpenDRIVE独立模式</h1>
+                <div><h1 id="opendrive">OpenDRIVE独立模式</h1>
 <p>此功能允许用户将任何 OpenDRIVE 文件作为 Carla 地图开箱即用。为此，仿真器将自动生成道路网格供角色导航。</p>
 <ul>
-<li><a href="#概-述"><strong>概述</strong></a></li>
-<li><a href="#运行独立地图"><strong>运行独立地图</strong></a></li>
-<li><a href="#网格生成"><strong>网格生成</strong></a></li>
+<li><a href="#%E6%A6%82-%E8%BF%B0"><strong>概述</strong></a></li>
+<li><a href="#%E8%BF%90%E8%A1%8C%E7%8B%AC%E7%AB%8B%E5%9C%B0%E5%9B%BE"><strong>运行独立地图</strong></a></li>
+<li><a href="#%E7%BD%91%E6%A0%BC%E7%94%9F%E6%88%90"><strong>网格生成</strong></a></li>
 </ul>
-<hr />
+<hr>
 <h2 id="_1">概述</h2>
 <p>此模式仅使用 OpenDRIVE 文件运行完整仿真，无需任何额外的几何图形或资产。为此，仿真器采用 OpenDRIVE 文件并程序化地创建时间 3D 网格来运行仿真。</p>
 <p>生成的网格以简约的方式描述了道路定义。所有元素都将与 OpenDRIVE 文件对应，但除此之外，只有 void。为防止车辆掉出路面，采取了两项措施。</p>
@@ -304,8 +306,8 @@
 <p class="admonition-title">重要的</p>
 <p>仔细检查 OpenDRIVE 文件尤为重要。运行仿真时，其中的任何问题都会传播。</p>
 </div>
-<p><img alt="opendrive_standalone" src="../img/opendrive_standalone.jpg" /></p>
-<hr />
+<p><img alt="opendrive_standalone" src="../img/opendrive_standalone.jpg"></p>
+<hr>
 <h2 id="_2">运行独立地图</h2>
 <p>打开 OpenDRIVE 文件只需通过 API 调用 <a href="../python_api/#carla.Client.generate_opendrive_world"><code>client.generate_opendrive_world()</code></a>。这将生成新地图，并阻止仿真，直到它准备好。该方法需要两个参数。</p>
 <ul>
@@ -334,11 +336,11 @@
 <p class="admonition-title">笔记</p>
 </div>
 <p>如果遇到<code>opendrive 无法正确解析</code>错误，请确保对<code>CarlaUE4/Content/Carla/Maps/OpenDrive/</code>目录有写权限。这是服务器正确解析<code>xodr</code>文件所必需的。</p>
-<hr />
+<hr>
 <h2 id="_3">网格生成</h2>
 <p>网格的生成是该模式的关键要素。只有当生成的网格是平滑的并且完全符合其定义时，该功能才能成功。出于这个原因，这一步正在不断改进。在最后的迭代中，连接点已经过抛光以避免不准确
 发生，尤其是在不平坦的车道连接处。</p>
-<p><img alt="opendrive_meshissue" src="../img/opendrive_meshissue.jpg" /></p>
+<p><img alt="opendrive_meshissue" src="../img/opendrive_meshissue.jpg"></p>
 <div style="text-align: right"><i>在生成交汇点网格时，较高的车道往往会阻挡下方的车道。 <br><code>smooth_junctions</code> 参数可防止此类问题。</i></div>
 
 <p>除此之外，不是将整个地图创建为一个独特的网格，而是创建不同的部分。通过划分网格，仿真器可以避免渲染不可见的部分，并节省成本。工作更小还允许生成巨大的地图并包含可能出现在网格的一小部分上的问题。</p>
@@ -348,7 +350,7 @@
 <li><strong>横向坡度</strong>。此功能当前未集成在 Carla 中。</li>
 <li><strong>人行道高度</strong>。目前，所有人行道的硬编码都是相同的。人行道必须高于道路标高才能检测到碰撞，但 RoadRunner 不会将此值导出到 OpenDRIVE 文件。高度是硬编码的，以保证碰撞。</li>
 </ul>
-<hr />
+<hr>
 <p>这涵盖了到目前为止关于 OpenDRIVE 独立模式的所有信息。抓住机会并使用任何 OpenDRIVE 地图在 Carla 中进行测试。</p>
 <p>论坛中的疑问和建议。</p>
 <div class="build-buttons">
@@ -356,7 +358,7 @@
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="前往 CARLA 论坛">
 Carla 论坛</a>
 </p>
-</div>
+</div></div>
               
             </div>
           </div><footer>

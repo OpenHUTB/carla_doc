@@ -232,6 +232,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
@@ -290,7 +292,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1"><a href="https://carla.readthedocs.io/en/latest/tuto_A_add_props/">添加新道具</a></h1>
+                <div><h1 id="_1"><a href="https://carla.readthedocs.io/en/latest/tuto_A_add_props/">添加新道具</a></h1>
 <p>除了地图和车辆之外，道具是场景中的资产。其中包括路灯、建筑物、树木等等。仿真器可以随时通过简单的过程导入新道具。这对于在地图中创建自定义环境非常有用。</p>
 <ul>
 <li><a href="#prepare-the-package"><strong>准备包</strong></a>  <ul>
@@ -301,7 +303,7 @@
 <li><a href="#ingestion-in-a-carla-package"><strong>导入到 Carla 包中</strong></a>  </li>
 <li><a href="#ingestion-in-a-build-from-source"><strong>在源代码构建中导入</strong></a>  </li>
 </ul>
-<hr />
+<hr>
 <h2 id="_2">准备包</h2>
 <h3 id="_3">创建文件夹结构</h3>
 <p><strong>1. 在 <code>carla/Import</code> 里面创建一个文件夹 .</strong> 文件夹的名称不相关。  </p>
@@ -370,20 +372,20 @@
 </ul>
 <p>最后，<code>.json</code>应该与下面的类似。 </p>
 <pre><code class="language-json">{
-  &quot;maps&quot;: [
+  "maps": [
   ],
-  &quot;props&quot;: [
+  "props": [
     {
-      &quot;name&quot;: &quot;MyProp01&quot;,
-      &quot;size&quot;: &quot;medium&quot;,
-      &quot;source&quot;: &quot;./Props/Prop01/Prop01.fbx&quot;,
-      &quot;tag&quot;: &quot;SemanticSegmentationTag01&quot;
+      "name": "MyProp01",
+      "size": "medium",
+      "source": "./Props/Prop01/Prop01.fbx",
+      "tag": "SemanticSegmentationTag01"
     },
     {
-      &quot;name&quot;: &quot;MyProp02&quot;,
-      &quot;size&quot;: &quot;small&quot;,
-      &quot;source&quot;: &quot;./Props/Prop02/Prop02.fbx&quot;,
-      &quot;tag&quot;: &quot;SemanticSegmentationTag02&quot;
+      "name": "MyProp02",
+      "size": "small",
+      "source": "./Props/Prop02/Prop02.fbx",
+      "tag": "SemanticSegmentationTag02"
     }
   ]
 }
@@ -392,7 +394,7 @@
 <p class="admonition-title">警告</p>
 <p>具有相同名称的包将产生错误。</p>
 </div>
-<hr />
+<hr>
 <h2 id="carla">导入到 Carla 包中</h2>
 <p>这是用于将道具导入到 Carla 包（例如 Carla 0.9.8）中的方法。 </p>
 <p>将创建虚幻引擎的 Docker 映像。它充当一个黑盒子，自动将包导入到 Carla 镜像中，并生成分发包。Docker 镜像需要 4 小时和 400GB 才能构建。然而，这仅是第一次需要。</p>
@@ -417,7 +419,7 @@
 <p class="admonition-title">笔记</p>
 <p>Linux 上有一个替代方案。将包移动到<code>Import</code>文件夹，并运行脚本<code>Util/ImportAssets.sh</code>以提取包。</p>
 </div>
-<hr />
+<hr>
 <h2 id="_4">在源代码构建中导入</h2>
 <p>这是从源代码将道具导入到源代码构建 Carla 的方法。</p>
 <p>将读取 JSON 文件以将道具放入虚幻引擎 <code>Content</code> 中。此外，它将在包的<code>Config</code>文件夹中创建一个 <code>Package1.Package.json</code> 文件。这将用于定义蓝图库中的道具，并在 Python API 中公开它们。如果包作为 <a href="../tuto_A_create_standalone/">独立包</a> 导出，也将使用它。</p>
@@ -428,14 +430,14 @@
 <p class="admonition-title">警告</p>
 <p>确保该包位于 Carla 的 <code>Import</code> 文件夹内。</p>
 </div>
-<hr />
+<hr>
 <p>这就是关于将新道具导入 Carla 的不同方法的全部信息。如果有任何疑问，请随时在论坛中发布。</p>
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
 Carla 论坛</a>
 </p>
-</div>
+</div></div>
               
             </div>
           </div><footer>

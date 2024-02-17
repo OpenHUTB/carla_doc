@@ -218,6 +218,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
@@ -275,7 +277,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="pygame">Pygame 用于车辆控制</h1>
+                <div><h1 id="pygame">Pygame 用于车辆控制</h1>
 <p><a href="https://www.pygame.org/news"><strong>PyGame</strong></a> 是一组跨平台的 Python 模块，可用于编写视频游戏。它提供了一种渲染 Carla 实时视觉输出的有用方法，以便监视传感器输出，例如摄像机。PyGame 还可以捕获键盘事件，因此它是控制车辆等参与者的好方法。</p>
 <p>在本教程中，我们将学习如何设置一个简单的 PyGame 界面，该界面使我们能够监控由交通管理器控制的地图周围的自动驾驶交通，然后使用键盘手动控制任何车辆。</p>
 <h2 id="_1">设置仿真器并初始化交通管理器</h2>
@@ -457,8 +459,8 @@ camera = world.spawn_actor(camera_bp, camera_init_trans, attach_to=ego_vehicle)
 camera.listen(lambda image: pygame_callback(image, renderObject))
 
 # Get camera dimensions
-image_w = camera_bp.get_attribute(&quot;image_size_x&quot;).as_int()
-image_h = camera_bp.get_attribute(&quot;image_size_y&quot;).as_int()
+image_w = camera_bp.get_attribute("image_size_x").as_int()
+image_h = camera_bp.get_attribute("image_size_y").as_int()
 
 # Instantiate objects for rendering and vehicle control
 renderObject = RenderObject(image_w, image_h)
@@ -523,7 +525,7 @@ camera.stop()
 pygame.quit()
 
 </code></pre>
-<p><img alt="manual_control" src="../img/tuto_G_pygame/manual_control.gif" /></p>
+<p><img alt="manual_control" src="../img/tuto_G_pygame/manual_control.gif"></p></div>
               
             </div>
           </div><footer>

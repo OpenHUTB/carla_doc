@@ -244,6 +244,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
@@ -302,7 +304,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="openstreetmap">使用 OpenStreetMap 生成地图</h1>
+                <div><h1 id="openstreetmap">使用 OpenStreetMap 生成地图</h1>
 <p>在本指南中，您将学习：</p>
 <ul>
 <li>如何从 OpenStreetMaps 导出地图。</li>
@@ -323,12 +325,12 @@
 </li>
 <li><a href="#ingest-into-carla"><strong>导入 Carla</strong></a></li>
 </ul>
-<hr />
+<hr>
 <h2 id="openstreetmap_1">使用 OpenStreetMap 导出地图</h2>
 <p>本节介绍如何从 Open Street Map 导出所需的地图信息：</p>
 <p><strong>1.</strong> 导航至 <a href="https://www.openstreetmap.org">Open Street Map 网站</a> 。您将在窗口右侧看到地图视图和一个面板，您可以在其中配置不同的地图图层、查询不同的要素、切换图例等。</p>
 <p><strong>2.</strong> 搜索您想要的位置并放大到特定区域。</p>
-<p><img alt="openstreetmap_view" src="../img/tuto_g_osm_web.jpg" /></p>
+<p><img alt="openstreetmap_view" src="../img/tuto_g_osm_web.jpg"></p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>如果您想使用大范围的地图，例如巴黎，您可以考虑使用 Carla 的 <a href="../large_map_overview/">__大地图功能</a> 。</p>
@@ -337,8 +339,8 @@
 <p><strong>4.</strong> 单击“<em>导出</em>”面板中的“_手动_选择不同区域”。</p>
 <p><strong>5.</strong> 通过拖动视口中方形区域的角来选择自定义区域。</p>
 <p><strong>6.</strong> 单击导出面板中的 <em>导出</em> 按钮，将所选区域的地图信息保存为<code>.osm</code>文件。</p>
-<p><img alt="openstreetmap_area" src="../img/tuto_g_osm_area.jpg" /></p>
-<hr />
+<p><img alt="openstreetmap_area" src="../img/tuto_g_osm_area.jpg"></p>
+<hr>
 <h2 id="carla-openstreetmaps">在 Carla 中使用 OpenStreetMaps</h2>
 <p>开放街道地图数据可以通过三种不同的方法在 Carla 中使用。您使用的方法取决于数据是否为原始格式，或者您是否使用以下部分中说明的转换方法来转换<code>.osm</code>文件。<code>.osm</code>保留文件是最受限制的方法，因为它不允许自定义设置。</p>
 <p><strong>可用 <code>.xodr</code> 格式选项：</strong></p>
@@ -351,26 +353,26 @@
 <li>将文件作为参数传递给 Carla 的 <code>config.py</code>。 <strong>此方法不允许参数化。</strong></li>
 </ul>
 <p>以下部分将提供有关上面列出的选项的更多详细信息。</p>
-<hr />
+<hr>
 <h2 id="openstreetmap-opendrive">将 OpenStreetMap 格式转换为 OpenDRIVE 格式</h2>
 <p>本节演示如何使用 Python API 将我们在上一节中导出的 <code>.osm</code> 文件转换为<code>.xodr</code>格式，以便可以在 Carla 中使用。</p>
 <p><a href="../python_api/#carla.Osm2OdrSettings">carla.Osm2OdrSettings</a>类用于配置转换设置，例如偏移值、交通灯生成、原点坐标等。可配置参数的完整列表可以在 Python API <a href="../python_api/#carla.Osm2OdrSettings">文档</a> 中找到。<a href="../python_api/#carla.Osm2Odr">carla.Osm2Odr</a> 类使用这些设置来解析<code>.osm</code>数据并以 <code>.xodr</code> 格式输出。</p>
 <p>在 Windows 中，<code>.osm</code>文件必须编码为<code>UTF-8</code>. 这在 Linux 中是不必要的。以下是示例代码片段，显示如何根据您的操作系统执行文件转换：</p>
 <h5 id="linux">Linux</h5>
 <pre><code class="language-py"># 读取 .osm 数据
-f = open(&quot;path/to/osm/file&quot;, 'r')
+f = open("path/to/osm/file", 'r')
 osm_data = f.read()
 f.close()
 
 # 定义想要的设置。在该案例中为默认值。values.
 settings = carla.Osm2OdrSettings()
 # 设置导出到 OpenDRIVE 的 OSM 道路类型。
-settings.set_osm_way_types([&quot;motorway&quot;, &quot;motorway_link&quot;, &quot;trunk&quot;, &quot;trunk_link&quot;, &quot;primary&quot;, &quot;primary_link&quot;, &quot;secondary&quot;, &quot;secondary_link&quot;, &quot;tertiary&quot;, &quot;tertiary_link&quot;, &quot;unclassified&quot;, &quot;residential&quot;])
+settings.set_osm_way_types(["motorway", "motorway_link", "trunk", "trunk_link", "primary", "primary_link", "secondary", "secondary_link", "tertiary", "tertiary_link", "unclassified", "residential"])
 # 转为 .xodr
 xodr_data = carla.Osm2Odr.convert(osm_data, settings)
 
 # 保存为 opendrive 文件
-f = open(&quot;path/to/output/file&quot;, 'w')
+f = open("path/to/output/file", 'w')
 f.write(xodr_data)
 f.close()
 </code></pre>
@@ -378,24 +380,24 @@ f.close()
 <pre><code class="language-py">import io
 
 # 读取 .osm 数据
-f = io.open(&quot;test&quot;, mode=&quot;r&quot;, encoding=&quot;utf-8&quot;)
+f = io.open("test", mode="r", encoding="utf-8")
 osm_data = f.read()
 f.close()
 
 # 定义想要的设置。在该案例中为默认值。
 settings = carla.Osm2OdrSettings()
 # 设置导出成 OpenDRIVE 的 OSM 道路类型
-settings.set_osm_way_types([&quot;motorway&quot;, &quot;motorway_link&quot;, &quot;trunk&quot;, &quot;trunk_link&quot;, &quot;primary&quot;, &quot;primary_link&quot;, &quot;secondary&quot;, &quot;secondary_link&quot;, &quot;tertiary&quot;, &quot;tertiary_link&quot;, &quot;unclassified&quot;, &quot;residential&quot;])
+settings.set_osm_way_types(["motorway", "motorway_link", "trunk", "trunk_link", "primary", "primary_link", "secondary", "secondary_link", "tertiary", "tertiary_link", "unclassified", "residential"])
 # 转为 .xodr
 xodr_data = carla.Osm2Odr.convert(osm_data, settings)
 
 # 保存成 opendrive 文件
-f = open(&quot;path/to/output/file&quot;, 'w')
+f = open("path/to/output/file", 'w')
 f.write(xodr_data)
 f.close()
 </code></pre>
 <p><br></p>
-<hr />
+<hr>
 <h3 id="_1">生成交通灯</h3>
 <p>Open Street Map 数据可以定义哪些路口受交通灯控制。要在 Carla 中使用此交通灯数据，您需要在将<code>.osm</code>文件转换为<code>.xodr</code>格式之前通过 Python API 在 OSM 地图设置中启用它：</p>
 <pre><code class="language-py"># 定义想要的设置。在该案例中为默认值。
@@ -409,9 +411,9 @@ xodr_data = carla.Osm2Odr.convert(osm_data, settings)
 <pre><code class="language-py">settings.all_junctions_with_traffic_lights = True
 </code></pre>
 <p>您还可以排除某些道路（例如高速公路链接）生成交通信号灯：</p>
-<pre><code>settings.set_traffic_light_excluded_way_types([&quot;motorway_link&quot;])
+<pre><code>settings.set_traffic_light_excluded_way_types(["motorway_link"])
 </code></pre>
-<hr />
+<hr>
 <h2 id="carla">导入 Carla</h2>
 <p>本节介绍如何使用可用的不同选项，通过 <a href="../adv_opendrive/">OpenDRIVE 独立模式</a>将 Open Street Map 信息提取到 Carla 中。</p>
 <p>有以下三个选项可供选择：</p>
@@ -452,7 +454,7 @@ python3 config.py --osm-path=/path/to/OSM/file
 </code></pre>
 <p>将使用<a href="../python_api/#carla.OpendriveGenerationParameters">默认参数</a>。 </p>
 <p>无论使用哪种方法，地图都将被导入到 Carla 中，结果应类似于下图：</p>
-<p><img alt="opendrive_meshissue" src="../img/tuto_g_osm_carla.jpg" /></p>
+<p><img alt="opendrive_meshissue" src="../img/tuto_g_osm_carla.jpg"></p>
 <div style="text-align: right"><i>使用 OpenStreetMap 生成 Carla 地图的结果。</i></div>
 
 <p><br></p>
@@ -460,14 +462,14 @@ python3 config.py --osm-path=/path/to/OSM/file
 <p class="admonition-title">警告</p>
 <p>生成的道路在地图的边界处突然结束。当车辆无法找到下一个路径点时，这将导致交通管理器崩溃。为了避免这种情况，流量管理器中的 OSM 模式默认设置为True ( <a href="../python_api/#carlatrafficmanager"><code>set_osm_mode()</code></a> )。这将在必要时显示警告并摧毁车辆。</p>
 </div>
-<hr />
+<hr>
 <p>与此主题相关的任何问题和疑问都可以在 Carla 论坛中发布。</p>
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
 Carla 论坛</a>
 </p>
-</div>
+</div></div>
               
             </div>
           </div><footer>

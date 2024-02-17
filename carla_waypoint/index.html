@@ -218,6 +218,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
@@ -275,7 +277,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="carla">Carla 航点发布器</h1>
+                <div><h1 id="carla">Carla 航点发布器</h1>
 <p><a href="https://github.com/carla-simulator/ros-bridge/tree/master/carla_waypoint_publisher">Carla 航点发布器</a> 使航点计算可用于 ROS 上下文，并提供查询 Carla 航点的服务。要了解有关航点的更多信息，请参阅 Carla <a href="https://carla.readthedocs.io/en/latest/core_map/#navigation-in-carla">文档</a> 。</p>
 <ul>
 <li><a href="#run-the-waypoint-publisher"><strong>运行航点发布器</strong></a><ul>
@@ -289,7 +291,7 @@
 </ul>
 </li>
 </ul>
-<hr />
+<hr>
 <h2 id="_1">运行航点发布器</h2>
 <p>在 Carla 服务器运行的情况下，执行以下命令：</p>
 <pre><code class="language-sh"># ROS 1
@@ -301,11 +303,11 @@ ros2 launch carla_waypoint_publisher carla_waypoint_publisher.launch.py
 <h3 id="_2">设定目标</h3>
 <p>如果可用，则从主题 <code>/carla/&lt;ROLE NAME&gt;/goal</code> 中读取目标，否则使用固定的生成点。</p>
 <p>设置目标的首选方法是单击 RVIZ 中的“2D Nav Goal”。</p>
-<p><img alt="rviz_set_goal" src="../img/rviz_set_start_goal.png" /></p>
-<hr />
+<p><img alt="rviz_set_goal" src="../img/rviz_set_start_goal.png"></p>
+<hr>
 <h3 id="_3">使用航点发布器</h3>
 <p><a href="../carla_ad_demo/">Carla 自动驾驶演示</a> 使用 Waypoint Publisher 为<a href="../carla_ad_agent/">Carla 自动驾驶代理</a> 规划路线。有关如何使用它的示例， 请参阅 Carla 自动驾驶演示 <a href="https://github.com/carla-simulator/ros-bridge/blob/ros2/carla_ad_demo/launch/carla_ad_demo_with_scenario.launch">启动文件</a> 。</p>
-<hr />
+<hr>
 <h2 id="ros">ROS 应用程序接口</h2>
 <h4 id="_4">发布</h4>
 <table>
@@ -347,7 +349,7 @@ ros2 launch carla_waypoint_publisher carla_waypoint_publisher.launch.py
 </tr>
 </tbody>
 </table>
-<p><br></p>
+<p><br></p></div>
               
             </div>
           </div><footer>

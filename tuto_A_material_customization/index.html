@@ -232,6 +232,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
@@ -290,7 +292,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1">材质定制</h1>
+                <div><h1 id="_1">材质定制</h1>
 <p>Carla 团队准备每个资产在某些默认设置下运行。但是，从源代码构建的用户可以修改这些内容以最适合他们的需求。 </p>
 <ul>
 <li><a href="#car-materials"><strong>汽车材质</strong></a>  </li>
@@ -305,10 +307,10 @@
 <p class="admonition-title">重要</p>
 <p>本教程仅适用于使用源代码构建并有权访问虚幻编辑器的用户。</p>
 </div>
-<hr />
+<hr>
 <h2 id="_2">汽车材质</h2>
 <p>在 Carla 中，有一组主材料用作车辆不同部件的模板。为每个车辆模型创建一个实例，然后更改为所需的结果。主要材质可以在 <code>Content/Carla/Static/GenericMaterials/Vehicles</code> （位于源代码的<code>Unreal/CarlaUE4</code>目录中）中找到，如下所示。</p>
-<p><img alt="materials_master" src="../img/material_customization/Materials_Master.jpg" /></p>
+<p><img alt="materials_master" src="../img/material_customization/Materials_Master.jpg"></p>
 <div style="text-align: right"><i>适用于汽车的主材料。</i></div>
 
 <ul>
@@ -320,10 +322,10 @@
 <li><strong>M_VehicleLights_Master</strong> — 作为发射纹理应用于汽车灯的材质。  </li>
 <li><strong>M_VehicleLights_Sirens_Master</strong> — 应用于警报器的材质（如果适用）。  </li>
 </ul>
-<hr />
+<hr>
 <h2 id="_3">定制汽车材质</h2>
 <p>创建主材料的实例并将它们存储在新模型的相应文件夹中。以下是蓝图库中为警车创建的实例，<em>vehicle.dodge_charger.police</em>。</p>
-<p><img alt="materials_instances" src="../img/material_customization/Materials_Instances.jpg" /></p>
+<p><img alt="materials_instances" src="../img/material_customization/Materials_Instances.jpg"></p>
 <div style="text-align: right"><i>警车蓝图的实例材料。</i></div>
 
 <p>材料的通用文档以及如何使用它们可以在 <a href="https://docs.unrealengine.com/en-US/Engine/Rendering/Materials/index.html">虚幻引擎文档</a> 中找到。所有材料都可以进行很大程度的修改，但只有外观材料的性能值得一提。其他材料具有某些可以更改的属性，例如玻璃材料的不透明度和颜色，但不建议这样做，除非有特定用途。</p>
@@ -333,7 +335,7 @@
 <li><strong>Base color</strong> — 车身的基色。</li>
 <li><strong>Tint shade</strong> — 色调的可见度根据可视角度而变化。</li>
 </ul>
-<p><img alt="materials_Tint" src="../img/material_customization/Materials_Tint.jpg" /></p>
+<p><img alt="materials_Tint" src="../img/material_customization/Materials_Tint.jpg"></p>
 <div style="text-align: right"><i>带有粉红色调的红色汽车。左侧，色调已禁用，右侧，色调已启用。</i></div>
 
 <ul>
@@ -346,7 +348,7 @@
 </ul>
 </li>
 </ul>
-<p><img alt="materials_Dust" src="../img/material_customization/Materials_Dust.jpg" /></p>
+<p><img alt="materials_Dust" src="../img/material_customization/Materials_Dust.jpg"></p>
 <div style="text-align: right"><i>汽车材料中的灰尘特性。</i></div>
 
 <ul>
@@ -358,7 +360,7 @@
 </ul>
 </li>
 </ul>
-<p><img alt="materials_Flakes" src="../img/material_customization/Materials_Flakes.jpg" /></p>
+<p><img alt="materials_Flakes" src="../img/material_customization/Materials_Flakes.jpg"></p>
 <div style="text-align: right"><i>汽车材料中的薄片特性。</i></div>
 
 <ul>
@@ -369,7 +371,7 @@
 </ul>
 </li>
 </ul>
-<p><img alt="materials_Gain" src="../img/material_customization/Materials_Gain.jpg" /></p>
+<p><img alt="materials_Gain" src="../img/material_customization/Materials_Gain.jpg"></p>
 <div style="text-align: right"><i>汽车材质中的增益属性。</i></div>
 
 <ul>
@@ -381,7 +383,7 @@
 </ul>
 </li>
 </ul>
-<p><img alt="materials_mude" src="../img/material_customization/Materials_Mud.jpg" /></p>
+<p><img alt="materials_mude" src="../img/material_customization/Materials_Mud.jpg"></p>
 <div style="text-align: right"><i>汽车材质中的泥浆特性。</i></div>
 
 <ul>
@@ -391,7 +393,7 @@
 </ul>
 </li>
 </ul>
-<p><img alt="materials_noise" src="../img/material_customization/Materials_Noise_High.jpg" /></p>
+<p><img alt="materials_noise" src="../img/material_customization/Materials_Noise_High.jpg"></p>
 <div style="text-align: right"><i>汽车材质的噪声特性。</i></div>
 
 <ul>
@@ -402,10 +404,10 @@
 </ul>
 </li>
 </ul>
-<p><img alt="materials_Surface" src="../img/material_customization/Materials_Surface.jpg" /></p>
+<p><img alt="materials_Surface" src="../img/material_customization/Materials_Surface.jpg"></p>
 <div style="text-align: right"><i>应用于材质表面涂层的可视化。</i></div>
 
-<hr />
+<hr>
 <h2 id="_5">建筑材质</h2>
 <p>应用于建筑物的材质由四种基本纹理组成，这些纹理组合在一起确定材质的基本属性（例如打开<code>Content/Carla/Static/Building/SM_Apartment01_1</code>）。</p>
 <ul>
@@ -415,7 +417,7 @@
 </ul>
 </li>
 </ul>
-<p><img alt="building_diffuse_alpha" src="../img/building_diffuse_alpha.png" /></p>
+<p><img alt="building_diffuse_alpha" src="../img/building_diffuse_alpha.png"></p>
 <ul>
 <li>
 <p><strong>ORME</strong> — 使用特定通道映射材质的不同属性。</p>
@@ -439,11 +441,11 @@
 </ul>
 </li>
 </ul>
-<p><img alt="emissive" src="../img/EmissiveIntensity.gif" /></p>
-<hr />
+<p><img alt="emissive" src="../img/EmissiveIntensity.gif"></p>
+<hr>
 <h2 id="_6">定制建筑材料</h2>
 <p>与汽车材料类似，如果需要，建筑材料可以进行很大的改变，但仅当用户具有虚幻引擎方面的一些专业知识时才建议这样做。但是，建筑物使用的两个主要着色器可以进行一些自定义（例如在虚幻编辑器的<code>内容浏览器</code>中打开<code>Content/Carla/Static/GenericMaterials/00_MasterOpt/M_GlassMaster</code>）。 </p>
-<p><img alt="building_material" src="../img/building_material.png" /></p>
+<p><img alt="building_material" src="../img/building_material.png"></p>
 <ul>
 <li>
 <p><strong>玻璃着色器</strong> — <code>M_GlassMaster</code>.  </p>
@@ -466,7 +468,7 @@
 </ul>
 </li>
 </ul>
-<hr />
+<hr>
 <p>这是用户定制车辆和建筑物材料的最显着方式的总结。</p>
 <p>任何可能出现的疑问都非常欢迎在论坛中提出。</p>
 <div class="build-buttons">
@@ -474,7 +476,7 @@
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
 Carla 论坛</a>
 </p>
-</div>
+</div></div>
               
             </div>
           </div><footer>

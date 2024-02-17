@@ -218,6 +218,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
@@ -275,7 +277,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <div class="admonition 笔记">
+                <div><div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p><strong>程序化建筑工具</strong> 目前是一个 <strong>实验性功能</strong> ，现阶段尚未考虑 <em>投入生产</em>。因此它只能用于实验研究项目。</p>
 </div>
@@ -294,13 +296,13 @@
 </ul>
 <h2 id="_2">打开程序化建筑工具</h2>
 <p>首先，您需要向场景添加程序建筑参与者。导航到<code>Content&gt;Carla&gt;Blueprints&gt;LevelDesign</code>并拖动蓝图 <em>BP_ProceduralBuilding</em> 到地图中。将资产移动到您希望可视化建筑物的位置。选择一个有空间的地方，以便可以清楚地看到结果。然后，要打开该工具，请右键单击<em>WD_ProceduralBuilding</em>小部件并从上下文菜单中选择<em>Run editor utility widget</em>来启动程序构建工具。这将打开该工具的界面。</p>
-<p><img alt="open_pb_tool" src="../img/open_pb_tool.png" /></p>
+<p><img alt="open_pb_tool" src="../img/open_pb_tool.png"></p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>您必须在打开工具之前完成此步骤，地图中必须存在<em>BP_ProceduralBuilding</em>蓝图的实例，工具才能运行。您还必须确保在继续之前在世界大纲视图（<em>World outliner</em>）中选择<em>BP_ProceduralBuilding</em>实体。</p>
 </div>
 <h2 id="_3">基本参数</h2>
-<p><img alt="base_parameters" src="../img/pb_base_parameters.png" /></p>
+<p><img alt="base_parameters" src="../img/pb_base_parameters.png"></p>
 <p>在基本参数部分中，您可以选择建筑物的基本属性，例如占地面积和楼层高度。</p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
@@ -317,7 +319,7 @@
 <li><strong>Doors</strong>: 允许在大厅曾放置门的阵列。门放置在选定的索引位置。</li>
 </ul>
 <h2 id="_4">网格参数</h2>
-<p><img alt="mesh_parameters" src="../img/pb_mesh_parameters.png" /></p>
+<p><img alt="mesh_parameters" src="../img/pb_mesh_parameters.png"></p>
 <p>在界面的“网格参数(Mesh Parameters)”选项卡中，我们选择将用于覆盖建筑物外部的网格件。建筑物不同部分的网片分为 5 类：</p>
 <ul>
 <li><strong>Lobby</strong>: 用于装饰建筑物大堂的网片。</li>
@@ -327,9 +329,9 @@
 <li><strong>Walls</strong>: 用于装饰建筑物墙壁的网片</li>
 </ul>
 <p>在每个类别中，您都会发现许多网片选项。单击一个或多个使其变为红色，这些将被添加到建筑物的相应部分。如果您选择多个选项，该工具将在选项之间随机交替。当您为建筑物的每个部分选择网格片段时，如果您在基本参数部分中选择了自动创建（<em>Create automatically</em>），您将在编辑器视口中看到建筑物正在成形。</p>
-<p><img alt="building_parts" src="../img/pb_building_parts.png" /></p>
+<p><img alt="building_parts" src="../img/pb_building_parts.png"></p>
 <h2 id="_5">网格元素</h2>
-<p><img alt="mesh_elements" src="../img/pb_mesh_elements.png" /></p>
+<p><img alt="mesh_elements" src="../img/pb_mesh_elements.png"></p>
 <p>在此部分中，您可以选择建筑物的更详细元素，例如窗户、柱子、花盆、空调装置和天线。每种类型的装饰都有略微不同的属性。</p>
 <p>建筑物细节的装饰有多种类型：</p>
 <ul>
@@ -364,7 +366,7 @@
 <p><strong>Antenna meshes</strong>: 从窗户伸出的电视天线</p>
 </li>
 </ul>
-<p><img alt="mesh_variations" src="../img/pb_detail_variations.webp" /></p>
+<p><img alt="mesh_variations" src="../img/pb_detail_variations.webp"></p>
 <p>参数的工作原理如下：</p>
 <p><strong>常用参数</strong>:</p>
 <ul>
@@ -385,9 +387,9 @@
 <p>在某些情况下，您可能会发现，当您选择细节网格部件（例如花盆、天线和空调装置）时，您看不到建筑物有任何变化。这很可能是因为您正在使用的部件没有添加您选择的部件所需的适当套接字。请参阅插槽部分（<a href="#sockets">sockets section</a>）了解如何使用插槽。</p>
 </div>
 <h3 id="_6">套接字</h3>
-<p><img alt="socket_details" src="../img/pb_detail_section.png" /></p>
+<p><img alt="socket_details" src="../img/pb_detail_section.png"></p>
 <p>插槽是锚点，用于定义将细节网格物体放置在另一个网格物体上的位置。要将套接字添加到程序建筑中的网格物体，请在选择程序建筑的情况下，转到详细信息面板（<em>details panel</em>），通常位于虚幻编辑器界面的右侧。在那里，您将找到“网格（<em>Meshes</em>）”和“细节网格（<em>Detail meshes</em>）”面板。打开相关部分，在您要放置插座的位置打开网片。</p>
-<p><img alt="mesh_details" src="../img/pb_mesh_details.png" /></p>
+<p><img alt="mesh_details" src="../img/pb_mesh_details.png"></p>
 <p>找到要在其上放置套接字的网格，然后双击该图标以在编辑器中将其打开。单击“创建套接字(<em>create socket</em>)”以添加套接字并使用以下约定命名：</p>
 <ul>
 <li>空调机组（Air conditioning unit）： aa_*</li>
@@ -395,15 +397,15 @@
 <li>花盆（Plant pots）： pot_*</li>
 </ul>
 <p>将星号替换为索引，具体取决于您有多少个套接字，即 aa_0, aa_2, aa_3...</p>
-<p><img alt="socket_details" src="../img/pb_add_socket.png" /></p>
+<p><img alt="socket_details" src="../img/pb_add_socket.png"></p>
 <p>当您单击“创建套接字(<em>Create socket</em>)”时，套接字将在编辑器中使用三维句柄进行实例化。将插槽拖动到网格上的所需位置，这是您的细节部件将显示连接到单元的位置。</p>
 <h2 id="_7">外墙材料</h2>
-<p><img alt="facade_materials" src="../img/pb_facade_materials.png" /></p>
+<p><img alt="facade_materials" src="../img/pb_facade_materials.png"></p>
 <p>在外观材料选项卡中，您可以浏览和预览要装饰建筑物墙壁的材料。</p>
-<p><img alt="facade_changes" src="../img/pb_facade_changes.webp" /></p>
+<p><img alt="facade_changes" src="../img/pb_facade_changes.webp"></p>
 <h2 id="_8">烘焙</h2>
 <p>在烹饪选项卡中，您可以将选择的所有网格物体和材质组合到具有关联材质和纹理的单个静态网格物体中。还将为 LOD 创建建筑物的 LOD 纹理。在界面中指定将保存新建筑资源的文件夹名称。</p>
-<p>一旦您完成了建筑物的制作，您就可以像任何其他 Carla 资产一样将建筑物的实例放置在地图中。</p>
+<p>一旦您完成了建筑物的制作，您就可以像任何其他 Carla 资产一样将建筑物的实例放置在地图中。</p></div>
               
             </div>
           </div><footer>

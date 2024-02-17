@@ -218,6 +218,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
@@ -296,7 +298,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1"><a href="https://carla.readthedocs.io/en/latest/adv_rss/">责任敏感安全</a></h1>
+                <div><h1 id="_1"><a href="https://carla.readthedocs.io/en/latest/adv_rss/">责任敏感安全</a></h1>
 <p>Carla 在客户端库中集成了 <a href="https://github.com/intel/ad-rss-lib">责任敏感安全的 C++ 库</a> 。此功能允许用户调查责任敏感安全(Responsibility Sensitive Safety, RSS)的行为，而无需执行任何操作。Carla 将负责提供输入，并将输出动态应用到自动驾驶(Autonomous Driving, AD) 系统。</p>
 <ul>
 <li><a href="#overview"><strong>概述</strong></a></li>
@@ -315,7 +317,7 @@
 <p class="admonition-title">重要</p>
 <p>此功能正在开发中。目前，它仅适用于 Linux 版本。</p>
 </div>
-<hr />
+<hr>
 <h2 id="_2">概述</h2>
 <p>责任敏感安全库实现了安全保证的数学模型。它接收传感器信息，并向车辆控制器提供限制。综上所述，责任敏感安全模块使用传感器数据来定义 <strong>情况</strong>。情境描述了自我车辆与环境元素的状态。对于每种情况，都会进行安全检查，并计算适当的响应。总体响应是所有响应的综合结果。有关该库的具体信息，请阅读 <a href="https://intel.github.io/ad-rss-lib/">文档</a> ，尤其是 <a href="https://intel.github.io/ad-rss-lib/ad_rss/Overview/">背景部分</a> 。</p>
 <p>这是在 Carla 中使用两个元素实现的。</p>
@@ -324,7 +326,7 @@
 <li><strong>RssRestrictor</strong> 通过限制车辆的命令来应用响应。</li>
 </ul>
 <p>下图描绘了 <strong>责任敏感安全</strong> 与 Carla 架构的集成。</p>
-<p><img alt="Interate RSS into CARLA" src="../img/rss_carla_integration_architecture.png" /></p>
+<p><img alt="Interate RSS into CARLA" src="../img/rss_carla_integration_architecture.png"></p>
 <p><strong>1. 服务器</strong></p>
 <ul>
 <li>将相机图像发送给客户端。 <small>（仅当客户需要可视化时）。</small></li>
@@ -345,10 +347,10 @@
 <ul>
 <li>如果客户端请求，则将响应应用于 <a href="../python_api/#carla.VehicleControl">carla.VehicleControl</a>，并返回结果。</li>
 </ul>
-<p><a href="https://www.youtube.com/watch?v=UxKPXPT2T8Q"><img alt="RSS sensor in CARLA" src="../img/rss_carla_integration.png" /></a></p>
-<div style="text-align: right"><i>Visualization of the RssSensor results.</i></div>
+<p><a href="https://www.youtube.com/watch?v=UxKPXPT2T8Q"><img alt="RSS sensor in CARLA" src="../img/rss_carla_integration.png"></a></p>
+<div style="text-align: right"><i>结果的可视化。</i></div>
 
-<hr />
+<hr>
 <h2 id="_3">编译</h2>
 <p><strong>责任敏感安全</strong> 集成必须与 Carla 的其余部分分开构建。<strong>ad-rss-lib</strong> 附带 LGPL-2.1 开源许可证，这会产生冲突。它必须静态链接到 <em>libCarla</em>。</p>
 <p>提醒一下，到目前为止，该功能仅适用于 Linux 版本。</p>
@@ -381,10 +383,10 @@ pip3 install --user pygccxml pyplusplus
 </ul>
 <pre><code class="language-sh">make package.rss
 </code></pre>
-<hr />
+<hr>
 <h2 id="_6">当前状态</h2>
 <h3 id="rsssensor">RssSensor</h3>
-<p><a href="../python_api/#carla.RssSensor"><strong>carla.RssSensor</strong></a> 完全支持 <a href="https://intel.github.io/ad-rss-lib/RELEASE_NOTES_AND_DISCLAIMERS">ad-rss-lib v4.2.0 功能集</a> ，包括交叉路口、 <a href="https://intel.github.io/ad-rss-lib/ad_rss_map_integration/HandleRoadBoundaries/">stay on road</a> 支持和 <a href="https://intel.github.io/ad-rss-lib/ad_rss/UnstructuredConstellations/">unstructured constellations (e.g. with pedestrians)</a> 。</p>
+<p><a href="../python_api/#carla.RssSensor"><strong>carla.RssSensor</strong></a> 完全支持 <a href="https://intel.github.io/ad-rss-lib/RELEASE_NOTES_AND_DISCLAIMERS">ad-rss-lib v4.2.0 功能集</a> ，包括交叉路口、 <a href="https://intel.github.io/ad-rss-lib/ad_rss_map_integration/HandleRoadBoundaries/">stay on road</a> 支持和 <a href="https://intel.github.io/ad-rss-lib/ad_rss/UnstructuredConstellations/">非结构化的 constellations（比如：行人）</a> 。</p>
 <p>到目前为止，服务器为传感器提供了周围环境的真实数据，包括其他交通参与者和交通信号灯的状态。</p>
 <h3 id="rssrestrictor">RssRestrictor</h3>
 <p>当客户但调用时，<a href="../python_api/#carla.RssRestrictor"><strong>carla.RssRestrictor</strong></a> 将修改车辆控制器，以通过给定的响应最好地达到所需的加速度或减速度。</p>
@@ -393,7 +395,7 @@ pip3 install --user pygccxml pyplusplus
 <p class="admonition-title">笔记</p>
 <p>在自动车辆控制器中，可以使计划的轨迹适应限制。可以使用快速控制环路（&gt;1KHz）来确保遵循这些要求。</p>
 </div>
-<hr />
+<hr>
 <p>这奠定了 Carla 中 <strong>责任敏感安全</strong> 传感器的基础知识。在 <a href="../ref_sensors/#rss-sensor">传感器参考</a> 中查找有关特定属性和参数的更多信息。</p>
 <p>打开 Carla 并闲逛一会儿。如果有任何疑问，请随时在论坛中发布。</p>
 <div class="build-buttons">
@@ -401,7 +403,7 @@ pip3 install --user pygccxml pyplusplus
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
 Carla 论坛</a>
 </p>
-</div>
+</div></div>
               
             </div>
           </div><footer>

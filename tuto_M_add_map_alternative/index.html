@@ -232,6 +232,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
@@ -290,13 +292,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1">导入地图的替代方法</h1>
+                <div><h1 id="_1">导入地图的替代方法</h1>
 <p>本指南介绍了将地图导入 Carla 的替代方法。这些方法涉及比<a href="../tuto_M_add_map_package/">包</a> 和 <a href="../tuto_M_add_map_source/">源代码</a> 导入指南中描述的过程更多的手动步骤。首先我们将介绍 RoadRuner 插件，然后介绍手动导入方法。</p>
 <ul>
 <li><a href="#roadrunner-plugin-import"><strong>RoadRunner 插件导入</strong></a></li>
 <li><a href="#manual-import"><strong>手动导入</strong></a></li>
 </ul>
-<hr />
+<hr>
 <h2 id="roadrunner">RoadRunner 插件导入</h2>
 <p>MathWorks 的 RoadRunner 软件提供了虚幻引擎插件，以帮助简化将地图导入 Carla 的过程。</p>
 <h4 id="_2">插件安装</h4>
@@ -318,25 +320,25 @@
 </ul>
 </li>
 </ul>
-<pre><code class="language-sh">UE4_ROOT/GenerateProjectFiles.sh -project=&quot;carla/Unreal/CarlaUE4/CarlaUE4.uproject&quot; -game -engine
+<pre><code class="language-sh">UE4_ROOT/GenerateProjectFiles.sh -project="carla/Unreal/CarlaUE4/CarlaUE4.uproject" -game -engine
 </code></pre>
 <p><strong>4.</strong> 在虚幻引擎窗口中，确保选中两个插件的复选框 <code>Edit &gt; Plugins</code> 选中。</p>
-<p><img alt="rr_ue_plugins" src="../img/rr-ue4_plugins.jpg" /></p>
+<p><img alt="rr_ue_plugins" src="../img/rr-ue4_plugins.jpg"></p>
 <h3 id="_3">导入地图</h3>
 <p><strong>1.</strong> 使用 <code>Import</code> 按钮将 <code>&lt;mapName&gt;.fbx</code> 文件导入到 <code>/Content/Carla/Maps</code> 下面的新文件夹中。  </p>
-<p><img alt="ue_import" src="../img/ue_import_mapname.jpg" /></p>
+<p><img alt="ue_import" src="../img/ue_import_mapname.jpg"></p>
 <p><strong>2.</strong> 将 <code>Scene &gt; Hierarchy Type</code> 设置为 <em>Create One Blueprint Asset</em> （默认选择）。
 <strong>3.</strong> 将 <code>Static Meshes &gt; Normal Import Method</code> 设置为 <em>Import Normals</em> 。</p>
-<p><img alt="ue_import_options" src="../img/ue_import_options.jpg" /></p>
-<p><strong>4.</strong> 点击 <code>Import</code>。<br />
+<p><img alt="ue_import_options" src="../img/ue_import_options.jpg"></p>
+<p><strong>4.</strong> 点击 <code>Import</code>。<br>
 <strong>5.</strong> 保存当前关卡 <code>File</code> -&gt; <code>Save Current As...</code> -&gt; <code>&lt;mapname&gt;</code> 。  </p>
 <p>新地图现在应该出现在虚幻引擎 <em>内容浏览器</em> 中其他地图的旁边。</p>
-<p><img alt="ue_level_content" src="../img/ue_level_content.jpg" /></p>
+<p><img alt="ue_level_content" src="../img/ue_level_content.jpg"></p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>语义分割的标签将根据资产名称分配。该资源将被移动到 <code>Content/Carla/PackageName/Static</code> 中的相应文件夹中。要更改这些，请在导入后手动移动它们。</p>
 </div>
-<hr />
+<hr>
 <h2 id="_4">手动导入</h2>
 <p>这种导入地图的方法可以与通用 <code>.fbx</code> 和 <code>.xodr</code> 文件一起使用。如果您使用 RoadRunner，则应使用 <code>Firebox (.fbx)</code>、<code>OpenDRIVE (.xodr)</code> 或 <code>Unreal (.fbx + .xml)</code> 导出方法。不要使用该<code>Carla Exporter</code>选项，因为您将遇到<code>.fbx</code>文件的兼容性问题。</p>
 <p>要将地图手动导入虚幻引擎：</p>
@@ -344,14 +346,14 @@
 <p><strong>2.</strong> 通过在 carla 根目录中运行 <code>make launch</code> 来打开虚幻引擎编辑器。在编辑器的 <em>内容浏览器</em> 中，导航到 <code>Content/Carla/Maps/BaseMap</code> 并复制 <code>BaseMap</code> 。这将提供带有默认天空和照明对象的空白地图。</p>
 <blockquote>
 <blockquote>
-<p><img alt="ue_duplicate_basemap" src="../img/ue_duplicate_basemap.png" /></p>
+<p><img alt="ue_duplicate_basemap" src="../img/ue_duplicate_basemap.png"></p>
 </blockquote>
 </blockquote>
 <p><strong>3.</strong> 在目录 <code>Content/Carla/Maps</code> 中创建一个以您的地图包名称命名的新文件夹，并以与您的 <code>.fbx</code> 和 <code>.xodr</code> 文件相同的名称保存复制的地图。</p>
 <p><strong>4.</strong> 在虚幻引擎编辑器的 <em>内容浏览器</em> 中，导航回<code>Content/Carla/Maps</code>。右键单击灰色区域并在标题 <em>Import Asset</em> 下选择<code>Import to /Game/Carla/Maps...</code>。 </p>
 <blockquote>
 <blockquote>
-<p><img alt="ue_import_asset" src="../img/ue_import_asset.png" /></p>
+<p><img alt="ue_import_asset" src="../img/ue_import_asset.png"></p>
 </blockquote>
 </blockquote>
 <p><strong>5.</strong> 在弹出的配置窗口中，确保：</p>
@@ -375,33 +377,33 @@
 </li>
 </ul>
 <blockquote>
-<p><img alt="ue_import_file" src="../img/ue_import_file.jpg" /></p>
+<p><img alt="ue_import_file" src="../img/ue_import_file.jpg"></p>
 </blockquote>
 </blockquote>
 <p><strong>6.</strong> 单击 <code>Import</code>。</p>
 <p><strong>7.</strong> 网格将出现在 <em>内容浏览器</em> 中。选择网格并将它们拖到场景中。</p>
 <blockquote>
 <blockquote>
-<p><img alt="ue_meshes" src="../img/ue_drag_meshes.jpg" /></p>
+<p><img alt="ue_meshes" src="../img/ue_drag_meshes.jpg"></p>
 </blockquote>
 </blockquote>
 <p><strong>8.</strong> 将网格置于 0,0,0 中心。</p>
 <blockquote>
 <blockquote>
-<p><img alt="Transform_Map" src="../img/transform.jpg" /></p>
+<p><img alt="Transform_Map" src="../img/transform.jpg"></p>
 </blockquote>
 </blockquote>
 <p><strong>9.</strong> 在 <em>内容浏览器</em> 中，选择所有需要有碰撞器的网格体。这是指与行人或车辆交互的任何网格。碰撞器防止他们掉入深渊。右键单击选定的网格并选择<code>Asset Actions &gt; Bulk Edit via Property Matrix...</code>。 </p>
 <blockquote>
 <blockquote>
-<p><img alt="ue_selectmesh_collision" src="../img/ue_selectmesh_collision.jpg" /></p>
+<p><img alt="ue_selectmesh_collision" src="../img/ue_selectmesh_collision.jpg"></p>
 </blockquote>
 </blockquote>
 <p><strong>10.</strong> 在搜索框中搜索 <em>碰撞(collision)</em>。 </p>
 <p><strong>11.</strong> 将 <code>Collision Complexity</code> 从 <code>Project Default</code> 改为 <code>Use Complex Collision As Simple</code> 并关闭窗口。</p>
 <blockquote>
 <blockquote>
-<p><img alt="ue_collision_complexity" src="../img/ue_collision_complexity.jpg" /></p>
+<p><img alt="ue_collision_complexity" src="../img/ue_collision_complexity.jpg"></p>
 </blockquote>
 </blockquote>
 <p><strong>12.</strong> 按 <code>Alt + c</code> 确认碰撞设置已正确应用。您会在网格上看到黑色的网。</p>
@@ -432,16 +434,16 @@
 <p><strong>14.</strong> 在 <em>“模式(Modes)”</em> 面板中，搜索 <strong>Open Drive Actor</strong> 并将其拖到场景中。 </p>
 <blockquote>
 <blockquote>
-<p><img alt="ue_opendrive_actor" src="../img/ue_opendrive_actor.jpg" /></p>
+<p><img alt="ue_opendrive_actor" src="../img/ue_opendrive_actor.jpg"></p>
 </blockquote>
 </blockquote>
 <p><strong>15.</strong> 在“详细信息(<em>Details</em>)”面板中，选中<code>Add Spawners</code>并单击 <code>Generate Routes</code> 旁边的框。这将在 <code>&lt;carla-root&gt;/Unreal/CarlaUE4/Content/Carla/Maps/OpenDrive</code> 目录中找到具有相同地图名称的 <code>.xodr</code> 文件，并使用它来生成一系列 <em>RoutePlanner</em> 和 <em>VehicleSpawnPoint</em> 参与者。 </p>
 <blockquote>
 <blockquote>
-<p><img alt="ue_generate_routes" src="../img/ue_generate_routes.png" /></p>
+<p><img alt="ue_generate_routes" src="../img/ue_generate_routes.png"></p>
 </blockquote>
 </blockquote>
-<hr />
+<hr>
 <h2 id="_5">下一步</h2>
 <p>您现在可以在虚幻编辑器中打开地图并运行仿真。从这里，您将能够自定义地图并生成行人导航数据。我们建议在所有自定义完成后生成行人导航，这样就不会有障碍物阻挡行人路径。</p>
 <p>Carla 提供了多种工具和指南来帮助自定义地图：</p>
@@ -454,8 +456,8 @@
 <li><a href="../tuto_M_custom_weather_landscape/#add-serial-meshes">使用序列化网格自定义景观。</a></li>
 </ul>
 <p>完成定制后，您可以 <a href="../tuto_M_generate_pedestrian_navigation/">生成行人导航信息</a> 。</p>
-<hr />
-<p>建议使用 <a href="../tuto_M_add_map_package/">Carla 包</a> 和 <a href="../tuto_M_add_map_source/">Carla 源代码构建</a> 指南中详细介绍的自动化流程来导入地图，但是如果需要，可以使用本节中列出的方法。如果您在使用其他方法时遇到任何问题，请随时在论坛中发帖。</p>
+<hr>
+<p>建议使用 <a href="../tuto_M_add_map_package/">Carla 包</a> 和 <a href="../tuto_M_add_map_source/">Carla 源代码构建</a> 指南中详细介绍的自动化流程来导入地图，但是如果需要，可以使用本节中列出的方法。如果您在使用其他方法时遇到任何问题，请随时在论坛中发帖。</p></div>
               
             </div>
           </div><footer>

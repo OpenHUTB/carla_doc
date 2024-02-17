@@ -218,6 +218,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
@@ -275,7 +277,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="ros">ROS 桥包</h1>
+                <div><h1 id="ros">ROS 桥包</h1>
 <p><code>carla_ros_bridge</code> 包是运行基本 ROS 桥接功能所需的主包。在本节中，您将学习如何准备 ROS 环境、运行 ROS 桥、如何配置设置、同步模式的使用、控制自主车辆以及可用的订阅、出版物和服务的摘要。</p>
 <ul>
 <li><a href="#setting-the-ros-environment"><strong>设置 ROS 环境</strong></a><ul>
@@ -294,7 +296,7 @@
 </ul>
 </li>
 </ul>
-<hr />
+<hr>
 <h2 id="ros_1">设置 ROS 环境</h2>
 <p>ROS 桥接器使用具有通用接口的单独实现来支持 ROS 1 和 ROS 2。当您想要运行 ROS 桥接器时，您必须根据您使用的每个终端中的 ROS 版本设置 ROS 环境：</p>
 <h4 id="ros-1">准备 ROS 1 环境：</h4>
@@ -320,7 +322,7 @@ ros2 launch carla_ros_bridge carla_ros_bridge.launch.py
 <ul>
 <li><code>carla_ros_bridge_with_example_ego_vehicle.launch</code> (ROS 1) 和 <code>carla_ros_bridge_with_example_ego_vehicle.launch.py</code> (ROS 2) 沿着 <a href="../carla_spawn_objects/"><code>carla_spawn_objects</code></a> 和 <a href="../carla_manual_control/"><code>carla_manual_control</code></a> 包一起启动 ROS 桥。</li>
 </ul>
-<hr />
+<hr>
 <h2 id="carla">配置 Carla 设置</h2>
 <p>配置应该在启动文件中设置，或者在从命令行运行文件时作为参数传递，例如：</p>
 <pre><code class="language-sh">roslaunch carla_ros_bridge carla_ros_bridge.launch passive:=True
@@ -346,7 +348,7 @@ ros2 launch carla_ros_bridge carla_ros_bridge.launch.py
 </ul>
 </li>
 </ul>
-<hr />
+<hr>
 <h2 id="ros_3">在同步模式下使用 ROS</h2>
 <p>ROS 桥默认以同步模式运行。它将等待当前帧内预期的所有传感器数据，以确保可重现的结果。</p>
 <p>当以同步模式运行多个客户端时，只允许一个客户端向世界发滴答信号。除非启用被动模式，否则默认情况下，ROS 桥接器将是唯一允许与世界交互的客户端。在 <a href="https://github.com/carla-simulator/ros-bridge/blob/master/carla_ros_bridge/config/settings.yaml"><code>ros-bridge/carla_ros_bridge/config/settings.yaml</code></a> 中启用被动模式将使 ROS 桥后退一步，并允许另一个客户端来操作世界。<strong>另一个客户必须向世界发滴答信号，否则 Carla 将冻结。</strong></p>
@@ -357,7 +359,7 @@ ros2 launch carla_ros_bridge carla_ros_bridge.launch.py
 </ul>
 <pre><code class="language-sh">rqt --standalone rqt_carla_control
 </code></pre>
-<hr />
+<hr>
 <h2 id="_1">自我车辆控制</h2>
 <p>有两种控制自我车辆的模式：</p>
 <ol>
@@ -377,15 +379,15 @@ ros2 launch carla_ros_bridge carla_ros_bridge_with_example_ego_vehicle.launch.py
 <pre><code class="language-sh">    # 最大向前油门，最大向右转向
 
     # for ros1
-    rostopic pub /carla/ego_vehicle/vehicle_control_cmd carla_msgs/CarlaEgoVehicleControl &quot;{throttle: 1.0, steer: 1.0}&quot; -r 10
+    rostopic pub /carla/ego_vehicle/vehicle_control_cmd carla_msgs/CarlaEgoVehicleControl "{throttle: 1.0, steer: 1.0}" -r 10
 
     # for ros2
-    ros2 topic pub /carla/ego_vehicle/vehicle_control_cmd carla_msgs/CarlaEgoVehicleControl &quot;{throttle: 1.0, steer: 1.0}&quot; -r 10
+    ros2 topic pub /carla/ego_vehicle/vehicle_control_cmd carla_msgs/CarlaEgoVehicleControl "{throttle: 1.0, steer: 1.0}" -r 10
 
 </code></pre>
 <p>当前车辆的状态可以通过主题 <code>/carla/&lt;ROLE NAME&gt;/vehicle_status</code> 获得。有关车辆的静态信息可以通过<code>/carla/&lt;ROLE NAME&gt;/vehicle_info</code>接收.</p>
 <p>可以使用 <a href="https://docs.ros.org/en/api/ackermann_msgs/html/msg/AckermannDrive.html">AckermannDrive</a> 消息来控制自我车辆。这可以通过使用 <a href="../carla_ackermann_control/">Carla 阿克曼控制</a> 包来实现。</p>
-<hr />
+<hr>
 <h2 id="ros_4">ROS 应用程序接口</h2>
 <h4 id="_2">订阅</h4>
 <table>
@@ -480,7 +482,7 @@ ros2 launch carla_ros_bridge carla_ros_bridge_with_example_ego_vehicle.launch.py
 </tr>
 </tbody>
 </table>
-<hr />
+<hr></div>
               
             </div>
           </div><footer>

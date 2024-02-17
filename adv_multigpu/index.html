@@ -218,6 +218,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
@@ -275,9 +277,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="carla-gpu">Carla 多 GPU 功能</h1>
+                <div><h1 id="carla-gpu">Carla 多 GPU 功能</h1>
 <p>Carla 中的多 GPU 意味着用户可以启动多个服务器（称为辅助服务器），这些服务器将使用系统中的专用 GPU 为主服务器（称为主服务器）执行渲染工作。主服务器将用户创建的传感器分发到不同的可用辅助服务器。</p>
-<p><img alt="Multi-GPU example with 2 secondary servers" src="../img/multigpu-example.png" /></p>
+<p><img alt="Multi-GPU example with 2 secondary servers" src="../img/multigpu-example.png"></p>
 <p>我们需要启动主服务器（通常带有一个标志以避免使用任何 GPU）。该服务器将处理所有物理并将场景数据同步到其他辅助服务器。然后，我们可以根据需要启动任何辅助服务器（通常是系统中的每个专用 GPU），使用我们将进一步描述的参数。此后，客户端可以连接（始终连接到主服务器）并照常进行。整个系统对用户来说是透明的，用户不需要知道传感器数据来自哪个服务器，他只需直接从辅助服务器接收数据。</p>
 <h2 id="_1">主服务器</h2>
 <p>步骤是: 首先，启动没有任何渲染功能的主服务器。我们可以使用的参数有：</p>
@@ -308,7 +310,7 @@
 </code></pre>
 <p>该辅助服务器将使用端口 4000 作为 RPC 服务器，以避免与其他端口冲突，并将通过端口 2002 连接到位于 IP 127.0.0.1 的主服务器，并且该服务器将使用 GPU 设备 1。</p>
 <h2 id="_3">同步模式</h2>
-<p>第一个从服务器连接到主服务器后，系统自动设置为同步模式，默认值为 1/20 增量秒。</p>
+<p>第一个从服务器连接到主服务器后，系统自动设置为同步模式，默认值为 1/20 增量秒。</p></div>
               
             </div>
           </div><footer>

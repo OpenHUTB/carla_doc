@@ -218,6 +218,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
@@ -275,7 +277,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1">实例分割传感器</h1>
+                <div><h1 id="_1">实例分割传感器</h1>
 <p><strong>实例分割(Instance segmentation)</strong>是一种新型相机传感器，可为场景中的每个对象生成唯一的像素值。这与语义分割传感器形成对比，语义分割传感器对于相同对象类的实例（例如车辆）具有相同的 ID。</p>
 <p>要生成语义分割相机，我们需要<code>sensor.camera.instance_segmentation</code>蓝图：</p>
 <pre><code class="language-py">instance_camera_bp = world.get_blueprint_library().find('sensor.camera.instance_segmentation')
@@ -336,7 +338,7 @@ instance_image.save_to_disk('instance_segmentation.png')
 </code></pre>
 <h2 id="_3">图像输出</h2>
 <p>保存到磁盘的实例分割图像的实例 ID 编码在 RGB 图像文件的 G 和 B 通道中。R通道包含标准语义ID。</p>
-<p><img alt="instance_segmentation" src="../img/instance_segmentation.png" /></p>
+<p><img alt="instance_segmentation" src="../img/instance_segmentation.png"></p></div>
               
             </div>
           </div><footer>

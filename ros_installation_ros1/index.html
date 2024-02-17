@@ -218,6 +218,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
@@ -275,7 +277,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="ros-1-ros">ROS 1 的 ROS 桥接安装</h1>
+                <div><h1 id="ros-1-ros">ROS 1 的 ROS 桥接安装</h1>
 <p>本节介绍如何在 Linux 上安装 ROS 桥接器以与 ROS 1 一起使用。您将找到先决条件、安装步骤、如何运行基本包以确保一切正常运行以及运行测试的命令。</p>
 <ul>
 <li><a href="#before-you-begin"><strong>在你开始之前</strong></a><ul>
@@ -293,7 +295,7 @@
 <p class="admonition-title">重要</p>
 <p>ROS 桥尚未在 Windows 中进行测试。</p>
 </div>
-<hr />
+<hr>
 <h2 id="_1">在你开始之前</h2>
 <p>在使用 ROS 桥之前，您需要满足以下软件要求：</p>
 <ul>
@@ -305,7 +307,7 @@
 <li>根据您的需要，可能需要额外的 ROS 软件包。强烈建议使用 <a href="https://wiki.ros.org/rviz">rviz</a> 来可视化 ROS 数据。</li>
 <li>Carla 0.9.7 或更高版本 — 以前的版本与 ROS 桥不兼容。按照 <a href="https://carla.readthedocs.io/en/latest/start_quickstart/">快速启动安装</a> 或针对 <a href="https://carla.readthedocs.io/en/latest/build_linux/">Linux</a> 进行构建。建议尽可能将 ROS 桥接版本与 Carla 版本匹配。</li>
 </ul>
-<hr />
+<hr>
 <h2 id="ros">ROS 桥安装</h2>
 <p>有两个选项可用于安装 ROS 桥接器：</p>
 <ul>
@@ -315,7 +317,7 @@
 <p>下面详细介绍这两种方法。</p>
 <div class="admonition 重要">
 <p class="admonition-title">重要</p>
-<p>要安装 0.9.10 之前的 ROS 桥接器版本，您可以在 <a href="https://carla.readthedocs.io/en/0.9.10/ros_installation/">此处</a> 找到旧版本的 Carla 文档中的说明。使用窗口右下角的面板更改为适当版本的文档。 <img alt="docs_version_panel" src="../img/docs_version_panel.jpg" /></p>
+<p>要安装 0.9.10 之前的 ROS 桥接器版本，您可以在 <a href="https://carla.readthedocs.io/en/0.9.10/ros_installation/">此处</a> 找到旧版本的 Carla 文档中的说明。使用窗口右下角的面板更改为适当版本的文档。 <img alt="docs_version_panel" src="../img/docs_version_panel.jpg"></p>
 </div>
 <h3 id="a-debian">A. 使用 Debian 存储库</h3>
 <div class="admonition 笔记">
@@ -324,7 +326,7 @@
 </div>
 <p><strong>1.</strong> 在您的系统中设置 Debian 存储库：</p>
 <pre><code class="language-sh">    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 1AF1527DE64CB8D9
-    sudo add-apt-repository &quot;deb [arch=amd64] http://dist.carla.org/carla $(lsb_release -sc) main&quot;
+    sudo add-apt-repository "deb [arch=amd64] http://dist.carla.org/carla $(lsb_release -sc) main"
 </code></pre>
 <p><strong>2.</strong> 安装ROS桥：</p>
 <blockquote>
@@ -363,7 +365,7 @@
 <p><strong>7.</strong> 构建ROS桥：</p>
 <pre><code class="language-sh">    catkin build   # alternatively catkin_make
 </code></pre>
-<hr />
+<hr>
 <h2 id="ros_1">运行 ROS 桥</h2>
 <p><strong>1.</strong> 按照安装 Carla 时使用的安装方法启动 Carla 服务器：</p>
 <pre><code class="language-sh">    # 包版本在 carla 根文件夹
@@ -411,7 +413,7 @@
     python -c 'import carla;print("Success")' # python2
 </code></pre>
 </div>
-<hr />
+<hr>
 <h2 id="_2">测试</h2>
 <p>使用 catkin 执行测试：</p>
 <p><strong>1.</strong> 构建包：</p>
@@ -420,7 +422,7 @@
 <p><strong>2.</strong> 运行测试：</p>
 <pre><code class="language-sh">    rostest carla_ros_bridge ros_bridge_client.test
 </code></pre>
-<hr />
+<hr></div>
               
             </div>
           </div><footer>

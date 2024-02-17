@@ -218,6 +218,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
@@ -286,21 +288,21 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="ptv-vissim">PTV-Vissim 联合仿真</h1>
+                <div><h1 id="ptv-vissim">PTV-Vissim 联合仿真</h1>
 <p>Carla 开发了与 PTV-Vissim 的协同仿真功能。这允许随意分配任务，并利用每个仿真的能力有利于用户。</p>
 <ul>
-<li><a href="#必备条件"><strong>必备条件</strong></a></li>
+<li><a href="#%E5%BF%85%E5%A4%87%E6%9D%A1%E4%BB%B6"><strong>必备条件</strong></a></li>
 <li><a href="#run-the-co-simulation"><strong>运行协同仿真</strong></a></li>
 <li><a href="#create-a-new-network"><strong>创建新网络</strong></a></li>
 </ul>
-<hr />
+<hr>
 <h2 id="_1">必备条件</h2>
 <p>为了运行协同仿真，有两件事是必要的。</p>
 <ul>
 <li>购买 <a href="https://www.ptvgroup.com/en/solutions/products/ptv-vissim/"><strong>PTV-Vissim 仿真器</strong></a> 的许可证。需要获取驾驶仿真器界面插件。</li>
 <li>在 PTV-Vissim 安装文件夹中，查找<code>DrivingSimulatorProxy.dll</code>。将其移至<code>C:\Windows\System32</code>。</li>
 </ul>
-<hr />
+<hr>
 <h2 id="_2">运行联合仿真</h2>
 <p>与此功能相关的所有内容都可以在“Co-Simulation/PTV-Vissim”中找到。 Carla 提供了一些示例，其中包含 <strong>Town01</strong> 和 <strong>Town03</strong> 的网络。</p>
 <p>要运行联合仿真，请使用脚本<code>PTV-Vissim/run_synchronization.py</code>。这有一个包含 PTV-Vissim 网络的强制参数和一些其他可选参数。</p>
@@ -328,14 +330,14 @@
 <li><strong>指定车辆和行人类型</strong>。这些类型将在 PTV-Vissim 中用于与  Carla 中完成的生成同步，默认为空</li>
 <li><strong>将网络导出为<code>.inpx</code></strong>。创建网络，将其导出，然后使用<code>run_synchronization.py</code>运行协同仿真</li>
 </ul>
-<p><img alt="ptv_types" src="../img/ptv_types.jpg" /></p>
+<p><img alt="ptv_types" src="../img/ptv_types.jpg"></p>
 <div style="text-align: right"><i>在 Carla 中生成的任何车辆都将使用这些类型在 PTV-Vissim 中生成。</i></div>
 
 <div class="admonition 警告">
 <p class="admonition-title">警告</p>
 <p>如果行人和车辆类型为空，PTV-Vissim 将崩溃。</p>
 </div>
-<hr />
+<hr>
 <p>到目前为止，这就是 PTV-Vissim 与 Carla 的联合仿真的全部内容。</p>
 <p>打开 Carla 并玩弄一会儿。如果有任何疑问，请随时在论坛中发布。</p>
 <div class="build-buttons">
@@ -343,7 +345,7 @@
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="前往 CARLA 论坛">
 Carla 论坛</a>
 </p>
-</div>
+</div></div>
               
             </div>
           </div><footer>
