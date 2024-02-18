@@ -14,6 +14,7 @@ ISS 感知模块支持的不同任务使我们的车辆能够了解周围环境�
 ![ISS Architecture](../img/ecosys_iss/perception/detection_pp_small.gif)
 
 <center> 3D 障碍物感知和 2D 物体检测 </center>
+<p> </p>
 
 - **2D 语义分割**：语义分割是详细了解环境的一项重要任务。我们利用最先进的技术将场景划分为有意义的部分，使我们的车辆能够理解道路布局并更好地响应复杂的城市景观。
 ![segmentation](../img/ecosys_iss/perception/segmentation.png)

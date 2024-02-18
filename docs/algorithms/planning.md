@@ -6,7 +6,7 @@
 ![kine_bicycle_model](../img/ecosys_iss/planning_pipeline.png)
  
 <center> *规划和控制流程* </center>
-
+<p> </p>
 
 ## 路线规划<a name="route"/>
 

@@ -28,6 +28,7 @@ parent: Algorithms
 ![kine_bicycle_model](../img/ecosys_iss/kine_bicycle_model.png)
 
 <center>*自行车运动模型*</center>
+<p> </p>
 
 控制自行车运动模型的主要方程是：
 
@@ -68,7 +69,7 @@ Motion Transformer<a href="#ref2"><sup>[2]</sup></a>是一种最先进的模型�
 
 
 <center> *motion transformer 的结构<a href="#ref2"><sup>[2]</sup></a>* </center>
-
+<p> </p>
 
 ### 为什么选择 Motion Transformer?
 较简单的模型缺乏复杂环境所需的细微差别。运动变换器考虑了历史轨迹，使其在复杂的场景中具有优势。

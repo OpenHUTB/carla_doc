@@ -20,13 +20,13 @@
 
 <!-- ![type:video](img/ecosys_iss/following_1.mp4) --> 
 ![ISS Architecture](img/ecosys_iss/following_1.gif)
-
-
-Carla 模拟器中 PointPillar 3D 检测算法的实时演示
+<center> Carla 模拟器中 PointPillar 3D 检测算法的实时演示 </center>
+<p> </p>
 
 ![ISS Architecture](img/ecosys_iss/local_planning.gif)
 
-展示本地行为规划的演示
+<center> 展示本地行为规划的演示 </center>
+<p> </p>
 
 
 ## 微型车演示
