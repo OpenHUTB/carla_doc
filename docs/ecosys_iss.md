@@ -20,7 +20,7 @@
 
 <!-- ![type:video](img/ecosys_iss/following_1.mp4) --> 
 ![ISS Architecture](img/ecosys_iss/following_1.gif)
-<center> Carla 模拟器中 PointPillar 3D 检测算法的实时演示 </center>
+<center> Carla 仿真器中 PointPillar 3D 检测算法的实时演示 </center>
 <p> </p>
 
 ![ISS Architecture](img/ecosys_iss/local_planning.gif)

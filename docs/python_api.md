@@ -467,7 +467,7 @@ Carla 为 Actor 提供了一个蓝图库，可以通过 [carla.BlueprintLibrary]
     - **参数：**
         - `commands` (_list_) - 要批量执行的命令列表。每个命令都不同，并且有自己的参数。它们显示在此页面底部列出。
 - <a name="carla.Client.apply_batch_sync"></a>**<font color="#7fb800">apply_batch_sync</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**commands**</font>, <font color="#00a6ed">**due_tick_cue**=False</font>)<button class="SnipetButton" id="carla.Client.apply_batch_sync-snipet_button">snippet &rarr;</button>  
-在单个模拟步骤上执行命令列表，阻止直到命令链接，并返回命令列表。可用于确定单个命令是否成功的响应。[下面](https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/generate_traffic.py) 是一个用来生成参与者的例子。
+在单个仿真步骤上执行命令列表，阻止直到命令链接，并返回命令列表。可用于确定单个命令是否成功的响应。[下面](https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/generate_traffic.py) 是一个用来生成参与者的例子。
     - **参数：**
         - `commands` (_list_) - 要批量执行的命令列表。可用的命令列在方法 **<font color="#7fb800">apply_batch()</font>** 的正上方。 
         - `due_tick_cue` (_bool_) - 一个布尔参数，用于指定是否执行 Carla。在 __同步模式__ 下应用批处理后进行 [carla.World.tick](#carla.World.tick)。默认情况下为 __False__ 。
@@ -494,7 +494,7 @@ _</font>
 - <a name="carla.Client.replay_file"></a>**<font color="#7fb800">replay_file</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**name**</font>, <font color="#00a6ed">**start**</font>, <font color="#00a6ed">**duration**</font>, <font color="#00a6ed">**follow_id**</font>, <font color="#00a6ed">**replay_sensors**</font>)  
 使用`map_name`加载具有默认设置的新世界。当前世界中的所有参与者都将被摧毁，__但__ 交通管理器实例将继续存在。
     - **参数：**
-        - `name` (_str_) - 包含模拟信息的文件的名称。
+        - `name` (_str_) - 包含仿真信息的文件的名称。
         - `start` (_float<small> - seconds</small>_) - 开始播放仿真的时间。负数表示从结尾开始读取，在录制结束前10秒为-10。
         - `duration` (_float<small> - seconds</small>_) - 将使用信息 `name` 文件重新执行的时间。如果到达终点，仿真将继续。
         - `follow_id` (_int_) - 要跟随的参与者的 ID。如果此值为0，则禁用相机。
@@ -853,7 +853,7 @@ Alpha 通道。
 ---
 
 ## carla.GearPhysicsControl<a name="carla.GearPhysicsControl"></a>
-通过定义档位以及何时运行该档位来提供对车辆变速箱详细信息的访问的类。[carla.VehiclePhysicsControl](#carla.VehiclePhysicsControl) 稍后将使用它来帮助模拟物理。
+通过定义档位以及何时运行该档位来提供对车辆变速箱详细信息的访问的类。[carla.VehiclePhysicsControl](#carla.VehiclePhysicsControl) 稍后将使用它来帮助仿真物理。
 
 ### 实例变量
 - <a name="carla.GearPhysicsControl.ratio"></a>**<font color="#f8805a">ratio</font>** (_float_)  
@@ -1007,7 +1007,7 @@ OpenDRIVE 文件中找到的标识符。
 ---
 
 ## carla.Landmark<a name="carla.Landmark"></a>
-定义影响道路的任何类型的交通地标或标志的类。这些类在地标的 [OpenDRIVE 1.4 standard](http://www.opendrive.org/docs/OpenDRIVEFormatSpecRev1.4H.pdf) 标准定义及其在模拟中的表示之间进行协调。此类检索在 OpenDRIVE 中定义地标的所有信息，并提供有关其影响哪些车道以及何时影响的信息。[carla.Waypoint](#carla.Waypoint) 对象将尝试检索其车道规则来访问地标。因此，某些属性取决于正在咨询地标的航路点，从而创建对象。
+定义影响道路的任何类型的交通地标或标志的类。这些类在地标的 [OpenDRIVE 1.4 standard](http://www.opendrive.org/docs/OpenDRIVEFormatSpecRev1.4H.pdf) 标准定义及其在仿真中的表示之间进行协调。此类检索在 OpenDRIVE 中定义地标的所有信息，并提供有关其影响哪些车道以及何时影响的信息。[carla.Waypoint](#carla.Waypoint) 对象将尝试检索其车道规则来访问地标。因此，某些属性取决于正在咨询地标的航路点，从而创建对象。
 
 ### 实例变量
 - <a name="carla.Landmark.road_id"></a>**<font color="#f8805a">road_id</font>** (_int_)  

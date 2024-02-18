@@ -119,7 +119,7 @@ def get_traffic_flow(world):
     #timestamps = []
     traffic_flow = []
     # 循环推进仿真时间并统计车流量
-    for t in range(1000):  # 假设模拟1000个时间步
+    for t in range(1000):  # 假设仿真1000个时间步
         # 推进仿真时间
         world.tick()
         # 重置车流量计数

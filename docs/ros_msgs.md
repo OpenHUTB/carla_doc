@@ -241,7 +241,7 @@ ScenarioRunner 的当前状态。它是使用常量来管理的。
 | `section_id`  | int32                                                                                                                                    | OpenDRIVE 部分的 id，基于它们最初定义的顺序。              |
 | `lane_id`     | int32                                                                                                                                    | OpenDRIVE 车道的id，该值可以是正数或负数，表示当前车道相对于道路的方向。 |
 | `is_junction` | bool                                                                                                                                     | 如果当前路点位于 OpenDRIVE 定义的交汇点上，则为 **True**。    |
-| `is_junction` | [geometry\_msgs/Pose](https://docs.ros.org/en/api/geometry_msgs/html/msg/Pose.html)                                                        | 当模拟运行时为 **True** 。暂停时为  **False**。         |
+| `is_junction` | [geometry\_msgs/Pose](https://docs.ros.org/en/api/geometry_msgs/html/msg/Pose.html)                                                        | 当仿真运行时为 **True** 。暂停时为  **False**。         |
 
 ---
 
