@@ -317,7 +317,7 @@ traffic_data = []
 timestamps = []
 traffic_flow = []
 </code></pre>
-<p><strong><em>统计车流量数据</em></strong>。假设模拟时间步一共为1000。在每个时间步中，遍历所有正在行驶的车辆。对于每辆车辆，获取其位置信息，并判断其是否在目标路口的区域内。如果车辆在区域内，将计数器加1，并将车辆的位置信息存储到字典vehicle_positions中。 </p>
+<p><strong><em>统计车流量数据</em></strong>。假设仿真时间步一共为1000。在每个时间步中，遍历所有正在行驶的车辆。对于每辆车辆，获取其位置信息，并判断其是否在目标路口的区域内。如果车辆在区域内，将计数器加1，并将车辆的位置信息存储到字典vehicle_positions中。 </p>
 <pre><code>for t in range(1000):  
     world.tick()
         count = 0

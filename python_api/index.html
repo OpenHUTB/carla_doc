@@ -1774,7 +1774,7 @@
 </ul>
 </li>
 <li><a name="carla.Client.apply_batch_sync"></a><strong><font color="#7fb800">apply_batch_sync</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>commands</strong></font>, <font color="#00a6ed"><strong>due_tick_cue</strong>=False</font>)<button class="SnipetButton" id="carla.Client.apply_batch_sync-snipet_button">snippet →</button><br>
-在单个模拟步骤上执行命令列表，阻止直到命令链接，并返回命令列表。可用于确定单个命令是否成功的响应。<a href="https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/generate_traffic.py">下面</a> 是一个用来生成参与者的例子。<ul>
+在单个仿真步骤上执行命令列表，阻止直到命令链接，并返回命令列表。可用于确定单个命令是否成功的响应。<a href="https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/generate_traffic.py">下面</a> 是一个用来生成参与者的例子。<ul>
 <li><strong>参数：</strong><ul>
 <li><code>commands</code> (<em>list</em>) - 要批量执行的命令列表。可用的命令列在方法 <strong><font color="#7fb800">apply_batch()</font></strong> 的正上方。 </li>
 <li><code>due_tick_cue</code> (<em>bool</em>) - 一个布尔参数，用于指定是否执行 Carla。在 <strong>同步模式</strong> 下应用批处理后进行 <a href="#carla.World.tick">carla.World.tick</a>。默认情况下为 <strong>False</strong> 。</li>
@@ -1817,7 +1817,7 @@ Creates a new world with default settings using <code>map_name</code> map. All a
 <li><a name="carla.Client.replay_file"></a><strong><font color="#7fb800">replay_file</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>name</strong></font>, <font color="#00a6ed"><strong>start</strong></font>, <font color="#00a6ed"><strong>duration</strong></font>, <font color="#00a6ed"><strong>follow_id</strong></font>, <font color="#00a6ed"><strong>replay_sensors</strong></font>)<br>
 使用<code>map_name</code>加载具有默认设置的新世界。当前世界中的所有参与者都将被摧毁，<strong>但</strong> 交通管理器实例将继续存在。<ul>
 <li><strong>参数：</strong><ul>
-<li><code>name</code> (<em>str</em>) - 包含模拟信息的文件的名称。</li>
+<li><code>name</code> (<em>str</em>) - 包含仿真信息的文件的名称。</li>
 <li><code>start</code> (<em>float<small> - seconds</small></em>) - 开始播放仿真的时间。负数表示从结尾开始读取，在录制结束前10秒为-10。</li>
 <li><code>duration</code> (<em>float<small> - seconds</small></em>) - 将使用信息 <code>name</code> 文件重新执行的时间。如果到达终点，仿真将继续。</li>
 <li><code>follow_id</code> (<em>int</em>) - 要跟随的参与者的 ID。如果此值为0，则禁用相机。</li>
@@ -2268,7 +2268,7 @@ Alpha 通道。</li>
 </ul>
 <hr>
 <h2 id="carlagearphysicscontrol">carla.GearPhysicsControl<a name="carla.GearPhysicsControl"></a></h2>
-<p>通过定义档位以及何时运行该档位来提供对车辆变速箱详细信息的访问的类。<a href="#carla.VehiclePhysicsControl">carla.VehiclePhysicsControl</a> 稍后将使用它来帮助模拟物理。</p>
+<p>通过定义档位以及何时运行该档位来提供对车辆变速箱详细信息的访问的类。<a href="#carla.VehiclePhysicsControl">carla.VehiclePhysicsControl</a> 稍后将使用它来帮助仿真物理。</p>
 <h3 id="_43">实例变量</h3>
 <ul>
 <li><a name="carla.GearPhysicsControl.ratio"></a><strong><font color="#f8805a">ratio</font></strong> (<em>float</em>)<br>
@@ -2441,7 +2441,7 @@ OpenDRIVE 文件中找到的标识符。</li>
 </ul>
 <hr>
 <h2 id="carlalandmark">carla.Landmark<a name="carla.Landmark"></a></h2>
-<p>定义影响道路的任何类型的交通地标或标志的类。这些类在地标的 <a href="http://www.opendrive.org/docs/OpenDRIVEFormatSpecRev1.4H.pdf">OpenDRIVE 1.4 standard</a> 标准定义及其在模拟中的表示之间进行协调。此类检索在 OpenDRIVE 中定义地标的所有信息，并提供有关其影响哪些车道以及何时影响的信息。<a href="#carla.Waypoint">carla.Waypoint</a> 对象将尝试检索其车道规则来访问地标。因此，某些属性取决于正在咨询地标的航路点，从而创建对象。</p>
+<p>定义影响道路的任何类型的交通地标或标志的类。这些类在地标的 <a href="http://www.opendrive.org/docs/OpenDRIVEFormatSpecRev1.4H.pdf">OpenDRIVE 1.4 standard</a> 标准定义及其在仿真中的表示之间进行协调。此类检索在 OpenDRIVE 中定义地标的所有信息，并提供有关其影响哪些车道以及何时影响的信息。<a href="#carla.Waypoint">carla.Waypoint</a> 对象将尝试检索其车道规则来访问地标。因此，某些属性取决于正在咨询地标的航路点，从而创建对象。</p>
 <h3 id="_61">实例变量</h3>
 <ul>
 <li><a name="carla.Landmark.road_id"></a><strong><font color="#f8805a">road_id</font></strong> (<em>int</em>)<br>

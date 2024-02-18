@@ -343,7 +343,7 @@
 <ul>
 <li>
 <p><strong>传感器参与者</strong><br>
-    负责测量和/或模拟数据的参与者。使用虚幻引擎 4框架在 Carla 插件中运行。用户可以作为传感器参与者访问。</p>
+    负责测量和/或仿真数据的参与者。使用虚幻引擎 4框架在 Carla 插件中运行。用户可以作为传感器参与者访问。</p>
 </li>
 <li>
 <p><strong>串行器</strong><br>
@@ -366,7 +366,7 @@
 <p><em>为了简单起见，我们不会考虑所有的边缘情况，也不会以最有效的方式实现。这只是一个说明性示例。</em></p>
 <h3 id="1-">1- 创建新传感器</h3>
 <p>这是我们要创建的最复杂的类。这里我们在虚幻引擎框架内运行，虚幻引擎 4 API 的知识将非常有帮助，但不是必不可少的，我们假设读者以前从未使用过虚幻引擎 4。</p>
-<p>在 <code>UE4</code> 内部，我们有一个与客户端类似的层次结构，<code>ASensor</code> 派生自<code>AActor</code>，而 <code>Actor</code> 大致是可以放入世界中的任何对象。<code>AActor</code>有一个名为的虚拟函数<code>Tick</code>，我们可以使用它在每次模拟器更新时更新我们的传感器。在更高的层次结构中 <code>UObject</code>，我们有大多数虚幻引擎 4 类的基类。重要的是要知道派生的对象<code>UObject</code>是通过指针进行处理的，并且当它们不再被引用时会被垃圾收集。指向 <code>UObjects</code> 的类成员需要用宏<code>UPROPERTY</code>进行标记，否则它们将被垃圾收集。</p>
+<p>在 <code>UE4</code> 内部，我们有一个与客户端类似的层次结构，<code>ASensor</code> 派生自<code>AActor</code>，而 <code>Actor</code> 大致是可以放入世界中的任何对象。<code>AActor</code>有一个名为的虚拟函数<code>Tick</code>，我们可以使用它在每次仿真器更新时更新我们的传感器。在更高的层次结构中 <code>UObject</code>，我们有大多数虚幻引擎 4 类的基类。重要的是要知道派生的对象<code>UObject</code>是通过指针进行处理的，并且当它们不再被引用时会被垃圾收集。指向 <code>UObjects</code> 的类成员需要用宏<code>UPROPERTY</code>进行标记，否则它们将被垃圾收集。</p>
 <p>开始吧。</p>
 <p>该类必须位于 Carla 插件内，我们将为新的 C++ 类创建两个文件</p>
 <ul>
@@ -531,7 +531,7 @@ private:
 </code></pre>
 <p><code>carla::Buffer</code> 只是一块动态分配的原始内存，具有一些方便的功能，我们将使用它向客户端发送原始数据。</p>
 <p>在此示例中，我们需要以在客户端有意义的方式将检测到的参与者列表写入缓冲区。这就是我们将剧集对象传递给此函数的原因。</p>
-<p><code>UCarlaEpisode</code>类表示仿真器中运行的当前 <em>情节</em>，即自上次加载地图以来的模拟状态。它包含与 Carla 相关的所有信息，除其他外，它还允许搜索演员 ID。我们可以将这些 ID 发送给客户端，客户端将能够将这些 ID 识别为参与者</p>
+<p><code>UCarlaEpisode</code>类表示仿真器中运行的当前 <em>情节</em>，即自上次加载地图以来的仿真状态。它包含与 Carla 相关的所有信息，除其他外，它还允许搜索演员 ID。我们可以将这些 ID 发送给客户端，客户端将能够将这些 ID 识别为参与者</p>
 <pre><code class="language-cpp">template &lt;typename SensorT, typename EpisodeT, typename ActorListT&gt;
 static Buffer Serialize(
     const SensorT &amp;,

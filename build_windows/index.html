@@ -468,7 +468,7 @@ pip3 install --user wheel
 </ul>
 <p>Carla 的构建过程分为两部分：编译客户端和编译服务器。</p>
 <p><strong>1.</strong> <strong>编译 Python API 客户端</strong>:</p>
-<p>Python API 客户端授予对模拟的控制权。第一次构建 Carla 时需要编译 Python API 客户端，并且在执行任何更新后需要再次编译。客户端编译完成后，您将能够运行脚本与模拟进行交互。</p>
+<p>Python API 客户端授予对仿真的控制权。第一次构建 Carla 时需要编译 Python API 客户端，并且在执行任何更新后需要再次编译。客户端编译完成后，您将能够运行脚本与仿真进行交互。</p>
 <p>以下命令编译 Python API 客户端：</p>
 <pre><code class="language-sh">    make PythonAPI
 </code></pre>
@@ -497,8 +497,8 @@ pip3 install --user wheel
 </code></pre>
 <p>该项目可能会要求构建其他实例，例如<code>UE4Editor-Carla.dll</code>第一次。同意才能打开项目。在首次启动期间，编辑器可能会显示有关着色器和网格距离场的警告。这些需要一些时间来加载，在此之前地图将无法正确显示。</p>
 <p><strong>3.</strong> <strong>开始仿真</strong>:</p>
-<p>按<strong>Play</strong>开始服务器模拟。可以使用按键移动相机<code>WASD</code>，并通过在移动鼠标的同时单击场景来旋转相机。 </p>
-<p>使用里面的示例脚本测试模拟器<code>PythonAPI\examples</code>。在仿真器运行的情况下，为每个脚本打开一个新终端并运行以下命令以在城镇中产生一些生命并创建天气循环：</p>
+<p>按<strong>Play</strong>开始服务器仿真。可以使用按键移动相机<code>WASD</code>，并通过在移动鼠标的同时单击场景来旋转相机。 </p>
+<p>使用里面的示例脚本测试仿真器<code>PythonAPI\examples</code>。在仿真器运行的情况下，为每个脚本打开一个新终端并运行以下命令以在城镇中产生一些生命并创建天气循环：</p>
 <pre><code class="language-sh">        # 终端 A 
         cd PythonAPI\examples
         pip3 install -r requirements.txt
@@ -510,7 +510,7 @@ pip3 install --user wheel
 </code></pre>
 <div class="admonition 重要">
 <p class="admonition-title">重要</p>
-<p>如果模拟以非常低的 FPS 速率运行，请转至虚幻引擎编辑器<code>Edit -&gt; Editor preferences -&gt; Performance</code>并禁用。</p>
+<p>如果仿真以非常低的 FPS 速率运行，请转至虚幻引擎编辑器<code>Edit -&gt; Editor preferences -&gt; Performance</code>并禁用。</p>
 </div>
 <h3 id="_9">其他构建命令</h3>
 <p>您可能会发现还有更多有用的<code>make</code>命令。在下表中找到它们：</p>
