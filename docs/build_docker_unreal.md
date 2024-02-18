@@ -51,7 +51,7 @@ git clone https://github.com/carla-simulator/carla
 
 以下步骤将花费很长时间。
 
-__1. 构建 CARLA 先决条件镜像。__
+__1. 构建 Carla 先决条件镜像。__
 
 以下命令将使用`Prerequisites.Dockerfile`构建一个名为`carla-prerequisitesusing`的映像。在此版本中，我们安装编译器和所需的工具，下载虚幻引擎 4.26 分支并编译它。您需要提供您的登录详细信息作为构建参数，才能成功下载虚幻引擎：
 
