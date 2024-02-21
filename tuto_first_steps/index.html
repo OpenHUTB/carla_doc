@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>第一步 - 交通仿真器文档</title>
+    <title>学习 Carla 的第一步 - 交通仿真器文档</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "\u7b2c\u4e00\u6b65";
+        var mkdocs_page_name = "\u5b66\u4e60 Carla \u7684\u7b2c\u4e00\u6b65";
         var mkdocs_page_input_path = "tuto_first_steps.md";
         var mkdocs_page_url = null;
       </script>
@@ -44,236 +44,6 @@
                 <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
                 </li>
               </ul>
-              <p class="caption"><span class="caption-text">入门</span></p>
-              <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="../start_introduction/">介绍</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../start_quickstart/">快速启动包安装</a>
-                  </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">第一步</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#carla_1">启动 Carla 并连接客户端</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_1">加载地图</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_2">观察者导航</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_3">添加非玩家角色</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_4">添加传感器</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_5">使用交通管理器仿真车辆</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_6">将车辆分配为自我车辆</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_7">选择你的地图</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_8">选择你的车辆</a>
-    </li>
-    </ul>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tutorials/">教程</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">构建 Carla</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../build_carla/">构建 Carla</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../build_linux/">Linux 构建</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../build_windows/">Windows 构建</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../build_update/">更新 Carla</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../build_system/">构建系统</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../build_docker/">Docker 中的 Carla</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../build_faq/">常问的问题</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">下一步</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_content_authoring_maps/">内容创作 - 地图</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_content_authoring_vehicles/">内容创作 - 车辆</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">Carla 主题</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../foundations/">基础</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../core_concepts/">核心概念</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../core_world/">世界和客户端</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../core_actors/">参与者和蓝图</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../ts_traffic_simulation_overview/">交通</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../core_map/">地图和导航 </a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../core_sensors/">传感器和数据</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../development_tutorials/">开发</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../custom_assets_tutorials/">自定义资产</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">交通仿真</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../adv_traffic_manager/">交通管理器</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../adv_sumo/">和 SUMO 联合仿真</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_scenic/">Scenic</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">高级概念</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../adv_recorder/">记录器</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../adv_rendering_options/">渲染选项</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../adv_synchrony_timestep/">同步和时间步长</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../adv_benchmarking/">基准性能</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../adv_agents/">Carla 智能体</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">资源</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../python_api/">Python API 参考</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../ref_cpp/">C++ 参考</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../bp_library/">蓝图库</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../catalogue/">Carla 目录</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../ref_recorder_binary_file_format/">记录器二进制文件格式</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../ref_sensors/">传感器参考</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../ext_docs/">扩展文档</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">自定义地图</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_map_overview/">Carla 中自定义地图的概述</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在 Carla 包导入地图</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 Carla 源构建中导入地图</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_alternative/">导入地图的替代方法</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_manual_map_package/">手动准备地图包</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_layers/">自定义地图：分层地图</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_add_tl/">自定义地图：红绿灯和标志</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_road_painter/">自定义地图：道路画家</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_buildings/">自定义地图：程序建筑</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_weather_landscape/">自定义地图：天气和景观</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_pedestrian_navigation/">生成行人导航</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">大型地图</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../large_map_overview/">大型地图概述</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../large_map_roadrunner/">在RoadRunner中创建大地图</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../large_map_import/">导入/打包大地图</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">教程（通用）</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_add_friction_triggers/">添加摩擦触发器</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_vehicle_physics/">控制车辆物理模型</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_walker_skeletons/">控制行人骨骼</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用 OpenStreetMap 生成地图</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索仿真数据</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎和 Carla</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">教程（资产）</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_add_vehicle/">添加新车辆</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_add_props/">添加新道具</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_create_standalone/">创建独立包</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_material_customization/">材质定制</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">教程（开发人员）</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_contribute_assets/">如何升级内容</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_create_sensor/">创建一个传感器</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_create_semantic_tags/">创建语义标签</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_customize_vehicle_suspension/">自定义车辆悬架</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_generate_colliders/">生成详细碰撞</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_make_release/">发布版本</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_carsim_integration/">CarSim 集成</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_chrono/">Chrono 集成</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../adv_opendrive/">OpenDRIVE 独立模式</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../adv_ptv/">PTV-Vissim 联合仿真</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../ros_documentation/">ROS</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../adv_rss/">责任敏感安全</a>
-                  </li>
-                  <li class="toctree-l1"><a class="" href="https://github.com/OpenHUTB/engine_doc">虚幻引擎教程</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../plugins_carlaviz/">Web 可视化器</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_G29_windows/">罗技 G29 方向盘</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">贡献</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../cont_contribution_guidelines/">贡献指南</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cont_code_of_conduct/">行为准则</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cont_coding_standard/">编码标准</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cont_doc_standard/">文档标准</a>
-                  </li>
-              </ul>
       </div>
     </div>
     </nav>
@@ -288,8 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">入门</li>
-      <li class="breadcrumb-item active">第一步</li>
+      <li class="breadcrumb-item active">学习 Carla 的第一步</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -298,7 +67,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <div><h1 id="carla">学习 Carla 的第一步</h1>
+                <h1 id="carla">学习 Carla 的第一步</h1>
 <p>Carla 仿真器是一个综合解决方案，用于为自动驾驶 (autonomous driving, AD) 和其他机器人应用生成合成训练数据。Carla 仿真高度真实的环境，仿真现实世界中的城镇、城市和高速公路以及占据这些驾驶空间的车辆和其他物体。</p>
 <p>Carla 仿真器还可用作评估和测试环境。您可以部署在仿真中训练过的自动驾驶代理来测试和评估其性能和安全性，所有这些都在仿真环境的安全范围内，不会对硬件或其他道路使用者造成风险。</p>
 <p>在本教程中，我们将介绍 Carla 中的标准工作流程，从启动服务器和连接客户端，到添加车辆、传感器和生成用于机器学习的训练数据。本教程旨在重点介绍细节，并尽可能高效地介绍使用 Carla 生成机器学习训练数据的关键步骤。有关工作流程每个部分的更多详细信息，例如蓝图库中可用的多种车辆或可用的替代类型传感器，请查阅文本中的链接或浏览左侧菜单。</p>
@@ -359,7 +128,7 @@ world = client.get_world()
 <li>D - 向右移动</li>
 </ul>
 <p>左键单击并在观察者窗口中上下拖动鼠标来控制俯仰，左右拖动鼠标来控制偏航。</p>
-<p><img alt="flying_spectator" src="../img/tuto_G_getting_started/flying_spectator.gif"></p>
+<p><img alt="flying_spectator" src="../img/tuto_G_getting_started/flying_spectator.gif" /></p>
 <p>观察者及其属性可以通过 Python API 访问和操作：</p>
 <pre><code class="language-py"># 获取观察者对象
 spectator = world.get_spectator()
@@ -420,7 +189,7 @@ camera.listen(lambda image: image.save_to_disk('out/%06d.png' % image.frame))
 </code></pre>
 <p>现在您的仿真正在运行，有许多车辆在地图上行驶，并且摄像机记录其中一辆车辆的数据。然后，该数据可用于提供机器学习算法来训练自动驾驶代理。流量管理器具有许多用于自定义流量行为的功能，请在 <a href="../tuto_G_traffic_manager/"><strong>此处</strong></a> 了解更多信息。</p>
 <p>这是仿真的最基本可能设置，现在您可以更深入地了解有关可用于生成数据的许多额外传感器的文档，以及 Carla 的许多其他功能，这些功能可以使您的仿真更加详细和更多实际的。</p>
-<hr>
+<hr />
 <h2 id="_6">将车辆分配为自我车辆</h2>
 <p><strong>自我车辆</strong> 是使用 Carla 时需要牢记的一个重要概念。自我车辆是指将成为仿真焦点的车辆。在大多数 CARLA 用例中，它可能是您将连接传感器的车辆和/或您的自动驾驶机器学习堆栈将控制的车辆。它很重要，因为它是一些有助于提高仿真效率的仿真操作的基础，例如：</p>
 <ul>
@@ -440,9 +209,9 @@ ego_bp.set_attribute('role_name', 'hero')
 ego_vehicle = world.spawn_actor(ego_bp, random.choice(spawn_points))
 
 </code></pre>
-<hr>
+<hr />
 <h2 id="_7">选择你的地图</h2>
-<p><img alt="maps_montage" src="../img/catalogue/maps/maps_montage.webp"></p>
+<p><img alt="maps_montage" src="../img/catalogue/maps/maps_montage.webp" /></p>
 <p>Carla 附带了几张预制地图，专注于提供多种功能。这些地图呈现了城市、乡村和住宅等一系列环境。还有不同的建筑风格和多种不同的道路布局，从无标记的乡村道路到多车道高速公路。浏览<a href="../catalogue/">目录</a>或下表中的地图指南。</p>
 <table>
 <thead>
@@ -509,21 +278,17 @@ ego_vehicle = world.spawn_actor(ego_bp, random.choice(spawn_points))
 <p>当您选择地图时，请像这样加载它：</p>
 <pre><code class="language-py">client.load_world('Town03_Opt')
 </code></pre>
-<hr>
+<hr />
 <h2 id="_8">选择你的车辆</h2>
-<p><img alt="vehicles_overview" src="../img/catalogue/vehicles/vehicle_montage.webp"></p>
+<p><img alt="vehicles_overview" src="../img/catalogue/vehicles/vehicle_montage.webp" /></p>
 <p>Carla 提供了一个车辆库，可以让您的仿真充满交通。浏览 <a href="../catalogue_vehicles/">Carla 车辆目录</a> 中的车辆型号。</p>
 <p>您可以通过过滤蓝图库来查看所有可用的车辆蓝图。</p>
 <pre><code class="language-py">for bp in world.get_blueprint_library().filter('vehicle'):
     print(bp.id)
-</code></pre></div>
+</code></pre>
               
             </div>
           </div><footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../start_quickstart/" class="btn btn-neutral float-left" title="快速启动包安装"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../tutorials/" class="btn btn-neutral float-right" title="教程">Next <span class="icon icon-circle-arrow-right"></span></a>
-    </div>
 
   <hr/>
 
@@ -544,10 +309,6 @@ ego_vehicle = world.spawn_actor(ego_bp, random.choice(spawn_points))
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../start_quickstart/" style="color: #fcfcfc">&laquo; Previous</a></span>
-    
-    
-      <span><a href="../tutorials/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

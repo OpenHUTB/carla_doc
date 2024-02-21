@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>城镇 6 - 交通仿真器文档</title>
+    <title>Ecosys femfx - 交通仿真器文档</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,8 +13,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "\u57ce\u9547 6";
-        var mkdocs_page_input_path = "map_town06.md";
+        var mkdocs_page_name = "Ecosys femfx";
+        var mkdocs_page_input_path = "ecosys_femfx.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -58,7 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">城镇 6</li>
+      <li class="breadcrumb-item active">Ecosys femfx</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -67,17 +67,16 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="6">城镇 6</h1>
-<p><img alt="town_06_slideshow" src="../img/catalogue/maps/town06/town06_slideshow.webp" /></p>
-<p>城镇 6 是一个低密度小镇，坐落在针叶林景观中，拥有众多大型 4-6 车道道路和特殊路口，例如<a href="https://en.wikipedia.org/wiki/Michigan_left">密歇根左翼</a> 。</p>
-<p><strong>城镇 6 是附加地图包的一部分，应 <a href="https://github.com/carla-simulator/carla/releases">与 Carla 包一起下载</a> 。将下载的 ZIP 文件移动到解压的 Carla 包的 <em>Import</em> 文件夹中，然后运行 <em>Util/ImportAssets.sh</em> 脚本。</strong></p>
-<h2 id="_1">路网</h2>
-<p>道路网有 4 条大型平行道路，有 4 至 6 条车道，通过多个支路和交叉路口相互连接。</p>
-<p><img alt="town_06_aerial" src="../img/catalogue/maps/town06/town06aerial.webp" /></p>
-<p>城镇 6 的众多支路交叉口包括密歇根左翼。</p>
-<p><img alt="town_06_junctions" src="../img/catalogue/maps/town06/town06_junctions.webp" /></p>
-<p>展示了多种道路场景，包括 5 车道道路、死胡同和指定转弯车道。</p>
-<p><img alt="town_06_roads" src="../img/catalogue/maps/town06/town06_roads.webp" /></p>
+                <h1 id="_1"><a href="https://github.com/GPUOpen-Effects/FEMFX">限元变形材料虚幻插件</a></h1>
+<p>FEMFX 是一个用于变形材料物理的多线程 CPU 库，使用有限元法 (Finite Element Method, FEM)。实体对象表示为四面体单元的网格，每个单元都具有控制刚度、体积如何随变形变化以及发生断裂或塑性（永久）变形的应力限制的材料参数。该模型支持多种材料以及材料之间的相互作用。我们打算让这些功能补充而不是取代传统的刚体物理。该系统的设计考虑了以下因素：</p>
+<ul>
+<li>保真度：看起来逼真的木材、金属、塑料，甚至玻璃，因为它们像真实材料一样根据压力弯曲和断裂。</li>
+<li>变形效果：非刚性用例，例如软体物体、弯曲或扭曲的物体。这不仅仅是一种视觉效果，而且材料会抵抗或推回其他物体。</li>
+<li>动态更改材质：您可以更改设置以使同一对象的行为截然不同，例如变成凝胶状或融化</li>
+<li>游戏或谜题的有趣物理交互</li>
+</ul>
+<p>该库使用广泛的多线程来利用多核 CPU，并从 CPU 核心数量增加的趋势中受益。</p>
+<p><img alt="ros_carla" src="../img/ecosys_fem/car.gif" /></p>
               
             </div>
           </div><footer>

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>创建一个传感器 - 交通仿真器文档</title>
+    <title>如何添加新传感器 - 交通仿真器文档</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "\u521b\u5efa\u4e00\u4e2a\u4f20\u611f\u5668";
+        var mkdocs_page_name = "\u5982\u4f55\u6dfb\u52a0\u65b0\u4f20\u611f\u5668";
         var mkdocs_page_input_path = "tuto_D_create_sensor.md";
         var mkdocs_page_url = null;
       </script>
@@ -44,246 +44,6 @@
                 <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
                 </li>
               </ul>
-              <p class="caption"><span class="caption-text">入门</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../start_introduction/">介绍</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../start_quickstart/">快速启动包安装</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_first_steps/">第一步</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tutorials/">教程</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">构建 Carla</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../build_carla/">构建 Carla</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../build_linux/">Linux 构建</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../build_windows/">Windows 构建</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../build_update/">更新 Carla</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../build_system/">构建系统</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../build_docker/">Docker 中的 Carla</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../build_faq/">常问的问题</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">下一步</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_content_authoring_maps/">内容创作 - 地图</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_content_authoring_vehicles/">内容创作 - 车辆</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">Carla 主题</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../foundations/">基础</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../core_concepts/">核心概念</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../core_world/">世界和客户端</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../core_actors/">参与者和蓝图</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../ts_traffic_simulation_overview/">交通</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../core_map/">地图和导航 </a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../core_sensors/">传感器和数据</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../development_tutorials/">开发</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../custom_assets_tutorials/">自定义资产</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">交通仿真</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../adv_traffic_manager/">交通管理器</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../adv_sumo/">和 SUMO 联合仿真</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_scenic/">Scenic</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">高级概念</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../adv_recorder/">记录器</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../adv_rendering_options/">渲染选项</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../adv_synchrony_timestep/">同步和时间步长</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../adv_benchmarking/">基准性能</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../adv_agents/">Carla 智能体</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">资源</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../python_api/">Python API 参考</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../ref_cpp/">C++ 参考</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../bp_library/">蓝图库</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../catalogue/">Carla 目录</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../ref_recorder_binary_file_format/">记录器二进制文件格式</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../ref_sensors/">传感器参考</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../ext_docs/">扩展文档</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">自定义地图</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_map_overview/">Carla 中自定义地图的概述</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在 Carla 包导入地图</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 Carla 源构建中导入地图</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_alternative/">导入地图的替代方法</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_manual_map_package/">手动准备地图包</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_layers/">自定义地图：分层地图</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_add_tl/">自定义地图：红绿灯和标志</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_road_painter/">自定义地图：道路画家</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_buildings/">自定义地图：程序建筑</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_weather_landscape/">自定义地图：天气和景观</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_pedestrian_navigation/">生成行人导航</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">大型地图</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../large_map_overview/">大型地图概述</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../large_map_roadrunner/">在RoadRunner中创建大地图</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../large_map_import/">导入/打包大地图</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">教程（通用）</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_add_friction_triggers/">添加摩擦触发器</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_vehicle_physics/">控制车辆物理模型</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_walker_skeletons/">控制行人骨骼</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用 OpenStreetMap 生成地图</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索仿真数据</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎和 Carla</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">教程（资产）</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_add_vehicle/">添加新车辆</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_add_props/">添加新道具</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_create_standalone/">创建独立包</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_material_customization/">材质定制</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">教程（开发人员）</span></p>
-              <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_contribute_assets/">如何升级内容</a>
-                  </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">创建一个传感器</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#_2">先决条件</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_3">介绍</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_4">创建新传感器</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#1-">1- 创建新传感器</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#2-">2- 传感器数据串行器</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#3-">3- 传感器数据对象</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#4-">4- 注册您的传感器</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#5-">5- 使用示例</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_5">附录</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_6">重用缓冲区</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_7">异步发送数据</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_8">客户端传感器</a>
-    </li>
-        </ul>
-    </li>
-    </ul>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_create_semantic_tags/">创建语义标签</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_customize_vehicle_suspension/">自定义车辆悬架</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_generate_colliders/">生成详细碰撞</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_make_release/">发布版本</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_carsim_integration/">CarSim 集成</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_chrono/">Chrono 集成</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../adv_opendrive/">OpenDRIVE 独立模式</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../adv_ptv/">PTV-Vissim 联合仿真</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../ros_documentation/">ROS</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../adv_rss/">责任敏感安全</a>
-                  </li>
-                  <li class="toctree-l1"><a class="" href="https://github.com/OpenHUTB/engine_doc">虚幻引擎教程</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../plugins_carlaviz/">Web 可视化器</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_G29_windows/">罗技 G29 方向盘</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">贡献</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../cont_contribution_guidelines/">贡献指南</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cont_code_of_conduct/">行为准则</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cont_coding_standard/">编码标准</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cont_doc_standard/">文档标准</a>
-                  </li>
-              </ul>
       </div>
     </div>
     </nav>
@@ -298,8 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">教程（开发人员）</li>
-      <li class="breadcrumb-item active">创建一个传感器</li>
+      <li class="breadcrumb-item active">如何添加新传感器</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -308,7 +67,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <div><h1 id="_1">如何添加新传感器</h1>
+                <h1 id="_1">如何添加新传感器</h1>
 <p>本教程介绍了向 Carla 添加新传感器的基础知识。它提供了在虚幻引擎 4 中实现传感器并通过 Carla 的 Python API 公开其数据的必要步骤。我们将通过创建新传感器作为示例来遵循所有步骤。</p>
 <ul>
 <li><a href="#prerequisites"><strong>先决条件</strong></a>  </li>
@@ -328,17 +87,17 @@
 </ul>
 </li>
 </ul>
-<hr>
+<hr />
 <h2 id="_2">先决条件</h2>
 <p>为了实现新的传感器，您需要编译 Carla 源代码，有关如何实现此目的的详细说明，请参阅 <a href="../build_linux/">从源代码构建</a> 。</p>
 <p>本教程还假设读者精通 C++ 编程。</p>
-<hr>
+<hr />
 <h2 id="_3">介绍</h2>
 <p>Carla 中的传感器是一种特殊类型的参与者，可以产生数据流。有些传感器每次更新时都会连续产生数据，而另一些传感器仅在某些事件发生后才产生数据。例如，相机在每次更新时都会生成图像，但碰撞传感器仅在发生碰撞时才会触发。</p>
 <p>尽管大多数传感器在服务器端（虚幻引擎 4）中计算测量结果，但值得注意的是，某些传感器仅在客户端中运行。此类传感器的一个例子是 LaneInvasion，每次越过车道标记时它都会发出通知。有关更多详细信息，请参阅 <a href="#appendix-client-side-sensors">附录：客户端传感器</a> 。</p>
 <p>在本教程中，我们将重点关注服务器端传感器。</p>
 <p>为了让虚幻引擎 4 内运行的传感器将数据一路发送到 Python 客户端，我们需要覆盖整个通信管道。</p>
-<p><img alt="Communication pipeline" src="../img/pipeline.png"></p>
+<p><img alt="Communication pipeline" src="../img/pipeline.png" /></p>
 <p>因此，我们需要以下类来涵盖管道的不同步骤</p>
 <ul>
 <li>
@@ -358,11 +117,11 @@
 <p class="admonition-title">笔记</p>
 <p>为了确保最佳性能，传感器使用基于模板元编程的“编译时插件系统”进行注册和调度。最有可能的是，在所有部分都存在之前，代码不会编译。</p>
 </div>
-<hr>
+<hr />
 <h2 id="_4">创建新传感器</h2>
 <p><a href="https://gist.github.com/nsubiron/011fd1b9767cd441b1d8467dc11e00f9"><strong>完整源代码在这里。</strong></a></p>
 <p>我们将创建一个传感器来检测车辆周围的其他参与者。为此，我们将创建一个触发盒来检测其中的物体，并且每次车辆进入触发盒时我们都会向客户端报告状态。我们称之为 <em>安全距离传感器</em> 。</p>
-<p><img alt="Trigger box" src="../img/safe_distance_sensor.jpg"></p>
+<p><img alt="Trigger box" src="../img/safe_distance_sensor.jpg" /></p>
 <p><em>为了简单起见，我们不会考虑所有的边缘情况，也不会以最有效的方式实现。这只是一个说明性示例。</em></p>
 <h3 id="1-">1- 创建新传感器</h3>
 <p>这是我们要创建的最复杂的类。这里我们在虚幻引擎框架内运行，虚幻引擎 4 API 的知识将非常有帮助，但不是必不可少的，我们假设读者以前从未使用过虚幻引擎 4。</p>
@@ -376,14 +135,14 @@
 <p>最起码，传感器需要继承<code>ASensor</code>，并提供静态方法<code>GetSensorDefinition</code>；但我们还将重写<code>Set</code>、 <code>SetOwner</code>、 和<code>Tick</code>方法。该传感器还需要一个触发盒来检测我们周围的其他参与者。有了这个和一些必需的虚幻引擎4 样板代码，头文件看起来像</p>
 <pre><code class="language-cpp">#pragma once
 
-#include "Carla/Sensor/Sensor.h"
+#include &quot;Carla/Sensor/Sensor.h&quot;
 
-#include "Carla/Actor/ActorDefinition.h"
-#include "Carla/Actor/ActorDescription.h"
+#include &quot;Carla/Actor/ActorDefinition.h&quot;
+#include &quot;Carla/Actor/ActorDescription.h&quot;
 
-#include "Components/BoxComponent.h"
+#include &quot;Components/BoxComponent.h&quot;
 
-#include "SafeDistanceSensor.generated.h"
+#include &quot;SafeDistanceSensor.generated.h&quot;
 
 UCLASS()
 class CARLA_API ASafeDistanceSensor : public ASensor
@@ -409,22 +168,22 @@ private:
 };
 </code></pre>
 <p>在 cpp 文件中，首先我们需要一些包含</p>
-<pre><code class="language-cpp">#include "Carla.h"
-#include "Carla/Sensor/SafeDistanceSensor.h"
+<pre><code class="language-cpp">#include &quot;Carla.h&quot;
+#include &quot;Carla/Sensor/SafeDistanceSensor.h&quot;
 
-#include "Carla/Actor/ActorBlueprintFunctionLibrary.h"
-#include "Carla/Game/CarlaEpisode.h"
-#include "Carla/Util/BoundingBoxCalculator.h"
-#include "Carla/Vehicle/CarlaWheeledVehicle.h"
+#include &quot;Carla/Actor/ActorBlueprintFunctionLibrary.h&quot;
+#include &quot;Carla/Game/CarlaEpisode.h&quot;
+#include &quot;Carla/Util/BoundingBoxCalculator.h&quot;
+#include &quot;Carla/Vehicle/CarlaWheeledVehicle.h&quot;
 </code></pre>
 <p>然后我们就可以继续实现该功能了。构造函数将创建触发框，并告诉虚幻引擎4 我们希望调用我们的勾选函数。如果我们的传感器没有使用刻度功能，我们可以在此处禁用它以避免不必要的刻度</p>
 <pre><code class="language-cpp">ASafeDistanceSensor::ASafeDistanceSensor(const FObjectInitializer &amp;ObjectInitializer)
   : Super(ObjectInitializer)
 {
-  Box = CreateDefaultSubobject&lt;UBoxComponent&gt;(TEXT("BoxOverlap"));
+  Box = CreateDefaultSubobject&lt;UBoxComponent&gt;(TEXT(&quot;BoxOverlap&quot;));
   Box-&gt;SetupAttachment(RootComponent);
   Box-&gt;SetHiddenInGame(true); // Disable for debugging.
-  Box-&gt;SetCollisionProfileName(FName("OverlapAll"));
+  Box-&gt;SetCollisionProfileName(FName(&quot;OverlapAll&quot;));
 
   PrimaryActorTick.bCanEverTick = true;
 }
@@ -433,25 +192,25 @@ private:
 <pre><code class="language-cpp">FActorDefinition ASafeDistanceSensor::GetSensorDefinition()
 {
   auto Definition = UActorBlueprintFunctionLibrary::MakeGenericSensorDefinition(
-      TEXT("other"),
-      TEXT("safe_distance"));
+      TEXT(&quot;other&quot;),
+      TEXT(&quot;safe_distance&quot;));
 
   FActorVariation Front;
-  Front.Id = TEXT("safe_distance_front");
+  Front.Id = TEXT(&quot;safe_distance_front&quot;);
   Front.Type = EActorAttributeType::Float;
-  Front.RecommendedValues = { TEXT("1.0") };
+  Front.RecommendedValues = { TEXT(&quot;1.0&quot;) };
   Front.bRestrictToRecommended = false;
 
   FActorVariation Back;
-  Back.Id = TEXT("safe_distance_back");
+  Back.Id = TEXT(&quot;safe_distance_back&quot;);
   Back.Type = EActorAttributeType::Float;
-  Back.RecommendedValues = { TEXT("0.5") };
+  Back.RecommendedValues = { TEXT(&quot;0.5&quot;) };
   Back.bRestrictToRecommended = false;
 
   FActorVariation Lateral;
-  Lateral.Id = TEXT("safe_distance_lateral");
+  Lateral.Id = TEXT(&quot;safe_distance_lateral&quot;);
   Lateral.Type = EActorAttributeType::Float;
-  Lateral.RecommendedValues = { TEXT("0.5") };
+  Lateral.RecommendedValues = { TEXT(&quot;0.5&quot;) };
   Lateral.bRestrictToRecommended = false;
 
   Definition.Variations.Append({ Front, Back, Lateral });
@@ -465,15 +224,15 @@ private:
   Super::Set(Description);
 
   float Front = UActorBlueprintFunctionLibrary::RetrieveActorAttributeToFloat(
-      "safe_distance_front",
+      &quot;safe_distance_front&quot;,
       Description.Variations,
       1.0f);
   float Back = UActorBlueprintFunctionLibrary::RetrieveActorAttributeToFloat(
-      "safe_distance_back",
+      &quot;safe_distance_back&quot;,
       Description.Variations,
       0.5f);
   float Lateral = UActorBlueprintFunctionLibrary::RetrieveActorAttributeToFloat(
-      "safe_distance_lateral",
+      &quot;safe_distance_lateral&quot;,
       Description.Variations,
       0.5f);
 
@@ -566,8 +325,8 @@ static Buffer Serialize(
 <p>该对象相当于参与者 ID 列表。为此，我们将从 Array 模板派生</p>
 <pre><code class="language-cpp">#pragma once
 
-#include "carla/rpc/ActorId.h"
-#include "carla/sensor/data/Array.h"
+#include &quot;carla/rpc/ActorId.h&quot;
+#include &quot;carla/sensor/data/Array.h&quot;
 
 namespace carla {
 namespace sensor {
@@ -591,10 +350,10 @@ namespace data {
     bases&lt;cs::SensorData&gt;,                     // parent type.
     boost::noncopyable,                        // disable copy.
     boost::shared_ptr&lt;csd::SafeDistanceEvent&gt;  // use as shared_ptr.
-  &gt;("SafeDistanceEvent", no_init)              // name, and disable construction.
-  .def("__len__", &amp;csd::SafeDistanceEvent::size)
-  .def("__iter__", iterator&lt;csd::SafeDistanceEvent&gt;())
-  .def("__getitem__", +[](const csd::SafeDistanceEvent &amp;self, size_t pos) -&gt; cr::ActorId {
+  &gt;(&quot;SafeDistanceEvent&quot;, no_init)              // name, and disable construction.
+  .def(&quot;__len__&quot;, &amp;csd::SafeDistanceEvent::size)
+  .def(&quot;__iter__&quot;, iterator&lt;csd::SafeDistanceEvent&gt;())
+  .def(&quot;__getitem__&quot;, +[](const csd::SafeDistanceEvent &amp;self, size_t pos) -&gt; cr::ActorId {
     return self.at(pos);
   })
 ;
@@ -630,7 +389,7 @@ sensor.listen(callback)
 Vehicle too close: vehicle.mercedes-benz.coupe
 </code></pre>
 <p>就是这样，我们有一个新的传感器正在工作！</p>
-<hr>
+<hr />
 <h2 id="_5">附录</h2>
 <h3 id="_6">重用缓冲区</h3>
 <p>为了优化内存使用，我们可以利用每个传感器发送相似大小的缓冲区的事实；特别是，在相机的情况下，图像的大小在执行期间是恒定的。在这些情况下，我们可以通过重用帧之间分配的内存来节省大量资源。</p>
@@ -663,14 +422,10 @@ buffer.reset(2048u); // (size 2048 bytes, capacity 2048 bytes) -&gt; allocates
 <h3 id="_8">客户端传感器</h3>
 <p>有些传感器不需要仿真器进行测量，这些传感器可以完全在客户端运行，从而使仿真器免于额外的计算。此类传感器的示例是 <em>LaneInvasion</em> 传感器。</p>
 <p>通常的方法是在服务器端创建一个“虚拟”传感器，以便仿真器知道这样的参与者的存在。然而，这个虚拟传感器不会滴答信号，也不会发送任何类型的数据。然而，它在客户端的对应部分注册了一个“on tick”回调，以便在每次新更新时执行一些代码。例如，LaneInvasion 传感器会注册一个回调，每次越过车道标记时都会发出通知。</p>
-<p>考虑到客户端的“on tick”回调是并发执行的，即相同的方法可能由不同的线程同时执行，这一点非常重要。访问的任何数据都必须正确同步，可以使用互斥体、使用原子，或者更好地确保所有访问的成员保持不变。</p></div>
+<p>考虑到客户端的“on tick”回调是并发执行的，即相同的方法可能由不同的线程同时执行，这一点非常重要。访问的任何数据都必须正确同步，可以使用互斥体、使用原子，或者更好地确保所有访问的成员保持不变。</p>
               
             </div>
           </div><footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../tuto_D_contribute_assets/" class="btn btn-neutral float-left" title="如何升级内容"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../tuto_D_create_semantic_tags/" class="btn btn-neutral float-right" title="创建语义标签">Next <span class="icon icon-circle-arrow-right"></span></a>
-    </div>
 
   <hr/>
 
@@ -691,10 +446,6 @@ buffer.reset(2048u); // (size 2048 bytes, capacity 2048 bytes) -&gt; allocates
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../tuto_D_contribute_assets/" style="color: #fcfcfc">&laquo; Previous</a></span>
-    
-    
-      <span><a href="../tuto_D_create_semantic_tags/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
