@@ -64,8 +64,6 @@ Carla 论坛</a>
 
 [__第四、 传感器和数据__](core_sensors.md) — 使用传感器检索仿真数据。
 
-[__交通__](ts_traffic_simulation_overview.md) — 基于 Carla 的交通管理实现。
-
 [__开发__](ts_traffic_simulation_overview.md) — 基于 Carla 的开发。
 
 [__自定义资产__](custom_assets_tutorials.md) — Carla 中资产的的开发。
@@ -81,7 +79,7 @@ Carla 论坛</a>
 
 [__交通管理器__](adv_traffic_manager.md) — 通过将车辆设置为自动驾驶模式来仿真城市交通。
 
-[__SUMO 联合仿真__](adv_sumo.md) — 在 Carla 和 SUMO 之间运行同步仿真。
+[__和 SUMO 联合仿真__](adv_sumo.md) — 在 Carla 和 SUMO 之间运行同步仿真。
 
 [__Scenic__](tuto_G_scenic.md) — 遵循使用 Scenic 库定义不同场景的示例。
 
@@ -227,8 +225,6 @@ Carla 论坛</a>
 
 [__Matlab 接口__](https://github.com/darkscyla/MATLAB-Carla-Interface) 使用 Python 和 ROS 在 Matlab 中调用 Python。
 
-[__Carla 中文站__](https://bbs.carla.org.cn/) — 中文交流社区。
-
 [__罗技 G29 方向盘__](tuto_G_G29_windows.md) — 使用罗技方向盘进行车辆控制和仿真对方向盘的反向控制。
 
 ## 贡献
@@ -245,6 +241,8 @@ Carla 论坛</a>
 [RoadRunner](https://ww2.mathworks.cn/help/roadrunner/index.html) - 用于构建静态场景
 
 [RoadRunner Scenario](https://ww2.mathworks.cn/help/roadrunner-scenario/index.html) - 用于构建动态交通场景。
+
+[__Carla 中文站__](https://bbs.carla.org.cn/) — 中文交流社区。
 
 [__虚幻引擎文档__](https://github.com/OpenHUTB/engine_doc) — 和虚幻引擎相关的操作教程。
 
