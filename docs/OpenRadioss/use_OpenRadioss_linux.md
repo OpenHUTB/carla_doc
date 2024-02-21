@@ -111,11 +111,21 @@
 
 ## OpenRadioss 的使用
 ### 前处理
-* gmsh
+* [gmsh](https://gitlab.onelab.info/gmsh/gmsh) 
+
+1. [使用 Gmsh 的管子接触教程](https://openradioss.atlassian.net/wiki/spaces/OPENRADIOSS/pages/54624257/Tubes+Contact+Tutorial+Using+Gmsh)
+
+2. [使用 Gmsh 的拉伸测试示例教程](https://openradioss.atlassian.net/wiki/spaces/OPENRADIOSS/pages/24444938/Tensile+Test+Example+Tutorial+Using+Gmsh) 
+
 * Hypermesh
 * lsprepost (*)
 ### 计算
+
 ### 后处理
+
+1. [ParaView](https://www.paraview.org/)
+2. [vtk转fbx](https://imagetostl.com/cn/convert/file/vtk/to/fbx) ，然后导入到 Carla 中。
+
 ### 使用 LSDYNA 格式输入 
 #### 测试实例
 测试例子是[拉伸模拟](https://openradioss.atlassian.net/wiki/spaces/OPENRADIOSS/pages/21364914/Tensile+Test+Model+in+LS-DYNA+format "拉伸-LSDYNA")。
