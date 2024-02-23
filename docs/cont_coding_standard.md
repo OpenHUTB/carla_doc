@@ -16,7 +16,7 @@
   * 注释不应超过 80 列，代码不应超过 120 列。
   * 所有代码必须与 Python 2.7 和 3.7 兼容。
   * [Pylint][pylintlink] 不应给出任何错误或警告（很少有例外适用于外部类，如 `numpy` 和 `pygame`，请参阅我们的 `.pylintrc`）。
-  * Python 代码遵循 [PEP8 风格指南][pep8link]（`autopep8`尽可能使用）。
+  * Python 代码遵循 [PEP8 风格指南][pep8link]（尽可能使用`autopep8`）。
 
 [pylintlink]: https://www.pylint.org/
 [pep8link]: https://www.python.org/dev/peps/pep-0008/
