@@ -145,6 +145,9 @@ Carla 论坛</a>
 
 [__生成行人导航__](tuto_M_generate_pedestrian_navigation.md) — 获取行人四处走动所需的信息。
 
+[__数字孪生工具__](adv_digital_twin.md) — 通过 OpenStreetMap 自动生成 Carla 中的道路和建筑。
+
+
 ## 大地图
 
 [__大地图概述__](large_map_overview.md) — Carla 中大地图工作原理的说明

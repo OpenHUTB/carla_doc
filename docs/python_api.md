@@ -1623,29 +1623,29 @@ Z 轴上从原点到点的距离。
 - <a name="carla.Map.get_waypoint"></a>**<font color="#7fb800">get_waypoint</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**location**</font>, <font color="#00a6ed">**project_to_road**=True</font>, <font color="#00a6ed">**lane_type**=[carla.LaneType.Driving](#carla.LaneType.Driving)</font>)<button class="SnipetButton" id="carla.Map.get_waypoint-snipet_button">snippet &rarr;</button>  
 返回可以位于精确位置或转换到最近车道中心的航路点。所述车道类型可以使用诸如 `LaneType.Driving & LaneType.Shoulder` 的标志来定义。如果未找到航路点，该方法将返回<b>None</b> ，这种情况仅在尝试检索确切位置的航路点时可能会发生。这可以轻松检查某个点是否在某条道路内，否则，它将返回相应的路径点。
     - **参数：**
-        - `location` (_[carla.Location](#carla.Location)<small> - meters</small>_) - Location used as reference for the [carla.Waypoint](#carla.Waypoint).  
-        - `project_to_road` (_bool_) - If **True**, the waypoint will be at the center of the closest lane. This is the default setting. If **False**, the waypoint will be exactly in `location`. <b>None</b> means said location does not belong to a road.  
-        - `lane_type` (_[carla.LaneType](#carla.LaneType)_) - Limits the search for nearest lane to one or various lane types that can be flagged.  
-    - **Return:** _[carla.Waypoint](#carla.Waypoint)_  
+        - `location` (_[carla.Location](#carla.Location)<small> - 米</small>_) - 用作 [carla.Waypoint](#carla.Waypoint) 参考的任务。  
+        - `project_to_road` (_bool_) - 如果是 **True**，路径点将位于最近车道的中心。这是默认设置。如果为 **False**，路径点将恰好位于 `location`。 <b>None</b> 表示该位置不属于道路。  
+        - `lane_type` (_[carla.LaneType](#carla.LaneType)_) - 将对最近车道的搜索限制为可以标记的一种或多种车道类型。
+    - **返回：** _[carla.Waypoint](#carla.Waypoint)_  
 - <a name="carla.Map.get_waypoint_xodr"></a>**<font color="#7fb800">get_waypoint_xodr</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**road_id**</font>, <font color="#00a6ed">**lane_id**</font>, <font color="#00a6ed">**s**</font>)  
-Returns a waypoint if all the parameters passed are correct. Otherwise, returns __None__.  
-    - **Parameters:**
-        - `road_id` (_int_) - ID of the road to get the waypoint.  
-        - `lane_id` (_int_) - ID of the lane to get the waypoint.  
-        - `s` (_float<small> - meters</small>_) - Specify the length from the road start.  
-    - **Return:** _[carla.Waypoint](#carla.Waypoint)_  
+如果传递的所有参数都正确，则返回一个航路点。否则，返回 __None__。  
+    - **参数：**
+        - `road_id` (_int_) - 获取路点的道路id。
+        - `lane_id` (_int_) - 获取航路点的车道id。
+        - `s` (_float<small> - 米</small>_) - 指定从道路起点开始的长度。 
+    - **返回：** _[carla.Waypoint](#carla.Waypoint)_  
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.Map.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
 
 ---
 
 ## carla.MapLayer<a name="carla.MapLayer"></a>
-Class that represents each manageable layer of the map. Can be used as flags. __WARNING: Only "Opt" maps are able to work with map layers.__.  
+表示地图的每个可管理层的类。可以用作标志。__警告：只有“Opt”地图才能使用地图图层。__  
 
-### Instance Variables
+### 实例变量
 - <a name="carla.MapLayer.NONE"></a>**<font color="#f8805a">NONE</font>**  
-No layers selected.  
+未选择任何图层。 
 - <a name="carla.MapLayer.Buildings"></a>**<font color="#f8805a">Buildings</font>**  
 - <a name="carla.MapLayer.Decals"></a>**<font color="#f8805a">Decals</font>**  
 - <a name="carla.MapLayer.Foliage"></a>**<font color="#f8805a">Foliage</font>**  
@@ -1656,90 +1656,90 @@ No layers selected.
 - <a name="carla.MapLayer.StreetLights"></a>**<font color="#f8805a">StreetLights</font>**  
 - <a name="carla.MapLayer.Walls"></a>**<font color="#f8805a">Walls</font>**  
 - <a name="carla.MapLayer.All"></a>**<font color="#f8805a">All</font>**  
-All layers selected.  
+选定所有图层。
 
 ---
 
 ## carla.MaterialParameter<a name="carla.MaterialParameter"></a>
-Class that represents material parameters. Not all objects in the scene contain all parameters.  
+表示材料参数的类。并非场景中的所有对象都包含所有参数。
 
-### Instance Variables
+### 实例变量
 - <a name="carla.MaterialParameter.Normal"></a>**<font color="#f8805a">Normal</font>**  
-The Normal map of the object. Present in all objects.  
+对象的法线贴图。存在于一切物体中。
 - <a name="carla.MaterialParameter.Diffuse"></a>**<font color="#f8805a">Diffuse</font>**  
-The Diffuse texture of the object. Present in all objects.  
+物体的漫反射纹理。存在于一切物体中。
 - <a name="carla.MaterialParameter.AO_Roughness_Metallic_Emissive"></a>**<font color="#f8805a">AO_Roughness_Metallic_Emissive</font>**  
-A texture where each color channel represent a property of the material (R: Ambien oclusion, G: Roughness, B: Metallic, A: Emissive/Height map in some objects).  
+每个颜色通道代表材质属性的纹理（R：环境光遮挡，G：粗糙度，B：金属，A：某些物体中的发射/高度贴图）。
 - <a name="carla.MaterialParameter.Emissive"></a>**<font color="#f8805a">Emissive</font>**  
-Emissive texture. Present in a few objects.  
+发射纹理。存在于一些物体中。
 
 ---
 
 ## carla.ObstacleDetectionEvent<a name="carla.ObstacleDetectionEvent"></a>
-<small style="display:block;margin-top:-20px;">Inherited from _[carla.SensorData](#carla.SensorData)_</small></br>
-Class that defines the obstacle data for <b>sensor.other.obstacle</b>. Learn more about this [here](ref_sensors.md#obstacle-detector).  
+<small style="display:block;margin-top:-20px;">继承自 _[carla.SensorData](#carla.SensorData)_</small></br>
+定义 sensor.other.obstacle 障碍物数据的类。在 [这里](ref_sensors.md#obstacle-detector) 了解更多相关信息。
 
-### Instance Variables
+### 实例变量
 - <a name="carla.ObstacleDetectionEvent.actor"></a>**<font color="#f8805a">actor</font>** (_[carla.Actor](#carla.Actor)_)  
-The actor the sensor is attached to.  
+传感器所连接的参与者。
 - <a name="carla.ObstacleDetectionEvent.other_actor"></a>**<font color="#f8805a">other_actor</font>** (_[carla.Actor](#carla.Actor)_)  
-The actor or object considered to be an obstacle.  
-- <a name="carla.ObstacleDetectionEvent.distance"></a>**<font color="#f8805a">distance</font>** (_float<small> - meters</small>_)  
-Distance between `actor` and `other`.  
+被视为障碍的参与者或物体。 
+- <a name="carla.ObstacleDetectionEvent.distance"></a>**<font color="#f8805a">distance</font>** (_float<small> - 米</small>_)  
+参与者 `actor` 和其他人 `other` 之间的距离。  
 
-### Methods
+### 方法
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.ObstacleDetectionEvent.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
 
 ---
 
 ## carla.OpendriveGenerationParameters<a name="carla.OpendriveGenerationParameters"></a>
-This class defines the parameters used when generating a world using an OpenDRIVE file.  
+此类定义使用 OpenDRIVE 文件生成世界时使用的参数。  
 
-### Instance Variables
+### 实例变量
 - <a name="carla.OpendriveGenerationParameters.vertex_distance"></a>**<font color="#f8805a">vertex_distance</font>** (_float_)  
-Distance between vertices of the mesh generated. __Default is `2.0`__.  
+生成的网格顶点之间的距离。__默认值为 `2.0`__。 
 - <a name="carla.OpendriveGenerationParameters.max_road_length"></a>**<font color="#f8805a">max_road_length</font>** (_float_)  
-Max road length for a single mesh portion. The mesh of the map is divided into portions, in order to avoid propagating issues. __Default is `50.0`__.  
+单个网格部分的最大道路长度。地图的网格被分为多个部分，以避免传播问题。__默认值为 `50.0`__。 
 - <a name="carla.OpendriveGenerationParameters.wall_height"></a>**<font color="#f8805a">wall_height</font>** (_float_)  
-Height of walls created on the boundaries of the road. These prevent vehicles from falling off the road. __Default is `1.0`__.  
+在道路边界上创建的墙壁的高度。这些可以防止车辆从道路上掉下来。__默认值为 `1.0`__。 
 - <a name="carla.OpendriveGenerationParameters.additional_width"></a>**<font color="#f8805a">additional_width</font>** (_float_)  
-Additional with applied junction lanes. Complex situations tend to occur at junctions, and a little increase can prevent vehicles from falling off the road.  __Default is `0.6`__.  
+另外还有应用的连接车道。复杂的情况往往发生在路口，稍微增加一点就可以防止车辆坠落路面。__默认值为 `0.6`__。 
 - <a name="carla.OpendriveGenerationParameters.smooth_junctions"></a>**<font color="#f8805a">smooth_junctions</font>** (_bool_)  
-If __True__, the mesh at junctions will be smoothed to prevent issues where roads blocked other roads. __Default is `True`__.  
+如果为 __True__，交叉点处的网格将被平滑，以防止道路阻塞其他道路的问题。__默认为 `True`__。 
 - <a name="carla.OpendriveGenerationParameters.enable_mesh_visibility"></a>**<font color="#f8805a">enable_mesh_visibility</font>** (_bool_)  
-If __True__, the road mesh will be rendered. Setting this to __False__ should reduce the rendering overhead.  __Default is `True`__.  
+如果为 __True__，将渲染道路网格。将其设置为 False 应该会减少渲染开销。__默认为 `True`__。 
 - <a name="carla.OpendriveGenerationParameters.enable_pedestrian_navigation"></a>**<font color="#f8805a">enable_pedestrian_navigation</font>** (_bool_)  
-If __True__, Pedestrian navigation will be enabled using Recast tool. For very large maps it is recomended to disable this option. __Default is `True`__.  
+如果为 __True__，将使用 Recast 工具启用行人导航。对于非常大的地图，建议禁用此选项。__默认为 `True`__。 
 
 ---
 
 ## carla.OpticalFlowImage<a name="carla.OpticalFlowImage"></a>
 <small style="display:block;margin-top:-20px;">Inherited from _[carla.SensorData](#carla.SensorData)_</small></br>
-Class that defines an optical flow image of 2-Dimension float (32-bit) vectors representing the optical flow detected in the field of view. The components of the vector represents the displacement of an object in the image plane. Each component outputs values in the normalized range [-2,2] which scales to [-2 size, 2 size] with size being the total resolution in the corresponding component.  
+定义表示视场中检测到的光流的二维浮点（32 位）向量的光流图像的类。矢量的分量表示物体在图像平面中的位移。每个组件输出归一化范围 [-2,2] 内的值，该范围缩放为 [-2 size，2 size]，大小是相应组件中的总分辨率。 
 
-### Instance Variables
+### 实例变量
 - <a name="carla.OpticalFlowImage.fov"></a>**<font color="#f8805a">fov</font>** (_float<small> - degrees</small>_)  
-Horizontal field of view of the image.  
+图像的水平视野。 
 - <a name="carla.OpticalFlowImage.height"></a>**<font color="#f8805a">height</font>** (_int_)  
-Image height in pixels.  
+图像高度（以像素为单位）。
 - <a name="carla.OpticalFlowImage.width"></a>**<font color="#f8805a">width</font>** (_int_)  
-Image width in pixels.  
+图像宽度（以像素为单位）。
 - <a name="carla.OpticalFlowImage.raw_data"></a>**<font color="#f8805a">raw_data</font>** (_bytes_)  
-Flattened array of pixel data, use reshape to create an image array.  
+展平像素数据数组，使用 reshape 创建图像数组。
 
-### Methods
+### 方法
 
-##### Getters
+##### 获取器
 - <a name="carla.OpticalFlowImage.get_color_coded_flow"></a>**<font color="#7fb800">get_color_coded_flow</font>**(<font color="#00a6ed">**self**</font>)  
-Visualization helper. Converts the optical flow image to an RGB image.  
-    - **Return:** _[carla.Image](#carla.Image)_  
+可视化助手。将光流图像转换为 RGB 图像。
+    - **返回：** _[carla.Image](#carla.Image)_  
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.OpticalFlowImage.__getitem__"></a>**<font color="#7fb800">\__getitem__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**pos**=int</font>)  
 - <a name="carla.OpticalFlowImage.__iter__"></a>**<font color="#7fb800">\__iter__</font>**(<font color="#00a6ed">**self**</font>)  
-Iterate over the [carla.OpticalFlowPixel](#carla.OpticalFlowPixel) that form the image.  
+迭代形成图像的 [carla.OpticalFlowPixel](#carla.OpticalFlowPixel) 。
 - <a name="carla.OpticalFlowImage.__len__"></a>**<font color="#7fb800">\__len__</font>**(<font color="#00a6ed">**self**</font>)  
 - <a name="carla.OpticalFlowImage.__setitem__"></a>**<font color="#7fb800">\__setitem__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**pos**=int</font>, <font color="#00a6ed">**color**=[carla.Color](#carla.Color)</font>)  
 - <a name="carla.OpticalFlowImage.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
@@ -1747,22 +1747,22 @@ Iterate over the [carla.OpticalFlowPixel](#carla.OpticalFlowPixel) that form the
 ---
 
 ## carla.OpticalFlowPixel<a name="carla.OpticalFlowPixel"></a>
-Class that defines a 2 dimensional vector representing an optical flow pixel.  
+定义表示光流像素的二维向量的类。
 
-### Instance Variables
+### 实例变量
 - <a name="carla.OpticalFlowPixel.x"></a>**<font color="#f8805a">x</font>** (_float_)  
-Optical flow in the x component.  
+x 分量中的光流。
 - <a name="carla.OpticalFlowPixel.y"></a>**<font color="#f8805a">y</font>** (_float_)  
-Optical flow in the y component.  
+y 分量中的光流。
 
-### Methods
+### 方法
 - <a name="carla.OpticalFlowPixel.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**x**=0</font>, <font color="#00a6ed">**y**=0</font>)  
-Initializes the Optical Flow Pixel. Zero by default.  
-    - **Parameters:**
+初始化光流像素。默认为零。
+    - **参数：**
         - `x` (_float_)  
         - `y` (_float_)  
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.OpticalFlowPixel.__eq__"></a>**<font color="#7fb800">\__eq__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.OpticalFlowPixel](#carla.OpticalFlowPixel)</font>)  
 - <a name="carla.OpticalFlowPixel.__ne__"></a>**<font color="#7fb800">\__ne__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.OpticalFlowPixel](#carla.OpticalFlowPixel)</font>)  
 - <a name="carla.OpticalFlowPixel.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
@@ -1770,57 +1770,57 @@ Initializes the Optical Flow Pixel. Zero by default.
 ---
 
 ## carla.Osm2Odr<a name="carla.Osm2Odr"></a>
-Class that converts an OpenStreetMap map to OpenDRIVE format, so that it can be loaded in CARLA. Find out more about this feature in the [docs](tuto_G_openstreetmap.md).  
+将 OpenStreetMap 地图转换为 OpenDRIVE 格式的类，以便可以在 Carla 中加载。在 [文档](tuto_G_openstreetmap.md) 中了解有关此功能的更多信息。  
 
-### Methods
+### 方法
 - <a name="carla.Osm2Odr.convert"></a>**<font color="#7fb800">convert</font>**(<font color="#00a6ed">**osm_file**</font>, <font color="#00a6ed">**settings**</font>)  
-Takes the content of an <code>.osm</code> file (OpenStreetMap format) and returns the content of the <code>.xodr</code> (OpenDRIVE format) describing said map. Some parameterization is passed to do the conversion.  
-    - **Parameters:**
-        - `osm_file` (_str_) - The content of the input OpenStreetMap file parsed as string.  
-        - `settings` (_[carla.OSM2ODRSettings](#carla.OSM2ODRSettings)_) - Parameterization for the conversion.  
-    - **Return:** _str_  
+获取 <code>.osm</code> 文件（OpenStreetMap 格式）的内容并返回描述所述地图的 <code>.xodr</code>（OpenDRIVE 格式）的内容。传递一些参数化来进行转换。
+    - **参数：**
+        - `osm_file` (_str_) - 输入 OpenStreetMap 文件的内容解析为字符串。
+        - `settings` (_[carla.OSM2ODRSettings](#carla.OSM2ODRSettings)_) - 转换的参数化。  
+    - **返回：** _str_  
 
 ---
 
 ## carla.Osm2OdrSettings<a name="carla.Osm2OdrSettings"></a>
-Helper class that contains the parameterization that will be used by [carla.Osm2Odr](#carla.Osm2Odr) to convert an OpenStreetMap map to OpenDRIVE format. Find out more about this feature in the [docs](tuto_G_openstreetmap.md).  
+包含 [carla.Osm2Odr](#carla.Osm2Odr) 将使用的参数化的帮助程序类，用于将 OpenStreetMap 地图转换为 OpenDRIVE 格式。在 [文档](tuto_G_openstreetmap.md) 中了解有关此功能的更多信息。
 
-### Instance Variables
+### 实例变量
 - <a name="carla.Osm2OdrSettings.use_offsets"></a>**<font color="#f8805a">use_offsets</font>** (_bool_)  
-Enables the use of offset for the conversion. The offset will move the origin position of the map. Default value is __False__.  
+允许使用偏移量进行转换。偏移量将移动地图的原点位置。默认值为 __False__。 
 - <a name="carla.Osm2OdrSettings.offset_x"></a>**<font color="#f8805a">offset_x</font>** (_float<small> - meters</small>_)  
-Offset in the X axis.  Default value is __0.0__.  
+X 轴偏移。默认值为 __0.0__。
 - <a name="carla.Osm2OdrSettings.offset_y"></a>**<font color="#f8805a">offset_y</font>** (_float<small> - meters</small>_)  
-Offset in the Y axis.  Default value is __0.0__.  
+Y 轴偏移。默认值为 __0.0__。 
 - <a name="carla.Osm2OdrSettings.default_lane_width"></a>**<font color="#f8805a">default_lane_width</font>** (_float<small> - meters</small>_)  
-Width of the lanes described in the resulting XODR map. Default value is __4.0__.  
+生成的 XODR 地图中描述的车道宽度。默认值为 __4.0__。 
 - <a name="carla.Osm2OdrSettings.elevation_layer_height"></a>**<font color="#f8805a">elevation_layer_height</font>** (_float<small> - meters</small>_)  
-Defines the height separating two different [OpenStreetMap layers](https://wiki.openstreetmap.org/wiki/Key:layer). Default value is __0.0__.  
+定义分隔两个不同 [OpenStreetMap 图层](https://wiki.openstreetmap.org/wiki/Key:layer) 的高度。默认值为 __0.0__。 
 - <a name="carla.Osm2OdrSettings.center_map"></a>**<font color="#f8805a">center_map</font>** (_bool_)  
-When this option is enabled, the geometry of the map will be displaced so that the origin of coordinates matches the center of the bounding box of the entire road map.  
+启用此选项后，地图的几何图形将发生位移，以使坐标原点与整个道路地图的边界框中心相匹配。
 - <a name="carla.Osm2OdrSettings.proj_string"></a>**<font color="#f8805a">proj_string</font>** (_str_)  
-Defines the [proj4](https://github.com/OSGeo/proj.4) string that will be used to compute the projection from geocoordinates to cartesian coordinates. This string will be written in the resulting OpenDRIVE unless the options `use_offsets` or `center_map` are enabled as these options override some of the definitions in the string.  
+定义将用于计算从地理坐标到笛卡尔坐标的投影的 [proj4](https://github.com/OSGeo/proj.4) 字符串。该字符串将写入生成的 OpenDRIVE 中，除非启用了 `use_offsets` 或 `center_map` 选项，因为这些选项会覆盖字符串中的某些定义。
 - <a name="carla.Osm2OdrSettings.generate_traffic_lights"></a>**<font color="#f8805a">generate_traffic_lights</font>** (_bool_)  
-Indicates wether to generate traffic light data in the OpenDRIVE. Road types defined by `set_traffic_light_excluded_way_types(way_types)` will not generate traffic lights.  
+指示是否在OpenDRIVE中生成红绿灯数据。 `set_traffic_light_excluded_way_types(way_types)` 定义的道路类型不会生成交通信号灯。
 - <a name="carla.Osm2OdrSettings.all_junctions_with_traffic_lights"></a>**<font color="#f8805a">all_junctions_with_traffic_lights</font>** (_bool_)  
-When disabled, the converter will generate traffic light data from the OpenStreetMaps data only. When enabled, all junctions will generate traffic lights.  
+禁用时，转换器将仅从 OpenStreetMaps 数据生成交通灯数据。启用后，所有路口都会生成交通信号灯。
 
-### Methods
+### 方法
 
-##### Setters
+##### 设置器
 - <a name="carla.Osm2OdrSettings.set_osm_way_types"></a>**<font color="#7fb800">set_osm_way_types</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**way_types**</font>)  
-Defines the OpenStreetMaps road types that will be imported to OpenDRIVE. By default the road types imported are `motorway, motorway_link, trunk, trunk_link, primary, primary_link, secondary, secondary_link, tertiary, tertiary_link, unclassified, residential`. For a full list of road types check [here](https://wiki.openstreetmap.org/wiki/Main_Page).  
-    - **Parameters:**
-        - `way_types` (_list(str)_) - The list of road types.  
+定义将导入到 OpenDRIVE 的 OpenStreetMaps 道路类型。默认情况下，导入的道路类型为`motorway, motorway_link, trunk, trunk_link, primary, primary_link, secondary, secondary_link, tertiary, tertiary_link, unclassified, residential`。有关道路类型的完整列表，请查看 [此处](https://wiki.openstreetmap.org/wiki/Main_Page) 。
+    - **参数：**
+        - `way_types` (_list(str)_) - 道路类型列表。
 - <a name="carla.Osm2OdrSettings.set_traffic_light_excluded_way_types"></a>**<font color="#7fb800">set_traffic_light_excluded_way_types</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**way_types**</font>)  
-Defines the OpenStreetMaps road types that will not generate traffic lights even if `generate_traffic_lights` is enabled. By default the road types excluded are `motorway_link, primary_link, secondary_link, tertiary_link`.  
-    - **Parameters:**
-        - `way_types` (_list(str)_) - The list of road types.  
+定义即使启用`generate_traffic_lights`也不会生成交通灯的 OpenStreetMaps 道路类型。默认情况下，排除的道路类型为 `motorway_link, primary_link, secondary_link, tertiary_link`。 
+    - **参数：**
+        - `way_types` (_list(str)_) - 道路类型列表。
 
 ---
 
 ## carla.RadarDetection<a name="carla.RadarDetection"></a>
-Data contained inside a [carla.RadarMeasurement](#carla.RadarMeasurement). Each of these represents one of the points in the cloud that a <b>sensor.other.radar</b> registers and contains the distance, angle and velocity in relation to the radar.  
+[carla.RadarMeasurement](#carla.RadarMeasurement) 中包含的数据。其中每一个都代表传感器.<b>sensor.other.radar</b>  记录的云中的点之一，并包含与雷达相关的距离、角度和速度。 
 
 ### Instance Variables
 - <a name="carla.RadarDetection.altitude"></a>**<font color="#f8805a">altitude</font>** (_float<small> - radians</small>_)  
