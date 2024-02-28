@@ -1,9 +1,5 @@
 # 计划
 
-* [车辆碰撞](https://github.com/OpenRadioss/OpenRadioss)
-
-* 行人控制和自主导航
-
 * [VS硬盘版制作](https://theoractice.github.io/)
 
 
