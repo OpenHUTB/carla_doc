@@ -7,7 +7,7 @@ title: 主页
 此主页包含一个索引，其中简要说明了文档中的不同部分。随意按喜欢的顺序阅读。无论如何，这里有一些给新手的建议。
 
 * __安装 Carla.__ 要么按照[快速开始安装](start_quickstart.md) 获得 Carla 版本，要么按照所需平台[进行构建](build_linux.md)。
-* __开始使用 Carla.__ 标题为 [第一步](core_concepts.md) 的部分介绍了最重要的概念。
+* __开始使用 Carla.__ 标题为 [第一步](tuto_first_steps.md) 的部分介绍了最重要的概念。
 * __检查 API.__ 有一个方便的 [Python API 参考](python_api.md) 来查找可用的类和方法。
 
 Carla 论坛可以发布在阅读过程中可能出现的任何疑问或建议。
