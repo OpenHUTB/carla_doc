@@ -82,7 +82,7 @@ __2. 阅读文档。__ 确保问题是一个错误，而不是对 Carla 应该�
 
 艺术贡献包括车辆、行人、地图或 Carla 中使用的任何其他类型的资产。这些存储在 BitBucket 存储库中，该存储库有一些帐户空间限制。出于上述原因，贡献者必须与 Carla 团队联系，并要求他们在内容存储库上为贡献创建一个分支。
 
-__1. 创建BitBucket账户。__ 访问 [Bitbucket 页面](https://bitbucket.org).  
+__1. 创建BitBucket账户。__ 访问 [Bitbucket 页面](https://bitbucket.org/carla-simulator/carla-content/src/master/) 。 
 
 __2. 联系艺术团队以获取内容存储库的访问权限。__ 加入 [Discord 服务器](https://discord.com/invite/8kqACuC)。转至 __贡献者__ 频道并请求访问内容存储库。 
 
@@ -119,7 +119,7 @@ __2. 安装 [MkDocs](http://www.mkdocs.org/).__ MkDocs 是一个用于构建文�
 sudo pip install mkdocs
 ```
 
-__3. 可视化文档。__ 在主 Carla 文件夹中，运行以下命令并单击终端中显示的链接 (http://127.0.0.1:8000) 以打开文档的本地可视化。
+__3. 可视化文档。__ 在主 Carla 文件夹中，运行以下命令并单击终端中显示的 [链接](http://127.0.0.1:8000) 以打开文档的本地可视化。
 
 ```sh
 mkdocs serve
