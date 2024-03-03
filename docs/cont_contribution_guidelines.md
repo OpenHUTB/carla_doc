@@ -18,7 +18,7 @@ Carla 团队很高兴接受任何愿意合作的人的贡献。根据贡献者�
 ---
 ## 报告错误
 
-可以在 GitHub 上的 [issue 部分][issueslink] 报告问题。在报告新错误之前，请务必进行一些检查。
+可以在 GitHub 上的 [Issues 部分][issueslink] 报告问题。在报告新错误之前，请务必进行一些检查。
 
 __1. 检查是否已报告问题。__ 在 GitHub 上的同一问题部分查找它。
 
@@ -38,7 +38,7 @@ __2. 阅读文档。__ 确保问题是一个错误，而不是对 Carla 应该�
 ---
 ## 代码贡献
 
-在开始动手编码之前，请查看 [issue 板块][issueboard] 以了解团队已经在做什么，以避免重叠。如有疑问或讨论如何继续，请联系我们之一（或发送电子邮件至 <carla.simulator@gmail.com>）。
+在开始动手编码之前，请查看 [Issues 板块][issueboard] 以了解团队已经在做什么，以避免重叠。如有疑问或讨论如何继续，请联系我们之一（或发送电子邮件至 <carla.simulator@gmail.com>）。
 
 
 为了开始工作，请 [创建 Carla 存储库的分叉](https://docs.github.com/en/enterprise/2.13/user/articles/fork-a-repo) ，并将所述分叉克隆到您的计算机中。请记住使您的分叉与原始存储库 [保持同步](https://docs.github.com/en/enterprise/2.13/user/articles/syncing-a-fork) 。
@@ -47,7 +47,7 @@ __2. 阅读文档。__ 确保问题是一个错误，而不是对 Carla 应该�
 
 ### 了解虚幻引擎
 
-有关使用虚幻引擎 4 进行 C++ 编程的基本介绍，请参阅 Unreal 的 [C++ 编程教程][ue4tutorials]。网上还有其他选项，其中一些不是免费的。[Udemy 的虚幻 C++ 课程][ue4course]非常完整，并且通常提供价格非常实惠的优惠。
+有关使用虚幻引擎 4 进行 C++ 编程的基本介绍，请参阅虚幻引擎的 [C++ 编程教程][ue4tutorials]。网上还有其他选项，其中一些不是免费的。[Udemy 的虚幻 C++ 课程][ue4course]非常完整，并且通常提供价格非常实惠的优惠。
 
 [ue4tutorials]: https://docs.unrealengine.com/latest/INT/Programming/Tutorials/
 [ue4course]: https://www.udemy.com/unrealcourse/
@@ -72,10 +72,10 @@ __2. 阅读文档。__ 确保问题是一个错误，而不是对 Carla 应该�
 
 ### 清单  
 
-*   [ ] 您的分支已与 `dev` 分支保持同步，并通过最新更改进行了测试。
-*   [ ] 如有必要，扩展 README/文档。
-*   [ ] 代码编译正确。
-*   [ ] 所有测试均通过 `make check`。
+*   您的分支已与 `dev` 分支保持同步，并通过最新更改进行了测试。
+*   如有必要，扩展 README/文档。
+*   代码编译正确。
+*   所有测试均通过 `make check`。
 
 ---
 ## 艺术贡献
@@ -84,7 +84,7 @@ __2. 阅读文档。__ 确保问题是一个错误，而不是对 Carla 应该�
 
 __1. 创建BitBucket账户。__ 访问 [Bitbucket 页面](https://bitbucket.org/carla-simulator/carla-content/src/master/) 。 
 
-__2. 联系艺术团队以获取内容存储库的访问权限。__ 加入 [Discord 服务器](https://discord.com/invite/8kqACuC)。转至 __贡献者__ 频道并请求访问内容存储库。 
+__2. 联系艺术团队以获取内容存储库的访问权限。__ 加入 [Discord 服务器](https://discord.com/invite/8kqACuC) 。转至 __贡献者__ 频道并请求访问内容存储库。 
 
 __3. 将为每个贡献者创建一个分支。__ 该分支将被命名为 `contributors/contributor_name`。该用户所做的所有贡献都应在相应的分支中做出。
 
@@ -116,7 +116,7 @@ __1. 从源代码构建 Carla。__ 按照文档中的步骤在 [Linux](build_lin
 __2. 安装 [MkDocs](http://www.mkdocs.org/).__ MkDocs 是一个用于构建文档的静态站点生成器。
 
 ```sh
-sudo pip install mkdocs
+pip install mkdocs
 ```
 
 __3. 可视化文档。__ 在主 Carla 文件夹中，运行以下命令并单击终端中显示的 [链接](http://127.0.0.1:8000) 以打开文档的本地可视化。
