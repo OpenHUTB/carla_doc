@@ -80,7 +80,7 @@ __7.__ 通过启动仿真并运行 `PythonAPI/examples` 中的示例脚本 `gene
 
 ---
 
-If you have any questions about the process, then you can ask in the [forum](https://github.com/carla-simulator/carla/discussions).
+如果关于流程有任何问题，您可以在 [论坛](https://github.com/carla-simulator/carla/discussions) 中提问。
 
 <div class="build-buttons">
 <p>

@@ -263,7 +263,7 @@ while True:
 
 这就是关于仿真时间和客户端-服务器同步在 Carla 中的作用的全部信息。
 
-Open Carla and mess around for a while. Any suggestions or doubts are welcome in the forum. 
+打开 Carla，玩一会儿。欢迎在论坛中提出任何建议或疑问。
 
 <div class="build-buttons">
 <p>

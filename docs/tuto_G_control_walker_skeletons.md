@@ -133,3 +133,5 @@ second_tuple = ('crl_hand__L', carla.Transform(rotation=carla.Rotation(roll=90))
 control.bone_transforms = [first_tuple, second_tuple]
 world.player.apply_control(control)
 ```
+
+

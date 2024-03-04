@@ -90,7 +90,7 @@ __3. 将为每个贡献者创建一个分支。__ 该分支将被命名为 `cont
 
 __4. 构建 Carla。__ 为了做出贡献，Carla 构建是必要的。按照说明在 [Linux](https://carla.readthedocs.io/en/latest/build_linux/) 或 [Windows](https://carla.readthedocs.io/en/latest/build_windows/) 中构建。
 
-__5. 下载内容存储库。__ 按照说明更新 [此处](https://carla.readthedocs.io/en/latest/build_update/#get-development-assets) 的内容。
+__5. 下载内容存储库。__ 按照说明更新 [此处](https://openhutb.github.io/carla_doc/build_update/#get-development-assets) 的内容。
 
 __6. 更新分支以与 master 同步。__ 分支应始终使用 master 中的最新更改进行更新。
 

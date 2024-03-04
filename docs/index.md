@@ -84,6 +84,15 @@ Carla 论坛</a>
 [__Scenic__](tuto_G_scenic.md) — 遵循使用 Scenic 库定义不同场景的示例。
 
 
+## 行人
+
+[__行人骨骼__](tuto_G_pedestrian_bones) - 使用骨骼为步行者设置动画。
+
+[__控制行人骨架__](tuto_G_control_walker_skeletons.md) — 使用骨骼为步行者设置动画。
+
+[__生成行人导航__](tuto_M_generate_pedestrian_navigation.md) — 获取行人四处走动所需的信息。
+
+
 ## 高级概念
 
 [__OpenDRIVE 独立模式__](adv_opendrive.md) — 使用任何 OpenDRIVE 文件作为 Carla 地图。
@@ -143,8 +152,6 @@ Carla 论坛</a>
 
 [__自定义地图：天气和景观__](tuto_M_custom_weather_landscape.md) — 为您的自定义地图创建天气配置文件并填充景观
 
-[__生成行人导航__](tuto_M_generate_pedestrian_navigation.md) — 获取行人四处走动所需的信息。
-
 [__数字孪生工具__](adv_digital_twin.md) — 通过 OpenStreetMap 自动生成 Carla 中的道路和建筑。
 
 
@@ -162,8 +169,6 @@ Carla 论坛</a>
 [__添加摩擦触发器__](tuto_G_add_friction_triggers.md) - 定义车轮的动态框触发器
 
 [__控制车辆物理模型__](tuto_G_control_vehicle_physics.md) - 设置车辆物理的运行时的变化
-
-[__控制行人骨骼__](tuto_G_control_walker_skeletons.md) — 使用骨骼为步行者设置动画
 
 [__使用 OpenStreetMap 生成地图__](tuto_G_openstreetmap.md) — 使用 OpenStreetMap 生成用于仿真的地图。
 
