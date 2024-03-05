@@ -73,7 +73,7 @@ Carla 论坛</a>
 [__内容创作 - 车辆__](tuto_content_authoring_vehicles.md) — 自定义车辆的创作。
 
 
-## 交通仿真
+## 交通
 
 [__交通仿真概述__](ts_traffic_simulation_overview.md) — 可用于使用交通填充场景的不同选项的概述
 
@@ -89,6 +89,8 @@ Carla 论坛</a>
 [__行人骨骼__](tuto_G_pedestrian_bones) - 使用骨骼为步行者设置动画。
 
 [__控制行人骨架__](tuto_G_control_walker_skeletons.md) — 使用骨骼为步行者设置动画。
+
+[__行人视觉__]()
 
 [__生成行人导航__](tuto_M_generate_pedestrian_navigation.md) — 获取行人四处走动所需的信息。
 
@@ -148,18 +150,20 @@ Carla 论坛</a>
 
 [__自定义地图：道路画家__](tuto_M_custom_road_painter.md) — 如何使用道路画家工具改变道路的外观
 
-[__自定义地图：程序建筑__](tuto_M_custom_buildings.md) — 用建筑物填充您的自定义地图
-
 [__自定义地图：天气和景观__](tuto_M_custom_weather_landscape.md) — 为您的自定义地图创建天气配置文件并填充景观
+
+[__使用 OpenStreetMap 生成地图__](tuto_G_openstreetmap.md) — 使用 OpenStreetMap 生成用于仿真的地图。
+
+[__自定义地图：程序建筑__](tuto_M_custom_buildings.md) — 用建筑物填充您的自定义地图。
 
 [__数字孪生工具__](adv_digital_twin.md) — 通过 OpenStreetMap 自动生成 Carla 中的道路和建筑。
 
 
 ## 大地图
 
-[__大地图概述__](large_map_overview.md) — Carla 中大地图工作原理的说明
+[__大地图概述__](large_map_overview.md) — Carla 中大地图工作原理的说明。
 
-[__在 RoadRunner 中创建大地图__](large_map_roadrunner.md) — 如何在 RoadRunner 中创建大地图
+[__在 RoadRunner 中创建大地图__](large_map_roadrunner.md) — 如何在 RoadRunner 中创建大地图。
 
 [__导入/打包大地图__](large_map_import.md) — 如何导入大地图
 
@@ -169,8 +173,6 @@ Carla 论坛</a>
 [__添加摩擦触发器__](tuto_G_add_friction_triggers.md) - 定义车轮的动态框触发器
 
 [__控制车辆物理模型__](tuto_G_control_vehicle_physics.md) - 设置车辆物理的运行时的变化
-
-[__使用 OpenStreetMap 生成地图__](tuto_G_openstreetmap.md) — 使用 OpenStreetMap 生成用于仿真的地图。
 
 [__检索仿真数据__](tuto_G_retrieve_data.md) — 使用记录器正确收集数据的分步指南。
 

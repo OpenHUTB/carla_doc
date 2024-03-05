@@ -30,7 +30,7 @@ __2.__ 搜索您想要的位置并放大到特定区域。
 ![openstreetmap_view](img/tuto_g_osm_web.jpg)
 
 !!! 笔记
-    如果您想使用大范围的地图，例如巴黎，您可以考虑使用 Carla 的 [__大地图功能](large_map_overview.md) 。
+    如果您想使用大范围的地图，例如巴黎，您可以考虑使用 Carla 的 [__大地图功能__ ](large_map_overview.md) 。
 
 __3.__ 单击窗口左上角的“导出( _Export_ )”以打开“导出(_Export_)”面板。
 
@@ -199,7 +199,8 @@ python3 config.py --osm-path=/path/to/OSM/file
 无论使用哪种方法，地图都将被导入到 Carla 中，结果应类似于下图：
 
 ![opendrive_meshissue](img/tuto_g_osm_carla.jpg)
-<div style="text-align: right"><i>使用 OpenStreetMap 生成 Carla 地图的结果。</i></div>
+<center> 使用 OpenStreetMap 生成 Carla 地图的结果。 </center>
+
 
 <br>
 !!! 警告

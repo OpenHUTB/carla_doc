@@ -430,7 +430,7 @@ points = np.reshape(points, (len(radar_data), 4))
 由于这些效果是由虚幻引擎提供的，请务必检查他们的文档：
 
   * [自动曝光][AutomaticExposure.Docs]
-  * [Cinematic Depth of Field Method][CinematicDOFMethod.Docs]
+  * [影视级景深方案][CinematicDOFMethod.Docs]
   * [颜色分级和电影色调映射器][ColorGrading.Docs]
 
 [AutomaticExposure.Docs]: https://docs.unrealengine.com/en-US/Engine/Rendering/PostProcessEffects/AutomaticExposure/index.html

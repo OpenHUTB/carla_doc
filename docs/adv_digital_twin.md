@@ -54,6 +54,11 @@ cd {CARLA_ROOT}/Build/libosmcout-source/maps/
 
 使用方向箭头和缩放图标导航地图并找到要转换为 Carla 地图的道路网的一部分。您在预览中看到的方形区域将是地图的范围。在字段中输入适当的名称 `File Name` 然后按 *Generate* 开始程序生成过程。地图生成过程可能需要几分钟，如果您使用的是大区域，则可能需要更长的时间。
 
+先启动Carla服务，然后运行以下脚本从`.osm`文件中加载场景：
+```shell
+python src/util/config.py -x *.xodr
+```
+
 ## 程序化境生成
 
 ### 道路装饰
