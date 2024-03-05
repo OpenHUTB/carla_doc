@@ -146,7 +146,7 @@
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">自定义地图</span></p>
-              <ul>
+              <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_map_overview/">Carla 中自定义地图的概述</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
@@ -165,25 +165,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_road_painter/">自定义地图：道路画家</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_buildings/">自定义地图：程序建筑</a>
-                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_weather_landscape/">自定义地图：天气和景观</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">大地图</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../large_map_overview/">大地图概述</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../large_map_roadrunner/">在RoadRunner中创建大地图</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../large_map_import/">导入/打包大地图</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">教程（通用）</span></p>
-              <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_add_friction_triggers/">添加摩擦触发器</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_vehicle_physics/">控制车辆物理模型</a>
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">使用 OpenStreetMap 生成地图</a>
     <ul class="current">
@@ -212,6 +194,26 @@
         </ul>
     </li>
     </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_buildings/">自定义地图：程序建筑</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_digital_twin/">数字孪生工具</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">大地图</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_overview/">大地图概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_roadrunner/">在RoadRunner中创建大地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_import/">导入/打包大地图</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（通用）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_add_friction_triggers/">添加摩擦触发器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_vehicle_physics/">控制车辆物理模型</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索仿真数据</a>
                   </li>
@@ -316,7 +318,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">教程（通用）</li>
+          <li class="breadcrumb-item">自定义地图</li>
       <li class="breadcrumb-item active">使用 OpenStreetMap 生成地图</li>
     <li class="wy-breadcrumbs-aside">
     </li>
@@ -355,7 +357,7 @@
 <p><img alt="openstreetmap_view" src="../img/tuto_g_osm_web.jpg" /></p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
-<p>如果您想使用大范围的地图，例如巴黎，您可以考虑使用 Carla 的 <a href="../large_map_overview/">__大地图功能</a> 。</p>
+<p>如果您想使用大范围的地图，例如巴黎，您可以考虑使用 Carla 的 <a href="../large_map_overview/"><strong>大地图功能</strong> </a> 。</p>
 </div>
 <p><strong>3.</strong> 单击窗口左上角的“导出( <em>Export</em> )”以打开“导出(<em>Export</em>)”面板。</p>
 <p><strong>4.</strong> 单击“<em>导出</em>”面板中的“_手动_选择不同区域”。</p>
@@ -476,9 +478,8 @@ python3 config.py --osm-path=/path/to/OSM/file
 </code></pre>
 <p>将使用<a href="../python_api/#carla.OpendriveGenerationParameters">默认参数</a>。 </p>
 <p>无论使用哪种方法，地图都将被导入到 Carla 中，结果应类似于下图：</p>
-<p><img alt="opendrive_meshissue" src="../img/tuto_g_osm_carla.jpg" /></p>
-<div style="text-align: right"><i>使用 OpenStreetMap 生成 Carla 地图的结果。</i></div>
-
+<p><img alt="opendrive_meshissue" src="../img/tuto_g_osm_carla.jpg" />
+<center> 使用 OpenStreetMap 生成 Carla 地图的结果。 </center></p>
 <p><br></p>
 <div class="admonition 警告">
 <p class="admonition-title">警告</p>
@@ -496,8 +497,8 @@ Carla 论坛</a>
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../tuto_G_control_vehicle_physics/" class="btn btn-neutral float-left" title="控制车辆物理模型"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../tuto_G_retrieve_data/" class="btn btn-neutral float-right" title="检索仿真数据">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../tuto_M_custom_weather_landscape/" class="btn btn-neutral float-left" title="自定义地图：天气和景观"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../tuto_M_custom_buildings/" class="btn btn-neutral float-right" title="自定义地图：程序建筑">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -519,10 +520,10 @@ Carla 论坛</a>
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../tuto_G_control_vehicle_physics/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../tuto_M_custom_weather_landscape/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../tuto_G_retrieve_data/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../tuto_M_custom_buildings/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

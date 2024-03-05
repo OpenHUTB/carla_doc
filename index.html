@@ -49,7 +49,7 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#carla_2">Carla 主题</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_2">交通仿真</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">交通</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#_3">行人</a>
     </li>
@@ -199,9 +199,13 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="tuto_M_custom_road_painter/">自定义地图：道路画家</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="tuto_M_custom_weather_landscape/">自定义地图：天气和景观</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="tuto_G_openstreetmap/">使用 OpenStreetMap 生成地图</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="tuto_M_custom_buildings/">自定义地图：程序建筑</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="tuto_M_custom_weather_landscape/">自定义地图：天气和景观</a>
+                  <li class="toctree-l1"><a class="reference internal" href="adv_digital_twin/">数字孪生工具</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">大地图</span></p>
@@ -218,8 +222,6 @@
                   <li class="toctree-l1"><a class="reference internal" href="tuto_G_add_friction_triggers/">添加摩擦触发器</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="tuto_G_control_vehicle_physics/">控制车辆物理模型</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="tuto_G_openstreetmap/">使用 OpenStreetMap 生成地图</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="tuto_G_retrieve_data/">检索仿真数据</a>
                   </li>
@@ -377,7 +379,7 @@ Carla 论坛</a>
 <p><a href="custom_assets_tutorials/"><strong>自定义资产</strong></a> — Carla 中资产的的开发。</p>
 <p><a href="ts_traffic_simulation_overview/"><strong>内容创作 - 地图</strong></a> — 自定义地图的创作。</p>
 <p><a href="tuto_content_authoring_vehicles/"><strong>内容创作 - 车辆</strong></a> — 自定义车辆的创作。</p>
-<h2 id="_2">交通仿真</h2>
+<h2 id="_2">交通</h2>
 <p><a href="ts_traffic_simulation_overview/"><strong>交通仿真概述</strong></a> — 可用于使用交通填充场景的不同选项的概述</p>
 <p><a href="adv_traffic_manager/"><strong>交通管理器</strong></a> — 通过将车辆设置为自动驾驶模式来仿真城市交通。</p>
 <p><a href="adv_sumo/"><strong>和 SUMO 联合仿真</strong></a> — 在 Carla 和 SUMO 之间运行同步仿真。</p>
@@ -385,6 +387,7 @@ Carla 论坛</a>
 <h2 id="_3">行人</h2>
 <p><a href="tuto_G_pedestrian_bones"><strong>行人骨骼</strong></a> - 使用骨骼为步行者设置动画。</p>
 <p><a href="tuto_G_control_walker_skeletons/"><strong>控制行人骨架</strong></a> — 使用骨骼为步行者设置动画。</p>
+<p><a href=""><strong>行人视觉</strong></a></p>
 <p><a href="tuto_M_generate_pedestrian_navigation/"><strong>生成行人导航</strong></a> — 获取行人四处走动所需的信息。</p>
 <h2 id="_4">高级概念</h2>
 <p><a href="adv_opendrive/"><strong>OpenDRIVE 独立模式</strong></a> — 使用任何 OpenDRIVE 文件作为 Carla 地图。</p>
@@ -412,17 +415,17 @@ Carla 论坛</a>
 <p><a href="tuto_M_custom_layers/"><strong>自定义地图：分层地图</strong></a> — 如何在自定义地图中创建子图层</p>
 <p><a href="tuto_M_custom_add_tl/"><strong>自定义地图：红绿灯和标志</strong></a> — 如何将红绿灯和标志添加到您的自定义地图</p>
 <p><a href="tuto_M_custom_road_painter/"><strong>自定义地图：道路画家</strong></a> — 如何使用道路画家工具改变道路的外观</p>
-<p><a href="tuto_M_custom_buildings/"><strong>自定义地图：程序建筑</strong></a> — 用建筑物填充您的自定义地图</p>
 <p><a href="tuto_M_custom_weather_landscape/"><strong>自定义地图：天气和景观</strong></a> — 为您的自定义地图创建天气配置文件并填充景观</p>
+<p><a href="tuto_G_openstreetmap/"><strong>使用 OpenStreetMap 生成地图</strong></a> — 使用 OpenStreetMap 生成用于仿真的地图。</p>
+<p><a href="tuto_M_custom_buildings/"><strong>自定义地图：程序建筑</strong></a> — 用建筑物填充您的自定义地图。</p>
 <p><a href="adv_digital_twin/"><strong>数字孪生工具</strong></a> — 通过 OpenStreetMap 自动生成 Carla 中的道路和建筑。</p>
 <h2 id="_7">大地图</h2>
-<p><a href="large_map_overview/"><strong>大地图概述</strong></a> — Carla 中大地图工作原理的说明</p>
-<p><a href="large_map_roadrunner/"><strong>在 RoadRunner 中创建大地图</strong></a> — 如何在 RoadRunner 中创建大地图</p>
+<p><a href="large_map_overview/"><strong>大地图概述</strong></a> — Carla 中大地图工作原理的说明。</p>
+<p><a href="large_map_roadrunner/"><strong>在 RoadRunner 中创建大地图</strong></a> — 如何在 RoadRunner 中创建大地图。</p>
 <p><a href="large_map_import/"><strong>导入/打包大地图</strong></a> — 如何导入大地图</p>
 <h2 id="_8">教程（通用）</h2>
 <p><a href="tuto_G_add_friction_triggers/"><strong>添加摩擦触发器</strong></a> - 定义车轮的动态框触发器</p>
 <p><a href="tuto_G_control_vehicle_physics/"><strong>控制车辆物理模型</strong></a> - 设置车辆物理的运行时的变化</p>
-<p><a href="tuto_G_openstreetmap/"><strong>使用 OpenStreetMap 生成地图</strong></a> — 使用 OpenStreetMap 生成用于仿真的地图。</p>
 <p><a href="tuto_G_retrieve_data/"><strong>检索仿真数据</strong></a> — 使用记录器正确收集数据的分步指南。</p>
 <p><a href="build_docker_unreal/"><strong>在 Docker 中构建虚幻引擎和 Carla</strong></a> — 在 Docker 中构建虚幻引擎和 Carla</p>
 <h2 id="_9">教程（资产）</h2>
@@ -513,5 +516,5 @@ Carla 论坛</a>
 
 <!--
 MkDocs version : 1.5.3
-Build Date UTC : 2024-03-04 12:13:08.021119+00:00
+Build Date UTC : 2024-03-05 02:16:11.741028+00:00
 -->

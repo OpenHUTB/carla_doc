@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>编码标准 - 交通仿真文档</title>
+    <title>获取行人视野 - 交通仿真文档</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,8 +13,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "\u7f16\u7801\u6807\u51c6";
-        var mkdocs_page_input_path = "cont_coding_standard.md";
+        var mkdocs_page_name = "\u83b7\u53d6\u884c\u4eba\u89c6\u91ce";
+        var mkdocs_page_input_path = "tuto_G_pedestrian_visual.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -255,20 +255,12 @@
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">贡献</span></p>
-              <ul class="current">
+              <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../cont_contribution_guidelines/">贡献指南</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../cont_code_of_conduct/">行为准则</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">编码标准</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#_2">一般</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#python">Python</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#c">C++</a>
-    </li>
-    </ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../cont_coding_standard/">编码标准</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../cont_doc_standard/">文档标准</a>
                   </li>
@@ -300,8 +292,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">贡献</li>
-      <li class="breadcrumb-item active">编码标准</li>
+      <li class="breadcrumb-item active">获取行人视野</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -310,44 +301,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1">编码标准</h1>
-<ul>
-<li><a href="#general"><strong>一般</strong></a>  </li>
-<li><a href="#python"><strong>Python</strong></a>  </li>
-<li><a href="#c++"><strong>C++</strong></a>  </li>
-</ul>
-<hr />
-<h2 id="_2">一般</h2>
-<ul>
-<li>使用空格，而不是制表符。</li>
-<li>避免添加尾随空格，因为它会在差异中产生噪音。</li>
-</ul>
-<hr />
-<h2 id="python">Python</h2>
-<ul>
-<li>注释不应超过 80 列，代码不应超过 120 列。</li>
-<li>所有代码必须与 Python 2.7 和 3.7 兼容。</li>
-<li><a href="https://www.pylint.org/">Pylint</a> 不应给出任何错误或警告（很少有例外适用于外部类，如 <code>numpy</code> 和 <code>pygame</code>，请参阅我们的 <code>.pylintrc</code>）。</li>
-<li>Python 代码遵循 <a href="https://www.python.org/dev/peps/pep-0008/">PEP8 风格指南</a>（尽可能使用<code>autopep8</code>）。</li>
-</ul>
-<hr />
-<h2 id="c">C++</h2>
-<ul>
-<li>注释不应超过 80 列，如果可以使代码更清晰，在极少数情况下代码可能会稍微超出此限制。</li>
-<li>编译不应给出任何错误或警告
-    (<code>clang++-8 -Wall -Wextra -std=C++14 -Wno-missing-braces</code>).</li>
-<li>禁止使用 <code>throw</code>，请改为使用 <code>carla::throw_exception</code>。</li>
-<li>虚幻 C++ 代码（CarlaUE4 和 Carla 插件）遵循 <a href="https://docs.unrealengine.com/latest/INT/Programming/Development/CodingStandard/">虚幻引擎的编码标准</a> ，但使用空格而不是制表符。</li>
-<li>LibCarla 使用 <a href="https://google.github.io/styleguide/cppguide.html">谷歌风格指南</a> 的变体。</li>
-<li>如果代码在服务器端使用，则应将 <code>try-catch</code> 块的使用 <code>#ifndef LIBCARLA_NO_EXCEPTIONS</code> 括起来 。</li>
-</ul>
+                <h1 id="_1">获取行人视野</h1>
               
             </div>
           </div><footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../cont_code_of_conduct/" class="btn btn-neutral float-left" title="行为准则"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../cont_doc_standard/" class="btn btn-neutral float-right" title="文档标准">Next <span class="icon icon-circle-arrow-right"></span></a>
-    </div>
 
   <hr/>
 
@@ -368,10 +325,6 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../cont_code_of_conduct/" style="color: #fcfcfc">&laquo; Previous</a></span>
-    
-    
-      <span><a href="../cont_doc_standard/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Adv digital twin - 交通仿真文档</title>
+    <title>数字孪生工具 - 交通仿真文档</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Adv digital twin";
+        var mkdocs_page_name = "\u6570\u5b57\u5b6a\u751f\u5de5\u5177";
         var mkdocs_page_input_path = "adv_digital_twin.md";
         var mkdocs_page_url = null;
       </script>
@@ -146,7 +146,7 @@
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">自定义地图</span></p>
-              <ul>
+              <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_map_overview/">Carla 中自定义地图的概述</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
@@ -165,9 +165,39 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_road_painter/">自定义地图：道路画家</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_weather_landscape/">自定义地图：天气和景观</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用 OpenStreetMap 生成地图</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_buildings/">自定义地图：程序建筑</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_weather_landscape/">自定义地图：天气和景观</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">数字孪生工具</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#osm">构建 OSM 渲染器</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#osm_1">下载并准备 OSM 地图数据</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#using-a-url">Using a URL</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#osm_2">下载 OSM 文件并在界面中导航</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#openstreetmap">OpenStreetMap 浏览器</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">程序化境生成</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">道路装饰</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">建筑物</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_5">生成地图</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_6">保存地图</a>
+    </li>
+    </ul>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">大地图</span></p>
@@ -184,8 +214,6 @@
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_add_friction_triggers/">添加摩擦触发器</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_vehicle_physics/">控制车辆物理模型</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用 OpenStreetMap 生成地图</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索仿真数据</a>
                   </li>
@@ -290,7 +318,8 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Adv digital twin</li>
+          <li class="breadcrumb-item">自定义地图</li>
+      <li class="breadcrumb-item active">数字孪生工具</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -337,6 +366,9 @@
 <p>该界面允许浏览已从 OSM 数据库下载并烘焙的 OSM 地图区域。首先，您应该在界面的 <em>Select OSM Database</em> 字段中输入上一步中存储处理后的 OSM 数据的目录位置。如果您直接使用 URL，请将其粘贴到 <code>OSM URL</code> 字段中，在这种情况下您将无法使用导航器。</p>
 <p><img alt="osm_interface" src="../img/digital_twins_interface.png" /></p>
 <p>使用方向箭头和缩放图标导航地图并找到要转换为 Carla 地图的道路网的一部分。您在预览中看到的方形区域将是地图的范围。在字段中输入适当的名称 <code>File Name</code> 然后按 <em>Generate</em> 开始程序生成过程。地图生成过程可能需要几分钟，如果您使用的是大区域，则可能需要更长的时间。</p>
+<p>先启动Carla服务，然后运行以下脚本从<code>.osm</code>文件中加载场景：</p>
+<pre><code class="language-shell">python src/util/config.py -x *.xodr
+</code></pre>
 <h2 id="_2">程序化境生成</h2>
 <h3 id="_3">道路装饰</h3>
 <p>该工具从 OSM 数据中提取道路网络作为地图的基础。路面装饰有逼真的表面不规则性、道路标记和纹理。</p>
@@ -357,6 +389,10 @@
               
             </div>
           </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../tuto_M_custom_buildings/" class="btn btn-neutral float-left" title="自定义地图：程序建筑"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../large_map_overview/" class="btn btn-neutral float-right" title="大地图概述">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
 
   <hr/>
 
@@ -377,6 +413,10 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
+      <span><a href="../tuto_M_custom_buildings/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../large_map_overview/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

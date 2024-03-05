@@ -175,9 +175,13 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_road_painter/">自定义地图：道路画家</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_weather_landscape/">自定义地图：天气和景观</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用 OpenStreetMap 生成地图</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_buildings/">自定义地图：程序建筑</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_weather_landscape/">自定义地图：天气和景观</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_digital_twin/">数字孪生工具</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">大地图</span></p>
@@ -194,8 +198,6 @@
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_add_friction_triggers/">添加摩擦触发器</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_vehicle_physics/">控制车辆物理模型</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用 OpenStreetMap 生成地图</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索仿真数据</a>
                   </li>
@@ -395,6 +397,10 @@
 </code></pre>
 <p><strong>6.</strong> 将创建一个 <code>&lt;mapName&gt;.bin</code> 文件。此文件包含地图上的行人导航信息。将此文件移动到包含地图的包的 <code>Nav</code> 文件夹中。</p>
 <p><strong>7.</strong> 通过启动仿真并运行 <code>PythonAPI/examples</code> 中的示例脚本 <code>generate_traffic.py</code> 来测试行人导航。</p>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p><strong>如果更新地图后需要重建行人导航</strong> ，请确保删除 CARLA 缓存。这通常可以在 Ubuntu 的主目录（即<code>cd ~</code>）中找到，或者在Windows的用户目录（分配给环境变量<code>USERPROFILE</code>的目录）中，删除名为<code>carlaCache</code>的文件夹及其所有内容，它可能很大。 </p>
+</div>
 <hr />
 <p>如果关于流程有任何问题，您可以在 <a href="https://github.com/carla-simulator/carla/discussions">论坛</a> 中提问。</p>
 <div class="build-buttons">
