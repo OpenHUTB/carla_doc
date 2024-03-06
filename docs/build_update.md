@@ -127,7 +127,7 @@ make launch
 
 Carla 团队使用仍在开发中的资产。这些模型和地图有一个 [公共 git 存储库][contentrepolink]，Carla 团队定期在其中推送最新更新。资产尚未完成，仅建议开发人员使用它们。
 
-为了处理这个存储库，建议安装 [git-lfs][gitlfslink]。存储库会定期修改，并且 git-lfs 处理大型二进制文件的速度更快。
+为了处理这个存储库，建议安装 [git-lfs][gitlfslink]。存储库会定期修改，并且 [git-lfs 处理大型二进制文件](https://blog.csdn.net/xun527/article/details/132207700) 的速度更快。
 
 要克隆存储库，请 __转到主 Carla 目录__ 并运行以下命令。
 
