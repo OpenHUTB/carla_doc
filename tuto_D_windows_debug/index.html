@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Carla 更新 - 交通仿真文档</title>
+    <title>在 Windows 上进行 Carla 的调试 - 交通仿真文档</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,8 +13,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Carla \u66f4\u65b0";
-        var mkdocs_page_input_path = "build_update.md";
+        var mkdocs_page_name = "\u5728 Windows \u4e0a\u8fdb\u884c Carla \u7684\u8c03\u8bd5";
+        var mkdocs_page_input_path = "tuto_D_windows_debug.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -56,34 +56,14 @@
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">构建 Carla</span></p>
-              <ul class="current">
+              <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../build_carla/">构建 Carla</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../build_linux/">Linux 上编译</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../build_windows/">Windows 上编译</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Carla 更新</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#_1">更新命令摘要</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_2">获取最新的二进制版本</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#linux-windows">更新 Linux 和 Windows 构建</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_3">清理构建</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#origin">从 origin 拉取</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_4">下载资产</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_5">启动服务器</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_6">获取开发版的资产</a>
-    </li>
-    </ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_update/">Carla 更新</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../build_system/">编译系统</a>
                   </li>
@@ -312,8 +292,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">构建 Carla</li>
-      <li class="breadcrumb-item active">Carla 更新</li>
+      <li class="breadcrumb-item active">在 Windows 上进行 Carla 的调试</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -322,128 +301,37 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="carla">更新 Carla</h1>
-<ul>
-<li><a href="#update-commands-summary"><strong>更新命令摘要</strong></a>  </li>
-<li><a href="#get-latest-binary-release"><strong>获取最新的二进制版本</strong></a>  </li>
-<li><a href="#update-linux-and-windows-build"><strong>更新 Linux 和 Windows 构建</strong></a>  <ul>
-<li><a href="#clean-the-build">清除构建</a>  </li>
-<li><a href="#pull-from-origin">从 origin 拉取</a>  </li>
-<li><a href="#download-the-assets">下载资产</a>  </li>
-<li><a href="#launch-the-server">启动服务器</a>  </li>
-</ul>
-</li>
-<li><a href="#get-development-assets"><strong>获取开发资产</strong></a>  </li>
-</ul>
-<p>要发布意外问题、疑问或建议，请随时登录 Carla 论坛。</p>
-<div class="build-buttons">
-<p>
-<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the latest CARLA release">
-Carla 论坛</a>
-</p>
-</div>
-
-<hr />
-<h2 id="_1">更新命令摘要</h2>
-<details>
-<summary> 显示更新 Carla 的命令行 </summary>
-
-
-<pre><code class="language-sh"># 更新 Carla 包的发行版。 
-#   1. 删除当前的版本。 
-#   2. 按照快速开始安装或一个一个想要的版本。 
-
-
-# 更新 Linux 构建。 
-git checkout master
-make clean
-git pull origin master
-./Update.sh
-
-
-# 更新 Windows 构建。 
-git checkout master
-make clean
-git pull origin master
-#   擦除 `Unreal\CarlaUE4\Content\Carla` 中的内容。
-#   转至 `\Util\ContentVersions.txt`.
-#   下载最新的资产内容。
-#   在 `Unreal\CarlaUE4\Content\Carla` 中解压出新的资产内容。
-
-
-# 获取开发版本的资产 
-#   删除包含之前资产的 `/Carla` 文件夹。
-#   转至主 Carla 目录。
-git clone https://bitbucket.org/carla-simulator/carla-content Unreal/CarlaUE4/Content/Carla
-
-</code></pre>
-
-</details>
-
-<hr />
-<h2 id="_2">获取最新的二进制版本</h2>
-<p>二进制版本已预先打包，因此与 Carla 的特定版本相关联。要获取最新版本，请删除之前的版本，然后按照 <a href="../start_quickstart/">快速启动安装</a> 来获取所需的版本。 </p>
-<p>版本列在 Carla 仓库的 <strong>Development</strong> 中。还有一个高度实验性的 <strong>Nightly build</strong> ，其中包含 Carla 的最新状态。</p>
-<div class="build-buttons">
-<p>
-<a href="https://github.com/carla-simulator/carla/blob/master/Docs/download.md" target="_blank" class="btn btn-neutral" title="Go to the list of CARLA releases">
-<span class="icon icon-github"></span> Get releases</a>
-</p>
-
-<p>
-<a href="http://carla-releases.s3.amazonaws.com/Linux/Dev/CARLA_Latest.tar.gz" target="_blank" class="btn btn-neutral" title="Go to the nightly CARLA build">
-<span class="icon fa-cloud-download"></span> Get the nightly build</a>
-</p>
-</div>
-
-<hr />
-<h2 id="linux-windows">更新 Linux 和 Windows 构建</h2>
-<p>更新前请确保位于本地 <code>master</code> 分支。然后，将更改 merge 或rebase 到其他分支并解决可能的冲突。</p>
-<pre><code class="language-sh">git checkout master
-</code></pre>
-<h3 id="_3">清理构建</h3>
-<p>转到主 Carla 文件夹并删除先前构建生成的二进制文件和临时文件。</p>
-<pre><code class="language-sh">make clean
-</code></pre>
-<h3 id="origin">从 origin 拉取</h3>
-<p>从 Carla 存储库中 <code>master</code> 分支获取当前版本。 </p>
-<pre><code class="language-sh">git pull origin master
-</code></pre>
-<h3 id="_4">下载资产</h3>
-<p><strong>Linux.</strong></p>
-<pre><code class="language-sh">./Update.sh
-</code></pre>
-<p><strong>Windows.</strong>  </p>
-<p><strong>1.</strong> 删除 <code>Unreal\CarlaUE4\Content\Carla</code> 中之前的内容。<br />
-<strong>2.</strong> 转至 <code>\Util\ContentVersions.txt</code>。<br />
-<strong>3.</strong> 下载最新的 <code>latest</code> 的内容。<br />
-<strong>4.</strong> 在 <code>Unreal\CarlaUE4\Content\Carla</code> 抽取新的内容。</p>
+                <h1 id="windows-carla">在 Windows 上进行 Carla 的调试</h1>
+<ol>
+<li>进入目录<code>carla/Unreal/CarlaUE4/</code>，右键文件<code>CarlaUE4.uproject</code>，选择运行<code>Generate Visual Studio project files</code>，在当前目录中将会生成VS的工程文件，双击打开<code>CarlaUE4.sln</code>。</li>
+</ol>
+<p><img alt="" src="../img/tuto_D_windows_debug/generate_vs_project_files.png" /></p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
-<p>为了与 Carla 团队正在开发的项目合作，请 <strong>获取下面的开发资产</strong> 。</p>
+<p>如果右键菜单中未出现<code>Generate Visual Studio project files</code>选项，则到虚幻引擎的目录中运双击执行<code>engine\Engine\Binaries\Win64\UnrealVersionSelector.exe</code>，将虚幻引擎软件注册到系统中。</p>
 </div>
-<h3 id="_5">启动服务器</h3>
-<p>在旁观者视图中运行服务器以确保一切正常。</p>
-<pre><code class="language-sh">make launch
-</code></pre>
-<hr />
-<h2 id="_6">获取开发版的资产</h2>
-<p>Carla 团队使用仍在开发中的资产。这些模型和地图有一个 <a href="https://bitbucket.org/carla-simulator/carla-content">公共 git 存储库</a>，Carla 团队定期在其中推送最新更新。资产尚未完成，仅建议开发人员使用它们。</p>
-<p>为了处理这个存储库，建议安装 <a href="https://github.com/git-lfs/git-lfs/wiki/Installation">git-lfs</a>。存储库会定期修改，并且 <a href="https://blog.csdn.net/xun527/article/details/132207700">git-lfs 处理大型二进制文件</a> 的速度更快。</p>
-<p>要克隆存储库，请 <strong>转到主 Carla 目录</strong> 并运行以下命令。</p>
-<pre><code class="language-sh">git clone https://bitbucket.org/carla-simulator/carla-content Unreal/CarlaUE4/Content/Carla
-</code></pre>
-<div class="admonition 警告">
-<p class="admonition-title">警告</p>
-<p>在克隆存储库之前删除包含资产的 <code>/Carla</code> 文件夹。否则，将显示错误。</p>
-</div>
+<ol>
+<li>在想要查看的源代码行的最左侧单击增加断点，在菜单运行<code>调试(D)-&gt;启动调试</code>，程序将在断点出暂停。通过<code>调式(D)-&gt;窗口(W)-&gt;监视(W)-&gt;监视 1</code>打开变量监视窗口，查看变量值是否异常。
+<img alt="" src="../img/tuto_D_windows_debug/debug_project.png" /></li>
+</ol>
+<h2 id="cmake">打开 Cmake 工程</h2>
+<p>windows操作系统下通过vs2019打开并编译carla：
+1. 开Carla的CMake项目：</p>
+<p>从 VS 的菜单中选择 <code>File--&gt;Open--&gt;CMake</code>, 在对话框中找到 Carla 所在的本地文件夹（包含CMakeLists），选择CMakeLists.txt文件，打开，Visual studio 会自动加载此仓库，解析 <code>CMakeLists.txt</code> 文件，并提取其配置和变量信息。解析完成（需要等会儿或者重启）会从<code>解决方案资源管理器</code>中看到<code>.cpp</code>文件。</p>
+<ol>
+<li>修改配置
+点击<code>x64-Debug</code>下拉菜单中的<code>管理配置</code>，并在弹出的界面点击<code>编辑JSON</code>，</li>
+</ol>
+<p>将所需要构建的类型改为想编译的类型，比如<code>Client</code>。</p>
+<ol>
+<li>生成：
+点击菜单栏<code>生成</code>-<code>全部生成</code>或<code>部分生成</code>即可。</li>
+</ol>
+<h2 id="_1">发布</h2>
+<p>包含所有软件依赖，双击<code>launch.bat</code>启动软件。</p>
               
             </div>
           </div><footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../build_windows/" class="btn btn-neutral float-left" title="Windows 上编译"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../build_system/" class="btn btn-neutral float-right" title="编译系统">Next <span class="icon icon-circle-arrow-right"></span></a>
-    </div>
 
   <hr/>
 
@@ -464,10 +352,6 @@ git clone https://bitbucket.org/carla-simulator/carla-content Unreal/CarlaUE4/Co
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../build_windows/" style="color: #fcfcfc">&laquo; Previous</a></span>
-    
-    
-      <span><a href="../build_system/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
