@@ -59,7 +59,7 @@ cd {CARLA_ROOT}/Build/libosmcout-source/maps/
 python src/util/config.py -x *.xodr
 ```
 
-## 程序化境生成
+## 程序化场景生成
 
 ### 道路装饰
 

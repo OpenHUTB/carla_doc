@@ -30,7 +30,7 @@
 对于每个模型，除了屋顶 __Roof__ 之外，都有一个网格体填充地板的中心，还有一个 __Corner__ 网格体将放置在地板的两侧。下图代表了全局结构。
 
 ![bp_procedural_building_visual](./img/map_customization/BP_Procedural_Building_Visual.jpg)
-<div style="text-align: right"><i>Visualization of the building structure.</i></div>
+<div style="text-align: right"><i>建筑结构的可视化。</i></div>
 
 基本参数 __Base parameters__ 设置尺寸。
 
