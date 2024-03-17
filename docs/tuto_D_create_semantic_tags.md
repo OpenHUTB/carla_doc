@@ -49,7 +49,7 @@ __在 `LibCarla/source/carla/image` 中打开 `CityScapesPalette.h`__ 。在数�
 
 ![city_scapes_palette_h](img/tuto_D_create_semantic_tags/05_city_scapes_palette_h.jpg)
 
-!!! 警告
+!!! 笔记
     数组中的位置必须与标签 ID 相对应，在本例中为 `23u`. 
 
 ### 5. 添加标记网格

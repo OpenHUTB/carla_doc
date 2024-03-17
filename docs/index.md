@@ -18,7 +18,7 @@ Carla 论坛</a>
 
 <br>
 
-!!! 警告
+!!! 笔记
     __更改文档版本以适合您使用的 Carla 版本__。使用此窗口右下角的面板更改为以前的版本。 __最新版本指向 `dev` 分支__ 中的文档，这可能是指当前正在开发的功能，并且在任何打包版本的 Carla 中 __不可用__ ，以及一般文档改进。 ![docs_version_panel](img/docs_version_panel.jpg)
 
 ---
@@ -86,11 +86,11 @@ Carla 论坛</a>
 
 ## 行人
 
-[__行人骨骼__](tuto_G_pedestrian_bones) - 使用骨骼为步行者设置动画。
+[__行人骨骼__](tuto_G_pedestrian_bones.md) - 使用骨骼为步行者设置动画。
 
 [__控制行人骨架__](tuto_G_control_walker_skeletons.md) — 使用骨骼为步行者设置动画。
 
-[__行人视觉__]()
+[__行人视觉__](tuto_G_pedestrian_visual.md) - 使用相机进行人眼的模拟。
 
 [__生成行人导航__](tuto_M_generate_pedestrian_navigation.md) — 获取行人四处走动所需的信息。
 

@@ -123,7 +123,7 @@ python3 config.py --map Town01
 <br>
 
 ![tuto_map](img/tuto_map.jpg)
-<div style="text-align: right"><i>Aerial view of Town07</i></div>
+<div style="text-align: center"><i>Town07 的空中视角</i></div>
 
 ### 天气设置
 
@@ -168,7 +168,7 @@ python3 environment.py --clouds 100 --rain 80 --wetness 100 --puddles 60 --wind 
 <br>
 
 ![tuto_weather](img/tuto_weather.jpg)
-<div style="text-align: right"><i>Weather changes applied</i></div>
+<div style="text-align: center"><i>使用天气改变</i></div>
 
 ---
 ## 设置交通流量
@@ -205,7 +205,7 @@ python3 spawn_npc.py -n 50 -w 50 --safe
 </details>
 <br>
 ![tuto_spawning](img/tuto_spawning.jpg)
-<div style="text-align: right"><i>Vehicles spawned to simulate traffic.</i></div>
+<div style="text-align: center"><i>生成车辆以仿真交通。</i></div>
 
 ### SUMO 协同仿真交通
 
@@ -239,7 +239,7 @@ python3 run_synchronization.py examples/Town01.sumocfg --sumo-gui
 该脚本生成的流量是 Carla 团队创建的示例。默认情况下，它会沿着相同的路线生成相同的车辆。用户可以在 SUMO 中更改这些内容。
 
 ![tuto_sumo](img/tuto_sumo.jpg)
-<div style="text-align: right"><i>SUMO and CARLA co-simulating traffic.</i></div>
+<div style="text-align: center"><i>SUMO 和 Carla 协同仿真交通。</i></div>
 
 !!! 警告
     目前，SUMO 联合仿真还是测试版功能。车辆没有物理特性，也不考虑 Carla 交通灯。

@@ -74,7 +74,7 @@ __3.__ 导出 `.xodr` OpenDrive 地图文件：
 
 ![export_large_map_fbx](img/tuto_content_authoring_maps/large_map_export.png)
 
-!!! 警告
+!!! 笔记
     确保 `.xodr` 和 `.fbx` 文件具有相同的名称根。
 
 现在您已经在 Roadrunner 中创建了大地图，您可以将其导入 Carla 中。RoadRunner 创建的文件应转移到用于构建 Carla 的根目录的 `Import` 目录内。

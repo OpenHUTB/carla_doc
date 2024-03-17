@@ -54,7 +54,7 @@ __5.__ 导航至 `~/carla/Util/Docker`。这是导入脚本所在的位置。该
     python3 docker_tools.py --input ~/path_to_input_folder --output ~/path_to_output_folder --packages map_package
 ```
 
-> !!! 警告
+> !!! 笔记
     如果未提供参数 `--packages map_package` ，Docker 镜像将制作 Carla 包。 
 
 __6.__ 包将在 `output_folder` 中生成为 `<map_package>.tar.gz`. 。这是独立包，现在可以导入到 Carla 中。将包移动到 Carla 根目录（您将在其中使用地图的包/二进制版本）中的 `Import` 文件夹，然后从根目录运行以下脚本将其导入：

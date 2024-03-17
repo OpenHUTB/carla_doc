@@ -34,7 +34,7 @@
 * __足够的 GPU。__ Carla 旨在实现真实仿真，因此服务器至少需要 6 GB GPU，但建议使用 8 GB。强烈建议使用专用 GPU 进行机器学习。
 * __两个 TCP 端口和良好的互联网连接。__ 默认端口为 2000 和 2001 。 确保这些端口未被防火墙或任何其他应用程序阻止。 
 
-..警告::
+!!! 笔记
     __如果您要从 Carla 0.9.12 升级到 0.9.13__: 您必须首先将虚幻引擎 4 的 Carla 分支升级到最新版本。有关升级虚幻引擎 4 的详细信息，请参阅 [__虚幻引擎__](#unreal-engine) 部分。
 
 ### 软件要求
@@ -98,7 +98,7 @@ pip3 install --user wheel
 __1.__ 在终端中，导航到要保存虚幻引擎的位置并克隆 _carla_ 分支：
 
 ```sh
-    git clone --depth 1 -b carla https://github.com/CarlaUnreal/UnrealEngine.git .
+git clone --depth 1 -b carla https://github.com/CarlaUnreal/UnrealEngine.git .
 ```
 
 !!! 笔记 
@@ -107,8 +107,8 @@ __1.__ 在终端中，导航到要保存虚幻引擎的位置并克隆 _carla_ �
 __2.__ 运行配置脚本：
 
 ```sh
-    Setup.bat
-    GenerateProjectFiles.bat
+Setup.bat
+GenerateProjectFiles.bat
 ```
 
 __3.__ 编译修改后的引擎：
@@ -142,7 +142,7 @@ __4.__ 编译解决方案后，您可以打开引擎，通过启动可执行文�
 上面的按钮将带您进入该项目的官方存储库。从那里下载并在本地提取它或使用以下命令克隆它：
 
 ```sh
-    git clone https://github.com/carla-simulator/carla
+git clone https://github.com/carla-simulator/carla
 ```
 
 !!! 笔记
@@ -153,7 +153,7 @@ __4.__ 编译解决方案后，您可以打开引擎，通过启动可执行文�
 通过在 Carla 根文件夹中运行以下命令，下载 __最新的__ 资产以使用当前版本的 Carla：
 
 ```sh
-    Update.bat
+Update.bat
 ```
 
 如果安装了 7zip，资源将被下载并解压到适当的位置。如果您没有安装此软件，则需要手动将文件内容解压到`Unreal\CarlaUE4\Content\Carla`。
@@ -165,7 +165,7 @@ __4.__ 编译解决方案后，您可以打开引擎，通过启动可执行文�
 3. 使用类似于以下内容的命令提取文件：
 
 ```sh
-    tar -xvzf <assets_file_name>.tar.gz.tar -C C:\path\to\carla\Unreal\CarlaUE4\Content\Carla
+tar -xvzf <assets_file_name>.tar.gz.tar -C C:\path\to\carla\Unreal\CarlaUE4\Content\Carla
 ```
 
 ### 设置虚幻引擎变量
@@ -225,11 +225,13 @@ __2.__ __编译服务端__:
 以下命令编译并启动虚幻引擎。每次您想要启动服务器或使用虚幻引擎编辑器时运行此命令：
 
 ```sh
-    make launch
+make launch
 ```
 
 该项目可能会要求构建其他实例，例如`UE4Editor-Carla.dll`第一次。同意才能打开项目。在首次启动期间，编辑器可能会显示有关着色器和网格距离场的警告。这些需要一些时间来加载，在此之前地图将无法正确显示。
 
+!!! 笔记
+    如果编译过程中出现中文乱码，为了便于寻找编译错误，可以使用`chcp 65001`命令将编码方式修改为UTF-8（选择“属性”。在“属性”>>“选项”一栏中，就可以看到当前代码页的编码方式）。
 
 __3.__ __开始仿真__:
 

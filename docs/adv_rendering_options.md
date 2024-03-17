@@ -78,7 +78,7 @@ cd PythonAPI/util && python3 config.py --rendering
 cd PythonAPI/examples && python3 no_rendering_mode.py
 ```
 
-!!! 警告
+!!! 笔记
     在无渲染模式下，相机和 GPU 传感器将返回空数据。不使用 GPU。虚幻引擎未绘制任何场景。
 
 ---

@@ -31,7 +31,7 @@ Carla 开发了与 PTV-Vissim 的协同仿真功能。这允许随意分配任�
 ```sh
 python3 run_synchronization.py examples/Town03/Town03.inpx
 ```
-!!! 警告
+!!! 笔记
     要停止联合仿真，请在运行脚本的终端中按`Ctrl+C`。
 
 两个仿真将同步运行。一个仿真器中发生的动作或事件将传播到另一个仿真器。到目前为止，该功能仅包括车辆移动和生成。由于 PTV-Vissim 类型，生成受到限制。
@@ -49,7 +49,7 @@ python3 run_synchronization.py examples/Town03/Town03.inpx
 ![ptv_types](img/ptv_types.jpg)
 <div style="text-align: right"><i>在 Carla 中生成的任何车辆都将使用这些类型在 PTV-Vissim 中生成。</i></div>
 
-!!! 警告
+!!! 笔记
     如果行人和车辆类型为空，PTV-Vissim 将崩溃。
 
 ---

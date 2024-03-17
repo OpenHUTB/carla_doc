@@ -292,6 +292,33 @@ Carla 论坛</a>
 
 > 在 Windows 中， `make PythonAPI` 命令可能会返回一条消息，表明 Python API 安装成功，但实际上并未成功。如果看到此输出后目录 `PythonAPI/carla` 中没有 `dist` 文件夹，请查看上面的命令输出。很可能发生了错误，需要在更正错误并运行 `make clean` 后重试构建。 
 
+
+###### osm2odr-visualstudio为空，或者拷贝过去的目录不对
+```text
+CMake Error: The current CMakeCache.txt directory D:/work/workspace/carla/Build/osm2odr-visualstudio/CMakeCache.txt is different than the directory d:/work/buffer/carla/Build/osm2odr-visualstudio where CMakeCache.txt was created. This may result in binaries being created in the wrong place. If you are not sure, reedit the CMakeCache.txt
+```
+```shell
+CMake Error: The source directory "D:/work/workspace/carla/Build/osm2odr-visualstudio/x64" does not appear to contain CMakeLists.txt.
+```
+> 删除`carla\Build\osm2odr-visualstudio\CMakeCache.txt`
+
+
+###### 类型转换不对
+> 
+```shell
+carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Vehicle/CustomTerrainPhysicsComponent.cpp(1161): error C2440: “static_cast”: 无法从“float”转换为“EDefResolutionType”
+```
+
+> 注释掉
+```shell
+// ChosenRes = static_cast<EDefResolutionType>(Value);  // static_cast<EDefResolutionType>(Value)
+```
+
+######  链接不到osm2odr.lib
+> `fatal error LNK1181: carla\Unreal\CarlaUE4\Plugins\Carla\CarlaDependencies\lib\osm2odr.lib`
+
+> 从其他地方拷贝过来。
+
 ---
 
 ## 运行 Carla

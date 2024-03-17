@@ -7,7 +7,7 @@
 !!! 笔记
     如果右键菜单中未出现`Generate Visual Studio project files`选项，则到虚幻引擎的目录中运双击执行`engine\Engine\Binaries\Win64\UnrealVersionSelector.exe`，将虚幻引擎软件注册到系统中。
 
-2. 在想要查看的源代码行的最左侧单击增加断点，在菜单运行`调试(D)->启动调试`，程序将在断点出暂停。通过`调式(D)->窗口(W)->监视(W)->监视 1`打开变量监视窗口，查看变量值是否异常。
+2. 在想要查看的源代码行的最左侧单击增加断点，在菜单运行`调试(D)->开始调试(S)`，程序将在断点出暂停。通过`调式(D)->窗口(W)->监视(W)->监视 1`打开变量监视窗口，查看变量值是否异常。
 ![](img/tuto_D_windows_debug/debug_project.png)
 
 

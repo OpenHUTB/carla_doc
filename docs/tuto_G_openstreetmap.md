@@ -50,7 +50,7 @@ __6.__ 单击导出面板中的 _导出_ 按钮，将所选区域的地图信息
 __可用 `.xodr` 格式选项：__
 
 - 在您自己的脚本中生成地图。 __该方法允许参数化。__
-- 将文件作为参数传递给 Carla 的 `config.py`。 __ 此方法不允许参数化。__
+- 将文件作为参数传递给 Carla 的 `config.py`。 __此方法不允许参数化。__
 
 __可用 `.osm` 格式选项：__
 
@@ -183,7 +183,7 @@ cd PythonAPI/util
 python3 config.py -x=/path/to/xodr/file
 ```
 
-[Default parameters](python_api.md#carla.OpendriveGenerationParameters) will be used.
+将使用 [默认参数](python_api.md#carla.OpendriveGenerationParameters) 。
 ###### C) 将 `.osm` 传递给 `config.py`
 
 启动 Carla 服务器后，在单独的终端中运行以下命令来加载 Open Street Map：

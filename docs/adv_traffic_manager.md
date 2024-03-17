@@ -362,7 +362,7 @@ TM 不是一个需要被摧毁的参与者;当创建它的客户端停止时，�
 client.apply_batch([carla.command.DestroyActor(x) for x in vehicles_list])
 ```
 
-!!! 警告
+!!! 笔记
     关闭 __TM-Server__ 将关闭连接到它的 __TM-Clients__ 。 要了解 __TM-Server__ 和 __TM-Client__ 之间的区别, 请阅读 [__Running multiple Traffic Managers__](#running-multiple-traffic-managers)。
 ---
 ## 确定性模式

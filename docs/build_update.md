@@ -135,7 +135,7 @@ Carla 团队使用仍在开发中的资产。这些模型和地图有一个 [公
 git clone https://bitbucket.org/carla-simulator/carla-content Unreal/CarlaUE4/Content/Carla
 ```
 
-!!! 警告
+!!! 笔记
     在克隆存储库之前删除包含资产的 `/Carla` 文件夹。否则，将显示错误。
 
 [contentrepolink]: https://bitbucket.org/carla-simulator/carla-content

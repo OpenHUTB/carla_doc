@@ -52,7 +52,7 @@ python3 run_synchronization.py examples/Town04.sumocfg  --sumo-gui
 
 该脚本使用 `data/vtypes.json` 存储的信息来创建 SUMO *vtypes*。这些可以通过编辑所述文件来修改。
 
-!!! 警告
+!!! 笔记
     必须运行 Carla 仿真才能执行该脚本。
 
 ### 创建 SUMO 网络
@@ -87,7 +87,7 @@ python3 run_synchronization.py examples/Town04.sumocfg  --sumo-gui
 python3 run_synchronization.py <SUMOCFG FILE> --tls-manager carla --sumo-gui
 ```
 
-!!! 警告
+!!! 笔记
     要停止联合仿真，请在运行脚本的终端按 `Ctrl+C` 。
 
 ---
