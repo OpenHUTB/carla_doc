@@ -52,6 +52,8 @@ python -m pip install .
 
 `tuto_D_*.md (tutorial_development_*)` : 开发教程
 
+`tuto_E_*.md (tutorial_example_*)` : 参考示例
+
 `tuto_G_*.md (tutorial_guide_*)` : 指南教程
 
 `tuto_M_*.md (tutorial_map_*)` : 地图教程

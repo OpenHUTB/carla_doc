@@ -206,7 +206,10 @@ Carla 论坛</a>
 
 [__调试程序__](tuto_D_windows_debug.md) - 进行程序的调试
 
+
 ## 示例
+
+[__入门__](tuto_E_gallery.md) - 基本示例
 
 [__交通灯的配置和使用__](tuto_G_traffic_light.md) - 红绿灯的配置和使用
 
@@ -257,6 +260,8 @@ Carla 论坛</a>
 [__Carla 中文站__](https://bbs.carla.org.cn/) — 中文交流社区。
 
 [__虚幻引擎文档__](https://bitbucket.org/openhutb/engine_doc/src/master/) — 和虚幻引擎相关的操作教程。
+
+[__Blender 手册__](https://docs.blender.org/manual/zh-hans/latest/) - 三维建模软件。
 
 [__待做列表__](todo.md) - 待完成的功能。
 
