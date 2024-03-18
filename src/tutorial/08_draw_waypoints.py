@@ -7,9 +7,9 @@ import random
 import cv2
 import numpy as np
 
-## Part 1
+# 第一部分
 
-# Connect to Carla
+# 连接到 Carla
 client = carla.Client('localhost', 2000)
 world = client.get_world()
 

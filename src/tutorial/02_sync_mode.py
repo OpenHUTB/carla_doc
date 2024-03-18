@@ -3,38 +3,36 @@ import time
 import carla
 import random
 
-## Part 1
-
-# Connect to Carla
+# 连接到 Carla
 client = carla.Client('localhost', 2000)
 world = client.get_world()
 
-# Set up the simulator in synchronous mode
+# 设置仿真器到同步模式
 settings = world.get_settings()
-settings.synchronous_mode = True # Enables synchronous mode
+settings.synchronous_mode = True  # 启用同步模式
 settings.fixed_delta_seconds = 0.05
 world.apply_settings(settings)
 
-# Get a vehicle from the library
+# 从库中获得一辆车
 bp_lib = world.get_blueprint_library()
 vehicle_bp = bp_lib.find('vehicle.lincoln.mkz_2020')
 
-# Get a spawn point
+# 获得生成点
 spawn_points = world.get_map().get_spawn_points()
 
-# Spawn a vehicle
+# 生成一辆车
 vehicle = world.try_spawn_actor(vehicle_bp, random.choice(spawn_points))
 
-# Autopilot
+# 自动驾驶仪
 vehicle.set_autopilot(True) 
 
-# Get the world spectator
+# 获得世界观察者
 spectator = world.get_spectator()
 
-# Without the loop, the spectator won't follow the vehicle
+# 没有这个循环，观察者不会跟随车辆
 while True:
     try:
-        # Move the spectator behind the vehicle 
+        # 在车辆后移动车辆
         transform = carla.Transform(vehicle.get_transform().transform(carla.Location(x=-4,z=2.5)),vehicle.get_transform().rotation) 
         spectator.set_transform(transform) 
         time.sleep(0.005)
@@ -42,11 +40,10 @@ while True:
         world.tick()
 
     except KeyboardInterrupt as e:
-
         vehicle.destroy()
 
         settings = world.get_settings()
-        settings.synchronous_mode = False # Disables synchronous mode
+        settings.synchronous_mode = False  # 禁用异步模式
         settings.fixed_delta_seconds = None
         world.apply_settings(settings)
 

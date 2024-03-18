@@ -24,7 +24,7 @@ python 10_manual_control.py
 
 ### Gallery
 
-示例 01: 开始 (异步)
+示例 01: 开始 (异步：车辆会有抖动感）
 
 ![](img/tuto_E_gallery/01_get_started.gif)
 

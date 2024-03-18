@@ -6,20 +6,21 @@ import queue
 import cv2
 import numpy as np
 
-## Part 1
 
-# Connect to Carla
+# 第一部分
+
+# 连接到 Carla
 client = carla.Client('localhost', 2000)
 world = client.get_world()
 
-# Get a vehicle from the library
+# 从库中获得一个车辆
 bp_lib = world.get_blueprint_library()
 vehicle_bp = bp_lib.find('vehicle.lincoln.mkz_2020')
 
-# Get a spawn point
+# 得到一个生成点
 spawn_points = world.get_map().get_spawn_points()
 
-# Spawn a vehicle
+# 生成一辆车
 vehicle = world.try_spawn_actor(vehicle_bp, random.choice(spawn_points))
 
 # Autopilot
@@ -28,33 +29,35 @@ vehicle.set_autopilot(True)
 # Get the world spectator 
 spectator = world.get_spectator() 
 
-## Part 2
+# 第二部分
 
-# Create a camera floating behind the vehicle
+# 创建一个漂浮在车辆后面的摄像头
 camera_init_trans = carla.Transform(carla.Location(x=-5, z=3), carla.Rotation(pitch=-20))
 
-# Create a RGB camera
+# 创建一个RGB相机
 rgb_camera_bp = world.get_blueprint_library().find('sensor.camera.rgb')
 camera = world.spawn_actor(rgb_camera_bp, camera_init_trans, attach_to=vehicle)
 
-# Callback stores sensor data in a dictionary for use outside callback                         
+
+# 回调将传感器数据存储在字典中，以供回调外部使用
 def camera_callback(image, rgb_image_queue):
     rgb_image_queue.put(np.reshape(np.copy(image.raw_data), (image.height, image.width, 4)))
 
-# Get gamera dimensions and initialise dictionary                       
+
+# 获得相机纬度并初始化字典
 image_w = rgb_camera_bp.get_attribute("image_size_x").as_int()
 image_h = rgb_camera_bp.get_attribute("image_size_y").as_int()
 
-# Start camera recording
+# 开始相机记录
 rgb_image_queue = queue.Queue()
 camera.listen(lambda image: camera_callback(image, rgb_image_queue))
 
-# OpenCV named window for rendering
+# 为了渲染的 OpenCV 命名窗口
 cv2.namedWindow('RGB Camera', cv2.WINDOW_AUTOSIZE)
 
-# Clear the spawned vehicle and camera
-def clear():
 
+# 清除生成的车辆和相机
+def clear():
     vehicle.destroy()
     print('Vehicle Destroyed.')
     
@@ -67,17 +70,18 @@ def clear():
 
     cv2.destroyAllWindows()
 
-# Main loop
+
+# 主循环
 while True:
     try:
-        # Move the spectator to the top of the vehicle 
+        # 观察者移动到车辆上方
         transform = carla.Transform(vehicle.get_transform().transform(carla.Location(x=-4,z=50)), carla.Rotation(yaw=-180, pitch=-90)) 
         spectator.set_transform(transform) 
 
-        # Display RGB camera image
+        # 显示 RGB 相机图像
         cv2.imshow('RGB Camera', rgb_image_queue.get())
 
-        # Quit if user presses 'q'
+        # 如果用户按 'q' 则退出
         if cv2.waitKey(1) == ord('q'):
             clear()
             break
