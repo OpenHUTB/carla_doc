@@ -121,15 +121,21 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#pythonapicarladist">尽管成功输出消息，但在PythonAPI/carla中没有dist文件夹。</a>
     </li>
+    <li class="toctree-l3"><a class="reference internal" href="#osm2odr-visualstudio">osm2odr-visualstudio为空，或者拷贝过去的目录不对</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_6">类型转换不对</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#osm2odrlib">链接不到osm2odr.lib</a>
+    </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#carla_3">运行 Carla</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#fps">在虚幻编辑器中运行服务器时 FPS 速率较低。</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_6">无法运行脚本。</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_7">无法运行脚本。</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_7">在虚幻编辑器中运行时连接到仿真器。</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_8">在虚幻编辑器中运行时连接到仿真器。</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#carla_4">无法运行 Carla，无论是二进制还是源代码构建。</a>
     </li>
@@ -141,7 +147,7 @@
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_8">其他</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_9">其他</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#fatal-error-versionh-has-been-modified-since-the-precompiled-header">Fatal error: 'version.h' has been modified since the precompiled header.</a>
     </li>
@@ -190,7 +196,11 @@
               </ul>
               <p class="caption"><span class="caption-text">行人</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_pedestrian_bones/">行人骨骼</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_walker_skeletons/">控制行人骨骼</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_pedestrian_visual/">行人视觉</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_pedestrian_navigation/">生成行人导航</a>
                   </li>
@@ -628,6 +638,28 @@ export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla</code></p>
 <blockquote>
 <p>在 Windows 中， <code>make PythonAPI</code> 命令可能会返回一条消息，表明 Python API 安装成功，但实际上并未成功。如果看到此输出后目录 <code>PythonAPI/carla</code> 中没有 <code>dist</code> 文件夹，请查看上面的命令输出。很可能发生了错误，需要在更正错误并运行 <code>make clean</code> 后重试构建。 </p>
 </blockquote>
+<h6 id="osm2odr-visualstudio">osm2odr-visualstudio为空，或者拷贝过去的目录不对</h6>
+<pre><code class="language-text">CMake Error: The current CMakeCache.txt directory D:/work/workspace/carla/Build/osm2odr-visualstudio/CMakeCache.txt is different than the directory d:/work/buffer/carla/Build/osm2odr-visualstudio where CMakeCache.txt was created. This may result in binaries being created in the wrong place. If you are not sure, reedit the CMakeCache.txt
+</code></pre>
+<pre><code class="language-shell">CMake Error: The source directory &quot;D:/work/workspace/carla/Build/osm2odr-visualstudio/x64&quot; does not appear to contain CMakeLists.txt.
+</code></pre>
+<blockquote>
+<p>删除<code>carla\Build\osm2odr-visualstudio\CMakeCache.txt</code></p>
+</blockquote>
+<h6 id="_6">类型转换不对</h6>
+<blockquote></blockquote>
+<pre><code class="language-shell">carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Vehicle/CustomTerrainPhysicsComponent.cpp(1161): error C2440: “static_cast”: 无法从“float”转换为“EDefResolutionType”
+</code></pre>
+<blockquote>
+<p>注释掉</p>
+</blockquote>
+<pre><code class="language-shell">// ChosenRes = static_cast&lt;EDefResolutionType&gt;(Value);  // static_cast&lt;EDefResolutionType&gt;(Value)
+</code></pre>
+<h6 id="osm2odrlib">链接不到osm2odr.lib</h6>
+<blockquote>
+<p><code>fatal error LNK1181: carla\Unreal\CarlaUE4\Plugins\Carla\CarlaDependencies\lib\osm2odr.lib</code></p>
+<p>从其他地方拷贝过来。</p>
+</blockquote>
 <hr />
 <h2 id="carla_3">运行 Carla</h2>
 <!-- ======================================================================= -->
@@ -639,14 +671,14 @@ export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla</code></p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="_6">无法运行脚本。</h6>
+<h6 id="_7">无法运行脚本。</h6>
 <blockquote>
 <p>有些脚本有要求。这些列在名为 <strong>Requirements.txt</strong> 的文件中，与脚本本身位于同一路径中。请务必检查这些以便运行脚本。其中大多数可以通过简单的<code>pip</code>命令进行安装。</p>
 <p>有时在 Windows 上，脚本无法仅使用 <code>&gt; script_name.py</code> 运行。尝试添加. Try adding <code>&gt; python3 script_name.py</code>，并确保位于正确的目录中。</p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="_7">在虚幻编辑器中运行时连接到仿真器。</h6>
+<h6 id="_8">在虚幻编辑器中运行时连接到仿真器。</h6>
 <blockquote>
 <p>单击“运行”（ <strong>Play</strong> ）并等待场景加载。此时，Python 客户端可以像独立仿真器一样连接到仿真器。</p>
 </blockquote>
@@ -702,7 +734,7 @@ export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla</code></p>
 <p>请注意，虚拟环境或 Conda 等其他 Python 环境可能会使 Carla 的安装变得复杂。确保您已相应地设置 Python 默认值和路径。</p>
 </blockquote>
 <hr />
-<h2 id="_8">其他</h2>
+<h2 id="_9">其他</h2>
 <!-- ======================================================================= -->
 
 <h6 id="fatal-error-versionh-has-been-modified-since-the-precompiled-header">Fatal error: 'version.h' has been modified since the precompiled header.</h6>

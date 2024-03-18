@@ -106,7 +106,11 @@
               </ul>
               <p class="caption"><span class="caption-text">行人</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_pedestrian_bones/">行人骨骼</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_walker_skeletons/">控制行人骨骼</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_pedestrian_visual/">行人视觉</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_pedestrian_navigation/">生成行人导航</a>
                   </li>
@@ -523,7 +527,7 @@ python3 config.py --map Town01
 </details>
 <p><br></p>
 <p><img alt="tuto_map" src="../img/tuto_map.jpg" /></p>
-<div style="text-align: right"><i>Aerial view of Town07</i></div>
+<div style="text-align: center"><i>Town07 的空中视角</i></div>
 
 <h3 id="_5">天气设置</h3>
 <p>每个城镇都有适合它的特定天气，但是可以随意设置。有两个脚本提供了解决此问题的不同方法。第一个设置了动态天气，随着时间的推移，情况会发生变化。另一个设置自定义天气条件。还可以对天气条件进行编码。稍后 <a href="#change-the-weather">天气条件发生变化</a> 时将对此进行介绍。 </p>
@@ -565,7 +569,7 @@ python3 environment.py --clouds 100 --rain 80 --wetness 100 --puddles 60 --wind 
 </details>
 <p><br></p>
 <p><img alt="tuto_weather" src="../img/tuto_weather.jpg" /></p>
-<div style="text-align: right"><i>Weather changes applied</i></div>
+<div style="text-align: center"><i>使用天气改变</i></div>
 
 <hr />
 <h2 id="_6">设置交通流量</h2>
@@ -597,7 +601,7 @@ python3 spawn_npc.py -n 50 -w 50 --safe
 </details>
 <p><br>
 <img alt="tuto_spawning" src="../img/tuto_spawning.jpg" /></p>
-<div style="text-align: right"><i>Vehicles spawned to simulate traffic.</i></div>
+<div style="text-align: center"><i>生成车辆以仿真交通。</i></div>
 
 <h3 id="sumo">SUMO 协同仿真交通</h3>
 <p>Carla 可以与 SUMO 运行联合仿真。这允许在 SUMO 中创建将传播到 Carla 的交通流量。这种联合仿真是双向的。在 Carla 中生成的车辆将在 SUMO 中生成。有关此功能的具体文档可以在 <a href="../adv_sumo/">此处</a> 找到。</p>
@@ -631,7 +635,7 @@ python3 run_synchronization.py examples/Town01.sumocfg --sumo-gui
 </code></pre>
 <p>该脚本生成的流量是 Carla 团队创建的示例。默认情况下，它会沿着相同的路线生成相同的车辆。用户可以在 SUMO 中更改这些内容。</p>
 <p><img alt="tuto_sumo" src="../img/tuto_sumo.jpg" /></p>
-<div style="text-align: right"><i>SUMO and CARLA co-simulating traffic.</i></div>
+<div style="text-align: center"><i>SUMO 和 Carla 协同仿真交通。</i></div>
 
 <div class="admonition 警告">
 <p class="admonition-title">警告</p>

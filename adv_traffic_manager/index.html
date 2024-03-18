@@ -172,7 +172,11 @@
               </ul>
               <p class="caption"><span class="caption-text">行人</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_pedestrian_bones/">行人骨骼</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_walker_skeletons/">控制行人骨骼</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_pedestrian_visual/">行人视觉</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_pedestrian_navigation/">生成行人导航</a>
                   </li>
@@ -661,8 +665,8 @@ for actor in my_vehicles:
 <p>TM 不是一个需要被摧毁的参与者;当创建它的客户端停止时，它将停止。这是由 API 自动管理的，用户无需执行任何操作。但是，在关闭 TM 时，用户必须摧毁由它控制的车辆，否则它们将在地图上保持不动。 <code>generate_traffic.py</code>脚本会自动执行此操作:</p>
 <pre><code class="language-py">client.apply_batch([carla.command.DestroyActor(x) for x in vehicles_list])
 </code></pre>
-<div class="admonition 警告">
-<p class="admonition-title">警告</p>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
 <p>关闭 <strong>TM-Server</strong> 将关闭连接到它的 <strong>TM-Clients</strong> 。 要了解 <strong>TM-Server</strong> 和 <strong>TM-Client</strong> 之间的区别, 请阅读 <a href="#running-multiple-traffic-managers"><strong>Running multiple Traffic Managers</strong></a>。</p>
 </div>
 <hr />
