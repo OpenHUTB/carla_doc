@@ -1,5 +1,14 @@
 import carla
-from agents.navigation.basic_agent import BasicAgent
+import sys
+
+sys.path.append("D:\\work\\workspace\\carla\\PythonAPI\\carla")
+# 位于 carla\PythonAPI\carla\agents\navigation\basic_agent.py
+try:
+    from agents.navigation.basic_agent import BasicAgent
+except Exception as e:
+    print(e)
+    sys.path.append("D:\work\workspace\carla\PythonAPI")
+
 
 import math
 import random
@@ -15,40 +24,43 @@ import matplotlib.pyplot as plt
 client = carla.Client('localhost', 2000)
 world = client.get_world()
 
-# Get a vehicle from the library
+# 从库中获得一辆车
 bp_lib = world.get_blueprint_library()
 vehicle_bp = bp_lib.find('vehicle.lincoln.mkz_2020')
 
-# Get a spawn point
+# 获得生成点
 spawn_points = world.get_map().get_spawn_points()
 
-# Navigation
-start_point = spawn_points[0]
+# 导航
+start_point = spawn_points[1]
 stop_point = spawn_points[-1]
 
-# Draw the start and stop point
+# 绘制开始点和停止点
 world.debug.draw_string(start_point.location, 'Start', life_time=60)
 world.debug.draw_string(stop_point.location, 'Stop', life_time=60)
 
-# Spawn a vehicle
+# 生成一辆车
+# vehicle = world.spawn_actor(vehicle_bp, start_point)
 vehicle = world.try_spawn_actor(vehicle_bp, start_point)
 
-# Start a basic agent
+# 开始一个基本的智能体
 agent = BasicAgent(vehicle)
 
-# Set destination
+# 设置终点
 destination = stop_point.location
 agent.set_destination(destination)
 
-# Get the world spectator 
+# 获得世界观察者
 spectator = world.get_spectator() 
 
 # Get the map
 m = world.get_map()
 
-## Part 2
+
+# 第二部分
 
 velocities = deque(maxlen=40)
+
 
 def draw_waypoints(world, waypoints, z=0.5):
     """
@@ -66,19 +78,20 @@ def draw_waypoints(world, waypoints, z=0.5):
     end = begin + carla.Location(x=math.cos(angle), y=math.sin(angle))
     world.debug.draw_arrow(begin, end, arrow_size=0.5, life_time=60.0)
 
-# Main loop
+
+# 主循环
 count = 0
 while True:
     try:
-        # Move the spectator to the top of the vehicle 
-        transform = carla.Transform(vehicle.get_transform().transform(carla.Location(x=-4,z=30)), carla.Rotation(yaw=-180, pitch=-90)) 
+        # 将观察者移动到车辆上方
+        transform = carla.Transform(vehicle.get_transform().transform(carla.Location(x=-4, z=30)), carla.Rotation(yaw=-180, pitch=-90))
         spectator.set_transform(transform) 
 
-        # Get the vehicle's current velocity
+        # 获得车辆的当前速度
         v = vehicle.get_velocity()
         lon_vel = 3.6 * math.sqrt(v.x**2 + v.y**2 + v.z**2)
 
-        # Plot velocities
+        # 绘制速度图
         velocities.append(lon_vel)
 
         plt.clf()
@@ -91,7 +104,7 @@ while True:
 
         plt.pause(0.01)
 
-        # Apply navigation control
+        # 应用导航控制
         vehicle.apply_control(agent.run_step())
 
         if agent.done():
@@ -100,7 +113,7 @@ while True:
             print('Vehicle Destroyed.')
             break
 
-        # Draw the closest waypoints
+        # 绘制最近的路径点
         m.generate_waypoints(10)
         w = m.get_waypoint(vehicle.get_location())
 

@@ -8,24 +8,24 @@ import numpy as np
 
 from utils.projection import *
 
-# Part 1
+# 第一部分
 
 client = carla.Client('localhost', 2000)
-world  = client.get_world()
+world = client.get_world()
 
-# Set up the simulator in synchronous mode
+# 在同步模式下配置仿真器
 settings = world.get_settings()
-settings.synchronous_mode = True # Enables synchronous mode
+settings.synchronous_mode = True  # 启用同步模式
 settings.fixed_delta_seconds = 0.05
 world.apply_settings(settings)
 
-# Get the world spectator
+# 获得世界的观察者
 spectator = world.get_spectator() 
 
-# Get the map spawn points
+# 获得地图的生成点
 spawn_points = world.get_map().get_spawn_points()
 
-# spawn vehicle
+# 生成车辆
 bp_lib = world.get_blueprint_library()
 vehicle_bp =bp_lib.find('vehicle.lincoln.mkz_2020')
 vehicle = world.try_spawn_actor(vehicle_bp, random.choice(spawn_points))
@@ -35,53 +35,55 @@ camera_bp = bp_lib.find('sensor.camera.rgb')
 camera_init_trans = carla.Transform(carla.Location(z=2))
 camera = world.spawn_actor(camera_bp, camera_init_trans, attach_to=vehicle)
 
-# Create a queue to store and retrieve the sensor data
+# 创建用于存储和获取传感器数据的队列
 image_queue = queue.Queue()
 camera.listen(image_queue.put)
 
-# Part 2
 
-# Remember the edge pairs
-edges = [[0,1], [1,3], [3,2], [2,0], [0,4], [4,5], [5,1], [5,7], [7,6], [6,4], [6,2], [7,3]]
+# 第二部分
 
-# Get the world to camera matrix
+# 记住边对
+edges = [[0, 1], [1, 3], [3, 2], [2, 0], [0, 4], [4, 5], [5, 1], [5, 7], [7, 6], [6, 4], [6, 2], [7, ]]
+
+# 获得世界坐标系转相机坐标系的矩阵
 world_2_camera = np.array(camera.get_transform().get_inverse_matrix())
 
-# Get the attributes from the camera
+# 从相机中获得属性
 image_w = camera_bp.get_attribute("image_size_x").as_int()
 image_h = camera_bp.get_attribute("image_size_y").as_int()
 fov = camera_bp.get_attribute("fov").as_float()
 
-# Calculate the camera projection matrix to project from 3D -> 2D
-K   = build_projection_matrix(image_w, image_h, fov)
+# 计算三维到二维的相机投影矩阵
+K = build_projection_matrix(image_w, image_h, fov)
 K_b = build_projection_matrix(image_w, image_h, fov, is_behind_camera=True)
 
 for i in range(20):
     vehicle_bp = bp_lib.filter('vehicle')
 
-    # Exclude bicycle
+    # 排除自行车
     car_bp = [bp for bp in vehicle_bp if int(bp.get_attribute('number_of_wheels')) == 4]
     npc = world.try_spawn_actor(random.choice(car_bp), random.choice(spawn_points))
 
     if npc:
         npc.set_autopilot(True)
 
-# Retrieve all the objects of the level
-car_objects = world.get_environment_objects(carla.CityObjectLabel.Car) # doesn't have filter by type yet
-truck_objects = world.get_environment_objects(carla.CityObjectLabel.Truck) # doesn't have filter by type yet
-bus_objects = world.get_environment_objects(carla.CityObjectLabel.Bus) # doesn't have filter by type yet
+# 获取关卡的所有目标
+car_objects = world.get_environment_objects(carla.CityObjectLabel.Car)  # 没有根据类型进行过滤
+truck_objects = world.get_environment_objects(carla.CityObjectLabel.Truck)  # 没有根据类型进行过滤
+bus_objects = world.get_environment_objects(carla.CityObjectLabel.Bus)  # 没有根据类型进行过滤
 
 env_object_ids = []
 
 for obj in (car_objects + truck_objects + bus_objects):
     env_object_ids.append(obj.id)
 
-# Disable all static vehicles
+# 禁用所有静态车辆
 world.enable_environment_objects(env_object_ids, False) 
+
 
 def clear():
     settings = world.get_settings()
-    settings.synchronous_mode = False # Disables synchronous mode
+    settings.synchronous_mode = False  # 禁用同步模式
     settings.fixed_delta_seconds = None
     world.apply_settings(settings)
 
@@ -93,28 +95,29 @@ def clear():
 
     print("Vehicles Destroyed.")
 
-# Main Loop
+
+# 主循环
 vehicle.set_autopilot(True)
 
 while True:
     try:
         world.tick()
 
-        # Move the spectator to the top of the vehicle 
+        # 将观察者移动到车辆上方
         transform = carla.Transform(vehicle.get_transform().transform(carla.Location(x=-4,z=50)), carla.Rotation(yaw=-180, pitch=-90)) 
         spectator.set_transform(transform) 
 
-        # Retrieve and reshape the image
+        # 获取并重塑图像
         image = image_queue.get()
 
         img = np.reshape(np.copy(image.raw_data), (image.height, image.width, 4))
 
-        # Get the camera matrix 
+        # 获取图像矩阵
         world_2_camera = np.array(camera.get_transform().get_inverse_matrix())
 
         for npc in world.get_actors().filter('*vehicle*'):
 
-            # Filter out the ego vehicle
+            # 过滤出自主车辆
             if npc.is_alive and npc.id != vehicle.id:
 
                 npc_transform = npc.transform if isinstance(npc, carla.EnvironmentObject) else npc.get_transform()
@@ -122,7 +125,7 @@ while True:
                 bb = npc.bounding_box
                 dist = npc_transform.location.distance(vehicle.get_transform().location)
 
-                # Filter for the vehicles within 50m
+                # 过滤出 50 米以内的车辆
                 if dist < 50:
                     # Calculate the dot product between the forward vector
                     # of the vehicle and the vector between the vehicle

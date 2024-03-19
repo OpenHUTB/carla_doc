@@ -13,7 +13,7 @@ import numpy as np
 client = carla.Client('localhost', 2000)
 world = client.get_world()
 
-# Get a vehicle from the library
+# 从库中获得 一辆车
 bp_lib = world.get_blueprint_library()
 vehicle_bp = bp_lib.find('vehicle.lincoln.mkz_2020')
 
