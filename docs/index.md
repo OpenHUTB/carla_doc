@@ -242,6 +242,8 @@ Carla 论坛</a>
 
 [__罗技 G29 方向盘__](tuto_G_G29_windows.md) — 使用罗技方向盘进行车辆控制和仿真对方向盘的反向控制。
 
+[__OpenSCENARIO 播放器__](tuto_G_esmini.md) — 基本的 OpenSCENARIO 播放器。
+
 ## 贡献
 
 [__贡献指南__](cont_contribution_guidelines.md) — 为 Carla 做出贡献的不同方式。
