@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>调试程序 - 交通仿真文档</title>
+    <title>tuto G esmini - 交通仿真文档</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,8 +13,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "\u8c03\u8bd5\u7a0b\u5e8f";
-        var mkdocs_page_input_path = "tuto_D_windows_debug.md";
+        var mkdocs_page_name = "tuto G esmini";
+        var mkdocs_page_input_path = "tuto_G_esmini.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -210,7 +210,7 @@
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">教程（开发人员）</span></p>
-              <ul class="current">
+              <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_D_contribute_assets/">如何升级内容</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_D_create_sensor/">创建一个传感器</a>
@@ -223,19 +223,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_D_make_release/">发布版本</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">调试程序</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#vs2019-cmake">VS2019 打开 Cmake 工程</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_1">导入崩溃问题</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#vs-ue">VS 调试 UE 项目</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_2">问题</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_3">发布</a>
-    </li>
-    </ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_windows_debug/">调试程序</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">示例</span></p>
@@ -314,8 +302,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">教程（开发人员）</li>
-      <li class="breadcrumb-item active">调试程序</li>
+      <li class="breadcrumb-item active">tuto G esmini</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -324,96 +311,19 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="windows-carla">在 Windows 上进行 Carla 的调试</h1>
+                <h2 id="esmini"><a href="https://esmini.github.io/">esmini</a></h2>
 <ol>
-<li>进入目录<code>carla/Unreal/CarlaUE4/</code>，右键文件<code>CarlaUE4.uproject</code>，选择运行<code>Generate Visual Studio project files</code>，在当前目录中将会生成VS的工程文件，双击打开<code>CarlaUE4.sln</code>。</li>
+<li>下载</li>
 </ol>
-<p><img alt="" src="../img/tuto_D_windows_debug/generate_vs_project_files.png" /></p>
-<div class="admonition 笔记">
-<p class="admonition-title">笔记</p>
-<p>如果右键菜单中未出现<code>Generate Visual Studio project files</code>选项，则到虚幻引擎的目录中运双击执行<code>engine\Engine\Binaries\Win64\UnrealVersionSelector.exe</code>，将虚幻引擎软件注册到系统中。</p>
-</div>
+<p>下载 <a href="https://github.com/esmini/esmini/releases">esmini和esmini-demo_windows</a> 。</p>
 <ol>
-<li>在<code>解决方案</code>中展开<code>Games-&gt;CarlaUE4</code>，在想要查看的源代码行的最左侧单击增加断点（比如：<code>CarlaUE4-&gt;Plugins-&gt;CarlaTools-&gt;Source-&gt;CarlaTools-&gt;Private</code>的<code>OpenDriveToMap.cpp</code>的<code>GenerateTileStandalone()</code>），在菜单运行<code>调试(D)-&gt;开始调试(S)</code>，程序将在断点出暂停。通过<code>调式(D)-&gt;窗口(W)-&gt;监视(W)-&gt;监视 1</code>打开变量监视窗口，查看变量值是否异常。</li>
-<li><img alt="" src="../img/tuto_D_windows_debug/debug_project.png" /></li>
+<li>运行</li>
 </ol>
-<h2 id="vs2019-cmake">VS2019 打开 Cmake 工程</h2>
-<p>windows操作系统下通过vs2019打开并编译carla：</p>
-<ol>
-<li>开Carla的CMake项目：</li>
-</ol>
-<p>从 VS 的菜单中选择 <code>File--&gt;Open--&gt;CMake</code>, 在对话框中找到 Carla 所在的本地文件夹（包含CMakeLists），选择CMakeLists.txt文件，打开，Visual studio 会自动加载此仓库，解析 <code>CMakeLists.txt</code> 文件，并提取其配置和变量信息。解析完成（需要等会儿或者重启）会从<code>解决方案资源管理器</code>中看到<code>.cpp</code>文件。</p>
-<ol>
-<li>修改配置：</li>
-</ol>
-<p>点击<code>x64-Debug</code>下拉菜单中的<code>管理配置</code>，并在弹出的界面点击<code>编辑JSON</code>（该过程在工程根目录下生成<code>CMakeSettings.json</code>），将所需要构建的类型改为想编译的类型，比如<code>Client</code>。</p>
-<ol>
-<li>生成：</li>
-</ol>
-<p>点击菜单栏<code>生成</code>-<code>全部生成</code>或<code>部分生成</code>即可。</p>
-<h2 id="_1">导入崩溃问题</h2>
-<ol>
-<li>例如，导入链接：</li>
-</ol>
-<pre><code class="language-text">https://overpass-api.de/api/map?bbox=2.08191,41.49611,2.08268,41.49671
-小地图：
-https://overpass-api.de/api/map?bbox=112.9088,28.2221,112.9172,28.2290
-大地图：
-https://overpass-api.de/api/map?bbox=112.8971,28.1976,112.9607,28.2501
+<pre><code class="language-shell">esmini\bin&gt;esmini --window 60 60 800 400 --osc ./esmini-demo/resources/xosc/cut-in.xosc
 </code></pre>
-<ol>
-<li><code>CarlaUE4-&gt;Plugins-&gt;CarlaTools-&gt;Source-&gt;CarlaTools-&gt;Private</code>的<code>OpenDriveToMap.cpp</code>463行<code>GenerateTileStandalone()</code> ，然后调用<code>ExecuteTileCommandlet()</code> : </li>
-</ol>
-<p>UCommandlet是 Unreal Engine 中用于实现命令行操作的基类。它允许开发者创建自定义的命令行命令，并在引擎启动时执行这些命令。这个类主要用于扩展引擎功能，提供自定义的命令行工具。</p>
-<ol>
-<li>ExecuteTileCommandlet() 调用的是<code>carla\Unreal\CarlaUE4\Plugins\CarlaTools\Intermediate\Build\Win64\UE4Editor\Inc\CarlaTools\OpenDriveToMap.gen.cpp</code>（反射文件gen）194行的</li>
-</ol>
-<pre><code class="language-shell">static FName NAME_UOpenDriveToMap_ExecuteTileCommandlet = FName(TEXT(&quot;ExecuteTileCommandlet&quot;));
-void UOpenDriveToMap::ExecuteTileCommandlet()
-{
-    ProcessEvent(FindFunctionChecked(NAME_UOpenDriveToMap_ExecuteTileCommandlet),NULL);
-}
-</code></pre>
-<ul>
-<li>找到名为“ExecuteTileCommandlet”的<code>UFunction</code>对象；</li>
-<li>执行“ProcessEvent”函数，然后从全局函数映射表找到对应的函数指针执行（利用函数名调用UFUNCTION函数）。</li>
-</ul>
-<p><a href="https://neil3d.github.io/unreal/bp_in_depth.html">蓝图的字节码</a> ：在<code>engine\Engine\Source\Runtime\CoreUObject\Public\UObject\Script.h</code>这个文件中有一个<code>enum EExprToken</code>，这个枚举就是蓝图的字节码定义。引擎中使用一个全局查找表，把上述字节码映射到函数指针。在运行时，从一个字节码数组中逐个取出字节码，并查找函数指针，进行调用，也就完成了所谓的“字节码解释执行”的过程。</p>
-<p>改为</p>
-<pre><code class="language-shell">void UOpenDriveToMap::GenerateTileStandalone(){
-  UE_LOG(LogCarlaToolsMapGenerator, Log, TEXT(&quot;UOpenDriveToMap::GenerateTileStandalone Function called&quot;));
-
-  // ExecuteTileCommandlet();
-  GenerateTile();
-
-  UEditorLoadingAndSavingUtils::SaveDirtyPackages(true, true);
-  UEditorLevelLibrary::SaveCurrentLevel();
-
-}
-</code></pre>
-<p>注意：大地图也只能生成一小片地图。</p>
-<h2 id="vs-ue"><a href="https://ue5wiki.com/wiki/14373/">VS 调试 UE 项目</a></h2>
-<ul>
-<li>变量已被优化掉，因而不可用。    </li>
-</ul>
-<p>VS菜单中选择<code>DebugGammingEditor</code>，然后开始调试，就可以添加要监视的项。</p>
-<h2 id="_2">问题</h2>
-<p>崩溃于<code>engine\Engine\Source\Runtime\CoreUObject\Private\UObject\ScriptCore.cpp</code>1990行<code>Function-&gt;Invoke(this, NewStack, ReturnValueAddress);</code>
-弹出报错信息框：</p>
-<pre><code class="language-text">Failed to open descriptor file ./../../../carla/Unreal/CarlaUE4/CarlaUE4.uproject
-</code></pre>
-<ul>
-<li><a href="http://www.piaoyi.org/c-sharp/Visual-Studio-2019-Intellisense.html">VS跳转代码太慢</a> </li>
-</ul>
-<h2 id="_3">发布</h2>
-<p>包含所有软件依赖，双击<code>launch.bat</code>启动软件。</p>
               
             </div>
           </div><footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../tuto_D_make_release/" class="btn btn-neutral float-left" title="发布版本"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../tuto_E_gallery/" class="btn btn-neutral float-right" title="入门">Next <span class="icon icon-circle-arrow-right"></span></a>
-    </div>
 
   <hr/>
 
@@ -434,10 +344,6 @@ void UOpenDriveToMap::ExecuteTileCommandlet()
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../tuto_D_make_release/" style="color: #fcfcfc">&laquo; Previous</a></span>
-    
-    
-      <span><a href="../tuto_E_gallery/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
