@@ -28,7 +28,7 @@
         - `accel_ki` (_float_)  
         - `accel_kd` (_float_)  
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.AckermannControllerSettings.__eq__"></a>**<font color="#7fb800">\__eq__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.AckermannControllerSettings](#carla.AckermannControllerSettings)</font>)  
 - <a name="carla.AckermannControllerSettings.__ne__"></a>**<font color="#7fb800">\__ne__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.AckermannControllerSettings](#carla.AckermannControllerSettings)</font>)  
 - <a name="carla.AckermannControllerSettings.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
@@ -143,7 +143,7 @@ _</font>
         - `transform` (_[carla.Transform](#carla.Transform)_)  
     - **获取器：** _[carla.Actor.get_transform](#carla.Actor.get_transform)_  
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.Actor.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
 
 ---
@@ -173,7 +173,7 @@ Carla 为参与者提供了一个蓝图库，可以通过 [carla.BlueprintLibrar
 - <a name="carla.ActorAttribute.as_str"></a>**<font color="#7fb800">as_str</font>**(<font color="#00a6ed">**self**</font>)  
 将属性读取为字符串。  
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.ActorAttribute.__bool__"></a>**<font color="#7fb800">\__bool__</font>**(<font color="#00a6ed">**self**</font>)  
 - <a name="carla.ActorAttribute.__eq__"></a>**<font color="#7fb800">\__eq__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=bool / int / float / str / [carla.Color](#carla.Color) / [carla.ActorAttribute](#carla.ActorAttribute)</font>)  
 如果此参与者的属性 和`other` 相同，则返回 true。  
@@ -1822,7 +1822,7 @@ Y 轴偏移。默认值为 __0.0__。
 ## carla.RadarDetection<a name="carla.RadarDetection"></a>
 [carla.RadarMeasurement](#carla.RadarMeasurement) 中包含的数据。其中每一个都代表传感器.<b>sensor.other.radar</b>  记录的云中的点之一，并包含与雷达相关的距离、角度和速度。 
 
-### Instance Variables
+### 实例变量
 - <a name="carla.RadarDetection.altitude"></a>**<font color="#f8805a">altitude</font>** (_float<small> - radians</small>_)  
 Altitude angle of the detection.  
 - <a name="carla.RadarDetection.azimuth"></a>**<font color="#f8805a">azimuth</font>** (_float<small> - radians</small>_)  
@@ -1832,9 +1832,9 @@ Distance from the sensor to the detection position.
 - <a name="carla.RadarDetection.velocity"></a>**<font color="#f8805a">velocity</font>** (_float<small> - m/s</small>_)  
 The velocity of the detected object towards the sensor.  
 
-### Methods
+### 方法
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.RadarDetection.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
 
 ---
@@ -1843,17 +1843,17 @@ The velocity of the detected object towards the sensor.
 <small style="display:block;margin-top:-20px;">Inherited from _[carla.SensorData](#carla.SensorData)_</small></br>
 Class that defines and gathers the measures registered by a <b>sensor.other.radar</b>, representing a wall of points in front of the sensor with a distance, angle and velocity in relation to it. The data consists of a [carla.RadarDetection](#carla.RadarDetection) array. Learn more about this [here](ref_sensors.md#radar-sensor).  
 
-### Instance Variables
+### 实例变量
 - <a name="carla.RadarMeasurement.raw_data"></a>**<font color="#f8805a">raw_data</font>** (_bytes_)  
 The complete information of the [carla.RadarDetection](#carla.RadarDetection) the radar has registered.  
 
-### Methods
+### 方法
 
-##### Getters
+##### 设置器
 - <a name="carla.RadarMeasurement.get_detection_count"></a>**<font color="#7fb800">get_detection_count</font>**(<font color="#00a6ed">**self**</font>)  
 Retrieves the number of entries generated, same as **<font color="#7fb800">\__str__()</font>**.  
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.RadarMeasurement.__getitem__"></a>**<font color="#7fb800">\__getitem__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**pos**=int</font>)  
 - <a name="carla.RadarMeasurement.__iter__"></a>**<font color="#7fb800">\__iter__</font>**(<font color="#00a6ed">**self**</font>)  
 Iterate over the [carla.RadarDetection](#carla.RadarDetection) retrieved as data.  
@@ -1867,7 +1867,7 @@ Iterate over the [carla.RadarDetection](#carla.RadarDetection) retrieved as data
 Class that represents a 3D rotation and therefore, an orientation in space. CARLA uses the Unreal Engine coordinates system. This is a Z-up left-handed system.  <br>
 <br>The constructor method follows a specific order of declaration: `(pitch, yaw, roll)`, which corresponds to `(Y-rotation,Z-rotation,X-rotation)`.  <br> <br>![UE4_Rotation](https://d26ilriwvtzlb.cloudfront.net/8/83/BRMC_9.jpg) *Unreal Engine's coordinates system*.  
 
-### Instance Variables
+### 实例变量
 - <a name="carla.Rotation.pitch"></a>**<font color="#f8805a">pitch</font>** (_float<small> - degrees</small>_)  
 Y-axis rotation angle.  
 - <a name="carla.Rotation.yaw"></a>**<font color="#f8805a">yaw</font>** (_float<small> - degrees</small>_)  
@@ -1875,7 +1875,7 @@ Z-axis rotation angle.
 - <a name="carla.Rotation.roll"></a>**<font color="#f8805a">roll</font>** (_float<small> - degrees</small>_)  
 X-axis rotation angle.  
 
-### Methods
+### 方法
 - <a name="carla.Rotation.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**pitch**=0.0</font>, <font color="#00a6ed">**yaw**=0.0</font>, <font color="#00a6ed">**roll**=0.0</font>)  
     - **Parameters:**
         - `pitch` (_float<small> - degrees</small>_) - Y-axis rotation angle.  
@@ -1883,7 +1883,7 @@ X-axis rotation angle.
         - `roll` (_float<small> - degrees</small>_) - X-axis rotation angle.  
     - **Warning:** <font color="#ED2F2F">_The declaration order is different in CARLA <code>(pitch,yaw,roll)</code>, and in the Unreal Engine Editor <code>(roll,pitch,yaw)</code>. When working in a build from source, don't mix up the axes' rotations._</font>  
 
-##### Getters
+##### 设置器
 - <a name="carla.Rotation.get_forward_vector"></a>**<font color="#7fb800">get_forward_vector</font>**(<font color="#00a6ed">**self**</font>)  
 Computes the vector pointing forward according to the rotation of the object.  
     - **Return:** _[carla.Vector3D](#carla.Vector3D)_  
@@ -1894,7 +1894,7 @@ Computes the vector pointing to the right according to the rotation of the objec
 Computes the vector pointing upwards according to the rotation of the object.  
     - **Return:** _[carla.Vector3D](#carla.Vector3D)_  
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.Rotation.__eq__"></a>**<font color="#7fb800">\__eq__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.Rotation](#carla.Rotation)</font>)  
 Returns __True__ if both rotations represent the same orientation for every axis.  
     - **Return:** _bool_  
@@ -1909,7 +1909,7 @@ Parses the axis' orientations to string.
 ## carla.RssActorConstellationData<a name="carla.RssActorConstellationData"></a>
 Data structure that is provided within the callback registered by RssSensor.register_actor_constellation_callback().  
 
-### Instance Variables
+### 实例变量
 - <a name="carla.RssActorConstellationData.ego_match_object"></a>**<font color="#f8805a">ego_match_object</font>** (_<a href="https://ad-map-access.readthedocs.io/en/latest/ad_map_access/apidoc/html/structad_1_1map_1_1match_1_1Object.html">ad.map.match.Object</a>_)  
 The ego map matched information.  
 - <a name="carla.RssActorConstellationData.ego_route"></a>**<font color="#f8805a">ego_route</font>** (_<a href="https://ad-map-access.readthedocs.io/en/latest/ad_map_access/apidoc/html/structad_1_1map_1_1route_1_1FullRoute.html">ad.map.route.FullRoute</a>_)  
@@ -1921,9 +1921,9 @@ The other object's map matched information. This is only valid if 'other_actor' 
 - <a name="carla.RssActorConstellationData.other_actor"></a>**<font color="#f8805a">other_actor</font>** (_[carla.Actor](#carla.Actor)_)  
 The other actor. This is 'None' in case of query of default parameters or articial objects of kind <a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/namespacead_1_1rss_1_1world.html#a6432f1ef8d0657b4f21ed5966aca1625">ad.rss.world.ObjectType.ArtificialObject</a> with no dedicated '[carla.Actor](#carla.Actor)' (as e.g. for the [road boundaries](ref_sensors.md#rss-sensor) at the moment).  
 
-### Methods
+### 方法
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.RssActorConstellationData.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
 
 ---
@@ -1931,7 +1931,7 @@ The other actor. This is 'None' in case of query of default parameters or artici
 ## carla.RssActorConstellationResult<a name="carla.RssActorConstellationResult"></a>
 Data structure that should be returned by the callback registered by RssSensor.register_actor_constellation_callback().  
 
-### Instance Variables
+### 实例变量
 - <a name="carla.RssActorConstellationResult.rss_calculation_mode"></a>**<font color="#f8805a">rss_calculation_mode</font>** (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss_map_integration/namespacead_1_1rss_1_1map.html#adcb01232986ed83a0c540cd5d03ef495">ad.rss.map.RssMode</a>_)  
 The calculation mode to be applied with the actor.  
 - <a name="carla.RssActorConstellationResult.restrict_speed_limit_mode"></a>**<font color="#f8805a">restrict_speed_limit_mode</font>** (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss_map_integration/classad_1_1rss_1_1map_1_1RssSceneCreation.html#a403aae6dce3c77a8aec01dd9808dd964">ad.rss.map.RestrictSpeedLimitMode</a>_)  
@@ -1943,9 +1943,9 @@ The RSS object type to be used for the actor.
 - <a name="carla.RssActorConstellationResult.actor_dynamics"></a>**<font color="#f8805a">actor_dynamics</font>** (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1RssDynamics.html">ad.rss.world.RssDynamics</a>_)  
 The RSS dynamics to be applied for the actor.  
 
-### Methods
+### 方法
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.RssActorConstellationResult.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
 
 ---
@@ -1953,7 +1953,7 @@ The RSS dynamics to be applied for the actor.
 ## carla.RssEgoDynamicsOnRoute<a name="carla.RssEgoDynamicsOnRoute"></a>
 Part of the data contained inside a [carla.RssResponse](#carla.RssResponse) describing the state of the vehicle. The parameters include its current dynamics, and how it is heading regarding the target route.  
 
-### Instance Variables
+### 实例变量
 - <a name="carla.RssEgoDynamicsOnRoute.ego_speed"></a>**<font color="#f8805a">ego_speed</font>** (_<a href="https://ad-map-access.readthedocs.io/en/latest/ad_physics/apidoc/html/classad_1_1physics_1_1Speed.html">ad.physics.Speed</a>_)  
 The ego vehicle's speed.  
 - <a name="carla.RssEgoDynamicsOnRoute.min_stopping_distance"></a>**<font color="#f8805a">min_stopping_distance</font>** (_<a href="https://ad-map-access.readthedocs.io/en/latest/ad_physics/apidoc/html/classad_1_1physics_1_1Distance.html">ad.physics.Distance</a>_)  
@@ -1985,9 +1985,9 @@ The ego vehicle's acceleration component _lat_ regarding the route smoothened by
 - <a name="carla.RssEgoDynamicsOnRoute.avg_route_accel_lon"></a>**<font color="#f8805a">avg_route_accel_lon</font>** (_<a href="https://ad-map-access.readthedocs.io/en/latest/ad_physics/apidoc/html/classad_1_1physics_1_1Acceleration.html">ad.physics.Acceleration</a>_)  
 The ego acceleration component _lon_ regarding the route smoothened by an average filter.  
 
-### Methods
+### 方法
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.RssEgoDynamicsOnRoute.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
 
 ---
@@ -1995,7 +1995,7 @@ The ego acceleration component _lon_ regarding the route smoothened by an averag
 ## carla.RssLogLevel<a name="carla.RssLogLevel"></a>
 Enum declaration used in [carla.RssSensor](#carla.RssSensor) to set the log level.  
 
-### Instance Variables
+### 实例变量
 - <a name="carla.RssLogLevel.trace"></a>**<font color="#f8805a">trace</font>**  
 - <a name="carla.RssLogLevel.debug"></a>**<font color="#f8805a">debug</font>**  
 - <a name="carla.RssLogLevel.info"></a>**<font color="#f8805a">info</font>**  
@@ -2012,7 +2012,7 @@ Class that contains the output of a [carla.RssSensor](#carla.RssSensor). This is
 
 A [carla.RssRestrictor](#carla.RssRestrictor) will use the data to modify the [carla.VehicleControl](#carla.VehicleControl) of the vehicle.  
 
-### Instance Variables
+### 实例变量
 - <a name="carla.RssResponse.response_valid"></a>**<font color="#f8805a">response_valid</font>** (_bool_)  
 States if the response is valid. It is __False__ if calculations failed or an exception occured.  
 - <a name="carla.RssResponse.proper_response"></a>**<font color="#f8805a">proper_response</font>** (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1state_1_1ProperResponse.html">ad.rss.state.ProperResponse</a>_)  
@@ -2026,9 +2026,9 @@ World model used for calculations.
 - <a name="carla.RssResponse.situation_snapshot"></a>**<font color="#f8805a">situation_snapshot</font>** (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1situation_1_1SituationSnapshot.html">ad.rss.situation.SituationSnapshot</a>_)  
 Detailed RSS situations extracted from the world model.  
 
-### Methods
+### 方法
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.RssResponse.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
 
 ---
@@ -2036,7 +2036,7 @@ Detailed RSS situations extracted from the world model.
 ## carla.RssRestrictor<a name="carla.RssRestrictor"></a>
 These objects apply restrictions to a [carla.VehicleControl](#carla.VehicleControl). It is part of the Carla implementation of the [C++ Library for Responsibility Sensitive Safety](https://github.com/intel/ad-rss-lib). This class works hand in hand with a [rss sensor](ref_sensors.md#rss-sensor), which provides the data of the restrictions to be applied.  
 
-### Methods
+### 方法
 - <a name="carla.RssRestrictor.restrict_vehicle_control"></a>**<font color="#7fb800">restrict_vehicle_control</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**vehicle_control**</font>, <font color="#00a6ed">**proper_response**</font>, <font color="#00a6ed">**ego_dynamics_on_route**</font>, <font color="#00a6ed">**vehicle_physics**</font>)  
 Applies the safety restrictions given by a [carla.RssSensor](#carla.RssSensor) to a [carla.VehicleControl](#carla.VehicleControl).  
     - **Parameters:**
@@ -2057,7 +2057,7 @@ Sets the log level.
 ## carla.RssRoadBoundariesMode<a name="carla.RssRoadBoundariesMode"></a>
 Enum declaration used in [carla.RssSensor](#carla.RssSensor) to enable or disable the [stay on road](https://intel.github.io/ad-rss-lib/ad_rss_map_integration/HandleRoadBoundaries/) feature. In summary, this feature considers the road boundaries as virtual objects. The minimum safety distance check is applied to these virtual walls, in order to make sure the vehicle does not drive off the road.  
 
-### Instance Variables
+### 实例变量
 - <a name="carla.RssRoadBoundariesMode.On"></a>**<font color="#f8805a">On</font>**  
 Enables the _stay on road_ feature.  
 - <a name="carla.RssRoadBoundariesMode.Off"></a>**<font color="#f8805a">Off</font>**  
@@ -2071,7 +2071,7 @@ This sensor works a bit differently than the rest. Take look at the [specific do
 
 The RSS sensor uses world information, and a [RSS library](https://github.com/intel/ad-rss-lib) to make safety checks on a vehicle. The output retrieved by the sensor is a [carla.RssResponse](#carla.RssResponse). This will be used by a [carla.RssRestrictor](#carla.RssRestrictor) to modify a [carla.VehicleControl](#carla.VehicleControl) before applying it to a vehicle.  
 
-### Instance Variables
+### 实例变量
 - <a name="carla.RssSensor.ego_vehicle_dynamics"></a>**<font color="#f8805a">ego_vehicle_dynamics</font>** (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1RssDynamics.html">ad.rss.world.RssDynamics</a>_)  
 States the [RSS parameters](https://intel.github.io/ad-rss-lib/ad_rss/Appendix-ParameterDiscussion/) that the sensor will consider for the ego vehicle if no actor constellation callback is registered.  
 - <a name="carla.RssSensor.other_vehicle_dynamics"></a>**<font color="#f8805a">other_vehicle_dynamics</font>** (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1RssDynamics.html">ad.rss.world.RssDynamics</a>_)  
@@ -2083,7 +2083,7 @@ Switches the [stay on road](https://intel.github.io/ad-rss-lib/ad_rss_map_integr
 - <a name="carla.RssSensor.routing_targets"></a>**<font color="#f8805a">routing_targets</font>** (_vector<[carla.Transform](#carla.Transform)>_)  
 The current list of targets considered to route the vehicle. If no routing targets are defined, a route is generated at random.  
 
-### Methods
+### 方法
 - <a name="carla.RssSensor.append_routing_target"></a>**<font color="#7fb800">append_routing_target</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**routing_target**</font>)  
 Appends a new target position to the current route of the vehicle.  
     - **Parameters:**
@@ -2107,7 +2107,7 @@ Sets the map log level.
     - **Parameters:**
         - `log_level` (_[carla.RssLogLevel](#carla.RssLogLevel)_) - New map log level.  
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.RssSensor.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
 
 ---
@@ -2115,7 +2115,7 @@ Sets the map log level.
 ## carla.SemanticLidarDetection<a name="carla.SemanticLidarDetection"></a>
 Data contained inside a [carla.SemanticLidarMeasurement](#carla.SemanticLidarMeasurement). Each of these represents one of the points in the cloud with its location, the cosine of the incident angle, index of the object hit, and its semantic tag.  
 
-### Instance Variables
+### 实例变量
 - <a name="carla.SemanticLidarDetection.point"></a>**<font color="#f8805a">point</font>** (_[carla.Location](#carla.Location)<small> - meters</small>_)  
 [x,y,z] coordinates of the point.  
 - <a name="carla.SemanticLidarDetection.cos_inc_angle"></a>**<font color="#f8805a">cos_inc_angle</font>** (_float_)  
@@ -2125,9 +2125,9 @@ ID of the actor hit by the ray.
 - <a name="carla.SemanticLidarDetection.object_tag"></a>**<font color="#f8805a">object_tag</font>** (_uint_)  
 语义标签 of the component hit by the ray.  
 
-### Methods
+### 方法
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.SemanticLidarDetection.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
 
 ---
@@ -2136,7 +2136,7 @@ ID of the actor hit by the ray.
 <small style="display:block;margin-top:-20px;">Inherited from _[carla.SensorData](#carla.SensorData)_</small></br>
 Class that defines the semantic LIDAR data retrieved by a <b>sensor.lidar.ray_cast_semantic</b>. This essentially simulates a rotating LIDAR using ray-casting. Learn more about this [here](ref_sensors.md#semanticlidar-raycast-sensor).  
 
-### Instance Variables
+### 实例变量
 - <a name="carla.SemanticLidarMeasurement.channels"></a>**<font color="#f8805a">channels</font>** (_int_)  
 Number of lasers shot.  
 - <a name="carla.SemanticLidarMeasurement.horizontal_angle"></a>**<font color="#f8805a">horizontal_angle</font>** (_float<small> - radians</small>_)  
@@ -2144,19 +2144,19 @@ Horizontal angle the LIDAR is rotated at the time of the measurement.
 - <a name="carla.SemanticLidarMeasurement.raw_data"></a>**<font color="#f8805a">raw_data</font>** (_bytes_)  
 Received list of raw detection points. Each point consists of [x,y,z] coordinates plus the cosine of the incident angle, the index of the hit actor, and its semantic tag.  
 
-### Methods
+### 方法
 - <a name="carla.SemanticLidarMeasurement.save_to_disk"></a>**<font color="#7fb800">save_to_disk</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**path**</font>)  
 Saves the point cloud to disk as a <b>.ply</b> file describing data from 3D scanners. The files generated are ready to be used within [MeshLab](http://www.meshlab.net/), an open-source system for processing said files. Just take into account that axis may differ from Unreal Engine and so, need to be reallocated.  
     - **Parameters:**
         - `path` (_str_)  
 
-##### Getters
+##### 设置器
 - <a name="carla.SemanticLidarMeasurement.get_point_count"></a>**<font color="#7fb800">get_point_count</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**channel**</font>)  
 Retrieves the number of points sorted by channel that are generated by this measure. Sorting by channel allows to identify the original channel for every point.  
     - **Parameters:**
         - `channel` (_int_)  
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.SemanticLidarMeasurement.__getitem__"></a>**<font color="#7fb800">\__getitem__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**pos**=int</font>)  
 - <a name="carla.SemanticLidarMeasurement.__iter__"></a>**<font color="#7fb800">\__iter__</font>**(<font color="#00a6ed">**self**</font>)  
 Iterate over the [carla.SemanticLidarDetection](#carla.SemanticLidarDetection) retrieved as data.  
@@ -2172,7 +2172,7 @@ Sensors compound a specific family of actors quite diverse and unique. They are 
 
   Most sensors can be divided in two groups: those receiving data on every tick (cameras, point clouds and some specific sensors) and those who only receive under certain circumstances (trigger detectors). CARLA provides a specific set of sensors and their blueprint can be found in [carla.BlueprintLibrary](#carla.BlueprintLibrary). All the information on their preferences and settlement can be found [here](ref_sensors.md), but the list of those available in CARLA so far goes as follow.
   <br><b>Receive data on every tick.</b>
-  - [Depth camera](ref_sensors.md#depth-camera).
+  - [depth camera](ref_sensors.md#depth-camera).
   - [Gnss sensor](ref_sensors.md#gnss-sensor).
   - [IMU sensor](ref_sensors.md#imu-sensor).
   - [Lidar raycast](ref_sensors.md#lidar-raycast-sensor).
@@ -2186,11 +2186,11 @@ Sensors compound a specific family of actors quite diverse and unique. They are 
   - [Lane invasion detector](ref_sensors.md#lane-invasion-detector).
   - [Obstacle detector](ref_sensors.md#obstacle-detector).  
 
-### Instance Variables
+### 实例变量
 - <a name="carla.Sensor.is_listening"></a>**<font color="#f8805a">is_listening</font>** (_boolean_)  
 When <b>True</b> the sensor will be waiting for data.  
 
-### Methods
+### 方法
 - <a name="carla.Sensor.is_listening"></a>**<font color="#7fb800">is_listening</font>**(<font color="#00a6ed">**self**</font>)  
 Returns whether the sensor is in a listening state.  
 - <a name="carla.Sensor.is_listening_gbuffer"></a>**<font color="#7fb800">is_listening_gbuffer</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**gbuffer_id**</font>)  
@@ -2213,7 +2213,7 @@ Commands the sensor to stop listening for the specified GBuffer texture.
     - **Parameters:**
         - `gbuffer_id` (_[carla.GBufferTextureID](#carla.GBufferTextureID)_) - The ID of the Unreal Engine GBuffer texture.  
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.Sensor.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
 
 ---
@@ -2231,7 +2231,7 @@ Base class for all the objects containing data generated by a [carla.Sensor](#ca
   - RSS sensor: [carla.RssResponse](#carla.RssResponse).<br>
   - Semantic LIDAR sensor: [carla.SemanticLidarMeasurement](#carla.SemanticLidarMeasurement).  
 
-### Instance Variables
+### 实例变量
 - <a name="carla.SensorData.frame"></a>**<font color="#f8805a">frame</font>** (_int_)  
 Frame count when the data was generated.  
 - <a name="carla.SensorData.timestamp"></a>**<font color="#f8805a">timestamp</font>** (_float<small> - seconds</small>_)  
@@ -2244,13 +2244,13 @@ Sensor's transform when the data was generated.
 ## carla.TextureColor<a name="carla.TextureColor"></a>
 Class representing a texture object to be uploaded to the server. Pixel format is RGBA, uint8 per channel.  
 
-### Instance Variables
+### 实例变量
 - <a name="carla.TextureColor.width"></a>**<font color="#f8805a">width</font>** (_int_)  
 X-coordinate size of the texture.  
 - <a name="carla.TextureColor.height"></a>**<font color="#f8805a">height</font>** (_int_)  
 Y-coordinate size of the texture.  
 
-### Methods
+### 方法
 - <a name="carla.TextureColor.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**width**</font>, <font color="#00a6ed">**height**</font>)  
 Initializes a the texture with a (`width`, `height`) size.  
     - **Parameters:**
@@ -2281,13 +2281,13 @@ Resizes the texture to te specified dimensions.
 ## carla.TextureFloatColor<a name="carla.TextureFloatColor"></a>
 Class representing a texture object to be uploaded to the server. Pixel format is RGBA, float per channel.  
 
-### Instance Variables
+### 实例变量
 - <a name="carla.TextureFloatColor.width"></a>**<font color="#f8805a">width</font>** (_int_)  
 X-coordinate size of the texture.  
 - <a name="carla.TextureFloatColor.height"></a>**<font color="#f8805a">height</font>** (_int_)  
 Y-coordinate size of the texture.  
 
-### Methods
+### 方法
 - <a name="carla.TextureFloatColor.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**width**</font>, <font color="#00a6ed">**height**</font>)  
 Initializes a the texture with a (`width`, `height`) size.  
     - **Parameters:**
@@ -2318,7 +2318,7 @@ Resizes the texture to te specified dimensions.
 ## carla.Timestamp<a name="carla.Timestamp"></a>
 Class that contains time information for simulated data. This information is automatically retrieved as part of the [carla.WorldSnapshot](#carla.WorldSnapshot) the client gets on every frame, but might also be used in many other situations such as a [carla.Sensor](#carla.Sensor) retrieveing data.  
 
-### Instance Variables
+### 实例变量
 - <a name="carla.Timestamp.frame"></a>**<font color="#f8805a">frame</font>** (_int_)  
 The number of frames elapsed since the simulator was launched.  
 - <a name="carla.Timestamp.elapsed_seconds"></a>**<font color="#f8805a">elapsed_seconds</font>** (_float<small> - seconds</small>_)  
@@ -2328,7 +2328,7 @@ Simulated seconds elapsed since the previous frame.
 - <a name="carla.Timestamp.platform_timestamp"></a>**<font color="#f8805a">platform_timestamp</font>** (_float<small> - seconds</small>_)  
 Time register of the frame at which this measurement was taken given by the OS in seconds.  
 
-### Methods
+### 方法
 - <a name="carla.Timestamp.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**frame**</font>, <font color="#00a6ed">**elapsed_seconds**</font>, <font color="#00a6ed">**delta_seconds**</font>, <font color="#00a6ed">**platform_timestamp**</font>)  
     - **Parameters:**
         - `frame` (_int_)  
@@ -2336,7 +2336,7 @@ Time register of the frame at which this measurement was taken given by the OS i
         - `delta_seconds` (_float<small> - seconds</small>_)  
         - `platform_timestamp` (_float<small> - seconds</small>_)  
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.Timestamp.__eq__"></a>**<font color="#7fb800">\__eq__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.Timestamp](#carla.Timestamp)</font>)  
 - <a name="carla.Timestamp.__ne__"></a>**<font color="#7fb800">\__ne__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.Timestamp](#carla.Timestamp)</font>)  
 - <a name="carla.Timestamp.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
@@ -2349,11 +2349,11 @@ A traffic light actor, considered a specific type of traffic sign. As traffic li
      
   Within a group the state of traffic lights is changed in a cyclic pattern: one index is chosen and it spends a few seconds in green, yellow and eventually red. The rest of the traffic lights remain frozen in red this whole time, meaning that there is a gap in the last seconds of the cycle where all the traffic lights are red. However, the state of a traffic light can be changed manually.  
 
-### Instance Variables
+### 实例变量
 - <a name="carla.TrafficLight.state"></a>**<font color="#f8805a">state</font>** (_[carla.TrafficLightState](#carla.TrafficLightState)_)  
 Current state of the traffic light.  
 
-### Methods
+### 方法
 - <a name="carla.TrafficLight.freeze"></a>**<font color="#7fb800">freeze</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**freeze**</font>)  
 Stops all the traffic lights in the scene at their current state.  
     - **Parameters:**
@@ -2366,7 +2366,7 @@ Resets the state of the traffic lights of the group to the initial state at the 
     - **Note:** <font color="#8E8E8E">_This method calls the simulator.
 _</font>  
 
-##### Getters
+##### 设置器
 - <a name="carla.TrafficLight.get_affected_lane_waypoints"></a>**<font color="#7fb800">get_affected_lane_waypoints</font>**(<font color="#00a6ed">**self**</font>)  
 Returns a list of waypoints indicating the positions and lanes where the traffic light is having an effect.  
     - **Return:** _list([carla.Waypoint](#carla.Waypoint))_  
@@ -2428,7 +2428,7 @@ Sets a given time for the yellow light to be active.
         - `yellow_time` (_float<small> - seconds</small>_)  
     - **Getter:** _[carla.TrafficLight.get_yellow_time](#carla.TrafficLight.get_yellow_time)_  
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.TrafficLight.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
 
 ---
@@ -2436,7 +2436,7 @@ Sets a given time for the yellow light to be active.
 ## carla.TrafficLightState<a name="carla.TrafficLightState"></a>
 交通灯的所有可能状态。这些可以在特定时间步长更改或手动更改。[carla.TrafficLight.set_state](#carla.TrafficLight.set_state) 中的片段会动态更改交通灯的状态。
 
-### Instance Variables
+### 实例变量
 - <a name="carla.TrafficLightState.Red"></a>**<font color="#f8805a">Red</font>**  
 - <a name="carla.TrafficLightState.Yellow"></a>**<font color="#f8805a">Yellow</font>**  
 - <a name="carla.TrafficLightState.Green"></a>**<font color="#f8805a">Green</font>**  
@@ -2449,7 +2449,7 @@ Sets a given time for the yellow light to be active.
 The traffic manager is a module built on top of the CARLA API in C++. It handles any group of vehicles set to autopilot mode to populate the simulation with realistic urban traffic conditions and give the chance to user to customize some behaviours. The architecture of the traffic manager is divided in five different goal-oriented stages and a PID controller where the information flows until eventually, a [carla.VehicleControl](#carla.VehicleControl) is applied to every vehicle registered in a traffic manager.
 In order to learn more, visit the [documentation](adv_traffic_manager.md) regarding this module.  
 
-### Methods
+### 方法
 - <a name="carla.TrafficManager.auto_lane_change"></a>**<font color="#7fb800">auto_lane_change</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**enable**</font>)  
 Turns on or off lane changing behaviour for a vehicle.  
     - **Parameters:**
@@ -2537,7 +2537,7 @@ Default is 30. Exceeding a speed limit can be done using negative percentages.
         - `actor` (_[carla.Actor](#carla.Actor)_) - Vehicle whose speed behaviour is being changed.  
         - `percentage` (_float_) - Percentage difference between intended speed and the current limit.  
 
-##### Getters
+##### 设置器
 - <a name="carla.TrafficManager.get_all_actions"></a>**<font color="#7fb800">get_all_actions</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>)  
 Returns all known actions (i.e. road options and waypoints) that an actor controlled by the Traffic Manager will perform in its next steps.  
     - **Parameters:**
@@ -2616,7 +2616,7 @@ _</font>
 <small style="display:block;margin-top:-20px;">Inherited from _[carla.Actor](#carla.Actor)_</small></br>
 Traffic signs appearing in the simulation except for traffic lights. These have their own class inherited from this in [carla.TrafficLight](#carla.TrafficLight). Right now, speed signs, stops and yields are mainly the ones implemented, but many others are borne in mind.  
 
-### Instance Variables
+### 实例变量
 - <a name="carla.TrafficSign.trigger_volume"></a>**<font color="#f8805a">trigger_volume</font>**  
 A [carla.BoundingBox](#carla.BoundingBox) situated near a traffic sign where the [carla.Actor](#carla.Actor) who is inside can know about it.  
 
@@ -2625,13 +2625,13 @@ A [carla.BoundingBox](#carla.BoundingBox) situated near a traffic sign where the
 ## carla.Transform<a name="carla.Transform"></a>
 该类定义了一个变换，即位置和旋转的组合，而不进行缩放。
 
-### Instance Variables
+### 实例变量
 - <a name="carla.Transform.location"></a>**<font color="#f8805a">location</font>** (_[carla.Location](#carla.Location)_)  
 描述坐标系统中的一个点。 
 - <a name="carla.Transform.rotation"></a>**<font color="#f8805a">rotation</font>** (_[carla.Rotation](#carla.Rotation)<small> - degrees (pitch, yaw, roll)</small>_)  
 描述根据虚幻引擎的轴系统进行对象的旋转。 
 
-### Methods
+### 方法
 - <a name="carla.Transform.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**location**</font>, <font color="#00a6ed">**rotation**</font>)  
     - **Parameters:**
         - `location` (_[carla.Location](#carla.Location)_)  
@@ -2645,7 +2645,7 @@ Rotates a vector using the current transformation as frame of reference, without
     - **Parameters:**
         - `in_vector` (_[carla.Vector3D](#carla.Vector3D)_) - Vector to which the transformation will be applied.  
 
-##### Getters
+##### 设置器
 - <a name="carla.Transform.get_forward_vector"></a>**<font color="#7fb800">get_forward_vector</font>**(<font color="#00a6ed">**self**</font>)  
 Computes a forward vector using the rotation of the object.  
     - **Return:** _[carla.Vector3D](#carla.Vector3D)_  
@@ -2662,7 +2662,7 @@ Computes a right vector using the rotation of the object.
 Computes an up vector using the rotation of the object.  
     - **Return:** _[carla.Vector3D](#carla.Vector3D)_  
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.Transform.__eq__"></a>**<font color="#7fb800">\__eq__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.Transform](#carla.Transform)</font>)  
 Returns __True__ if both location and rotation are equal for this and `other`.  
     - **Return:** _bool_  
@@ -2678,13 +2678,13 @@ Parses both location and rotation to string.
 ## carla.Vector2D<a name="carla.Vector2D"></a>
 Helper class to perform 2D operations.  
 
-### Instance Variables
+### 实例变量
 - <a name="carla.Vector2D.x"></a>**<font color="#f8805a">x</font>** (_float_)  
 X-axis value.  
 - <a name="carla.Vector2D.y"></a>**<font color="#f8805a">y</font>** (_float_)  
 Y-axis value.  
 
-### Methods
+### 方法
 - <a name="carla.Vector2D.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**x**=0.0</font>, <font color="#00a6ed">**y**=0.0</font>)  
     - **Parameters:**
         - `x` (_float_)  
@@ -2699,7 +2699,7 @@ Returns a vector with the same direction and unitary length.
 Computes the squared length of the vector.  
     - **Return:** _float_  
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.Vector2D.__add__"></a>**<font color="#7fb800">\__add__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.Vector2D](#carla.Vector2D)</font>)  
 - <a name="carla.Vector2D.__eq__"></a>**<font color="#7fb800">\__eq__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.Vector2D](#carla.Vector2D)</font>)  
 Returns __True__ if values for every axis are equal.  
@@ -2719,7 +2719,7 @@ Returns the axis values for the vector parsed as string.
 ## carla.Vector3D<a name="carla.Vector3D"></a>
 Helper class to perform 3D operations.  
 
-### Instance Variables
+### 实例变量
 - <a name="carla.Vector3D.x"></a>**<font color="#f8805a">x</font>** (_float_)  
 X-axis value.  
 - <a name="carla.Vector3D.y"></a>**<font color="#f8805a">y</font>** (_float_)  
@@ -2727,7 +2727,7 @@ Y-axis value.
 - <a name="carla.Vector3D.z"></a>**<font color="#f8805a">z</font>** (_float_)  
 Z-axis value.  
 
-### Methods
+### 方法
 - <a name="carla.Vector3D.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**x**=0.0</font>, <font color="#00a6ed">**y**=0.0</font>, <font color="#00a6ed">**z**=0.0</font>)  
     - **Parameters:**
         - `x` (_float_)  
@@ -2778,14 +2778,14 @@ Returns a vector with the same direction and unitary length.
 Computes the squared length of the vector.  
     - **Return:** _float_  
 
-##### Getters
+##### 设置器
 - <a name="carla.Vector3D.get_vector_angle"></a>**<font color="#7fb800">get_vector_angle</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**vector**</font>)  
 Computes the angle between a pair of 3D vectors in radians.  
     - **Parameters:**
         - `vector` (_[carla.Vector3D](#carla.Vector3D)_)  
     - **Return:** _float_  
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.Vector3D.__abs__"></a>**<font color="#7fb800">\__abs__</font>**(<font color="#00a6ed">**self**</font>)  
 Returns a Vector3D with the absolute value of the components x, y and z.  
     - **Return:** _[carla.Vector3D](#carla.Vector3D)_  
@@ -2809,11 +2809,11 @@ Returns the axis values for the vector parsed as string.
 <small style="display:block;margin-top:-20px;">Inherited from _[carla.Actor](#carla.Actor)_</small></br>
 One of the most important groups of actors in CARLA. These include any type of vehicle from cars to trucks, motorbikes, vans, bycicles and also official vehicles such as police cars. A wide set of these actors is provided in [carla.BlueprintLibrary](#carla.BlueprintLibrary) to facilitate differente requirements. Vehicles can be either manually controlled or set to an autopilot mode that will be conducted client-side by the <b>traffic manager</b>.  
 
-### Instance Variables
+### 实例变量
 - <a name="carla.Vehicle.bounding_box"></a>**<font color="#f8805a">bounding_box</font>** (_[carla.BoundingBox](#carla.BoundingBox)_)  
 Bounding box containing the geometry of the vehicle. Its location and rotation are relative to the vehicle it is attached to.  
 
-### Methods
+### 方法
 - <a name="carla.Vehicle.apply_ackermann_control"></a>**<font color="#7fb800">apply_ackermann_control</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**control**</font>)  
 Applies an Ackermann control object on the next tick.  
     - **Parameters:**
@@ -2868,7 +2868,7 @@ Enables or disables the usage of CarSim vs terrain file specified in the `.simfi
     - **Parameters:**
         - `enabled` (_bool_)  
 
-##### Getters
+##### 设置器
 - <a name="carla.Vehicle.get_ackermann_controller_settings"></a>**<font color="#7fb800">get_ackermann_controller_settings</font>**(<font color="#00a6ed">**self**</font>)  
 Returns the last Ackermann control settings applied to this vehicle.  
     - **Return:** _[carla.AckermannControllerSettings](#carla.AckermannControllerSettings)_  
@@ -2923,7 +2923,7 @@ Sets the angle of a vehicle's wheel visually.
     - **Warning:** <font color="#ED2F2F">_Does not affect the physics of the vehicle.
 _</font>  
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.Vehicle.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
 
 ---
@@ -2931,7 +2931,7 @@ _</font>
 ## carla.VehicleAckermannControl<a name="carla.VehicleAckermannControl"></a>
 Manages the basic movement of a vehicle using Ackermann driving controls.  
 
-### Instance Variables
+### 实例变量
 - <a name="carla.VehicleAckermannControl.steer"></a>**<font color="#f8805a">steer</font>** (_float_)  
 Desired steer (rad). Positive value is to the right. Default is 0.0.  
 - <a name="carla.VehicleAckermannControl.steer_speed"></a>**<font color="#f8805a">steer_speed</font>** (_float_)  
@@ -2943,7 +2943,7 @@ Desired acceleration (m/s2) Default is 0.0.
 - <a name="carla.VehicleAckermannControl.jerk"></a>**<font color="#f8805a">jerk</font>** (_float_)  
 Desired jerk (m/s3). Default is 0.0.  
 
-### Methods
+### 方法
 - <a name="carla.VehicleAckermannControl.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**steer**=0.0</font>, <font color="#00a6ed">**steer_speed**=0.0</font>, <font color="#00a6ed">**speed**=0.0</font>, <font color="#00a6ed">**acceleration**=0.0</font>, <font color="#00a6ed">**jerk**=0.0</font>)  
     - **Parameters:**
         - `steer` (_float_)  
@@ -2952,7 +2952,7 @@ Desired jerk (m/s3). Default is 0.0.
         - `acceleration` (_float_)  
         - `jerk` (_float_)  
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.VehicleAckermannControl.__eq__"></a>**<font color="#7fb800">\__eq__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.AckermannVehicleControl](#carla.AckermannVehicleControl)</font>)  
 - <a name="carla.VehicleAckermannControl.__ne__"></a>**<font color="#7fb800">\__ne__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.AckermannVehicleControl](#carla.AckermannVehicleControl)</font>)  
 - <a name="carla.VehicleAckermannControl.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
@@ -2962,7 +2962,7 @@ Desired jerk (m/s3). Default is 0.0.
 ## carla.VehicleControl<a name="carla.VehicleControl"></a>
 Manages the basic movement of a vehicle using typical driving controls.  
 
-### Instance Variables
+### 实例变量
 - <a name="carla.VehicleControl.throttle"></a>**<font color="#f8805a">throttle</font>** (_float_)  
 A scalar value to control the vehicle throttle [0.0, 1.0]. Default is 0.0.  
 - <a name="carla.VehicleControl.steer"></a>**<font color="#f8805a">steer</font>** (_float_)  
@@ -2978,7 +2978,7 @@ Determines whether the vehicle will be controlled by changing gears manually. De
 - <a name="carla.VehicleControl.gear"></a>**<font color="#f8805a">gear</font>** (_int_)  
 States which gear is the vehicle running on.  
 
-### Methods
+### 方法
 - <a name="carla.VehicleControl.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**throttle**=0.0</font>, <font color="#00a6ed">**steer**=0.0</font>, <font color="#00a6ed">**brake**=0.0</font>, <font color="#00a6ed">**hand_brake**=False</font>, <font color="#00a6ed">**reverse**=False</font>, <font color="#00a6ed">**manual_gear_shift**=False</font>, <font color="#00a6ed">**gear**=0</font>)  
     - **Parameters:**
         - `throttle` (_float_) - Scalar value between [0.0,1.0].  
@@ -2989,7 +2989,7 @@ States which gear is the vehicle running on.
         - `manual_gear_shift` (_bool_)  
         - `gear` (_int_)  
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.VehicleControl.__eq__"></a>**<font color="#7fb800">\__eq__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.VehicleControl](#carla.VehicleControl)</font>)  
 - <a name="carla.VehicleControl.__ne__"></a>**<font color="#7fb800">\__ne__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.VehicleControl](#carla.VehicleControl)</font>)  
 - <a name="carla.VehicleControl.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
@@ -2999,7 +2999,7 @@ States which gear is the vehicle running on.
 ## carla.VehicleDoor<a name="carla.VehicleDoor"></a>
 Possible index representing the possible doors that can be open. Notice that not all possible doors are able to open in some vehicles.  
 
-### Instance Variables
+### 实例变量
 - <a name="carla.VehicleDoor.FL"></a>**<font color="#f8805a">FL</font>**  
 Front left door.  
 - <a name="carla.VehicleDoor.FR"></a>**<font color="#f8805a">FR</font>**  
@@ -3016,7 +3016,7 @@ Represents all doors.
 ## carla.VehicleFailureState<a name="carla.VehicleFailureState"></a>
 Enum containing the different failure states of a vehicle, from which the it cannot recover. These are returned by __<font color="#7fb800">get_failure_state()</font>__ and only Rollover is currently implemented.  
 
-### Instance Variables
+### 实例变量
 - <a name="carla.VehicleFailureState.NONE"></a>**<font color="#f8805a">NONE</font>**  
 - <a name="carla.VehicleFailureState.Rollover"></a>**<font color="#f8805a">Rollover</font>**  
 - <a name="carla.VehicleFailureState.Engine"></a>**<font color="#f8805a">Engine</font>**  
@@ -3027,7 +3027,7 @@ Enum containing the different failure states of a vehicle, from which the it can
 ## carla.VehicleLightState<a name="carla.VehicleLightState"></a>
 Class that recaps the state of the lights of a vehicle, these can be used as a flags. E.g: `VehicleLightState.HighBeam & VehicleLightState.Brake` will return `True` when both are active. Lights are off by default in any situation and should be managed by the user via script. The blinkers blink automatically. _Warning: Right now, not all vehicles have been prepared to work with this functionality, this will be added to all of them in later updates_.  
 
-### Instance Variables
+### 实例变量
 - <a name="carla.VehicleLightState.NONE"></a>**<font color="#f8805a">NONE</font>**  
 All lights off.  
 - <a name="carla.VehicleLightState.Position"></a>**<font color="#f8805a">Position</font>**  
@@ -3051,7 +3051,7 @@ All lights on.
 ## carla.VehiclePhysicsControl<a name="carla.VehiclePhysicsControl"></a>
 Summarizes the parameters that will be used to simulate a [carla.Vehicle](#carla.Vehicle) as a physical object. The specific settings for the wheels though are stipulated using [carla.WheelPhysicsControl](#carla.WheelPhysicsControl).  
 
-### Instance Variables
+### 实例变量
 - <a name="carla.VehiclePhysicsControl.torque_curve"></a>**<font color="#f8805a">torque_curve</font>** (_list([carla.Vector2D](#carla.Vector2D))_)  
 Curve that indicates the torque measured in Nm for a specific RPM of the vehicle's engine.  
 - <a name="carla.VehiclePhysicsControl.max_rpm"></a>**<font color="#f8805a">max_rpm</font>** (_float_)  
@@ -3087,7 +3087,7 @@ Enable the use of sweep for wheel collision. By default, it is disabled and it u
 - <a name="carla.VehiclePhysicsControl.wheels"></a>**<font color="#f8805a">wheels</font>** (_list([carla.WheelPhysicsControl](#carla.WheelPhysicsControl))_)  
 List of wheel physics objects. This list should have 4 elements, where index 0 corresponds to the front left wheel, index 1 corresponds to the front right wheel, index 2 corresponds to the back left wheel and index 3 corresponds to the back right wheel. For 2 wheeled vehicles, set the same values for both front and back wheels.  
 
-### Methods
+### 方法
 - <a name="carla.VehiclePhysicsControl.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**torque_curve**=[[0.0, 500.0], [5000.0, 500.0]]</font>, <font color="#00a6ed">**max_rpm**=5000.0</font>, <font color="#00a6ed">**moi**=1.0</font>, <font color="#00a6ed">**damping_rate_full_throttle**=0.15</font>, <font color="#00a6ed">**damping_rate_zero_throttle_clutch_engaged**=2.0</font>, <font color="#00a6ed">**damping_rate_zero_throttle_clutch_disengaged**=0.35</font>, <font color="#00a6ed">**use_gear_autobox**=True</font>, <font color="#00a6ed">**gear_switch_time**=0.5</font>, <font color="#00a6ed">**clutch_strength**=10.0</font>, <font color="#00a6ed">**final_ratio**=4.0</font>, <font color="#00a6ed">**forward_gears**=list()</font>, <font color="#00a6ed">**drag_coefficient**=0.3</font>, <font color="#00a6ed">**center_of_mass**=[0.0, 0.0, 0.0]</font>, <font color="#00a6ed">**steering_curve**=[[0.0, 1.0], [10.0, 0.5]]</font>, <font color="#00a6ed">**wheels**=list()</font>, <font color="#00a6ed">**use_sweep_wheel_collision**=False</font>, <font color="#00a6ed">**mass**=1000.0</font>)  
 VehiclePhysicsControl constructor.  
     - **Parameters:**
@@ -3109,7 +3109,7 @@ VehiclePhysicsControl constructor.
         - `use_sweep_wheel_collision` (_bool_)  
         - `mass` (_float<small> - kilograms</small>_)  
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.VehiclePhysicsControl.__eq__"></a>**<font color="#7fb800">\__eq__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.VehiclePhysicsControl](#carla.VehiclePhysicsControl)</font>)  
 - <a name="carla.VehiclePhysicsControl.__ne__"></a>**<font color="#7fb800">\__ne__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.VehiclePhysicsControl](#carla.VehiclePhysicsControl)</font>)  
 - <a name="carla.VehiclePhysicsControl.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
@@ -3119,7 +3119,7 @@ VehiclePhysicsControl constructor.
 ## carla.VehicleWheelLocation<a name="carla.VehicleWheelLocation"></a>
 `enum` representing the position of each wheel on a vehicle.  Used to identify the target wheel when setting an angle in [carla.Vehicle.set_wheel_steer_direction](#carla.Vehicle.set_wheel_steer_direction) or [carla.Vehicle.get_wheel_steer_angle](#carla.Vehicle.get_wheel_steer_angle).  
 
-### Instance Variables
+### 实例变量
 - <a name="carla.VehicleWheelLocation.FL_Wheel"></a>**<font color="#f8805a">FL_Wheel</font>**  
 Front left wheel of a 4 wheeled vehicle.  
 - <a name="carla.VehicleWheelLocation.FR_Wheel"></a>**<font color="#f8805a">FR_Wheel</font>**  
@@ -3139,7 +3139,7 @@ Back wheel of a 2 wheeled vehicle.
 <small style="display:block;margin-top:-20px;">Inherited from _[carla.Actor](#carla.Actor)_</small></br>
 This class inherits from the [carla.Actor](#carla.Actor) and defines pedestrians in the simulation. Walkers are a special type of actor that can be controlled either by an AI ([carla.WalkerAIController](#carla.WalkerAIController)) or manually via script, using a series of [carla.WalkerControl](#carla.WalkerControl) to move these and their skeletons.  
 
-### Methods
+### 方法
 - <a name="carla.Walker.apply_control"></a>**<font color="#7fb800">apply_control</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**control**</font>)  
 On the next tick, the control will move the walker in a certain direction with a certain speed. Jumps can be commanded too.  
     - **Parameters:**
@@ -3156,7 +3156,7 @@ Hide the custom pose and show the animation (same as calling blend_pose(0)).
 - <a name="carla.Walker.show_pose"></a>**<font color="#7fb800">show_pose</font>**(<font color="#00a6ed">**self**</font>)  
 Show the custom pose and hide the animation (same as calling blend_pose(1)).  
 
-##### Getters
+##### 设置器
 - <a name="carla.Walker.get_bones"></a>**<font color="#7fb800">get_bones</font>**(<font color="#00a6ed">**self**</font>)  
 Return the structure with all the bone transformations from the actor. For each bone, we get the name and its transform in three different spaces:
   - name: bone name
@@ -3180,7 +3180,7 @@ Set the bones of the actor. For each bone we want to set we use a relative trans
         - `bones` (_[carla.WalkerBoneControlIn](#carla.WalkerBoneControlIn)<small> - list of pairs (bone_name, transform) for the bones that we want to set</small>_)  
     - **Getter:** _[carla.Walker.get_bones](#carla.Walker.get_bones)_  
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.Walker.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
 
 ---
@@ -3189,7 +3189,7 @@ Set the bones of the actor. For each bone we want to set we use a relative trans
 <small style="display:block;margin-top:-20px;">Inherited from _[carla.Actor](#carla.Actor)_</small></br>
 Class that conducts AI control for a walker. The controllers are defined as actors, but they are quite different from the rest. They need to be attached to a parent actor during their creation, which is the walker they will be controlling (take a look at [carla.World](#carla.World) if you are yet to learn on how to spawn actors). They also need for a special blueprint (already defined in [carla.BlueprintLibrary](#carla.BlueprintLibrary) as "controller.ai.walker"). This is an empty blueprint, as the AI controller will be invisible in the simulation but will follow its parent around to dictate every step of the way.  
 
-### Methods
+### 方法
 - <a name="carla.WalkerAIController.go_to_location"></a>**<font color="#7fb800">go_to_location</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**destination**</font>)  
 Sets the destination that the pedestrian will reach.  
     - **Parameters:**
@@ -3205,7 +3205,7 @@ Sets a speed for the walker in meters per second.
     - **Parameters:**
         - `speed` (_float<small> - m/s</small>_) - An easy walking speed is set by default.  
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.WalkerAIController.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
 
 ---
@@ -3213,19 +3213,19 @@ Sets a speed for the walker in meters per second.
 ## carla.WalkerBoneControlIn<a name="carla.WalkerBoneControlIn"></a>
 This class grants bone specific manipulation for walker. The skeletons of walkers have been unified for clarity and the transform applied to each bone are always relative to its parent. Take a look [here](tuto_G_control_walker_skeletons.md) to learn more on how to create a walker and define its movement.  
 
-### Instance Variables
+### 实例变量
 - <a name="carla.WalkerBoneControlIn.bone_transforms"></a>**<font color="#f8805a">bone_transforms</font>** (_list([name,transform])_)  
 List with the data for each bone we want to set:
   - name: bone name
   - relative: transform based on the bone parent.  
 
-### Methods
+### 方法
 - <a name="carla.WalkerBoneControlIn.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**list(name,transform)**</font>)  
 Initializes an object containing moves to be applied on tick. These are listed with the name of the bone and the transform that will be applied to it.  
     - **Parameters:**
         - `list(name,transform)` (_tuple_)  
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.WalkerBoneControlIn.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
 
 ---
@@ -3233,7 +3233,7 @@ Initializes an object containing moves to be applied on tick. These are listed w
 ## carla.WalkerBoneControlOut<a name="carla.WalkerBoneControlOut"></a>
 This class is used to return all bone positions of a pedestrian. For each bone we get its _name_ and its transform in three different spaces (world, actor and relative).  
 
-### Instance Variables
+### 实例变量
 - <a name="carla.WalkerBoneControlOut.bone_transforms"></a>**<font color="#f8805a">bone_transforms</font>** (_list([name,world, actor, relative])_)  
 List of one entry per bone with this information:
   - name: bone name
@@ -3241,9 +3241,9 @@ List of one entry per bone with this information:
   - component: transform based on the pivot of the actor
   - relative: transform based on the bone parent.  
 
-### Methods
+### 方法
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.WalkerBoneControlOut.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
 
 ---
@@ -3253,7 +3253,7 @@ This class defines specific directions that can be commanded to a [carla.Walker]
   
   AI control can be settled for walkers, but the control used to do so is [carla.WalkerAIController](#carla.WalkerAIController).  
 
-### Instance Variables
+### 实例变量
 - <a name="carla.WalkerControl.direction"></a>**<font color="#f8805a">direction</font>** (_[carla.Vector3D](#carla.Vector3D)_)  
 Vector using global coordinates that will correspond to the direction of the walker.  
 - <a name="carla.WalkerControl.speed"></a>**<font color="#f8805a">speed</font>** (_float<small> - m/s</small>_)  
@@ -3261,14 +3261,14 @@ A scalar value to control the walker's speed.
 - <a name="carla.WalkerControl.jump"></a>**<font color="#f8805a">jump</font>** (_bool_)  
 If <b>True</b>, the walker will perform a jump.  
 
-### Methods
+### 方法
 - <a name="carla.WalkerControl.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**direction**=[1.0, 0.0, 0.0]</font>, <font color="#00a6ed">**speed**=0.0</font>, <font color="#00a6ed">**jump**=False</font>)  
     - **Parameters:**
         - `direction` (_[carla.Vector3D](#carla.Vector3D)_)  
         - `speed` (_float<small> - m/s</small>_)  
         - `jump` (_bool_)  
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.WalkerControl.__eq__"></a>**<font color="#7fb800">\__eq__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.WalkerControl](#carla.WalkerControl)</font>)  
 Compares every variable with `other` and returns <b>True</b> if these are all the same.  
 - <a name="carla.WalkerControl.__ne__"></a>**<font color="#7fb800">\__ne__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.WalkerControl](#carla.WalkerControl)</font>)  
@@ -3280,7 +3280,7 @@ Compares every variable with `other` and returns <b>True</b> if any of these dif
 ## carla.Waypoint<a name="carla.Waypoint"></a>
 Waypoints in CARLA are described as 3D directed points. They have a [carla.Transform](#carla.Transform) which locates the waypoint in a road and orientates it according to the lane. They also store the road information belonging to said point regarding its lane and lane markings.   <br><br> All the information regarding waypoints and the [waypoint API](../../core_map/#navigation-in-carla) is retrieved as provided by the OpenDRIVE file. Once the client asks for the map object to the server, no longer communication will be needed.  
 
-### Instance Variables
+### 实例变量
 - <a name="carla.Waypoint.id"></a>**<font color="#f8805a">id</font>** (_int_)  
 The identifier is generated using a hash combination of the <b>road</b>, <b>section</b>, <b>lane</b> and <b>s</b> values that correspond to said point in the OpenDRIVE geometry. The <b>s</b> precision is set to 2 centimeters, so 2 waypoints closer than 2 centimeters in the same road, section and lane, will have the same identificator.  
 - <a name="carla.Waypoint.transform"></a>**<font color="#f8805a">transform</font>** (_[carla.Transform](#carla.Transform)_)  
@@ -3308,7 +3308,7 @@ The right lane marking information based on the direction of the Waypoint.
 - <a name="carla.Waypoint.left_lane_marking"></a>**<font color="#f8805a">left_lane_marking</font>** (_[carla.LaneMarking](#carla.LaneMarking)_)  
 The left lane marking information based on the direction of the Waypoint.  
 
-### Methods
+### 方法
 - <a name="carla.Waypoint.next"></a>**<font color="#7fb800">next</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**distance**</font>)  
 Returns a list of waypoints at a certain approximate `distance` from the current one. It takes into account the road and its possible deviations without performing any lane change and returns one waypoint per option.
 The list may be empty if the lane is not connected to any other at the specified distance.  
@@ -3332,7 +3332,7 @@ Returns a list of waypoints from this to the start of the lane separated by a ce
         - `distance` (_float<small> - meters</small>_) - The approximate distance between waypoints.  
     - **Return:** _list([carla.Waypoint](#carla.Waypoint))_  
 
-##### Getters
+##### 设置器
 - <a name="carla.Waypoint.get_junction"></a>**<font color="#7fb800">get_junction</font>**(<font color="#00a6ed">**self**</font>)  
 If the waypoint belongs to a junction this method returns the associated junction object. Otherwise returns null.  
     - **Return:** _[carla.Junction](#carla.Junction)_  
@@ -3358,7 +3358,7 @@ Generates a waypoint at the center of the right lane based on the direction of t
 Will return <b>None</b> if the lane does not exist.  
     - **Return:** _[carla.Waypoint](#carla.Waypoint)_  
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.Waypoint.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
 
 ---
@@ -3367,7 +3367,7 @@ Will return <b>None</b> if the lane does not exist.
 This class defines objects containing lighting and weather specifications that can later be applied in [carla.World](#carla.World). So far, these conditions only intervene with [sensor.camera.rgb](ref_sensors.md#rgb-camera). They neither affect the actor's physics nor other sensors.        
   Each of these parameters acts indepently from the rest. Increasing the rainfall will not automatically create puddles nor change the road's humidity. That makes for a better customization but means that realistic conditions need to be scripted. However an example of dynamic weather conditions working realistically can be found [here](https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/dynamic_weather.py).  
 
-### Instance Variables
+### 实例变量
 - <a name="carla.WeatherParameters.cloudiness"></a>**<font color="#f8805a">cloudiness</font>** (_float_)  
 Values range from 0 to 100, being 0 a clear sky and 100 one completely covered with clouds.  
 - <a name="carla.WeatherParameters.precipitation"></a>**<font color="#f8805a">precipitation</font>** (_float_)  
@@ -3397,7 +3397,7 @@ Controls interaction of light with small particles like air molecules. Dependent
 - <a name="carla.WeatherParameters.dust_storm"></a>**<font color="#f8805a">dust_storm</font>** (_float_)  
 Determines the strength of the dust storm weather. Values range from 0 to 100.  
 
-### Methods
+### 方法
 - <a name="carla.WeatherParameters.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**cloudiness**=0.0</font>, <font color="#00a6ed">**precipitation**=0.0</font>, <font color="#00a6ed">**precipitation_deposits**=0.0</font>, <font color="#00a6ed">**wind_intensity**=0.0</font>, <font color="#00a6ed">**sun_azimuth_angle**=0.0</font>, <font color="#00a6ed">**sun_altitude_angle**=0.0</font>, <font color="#00a6ed">**fog_density**=0.0</font>, <font color="#00a6ed">**fog_distance**=0.0</font>, <font color="#00a6ed">**wetness**=0.0</font>, <font color="#00a6ed">**fog_falloff**=0.0</font>, <font color="#00a6ed">**scattering_intensity**=0.0</font>, <font color="#00a6ed">**mie_scattering_scale**=0.0</font>, <font color="#00a6ed">**rayleigh_scattering_scale**=0.0331</font>)  
 Method to initialize an object defining weather conditions. This class has some presets for different noon and sunset conditions listed in a note below.  
     - **Parameters:**
@@ -3417,7 +3417,7 @@ Method to initialize an object defining weather conditions. This class has some 
     - **Note:** <font color="#8E8E8E">_ClearNoon, CloudyNoon, WetNoon, WetCloudyNoon, SoftRainNoon, MidRainyNoon, HardRainNoon, ClearSunset, CloudySunset, WetSunset, WetCloudySunset, SoftRainSunset, MidRainSunset, HardRainSunset. 
 _</font>  
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.WeatherParameters.__eq__"></a>**<font color="#7fb800">\__eq__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**</font>)  
 Returns <b>True</b> if both objects' variables are the same.  
     - **Return:** _bool_  
@@ -3431,7 +3431,7 @@ Returns <b>True</b> if both objects' variables are different.
 ## carla.WheelPhysicsControl<a name="carla.WheelPhysicsControl"></a>
 Class that defines specific physical parameters for wheel objects that will be part of a [carla.VehiclePhysicsControl](#carla.VehiclePhysicsControl) to simulate vehicle it as a material object.  
 
-### Instance Variables
+### 实例变量
 - <a name="carla.WheelPhysicsControl.tire_friction"></a>**<font color="#f8805a">tire_friction</font>** (_float_)  
 A scalar value that indicates the friction of the wheel.  
 - <a name="carla.WheelPhysicsControl.damping_rate"></a>**<font color="#f8805a">damping_rate</font>** (_float_)  
@@ -3453,7 +3453,7 @@ Maximum normalized tire load at which the tire can deliver no more lateral stiff
 - <a name="carla.WheelPhysicsControl.lat_stiff_value"></a>**<font color="#f8805a">lat_stiff_value</font>** (_float_)  
 Maximum stiffness per unit of lateral slip. Each vehicle has a custom value.  
 
-### Methods
+### 方法
 - <a name="carla.WheelPhysicsControl.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**tire_friction**=2.0</font>, <font color="#00a6ed">**damping_rate**=0.25</font>, <font color="#00a6ed">**max_steer_angle**=70.0</font>, <font color="#00a6ed">**radius**=30.0</font>, <font color="#00a6ed">**max_brake_torque**=1500.0</font>, <font color="#00a6ed">**max_handbrake_torque**=3000.0</font>, <font color="#00a6ed">**position**=(0.0,0.0,0.0)</font>)  
     - **Parameters:**
         - `tire_friction` (_float_)  
@@ -3464,7 +3464,7 @@ Maximum stiffness per unit of lateral slip. Each vehicle has a custom value.
         - `max_handbrake_torque` (_float<small> - N*m</small>_)  
         - `position` (_[carla.Vector3D](#carla.Vector3D)<small> - meters</small>_)  
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.WheelPhysicsControl.__eq__"></a>**<font color="#7fb800">\__eq__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.WheelPhysicsControl](#carla.WheelPhysicsControl)</font>)  
 - <a name="carla.WheelPhysicsControl.__ne__"></a>**<font color="#7fb800">\__ne__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.WheelPhysicsControl](#carla.WheelPhysicsControl)</font>)  
 - <a name="carla.WheelPhysicsControl.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
@@ -3474,13 +3474,13 @@ Maximum stiffness per unit of lateral slip. Each vehicle has a custom value.
 ## carla.World<a name="carla.World"></a>
 World objects are created by the client to have a place for the simulation to happen. The world contains the map we can see, meaning the asset, not the navigation map. Navigation maps are part of the [carla.Map](#carla.Map) class. It also manages the weather and actors present in it. There can only be one world per simulation, but it can be changed anytime.  
 
-### Instance Variables
+### 实例变量
 - <a name="carla.World.id"></a>**<font color="#f8805a">id</font>** (_int_)  
 The ID of the episode associated with this world. Episodes are different sessions of a simulation. These change everytime a world is disabled or reloaded. Keeping track is useful to avoid possible issues.  
 - <a name="carla.World.debug"></a>**<font color="#f8805a">debug</font>** (_[carla.DebugHelper](#carla.DebugHelper)_)  
 Responsible for creating different shapes for debugging. Take a look at its class to learn more about it.  
 
-### Methods
+### 方法
 - <a name="carla.World.apply_color_texture_to_object"></a>**<font color="#7fb800">apply_color_texture_to_object</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**object_name**</font>, <font color="#00a6ed">**material_parameter**</font>, <font color="#00a6ed">**texture**</font>)  
 Applies a `texture` object in the field corresponfing to `material_parameter` (normal, diffuse, etc) to the object in the scene corresponding to `object_name`.  
     - **Parameters:**
@@ -3606,7 +3606,7 @@ _</font>
         - `seconds` (_float<small> - seconds</small>_) - Maximum time the server should wait for a tick. It is set to <code>10.0</code> by default.  
     - **Return:** _[carla.WorldSnapshot](#carla.WorldSnapshot)_  
 
-##### Getters
+##### 设置器
 - <a name="carla.World.get_actor"></a>**<font color="#7fb800">get_actor</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor_id**</font>)  
 Looks up for an actor by ID and returns <b>None</b> if not found.  
     - **Parameters:**
@@ -3704,7 +3704,7 @@ Changes the weather parameteres ruling the simulation to another ones defined in
         - `weather` (_[carla.WeatherParameters](#carla.WeatherParameters)_) - New conditions to be applied.  
     - **Getter:** _[carla.World.get_weather](#carla.World.get_weather)_  
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.World.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
 The content of the world is parsed and printed as a brief report of its current state.  
     - **Return:** _string_  
@@ -3714,7 +3714,7 @@ The content of the world is parsed and printed as a brief report of its current 
 ## carla.WorldSettings<a name="carla.WorldSettings"></a>
 The simulation has some advanced configuration options that are contained in this class and can be managed using [carla.World](#carla.World) and its methods. These allow the user to choose between client-server synchrony/asynchrony, activation of "no rendering mode" and either if the simulation should run with a fixed or variable time-step. Check [this](adv_synchrony_timestep.md) out if you want to learn about it.  
 
-### Instance Variables
+### 实例变量
 - <a name="carla.WorldSettings.synchronous_mode"></a>**<font color="#f8805a">synchronous_mode</font>** (_bool_)  
 States the synchrony between client and server. When set to true, the server will wait for a client tick in order to move forward. It is false by default.  
 - <a name="carla.WorldSettings.no_rendering_mode"></a>**<font color="#f8805a">no_rendering_mode</font>** (_bool_)  
@@ -3738,7 +3738,7 @@ Used for large maps only. Configures the distance from the hero vehicle to conve
 - <a name="carla.WorldSettings.spectator_as_ego"></a>**<font color="#f8805a">spectator_as_ego</font>** (_bool_)  
 Used for large maps only. Defines the influence of the spectator on tile loading in Large Maps. By default, the spectator will provoke loading of neighboring tiles in the absence of an ego actor. This might be inconvenient for applications that immediately spawn an ego actor.  
 
-### Methods
+### 方法
 - <a name="carla.WorldSettings.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**synchronous_mode**=False</font>, <font color="#00a6ed">**no_rendering_mode**=False</font>, <font color="#00a6ed">**fixed_delta_seconds**=0.0</font>, <font color="#00a6ed">**max_culling_distance**=0.0</font>, <font color="#00a6ed">**deterministic_ragdolls**=False</font>, <font color="#00a6ed">**tile_stream_distance**=3000</font>, <font color="#00a6ed">**actor_active_distance**=2000</font>, <font color="#00a6ed">**spectator_as_ego**=True</font>)  
 Creates an object containing desired settings that could later be applied through [carla.World](#carla.World) and its method __<font color="#7fb800">apply_settings()</font>__.  
     - **Parameters:**
@@ -3751,7 +3751,7 @@ Creates an object containing desired settings that could later be applied throug
         - `actor_active_distance` (_float<small> - meters</small>_) - Used for large maps only. Configures the distance from the hero vehicle to convert actors to dormant.  
         - `spectator_as_ego` (_bool_) - Used for large maps only. Defines the influence of the spectator on tile loading in Large Maps.  
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.WorldSettings.__eq__"></a>**<font color="#7fb800">\__eq__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.WorldSettings](#carla.WorldSettings)</font>)  
 Returns <b>True</b> if both objects' variables are the same.  
     - **Return:** _bool_  
@@ -3767,7 +3767,7 @@ Parses the established settings to a string and shows them in command line.
 ## carla.WorldSnapshot<a name="carla.WorldSnapshot"></a>
 This snapshot comprises all the information for every actor on scene at a certain moment of time. It creates and gives acces to a data structure containing a series of [carla.ActorSnapshot](#carla.ActorSnapshot). The client recieves a new snapshot on every tick that cannot be stored.  
 
-### Instance Variables
+### 实例变量
 - <a name="carla.WorldSnapshot.id"></a>**<font color="#f8805a">id</font>** (_int_)  
 A value unique for every snapshot to differentiate them.  
 - <a name="carla.WorldSnapshot.frame"></a>**<font color="#f8805a">frame</font>** (_int_)  
@@ -3775,7 +3775,7 @@ Simulation frame in which the snapshot was taken.
 - <a name="carla.WorldSnapshot.timestamp"></a>**<font color="#f8805a">timestamp</font>** (_[carla.Timestamp](#carla.Timestamp)<small> - seconds</small>_)  
 Precise moment in time when snapshot was taken. This class works in seconds as given by the operative system.  
 
-### Methods
+### 方法
 - <a name="carla.WorldSnapshot.find"></a>**<font color="#7fb800">find</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor_id**</font>)  
 Given a certain actor ID, returns its corresponding snapshot or <b>None</b> if it is not found.  
     - **Parameters:**
@@ -3787,7 +3787,7 @@ Given a certain actor ID, checks if there is a snapshot corresponding it and so,
         - `actor_id` (_int_)  
     - **Return:** _bool_  
 
-##### Dunder methods
+##### 魔术方法
 - <a name="carla.WorldSnapshot.__eq__"></a>**<font color="#7fb800">\__eq__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.WorldSnapshot](#carla.WorldSnapshot)</font>)  
 Returns __True__ if both **<font color="#f8805a">timestamp</font>** are the same.  
     - **Return:** _bool_  
@@ -3805,13 +3805,13 @@ Returns <b>True</b> if both **<font color="#f8805a">timestamp</font>** are diffe
 ## command.ApplyAngularImpulse<a name="command.ApplyAngularImpulse"></a>
 Command adaptation of __<font color="#7fb800">add_angular_impulse()</font>__ in [carla.Actor](#carla.Actor). Applies an angular impulse to an actor.  
 
-### Instance Variables
+### 实例变量
 - <a name="command.ApplyAngularImpulse.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_int_)  
 Actor affected by the command.  
 - <a name="command.ApplyAngularImpulse.impulse"></a>**<font color="#f8805a">impulse</font>** (_[carla.Vector3D](#carla.Vector3D)<small> - degrees*s</small>_)  
 Angular impulse applied to the actor.  
 
-### Methods
+### 方法
 - <a name="command.ApplyAngularImpulse.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**impulse**</font>)  
     - **Parameters:**
         - `actor` (_[carla.Actor](#carla.Actor) or int_) - Actor or its ID to whom the command will be applied to.  
@@ -3822,13 +3822,13 @@ Angular impulse applied to the actor.
 ## command.ApplyForce<a name="command.ApplyForce"></a>
 Command adaptation of __<font color="#7fb800">add_force()</font>__ in [carla.Actor](#carla.Actor). Applies a force to an actor.  
 
-### Instance Variables
+### 实例变量
 - <a name="command.ApplyForce.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_int_)  
 Actor affected by the command.  
 - <a name="command.ApplyForce.force"></a>**<font color="#f8805a">force</font>** (_[carla.Vector3D](#carla.Vector3D)<small> - N</small>_)  
 Force applied to the actor over time.  
 
-### Methods
+### 方法
 - <a name="command.ApplyForce.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**force**</font>)  
     - **Parameters:**
         - `actor` (_[carla.Actor](#carla.Actor) or int_) - Actor or its ID to whom the command will be applied to.  
@@ -3839,13 +3839,13 @@ Force applied to the actor over time.
 ## command.ApplyImpulse<a name="command.ApplyImpulse"></a>
 Command adaptation of __<font color="#7fb800">add_impulse()</font>__ in [carla.Actor](#carla.Actor). Applies an impulse to an actor.  
 
-### Instance Variables
+### 实例变量
 - <a name="command.ApplyImpulse.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_int_)  
 Actor affected by the command.  
 - <a name="command.ApplyImpulse.impulse"></a>**<font color="#f8805a">impulse</font>** (_[carla.Vector3D](#carla.Vector3D)<small> - N*s</small>_)  
 Impulse applied to the actor.  
 
-### Methods
+### 方法
 - <a name="command.ApplyImpulse.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**impulse**</font>)  
     - **Parameters:**
         - `actor` (_[carla.Actor](#carla.Actor) or int_) - Actor or its ID to whom the command will be applied to.  
@@ -3856,13 +3856,13 @@ Impulse applied to the actor.
 ## command.ApplyTargetAngularVelocity<a name="command.ApplyTargetAngularVelocity"></a>
 Command adaptation of __<font color="#7fb800">set_target_angular_velocity()</font>__ in [carla.Actor](#carla.Actor). Sets the actor's angular velocity vector.  
 
-### Instance Variables
+### 实例变量
 - <a name="command.ApplyTargetAngularVelocity.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_int_)  
 Actor affected by the command.  
 - <a name="command.ApplyTargetAngularVelocity.angular_velocity"></a>**<font color="#f8805a">angular_velocity</font>** (_[carla.Vector3D](#carla.Vector3D)<small> - deg/s</small>_)  
 The 3D angular velocity that will be applied to the actor.  
 
-### Methods
+### 方法
 - <a name="command.ApplyTargetAngularVelocity.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**angular_velocity**</font>)  
     - **Parameters:**
         - `actor` (_[carla.Actor](#carla.Actor) or int_) - Actor or its ID to whom the command will be applied to.  
@@ -3873,13 +3873,13 @@ The 3D angular velocity that will be applied to the actor.
 ## command.ApplyTargetVelocity<a name="command.ApplyTargetVelocity"></a>
 Command adaptation of __<font color="#7fb800">set_target_velocity()</font>__ in [carla.Actor](#carla.Actor).  
 
-### Instance Variables
+### 实例变量
 - <a name="command.ApplyTargetVelocity.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_int_)  
 Actor affected by the command.  
 - <a name="command.ApplyTargetVelocity.velocity"></a>**<font color="#f8805a">velocity</font>** (_[carla.Vector3D](#carla.Vector3D)<small> - m/s</small>_)  
 The 3D velocity applied to the actor.  
 
-### Methods
+### 方法
 - <a name="command.ApplyTargetVelocity.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**velocity**</font>)  
     - **Parameters:**
         - `actor` (_[carla.Actor](#carla.Actor) or int_) - Actor or its ID to whom the command will be applied to.  
@@ -3890,13 +3890,13 @@ The 3D velocity applied to the actor.
 ## command.ApplyTorque<a name="command.ApplyTorque"></a>
 Command adaptation of __<font color="#7fb800">add_torque()</font>__ in [carla.Actor](#carla.Actor). Applies a torque to an actor.  
 
-### Instance Variables
+### 实例变量
 - <a name="command.ApplyTorque.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_int_)  
 Actor affected by the command.  
 - <a name="command.ApplyTorque.torque"></a>**<font color="#f8805a">torque</font>** (_[carla.Vector3D](#carla.Vector3D)<small> - degrees</small>_)  
 Torque applied to the actor over time.  
 
-### Methods
+### 方法
 - <a name="command.ApplyTorque.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**torque**</font>)  
     - **Parameters:**
         - `actor` (_[carla.Actor](#carla.Actor) or int_) - Actor or its ID to whom the command will be applied to.  
@@ -3907,13 +3907,13 @@ Torque applied to the actor over time.
 ## command.ApplyTransform<a name="command.ApplyTransform"></a>
 Command adaptation of __<font color="#7fb800">set_transform()</font>__ in [carla.Actor](#carla.Actor). Sets a new transform to an actor.  
 
-### Instance Variables
+### 实例变量
 - <a name="command.ApplyTransform.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_int_)  
 Actor affected by the command.  
 - <a name="command.ApplyTransform.transform"></a>**<font color="#f8805a">transform</font>** (_[carla.Transform](#carla.Transform)_)  
 Transformation to be applied.  
 
-### Methods
+### 方法
 - <a name="command.ApplyTransform.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**transform**</font>)  
     - **Parameters:**
         - `actor` (_[carla.Actor](#carla.Actor) or int_) - Actor or its ID to whom the command will be applied to.  
@@ -3924,13 +3924,13 @@ Transformation to be applied.
 ## command.ApplyVehicleAckermannControl<a name="command.ApplyVehicleAckermannControl"></a>
 Command adaptation of __<font color="#7fb800">apply_ackermann_control()</font>__ in [carla.Vehicle](#carla.Vehicle). Applies a certain akermann control to a vehicle.  
 
-### Instance Variables
+### 实例变量
 - <a name="command.ApplyVehicleAckermannControl.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_int_)  
 Vehicle actor affected by the command.  
 - <a name="command.ApplyVehicleAckermannControl.control"></a>**<font color="#f8805a">control</font>** (_[carla.AckermannVehicleControl](#carla.AckermannVehicleControl)_)  
 Vehicle ackermann control to be applied.  
 
-### Methods
+### 方法
 - <a name="command.ApplyVehicleAckermannControl.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**control**</font>)  
     - **Parameters:**
         - `actor` (_[carla.Actor](#carla.Actor) or int_) - Actor or its ID to whom the command will be applied to.  
@@ -3941,13 +3941,13 @@ Vehicle ackermann control to be applied.
 ## command.ApplyVehicleControl<a name="command.ApplyVehicleControl"></a>
 Command adaptation of __<font color="#7fb800">apply_control()</font>__ in [carla.Vehicle](#carla.Vehicle). Applies a certain control to a vehicle.  
 
-### Instance Variables
+### 实例变量
 - <a name="command.ApplyVehicleControl.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_int_)  
 Vehicle actor affected by the command.  
 - <a name="command.ApplyVehicleControl.control"></a>**<font color="#f8805a">control</font>** (_[carla.VehicleControl](#carla.VehicleControl)_)  
 Vehicle control to be applied.  
 
-### Methods
+### 方法
 - <a name="command.ApplyVehicleControl.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**control**</font>)  
     - **Parameters:**
         - `actor` (_[carla.Actor](#carla.Actor) or int_) - Actor or its ID to whom the command will be applied to.  
@@ -3958,13 +3958,13 @@ Vehicle control to be applied.
 ## command.ApplyVehiclePhysicsControl<a name="command.ApplyVehiclePhysicsControl"></a>
 Command adaptation of __<font color="#7fb800">apply_physics_control()</font>__ in [carla.Vehicle](#carla.Vehicle). Applies a new physics control to a vehicle, modifying its physical parameters.  
 
-### Instance Variables
+### 实例变量
 - <a name="command.ApplyVehiclePhysicsControl.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_int_)  
 Vehicle actor affected by the command.  
 - <a name="command.ApplyVehiclePhysicsControl.physics_control"></a>**<font color="#f8805a">physics_control</font>** (_[carla.VehiclePhysicsControl](#carla.VehiclePhysicsControl)_)  
 Physics control to be applied.  
 
-### Methods
+### 方法
 - <a name="command.ApplyVehiclePhysicsControl.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**physics_control**</font>)  
     - **Parameters:**
         - `actor` (_[carla.Actor](#carla.Actor) or int_) - Actor or its ID to whom the command will be applied to.  
@@ -3975,13 +3975,13 @@ Physics control to be applied.
 ## command.ApplyWalkerControl<a name="command.ApplyWalkerControl"></a>
 Command adaptation of __<font color="#7fb800">apply_control()</font>__ in [carla.Walker](#carla.Walker). Applies a control to a walker.  
 
-### Instance Variables
+### 实例变量
 - <a name="command.ApplyWalkerControl.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_int_)  
 Walker actor affected by the command.  
 - <a name="command.ApplyWalkerControl.control"></a>**<font color="#f8805a">control</font>** (_[carla.WalkerControl](#carla.WalkerControl)_)  
 Walker control to be applied.  
 
-### Methods
+### 方法
 - <a name="command.ApplyWalkerControl.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**control**</font>)  
     - **Parameters:**
         - `actor` (_[carla.Actor](#carla.Actor) or int_) - Actor or its ID to whom the command will be applied to.  
@@ -3992,7 +3992,7 @@ Walker control to be applied.
 ## command.ApplyWalkerState<a name="command.ApplyWalkerState"></a>
 Apply a state to the walker actor. Specially useful to initialize an actor them with a specific location, orientation and speed.  
 
-### Instance Variables
+### 实例变量
 - <a name="command.ApplyWalkerState.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_int_)  
 Walker actor affected by the command.  
 - <a name="command.ApplyWalkerState.transform"></a>**<font color="#f8805a">transform</font>** (_[carla.Transform](#carla.Transform)_)  
@@ -4000,7 +4000,7 @@ Transform to be applied.
 - <a name="command.ApplyWalkerState.speed"></a>**<font color="#f8805a">speed</font>** (_float<small> - m/s</small>_)  
 Speed to be applied.  
 
-### Methods
+### 方法
 - <a name="command.ApplyWalkerState.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**transform**</font>, <font color="#00a6ed">**speed**</font>)  
     - **Parameters:**
         - `actor` (_[carla.Actor](#carla.Actor) or int_) - Actor or its ID to whom the command will be applied to.  
@@ -4012,11 +4012,11 @@ Speed to be applied.
 ## command.DestroyActor<a name="command.DestroyActor"></a>
 Command adaptation of __<font color="#7fb800">destroy()</font>__ in [carla.Actor](#carla.Actor) that tells the simulator to destroy this actor. It has no effect if the actor was already destroyed. When executed with __<font color="#7fb800">apply_batch_sync()</font>__ in [carla.Client](#carla.Client) there will be a <b>command.Response</b> that will return a boolean stating whether the actor was successfully destroyed.  
 
-### Instance Variables
+### 实例变量
 - <a name="command.DestroyActor.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_int_)  
 Actor affected by the command.  
 
-### Methods
+### 方法
 - <a name="command.DestroyActor.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>)  
     - **Parameters:**
         - `actor` (_[carla.Actor](#carla.Actor) or int_) - Actor or its ID to whom the command will be applied to.  
@@ -4026,13 +4026,13 @@ Actor affected by the command.
 ## command.Response<a name="command.Response"></a>
 States the result of executing a command as either the ID of the actor to whom the command was applied to (when succeeded) or an error string (when failed).  actor ID, depending on whether or not the command succeeded. The method __<font color="#7fb800">apply_batch_sync()</font>__ in [carla.Client](#carla.Client) returns a list of these to summarize the execution of a batch.  
 
-### Instance Variables
+### 实例变量
 - <a name="command.Response.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_int_)  
 Actor to whom the command was applied to. States that the command was successful.  
 - <a name="command.Response.error"></a>**<font color="#f8805a">error</font>** (_str_)  
 A string stating the command has failed.  
 
-### Methods
+### 方法
 - <a name="command.Response.has_error"></a>**<font color="#7fb800">has_error</font>**(<font color="#00a6ed">**self**</font>)  
 Returns <b>True</b> if the command execution fails, and <b>False</b> if it was successful.  
     - **Return:** _bool_  
@@ -4042,7 +4042,7 @@ Returns <b>True</b> if the command execution fails, and <b>False</b> if it was s
 ## command.SetAutopilot<a name="command.SetAutopilot"></a>
 Command adaptation of __<font color="#7fb800">set_autopilot()</font>__ in [carla.Vehicle](#carla.Vehicle). Turns on/off the vehicle's autopilot mode.  
 
-### Instance Variables
+### 实例变量
 - <a name="command.SetAutopilot.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_int_)  
 Actor that is affected by the command.  
 - <a name="command.SetAutopilot.enabled"></a>**<font color="#f8805a">enabled</font>** (_bool_)  
@@ -4050,7 +4050,7 @@ If autopilot should be activated or not.
 - <a name="command.SetAutopilot.port"></a>**<font color="#f8805a">port</font>** (_uint16_)  
 Port of the Traffic Manager where the vehicle is to be registered or unlisted.  
 
-### Methods
+### 方法
 - <a name="command.SetAutopilot.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**enabled**</font>, <font color="#00a6ed">**port**=8000</font>)  
     - **Parameters:**
         - `actor` (_[carla.Actor](#carla.Actor) or int_) - Actor or its ID to whom the command will be applied to.  
@@ -4062,12 +4062,12 @@ Port of the Traffic Manager where the vehicle is to be registered or unlisted.
 ## command.SetEnableGravity<a name="command.SetEnableGravity"></a>
 Command adaptation of __<font color="#7fb800">set_enable_gravity()</font>__ in [carla.Actor](#carla.Actor). Enables or disables gravity on an actor.  
 
-### Instance Variables
+### 实例变量
 - <a name="command.SetEnableGravity.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_[carla.Actor](#carla.Actor) or int_)  
 Actor that is affected by the command.  
 - <a name="command.SetEnableGravity.enabled"></a>**<font color="#f8805a">enabled</font>** (_bool_)  
 
-### Methods
+### 方法
 - <a name="command.SetEnableGravity.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**enabled**</font>)  
     - **Parameters:**
         - `actor` (_[carla.Actor](#carla.Actor) or int_) - Actor or Actor ID to which the command will be applied to.  
@@ -4078,13 +4078,13 @@ Actor that is affected by the command.
 ## command.SetSimulatePhysics<a name="command.SetSimulatePhysics"></a>
 Command adaptation of __<font color="#7fb800">set_simulate_physics()</font>__ in [carla.Actor](#carla.Actor). Determines whether an actor will be affected by physics or not.  
 
-### Instance Variables
+### 实例变量
 - <a name="command.SetSimulatePhysics.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_int_)  
 Actor affected by the command.  
 - <a name="command.SetSimulatePhysics.enabled"></a>**<font color="#f8805a">enabled</font>** (_bool_)  
 If physics should be activated or not.  
 
-### Methods
+### 方法
 - <a name="command.SetSimulatePhysics.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**enabled**</font>)  
     - **Parameters:**
         - `actor` (_[carla.Actor](#carla.Actor) or int_) - Actor or its ID to whom the command will be applied to.  
@@ -4095,13 +4095,13 @@ If physics should be activated or not.
 ## command.SetVehicleLightState<a name="command.SetVehicleLightState"></a>
 Command adaptation of __<font color="#7fb800">set_light_state()</font>__ in [carla.Vehicle](#carla.Vehicle). Sets the light state of a vehicle.  
 
-### Instance Variables
+### 实例变量
 - <a name="command.SetVehicleLightState.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_int_)  
 Actor that is affected by the command.  
 - <a name="command.SetVehicleLightState.light_state"></a>**<font color="#f8805a">light_state</font>** (_[carla.VehicleLightState](#carla.VehicleLightState)_)  
 Defines the light state of a vehicle.  
 
-### Methods
+### 方法
 - <a name="command.SetVehicleLightState.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**light_state**</font>)  
     - **Parameters:**
         - `actor` (_[carla.Actor](#carla.Actor) or int_) - Actor or its ID to whom the command will be applied to.  
@@ -4112,12 +4112,12 @@ Defines the light state of a vehicle.
 ## command.ShowDebugTelemetry<a name="command.ShowDebugTelemetry"></a>
 Command adaptation of __<font color="#7fb800">show_debug_telemetry()</font>__ in [carla.Actor](#carla.Actor). Displays vehicle control telemetry data.  
 
-### Instance Variables
+### 实例变量
 - <a name="command.ShowDebugTelemetry.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_[carla.Actor](#carla.Actor) or int_)  
 Actor that is affected by the command.  
 - <a name="command.ShowDebugTelemetry.enabled"></a>**<font color="#f8805a">enabled</font>** (_bool_)  
 
-### Methods
+### 方法
 - <a name="command.ShowDebugTelemetry.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**enabled**</font>)  
     - **Parameters:**
         - `actor` (_[carla.Actor](#carla.Actor) or int_) - Actor or Actor ID to which the command will be applied to.  
@@ -4128,13 +4128,13 @@ Actor that is affected by the command.
 ## command.SpawnActor<a name="command.SpawnActor"></a>
 Command adaptation of __<font color="#7fb800">spawn_actor()</font>__ in [carla.World](#carla.World). Spawns an actor into the world based on the blueprint provided and the transform. If a parent is provided, the actor is attached to it.  
 
-### Instance Variables
+### 实例变量
 - <a name="command.SpawnActor.transform"></a>**<font color="#f8805a">transform</font>** (_[carla.Transform](#carla.Transform)_)  
 Transform to be applied.  
 - <a name="command.SpawnActor.parent_id"></a>**<font color="#f8805a">parent_id</font>** (_int_)  
 Identificator of the parent actor.  
 
-### Methods
+### 方法
 - <a name="command.SpawnActor.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>)  
 - <a name="command.SpawnActor.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**blueprint**</font>, <font color="#00a6ed">**transform**</font>)  
     - **Parameters:**
