@@ -220,6 +220,8 @@ Carla 论坛</a>
 
 [__ISS 智能驾驶系统__](ecosys_iss.md) — 包含用于自动驾驶相关任务的传统和深度学习算法。
 
+[__交通场景__](scenario_runner.md) — 基于 Carla 交通场景定义和执行引擎。
+
 [__Web 可视化器__](plugins_carlaviz.md) — 侦听仿真并在网络浏览器中显示场景和一些仿真数据的插件。
 
 [__ROS__](ros_documentation.md) — 机器人操作系统桥接器的简要概述和完整文档的链接。
