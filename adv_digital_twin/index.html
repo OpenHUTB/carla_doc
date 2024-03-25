@@ -201,6 +201,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#_6">保存地图</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_7">问题</a>
+    </li>
     </ul>
                   </li>
               </ul>
@@ -343,7 +345,7 @@
 <p><strong>数字孪生工具</strong> 目前是一项 <strong>实验性功能</strong> ，现阶段尚未考虑投入生产。地图的某些部分可能未装饰或无纹理。因此它只能用于实验研究项目。</p>
 </div>
 <h1 id="_1">数字孪生工具</h1>
-<p><img alt="digital_twin_pipeline" src="../img/pipeline.jpg" /></p>
+<p><img alt="digital_twin_pipeline" src="../img/pipeline.png" /></p>
 <ul>
 <li><a href="#downloading-and-preparing-osm-map-data"><strong>下载并准备 OSM 地图数据</strong></a></li>
 <li><a href="#openstreetmap-browser"><strong>OpenStreetMap 浏览器</strong></a></li>
@@ -396,6 +398,11 @@
 <p>对于 2x2 km<sup>2</sup> 区域，生成步骤大约需要 10 分钟，较大的区域将需要更长的时间。生成过程完成后，您可以在虚幻引擎编辑器中检查三维地图。</p>
 <h2 id="_6">保存地图</h2>
 <p>如果您对生成的地图感到满意，则可以按 <em>Save Map</em> 按钮保存地图。 <strong>此步骤将花费大量时间</strong>，可能需要一个多小时，也可能需要几个小时。完成此步骤后，您应该准备让计算机运行几个小时。完成此步骤后，将可以通过虚幻引擎编辑器或通过 Carla API 使用该地图，就像任何其他地图一样。</p>
+<h2 id="_7">问题</h2>
+<p><code>carla\Unreal\CarlaUE4\Plugins\CarlaTools\Source\CarlaTools\Private\OpenDriveToMap.cpp</code>改为生成一个瓦片地图的函数，生成后的名字为<code>{NAME}_Tile_0_0</code>。</p>
+<pre><code class="language-shell">// ExecuteTileCommandlet();
+GenerateTile();
+</code></pre>
               
             </div>
           </div><footer>
