@@ -3,7 +3,7 @@
 
 # 数字孪生工具
 
-![digital_twin_pipeline](img/pipeline.jpg)
+![digital_twin_pipeline](img/pipeline.png)
 
 - [__下载并准备 OSM 地图数据__](#downloading-and-preparing-osm-map-data)
 - [__OpenStreetMap 浏览器__](#openstreetmap-browser)
@@ -91,3 +91,10 @@ python src/util/config.py -x *.xodr
 ## 保存地图
 
 如果您对生成的地图感到满意，则可以按 *Save Map* 按钮保存地图。 __此步骤将花费大量时间__，可能需要一个多小时，也可能需要几个小时。完成此步骤后，您应该准备让计算机运行几个小时。完成此步骤后，将可以通过虚幻引擎编辑器或通过 Carla API 使用该地图，就像任何其他地图一样。
+
+## 问题
+`carla\Unreal\CarlaUE4\Plugins\CarlaTools\Source\CarlaTools\Private\OpenDriveToMap.cpp`改为生成一个瓦片地图的函数，生成后的名字为`{NAME}_Tile_0_0`。
+```shell
+// ExecuteTileCommandlet();
+GenerateTile();
+```

@@ -8,7 +8,7 @@
 
 ## 学术研究
 ### [感知](algorithms/perception.md)
-目标检测、跟踪、再识别、语义分割、骨架识别等。
+目标跟踪、再识别、语义分割、骨架识别等。
 
 ### [规划](algorithms/planning.md)
 [定位](algorithms/localization.md) 、建图、规划、决策。
@@ -17,7 +17,9 @@
 PID、基于模型的控制。
 
 ### 场景
-智能体、[智能驾驶](https://openhutb.github.io/carla_doc/ecosys_iss/) 、机器人、无人机等。
+* 智能体、[智能驾驶](https://openhutb.github.io/carla_doc/ecosys_iss/) 、机器人、无人机等。
+
+* 提供数据孪生建筑生成的Python 接口。
 
 
 
