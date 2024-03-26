@@ -1841,22 +1841,22 @@ The velocity of the detected object towards the sensor.
 
 ## carla.RadarMeasurement<a name="carla.RadarMeasurement"></a>
 <small style="display:block;margin-top:-20px;">Inherited from _[carla.SensorData](#carla.SensorData)_</small></br>
-Class that defines and gathers the measures registered by a <b>sensor.other.radar</b>, representing a wall of points in front of the sensor with a distance, angle and velocity in relation to it. The data consists of a [carla.RadarDetection](#carla.RadarDetection) array. Learn more about this [here](ref_sensors.md#radar-sensor).  
+定义并收集由 <b>sensor.other.radar</b> 注册的测量值的类，代表传感器前面的点墙以及与其相关的距离、角度和速度。数据由 [carla.RadarDetection](#carla.RadarDetection) 数组组成。在 [这里](ref_sensors.md#radar-sensor) 了解更多相关信息。
 
 ### 实例变量
 - <a name="carla.RadarMeasurement.raw_data"></a>**<font color="#f8805a">raw_data</font>** (_bytes_)  
-The complete information of the [carla.RadarDetection](#carla.RadarDetection) the radar has registered.  
+[carla.RadarDetection](#carla.RadarDetection) 雷达的完成信息已经被注册。
 
 ### 方法
 
 ##### 设置器
 - <a name="carla.RadarMeasurement.get_detection_count"></a>**<font color="#7fb800">get_detection_count</font>**(<font color="#00a6ed">**self**</font>)  
-Retrieves the number of entries generated, same as **<font color="#7fb800">\__str__()</font>**.  
+检索生成的条目数，与 **<font color="#7fb800">\__str__()</font>** 相同。  
 
 ##### 魔术方法
 - <a name="carla.RadarMeasurement.__getitem__"></a>**<font color="#7fb800">\__getitem__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**pos**=int</font>)  
 - <a name="carla.RadarMeasurement.__iter__"></a>**<font color="#7fb800">\__iter__</font>**(<font color="#00a6ed">**self**</font>)  
-Iterate over the [carla.RadarDetection](#carla.RadarDetection) retrieved as data.  
+在获取的数据 [carla.RadarDetection](#carla.RadarDetection) 上进行迭代。
 - <a name="carla.RadarMeasurement.__len__"></a>**<font color="#7fb800">\__len__</font>**(<font color="#00a6ed">**self**</font>)  
 - <a name="carla.RadarMeasurement.__setitem__"></a>**<font color="#7fb800">\__setitem__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**pos**=int</font>, <font color="#00a6ed">**detection**=[carla.RadarDetection](#carla.RadarDetection)</font>)  
 - <a name="carla.RadarMeasurement.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
@@ -1864,62 +1864,62 @@ Iterate over the [carla.RadarDetection](#carla.RadarDetection) retrieved as data
 ---
 
 ## carla.Rotation<a name="carla.Rotation"></a>
-Class that represents a 3D rotation and therefore, an orientation in space. CARLA uses the Unreal Engine coordinates system. This is a Z-up left-handed system.  <br>
-<br>The constructor method follows a specific order of declaration: `(pitch, yaw, roll)`, which corresponds to `(Y-rotation,Z-rotation,X-rotation)`.  <br> <br>![UE4_Rotation](https://d26ilriwvtzlb.cloudfront.net/8/83/BRMC_9.jpg) *Unreal Engine's coordinates system*.  
+表示 3D 旋转以及空间方向的类。 Carla 使用虚幻引擎坐标系。这是 Z 向上左手系统。  <br>
+<br>构造函数方法遵循特定的声明顺序： `(pitch, yaw, roll)` 对应于 `(Y-rotation,Z-rotation,X-rotation)`.  <br> <br>![UE4_Rotation](https://d26ilriwvtzlb.cloudfront.net/8/83/BRMC_9.jpg) *虚幻引擎的坐标系*。  
 
 ### 实例变量
 - <a name="carla.Rotation.pitch"></a>**<font color="#f8805a">pitch</font>** (_float<small> - degrees</small>_)  
-Y-axis rotation angle.  
+Y-轴旋转角度。  
 - <a name="carla.Rotation.yaw"></a>**<font color="#f8805a">yaw</font>** (_float<small> - degrees</small>_)  
-Z-axis rotation angle.  
+Z-轴旋转角度。 
 - <a name="carla.Rotation.roll"></a>**<font color="#f8805a">roll</font>** (_float<small> - degrees</small>_)  
-X-axis rotation angle.  
+X-轴旋转角度。  
 
 ### 方法
 - <a name="carla.Rotation.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**pitch**=0.0</font>, <font color="#00a6ed">**yaw**=0.0</font>, <font color="#00a6ed">**roll**=0.0</font>)  
-    - **Parameters:**
+    - **参数：**
         - `pitch` (_float<small> - degrees</small>_) - Y-axis rotation angle.  
         - `yaw` (_float<small> - degrees</small>_) - Z-axis rotation angle.  
         - `roll` (_float<small> - degrees</small>_) - X-axis rotation angle.  
-    - **Warning:** <font color="#ED2F2F">_The declaration order is different in CARLA <code>(pitch,yaw,roll)</code>, and in the Unreal Engine Editor <code>(roll,pitch,yaw)</code>. When working in a build from source, don't mix up the axes' rotations._</font>  
+    - **警告：** <font color="#ED2F2F">_ CARLA <code>(pitch,yaw,roll)</code> 和虚幻引擎编辑器中的声明顺序不同。当从源代码构建时，不要混淆轴的旋转。_</font>  
 
 ##### 设置器
 - <a name="carla.Rotation.get_forward_vector"></a>**<font color="#7fb800">get_forward_vector</font>**(<font color="#00a6ed">**self**</font>)  
-Computes the vector pointing forward according to the rotation of the object.  
-    - **Return:** _[carla.Vector3D](#carla.Vector3D)_  
+根据对象的旋转计算指向前方的向量。
+    - **返回：** _[carla.Vector3D](#carla.Vector3D)_  
 - <a name="carla.Rotation.get_right_vector"></a>**<font color="#7fb800">get_right_vector</font>**(<font color="#00a6ed">**self**</font>)  
-Computes the vector pointing to the right according to the rotation of the object.  
-    - **Return:** _[carla.Vector3D](#carla.Vector3D)_  
+根据对象的旋转计算指向右侧的向量。  
+    - **返回：** _[carla.Vector3D](#carla.Vector3D)_  
 - <a name="carla.Rotation.get_up_vector"></a>**<font color="#7fb800">get_up_vector</font>**(<font color="#00a6ed">**self**</font>)  
-Computes the vector pointing upwards according to the rotation of the object.  
-    - **Return:** _[carla.Vector3D](#carla.Vector3D)_  
+根据对象的旋转计算指向上方的向量。  
+    - **返回：** _[carla.Vector3D](#carla.Vector3D)_  
 
 ##### 魔术方法
 - <a name="carla.Rotation.__eq__"></a>**<font color="#7fb800">\__eq__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.Rotation](#carla.Rotation)</font>)  
-Returns __True__ if both rotations represent the same orientation for every axis.  
-    - **Return:** _bool_  
+如果两个旋转代表每个轴的相同方向，则返回 __True__ 。
+    - **返回：** _bool_  
 - <a name="carla.Rotation.__ne__"></a>**<font color="#7fb800">\__ne__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.Rotation](#carla.Rotation)</font>)  
-Returns __True__ if both rotations represent the same orientation for every axis.  
-    - **Return:** _bool_  
+如果两个旋转代表每个轴的相同方向，则返回 __True__ 。
+    - **返回：** _bool_  
 - <a name="carla.Rotation.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
-Parses the axis' orientations to string.  
+将轴的方向解析为字符串。 
 
 ---
 
 ## carla.RssActorConstellationData<a name="carla.RssActorConstellationData"></a>
-Data structure that is provided within the callback registered by RssSensor.register_actor_constellation_callback().  
+由 RssSensor.register_actor_constellation_callback() 注册的回调中提供的数据结构。
 
 ### 实例变量
 - <a name="carla.RssActorConstellationData.ego_match_object"></a>**<font color="#f8805a">ego_match_object</font>** (_<a href="https://ad-map-access.readthedocs.io/en/latest/ad_map_access/apidoc/html/structad_1_1map_1_1match_1_1Object.html">ad.map.match.Object</a>_)  
-The ego map matched information.  
+自我映射匹配信息。 
 - <a name="carla.RssActorConstellationData.ego_route"></a>**<font color="#f8805a">ego_route</font>** (_<a href="https://ad-map-access.readthedocs.io/en/latest/ad_map_access/apidoc/html/structad_1_1map_1_1route_1_1FullRoute.html">ad.map.route.FullRoute</a>_)  
-The ego route.  
+自我路由。 
 - <a name="carla.RssActorConstellationData.ego_dynamics_on_route"></a>**<font color="#f8805a">ego_dynamics_on_route</font>** (_[carla.RssEgoDynamicsOnRoute](#carla.RssEgoDynamicsOnRoute)_)  
-Current ego vehicle dynamics regarding the route.  
+关于路线的当前自我车辆动态。
 - <a name="carla.RssActorConstellationData.other_match_object"></a>**<font color="#f8805a">other_match_object</font>** (_<a href="https://ad-map-access.readthedocs.io/en/latest/ad_map_access/apidoc/html/structad_1_1map_1_1match_1_1Object.html">ad.map.match.Object</a>_)  
-The other object's map matched information. This is only valid if 'other_actor' is not 'None'.  
+其他对象的地图匹配信息。仅当“other_actor”不是“None”时这才有效。
 - <a name="carla.RssActorConstellationData.other_actor"></a>**<font color="#f8805a">other_actor</font>** (_[carla.Actor](#carla.Actor)_)  
-The other actor. This is 'None' in case of query of default parameters or articial objects of kind <a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/namespacead_1_1rss_1_1world.html#a6432f1ef8d0657b4f21ed5966aca1625">ad.rss.world.ObjectType.ArtificialObject</a> with no dedicated '[carla.Actor](#carla.Actor)' (as e.g. for the [road boundaries](ref_sensors.md#rss-sensor) at the moment).  
+其他参与者。如果查询默认参数或类型为ad.rss.world.ObjectType.ArtificialObject且没有专用“ carla.Actor ”的人工对象（例如目前的 道路边界），则为“None”。 The other actor. This is 'None' in case of query of default parameters or articial objects of kind <a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/namespacead_1_1rss_1_1world.html#a6432f1ef8d0657b4f21ed5966aca1625">ad.rss.world.ObjectType.ArtificialObject</a> with no dedicated '[carla.Actor](#carla.Actor)' (as e.g. for the [road boundaries](ref_sensors.md#rss-sensor) at the moment).  
 
 ### 方法
 
