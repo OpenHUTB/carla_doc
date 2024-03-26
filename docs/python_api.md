@@ -3309,52 +3309,48 @@ OpenDRIVE当前位置的 <b>s</b> 值 。
 
 ### 方法
 - <a name="carla.Waypoint.next"></a>**<font color="#7fb800">next</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**distance**</font>)  
-Returns a list of waypoints at a certain approximate `distance` from the current one. It takes into account the road and its possible deviations without performing any lane change and returns one waypoint per option.
-The list may be empty if the lane is not connected to any other at the specified distance.  
+当前点某个近似值的航路点列表`distance`它会考虑道路及其可能的偏差，而不执行任何车道变更，并为每个选项返回一个航路点。如果车道在指定距离处未与任何其他车道相连，则列表可能为空。 
     - **参数:**
-        - `distance` (_float<small> - meters</small>_) - The approximate distance where to get the next waypoints.  
+        - `distance` (_float<small> - meters</small>_) - 获取下一个航路点的大致距离。
     - **返回:** _list([carla.Waypoint](#carla.Waypoint))_  
 - <a name="carla.Waypoint.next_until_lane_end"></a>**<font color="#7fb800">next_until_lane_end</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**distance**</font>)  
-Returns a list of waypoints from this to the end of the lane separated by a certain `distance`.  
+返回从这里到车道末端的路点列表，这些路点之间以一定距离`distance`分隔。
     - **参数:**
-        - `distance` (_float<small> - meters</small>_) - The approximate distance between waypoints.  
+        - `distance` (_float<small> - meters</small>_) - 航路点之间的大致距离。 
     - **返回:** _list([carla.Waypoint](#carla.Waypoint))_  
 - <a name="carla.Waypoint.previous"></a>**<font color="#7fb800">previous</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**distance**</font>)  
-This method does not return the waypoint previously visited by an actor, but a list of waypoints at an approximate `distance` but in the opposite direction of the lane. Similarly to **<font color="#7fb800">next()</font>**, it takes into account the road and its possible deviations without performing any lane change and returns one waypoint per option.
-The list may be empty if the lane is not connected to any other at the specified distance.  
+但与车道相反方向的路点列表`distance` 与**<font color="#7fb800">next()</font>**类似，它会考虑道路及其可能的偏差，而不执行任何车道变更，并为每个选项返回一个航路点。如果车道在指定距离处未与任何其他车道相连，则列表可能为空。
     - **参数:**
-        - `distance` (_float<small> - meters</small>_) - The approximate distance where to get the previous waypoints.  
+        - `distance` (_float<small> - meters</small>_) - 获取先前航路点的大致距离。 
     - **返回:** _list([carla.Waypoint](#carla.Waypoint))_  
 - <a name="carla.Waypoint.previous_until_lane_start"></a>**<font color="#7fb800">previous_until_lane_start</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**distance**</font>)  
-Returns a list of waypoints from this to the start of the lane separated by a certain `distance`.  
+返回从这里到车道起点的路点列表，以一定的距离 `distance` 分隔。
     - **参数:**
-        - `distance` (_float<small> - meters</small>_) - The approximate distance between waypoints.  
+        - `distance` (_float<small> - meters</small>_) - 航路点之间的大致距离。
     - **返回:** _list([carla.Waypoint](#carla.Waypoint))_  
 
 ##### 设置器
 - <a name="carla.Waypoint.get_junction"></a>**<font color="#7fb800">get_junction</font>**(<font color="#00a6ed">**self**</font>)  
-If the waypoint belongs to a junction this method returns the associated junction object. Otherwise returns null.  
+如果路径点属于路口，则此方法返回关联的路口对象。否则返回 null。
     - **返回:** _[carla.Junction](#carla.Junction)_  
 - <a name="carla.Waypoint.get_landmarks"></a>**<font color="#7fb800">get_landmarks</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**distance**</font>, <font color="#00a6ed">**stop_at_junction**=False</font>)  
-Returns a list of landmarks in the road from the current waypoint until the specified distance.  
+返回从当前航路点到指定距离的道路上的地标列表。
     - **参数:**
-        - `distance` (_float<small> - meters</small>_) - The maximum distance to search for landmarks from the current waypoint.  
-        - `stop_at_junction` (_bool_) - Enables or disables the landmark search through junctions.  
+        - `distance` (_float<small> - meters</small>_) - 从当前航路点搜索地标的最大距离。
+        - `stop_at_junction` (_bool_) - 启用或禁用通过路口的地标搜索。  
     - **返回:** _list([carla.Landmark](#carla.Landmark))_  
 - <a name="carla.Waypoint.get_landmarks_of_type"></a>**<font color="#7fb800">get_landmarks_of_type</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**distance**</font>, <font color="#00a6ed">**type**</font>, <font color="#00a6ed">**stop_at_junction**=False</font>)  
-Returns a list of landmarks in the road of a specified type from the current waypoint until the specified distance.  
+返回从当前路径点到指定距离的指定类型道路中的地标列表。
     - **参数:**
-        - `distance` (_float<small> - meters</small>_) - The maximum distance to search for landmarks from the current waypoint.  
-        - `type` (_str_) - The type of landmarks to search.  
-        - `stop_at_junction` (_bool_) - Enables or disables the landmark search through junctions.  
+        - `distance` (_float<small> - meters</small>_) - 从当前航路点搜索地标的最大距离。
+        - `type` (_str_) - 要搜索的地标类型。  
+        - `stop_at_junction` (_bool_) - 启用或禁用通过路口的地标搜索。 
     - **返回:** _list([carla.Landmark](#carla.Landmark))_  
 - <a name="carla.Waypoint.get_left_lane"></a>**<font color="#7fb800">get_left_lane</font>**(<font color="#00a6ed">**self**</font>)  
-Generates a Waypoint at the center of the left lane based on the direction of the current Waypoint, taking into account if the lane change is allowed in this location.
-Will return <b>None</b> if the lane does not exist.  
-    - **Return:** _[carla.Waypoint](#carla.Waypoint)_  
+根据当前路点的方向在左车道中心生成路点，同时考虑该位置是否允许变道。如果车道不存在，则返回 <b>None</b> 。 
+    - **返回:** _[carla.Waypoint](#carla.Waypoint)_  
 - <a name="carla.Waypoint.get_right_lane"></a>**<font color="#7fb800">get_right_lane</font>**(<font color="#00a6ed">**self**</font>)  
-Generates a waypoint at the center of the right lane based on the direction of the current waypoint, taking into account if the lane change is allowed in this location.
-Will return <b>None</b> if the lane does not exist.  
+根据当前路点的方向在右车道中心生成路点，并考虑该位置是否允许变道。如果车道不存在，则返回 <b>None</b> 。 
     - **返回:** _[carla.Waypoint](#carla.Waypoint)_  
 
 ##### 魔术方法
@@ -3363,57 +3359,58 @@ Will return <b>None</b> if the lane does not exist.
 ---
 
 ## carla.WeatherParameters<a name="carla.WeatherParameters"></a>
-This class defines objects containing lighting and weather specifications that can later be applied in [carla.World](#carla.World). So far, these conditions only intervene with [sensor.camera.rgb](ref_sensors.md#rgb-camera). They neither affect the actor's physics nor other sensors.        
-  Each of these parameters acts indepently from the rest. Increasing the rainfall will not automatically create puddles nor change the road's humidity. That makes for a better customization but means that realistic conditions need to be scripted. However an example of dynamic weather conditions working realistically can be found [here](https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/dynamic_weather.py).  
+此类定义了包含光照和天气规范的对象，这些规范稍后可以应用在 [carla.World](#carla.World) 中。到目前为止，这些条件仅影响 [sensor.camera.rgb](ref_sensors.md#rgb-camera)。它们既不影响演员的物理特性，也不影响其他传感器。
+这些参数中的每一个都独立于其他参数起作用。增加降雨量不会自动形成水坑，也不会改变道路的湿度。这可以实现更好的定制，但也意味着需要编写现实条件的脚本。然而，可以在 [此处](https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/dynamic_weather.py) 找到实际运行的动态天气条件的示例。
+
 
 ### 实例变量
 - <a name="carla.WeatherParameters.cloudiness"></a>**<font color="#f8805a">cloudiness</font>** (_float_)  
-Values range from 0 to 100, being 0 a clear sky and 100 one completely covered with clouds.  
+值范围从 0 到 100，0 表示晴朗的天空，100 表示完全被云覆盖。
 - <a name="carla.WeatherParameters.precipitation"></a>**<font color="#f8805a">precipitation</font>** (_float_)  
-Rain intensity values range from 0 to 100, being 0 none at all and 100 a heavy rain.  
+降雨强度值范围从 0 到 100，0 表示无雨，100 表示大雨。
 - <a name="carla.WeatherParameters.precipitation_deposits"></a>**<font color="#f8805a">precipitation_deposits</font>** (_float_)  
-Determines the creation of puddles. Values range from 0 to 100, being 0 none at all and 100 a road completely capped with water. Puddles are created with static noise, meaning that they will always appear at the same locations.  
+确定水坑的创建。值范围从 0 到 100，0 表示完全没有水，100 表示道路完全被水覆盖。水坑是用静态噪音创建的，这意味着它们总是出现在相同的位置。
 - <a name="carla.WeatherParameters.wind_intensity"></a>**<font color="#f8805a">wind_intensity</font>** (_float_)  
-Controls the strenght of the wind with values from 0, no wind at all, to 100, a strong wind. The wind does affect rain direction and leaves from trees, so this value is restricted to avoid animation issues.  
+控制风的强度，值从 0（无风）到 100（强风）。风确实会影响降雨方向和树叶，因此限制该值以避免动画问题。
 - <a name="carla.WeatherParameters.sun_azimuth_angle"></a>**<font color="#f8805a">sun_azimuth_angle</font>** (_float<small> - degrees</small>_)  
-The azimuth angle of the sun. Values range from 0 to 360. Zero is an origin point in a sphere determined by Unreal Engine.  
+太阳的方位角。值范围为 0 到 360。零是由虚幻引擎确定的球体中的原点。
 - <a name="carla.WeatherParameters.sun_altitude_angle"></a>**<font color="#f8805a">sun_altitude_angle</font>** (_float<small> - degrees</small>_)  
-Altitude angle of the sun. Values range from -90 to 90 corresponding to midnight and midday each.  
+太阳的高度角。值范围从 -90 到 90，分别对应于午夜和中午。
 - <a name="carla.WeatherParameters.fog_density"></a>**<font color="#f8805a">fog_density</font>** (_float_)  
-Fog concentration or thickness. It only affects the RGB camera sensor. Values range from 0 to 100.  
+雾浓度或厚度。它仅影响 RGB 相机传感器。值范围从 0 到 100。
 - <a name="carla.WeatherParameters.fog_distance"></a>**<font color="#f8805a">fog_distance</font>** (_float<small> - meters</small>_)  
-Fog start distance. Values range from 0 to infinite.  
+雾开始距离。值范围从 0 到无穷大。
 - <a name="carla.WeatherParameters.wetness"></a>**<font color="#f8805a">wetness</font>** (_float_)  
-Wetness intensity. It only affects the RGB camera sensor. Values range from 0 to 100.  
+湿度强度。它仅影响 RGB 相机传感器。值范围从 0 到 100。
 - <a name="carla.WeatherParameters.fog_falloff"></a>**<font color="#f8805a">fog_falloff</font>** (_float_)  
-Density of the fog (as in specific mass) from 0 to infinity. The bigger the value, the more dense and heavy it will be, and the fog will reach smaller heights. Corresponds to <a href="https://docs.unrealengine.com/en-US/Engine/Actors/FogEffects/HeightFog/index.html#:~:text=Using%20Exponential%20Height%20Fog%20Features,-The%20sections%20below&text=Add%20a%20second%20fog%20layer,height%20falloff%2C%20and%20height%20offset">Fog Height Falloff</a> in the UE docs. <br> If the value is 0, the fog will be lighter than air, and will cover the whole scene. <br> A value of 1 is approximately as dense as the air, and reaches normal-sized buildings. <br> For values greater than 5, the air will be so dense that it will be compressed on ground level.  
+雾的密度（以特定质量计）从 0 到无穷大。值越大，雾气越浓重，雾气达到的高度也越小。对应于 UE 文档中的 <a href="https://docs.unrealengine.com/en-US/Engine/Actors/FogEffects/HeightFog/index.html#:~:text=Using%20Exponential%20Height%20Fog%20Features,-The%20sections%20below&text=Add%20a%20second%20fog%20layer,height%20falloff%2C%20and%20height%20offset">雾高度衰减</a>。 <br> 如果值为 0，雾将比空气亮，并覆盖整个场景。<br> 值为 1 时，密度大约与空气一样，可到达正常大小的建筑物。<br>对于大于 5 的值，空气将非常稠密，以至于在地面上会被压缩。
 - <a name="carla.WeatherParameters.scattering_intensity"></a>**<font color="#f8805a">scattering_intensity</font>** (_float_)  
-Controls how much the light will contribute to volumetric fog. When set to 0, there is no contribution.  
+控制光对体积雾的贡献程度。当设置为 0 时，没有贡献。
 - <a name="carla.WeatherParameters.mie_scattering_scale"></a>**<font color="#f8805a">mie_scattering_scale</font>** (_float_)  
-Controls interaction of light with large particles like pollen or air pollution resulting in a hazy sky with halos around the light sources. When set to 0, there is no contribution.  
+控制光与大颗粒（如花粉或空气污染）的相互作用，导致天空朦胧，光源周围有光晕。当设置为 0 时，没有贡献。
 - <a name="carla.WeatherParameters.rayleigh_scattering_scale"></a>**<font color="#f8805a">rayleigh_scattering_scale</font>** (_float_)  
-Controls interaction of light with small particles like air molecules. Dependent on light wavelength, resulting in a blue sky in the day or red sky in the evening.  
+控制光与空气分子等小粒子的相互作用。取决于光的波长，导致白天的天空为蓝色，晚上的天空为红色。
 - <a name="carla.WeatherParameters.dust_storm"></a>**<font color="#f8805a">dust_storm</font>** (_float_)  
-Determines the strength of the dust storm weather. Values range from 0 to 100.  
+确定沙尘暴天气的强度。值范围从 0 到 100。
 
 ### 方法
 - <a name="carla.WeatherParameters.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**cloudiness**=0.0</font>, <font color="#00a6ed">**precipitation**=0.0</font>, <font color="#00a6ed">**precipitation_deposits**=0.0</font>, <font color="#00a6ed">**wind_intensity**=0.0</font>, <font color="#00a6ed">**sun_azimuth_angle**=0.0</font>, <font color="#00a6ed">**sun_altitude_angle**=0.0</font>, <font color="#00a6ed">**fog_density**=0.0</font>, <font color="#00a6ed">**fog_distance**=0.0</font>, <font color="#00a6ed">**wetness**=0.0</font>, <font color="#00a6ed">**fog_falloff**=0.0</font>, <font color="#00a6ed">**scattering_intensity**=0.0</font>, <font color="#00a6ed">**mie_scattering_scale**=0.0</font>, <font color="#00a6ed">**rayleigh_scattering_scale**=0.0331</font>)  
-Method to initialize an object defining weather conditions. This class has some presets for different noon and sunset conditions listed in a note below.  
+初始化定义天气条件的对象的方法。该类有一些针对不同中午和日落条件的预设，如下面的注释所示。
     - **参数:**
-        - `cloudiness` (_float_) - 0 is a clear sky, 100 complete overcast.  
-        - `precipitation` (_float_) - 0 is no rain at all, 100 a heavy rain.  
-        - `precipitation_deposits` (_float_) - 0 means no puddles on the road, 100 means roads completely capped by rain.  
-        - `wind_intensity` (_float_) - 0 is calm, 100 a strong wind.  
-        - `sun_azimuth_angle` (_float<small> - degrees</small>_) - 0 is an arbitrary North, 180 its corresponding South.  
-        - `sun_altitude_angle` (_float<small> - degrees</small>_) - 90 is midday, -90 is midnight.  
-        - `fog_density` (_float_) - Concentration or thickness of the fog, from 0 to 100.  
-        - `fog_distance` (_float<small> - meters</small>_) - Distance where the fog starts in meters.  
-        - `wetness` (_float_) - Humidity percentages of the road, from 0 to 100.  
-        - `fog_falloff` (_float_) - Density (specific mass) of the fog, from 0 to infinity.  
-        - `scattering_intensity` (_float_) - Controls how much the light will contribute to volumetric fog. When set to 0, there is no contribution.  
-        - `mie_scattering_scale` (_float_) - Controls interaction of light with large particles like pollen or air pollution resulting in a hazy sky with halos around the light sources. When set to 0, there is no contribution.  
-        - `rayleigh_scattering_scale` (_float_) - Controls interaction of light with small particles like air molecules. Dependent on light wavelength, resulting in a blue sky in the day or red sky in the evening.  
-    - **Note:** <font color="#8E8E8E">_ClearNoon, CloudyNoon, WetNoon, WetCloudyNoon, SoftRainNoon, MidRainyNoon, HardRainNoon, ClearSunset, CloudySunset, WetSunset, WetCloudySunset, SoftRainSunset, MidRainSunset, HardRainSunset. 
+        - `cloudiness` (_float_) - 0 为晴天，100 为阴天。
+        - `precipitation` (_float_) - 0 表示完全没有下雨，100 表示大雨。
+        - `precipitation_deposits` (_float_) - 0 表示道路上没有水坑，100 表示道路完全被雨水覆盖。
+        - `wind_intensity` (_float_) - 0 表示风平浪静，100 表示强风。
+        - `sun_azimuth_angle` (_float<small> - degrees</small>_) - 0 是任意北，180 是其对应的南。 
+        - `sun_altitude_angle` (_float<small> - degrees</small>_) - 90 是中午，-90 是午夜。
+        - `fog_density` (_float_) - 雾的浓度或厚度，从 0 到 100。
+        - `fog_distance` (_float<small> - meters</small>_) - 雾开始的距离（以米为单位）。
+        - `wetness` (_float_) - 道路的湿度百分比，从 0 到 100。
+        - `fog_falloff` (_float_) - 雾的密度（特定质量），从 0 到无穷大。
+        - `scattering_intensity` (_float_) - 控制光线对体积雾的贡献程度。当设置为 0 时，没有贡献。
+        - `mie_scattering_scale` (_float_) - 控制光与大颗粒（如花粉或空气污染）的相互作用，导致天空朦胧，光源周围有光晕。当设置为 0 时，没有贡献。
+        - `rayleigh_scattering_scale` (_float_) - 控制光与空气分子等小颗粒的相互作用。取决于光的波长，导致白天的天空为蓝色，晚上的天空为红色。
+    - **笔记:** <font color="#8E8E8E">_ClearNoon, CloudyNoon, WetNoon, WetCloudyNoon, SoftRainNoon, MidRainyNoon, HardRainNoon, ClearSunset, CloudySunset, WetSunset, WetCloudySunset, SoftRainSunset, MidRainSunset, HardRainSunset. 
 _</font>  
 
 ##### 魔术方法
