@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf8" />
+    <title>BezierCurve</title>
+    <style>
+      html, body, #canvas {
+        width: 100%;
+        height: 100%;
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+    <script src="../../dist/crender.map.js"></script>
+  </head>
+
+  <body>
+
+    <canvas id="canvas"></canvas>
+
+  </body>
+
+  <script>
+    const { CRender, extendNewGraph } = window.CRender
+
+    const render = new CRender(document.querySelector('#canvas'))
+
+    const [w, h] = render.area
+
+    const offsetX = w / 2
+    const offsetY = h / 2
+
+    const points = [
+      [-200 + offsetX, -100 + offsetY],
+      [
+        [0  + offsetX, -100 + offsetY],
+        [0  + offsetX, 100 + offsetY],
+        [200  + offsetX, 100 + offsetY]
+      ]
+    ]
+
+    const bezierCurve = render.add({
+      name: 'bezierCurve',
+      animationCurve: 'easeOutCubic',
+      animationFrame: 50,
+      drag: true,
+      hover: true,
+      shape: {
+        points,
+        close: true
+      },
+      style: {
+        fill: '#ffee97',
+        stroke: 'goldenrod',
+        lineWidth: 2
+      }
+    })
+
+  </script>
+</html>

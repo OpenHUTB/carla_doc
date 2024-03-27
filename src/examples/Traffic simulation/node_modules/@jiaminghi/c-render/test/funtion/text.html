@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf8" />
+    <title>Rect</title>
+    <style>
+      html, body, #canvas {
+        width: 100%;
+        height: 100%;
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+    <script src="../../dist/crender.map.js"></script>
+  </head>
+
+  <body>
+
+    <canvas id="canvas"></canvas>
+
+  </body>
+
+  <script>
+    const { CRender, extendNewGraph } = window.CRender
+
+    const render = new CRender(document.querySelector('#canvas'))
+
+    const [w, h] = render.area
+
+    const text = render.add({
+      name: 'text',
+      animationCurve: 'easeOutCubic',
+      animationFrame: 50,
+      drag: true,
+      hover: true,
+      hoverRect: [
+        w / 2 - 125,
+        h / 2 - 70,
+        250,
+        140
+      ],
+      shape: {
+        position: [w / 2, h / 2],
+        content: 'This is line 1\nThis is line 2\nThis is line 3'
+      },
+      style: {
+        fill: '#ffee97',
+        lineWidth: 2,
+        fontSize: 40
+      },
+      moved (e, { hoverRect }) {
+        const { movementX, movementY } = e
+
+        hoverRect[0] += movementX
+        hoverRect[1] += movementY
+      }
+    })
+
+  </script>
+</html>

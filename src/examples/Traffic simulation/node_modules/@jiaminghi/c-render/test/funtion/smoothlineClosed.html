@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf8" />
+    <title>Smoothline Closed</title>
+    <style>
+      html, body, #canvas {
+        width: 100%;
+        height: 100%;
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+    <script src="../../dist/crender.map.js"></script>
+  </head>
+
+  <body>
+
+    <canvas id="canvas"></canvas>
+
+  </body>
+
+  <script>
+    const { CRender, extendNewGraph } = window.CRender
+
+    const render = new CRender(document.querySelector('#canvas'))
+
+    const [w, h] = render.area
+
+    const points = [
+      [w / 2, h / 2 - 100],
+      [w / 2 - 100, h / 2 + 100],
+      [w / 2 + 100, h / 2 + 100]
+    ]
+
+    const smoothline = render.add({
+      name: 'smoothline',
+      animationCurve: 'easeOutCubic',
+      animationFrame: 50,
+      drag: true,
+      hover: true,
+      shape: {
+        points,
+        close: true
+      },
+      style: {
+        fill: '#ffee97',
+        stroke: 'goldenrod',
+        lineWidth: 2,
+        rotate: 360
+      },
+      setGraphCenter (e, { style }) {
+        if (e) {
+          const { movementX, movementY } = e
+          const [cx, cy] = style.graphCenter
+
+          style.graphCenter = [cx + movementX, cy + movementY]
+        } else {
+          style.graphCenter = [w / 2, h / 2]
+        }
+      }
+    })
+
+    function wait (time) {
+      return new Promise(resolve => setTimeout(resolve, time))
+    }
+
+    async function start () {
+      await wait(1000)
+
+      await smoothline.animation('style', {
+        rotate: 0
+      })
+
+      await wait(1000)
+
+      smoothline.animation('style', {
+        fill: 'lemonchiffon'
+      })
+    }
+
+    start()
+
+  </script>
+</html>
