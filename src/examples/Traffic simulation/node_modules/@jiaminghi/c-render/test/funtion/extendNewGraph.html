@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf8" />
+    <title>extendNewGraph</title>
+    <style>
+      html, body, #canvas {
+        width: 100%;
+        height: 100%;
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+    <script src="../../dist/crender.map.js"></script>
+  </head>
+
+  <body>
+
+    <canvas id="canvas"></canvas>
+
+  </body>
+
+  <script>
+    const { CRender, extendNewGraph } = window.CRender
+
+    const render = new CRender(document.querySelector('#canvas'))
+
+    extendNewGraph('line', {
+      shape: {
+        x: 0,
+        y: 0,
+        length: 0
+      },
+      validator ({ shape }) {
+        const { x, y, length } = shape
+
+        if (
+          typeof x !== 'number' ||
+          typeof y !== 'number' ||
+          typeof length !== 'number'
+        ) {
+          console.warn('line: shape attributes all must be a number!')
+
+          return false
+        }
+
+        return true
+      },
+      draw ({ ctx }, { shape }) {
+        const { x, y, length } = shape
+
+        ctx.beginPath()
+
+        ctx.moveTo(x, y)
+
+        ctx.lineTo(x + length, y)
+
+        ctx.closePath()
+
+        ctx.stroke()
+      }
+    })
+
+    const [w, h] = render.area
+
+    const line = render.add({
+      name: 'line',
+      shape: {
+        x: w / 2 - 100,
+        y: h / 2,
+        length: 200
+      },
+      style: {
+        stroke: '#ffee97',
+        lineWidth: 10
+      }
+    })
+
+  </script>
+</html>
