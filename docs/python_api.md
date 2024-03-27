@@ -463,11 +463,11 @@ Carla 为 Actor 提供了一个蓝图库，可以通过 [carla.BlueprintLibrary]
         - `port` (_int_) - 运行Carla 仿真器实例的TCP端口。默认为 2000 和随后的2001 。 
         - `worker_threads` (_int_) - 用于后台更新的工作线程数。如果为 0，则使用所有可用的并发性。
 - <a name="carla.Client.apply_batch"></a>**<font color="#7fb800">apply_batch</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**commands**</font>)  
-在单个仿真步骤上执行命令列表，不检索任何信息。如果需要有关每个命令的响应的信息，请使用 __<font color="#7fb800">apply_batch_sync()</font>__ 方法。[下面](https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/generate_traffic.py) 是一个关于如何删除卡拉中出现的演员的示例。一次列出所有参与者 [carla.ActorList](#carla.ActorList) 。
+在单个仿真步上执行命令列表，不检索任何信息。如果需要有关每个命令的响应的信息，请使用 __<font color="#7fb800">apply_batch_sync()</font>__ 方法。[下面](https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/generate_traffic.py) 是一个关于如何删除卡拉中出现的演员的示例。一次列出所有参与者 [carla.ActorList](#carla.ActorList) 。
     - **参数：**
         - `commands` (_list_) - 要批量执行的命令列表。每个命令都不同，并且有自己的参数。它们显示在此页面底部列出。
 - <a name="carla.Client.apply_batch_sync"></a>**<font color="#7fb800">apply_batch_sync</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**commands**</font>, <font color="#00a6ed">**due_tick_cue**=False</font>)<button class="SnipetButton" id="carla.Client.apply_batch_sync-snipet_button">snippet &rarr;</button>  
-在单个仿真步骤上执行命令列表，阻止直到命令链接，并返回命令列表。可用于确定单个命令是否成功的响应。[下面](https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/generate_traffic.py) 是一个用来生成参与者的例子。
+在单个仿真步上执行命令列表，阻止直到命令链接，并返回 <b>command.Response</b> 列表。可用于确定单个命令是否成功的响应。[下面](https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/generate_traffic.py) 是一个用来生成参与者的例子。
     - **参数：**
         - `commands` (_list_) - 要批量执行的命令列表。可用的命令列在方法 **<font color="#7fb800">apply_batch()</font>** 的正上方。 
         - `due_tick_cue` (_bool_) - 一个布尔参数，用于指定是否执行 Carla。在 __同步模式__ 下应用批处理后进行 [carla.World.tick](#carla.World.tick)。默认情况下为 __False__ 。

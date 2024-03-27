@@ -91,5 +91,9 @@ Failed to open descriptor file ./../../../carla/Unreal/CarlaUE4/CarlaUE4.uprojec
 * [VS跳转代码太慢](http://www.piaoyi.org/c-sharp/Visual-Studio-2019-Intellisense.html) 
 
 
+## 依赖
+
+### boost-1.80.0
+
 ## 发布
 包含所有软件依赖，双击`launch.bat`启动软件。

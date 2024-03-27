@@ -268,6 +268,23 @@ __3.__ __开始仿真__:
 | `make rebuild`                                                        | `make clean` 和 `make launch` 两者都在一个命令中。 |
 
 
+## 附加：构建步骤分析
+### Update.bat
+1. 环境变量初始化；
+2. 获取最新的资产包；
+3. 下载并解压资产内容；
+
+    如果不存在7zip就用`powershell -Command "Expand-Archive '`命令进行解压。
+
+#### Makefile
+1. `make PythonAPI`
+
+    执行`Util/BuildTools/BuildPythonAPI.bat`，真正执行的是`python setup.py bdist_egg bdist_wheel`，在`PythonAPI/carla/dist`目录下生成`*.egg`和`*.whl`文件；
+
+2. `make launch`
+
+    执行`Util/BuildTools/Windows.mk`，真正执行的是`BuildLibCarla.bat`，构建LibCarla的服务端和客户端；
+
 ---
 
 有关本指南的任何问题， 请阅读 **[常见问题解答](build_faq.md)** 页面或在 [Carla 论坛](https://github.com/carla-simulator/carla/discussions) 中发帖。
