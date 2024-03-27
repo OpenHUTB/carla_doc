@@ -3415,39 +3415,39 @@ _</font>
 
 ##### 魔术方法
 - <a name="carla.WeatherParameters.__eq__"></a>**<font color="#7fb800">\__eq__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**</font>)  
-Returns <b>True</b> if both objects' variables are the same.  
+如果两个对象的变量相同，则返回 <b>True</b> 。
     - **返回:** _bool_  
 - <a name="carla.WeatherParameters.__ne__"></a>**<font color="#7fb800">\__ne__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**</font>)  
-Returns <b>True</b> if both objects' variables are different.  
+如果两个对象的变量不同，则返回 <b>True</b> 。
     - **返回:** _bool_  
 - <a name="carla.WeatherParameters.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
 
 ---
 
 ## carla.WheelPhysicsControl<a name="carla.WheelPhysicsControl"></a>
-Class that defines specific physical parameters for wheel objects that will be part of a [carla.VehiclePhysicsControl](#carla.VehiclePhysicsControl) to simulate vehicle it as a material object.  
+为车轮对象定义特定物理参数的类，这些车轮对象将成为 [carla.VehiclePhysicsControl](#carla.VehiclePhysicsControl) 的一部分，以将车辆仿真为材质对象。
 
 ### 实例变量
 - <a name="carla.WheelPhysicsControl.tire_friction"></a>**<font color="#f8805a">tire_friction</font>** (_float_)  
-A scalar value that indicates the friction of the wheel.  
+指示车轮摩擦力的标量值。
 - <a name="carla.WheelPhysicsControl.damping_rate"></a>**<font color="#f8805a">damping_rate</font>** (_float_)  
-Damping rate of the wheel.  
+车轮的阻尼率。
 - <a name="carla.WheelPhysicsControl.max_steer_angle"></a>**<font color="#f8805a">max_steer_angle</font>** (_float<small> - degrees</small>_)  
-Maximum angle that the wheel can steer.  
+车轮可以转向的最大角度。
 - <a name="carla.WheelPhysicsControl.radius"></a>**<font color="#f8805a">radius</font>** (_float<small> - centimeters</small>_)  
-Radius of the wheel.  
+轮子的半径。
 - <a name="carla.WheelPhysicsControl.max_brake_torque"></a>**<font color="#f8805a">max_brake_torque</font>** (_float<small> - N*m</small>_)  
-Maximum brake torque.  
+最大制动扭矩。
 - <a name="carla.WheelPhysicsControl.max_handbrake_torque"></a>**<font color="#f8805a">max_handbrake_torque</font>** (_float<small> - N*m</small>_)  
-Maximum handbrake torque.  
+最大手刹扭矩。 
 - <a name="carla.WheelPhysicsControl.position"></a>**<font color="#f8805a">position</font>** (_[carla.Vector3D](#carla.Vector3D)_)  
-World position of the wheel. This is a read-only parameter.  
+车轮的世界位置。这是一个只读参数。
 - <a name="carla.WheelPhysicsControl.long_stiff_value"></a>**<font color="#f8805a">long_stiff_value</font>** (_float<small> - kg per radian</small>_)  
-Tire longitudinal stiffness per unit gravitational acceleration. Each vehicle has a custom value.  
+每单位重力加速度的轮胎纵向刚度。每辆车都有一个自定义值。
 - <a name="carla.WheelPhysicsControl.lat_stiff_max_load"></a>**<font color="#f8805a">lat_stiff_max_load</font>** (_float_)  
-Maximum normalized tire load at which the tire can deliver no more lateral stiffness no matter how much extra load is applied to the tire. Each vehicle has a custom value.  
+最大标准化轮胎负载，在该负载下，无论向轮胎施加多少额外负载，轮胎都不再提供侧向刚度。每辆车都有一个自定义值。 
 - <a name="carla.WheelPhysicsControl.lat_stiff_value"></a>**<font color="#f8805a">lat_stiff_value</font>** (_float_)  
-Maximum stiffness per unit of lateral slip. Each vehicle has a custom value.  
+每单位横向滑移的最大刚度。每辆车都有一个自定义值。
 
 ### 方法
 - <a name="carla.WheelPhysicsControl.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**tire_friction**=2.0</font>, <font color="#00a6ed">**damping_rate**=0.25</font>, <font color="#00a6ed">**max_steer_angle**=70.0</font>, <font color="#00a6ed">**radius**=30.0</font>, <font color="#00a6ed">**max_brake_torque**=1500.0</font>, <font color="#00a6ed">**max_handbrake_torque**=3000.0</font>, <font color="#00a6ed">**position**=(0.0,0.0,0.0)</font>)  
@@ -3468,48 +3468,48 @@ Maximum stiffness per unit of lateral slip. Each vehicle has a custom value.
 ---
 
 ## carla.World<a name="carla.World"></a>
-World objects are created by the client to have a place for the simulation to happen. The world contains the map we can see, meaning the asset, not the navigation map. Navigation maps are part of the [carla.Map](#carla.Map) class. It also manages the weather and actors present in it. There can only be one world per simulation, but it can be changed anytime.  
+世界对象由客户端创建，以便为仿真提供一个发生的地方。世界包含我们可以看到的地图，即资产，而不是导航地图。导航地图是 [carla.Map](#carla.Map) 类的一部分。它还管理其中的天气和参与者。每个仿真只能有一个世界，但可以随时更改。
 
 ### 实例变量
 - <a name="carla.World.id"></a>**<font color="#f8805a">id</font>** (_int_)  
-The ID of the episode associated with this world. Episodes are different sessions of a simulation. These change everytime a world is disabled or reloaded. Keeping track is useful to avoid possible issues.  
+与这个世界相关的剧集的 ID。剧集是仿真的不同阶段。每当世界被禁用或重新加载时，这些都会发生变化。跟踪有助于避免可能出现的问题。
 - <a name="carla.World.debug"></a>**<font color="#f8805a">debug</font>** (_[carla.DebugHelper](#carla.DebugHelper)_)  
-Responsible for creating different shapes for debugging. Take a look at its class to learn more about it.  
+负责创建不同的形状以进行调试。查看它的类以了解更多信息。
 
 ### 方法
 - <a name="carla.World.apply_color_texture_to_object"></a>**<font color="#7fb800">apply_color_texture_to_object</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**object_name**</font>, <font color="#00a6ed">**material_parameter**</font>, <font color="#00a6ed">**texture**</font>)  
-Applies a `texture` object in the field corresponfing to `material_parameter` (normal, diffuse, etc) to the object in the scene corresponding to `object_name`.  
+对应于 `material_parameter` (normal, diffuse, etc) 的字段中的对象应用到对应于 `object_name` 的场景中的 `texture` 对象。 
     - **参数:**
         - `object_name` (_str_)  
         - `material_parameter` (_[carla.MaterialParameter](#carla.MaterialParameter)_)  
         - `texture` (_TextureColor_)  
 - <a name="carla.World.apply_color_texture_to_objects"></a>**<font color="#7fb800">apply_color_texture_to_objects</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**objects_name_list**</font>, <font color="#00a6ed">**material_parameter**</font>, <font color="#00a6ed">**texture**</font>)  
-Applies a `texture` object in the field corresponfing to `material_parameter` (normal, diffuse, etc) to the object in the scene corresponding to all objects in `objects_name_list`.  
+对应于`material_parameter` (normal, diffuse, etc) 的字段中的对象应用到对应于`objects_name_list` 的场景中的 `texture` 对象。
     - **参数:**
         - `objects_name_list` (_list(str)_)  
         - `material_parameter` (_[carla.MaterialParameter](#carla.MaterialParameter)_)  
         - `texture` (_TextureColor_)  
 - <a name="carla.World.apply_float_color_texture_to_object"></a>**<font color="#7fb800">apply_float_color_texture_to_object</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**object_name**</font>, <font color="#00a6ed">**material_parameter**</font>, <font color="#00a6ed">**texture**</font>)  
-Applies a `texture` object in the field corresponfing to `material_parameter` (normal, diffuse, etc) to the object in the scene corresponding to `object_name`.  
+对应于`material_parameter`（法线、漫反射等）的字段中的对象应用到与 `object_name` 中的所有对象对应的场景中的 `texture` 对象。
     - **参数:**
         - `object_name` (_str_)  
         - `material_parameter` (_[carla.MaterialParameter](#carla.MaterialParameter)_)  
         - `texture` (_TextureFloatColor_)  
 - <a name="carla.World.apply_float_color_texture_to_objects"></a>**<font color="#7fb800">apply_float_color_texture_to_objects</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**objects_name_list**</font>, <font color="#00a6ed">**material_parameter**</font>, <font color="#00a6ed">**texture**</font>)  
-Applies a `texture` object in the field corresponfing to `material_parameter` (normal, diffuse, etc) to the object in the scene corresponding to all objects in `objects_name_list`.  
+对应于`material_parameter`（法线、漫反射等）的字段中的对象应用到与`objects_name_list` 中的所有对象对应的场景中的`texture`对象。
     - **参数:**
         - `objects_name_list` (_list(str)_)  
         - `material_parameter` (_[carla.MaterialParameter](#carla.MaterialParameter)_)  
         - `texture` (_TextureFloatColor_)  
 - <a name="carla.World.apply_settings"></a>**<font color="#7fb800">apply_settings</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**world_settings**</font>)  
-This method applies settings contained in an object to the simulation running and returns the ID of the frame they were implemented.  
+此方法将对象中包含的设置应用于运行的仿真，并返回它们所实现的帧的 ID。
     - **参数:**
         - `world_settings` (_[carla.WorldSettings](#carla.WorldSettings)_)  
     - **返回:** _int_  
-    - **警告:** <font color="#ED2F2F">_If synchronous mode is enabled, and there is a Traffic Manager running, this must be set to sync mode too. Read [this](adv_traffic_manager.md#synchronous-mode) to learn how to do it. 
+    - **警告:** <font color="#ED2F2F">_如果启用了同步模式，并且正在运行流量管理器，则也必须将其设置为同步模式。阅读 [本文](adv_traffic_manager.md#synchronous-mode) 以了解如何操作。
 _</font>  
 - <a name="carla.World.apply_textures_to_object"></a>**<font color="#7fb800">apply_textures_to_object</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**object_name**</font>, <font color="#00a6ed">**diffuse_texture**</font>, <font color="#00a6ed">**emissive_texture**</font>, <font color="#00a6ed">**normal_texture**</font>, <font color="#00a6ed">**ao_roughness_metallic_emissive_texture**</font>)  
-Applies all texture fields in [carla.MaterialParameter](#carla.MaterialParameter) to the object `object_name`. Empty textures here will not be applied.  
+将[carla.MaterialParameter](#carla.MaterialParameter)中的所有纹理字段应用到对象`object_name`。这里不会应用空纹理。 
     - **参数:**
         - `object_name` (_str_)  
         - `diffuse_texture` (_TextureColor_)  
@@ -3517,7 +3517,7 @@ Applies all texture fields in [carla.MaterialParameter](#carla.MaterialParameter
         - `normal_texture` (_TextureFloatColor_)  
         - `ao_roughness_metallic_emissive_texture` (_TextureFloatColor_)  
 - <a name="carla.World.apply_textures_to_objects"></a>**<font color="#7fb800">apply_textures_to_objects</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**objects_name_list**</font>, <font color="#00a6ed">**diffuse_texture**</font>, <font color="#00a6ed">**emissive_texture**</font>, <font color="#00a6ed">**normal_texture**</font>, <font color="#00a6ed">**ao_roughness_metallic_emissive_texture**</font>)  
-Applies all texture fields in [carla.MaterialParameter](#carla.MaterialParameter) to all objects in `objects_name_list`. Empty textures here will not be applied.  
+将 [carla.MaterialParameter](#carla.MaterialParameter) 中的所有纹理字段应用于`objects_name_list`中的所有对象。这里不会应用空纹理。
     - **参数:**
         - `objects_name_list` (_list(str)_)  
         - `diffuse_texture` (_TextureColor_)  
@@ -3525,25 +3525,25 @@ Applies all texture fields in [carla.MaterialParameter](#carla.MaterialParameter
         - `normal_texture` (_TextureFloatColor_)  
         - `ao_roughness_metallic_emissive_texture` (_TextureFloatColor_)  
 - <a name="carla.World.cast_ray"></a>**<font color="#7fb800">cast_ray</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**initial_location**</font>, <font color="#00a6ed">**final_location**</font>)  
-Casts a ray from the specified initial_location to final_location. The function then detects all geometries intersecting the ray and returns a list of [carla.LabelledPoint](#carla.LabelledPoint) in order.  
+将光线从指定的initial_location投射到final_location。然后，该函数检测与射线相交的所有几何图形，并按顺序 返回[carla.LabelledPoint](#carla.LabelledPoint)列表。
     - **参数:**
         - `initial_location` (_[carla.Location](#carla.Location)_) - The initial position of the ray.  
         - `final_location` (_[carla.Location](#carla.Location)_) - The final position of the ray.  
     - **返回:** _list([carla.LabelledPoint](#carla.LabelledPoint))_  
 - <a name="carla.World.enable_environment_objects"></a>**<font color="#7fb800">enable_environment_objects</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**env_objects_ids**</font>, <font color="#00a6ed">**enable**</font>)<button class="SnipetButton" id="carla.World.enable_environment_objects-snipet_button">snippet &rarr;</button>  
-Enable or disable a set of EnvironmentObject identified by their id. These objects will appear or disappear from the level.  
+启用或禁用一组由其 id 标识的环境对象。这些对象将从关卡中出现或消失。 
     - **参数:**
-        - `env_objects_ids` (_set(int)_) - Set of EnvironmentObject ids to change.  
-        - `enable` (_bool_) - State to be applied to all the EnvironmentObject of the set.  
+        - `env_objects_ids` (_set(int)_) - 要更改的环境对象 ID 集。 
+        - `enable` (_bool_) - 应用于集合中所有环境对象的状态。
 - <a name="carla.World.freeze_all_traffic_lights"></a>**<font color="#7fb800">freeze_all_traffic_lights</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**frozen**</font>)  
-Freezes or unfreezes all traffic lights in the scene. Frozen traffic lights can be modified by the user but the time will not update them until unfrozen.  
+冻结或解冻场景中的所有交通灯。用户可以修改冻结的交通信号灯，但时间不会更新它们，直到解冻。
     - **参数:**
         - `frozen` (_bool_)  
 - <a name="carla.World.ground_projection"></a>**<font color="#7fb800">ground_projection</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**location**</font>, <font color="#00a6ed">**search_distance**</font>)  
-Projects the specified point downwards in the scene. The functions casts a ray from location in the direction (0,0,-1) (downwards) and returns a [carla.LabelledPoint](#carla.LabelledPoint) object with the first geometry this ray intersects (usually the ground). If no geometry is found in the search_distance range the function returns `None`.  
+在场景中向下投影指定点。这些函数从位置 (0,0,-1)（向下）投射一条射线，并返回一个 [carla.LabelledPoint](#carla.LabelledPoint) 对象，该对象具有该射线相交的第一个几何体（通常是地面）。如果在 search_distance 范围内未找到几何图形，则函数返回 `None` 。
     - **参数:**
-        - `location` (_[carla.Location](#carla.Location)_) - The point to be projected.  
-        - `search_distance` (_float_) - The maximum distance to perform the projection.  
+        - `location` (_[carla.Location](#carla.Location)_) - 要投影的点。  
+        - `search_distance` (_float_) - 执行投影的最大距离。
     - **返回:** _[carla.LabelledPoint](#carla.LabelledPoint)_  
 - <a name="carla.World.load_map_layer"></a>**<font color="#7fb800">load_map_layer</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**map_layers**</font>)<button class="SnipetButton" id="carla.World.load_map_layer-snipet_button">snippet &rarr;</button>  
 加载图层到指定层次。如果该层次已经加载则没有任何效果。  
@@ -3556,25 +3556,25 @@ Projects the specified point downwards in the scene. The functions casts a ray f
         - `callback` (_[carla.WorldSnapshot](#carla.WorldSnapshot)_) - 将快照作为强制参数的函数，当客户端收到滴答信号时将调用该函数。  
     - **返回:** _int_  
 - <a name="carla.World.project_point"></a>**<font color="#7fb800">project_point</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**location**</font>, <font color="#00a6ed">**direction**</font>, <font color="#00a6ed">**search_distance**</font>)  
-Projects the specified point to the desired direction in the scene. The functions casts a ray from location in a direction and returns a [carla.Labelled](#carla.Labelled) object with the first geometry this ray intersects. If no geometry is found in the search_distance range the function returns `None`.  
+将指定点投影到场景中的所需方向。这些函数从某个方向的某个位置投射一条射线，并返回一个带有该射线相交的第一个几何体的 [carla.Labelled](#carla.Labelled) 对象。如果在 search_distance 范围内未找到几何图形，则函数返回 `None`。 
     - **参数:**
-        - `location` (_[carla.Location](#carla.Location)_) - The point to be projected.  
-        - `direction` (_[carla.Vector3D](#carla.Vector3D)_) - The direction of projection.  
-        - `search_distance` (_float_) - The maximum distance to perform the projection.  
+        - `location` (_[carla.Location](#carla.Location)_) - 要投影的点。 
+        - `direction` (_[carla.Vector3D](#carla.Vector3D)_) - 投影方向。 
+        - `search_distance` (_float_) - 执行投影的最大距离。
     - **返回:** _[carla.LabelledPoint](#carla.LabelledPoint)_  
 - <a name="carla.World.remove_on_tick"></a>**<font color="#7fb800">remove_on_tick</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**callback_id**</font>)  
-Stops the callback for `callback_id` started with __<font color="#7fb800">on_tick()</font>__.  
+停止以 __<font color="#7fb800">on_tick()</font>__ 启动的回调 `callback_id`。
     - **参数:**
-        - `callback_id` (_callback_) - The callback to be removed. The ID is returned when creating the callback.  
+        - `callback_id` (_callback_) - 要删除的回调。创建回调时返回ID。
 - <a name="carla.World.reset_all_traffic_lights"></a>**<font color="#7fb800">reset_all_traffic_lights</font>**(<font color="#00a6ed">**self**</font>)  
-Resets the cycle of all traffic lights in the map to the initial state.  
+将地图中所有交通灯的周期重置为初始状态。 
 - <a name="carla.World.spawn_actor"></a>**<font color="#7fb800">spawn_actor</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**blueprint**</font>, <font color="#00a6ed">**transform**</font>, <font color="#00a6ed">**attach_to**=None</font>, <font color="#00a6ed">**attachment**=Rigid</font>)<button class="SnipetButton" id="carla.World.spawn_actor-snipet_button">snippet &rarr;</button>  
-The method will create, return and spawn an actor into the world. The actor will need an available blueprint to be created and a transform (location and rotation). It can also be attached to a parent with a certain attachment type.  
+该方法将创建、返回并生成一个参与者到世界中。参与者将需要创建可用的蓝图和变换（位置和旋转）。它还可以附加到具有特定附件类型的父级。
     - **参数:**
-        - `blueprint` (_[carla.ActorBlueprint](#carla.ActorBlueprint)_) - The reference from which the actor will be created.  
-        - `transform` (_[carla.Transform](#carla.Transform)_) - Contains the location and orientation the actor will be spawned with.  
-        - `attach_to` (_[carla.Actor](#carla.Actor)_) - The parent object that the spawned actor will follow around.  
-        - `attachment` (_[carla.AttachmentType](#carla.AttachmentType)_) - Determines how fixed and rigorous should be the changes in position according to its parent object.  
+        - `blueprint` (_[carla.ActorBlueprint](#carla.ActorBlueprint)_) - 将创建参与者的引用。
+        - `transform` (_[carla.Transform](#carla.Transform)_) - 包含参与者生成时的位置和方向。
+        - `attach_to` (_[carla.Actor](#carla.Actor)_) - 生成的参与者将跟随的父对象。
+        - `attachment` (_[carla.AttachmentType](#carla.AttachmentType)_) - 根据其父对象确定位置变化的固定和严密程度。
     - **返回:** _[carla.Actor](#carla.Actor)_  
 - <a name="carla.World.tick"></a>**<font color="#7fb800">tick</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**seconds**=10.0</font>)  
 该方法用于 __同步__ 模式，即服务器在计算下一帧之前等待客户端客户端滴答信号。这个方法将发送滴答信号，并让位于服务器。它返回由服务器计算的新帧ID。  
@@ -3597,147 +3597,147 @@ _</font>
         - `map_layers` (_[carla.MapLayer](#carla.MapLayer)_) - 要卸载图层的掩膜。 
     - **警告:** <font color="#ED2F2F">_这仅仅影响分层（Opt）地图。最小布局包括道路、人行道、交通灯和交通标志。_</font>  
 - <a name="carla.World.wait_for_tick"></a>**<font color="#7fb800">wait_for_tick</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**seconds**=10.0</font>)  
-该方法使用在异步模式。It makes the client wait for a server tick. When the next frame is computed, the server will tick and return a snapshot describing the new state of the world.  
+该方法使用异步模式。它使客户端等待服务器滴答信号。当计算下一帧时，服务器将勾选并返回描述世界新状态的快照。
     - **参数:**
-        - `seconds` (_float<small> - seconds</small>_) - Maximum time the server should wait for a tick. It is set to <code>10.0</code> by default.  
+        - `seconds` (_float<small> - seconds</small>_) - 服务器等待滴答的最长时间。默认设置为 <code>10.0</code>。
     - **返回:** _[carla.WorldSnapshot](#carla.WorldSnapshot)_  
 
 ##### 设置器
 - <a name="carla.World.get_actor"></a>**<font color="#7fb800">get_actor</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor_id**</font>)  
-Looks up for an actor by ID and returns <b>None</b> if not found.  
+通过 ID 查找参与者，如果未找到则返回 <b>None</b> 。
     - **参数:**
         - `actor_id` (_int_)  
     - **返回:** _[carla.Actor](#carla.Actor)_  
 - <a name="carla.World.get_actors"></a>**<font color="#7fb800">get_actors</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor_ids**=None</font>)  
-Retrieves a list of [carla.Actor](#carla.Actor) elements, either using a list of IDs provided or just listing everyone on stage. If an ID does not correspond with any actor, it will be excluded from the list returned, meaning that both the list of IDs and the list of actors may have different lengths.  
+检索[carla.Actor](#carla.Actor)元素列表，使用提供的 ID 列表或仅列出舞台上的每个人。如果一个ID不与任何参与者相对应，它将被排除在返回的列表之外，这意味着ID列表和参与者列表可能具有不同的长度。
     - **参数:**
-        - `actor_ids` (_list_) - The IDs of the actors being searched. By default it is set to <b>None</b> and returns every actor on scene.  
+        - `actor_ids` (_list_) - 正在搜索的参与者的 ID。默认情况下，它设置为 <b>None</b> 并返回场景中的每个参与者。
     - **返回:** _[carla.ActorList](#carla.ActorList)_  
 - <a name="carla.World.get_blueprint_library"></a>**<font color="#7fb800">get_blueprint_library</font>**(<font color="#00a6ed">**self**</font>)  
-Returns a list of actor blueprints available to ease the spawn of these into the world.  
+返回可用的参与者蓝图列表，以方便它们在世界中的生成。
     - **返回:** _[carla.BlueprintLibrary](#carla.BlueprintLibrary)_  
 - <a name="carla.World.get_environment_objects"></a>**<font color="#7fb800">get_environment_objects</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**object_type**=Any</font>)  
-Returns a list of EnvironmentObject with the requested semantic tag.  The method returns all the EnvironmentObjects in the level by default, but the query can be filtered by semantic tags with the argument `object_type`.  
+返回具有请求的语义标记的 EnvironmentObject 列表。该方法默认返回关卡中的所有环境对象，但可以使用 `object_type` 参数通过语义标签过滤查询。
     - **参数:**
-        - `object_type` (_[carla.CityObjectLabel](#carla.CityObjectLabel)_) - Semantic tag of the EnvironmentObjects that are returned.  
+        - `object_type` (_[carla.CityObjectLabel](#carla.CityObjectLabel)_) - Semantic tag of the 返回的 EnvironmentObjects。 
     - **返回:** _array([carla.EnvironmentObject](#carla.EnvironmentObject))_  
 - <a name="carla.World.get_level_bbs"></a>**<font color="#7fb800">get_level_bbs</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor_type**=Any</font>)  
-Returns an array of bounding boxes with location and rotation in world space. The method returns all the bounding boxes in the level by default, but the query can be filtered by semantic tags with the argument `actor_type`.  
+返回一个边界框数组，其中包含世界空间中的位置和旋转。该方法默认返回该级别中的所有边界框，但可以使用`actor_type`参数通过语义标签过滤查询。
     - **参数:**
-        - `actor_type` (_[carla.CityObjectLabel](#carla.CityObjectLabel)_) - Semantic tag of the elements contained in the bounding boxes that are returned.  
+        - `actor_type` (_[carla.CityObjectLabel](#carla.CityObjectLabel)_) - 返回的边界框中包含的元素的语义标签。
     - **返回:** _array([carla.BoundingBox](#carla.BoundingBox))_  
 - <a name="carla.World.get_lightmanager"></a>**<font color="#7fb800">get_lightmanager</font>**(<font color="#00a6ed">**self**</font>)  
-Returns an instance of [carla.LightManager](#carla.LightManager) that can be used to handle the lights in the scene.  
+返回 [carla.LightManager](#carla.LightManager) 的实例，可用于处理场景中的灯光。
     - **返回:** _[carla.LightManager](#carla.LightManager)_  
 - <a name="carla.World.get_map"></a>**<font color="#7fb800">get_map</font>**(<font color="#00a6ed">**self**</font>)  
-Asks the server for the XODR containing the map file, and returns this parsed as a [carla.Map](#carla.Map).  
+向服务器请求包含映射文件的 XODR，并将其解析为 [carla.Map](#carla.Map) 返回。
     - **返回:** _[carla.Map](#carla.Map)_  
-    - **警告:** <font color="#ED2F2F">_This method does call the simulation. It is expensive, and should only be called once.  
+    - **警告:** <font color="#ED2F2F">_此方法确实调用仿真。它代价很高，并且只能调用一次。 
 _</font>  
 - <a name="carla.World.get_names_of_all_objects"></a>**<font color="#7fb800">get_names_of_all_objects</font>**(<font color="#00a6ed">**self**</font>)  
-Returns a list of the names of all objects in the scene that can be painted with the apply texture functions.  
+返回场景中可以使用应用纹理函数绘制的所有对象的名称列表。
     - **返回:** _list(str)_  
 - <a name="carla.World.get_random_location_from_navigation"></a>**<font color="#7fb800">get_random_location_from_navigation</font>**(<font color="#00a6ed">**self**</font>)  
-This can only be used with walkers. It retrieves a random location to be used as a destination using the __<font color="#7fb800">go_to_location()</font>__ method in [carla.WalkerAIController](#carla.WalkerAIController). This location will be part of a sidewalk. Roads, crosswalks and grass zones are excluded. The method does not take into consideration locations of existing actors so if a collision happens when trying to spawn an actor, it will return an error. Take a look at [`generate_traffic.py`](https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/generate_traffic.py) for an example.  
+这只能与行人一起使用。它使用 [carla.WalkerAIController](#carla.WalkerAIController) 中的 __<font color="#7fb800">go_to_location()</font>__ 方法检索要用作目的地的随机位置。该位置将是人行道的一部分。道路、人行横道和草地区域不包括在内。该方法不考虑现有参与者的位置，因此如果在尝试生成参与者时发生碰撞，它将返回错误。看一下例子 [`generate_traffic.py`](https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/generate_traffic.py)。
     - **返回:** _[carla.Location](#carla.Location)_  
 - <a name="carla.World.get_settings"></a>**<font color="#7fb800">get_settings</font>**(<font color="#00a6ed">**self**</font>)  
-Returns an object containing some data about the simulation such as synchrony between client and server or rendering mode.  
+返回一个对象，其中包含有关仿真的一些数据，例如客户端和服务器之间的同步或渲染模式。
     - **返回:** _[carla.WorldSettings](#carla.WorldSettings)_  
 - <a name="carla.World.get_snapshot"></a>**<font color="#7fb800">get_snapshot</font>**(<font color="#00a6ed">**self**</font>)  
-Returns a snapshot of the world at a certain moment comprising all the information about the actors.  
+返回某个时刻的世界快照，包含有关参与者的所有信息。
     - **返回:** _[carla.WorldSnapshot](#carla.WorldSnapshot)_  
 - <a name="carla.World.get_spectator"></a>**<font color="#7fb800">get_spectator</font>**(<font color="#00a6ed">**self**</font>)<button class="SnipetButton" id="carla.World.get_spectator-snipet_button">snippet &rarr;</button>  
-Returns the spectator actor. The spectator is a special type of actor created by Unreal Engine, usually with ID=0, that acts as a camera and controls the view in the simulator window.  
+返回观察者参与者。观察者是虚幻引擎创建的一种特殊类型的参与者，通常ID=0，充当摄像机并控制仿真器窗口中的视图。
     - **返回:** _[carla.Actor](#carla.Actor)_  
 - <a name="carla.World.get_traffic_light"></a>**<font color="#7fb800">get_traffic_light</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**landmark**</font>)  
-Provided a landmark, returns the traffic light object it describes.  
+提供一个地标，返回它描述的交通灯对象。 
     - **参数:**
-        - `landmark` (_[carla.Landmark](#carla.Landmark)_) - The landmark object describing a traffic light.  
+        - `landmark` (_[carla.Landmark](#carla.Landmark)_) - 描述交通灯的地标对象。
     - **返回:** _[carla.TrafficLight](#carla.TrafficLight)_  
 - <a name="carla.World.get_traffic_light_from_opendrive_id"></a>**<font color="#7fb800">get_traffic_light_from_opendrive_id</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**traffic_light_id**</font>)  
-Returns the traffic light actor corresponding to the indicated OpenDRIVE id.  
+返回与指示的 OpenDRIVE id 对应的交通灯参与者。 
     - **参数:**
         - `traffic_light_id` (_str_) - The OpenDRIVE id.  
     - **返回:** _[carla.TrafficLight](#carla.TrafficLight)_  
 - <a name="carla.World.get_traffic_lights_from_waypoint"></a>**<font color="#7fb800">get_traffic_lights_from_waypoint</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**waypoint**</font>, <font color="#00a6ed">**distance**</font>)  
-This function performs a search along the road in front of the specified waypoint and returns a list of traffic light actors found in the specified search distance.  
+此函数沿着指定路点前面的道路执行搜索，并返回在指定搜索距离内找到的交通灯参与者列表。
     - **参数:**
-        - `waypoint` (_[carla.Waypoint](#carla.Waypoint)_) - The input waypoint.  
-        - `distance` (_float_) - Search distance.  
+        - `waypoint` (_[carla.Waypoint](#carla.Waypoint)_) - 输入路径点。 
+        - `distance` (_float_) - 搜索距离。 
     - **返回:** _list([carla.TrafficLight](#carla.TrafficLight))_  
 - <a name="carla.World.get_traffic_lights_in_junction"></a>**<font color="#7fb800">get_traffic_lights_in_junction</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**junction_id**</font>)  
-Returns the list of traffic light actors affecting the junction indicated in `junction_id`.  
+返回影响`junction_id`中指示的路口的交通灯参与者列表。
     - **参数:**
-        - `junction_id` (_int_) - The id of the junction.  
+        - `junction_id` (_int_) - 连接点的 id。
     - **返回:** _list([carla.TrafficLight](#carla.TrafficLight))_  
 - <a name="carla.World.get_traffic_sign"></a>**<font color="#7fb800">get_traffic_sign</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**landmark**</font>)  
-Provided a landmark, returns the traffic sign object it describes.  
+提供一个地标，返回它描述的交通标志对象。  
     - **参数:**
-        - `landmark` (_[carla.Landmark](#carla.Landmark)_) - The landmark object describing a traffic sign.  
+        - `landmark` (_[carla.Landmark](#carla.Landmark)_) - 描述交通标志的地标对象。
     - **返回:** _[carla.TrafficSign](#carla.TrafficSign)_  
 - <a name="carla.World.get_vehicles_light_states"></a>**<font color="#7fb800">get_vehicles_light_states</font>**(<font color="#00a6ed">**self**</font>)  
-Returns a dict where the keys are [carla.Actor](#carla.Actor) IDs and the values are [carla.VehicleLightState](#carla.VehicleLightState) of that vehicle.  
+返回一个字典，其中键是 [carla.Actor](#carla.Actor) ID，值是该车辆的 [carla.VehicleLightState](#carla.VehicleLightState)。
     - **返回:** _dict_  
 - <a name="carla.World.get_weather"></a>**<font color="#7fb800">get_weather</font>**(<font color="#00a6ed">**self**</font>)  
-Retrieves an object containing weather parameters currently active in the simulation, mainly cloudiness, precipitation, wind and sun position.  
+检索包含仿真中当前活动的天气参数的对象，主要是云量、降水量、风和太阳位置。
     - **返回:** _[carla.WeatherParameters](#carla.WeatherParameters)_  
     - **Setter:** _[carla.World.set_weather](#carla.World.set_weather)_  
 
 ##### 设置器
 - <a name="carla.World.set_pedestrians_cross_factor"></a>**<font color="#7fb800">set_pedestrians_cross_factor</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**percentage**</font>)  
     - **参数:**
-        - `percentage` (_float_) - Sets the percentage of pedestrians that can walk on the road or cross at any point on the road. Value should be between `0.0` and `1.0`. For example, a value of `0.1` would allow 10% of pedestrians to walk on the road. __Default is `0.0`__.  
-    - **Note:** <font color="#8E8E8E">_Should be set before pedestrians are spawned.
+        - `percentage` (_float_) - 设置可以在道路上行走或在道路上的任何点穿越的行人的百分比。值应介于 `0.0` 和之间 `1.0`。例如，值 `0.1` 表示允许 10% 的行人在道路上行走。 __默认为`0.0`__ 。
+    - **笔记:** <font color="#8E8E8E">_应在行人生成之前设置。
 _</font>  
 - <a name="carla.World.set_pedestrians_seed"></a>**<font color="#7fb800">set_pedestrians_seed</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**seed**</font>)  
     - **参数:**
-        - `seed` (_int_) - Sets the seed to use for any random number generated in relation to pedestrians.  
-    - **Note:** <font color="#8E8E8E">_Should be set before pedestrians are spawned. If you want to repeat the same exact bodies (blueprint) for each pedestrian, then use the same seed in the Python code (where the blueprint is choosen randomly) and here, otherwise the pedestrians will repeat the same paths but the bodies will be different.
+        - `seed` (_int_) - 设置用于生成与行人相关的任何随机数的种子。
+    - **笔记:** <font color="#8E8E8E">_应在行人生成之前设置。如果您想为每个行人重复相同的身体（蓝图），请在 Python 代码（随机选择蓝图）和此处使用相同的种子，否则行人将重复相同的路径，但身体会不同。
 _</font>  
 - <a name="carla.World.set_weather"></a>**<font color="#7fb800">set_weather</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**weather**</font>)  
-Changes the weather parameteres ruling the simulation to another ones defined in an object.  
+将模拟的天气参数更改为对象中定义的其他参数。
     - **参数:**
-        - `weather` (_[carla.WeatherParameters](#carla.WeatherParameters)_) - New conditions to be applied.  
+        - `weather` (_[carla.WeatherParameters](#carla.WeatherParameters)_) - 要应用的新条件。
     - **获取器:** _[carla.World.get_weather](#carla.World.get_weather)_  
 
 ##### 魔术方法
 - <a name="carla.World.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
-The content of the world is parsed and printed as a brief report of its current state.  
+世界的内容被解析并打印为当前状态的简短报告。
     - **返回:** _string_  
 
 ---
 
 ## carla.WorldSettings<a name="carla.WorldSettings"></a>
-The simulation has some advanced configuration options that are contained in this class and can be managed using [carla.World](#carla.World) and its methods. These allow the user to choose between client-server synchrony/asynchrony, activation of "no rendering mode" and either if the simulation should run with a fixed or variable time-step. Check [this](adv_synchrony_timestep.md) out if you want to learn about it.  
+该仿真具有一些高级配置选项，这些选项包含在此类中，并且可以使用 [carla.World](#carla.World) 及其方法进行管理。这些允许用户在客户端-服务器同步/异步、激活“无渲染模式”以及仿真是否应以固定或可变时间步长运行之间进行选择。如果您想了解的话 请查看 [此内容](adv_synchrony_timestep.md) 。 
 
 ### 实例变量
 - <a name="carla.WorldSettings.synchronous_mode"></a>**<font color="#f8805a">synchronous_mode</font>** (_bool_)  
-States the synchrony between client and server. When set to true, the server will wait for a client tick in order to move forward. It is false by default.  
+表示客户端和服务器之间的同步。当设置为 true 时，服务器将等待客户端滴答以便继续前进。默认情况下为 false。
 - <a name="carla.WorldSettings.no_rendering_mode"></a>**<font color="#f8805a">no_rendering_mode</font>** (_bool_)  
-When enabled, the simulation will run no rendering at all. This is mainly used to avoid overhead during heavy traffic simulations. It is false by default.  
+启用后，仿真将根本不运行渲染。这主要用于避免繁忙交通仿真期间的开销。默认情况下为 false。
 - <a name="carla.WorldSettings.fixed_delta_seconds"></a>**<font color="#f8805a">fixed_delta_seconds</font>** (_float_)  
-Ensures that the time elapsed between two steps of the simulation is fixed. Set this to <b>0.0</b> to work with a variable time-step, as happens by default.  
+确保仿真的两个步骤之间经过的时间是固定的。将其设置为 <b>0.0</b> 以使用可变时间步长，就像默认情况下发生的那样。
 - <a name="carla.WorldSettings.substepping"></a>**<font color="#f8805a">substepping</font>** (_bool_)  
-Enable the physics substepping. This option allows computing some physics substeps between two render frames. If synchronous mode is set, the number of substeps and its time interval are fixed and computed are so they fulfilled the requirements of [carla.WorldSettings.max_substep](#carla.WorldSettings.max_substep) and [carla.WorldSettings.max_substep_delta_time](#carla.WorldSettings.max_substep_delta_time). These last two parameters need to be compatible with [carla.WorldSettings.fixed_delta_seconds](#carla.WorldSettings.fixed_delta_seconds). Enabled by default.  
+启用物理子步进。此选项允许计算两个渲染帧之间的一些物理子步骤。如果设置了同步模式，则子步骤的数量及其时间间隔是固定的并进行计算，以便满足 [carla.WorldSettings.max_substep](#carla.WorldSettings.max_substep) 和 [carla.WorldSettings.max_substep_delta_time](#carla.WorldSettings.max_substep_delta_time) 的要求。最后两个参数需要与 [carla.WorldSettings.fixed_delta_seconds](#carla.WorldSettings.fixed_delta_seconds) 兼容。默认启用。
 - <a name="carla.WorldSettings.max_substep_delta_time"></a>**<font color="#f8805a">max_substep_delta_time</font>** (_float_)  
-Maximum delta time of the substeps. If the [carla.WorldSettingsmax_substep](#carla.WorldSettingsmax_substep) is high enough, the substep delta time would be always below or equal to this value. By default, the value is set to 0.01.  
+子步骤的最大增量时间。如果 [carla.WorldSettingsmax_substep](#carla.WorldSettingsmax_substep) 足够高，则子步增量时间将始终低于或等于该值。默认情况下，该值设置为 0.01。
 - <a name="carla.WorldSettings.max_substeps"></a>**<font color="#f8805a">max_substeps</font>** (_int_)  
-The maximum number of physics substepping that are allowed. By default, the value is set to 10.  
+允许的最大物理子步数。默认情况下，该值设置为 10。
 - <a name="carla.WorldSettings.max_culling_distance"></a>**<font color="#f8805a">max_culling_distance</font>** (_float_)  
-Configure the max draw distance for each mesh of the level.  
+配置关卡中每个网格的最大绘制距离。
 - <a name="carla.WorldSettings.deterministic_ragdolls"></a>**<font color="#f8805a">deterministic_ragdolls</font>** (_bool_)  
-Defines wether to use deterministic physics for pedestrian death animations or physical ragdoll simulation.  When enabled, pedestrians have less realistic death animation but ensures determinism.  When disabled, pedestrians are simulated as ragdolls with more realistic simulation and collision but no determinsm can be ensured.  
+定义是否对行人死亡动画或物理布娃娃仿真使用确定性物理。启用后，行人的死亡动画不太真实，但确保了确定性。禁用后，行人将被仿真为布娃娃，具有更真实的仿真和碰撞，但无法确保确定性。
 - <a name="carla.WorldSettings.tile_stream_distance"></a>**<font color="#f8805a">tile_stream_distance</font>** (_float_)  
-Used for large maps only. Configures the maximum distance from the hero vehicle to stream tiled maps. Regions of the map within this range will be visible (and capable of simulating physics). Regions outside this region will not be loaded.  
+仅用于大型地图。配置从英雄车辆传输瓦片地图的最大距离。此范围内的地图区域将可见（并且能够仿真物理）。该区域之外的区域将不会被加载。
 - <a name="carla.WorldSettings.actor_active_distance"></a>**<font color="#f8805a">actor_active_distance</font>** (_float_)  
-Used for large maps only. Configures the distance from the hero vehicle to convert actors to dormant. Actors within this range will be active, and actors outside will become dormant.  
+仅用于大型地图。配置与英雄车辆的距离以将参与者转换为休眠状态。在此范围内的参与者将处于活跃状态，而在该范围之外的参与者将处于休眠状态。
 - <a name="carla.WorldSettings.spectator_as_ego"></a>**<font color="#f8805a">spectator_as_ego</font>** (_bool_)  
-Used for large maps only. Defines the influence of the spectator on tile loading in Large Maps. By default, the spectator will provoke loading of neighboring tiles in the absence of an ego actor. This might be inconvenient for applications that immediately spawn an ego actor.  
+仅用于大型地图。定义观察者对大地图中图块加载的影响。默认情况下，在没有自我参与者的情况下，观察者将引发相邻图块的加载。对于立即产生自我参与者的应用程序来说，这可能会带来不便。
 
 ### 方法
 - <a name="carla.WorldSettings.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**synchronous_mode**=False</font>, <font color="#00a6ed">**no_rendering_mode**=False</font>, <font color="#00a6ed">**fixed_delta_seconds**=0.0</font>, <font color="#00a6ed">**max_culling_distance**=0.0</font>, <font color="#00a6ed">**deterministic_ragdolls**=False</font>, <font color="#00a6ed">**tile_stream_distance**=3000</font>, <font color="#00a6ed">**actor_active_distance**=2000</font>, <font color="#00a6ed">**spectator_as_ego**=True</font>)  
-Creates an object containing desired settings that could later be applied through [carla.World](#carla.World) and its method __<font color="#7fb800">apply_settings()</font>__.  
-    - **Parameters:**
+创建一个包含所需设置的对象，这些设置稍后可以通过 [carla.World](#carla.World) 及其方法 __<font color="#7fb800">apply_settings()</font>__ 应用。
+    - **参数:**
         - `synchronous_mode` (_bool_) - Set this to true to enable client-server synchrony.  
         - `no_rendering_mode` (_bool_) - Set this to true to completely disable rendering in the simulation.  
         - `fixed_delta_seconds` (_float<small> - seconds</small>_) - Set a fixed time-step in between frames. <code>0.0</code> means variable time-step and it is the default mode.  
