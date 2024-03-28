@@ -85,6 +85,12 @@
     </li>
         </ul>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_10">附加：构建步骤分析</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#updatebat">Update.bat</a>
+    </li>
+        </ul>
+    </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../build_update/">Carla 更新</a>
@@ -592,6 +598,27 @@ GenerateProjectFiles.bat
 </tr>
 </tbody>
 </table>
+<h2 id="_10">附加：构建步骤分析</h2>
+<h3 id="updatebat">Update.bat</h3>
+<ol>
+<li>环境变量初始化；</li>
+<li>获取最新的资产包；</li>
+<li>
+<p>下载并解压资产内容；</p>
+<p>如果不存在7zip就用<code>powershell -Command "Expand-Archive '</code>命令进行解压。</p>
+</li>
+</ol>
+<h4 id="makefile">Makefile</h4>
+<ol>
+<li>
+<p><code>make PythonAPI</code></p>
+<p>执行<code>Util/BuildTools/BuildPythonAPI.bat</code>，真正执行的是<code>python setup.py bdist_egg bdist_wheel</code>，在<code>PythonAPI/carla/dist</code>目录下生成<code>*.egg</code>和<code>*.whl</code>文件；</p>
+</li>
+<li>
+<p><code>make launch</code></p>
+<p>执行<code>Util/BuildTools/Windows.mk</code>，真正执行的是<code>BuildLibCarla.bat</code>，构建LibCarla的服务端和客户端；</p>
+</li>
+</ol>
 <hr />
 <p>有关本指南的任何问题， 请阅读 <strong><a href="../build_faq/">常见问题解答</a></strong> 页面或在 <a href="https://github.com/carla-simulator/carla/discussions">Carla 论坛</a> 中发帖。</p>
 <p>现在您已经构建了 Carla，接下来了解如何更新 Carla 构建或在仿真中迈出第一步，并学习一些核心概念。</p>

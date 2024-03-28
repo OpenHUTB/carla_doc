@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>指标模块 - 交通仿真文档</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u6307\u6807\u6a21\u5757";
+        var mkdocs_page_input_path = "scenario_runner\\metrics_module.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">主页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">入门</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../start_introduction/">介绍</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../start_quickstart/">快速启动包安装</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tuto_first_steps/">第一步</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tutorials/">教程</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">构建 Carla</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../build_carla/">构建 Carla</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../build_linux/">Linux 上编译</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../build_windows/">Windows 上编译</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../build_update/">Carla 更新</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../build_system/">编译系统</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../build_docker/">Docker 中的 Carla</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../build_faq/">常问的问题</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Carla 主题</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../foundations/">概念和基础</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../core_world/">第一、世界和客户端</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../core_actors/">第二、参与者和蓝图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../core_map/">第三、地图和导航 </a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../core_sensors/">第四、传感器和数据</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../development_tutorials/">开发</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../custom_assets_tutorials/">自定义资产</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tuto_content_authoring_maps/">内容创作 - 地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tuto_content_authoring_vehicles/">内容创作 - 车辆</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">交通仿真</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ts_traffic_simulation_overview/">交通</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../adv_traffic_manager/">交通管理器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../adv_sumo/">和 SUMO 联合仿真</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tuto_G_scenic/">Scenic</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">行人</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tuto_G_pedestrian_bones/">行人骨骼</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tuto_G_control_walker_skeletons/">控制行人骨骼</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tuto_G_pedestrian_visual/">行人视觉</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tuto_M_generate_pedestrian_navigation/">生成行人导航</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">高级概念</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../adv_opendrive/">OpenDRIVE 独立模式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../adv_recorder/">记录器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../adv_rendering_options/">渲染选项</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../adv_rss/">责任敏感安全</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../adv_synchrony_timestep/">同步和时间步长</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../adv_benchmarking/">基准性能</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../adv_agents/">Carla 智能体</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">资源</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../python_api/">Python API 参考</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ref_cpp/">C++ 参考</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../bp_library/">蓝图库</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../catalogue/">Carla 目录</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ref_recorder_binary_file_format/">记录器二进制文件格式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ref_sensors/">传感器参考</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ext_docs/">扩展文档</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">自定义地图</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tuto_M_custom_map_overview/">Carla 中自定义地图的概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tuto_M_add_map_package/">在 Carla 包导入地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tuto_M_add_map_source/">在 Carla 源构建中导入地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tuto_M_add_map_alternative/">导入地图的替代方法</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tuto_M_manual_map_package/">手动准备地图包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tuto_M_custom_layers/">自定义地图：分层地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tuto_M_custom_add_tl/">自定义地图：红绿灯和标志</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tuto_M_custom_road_painter/">自定义地图：道路画家</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tuto_M_custom_weather_landscape/">自定义地图：天气和景观</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tuto_G_openstreetmap/">使用 OpenStreetMap 生成地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tuto_M_custom_buildings/">自定义地图：程序建筑</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../adv_digital_twin/">数字孪生工具</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">大地图</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../large_map_overview/">大地图概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../large_map_roadrunner/">在RoadRunner中创建大地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../large_map_import/">导入/打包大地图</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（通用）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tuto_G_add_friction_triggers/">添加摩擦触发器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tuto_G_control_vehicle_physics/">控制车辆物理模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tuto_G_retrieve_data/">检索仿真数据</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../build_docker_unreal/">在 Docker 中构建虚幻引擎和 Carla</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（资产）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tuto_A_add_vehicle/">添加新车辆</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tuto_A_add_props/">添加新道具</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tuto_A_create_standalone/">创建独立包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tuto_A_material_customization/">材质定制</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">教程（开发人员）</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tuto_D_contribute_assets/">如何升级内容</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tuto_D_create_sensor/">创建一个传感器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tuto_D_create_semantic_tags/">创建语义标签</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tuto_D_customize_vehicle_suspension/">自定义车辆悬架</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tuto_D_generate_colliders/">生成详细碰撞</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tuto_D_make_release/">发布版本</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tuto_D_windows_debug/">调试程序</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">示例</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tuto_E_gallery/">入门</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tuto_G_traffic_light/">交通灯的配置和使用</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tuto_G_traffic_prediction/">流量预测</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ecosys_iss/">ISS 智能驾驶系统</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../plugins_carlaviz/">Web 可视化器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ros_documentation/">ROS</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ecosys_femfx/">有限元变形材料虚幻插件</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tuto_G_carsim_integration/">CarSim 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tuto_G_rllib_integration/">RLlib 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tuto_G_chrono/">Chrono 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../OpenRadioss/use_OpenRadioss_windows/">OpenRadios 有限元仿真</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../adv_ptv/">PTV-Vissim 联合仿真</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ecosys_ansys/">Ansys 实时雷达模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://github.com/darkscyla/MATLAB-Carla-Interface">Matlab 接口</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tuto_G_G29_windows/">罗技 G29 方向盘</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">贡献</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../cont_contribution_guidelines/">贡献指南</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../cont_code_of_conduct/">行为准则</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../cont_coding_standard/">编码标准</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../cont_doc_standard/">文档标准</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">其他</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="https://ww2.mathworks.cn/help/roadrunner/index.html">RoadRunner</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://ww2.mathworks.cn/help/roadrunner-scenario/index.html">RoadRunner Scenario</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://bbs.carla.org.cn/">Carla 中文站</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://github.com/OpenHUTB/engine_doc">虚幻引擎教程</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://docs.blender.org/manual/zh-hans/latest/">Blender 手册</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../todo/">待做列表</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">指标模块</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">指标模块</h1>
+<p>指标模块依靠 <a href="https://carla.readthedocs.io/en/latest/adv_recorder/">CARLA 记录器</a> 来方便计算和监控任何类型的参数。场景完成后，记录器存储模拟信息。然后，用户可以定义自己的指标，并检查相应的结果，而无需一次又一次地进行模拟。</p>
+<p>The metrics module relies on the <a href="https://carla.readthedocs.io/en/latest/adv_recorder/">CARLA recorder</a> to facilitate the easy calculus and monitoring of any kind of parameter. After the scenario is finished, the recorder stores the simulation information. Users can then define their own metrics, and check the corresponding results with no need to play the simulation again and again. </p>
+<p>This section covers an explanation of the different elements that form the module, a step by step tutorial of how to create a new metric, and a reference of the functions that query the recording and define the metrics.  </p>
+<ul>
+<li><a href="#structure-of-the-module"><strong>模块结构</strong></a>  </li>
+<li><a href="#how-to-use-the-metrics-module"><strong>如何使用指标模块</strong></a>  <ul>
+<li><a href="#1.-record-a-scenario">1. 记录一个场景</a>  </li>
+<li><a href="#2.-run-the-metrics-manager">2. 定义指标</a>  </li>
+<li><a href="#3.-run-the-metrics-manager">3. 运行指标管理器</a>  </li>
+</ul>
+</li>
+<li><a href="#recording-queries-reference"><strong>记录查询参考</strong></a>  <ul>
+<li><a href="#generic-actor-data">通用参与者数据</a>  </li>
+<li><a href="#generic-simulation-data">通用仿真数据</a>  </li>
+<li><a href="#actor-accelerations">参与者加速度</a>  </li>
+<li><a href="#actor-angular-velocities">参与者角速度</a>  </li>
+<li><a href="#actor-controls">参与者控制</a>  </li>
+<li><a href="#actor-transforms">参与者变换</a>  </li>
+<li><a href="#actor-velocities">参与者速度</a>  </li>
+<li><a href="#scene-lights">场景灯</a>  </li>
+<li><a href="#traffic-lights">红绿灯</a>  </li>
+<li><a href="#vehicle-lights">车灯</a>  </li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="_2">模块结构</h2>
+<p>Similarly to the main ScenarioRunner module, the Metrics module is run using a main script, <code>metrics_manager.py</code>, and the rest of the information is contained inside a folder structure. Here is a brief introduction to the main script.  </p>
+<ul>
+<li><strong><code>metrics_manager.py</code></strong> — The main script of the module. Run this to show the results of the set of metrics. The script has the usual <code>host</code> and <code>port</code> arguments, and some more to set the metrics and recording to be used.  <ul>
+<li><code>host</code> <em>(string)</em> – IP address where a CARLA simulation is running. Default is <code>(127.0.0.1)</code>.  </li>
+<li><code>port</code> <em>(int)</em> – TCP port where the CARLA simulation is running. Default are <code>2000</code> and <code>2001</code>.  </li>
+<li><code>metrics</code> — Path to the metrics to be used.  </li>
+<li><code>log</code> — Path to the <code>.log</code> file containing the recording (relative to the environment variable <code>SCENARIO_RUNNER_ROOT</code>).  </li>
+<li><code>criteria</code> <em>(optional)</em> — Path to a JSON file with the criteria of the scenario.  </li>
+</ul>
+</li>
+</ul>
+<p>The rest of the elements that shape the module can be found in the <code>srunner/metrics</code> folder. These folder has been divided in three subfolders.</p>
+<ul>
+<li>
+<p><strong><code>srunner/metrics/data</code></strong> — Stores information about the scenarios. By default, it has six files, which are part of the examples metric.  </p>
+</li>
+<li>
+<p><strong><code>srunner/metrics/examples</code></strong> — Contains some example metrics, and the metric containing the base class <code>BaseMetric</code> to create new metrics.  </p>
+<ul>
+<li><code>basic_metric.py</code> – Contains the base class <code>BaseMetric</code>. All the metrics are inherited from it.  </li>
+<li><code>criteria_filter.py</code> – Returns a JSON with the most important attributes of the criteria. </li>
+<li><code>distance_between_vehicles.py</code> – Returns the distance betwen two vehicles. Useful to show how to query the recording.  </li>
+<li><code>distance_to_lane_center.py</code> – Calculates the distance between the vehicle location and the center of the lane. Useful to show how to access the map API information..  </li>
+</ul>
+</li>
+<li>
+<p><strong><code>srunner/metrics/tools</code></strong> — Contains two key scripts that allow to query the recording.  </p>
+<ul>
+<li><code>metrics_parser.py</code> – Transforms the string provided by the recording to a dictionary.  </li>
+<li><code>metrics_log.py</code> – Provides with several functions to query the dictionary created with <code>metrics_parser.py</code>. These functions are the easiest way to access information of a scenario. They listed in a <a href="#recording-queries-reference">reference</a> in the last segment of this page.  </li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="_3">如何使用指标模块</h2>
+<h3 id="1">1. 记录一个场景</h3>
+<p>The metrics module needs for a recording of a simulation in order to work. Otherwise, it has no data to make the calculations of the metrics.  </p>
+<p>Use the <code>record</code> argument. Add the path where the information should be saved should be saved. The path must be relative to the environment variable <code>SCENARIO_RUNNER_ROOT</code>.  </p>
+<pre><code class="language-sh">python scenario_runner.py --scenario &lt;scenario_name&gt; --record &lt;path/to/save/the/recorder/file&gt;
+</code></pre>
+<p>By recording the scenario two files will be created in the desired path. These files will later be used as the <code>log</code> and <code>criteria</code> arguments in the <code>metrics_manager.py</code>.<br />
+<strong>1. A CARLA recording</strong> <em>(<code>.log</code>)</em> — Contains simulation data per frame. To know more about this, read the <a href="https://carla.readthedocs.io/en/latest/adv_recorder/">recorder docs</a>.<br />
+<strong>2. A criteria file</strong> <em>(.json)</em> — The criteria of the scenario parsed as a dictionary, and stored in a JSON file. The keys of the dictionary are the names of the criteria. The values are the attributes of each criteria.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Only the JSON serializable attributes will be parsed, the rest will be ignored.</p>
+</div>
+<p>By default, both files are named after the scenario that is run. If the scenario is named <code>example.py</code>, the files will be <code>example.log</code> and <code>example.json</code>.  </p>
+<h3 id="2">2. 定义指标</h3>
+<p>It is time to create the desired metrics that will be used for the scenario. The possibilities are endless, but for the sake of this tutorial, the metric described in <code>srunner/metrics/examples/distance_between_vehicles.py</code> will be used as an example. Let's dig a little bit into the code itself.  </p>
+<pre><code>class DistanceBetweenVehicles(BasicMetric):
+"""
+Metric class DistanceBetweenVehicles
+"""
+
+def _create_metric(self, town_map, log, criteria):
+    """
+    Implementation of the metric. This is an example to show how to use the recorder,
+    accessed via the log.
+    """
+
+    # Get the ID of the two vehicles
+    ego_id = log.get_ego_vehicle_id()
+    adv_id = log.get_actor_ids_with_role_name("scenario")[0]  # Could have also used its type_id
+
+    dist_list = []
+    frames_list = []
+
+    # Get the frames both actors were alive
+    start_ego, end_ego = log.get_actor_alive_frames(ego_id)
+    start_adv, end_adv = log.get_actor_alive_frames(adv_id)
+    start = max(start_ego, start_adv)
+    end = min(end_ego, end_adv)
+
+    # Get the distance between the two
+    for i in range(start, end):
+
+        # Get the transforms
+        ego_location = log.get_actor_transform(ego_id, i).location
+        adv_location = log.get_actor_transform(adv_id, i).location
+
+        # Filter some points for a better graph
+        if adv_location.z &lt; -10:
+            continue
+
+        dist_v = ego_location - adv_location
+        dist = math.sqrt(dist_v.x * dist_v.x + dist_v.y * dist_v.y + dist_v.z * dist_v.z)
+
+        dist_list.append(dist)
+        frames_list.append(i)
+
+    # Use matplotlib to show the results
+    plt.plot(frames_list, dist_list)
+    plt.ylabel('Distance [m]')
+    plt.xlabel('Frame number')
+    plt.title('Distance between the ego vehicle and the adversary over time')
+    plt.show()
+</code></pre>
+<p><strong>2.1. Name the metric</strong>. First of all, as it was previously mentioned, all metrics are childs of the <code>BasicMetric</code> class.</p>
+<pre><code class="language-py">    class DistanceBetweenVehicles(BasicMetric):
+</code></pre>
+<p><strong>2.2. Name the main method</strong>. A metric only requires one method in order to run, <code>_create_metric()</code>, which has three arguments.  </p>
+<ul>
+<li><strong><code>town_map</code></strong> — Instance of the <a href="https://carla.readthedocs.io/en/latest/python_api/#carlamap">carla.Map()</a> where the scenario took place in.  </li>
+<li><strong><code>log</code></strong> — Instance to the <code>MetricsLog</code> class, with all the functions needed to access the recorder dictionary.  </li>
+<li><strong><code>criteria</code></strong> — A JSOn with the criteria dictionary. The file provided when recording a scenario that is later provided to the <code>metrics_manager.py</code>.  </li>
+</ul>
+<pre><code class="language-py">def _create_metric(self, town_map, log, criteria):
+</code></pre>
+<p><strong>2.3. Implement the metric</strong>. The code will vary depending on the metric itself.  </p>
+<p>The example metric <code>DistanceBetweenVehicles</code> calculates the distance between the ego vehicle, and the car it follows (adversary). To do so, it needs the <code>id</code> of the two vehicles. These can be retrieved from the log using the <code>get_ego_vehicle_id()</code> and <code>get_actor_ids_with_role_name("scenario")[0]</code> functions. </p>
+<pre><code class="language-py"># Get the ID of the two vehicles
+ego_id = log.get_ego_vehicle_id()
+adv_id = log.get_actor_ids_with_role_name(&quot;scenario&quot;)[0]  # Could have also used its type_id
+</code></pre>
+<p>The <code>id</code> are used to retrieve the frames where the vehicles were alive using <code>get_actor_alive_frames(actor_id)</code>. </p>
+<pre><code class="language-py"># Get the frames both actors were alive
+start_ego, end_ego = log.get_actor_alive_frames(ego_id)
+start_adv, end_adv = log.get_actor_alive_frames(adv_id)
+start = max(start_ego, start_adv)
+end = min(end_ego, end_adv)
+</code></pre>
+<p>Now everything is ready to loop through those frames, get their transforms, and calculate the distance. To get the transform, <code>get_actor_transform(actor_id, frame)</code> is used. </p>
+<pre><code class="language-py">dist_list = []
+frames_list = []
+
+...
+
+# Get the distance between the two
+for i in range(start, end):
+
+    # Get the transforms
+    ego_location = log.get_actor_transform(ego_id, i).location
+    adv_location = log.get_actor_transform(adv_id, i).location
+
+    # Filter some points for a better graph
+    if adv_location.z &lt; -10:
+        continue
+
+    dist_v = ego_location - adv_location
+    dist = math.sqrt(dist_v.x * dist_v.x + dist_v.y * dist_v.y + dist_v.z * dist_v.z)
+
+    dist_list.append(dist)
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The vertical condition of the adversary is to only take into account the adversary when it is driving normally.</p>
+</div>
+<p>Lastly, use <a href="https://matplotlib.org/">matplotlib</a> to define which should be the output of the metric when running <code>metrics_manager.py</code>.  </p>
+<pre><code class="language-py"># Use matplotlib to show the results
+plt.plot(frames_list, dist_list)
+plt.ylabel('Distance [m]')
+plt.xlabel('Frame number')
+plt.title('Distance between the ego vehicle and the adversary over time')
+plt.show()
+</code></pre>
+<h3 id="3">3. 运行指标管理器</h3>
+<p>Finally it is time to used the information retrieve from the scenario, and the metrics that have been defined to return some metrics information. Let's run the module using the example metric that has been used so far, and an example log named after it.  </p>
+<pre><code class="language-sh">python metrics_manager.py --metric srunner/metrics/examples/distance_between_vehicles.py --log srunner/metrics/data/DistanceBetweenVehicles.log
+</code></pre>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>A simulation must be running. Otherwise, the module will not be able to acces the map API.</p>
+</div>
+<p>This will create a new window with the results plotted. The script will not finish until the ouput window is closed.</p>
+<p><img alt="metrics_plot" src="img/metrics_example.jpg" /></p>
+<hr />
+<h2 id="_4">记录查询参考</h2>
+<p>When defining a metric, all the information about the scenario is accessed via the <code>MetricsLog</code> class (the <code>log</code> argument at the <code>_create_metric()</code> function). This class is located at <code>srunner/metrics/tools/metrics_log.py</code>, and this reference is a following of the functions contained in it.  </p>
+<h3 id="_5">通用参与者数据</h3>
+<ul>
+<li>
+<p><a name="get_ego_vehicle_id"></a><strong><font color="#7fb800">get_ego_vehicle_id</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
+Returns the <code>id</code> of the ego vehicle.</p>
+<ul>
+<li><strong>Return —</strong> int</li>
+</ul>
+</li>
+<li>
+<p><a name="get_actor_ids_with_role_name"></a><strong><font color="#7fb800">get_actor_ids_with_role_name</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>role_name</strong></font>)<br />
+Returns a list of actor <code>id</code> that match the given <code>role_name</code>.</p>
+<ul>
+<li><strong>Return —</strong> list</li>
+<li><strong>Parameters</strong><ul>
+<li><code>role_name</code> (<em>str</em>) — <code>role_name</code> of the actor.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><a name="get_actor_ids_with_type_id"></a><strong><font color="#7fb800">get_actor_ids_with_type_id</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>type_id</strong></font>)<br />
+Returns a list of actor <code>id</code> that match the given <code>type_id</code>, according to fnmatch standard.</p>
+<ul>
+<li><strong>Return —</strong> list</li>
+<li><strong>Parameters</strong><ul>
+<li><code>type_id</code> (<em>str</em>) — <code>type_id</code> of the actor.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><a name="get_actor_attributes"></a><strong><font color="#7fb800">get_actor_attributes</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor_id</strong></font>)<br />
+Returns a dictionary with all the attributes of an actor.</p>
+<ul>
+<li><strong>Return —</strong> dict</li>
+<li><strong>Parameters</strong><ul>
+<li><code>actor_id</code> (<em>int</em>) — <code>id</code> of the actor.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><a name="get_actor_bounding_box"></a><strong><font color="#7fb800">get_actor_bounding_box</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor_id</strong></font>)<br />
+Returns the bounding box of the specified actor.</p>
+<ul>
+<li><strong>Return —</strong> <a href="https://carla.readthedocs.io/en/latest/python_api/#carlaboundingbox">carla.BoundingBox</a></li>
+<li><strong>Parameters</strong><ul>
+<li><code>actor_id</code> (<em>int</em>) — <code>id</code> of the actor.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><a name="get_traffic_light_trigger_volume"></a><strong><font color="#7fb800">get_traffic_light_trigger_volume</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>traffic_light_id</strong></font>)<br />
+Returns the trigger volume of the specified traffic light.</p>
+<ul>
+<li><strong>Return —</strong> <a href="https://carla.readthedocs.io/en/latest/python_api/#carlaboundingbox">carla.BoundingBox</a></li>
+<li><strong>Parameters</strong><ul>
+<li><code>traffic_light_id</code> (<em>int</em>) — <code>id</code> of the traffic light.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><a name="get_actor_alive_frames"></a><strong><font color="#7fb800">get_actor_alive_frames</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor_id</strong></font>)<br />
+Returns a tuple with the first and last frame an actor was alive. Note that frames start at 1, not 0.</p>
+<ul>
+<li><strong>Return —</strong> tuple</li>
+<li><strong>Parameters</strong><ul>
+<li><code>actor_id</code> (<em>int</em>) — <code>id</code> of the actor.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="_6">通用仿真数据</h3>
+<ul>
+<li>
+<p><a name="get_collisions"></a><strong><font color="#7fb800">get_collisions</font></strong>(<font color="#00a6ed"><strong>self</strong></font>,<font color="#00a6ed"><strong>actor_id</strong></font>)<br />
+Returns a list of dictionaries with two keys. <code>frame</code> is the frame number of the collision, and <code>other_id</code>, a list of the ids the actor collided with at that frame.</p>
+<ul>
+<li><strong>Return —</strong> list</li>
+<li><strong>Parameters</strong><ul>
+<li><code>actor_id</code> (<em>int</em>) — <code>id</code> of the actor.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><a name="get_total_frame_count"></a><strong><font color="#7fb800">get_total_frame_count</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
+Returns an int with the total amount of frames the simulation lasted.</p>
+<ul>
+<li><strong>Return —</strong> int</li>
+</ul>
+</li>
+<li>
+<p><a name="get_elapsed_time"></a><strong><font color="#7fb800">get_elapsed_time</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>)<br />
+Returns a float with the elapsed time of a specific frame.</p>
+<ul>
+<li><strong>Return —</strong> float</li>
+<li><strong>Parameters</strong><ul>
+<li><code>frame</code> (<em>int</em>) — Frame number.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><a name="get_delta_time"></a><strong><font color="#7fb800">get_delta_time</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>)<br />
+Returns an float with the delta time of a specific frame.</p>
+<ul>
+<li><strong>Return —</strong> float</li>
+<li><strong>Parameters</strong><ul>
+<li><code>frame</code> (<em>int</em>) — Frame number.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><a name="get_platform_time"></a><strong><font color="#7fb800">get_platform_time</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>)<br />
+Returns a float with the platform time of a specific frame.</p>
+<ul>
+<li><strong>Return —</strong> float</li>
+<li><strong>Parameters</strong><ul>
+<li><code>frame</code> (<em>int</em>) — Frame number.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="_7">参与者加速度</h3>
+<ul>
+<li>
+<p><a name="get_actor_acceleration"></a><strong><font color="#7fb800">get_actor_acceleration</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor_id</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>)<br />
+Returns the acceleration of the actor at a given frame. Returns <b>None</b> if the actor <code>id</code> doesn't exist, the actor has no acceleration, or the actor wasn't alive at that frame.</p>
+<ul>
+<li><strong>Return —</strong> <a href="https://carla.readthedocs.io/en/latest/python_api/#carlavector3d">carla.Vector3D</a></li>
+<li><strong>Parameters</strong><ul>
+<li><code>actor_id</code> (<em>int</em>) — <code>id</code> of the actor.</li>
+<li><code>frame</code> (<em>int</em>) — Frame number.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><a name="get_all_actor_accelerations"></a><strong><font color="#7fb800">get_all_actor_accelerations</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor_id</strong></font>, <font color="#00a6ed"><strong>first_frame</strong>=None</font>, <font color="#00a6ed"><strong>last_frame</strong>=None</font>)<br />
+Returns a list with all the accelerations of the actor at the frame interval. By default, the frame interval comprises all the recording.</p>
+<ul>
+<li><strong>Return —</strong> list(carla.Vector3D)</li>
+<li><strong>Parameters</strong><ul>
+<li><code>actor_id</code> (<em>int</em>) — <code>id</code> of the actor.</li>
+<li><code>first_frame</code> (<em>int</em>) — Initial frame of the interval. By default, the start of the simulation.</li>
+<li><code>last_frame</code> (<em>int</em>) — Last frame of the interval. By default, the end of the simulation.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><a name="get_actor_accelerations_at_frame"></a><strong><font color="#7fb800">get_actor_accelerations_at_frame</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>, <font color="#00a6ed"><strong>actor_list</strong>=None</font>)<br />
+Returns a dict where the keys are the frame number, and the values are the carla.Vector3D of the actor at the given frame. By default, all actors are considered but if <em>actor_list</em> is passed, only actors in the list will be checked.</p>
+<ul>
+<li><strong>Return —</strong> list(carla.Vector3D)</li>
+<li><strong>Parameters</strong><ul>
+<li><code>frame</code> (<em>int</em>) — Frame number.</li>
+<li><code>actor_list</code> (<em>int</em>) — List of actor <code>id</code>.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="_8">参与者角速度</h3>
+<ul>
+<li>
+<p><a name="get_actor_angular_velocity"></a><strong><font color="#7fb800">get_actor_angular_velocity</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor_id</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>)<br />
+Returns the angular velocity of the actor at a given frame. Returns <b>None</b> if the actor id doesn't exist, the actor has no angular velocity, or the actor wasn't alive at that frame.</p>
+<ul>
+<li><strong>Return —</strong> carla.Vector3D</li>
+<li><strong>Parameters</strong><ul>
+<li><code>actor_id</code> (<em>int</em>) — <code>id</code> of the actor.</li>
+<li><code>frame</code> (<em>int</em>) — Frame number.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><a name="get_all_actor_angular_velocities"></a><strong><font color="#7fb800">get_all_actor_angular_velocities</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor_id</strong></font>, <font color="#00a6ed"><strong>first_frame</strong>=None</font>, <font color="#00a6ed"><strong>last_frame</strong>=None</font>)<br />
+Returns a list with all the angular velocities of the actor at the frame interval. By default, the frame interval comprises all the recording.</p>
+<ul>
+<li><strong>Return —</strong> list(carla.Vector3D)</li>
+<li><strong>Parameters</strong><ul>
+<li><code>actor_id</code> (<em>int</em>) — <code>id</code> of the actor.</li>
+<li><code>first_frame</code> (<em>int</em>) — Initial frame of the interval. By default, the start of the simulation.</li>
+<li><code>last_frame</code> (<em>int</em>) — Last frame of the interval. By default, the end of the simulation.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><a name="get_actor_angular_velocities_at_frame"></a><strong><font color="#7fb800">get_actor_angular_velocities_at_frame</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>, <font color="#00a6ed"><strong>actor_list</strong>=None</font>)<br />
+Returns a dictionary where the keys are the frame number, and the values are the <a href="https://carla.readthedocs.io/en/latest/python_api/#carlavector3d">carla.Vector3D</a> of the actor at the given frame. By default, all actors are considered but if <code>actor_list</code> is passed, only actors in the list will be checked.</p>
+<ul>
+<li><strong>Return —</strong> list(<a href="https://carla.readthedocs.io/en/latest/python_api/#carlavector3d">carla.Vector3D</a>)</li>
+<li><strong>Parameters</strong><ul>
+<li><code>frame</code> (<em>int</em>) — frame number.</li>
+<li><code>actor_list</code> (<em>int</em>) — List of actor ids.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="_9">参与者控制</h3>
+<ul>
+<li>
+<p><a name="get_vehicle_control"></a><strong><font color="#7fb800">get_vehicle_control</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>vehicle_id</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>)<br />
+Returns the control of a vehicle at a given frame. The <code>manual_gear_shift</code> attribute will always be False.</p>
+<ul>
+<li><strong>Return —</strong> <a href="https://carla.readthedocs.io/en/latest/python_api/#carlavehiclecontrol">carla.VehicleControl</a></li>
+<li><strong>Parameters</strong><ul>
+<li><code>vehicle_id</code> (<em>int</em>) — <code>id</code> of the vehicle.</li>
+<li><code>frame</code> (<em>int</em>) — Frame number.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><a name="get_vehicle_physics_control"></a><strong><font color="#7fb800">get_vehicle_physics_control</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>vehicle_id</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>)<br />
+Returns the physics control of a vehicle at a given frame.</p>
+<ul>
+<li><strong>Return —</strong> <a href="https://carla.readthedocs.io/en/latest/python_api/#carlavehiclephysicscontrol">carla.VehiclePhysicsControl</a></li>
+<li><strong>Parameters</strong><ul>
+<li><code>vehicle_id</code> (<em>int</em>) — <code>id</code> of the vehicle.</li>
+<li><code>frame</code> (<em>int</em>) — Frame number.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><a name="get_walker_speed"></a><strong><font color="#7fb800">get_walker_speed</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>walker_id</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>)<br />
+Returns the speed of a walker at a given frame.</p>
+<ul>
+<li><strong>Return —</strong> <a href="https://carla.readthedocs.io/en/latest/python_api/#carlavector3d">carla.Vector3D</a></li>
+<li><strong>Parameters</strong><ul>
+<li><code>walker_id</code> (<em>int</em>) — <code>id</code> of the walker.</li>
+<li><code>frame</code> (<em>int</em>) — Frame number.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="_10">参与者变换</h3>
+<ul>
+<li>
+<p><a name="get_actor_transform"></a><strong><font color="#7fb800">get_actor_transform</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor_id</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>)<br />
+Returns the transform of the actor at a given frame. Returns <b>None</b> if the actor id doesn't exist, the actor has no transform, or the actor wasn't alive at that frame.</p>
+<ul>
+<li><strong>Return —</strong> <a href="https://carla.readthedocs.io/en/latest/python_api/#carlatransform">carla.Transform</a></li>
+<li><strong>Parameters</strong><ul>
+<li><code>actor_id</code> (<em>int</em>) — <code>id</code> of the actor.</li>
+<li><code>frame</code> (<em>int</em>) — Frame number.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><a name="get_all_actor_transforms"></a><strong><font color="#7fb800">get_all_actor_transforms</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor_id</strong></font>, <font color="#00a6ed"><strong>first_frame</strong>=None</font>, <font color="#00a6ed"><strong>last_frame</strong>=None</font>)<br />
+Returns a list with all the transforms of the actor at the frame interval. By default, the frame interval comprises all the recording.</p>
+<ul>
+<li><strong>Return —</strong> list(<a href="https://carla.readthedocs.io/en/latest/python_api/#carlatransform">carla.Transform</a>)</li>
+<li><strong>Parameters</strong><ul>
+<li><code>actor_id</code> (<em>int</em>) — <code>id</code> of the actor.</li>
+<li><code>first_frame</code> (<em>int</em>) — Initial frame of the interval. By default, the start of the simulation.</li>
+<li><code>last_frame</code> (<em>int</em>) — Last frame of the interval. By default, the end of the simulation.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><a name="get_actor_transforms_at_frame"></a><strong><font color="#7fb800">get_actor_transforms_at_frame</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>, <font color="#00a6ed"><strong>actor_list</strong>=None</font>)<br />
+Returns a dictionary where the keys are the frame number, and the values are the <a href="https://carla.readthedocs.io/en/latest/python_api/#carlatransform">carla.Transform</a> of the actor at the given frame. By default, all actors are considered but if <code>actor_list</code> is passed, only actors in the list will be checked.</p>
+<ul>
+<li><strong>Return —</strong> list(<a href="https://carla.readthedocs.io/en/latest/python_api/#carlatransform">carla.Transform</a>)</li>
+<li><strong>Parameters</strong><ul>
+<li><code>frame</code> (<em>int</em>) — Frame number.</li>
+<li><code>actor_list</code> (<em>int</em>) — List of actor <code>id</code>. </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="_11">参与者速度</h3>
+<ul>
+<li>
+<p><a name="get_actor_velocity"></a><strong><font color="#7fb800">get_actor_velocity</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor_id</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>)<br />
+Returns the velocity of the actor at a given frame. Returns <b>None</b> if the actor id doesn't exist, the actor has no velocity, or the actor wasn't alive at that frame.</p>
+<ul>
+<li><strong>Return —</strong> <a href="https://carla.readthedocs.io/en/latest/python_api/#carlavector3d">carla.Vector3D</a></li>
+<li><strong>Parameters</strong><ul>
+<li><code>actor_id</code> (<em>int</em>) — <code>id</code> of the actor.</li>
+<li><code>frame</code> (<em>int</em>) — Frame number.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><a name="get_all_actor_velocities"></a><strong><font color="#7fb800">get_all_actor_velocities</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor_id</strong></font>, <font color="#00a6ed"><strong>first_frame</strong>=None</font>, <font color="#00a6ed"><strong>last_frame</strong>=None</font>)<br />
+Returns a list with all the velocities of the actor at the frame interval. By default, the frame interval comprises all the recording.</p>
+<ul>
+<li><strong>Return —</strong> list(<a href="https://carla.readthedocs.io/en/latest/python_api/#carlavector3d">carla.Vector3D</a>)</li>
+<li><strong>Parameters</strong><ul>
+<li><code>actor_id</code> (<em>int</em>) — <code>id</code> of the actor.</li>
+<li><code>first_frame</code> (<em>int</em>) — Initial frame of the interval. By default, the start of the simulation.</li>
+<li><code>last_frame</code> (<em>int</em>) — Last frame of the interval. By default, the end of the simulation.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><a name="get_actor_velocities_at_frame"></a><strong><font color="#7fb800">get_actor_velocities_at_frame</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>, <font color="#00a6ed"><strong>actor_list</strong>=None</font>)<br />
+Returns a dict where the keys are the frame number, and the values are the carla.Vector3D of the actor at the given frame. By default, all actors are considered but if <em>actor_list</em> is passed, only actors in the list will be checked.</p>
+<ul>
+<li><strong>Return —</strong> list(<a href="https://carla.readthedocs.io/en/latest/python_api/#carlavector3d">carla.Vector3D</a></li>
+<li><strong>Parameters</strong><ul>
+<li><code>frame</code> (<em>int</em>) — Frame number.</li>
+<li><code>actor_list</code> (<em>int</em>) — List of actor <code>id</code>. </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="_12">场景灯</h3>
+<ul>
+<li><a name="get_scene_light_state"></a><strong><font color="#7fb800">get_scene_light_state</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>light</strong></font>, <font color="#00a6ed"><strong>vehicle_id</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>)<br />
+Returns the state of a scene light for a given frame. The light state group will always be <a href="https://carla.readthedocs.io/en/latest/python_api/#carlalightgroup">carla.LightGroup.None</a>.<ul>
+<li><strong>Return —</strong> carla.LightState</li>
+<li><strong>Parameters</strong><ul>
+<li><code>light_id</code> (<em>int</em>) — <code>id</code> of the scene light.</li>
+<li><code>frame</code> (<em>int</em>) — Frame number.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="_13">红绿灯</h3>
+<ul>
+<li>
+<p><a name="get_traffic_light_state"></a><strong><font color="#7fb800">get_traffic_light_state</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>traffic_light_id</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>)<br />
+Returns the state of a traffic light at a given frame.</p>
+<ul>
+<li><strong>Return —</strong> <a href="https://carla.readthedocs.io/en/latest/python_api/#carlatrafficlightstate">carla.TrafficLightState</a>.</li>
+<li><strong>Parameters</strong><ul>
+<li><code>traffic_light_id</code> (<em>int</em>) — <code>id</code> of the traffic light.</li>
+<li><code>frame</code> (<em>int</em>) — Frame number.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><a name="is_traffic_light_frozen"></a><strong><font color="#7fb800">is_traffic_light_frozen</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>traffic_light_id</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>)<br />
+Returns whether or not a traffic light is frozen at a given frame.</p>
+<ul>
+<li><strong>Return —</strong> bool</li>
+<li><strong>Parameters</strong><ul>
+<li><code>traffic_light_id</code> (<em>int</em>) — <code>id</code> of the traffic light.</li>
+<li><code>frame</code> (<em>int</em>) — Frame number.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><a name="get_traffic_light_elapsed_time"></a><strong><font color="#7fb800">get_traffic_light_elapsed_time</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>traffic_light_id</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>)<br />
+Returns the elapsed time of a traffic light at a given frame.</p>
+<ul>
+<li><strong>Return —</strong> float</li>
+<li><strong>Parameters</strong><ul>
+<li><code>traffic_light_id</code> (<em>int</em>) — <code>id</code> of the traffic light.</li>
+<li><code>frame</code> (<em>int</em>) — Frame number.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><a name="get_traffic_light_state_time"></a><strong><font color="#7fb800">get_traffic_light_state_time</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>traffic_light_id</strong></font>, <font color="#00a6ed"><strong>state</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>)<br />
+Returns the maximum time of a specific state of a traffic light at a given frame.</p>
+<ul>
+<li><strong>Return —</strong> float</li>
+<li><strong>Parameters</strong><ul>
+<li><code>traffic_light_id</code> (<em>int</em>) — <code>id</code> of the traffic light.</li>
+<li><code>state</code> (<a href="https://carla.readthedocs.io/en/latest/python_api/#carlatrafficlightstate">carla.TrafficLightState</a>) — <code>id</code> of the actor.</li>
+<li><code>frame</code> (<em>int</em>) — Frame number.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="_14">车灯</h3>
+<ul>
+<li>
+<p><a name="get_vehicle_lights"></a><strong><font color="#7fb800">get_vehicle_lights</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>vehicle_id</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>)<br />
+Returns a list with the active lights of a specific vehicle at a given frame.</p>
+<ul>
+<li><strong>Return —</strong> list(<a href="https://carla.readthedocs.io/en/latest/python_api/#carlavehiclelightstate">carla.VehicleLightState</a>)</li>
+<li><strong>Parameters</strong><ul>
+<li><code>vehicle_id</code> (<em>int</em>) — <code>id</code> of the vehicle.</li>
+<li><code>frame</code> (<em>int</em>) — Frame number.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><a name="is_vehicle_light_active"></a><strong><font color="#7fb800">is_vehicle_light_active</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>light</strong></font>, <font color="#00a6ed"><strong>vehicle_id</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>)<br />
+Checks whether or not a given vehicle light is active for a vehicle at a specific frame.</p>
+<ul>
+<li><strong>Return —</strong> bool</li>
+<li><strong>Parameters</strong><ul>
+<li><code>light</code> (<a href="https://carla.readthedocs.io/en/latest/python_api/#carlavehiclelightstate">carla.VehicleLightState</a>) — The light state to be compared with the vehicle.</li>
+<li><code>vehicle_id</code> (<em>int</em>) — <code>id</code> of the vehicle.</li>
+<li><code>frame</code> (<em>int</em>) — Frame number.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
