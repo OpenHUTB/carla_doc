@@ -94,6 +94,8 @@ Failed to open descriptor file ./../../../carla/Unreal/CarlaUE4/CarlaUE4.uprojec
 ## 依赖
 
 ### boost-1.80.0
+[Python封装C++库调试](https://blog.csdn.net/ASCE_Python/article/details/105595218) 。
+
 
 ## 发布
 包含所有软件依赖，双击`launch.bat`启动软件。

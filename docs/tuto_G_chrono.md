@@ -49,14 +49,13 @@ Chrono 物理是通过 [Actor](python_api.md#carlaactor) 类提供的 `enable_ch
 请参阅下面的示例，了解如何启用 Chrono 物理：
 
 ```python
-    # Spawn your vehicle
+    # 生成车辆
     vehicle = world.spawn_actor(bp, spawn_point)
 
-    # Set the base path
-    base_path = "/path/to/carla/Build/chrono-install/share/chrono/data/vehicle/"
+    # 设置基础路径
+    base_path = "D:/work/workspace/carla/Build/chrono-install/data/vehicle/"
 
-    # Set the template files
-
+    # 设置模板文件
     vehicle_json = "sedan/vehicle/Sedan_Vehicle.json"
     powertrain_json = "sedan/powertrain/Sedan_SimpleMapPowertrain.json"
     tire_json = "sedan/tire/Sedan_TMeasyTire.json"

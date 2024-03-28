@@ -2832,7 +2832,7 @@ CARLA 中最重要的参与者群体之一。其中包括从汽车到卡车、�
     - **参数:**
         - `door_idx` (_[carla.VehicleDoor](#carla.VehicleDoor)_) - 门索引。 
 - <a name="carla.Vehicle.enable_carsim"></a>**<font color="#7fb800">enable_carsim</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**simfile_path**</font>)  
-为该特定车辆启用 CarSim 物理解算器。为了使此功能发挥作用，需要在服务器端运行有效的许可证管理器。控制输入​​被重定向到 CarSim，它将提供每一帧的车辆位置和方向。 
+为该特定车辆启用 CarSim 物理解算器。为了使此功能发挥作用，需要在服务器端运行有效的许可证管理器。控制输入被重定向到 CarSim，它将提供每一帧的车辆位置和方向。 
     - **参数:**
         - `simfile_path` (_str_) - 包含仿真参数的`.simfile` 文件的路径。
 - <a name="carla.Vehicle.enable_chrono_physics"></a>**<font color="#7fb800">enable_chrono_physics</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**max_substeps**</font>, <font color="#00a6ed">**max_substep_delta_time**</font>, <font color="#00a6ed">**vehicle_json**</font>, <font color="#00a6ed">**powertrain_json**</font>, <font color="#00a6ed">**tire_json**</font>, <font color="#00a6ed">**base_json_path**</font>)  
@@ -2843,10 +2843,10 @@ CARLA 中最重要的参与者群体之一。其中包括从汽车到卡车、�
         - `vehicle_json` (_str_) - 相对于 `base_json_path` 的车辆 json 文件的路径。
         - `powertrain_json` (_str_) - 相对于 `base_json_path` 的动力总成 json 文件的路径。
         - `tire_json` (_str_) - 相对于`base_json_path`的轮胎 json 文件。
-        - `base_json_path` (_str_) - 指向 `chrono/data/vehicle` 的文件夹路径。例如， `/home/user/carla/Build/chrono-install/share/chrono/data/vehicle/` (需要最后一个 `/` 字符)。
-    - **注意:** <font color="#8E8E8E">_确保您已使用该标志启动 CARLA 服务器 `ARGS="--chrono"`。如果没有设置此标志，您将无法使用 Chrono 物理。
+        - `base_json_path` (_str_) - 指向 `chrono/data/vehicle` 的文件夹路径。例如， `/home/user/carla/Build/chrono-install/share/chrono/data/vehicle/` (最后一个字符需要是`/`)。
+    - **注意:** <font color="#8E8E8E">_确保您已使用该标志启动 Carla 服务器 `ARGS="--chrono"`。如果没有设置此标志，您将无法使用 Chrono 物理。
 _</font>  
-    - **警告:** <font color="#ED2F2F">_不支持碰撞。当检测到碰撞时，物理系统将恢复为默认的 CARLA 物理系统。
+    - **警告:** <font color="#ED2F2F">_不支持碰撞。当检测到碰撞时，物理系统将恢复为默认的 Carla 物理系统。
 _</font>  
 - <a name="carla.Vehicle.is_at_traffic_light"></a>**<font color="#7fb800">is_at_traffic_light</font>**(<font color="#00a6ed">**self**</font>)  
 当交通灯为红色并且车辆位于其边界框内时，车辆将受到交通灯的影响。客户端根据最后一个刻度返回交通灯是否影响该车辆（它不调用仿真器）。
