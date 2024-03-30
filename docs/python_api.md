@@ -3738,413 +3738,413 @@ _</font>
 - <a name="carla.WorldSettings.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**synchronous_mode**=False</font>, <font color="#00a6ed">**no_rendering_mode**=False</font>, <font color="#00a6ed">**fixed_delta_seconds**=0.0</font>, <font color="#00a6ed">**max_culling_distance**=0.0</font>, <font color="#00a6ed">**deterministic_ragdolls**=False</font>, <font color="#00a6ed">**tile_stream_distance**=3000</font>, <font color="#00a6ed">**actor_active_distance**=2000</font>, <font color="#00a6ed">**spectator_as_ego**=True</font>)  
 创建一个包含所需设置的对象，这些设置稍后可以通过 [carla.World](#carla.World) 及其方法 __<font color="#7fb800">apply_settings()</font>__ 应用。
     - **参数:**
-        - `synchronous_mode` (_bool_) - Set this to true to enable client-server synchrony.  
-        - `no_rendering_mode` (_bool_) - Set this to true to completely disable rendering in the simulation.  
-        - `fixed_delta_seconds` (_float<small> - seconds</small>_) - Set a fixed time-step in between frames. <code>0.0</code> means variable time-step and it is the default mode.  
-        - `max_culling_distance` (_float<small> - meters</small>_) - Configure the max draw distance for each mesh of the level.  
-        - `deterministic_ragdolls` (_bool_) - Defines wether to use deterministic physics or ragdoll simulation for pedestrian deaths.  
-        - `tile_stream_distance` (_float<small> - meters</small>_) - Used for large maps only. Configures the maximum distance from the hero vehicle to stream tiled maps.  
-        - `actor_active_distance` (_float<small> - meters</small>_) - Used for large maps only. Configures the distance from the hero vehicle to convert actors to dormant.  
-        - `spectator_as_ego` (_bool_) - Used for large maps only. Defines the influence of the spectator on tile loading in Large Maps.  
+        - `synchronous_mode` (_bool_) - 启用客户端-服务器则设置为 true。  
+        - `no_rendering_mode` (_bool_) - 在仿真中完全禁用渲染则设置为 true。
+        - `fixed_delta_seconds` (_float<small> - seconds</small>_) - 在帧之间设置为固定的步长。 <code>0.0</code> 意味着变步长且为模式模式。  
+        - `max_culling_distance` (_float<small> - meters</small>_) - 对于关卡的每一个网格配置最大的绘制距离。  
+        - `deterministic_ragdolls` (_bool_) - 对于行人死亡使用确定的物理或布娃娃仿真定义wether。  
+        - `tile_stream_distance` (_float<small> - meters</small>_) - 仅用于大地图。从英雄车辆到流瓦片地图配置最大距离。 
+        - `actor_active_distance` (_float<small> - meters</small>_) - 仅用于大地图。配置与英雄车辆的距离以将参与者转换为休眠状态。
+        - `spectator_as_ego` (_bool_) - 仅用于大地图。在大型贴图中定义观众对平铺加载的影响。
 
 ##### 魔术方法
 - <a name="carla.WorldSettings.__eq__"></a>**<font color="#7fb800">\__eq__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.WorldSettings](#carla.WorldSettings)</font>)  
-Returns <b>True</b> if both objects' variables are the same.  
+如果对象的变量相同则返回 <b>True</b> 。  
     - **返回:** _bool_  
 - <a name="carla.WorldSettings.__ne__"></a>**<font color="#7fb800">\__ne__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.WorldSettings](#carla.WorldSettings)</font>)  
-Returns <b>True</b> if both objects' variables are different.  
+如果对象的变量不同则返回 <b>True</b>。  
     - **返回:** _bool_  
 - <a name="carla.WorldSettings.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
-Parses the established settings to a string and shows them in command line.  
+对于字符串解析已建立的设置并在命令行中显示出来。
     - **返回:** _str_  
 
 ---
 
 ## carla.WorldSnapshot<a name="carla.WorldSnapshot"></a>
-This snapshot comprises all the information for every actor on scene at a certain moment of time. It creates and gives acces to a data structure containing a series of [carla.ActorSnapshot](#carla.ActorSnapshot). The client recieves a new snapshot on every tick that cannot be stored.  
+快照包括某一时刻场景中每个参与者的所有信息。它创建并给出一些列包含[carla.ActorSnapshot](#carla.ActorSnapshot)的数据结构。客户端在每一个不能存储的滴答信号中获取一个新的快照。
 
 ### 实例变量
 - <a name="carla.WorldSnapshot.id"></a>**<font color="#f8805a">id</font>** (_int_)  
-A value unique for every snapshot to differentiate them.  
+为了分辨每一个快照的唯一值。  
 - <a name="carla.WorldSnapshot.frame"></a>**<font color="#f8805a">frame</font>** (_int_)  
-Simulation frame in which the snapshot was taken.  
+获取快照时的仿真时间。  
 - <a name="carla.WorldSnapshot.timestamp"></a>**<font color="#f8805a">timestamp</font>** (_[carla.Timestamp](#carla.Timestamp)<small> - seconds</small>_)  
-Precise moment in time when snapshot was taken. This class works in seconds as given by the operative system.  
+获取快照时候的精确时刻。由操作系统给出的以秒为单位的类。
 
 ### 方法
 - <a name="carla.WorldSnapshot.find"></a>**<font color="#7fb800">find</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor_id**</font>)  
-Given a certain actor ID, returns its corresponding snapshot or <b>None</b> if it is not found.  
-    - **Parameters:**
+给出某个参与者的 ID，返回对应的快照，如果没有找到则返回<b>None</b>。
+    - **参数：**
         - `actor_id` (_int_)  
     - **返回:** _[carla.ActorSnapshot](#carla.ActorSnapshot)_  
 - <a name="carla.WorldSnapshot.has_actor"></a>**<font color="#7fb800">has_actor</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor_id**</font>)  
-Given a certain actor ID, checks if there is a snapshot corresponding it and so, if the actor was present at that moment.  
-    - **Parameters:**
+给出某个参与者的 ID，如果有对应的快照则检查，如果在这个时刻参与者出现。
+    - **参数：**
         - `actor_id` (_int_)  
-    - **返回:** _bool_  
+    - **返回：** _bool_  
 
 ##### 魔术方法
 - <a name="carla.WorldSnapshot.__eq__"></a>**<font color="#7fb800">\__eq__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.WorldSnapshot](#carla.WorldSnapshot)</font>)  
-Returns __True__ if both **<font color="#f8805a">timestamp</font>** are the same.  
+如果时间戳 **<font color="#f8805a">timestamp</font>** 相同则返回 __True__ 。
     - **返回:** _bool_  
 - <a name="carla.WorldSnapshot.__iter__"></a>**<font color="#7fb800">\__iter__</font>**(<font color="#00a6ed">**self**</font>)  
-Iterate over the [carla.ActorSnapshot](#carla.ActorSnapshot) stored in the snapshot.  
+在存储的快照上进行迭代 [carla.ActorSnapshot](#carla.ActorSnapshot) 。  
 - <a name="carla.WorldSnapshot.__len__"></a>**<font color="#7fb800">\__len__</font>**(<font color="#00a6ed">**self**</font>)  
-Returns the amount of [carla.ActorSnapshot](#carla.ActorSnapshot) present in this snapshot.  
+返回在该快照上呈现的 [carla.ActorSnapshot](#carla.ActorSnapshot) 的数量。  
     - **返回:** _int_  
 - <a name="carla.WorldSnapshot.__ne__"></a>**<font color="#7fb800">\__ne__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.WorldSnapshot](#carla.WorldSnapshot)</font>)  
-Returns <b>True</b> if both **<font color="#f8805a">timestamp</font>** are different.  
+如果时间戳 **<font color="#f8805a">timestamp</font>** 都不同则返回 <b>True</b>。
     - **返回:** _bool_  
 
 ---
 
 ## command.ApplyAngularImpulse<a name="command.ApplyAngularImpulse"></a>
-Command adaptation of __<font color="#7fb800">add_angular_impulse()</font>__ in [carla.Actor](#carla.Actor). Applies an angular impulse to an actor.  
+[carla.Actor](#carla.Actor) 中 __<font color="#7fb800">add_angular_impulse()</font>__ 的命令适应。对参与者使用 angular impulse。 
 
 ### 实例变量
 - <a name="command.ApplyAngularImpulse.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_int_)  
 Actor affected by the command.  
 - <a name="command.ApplyAngularImpulse.impulse"></a>**<font color="#f8805a">impulse</font>** (_[carla.Vector3D](#carla.Vector3D)<small> - degrees*s</small>_)  
-Angular impulse applied to the actor.  
+应用到参与者上的角冲量。  
 
 ### 方法
 - <a name="command.ApplyAngularImpulse.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**impulse**</font>)  
-    - **Parameters:**
-        - `actor` (_[carla.Actor](#carla.Actor) or int_) - Actor or its ID to whom the command will be applied to.  
+    - **参数：**
+        - `actor` (_[carla.Actor](#carla.Actor) or int_) - 将要应用到的参与者或者它的 ID。
         - `impulse` (_[carla.Vector3D](#carla.Vector3D)<small> - degrees*s</small>_)  
 
 ---
 
 ## command.ApplyForce<a name="command.ApplyForce"></a>
-Command adaptation of __<font color="#7fb800">add_force()</font>__ in [carla.Actor](#carla.Actor). Applies a force to an actor.  
+[carla.Actor](#carla.Actor) 中 __<font color="#7fb800">add_force()</font>__ 的命令适应。对一个参与者施加一个力。
 
 ### 实例变量
 - <a name="command.ApplyForce.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_int_)  
-Actor affected by the command.  
+被命令影响的参与者。  
 - <a name="command.ApplyForce.force"></a>**<font color="#f8805a">force</font>** (_[carla.Vector3D](#carla.Vector3D)<small> - N</small>_)  
-Force applied to the actor over time.  
+在时间上对参与者施加力。  
 
 ### 方法
 - <a name="command.ApplyForce.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**force**</font>)  
-    - **Parameters:**
-        - `actor` (_[carla.Actor](#carla.Actor) or int_) - Actor or its ID to whom the command will be applied to.  
+    - **参数：**
+        - `actor` (_[carla.Actor](#carla.Actor) or int_) - 将要施加命令的参与者或它的 ID。
         - `force` (_[carla.Vector3D](#carla.Vector3D)<small> - N</small>_)  
 
 ---
 
 ## command.ApplyImpulse<a name="command.ApplyImpulse"></a>
-Command adaptation of __<font color="#7fb800">add_impulse()</font>__ in [carla.Actor](#carla.Actor). Applies an impulse to an actor.  
+[carla.Actor](#carla.Actor) 中 __<font color="#7fb800">add_impulse()</font>__ 的命令适应。最参与者施加的 impulse。
 
 ### 实例变量
 - <a name="command.ApplyImpulse.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_int_)  
-Actor affected by the command.  
+命令影响的参与者。  
 - <a name="command.ApplyImpulse.impulse"></a>**<font color="#f8805a">impulse</font>** (_[carla.Vector3D](#carla.Vector3D)<small> - N*s</small>_)  
-Impulse applied to the actor.  
+应用到参与者的 Impulse。  
 
 ### 方法
 - <a name="command.ApplyImpulse.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**impulse**</font>)  
-    - **Parameters:**
-        - `actor` (_[carla.Actor](#carla.Actor) or int_) - Actor or its ID to whom the command will be applied to.  
+    - **参数：**
+        - `actor` (_[carla.Actor](#carla.Actor) or int_) - 命令应用到的参与者或者它的 ID。
         - `impulse` (_[carla.Vector3D](#carla.Vector3D)<small> - N*s</small>_)  
 
 ---
 
 ## command.ApplyTargetAngularVelocity<a name="command.ApplyTargetAngularVelocity"></a>
-Command adaptation of __<font color="#7fb800">set_target_angular_velocity()</font>__ in [carla.Actor](#carla.Actor). Sets the actor's angular velocity vector.  
+[carla.Actor](#carla.Actor) 中 __<font color="#7fb800">set_target_angular_velocity()</font>__ 的命令适应。
 
 ### 实例变量
 - <a name="command.ApplyTargetAngularVelocity.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_int_)  
-Actor affected by the command.  
+被命令影响的参与者。  
 - <a name="command.ApplyTargetAngularVelocity.angular_velocity"></a>**<font color="#f8805a">angular_velocity</font>** (_[carla.Vector3D](#carla.Vector3D)<small> - deg/s</small>_)  
-The 3D angular velocity that will be applied to the actor.  
+应用到参与者的三维角速度。  
 
 ### 方法
 - <a name="command.ApplyTargetAngularVelocity.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**angular_velocity**</font>)  
-    - **Parameters:**
-        - `actor` (_[carla.Actor](#carla.Actor) or int_) - Actor or its ID to whom the command will be applied to.  
-        - `angular_velocity` (_[carla.Vector3D](#carla.Vector3D)<small> - deg/s</small>_) - Angular velocity vector applied to the actor.  
+    - **参数：**
+        - `actor` (_[carla.Actor](#carla.Actor) or int_) - 命令将要应用到的参与者或者它的ID。
+        - `angular_velocity` (_[carla.Vector3D](#carla.Vector3D)<small> - deg/s</small>_) - 应用到参与者的角速度向量。  
 
 ---
 
 ## command.ApplyTargetVelocity<a name="command.ApplyTargetVelocity"></a>
-Command adaptation of __<font color="#7fb800">set_target_velocity()</font>__ in [carla.Actor](#carla.Actor).  
+[carla.Actor](#carla.Actor) 中 __<font color="#7fb800">set_target_velocity()</font>__ 的命令适应。
 
 ### 实例变量
 - <a name="command.ApplyTargetVelocity.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_int_)  
-Actor affected by the command.  
+被命令影响的参与者。  
 - <a name="command.ApplyTargetVelocity.velocity"></a>**<font color="#f8805a">velocity</font>** (_[carla.Vector3D](#carla.Vector3D)<small> - m/s</small>_)  
-The 3D velocity applied to the actor.  
+应用到参与者三维速度。  
 
 ### 方法
 - <a name="command.ApplyTargetVelocity.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**velocity**</font>)  
-    - **Parameters:**
-        - `actor` (_[carla.Actor](#carla.Actor) or int_) - Actor or its ID to whom the command will be applied to.  
-        - `velocity` (_[carla.Vector3D](#carla.Vector3D)<small> - m/s</small>_) - Velocity vector applied to the actor.  
+    - **参数：**
+        - `actor` (_[carla.Actor](#carla.Actor) or int_) - 命令应用到的参与者或它的ID。
+        - `velocity` (_[carla.Vector3D](#carla.Vector3D)<small> - m/s</small>_) - 应用到参与者的速度向量。  
 
 ---
 
 ## command.ApplyTorque<a name="command.ApplyTorque"></a>
-Command adaptation of __<font color="#7fb800">add_torque()</font>__ in [carla.Actor](#carla.Actor). Applies a torque to an actor.  
+[carla.Actor](#carla.Actor) 中 __<font color="#7fb800">add_torque()</font>__ 的命令适应。对参与者应用 torque。
 
 ### 实例变量
 - <a name="command.ApplyTorque.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_int_)  
-Actor affected by the command.  
+命令影响的参与者。  
 - <a name="command.ApplyTorque.torque"></a>**<font color="#f8805a">torque</font>** (_[carla.Vector3D](#carla.Vector3D)<small> - degrees</small>_)  
-Torque applied to the actor over time.  
+在时间上对参与者应用力矩。  
 
 ### 方法
 - <a name="command.ApplyTorque.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**torque**</font>)  
-    - **Parameters:**
-        - `actor` (_[carla.Actor](#carla.Actor) or int_) - Actor or its ID to whom the command will be applied to.  
+    - **参数：**
+        - `actor` (_[carla.Actor](#carla.Actor) or int_) - 命令应用到的参与者和它的 ID。
         - `torque` (_[carla.Vector3D](#carla.Vector3D)<small> - degrees</small>_)  
 
 ---
 
 ## command.ApplyTransform<a name="command.ApplyTransform"></a>
-Command adaptation of __<font color="#7fb800">set_transform()</font>__ in [carla.Actor](#carla.Actor). Sets a new transform to an actor.  
+ [carla.Actor](#carla.Actor) 中 __<font color="#7fb800">set_transform()</font>__ 的命令适应。对参与者设置新的变换。
 
 ### 实例变量
 - <a name="command.ApplyTransform.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_int_)  
-Actor affected by the command.  
+命令影响的参与者。  
 - <a name="command.ApplyTransform.transform"></a>**<font color="#f8805a">transform</font>** (_[carla.Transform](#carla.Transform)_)  
-Transformation to be applied.  
+所使用的变换。  
 
 ### 方法
 - <a name="command.ApplyTransform.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**transform**</font>)  
-    - **Parameters:**
-        - `actor` (_[carla.Actor](#carla.Actor) or int_) - Actor or its ID to whom the command will be applied to.  
+    - **参数：**
+        - `actor` (_[carla.Actor](#carla.Actor) or int_) - 命令应用到的参与者或它的 ID。
         - `transform` (_[carla.Transform](#carla.Transform)_)  
 
 ---
 
 ## command.ApplyVehicleAckermannControl<a name="command.ApplyVehicleAckermannControl"></a>
-Command adaptation of __<font color="#7fb800">apply_ackermann_control()</font>__ in [carla.Vehicle](#carla.Vehicle). Applies a certain akermann control to a vehicle.  
+[carla.Vehicle](#carla.Vehicle) 中 __<font color="#7fb800">apply_ackermann_control()</font>__ 的命令适应。对车辆应用某个阿克曼控制器。
 
 ### 实例变量
 - <a name="command.ApplyVehicleAckermannControl.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_int_)  
-Vehicle actor affected by the command.  
+命令影响的车辆参与者。  
 - <a name="command.ApplyVehicleAckermannControl.control"></a>**<font color="#f8805a">control</font>** (_[carla.AckermannVehicleControl](#carla.AckermannVehicleControl)_)  
-Vehicle ackermann control to be applied.  
+应用的车辆阿克曼控制。  
 
 ### 方法
 - <a name="command.ApplyVehicleAckermannControl.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**control**</font>)  
-    - **Parameters:**
-        - `actor` (_[carla.Actor](#carla.Actor) or int_) - Actor or its ID to whom the command will be applied to.  
+    - **参数：**
+        - `actor` (_[carla.Actor](#carla.Actor) or int_) - 命令应用到的参与者或它的 ID。
         - `control` (_[carla.AckermannVehicleControl](#carla.AckermannVehicleControl)_)  
 
 ---
 
 ## command.ApplyVehicleControl<a name="command.ApplyVehicleControl"></a>
-Command adaptation of __<font color="#7fb800">apply_control()</font>__ in [carla.Vehicle](#carla.Vehicle). Applies a certain control to a vehicle.  
+in [carla.Vehicle](#carla.Vehicle) 中 __<font color="#7fb800">apply_control()</font>__ 的命令适应。对车辆应用某个控制。
 
 ### 实例变量
 - <a name="command.ApplyVehicleControl.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_int_)  
-Vehicle actor affected by the command.  
+命令影响的车辆参与者。  
 - <a name="command.ApplyVehicleControl.control"></a>**<font color="#f8805a">control</font>** (_[carla.VehicleControl](#carla.VehicleControl)_)  
-Vehicle control to be applied.  
+应用的车辆控制。  
 
 ### 方法
 - <a name="command.ApplyVehicleControl.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**control**</font>)  
-    - **Parameters:**
-        - `actor` (_[carla.Actor](#carla.Actor) or int_) - Actor or its ID to whom the command will be applied to.  
+    - **参数：**
+        - `actor` (_[carla.Actor](#carla.Actor) or int_) - 将要应用命令的参与者或它的ID。
         - `control` (_[carla.VehicleControl](#carla.VehicleControl)_)  
 
 ---
 
 ## command.ApplyVehiclePhysicsControl<a name="command.ApplyVehiclePhysicsControl"></a>
-Command adaptation of __<font color="#7fb800">apply_physics_control()</font>__ in [carla.Vehicle](#carla.Vehicle). Applies a new physics control to a vehicle, modifying its physical parameters.  
+[carla.Vehicle](#carla.Vehicle) 中 __<font color="#7fb800">apply_physics_control()</font>__ 的命令适应。对车辆应用一个新的物理控制，修改它的物理参与者。
 
 ### 实例变量
 - <a name="command.ApplyVehiclePhysicsControl.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_int_)  
-Vehicle actor affected by the command.  
+命令影响的车辆参与者。  
 - <a name="command.ApplyVehiclePhysicsControl.physics_control"></a>**<font color="#f8805a">physics_control</font>** (_[carla.VehiclePhysicsControl](#carla.VehiclePhysicsControl)_)  
-Physics control to be applied.  
+应用的物理控制。  
 
 ### 方法
 - <a name="command.ApplyVehiclePhysicsControl.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**physics_control**</font>)  
-    - **Parameters:**
-        - `actor` (_[carla.Actor](#carla.Actor) or int_) - Actor or its ID to whom the command will be applied to.  
+    - **参数：**
+        - `actor` (_[carla.Actor](#carla.Actor) or int_) - 命令应用的参与者或它的ID。
         - `physics_control` (_[carla.VehiclePhysicsControl](#carla.VehiclePhysicsControl)_)  
 
 ---
 
 ## command.ApplyWalkerControl<a name="command.ApplyWalkerControl"></a>
-Command adaptation of __<font color="#7fb800">apply_control()</font>__ in [carla.Walker](#carla.Walker). Applies a control to a walker.  
+[carla.Walker](#carla.Walker) 中 __<font color="#7fb800">apply_control()</font>__ 的命令适应。对行人应用控制。
 
 ### 实例变量
 - <a name="command.ApplyWalkerControl.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_int_)  
-Walker actor affected by the command.  
+命令影响的行人参与者。  
 - <a name="command.ApplyWalkerControl.control"></a>**<font color="#f8805a">control</font>** (_[carla.WalkerControl](#carla.WalkerControl)_)  
-Walker control to be applied.  
+应用的行人参与者。  
 
 ### 方法
 - <a name="command.ApplyWalkerControl.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**control**</font>)  
-    - **Parameters:**
-        - `actor` (_[carla.Actor](#carla.Actor) or int_) - Actor or its ID to whom the command will be applied to.  
+    - **参数：**
+        - `actor` (_[carla.Actor](#carla.Actor) or int_) - 将要应用命令的参与者或者它的ID。
         - `control` (_[carla.WalkerControl](#carla.WalkerControl)_)  
 
 ---
 
 ## command.ApplyWalkerState<a name="command.ApplyWalkerState"></a>
-Apply a state to the walker actor. Specially useful to initialize an actor them with a specific location, orientation and speed.  
+对行人参与者应用状态。对初始化参与者的位置、朝向和速度特别有用。
 
 ### 实例变量
 - <a name="command.ApplyWalkerState.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_int_)  
-Walker actor affected by the command.  
+命令影响的行人参与者。  
 - <a name="command.ApplyWalkerState.transform"></a>**<font color="#f8805a">transform</font>** (_[carla.Transform](#carla.Transform)_)  
-Transform to be applied.  
+应用的转换。  
 - <a name="command.ApplyWalkerState.speed"></a>**<font color="#f8805a">speed</font>** (_float<small> - m/s</small>_)  
-Speed to be applied.  
+应用的速度。  
 
 ### 方法
 - <a name="command.ApplyWalkerState.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**transform**</font>, <font color="#00a6ed">**speed**</font>)  
-    - **Parameters:**
-        - `actor` (_[carla.Actor](#carla.Actor) or int_) - Actor or its ID to whom the command will be applied to.  
+    - **参数：**
+        - `actor` (_[carla.Actor](#carla.Actor) or int_) - 命令引用的参与者或它的ID。
         - `transform` (_[carla.Transform](#carla.Transform)_)  
         - `speed` (_float<small> - m/s</small>_)  
 
 ---
 
 ## command.DestroyActor<a name="command.DestroyActor"></a>
-Command adaptation of __<font color="#7fb800">destroy()</font>__ in [carla.Actor](#carla.Actor) that tells the simulator to destroy this actor. It has no effect if the actor was already destroyed. When executed with __<font color="#7fb800">apply_batch_sync()</font>__ in [carla.Client](#carla.Client) there will be a <b>command.Response</b> that will return a boolean stating whether the actor was successfully destroyed.  
+[carla.Actor](#carla.Actor) 中 __<font color="#7fb800">destroy()</font>__ 的命令适应，将告诉仿真器摧毁该参与者。如果参与者已经被摧毁则没有影响。当在 [carla.Client](#carla.Client) 中执行 __<font color="#7fb800">apply_batch_sync()</font>__ 将会返回一个布尔值状态表示参与者是否被成功摧毁。
 
 ### 实例变量
 - <a name="command.DestroyActor.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_int_)  
-Actor affected by the command.  
+命令影响的参与者。  
 
 ### 方法
 - <a name="command.DestroyActor.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>)  
-    - **Parameters:**
-        - `actor` (_[carla.Actor](#carla.Actor) or int_) - Actor or its ID to whom the command will be applied to.  
+    - **参数：**
+        - `actor` (_[carla.Actor](#carla.Actor) or int_) - 命令应用的参与者或它的 ID。
 
 ---
 
 ## command.Response<a name="command.Response"></a>
-States the result of executing a command as either the ID of the actor to whom the command was applied to (when succeeded) or an error string (when failed).  actor ID, depending on whether or not the command succeeded. The method __<font color="#7fb800">apply_batch_sync()</font>__ in [carla.Client](#carla.Client) returns a list of these to summarize the execution of a batch.  
+声明命令执行的结果，不是命令应用到参与者的ID（当成功时），就是错误字符串（当失败时），参与者 ID 取决于命令是否执行成功。[carla.Client](#carla.Client) 中的方法 __<font color="#7fb800">apply_batch_sync()</font>__ 返回这些的列表来总结批量的执行。
 
 ### 实例变量
 - <a name="command.Response.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_int_)  
-Actor to whom the command was applied to. States that the command was successful.  
+命令应用到的参与者。声明该命令成功了。
 - <a name="command.Response.error"></a>**<font color="#f8805a">error</font>** (_str_)  
-A string stating the command has failed.  
+声明命令失败的字符串。  
 
 ### 方法
 - <a name="command.Response.has_error"></a>**<font color="#7fb800">has_error</font>**(<font color="#00a6ed">**self**</font>)  
-Returns <b>True</b> if the command execution fails, and <b>False</b> if it was successful.  
+如果命令执行失败则返回 <b>True</b>，如果成功则返回 <b>False</b>。
     - **返回:** _bool_  
 
 ---
 
 ## command.SetAutopilot<a name="command.SetAutopilot"></a>
-Command adaptation of __<font color="#7fb800">set_autopilot()</font>__ in [carla.Vehicle](#carla.Vehicle). Turns on/off the vehicle's autopilot mode.  
+[carla.Vehicle](#carla.Vehicle) 中 __<font color="#7fb800">set_autopilot()</font>__ 的命令适应。打开/关闭车辆的自动驾驶模式。
 
 ### 实例变量
 - <a name="command.SetAutopilot.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_int_)  
-Actor that is affected by the command.  
+命令影响的参与者。  
 - <a name="command.SetAutopilot.enabled"></a>**<font color="#f8805a">enabled</font>** (_bool_)  
-If autopilot should be activated or not.  
+自动驾驶模式将被激活或者失活。  
 - <a name="command.SetAutopilot.port"></a>**<font color="#f8805a">port</font>** (_uint16_)  
-Port of the Traffic Manager where the vehicle is to be registered or unlisted.  
+注册或unlisted车辆的交通管理器端口。
 
 ### 方法
 - <a name="command.SetAutopilot.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**enabled**</font>, <font color="#00a6ed">**port**=8000</font>)  
-    - **Parameters:**
-        - `actor` (_[carla.Actor](#carla.Actor) or int_) - Actor or its ID to whom the command will be applied to.  
+    - **参数：**
+        - `actor` (_[carla.Actor](#carla.Actor) or int_) - 应用命令的参与者或它的ID。
         - `enabled` (_bool_)  
-        - `port` (_uint16_) - The Traffic Manager port where the vehicle is to be registered or unlisted. If __None__ is passed, it will consider a TM at default port `8000`.  
+        - `port` (_uint16_) - 注册或unlisted车辆的交通管理器端口。如果传递的是 __None__ ，会考虑使用交通管理器的默认端口 `8000`。  
 
 ---
 
 ## command.SetEnableGravity<a name="command.SetEnableGravity"></a>
-Command adaptation of __<font color="#7fb800">set_enable_gravity()</font>__ in [carla.Actor](#carla.Actor). Enables or disables gravity on an actor.  
+[carla.Actor](#carla.Actor) 中 __<font color="#7fb800">set_enable_gravity()</font>__ 的命令适应。禁用或启用参与者的重力。
 
 ### 实例变量
 - <a name="command.SetEnableGravity.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_[carla.Actor](#carla.Actor) or int_)  
-Actor that is affected by the command.  
+命令影响的参与者。  
 - <a name="command.SetEnableGravity.enabled"></a>**<font color="#f8805a">enabled</font>** (_bool_)  
 
 ### 方法
 - <a name="command.SetEnableGravity.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**enabled**</font>)  
-    - **Parameters:**
-        - `actor` (_[carla.Actor](#carla.Actor) or int_) - Actor or Actor ID to which the command will be applied to.  
+    - **参数：**
+        - `actor` (_[carla.Actor](#carla.Actor) or int_) - 命令应用的参与者或参与者ID。
         - `enabled` (_bool_)  
 
 ---
 
 ## command.SetSimulatePhysics<a name="command.SetSimulatePhysics"></a>
-Command adaptation of __<font color="#7fb800">set_simulate_physics()</font>__ in [carla.Actor](#carla.Actor). Determines whether an actor will be affected by physics or not.  
+[carla.Actor](#carla.Actor) 中 __<font color="#7fb800">set_simulate_physics()</font>__ 的命令适应。确定参与者是否会被物理影响。
 
 ### 实例变量
 - <a name="command.SetSimulatePhysics.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_int_)  
-Actor affected by the command.  
+命令影响的参与者。  
 - <a name="command.SetSimulatePhysics.enabled"></a>**<font color="#f8805a">enabled</font>** (_bool_)  
-If physics should be activated or not.  
+是否激活物理。  
 
 ### 方法
 - <a name="command.SetSimulatePhysics.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**enabled**</font>)  
-    - **Parameters:**
-        - `actor` (_[carla.Actor](#carla.Actor) or int_) - Actor or its ID to whom the command will be applied to.  
+    - **参数：**
+        - `actor` (_[carla.Actor](#carla.Actor) or int_) - 命令应用到的参与者或ID。
         - `enabled` (_bool_)  
 
 ---
 
 ## command.SetVehicleLightState<a name="command.SetVehicleLightState"></a>
-Command adaptation of __<font color="#7fb800">set_light_state()</font>__ in [carla.Vehicle](#carla.Vehicle). Sets the light state of a vehicle.  
+[carla.Vehicle](#carla.Vehicle) 中 __<font color="#7fb800">set_light_state()</font>__ 的命令适应。设置车辆的交通灯。
 
 ### 实例变量
 - <a name="command.SetVehicleLightState.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_int_)  
-Actor that is affected by the command.  
+命令影响的参与者。  
 - <a name="command.SetVehicleLightState.light_state"></a>**<font color="#f8805a">light_state</font>** (_[carla.VehicleLightState](#carla.VehicleLightState)_)  
-Defines the light state of a vehicle.  
+定义车辆的交通灯。  
 
 ### 方法
 - <a name="command.SetVehicleLightState.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**light_state**</font>)  
-    - **Parameters:**
-        - `actor` (_[carla.Actor](#carla.Actor) or int_) - Actor or its ID to whom the command will be applied to.  
-        - `light_state` (_[carla.VehicleLightState](#carla.VehicleLightState)_) - Recaps the state of the lights of a vehicle, these can be used as a flags.  
+    - **参数：**
+        - `actor` (_[carla.Actor](#carla.Actor) or int_) - 命令应用到的参与者或者它的ID。
+        - `light_state` (_[carla.VehicleLightState](#carla.VehicleLightState)_) - Recaps 车辆的交通灯状态，这些能被用作一个标志。
 
 ---
 
 ## command.ShowDebugTelemetry<a name="command.ShowDebugTelemetry"></a>
-Command adaptation of __<font color="#7fb800">show_debug_telemetry()</font>__ in [carla.Actor](#carla.Actor). Displays vehicle control telemetry data.  
+[carla.Actor](#carla.Actor) 中 __<font color="#7fb800">show_debug_telemetry()</font>__ 的命令适应。显示车辆的 telemetry 数据。
 
 ### 实例变量
 - <a name="command.ShowDebugTelemetry.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_[carla.Actor](#carla.Actor) or int_)  
-Actor that is affected by the command.  
+命令影响的参与者。  
 - <a name="command.ShowDebugTelemetry.enabled"></a>**<font color="#f8805a">enabled</font>** (_bool_)  
 
 ### 方法
 - <a name="command.ShowDebugTelemetry.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**enabled**</font>)  
-    - **Parameters:**
-        - `actor` (_[carla.Actor](#carla.Actor) or int_) - Actor or Actor ID to which the command will be applied to.  
+    - **参数：**
+        - `actor` (_[carla.Actor](#carla.Actor) or int_) - 命令应用到的参与者或参与者ID。
         - `enabled` (_bool_)  
 
 ---
 
 ## command.SpawnActor<a name="command.SpawnActor"></a>
-Command adaptation of __<font color="#7fb800">spawn_actor()</font>__ in [carla.World](#carla.World). Spawns an actor into the world based on the blueprint provided and the transform. If a parent is provided, the actor is attached to it.  
+[carla.World](#carla.World) 中 __<font color="#7fb800">spawn_actor()</font>__ 的命令适应。基于提供的蓝图和变换在世界中生成参与者。如果提供了父类，该参与者将会附在上面。
 
 ### 实例变量
 - <a name="command.SpawnActor.transform"></a>**<font color="#f8805a">transform</font>** (_[carla.Transform](#carla.Transform)_)  
-Transform to be applied.  
+应用的变换。  
 - <a name="command.SpawnActor.parent_id"></a>**<font color="#f8805a">parent_id</font>** (_int_)  
-Identificator of the parent actor.  
+父参与者的标志。  
 
 ### 方法
 - <a name="command.SpawnActor.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>)  
 - <a name="command.SpawnActor.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**blueprint**</font>, <font color="#00a6ed">**transform**</font>)  
-    - **Parameters:**
+    - **参数：**
         - `blueprint` (_[carla.ActorBlueprint](#carla.ActorBlueprint)_)  
         - `transform` (_[carla.Transform](#carla.Transform)_)  
 - <a name="command.SpawnActor.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**blueprint**</font>, <font color="#00a6ed">**transform**</font>, <font color="#00a6ed">**parent**</font>)  
-    - **Parameters:**
+    - **参数：**
         - `blueprint` (_[carla.ActorBlueprint](#carla.ActorBlueprint)_)  
         - `transform` (_[carla.Transform](#carla.Transform)_)  
         - `parent` (_[carla.Actor](#carla.Actor) or int_)  
 - <a name="command.SpawnActor.then"></a>**<font color="#7fb800">then</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**command**</font>)  
-Links another command to be executed right after. It allows to ease very common flows such as spawning a set of vehicles by command and then using this method to set them to autopilot automatically.  
-    - **Parameters:**
-        - `command` (_any carla Command_) - a Carla command.  
+链接一个其他将要立刻执行的命令。它允许ease非常常见的流，比如通过命令生成一组车辆，并使用该方法设置自动驾驶。
+    - **参数：**
+        - `command` (_any carla Command_) - 一个 Carla 命令。  
 
 ---
 [comment]: <> (=========================)
@@ -4175,29 +4175,25 @@ document.getElementById("snipets-container").innerHTML = null;
   
 <div id ="carla.World.enable_environment_objects-snipet" style="display: none;">
 <p class="SnipetFont">
-Snippet for carla.World.enable_environment_objects
+carla.World.enable_environment_objects 代码片段
 </p>
 <div id="carla.World.enable_environment_objects-code" class="SnipetContent">
 
 ```py
-  
-# This recipe turn visibility off and on for two specifc buildings on the map
-
+# 该代码片段在地图上显示或隐藏特定建筑。
 # Get the buildings in the world
 world = client.get_world()
 env_objs = world.get_environment_objects(carla.CityObjectLabel.Buildings)
 
-# Access individual building IDs and save in a set
+# 访问单个建筑IDs并保存到一个集合中
 building_01 = env_objs[0]
 building_02 = env_objs[1]
 objects_to_toggle = {building_01.id, building_02.id}
 
-# Toggle buildings off
+# 隐藏建筑
 world.enable_environment_objects(objects_to_toggle, False)
-# Toggle buildings on
+# 显示建筑
 world.enable_environment_objects(objects_to_toggle, True)
-  
-
 ```
 <button id="button1" class="CopyScript" onclick="CopyToClipboard('carla.World.enable_environment_objects-code')">Copy snippet</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="button1" class="CloseSnipet" onclick="CloseSnipet()">Close snippet</button><br><br>
   
@@ -4205,22 +4201,20 @@ world.enable_environment_objects(objects_to_toggle, True)
   
 <div id ="carla.DebugHelper.draw_string-snipet" style="display: none;">
 <p class="SnipetFont">
-Snippet for carla.DebugHelper.draw_string
+carla.DebugHelper.draw_string 代码片段
 </p>
 <div id="carla.DebugHelper.draw_string-code" class="SnipetContent">
 
 ```py
-  
-
-# This recipe is a modification of lane_explorer.py example.
-# It draws the path of an actor through the world, printing information at each waypoint.
+# 该代码片段是 lane_explorer.py 示例的修改
+# 它在直接中绘制参与者的路径，打印每个路径点的信息。
 
 # ...
 current_w = map.get_waypoint(vehicle.get_location())
 while True:
 
     next_w = map.get_waypoint(vehicle.get_location(), lane_type=carla.LaneType.Driving | carla.LaneType.Shoulder | carla.LaneType.Sidewalk )
-    # Check if the vehicle is moving
+    # 检查车辆是否在移动
     if next_w.id != current_w.id:
         vector = vehicle.get_velocity()
         # Check if the vehicle is on a sidewalk
@@ -4231,12 +4225,10 @@ while True:
         debug.draw_string(current_w.transform.location, str('%15.0f km/h' % (3.6 * math.sqrt(vector.x**2 + vector.y**2 + vector.z**2))), False, orange, 60)
         draw_transform(debug, current_w.transform, white, 60)
 
-    # Update the current waypoint and sleep for some time
+    # 更新当前路径点并休眠一段时间
     current_w = next_w
     time.sleep(args.tick_time)
 # ...
-  
-
 ```
 <button id="button1" class="CopyScript" onclick="CopyToClipboard('carla.DebugHelper.draw_string-code')">Copy snippet</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="button1" class="CloseSnipet" onclick="CloseSnipet()">Close snippet</button><br><br>
   
@@ -4249,20 +4241,16 @@ Snippet for carla.World.unload_map_layer
 <div id="carla.World.unload_map_layer-code" class="SnipetContent">
 
 ```py
-  
-# This recipe toggles off several layers in our "_Opt" maps
+# 该代码片段在分层地图"_Opt"上关闭几层
 
-# Load town one with minimum layout (roads, sidewalks, traffic lights and traffic signs)
-# as well as buildings and parked vehicles
+# 以最小布局（道路、人行道、交通灯和交通标志）加载城镇，还包括建筑和停靠的车辆
 world = client.load_world('Town01_Opt', carla.MapLayer.Buildings | carla.MapLayer.ParkedVehicles) 
 
-# Toggle all buildings off
+# 隐藏建筑
 world.unload_map_layer(carla.MapLayer.Buildings)
 
-# Toggle all parked vehicles off
+# 隐藏停靠的车辆
 world.unload_map_layer(carla.MapLayer.ParkedVehicles)
-  
-
 ```
 <button id="button1" class="CopyScript" onclick="CopyToClipboard('carla.World.unload_map_layer-code')">Copy snippet</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="button1" class="CloseSnipet" onclick="CloseSnipet()">Close snippet</button><br><br>
   
@@ -4275,13 +4263,9 @@ Snippet for carla.Vehicle.set_wheel_steer_direction
 <div id="carla.Vehicle.set_wheel_steer_direction-code" class="SnipetContent">
 
 ```py
-  
-# Sets the appearance of the vehicles front wheels to 40°. Vehicle physics will not be affected.
-
+# 设置前轮转40°车辆的外观。不会影响车辆的物理。
 vehicle.set_wheel_steer_direction(carla.VehicleWheelLocation.FR_Wheel, 40.0)
 vehicle.set_wheel_steer_direction(carla.VehicleWheelLocation.FL_Wheel, 40.0)
-  
-
 ```
 <button id="button1" class="CopyScript" onclick="CopyToClipboard('carla.Vehicle.set_wheel_steer_direction-code')">Copy snippet</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="button1" class="CloseSnipet" onclick="CloseSnipet()">Close snippet</button><br><br>
   
@@ -4294,10 +4278,7 @@ Snippet for carla.Client.__init__
 <div id="carla.Client.__init__-code" class="SnipetContent">
 
 ```py
-  
-
-# This recipe shows in every script provided in PythonAPI/Examples 
-# and it is used to parse the client creation arguments when running the script. 
+# 该代码片段在 PythonAPI/Examples 中的每个脚本中都有，运行脚本时候用于解析客户端创建参数。
 
     argparser = argparse.ArgumentParser(
         description=__doc__)
@@ -4324,9 +4305,6 @@ Snippet for carla.Client.__init__
     update_freq = 0.1 / speed_factor
 
     client = carla.Client(args.host, args.port)
-
-  
-
 ```
 <button id="button1" class="CopyScript" onclick="CopyToClipboard('carla.Client.__init__-code')">Copy snippet</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="button1" class="CloseSnipet" onclick="CloseSnipet()">Close snippet</button><br><br>
   
@@ -4334,15 +4312,13 @@ Snippet for carla.Client.__init__
   
 <div id ="carla.Map.get_waypoint-snipet" style="display: none;">
 <p class="SnipetFont">
-Snippet for carla.Map.get_waypoint
+carla.Map.get_waypoint 代码片段
 </p>
 <div id="carla.Map.get_waypoint-code" class="SnipetContent">
 
 ```py
-  
-
-# This recipe shows the current traffic rules affecting the vehicle. 
-# Shows the current lane type and if a lane change can be done in the actual lane or the surrounding ones.
+# 该代码片段显示当前交通规则影响的车辆。
+# 显示当前车辆类型，在实际的车道或周围的物体中车道线是否改变。
 
 # ...
 waypoint = world.get_map().get_waypoint(vehicle.get_location(),project_to_road=True, lane_type=(carla.LaneType.Driving | carla.LaneType.Shoulder | carla.LaneType.Sidewalk))
@@ -4355,7 +4331,6 @@ print("L lane marking change: " + str(waypoint.left_lane_marking.lane_change))
 print("R lane marking type: " + str(waypoint.right_lane_marking.type))
 print("R lane marking change: " + str(waypoint.right_lane_marking.lane_change))
 # ...
-  
 
 ```
 <button id="button1" class="CopyScript" onclick="CopyToClipboard('carla.Map.get_waypoint-code')">Copy snippet</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="button1" class="CloseSnipet" onclick="CloseSnipet()">Close snippet</button><br><br>
@@ -4372,18 +4347,15 @@ Snippet for carla.World.spawn_actor
 <div id="carla.World.spawn_actor-code" class="SnipetContent">
 
 ```py
-  
-
-# This recipe attaches different camera / sensors to a vehicle with different attachments.
+# 该代码片段使用不同的附着将不同的相机或传感器附着到车辆中。
 
 # ...
 camera = world.spawn_actor(rgb_camera_bp, transform, attach_to=vehicle, attachment_type=Attachment.Rigid)
-# Default attachment:  Attachment.Rigid
+# 默认附着：Attachment.Rigid
 gnss_sensor = world.spawn_actor(sensor_gnss_bp, transform, attach_to=vehicle)
 collision_sensor = world.spawn_actor(sensor_collision_bp, transform, attach_to=vehicle)
 lane_invasion_sensor = world.spawn_actor(sensor_lane_invasion_bp, transform, attach_to=vehicle)
 # ...
-  
 
 ```
 <button id="button1" class="CopyScript" onclick="CopyToClipboard('carla.World.spawn_actor-code')">Copy snippet</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="button1" class="CloseSnipet" onclick="CloseSnipet()">Close snippet</button><br><br>
@@ -4392,14 +4364,12 @@ lane_invasion_sensor = world.spawn_actor(sensor_lane_invasion_bp, transform, att
   
 <div id ="carla.WalkerAIController.stop-snipet" style="display: none;">
 <p class="SnipetFont">
-Snippet for carla.WalkerAIController.stop
+carla.WalkerAIController.stop 代码片段
 </p>
 <div id="carla.WalkerAIController.stop-code" class="SnipetContent">
 
 ```py
-  
-
-#To destroy the pedestrians, stop them from the navigation, and then destroy the objects (actor and controller).
+# To destroy the pedestrians, stop them from the navigation, and then destroy the objects (actor and controller).
 
 # stop pedestrians (list is [controller, actor, controller, actor ...])
 for i in range(0, len(all_id), 2):
