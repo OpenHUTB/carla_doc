@@ -102,7 +102,7 @@ python scenario_runner.py --openscenario <path/to/xosc-file> --openscenarioparam
 ```
 python scenario_runner.py --route <path/to/route-file> <path/to/scenario_sample_file> [route id] --agent <path/to/agent_file>
 ```
-Example:
+实例:
 ```
 python scenario_runner.py --route D:/work/workspace/carla_doc/src/scenario_runner/srunner/data/routes_town10.xml  --agent srunner/autoagents/npc_agent.py
 ```

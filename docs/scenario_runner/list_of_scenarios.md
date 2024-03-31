@@ -1,78 +1,42 @@
-# List of Supported Scenarios
+# 支持场景列表
 
-Welcome to the ScenarioRunner for CARLA! This document provides a list of all
-currently supported scenarios, and a short description for each one.
+欢迎来到 CARLA 的 ScenarioRunner！本文档提供了当前支持的所有场景的列表，以及每个场景的简短描述。
 
 ### FollowLeadingVehicle
-The scenario realizes a common driving behavior, in which the user-controlled
-ego vehicle follows a leading car driving down a given road in Town01. At some
-point the leading car slows down and finally stops. The ego vehicle has to react
-accordingly to avoid a collision. The scenario ends either via a timeout, or if
-the ego vehicle stopped close enough to the leading vehicle
+该场景实现了一种常见的驾驶行为，其中用户控制的自我车辆跟随在 Town01 的给定道路上行驶的领先车辆。在某个时刻，领先的汽车减速并最终停了下来。自我车辆必须做出相应反应以避免碰撞。该场景会因超时而结束，或者如果自我车辆停在距离领先车辆足够近的位置。
 
 ### FollowLeadingVehicleWithObstacle
-This scenario is very similar to 'FollowLeadingVehicle'. The only difference is,
-that in front of the leading vehicle is a (hidden) obstacle that blocks the way.
+此场景与“FollowLeadingVehicle”非常相似。唯一的区别是，领先车辆前面有一个（隐藏的）障碍物挡住了道路。
 
 ### VehicleTurningRight
-In this scenario the ego vehicle takes a right turn from an intersection where
-a cyclist suddenly drives into the way of the ego vehicle,which has to stop
-accordingly. After some time, the cyclist clears the road, such that ego vehicle
-can continue driving.
+在这种情况下，自我车辆从十字路口右转，其中骑自行车的人突然驶入自我车辆的道路，自我车辆必须相应地停下来。一段时间后，骑车人清理道路，以便本车可以继续行驶。
 
 ### VehicleTurningLeft
-This scenario is similar to 'VehicleTurningRight'. The difference is that the ego
-vehicle takes a left turn from an intersection.
+此场景类似于“VehicleTurningRight”。不同之处在于，自我车辆从十字路口左转。
 
 ### OppositeVehicleRunningRedLight
-In this scenario an illegal behavior at an intersection is tested. An other
-vehicle waits at an intersection, but illegally runs a red traffic light. The
-approaching ego vehicle has to handle this situation correctly, i.e. despite of
-a green traffic light, it has to stop and wait until the intersection is clear
-again. Afterwards, it should continue driving.
+在这种情况下，测试了十字路口的非法行为。另一辆车在十字路口等待，但违规闯红灯。接近的自我车辆必须正确处理这种情况，即尽管有绿色交通灯，但它必须停下来等待，直到十字路口再次畅通无阻。之后，它应该继续行驶。
 
 ### StationaryObjectCrossing
-In this scenario a cyclist is stationary waiting in the middle of the road and
-blocking the way for the ego vehicle. Hence, the ego vehicle has to stop in
-front of the cyclist.
+在这种情况下，骑自行车的人静止在路中间等待，挡住了本车的道路。因此，自我车辆必须停在骑车人的前面。
 
 ### DynamicObjectCrossing
-This is similar to 'StationaryObjectCrossing', but with the difference that the
-cyclist is dynamic. It suddenly drives into the way of the ego vehicle, which
-has to stop accordingly. After some time, the cyclist will clear the road, such
-that the ego vehicle can continue driving.
+这与“StationaryObjectCrossing”类似，但不同之处在于骑自行车的人是动态的。它突然撞到了自我车辆的路线，自我车辆必须相应地停下来。一段时间后，骑车人将清理道路，以便自我车辆可以继续行驶。
 
 ### NoSignalJunctionCrossing
-This scenario tests negotiation between two vehicles crossing cross each other
-through a junction without signal.
-The ego vehicle is passing through a junction without traffic lights
-And encounters another vehicle passing across the junction. The ego vehicle has
-to avoid collision and navigate across the junction to succeed.
+此场景测试两辆车辆在没有信号的路口交叉的情况下进行协商。自我车辆正在穿过没有红绿灯的路口并遇到另一辆穿过路口的车辆。自我车辆必须避免碰撞并穿过路口才能成功。
 
 ### ControlLoss
-In this scenario control loss of a vehicle is tested due to bad road conditions, etc
-and it checks whether the vehicle is regained its control and corrected its course.
+在这种情况下，测试由于路况恶劣等原因导致车辆失控，并检查车辆是否重新获得控制并纠正其路线。 
 
 ### ManeuverOppositeDirection
-In this scenario vehicle is passing another vehicle in a rural area, in daylight, under clear
-weather conditions, at a non-junction and encroaches into another
-vehicle traveling in the opposite direction.
+在这种情况下，车辆在白天、天气晴朗的情况下，在农村地区的非路口超越另一辆车辆，并侵入另一辆向相反方向行驶的车辆。 
 
 ### OtherLeadingVehicle
-The scenario realizes a common driving behavior, in which the user-controlled ego
-vehicle follows a leading car driving down a given road.
-At some point the leading car has to decelerate. The ego vehicle has to react
-accordingly by changing lane to avoid a collision and follow the leading car in
-other lane. The scenario ends via timeout, or if the ego vehicle drives certain
-distance.
+该场景实现了一种常见的驾驶行为，其中用户控制的自我车辆跟随在给定道路上行驶的领先车辆。在某个时刻，领先的汽车必须减速。本车必须做出相应反应，改变车道以避免碰撞，并跟随另一车道的领先车辆。该场景会因超时或自我车辆行驶一定距离而结束。
 
 ### SignalizedJunctionRightTurn
-In this scenario right turn of hero actor without collision at signalized intersection
-is tested. Hero Vehicle is turning right in an urban area, at a signalized intersection and
-turns into the same direction of another vehicle crossing straight initially from
-a lateral direction.
+在这个场景中，测试了英雄演员在信号交叉口没有碰撞的情况下的右转。英雄车辆在市区的信号交叉路口右转，并与另一辆最初从横向直行的车辆同向转弯。 
 
 ### SignalizedJunctionLeftTurn
-In this scenario hero vehicle is turning left in an urban area,
-at a signalized intersection and cuts across the path of another vehicle
-coming straight crossing from an opposite direction.
+在这种情况下，英雄车辆在市区的信号交叉路口左转，并横穿了另一辆从相反方向直驶而来的车辆的路径。

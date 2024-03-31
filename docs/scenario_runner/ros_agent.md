@@ -1,22 +1,21 @@
-# ROS-based Challenge Agent
+# 基于ROS的挑战代理
 
-Interfacing CARLA from ROS is normally done via [CARLA ROS Bridge](https://github.com/carla-simulator/ros-bridge).
-In Challenge Mode this bridging functionality is provided by a RosAgent. It uses the same topics and message-types for the sensors but does not publish tf-transformations.
+与 ROS 的 CARLA 接口通常通过 [CARLA ROS Bridge](https://github.com/carla-simulator/ros-bridge) 完成。在挑战模式下，此桥接功能由 RosAgent 提供。它对传感器使用相同的主题和消息类型，但不发布 tf 转换。
  
-# Requirements
+# 要求
 
-* `roscore` is expected to be running in the docker container. Please adapt your entrypoint.
+* `roscore` 预计将在 docker 容器中运行。请调整您的入口点。
 
-## Setup
+## 设置
 
-To enable your stack within challenge mode, the following steps need to be taken:
+要在挑战模式下启用堆栈，需要执行以下步骤：
 
-1. Define Sensor Setup
-2. Define Startup
+1. 定义传感器设置
+2. 定义启动
 
-### Define Sensor Setup
+### 定义传感器设置
 
-Derive from RosAgent and implement the sensors() method.
+派生自RosAgent并实现sensors()方法。
 
     from srunner.autoagents.ros_agent import RosAgent
 
@@ -25,24 +24,22 @@ Derive from RosAgent and implement the sensors() method.
         def sensors(self):
             return [ <sensor-definition> ]
 
-As an example for the sensor definition, see [HumanAgent.py](../srunner/autoagents/human_agent.py).
+作为传感器定义的示例，请参阅 [HumanAgent.py](../srunner/autoagents/human_agent.py)。 
 
 
-### Define Startup
+### 定义启动
 
-The startup of the stack is done within the shell script `$TEAM_CODE_ROOT/start.sh`.
-Therefore the environment variable `TEAM_CODE_ROOT` must be set.
+堆栈的启动是在 shell 脚本 `$TEAM_CODE_ROOT/start.sh` 内完成的。因此 `TEAM_CODE_ROOT` 必须设置环境变量。
 
-RosAgent takes care of executing and monitoring. The script shall remain running as long as the stack is active.
+RosAgent 负责执行和监控。只要堆栈处于活动状态，脚本就应保持运行。
 
-Example for start.sh
+start.sh 的示例
 
     #!/bin/bash -e
     roslaunch $TEAM_CODE_ROOT/challenge.launch
 
 
-## Testing
+## 测试
 
-In general, the challenge execution is headless. For diagnosis you're still able to use ros-tools like rviz or rqt. Additionally you
-can use [carla_manual_control](https://github.com/carla-simulator/ros-bridge/tree/master/carla_manual_control) from the carla_ros_bridge for visualization (and also controlling the vehicle).
+一般来说，挑战执行是无头的。为了进行诊断，您仍然可以使用 rviz 或 rqt 等 ros 工具。此外，您可以使用carla_ros_bridge 中的 [carla_manual_control](https://github.com/carla-simulator/ros-bridge/tree/master/carla_manual_control) 进行可视化（并控制车辆）。
 
