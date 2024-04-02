@@ -715,13 +715,45 @@ Y 像素坐标。
         - `color` (_[carla.Color](#carla.Color)_) - 用于为对象着色的 RGB 代码。默认为红色。
         - `life_time` (_float<small> - seconds</small>_) - 形状的生命周期。默认情况下它只持续一帧。将其设置<code>0</code>为永久形状。 
 - <a name="carla.DebugHelper.draw_box"></a>**<font color="#7fb800">draw_box</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**box**</font>, <font color="#00a6ed">**rotation**</font>, <font color="#00a6ed">**thickness**=0.1</font>, <font color="#00a6ed">**color**=(255,0,0)</font>, <font color="#00a6ed">**life_time**=-1.0</font>)<button class="SnipetButton" id="carla.DebugHelper.draw_box-snipet_button">snippet &rarr;</button>  
-Draws a box, ussually to act for object colliders.  
-    - **Parameters:**
+绘制一个框，通常用于对象碰撞器。  
+    - **参数：**
         - `box` (_[carla.BoundingBox](#carla.BoundingBox)_) - 包含每个轴的位置和框长度的对象。
         - `rotation` (_[carla.Rotation](#carla.Rotation)<small> - 度 (pitch,yaw,roll)</small>_) - 根据虚幻引擎轴系的边界框方向。
         - `thickness` (_float<small> - meters</small>_) - 定义边界框的线的密度。
         - `color` (_[carla.Color](#carla.Color)_) - 用于为对象着色的 RGB 代码。默认为红色。
-        - `life_time` (_float<small> - seconds</small>_) - 形状的生命周期。默认情况下它只持续一帧。将其设置<code>0</code>为永久形状。
+        - `life_time` (_float<small> - 秒</small>_) - 形状的生命周期。默认情况下它只持续一帧。将其设置<code>0</code>为永久形状。
+- <a name="carla.DebugHelper.draw_hud_arrow"></a>**<font color="#7fb800">draw_hud_arrow</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**begin**</font>, <font color="#00a6ed">**end**</font>, <font color="#00a6ed">**thickness**=0.1</font>, <font color="#00a6ed">**arrow_size**=0.1</font>, <font color="#00a6ed">**color**=(255,0,0)</font>, <font color="#00a6ed">**life_time**=-1.0</font>)  
+在HUD上从头`begin`到尾`end`画一个箭头，这个箭头只能在服务器端看到。
+    - **参数：**
+        - `begin` (_[carla.Location](#carla.Location)<small> - meters</small>_) - 坐标系统中箭头起始的点。
+        - `end` (_[carla.Location](#carla.Location)<small> - meters</small>_) - 坐标系统中箭头结束并指向的点。  
+        - `thickness` (_float<small> - meters</small>_) - 线的密度。  
+        - `arrow_size` (_float<small> - meters</small>_) - 箭尖的大小。
+        - `color` (_[carla.Color](#carla.Color)_) - RGB编码为对象上色。默认为红色。  
+        - `life_time` (_float<small> - seconds</small>_) - 形状的生命周期。默认情况下，它只持续一帧。对于永久形状，将其设置为<code>0</code>。  
+- <a name="carla.DebugHelper.draw_hud_box"></a>**<font color="#7fb800">draw_hud_box</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**box**</font>, <font color="#00a6ed">**rotation**</font>, <font color="#00a6ed">**thickness**=0.1</font>, <font color="#00a6ed">**color**=(255,0,0)</font>, <font color="#00a6ed">**life_time**=-1.0</font>)  
+在 HUD 上绘制一个框，通常用于对象碰撞器。该框只能在服务器端看到。
+    - **Parameters:**
+        - `box` (_[carla.BoundingBox](#carla.BoundingBox)_) - 包含每个轴的框的位置和长度的对象。 
+        - `rotation` (_[carla.Rotation](#carla.Rotation)<small> - degrees (pitch,yaw,roll)</small>_) - 根据虚幻引擎的轴系统确定边界框的方向。  
+        - `thickness` (_float<small> - meters</small>_) - 定义边界框线的密度。 
+        - `color` (_[carla.Color](#carla.Color)_) - RGB 编码为对象上色。默认为红色。
+        - `life_time` (_float<small> - seconds</small>_) - 形状的生命周期。默认情况下，它只持续一帧。对于永久形状，将其设置为 <code>0</code>。 
+- <a name="carla.DebugHelper.draw_hud_line"></a>**<font color="#7fb800">draw_hud_line</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**begin**</font>, <font color="#00a6ed">**end**</font>, <font color="#00a6ed">**thickness**=0.1</font>, <font color="#00a6ed">**color**=(255,0,0)</font>, <font color="#00a6ed">**life_time**=-1.0</font>)  
+在HUD上开始`begin`和结束`end`之间画一条线。这条线只能在服务器端看到。
+    - **参数：**
+        - `begin` (_[carla.Location](#carla.Location)<small> - meters</small>_) - 坐标系统中直线开始的点。
+        - `end` (_[carla.Location](#carla.Location)<small> - meters</small>_) - 坐标系统中直线结束的点。
+        - `thickness` (_float<small> - 米</small>_) - 线的密度。
+        - `color` (_[carla.Color](#carla.Color)_) - RGB 编码为对象上色。默认为红色。
+        - `life_time` (_float<small> - 秒</small>_) - 形状的生命周期。默认情况下，它只持续一帧。对于永久形状，将其设置为<code>0</code>。
+- <a name="carla.DebugHelper.draw_hud_point"></a>**<font color="#7fb800">draw_hud_point</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**location**</font>, <font color="#00a6ed">**size**=0.1</font>, <font color="#00a6ed">**color**=(255,0,0)</font>, <font color="#00a6ed">**life_time**=-1.0</font>)  
+在 HUD 的位置`location`上绘制一个点。这个点只能在服务器端看到。 
+    - **参数：**
+        - `location` (_[carla.Location](#carla.Location)<small> - meters</small>_) - 点在坐标系中使物体居中。
+        - `size` (_float<small> - meters</small>_) - 点的密度。
+        - `color` (_[carla.Color](#carla.Color)_) - RGB 编码为对象上色。默认为红色。
+        - `life_time` (_float<small> - seconds</small>_) - 形状的生命周期。默认情况下，它只持续一帧。对于永久形状，将其设置为<code>0</code>。 
 - <a name="carla.DebugHelper.draw_line"></a>**<font color="#7fb800">draw_line</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**begin**</font>, <font color="#00a6ed">**end**</font>, <font color="#00a6ed">**thickness**=0.1</font>, <font color="#00a6ed">**color**=(255,0,0)</font>, <font color="#00a6ed">**life_time**=-1.0</font>)  
 在开始`begin` 和结束 `end`之间绘制一条线。  
     - **参数：**
@@ -729,7 +761,7 @@ Draws a box, ussually to act for object colliders.
         - `end` (_[carla.Location](#carla.Location)<small> - meters</small>_) - 坐标系中直线终点。 
         - `thickness` (_float<small> - 米</small>_) - 线的密度。  
         - `color` (_[carla.Color](#carla.Color)_) - 用于为对象着色的 RGB 代码。默认为红色。
-        - `life_time` (_float<small> - seconds</small>_) - 形状的生命周期。默认情况下它只持续一帧。将其设置<code>0</code>为永久形状。
+        - `life_time` (_float<small> - 秒</small>_) - 形状的生命周期。默认情况下它只持续一帧。将其设置<code>0</code>为永久形状。
 - <a name="carla.DebugHelper.draw_point"></a>**<font color="#7fb800">draw_point</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**location**</font>, <font color="#00a6ed">**size**=0.1</font>, <font color="#00a6ed">**color**=(255,0,0)</font>, <font color="#00a6ed">**life_time**=-1.0</font>)  
 绘制一个点 `location`。
     - **参数：**

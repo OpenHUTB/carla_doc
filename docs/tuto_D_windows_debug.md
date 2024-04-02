@@ -12,7 +12,7 @@
 ![](img/tuto_D_windows_debug/debug_project.png)
 
 
-## VS2019 打开 Cmake 工程
+## VS2019 打开 CarlaUE4 的 Cmake 工程
 windows操作系统下通过vs2019打开并编译carla：
 
 1. 开Carla的CMake项目：
