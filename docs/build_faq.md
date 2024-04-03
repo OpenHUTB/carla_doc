@@ -50,7 +50,7 @@ Carla 论坛</a>
 * [ImportError: DLL load failed: The specified module could not be found.](#importerror-dll-load-failed-the-specified-module-could-not-be-found)
 * [ImportError: DLL load failed while importing libcarla: %1 is not a valid Win32 app.](#importerror-dll-load-failed-while-importing-libcarla-1-is-not-a-valid-win32-app)
 * [ImportError: No module named 'carla'](#importerror-no-module-named-carla)
-
+* [RuntimeError: rpc::rpc_error during call in function apply_batch](#rpc_error)
 ---
 
 ## 其他
@@ -401,6 +401,10 @@ carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Vehicle/CustomTerrainPhysicsCom
 >       python3 -c 'import carla;print("Success")'
 
 > 请注意，虚拟环境或 Conda 等其他 Python 环境可能会使 Carla 的安装变得复杂。确保您已相应地设置 Python 默认值和路径。
+
+
+###### RuntimeError: rpc::rpc_error during call in function apply_batch
+> PythonAPI的版本要和Carla服务的版本一致，比如dev分支的代码编译得到的虚幻编辑器运行的场景也要用dev分支代码编译的PythonAPI进行连接。
 
 ---
 

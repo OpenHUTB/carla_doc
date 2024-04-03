@@ -267,5 +267,7 @@ Carla 论坛</a>
 
 [__Blender 手册__](https://docs.blender.org/manual/zh-hans/latest/) - 三维建模软件。
 
+[__文件说明__](file_specification.md) - 说明源代码中各个文件的作用。
+
 [__待做列表__](todo.md) - 待完成的功能。
 

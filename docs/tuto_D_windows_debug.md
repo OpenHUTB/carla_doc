@@ -15,7 +15,7 @@
 ## VS2019 打开 CarlaUE4 的 Cmake 工程
 windows操作系统下通过vs2019打开并编译carla：
 
-1. 开Carla的CMake项目：
+1. 开Carla的CMake项目（参考[CMake 入门教程](https://www.jb51.net/article/180463.htm) ）：
 
 从 VS 的菜单中选择 `File-->Open-->CMake`, 在对话框中找到 Carla 所在的本地文件夹（包含CMakeLists），选择CMakeLists.txt文件，打开，Visual studio 会自动加载此仓库，解析 `CMakeLists.txt` 文件，并提取其配置和变量信息。解析完成（需要等会儿或者重启）会从`解决方案资源管理器`中看到`.cpp`文件。
 

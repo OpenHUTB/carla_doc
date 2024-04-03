@@ -76,7 +76,7 @@ Carla 将参与者定义为在仿真中发挥作用或可以移动的任何物�
 - <a name="carla.Actor.add_torque"></a>**<font color="#7fb800">add_torque</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**torque**</font>)  
 在参与者的质心处应用扭矩。此方法适用于在一定时间内施加的扭矩。使用 __<font color="#7fb800">add_angular_impulse()</font>__ 施加仅持续瞬间的扭矩。  
     - **参数:**
-        - `torque` (_[carla.Vector3D](#carla.Vector3D)<small> - degrees</small>_) - 全局坐标中的扭矩矢量。  
+        - `torque` (_[carla.Vector3D](#carla.Vector3D)<small> - 度</small>_) - 全局坐标中的扭矩矢量。  
 - <a name="carla.Actor.destroy"></a>**<font color="#7fb800">destroy</font>**(<font color="#00a6ed">**self**</font>)  
 告诉仿真器销毁这个参与者，如果成功则 <b>True</b> 。如果已经被破坏则没有任何效果。
     - **返回:** _bool_  
@@ -102,7 +102,7 @@ _</font>
     - **返回：** _[carla.Vector3D](#carla.Vector3D)<small> - deg/s</small>_  
 - <a name="carla.Actor.get_location"></a>**<font color="#7fb800">get_location</font>**(<font color="#00a6ed">**self**</font>)  
 返回客户端在上一次tick期间接收到的参与者的位置。该方法不调用仿真器。  
-    - **返回：** _[carla.Location](#carla.Location)<small> - meters</small>_  
+    - **返回：** _[carla.Location](#carla.Location)<small> - 米</small>_  
     - **设置器:** _[carla.Actor.set_location](#carla.Actor.set_location)_  
 - <a name="carla.Actor.get_transform"></a>**<font color="#7fb800">get_transform</font>**(<font color="#00a6ed">**self**</font>)  
 返回客户端在最后一个tick期间接收到的参与者的变换（位置和旋转）。该方法不调用仿真器。  
@@ -123,7 +123,7 @@ _</font>
 - <a name="carla.Actor.set_location"></a>**<font color="#7fb800">set_location</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**location**</font>)  
 将角色传送到给定位置。  
     - **参数：**
-        - `location` (_[carla.Location](#carla.Location)<small> - meters</small>_)  
+        - `location` (_[carla.Location](#carla.Location)<small> - 米</small>_)  
     - **获取器：** _[carla.Actor.get_location](#carla.Actor.get_location)_  
 - <a name="carla.Actor.set_simulate_physics"></a>**<font color="#7fb800">set_simulate_physics</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**enabled**=True</font>)  
 启用或禁用此参与者上的物理仿真。  
@@ -377,9 +377,9 @@ Carla 为 Actor 提供了一个蓝图库，可以通过 [carla.BlueprintLibrary]
 
 
 ### 实例变量
-- <a name="carla.BoundingBox.extent"></a>**<font color="#f8805a">extent</font>** (_[carla.Vector3D](#carla.Vector3D)<small> - meters</small>_)  
+- <a name="carla.BoundingBox.extent"></a>**<font color="#f8805a">extent</font>** (_[carla.Vector3D](#carla.Vector3D)<small> - 米</small>_)  
 从长方体中心到一个顶点的矢量。每个轴中的值等于该轴框大小的一半。`extent.x * 2` 将返回框在x轴上的大小。 
-- <a name="carla.BoundingBox.location"></a>**<font color="#f8805a">location</font>** (_[carla.Location](#carla.Location)<small> - meters</small>_)  
+- <a name="carla.BoundingBox.location"></a>**<font color="#f8805a">location</font>** (_[carla.Location](#carla.Location)<small> - 米</small>_)  
 边界框的中心。  
 - <a name="carla.BoundingBox.rotation"></a>**<font color="#f8805a">rotation</font>** (_[carla.Rotation](#carla.Rotation)_)  
 边界框的朝向。 
@@ -388,11 +388,11 @@ Carla 为 Actor 提供了一个蓝图库，可以通过 [carla.BlueprintLibrary]
 - <a name="carla.BoundingBox.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**location**</font>, <font color="#00a6ed">**extent**</font>)  
     - **参数：**
         - `location` (_[carla.Location](#carla.Location)_) - 相对于其父框的中心。 
-        - `extent` (_[carla.Vector3D](#carla.Vector3D)<small> - meters</small>_) - 包含每个轴的长方体大小的一半的矢量。 
+        - `extent` (_[carla.Vector3D](#carla.Vector3D)<small> - 米</small>_) - 包含每个轴的长方体大小的一半的矢量。 
 - <a name="carla.BoundingBox.contains"></a>**<font color="#7fb800">contains</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**world_point**</font>, <font color="#00a6ed">**transform**</font>)  
 如果在世界空间中传递的点在此边界框内，则返回**True**。
     - **Parameters:**
-        - `world_point` (_[carla.Location](#carla.Location)<small> - meters</small>_) - 要检查的世界空间中的点。 
+        - `world_point` (_[carla.Location](#carla.Location)<small> - 米</small>_) - 要检查的世界空间中的点。 
         - `transform` (_[carla.Transform](#carla.Transform)_) - 包含将此对象的局部空间转换为世界空间所需的位置和旋转。 
     - **返回：** _bool_  
 
@@ -588,7 +588,7 @@ _</font>
 ---
 
 ## carla.CollisionEvent<a name="carla.CollisionEvent"></a>
-<small style="display:block;margin-top:-20px;">Inherited from _[carla.SensorData](#carla.SensorData)_</small></br>
+<small style="display:block;margin-top:-20px;">从 _[carla.SensorData](#carla.SensorData)_ 继承</small></br>
 为<b>sensor.other.collision</b>定义碰撞数据的类。传感器为检测到的每个碰撞创建一个碰撞数据。每个碰撞传感器每帧每个碰撞产生一个碰撞事件。通过与多个其他参与者的碰撞，可以在单个帧中产生多个碰撞事件。点击 [此处](ref_sensors.md#collision-detector) 了解更多信息。  
 
 ### 实例变量
@@ -708,10 +708,10 @@ Y 像素坐标。
 - <a name="carla.DebugHelper.draw_arrow"></a>**<font color="#7fb800">draw_arrow</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**begin**</font>, <font color="#00a6ed">**end**</font>, <font color="#00a6ed">**thickness**=0.1</font>, <font color="#00a6ed">**arrow_size**=0.1</font>, <font color="#00a6ed">**color**=(255,0,0)</font>, <font color="#00a6ed">**life_time**=-1.0</font>)  
 从开始`begin`到结束`end`绘制一个指向该方向的箭头。 
     - **参数：**
-        - `begin` (_[carla.Location](#carla.Location)<small> - meters</small>_) - 坐标系中箭头开始的点。
-        - `end` (_[carla.Location](#carla.Location)<small> - meters</small>_) -  坐标系中箭头结束并指向的点。
-        - `thickness` (_float<small> - meters</small>_) - 线的密度。  
-        - `arrow_size` (_float<small> - meters</small>_) - 箭头尖端的大小。
+        - `begin` (_[carla.Location](#carla.Location)<small> - 米</small>_) - 坐标系中箭头开始的点。
+        - `end` (_[carla.Location](#carla.Location)<small> - 米</small>_) -  坐标系中箭头结束并指向的点。
+        - `thickness` (_float<small> - 米</small>_) - 线的密度。  
+        - `arrow_size` (_float<small> - 米</small>_) - 箭头尖端的大小。
         - `color` (_[carla.Color](#carla.Color)_) - 用于为对象着色的 RGB 代码。默认为红色。
         - `life_time` (_float<small> - seconds</small>_) - 形状的生命周期。默认情况下它只持续一帧。将其设置<code>0</code>为永久形状。 
 - <a name="carla.DebugHelper.draw_box"></a>**<font color="#7fb800">draw_box</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**box**</font>, <font color="#00a6ed">**rotation**</font>, <font color="#00a6ed">**thickness**=0.1</font>, <font color="#00a6ed">**color**=(255,0,0)</font>, <font color="#00a6ed">**life_time**=-1.0</font>)<button class="SnipetButton" id="carla.DebugHelper.draw_box-snipet_button">snippet &rarr;</button>  
@@ -719,16 +719,16 @@ Y 像素坐标。
     - **参数：**
         - `box` (_[carla.BoundingBox](#carla.BoundingBox)_) - 包含每个轴的位置和框长度的对象。
         - `rotation` (_[carla.Rotation](#carla.Rotation)<small> - 度 (pitch,yaw,roll)</small>_) - 根据虚幻引擎轴系的边界框方向。
-        - `thickness` (_float<small> - meters</small>_) - 定义边界框的线的密度。
+        - `thickness` (_float<small> - 米</small>_) - 定义边界框的线的密度。
         - `color` (_[carla.Color](#carla.Color)_) - 用于为对象着色的 RGB 代码。默认为红色。
         - `life_time` (_float<small> - 秒</small>_) - 形状的生命周期。默认情况下它只持续一帧。将其设置<code>0</code>为永久形状。
 - <a name="carla.DebugHelper.draw_hud_arrow"></a>**<font color="#7fb800">draw_hud_arrow</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**begin**</font>, <font color="#00a6ed">**end**</font>, <font color="#00a6ed">**thickness**=0.1</font>, <font color="#00a6ed">**arrow_size**=0.1</font>, <font color="#00a6ed">**color**=(255,0,0)</font>, <font color="#00a6ed">**life_time**=-1.0</font>)  
 在HUD上从头`begin`到尾`end`画一个箭头，这个箭头只能在服务器端看到。
     - **参数：**
-        - `begin` (_[carla.Location](#carla.Location)<small> - meters</small>_) - 坐标系统中箭头起始的点。
-        - `end` (_[carla.Location](#carla.Location)<small> - meters</small>_) - 坐标系统中箭头结束并指向的点。  
-        - `thickness` (_float<small> - meters</small>_) - 线的密度。  
-        - `arrow_size` (_float<small> - meters</small>_) - 箭尖的大小。
+        - `begin` (_[carla.Location](#carla.Location)<small> - 米</small>_) - 坐标系统中箭头起始的点。
+        - `end` (_[carla.Location](#carla.Location)<small> - 米</small>_) - 坐标系统中箭头结束并指向的点。  
+        - `thickness` (_float<small> - 米</small>_) - 线的密度。  
+        - `arrow_size` (_float<small> - 米</small>_) - 箭尖的大小。
         - `color` (_[carla.Color](#carla.Color)_) - RGB编码为对象上色。默认为红色。  
         - `life_time` (_float<small> - seconds</small>_) - 形状的生命周期。默认情况下，它只持续一帧。对于永久形状，将其设置为<code>0</code>。  
 - <a name="carla.DebugHelper.draw_hud_box"></a>**<font color="#7fb800">draw_hud_box</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**box**</font>, <font color="#00a6ed">**rotation**</font>, <font color="#00a6ed">**thickness**=0.1</font>, <font color="#00a6ed">**color**=(255,0,0)</font>, <font color="#00a6ed">**life_time**=-1.0</font>)  
@@ -736,43 +736,43 @@ Y 像素坐标。
     - **Parameters:**
         - `box` (_[carla.BoundingBox](#carla.BoundingBox)_) - 包含每个轴的框的位置和长度的对象。 
         - `rotation` (_[carla.Rotation](#carla.Rotation)<small> - degrees (pitch,yaw,roll)</small>_) - 根据虚幻引擎的轴系统确定边界框的方向。  
-        - `thickness` (_float<small> - meters</small>_) - 定义边界框线的密度。 
+        - `thickness` (_float<small> - 米</small>_) - 定义边界框线的密度。 
         - `color` (_[carla.Color](#carla.Color)_) - RGB 编码为对象上色。默认为红色。
         - `life_time` (_float<small> - seconds</small>_) - 形状的生命周期。默认情况下，它只持续一帧。对于永久形状，将其设置为 <code>0</code>。 
 - <a name="carla.DebugHelper.draw_hud_line"></a>**<font color="#7fb800">draw_hud_line</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**begin**</font>, <font color="#00a6ed">**end**</font>, <font color="#00a6ed">**thickness**=0.1</font>, <font color="#00a6ed">**color**=(255,0,0)</font>, <font color="#00a6ed">**life_time**=-1.0</font>)  
 在HUD上开始`begin`和结束`end`之间画一条线。这条线只能在服务器端看到。
     - **参数：**
-        - `begin` (_[carla.Location](#carla.Location)<small> - meters</small>_) - 坐标系统中直线开始的点。
-        - `end` (_[carla.Location](#carla.Location)<small> - meters</small>_) - 坐标系统中直线结束的点。
+        - `begin` (_[carla.Location](#carla.Location)<small> - 米</small>_) - 坐标系统中直线开始的点。
+        - `end` (_[carla.Location](#carla.Location)<small> - 米</small>_) - 坐标系统中直线结束的点。
         - `thickness` (_float<small> - 米</small>_) - 线的密度。
         - `color` (_[carla.Color](#carla.Color)_) - RGB 编码为对象上色。默认为红色。
         - `life_time` (_float<small> - 秒</small>_) - 形状的生命周期。默认情况下，它只持续一帧。对于永久形状，将其设置为<code>0</code>。
 - <a name="carla.DebugHelper.draw_hud_point"></a>**<font color="#7fb800">draw_hud_point</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**location**</font>, <font color="#00a6ed">**size**=0.1</font>, <font color="#00a6ed">**color**=(255,0,0)</font>, <font color="#00a6ed">**life_time**=-1.0</font>)  
 在 HUD 的位置`location`上绘制一个点。这个点只能在服务器端看到。 
     - **参数：**
-        - `location` (_[carla.Location](#carla.Location)<small> - meters</small>_) - 点在坐标系中使物体居中。
-        - `size` (_float<small> - meters</small>_) - 点的密度。
+        - `location` (_[carla.Location](#carla.Location)<small> - 米</small>_) - 点在坐标系中使物体居中。
+        - `size` (_float<small> - 米</small>_) - 点的密度。
         - `color` (_[carla.Color](#carla.Color)_) - RGB 编码为对象上色。默认为红色。
         - `life_time` (_float<small> - seconds</small>_) - 形状的生命周期。默认情况下，它只持续一帧。对于永久形状，将其设置为<code>0</code>。 
 - <a name="carla.DebugHelper.draw_line"></a>**<font color="#7fb800">draw_line</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**begin**</font>, <font color="#00a6ed">**end**</font>, <font color="#00a6ed">**thickness**=0.1</font>, <font color="#00a6ed">**color**=(255,0,0)</font>, <font color="#00a6ed">**life_time**=-1.0</font>)  
 在开始`begin` 和结束 `end`之间绘制一条线。  
     - **参数：**
-        - `begin` (_[carla.Location](#carla.Location)<small> - meters</small>_) -  坐标系中直线起点。
-        - `end` (_[carla.Location](#carla.Location)<small> - meters</small>_) - 坐标系中直线终点。 
+        - `begin` (_[carla.Location](#carla.Location)<small> - 米</small>_) -  坐标系中直线起点。
+        - `end` (_[carla.Location](#carla.Location)<small> - 米</small>_) - 坐标系中直线终点。 
         - `thickness` (_float<small> - 米</small>_) - 线的密度。  
         - `color` (_[carla.Color](#carla.Color)_) - 用于为对象着色的 RGB 代码。默认为红色。
         - `life_time` (_float<small> - 秒</small>_) - 形状的生命周期。默认情况下它只持续一帧。将其设置<code>0</code>为永久形状。
 - <a name="carla.DebugHelper.draw_point"></a>**<font color="#7fb800">draw_point</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**location**</font>, <font color="#00a6ed">**size**=0.1</font>, <font color="#00a6ed">**color**=(255,0,0)</font>, <font color="#00a6ed">**life_time**=-1.0</font>)  
 绘制一个点 `location`。
     - **参数：**
-        - `location` (_[carla.Location](#carla.Location)<small> - meters</small>_) - 在坐标系中点以将对象居中。
-        - `size` (_float<small> - meters</small>_) - 点的密度。
+        - `location` (_[carla.Location](#carla.Location)<small> - 米</small>_) - 在坐标系中点以将对象居中。
+        - `size` (_float<small> - 米</small>_) - 点的密度。
         - `color` (_[carla.Color](#carla.Color)_) - 用于为对象着色的 RGB 代码。默认为红色。
         - `life_time` (_float<small> - seconds</small>_) - 形状的生命周期。默认情况下它只持续一帧。将其设置<code>0</code>为永久形状。
 - <a name="carla.DebugHelper.draw_string"></a>**<font color="#7fb800">draw_string</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**location**</font>, <font color="#00a6ed">**text**</font>, <font color="#00a6ed">**draw_shadow**=False</font>, <font color="#00a6ed">**color**=(255,0,0)</font>, <font color="#00a6ed">**life_time**=-1.0</font>)<button class="SnipetButton" id="carla.DebugHelper.draw_string-snipet_button">snippet &rarr;</button>  
 在仿真的给定位置绘制一个字符串，该字符串只能在服务器端看到。
     - **参数：**
-        - `location` (_[carla.Location](#carla.Location)<small> - meters</small>_) - 仿真中文本居中的位置。
+        - `location` (_[carla.Location](#carla.Location)<small> - 米</small>_) - 仿真中文本居中的位置。
         - `text` (_str_) - 旨在向世界展示的文本。 
         - `draw_shadow` (_bool_) - 为字符串投射阴影，有助于可视化。默认情况下它是禁用的。
         - `color` (_[carla.Color](#carla.Color)_) - 用于为字符串着色的 RGB 代码。默认为红色。
@@ -913,19 +913,19 @@ Alpha 通道。
 包含地理坐标仿真数据的类。[carla.Map](#carla.Map) 可以使用以下方法转换仿真位置 OpenDRIVE 文件中的 <b><georeference></b> 标记。
 
 ### 实例变量
-- <a name="carla.GeoLocation.latitude"></a>**<font color="#f8805a">latitude</font>** (_float<small> - degrees</small>_)  
+- <a name="carla.GeoLocation.latitude"></a>**<font color="#f8805a">latitude</font>** (_float<small> - 度</small>_)  
 地图上某个点的北/南值。  
-- <a name="carla.GeoLocation.longitude"></a>**<font color="#f8805a">longitude</font>** (_float<small> - degrees</small>_)  
+- <a name="carla.GeoLocation.longitude"></a>**<font color="#f8805a">longitude</font>** (_float<small> - 度</small>_)  
 地图上某个点的北/南值。  
-- <a name="carla.GeoLocation.altitude"></a>**<font color="#f8805a">altitude</font>** (_float<small> - meters</small>_)  
+- <a name="carla.GeoLocation.altitude"></a>**<font color="#f8805a">altitude</font>** (_float<small> - 米</small>_)  
 相对于地面的高度。 
 
 ### 方法
 - <a name="carla.GeoLocation.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**latitude**=0.0</font>, <font color="#00a6ed">**longitude**=0.0</font>, <font color="#00a6ed">**altitude**=0.0</font>)  
     - **参数：**
-        - `latitude` (_float<small> - degrees</small>_)  
-        - `longitude` (_float<small> - degrees</small>_)  
-        - `altitude` (_float<small> - meters</small>_)  
+        - `latitude` (_float<small> - 度</small>_)  
+        - `longitude` (_float<small> - 度</small>_)  
+        - `altitude` (_float<small> - 米</small>_)  
 
 ##### 魔术方法
 - <a name="carla.GeoLocation.__eq__"></a>**<font color="#7fb800">\__eq__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.GeoLocation](#carla.GeoLocation)</font>)  
@@ -935,15 +935,15 @@ Alpha 通道。
 ---
 
 ## carla.GnssMeasurement<a name="carla.GnssMeasurement"></a>
-<small style="display:block;margin-top:-20px;">Inherited from _[carla.SensorData](#carla.SensorData)_</small></br>
+<small style="display:block;margin-top:-20px;">从 _[carla.SensorData](#carla.SensorData)_ 继承</small></br>
 定义由 <b>sensor.other.gnss</b> 注册的Gnss数据的类。它本质上是通过传感器的位置和 OpenDRIVE 地理参考来报告其位置。
 
 ### 实例变量
-- <a name="carla.GnssMeasurement.altitude"></a>**<font color="#f8805a">altitude</font>** (_float<small> - meters</small>_)  
+- <a name="carla.GnssMeasurement.altitude"></a>**<font color="#f8805a">altitude</font>** (_float<small> - 米</small>_)  
 相对于地面的高度。  
-- <a name="carla.GnssMeasurement.latitude"></a>**<font color="#f8805a">latitude</font>** (_float<small> - degrees</small>_)  
+- <a name="carla.GnssMeasurement.latitude"></a>**<font color="#f8805a">latitude</font>** (_float<small> - 度</small>_)  
 地图上某个点的北/南值。  
-- <a name="carla.GnssMeasurement.longitude"></a>**<font color="#f8805a">longitude</font>** (_float<small> - degrees</small>_)  
+- <a name="carla.GnssMeasurement.longitude"></a>**<font color="#f8805a">longitude</font>** (_float<small> - 度</small>_)  
 地图上某个点的北/南值。 
 
 ### 方法
@@ -954,15 +954,15 @@ Alpha 通道。
 ---
 
 ## carla.IMUMeasurement<a name="carla.IMUMeasurement"></a>
-<small style="display:block;margin-top:-20px;">Inherited from _[carla.SensorData](#carla.SensorData)_</small></br>
-定义由 <b>sensor.other.imu</b> 注册的数据的类，涉及根据当前 [carla.World](#carla.World) 的传感器转换。它本质上充当加速计、陀螺仪和指南针。
+<small style="display:block;margin-top:-20px;">从 _[carla.SensorData](#carla.SensorData)_ 继承</small></br>
+定义由 <b>sensor.other.imu</b> 注册的数据类，涉及根据当前 [carla.World](#carla.World) 的传感器转换。它本质上充当加速度计、陀螺仪和指南针。
 
 ### 实例变量
 - <a name="carla.IMUMeasurement.accelerometer"></a>**<font color="#f8805a">accelerometer</font>** (_[carla.Vector3D](#carla.Vector3D)<small> - m/s<sup>2</sup></small>_)  
 线性加速度。
-- <a name="carla.IMUMeasurement.compass"></a>**<font color="#f8805a">compass</font>** (_float<small> - radians</small>_)  
+- <a name="carla.IMUMeasurement.compass"></a>**<font color="#f8805a">compass</font>** (_float<small> - 弧度</small>_)  
 相对于北方的方向（在虚幻引擎中为 [0.0, -1.0, 0.0]）。
-- <a name="carla.IMUMeasurement.gyroscope"></a>**<font color="#f8805a">gyroscope</font>** (_[carla.Vector3D](#carla.Vector3D)<small> - rad/s</small>_)  
+- <a name="carla.IMUMeasurement.gyroscope"></a>**<font color="#f8805a">gyroscope</font>** (_[carla.Vector3D](#carla.Vector3D)<small> - 弧度/秒</small>_)  
 角速度。 
 
 ### 方法
@@ -973,11 +973,11 @@ Alpha 通道。
 ---
 
 ## carla.Image<a name="carla.Image"></a>
-<small style="display:block;margin-top:-20px;">Inherited from _[carla.SensorData](#carla.SensorData)_</small></br>
+<small style="display:block;margin-top:-20px;">从 _[carla.SensorData](#carla.SensorData)_ 继承</small></br>
 定义 32 位 BGRA 颜色图像的类，该图像将用作相机传感器检索的初始数据。有不同的相机传感器（目前有三种，RGB、深度和语义分割），每种传感器对图像都有不同的用途。在 [这里](ref_sensors.md) 了解更多关于它们的信息。
 
 ### 实例变量
-- <a name="carla.Image.fov"></a>**<font color="#f8805a">fov</font>** (_float<small> - degrees</small>_)  
+- <a name="carla.Image.fov"></a>**<font color="#f8805a">fov</font>** (_float<small> - 度</small>_)  
 图像的水平视野。
 - <a name="carla.Image.height"></a>**<font color="#f8805a">height</font>** (_int_)  
 图像高度（以像素为单位）。
@@ -1022,7 +1022,7 @@ OpenDRIVE 文件中找到的标识符。
 - <a name="carla.Junction.get_waypoints"></a>**<font color="#7fb800">get_waypoints</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**lane_type**</font>)  
 返回航路点对的列表。列表中的每个元组首先包含交叉口边界内的初始路径点，然后包含最终路径点，描述沿交叉口的所述车道的起点和终点。车道遵循其 OpenDRIVE 定义，因此由于可能的偏差，可能有许多不同的元组具有相同的起始航路点，因为这被视为不同的车道。
     - **参数：**
-        - `lane_type` (_[carla.LaneType](#carla.LaneType)_) - Type of lanes to get the waypoints.  
+        - `lane_type` (_[carla.LaneType](#carla.LaneType)_) - 获取路点的车道类型。 
     - **返回：** _list(tuple([carla.Waypoint](#carla.Waypoint)))_  
 
 ---
@@ -1044,11 +1044,11 @@ OpenDRIVE 文件中找到的标识符。
 ### 实例变量
 - <a name="carla.Landmark.road_id"></a>**<font color="#f8805a">road_id</font>** (_int_)  
 定义此地标的道路的 OpenDRIVE ID。由于 OpenDRIVE 道路定义，该道路可能与地标当前影响的道路不同。这种情况主要发生在不同路线的道路分叉处。 <small>示例：在交叉路口的一条分叉道路中定义了一个红绿灯，但它会影响所有可能的路线</small>。
-- <a name="carla.Landmark.distance"></a>**<font color="#f8805a">distance</font>** (_float<small> - meters</small>_)  
+- <a name="carla.Landmark.distance"></a>**<font color="#f8805a">distance</font>** (_float<small> - 米</small>_)  
 地标与创建对象的路径点之间的距离（查询`get_landmarks`或`get_landmarks_of_type`）。
-- <a name="carla.Landmark.s"></a>**<font color="#f8805a">s</font>** (_float<small> - meters</small>_)  
+- <a name="carla.Landmark.s"></a>**<font color="#f8805a">s</font>** (_float<small> - 米</small>_)  
 地标沿道路几何形状定位的距离`road_id`。
-- <a name="carla.Landmark.t"></a>**<font color="#f8805a">t</font>** (_float<small> - meters</small>_)  
+- <a name="carla.Landmark.t"></a>**<font color="#f8805a">t</font>** (_float<small> - 米</small>_)  
 地标距道路边缘的横向距离`road_id`。 
 - <a name="carla.Landmark.id"></a>**<font color="#f8805a">id</font>** (_str_)  
 OpenDRIVE 文件中地标的唯一 ID。  
@@ -1056,9 +1056,9 @@ OpenDRIVE 文件中地标的唯一 ID。
 OpenDRIVE 文件中的地标名称。 
 - <a name="carla.Landmark.is_dynamic"></a>**<font color="#f8805a">is_dynamic</font>** (_bool_)  
 指示地标的状态是否随时间发生变化，例如交通信号灯。 
-- <a name="carla.Landmark.orientation"></a>**<font color="#f8805a">orientation</font>** (_[carla.LandmarkOrientation](#carla.LandmarkOrientation)<small> - degrees</small>_)  
+- <a name="carla.Landmark.orientation"></a>**<font color="#f8805a">orientation</font>** (_[carla.LandmarkOrientation](#carla.LandmarkOrientation)<small> - 米</small>_)  
 指示地标面向的车道。
-- <a name="carla.Landmark.z_offset"></a>**<font color="#f8805a">z_offset</font>** (_float<small> - meters</small>_)  
+- <a name="carla.Landmark.z_offset"></a>**<font color="#f8805a">z_offset</font>** (_float<small> - 米</small>_)  
 放置地标的高度。 
 - <a name="carla.Landmark.country"></a>**<font color="#f8805a">country</font>** (_str_)  
 定义地标的国家/地区代码（OpenDRIVE 默认为德国 2017）。  
@@ -1070,15 +1070,15 @@ OpenDRIVE 文件中的地标名称。
 信号中打印的值（例如速度限制、最大重量等）。 
 - <a name="carla.Landmark.unit"></a>**<font color="#f8805a">unit</font>** (_str_)  
 属性 `value` 的测量单位。   
-- <a name="carla.Landmark.height"></a>**<font color="#f8805a">height</font>** (_float<small> - meters</small>_)  
+- <a name="carla.Landmark.height"></a>**<font color="#f8805a">height</font>** (_float<small> - 米</small>_)  
 信号的总高度。  
-- <a name="carla.Landmark.width"></a>**<font color="#f8805a">width</font>** (_float<small> - meters</small>_)  
+- <a name="carla.Landmark.width"></a>**<font color="#f8805a">width</font>** (_float<small> - 米</small>_)  
 信号的总宽度。  
 - <a name="carla.Landmark.text"></a>**<font color="#f8805a">text</font>** (_str_)  
 信号中的附加文本。 
-- <a name="carla.Landmark.h_offset"></a>**<font color="#f8805a">h_offset</font>** (_float<small> - meters</small>_)  
+- <a name="carla.Landmark.h_offset"></a>**<font color="#f8805a">h_offset</font>** (_float<small> - 米</small>_)  
 信号相对于OpenDRIVE中`s`处`road_id`定义的方向偏移。 
-- <a name="carla.Landmark.pitch"></a>**<font color="#f8805a">pitch</font>** (_float<small> - meters</small>_)  
+- <a name="carla.Landmark.pitch"></a>**<font color="#f8805a">pitch</font>** (_float<small> - 米</small>_)  
 信号的俯仰角 (Y-轴在虚幻引擎坐标系统).  
 - <a name="carla.Landmark.roll"></a>**<font color="#f8805a">roll</font>** (_float_)  
 信号的翻滚角 (X-轴在虚幻引擎坐标系统).  
@@ -1110,7 +1110,7 @@ OpenDRIVE 文件中的地标名称。
 ---
 
 ## carla.LandmarkType<a name="carla.LandmarkType"></a>
-Helper 类包含 [OpenDRIVE 标准](http://opendrive.org/docs/OpenDRIVEFormatSpecRev1.5M.pdf) （德国 2017）中默认国家/地区代码定义的一组常用地标类型。 __[carla.Landmark](#carla.Landmark) 不引用此类。地标类型是一个字符串，根据所使用的国家/地区代码的不同，其变化很大。此类仅通过将默认集中的一些最常用的描述为枚举来使管理它们变得更容易。 
+Helper 类包含 [OpenDRIVE 标准](http://opendrive.org/docs/OpenDRIVEFormatSpecRev1.5M.pdf) （德国 2017）中默认国家/地区代码定义的一组常用地标类型。 __[carla.Landmark](#carla.Landmark)__ 不引用此类。地标类型是一个字符串，根据所使用的国家/地区代码的不同，其变化很大。此类仅通过将默认集中的一些最常用的描述为枚举来使管理它们变得更容易。 
 
 ### 实例变量
 - <a name="carla.LandmarkType.Danger"></a>**<font color="#f8805a">Danger</font>**  
@@ -1202,7 +1202,7 @@ Helper 类包含 [OpenDRIVE 标准](http://opendrive.org/docs/OpenDRIVEFormatSpe
 ---
 
 ## carla.LaneInvasionEvent<a name="carla.LaneInvasionEvent"></a>
-<small style="display:block;margin-top:-20px;">Inherited from _[carla.SensorData](#carla.SensorData)_</small></br>
+<small style="display:block;margin-top:-20px;">从 _[carla.SensorData](#carla.SensorData)_ 继承</small></br>
 为 <b>sensor.other.lane_invasion</b> 定义车道入侵的类。它仅在客户端工作，并依赖 OpenDRIVE 来提供可靠的信息。每次发生车道入侵时，传感器都会创建一个这样的情况，每个仿真步骤可能会发生多次。在 [这里](ref_sensors.md#lane-invasion-detector) 了解更多相关信息。 
 
 ### 实例变量
@@ -1300,7 +1300,7 @@ Helper 类包含 [OpenDRIVE 标准](http://opendrive.org/docs/OpenDRIVEFormatSpe
 [carla.LidarMeasurement](#carla.LidarMeasurement) 中包含的数据。其中每一个都代表云中的一个点及其位置和相关强度。 
 
 ### 实例变量
-- <a name="carla.LidarDetection.point"></a>**<font color="#f8805a">point</font>** (_[carla.Location](#carla.Location)<small> - meters</small>_)  
+- <a name="carla.LidarDetection.point"></a>**<font color="#f8805a">point</font>** (_[carla.Location](#carla.Location)<small> - 米</small>_)  
 xyz 坐标中的点。
 - <a name="carla.LidarDetection.intensity"></a>**<font color="#f8805a">intensity</font>** (_float_)  
 计算该点的强度作为 [0.0 , 1.0] 之间的标量值。 
@@ -1313,7 +1313,7 @@ xyz 坐标中的点。
 ---
 
 ## carla.LidarMeasurement<a name="carla.LidarMeasurement"></a>
-<small style="display:block;margin-top:-20px;">继承自 _[carla.SensorData](#carla.SensorData)_</small></br>
+<small style="display:block;margin-top:-20px;">从 _[carla.SensorData](#carla.SensorData)_ 继承</small></br>
 定义由 <b>sensor.lidar.ray_cast</b> 检索的LIDAR数据的类。这本质上是使用光线投射仿真旋转激光雷达。在 [这里](ref_sensors.md#lidar-raycast-sensor) 了解更多相关信息。 
 
 ### 实例变量
@@ -1339,7 +1339,7 @@ xyz 坐标中的点。
 ##### 魔术方法
 - <a name="carla.LidarMeasurement.__getitem__"></a>**<font color="#7fb800">\__getitem__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**pos**=int</font>)  
 - <a name="carla.LidarMeasurement.__iter__"></a>**<font color="#7fb800">\__iter__</font>**(<font color="#00a6ed">**self**</font>)  
-Iterate over the [carla.LidarDetection](#carla.LidarDetection) retrieved as data.  
+在 [carla.LidarDetection](#carla.LidarDetection) 获取的数据上迭代。  
 - <a name="carla.LidarMeasurement.__len__"></a>**<font color="#7fb800">\__len__</font>**(<font color="#00a6ed">**self**</font>)  
 - <a name="carla.LidarMeasurement.__setitem__"></a>**<font color="#7fb800">\__setitem__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**pos**=int</font>, <font color="#00a6ed">**detection**=[carla.LidarDetection](#carla.LidarDetection)</font>)  
 - <a name="carla.LidarMeasurement.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
@@ -1358,7 +1358,7 @@ Iterate over the [carla.LidarDetection](#carla.LidarDetection) retrieved as data
 光的强度。 
 - <a name="carla.Light.is_on"></a>**<font color="#f8805a">is_on</font>** (_bool_)  
 灯的开关。当灯亮时这是 __True__ 。当夜间模式启动时，此项设置为 __True__。
-- <a name="carla.Light.location"></a>**<font color="#f8805a">location</font>** (_[carla.Location](#carla.Location)<small> - meters</small>_)  
+- <a name="carla.Light.location"></a>**<font color="#f8805a">location</font>** (_[carla.Location](#carla.Location)<small> - 米</small>_)  
 灯光的位置。 
 - <a name="carla.Light.light_group"></a>**<font color="#f8805a">light_group</font>** (_[carla.LightGroup](#carla.LightGroup)_)  
 灯光所属的组。 
@@ -1549,15 +1549,15 @@ __笔记。__ 到目前为止，虽然有一个`vehicle`组，但车灯还不能
 ---
 
 ## carla.Location<a name="carla.Location"></a>
-<small style="display:block;margin-top:-20px;">Inherited from _[carla.Vector3D](#carla.Vector3D)_</small></br>
+<small style="display:block;margin-top:-20px;">从 _[carla.Vector3D](#carla.Vector3D)_ 继承</small></br>
 代表世界上的一个地方。
 
 ### 实例变量
-- <a name="carla.Location.x"></a>**<font color="#f8805a">x</font>** (_float<small> - meters</small>_)  
+- <a name="carla.Location.x"></a>**<font color="#f8805a">x</font>** (_float<small> - 米</small>_)  
 X 轴上从原点到点的距离。
-- <a name="carla.Location.y"></a>**<font color="#f8805a">y</font>** (_float<small> - meters</small>_)  
+- <a name="carla.Location.y"></a>**<font color="#f8805a">y</font>** (_float<small> - 米</small>_)  
 Y 轴上从原点到点的距离。
-- <a name="carla.Location.z"></a>**<font color="#f8805a">z</font>** (_float<small> - meters</small>_)  
+- <a name="carla.Location.z"></a>**<font color="#f8805a">z</font>** (_float<small> - 米</small>_)  
 Z 轴上从原点到点的距离。
 
 ### 方法
@@ -1570,7 +1570,7 @@ Z 轴上从原点到点的距离。
 返回从该位置到另一位置的欧几里得距离。
     - **参数：**
         - `location` (_[carla.Location](#carla.Location)_) - 用于计算距离的另一个点。
-    - **返回：** _float<small> - meters</small>_  
+    - **返回：** _float<small> - 米</small>_  
 
 ##### 魔术方法
 - <a name="carla.Location.__abs__"></a>**<font color="#7fb800">\__abs__</font>**(<font color="#00a6ed">**self**</font>)  
@@ -1609,7 +1609,7 @@ Z 轴上从原点到点的距离。
 - <a name="carla.Map.generate_waypoints"></a>**<font color="#7fb800">generate_waypoints</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**distance**</font>)  
 返回一个路点列表，每个车道的路点之间都有一定的距离，并以其为中心。路点不按任何特定顺序列出。请记住，同一道路、路段和车道内距离超过2厘米的路点将具有相同的标识符。
     - **参数：**
-        - `distance` (_float<small> - meters</small>_) - 路径点之间的近似距离。 
+        - `distance` (_float<small> - 米</small>_) - 路径点之间的近似距离。 
     - **返回：** _list([carla.Waypoint](#carla.Waypoint))_  
 - <a name="carla.Map.save_to_disk"></a>**<font color="#7fb800">save_to_disk</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**path**</font>)  
 将当前映射的 .xodr OpenDRIVE 文件保存到磁盘。
@@ -1708,7 +1708,7 @@ Z 轴上从原点到点的距离。
 ---
 
 ## carla.ObstacleDetectionEvent<a name="carla.ObstacleDetectionEvent"></a>
-<small style="display:block;margin-top:-20px;">继承自 _[carla.SensorData](#carla.SensorData)_</small></br>
+<small style="display:block;margin-top:-20px;">从 _[carla.SensorData](#carla.SensorData)_ 继承</small></br>
 定义 sensor.other.obstacle 障碍物数据的类。在 [这里](ref_sensors.md#obstacle-detector) 了解更多相关信息。
 
 ### 实例变量
@@ -1748,11 +1748,11 @@ Z 轴上从原点到点的距离。
 ---
 
 ## carla.OpticalFlowImage<a name="carla.OpticalFlowImage"></a>
-<small style="display:block;margin-top:-20px;">Inherited from _[carla.SensorData](#carla.SensorData)_</small></br>
+<small style="display:block;margin-top:-20px;">从 _[carla.SensorData](#carla.SensorData)_ 继承</small></br>
 定义表示视场中检测到的光流的二维浮点（32 位）向量的光流图像的类。矢量的分量表示物体在图像平面中的位移。每个组件输出归一化范围 [-2,2] 内的值，该范围缩放为 [-2 size，2 size]，大小是相应组件中的总分辨率。 
 
 ### 实例变量
-- <a name="carla.OpticalFlowImage.fov"></a>**<font color="#f8805a">fov</font>** (_float<small> - degrees</small>_)  
+- <a name="carla.OpticalFlowImage.fov"></a>**<font color="#f8805a">fov</font>** (_float<small> - 度</small>_)  
 图像的水平视野。 
 - <a name="carla.OpticalFlowImage.height"></a>**<font color="#f8805a">height</font>** (_int_)  
 图像高度（以像素为单位）。
@@ -1820,13 +1820,13 @@ y 分量中的光流。
 ### 实例变量
 - <a name="carla.Osm2OdrSettings.use_offsets"></a>**<font color="#f8805a">use_offsets</font>** (_bool_)  
 允许使用偏移量进行转换。偏移量将移动地图的原点位置。默认值为 __False__。 
-- <a name="carla.Osm2OdrSettings.offset_x"></a>**<font color="#f8805a">offset_x</font>** (_float<small> - meters</small>_)  
+- <a name="carla.Osm2OdrSettings.offset_x"></a>**<font color="#f8805a">offset_x</font>** (_float<small> - 米</small>_)  
 X 轴偏移。默认值为 __0.0__。
-- <a name="carla.Osm2OdrSettings.offset_y"></a>**<font color="#f8805a">offset_y</font>** (_float<small> - meters</small>_)  
+- <a name="carla.Osm2OdrSettings.offset_y"></a>**<font color="#f8805a">offset_y</font>** (_float<small> - 米</small>_)  
 Y 轴偏移。默认值为 __0.0__。 
-- <a name="carla.Osm2OdrSettings.default_lane_width"></a>**<font color="#f8805a">default_lane_width</font>** (_float<small> - meters</small>_)  
+- <a name="carla.Osm2OdrSettings.default_lane_width"></a>**<font color="#f8805a">default_lane_width</font>** (_float<small> - 米</small>_)  
 生成的 XODR 地图中描述的车道宽度。默认值为 __4.0__。 
-- <a name="carla.Osm2OdrSettings.elevation_layer_height"></a>**<font color="#f8805a">elevation_layer_height</font>** (_float<small> - meters</small>_)  
+- <a name="carla.Osm2OdrSettings.elevation_layer_height"></a>**<font color="#f8805a">elevation_layer_height</font>** (_float<small> - 米</small>_)  
 定义分隔两个不同 [OpenStreetMap 图层](https://wiki.openstreetmap.org/wiki/Key:layer) 的高度。默认值为 __0.0__。 
 - <a name="carla.Osm2OdrSettings.center_map"></a>**<font color="#f8805a">center_map</font>** (_bool_)  
 启用此选项后，地图的几何图形将发生位移，以使坐标原点与整个道路地图的边界框中心相匹配。
@@ -1859,7 +1859,7 @@ Y 轴偏移。默认值为 __0.0__。
 Altitude angle of the detection.  
 - <a name="carla.RadarDetection.azimuth"></a>**<font color="#f8805a">azimuth</font>** (_float<small> - radians</small>_)  
 Azimuth angle of the detection.  
-- <a name="carla.RadarDetection.depth"></a>**<font color="#f8805a">depth</font>** (_float<small> - meters</small>_)  
+- <a name="carla.RadarDetection.depth"></a>**<font color="#f8805a">depth</font>** (_float<small> - 米</small>_)  
 Distance from the sensor to the detection position.  
 - <a name="carla.RadarDetection.velocity"></a>**<font color="#f8805a">velocity</font>** (_float<small> - m/s</small>_)  
 The velocity of the detected object towards the sensor.  
@@ -1872,7 +1872,7 @@ The velocity of the detected object towards the sensor.
 ---
 
 ## carla.RadarMeasurement<a name="carla.RadarMeasurement"></a>
-<small style="display:block;margin-top:-20px;">Inherited from _[carla.SensorData](#carla.SensorData)_</small></br>
+<small style="display:block;margin-top:-20px;">从 _[carla.SensorData](#carla.SensorData)_ 继承</small></br>
 定义并收集由 <b>sensor.other.radar</b> 注册的测量值的类，代表传感器前面的点墙以及与其相关的距离、角度和速度。数据由 [carla.RadarDetection](#carla.RadarDetection) 数组组成。在 [这里](ref_sensors.md#radar-sensor) 了解更多相关信息。
 
 ### 实例变量
@@ -1900,19 +1900,19 @@ The velocity of the detected object towards the sensor.
 <br>构造函数方法遵循特定的声明顺序： `(pitch, yaw, roll)` 对应于 `(Y-rotation,Z-rotation,X-rotation)`.  <br> <br>![UE4_Rotation](https://d26ilriwvtzlb.cloudfront.net/8/83/BRMC_9.jpg) *虚幻引擎的坐标系*。  
 
 ### 实例变量
-- <a name="carla.Rotation.pitch"></a>**<font color="#f8805a">pitch</font>** (_float<small> - degrees</small>_)  
+- <a name="carla.Rotation.pitch"></a>**<font color="#f8805a">pitch</font>** (_float<small> - 度</small>_)  
 Y-轴旋转角度。  
-- <a name="carla.Rotation.yaw"></a>**<font color="#f8805a">yaw</font>** (_float<small> - degrees</small>_)  
+- <a name="carla.Rotation.yaw"></a>**<font color="#f8805a">yaw</font>** (_float<small> - 度</small>_)  
 Z-轴旋转角度。 
-- <a name="carla.Rotation.roll"></a>**<font color="#f8805a">roll</font>** (_float<small> - degrees</small>_)  
+- <a name="carla.Rotation.roll"></a>**<font color="#f8805a">roll</font>** (_float<small> - 度</small>_)  
 X-轴旋转角度。  
 
 ### 方法
 - <a name="carla.Rotation.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**pitch**=0.0</font>, <font color="#00a6ed">**yaw**=0.0</font>, <font color="#00a6ed">**roll**=0.0</font>)  
     - **参数：**
-        - `pitch` (_float<small> - degrees</small>_) - Y-axis rotation angle.  
-        - `yaw` (_float<small> - degrees</small>_) - Z-axis rotation angle.  
-        - `roll` (_float<small> - degrees</small>_) - X-axis rotation angle.  
+        - `pitch` (_float<small> - 度</small>_) - Y-axis rotation angle.  
+        - `yaw` (_float<small> - 度</small>_) - Z-axis rotation angle.  
+        - `roll` (_float<small> - 度</small>_) - X-axis rotation angle.  
     - **警告：** <font color="#ED2F2F">_ CARLA <code>(pitch,yaw,roll)</code> 和虚幻引擎编辑器中的声明顺序不同。当从源代码构建时，不要混淆轴的旋转。_</font>  
 
 ##### 设置器
@@ -1951,7 +1951,7 @@ X-轴旋转角度。
 - <a name="carla.RssActorConstellationData.other_match_object"></a>**<font color="#f8805a">other_match_object</font>** (_<a href="https://ad-map-access.readthedocs.io/en/latest/ad_map_access/apidoc/html/structad_1_1map_1_1match_1_1Object.html">ad.map.match.Object</a>_)  
 其他对象的地图匹配信息。仅当“other_actor”不是“None”时这才有效。
 - <a name="carla.RssActorConstellationData.other_actor"></a>**<font color="#f8805a">other_actor</font>** (_[carla.Actor](#carla.Actor)_)  
-其他参与者。如果查询默认参数或类型为ad.rss.world.ObjectType.ArtificialObject且没有专用“ carla.Actor ”的人工对象（例如目前的 道路边界），则为“None”。 The other actor. This is 'None' in case of query of default parameters or articial objects of kind <a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/namespacead_1_1rss_1_1world.html#a6432f1ef8d0657b4f21ed5966aca1625">ad.rss.world.ObjectType.ArtificialObject</a> with no dedicated '[carla.Actor](#carla.Actor)' (as e.g. for the [road boundaries](ref_sensors.md#rss-sensor) at the moment).  
+其他参与者。如果查询默认参数或类型为 <a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/namespacead_1_1rss_1_1world.html#a6432f1ef8d0657b4f21ed5966aca1625">ad.rss.world.ObjectType.ArtificialObject</a> 且没有专用“[carla.Actor](#carla.Actor)' (as e.g. for the [road boundaries](ref_sensors.md#rss-sensor)”的人工对象（例如目前的道路边界），则为“None”。  
 
 ### 方法
 
@@ -1961,19 +1961,19 @@ X-轴旋转角度。
 ---
 
 ## carla.RssActorConstellationResult<a name="carla.RssActorConstellationResult"></a>
-Data structure that should be returned by the callback registered by RssSensor.register_actor_constellation_callback().  
+应该由 RssSensor.register_actor_constellation_callback() 注册的回调返回的数据结构。 
 
 ### 实例变量
 - <a name="carla.RssActorConstellationResult.rss_calculation_mode"></a>**<font color="#f8805a">rss_calculation_mode</font>** (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss_map_integration/namespacead_1_1rss_1_1map.html#adcb01232986ed83a0c540cd5d03ef495">ad.rss.map.RssMode</a>_)  
-The calculation mode to be applied with the actor.  
+要应用于参与者的计算模式。  
 - <a name="carla.RssActorConstellationResult.restrict_speed_limit_mode"></a>**<font color="#f8805a">restrict_speed_limit_mode</font>** (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss_map_integration/classad_1_1rss_1_1map_1_1RssSceneCreation.html#a403aae6dce3c77a8aec01dd9808dd964">ad.rss.map.RestrictSpeedLimitMode</a>_)  
-The mode for restricting speed limit.  
+限速模式。
 - <a name="carla.RssActorConstellationResult.ego_vehicle_dynamics"></a>**<font color="#f8805a">ego_vehicle_dynamics</font>** (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1RssDynamics.html">ad.rss.world.RssDynamics</a>_)  
-The RSS dynamics to be applied for the ego vehicle.  
+将RSS动态应用于自我车辆。  
 - <a name="carla.RssActorConstellationResult.actor_object_type"></a>**<font color="#f8805a">actor_object_type</font>** (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/namespacead_1_1rss_1_1world.html#a6432f1ef8d0657b4f21ed5966aca1625">ad.rss.world.ObjectType</a>_)  
-The RSS object type to be used for the actor.  
+要用于参与者的RSS对象类型。  
 - <a name="carla.RssActorConstellationResult.actor_dynamics"></a>**<font color="#f8805a">actor_dynamics</font>** (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1RssDynamics.html">ad.rss.world.RssDynamics</a>_)  
-The RSS dynamics to be applied for the actor.  
+要应用于参与者的RSS动力学。 
 
 ### 方法
 
@@ -1983,39 +1983,39 @@ The RSS dynamics to be applied for the actor.
 ---
 
 ## carla.RssEgoDynamicsOnRoute<a name="carla.RssEgoDynamicsOnRoute"></a>
-Part of the data contained inside a [carla.RssResponse](#carla.RssResponse) describing the state of the vehicle. The parameters include its current dynamics, and how it is heading regarding the target route.  
+描述车辆状态的 [carla.RssResponse](#carla.RssResponse) 中包含的部分数据。参数包括它当前的动态，以及它如何根据目标路线前进。
 
 ### 实例变量
 - <a name="carla.RssEgoDynamicsOnRoute.ego_speed"></a>**<font color="#f8805a">ego_speed</font>** (_<a href="https://ad-map-access.readthedocs.io/en/latest/ad_physics/apidoc/html/classad_1_1physics_1_1Speed.html">ad.physics.Speed</a>_)  
-The ego vehicle's speed.  
+自我车辆的速度。 
 - <a name="carla.RssEgoDynamicsOnRoute.min_stopping_distance"></a>**<font color="#f8805a">min_stopping_distance</font>** (_<a href="https://ad-map-access.readthedocs.io/en/latest/ad_physics/apidoc/html/classad_1_1physics_1_1Distance.html">ad.physics.Distance</a>_)  
-The current minimum stopping distance.  
+当前最小停车距离。 
 - <a name="carla.RssEgoDynamicsOnRoute.ego_center"></a>**<font color="#f8805a">ego_center</font>** (_<a href="https://ad-map-access.readthedocs.io/en/latest/ad_map_access/apidoc/html/structad_1_1map_1_1point_1_1ENUPoint.html">ad.map.point.ENUPoint</a>_)  
-The considered enu position of the ego vehicle.  
+自我车辆被考虑的enu位置。  
 - <a name="carla.RssEgoDynamicsOnRoute.ego_heading"></a>**<font color="#f8805a">ego_heading</font>** (_<a href="https://ad-map-access.readthedocs.io/en/latest/ad_map_access/apidoc/html/classad_1_1map_1_1point_1_1ENUHeading.html">ad.map.point.ENUHeading</a>_)  
-The considered heading of the ego vehicle.  
+考虑的自我车辆的航向。
 - <a name="carla.RssEgoDynamicsOnRoute.ego_center_within_route"></a>**<font color="#f8805a">ego_center_within_route</font>** (_bool_)  
-States if the ego vehicle's center is within the route.  
+说明自我车辆的中心是否在路线内。
 - <a name="carla.RssEgoDynamicsOnRoute.crossing_border"></a>**<font color="#f8805a">crossing_border</font>** (_bool_)  
-States if the vehicle is already crossing one of the lane borders.  
+说明车辆是否已经越过其中一个车道边界。 
 - <a name="carla.RssEgoDynamicsOnRoute.route_heading"></a>**<font color="#f8805a">route_heading</font>** (_<a href="https://ad-map-access.readthedocs.io/en/latest/ad_map_access/apidoc/html/classad_1_1map_1_1point_1_1ENUHeading.html">ad.map.point.ENUHeading</a>_)  
-The considered heading of the route.  
+路线的考虑方向。
 - <a name="carla.RssEgoDynamicsOnRoute.route_nominal_center"></a>**<font color="#f8805a">route_nominal_center</font>** (_<a href="https://ad-map-access.readthedocs.io/en/latest/ad_map_access/apidoc/html/structad_1_1map_1_1point_1_1ENUPoint.html">ad.map.point.ENUPoint</a>_)  
-The considered nominal center of the current route.  
+当前路线的名义中心。  
 - <a name="carla.RssEgoDynamicsOnRoute.heading_diff"></a>**<font color="#f8805a">heading_diff</font>** (_<a href="https://ad-map-access.readthedocs.io/en/latest/ad_map_access/apidoc/html/classad_1_1map_1_1point_1_1ENUHeading.html">ad.map.point.ENUHeading</a>_)  
-The considered heading diff towards the route.  
+被考虑的方向偏离了路线。
 - <a name="carla.RssEgoDynamicsOnRoute.route_speed_lat"></a>**<font color="#f8805a">route_speed_lat</font>** (_<a href="https://ad-map-access.readthedocs.io/en/latest/ad_physics/apidoc/html/classad_1_1physics_1_1Speed.html">ad.physics.Speed</a>_)  
-The ego vehicle's speed component _lat_ regarding the route.  
+自我车辆的速度分量 _lat_ 与路线有关。
 - <a name="carla.RssEgoDynamicsOnRoute.route_speed_lon"></a>**<font color="#f8805a">route_speed_lon</font>** (_<a href="https://ad-map-access.readthedocs.io/en/latest/ad_physics/apidoc/html/classad_1_1physics_1_1Speed.html">ad.physics.Speed</a>_)  
-The ego vehicle's speed component _lon_ regarding the route.  
+自我车辆的速度分量 _lon_ 与路线有关。
 - <a name="carla.RssEgoDynamicsOnRoute.route_accel_lat"></a>**<font color="#f8805a">route_accel_lat</font>** (_<a href="https://ad-map-access.readthedocs.io/en/latest/ad_physics/apidoc/html/classad_1_1physics_1_1Acceleration.html">ad.physics.Acceleration</a>_)  
-The ego vehicle's acceleration component _lat_ regarding the route.  
+自我车辆的加速度分量 _lat_ 与路线有关。
 - <a name="carla.RssEgoDynamicsOnRoute.route_accel_lon"></a>**<font color="#f8805a">route_accel_lon</font>** (_<a href="https://ad-map-access.readthedocs.io/en/latest/ad_physics/apidoc/html/classad_1_1physics_1_1Acceleration.html">ad.physics.Acceleration</a>_)  
-The ego vehicle's acceleration component _lon_ regarding the route.  
+自我车辆的加速度分量 _lon_ 与路线有关。
 - <a name="carla.RssEgoDynamicsOnRoute.avg_route_accel_lat"></a>**<font color="#f8805a">avg_route_accel_lat</font>** (_<a href="https://ad-map-access.readthedocs.io/en/latest/ad_physics/apidoc/html/classad_1_1physics_1_1Acceleration.html">ad.physics.Acceleration</a>_)  
-The ego vehicle's acceleration component _lat_ regarding the route smoothened by an average filter.  
+自我车的加速度分量 _lat_ 与经过平均滤波平滑的路线有关。 The ego vehicle's acceleration component _lat_ regarding the route smoothened by an average filter.  
 - <a name="carla.RssEgoDynamicsOnRoute.avg_route_accel_lon"></a>**<font color="#f8805a">avg_route_accel_lon</font>** (_<a href="https://ad-map-access.readthedocs.io/en/latest/ad_physics/apidoc/html/classad_1_1physics_1_1Acceleration.html">ad.physics.Acceleration</a>_)  
-The ego acceleration component _lon_ regarding the route smoothened by an average filter.  
+对经过平均滤波平滑的路线进行自加速度分量 _lon_ 分析。
 
 ### 方法
 
@@ -2025,7 +2025,7 @@ The ego acceleration component _lon_ regarding the route smoothened by an averag
 ---
 
 ## carla.RssLogLevel<a name="carla.RssLogLevel"></a>
-Enum declaration used in [carla.RssSensor](#carla.RssSensor) to set the log level.  
+枚举声明中使用的 [carla.RssSensor](#carla.RssSensor) 设置日志级别。
 
 ### 实例变量
 - <a name="carla.RssLogLevel.trace"></a>**<font color="#f8805a">trace</font>**  
@@ -2039,24 +2039,24 @@ Enum declaration used in [carla.RssSensor](#carla.RssSensor) to set the log leve
 ---
 
 ## carla.RssResponse<a name="carla.RssResponse"></a>
-<small style="display:block;margin-top:-20px;">Inherited from _[carla.SensorData](#carla.SensorData)_</small></br>
-Class that contains the output of a [carla.RssSensor](#carla.RssSensor). This is the result of the RSS calculations performed for the parent vehicle of the sensor.
+<small style="display:block;margin-top:-20px;">从 _[carla.SensorData](#carla.SensorData)_ 继承</small></br>
+包含c [carla.RssSensor](#carla.RssSensor) 输出的类。这是对传感器的父车辆执行的RSS计算的结果。
 
-A [carla.RssRestrictor](#carla.RssRestrictor) will use the data to modify the [carla.VehicleControl](#carla.VehicleControl) of the vehicle.  
+[carla.RssRestrictor](#carla.RssRestrictor) 将使用数据修改车辆的 [carla.VehicleControl](#carla.VehicleControl)。
 
 ### 实例变量
 - <a name="carla.RssResponse.response_valid"></a>**<font color="#f8805a">response_valid</font>** (_bool_)  
-States if the response is valid. It is __False__ if calculations failed or an exception occured.  
+说明响应是否有效。如果计算失败或发生异常，则为 __False__ 。 
 - <a name="carla.RssResponse.proper_response"></a>**<font color="#f8805a">proper_response</font>** (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1state_1_1ProperResponse.html">ad.rss.state.ProperResponse</a>_)  
-The proper response that the RSS calculated for the vehicle.  
+RSS 为车辆计算的正确响应。
 - <a name="carla.RssResponse.rss_state_snapshot"></a>**<font color="#f8805a">rss_state_snapshot</font>** (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1state_1_1RssStateSnapshot.html">ad.rss.state.RssStateSnapshot</a>_)  
-Detailed RSS states at the current moment in time.  
+详细的RSS在当前时刻的状态。
 - <a name="carla.RssResponse.ego_dynamics_on_route"></a>**<font color="#f8805a">ego_dynamics_on_route</font>** (_[carla.RssEgoDynamicsOnRoute](#carla.RssEgoDynamicsOnRoute)_)  
-Current ego vehicle dynamics regarding the route.  
+关于路线的当前自我车辆动力学。
 - <a name="carla.RssResponse.world_model"></a>**<font color="#f8805a">world_model</font>** (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1WorldModel.html">ad.rss.world.WorldModel</a>_)  
-World model used for calculations.  
+用于计算的世界模型。
 - <a name="carla.RssResponse.situation_snapshot"></a>**<font color="#f8805a">situation_snapshot</font>** (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1situation_1_1SituationSnapshot.html">ad.rss.situation.SituationSnapshot</a>_)  
-Detailed RSS situations extracted from the world model.  
+从世界模型中提取的详细RSS情况。
 
 ### 方法
 
@@ -2066,77 +2066,77 @@ Detailed RSS situations extracted from the world model.
 ---
 
 ## carla.RssRestrictor<a name="carla.RssRestrictor"></a>
-These objects apply restrictions to a [carla.VehicleControl](#carla.VehicleControl). It is part of the Carla implementation of the [C++ Library for Responsibility Sensitive Safety](https://github.com/intel/ad-rss-lib). This class works hand in hand with a [rss sensor](ref_sensors.md#rss-sensor), which provides the data of the restrictions to be applied.  
+这些对象将限制应用于 [carla.VehicleControl](#carla.VehicleControl)。它是 [负责敏感安全的C++库](https://github.com/intel/ad-rss-lib) 的Carla实现的一部分。此类与 [rss传感器](ref_sensors.md#rss-sensor) 协同工作，rss传感器提供要应用的限制的数据。
 
 ### 方法
 - <a name="carla.RssRestrictor.restrict_vehicle_control"></a>**<font color="#7fb800">restrict_vehicle_control</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**vehicle_control**</font>, <font color="#00a6ed">**proper_response**</font>, <font color="#00a6ed">**ego_dynamics_on_route**</font>, <font color="#00a6ed">**vehicle_physics**</font>)  
-Applies the safety restrictions given by a [carla.RssSensor](#carla.RssSensor) to a [carla.VehicleControl](#carla.VehicleControl).  
-    - **Parameters:**
-        - `vehicle_control` (_[carla.VehicleControl](#carla.VehicleControl)_) - The input vehicle control to be restricted.  
-        - `proper_response` (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1state_1_1ProperResponse.html">ad.rss.state.ProperResponse</a>_) - Part of the response generated by the sensor. Contains restrictions to be applied to the acceleration of the vehicle.  
-        - `ego_dynamics_on_route` (_[carla.RssEgoDynamicsOnRoute](#carla.RssEgoDynamicsOnRoute)_) - Part of the response generated by the sensor. Contains dynamics and heading of the vehicle regarding its route.  
-        - `vehicle_physics` (_[carla.VehiclePhysicsControl](#carla.VehiclePhysicsControl)_) - The current physics of the vehicle. Used to apply the restrictions properly.  
+应用[carla.RssSensor](#carla.RssSensor) 对 [carla.VehicleControl](#carla.VehicleControl) 给出的安全限制。
+    - **参数：**
+        - `vehicle_control` (_[carla.VehicleControl](#carla.VehicleControl)_) - 要限制的输入车辆控制。  
+        - `proper_response` (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1state_1_1ProperResponse.html">ad.rss.state.ProperResponse</a>_) - 传感器产生的部分响应。包含适用于车辆加速的限制。
+        - `ego_dynamics_on_route` (_[carla.RssEgoDynamicsOnRoute](#carla.RssEgoDynamicsOnRoute)_) - 传感器产生的部分响应。包含有关其路线的车辆动力学和方向。
+        - `vehicle_physics` (_[carla.VehiclePhysicsControl](#carla.VehiclePhysicsControl)_) - 车辆的当前物理特性。用于正确应用限制。
     - **返回:** _[carla.VehicleControl](#carla.VehicleControl)_  
 
 ##### 设置器
 - <a name="carla.RssRestrictor.set_log_level"></a>**<font color="#7fb800">set_log_level</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**log_level**</font>)  
-Sets the log level.  
-    - **Parameters:**
-        - `log_level` (_[carla.RssLogLevel](#carla.RssLogLevel)_) - New log level.  
+设置日志级别。 
+    - **参数：**
+        - `log_level` (_[carla.RssLogLevel](#carla.RssLogLevel)_) - 新日志级别。
 
 ---
 
 ## carla.RssRoadBoundariesMode<a name="carla.RssRoadBoundariesMode"></a>
-Enum declaration used in [carla.RssSensor](#carla.RssSensor) to enable or disable the [stay on road](https://intel.github.io/ad-rss-lib/ad_rss_map_integration/HandleRoadBoundaries/) feature. In summary, this feature considers the road boundaries as virtual objects. The minimum safety distance check is applied to these virtual walls, in order to make sure the vehicle does not drive off the road.  
+[carla.RssSensor](#carla.RssSensor) 中使用的枚举声明，用于启用或禁用 [公路停留](https://intel.github.io/ad-rss-lib/ad_rss_map_integration/HandleRoadBoundaries/) 功能。总而言之，此功能将道路边界视为虚拟对象。最小安全距离检查应用于这些虚拟墙，以确保车辆不会驶离道路。
 
 ### 实例变量
 - <a name="carla.RssRoadBoundariesMode.On"></a>**<font color="#f8805a">On</font>**  
-Enables the _stay on road_ feature.  
+启用“停留在路上（_stay on road_）”功能。
 - <a name="carla.RssRoadBoundariesMode.Off"></a>**<font color="#f8805a">Off</font>**  
-Disables the _stay on road_ feature.  
+禁用“停留在路上（_stay on road_）”功能。
 
 ---
 
 ## carla.RssSensor<a name="carla.RssSensor"></a>
-<small style="display:block;margin-top:-20px;">Inherited from _[carla.Sensor](#carla.Sensor)_</small></br>
-This sensor works a bit differently than the rest. Take look at the [specific documentation](adv_rss.md), and the [rss sensor reference](ref_sensors.md#rss-sensor) to gain full understanding of it.
+<small style="display:block;margin-top:-20px;">从 _[carla.Sensor](#carla.Sensor)_ 继承</small></br>
+此传感器的工作原理与其他传感器略有不同。请查看 [特定文档](adv_rss.md) 和 [rss传感器参考](ref_sensors.md#rss-sensor) ，以充分了解它。 
 
-The RSS sensor uses world information, and a [RSS library](https://github.com/intel/ad-rss-lib) to make safety checks on a vehicle. The output retrieved by the sensor is a [carla.RssResponse](#carla.RssResponse). This will be used by a [carla.RssRestrictor](#carla.RssRestrictor) to modify a [carla.VehicleControl](#carla.VehicleControl) before applying it to a vehicle.  
+RSS传感器使用世界信息和 [RSS库](https://github.com/intel/ad-rss-lib) 对车辆进行安全检查。传感器检索到的输出是 [carla.RssResponse](#carla.RssResponse)。这将由 [carla.RssRestrictor](#carla.RssRestrictor) 使用。在将其应用于车辆之前进行 [carla.VehicleControl](#carla.VehicleControl)。
 
 ### 实例变量
 - <a name="carla.RssSensor.ego_vehicle_dynamics"></a>**<font color="#f8805a">ego_vehicle_dynamics</font>** (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1RssDynamics.html">ad.rss.world.RssDynamics</a>_)  
-States the [RSS parameters](https://intel.github.io/ad-rss-lib/ad_rss/Appendix-ParameterDiscussion/) that the sensor will consider for the ego vehicle if no actor constellation callback is registered.  
+说明如果没有注册参与者 constellation 回调，传感器将考虑的自我车辆的 [RSS参数](https://intel.github.io/ad-rss-lib/ad_rss/Appendix-ParameterDiscussion/) 。
 - <a name="carla.RssSensor.other_vehicle_dynamics"></a>**<font color="#f8805a">other_vehicle_dynamics</font>** (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1RssDynamics.html">ad.rss.world.RssDynamics</a>_)  
-States the [RSS parameters](https://intel.github.io/ad-rss-lib/ad_rss/Appendix-ParameterDiscussion/) that the sensor will consider for the rest of vehicles if no actor constellation callback is registered.  
+说明如果没有注册参与者 constellation 回调，传感器将为其余车辆考虑的 [RSS参数](https://intel.github.io/ad-rss-lib/ad_rss/Appendix-ParameterDiscussion/) 。 
 - <a name="carla.RssSensor.pedestrian_dynamics"></a>**<font color="#f8805a">pedestrian_dynamics</font>** (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1RssDynamics.html">ad.rss.world.RssDynamics</a>_)  
-States the [RSS parameters](https://intel.github.io/ad-rss-lib/ad_rss/Appendix-ParameterDiscussion/) that the sensor will consider for pedestrians if no actor constellation callback is registered.  
+说明如果没有注册参与者 constellation 回调，传感器将为行人考虑的 [RSS参数](https://intel.github.io/ad-rss-lib/ad_rss/Appendix-ParameterDiscussion/) 。
 - <a name="carla.RssSensor.road_boundaries_mode"></a>**<font color="#f8805a">road_boundaries_mode</font>** (_[carla.RssRoadBoundariesMode](#carla.RssRoadBoundariesMode)_)  
-Switches the [stay on road](https://intel.github.io/ad-rss-lib/ad_rss_map_integration/HandleRoadBoundaries/) feature. By default is __Off__.  
+切换停留在道路上 [stay on road](https://intel.github.io/ad-rss-lib/ad_rss_map_integration/HandleRoadBoundaries/) 的功能。默认情况下处于禁用（__Off__）状态。
 - <a name="carla.RssSensor.routing_targets"></a>**<font color="#f8805a">routing_targets</font>** (_vector<[carla.Transform](#carla.Transform)>_)  
-The current list of targets considered to route the vehicle. If no routing targets are defined, a route is generated at random.  
+当前考虑对车辆进行路由的目标列表。如果未定义路由目标，则随机生成路由。
 
 ### 方法
 - <a name="carla.RssSensor.append_routing_target"></a>**<font color="#7fb800">append_routing_target</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**routing_target**</font>)  
-Appends a new target position to the current route of the vehicle.  
-    - **Parameters:**
-        - `routing_target` (_[carla.Transform](#carla.Transform)_) - New target point for the route. Choose these after the intersections to force the route to take the desired turn.  
+将新的目标位置附加到车辆的当前路线。 
+    - **参数：**
+        - `routing_target` (_[carla.Transform](#carla.Transform)_) - 为路线新建目标点。在交叉口后选择这些选项，以强制路线转弯。
 - <a name="carla.RssSensor.drop_route"></a>**<font color="#7fb800">drop_route</font>**(<font color="#00a6ed">**self**</font>)  
-Discards the current route. If there are targets remaining in **<font color="#f8805a">routing_targets</font>**, creates a new route using those. Otherwise, a new route is created at random.  
+放弃当前路由。如果 **<font color="#f8805a">routing_targets</font>** 中还有目标，则使用这些目标创建新路由。否则，将随机创建新路由。 
 - <a name="carla.RssSensor.register_actor_constellation_callback"></a>**<font color="#7fb800">register_actor_constellation_callback</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**callback**</font>)  
-Register a callback to customize a [carla.RssActorConstellationResult](#carla.RssActorConstellationResult). By this callback the settings of RSS parameters are done per actor constellation and the settings (ego_vehicle_dynamics, other_vehicle_dynamics and pedestrian_dynamics) have no effect.  
-    - **Parameters:**
-        - `callback` - The function to be called whenever a RSS situation is about to be calculated.  
+注册回调以自定义 [carla.RssActorConstellationResult](#carla.RssActorConstellationResult)。通过此回调，RSS参数的设置是根据参与者 constellation 完成的，并且设置（ego_vehicle_dynamics, other_vehicle_dynamics and pedestrian_dynamics）没有任何效果。 
+    - **参数：**
+        - `callback` - 每当要计算RSS情况时要调用的函数。 
 - <a name="carla.RssSensor.reset_routing_targets"></a>**<font color="#7fb800">reset_routing_targets</font>**(<font color="#00a6ed">**self**</font>)  
-Erases the targets that have been appended to the route.  
+删除已附加到路由的目标。 
 
 ##### 设置器
 - <a name="carla.RssSensor.set_log_level"></a>**<font color="#7fb800">set_log_level</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**log_level**</font>)  
-Sets the log level.  
-    - **Parameters:**
-        - `log_level` (_[carla.RssLogLevel](#carla.RssLogLevel)_) - New log level.  
+设置日志级别。
+    - **参数：**
+        - `log_level` (_[carla.RssLogLevel](#carla.RssLogLevel)_) - 新的日志级别。  
 - <a name="carla.RssSensor.set_map_log_level"></a>**<font color="#7fb800">set_map_log_level</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**log_level**</font>)  
-Sets the map log level.  
-    - **Parameters:**
+设置日志日志级别。  
+    - **参数：**
         - `log_level` (_[carla.RssLogLevel](#carla.RssLogLevel)_) - New map log level.  
 
 ##### 魔术方法
@@ -2145,17 +2145,17 @@ Sets the map log level.
 ---
 
 ## carla.SemanticLidarDetection<a name="carla.SemanticLidarDetection"></a>
-Data contained inside a [carla.SemanticLidarMeasurement](#carla.SemanticLidarMeasurement). Each of these represents one of the points in the cloud with its location, the cosine of the incident angle, index of the object hit, and its semantic tag.  
+[carla.SemanticLidarMeasurement](#carla.SemanticLidarMeasurement) 中包含的数据。其中每一个都代表云中的一个点及其位置、入射角的余弦、命中物体的索引及其语义标记。
 
 ### 实例变量
-- <a name="carla.SemanticLidarDetection.point"></a>**<font color="#f8805a">point</font>** (_[carla.Location](#carla.Location)<small> - meters</small>_)  
-[x,y,z] coordinates of the point.  
+- <a name="carla.SemanticLidarDetection.point"></a>**<font color="#f8805a">point</font>** (_[carla.Location](#carla.Location)<small> - 米</small>_)  
+点的[x，y，z]坐标。  
 - <a name="carla.SemanticLidarDetection.cos_inc_angle"></a>**<font color="#f8805a">cos_inc_angle</font>** (_float_)  
-Cosine of the incident angle between the ray, and the normal of the hit object.  
+光线与被击中物体法线之间入射角的余弦。
 - <a name="carla.SemanticLidarDetection.object_idx"></a>**<font color="#f8805a">object_idx</font>** (_uint_)  
-ID of the actor hit by the ray.  
+被光线击中的参与者的ID。 
 - <a name="carla.SemanticLidarDetection.object_tag"></a>**<font color="#f8805a">object_tag</font>** (_uint_)  
-语义标签 of the component hit by the ray.  
+被光线击中部件的语义标签。  
 
 ### 方法
 
@@ -2165,27 +2165,27 @@ ID of the actor hit by the ray.
 ---
 
 ## carla.SemanticLidarMeasurement<a name="carla.SemanticLidarMeasurement"></a>
-<small style="display:block;margin-top:-20px;">Inherited from _[carla.SensorData](#carla.SensorData)_</small></br>
-Class that defines the semantic LIDAR data retrieved by a <b>sensor.lidar.ray_cast_semantic</b>. This essentially simulates a rotating LIDAR using ray-casting. Learn more about this [here](ref_sensors.md#semanticlidar-raycast-sensor).  
+<small style="display:block;margin-top:-20px;">从 _[carla.SensorData](#carla.SensorData)_ 继承</small></br>
+该类定义由 <b>sensor.lidar.ray_cast_semantic</b> 检索的语义LIDAR数据。这实质上是使用光线投射来仿真旋转激光雷达。在此了解更多信息。
 
 ### 实例变量
 - <a name="carla.SemanticLidarMeasurement.channels"></a>**<font color="#f8805a">channels</font>** (_int_)  
-Number of lasers shot.  
+激光发射次数。
 - <a name="carla.SemanticLidarMeasurement.horizontal_angle"></a>**<font color="#f8805a">horizontal_angle</font>** (_float<small> - radians</small>_)  
-Horizontal angle the LIDAR is rotated at the time of the measurement.  
+水平角度激光雷达在测量时旋转。  
 - <a name="carla.SemanticLidarMeasurement.raw_data"></a>**<font color="#f8805a">raw_data</font>** (_bytes_)  
-Received list of raw detection points. Each point consists of [x,y,z] coordinates plus the cosine of the incident angle, the index of the hit actor, and its semantic tag.  
+收到原始检测点列表。每个点由[x，y，z]坐标加上入射角的余弦，命中角色的索引及其语义标记组成。
 
 ### 方法
 - <a name="carla.SemanticLidarMeasurement.save_to_disk"></a>**<font color="#7fb800">save_to_disk</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**path**</font>)  
-Saves the point cloud to disk as a <b>.ply</b> file describing data from 3D scanners. The files generated are ready to be used within [MeshLab](http://www.meshlab.net/), an open-source system for processing said files. Just take into account that axis may differ from Unreal Engine and so, need to be reallocated.  
-    - **Parameters:**
+将点云保存为描述三维扫描仪数据的 <b>.ply</b> 文件保存到磁盘。生成的文件可以在[MeshLab](http://www.meshlab.net/) 中使用，MeshLab是一个用于处理上述文件的开源系统。只需考虑到轴可能与不真实的引擎不同，因此需要重新分配。
+    - **参数：**
         - `path` (_str_)  
 
 ##### 设置器
 - <a name="carla.SemanticLidarMeasurement.get_point_count"></a>**<font color="#7fb800">get_point_count</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**channel**</font>)  
-Retrieves the number of points sorted by channel that are generated by this measure. Sorting by channel allows to identify the original channel for every point.  
-    - **Parameters:**
+获取此度量生成的按通道排序的点数。通过通道排序可以识别每个点的原始通道。 
+    - **参数：**
         - `channel` (_int_)  
 
 ##### 魔术方法
@@ -2199,7 +2199,7 @@ Iterate over the [carla.SemanticLidarDetection](#carla.SemanticLidarDetection) r
 ---
 
 ## carla.Sensor<a name="carla.Sensor"></a>
-<small style="display:block;margin-top:-20px;">Inherited from _[carla.Actor](#carla.Actor)_</small></br>
+<small style="display:block;margin-top:-20px;">从 _[carla.Actor](#carla.Actor)_ 继承</small></br>
 Sensors compound a specific family of actors quite diverse and unique. They are normally spawned as attachment/sons of a vehicle (take a look at [carla.World](#carla.World) to learn about actor spawning). Sensors are thoroughly designed to retrieve different types of data that they are listening to. The data they receive is shaped as different subclasses inherited from [carla.SensorData](#carla.SensorData) (depending on the sensor).
 
   Most sensors can be divided in two groups: those receiving data on every tick (cameras, point clouds and some specific sensors) and those who only receive under certain circumstances (trigger detectors). CARLA provides a specific set of sensors and their blueprint can be found in [carla.BlueprintLibrary](#carla.BlueprintLibrary). All the information on their preferences and settlement can be found [here](ref_sensors.md), but the list of those available in CARLA so far goes as follow.
@@ -2376,7 +2376,7 @@ Time register of the frame at which this measurement was taken given by the OS i
 ---
 
 ## carla.TrafficLight<a name="carla.TrafficLight"></a>
-<small style="display:block;margin-top:-20px;">Inherited from _[carla.TrafficSign](#carla.TrafficSign)_</small></br>
+<small style="display:block;margin-top:-20px;">从 _[carla.TrafficSign](#carla.TrafficSign)_ 继承</small></br>
 A traffic light actor, considered a specific type of traffic sign. As traffic lights will mostly appear at junctions, they belong to a group which contains the different traffic lights in it. Inside the group, traffic lights are differenciated by their pole index.
      
   Within a group the state of traffic lights is changed in a cyclic pattern: one index is chosen and it spends a few seconds in green, yellow and eventually red. The rest of the traffic lights remain frozen in red this whole time, meaning that there is a gap in the last seconds of the cycle where all the traffic lights are red. However, the state of a traffic light can be changed manually.  
@@ -2497,7 +2497,7 @@ Sets a given time for the yellow light to be active.
 设置车辆必须与其他车辆保持的最小距离（以米为单位）。距离以米为单位，会影响最小移动距离。它是从车辆对象的前到后计算的。
     - **参数:**
         - `actor` (_[carla.Actor](#carla.Actor)_) - 正在更改最小距离的车辆。  
-        - `distance` (_float<small> - meters</small>_) - 两辆车之间的米。  
+        - `distance` (_float<small> - 米</small>_) - 两辆车之间的米。  
 - <a name="carla.TrafficManager.force_lane_change"></a>**<font color="#7fb800">force_lane_change</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**direction**</font>)  
 强制车辆改变到其左侧或右侧的车道（如果存在），如 中所示 `direction`。无论发生什么情况，该方法都会应用车道变换，而忽略可能发生的碰撞。
     - **参数:**
@@ -2595,7 +2595,7 @@ _</font>
 - <a name="carla.TrafficManager.set_global_distance_to_leading_vehicle"></a>**<font color="#7fb800">set_global_distance_to_leading_vehicle</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**distance**</font>)  
 设置车辆与其他车辆必须保持的最小距离（以米为单位）。距离以米为单位，会影响最小移动距离。它是从车辆对象的中心到中心计算的。
     - **参数:**
-        - `distance` (_float<small> - meters</small>_) - 车辆之间的米数。
+        - `distance` (_float<small> - 米</small>_) - 车辆之间的米数。
 - <a name="carla.TrafficManager.set_hybrid_physics_mode"></a>**<font color="#7fb800">set_hybrid_physics_mode</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**enabled**=False</font>)  
 启用或禁用混合物理模式。在此模式下，距离自身车辆超过一定半径的车辆将禁用其物理功能。通过不计算车辆动力学将降低计算成本。车辆将被传送。
     - **参数:**
@@ -2603,7 +2603,7 @@ _</font>
 - <a name="carla.TrafficManager.set_hybrid_physics_radius"></a>**<font color="#7fb800">set_hybrid_physics_radius</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**r**=50.0</font>)  
 启用混合物理功能后，更改启用物理功能的影响区域的半径。
     - **参数:**
-        - `r` (_float<small> - meters</small>_) - 启用物理的新半径。 
+        - `r` (_float<small> - 米</small>_) - 启用物理的新半径。 
 - <a name="carla.TrafficManager.set_osm_mode"></a>**<font color="#7fb800">set_osm_mode</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**mode_switch**=True</font>)  
 启用或禁用 OSM 模式。该模式允许用户在使用 [OSM 功能](tuto_G_openstreetmap.md) 创建的地图中运行 TM。这些地图允许有死胡同。通常，如果车辆无法找到下一个航路点，交通管理器就会崩溃。如果启用 OSM 模式，它将显示警告，并在必要时摧毁车辆。 
     - **参数:**
@@ -2640,8 +2640,8 @@ _</font>
 ---
 
 ## carla.TrafficSign<a name="carla.TrafficSign"></a>
-<small style="display:block;margin-top:-20px;">Inherited from _[carla.Actor](#carla.Actor)_</small></br>
-仿真中出现的交通标志（红绿灯除外）。这些在 [carla.TrafficLight](#carla.TrafficLight) 中有自己的类继承自该类。目前，主要实施的是速度标志、停靠站和让行标志，但还有许多其他标志也被牢记在心。
+<small style="display:block;margin-top:-20px;">从 _[carla.Actor](#carla.Actor)_ 继承</small></br>
+仿真中出现的交通标志（红绿灯除外）。这些在 [carla.TrafficLight](#carla.TrafficLight) 中有自己的类从该类继承。目前，主要实施的是速度标志、停靠站和让行标志，但还有许多其他标志也被牢记在心。
 
 ### 实例变量
 - <a name="carla.TrafficSign.trigger_volume"></a>**<font color="#f8805a">trigger_volume</font>**  
@@ -2833,7 +2833,7 @@ Z-axis value.
 ---
 
 ## carla.Vehicle<a name="carla.Vehicle"></a>
-<small style="display:block;margin-top:-20px;">Inherited from _[carla.Actor](#carla.Actor)_</small></br>
+<small style="display:block;margin-top:-20px;">从 _[carla.Actor](#carla.Actor)_ 继承</small></br>
 CARLA 中最重要的参与者群体之一。其中包括从汽车到卡车、摩托车、货车、自行车的任何类型的车辆以及警车等官方车辆。[carla.BlueprintLibrary](#carla.BlueprintLibrary) 中提供了一系列广泛的参与者，以满足不同的需求。车辆可以手动控制，也可以设置为自动驾驶模式，由 <b>交通管理器 </b> 在客户端进行控制。
 
 
@@ -3107,7 +3107,7 @@ _</font>
 车辆的质量。
 - <a name="carla.VehiclePhysicsControl.drag_coefficient"></a>**<font color="#f8805a">drag_coefficient</font>** (_float_)  
 车辆底盘的阻力系数。
-- <a name="carla.VehiclePhysicsControl.center_of_mass"></a>**<font color="#f8805a">center_of_mass</font>** (_[carla.Vector3D](#carla.Vector3D)<small> - meters</small>_)  
+- <a name="carla.VehiclePhysicsControl.center_of_mass"></a>**<font color="#f8805a">center_of_mass</font>** (_[carla.Vector3D](#carla.Vector3D)<small> - 米</small>_)  
 车辆的质心。
 - <a name="carla.VehiclePhysicsControl.steering_curve"></a>**<font color="#f8805a">steering_curve</font>** (_list([carla.Vector2D](#carla.Vector2D))_)  
 指示特定前进速度的最大转向的曲线。
@@ -3166,8 +3166,8 @@ VehiclePhysicsControl 构造函数。
 ---
 
 ## carla.Walker<a name="carla.Walker"></a>
-<small style="display:block;margin-top:-20px;">Inherited from _[carla.Actor](#carla.Actor)_</small></br>
-该类继承自 [carla.Actor](#carla.Actor) 并定义仿真中的行人。Walkers 是一种特殊类型的 actor，可以由 AI ([carla.WalkerAIController](#carla.WalkerAIController)) 控制，也可以通过脚本手动控制，使用一系列 [carla.WalkerControl](#carla.WalkerControl) 来移动它们及其骨骼。
+<small style="display:block;margin-top:-20px;">从 _[carla.Actor](#carla.Actor)_ 继承</small></br>
+该类从 [carla.Actor](#carla.Actor) 继承并定义仿真中的行人。Walkers 是一种特殊类型的 actor，可以由 AI ([carla.WalkerAIController](#carla.WalkerAIController)) 控制，也可以通过脚本手动控制，使用一系列 [carla.WalkerControl](#carla.WalkerControl) 来移动它们及其骨骼。
 
 ### 方法
 - <a name="carla.Walker.apply_control"></a>**<font color="#7fb800">apply_control</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**control**</font>)  
@@ -3216,7 +3216,7 @@ VehiclePhysicsControl 构造函数。
 ---
 
 ## carla.WalkerAIController<a name="carla.WalkerAIController"></a>
-<small style="display:block;margin-top:-20px;">Inherited from _[carla.Actor](#carla.Actor)_</small></br>
+<small style="display:block;margin-top:-20px;">从 _[carla.Actor](#carla.Actor)_ 继承</small></br>
 对步行者进行 AI 控制的类。控制器被定义为参与者，但它们与其他控制器有很大不同。它们在创建过程中需要附加到父 Actor，这是它们将控制的步行者（如果您尚未了解如何生成 Actor，请查看[carla.World](#carla.World) ）。他们还需要一个特殊的蓝图（已在 [carla.BlueprintLibrary](#carla.BlueprintLibrary) 中定义为“controller.ai.walker”）。这是一个空的蓝图，因为人工智能控制器在模拟中是不可见的，但会跟随其父控制器来指示每一步。
 
 
@@ -3224,7 +3224,7 @@ VehiclePhysicsControl 构造函数。
 - <a name="carla.WalkerAIController.go_to_location"></a>**<font color="#7fb800">go_to_location</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**destination**</font>)  
 设置行人将到达的目的地。 
     - **参数:**
-        - `destination` (_[carla.Location](#carla.Location)<small> - meters</small>_)  
+        - `destination` (_[carla.Location](#carla.Location)<small> - 米</small>_)  
 - <a name="carla.WalkerAIController.start"></a>**<font color="#7fb800">start</font>**(<font color="#00a6ed">**self**</font>)  
 为其父行人启用 AI 控制。
 - <a name="carla.WalkerAIController.stop"></a>**<font color="#7fb800">stop</font>**(<font color="#00a6ed">**self**</font>)<button class="SnipetButton" id="carla.WalkerAIController.stop-snipet_button">snippet &rarr;</button>  
@@ -3343,22 +3343,22 @@ OpenDRIVE当前位置的 <b>s</b> 值 。
 - <a name="carla.Waypoint.next"></a>**<font color="#7fb800">next</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**distance**</font>)  
 当前点某个近似值的航路点列表`distance`它会考虑道路及其可能的偏差，而不执行任何车道变更，并为每个选项返回一个航路点。如果车道在指定距离处未与任何其他车道相连，则列表可能为空。 
     - **参数:**
-        - `distance` (_float<small> - meters</small>_) - 获取下一个航路点的大致距离。
+        - `distance` (_float<small> - 米</small>_) - 获取下一个航路点的大致距离。
     - **返回:** _list([carla.Waypoint](#carla.Waypoint))_  
 - <a name="carla.Waypoint.next_until_lane_end"></a>**<font color="#7fb800">next_until_lane_end</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**distance**</font>)  
 返回从这里到车道末端的路点列表，这些路点之间以一定距离`distance`分隔。
     - **参数:**
-        - `distance` (_float<small> - meters</small>_) - 航路点之间的大致距离。 
+        - `distance` (_float<small> - 米</small>_) - 航路点之间的大致距离。 
     - **返回:** _list([carla.Waypoint](#carla.Waypoint))_  
 - <a name="carla.Waypoint.previous"></a>**<font color="#7fb800">previous</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**distance**</font>)  
 但与车道相反方向的路点列表`distance` 与**<font color="#7fb800">next()</font>**类似，它会考虑道路及其可能的偏差，而不执行任何车道变更，并为每个选项返回一个航路点。如果车道在指定距离处未与任何其他车道相连，则列表可能为空。
     - **参数:**
-        - `distance` (_float<small> - meters</small>_) - 获取先前航路点的大致距离。 
+        - `distance` (_float<small> - 米</small>_) - 获取先前航路点的大致距离。 
     - **返回:** _list([carla.Waypoint](#carla.Waypoint))_  
 - <a name="carla.Waypoint.previous_until_lane_start"></a>**<font color="#7fb800">previous_until_lane_start</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**distance**</font>)  
 返回从这里到车道起点的路点列表，以一定的距离 `distance` 分隔。
     - **参数:**
-        - `distance` (_float<small> - meters</small>_) - 航路点之间的大致距离。
+        - `distance` (_float<small> - 米</small>_) - 航路点之间的大致距离。
     - **返回:** _list([carla.Waypoint](#carla.Waypoint))_  
 
 ##### 设置器
@@ -3368,13 +3368,13 @@ OpenDRIVE当前位置的 <b>s</b> 值 。
 - <a name="carla.Waypoint.get_landmarks"></a>**<font color="#7fb800">get_landmarks</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**distance**</font>, <font color="#00a6ed">**stop_at_junction**=False</font>)  
 返回从当前航路点到指定距离的道路上的地标列表。
     - **参数:**
-        - `distance` (_float<small> - meters</small>_) - 从当前航路点搜索地标的最大距离。
+        - `distance` (_float<small> - 米</small>_) - 从当前航路点搜索地标的最大距离。
         - `stop_at_junction` (_bool_) - 启用或禁用通过路口的地标搜索。  
     - **返回:** _list([carla.Landmark](#carla.Landmark))_  
 - <a name="carla.Waypoint.get_landmarks_of_type"></a>**<font color="#7fb800">get_landmarks_of_type</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**distance**</font>, <font color="#00a6ed">**type**</font>, <font color="#00a6ed">**stop_at_junction**=False</font>)  
 返回从当前路径点到指定距离的指定类型道路中的地标列表。
     - **参数:**
-        - `distance` (_float<small> - meters</small>_) - 从当前航路点搜索地标的最大距离。
+        - `distance` (_float<small> - 米</small>_) - 从当前航路点搜索地标的最大距离。
         - `type` (_str_) - 要搜索的地标类型。  
         - `stop_at_junction` (_bool_) - 启用或禁用通过路口的地标搜索。 
     - **返回:** _list([carla.Landmark](#carla.Landmark))_  
@@ -3404,13 +3404,13 @@ OpenDRIVE当前位置的 <b>s</b> 值 。
 确定水坑的创建。值范围从 0 到 100，0 表示完全没有水，100 表示道路完全被水覆盖。水坑是用静态噪音创建的，这意味着它们总是出现在相同的位置。
 - <a name="carla.WeatherParameters.wind_intensity"></a>**<font color="#f8805a">wind_intensity</font>** (_float_)  
 控制风的强度，值从 0（无风）到 100（强风）。风确实会影响降雨方向和树叶，因此限制该值以避免动画问题。
-- <a name="carla.WeatherParameters.sun_azimuth_angle"></a>**<font color="#f8805a">sun_azimuth_angle</font>** (_float<small> - degrees</small>_)  
+- <a name="carla.WeatherParameters.sun_azimuth_angle"></a>**<font color="#f8805a">sun_azimuth_angle</font>** (_float<small> - 度</small>_)  
 太阳的方位角。值范围为 0 到 360。零是由虚幻引擎确定的球体中的原点。
-- <a name="carla.WeatherParameters.sun_altitude_angle"></a>**<font color="#f8805a">sun_altitude_angle</font>** (_float<small> - degrees</small>_)  
+- <a name="carla.WeatherParameters.sun_altitude_angle"></a>**<font color="#f8805a">sun_altitude_angle</font>** (_float<small> - 度</small>_)  
 太阳的高度角。值范围从 -90 到 90，分别对应于午夜和中午。
 - <a name="carla.WeatherParameters.fog_density"></a>**<font color="#f8805a">fog_density</font>** (_float_)  
 雾浓度或厚度。它仅影响 RGB 相机传感器。值范围从 0 到 100。
-- <a name="carla.WeatherParameters.fog_distance"></a>**<font color="#f8805a">fog_distance</font>** (_float<small> - meters</small>_)  
+- <a name="carla.WeatherParameters.fog_distance"></a>**<font color="#f8805a">fog_distance</font>** (_float<small> - 米</small>_)  
 雾开始距离。值范围从 0 到无穷大。
 - <a name="carla.WeatherParameters.wetness"></a>**<font color="#f8805a">wetness</font>** (_float_)  
 湿度强度。它仅影响 RGB 相机传感器。值范围从 0 到 100。
@@ -3433,10 +3433,10 @@ OpenDRIVE当前位置的 <b>s</b> 值 。
         - `precipitation` (_float_) - 0 表示完全没有下雨，100 表示大雨。
         - `precipitation_deposits` (_float_) - 0 表示道路上没有水坑，100 表示道路完全被雨水覆盖。
         - `wind_intensity` (_float_) - 0 表示风平浪静，100 表示强风。
-        - `sun_azimuth_angle` (_float<small> - degrees</small>_) - 0 是任意北，180 是其对应的南。 
-        - `sun_altitude_angle` (_float<small> - degrees</small>_) - 90 是中午，-90 是午夜。
+        - `sun_azimuth_angle` (_float<small> - 度</small>_) - 0 是任意北，180 是其对应的南。 
+        - `sun_altitude_angle` (_float<small> - 度</small>_) - 90 是中午，-90 是午夜。
         - `fog_density` (_float_) - 雾的浓度或厚度，从 0 到 100。
-        - `fog_distance` (_float<small> - meters</small>_) - 雾开始的距离（以米为单位）。
+        - `fog_distance` (_float<small> - 米</small>_) - 雾开始的距离（以米为单位）。
         - `wetness` (_float_) - 道路的湿度百分比，从 0 到 100。
         - `fog_falloff` (_float_) - 雾的密度（特定质量），从 0 到无穷大。
         - `scattering_intensity` (_float_) - 控制光线对体积雾的贡献程度。当设置为 0 时，没有贡献。
@@ -3464,7 +3464,7 @@ _</font>
 指示车轮摩擦力的标量值。
 - <a name="carla.WheelPhysicsControl.damping_rate"></a>**<font color="#f8805a">damping_rate</font>** (_float_)  
 车轮的阻尼率。
-- <a name="carla.WheelPhysicsControl.max_steer_angle"></a>**<font color="#f8805a">max_steer_angle</font>** (_float<small> - degrees</small>_)  
+- <a name="carla.WheelPhysicsControl.max_steer_angle"></a>**<font color="#f8805a">max_steer_angle</font>** (_float<small> - 度</small>_)  
 车轮可以转向的最大角度。
 - <a name="carla.WheelPhysicsControl.radius"></a>**<font color="#f8805a">radius</font>** (_float<small> - centimeters</small>_)  
 轮子的半径。
@@ -3486,11 +3486,11 @@ _</font>
     - **参数:**
         - `tire_friction` (_float_)  
         - `damping_rate` (_float_)  
-        - `max_steer_angle` (_float<small> - degrees</small>_)  
-        - `radius` (_float<small> - centimerers</small>_)  
+        - `max_steer_angle` (_float<small> - 度</small>_)  
+        - `radius` (_float<small> - 厘米</small>_)  
         - `max_brake_torque` (_float<small> - N*m</small>_)  
         - `max_handbrake_torque` (_float<small> - N*m</small>_)  
-        - `position` (_[carla.Vector3D](#carla.Vector3D)<small> - meters</small>_)  
+        - `position` (_[carla.Vector3D](#carla.Vector3D)<small> - 米</small>_)  
 
 ##### 魔术方法
 - <a name="carla.WheelPhysicsControl.__eq__"></a>**<font color="#7fb800">\__eq__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.WheelPhysicsControl](#carla.WheelPhysicsControl)</font>)  
@@ -3773,10 +3773,10 @@ _</font>
         - `synchronous_mode` (_bool_) - 启用客户端-服务器则设置为 true。  
         - `no_rendering_mode` (_bool_) - 在仿真中完全禁用渲染则设置为 true。
         - `fixed_delta_seconds` (_float<small> - seconds</small>_) - 在帧之间设置为固定的步长。 <code>0.0</code> 意味着变步长且为模式模式。  
-        - `max_culling_distance` (_float<small> - meters</small>_) - 对于关卡的每一个网格配置最大的绘制距离。  
+        - `max_culling_distance` (_float<small> - 米</small>_) - 对于关卡的每一个网格配置最大的绘制距离。  
         - `deterministic_ragdolls` (_bool_) - 对于行人死亡使用确定的物理或布娃娃仿真定义wether。  
-        - `tile_stream_distance` (_float<small> - meters</small>_) - 仅用于大地图。从英雄车辆到流瓦片地图配置最大距离。 
-        - `actor_active_distance` (_float<small> - meters</small>_) - 仅用于大地图。配置与英雄车辆的距离以将参与者转换为休眠状态。
+        - `tile_stream_distance` (_float<small> - 米</small>_) - 仅用于大地图。从英雄车辆到流瓦片地图配置最大距离。 
+        - `actor_active_distance` (_float<small> - 米</small>_) - 仅用于大地图。配置与英雄车辆的距离以将参与者转换为休眠状态。
         - `spectator_as_ego` (_bool_) - 仅用于大地图。在大型贴图中定义观众对平铺加载的影响。
 
 ##### 魔术方法
@@ -3921,14 +3921,14 @@ Actor affected by the command.
 ### 实例变量
 - <a name="command.ApplyTorque.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_int_)  
 命令影响的参与者。  
-- <a name="command.ApplyTorque.torque"></a>**<font color="#f8805a">torque</font>** (_[carla.Vector3D](#carla.Vector3D)<small> - degrees</small>_)  
+- <a name="command.ApplyTorque.torque"></a>**<font color="#f8805a">torque</font>** (_[carla.Vector3D](#carla.Vector3D)<small> - 度</small>_)  
 在时间上对参与者应用力矩。  
 
 ### 方法
 - <a name="command.ApplyTorque.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**torque**</font>)  
     - **参数：**
         - `actor` (_[carla.Actor](#carla.Actor) or int_) - 命令应用到的参与者和它的 ID。
-        - `torque` (_[carla.Vector3D](#carla.Vector3D)<small> - degrees</small>_)  
+        - `torque` (_[carla.Vector3D](#carla.Vector3D)<small> - 度</small>_)  
 
 ---
 

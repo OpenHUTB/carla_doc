@@ -196,7 +196,7 @@ Python API 客户端授予对仿真的控制权。第一次构建 Carla 时需�
 以下命令编译 Python API 客户端：
 
 ```sh
-    make PythonAPI
+make PythonAPI
 ```
 
 Carla 客户端库将以两种截然不同、互斥的形式构建。这使用户可以自由选择他们喜欢的形式来运行 Carla 客户端代码。两种形式包括`.egg`文件和`.whl`文件。选择以下选项 __之一__ 来使用客户端库：
@@ -268,27 +268,25 @@ __3.__ __开始仿真__:
 | `make rebuild`                                                        | `make clean` 和 `make launch` 两者都在一个命令中。 |
 
 
-## 附加：构建步骤分析
-### Update.bat
-1. 环境变量初始化；
-2. 获取最新的资产包；
-3. 下载并解压资产内容；
 
-    如果不存在7zip就用`powershell -Command "Expand-Archive '`命令进行解压。
 
-#### Makefile
-1. `make PythonAPI`
+## 报错
+* 执行`make osm2odr`报错：
+```text
+CMake Error: The source directory "D:/work/workspace/carla/Build/osm2odr-visualstudio/x64" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+Error: could not load cache
+```
+从其他地方把`Build\osm2odr-visualstudio\CMakeCache.txt`拷贝过来，修改里面对应的目录为当前工程的目录。
 
-    执行`Util/BuildTools/BuildPythonAPI.bat`，真正执行的是`python setup.py bdist_egg bdist_wheel`，在`PythonAPI/carla/dist`目录下生成`*.egg`和`*.whl`文件；
+---
 
-2. `make launch`
+* 执行`make PythonAPI`报错：
+```text
+libcarla.obj : error LNK2001: 无法解析的外部符号 "class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > __cdecl osm2odr::ConvertOSMToOpenDRIVE(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,struct osm2odr::OSM2ODRSettings)" (?ConvertOSMToOpenDRIVE@osm2odr@@YA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V23@UOSM2ODRSettings@1@@Z)
+```
+从其他编译成功的地方将`PythonAPI\carla\dependencies\lib\osm2odr.lib`拷贝过来。
 
-    执行`Makefile`，调用`Util/BuildTools/Windows.mk`，真正执行的是`BuildLibCarla.bat`，构建LibCarla的服务端和客户端；
-
-### Build
-* `Xerces`是由Apache组织所推动的一项XML文档解析开源项目。
-* `SQLite`是一款轻型的数据库，是遵守ACID的关系型数据库管理系统，它包含在一个相对小的C库中。
-* `PROJ`是一种通用坐标转换软件，它将坐标从一个坐标参考系（CRS）转换为另一个坐标参考系。这包括地图投影和大地坐标变换。
 
 ---
 
