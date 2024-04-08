@@ -154,9 +154,6 @@ sensor02.listen(callback)
 | 责任敏感安全(RSS)    | [carla.RssResponse](<../python_api#carlarssresponse>)                                                                                                                                           | 根据安全检查修改应用于车辆的控制器。该传感器的工作方式与其他传感器不同，并且有专门的 [责任敏感安全文档](<../adv_rss>)。 |
 | 语义激光雷达 | [carla.SemanticLidarMeasurement](<../python_api#carlasemanticlidarmeasurement>)                                                                                                                 | 旋转激光雷达。生成 3D 点云，其中包含有关实例和语义分割的额外信息。                                                                                                                                                 |
 
-<br>
-
-
 
 ---
 这是传感器的包装以及它们如何检索仿真数据。 

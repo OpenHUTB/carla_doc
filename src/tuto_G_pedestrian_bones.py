@@ -15,7 +15,7 @@ settings.synchronous_mode = True # Enables synchronous mode
 settings.fixed_delta_seconds = 0.05
 world.apply_settings(settings)
 
-# We will aslo set up the spectator so we can see what we do
+# We will also set up the spectator so we can see what we do
 spectator = world.get_spectator()
 
 

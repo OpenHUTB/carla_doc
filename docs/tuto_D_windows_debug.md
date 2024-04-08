@@ -28,6 +28,33 @@ windows操作系统下通过vs2019打开并编译carla：
 点击菜单栏`生成`-`全部生成`或`部分生成`即可。
 
 
+## 调试LibCarla
+1. 脚本`BuildLibCarla.bat`调用`cmake`命令进行构建：
+```shell
+cmake -G %GENERATOR% %PLATFORM%^
+  -DCMAKE_BUILD_TYPE=Server^
+  -DCMAKE_CXX_FLAGS_RELEASE="/MD /MP"^
+  -DCMAKE_INSTALL_PREFIX="%LIBCARLA_SERVER_INSTALL_PATH:\=/%"^
+  "%ROOT_PATH%"
+```
+其中，`-G`表示指定编译器版本（`set GENERATOR="Visual Studio 16 2019"`、`set PLATFORM=-A x64`）；
+
+`-DCMAKE_BUILD_TYPE`的可选项包括：`Client`, `Server`, `Pytorch`, `ros2`；
+` -D CMAKE_BUILD_TYPE="Debug"`可选值包括：`Debug`, `Release`, `RelWithDebInfo`, `MinSizeRel`。
+
+`CMAKE_CXX_FLAGS_RELEASE`设置编译类型 Release 时的编译选项；
+
+
+2. 调用以下命令在 `Build` 目录下生成`Makefile`文件：
+```shell
+cmake --build . --config Release --target install | findstr /V "Up-to-date:"
+```
+
+3. 使用VS打开`Build\libcarla-visualstudio\CARLA.sln`。
+![](img/tuto_D_windows_debug/open_libcarla_proj.png)
+
+
+
 ## 导入崩溃问题
 
 1. 例如，导入链接：

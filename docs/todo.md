@@ -6,6 +6,7 @@
 * 整理 Carla 社区的文档、代码，比如 [carla](https://github.com/OpenHUTB/carla/tree/master/PythonAPI/examples) 、[awesome](https://github.com/Amin-Tgz/awesome-CARLA) ；
 * 整理 [神经科学原理](https://github.com/OpenHUTB/neuro) 、[前额叶皮层](https://github.com/OpenHUTB/PFC) 书籍；
 
+
 ## 学术研究
 ### [感知](algorithms/perception.md)
 目标跟踪、再识别、语义分割、骨架识别等。
@@ -19,7 +20,7 @@ PID、基于模型的控制。
 ### 场景
 * 智能体、[智能驾驶](https://openhutb.github.io/carla_doc/ecosys_iss/) 、机器人、无人机等。
 
-* 提供数据孪生建筑生成的Python 接口。
+* 提供数据孪生建筑生成的 Python 接口。
 
 
 
@@ -31,4 +32,5 @@ PID、基于模型的控制。
 * 引擎优化：[可变形资产](https://github.com/GPUOpen-Effects/FEMFX) 、[车辆碰撞](https://github.com/OpenRadioss/OpenRadioss) 、[文档](https://github.com/OpenHUTB/engine_doc) 本地化整理。
 * [加载进度](https://www.unrealengine.com/marketplace/en-US/product/loading-screen-with-load-percentage) ；
 
-
+### 有限元
+* 开源多物理场仿真引擎 [Chrono](https://projectchrono.org/) 。

@@ -2,8 +2,14 @@
 
 ## Util/BuildTools/*
 
+![](img/tuto_D_windows_debug/file_specification_build_tools.png)
+
 * BuildUE4Plugins.bat : 构建虚幻引擎插件 StreetMap 
 * Setup.bat：调用`Util/InstallersWin/*.bat`下载并生成 zlib、libpng、rpclib、Google Test、Recast & Detour、Fast-DDS (for ROS2)、Boost、Xercesc、Sqlite3、PROJ、Eigen、Chrono 库；设置资产下载URL；生成CMakeLists.txt.in；
+* BuildLibCarla.bat：创建LibCarla的客户端和服务端；
+* BuildOSM2ODR.bat：创建OSM转OpenDRIVE的库；
+
+
 
 
 ## 附加：构建步骤分析

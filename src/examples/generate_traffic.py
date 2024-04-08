@@ -13,6 +13,10 @@ import os
 import sys
 import time
 
+# 获取当前进程ID（便于调试）
+process_id = os.getpid()
+print("Current process id is: ", process_id)
+
 try:
     sys.path.append(glob.glob('../carla/dist/carla-*%d.%d-%s.egg' % (
         sys.version_info.major,

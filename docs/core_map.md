@@ -73,7 +73,7 @@ my_waypoint.get_landmarks(200.0,True)
 
 
 !!! 笔记
-    __同一道路内距离小于 2cm__ 的路点共享相同的路点 `id`。
+    __同一道路内距离小于 2 厘米__ 的路点共享相同的路点 `id`。
 
 路径点保存有关包含该路径点的 __车道__ 的信息。此信息包括车道的左车道和右 __车道标记__、用于确定其是否位于路口内的布尔值、车道类型、宽度和车道变更权限。
 
@@ -124,19 +124,19 @@ waypoints_junc = my_junction.get_waypoints()
 
 Carla 地图上的每个对象都有一组关联的变量，可以在 [此][env_obj] 处找到这些变量。这些变量中包含一个 [唯一 ID][env_obj_id]，可用于切换该对象在地图上的可见性。您可以使用 Python API 根据每个环境对象的[语义标签]([semantic_tag]) [获取][fetch_env_obj] 其 ID ：
 
-		# 获得世界中的建筑
-	    world = client.get_world()
-		env_objs = world.get_environment_objects(carla.CityObjectLabel.Buildings)
+	# 获得世界中的建筑
+	world = client.get_world()
+	env_objs = world.get_environment_objects(carla.CityObjectLabel.Buildings)
 
-		# 访问各个建筑 IDs 并保存在集合当中
-		building_01 = env_objs[0]
-		building_02 = env_objs[1]
-		objects_to_toggle = {building_01.id, building_02.id}
+	# 访问各个建筑 IDs 并保存在集合当中
+	building_01 = env_objs[0]
+	building_02 = env_objs[1]
+	objects_to_toggle = {building_01.id, building_02.id}
 
-		# 切换建筑为不可见
-		world.enable_environment_objects(objects_to_toggle, False)
-		# 切换建筑为可见
-		world.enable_environment_objects(objects_to_toggle, True)
+	# 切换建筑为不可见
+	world.enable_environment_objects(objects_to_toggle, False)
+	# 切换建筑为可见
+	world.enable_environment_objects(objects_to_toggle, True)
 
 查看切换不同对象的示例：
 
@@ -248,32 +248,38 @@ Carla 生态系统中有八个城镇，每个城镇都有两种地图，非分�
 !!! 笔记
     用户可以使用 [自定义地图](tuto_A_map_customization.md) 甚至创建要在 Carla 中使用的 [新地图](tuto_M_custom_map_overview.md)。
 
-| 城镇                           | 概括                                                                                                         |
-|------------------------------|------------------------------------------------------------------------------------------------------------|
-| **[Town01](img/Town01.jpg)** | 由“T 字路口”组成的基本城镇布局。                                                                                         |
-| **[Town02](img/Town02.jpg)** | 和 **Town01** 类似，但是更小。                                                                                      |
-| **[Town03](img/Town03.jpg)** | 最复杂的城镇，有 5 车道交叉路口、环岛、凹凸不平、隧道等。                                                                             |
-| **[Town04](img/Town04.jpg)** | 有高速公路和小镇的无限循环。                                                                                             |
-| **[Town05](img/Town05.jpg)** | 方形网格城镇，有十字路口和一座桥梁。每个方向有多个车道。对于执行变道很有用。   |
-| **[Town06](img/Town06.jpg)** | 高速公路长，有许多高速公路入口和出口。它还有一个 [**密歇根左转**](<https://en.wikipedia.org/wiki/Michigan_left>)。 |
-| **[Town07](img/Town07.jpg)** | 乡村环境，道路狭窄，谷仓，几乎没有红绿灯。  |
-| **[Town10](img/Town10.jpg)** | 具有大道或长廊等不同环境的城市环境，以及更真实的纹理。 |
-| **[Town11](map_town11.md)**  | 具有大道或长廊等不同环境的城市环境，以及更真实的纹理。 |
-| **[Town12](map_town12.md)**  | 一张包含许多不同区域的大地图，包括高层建筑、住宅区和乡村环境。 |
+| 城镇                                                                 | 概括                                                                                   |
+|--------------------------------------------------------------------|--------------------------------------------------------------------------------------|
+| **[Town01](img/Town01.jpg)**                                       | 由“T 字路口”组成的基本城镇布局。                                                                   |
+| **[Town02](img/Town02.jpg)**                                       | 和 **Town01** 类似，但是更小。                                                                |
+| **[Town03](img/Town03.jpg)**                                       | 最复杂的城镇，有 5 车道交叉路口、环岛、凹凸不平、隧道等。                                                       |
+| **[Town04](img/Town04.jpg)**                                       | 有高速公路和小镇的无限循环。                                                                       |
+| **[Town05](img/Town05.jpg)**                                       | 方形网格城镇，有十字路口和一座桥梁。每个方向有多个车道。对于执行变道很有用。                                               |
+| **[Town06](img/Town06.jpg)**                                       | 高速公路长，有许多高速公路入口和出口。它还有一个 [**密歇根左转**](<https://en.wikipedia.org/wiki/Michigan_left>)。 |
+| **[Town07](img/Town07.jpg)**                                       | 乡村环境，道路狭窄，谷仓，几乎没有红绿灯。                                                                |
+| **[Town10](img/Town10.jpg)**                                       | 具有大道或长廊等不同环境的城市环境，以及更真实的纹理。                                                          |
+| **[Town11](map_town11.md)**                                        | 具有大道或长廊等不同环境的城市环境，以及更真实的纹理。                                                          |
+| **[Town12](map_town12.md)**                                        | 一张包含许多不同区域的大地图，包括高层建筑、住宅区和乡村环境。                                                      |
+| [__Town13__](map_town13.md)                                        | 一张与 12 号镇规模相似的大地图，但具有鲜明的特色。                                                          |
+| [__Town15__](map_town15.md)                                        | 基于巴塞罗那自治大学道路布局的地图。                                                                   |
+| [__HUTB__](https://bitbucket.org/hutbcity/openhutbcarla/src/main/) | 基于湖南工商大学道路布局的地图。                                                                     |
+
+
+
 
 
 ### 分层地图
 
 分层地图的布局与非分层地图相同，但可以关闭和打开地图的图层。有一个无法关闭的最小布局，由道路、人行道、交通灯和交通标志组成。分层地图可以通过后缀 `_Opt` 来标识，例如`Town01_Opt`。使用这些地图，可以通过 Python API [加载][load_layer]和[卸载][unload_layer]图层：
 
-		# 加载 城镇01 的分层地图，带有最小布局加上建筑物和停放的车辆
-		world = client.load_world('Town01_Opt', carla.MapLayer.Buildings | carla.MapLayer.ParkedVehicles)
+	# 加载 城镇01 的分层地图，带有最小布局加上建筑物和停放的车辆
+	world = client.load_world('Town01_Opt', carla.MapLayer.Buildings | carla.MapLayer.ParkedVehicles)
 
-		# 关闭所有建筑
-		world.unload_map_layer(carla.MapLayer.Buildings)
+	# 关闭所有建筑
+	world.unload_map_layer(carla.MapLayer.Buildings)
 
-		# 打开所有建筑	
-		world.load_map_layer(carla.MapLayer.Buildings)
+	# 打开所有建筑	
+	world.load_map_layer(carla.MapLayer.Buildings)
 
 [load_layer]: https://carla.readthedocs.io/en/latest/python_api/#carla.World.load_map_layer
 [unload_layer]: https://carla.readthedocs.io/en/latest/python_api/#carla.World.unload_map_layer

@@ -9,8 +9,8 @@ Carla 与 CarSim 的集成允许将 Carla 中的车辆控制转发到 CarSim。C
 	*   [__生成 .sim 文件__](#generate-the-sim-file)  
         * [__在 Windows 上__](#on-windows)
         * [__在 Ubuntu 上__](#on-ubuntu)
-	*   [__Vehicle sizes__](#vehicle-sizes)  
-*   [__Run the simulation__](#run-the-simulation)  
+	*   [__车辆尺寸__](#vehicle-sizes)  
+*   [__运行仿真__](#run-the-simulation)  
 
 ---
 ## 在你开始之前
@@ -20,7 +20,7 @@ Carla 与 CarSim 的集成允许将 Carla 中的车辆控制转发到 CarSim。C
    
     __对于 Windows__:
 
-    Get the plugin [here](https://www.unrealengine.com/marketplace/en-US/product/carsim-vehicle-dynamics).
+    在 [这里](https://www.unrealengine.com/marketplace/en-US/product/carsim-vehicle-dynamics) 获取插件。
 
     __对于 Ubuntu__:
 
@@ -32,7 +32,7 @@ Carla 与 CarSim 的集成允许将 Carla 中的车辆控制转发到 CarSim。C
     如果您从源代码构建 Carla，请在根文件夹中运行以下命令以使用`--carsim`标志编译服务器：
 
 ```sh
-    make launch ARGS="--carsim"
+make launch ARGS="--carsim"
 ```
 
 ## 设置 CarSim

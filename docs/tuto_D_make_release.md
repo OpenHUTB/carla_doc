@@ -25,3 +25,29 @@
 
 7. **编辑 GitHub 版本。**<br>
    转到 [GitHub 发布](https://github.com/carla-simulator/carla/releases) 并在新创建的标签之上创建一个新版本。等到 Jenkins 完成发布最新版本的构建，并将下载链接添加到新创建的版本。
+
+# [发布可执行游戏](https://blog.csdn.net/zl834205311/article/details/125905705) 
+* 安装`pyinstaller`：
+```shell
+pip install pyinstaller
+```
+或安装图形窗口打包工具：
+```shell
+pip install auto-py-to-exe
+```
+然后运行`auto-py-to-exe`。
+
+## 设计
+参考[BeamNG](https://baike.baidu.com/item/BeamNG%E8%B5%9B%E8%BD%A6/18880401) 
+
+## 问题
+点击打包后的文件出现错误：
+```text
+TypeError: expected str, bytes or os.PathLike object, not _io.BytesIO
+```
+解决：
+```python
+pygame.font.Font(pygame.font.get_default_font(), 20)
+```
+获得的字体文件为`freesansbold.ttf`，最后将字体文件拷贝到和exe文件相同的路径，然后执行即可。
+

@@ -240,14 +240,14 @@ __3.__ __开始仿真__:
 使用里面的示例脚本测试仿真器`PythonAPI\examples`。在仿真器运行的情况下，为每个脚本打开一个新终端并运行以下命令以在城镇中产生一些生命并创建天气循环：
 
 ```sh
-        # 终端 A 
-        cd PythonAPI\examples
-        pip3 install -r requirements.txt
-        python3 generate_traffic.py  
+# 终端 A 
+cd PythonAPI\examples
+pip3 install -r requirements.txt
+python3 generate_traffic.py  
 
-        # 终端 B
-        cd PythonAPI\examples
-        python3 dynamic_weather.py 
+# 终端 B
+cd PythonAPI\examples
+python3 dynamic_weather.py 
 ```
 
 !!! 重要
@@ -257,15 +257,20 @@ __3.__ __开始仿真__:
 
 您可能会发现还有更多有用的`make`命令。在下表中找到它们：
 
-| 命令 | 描述                                                |
-| ------- |---------------------------------------------------|
-| `make help`                                                           | 打印所有可用的命令。                                        |
-| `make launch`                                                         | 在编辑器窗口中启动 Carla 服务器。                              |
-| `make PythonAPI`                                                      | 构建 Carla 客户端。                                     |
-| `make LibCarla`                                                       | 准备将 Carla 库导入到任何地方。                               |
-| `make package`                                                        | 构建 Carla 并创建用于分发的打包版本。                            |
-| `make clean`                                                          | 删除构建系统生成的所有二进制文件和临时文件。                            |
-| `make rebuild`                                                        | `make clean` 和 `make launch` 两者都在一个命令中。 |
+| 命令 | 描述                                              |
+| ------- |-------------------------------------------------|
+| `make help`                                                           | 打印所有可用的命令。                                      |
+| `make launch`                                                         | 在编辑器窗口中启动 Carla 服务器。                            |
+| `make PythonAPI`                                                      | 构建 Carla 客户端。                                   |
+| `make LibCarla`                                                       | 准备将 Carla 库导入到任何地方。                             |
+| `make package`                                                        | 构建 Carla 并创建用于分发的打包版本。                          |
+| `make clean`                                                          | 删除构建系统生成的所有二进制文件和临时文件。                          |
+| `make rebuild`                                                        | `make clean` 和 `make launch` 两者都在一个命令中。         |
+| `make downloadplugin`                                                        | 构建虚幻引擎插件 StreetMap 。                            |
+| `make setup`                                                        | 构下载并生成依赖库                                       |
+| `make LibCarla`                                                        | 创建LibCarla的客户端和服务端（`make server`+`make client`） |
+| `make osm2odr`                                                        | 创建OSM转OpenDRIVE的库                               |
+| `make import`                                                        | 导入资产                                            |
 
 
 

@@ -44,25 +44,24 @@ Chrono 物理是通过 [Actor](python_api.md#carlaactor) 类提供的 `enable_ch
 !!! 重要
     仔细检查您的路径。不正确或缺失的路径可能会导致虚幻引擎崩溃。
 
-`Build/chrono-install/share/chrono/data/vehicle` 中提供了适用于不同车辆的各种示例模板文件。阅读 Project Chrono [文档](https://api.projectchrono.org/manual_vehicle.html) ，了解有关其车辆示例以及如何创建模板的更多信息。
+`Build/chrono-install/share/chrono/data/vehicle` 中提供了适用于不同车辆的各种示例模板文件。阅读 Chrono 工程的[文档](https://api.projectchrono.org/manual_vehicle.html) ，了解有关其车辆示例以及如何创建模板的更多信息。
 
 请参阅下面的示例，了解如何启用 Chrono 物理：
 
 ```python
-    # 生成车辆
-    vehicle = world.spawn_actor(bp, spawn_point)
+# 生成车辆
+vehicle = world.spawn_actor(bp, spawn_point)
 
-    # 设置基础路径
-    base_path = "D:/work/workspace/carla/Build/chrono-install/data/vehicle/"
+# 设置基础路径
+base_path = "D:/work/workspace/carla/Build/chrono-install/data/vehicle/"
 
-    # 设置模板文件
-    vehicle_json = "sedan/vehicle/Sedan_Vehicle.json"
-    powertrain_json = "sedan/powertrain/Sedan_SimpleMapPowertrain.json"
-    tire_json = "sedan/tire/Sedan_TMeasyTire.json"
+# 设置模板文件
+vehicle_json = "sedan/vehicle/Sedan_Vehicle.json"
+powertrain_json = "sedan/powertrain/Sedan_SimpleMapPowertrain.json"
+tire_json = "sedan/tire/Sedan_TMeasyTire.json"
 
-    # Enable Chrono physics
-
-    vehicle.enable_chrono_physics(5000, 0.002, vehicle_json, powertrain_json, tire_json, base_path)
+# 启用 Chrono 物理特性
+vehicle.enable_chrono_physics(5000, 0.002, vehicle_json, powertrain_json, tire_json, base_path)
 ```
 
 您可以使用 `PythonAPI/examples` 中的示例脚本 `manual_control_chrono.py` 尝试 Chrono 物理集成。运行脚本后，按`Ctrl + o`启用 Chrono。
