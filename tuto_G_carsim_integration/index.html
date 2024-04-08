@@ -299,6 +299,8 @@
                   </li>
                   <li class="toctree-l1"><a class="" href="https://docs.blender.org/manual/zh-hans/latest/">Blender 手册</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../file_specification/">文件说明</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../todo/">待做列表</a>
                   </li>
               </ul>
@@ -337,10 +339,10 @@
 <li><a href="#on-ubuntu"><strong>在 Ubuntu 上</strong></a></li>
 </ul>
 </li>
-<li><a href="#vehicle-sizes"><strong>Vehicle sizes</strong></a>  </li>
+<li><a href="#vehicle-sizes"><strong>车辆尺寸</strong></a>  </li>
 </ul>
 </li>
-<li><a href="#run-the-simulation"><strong>Run the simulation</strong></a>  </li>
+<li><a href="#run-the-simulation"><strong>运行仿真</strong></a>  </li>
 </ul>
 <hr />
 <h2 id="_1">在你开始之前</h2>
@@ -349,7 +351,7 @@
 <li>
 <p>要允许与虚幻引擎通信，您需要安装适用于虚幻引擎 4.24 的 VehicleSim Dynamics 插件（版本 2020.0）。有关查找插件特定版本的信息，请检查此 <a href="https://www.carsim.com/products/supporting/unreal/index.php">链接</a> 。插件的安装取决于您的操作系统： </p>
 <p><strong>对于 Windows</strong>:</p>
-<p>Get the plugin <a href="https://www.unrealengine.com/marketplace/en-US/product/carsim-vehicle-dynamics">here</a>.</p>
+<p>在 <a href="https://www.unrealengine.com/marketplace/en-US/product/carsim-vehicle-dynamics">这里</a> 获取插件。</p>
 <p><strong>对于 Ubuntu</strong>:</p>
 <ol>
 <li>在 <a href="https://www.carsim.com/users/unreal_plugin/unreal_plugin_2020_0.php">这里</a> 下载插件。</li>
@@ -363,7 +365,7 @@
 <p>如果您从源代码构建 Carla，请在根文件夹中运行以下命令以使用<code>--carsim</code>标志编译服务器：</p>
 </li>
 </ol>
-<pre><code class="language-sh">    make launch ARGS=&quot;--carsim&quot;
+<pre><code class="language-sh">make launch ARGS=&quot;--carsim&quot;
 </code></pre>
 <h2 id="carsim_1">设置 CarSim</h2>
 <p>以下部分详细介绍了如何生成运行仿真所需的 <code>.sim</code> 文件。还有关于 Carla 和 CarSim 之间车辆尺寸关系的详细重要信息。</p>

@@ -225,7 +225,9 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">调试程序</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#vs2019-cmake">VS2019 打开 Cmake 工程</a>
+    <li class="toctree-l2"><a class="reference internal" href="#vs2019-carlaue4-cmake">VS2019 打开 CarlaUE4 的 Cmake 工程</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#libcarla">调试LibCarla</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#_1">导入崩溃问题</a>
     </li>
@@ -303,6 +305,8 @@
                   </li>
                   <li class="toctree-l1"><a class="" href="https://docs.blender.org/manual/zh-hans/latest/">Blender 手册</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../file_specification/">文件说明</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../todo/">待做列表</a>
                   </li>
               </ul>
@@ -343,10 +347,10 @@
 <li>在<code>解决方案</code>中展开<code>Games-&gt;CarlaUE4</code>，在想要查看的源代码行的最左侧单击增加断点（比如：<code>CarlaUE4-&gt;Plugins-&gt;CarlaTools-&gt;Source-&gt;CarlaTools-&gt;Private</code>的<code>OpenDriveToMap.cpp</code>的<code>GenerateTileStandalone()</code>），在菜单运行<code>调试(D)-&gt;开始调试(S)</code>，程序将在断点出暂停。通过<code>调式(D)-&gt;窗口(W)-&gt;监视(W)-&gt;监视 1</code>打开变量监视窗口，查看变量值是否异常。</li>
 <li><img alt="" src="../img/tuto_D_windows_debug/debug_project.png" /></li>
 </ol>
-<h2 id="vs2019-cmake">VS2019 打开 Cmake 工程</h2>
+<h2 id="vs2019-carlaue4-cmake">VS2019 打开 CarlaUE4 的 Cmake 工程</h2>
 <p>windows操作系统下通过vs2019打开并编译carla：</p>
 <ol>
-<li>开Carla的CMake项目：</li>
+<li>开Carla的CMake项目（参考<a href="https://www.jb51.net/article/180463.htm">CMake 入门教程</a> ）：</li>
 </ol>
 <p>从 VS 的菜单中选择 <code>File--&gt;Open--&gt;CMake</code>, 在对话框中找到 Carla 所在的本地文件夹（包含CMakeLists），选择CMakeLists.txt文件，打开，Visual studio 会自动加载此仓库，解析 <code>CMakeLists.txt</code> 文件，并提取其配置和变量信息。解析完成（需要等会儿或者重启）会从<code>解决方案资源管理器</code>中看到<code>.cpp</code>文件。</p>
 <ol>
@@ -357,6 +361,29 @@
 <li>生成：</li>
 </ol>
 <p>点击菜单栏<code>生成</code>-<code>全部生成</code>或<code>部分生成</code>即可。</p>
+<h2 id="libcarla">调试LibCarla</h2>
+<ol>
+<li>脚本<code>BuildLibCarla.bat</code>调用<code>cmake</code>命令进行构建：</li>
+</ol>
+<pre><code class="language-shell">cmake -G %GENERATOR% %PLATFORM%^
+  -DCMAKE_BUILD_TYPE=Server^
+  -DCMAKE_CXX_FLAGS_RELEASE=&quot;/MD /MP&quot;^
+  -DCMAKE_INSTALL_PREFIX=&quot;%LIBCARLA_SERVER_INSTALL_PATH:\=/%&quot;^
+  &quot;%ROOT_PATH%&quot;
+</code></pre>
+<p>其中，<code>-G</code>表示指定编译器版本（<code>set GENERATOR="Visual Studio 16 2019"</code>、<code>set PLATFORM=-A x64</code>）；</p>
+<p><code>-DCMAKE_BUILD_TYPE</code>的可选项包括：<code>Client</code>, <code>Server</code>, <code>Pytorch</code>, <code>ros2</code>；
+<code>-D CMAKE_BUILD_TYPE="Debug"</code>可选值包括：<code>Debug</code>, <code>Release</code>, <code>RelWithDebInfo</code>, <code>MinSizeRel</code>。</p>
+<p><code>CMAKE_CXX_FLAGS_RELEASE</code>设置编译类型 Release 时的编译选项；</p>
+<ol>
+<li>调用以下命令在 <code>Build</code> 目录下生成<code>Makefile</code>文件：</li>
+</ol>
+<pre><code class="language-shell">cmake --build . --config Release --target install | findstr /V &quot;Up-to-date:&quot;
+</code></pre>
+<ol>
+<li>使用VS打开<code>Build\libcarla-visualstudio\CARLA.sln</code>。
+<img alt="" src="../img/tuto_D_windows_debug/open_libcarla_proj.png" /></li>
+</ol>
 <h2 id="_1">导入崩溃问题</h2>
 <ol>
 <li>例如，导入链接：</li>

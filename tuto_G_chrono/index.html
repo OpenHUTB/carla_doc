@@ -299,6 +299,8 @@
                   </li>
                   <li class="toctree-l1"><a class="" href="https://docs.blender.org/manual/zh-hans/latest/">Blender 手册</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../file_specification/">文件说明</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../todo/">待做列表</a>
                   </li>
               </ul>
@@ -361,23 +363,21 @@
 <p class="admonition-title">重要</p>
 <p>仔细检查您的路径。不正确或缺失的路径可能会导致虚幻引擎崩溃。</p>
 </div>
-<p><code>Build/chrono-install/share/chrono/data/vehicle</code> 中提供了适用于不同车辆的各种示例模板文件。阅读 Project Chrono <a href="https://api.projectchrono.org/manual_vehicle.html">文档</a> ，了解有关其车辆示例以及如何创建模板的更多信息。</p>
+<p><code>Build/chrono-install/share/chrono/data/vehicle</code> 中提供了适用于不同车辆的各种示例模板文件。阅读 Chrono 工程的<a href="https://api.projectchrono.org/manual_vehicle.html">文档</a> ，了解有关其车辆示例以及如何创建模板的更多信息。</p>
 <p>请参阅下面的示例，了解如何启用 Chrono 物理：</p>
-<pre><code class="language-python">    # Spawn your vehicle
-    vehicle = world.spawn_actor(bp, spawn_point)
+<pre><code class="language-python"># 生成车辆
+vehicle = world.spawn_actor(bp, spawn_point)
 
-    # Set the base path
-    base_path = &quot;/path/to/carla/Build/chrono-install/share/chrono/data/vehicle/&quot;
+# 设置基础路径
+base_path = &quot;D:/work/workspace/carla/Build/chrono-install/data/vehicle/&quot;
 
-    # Set the template files
+# 设置模板文件
+vehicle_json = &quot;sedan/vehicle/Sedan_Vehicle.json&quot;
+powertrain_json = &quot;sedan/powertrain/Sedan_SimpleMapPowertrain.json&quot;
+tire_json = &quot;sedan/tire/Sedan_TMeasyTire.json&quot;
 
-    vehicle_json = &quot;sedan/vehicle/Sedan_Vehicle.json&quot;
-    powertrain_json = &quot;sedan/powertrain/Sedan_SimpleMapPowertrain.json&quot;
-    tire_json = &quot;sedan/tire/Sedan_TMeasyTire.json&quot;
-
-    # Enable Chrono physics
-
-    vehicle.enable_chrono_physics(5000, 0.002, vehicle_json, powertrain_json, tire_json, base_path)
+# 启用 Chrono 物理特性
+vehicle.enable_chrono_physics(5000, 0.002, vehicle_json, powertrain_json, tire_json, base_path)
 </code></pre>
 <p>您可以使用 <code>PythonAPI/examples</code> 中的示例脚本 <code>manual_control_chrono.py</code> 尝试 Chrono 物理集成。运行脚本后，按<code>Ctrl + o</code>启用 Chrono。</p>
 <hr />

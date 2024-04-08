@@ -287,6 +287,8 @@
                   </li>
                   <li class="toctree-l1"><a class="" href="https://docs.blender.org/manual/zh-hans/latest/">Blender 手册</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../file_specification/">文件说明</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../todo/">待做列表</a>
                   </li>
               </ul>
@@ -351,6 +353,26 @@
    转到 <a href="https://github.com/carla-simulator/carla/releases">GitHub 发布</a> 并在新创建的标签之上创建一个新版本。等到 Jenkins 完成发布最新版本的构建，并将下载链接添加到新创建的版本。</p>
 </li>
 </ol>
+<h1 id="_2"><a href="https://blog.csdn.net/zl834205311/article/details/125905705">发布可执行游戏</a></h1>
+<ul>
+<li>安装<code>pyinstaller</code>：</li>
+</ul>
+<pre><code class="language-shell">pip install pyinstaller
+</code></pre>
+<p>或安装图形窗口打包工具：</p>
+<pre><code class="language-shell">pip install auto-py-to-exe
+</code></pre>
+<p>然后运行<code>auto-py-to-exe</code>。</p>
+<h2 id="_3">设计</h2>
+<p>参考<a href="https://baike.baidu.com/item/BeamNG%E8%B5%9B%E8%BD%A6/18880401">BeamNG</a> </p>
+<h2 id="_4">问题</h2>
+<p>点击打包后的文件出现错误：</p>
+<pre><code class="language-text">TypeError: expected str, bytes or os.PathLike object, not _io.BytesIO
+</code></pre>
+<p>解决：</p>
+<pre><code class="language-python">pygame.font.Font(pygame.font.get_default_font(), 20)
+</code></pre>
+<p>获得的字体文件为<code>freesansbold.ttf</code>，最后将字体文件拷贝到和exe文件相同的路径，然后执行即可。</p>
               
             </div>
           </div><footer>

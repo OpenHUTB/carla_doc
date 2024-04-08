@@ -285,6 +285,8 @@
                   </li>
                   <li class="toctree-l1"><a class="" href="https://docs.blender.org/manual/zh-hans/latest/">Blender 手册</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../file_specification/">文件说明</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../todo/">待做列表</a>
                   </li>
               </ul>
@@ -312,38 +314,38 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="osc2-runner">osc2-runner</h1>
-<p>We use OpenScenario 2.0 as the scenario description language specification to design and implement the corresponding compilation system, which can automatically convert the test scenario described with OpenScenario 2.0 into a test scenario based on scenario runner, so as to use carla for autonomous driving testing.</p>
+<p>我们使用OpenScenario 2.0作为场景描述语言规范，设计并实现了相应的编译系统，可以自动将用OpenScenario 2.0描述的测试场景转换为基于scenario runner的测试场景，从而使用carla进行自动驾驶测试。</p>
 <h2 id="installation">Installation</h2>
-<p><strong>1. Install JDK</strong></p>
+<p><strong>1. 安装JDK</strong></p>
 <pre><code>sudo apt install openjdk-17-jdk
 </code></pre>
-<p>Confirm installation:</p>
+<p>确认安装：</p>
 <pre><code>$ java -version
 </code></pre>
-<p>Output:</p>
+<p>输出：</p>
 <pre><code>openjdk version &quot;17.0.5&quot; 2022-10-18
 OpenJDK Runtime Environment (build 17.0.5+8-Ubuntu-2ubuntu120.04)
 OpenJDK 64-Bit Server VM (build 17.0.5+8-Ubuntu-2ubuntu120.04, mixed mode, sharing)
 </code></pre>
-<p><strong>3、Install Antlr 4.10.1</strong></p>
+<p><strong>3、安装 Antlr 4.10.1</strong></p>
 <pre><code>sudo apt install curl
 curl -O https://www.antlr.org/download/antlr-4.10.1-complete.jar
 </code></pre>
-<p>Put the .jar file into local/lib</p>
+<p>将.jar文件放入local/lib中</p>
 <pre><code>$ sudo cp antlr-4.10.1-complete.jar /usr/local/lib/
 </code></pre>
-<p>The following three steps are used to configure environment variables and create aliases so that antlr4 can be easily used from the command line.</p>
+<p>以下三个步骤用于配置环境变量并创建别名，以便可以轻松地从命令行使用antlr4。</p>
 <pre><code>$ sudo gedit ~/.bashrc
 </code></pre>
-<p>Add the following at the end:</p>
+<p>在末尾添加以下内容：</p>
 <pre><code>export CLASSPATH=&quot;.:/usr/local/lib/antlr-4.10.1-complete.jar:$CLASSPATH&quot;
 alias antlr4='java -jar /usr/local/lib/antlr-4.10.1-complete.jar'
 alias grun='java org.antlr.v4.gui.TestRig'
 </code></pre>
-<p>And then:</p>
+<p>进而：</p>
 <pre><code>source ~/.bashrc
 </code></pre>
-<p>Enter antlr4 for verifying in the terminal:</p>
+<p>在终端输入antlr4进行验证：</p>
 <pre><code>$ antlr4
 ANTLR Parser Generator  Version 4.10.1
  -o ___              specify output directory where all output is generated
@@ -366,31 +368,31 @@ ANTLR Parser Generator  Version 4.10.1
  -Xlog               dump lots of logging info to antlr-timestamp.log
  -Xexact-output-dir  all output goes into -o dir regardless of paths/package
 </code></pre>
-<p><strong>4、Install antlr4 runtime</strong></p>
+<p><strong>4、安装antlr4运行时</strong></p>
 <pre><code>pip install antlr4-python3-runtime==4.10
 </code></pre>
-<p><strong>5、Install python dependency</strong></p>
+<p><strong>5、安装python依赖</strong></p>
 <pre><code>pip install -r requirements.txt
 </code></pre>
-<p><strong>6.Install graphviz</strong></p>
+<p><strong>6、安装 graphviz</strong></p>
 <pre><code>sudo apt-get install graphviz
 </code></pre>
-<p><strong>7、Configurate carla</strong></p>
-<p>(1) Download <a href="https://carla-releases.s3.eu-west-3.amazonaws.com/Linux/CARLA_0.9.13.tar.gz">carla release</a></p>
-<p>(2) Extract the carla installation package to a directory.</p>
-<p>On Ubuntu systems, the Carla environment variable is configured as follows:</p>
+<p><strong>7、配置 carla</strong></p>
+<p>(1) 下载 <a href="https://carla-releases.s3.eu-west-3.amazonaws.com/Linux/CARLA_0.9.13.tar.gz">carla版本</a></p>
+<p>(2) 将carla安装包解压到某个目录。</p>
+<p>在Ubuntu系统上，Carla环境变量配置如下：</p>
 <pre><code class="language-bash">export CARLA_ROOT=/home/dut-aiid/CARLA_0.9.13
 export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.13-py3.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla/agents/navigation:${CARLA_ROOT}/PythonAPI/carla:${CARLA_ROOT}/PythonAPI/examples:${CARLA_ROOT}/PythonAPI
 </code></pre>
-<h2 id="quickstart">Quickstart</h2>
-<p><strong>1、Run carla</strong></p>
+<h2 id="_1">快速开始</h2>
+<p><strong>1、运行 carla</strong></p>
 <pre><code class="language-bash">cd /home/xxx/CARLA_0.9.13
 ./CarlaUE4.sh
 </code></pre>
-<p><strong>2、Start manual_control</strong></p>
+<p><strong>2、启动 manual_control</strong></p>
 <pre><code>python manual_control.py -a --rolename=ego_vehicle
 </code></pre>
-<p><strong>3、Run a OpenSCENARIO 2.0 scenario</strong></p>
+<p><strong>3、运行OpenSCENARIO 2.0场景</strong></p>
 <pre><code>python scenario_runner.py --sync  --openscenario2 srunner/examples/cut_in_and_slow_right.osc --reloadWorld 
 </code></pre>
               

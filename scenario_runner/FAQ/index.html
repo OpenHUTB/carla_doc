@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Frequently Asked Questions - 交通仿真文档</title>
+    <title>经常问的问题 - 交通仿真文档</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Frequently Asked Questions";
+        var mkdocs_page_name = "\u7ecf\u5e38\u95ee\u7684\u95ee\u9898";
         var mkdocs_page_input_path = "scenario_runner\\FAQ.md";
         var mkdocs_page_url = null;
       </script>
@@ -285,6 +285,8 @@
                   </li>
                   <li class="toctree-l1"><a class="" href="https://docs.blender.org/manual/zh-hans/latest/">Blender 手册</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../file_specification/">文件说明</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../todo/">待做列表</a>
                   </li>
               </ul>
@@ -302,7 +304,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Frequently Asked Questions</li>
+      <li class="breadcrumb-item active">经常问的问题</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -311,12 +313,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="frequently-asked-questions">Frequently Asked Questions</h1>
-<h2 id="i-receive-the-error-typeerror-instancemethod-object-has-no-attribute-getitem-in-the-agent-navigation">I receive the error "TypeError: 'instancemethod' object has no attribute '<strong>getitem</strong>'" in the agent navigation</h2>
-<p>This issue is most likely caused by an outdated version of the Python Networkx package. Please remove the current installation
-(e.g. sudo apt-get remove python-networkx) and install it using "pip install --user networkx==2.2".</p>
-<h2 id="no-scenario-visible-and-i-receive-the-message-no-more-scenarios-exiting">No scenario visible and I receive the message "No more scenarios .... Exiting"</h2>
-<p>In case you receive the following output</p>
+                <h1 id="_1">经常问的问题</h1>
+<h2 id="typeerror-instancemethod-object-has-no-attribute-getitem">在代理导航中收到错误 "TypeError: 'instancemethod' object has no attribute '<strong>getitem</strong>'"</h2>
+<p>此问题很可能是由 Python Networkx 包的过时版本引起的。请删除当前安装（例如 sudo apt-get remove python-networkx）并使用“pip install --user networkx==2.2”进行安装。</p>
+<h2 id="no-more-scenarios-exiting">没有可见的场景，我收到消息 "No more scenarios .... Exiting"</h2>
+<p>如果您收到以下输出</p>
 <pre><code>Preparing scenario: FollowLeadingVehicle_1
 ScenarioManager: Running scenario FollowVehicle
 Resetting ego-vehicle!
@@ -325,13 +326,12 @@ Resetting ego-vehicle!
 ERROR: failed to destroy actor 527 : unable to destroy actor: not found
 No more scenarios .... Exiting
 </code></pre>
-<p>and you see nothing happening, it is most likely due to the fact, that you did not launch a program to control
-the ego vehicle. Run for example manual_control.py, and you should now see something happening.</p>
-<h2 id="scenario-runner-exits-with-error-when-using-debug-commandline-parameter">Scenario Runner exits with error when using --debug commandline parameter</h2>
-<p>In case you receive the following output</p>
+<p>如果您没有看到任何事情发生，很可能是因为您没有启动控制自我车辆的程序。运行例如manual_control.py，您现在应该看到发生了一些事情。 </p>
+<h2 id="-debug-scenario-runner">使用 --debug 命令行参数时，Scenario Runner 退出并出现错误</h2>
+<p>如果您收到以下输出</p>
 <pre><code>UnicodeEncodeError: 'ascii' codec can't encode character '\u2713' in position 58: ordinal not in range(128)
 </code></pre>
-<p>Please set environment variable</p>
+<p>请设置环境变量</p>
 <pre><code>PYTHONIOENCODING=utf-8
 </code></pre>
               

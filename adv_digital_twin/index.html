@@ -201,7 +201,9 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#_6">保存地图</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_7">问题</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_7">后续步骤</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_8">问题</a>
     </li>
     </ul>
                   </li>
@@ -313,6 +315,8 @@
                   </li>
                   <li class="toctree-l1"><a class="" href="https://docs.blender.org/manual/zh-hans/latest/">Blender 手册</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../file_specification/">文件说明</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../todo/">待做列表</a>
                   </li>
               </ul>
@@ -398,7 +402,9 @@
 <p>对于 2x2 km<sup>2</sup> 区域，生成步骤大约需要 10 分钟，较大的区域将需要更长的时间。生成过程完成后，您可以在虚幻引擎编辑器中检查三维地图。</p>
 <h2 id="_6">保存地图</h2>
 <p>如果您对生成的地图感到满意，则可以按 <em>Save Map</em> 按钮保存地图。 <strong>此步骤将花费大量时间</strong>，可能需要一个多小时，也可能需要几个小时。完成此步骤后，您应该准备让计算机运行几个小时。完成此步骤后，将可以通过虚幻引擎编辑器或通过 Carla API 使用该地图，就像任何其他地图一样。</p>
-<h2 id="_7">问题</h2>
+<h2 id="_7">后续步骤</h2>
+<p>添加光源、添加光源（天光）、构建场景。</p>
+<h2 id="_8">问题</h2>
 <p><code>carla\Unreal\CarlaUE4\Plugins\CarlaTools\Source\CarlaTools\Private\OpenDriveToMap.cpp</code>改为生成一个瓦片地图的函数，生成后的名字为<code>{NAME}_Tile_0_0</code>。</p>
 <pre><code class="language-shell">// ExecuteTileCommandlet();
 GenerateTile();

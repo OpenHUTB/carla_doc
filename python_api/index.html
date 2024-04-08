@@ -1155,6 +1155,8 @@
                   </li>
                   <li class="toctree-l1"><a class="" href="https://docs.blender.org/manual/zh-hans/latest/">Blender 手册</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../file_specification/">文件说明</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../todo/">待做列表</a>
                   </li>
               </ul>
@@ -1277,7 +1279,7 @@
 <li><a name="carla.Actor.add_torque"></a><strong><font color="#7fb800">add_torque</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>torque</strong></font>)<br />
 在参与者的质心处应用扭矩。此方法适用于在一定时间内施加的扭矩。使用 <strong><font color="#7fb800">add_angular_impulse()</font></strong> 施加仅持续瞬间的扭矩。  <ul>
 <li><strong>参数:</strong><ul>
-<li><code>torque</code> (<em><a href="#carla.Vector3D">carla.Vector3D</a><small> - degrees</small></em>) - 全局坐标中的扭矩矢量。  </li>
+<li><code>torque</code> (<em><a href="#carla.Vector3D">carla.Vector3D</a><small> - 度</small></em>) - 全局坐标中的扭矩矢量。  </li>
 </ul>
 </li>
 </ul>
@@ -1318,7 +1320,7 @@
 </li>
 <li><a name="carla.Actor.get_location"></a><strong><font color="#7fb800">get_location</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
 返回客户端在上一次tick期间接收到的参与者的位置。该方法不调用仿真器。  <ul>
-<li><strong>返回：</strong> <em><a href="#carla.Location">carla.Location</a><small> - meters</small></em>  </li>
+<li><strong>返回：</strong> <em><a href="#carla.Location">carla.Location</a><small> - 米</small></em>  </li>
 <li><strong>设置器:</strong> <em><a href="#carla.Actor.set_location">carla.Actor.set_location</a></em>  </li>
 </ul>
 </li>
@@ -1352,7 +1354,7 @@
 <li><a name="carla.Actor.set_location"></a><strong><font color="#7fb800">set_location</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>location</strong></font>)<br />
 将角色传送到给定位置。  <ul>
 <li><strong>参数：</strong><ul>
-<li><code>location</code> (<em><a href="#carla.Location">carla.Location</a><small> - meters</small></em>)  </li>
+<li><code>location</code> (<em><a href="#carla.Location">carla.Location</a><small> - 米</small></em>)  </li>
 </ul>
 </li>
 <li><strong>获取器：</strong> <em><a href="#carla.Actor.get_location">carla.Actor.get_location</a></em>  </li>
@@ -1690,9 +1692,9 @@
 <p>边界框包含场景中参与者或元素的几何体。它们可以被<a href="#carla.DebugHelper">carla.DebugHelper</a> 或 <a href="#carla.Client">carla.Client</a> 用于绘制它们的形状以进行调试。看看 <a href="#carla.DebugHelper.draw_box">carla.DebugHelper.draw_box</a>，其中使用世界快照绘制红绿灯的边界框。</p>
 <h3 id="_24">实例变量</h3>
 <ul>
-<li><a name="carla.BoundingBox.extent"></a><strong><font color="#f8805a">extent</font></strong> (<em><a href="#carla.Vector3D">carla.Vector3D</a><small> - meters</small></em>)<br />
+<li><a name="carla.BoundingBox.extent"></a><strong><font color="#f8805a">extent</font></strong> (<em><a href="#carla.Vector3D">carla.Vector3D</a><small> - 米</small></em>)<br />
 从长方体中心到一个顶点的矢量。每个轴中的值等于该轴框大小的一半。<code>extent.x * 2</code> 将返回框在x轴上的大小。 </li>
-<li><a name="carla.BoundingBox.location"></a><strong><font color="#f8805a">location</font></strong> (<em><a href="#carla.Location">carla.Location</a><small> - meters</small></em>)<br />
+<li><a name="carla.BoundingBox.location"></a><strong><font color="#f8805a">location</font></strong> (<em><a href="#carla.Location">carla.Location</a><small> - 米</small></em>)<br />
 边界框的中心。  </li>
 <li><a name="carla.BoundingBox.rotation"></a><strong><font color="#f8805a">rotation</font></strong> (<em><a href="#carla.Rotation">carla.Rotation</a></em>)<br />
 边界框的朝向。 </li>
@@ -1702,7 +1704,7 @@
 <li><a name="carla.BoundingBox.__init__"></a><strong><font color="#7fb800">__init__</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>location</strong></font>, <font color="#00a6ed"><strong>extent</strong></font>)  <ul>
 <li><strong>参数：</strong><ul>
 <li><code>location</code> (<em><a href="#carla.Location">carla.Location</a></em>) - 相对于其父框的中心。 </li>
-<li><code>extent</code> (<em><a href="#carla.Vector3D">carla.Vector3D</a><small> - meters</small></em>) - 包含每个轴的长方体大小的一半的矢量。 </li>
+<li><code>extent</code> (<em><a href="#carla.Vector3D">carla.Vector3D</a><small> - 米</small></em>) - 包含每个轴的长方体大小的一半的矢量。 </li>
 </ul>
 </li>
 </ul>
@@ -1710,7 +1712,7 @@
 <li><a name="carla.BoundingBox.contains"></a><strong><font color="#7fb800">contains</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>world_point</strong></font>, <font color="#00a6ed"><strong>transform</strong></font>)<br />
 如果在世界空间中传递的点在此边界框内，则返回<strong>True</strong>。<ul>
 <li><strong>Parameters:</strong><ul>
-<li><code>world_point</code> (<em><a href="#carla.Location">carla.Location</a><small> - meters</small></em>) - 要检查的世界空间中的点。 </li>
+<li><code>world_point</code> (<em><a href="#carla.Location">carla.Location</a><small> - 米</small></em>) - 要检查的世界空间中的点。 </li>
 <li><code>transform</code> (<em><a href="#carla.Transform">carla.Transform</a></em>) - 包含将此对象的局部空间转换为世界空间所需的位置和旋转。 </li>
 </ul>
 </li>
@@ -2010,7 +2012,7 @@ Creates a new world with default settings using <code>map_name</code> map. All a
 </ul>
 <hr />
 <h2 id="carlacollisionevent">carla.CollisionEvent<a name="carla.CollisionEvent"></a></h2>
-<p><small style="display:block;margin-top:-20px;">Inherited from <em><a href="#carla.SensorData">carla.SensorData</a></em></small></br>
+<p><small style="display:block;margin-top:-20px;">从 <em><a href="#carla.SensorData">carla.SensorData</a></em> 继承</small></br>
 为<b>sensor.other.collision</b>定义碰撞数据的类。传感器为检测到的每个碰撞创建一个碰撞数据。每个碰撞传感器每帧每个碰撞产生一个碰撞事件。通过与多个其他参与者的碰撞，可以在单个帧中产生多个碰撞事件。点击 <a href="../ref_sensors/#collision-detector">此处</a> 了解更多信息。  </p>
 <h3 id="_31">实例变量</h3>
 <ul>
@@ -2133,10 +2135,10 @@ Y 像素坐标。  </li>
 <li><a name="carla.DebugHelper.draw_arrow"></a><strong><font color="#7fb800">draw_arrow</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>begin</strong></font>, <font color="#00a6ed"><strong>end</strong></font>, <font color="#00a6ed"><strong>thickness</strong>=0.1</font>, <font color="#00a6ed"><strong>arrow_size</strong>=0.1</font>, <font color="#00a6ed"><strong>color</strong>=(255,0,0)</font>, <font color="#00a6ed"><strong>life_time</strong>=-1.0</font>)<br />
 从开始<code>begin</code>到结束<code>end</code>绘制一个指向该方向的箭头。 <ul>
 <li><strong>参数：</strong><ul>
-<li><code>begin</code> (<em><a href="#carla.Location">carla.Location</a><small> - meters</small></em>) - 坐标系中箭头开始的点。</li>
-<li><code>end</code> (<em><a href="#carla.Location">carla.Location</a><small> - meters</small></em>) -  坐标系中箭头结束并指向的点。</li>
-<li><code>thickness</code> (<em>float<small> - meters</small></em>) - 线的密度。  </li>
-<li><code>arrow_size</code> (<em>float<small> - meters</small></em>) - 箭头尖端的大小。</li>
+<li><code>begin</code> (<em><a href="#carla.Location">carla.Location</a><small> - 米</small></em>) - 坐标系中箭头开始的点。</li>
+<li><code>end</code> (<em><a href="#carla.Location">carla.Location</a><small> - 米</small></em>) -  坐标系中箭头结束并指向的点。</li>
+<li><code>thickness</code> (<em>float<small> - 米</small></em>) - 线的密度。  </li>
+<li><code>arrow_size</code> (<em>float<small> - 米</small></em>) - 箭头尖端的大小。</li>
 <li><code>color</code> (<em><a href="#carla.Color">carla.Color</a></em>) - 用于为对象着色的 RGB 代码。默认为红色。</li>
 <li><code>life_time</code> (<em>float<small> - seconds</small></em>) - 形状的生命周期。默认情况下它只持续一帧。将其设置<code>0</code>为永久形状。 </li>
 </ul>
@@ -2144,13 +2146,61 @@ Y 像素坐标。  </li>
 </ul>
 </li>
 <li><a name="carla.DebugHelper.draw_box"></a><strong><font color="#7fb800">draw_box</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>box</strong></font>, <font color="#00a6ed"><strong>rotation</strong></font>, <font color="#00a6ed"><strong>thickness</strong>=0.1</font>, <font color="#00a6ed"><strong>color</strong>=(255,0,0)</font>, <font color="#00a6ed"><strong>life_time</strong>=-1.0</font>)<button class="SnipetButton" id="carla.DebugHelper.draw_box-snipet_button">snippet &rarr;</button><br />
-Draws a box, ussually to act for object colliders.  <ul>
-<li><strong>Parameters:</strong><ul>
+绘制一个框，通常用于对象碰撞器。  <ul>
+<li><strong>参数：</strong><ul>
 <li><code>box</code> (<em><a href="#carla.BoundingBox">carla.BoundingBox</a></em>) - 包含每个轴的位置和框长度的对象。</li>
 <li><code>rotation</code> (<em><a href="#carla.Rotation">carla.Rotation</a><small> - 度 (pitch,yaw,roll)</small></em>) - 根据虚幻引擎轴系的边界框方向。</li>
-<li><code>thickness</code> (<em>float<small> - meters</small></em>) - 定义边界框的线的密度。</li>
+<li><code>thickness</code> (<em>float<small> - 米</small></em>) - 定义边界框的线的密度。</li>
 <li><code>color</code> (<em><a href="#carla.Color">carla.Color</a></em>) - 用于为对象着色的 RGB 代码。默认为红色。</li>
-<li><code>life_time</code> (<em>float<small> - seconds</small></em>) - 形状的生命周期。默认情况下它只持续一帧。将其设置<code>0</code>为永久形状。</li>
+<li><code>life_time</code> (<em>float<small> - 秒</small></em>) - 形状的生命周期。默认情况下它只持续一帧。将其设置<code>0</code>为永久形状。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a name="carla.DebugHelper.draw_hud_arrow"></a><strong><font color="#7fb800">draw_hud_arrow</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>begin</strong></font>, <font color="#00a6ed"><strong>end</strong></font>, <font color="#00a6ed"><strong>thickness</strong>=0.1</font>, <font color="#00a6ed"><strong>arrow_size</strong>=0.1</font>, <font color="#00a6ed"><strong>color</strong>=(255,0,0)</font>, <font color="#00a6ed"><strong>life_time</strong>=-1.0</font>)<br />
+在HUD上从头<code>begin</code>到尾<code>end</code>画一个箭头，这个箭头只能在服务器端看到。<ul>
+<li><strong>参数：</strong><ul>
+<li><code>begin</code> (<em><a href="#carla.Location">carla.Location</a><small> - 米</small></em>) - 坐标系统中箭头起始的点。</li>
+<li><code>end</code> (<em><a href="#carla.Location">carla.Location</a><small> - 米</small></em>) - 坐标系统中箭头结束并指向的点。  </li>
+<li><code>thickness</code> (<em>float<small> - 米</small></em>) - 线的密度。  </li>
+<li><code>arrow_size</code> (<em>float<small> - 米</small></em>) - 箭尖的大小。</li>
+<li><code>color</code> (<em><a href="#carla.Color">carla.Color</a></em>) - RGB编码为对象上色。默认为红色。  </li>
+<li><code>life_time</code> (<em>float<small> - seconds</small></em>) - 形状的生命周期。默认情况下，它只持续一帧。对于永久形状，将其设置为<code>0</code>。  </li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a name="carla.DebugHelper.draw_hud_box"></a><strong><font color="#7fb800">draw_hud_box</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>box</strong></font>, <font color="#00a6ed"><strong>rotation</strong></font>, <font color="#00a6ed"><strong>thickness</strong>=0.1</font>, <font color="#00a6ed"><strong>color</strong>=(255,0,0)</font>, <font color="#00a6ed"><strong>life_time</strong>=-1.0</font>)<br />
+在 HUD 上绘制一个框，通常用于对象碰撞器。该框只能在服务器端看到。<ul>
+<li><strong>Parameters:</strong><ul>
+<li><code>box</code> (<em><a href="#carla.BoundingBox">carla.BoundingBox</a></em>) - 包含每个轴的框的位置和长度的对象。 </li>
+<li><code>rotation</code> (<em><a href="#carla.Rotation">carla.Rotation</a><small> - degrees (pitch,yaw,roll)</small></em>) - 根据虚幻引擎的轴系统确定边界框的方向。  </li>
+<li><code>thickness</code> (<em>float<small> - 米</small></em>) - 定义边界框线的密度。 </li>
+<li><code>color</code> (<em><a href="#carla.Color">carla.Color</a></em>) - RGB 编码为对象上色。默认为红色。</li>
+<li><code>life_time</code> (<em>float<small> - seconds</small></em>) - 形状的生命周期。默认情况下，它只持续一帧。对于永久形状，将其设置为 <code>0</code>。 </li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a name="carla.DebugHelper.draw_hud_line"></a><strong><font color="#7fb800">draw_hud_line</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>begin</strong></font>, <font color="#00a6ed"><strong>end</strong></font>, <font color="#00a6ed"><strong>thickness</strong>=0.1</font>, <font color="#00a6ed"><strong>color</strong>=(255,0,0)</font>, <font color="#00a6ed"><strong>life_time</strong>=-1.0</font>)<br />
+在HUD上开始<code>begin</code>和结束<code>end</code>之间画一条线。这条线只能在服务器端看到。<ul>
+<li><strong>参数：</strong><ul>
+<li><code>begin</code> (<em><a href="#carla.Location">carla.Location</a><small> - 米</small></em>) - 坐标系统中直线开始的点。</li>
+<li><code>end</code> (<em><a href="#carla.Location">carla.Location</a><small> - 米</small></em>) - 坐标系统中直线结束的点。</li>
+<li><code>thickness</code> (<em>float<small> - 米</small></em>) - 线的密度。</li>
+<li><code>color</code> (<em><a href="#carla.Color">carla.Color</a></em>) - RGB 编码为对象上色。默认为红色。</li>
+<li><code>life_time</code> (<em>float<small> - 秒</small></em>) - 形状的生命周期。默认情况下，它只持续一帧。对于永久形状，将其设置为<code>0</code>。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a name="carla.DebugHelper.draw_hud_point"></a><strong><font color="#7fb800">draw_hud_point</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>location</strong></font>, <font color="#00a6ed"><strong>size</strong>=0.1</font>, <font color="#00a6ed"><strong>color</strong>=(255,0,0)</font>, <font color="#00a6ed"><strong>life_time</strong>=-1.0</font>)<br />
+在 HUD 的位置<code>location</code>上绘制一个点。这个点只能在服务器端看到。 <ul>
+<li><strong>参数：</strong><ul>
+<li><code>location</code> (<em><a href="#carla.Location">carla.Location</a><small> - 米</small></em>) - 点在坐标系中使物体居中。</li>
+<li><code>size</code> (<em>float<small> - 米</small></em>) - 点的密度。</li>
+<li><code>color</code> (<em><a href="#carla.Color">carla.Color</a></em>) - RGB 编码为对象上色。默认为红色。</li>
+<li><code>life_time</code> (<em>float<small> - seconds</small></em>) - 形状的生命周期。默认情况下，它只持续一帧。对于永久形状，将其设置为<code>0</code>。 </li>
 </ul>
 </li>
 </ul>
@@ -2158,11 +2208,11 @@ Draws a box, ussually to act for object colliders.  <ul>
 <li><a name="carla.DebugHelper.draw_line"></a><strong><font color="#7fb800">draw_line</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>begin</strong></font>, <font color="#00a6ed"><strong>end</strong></font>, <font color="#00a6ed"><strong>thickness</strong>=0.1</font>, <font color="#00a6ed"><strong>color</strong>=(255,0,0)</font>, <font color="#00a6ed"><strong>life_time</strong>=-1.0</font>)<br />
 在开始<code>begin</code> 和结束 <code>end</code>之间绘制一条线。  <ul>
 <li><strong>参数：</strong><ul>
-<li><code>begin</code> (<em><a href="#carla.Location">carla.Location</a><small> - meters</small></em>) -  坐标系中直线起点。</li>
-<li><code>end</code> (<em><a href="#carla.Location">carla.Location</a><small> - meters</small></em>) - 坐标系中直线终点。 </li>
+<li><code>begin</code> (<em><a href="#carla.Location">carla.Location</a><small> - 米</small></em>) -  坐标系中直线起点。</li>
+<li><code>end</code> (<em><a href="#carla.Location">carla.Location</a><small> - 米</small></em>) - 坐标系中直线终点。 </li>
 <li><code>thickness</code> (<em>float<small> - 米</small></em>) - 线的密度。  </li>
 <li><code>color</code> (<em><a href="#carla.Color">carla.Color</a></em>) - 用于为对象着色的 RGB 代码。默认为红色。</li>
-<li><code>life_time</code> (<em>float<small> - seconds</small></em>) - 形状的生命周期。默认情况下它只持续一帧。将其设置<code>0</code>为永久形状。</li>
+<li><code>life_time</code> (<em>float<small> - 秒</small></em>) - 形状的生命周期。默认情况下它只持续一帧。将其设置<code>0</code>为永久形状。</li>
 </ul>
 </li>
 </ul>
@@ -2170,8 +2220,8 @@ Draws a box, ussually to act for object colliders.  <ul>
 <li><a name="carla.DebugHelper.draw_point"></a><strong><font color="#7fb800">draw_point</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>location</strong></font>, <font color="#00a6ed"><strong>size</strong>=0.1</font>, <font color="#00a6ed"><strong>color</strong>=(255,0,0)</font>, <font color="#00a6ed"><strong>life_time</strong>=-1.0</font>)<br />
 绘制一个点 <code>location</code>。<ul>
 <li><strong>参数：</strong><ul>
-<li><code>location</code> (<em><a href="#carla.Location">carla.Location</a><small> - meters</small></em>) - 在坐标系中点以将对象居中。</li>
-<li><code>size</code> (<em>float<small> - meters</small></em>) - 点的密度。</li>
+<li><code>location</code> (<em><a href="#carla.Location">carla.Location</a><small> - 米</small></em>) - 在坐标系中点以将对象居中。</li>
+<li><code>size</code> (<em>float<small> - 米</small></em>) - 点的密度。</li>
 <li><code>color</code> (<em><a href="#carla.Color">carla.Color</a></em>) - 用于为对象着色的 RGB 代码。默认为红色。</li>
 <li><code>life_time</code> (<em>float<small> - seconds</small></em>) - 形状的生命周期。默认情况下它只持续一帧。将其设置<code>0</code>为永久形状。</li>
 </ul>
@@ -2181,7 +2231,7 @@ Draws a box, ussually to act for object colliders.  <ul>
 <li><a name="carla.DebugHelper.draw_string"></a><strong><font color="#7fb800">draw_string</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>location</strong></font>, <font color="#00a6ed"><strong>text</strong></font>, <font color="#00a6ed"><strong>draw_shadow</strong>=False</font>, <font color="#00a6ed"><strong>color</strong>=(255,0,0)</font>, <font color="#00a6ed"><strong>life_time</strong>=-1.0</font>)<button class="SnipetButton" id="carla.DebugHelper.draw_string-snipet_button">snippet &rarr;</button><br />
 在仿真的给定位置绘制一个字符串，该字符串只能在服务器端看到。<ul>
 <li><strong>参数：</strong><ul>
-<li><code>location</code> (<em><a href="#carla.Location">carla.Location</a><small> - meters</small></em>) - 仿真中文本居中的位置。</li>
+<li><code>location</code> (<em><a href="#carla.Location">carla.Location</a><small> - 米</small></em>) - 仿真中文本居中的位置。</li>
 <li><code>text</code> (<em>str</em>) - 旨在向世界展示的文本。 </li>
 <li><code>draw_shadow</code> (<em>bool</em>) - 为字符串投射阴影，有助于可视化。默认情况下它是禁用的。</li>
 <li><code>color</code> (<em><a href="#carla.Color">carla.Color</a></em>) - 用于为字符串着色的 RGB 代码。默认为红色。</li>
@@ -2335,20 +2385,20 @@ Alpha 通道。</li>
 <p>包含地理坐标仿真数据的类。<a href="#carla.Map">carla.Map</a> 可以使用以下方法转换仿真位置 OpenDRIVE 文件中的 <b><georeference></b> 标记。</p>
 <h3 id="_48">实例变量</h3>
 <ul>
-<li><a name="carla.GeoLocation.latitude"></a><strong><font color="#f8805a">latitude</font></strong> (<em>float<small> - degrees</small></em>)<br />
+<li><a name="carla.GeoLocation.latitude"></a><strong><font color="#f8805a">latitude</font></strong> (<em>float<small> - 度</small></em>)<br />
 地图上某个点的北/南值。  </li>
-<li><a name="carla.GeoLocation.longitude"></a><strong><font color="#f8805a">longitude</font></strong> (<em>float<small> - degrees</small></em>)<br />
+<li><a name="carla.GeoLocation.longitude"></a><strong><font color="#f8805a">longitude</font></strong> (<em>float<small> - 度</small></em>)<br />
 地图上某个点的北/南值。  </li>
-<li><a name="carla.GeoLocation.altitude"></a><strong><font color="#f8805a">altitude</font></strong> (<em>float<small> - meters</small></em>)<br />
+<li><a name="carla.GeoLocation.altitude"></a><strong><font color="#f8805a">altitude</font></strong> (<em>float<small> - 米</small></em>)<br />
 相对于地面的高度。 </li>
 </ul>
 <h3 id="_49">方法</h3>
 <ul>
 <li><a name="carla.GeoLocation.__init__"></a><strong><font color="#7fb800">__init__</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>latitude</strong>=0.0</font>, <font color="#00a6ed"><strong>longitude</strong>=0.0</font>, <font color="#00a6ed"><strong>altitude</strong>=0.0</font>)  <ul>
 <li><strong>参数：</strong><ul>
-<li><code>latitude</code> (<em>float<small> - degrees</small></em>)  </li>
-<li><code>longitude</code> (<em>float<small> - degrees</small></em>)  </li>
-<li><code>altitude</code> (<em>float<small> - meters</small></em>)  </li>
+<li><code>latitude</code> (<em>float<small> - 度</small></em>)  </li>
+<li><code>longitude</code> (<em>float<small> - 度</small></em>)  </li>
+<li><code>altitude</code> (<em>float<small> - 米</small></em>)  </li>
 </ul>
 </li>
 </ul>
@@ -2362,15 +2412,15 @@ Alpha 通道。</li>
 </ul>
 <hr />
 <h2 id="carlagnssmeasurement">carla.GnssMeasurement<a name="carla.GnssMeasurement"></a></h2>
-<p><small style="display:block;margin-top:-20px;">Inherited from <em><a href="#carla.SensorData">carla.SensorData</a></em></small></br>
+<p><small style="display:block;margin-top:-20px;">从 <em><a href="#carla.SensorData">carla.SensorData</a></em> 继承</small></br>
 定义由 <b>sensor.other.gnss</b> 注册的Gnss数据的类。它本质上是通过传感器的位置和 OpenDRIVE 地理参考来报告其位置。</p>
 <h3 id="_51">实例变量</h3>
 <ul>
-<li><a name="carla.GnssMeasurement.altitude"></a><strong><font color="#f8805a">altitude</font></strong> (<em>float<small> - meters</small></em>)<br />
+<li><a name="carla.GnssMeasurement.altitude"></a><strong><font color="#f8805a">altitude</font></strong> (<em>float<small> - 米</small></em>)<br />
 相对于地面的高度。  </li>
-<li><a name="carla.GnssMeasurement.latitude"></a><strong><font color="#f8805a">latitude</font></strong> (<em>float<small> - degrees</small></em>)<br />
+<li><a name="carla.GnssMeasurement.latitude"></a><strong><font color="#f8805a">latitude</font></strong> (<em>float<small> - 度</small></em>)<br />
 地图上某个点的北/南值。  </li>
-<li><a name="carla.GnssMeasurement.longitude"></a><strong><font color="#f8805a">longitude</font></strong> (<em>float<small> - degrees</small></em>)<br />
+<li><a name="carla.GnssMeasurement.longitude"></a><strong><font color="#f8805a">longitude</font></strong> (<em>float<small> - 度</small></em>)<br />
 地图上某个点的北/南值。 </li>
 </ul>
 <h3 id="_52">方法</h3>
@@ -2380,15 +2430,15 @@ Alpha 通道。</li>
 </ul>
 <hr />
 <h2 id="carlaimumeasurement">carla.IMUMeasurement<a name="carla.IMUMeasurement"></a></h2>
-<p><small style="display:block;margin-top:-20px;">Inherited from <em><a href="#carla.SensorData">carla.SensorData</a></em></small></br>
-定义由 <b>sensor.other.imu</b> 注册的数据的类，涉及根据当前 <a href="#carla.World">carla.World</a> 的传感器转换。它本质上充当加速计、陀螺仪和指南针。</p>
+<p><small style="display:block;margin-top:-20px;">从 <em><a href="#carla.SensorData">carla.SensorData</a></em> 继承</small></br>
+定义由 <b>sensor.other.imu</b> 注册的数据类，涉及根据当前 <a href="#carla.World">carla.World</a> 的传感器转换。它本质上充当加速度计、陀螺仪和指南针。</p>
 <h3 id="_54">实例变量</h3>
 <ul>
 <li><a name="carla.IMUMeasurement.accelerometer"></a><strong><font color="#f8805a">accelerometer</font></strong> (<em><a href="#carla.Vector3D">carla.Vector3D</a><small> - m/s<sup>2</sup></small></em>)<br />
 线性加速度。</li>
-<li><a name="carla.IMUMeasurement.compass"></a><strong><font color="#f8805a">compass</font></strong> (<em>float<small> - radians</small></em>)<br />
+<li><a name="carla.IMUMeasurement.compass"></a><strong><font color="#f8805a">compass</font></strong> (<em>float<small> - 弧度</small></em>)<br />
 相对于北方的方向（在虚幻引擎中为 [0.0, -1.0, 0.0]）。</li>
-<li><a name="carla.IMUMeasurement.gyroscope"></a><strong><font color="#f8805a">gyroscope</font></strong> (<em><a href="#carla.Vector3D">carla.Vector3D</a><small> - rad/s</small></em>)<br />
+<li><a name="carla.IMUMeasurement.gyroscope"></a><strong><font color="#f8805a">gyroscope</font></strong> (<em><a href="#carla.Vector3D">carla.Vector3D</a><small> - 弧度/秒</small></em>)<br />
 角速度。 </li>
 </ul>
 <h3 id="_55">方法</h3>
@@ -2398,11 +2448,11 @@ Alpha 通道。</li>
 </ul>
 <hr />
 <h2 id="carlaimage">carla.Image<a name="carla.Image"></a></h2>
-<p><small style="display:block;margin-top:-20px;">Inherited from <em><a href="#carla.SensorData">carla.SensorData</a></em></small></br>
+<p><small style="display:block;margin-top:-20px;">从 <em><a href="#carla.SensorData">carla.SensorData</a></em> 继承</small></br>
 定义 32 位 BGRA 颜色图像的类，该图像将用作相机传感器检索的初始数据。有不同的相机传感器（目前有三种，RGB、深度和语义分割），每种传感器对图像都有不同的用途。在 <a href="../ref_sensors/">这里</a> 了解更多关于它们的信息。</p>
 <h3 id="_57">实例变量</h3>
 <ul>
-<li><a name="carla.Image.fov"></a><strong><font color="#f8805a">fov</font></strong> (<em>float<small> - degrees</small></em>)<br />
+<li><a name="carla.Image.fov"></a><strong><font color="#f8805a">fov</font></strong> (<em>float<small> - 度</small></em>)<br />
 图像的水平视野。</li>
 <li><a name="carla.Image.height"></a><strong><font color="#f8805a">height</font></strong> (<em>int</em>)<br />
 图像高度（以像素为单位）。</li>
@@ -2456,7 +2506,7 @@ OpenDRIVE 文件中找到的标识符。</li>
 <li><a name="carla.Junction.get_waypoints"></a><strong><font color="#7fb800">get_waypoints</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>lane_type</strong></font>)<br />
 返回航路点对的列表。列表中的每个元组首先包含交叉口边界内的初始路径点，然后包含最终路径点，描述沿交叉口的所述车道的起点和终点。车道遵循其 OpenDRIVE 定义，因此由于可能的偏差，可能有许多不同的元组具有相同的起始航路点，因为这被视为不同的车道。<ul>
 <li><strong>参数：</strong><ul>
-<li><code>lane_type</code> (<em><a href="#carla.LaneType">carla.LaneType</a></em>) - Type of lanes to get the waypoints.  </li>
+<li><code>lane_type</code> (<em><a href="#carla.LaneType">carla.LaneType</a></em>) - 获取路点的车道类型。 </li>
 </ul>
 </li>
 <li><strong>返回：</strong> <em>list(tuple(<a href="#carla.Waypoint">carla.Waypoint</a>))</em>  </li>
@@ -2480,11 +2530,11 @@ OpenDRIVE 文件中找到的标识符。</li>
 <ul>
 <li><a name="carla.Landmark.road_id"></a><strong><font color="#f8805a">road_id</font></strong> (<em>int</em>)<br />
 定义此地标的道路的 OpenDRIVE ID。由于 OpenDRIVE 道路定义，该道路可能与地标当前影响的道路不同。这种情况主要发生在不同路线的道路分叉处。 <small>示例：在交叉路口的一条分叉道路中定义了一个红绿灯，但它会影响所有可能的路线</small>。</li>
-<li><a name="carla.Landmark.distance"></a><strong><font color="#f8805a">distance</font></strong> (<em>float<small> - meters</small></em>)<br />
+<li><a name="carla.Landmark.distance"></a><strong><font color="#f8805a">distance</font></strong> (<em>float<small> - 米</small></em>)<br />
 地标与创建对象的路径点之间的距离（查询<code>get_landmarks</code>或<code>get_landmarks_of_type</code>）。</li>
-<li><a name="carla.Landmark.s"></a><strong><font color="#f8805a">s</font></strong> (<em>float<small> - meters</small></em>)<br />
+<li><a name="carla.Landmark.s"></a><strong><font color="#f8805a">s</font></strong> (<em>float<small> - 米</small></em>)<br />
 地标沿道路几何形状定位的距离<code>road_id</code>。</li>
-<li><a name="carla.Landmark.t"></a><strong><font color="#f8805a">t</font></strong> (<em>float<small> - meters</small></em>)<br />
+<li><a name="carla.Landmark.t"></a><strong><font color="#f8805a">t</font></strong> (<em>float<small> - 米</small></em>)<br />
 地标距道路边缘的横向距离<code>road_id</code>。 </li>
 <li><a name="carla.Landmark.id"></a><strong><font color="#f8805a">id</font></strong> (<em>str</em>)<br />
 OpenDRIVE 文件中地标的唯一 ID。  </li>
@@ -2492,9 +2542,9 @@ OpenDRIVE 文件中地标的唯一 ID。  </li>
 OpenDRIVE 文件中的地标名称。 </li>
 <li><a name="carla.Landmark.is_dynamic"></a><strong><font color="#f8805a">is_dynamic</font></strong> (<em>bool</em>)<br />
 指示地标的状态是否随时间发生变化，例如交通信号灯。 </li>
-<li><a name="carla.Landmark.orientation"></a><strong><font color="#f8805a">orientation</font></strong> (<em><a href="#carla.LandmarkOrientation">carla.LandmarkOrientation</a><small> - degrees</small></em>)<br />
+<li><a name="carla.Landmark.orientation"></a><strong><font color="#f8805a">orientation</font></strong> (<em><a href="#carla.LandmarkOrientation">carla.LandmarkOrientation</a><small> - 米</small></em>)<br />
 指示地标面向的车道。</li>
-<li><a name="carla.Landmark.z_offset"></a><strong><font color="#f8805a">z_offset</font></strong> (<em>float<small> - meters</small></em>)<br />
+<li><a name="carla.Landmark.z_offset"></a><strong><font color="#f8805a">z_offset</font></strong> (<em>float<small> - 米</small></em>)<br />
 放置地标的高度。 </li>
 <li><a name="carla.Landmark.country"></a><strong><font color="#f8805a">country</font></strong> (<em>str</em>)<br />
 定义地标的国家/地区代码（OpenDRIVE 默认为德国 2017）。  </li>
@@ -2506,15 +2556,15 @@ OpenDRIVE 文件中的地标名称。 </li>
 信号中打印的值（例如速度限制、最大重量等）。 </li>
 <li><a name="carla.Landmark.unit"></a><strong><font color="#f8805a">unit</font></strong> (<em>str</em>)<br />
 属性 <code>value</code> 的测量单位。   </li>
-<li><a name="carla.Landmark.height"></a><strong><font color="#f8805a">height</font></strong> (<em>float<small> - meters</small></em>)<br />
+<li><a name="carla.Landmark.height"></a><strong><font color="#f8805a">height</font></strong> (<em>float<small> - 米</small></em>)<br />
 信号的总高度。  </li>
-<li><a name="carla.Landmark.width"></a><strong><font color="#f8805a">width</font></strong> (<em>float<small> - meters</small></em>)<br />
+<li><a name="carla.Landmark.width"></a><strong><font color="#f8805a">width</font></strong> (<em>float<small> - 米</small></em>)<br />
 信号的总宽度。  </li>
 <li><a name="carla.Landmark.text"></a><strong><font color="#f8805a">text</font></strong> (<em>str</em>)<br />
 信号中的附加文本。 </li>
-<li><a name="carla.Landmark.h_offset"></a><strong><font color="#f8805a">h_offset</font></strong> (<em>float<small> - meters</small></em>)<br />
+<li><a name="carla.Landmark.h_offset"></a><strong><font color="#f8805a">h_offset</font></strong> (<em>float<small> - 米</small></em>)<br />
 信号相对于OpenDRIVE中<code>s</code>处<code>road_id</code>定义的方向偏移。 </li>
-<li><a name="carla.Landmark.pitch"></a><strong><font color="#f8805a">pitch</font></strong> (<em>float<small> - meters</small></em>)<br />
+<li><a name="carla.Landmark.pitch"></a><strong><font color="#f8805a">pitch</font></strong> (<em>float<small> - 米</small></em>)<br />
 信号的俯仰角 (Y-轴在虚幻引擎坐标系统).  </li>
 <li><a name="carla.Landmark.roll"></a><strong><font color="#f8805a">roll</font></strong> (<em>float</em>)<br />
 信号的翻滚角 (X-轴在虚幻引擎坐标系统).  </li>
@@ -2546,7 +2596,7 @@ OpenDRIVE 文件中的地标名称。 </li>
 </ul>
 <hr />
 <h2 id="carlalandmarktype">carla.LandmarkType<a name="carla.LandmarkType"></a></h2>
-<p>Helper 类包含 <a href="http://opendrive.org/docs/OpenDRIVEFormatSpecRev1.5M.pdf">OpenDRIVE 标准</a> （德国 2017）中默认国家/地区代码定义的一组常用地标类型。 __<a href="#carla.Landmark">carla.Landmark</a> 不引用此类。地标类型是一个字符串，根据所使用的国家/地区代码的不同，其变化很大。此类仅通过将默认集中的一些最常用的描述为枚举来使管理它们变得更容易。 </p>
+<p>Helper 类包含 <a href="http://opendrive.org/docs/OpenDRIVEFormatSpecRev1.5M.pdf">OpenDRIVE 标准</a> （德国 2017）中默认国家/地区代码定义的一组常用地标类型。 <strong><a href="#carla.Landmark">carla.Landmark</a></strong> 不引用此类。地标类型是一个字符串，根据所使用的国家/地区代码的不同，其变化很大。此类仅通过将默认集中的一些最常用的描述为枚举来使管理它们变得更容易。 </p>
 <h3 id="_68">实例变量</h3>
 <ul>
 <li><a name="carla.LandmarkType.Danger"></a><strong><font color="#f8805a">Danger</font></strong><br />
@@ -2636,7 +2686,7 @@ OpenDRIVE 文件中的地标名称。 </li>
 </ul>
 <hr />
 <h2 id="carlalaneinvasionevent">carla.LaneInvasionEvent<a name="carla.LaneInvasionEvent"></a></h2>
-<p><small style="display:block;margin-top:-20px;">Inherited from <em><a href="#carla.SensorData">carla.SensorData</a></em></small></br>
+<p><small style="display:block;margin-top:-20px;">从 <em><a href="#carla.SensorData">carla.SensorData</a></em> 继承</small></br>
 为 <b>sensor.other.lane_invasion</b> 定义车道入侵的类。它仅在客户端工作，并依赖 OpenDRIVE 来提供可靠的信息。每次发生车道入侵时，传感器都会创建一个这样的情况，每个仿真步骤可能会发生多次。在 <a href="../ref_sensors/#lane-invasion-detector">这里</a> 了解更多相关信息。 </p>
 <h3 id="_70">实例变量</h3>
 <ul>
@@ -2729,7 +2779,7 @@ OpenDRIVE 文件中的地标名称。 </li>
 <p><a href="#carla.LidarMeasurement">carla.LidarMeasurement</a> 中包含的数据。其中每一个都代表云中的一个点及其位置和相关强度。 </p>
 <h3 id="_77">实例变量</h3>
 <ul>
-<li><a name="carla.LidarDetection.point"></a><strong><font color="#f8805a">point</font></strong> (<em><a href="#carla.Location">carla.Location</a><small> - meters</small></em>)<br />
+<li><a name="carla.LidarDetection.point"></a><strong><font color="#f8805a">point</font></strong> (<em><a href="#carla.Location">carla.Location</a><small> - 米</small></em>)<br />
 xyz 坐标中的点。</li>
 <li><a name="carla.LidarDetection.intensity"></a><strong><font color="#f8805a">intensity</font></strong> (<em>float</em>)<br />
 计算该点的强度作为 [0.0 , 1.0] 之间的标量值。 </li>
@@ -2741,7 +2791,7 @@ xyz 坐标中的点。</li>
 </ul>
 <hr />
 <h2 id="carlalidarmeasurement">carla.LidarMeasurement<a name="carla.LidarMeasurement"></a></h2>
-<p><small style="display:block;margin-top:-20px;">继承自 <em><a href="#carla.SensorData">carla.SensorData</a></em></small></br>
+<p><small style="display:block;margin-top:-20px;">从 <em><a href="#carla.SensorData">carla.SensorData</a></em> 继承</small></br>
 定义由 <b>sensor.lidar.ray_cast</b> 检索的LIDAR数据的类。这本质上是使用光线投射仿真旋转激光雷达。在 <a href="../ref_sensors/#lidar-raycast-sensor">这里</a> 了解更多相关信息。 </p>
 <h3 id="_80">实例变量</h3>
 <ul>
@@ -2778,7 +2828,7 @@ xyz 坐标中的点。</li>
 <ul>
 <li><a name="carla.LidarMeasurement.__getitem__"></a><strong><font color="#7fb800">__getitem__</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>pos</strong>=int</font>)  </li>
 <li><a name="carla.LidarMeasurement.__iter__"></a><strong><font color="#7fb800">__iter__</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-Iterate over the <a href="#carla.LidarDetection">carla.LidarDetection</a> retrieved as data.  </li>
+在 <a href="#carla.LidarDetection">carla.LidarDetection</a> 获取的数据上迭代。  </li>
 <li><a name="carla.LidarMeasurement.__len__"></a><strong><font color="#7fb800">__len__</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)  </li>
 <li><a name="carla.LidarMeasurement.__setitem__"></a><strong><font color="#7fb800">__setitem__</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>pos</strong>=int</font>, <font color="#00a6ed"><strong>detection</strong>=<a href="#carla.LidarDetection">carla.LidarDetection</a></font>)  </li>
 <li><a name="carla.LidarMeasurement.__str__"></a><strong><font color="#7fb800">__str__</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)  </li>
@@ -2796,7 +2846,7 @@ Iterate over the <a href="#carla.LidarDetection">carla.LidarDetection</a> retrie
 光的强度。 </li>
 <li><a name="carla.Light.is_on"></a><strong><font color="#f8805a">is_on</font></strong> (<em>bool</em>)<br />
 灯的开关。当灯亮时这是 <strong>True</strong> 。当夜间模式启动时，此项设置为 <strong>True</strong>。</li>
-<li><a name="carla.Light.location"></a><strong><font color="#f8805a">location</font></strong> (<em><a href="#carla.Location">carla.Location</a><small> - meters</small></em>)<br />
+<li><a name="carla.Light.location"></a><strong><font color="#f8805a">location</font></strong> (<em><a href="#carla.Location">carla.Location</a><small> - 米</small></em>)<br />
 灯光的位置。 </li>
 <li><a name="carla.Light.light_group"></a><strong><font color="#f8805a">light_group</font></strong> (<em><a href="#carla.LightGroup">carla.LightGroup</a></em>)<br />
 灯光所属的组。 </li>
@@ -3085,15 +3135,15 @@ Iterate over the <a href="#carla.LidarDetection">carla.LidarDetection</a> retrie
 </ul>
 <hr />
 <h2 id="carlalocation">carla.Location<a name="carla.Location"></a></h2>
-<p><small style="display:block;margin-top:-20px;">Inherited from <em><a href="#carla.Vector3D">carla.Vector3D</a></em></small></br>
+<p><small style="display:block;margin-top:-20px;">从 <em><a href="#carla.Vector3D">carla.Vector3D</a></em> 继承</small></br>
 代表世界上的一个地方。</p>
 <h3 id="_93">实例变量</h3>
 <ul>
-<li><a name="carla.Location.x"></a><strong><font color="#f8805a">x</font></strong> (<em>float<small> - meters</small></em>)<br />
+<li><a name="carla.Location.x"></a><strong><font color="#f8805a">x</font></strong> (<em>float<small> - 米</small></em>)<br />
 X 轴上从原点到点的距离。</li>
-<li><a name="carla.Location.y"></a><strong><font color="#f8805a">y</font></strong> (<em>float<small> - meters</small></em>)<br />
+<li><a name="carla.Location.y"></a><strong><font color="#f8805a">y</font></strong> (<em>float<small> - 米</small></em>)<br />
 Y 轴上从原点到点的距离。</li>
-<li><a name="carla.Location.z"></a><strong><font color="#f8805a">z</font></strong> (<em>float<small> - meters</small></em>)<br />
+<li><a name="carla.Location.z"></a><strong><font color="#f8805a">z</font></strong> (<em>float<small> - 米</small></em>)<br />
 Z 轴上从原点到点的距离。</li>
 </ul>
 <h3 id="_94">方法</h3>
@@ -3113,7 +3163,7 @@ Z 轴上从原点到点的距离。</li>
 <li><code>location</code> (<em><a href="#carla.Location">carla.Location</a></em>) - 用于计算距离的另一个点。</li>
 </ul>
 </li>
-<li><strong>返回：</strong> <em>float<small> - meters</small></em>  </li>
+<li><strong>返回：</strong> <em>float<small> - 米</small></em>  </li>
 </ul>
 </li>
 </ul>
@@ -3171,7 +3221,7 @@ Z 轴上从原点到点的距离。</li>
 <li><a name="carla.Map.generate_waypoints"></a><strong><font color="#7fb800">generate_waypoints</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>distance</strong></font>)<br />
 返回一个路点列表，每个车道的路点之间都有一定的距离，并以其为中心。路点不按任何特定顺序列出。请记住，同一道路、路段和车道内距离超过2厘米的路点将具有相同的标识符。<ul>
 <li><strong>参数：</strong><ul>
-<li><code>distance</code> (<em>float<small> - meters</small></em>) - 路径点之间的近似距离。 </li>
+<li><code>distance</code> (<em>float<small> - 米</small></em>) - 路径点之间的近似距离。 </li>
 </ul>
 </li>
 <li><strong>返回：</strong> <em>list(<a href="#carla.Waypoint">carla.Waypoint</a>)</em>  </li>
@@ -3311,7 +3361,7 @@ Z 轴上从原点到点的距离。</li>
 </ul>
 <hr />
 <h2 id="carlaobstacledetectionevent">carla.ObstacleDetectionEvent<a name="carla.ObstacleDetectionEvent"></a></h2>
-<p><small style="display:block;margin-top:-20px;">继承自 <em><a href="#carla.SensorData">carla.SensorData</a></em></small></br>
+<p><small style="display:block;margin-top:-20px;">从 <em><a href="#carla.SensorData">carla.SensorData</a></em> 继承</small></br>
 定义 sensor.other.obstacle 障碍物数据的类。在 <a href="../ref_sensors/#obstacle-detector">这里</a> 了解更多相关信息。</p>
 <h3 id="_102">实例变量</h3>
 <ul>
@@ -3349,11 +3399,11 @@ Z 轴上从原点到点的距离。</li>
 </ul>
 <hr />
 <h2 id="carlaopticalflowimage">carla.OpticalFlowImage<a name="carla.OpticalFlowImage"></a></h2>
-<p><small style="display:block;margin-top:-20px;">Inherited from <em><a href="#carla.SensorData">carla.SensorData</a></em></small></br>
+<p><small style="display:block;margin-top:-20px;">从 <em><a href="#carla.SensorData">carla.SensorData</a></em> 继承</small></br>
 定义表示视场中检测到的光流的二维浮点（32 位）向量的光流图像的类。矢量的分量表示物体在图像平面中的位移。每个组件输出归一化范围 [-2,2] 内的值，该范围缩放为 [-2 size，2 size]，大小是相应组件中的总分辨率。 </p>
 <h3 id="_106">实例变量</h3>
 <ul>
-<li><a name="carla.OpticalFlowImage.fov"></a><strong><font color="#f8805a">fov</font></strong> (<em>float<small> - degrees</small></em>)<br />
+<li><a name="carla.OpticalFlowImage.fov"></a><strong><font color="#f8805a">fov</font></strong> (<em>float<small> - 度</small></em>)<br />
 图像的水平视野。 </li>
 <li><a name="carla.OpticalFlowImage.height"></a><strong><font color="#f8805a">height</font></strong> (<em>int</em>)<br />
 图像高度（以像素为单位）。</li>
@@ -3431,13 +3481,13 @@ y 分量中的光流。</li>
 <ul>
 <li><a name="carla.Osm2OdrSettings.use_offsets"></a><strong><font color="#f8805a">use_offsets</font></strong> (<em>bool</em>)<br />
 允许使用偏移量进行转换。偏移量将移动地图的原点位置。默认值为 <strong>False</strong>。 </li>
-<li><a name="carla.Osm2OdrSettings.offset_x"></a><strong><font color="#f8805a">offset_x</font></strong> (<em>float<small> - meters</small></em>)<br />
+<li><a name="carla.Osm2OdrSettings.offset_x"></a><strong><font color="#f8805a">offset_x</font></strong> (<em>float<small> - 米</small></em>)<br />
 X 轴偏移。默认值为 <strong>0.0</strong>。</li>
-<li><a name="carla.Osm2OdrSettings.offset_y"></a><strong><font color="#f8805a">offset_y</font></strong> (<em>float<small> - meters</small></em>)<br />
+<li><a name="carla.Osm2OdrSettings.offset_y"></a><strong><font color="#f8805a">offset_y</font></strong> (<em>float<small> - 米</small></em>)<br />
 Y 轴偏移。默认值为 <strong>0.0</strong>。 </li>
-<li><a name="carla.Osm2OdrSettings.default_lane_width"></a><strong><font color="#f8805a">default_lane_width</font></strong> (<em>float<small> - meters</small></em>)<br />
+<li><a name="carla.Osm2OdrSettings.default_lane_width"></a><strong><font color="#f8805a">default_lane_width</font></strong> (<em>float<small> - 米</small></em>)<br />
 生成的 XODR 地图中描述的车道宽度。默认值为 <strong>4.0</strong>。 </li>
-<li><a name="carla.Osm2OdrSettings.elevation_layer_height"></a><strong><font color="#f8805a">elevation_layer_height</font></strong> (<em>float<small> - meters</small></em>)<br />
+<li><a name="carla.Osm2OdrSettings.elevation_layer_height"></a><strong><font color="#f8805a">elevation_layer_height</font></strong> (<em>float<small> - 米</small></em>)<br />
 定义分隔两个不同 <a href="https://wiki.openstreetmap.org/wiki/Key:layer">OpenStreetMap 图层</a> 的高度。默认值为 <strong>0.0</strong>。 </li>
 <li><a name="carla.Osm2OdrSettings.center_map"></a><strong><font color="#f8805a">center_map</font></strong> (<em>bool</em>)<br />
 启用此选项后，地图的几何图形将发生位移，以使坐标原点与整个道路地图的边界框中心相匹配。</li>
@@ -3477,7 +3527,7 @@ Y 轴偏移。默认值为 <strong>0.0</strong>。 </li>
 Altitude angle of the detection.  </li>
 <li><a name="carla.RadarDetection.azimuth"></a><strong><font color="#f8805a">azimuth</font></strong> (<em>float<small> - radians</small></em>)<br />
 Azimuth angle of the detection.  </li>
-<li><a name="carla.RadarDetection.depth"></a><strong><font color="#f8805a">depth</font></strong> (<em>float<small> - meters</small></em>)<br />
+<li><a name="carla.RadarDetection.depth"></a><strong><font color="#f8805a">depth</font></strong> (<em>float<small> - 米</small></em>)<br />
 Distance from the sensor to the detection position.  </li>
 <li><a name="carla.RadarDetection.velocity"></a><strong><font color="#f8805a">velocity</font></strong> (<em>float<small> - m/s</small></em>)<br />
 The velocity of the detected object towards the sensor.  </li>
@@ -3489,7 +3539,7 @@ The velocity of the detected object towards the sensor.  </li>
 </ul>
 <hr />
 <h2 id="carlaradarmeasurement">carla.RadarMeasurement<a name="carla.RadarMeasurement"></a></h2>
-<p><small style="display:block;margin-top:-20px;">Inherited from <em><a href="#carla.SensorData">carla.SensorData</a></em></small></br>
+<p><small style="display:block;margin-top:-20px;">从 <em><a href="#carla.SensorData">carla.SensorData</a></em> 继承</small></br>
 定义并收集由 <b>sensor.other.radar</b> 注册的测量值的类，代表传感器前面的点墙以及与其相关的距离、角度和速度。数据由 <a href="#carla.RadarDetection">carla.RadarDetection</a> 数组组成。在 <a href="../ref_sensors/#radar-sensor">这里</a> 了解更多相关信息。</p>
 <h3 id="_120">实例变量</h3>
 <ul>
@@ -3517,20 +3567,20 @@ The velocity of the detected object towards the sensor.  </li>
 <br>构造函数方法遵循特定的声明顺序： <code>(pitch, yaw, roll)</code> 对应于 <code>(Y-rotation,Z-rotation,X-rotation)</code>.  <br> <br><img alt="UE4_Rotation" src="https://d26ilriwvtzlb.cloudfront.net/8/83/BRMC_9.jpg" /> <em>虚幻引擎的坐标系</em>。  </p>
 <h3 id="_124">实例变量</h3>
 <ul>
-<li><a name="carla.Rotation.pitch"></a><strong><font color="#f8805a">pitch</font></strong> (<em>float<small> - degrees</small></em>)<br />
+<li><a name="carla.Rotation.pitch"></a><strong><font color="#f8805a">pitch</font></strong> (<em>float<small> - 度</small></em>)<br />
 Y-轴旋转角度。  </li>
-<li><a name="carla.Rotation.yaw"></a><strong><font color="#f8805a">yaw</font></strong> (<em>float<small> - degrees</small></em>)<br />
+<li><a name="carla.Rotation.yaw"></a><strong><font color="#f8805a">yaw</font></strong> (<em>float<small> - 度</small></em>)<br />
 Z-轴旋转角度。 </li>
-<li><a name="carla.Rotation.roll"></a><strong><font color="#f8805a">roll</font></strong> (<em>float<small> - degrees</small></em>)<br />
+<li><a name="carla.Rotation.roll"></a><strong><font color="#f8805a">roll</font></strong> (<em>float<small> - 度</small></em>)<br />
 X-轴旋转角度。  </li>
 </ul>
 <h3 id="_125">方法</h3>
 <ul>
 <li><a name="carla.Rotation.__init__"></a><strong><font color="#7fb800">__init__</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>pitch</strong>=0.0</font>, <font color="#00a6ed"><strong>yaw</strong>=0.0</font>, <font color="#00a6ed"><strong>roll</strong>=0.0</font>)  <ul>
 <li><strong>参数：</strong><ul>
-<li><code>pitch</code> (<em>float<small> - degrees</small></em>) - Y-axis rotation angle.  </li>
-<li><code>yaw</code> (<em>float<small> - degrees</small></em>) - Z-axis rotation angle.  </li>
-<li><code>roll</code> (<em>float<small> - degrees</small></em>) - X-axis rotation angle.  </li>
+<li><code>pitch</code> (<em>float<small> - 度</small></em>) - Y-axis rotation angle.  </li>
+<li><code>yaw</code> (<em>float<small> - 度</small></em>) - Z-axis rotation angle.  </li>
+<li><code>roll</code> (<em>float<small> - 度</small></em>) - X-axis rotation angle.  </li>
 </ul>
 </li>
 <li><strong>警告：</strong> <font color="#ED2F2F"><em> CARLA <code>(pitch,yaw,roll)</code> 和虚幻引擎编辑器中的声明顺序不同。当从源代码构建时，不要混淆轴的旋转。</em></font>  </li>
@@ -3584,7 +3634,7 @@ X-轴旋转角度。  </li>
 <li><a name="carla.RssActorConstellationData.other_match_object"></a><strong><font color="#f8805a">other_match_object</font></strong> (<em><a href="https://ad-map-access.readthedocs.io/en/latest/ad_map_access/apidoc/html/structad_1_1map_1_1match_1_1Object.html">ad.map.match.Object</a></em>)<br />
 其他对象的地图匹配信息。仅当“other_actor”不是“None”时这才有效。</li>
 <li><a name="carla.RssActorConstellationData.other_actor"></a><strong><font color="#f8805a">other_actor</font></strong> (<em><a href="#carla.Actor">carla.Actor</a></em>)<br />
-其他参与者。如果查询默认参数或类型为ad.rss.world.ObjectType.ArtificialObject且没有专用“ carla.Actor ”的人工对象（例如目前的 道路边界），则为“None”。 The other actor. This is 'None' in case of query of default parameters or articial objects of kind <a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/namespacead_1_1rss_1_1world.html#a6432f1ef8d0657b4f21ed5966aca1625">ad.rss.world.ObjectType.ArtificialObject</a> with no dedicated '<a href="#carla.Actor">carla.Actor</a>' (as e.g. for the <a href="../ref_sensors/#rss-sensor">road boundaries</a> at the moment).  </li>
+其他参与者。如果查询默认参数或类型为 <a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/namespacead_1_1rss_1_1world.html#a6432f1ef8d0657b4f21ed5966aca1625">ad.rss.world.ObjectType.ArtificialObject</a> 且没有专用“<a href="#carla.Actor">carla.Actor</a>' (as e.g. for the <a href="../ref_sensors/#rss-sensor">road boundaries</a>”的人工对象（例如目前的道路边界），则为“None”。  </li>
 </ul>
 <h3 id="_129">方法</h3>
 <h5 id="_130">魔术方法</h5>
@@ -3593,19 +3643,19 @@ X-轴旋转角度。  </li>
 </ul>
 <hr />
 <h2 id="carlarssactorconstellationresult">carla.RssActorConstellationResult<a name="carla.RssActorConstellationResult"></a></h2>
-<p>Data structure that should be returned by the callback registered by RssSensor.register_actor_constellation_callback().  </p>
+<p>应该由 RssSensor.register_actor_constellation_callback() 注册的回调返回的数据结构。 </p>
 <h3 id="_131">实例变量</h3>
 <ul>
 <li><a name="carla.RssActorConstellationResult.rss_calculation_mode"></a><strong><font color="#f8805a">rss_calculation_mode</font></strong> (<em><a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss_map_integration/namespacead_1_1rss_1_1map.html#adcb01232986ed83a0c540cd5d03ef495">ad.rss.map.RssMode</a></em>)<br />
-The calculation mode to be applied with the actor.  </li>
+要应用于参与者的计算模式。  </li>
 <li><a name="carla.RssActorConstellationResult.restrict_speed_limit_mode"></a><strong><font color="#f8805a">restrict_speed_limit_mode</font></strong> (<em><a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss_map_integration/classad_1_1rss_1_1map_1_1RssSceneCreation.html#a403aae6dce3c77a8aec01dd9808dd964">ad.rss.map.RestrictSpeedLimitMode</a></em>)<br />
-The mode for restricting speed limit.  </li>
+限速模式。</li>
 <li><a name="carla.RssActorConstellationResult.ego_vehicle_dynamics"></a><strong><font color="#f8805a">ego_vehicle_dynamics</font></strong> (<em><a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1RssDynamics.html">ad.rss.world.RssDynamics</a></em>)<br />
-The RSS dynamics to be applied for the ego vehicle.  </li>
+将RSS动态应用于自我车辆。  </li>
 <li><a name="carla.RssActorConstellationResult.actor_object_type"></a><strong><font color="#f8805a">actor_object_type</font></strong> (<em><a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/namespacead_1_1rss_1_1world.html#a6432f1ef8d0657b4f21ed5966aca1625">ad.rss.world.ObjectType</a></em>)<br />
-The RSS object type to be used for the actor.  </li>
+要用于参与者的RSS对象类型。  </li>
 <li><a name="carla.RssActorConstellationResult.actor_dynamics"></a><strong><font color="#f8805a">actor_dynamics</font></strong> (<em><a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1RssDynamics.html">ad.rss.world.RssDynamics</a></em>)<br />
-The RSS dynamics to be applied for the actor.  </li>
+要应用于参与者的RSS动力学。 </li>
 </ul>
 <h3 id="_132">方法</h3>
 <h5 id="_133">魔术方法</h5>
@@ -3614,39 +3664,39 @@ The RSS dynamics to be applied for the actor.  </li>
 </ul>
 <hr />
 <h2 id="carlarssegodynamicsonroute">carla.RssEgoDynamicsOnRoute<a name="carla.RssEgoDynamicsOnRoute"></a></h2>
-<p>Part of the data contained inside a <a href="#carla.RssResponse">carla.RssResponse</a> describing the state of the vehicle. The parameters include its current dynamics, and how it is heading regarding the target route.  </p>
+<p>描述车辆状态的 <a href="#carla.RssResponse">carla.RssResponse</a> 中包含的部分数据。参数包括它当前的动态，以及它如何根据目标路线前进。</p>
 <h3 id="_134">实例变量</h3>
 <ul>
 <li><a name="carla.RssEgoDynamicsOnRoute.ego_speed"></a><strong><font color="#f8805a">ego_speed</font></strong> (<em><a href="https://ad-map-access.readthedocs.io/en/latest/ad_physics/apidoc/html/classad_1_1physics_1_1Speed.html">ad.physics.Speed</a></em>)<br />
-The ego vehicle's speed.  </li>
+自我车辆的速度。 </li>
 <li><a name="carla.RssEgoDynamicsOnRoute.min_stopping_distance"></a><strong><font color="#f8805a">min_stopping_distance</font></strong> (<em><a href="https://ad-map-access.readthedocs.io/en/latest/ad_physics/apidoc/html/classad_1_1physics_1_1Distance.html">ad.physics.Distance</a></em>)<br />
-The current minimum stopping distance.  </li>
+当前最小停车距离。 </li>
 <li><a name="carla.RssEgoDynamicsOnRoute.ego_center"></a><strong><font color="#f8805a">ego_center</font></strong> (<em><a href="https://ad-map-access.readthedocs.io/en/latest/ad_map_access/apidoc/html/structad_1_1map_1_1point_1_1ENUPoint.html">ad.map.point.ENUPoint</a></em>)<br />
-The considered enu position of the ego vehicle.  </li>
+自我车辆被考虑的enu位置。  </li>
 <li><a name="carla.RssEgoDynamicsOnRoute.ego_heading"></a><strong><font color="#f8805a">ego_heading</font></strong> (<em><a href="https://ad-map-access.readthedocs.io/en/latest/ad_map_access/apidoc/html/classad_1_1map_1_1point_1_1ENUHeading.html">ad.map.point.ENUHeading</a></em>)<br />
-The considered heading of the ego vehicle.  </li>
+考虑的自我车辆的航向。</li>
 <li><a name="carla.RssEgoDynamicsOnRoute.ego_center_within_route"></a><strong><font color="#f8805a">ego_center_within_route</font></strong> (<em>bool</em>)<br />
-States if the ego vehicle's center is within the route.  </li>
+说明自我车辆的中心是否在路线内。</li>
 <li><a name="carla.RssEgoDynamicsOnRoute.crossing_border"></a><strong><font color="#f8805a">crossing_border</font></strong> (<em>bool</em>)<br />
-States if the vehicle is already crossing one of the lane borders.  </li>
+说明车辆是否已经越过其中一个车道边界。 </li>
 <li><a name="carla.RssEgoDynamicsOnRoute.route_heading"></a><strong><font color="#f8805a">route_heading</font></strong> (<em><a href="https://ad-map-access.readthedocs.io/en/latest/ad_map_access/apidoc/html/classad_1_1map_1_1point_1_1ENUHeading.html">ad.map.point.ENUHeading</a></em>)<br />
-The considered heading of the route.  </li>
+路线的考虑方向。</li>
 <li><a name="carla.RssEgoDynamicsOnRoute.route_nominal_center"></a><strong><font color="#f8805a">route_nominal_center</font></strong> (<em><a href="https://ad-map-access.readthedocs.io/en/latest/ad_map_access/apidoc/html/structad_1_1map_1_1point_1_1ENUPoint.html">ad.map.point.ENUPoint</a></em>)<br />
-The considered nominal center of the current route.  </li>
+当前路线的名义中心。  </li>
 <li><a name="carla.RssEgoDynamicsOnRoute.heading_diff"></a><strong><font color="#f8805a">heading_diff</font></strong> (<em><a href="https://ad-map-access.readthedocs.io/en/latest/ad_map_access/apidoc/html/classad_1_1map_1_1point_1_1ENUHeading.html">ad.map.point.ENUHeading</a></em>)<br />
-The considered heading diff towards the route.  </li>
+被考虑的方向偏离了路线。</li>
 <li><a name="carla.RssEgoDynamicsOnRoute.route_speed_lat"></a><strong><font color="#f8805a">route_speed_lat</font></strong> (<em><a href="https://ad-map-access.readthedocs.io/en/latest/ad_physics/apidoc/html/classad_1_1physics_1_1Speed.html">ad.physics.Speed</a></em>)<br />
-The ego vehicle's speed component <em>lat</em> regarding the route.  </li>
+自我车辆的速度分量 <em>lat</em> 与路线有关。</li>
 <li><a name="carla.RssEgoDynamicsOnRoute.route_speed_lon"></a><strong><font color="#f8805a">route_speed_lon</font></strong> (<em><a href="https://ad-map-access.readthedocs.io/en/latest/ad_physics/apidoc/html/classad_1_1physics_1_1Speed.html">ad.physics.Speed</a></em>)<br />
-The ego vehicle's speed component <em>lon</em> regarding the route.  </li>
+自我车辆的速度分量 <em>lon</em> 与路线有关。</li>
 <li><a name="carla.RssEgoDynamicsOnRoute.route_accel_lat"></a><strong><font color="#f8805a">route_accel_lat</font></strong> (<em><a href="https://ad-map-access.readthedocs.io/en/latest/ad_physics/apidoc/html/classad_1_1physics_1_1Acceleration.html">ad.physics.Acceleration</a></em>)<br />
-The ego vehicle's acceleration component <em>lat</em> regarding the route.  </li>
+自我车辆的加速度分量 <em>lat</em> 与路线有关。</li>
 <li><a name="carla.RssEgoDynamicsOnRoute.route_accel_lon"></a><strong><font color="#f8805a">route_accel_lon</font></strong> (<em><a href="https://ad-map-access.readthedocs.io/en/latest/ad_physics/apidoc/html/classad_1_1physics_1_1Acceleration.html">ad.physics.Acceleration</a></em>)<br />
-The ego vehicle's acceleration component <em>lon</em> regarding the route.  </li>
+自我车辆的加速度分量 <em>lon</em> 与路线有关。</li>
 <li><a name="carla.RssEgoDynamicsOnRoute.avg_route_accel_lat"></a><strong><font color="#f8805a">avg_route_accel_lat</font></strong> (<em><a href="https://ad-map-access.readthedocs.io/en/latest/ad_physics/apidoc/html/classad_1_1physics_1_1Acceleration.html">ad.physics.Acceleration</a></em>)<br />
-The ego vehicle's acceleration component <em>lat</em> regarding the route smoothened by an average filter.  </li>
+自我车的加速度分量 <em>lat</em> 与经过平均滤波平滑的路线有关。 The ego vehicle's acceleration component <em>lat</em> regarding the route smoothened by an average filter.  </li>
 <li><a name="carla.RssEgoDynamicsOnRoute.avg_route_accel_lon"></a><strong><font color="#f8805a">avg_route_accel_lon</font></strong> (<em><a href="https://ad-map-access.readthedocs.io/en/latest/ad_physics/apidoc/html/classad_1_1physics_1_1Acceleration.html">ad.physics.Acceleration</a></em>)<br />
-The ego acceleration component <em>lon</em> regarding the route smoothened by an average filter.  </li>
+对经过平均滤波平滑的路线进行自加速度分量 <em>lon</em> 分析。</li>
 </ul>
 <h3 id="_135">方法</h3>
 <h5 id="_136">魔术方法</h5>
@@ -3655,7 +3705,7 @@ The ego acceleration component <em>lon</em> regarding the route smoothened by an
 </ul>
 <hr />
 <h2 id="carlarssloglevel">carla.RssLogLevel<a name="carla.RssLogLevel"></a></h2>
-<p>Enum declaration used in <a href="#carla.RssSensor">carla.RssSensor</a> to set the log level.  </p>
+<p>枚举声明中使用的 <a href="#carla.RssSensor">carla.RssSensor</a> 设置日志级别。</p>
 <h3 id="_137">实例变量</h3>
 <ul>
 <li><a name="carla.RssLogLevel.trace"></a><strong><font color="#f8805a">trace</font></strong>  </li>
@@ -3668,23 +3718,23 @@ The ego acceleration component <em>lon</em> regarding the route smoothened by an
 </ul>
 <hr />
 <h2 id="carlarssresponse">carla.RssResponse<a name="carla.RssResponse"></a></h2>
-<p><small style="display:block;margin-top:-20px;">Inherited from <em><a href="#carla.SensorData">carla.SensorData</a></em></small></br>
-Class that contains the output of a <a href="#carla.RssSensor">carla.RssSensor</a>. This is the result of the RSS calculations performed for the parent vehicle of the sensor.</p>
-<p>A <a href="#carla.RssRestrictor">carla.RssRestrictor</a> will use the data to modify the <a href="#carla.VehicleControl">carla.VehicleControl</a> of the vehicle.  </p>
+<p><small style="display:block;margin-top:-20px;">从 <em><a href="#carla.SensorData">carla.SensorData</a></em> 继承</small></br>
+包含c <a href="#carla.RssSensor">carla.RssSensor</a> 输出的类。这是对传感器的父车辆执行的RSS计算的结果。</p>
+<p><a href="#carla.RssRestrictor">carla.RssRestrictor</a> 将使用数据修改车辆的 <a href="#carla.VehicleControl">carla.VehicleControl</a>。</p>
 <h3 id="_138">实例变量</h3>
 <ul>
 <li><a name="carla.RssResponse.response_valid"></a><strong><font color="#f8805a">response_valid</font></strong> (<em>bool</em>)<br />
-States if the response is valid. It is <strong>False</strong> if calculations failed or an exception occured.  </li>
+说明响应是否有效。如果计算失败或发生异常，则为 <strong>False</strong> 。 </li>
 <li><a name="carla.RssResponse.proper_response"></a><strong><font color="#f8805a">proper_response</font></strong> (<em><a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1state_1_1ProperResponse.html">ad.rss.state.ProperResponse</a></em>)<br />
-The proper response that the RSS calculated for the vehicle.  </li>
+RSS 为车辆计算的正确响应。</li>
 <li><a name="carla.RssResponse.rss_state_snapshot"></a><strong><font color="#f8805a">rss_state_snapshot</font></strong> (<em><a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1state_1_1RssStateSnapshot.html">ad.rss.state.RssStateSnapshot</a></em>)<br />
-Detailed RSS states at the current moment in time.  </li>
+详细的RSS在当前时刻的状态。</li>
 <li><a name="carla.RssResponse.ego_dynamics_on_route"></a><strong><font color="#f8805a">ego_dynamics_on_route</font></strong> (<em><a href="#carla.RssEgoDynamicsOnRoute">carla.RssEgoDynamicsOnRoute</a></em>)<br />
-Current ego vehicle dynamics regarding the route.  </li>
+关于路线的当前自我车辆动力学。</li>
 <li><a name="carla.RssResponse.world_model"></a><strong><font color="#f8805a">world_model</font></strong> (<em><a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1WorldModel.html">ad.rss.world.WorldModel</a></em>)<br />
-World model used for calculations.  </li>
+用于计算的世界模型。</li>
 <li><a name="carla.RssResponse.situation_snapshot"></a><strong><font color="#f8805a">situation_snapshot</font></strong> (<em><a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1situation_1_1SituationSnapshot.html">ad.rss.situation.SituationSnapshot</a></em>)<br />
-Detailed RSS situations extracted from the world model.  </li>
+从世界模型中提取的详细RSS情况。</li>
 </ul>
 <h3 id="_139">方法</h3>
 <h5 id="_140">魔术方法</h5>
@@ -3693,16 +3743,16 @@ Detailed RSS situations extracted from the world model.  </li>
 </ul>
 <hr />
 <h2 id="carlarssrestrictor">carla.RssRestrictor<a name="carla.RssRestrictor"></a></h2>
-<p>These objects apply restrictions to a <a href="#carla.VehicleControl">carla.VehicleControl</a>. It is part of the Carla implementation of the <a href="https://github.com/intel/ad-rss-lib">C++ Library for Responsibility Sensitive Safety</a>. This class works hand in hand with a <a href="../ref_sensors/#rss-sensor">rss sensor</a>, which provides the data of the restrictions to be applied.  </p>
+<p>这些对象将限制应用于 <a href="#carla.VehicleControl">carla.VehicleControl</a>。它是 <a href="https://github.com/intel/ad-rss-lib">负责敏感安全的C++库</a> 的Carla实现的一部分。此类与 <a href="../ref_sensors/#rss-sensor">rss传感器</a> 协同工作，rss传感器提供要应用的限制的数据。</p>
 <h3 id="_141">方法</h3>
 <ul>
 <li><a name="carla.RssRestrictor.restrict_vehicle_control"></a><strong><font color="#7fb800">restrict_vehicle_control</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>vehicle_control</strong></font>, <font color="#00a6ed"><strong>proper_response</strong></font>, <font color="#00a6ed"><strong>ego_dynamics_on_route</strong></font>, <font color="#00a6ed"><strong>vehicle_physics</strong></font>)<br />
-Applies the safety restrictions given by a <a href="#carla.RssSensor">carla.RssSensor</a> to a <a href="#carla.VehicleControl">carla.VehicleControl</a>.  <ul>
-<li><strong>Parameters:</strong><ul>
-<li><code>vehicle_control</code> (<em><a href="#carla.VehicleControl">carla.VehicleControl</a></em>) - The input vehicle control to be restricted.  </li>
-<li><code>proper_response</code> (<em><a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1state_1_1ProperResponse.html">ad.rss.state.ProperResponse</a></em>) - Part of the response generated by the sensor. Contains restrictions to be applied to the acceleration of the vehicle.  </li>
-<li><code>ego_dynamics_on_route</code> (<em><a href="#carla.RssEgoDynamicsOnRoute">carla.RssEgoDynamicsOnRoute</a></em>) - Part of the response generated by the sensor. Contains dynamics and heading of the vehicle regarding its route.  </li>
-<li><code>vehicle_physics</code> (<em><a href="#carla.VehiclePhysicsControl">carla.VehiclePhysicsControl</a></em>) - The current physics of the vehicle. Used to apply the restrictions properly.  </li>
+应用<a href="#carla.RssSensor">carla.RssSensor</a> 对 <a href="#carla.VehicleControl">carla.VehicleControl</a> 给出的安全限制。<ul>
+<li><strong>参数：</strong><ul>
+<li><code>vehicle_control</code> (<em><a href="#carla.VehicleControl">carla.VehicleControl</a></em>) - 要限制的输入车辆控制。  </li>
+<li><code>proper_response</code> (<em><a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1state_1_1ProperResponse.html">ad.rss.state.ProperResponse</a></em>) - 传感器产生的部分响应。包含适用于车辆加速的限制。</li>
+<li><code>ego_dynamics_on_route</code> (<em><a href="#carla.RssEgoDynamicsOnRoute">carla.RssEgoDynamicsOnRoute</a></em>) - 传感器产生的部分响应。包含有关其路线的车辆动力学和方向。</li>
+<li><code>vehicle_physics</code> (<em><a href="#carla.VehiclePhysicsControl">carla.VehiclePhysicsControl</a></em>) - 车辆的当前物理特性。用于正确应用限制。</li>
 </ul>
 </li>
 <li><strong>返回:</strong> <em><a href="#carla.VehicleControl">carla.VehicleControl</a></em>  </li>
@@ -3712,9 +3762,9 @@ Applies the safety restrictions given by a <a href="#carla.RssSensor">carla.RssS
 <h5 id="_142">设置器</h5>
 <ul>
 <li><a name="carla.RssRestrictor.set_log_level"></a><strong><font color="#7fb800">set_log_level</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>log_level</strong></font>)<br />
-Sets the log level.  <ul>
-<li><strong>Parameters:</strong><ul>
-<li><code>log_level</code> (<em><a href="#carla.RssLogLevel">carla.RssLogLevel</a></em>) - New log level.  </li>
+设置日志级别。 <ul>
+<li><strong>参数：</strong><ul>
+<li><code>log_level</code> (<em><a href="#carla.RssLogLevel">carla.RssLogLevel</a></em>) - 新日志级别。</li>
 </ul>
 </li>
 </ul>
@@ -3722,68 +3772,68 @@ Sets the log level.  <ul>
 </ul>
 <hr />
 <h2 id="carlarssroadboundariesmode">carla.RssRoadBoundariesMode<a name="carla.RssRoadBoundariesMode"></a></h2>
-<p>Enum declaration used in <a href="#carla.RssSensor">carla.RssSensor</a> to enable or disable the <a href="https://intel.github.io/ad-rss-lib/ad_rss_map_integration/HandleRoadBoundaries/">stay on road</a> feature. In summary, this feature considers the road boundaries as virtual objects. The minimum safety distance check is applied to these virtual walls, in order to make sure the vehicle does not drive off the road.  </p>
+<p><a href="#carla.RssSensor">carla.RssSensor</a> 中使用的枚举声明，用于启用或禁用 <a href="https://intel.github.io/ad-rss-lib/ad_rss_map_integration/HandleRoadBoundaries/">公路停留</a> 功能。总而言之，此功能将道路边界视为虚拟对象。最小安全距离检查应用于这些虚拟墙，以确保车辆不会驶离道路。</p>
 <h3 id="_143">实例变量</h3>
 <ul>
 <li><a name="carla.RssRoadBoundariesMode.On"></a><strong><font color="#f8805a">On</font></strong><br />
-Enables the <em>stay on road</em> feature.  </li>
+启用“停留在路上（<em>stay on road</em>）”功能。</li>
 <li><a name="carla.RssRoadBoundariesMode.Off"></a><strong><font color="#f8805a">Off</font></strong><br />
-Disables the <em>stay on road</em> feature.  </li>
+禁用“停留在路上（<em>stay on road</em>）”功能。</li>
 </ul>
 <hr />
 <h2 id="carlarsssensor">carla.RssSensor<a name="carla.RssSensor"></a></h2>
-<p><small style="display:block;margin-top:-20px;">Inherited from <em><a href="#carla.Sensor">carla.Sensor</a></em></small></br>
-This sensor works a bit differently than the rest. Take look at the <a href="../adv_rss/">specific documentation</a>, and the <a href="../ref_sensors/#rss-sensor">rss sensor reference</a> to gain full understanding of it.</p>
-<p>The RSS sensor uses world information, and a <a href="https://github.com/intel/ad-rss-lib">RSS library</a> to make safety checks on a vehicle. The output retrieved by the sensor is a <a href="#carla.RssResponse">carla.RssResponse</a>. This will be used by a <a href="#carla.RssRestrictor">carla.RssRestrictor</a> to modify a <a href="#carla.VehicleControl">carla.VehicleControl</a> before applying it to a vehicle.  </p>
+<p><small style="display:block;margin-top:-20px;">从 <em><a href="#carla.Sensor">carla.Sensor</a></em> 继承</small></br>
+此传感器的工作原理与其他传感器略有不同。请查看 <a href="../adv_rss/">特定文档</a> 和 <a href="../ref_sensors/#rss-sensor">rss传感器参考</a> ，以充分了解它。 </p>
+<p>RSS传感器使用世界信息和 <a href="https://github.com/intel/ad-rss-lib">RSS库</a> 对车辆进行安全检查。传感器检索到的输出是 <a href="#carla.RssResponse">carla.RssResponse</a>。这将由 <a href="#carla.RssRestrictor">carla.RssRestrictor</a> 使用。在将其应用于车辆之前进行 <a href="#carla.VehicleControl">carla.VehicleControl</a>。</p>
 <h3 id="_144">实例变量</h3>
 <ul>
 <li><a name="carla.RssSensor.ego_vehicle_dynamics"></a><strong><font color="#f8805a">ego_vehicle_dynamics</font></strong> (<em><a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1RssDynamics.html">ad.rss.world.RssDynamics</a></em>)<br />
-States the <a href="https://intel.github.io/ad-rss-lib/ad_rss/Appendix-ParameterDiscussion/">RSS parameters</a> that the sensor will consider for the ego vehicle if no actor constellation callback is registered.  </li>
+说明如果没有注册参与者 constellation 回调，传感器将考虑的自我车辆的 <a href="https://intel.github.io/ad-rss-lib/ad_rss/Appendix-ParameterDiscussion/">RSS参数</a> 。</li>
 <li><a name="carla.RssSensor.other_vehicle_dynamics"></a><strong><font color="#f8805a">other_vehicle_dynamics</font></strong> (<em><a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1RssDynamics.html">ad.rss.world.RssDynamics</a></em>)<br />
-States the <a href="https://intel.github.io/ad-rss-lib/ad_rss/Appendix-ParameterDiscussion/">RSS parameters</a> that the sensor will consider for the rest of vehicles if no actor constellation callback is registered.  </li>
+说明如果没有注册参与者 constellation 回调，传感器将为其余车辆考虑的 <a href="https://intel.github.io/ad-rss-lib/ad_rss/Appendix-ParameterDiscussion/">RSS参数</a> 。 </li>
 <li><a name="carla.RssSensor.pedestrian_dynamics"></a><strong><font color="#f8805a">pedestrian_dynamics</font></strong> (<em><a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1RssDynamics.html">ad.rss.world.RssDynamics</a></em>)<br />
-States the <a href="https://intel.github.io/ad-rss-lib/ad_rss/Appendix-ParameterDiscussion/">RSS parameters</a> that the sensor will consider for pedestrians if no actor constellation callback is registered.  </li>
+说明如果没有注册参与者 constellation 回调，传感器将为行人考虑的 <a href="https://intel.github.io/ad-rss-lib/ad_rss/Appendix-ParameterDiscussion/">RSS参数</a> 。</li>
 <li><a name="carla.RssSensor.road_boundaries_mode"></a><strong><font color="#f8805a">road_boundaries_mode</font></strong> (<em><a href="#carla.RssRoadBoundariesMode">carla.RssRoadBoundariesMode</a></em>)<br />
-Switches the <a href="https://intel.github.io/ad-rss-lib/ad_rss_map_integration/HandleRoadBoundaries/">stay on road</a> feature. By default is <strong>Off</strong>.  </li>
+切换停留在道路上 <a href="https://intel.github.io/ad-rss-lib/ad_rss_map_integration/HandleRoadBoundaries/">stay on road</a> 的功能。默认情况下处于禁用（<strong>Off</strong>）状态。</li>
 <li><a name="carla.RssSensor.routing_targets"></a><strong><font color="#f8805a">routing_targets</font></strong> (<em>vector&lt;<a href="#carla.Transform">carla.Transform</a>&gt;</em>)<br />
-The current list of targets considered to route the vehicle. If no routing targets are defined, a route is generated at random.  </li>
+当前考虑对车辆进行路由的目标列表。如果未定义路由目标，则随机生成路由。</li>
 </ul>
 <h3 id="_145">方法</h3>
 <ul>
 <li><a name="carla.RssSensor.append_routing_target"></a><strong><font color="#7fb800">append_routing_target</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>routing_target</strong></font>)<br />
-Appends a new target position to the current route of the vehicle.  <ul>
-<li><strong>Parameters:</strong><ul>
-<li><code>routing_target</code> (<em><a href="#carla.Transform">carla.Transform</a></em>) - New target point for the route. Choose these after the intersections to force the route to take the desired turn.  </li>
+将新的目标位置附加到车辆的当前路线。 <ul>
+<li><strong>参数：</strong><ul>
+<li><code>routing_target</code> (<em><a href="#carla.Transform">carla.Transform</a></em>) - 为路线新建目标点。在交叉口后选择这些选项，以强制路线转弯。</li>
 </ul>
 </li>
 </ul>
 </li>
 <li><a name="carla.RssSensor.drop_route"></a><strong><font color="#7fb800">drop_route</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-Discards the current route. If there are targets remaining in <strong><font color="#f8805a">routing_targets</font></strong>, creates a new route using those. Otherwise, a new route is created at random.  </li>
+放弃当前路由。如果 <strong><font color="#f8805a">routing_targets</font></strong> 中还有目标，则使用这些目标创建新路由。否则，将随机创建新路由。 </li>
 <li><a name="carla.RssSensor.register_actor_constellation_callback"></a><strong><font color="#7fb800">register_actor_constellation_callback</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>callback</strong></font>)<br />
-Register a callback to customize a <a href="#carla.RssActorConstellationResult">carla.RssActorConstellationResult</a>. By this callback the settings of RSS parameters are done per actor constellation and the settings (ego_vehicle_dynamics, other_vehicle_dynamics and pedestrian_dynamics) have no effect.  <ul>
-<li><strong>Parameters:</strong><ul>
-<li><code>callback</code> - The function to be called whenever a RSS situation is about to be calculated.  </li>
+注册回调以自定义 <a href="#carla.RssActorConstellationResult">carla.RssActorConstellationResult</a>。通过此回调，RSS参数的设置是根据参与者 constellation 完成的，并且设置（ego_vehicle_dynamics, other_vehicle_dynamics and pedestrian_dynamics）没有任何效果。 <ul>
+<li><strong>参数：</strong><ul>
+<li><code>callback</code> - 每当要计算RSS情况时要调用的函数。 </li>
 </ul>
 </li>
 </ul>
 </li>
 <li><a name="carla.RssSensor.reset_routing_targets"></a><strong><font color="#7fb800">reset_routing_targets</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-Erases the targets that have been appended to the route.  </li>
+删除已附加到路由的目标。 </li>
 </ul>
 <h5 id="_146">设置器</h5>
 <ul>
 <li><a name="carla.RssSensor.set_log_level"></a><strong><font color="#7fb800">set_log_level</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>log_level</strong></font>)<br />
-Sets the log level.  <ul>
-<li><strong>Parameters:</strong><ul>
-<li><code>log_level</code> (<em><a href="#carla.RssLogLevel">carla.RssLogLevel</a></em>) - New log level.  </li>
+设置日志级别。<ul>
+<li><strong>参数：</strong><ul>
+<li><code>log_level</code> (<em><a href="#carla.RssLogLevel">carla.RssLogLevel</a></em>) - 新的日志级别。  </li>
 </ul>
 </li>
 </ul>
 </li>
 <li><a name="carla.RssSensor.set_map_log_level"></a><strong><font color="#7fb800">set_map_log_level</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>log_level</strong></font>)<br />
-Sets the map log level.  <ul>
-<li><strong>Parameters:</strong><ul>
+设置日志日志级别。  <ul>
+<li><strong>参数：</strong><ul>
 <li><code>log_level</code> (<em><a href="#carla.RssLogLevel">carla.RssLogLevel</a></em>) - New map log level.  </li>
 </ul>
 </li>
@@ -3796,17 +3846,17 @@ Sets the map log level.  <ul>
 </ul>
 <hr />
 <h2 id="carlasemanticlidardetection">carla.SemanticLidarDetection<a name="carla.SemanticLidarDetection"></a></h2>
-<p>Data contained inside a <a href="#carla.SemanticLidarMeasurement">carla.SemanticLidarMeasurement</a>. Each of these represents one of the points in the cloud with its location, the cosine of the incident angle, index of the object hit, and its semantic tag.  </p>
+<p><a href="#carla.SemanticLidarMeasurement">carla.SemanticLidarMeasurement</a> 中包含的数据。其中每一个都代表云中的一个点及其位置、入射角的余弦、命中物体的索引及其语义标记。</p>
 <h3 id="_148">实例变量</h3>
 <ul>
-<li><a name="carla.SemanticLidarDetection.point"></a><strong><font color="#f8805a">point</font></strong> (<em><a href="#carla.Location">carla.Location</a><small> - meters</small></em>)<br />
-[x,y,z] coordinates of the point.  </li>
+<li><a name="carla.SemanticLidarDetection.point"></a><strong><font color="#f8805a">point</font></strong> (<em><a href="#carla.Location">carla.Location</a><small> - 米</small></em>)<br />
+点的[x，y，z]坐标。  </li>
 <li><a name="carla.SemanticLidarDetection.cos_inc_angle"></a><strong><font color="#f8805a">cos_inc_angle</font></strong> (<em>float</em>)<br />
-Cosine of the incident angle between the ray, and the normal of the hit object.  </li>
+光线与被击中物体法线之间入射角的余弦。</li>
 <li><a name="carla.SemanticLidarDetection.object_idx"></a><strong><font color="#f8805a">object_idx</font></strong> (<em>uint</em>)<br />
-ID of the actor hit by the ray.  </li>
+被光线击中的参与者的ID。 </li>
 <li><a name="carla.SemanticLidarDetection.object_tag"></a><strong><font color="#f8805a">object_tag</font></strong> (<em>uint</em>)<br />
-语义标签 of the component hit by the ray.  </li>
+被光线击中部件的语义标签。  </li>
 </ul>
 <h3 id="_149">方法</h3>
 <h5 id="_150">魔术方法</h5>
@@ -3815,22 +3865,22 @@ ID of the actor hit by the ray.  </li>
 </ul>
 <hr />
 <h2 id="carlasemanticlidarmeasurement">carla.SemanticLidarMeasurement<a name="carla.SemanticLidarMeasurement"></a></h2>
-<p><small style="display:block;margin-top:-20px;">Inherited from <em><a href="#carla.SensorData">carla.SensorData</a></em></small></br>
-Class that defines the semantic LIDAR data retrieved by a <b>sensor.lidar.ray_cast_semantic</b>. This essentially simulates a rotating LIDAR using ray-casting. Learn more about this <a href="../ref_sensors/#semanticlidar-raycast-sensor">here</a>.  </p>
+<p><small style="display:block;margin-top:-20px;">从 <em><a href="#carla.SensorData">carla.SensorData</a></em> 继承</small></br>
+该类定义由 <b>sensor.lidar.ray_cast_semantic</b> 检索的语义LIDAR数据。这实质上是使用光线投射来仿真旋转激光雷达。在此了解更多信息。</p>
 <h3 id="_151">实例变量</h3>
 <ul>
 <li><a name="carla.SemanticLidarMeasurement.channels"></a><strong><font color="#f8805a">channels</font></strong> (<em>int</em>)<br />
-Number of lasers shot.  </li>
+激光发射次数。</li>
 <li><a name="carla.SemanticLidarMeasurement.horizontal_angle"></a><strong><font color="#f8805a">horizontal_angle</font></strong> (<em>float<small> - radians</small></em>)<br />
-Horizontal angle the LIDAR is rotated at the time of the measurement.  </li>
+水平角度激光雷达在测量时旋转。  </li>
 <li><a name="carla.SemanticLidarMeasurement.raw_data"></a><strong><font color="#f8805a">raw_data</font></strong> (<em>bytes</em>)<br />
-Received list of raw detection points. Each point consists of [x,y,z] coordinates plus the cosine of the incident angle, the index of the hit actor, and its semantic tag.  </li>
+收到原始检测点列表。每个点由[x，y，z]坐标加上入射角的余弦，命中角色的索引及其语义标记组成。</li>
 </ul>
 <h3 id="_152">方法</h3>
 <ul>
 <li><a name="carla.SemanticLidarMeasurement.save_to_disk"></a><strong><font color="#7fb800">save_to_disk</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>path</strong></font>)<br />
-Saves the point cloud to disk as a <b>.ply</b> file describing data from 3D scanners. The files generated are ready to be used within <a href="http://www.meshlab.net/">MeshLab</a>, an open-source system for processing said files. Just take into account that axis may differ from Unreal Engine and so, need to be reallocated.  <ul>
-<li><strong>Parameters:</strong><ul>
+将点云保存为描述三维扫描仪数据的 <b>.ply</b> 文件保存到磁盘。生成的文件可以在<a href="http://www.meshlab.net/">MeshLab</a> 中使用，MeshLab是一个用于处理上述文件的开源系统。只需考虑到轴可能与不真实的引擎不同，因此需要重新分配。<ul>
+<li><strong>参数：</strong><ul>
 <li><code>path</code> (<em>str</em>)  </li>
 </ul>
 </li>
@@ -3840,8 +3890,8 @@ Saves the point cloud to disk as a <b>.ply</b> file describing data from 3D scan
 <h5 id="_153">设置器</h5>
 <ul>
 <li><a name="carla.SemanticLidarMeasurement.get_point_count"></a><strong><font color="#7fb800">get_point_count</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>channel</strong></font>)<br />
-Retrieves the number of points sorted by channel that are generated by this measure. Sorting by channel allows to identify the original channel for every point.  <ul>
-<li><strong>Parameters:</strong><ul>
+获取此度量生成的按通道排序的点数。通过通道排序可以识别每个点的原始通道。 <ul>
+<li><strong>参数：</strong><ul>
 <li><code>channel</code> (<em>int</em>)  </li>
 </ul>
 </li>
@@ -3859,7 +3909,7 @@ Iterate over the <a href="#carla.SemanticLidarDetection">carla.SemanticLidarDete
 </ul>
 <hr />
 <h2 id="carlasensor">carla.Sensor<a name="carla.Sensor"></a></h2>
-<p><small style="display:block;margin-top:-20px;">Inherited from <em><a href="#carla.Actor">carla.Actor</a></em></small></br>
+<p><small style="display:block;margin-top:-20px;">从 <em><a href="#carla.Actor">carla.Actor</a></em> 继承</small></br>
 Sensors compound a specific family of actors quite diverse and unique. They are normally spawned as attachment/sons of a vehicle (take a look at <a href="#carla.World">carla.World</a> to learn about actor spawning). Sensors are thoroughly designed to retrieve different types of data that they are listening to. The data they receive is shaped as different subclasses inherited from <a href="#carla.SensorData">carla.SensorData</a> (depending on the sensor).</p>
 <p>Most sensors can be divided in two groups: those receiving data on every tick (cameras, point clouds and some specific sensors) and those who only receive under certain circumstances (trigger detectors). CARLA provides a specific set of sensors and their blueprint can be found in <a href="#carla.BlueprintLibrary">carla.BlueprintLibrary</a>. All the information on their preferences and settlement can be found <a href="../ref_sensors/">here</a>, but the list of those available in CARLA so far goes as follow.
   <br><b>Receive data on every tick.</b>
@@ -4090,7 +4140,7 @@ Time register of the frame at which this measurement was taken given by the OS i
 </ul>
 <hr />
 <h2 id="carlatrafficlight">carla.TrafficLight<a name="carla.TrafficLight"></a></h2>
-<p><small style="display:block;margin-top:-20px;">Inherited from <em><a href="#carla.TrafficSign">carla.TrafficSign</a></em></small></br>
+<p><small style="display:block;margin-top:-20px;">从 <em><a href="#carla.TrafficSign">carla.TrafficSign</a></em> 继承</small></br>
 A traffic light actor, considered a specific type of traffic sign. As traffic lights will mostly appear at junctions, they belong to a group which contains the different traffic lights in it. Inside the group, traffic lights are differenciated by their pole index.</p>
 <p>Within a group the state of traffic lights is changed in a cyclic pattern: one index is chosen and it spends a few seconds in green, yellow and eventually red. The rest of the traffic lights remain frozen in red this whole time, meaning that there is a gap in the last seconds of the cycle where all the traffic lights are red. However, the state of a traffic light can be changed manually.  </p>
 <h3 id="_168">实例变量</h3>
@@ -4265,7 +4315,7 @@ Sets a given time for the yellow light to be active.  <ul>
 设置车辆必须与其他车辆保持的最小距离（以米为单位）。距离以米为单位，会影响最小移动距离。它是从车辆对象的前到后计算的。<ul>
 <li><strong>参数:</strong><ul>
 <li><code>actor</code> (<em><a href="#carla.Actor">carla.Actor</a></em>) - 正在更改最小距离的车辆。  </li>
-<li><code>distance</code> (<em>float<small> - meters</small></em>) - 两辆车之间的米。  </li>
+<li><code>distance</code> (<em>float<small> - 米</small></em>) - 两辆车之间的米。  </li>
 </ul>
 </li>
 </ul>
@@ -4439,7 +4489,7 @@ Sets a given time for the yellow light to be active.  <ul>
 <li><a name="carla.TrafficManager.set_global_distance_to_leading_vehicle"></a><strong><font color="#7fb800">set_global_distance_to_leading_vehicle</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>distance</strong></font>)<br />
 设置车辆与其他车辆必须保持的最小距离（以米为单位）。距离以米为单位，会影响最小移动距离。它是从车辆对象的中心到中心计算的。<ul>
 <li><strong>参数:</strong><ul>
-<li><code>distance</code> (<em>float<small> - meters</small></em>) - 车辆之间的米数。</li>
+<li><code>distance</code> (<em>float<small> - 米</small></em>) - 车辆之间的米数。</li>
 </ul>
 </li>
 </ul>
@@ -4455,7 +4505,7 @@ Sets a given time for the yellow light to be active.  <ul>
 <li><a name="carla.TrafficManager.set_hybrid_physics_radius"></a><strong><font color="#7fb800">set_hybrid_physics_radius</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>r</strong>=50.0</font>)<br />
 启用混合物理功能后，更改启用物理功能的影响区域的半径。<ul>
 <li><strong>参数:</strong><ul>
-<li><code>r</code> (<em>float<small> - meters</small></em>) - 启用物理的新半径。 </li>
+<li><code>r</code> (<em>float<small> - 米</small></em>) - 启用物理的新半径。 </li>
 </ul>
 </li>
 </ul>
@@ -4519,8 +4569,8 @@ Sets a given time for the yellow light to be active.  <ul>
 </ul>
 <hr />
 <h2 id="carlatrafficsign">carla.TrafficSign<a name="carla.TrafficSign"></a></h2>
-<p><small style="display:block;margin-top:-20px;">Inherited from <em><a href="#carla.Actor">carla.Actor</a></em></small></br>
-仿真中出现的交通标志（红绿灯除外）。这些在 <a href="#carla.TrafficLight">carla.TrafficLight</a> 中有自己的类继承自该类。目前，主要实施的是速度标志、停靠站和让行标志，但还有许多其他标志也被牢记在心。</p>
+<p><small style="display:block;margin-top:-20px;">从 <em><a href="#carla.Actor">carla.Actor</a></em> 继承</small></br>
+仿真中出现的交通标志（红绿灯除外）。这些在 <a href="#carla.TrafficLight">carla.TrafficLight</a> 中有自己的类从该类继承。目前，主要实施的是速度标志、停靠站和让行标志，但还有许多其他标志也被牢记在心。</p>
 <h3 id="_177">实例变量</h3>
 <ul>
 <li><a name="carla.TrafficSign.trigger_volume"></a><strong><font color="#f8805a">trigger_volume</font></strong><br />
@@ -4810,7 +4860,7 @@ Z-axis value.  </li>
 </ul>
 <hr />
 <h2 id="carlavehicle">carla.Vehicle<a name="carla.Vehicle"></a></h2>
-<p><small style="display:block;margin-top:-20px;">Inherited from <em><a href="#carla.Actor">carla.Actor</a></em></small></br>
+<p><small style="display:block;margin-top:-20px;">从 <em><a href="#carla.Actor">carla.Actor</a></em> 继承</small></br>
 CARLA 中最重要的参与者群体之一。其中包括从汽车到卡车、摩托车、货车、自行车的任何类型的车辆以及警车等官方车辆。<a href="#carla.BlueprintLibrary">carla.BlueprintLibrary</a> 中提供了一系列广泛的参与者，以满足不同的需求。车辆可以手动控制，也可以设置为自动驾驶模式，由 <b>交通管理器 </b> 在客户端进行控制。</p>
 <h3 id="_189">实例变量</h3>
 <ul>
@@ -4861,7 +4911,7 @@ CARLA 中最重要的参与者群体之一。其中包括从汽车到卡车、�
 </ul>
 </li>
 <li><a name="carla.Vehicle.enable_carsim"></a><strong><font color="#7fb800">enable_carsim</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>simfile_path</strong></font>)<br />
-为该特定车辆启用 CarSim 物理解算器。为了使此功能发挥作用，需要在服务器端运行有效的许可证管理器。控制输入​​被重定向到 CarSim，它将提供每一帧的车辆位置和方向。 <ul>
+为该特定车辆启用 CarSim 物理解算器。为了使此功能发挥作用，需要在服务器端运行有效的许可证管理器。控制输入被重定向到 CarSim，它将提供每一帧的车辆位置和方向。 <ul>
 <li><strong>参数:</strong><ul>
 <li><code>simfile_path</code> (<em>str</em>) - 包含仿真参数的<code>.simfile</code> 文件的路径。</li>
 </ul>
@@ -4876,12 +4926,12 @@ CARLA 中最重要的参与者群体之一。其中包括从汽车到卡车、�
 <li><code>vehicle_json</code> (<em>str</em>) - 相对于 <code>base_json_path</code> 的车辆 json 文件的路径。</li>
 <li><code>powertrain_json</code> (<em>str</em>) - 相对于 <code>base_json_path</code> 的动力总成 json 文件的路径。</li>
 <li><code>tire_json</code> (<em>str</em>) - 相对于<code>base_json_path</code>的轮胎 json 文件。</li>
-<li><code>base_json_path</code> (<em>str</em>) - 指向 <code>chrono/data/vehicle</code> 的文件夹路径。例如， <code>/home/user/carla/Build/chrono-install/share/chrono/data/vehicle/</code> (需要最后一个 <code>/</code> 字符)。</li>
+<li><code>base_json_path</code> (<em>str</em>) - 指向 <code>chrono/data/vehicle</code> 的文件夹路径。例如， <code>/home/user/carla/Build/chrono-install/share/chrono/data/vehicle/</code> (最后一个字符需要是<code>/</code>)。</li>
 </ul>
 </li>
-<li><strong>注意:</strong> <font color="#8E8E8E"><em>确保您已使用该标志启动 CARLA 服务器 <code>ARGS="--chrono"</code>。如果没有设置此标志，您将无法使用 Chrono 物理。
+<li><strong>注意:</strong> <font color="#8E8E8E"><em>确保您已使用该标志启动 Carla 服务器 <code>ARGS="--chrono"</code>。如果没有设置此标志，您将无法使用 Chrono 物理。
 </em></font>  </li>
-<li><strong>警告:</strong> <font color="#ED2F2F"><em>不支持碰撞。当检测到碰撞时，物理系统将恢复为默认的 CARLA 物理系统。
+<li><strong>警告:</strong> <font color="#ED2F2F"><em>不支持碰撞。当检测到碰撞时，物理系统将恢复为默认的 Carla 物理系统。
 </em></font>  </li>
 </ul>
 </li>
@@ -5166,7 +5216,7 @@ CARLA 中最重要的参与者群体之一。其中包括从汽车到卡车、�
 车辆的质量。</li>
 <li><a name="carla.VehiclePhysicsControl.drag_coefficient"></a><strong><font color="#f8805a">drag_coefficient</font></strong> (<em>float</em>)<br />
 车辆底盘的阻力系数。</li>
-<li><a name="carla.VehiclePhysicsControl.center_of_mass"></a><strong><font color="#f8805a">center_of_mass</font></strong> (<em><a href="#carla.Vector3D">carla.Vector3D</a><small> - meters</small></em>)<br />
+<li><a name="carla.VehiclePhysicsControl.center_of_mass"></a><strong><font color="#f8805a">center_of_mass</font></strong> (<em><a href="#carla.Vector3D">carla.Vector3D</a><small> - 米</small></em>)<br />
 车辆的质心。</li>
 <li><a name="carla.VehiclePhysicsControl.steering_curve"></a><strong><font color="#f8805a">steering_curve</font></strong> (<em>list(<a href="#carla.Vector2D">carla.Vector2D</a>)</em>)<br />
 指示特定前进速度的最大转向的曲线。</li>
@@ -5228,8 +5278,8 @@ VehiclePhysicsControl 构造函数。 <ul>
 </ul>
 <hr />
 <h2 id="carlawalker">carla.Walker<a name="carla.Walker"></a></h2>
-<p><small style="display:block;margin-top:-20px;">Inherited from <em><a href="#carla.Actor">carla.Actor</a></em></small></br>
-该类继承自 <a href="#carla.Actor">carla.Actor</a> 并定义仿真中的行人。Walkers 是一种特殊类型的 actor，可以由 AI (<a href="#carla.WalkerAIController">carla.WalkerAIController</a>) 控制，也可以通过脚本手动控制，使用一系列 <a href="#carla.WalkerControl">carla.WalkerControl</a> 来移动它们及其骨骼。</p>
+<p><small style="display:block;margin-top:-20px;">从 <em><a href="#carla.Actor">carla.Actor</a></em> 继承</small></br>
+该类从 <a href="#carla.Actor">carla.Actor</a> 继承并定义仿真中的行人。Walkers 是一种特殊类型的 actor，可以由 AI (<a href="#carla.WalkerAIController">carla.WalkerAIController</a>) 控制，也可以通过脚本手动控制，使用一系列 <a href="#carla.WalkerControl">carla.WalkerControl</a> 来移动它们及其骨骼。</p>
 <h3 id="_207">方法</h3>
 <ul>
 <li><a name="carla.Walker.apply_control"></a><strong><font color="#7fb800">apply_control</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>control</strong></font>)<br />
@@ -5296,14 +5346,14 @@ VehiclePhysicsControl 构造函数。 <ul>
 </ul>
 <hr />
 <h2 id="carlawalkeraicontroller">carla.WalkerAIController<a name="carla.WalkerAIController"></a></h2>
-<p><small style="display:block;margin-top:-20px;">Inherited from <em><a href="#carla.Actor">carla.Actor</a></em></small></br>
+<p><small style="display:block;margin-top:-20px;">从 <em><a href="#carla.Actor">carla.Actor</a></em> 继承</small></br>
 对步行者进行 AI 控制的类。控制器被定义为参与者，但它们与其他控制器有很大不同。它们在创建过程中需要附加到父 Actor，这是它们将控制的步行者（如果您尚未了解如何生成 Actor，请查看<a href="#carla.World">carla.World</a> ）。他们还需要一个特殊的蓝图（已在 <a href="#carla.BlueprintLibrary">carla.BlueprintLibrary</a> 中定义为“controller.ai.walker”）。这是一个空的蓝图，因为人工智能控制器在模拟中是不可见的，但会跟随其父控制器来指示每一步。</p>
 <h3 id="_211">方法</h3>
 <ul>
 <li><a name="carla.WalkerAIController.go_to_location"></a><strong><font color="#7fb800">go_to_location</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>destination</strong></font>)<br />
 设置行人将到达的目的地。 <ul>
 <li><strong>参数:</strong><ul>
-<li><code>destination</code> (<em><a href="#carla.Location">carla.Location</a><small> - meters</small></em>)  </li>
+<li><code>destination</code> (<em><a href="#carla.Location">carla.Location</a><small> - 米</small></em>)  </li>
 </ul>
 </li>
 </ul>
@@ -5440,7 +5490,7 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 <li><a name="carla.Waypoint.next"></a><strong><font color="#7fb800">next</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>distance</strong></font>)<br />
 当前点某个近似值的航路点列表<code>distance</code>它会考虑道路及其可能的偏差，而不执行任何车道变更，并为每个选项返回一个航路点。如果车道在指定距离处未与任何其他车道相连，则列表可能为空。 <ul>
 <li><strong>参数:</strong><ul>
-<li><code>distance</code> (<em>float<small> - meters</small></em>) - 获取下一个航路点的大致距离。</li>
+<li><code>distance</code> (<em>float<small> - 米</small></em>) - 获取下一个航路点的大致距离。</li>
 </ul>
 </li>
 <li><strong>返回:</strong> <em>list(<a href="#carla.Waypoint">carla.Waypoint</a>)</em>  </li>
@@ -5449,7 +5499,7 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 <li><a name="carla.Waypoint.next_until_lane_end"></a><strong><font color="#7fb800">next_until_lane_end</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>distance</strong></font>)<br />
 返回从这里到车道末端的路点列表，这些路点之间以一定距离<code>distance</code>分隔。<ul>
 <li><strong>参数:</strong><ul>
-<li><code>distance</code> (<em>float<small> - meters</small></em>) - 航路点之间的大致距离。 </li>
+<li><code>distance</code> (<em>float<small> - 米</small></em>) - 航路点之间的大致距离。 </li>
 </ul>
 </li>
 <li><strong>返回:</strong> <em>list(<a href="#carla.Waypoint">carla.Waypoint</a>)</em>  </li>
@@ -5458,7 +5508,7 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 <li><a name="carla.Waypoint.previous"></a><strong><font color="#7fb800">previous</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>distance</strong></font>)<br />
 但与车道相反方向的路点列表<code>distance</code> 与<strong><font color="#7fb800">next()</font></strong>类似，它会考虑道路及其可能的偏差，而不执行任何车道变更，并为每个选项返回一个航路点。如果车道在指定距离处未与任何其他车道相连，则列表可能为空。<ul>
 <li><strong>参数:</strong><ul>
-<li><code>distance</code> (<em>float<small> - meters</small></em>) - 获取先前航路点的大致距离。 </li>
+<li><code>distance</code> (<em>float<small> - 米</small></em>) - 获取先前航路点的大致距离。 </li>
 </ul>
 </li>
 <li><strong>返回:</strong> <em>list(<a href="#carla.Waypoint">carla.Waypoint</a>)</em>  </li>
@@ -5467,7 +5517,7 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 <li><a name="carla.Waypoint.previous_until_lane_start"></a><strong><font color="#7fb800">previous_until_lane_start</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>distance</strong></font>)<br />
 返回从这里到车道起点的路点列表，以一定的距离 <code>distance</code> 分隔。<ul>
 <li><strong>参数:</strong><ul>
-<li><code>distance</code> (<em>float<small> - meters</small></em>) - 航路点之间的大致距离。</li>
+<li><code>distance</code> (<em>float<small> - 米</small></em>) - 航路点之间的大致距离。</li>
 </ul>
 </li>
 <li><strong>返回:</strong> <em>list(<a href="#carla.Waypoint">carla.Waypoint</a>)</em>  </li>
@@ -5484,7 +5534,7 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 <li><a name="carla.Waypoint.get_landmarks"></a><strong><font color="#7fb800">get_landmarks</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>distance</strong></font>, <font color="#00a6ed"><strong>stop_at_junction</strong>=False</font>)<br />
 返回从当前航路点到指定距离的道路上的地标列表。<ul>
 <li><strong>参数:</strong><ul>
-<li><code>distance</code> (<em>float<small> - meters</small></em>) - 从当前航路点搜索地标的最大距离。</li>
+<li><code>distance</code> (<em>float<small> - 米</small></em>) - 从当前航路点搜索地标的最大距离。</li>
 <li><code>stop_at_junction</code> (<em>bool</em>) - 启用或禁用通过路口的地标搜索。  </li>
 </ul>
 </li>
@@ -5494,7 +5544,7 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 <li><a name="carla.Waypoint.get_landmarks_of_type"></a><strong><font color="#7fb800">get_landmarks_of_type</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>distance</strong></font>, <font color="#00a6ed"><strong>type</strong></font>, <font color="#00a6ed"><strong>stop_at_junction</strong>=False</font>)<br />
 返回从当前路径点到指定距离的指定类型道路中的地标列表。<ul>
 <li><strong>参数:</strong><ul>
-<li><code>distance</code> (<em>float<small> - meters</small></em>) - 从当前航路点搜索地标的最大距离。</li>
+<li><code>distance</code> (<em>float<small> - 米</small></em>) - 从当前航路点搜索地标的最大距离。</li>
 <li><code>type</code> (<em>str</em>) - 要搜索的地标类型。  </li>
 <li><code>stop_at_junction</code> (<em>bool</em>) - 启用或禁用通过路口的地标搜索。 </li>
 </ul>
@@ -5531,13 +5581,13 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 确定水坑的创建。值范围从 0 到 100，0 表示完全没有水，100 表示道路完全被水覆盖。水坑是用静态噪音创建的，这意味着它们总是出现在相同的位置。</li>
 <li><a name="carla.WeatherParameters.wind_intensity"></a><strong><font color="#f8805a">wind_intensity</font></strong> (<em>float</em>)<br />
 控制风的强度，值从 0（无风）到 100（强风）。风确实会影响降雨方向和树叶，因此限制该值以避免动画问题。</li>
-<li><a name="carla.WeatherParameters.sun_azimuth_angle"></a><strong><font color="#f8805a">sun_azimuth_angle</font></strong> (<em>float<small> - degrees</small></em>)<br />
+<li><a name="carla.WeatherParameters.sun_azimuth_angle"></a><strong><font color="#f8805a">sun_azimuth_angle</font></strong> (<em>float<small> - 度</small></em>)<br />
 太阳的方位角。值范围为 0 到 360。零是由虚幻引擎确定的球体中的原点。</li>
-<li><a name="carla.WeatherParameters.sun_altitude_angle"></a><strong><font color="#f8805a">sun_altitude_angle</font></strong> (<em>float<small> - degrees</small></em>)<br />
+<li><a name="carla.WeatherParameters.sun_altitude_angle"></a><strong><font color="#f8805a">sun_altitude_angle</font></strong> (<em>float<small> - 度</small></em>)<br />
 太阳的高度角。值范围从 -90 到 90，分别对应于午夜和中午。</li>
 <li><a name="carla.WeatherParameters.fog_density"></a><strong><font color="#f8805a">fog_density</font></strong> (<em>float</em>)<br />
 雾浓度或厚度。它仅影响 RGB 相机传感器。值范围从 0 到 100。</li>
-<li><a name="carla.WeatherParameters.fog_distance"></a><strong><font color="#f8805a">fog_distance</font></strong> (<em>float<small> - meters</small></em>)<br />
+<li><a name="carla.WeatherParameters.fog_distance"></a><strong><font color="#f8805a">fog_distance</font></strong> (<em>float<small> - 米</small></em>)<br />
 雾开始距离。值范围从 0 到无穷大。</li>
 <li><a name="carla.WeatherParameters.wetness"></a><strong><font color="#f8805a">wetness</font></strong> (<em>float</em>)<br />
 湿度强度。它仅影响 RGB 相机传感器。值范围从 0 到 100。</li>
@@ -5561,10 +5611,10 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 <li><code>precipitation</code> (<em>float</em>) - 0 表示完全没有下雨，100 表示大雨。</li>
 <li><code>precipitation_deposits</code> (<em>float</em>) - 0 表示道路上没有水坑，100 表示道路完全被雨水覆盖。</li>
 <li><code>wind_intensity</code> (<em>float</em>) - 0 表示风平浪静，100 表示强风。</li>
-<li><code>sun_azimuth_angle</code> (<em>float<small> - degrees</small></em>) - 0 是任意北，180 是其对应的南。 </li>
-<li><code>sun_altitude_angle</code> (<em>float<small> - degrees</small></em>) - 90 是中午，-90 是午夜。</li>
+<li><code>sun_azimuth_angle</code> (<em>float<small> - 度</small></em>) - 0 是任意北，180 是其对应的南。 </li>
+<li><code>sun_altitude_angle</code> (<em>float<small> - 度</small></em>) - 90 是中午，-90 是午夜。</li>
 <li><code>fog_density</code> (<em>float</em>) - 雾的浓度或厚度，从 0 到 100。</li>
-<li><code>fog_distance</code> (<em>float<small> - meters</small></em>) - 雾开始的距离（以米为单位）。</li>
+<li><code>fog_distance</code> (<em>float<small> - 米</small></em>) - 雾开始的距离（以米为单位）。</li>
 <li><code>wetness</code> (<em>float</em>) - 道路的湿度百分比，从 0 到 100。</li>
 <li><code>fog_falloff</code> (<em>float</em>) - 雾的密度（特定质量），从 0 到无穷大。</li>
 <li><code>scattering_intensity</code> (<em>float</em>) - 控制光线对体积雾的贡献程度。当设置为 0 时，没有贡献。</li>
@@ -5600,7 +5650,7 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 指示车轮摩擦力的标量值。</li>
 <li><a name="carla.WheelPhysicsControl.damping_rate"></a><strong><font color="#f8805a">damping_rate</font></strong> (<em>float</em>)<br />
 车轮的阻尼率。</li>
-<li><a name="carla.WheelPhysicsControl.max_steer_angle"></a><strong><font color="#f8805a">max_steer_angle</font></strong> (<em>float<small> - degrees</small></em>)<br />
+<li><a name="carla.WheelPhysicsControl.max_steer_angle"></a><strong><font color="#f8805a">max_steer_angle</font></strong> (<em>float<small> - 度</small></em>)<br />
 车轮可以转向的最大角度。</li>
 <li><a name="carla.WheelPhysicsControl.radius"></a><strong><font color="#f8805a">radius</font></strong> (<em>float<small> - centimeters</small></em>)<br />
 轮子的半径。</li>
@@ -5623,11 +5673,11 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 <li><strong>参数:</strong><ul>
 <li><code>tire_friction</code> (<em>float</em>)  </li>
 <li><code>damping_rate</code> (<em>float</em>)  </li>
-<li><code>max_steer_angle</code> (<em>float<small> - degrees</small></em>)  </li>
-<li><code>radius</code> (<em>float<small> - centimerers</small></em>)  </li>
+<li><code>max_steer_angle</code> (<em>float<small> - 度</small></em>)  </li>
+<li><code>radius</code> (<em>float<small> - 厘米</small></em>)  </li>
 <li><code>max_brake_torque</code> (<em>float<small> - N*m</small></em>)  </li>
 <li><code>max_handbrake_torque</code> (<em>float<small> - N*m</small></em>)  </li>
-<li><code>position</code> (<em><a href="#carla.Vector3D">carla.Vector3D</a><small> - meters</small></em>)  </li>
+<li><code>position</code> (<em><a href="#carla.Vector3D">carla.Vector3D</a><small> - 米</small></em>)  </li>
 </ul>
 </li>
 </ul>
@@ -6065,14 +6115,14 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 <li><a name="carla.WorldSettings.__init__"></a><strong><font color="#7fb800">__init__</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>synchronous_mode</strong>=False</font>, <font color="#00a6ed"><strong>no_rendering_mode</strong>=False</font>, <font color="#00a6ed"><strong>fixed_delta_seconds</strong>=0.0</font>, <font color="#00a6ed"><strong>max_culling_distance</strong>=0.0</font>, <font color="#00a6ed"><strong>deterministic_ragdolls</strong>=False</font>, <font color="#00a6ed"><strong>tile_stream_distance</strong>=3000</font>, <font color="#00a6ed"><strong>actor_active_distance</strong>=2000</font>, <font color="#00a6ed"><strong>spectator_as_ego</strong>=True</font>)<br />
 创建一个包含所需设置的对象，这些设置稍后可以通过 <a href="#carla.World">carla.World</a> 及其方法 <strong><font color="#7fb800">apply_settings()</font></strong> 应用。<ul>
 <li><strong>参数:</strong><ul>
-<li><code>synchronous_mode</code> (<em>bool</em>) - Set this to true to enable client-server synchrony.  </li>
-<li><code>no_rendering_mode</code> (<em>bool</em>) - Set this to true to completely disable rendering in the simulation.  </li>
-<li><code>fixed_delta_seconds</code> (<em>float<small> - seconds</small></em>) - Set a fixed time-step in between frames. <code>0.0</code> means variable time-step and it is the default mode.  </li>
-<li><code>max_culling_distance</code> (<em>float<small> - meters</small></em>) - Configure the max draw distance for each mesh of the level.  </li>
-<li><code>deterministic_ragdolls</code> (<em>bool</em>) - Defines wether to use deterministic physics or ragdoll simulation for pedestrian deaths.  </li>
-<li><code>tile_stream_distance</code> (<em>float<small> - meters</small></em>) - Used for large maps only. Configures the maximum distance from the hero vehicle to stream tiled maps.  </li>
-<li><code>actor_active_distance</code> (<em>float<small> - meters</small></em>) - Used for large maps only. Configures the distance from the hero vehicle to convert actors to dormant.  </li>
-<li><code>spectator_as_ego</code> (<em>bool</em>) - Used for large maps only. Defines the influence of the spectator on tile loading in Large Maps.  </li>
+<li><code>synchronous_mode</code> (<em>bool</em>) - 启用客户端-服务器则设置为 true。  </li>
+<li><code>no_rendering_mode</code> (<em>bool</em>) - 在仿真中完全禁用渲染则设置为 true。</li>
+<li><code>fixed_delta_seconds</code> (<em>float<small> - seconds</small></em>) - 在帧之间设置为固定的步长。 <code>0.0</code> 意味着变步长且为模式模式。  </li>
+<li><code>max_culling_distance</code> (<em>float<small> - 米</small></em>) - 对于关卡的每一个网格配置最大的绘制距离。  </li>
+<li><code>deterministic_ragdolls</code> (<em>bool</em>) - 对于行人死亡使用确定的物理或布娃娃仿真定义wether。  </li>
+<li><code>tile_stream_distance</code> (<em>float<small> - 米</small></em>) - 仅用于大地图。从英雄车辆到流瓦片地图配置最大距离。 </li>
+<li><code>actor_active_distance</code> (<em>float<small> - 米</small></em>) - 仅用于大地图。配置与英雄车辆的距离以将参与者转换为休眠状态。</li>
+<li><code>spectator_as_ego</code> (<em>bool</em>) - 仅用于大地图。在大型贴图中定义观众对平铺加载的影响。</li>
 </ul>
 </li>
 </ul>
@@ -6081,38 +6131,38 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 <h5 id="_240">魔术方法</h5>
 <ul>
 <li><a name="carla.WorldSettings.__eq__"></a><strong><font color="#7fb800">__eq__</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>other</strong>=<a href="#carla.WorldSettings">carla.WorldSettings</a></font>)<br />
-Returns <b>True</b> if both objects' variables are the same.  <ul>
+如果对象的变量相同则返回 <b>True</b> 。  <ul>
 <li><strong>返回:</strong> <em>bool</em>  </li>
 </ul>
 </li>
 <li><a name="carla.WorldSettings.__ne__"></a><strong><font color="#7fb800">__ne__</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>other</strong>=<a href="#carla.WorldSettings">carla.WorldSettings</a></font>)<br />
-Returns <b>True</b> if both objects' variables are different.  <ul>
+如果对象的变量不同则返回 <b>True</b>。  <ul>
 <li><strong>返回:</strong> <em>bool</em>  </li>
 </ul>
 </li>
 <li><a name="carla.WorldSettings.__str__"></a><strong><font color="#7fb800">__str__</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-Parses the established settings to a string and shows them in command line.  <ul>
+对于字符串解析已建立的设置并在命令行中显示出来。<ul>
 <li><strong>返回:</strong> <em>str</em>  </li>
 </ul>
 </li>
 </ul>
 <hr />
 <h2 id="carlaworldsnapshot">carla.WorldSnapshot<a name="carla.WorldSnapshot"></a></h2>
-<p>This snapshot comprises all the information for every actor on scene at a certain moment of time. It creates and gives acces to a data structure containing a series of <a href="#carla.ActorSnapshot">carla.ActorSnapshot</a>. The client recieves a new snapshot on every tick that cannot be stored.  </p>
+<p>快照包括某一时刻场景中每个参与者的所有信息。它创建并给出一些列包含<a href="#carla.ActorSnapshot">carla.ActorSnapshot</a>的数据结构。客户端在每一个不能存储的滴答信号中获取一个新的快照。</p>
 <h3 id="_241">实例变量</h3>
 <ul>
 <li><a name="carla.WorldSnapshot.id"></a><strong><font color="#f8805a">id</font></strong> (<em>int</em>)<br />
-A value unique for every snapshot to differentiate them.  </li>
+为了分辨每一个快照的唯一值。  </li>
 <li><a name="carla.WorldSnapshot.frame"></a><strong><font color="#f8805a">frame</font></strong> (<em>int</em>)<br />
-Simulation frame in which the snapshot was taken.  </li>
+获取快照时的仿真时间。  </li>
 <li><a name="carla.WorldSnapshot.timestamp"></a><strong><font color="#f8805a">timestamp</font></strong> (<em><a href="#carla.Timestamp">carla.Timestamp</a><small> - seconds</small></em>)<br />
-Precise moment in time when snapshot was taken. This class works in seconds as given by the operative system.  </li>
+获取快照时候的精确时刻。由操作系统给出的以秒为单位的类。</li>
 </ul>
 <h3 id="_242">方法</h3>
 <ul>
 <li><a name="carla.WorldSnapshot.find"></a><strong><font color="#7fb800">find</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor_id</strong></font>)<br />
-Given a certain actor ID, returns its corresponding snapshot or <b>None</b> if it is not found.  <ul>
-<li><strong>Parameters:</strong><ul>
+给出某个参与者的 ID，返回对应的快照，如果没有找到则返回<b>None</b>。<ul>
+<li><strong>参数：</strong><ul>
 <li><code>actor_id</code> (<em>int</em>)  </li>
 </ul>
 </li>
@@ -6120,50 +6170,50 @@ Given a certain actor ID, returns its corresponding snapshot or <b>None</b> if i
 </ul>
 </li>
 <li><a name="carla.WorldSnapshot.has_actor"></a><strong><font color="#7fb800">has_actor</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor_id</strong></font>)<br />
-Given a certain actor ID, checks if there is a snapshot corresponding it and so, if the actor was present at that moment.  <ul>
-<li><strong>Parameters:</strong><ul>
+给出某个参与者的 ID，如果有对应的快照则检查，如果在这个时刻参与者出现。<ul>
+<li><strong>参数：</strong><ul>
 <li><code>actor_id</code> (<em>int</em>)  </li>
 </ul>
 </li>
-<li><strong>返回:</strong> <em>bool</em>  </li>
+<li><strong>返回：</strong> <em>bool</em>  </li>
 </ul>
 </li>
 </ul>
 <h5 id="_243">魔术方法</h5>
 <ul>
 <li><a name="carla.WorldSnapshot.__eq__"></a><strong><font color="#7fb800">__eq__</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>other</strong>=<a href="#carla.WorldSnapshot">carla.WorldSnapshot</a></font>)<br />
-Returns <strong>True</strong> if both <strong><font color="#f8805a">timestamp</font></strong> are the same.  <ul>
+如果时间戳 <strong><font color="#f8805a">timestamp</font></strong> 相同则返回 <strong>True</strong> 。<ul>
 <li><strong>返回:</strong> <em>bool</em>  </li>
 </ul>
 </li>
 <li><a name="carla.WorldSnapshot.__iter__"></a><strong><font color="#7fb800">__iter__</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-Iterate over the <a href="#carla.ActorSnapshot">carla.ActorSnapshot</a> stored in the snapshot.  </li>
+在存储的快照上进行迭代 <a href="#carla.ActorSnapshot">carla.ActorSnapshot</a> 。  </li>
 <li><a name="carla.WorldSnapshot.__len__"></a><strong><font color="#7fb800">__len__</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-Returns the amount of <a href="#carla.ActorSnapshot">carla.ActorSnapshot</a> present in this snapshot.  <ul>
+返回在该快照上呈现的 <a href="#carla.ActorSnapshot">carla.ActorSnapshot</a> 的数量。  <ul>
 <li><strong>返回:</strong> <em>int</em>  </li>
 </ul>
 </li>
 <li><a name="carla.WorldSnapshot.__ne__"></a><strong><font color="#7fb800">__ne__</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>other</strong>=<a href="#carla.WorldSnapshot">carla.WorldSnapshot</a></font>)<br />
-Returns <b>True</b> if both <strong><font color="#f8805a">timestamp</font></strong> are different.  <ul>
+如果时间戳 <strong><font color="#f8805a">timestamp</font></strong> 都不同则返回 <b>True</b>。<ul>
 <li><strong>返回:</strong> <em>bool</em>  </li>
 </ul>
 </li>
 </ul>
 <hr />
 <h2 id="commandapplyangularimpulse">command.ApplyAngularImpulse<a name="command.ApplyAngularImpulse"></a></h2>
-<p>Command adaptation of <strong><font color="#7fb800">add_angular_impulse()</font></strong> in <a href="#carla.Actor">carla.Actor</a>. Applies an angular impulse to an actor.  </p>
+<p><a href="#carla.Actor">carla.Actor</a> 中 <strong><font color="#7fb800">add_angular_impulse()</font></strong> 的命令适应。对参与者使用 angular impulse。 </p>
 <h3 id="_244">实例变量</h3>
 <ul>
 <li><a name="command.ApplyAngularImpulse.actor_id"></a><strong><font color="#f8805a">actor_id</font></strong> (<em>int</em>)<br />
 Actor affected by the command.  </li>
 <li><a name="command.ApplyAngularImpulse.impulse"></a><strong><font color="#f8805a">impulse</font></strong> (<em><a href="#carla.Vector3D">carla.Vector3D</a><small> - degrees*s</small></em>)<br />
-Angular impulse applied to the actor.  </li>
+应用到参与者上的角冲量。  </li>
 </ul>
 <h3 id="_245">方法</h3>
 <ul>
 <li><a name="command.ApplyAngularImpulse.__init__"></a><strong><font color="#7fb800">__init__</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor</strong></font>, <font color="#00a6ed"><strong>impulse</strong></font>)  <ul>
-<li><strong>Parameters:</strong><ul>
-<li><code>actor</code> (<em><a href="#carla.Actor">carla.Actor</a> or int</em>) - Actor or its ID to whom the command will be applied to.  </li>
+<li><strong>参数：</strong><ul>
+<li><code>actor</code> (<em><a href="#carla.Actor">carla.Actor</a> or int</em>) - 将要应用到的参与者或者它的 ID。</li>
 <li><code>impulse</code> (<em><a href="#carla.Vector3D">carla.Vector3D</a><small> - degrees*s</small></em>)  </li>
 </ul>
 </li>
@@ -6172,19 +6222,19 @@ Angular impulse applied to the actor.  </li>
 </ul>
 <hr />
 <h2 id="commandapplyforce">command.ApplyForce<a name="command.ApplyForce"></a></h2>
-<p>Command adaptation of <strong><font color="#7fb800">add_force()</font></strong> in <a href="#carla.Actor">carla.Actor</a>. Applies a force to an actor.  </p>
+<p><a href="#carla.Actor">carla.Actor</a> 中 <strong><font color="#7fb800">add_force()</font></strong> 的命令适应。对一个参与者施加一个力。</p>
 <h3 id="_246">实例变量</h3>
 <ul>
 <li><a name="command.ApplyForce.actor_id"></a><strong><font color="#f8805a">actor_id</font></strong> (<em>int</em>)<br />
-Actor affected by the command.  </li>
+被命令影响的参与者。  </li>
 <li><a name="command.ApplyForce.force"></a><strong><font color="#f8805a">force</font></strong> (<em><a href="#carla.Vector3D">carla.Vector3D</a><small> - N</small></em>)<br />
-Force applied to the actor over time.  </li>
+在时间上对参与者施加力。  </li>
 </ul>
 <h3 id="_247">方法</h3>
 <ul>
 <li><a name="command.ApplyForce.__init__"></a><strong><font color="#7fb800">__init__</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor</strong></font>, <font color="#00a6ed"><strong>force</strong></font>)  <ul>
-<li><strong>Parameters:</strong><ul>
-<li><code>actor</code> (<em><a href="#carla.Actor">carla.Actor</a> or int</em>) - Actor or its ID to whom the command will be applied to.  </li>
+<li><strong>参数：</strong><ul>
+<li><code>actor</code> (<em><a href="#carla.Actor">carla.Actor</a> or int</em>) - 将要施加命令的参与者或它的 ID。</li>
 <li><code>force</code> (<em><a href="#carla.Vector3D">carla.Vector3D</a><small> - N</small></em>)  </li>
 </ul>
 </li>
@@ -6193,19 +6243,19 @@ Force applied to the actor over time.  </li>
 </ul>
 <hr />
 <h2 id="commandapplyimpulse">command.ApplyImpulse<a name="command.ApplyImpulse"></a></h2>
-<p>Command adaptation of <strong><font color="#7fb800">add_impulse()</font></strong> in <a href="#carla.Actor">carla.Actor</a>. Applies an impulse to an actor.  </p>
+<p><a href="#carla.Actor">carla.Actor</a> 中 <strong><font color="#7fb800">add_impulse()</font></strong> 的命令适应。最参与者施加的 impulse。</p>
 <h3 id="_248">实例变量</h3>
 <ul>
 <li><a name="command.ApplyImpulse.actor_id"></a><strong><font color="#f8805a">actor_id</font></strong> (<em>int</em>)<br />
-Actor affected by the command.  </li>
+命令影响的参与者。  </li>
 <li><a name="command.ApplyImpulse.impulse"></a><strong><font color="#f8805a">impulse</font></strong> (<em><a href="#carla.Vector3D">carla.Vector3D</a><small> - N*s</small></em>)<br />
-Impulse applied to the actor.  </li>
+应用到参与者的 Impulse。  </li>
 </ul>
 <h3 id="_249">方法</h3>
 <ul>
 <li><a name="command.ApplyImpulse.__init__"></a><strong><font color="#7fb800">__init__</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor</strong></font>, <font color="#00a6ed"><strong>impulse</strong></font>)  <ul>
-<li><strong>Parameters:</strong><ul>
-<li><code>actor</code> (<em><a href="#carla.Actor">carla.Actor</a> or int</em>) - Actor or its ID to whom the command will be applied to.  </li>
+<li><strong>参数：</strong><ul>
+<li><code>actor</code> (<em><a href="#carla.Actor">carla.Actor</a> or int</em>) - 命令应用到的参与者或者它的 ID。</li>
 <li><code>impulse</code> (<em><a href="#carla.Vector3D">carla.Vector3D</a><small> - N*s</small></em>)  </li>
 </ul>
 </li>
@@ -6214,20 +6264,20 @@ Impulse applied to the actor.  </li>
 </ul>
 <hr />
 <h2 id="commandapplytargetangularvelocity">command.ApplyTargetAngularVelocity<a name="command.ApplyTargetAngularVelocity"></a></h2>
-<p>Command adaptation of <strong><font color="#7fb800">set_target_angular_velocity()</font></strong> in <a href="#carla.Actor">carla.Actor</a>. Sets the actor's angular velocity vector.  </p>
+<p><a href="#carla.Actor">carla.Actor</a> 中 <strong><font color="#7fb800">set_target_angular_velocity()</font></strong> 的命令适应。</p>
 <h3 id="_250">实例变量</h3>
 <ul>
 <li><a name="command.ApplyTargetAngularVelocity.actor_id"></a><strong><font color="#f8805a">actor_id</font></strong> (<em>int</em>)<br />
-Actor affected by the command.  </li>
+被命令影响的参与者。  </li>
 <li><a name="command.ApplyTargetAngularVelocity.angular_velocity"></a><strong><font color="#f8805a">angular_velocity</font></strong> (<em><a href="#carla.Vector3D">carla.Vector3D</a><small> - deg/s</small></em>)<br />
-The 3D angular velocity that will be applied to the actor.  </li>
+应用到参与者的三维角速度。  </li>
 </ul>
 <h3 id="_251">方法</h3>
 <ul>
 <li><a name="command.ApplyTargetAngularVelocity.__init__"></a><strong><font color="#7fb800">__init__</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor</strong></font>, <font color="#00a6ed"><strong>angular_velocity</strong></font>)  <ul>
-<li><strong>Parameters:</strong><ul>
-<li><code>actor</code> (<em><a href="#carla.Actor">carla.Actor</a> or int</em>) - Actor or its ID to whom the command will be applied to.  </li>
-<li><code>angular_velocity</code> (<em><a href="#carla.Vector3D">carla.Vector3D</a><small> - deg/s</small></em>) - Angular velocity vector applied to the actor.  </li>
+<li><strong>参数：</strong><ul>
+<li><code>actor</code> (<em><a href="#carla.Actor">carla.Actor</a> or int</em>) - 命令将要应用到的参与者或者它的ID。</li>
+<li><code>angular_velocity</code> (<em><a href="#carla.Vector3D">carla.Vector3D</a><small> - deg/s</small></em>) - 应用到参与者的角速度向量。  </li>
 </ul>
 </li>
 </ul>
@@ -6235,20 +6285,20 @@ The 3D angular velocity that will be applied to the actor.  </li>
 </ul>
 <hr />
 <h2 id="commandapplytargetvelocity">command.ApplyTargetVelocity<a name="command.ApplyTargetVelocity"></a></h2>
-<p>Command adaptation of <strong><font color="#7fb800">set_target_velocity()</font></strong> in <a href="#carla.Actor">carla.Actor</a>.  </p>
+<p><a href="#carla.Actor">carla.Actor</a> 中 <strong><font color="#7fb800">set_target_velocity()</font></strong> 的命令适应。</p>
 <h3 id="_252">实例变量</h3>
 <ul>
 <li><a name="command.ApplyTargetVelocity.actor_id"></a><strong><font color="#f8805a">actor_id</font></strong> (<em>int</em>)<br />
-Actor affected by the command.  </li>
+被命令影响的参与者。  </li>
 <li><a name="command.ApplyTargetVelocity.velocity"></a><strong><font color="#f8805a">velocity</font></strong> (<em><a href="#carla.Vector3D">carla.Vector3D</a><small> - m/s</small></em>)<br />
-The 3D velocity applied to the actor.  </li>
+应用到参与者三维速度。  </li>
 </ul>
 <h3 id="_253">方法</h3>
 <ul>
 <li><a name="command.ApplyTargetVelocity.__init__"></a><strong><font color="#7fb800">__init__</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor</strong></font>, <font color="#00a6ed"><strong>velocity</strong></font>)  <ul>
-<li><strong>Parameters:</strong><ul>
-<li><code>actor</code> (<em><a href="#carla.Actor">carla.Actor</a> or int</em>) - Actor or its ID to whom the command will be applied to.  </li>
-<li><code>velocity</code> (<em><a href="#carla.Vector3D">carla.Vector3D</a><small> - m/s</small></em>) - Velocity vector applied to the actor.  </li>
+<li><strong>参数：</strong><ul>
+<li><code>actor</code> (<em><a href="#carla.Actor">carla.Actor</a> or int</em>) - 命令应用到的参与者或它的ID。</li>
+<li><code>velocity</code> (<em><a href="#carla.Vector3D">carla.Vector3D</a><small> - m/s</small></em>) - 应用到参与者的速度向量。  </li>
 </ul>
 </li>
 </ul>
@@ -6256,20 +6306,20 @@ The 3D velocity applied to the actor.  </li>
 </ul>
 <hr />
 <h2 id="commandapplytorque">command.ApplyTorque<a name="command.ApplyTorque"></a></h2>
-<p>Command adaptation of <strong><font color="#7fb800">add_torque()</font></strong> in <a href="#carla.Actor">carla.Actor</a>. Applies a torque to an actor.  </p>
+<p><a href="#carla.Actor">carla.Actor</a> 中 <strong><font color="#7fb800">add_torque()</font></strong> 的命令适应。对参与者应用 torque。</p>
 <h3 id="_254">实例变量</h3>
 <ul>
 <li><a name="command.ApplyTorque.actor_id"></a><strong><font color="#f8805a">actor_id</font></strong> (<em>int</em>)<br />
-Actor affected by the command.  </li>
-<li><a name="command.ApplyTorque.torque"></a><strong><font color="#f8805a">torque</font></strong> (<em><a href="#carla.Vector3D">carla.Vector3D</a><small> - degrees</small></em>)<br />
-Torque applied to the actor over time.  </li>
+命令影响的参与者。  </li>
+<li><a name="command.ApplyTorque.torque"></a><strong><font color="#f8805a">torque</font></strong> (<em><a href="#carla.Vector3D">carla.Vector3D</a><small> - 度</small></em>)<br />
+在时间上对参与者应用力矩。  </li>
 </ul>
 <h3 id="_255">方法</h3>
 <ul>
 <li><a name="command.ApplyTorque.__init__"></a><strong><font color="#7fb800">__init__</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor</strong></font>, <font color="#00a6ed"><strong>torque</strong></font>)  <ul>
-<li><strong>Parameters:</strong><ul>
-<li><code>actor</code> (<em><a href="#carla.Actor">carla.Actor</a> or int</em>) - Actor or its ID to whom the command will be applied to.  </li>
-<li><code>torque</code> (<em><a href="#carla.Vector3D">carla.Vector3D</a><small> - degrees</small></em>)  </li>
+<li><strong>参数：</strong><ul>
+<li><code>actor</code> (<em><a href="#carla.Actor">carla.Actor</a> or int</em>) - 命令应用到的参与者和它的 ID。</li>
+<li><code>torque</code> (<em><a href="#carla.Vector3D">carla.Vector3D</a><small> - 度</small></em>)  </li>
 </ul>
 </li>
 </ul>
@@ -6277,19 +6327,19 @@ Torque applied to the actor over time.  </li>
 </ul>
 <hr />
 <h2 id="commandapplytransform">command.ApplyTransform<a name="command.ApplyTransform"></a></h2>
-<p>Command adaptation of <strong><font color="#7fb800">set_transform()</font></strong> in <a href="#carla.Actor">carla.Actor</a>. Sets a new transform to an actor.  </p>
+<p><a href="#carla.Actor">carla.Actor</a> 中 <strong><font color="#7fb800">set_transform()</font></strong> 的命令适应。对参与者设置新的变换。</p>
 <h3 id="_256">实例变量</h3>
 <ul>
 <li><a name="command.ApplyTransform.actor_id"></a><strong><font color="#f8805a">actor_id</font></strong> (<em>int</em>)<br />
-Actor affected by the command.  </li>
+命令影响的参与者。  </li>
 <li><a name="command.ApplyTransform.transform"></a><strong><font color="#f8805a">transform</font></strong> (<em><a href="#carla.Transform">carla.Transform</a></em>)<br />
-Transformation to be applied.  </li>
+所使用的变换。  </li>
 </ul>
 <h3 id="_257">方法</h3>
 <ul>
 <li><a name="command.ApplyTransform.__init__"></a><strong><font color="#7fb800">__init__</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor</strong></font>, <font color="#00a6ed"><strong>transform</strong></font>)  <ul>
-<li><strong>Parameters:</strong><ul>
-<li><code>actor</code> (<em><a href="#carla.Actor">carla.Actor</a> or int</em>) - Actor or its ID to whom the command will be applied to.  </li>
+<li><strong>参数：</strong><ul>
+<li><code>actor</code> (<em><a href="#carla.Actor">carla.Actor</a> or int</em>) - 命令应用到的参与者或它的 ID。</li>
 <li><code>transform</code> (<em><a href="#carla.Transform">carla.Transform</a></em>)  </li>
 </ul>
 </li>
@@ -6298,19 +6348,19 @@ Transformation to be applied.  </li>
 </ul>
 <hr />
 <h2 id="commandapplyvehicleackermanncontrol">command.ApplyVehicleAckermannControl<a name="command.ApplyVehicleAckermannControl"></a></h2>
-<p>Command adaptation of <strong><font color="#7fb800">apply_ackermann_control()</font></strong> in <a href="#carla.Vehicle">carla.Vehicle</a>. Applies a certain akermann control to a vehicle.  </p>
+<p><a href="#carla.Vehicle">carla.Vehicle</a> 中 <strong><font color="#7fb800">apply_ackermann_control()</font></strong> 的命令适应。对车辆应用某个阿克曼控制器。</p>
 <h3 id="_258">实例变量</h3>
 <ul>
 <li><a name="command.ApplyVehicleAckermannControl.actor_id"></a><strong><font color="#f8805a">actor_id</font></strong> (<em>int</em>)<br />
-Vehicle actor affected by the command.  </li>
+命令影响的车辆参与者。  </li>
 <li><a name="command.ApplyVehicleAckermannControl.control"></a><strong><font color="#f8805a">control</font></strong> (<em><a href="#carla.AckermannVehicleControl">carla.AckermannVehicleControl</a></em>)<br />
-Vehicle ackermann control to be applied.  </li>
+应用的车辆阿克曼控制。  </li>
 </ul>
 <h3 id="_259">方法</h3>
 <ul>
 <li><a name="command.ApplyVehicleAckermannControl.__init__"></a><strong><font color="#7fb800">__init__</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor</strong></font>, <font color="#00a6ed"><strong>control</strong></font>)  <ul>
-<li><strong>Parameters:</strong><ul>
-<li><code>actor</code> (<em><a href="#carla.Actor">carla.Actor</a> or int</em>) - Actor or its ID to whom the command will be applied to.  </li>
+<li><strong>参数：</strong><ul>
+<li><code>actor</code> (<em><a href="#carla.Actor">carla.Actor</a> or int</em>) - 命令应用到的参与者或它的 ID。</li>
 <li><code>control</code> (<em><a href="#carla.AckermannVehicleControl">carla.AckermannVehicleControl</a></em>)  </li>
 </ul>
 </li>
@@ -6319,19 +6369,19 @@ Vehicle ackermann control to be applied.  </li>
 </ul>
 <hr />
 <h2 id="commandapplyvehiclecontrol">command.ApplyVehicleControl<a name="command.ApplyVehicleControl"></a></h2>
-<p>Command adaptation of <strong><font color="#7fb800">apply_control()</font></strong> in <a href="#carla.Vehicle">carla.Vehicle</a>. Applies a certain control to a vehicle.  </p>
+<p>in <a href="#carla.Vehicle">carla.Vehicle</a> 中 <strong><font color="#7fb800">apply_control()</font></strong> 的命令适应。对车辆应用某个控制。</p>
 <h3 id="_260">实例变量</h3>
 <ul>
 <li><a name="command.ApplyVehicleControl.actor_id"></a><strong><font color="#f8805a">actor_id</font></strong> (<em>int</em>)<br />
-Vehicle actor affected by the command.  </li>
+命令影响的车辆参与者。  </li>
 <li><a name="command.ApplyVehicleControl.control"></a><strong><font color="#f8805a">control</font></strong> (<em><a href="#carla.VehicleControl">carla.VehicleControl</a></em>)<br />
-Vehicle control to be applied.  </li>
+应用的车辆控制。  </li>
 </ul>
 <h3 id="_261">方法</h3>
 <ul>
 <li><a name="command.ApplyVehicleControl.__init__"></a><strong><font color="#7fb800">__init__</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor</strong></font>, <font color="#00a6ed"><strong>control</strong></font>)  <ul>
-<li><strong>Parameters:</strong><ul>
-<li><code>actor</code> (<em><a href="#carla.Actor">carla.Actor</a> or int</em>) - Actor or its ID to whom the command will be applied to.  </li>
+<li><strong>参数：</strong><ul>
+<li><code>actor</code> (<em><a href="#carla.Actor">carla.Actor</a> or int</em>) - 将要应用命令的参与者或它的ID。</li>
 <li><code>control</code> (<em><a href="#carla.VehicleControl">carla.VehicleControl</a></em>)  </li>
 </ul>
 </li>
@@ -6340,19 +6390,19 @@ Vehicle control to be applied.  </li>
 </ul>
 <hr />
 <h2 id="commandapplyvehiclephysicscontrol">command.ApplyVehiclePhysicsControl<a name="command.ApplyVehiclePhysicsControl"></a></h2>
-<p>Command adaptation of <strong><font color="#7fb800">apply_physics_control()</font></strong> in <a href="#carla.Vehicle">carla.Vehicle</a>. Applies a new physics control to a vehicle, modifying its physical parameters.  </p>
+<p><a href="#carla.Vehicle">carla.Vehicle</a> 中 <strong><font color="#7fb800">apply_physics_control()</font></strong> 的命令适应。对车辆应用一个新的物理控制，修改它的物理参与者。</p>
 <h3 id="_262">实例变量</h3>
 <ul>
 <li><a name="command.ApplyVehiclePhysicsControl.actor_id"></a><strong><font color="#f8805a">actor_id</font></strong> (<em>int</em>)<br />
-Vehicle actor affected by the command.  </li>
+命令影响的车辆参与者。  </li>
 <li><a name="command.ApplyVehiclePhysicsControl.physics_control"></a><strong><font color="#f8805a">physics_control</font></strong> (<em><a href="#carla.VehiclePhysicsControl">carla.VehiclePhysicsControl</a></em>)<br />
-Physics control to be applied.  </li>
+应用的物理控制。  </li>
 </ul>
 <h3 id="_263">方法</h3>
 <ul>
 <li><a name="command.ApplyVehiclePhysicsControl.__init__"></a><strong><font color="#7fb800">__init__</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor</strong></font>, <font color="#00a6ed"><strong>physics_control</strong></font>)  <ul>
-<li><strong>Parameters:</strong><ul>
-<li><code>actor</code> (<em><a href="#carla.Actor">carla.Actor</a> or int</em>) - Actor or its ID to whom the command will be applied to.  </li>
+<li><strong>参数：</strong><ul>
+<li><code>actor</code> (<em><a href="#carla.Actor">carla.Actor</a> or int</em>) - 命令应用的参与者或它的ID。</li>
 <li><code>physics_control</code> (<em><a href="#carla.VehiclePhysicsControl">carla.VehiclePhysicsControl</a></em>)  </li>
 </ul>
 </li>
@@ -6361,19 +6411,19 @@ Physics control to be applied.  </li>
 </ul>
 <hr />
 <h2 id="commandapplywalkercontrol">command.ApplyWalkerControl<a name="command.ApplyWalkerControl"></a></h2>
-<p>Command adaptation of <strong><font color="#7fb800">apply_control()</font></strong> in <a href="#carla.Walker">carla.Walker</a>. Applies a control to a walker.  </p>
+<p><a href="#carla.Walker">carla.Walker</a> 中 <strong><font color="#7fb800">apply_control()</font></strong> 的命令适应。对行人应用控制。</p>
 <h3 id="_264">实例变量</h3>
 <ul>
 <li><a name="command.ApplyWalkerControl.actor_id"></a><strong><font color="#f8805a">actor_id</font></strong> (<em>int</em>)<br />
-Walker actor affected by the command.  </li>
+命令影响的行人参与者。  </li>
 <li><a name="command.ApplyWalkerControl.control"></a><strong><font color="#f8805a">control</font></strong> (<em><a href="#carla.WalkerControl">carla.WalkerControl</a></em>)<br />
-Walker control to be applied.  </li>
+应用的行人参与者。  </li>
 </ul>
 <h3 id="_265">方法</h3>
 <ul>
 <li><a name="command.ApplyWalkerControl.__init__"></a><strong><font color="#7fb800">__init__</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor</strong></font>, <font color="#00a6ed"><strong>control</strong></font>)  <ul>
-<li><strong>Parameters:</strong><ul>
-<li><code>actor</code> (<em><a href="#carla.Actor">carla.Actor</a> or int</em>) - Actor or its ID to whom the command will be applied to.  </li>
+<li><strong>参数：</strong><ul>
+<li><code>actor</code> (<em><a href="#carla.Actor">carla.Actor</a> or int</em>) - 将要应用命令的参与者或者它的ID。</li>
 <li><code>control</code> (<em><a href="#carla.WalkerControl">carla.WalkerControl</a></em>)  </li>
 </ul>
 </li>
@@ -6382,21 +6432,21 @@ Walker control to be applied.  </li>
 </ul>
 <hr />
 <h2 id="commandapplywalkerstate">command.ApplyWalkerState<a name="command.ApplyWalkerState"></a></h2>
-<p>Apply a state to the walker actor. Specially useful to initialize an actor them with a specific location, orientation and speed.  </p>
+<p>对行人参与者应用状态。对初始化参与者的位置、朝向和速度特别有用。</p>
 <h3 id="_266">实例变量</h3>
 <ul>
 <li><a name="command.ApplyWalkerState.actor_id"></a><strong><font color="#f8805a">actor_id</font></strong> (<em>int</em>)<br />
-Walker actor affected by the command.  </li>
+命令影响的行人参与者。  </li>
 <li><a name="command.ApplyWalkerState.transform"></a><strong><font color="#f8805a">transform</font></strong> (<em><a href="#carla.Transform">carla.Transform</a></em>)<br />
-Transform to be applied.  </li>
+应用的转换。  </li>
 <li><a name="command.ApplyWalkerState.speed"></a><strong><font color="#f8805a">speed</font></strong> (<em>float<small> - m/s</small></em>)<br />
-Speed to be applied.  </li>
+应用的速度。  </li>
 </ul>
 <h3 id="_267">方法</h3>
 <ul>
 <li><a name="command.ApplyWalkerState.__init__"></a><strong><font color="#7fb800">__init__</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor</strong></font>, <font color="#00a6ed"><strong>transform</strong></font>, <font color="#00a6ed"><strong>speed</strong></font>)  <ul>
-<li><strong>Parameters:</strong><ul>
-<li><code>actor</code> (<em><a href="#carla.Actor">carla.Actor</a> or int</em>) - Actor or its ID to whom the command will be applied to.  </li>
+<li><strong>参数：</strong><ul>
+<li><code>actor</code> (<em><a href="#carla.Actor">carla.Actor</a> or int</em>) - 命令引用的参与者或它的ID。</li>
 <li><code>transform</code> (<em><a href="#carla.Transform">carla.Transform</a></em>)  </li>
 <li><code>speed</code> (<em>float<small> - m/s</small></em>)  </li>
 </ul>
@@ -6406,17 +6456,17 @@ Speed to be applied.  </li>
 </ul>
 <hr />
 <h2 id="commanddestroyactor">command.DestroyActor<a name="command.DestroyActor"></a></h2>
-<p>Command adaptation of <strong><font color="#7fb800">destroy()</font></strong> in <a href="#carla.Actor">carla.Actor</a> that tells the simulator to destroy this actor. It has no effect if the actor was already destroyed. When executed with <strong><font color="#7fb800">apply_batch_sync()</font></strong> in <a href="#carla.Client">carla.Client</a> there will be a <b>command.Response</b> that will return a boolean stating whether the actor was successfully destroyed.  </p>
+<p><a href="#carla.Actor">carla.Actor</a> 中 <strong><font color="#7fb800">destroy()</font></strong> 的命令适应，将告诉仿真器摧毁该参与者。如果参与者已经被摧毁则没有影响。当在 <a href="#carla.Client">carla.Client</a> 中执行 <strong><font color="#7fb800">apply_batch_sync()</font></strong> 将会返回一个布尔值状态表示参与者是否被成功摧毁。</p>
 <h3 id="_268">实例变量</h3>
 <ul>
 <li><a name="command.DestroyActor.actor_id"></a><strong><font color="#f8805a">actor_id</font></strong> (<em>int</em>)<br />
-Actor affected by the command.  </li>
+命令影响的参与者。  </li>
 </ul>
 <h3 id="_269">方法</h3>
 <ul>
 <li><a name="command.DestroyActor.__init__"></a><strong><font color="#7fb800">__init__</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor</strong></font>)  <ul>
-<li><strong>Parameters:</strong><ul>
-<li><code>actor</code> (<em><a href="#carla.Actor">carla.Actor</a> or int</em>) - Actor or its ID to whom the command will be applied to.  </li>
+<li><strong>参数：</strong><ul>
+<li><code>actor</code> (<em><a href="#carla.Actor">carla.Actor</a> or int</em>) - 命令应用的参与者或它的 ID。</li>
 </ul>
 </li>
 </ul>
@@ -6424,41 +6474,41 @@ Actor affected by the command.  </li>
 </ul>
 <hr />
 <h2 id="commandresponse">command.Response<a name="command.Response"></a></h2>
-<p>States the result of executing a command as either the ID of the actor to whom the command was applied to (when succeeded) or an error string (when failed).  actor ID, depending on whether or not the command succeeded. The method <strong><font color="#7fb800">apply_batch_sync()</font></strong> in <a href="#carla.Client">carla.Client</a> returns a list of these to summarize the execution of a batch.  </p>
+<p>声明命令执行的结果，不是命令应用到参与者的ID（当成功时），就是错误字符串（当失败时），参与者 ID 取决于命令是否执行成功。<a href="#carla.Client">carla.Client</a> 中的方法 <strong><font color="#7fb800">apply_batch_sync()</font></strong> 返回这些的列表来总结批量的执行。</p>
 <h3 id="_270">实例变量</h3>
 <ul>
 <li><a name="command.Response.actor_id"></a><strong><font color="#f8805a">actor_id</font></strong> (<em>int</em>)<br />
-Actor to whom the command was applied to. States that the command was successful.  </li>
+命令应用到的参与者。声明该命令成功了。</li>
 <li><a name="command.Response.error"></a><strong><font color="#f8805a">error</font></strong> (<em>str</em>)<br />
-A string stating the command has failed.  </li>
+声明命令失败的字符串。  </li>
 </ul>
 <h3 id="_271">方法</h3>
 <ul>
 <li><a name="command.Response.has_error"></a><strong><font color="#7fb800">has_error</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-Returns <b>True</b> if the command execution fails, and <b>False</b> if it was successful.  <ul>
+如果命令执行失败则返回 <b>True</b>，如果成功则返回 <b>False</b>。<ul>
 <li><strong>返回:</strong> <em>bool</em>  </li>
 </ul>
 </li>
 </ul>
 <hr />
 <h2 id="commandsetautopilot">command.SetAutopilot<a name="command.SetAutopilot"></a></h2>
-<p>Command adaptation of <strong><font color="#7fb800">set_autopilot()</font></strong> in <a href="#carla.Vehicle">carla.Vehicle</a>. Turns on/off the vehicle's autopilot mode.  </p>
+<p><a href="#carla.Vehicle">carla.Vehicle</a> 中 <strong><font color="#7fb800">set_autopilot()</font></strong> 的命令适应。打开/关闭车辆的自动驾驶模式。</p>
 <h3 id="_272">实例变量</h3>
 <ul>
 <li><a name="command.SetAutopilot.actor_id"></a><strong><font color="#f8805a">actor_id</font></strong> (<em>int</em>)<br />
-Actor that is affected by the command.  </li>
+命令影响的参与者。  </li>
 <li><a name="command.SetAutopilot.enabled"></a><strong><font color="#f8805a">enabled</font></strong> (<em>bool</em>)<br />
-If autopilot should be activated or not.  </li>
+自动驾驶模式将被激活或者失活。  </li>
 <li><a name="command.SetAutopilot.port"></a><strong><font color="#f8805a">port</font></strong> (<em>uint16</em>)<br />
-Port of the Traffic Manager where the vehicle is to be registered or unlisted.  </li>
+注册或unlisted车辆的交通管理器端口。</li>
 </ul>
 <h3 id="_273">方法</h3>
 <ul>
 <li><a name="command.SetAutopilot.__init__"></a><strong><font color="#7fb800">__init__</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor</strong></font>, <font color="#00a6ed"><strong>enabled</strong></font>, <font color="#00a6ed"><strong>port</strong>=8000</font>)  <ul>
-<li><strong>Parameters:</strong><ul>
-<li><code>actor</code> (<em><a href="#carla.Actor">carla.Actor</a> or int</em>) - Actor or its ID to whom the command will be applied to.  </li>
+<li><strong>参数：</strong><ul>
+<li><code>actor</code> (<em><a href="#carla.Actor">carla.Actor</a> or int</em>) - 应用命令的参与者或它的ID。</li>
 <li><code>enabled</code> (<em>bool</em>)  </li>
-<li><code>port</code> (<em>uint16</em>) - The Traffic Manager port where the vehicle is to be registered or unlisted. If <strong>None</strong> is passed, it will consider a TM at default port <code>8000</code>.  </li>
+<li><code>port</code> (<em>uint16</em>) - 注册或unlisted车辆的交通管理器端口。如果传递的是 <strong>None</strong> ，会考虑使用交通管理器的默认端口 <code>8000</code>。  </li>
 </ul>
 </li>
 </ul>
@@ -6466,18 +6516,18 @@ Port of the Traffic Manager where the vehicle is to be registered or unlisted.  
 </ul>
 <hr />
 <h2 id="commandsetenablegravity">command.SetEnableGravity<a name="command.SetEnableGravity"></a></h2>
-<p>Command adaptation of <strong><font color="#7fb800">set_enable_gravity()</font></strong> in <a href="#carla.Actor">carla.Actor</a>. Enables or disables gravity on an actor.  </p>
+<p><a href="#carla.Actor">carla.Actor</a> 中 <strong><font color="#7fb800">set_enable_gravity()</font></strong> 的命令适应。禁用或启用参与者的重力。</p>
 <h3 id="_274">实例变量</h3>
 <ul>
 <li><a name="command.SetEnableGravity.actor_id"></a><strong><font color="#f8805a">actor_id</font></strong> (<em><a href="#carla.Actor">carla.Actor</a> or int</em>)<br />
-Actor that is affected by the command.  </li>
+命令影响的参与者。  </li>
 <li><a name="command.SetEnableGravity.enabled"></a><strong><font color="#f8805a">enabled</font></strong> (<em>bool</em>)  </li>
 </ul>
 <h3 id="_275">方法</h3>
 <ul>
 <li><a name="command.SetEnableGravity.__init__"></a><strong><font color="#7fb800">__init__</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor</strong></font>, <font color="#00a6ed"><strong>enabled</strong></font>)  <ul>
-<li><strong>Parameters:</strong><ul>
-<li><code>actor</code> (<em><a href="#carla.Actor">carla.Actor</a> or int</em>) - Actor or Actor ID to which the command will be applied to.  </li>
+<li><strong>参数：</strong><ul>
+<li><code>actor</code> (<em><a href="#carla.Actor">carla.Actor</a> or int</em>) - 命令应用的参与者或参与者ID。</li>
 <li><code>enabled</code> (<em>bool</em>)  </li>
 </ul>
 </li>
@@ -6486,19 +6536,19 @@ Actor that is affected by the command.  </li>
 </ul>
 <hr />
 <h2 id="commandsetsimulatephysics">command.SetSimulatePhysics<a name="command.SetSimulatePhysics"></a></h2>
-<p>Command adaptation of <strong><font color="#7fb800">set_simulate_physics()</font></strong> in <a href="#carla.Actor">carla.Actor</a>. Determines whether an actor will be affected by physics or not.  </p>
+<p><a href="#carla.Actor">carla.Actor</a> 中 <strong><font color="#7fb800">set_simulate_physics()</font></strong> 的命令适应。确定参与者是否会被物理影响。</p>
 <h3 id="_276">实例变量</h3>
 <ul>
 <li><a name="command.SetSimulatePhysics.actor_id"></a><strong><font color="#f8805a">actor_id</font></strong> (<em>int</em>)<br />
-Actor affected by the command.  </li>
+命令影响的参与者。  </li>
 <li><a name="command.SetSimulatePhysics.enabled"></a><strong><font color="#f8805a">enabled</font></strong> (<em>bool</em>)<br />
-If physics should be activated or not.  </li>
+是否激活物理。  </li>
 </ul>
 <h3 id="_277">方法</h3>
 <ul>
 <li><a name="command.SetSimulatePhysics.__init__"></a><strong><font color="#7fb800">__init__</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor</strong></font>, <font color="#00a6ed"><strong>enabled</strong></font>)  <ul>
-<li><strong>Parameters:</strong><ul>
-<li><code>actor</code> (<em><a href="#carla.Actor">carla.Actor</a> or int</em>) - Actor or its ID to whom the command will be applied to.  </li>
+<li><strong>参数：</strong><ul>
+<li><code>actor</code> (<em><a href="#carla.Actor">carla.Actor</a> or int</em>) - 命令应用到的参与者或ID。</li>
 <li><code>enabled</code> (<em>bool</em>)  </li>
 </ul>
 </li>
@@ -6507,20 +6557,20 @@ If physics should be activated or not.  </li>
 </ul>
 <hr />
 <h2 id="commandsetvehiclelightstate">command.SetVehicleLightState<a name="command.SetVehicleLightState"></a></h2>
-<p>Command adaptation of <strong><font color="#7fb800">set_light_state()</font></strong> in <a href="#carla.Vehicle">carla.Vehicle</a>. Sets the light state of a vehicle.  </p>
+<p><a href="#carla.Vehicle">carla.Vehicle</a> 中 <strong><font color="#7fb800">set_light_state()</font></strong> 的命令适应。设置车辆的交通灯。</p>
 <h3 id="_278">实例变量</h3>
 <ul>
 <li><a name="command.SetVehicleLightState.actor_id"></a><strong><font color="#f8805a">actor_id</font></strong> (<em>int</em>)<br />
-Actor that is affected by the command.  </li>
+命令影响的参与者。  </li>
 <li><a name="command.SetVehicleLightState.light_state"></a><strong><font color="#f8805a">light_state</font></strong> (<em><a href="#carla.VehicleLightState">carla.VehicleLightState</a></em>)<br />
-Defines the light state of a vehicle.  </li>
+定义车辆的交通灯。  </li>
 </ul>
 <h3 id="_279">方法</h3>
 <ul>
 <li><a name="command.SetVehicleLightState.__init__"></a><strong><font color="#7fb800">__init__</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor</strong></font>, <font color="#00a6ed"><strong>light_state</strong></font>)  <ul>
-<li><strong>Parameters:</strong><ul>
-<li><code>actor</code> (<em><a href="#carla.Actor">carla.Actor</a> or int</em>) - Actor or its ID to whom the command will be applied to.  </li>
-<li><code>light_state</code> (<em><a href="#carla.VehicleLightState">carla.VehicleLightState</a></em>) - Recaps the state of the lights of a vehicle, these can be used as a flags.  </li>
+<li><strong>参数：</strong><ul>
+<li><code>actor</code> (<em><a href="#carla.Actor">carla.Actor</a> or int</em>) - 命令应用到的参与者或者它的ID。</li>
+<li><code>light_state</code> (<em><a href="#carla.VehicleLightState">carla.VehicleLightState</a></em>) - Recaps 车辆的交通灯状态，这些能被用作一个标志。</li>
 </ul>
 </li>
 </ul>
@@ -6528,18 +6578,18 @@ Defines the light state of a vehicle.  </li>
 </ul>
 <hr />
 <h2 id="commandshowdebugtelemetry">command.ShowDebugTelemetry<a name="command.ShowDebugTelemetry"></a></h2>
-<p>Command adaptation of <strong><font color="#7fb800">show_debug_telemetry()</font></strong> in <a href="#carla.Actor">carla.Actor</a>. Displays vehicle control telemetry data.  </p>
+<p><a href="#carla.Actor">carla.Actor</a> 中 <strong><font color="#7fb800">show_debug_telemetry()</font></strong> 的命令适应。显示车辆的 telemetry 数据。</p>
 <h3 id="_280">实例变量</h3>
 <ul>
 <li><a name="command.ShowDebugTelemetry.actor_id"></a><strong><font color="#f8805a">actor_id</font></strong> (<em><a href="#carla.Actor">carla.Actor</a> or int</em>)<br />
-Actor that is affected by the command.  </li>
+命令影响的参与者。  </li>
 <li><a name="command.ShowDebugTelemetry.enabled"></a><strong><font color="#f8805a">enabled</font></strong> (<em>bool</em>)  </li>
 </ul>
 <h3 id="_281">方法</h3>
 <ul>
 <li><a name="command.ShowDebugTelemetry.__init__"></a><strong><font color="#7fb800">__init__</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor</strong></font>, <font color="#00a6ed"><strong>enabled</strong></font>)  <ul>
-<li><strong>Parameters:</strong><ul>
-<li><code>actor</code> (<em><a href="#carla.Actor">carla.Actor</a> or int</em>) - Actor or Actor ID to which the command will be applied to.  </li>
+<li><strong>参数：</strong><ul>
+<li><code>actor</code> (<em><a href="#carla.Actor">carla.Actor</a> or int</em>) - 命令应用到的参与者或参与者ID。</li>
 <li><code>enabled</code> (<em>bool</em>)  </li>
 </ul>
 </li>
@@ -6548,19 +6598,19 @@ Actor that is affected by the command.  </li>
 </ul>
 <hr />
 <h2 id="commandspawnactor">command.SpawnActor<a name="command.SpawnActor"></a></h2>
-<p>Command adaptation of <strong><font color="#7fb800">spawn_actor()</font></strong> in <a href="#carla.World">carla.World</a>. Spawns an actor into the world based on the blueprint provided and the transform. If a parent is provided, the actor is attached to it.  </p>
+<p><a href="#carla.World">carla.World</a> 中 <strong><font color="#7fb800">spawn_actor()</font></strong> 的命令适应。基于提供的蓝图和变换在世界中生成参与者。如果提供了父类，该参与者将会附在上面。</p>
 <h3 id="_282">实例变量</h3>
 <ul>
 <li><a name="command.SpawnActor.transform"></a><strong><font color="#f8805a">transform</font></strong> (<em><a href="#carla.Transform">carla.Transform</a></em>)<br />
-Transform to be applied.  </li>
+应用的变换。  </li>
 <li><a name="command.SpawnActor.parent_id"></a><strong><font color="#f8805a">parent_id</font></strong> (<em>int</em>)<br />
-Identificator of the parent actor.  </li>
+父参与者的标志。  </li>
 </ul>
 <h3 id="_283">方法</h3>
 <ul>
 <li><a name="command.SpawnActor.__init__"></a><strong><font color="#7fb800">__init__</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)  </li>
 <li><a name="command.SpawnActor.__init__"></a><strong><font color="#7fb800">__init__</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>blueprint</strong></font>, <font color="#00a6ed"><strong>transform</strong></font>)  <ul>
-<li><strong>Parameters:</strong><ul>
+<li><strong>参数：</strong><ul>
 <li><code>blueprint</code> (<em><a href="#carla.ActorBlueprint">carla.ActorBlueprint</a></em>)  </li>
 <li><code>transform</code> (<em><a href="#carla.Transform">carla.Transform</a></em>)  </li>
 </ul>
@@ -6568,7 +6618,7 @@ Identificator of the parent actor.  </li>
 </ul>
 </li>
 <li><a name="command.SpawnActor.__init__"></a><strong><font color="#7fb800">__init__</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>blueprint</strong></font>, <font color="#00a6ed"><strong>transform</strong></font>, <font color="#00a6ed"><strong>parent</strong></font>)  <ul>
-<li><strong>Parameters:</strong><ul>
+<li><strong>参数：</strong><ul>
 <li><code>blueprint</code> (<em><a href="#carla.ActorBlueprint">carla.ActorBlueprint</a></em>)  </li>
 <li><code>transform</code> (<em><a href="#carla.Transform">carla.Transform</a></em>)  </li>
 <li><code>parent</code> (<em><a href="#carla.Actor">carla.Actor</a> or int</em>)  </li>
@@ -6577,9 +6627,9 @@ Identificator of the parent actor.  </li>
 </ul>
 </li>
 <li><a name="command.SpawnActor.then"></a><strong><font color="#7fb800">then</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>command</strong></font>)<br />
-Links another command to be executed right after. It allows to ease very common flows such as spawning a set of vehicles by command and then using this method to set them to autopilot automatically.  <ul>
-<li><strong>Parameters:</strong><ul>
-<li><code>command</code> (<em>any carla Command</em>) - a Carla command.  </li>
+链接一个其他将要立刻执行的命令。它允许ease非常常见的流，比如通过命令生成一组车辆，并使用该方法设置自动驾驶。<ul>
+<li><strong>参数：</strong><ul>
+<li><code>command</code> (<em>any carla Command</em>) - 一个 Carla 命令。  </li>
 </ul>
 </li>
 </ul>
@@ -6611,29 +6661,25 @@ document.getElementById("snipets-container").innerHTML = null;
 
 <div id ="carla.World.enable_environment_objects-snipet" style="display: none;">
 <p class="SnipetFont">
-Snippet for carla.World.enable_environment_objects
+carla.World.enable_environment_objects 代码片段
 </p>
 <div id="carla.World.enable_environment_objects-code" class="SnipetContent">
 
 
-<pre><code class="language-py">
-# This recipe turn visibility off and on for two specifc buildings on the map
-
+<pre><code class="language-py"># 该代码片段在地图上显示或隐藏特定建筑。
 # Get the buildings in the world
 world = client.get_world()
 env_objs = world.get_environment_objects(carla.CityObjectLabel.Buildings)
 
-# Access individual building IDs and save in a set
+# 访问单个建筑IDs并保存到一个集合中
 building_01 = env_objs[0]
 building_02 = env_objs[1]
 objects_to_toggle = {building_01.id, building_02.id}
 
-# Toggle buildings off
+# 隐藏建筑
 world.enable_environment_objects(objects_to_toggle, False)
-# Toggle buildings on
+# 显示建筑
 world.enable_environment_objects(objects_to_toggle, True)
-
-
 </code></pre>
 
 <button id="button1" class="CopyScript" onclick="CopyToClipboard('carla.World.enable_environment_objects-code')">Copy snippet</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="button1" class="CloseSnipet" onclick="CloseSnipet()">Close snippet</button><br><br>
@@ -6642,22 +6688,20 @@ world.enable_environment_objects(objects_to_toggle, True)
 
 <div id ="carla.DebugHelper.draw_string-snipet" style="display: none;">
 <p class="SnipetFont">
-Snippet for carla.DebugHelper.draw_string
+carla.DebugHelper.draw_string 代码片段
 </p>
 <div id="carla.DebugHelper.draw_string-code" class="SnipetContent">
 
 
-<pre><code class="language-py">
-
-# This recipe is a modification of lane_explorer.py example.
-# It draws the path of an actor through the world, printing information at each waypoint.
+<pre><code class="language-py"># 该代码片段是 lane_explorer.py 示例的修改
+# 它在直接中绘制参与者的路径，打印每个路径点的信息。
 
 # ...
 current_w = map.get_waypoint(vehicle.get_location())
 while True:
 
     next_w = map.get_waypoint(vehicle.get_location(), lane_type=carla.LaneType.Driving | carla.LaneType.Shoulder | carla.LaneType.Sidewalk )
-    # Check if the vehicle is moving
+    # 检查车辆是否在移动
     if next_w.id != current_w.id:
         vector = vehicle.get_velocity()
         # Check if the vehicle is on a sidewalk
@@ -6668,12 +6712,10 @@ while True:
         debug.draw_string(current_w.transform.location, str('%15.0f km/h' % (3.6 * math.sqrt(vector.x**2 + vector.y**2 + vector.z**2))), False, orange, 60)
         draw_transform(debug, current_w.transform, white, 60)
 
-    # Update the current waypoint and sleep for some time
+    # 更新当前路径点并休眠一段时间
     current_w = next_w
     time.sleep(args.tick_time)
 # ...
-
-
 </code></pre>
 
 <button id="button1" class="CopyScript" onclick="CopyToClipboard('carla.DebugHelper.draw_string-code')">Copy snippet</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="button1" class="CloseSnipet" onclick="CloseSnipet()">Close snippet</button><br><br>
@@ -6687,20 +6729,16 @@ Snippet for carla.World.unload_map_layer
 <div id="carla.World.unload_map_layer-code" class="SnipetContent">
 
 
-<pre><code class="language-py">
-# This recipe toggles off several layers in our &quot;_Opt&quot; maps
+<pre><code class="language-py"># 该代码片段在分层地图&quot;_Opt&quot;上关闭几层
 
-# Load town one with minimum layout (roads, sidewalks, traffic lights and traffic signs)
-# as well as buildings and parked vehicles
+# 以最小布局（道路、人行道、交通灯和交通标志）加载城镇，还包括建筑和停靠的车辆
 world = client.load_world('Town01_Opt', carla.MapLayer.Buildings | carla.MapLayer.ParkedVehicles) 
 
-# Toggle all buildings off
+# 隐藏建筑
 world.unload_map_layer(carla.MapLayer.Buildings)
 
-# Toggle all parked vehicles off
+# 隐藏停靠的车辆
 world.unload_map_layer(carla.MapLayer.ParkedVehicles)
-
-
 </code></pre>
 
 <button id="button1" class="CopyScript" onclick="CopyToClipboard('carla.World.unload_map_layer-code')">Copy snippet</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="button1" class="CloseSnipet" onclick="CloseSnipet()">Close snippet</button><br><br>
@@ -6714,13 +6752,9 @@ Snippet for carla.Vehicle.set_wheel_steer_direction
 <div id="carla.Vehicle.set_wheel_steer_direction-code" class="SnipetContent">
 
 
-<pre><code class="language-py">
-# Sets the appearance of the vehicles front wheels to 40°. Vehicle physics will not be affected.
-
+<pre><code class="language-py"># 设置前轮转40°车辆的外观。不会影响车辆的物理。
 vehicle.set_wheel_steer_direction(carla.VehicleWheelLocation.FR_Wheel, 40.0)
 vehicle.set_wheel_steer_direction(carla.VehicleWheelLocation.FL_Wheel, 40.0)
-
-
 </code></pre>
 
 <button id="button1" class="CopyScript" onclick="CopyToClipboard('carla.Vehicle.set_wheel_steer_direction-code')">Copy snippet</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="button1" class="CloseSnipet" onclick="CloseSnipet()">Close snippet</button><br><br>
@@ -6734,10 +6768,7 @@ Snippet for carla.Client.__init__
 <div id="carla.Client.__init__-code" class="SnipetContent">
 
 
-<pre><code class="language-py">
-
-# This recipe shows in every script provided in PythonAPI/Examples 
-# and it is used to parse the client creation arguments when running the script. 
+<pre><code class="language-py"># 该代码片段在 PythonAPI/Examples 中的每个脚本中都有，运行脚本时候用于解析客户端创建参数。
 
     argparser = argparse.ArgumentParser(
         description=__doc__)
@@ -6764,9 +6795,6 @@ Snippet for carla.Client.__init__
     update_freq = 0.1 / speed_factor
 
     client = carla.Client(args.host, args.port)
-
-
-
 </code></pre>
 
 <button id="button1" class="CopyScript" onclick="CopyToClipboard('carla.Client.__init__-code')">Copy snippet</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="button1" class="CloseSnipet" onclick="CloseSnipet()">Close snippet</button><br><br>
@@ -6775,15 +6803,13 @@ Snippet for carla.Client.__init__
 
 <div id ="carla.Map.get_waypoint-snipet" style="display: none;">
 <p class="SnipetFont">
-Snippet for carla.Map.get_waypoint
+carla.Map.get_waypoint 代码片段
 </p>
 <div id="carla.Map.get_waypoint-code" class="SnipetContent">
 
 
-<pre><code class="language-py">
-
-# This recipe shows the current traffic rules affecting the vehicle. 
-# Shows the current lane type and if a lane change can be done in the actual lane or the surrounding ones.
+<pre><code class="language-py"># 该代码片段显示当前交通规则影响的车辆。
+# 显示当前车辆类型，在实际的车道或周围的物体中车道线是否改变。
 
 # ...
 waypoint = world.get_map().get_waypoint(vehicle.get_location(),project_to_road=True, lane_type=(carla.LaneType.Driving | carla.LaneType.Shoulder | carla.LaneType.Sidewalk))
@@ -6796,7 +6822,6 @@ print(&quot;L lane marking change: &quot; + str(waypoint.left_lane_marking.lane_
 print(&quot;R lane marking type: &quot; + str(waypoint.right_lane_marking.type))
 print(&quot;R lane marking change: &quot; + str(waypoint.right_lane_marking.lane_change))
 # ...
-
 
 </code></pre>
 
@@ -6814,18 +6839,15 @@ Snippet for carla.World.spawn_actor
 <div id="carla.World.spawn_actor-code" class="SnipetContent">
 
 
-<pre><code class="language-py">
-
-# This recipe attaches different camera / sensors to a vehicle with different attachments.
+<pre><code class="language-py"># 该代码片段使用不同的附着将不同的相机或传感器附着到车辆中。
 
 # ...
 camera = world.spawn_actor(rgb_camera_bp, transform, attach_to=vehicle, attachment_type=Attachment.Rigid)
-# Default attachment:  Attachment.Rigid
+# 默认附着：Attachment.Rigid
 gnss_sensor = world.spawn_actor(sensor_gnss_bp, transform, attach_to=vehicle)
 collision_sensor = world.spawn_actor(sensor_collision_bp, transform, attach_to=vehicle)
 lane_invasion_sensor = world.spawn_actor(sensor_lane_invasion_bp, transform, attach_to=vehicle)
 # ...
-
 
 </code></pre>
 
@@ -6835,14 +6857,12 @@ lane_invasion_sensor = world.spawn_actor(sensor_lane_invasion_bp, transform, att
 
 <div id ="carla.WalkerAIController.stop-snipet" style="display: none;">
 <p class="SnipetFont">
-Snippet for carla.WalkerAIController.stop
+carla.WalkerAIController.stop 代码片段
 </p>
 <div id="carla.WalkerAIController.stop-code" class="SnipetContent">
 
 
-<pre><code class="language-py">
-
-#To destroy the pedestrians, stop them from the navigation, and then destroy the objects (actor and controller).
+<pre><code class="language-py"># To destroy the pedestrians, stop them from the navigation, and then destroy the objects (actor and controller).
 
 # stop pedestrians (list is [controller, actor, controller, actor ...])
 for i in range(0, len(all_id), 2):

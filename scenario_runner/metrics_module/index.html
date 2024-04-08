@@ -285,6 +285,8 @@
                   </li>
                   <li class="toctree-l1"><a class="" href="https://docs.blender.org/manual/zh-hans/latest/">Blender 手册</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../file_specification/">文件说明</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../todo/">待做列表</a>
                   </li>
               </ul>
@@ -312,9 +314,8 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="_1">指标模块</h1>
-<p>指标模块依靠 <a href="https://carla.readthedocs.io/en/latest/adv_recorder/">CARLA 记录器</a> 来方便计算和监控任何类型的参数。场景完成后，记录器存储模拟信息。然后，用户可以定义自己的指标，并检查相应的结果，而无需一次又一次地进行模拟。</p>
-<p>The metrics module relies on the <a href="https://carla.readthedocs.io/en/latest/adv_recorder/">CARLA recorder</a> to facilitate the easy calculus and monitoring of any kind of parameter. After the scenario is finished, the recorder stores the simulation information. Users can then define their own metrics, and check the corresponding results with no need to play the simulation again and again. </p>
-<p>This section covers an explanation of the different elements that form the module, a step by step tutorial of how to create a new metric, and a reference of the functions that query the recording and define the metrics.  </p>
+<p>指标模块依靠 <a href="https://carla.readthedocs.io/en/latest/adv_recorder/">CARLA 记录器</a> 来方便计算和监控任何类型的参数。场景完成后，记录器存储模拟信息。然后，用户可以定义自己的指标，并检查相应的结果，而无需一次又一次地进行仿真。</p>
+<p>本节介绍了构成该模块的不同元素的说明、如何创建新指标的分步教程以及查询记录和定义指标的函数的参考。</p>
 <ul>
 <li><a href="#structure-of-the-module"><strong>模块结构</strong></a>  </li>
 <li><a href="#how-to-use-the-metrics-module"><strong>如何使用指标模块</strong></a>  <ul>
@@ -339,88 +340,87 @@
 </ul>
 <hr />
 <h2 id="_2">模块结构</h2>
-<p>Similarly to the main ScenarioRunner module, the Metrics module is run using a main script, <code>metrics_manager.py</code>, and the rest of the information is contained inside a folder structure. Here is a brief introduction to the main script.  </p>
+<p>与主 ScenarioRunner 模块类似，Metrics 模块使用主脚本 运行，<code>metrics_manager.py</code>其余信息包含在文件夹结构内。这里简单介绍一下主要脚本。</p>
 <ul>
-<li><strong><code>metrics_manager.py</code></strong> — The main script of the module. Run this to show the results of the set of metrics. The script has the usual <code>host</code> and <code>port</code> arguments, and some more to set the metrics and recording to be used.  <ul>
-<li><code>host</code> <em>(string)</em> – IP address where a CARLA simulation is running. Default is <code>(127.0.0.1)</code>.  </li>
-<li><code>port</code> <em>(int)</em> – TCP port where the CARLA simulation is running. Default are <code>2000</code> and <code>2001</code>.  </li>
-<li><code>metrics</code> — Path to the metrics to be used.  </li>
-<li><code>log</code> — Path to the <code>.log</code> file containing the recording (relative to the environment variable <code>SCENARIO_RUNNER_ROOT</code>).  </li>
-<li><code>criteria</code> <em>(optional)</em> — Path to a JSON file with the criteria of the scenario.  </li>
+<li><strong><code>metrics_manager.py</code></strong> — 模块的主脚本。运行此命令以显示一组指标的结果。该脚本具有常用的<code>host</code>和<code>port</code>参数，以及更多用于设置要使用的指标和记录的内容。<ul>
+<li><code>host</code> <em>(string)</em> – CARLA 仿真运行时的 IP 地址。默认为<code>(127.0.0.1)</code>。</li>
+<li><code>port</code> <em>(int)</em> – CARLA 仿真运行的 TCP 端口。默认为<code>2000</code>和<code>2001</code>。 </li>
+<li><code>metrics</code> — 要使用的指标的路径。 </li>
+<li><code>log</code> — 包含记录的<code>.log</code>文件的路径（相对于环境变量<code>SCENARIO_RUNNER_ROOT</code>）。</li>
+<li><code>criteria</code> <em>(可选)</em> — 具有场景条件的 JSON 文件的路径。</li>
 </ul>
 </li>
 </ul>
-<p>The rest of the elements that shape the module can be found in the <code>srunner/metrics</code> folder. These folder has been divided in three subfolders.</p>
+<p>塑造模块的其余元素可以在该<code>srunner/metrics</code>文件夹中找到。这些文件夹已分为三个子文件夹。</p>
 <ul>
 <li>
-<p><strong><code>srunner/metrics/data</code></strong> — Stores information about the scenarios. By default, it has six files, which are part of the examples metric.  </p>
+<p><strong><code>srunner/metrics/data</code></strong> — 存储有关场景的信息。默认情况下，它有六个文件，它们是示例指标的一部分。</p>
 </li>
 <li>
-<p><strong><code>srunner/metrics/examples</code></strong> — Contains some example metrics, and the metric containing the base class <code>BaseMetric</code> to create new metrics.  </p>
+<p><strong><code>srunner/metrics/examples</code></strong> — 包含一些示例指标，以及包含用于创建新指标的基类<code>BaseMetric</code>的指标。  </p>
 <ul>
-<li><code>basic_metric.py</code> – Contains the base class <code>BaseMetric</code>. All the metrics are inherited from it.  </li>
-<li><code>criteria_filter.py</code> – Returns a JSON with the most important attributes of the criteria. </li>
-<li><code>distance_between_vehicles.py</code> – Returns the distance betwen two vehicles. Useful to show how to query the recording.  </li>
-<li><code>distance_to_lane_center.py</code> – Calculates the distance between the vehicle location and the center of the lane. Useful to show how to access the map API information..  </li>
+<li><code>basic_metric.py</code> – 包含基类<code>BaseMetric</code>。所有的指标都是从它继承的。 </li>
+<li><code>criteria_filter.py</code> – 返回包含标准最重要属性的 JSON。</li>
+<li><code>distance_between_vehicles.py</code> – 返回两辆车之间的距离。有助于展示如何查询记录。</li>
+<li><code>distance_to_lane_center.py</code> – 计算车辆位置与车道中心之间的距离。有助于展示如何访问地图 API 信息。</li>
 </ul>
 </li>
 <li>
-<p><strong><code>srunner/metrics/tools</code></strong> — Contains two key scripts that allow to query the recording.  </p>
+<p><strong><code>srunner/metrics/tools</code></strong> — 包含两个允许查询记录的关键脚本。</p>
 <ul>
-<li><code>metrics_parser.py</code> – Transforms the string provided by the recording to a dictionary.  </li>
-<li><code>metrics_log.py</code> – Provides with several functions to query the dictionary created with <code>metrics_parser.py</code>. These functions are the easiest way to access information of a scenario. They listed in a <a href="#recording-queries-reference">reference</a> in the last segment of this page.  </li>
+<li><code>metrics_parser.py</code> – 将记录提供的字符串转换为字典。</li>
+<li><code>metrics_log.py</code> – 提供多种功能来查询使用<code>metrics_parser.py</code>创建的字典。这些函数是访问场景信息的最简单方法。它们列在本页最后一段的 <a href="#recording-queries-reference">参考文献</a> 中。  </li>
 </ul>
 </li>
 </ul>
 <hr />
 <h2 id="_3">如何使用指标模块</h2>
 <h3 id="1">1. 记录一个场景</h3>
-<p>The metrics module needs for a recording of a simulation in order to work. Otherwise, it has no data to make the calculations of the metrics.  </p>
-<p>Use the <code>record</code> argument. Add the path where the information should be saved should be saved. The path must be relative to the environment variable <code>SCENARIO_RUNNER_ROOT</code>.  </p>
+<p>指标模块需要记录仿真才能工作。否则，它没有数据来进行指标计算。</p>
+<p>使用<code>record</code> 参数。添加应该保存信息的路径。该路径必须相对于环境变量<code>SCENARIO_RUNNER_ROOT</code>。</p>
 <pre><code class="language-sh">python scenario_runner.py --scenario &lt;scenario_name&gt; --record &lt;path/to/save/the/recorder/file&gt;
 </code></pre>
-<p>By recording the scenario two files will be created in the desired path. These files will later be used as the <code>log</code> and <code>criteria</code> arguments in the <code>metrics_manager.py</code>.<br />
-<strong>1. A CARLA recording</strong> <em>(<code>.log</code>)</em> — Contains simulation data per frame. To know more about this, read the <a href="https://carla.readthedocs.io/en/latest/adv_recorder/">recorder docs</a>.<br />
-<strong>2. A criteria file</strong> <em>(.json)</em> — The criteria of the scenario parsed as a dictionary, and stored in a JSON file. The keys of the dictionary are the names of the criteria. The values are the attributes of each criteria.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Only the JSON serializable attributes will be parsed, the rest will be ignored.</p>
+<p>通过记录场景，将在所需路径中创建两个文件。这些<code>log</code>文件<code>criteria</code>稍后将用作<code>metrics_manager.py</code>的参数。
+<strong>1. CARLA 记录</strong> <em>(<code>.log</code>)</em> — 包含每帧的仿真数据。要了解更多信息，请阅读 <a href="https://carla.readthedocs.io/en/latest/adv_recorder/">记录器文档</a> 。 
+<strong>2. 指标文件</strong> <em>(.json)</em> — 场景标准解析为字典，并存储在 JSON 文件中。字典的键是条件的名称。这些值是每个条件的属性。</p>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>仅解析 JSON 可序列化属性，其余属性将被忽略。</p>
 </div>
-<p>By default, both files are named after the scenario that is run. If the scenario is named <code>example.py</code>, the files will be <code>example.log</code> and <code>example.json</code>.  </p>
+<p>默认情况下，这两个文件均以运行的场景命名。如果场景被命名为<code>example.py</code>，文件将为<code>example.log</code>和<code>example.json</code>。 </p>
 <h3 id="2">2. 定义指标</h3>
-<p>It is time to create the desired metrics that will be used for the scenario. The possibilities are endless, but for the sake of this tutorial, the metric described in <code>srunner/metrics/examples/distance_between_vehicles.py</code> will be used as an example. Let's dig a little bit into the code itself.  </p>
+<p>现在是创建将用于场景的所需指标的时候了。可能性是无限的，但为了本教程的目的，将使用<code>srunner/metrics/examples/distance_between_vehicles.py</code>中描述的指标作为示例。让我们深入研究一下代码本身。</p>
 <pre><code>class DistanceBetweenVehicles(BasicMetric):
 """
-Metric class DistanceBetweenVehicles
+指标类 DistanceBetweenVehicles
 """
 
 def _create_metric(self, town_map, log, criteria):
     """
-    Implementation of the metric. This is an example to show how to use the recorder,
-    accessed via the log.
+    度量的实现。这是一个示例，展示了如何使用通过日志访问的记录器。
     """
 
-    # Get the ID of the two vehicles
+    # 获取两辆车的ID
     ego_id = log.get_ego_vehicle_id()
     adv_id = log.get_actor_ids_with_role_name("scenario")[0]  # Could have also used its type_id
 
     dist_list = []
     frames_list = []
 
-    # Get the frames both actors were alive
+    # 获得帧的参与者都活着
     start_ego, end_ego = log.get_actor_alive_frames(ego_id)
     start_adv, end_adv = log.get_actor_alive_frames(adv_id)
     start = max(start_ego, start_adv)
     end = min(end_ego, end_adv)
 
-    # Get the distance between the two
+    # 获得两者之间的距离
     for i in range(start, end):
 
-        # Get the transforms
+        # 获得变换
         ego_location = log.get_actor_transform(ego_id, i).location
         adv_location = log.get_actor_transform(adv_id, i).location
 
-        # Filter some points for a better graph
+        # 过滤一些点以获得更好的图形
         if adv_location.z &lt; -10:
             continue
 
@@ -430,51 +430,51 @@ def _create_metric(self, town_map, log, criteria):
         dist_list.append(dist)
         frames_list.append(i)
 
-    # Use matplotlib to show the results
+    # 使用 matplotlib 展示结果
     plt.plot(frames_list, dist_list)
     plt.ylabel('Distance [m]')
     plt.xlabel('Frame number')
     plt.title('Distance between the ego vehicle and the adversary over time')
     plt.show()
 </code></pre>
-<p><strong>2.1. Name the metric</strong>. First of all, as it was previously mentioned, all metrics are childs of the <code>BasicMetric</code> class.</p>
+<p><strong>2.1. 度量的名称</strong>. 首先，正如前面提到的，所有指标都是该<code>BasicMetric</code>类的子级。 </p>
 <pre><code class="language-py">    class DistanceBetweenVehicles(BasicMetric):
 </code></pre>
-<p><strong>2.2. Name the main method</strong>. A metric only requires one method in order to run, <code>_create_metric()</code>, which has three arguments.  </p>
+<p><strong>2.2. 主方法的名称</strong>. 指标只需要一种方法即可运行，<code>_create_metric()</code>方法具有三个参数。</p>
 <ul>
-<li><strong><code>town_map</code></strong> — Instance of the <a href="https://carla.readthedocs.io/en/latest/python_api/#carlamap">carla.Map()</a> where the scenario took place in.  </li>
-<li><strong><code>log</code></strong> — Instance to the <code>MetricsLog</code> class, with all the functions needed to access the recorder dictionary.  </li>
-<li><strong><code>criteria</code></strong> — A JSOn with the criteria dictionary. The file provided when recording a scenario that is later provided to the <code>metrics_manager.py</code>.  </li>
+<li><strong><code>town_map</code></strong> — 场景发生的<a href="https://carla.readthedocs.io/en/latest/python_api/#carlamap">carla.Map()</a>实例。</li>
+<li><strong><code>log</code></strong> — <code>MetricsLog</code>类的实例，具有访问记录器字典所需的所有函数。 </li>
+<li><strong><code>criteria</code></strong> — 带有标准字典的 JSOn。记录场景时提供的文件，稍后提供给<code>metrics_manager.py</code>。</li>
 </ul>
 <pre><code class="language-py">def _create_metric(self, town_map, log, criteria):
 </code></pre>
-<p><strong>2.3. Implement the metric</strong>. The code will vary depending on the metric itself.  </p>
-<p>The example metric <code>DistanceBetweenVehicles</code> calculates the distance between the ego vehicle, and the car it follows (adversary). To do so, it needs the <code>id</code> of the two vehicles. These can be retrieved from the log using the <code>get_ego_vehicle_id()</code> and <code>get_actor_ids_with_role_name("scenario")[0]</code> functions. </p>
-<pre><code class="language-py"># Get the ID of the two vehicles
+<p><strong>2.3. 实现指标</strong>。 代码将根据指标本身而有所不同。</p>
+<p>示例指标<code>DistanceBetweenVehicles</code>计算本车与其跟随的汽车（对手）之间的距离。为此，需要<code>id</code>两辆车的配合。这些可以使用<code>get_ego_vehicle_id()</code>和<code>get_actor_ids_with_role_name("scenario")[0]</code>函数从日志中检索。</p>
+<pre><code class="language-py"># 获取两个车辆的 ID 
 ego_id = log.get_ego_vehicle_id()
 adv_id = log.get_actor_ids_with_role_name(&quot;scenario&quot;)[0]  # Could have also used its type_id
 </code></pre>
-<p>The <code>id</code> are used to retrieve the frames where the vehicles were alive using <code>get_actor_alive_frames(actor_id)</code>. </p>
-<pre><code class="language-py"># Get the frames both actors were alive
+<p>它们<code>id</code>用<code>get_actor_alive_frames(actor_id)</code>检索车辆处于活动状态的帧。</p>
+<pre><code class="language-py"># 获取活跃的两个参与者的帧
 start_ego, end_ego = log.get_actor_alive_frames(ego_id)
 start_adv, end_adv = log.get_actor_alive_frames(adv_id)
 start = max(start_ego, start_adv)
 end = min(end_ego, end_adv)
 </code></pre>
-<p>Now everything is ready to loop through those frames, get their transforms, and calculate the distance. To get the transform, <code>get_actor_transform(actor_id, frame)</code> is used. </p>
+<p>现在一切准备就绪，可以循环这些帧，获取它们的变换并计算距离。使用<code>get_actor_transform(actor_id, frame)</code> 获得变换，</p>
 <pre><code class="language-py">dist_list = []
 frames_list = []
 
 ...
 
-# Get the distance between the two
+# 获得两者之间的距离
 for i in range(start, end):
 
-    # Get the transforms
+    # 获取变换
     ego_location = log.get_actor_transform(ego_id, i).location
     adv_location = log.get_actor_transform(adv_id, i).location
 
-    # Filter some points for a better graph
+    # 为了获得更好的图片过滤一些点
     if adv_location.z &lt; -10:
         continue
 
@@ -483,12 +483,12 @@ for i in range(start, end):
 
     dist_list.append(dist)
 </code></pre>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The vertical condition of the adversary is to only take into account the adversary when it is driving normally.</p>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>对手的垂直情况仅考虑对手正常行驶时的情况。</p>
 </div>
-<p>Lastly, use <a href="https://matplotlib.org/">matplotlib</a> to define which should be the output of the metric when running <code>metrics_manager.py</code>.  </p>
-<pre><code class="language-py"># Use matplotlib to show the results
+<p>最后，使用 <a href="https://matplotlib.org/">matplotlib</a> 定义运行 <code>metrics_manager.py</code> 时指标的输出。 </p>
+<pre><code class="language-py"># 使用 matplotlib 展示结果
 plt.plot(frames_list, dist_list)
 plt.ylabel('Distance [m]')
 plt.xlabel('Frame number')
@@ -496,89 +496,89 @@ plt.title('Distance between the ego vehicle and the adversary over time')
 plt.show()
 </code></pre>
 <h3 id="3">3. 运行指标管理器</h3>
-<p>Finally it is time to used the information retrieve from the scenario, and the metrics that have been defined to return some metrics information. Let's run the module using the example metric that has been used so far, and an example log named after it.  </p>
+<p>最后，是时候使用从场景中检索的信息以及已定义的指标来返回一些指标信息。让我们使用迄今为止使用的示例指标以及以其命名的示例日志来运行该模块。 </p>
 <pre><code class="language-sh">python metrics_manager.py --metric srunner/metrics/examples/distance_between_vehicles.py --log srunner/metrics/data/DistanceBetweenVehicles.log
 </code></pre>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>A simulation must be running. Otherwise, the module will not be able to acces the map API.</p>
+<div class="admonition 警告">
+<p class="admonition-title">警告</p>
+<p>仿真必须正在运行。否则，模块将无法访问地图API。</p>
 </div>
-<p>This will create a new window with the results plotted. The script will not finish until the ouput window is closed.</p>
-<p><img alt="metrics_plot" src="img/metrics_example.jpg" /></p>
+<p>这将创建一个新窗口，其中绘制了结果。在输出窗口关闭之前，脚本不会完成。</p>
+<p><img alt="metrics_plot" src="../img/metrics_example.jpg" /></p>
 <hr />
 <h2 id="_4">记录查询参考</h2>
-<p>When defining a metric, all the information about the scenario is accessed via the <code>MetricsLog</code> class (the <code>log</code> argument at the <code>_create_metric()</code> function). This class is located at <code>srunner/metrics/tools/metrics_log.py</code>, and this reference is a following of the functions contained in it.  </p>
+<p>定义指标时，有关场景的所有信息都通过类<code>MetricsLog</code>（<code>_create_metric()</code>函数中的<code>log</code>参数）访问。该类位于<code>srunner/metrics/tools/metrics_log.py</code>，该引用是其中包含的函数的后续部分。</p>
 <h3 id="_5">通用参与者数据</h3>
 <ul>
 <li>
 <p><a name="get_ego_vehicle_id"></a><strong><font color="#7fb800">get_ego_vehicle_id</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-Returns the <code>id</code> of the ego vehicle.</p>
+返回自我车辆的 <code>id</code>。</p>
 <ul>
 <li><strong>Return —</strong> int</li>
 </ul>
 </li>
 <li>
 <p><a name="get_actor_ids_with_role_name"></a><strong><font color="#7fb800">get_actor_ids_with_role_name</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>role_name</strong></font>)<br />
-Returns a list of actor <code>id</code> that match the given <code>role_name</code>.</p>
+返回与给定<code>role_name</code>匹配的参与者<code>id</code>列表。</p>
 <ul>
 <li><strong>Return —</strong> list</li>
 <li><strong>Parameters</strong><ul>
-<li><code>role_name</code> (<em>str</em>) — <code>role_name</code> of the actor.</li>
+<li><code>role_name</code> (<em>str</em>) — 参与者的<code>role_name</code>。</li>
 </ul>
 </li>
 </ul>
 </li>
 <li>
 <p><a name="get_actor_ids_with_type_id"></a><strong><font color="#7fb800">get_actor_ids_with_type_id</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>type_id</strong></font>)<br />
-Returns a list of actor <code>id</code> that match the given <code>type_id</code>, according to fnmatch standard.</p>
+根据 fnmatch 标准，返回与给定匹配的参与者 <code>id</code> 列表。</p>
 <ul>
 <li><strong>Return —</strong> list</li>
 <li><strong>Parameters</strong><ul>
-<li><code>type_id</code> (<em>str</em>) — <code>type_id</code> of the actor.</li>
+<li><code>type_id</code> (<em>str</em>) — 参与者<code>type_id</code>。</li>
 </ul>
 </li>
 </ul>
 </li>
 <li>
 <p><a name="get_actor_attributes"></a><strong><font color="#7fb800">get_actor_attributes</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor_id</strong></font>)<br />
-Returns a dictionary with all the attributes of an actor.</p>
+返回包含参与者所有属性的字典。</p>
 <ul>
 <li><strong>Return —</strong> dict</li>
 <li><strong>Parameters</strong><ul>
-<li><code>actor_id</code> (<em>int</em>) — <code>id</code> of the actor.</li>
+<li><code>actor_id</code> (<em>int</em>) — 参与者的<code>id</code>。</li>
 </ul>
 </li>
 </ul>
 </li>
 <li>
 <p><a name="get_actor_bounding_box"></a><strong><font color="#7fb800">get_actor_bounding_box</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor_id</strong></font>)<br />
-Returns the bounding box of the specified actor.</p>
+返回指定参与者的边界框。</p>
 <ul>
 <li><strong>Return —</strong> <a href="https://carla.readthedocs.io/en/latest/python_api/#carlaboundingbox">carla.BoundingBox</a></li>
 <li><strong>Parameters</strong><ul>
-<li><code>actor_id</code> (<em>int</em>) — <code>id</code> of the actor.</li>
+<li><code>actor_id</code> (<em>int</em>) — 参与者的<code>id</code>。</li>
 </ul>
 </li>
 </ul>
 </li>
 <li>
 <p><a name="get_traffic_light_trigger_volume"></a><strong><font color="#7fb800">get_traffic_light_trigger_volume</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>traffic_light_id</strong></font>)<br />
-Returns the trigger volume of the specified traffic light.</p>
+返回指定交通灯的 trigger volume。</p>
 <ul>
 <li><strong>Return —</strong> <a href="https://carla.readthedocs.io/en/latest/python_api/#carlaboundingbox">carla.BoundingBox</a></li>
 <li><strong>Parameters</strong><ul>
-<li><code>traffic_light_id</code> (<em>int</em>) — <code>id</code> of the traffic light.</li>
+<li><code>traffic_light_id</code> (<em>int</em>) — 红绿灯的<code>id</code>。</li>
 </ul>
 </li>
 </ul>
 </li>
 <li>
 <p><a name="get_actor_alive_frames"></a><strong><font color="#7fb800">get_actor_alive_frames</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor_id</strong></font>)<br />
-Returns a tuple with the first and last frame an actor was alive. Note that frames start at 1, not 0.</p>
+返回一个元组，其中包含参与者活跃的第一帧和最后一帧。请注意，帧从 1 开始，而不是从 0 开始。</p>
 <ul>
 <li><strong>Return —</strong> tuple</li>
 <li><strong>Parameters</strong><ul>
-<li><code>actor_id</code> (<em>int</em>) — <code>id</code> of the actor.</li>
+<li><code>actor_id</code> (<em>int</em>) — 参与者的<code>id</code>。</li>
 </ul>
 </li>
 </ul>
@@ -588,51 +588,51 @@ Returns a tuple with the first and last frame an actor was alive. Note that fram
 <ul>
 <li>
 <p><a name="get_collisions"></a><strong><font color="#7fb800">get_collisions</font></strong>(<font color="#00a6ed"><strong>self</strong></font>,<font color="#00a6ed"><strong>actor_id</strong></font>)<br />
-Returns a list of dictionaries with two keys. <code>frame</code> is the frame number of the collision, and <code>other_id</code>, a list of the ids the actor collided with at that frame.</p>
+返回具有两个键的字典列表。<code>frame</code>是碰撞的帧编号， 是<code>other_id</code> 参与者在该帧发生碰撞的 id 列表。</p>
 <ul>
 <li><strong>Return —</strong> list</li>
 <li><strong>Parameters</strong><ul>
-<li><code>actor_id</code> (<em>int</em>) — <code>id</code> of the actor.</li>
+<li><code>actor_id</code> (<em>int</em>) — 参与者的<code>id</code>。</li>
 </ul>
 </li>
 </ul>
 </li>
 <li>
 <p><a name="get_total_frame_count"></a><strong><font color="#7fb800">get_total_frame_count</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-Returns an int with the total amount of frames the simulation lasted.</p>
+返回一个 int 值，其中包含仿真持续的帧总数。</p>
 <ul>
 <li><strong>Return —</strong> int</li>
 </ul>
 </li>
 <li>
 <p><a name="get_elapsed_time"></a><strong><font color="#7fb800">get_elapsed_time</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>)<br />
-Returns a float with the elapsed time of a specific frame.</p>
+返回一个包含特定帧的已用时间的浮点数。</p>
 <ul>
 <li><strong>Return —</strong> float</li>
 <li><strong>Parameters</strong><ul>
-<li><code>frame</code> (<em>int</em>) — Frame number.</li>
+<li><code>frame</code> (<em>int</em>) — 帧号。</li>
 </ul>
 </li>
 </ul>
 </li>
 <li>
 <p><a name="get_delta_time"></a><strong><font color="#7fb800">get_delta_time</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>)<br />
-Returns an float with the delta time of a specific frame.</p>
+返回具有特定帧的增量时间的浮点数。R</p>
 <ul>
 <li><strong>Return —</strong> float</li>
 <li><strong>Parameters</strong><ul>
-<li><code>frame</code> (<em>int</em>) — Frame number.</li>
+<li><code>frame</code> (<em>int</em>) — 帧号。</li>
 </ul>
 </li>
 </ul>
 </li>
 <li>
 <p><a name="get_platform_time"></a><strong><font color="#7fb800">get_platform_time</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>)<br />
-Returns a float with the platform time of a specific frame.</p>
+返回具有特定帧的平台时间的浮点数。</p>
 <ul>
 <li><strong>Return —</strong> float</li>
 <li><strong>Parameters</strong><ul>
-<li><code>frame</code> (<em>int</em>) — Frame number.</li>
+<li><code>frame</code> (<em>int</em>) — 帧号。</li>
 </ul>
 </li>
 </ul>
@@ -642,37 +642,37 @@ Returns a float with the platform time of a specific frame.</p>
 <ul>
 <li>
 <p><a name="get_actor_acceleration"></a><strong><font color="#7fb800">get_actor_acceleration</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor_id</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>)<br />
-Returns the acceleration of the actor at a given frame. Returns <b>None</b> if the actor <code>id</code> doesn't exist, the actor has no acceleration, or the actor wasn't alive at that frame.</p>
+返回给定帧处参与者的加速度。如果参与者<code>id</code>不存在、参与者没有加速度或者参与者在该帧中不存在，则返回<b>None</b> 。</p>
 <ul>
 <li><strong>Return —</strong> <a href="https://carla.readthedocs.io/en/latest/python_api/#carlavector3d">carla.Vector3D</a></li>
 <li><strong>Parameters</strong><ul>
-<li><code>actor_id</code> (<em>int</em>) — <code>id</code> of the actor.</li>
-<li><code>frame</code> (<em>int</em>) — Frame number.</li>
+<li><code>actor_id</code> (<em>int</em>) — 参与者<code>id</code>。</li>
+<li><code>frame</code> (<em>int</em>) — 帧号。</li>
 </ul>
 </li>
 </ul>
 </li>
 <li>
 <p><a name="get_all_actor_accelerations"></a><strong><font color="#7fb800">get_all_actor_accelerations</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor_id</strong></font>, <font color="#00a6ed"><strong>first_frame</strong>=None</font>, <font color="#00a6ed"><strong>last_frame</strong>=None</font>)<br />
-Returns a list with all the accelerations of the actor at the frame interval. By default, the frame interval comprises all the recording.</p>
+返回包含参与者在帧间隔内的所有加速度的列表。默认情况下，帧间隔包含所有记录。</p>
 <ul>
 <li><strong>Return —</strong> list(carla.Vector3D)</li>
 <li><strong>Parameters</strong><ul>
-<li><code>actor_id</code> (<em>int</em>) — <code>id</code> of the actor.</li>
-<li><code>first_frame</code> (<em>int</em>) — Initial frame of the interval. By default, the start of the simulation.</li>
-<li><code>last_frame</code> (<em>int</em>) — Last frame of the interval. By default, the end of the simulation.</li>
+<li><code>actor_id</code> (<em>int</em>) — 参与者的<code>id</code>。</li>
+<li><code>first_frame</code> (<em>int</em>) — 间隔的初始帧。默认情况下，仿真开始。</li>
+<li><code>last_frame</code> (<em>int</em>) — 间隔的最后一帧。默认情况下，仿真结束。</li>
 </ul>
 </li>
 </ul>
 </li>
 <li>
 <p><a name="get_actor_accelerations_at_frame"></a><strong><font color="#7fb800">get_actor_accelerations_at_frame</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>, <font color="#00a6ed"><strong>actor_list</strong>=None</font>)<br />
-Returns a dict where the keys are the frame number, and the values are the carla.Vector3D of the actor at the given frame. By default, all actors are considered but if <em>actor_list</em> is passed, only actors in the list will be checked.</p>
+返回一个字典，其中键是帧编号，值是给定帧处参与者的 carla.Vector3D。默认情况下，会考虑所有参与者，但如果传递了<em>actor_list</em>，则仅检查列表中的参与者。</p>
 <ul>
 <li><strong>Return —</strong> list(carla.Vector3D)</li>
 <li><strong>Parameters</strong><ul>
-<li><code>frame</code> (<em>int</em>) — Frame number.</li>
-<li><code>actor_list</code> (<em>int</em>) — List of actor <code>id</code>.</li>
+<li><code>frame</code> (<em>int</em>) — 帧号。</li>
+<li><code>actor_list</code> (<em>int</em>) — 参与者 <code>id</code>的列表。</li>
 </ul>
 </li>
 </ul>
@@ -682,37 +682,37 @@ Returns a dict where the keys are the frame number, and the values are the carla
 <ul>
 <li>
 <p><a name="get_actor_angular_velocity"></a><strong><font color="#7fb800">get_actor_angular_velocity</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor_id</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>)<br />
-Returns the angular velocity of the actor at a given frame. Returns <b>None</b> if the actor id doesn't exist, the actor has no angular velocity, or the actor wasn't alive at that frame.</p>
+返回给定帧处参与者的角速度。如果参与者 id 不存在、参与者没有角速度或者参与者在该帧中不存在，则返回<b>None</b> 。</p>
 <ul>
 <li><strong>Return —</strong> carla.Vector3D</li>
 <li><strong>Parameters</strong><ul>
-<li><code>actor_id</code> (<em>int</em>) — <code>id</code> of the actor.</li>
-<li><code>frame</code> (<em>int</em>) — Frame number.</li>
+<li><code>actor_id</code> (<em>int</em>) — 参与者的<code>id</code>。</li>
+<li><code>frame</code> (<em>int</em>) — 帧的数目。</li>
 </ul>
 </li>
 </ul>
 </li>
 <li>
 <p><a name="get_all_actor_angular_velocities"></a><strong><font color="#7fb800">get_all_actor_angular_velocities</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor_id</strong></font>, <font color="#00a6ed"><strong>first_frame</strong>=None</font>, <font color="#00a6ed"><strong>last_frame</strong>=None</font>)<br />
-Returns a list with all the angular velocities of the actor at the frame interval. By default, the frame interval comprises all the recording.</p>
+返回包含参与者在帧间隔内的所有角速度的列表。默认情况下，帧间隔包含所有记录。</p>
 <ul>
 <li><strong>Return —</strong> list(carla.Vector3D)</li>
 <li><strong>Parameters</strong><ul>
-<li><code>actor_id</code> (<em>int</em>) — <code>id</code> of the actor.</li>
-<li><code>first_frame</code> (<em>int</em>) — Initial frame of the interval. By default, the start of the simulation.</li>
-<li><code>last_frame</code> (<em>int</em>) — Last frame of the interval. By default, the end of the simulation.</li>
+<li><code>actor_id</code> (<em>int</em>) — 参与者的<code>id</code>。</li>
+<li><code>first_frame</code> (<em>int</em>) — 间隔的初始帧。默认情况下，仿真开始。</li>
+<li><code>last_frame</code> (<em>int</em>) — 间隔的最后一帧。默认情况下，仿真结束。</li>
 </ul>
 </li>
 </ul>
 </li>
 <li>
 <p><a name="get_actor_angular_velocities_at_frame"></a><strong><font color="#7fb800">get_actor_angular_velocities_at_frame</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>, <font color="#00a6ed"><strong>actor_list</strong>=None</font>)<br />
-Returns a dictionary where the keys are the frame number, and the values are the <a href="https://carla.readthedocs.io/en/latest/python_api/#carlavector3d">carla.Vector3D</a> of the actor at the given frame. By default, all actors are considered but if <code>actor_list</code> is passed, only actors in the list will be checked.</p>
+返回一个字典，其中键是帧编号，值是给定帧处参与者的<a href="https://carla.readthedocs.io/en/latest/python_api/#carlavector3d">carla.Vector3D</a> 。默认情况下，会考虑所有参与者，但如果传递<code>actor_list</code>，则仅检查列表中的参与者。 </p>
 <ul>
 <li><strong>Return —</strong> list(<a href="https://carla.readthedocs.io/en/latest/python_api/#carlavector3d">carla.Vector3D</a>)</li>
 <li><strong>Parameters</strong><ul>
-<li><code>frame</code> (<em>int</em>) — frame number.</li>
-<li><code>actor_list</code> (<em>int</em>) — List of actor ids.</li>
+<li><code>frame</code> (<em>int</em>) — 帧号。</li>
+<li><code>actor_list</code> (<em>int</em>) — 参与者的 ids 列表。</li>
 </ul>
 </li>
 </ul>
@@ -722,36 +722,36 @@ Returns a dictionary where the keys are the frame number, and the values are the
 <ul>
 <li>
 <p><a name="get_vehicle_control"></a><strong><font color="#7fb800">get_vehicle_control</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>vehicle_id</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>)<br />
-Returns the control of a vehicle at a given frame. The <code>manual_gear_shift</code> attribute will always be False.</p>
+返回给定帧处车辆的控制。该 <code>manual_gear_shift</code> 属性将始终为 False。</p>
 <ul>
 <li><strong>Return —</strong> <a href="https://carla.readthedocs.io/en/latest/python_api/#carlavehiclecontrol">carla.VehicleControl</a></li>
 <li><strong>Parameters</strong><ul>
-<li><code>vehicle_id</code> (<em>int</em>) — <code>id</code> of the vehicle.</li>
-<li><code>frame</code> (<em>int</em>) — Frame number.</li>
+<li><code>vehicle_id</code> (<em>int</em>) — 车辆的<code>id</code>。</li>
+<li><code>frame</code> (<em>int</em>) — 帧号。</li>
 </ul>
 </li>
 </ul>
 </li>
 <li>
 <p><a name="get_vehicle_physics_control"></a><strong><font color="#7fb800">get_vehicle_physics_control</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>vehicle_id</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>)<br />
-Returns the physics control of a vehicle at a given frame.</p>
+返回给定帧处车辆的物理控制。</p>
 <ul>
 <li><strong>Return —</strong> <a href="https://carla.readthedocs.io/en/latest/python_api/#carlavehiclephysicscontrol">carla.VehiclePhysicsControl</a></li>
 <li><strong>Parameters</strong><ul>
-<li><code>vehicle_id</code> (<em>int</em>) — <code>id</code> of the vehicle.</li>
-<li><code>frame</code> (<em>int</em>) — Frame number.</li>
+<li><code>vehicle_id</code> (<em>int</em>) — 车辆的<code>id</code>。</li>
+<li><code>frame</code> (<em>int</em>) — 帧号。</li>
 </ul>
 </li>
 </ul>
 </li>
 <li>
 <p><a name="get_walker_speed"></a><strong><font color="#7fb800">get_walker_speed</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>walker_id</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>)<br />
-Returns the speed of a walker at a given frame.</p>
+返回给定帧处行人的速度。</p>
 <ul>
 <li><strong>Return —</strong> <a href="https://carla.readthedocs.io/en/latest/python_api/#carlavector3d">carla.Vector3D</a></li>
 <li><strong>Parameters</strong><ul>
-<li><code>walker_id</code> (<em>int</em>) — <code>id</code> of the walker.</li>
-<li><code>frame</code> (<em>int</em>) — Frame number.</li>
+<li><code>walker_id</code> (<em>int</em>) — 行人的<code>id</code>。</li>
+<li><code>frame</code> (<em>int</em>) — 帧号。</li>
 </ul>
 </li>
 </ul>
@@ -761,37 +761,37 @@ Returns the speed of a walker at a given frame.</p>
 <ul>
 <li>
 <p><a name="get_actor_transform"></a><strong><font color="#7fb800">get_actor_transform</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor_id</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>)<br />
-Returns the transform of the actor at a given frame. Returns <b>None</b> if the actor id doesn't exist, the actor has no transform, or the actor wasn't alive at that frame.</p>
+返回给定帧处参与者的变换。如果参与者 id 不存在、参与者没有变换或者参与者在该帧中不存在，则返回<b>None</b> 。</p>
 <ul>
 <li><strong>Return —</strong> <a href="https://carla.readthedocs.io/en/latest/python_api/#carlatransform">carla.Transform</a></li>
 <li><strong>Parameters</strong><ul>
-<li><code>actor_id</code> (<em>int</em>) — <code>id</code> of the actor.</li>
-<li><code>frame</code> (<em>int</em>) — Frame number.</li>
+<li><code>actor_id</code> (<em>int</em>) — 参与者的<code>id</code>。</li>
+<li><code>frame</code> (<em>int</em>) — 帧号。</li>
 </ul>
 </li>
 </ul>
 </li>
 <li>
 <p><a name="get_all_actor_transforms"></a><strong><font color="#7fb800">get_all_actor_transforms</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor_id</strong></font>, <font color="#00a6ed"><strong>first_frame</strong>=None</font>, <font color="#00a6ed"><strong>last_frame</strong>=None</font>)<br />
-Returns a list with all the transforms of the actor at the frame interval. By default, the frame interval comprises all the recording.</p>
+返回一个列表，其中包含参与者在帧间隔内的所有变换。默认情况下，帧间隔包含所有记录。 </p>
 <ul>
 <li><strong>Return —</strong> list(<a href="https://carla.readthedocs.io/en/latest/python_api/#carlatransform">carla.Transform</a>)</li>
 <li><strong>Parameters</strong><ul>
-<li><code>actor_id</code> (<em>int</em>) — <code>id</code> of the actor.</li>
-<li><code>first_frame</code> (<em>int</em>) — Initial frame of the interval. By default, the start of the simulation.</li>
-<li><code>last_frame</code> (<em>int</em>) — Last frame of the interval. By default, the end of the simulation.</li>
+<li><code>actor_id</code> (<em>int</em>) — 参与者的<code>id</code>。</li>
+<li><code>first_frame</code> (<em>int</em>) — 间隔的初始帧。默认情况下，仿真开始。</li>
+<li><code>last_frame</code> (<em>int</em>) — 间隔的最后一帧。默认情况下，仿真结束。</li>
 </ul>
 </li>
 </ul>
 </li>
 <li>
 <p><a name="get_actor_transforms_at_frame"></a><strong><font color="#7fb800">get_actor_transforms_at_frame</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>, <font color="#00a6ed"><strong>actor_list</strong>=None</font>)<br />
-Returns a dictionary where the keys are the frame number, and the values are the <a href="https://carla.readthedocs.io/en/latest/python_api/#carlatransform">carla.Transform</a> of the actor at the given frame. By default, all actors are considered but if <code>actor_list</code> is passed, only actors in the list will be checked.</p>
+返回一个字典，其中键是帧编号，值是给定帧处参与者的 <a href="https://carla.readthedocs.io/en/latest/python_api/#carlatransform">carla.Transform</a>。默认情况下，会考虑所有参与者，但如果 <code>actor_list</code> 通过，则仅检查列表中的参与者。</p>
 <ul>
 <li><strong>Return —</strong> list(<a href="https://carla.readthedocs.io/en/latest/python_api/#carlatransform">carla.Transform</a>)</li>
 <li><strong>Parameters</strong><ul>
-<li><code>frame</code> (<em>int</em>) — Frame number.</li>
-<li><code>actor_list</code> (<em>int</em>) — List of actor <code>id</code>. </li>
+<li><code>frame</code> (<em>int</em>) — 帧号。</li>
+<li><code>actor_list</code> (<em>int</em>) — 参与者 <code>id</code> 列表。 </li>
 </ul>
 </li>
 </ul>
@@ -801,37 +801,37 @@ Returns a dictionary where the keys are the frame number, and the values are the
 <ul>
 <li>
 <p><a name="get_actor_velocity"></a><strong><font color="#7fb800">get_actor_velocity</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor_id</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>)<br />
-Returns the velocity of the actor at a given frame. Returns <b>None</b> if the actor id doesn't exist, the actor has no velocity, or the actor wasn't alive at that frame.</p>
+返回给定帧处参与者的速度。如果参与者 id 不存在、参与者没有速度或者参与者在该帧中不存在，则返回<b>None</b> 。 </p>
 <ul>
 <li><strong>Return —</strong> <a href="https://carla.readthedocs.io/en/latest/python_api/#carlavector3d">carla.Vector3D</a></li>
 <li><strong>Parameters</strong><ul>
-<li><code>actor_id</code> (<em>int</em>) — <code>id</code> of the actor.</li>
-<li><code>frame</code> (<em>int</em>) — Frame number.</li>
+<li><code>actor_id</code> (<em>int</em>) — 参与者的<code>id</code>。</li>
+<li><code>frame</code> (<em>int</em>) — 帧号。</li>
 </ul>
 </li>
 </ul>
 </li>
 <li>
 <p><a name="get_all_actor_velocities"></a><strong><font color="#7fb800">get_all_actor_velocities</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor_id</strong></font>, <font color="#00a6ed"><strong>first_frame</strong>=None</font>, <font color="#00a6ed"><strong>last_frame</strong>=None</font>)<br />
-Returns a list with all the velocities of the actor at the frame interval. By default, the frame interval comprises all the recording.</p>
+返回包含参与者在帧间隔内的所有速度的列表。默认情况下，帧间隔包含所有记录。 </p>
 <ul>
 <li><strong>Return —</strong> list(<a href="https://carla.readthedocs.io/en/latest/python_api/#carlavector3d">carla.Vector3D</a>)</li>
 <li><strong>Parameters</strong><ul>
-<li><code>actor_id</code> (<em>int</em>) — <code>id</code> of the actor.</li>
-<li><code>first_frame</code> (<em>int</em>) — Initial frame of the interval. By default, the start of the simulation.</li>
-<li><code>last_frame</code> (<em>int</em>) — Last frame of the interval. By default, the end of the simulation.</li>
+<li><code>actor_id</code> (<em>int</em>) — 参与者的<code>id</code>。</li>
+<li><code>first_frame</code> (<em>int</em>) — 间隔的初始帧。默认情况下，仿真开始。</li>
+<li><code>last_frame</code> (<em>int</em>) — 间隔的最后一帧。默认情况下，仿真结束。</li>
 </ul>
 </li>
 </ul>
 </li>
 <li>
 <p><a name="get_actor_velocities_at_frame"></a><strong><font color="#7fb800">get_actor_velocities_at_frame</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>, <font color="#00a6ed"><strong>actor_list</strong>=None</font>)<br />
-Returns a dict where the keys are the frame number, and the values are the carla.Vector3D of the actor at the given frame. By default, all actors are considered but if <em>actor_list</em> is passed, only actors in the list will be checked.</p>
+返回一个字典，其中键是帧编号，值是给定帧处参与者的 carla.Vector3D。默认情况下，会考虑所有参与者，但如果传递了<em>actor_list</em>，则仅检查列表中的参与者。 </p>
 <ul>
 <li><strong>Return —</strong> list(<a href="https://carla.readthedocs.io/en/latest/python_api/#carlavector3d">carla.Vector3D</a></li>
 <li><strong>Parameters</strong><ul>
-<li><code>frame</code> (<em>int</em>) — Frame number.</li>
-<li><code>actor_list</code> (<em>int</em>) — List of actor <code>id</code>. </li>
+<li><code>frame</code> (<em>int</em>) — 帧号。</li>
+<li><code>actor_list</code> (<em>int</em>) — 参与者<code>id</code>列表。 </li>
 </ul>
 </li>
 </ul>
@@ -843,8 +843,8 @@ Returns a dict where the keys are the frame number, and the values are the carla
 Returns the state of a scene light for a given frame. The light state group will always be <a href="https://carla.readthedocs.io/en/latest/python_api/#carlalightgroup">carla.LightGroup.None</a>.<ul>
 <li><strong>Return —</strong> carla.LightState</li>
 <li><strong>Parameters</strong><ul>
-<li><code>light_id</code> (<em>int</em>) — <code>id</code> of the scene light.</li>
-<li><code>frame</code> (<em>int</em>) — Frame number.</li>
+<li><code>light_id</code> (<em>int</em>) — 场景灯的<code>id</code>。</li>
+<li><code>frame</code> (<em>int</em>) — 帧号。</li>
 </ul>
 </li>
 </ul>
@@ -854,49 +854,49 @@ Returns the state of a scene light for a given frame. The light state group will
 <ul>
 <li>
 <p><a name="get_traffic_light_state"></a><strong><font color="#7fb800">get_traffic_light_state</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>traffic_light_id</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>)<br />
-Returns the state of a traffic light at a given frame.</p>
+返回给定帧的红绿灯状态。</p>
 <ul>
 <li><strong>Return —</strong> <a href="https://carla.readthedocs.io/en/latest/python_api/#carlatrafficlightstate">carla.TrafficLightState</a>.</li>
 <li><strong>Parameters</strong><ul>
-<li><code>traffic_light_id</code> (<em>int</em>) — <code>id</code> of the traffic light.</li>
-<li><code>frame</code> (<em>int</em>) — Frame number.</li>
+<li><code>traffic_light_id</code> (<em>int</em>) — 红绿灯的<code>id</code>。</li>
+<li><code>frame</code> (<em>int</em>) — 帧号。</li>
 </ul>
 </li>
 </ul>
 </li>
 <li>
 <p><a name="is_traffic_light_frozen"></a><strong><font color="#7fb800">is_traffic_light_frozen</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>traffic_light_id</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>)<br />
-Returns whether or not a traffic light is frozen at a given frame.</p>
+返回交通信号灯是否冻结在给定帧。</p>
 <ul>
 <li><strong>Return —</strong> bool</li>
 <li><strong>Parameters</strong><ul>
-<li><code>traffic_light_id</code> (<em>int</em>) — <code>id</code> of the traffic light.</li>
-<li><code>frame</code> (<em>int</em>) — Frame number.</li>
+<li><code>traffic_light_id</code> (<em>int</em>) — 交通灯的<code>id</code>。</li>
+<li><code>frame</code> (<em>int</em>) — 帧号。</li>
 </ul>
 </li>
 </ul>
 </li>
 <li>
 <p><a name="get_traffic_light_elapsed_time"></a><strong><font color="#7fb800">get_traffic_light_elapsed_time</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>traffic_light_id</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>)<br />
-Returns the elapsed time of a traffic light at a given frame.</p>
+返回给定帧处交通灯的经过时间。</p>
 <ul>
 <li><strong>Return —</strong> float</li>
 <li><strong>Parameters</strong><ul>
-<li><code>traffic_light_id</code> (<em>int</em>) — <code>id</code> of the traffic light.</li>
-<li><code>frame</code> (<em>int</em>) — Frame number.</li>
+<li><code>traffic_light_id</code> (<em>int</em>) — 交通灯的<code>id</code>。</li>
+<li><code>frame</code> (<em>int</em>) — 帧号。</li>
 </ul>
 </li>
 </ul>
 </li>
 <li>
 <p><a name="get_traffic_light_state_time"></a><strong><font color="#7fb800">get_traffic_light_state_time</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>traffic_light_id</strong></font>, <font color="#00a6ed"><strong>state</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>)<br />
-Returns the maximum time of a specific state of a traffic light at a given frame.</p>
+返回给定帧处交通灯特定状态的最长时间。</p>
 <ul>
 <li><strong>Return —</strong> float</li>
 <li><strong>Parameters</strong><ul>
 <li><code>traffic_light_id</code> (<em>int</em>) — <code>id</code> of the traffic light.</li>
-<li><code>state</code> (<a href="https://carla.readthedocs.io/en/latest/python_api/#carlatrafficlightstate">carla.TrafficLightState</a>) — <code>id</code> of the actor.</li>
-<li><code>frame</code> (<em>int</em>) — Frame number.</li>
+<li><code>state</code> (<a href="https://carla.readthedocs.io/en/latest/python_api/#carlatrafficlightstate">carla.TrafficLightState</a>) — 参与者的<code>id</code>。</li>
+<li><code>frame</code> (<em>int</em>) — 帧号。</li>
 </ul>
 </li>
 </ul>
@@ -906,25 +906,25 @@ Returns the maximum time of a specific state of a traffic light at a given frame
 <ul>
 <li>
 <p><a name="get_vehicle_lights"></a><strong><font color="#7fb800">get_vehicle_lights</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>vehicle_id</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>)<br />
-Returns a list with the active lights of a specific vehicle at a given frame.</p>
+返回一个列表，其中包含给定帧处特定车辆的活动灯。</p>
 <ul>
 <li><strong>Return —</strong> list(<a href="https://carla.readthedocs.io/en/latest/python_api/#carlavehiclelightstate">carla.VehicleLightState</a>)</li>
 <li><strong>Parameters</strong><ul>
-<li><code>vehicle_id</code> (<em>int</em>) — <code>id</code> of the vehicle.</li>
-<li><code>frame</code> (<em>int</em>) — Frame number.</li>
+<li><code>vehicle_id</code> (<em>int</em>) — 车辆的<code>id</code>。</li>
+<li><code>frame</code> (<em>int</em>) — 帧号。</li>
 </ul>
 </li>
 </ul>
 </li>
 <li>
 <p><a name="is_vehicle_light_active"></a><strong><font color="#7fb800">is_vehicle_light_active</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>light</strong></font>, <font color="#00a6ed"><strong>vehicle_id</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>)<br />
-Checks whether or not a given vehicle light is active for a vehicle at a specific frame.</p>
+检查给定车辆灯在特定帧是否处于活动状态。</p>
 <ul>
 <li><strong>Return —</strong> bool</li>
 <li><strong>Parameters</strong><ul>
-<li><code>light</code> (<a href="https://carla.readthedocs.io/en/latest/python_api/#carlavehiclelightstate">carla.VehicleLightState</a>) — The light state to be compared with the vehicle.</li>
-<li><code>vehicle_id</code> (<em>int</em>) — <code>id</code> of the vehicle.</li>
-<li><code>frame</code> (<em>int</em>) — Frame number.</li>
+<li><code>light</code> (<a href="https://carla.readthedocs.io/en/latest/python_api/#carlavehiclelightstate">carla.VehicleLightState</a>) — 与车辆进行比较的灯光状态。</li>
+<li><code>vehicle_id</code> (<em>int</em>) — 车辆的<code>id</code>。</li>
+<li><code>frame</code> (<em>int</em>) — 帧号。</li>
 </ul>
 </li>
 </ul>

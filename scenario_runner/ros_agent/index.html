@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>ROS-based Challenge Agent - 交通仿真文档</title>
+    <title>基于ROS的挑战代理 - 交通仿真文档</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "ROS-based Challenge Agent";
+        var mkdocs_page_name = "\u57fa\u4e8eROS\u7684\u6311\u6218\u4ee3\u7406";
         var mkdocs_page_input_path = "scenario_runner\\ros_agent.md";
         var mkdocs_page_url = null;
       </script>
@@ -285,6 +285,8 @@
                   </li>
                   <li class="toctree-l1"><a class="" href="https://docs.blender.org/manual/zh-hans/latest/">Blender 手册</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../file_specification/">文件说明</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../todo/">待做列表</a>
                   </li>
               </ul>
@@ -302,7 +304,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">ROS-based Challenge Agent</li>
+      <li class="breadcrumb-item active">基于ROS的挑战代理</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -311,21 +313,20 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="ros-based-challenge-agent">ROS-based Challenge Agent</h1>
-<p>Interfacing CARLA from ROS is normally done via <a href="https://github.com/carla-simulator/ros-bridge">CARLA ROS Bridge</a>.
-In Challenge Mode this bridging functionality is provided by a RosAgent. It uses the same topics and message-types for the sensors but does not publish tf-transformations.</p>
-<h1 id="requirements">Requirements</h1>
+                <h1 id="ros">基于ROS的挑战代理</h1>
+<p>与 ROS 的 CARLA 接口通常通过 <a href="https://github.com/carla-simulator/ros-bridge">CARLA ROS Bridge</a> 完成。在挑战模式下，此桥接功能由 RosAgent 提供。它对传感器使用相同的主题和消息类型，但不发布 tf 转换。</p>
+<h1 id="_1">要求</h1>
 <ul>
-<li><code>roscore</code> is expected to be running in the docker container. Please adapt your entrypoint.</li>
+<li><code>roscore</code> 预计将在 docker 容器中运行。请调整您的入口点。</li>
 </ul>
-<h2 id="setup">Setup</h2>
-<p>To enable your stack within challenge mode, the following steps need to be taken:</p>
+<h2 id="_2">设置</h2>
+<p>要在挑战模式下启用堆栈，需要执行以下步骤：</p>
 <ol>
-<li>Define Sensor Setup</li>
-<li>Define Startup</li>
+<li>定义传感器设置</li>
+<li>定义启动</li>
 </ol>
-<h3 id="define-sensor-setup">Define Sensor Setup</h3>
-<p>Derive from RosAgent and implement the sensors() method.</p>
+<h3 id="_3">定义传感器设置</h3>
+<p>派生自RosAgent并实现sensors()方法。</p>
 <pre><code>from srunner.autoagents.ros_agent import RosAgent
 
 class MyRosAgent(RosAgent):
@@ -333,18 +334,16 @@ class MyRosAgent(RosAgent):
     def sensors(self):
         return [ &lt;sensor-definition&gt; ]
 </code></pre>
-<p>As an example for the sensor definition, see <a href="../srunner/autoagents/human_agent.py">HumanAgent.py</a>.</p>
-<h3 id="define-startup">Define Startup</h3>
-<p>The startup of the stack is done within the shell script <code>$TEAM_CODE_ROOT/start.sh</code>.
-Therefore the environment variable <code>TEAM_CODE_ROOT</code> must be set.</p>
-<p>RosAgent takes care of executing and monitoring. The script shall remain running as long as the stack is active.</p>
-<p>Example for start.sh</p>
+<p>作为传感器定义的示例，请参阅 <a href="../srunner/autoagents/human_agent.py">HumanAgent.py</a>。 </p>
+<h3 id="_4">定义启动</h3>
+<p>堆栈的启动是在 shell 脚本 <code>$TEAM_CODE_ROOT/start.sh</code> 内完成的。因此 <code>TEAM_CODE_ROOT</code> 必须设置环境变量。</p>
+<p>RosAgent 负责执行和监控。只要堆栈处于活动状态，脚本就应保持运行。</p>
+<p>start.sh 的示例</p>
 <pre><code>#!/bin/bash -e
 roslaunch $TEAM_CODE_ROOT/challenge.launch
 </code></pre>
-<h2 id="testing">Testing</h2>
-<p>In general, the challenge execution is headless. For diagnosis you're still able to use ros-tools like rviz or rqt. Additionally you
-can use <a href="https://github.com/carla-simulator/ros-bridge/tree/master/carla_manual_control">carla_manual_control</a> from the carla_ros_bridge for visualization (and also controlling the vehicle).</p>
+<h2 id="_5">测试</h2>
+<p>一般来说，挑战执行是无头的。为了进行诊断，您仍然可以使用 rviz 或 rqt 等 ros 工具。此外，您可以使用carla_ros_bridge 中的 <a href="https://github.com/carla-simulator/ros-bridge/tree/master/carla_manual_control">carla_manual_control</a> 进行可视化（并控制车辆）。</p>
               
             </div>
           </div><footer>

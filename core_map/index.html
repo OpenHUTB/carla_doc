@@ -321,6 +321,8 @@
                   </li>
                   <li class="toctree-l1"><a class="" href="https://docs.blender.org/manual/zh-hans/latest/">Blender 手册</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../file_specification/">文件说明</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../todo/">待做列表</a>
                   </li>
               </ul>
@@ -415,7 +417,7 @@
 <p>每个路径点都包含一个 <a href="../python_api/#carla.Transform"><code>carla.Transform</code></a> ，它说明其在地图上的位置以及包含该航路点的车道的方向。变量<code>road_id</code>,<code>section_id</code>,<code>lane_id</code> 和 <code>s</code>对应 OpenDRIVE 道路。路径点<code>id</code>的是由这四个值的哈希组合构造的。</p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
-<p><strong>同一道路内距离小于 2cm</strong> 的路点共享相同的路点 <code>id</code>。</p>
+<p><strong>同一道路内距离小于 2 厘米</strong> 的路点共享相同的路点 <code>id</code>。</p>
 </div>
 <p>路径点保存有关包含该路径点的 <strong>车道</strong> 的信息。此信息包括车道的左车道和右 <strong>车道标记</strong>、用于确定其是否位于路口内的布尔值、车道类型、宽度和车道变更权限。</p>
 <pre><code class="language-py"># 从路径点访问车道信息
@@ -449,19 +451,19 @@ lane_change = waypoint.lane_change
 </code></pre>
 <h3 id="_8">环境对象</h3>
 <p>Carla 地图上的每个对象都有一组关联的变量，可以在 <a href="https://carla.readthedocs.io/en/latest/python_api/#carla.EnvironmentObject">此</a> 处找到这些变量。这些变量中包含一个 <a href="https://carla.readthedocs.io/en/latest/python_api/#carla.EnvironmentObject.id">唯一 ID</a>，可用于切换该对象在地图上的可见性。您可以使用 Python API 根据每个环境对象的<a href="[semantic_tag]">语义标签</a> <a href="https://carla.readthedocs.io/en/latest/python_api/#carla.World.get_environment_objects">获取</a> 其 ID ：</p>
-<pre><code>    # 获得世界中的建筑
-    world = client.get_world()
-    env_objs = world.get_environment_objects(carla.CityObjectLabel.Buildings)
+<pre><code># 获得世界中的建筑
+world = client.get_world()
+env_objs = world.get_environment_objects(carla.CityObjectLabel.Buildings)
 
-    # 访问各个建筑 IDs 并保存在集合当中
-    building_01 = env_objs[0]
-    building_02 = env_objs[1]
-    objects_to_toggle = {building_01.id, building_02.id}
+# 访问各个建筑 IDs 并保存在集合当中
+building_01 = env_objs[0]
+building_02 = env_objs[1]
+objects_to_toggle = {building_01.id, building_02.id}
 
-    # 切换建筑为不可见
-    world.enable_environment_objects(objects_to_toggle, False)
-    # 切换建筑为可见
-    world.enable_environment_objects(objects_to_toggle, True)
+# 切换建筑为不可见
+world.enable_environment_objects(objects_to_toggle, False)
+# 切换建筑为可见
+world.enable_environment_objects(objects_to_toggle, True)
 </code></pre>
 <p>查看切换不同对象的示例：</p>
 <p><img alt="toggle_objects_gif" src="../img/objects_small.gif" /></p>
@@ -577,18 +579,30 @@ waypoint02 = map.get_waypoint_xodr(road_id,lane_id,s)
 <td><strong><a href="../map_town12/">Town12</a></strong></td>
 <td>一张包含许多不同区域的大地图，包括高层建筑、住宅区和乡村环境。</td>
 </tr>
+<tr>
+<td><a href="../map_town13/"><strong>Town13</strong></a></td>
+<td>一张与 12 号镇规模相似的大地图，但具有鲜明的特色。</td>
+</tr>
+<tr>
+<td><a href="../map_town15/"><strong>Town15</strong></a></td>
+<td>基于巴塞罗那自治大学道路布局的地图。</td>
+</tr>
+<tr>
+<td><a href="https://bitbucket.org/hutbcity/openhutbcarla/src/main/"><strong>HUTB</strong></a></td>
+<td>基于湖南工商大学道路布局的地图。</td>
+</tr>
 </tbody>
 </table>
 <h3 id="_12">分层地图</h3>
 <p>分层地图的布局与非分层地图相同，但可以关闭和打开地图的图层。有一个无法关闭的最小布局，由道路、人行道、交通灯和交通标志组成。分层地图可以通过后缀 <code>_Opt</code> 来标识，例如<code>Town01_Opt</code>。使用这些地图，可以通过 Python API <a href="https://carla.readthedocs.io/en/latest/python_api/#carla.World.load_map_layer">加载</a>和<a href="https://carla.readthedocs.io/en/latest/python_api/#carla.World.unload_map_layer">卸载</a>图层：</p>
-<pre><code>    # 加载 城镇01 的分层地图，带有最小布局加上建筑物和停放的车辆
-    world = client.load_world('Town01_Opt', carla.MapLayer.Buildings | carla.MapLayer.ParkedVehicles)
+<pre><code># 加载 城镇01 的分层地图，带有最小布局加上建筑物和停放的车辆
+world = client.load_world('Town01_Opt', carla.MapLayer.Buildings | carla.MapLayer.ParkedVehicles)
 
-    # 关闭所有建筑
-    world.unload_map_layer(carla.MapLayer.Buildings)
+# 关闭所有建筑
+world.unload_map_layer(carla.MapLayer.Buildings)
 
-    # 打开所有建筑    
-    world.load_map_layer(carla.MapLayer.Buildings)
+# 打开所有建筑    
+world.load_map_layer(carla.MapLayer.Buildings)
 </code></pre>
 <p>查看按顺序加载和卸载所有层的示例：</p>
 <p><img alt="map-layers" src="../img/sublevels.gif" /></p>

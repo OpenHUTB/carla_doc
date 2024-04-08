@@ -85,11 +85,7 @@
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_10">附加：构建步骤分析</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#updatebat">Update.bat</a>
-    </li>
-        </ul>
+    <li class="toctree-l2"><a class="reference internal" href="#_10">报错</a>
     </li>
     </ul>
                   </li>
@@ -315,6 +311,8 @@
                   </li>
                   <li class="toctree-l1"><a class="" href="https://docs.blender.org/manual/zh-hans/latest/">Blender 手册</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../file_specification/">文件说明</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../todo/">待做列表</a>
                   </li>
               </ul>
@@ -512,7 +510,7 @@ GenerateProjectFiles.bat
 <p><strong>1.</strong> <strong>编译 Python API 客户端</strong>:</p>
 <p>Python API 客户端授予对仿真的控制权。第一次构建 Carla 时需要编译 Python API 客户端，并且在执行任何更新后需要再次编译。客户端编译完成后，您将能够运行脚本与仿真进行交互。</p>
 <p>以下命令编译 Python API 客户端：</p>
-<pre><code class="language-sh">    make PythonAPI
+<pre><code class="language-sh">make PythonAPI
 </code></pre>
 <p>Carla 客户端库将以两种截然不同、互斥的形式构建。这使用户可以自由选择他们喜欢的形式来运行 Carla 客户端代码。两种形式包括<code>.egg</code>文件和<code>.whl</code>文件。选择以下选项 <strong>之一</strong> 来使用客户端库：</p>
 <p><strong>A. <code>.egg</code> 文件</strong></p>
@@ -545,14 +543,14 @@ GenerateProjectFiles.bat
 <p><strong>3.</strong> <strong>开始仿真</strong>:</p>
 <p>按<strong>Play</strong>开始服务器仿真。可以使用按键移动相机<code>WASD</code>，并通过在移动鼠标的同时单击场景来旋转相机。 </p>
 <p>使用里面的示例脚本测试仿真器<code>PythonAPI\examples</code>。在仿真器运行的情况下，为每个脚本打开一个新终端并运行以下命令以在城镇中产生一些生命并创建天气循环：</p>
-<pre><code class="language-sh">        # 终端 A 
-        cd PythonAPI\examples
-        pip3 install -r requirements.txt
-        python3 generate_traffic.py  
+<pre><code class="language-sh"># 终端 A 
+cd PythonAPI\examples
+pip3 install -r requirements.txt
+python3 generate_traffic.py  
 
-        # 终端 B
-        cd PythonAPI\examples
-        python3 dynamic_weather.py 
+# 终端 B
+cd PythonAPI\examples
+python3 dynamic_weather.py 
 </code></pre>
 <div class="admonition 重要">
 <p class="admonition-title">重要</p>
@@ -596,29 +594,44 @@ GenerateProjectFiles.bat
 <td><code>make rebuild</code></td>
 <td><code>make clean</code> 和 <code>make launch</code> 两者都在一个命令中。</td>
 </tr>
+<tr>
+<td><code>make downloadplugin</code></td>
+<td>构建虚幻引擎插件 StreetMap 。</td>
+</tr>
+<tr>
+<td><code>make setup</code></td>
+<td>构下载并生成依赖库</td>
+</tr>
+<tr>
+<td><code>make LibCarla</code></td>
+<td>创建LibCarla的客户端和服务端（<code>make server</code>+<code>make client</code>）</td>
+</tr>
+<tr>
+<td><code>make osm2odr</code></td>
+<td>创建OSM转OpenDRIVE的库</td>
+</tr>
+<tr>
+<td><code>make import</code></td>
+<td>导入资产</td>
+</tr>
 </tbody>
 </table>
-<h2 id="_10">附加：构建步骤分析</h2>
-<h3 id="updatebat">Update.bat</h3>
-<ol>
-<li>环境变量初始化；</li>
-<li>获取最新的资产包；</li>
-<li>
-<p>下载并解压资产内容；</p>
-<p>如果不存在7zip就用<code>powershell -Command "Expand-Archive '</code>命令进行解压。</p>
-</li>
-</ol>
-<h4 id="makefile">Makefile</h4>
-<ol>
-<li>
-<p><code>make PythonAPI</code></p>
-<p>执行<code>Util/BuildTools/BuildPythonAPI.bat</code>，真正执行的是<code>python setup.py bdist_egg bdist_wheel</code>，在<code>PythonAPI/carla/dist</code>目录下生成<code>*.egg</code>和<code>*.whl</code>文件；</p>
-</li>
-<li>
-<p><code>make launch</code></p>
-<p>执行<code>Util/BuildTools/Windows.mk</code>，真正执行的是<code>BuildLibCarla.bat</code>，构建LibCarla的服务端和客户端；</p>
-</li>
-</ol>
+<h2 id="_10">报错</h2>
+<ul>
+<li>执行<code>make osm2odr</code>报错：</li>
+</ul>
+<pre><code class="language-text">CMake Error: The source directory &quot;D:/work/workspace/carla/Build/osm2odr-visualstudio/x64&quot; does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+Error: could not load cache
+</code></pre>
+<p>从其他地方把<code>Build\osm2odr-visualstudio\CMakeCache.txt</code>拷贝过来，修改里面对应的目录为当前工程的目录。</p>
+<hr />
+<ul>
+<li>执行<code>make PythonAPI</code>报错：</li>
+</ul>
+<pre><code class="language-text">libcarla.obj : error LNK2001: 无法解析的外部符号 &quot;class std::basic_string&lt;char,struct std::char_traits&lt;char&gt;,class std::allocator&lt;char&gt; &gt; __cdecl osm2odr::ConvertOSMToOpenDRIVE(class std::basic_string&lt;char,struct std::char_traits&lt;char&gt;,class std::allocator&lt;char&gt; &gt;,struct osm2odr::OSM2ODRSettings)&quot; (?ConvertOSMToOpenDRIVE@osm2odr@@YA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V23@UOSM2ODRSettings@1@@Z)
+</code></pre>
+<p>从其他编译成功的地方将<code>PythonAPI\carla\dependencies\lib\osm2odr.lib</code>拷贝过来。</p>
 <hr />
 <p>有关本指南的任何问题， 请阅读 <strong><a href="../build_faq/">常见问题解答</a></strong> 页面或在 <a href="https://github.com/carla-simulator/carla/discussions">Carla 论坛</a> 中发帖。</p>
 <p>现在您已经构建了 Carla，接下来了解如何更新 Carla 构建或在仿真中迈出第一步，并学习一些核心概念。</p>
