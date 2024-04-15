@@ -116,172 +116,171 @@ __1. 创建车辆文件夹。__
 
 __2. 导入 `.fbx`。__
 
-Inside the new vehicle folder, import your main vehicle skeleton `.fbx` by right-clicking in the **_Content Browser_** and selecting **_Import into Game/Carla/Static/Vehicles/4Wheeled/<vehicle_name\>_**.
+在新的车辆文件夹中，通过在**_Content Browser_**中右键单击并选择 **_导入到 Game/Carla/Static/Vehicles/4Wheeled/<vehicle_name\>_** 来导入主车辆骨架`.fbx`。
 
-In the dialogue box that pops up:
+在弹出的对话框中：
 
-- Set **_Import Content Type_** to `Geometry and Skinning Weights`.
-- Set **_Normal Import Method_** to `Import Normals`.
-- Optionally set **_Material Import Method_** to `Do not create materials`. Uncheck **_Import Textures_** to avoid Unreal Engine creating default materials.
+- 将导入内容类型 **_Import Content Type_** 设置为`Geometry and Skinning Weights`。
+- 将 **_Normal Import Method_** 设置为 `Import Normals`。
+- （可选）将**_Material Import Method_**设置为`Do not create materials`。取消选中**_Import Textures_**以避免虚幻引擎创建默认材质。 
 
-The Skeletal Mesh will appear along with two new files, `<vehicle_name>_PhysicsAssets` and `<vehicle_name>_Skeleton`.
+骨架网格体将与两个新文件`<vehicle_name>_PhysicsAssets` and `<vehicle_name>_Skeleton`一起出现。
 
-Import the rest of your `.fbx` files separately from the main vehicle skeleton `.fbx` file.
+将其余`.fbx`文件与主车辆骨架`.fbx`文件分开导入。
 
-__3. Set the physical asset mesh.__
+__3. 设置物理资源网格。__
 
->1. Open `<vehicle_name>_PhysicsAssets` from the **_Content Browser_**.
-- Right-click on the `Vehicle_Base` mesh in the **_Skeleton Tree_** panel and go to **_Copy Collision from StaticMesh_**.
-- Search for and select your `SMC_<vehicle_name>` file. You should see the outline of the physical asset mesh appear in the viewport.
-- Delete the default capsule shape from the `Vehicle_Base`.
-- Select all the wheels:
-    - Go to the **_Tools_** panel and change the **_Primitive Type_** to `Sphere`.
-    - Go to the **_Details_** panel and change **_Physics Type_** to `Kinematic`.
-    - Set **_Linear Damping_** to `0`. This will eliminate any extra friction on the wheels.
-- Enable **_Simulation Generates Hit Event_** for all meshes.
-- Click **_Re-generate Bodies_**.
-- Adjust the wheel sphere to the size of the wheel.
-- Save and close the window.
+>1. 从内容浏览器**_Content Browser_** `<vehicle_name>_PhysicsAssets`。
+- **_Skeleton Tree_**面板中右键单击 `Vehicle_Base` 的网格体，然后转到**_Copy Collision from StaticMesh_**。
+- 搜索并选择您的`SMC_<vehicle_name>`文件。您应该会看到物理资源网格的轮廓出现在视口中。
+- 从 `Vehicle_Base` 中删除默认的胶囊形状。
+- 选择所有轮子：
+    - 转到**_Tools_**面板并将“基元类型**_Primitive Type_**”更改为`Sphere`。 
+    - 转到详细信息**_Details_**面板并将物理类型**_Physics Type_**更改为`Kinematic`。
+    - 将线性阻尼**_Linear Damping_**设置为`0`。这将消除车轮上的任何额外摩擦。
+- 为所有网格启用**_Simulation Generates Hit Event_**。
+- 单击**_Re-generate Bodies_**。
+- 将车轮球体调整至车轮尺寸。
+- 保存并关闭窗口。
 
 >![Collision mesh](./img/collision_mesh_vehicle.png)
 
-__4. Create the Animation Blueprint.__
+__4. 创建动画蓝图。__
 
->1. In the **_Content Browser_**, right-click inside your vehicle folder and select **_Animation -> Animation Blueprint_**.
-- In **_Parent Class_** search for and select `VehicleAnimInstance`.
-- In **_Target Skeleton_** search for and select `<vehicle_name>_Skeleton`.
-- Press **_OK_** and rename the blueprint as `AnimBP_<vehicle_name>`.
+>1. 在内容浏览器**_Content Browser_**中，右键单击车辆文件夹并选择**_Animation -> Animation Blueprint_**。
+- 在父类**_Parent Class_**中搜索并选择`VehicleAnimInstance`。
+- 在目标骨架**_Target Skeleton_**中搜索并选择`<vehicle_name>_Skeleton`。 
+- 按**_OK_**并将蓝图重命名为`AnimBP_<vehicle_name>`。 
 
-__5. Configure the Animation Blueprint.__
+__5.  配置动画蓝图。__
 
-To ease the process of configuring the animation blueprint, we will copy an existing one from a native Carla vehicle:
+为了简化配置动画蓝图的过程，我们将从本地 Carla 车辆复制现有的动画蓝图：
 
->1. Go to `Content/Carla/Static/Vehicle` and choose any Carla vehicle folder. Open its Animation Blueprint.
-- In the **_My Blueprint_** panel, double click on **_AnimGraph_**. You will see the graph come up in the viewport.
-- Click and drag to select the **_Mesh Space Ref Pose_**, **_Wheel Handler_**, and **_Component To Local_** components. Right-click and select **_Copy_**.
-- Go back to your own vehicle Animation Blueprint and paste the copied contents into the graph area.
-- Click and drag from the standing figure in the **_Component To Local_** component to the figure in **_Output Pose_** to join the components together.
-- Click **_Compile_** in the top left corner. You should now see a pulsating line flowing through the entire sequence.
-- Save and close the window.
+>1. 转到`Content/Carla/Static/Vehicle`并选择任何 Carla 车辆文件夹。打开其动画蓝图。
+- 在**_My Blueprint_**面板中，双击**_AnimGraph_**。您将看到图表出现在视口中。 
+- 单击并拖动以选择**_Mesh Space Ref Pose_**、**_Wheel Handler_**和**_Component To Local_**组件。右键单击并选择复制。
+- 返回您自己的车辆动画蓝图并将复制的内容粘贴到图形区域中。
+- 单击**_Component To Local_**组件中的站立人物并将其拖动到**_Output Pose_**中的人物，以将组件连接在一起。
+- 单击左上角的**_Compile_**。您现在应该看到一条脉动的线流过整个序列。
+- 保存并关闭窗口。
 
 >>![add_vehicle_step_04](img/add_vehicle_step_04.jpg)
 
-__6. Prepare the vehicle and wheel blueprints.__
+__6. 准备车辆和车轮蓝图。__
 
->1. In the **_Content Browser_**, go to `Content/Carla/Blueprints/Vehicles` and create a new folder `<vehicle_name>`.
-- Inside the folder, right-click and go to **_Blueprint Class_**. Open the **_All Classes_** section in the pop-up.
-- Search for `BaseVehiclePawn` and press **_Select_**.
-- Rename the file as `BP_<vehicle_name>`.
-- Go to the folder of any of the native Carla vehicles in `Carla/Blueprints/Vehicles`. From the **_Content Browser_**, copy the four wheel blueprints into the blueprint folder for your own vehicle. Rename the files to replace the old vehicle name with your own vehicle name.
+>1. 在内容浏览器**_Content Browser_**中，转到`Content/Carla/Blueprints/Vehicles`并创建一个新文件夹`<vehicle_name>`。 
+- 在该文件夹内，右键单击并转到**_Blueprint Class_**。在弹出窗口中打开**_All Classes_**部分。
+- 搜索`BaseVehiclePawn`并按**_Select_**。
+- 将文件重命名为`BP_<vehicle_name>`。
+- 转到 `Carla/Blueprints/Vehicles` 中任何本地 Carla 车辆的文件夹。从内容浏览器**_Content Browser_**中，将四轮蓝图复制到您自己车辆的蓝图文件夹中。重命名文件以将旧车辆名称替换为您自己的车辆名称。
 
 >>![Copy wheel blueprints](./img/copy_wheel_blueprint.png)
 
-__7. Configure the wheel blueprints.__
+__7. 配置轮子蓝图。__
 
->1. In your vehicle blueprint folder, open all four of the wheel blueprints.
-- In the **_Class Defaults_** panel, set **_Collision Mesh_** to `Wheel_Shape`. __Omitting this step will cause the vehicle wheels to sink into the ground__.
-- Adjust the values for wheel shape radius, width, mass, and damping rate according to your vehicle specifications.
-- Set **_Tire Config_** to `CommonTireConfig`
-- On the front wheels set **_Steer Angle_** according to your preferences (default is `70`). Uncheck **_Affected by Handbrake_**.
-- On the rear wheels set **_Steer Angle_** to `0`. Check **_Affected by Handbrake_**.
-- When setting the suspension values, you can use the values [here](tuto_D_customize_vehicle_suspension.md) as a guide.
-- Compile and save.
+>1. 在车辆蓝图文件夹中，打开所有四个车轮蓝图。
+- 在**_Class Defaults_**面板中，将 **_Collision Mesh_** 设置为 `Wheel_Shape`。__省略此步骤将导致车辆车轮陷入地面__。 
+- 根据您的车辆规格调整车轮形状半径、宽度、质量和阻尼率的值。 
+- 将轮胎配置**_Tire Config_**设置为`CommonTireConfig`。
+- 在前轮上根据您的喜好设置转向角度 **_Steer Angle_**（默认为`70`）。取消选中**_Affected by Handbrake_** 。
+- 在后轮上将转向角度 **_Steer Angle_** 设置为 `0`。检查 **_Affected by Handbrake_**。
+- 设置悬架值时，您可以使用 [此处](tuto_D_customize_vehicle_suspension.md) 的值作为指导。
+- 编译并保存。
 
 >>![wheel shape](./img/wheel_shape.png)
 
-__8. Configure vehicle blueprint.__
+__8. 配置车辆蓝图。__
 
->1. From the **_Content Browser_**, open your `BP_<vehicle_name>`.
-- In the **_Components_** panel, select **_Mesh (VehicleMesh) (Inherited)_**.
-- In the **_Details_** panel, go to **_Skeletal Mesh_** and search for and select the base skeleton file of your vehicle (located in the `Carla/Static/Vehicles/4Wheeled/<vehicle_name>` folder).
-- Go to **_Anim Class_** in the **_Details_** panel. Search for and select your `AnimBP_<vehicle_name>` file.
-- In the **_Components_** panel, select **_Custom Collision (Inherited)_**.
-- Select **_Static Mesh_** in the **_Details_** panel and search for your `SM_sc_<vehicle_name>` raycast sensor mesh.
-- In the **_Components_** panel, select **_VehicleMovement (MovementComp) (Inherited)_**.
-- In the **_Details_** panel, search for `wheel`. You will find settings for each of the wheels. For each one, click on **_Wheel Class_** and search for the `BP_<vehicle_name>_<wheel_name>` file that corresponds to the correct wheel position.
+>1. 从内容浏览器 **_Content Browser_** 中，打开您的`BP_<vehicle_name>`。 
+- 在 **_Components_** 面板中，选择 **_Mesh (VehicleMesh) (Inherited)_** 。
+- 在 **_Details_** 面板中，转到 **_Skeletal Mesh_** 并搜索并选择车辆的基础骨架文件（位于 `Carla/Static/Vehicles/4Wheeled/<vehicle_name>` 文件夹中）。 
+- 转到 **_Details_** 面板中的 **_Anim Class_**。搜索并选择您的 `AnimBP_<vehicle_name>` 文件。
+- 在 **_Components_** 面板中，选择 **_Custom Collision (Inherited)_** 。
+- 在 **_Details_** 面板中选择 **_Static Mesh_** 并搜索您的 `SM_sc_<vehicle_name>` 光线投射传感器网格体。
+- 在 **_Components_** 面板中，选择 **_VehicleMovement (MovementComp) (Inherited)_** 。 
+- 在 **_Details_** 面板中，搜索 `wheel` 。您将找到每个轮子的设置。对于每一个，单击 **_Wheel Class_** 并搜索与正确车轮位置相对应的`BP_<vehicle_name>_<wheel_name>`文件。 
 
 >>>>![wheel blueprint](./img/wheel_blueprint.png)
 
-If you have any additional meshes for your vehicle (doors, lights, etc.,) separate from the base mesh:
+如果您的车辆有任何与基础网格分开的附加网格（门、灯等）：
 
->1. Drag them into the **_Mesh (VehicleMesh) (Inherited)_** hierarchy in the **_Components_** panel.
-- Select the extra meshes in the hierarchy and search for `Collision` in the **_Details_** panel.
-- Set **_Collision Presets_** to `NoCollision`.
-- Select any lights meshes in the hierarchy. Search for `Tag` in the **_Details_** panel and add the tag `emissive`.
+>1. 将它们拖到**_Components_**面板中的 **_Mesh (VehicleMesh) (Inherited)_** 层次结构中。
+- 选择层次结构中的额外网格并在**_Details_**面板中搜索 `Collision`。 
+- 将碰撞预设 **_Collision Presets_** 设置为 `NoCollision`。
+- 选择层次结构中的任何灯光网格。在 **_Details_** 面板中搜索 `Tag` 并添加标签 `emissive`。 
 
-Click **_Save_** and **_Compile_**.
+单击 **_Save_** 并 **_Compile_** 。
 
 
 
-__9. Add the vehicle to the Blueprint Library__.
+__9. 将车辆添加到蓝图库中。__.
 
->1. In `Content/Carla/Blueprint/Vehicle`, open the `VehicleFactory` file.
-- In the **_Generate Definitions_** tab, double click **_Vehicles_**.
-- In the **_Details_** panel, expand the **_Default Value_** section and add a new element to the vehicles array.
-- Fill in the **_Make_** and **_Model_** of your vehicle.
-- Fill in the **_Class_** value with your `BP_<vehicle_name>` file.
-- Optionally, provide a set of recommended colors for the vehicle.
-- Compile and save.
+>1. 在 `Content/Carla/Blueprint/Vehicle` 中，打开 `VehicleFactory` 文件。
+- 在 **_Generate Definitions_** 选项卡中，双击 **_Vehicles_** 。
+- 在 **_Details_** 面板中，展开 **_Default Value_** 部分并向车辆数组添加一个新元素。 
+- 填写您车辆的 **_Make_** 和 **_Model_** 。 
+- 使用您的 `BP_<vehicle_name>` 文件填写 **_Class_** 值。
+- （可选）为车辆提供一组推荐颜色。
+- 编译并保存。
 
 >![vehicle factory](./img/vehicle_factory.png)
 
-__10. Test the vehicle__.
+__10. 测试车辆__。
 
-Launch Carla, open a terminal in `PythonAPI/examples` and run the following command:
+启动 Carla，打开终端 `PythonAPI/examples` 并运行以下命令：
 
 ```sh
 python3 manual_control.py --filter <model_name> # The make or model defined in step 9
 ```
 
-!!! Note
-    Even if you used upper case characters in your make and model, they need to be converted to lower case when passed to the filter.
+!!! 笔记
+    即使您在品牌和型号中使用了大写字符，它们在传递给过滤器时也需要转换为小写字符。
 
 ---
 
-## Add an N wheeled vehicle
+## 添加 N 轮车辆
 
-Adding an N wheeled vehicle follows the same import pipeline as that for 4 wheeled vehicles above with a few steps that are different. 
+添加 N 轮车辆遵循与上述 4 轮车辆相同的导入管道，但有几个步骤不同。
 
-__5.__ __Configure the Animation Blueprint for an N wheeled vehicle__
+__5.__ __配置 N 轮车辆的动画蓝图__
 
-Search for `BaseVehiclePawnNW` and press **_Select_**.
+搜索 `BaseVehiclePawnNW` 并按 **_Select_**。
 
-![n_wheel_base](../img/base_nw.png)
+![n_wheel_base](./img/base_nw.png)
 
-__6.__ __Prepare the vehicle and wheel blueprints__
+__6.__ __准备车辆和车轮蓝图__
 
-Go to the folder of any native Carla vehicles in Carla/Blueprints/Vehicles. From the Content Browser, copy the four wheel blueprints into the blueprint folder for your own vehicle. Rename the files to replace the old vehicle name with your own vehicle name.
+转到 Carla/Blueprints/Vehicles 中所有本地 Carla 车辆的文件夹。从内容浏览器中，将四轮蓝图复制到您自己车辆的蓝图文件夹中。重命名文件以将旧车辆名称替换为您自己的车辆名称。
 
-Copy the four wheels and copy again for additional wheels. In the case of a 6 wheeled vehicle, you will need 6 different wheels: FLW, FRW, MLW, MRW, RLW, RRW.
+复制四个轮子，然后再次复制其他轮子。如果是 6 轮车辆，您将需要 6 个不同的车轮：FLW、FRW、MLW、MRW、RLW、RRW。
 
-![n_wheel_bps](../img/nwheels.png)
+![n_wheel_bps](./img/nwheels.png)
 
-__7.__ __Configure the wheel blueprints__
+__7.__ __配置轮子蓝图__
 
-Follow section __7__ as above for the 4 wheeled vehicle. The key difference in the case of an N wheeled vehicle is those affected by handbrake and steering parameters. In some vehicles (like for example a long wheelbase truck) the front 2 pairs of wheels will steer, and one set may steer more than others. The rearmost pairs may be affected by handbrake, the specifics will depend upon the vehicle you are modelling.
+对于 4 轮车辆，请遵循上述第 __7__ 节。 N 轮车辆的主要区别在于手刹和转向参数的影响。在某些车辆（例如长轴距卡车）中，前 2 对车轮将进行转向，其中一组可能比其他车轮转向更多。最后面的一对可能会受到手刹的影响，具体情况取决于您正在建模的车辆。
 
-__8.__ __Configure vehicle blueprint__
+__8.__ __配置车辆蓝图__
 
-In the Details panel, search for `wheel`. You will find settings for each of the wheels. For each one, click on Wheel Class and search for the BP_<vehicle_name>_<wheel_name> file that corresponds to the correct wheel position.
+在“详细信息”面板中，搜索`wheel`。您将找到每个轮子的设置。对于每一个，单击车轮类别并搜索 BP_<vehicle_name>_<wheel_name> 对应于正确车轮位置的文件。
 
-This is correct, but just to specify, in the case of N wheeled vehicles, you need to set ALL the wheels. This is an example with a 6 wheeled vehicle:
+这是正确的，但只是为了指定，在 N 轮车辆的情况下，您需要设置所有车轮。这是 6 轮车辆的示例：
 
-![n_wheel_config](../img/nwheel_config.png)
+![n_wheel_config](./img/nwheel_config.png)
 
 
-Finally, an additional consideration is setting the differential. In the case of a 4 wheeled vehicle, we have different presets of differentials (Limited Slip, Open 4W etc.) but with N wheeled vehicles, you need to choose on which wheels you want to apply torque. In this case, we have chosen only the middle and rear wheels have torque, while the front wheels don’t, you can specify other configurations. The numbers are going to be the same as the image above this text (e.g. 0 will be the Front Left Wheel, as specified above).
+最后，一个额外的考虑因素是设置差速器。对于 4 轮车辆，我们有不同的差速器预设（限滑、开放 4W 等），但对于 N 轮车辆，您需要选择要在哪些车轮上应用扭矩。本例中我们选择只有中后轮有扭矩，前轮没有扭矩，您可以指定其他配置。这些数字将与本文上方的图像相同（例如，0 将是左前轮，如上所述）。
 
-![n_wheel_mech](../img/nwheel_mech_setup.png)
+![n_wheel_mech](./img/nwheel_mech_setup.png)
 
-All other parameters such as engine, transmission, steering curve, are the same as 4 wheeled vehicles. 
+所有其他参数，如发动机、变速箱、转向曲线，均与四轮车辆相同。
 
 ---
-## Add a 2 wheeled vehicle
+## 添加 2 轮车辆
 
-Adding 2 wheeled vehicles is similar to adding a 4 wheeled one but due to the complexity of the animation you'll need to set up aditional bones to guide the driver's animation. [Here](https://carla-assets.s3.eu-west-3.amazonaws.com/fbx/BikeSkeleton.rar) is the link to the reference skeleton for 2 wheeled vehicles.
+添加 2 轮车辆与添加 4 轮车辆类似，但由于动画的复杂性，您需要设置额外的骨骼来引导驾驶员的动画。[这](https://carla-assets.s3.eu-west-3.amazonaws.com/fbx/BikeSkeleton.rar) 是两轮车辆参考骨架的链接。
 
-As with the 4 wheeled vehicles, orient the model towards positive "x" and every bone axis towards
-positive x and with the z axis facing upwards.
+与 4 轮车辆一样，将模型朝向正“x”，每个骨骼轴朝向正 x，z 轴朝上。
 
 ```yaml
 Bone Setup:
@@ -303,31 +302,26 @@ Bone Setup:
       - Seat:                   # Sets the position of the drivers hip bone. No need to bind it to anything but place it carefully.
 ```
 
-__1.__ Import fbx as Skelletal Mesh to its own folder inside `Content/Carla/Static/Vehicles/2Wheeled`. When importing select "General2WheeledVehicleSkeleton" as skelleton A Physics asset should be automatically created and linked.  
+__1.__ 将 fbx 作为 Skelletal Mesh 导入到其自己的 `Content/Carla/Static/Vehicles/2Wheeled` 文件夹中。导入时，选择“General2WheeledVehicleSkeleton”作为骨架，应自动创建并链接物理资源。
 
-__2.__ Tune the Physics asset. Delete the automatically created ones and add boxes to the `BikeBody` bone trying to match the shape as possible, make sure generate hit events is enabled. 
-  Add a sphere for each wheel and set their "Physics Type" to "Kinematic".  
+__2.__ 调整物理资源。删除自动创建的框并向 `BikeBody` 骨骼添加框，尝试尽可能匹配形状，确保启用生成命中事件。为每个轮子添加一个球体并将其“物理类型”设置为“运动学”。
 
-__3.__ Create folder `Content/Blueprints/Vehicles/<vehicle-model>`  
+__3.__ 创建 `Content/Blueprints/Vehicles/<vehicle-model>` 文件夹  
 
-__4.__ Inside that folder create two blueprint classes derived from "VehicleWheel" class. Call them `<vehicle-model>_FrontWheel` and `<vehicle-model>_RearWheel`. Set their "Shape Radius" to exactly match the mesh wheel radius (careful, radius not diameter). Set their "Tire Config" to "CommonTireConfig". On the front wheel uncheck "Affected by Handbrake" and on the rear wheel set "Steer Angle" to zero.  
+__4.__ 在该文件夹内创建两个派生自“VehicleWheel”类的蓝图类。调用 `<vehicle-model>_FrontWheel` 和 `<vehicle-model>_RearWheel`。将其 "Shape Radius" 设置为与网格轮半径完全匹配（小心，半径不是直径）。将其“轮胎配置”设置为“CommonTireConfig”。在前轮上取消选中“受手刹影响”，在后轮上将“转向角”设置为零。
 
-__5.__ Inside the same folder create a blueprint class derived from `Base2WheeledVehicle` call it `<vehicle-model>`. Open it for edit and select component "Mesh", setup the "Skeletal Mesh"
-  and the "Anim Class" to the corresponding ones. Then select the VehicleBounds component and set the size to cover vehicle's area as seen from above.
+__5.__ 在同一文件夹内创建一个派生 `Base2WheeledVehicle` 的蓝图类，并调用它 `<vehicle-model>` 。打开它进行编辑，选择组件“Mesh”，将“Skeletal Mesh”和“Anim Class”设置为相应的。然后选择 VehicleBounds 组件并设置大小以覆盖车辆区域（如上图所示）。
 
-__6.__ Select component "VehicleMovement", under "Vehicle Setup" expand "Wheel Setups", setup each wheel.  
+__6.__ 选择组件“VehicleMovement”，在“Vehicle Setup”下展开“Wheel Setups”，设置各个车轮。
 
-*   __0:__ Wheel Class=`<vehicle-model>_FrontWheel`, Bone Name=`FrontWheel`  
-*   __1:__ Wheel Class=`<vehicle-model>_FrontWheel`, Bone Name=`FrontWheel`  
-*   __2:__ Wheel Class=`<vehicle-model>_RearWheel`, Bone Name=`RearWheel`  
-*   __3:__ Wheel Class=`<vehicle-model>_RearWheel`, Bone Name=`RearWheel`  
-  (You'll notice that we are basically placing two wheels in each bone. The vehicle class unreal provides does not support vehicles with wheel numbers different from 4 so we had to make it believe the vehicle has 4 wheels)
+*   __0:__ 轮类=`<vehicle-model>_FrontWheel`, 骨骼名称=`FrontWheel`  
+*   __1:__ 轮类=`<vehicle-model>_FrontWheel`, 骨骼名称=`FrontWheel`  
+*   __2:__ 轮类=`<vehicle-model>_RearWheel`, 骨骼名称=`RearWheel`  
+*   __3:__ 轮类=`<vehicle-model>_RearWheel`, 骨骼名称=`RearWheel`  
+  （您会注意到，我们基本上在每个骨骼中放置了两个轮子。unreal 提供的车辆类别不支持车轮编号不同于 4 的车辆，因此我们必须让它相信车辆具有4个轮子）
 
-__7.__ Select the variable "is bike" and tick it if your model is a bike. This will activate the
-  pedalier rotation. Leave unmarked if you are setting up a motorbike.
+__7.__ 选择变量 "is bike" ，如果您的型号是自行车，则勾选它。这将激活踏板旋转。如果您要安装摩托车，请不要标记。 
 
-__8.__ Find the variable back Rotation and set it as it fit better select the component SkeletalMesh
-  (The driver) and move it along x axis until its in the seat position.  
+__8.__ 找到变量 back Rotation 并将其设置为更合适的位置，更好地选择组件 SkeletalMesh（驱动程序）并将其沿 x 轴移动，直到其位于座椅位置。 
 
-__9.__ Test it, go to CarlaGameMode blueprint and change "Default Pawn Class" to the newly
-  created bike blueprint.
+__9.__ 测试一下，进入CarlaGameMode蓝图并将“Default Pawn Class”更改为新创建的自行车蓝图。
