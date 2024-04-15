@@ -12,7 +12,7 @@
 目标跟踪、再识别、语义分割、骨架识别等。
 
 ### [规划](algorithms/planning.md)
-[定位](algorithms/localization.md) 、建图、规划、决策。
+[定位](algorithms/localization.md) 、惯视融合、建图、规划、决策。
 
 ### [控制](algorithms/control.md)
 PID、基于模型的控制。
