@@ -114,7 +114,7 @@ controller.go_to_location(world.get_random_location_from_navigation())
 
 ```
 
-现在，行人将随着仿真的每次增量 (`world.tick()`) 自主移动。
+现在，行人将随着仿真的每次推进 (`world.tick()`) 自主移动。
 
 ## 相机几何
 

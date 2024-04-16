@@ -1,5 +1,6 @@
 # 在 Windows 上进行 Carla 的调试
 
+## 虚幻引擎Carla插件的调试
 1. 进入目录`carla/Unreal/CarlaUE4/`，右键文件`CarlaUE4.uproject`，选择运行`Generate Visual Studio project files`，在当前目录中将会生成VS的工程文件，双击打开`CarlaUE4.sln`。
 
 ![](img/tuto_D_windows_debug/generate_vs_project_files.png)
@@ -7,29 +8,27 @@
 !!! 笔记
     如果右键菜单中未出现`Generate Visual Studio project files`选项，则到虚幻引擎的目录中运双击执行`engine\Engine\Binaries\Win64\UnrealVersionSelector.exe`，将虚幻引擎软件注册到系统中。
 
-2. 在`解决方案`中展开`Games->CarlaUE4`，在想要查看的源代码行的最左侧单击增加断点（比如：`CarlaUE4->Plugins->CarlaTools->Source->CarlaTools->Private`的`OpenDriveToMap.cpp`的`GenerateTileStandalone()`），在菜单运行`调试(D)->开始调试(S)`，程序将在断点出暂停。通过`调式(D)->窗口(W)->监视(W)->监视 1`打开变量监视窗口，查看变量值是否异常。
-3. 
+2. （调试数字孪生工具）在`解决方案`中展开`Games->CarlaUE4`，在想要查看的源代码行的最左侧单击增加断点（比如：`CarlaUE4->Plugins->CarlaTools->Source->CarlaTools->Private`的`OpenDriveToMap.cpp`的`GenerateTileStandalone()`），在菜单运行`调试(D)->开始调试(S)`，程序将在断点出暂停。通过`调式(D)->窗口(W)->监视(W)->监视 1`打开变量监视窗口，查看变量值是否异常。
+
 ![](img/tuto_D_windows_debug/debug_project.png)
 
+* 调试**Carla服务端**：断点打在`Carla/Game/CarlaEngine.cpp`的第87行，然后开始调式，在虚幻编辑器中点击`运行`则会在断点处停止。
+![](img/tuto_D_windows_debug/debug_carla_server.png)
 
-## VS2019 打开 CarlaUE4 的 Cmake 工程
-windows操作系统下通过vs2019打开并编译carla：
-
-1. 开Carla的CMake项目（参考[CMake 入门教程](https://www.jb51.net/article/180463.htm) ）：
-
-从 VS 的菜单中选择 `File-->Open-->CMake`, 在对话框中找到 Carla 所在的本地文件夹（包含CMakeLists），选择CMakeLists.txt文件，打开，Visual studio 会自动加载此仓库，解析 `CMakeLists.txt` 文件，并提取其配置和变量信息。解析完成（需要等会儿或者重启）会从`解决方案资源管理器`中看到`.cpp`文件。
-
-2. 修改配置：
-
-点击`x64-Debug`下拉菜单中的`管理配置`，并在弹出的界面点击`编辑JSON`（该过程在工程根目录下生成`CMakeSettings.json`），将所需要构建的类型改为想编译的类型，比如`Client`。
-
-3. 生成：
-
-点击菜单栏`生成`-`全部生成`或`部分生成`即可。
+配置管理器包括：
+* **Debug**: 游戏和引擎全都可以调试，无优化，速度慢，没有Editor相关代码功能，资源需要Cook。
+* **Debug Editor**：游戏和引擎全部可以调试，无优化，可以使用Editor相关代码功能，资源不需要Cook，可直接启动编辑器。（用`generate_traffic.py`调试会崩溃，`manual_control.py`可以）
+* **DebugGame**：游戏代码可调试无优化，Editor相关代码功能不可使用，引擎不可调试，资源需要Cook。
+* **DebugGame Editor**：游戏代码可调试无优化，可以使用Editor相关代码功能，引擎不可调试，资源不需要Cook。
+* **Development**：游戏、编辑器、引擎都不可调试，Editor相关代码功能不可使用，资源需要Cook。
+* **Development Editor**：游戏、编辑器、引擎都不可调试，Editor相关代码功能可使用，资源不需要Cook。
+* **Shipping**：发行版，极致优化，估计调试信息都没了。
+* **Test**：包含额外的测试代码。
 
 
 ## 调试LibCarla
-1. 脚本`BuildLibCarla.bat`调用`cmake`命令进行构建：
+**客户端**向服务端调用实现的功能。
+* 脚本`BuildLibCarla.bat`调用`cmake`命令进行构建：
 ```shell
 cmake -G %GENERATOR% %PLATFORM%^
   -DCMAKE_BUILD_TYPE=Server^
@@ -45,15 +44,33 @@ cmake -G %GENERATOR% %PLATFORM%^
 `CMAKE_CXX_FLAGS_RELEASE`设置编译类型 Release 时的编译选项；
 
 
-2. 调用以下命令在 `Build` 目录下生成`Makefile`文件：
+* 调用以下命令在 `Build` 目录下生成`Makefile`文件：
 ```shell
 cmake --build . --config Release --target install | findstr /V "Up-to-date:"
 ```
 
-3. 使用VS打开`Build\libcarla-visualstudio\CARLA.sln`。
+1. 使用VS打开`Build\libcarla-visualstudio\CARLA.sln`。使用命令`make client`打开的就是`LibCarla\cmake\client\CMakeLists.txt`对应的项目。（使用`make server`打开的则是`LibCarla\cmake\server\CMakeLists.txt`对应的项目）
 ![](img/tuto_D_windows_debug/open_libcarla_proj.png)
+（`Build`目录下还包括`osm2odr-visualstudio/SUMO.sln`的VS工程）。
 
+2. 右键`carla_client_debug`将其`设为启动项目`。
 
+3. 
+
+## VS2019 打开 CarlaUE4 的 Cmake 工程
+windows操作系统下通过vs2019打开并编译carla：
+
+1. 开Carla的CMake项目（参考[CMake 入门教程](https://www.jb51.net/article/180463.htm) ）：
+
+从 VS 的菜单中选择 `File-->Open-->CMake`, 在对话框中找到 Carla 所在的本地文件夹（包含CMakeLists），选择CMakeLists.txt文件，打开，Visual studio 会自动加载此仓库，解析 `CMakeLists.txt` 文件，并提取其配置和变量信息。解析完成（需要等会儿或者重启）会从`解决方案资源管理器`中看到`.cpp`文件。
+
+2. 修改配置：
+
+点击`x64-Debug`下拉菜单中的`管理配置`，并在弹出的界面点击`编辑JSON`（该过程在工程根目录下生成`CMakeSettings.json`），将所需要构建的类型改为想编译的类型，比如`Client`。
+
+3. 生成：
+
+点击菜单栏`生成`-`全部生成`或`部分生成`即可。
 
 ## 导入崩溃问题
 
@@ -126,3 +143,10 @@ Failed to open descriptor file ./../../../carla/Unreal/CarlaUE4/CarlaUE4.uprojec
 
 ## 发布
 包含所有软件依赖，双击`launch.bat`启动软件。
+
+### VS2019社区版安装
+解压安装包：
+```shell
+7z x filename.zip -o.
+```
+新电脑运行`NativeDesktop.exe`出现`此版本的Windows不支持此产品，请尝试升级Windows。`

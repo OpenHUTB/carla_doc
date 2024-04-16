@@ -69,6 +69,10 @@ import glob
 import os
 import sys
 
+# 获取当前进程ID（便于调试）
+process_id = os.getpid()
+print("Current process id is: ", process_id)
+
 try:
     sys.path.append(glob.glob('../carla/dist/carla-*%d.%d-%s.egg' % (
         sys.version_info.major,
@@ -76,7 +80,6 @@ try:
         'win-amd64' if os.name == 'nt' else 'linux-x86_64'))[0])
 except IndexError:
     pass
-
 
 # ==============================================================================
 # -- imports -------------------------------------------------------------------

@@ -66,10 +66,9 @@ controller.start()
 controller.go_to_location(world.get_random_location_from_navigation())
 
 # 将世界移动几帧，让行人生成
-for frame in range(0,5):
+for frame in range(0, 5):
     world.tick()
     trash = image_queue.get() 
-
 
 
 controller_bp = world.get_blueprint_library().find('controller.ai.walker')
@@ -195,7 +194,10 @@ for frame in range(0,360):
     for line in lines:
         l = [int(x) for x in line]
         cv2.line(img, (l[0],l[1]), (l[2],l[3]), (255,0,0, 255), 2)
-    
+
+    cv2.namedWindow('Kawaii Small Animals', cv2.WINDOW_NORMAL)
+    cv2.imshow('Kawaii Small Animals', img)
+    key = cv2.waitKey(500)
     # 保存图像
     cv2.imwrite('out/skeleton%04d.png' % frame, img)
 
