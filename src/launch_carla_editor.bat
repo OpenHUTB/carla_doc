@@ -1,4 +1,13 @@
 :: @echo off 
+:: 需要预装的软件：Visual Studio 2019
+:: 当前目录下需要的软件包括：
+:: carla1, unreal
+:: CMake, GnuWin32, 
+:: dotnet, Python37
+
+:: 解决命令行显示的中文乱码（添加支持utf-8功能）
+chcp 65001 > nul
+
 setlocal enabledelayedexpansion
     
 REM 获取当前脚本的完整路径    
@@ -62,4 +71,4 @@ REM 结束本地环境变量设置
 endlocal    
   
 REM 注意：此脚本设置的环境变量只在当前命令行会话中有效   
-pause
+:: pause
