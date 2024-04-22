@@ -40,6 +40,9 @@ cd {CARLA_ROOT}/Build/libosmcout-source/maps/
 ./build.sh <path_to_osm_file>
 ```
 
+!!! 笔记
+	如果 OpenStreetMap 中的地图有错误或不精确，可以通过[编辑地图](adv_edit_openstreetmap.md)进行改进。
+
 ## OpenStreetMap 浏览器
 
 如果左下角的“内容浏览器”未看到“Carla内容”，到中间下面的“视图选项”中选中“显示插件内容”
