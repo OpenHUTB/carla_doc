@@ -2,7 +2,7 @@
 
 ## 进入编辑页面
 
-进入OpenStreetMap首页，点击`编辑`按钮，以进入地图编辑页面（如果没有注册，请注册账号再操作）。
+进入 [OpenStreetMap首页](https://www.openstreetmap.org/) （需要科学上网），点击`编辑`按钮，以进入地图编辑页面（如果没有注册，请注册账号再操作）。
 
 ![edit_openstreetmap](img/digit_twin/openstreetmap_edit_button.png)
 
