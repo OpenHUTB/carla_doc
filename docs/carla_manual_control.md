@@ -26,31 +26,31 @@
 __1.__ 确保 Carla 正在运行。启动 ROS 桥：
 
 ```sh
-        # ROS 1
-        roslaunch carla_ros_bridge carla_ros_bridge.launch
+# ROS 1
+roslaunch carla_ros_bridge carla_ros_bridge.launch
 
-        # ROS 2
-        ros2 launch carla_ros_bridge carla_ros_bridge.launch.py
+# ROS 2
+ros2 launch carla_ros_bridge carla_ros_bridge.launch.py
 ```
 
 __2.__ 生成对象：
 
 ```sh
-        # ROS 1
-        roslaunch carla_spawn_objects carla_spawn_objects.launch
+# ROS 1
+roslaunch carla_spawn_objects carla_spawn_objects.launch
 
-        # ROS 2
-        ros2 launch carla_spawn_objects carla_spawn_objects.launch.py
+# ROS 2
+ros2 launch carla_spawn_objects carla_spawn_objects.launch.py
 ```
 
 __3.__ 启动 `carla_manual_control` 节点：
 
 ```sh
-        # ROS 1
-        roslaunch carla_manual_control carla_manual_control.launch
+# ROS 1
+roslaunch carla_manual_control carla_manual_control.launch
 
-        # ROS 2
-        ros2 launch carla_manual_control carla_manual_control.launch.py
+# ROS 2
+ros2 launch carla_manual_control carla_manual_control.launch.py
 ```
 
 __4.__ 要手动驾驶车辆，请按“B”。按“H”查看说明。
@@ -58,10 +58,10 @@ __4.__ 要手动驾驶车辆，请按“B”。按“H”查看说明。
 或者，将上述所有命令组合成一个单独的启动文件，并可以通过执行以下命令同时运行：
 
 ```sh
-        # ROS 1
-        roslaunch carla_ros_bridge carla_ros_bridge_with_example_ego_vehicle.launch
+# ROS 1
+roslaunch carla_ros_bridge carla_ros_bridge_with_example_ego_vehicle.launch
 
-        # ROS 2
-        ros2 launch carla_ros_bridge carla_ros_bridge_with_example_ego_vehicle.launch.py
+# ROS 2
+ros2 launch carla_ros_bridge carla_ros_bridge_with_example_ego_vehicle.launch.py
 ```
 ---
