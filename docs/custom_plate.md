@@ -14,24 +14,19 @@
 
   将图片直接拖至 /Game/Carla/Static/GenericMaterials/Licenseplates,右键选择创建材质
 
-  ​<div style="width: 100%; text-align: center; margin: 0;"> <img src="img/plate/import_photo.png" style="width: 1000%;" alt="picture">
-  </div>
+  <img src="img/plate/import_photo.png" style="width: 1000%;" alt="picture">
 
 
 **2.材质替换**
 
 - 导肮至Carla/Blueprints/Vehicles下的目标车辆，右键选择编辑。如下图所示：
 
-  <div style="width: 100%; text-align: center; margin: 0;">
-
   <img src="img/plate/vehicle.png" style="width: 100%;" alt="picture">
 
-  </div>
+- 进入车辆资产编辑界面后，双击网格体（VehicleMesh）继承，会出现车辆以及车辆所引用的资产。
 
+  <img src="img/plate/edit_vehicle.png" style="width: 100%;" alt="picture">
 
--  进入车辆资产编辑界面后，双击**网格体（VehicleMesh）继承**，会出现车辆以及车辆所引用的资产。
-
-  <div style="width: 100%; text-align: center; margin: 0;"><img src="img/plate/edit_vehicle.png" style="width: 100%;" alt="picture"></div>
 
 -  将车辆放大，以便查看是否修改成功。
 
