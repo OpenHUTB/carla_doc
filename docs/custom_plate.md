@@ -30,7 +30,7 @@
   </div>
 
 
--  进入车辆资产编辑界面后，双击**网格体（VehicleMesh）继承**，会出现车辆以及车辆所引用的资产，将车辆方法，以便查看是否修改成功。如下图所示：
+-  进入车辆资产编辑界面后，双击**网格体（VehicleMesh）继承**，会出现车辆以及车辆所引用的资产。如下图所示：
 
   <div style="width: 100%; text-align: center; margin: 0;">
 
@@ -38,11 +38,13 @@
 
   </div>
 
-  <div style="width: 100%; text-align: center; margin: 0;">
+-  将车辆放大，以便查看是否修改成功。
 
-  <img src="img/plate/edit_vehicle1.png" style="width: 100%;" alt="picture">
+   <div style="width: 100%; text-align: center; margin: 0;">
 
-  </div>
+   <img src="img/plate/edit_vehicle1.png" style="width: 100%;" alt="picture">
+
+   </div>
 
 
 
