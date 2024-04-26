@@ -14,26 +14,26 @@
 
   将图片直接拖至 /Game/Carla/Static/GenericMaterials/Licenseplates,右键选择创建材质
 
-  ![picture](img/plate/import_photo.png){ width=70% }
+  <img src="img/plate/import_photo.png" style="width: 100%;" alt="picture">
 
 
 **2.材质替换**
 
 - 导肮至Carla/Blueprints/Vehicles下的目标车辆，右键选择编辑。如下图所示：
 
-  ![picture](img/plate/vehicle.png){ width=70% }
+  <img src="img/plate/vehicle.png" style="width: 100%;" alt="picture">
 
 
 -  进入车辆资产编辑界面后，双击**网格体（VehicleMesh）继承**，会出现车辆以及车辆所引用的资产，将车辆方法，以便查看是否修改成功。如下图所示：
 
-  ![picture](img/plate/edit_vehicle.png){ width=70% }
+  <img src="img/plate/edit_vehicle.png" style="width: 100%;" alt="picture">
 
-  ![picture](img/plate/edit_vehicle1.png){ width=70% }
+  <img src="img/plate/edit_vehicle1.png" style="width: 100%;" alt="picture">
 
 
 - 找到车辆车牌位置，将材路径替换为先前所准备的自定义材质。
 
-  ![picture](img/plate/plate.png){ width=70% }
+  <img src="img/plate/plate.png" style="width: 100%;" alt="picture">
 
 ​       这样，我们的车牌已经替换成功！回到主界面，点击编译运行，则出现我们想要的效果！ 
 
@@ -43,5 +43,5 @@
 
 - 运行python脚本在场景中添加已经被替换过车牌的车辆，调整视角，观察车牌。最后显示结果如下图所示：
 
-  ![picture](img/plate/result.png){ width=70% }
+  <img src="img/plate/result.png" style="width: 100%;" alt="picture">
 
