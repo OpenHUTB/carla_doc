@@ -26,9 +26,9 @@
 
 -  进入车辆资产编辑界面后，双击**网格体（VehicleMesh）继承**，会出现车辆以及车辆所引用的资产，将车辆方法，以便查看是否修改成功。如下图所示：
 
-  <img src="img/plate/edit_vehicle.png" style="width: 100%;" alt="picture">
+  <img src="img/plate/edit_vehicle.png" style="width: 90%;" alt="picture">
 
-  <img src="img/plate/edit_vehicle1.png" style="width: 100%;" alt="picture">
+  <img src="img/plate/edit_vehicle1.png" style="width: 90%;" alt="picture">
 
 
 - 找到车辆车牌位置，将材路径替换为先前所准备的自定义材质。
