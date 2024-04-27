@@ -211,6 +211,8 @@ __8. 配置车辆蓝图。__
 
 单击 **_Save_** 并 **_Compile_** 。
 
+- 我们还可以[自定义车辆的车牌](custom_plate.md)。
+
 
 
 __9. 将车辆添加到蓝图库中。__.
@@ -235,7 +237,6 @@ python3 manual_control.py --filter <model_name> # The make or model defined in s
 
 !!! 笔记
     即使您在品牌和型号中使用了大写字符，它们在传递给过滤器时也需要转换为小写字符。
-
 ---
 
 ## 添加 N 轮车辆
