@@ -35,7 +35,7 @@
 基本参数 __Base parameters__ 设置尺寸。
 
 - __楼层数：__ 建筑物的楼层数。身体网格 __Body__ 的重复。
-- __长度 X and 长度 Y：__ 建筑物的长度和宽度。建筑物每一侧的中央网格重复。
+- __长度 X 和 长度 Y：__ 建筑物的长度和宽度。建筑物每一侧的中央网格重复。
 
 ![bp_procedural_building_full](./img/map_customization/BP_Procedural_Building_Full.jpg)
 <div style="text-align: right"><i>BP_Procedural_Building 示例。</i></div>
@@ -46,7 +46,7 @@
 
 - __Disable corners:__ 如果选择，将不使用角网格。
 - __Use full blocks:__ 如果选择此选项，建筑物的结构每层将仅使用一个网格。每层楼不会出现任何角落或重复。
-- __Doors:__ 出现在底层、位于中央网格物体正前方的网格物体。门的数量及其位置可以设置。`0` 是初始位置、`1`下一个底层重复，等等。 
+- __Doors:__ 出现在底层、位于中央网格物体正前方的网格物体。门的数量及其位置可以设置。`0` 是初始位置、`1`是下一个底层重复等。 
 - __Walls:__ 替代建筑物一侧或多侧的网格。例如，平面网格可用于绘制建筑物的一侧。
 
 ![bp_procedural_building_extras](./img/map_customization/BP_Procedural_Building_Extras.jpg)
