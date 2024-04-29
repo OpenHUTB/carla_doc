@@ -148,10 +148,10 @@ raw_image.save_to_disk("path/to/save/converted/image",carla.Depth)
 
 
 ---
-## 惯性测量单元传感器
+## [惯性测量单元传感器](https://github.com/carla-simulator/carla/blob/dev/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/InertialMeasurementUnit.cpp) 
 
 * __蓝图：__ sensor.other.imu
-* __输出：__ 每一步的惯性测量单元的测量值 [carla.IMUMeasurement](python_api.md#carla.IMUMeasurement) （除非传感器滴答信号`sensor_tick`另有说明）。
+* __输出：__ 每一步的惯性测量单元测量值 [carla.IMUMeasurement](python_api.md#carla.IMUMeasurement) （除非传感器滴答信号`sensor_tick`另有说明）。
 
 提供加速度计、陀螺仪和指南针将为父对象检索的测量值。数据是从对象的当前状态收集的。
 
@@ -176,15 +176,17 @@ raw_image.save_to_disk("path/to/save/converted/image",carla.Depth)
 
 #### 输出属性
 
-| 传感器数据属性            | 类型  | 描述                                       |
-| ----------------------- | ----------------------- |------------------------------------------|
-| `frame`            | int   | 进行测量时的帧编号。                               |
-| `timestamp`        | double | 自回合开始以来测量的仿真时间（以秒为单位）。                   |
-| `transform`        | [carla.Transform](<../python_api#carlatransform>)  | 测量时传感器在世界坐标中的位置和旋转。                      |
-| `accelerometer`      | [carla.Vector3D](<../python_api#carlavector3d>)    | 测量线性加速度（以 `m/s^2` 为单位）。                  |
-| `gyroscope`        | [carla.Vector3D](<../python_api#carlavector3d>)    | 测量角速度（以 `rad/sec` 为单位）。                  |
-| `compass`          | float | 以弧度为单位的方向。在虚幻引擎中北是 `(0.0, -1.0, 0.0)` 。 |
+| 传感器数据属性                                                                                                                                                 | 类型  | 描述                                       |
+|---------------------------------------------------------------------------------------------------------------------------------------------------------| ----------------------- |------------------------------------------|
+| `frame`                                                                                                                                                 | int   | 进行测量时的帧编号。                               |
+| `timestamp`                                                                                                                                             | double | 自回合开始以来测量的仿真时间（以秒为单位）。                   |
+| `transform`                                                                                                                                             | [carla.Transform](<../python_api#carlatransform>)  | 测量时传感器在世界坐标中的位置和旋转。                      |
+| [`accelerometer`](https://github.com/carla-simulator/carla/blob/dev/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/InertialMeasurementUnit.cpp#L102) | [carla.Vector3D](<../python_api#carlavector3d>)    | 测量线性加速度（以 `m/s^2` 为单位）。                  |
+| [`gyroscope`](https://github.com/carla-simulator/carla/blob/dev/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/InertialMeasurementUnit.cpp#L147)     | [carla.Vector3D](<../python_api#carlavector3d>)    | 测量角速度（以 `rad/sec` 为单位）。                  |
+| [`compass`](https://github.com/carla-simulator/carla/blob/dev/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/InertialMeasurementUnit.cpp#L167)                                                                                                                                            | float | 以弧度为单位的方向。在虚幻引擎中北是 `(0.0, -1.0, 0.0)` 。 |
 
+* 加速度计算方法：
+$$ d_2 (i) = -2.0 \times [ { y_1 \over {h_1 \times h_2 } }  -  { y_2 \over { h_2 \times (h_1+h_2) } }  -  {y_0 \over { h_1 \times (h_1 + h_2) }} ] .$$
 
 
 ---

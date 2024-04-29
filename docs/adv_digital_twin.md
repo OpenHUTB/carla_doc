@@ -97,7 +97,7 @@ python src/util/config.py -x *.xodr
 
 ## 后续步骤
 
-添加光源（天光）、构建场景。
+添加光源（天光）、[路线规划器](https://github.com/carla-simulator/carla/blob/dev/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Traffic/RoutePlanner.cpp) 、构建场景。
 
 
 ## 问题
