@@ -762,10 +762,10 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.Depth)
 </tbody>
 </table>
 <hr />
-<h2 id="_11">惯性测量单元传感器</h2>
+<h2 id="_11"><a href="https://github.com/carla-simulator/carla/blob/dev/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/InertialMeasurementUnit.cpp">惯性测量单元传感器</a></h2>
 <ul>
 <li><strong>蓝图：</strong> sensor.other.imu</li>
-<li><strong>输出：</strong> 每一步的惯性测量单元的测量值 <a href="../python_api/#carla.IMUMeasurement">carla.IMUMeasurement</a> （除非传感器滴答信号<code>sensor_tick</code>另有说明）。</li>
+<li><strong>输出：</strong> 每一步的惯性测量单元测量值 <a href="../python_api/#carla.IMUMeasurement">carla.IMUMeasurement</a> （除非传感器滴答信号<code>sensor_tick</code>另有说明）。</li>
 </ul>
 <p>提供加速度计、陀螺仪和指南针将为父对象检索的测量值。数据是从对象的当前状态收集的。</p>
 <h4 id="_12">惯性测量单元属性</h4>
@@ -874,22 +874,26 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.Depth)
 <td>测量时传感器在世界坐标中的位置和旋转。</td>
 </tr>
 <tr>
-<td><code>accelerometer</code></td>
+<td><a href="https://github.com/carla-simulator/carla/blob/dev/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/InertialMeasurementUnit.cpp#L102"><code>accelerometer</code></a></td>
 <td><a href="../python_api#carlavector3d">carla.Vector3D</a></td>
 <td>测量线性加速度（以 <code>m/s^2</code> 为单位）。</td>
 </tr>
 <tr>
-<td><code>gyroscope</code></td>
+<td><a href="https://github.com/carla-simulator/carla/blob/dev/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/InertialMeasurementUnit.cpp#L147"><code>gyroscope</code></a></td>
 <td><a href="../python_api#carlavector3d">carla.Vector3D</a></td>
 <td>测量角速度（以 <code>rad/sec</code> 为单位）。</td>
 </tr>
 <tr>
-<td><code>compass</code></td>
+<td><a href="https://github.com/carla-simulator/carla/blob/dev/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/InertialMeasurementUnit.cpp#L167"><code>compass</code></a></td>
 <td>float</td>
 <td>以弧度为单位的方向。在虚幻引擎中北是 <code>(0.0, -1.0, 0.0)</code> 。</td>
 </tr>
 </tbody>
 </table>
+<ul>
+<li>加速度计算方法：
+$$ d_2 (i) = -2.0 \times [ { y_1 \over {h_1 \times h_2 } }  -  { y_2 \over { h_2 \times (h_1+h_2) } }  -  {y_0 \over { h_1 \times (h_1 + h_2) }} ] .$$</li>
+</ul>
 <hr />
 <h2 id="_14">车道侵入检测器</h2>
 <ul>
