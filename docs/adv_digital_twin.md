@@ -8,10 +8,11 @@
 - [__下载并准备 OSM 地图数据__](#downloading-and-preparing-osm-map-data)
 - [__OpenStreetMap 浏览器__](#openstreetmap-browser)
 - [__程序化环境生成__](#procedural-environment-generation)
-	- [道路装饰](#overview)
-	- [建筑物](#alsm)
+  - [道路装饰](#overview)
+  - [建筑物](#alsm)
 - [__生成地图__](#generate-the-map)
 - [__保存地图__](#save-the-map)
+- [**本地化UE编辑器**](adv_localization.md)
 
 __数字孪生工具__ 能够基于源自 [OpenStreetMap](https://www.openstreetmap.org) (OSM) 服务的道路网络，以程序方式生成独特的三维环境。通过 Carla 虚幻引擎编辑器中的数字孪生工具界面，用户可以从 OSM 选择地图区域并下载道路网络作为新 Carla 地图的基础。然后，该工具用程序生成的三维建筑物填充道路之间的空间，这些建筑物会根据道路布局进行调整，从而创建具有高可变性的真实三维道路环境。
 
