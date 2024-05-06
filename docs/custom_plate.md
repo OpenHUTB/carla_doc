@@ -14,7 +14,7 @@
 
   将图片直接拖至 /Game/Carla/Static/GenericMaterials/Licenseplates,右键选择创建材质
 
-  <img src="img/plate/import_photo.png" style="width: 1000%;" alt="picture">
+  <img src="img/plate/import_photo.png" style="width: 100%;" alt="picture">
 
 
 **2.材质替换**
