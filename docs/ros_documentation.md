@@ -33,7 +33,7 @@ ROS 桥具有以下特点：
 - [__Carla 手动控制__](carla_manual_control.md)- 用于自我车辆的基于 ROS 的可视化和控制工具（类似于 Carla 提供的`carla_manual_control.py`）
 - [__Carla 阿克曼控制__](carla_ackermann_control.md) - 一个将阿克曼命令转为转向/油门/刹车的控制器
 - [__Carla 航点发布器__](carla_waypoint.md) - 发布和查询 Carla 航点
-- [__Carla 自动驾驶代理__](carla_ad_agent.md) - 遵循路线、避免碰撞并遵守交通灯的示例代理
+- [__Carla 自动驾驶智能体__](carla_ad_agent.md) - 遵循路线、避免碰撞并遵守交通灯的示例智能体
 - [__Carla 自动驾驶示例__](carla_ad_demo.md) - 一个示例包，提供使用自动驾驶车辆启动 Carla ROS 环境所需的一切
 - [__Carla ROS Scenario Runner__](carla_ros_scenario_runner.md) - 通过 ROS 使用 Carla Scenario Runner 执行 OpenScenarios 的包装器
 - [__Carla 扭转控制__](carla_twist_to_control.md) - 将扭转控制转换为 Carla 车辆控制

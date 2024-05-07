@@ -90,7 +90,7 @@ Carla 论坛</a>
 
 [__控制行人骨架__](tuto_G_control_walker_skeletons.md) — 使用骨骼为步行者设置动画。
 
-[__行人视觉__](tuto_G_pedestrian_visual.md) - 使用相机进行人眼的模拟。
+[__行人视觉__](tuto_G_pedestrian_visual.md) - 使用相机进行人眼的仿真。
 
 [__生成行人导航__](tuto_M_generate_pedestrian_navigation.md) — 获取行人四处走动所需的信息。
 

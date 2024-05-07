@@ -1,4 +1,4 @@
-# 基于ROS的挑战代理
+# 基于ROS的挑战智能体
 
 与 ROS 的 CARLA 接口通常通过 [CARLA ROS Bridge](https://github.com/carla-simulator/ros-bridge) 完成。在挑战模式下，此桥接功能由 RosAgent 提供。它对传感器使用相同的主题和消息类型，但不发布 tf 转换。
  

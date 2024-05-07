@@ -150,7 +150,7 @@ def main():
     traffic_flow = []
 
     # 循环推进仿真时间并统计车流量
-    for t in range(1000):  # 假设模拟100个时间步
+    for t in range(1000):  # 假设仿真100个时间步
         # 推进仿真时间
         world.tick()
 

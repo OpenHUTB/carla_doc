@@ -128,7 +128,7 @@
 
 ### 使用 LSDYNA 格式输入 
 #### 测试实例
-测试例子是[拉伸模拟](https://openradioss.atlassian.net/wiki/spaces/OPENRADIOSS/pages/21364914/Tensile+Test+Model+in+LS-DYNA+format "拉伸-LSDYNA")。
+测试例子是[拉伸仿真](https://openradioss.atlassian.net/wiki/spaces/OPENRADIOSS/pages/21364914/Tensile+Test+Model+in+LS-DYNA+format "拉伸-LSDYNA")。
 #### bash 脚本
 
         myjobname=$(echo "$1" )
@@ -311,7 +311,7 @@ LAW 2 / 36
     \sigma_{31}\\
     \sigma_{12}
   \end{bmatrix}$$
-* 密度值通常用于显式模拟，也可以用于静态隐式模拟，以便在拟静态分析中达到更好的收敛性。
+* 密度值通常用于显式仿真，也可以用于静态隐式仿真，以便在拟静态分析中达到更好的收敛性。
 * 当通过壳体厚度的积分点个数不同于NP=1(膜)时，对LAW1和壳单元(/PROP/TYPE1 (shell))采用全局积分法。
 * 失效模型在全局集成的情况下不可用。在这些情况下，具有很高屈服应力的LAW2和LAW27可以作为LAW1的替代品。
  #### MAT1 代码解读

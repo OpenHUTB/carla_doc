@@ -63,7 +63,7 @@ def main():
             vehicle.set_autopilot()
 
 
-        # 获得当前模拟世界的设定
+        # 获得当前仿真世界的设定
         setting = world.get_settings()
         # 设定为异步模式
         setting.synchronous_mode = True
@@ -82,11 +82,11 @@ def main():
 
             # 如果为同步模式设定
             if traffic_manager.synchronous_mode:
-                # 更新模拟世界
+                # 更新仿真世界
                 world.tick()
             # 如果为异步模式设定
             else:
-                # 更新模拟世界
+                # 更新仿真世界
                 world.wait_for_tick()
 
     finally:
@@ -97,7 +97,7 @@ def main():
         for vehicle in world.get_actors().filter('*vehicle*'):
             vehicle.destroy()
 
-        # 获得当前模拟世界设定
+        # 获得当前仿真世界设定
         settings = world.get_settings()
         # 设定为异步模式
         settings.synchronous_mode = False

@@ -1,7 +1,7 @@
 ## Windows 下 OpenRadioss 的使用
 
 ### 测试实例
-测试例子是 [车辆撞墙模拟](https://openradioss.atlassian.net/wiki/spaces/OPENRADIOSS/pages/47546369/HPC+Benchmark+Models#Taurus-10-Million-finite-elements) 的 [模型文件](https://openradioss.atlassian.net/wiki/download/attachments/47546369/Neon1m11_2017.zip?api=v2) 。
+测试例子是 [车辆撞墙仿真](https://openradioss.atlassian.net/wiki/spaces/OPENRADIOSS/pages/47546369/HPC+Benchmark+Models#Taurus-10-Million-finite-elements) 的 [模型文件](https://openradioss.atlassian.net/wiki/download/attachments/47546369/Neon1m11_2017.zip?api=v2) 。
 
 ### 处理步骤
 1. 模型初始化

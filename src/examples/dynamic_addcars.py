@@ -84,7 +84,7 @@ def main():
     # 获得当前客户端的交通管理器
     traffic_manager = client.get_trafficmanager()
 
-    # 获得当前模拟世界的设定
+    # 获得当前仿真世界的设定
     setting = world.get_settings()
     # 设定为异步模式
     setting.synchronous_mode = True
@@ -125,7 +125,7 @@ def main():
 
         # 如果为同步模式设定
         if traffic_manager.synchronous_mode:
-            # 更新模拟世界
+            # 更新仿真世界
             world.tick()
             # 从队列中读取传感器图像
             # image = image_queue.get()
@@ -133,7 +133,7 @@ def main():
             # image.save_to_disk(output_path % image.frame)
         # 如果为异步模式设定
         else:
-            # 更新模拟世界
+            # 更新仿真世界
             world.wait_for_tick()
 
     finally:
@@ -147,7 +147,7 @@ def main():
     for walker in world.get_actors().filter('*walker*'):
         walker.destroy()
 
-    # 获得当前模拟世界设定
+    # 获得当前仿真世界设定
     settings = world.get_settings()
     # 设定为异步模式
     settings.synchronous_mode = False

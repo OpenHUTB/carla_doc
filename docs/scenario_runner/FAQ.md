@@ -1,6 +1,6 @@
 # 经常问的问题
 
-## 在代理导航中收到错误 "TypeError: 'instancemethod' object has no attribute '__getitem__'" 
+## 在智能体导航中收到错误 "TypeError: 'instancemethod' object has no attribute '__getitem__'" 
 
 此问题很可能是由 Python Networkx 包的过时版本引起的。请删除当前安装（例如 sudo apt-get remove python-networkx）并使用“pip install --user networkx==2.2”进行安装。
 

@@ -2914,9 +2914,9 @@ _</font>
 - <a name="carla.Vehicle.get_physics_control"></a>**<font color="#7fb800">get_physics_control</font>**(<font color="#00a6ed">**self**</font>)  
 仿真器返回应用于该车辆的最后一个物理控制。
     - **返回:** _[carla.VehiclePhysicsControl](#carla.VehiclePhysicsControl)_  
-    - **警告:** <font color="#ED2F2F">_此方法确实调用模拟器来检索值。_</font>  
+    - **警告:** <font color="#ED2F2F">_此方法确实调用仿真器来检索值。_</font>  
 - <a name="carla.Vehicle.get_speed_limit"></a>**<font color="#7fb800">get_speed_limit</font>**(<font color="#00a6ed">**self**</font>)  
-客户端根据最后一个tick返回影响该车辆的速度限制（它不调用模拟器）。当经过限速信号时，限速会更新，因此车辆在生成后可能就没有限速信号。
+客户端根据最后一个tick返回影响该车辆的速度限制（它不调用仿真器）。当经过限速信号时，限速会更新，因此车辆在生成后可能就没有限速信号。
     - **返回:** _float<small> - km/h</small>_  
 - <a name="carla.Vehicle.get_traffic_light"></a>**<font color="#7fb800">get_traffic_light</font>**(<font color="#00a6ed">**self**</font>)  
 根据最后一个刻度检索影响此车辆的交通灯参与者（如果有）。该方法不调用仿真器。
@@ -3217,7 +3217,7 @@ VehiclePhysicsControl 构造函数。
 
 ## carla.WalkerAIController<a name="carla.WalkerAIController"></a>
 <small style="display:block;margin-top:-20px;">从 _[carla.Actor](#carla.Actor)_ 继承</small></br>
-对步行者进行 AI 控制的类。控制器被定义为参与者，但它们与其他控制器有很大不同。它们在创建过程中需要附加到父 Actor，这是它们将控制的步行者（如果您尚未了解如何生成 Actor，请查看[carla.World](#carla.World) ）。他们还需要一个特殊的蓝图（已在 [carla.BlueprintLibrary](#carla.BlueprintLibrary) 中定义为“controller.ai.walker”）。这是一个空的蓝图，因为人工智能控制器在模拟中是不可见的，但会跟随其父控制器来指示每一步。
+对步行者进行 AI 控制的类。控制器被定义为参与者，但它们与其他控制器有很大不同。它们在创建过程中需要附加到父 Actor，这是它们将控制的步行者（如果您尚未了解如何生成 Actor，请查看[carla.World](#carla.World) ）。他们还需要一个特殊的蓝图（已在 [carla.BlueprintLibrary](#carla.BlueprintLibrary) 中定义为“controller.ai.walker”）。这是一个空的蓝图，因为人工智能控制器在仿真中是不可见的，但会跟随其父控制器来指示每一步。
 
 
 ### 方法
@@ -3727,7 +3727,7 @@ _</font>
     - **笔记:** <font color="#8E8E8E">_应在行人生成之前设置。如果您想为每个行人重复相同的身体（蓝图），请在 Python 代码（随机选择蓝图）和此处使用相同的种子，否则行人将重复相同的路径，但身体会不同。
 _</font>  
 - <a name="carla.World.set_weather"></a>**<font color="#7fb800">set_weather</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**weather**</font>)  
-将模拟的天气参数更改为对象中定义的其他参数。
+将仿真的天气参数更改为对象中定义的其他参数。
     - **参数:**
         - `weather` (_[carla.WeatherParameters](#carla.WeatherParameters)_) - 要应用的新条件。
     - **获取器:** _[carla.World.get_weather](#carla.World.get_weather)_  

@@ -2,13 +2,13 @@
 
 ## 重要提示：此信息已过时，挑战文件已被删除。该功能现已移至 [排行榜](https://github.com/carla-simulator/leaderboard)。但是，它仍然可以与 scene_runner.py 的路由参数一起使用，而不是与challenge_evaluator.py一起使用 
 
-要让挑战评估系统评估您的代理，您必须定义继承 [AutonomousAgent](https://github.com/carla-simulator/scenario_runner/blob/master/srunner/autoagents/autonomous_agent.py) 基类的 Agent 类。此外，您需要按照挑战评估器教程中的说明设置环境。
+要让挑战评估系统评估您的智能体，您必须定义继承 [AutonomousAgent](https://github.com/carla-simulator/scenario_runner/blob/master/srunner/autoagents/autonomous_agent.py) 基类的 Agent 类。此外，您需要按照挑战评估器教程中的说明设置环境。
 
-在您的代理类上，需要定义三个主要函数来覆盖它们，以便设置代理运行。此外，您还应该考虑最初设置为变量的目标路径。
+在您的智能体类上，需要定义三个主要函数来覆盖它们，以便设置智能体运行。此外，您还应该考虑最初设置为变量的目标路径。
 
 
 ##### "setup" 函数:
-您应该在该功能中为代理进行所有必要的设置。
+您应该在该功能中为智能体进行所有必要的设置。
 
 该函数接收要由用户解析的配置文件的路径作为参数。
 
@@ -21,7 +21,7 @@ python srunner/challenge/challenge_evaluator_routes.py  --agent=<path_to_my_agen
 
 ##### "sensors" 函数:
 
-您可以在此功能中设置代理所需的所有传感器。例如，在虚拟代理示例类上定义了以下传感器：
+您可以在此功能中设置智能体所需的所有传感器。例如，在虚拟智能体示例类上定义了以下传感器：
 
 ```Python
 def sensors(self):
@@ -58,7 +58,7 @@ def sensors(self):
 
 ##### 初始路线:
 
-在执行开始时，英雄代理应该行驶的整个路线是在“self.global_plan”变量上设置的： 
+在执行开始时，英雄智能体应该行驶的整个路线是在“self.global_plan”变量上设置的： 
 
 ```
 [({'z': 0.0, 'lat': 48.99822669411668, 'lon': 8.002271601998707}, <RoadOption.LANEFOLLOW: 4>),

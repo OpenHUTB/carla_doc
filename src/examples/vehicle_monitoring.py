@@ -161,7 +161,7 @@ def main():
         police_camera = world.spawn_actor(police_camera_bp, police_camera_transform, attach_to=police_vehicle,
                                           attachment_type=carla.libcarla.AttachmentType.SpringArmGhost)
 
-        # 获得当前模拟世界的设定
+        # 获得当前仿真世界的设定
         setting = world.get_settings()
         # 设定为异步模式
         setting.synchronous_mode = True
@@ -195,13 +195,13 @@ def main():
             world.get_spectator().set_transform(camera_Transforms[current_camera_index])
             # 如果为同步模式设定
             if traffic_manager.synchronous_mode:
-                # 更新模拟世界
+                # 更新仿真世界
                 world.tick()
                     # 处理图像的逻辑，例如保存到磁盘
                     # image.save_to_disk(output_path % image.frame)
             # 如果为异步模式设定
             else:
-                # 更新模拟世界
+                # 更新仿真世界
                 world.wait_for_tick()
                 # 切换到下一个摄像头
             # 获取当前时间
@@ -224,7 +224,7 @@ def main():
         for walker in world.get_actors().filter('*walker*'):
             walker.destroy()
 
-        # 获得当前模拟世界设定
+        # 获得当前仿真世界设定
         settings = world.get_settings()
         # 设定为异步模式
         settings.synchronous_mode = False

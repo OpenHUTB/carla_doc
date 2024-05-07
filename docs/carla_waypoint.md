@@ -36,7 +36,7 @@ ros2 launch carla_waypoint_publisher carla_waypoint_publisher.launch.py
 ### 使用航点发布器
 
 
-[Carla 自动驾驶演示](carla_ad_demo.md) 使用 Waypoint Publisher 为[Carla 自动驾驶代理](carla_ad_agent.md) 规划路线。有关如何使用它的示例， 请参阅 Carla 自动驾驶演示 [启动文件](https://github.com/carla-simulator/ros-bridge/blob/ros2/carla_ad_demo/launch/carla_ad_demo_with_scenario.launch) 。
+[Carla 自动驾驶演示](carla_ad_demo.md) 使用 Waypoint Publisher 为[Carla 自动驾驶智能体](carla_ad_agent.md) 规划路线。有关如何使用它的示例， 请参阅 Carla 自动驾驶演示 [启动文件](https://github.com/carla-simulator/ros-bridge/blob/ros2/carla_ad_demo/launch/carla_ad_demo_with_scenario.launch) 。
 
 ---
 

@@ -1,8 +1,8 @@
 ## [Carla 的场景运行器](https://github.com/carla-simulator/scenario_runner/blob/master/Docs/index.md) 
 
-ScenarioRunner 是一个允许 [Carla](http://carla.org/) 模拟器定义和执行交通场景的模块。可以通过 Python 接口或使用 [OpenSCENARIO](http://www.openscenario.org/) 标准来定义场景。最新版本的scenario_runner 还支持即将推出的 OpenSCENARIO 标准和 OpenSCENARIO 2.0 标准。
+ScenarioRunner 是一个允许 [Carla](http://carla.org/) 仿真器定义和执行交通场景的模块。可以通过 Python 接口或使用 [OpenSCENARIO](http://www.openscenario.org/) 标准来定义场景。最新版本的scenario_runner 还支持即将推出的 OpenSCENARIO 标准和 OpenSCENARIO 2.0 标准。
 
-ScenarioRunner 还可用于通过轻松创建复杂的交通场景和供代理导航的路线来为自动驾驶智能体的评估做好准备。这些结果可以在 [Carla 排行榜](https://leaderboard.carla.org/) 上进行验证和共享，Carla 排行榜是一个开放平台，供社区公平地比较他们的进度，在现实的交通情况下评估代理。 
+ScenarioRunner 还可用于通过轻松创建复杂的交通场景和供智能体导航的路线来为自动驾驶智能体的评估做好准备。这些结果可以在 [Carla 排行榜](https://leaderboard.carla.org/) 上进行验证和共享，Carla 排行榜是一个开放平台，供社区公平地比较他们的进度，在现实的交通情况下评估智能体。 
 
 Carla 论坛有一个关于 ScenarioRunner 的专门版块，供用户发表在阅读本文档过程中可能出现的任何疑问或建议。 
 <div class="build-buttons">
