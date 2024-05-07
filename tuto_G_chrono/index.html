@@ -351,6 +351,10 @@
 <p><strong>在从 Carla 的源代码构建版本中</strong>，运行以下命令来启动服务器：</p>
 <pre><code class="language-sh">make launch ARGS=&quot;--chrono&quot;
 </code></pre>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>使用上述命令编译后，再使用<code>make launch</code>命令启动服务器则编译报错：<code>Unreal\CarlaUE4\Plugins\Carla\CarlaDependencies\include\Eigen\src/Core/util/ForwardDeclarations.h(58): error C4067: 预处理器指令后有意外标记 - 应输入换行符</code>，原因不明。</p>
+</div>
 <hr />
 <h3 id="chrono_2">启用 Chrono 物理</h3>
 <p>Chrono 物理是通过 <a href="../python_api/#carlaactor">Actor</a> 类提供的 <code>enable_chrono_physics</code> 方法启用的。除了子步骤和子步骤增量时间的值之外，它还需要三个模板文件和一个基本路径来定位这些文件： </p>

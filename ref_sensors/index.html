@@ -892,8 +892,10 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.Depth)
 </table>
 <ul>
 <li>加速度计算方法：
-$$ d_2 (i) = -2.0 \times [ { y_1 \over {h_1 \times h_2 } }  -  { y_2 \over { h_2 \times (h_1+h_2) } }  -  {y_0 \over { h_1 \times (h_1 + h_2) }} ] .$$</li>
+<script type="math/tex; mode=display"> d_2 (i) = -2.0 \times [ { y_1 \over {h_1 \times h_2 } }  -  { y_2 \over { h_2 \times (h_1+h_2) } }  -  {y_0 \over { h_1 \times (h_1 + h_2) }} ] .</script>
+</li>
 </ul>
+<p>其中，<script type="math/tex">h_1</script> 为当前时间增量，<script type="math/tex">h_2</script>为前一个时间增量。</p>
 <hr />
 <h2 id="_14">车道侵入检测器</h2>
 <ul>

@@ -696,7 +696,7 @@ EOS_TAG：状态方程的标签
 <img alt="弹性LS-DYNA" src="../figure/yingli.png" /></p>
 <p>真实应力形变
 * 真实应力：考虑当前或真实横截面积$A_{true}$的应力
-  $$\sigma_{true}=\frac{P_x}{A_{true}}$$
+  <script type="math/tex; mode=display">\sigma_{true}=\frac{P_x}{A_{true}}</script>
 * 在塑性变形范围内，塑性变形横截面积永久减小
 * 继续使用工程应力不再准确
  <img alt="弹性LS-DYN" src="../figure/tanxing.png" /></p>
@@ -713,32 +713,34 @@ EOS_TAG：状态方程的标签
 <li>该材料适用于纯粹的弹性材料。材料的性能只取决于两个因素：</li>
 <li>杨氏模量: $E$</li>
 <li>泊松比: $\nu$</li>
-<li>剪切模量: (可计算) $$G=\frac{E}{2(1+\nu)}$$</li>
+<li>剪切模量: (可计算) <script type="math/tex; mode=display">G=\frac{E}{2(1+\nu)}</script>
+</li>
 <li>应力应变关系
-  $$\begin{bmatrix}
-  \epsilon_{11}\
-  \epsilon_{22}\
-  \epsilon_{33}\
-  \gamma_{23}\
-  \gamma_{31}\
+  <script type="math/tex; mode=display">\begin{bmatrix}
+  \epsilon_{11}\\
+  \epsilon_{22}\\
+  \epsilon_{33}\\
+  \gamma_{23}\\
+  \gamma_{31}\\
   \gamma_{12}
   \end{bmatrix}=\frac{1}{E}
   \begin{bmatrix}
-    1&amp;-\nu&amp;-\nu&amp;0&amp;0&amp;0\
-    -\nu&amp;1&amp;-\nu&amp;0&amp;0&amp;0\
-    -\nu&amp;-\nu&amp;1&amp;0&amp;0&amp;0\
-    0&amp;0&amp;0&amp;2(1+\nu)&amp;0&amp;0\
-    0&amp;0&amp;0&amp;0&amp;2(1+\nu)&amp;0\
-    0&amp;0&amp;0&amp;0&amp;0&amp;2(1+\nu)
+    1&-\nu&-\nu&0&0&0\\
+    -\nu&1&-\nu&0&0&0\\
+    -\nu&-\nu&1&0&0&0\\
+    0&0&0&2(1+\nu)&0&0\\
+    0&0&0&0&2(1+\nu)&0\\
+    0&0&0&0&0&2(1+\nu)
   \end{bmatrix}
   \begin{bmatrix}
-    \sigma_{11}\
-    \sigma_{22}\
-    \sigma_{33}\
-    \sigma_{23}\
-    \sigma_{31}\
+    \sigma_{11}\\
+    \sigma_{22}\\
+    \sigma_{33}\\
+    \sigma_{23}\\
+    \sigma_{31}\\
     \sigma_{12}
-  \end{bmatrix}$$</li>
+  \end{bmatrix}</script>
+</li>
 <li>密度值通常用于显式模拟，也可以用于静态隐式模拟，以便在拟静态分析中达到更好的收敛性。</li>
 <li>当通过壳体厚度的积分点个数不同于NP=1(膜)时，对LAW1和壳单元(/PROP/TYPE1 (shell))采用全局积分法。</li>
 <li>失效模型在全局集成的情况下不可用。在这些情况下，具有很高屈服应力的LAW2和LAW27可以作为LAW1的替代品。
