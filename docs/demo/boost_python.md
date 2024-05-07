@@ -1,0 +1,99 @@
+## [VS2019调用boost.Python](https://developer.aliyun.com/article/1260043)
+
+### 生成可执行文件
+1. 新建 Cmake 工程；
+2. 输入以下代码：
+```cpp
+#include <boost/python.hpp>
+#include <boost/python/module.hpp>
+#include <boost/python/def.hpp>
+#include <boost/python/to_python_converter.hpp>
+#include <iostream>
+using namespace std;
+void dummyFunc() {
+	cout << "call OK!" << endl;
+}
+int main()
+{
+	dummyFunc();
+	return 0;
+}
+```
+
+3. 在`CMakeLists.txt`中添加头文件目录和库文件目录
+```text
+# 添加头文件目录
+include_directories("D:/work/workspace/carla/Build/boost-1.80.0-install/include")
+include_directories("C:/Users/Administrator/AppData/Local/Programs/Python/Python37/include")
+# 添加库文件目录
+link_directories("C:/Users/Administrator/AppData/Local/Programs/Python/Python37/libs")
+# 还是缺少 libboost_python37-vc142-mt-gd-x64-1_80.lib
+link_directories("D:/work/workspace/carla/Build/boost-1.80.0-install/lib_no_prefix")
+```
+
+4. 到boost安装目录下，进入 lib文件夹下，找到前缀是`libboost_python37-vc142-mt-x64-1_80.lib`文件（前缀有lib），将其前缀的lib删除即可（即重命名为`boost_python37-vc142-mt-x64-1_80.lib`）。
+
+5. 生成解决方案，会生成exe文件，如果不可以在vs中直接执行，将工具栏中的`当前文档`改为`*.exe`。
+
+
+### 生成Python调用的库
+
+1. 新建`hello_exe.cpp`，注意文件名必须为模块名：
+```cpp
+// 参考：https://developer.aliyun.com/article/1260043
+
+// 当引入 #include <boost/python/xxx> 时，Boost 会默认链接 boost_python 动态链接库，
+// 如果我们想要链接静态链接库，就需要在 include 之前加上 #define BOOST_PYTHON_STATIC_LIB
+// 指定链接 boost_python 的静态库，而不是默认的动态库。
+#define BOOST_PYTHON_STATIC_LIB
+
+#include <boost/python.hpp>
+#include <boost/python/module.hpp>
+#include <boost/python/def.hpp>
+#include <boost/python/to_python_converter.hpp>
+#include <iostream>
+
+using namespace std;
+
+char const* greet()
+{
+	return "hello, world";
+}
+
+BOOST_PYTHON_MODULE(hello_ext)
+{
+	using namespace boost::python;
+	def("greet", greet);
+}
+```
+
+2. 新建`CMakeLists.txt`：
+```shell
+cmake_minimum_required (VERSION 3.8)
+
+# 添加头文件目录
+include_directories("D:/work/workspace/carla/Build/boost-1.80.0-install/include")
+include_directories("C:/Users/Administrator/AppData/Local/Programs/Python/Python37/include")
+# 添加库文件目录
+link_directories("C:/Users/Administrator/AppData/Local/Programs/Python/Python37/libs")
+# 还是缺少 libboost_python37-vc142-mt-gd-x64-1_80.lib
+link_directories("D:/work/workspace/carla/Build/boost-1.80.0-install/lib_no_prefix")
+
+# 将源代码添加到此项目的可执行文件。
+# add_executable (boost_demo "boost_demo.cpp" "boost_demo.h")
+
+# # 生成动态库(共享库)共享库则只有一个副本
+add_library(hello_ext SHARED hello_ext.cpp)
+#(boost_demo 是库的名字)，这条命令告诉cmake，我们想把 boost_demo.cpp编译成一个叫作“boost_demo”的库。
+set_target_properties(hello_ext PROPERTIES SUFFIX ".pyd")
+```
+构建后会生成`hello_ext.pyd`。
+
+
+3. 在生成的`.pyd`目录下新建`hello.py`
+```python
+import hello_ext
+
+print(hello_ext.greet())
+```
+

@@ -116,6 +116,9 @@ python3 run_synchronization.py <SUMOCFG FILE> --tls-manager carla --sumo-gui
 python3 spawn_sumo_npc.py -n 10 --tls-manager carla --sumo-gui
 ```
 
+## [sumo TraCI接口文档](https://sumo.dlr.de/docs/TraCI.html) 
+
+
 ---
 
 到目前为止，这就是与 Carla 进行 SUMO 联合仿真的全部内容。

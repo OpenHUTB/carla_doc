@@ -188,6 +188,7 @@ raw_image.save_to_disk("path/to/save/converted/image",carla.Depth)
 * 加速度计算方法：
 $$ d_2 (i) = -2.0 \times [ { y_1 \over {h_1 \times h_2 } }  -  { y_2 \over { h_2 \times (h_1+h_2) } }  -  {y_0 \over { h_1 \times (h_1 + h_2) }} ] .$$
 
+其中，\(h_1\) 为当前时间增量，\(h_2\)为前一个时间增量。
 
 ---
 ## 车道侵入检测器

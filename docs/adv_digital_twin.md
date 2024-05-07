@@ -1,7 +1,7 @@
 !!! 笔记
 	__数字孪生工具__ 目前是一项 __实验性功能__ ，现阶段尚未考虑投入生产。地图的某些部分可能未装饰或无纹理。因此它只能用于实验研究项目。
 
-# 数字孪生工具
+# [数字孪生工具](https://carla.readthedocs.io/en/latest/adv_digital_twin/)
 
 ![digital_twin_pipeline](img/pipeline.png)
 
@@ -18,7 +18,26 @@ __数字孪生工具__ 能够基于源自 [OpenStreetMap](https://www.openstreet
 
 ## 构建 OSM 渲染器
 
-如果您使用的是 Linux，则可以选择使用 Carla 界面中的 OSM 渲染器来导航已下载的大型 OSM 地图区域。您首先需要构建 OSM 渲染器。 在 Carla 根目录中运行 `make osmrenderer`。 您可能需要将 CMake 版本升级到 v3.2 或更高版本才能正常工作。这将在您的构建目录中创建两个名为 `libosmcout-source` 和 `libosmcout-build` 的文件夹。Windows 用户无法选择使用 OSM 渲染器，必须直接使用 URL。
+如果您使用的是 Linux，则可以选择使用 Carla 界面中的 OSM 渲染器来导航已下载的大型 OSM 地图区域。您首先需要构建 OSM 渲染器。 在 Carla 根目录中运行 `make osmrenderer`。 您可能需要将 CMake 版本升级到 v3.2 或更高版本才能正常工作。这将在您的构建目录中创建两个名为 `libosmcout-source` 和 `libosmcout-build` 的文件夹。在继续构建 CARLA 之前，您需要像这样 在目录中 `$CARLA_ROOT/Build/libosmcout-source/maps` 编辑文件 `Build.sh`，以确保找到可执行文件：
+
+```bash
+if [[ -x ../Import/src/Import ]]; then
+  importExe=../Import/src/Import
+elif [[ -x ../debug/Import/Import ]]; then
+  importExe=../debug/Import/Import
+elif [[ -x ../build/Import/Import ]]; then
+  importExe=../build/Import/Import
+###################  Add this line ####################
+elif [ -x ../../libosmscout-build/Import/Import ]; then
+  importExe=../../libosmscout-build/Import/Import
+#######################################################
+else
+  echo "Cannot find Import executable!"
+  exit 1
+fi
+```
+
+然后继续按正常方式构建CARLA。Windows 用户无法选择使用 OSM 渲染器，必须直接使用 URL。
 
 ## 下载并准备 OSM 地图数据
 
@@ -67,7 +86,7 @@ python src/util/config.py -x *.xodr
 
 ### 道路装饰
 
-该工具从 OSM 数据中提取道路网络作为地图的基础。路面装饰有逼真的表面不规则性、道路标记和纹理。
+该工具从 OSM 数据中提取道路网络作为地图的基础。路面装饰有逼真的表面不规则性、道路纹理和车道线、裂痕和轮胎印迹。
 
 ![road_markings](img/road_surface.jpg)
 
@@ -107,3 +126,7 @@ python src/util/config.py -x *.xodr
 // ExecuteTileCommandlet();
 GenerateTile();
 ```
+原因：
+生成瓦片的命令行程序位于`Unreal\CarlaUE4\Plugins\CarlaTools\Source\CarlaTools\Private\Commandlet\GenerateTileCommandlet.cpp`。
+
+参考：UE 中的 [Commandlet](./ue_commandlet.md) 解读。

@@ -34,3 +34,7 @@ PID、基于模型的控制。
 
 ### 有限元
 * 开源多物理场仿真引擎 [Chrono](https://projectchrono.org/) 。
+
+
+## 第三方工具
+* [Carla调试工具](https://gitee.com/kin-zhang/quickly-carla) 

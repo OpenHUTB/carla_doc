@@ -992,8 +992,9 @@ class IMUSensor(object):
         bp = world.get_blueprint_library().find('sensor.other.imu')
         self.sensor = world.spawn_actor(
             bp, carla.Transform(), attach_to=self._parent)
-        # We need to pass the lambda a weak reference to self to avoid circular
-        # reference.
+        # 我们需要给self传递一个lambda弱引用，以避免循环引用。
+        # 弱引用并不会增加引用数（不会阻止对象被垃圾回收），但是它会关联目标对象
+        # 避免因为缓存导致对象无法回收，从而导致内存泄漏（既能拿到这个对象，又不影响它的内存回收）
         weak_self = weakref.ref(self)
         self.sensor.listen(
             lambda sensor_data: IMUSensor._IMU_callback(weak_self, sensor_data))

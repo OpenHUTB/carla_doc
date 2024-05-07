@@ -30,6 +30,9 @@ __在从 Carla 的源代码构建版本中__，运行以下命令来启动服务
 make launch ARGS="--chrono"
 ```
 
+!!! 注意
+    使用上述命令编译后，再使用`make launch`命令启动服务器则编译报错：`Unreal\CarlaUE4\Plugins\Carla\CarlaDependencies\include\Eigen\src/Core/util/ForwardDeclarations.h(58): error C4067: 预处理器指令后有意外标记 - 应输入换行符`，原因不明。
+
 ---
 
 ### 启用 Chrono 物理
