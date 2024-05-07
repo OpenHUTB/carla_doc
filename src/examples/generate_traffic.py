@@ -27,6 +27,9 @@ except IndexError:
 
 import carla
 
+# 获得carla库所在的位置
+# os.path.dirname(carla.__file__)
+
 from carla import VehicleLightState as vls
 
 import argparse

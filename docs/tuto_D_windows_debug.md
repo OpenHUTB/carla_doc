@@ -70,11 +70,17 @@ cmake --build . --config Release --target install | findstr /V "Up-to-date:"
     在vs2019中生成`carla_client_debug`的解决方案时出现`fatal error C1189: #error :  "Incompatible build options"`错误，因为 [在不指定调试运行时的情况下使用/rtc选项将导致链接器错误](https://www.twblogs.net/a/5ef976a7fa148015395f1c5e/?lang=zh-cn) ，则需要将“项目属性 --> C++ --> 基本运行时检查” 改为 `默认值`，然后重新生成解决方案。
 
 
-### 其他说明
+### Python 扩展模块
+LibCarla编译后生成`Python37/Lib/site-packages/carla/libcarla.cp37-win_amd64.pyd`给Python进行调用。为了提高运行速度，将当前目录中的`__init__.py`和`command.py`编译为`__pycache__`目录中的 `byte code(字节码)`。
+
+
+## PythonAPI
 boost_python库所在的目录为：`carla\Build\boost-1.80.0-install\lib\libboost_python37-vc142-mt-x64-1_80.lib`，`mt-x64`之间带有`gd`的是对应的调试版本。示例参考 [链接](demo/boost_python.md) 。
 
 
-## VS2019 打开 CarlaUE4 的 Cmake 工程
+## 其他
+
+### VS2019 打开 CarlaUE4 的 Cmake 工程
 windows操作系统下通过vs2019打开并编译carla：
 
 1. 开Carla的CMake项目（参考[CMake 入门教程](https://www.jb51.net/article/180463.htm) ）：
@@ -89,7 +95,7 @@ windows操作系统下通过vs2019打开并编译carla：
 
 点击菜单栏`生成`-`全部生成`或`部分生成`即可。
 
-## 导入崩溃问题
+### 导入崩溃问题
 
 1. 例如，导入链接：
 ```text
@@ -184,14 +190,14 @@ LogWindows: Error: Assertion failed: !IsRunningCommandlet() [File:D:/work/worksp
 ```
 
 
-## [VS 调试 UE 项目](https://ue5wiki.com/wiki/14373/)
+### [VS 调试 UE 项目](https://ue5wiki.com/wiki/14373/) 
 
 * 变量已被优化掉，因而不可用。	
 
 VS菜单中选择`DebugGammingEditor`，然后开始调试，就可以添加要监视的项。
 
 
-## 问题
+### 问题
 崩溃于`engine\Engine\Source\Runtime\CoreUObject\Private\UObject\ScriptCore.cpp`1990行`Function->Invoke(this, NewStack, ReturnValueAddress);`
 弹出报错信息框：
 ```text
@@ -201,16 +207,16 @@ Failed to open descriptor file ./../../../carla/Unreal/CarlaUE4/CarlaUE4.uprojec
 * [VS跳转代码太慢](http://www.piaoyi.org/c-sharp/Visual-Studio-2019-Intellisense.html) 
 
 
-## 依赖
+### 依赖
 
-### boost-1.80.0
+#### boost-1.80.0
 [Python封装C++库调试](https://blog.csdn.net/ASCE_Python/article/details/105595218) 。
 
 
-## 发布
+### 发布
 包含所有软件依赖，双击`launch.bat`启动软件。
 
-### VS2019社区版安装
+#### VS2019社区版安装
 解压安装包：
 ```shell
 7z x filename.zip -o.
@@ -218,7 +224,7 @@ Failed to open descriptor file ./../../../carla/Unreal/CarlaUE4/CarlaUE4.uprojec
 新电脑运行`NativeDesktop.exe`出现`此版本的Windows不支持此产品，请尝试升级Windows。`
 
 
-## 技巧
+### 技巧
 
 * 进行函数跳转时，vs一致出现`正在进行IntelliSense`：
 

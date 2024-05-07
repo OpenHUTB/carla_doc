@@ -97,3 +97,21 @@ import hello_ext
 print(hello_ext.greet())
 ```
 
+### 从Python中调试*.cpp
+1. 在原始.py脚本中添加打印进程号的代码，并使调试停止于cpp函数调用之前。
+```python
+import os
+
+# 获取当前进程ID（便于调试）
+process_id = os.getpid()
+print("Current process id is: ", process_id)
+
+import hello_ext
+
+print(hello_ext.greet())
+```
+
+2. 在visual studio 中添加断点，并附着到第1步的进程中。
+
+3. 在`*.py`中继续执行，会在vs中暂定。
+
