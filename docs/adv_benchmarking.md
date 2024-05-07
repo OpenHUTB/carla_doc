@@ -192,6 +192,9 @@ python3 performance_benchmark.py --async --render_mode
 
 ---
 
+# 算法性能测试
+[算法性能排行榜](leaderboard.md) 。
+
 如果您对性能基准有任何疑问，请不要犹豫，在论坛中发帖。
 
 <div class="build-buttons">
