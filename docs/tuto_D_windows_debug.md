@@ -1,5 +1,7 @@
 # 在 Windows 上进行 Carla 的调试
 
+程序调用流程：Python、libcarla.cp37-win_amd64.pyd、LibCarla、CarlaUE4。
+
 ## 虚幻引擎Carla插件的调试
 1. 进入目录`carla/Unreal/CarlaUE4/`，右键文件`CarlaUE4.uproject`，选择运行`Generate Visual Studio project files`，在当前目录中将会生成VS的工程文件，双击打开`CarlaUE4.sln`。
 
@@ -65,9 +67,10 @@ cmake --build . --config Release --target install | findstr /V "Up-to-date:"
 
 3. 附着到 Python 程序启动调试后，出现`当前不会命中断点 还没有为该文档加载任何符号`的警告。[解决](https://blog.csdn.net/u010821666/article/details/78512900) 
 
+在`BuildLibCarla.bat`中，将 `--config`参数从`Release`修改为`Debug`。
 
 !!! 注意
-    在vs2019中生成`carla_client_debug`的解决方案时出现`fatal error C1189: #error :  "Incompatible build options"`错误，因为 [在不指定调试运行时的情况下使用/rtc选项将导致链接器错误](https://www.twblogs.net/a/5ef976a7fa148015395f1c5e/?lang=zh-cn) ，则需要将“项目属性 --> C++ --> 基本运行时检查” 改为 `默认值`，然后重新生成解决方案。
+    在vs2019中生成`carla_client_debug`的解决方案时出现`fatal error C1189: #error :  "Incompatible build options"`错误，因为 [在不指定调试运行时的情况下使用/RTC选项将导致链接器错误](https://www.twblogs.net/a/5ef976a7fa148015395f1c5e/?lang=zh-cn) ，则需要将“项目属性 --> C++ --> 基本运行时检查” 改为 `默认值`，然后重新生成解决方案。
 
 
 ### Python 扩展模块
@@ -76,6 +79,18 @@ LibCarla编译后生成`Python37/Lib/site-packages/carla/libcarla.cp37-win_amd64
 
 ## PythonAPI
 boost_python库所在的目录为：`carla\Build\boost-1.80.0-install\lib\libboost_python37-vc142-mt-x64-1_80.lib`，`mt-x64`之间带有`gd`的是对应的调试版本。示例参考 [链接](demo/boost_python.md) 。
+
+列出所有可用的命令：
+```shell
+python setup.py --help-commands
+```
+
+构建命令：
+```shell
+python setup.py build
+```
+
+
 
 
 ## 其他
