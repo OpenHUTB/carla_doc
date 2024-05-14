@@ -413,6 +413,28 @@ set_target_properties(hello_ext PROPERTIES SUFFIX &quot;.pyd&quot;)
 
 print(hello_ext.greet())
 </code></pre>
+<h3 id="pythoncpp">从Python中调试*.cpp</h3>
+<ol>
+<li>在原始.py脚本中添加打印进程号的代码，并使调试停止于cpp函数调用之前。</li>
+</ol>
+<pre><code class="language-python">import os
+
+# 获取当前进程ID（便于调试）
+process_id = os.getpid()
+print(&quot;Current process id is: &quot;, process_id)
+
+import hello_ext
+
+print(hello_ext.greet())
+</code></pre>
+<ol>
+<li>
+<p>在visual studio 中添加断点，并附着到第1步的进程中。</p>
+</li>
+<li>
+<p>在<code>*.py</code>中继续执行，会在vs中暂定。</p>
+</li>
+</ol>
               
             </div>
           </div><footer>

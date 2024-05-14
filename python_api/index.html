@@ -4993,11 +4993,11 @@ CARLA 中最重要的参与者群体之一。其中包括从汽车到卡车、�
 <li><a name="carla.Vehicle.get_physics_control"></a><strong><font color="#7fb800">get_physics_control</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
 仿真器返回应用于该车辆的最后一个物理控制。<ul>
 <li><strong>返回:</strong> <em><a href="#carla.VehiclePhysicsControl">carla.VehiclePhysicsControl</a></em>  </li>
-<li><strong>警告:</strong> <font color="#ED2F2F"><em>此方法确实调用模拟器来检索值。</em></font>  </li>
+<li><strong>警告:</strong> <font color="#ED2F2F"><em>此方法确实调用仿真器来检索值。</em></font>  </li>
 </ul>
 </li>
 <li><a name="carla.Vehicle.get_speed_limit"></a><strong><font color="#7fb800">get_speed_limit</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-客户端根据最后一个tick返回影响该车辆的速度限制（它不调用模拟器）。当经过限速信号时，限速会更新，因此车辆在生成后可能就没有限速信号。<ul>
+客户端根据最后一个tick返回影响该车辆的速度限制（它不调用仿真器）。当经过限速信号时，限速会更新，因此车辆在生成后可能就没有限速信号。<ul>
 <li><strong>返回:</strong> <em>float<small> - km/h</small></em>  </li>
 </ul>
 </li>
@@ -5348,7 +5348,7 @@ VehiclePhysicsControl 构造函数。 <ul>
 <hr />
 <h2 id="carlawalkeraicontroller">carla.WalkerAIController<a name="carla.WalkerAIController"></a></h2>
 <p><small style="display:block;margin-top:-20px;">从 <em><a href="#carla.Actor">carla.Actor</a></em> 继承</small></br>
-对步行者进行 AI 控制的类。控制器被定义为参与者，但它们与其他控制器有很大不同。它们在创建过程中需要附加到父 Actor，这是它们将控制的步行者（如果您尚未了解如何生成 Actor，请查看<a href="#carla.World">carla.World</a> ）。他们还需要一个特殊的蓝图（已在 <a href="#carla.BlueprintLibrary">carla.BlueprintLibrary</a> 中定义为“controller.ai.walker”）。这是一个空的蓝图，因为人工智能控制器在模拟中是不可见的，但会跟随其父控制器来指示每一步。</p>
+对步行者进行 AI 控制的类。控制器被定义为参与者，但它们与其他控制器有很大不同。它们在创建过程中需要附加到父 Actor，这是它们将控制的步行者（如果您尚未了解如何生成 Actor，请查看<a href="#carla.World">carla.World</a> ）。他们还需要一个特殊的蓝图（已在 <a href="#carla.BlueprintLibrary">carla.BlueprintLibrary</a> 中定义为“controller.ai.walker”）。这是一个空的蓝图，因为人工智能控制器在仿真中是不可见的，但会跟随其父控制器来指示每一步。</p>
 <h3 id="_211">方法</h3>
 <ul>
 <li><a name="carla.WalkerAIController.go_to_location"></a><strong><font color="#7fb800">go_to_location</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>destination</strong></font>)<br />
@@ -6066,7 +6066,7 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 </ul>
 </li>
 <li><a name="carla.World.set_weather"></a><strong><font color="#7fb800">set_weather</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>weather</strong></font>)<br />
-将模拟的天气参数更改为对象中定义的其他参数。<ul>
+将仿真的天气参数更改为对象中定义的其他参数。<ul>
 <li><strong>参数:</strong><ul>
 <li><code>weather</code> (<em><a href="#carla.WeatherParameters">carla.WeatherParameters</a></em>) - 要应用的新条件。</li>
 </ul>

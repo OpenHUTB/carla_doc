@@ -229,31 +229,29 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#libcarla">调试LibCarla</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_1">其他说明</a>
+    <li class="toctree-l3"><a class="reference internal" href="#python">Python 扩展模块</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#vs2019-carlaue4-cmake">VS2019 打开 CarlaUE4 的 Cmake 工程</a>
+    <li class="toctree-l2"><a class="reference internal" href="#pythonapi">PythonAPI</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_2">导入崩溃问题</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#vs-ue">VS 调试 UE 项目</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_3">问题</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_4">依赖</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_1">其他</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#boost-1800">boost-1.80.0</a>
+    <li class="toctree-l3"><a class="reference internal" href="#vs2019-carlaue4-cmake">VS2019 打开 CarlaUE4 的 Cmake 工程</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_2">导入崩溃问题</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#vs-ue">VS 调试 UE 项目</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">问题</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">依赖</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">发布</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_6">技巧</a>
     </li>
         </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_5">发布</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#vs2019">VS2019社区版安装</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_6">技巧</a>
     </li>
     </ul>
                   </li>
@@ -348,6 +346,7 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="windows-carla">在 Windows 上进行 Carla 的调试</h1>
+<p>程序调用流程：Python、libcarla.cp37-win_amd64.pyd、LibCarla、CarlaUE4。</p>
 <h2 id="carla">虚幻引擎Carla插件的调试</h2>
 <ol>
 <li>进入目录<code>carla/Unreal/CarlaUE4/</code>，右键文件<code>CarlaUE4.uproject</code>，选择运行<code>Generate Visual Studio project files</code>，在当前目录中将会生成VS的工程文件，双击打开<code>CarlaUE4.sln</code>。</li>
@@ -423,13 +422,23 @@
 <p>附着到 Python 程序启动调试后，出现<code>当前不会命中断点 还没有为该文档加载任何符号</code>的警告。<a href="https://blog.csdn.net/u010821666/article/details/78512900">解决</a> </p>
 </li>
 </ol>
+<p>在<code>BuildLibCarla.bat</code>中，将 <code>--config</code>参数从<code>Release</code>修改为<code>Debug</code>。</p>
 <div class="admonition 注意">
 <p class="admonition-title">注意</p>
-<p>在vs2019中生成<code>carla_client_debug</code>的解决方案时出现<code>fatal error C1189: #error :  "Incompatible build options"</code>错误，因为 <a href="https://www.twblogs.net/a/5ef976a7fa148015395f1c5e/?lang=zh-cn">在不指定调试运行时的情况下使用/rtc选项将导致链接器错误</a> ，则需要将“项目属性 --&gt; C++ --&gt; 基本运行时检查” 改为 <code>默认值</code>，然后重新生成解决方案。</p>
+<p>在vs2019中生成<code>carla_client_debug</code>的解决方案时出现<code>fatal error C1189: #error :  "Incompatible build options"</code>错误，因为 <a href="https://www.twblogs.net/a/5ef976a7fa148015395f1c5e/?lang=zh-cn">在不指定调试运行时的情况下使用/RTC选项将导致链接器错误</a> ，则需要将“项目属性 --&gt; C++ --&gt; 基本运行时检查” 改为 <code>默认值</code>，然后重新生成解决方案。</p>
 </div>
-<h3 id="_1">其他说明</h3>
+<h3 id="python">Python 扩展模块</h3>
+<p>LibCarla编译后生成<code>Python37/Lib/site-packages/carla/libcarla.cp37-win_amd64.pyd</code>给Python进行调用。为了提高运行速度，将当前目录中的<code>__init__.py</code>和<code>command.py</code>编译为<code>__pycache__</code>目录中的 <code>byte code(字节码)</code>。</p>
+<h2 id="pythonapi">PythonAPI</h2>
 <p>boost_python库所在的目录为：<code>carla\Build\boost-1.80.0-install\lib\libboost_python37-vc142-mt-x64-1_80.lib</code>，<code>mt-x64</code>之间带有<code>gd</code>的是对应的调试版本。示例参考 <a href="../demo/boost_python/">链接</a> 。</p>
-<h2 id="vs2019-carlaue4-cmake">VS2019 打开 CarlaUE4 的 Cmake 工程</h2>
+<p>列出所有可用的命令：</p>
+<pre><code class="language-shell">python setup.py --help-commands
+</code></pre>
+<p>构建命令：</p>
+<pre><code class="language-shell">python setup.py build
+</code></pre>
+<h2 id="_1">其他</h2>
+<h3 id="vs2019-carlaue4-cmake">VS2019 打开 CarlaUE4 的 Cmake 工程</h3>
 <p>windows操作系统下通过vs2019打开并编译carla：</p>
 <ol>
 <li>开Carla的CMake项目（参考<a href="https://www.jb51.net/article/180463.htm">CMake 入门教程</a> ）：</li>
@@ -443,7 +452,7 @@
 <li>生成：</li>
 </ol>
 <p>点击菜单栏<code>生成</code>-<code>全部生成</code>或<code>部分生成</code>即可。</p>
-<h2 id="_2">导入崩溃问题</h2>
+<h3 id="_2">导入崩溃问题</h3>
 <ol>
 <li>例如，导入链接：</li>
 </ol>
@@ -524,12 +533,12 @@ D:\work\workspace\engine\Engine\Binaries\Win64\UE4Editor-Cmd D:/work/workspace/c
 <p>直接命令行运行报错（必须确保不是Commandlet启动，而必须是Editor启动）：</p>
 <pre><code class="language-text">LogWindows: Error: Assertion failed: !IsRunningCommandlet() [File:D:/work/workspace/engine/Engine/Plugins/Developer/RenderDocPlugin/Source/RenderDocPlugin/Private/SRenderDocPluginEditorExtension.cpp] [Line: 107]
 </code></pre>
-<h2 id="vs-ue"><a href="https://ue5wiki.com/wiki/14373/">VS 调试 UE 项目</a></h2>
+<h3 id="vs-ue"><a href="https://ue5wiki.com/wiki/14373/">VS 调试 UE 项目</a></h3>
 <ul>
 <li>变量已被优化掉，因而不可用。    </li>
 </ul>
 <p>VS菜单中选择<code>DebugGammingEditor</code>，然后开始调试，就可以添加要监视的项。</p>
-<h2 id="_3">问题</h2>
+<h3 id="_3">问题</h3>
 <p>崩溃于<code>engine\Engine\Source\Runtime\CoreUObject\Private\UObject\ScriptCore.cpp</code>1990行<code>Function-&gt;Invoke(this, NewStack, ReturnValueAddress);</code>
 弹出报错信息框：</p>
 <pre><code class="language-text">Failed to open descriptor file ./../../../carla/Unreal/CarlaUE4/CarlaUE4.uproject
@@ -537,17 +546,17 @@ D:\work\workspace\engine\Engine\Binaries\Win64\UE4Editor-Cmd D:/work/workspace/c
 <ul>
 <li><a href="http://www.piaoyi.org/c-sharp/Visual-Studio-2019-Intellisense.html">VS跳转代码太慢</a> </li>
 </ul>
-<h2 id="_4">依赖</h2>
-<h3 id="boost-1800">boost-1.80.0</h3>
+<h3 id="_4">依赖</h3>
+<h4 id="boost-1800">boost-1.80.0</h4>
 <p><a href="https://blog.csdn.net/ASCE_Python/article/details/105595218">Python封装C++库调试</a> 。</p>
-<h2 id="_5">发布</h2>
+<h3 id="_5">发布</h3>
 <p>包含所有软件依赖，双击<code>launch.bat</code>启动软件。</p>
-<h3 id="vs2019">VS2019社区版安装</h3>
+<h4 id="vs2019">VS2019社区版安装</h4>
 <p>解压安装包：</p>
 <pre><code class="language-shell">7z x filename.zip -o.
 </code></pre>
 <p>新电脑运行<code>NativeDesktop.exe</code>出现<code>此版本的Windows不支持此产品，请尝试升级Windows。</code></p>
-<h2 id="_6">技巧</h2>
+<h3 id="_6">技巧</h3>
 <ul>
 <li>进行函数跳转时，vs一致出现<code>正在进行IntelliSense</code>：</li>
 </ul>

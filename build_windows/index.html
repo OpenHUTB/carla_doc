@@ -617,6 +617,15 @@ python3 dynamic_weather.py
 </tr>
 </tbody>
 </table>
+<p>构建一个 egg 分发包（binary distribution），会在当前目录下的“dist”目录内创建一个“egg”文件，文件名格式就是”项目名-版本号-Python版本.egg”：</p>
+<pre><code class="language-shell">python setup.py bdist_egg
+</code></pre>
+<p>构建一个 wheel 分发包，egg 包是过时的，whl 包是新的标准：</p>
+<pre><code class="language-shell">python setup.py bdist_wheel
+</code></pre>
+<p>脚本<code>setup.py</code>中的<code>ext_modules</code>参数用于构建 C 和 C++ 扩展扩展包。其是 Extension 实例的列表，每一个 Extension 实例描述了一个独立的扩展模块，扩展模块可以设置扩展包名，头文件、源文件、链接库及其路径、宏定义和编辑参数等。</p>
+<p>当你安装一个包后，这个包需要你不断修改，这时就采用这种安装方法：<code>python setup.py develop</code>。仅在<code>Python37/Lib/site-packages</code>目录下生成链接文件<code>carla.egg-link</code> 指向 <code>carla\PythonAPI\carla\source</code>和<code>../</code>。</p>
+<p>而<code>python setup.py install</code>在<code>Python37\Lib\site-packages\carla-0.9.15-py3.7-win-amd64.egg</code>目录下生成运行包，包括<code>libcarla.cp37-win_amd64.pyd</code>。</p>
 <h2 id="_10">报错</h2>
 <ul>
 <li>执行<code>make osm2odr</code>报错：</li>
