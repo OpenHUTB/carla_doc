@@ -530,7 +530,7 @@ if rss_proper_response:
 
 
 ```py
-# Fragment of rss_sensor.py
+# rss_sensor.py 代码片段
 # The carla.RssSensor is updated when listening for a new carla.RssResponse
 def _on_rss_response(weak_self, response):
 ...
@@ -568,7 +568,7 @@ def _on_rss_response(weak_self, response):
 
 
 ```py
-# Update the current route
+# 更新当前路线
 self.sensor.reset_routing_targets()
 if routing_targets:
     for target in routing_targets:
@@ -596,7 +596,7 @@ if routing_targets:
 2. 每个参与者的计算
 
 ```py
-# Fragment of rss_sensor.py
+# rss_sensor.py 代码片段
 # The function is registered as actor_constellation_callback
 def _on_actor_constellation_request(self, actor_constellation_data):
     actor_constellation_result = carla.RssActorConstellationResult()
@@ -609,10 +609,10 @@ def _on_actor_constellation_request(self, actor_constellation_data):
     actor_id = -1
     actor_type_id = "none"
     if actor_constellation_data.other_actor != None:
-        # customize actor_constellation_result for specific actor
+        # 为特定的参与者定制 actor_constellation_result
         ...
     else:
-        # default
+        # 默认
         ...
     return actor_constellation_result
 ```

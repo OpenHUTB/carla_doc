@@ -33,6 +33,8 @@ Carla 论坛</a>
 
 [__教程__](tutorials.md) — Carla 详细教程。
 
+[__示例__](tuto_E_gallery.md) — Carla 经典示例。
+
 
 ## 构建 Carla
 
@@ -205,15 +207,6 @@ Carla 论坛</a>
 [__发布版本__](tuto_D_make_release.md) — 如何发布 Carla
 
 [__调试程序__](tuto_D_windows_debug.md) - 进行程序的调试
-
-
-## 示例
-
-[__入门__](tuto_E_gallery.md) - 基本示例
-
-[__交通灯的配置和使用__](tuto_G_traffic_light.md) - 红绿灯的配置和使用
-
-[__流量预测__](tuto_G_traffic_prediction.md) - 车流量预测
 
 
 ## Carla 生态系统

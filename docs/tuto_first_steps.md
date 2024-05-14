@@ -36,7 +36,6 @@ import random
 # 链接到客户端并获取世界对象
 client = carla.Client('localhost', 2000)
 world = client.get_world()
-
 ```
 
 [__客户端__](python_api#carlaclient) 对象用于维护客户端与服务器的连接，并具有许多用于应用命令以及加载或导出数据的功能。我们可以使用客户端对象加载替代地图或重新加载当前地图（重置为初始状态）。
@@ -58,7 +57,6 @@ world = client.get_world()
 
 ```py
 client.load_world('Town05')
-
 ``` 
 
 请在 [__此处__](core_map.md) 查找有关 Carla 地图的更多信息。
@@ -100,7 +98,6 @@ rotation = transform.rotation
 # 用空变换设置观察者
 spectator.set_transform(carla.Transform())
 # 这将设置观众在地图的原点，0度俯仰，偏航和滚动-一个很好的方式来定位自己在地图上
-
 ```
 
 ## 添加非玩家角色
@@ -193,13 +190,11 @@ __自我车辆__ 是使用 Carla 时需要牢记的一个重要概念。自我�
 要定义自我车辆，您应该在生成自我车辆时设置`role_name`车辆[carla.Actor](python_api.md#carlaactor) 对象 [蓝图](python_api.md#carlaactorblueprint) 的属性：
 
 ```py
-
 ego_bp = world.get_blueprint_library().find('vehicle.lincoln.mkz_2020')
 
 ego_bp.set_attribute('role_name', 'hero')
 
 ego_vehicle = world.spawn_actor(ego_bp, random.choice(spawn_points))
-
 ```
 ---
 ## 选择你的地图
