@@ -25,18 +25,18 @@
 * __Python.__ [Python]((https://www.python.org/downloads/)) 是 Carla 中的主要脚本语言。Carla 在 Linux 上支持 Python 2.7 和 Python 3，在 Windows 上支持 Python 3。
 * __Pip.__ Carla 客户端库的某些安装方法需要 __pip__ 或 __pip3__ （取决于您的 Python 版本）版本 20.3 或更高版本。要检查您的 __pip__ 版本：
 
->>      # For Python 3
+>>      # 对于 Python 3
 >>      pip3 -V
 
->>      # For Python 2
+>>      # 对于 Python 2
 >>      pip -V
 
 >如果您需要升级：
 
->>      # For Python 3
+>>      # 对于 Python 3
 >>      pip3 install --upgrade pip
 
->>      # For Python 2
+>>      # 对于 Python 2
 >>      pip install --upgrade pip
 
 * __两个 TCP 端口和良好的互联网连接。__ 默认为 2000 年和 2001 年。确保这些端口未被防火墙或任何其他应用程序阻止。
@@ -70,21 +70,21 @@ Debain 软件包适用于 Ubuntu 18.04 和 Ubuntu 20.04，但 __官方支持的�
 
 __1.__ 在系统中设置Debian存储库：
 ```sh
-    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 1AF1527DE64CB8D9
-    sudo add-apt-repository "deb [arch=amd64] http://dist.carla.org/carla $(lsb_release -sc) main"
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 1AF1527DE64CB8D9
+sudo add-apt-repository "deb [arch=amd64] http://dist.carla.org/carla $(lsb_release -sc) main"
 ```
 
 __2.__ 安装 Carla 并检查 `/opt/` 文件夹中是否有安装：
 ```sh
-    sudo apt-get update # Update the Debian package index
-    sudo apt-get install carla-simulator # Install the latest Carla version, or update the current installation
-    cd /opt/carla-simulator # Open the folder where Carla is installed
+sudo apt-get update # Update the Debian package index
+sudo apt-get install carla-simulator # Install the latest Carla version, or update the current installation
+cd /opt/carla-simulator # Open the folder where Carla is installed
 ```
 
 该存储库包含 Carla 0.9.10 及更高版本。要安装特定版本，请将版本标签添加到安装命令中：
 ```sh
-    apt-cache madison carla-simulator # List the available versions of Carla
-    sudo apt-get install carla-simulator=0.9.10-1 # In this case, "0.9.10" refers to a CARLA version, and "1" to the Debian revision
+apt-cache madison carla-simulator # List the available versions of Carla
+sudo apt-get install carla-simulator=0.9.10-1 # In this case, "0.9.10" refers to a CARLA version, and "1" to the Debian revision
 ```
 
 !!! 重要
@@ -117,9 +117,9 @@ __2.__ 解压包：
     - 将包移动到 _Import_ 文件夹并运行以下脚本以提取内容：
 
 ```sh
-        cd path/to/carla/root
+cd path/to/carla/root
 
-        ./ImportAssets.sh
+./ImportAssets.sh
 ```
 
 - __在 Windows 上__:
@@ -190,25 +190,25 @@ __2.__ 解压包：
 - Debian 安装:
 
 ```sh
-    cd /opt/carla-simulator/bin/
+cd /opt/carla-simulator/bin/
 
-    ./CarlaUE4.sh
+./CarlaUE4.sh
 ```
 
 - Linux 软件包安装：
 
 ```sh
-    cd path/to/carla/root
+cd path/to/carla/root
 
-    ./CarlaUE4.sh
+./CarlaUE4.sh
 ```
 
 - Windows 包安装：
 
 ```sh
-    cd path/to/carla/root
+cd path/to/carla/root
 
-    CarlaUE4.exe
+CarlaUE4.exe
 ```
 
 将弹出一个包含城市景观的窗口。这是 __观察者__ 的看法。要在城市中飞行，请使用鼠标和WASD按键，按住鼠标右键控制方向。
@@ -216,17 +216,17 @@ __2.__ 解压包：
 这是服务器仿真器，它现在正在运行并等待客户端连接并与世界交互。您可以尝试一些示例脚本来在城市中产生生命并驾驶汽车：
 
 ```sh
-        # 终端 A 
-        cd PythonAPI\examples
+# 终端 A 
+cd PythonAPI\examples
 
-        python3 -m pip install -r requirements.txt # Support for Python2 is provided in the CARLA release packages
+python3 -m pip install -r requirements.txt # Support for Python2 is provided in the CARLA release packages
 
-        python3 generate_traffic.py  
+python3 generate_traffic.py  
 
-        # Terminal B
-        cd PythonAPI\examples
+# Terminal B
+cd PythonAPI\examples
 
-        python3 manual_control.py 
+python3 manual_control.py 
 ```
 
 #### 命令行选项
@@ -234,7 +234,7 @@ __2.__ 解压包：
 启动 Carla 时有一些可用的配置选项，可以按如下方式使用它们：
 
 ```sh
-    ./CarlaUE4.sh -carla-rpc-port=3000
+./CarlaUE4.sh -carla-rpc-port=3000
 ```
 
 * `-carla-rpc-port=N` 侦听端口 `N` 上的客户端连接。流媒体端口默认设置为 `N+1` 。
@@ -249,11 +249,11 @@ __2.__ 解压包：
 [config]: https://github.com/carla-simulator/carla/blob/master/PythonAPI/util/config.py
 
 ```sh
-    ./config.py --no-rendering      # Disable rendering
-    ./config.py --map Town05        # Change map
-    ./config.py --weather ClearNoon # Change weather
+./config.py --no-rendering      # 禁用渲染
+./config.py --map Town05        # 改变地图、
+./config.py --weather ClearNoon # 改变天气
 
-    ./config.py --help # Check all the available configuration options
+./config.py --help # 检查所有可获得的配置选项
 ```
 
 ---

@@ -21,26 +21,26 @@ client = carla.Client('localhost', 2000)
 world  = client.get_world()
 bp_lib = world.get_blueprint_library()
 
-# spawn vehicle
+# 生成车辆
 vehicle_bp =bp_lib.find('vehicle.lincoln.mkz_2020')
 vehicle = world.try_spawn_actor(vehicle_bp, random.choice(spawn_points))
 
-# spawn camera
+# 生成相机
 camera_bp = bp_lib.find('sensor.camera.rgb')
 camera_init_trans = carla.Transform(carla.Location(z=2))
 camera = world.spawn_actor(camera_bp, camera_init_trans, attach_to=vehicle)
 vehicle.set_autopilot(True)
 
-# Set up the simulator in synchronous mode
+# 以同步模式设置仿真器
 settings = world.get_settings()
 settings.synchronous_mode = True # Enables synchronous mode
 settings.fixed_delta_seconds = 0.05
 world.apply_settings(settings)
 
-# Get the map spawn points
+# 获取地图的生成点
 spawn_points = world.get_map().get_spawn_points()
 
-# Create a queue to store and retrieve the sensor data
+# 创建一个队列来存储和检索传感器数据
 image_queue = queue.Queue()
 camera.listen(image_queue.put)
 ```
@@ -62,23 +62,22 @@ def build_projection_matrix(w, h, fov):
 我们想要使用相机投影矩阵将三维点投影到二维点。第一步是使用可通过 `camera.get_transform().get_inverse_matrix()` 检索的逆相机变换，将世界坐标中的三维坐标变换为相机坐标。接下来，我们使用相机投影矩阵将相机坐标中的三维点投影到二维相机平面中：
 
 ```py
-
 def get_image_point(loc, K, w2c):
-        # Calculate 2D projection of 3D coordinate
+        # 计算三维坐标的二维投影
 
-        # Format the input coordinate (loc is a carla.Position object)
+        # 设置输入坐标的格式（loc是一个carla.Position对象）
         point = np.array([loc.x, loc.y, loc.z, 1])
-        # transform to camera coordinates
+        # 变换到相机坐标
         point_camera = np.dot(w2c, point)
 
-        # New we must change from UE4's coordinate system to an "standard"
+        # 新的，我们必须从UE4的坐标系更改为“standard” 
         # (x, y ,z) -> (y, -z, x)
-        # and we remove the fourth componebonent also
+        # 我们还去掉了第四个成分
         point_camera = [point_camera[1], -point_camera[2], point_camera[0]]
 
-        # now project 3D->2D using the camera matrix
+        # 现在使用相机矩阵投影3D->2D
         point_img = np.dot(K, point_camera)
-        # normalize
+        # 正则化
         point_img[0] /= point_img[2]
         point_img[1] /= point_img[2]
 
@@ -89,7 +88,7 @@ def get_image_point(loc, K, w2c):
 
 ```py
 
-# Get the world to camera matrix
+# 获取世界的相机矩阵
 world_2_camera = np.array(camera.get_transform().get_inverse_matrix())
 
 # Get the attributes from the camera

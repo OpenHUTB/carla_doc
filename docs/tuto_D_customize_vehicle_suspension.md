@@ -57,7 +57,7 @@
 
 当从软悬架转向硬悬架时，参数化有一些明显的趋势。
 
-*   __`Suspension Max Raise` 和 `Suspension Max Drop` 的 __减少__ — 刚性车辆应在平坦的道路上行驶且没有颠簸。出于空气动力学的考虑，底盘不应大幅移动，而应始终保持靠近地面。
+*   `Suspension Max Raise` 和 `Suspension Max Drop` 的 __减少__ — 刚性车辆应在平坦的道路上行驶且没有颠簸。出于空气动力学的考虑，底盘不应大幅移动，而应始终保持靠近地面。
 *   `Suspension Damping Ratio` 的 __增加__ — 对于刚性车辆来说，减震器吸收的弹跳更大。
 
 ### 轿跑车

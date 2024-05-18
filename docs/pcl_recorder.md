@@ -30,7 +30,7 @@ ros2 launch pcl_recorder pcl_recorder.launch.py
 __2.__ 捕获驱动完成后，减小点云的整体大小：
 
 ```
-# Create one point cloud file
+# 创建一个点云文件
 pcl_concatenate_points_pcd /tmp/pcl_capture/*.pcd
 
 # Filter duplicates

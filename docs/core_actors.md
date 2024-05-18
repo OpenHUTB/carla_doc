@@ -177,7 +177,6 @@ spectator = world.get_spectator()
 transform = vehicle.get_transform()
 spectator.set_transform(carla.Transform(transform.location + carla.Location(z=50),
 carla.Rotation(pitch=-90)))
-
 ```
 
 ### 交通标志和交通灯
@@ -217,7 +216,7 @@ if traffic_light.get_state() == carla.TrafficLightState.Red:
 
 * __[carla.VehicleControl](python_api.md#carla.VehicleControl)__ 提供油门、转向、刹车等驾驶命令的输入。
 ```py
-    vehicle.apply_control(carla.VehicleControl(throttle=1.0, steer=-1.0))
+vehicle.apply_control(carla.VehicleControl(throttle=1.0, steer=-1.0))
 ```
 * __[carla.VehiclePhysicsControl](python_api.md#carla.VehiclePhysicsControl)__ 定义车辆的物理属性并包含另外两个控制器：
 
@@ -225,23 +224,23 @@ if traffic_light.get_state() == carla.TrafficLightState.Red:
     * [carla.WheelPhysicsControl](python_api.md#carla.WheelPhysicsControl) 提供对每个轮子的特定控制。
 
 ```py
-    vehicle.apply_physics_control(carla.VehiclePhysicsControl(max_rpm = 5000.0, center_of_mass = carla.Vector3D(0.0, 0.0, 0.0), torque_curve=[[0,400],[5000,400]]))
+vehicle.apply_physics_control(carla.VehiclePhysicsControl(max_rpm = 5000.0, center_of_mass = carla.Vector3D(0.0, 0.0, 0.0), torque_curve=[[0,400],[5000,400]]))
 ```
 
 车辆有一个 [carla.BoundingBox](python_api.md#carla.BoundingBox) 封装它们。该边界框允许将物理原理应用于车辆并检测碰撞。
 
 ```py
-    box = vehicle.bounding_box
-    print(box.location)         # 相对车辆的位置
-    print(box.extent)           # XYZ half-box extents in meters.
+box = vehicle.bounding_box
+print(box.location)         # 相对车辆的位置
+print(box.extent)           # XYZ half-box extents in meters.
 ```
 
 通过启用 [扫轮碰撞参数][enable_sweep] 可以改善车轮的物理特性。默认的轮子物理系统对每个轮子使用从轴到地板的单射线投射，但是当启用扫轮碰撞时，将检查轮子的整个体积是否发生碰撞。它可以这样启用：
 
 ```py
-    physics_control = vehicle.get_physics_control()
-    physics_control.use_sweep_wheel_collision = True
-    vehicle.apply_physics_control(physics_control)
+physics_control = vehicle.get_physics_control()
+physics_control.use_sweep_wheel_collision = True
+vehicle.apply_physics_control(physics_control)
 ```
 
 [enable_sweep]: https://carla.readthedocs.io/en/latest/python_api/#carla.VehiclePhysicsControl.use_sweep_wheel_collision
@@ -252,7 +251,7 @@ if traffic_light.get_state() == carla.TrafficLightState.Red:
 * __自动驾驶模式__ 会将车辆订阅到 [交通管理器](adv_traffic_manager.md) 以仿真真实的城市状况。该模块是硬编码的，不是基于机器学习的。
 
 ```py
-    vehicle.set_autopilot(True)
+vehicle.set_autopilot(True)
 ```
 * __车灯__ 必须由用户打开和关闭。每辆车都有一组在[__carla.VehicleLightState__](python_api.md#carla.VehicleLightState) 中列出的灯。并非所有车辆都集成了车灯。截至撰写本文时，配备集成车灯的车辆如下：
 	*   __自行车：__ 所有自行车都有前后位置灯。

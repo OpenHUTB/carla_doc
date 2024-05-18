@@ -30,7 +30,7 @@
     执行`Makefile`，调用`Util/BuildTools/Windows.mk`，真正执行的是`BuildLibCarla.bat`，构建LibCarla的服务端和客户端；
 
 ### Build
-* `Xerces`是由Apache组织所推动的一项XML文档解析开源项目。
-* `SQLite`是一款轻型的数据库，是遵守ACID的关系型数据库管理系统，它包含在一个相对小的C库中。
+* `Xerces`是由 Apache 组织所推动的一项 XML 文档解析开源项目。
+* `SQLite`是一款轻型的数据库，是遵守 ACID 的关系型数据库管理系统，它包含在一个相对小的C库中。
 * `PROJ`是一种通用坐标转换软件，它将坐标从一个坐标参考系（CRS）转换为另一个坐标参考系。这包括地图投影和大地坐标变换。
 

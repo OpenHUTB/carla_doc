@@ -51,14 +51,14 @@ __2.__ 安装ROS桥：
 
 > - 最新版本：
 ```sh
-        sudo apt-get update # 更新Debian包索引
-        sudo apt-get install carla-ros-bridge # 安装最新的ROS桥接版本，或更新当前的安装
+sudo apt-get update # 更新Debian包索引
+sudo apt-get install carla-ros-bridge # 安装最新的ROS桥接版本，或更新当前的安装
 ```
 
 > - 通过向命令添加版本标签来安装特定版本：
 ```sh
-        apt-cache madison carla-ros-bridge # 列出ROS桥接的可用版本
-        sudo apt-get install carla-ros-bridge=0.9.10-1 # 在这种情况下，“0.9.10”指的是ROS桥接版本，“1”指的是Debian版本
+apt-cache madison carla-ros-bridge # 列出ROS桥接的可用版本
+sudo apt-get install carla-ros-bridge=0.9.10-1 # 在这种情况下，“0.9.10”指的是ROS桥接版本，“1”指的是Debian版本
 ```
 
 __3.__ 检查 `/opt/` 文件夹中ROS桥是否已安装成功。
@@ -68,29 +68,29 @@ __3.__ 检查 `/opt/` 文件夹中ROS桥是否已安装成功。
 
 __1.__ 创建catkin工作区：
 ```sh
-    mkdir -p ~/carla-ros-bridge/catkin_ws/src
+mkdir -p ~/carla-ros-bridge/catkin_ws/src
 ```
 
 __2.__ 克隆 ROS 桥存储库和子模块：
 ```sh
-    cd ~/carla-ros-bridge
-    git clone --recurse-submodules https://github.com/carla-simulator/ros-bridge.git catkin_ws/src/ros-bridge
+cd ~/carla-ros-bridge
+git clone --recurse-submodules https://github.com/carla-simulator/ros-bridge.git catkin_ws/src/ros-bridge
 ```
 
 __5.__ 根据您安装的 ROS 版本设置 ROS 环境：
 ```sh
-    source /opt/ros/<melodic/noetic>/setup.bash
+source /opt/ros/<melodic/noetic>/setup.bash
 ```
 __6.__ 安装所需的 ros 依赖项：
 ```sh
-    cd catkin_ws
-    rosdep update
-    rosdep install --from-paths src --ignore-src -r
+cd catkin_ws
+rosdep update
+rosdep install --from-paths src --ignore-src -r
 ```
 
 __7.__ 构建ROS桥：
 ```sh
-    catkin build   # alternatively catkin_make
+catkin build   # alternatively catkin_make
 ```
 
 ---
@@ -99,31 +99,31 @@ __7.__ 构建ROS桥：
 
 __1.__ 按照安装 Carla 时使用的安装方法启动 Carla 服务器：
 ```sh
-    # 包版本在 carla 根文件夹
-    ./CarlaUE4.sh
+# 包版本在 carla 根文件夹
+./CarlaUE4.sh
 
-    # Debian 安装在 `opt/carla-simulator/`
-    ./CarlaUE4.sh
+# Debian 安装在 `opt/carla-simulator/`
+./CarlaUE4.sh
 
-    # 从 carla 根文件夹中的源版本构建
-    make launch
+# 从 carla 根文件夹中的源版本构建
+make launch
 ```
 
 __2.__ 将正确的 Carla 模块添加到您的 Python 路径：
 
 ```sh
-        export CARLA_ROOT=<path-to-carla>
-        export PYTHONPATH=$PYTHONPATH:$CARLA_ROOT/PythonAPI/carla/dist/carla-<carla_version_and_arch>.egg:$CARLA_ROOT/PythonAPI/carla
+export CARLA_ROOT=<path-to-carla>
+export PYTHONPATH=$PYTHONPATH:$CARLA_ROOT/PythonAPI/carla/dist/carla-<carla_version_and_arch>.egg:$CARLA_ROOT/PythonAPI/carla
 ```
 
 __3.__ 根据 ROS 桥的安装方法添加 ROS 桥工作空间的源路径。每次您想要运行 ROS 桥接器时，都应该在每个终端中完成此操作：
 
 ```sh
-    # 用于 debian 安装 ROS 桥。根据已安装的 ROS 版本更改命令。
-    source /opt/carla-ros-bridge/<melodic/noetic>/setup.bash
+# 用于 debian 安装 ROS 桥。根据已安装的 ROS 版本更改命令。
+source /opt/carla-ros-bridge/<melodic/noetic>/setup.bash
 
-    # 为 GitHub 库安装 ROS 桥
-    source ~/carla-ros-bridge/catkin_ws/devel/setup.bash
+# 为 GitHub 库安装 ROS 桥
+source ~/carla-ros-bridge/catkin_ws/devel/setup.bash
 ```
 
 !!! 重要
@@ -132,11 +132,11 @@ __3.__ 根据 ROS 桥的安装方法添加 ROS 桥工作空间的源路径。每
 __4.__ 启动 ROS 桥。使用任何可用的不同启动文件来检查安装：
 
 ```sh
-    # 选项1:启动 ros 桥 
-    roslaunch carla_ros_bridge carla_ros_bridge.launch
+# 选项1:启动 ros 桥 
+roslaunch carla_ros_bridge carla_ros_bridge.launch
 
-    # 选项2:启动ros桥和一个示例自我车辆
-    roslaunch carla_ros_bridge carla_ros_bridge_with_example_ego_vehicle.launch
+# 选项2:启动ros桥和一个示例自我车辆
+roslaunch carla_ros_bridge carla_ros_bridge_with_example_ego_vehicle.launch
 ```
 
 
@@ -167,13 +167,13 @@ __4.__ 启动 ROS 桥。使用任何可用的不同启动文件来检查安装�
 __1.__ 构建包：
 
 ```sh
-    catkin_make -DCATKIN_ENABLE_TESTING=0
+catkin_make -DCATKIN_ENABLE_TESTING=0
 ```
 
 __2.__ 运行测试：
 
 ```sh
-    rostest carla_ros_bridge ros_bridge_client.test
+rostest carla_ros_bridge ros_bridge_client.test
 ```
 
 ---

@@ -2,7 +2,7 @@
 
 ![town_07_slideshow](./img/catalogue/maps/town07/town07_slideshow.webp)
 
-城镇 7 模仿了一个安静的乡村社区，绿色的景观充满了玉米地、谷仓、粮仓和风车。
+城镇 7 仿真了一个安静的乡村社区，绿色的景观充满了玉米地、谷仓、粮仓和风车。
 
 **城镇 7 是附加地图包的一部分，应 [与 Carla 包一起下载](https://github.com/carla-simulator/carla/releases) 。将下载的 ZIP 文件移动到解压的 Carla 包的 `Import` 文件夹中，然后运行 `Util/ImportAssets.sh` 脚本。**
 

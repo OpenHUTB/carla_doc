@@ -1,49 +1,49 @@
-# ROS Bridge Documentation
+# ROS 桥文档
 
-This is the documentation for the ROS bridge which enables two-way communication between ROS and CARLA. The information from the CARLA server is translated to ROS topics. In the same way, the messages sent between nodes in ROS get translated to commands to be applied in CARLA.
+这是 ROS 桥的文档，它实现了 ROS 和 Carla 之间的双向通信。来自 Carla 服务器的信息被转换为ROS主题。以同样的方式，ROS中节点之间发送的消息被转换为 Carla 中应用的命令。 
 
-The ROS bridge is compatible with both ROS 1 and ROS 2.
+ROS桥与ROS1和ROS2都是相容的。
 
-The ROS bridge boasts the following features:
+ROS桥具有以下特点：
 
-- Provides sensor data for LIDAR, Semantic LIDAR, Cameras (depth, segmentation, rgb, dvs), GNSS, Radar and IMU.
-- Provides object data such as transforms, traffic light status, visualisation markers, collision and lane invasion.
-- Control of AD agents through steering, throttle and brake.
-- Control of aspects of the CARLA simulation like synchronous mode, playing and pausing the simulation and setting simulation parameters.
-
----
-
-## Get started
-
-- [__Installing ROS bridge for ROS 1__](ros_installation_ros1.md)
-- [__Installing ROS bridge for ROS 2__](ros_installation_ros2.md)
+- 为激光雷达、语义激光雷达、相机（深度、分割、rgb、dvs）、全球导航卫星系统、雷达和IMU提供传感器数据。
+- 提供对象数据，如变换、红绿灯状态、可视化标记、碰撞和车道入侵。
+- 通过转向、油门和制动器控制自动驾驶智能体。
+- 控制 Carla 仿真的各个方面，如同步模式、播放和暂停仿真以及设置仿真参数。
 
 ---
 
-## Learn about the main ROS bridge package
+## 开始
 
-- [__CARLA ROS bridge__](run_ros.md) - The main package required to run the ROS bridge
-- [__ROS Compatiblity Node__](ros_compatibility.md) - The interface that allows the same API to call either ROS 1 or ROS 2 functions
-
----
-
-## Learn about the additional ROS bridge packages
-
-- [__CARLA Spawn Objects__](carla_spawn_objects.md) - Provides a generic way to spawn actors
-- [__CARLA Manual Control__](carla_manual_control.md)- A ROS-based visualization and control tool for an ego vehicle (similar to `carla_manual_control.py` provided by CARLA)
-- [__CARLA Ackerman Control__](carla_ackermann_control.md) - A controller to convert ackermann commands to steer/throttle/brake
-- [__CARLA Waypoint Publisher__](carla_waypoint.md) - Publish and query CARLA waypoints
-- [__CARLA AD Agent__](carla_ad_agent.md) - An example agent that follows a route, avoids collisions and respects traffic lights
-- [__CARLA AD Demo__](carla_ad_demo.md) - An example package that provides everything needed to launch a CARLA ROS environment with an AD vehicle
-- [__CARLA ROS Scenario Runner__](carla_ros_scenario_runner.md) - A wrapper to execute OpenScenarios with the CARLA Scenario Runner via ROS
-- [__CARLA Twist to Control__](carla_twist_to_control.md) - Convert twist controls to CARLA vehicle controls
-- [__RVIZ plugin__](rviz_plugin.md) - An RVIZ plugin to visualize/control CARLA
-- [__RQT Plugin__](rqt_plugin.md) - A RQT plugin to control CARLA
-- [__PCL Recorder__](pcl_recorder.md) - Create point cloud maps from data captured from simulations
+- [__为ROS 1安装ROS桥__](ros_installation_ros1.md)
+- [__为ROS 2安装ROS桥__](ros_installation_ros2.md)
 
 ---
 
-## Explore the reference material
+## 了解主要的 ROS 桥接包
 
-- [__ROS Sensors__](ros_sensors.md) - Reference topics available in the different sensors
-- [__ROS messages__](ros_msgs.md) - Reference parameters available in CARLA ROS messages
+- [__CARLA 的 ROS 桥__](run_ros.md) - 运行ROS桥所需的主程序包
+- [__ROS 兼容性节点__](ros_compatibility.md) - 允许同一 API 调用 ROS 1 或 ROS 2 函数的接口
+
+---
+
+## 了解其他ROS桥接包
+
+- [__Carla 生成对象__](carla_spawn_objects.md) - 提供生成参与者的通用方法
+- [__Carla 手动控制__](carla_manual_control.md)- 用于自我车辆的基于 ROS 的可视化和控制工具（类似于 Carla 提供的`carla_manual_control.py`）  
+- [__Carla 阿克曼控制__](carla_ackermann_control.md) - 将阿克曼命令转换为`转向/油门/刹车`的控制器
+- [__Carla 路径点发布器__](carla_waypoint.md) - 发布和查询 Carla 路径点
+- [__Carla 自动驾驶智能体__](carla_ad_agent.md) - 遵循路线、避免碰撞并遵守红绿灯的示例智能体
+- [__Carla 自动驾驶示例__](carla_ad_demo.md) - 一个示例包，提供了使用自动驾驶车辆启动Carla ROS环境所需的一切
+- [__Carla ROS Scenario Runner__](carla_ros_scenario_runner.md) - 通过 ROS 与 Carla Scenario Runner 一起执行 OpenScenarios 的包装器
+- [__Carla 扭曲控制__](carla_twist_to_control.md) - 将扭曲控制转换为 Carla 车辆控制
+- [__RVIZ plugin__](rviz_plugin.md) - 可视化/控制 Carla 的RVIZ插件
+- [__RQT 插件__](rqt_plugin.md) - 控制 Carla 的RQT插件
+- [__PCL 记录器__](pcl_recorder.md) - 根据从仿真中捕获的数据创建点云地图
+
+---
+
+## 探索参考资料
+
+- [__ROS 传感器__](ros_sensors.md) - 不同传感器中提供的参考主题
+- [__ROS messages__](ros_msgs.md) - Carla ROS消息中提供的参考参数

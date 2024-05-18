@@ -54,6 +54,6 @@
 ---
 ## 归属
 
-本行为准则改编自 [贡献者契约][homepage]1.4 版，可从<https://www.contributor-covenant.org/version/1/4/code-of-conduct.html>获取。
+本行为准则改编自 [贡献者契约][homepage]1.4 版，可从 [链接](https://www.contributor-covenant.org/version/1/4/code-of-conduct.html) 获取。
 
 [homepage]: https://www.contributor-covenant.org
