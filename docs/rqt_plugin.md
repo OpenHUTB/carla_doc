@@ -4,7 +4,7 @@
 
 
 ```
-       rqt --standalone rqt_carla_control
+rqt --standalone rqt_carla_control
 ``` 
 
 您将能够通过 GUI 控制步骤：

@@ -34,7 +34,7 @@ RoadRunner是MATLAB校园许可的一部分，因此许多大学可以提供无�
 
 如何在RoadRunner中构建一个大地图的细节超出了本指南的范围，但是，在[RoadRunner文档](rr_tutorials)中有视频教程。
 
-如果您正在构建带有高程的大地图，则建议地图的最大尺寸为20km × 20km。大于这个值的地图可能会导致RoadRunner在导出时崩溃。
+如果您正在构建带有高程的大地图，则建议地图的最大尺寸为20km 乘 20km。大于这个值的地图可能会导致 RoadRunner 在导出时崩溃。
 
 [rr_tutorials]: https://www.mathworks.com/support/search.html?fq=asset_type_name:video%20category:roadrunner/index&amp;page=1&amp;s_tid=CRUX_topnav
 

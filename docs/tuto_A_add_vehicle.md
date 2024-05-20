@@ -285,22 +285,22 @@ __8.__ __配置车辆蓝图__
 
 ```yaml
 Bone Setup:
-  - Bike_Rig:                   # The origin point of the mesh. Place it in the point 0 of the scenecomment
-    - BikeBody:                 # The model's body centre.
-      - Pedals:                 # If the vehicle is a bike bind the pedalier to this bone, will rotate with the bike acceleration.
-        - RightPedal:           # Sets the driver's feet position and rotates with the pedalier if the vehicle is a bike.
+  - Bike_Rig:                   # 网格的原点。将其放置在场景的0点
+    - BikeBody:                 # 模型身体的中心。
+      - Pedals:                 # 如果车辆是自行车，将脚踏板绑在这块骨头上，就会随着自行车的加速度而旋转。
+        - RightPedal:           # 如果车辆是自行车，则设置驾驶员的脚部位置并与脚踏板一起旋转。
         - LeftPedal:            # ^
-      - RearWheel:              # Rear Wheel of the vehicle
-      - Handler:                # Rotates with the frontal wheel of the vehicle bind the vehicle handler to it.
-        - HandlerMidBone:       # Positioned over the front wheel bone to orient the handler with the wheel
-        - HandlerRight:         # Sets the position of the driver's hand, no need to bind it to anything.
+      - RearWheel:              # 车辆后轮
+      - Handler:                # 与车辆的前轮一起旋转，将车辆操纵器固定在其上。
+        - HandlerMidBone:       # 定位在前轮骨架上，以确定操纵器与车轮的方向
+        - HandlerRight:         # 设置驾驶员的手的位置，无需将其绑定到任何东西。
         - HandlerLeft:          # ^
-      - Frontwheel:             # Frontal wheel of the vehicle.
-      - RightHelperRotator:     # This four additional bones are here for an obsolete system of making the bike stable by using aditional invisible wheels
+      - Frontwheel:             # 车辆的前轮。
+      - RightHelperRotator:     # 这四块额外的骨头是为一个过时的系统提供的，该系统通过使用传统的隐形车轮使自行车稳定 
         - RightHelprWheel:      # ^
       - LeftHelperRotator:      # ^
         - LeftHelperWheel:      # ^
-      - Seat:                   # Sets the position of the drivers hip bone. No need to bind it to anything but place it carefully.
+      - Seat:                   # 设置驾驶员髋骨的位置。无需将其绑在任何东西上，只需小心放置即可。
 ```
 
 __1.__ 将 fbx 作为 Skelletal Mesh 导入到其自己的 `Content/Carla/Static/Vehicles/2Wheeled` 文件夹中。导入时，选择“General2WheeledVehicleSkeleton”作为骨架，应自动创建并链接物理资源。

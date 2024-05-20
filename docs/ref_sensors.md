@@ -332,7 +332,7 @@ for location in lidar_measurement:
 
 测量的点作为[carla.RadarDetection](python_api.md#carla.RadarDetection)数组包含在[carla.RadarMeasurement](python_api.md#carla.RadarMeasurement)中，该数组指定它们的极坐标、距离和速度。雷达传感器提供的原始数据可以轻松转换为 __numpy__ 可管理的格式：
 ```py
-# To get a numpy [[vel, azimuth, altitude, depth],...[,,,]]:
+# 为了获得 numpy [[vel, azimuth, altitude, depth],...[,,,]]:
 points = np.frombuffer(radar_data.raw_data, dtype=np.dtype('f4'))
 points = np.reshape(points, (len(radar_data), 4))
 ```
@@ -597,7 +597,7 @@ if routing_targets:
 
 ```py
 # rss_sensor.py 代码片段
-# The function is registered as actor_constellation_callback
+# 注册该函数为 actor_constellation_callback
 def _on_actor_constellation_request(self, actor_constellation_data):
     actor_constellation_result = carla.RssActorConstellationResult()
     actor_constellation_result.rss_calculation_mode = ad.rss.map.RssMode.NotRelevant

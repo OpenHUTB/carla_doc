@@ -1,62 +1,62 @@
-# ROS bridge installation for ROS 2
+# ROS 2的ROS桥安装
 
-This section is a guide on how to install the ROS bridge on Linux for use with ROS 2. You will find the prerequisites, installation steps, how to run a basic package to make sure everything is working well and commands to run tests.
+本节是关于如何在 Linux 上安装 ROS 桥以与 ROS 2 一起使用的指南。您将找到先决条件、安装步骤、如何运行基本包以确保一切正常工作以及运行测试的命令。
 
-- [__Before you begin__](#before-you-begin)
-- [__ROS bridge installation __](#ros-bridge-installation)
-- [__Run the ROS bridge__](#run-the-ros-bridge)
-- [__Testing__](#testing)
+- [__开始之前__](#before-you-begin)
+- [__ROS桥安装__](#ros-bridge-installation)
+- [__运行ROS桥__](#run-the-ros-bridge)
+- [__测试__](#testing)
 
-!!! Important
-    ROS is still [experimental](http://wiki.ros.org/noetic/Installation) for Windows. It has only been tested for Linux systems.
-
----
-
-## Before you begin
-
-You will need to fulfill the following software requirements before using the ROS bridge:
-
-- Install ROS:
-    - [__ROS 2 Foxy__](https://docs.ros.org/en/foxy/Installation.html) — For Ubuntu 20.04 (Focal)
-- Additional ROS packages may be required depending on your needs. [rviz](https://wiki.ros.org/rviz) is highly recommended to visualize ROS data.
-- CARLA 0.9.11 or later — Previous versions are not compatible with the ROS bridge. Follow the [quick start installation](https://carla.readthedocs.io/en/latest/start_quickstart/) or make the build for [Linux](https://carla.readthedocs.io/en/latest/build_linux/). It is recommended to match the ROS bridge version to the CARLA version when possible.
+!!! 重要
+    适用于Windows 的 ROS仍在[实验](http://wiki.ros.org/noetic/Installation) 。它只在Linux系统上进行过测试。 
 
 ---
 
-## ROS bridge installation
+## 开始之前
 
-!!! Note
-    The Debian package installation is not yet available for ROS 2.
+在使用ROS桥之前，您需要满足以下软件要求：
 
-__1.__ Set up the project directory and clone the ROS bridge repository and submodules:
+- 安装 ROS:
+    - [__ROS 2 Foxy__](https://docs.ros.org/en/foxy/Installation.html) — 针对 Ubuntu 20.04 (Focal)
+-根据您的需要，可能需要额外的 ROS 包。强烈建议是用 [rviz](https://wiki.ros.org/rviz) 将ROS数据可视化。
+- CARLA 0.9.11或更高版本——以前的版本与ROS桥不兼容。遵循[快速启动安装](https://carla.readthedocs.io/en/latest/start_quickstart/) 或者为[Linux]构建(https://carla.readthedocs.io/en/latest/build_linux/) 。建议尽可能将ROS桥接版本与CARLA版本相匹配。
+
+---
+
+## ROS桥安装
+
+!!! 注意
+    Debian软件包安装还不能用于ROS 2。
+
+__1.__ 设置项目目录并克隆ROS网桥存储库和子模块：
 
 ```sh
-    mkdir -p ~/carla-ros-bridge && cd ~/carla-ros-bridge
-    git clone --recurse-submodules https://github.com/carla-simulator/ros-bridge.git src/ros-bridge
+mkdir -p ~/carla-ros-bridge && cd ~/carla-ros-bridge
+git clone --recurse-submodules https://github.com/carla-simulator/ros-bridge.git src/ros-bridge
 ```
 
-__2.__ Set up the ROS environment:
+__2.__ 设置 ROS 环境：
 
 ```sh
     source /opt/ros/foxy/setup.bash
 ```
 
-__3.__ Install the ROS dependencies:
+__3.__ 安装 ROS 依赖：
 
 ```sh
-    rosdep update
-    rosdep install --from-paths src --ignore-src -r
+rosdep update
+rosdep install --from-paths src --ignore-src -r
 ```
 
-__4.__ Build the ROS bridge workspace using colcon:
+__4.__ 使用colcon构建ROS桥的工作空间：
 
 ```sh
-    colcon build
+colcon build
 ```
 
 ---
 
-## Run the ROS bridge
+## 运行ROS桥
 
 __1.__ Start a CARLA server according to the installation method used to install CARLA:
 
@@ -113,7 +113,7 @@ __4.__ In another terminal, start the ROS 2 bridge. You can run one of the two o
 
 ---
 
-## Testing
+## 测试
 
 To execute tests using colcon:
 

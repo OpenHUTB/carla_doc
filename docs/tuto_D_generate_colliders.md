@@ -31,7 +31,9 @@
 ### 1-导出车辆 FBX
 
 首先需要以车辆的原始网格作为参考。出于学习目的，本教程导出 Carla 车辆的网格。
+
 __1.1__ 在虚幻引擎中打开 Carla 并转到 `Content/Carla/Static/Vehicles/4Wheeled/<model_of_vehicle>`。
+
 __1.2__ 在 `SM_<model_of_vehicle>` 点击 `right-click` 将车辆网格导出为 FBX。
 
 ### 2-生成低密度网格
