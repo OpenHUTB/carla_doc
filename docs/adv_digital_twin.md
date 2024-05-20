@@ -119,6 +119,9 @@ python src/util/config.py -x *.xodr
 
 添加光源（天光）、[路线规划器](https://github.com/carla-simulator/carla/blob/dev/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Traffic/RoutePlanner.cpp) 、构建场景。
 
+## 分析
+`UOpenDriveToMap::GenerateTile()`生成每一个瓦片，调用`GenerateAll()`函数，进行 道路网格、车道线、生成点、地形、数目位置、生成完成等步骤。
+
 
 ## 问题
 `carla\Unreal\CarlaUE4\Plugins\CarlaTools\Source\CarlaTools\Private\OpenDriveToMap.cpp`改为生成一个瓦片地图的函数，生成后的名字为`{NAME}_Tile_0_0`。
@@ -128,5 +131,7 @@ GenerateTile();
 ```
 原因：
 生成瓦片的命令行程序位于`Unreal\CarlaUE4\Plugins\CarlaTools\Source\CarlaTools\Private\Commandlet\GenerateTileCommandlet.cpp`。
+
+移除`void UOpenDriveToMap::GenerateTile()`函数中的`// RemoveFromRoot();`语句，该语句清理FilePath变量导致下一次瓦片生成时FilePath变量乱码的问题，可以解决大地图只生成一个瓦片的问题。
 
 参考：UE 中的 [Commandlet](./ue_commandlet.md) 解读。

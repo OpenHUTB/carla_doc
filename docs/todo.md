@@ -29,12 +29,17 @@ PID、基于模型的控制。
 * 资产：道路、建筑、[行人](https://github.com/EpicGames/MetaHuman-DNA-Calibration) 、车辆、树木等；
 
 ### 虚幻引擎
-* 引擎优化：[可变形资产](https://github.com/GPUOpen-Effects/FEMFX) 、[车辆碰撞](https://github.com/OpenRadioss/OpenRadioss) 、[文档](https://github.com/OpenHUTB/engine_doc) 本地化整理。
+* 引擎优化：[文档](https://github.com/OpenHUTB/engine_doc) 本地化整理。
 * [加载进度](https://www.unrealengine.com/marketplace/en-US/product/loading-screen-with-load-percentage) ；
 
 ### 有限元
-* 开源多物理场仿真引擎 [Chrono](https://projectchrono.org/) 。
+* 开源多物理场仿真引擎 [Chrono](https://projectchrono.org/) 处理碰撞。
+* [可变形资产](https://github.com/GPUOpen-Effects/FEMFX) 
+* [车辆碰撞](https://github.com/OpenRadioss/OpenRadioss)
+
+### 声音
+* [虚幻音频的声学项目](https://www.unrealengine.com/marketplace/en-US/product/06cfe91228c04848a0f6d6f7fb7b40f0?sessionInvalidated=true) 。[用 C++ 增加音视频互动](https://blog.csdn.net/agora_cloud/article/details/106293719) 、[利用蓝图制作立体环境声](利用蓝图制作立体环境声) 。
 
 
 ## 第三方工具
-* [Carla调试工具](https://gitee.com/kin-zhang/quickly-carla) 
+* [Carla调试工具](https://gitee.com/kin-zhang/quickly-carla) ，下载[链接](https://www.microsoft.com/en-us/download/details.aspx?id=58090) 。

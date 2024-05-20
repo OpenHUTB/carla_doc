@@ -112,13 +112,12 @@ windows操作系统下通过vs2019打开并编译carla：
 
 ### 导入崩溃问题
 
-1. 例如，导入链接：
+1. 例如，导入测试链接：
 ```text
-https://overpass-api.de/api/map?bbox=2.08191,41.49611,2.08268,41.49671
 小地图：
 https://overpass-api.de/api/map?bbox=112.9088,28.2221,112.9172,28.2290
 大地图：
-https://overpass-api.de/api/map?bbox=112.8971,28.1976,112.9607,28.2501
+https://overpass-api.de/api/map?bbox=112.9091,28.2211,112.9170,28.2278
 金醴高速：
 https://overpass-api.de/api/map?bbox=113.5293,27.6893,113.5516,27.7074
 ```
@@ -244,3 +243,17 @@ Failed to open descriptor file ./../../../carla/Unreal/CarlaUE4/CarlaUE4.uprojec
 * 进行函数跳转时，vs一致出现`正在进行IntelliSense`：
 
 选择“工具”菜单栏下的“选项”按钮打开选项页面，找到 文本编辑器->C/C++->高级,在右侧的禁用IntelliSense中改为True
+
+* [检查符号是否加载](https://blog.csdn.net/tomwillow/article/details/118387681) 
+
+启动调式并在断点停下，然后“调试 - 窗口 - 模块”打开模块窗口。
+找到第三方dll的名字，看“符号文件”一栏是空的。说明这个dll的符号文件没有加载。
+把.pdb和.dll放在一起。再次调试。可以看到符号文件已经加载了。
+
+
+* 日志记录
+
+`UE_LOG`函数记录的日志位于`carla\Unreal\CarlaUE4\Saved\Logs\CarlaUE4.log`文件中。
+
+### 学习
+* [bat脚本](tuto_D_bat.md)
