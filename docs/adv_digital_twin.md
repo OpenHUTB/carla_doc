@@ -134,4 +134,8 @@ GenerateTile();
 
 移除`void UOpenDriveToMap::GenerateTile()`函数中的`// RemoveFromRoot();`语句，该语句清理FilePath变量导致下一次瓦片生成时FilePath变量乱码的问题，可以解决大地图只生成一个瓦片的问题。
 
+```text
+
+```
+
 参考：UE 中的 [Commandlet](./ue_commandlet.md) 解读。

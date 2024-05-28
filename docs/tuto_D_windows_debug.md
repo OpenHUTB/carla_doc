@@ -117,7 +117,7 @@ windows操作系统下通过vs2019打开并编译carla：
 小地图：
 https://overpass-api.de/api/map?bbox=112.9088,28.2221,112.9172,28.2290
 大地图：
-https://overpass-api.de/api/map?bbox=112.9091,28.2211,112.9170,28.2278
+https://overpass-api.de/api/map?bbox=112.8553,28.1931,112.9396,28.2504
 金醴高速：
 https://overpass-api.de/api/map?bbox=113.5293,27.6893,113.5516,27.7074
 ```
