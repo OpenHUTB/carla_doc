@@ -33,6 +33,11 @@ PID、基于模型的控制。
 * 资产：道路、建筑、[行人](https://github.com/EpicGames/MetaHuman-DNA-Calibration) 、车辆、树木等；
 * [体积雾、雪、脏](https://bitbucket.org/carla-simulator/carla-content/pull-requests/382) 的支持；
 * 湖工商、金醴高速场景[大文件支持](./tuto_G_lfs.md) ；
+* [湖工商场景分支](https://bitbucket.org/hutbcity/openhutbcarla/src/main/)
+```shell
+https://bitbucket.org/carla-simulator/carla-content Unreal/CarlaUE4/Content/Carla
+```
+
 
 ### 虚幻引擎
 * 引擎优化：[文档](https://github.com/OpenHUTB/engine_doc) 本地化整理。
