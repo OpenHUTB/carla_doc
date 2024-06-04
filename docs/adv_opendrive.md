@@ -78,7 +78,7 @@ python3 config.py -x opendrive/TownBig.xodr
 
 <div class="build-buttons">
 <p>
-<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="前往 CARLA 论坛">
+<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="前往 Carla 论坛">
 Carla 论坛</a>
 </p>
 </div>

@@ -694,7 +694,7 @@ __2.__ 使用 `python3 config.py --fps=10` 运行仿真。
 *   __蓝图：__ sensor.camera.semantic_segmentation
 *   __输出：__ 每步 [carla.Image](python_api.md#carla.Image) （除非 `sensor_tick` 另有说明）。
 
-该摄像机根据其标签以不同的颜色显示它，从而对可见的每个物体进行分类（例如，行人与车辆的颜色不同）。当仿真开始时，场景中的每个元素都会使用标签创建。所以当演员产生时就会发生这种情况。对象按其在项目中的相对文件路径进行分类。例如，存储在中的网格`Unreal/CarlaUE4/Content/Static/Pedestrians`被标记为`Pedestrian`。
+该摄像机根据其标签以不同的颜色显示它，从而对可见的每个物体进行分类（例如，行人与车辆的颜色不同）。当仿真开始时，场景中的每个元素都会使用标签创建。所以当参与者产生时就会发生这种情况。对象按其在项目中的相对文件路径进行分类。例如，存储在中的网格`Unreal/CarlaUE4/Content/Static/Pedestrians`被标记为`Pedestrian`。
 
 ![ImageSemanticSegmentation](img/ref_sensors_semantic.jpg)
 

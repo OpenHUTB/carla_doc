@@ -22,7 +22,7 @@ ISS 使用 Ubuntu 20.04 进行测试，运行 Python 3.8。
   ```
 
 
-- 安装 [CARLA 0.9.13](https://github.com/carla-simulator/carla/releases/tag/0.9.13/) 并设置环境变量:
+- 安装 [Carla 0.9.13](https://github.com/carla-simulator/carla/releases/tag/0.9.13/) 并设置环境变量:
 
   ```
   export CARLA_ROOT=</path/to/carla>
@@ -80,7 +80,7 @@ ISS 使用 Ubuntu 20.04 进行测试，运行 Python 3.8。
 
 ## 运行任务
 
-- 打开 CARLA 服务器
+- 打开 Carla 服务器
 
   ```
   cd carla-0.9.13

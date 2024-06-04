@@ -129,7 +129,7 @@ location.z += 10.0
 actor.set_location(location)
 ```
 
-可以禁用演员的物理特性以将其冻结在适当的位置。
+可以禁用参与者的物理特性以将其冻结在适当的位置。
 
 ```py
 actor.set_simulate_physics(False)
@@ -170,7 +170,7 @@ camera.listen(lambda image: image.save_to_disk('output/%06d.png' % image.frame))
 
 ### 观察者
 
-由虚幻引擎放置以提供游戏内的视角。它可用于移动仿真器窗口的视角。以下示例将移动观众演员，将视角指向所需的车辆。
+由虚幻引擎放置以提供游戏内的视角。它可用于移动仿真器窗口的视角。以下示例将移动观众参与者，将视角指向所需的车辆。
 
 ```py
 spectator = world.get_spectator()
@@ -212,7 +212,7 @@ if traffic_light.get_state() == carla.TrafficLightState.Red:
 
 ### 车辆
 
-[__carla.Vehicle__](python_api.md#carla.Vehicle) 是一种特殊类型的演员。它采用了仿真轮式车辆物理特性的特殊内部组件。这是通过应用四种不同的控件来实现的：
+[__carla.Vehicle__](python_api.md#carla.Vehicle) 是一种特殊类型的参与者。它采用了仿真轮式车辆物理特性的特殊内部组件。这是通过应用四种不同的控件来实现的：
 
 * __[carla.VehicleControl](python_api.md#carla.VehicleControl)__ 提供油门、转向、刹车等驾驶命令的输入。
 ```py

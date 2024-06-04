@@ -30,7 +30,7 @@ NVIDIA 的 [__SimReady__](https://developer.nvidia.com/omniverse/simready-assets
 
 ### 3. 连接 Carla  仿真器
 
-1. 从 Carla   根文件夹命令行使用 `make launch` 启动 CARLA
+1. 从 Carla 根文件夹命令行使用 `make launch` 启动 Carla
 2. 如果现有服务器处于活动状态并且您想要重新启动设置，请单击*Clean Local Assets*（可选） 
 3. 选择 *Omniverse* 图标并单击 *Add Server*
 4. 为服务器命名并单击*Add to Content Browser*
@@ -50,7 +50,7 @@ NVIDIA 的 [__SimReady__](https://developer.nvidia.com/omniverse/simready-assets
 3. 选择您的 SimReady 文件夹
 4. 上传文件
 
-### 5. 使用 Omniverse 连接器将车辆加载到 CARLA
+### 5. 使用 Omniverse 连接器将车辆加载到 Carla
 
 1. 在虚幻引擎中打开 Carla  项目
 2. 导航至 `CarlaTools/Content/USDImporter`

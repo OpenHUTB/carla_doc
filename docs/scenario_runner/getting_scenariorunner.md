@@ -18,15 +18,15 @@
    </summary>
 
 ```sh
-# Decide whether to use a package or make the build from source
+# 决定是否使用包或者从源代码构建
 
 
-# Option A) Use a ScenarioRunner package
-   # 1. Install a CARLA package: 
+# 选项 A) 使用 ScenarioRunner 包
+   # 1. 安装 CARLA 包: 
       https://carla.readthedocs.io/en/latest/start_quickstart/
-   # 2. Download the matching ScenarioRunner package: 
+   # 2. 下载匹配的 ScenarioRunner 包: 
       https://github.com/carla-simulator/scenario_runner/releases
-   # 3. Extract the content wherever needed. 
+   # 3. 抽取内容ntent wherever needed. 
 
    # Update the release: 
    # 1. Delete previous CARLA and ScenarioRunner versions.

@@ -71,7 +71,7 @@ blueprint_library = world.get_blueprint_library()
 ```
 
 ## 参与者和蓝图
-演员是在仿真中扮演角色的任何东西。
+参与者是在仿真中扮演角色的任何东西。
 
 *   车辆
 *   行人

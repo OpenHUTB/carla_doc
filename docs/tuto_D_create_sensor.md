@@ -261,7 +261,7 @@ static Buffer Serialize(const Sensor &, ...);
 
 在此示例中，我们需要以在客户端有意义的方式将检测到的参与者列表写入缓冲区。这就是我们将剧集对象传递给此函数的原因。
 
-`UCarlaEpisode`类表示仿真器中运行的当前 _情节_，即自上次加载地图以来的仿真状态。它包含与 Carla 相关的所有信息，除其他外，它还允许搜索演员 ID。我们可以将这些 ID 发送给客户端，客户端将能够将这些 ID 识别为参与者
+`UCarlaEpisode`类表示仿真器中运行的当前 _情节_，即自上次加载地图以来的仿真状态。它包含与 Carla 相关的所有信息，除其他外，它还允许搜索参与者 ID。我们可以将这些 ID 发送给客户端，客户端将能够将这些 ID 识别为参与者
 
 ```cpp
 template <typename SensorT, typename EpisodeT, typename ActorListT>

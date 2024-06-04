@@ -91,7 +91,7 @@ docker build -t carla -f Carla.Dockerfile . --build-arg GIT_BRANCH=<branch_or_ta
 
 <div class="build-buttons">
 <p>
-<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA 论坛">
+<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="跳转至 Carla 论坛">
 Carla forum</a>
 </p>
 </div>

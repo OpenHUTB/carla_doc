@@ -18,7 +18,7 @@ python3.7、carla0.9.14、罗技G-hub驱动、G29方向盘
 
 ![G29](img/tuto_M_G29/G29.png)
 
-python环境中安装CARLA与logidrivepy
+python环境中安装 Carla 与logidrivepy
 
 ```
 pip install carla

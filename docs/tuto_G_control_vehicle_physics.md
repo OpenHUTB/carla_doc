@@ -19,7 +19,7 @@ def main():
     client = carla.Client('127.0.0.1', 2000)
     client.set_timeout(2.0)
 
-    # 获得 World and Actors
+    # 获得世界和参与者
     world = client.get_world()
     actors = world.get_actors()
 

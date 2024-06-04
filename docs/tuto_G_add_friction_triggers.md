@@ -18,11 +18,11 @@
 import carla
 
 def main():
-    # Connect to client
+    # 连接到客户端
     client = carla.Client('127.0.0.1', 2000)
     client.set_timeout(2.0)
 
-    # Get World and Actors
+    # 获取事件和参与者
     world = client.get_world()
     actors = world.get_actors()
 

@@ -18,7 +18,7 @@ __数字孪生工具__ 能够基于源自 [OpenStreetMap](https://www.openstreet
 
 ## 构建 OSM 渲染器
 
-如果您使用的是 Linux，则可以选择使用 Carla 界面中的 OSM 渲染器来导航已下载的大型 OSM 地图区域。您首先需要构建 OSM 渲染器。 在 Carla 根目录中运行 `make osmrenderer`。 您可能需要将 CMake 版本升级到 v3.2 或更高版本才能正常工作。这将在您的构建目录中创建两个名为 `libosmcout-source` 和 `libosmcout-build` 的文件夹。在继续构建 CARLA 之前，您需要像这样 在目录中 `$CARLA_ROOT/Build/libosmcout-source/maps` 编辑文件 `Build.sh`，以确保找到可执行文件：
+如果您使用的是 Linux，则可以选择使用 Carla 界面中的 OSM 渲染器来导航已下载的大型 OSM 地图区域。您首先需要构建 OSM 渲染器。 在 Carla 根目录中运行 `make osmrenderer`。 您可能需要将 CMake 版本升级到 v3.2 或更高版本才能正常工作。这将在您的构建目录中创建两个名为 `libosmcout-source` 和 `libosmcout-build` 的文件夹。在继续构建 Carla 之前，您需要像这样 在目录中 `$CARLA_ROOT/Build/libosmcout-source/maps` 编辑文件 `Build.sh`，以确保找到可执行文件：
 
 ```bash
 if [[ -x ../Import/src/Import ]]; then
@@ -37,7 +37,7 @@ else
 fi
 ```
 
-然后继续按正常方式构建CARLA。Windows 用户无法选择使用 OSM 渲染器，必须直接使用 URL。
+然后继续按正常方式构建 Carla。Windows 用户无法选择使用 OSM 渲染器，必须直接使用 URL。
 
 ## 下载并准备 OSM 地图数据
 

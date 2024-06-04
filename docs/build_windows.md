@@ -205,7 +205,7 @@ __A. `.egg` 文件__
 
 >`.egg` 文件不需要安装。导入 Carla 时，Carla 的所有示例脚本都会自动 [查找此文件](build_system.md#versions-prior-to-0912) 。
 
->如果您之前安装了 CARLA `.whl`，则 它将`.whl`优先于`.egg`文件。 
+>如果您之前安装了 Carla `.whl`，则 它将`.whl`优先于`.egg`文件。 
 
 __B. `.whl` 文件__
 

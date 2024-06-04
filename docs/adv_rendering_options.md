@@ -165,7 +165,7 @@ Carla 在 [这里](https://github.com/carla-simulator/carla/blob/0.9.12/Util/Doc
 
 <div class="build-buttons">
 <p>
-<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
+<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the Carla forum">
 Carla 论坛</a>
 </p>
 </div>

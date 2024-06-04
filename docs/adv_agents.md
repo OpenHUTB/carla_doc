@@ -18,7 +18,7 @@ Carla 智能体中涉及的主要脚本位于`PythonAPI/carla/agents/navigation`
 
 ### 计划与控制
 
-- __`controller.py`:__ 将纵向和横向 PID 控制器组合成一个类，__VehiclePIDController__，用于从 CARLA 客户端对车辆进行低级控制。
+- __`controller.py`:__ 将纵向和横向 PID 控制器组合成一个类，__VehiclePIDController__，用于从 Carla 客户端对车辆进行低级控制。
 - __`global_route_planner.py`:__ 从 Carla 服务器获取详细的拓扑结构以构建世界地图的图形表示，为 __Local Planner__ 提供航点和道路选项信息。
 - __`local_planner.py`:__ 根据来自 __VehiclePIDController__ 的控制输入跟踪航路点。航点可以由 __Global Route Planner__ 提供，也可以动态计算，在路口选择随机路径，类似于 [Traffic Manager](adv_traffic_manager.md)。
 

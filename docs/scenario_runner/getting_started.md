@@ -59,7 +59,7 @@ python scenario_runner.py --help
 python manual_control.py
 ```
 
-注意: 如果您不希望自动（重新）加载 CARLA 世界，您可以跳过命令行选项 _--reloadWorld_
+注意: 如果您不希望自动（重新）加载 Carla 世界，您可以跳过命令行选项 _--reloadWorld_
 
 ## 运行一个场景类的所有场景
 与前面的示例类似，还可以执行属于同一类（例如“FollowLeadingVehicle”类）的一系列场景。

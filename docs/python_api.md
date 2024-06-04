@@ -117,7 +117,7 @@ _</font>
 
 ##### 设置器
 - <a name="carla.Actor.set_enable_gravity"></a>**<font color="#7fb800">set_enable_gravity</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**enabled**</font>)  
-启用或禁用演员的重力。 __默认__ 为 True。  
+启用或禁用参与者的重力。 __默认__ 为 True。  
     - **参数：**
         - `enabled` (_bool_)  
 - <a name="carla.Actor.set_location"></a>**<font color="#7fb800">set_location</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**location**</font>)  
@@ -254,7 +254,7 @@ Carla 为 Actor 提供了一个蓝图库，可以通过 [carla.BlueprintLibrary]
 ---
 
 ## carla.ActorList<a name="carla.ActorList"></a>
-一个类，它包含现场出现的每个演员并提供对他们的访问。该列表由服务器自动创建和更新，可以使用 [carla.World](#carla.World) 返回。
+一个类，它包含现场出现的每个参与者并提供对他们的访问。该列表由服务器自动创建和更新，可以使用 [carla.World](#carla.World) 返回。
 
 ### 方法
 - <a name="carla.ActorList.filter"></a>**<font color="#7fb800">filter</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**wildcard_pattern**</font>)  
@@ -463,7 +463,7 @@ Carla 为 Actor 提供了一个蓝图库，可以通过 [carla.BlueprintLibrary]
         - `port` (_int_) - 运行Carla 仿真器实例的TCP端口。默认为 2000 和随后的2001 。 
         - `worker_threads` (_int_) - 用于后台更新的工作线程数。如果为 0，则使用所有可用的并发性。
 - <a name="carla.Client.apply_batch"></a>**<font color="#7fb800">apply_batch</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**commands**</font>)  
-在单个仿真步上执行命令列表，不检索任何信息。如果需要有关每个命令的响应的信息，请使用 __<font color="#7fb800">apply_batch_sync()</font>__ 方法。[下面](https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/generate_traffic.py) 是一个关于如何删除卡拉中出现的演员的示例。一次列出所有参与者 [carla.ActorList](#carla.ActorList) 。
+在单个仿真步上执行命令列表，不检索任何信息。如果需要有关每个命令的响应的信息，请使用 __<font color="#7fb800">apply_batch_sync()</font>__ 方法。[下面](https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/generate_traffic.py) 是一个关于如何删除卡拉中出现的参与者的示例。一次列出所有参与者 [carla.ActorList](#carla.ActorList) 。
     - **参数：**
         - `commands` (_list_) - 要批量执行的命令列表。每个命令都不同，并且有自己的参数。它们显示在此页面底部列出。
 - <a name="carla.Client.apply_batch_sync"></a>**<font color="#7fb800">apply_batch_sync</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**commands**</font>, <font color="#00a6ed">**due_tick_cue**=False</font>)<button class="SnipetButton" id="carla.Client.apply_batch_sync-snipet_button">snippet &rarr;</button>  
@@ -3262,7 +3262,7 @@ VehiclePhysicsControl 构造函数。
 ---
 
 ## carla.WalkerBoneControlOut<a name="carla.WalkerBoneControlOut"></a>
-该类用于返回行人的所有骨骼位置。对于每个骨骼，我们得到它的名称及其在三个不同空间（世界、演员和相对）中的变换。 
+该类用于返回行人的所有骨骼位置。对于每个骨骼，我们得到它的名称及其在三个不同空间（世界、参与者和相对）中的变换。 
 
 ### 实例变量
 - <a name="carla.WalkerBoneControlOut.bone_transforms"></a>**<font color="#f8805a">bone_transforms</font>** (_list([name,world, actor, relative])_)  
@@ -3391,7 +3391,7 @@ OpenDRIVE当前位置的 <b>s</b> 值 。
 ---
 
 ## carla.WeatherParameters<a name="carla.WeatherParameters"></a>
-此类定义了包含光照和天气规范的对象，这些规范稍后可以应用在 [carla.World](#carla.World) 中。到目前为止，这些条件仅影响 [sensor.camera.rgb](ref_sensors.md#rgb-camera)。它们既不影响演员的物理特性，也不影响其他传感器。
+此类定义了包含光照和天气规范的对象，这些规范稍后可以应用在 [carla.World](#carla.World) 中。到目前为止，这些条件仅影响 [sensor.camera.rgb](ref_sensors.md#rgb-camera)。它们既不影响参与者的物理特性，也不影响其他传感器。
 这些参数中的每一个都独立于其他参数起作用。增加降雨量不会自动形成水坑，也不会改变道路的湿度。这可以实现更好的定制，但也意味着需要编写现实条件的脚本。然而，可以在 [此处](https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/dynamic_weather.py) 找到实际运行的动态天气条件的示例。
 
 

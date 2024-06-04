@@ -26,7 +26,7 @@ Carla 在客户端库中集成了 [责任敏感安全的 C++ 库](https://github
 
 下图描绘了 __责任敏感安全__ 与 Carla 架构的集成。
 
-![Interate RSS into CARLA](img/rss_carla_integration_architecture.png)
+![Interate RSS into Carla](img/rss_carla_integration_architecture.png)
 
 __1. 服务器__
 
@@ -48,7 +48,7 @@ __4. RssRestrictor__
 
 - 如果客户端请求，则将响应应用于 [carla.VehicleControl](python_api.md#carla.VehicleControl)，并返回结果。
 
-[![RSS sensor in CARLA](img/rss_carla_integration.png)](https://www.youtube.com/watch?v=UxKPXPT2T8Q)
+[![RSS sensor in Carla](img/rss_carla_integration.png)](https://www.youtube.com/watch?v=UxKPXPT2T8Q)
 <div style="text-align: right"><i>结果的可视化。</i></div>
 
 ---
@@ -125,7 +125,7 @@ make package.rss
 
 <div class="build-buttons">
 <p>
-<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
+<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="跳转至Carla 论坛">
 Carla 论坛</a>
 </p>
 </div>

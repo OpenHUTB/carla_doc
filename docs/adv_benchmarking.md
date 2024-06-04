@@ -200,7 +200,7 @@ python3 performance_benchmark.py --async --render_mode
 <div class="build-buttons">
 <!-- 最新发布按钮 -->
 <p>
-<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="转到最新的 CARLA 版本">
+<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="转到最新的 Carla 版本">
 Carla 论坛</a>
 </p>
 </div>

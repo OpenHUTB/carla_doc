@@ -101,7 +101,7 @@ __3.__ 选择要将文件导出到的目录，然后单击 `Export`。这将生�
 
 <div class="build-buttons">
 <p>
-<a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
+<a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="跳转至 Carla 论坛">
 Carla 论坛</a>
 </p>
 </div>

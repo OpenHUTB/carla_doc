@@ -156,7 +156,7 @@ Cannot find a compatible Yulkan driver (ICD)
 
 <div class="build-buttons">
 <p>
-<a href="https://github.com/carla-simulator/carla" target="_blank" class="btn btn-neutral" title="Go to the CARLA repository">
+<a href="https://github.com/carla-simulator/carla" target="_blank" class="btn btn-neutral" title="跳转至 Carla 仓库">
 <span class="icon icon-github"></span> Carla 仓库</a>
 </p>
 </div>

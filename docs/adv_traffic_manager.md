@@ -415,7 +415,7 @@ python3 generate_traffic.py -n 50 --seed 9
 
 下面的剪辑显示了混合模式处于活动状态时如何启用和禁用物理功能。__英雄车辆__ 标有 __红色方块__。__禁用物理功能__ 的车辆标有 __蓝色方块__。当在英雄车辆的影响半径内时，__启用物理功能__ 并且标签变为 __绿色__。
 
-![Welcome to CARLA](img/tm_hybrid.gif)
+![](img/tm_hybrid.gif)
 
 ---
 ## 运行多个交通管理器
@@ -551,18 +551,18 @@ __不存在英雄车辆__
 
 __呈现英雄车辆__
 
-当自动驾驶车辆超过 `actor_active_distance` 定义的值时，将进入休眠状态actor_active_distance。要设置此值，请使用 Python API：
+当自动驾驶车辆超过 `actor_active_distance` 定义的值时，将进入休眠状态。要设置此值，请使用 Python API：
 
 ```py
 settings = world.get_settings()
 
-# Actors will become dormant 2km away from the ego vehicle
+# 离英雄车辆超过2公里的参与者将会休眠
 settings.actor_active_distance = 2000
 
 world.apply_settings(settings)
 ```
 
-在交通管理器中，休眠的参与者可以配置为在英雄车辆周围不断重生，而不是在地图的其他部分保持休眠状态。可以使用`set_respawn_dormant_vehicles` Python API 中的方法配置此选项。车辆将在英雄车辆的用户定义距离内重生。可重生距离的上下边界可以使用`set_boundaries_respawn_dormant_vehicles`方法设置。注意，上距离不会大于大地图的瓦片流距离，距离最小为 20m。
+在交通管理器中，休眠的参与者可以配置为在英雄车辆周围不断重生，而不是在地图的其他部分保持休眠状态。可以使用`set_respawn_dormant_vehicles` Python API 中的方法配置此选项。车辆将在英雄车辆的用户定义距离内重生。可重生距离的上下边界可以使用`set_boundaries_respawn_dormant_vehicles`方法设置。注意，上距离不会大于大地图的瓦片流距离，距离最小为 20 米。
 
 要使英雄车辆 25 米和 700 米范围内的休眠车辆重生：
 
