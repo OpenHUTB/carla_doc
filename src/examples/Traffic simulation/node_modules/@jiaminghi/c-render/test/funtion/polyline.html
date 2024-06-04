@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf8" />
+    <title>Polyline</title>
+    <style>
+      html, body, #canvas {
+        width: 100%;
+        height: 100%;
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+    <script src="../../dist/crender.map.js"></script>
+  </head>
+
+  <body>
+
+    <canvas id="canvas"></canvas>
+
+  </body>
+
+  <script>
+    const { CRender, extendNewGraph } = window.CRender
+
+    const render = new CRender(document.querySelector('#canvas'))
+
+    const [w, h] = render.area
+
+    const topPos = h / 3
+    const bottom = h / 3 * 2
+    const gap = w / 10
+
+    const beginX = w / 2 - gap * 2
+
+    const points = new Array(5).fill('').map((t, i) =>
+      [beginX + gap * i, i % 2 === 0 ? topPos : bottom])
+
+    const pointsAfter = new Array(5).fill('').map((t, i) =>
+      [beginX + gap * i, i % 2 === 0 ? bottom : topPos])
+
+    const polyline = render.add({
+      name: 'polyline',
+      animationCurve: 'easeOutCubic',
+      animationFrame: 50,
+      drag: true,
+      hover: true,
+      shape: {
+        points
+      },
+      style: {
+        stroke: '#ffee97',
+        lineWidth: 30
+      }
+    })
+
+    function wait (time) {
+      return new Promise(resolve => setTimeout(resolve, time))
+    }
+
+    async function start () {
+      await wait(1000)
+
+      await polyline.animation('shape', {
+        points: pointsAfter
+      })
+
+      await wait(1000)
+
+      polyline.animation('style', {
+        stroke: 'lemonchiffon'
+      })
+    }
+
+    start()
+
+  </script>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf8" />
+    <title>launchAnimation</title>
+    <style>
+      html, body, #canvas {
+        width: 100%;
+        height: 100%;
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+    <script src="../../dist/crender.map.js"></script>
+  </head>
+
+  <body>
+
+    <canvas id="canvas"></canvas>
+
+  </body>
+
+  <script>
+    const { CRender, extendNewGraph } = window.CRender
+
+    const render = new CRender(document.querySelector('#canvas'))
+
+    const [w, h] = render.area
+
+    function randomNum (minNum, maxNum) {
+      switch (arguments.length) {
+        case 1:
+          return parseInt(Math.random() * minNum + 1, 10)
+
+        case 2:
+          return parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10)
+
+        default:
+          return 0
+      }
+    }
+
+    const circles = new Array(100).fill(0).map(foo => render.add({
+      name: 'circle',
+      animationCurve: 'easeOutCubic',
+      shape: {
+        rx: randomNum(0, w),
+        ry: randomNum(0, h),
+        r: 10
+      },
+      style: {
+        fill: '#ffee97',
+        stroke: 'goldenrod',
+        lineWidth: 2
+      }
+    }))
+
+    function wait (time) {
+      return new Promise(resolve => setTimeout(resolve, time))
+    }
+
+    async function start () {
+      await wait(1000)
+
+      circles.forEach(circle => circle.animation('shape', {
+        rx: randomNum(0, w),
+        ry: randomNum(0, h)
+      }, true))
+
+      render.launchAnimation()
+    }
+
+    start()
+
+  </script>
+</html>

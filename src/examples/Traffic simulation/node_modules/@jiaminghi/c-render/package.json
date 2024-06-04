@@ -1,0 +1,47 @@
+{
+  "name": "@jiaminghi/c-render",
+  "version": "0.4.3",
+  "author": "JiaMing <743192023@qq.com>",
+  "description": "Canvas-based vector graphics rendering plugin",
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jiaming743/CRender.git"
+  },
+  "scripts": {
+    "build": "node build/index.js",
+    "prepublish": "npm run build",
+    "deploy": "node deploy/index.js",
+    "test": "mocha"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jiaming743/CRender/issues"
+  },
+  "keywords": [
+    "canvas",
+    "render",
+    "graph",
+    "vector"
+  ],
+  "homepage": "https://github.com/jiaming743/CRender#readme",
+  "dependencies": {
+    "@babel/runtime": "^7.5.5",
+    "@jiaminghi/bezier-curve": "*",
+    "@jiaminghi/color": "*",
+    "@jiaminghi/transition": "*"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/plugin-transform-runtime": "^7.5.5",
+    "@babel/register": "^7.4.4",
+    "@jiaminghi/fs": "0.0.2",
+    "chai": "^4.2.0",
+    "ftp": "^0.3.10",
+    "mocha": "^6.1.4",
+    "browserify": "^16.5.0",
+    "uglifyjs": "^2.4.11"
+  }
+}
