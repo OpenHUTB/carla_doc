@@ -54,6 +54,8 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tutorials/">教程</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_E_gallery/">示例</a>
+                  </li>
               </ul>
               <p class="caption"><span class="caption-text">构建 Carla</span></p>
               <ul>
@@ -226,15 +228,6 @@
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_D_windows_debug/">调试程序</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">示例</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_E_gallery/">入门</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_traffic_light/">交通灯的配置和使用</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_traffic_prediction/">流量预测</a>
-                  </li>
-              </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
@@ -327,12 +320,32 @@
 </thead>
 <tbody>
 <tr>
-<td>-G %GENERATOR% %PLATFORM%</td>
+<td><code>-G %GENERATOR% %PLATFORM%</code></td>
 <td>指定编译器版本、平台</td>
 </tr>
 <tr>
-<td>-DCMAKE_BUILD_TYPE=Client</td>
+<td><code>-DCMAKE_BUILD_TYPE=Client</code></td>
 <td>指定构建类型</td>
+</tr>
+<tr>
+<td><code>-DCMAKE_CXX_FLAGS_RELEASE="/MD /MP"</code></td>
+<td>为<code>/MD /MP</code>构建设置C++编译器优化级别</td>
+</tr>
+<tr>
+<td><code>-DCMAKE_INSTALL_PREFIX</code></td>
+<td>指定这些文件应该拷贝到哪个根目录（PythonAPI里）</td>
+</tr>
+<tr>
+<td><code>--build .</code></td>
+<td>对生成好的项目进行编译构建，<code>.</code>指的是生成好的build tree的路径</td>
+</tr>
+<tr>
+<td><code>--config Release</code></td>
+<td>构建后会按install规则安装一份，同时在<code>-DCMAKE_INSTALL_PREFIX</code>指定的路径下也会安装一份。</td>
+</tr>
+<tr>
+<td><code>findstr /V "Up-to-date:"</code></td>
+<td>对打印印不包含相符项目的行。</td>
 </tr>
 </tbody>
 </table>

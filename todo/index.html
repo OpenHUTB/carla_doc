@@ -54,6 +54,8 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tutorials/">教程</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_E_gallery/">示例</a>
+                  </li>
               </ul>
               <p class="caption"><span class="caption-text">构建 Carla</span></p>
               <ul>
@@ -226,15 +228,6 @@
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_D_windows_debug/">调试程序</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">示例</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_E_gallery/">入门</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_traffic_light/">交通灯的配置和使用</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_traffic_prediction/">流量预测</a>
-                  </li>
-              </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
@@ -290,28 +283,32 @@
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">待做列表</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#_2">技术文档</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_3">学术研究</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_4">感知</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_5">规划</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_6">控制</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_7">场景</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">第三方工具</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_8">艺术改进</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">学术研究</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_9">虚幻引擎</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">感知</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_10">有限元</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_6">规划</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_7">控制</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_8">场景</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_11">第三方工具</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_9">艺术改进</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_10">虚幻引擎</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_11">有限元</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_12">声音</a>
+    </li>
+        </ul>
     </li>
     </ul>
                   </li>
@@ -349,14 +346,18 @@
 <li>整理 Carla 社区的文档、代码，比如 <a href="https://github.com/OpenHUTB/carla/tree/master/PythonAPI/examples">carla</a> 、<a href="https://github.com/Amin-Tgz/awesome-CARLA">awesome</a> ；</li>
 <li>整理 <a href="https://github.com/OpenHUTB/neuro">神经科学原理</a> 、<a href="https://github.com/OpenHUTB/PFC">前额叶皮层</a> 、强化学习导论心理学章节；</li>
 </ul>
-<h2 id="_3">学术研究</h2>
-<h3 id="_4"><a href="../algorithms/perception/">感知</a></h3>
+<h3 id="_3">第三方工具</h3>
+<ul>
+<li><a href="https://gitee.com/kin-zhang/quickly-carla">Carla调试工具</a> ，下载<a href="https://www.microsoft.com/en-us/download/details.aspx?id=58090">链接</a> 。</li>
+</ul>
+<h2 id="_4">学术研究</h2>
+<h3 id="_5"><a href="../algorithms/perception/">感知</a></h3>
 <p>目标跟踪、再识别、语义分割、骨架识别等。</p>
-<h3 id="_5"><a href="../algorithms/planning/">规划</a></h3>
+<h3 id="_6"><a href="../algorithms/planning/">规划</a></h3>
 <p><a href="../algorithms/localization/">定位</a> 、惯视融合、建图、规划、决策。</p>
-<h3 id="_6"><a href="../algorithms/control/">控制</a></h3>
+<h3 id="_7"><a href="../algorithms/control/">控制</a></h3>
 <p>PID、基于模型的控制。</p>
-<h3 id="_7">场景</h3>
+<h3 id="_8">场景</h3>
 <ul>
 <li>
 <p>智能体、<a href="https://openhutb.github.io/carla_doc/ecosys_iss/">智能驾驶</a> 、机器人、无人机等。</p>
@@ -365,23 +366,32 @@
 <p>提供数据孪生建筑生成的 Python 接口。</p>
 </li>
 </ul>
-<h2 id="_8">艺术改进</h2>
+<h2 id="_9">艺术改进</h2>
 <ul>
 <li>场景的自动化建模（删除）：道路、<a href="https://github.com/chenzhaiyu/footprint-detection">建筑</a> 等；</li>
 <li>资产：道路、建筑、<a href="https://github.com/EpicGames/MetaHuman-DNA-Calibration">行人</a> 、车辆、树木等；</li>
+<li><a href="https://bitbucket.org/carla-simulator/carla-content/pull-requests/382">体积雾、雪、脏</a> 的支持；</li>
+<li>湖工商、金醴高速场景<a href="../tuto_G_lfs/">大文件支持</a> ；</li>
+<li><a href="https://bitbucket.org/hutbcity/openhutbcarla/src/main/">湖工商场景分支</a></li>
 </ul>
-<h3 id="_9">虚幻引擎</h3>
+<pre><code class="language-shell">https://bitbucket.org/carla-simulator/carla-content Unreal/CarlaUE4/Content/Carla
+</code></pre>
+<p>参考<a href="https://ww2.mathworks.cn/help/roadrunner-scenario/ug/import-custom-character-meshes.html">行人构建流程</a> 。</p>
+<p>新安装apkpure，再安装RealityScan</p>
+<h3 id="_10">虚幻引擎</h3>
 <ul>
-<li>引擎优化：<a href="https://github.com/GPUOpen-Effects/FEMFX">可变形资产</a> 、<a href="https://github.com/OpenRadioss/OpenRadioss">车辆碰撞</a> 、<a href="https://github.com/OpenHUTB/engine_doc">文档</a> 本地化整理。</li>
+<li>引擎优化：<a href="https://github.com/OpenHUTB/engine_doc">文档</a> 本地化整理。</li>
 <li><a href="https://www.unrealengine.com/marketplace/en-US/product/loading-screen-with-load-percentage">加载进度</a> ；</li>
 </ul>
-<h3 id="_10">有限元</h3>
+<h3 id="_11">有限元</h3>
 <ul>
-<li>开源多物理场仿真引擎 <a href="https://projectchrono.org/">Chrono</a> 。</li>
+<li>开源多物理场仿真引擎 <a href="https://projectchrono.org/">Chrono</a> 处理碰撞。</li>
+<li><a href="https://github.com/GPUOpen-Effects/FEMFX">可变形资产</a> </li>
+<li><a href="https://github.com/OpenRadioss/OpenRadioss">车辆碰撞</a></li>
 </ul>
-<h2 id="_11">第三方工具</h2>
+<h3 id="_12">声音</h3>
 <ul>
-<li><a href="https://gitee.com/kin-zhang/quickly-carla">Carla调试工具</a> </li>
+<li><a href="https://www.unrealengine.com/marketplace/en-US/product/06cfe91228c04848a0f6d6f7fb7b40f0?sessionInvalidated=true">虚幻音频的声学项目</a> 。<a href="https://blog.csdn.net/agora_cloud/article/details/106293719">用 C++ 增加音视频互动</a> 、<a href="利用蓝图制作立体环境声">利用蓝图制作立体环境声</a> 。</li>
 </ul>
               
             </div>

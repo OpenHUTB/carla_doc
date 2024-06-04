@@ -54,6 +54,8 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tutorials/">教程</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_E_gallery/">示例</a>
+                  </li>
               </ul>
               <p class="caption"><span class="caption-text">构建 Carla</span></p>
               <ul>
@@ -256,15 +258,6 @@
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_D_make_release/">发布版本</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_D_windows_debug/">调试程序</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">示例</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_E_gallery/">入门</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_traffic_light/">交通灯的配置和使用</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_traffic_prediction/">流量预测</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
@@ -495,7 +488,6 @@ camera.listen(lambda image: image.save_to_disk('output/%06d.png' % image.frame))
 transform = vehicle.get_transform()
 spectator.set_transform(carla.Transform(transform.location + carla.Location(z=50),
 carla.Rotation(pitch=-90)))
-
 </code></pre>
 <h3 id="_11">交通标志和交通灯</h3>
 <p>到目前为止，Carela 中只有停靠点、让行路线和交通信号灯被视为参与者。其余的 OpenDRIVE 标志可通过 API 作为地标（<a href="../python_api/#carla.Landmark"><strong>carla.Landmark</strong></a>）进行访问。他们的信息可以使用这些实例访问，但他们在仿真中并不作为参与者存在。在接下来的 <strong>第 3 部分 地图和导航</strong> 中将更详细地解释地标。 </p>
@@ -526,7 +518,7 @@ if traffic_light.get_state() == carla.TrafficLightState.Red:
 <ul>
 <li><strong><a href="../python_api/#carla.VehicleControl">carla.VehicleControl</a></strong> 提供油门、转向、刹车等驾驶命令的输入。</li>
 </ul>
-<pre><code class="language-py">    vehicle.apply_control(carla.VehicleControl(throttle=1.0, steer=-1.0))
+<pre><code class="language-py">vehicle.apply_control(carla.VehicleControl(throttle=1.0, steer=-1.0))
 </code></pre>
 <ul>
 <li>
@@ -537,23 +529,23 @@ if traffic_light.get_state() == carla.TrafficLightState.Red:
 </ul>
 </li>
 </ul>
-<pre><code class="language-py">    vehicle.apply_physics_control(carla.VehiclePhysicsControl(max_rpm = 5000.0, center_of_mass = carla.Vector3D(0.0, 0.0, 0.0), torque_curve=[[0,400],[5000,400]]))
+<pre><code class="language-py">vehicle.apply_physics_control(carla.VehiclePhysicsControl(max_rpm = 5000.0, center_of_mass = carla.Vector3D(0.0, 0.0, 0.0), torque_curve=[[0,400],[5000,400]]))
 </code></pre>
 <p>车辆有一个 <a href="../python_api/#carla.BoundingBox">carla.BoundingBox</a> 封装它们。该边界框允许将物理原理应用于车辆并检测碰撞。</p>
-<pre><code class="language-py">    box = vehicle.bounding_box
-    print(box.location)         # 相对车辆的位置
-    print(box.extent)           # XYZ half-box extents in meters.
+<pre><code class="language-py">box = vehicle.bounding_box
+print(box.location)         # 相对车辆的位置
+print(box.extent)           # XYZ half-box extents in meters.
 </code></pre>
 <p>通过启用 <a href="https://carla.readthedocs.io/en/latest/python_api/#carla.VehiclePhysicsControl.use_sweep_wheel_collision">扫轮碰撞参数</a> 可以改善车轮的物理特性。默认的轮子物理系统对每个轮子使用从轴到地板的单射线投射，但是当启用扫轮碰撞时，将检查轮子的整个体积是否发生碰撞。它可以这样启用：</p>
-<pre><code class="language-py">    physics_control = vehicle.get_physics_control()
-    physics_control.use_sweep_wheel_collision = True
-    vehicle.apply_physics_control(physics_control)
+<pre><code class="language-py">physics_control = vehicle.get_physics_control()
+physics_control.use_sweep_wheel_collision = True
+vehicle.apply_physics_control(physics_control)
 </code></pre>
 <p>车辆还包括其独有的其他功能：</p>
 <ul>
 <li><strong>自动驾驶模式</strong> 会将车辆订阅到 <a href="../adv_traffic_manager/">交通管理器</a> 以仿真真实的城市状况。该模块是硬编码的，不是基于机器学习的。</li>
 </ul>
-<pre><code class="language-py">    vehicle.set_autopilot(True)
+<pre><code class="language-py">vehicle.set_autopilot(True)
 </code></pre>
 <ul>
 <li><strong>车灯</strong> 必须由用户打开和关闭。每辆车都有一组在<a href="../python_api/#carla.VehicleLightState"><strong>carla.VehicleLightState</strong></a> 中列出的灯。并非所有车辆都集成了车灯。截至撰写本文时，配备集成车灯的车辆如下：<ul>

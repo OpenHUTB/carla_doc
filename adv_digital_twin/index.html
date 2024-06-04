@@ -54,6 +54,8 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tutorials/">教程</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_E_gallery/">示例</a>
+                  </li>
               </ul>
               <p class="caption"><span class="caption-text">构建 Carla</span></p>
               <ul>
@@ -203,7 +205,9 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#_7">后续步骤</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_8">问题</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_8">分析</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_9">问题</a>
     </li>
     </ul>
                   </li>
@@ -254,15 +258,6 @@
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_D_make_release/">发布版本</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_D_windows_debug/">调试程序</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">示例</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_E_gallery/">入门</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_traffic_light/">交通灯的配置和使用</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_traffic_prediction/">流量预测</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
@@ -424,13 +419,18 @@ fi
 <p>如果您对生成的地图感到满意，则可以按 <em>Save Map</em> 按钮保存地图。 <strong>此步骤将花费大量时间</strong>，可能需要一个多小时，也可能需要几个小时。完成此步骤后，您应该准备让计算机运行几个小时。完成此步骤后，将可以通过虚幻引擎编辑器或通过 Carla API 使用该地图，就像任何其他地图一样。</p>
 <h2 id="_7">后续步骤</h2>
 <p>添加光源（天光）、<a href="https://github.com/carla-simulator/carla/blob/dev/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Traffic/RoutePlanner.cpp">路线规划器</a> 、构建场景。</p>
-<h2 id="_8">问题</h2>
+<h2 id="_8">分析</h2>
+<p><code>UOpenDriveToMap::GenerateTile()</code>生成每一个瓦片，调用<code>GenerateAll()</code>函数，进行 道路网格、车道线、生成点、地形、数目位置、生成完成等步骤。</p>
+<h2 id="_9">问题</h2>
 <p><code>carla\Unreal\CarlaUE4\Plugins\CarlaTools\Source\CarlaTools\Private\OpenDriveToMap.cpp</code>改为生成一个瓦片地图的函数，生成后的名字为<code>{NAME}_Tile_0_0</code>。</p>
 <pre><code class="language-shell">// ExecuteTileCommandlet();
 GenerateTile();
 </code></pre>
 <p>原因：
 生成瓦片的命令行程序位于<code>Unreal\CarlaUE4\Plugins\CarlaTools\Source\CarlaTools\Private\Commandlet\GenerateTileCommandlet.cpp</code>。</p>
+<p>移除<code>void UOpenDriveToMap::GenerateTile()</code>函数中的<code>// RemoveFromRoot();</code>语句，该语句清理FilePath变量导致下一次瓦片生成时FilePath变量乱码的问题，可以解决大地图只生成一个瓦片的问题。</p>
+<pre><code class="language-text">
+</code></pre>
 <p>参考：UE 中的 <a href="../ue_commandlet/">Commandlet</a> 解读。</p>
               
             </div>

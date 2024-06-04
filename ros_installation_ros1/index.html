@@ -54,6 +54,8 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tutorials/">教程</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_E_gallery/">示例</a>
+                  </li>
               </ul>
               <p class="caption"><span class="caption-text">构建 Carla</span></p>
               <ul>
@@ -226,15 +228,6 @@
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_D_windows_debug/">调试程序</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">示例</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_E_gallery/">入门</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_traffic_light/">交通灯的配置和使用</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_traffic_prediction/">流量预测</a>
-                  </li>
-              </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
@@ -371,70 +364,70 @@
 <li>最新版本：</li>
 </ul>
 </blockquote>
-<pre><code class="language-sh">        sudo apt-get update # 更新Debian包索引
-        sudo apt-get install carla-ros-bridge # 安装最新的ROS桥接版本，或更新当前的安装
+<pre><code class="language-sh">sudo apt-get update # 更新Debian包索引
+sudo apt-get install carla-ros-bridge # 安装最新的ROS桥接版本，或更新当前的安装
 </code></pre>
 <blockquote>
 <ul>
 <li>通过向命令添加版本标签来安装特定版本：</li>
 </ul>
 </blockquote>
-<pre><code class="language-sh">        apt-cache madison carla-ros-bridge # 列出ROS桥接的可用版本
-        sudo apt-get install carla-ros-bridge=0.9.10-1 # 在这种情况下，“0.9.10”指的是ROS桥接版本，“1”指的是Debian版本
+<pre><code class="language-sh">apt-cache madison carla-ros-bridge # 列出ROS桥接的可用版本
+sudo apt-get install carla-ros-bridge=0.9.10-1 # 在这种情况下，“0.9.10”指的是ROS桥接版本，“1”指的是Debian版本
 </code></pre>
 <p><strong>3.</strong> 检查 <code>/opt/</code> 文件夹中ROS桥是否已安装成功。</p>
 <h3 id="b">B. 使用源存储库</h3>
 <p><strong>1.</strong> 创建catkin工作区：</p>
-<pre><code class="language-sh">    mkdir -p ~/carla-ros-bridge/catkin_ws/src
+<pre><code class="language-sh">mkdir -p ~/carla-ros-bridge/catkin_ws/src
 </code></pre>
 <p><strong>2.</strong> 克隆 ROS 桥存储库和子模块：</p>
-<pre><code class="language-sh">    cd ~/carla-ros-bridge
-    git clone --recurse-submodules https://github.com/carla-simulator/ros-bridge.git catkin_ws/src/ros-bridge
+<pre><code class="language-sh">cd ~/carla-ros-bridge
+git clone --recurse-submodules https://github.com/carla-simulator/ros-bridge.git catkin_ws/src/ros-bridge
 </code></pre>
 <p><strong>5.</strong> 根据您安装的 ROS 版本设置 ROS 环境：</p>
-<pre><code class="language-sh">    source /opt/ros/&lt;melodic/noetic&gt;/setup.bash
+<pre><code class="language-sh">source /opt/ros/&lt;melodic/noetic&gt;/setup.bash
 </code></pre>
 <p><strong>6.</strong> 安装所需的 ros 依赖项：</p>
-<pre><code class="language-sh">    cd catkin_ws
-    rosdep update
-    rosdep install --from-paths src --ignore-src -r
+<pre><code class="language-sh">cd catkin_ws
+rosdep update
+rosdep install --from-paths src --ignore-src -r
 </code></pre>
 <p><strong>7.</strong> 构建ROS桥：</p>
-<pre><code class="language-sh">    catkin build   # alternatively catkin_make
+<pre><code class="language-sh">catkin build   # alternatively catkin_make
 </code></pre>
 <hr />
 <h2 id="ros_1">运行 ROS 桥</h2>
 <p><strong>1.</strong> 按照安装 Carla 时使用的安装方法启动 Carla 服务器：</p>
-<pre><code class="language-sh">    # 包版本在 carla 根文件夹
-    ./CarlaUE4.sh
+<pre><code class="language-sh"># 包版本在 carla 根文件夹
+./CarlaUE4.sh
 
-    # Debian 安装在 `opt/carla-simulator/`
-    ./CarlaUE4.sh
+# Debian 安装在 `opt/carla-simulator/`
+./CarlaUE4.sh
 
-    # 从 carla 根文件夹中的源版本构建
-    make launch
+# 从 carla 根文件夹中的源版本构建
+make launch
 </code></pre>
 <p><strong>2.</strong> 将正确的 Carla 模块添加到您的 Python 路径：</p>
-<pre><code class="language-sh">        export CARLA_ROOT=&lt;path-to-carla&gt;
-        export PYTHONPATH=$PYTHONPATH:$CARLA_ROOT/PythonAPI/carla/dist/carla-&lt;carla_version_and_arch&gt;.egg:$CARLA_ROOT/PythonAPI/carla
+<pre><code class="language-sh">export CARLA_ROOT=&lt;path-to-carla&gt;
+export PYTHONPATH=$PYTHONPATH:$CARLA_ROOT/PythonAPI/carla/dist/carla-&lt;carla_version_and_arch&gt;.egg:$CARLA_ROOT/PythonAPI/carla
 </code></pre>
 <p><strong>3.</strong> 根据 ROS 桥的安装方法添加 ROS 桥工作空间的源路径。每次您想要运行 ROS 桥接器时，都应该在每个终端中完成此操作：</p>
-<pre><code class="language-sh">    # 用于 debian 安装 ROS 桥。根据已安装的 ROS 版本更改命令。
-    source /opt/carla-ros-bridge/&lt;melodic/noetic&gt;/setup.bash
+<pre><code class="language-sh"># 用于 debian 安装 ROS 桥。根据已安装的 ROS 版本更改命令。
+source /opt/carla-ros-bridge/&lt;melodic/noetic&gt;/setup.bash
 
-    # 为 GitHub 库安装 ROS 桥
-    source ~/carla-ros-bridge/catkin_ws/devel/setup.bash
+# 为 GitHub 库安装 ROS 桥
+source ~/carla-ros-bridge/catkin_ws/devel/setup.bash
 </code></pre>
 <div class="admonition 重要">
 <p class="admonition-title">重要</p>
 <p>源路径可以永久设置，但在使用其他工作区时可能会导致冲突。</p>
 </div>
 <p><strong>4.</strong> 启动 ROS 桥。使用任何可用的不同启动文件来检查安装：</p>
-<pre><code class="language-sh">    # 选项1:启动 ros 桥 
-    roslaunch carla_ros_bridge carla_ros_bridge.launch
+<pre><code class="language-sh"># 选项1:启动 ros 桥 
+roslaunch carla_ros_bridge carla_ros_bridge.launch
 
-    # 选项2:启动ros桥和一个示例自我车辆
-    roslaunch carla_ros_bridge carla_ros_bridge_with_example_ego_vehicle.launch
+# 选项2:启动ros桥和一个示例自我车辆
+roslaunch carla_ros_bridge carla_ros_bridge_with_example_ego_vehicle.launch
 </code></pre>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
@@ -454,10 +447,10 @@
 <h2 id="_2">测试</h2>
 <p>使用 catkin 执行测试：</p>
 <p><strong>1.</strong> 构建包：</p>
-<pre><code class="language-sh">    catkin_make -DCATKIN_ENABLE_TESTING=0
+<pre><code class="language-sh">catkin_make -DCATKIN_ENABLE_TESTING=0
 </code></pre>
 <p><strong>2.</strong> 运行测试：</p>
-<pre><code class="language-sh">    rostest carla_ros_bridge ros_bridge_client.test
+<pre><code class="language-sh">rostest carla_ros_bridge ros_bridge_client.test
 </code></pre>
 <hr />
               

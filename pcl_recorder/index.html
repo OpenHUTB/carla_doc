@@ -54,6 +54,8 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tutorials/">教程</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_E_gallery/">示例</a>
+                  </li>
               </ul>
               <p class="caption"><span class="caption-text">构建 Carla</span></p>
               <ul>
@@ -226,15 +228,6 @@
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_D_windows_debug/">调试程序</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">示例</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_E_gallery/">入门</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_traffic_light/">交通灯的配置和使用</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_traffic_prediction/">流量预测</a>
-                  </li>
-              </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
@@ -332,7 +325,7 @@ roslaunch pcl_recorder pcl_recorder.launch
 ros2 launch pcl_recorder pcl_recorder.launch.py
 </code></pre>
 <p><strong>2.</strong> 捕获驱动完成后，减小点云的整体大小：</p>
-<pre><code># Create one point cloud file
+<pre><code># 创建一个点云文件
 pcl_concatenate_points_pcd /tmp/pcl_capture/*.pcd
 
 # Filter duplicates

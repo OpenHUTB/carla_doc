@@ -74,6 +74,8 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tutorials/">教程</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_E_gallery/">示例</a>
+                  </li>
               </ul>
               <p class="caption"><span class="caption-text">构建 Carla</span></p>
               <ul>
@@ -246,15 +248,6 @@
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_D_windows_debug/">调试程序</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">示例</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_E_gallery/">入门</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_traffic_light/">交通灯的配置和使用</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_traffic_prediction/">流量预测</a>
-                  </li>
-              </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
@@ -362,7 +355,6 @@ import random
 # 链接到客户端并获取世界对象
 client = carla.Client('localhost', 2000)
 world = client.get_world()
-
 </code></pre>
 <p><a href="python_api#carlaclient"><strong>客户端</strong></a> 对象用于维护客户端与服务器的连接，并具有许多用于应用命令以及加载或导出数据的功能。我们可以使用客户端对象加载替代地图或重新加载当前地图（重置为初始状态）。</p>
 <p>端口可以选择任何可用的端口，默认设置为 2000，您也可以使用计算机的 IP 地址选择与 <em>localhost</em> 不同的主机。这样，Carla 服务器可以在联网计算机上运行，而 python 客户端可以从个人计算机运行。这对于区分用于运行 Carla 仿真器的 GPU 和用于神经网络训练的 GPU 特别有用，这两者对图形硬件的要求都很高。</p>
@@ -376,7 +368,6 @@ world = client.get_world()
 </code></pre>
 <p>我们还可以使用 world 对象从客户端加载地图：</p>
 <pre><code class="language-py">client.load_world('Town05')
-
 </code></pre>
 <p>请在 <a href="../core_map/"><strong>此处</strong></a> 查找有关 Carla 地图的更多信息。</p>
 <h2 id="_2">观察者导航</h2>
@@ -410,7 +401,6 @@ rotation = transform.rotation
 # 用空变换设置观察者
 spectator.set_transform(carla.Transform())
 # 这将设置观众在地图的原点，0度俯仰，偏航和滚动-一个很好的方式来定位自己在地图上
-
 </code></pre>
 <h2 id="_3">添加非玩家角色</h2>
 <p>现在我们已经加载了地图并且服务器已启动并运行，我们现在需要用一些车辆填充我们的仿真，以仿真具有交通和其他道路使用者或非玩家角色的真实环境。</p>
@@ -469,13 +459,11 @@ camera.listen(lambda image: image.save_to_disk('out/%06d.png' % image.frame))
 </li>
 </ul>
 <p>要定义自我车辆，您应该在生成自我车辆时设置<code>role_name</code>车辆<a href="../python_api/#carlaactor">carla.Actor</a> 对象 <a href="../python_api/#carlaactorblueprint">蓝图</a> 的属性：</p>
-<pre><code class="language-py">
-ego_bp = world.get_blueprint_library().find('vehicle.lincoln.mkz_2020')
+<pre><code class="language-py">ego_bp = world.get_blueprint_library().find('vehicle.lincoln.mkz_2020')
 
 ego_bp.set_attribute('role_name', 'hero')
 
 ego_vehicle = world.spawn_actor(ego_bp, random.choice(spawn_points))
-
 </code></pre>
 <hr />
 <h2 id="_7">选择你的地图</h2>

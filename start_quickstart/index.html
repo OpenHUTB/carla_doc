@@ -92,6 +92,8 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tutorials/">教程</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_E_gallery/">示例</a>
+                  </li>
               </ul>
               <p class="caption"><span class="caption-text">构建 Carla</span></p>
               <ul>
@@ -264,15 +266,6 @@
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_D_windows_debug/">调试程序</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">示例</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_E_gallery/">入门</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_traffic_light/">交通灯的配置和使用</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_traffic_prediction/">流量预测</a>
-                  </li>
-              </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
@@ -387,19 +380,19 @@
 </ul>
 <blockquote>
 <blockquote>
-<pre><code> # For Python 3
+<pre><code> # 对于 Python 3
  pip3 -V
 
- # For Python 2
+ # 对于 Python 2
  pip -V
 </code></pre>
 </blockquote>
 <p>如果您需要升级：</p>
 <blockquote>
-<pre><code> # For Python 3
+<pre><code> # 对于 Python 3
  pip3 install --upgrade pip
 
- # For Python 2
+ # 对于 Python 2
  pip install --upgrade pip
 </code></pre>
 </blockquote>
@@ -423,17 +416,17 @@ pip3 install --user pygame numpy
 <h3 id="a-debian-carla">A. Debian Carla 安装</h3>
 <p>Debain 软件包适用于 Ubuntu 18.04 和 Ubuntu 20.04，但 <strong>官方支持的平台是 Ubuntu 18.04</strong> 。</p>
 <p><strong>1.</strong> 在系统中设置Debian存储库：</p>
-<pre><code class="language-sh">    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 1AF1527DE64CB8D9
-    sudo add-apt-repository &quot;deb [arch=amd64] http://dist.carla.org/carla $(lsb_release -sc) main&quot;
+<pre><code class="language-sh">sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 1AF1527DE64CB8D9
+sudo add-apt-repository &quot;deb [arch=amd64] http://dist.carla.org/carla $(lsb_release -sc) main&quot;
 </code></pre>
 <p><strong>2.</strong> 安装 Carla 并检查 <code>/opt/</code> 文件夹中是否有安装：</p>
-<pre><code class="language-sh">    sudo apt-get update # Update the Debian package index
-    sudo apt-get install carla-simulator # Install the latest Carla version, or update the current installation
-    cd /opt/carla-simulator # Open the folder where Carla is installed
+<pre><code class="language-sh">sudo apt-get update # Update the Debian package index
+sudo apt-get install carla-simulator # Install the latest Carla version, or update the current installation
+cd /opt/carla-simulator # Open the folder where Carla is installed
 </code></pre>
 <p>该存储库包含 Carla 0.9.10 及更高版本。要安装特定版本，请将版本标签添加到安装命令中：</p>
-<pre><code class="language-sh">    apt-cache madison carla-simulator # List the available versions of Carla
-    sudo apt-get install carla-simulator=0.9.10-1 # In this case, &quot;0.9.10&quot; refers to a CARLA version, and &quot;1&quot; to the Debian revision
+<pre><code class="language-sh">apt-cache madison carla-simulator # List the available versions of Carla
+sudo apt-get install carla-simulator=0.9.10-1 # In this case, &quot;0.9.10&quot; refers to a CARLA version, and &quot;1&quot; to the Debian revision
 </code></pre>
 <div class="admonition 重要">
 <p class="admonition-title">重要</p>
@@ -462,9 +455,9 @@ pip3 install --user pygame numpy
 </ul>
 </li>
 </ul>
-<pre><code class="language-sh">        cd path/to/carla/root
+<pre><code class="language-sh">cd path/to/carla/root
 
-        ./ImportAssets.sh
+./ImportAssets.sh
 </code></pre>
 <ul>
 <li>
@@ -525,41 +518,41 @@ pip3 install --user pygame numpy
 <ul>
 <li>Debian 安装:</li>
 </ul>
-<pre><code class="language-sh">    cd /opt/carla-simulator/bin/
+<pre><code class="language-sh">cd /opt/carla-simulator/bin/
 
-    ./CarlaUE4.sh
+./CarlaUE4.sh
 </code></pre>
 <ul>
 <li>Linux 软件包安装：</li>
 </ul>
-<pre><code class="language-sh">    cd path/to/carla/root
+<pre><code class="language-sh">cd path/to/carla/root
 
-    ./CarlaUE4.sh
+./CarlaUE4.sh
 </code></pre>
 <ul>
 <li>Windows 包安装：</li>
 </ul>
-<pre><code class="language-sh">    cd path/to/carla/root
+<pre><code class="language-sh">cd path/to/carla/root
 
-    CarlaUE4.exe
+CarlaUE4.exe
 </code></pre>
 <p>将弹出一个包含城市景观的窗口。这是 <strong>观察者</strong> 的看法。要在城市中飞行，请使用鼠标和WASD按键，按住鼠标右键控制方向。</p>
 <p>这是服务器仿真器，它现在正在运行并等待客户端连接并与世界交互。您可以尝试一些示例脚本来在城市中产生生命并驾驶汽车：</p>
-<pre><code class="language-sh">        # 终端 A 
-        cd PythonAPI\examples
+<pre><code class="language-sh"># 终端 A 
+cd PythonAPI\examples
 
-        python3 -m pip install -r requirements.txt # Support for Python2 is provided in the CARLA release packages
+python3 -m pip install -r requirements.txt # Support for Python2 is provided in the CARLA release packages
 
-        python3 generate_traffic.py  
+python3 generate_traffic.py  
 
-        # Terminal B
-        cd PythonAPI\examples
+# Terminal B
+cd PythonAPI\examples
 
-        python3 manual_control.py 
+python3 manual_control.py 
 </code></pre>
 <h4 id="_5">命令行选项</h4>
 <p>启动 Carla 时有一些可用的配置选项，可以按如下方式使用它们：</p>
-<pre><code class="language-sh">    ./CarlaUE4.sh -carla-rpc-port=3000
+<pre><code class="language-sh">./CarlaUE4.sh -carla-rpc-port=3000
 </code></pre>
 <ul>
 <li><code>-carla-rpc-port=N</code> 侦听端口 <code>N</code> 上的客户端连接。流媒体端口默认设置为 <code>N+1</code> 。</li>
@@ -568,11 +561,11 @@ pip3 install --user pygame numpy
 <li><strong><a href="https://docs.unrealengine.com/en-US/Programming/Basics/CommandLineArguments">虚幻引擎 4 命令行参数列表</a>。</strong> 。虚幻引擎提供了很多选项，但并非所有这些选项在 Carla 中都可用。</li>
 </ul>
 <p>该脚本 <a href="https://github.com/carla-simulator/carla/blob/master/PythonAPI/util/config.py"><code>PythonAPI/util/config.py</code></a> 提供了更多配置选项，应在服务器启动时运行：</p>
-<pre><code class="language-sh">    ./config.py --no-rendering      # Disable rendering
-    ./config.py --map Town05        # Change map
-    ./config.py --weather ClearNoon # Change weather
+<pre><code class="language-sh">./config.py --no-rendering      # 禁用渲染
+./config.py --map Town05        # 改变地图、
+./config.py --weather ClearNoon # 改变天气
 
-    ./config.py --help # Check all the available configuration options
+./config.py --help # 检查所有可获得的配置选项
 </code></pre>
 <hr />
 <h2 id="carla_2">更新 Carla</h2>

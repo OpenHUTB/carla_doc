@@ -54,6 +54,8 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tutorials/">教程</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_E_gallery/">示例</a>
+                  </li>
               </ul>
               <p class="caption"><span class="caption-text">构建 Carla</span></p>
               <ul>
@@ -226,15 +228,6 @@
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_D_windows_debug/">调试程序</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">示例</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_E_gallery/">入门</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_traffic_light/">交通灯的配置和使用</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_traffic_prediction/">流量预测</a>
-                  </li>
-              </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
@@ -403,7 +396,7 @@ export PYTHONPATH=&quot;${CARLA_ROOT}/PythonAPI/carla/&quot;:&quot;${SCENARIO_RU
 <pre><code class="language-shell">./run_leaderboard.sh
 </code></pre>
 <p>这将启动一个 pygame 窗口，让您可以选择手动控制智能体。按照彩色航点指示的路线到达目的地。该脚本加载 Town 12 中的两条路线。</p>
-<p><img alt="motif_large" src="img/leaderboard/Town12route.png" />
+<p><img alt="motif_large" src="../img/leaderboard/Town12route.png" />
 遵循路线并遵守交通规则，直到到达目的地。</p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
@@ -506,7 +499,7 @@ def setup(self, path_to_conf_file):
 <p class="admonition-title">注意</p>
 <p>试图设置过多的传感器单元会导致设置失败。</p>
 </div>
-<p>还有一些空间限制限制了传感器在车辆体积内的放置。如果传感器在任何轴（例如<code>[3.1,0.0,0.0]</code>）上距离其父传感器超过3米，则设置将失败。</p>
+<p>还有一些空间限制限制了传感器在车辆体积内的放置。如果传感器在任何轴（例如<code>[3.1,0.0,0.0]</code>）上距离其父传感器超过 3 米，则设置将失败。</p>
 <h2 id="run_step">重写 run_step 方法</h2>
 <p>此方法将在每个时间步长调用一次，以生成 <code>carla.VehicleControl</code> 对象形式的新动作。确保此函数返回将用于更新智能体的控制对象。</p>
 <pre><code class="language-python">def run_step(self, input_data, timestamp):

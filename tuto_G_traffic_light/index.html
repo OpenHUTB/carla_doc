@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>交通灯的配置和使用 - 交通仿真文档</title>
+    <title>交通灯配置和使用（get_traffic_light） - 交通仿真文档</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "\u4ea4\u901a\u706f\u7684\u914d\u7f6e\u548c\u4f7f\u7528";
+        var mkdocs_page_name = "\u4ea4\u901a\u706f\u914d\u7f6e\u548c\u4f7f\u7528\uff08get_traffic_light\uff09";
         var mkdocs_page_input_path = "tuto_G_traffic_light.md";
         var mkdocs_page_url = null;
       </script>
@@ -53,6 +53,8 @@
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_first_steps/">第一步</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tutorials/">教程</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_E_gallery/">示例</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">构建 Carla</span></p>
@@ -226,35 +228,6 @@
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_D_windows_debug/">调试程序</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">示例</span></p>
-              <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_E_gallery/">入门</a>
-                  </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">交通灯的配置和使用</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#carla">交通灯在Carla中的简单配置</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#python">使用python脚本简单使用交通灯</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#carla_1">创建与carla的连接</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_1">获取场景中的红绿灯对象</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#1">1、获取红绿灯的位置信息</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#2">2、获取红绿灯的当前配时方案</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#3">3、修改红绿灯的配时方案</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#4">4、根据路口车流量调整交通灯的红绿灯配时方案</a>
-    </li>
-        </ul>
-    </li>
-    </ul>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_traffic_prediction/">流量预测</a>
-                  </li>
-              </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
@@ -324,8 +297,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">示例</li>
-      <li class="breadcrumb-item active">交通灯的配置和使用</li>
+      <li class="breadcrumb-item active">交通灯配置和使用（get_traffic_light）</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/tuto_G_traffic_light.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -497,10 +469,6 @@ world.apply_settings(settings)
               
             </div>
           </div><footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../tuto_E_gallery/" class="btn btn-neutral float-left" title="入门"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../tuto_G_traffic_prediction/" class="btn btn-neutral float-right" title="流量预测">Next <span class="icon icon-circle-arrow-right"></span></a>
-    </div>
 
   <hr/>
 
@@ -525,10 +493,6 @@ world.apply_settings(settings)
         </span>
     
     
-      <span><a href="../tuto_E_gallery/" style="color: #fcfcfc">&laquo; Previous</a></span>
-    
-    
-      <span><a href="../tuto_G_traffic_prediction/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

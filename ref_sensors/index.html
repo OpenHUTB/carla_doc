@@ -54,6 +54,8 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tutorials/">教程</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_E_gallery/">示例</a>
+                  </li>
               </ul>
               <p class="caption"><span class="caption-text">构建 Carla</span></p>
               <ul>
@@ -338,15 +340,6 @@
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_D_make_release/">发布版本</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_D_windows_debug/">调试程序</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">示例</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_E_gallery/">入门</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_traffic_light/">交通灯的配置和使用</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_traffic_prediction/">流量预测</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
@@ -1211,7 +1204,7 @@ $$ d_2 (i) = -2.0 \times [ { y_1 \over {h_1 \times h_2 } }  -  { y_2 \over { h_2
 </ul>
 <p>传感器创建一个圆锥视图，该视图被转换为视野中的元素及其相对于传感器的速度的二维点图。这可用于塑造元素并评估它们的运动和方向。由于使用极坐标，这些点将集中在视图中心周围。</p>
 <p>测量的点作为<a href="../python_api/#carla.RadarDetection">carla.RadarDetection</a>数组包含在<a href="../python_api/#carla.RadarMeasurement">carla.RadarMeasurement</a>中，该数组指定它们的极坐标、距离和速度。雷达传感器提供的原始数据可以轻松转换为 <strong>numpy</strong> 可管理的格式：</p>
-<pre><code class="language-py"># To get a numpy [[vel, azimuth, altitude, depth],...[,,,]]:
+<pre><code class="language-py"># 为了获得 numpy [[vel, azimuth, altitude, depth],...[,,,]]:
 points = np.frombuffer(radar_data.raw_data, dtype=np.dtype('f4'))
 points = np.reshape(points, (len(radar_data), 4))
 </code></pre>
@@ -1725,7 +1718,7 @@ if rss_proper_response:
 </tbody>
 </table>
 <p><br></p>
-<pre><code class="language-py"># Fragment of rss_sensor.py
+<pre><code class="language-py"># rss_sensor.py 代码片段
 # The carla.RssSensor is updated when listening for a new carla.RssResponse
 def _on_rss_response(weak_self, response):
 ...
@@ -1783,7 +1776,7 @@ def _on_rss_response(weak_self, response):
 </table>
 <p><br></p>
 <hr />
-<pre><code class="language-py"># Update the current route
+<pre><code class="language-py"># 更新当前路线
 self.sensor.reset_routing_targets()
 if routing_targets:
     for target in routing_targets:
@@ -1840,8 +1833,8 @@ if routing_targets:
 <li>默认计算 (<code>actor_constellation_data.other_actor=None</code>)</li>
 <li>每个参与者的计算</li>
 </ol>
-<pre><code class="language-py"># Fragment of rss_sensor.py
-# The function is registered as actor_constellation_callback
+<pre><code class="language-py"># rss_sensor.py 代码片段
+# 注册该函数为 actor_constellation_callback
 def _on_actor_constellation_request(self, actor_constellation_data):
     actor_constellation_result = carla.RssActorConstellationResult()
     actor_constellation_result.rss_calculation_mode = ad.rss.map.RssMode.NotRelevant
@@ -1853,10 +1846,10 @@ def _on_actor_constellation_request(self, actor_constellation_data):
     actor_id = -1
     actor_type_id = &quot;none&quot;
     if actor_constellation_data.other_actor != None:
-        # customize actor_constellation_result for specific actor
+        # 为特定的参与者定制 actor_constellation_result
         ...
     else:
-        # default
+        # 默认
         ...
     return actor_constellation_result
 </code></pre>

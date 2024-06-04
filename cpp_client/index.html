@@ -54,6 +54,8 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tutorials/">教程</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_E_gallery/">示例</a>
+                  </li>
               </ul>
               <p class="caption"><span class="caption-text">构建 Carla</span></p>
               <ul>
@@ -226,15 +228,6 @@
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_D_windows_debug/">调试程序</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">示例</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_E_gallery/">入门</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_traffic_light/">交通灯的配置和使用</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_traffic_prediction/">流量预测</a>
-                  </li>
-              </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
@@ -315,19 +308,19 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="c">C++ 客户端示例</h1>
-<p>此示例使用CARLA的C++API创建一个应用程序，以从C++连接和控制仿真器。</p>
+<p>此示例使用 Carla 的C++API创建一个应用程序，以从C++连接和控制仿真器。</p>
 <h2 id="_1">编译和运行</h2>
 <p>使用提供的 Makefile（仅限Linux）编译并运行示例。请注意，它希望有一个仿真器在2000端口运行。</p>
 <pre><code>make run
 </code></pre>
 <h2 id="_2">它的工作原理</h2>
-<p>为了将应用程序链接到 LibCarla，我们需要使用与应用程序相同的编译器和配置来编译LibCarla。为此，我们生成一个 CMake 工具链文件，指定所需的编译器和标志</p>
-<pre><code class="language-cmake"># Example ToolChain.cmake
+<p>为了将应用程序链接到 LibCarla，我们需要使用与应用程序相同的编译器和配置来编译 LibCarla。为此，我们生成一个 CMake 工具链文件，指定所需的编译器和标志</p>
+<pre><code class="language-cmake"># ToolChain.cmake 示例
 set(CMAKE_C_COMPILER /usr/bin/clang-8)
 set(CMAKE_CXX_COMPILER /usr/bin/clang++-8)
 set(CMAKE_CXX_FLAGS &quot;${CMAKE_CXX_FLAGS} -std=c++14 -O3 -DNDEBUG&quot; CACHE STRING &quot;&quot; FORCE)
 </code></pre>
-<p>We pass this file to CMake when compiling LibCarla.client</p>
+<p>编译LibCarla.client时，我们将此文件传递给CMake</p>
 <pre><code class="language-sh">cd /path/to/carla-root-folder
 
 make setup
@@ -347,28 +340,25 @@ cmake \
 ninja
 ninja install
 </code></pre>
-<p>This will generate the following structure at the provided install path</p>
+<p>这将在提供的安装路径上生成以下结构</p>
 <pre><code>libcarla-install
 ├── include
-│   ├── carla
-│   ├── cephes
-│   ├── pugixml
+│ ├── carla
+│ ├── cephes
+│ ├── pugixml
 |   ├── ...
-│   └── system
-│       ├── boost
-│       ├── recast
-│       └── rpc
+│ └── system
+│     ├── boost
+│     ├── recast
+│     └── rpc
 └── lib
     ├── libcarla_client.a
     ├── librpc.a
     ├── libboost_filesystem.a
     └── ...
 </code></pre>
-<p>Our application needs to be linked at minimum against <code>libcarla_client.a</code>,
-<code>librpc.a</code>, <code>libRecast.a</code>, and <code>libDetour*.a</code>. If we make use of IO
-functionality and/or image processing we would need to link against
-<code>boost_filesystem</code>, <code>png</code>, <code>tiff</code>, and/or <code>jpeg</code>.</p>
-<p>For more details take a look at the Makefile provided.</p>
+<p>我们的应用程序至少需要链接到<code>libcarla_client.a</code>，<code>librpc.a</code>、<code>libRecast.a</code>和<code>libDetour*.a</code>。如果我们利用IO我们需要链接的功能和/或图像处理<code>boost_filesystem</code>、<code>png</code>、<code>tiff</code>和/或<code>jpeg</code>。</p>
+<p>有关更多详细信息，请查看提供的 Makefile。</p>
               
             </div>
           </div><footer>

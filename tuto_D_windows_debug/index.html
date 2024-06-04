@@ -54,6 +54,8 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tutorials/">教程</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_E_gallery/">示例</a>
+                  </li>
               </ul>
               <p class="caption"><span class="caption-text">构建 Carla</span></p>
               <ul>
@@ -251,18 +253,11 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#_6">技巧</a>
     </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_7">学习</a>
+    </li>
         </ul>
     </li>
     </ul>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">示例</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_E_gallery/">入门</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_traffic_light/">交通灯的配置和使用</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_traffic_prediction/">流量预测</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
@@ -454,13 +449,12 @@
 <p>点击菜单栏<code>生成</code>-<code>全部生成</code>或<code>部分生成</code>即可。</p>
 <h3 id="_2">导入崩溃问题</h3>
 <ol>
-<li>例如，导入链接：</li>
+<li>例如，导入测试链接：</li>
 </ol>
-<pre><code class="language-text">https://overpass-api.de/api/map?bbox=2.08191,41.49611,2.08268,41.49671
-小地图：
+<pre><code class="language-text">小地图：
 https://overpass-api.de/api/map?bbox=112.9088,28.2221,112.9172,28.2290
 大地图：
-https://overpass-api.de/api/map?bbox=112.8971,28.1976,112.9607,28.2501
+https://overpass-api.de/api/map?bbox=112.8553,28.1931,112.9396,28.2504
 金醴高速：
 https://overpass-api.de/api/map?bbox=113.5293,27.6893,113.5516,27.7074
 </code></pre>
@@ -561,12 +555,26 @@ D:\work\workspace\engine\Engine\Binaries\Win64\UE4Editor-Cmd D:/work/workspace/c
 <li>进行函数跳转时，vs一致出现<code>正在进行IntelliSense</code>：</li>
 </ul>
 <p>选择“工具”菜单栏下的“选项”按钮打开选项页面，找到 文本编辑器-&gt;C/C++-&gt;高级,在右侧的禁用IntelliSense中改为True</p>
+<ul>
+<li><a href="https://blog.csdn.net/tomwillow/article/details/118387681">检查符号是否加载</a> </li>
+</ul>
+<p>启动调式并在断点停下，然后“调试 - 窗口 - 模块”打开模块窗口。
+找到第三方dll的名字，看“符号文件”一栏是空的。说明这个dll的符号文件没有加载。
+把.pdb和.dll放在一起。再次调试。可以看到符号文件已经加载了。</p>
+<ul>
+<li>日志记录</li>
+</ul>
+<p><code>UE_LOG</code>函数记录的日志位于<code>carla\Unreal\CarlaUE4\Saved\Logs\CarlaUE4.log</code>文件中。</p>
+<h3 id="_7">学习</h3>
+<ul>
+<li><a href="../tuto_D_bat/">bat脚本</a></li>
+</ul>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
         <a href="../tuto_D_make_release/" class="btn btn-neutral float-left" title="发布版本"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../tuto_E_gallery/" class="btn btn-neutral float-right" title="入门">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../ecosys_iss/" class="btn btn-neutral float-right" title="ISS 智能驾驶系统">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -595,7 +603,7 @@ D:\work\workspace\engine\Engine\Binaries\Win64\UE4Editor-Cmd D:/work/workspace/c
       <span><a href="../tuto_D_make_release/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../tuto_E_gallery/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../ecosys_iss/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

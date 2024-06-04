@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>计划 - 交通仿真文档</title>
+    <title>tuto D bat - 交通仿真文档</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,8 +13,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "\u8ba1\u5212";
-        var mkdocs_page_input_path = "todo_list.md";
+        var mkdocs_page_name = "tuto D bat";
+        var mkdocs_page_input_path = "tuto_D_bat.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -53,6 +53,8 @@
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_first_steps/">第一步</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tutorials/">教程</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_E_gallery/">示例</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">构建 Carla</span></p>
@@ -226,15 +228,6 @@
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_D_windows_debug/">调试程序</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">示例</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_E_gallery/">入门</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_traffic_light/">交通灯的配置和使用</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_traffic_prediction/">流量预测</a>
-                  </li>
-              </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
@@ -304,9 +297,9 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">计划</li>
+      <li class="breadcrumb-item active">tuto D bat</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/todo_list.md" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/tuto_D_bat.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -314,31 +307,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1">计划</h1>
-<ul>
-<li><a href="https://theoractice.github.io/">VS硬盘版制作</a></li>
-</ul>
-<h2 id="_2">发布可执行程序</h2>
-<ul>
-<li><code>make launch</code>时报错：</li>
-</ul>
-<pre><code class="language-text">could not find any instance of Visual Studio.
+                <h2 id="_1">批处理脚本</h2>
+<pre><code class="language-shell">%~dp0
 </code></pre>
-<ol>
-<li>终止<code>BuildLibCarla.bat</code>的执行可以开始编译虚幻编辑器。</li>
-<li>
-<p>注释掉<code>Util\BuildTools\BuildCarlaUE4.bat</code>中“构建 Carla 编辑器”的部分。</p>
-</li>
-<li>
-<p>启动虚幻编辑器时报错：</p>
-</li>
-</ol>
-<pre><code class="language-text">由于找不到 XINPUT1_3.dll，无法继续执行代码。
-</code></pre>
-<p>该动态库文件位于<code>engine\Engine\Binaries\ThirdParty\AppLocalDependencies\Win64\DirectX</code>目录下，应该是虚幻引擎编译时向系统注入了一些动态库文件。</p>
-<p>使用命令行编译工程sln</p>
-<pre><code class="language-shell">&quot;C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\Common7\\IDE\\\devenv.com&quot; UE4.sln /Build
-</code></pre>
+<p>~ 是扩展的意思，变量扩充(下面详细介绍)，相当于把一个相对路径转换绝对路径</p>
+<p>%0             代指批处理文件自身（绝对路径 "D:\test\bat\test.bat"，注意有双引号）</p>
+<p>%~d0         是指批处理所在的盘符，其中d代表<code>drive</code>。(扩充到盘符 D: )</p>
+<p>%~p0         是指批处理所在的目录，其中p代表<code>path</code>。(扩充到路径 \test\bat\ ，注意最后有个<code>\</code>）</p>
+<p>%~dp0       是批处理所在的盘符加路径。（扩充到盘符和路径 ：D:\test\bat\）</p>
               
             </div>
           </div><footer>

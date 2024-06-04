@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>ROS bridge installation for ROS 2 - 交通仿真文档</title>
+    <title>ROS 2的ROS桥安装 - 交通仿真文档</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "ROS bridge installation for ROS 2";
+        var mkdocs_page_name = "ROS 2\u7684ROS\u6865\u5b89\u88c5";
         var mkdocs_page_input_path = "ros_installation_ros2.md";
         var mkdocs_page_url = null;
       </script>
@@ -53,6 +53,8 @@
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_first_steps/">第一步</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tutorials/">教程</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_E_gallery/">示例</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">构建 Carla</span></p>
@@ -226,15 +228,6 @@
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_D_windows_debug/">调试程序</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">示例</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_E_gallery/">入门</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_traffic_light/">交通灯的配置和使用</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_traffic_prediction/">流量预测</a>
-                  </li>
-              </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
@@ -304,7 +297,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">ROS bridge installation for ROS 2</li>
+      <li class="breadcrumb-item active">ROS 2的ROS桥安装</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/ros_installation_ros2.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -314,51 +307,51 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="ros-bridge-installation-for-ros-2">ROS bridge installation for ROS 2</h1>
-<p>This section is a guide on how to install the ROS bridge on Linux for use with ROS 2. You will find the prerequisites, installation steps, how to run a basic package to make sure everything is working well and commands to run tests.</p>
+                <h1 id="ros-2ros">ROS 2的ROS桥安装</h1>
+<p>本节是关于如何在 Linux 上安装 ROS 桥以与 ROS 2 一起使用的指南。您将找到先决条件、安装步骤、如何运行基本包以确保一切正常工作以及运行测试的命令。</p>
 <ul>
-<li><a href="#before-you-begin"><strong>Before you begin</strong></a></li>
-<li><a href="#ros-bridge-installation">__ROS bridge installation __</a></li>
-<li><a href="#run-the-ros-bridge"><strong>Run the ROS bridge</strong></a></li>
-<li><a href="#testing"><strong>Testing</strong></a></li>
+<li><a href="#before-you-begin"><strong>开始之前</strong></a></li>
+<li><a href="#ros-bridge-installation"><strong>ROS桥安装</strong></a></li>
+<li><a href="#run-the-ros-bridge"><strong>运行ROS桥</strong></a></li>
+<li><a href="#testing"><strong>测试</strong></a></li>
 </ul>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>ROS is still <a href="http://wiki.ros.org/noetic/Installation">experimental</a> for Windows. It has only been tested for Linux systems.</p>
+<div class="admonition 重要">
+<p class="admonition-title">重要</p>
+<p>适用于Windows 的 ROS仍在<a href="http://wiki.ros.org/noetic/Installation">实验</a> 。它只在Linux系统上进行过测试。 </p>
 </div>
 <hr />
-<h2 id="before-you-begin">Before you begin</h2>
-<p>You will need to fulfill the following software requirements before using the ROS bridge:</p>
+<h2 id="_1">开始之前</h2>
+<p>在使用ROS桥之前，您需要满足以下软件要求：</p>
 <ul>
-<li>Install ROS:<ul>
-<li><a href="https://docs.ros.org/en/foxy/Installation.html"><strong>ROS 2 Foxy</strong></a> — For Ubuntu 20.04 (Focal)</li>
+<li>安装 ROS:<ul>
+<li><a href="https://docs.ros.org/en/foxy/Installation.html"><strong>ROS 2 Foxy</strong></a> — 针对 Ubuntu 20.04 (Focal)
+-根据您的需要，可能需要额外的 ROS 包。强烈建议是用 <a href="https://wiki.ros.org/rviz">rviz</a> 将ROS数据可视化。</li>
 </ul>
 </li>
-<li>Additional ROS packages may be required depending on your needs. <a href="https://wiki.ros.org/rviz">rviz</a> is highly recommended to visualize ROS data.</li>
-<li>CARLA 0.9.11 or later — Previous versions are not compatible with the ROS bridge. Follow the <a href="https://carla.readthedocs.io/en/latest/start_quickstart/">quick start installation</a> or make the build for <a href="https://carla.readthedocs.io/en/latest/build_linux/">Linux</a>. It is recommended to match the ROS bridge version to the CARLA version when possible.</li>
+<li>CARLA 0.9.11或更高版本——以前的版本与ROS桥不兼容。遵循<a href="https://carla.readthedocs.io/en/latest/start_quickstart/">快速启动安装</a> 或者为[Linux]构建(https://carla.readthedocs.io/en/latest/build_linux/) 。建议尽可能将ROS桥接版本与CARLA版本相匹配。</li>
 </ul>
 <hr />
-<h2 id="ros-bridge-installation">ROS bridge installation</h2>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The Debian package installation is not yet available for ROS 2.</p>
+<h2 id="ros">ROS桥安装</h2>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>Debian软件包安装还不能用于ROS 2。</p>
 </div>
-<p><strong>1.</strong> Set up the project directory and clone the ROS bridge repository and submodules:</p>
-<pre><code class="language-sh">    mkdir -p ~/carla-ros-bridge &amp;&amp; cd ~/carla-ros-bridge
-    git clone --recurse-submodules https://github.com/carla-simulator/ros-bridge.git src/ros-bridge
+<p><strong>1.</strong> 设置项目目录并克隆ROS网桥存储库和子模块：</p>
+<pre><code class="language-sh">mkdir -p ~/carla-ros-bridge &amp;&amp; cd ~/carla-ros-bridge
+git clone --recurse-submodules https://github.com/carla-simulator/ros-bridge.git src/ros-bridge
 </code></pre>
-<p><strong>2.</strong> Set up the ROS environment:</p>
+<p><strong>2.</strong> 设置 ROS 环境：</p>
 <pre><code class="language-sh">    source /opt/ros/foxy/setup.bash
 </code></pre>
-<p><strong>3.</strong> Install the ROS dependencies:</p>
-<pre><code class="language-sh">    rosdep update
-    rosdep install --from-paths src --ignore-src -r
+<p><strong>3.</strong> 安装 ROS 依赖：</p>
+<pre><code class="language-sh">rosdep update
+rosdep install --from-paths src --ignore-src -r
 </code></pre>
-<p><strong>4.</strong> Build the ROS bridge workspace using colcon:</p>
-<pre><code class="language-sh">    colcon build
+<p><strong>4.</strong> 使用colcon构建ROS桥的工作空间：</p>
+<pre><code class="language-sh">colcon build
 </code></pre>
 <hr />
-<h2 id="run-the-ros-bridge">Run the ROS bridge</h2>
+<h2 id="ros_1">运行ROS桥</h2>
 <p><strong>1.</strong> Start a CARLA server according to the installation method used to install CARLA:</p>
 <pre><code class="language-sh">    # Package version in carla root folder
     ./CarlaUE4.sh
@@ -398,7 +391,7 @@
 </code></pre>
 </div>
 <hr />
-<h2 id="testing">Testing</h2>
+<h2 id="_2">测试</h2>
 <p>To execute tests using colcon:</p>
 <p><strong>1.</strong> Build the package:</p>
 <pre><code class="language-sh">    colcon build --packages-up-to carla_ros_bridge

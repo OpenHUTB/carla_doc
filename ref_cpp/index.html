@@ -54,6 +54,8 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tutorials/">教程</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_E_gallery/">示例</a>
+                  </li>
               </ul>
               <p class="caption"><span class="caption-text">构建 Carla</span></p>
               <ul>
@@ -139,6 +141,8 @@
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">C++ 参考</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#doxygen">创建 doxygen 文档</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_1">阅读</a>
     </li>
     </ul>
                   </li>
@@ -230,15 +234,6 @@
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_D_windows_debug/">调试程序</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">示例</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_E_gallery/">入门</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_traffic_light/">交通灯的配置和使用</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_traffic_prediction/">流量预测</a>
-                  </li>
-              </ul>
               <p class="caption"><span class="caption-text">Carla 生态系统</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">ISS 智能驾驶系统</a>
@@ -321,10 +316,10 @@
               
                 <h1 id="c"><a href="https://carla.readthedocs.io/en/latest/ref_cpp/">C++ 参考</a></h1>
 <p>我们使用 Doxygen 生成 C++ 代码的文档：</p>
-<p><a href="http://carla.org/Doxygen/html/dir_b9166249188ce33115fd7d5eed1849f2.html">Libcarla/source</a><br>
-<a href="http://carla.org/Doxygen/html/dir_733e9da672a36443d0957f83d26e7dbf.html">Unreal/CarlaUE4/Source</a><br>
+<p><a href="http://carla.org/Doxygen/html/dir_b9166249188ce33115fd7d5eed1849f2.html">Libcarla/source</a> <br>
+<a href="http://carla.org/Doxygen/html/dir_733e9da672a36443d0957f83d26e7dbf.html">Unreal/CarlaUE4/Source</a> <br>
 <a href="http://carla.org/Doxygen/html/dir_8fc34afb5f07a67966c78bf5319f94ae.html">Unreal/CarlaUE4/Plugins</a></p>
-<p>生成的文档可通过此链接获取： <strong><a href="http://carla.org/Doxygen/html/index.html">http://carla.org/Doxygen/html/index.html</a></strong></p>
+<p>生成的文档可通过此 <a href="http://carla.org/Doxygen/html/index.html">链接</a> 获取。</p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>文档更新由 GitHub 自动完成。</p>
@@ -336,14 +331,16 @@
 </div>
 <p>1- 使用以下命令安装 doxygen 和 graphviz：</p>
 <pre><code class="language-sh"># linux
-&gt; sudo apt-get install doxygen graphviz
+sudo apt-get install doxygen graphviz
 </code></pre>
 <p>2- 安装后，转到 <em>Doxyfile</em> 文件所在的项目根文件夹并运行以下命令：</p>
-<pre><code class="language-sh">&gt; doxygen
+<pre><code class="language-sh">doxygen
 </code></pre>
 <p>它将开始构建文档网页。
 生成的网页可以在 Doxygen/html/ 中找到</p>
 <p>3- 在浏览器中打开 <em>index.html</em> 。现在您已经有了本地 cpp 文档！</p>
+<h2 id="_1">阅读</h2>
+<p><strong>HUD</strong>: Heads-up Displays, 头显。用户界面 （UI）和 头显 （HUD）是游戏向玩家提供游戏信息以及在某些情况下允许玩家与游戏互动的方式。HUD指的是游戏期间在屏幕上覆盖的状态和信息。HUD的目的是 告知玩家当前游戏状态，即分数、生命值、游戏剩余时间等。 HUD通常是不可互动的，意味着玩家不能单击HUD的元素，因此 在HUD和用户界面难以分离的某些类型游戏中，这些元素会显示为灰色区域。</p>
               
             </div>
           </div><footer>
