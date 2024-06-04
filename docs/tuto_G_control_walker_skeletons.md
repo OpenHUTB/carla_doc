@@ -8,10 +8,10 @@
 	*   [生成行人](#spawn-a-walker)  
 	*   [控制行人骨骼](#control-walker-skeletons)  
 
-!!! note
+!!! 笔记
     **本文档假设用户熟悉 Python API。**。 <br>
-    用户在阅读本文档之前应阅读第一步教程。 
-    [核心概念](core_concepts.md)。
+    用户在阅读本文档之前应阅读第一步教程： 
+    [核心概念](core_concepts.md)。进行行人建模请参考[链接](./tuto_content_authoring_pedestrians.md) 。
 
 ---
 ## 行人骨骼结构

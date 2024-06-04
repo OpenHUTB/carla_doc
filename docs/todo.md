@@ -38,6 +38,10 @@ PID、基于模型的控制。
 https://bitbucket.org/carla-simulator/carla-content Unreal/CarlaUE4/Content/Carla
 ```
 
+参考[行人构建流程](https://ww2.mathworks.cn/help/roadrunner-scenario/ug/import-custom-character-meshes.html) 。
+
+新安装apkpure，再安装RealityScan
+
 
 ### 虚幻引擎
 * 引擎优化：[文档](https://github.com/OpenHUTB/engine_doc) 本地化整理。
