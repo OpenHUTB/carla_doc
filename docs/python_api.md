@@ -4038,7 +4038,7 @@ in [carla.Vehicle](#carla.Vehicle) 中 __<font color="#7fb800">apply_control()</
 ---
 
 ## command.DestroyActor<a name="command.DestroyActor"></a>
-[carla.Actor](#carla.Actor) 中 __<font color="#7fb800">destroy()</font>__ 的命令适应，将告诉仿真器摧毁该参与者。如果参与者已经被摧毁则没有影响。当在 [carla.Client](#carla.Client) 中执行 __<font color="#7fb800">apply_batch_sync()</font>__ 将会返回一个布尔值状态表示参与者是否被成功摧毁。
+[carla.Actor](#carla.Actor) 中 __<font color="#7fb800">destroy()</font>__ 命令的改编版，将告诉仿真器摧毁该参与者。如果参与者已经被摧毁则没有影响。当在 [carla.Client](#carla.Client) 中执行 __<font color="#7fb800">apply_batch_sync()</font>__ 将会返回一个布尔值状态表示参与者是否被成功摧毁。
 
 ### 实例变量
 - <a name="command.DestroyActor.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_int_)  

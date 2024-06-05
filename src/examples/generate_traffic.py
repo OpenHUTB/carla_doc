@@ -369,6 +369,7 @@ def main():
             settings.fixed_delta_seconds = None
             world.apply_settings(settings)
 
+        # 销毁车辆
         print('\ndestroying %d vehicles' % len(vehicles_list))
         client.apply_batch([carla.command.DestroyActor(x) for x in vehicles_list])
 

@@ -18,17 +18,17 @@ import math
 import queue
 import cv2 #OpenCV to manipulate and save the images
 
-# Connect to the client and retrieve the world object
+# 客户端连接并获取世界对象
 client = carla.Client('localhost', 2000)
 world = client.get_world()
 
-# Set up the simulator in synchronous mode
+# 以同步模式启动仿真
 settings = world.get_settings()
-settings.synchronous_mode = True # Enables synchronous mode
+settings.synchronous_mode = True  # 启用同步模式
 settings.fixed_delta_seconds = 0.05
 world.apply_settings(settings)
 
-# We will aslo set up the spectator so we can see what we do
+# 我们也会设置观察者以便我们能看到我们所做的
 spectator = world.get_spectator()
 ```
 
@@ -98,8 +98,7 @@ controller.go_to_location(world.get_random_location_from_navigation())
 # 将世界移动几帧，让行人生成
 for frame in range(0,5):
     world.tick()
-    trash = image_queue.get() 
-
+    trash = image_queue.get()
 ```
 
 ## AI 控制器引导行人在地图上行走
@@ -111,7 +110,6 @@ controller_bp = world.get_blueprint_library().find('controller.ai.walker')
 controller = world.spawn_actor(controller_bp, pedestrian.get_transform(), pedestrian)
 controller.start()
 controller.go_to_location(world.get_random_location_from_navigation())
-
 ```
 
 现在，行人将随着仿真的每次推进 (`world.tick()`) 自主移动。
@@ -123,10 +121,9 @@ controller.go_to_location(world.get_random_location_from_navigation())
 ```py
 # 获取4x4矩阵以将点从世界坐标转换为相机坐标
 world_2_camera = np.array(camera.get_transform().get_inverse_matrix())
-
 ```
 
-然后，我们需要使用相机矩阵或投影矩阵将三维点投影到相机的二维视场 (FOV, field of view) 上，将它们叠加在输出图像上。以下函数生成此三维到二维转换所需的 [__相机矩阵__](#https://en.wikipedia.org/wiki/Camera_matrix)。
+然后，我们需要使用相机矩阵或投影矩阵将三维点投影到相机的二维视场 (FOV, field of view) 上，将它们叠加在输出图像上。以下函数生成此三维到二维转换所需的 [__相机矩阵__](#https://en.wikipedia.org/wiki/Camera_matrix) 。
 
 ```py
 def build_projection_matrix(w, h, fov):
@@ -146,26 +143,26 @@ def build_projection_matrix(w, h, fov):
 
 ```py
 def get_image_point(bone_trans):
-        # 计算骨骼坐标的二维投影
-        
-        # 获取骨根的世界位置
-        loc = bone_trans.world.location
-        bone = np.array([loc.x, loc.y, loc.z, 1])
-        # 转换为相机坐标
-        point_camera = np.dot(world_2_camera, bone)
+    # 计算骨骼坐标的二维投影
+    
+    # 获取骨根的世界位置
+    loc = bone_trans.world.location
+    bone = np.array([loc.x, loc.y, loc.z, 1])
+    # 转换为相机坐标
+    point_camera = np.dot(world_2_camera, bone)
 
-        #  我们必须从UE4的坐标系更改为“标准”坐标系
-        # (x, y ,z) -> (y, -z, x)
-        # 我们还删除了第四个组件
-        point_camera = [point_camera[1], -point_camera[2], point_camera[0]]
+    #  我们必须从UE4的坐标系更改为“标准”坐标系
+    # (x, y ,z) -> (y, -z, x)
+    # 我们还删除了第四个组件
+    point_camera = [point_camera[1], -point_camera[2], point_camera[0]]
 
-        # 现在使用摄影机矩阵投影3D->2D
-        point_img = np.dot(K, point_camera)
-        # 正则化
-        point_img[0] /= point_img[2]
-        point_img[1] /= point_img[2]
+    # 现在使用摄影机矩阵投影3D->2D
+    point_img = np.dot(K, point_camera)
+    # 正则化
+    point_img[0] /= point_img[2]
+    point_img[1] /= point_img[2]
 
-        return point_img[0:2]
+    return point_img[0:2]
     
 
 def build_skeleton(ped, sk_links, K):

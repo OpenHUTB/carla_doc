@@ -5,17 +5,19 @@ import math
 import queue
 import cv2  # 使用 OpenCV 操作并保存图像
 
+import os
+
 # 连接客户端并获取世界对象
 client = carla.Client('localhost', 2000)
 world = client.get_world()
 
 # 以同步模式设立仿真器
 settings = world.get_settings()
-settings.synchronous_mode = True # Enables synchronous mode
+settings.synchronous_mode = True  # 启用同步模式
 settings.fixed_delta_seconds = 0.05
 world.apply_settings(settings)
 
-# We will also set up the spectator so we can see what we do
+# 我们也会设置观察者以便我们能看到我们所做的
 spectator = world.get_spectator()
 
 
@@ -77,10 +79,8 @@ controller.start()
 controller.go_to_location(world.get_random_location_from_navigation())
 
 
-
 # 获取4x4矩阵以将点从世界坐标转换为相机坐标
 world_2_camera = np.array(camera.get_transform().get_inverse_matrix())
-
 
 
 def build_projection_matrix(w, h, fov):
@@ -116,7 +116,6 @@ def get_image_point(bone_trans):
     
 
 def build_skeleton(ped, sk_links, K):
-
     ######## 获取行人骨架 #########
     bones = ped.get_bones()
 
@@ -163,16 +162,18 @@ world.tick()
 trash = image_queue.get()
 
 
-for frame in range(0,360):
-    
+if not os.path.exists('out'):
+    os.mkdir('out')
+
+for frame in range(0, 360):
     # 在行人周围移动摄像头
     camera.set_transform(center_camera(pedestrian, frame + 200))
-    
+
     # 推进帧并获取图像
     world.tick()
     # 从队列中获取帧
     image = image_queue.get()
-    
+
     # 获取4x4矩阵以将点从世界坐标转换为相机坐标
     world_2_camera = np.array(camera.get_transform().get_inverse_matrix())
 
@@ -183,22 +184,32 @@ for frame in range(0,360):
 
     # 计算要从3D->2D投影的相机矩阵
     K = build_projection_matrix(image_w, image_h, fov)
-    
+
     # 构建将显示骨架的线列表
     lines = build_skeleton(pedestrian, skeleton_links, K)
 
     # 将数据重塑为2D RBGA 矩阵
-    img = np.reshape(np.copy(image.raw_data), (image.height, image.width, 4)) 
+    img = np.reshape(np.copy(image.raw_data), (image.height, image.width, 4))
 
     # 使用 OpenCV 将线条绘制到图像中
     for line in lines:
         l = [int(x) for x in line]
         cv2.line(img, (l[0],l[1]), (l[2],l[3]), (255,0,0, 255), 2)
 
-    cv2.namedWindow('Kawaii Small Animals', cv2.WINDOW_NORMAL)
-    cv2.imshow('Kawaii Small Animals', img)
-    key = cv2.waitKey(500)
+    # cv2.namedWindow('Kawaii Small Animals', cv2.WINDOW_NORMAL)
+    # cv2.imshow('Kawaii Small Animals', img)
+    # key = cv2.waitKey(500)
     # 保存图像
     cv2.imwrite('out/skeleton%04d.png' % frame, img)
 
+
+# 重复运行在同一个位置还是会产生不同的人，销毁生成的人
+pedestrian.destroy()
+
+# 防止结束时，仿真窗口冻结，不能操作，为手动操作界面做准备
+settings = world.get_settings()
+settings.synchronous_mode = False
+settings.no_rendering_mode = False
+settings.fixed_delta_seconds = None
+world.apply_settings(settings)
 
