@@ -28,7 +28,7 @@ Setup.bat 脚本会安装所有必需的软件包，包括 Visual Studio 2022、
     * 此版本的 Carla 需要**虚幻引擎 5.3 的 Carla 分支**。您需要将您的 GitHub 帐户链接到 Epic Games，才能获得克隆虚幻引擎存储库的权限。如果您尚未链接您的帐户，请按照 [本指南](https://www.unrealengine.com/en-US/ue4-on-github) 操作
     * 要使用 Carla Unreal Engine 5 以前的版本，请确保定义 CARLA_UNREAL_ENGINE_PATH 环境变量，指向 CARLA Unreal Engine 5 绝对路径。如果未定义此变量，Setup.bat 脚本将下载并构建 Carla Unreal Engine 5，**这需要额外 1 个多小时的构建时间和 225Gb 的磁盘空间**。
     * Setup.bat 脚本检查 PATH 变量顶部是否安装了任何 Python 版本，否则安装 Python。**要使用您自己的 Python 版本，请确保在运行脚本之前为 Python 正确设置了 PATH 变量**。 
-    * **应激活 Windows 开发者模式**，否则构建将失败。请参阅 [此处](https://learn.microsoft.com/en-us/gaming/game-bar/guide/developer-mode) 
+    * **应激活 Windows 开发者模式**，否则构建将失败。请参阅 [此处](https://learn.microsoft.com/en-us/gaming/game-bar/guide/developer-mode) 。
     * **Carla 无法在外部磁盘上构建**，Windows 没有提供构建所需的读/写/执行权限。 
 
 
