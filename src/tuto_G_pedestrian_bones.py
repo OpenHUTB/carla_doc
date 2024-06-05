@@ -188,9 +188,9 @@ for frame in range(0, 360):
         l = [int(x) for x in line]
         cv2.line(img, (l[0],l[1]), (l[2],l[3]), (255,0,0, 255), 2)
 
-    # cv2.namedWindow('Kawaii Small Animals', cv2.WINDOW_NORMAL)
-    # cv2.imshow('Kawaii Small Animals', img)
-    # key = cv2.waitKey(500)
+    cv2.namedWindow('Pedestrian bones', cv2.WINDOW_NORMAL)
+    cv2.imshow('Pedestrian bones', img)
+    key = cv2.waitKey(1)
     # 保存图像
     cv2.imwrite('out/skeleton%04d.png' % frame, img)
 
@@ -198,6 +198,7 @@ for frame in range(0, 360):
 # 重复运行在同一个位置还是会产生不同的人，销毁生成的人
 pedestrian.destroy()
 
+# todo 中途终止还是会冻结服务端窗口
 # 防止结束时，仿真窗口冻结，不能操作，为手动操作界面做准备
 settings = world.get_settings()
 settings.synchronous_mode = False
