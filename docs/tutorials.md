@@ -16,7 +16,7 @@
 
 [__边界框__](tuto_G_bounding_boxes.md) — 将  Carla 对象的边界框投影到相机中。  
 
-[__行人骨骼__](tuto_G_pedestrian_bones.md) — 将行人骨骼投影到相机平面中。
+[__行人导航__](tuto_G_pedestrian_navigation.md) — 将行人骨骼投影到相机平面中。
 
 [__控制行人骨骼__](tuto_G_control_walker_skeletons.md) — 使用骨骼为行人制作动画。
 

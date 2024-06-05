@@ -88,7 +88,7 @@ Carla 论坛</a>
 
 ## 行人
 
-[__行人骨骼__](tuto_G_pedestrian_bones.md) - 使用骨骼为步行者设置动画。
+[__行人导航__](tuto_G_pedestrian_navigation.md) - 使用骨骼为步行者设置动画。
 
 [__控制行人骨架__](tuto_G_control_walker_skeletons.md) — 使用骨骼为步行者设置动画。
 

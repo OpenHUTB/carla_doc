@@ -12,9 +12,9 @@ def save_to_file(file_name, contents):
     fh.close()
 
 
-blocks = get_code_from_markdown_filename("../docs/tuto_G_pedestrian_bones.md", language="py")
+blocks = get_code_from_markdown_filename("../docs/tuto_G_pedestrian_navigation.md", language="py")
 
-src_name = 'tuto_G_pedestrian_bones.py'
+src_name = 'tuto_G_pedestrian_navigation.py'
 
 if os.path.exists(src_name):
     os.remove(src_name)
