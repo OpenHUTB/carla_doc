@@ -370,9 +370,9 @@
 </code></pre>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
-<p>其他数据包括：车辆和行人的线速度和角速度、红绿灯时间设置、执行时间、演员的触发器和边界框，以及车辆的物理控制。</p>
+<p>其他数据包括：车辆和行人的线速度和角速度、红绿灯时间设置、执行时间、参与者的触发器和边界框，以及车辆的物理控制。</p>
 </div>
-<p>要停止录音，调用也很简单。</p>
+<p>要停止录制，调用也很简单。</p>
 <pre><code class="language-py">client.stop_recorder()
 </code></pre>
 <div class="admonition 笔记">
@@ -405,7 +405,7 @@
 </tr>
 <tr>
 <td><code>相机</code></td>
-<td>相机将聚焦的演员的 ID。</td>
+<td>相机将聚焦的参与者的 ID。</td>
 <td>将其设置为“0”以让观众自由移动。</td>
 </tr>
 </tbody>
@@ -451,7 +451,7 @@ print (client.show_recorder_file_info (&quot;recording01.log&quot;))
 <p><strong>开放信息.</strong> 记录仿真的地图、日期和时间。</p>
 </li>
 <li>
-<p><strong>Frame information.</strong> 任何可能发生的事件，例如角色生成或碰撞。它包含演员的 ID 和一些附加信息。</p>
+<p><strong>Frame information.</strong> 任何可能发生的事件，例如角色生成或碰撞。它包含参与者的 ID 和一些附加信息。</p>
 </li>
 <li>
 <p><strong>关闭信息.</strong> 记录的帧数和总时间。</p>
@@ -579,7 +579,7 @@ Duration: 374 seconds
 <h2 id="python">示例 python 脚本</h2>
 <p><code>PythonAPI/examples</code> 中提供的一些脚本有助于记录器的使用。</p>
 <ul>
-<li><strong>start_recording.py</strong> 开始录制。可以设置录制的持续时间，并且可以在开始时生成演员。</li>
+<li><strong>start_recording.py</strong> 开始录制。可以设置录制的持续时间，并且可以在开始时生成参与者。</li>
 </ul>
 <table>
 <thead>
@@ -604,7 +604,7 @@ Duration: 374 seconds
 </tbody>
 </table>
 <ul>
-<li><strong>start_replaying.py</strong> 开始播放录音。可以设置开始时间、持续时间和要跟随的演员。</li>
+<li><strong>start_replaying.py</strong> 开始播放录制。可以设置开始时间、持续时间和要跟随的参与者。</li>
 </ul>
 <table>
 <thead>
@@ -628,7 +628,7 @@ Duration: 374 seconds
 </tr>
 <tr>
 <td><code>-c</code><small>（可选）</small></td>
-<td>要关注的演员的 ID。</td>
+<td>要关注的参与者的 ID。</td>
 </tr>
 </tbody>
 </table>
@@ -654,7 +654,7 @@ Duration: 374 seconds
 </tbody>
 </table>
 <ul>
-<li><strong>show_recorder_collisions.py</strong> 显示类型为 <strong>A</strong> 和 <strong>B</strong> 的演员的两个标志之间记录的碰撞。 <code>-t = vv</code> 将显示车辆之间的所有碰撞。</li>
+<li><strong>show_recorder_collisions.py</strong> 显示类型为 <strong>A</strong> 和 <strong>B</strong> 的参与者的两个标志之间记录的碰撞。 <code>-t = vv</code> 将显示车辆之间的所有碰撞。</li>
 </ul>
 <table>
 <thead>
@@ -675,7 +675,7 @@ Duration: 374 seconds
 </tbody>
 </table>
 <ul>
-<li><strong>show_recorder_actors_blocked.py</strong> 列出被认为被阻止的车辆。如果在特定时间内没有移动最小距离，则认为 Actors 被阻挡。</li>
+<li><strong>show_recorder_actors_blocked.py</strong> 列出被认为被阻止的车辆。如果在特定时间内没有移动最小距离，则认为参与者被阻挡。</li>
 </ul>
 <table>
 <thead>

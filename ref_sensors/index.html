@@ -1996,7 +1996,7 @@ def _on_actor_constellation_request(self, actor_constellation_data):
 <li><strong>蓝图：</strong> sensor.camera.semantic_segmentation</li>
 <li><strong>输出：</strong> 每步 <a href="../python_api/#carla.Image">carla.Image</a> （除非 <code>sensor_tick</code> 另有说明）。</li>
 </ul>
-<p>该摄像机根据其标签以不同的颜色显示它，从而对可见的每个物体进行分类（例如，行人与车辆的颜色不同）。当仿真开始时，场景中的每个元素都会使用标签创建。所以当演员产生时就会发生这种情况。对象按其在项目中的相对文件路径进行分类。例如，存储在中的网格<code>Unreal/CarlaUE4/Content/Static/Pedestrians</code>被标记为<code>Pedestrian</code>。</p>
+<p>该摄像机根据其标签以不同的颜色显示它，从而对可见的每个物体进行分类（例如，行人与车辆的颜色不同）。当仿真开始时，场景中的每个元素都会使用标签创建。所以当参与者产生时就会发生这种情况。对象按其在项目中的相对文件路径进行分类。例如，存储在中的网格<code>Unreal/CarlaUE4/Content/Static/Pedestrians</code>被标记为<code>Pedestrian</code>。</p>
 <p><img alt="ImageSemanticSegmentation" src="../img/ref_sensors_semantic.jpg" /></p>
 <p>服务器提供的图像的标签信息 <strong>编码在红色通道中</strong>： 红色值为 的像素<code>x</code>属于带有标签的对象<code>x</code>。这个原始的<a href="../python_api/#carla.Image">carla.Image</a>可以在<a href="../python_api/#carla.ColorConverter">carla.ColorConverter</a> 中的 <strong>CityScapesPalette</strong> 的帮助下存储和转换，以应用标签信息并通过语义分割显示图片。</p>
 <pre><code class="language-py">...

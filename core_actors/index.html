@@ -452,7 +452,7 @@ location = actor.get_location()
 location.z += 10.0
 actor.set_location(location)
 </code></pre>
-<p>可以禁用演员的物理特性以将其冻结在适当的位置。</p>
+<p>可以禁用参与者的物理特性以将其冻结在适当的位置。</p>
 <pre><code class="language-py">actor.set_simulate_physics(False)
 </code></pre>
 <p>除此之外，参与者还有他们的蓝图提供的标签。这些对于语义分割传感器最有用。</p>
@@ -483,7 +483,7 @@ camera.listen(lambda image: image.save_to_disk('output/%06d.png' % image.frame))
 <li>传感器 <strong>监听</strong> 数据。收到数据后，它们会调用用 <strong><a href="https://docs.python.org/3/reference/expressions.html">Lambda 表达式</a></strong> 描述的函数<small>(提供的链接中的 6.14)</small>。 </li>
 </ul>
 <h3 id="_10">观察者</h3>
-<p>由虚幻引擎放置以提供游戏内的视角。它可用于移动仿真器窗口的视角。以下示例将移动观众演员，将视角指向所需的车辆。</p>
+<p>由虚幻引擎放置以提供游戏内的视角。它可用于移动仿真器窗口的视角。以下示例将移动观众参与者，将视角指向所需的车辆。</p>
 <pre><code class="language-py">spectator = world.get_spectator()
 transform = vehicle.get_transform()
 spectator.set_transform(carla.Transform(transform.location + carla.Location(z=50),
@@ -514,7 +514,7 @@ if traffic_light.get_state() == carla.TrafficLightState.Red:
 <p>只有当信号灯为红色时，车辆才会意识到交通灯。</p>
 </div>
 <h3 id="_12">车辆</h3>
-<p><a href="../python_api/#carla.Vehicle"><strong>carla.Vehicle</strong></a> 是一种特殊类型的演员。它采用了仿真轮式车辆物理特性的特殊内部组件。这是通过应用四种不同的控件来实现的：</p>
+<p><a href="../python_api/#carla.Vehicle"><strong>carla.Vehicle</strong></a> 是一种特殊类型的参与者。它采用了仿真轮式车辆物理特性的特殊内部组件。这是通过应用四种不同的控件来实现的：</p>
 <ul>
 <li><strong><a href="../python_api/#carla.VehicleControl">carla.VehicleControl</a></strong> 提供油门、转向、刹车等驾驶命令的输入。</li>
 </ul>

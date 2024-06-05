@@ -1338,7 +1338,7 @@
 <h5 id="_7">设置器</h5>
 <ul>
 <li><a name="carla.Actor.set_enable_gravity"></a><strong><font color="#7fb800">set_enable_gravity</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>enabled</strong></font>)<br />
-启用或禁用演员的重力。 <strong>默认</strong> 为 True。  <ul>
+启用或禁用参与者的重力。 <strong>默认</strong> 为 True。  <ul>
 <li><strong>参数：</strong><ul>
 <li><code>enabled</code> (<em>bool</em>)  </li>
 </ul>
@@ -1528,7 +1528,7 @@
 </ul>
 <hr />
 <h2 id="carlaactorlist">carla.ActorList<a name="carla.ActorList"></a></h2>
-<p>一个类，它包含现场出现的每个演员并提供对他们的访问。该列表由服务器自动创建和更新，可以使用 <a href="#carla.World">carla.World</a> 返回。</p>
+<p>一个类，它包含现场出现的每个参与者并提供对他们的访问。该列表由服务器自动创建和更新，可以使用 <a href="#carla.World">carla.World</a> 返回。</p>
 <h3 id="_17">方法</h3>
 <ul>
 <li><a name="carla.ActorList.filter"></a><strong><font color="#7fb800">filter</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>wildcard_pattern</strong></font>)<br />
@@ -1796,7 +1796,7 @@
 </ul>
 </li>
 <li><a name="carla.Client.apply_batch"></a><strong><font color="#7fb800">apply_batch</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>commands</strong></font>)<br />
-在单个仿真步上执行命令列表，不检索任何信息。如果需要有关每个命令的响应的信息，请使用 <strong><font color="#7fb800">apply_batch_sync()</font></strong> 方法。<a href="https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/generate_traffic.py">下面</a> 是一个关于如何删除卡拉中出现的演员的示例。一次列出所有参与者 <a href="#carla.ActorList">carla.ActorList</a> 。<ul>
+在单个仿真步上执行命令列表，不检索任何信息。如果需要有关每个命令的响应的信息，请使用 <strong><font color="#7fb800">apply_batch_sync()</font></strong> 方法。<a href="https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/generate_traffic.py">下面</a> 是一个关于如何删除卡拉中出现的参与者的示例。一次列出所有参与者 <a href="#carla.ActorList">carla.ActorList</a> 。<ul>
 <li><strong>参数：</strong><ul>
 <li><code>commands</code> (<em>list</em>) - 要批量执行的命令列表。每个命令都不同，并且有自己的参数。它们显示在此页面底部列出。</li>
 </ul>
@@ -5399,7 +5399,7 @@ VehiclePhysicsControl 构造函数。 <ul>
 </ul>
 <hr />
 <h2 id="carlawalkerbonecontrolout">carla.WalkerBoneControlOut<a name="carla.WalkerBoneControlOut"></a></h2>
-<p>该类用于返回行人的所有骨骼位置。对于每个骨骼，我们得到它的名称及其在三个不同空间（世界、演员和相对）中的变换。 </p>
+<p>该类用于返回行人的所有骨骼位置。对于每个骨骼，我们得到它的名称及其在三个不同空间（世界、参与者和相对）中的变换。 </p>
 <h3 id="_217">实例变量</h3>
 <ul>
 <li><a name="carla.WalkerBoneControlOut.bone_transforms"></a><strong><font color="#f8805a">bone_transforms</font></strong> (<em>list([name,world, actor, relative])</em>)<br />
@@ -5563,7 +5563,7 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 </ul>
 <hr />
 <h2 id="carlaweatherparameters">carla.WeatherParameters<a name="carla.WeatherParameters"></a></h2>
-<p>此类定义了包含光照和天气规范的对象，这些规范稍后可以应用在 <a href="#carla.World">carla.World</a> 中。到目前为止，这些条件仅影响 <a href="../ref_sensors/#rgb-camera">sensor.camera.rgb</a>。它们既不影响演员的物理特性，也不影响其他传感器。
+<p>此类定义了包含光照和天气规范的对象，这些规范稍后可以应用在 <a href="#carla.World">carla.World</a> 中。到目前为止，这些条件仅影响 <a href="../ref_sensors/#rgb-camera">sensor.camera.rgb</a>。它们既不影响参与者的物理特性，也不影响其他传感器。
 这些参数中的每一个都独立于其他参数起作用。增加降雨量不会自动形成水坑，也不会改变道路的湿度。这可以实现更好的定制，但也意味着需要编写现实条件的脚本。然而，可以在 <a href="https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/dynamic_weather.py">此处</a> 找到实际运行的动态天气条件的示例。</p>
 <h3 id="_227">实例变量</h3>
 <ul>
@@ -6450,7 +6450,7 @@ Actor affected by the command.  </li>
 </ul>
 <hr />
 <h2 id="commanddestroyactor">command.DestroyActor<a name="command.DestroyActor"></a></h2>
-<p><a href="#carla.Actor">carla.Actor</a> 中 <strong><font color="#7fb800">destroy()</font></strong> 的命令适应，将告诉仿真器摧毁该参与者。如果参与者已经被摧毁则没有影响。当在 <a href="#carla.Client">carla.Client</a> 中执行 <strong><font color="#7fb800">apply_batch_sync()</font></strong> 将会返回一个布尔值状态表示参与者是否被成功摧毁。</p>
+<p><a href="#carla.Actor">carla.Actor</a> 中 <strong><font color="#7fb800">destroy()</font></strong> 命令的改编版，将告诉仿真器摧毁该参与者。如果参与者已经被摧毁则没有影响。当在 <a href="#carla.Client">carla.Client</a> 中执行 <strong><font color="#7fb800">apply_batch_sync()</font></strong> 将会返回一个布尔值状态表示参与者是否被成功摧毁。</p>
 <h3 id="_268">实例变量</h3>
 <ul>
 <li><a name="command.DestroyActor.actor_id"></a><strong><font color="#f8805a">actor_id</font></strong> (<em>int</em>)<br />

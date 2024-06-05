@@ -346,7 +346,7 @@
 <p>Carla 智能体中涉及的主要脚本位于<code>PythonAPI/carla/agents/navigation</code>中。它们分为两类； <strong>计划和控制</strong> 和 <strong>智能体行为</strong>。</p>
 <h3 id="_2">计划与控制</h3>
 <ul>
-<li><strong><code>controller.py</code>:</strong> 将纵向和横向 PID 控制器组合成一个类，<strong>VehiclePIDController</strong>，用于从 CARLA 客户端对车辆进行低级控制。</li>
+<li><strong><code>controller.py</code>:</strong> 将纵向和横向 PID 控制器组合成一个类，<strong>VehiclePIDController</strong>，用于从 Carla 客户端对车辆进行低级控制。</li>
 <li><strong><code>global_route_planner.py</code>:</strong> 从 Carla 服务器获取详细的拓扑结构以构建世界地图的图形表示，为 <strong>Local Planner</strong> 提供航点和道路选项信息。</li>
 <li><strong><code>local_planner.py</code>:</strong> 根据来自 <strong>VehiclePIDController</strong> 的控制输入跟踪航路点。航点可以由 <strong>Global Route Planner</strong> 提供，也可以动态计算，在路口选择随机路径，类似于 <a href="../adv_traffic_manager/">Traffic Manager</a>。</li>
 </ul>
