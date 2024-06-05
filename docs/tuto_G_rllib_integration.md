@@ -29,7 +29,7 @@ RLlib 集成允许用户创建和使用 Carla 作为 Ray 的环境，并将该�
 - 从 [GitHub](https://github.com/carla-simulator/rllib-integration/tree/main) 下载 RLlib 集成或直接克隆仓库：
 
 ```sh
-    git clone https://github.com/carla-simulator/rllib-integration.git
+git clone https://github.com/carla-simulator/rllib-integration.git
 ```
 
 - 要求会有所不同，具体取决于您是在本地运行还是在 AWS 上运行：
@@ -39,11 +39,11 @@ RLlib 集成允许用户创建和使用 Carla 作为 Ray 的环境，并将该�
 >>- [安装 Carla 的软件包版本](https://github.com/carla-simulator/carla/releases) 并导入 [附加资源](https://carla.readthedocs.io/en/latest/start_quickstart/#import-additional-assets) 。__推荐的版本是 Carla 0.9.11__ ，因为集成是使用此版本设计和测试的。其他版本可能兼容，但尚未经过充分测试，因此请自行决定使用这些版本。
 >>- 导航到 RLlib 集成存储库的根文件夹并安装 Python 要求：
 
-                pip3 install -r requirements.txt
+    pip3 install -r requirements.txt
 
 >>- 通过运行以下命令设置环境变量以查找 Carla 包或添加`CARLA_ROOT=path/to/carla`到您的`.bashrc`文件中：
 
-                export CARLA_ROOT=path/to/carla
+    export CARLA_ROOT=path/to/carla
 
 >###### 在 AWS 云上运行的要求
 
@@ -158,7 +158,7 @@ DQN示例的结构如下：
 
 使用提供的 [`aws_helper.py`][awsHelper] 脚本通过运行以下命令自动创建训练所需的映像，并传入基础映像的名称和 `install.sh` 在以下位置  [`rllib-integration/aws/install`][installsh] 找到的安装脚本：
 
-        python3 aws_helper.py create-image --name <AMI-name> --installation-scripts <installation-scripts> --instance-type <instance-type> --volume-size <volume-size>
+    python3 aws_helper.py create-image --name <AMI-name> --installation-scripts <installation-scripts> --instance-type <instance-type> --volume-size <volume-size>
 
 [awsHelper]: https://github.com/carla-simulator/rllib-integration/blob/main/aws/aws_helper.py
 [installsh]: https://github.com/carla-simulator/rllib-integration/blob/main/aws/install/install.sh

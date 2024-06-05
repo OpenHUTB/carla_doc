@@ -211,6 +211,14 @@ Carla 论坛</a>
 
 ## 驾驶基准
 
+[__驾驶基准__](benchmark_start.md) — 用于评估驾驶控制器（智能体）并获取有关其性能的指标。
+
+[__基准性能__](adv_benchmarking.md) — 分析 Carla 在自己的环境中的性能。
+
+[__驾驶基准结构__](benchmark_structure.md) — 驾驶基准模块的总体结构。
+
+[__测试代理__](benchmark_creating.md) — 对你的代理进行基准测试。
+
 ## Carla 生态系统
 
 [__ISS 智能驾驶系统__](ecosys_iss.md) — 包含用于自动驾驶相关任务的传统和深度学习算法。

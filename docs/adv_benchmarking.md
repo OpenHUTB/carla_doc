@@ -123,7 +123,7 @@ python -m pip install GPUtil
 
 >> 所有 [Carla 地图][carla_maps]，包括分层和子分层，都可用。
 
-[carla_maps]：https://carla.readthedocs.io/en/latest/core_map/#carla-maps
+[carla_maps](https://carla.readthedocs.io/en/latest/core_map/#carla-maps) 
 
 ###### `--天气`：整数
 
