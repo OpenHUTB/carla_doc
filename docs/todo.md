@@ -1,7 +1,7 @@
 # 待做
 
 ## 技术文档
-* 检查文档拼写错误、前后不一致等；
+* 参考[稳定版文档](https://carla.readthedocs.io/en/stable/) 检查文档拼写错误、前后不一致等；
 * 完善对应文档的示例代码（做好配置说明）；
 * 整理 Carla 社区的文档、代码，比如 [carla](https://github.com/OpenHUTB/carla/tree/master/PythonAPI/examples) 、[awesome](https://github.com/Amin-Tgz/awesome-CARLA) ；
 * 整理 [神经科学原理](https://github.com/OpenHUTB/neuro) 、[前额叶皮层](https://github.com/OpenHUTB/PFC) 、强化学习导论心理学章节；
