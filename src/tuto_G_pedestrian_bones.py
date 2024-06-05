@@ -70,13 +70,7 @@ controller.go_to_location(world.get_random_location_from_navigation())
 # 将世界移动几帧，让行人生成
 for frame in range(0, 5):
     world.tick()
-    trash = image_queue.get() 
-
-
-controller_bp = world.get_blueprint_library().find('controller.ai.walker')
-controller = world.spawn_actor(controller_bp, pedestrian.get_transform(), pedestrian)
-controller.start()
-controller.go_to_location(world.get_random_location_from_navigation())
+    trash = image_queue.get()
 
 
 # 获取4x4矩阵以将点从世界坐标转换为相机坐标
@@ -124,14 +118,12 @@ def build_skeleton(ped, sk_links, K):
 
     # 在 skeleton.txt 中遍历骨骼对并获取关节位置
     for link in sk_links[1:]:
-
         # 将两块骨头的根部连接起来
         bone_transform_1 = next(filter(lambda b: b.name == link[0], bones.bone_transforms), None)
         bone_transform_2 = next(filter(lambda b: b.name == link[1], bones.bone_transforms), None)
 
         # 某些骨骼名称不匹配
         if bone_transform_1 is not None and bone_transform_2 is not None:
-           
             # 计算三维骨骼坐标的二维投影
             point_image = get_image_point(bone_transform_1)
     
