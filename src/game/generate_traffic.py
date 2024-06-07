@@ -7,7 +7,7 @@
 # For a copy, see <https://opensource.org/licenses/MIT>.
 
 """在仿真中产生交通的示例脚本"""
-
+import ctypes
 import glob
 import os
 import sys
@@ -385,6 +385,8 @@ def main():
 
 # def generate_traffic():
 if __name__ == '__main__':
+    whnd = ctypes.windll.kernel32.GetConsoleWindow()  # 带控制界面打包exe时 和 bat运行时 隐藏CMD界面
+    ctypes.windll.user32.ShowWindow(whnd, 0)  # 带控制界面打包exe时 和 bat运行时 隐藏CMD界面
     try:
         main()
     except KeyboardInterrupt:

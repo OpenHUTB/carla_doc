@@ -32,7 +32,9 @@ if __name__ == '__main__':
     elif platform.system().lower() == 'linux':
         gen_traffic_cmd = sys.executable + ' ' + os.path.join(os.path.split(os.path.realpath(__file__))[0], 'generate_traffic.py') + ' &'
 
-    os.system(gen_traffic_cmd)
+    # creationflags 设置为 0x08000000，是隐藏cmd窗口的标识（无效）
+    subprocess.Popen(gen_traffic_cmd, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, bufsize=1, creationflags=0x08000000)
+    # os.system(gen_traffic_cmd)
 
     manual_control()
 
