@@ -159,8 +159,9 @@ def add_open3d_axis(vis):
 def main(arg):
     """Main function of the script"""
     client = carla.Client(arg.host, arg.port)
-    client.set_timeout(2.0)
+    # get_world()必须在 set_timeout(2.0)之前，否则连接超时，原因不明
     world = client.get_world()
+    client.set_timeout(2.0)
 
     try:
         original_settings = world.get_settings()

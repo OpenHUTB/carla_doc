@@ -1,8 +1,11 @@
+# 造成拥堵并天气快速变化
 import carla
 import time
 import random
 import argparse
 import math
+
+
 def get_actor_blueprints(world, filter, generation):
     bps = world.get_blueprint_library().filter(filter)
 
@@ -68,12 +71,15 @@ def spawn_vehicles(client, world, number_of_vehicles, blueprints, traffic_manage
 
     return vehicles_list
 
+
 def interpolate_weather(current_weather, target_weather, alpha):
     # 插值函数，用于平滑地从当前天气到目标天气
     interpolated_weather = carla.WeatherParameters()
     interpolated_weather.sun_altitude_angle = current_weather.sun_altitude_angle + alpha * (
                 target_weather.sun_altitude_angle - current_weather.sun_altitude_angle)
     return interpolated_weather
+
+
 def smooth_change_in_weather(world,current_weather, target_weather, steps=100):
     # 平滑地改变天气
     for step in range(steps):
@@ -81,12 +87,15 @@ def smooth_change_in_weather(world,current_weather, target_weather, steps=100):
         interpolated_weather = interpolate_weather(current_weather, target_weather, alpha)
         world.set_weather(interpolated_weather)
         #time.sleep(0.03)  # 等待一秒，可以调整等待时间
+
+
 def destroy_vehicles(client,num_vehicles,vehicles_list):
     vehicles_to_remove = random.sample(vehicles_list, min(num_vehicles, len(vehicles_list)))
     print("qqqqqqqqqqqqqqqqqqqqqqqqqqqq",vehicles_to_remove)
     # 使用Carla命令删除选定的车辆
     client.apply_batch([carla.command.DestroyActor(actor_id) for actor_id in vehicles_to_remove])
     vehicles_list = [vehicle_id for vehicle_id in vehicles_list if vehicle_id not in vehicles_to_remove]
+
 
 def main():
 
@@ -186,7 +195,6 @@ def main():
         help='Activate no rendering mode')
 
     args = argparser.parse_args()
-
 
     try:
         # ... (other argument parsing code)
