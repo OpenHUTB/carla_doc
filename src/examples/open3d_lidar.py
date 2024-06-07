@@ -32,18 +32,18 @@ import carla
 VIRIDIS = np.array(cm.get_cmap('plasma').colors)
 VID_RANGE = np.linspace(0.0, 1.0, VIRIDIS.shape[0])
 LABEL_COLORS = np.array([
-    (255, 255, 255), # None
-    (70, 70, 70),    # Building
-    (100, 40, 40),   # Fences
-    (55, 90, 80),    # Other
-    (220, 20, 60),   # Pedestrian
-    (153, 153, 153), # Pole
-    (157, 234, 50),  # RoadLines
-    (128, 64, 128),  # Road
-    (244, 35, 232),  # Sidewalk
-    (107, 142, 35),  # Vegetation
-    (0, 0, 142),     # Vehicle
-    (102, 102, 156), # Wall
+    (255, 255, 255), # 无
+    (70, 70, 70),    # 建筑
+    (100, 40, 40),   # 栅栏
+    (55, 90, 80),    # 其他
+    (220, 20, 60),   # 行人
+    (153, 153, 153), # 杆子
+    (157, 234, 50),  # 车道线
+    (128, 64, 128),  # 道路
+    (244, 35, 232),  # 人行道
+    (107, 142, 35),  # 植被
+    (0, 0, 142),     # 车辆
+    (102, 102, 156), # 墙
     (220, 220, 0),   # TrafficSign
     (70, 130, 180),  # Sky
     (81, 0, 81),     # Ground
@@ -116,7 +116,7 @@ def semantic_lidar_callback(point_cloud, point_list):
 
 
 def generate_lidar_bp(arg, world, blueprint_library, delta):
-    """Generates a CARLA blueprint based on the script parameters"""
+    """基于脚本参数生成一个 Carla 蓝图"""
     if arg.semantic:
         lidar_bp = world.get_blueprint_library().find('sensor.lidar.ray_cast_semantic')
     else:
@@ -157,7 +157,7 @@ def add_open3d_axis(vis):
 
 
 def main(arg):
-    """Main function of the script"""
+    """脚本的主函数"""
     client = carla.Client(arg.host, arg.port)
     # get_world()必须在 set_timeout(2.0)之前，否则连接超时，原因不明
     world = client.get_world()
@@ -182,11 +182,13 @@ def main(arg):
         vehicle = world.spawn_actor(vehicle_bp, vehicle_transform)
         vehicle.set_autopilot(arg.no_autopilot)
 
+        # 生成激光雷达蓝图
         lidar_bp = generate_lidar_bp(arg, world, blueprint_library, delta)
 
         user_offset = carla.Location(arg.x, arg.y, arg.z)
         lidar_transform = carla.Transform(carla.Location(x=-0.5, z=1.8) + user_offset)
 
+        # 根据蓝图、位姿、附着对象生成生成雷达传感器
         lidar = world.spawn_actor(lidar_bp, lidar_transform, attach_to=vehicle)
 
         point_list = o3d.geometry.PointCloud()
@@ -218,7 +220,7 @@ def main(arg):
 
             vis.poll_events()
             vis.update_renderer()
-            # # This can fix Open3D jittering issues:
+            # 这能修复 Open3D 的抖动问题
             time.sleep(0.005)
             world.tick()
 
