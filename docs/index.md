@@ -113,6 +113,15 @@ Carla 论坛</a>
 
 [__Carla 智能体__](adv_agents.md) — 智能体脚本允许单个车辆在地图上漫游或开车到设定的目的地。
 
+[__CARLA 设置__](carla_settings.md) — CARLA 参数配置设置。
+
+[__CARLA 模拟器键盘输入__](simulator_keyboard_input.md) — 在模拟器窗口中玩游戏时使用的按键绑定。
+
+[__无显示屏运行 CARLA 并选择 GPU__](carla_headless.md) — 使用未插在屏幕上的GPU来渲染CARLA的桌面。
+
+
+[__链接 Epic 的汽车材质__](epic_automotive_materials.md) — 下载材质并将其链接到我们的车辆，以获得更逼真的车漆。
+
 
 
 ## 参考
@@ -218,6 +227,8 @@ Carla 论坛</a>
 [__驾驶基准结构__](benchmark_structure.md) — 驾驶基准模块的总体结构。
 
 [__测试代理__](benchmark_creating.md) — 对你的代理进行基准测试。
+
+[__计算的基准性能指标__](benchmark_metrics.md) — 用于根据代理在基准测试期间执行的操作计算结果摘要。
 
 ## Carla 生态系统
 
