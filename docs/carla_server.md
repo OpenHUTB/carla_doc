@@ -9,12 +9,12 @@ make check
 安装脚本会下载并编译所有必需的依赖项。Makefile 调用 CMake 来构建 CarlaServer 并将其安装在“Util/Install”下。
 
 ## 协议
-所有消息前面都附加一个 32 位无符号整数（小端字节序），指示即将到来的消息的大小。
+所有消息前都附加一个 32 位无符号整数（小端字节序），指示即将到来的消息的大小。
 
 使用三个连续的端口，
 
 - world-port (默认 2000)
-- measurements-port = 世界港口 + 1
+- measurements-port = world-port + 1
 - control-port = world-port + 2
 
 每个端口都有一个关联的线程，可以异步发送/读取数据。
@@ -71,6 +71,8 @@ CarlaServer 实例是用 `carla_make_server()` 创建的，使用后应被`carla
 ## 设计
 C API 负责将请求分发到相应的服务器。有三个异步服务器，每个服务器都在自己的线程上运行。
 
-从概念上讲，有两个服务器，即 *World Server* 和*Agent Server*。World Server控制剧集的初始化。每次通过 RequestNewEpisode 消息向 World Server 请求新剧集时，都会启动新剧集。剧集准备就绪后，World Server 将启动 Agent Server。Agent Server有两个线程，一个用于发送测量流，另一个用于接收控制。两个代理线程都通过无锁双缓冲区与主线程通信，以加快消息和图像的流式传输。
+![](./img/carla_server.jpg) 
+
+从概念上讲，有两个服务器，即 *World Server* 和*Agent Server*。`World Server` 控制情节的初始化。每次通过 `RequestNewEpisode` 消息向 `World Server` 请求新情节时，都会启动新情节。情节准备就绪后，`World Server` 将启动 `Agent Server`。`Agent Server`有两个线程，一个用于发送测量流，另一个用于接收控制。两个代理线程都通过无锁双缓冲区与主线程通信，以加快消息和图像的流式传输。
 
 消息（protobuf）的编码和网络操作是异步执行的。
