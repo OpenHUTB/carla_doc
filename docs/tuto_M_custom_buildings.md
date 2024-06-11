@@ -16,7 +16,7 @@
 要开始建造您的建筑：
 
 1. 在虚幻引擎编辑器的 _内容浏览器_ 中，导航至 `Content/Carla/Blueprints/LevelDesign`。
-2. 将 `BP_Procedural_Building` 拖入BP_Procedural_Building场景中。
+2. 将 `BP_Procedural_Building` 拖入场景中。
 
 在 _Details_ 面板中，您将看到可用于自定义建筑物的所有选项。每次在此处进行更改时，随着关键网格体的更新，建筑物将从场景视图中消失。单击 _Create Building_ 以查看新结果，或启用自动创建以避免重复此步骤。
 
