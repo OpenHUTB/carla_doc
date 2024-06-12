@@ -1272,10 +1272,11 @@ def game_loop(args):
             print("WARNING: You are currently in asynchronous mode and could "
                   "experience some issues with the traffic simulation")
 
+        # 对窗口参数进行设置，这个函数会返回一个Surface对象
         display = pygame.display.set_mode(
             (args.width, args.height),
             pygame.HWSURFACE | pygame.DOUBLEBUF)
-        display.fill((0,0,0))
+        display.fill((0, 0, 0))
         pygame.display.flip()
 
         hud = HUD(args.width, args.height)
