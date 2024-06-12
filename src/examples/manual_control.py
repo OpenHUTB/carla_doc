@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# 参考：https://github.com/marcgpuig/carla_py_clients/blob/master/imu_plot.py
 
 # Copyright (c) 2019 Computer Vision Center (CVC) at the Universitat Autonoma de
 # Barcelona (UAB).

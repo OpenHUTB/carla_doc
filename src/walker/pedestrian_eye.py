@@ -1,8 +1,13 @@
+# 生成一个行人并获取眼睛里的图像
+# 1. 生成行人
+# 2. 将相机挂载到眼眶中；
+# 3. 获取双目相机的图像；
 from __future__ import annotations
 
 import argparse
 import glob
 import os
+import random
 import sys
 
 import cv2
@@ -39,16 +44,19 @@ def initialize_world(args):
 
     hero = carla_world.find_actor_by_name(args.rolename)
     if hero is None:
-        hero = carla_world.spawn_actor(args.rolename, "vehicle.tesla.model3")
+        # 生成行人
+        hero = carla_world.spawn_actor(args.rolename, "*walker.pedestrian*")
 
     return carla_world, hero
 
 
+# 生成RGB相机
 def spawn_rgb_cameras(
     carla_world: CarlaWorld, hero: carla.Vehicle, image_size_x: int, image_size_y: int
 ):
     camera_init_trans = carla.Transform(carla.Location(z=2))
 
+    # 生成RGB相机传感器
     camera = carla_world.spawn_sensor(
         "sensor.camera.rgb",
         hero,
@@ -56,6 +64,7 @@ def spawn_rgb_cameras(
         image_size_x=image_size_x,
         image_size_y=image_size_y,
     )
+    # 生成语义分割相机
     sem_camera = carla_world.spawn_sensor(
         "sensor.camera.semantic_segmentation",
         hero,
@@ -63,6 +72,7 @@ def spawn_rgb_cameras(
         image_size_x=image_size_x,
         image_size_y=image_size_y,
     )
+    # 生成实例分割相机传感器
     inst_camera = carla_world.spawn_sensor(
         "sensor.camera.instance_segmentation",
         hero,
@@ -70,6 +80,7 @@ def spawn_rgb_cameras(
         image_size_x=image_size_x,
         image_size_y=image_size_y,
     )
+    # 生成深度相机
     depth_camera = carla_world.spawn_sensor(
         "sensor.camera.depth",
         hero,
@@ -77,6 +88,7 @@ def spawn_rgb_cameras(
         image_size_x=image_size_x,
         image_size_y=image_size_y,
     )
+    # 生成动态视觉传感器
     dvs_camera = carla_world.spawn_sensor(
         "sensor.camera.dvs",
         hero,
@@ -84,6 +96,7 @@ def spawn_rgb_cameras(
         image_size_x=image_size_x,
         image_size_y=image_size_y,
     )
+    # 生成光流相机
     opt_camera = carla_world.spawn_sensor(
         "sensor.camera.optical_flow",
         hero,
@@ -116,6 +129,7 @@ def setup_callbacks(camera_dict: dict[str, carla.Sensor]):
         "inst_image": np.zeros((image_h, image_w, 4)),
     }
 
+    # RGB相机的回调函数
     def rgb_callback(image: carla.Image, data_dict: dict):
         data_dict["rgb_image"] = np.reshape(
             np.copy(image.raw_data), (image.height, image.width, 4)
@@ -177,6 +191,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     carla_world, hero = initialize_world(args)
+    # 生成6个不同相机
     camera_dict = spawn_rgb_cameras(
         carla_world, hero, args.image_size_x, args.image_size_y
     )
