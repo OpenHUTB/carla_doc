@@ -108,7 +108,7 @@
               </ul>
               <p class="caption"><span class="caption-text">行人</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_pedestrian_bones/">行人骨骼</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_pedestrian_navigation/">行人导航</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_walker_skeletons/">控制行人骨骼</a>
                   </li>
@@ -132,6 +132,14 @@
                   <li class="toctree-l1"><a class="reference internal" href="../adv_benchmarking/">基准性能</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../adv_agents/">Carla 智能体</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../carla_settings/">CARLA 设置</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../simulator_keyboard_input/">Carla 模拟器键盘输入</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../carla_headless/">无显示屏运行 CARLA 并选择 GPU</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../epic_automotive_materials/">链接 Epic 的汽车材质</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">资源</span></p>
@@ -296,6 +304,19 @@
                   <li class="toctree-l1"><a class="reference internal" href="../cont_doc_standard/">文档标准</a>
                   </li>
               </ul>
+              <p class="caption"><span class="caption-text">驾驶基准</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../benchmark_start/">入门</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_benchmarking/">基准性能</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../benchmark_structure/">驾驶基准结构</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../benchmark_creating/">测试代理</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../benchmark_metrics/">计算的基准性能指标</a>
+                  </li>
+              </ul>
               <p class="caption"><span class="caption-text">其他</span></p>
               <ul>
                   <li class="toctree-l1"><a class="" href="https://ww2.mathworks.cn/help/roadrunner/index.html">RoadRunner</a>
@@ -414,9 +435,9 @@
 <p><strong>第 1 步.</strong> <em>(在虚幻引擎中)</em> — 添加车轮的碰撞边界。以下视频详细介绍了这些步骤。 </p>
 <p><a href="https://www.youtube.com/watch?v=bECnsTw6ehI"><img alt="auto_step01" src="../img/tuto_D_colliders_01.jpg" /></a></p>
 <h3 id="2-fbx">2-将车辆导出为 FBX</h3>
-<p><strong>第 2 步.</strong> <em>(在虚幻引擎中)</em> — 将车辆的骨架网格物体导出到 FBX 文件。<br />
-<strong>2.1</strong> 转到 <code>Content/Carla/Static/Vehicles/4Wheeled/&lt;model_of_vehicle&gt;</code>。 
-<strong>2.2</strong> 在<code>SM_&lt;model_of_vehicle&gt;</code> 点击 <code>right-click</code>，将车辆网格导出为 FBX。 </p>
+<p><strong>第 2 步.</strong> <em>(在虚幻引擎中)</em> — 将车辆的骨架网格物体导出到 FBX 文件。 </p>
+<p><strong>2.1</strong> 转到 <code>Content/Carla/Static/Vehicles/4Wheeled/&lt;model_of_vehicle&gt;</code>。 </p>
+<p><strong>2.2</strong> 在<code>SM_&lt;model_of_vehicle&gt;</code> 点击 <code>right-click</code>，将车辆网格导出为 FBX。 </p>
 <h3 id="3-4-blender">3 到 4-导入到 Blender 并创建自定义边界</h3>
 <p><strong>第 3 步.</strong> <em>(在 Blender 中)</em> — 将 FBX 文件导入 Blender。
 <strong>第 4 步.</strong> <em>(在 Blender 中)</em> — 添加凸包网格以形成新的碰撞边界（虚幻引擎对计算效率的要求）。这是最难的一步。如果选择整辆车，VHACD 创建的碰撞边界将不精确且混乱。它将包含锋利的边缘，这会扰乱道路上的行驶。轮子周围要有光滑的边界，这一点很重要。在车身上使用凸分解，后视镜看起来仍然不正确。对于计算机视觉来说，车辆的细节非常重要。由于上述原因，这些步骤被分为两个部分。</p>

@@ -108,7 +108,7 @@
               </ul>
               <p class="caption"><span class="caption-text">行人</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_pedestrian_bones/">行人骨骼</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_pedestrian_navigation/">行人导航</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_walker_skeletons/">控制行人骨骼</a>
                   </li>
@@ -132,6 +132,14 @@
                   <li class="toctree-l1"><a class="reference internal" href="../adv_benchmarking/">基准性能</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../adv_agents/">Carla 智能体</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../carla_settings/">CARLA 设置</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../simulator_keyboard_input/">Carla 模拟器键盘输入</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../carla_headless/">无显示屏运行 CARLA 并选择 GPU</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../epic_automotive_materials/">链接 Epic 的汽车材质</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">资源</span></p>
@@ -304,6 +312,19 @@
                   <li class="toctree-l1"><a class="reference internal" href="../cont_doc_standard/">文档标准</a>
                   </li>
               </ul>
+              <p class="caption"><span class="caption-text">驾驶基准</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../benchmark_start/">入门</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_benchmarking/">基准性能</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../benchmark_structure/">驾驶基准结构</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../benchmark_creating/">测试代理</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../benchmark_metrics/">计算的基准性能指标</a>
+                  </li>
+              </ul>
               <p class="caption"><span class="caption-text">其他</span></p>
               <ul>
                   <li class="toctree-l1"><a class="" href="https://ww2.mathworks.cn/help/roadrunner/index.html">RoadRunner</a>
@@ -378,7 +399,7 @@
 <ul>
 <li>从 <a href="https://github.com/carla-simulator/rllib-integration/tree/main">GitHub</a> 下载 RLlib 集成或直接克隆仓库：</li>
 </ul>
-<pre><code class="language-sh">    git clone https://github.com/carla-simulator/rllib-integration.git
+<pre><code class="language-sh">git clone https://github.com/carla-simulator/rllib-integration.git
 </code></pre>
 <ul>
 <li>要求会有所不同，具体取决于您是在本地运行还是在 AWS 上运行：</li>
@@ -392,7 +413,7 @@
 </ul>
 </blockquote>
 </blockquote>
-<pre><code>            pip3 install -r requirements.txt
+<pre><code>pip3 install -r requirements.txt
 </code></pre>
 <blockquote>
 <blockquote>
@@ -401,7 +422,7 @@
 </ul>
 </blockquote>
 </blockquote>
-<pre><code>            export CARLA_ROOT=path/to/carla
+<pre><code>export CARLA_ROOT=path/to/carla
 </code></pre>
 <blockquote>
 <h6 id="aws">在 AWS 云上运行的要求</h6>
@@ -480,7 +501,7 @@
 <p>您需要正确配置 boto3 环境。请点击 <a href="https://boto3.amazonaws.com/v1/documentation/api/latest/guide/configuration.html">此处</a> 了解更多信息。</p>
 <h4 id="ami">创建训练 AMI</h4>
 <p>使用提供的 <a href="https://github.com/carla-simulator/rllib-integration/blob/main/aws/aws_helper.py"><code>aws_helper.py</code></a> 脚本通过运行以下命令自动创建训练所需的映像，并传入基础映像的名称和 <code>install.sh</code> 在以下位置  <a href="https://github.com/carla-simulator/rllib-integration/blob/main/aws/install/install.sh"><code>rllib-integration/aws/install</code></a> 找到的安装脚本：</p>
-<pre><code>    python3 aws_helper.py create-image --name &lt;AMI-name&gt; --installation-scripts &lt;installation-scripts&gt; --instance-type &lt;instance-type&gt; --volume-size &lt;volume-size&gt;
+<pre><code>python3 aws_helper.py create-image --name &lt;AMI-name&gt; --installation-scripts &lt;installation-scripts&gt; --instance-type &lt;instance-type&gt; --volume-size &lt;volume-size&gt;
 </code></pre>
 <h4 id="_4">配置集群</h4>
 <p>创建图像后，将会输出带有图像信息的输出。要使用 Ray 自动缩放器，请使用输出中的信息更新 <a href="https://docs.ray.io/en/latest/cluster/config.html">autoscaler configuration file</a> 中的<code>&lt;ImageId&gt;</code> 和 <code>&lt;SecurityGroupIds&gt;</code> 设置。</p>
