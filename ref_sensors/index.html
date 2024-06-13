@@ -252,19 +252,19 @@
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#dvs">DVS 相机</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_36">动态视觉传感器相机</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#dvs_1">DVS 相机属性</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_37">动态视觉传感器相机属性</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_36">光流相机</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_38">光流相机</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_37">光流相机属性</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_39">光流相机属性</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_38">光流相机镜头畸变属性</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_40">光流相机镜头畸变属性</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_39">输出属性</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_41">输出属性</a>
     </li>
         </ul>
     </li>
@@ -388,7 +388,7 @@
                   <li class="toctree-l1"><a class="reference internal" href="../cont_doc_standard/">文档标准</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">驾驶基准</span></p>
+              <p class="caption"><span class="caption-text">基准测试</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../benchmark_start/">入门</a>
                   </li>
@@ -2315,22 +2315,22 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.cityScapes
 </tbody>
 </table>
 <hr />
-<h2 id="dvs">DVS 相机</h2>
+<h2 id="_36">动态视觉传感器相机</h2>
 <ul>
 <li><strong>蓝图：</strong> sensor.camera.dvs</li>
 <li><strong>输出：</strong> 每步 <a href="../python_api/#carla.DVSEventArray">carla.DVSEventArray</a> （除非<code>sensor_tick</code>另有说明）。</li>
 </ul>
-<p>动态视觉传感器或事件相机是一种工作方式与传统相机完全不同的传感器。事件相机不是以固定速率捕获强度图像，而是以事件流的形式异步测量强度变化，对每个像素的亮度变化进行编码。与标准摄像机相比，事件摄像机具有独特的属性。它们具有非常高的动态范围（140 dB 与 60 dB）、无运动模糊和高时间分辨率（微秒级）。因此，事件相机是即使在具有挑战性的高速场景和高动态范围环境下也能提供高质量视觉信息的传感器，为基于视觉的算法提供了新的应用领域。</p>
-<p>DVS 摄像机输出事件流。当对数强度的变化达到预定义的恒定阈值（通常在 15% 到 30% 之间）时，在时间戳处的像素处<code>e=(x,y,t,pol)</code>触发事件。</p>
+<p><a href="https://baike.baidu.com/item/%E5%8A%A8%E6%80%81%E8%A7%86%E8%A7%89%E4%BC%A0%E6%84%9F%E5%99%A8/23490201">动态视觉传感器</a> （Dynamic Vision Sensor, DVS）或事件相机是一种工作方式与传统相机完全不同的传感器。事件相机不是以固定速率捕获强度图像，而是以事件流的形式异步测量强度变化，对每个像素的亮度变化进行编码。与标准摄像机相比，事件摄像机具有独特的属性。它们具有非常高的动态范围（140 dB 与 60 dB）、无运动模糊和高时间分辨率（微秒级）。因此，事件相机是即使在具有挑战性的高速场景和高动态范围环境下也能提供高质量视觉信息的传感器，为基于视觉的算法提供了新的应用领域。</p>
+<p>动态视觉传感器摄像机输出事件流。当对数强度的变化达到预定义的恒定阈值（通常在 15% 到 30% 之间）时，在时间戳处的像素处<code>e=(x,y,t,pol)</code>触发事件。</p>
 <p><code>L(x,y,t) - L(x,y,t-\delta t) = pol C</code></p>
 <p><code>t-\delta t</code> 是该像素上最后一个事件被触发的时间，并且<code>pol</code>是根据亮度变化的符号的事件的极性。<code>+1</code>当亮度增加时极性为正，<code>-1</code>当亮度减少时极性为负。工作原理如下图所示。标准相机以固定速率输出帧，从而在场景中不存在运动时发送冗余信息。相比之下，事件摄像机是数据驱动的传感器，能够以微秒延迟响应亮度变化。在绘图中，只要（带符号的）亮度变化随时间超过<code>C</code>一维的对比度阈值，就会生成正（或负）事件（蓝点、红点） 。观察信号快速变化时事件率如何增长。</p>
 <p><img alt="DVSCameraWorkingPrinciple" src="../img/sensor_dvs_scheme.jpg" /></p>
-<p>DVS 摄像机的当前实现在两个连续同步帧之间以统一采样方式工作。因此，为了仿真真实事件相机的高时间分辨率（微秒级），传感器需要以高频率执行（比传统相机的频率高得多）。实际上，Carla 汽车行驶速度越快，事件数量就会增加。因此，传感器频率应随着场景的动态而相应增加。用户应该在时间精度和计算成本之间找到平衡。</p>
-<p>提供的脚本[<code>manual_control.py</code>]使用 DVS 摄像头来展示如何配置传感器、如何获取事件流以及如何以图像格式（通常称为事件框架）描述此类事件。</p>
-<p>请注意，由于 DVS 摄像机的采样方法，如果两个连续同步帧之间没有像素差异，摄像机将不会返回图像。这总是发生在第一帧中，因为没有前一帧可供比较，并且在帧之间没有移动的情况下也是如此。</p>
+<p>动态视觉传感器摄像机的当前实现在两个连续同步帧之间以统一采样方式工作。因此，为了仿真真实事件相机的高时间分辨率（微秒级），传感器需要以高频率执行（比传统相机的频率高得多）。实际上，Carla 汽车行驶速度越快，事件数量就会增加。因此，传感器频率应随着场景的动态而相应增加。用户应该在时间精度和计算成本之间找到平衡。</p>
+<p>提供的脚本 <a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/manual_control.py"><code>manual_control.py</code></a> 使用动态视觉传感器摄像头来展示如何配置传感器、如何获取事件流以及如何以图像格式（通常称为事件框架）描述此类事件。</p>
+<p>请注意，由于动态视觉传感器摄像机的采样方法，如果两个连续同步帧之间没有像素差异，摄像机将不会返回图像。这总是发生在第一帧中，因为没有前一帧可供比较，并且在帧之间没有移动的情况下也是如此。</p>
 <p><img alt="DVSCameraWorkingPrinciple" src="../img/sensor_dvs.gif" /></p>
-<p>DVS 是一个相机，因此具有 RGB 相机中可用的所有属性。然而，事件摄像机的工作原理几乎没有什么独有的属性。</p>
-<h4 id="dvs_1">DVS 相机属性</h4>
+<p>动态视觉传感器是一个相机，因此具有 RGB 相机中可用的所有属性。然而，事件摄像机的工作原理几乎没有什么独有的属性。</p>
+<h4 id="_37">动态视觉传感器相机属性</h4>
 <table>
 <thead>
 <tr>
@@ -2387,10 +2387,10 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.cityScapes
 </table>
 <p><br></p>
 <hr />
-<h2 id="_36">光流相机</h2>
+<h2 id="_38">光流相机</h2>
 <p>光流相机捕捉从相机的角度感知的运动。该传感器记录的每个像素都对投影到图像平面的该点的速度进行编码。像素的速度在 [-2,2] 范围内编码。为了获得以像素为单位的运动，可以将该信息与图像大小一起缩放至[-2 * image_size, 2 * image_size]。</p>
 <p><img alt="optical_flow" src="../img/optical_flow.png" /></p>
-<h4 id="_37">光流相机属性</h4>
+<h4 id="_39">光流相机属性</h4>
 <table>
 <thead>
 <tr>
@@ -2427,7 +2427,7 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.cityScapes
 </tr>
 </tbody>
 </table>
-<h4 id="_38">光流相机镜头畸变属性</h4>
+<h4 id="_40">光流相机镜头畸变属性</h4>
 <table>
 <thead>
 <tr>
@@ -2476,7 +2476,7 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.cityScapes
 </tr>
 </tbody>
 </table>
-<h4 id="_39">输出属性</h4>
+<h4 id="_41">输出属性</h4>
 <table>
 <thead>
 <tr>
