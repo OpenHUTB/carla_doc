@@ -16,3 +16,9 @@
 ## 提交修改
 
 点击页面保存按钮或者按`Ctrl+S`进行修改的保存和提交。
+
+
+# 手机APP进行地图编辑
+为了在移动环境下进行方便的地图编辑，下载手机软件[StreetComplete](https://github.com/streetcomplete/StreetComplete/releases) 。
+
+![](img/digit_twin/street_complete.jpg)
