@@ -79,7 +79,7 @@ __3. 保存关卡。__
 
 ---
 
-如果您对流程有任何疑问，可以在 [论坛](https://github.com/carla-simulator/carla/discussions)中提问。
+如果您对流程有任何疑问，可以在 [论坛](https://github.com/carla-simulator/carla/discussions) 中提问。
 
 <div class="build-buttons">
 <p>

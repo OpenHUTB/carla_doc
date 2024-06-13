@@ -26,33 +26,29 @@ world = client.get_world()
 settings = world.get_settings()
 settings.synchronous_mode = True
 world.apply_settings(settings) 
-
 ```
 
 设置实例分割传感器并将其生成在所需的地图位置。
 
 ```py
-
-# Get the map spawn points and the spectator
+# 获得地图的生成点和观察者
 spawn_points = world.get_map().get_spawn_points()
 spectator = world.get_spectator()
 
-# Set the camera to some location in the map
+# 在地图上某些位置设置相机
 cam_location = carla.Location(x=-46., y=152, z=18)
 cam_rotation = carla.Rotation(pitch=-21, yaw=-93.4, roll=0)
 camera_transform = carla.Transform(location=cam_location, rotation=cam_rotation)
 spectator.set_transform(camera_transform)
 
-# Retrieve the semantic camera blueprint and spawn the camera
+# 获取语义相机蓝图和生成相机
 instance_camera_bp = world.get_blueprint_library().find('sensor.camera.instance_segmentation')
 instance_camera = world.try_spawn_actor(instance_camera_bp, camera_transform)
-
 ```
 
 在摄像机周围生成车辆，用大量对象实例填充场景。
 
 ```py
-
 # Spawn vehicles in an 80m vicinity of the camera
 vehicle_bp_library = world.get_blueprint_library().filter('*vehicle*')
 radius = 80
