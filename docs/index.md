@@ -167,6 +167,8 @@ Carla 论坛</a>
 
 [__自定义地图：程序建筑__](tuto_M_custom_buildings.md) — 用建筑物填充您的自定义地图。
 
+[__程序化建筑工具__](adv_procedural_building_tool.md) 有助于生成虚拟三维建筑，可以通过简单的界面对其尺寸和装饰风格进行调制，以创建近乎无限的变化。
+
 [__数字孪生工具__](adv_digital_twin.md) — 通过 OpenStreetMap 自动生成 Carla 中的道路和建筑。
 
 
