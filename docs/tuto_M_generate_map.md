@@ -42,7 +42,7 @@ __请记住，包含大量道具的地图会显着减慢导入过程。__ 这是
 
 [rr_tutorials]: https://www.mathworks.com/support/search.html?fq=asset_type_name:video%20category:roadrunner/index&page=1&s_tid=CRUX_topnav
 
-以下是从 RoadRunner 导出自定义地图的基本指南。您可以在 [MathWorks' 文档][exportlink] 中找到有关如何导出到 Carla 的更多详细信息。
+以下是从 RoadRunner 导出自定义地图的基本指南。您可以在 [MathWorks 文档][exportlink] 中找到有关如何导出到 Carla 的更多详细信息。
 
 [exportlink]: https://www.mathworks.com/help/roadrunner/ug/Exporting-to-CARLA.html
 

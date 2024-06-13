@@ -4,7 +4,7 @@
 
 `stat rhi`: Rendering Hardware Interface，显示RHI内存和性能统计数据。
 
-`HighResShot 3840x2160` —— 指定分辨率截图（分辨率）【图片存储位置：\Saved\Screenshots\】
+`HighResShot 3840x2160` —— 指定分辨率截图（分辨率），图片存储位置：`\Saved\Screenshots\`。
 
 
 ## [渲染管线](https://zhuanlan.zhihu.com/p/373995698) 

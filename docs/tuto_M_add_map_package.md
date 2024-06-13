@@ -60,14 +60,14 @@ __5.__ 导航至 `~/carla/Util/Docker`。这是导入脚本所在的位置。该
 __6.__ 包将在 `output_folder` 中生成为 `<map_package>.tar.gz`. 。这是独立包，现在可以导入到 Carla 中。将包移动到 Carla 根目录（您将在其中使用地图的包/二进制版本）中的 `Import` 文件夹，然后从根目录运行以下脚本将其导入：
 
 ```sh
-        ./ImportAssets.sh
+./ImportAssets.sh
 ```
 
 __7.__ 要使用新地图运行仿真，请运行 Carla，然后使用 `config.py` 文件更改地图：
 
 ```sh
-    cd PythonAPI/util
-    python3 config.py --map <mapName>
+cd PythonAPI/util
+python3 config.py --map <mapName>
 ```
 <br>
 
