@@ -185,6 +185,8 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_buildings/">自定义地图：程序建筑</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_procedural_building_tool/">程序化建筑工具</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../adv_digital_twin/">数字孪生工具</a>
                   </li>
               </ul>
@@ -328,71 +330,66 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<pre><code>This is a work in progress!! This version of CARLA is not considered a stable release. Over the following months many significant changes may be made to this branch which could break any modifications you make. We advise you to treat this branch as experimental.
-</code></pre>
+                <div class="admonition 警告">
+<p class="admonition-title">警告</p>
+<p>这是一项正在进行的工作！！这个版本的 CARLA 不被认为是一个稳定的版本。在接下来的几个月里，这个分支可能会发生许多重大变化，这可能会破坏您所做的任何修改。我们建议你把这个分支当作实验性的。</p>
 </div>
-<h1 id="building-carla-in-linux-with-unreal-engine-53">Building CARLA in Linux with Unreal Engine 5.3</h1>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<pre><code>This build process is implemented and tested for Ubuntu 22.04. We recommend to use this Ubuntu version.
-</code></pre>
+<h1 id="linux-unreal-engine-53">在Linux中使用 Unreal Engine 5.3 构建</h1>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>这个构建过程是为Ubuntu 22.04实现和测试的。我们建议使用这个Ubuntu版本。</p>
 </div>
-<h2 id="set-up-the-environment">Set up the environment</h2>
-<p>This guide details how to build CARLA from source on Linux with Unreal Engine 5.3. </p>
-<p>Clone the <code>ue5-dev</code> branch of CARLA on your local machine:</p>
+<h2 id="_1">设置环境</h2>
+<p>本指南详细介绍了如何在Linux上使用 Unreal Engine 5.3 从源代码构建 CARLA。</p>
+<p>在您的本地机器上克隆 Carla 的 <code>ue5-dev</code> 分支：</p>
 <pre><code class="language-sh">git clone -b ue5-dev https://github.com/carla-simulator/carla.git CarlaUE5
 </code></pre>
-<p>Run the setup script:</p>
+<p>运行安装脚本：</p>
 <pre><code class="language-sh">cd CarlaUE5
 bash -x Setup.sh
 </code></pre>
-<p>The Setup.sh script installs all the required packages, including Cmake, debian packages, Python packages and Unreal Engine 5.3. It also downloads the CARLA content and builds CARLA. This script can therefore take a long time to complete. </p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<pre><code>* This version of CARLA requires the **CARLA fork of Unreal Engine 5.3**. You need to link your GitHub account to Epic Games in order to gain permission to clone the UE repository. If you have not already linked your accounts, follow [this guide](https://www.unrealengine.com/en-US/ue4-on-github)
-* For using CARLA Unreal Engine 5 previous builds, **ensure CARLA_UNREAL_ENGINE_PATH environment variable is defined** pointing to the CARLA Unreal Engine 5.3 absolute path. If this variable is not defined, the Setup.sh script will download and build CARLA Unreal Engine 5 and **this takes more than 1 extra hour of build and 225Gb of disk space**.
-* The Setup.sh script checks if there is any Python installed at the top of the PATH variable, and installs Python otherwise. **To use your own version of Python, ensure that the PATH variable is properly set for Python before running the script**.
-* CARLA cannot be built on an external disk, Ubuntu is not giving the required read/write/execution permissions for builds.
-</code></pre>
-</div>
-<h2 id="build-and-run-carla-ue5">Build and Run CARLA UE5</h2>
-<p>The setup script launches the following commands itself, you will need to use the following commands once you modify the code and wish to relaunch:</p>
+<p><code>Setup.sh</code>脚本安装所有必需的软件包，包括 Cmake、debian 软件包、Python软件包和 Unreal Engine 5.3。它还下载 CARLA 内容并构建 CARLA。因此，此脚本可能需要很长时间才能完成。</p>
+<p>注意：
+* 这个版本的CARLA需要 <strong>创建虚幻引擎 5.3 的 Carla 分叉</strong>。为了获得克隆UE存储库的权限，您需要将GitHub 帐户链接到Epic Games。如果您尚未链接您的帐户，请遵循<a href="(https://www.unrealengine.com/en-US/ue4-on-github)">本指南</a> 。 
+* 要使用 CARLA Unreal Engine 5 以前的版本，<strong>请确保定义了指向 <code>CARLA_UNREAL_ENGINE_PATH</code> 环境变量定义的</strong>绝对路径。如果未定义此变量，<code>Setup.sh</code>脚本将下载并构建 CARLA Unreal Engine 5，<strong>这需要额外1个多小时的构建和225Gb的磁盘空间</strong>。
+* <code>Setup.sh</code>脚本检查PATH变量顶部是否安装了任何Python，否则安装 Python。要使用您自己的 Python 版本，<strong>请确保在运行脚本之前为Python正确设置了PATH变量</strong>。
+* Carla 不能在外部磁盘上构建，Ubuntu 没有为构建提供所需的读/写/执行权限。</p>
+<h2 id="carla-ue5">构建并运行 CARLA UE5</h2>
+<p>安装脚本本身启动以下命令，一旦修改代码并希望重新启动，则需要使用以下命令：</p>
 <ul>
-<li>Configure:</li>
+<li>配置：</li>
 </ul>
 <pre><code class="language-sh">cmake -G Ninja -S . -B Build --toolchain=$PWD/CMake/LinuxToolchain.cmake \
 -DLAUNCH_ARGS=&quot;-prefernvidia&quot; -DCMAKE_BUILD_TYPE=Release -DENABLE_ROS2=ON \
 -DBUILD_CARLA_UNREAL=ON -DCARLA_UNREAL_ENGINE_PATH=$CARLA_UNREAL_ENGINE_PATH
 </code></pre>
 <ul>
-<li>Build CARLA:</li>
+<li>构建 Carla:</li>
 </ul>
 <pre><code class="language-sh">cmake --build Build
 </code></pre>
 <ul>
-<li>Build and install the Python API:</li>
+<li>构建并安装 Python API：</li>
 </ul>
 <pre><code class="language-sh">cmake --build Build --target carla-python-api-install
 </code></pre>
 <ul>
-<li>Launch the editor:</li>
+<li>启动编辑器：</li>
 </ul>
 <pre><code class="language-sh">cmake --build Build --target launch
 </code></pre>
-<h2 id="build-a-package-with-carla-ue5">Build a package with CARLA UE5</h2>
+<h2 id="carla-ue5_1">使用 CARLA UE5 构建包</h2>
 <pre><code class="language-sh">cmake --build Build --target package
 </code></pre>
-<p>The package will be generated in the directory <code>$CARLA_PATH/Build/Package</code></p>
-<h2 id="run-the-package">Run the package</h2>
-<p>Run the package with the following command.</p>
+<p>该包会在目录 <code>$CARLA_PATH/Build/Package</code> 下生成。</p>
+<h2 id="_2">运行包</h2>
+<p>使用下列命令运行包。</p>
 <pre><code class="language-sh">./CarlaUnreal.sh
 </code></pre>
-<p>If you want to run the native ROS2 interface, add the <code>--ros2</code> argument</p>
+<p>如果你想运行原生的 ROS2 接口，添加 <code>--ros2</code> 命令</p>
 <pre><code class="language-sh">./CarlaUnreal.sh --ros2
 </code></pre>
-<p>If you want to install the Python API corresponding to the package you have built:</p>
+<p>如果您想要安装与您所构建的包相对应的 Python API：</p>
 <pre><code class="language-sh">pip3 install PythonAPI/carla/dist/carla-*.whl
 </code></pre>
               

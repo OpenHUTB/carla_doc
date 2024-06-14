@@ -191,6 +191,8 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_buildings/">自定义地图：程序建筑</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_procedural_building_tool/">程序化建筑工具</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../adv_digital_twin/">数字孪生工具</a>
                   </li>
               </ul>
@@ -383,11 +385,11 @@
 </div>
 </blockquote>
 <p><strong>6.</strong> 包将在 <code>output_folder</code> 中生成为 <code>&lt;map_package&gt;.tar.gz</code>. 。这是独立包，现在可以导入到 Carla 中。将包移动到 Carla 根目录（您将在其中使用地图的包/二进制版本）中的 <code>Import</code> 文件夹，然后从根目录运行以下脚本将其导入：</p>
-<pre><code class="language-sh">        ./ImportAssets.sh
+<pre><code class="language-sh">./ImportAssets.sh
 </code></pre>
 <p><strong>7.</strong> 要使用新地图运行仿真，请运行 Carla，然后使用 <code>config.py</code> 文件更改地图：</p>
-<pre><code class="language-sh">    cd PythonAPI/util
-    python3 config.py --map &lt;mapName&gt;
+<pre><code class="language-sh">cd PythonAPI/util
+python3 config.py --map &lt;mapName&gt;
 </code></pre>
 <p><br></p>
 <hr />
