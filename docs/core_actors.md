@@ -83,13 +83,13 @@ actor = world.spawn_actor(blueprint, transform)
 
 如果在指定位置发生冲突，将不会生成参与者。无论这种情况发生在静态对象还是其他参与者身上。可以尝试避免这些不希望的生成碰撞。
 
-* `map.get_spawn_points()` __对于车辆__。 返回推荐生成点的列表。
+* __对于车辆__。 `map.get_spawn_points()` 返回推荐生成点的列表。
 
 ```py
 spawn_points = world.get_map().get_spawn_points()
 ```
 
-* `world.get_random_location()` __对于行人__。 返回人行道上的随机点。同样的方法也用于为行人设置目标位置。  
+* __对于行人__。 `world.get_random_location()`返回人行道上的随机点。同样的方法也用于为行人设置目标位置。  
 
 ```py
 spawn_point = carla.Transform()

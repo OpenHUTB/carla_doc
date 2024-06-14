@@ -27,8 +27,11 @@ bash -x Setup.sh
 
 注意：
 * 这个版本的CARLA需要 **创建虚幻引擎 5.3 的 Carla 分叉**。为了获得克隆UE存储库的权限，您需要将GitHub 帐户链接到Epic Games。如果您尚未链接您的帐户，请遵循[本指南]((https://www.unrealengine.com/en-US/ue4-on-github)) 。 
+
 * 要使用 CARLA Unreal Engine 5 以前的版本，**请确保定义了指向 `CARLA_UNREAL_ENGINE_PATH` 环境变量定义的**绝对路径。如果未定义此变量，`Setup.sh`脚本将下载并构建 CARLA Unreal Engine 5，**这需要额外1个多小时的构建和225Gb的磁盘空间**。
+
 * `Setup.sh`脚本检查PATH变量顶部是否安装了任何Python，否则安装 Python。要使用您自己的 Python 版本，**请确保在运行脚本之前为Python正确设置了PATH变量**。
+
 * Carla 不能在外部磁盘上构建，Ubuntu 没有为构建提供所需的读/写/执行权限。
 
 
