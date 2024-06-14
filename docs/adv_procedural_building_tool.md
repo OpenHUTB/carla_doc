@@ -5,25 +5,25 @@
 
 __程序化建筑工具__ 有助于生成虚拟三维建筑，可以通过简单的界面对其尺寸和装饰风格进行调制，以创建近乎无限的变化。可以通过界面选择楼层的占地面积尺寸和高度。然后用户可以为建筑大堂、主体以及顶层或阁楼选择多种风格。可以从 Carla 资源库中为角窗和阳台等功能选择各种面板元素样式。
 
-- [__打开工具__](#opening-the-procedural-building-tool)
+- [__打开程序化建筑工具__](#opening-the-procedural-building-tool)
 - [__基本参数__](#base-parameters)
 - [__网格参数__](#mesh-parameters)
 - [__网格元素__](#mesh-elements)
-	- [插槽](#sockets)
+	- [套接字](#sockets)
 - [__外墙材料__](#facade-materials)
 - [__烘焙__](#cooking)
 
-## 打开程序化建筑工具
+## 打开程序化建筑工具 <span id="opening-the-procedural-building-tool"></span>
 
-首先，您需要向场景添加程序建筑参与者。导航到`Content>Carla>Blueprints>LevelDesign`并拖动蓝图 *BP_ProceduralBuilding* 到地图中。将资产移动到您希望可视化建筑物的位置。选择一个有空间的地方，以便可以清楚地看到结果。然后，要打开该工具，请右键单击*WD_ProceduralBuilding*小部件并从上下文菜单中选择*Run editor utility widget*来启动程序构建工具。这将打开该工具的界面。
+首先，您需要向场景添加程序建筑参与者。导航到`Content>Carla>Blueprints>LevelDesign`并拖动蓝图 *BP_ProceduralBuilding* 到地图中。将资产移动到您希望可视化建筑物的位置。选择一个有空间的地方，以便可以清楚地看到结果。然后，要打开该工具，请右键单击*WD_ProceduralBuilding（编辑器工具控件）*并从上下文菜单中选择*运行编辑器工具控件*(Run editor utility widget)来启动程序构建工具。这将打开该工具的界面。
 
 
 ![open_pb_tool](img/open_pb_tool.png)
 
-!!! 笔记
+!!! 注意
 	您必须在打开工具之前完成此步骤，地图中必须存在*BP_ProceduralBuilding*蓝图的实例，工具才能运行。您还必须确保在继续之前在世界大纲视图（*World outliner*）中选择*BP_ProceduralBuilding*实体。
 
-## 基本参数
+## 基本参数 <span id="base-parameters"></span>
 
 ![base_parameters](img/pb_base_parameters.png)
 
@@ -42,7 +42,7 @@ __程序化建筑工具__ 有助于生成虚拟三维建筑，可以通过简单
 - __Walls__: 将建筑物左/右/前/后的中间部分替换为可使用网格参数（[Mesh parameters](#mesh-parameters)）菜单选择的替代部分。
 - __Doors__: 允许在大厅曾放置门的阵列。门放置在选定的索引位置。
 
-## 网格参数
+## 网格参数 <span id="mesh-parameters"></span>
 
 ![mesh_parameters](img/pb_mesh_parameters.png)
 
@@ -58,7 +58,7 @@ __程序化建筑工具__ 有助于生成虚拟三维建筑，可以通过简单
 
 ![building_parts](img/pb_building_parts.png)
 
-## 网格元素
+## 网格元素 <span id="mesh-elements"></span>
 
 ![mesh_elements](img/pb_mesh_elements.png)
 
@@ -107,7 +107,7 @@ __Pipes and wires__:
 !!! 笔记
 	在某些情况下，您可能会发现，当您选择细节网格部件（例如花盆、天线和空调装置）时，您看不到建筑物有任何变化。这很可能是因为您正在使用的部件没有添加您选择的部件所需的适当套接字。请参阅插槽部分（[sockets section](#sockets)）了解如何使用插槽。
 
-### 套接字
+### 套接字 <span id="sockets"></span>
 
 ![socket_details](img/pb_detail_section.png)
 
@@ -127,7 +127,7 @@ __Pipes and wires__:
 
 当您单击“创建套接字(*Create socket*)”时，套接字将在编辑器中使用三维句柄进行实例化。将插槽拖动到网格上的所需位置，这是您的细节部件将显示连接到单元的位置。
 
-## 外墙材料
+## 外墙材料 <span id="facade-materials"></span>
 
 ![facade_materials](img/pb_facade_materials.png)
 
@@ -135,7 +135,7 @@ __Pipes and wires__:
 
 ![facade_changes](img/pb_facade_changes.webp)
 
-## 烘焙
+## 烘焙 <span id="cooking"></span>
 
 在烹饪选项卡中，您可以将选择的所有网格物体和材质组合到具有关联材质和纹理的单个静态网格物体中。还将为 LOD 创建建筑物的 LOD 纹理。在界面中指定将保存新建筑资源的文件夹名称。
 
