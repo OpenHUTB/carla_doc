@@ -338,6 +338,9 @@
 <pre><code class="language-shell">python examples/manual_control.py --host localhost --port 2000 --rolename hero --keep_ego_vehicle
 </code></pre>
 <p><img alt="" src="../img/interactive_script/manual_control.png" /></p>
+<p>手动控制行人：</p>
+<pre><code class="language-shell">python examples/manual_control.py --filter walker.pedestrian.*
+</code></pre>
 <h3 id="_4"><a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/sensor_bounding_box.py">绘制边界框</a></h3>
 <p>脚本将根据用户指定的视角 <code>view</code>（上方<code>above</code>、后面<code>behind</code>）附加一个 RGB 相机，并在距离<code>distance</code>之内绘制所有的参与者。</p>
 <pre><code class="language-shell">python examples/sensor_bounding_box.py --host localhost --port 2000 --rolename hero --view above --distance 100 --res 800x600 --fov 90

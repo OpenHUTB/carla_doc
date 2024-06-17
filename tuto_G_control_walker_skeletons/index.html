@@ -112,15 +112,15 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">控制行人骨骼</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#_2">行人骨骼结构</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">行人骨骼结构  </a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_3">手动控制行人骨骼</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">手动控制行人骨骼 </a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_4">连接到仿真器</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">连接到仿真器 </a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_5">生成行人</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">生成行人  </a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_6">控制行人骨骼</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_6">控制行人骨骼  </a>
     </li>
         </ul>
     </li>
@@ -360,10 +360,10 @@
 <p class="admonition-title">笔记</p>
 <p><strong>本文档假设用户熟悉 Python API。</strong>。 <br>
 用户在阅读本文档之前应阅读第一步教程： 
-<a href="core_concepts.md">核心概念</a>。进行行人建模请参考<a href="../tuto_content_authoring_pedestrians/">链接</a> 。</p>
+<a href="../foundations/">核心概念</a>。进行行人建模请参考<a href="../tuto_content_authoring_pedestrians/">链接</a> 。</p>
 </div>
 <hr />
-<h2 id="_2">行人骨骼结构</h2>
+<h2 id="_2">行人骨骼结构  <span id="walker-skeleton-structure"></span></h2>
 <p>所有行人都具有相同的骨骼层次结构和骨骼名称。下面是骨架层次结构的图像。骨骼的层次结构图参考<a href="../tuto_content_authoring_pedestrians/">链接</a> 。</p>
 <pre><code>crl_root
 └── crl_hips__C
@@ -433,9 +433,9 @@
                     └── crl_toeEnd__R
 </code></pre>
 <hr />
-<h2 id="_3">手动控制行人骨骼</h2>
+<h2 id="_3">手动控制行人骨骼 <span id="manually-control-walker-bones"></span></h2>
 <p>以下是如何通过 Carla Python API 更改步行者骨骼变换的详细分步示例。</p>
-<h3 id="_4">连接到仿真器</h3>
+<h3 id="_4">连接到仿真器 <span id="connect-to-the-simulator"></span></h3>
 <p>导入本例中使用的必要库</p>
 <pre><code class="language-py">import carla
 import random
@@ -444,7 +444,7 @@ import random
 <pre><code class="language-py">client = carla.Client('127.0.0.1', 2000)
 client.set_timeout(2.0)
 </code></pre>
-<h3 id="_5">生成行人</h3>
+<h3 id="_5">生成行人  <span id="spawn-a-walker"></span></h3>
 <p>在地图的一个生成点生成一个随机行人。</p>
 <pre><code class="language-py">world = client.get_world()
 blueprint = random.choice(self.world.get_blueprint_library().filter('walker.*'))
@@ -452,7 +452,7 @@ spawn_points = world.get_map().get_spawn_points()
 spawn_point = random.choice(spawn_points) if spawn_points else carla.Transform()
 world.try_spawn_actor(blueprint, spawn_point)
 </code></pre>
-<h3 id="_6">控制行人骨骼</h3>
+<h3 id="_6">控制行人骨骼  <span id="control-walker-skeletons"></span></h3>
 <p>可以通过将 <code>WalkerBoneControl</code> 类的实例传递给行人的 <code>apply_control</code> 函数来修改行人的骨架。<code>WalkerBoneControl</code> 类包含要修改的骨骼的变换。它的 <code>bone_transforms</code> 成员是成对值元组的列表，其中第一个值是骨骼名称，第二个值是骨骼变换。可以在每个刻度上调用 <code>apply_control</code> 函数来为行人的骨骼设置动画。每个变换的位置和旋转都是相对于其父变换的。因此，当修改父骨骼的变换时，子骨骼在模型空间中的变换也会相对改变。</p>
 <p>在下面的示例中，步行者的手设置为围绕前轴旋转 90 度，并且位置设置为原点。</p>
 <pre><code class="language-py">control = carla.WalkerBoneControl()

@@ -1201,7 +1201,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="python-api">Python API 参考</h1>
+                <h1 id="python-api"><a href="https://carla.readthedocs.io/en/latest/python_api/">Python API 参考</a></h1>
 <p>此参考包含 Python API 的所有详细信息。要查阅特定 Carla 版本的先前参考，请使用右下角的面板更改文档版本。<br>这会将整个文档更改为之前的状态。请记住， <i>最新</i> 版本是 <code>dev</code> 分支，可能会显示任何 Carla 打包版本中不可用的功能。<hr>  </p>
 <h2 id="carlaackermanncontrollersettings">carla.AckermannControllerSettings<a name="carla.AckermannControllerSettings"></a></h2>
 <p>管理 Ackermann PID 控制器的设置。</p>
@@ -1859,7 +1859,7 @@ Creates a new world with default settings using <code>map_name</code> map. All a
 </ul>
 </li>
 <li><a name="carla.Client.reload_world"></a><strong><font color="#7fb800">reload_world</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>reset_settings</strong>=True</font>)<br />
-重新加载当前世界，请注意，将使用同一地图使用默认设置创建一个新世界。世界上所有参与者都将被摧毁，<strong>但</strong> 交通管理器实例将继续存在。<ul>
+重新加载当前世界，请注意，将使用同一地图使用默认设置创建一个新世界。世界上所有参与者都将被销毁，<strong>但</strong> 交通管理器实例将继续存在。<ul>
 <li><strong>参数：</strong><ul>
 <li><code>reset_settings</code> (<em>bool</em>) - 选项可将情节设置重置为默认值，设置为false可保留当前设置。这对于在更改映射时保持同步模式和保持确定性场景非常有用。</li>
 </ul>
@@ -1868,7 +1868,7 @@ Creates a new world with default settings using <code>map_name</code> map. All a
 </ul>
 </li>
 <li><a name="carla.Client.replay_file"></a><strong><font color="#7fb800">replay_file</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>name</strong></font>, <font color="#00a6ed"><strong>start</strong></font>, <font color="#00a6ed"><strong>duration</strong></font>, <font color="#00a6ed"><strong>follow_id</strong></font>, <font color="#00a6ed"><strong>replay_sensors</strong></font>)<br />
-使用<code>map_name</code>加载具有默认设置的新世界。当前世界中的所有参与者都将被摧毁，<strong>但</strong> 交通管理器实例将继续存在。<ul>
+使用<code>map_name</code>加载具有默认设置的新世界。当前世界中的所有参与者都将被销毁，<strong>但</strong> 交通管理器实例将继续存在。<ul>
 <li><strong>参数：</strong><ul>
 <li><code>name</code> (<em>str</em>) - 包含仿真信息的文件的名称。</li>
 <li><code>start</code> (<em>float<small> - seconds</small></em>) - 开始播放仿真的时间。负数表示从结尾开始读取，在录制结束前10秒为-10。</li>
@@ -4528,7 +4528,7 @@ Sets a given time for the yellow light to be active.  <ul>
 </ul>
 </li>
 <li><a name="carla.TrafficManager.set_osm_mode"></a><strong><font color="#7fb800">set_osm_mode</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>mode_switch</strong>=True</font>)<br />
-启用或禁用 OSM 模式。该模式允许用户在使用 <a href="../tuto_G_openstreetmap/">OSM 功能</a> 创建的地图中运行 TM。这些地图允许有死胡同。通常，如果车辆无法找到下一个航路点，交通管理器就会崩溃。如果启用 OSM 模式，它将显示警告，并在必要时摧毁车辆。 <ul>
+启用或禁用 OSM 模式。该模式允许用户在使用 <a href="../tuto_G_openstreetmap/">OSM 功能</a> 创建的地图中运行 TM。这些地图允许有死胡同。通常，如果车辆无法找到下一个航路点，交通管理器就会崩溃。如果启用 OSM 模式，它将显示警告，并在必要时销毁车辆。 <ul>
 <li><strong>参数:</strong><ul>
 <li><code>mode_switch</code> (<em>bool</em>) - 如果 <strong>True</strong> ，则启用 OSM 模式。 </li>
 </ul>
@@ -5296,7 +5296,7 @@ VehiclePhysicsControl 构造函数。 <ul>
 <hr />
 <h2 id="carlawalker">carla.Walker<a name="carla.Walker"></a></h2>
 <p><small style="display:block;margin-top:-20px;">从 <em><a href="#carla.Actor">carla.Actor</a></em> 继承</small></br>
-该类从 <a href="#carla.Actor">carla.Actor</a> 继承并定义仿真中的行人。Walkers 是一种特殊类型的 actor，可以由 AI (<a href="#carla.WalkerAIController">carla.WalkerAIController</a>) 控制，也可以通过脚本手动控制，使用一系列 <a href="#carla.WalkerControl">carla.WalkerControl</a> 来移动它们及其骨骼。</p>
+该类从 <a href="#carla.Actor">carla.Actor</a> 继承并定义仿真中的行人。Walkers 是一种特殊类型的参与者，可以由 AI (<a href="#carla.WalkerAIController">carla.WalkerAIController</a>) 控制，也可以通过脚本手动控制，使用一系列 <a href="#carla.WalkerControl">carla.WalkerControl</a> 来移动它们及其骨骼。</p>
 <h3 id="_207">方法</h3>
 <ul>
 <li><a name="carla.Walker.apply_control"></a><strong><font color="#7fb800">apply_control</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>control</strong></font>)<br />
@@ -5330,7 +5330,7 @@ VehiclePhysicsControl 构造函数。 <ul>
 <li>name: 骨骼名称</li>
 <li>world: 世界坐标变换</li>
 <li>component: 基于参与者的枢轴进行变换</li>
-<li>relative: 基于骨骼父级进行变换。<ul>
+<li>relative: 基于父级骨骼进行变换。<ul>
 <li><strong>返回:</strong> <em><a href="#carla.WalkerBoneControlOut">carla.WalkerBoneControlOut</a></em>  </li>
 <li><strong>Setter:</strong> <em><a href="#carla.Walker.set_bones">carla.Walker.set_bones</a></em>  </li>
 </ul>
@@ -6386,7 +6386,7 @@ Actor affected by the command.  </li>
 </ul>
 <hr />
 <h2 id="commandapplyvehiclecontrol">command.ApplyVehicleControl<a name="command.ApplyVehicleControl"></a></h2>
-<p>in <a href="#carla.Vehicle">carla.Vehicle</a> 中 <strong><font color="#7fb800">apply_control()</font></strong> 的命令适应。对车辆应用某个控制。</p>
+<p>在 <a href="#carla.Vehicle">carla.Vehicle</a> 中 <strong><font color="#7fb800">apply_control()</font></strong> 命令进行适应，实现对车辆应用某个控制。</p>
 <h3 id="_260">实例变量</h3>
 <ul>
 <li><a name="command.ApplyVehicleControl.actor_id"></a><strong><font color="#f8805a">actor_id</font></strong> (<em>int</em>)<br />
@@ -6473,7 +6473,7 @@ Actor affected by the command.  </li>
 </ul>
 <hr />
 <h2 id="commanddestroyactor">command.DestroyActor<a name="command.DestroyActor"></a></h2>
-<p><a href="#carla.Actor">carla.Actor</a> 中 <strong><font color="#7fb800">destroy()</font></strong> 命令的改编版，将告诉仿真器摧毁该参与者。如果参与者已经被摧毁则没有影响。当在 <a href="#carla.Client">carla.Client</a> 中执行 <strong><font color="#7fb800">apply_batch_sync()</font></strong> 将会返回一个布尔值状态表示参与者是否被成功摧毁。</p>
+<p><a href="#carla.Actor">carla.Actor</a> 中 <strong><font color="#7fb800">destroy()</font></strong> 命令的改编版，将告诉仿真器销毁该参与者。如果参与者已经被销毁则没有影响。当在 <a href="#carla.Client">carla.Client</a> 中执行 <strong><font color="#7fb800">apply_batch_sync()</font></strong> 将会返回一个布尔值状态表示参与者是否被成功销毁。</p>
 <h3 id="_268">实例变量</h3>
 <ul>
 <li><a name="command.DestroyActor.actor_id"></a><strong><font color="#f8805a">actor_id</font></strong> (<em>int</em>)<br />

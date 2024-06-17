@@ -420,7 +420,7 @@ def test_weathers(self):
     return [1]
 </code></pre>
 <h2 id="_6">构建实验</h2>
-<p>实验由一组姿势定义的任务组成。让我们从选择其中一个城市的姿势开始，以 Town01 为例。首先，我们需要查看所有可能的位置，为此，在终端中运行 CARLA 模拟器，运行：</p>
+<p>实验由一组姿势定义的任务组成。让我们从选择其中一个城市的姿势开始，以 Town01 为例。首先，我们需要查看所有可能的位置，为此，在终端中运行 CARLA 模拟器，运行 <a href="https://github.com/OpenHUTB/Self_Driving_Car_Trajectory_Tracking/blob/main/PythonClient/view_start_positions.py">view_start_positions.py</a> ：</p>
 <pre><code class="language-shell">python view_start_positions.py
 </code></pre>
 <p><img alt="" src="../img/benchmark_creating/town01_positions.jpg" /></p>
@@ -471,7 +471,7 @@ pedestrians_tasks = [0, 0, 0, 50]
             )
             experiments_vector.append(experiment)
 </code></pre>
-<p>完整代码可以在 <a href="https://github.com/carla-simulator/carla/blob/master/PythonClient/carla/driving_benchmark/experiment_suites/basic_experiment_suite.py">basic_experiment_suite.py</a> 找到。</p>
+<p>完整代码可以在 <a href="https://github.com/OpenHUTB/Self_Driving_Car_Trajectory_Tracking/blob/main/PythonClient/carla/driving_benchmark/experiment_suites/basic_experiment_suite.py">basic_experiment_suite.py</a> 找到。</p>
 <h2 id="_7">预期结果</h2>
 <p>首先，您需要一个以固定时间步长运行的 CARLA 模拟器 ，这样您获得的结果将或多或少具有可重复性。为此，您应该按如下方式运行 CARLA 模拟器：</p>
 <pre><code class="language-shell">./CarlaUE4.sh /Game/Maps/&lt;Town_name&gt; -windowed -world-port=2000  -benchmark -fps=10

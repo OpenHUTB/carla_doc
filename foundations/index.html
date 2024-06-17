@@ -415,7 +415,7 @@ pip3 install carla-simulator # Python 3
 client.start_recorder('recording.log')
 </code></pre>
 <h3 id="_4">世界</h3>
-<p><strong>世界</strong> 是代表仿真的对象。它充当一个抽象层，包含生成参与者、改变天气、获取世界当前状态等的主要方法。每个仿真只有一个世界。当地图改变时，它会被摧毁并替换为新的。</p>
+<p><strong>世界</strong> 是代表仿真的对象。它充当一个抽象层，包含生成参与者、改变天气、获取世界当前状态等的主要方法。每个仿真只有一个世界。当地图改变时，它会被销毁并替换为新的。</p>
 <p>使用客户端对象检索世界对象：</p>
 <pre><code class="language-py">world = client.get_world()
 </code></pre>
@@ -514,7 +514,7 @@ world.on_tick(lambda world_snapshot: do_something(world_snapshot))
 </div>
 <p>记录器文件包括有关许多不同元素的信息。</p>
 <ul>
-<li><strong>参与者</strong> — 创造和摧毁、边界和触发盒。</li>
+<li><strong>参与者</strong> — 创造和销毁、边界和触发盒。</li>
 <li><strong>交通等</strong> — 状态变化和时间设置。</li>
 <li><strong>车辆</strong> — 位置和方向、线速度和角速度、光状态和物理控制。</li>
 <li><strong>行人</strong> — 位置和方向，以及线速度和角速度。</li>

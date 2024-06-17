@@ -94,7 +94,7 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#_6">处理</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_7">摧毁</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_7">销毁</a>
     </li>
         </ul>
     </li>
@@ -365,7 +365,7 @@
               
                 <h1 id="_1">第二、参与者和蓝图</h1>
 <p>Carla 中的参与者是在仿真中执行动作的元素，他们可以影响其他参与者。Carla 的参与者包括车辆和步行者，也包括传感器、交通标志、红绿灯和观看者。对如何操作它们有充分的了解是至关重要的。 </p>
-<p>本节将介绍生成、摧毁、类型以及如何管理它们。然而，可能性几乎是无穷无尽的。实验、查看本文档中的 <strong>教程</strong>，并在 <a href="https://github.com/carla-simulator/carla/discussions/">Carla 论坛</a> 中分享疑虑和想法。</p>
+<p>本节将介绍生成、销毁、类型以及如何管理它们。然而，可能性几乎是无穷无尽的。实验、查看本文档中的 <strong>教程</strong>，并在 <a href="https://github.com/carla-simulator/carla/discussions/">Carla 论坛</a> 中分享疑虑和想法。</p>
 <ul>
 <li><a href="#blueprints"><strong>蓝图</strong></a>  <ul>
 <li><a href="#managing-the-blueprint-library">管理蓝图库</a>  </li>
@@ -374,7 +374,7 @@
 <li><a href="#actor-life-cycle"><strong>参与者生命周期</strong></a>  <ul>
 <li><a href="#spawning">生成</a>  </li>
 <li><a href="#handling">处理</a>  </li>
-<li><a href="#destruction">摧毁</a>  </li>
+<li><a href="#destruction">销毁</a>  </li>
 </ul>
 </li>
 <li><a href="#types-of-actors"><strong>参与者类型</strong></a>  <ul>
@@ -483,8 +483,8 @@ actor.set_location(location)
 <p class="admonition-title">笔记</p>
 <p>大多数方法是异步向仿真器发送请求。仿真器每次更新解析它们的时间有限。使用 <em>set()</em> 方法淹没仿真器将积累明显的延迟。</p>
 </div>
-<h3 id="_7">摧毁</h3>
-<p>当 Python 脚本完成时，参与者不会被销毁。他们必须明确地摧毁自己。</p>
+<h3 id="_7">销毁</h3>
+<p>当 Python 脚本完成时，不回销毁参与者。他们必须明确地销毁自己。</p>
 <pre><code class="language-py">destroyed_sucessfully = actor.destroy() # 如果成功返回 True 
 </code></pre>
 <div class="admonition 重要">
@@ -609,7 +609,7 @@ ai_controller.stop()
 <p><a href="../python_api/#carla.Client.apply_batch_sync">carla.Client</a> 中的一个片段使用批次生成大量步行者并让它们四处游荡。</p>
 <div class="admonition 重要">
 <p class="admonition-title">重要</p>
-<p><strong>要摧毁人工智能行人</strong>，请停止人工智能控制器并摧毁参与者和控制器。</p>
+<p><strong>要销毁人工智能行人</strong>，请停止人工智能控制器并销毁参与者和控制器。</p>
 </div>
 <hr />
 <p>关于 Carla 中的参与者，这就是一个总结。下一步将仔细研究 Carla 的地图、道路和交通。</p>
