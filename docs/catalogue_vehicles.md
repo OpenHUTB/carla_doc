@@ -127,7 +127,7 @@ vehicle = world.spawn_actor(vehicle_bp, vehicle_trans)
 spectator.set_transform(camera_trans)
 ```
 
-在尝试生成另一辆车之前，不要忘记摧毁该车辆以避免碰撞：
+在尝试生成另一辆车之前，不要忘记销毁该车辆以避免碰撞：
 
 ```py
 vehicle.destroy()

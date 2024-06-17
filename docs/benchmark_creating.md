@@ -9,6 +9,7 @@
 驾驶基准测试与其他两个模块相关联。代理模块是另一个模块（实验套件）中执行的控制器。这两个模块都是抽象类，必须由用户重新定义。
 
 以下代码摘录是如何应用驾驶基准的示例；
+
 ```python
 # 我们实例化了一个转发代理，这是一个简单的策略，
 # 只需将加速度设置为0.9，将转向设置为零
@@ -89,7 +90,7 @@ def test_weathers(self):
 ```
 
 ## 构建实验
-实验由一组姿势定义的任务组成。让我们从选择其中一个城市的姿势开始，以 Town01 为例。首先，我们需要查看所有可能的位置，为此，在终端中运行 CARLA 模拟器，运行：
+实验由一组姿势定义的任务组成。让我们从选择其中一个城市的姿势开始，以 Town01 为例。首先，我们需要查看所有可能的位置，为此，在终端中运行 CARLA 模拟器，运行 [view_start_positions.py](https://github.com/OpenHUTB/Self_Driving_Car_Trajectory_Tracking/blob/main/PythonClient/view_start_positions.py) ：
 ```shell
 python view_start_positions.py
 ```
@@ -156,7 +157,7 @@ experiments_vector = []
 ```
 
 
-完整代码可以在 [basic_experiment_suite.py](https://github.com/carla-simulator/carla/blob/master/PythonClient/carla/driving_benchmark/experiment_suites/basic_experiment_suite.py) 找到。
+完整代码可以在 [basic_experiment_suite.py](https://github.com/OpenHUTB/Self_Driving_Car_Trajectory_Tracking/blob/main/PythonClient/carla/driving_benchmark/experiment_suites/basic_experiment_suite.py) 找到。
 
 
 ## 预期结果

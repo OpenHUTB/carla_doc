@@ -356,7 +356,7 @@ for actor in my_vehicles:
 
 ### 停止交通管理器
 
-TM 不是一个需要被摧毁的参与者;当创建它的客户端停止时，它将停止。这是由 API 自动管理的，用户无需执行任何操作。但是，在关闭 TM 时，用户必须摧毁由它控制的车辆，否则它们将在地图上保持不动。 `generate_traffic.py `脚本会自动执行此操作:
+交通管理器是一个不需要被销毁的参与者；当创建它的客户端停止时，它将停止。这是由 API 自动管理的，用户无需执行任何操作。但是，在关闭交通管理器时，用户必须销毁由它控制的车辆，否则它们将在地图上保持不动。 `generate_traffic.py `脚本会自动执行此操作:
 
 ```py
 client.apply_batch([carla.command.DestroyActor(x) for x in vehicles_list])

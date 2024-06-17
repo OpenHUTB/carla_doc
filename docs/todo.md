@@ -14,22 +14,34 @@
 
 ## 学术研究
 ### [感知](algorithms/perception.md)
-目标跟踪、再识别、语义分割、骨架识别等。
+车辆/行人：
+检测、跟踪、再识别、语义分割、行为建模、对抗训练、多模态融合、惯视融合等。
+
+行人：
+过马路和不过马路分类、姿态自编码（增加所提取骨架的质量）、姿态估计、姿态抬升；运动重定向、风格迁移；
 
 ### [规划](algorithms/planning.md)
-[定位](algorithms/localization.md) 、惯视融合、建图、规划、决策。
+建图、[定位](algorithms/localization.md) 、规划、决策。
+
+决策的伦理和公平。
 
 ### [控制](algorithms/control.md)
 PID、基于模型的控制。
 
+通过 `carla.Walker.set_bones()` 对行人骨骼进行变换。
+
 ### 场景
-* 智能体、[智能驾驶](https://openhutb.github.io/carla_doc/ecosys_iss/) 、机器人、无人机等。
+* 代理、[智能驾驶](https://openhutb.github.io/carla_doc/ecosys_iss/) 等。
 
 * 提供数据孪生建筑生成的 Python 接口。
 
+### 代理
+* 虚拟人预测驾驶行为的神经激活结构
+
+驾驶、行走、站立、跑步；
 
 
-## 艺术改进
+## 艺术增强
 * 场景的自动化建模（删除）：道路、[建筑](https://github.com/chenzhaiyu/footprint-detection) 等；
 * 资产：道路、建筑、[行人](https://github.com/EpicGames/MetaHuman-DNA-Calibration) 、车辆、树木等；
 * [体积雾、雪、脏](https://bitbucket.org/carla-simulator/carla-content/pull-requests/382) 的支持；
@@ -39,9 +51,15 @@ PID、基于模型的控制。
 https://bitbucket.org/carla-simulator/carla-content Unreal/CarlaUE4/Content/Carla
 ```
 
-参考[行人构建流程](https://ww2.mathworks.cn/help/roadrunner-scenario/ug/import-custom-character-meshes.html) 。
+* [中电软件园](https://overpass-api.de/api/map?bbox=112.8671,28.2281,112.8873,28.2412) 
 
 新安装apkpure，再安装RealityScan
+
+### 行人
+参考[行人构建流程](https://ww2.mathworks.cn/help/roadrunner-scenario/ug/import-custom-character-meshes.html) 。
+
+* 未定位功能：跑步；未实现功能：交谈、叫出租车、坐下。
+
 
 
 ### 虚幻引擎

@@ -173,7 +173,7 @@ __2.__ 在另一个终端中，发布到主题 `/carla/<ROLE NAME>/vehicle_contr
 
 | 主题                      | 类型                                                                                                                                                    | 描述                 |
 |-------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------|
-| `/carla/destroy_object` | [carla_msgs/DestroyObject.srv](https://github.com/carla-simulator/ros-carla-msgs/blob/f75637ce83a0b4e8fbd9818980c9b11570ff477c/srv/DestroyObject.srv) | 摧毁一个物体 |
+| `/carla/destroy_object` | [carla_msgs/DestroyObject.srv](https://github.com/carla-simulator/ros-carla-msgs/blob/f75637ce83a0b4e8fbd9818980c9b11570ff477c/srv/DestroyObject.srv) | 销毁一个物体 |
 | `/carla/get_blueprints` | [carla_msgs/GetBlueprints.srv](https://github.com/carla-simulator/ros-carla-msgs/blob/f75637ce83a0b4e8fbd9818980c9b11570ff477c/srv/GetBlueprints.srv) | 获取蓝图    |
 | `/carla/spawn_object`   | [carla_msgs/SpawnObject.srv](https://github.com/carla-simulator/ros-carla-msgs/blob/f75637ce83a0b4e8fbd9818980c9b11570ff477c/srv/SpawnObject.srv)     | 生成一个对象    |
 

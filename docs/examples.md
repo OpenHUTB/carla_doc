@@ -12,6 +12,11 @@ python examples/manual_control.py --host localhost --port 2000 --rolename hero -
 ```
 ![](img/interactive_script/manual_control.png)
 
+手动控制行人：
+```shell
+python examples/manual_control.py --filter walker.pedestrian.*
+```
+
 ### [绘制边界框](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/sensor_bounding_box.py)
 脚本将根据用户指定的视角 `view`（上方`above`、后面`behind`）附加一个 RGB 相机，并在距离`distance`之内绘制所有的参与者。
 ```shell

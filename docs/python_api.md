@@ -1,4 +1,4 @@
-#Python API 参考
+# [Python API 参考](https://carla.readthedocs.io/en/latest/python_api/) 
 此参考包含 Python API 的所有详细信息。要查阅特定 Carla 版本的先前参考，请使用右下角的面板更改文档版本。<br>这会将整个文档更改为之前的状态。请记住， <i>最新</i> 版本是 `dev` 分支，可能会显示任何 Carla 打包版本中不可用的功能。<hr>  
 
 ## carla.AckermannControllerSettings<a name="carla.AckermannControllerSettings"></a>
@@ -487,12 +487,12 @@ Creates a new world with default settings using `map_name` map. All actors in th
     - **警告：** <font color="#ED2F2F">_`map_layers` 仅对"Opt"地图可用。
 _</font>  
 - <a name="carla.Client.reload_world"></a>**<font color="#7fb800">reload_world</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**reset_settings**=True</font>)  
-重新加载当前世界，请注意，将使用同一地图使用默认设置创建一个新世界。世界上所有参与者都将被摧毁，__但__ 交通管理器实例将继续存在。
+重新加载当前世界，请注意，将使用同一地图使用默认设置创建一个新世界。世界上所有参与者都将被销毁，__但__ 交通管理器实例将继续存在。
     - **参数：**
         - `reset_settings` (_bool_) - 选项可将情节设置重置为默认值，设置为false可保留当前设置。这对于在更改映射时保持同步模式和保持确定性场景非常有用。
     - **Raises:** 对应的运行时错误 RuntimeError。   
 - <a name="carla.Client.replay_file"></a>**<font color="#7fb800">replay_file</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**name**</font>, <font color="#00a6ed">**start**</font>, <font color="#00a6ed">**duration**</font>, <font color="#00a6ed">**follow_id**</font>, <font color="#00a6ed">**replay_sensors**</font>)  
-使用`map_name`加载具有默认设置的新世界。当前世界中的所有参与者都将被摧毁，__但__ 交通管理器实例将继续存在。
+使用`map_name`加载具有默认设置的新世界。当前世界中的所有参与者都将被销毁，__但__ 交通管理器实例将继续存在。
     - **参数：**
         - `name` (_str_) - 包含仿真信息的文件的名称。
         - `start` (_float<small> - seconds</small>_) - 开始播放仿真的时间。负数表示从结尾开始读取，在录制结束前10秒为-10。
@@ -2605,7 +2605,7 @@ _</font>
     - **参数:**
         - `r` (_float<small> - 米</small>_) - 启用物理的新半径。 
 - <a name="carla.TrafficManager.set_osm_mode"></a>**<font color="#7fb800">set_osm_mode</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**mode_switch**=True</font>)  
-启用或禁用 OSM 模式。该模式允许用户在使用 [OSM 功能](tuto_G_openstreetmap.md) 创建的地图中运行 TM。这些地图允许有死胡同。通常，如果车辆无法找到下一个航路点，交通管理器就会崩溃。如果启用 OSM 模式，它将显示警告，并在必要时摧毁车辆。 
+启用或禁用 OSM 模式。该模式允许用户在使用 [OSM 功能](tuto_G_openstreetmap.md) 创建的地图中运行 TM。这些地图允许有死胡同。通常，如果车辆无法找到下一个航路点，交通管理器就会崩溃。如果启用 OSM 模式，它将显示警告，并在必要时销毁车辆。 
     - **参数:**
         - `mode_switch` (_bool_) - 如果 __True__ ，则启用 OSM 模式。 
 - <a name="carla.TrafficManager.set_path"></a>**<font color="#7fb800">set_path</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**path**</font>)  
@@ -3167,7 +3167,7 @@ VehiclePhysicsControl 构造函数。
 
 ## carla.Walker<a name="carla.Walker"></a>
 <small style="display:block;margin-top:-20px;">从 _[carla.Actor](#carla.Actor)_ 继承</small></br>
-该类从 [carla.Actor](#carla.Actor) 继承并定义仿真中的行人。Walkers 是一种特殊类型的 actor，可以由 AI ([carla.WalkerAIController](#carla.WalkerAIController)) 控制，也可以通过脚本手动控制，使用一系列 [carla.WalkerControl](#carla.WalkerControl) 来移动它们及其骨骼。
+该类从 [carla.Actor](#carla.Actor) 继承并定义仿真中的行人。Walkers 是一种特殊类型的参与者，可以由 AI ([carla.WalkerAIController](#carla.WalkerAIController)) 控制，也可以通过脚本手动控制，使用一系列 [carla.WalkerControl](#carla.WalkerControl) 来移动它们及其骨骼。
 
 ### 方法
 - <a name="carla.Walker.apply_control"></a>**<font color="#7fb800">apply_control</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**control**</font>)  
@@ -3192,7 +3192,7 @@ VehiclePhysicsControl 构造函数。
   - name: 骨骼名称
   - world: 世界坐标变换
   - component: 基于参与者的枢轴进行变换
-  - relative: 基于骨骼父级进行变换。
+  - relative: 基于父级骨骼进行变换。
     - **返回:** _[carla.WalkerBoneControlOut](#carla.WalkerBoneControlOut)_  
     - **Setter:** _[carla.Walker.set_bones](#carla.Walker.set_bones)_  
 - <a name="carla.Walker.get_control"></a>**<font color="#7fb800">get_control</font>**(<font color="#00a6ed">**self**</font>)  
@@ -3967,7 +3967,7 @@ Actor affected by the command.
 ---
 
 ## command.ApplyVehicleControl<a name="command.ApplyVehicleControl"></a>
-in [carla.Vehicle](#carla.Vehicle) 中 __<font color="#7fb800">apply_control()</font>__ 的命令适应。对车辆应用某个控制。
+在 [carla.Vehicle](#carla.Vehicle) 中 __<font color="#7fb800">apply_control()</font>__ 命令进行适应，实现对车辆应用某个控制。
 
 ### 实例变量
 - <a name="command.ApplyVehicleControl.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_int_)  
@@ -4038,7 +4038,7 @@ in [carla.Vehicle](#carla.Vehicle) 中 __<font color="#7fb800">apply_control()</
 ---
 
 ## command.DestroyActor<a name="command.DestroyActor"></a>
-[carla.Actor](#carla.Actor) 中 __<font color="#7fb800">destroy()</font>__ 命令的改编版，将告诉仿真器摧毁该参与者。如果参与者已经被摧毁则没有影响。当在 [carla.Client](#carla.Client) 中执行 __<font color="#7fb800">apply_batch_sync()</font>__ 将会返回一个布尔值状态表示参与者是否被成功摧毁。
+[carla.Actor](#carla.Actor) 中 __<font color="#7fb800">destroy()</font>__ 命令的改编版，将告诉仿真器销毁该参与者。如果参与者已经被销毁则没有影响。当在 [carla.Client](#carla.Client) 中执行 __<font color="#7fb800">apply_batch_sync()</font>__ 将会返回一个布尔值状态表示参与者是否被成功销毁。
 
 ### 实例变量
 - <a name="command.DestroyActor.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_int_)  

@@ -11,10 +11,10 @@
 !!! 笔记
     **本文档假设用户熟悉 Python API。**。 <br>
     用户在阅读本文档之前应阅读第一步教程： 
-    [核心概念](core_concepts.md)。进行行人建模请参考[链接](./tuto_content_authoring_pedestrians.md) 。
+    [核心概念](foundations.md)。进行行人建模请参考[链接](./tuto_content_authoring_pedestrians.md) 。
 
 ---
-## 行人骨骼结构
+## 行人骨骼结构  <span id="walker-skeleton-structure"></span>
 
 所有行人都具有相同的骨骼层次结构和骨骼名称。下面是骨架层次结构的图像。骨骼的层次结构图参考[链接](./tuto_content_authoring_pedestrians.md) 。
 
@@ -88,11 +88,11 @@ crl_root
 ```
 
 ---
-## 手动控制行人骨骼
+## 手动控制行人骨骼 <span id="manually-control-walker-bones"></span>
 
 以下是如何通过 Carla Python API 更改步行者骨骼变换的详细分步示例。
 
-### 连接到仿真器
+### 连接到仿真器 <span id="connect-to-the-simulator"></span>
 
 导入本例中使用的必要库
 
@@ -108,7 +108,7 @@ client = carla.Client('127.0.0.1', 2000)
 client.set_timeout(2.0)
 ```
 
-### 生成行人
+### 生成行人  <span id="spawn-a-walker"></span>
 
 在地图的一个生成点生成一个随机行人。
 
@@ -120,7 +120,7 @@ spawn_point = random.choice(spawn_points) if spawn_points else carla.Transform()
 world.try_spawn_actor(blueprint, spawn_point)
 ```
 
-### 控制行人骨骼
+### 控制行人骨骼  <span id="control-walker-skeletons"></span>
 
 可以通过将 `WalkerBoneControl` 类的实例传递给行人的 `apply_control` 函数来修改行人的骨架。`WalkerBoneControl` 类包含要修改的骨骼的变换。它的 `bone_transforms` 成员是成对值元组的列表，其中第一个值是骨骼名称，第二个值是骨骼变换。可以在每个刻度上调用 `apply_control` 函数来为行人的骨骼设置动画。每个变换的位置和旋转都是相对于其父变换的。因此，当修改父骨骼的变换时，子骨骼在模型空间中的变换也会相对改变。
 

@@ -2,14 +2,14 @@
 
 Carla 中的参与者是在仿真中执行动作的元素，他们可以影响其他参与者。Carla 的参与者包括车辆和步行者，也包括传感器、交通标志、红绿灯和观看者。对如何操作它们有充分的了解是至关重要的。 
 
-本节将介绍生成、摧毁、类型以及如何管理它们。然而，可能性几乎是无穷无尽的。实验、查看本文档中的 __教程__，并在 [Carla 论坛](https://github.com/carla-simulator/carla/discussions/) 中分享疑虑和想法。
+本节将介绍生成、销毁、类型以及如何管理它们。然而，可能性几乎是无穷无尽的。实验、查看本文档中的 __教程__，并在 [Carla 论坛](https://github.com/carla-simulator/carla/discussions/) 中分享疑虑和想法。
 
 - [__蓝图__](#blueprints)  
 	- [管理蓝图库](#managing-the-blueprint-library)  
 - [__参与者生命周期__](#actor-life-cycle)  
 	- [生成](#spawning)  
 	- [处理](#handling)  
-	- [摧毁](#destruction)  
+	- [销毁](#destruction)  
 - [__参与者类型__](#types-of-actors)  
 	- [传感器](#sensors)  
 	- [观察者](#spectator)  
@@ -140,9 +140,9 @@ actor.set_simulate_physics(False)
     大多数方法是异步向仿真器发送请求。仿真器每次更新解析它们的时间有限。使用 _set()_ 方法淹没仿真器将积累明显的延迟。
 
 
-### 摧毁
+### 销毁
 
-当 Python 脚本完成时，参与者不会被销毁。他们必须明确地摧毁自己。
+当 Python 脚本完成时，不回销毁参与者。他们必须明确地销毁自己。
 
 ```py
 destroyed_sucessfully = actor.destroy() # 如果成功返回 True 
@@ -298,7 +298,7 @@ ai_controller.stop()
 [carla.Client](python_api.md#carla.Client.apply_batch_sync) 中的一个片段使用批次生成大量步行者并让它们四处游荡。
 
 !!! 重要
-    __要摧毁人工智能行人__，请停止人工智能控制器并摧毁参与者和控制器。
+    __要销毁人工智能行人__，请停止人工智能控制器并销毁参与者和控制器。
 
 ---
 关于 Carla 中的参与者，这就是一个总结。下一步将仔细研究 Carla 的地图、道路和交通。

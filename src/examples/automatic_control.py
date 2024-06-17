@@ -6,7 +6,7 @@
 # This work is licensed under the terms of the MIT license.
 # For a copy, see <https://opensource.org/licenses/MIT>.
 
-"""来自客户端的车辆自动控制示例。"""
+"""来自客户端的车辆自动控制示例（启动就进入自动驾驶模式）。"""
 
 from __future__ import print_function
 
