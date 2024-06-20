@@ -72,11 +72,17 @@ cd PythonAPI/util && python3 config.py --no-rendering
 cd PythonAPI/util && python3 config.py --rendering
 ```
 
-脚本 `PythonAPI/examples/no_rendering_mode.py` 将启用无渲染模式，并使用简单图形利用 __Pygame__ 创建鸟瞰图：
+脚本 `PythonAPI/examples/no_rendering_mode.py` 将启用无渲染模式，服务端窗口会进入黑屏，但是，客户端pygame依然会渲染。并使用简单图形利用 __pygame__ 创建鸟瞰图：
 
 ```sh
 cd PythonAPI/examples && python3 no_rendering_mode.py
 ```
+
+- 服务端不渲染，黑屏
+![](img/rendering/no_rendering_server.png)
+
+- 客户端，pygame依然会渲染，pygame也需要使用no-render设置
+![](img/rendering/no_rendering_client.png)
 
 !!! 笔记
     在无渲染模式下，相机和 GPU 传感器将返回空数据。不使用 GPU。虚幻引擎未绘制任何场景。
@@ -161,7 +167,20 @@ Carla 在 [这里](https://github.com/carla-simulator/carla/blob/0.9.12/Util/Doc
 
 ---
 
+## --nullrhi
+
+而另一种在 Carla 官方文档中未被提及的方式就是 `--nullrhi`。在计算机图形学中，RHI（Rendering Hardware Interface）是一种硬件抽象层，用于封装不同图形硬件（GPU）的底层细节，使得图形渲染引擎可以与各种不同类型的硬件协同工作。RHI 负责管理图形资源、执行渲染命令等底层操作，使得开发者可以编写与具体硬件无关的图形渲染代码。
+
+而虚幻引擎中的 `--nullrhi` 参数则是一种特殊的模式，表示使用 Null Rendering Hardware Interface，即空渲染硬件接口。在这种模式下，Carla 将不会执行实际的图形渲染操作，从而减轻了与图形相关的计算负担。这对于一些特殊的仿真场景，比如需要在后台运行仿真或进行性能测试时，是非常有用的。
+
+使用 `--nullrhi` 参数，客户端运行 `manual_control.py` 时 pygame 黑屏。nullrhi 只适用于多 GPU 模式，可以只有一个 GPU 进行渲染，而其他 GPU 使用 nullrhi 不进行渲染。
+
+![](img/rendering/nullrhi.png)
+
+
 与此主题相关的任何问题或疑问都可以在 Carla 论坛中发布。
+
+
 
 <div class="build-buttons">
 <p>
