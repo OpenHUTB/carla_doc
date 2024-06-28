@@ -58,7 +58,9 @@ python -m pip install .
 
 `tuto_M_*.md (tutorial_map_*)` : 地图教程
 
-
+页面跳转
+1. 定义一个锚(id)： `<span id="jump">跳转到的地方</span>`
+2. 使用markdown语法：`[点击跳转](#jump)`
 
 
 ## 问题
