@@ -79,3 +79,15 @@ cmake --build Build --target package
 ## 运行包
 
 软件包构建尚未针对 Windows 进行测试。
+
+
+## Ubuntu 安装
+
+如果引导不了系统，需要将在BIOS中设置为UEFI启动。
+
+
+* 安装界面卡死完
+```shell
+quiet splash - - - 改成 quiet splash acpi=off
+```
+acpi=off是关闭高级电源管理接口。如果必须添加acpi = off使ubuntu成功启动，则表示计算机上的ACPI与该版本的ubuntu不兼容。
