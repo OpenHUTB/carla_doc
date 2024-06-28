@@ -6,7 +6,7 @@
     - [模拟循环](vehicle_overview.md#simulation_loop)
 - [__车辆底盘__](vehicle_chassis.md)
 - [__轮式车辆__](wheeled_vehicle.md)
-    - [悬挂模型](#create-your-own-behavior-type)
+    - [悬挂模型](wheeled_suspension.md)
     - [转向机构模型](#create-your-own-behavior-type)
     - [传动系统模型](#create-your-own-behavior-type)
     - [轮胎型号](#create-your-own-behavior-type)
