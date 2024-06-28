@@ -7,7 +7,7 @@
 - [__车辆底盘__](vehicle_chassis.md)
 - [__轮式车辆__](wheeled_vehicle.md)
     - [悬挂模型](wheeled_suspension.md)
-    - [转向机构模型](#create-your-own-behavior-type)
+    - [转向机构模型](wheeled_steering.md)
     - [传动系统模型](#create-your-own-behavior-type)
     - [轮胎型号](#create-your-own-behavior-type)
     - [测试台架](#create-your-own-behavior-type)
