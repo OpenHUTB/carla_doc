@@ -17,7 +17,7 @@ VEHICLE 模块允许用户对车辆进行建模和模拟。
 对于运行时可视化，建议启用并安装 [Chrono::VSG](https://api.projectchrono.org/module_vsg_installation.html) 模块和/或 [Chrono::Irrlicht](https://api.projectchrono.org/module_irrlicht_installation.html) 模块。
 
 ## 构建和安装先决条件
-Chrono::Vehicle 包含使用 OpenCRG 规范指定地形的选项。支持此可选功能需要 OpenCRG 库。
+Chrono::Vehicle 包含使用 OpenCRG 规范指定地形的选项。支持此可选功能需要 [OpenCRG 库](https://www.asam.net/index.php?eID=dumpFile&t=f&f=3950&token=21a7ae456ec0eb0f9ec3aee5bae3e8c9ebaea140) 。
 
 构建和安装 OpenCRG 库的最简单方法是使用 Chrono 发行版提供的实用程序脚本。这些脚本（`buildOpenCRG.bat`分别`buildOpenCRG.sh`用于 Windows 和 Linux）位于 [Chrono 存储库](https://github.com/projectchrono/chrono/tree/main/contrib/build-scripts/opencrg) `contrib/build-scripts/opencrg`目录中。
 

@@ -13,6 +13,15 @@
 
 ![openstreetmap_edit_page](img/digit_twin/openstreetmap_edit_page.png)
 
+对照卫星地图（比如百度地图的卫星地图）进行绘制：
+
+![](img/digit_twin/openstreetmap_edit.png)
+
+通过实景地图数出楼的层数：
+
+![](img/digit_twin/floors_number.png) 
+
+
 ## 提交修改
 
 点击页面保存按钮或者按`Ctrl+S`进行修改的保存和提交。
