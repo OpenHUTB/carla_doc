@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>传动系统模型 - 交通仿真文档</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u4f20\u52a8\u7cfb\u7edf\u6a21\u578b";
+        var mkdocs_page_input_path = "chrono\\wheeled_driveline.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">传动系统模型</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/chrono/wheeled_driveline.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">传动系统模型</h1>
+<ul>
+<li><a href="#four_wheel"><strong>四轮轴传动系统</strong></a></li>
+<li><a href="#two_wheel"><strong>基于双轮轴的传动系统</strong></a></li>
+<li><a href="#kinematic"><strong>四轮运动传动系统</strong></a></li>
+<li><a href="#X_wheel"><strong>X 轮运动传动系统</strong></a></li>
+</ul>
+<h2 id="_2">四轮轴传动系统</h2>
+<p>该传动系统模板使用各种 Chrono 1-D 轴元素 ( <a href="https://api.projectchrono.org/classchrono_1_1_ch_shaft.html">ChShaft</a> ) 和专用轴连接元素建模。这些元素用于建模差速器 ( <a href="https://api.projectchrono.org/classchrono_1_1_ch_shafts_planetary.html">ChShaftsPlanetary</a> )、锥形齿轮 ( <a href="https://api.projectchrono.org/classchrono_1_1_ch_shafts_gearbox_angled.html">ChShaftsGearboxAngled</a> ) 和差速锁离合器 ( <a href="https://api.projectchrono.org/classchrono_1_1_ch_shafts_clutch.html">ChShaftsClutch</a> )。</p>
+<p>参见 <a href="https://api.projectchrono.org/classchrono_1_1vehicle_1_1_ch_shafts_driveline4_w_d.html">ChShaftsDriveline4WD</a> 和 <a href="https://api.projectchrono.org/classchrono_1_1vehicle_1_1_shafts_driveline4_w_d.html">ShaftsDriveline4WD</a> 。</p>
+<p>下图显示了基于轴的 4WD 传动系统与基于轴的动力传动系统模型的连接。</p>
+<p><img alt="" src="../../img/chrono/shafts_powertrain.png" /></p>
+<p>以下示例 JSON 规范文件说明了基于 4WD 轴的传动系统可用的各种模板参数：</p>
+<pre><code class="language-json">{
+  &quot;Name&quot;:                       &quot;HMMWV AWD Driveline&quot;,
+  &quot;Type&quot;:                       &quot;Driveline&quot;,
+  &quot;Template&quot;:                   &quot;ShaftsDriveline4WD&quot;,
+
+  &quot;Shaft Direction&quot;:
+  {
+    &quot;Motor Block&quot;:              [1, 0, 0],
+    &quot;Axle&quot;:                     [0, 1, 0]
+  },
+
+  &quot;Shaft Inertia&quot;:
+  {
+    &quot;Driveshaft&quot;:               0.5,
+    &quot;Front Driveshaft&quot;:         0.5,
+    &quot;Rear Driveshaft&quot;:          0.5,
+    &quot;Central Differential Box&quot;: 0.6,
+    &quot;Front Differential Box&quot;:   0.6,
+    &quot;Rear Differential Box&quot;:    0.6
+  },
+
+  &quot;Gear Ratio&quot;:
+  {
+    &quot;Front Conical Gear&quot;:       0.2,
+    &quot;Rear Conical Gear&quot;:        0.2
+  },
+
+  &quot;Axle Differential Locking Limit&quot;:    100,
+  &quot;Central Differential Locking Limit&quot;: 100
+}
+</code></pre>
+<h2 id="_3">基于双轮轴的传动系统</h2>
+<p>该传动系统模板类似于基于 4WD 轴的传动系统模型，但只能驱动与单个车轴相关的车轮。该车轴是任意的，因此该传动系统模型可用于模拟前轮驱动和后轮驱动车辆。</p>
+<p>参见 <a href="https://api.projectchrono.org/classchrono_1_1vehicle_1_1_ch_shafts_driveline2_w_d.html">ChShaftsDriveline2WD</a> 和 <a href="https://api.projectchrono.org/classchrono_1_1vehicle_1_1_shafts_driveline2_w_d.html">ShaftsDriveline2WD</a> 。</p>
+<p>具有 2WD 轴传动系统规范的示例 JSON 文件是：</p>
+<pre><code class="language-json">{
+  &quot;Name&quot;:                       &quot;HMMWV RWD Driveline&quot;,
+  &quot;Type&quot;:                       &quot;Driveline&quot;,
+  &quot;Template&quot;:                   &quot;ShaftsDriveline2WD&quot;,
+
+  &quot;Shaft Direction&quot;:
+  {
+    &quot;Motor Block&quot;:              [1, 0, 0],
+    &quot;Axle&quot;:                     [0, 1, 0]
+  },
+
+  &quot;Shaft Inertia&quot;:
+  {
+    &quot;Driveshaft&quot;:               0.5,
+    &quot;Differential Box&quot;:         0.6
+  },
+
+  &quot;Gear Ratio&quot;:
+  {
+    &quot;Conical Gear&quot;:             0.2
+  },
+
+  &quot;Axle Differential Locking Limit&quot;:  100
+}
+</code></pre>
+<h2 id="_4">四轮运动传动系统</h2>
+<p>此模板可用于为 4WD 传动系统建模。它使用恒定的前/后扭矩分配（0 到 1 之间的值）和 Torsen 限滑差速器的简单模型。</p>
+<p>参见 <a href="https://api.projectchrono.org/classchrono_1_1vehicle_1_1_ch_simple_driveline.html">ChSimpleDriveline</a> 和 <a href="https://api.projectchrono.org/classchrono_1_1vehicle_1_1_simple_driveline.html">SimpleDriveline</a> 。</p>
+<p>具有 2WD 轴传动系统规范的示例 JSON 文件是：</p>
+<pre><code class="language-json">{
+  &quot;Name&quot;:                       &quot;HMMWV 4WD Driveline&quot;,
+  &quot;Type&quot;:                       &quot;Driveline&quot;,
+  &quot;Template&quot;:                   &quot;SimpleDriveline&quot;,
+
+  &quot;Front Torque Fraction&quot;:       0.5,
+
+  &quot;Front Differential Max Bias&quot;: 2.0,
+  &quot;Rear Differential Max Bias&quot;:  2.0
+}
+</code></pre>
+<h2 id="x">X 轮运动传动系统</h2>
+<p>此简单传动系统模板可用于模拟 XWD 传动系统，可驱动一个或多个车轴。它使用根据驱动轴数量确定的恒定扭矩分配和 Torsen 限滑差速器的简单模型。</p>
+<p>参见 <a href="https://api.projectchrono.org/classchrono_1_1vehicle_1_1_ch_simple_driveline_x_w_d.html">ChSimpleDrivelineXWD</a> 和 <a href="https://api.projectchrono.org/classchrono_1_1vehicle_1_1_simple_driveline_x_w_d.html">SimpleDrivelineXWD</a> 。</p>
+<p>具有 2WD 轴传动系统规范的示例 JSON 文件是：</p>
+<pre><code class="language-json">{
+  &quot;Name&quot;:                       &quot;MAN 5t, 7t, 10t XWD Driveline&quot;,
+  &quot;Type&quot;:                       &quot;Driveline&quot;,
+  &quot;Template&quot;:                   &quot;SimpleDrivelineXWD&quot;,
+
+  &quot;Differential Max Bias&quot;:  2.0
+}
+</code></pre>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
