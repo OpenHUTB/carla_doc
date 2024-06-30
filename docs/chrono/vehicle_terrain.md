@@ -1,9 +1,9 @@
 # 地形模型
 
-- [__平坦地势__](#four_wheel)
-- [__坚硬的地形__](#two_wheel)
+- [__平坦地形__](#four_wheel)
+- [__坚硬地形__](#two_wheel)
 - [__可变形 SCM（土壤接触模型）__](#kinematic)
-- [__粒状地形__](#X_wheel)
+- [__颗粒状地形__](#X_wheel)
 - [__可变形 FEA（ANCF 实体元素）__](#X_wheel)
 
 
@@ -21,12 +21,12 @@ Chrono::Vehicle 中的地形对象必须提供以下方法：
 
 ChTerrain 基类还定义了一个函子对象 [ChTerrain::FrictionFunctor](https://api.projectchrono.org/classchrono_1_1vehicle_1_1_ch_terrain_1_1_friction_functor.html) ，它提供了一个用于指定位置相关摩擦系数的接口。用户必须实现从此基类派生的自定义类，并实现虚拟方法`operator()`以返回给定位置正下方点的摩擦系数（x , y, z）位置（假定在当前世界框架中表达）。
 
-## 平坦地势
+## 平坦地形
 [FlatTerrain](https://api.projectchrono.org/classchrono_1_1vehicle_1_1_flat_terrain.html) 是一个水平面模型，具有无限延伸，位于用户指定的高度。[FlatTerrain ::GetCoefficientFriction](https://api.projectchrono.org/classchrono_1_1vehicle_1_1_flat_terrain.html#a6ed899c2419f4cfc203ade3a5e6f6f90) 方法返回构造时指定的恒定摩擦系数，或者，如果 `FrictionFunctor` 已注册对象，则返回其返回值。
 
 由于平坦地形模型不带有任何碰撞和接触信息，因此它只能与 [半经验轮胎模型](https://api.projectchrono.org/wheeled_tire.html#vehicle_tire_empirical) 一起使用。
 
-## 坚硬的地形
+## 坚硬地形
 [RigidTerrain](https://api.projectchrono.org/classchrono_1_1vehicle_1_1_rigid_terrain.html) 是具有任意几何形状的刚性地形模型。刚性地形被指定为一组面片，每个面片可以是以下之一：
 
 - 一个矩形框，可能已旋转；“驱动”表面是框的顶面（在世界的垂直方向上）
@@ -302,11 +302,11 @@ Chrono SCM 实现的其他一些功能包括：
 
 由于与这种地形类型的交互是通过底层的 Chrono 接触系统完成的，因此它可以与刚性或FEA轮胎模型以及履带式车辆结合使用。
 
-## 粒状地形
-[GranularTerrain](】GranularTerrain实现了矩形颗粒材料块，并利用了 Chrono 对所谓的离散元法 (DEM) 模拟的广泛支持。目前，此地形模型仅限于单分散球形颗粒材料。
-) 实现了矩形颗粒材料块，并利用了 Chrono 对所谓的离散元法 (DEM) 模拟的广泛支持。目前，此地形模型仅限于单分散球形颗粒材料。
+## 颗粒状地形
+[GranularTerrain](GranularTerrain实现了矩形颗粒状材料块，并利用了 Chrono 对所谓的离散元法 (DEM) 模拟的广泛支持。目前，此地形模型仅限于单分散球形颗粒状材料。
+) 实现了矩形颗粒状材料块，并利用了 Chrono 对所谓的离散元法 (DEM) 模拟的广泛支持。目前，此地形模型仅限于单分散球形颗粒状材料。
 
-由于模拟大规模颗粒动力学需要大量计算，Chrono::Vehicle 中的 GranularTerrain 对象支持“移动块”方法，其中模拟可以限制在颗粒材料箱中，该材料箱会根据指定物体（通常是车辆底盘）的位置不断重新定位。目前，移动块只能在X（前进）方向。
+由于模拟大规模颗粒状动力学需要大量计算，Chrono::Vehicle 中的 GranularTerrain 对象支持“移动块”方法，其中模拟可以限制在颗粒状材料箱中，该材料箱会根据指定物体（通常是车辆底盘）的位置不断重新定位。目前，移动块只能在X（前进）方向。
 
 下面是使用移动面片特征在 GranularTerrain 上进行车辆加速测试的示例。此模拟使用超过 700,000 个粒子和 [Chrono::Multicore](https://api.projectchrono.org/group__multicore__module.html) 模块进行多核并行模拟。
 
