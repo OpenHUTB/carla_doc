@@ -51,7 +51,7 @@ Chrono::Vehicle 为该工作流模型和 [POV-Ray](http://www.povray.org/) 光�
 
 ** 使用 POV-Ray 对文件进行后期处理** 
 
-Chrono 发行版包含（在目录中src/demos/vehicle/）一个示例 POV-Ray 脚本（renderZ.pov），可用于（批量）处理 WriteVisualizationAssets 生成的格式的输出数据文件。此脚本假定所有数据均在右手框架中提供，Z 向上（ISO 参考框架），并执行所有必要的转换为 POV-Ray 的 Y 向上左手框架。
+Chrono 发行版包含（在目录中`src/demos/vehicle/`）一个示例 POV-Ray 脚本（`renderZ.pov`），可用于（批量）处理 WriteVisualizationAssets 生成的格式的输出数据文件。此脚本假定所有数据均在右手框架中提供，Z 向上（ISO 参考框架），并执行所有必要的转换为 POV-Ray 的 Y 向上左手框架。
 
 该脚本提供以下用户控件：
 
@@ -66,5 +66,17 @@ Chrono 发行版包含（在目录中src/demos/vehicle/）一个示例 POV-Ray �
 - 相机位置和观察点
 - 启用/禁用阴影
 - 可选渲染环境（地面和天空）
+
+
+![](../img/chrono/MAN_10t.png)
+
+![](../img/chrono/vis_povray_frames.png)
+
+请注意，该 `renderZ.pov` 脚本仅作为起点提供。可以使用 POV-Ray 生成更复杂、更逼真的图像，使用更复杂的材料和环境。
+
+最后，可以使用类似的工作流程来渲染除 POV-Ray 之外的其他引擎。例如，下面的图像是使用 WriteVisualizationAssets 生成的数据文件但使用 Mitsuba 引擎生成的。
+
+![](../img/chrono/vis_mitsuba_wheeled.png)
+
 
 
