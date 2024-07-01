@@ -70,10 +70,10 @@
               
                 <h1 id="_1">地形模型</h1>
 <ul>
-<li><a href="#four_wheel"><strong>平坦地势</strong></a></li>
-<li><a href="#two_wheel"><strong>坚硬的地形</strong></a></li>
+<li><a href="#four_wheel"><strong>平坦地形</strong></a></li>
+<li><a href="#two_wheel"><strong>坚硬地形</strong></a></li>
 <li><a href="#kinematic"><strong>可变形 SCM（土壤接触模型）</strong></a></li>
-<li><a href="#X_wheel"><strong>粒状地形</strong></a></li>
+<li><a href="#X_wheel"><strong>颗粒状地形</strong></a></li>
 <li><a href="#X_wheel"><strong>可变形 FEA（ANCF 实体元素）</strong></a></li>
 </ul>
 <p>Chrono::Vehicle 中的地形对象必须提供以下方法：</p>
@@ -86,10 +86,10 @@
 <p>但请注意，这些量仅与所谓的 <a href="https://api.projectchrono.org/wheeled_tire.html#vehicle_tire_empirical">半经验轮胎模型</a> 的相互作用有关。因此，它们不适用于可变形地形（SCM、颗粒或基于 FEA）的情况，因为可变形地形只能与 <a href="https://api.projectchrono.org/wheeled_tire.html#wheeled_tire_rigid">刚性</a> 或 <a href="https://api.projectchrono.org/wheeled_tire.html#wheeled_tire_fea">FEA</a> 轮胎模型以及履带式车辆配合使用（因为它们依赖于底层的 Chrono 碰撞和接触系统）。</p>
 <p>此外，某些轮胎模型可能会使用摩擦系数值来修改轮胎特性，但不会对地形与其他物体的相互作用产生影响（包括未明确使用它的轮胎模型）。</p>
 <p>ChTerrain 基类还定义了一个函子对象 <a href="https://api.projectchrono.org/classchrono_1_1vehicle_1_1_ch_terrain_1_1_friction_functor.html">ChTerrain::FrictionFunctor</a> ，它提供了一个用于指定位置相关摩擦系数的接口。用户必须实现从此基类派生的自定义类，并实现虚拟方法<code>operator()</code>以返回给定位置正下方点的摩擦系数（x , y, z）位置（假定在当前世界框架中表达）。</p>
-<h2 id="_2">平坦地势</h2>
+<h2 id="_2">平坦地形</h2>
 <p><a href="https://api.projectchrono.org/classchrono_1_1vehicle_1_1_flat_terrain.html">FlatTerrain</a> 是一个水平面模型，具有无限延伸，位于用户指定的高度。<a href="https://api.projectchrono.org/classchrono_1_1vehicle_1_1_flat_terrain.html#a6ed899c2419f4cfc203ade3a5e6f6f90">FlatTerrain ::GetCoefficientFriction</a> 方法返回构造时指定的恒定摩擦系数，或者，如果 <code>FrictionFunctor</code> 已注册对象，则返回其返回值。</p>
 <p>由于平坦地形模型不带有任何碰撞和接触信息，因此它只能与 <a href="https://api.projectchrono.org/wheeled_tire.html#vehicle_tire_empirical">半经验轮胎模型</a> 一起使用。</p>
-<h2 id="_3">坚硬的地形</h2>
+<h2 id="_3">坚硬地形</h2>
 <p><a href="https://api.projectchrono.org/classchrono_1_1vehicle_1_1_rigid_terrain.html">RigidTerrain</a> 是具有任意几何形状的刚性地形模型。刚性地形被指定为一组面片，每个面片可以是以下之一：</p>
 <ul>
 <li>一个矩形框，可能已旋转；“驱动”表面是框的顶面（在世界的垂直方向上）</li>
@@ -338,9 +338,9 @@ $
 <li>支持指定与位置相关的土壤参数；这可以通过提供自定义回调类来实现，该回调类实现一种返回给定位置的所有土壤参数的方法（x , y）地形参考平面中指定的点。参见SCMTerrain::SoilParametersCallback</li>
 </ul>
 <p>由于与这种地形类型的交互是通过底层的 Chrono 接触系统完成的，因此它可以与刚性或FEA轮胎模型以及履带式车辆结合使用。</p>
-<h2 id="_4">粒状地形</h2>
-<p><a href="】GranularTerrain实现了矩形颗粒材料块，并利用了 Chrono 对所谓的离散元法 (DEM) 模拟的广泛支持。目前，此地形模型仅限于单分散球形颗粒材料。">GranularTerrain</a> 实现了矩形颗粒材料块，并利用了 Chrono 对所谓的离散元法 (DEM) 模拟的广泛支持。目前，此地形模型仅限于单分散球形颗粒材料。</p>
-<p>由于模拟大规模颗粒动力学需要大量计算，Chrono::Vehicle 中的 GranularTerrain 对象支持“移动块”方法，其中模拟可以限制在颗粒材料箱中，该材料箱会根据指定物体（通常是车辆底盘）的位置不断重新定位。目前，移动块只能在X（前进）方向。</p>
+<h2 id="_4">颗粒状地形</h2>
+<p><a href="GranularTerrain实现了矩形颗粒状材料块，并利用了 Chrono 对所谓的离散元法 (DEM) 模拟的广泛支持。目前，此地形模型仅限于单分散球形颗粒状材料。">GranularTerrain</a> 实现了矩形颗粒状材料块，并利用了 Chrono 对所谓的离散元法 (DEM) 模拟的广泛支持。目前，此地形模型仅限于单分散球形颗粒状材料。</p>
+<p>由于模拟大规模颗粒状动力学需要大量计算，Chrono::Vehicle 中的 GranularTerrain 对象支持“移动块”方法，其中模拟可以限制在颗粒状材料箱中，该材料箱会根据指定物体（通常是车辆底盘）的位置不断重新定位。目前，移动块只能在X（前进）方向。</p>
 <p>下面是使用移动面片特征在 GranularTerrain 上进行车辆加速测试的示例。此模拟使用超过 700,000 个粒子和 <a href="https://api.projectchrono.org/group__multicore__module.html">Chrono::Multicore</a> 模块进行多核并行模拟。</p>
 <p><img alt="" src="../../img/chrono/Granular_moving_patch.png" /></p>
 <p>GranularTerrain 的其他功能包括：</p>
