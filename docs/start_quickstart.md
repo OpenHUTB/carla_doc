@@ -108,7 +108,7 @@ sudo apt-get install carla-simulator=0.9.10-1 # In this case, "0.9.10" refers to
 
 每个版本都有其自己的附加资产和地图包。此附加包包括地图 __Town06__ 、__Town07__ 和 __Town10__ 。它们单独存储以减少构建的大小，因此只能在安装主包后才能导入它们。
 
-__1.__ [下载](https://github.com/carla-simulator/carla/blob/master/Docs/download.md) 适合您所需版本的 Carla 的软件包。
+__1.__ [下载](download.md) 适合您所需版本的 Carla 的软件包。
 
 __2.__ 解压包：
 

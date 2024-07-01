@@ -20,7 +20,7 @@ import random
 import time
 import queue
 
-# Connect to client and set Carla server to synchronous mode
+# 连接到客户端并将Carla服务器设置为同步模式
 client = carla.Client('localhost', 2000)
 world = client.get_world()
 settings = world.get_settings()
@@ -49,7 +49,7 @@ instance_camera = world.try_spawn_actor(instance_camera_bp, camera_transform)
 在摄像机周围生成车辆，用大量对象实例填充场景。
 
 ```py
-# Spawn vehicles in an 80m vicinity of the camera
+# 在相机周围80米内生成车辆
 vehicle_bp_library = world.get_blueprint_library().filter('*vehicle*')
 radius = 80
 for spawn_point in spawn_points:
@@ -62,14 +62,12 @@ world.tick()
 现在生成图像。
 
 ```py
-
-# Save the image to disk
+# 将图片保存到磁盘
 instance_image_queue = queue.Queue()
 instance_camera.listen(instance_image_queue.put)
 world.tick()
 instance_image=instance_image_queue.get()
 instance_image.save_to_disk('instance_segmentation.png')
-
 ```
 
 ## 图像输出

@@ -3217,7 +3217,7 @@ VehiclePhysicsControl 构造函数。
 
 ## carla.WalkerAIController<a name="carla.WalkerAIController"></a>
 <small style="display:block;margin-top:-20px;">从 _[carla.Actor](#carla.Actor)_ 继承</small></br>
-对步行者进行 AI 控制的类。控制器被定义为参与者，但它们与其他控制器有很大不同。它们在创建过程中需要附加到父 Actor，这是它们将控制的步行者（如果您尚未了解如何生成 Actor，请查看[carla.World](#carla.World) ）。他们还需要一个特殊的蓝图（已在 [carla.BlueprintLibrary](#carla.BlueprintLibrary) 中定义为“controller.ai.walker”）。这是一个空的蓝图，因为人工智能控制器在仿真中是不可见的，但会跟随其父控制器来指示每一步。
+对步行者进行 AI 控制的类。控制器被定义为参与者，但它们与其他控制器有很大不同。它们在创建过程中需要附加到父参与者，这是它们将控制的行人（如果您尚未了解如何生成 Actor，请查看[carla.World](#carla.World) ）。他们还需要一个特殊的蓝图（已在 [carla.BlueprintLibrary](#carla.BlueprintLibrary) 中定义为“controller.ai.walker”）。这是一个空的蓝图，因为人工智能控制器在仿真中是不可见的，但会跟随其父控制器来指示每一步。
 
 
 ### 方法

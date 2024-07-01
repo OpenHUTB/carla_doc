@@ -1,10 +1,14 @@
 # 待做
 
 ## 技术文档
-* 完善对应文档的示例代码（做好配置说明）；
-* 整理 Carla 社区、深信科创、中文社区的文档、代码，比如 [carla](https://github.com/OpenHUTB/carla/tree/master/PythonAPI/examples) 、[awesome](https://github.com/Amin-Tgz/awesome-CARLA) ；
-* 整理 [神经科学原理](https://github.com/OpenHUTB/neuro) 、[前额叶皮层](https://github.com/OpenHUTB/PFC) 、强化学习导论心理学章节；
-* [游戏开发](./game.md)；
+- 完善对应文档的示例代码（做好配置说明）；
+  - 整理 [UE5中实现远程多用户协作编辑](https://mp.weixin.qq.com/s/9yqjZjK29sz676vFX6faIQ) 、[表情建模](https://mp.weixin.qq.com/s?__biz=MzAxNzMzODkyMA==&mid=2650671035&idx=1&sn=3f931afdf56a5a3d26eb2100a913fc28) 
+  - [Epic生态系统版本控制](https://mp.weixin.qq.com/s?__biz=MzAxNzMzODkyMA==&mid=2650681397&idx=1&sn=b372f97855c9651823cfa2f9fa92be6f) 
+  - Carla 社区、深信科创、中文社区的文档、代码 
+  - [carla 示例](https://github.com/OpenHUTB/carla/tree/master/PythonAPI/examples) 
+  - [awesome](https://github.com/Amin-Tgz/awesome-CARLA) ；
+- 整理 [神经科学原理](https://github.com/OpenHUTB/neuro) 、[前额叶皮层](https://github.com/OpenHUTB/PFC) 、强化学习导论心理学章节；
+- [游戏开发](./game.md)；
 
 
 ### 第三方工具
