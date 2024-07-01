@@ -36,22 +36,6 @@ Carla 论坛</a>
 [__示例__](tuto_E_gallery.md) — Carla 经典示例。
 
 
-## 构建 Carla
-
-[__构建 Carla__](build_carla.md) — 进行 Carla 编译。
-
-[__Linux 上编译__](build_linux.md) — 在 Linux 上进行编译。
-
-[__Windows 上编译__](build_windows.md) — 在 Windows 上进行构建。
-
-[__Carla 更新__](build_update.md) — 了解最新内容。
-
-[__构建系统__](build_system.md) — 了解构建及其制作方式。
-
-[__Docker 中的 Carla__](build_docker.md) — 使用容器解决方案运行 Carla。
-
-[__常见问题__](build_faq.md) — 一些最常见的安装问题。
-
 ## Carla 主题
 
 [__基础__](foundations.md) — Carla 基础。
@@ -97,50 +81,6 @@ Carla 论坛</a>
 [__生成行人导航__](tuto_M_generate_pedestrian_navigation.md) — 获取行人四处走动所需的信息。
 
 
-## 高级概念
-
-[__OpenDRIVE 独立模式__](adv_opendrive.md) — 使用任何 OpenDRIVE 文件作为 Carla 地图。
-
-[__记录器__](adv_recorder.md) — 在仿真中录制事件并再次播放。
-
-[__渲染选项__](adv_rendering_options.md) — 从质量设置到不渲染或离屏模式。
-
-[__责任敏感安全__](adv_rss.md) — Carla 客户端库中的责任敏感安全实现。
-
-[__同步和时间步长__](adv_synchrony_timestep.md) — 客户端-服务器通信和仿真时间。
-
-[__基准性能__](adv_benchmarking.md) — 使用我们准备好的脚本执行基准测试。
-
-[__Carla 智能体__](adv_agents.md) — 智能体脚本允许单个车辆在地图上漫游或开车到设定的目的地。
-
-[__CARLA 设置__](carla_settings.md) — CARLA 参数配置设置。
-
-[__CARLA 模拟器键盘输入__](simulator_keyboard_input.md) — 在模拟器窗口中玩游戏时使用的按键绑定。
-
-[__无显示屏运行 CARLA 并选择 GPU__](carla_headless.md) — 使用未插在屏幕上的GPU来渲染CARLA的桌面。
-
-
-[__链接 Epic 的汽车材质__](epic_automotive_materials.md) — 下载材质并将其链接到我们的车辆，以获得更逼真的车漆。
-
-
-
-## 参考
-
-[__Python API 参考__](python_api.md) — Python API 中的类和方法。
-
-[__C++ 参考__](ref_cpp.md) — Carla C++ 中的类和方法。
-
-[__蓝图库__](bp_library.md) — 提供用于生成参与者的蓝图。
-
-[__Carla 目录__](catalogue.md) — Carla 中资源的目录列表。
-
-[__记录器二进制文件格式__](ref_recorder_binary_file_format.md) — 记录器文件格式的详细说明。
-
-[__传感器参考__](ref_sensors.md) — 关于传感器及其检索数据的一切。
-
-[__扩展文档__](ext_docs.md) — 其他。
-
-
 ## 自定义地图
 
 [__Carla 中自定义地图的概述__](tuto_M_custom_map_overview.md) — 添加自定义标准尺寸地图所涉及的过程和选项的概述
@@ -171,14 +111,36 @@ Carla 论坛</a>
 
 [__数字孪生工具__](adv_digital_twin.md) — 通过 OpenStreetMap 自动生成 Carla 中的道路和建筑。
 
-
-## 大地图
-
 [__大地图概述__](large_map_overview.md) — Carla 中大地图工作原理的说明。
 
 [__在 RoadRunner 中创建大地图__](large_map_roadrunner.md) — 如何在 RoadRunner 中创建大地图。
 
 [__导入/打包大地图__](large_map_import.md) — 如何导入大地图
+
+## 高级概念
+
+[__OpenDRIVE 独立模式__](adv_opendrive.md) — 使用任何 OpenDRIVE 文件作为 Carla 地图。
+
+[__记录器__](adv_recorder.md) — 在仿真中录制事件并再次播放。
+
+[__渲染选项__](adv_rendering_options.md) — 从质量设置到不渲染或离屏模式。
+
+[__责任敏感安全__](adv_rss.md) — Carla 客户端库中的责任敏感安全实现。
+
+[__同步和时间步长__](adv_synchrony_timestep.md) — 客户端-服务器通信和仿真时间。
+
+[__基准性能__](adv_benchmarking.md) — 使用我们准备好的脚本执行基准测试。
+
+[__Carla 智能体__](adv_agents.md) — 智能体脚本允许单个车辆在地图上漫游或开车到设定的目的地。
+
+[__CARLA 设置__](carla_settings.md) — CARLA 参数配置设置。
+
+[__CARLA 模拟器键盘输入__](simulator_keyboard_input.md) — 在模拟器窗口中玩游戏时使用的按键绑定。
+
+[__无显示屏运行 CARLA 并选择 GPU__](carla_headless.md) — 使用未插在屏幕上的GPU来渲染CARLA的桌面。
+
+
+[__链接 Epic 的汽车材质__](epic_automotive_materials.md) — 下载材质并将其链接到我们的车辆，以获得更逼真的车漆。
 
 
 ## 教程（通用）
@@ -262,6 +224,24 @@ Carla 论坛</a>
 
 [__OpenSCENARIO 播放器__](tuto_G_esmini.md) — 基本的 OpenSCENARIO 播放器。
 
+
+## 构建 Carla
+
+[__构建 Carla__](build_carla.md) — 进行 Carla 编译。
+
+[__Linux 上编译__](build_linux.md) — 在 Linux 上进行编译。
+
+[__Windows 上编译__](build_windows.md) — 在 Windows 上进行构建。
+
+[__Carla 更新__](build_update.md) — 了解最新内容。
+
+[__构建系统__](build_system.md) — 了解构建及其制作方式。
+
+[__Docker 中的 Carla__](build_docker.md) — 使用容器解决方案运行 Carla。
+
+[__常见问题__](build_faq.md) — 一些最常见的安装问题。
+
+
 ## 贡献
 
 [__贡献指南__](cont_contribution_guidelines.md) — 为 Carla 做出贡献的不同方式。
@@ -286,4 +266,21 @@ Carla 论坛</a>
 [__文件说明__](file_specification.md) - 说明源代码中各个文件的作用。
 
 [__待做列表__](todo.md) - 待完成的功能。
+
+
+## 参考
+
+[__Python API 参考__](python_api.md) — Python API 中的类和方法。
+
+[__C++ 参考__](ref_cpp.md) — Carla C++ 中的类和方法。
+
+[__蓝图库__](bp_library.md) — 提供用于生成参与者的蓝图。
+
+[__Carla 目录__](catalogue.md) — Carla 中资源的目录列表。
+
+[__记录器二进制文件格式__](ref_recorder_binary_file_format.md) — 记录器文件格式的详细说明。
+
+[__传感器参考__](ref_sensors.md) — 关于传感器及其检索数据的一切。
+
+[__扩展文档__](ext_docs.md) — 其他。
 
