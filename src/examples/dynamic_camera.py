@@ -133,8 +133,6 @@ def main():
     client.set_timeout(2.0)
     world = client.get_world()
 
-
-
     elapsed_time = 0.0
 
     while True:

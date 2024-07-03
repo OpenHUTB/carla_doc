@@ -1,14 +1,14 @@
 !!! 警告
-    这是一项正在进行的工作！！这个版本的 CARLA 不被认为是一个稳定的版本。在接下来的几个月里，这个分支可能会发生许多重大变化，这可能会破坏您所做的任何修改。我们建议你把这个分支当作实验性的。
+    这是一项正在进行的工作！！这个版本的 Carla 不被认为是一个稳定的版本。在接下来的几个月里，这个分支可能会发生许多重大变化，这可能会破坏您所做的任何修改。我们建议你把这个分支当作实验性的。
 
 # 在Linux中使用 Unreal Engine 5.3 构建
 
 !!! 笔记
-    这个构建过程是为Ubuntu 22.04实现和测试的。我们建议使用这个Ubuntu版本。
+    这个构建过程是为 Ubuntu 22.04 实现和测试的。我们建议使用这个 Ubuntu 版本。
 
 ## 设置环境
 
-本指南详细介绍了如何在Linux上使用 Unreal Engine 5.3 从源代码构建 CARLA。
+本指南详细介绍了如何在 Linux 上使用 Unreal Engine 5.3 从源代码构建 Carla。
 
 在您的本地机器上克隆 Carla 的 `ue5-dev` 分支：
 
@@ -23,19 +23,19 @@ cd CarlaUE5
 bash -x Setup.sh
 ```
 
-`Setup.sh`脚本安装所有必需的软件包，包括 Cmake、debian 软件包、Python软件包和 Unreal Engine 5.3。它还下载 CARLA 内容并构建 CARLA。因此，此脚本可能需要很长时间才能完成。
+`Setup.sh`脚本安装所有必需的软件包，包括 Cmake、debian 软件包、Python软件包和 Unreal Engine 5.3。它还下载 Carla 内容并构建 Carla。因此，此脚本可能需要很长时间才能完成。
 
 注意：
-* 这个版本的CARLA需要 **创建虚幻引擎 5.3 的 Carla 分叉**。为了获得克隆UE存储库的权限，您需要将GitHub 帐户链接到Epic Games。如果您尚未链接您的帐户，请遵循[本指南]((https://www.unrealengine.com/en-US/ue4-on-github)) 。 
+* 这个版本的 Carla 需要 **创建虚幻引擎 5.3 的 Carla 分叉**。为了获得克隆UE存储库的权限，您需要将GitHub 帐户链接到Epic Games。如果您尚未链接您的帐户，请遵循[本指南]((https://www.unrealengine.com/en-US/ue4-on-github)) 。 
 
-* 要使用 CARLA Unreal Engine 5 以前的版本，**请确保定义了指向 `CARLA_UNREAL_ENGINE_PATH` 环境变量定义的**绝对路径。如果未定义此变量，`Setup.sh`脚本将下载并构建 CARLA Unreal Engine 5，**这需要额外1个多小时的构建和225Gb的磁盘空间**。
+* 要使用 Carla Unreal Engine 5 以前的版本，**请确保定义了指向 `CARLA_UNREAL_ENGINE_PATH` 环境变量定义的**绝对路径。如果未定义此变量，`Setup.sh`脚本将下载并构建 Carla Unreal Engine 5，**这需要额外1个多小时的构建和225Gb的磁盘空间**。
 
-* `Setup.sh`脚本检查PATH变量顶部是否安装了任何Python，否则安装 Python。要使用您自己的 Python 版本，**请确保在运行脚本之前为Python正确设置了PATH变量**。
+* `Setup.sh`脚本检查 PATH 变量顶部是否安装了任何Python，否则安装 Python。要使用您自己的 Python 版本，**请确保在运行脚本之前为 Python 正确设置了 PATH 变量**。
 
 * Carla 不能在外部磁盘上构建，Ubuntu 没有为构建提供所需的读/写/执行权限。
 
 
-## 构建并运行 CARLA UE5
+## 构建并运行 Carla UE5
 
 安装脚本本身启动以下命令，一旦修改代码并希望重新启动，则需要使用以下命令：
 

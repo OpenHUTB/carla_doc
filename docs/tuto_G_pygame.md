@@ -14,27 +14,26 @@ import random
 import pygame
 import numpy as np
 
-# Connect to the client and retrieve the world object
+# 连接到客户端并获取世界对象
 client = carla.Client('localhost', 2000)
 world = client.get_world()
 
-# Set up the simulator in synchronous mode
+# 以同步模式启动模拟器
 settings = world.get_settings()
 settings.synchronous_mode = True # Enables synchronous mode
 settings.fixed_delta_seconds = 0.05
 world.apply_settings(settings)
 
-# Set up the TM in synchronous mode
+# 以同步模式启动交通管理器
 traffic_manager = client.get_trafficmanager()
 traffic_manager.set_synchronous_mode(True)
 
-# Set a seed so behaviour can be repeated if necessary
+# 如果有复现的必要，可以设置随机种子
 traffic_manager.set_random_device_seed(0)
 random.seed(0)
 
-# We will aslo set up the spectator so we can see what we do
+# 我们也会启动观察者以便能看到我们所做的
 spectator = world.get_spectator()
-
 ```
 
 ## 生成车辆
@@ -42,34 +41,32 @@ spectator = world.get_spectator()
 我们想要创建一个在整个城市中产生的车辆集合，并让交通管理器控制它们。
 
 ```py
-# Retrieve the map's spawn points
+# 获取地图的生成点
 spawn_points = world.get_map().get_spawn_points()
 
-# Select some models from the blueprint library
+# 从蓝图库中选择一些模型
 models = ['dodge', 'audi', 'model3', 'mini', 'mustang', 'lincoln', 'prius', 'nissan', 'crown', 'impala']
 blueprints = []
 for vehicle in world.get_blueprint_library().filter('*vehicle*'):
     if any(model in vehicle.id for model in models):
         blueprints.append(vehicle)
 
-# Set a max number of vehicles and prepare a list for those we spawn
+# 设置车辆的最大数目，并准备我们生成的列表
 max_vehicles = 50
 max_vehicles = min([max_vehicles, len(spawn_points)])
 vehicles = []
 
-# Take a random sample of the spawn points and spawn some vehicles
+# 随机选取生成点的样本并生成车辆
 for i, spawn_point in enumerate(random.sample(spawn_points, max_vehicles)):
     temp = world.try_spawn_actor(random.choice(blueprints), spawn_point)
     if temp is not None:
         vehicles.append(temp)
 
-# Parse the list of spawned vehicles and give control to the TM through set_autopilot()
+# 解析生成车辆的列表，并通过 set_autopilot() 给予控制
 for vehicle in vehicles:
     vehicle.set_autopilot(True)
     # Randomly set the probability that a vehicle will ignore traffic lights
     traffic_manager.ignore_lights_percentage(vehicle, random.randint(0,50))
-
-
 ```
 
 ## 使用 PyGame 渲染相机输出并控制车辆

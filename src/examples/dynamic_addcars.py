@@ -44,11 +44,6 @@ def draw_waypoints(waypoints, road_id=None, life_time=50.0):
           world.debug.draw_string(waypoint.transform.location, 'O', draw_shadow=False,
                                    color=carla.Color(r=0, g=255, b=0), life_time=life_time,
                                    persistent_lines=True)
- 
-
-
-
-
 
 
 def main():
