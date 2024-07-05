@@ -70,15 +70,15 @@
               
                 <div class="admonition 警告">
 <p class="admonition-title">警告</p>
-<p>这是一项正在进行的工作！！这个版本的 CARLA 不被认为是一个稳定的版本。在接下来的几个月里，这个分支可能会发生许多重大变化，这可能会破坏您所做的任何修改。我们建议你把这个分支当作实验性的。</p>
+<p>这是一项正在进行的工作！！这个版本的 Carla 不被认为是一个稳定的版本。在接下来的几个月里，这个分支可能会发生许多重大变化，这可能会破坏您所做的任何修改。我们建议你把这个分支当作实验性的。</p>
 </div>
 <h1 id="linux-unreal-engine-53">在Linux中使用 Unreal Engine 5.3 构建</h1>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
-<p>这个构建过程是为Ubuntu 22.04实现和测试的。我们建议使用这个Ubuntu版本。</p>
+<p>这个构建过程是为 Ubuntu 22.04 实现和测试的。我们建议使用这个 Ubuntu 版本。</p>
 </div>
 <h2 id="_1">设置环境</h2>
-<p>本指南详细介绍了如何在Linux上使用 Unreal Engine 5.3 从源代码构建 CARLA。</p>
+<p>本指南详细介绍了如何在 Linux 上使用 Unreal Engine 5.3 从源代码构建 Carla。</p>
 <p>在您的本地机器上克隆 Carla 的 <code>ue5-dev</code> 分支：</p>
 <pre><code class="language-sh">git clone -b ue5-dev https://github.com/carla-simulator/carla.git CarlaUE5
 </code></pre>
@@ -86,21 +86,21 @@
 <pre><code class="language-sh">cd CarlaUE5
 bash -x Setup.sh
 </code></pre>
-<p><code>Setup.sh</code>脚本安装所有必需的软件包，包括 Cmake、debian 软件包、Python软件包和 Unreal Engine 5.3。它还下载 CARLA 内容并构建 CARLA。因此，此脚本可能需要很长时间才能完成。</p>
+<p><code>Setup.sh</code>脚本安装所有必需的软件包，包括 Cmake、debian 软件包、Python软件包和 Unreal Engine 5.3。它还下载 Carla 内容并构建 Carla。因此，此脚本可能需要很长时间才能完成。</p>
 <p>注意：
-* 这个版本的CARLA需要 <strong>创建虚幻引擎 5.3 的 Carla 分叉</strong>。为了获得克隆UE存储库的权限，您需要将GitHub 帐户链接到Epic Games。如果您尚未链接您的帐户，请遵循<a href="(https://www.unrealengine.com/en-US/ue4-on-github)">本指南</a> 。 </p>
+* 这个版本的 Carla 需要 <strong>创建虚幻引擎 5.3 的 Carla 分叉</strong>。为了获得克隆UE存储库的权限，您需要将GitHub 帐户链接到Epic Games。如果您尚未链接您的帐户，请遵循<a href="(https://www.unrealengine.com/en-US/ue4-on-github)">本指南</a> 。 </p>
 <ul>
 <li>
-<p>要使用 CARLA Unreal Engine 5 以前的版本，<strong>请确保定义了指向 <code>CARLA_UNREAL_ENGINE_PATH</code> 环境变量定义的</strong>绝对路径。如果未定义此变量，<code>Setup.sh</code>脚本将下载并构建 CARLA Unreal Engine 5，<strong>这需要额外1个多小时的构建和225Gb的磁盘空间</strong>。</p>
+<p>要使用 Carla Unreal Engine 5 以前的版本，<strong>请确保定义了指向 <code>CARLA_UNREAL_ENGINE_PATH</code> 环境变量定义的</strong>绝对路径。如果未定义此变量，<code>Setup.sh</code>脚本将下载并构建 Carla Unreal Engine 5，<strong>这需要额外1个多小时的构建和225Gb的磁盘空间</strong>。</p>
 </li>
 <li>
-<p><code>Setup.sh</code>脚本检查PATH变量顶部是否安装了任何Python，否则安装 Python。要使用您自己的 Python 版本，<strong>请确保在运行脚本之前为Python正确设置了PATH变量</strong>。</p>
+<p><code>Setup.sh</code>脚本检查 PATH 变量顶部是否安装了任何Python，否则安装 Python。要使用您自己的 Python 版本，<strong>请确保在运行脚本之前为 Python 正确设置了 PATH 变量</strong>。</p>
 </li>
 <li>
 <p>Carla 不能在外部磁盘上构建，Ubuntu 没有为构建提供所需的读/写/执行权限。</p>
 </li>
 </ul>
-<h2 id="carla-ue5">构建并运行 CARLA UE5</h2>
+<h2 id="carla-ue5">构建并运行 Carla UE5</h2>
 <p>安装脚本本身启动以下命令，一旦修改代码并希望重新启动，则需要使用以下命令：</p>
 <ul>
 <li>配置：</li>
