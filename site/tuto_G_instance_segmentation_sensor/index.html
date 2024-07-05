@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>实例分割传感器 - 交通仿真文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u5b9e\u4f8b\u5206\u5272\u4f20\u611f\u5668";
+        var mkdocs_page_input_path = "tuto_G_instance_segmentation_sensor.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">实例分割传感器</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/tuto_G_instance_segmentation_sensor.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">实例分割传感器</h1>
+<p><strong>实例分割(Instance segmentation)</strong>是一种新型相机传感器，可为场景中的每个对象生成唯一的像素值。这与语义分割传感器形成对比，语义分割传感器对于相同对象类的实例（例如车辆）具有相同的 ID。</p>
+<p>要生成语义分割相机，我们需要<code>sensor.camera.instance_segmentation</code>蓝图：</p>
+<pre><code class="language-py">instance_camera_bp = world.get_blueprint_library().find('sensor.camera.instance_segmentation')
+</code></pre>
+<h1 id="_2">示例</h1>
+<p>我们将首先设置一个带有实例分割相机的世界，并在场景中生成大量车辆。</p>
+<p>连接到服务器并设置为同步模式。</p>
+<pre><code class="language-py">import carla
+import random
+import time
+import queue
+
+# 连接到客户端并将Carla服务器设置为同步模式
+client = carla.Client('localhost', 2000)
+world = client.get_world()
+settings = world.get_settings()
+settings.synchronous_mode = True
+world.apply_settings(settings) 
+</code></pre>
+<p>设置实例分割传感器并将其生成在所需的地图位置。</p>
+<pre><code class="language-py"># 获得地图的生成点和观察者
+spawn_points = world.get_map().get_spawn_points()
+spectator = world.get_spectator()
+
+# 在地图上某些位置设置相机
+cam_location = carla.Location(x=-46., y=152, z=18)
+cam_rotation = carla.Rotation(pitch=-21, yaw=-93.4, roll=0)
+camera_transform = carla.Transform(location=cam_location, rotation=cam_rotation)
+spectator.set_transform(camera_transform)
+
+# 获取语义相机蓝图和生成相机
+instance_camera_bp = world.get_blueprint_library().find('sensor.camera.instance_segmentation')
+instance_camera = world.try_spawn_actor(instance_camera_bp, camera_transform)
+</code></pre>
+<p>在摄像机周围生成车辆，用大量对象实例填充场景。</p>
+<pre><code class="language-py"># 在相机周围80米内生成车辆
+vehicle_bp_library = world.get_blueprint_library().filter('*vehicle*')
+radius = 80
+for spawn_point in spawn_points:
+    vec = [spawn_point.location.x - cam_location.x, spawn_point.location.y - cam_location.y]
+    if vec[0]*vec[0] + vec[1]*vec[1] &lt; radius*radius:
+        world.try_spawn_actor(random.choice(vehicle_bp_library), spawn_point)
+world.tick()
+</code></pre>
+<p>现在生成图像。</p>
+<pre><code class="language-py"># 将图片保存到磁盘
+instance_image_queue = queue.Queue()
+instance_camera.listen(instance_image_queue.put)
+world.tick()
+instance_image=instance_image_queue.get()
+instance_image.save_to_disk('instance_segmentation.png')
+</code></pre>
+<h2 id="_3">图像输出</h2>
+<p>保存到磁盘的实例分割图像的实例 ID 编码在 RGB 图像文件的 G 和 B 通道中。R通道包含标准语义ID。</p>
+<p><img alt="instance_segmentation" src="../img/instance_segmentation.png" /></p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

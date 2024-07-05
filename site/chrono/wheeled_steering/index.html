@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>转向机构模型 - 交通仿真文档</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u8f6c\u5411\u673a\u6784\u6a21\u578b";
+        var mkdocs_page_input_path = "chrono\\wheeled_steering.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">转向机构模型</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/chrono/wheeled_steering.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">转向机构模型</h1>
+<ul>
+<li><a href="#pitman_arm"><strong>转向臂</strong></a></li>
+<li><a href="#rack_pinion"><strong>齿条齿轮</strong></a></li>
+<li><a href="#rotary_arm"><strong>旋臂</strong></a></li>
+</ul>
+<p>基类 <a href="https://api.projectchrono.org/classchrono_1_1vehicle_1_1_ch_steering.html">ChSteering</a> 规定任何派生的转向机构类（转向机构模板）都应提供一个转向连杆体，可转向悬架可以与其连接（通常通过悬架的转向连杆）。</p>
+<p>派生转向机构类型定义特定类型的转向机构的主体、关节、力元素和拓扑。所有位置均假定相对于机构参考系提供（派生转向机构类型可以自由选择此框架的位置和方向）。</p>
+<p>通过指定机构组件参考系相对于底盘参考系的位置和方向（参见 <a href="https://api.projectchrono.org/vehicle_overview.html#vehicle_ISO_frame">ISO 参考系</a> 的定义），将转向机构组件安装到车辆底盘上。</p>
+<p>轮式车辆可能有多个转向机构，每个转向机构与不同的转向车轴相关联。同样，单个转向机构可以连接到多个转向车轴。</p>
+<h2 id="_2">转向臂 <span id="pitman_arm"></span></h2>
+<p>该转向机构为四连杆机构，转向连杆体通过转向臂和惰臂与底盘相连。转向臂体通过万向节与转向连杆相连，通过旋转关节与底盘相连。驾驶员转向输入用于控制旋转关节的角度。在 Chrono::Vehicle 转向臂模板中，惰臂采用复合旋转球关节建模。</p>
+<p>参见 <a href="https://api.projectchrono.org/classchrono_1_1vehicle_1_1_ch_pitman_arm.html">ChPitmanArm</a> 和 <a href="https://api.projectchrono.org/classchrono_1_1vehicle_1_1_pitman_arm.html">PitmanArm</a> 。</p>
+<p><img alt="" src="../../img/chrono/PitmanArm_bodies.png" /></p>
+<p>本转向机构模板的拓扑结构为：</p>
+<p><img alt="" src="../../img/chrono/PitmanArm_topology.png" /></p>
+<p>承力点如下：</p>
+<p><img alt="" src="../../img/chrono/PitmanArm_points.png" /></p>
+<p>具有 PitmanArm 转向机构规范的示例 JSON 文件如下：</p>
+<pre><code class="language-json">{
+  &quot;Name&quot;:                       &quot;HMMWV Pitman Arm Steering&quot;,
+  &quot;Type&quot;:                       &quot;Steering&quot;,
+  &quot;Template&quot;:                   &quot;PitmanArm&quot;,
+
+  &quot;Vehicle-Frame Inertia&quot;:      false,
+
+  &quot;Steering Link&quot;:
+  {
+    &quot;Mass&quot;:                     3.681,
+    &quot;COM&quot;:                      [0.129, 0, 0],
+    &quot;Moments of Inertia&quot;:       [0.252, 0.00233, 0.254],
+    &quot;Products of Inertia&quot;:      [0, 0, 0],
+    &quot;Radius&quot;:                   0.03
+  },
+
+  &quot;Pitman Arm&quot;:
+  {
+    &quot;Mass&quot;:                     1.605,
+    &quot;COM&quot;:                      [0.064, 0.249, 0],
+    &quot;Moments of Inertia&quot;:       [0.00638, 0.00756, 0.00150],
+    &quot;Products of Inertia&quot;:      [0, 0, 0],
+    &quot;Radius&quot;:                   0.02
+  },
+
+  &quot;Revolute Joint&quot;:
+  {
+    &quot;Location&quot;:                 [0, 0.249, 0],
+    &quot;Direction&quot;:                [0, 0, 1],
+    &quot;Maximum Angle (deg)&quot;:      30
+  },
+
+  &quot;Universal Joint&quot;:
+  {
+    &quot;Location&quot;:                 [ 0.129, 0.249, 0],
+    &quot;Direction Arm&quot;:            [0, 0, 1],
+    &quot;Direction Link&quot;:           [1, 0, 0]
+  },
+
+  &quot;Revolute-Spherical Joint&quot;:
+  {
+    &quot;Location Chassis&quot;:         [0, -0.325, 0],
+    &quot;Location Link&quot;:            [0.129, -0.325, 0],
+    &quot;Direction&quot;:                [0, 0, 1]
+  },
+
+  &quot;Tierod Locations&quot;:
+  {
+    &quot;Pitman Side&quot;:              [0.195,  0.448, 0.035],
+    &quot;Idler Side&quot;:               [0.195, -0.448, 0.035]
+  }
+}
+</code></pre>
+<h2 id="_3">齿条齿轮 <span id="rack_pinion"></span></h2>
+<p>Chrono::Vehicle 齿条齿轮转向模板是齿条齿轮转向机构的运动学模型。转向连杆体通过棱柱关节连接到底盘。齿条位移计算如下：</p>
+<p>d= r （α最大限度s )</p>
+<p>其中r是小齿轮半径，α最大限度 是最大小齿轮角，并且s ∈ [ − 1 , 1 ]是驾驶员的转向输入。该位移用于控制转向连杆的平移。</p>
+<p>参见 <a href="https://api.projectchrono.org/classchrono_1_1vehicle_1_1_ch_rack_pinion.html">ChRackPinion</a> 和 <a href="https://api.projectchrono.org/classchrono_1_1vehicle_1_1_rack_pinion.html">RackPinion</a> 。</p>
+<p><img alt="" src="../../img/chrono/RackPinion_bodies.png" /></p>
+<p>本转向机构模板的拓扑结构为：</p>
+<p><img alt="" src="../../img/chrono/RackPinion_topology.png" /></p>
+<p>受力点如下：</p>
+<p><img alt="" src="../../img/chrono/RackPinion_points.png" /></p>
+<p>具有 RackPinion 转向机构规范的示例 JSON 文件如下：</p>
+<pre><code class="language-json">{
+  &quot;Name&quot;:                       &quot;HMMWV Rack-Pinion Steering&quot;,
+  &quot;Type&quot;:                       &quot;Steering&quot;,
+  &quot;Template&quot;:                   &quot;RackPinion&quot;,
+
+  &quot;Steering Link&quot;:
+  {
+    &quot;Mass&quot;:                     9.072,
+    &quot;COM&quot;:                      0,
+    &quot;Inertia&quot;:                  [1, 1, 1],
+    &quot;Radius&quot;:                   0.03,
+    &quot;Length&quot;:                   0.896
+  },
+
+  &quot;Pinion&quot;:
+  {
+    &quot;Radius&quot;:                   0.1,
+    &quot;Maximum Angle (deg)&quot;:      50
+  }
+}
+</code></pre>
+<h2 id="_4">旋臂 <span id="rotary_arm"></span></h2>
+<p>旋转臂转向是一种绕轴旋转的简单杠杆臂。它与实心摇臂轴和实心前束轴配合使用。它通常用作卡车、农用拖拉机和联合收割机的转向系统。</p>
+<p>参见 <a href="https://api.projectchrono.org/classchrono_1_1vehicle_1_1_ch_rotary_arm.html">ChRotaryArm</a> 和 <a href="https://api.projectchrono.org/classchrono_1_1vehicle_1_1_rotary_arm.html">RotaryArm</a> 。</p>
+<p><img alt="" src="../../img/chrono/RotaryArm_bodies.png" /></p>
+<p>本转向机构模板的拓扑结构为：</p>
+<p><img alt="" src="../../img/chrono/RotaryArm_topology.png" /></p>
+<p>受力点如下：</p>
+<p><img alt="" src="../../img/chrono/RotaryArm_points.png" /></p>
+<p>具有 RotaryArm 转向机构规范的示例 JSON 文件如下：</p>
+<pre><code class="language-json">{
+  &quot;Name&quot;:                       &quot;UAZBUS Rotary-Arm Steering&quot;,
+  &quot;Type&quot;:                       &quot;Steering&quot;,
+  &quot;Template&quot;:                   &quot;RotaryArm&quot;,
+
+  &quot;Pitman Arm&quot;:
+  {
+    &quot;Mass&quot;:                     5.0,
+    &quot;Inertia&quot;:                  [0.00638, 0.00756, 0.00150],
+    &quot;Inertia Products&quot;:         [0, 0, 0],
+    &quot;Radius&quot;:                   0.03,
+    &quot;Axis of Rotation&quot;:         [0, 1, 0],           // arm-chassis revolute joint
+    &quot;Point of Rotation&quot;:        [0.6, 0.5325, 0.4],  // location of chassis connection
+    &quot;Point to Draglink&quot;:        [0.6, 0.5325, 0.2],  // location of draglink connection
+    &quot;Maximum Angle (deg)&quot;:      12.5
+  }
+
+}
+</code></pre>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>定位 - 交通仿真文档</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u5b9a\u4f4d";
+        var mkdocs_page_input_path = "algorithms\\localization.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">定位</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/algorithms/localization.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">定位</h1>
+<h2 id="_2">定位模块介绍</h2>
+<p>ISS 定位模块确保自动驾驶车辆不仅了解其在广阔的道路和环境中的位置，而且具有无与伦比的准确性。在本文档中，我们概述了当前的流程，从单个传感器到传感器融合算法。</p>
+<h2 id="_3">单独的传感器</h2>
+<p>为了实现精确定位，采用了使用各种传感器和算法的多方面方法：</p>
+<ol>
+<li><strong>激光雷达</strong>：</li>
+<li><strong>迭代最近点(Iterative Closest Point, ICP)</strong><a href="#ref1"><sup>[1]</sup></a>：该算法对齐两个点云以确定对齐它们的最佳拟合变换。</li>
+<li>
+<p><strong>正态分布变换(Normal Distributions Transform, NDT)</strong><a href="#ref2"><sup>[2]</sup></a>: 这种先进的方法使用正态分布表示点云数据，提供了一种强大而有效的配准方法。</p>
+</li>
+<li>
+<p><strong>惯性测量单元(Inertial Measurement Unit, IMU)</strong>:</p>
+</li>
+<li>
+<p><strong>航位推算</strong>：通过利用运动传感器数据，航位推算可以连续估计车辆的位置。然而，随着时间的推移，其准确性会降低，需要补充数据进行校正。</p>
+</li>
+<li>
+<p><strong>全球定位系统(Global Positioning System, GPS)</strong>:</p>
+</li>
+<li>虽然 GPS 为定位提供了全球参考，但其精度可能不足以满足自动驾驶的严格公差要求。因此，GPS 数据通常与其他传感器数据融合以提高准确性。</li>
+</ol>
+<h2 id="_4">传感器融合</h2>
+<p>完美定位的关键不仅在于传感器的个体能力，还在于它们的协作能力：</p>
+<ol>
+<li><strong>基于滤波器的方法</strong>:</li>
+<li>
+<p>递归算法，例如 <strong>卡尔曼滤波器</strong> 和 <strong>粒子滤波器</strong><a href="#ref3"><sup>[3]</sup></a>，对于实时状态估计和预测是必不可少的。</p>
+</li>
+<li>
+<p><strong>基于优化的方法</strong>:</p>
+</li>
+<li><strong>GraphSLAM</strong><a href="#ref4"><sup>[4]</sup></a> 等整体方法可以调整和细化整个轨迹或地图，确保后处理场景中的最高准确性。</li>
+</ol>
+<h2 id="_5">实施路线图</h2>
+<ol>
+<li>维护激光雷达（迭代最近点、正太分布变换）、惯性测量单位（航位推测）、全球定位系统和基于滤波器的融合。</li>
+<li>研究基于优化的融合：GraphSLAM、绑定调整、位姿图优化。</li>
+<li>收集和处理优化方法的数据集。</li>
+<li>将基于优化的融合集成到当前的管道中。</li>
+</ol>
+<h2 id="_6">参考文献</h2>
+<ol>
+    <li id="ref1">Besl P J, McKay N D. Method for registration of 3-D shapes. In <i>Sensor fusion IV: control paradigms and data structures</i>. Spie, 1992, 1611: 586-606.</li>
+    <li id="ref2">Biber P, Straßer W. The normal distributions transform: A new approach to laser scan matching. In <i>Proceedings 2003 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS 2003)</i>. IEEE, 2003, 3: 2743-2748.</li>
+    <li id="ref3">Thrun S. Probabilistic robotics. In <i>Communications of the ACM</i>, 2002, 45(3): 52-57.</li>
+    <li id="ref4">Shan T, Englot B, Meyers D, et al. Lio-sam: Tightly-coupled LiDAR inertial odometry via smoothing and mapping. In <i>2020 IEEE/RSJ international conference on intelligent robots and systems (IROS)</i>. IEEE, 2020: 5135-5142.</li>
+</ol>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

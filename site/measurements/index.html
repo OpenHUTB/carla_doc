@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>测量 - 交通仿真文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u6d4b\u91cf";
+        var mkdocs_page_input_path = "measurements.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">测量</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/measurements.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">测量</h1>
+<div class="admonition 重要">
+<p class="admonition-title">重要</p>
+<p>自 0.8.0 版起，客户端接收的测量值采用国际单位制。所有位置均已转换为 <code>米</code>，速度也已转换为 <code>米/秒</code>。</p>
+</div>
+<p>服务器每帧都会向客户端发送一个包含测量值和收集到的图像数据包。本文档描述了这些测量值的详细信息。</p>
+<h2 id="_2">时间戳</h2>
+<p>每个帧由三个不同的计数器/时间戳描述</p>
+<table>
+<thead>
+<tr>
+<th>键</th>
+<th>类型</th>
+<th>单位</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>frame_number</td>
+<td>uint64</td>
+<td></td>
+<td>帧计数器（不会在每集结束后重新启动）。</td>
+</tr>
+<tr>
+<td>platform_timestamp</td>
+<td>uint32</td>
+<td>毫秒</td>
+<td>当前帧的时间戳，由操作系统给出。</td>
+</tr>
+<tr>
+<td>game_timestamp</td>
+<td>uint32</td>
+<td>毫秒</td>
+<td>游戏中的时间戳，自当前剧集开始以来经过的时间。</td>
+</tr>
+</tbody>
+</table>
+<p>在实时模式下，两个时间步长之间的经过时间应与平台和游戏时间戳相似。在固定时间步长中运行时，游戏时间戳以恒定时间步长递增（delta=1/FPS），而平台时间戳保持实际经过的时间。</p>
+<h2 id="_3">玩家测量</h2>
+<table>
+<thead>
+<tr>
+<th>键</th>
+<th>类型</th>
+<th>单位</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>transform</td>
+<td>Transform</td>
+<td></td>
+<td>玩家的世界变换（包含位置和旋转）。</td>
+</tr>
+<tr>
+<td>acceleration</td>
+<td>Vector3D</td>
+<td>m/s^2</td>
+<td>玩家当前的加速度。</td>
+</tr>
+<tr>
+<td>forward_speed</td>
+<td>float</td>
+<td>m/s</td>
+<td>玩家的前进速度。</td>
+</tr>
+<tr>
+<td>collision_vehicles</td>
+<td>float</td>
+<td>kg*m/s</td>
+<td>与其他车辆的碰撞强度。</td>
+</tr>
+<tr>
+<td>collision_pedestrians</td>
+<td>float</td>
+<td>kg*m/s</td>
+<td>与行人的碰撞强度。</td>
+</tr>
+<tr>
+<td>collision_other</td>
+<td>float</td>
+<td>kg*m/s</td>
+<td>一般碰撞强度（除行人和车辆以外的一切）。</td>
+</tr>
+<tr>
+<td>intersection_otherlane</td>
+<td>float</td>
+<td></td>
+<td>车辆侵入其他车道的百分比。</td>
+</tr>
+<tr>
+<td>intersection_offroad</td>
+<td>float</td>
+<td></td>
+<td>汽车越野的百分比。</td>
+</tr>
+<tr>
+<td>autopilot_control</td>
+<td>float</td>
+<td></td>
+<td>车辆的自动驾驶控制将应用此框架。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_4">转换</h2>
+<p>变换包含玩家的位置和旋转。</p>
+<table>
+<thead>
+<tr>
+<th>键</th>
+<th>类型</th>
+<th>单位</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>location</td>
+<td>Vector3D</td>
+<td>米</td>
+<td>世界位置。</td>
+</tr>
+<tr>
+<td>orientation [已弃用]</td>
+<td>Vector3D</td>
+<td></td>
+<td>以笛卡尔坐标表示的方向。</td>
+</tr>
+<tr>
+<td>rotation</td>
+<td>Vector3D</td>
+<td>度</td>
+<td>俯仰、滚转和偏航。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_5">碰撞</h2>
+<p>碰撞变量保存了此事件中发生的所有碰撞的累积。每次碰撞都会按比例影响碰撞强度（两个碰撞物体之间的法向冲量的范数）。</p>
+<p>保留三种不同的计数（行人、车辆和其他）。碰撞物体根据其标签进行分类（与语义分割相同）。</p>
+<div class="admonition 漏洞">
+<p class="admonition-title">漏洞</p>
+<p>参见 <a href="https://github.com/carla-simulator/carla/issues/13">#13 当车辆速度较低时，不会标注碰撞</a></p>
+</div>
+<p>如果车辆没有移动（&lt;1 公里/小时），则不会注释碰撞，以避免由于非玩家代理的 AI 错误而注释不必要的碰撞。</p>
+<h3 id="_6">车道/越野路口</h3>
+<p>车道交叉口测量车辆侵入对面车道的百分比。越野交叉口测量车辆在道路外的百分比。</p>
+<p>这些值是通过车辆边界框（作为 2D 矩形）与城市地图图像相交计算得出的。这些图像在编辑器中生成并序列化以供运行时使用。您也可以在发布包中的“RoadMaps”文件夹下找到它们。</p>
+<h3 id="_7">自动驾驶仪控制</h3>
+<p>测量<code>autopilot_control</code>结果包含游戏内自动驾驶系统在控制车辆时所应用的控制值。</p>
+<p>这与将车辆控制发送到服务器的结构相同。</p>
+<table>
+<thead>
+<tr>
+<th>键</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steer</td>
+<td>float</td>
+<td>转向角度在 [-1.0, 1.0] 之间 (*)</td>
+</tr>
+<tr>
+<td>throttle</td>
+<td>float</td>
+<td>油门输入介于 [ 0.0, 1.0] 之间</td>
+</tr>
+<tr>
+<td>brake</td>
+<td>float</td>
+<td>刹车输入介于 [ 0.0, 1.0] 之间</td>
+</tr>
+<tr>
+<td>hand_brake</td>
+<td>bool</td>
+<td>手刹是否拉紧</td>
+</tr>
+<tr>
+<td>reverse</td>
+<td>bool</td>
+<td>车辆是否处于倒档</td>
+</tr>
+</tbody>
+</table>
+<p>要从客户端激活自动驾驶仪，请将<code>autopilot_control</code>发送回服务器。请注意，您可以在将其发送回之前对其进行修改。</p>
+<pre><code class="language-python">measurements, sensor_data = carla_client.read_data()
+control = measurements.player_measurements.autopilot_control
+# modify here control if wanted.
+carla_client.send_control(control)
+</code></pre>
+<p>(*) 实际转向角度取决于所用车辆。默认 Mustang 的最大转向角度为 70 度（可在车辆前轮蓝图中查看）。</p>
+<p><img alt="" src="../img/steering_angle_mustang.png" /></p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

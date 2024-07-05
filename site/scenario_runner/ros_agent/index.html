@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>基于ROS的挑战智能体 - 交通仿真文档</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u57fa\u4e8eROS\u7684\u6311\u6218\u667a\u80fd\u4f53";
+        var mkdocs_page_input_path = "scenario_runner\\ros_agent.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">基于ROS的挑战智能体</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/scenario_runner/ros_agent.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="ros">基于ROS的挑战智能体</h1>
+<p>与 ROS 的 CARLA 接口通常通过 <a href="https://github.com/carla-simulator/ros-bridge">CARLA ROS Bridge</a> 完成。在挑战模式下，此桥接功能由 RosAgent 提供。它对传感器使用相同的主题和消息类型，但不发布 tf 转换。</p>
+<h1 id="_1">要求</h1>
+<ul>
+<li><code>roscore</code> 预计将在 docker 容器中运行。请调整您的入口点。</li>
+</ul>
+<h2 id="_2">设置</h2>
+<p>要在挑战模式下启用堆栈，需要执行以下步骤：</p>
+<ol>
+<li>定义传感器设置</li>
+<li>定义启动</li>
+</ol>
+<h3 id="_3">定义传感器设置</h3>
+<p>派生自RosAgent并实现sensors()方法。</p>
+<pre><code>from srunner.autoagents.ros_agent import RosAgent
+
+class MyRosAgent(RosAgent):
+
+    def sensors(self):
+        return [ &lt;sensor-definition&gt; ]
+</code></pre>
+<p>作为传感器定义的示例，请参阅 <a href="../srunner/autoagents/human_agent.py">HumanAgent.py</a>。 </p>
+<h3 id="_4">定义启动</h3>
+<p>堆栈的启动是在 shell 脚本 <code>$TEAM_CODE_ROOT/start.sh</code> 内完成的。因此 <code>TEAM_CODE_ROOT</code> 必须设置环境变量。</p>
+<p>RosAgent 负责执行和监控。只要堆栈处于活动状态，脚本就应保持运行。</p>
+<p>start.sh 的示例</p>
+<pre><code>#!/bin/bash -e
+roslaunch $TEAM_CODE_ROOT/challenge.launch
+</code></pre>
+<h2 id="_5">测试</h2>
+<p>一般来说，挑战执行是无头的。为了进行诊断，您仍然可以使用 rviz 或 rqt 等 ros 工具。此外，您可以使用carla_ros_bridge 中的 <a href="https://github.com/carla-simulator/ros-bridge/tree/master/carla_manual_control">carla_manual_control</a> 进行可视化（并控制车辆）。</p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

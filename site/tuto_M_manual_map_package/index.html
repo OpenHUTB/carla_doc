@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>手动包准备 - 交通仿真文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u624b\u52a8\u5305\u51c6\u5907";
+        var mkdocs_page_input_path = "tuto_M_manual_map_package.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">手动包准备</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/tuto_M_manual_map_package.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">手动包准备</h1>
+<p>地图包遵循特定的文件夹结构，并且必须包含描述该结构的 <code>.json</code> 文件。我们的自动地图导入流程会自动创建此<code>.json</code>文件，但您也可以选择自行准备。包含您自己的<code>.json</code>文件将覆盖传递给<code>make import</code>命令的任何参数。</p>
+<ul>
+<li><a href="#standard-maps"><strong>标准地图</strong></a><ul>
+<li><a href="#create-the-folder-structure-for-the-standard-maps">为标准地图创建文件夹结构</a></li>
+<li><a href="#create-the-json-description-for-the-standard-maps">为标准地图创建 JSON 描述</a></li>
+</ul>
+</li>
+<li><a href="#large-maps"><strong>大地图</strong></a><ul>
+<li><a href="#create-the-folder-structure-for-the-large-maps">为大地图创建文件夹结构</a></li>
+<li><a href="#create-the-json-description-for-the-large-maps">为大地图创建 JSON 描述</a></li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="_2">标准地图</h2>
+<h3 id="_3">为标准地图创建文件夹结构</h3>
+<ol>
+<li>
+<p><strong>在 <code>carla/Import</code> 里面创建一个文件夹。</strong> 文件夹的名称并不重要。</p>
+</li>
+<li>
+<p>为每个要导入的地图 <strong>创建不同的子文件夹</strong>。</p>
+</li>
+<li>
+<p><strong>将每个地图的文件移动到相应的子文件夹中。</strong> 子文件夹将包含一组特定的元素： </p>
+</li>
+<li>
+<p><code>.fbx</code> 文件中地图的网格。  </p>
+</li>
+<li><code>.xodr</code> 文件中的 OpenDRIVE 定义。  </li>
+<li>（可选）资产所需的纹理。  </li>
+</ol>
+<p>例如，一个包含两个地图的包的 <code>Import</code> 文件夹应具有类似于以下结构的结构。</p>
+<pre><code class="language-sh">Import
+│
+└── Package01
+  ├── Package01.json
+  ├── Map01
+  │   ├── Asphalt1_Diff.jpg
+  │   ├── Asphalt1_Norm.jpg
+  │   ├── Asphalt1_Spec.jpg
+  │   ├── Grass1_Diff.jpg
+  │   ├── Grass1_Norm.jpg
+  │   ├── Grass1_Spec.jpg
+  │   ├── LaneMarking1_Diff.jpg
+  │   ├── LaneMarking1_Norm.jpg
+  │   ├── LaneMarking1_Spec.jpg
+  │   ├── Map01.fbx
+  │   └── Map01.xodr
+  └── Map02
+      └── Map02.fbx
+</code></pre>
+<hr />
+<h3 id="json">为标准地图创建 JSON 描述</h3>
+<p>在包的根文件夹中创建一个 <code>.json</code> 文件。在包之后命名文件。 请注意，这将是发行版名称。文件的内容将描述 <strong>地图</strong> 和 <strong>道具</strong> 的 JSON 数组，以及每个地图和道具的基本信息。 </p>
+<p><strong>地图</strong> 需要以下参数：</p>
+<ul>
+<li>地图的 <strong>name</strong> 。这必须和 <code>.fbx</code> 和 <code>.xodr</code> 文件相同。 </li>
+<li><code>.fbx</code> 文件的 <strong>source</strong> 路径。  </li>
+<li><strong>use_carla_materials</strong>. 如果为 <strong>True</strong>，地图将使用 Carla 材质。否则，它将使用 RoadRunner 材质。</li>
+<li><strong>xodr</strong> <code>.xodr</code> 文件的路径。  </li>
+</ul>
+<p><strong>Props</strong> 不属于本教材的一部分。该字段将留空。还有另一个关于如何 <a href="../tuto_A_add_props/">添加新道具</a> 的教程。  </p>
+<p>生成的 <code>.json</code> 文件应类似于以下内容：</p>
+<pre><code class="language-json">{
+  &quot;maps&quot;: [
+    {
+      &quot;name&quot;: &quot;Map01&quot;,
+      &quot;source&quot;: &quot;./Map01/Map01.fbx&quot;,
+      &quot;use_carla_materials&quot;: true,
+      &quot;xodr&quot;: &quot;./Map01/Map01.xodr&quot;
+    },
+    {
+      &quot;name&quot;: &quot;Map02&quot;,
+      &quot;source&quot;: &quot;./Map02/Map02.fbx&quot;,
+      &quot;use_carla_materials&quot;: false,
+      &quot;xodr&quot;: &quot;./Map02/Map02.xodr&quot;
+    }
+  ],
+  &quot;props&quot;: [
+  ]
+}
+</code></pre>
+<hr />
+<p>如果您对流程有任何疑问，可以在 <a href="https://github.com/carla-simulator/carla/discussions">论坛</a> 中提问。</p>
+<div class="build-buttons">
+<p>
+<a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
+Carla 论坛</a>
+</p>
+</div>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

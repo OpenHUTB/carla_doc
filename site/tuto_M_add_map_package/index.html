@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>在 Carla 包中导入地图 - 交通仿真文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u5728 Carla \u5305\u4e2d\u5bfc\u5165\u5730\u56fe";
+        var mkdocs_page_input_path = "tuto_M_add_map_package.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">在 Carla 包中导入地图</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/tuto_M_add_map_package.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="carla">在 Carla 包中导入地图</h1>
+<p>本节介绍将地图引入 <strong>Carla 包（二进制）版本</strong> 的过程。如果您使用的是从源代码构建的 Carla 版本来导入地图，请遵循 <a href="../tuto_M_add_map_source/">此处</a> 的指南。</p>
+<p>此过程仅适用于 Linux 系统。导入过程涉及运行虚幻引擎的 Docker 映像来导入相关文件，然后将它们导出为独立包，然后可以将其配置为在 Carla 中使用。构建 Docker 镜像大约需要 4 小时和 600-700 GB 的时间。仅在第一次构建映像时才需要这样做。</p>
+<ul>
+<li><a href="#before-you-begin"><strong>在你开始之前</strong></a></li>
+<li><a href="#map-ingestion-in-a-carla-package"><strong>Carla 包中的地图导入</strong></a></li>
+</ul>
+<hr />
+<h2 id="_1">在你开始之前</h2>
+<ul>
+<li>您需要满足以下系统要求：<ul>
+<li>Ubuntu 16.04+ 中的 64 位版本 <a href="https://docs.docker.com/engine/install/">Docker</a> </li>
+<li>至少 8GB RAM</li>
+<li>用于构建容器映像的至少 700 GB 可用磁盘空间</li>
+<li><a href="https://git-scm.com/downloads">Git</a> 版本控制</li>
+</ul>
+</li>
+<li>确保您使用的是 Carla 的软件包（二进制）版本。如果您使用的是从源代码构建的 Carla 版本导入地图，请遵循 <a href="../tuto_M_add_map_source/">此处</a> 的指南。</li>
+<li>您应该至少使用地图编辑器（例如 RoadRunner）已 <a href="../tuto_M_generate_map/">生成</a> 的两个文件<code>&lt;mapName&gt;.xodr</code> 和 <code>&lt;mapName&gt;.fbx</code>。</li>
+<li>这些文件应具有相同的 <code>&lt;mapName&gt;</code> 值，以便被识别为同一地图。</li>
+</ul>
+<hr />
+<h2 id="carla_1">Carla 包中的地图导入</h2>
+<p><strong>1.</strong> Carla 提供了在 Docker 映像中构建虚幻引擎以及使用该映像编译 Carla 的所有实用程序。这些工具可以在 GitHub 上的源代码中找到。使用以下命令克隆存储库：</p>
+<pre><code class="language-sh">    git clone https://github.com/carla-simulator/carla
+</code></pre>
+<p><strong>2.</strong> 按照 <a href="https://github.com/carla-simulator/carla/tree/master/Util/Docker">这些说明</a> 构建虚幻引擎的 Docker 映像。 </p>
+<p><strong>3.</strong> 创建 <code>input_folder</code>。这是您放置要导入的文件的位置。 Docker 会自动创建一个 <code>.json</code> 文件来描述包文件夹结构。更改 <code>input_folder</code> 的权限才能成功创建：</p>
+<pre><code class="language-sh">    #Go to the parent folder, where the input folder is contained
+    chmod 777 input_folder
+</code></pre>
+<blockquote>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>如果包是 <a href="../tuto_M_manual_map_package/">手动准备的</a> ，并且已包含 <code>.json</code> 文件，则无需执行此操作。</p>
+</div>
+</blockquote>
+<p><strong>4.</strong> 创建 <code>output_folder</code> 。这是 Docker 镜像在烘焙地图后写入输出文件的地方。</p>
+<p><strong>5.</strong> 导航至 <code>~/carla/Util/Docker</code>。这是导入脚本所在的位置。该脚本需要 <code>input_folder</code> 和 <code>output_folder</code> 的路径以及要导入包的名称。如果提供了 <code>.json</code> 文件，则该文件的名称是包名称，如果未提供  <code>.json</code>，则名称必须为 <code>map_package</code>：</p>
+<pre><code class="language-sh">    python3 docker_tools.py --input ~/path_to_input_folder --output ~/path_to_output_folder --packages map_package
+</code></pre>
+<blockquote>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>如果未提供参数 <code>--packages map_package</code> ，Docker 镜像将制作 Carla 包。 </p>
+</div>
+</blockquote>
+<p><strong>6.</strong> 包将在 <code>output_folder</code> 中生成为 <code>&lt;map_package&gt;.tar.gz</code>. 。这是独立包，现在可以导入到 Carla 中。将包移动到 Carla 根目录（您将在其中使用地图的包/二进制版本）中的 <code>Import</code> 文件夹，然后从根目录运行以下脚本将其导入：</p>
+<pre><code class="language-sh">./ImportAssets.sh
+</code></pre>
+<p><strong>7.</strong> 要使用新地图运行仿真，请运行 Carla，然后使用 <code>config.py</code> 文件更改地图：</p>
+<pre><code class="language-sh">cd PythonAPI/util
+python3 config.py --map &lt;mapName&gt;
+</code></pre>
+<p><br></p>
+<hr />
+<p>您的地图现在可以在 Carla 运行仿真了。如果你对这个过程有任何问题，你可以在 <a href="https://github.com/carla-simulator/carla/discussions">论坛</a> 上提问，。也可以尝试在你的新地图上运行我们的一些 <a href="https://github.com/carla-simulator/carla/tree/master/PythonAPI/examples">示例脚本</a> 来测试它。</p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

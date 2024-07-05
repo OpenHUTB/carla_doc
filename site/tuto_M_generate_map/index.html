@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>在 RoadRunner 中生成地图 - 交通仿真文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u5728 RoadRunner \u4e2d\u751f\u6210\u5730\u56fe";
+        var mkdocs_page_input_path = "tuto_M_generate_map.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">在 RoadRunner 中生成地图</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/tuto_M_generate_map.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="roadrunner">在 RoadRunner 中生成地图</h1>
+<p>RoadRunner 是推荐的软件，用于创建要导入 Carla 的地图。本指南概述了 RoadRunner 是什么、构建地图时需要考虑的事项以及如何导出自定义地图以准备导入 Carla。</p>
+<ul>
+<li><a href="#introduction-to-roadrunner"><strong>RoadRunner 简介</strong></a></li>
+<li><a href="#before-you-start"><strong>在你开始之前</strong></a></li>
+<li><a href="#build-a-map-in-roadrunner"><strong>在 RoadRunner 中构建地图</strong></a></li>
+<li><a href="#export-a-map-in-roadrunner"><strong>在 RoadRunner 中导出地图</strong></a></li>
+<li><a href="#next-steps"><strong>下一步</strong></a></li>
+</ul>
+<hr />
+<h2 id="roadrunner_1">RoadRunner 简介</h2>
+<p>RoadRunner 是一款交互式编辑器，可让您设计用于仿真和测试自动驾驶系统的 3D 场景。它可用于创建道路布局以及随附的 OpenDRIVE 和几何信息。 在 <a href="https://www.mathworks.com/products/roadrunner.html">此处</a> 能了解到更多 RoadRunner 的更多信息。</p>
+<p>RoadRunner 是 MATLAB Campus-Wide License 的一部分，因此许多大学都可以提供无限制的学术访问。 <a href="https://www.mathworks.com/academia/tah-support-program/eligibility.html">检查</a> 您的大学是否有权访问。如果您对辅助功能有任何疑问或困难，请联系 <em>automated-driving@mathworks.com</em> 。 还有 <a href="https://www.mathworks.com/products/roadrunner.html">试用版</a> 可用。</p>
+<p>参加 Carla 排行榜的每个人都可以获得 RoadRunner 许可证。点击 <a href="https://www.mathworks.com/academia/student-competitions/carla-autonomous-driving-challenge.html">此处</a> 了解更多信息。</p>
+<hr />
+<h2 id="_1">在你开始之前</h2>
+<p>您需要安装 RoadRunner。您可以按照 Mathworks 网站上的 <a href="https://www.mathworks.com/help/roadrunner/ug/install-and-activate-roadrunner.html">安装指南</a> 进行操作。   </p>
+<hr />
+<h2 id="roadrunner_2">在 RoadRunner 中构建地图</h2>
+<p>关于如何在RoadRunner中构建地图的细节超出了本指南的范围，但是， <a href="https://www.mathworks.com/support/search.html?fq=asset_type_name:video%20category:roadrunner/index&amp;page=1&amp;s_tid=CRUX_topnav">RoadRuner文档</a> 中提供了视频教程。</p>
+<p><strong>请记住，包含大量道具的地图会显着减慢导入过程。</strong> 这是因为虚幻引擎需要将每个网格物体转换为虚幻资源。如果您计划将地图导入到 Carla 的源构建版本中，我们强烈建议您仅在 RoadRunner 中创建道路布局，并在将地图导入到虚幻引擎之前保留任何自定义设置。 Carla 提供了多种工具，您可以在虚幻引擎编辑器中使用这些工具来简化自定义过程。</p>
+<hr />
+<h2 id="roadrunner_3">在 RoadRunner 中导出地图</h2>
+<p>以下是从 RoadRunner 导出自定义地图的基本指南。您可以在 <a href="https://www.mathworks.com/help/roadrunner/ug/Exporting-to-CARLA.html">MathWorks 文档</a> 中找到有关如何导出到 Carla 的更多详细信息。</p>
+<p>在 RoadRunner 中制作地图后，您就可以将其导出。请注意， <strong>道路布局导出后无法修改。</strong> 导出前，请确保：</p>
+<ul>
+<li>地图以 (0,0) 为中心，以确保地图可以在虚幻引擎中正确可视化。</li>
+<li>地图定义是正确的。</li>
+<li>地图验证是正确的，密切关注连接和几何形状。</li>
+</ul>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p><img alt="CheckGeometry" src="../img/check_geometry.jpg" /></p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>地图准备就绪后，单击 <code>OpenDRIVE Preview Tool</code> 按钮即可可视化 OpenDRIVE 道路网络并对所有内容进行最后一次检查。</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p><img alt="checkopen" src="../img/check_open.jpg" /></p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p><em>OpenDrive Preview Tool</em> 可以更轻松地测试地图的完整性。如果连接有任何错误，请单击 <code>Maneuver Tool</code> 和 <code>Rebuild Maneuver Roads</code>。</p>
+</div>
+<p>当您准备好导出时：</p>
+<p><strong>1.</strong> 使用 Carla 选项导出场景：</p>
+<ul>
+<li>在主工具栏中，选择 <code>File</code> -&gt; <code>Export</code> -&gt; <code>CARLA (.fbx, .xodr, .rrdata.xml)</code></li>
+</ul>
+<p><strong>2.</strong> 在弹出的窗口中：</p>
+<blockquote>
+<ul>
+<li>
+<p>C检查以下选项：</p>
+<ul>
+<li><em>Split by Segmentation</em>: 通过语义分割来划分网格。</li>
+<li><em>Power of Two Texture Dimensions</em>: 提高性能。</li>
+<li><em>Embed Textures</em>: 确保纹理嵌入到网格中。</li>
+<li><em>Export to Tiles</em>: 选择图块的大小或仅保留一块不选中。</li>
+</ul>
+</li>
+<li>
+<p>Leave unchecked:</p>
+<ul>
+<li><em>导出单个图块</em>: 生成一个包含所有地图片段的 <code>.fbx</code> 文件。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<blockquote>
+<blockquote>
+<p><img alt="roadrunner_export" src="../img/roadrunner_export.png" /></p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<p><strong>3.</strong> 选择要将文件导出到的目录，然后单击 <code>Export</code>。这将生成 <code>&lt;mapName&gt;.fbx</code> 和 <code>&lt;mapName&gt;.xodr</code>  文件等。</p>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>确保 <code>.xodr</code> 和 <code>.fbx</code> 文件具有相同的名称。</p>
+</div>
+<hr />
+<h2 id="_2">下一步</h2>
+<p>您现在已准备好将地图导入 Carla。下一步将取决于您使用的 Carla 安装类型：</p>
+<ul>
+<li><strong>对于从源代码构建的 Carla 用户</strong>，请按照 <a href="../tuto_M_add_map_source/"><strong>此处</strong></a> 的指南进行操作。</li>
+<li><strong>对于 Carla 打包（二进制）版本的用户</strong>，请按照 <a href="../tuto_M_add_map_package/"><strong>此处</strong></a> 的指南进行操作。</li>
+</ul>
+<hr />
+<p>如果您对此流程有任何疑问，可以在 <a href="https://github.com/carla-simulator/carla/discussions">论坛</a> 中提问。</p>
+<div class="build-buttons">
+<p>
+<a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="跳转至 Carla 论坛">
+Carla 论坛</a>
+</p>
+</div>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

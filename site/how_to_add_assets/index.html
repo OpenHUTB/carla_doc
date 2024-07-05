@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>如何添加资产 - 交通仿真文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u5982\u4f55\u6dfb\u52a0\u8d44\u4ea7";
+        var mkdocs_page_input_path = "how_to_add_assets.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">如何添加资产</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/how_to_add_assets.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">如何添加资产</h1>
+<p><em>本文档尚在编写中，可能不完整。</em></p>
+<h2 id="_2">添加车辆</h2>
+<p>按照 <a href="https://docs.unrealengine.com/latest/INT/Engine/Physics/Vehicles/VehcileContentCreation/index.html">艺术指南</a> 创建骨架网格体和物理资产。 其余部分请参阅 <a href="https://docs.unrealengine.com/latest/INT/Engine/Physics/Vehicles/VehicleUserGuide/">车辆用户指南</a> 。</p>
+<ul>
+<li>将 fbx 作为 Skelletal Mesh 导入到其自己的文件夹中 <code>Content/Static/Vehicles</code>。物理资产和骨架应自动创建，并将三者链接在一起。</li>
+<li>调整物理资产。删除自动创建的资产，并为与<code>Vehicle_Base</code>形状匹配的骨骼添加框，确保启用了生成撞击事件。为每个轮子添加一个球体，并将其“物理类型”设置为“运动学”。</li>
+<li>在该文件夹中创建一个“动画蓝图”，创建时选择“VehicleAnimInstance”作为父类，并以此汽车模型的骨架作为目标骨架。添加动画图，如上面给出的链接所示（或在其他汽车的动画中查找，如 Mustang）。</li>
+<li>创建文件夹<code>Content/Blueprints/Vehicles/&lt;vehicle-model&gt;</code></li>
+<li>在该文件夹中，创建两个从“VehicleWheel”类派生的蓝图类。将它们命名为<code>&lt;vehicle-model&gt;_FrontWheel</code>和<code>&lt;vehicle-model&gt;_RearWheel</code>。将它们的“形状半径”设置为与网格轮半径完全匹配（注意，是半径而不是直径）。将它们的“轮胎配置”设置为“CommonTireConfig”。在前轮上取消选中“受手刹影响”，在后轮上将“转向角”设置为零。</li>
+<li>
+<p>在同一个文件夹中创建一个蓝图类，从中派生出并<code>BaseVehiclePawn</code>调用它<code>&lt;vehicle-model&gt;</code>。打开它进行编辑并选择组件“Mesh”，将“Skeletal Mesh”和“Anim Class”设置为相应的。然后选择组件“VehicleMovement”，在“Vehicle Setup”下展开“Wheel Setups”，设置每个车轮</p>
+</li>
+<li>
+<p>0：轮子类别= <code>&lt;vehicle-model&gt;_FrontWheel</code>，骨骼名称=<code>Wheel_Front_Left</code></p>
+</li>
+<li>1：轮子类别= <code>&lt;vehicle-model&gt;_FrontWheel</code>，骨骼名称=<code>Wheel_Front_Right</code></li>
+<li>2：轮子类别= <code>&lt;vehicle-model&gt;_RearWheel</code>，骨骼名称=<code>Wheel_Rear_Left</code></li>
+<li>
+<p>3：轮子类别= <code>&lt;vehicle-model&gt;_RearWheel</code>，骨骼名称=<code>Wheel_Rear_Right</code></p>
+</li>
+<li>
+<p>向其中添加一个名为“Box”的盒子组件（参见 Mustang 蓝图），并将大小设置为从上方覆盖车辆区域。确保设置了以下内容</p>
+</li>
+<li>隐藏在游戏中</li>
+<li>模拟物理已禁用</li>
+<li>禁用生成重叠事件</li>
+<li>碰撞预设设置为“NoCollision”</li>
+</ul>
+<p>测试一下，进入 CarlaGameMode 蓝图并将“Default Pawn Class”更改为新创建的汽车蓝图。</p>
+<h2 id="_3">地图生成</h2>
+<p>对于道路生成，预计会找到以下网格</p>
+<pre><code># Enum                            Filepath
+RoadTwoLanes_LaneLeft          at &quot;Content/Static/Road/St_Road_TileRoad_RoadL.uasset&quot;
+RoadTwoLanes_LaneRight         at &quot;Content/Static/Road/St_Road_TileRoad_RoadR.uasset&quot;
+RoadTwoLanes_SidewalkLeft      at &quot;Content/Static/SideWalk/St_Road_TileRoad_SidewalkL.uasset&quot;
+RoadTwoLanes_SidewalkRight     at &quot;Content/Static/SideWalk/St_Road_TileRoad_SidewalkR.uasset&quot;
+RoadTwoLanes_LaneMarkingSolid  at &quot;Content/Static/RoadLines/St_Road_TileRoad_LaneMarkingSolid.uasset&quot;
+RoadTwoLanes_LaneMarkingBroken at &quot;Content/Static/RoadLines/St_Road_TileRoad_LaneMarkingBroken.uasset&quot;
+
+Road90DegTurn_Lane0            at &quot;Content/Static/Road/St_Road_Curve_Road1.uasset&quot;
+Road90DegTurn_Lane1            at &quot;Content/Static/Road/St_Road_Curve_Road2.uasset&quot;
+Road90DegTurn_Lane2            at &quot;Content/Static/Road/St_Road_Curve_Road3.uasset&quot;
+Road90DegTurn_Lane3            at &quot;Content/Static/Road/St_Road_Curve_Road4.uasset&quot;
+Road90DegTurn_Lane3            at &quot;Content/Static/Road/St_Road_Curve_Road5.uasset&quot;
+Road90DegTurn_Lane3            at &quot;Content/Static/Road/St_Road_Curve_Road6.uasset&quot;
+Road90DegTurn_Lane3            at &quot;Content/Static/Road/St_Road_Curve_Road7.uasset&quot;
+Road90DegTurn_Lane3            at &quot;Content/Static/Road/St_Road_Curve_Road8.uasset&quot;
+Road90DegTurn_Lane3            at &quot;Content/Static/Road/St_Road_Curve_Road9.uasset&quot;
+Road90DegTurn_Sidewalk0        at &quot;Content/Static/SideWalk/St_Road_Curve_Sidewalk1.uasset&quot;
+Road90DegTurn_Sidewalk1        at &quot;Content/Static/SideWalk/St_Road_Curve_Sidewalk2.uasset&quot;
+Road90DegTurn_Sidewalk2        at &quot;Content/Static/SideWalk/St_Road_Curve_Sidewalk3.uasset&quot;
+Road90DegTurn_Sidewalk3        at &quot;Content/Static/SideWalk/St_Road_Curve_Sidewalk4.uasset&quot;
+Road90DegTurn_LaneMarking      at &quot;Content/Static/Road/St_Road_Curve_LaneMarking.uasset&quot;
+
+RoadTIntersection_Lane0        at &quot;Content/Static/Road/St_Road_TCross_Road1.uasset&quot;
+RoadTIntersection_Lane1        at &quot;Content/Static/Road/St_Road_TCross_Road2.uasset&quot;
+RoadTIntersection_Lane2        at &quot;Content/Static/Road/St_Road_TCross_Road3.uasset&quot;
+RoadTIntersection_Lane3        at &quot;Content/Static/Road/St_Road_TCross_Road4.uasset&quot;
+RoadTIntersection_Lane3        at &quot;Content/Static/Road/St_Road_TCross_Road5.uasset&quot;
+RoadTIntersection_Lane3        at &quot;Content/Static/Road/St_Road_TCross_Road6.uasset&quot;
+RoadTIntersection_Lane3        at &quot;Content/Static/Road/St_Road_TCross_Road7.uasset&quot;
+RoadTIntersection_Lane3        at &quot;Content/Static/Road/St_Road_TCross_Road8.uasset&quot;
+RoadTIntersection_Lane3        at &quot;Content/Static/Road/St_Road_TCross_Road9.uasset&quot;
+RoadTIntersection_Sidewalk0    at &quot;Content/Static/SideWalk/St_Road_TCross_Sidewalk1.uasset&quot;
+RoadTIntersection_Sidewalk1    at &quot;Content/Static/SideWalk/St_Road_TCross_Sidewalk2.uasset&quot;
+RoadTIntersection_Sidewalk2    at &quot;Content/Static/SideWalk/St_Road_TCross_Sidewalk3.uasset&quot;
+RoadTIntersection_Sidewalk3    at &quot;Content/Static/SideWalk/St_Road_TCross_Sidewalk4.uasset&quot;
+RoadTIntersection_LaneMarking  at &quot;Content/Static/RoadLines/St_Road_TCross_LaneMarking.uasset&quot;
+
+RoadXIntersection_Lane0        at &quot;Content/Static/Road/St_Road_XCross_Road1.uasset&quot;
+RoadXIntersection_Lane1        at &quot;Content/Static/Road/St_Road_XCross_Road2.uasset&quot;
+RoadXIntersection_Lane2        at &quot;Content/Static/Road/St_Road_XCross_Road3.uasset&quot;
+RoadXIntersection_Lane3        at &quot;Content/Static/Road/St_Road_XCross_Road4.uasset&quot;
+RoadXIntersection_Lane3        at &quot;Content/Static/Road/St_Road_XCross_Road5.uasset&quot;
+RoadXIntersection_Lane3        at &quot;Content/Static/Road/St_Road_XCross_Road6.uasset&quot;
+RoadXIntersection_Lane3        at &quot;Content/Static/Road/St_Road_XCross_Road7.uasset&quot;
+RoadXIntersection_Lane3        at &quot;Content/Static/Road/St_Road_XCross_Road8.uasset&quot;
+RoadXIntersection_Lane3        at &quot;Content/Static/Road/St_Road_XCross_Road9.uasset&quot;
+RoadXIntersection_Sidewalk0    at &quot;Content/Static/SideWalk/St_Road_XCross_Sidewalk1.uasset&quot;
+RoadXIntersection_Sidewalk1    at &quot;Content/Static/SideWalk/St_Road_XCross_Sidewalk2.uasset&quot;
+RoadXIntersection_Sidewalk2    at &quot;Content/Static/SideWalk/St_Road_XCross_Sidewalk3.uasset&quot;
+RoadXIntersection_Sidewalk3    at &quot;Content/Static/SideWalk/St_Road_XCross_Sidewalk4.uasset&quot;
+RoadXIntersection_LaneMarking  at &quot;Content/Static/RoadLines/St_Road_XCross_LaneMarking.uasset&quot;
+</code></pre>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

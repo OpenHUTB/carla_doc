@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>大地图概述 - 交通仿真文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u5927\u5730\u56fe\u6982\u8ff0";
+        var mkdocs_page_input_path = "large_map_overview.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">大地图概述</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/large_map_overview.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">大地图概述</h1>
+<ul>
+<li><a href="#large-maps-overview"><strong>大地图概述</strong></a></li>
+<li><a href="#tile-streaming"><strong>瓦片流</strong></a></li>
+<li><a href="#dormant-actors"><strong>休眠的参与者</strong></a></li>
+</ul>
+<hr />
+<h2 id="_2">大地图概述</h2>
+<p>Carla 中的大地图功能允许用户进行大范围的仿真。在 Carla 中，大地图被划分为不大于 2kmx2km 的方形瓦片。瓦片根据它们与自主车辆的接近度（流距离）流入和流出服务器。地图上的其他参与者也根据他们与自主车辆的流距离进行管理。</p>
+<hr />
+<h2 id="_3">瓦片流</h2>
+<p>自主车辆对于地图瓦片的装载和卸载是不可或缺的。根据距自主车辆的流距离值，瓦片被流式传输进和传出服务器。例如，位于流距离之外的瓦片将不会在仿真中渲染，而将渲染流距离内的瓦片。渲染的瓦片将随着英雄车辆的移动而变化。</p>
+<p>要将车辆设置为自主，请使用如下的 <a href="../python_api/#carla.ActorBlueprint.set_attribute"><code>set_attribute</code></a> 方法：</p>
+<pre><code class="language-py">blueprint.set_attribute('role_name', 'hero' )
+world.spawn_actor(blueprint, spawn_point)
+</code></pre>
+<p>使用下面的代码片段设置流距离，以便在自主车辆的 2 公里半径内加载瓦片：</p>
+<pre><code class="language-py">settings = world.get_settings()
+settings.tile_stream_distance = 2000
+world.apply_settings(settings)
+</code></pre>
+<p>您还可以使用以下 <code>config.py</code> 命令设置流传输距离:</p>
+<pre><code class="language-sh">cd PythonAPI/util
+python3 config.py --tile-stream-distance 2000
+</code></pre>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>大地图目前一次仅支持一辆自主车辆。</p>
+</div>
+<hr />
+<h2 id="_4">休眠参与者</h2>
+<p>大地图功能向 Carla 引入了休眠参与者的概念。休眠参与者仅存在于大地图的上下文中。休眠参与者是仿真中位于自主车辆的 <strong>参与者活动距离</strong> 之外的非自主车辆参与者，例如，远离自主车辆的车辆。参与者活动距离可以等于或小于流距离。</p>
+<p>如果参与者发现自己在自主车辆的参与者活动距离之外，它将进入休眠状态。参与者仍然存在，但不会被渲染。尽管仍然可以<a href="../python_api/#carla.Actor.set_location">设置</a>位置和<a href="../python_api/#carla.Actor.set_transform">变换</a>，但不会计算物理量（除非通过流量管理器以混合模式运行） 。一旦休眠的参与者再次进入自主车辆的参与者活动距离内，它将醒来，并且其渲染和物理将恢复正常。</p>
+<p>由交通管理器控制的参与者具有不同的行为，可以在大地图中操作时进行配置。请阅读<a href="../adv_traffic_manager/#traffic-manager-in-large-maps">交通管理器</a>文档以了解其工作原理。</p>
+<p>参与者将进入休眠状态或在 <a href="../python_api/#carla.World.tick">world.tick()</a> 时醒来。</p>
+<p>要将参与者活动距离设置为自主车辆周围 2 公里半径：</p>
+<pre><code class="language-py">settings = world.get_settings()
+settings.actor_active_distance = 2000
+world.apply_settings(settings)
+</code></pre>
+<p>您还可以使用以下 <code>config.py</code> 方法设置参与者活动距离</p>
+<pre><code class="language-sh">cd PythonAPI/util
+python3 config.py --actor-active-distance 2000
+</code></pre>
+<p>要检查参与者是否处于休眠状态，您可以使用 Python API：</p>
+<pre><code class="language-py">actor.is_dormant
+</code></pre>
+<hr />
+<p>如果您对大地图有任何疑问，那么您可以在 <a href="https://github.com/carla-simulator/carla/discussions">论坛</a> 中提问。</p>
+<div class="build-buttons">
+<p>
+<a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
+Carla 论坛</a>
+</p>
+</div>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>自定义地图：天气和景观 - 交通仿真文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u81ea\u5b9a\u4e49\u5730\u56fe\uff1a\u5929\u6c14\u548c\u666f\u89c2";
+        var mkdocs_page_input_path = "tuto_M_custom_weather_landscape.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">自定义地图：天气和景观</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/tuto_M_custom_weather_landscape.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">自定义地图：天气和景观</h1>
+<p>Carla 提供了多个蓝图，可帮助您轻松创建地图的默认天气设置，并使用序列化网格（例如路灯、电线等）填充景观。</p>
+<p>本指南将解释每个蓝图的位置以及如何使用和配置它们。</p>
+<ul>
+<li><a href="#weather-customization"><strong>天气定制</strong></a><ul>
+<li><a href="#bp_sky">BP_Sky</a></li>
+<li><a href="#bp_weather">BP_Weather</a></li>
+</ul>
+</li>
+<li><a href="#add-serial-meshes"><strong>序列化网格</strong></a><ul>
+<li><a href="#bp_repspline">BP_RepSpline</a></li>
+<li><a href="#bp_spline">BP_Spline</a></li>
+<li><a href="#bp_wall">BP_Wall</a></li>
+<li><a href="#bp_splinepoweline">BP_SplinePoweLine</a></li>
+</ul>
+</li>
+<li><a href="#next-steps"><strong>下一步</strong></a></li>
+</ul>
+<div class="admonition 重要">
+<p class="admonition-title">重要</p>
+<p>本教程仅适用于使用源代码构建并有权访问虚幻编辑器的用户。</p>
+</div>
+<hr />
+<h2 id="_2">天气定制</h2>
+<p>本节介绍如何在设置地图的默认天气之前尝试不同的天气参数，以及在对设置感到满意后如何为地图配置默认天气参数。</p>
+<h3 id="bp_sky">BP_Sky</h3>
+<p>蓝图<code>BP_Sky</code>对于为地图带来光线和天气是必要的。在决定默认天气参数之前，它还可以用于测试不同的天气配置。</p>
+<p><code>BP_Sky</code> 蓝图可能已经加载到您的地图中。如果没有，您可以通过<code>Content/Carla/Blueprints/Weather</code>将其拖到场景中来添加它。</p>
+<p>要尝试不同的天气参数，请转到 <code>BP_Sky</code> 参与者的 <em>Details</em> 面板，然后使用 <em>Parameters</em>  部分中的值。</p>
+<div class="admonition 重要">
+<p class="admonition-title">重要</p>
+<p>如果场景中加载了多个 <code>BP_Sky</code> 蓝图，天气将会重复，从而产生不良结果，例如，有两个太阳。</p>
+</div>
+<h3 id="bp_weather">BP_Weather</h3>
+<p>地图的默认天气在<code>BP_Weather</code>蓝图中定义。此蓝图允许您设置与通过 Python API 提供的参数相同的参数。<a href="https://carla.readthedocs.io/en/latest/python_api/#carlaweatherparameters">此处</a> 描述了这些参数。</p>
+<p>要设置地图的默认天气：</p>
+<p><strong>1. 打开 <code>BP_Weather</code> 蓝图。</strong> </p>
+<p>在 <em>内容浏览器</em> 中，导航至 <code>Content/Carla/Blueprints/Weather</code> 并双击 <code>BP_Weather</code> 。</p>
+<p><strong>2. 添加您的城镇。</strong></p>
+<p>在<code>BP_Weather</code>窗口的 <em>Details</em> 面板中，转到 <em>Weather</em> 部分并将您的城镇添加到 <em>Default Weathers</em> 数组中。</p>
+<p><strong>3. 配置默认天气参数。</strong></p>
+<p>对于每个天气参数，设置您想要的值。完成后，按 <em>Compile</em> ，然后按 <em>Save</em> 并关闭。</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p><img alt="bp_weather_pic" src="../img/map_customization/BP_Weather.jpg" /><br></p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<div style="text-align: right">
+<i>包含每个 Carla 地图的默认天气参数的数组。Town01 打开。</i></div>
+<p><br></p>
+<hr />
+<h2 id="_3">添加序列化网格</h2>
+<p>有四种蓝图可用于添加沿一个方向对齐的道具，例如墙壁、电线、路灯。这些蓝图使用一系列沿贝塞尔曲线分布的网格。每一个都以相同的方式初始化：</p>
+<p><strong>1.  初始化序列。</strong></p>
+<p>将蓝图拖到场景中。您将看到一个元素位于贝塞尔曲线的起点，并有两个节点标记开始和结束。</p>
+<p><strong>2. 定义路径。</strong></p>
+<p>选择元素的方向箭头，然后按 <strong>Alt</strong>  键，同时将元素向您想要移动的方向拖动。这将创建一个可用于定义曲线的新元素。拖动时，曲线的每个节点上或每次<code>Alt</code>拖动时按下时都会出现一个新网格，具体取决于蓝图。</p>
+<p><strong>3. 定制图案。</strong></p>
+<p>以下部分将描述每个蓝图可用的不同自定义参数。</p>
+<h3 id="bp_repspline">BP_RepSpline</h3>
+<p>蓝图<code>BP_RepSpline</code>可在 <code>Carla/Blueprints/LevelDesign</code> 中找到。它用于沿着贝塞尔曲线定义的路径添加 <strong>单个</strong> 元素。</p>
+<p>序列化是通过以下值自定义的：</p>
+<ul>
+<li><em>Distance between</em> — 设置元素之间的距离。</li>
+<li><em>Offset rotation</em> — 为不同轴设置固定旋转。</li>
+<li><em>Random rotation</em> — 设置不同轴的随机旋转范围。</li>
+<li><em>Offset translation</em> — 设置沿不同轴的一系列随机位置。</li>
+<li><em>Max Number of Meshes</em> — 设置将放置在曲线节点之间的元素的最大数量。</li>
+<li><em>World aligned ZY</em> — 如果选择此选项，元素将相对于世界轴垂直对齐。</li>
+<li><em>EndPoint</em> — 如果选择此选项，将在曲线的终点节点添加一个元素。</li>
+<li><em>Collision enabled</em> — 设置为网格启用的碰撞类型。</li>
+</ul>
+<p><img alt="bp_repspline_pic" src="../img/map_customization/BP_Repspline.jpg" /></p>
+<div style="text-align: right"><i>BP_RepSpline 示例。</i></div>
+
+<h3 id="bp_spline">BP_Spline</h3>
+<p>蓝图<code>BP_Spline</code>可在 <code>Carla/Blueprints/LevelDesign</code> 中找到。它添加严格遵循贝塞尔曲线定义的路径的连接元素。网格将扭曲以适应创建的路径。</p>
+<p>可以使用以下值自定义蓝图：</p>
+<ul>
+<li><em>Gap distance</em> — 在元素之间添加间隔。</li>
+</ul>
+<p><img alt="bp_spline_pic" src="../img/map_customization/BP_Spline.jpg" /></p>
+<div style="text-align: right"><i>BP_Spline example.</i></div>
+
+<h3 id="bp_wall">BP_Wall</h3>
+<p>蓝图<code>BP_Wall</code>可在 <code>Carla/Blueprints/LevelDesign</code> 中找到。它沿着贝塞尔曲线定义的路径添加连接的元素。网格不会扭曲以适应曲线，但会考虑节点。</p>
+<ul>
+<li><em>Distance between</em> — 设置元素之间的距离。</li>
+<li><em>Vertically aligned</em> — 如果选择此选项，元素将相对于世界轴垂直对齐。</li>
+<li><em>Scale offset</em> — 缩放网格的长度以完善元素之间的连接。</li>
+</ul>
+<p><img alt="bp_wall_pic" src="../img/map_customization/BP_Wall.jpg" /></p>
+<div style="text-align: right"><i>BP_Wall 实例。</i></div>
+
+<h3 id="bp_splinepoweline">BP_SplinePoweLine</h3>
+<p><strong>BP_SplinePoweLine</strong> 蓝图可在 <code>Carla/Static/Pole/PoweLine</code> 中找到。它沿着贝塞尔曲线定义的路径添加 <strong>电线杆(electricity poles)</strong>，并将它们 <strong>与电线连接起来</strong>。</p>
+<p>为了提供多样性，您可以为蓝图提供一系列电力线网格来填充路径。去做这个：</p>
+<ol>
+<li>在 <em>Content Browser</em> 中双击 <strong>BP_SplinePoweLine</strong> 蓝图。</li>
+<li>在 <em>Details</em> 面板中，转到 <em>Default</em> 部分。</li>
+<li>展开 <em>Array Meshes</em> 并根据您的需要添加或更改它。</li>
+<li>点击 <em>Compile</em> ，然后保存并关闭窗口。</li>
+</ol>
+<p><img alt="bp_splinepowerline_pic" src="../img/map_customization/BP_Splinepowerline.jpg" /></p>
+<div style="text-align: right"><i>BP_SplinePowerLine example.</i></div>
+
+<p>要改变电源线的线张力：</p>
+<ol>
+<li>在编辑器场景中选择蓝图参与者，然后转到  <em>Details</em> 面板。</li>
+<li>转到 <em>Default</em> 部分。</li>
+<li>调整张力 <em>Tension</em> 中的值。 <code>0</code> 表示线条将是直的。</li>
+</ol>
+<p>增加电线数量：</p>
+<ol>
+<li>在 <em>内容浏览器</em> 中，双击其中一个杆网格。</li>
+<li>转到 <em>Socket Manager</em> 面板。</li>
+<li>配置现有套接字或通过单击 <em>Create Socket</em> 添加新套接字。插座是代表电源线连接点的空网格。在两极之间从插座到插座创建电线。</li>
+</ol>
+<p><img alt="bp_powerline_socket_pic" src="../img/map_customization/BP_Splinepowerline_Sockets.jpg" /></p>
+<div style="text-align: right"><i>BP_SplinePowerLine 套接字的可视化。</i></div>
+<p><br></p>
+<div class="admonition 重要">
+<p class="admonition-title">重要</p>
+<p>各极之间的插座数量及名称应一致。否则，可能会出现可视化问题。</p>
+</div>
+<hr />
+<h2 id="_4">下一步</h2>
+<p>使用以下工具和指南继续自定义您的地图：</p>
+<ul>
+<li><a href="../tuto_M_custom_layers/">在地图中实现子关卡。</a></li>
+<li><a href="../tuto_M_custom_add_tl/">添加和配置交通灯和标志。</a></li>
+<li><a href="../tuto_M_custom_buildings/">使用程序化构建工具添加建筑物。</a></li>
+<li><a href="../tuto_M_custom_road_painter/">使用道路画家工具自定义道路。</a></li>
+<li><a href="./#add-serial-meshes">使用序列化网格自定义景观。</a></li>
+</ul>
+<p>完成定制后，您可以 <a href="../tuto_M_generate_pedestrian_navigation/">生成行人导航信息</a> 。</p>
+<hr />
+<p>如果您对流程有任何疑问，可以在 <a href="https://github.com/carla-simulator/carla/discussions">论坛</a> 中提问。</p>
+<div class="build-buttons">
+<p>
+<a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
+Carla 论坛</a>
+</p>
+</div>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

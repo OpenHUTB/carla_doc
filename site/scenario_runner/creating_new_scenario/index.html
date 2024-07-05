@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>创建新场景教程 - 交通仿真文档</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u521b\u5efa\u65b0\u573a\u666f\u6559\u7a0b";
+        var mkdocs_page_input_path = "scenario_runner\\creating_new_scenario.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">创建新场景教程</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/scenario_runner/creating_new_scenario.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">创建新场景教程</h1>
+<p>本教程介绍如何使用 ScenarioRunner 和 ScenarioManager 套件创建和运行新场景。</p>
+<p>我们将新场景称为 <em>NewScenario</em>。要创建它，只需要几个步骤。</p>
+<h2 id="python">创建一个空的 Python 类</h2>
+<p>转到 Scenarios 文件夹并使用新 Python 文件中的 <code>NewScenario</code> 名称创建一个新的 Python 类 <code>new_scenario.py</code>。类应该从 <code>BasicScenario</code> 类派生。结果，该类应如下所示：</p>
+<pre><code class="language-python">class NewScenario(BasicScenario):
+    &quot;&quot;&quot;
+    Some documentation on NewScenario
+    :param world is the CARLA world
+    :param ego_vehicles is a list of ego vehicles for this scenario
+    :param config is the scenario configuration (ScenarioConfiguration)
+    :param randomize can be used to select parameters randomly (optional, default=False)
+    :param debug_mode can be used to provide more comprehensive console output (optional, default=False)
+    :param criteria_enable can be used to disable/enable scenario evaluation based on test criteria (optional, default=True)
+    :param timeout is the overall scenario timeout (optional, default=60 seconds)
+    &quot;&quot;&quot;
+
+    # some ego vehicle parameters
+    # some parameters for the other vehicles
+
+    def __init__(self, world, ego_vehicles, config, randomize=False, debug_mode=False, criteria_enable=True,
+                 timeout=60):
+        &quot;&quot;&quot;
+        Initialize all parameters required for NewScenario
+        &quot;&quot;&quot;
+
+        # Call constructor of BasicScenario
+        super(NewScenario, self).__init__(
+          &quot;NewScenario&quot;,
+          ego_vehicles,
+          config,
+          world,
+          debug_mode,
+          criteria_enable=criteria_enable)
+
+
+    def _create_behavior(self):
+        &quot;&quot;&quot;
+        Setup the behavior for NewScenario
+        &quot;&quot;&quot;
+
+    def _create_test_criteria(self):
+        &quot;&quot;&quot;
+        Setup the evaluation criteria for NewScenario
+        &quot;&quot;&quot;
+</code></pre>
+<h2 id="python_1">填充Python类</h2>
+<p>在 <code>NewScenario</code> 类中，您必须定义代码示例中提到的以下方法。</p>
+<h3 id="_2">初始化方法</h3>
+<p>初始化方法旨在设置场景和所有车辆所需的所有参数。这包括选择正确的车辆、在正确的位置生成它们等。为了简化这一点，您可能需要使用<code>basic_scenario.py</code>中定义的 <code>setup_vehicle()</code> 方法。</p>
+<h3 id="createbehavior">CreateBehavior 方法</h3>
+<p>此方法应设置包含场景期间所有非自我车辆行为的行为树。行为树应该使用<code>atomic_scenario_behavior.py</code> 和 <code>atomic_scenario_behavior.py</code> 中定义的原子行为。</p>
+<h3 id="createtestcriteria">CreateTestCriteria 方法</h3>
+<p>此方法应设置一个包含场景的所有评估标准的列表。该标准应基于 <code>atomic_scenario_criteria.py</code> 中定义的原子标准。</p>
+<p>注意: 从此列表<code>py_tree</code>中将自动创建并行！ </p>
+<h2 id="_3">添加场景配置</h2>
+<p>最后，场景配置应添加到该 <code>examples/</code> 文件夹中。如果扩展已经存在的场景模块，则只需扩展相应的 XML，否则添加新的 XML 文件。在这种情况下，您可以使用任何现有的 XML 文件作为蓝图。</p>
+<p>如果您想为一个场景添加多个自我车辆，请确保它们使用不同的角色名称，例如</p>
+<pre><code class="language-xml">    &lt;scenario name=&quot;MultiEgoTown03&quot; type=&quot;FreeRide&quot; town=&quot;Town03&quot;&gt;
+        &lt;ego_vehicle x=&quot;207&quot; y=&quot;59&quot; z=&quot;0&quot; yaw=&quot;180&quot; model=&quot;vehicle.lincoln.mkz_2017&quot; rolename=&quot;hero&quot;/&gt;
+        &lt;ego_vehicle x=&quot;237&quot; y=&quot;-95.0754252474&quot; z=&quot;0&quot; yaw=&quot;90&quot; model=&quot;vehicle.tesla.model3&quot; rolename=&quot;hero2&quot;/&gt;
+    &lt;/scenario&gt;
+</code></pre>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

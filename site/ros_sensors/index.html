@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>ROS 桥传感器 - 交通仿真文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "ROS \u6865\u4f20\u611f\u5668";
+        var mkdocs_page_input_path = "ros_sensors.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">ROS 桥传感器</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/ros_sensors.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="ros">ROS 桥传感器</h1>
+<hr />
+<h2 id="_1">可用传感器</h2>
+<h6 id="rgb">RGB 相机</h6>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;/image</code></td>
+<td><a href="https://docs.ros.org/en/api/sensor_msgs/html/msg/Image.html">sensor_msgs/Image</a></td>
+</tr>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;/camera_info</code></td>
+<td><a href="https://docs.ros.org/en/api/sensor_msgs/html/msg/CameraInfo.html">sensor_msgs/CameraInfo</a></td>
+</tr>
+</tbody>
+</table>
+<h6 id="_2">深度相机</h6>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;/image</code></td>
+<td><a href="https://docs.ros.org/en/api/sensor_msgs/html/msg/Image.html">sensor_msgs/Image</a></td>
+</tr>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;/camera_info</code></td>
+<td><a href="https://docs.ros.org/en/api/sensor_msgs/html/msg/CameraInfo.html">sensor_msgs/CameraInfo</a></td>
+</tr>
+</tbody>
+</table>
+<h6 id="_3">语义分割相机</h6>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;/image</code></td>
+<td><a href="https://docs.ros.org/en/api/sensor_msgs/html/msg/Image.html">sensor_msgs/Image</a></td>
+</tr>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;/camera_info</code></td>
+<td><a href="http://docs.ros.org/en/api/sensor_msgs/html/msg/CameraInfo.html">sensor_msgs/CameraInfo</a></td>
+</tr>
+</tbody>
+</table>
+<h6 id="dvs">DVS 相机</h6>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;/events</code></td>
+<td><a href="https://docs.ros.org/en/api/sensor_msgs/html/msg/PointCloud2.html">sensor_msgs/PointCloud2</a></td>
+</tr>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;/image</code></td>
+<td><a href="https://docs.ros.org/en/api/sensor_msgs/html/msg/Image.html">sensor_msgs/Image</a></td>
+</tr>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;/camera_info</code></td>
+<td><a href="https://docs.ros.org/en/api/sensor_msgs/html/msg/CameraInfo.html">sensor_msgs/CameraInfo</a></td>
+</tr>
+</tbody>
+</table>
+<h6 id="_4">激光雷达</h6>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;</code></td>
+<td><a href="https://docs.ros.org/en/api/sensor_msgs/html/msg/PointCloud2.html">sensor_msgs/PointCloud2</a></td>
+</tr>
+</tbody>
+</table>
+<h6 id="_5">语义激光雷达</h6>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;</code></td>
+<td><a href="https://docs.ros.org/en/api/sensor_msgs/html/msg/PointCloud2.html">sensor_msgs/PointCloud2</a></td>
+</tr>
+</tbody>
+</table>
+<h6 id="_6">雷达</h6>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;</code></td>
+<td><a href="https://docs.ros.org/en/api/sensor_msgs/html/msg/PointCloud2.html">sensor_msgs/PointCloud2</a></td>
+</tr>
+</tbody>
+</table>
+<h6 id="_7">惯性测量单元</h6>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;</code></td>
+<td><a href="https://docs.ros.org/en/api/sensor_msgs/html/msg/Imu.html">sensor_msgs/Imu</a></td>
+</tr>
+</tbody>
+</table>
+<h6 id="_8">全球导航卫星系统</h6>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;</code></td>
+<td><a href="https://docs.ros.org/en/api/sensor_msgs/html/msg/NavSatFix.html">sensor_msgs/NavSatFix</a></td>
+</tr>
+</tbody>
+</table>
+<h6 id="_9">碰撞传感器</h6>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;</code></td>
+<td><a href="https://github.com/carla-simulator/ros-carla-msgs/blob/master/msg/CarlaCollisionEvent.msg">carla_msgs/CarlaCollisionEvent</a></td>
+</tr>
+</tbody>
+</table>
+<h6 id="_10">车道入侵传感器</h6>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;</code></td>
+<td><a href="https://github.com/carla-simulator/ros-carla-msgs/blob/master/msg/CarlaLaneInvasionEvent.msg">carla_msgs/CarlaLaneInvasionEvent</a></td>
+</tr>
+</tbody>
+</table>
+<p>伪传感器</p>
+<h6 id="tf">TF 传感器</h6>
+<p>当生成此伪传感器时，将发布自我车辆的 tf 数据。</p>
+<p>注意：传感器在测量完成后发布 tf 数据。child_frame_id 与传感器主题的前缀相对应。</p>
+<h6 id="_11">里程计传感器</h6>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/&lt;PARENT ROLE NAME&gt;/&lt;SENSOR ROLE NAME&gt;</code></td>
+<td><a href="https://docs.ros.org/en/api/nav_msgs/html/msg/Odometry.html">nav_msgs/Odometry</a></td>
+<td>父参与者的里程计。</td>
+</tr>
+</tbody>
+</table>
+<h6 id="_12">车速表传感器</h6>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/&lt;PARENT ROLE NAME&gt;/&lt;SENSOR ROLE NAME&gt;</code></td>
+<td><a href="https://docs.ros.org/en/api/std_msgs/html/msg/Float32.html">std_msgs/Float32</a></td>
+<td>父参与者的速度。单位：米/秒。</td>
+</tr>
+</tbody>
+</table>
+<h6 id="_13">地图传感器</h6>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;</code></td>
+<td><a href="https://docs.ros.org/en/api/std_msgs/html/msg/String.html">std_msgs/String</a></td>
+<td>以锁定主题上的字符串形式提供 OpenDRIVE 映射。</td>
+</tr>
+</tbody>
+</table>
+<h6 id="_14">目标传感器</h6>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;</code></td>
+<td><a href="https://docs.ros.org/en/melodic/api/derived_object_msgs/html/msg/ObjectArray.html">derived_object_msgs/ObjectArray</a></td>
+<td>发布所有车辆和步行者。如果附加到父级，则不包含父级。</td>
+</tr>
+</tbody>
+</table>
+<h6 id="_15">标记传感器</h6>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;</code></td>
+<td><a href="https://docs.ros.org/en/api/visualization_msgs/html/msg/Marker.html">visualization_msgs/Marker</a></td>
+<td>车辆和行人的可视化</td>
+</tr>
+</tbody>
+</table>
+<h6 id="_16">交通灯传感器</h6>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;/status</code></td>
+<td><a href="https://github.com/carla-simulator/ros-carla-msgs/blob/master/msg/CarlaTrafficLightStatusList.msg">carla_msgs/CarlaTrafficLightStatusList</a></td>
+<td>所有交通灯及其状态的列表。</td>
+</tr>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;/info</code></td>
+<td><a href="https://github.com/carla-simulator/ros-carla-msgs/blob/master/msg/CarlaTrafficLightInfoList.msg">carla_msgs/CarlaTrafficLightInfoList</a></td>
+<td>所有交通灯的静态信息（例如位置）。</td>
+</tr>
+</tbody>
+</table>
+<h6 id="_17">参与者列表传感器</h6>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;</code></td>
+<td><a href="https://github.com/carla-simulator/ros-carla-msgs/blob/master/msg/CarlaActorList.msg">carla_msgs/CarlaActorList</a></td>
+<td>所有 Carla 参与者的列表。</td>
+</tr>
+</tbody>
+</table>
+<h6 id="_18">参与者控制传感器</h6>
+<p>该伪传感器允许通过在 Pose 和 Twist 数据类型中发布姿势和速度来控制其所连接的参与者（例如 ego_vehicle）的位置和速度。注意：此控制方法不考虑车辆限制。它允许现实世界中不可能的运动，例如飞行或旋转。目前，该传感器应用完整的线性矢量，但仅应用角度矢量的偏航。</p>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;/set_transform</code></td>
+<td><a href="https://docs.ros.org/en/api/geometry_msgs/html/msg/Pose.html">geometry_msgs/Pose</a></td>
+<td>转换以应用于传感器的父级。</td>
+</tr>
+<tr>
+<td><code>/carla/[&lt;PARENT ROLE NAME&gt;]/&lt;SENSOR ROLE NAME&gt;/set_target_velocity</code></td>
+<td><a href="https://docs.ros.org/en/api/geometry_msgs/html/msg/Twist.html">geometry_msgs/Twist</a></td>
+<td>应用于传感器父级的速度（角度和线性）。</td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

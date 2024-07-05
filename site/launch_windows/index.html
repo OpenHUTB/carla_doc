@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Windows 下的启动包的构建 - 交通仿真文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Windows \u4e0b\u7684\u542f\u52a8\u5305\u7684\u6784\u5efa";
+        var mkdocs_page_input_path = "launch_windows.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Windows 下的启动包的构建</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/launch_windows.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="windows">Windows 下的启动包的构建</h1>
+<h2 id="_1">发布安装版本</h2>
+<p>参考<a href="https://github.com/chiefGui/ue-from-source?tab=readme-ov-file#step-by-step-1">链接</a> 进行虚幻引擎的发布。</p>
+<ol>
+<li>使用 Visual Studio 打开 <code>UE4.shn</code> 。</li>
+<li>在右侧边栏，您应该会看到一个<code>解决方案资源管理器</code>面板。展开<code>Programs</code>文件夹并找到<code>AutomationTool</code>项目（<code>Engine\Source\Programs\AutomationTool</code>）：
+<img alt="Image" src="Engine/Documentation/fig/AutomationTool.png" /></li>
+<li>右键单击它并选择<code>生成(Build)</code>，应该很快。</li>
+</ol>
+<h3 id="_2">运行安装软件的构建脚本</h3>
+<ol>
+<li>
+<p>安装 <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-10-sdk">Windows 10 SDK</a> ;</p>
+</li>
+<li>
+<p>运行根目录下的安装构建脚本<code>GenerateInstalledBuild.bat</code>。</p>
+</li>
+</ol>
+<p>如果一切顺利，您应该会看到<code>LocalBuilds</code>与该文件夹处于同一级别的<code>Engine</code>文件夹，并且控制台中没有错误。(还包括一个 InstalledDDC 文件夹：DerivedDataCache)。</p>
+<h3 id="_3">问题</h3>
+<pre><code class="language-text">ERROR: Visual Studio 2017 must be installed in order to build this target.
+</code></pre>
+<p>解决：下载<code>3d5_VisualStudio20171509.rar</code>进行安装。</p>
+<pre><code class="language-text">Unable to find installation of PDBCOPY.EXE
+</code></pre>
+<p>解决：参考 <a href="https://arenas0.com/2018/12/03/UE4_Learn_Build_Binary/">链接</a> 从 <a href="https://pan.baidu.com/s/1Y0PQeHCMQh7Ln12d_p_Rzw">百度网盘</a> 下载<code>X64 Debuggers And Tools-x64_en-us.msi</code>安装。</p>
+<pre><code class="language-text">无法启动此程序，因为计算机中丢失XINPUT1_3.dll。尝试重新安装该程
+</code></pre>
+<p>解决：参考 <a href="http://www.codefaq.cn/category/Windows/">链接</a> 安装 DirectX Redist (June 2010)。</p>
+<p>单独运行<code>Engine-&gt;Binaries-&gt;Win64</code>会出现错误提示：</p>
+<pre><code class="language-text">Plugin 'ExampleDeviceProfileSelector' failed to load because moduleExampleDeviceProfileSelector' could not be found. Please ensure the plugin isproperly installed, otherwise consider disabling the plugin for this project.
+</code></pre>
+<p>但是<code>make launch</code>不会出错。</p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

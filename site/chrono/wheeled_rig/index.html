@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>测试台架 - 交通仿真文档</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u6d4b\u8bd5\u53f0\u67b6";
+        var mkdocs_page_input_path = "chrono\\wheeled_rig.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">测试台架</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/chrono/wheeled_rig.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">测试台架</h1>
+<ul>
+<li><a href="#four_wheel"><strong>悬架试验台</strong></a></li>
+<li><a href="#two_wheel"><strong>轮胎试验台</strong></a></li>
+</ul>
+<h2 id="_2">悬架试验台</h2>
+<p><a href="https://api.projectchrono.org/classchrono_1_1vehicle_1_1_ch_suspension_test_rig.html">ChSuspensionTestRig</a> 是一种用于测试整个车辆悬架组件的装置。可以指定要测试的悬架：</p>
+<ul>
+<li>通过独立的 JSON 文件（可能包含或不包含转向子系统）</li>
+<li>作为车辆 JSON 规范文件中的指定轴</li>
+<li>作为现有车辆的指定车轴（必须已初始化）</li>
+</ul>
+<p>悬架试验台有两种型号：</p>
+<ul>
+<li><a href="https://api.projectchrono.org/classchrono_1_1vehicle_1_1_ch_suspension_test_rig_platform.html">ChSuspensionTestRigPlatform</a> 使用两个独立的刚性平台，通过与轮胎的相互作用来驱动悬架机构。请参阅 demo_VEH_SuspensionTestRigPlatform。</li>
+<li><a href="https://api.projectchrono.org/classchrono_1_1vehicle_1_1_ch_suspension_test_rig_pushrod.html">ChSuspensionTestRigPushrod</a> 将直接驱动力施加到车轮主轴上。请参阅 demo_VEH_SuspensionTestRigPushrod。</li>
+</ul>
+<p>下图显示了 ChSuspensionTestRigPlatform 模拟（使用前双叉臂悬架和 TMeasy 轮胎）的快照和示例输出图。</p>
+<p><img alt="" src="../../img/chrono/susp_test_rig_platform.png" /></p>
+<p><img alt="" src="../../img/chrono/suspe_test_rig_plot1.png" /></p>
+<p><img alt="" src="../../img/chrono/suspe_test_rig_plot2.png" /></p>
+<p><img alt="" src="../../img/chrono/suspe_test_rig_plot3.png" /></p>
+<p>下图是使用前双叉臂悬架的 ChSuspensionTestRigPushrod 模拟的快照。</p>
+<p><img alt="" src="../../img/chrono/susp_test_rig_pushrod.png" /></p>
+<h2 id="_3">轮胎试验台</h2>
+<p><a href="https://api.projectchrono.org/classchrono_1_1vehicle_1_1_ch_tire_test_rig.html">ChTireTestRig</a> 是一种用于测试单个轮胎与 <a href="https://api.projectchrono.org/vehicle_terrain.html#vehicle_terrain_rigid">刚性</a> 、<a href="https://api.projectchrono.org/vehicle_terrain.html#vehicle_terrain_scm">SCM 可变形</a> 或 <a href="https://api.projectchrono.org/vehicle_terrain.html#vehicle_terrain_granular">粒状地形</a> 相互作用的装置。所有可用的 Chrono::Vehicle <a href="https://api.projectchrono.org/wheeled_tire.html">轮胎模型</a> 都可以与此测试装置一起使用，但只能与一致的地形模型结合使用。</p>
+<p>轮胎试验台允许纵向速度、车轮角速度和车轮滑移角随时间变化，支持纵向速度和角速度的自动选择，以强制执行指定的纵向滑移值，并允许指定外倾角（在模拟期间保持不变）。</p>
+<p>参见 demo_VEH_TireTestRig 和 demo_VEH_TireTestRig_Multicore。</p>
+<p>下面的图片是单轮胎测试的快照，分别在刚性地形上使用 Pac02 轮胎和在 SCM 可变形地形上使用刚性轮胎。</p>
+<p><img alt="" src="../../img/chrono/tire_test_rig_rigid.png" /></p>
+<p><img alt="" src="../../img/chrono/tire_test_rig_SCM.png" /></p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>无显示屏运行 CARLA 并选择 GPU - 交通仿真文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u65e0\u663e\u793a\u5c4f\u8fd0\u884c CARLA \u5e76\u9009\u62e9 GPU";
+        var mkdocs_page_input_path = "carla_headless.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">无显示屏运行 CARLA 并选择 GPU</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/carla_headless.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="carla-gpu">无显示屏运行 CARLA 并选择 GPU</h1>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>请参阅 <a href="https://github.com/carla-simulator/carla/issues/225">#225</a> 了解替代方法。</p>
+</div>
+<p>本教程适用于</p>
+<ul>
+<li>拥有多张 nvidia 显卡并希望在所有 GPU 上有效使用 CARLA 的远程服务器用户。</li>
+<li>想要使用未插在屏幕上的GPU来渲染CARLA的桌面用户。</li>
+</ul>
+<p>在本教程中你将学习</p>
+<ul>
+<li>如何配置您的服务器，让 nvidia 在未连接显示器的情况下进行渲染。</li>
+<li>如何使用 VNC + VGL 模拟连接到您机器中任何 GPU 的显示器。</li>
+<li>最后，如何在此环境中运行 CARLA</li>
+</ul>
+<p>本教程在 Ubuntu 16.04 中使用 NVIDIA 384.11 驱动程序进行了测试。</p>
+<h2 id="_1">准备工作</h2>
+<p>您的服务器中需要先运行一些程序。最新的 NVIDIA 驱动程序、OpenGL、VirtualGL(VGL)、TurboVNC 2.11。</p>
+<h3 id="nvidia">NVIDIA 驱动程序</h3>
+<p>下载并安装 <a href="http://www.nvidia.es/Download/index.aspx">NVIDIA 驱动程序</a> 以及典型教程。</p>
+<h3 id="opengl">OpenGL</h3>
+<p>Openg GL 是 Virtual GL 所必需的。通常可以通过 apt 安装 OpenGL。</p>
+<pre><code class="language-shell">sudo apt-get install freeglut3-dev mesa-utils
+</code></pre>
+<h3 id="vgl">VGL</h3>
+<p>按照本教程安装 vgl： <a href="https://virtualgl.org/vgldoc/2_2_1/#hd004001">安装 VGL</a> </p>
+<h3 id="turbovnc">TurboVNC</h3>
+<p>按照以下教程安装 TurboVNC 2.11： <a href="https://cdn.rawgit.com/TurboVNC/turbovnc/2.1.1/doc/index.html#hd005001">安装 TurboVNC</a> </p>
+<p>警告：请谨慎安装 VNC，因为它可能与 Unreal 不兼容。上面的那个是唯一对我有用的。</p>
+<h3 id="_2">额外的包</h3>
+<p>这些额外的包对于虚幻引擎的运行是必需的。</p>
+<p>```shell script
+sudo apt install x11-xserver-utils libxrandr-dev</p>
+<pre><code>
+### 配置你的 X
+您必须生成与您的 nvdia 兼容的 X，并且兼容在无显示的情况下运行。为此，以下命令有效：
+
+```shell script
+sudo nvidia-xconfig -a --use-display-device=None --virtual=1280x1024
+</code></pre>
+<h2 id="_3">模拟虚拟显示</h2>
+<p>运行你自己的 Xorg。这里我使用数字 7，但它可以标记为任何自由数字
+```shell script
+sudo nohup Xorg :7 &amp;</p>
+<pre><code>
+运行辅助远程 VNC-Xserver。这将创建虚拟显示器“8”。
+
+```shell script
+/opt/TurboVNC/bin/vncserver :8
+</code></pre>
+<p>如果一切正常，以下命令应该可以顺利运行。
+```shell script
+DISPLAY=:8 vglrun -d :7.0 glxinfo</p>
+<pre><code>
+注意。这将在 Xserver 7、设备 0 上运行 glxinfo。这意味着您正在选择机器上的 GPU 0。要在其他 GPU（例如 GPU 1）上运行，请运行：
+```shell script
+DISPLAY=:8 vglrun -d :7.1 glxinfo
+</code></pre>
+<h3 id="_4">额外的</h3>
+<p>如果您希望在创建“nohup Xorg”时禁用 sudo，请转到“/etc/X11/Xwrapper.config”文件并将“allowed_users=console”更改为“allowed_users=anybody”</p>
+<p>在运行 nohup Xorg 之前可能需要停止所有 Xorg 服务器。该命令可能因您的系统而异。通常对于 Ubuntu 16.04，您应该使用：</p>
+<p>```shell script
+sudo service lightdm stop</p>
+<pre><code>
+
+## 运行 CARLA
+现在，最后，要在某个 $CARLA_PATH 中的某个 gpu_number 上运行 CARLA，请运行。
+```shell script
+DISPLAY=:8 vglrun -d :7.&lt;gpu_number&gt; $CARLA_PATH/CarlaUE4/Binaries/Linux/CarlaUE4
+</code></pre>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
