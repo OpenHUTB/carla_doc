@@ -118,7 +118,7 @@ def render(queue, side, x, y):
  right_process = multiprocessing.Process(target=render, args=(right_queue, 'right', VIEW_WIDTH + 10, 100))
 ```
 
-![](..\img\traffic_course_img\2.gif)
+![](../img/traffic_course_img/2.gif)
 
 
 

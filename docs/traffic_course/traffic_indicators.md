@@ -153,7 +153,7 @@ def queue_lengths(world,junctions,counted_vehicles):
 
 ### 车均延误函数ave_delay()
 
-采用以下计算公式进行计算：![](..\img\traffic_course_img\4.png)
+采用以下计算公式进行计算：![](../img/traffic_course_img/4.png)
 
 ​	其中**D**为路口车均延误参数，**C**为路口交通信号灯配时总时间，**y**为路口饱和度，**T**为当前分析时段的时长。
 

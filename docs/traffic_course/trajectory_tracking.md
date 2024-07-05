@@ -151,4 +151,4 @@ def exec_waypoint_nav_demo(args):
 
 ##### 运行结果
 
-![](..\img\traffic_course_img\trace.gif)
+![](../img/traffic_course_img/trace.gif)

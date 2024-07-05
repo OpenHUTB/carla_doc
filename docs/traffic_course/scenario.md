@@ -14,7 +14,7 @@
 
 ​    **[RoadRunner R2022b 安装包](https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb)**，如下图所示，解压后直接运行里面的exe程序。
 
-![](..\img\traffic_course_img\1.png)
+![](../img/traffic_course_img/1.png)
 
 ------
 
@@ -22,7 +22,7 @@
 
 RoadRunner界面分为Scene Editing和Scenario Editing，下图所示为roadrunner软件的Scene Editing(静态路网编辑)基本功能界面：
 
-![](..\img\traffic_course_img\2.png)
+![](../img/traffic_course_img/2.png)
 
 红色是建立道路和调整道路(分段，翻转，坡度等）
 
@@ -42,7 +42,7 @@ RoadRunner界面分为Scene Editing和Scenario Editing，下图所示为roadrunn
 
 ​	**[OpenStreetMap](https://www.openstreetmap.org/)**是一个开放、可编辑的地图项目，由全球志愿者贡献数据，其数据包括道路、建筑物、地理特征、交通设施等地理信息。使用者可以搜索相应的道路信息，选择导出**osm**路网文件。
 
-![](..\img\traffic_course_img\3.png)
+![](../img/traffic_course_img/3.png)
 
 **还可以进行对该网站的编辑修改**：**[OpenStreetMap地图编辑](https://openhutb.github.io/carla_doc/adv_edit_openstreetmap/)**
 
@@ -52,7 +52,7 @@ RoadRunner界面分为Scene Editing和Scenario Editing，下图所示为roadrunn
 
 在**Scene Editing**的工具栏中选择 **SD Map Viewer Tool** 工具，点击**Open OpenStreetMap File** 选择**osm**路网文件位置，最后点击**Build Road**完成路网的生成。
 
-![](..\img\traffic_course_img\4.jpg)
+![](../img/traffic_course_img/4.jpg)
 
 ------
 

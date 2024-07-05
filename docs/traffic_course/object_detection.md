@@ -2,7 +2,7 @@
 
 ​	**object_dection.py**  脚本主要是在 **Carla** 中使用 **YOLOv3** 检测车辆。[相关链接](https://openhutb.github.io/carla_doc/algorithms/perception/)
 
-![](..\img\traffic_course_img\3.gif)
+![](../img/traffic_course_img/3.gif)
 
 ​	导入必要的库及变量
 

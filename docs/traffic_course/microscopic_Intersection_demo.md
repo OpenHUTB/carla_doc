@@ -55,7 +55,7 @@ while True:
 
 ##### 运行结果：
 
-![](..\img\traffic_course_img\1.gif)
+![](../img/traffic_course_img/1.gif)
 
 
 

@@ -4,7 +4,7 @@
 
 ​	本示例设计了一个**automatic_control_revised.py**脚本进行实现
 
-![](..\img\traffic_course_img\4.gif)
+![](../img/traffic_course_img/4.gif)
 
 **注意**  需要将**agents**文件夹位置添加到代码环境变量中，或者复制该文件夹使其与本示例脚本同级。
 
