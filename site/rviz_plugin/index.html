@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>RVIZ Carla 插件 - 交通仿真文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "RVIZ Carla \u63d2\u4ef6";
+        var mkdocs_page_input_path = "rviz_plugin.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">RVIZ Carla 插件</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/rviz_plugin.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="rviz-carla">RVIZ Carla 插件</h1>
+<p><a href="https://github.com/carla-simulator/ros-bridge/tree/master/rviz_carla_plugin">RVIZ 插件</a> 提供了基于 <a href="https://wiki.ros.org/rviz">RVIZ</a> ROS包的可视化工具。</p>
+<ul>
+<li><a href="#run-ros-bridge-with-rviz"><strong>使用 RVIZ 运行 ROS 桥</strong></a></li>
+<li><a href="#features-of-the-rviz-plugin"><strong>RVIZ 插件的功能</strong></a></li>
+<li><a href="#ros-api"><strong>ROS 应用程序接口</strong></a><ul>
+<li><a href="#subscriptions">订阅</a></li>
+<li><a href="#publications">发布</a></li>
+<li><a href="#services">服务</a></li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="rviz-ros">使用 RVIZ 运行 ROS 桥</h2>
+<p><img alt="ros_rviz" src="../img/ros_rviz.png" /></p>
+<p>RVIZ 插件需要一个名为 <code>ego_vehicle</code> 的自我车辆。要查看 ROS 桥与 RVIZ 配合使用的示例，请在运行的 Carla 服务器上执行以下命令：</p>
+<p><strong>1.</strong> 在启用 RVIZ 的情况下启动 ROS 桥：</p>
+<pre><code class="language-sh"># ROS 1
+roslaunch carla_ros_bridge carla_ros_bridge.launch
+
+# ROS 2
+ros2 launch carla_ros_bridge carla_ros_bridge.launch.py
+</code></pre>
+<p><strong>2.</strong> 启动 RVIZ：</p>
+<pre><code class="language-sh"># ROS 1
+rosrun rviz rviz
+
+# ROS 2
+ros2 run rviz2 rviz2
+</code></pre>
+<p><strong>2.</strong> 使用<code>carla_spawn_objects</code>包生成一辆自我车辆：</p>
+<pre><code class="language-sh"># ROS 1
+roslaunch carla_spawn_objects carla_spawn_objects.launch
+
+# ROS 2
+ros2 launch carla_spawn_objects carla_spawn_objects.launch.py
+</code></pre>
+<p><strong>3.</strong> 使用 <code>carla_manual_control</code> 包控制自我车辆（按下B可启用手动转向）：</p>
+<pre><code class="language-sh"># ROS 1
+roslaunch carla_manual_control carla_manual_control.launch
+
+# ROS 2
+ros2 launch carla_manual_control carla_manual_control.launch.py
+</code></pre>
+<hr />
+<h2 id="rviz">RVIZ 插件的功能</h2>
+<ul>
+<li><strong>自我车辆状态可视化</strong> - 可视化车辆位置和控制。</li>
+<li><strong>向其他节点提供 RVIZ 视图姿势</strong> - 连接<code>actor.pseudo.control</code> 到相机后，通过发布姿势消息在 Carla 世界中移动相机。</li>
+<li><strong>传感器可视化</strong> - 可视化 RGB、LIDAR、深度、DVS 和语义分割相机信息。</li>
+<li><strong>执行场景</strong> - 使用 <a href="https://github.com/carla-simulator/ros-bridge/blob/master/carla_ros_scenario_runner">carla_ros_scenario_runner</a> 包触发场景。</li>
+<li><strong>播放/暂停仿真</strong> - 如果以同步模式启动，您可以播放和暂停仿真。</li>
+<li><strong>手动覆盖自我车辆控制</strong> - 使用 <a href="https://github.com/ros-visualization/visualization_tutorials">RVIZ Visualization Tutorials</a> 可视化教程中的驱动小部件和从扭曲转换为车辆控制的 <a href="https://github.com/carla-simulator/ros-bridge/blob/master/carla_twist_to_control">节点</a> ，通过鼠标驾驶车辆。 </li>
+</ul>
+<hr />
+<h2 id="ros">ROS 应用程序接口</h2>
+<h4 id="_1">订阅</h4>
+<table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/status</code></td>
+<td><a href="../ros_msgs/#carlastatusmsg">carla_msgs/CarlaStatus</a></td>
+<td>读取 Carla 的当前状态</td>
+</tr>
+<tr>
+<td><code>/carla/ego_vehicle/vehicle_status</code></td>
+<td><a href="../ros_msgs/#carlaegovehiclestatusmsg">carla_msgs/CarlaEgoVehicleStatus</a></td>
+<td>显示本车当前状态</td>
+</tr>
+<tr>
+<td><code>/carla/ego_vehicle/odometry</code></td>
+<td><a href="https://docs.ros.org/en/api/nav_msgs/html/msg/Odometry.html">nav_msgs/Odometry</a></td>
+<td>显示自我车辆的当前姿态</td>
+</tr>
+<tr>
+<td><code>/scenario_runner/status</code></td>
+<td><a href="../ros_msgs/#carlascenariorunnerstatusmsg">carla_ros_scenario_runner_types/CarlaScenarioRunnerStatus</a></td>
+<td>可视化场景运行状态</td>
+</tr>
+<tr>
+<td><code>/carla/available_scenarios</code></td>
+<td><a href="../ros_msgs/#carlascenariolistmsg">carla_ros_scenario_runner_types/CarlaScenarioList</a></td>
+<td>提供要执行的场景列表（在组合框中禁用）</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h4 id="_2">发布</h4>
+<table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/control</code></td>
+<td><a href="../ros_msgs/#carlacontrolmsg">carla_msgs/CarlaControl</a></td>
+<td>播放/暂停/步进 Carla</td>
+</tr>
+<tr>
+<td><code>/carla/ego_vehicle/spectator_pose</code></td>
+<td><a href="https://docs.ros.org/en/api/geometry_msgs/html/msg/PoseStamped.html">geometry_msgs/PoseStamped</a></td>
+<td>发布 RVIZ 相机视图的当前姿态</td>
+</tr>
+<tr>
+<td><code>/carla/ego_vehicle/vehicle_control_manual_override</code></td>
+<td><a href="https://docs.ros.org/en/api/std_msgs/html/msg/Bool.html">std_msgs/Bool</a></td>
+<td>启用/禁用车辆控制覆盖</td>
+</tr>
+<tr>
+<td><code>/carla/ego_vehicle/twist</code></td>
+<td><a href="https://docs.ros.org/en/api/geometry_msgs/html/msg/Twist.html">geometry_msgs/Twist</a></td>
+<td>通过鼠标创建的扭曲命令</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h4 id="_3">服务</h4>
+<table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/scenario_runner/execute_scenario</code></td>
+<td><a href="https://github.com/carla-simulator/ros-bridge/blob/master/carla_ros_scenario_runner_types/srv/ExecuteScenario.srv">carla_ros_scenario_runner_types/ExecuteScenario</a></td>
+<td>执行选定的场景</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

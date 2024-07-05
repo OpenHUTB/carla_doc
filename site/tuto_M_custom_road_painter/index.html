@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>自定义地图：道路画家 - 交通仿真文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u81ea\u5b9a\u4e49\u5730\u56fe\uff1a\u9053\u8def\u753b\u5bb6";
+        var mkdocs_page_input_path = "tuto_M_custom_road_painter.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">自定义地图：道路画家</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/tuto_M_custom_road_painter.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">自定义地图：道路画家</h1>
+<p>本指南解释了什么是道路绘制工具，如何使用它通过组合不同的纹理来自定义道路的外观，如何添加贴花和网格以及如何根据道路纹理更新车道标记的外观。</p>
+<ul>
+<li><a href="#what-is-the-road-painter"><strong>什么是道路画家？</strong></a></li>
+<li><a href="#before-you-begin"><strong>在你开始之前</strong></a></li>
+<li><a href="#establish-the-road-painter-master-material-and-render-target"><strong>建立道路画家、掌握材质和渲染目标</strong></a></li>
+<li><a href="#prepare-the-master-material"><strong>准备主材质</strong></a></li>
+<li><a href="#paint-the-road"><strong>描绘道路</strong></a></li>
+<li><a href="#update-the-appearance-of-lane-markings"><strong>更新车道线的外观</strong></a></li>
+<li><a href="#next-steps"><strong>下一步</strong></a></li>
+</ul>
+<hr />
+<h2 id="_2">什么是道路画家？</h2>
+<p>道路画家工具是一个使用 OpenDRIVE 信息快速绘制道路的蓝图。它采用主材质并将其应用到道路的渲染目标以用作画布。主材质由一系列材质组成，这些材质可以使用画笔混合并用作蒙版。无需应用光度测定技术，也无需考虑几何体的 UV。</p>
+<hr />
+<h2 id="_3">在你开始之前</h2>
+<p>道路油漆工使用 OpenDRIVE 信息来油漆道路。确保您的<code>.xodr</code>文件与地图同名，这样才能正常工作。</p>
+<hr />
+<h2 id="_4">建立道路画家、掌握材质和渲染目标</h2>
+<p><strong>1. 创建 <code>RoadPainter</code> 参与者。</strong></p>
+<ol>
+<li>在 <em>内容浏览器</em> 中，导航至 <code>Content/Carla/Blueprints/LevelDesign</code>。</li>
+<li>将 <code>RoadPainter</code> 拖入场景中。</li>
+</ol>
+<p><strong>2. 创建渲染目标。</strong></p>
+<ol>
+<li>在 <em>内容浏览器</em> 中，导航至 <code>Content/Carla/Blueprints/LevelDesign/RoadPainterAssets</code>。</li>
+<li>右键单击 <code>RenderTarget</code> 文件并选择 <code>Duplicate</code>。</li>
+<li>重命名为 <code>Tutorial_RenderTarget</code>。</li>
+</ol>
+<p><strong>3. 创建主材质实例。</strong></p>
+<ol>
+<li>在 <em>内容浏览器</em> 中，导航至 <code>Game/Carla/Static/GenericMaterials/RoadPainterMaterials</code>。</li>
+<li>右键单击 <code>M_RoadMaster</code> 并选择 <em>Create Material Instance</em> 。</li>
+<li>重命名为 <code>Tutorial_RoadMaster</code>。</li>
+</ol>
+<p><strong>4. 重新校准 <em>Map Size (Cm)</em> ，使其等于地图的实际尺寸。</strong></p>
+<ol>
+<li>选择 <code>RoadPainter</code> 场景中的参与者。</li>
+<li>转到 <em>Details</em> 面板并按 <em>Z-Size</em> 按钮。您将看到 <em>Map Size (Cm)</em> 中的值发生变化。</li>
+</ol>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p><img alt="map size" src="../img/map_size.png" /></p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<p><strong>5. 同步 <code>RoadPainter</code> 和 <code>Tutorial_RoadMaster</code> 之间的地图尺寸。</strong></p>
+<ol>
+<li>在 <em>内容浏览器</em> 中，打开 <code>Tutorial_RoadMaster</code>。</li>
+<li>复制上一步中 <em>Map Size (Cm)</em> 的值，并将其粘贴到 <code>Tutorial_RoadMaster</code> 窗口中的 <em>Global Scalar Parameter Values -&gt; Map units (CM)</em> 。</li>
+<li>点击保存。</li>
+</ol>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p><img alt="img" src="../img/map_size_sync.png" /></p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<p><strong>6. 创建道路画家和主材质之间的通信链接。</strong></p>
+<p><code>Tutorial_RenderTarget</code> 将是道路画家和 <code>Tutorial_RoadMaster</code> 之间的通信纽带。</p>
+<ol>
+<li>在 <code>Tutorial_RoadMaster</code>窗口中，将 <code>Tutorial_RenderTarget</code> 应用于 <em>Global Texture Parameter Values -&gt; Texture Mask</em> 。</li>
+<li>保存并关闭。</li>
+<li>在主编辑器窗口中，选择道路画家参与者，转到 <em>Details</em> 面板并将 <code>Tutorial_RenderTarget</code> 应用到 <em>Paint -&gt; Render Target</em> 。</li>
+</ol>
+<hr />
+<h2 id="_5">准备主材质</h2>
+<p>您创建的 <code>Tutorial_RoadMaster</code> 材质，包含基础材质、额外材质信息以及将通过您的<code>Tutorial_RenderTarget</code>。您可以配置一种基础材料和最多三种附加材料。</p>
+<blockquote>
+<blockquote>
+<p><img alt="master materials" src="../img/master_material.png" /></p>
+</blockquote>
+</blockquote>
+<p>要配置材料，请双击 <code>Tutorial_RoadMaster</code> 文件。在出现的窗口中，您可以根据需要为每种材料选择和调整以下值：</p>
+<ul>
+<li>亮度(Brightness)</li>
+<li>色调(Hue)</li>
+<li>饱和度(Saturation)</li>
+<li>AO Intensity</li>
+<li>法线贴图强度(NormalMap Intensity)</li>
+<li>粗糙度对比(Roughness Contrast)</li>
+<li>粗糙度强度(Roughness Intensity)</li>
+</ul>
+<p>您可以通过选择以下值并在搜索框中搜索纹理来更改每种材质的纹理：</p>
+<ul>
+<li>Diffuse</li>
+<li>Normal</li>
+<li>ORMH</li>
+</ul>
+<p>探索 <code>Game/Carla/Static/GenericMaterials/Asphalt/Textures</code> 中可用的一些 Carla 纹理。</p>
+<hr />
+<h3 id="_6">描绘道路</h3>
+<p><strong>1. 在道路画家和道路之间创建链接。</strong></p>
+<ol>
+<li>在主编辑器窗口中，在 <em>World Outliner</em> 搜索框中进行 <code>Road_Road</code> 搜索。</li>
+<li>按 <code>Ctrl + A</code> 选择所有道路。</li>
+<li>在 <em>Details</em> 面板中，转到 <em>Materials</em> 部分并应用 <code>Tutorial_RoadMaster</code> 到 <em>Element 0</em>、 <em>Element 1</em>、 <em>Element 2</em> 和 <em>Element 3</em>。</li>
+</ol>
+<p><strong>2. 选择要定制的材质。</strong></p>
+<p>我们添加的 <code>Tutorial_RoadMaster</code> 单独应用于道路，并使用画笔工具配置应用程序。要应用和自定义材质：</p>
+<ol>
+<li>选择道路油画家参与者。</li>
+<li>在 <em>Details</em> 面板中，在 <em>Mask Color</em> 下拉菜单中选择要使用的材质。</li>
+</ol>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p><img alt="choose material" src="../img/choose_material.png" /></p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<p><strong>3. 设置画笔和模板参数。</strong></p>
+<p>在 <code>GenericMaterials/RoadStencil/Alphas</code> 中有多种模板可供选择。模板用于根据您的需要绘制道路，可以使用以下值进行调整：</p>
+<ul>
+<li><em>Stencil size</em> — 画笔的尺寸。</li>
+<li><em>Brush strength</em> — 轮廓的粗糙度。</li>
+<li><em>Spacebeween Brushes</em> — 笔划之间的距离。</li>
+<li><em>Max Jitter</em> — 笔划之间画笔的大小变化。</li>
+<li><em>Stencil</em> — 要使用的画笔。</li>
+<li><em>Rotation</em> — 应用于笔画的旋转。</li>
+</ul>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p><img alt="materials_roadpaint_brushes" src="../img/material_customization/Materials_Brush.jpg" /></p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<div style="text-align: right"><i>Brush panel.</i></div>
+<p><br>
+<img alt="materials_roadpaint_typesofbrushes" src="../img/material_customization/Materials_Road_Typesofbrushes.jpg" /></p>
+<div style="text-align: right"><i>Different types of brushes.</i></div>
+<p><br>
+<strong>4. 将每种材料涂抹到道路的所需部分。</strong></p>
+<p>通过 <em>Details</em> 面板的 <em>Default</em> 部分中的按钮选择应用所选材质的位置：</p>
+<ul>
+<li><em>Paint all roads</em> — 粉刷所有道路。</li>
+<li><em>Paint by actor</em> — 绘画特定的、选定的参与者。</li>
+<li><em>Paint over circle</em> — 使用圆形图案进行绘制，有助于提供变化。</li>
+<li><em>Paint over square</em> — 使用正方形图案进行绘制，有助于提供变化。</li>
+</ul>
+<p>此部分还包含用于删除已应用更改的选项。</p>
+<ul>
+<li><em>Clear all</em> — 擦除所有绘制的材质。</li>
+<li><em>Clear materials</em> — 删除当前活动的材料。</li>
+<li><em>Clear material by actor</em> — 删除最接近所选参与者的材质。</li>
+</ul>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p><img alt="materials_roadpaint_brushes" src="../img/material_customization/Materials_RoadPainter_Default.jpg" /></p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<div style="text-align: right"><i>Different painting and erasing options.</i></div>
+<p><br>
+<strong>5. 添加贴花和网格。</strong></p>
+<p>您可以在 <code>Content/Carla/Static/Decals</code> 和 <code>Content/Carla/Static</code> 中探索可用的贴花和网格。通过扩展并添加到 <em>Decals Spawn</em> 和 <em>Meshes Spawn</em> 数组，将它们添加到道路绘制器中。对于每一项，您都可以配置以下参数：</p>
+<ul>
+<li><em>Number of Decals/Meshes</em> - 要绘制的每个贴花或网格的数量。</li>
+<li><em>Decal/Mesh Scale</em> — 每个轴的贴花/网格比例。</li>
+<li><em>Fixed Decal/Mesh Offset</em> — 每个轴与车道中心的偏差。</li>
+<li><em>Random Offset</em> — 每个轴与车道中心的最大偏差。</li>
+<li><em>Decal/Mesh Random Yaw</em> — 最大随机偏航旋转。</li>
+<li><em>Decal/Mesh Min Scale</em> — 应用于贴花/网格的最小随机比例。</li>
+<li><em>Decal/Mesh Max Scale</em> — 应用于贴花/网格的最大随机比例。</li>
+</ul>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p><img alt="materials_" src="../img/decals_meshes.png" /></p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<div style="text-align: right"><i>贴花和网格面板。</i></div>
+<p><br></p>
+<p>配置好网格和贴花后，通过按<code>Spawn decals</code>和生成它们<code>Spawn meshes</code>。</p>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>确保网格和贴花没有启用碰撞，以免干扰道路上的汽车并将任何边界框降低到道路水平。</p>
+</div>
+<p><strong>7. 尝试获得您想要的外观。</strong> </p>
+<p>尝试不同的材质、纹理、设置、贴花和网格以获得您想要的外观。下面是一些示例图像，显示了在绘制每种材质的过程中道路外观如何变化。</p>
+<p><img alt="materials_roadpaint_mat00" src="../img/material_customization/Materials_Road_MaterialBase.jpg" /></p>
+<div style="text-align: right"><i>基础道路材料示例。</i></div>
+<p><br></p>
+<p><img alt="materials_roadpaint_mat01" src="../img/material_customization/Materials_Road_Material1.jpg" /></p>
+<div style="text-align: right"><i>应用材料 1 后的示例。</i></div>
+<p><br></p>
+<p><img alt="materials_roadpaint_mat02" src="../img/material_customization/Materials_Road_Material2.jpg" /></p>
+<div style="text-align: right"><i>应用材料 2 后的示例。</i></div>
+<p><br></p>
+<p><img alt="materials_roadpaint_mat03" src="../img/material_customization/Materials_Road_Material3.jpg" /></p>
+<div style="text-align: right"><i>应用材料 3 后的示例。</i></div>
+<p><br></p>
+<p><img alt="materials_roadpaint_mat03" src="../img/material_customization/Materials_Road_Decals.jpg" /></p>
+<div style="text-align: right"><i>应用贴花后的示例。</i></div>
+<p><br></p>
+<p><img alt="materials_roadpaint_mat03" src="../img/material_customization/Materials_Road_Meshes.jpg" /></p>
+<div style="text-align: right"><i>应用网格后的示例。</i></div>
+<p><br></p>
+<hr />
+<h2 id="_7">更新车道线的外观</h2>
+<p>绘制道路后，您可以按照以下步骤更新道路标记的外观：</p>
+<p><strong>1.  复制主材料。</strong></p>
+<ol>
+<li>在 <em>内容浏览器</em> ，导航至 <code>Game/Carla/Static/GenericMaterials/RoadPainterMaterials</code>。</li>
+<li>右键单击 <code>Tutorial_RoadMaster</code> 并选择 <em>Create Material Instance</em> 。</li>
+<li>重命名为 <code>Tutorial_LaneMarkings</code>。</li>
+</ol>
+<p><strong>2. 配置车道线材质。</strong></p>
+<ol>
+<li>在 <em>内容浏览器</em> ，双击 <code>Tutorial_LaneMarkings</code>。</li>
+<li>在 <em>Details</em> 面板中，转到 <em>Global Static Switch Parameter Values</em> 部分，然后选中 <em>LaneMark</em> 左侧和右侧的框。</li>
+<li>转到 <em>Texture</em> 部分并选中 <em>LaneColor</em> 和 <em>Uv Size</em> 复选框。</li>
+<li>在 <em>LaneColor</em> 中选择您喜欢的车道标记颜色。</li>
+<li><em>保存</em> 并关闭。</li>
+</ol>
+<p><strong>3. 选择车道线网格。</strong></p>
+<p>将材料拖到您想要着色的车道线上。如果需要，对不同颜色的车道线重复整个过程。</p>
+<hr />
+<h2 id="_8">下一步</h2>
+<p>使用以下工具和指南继续自定义您的地图：</p>
+<ul>
+<li><a href="../tuto_M_custom_layers/">在地图中实现子关卡。</a></li>
+<li><a href="../tuto_M_custom_add_tl/">添加和配置交通灯和标志。</a></li>
+<li><a href="../tuto_M_custom_buildings/">使用程序化构建工具添加建筑物。</a></li>
+<li><a href="../tuto_M_custom_weather_landscape/#weather-customization">自定义天气</a></li>
+<li><a href="../tuto_M_custom_weather_landscape/#add-serial-meshes">使用序列化网格自定义景观。</a></li>
+</ul>
+<p>完成定制后，您可以 <a href="../tuto_M_generate_pedestrian_navigation/">生成行人导航信息</a> 。</p>
+<hr />
+<p>如果您对流程有任何疑问，可以在 <a href="https://github.com/carla-simulator/carla/discussions">论坛</a> 中提问。</p>
+<div class="build-buttons">
+<p>
+<a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
+Carla 论坛</a>
+</p>
+</div>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

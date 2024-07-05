@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Adv sumo - 交通仿真文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Adv sumo";
+        var mkdocs_page_input_path = "adv_sumo.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Adv sumo</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/adv_sumo.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="sumo"><a href="https://carla.readthedocs.io/en/latest/adv_sumo/">和 SUMO 进行联合仿真</a></h1>
+<p>Carla 与 SUMO 开发了联合仿真功能。这允许随意分配任务，并利用每个仿真的功能来支持用户。</p>
+<ul>
+<li><a href="#requisites"><strong>必备条件</strong></a>  </li>
+<li><a href="#run-a-custom-co-simulation"><strong>运行自定义联合仿真</strong></a>  <ul>
+<li><a href="#create-carla-vtypes">创建 Carla vtypes</a>  </li>
+<li><a href="#create-the-sumo-net">创建 SUMO 网络</a>  </li>
+<li><a href="#run-the-synchronization">运行同步</a>  </li>
+</ul>
+</li>
+<li><a href="#spawn-npcs-controlled-by-sumo"><strong>由 SUMO 控制的 NPC 生成</strong></a>  </li>
+</ul>
+<hr />
+<h2 id="_1">必备条件</h2>
+<p>首先，需要 <a href="https://sumo.dlr.de/docs/Installing.html"><strong>安装 SUMO</strong></a> 才能运行联合仿真。建议从源代码构建而不是简单安装，因为有新功能和修复可以改进协同仿真。</p>
+<p>完成后，设置 SUMO 环境变量。</p>
+<pre><code class="language-sh">echo &quot;export SUMO_HOME=/usr/share/sumo&quot; &gt;&gt; ~/.bashrc &amp;&amp; source ~/.bashrc
+</code></pre>
+<p>SUMO 已准备好运行联合仿真。 <code>Co-Simulation/Sumo/examples</code> 中有一些 <strong>Town01</strong>, <strong>Town04</strong> 和 <strong>Town05</strong> 的示例。这些文件描述了仿真的配置（例如网络、路线、车辆类型...）。使用其中之一来测试联合仿真。该脚本有不同的选项，<a href="#run-the-synchronization">下面</a> 将详细介绍。现在，让我们为 <strong>Town04</strong> 运行一个简单的示例。</p>
+<p>使用 <strong>Town04</strong> 运行 Carla 仿真。  </p>
+<pre><code class="language-sh">cd ~/carla
+./CarlaUE4.sh
+cd PythonAPI/util
+python3 config.py --map Town04
+</code></pre>
+<p>然后，运行 SUMO 联合仿真示例。  </p>
+<pre><code class="language-sh">cd ~/carla/Co-Simulation/Sumo
+python3 run_synchronization.py examples/Town04.sumocfg  --sumo-gui
+</code></pre>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>运行时候可能报错：<code>module 'traci' has no attribute 'sumolib'</code>，是因为<code>sumolib</code>是独立的包，不在<code>traci</code>里面，需要把<code>carla/Co-Simulation/Sumo/sumo_integration/sumo_simulation.py</code>的304行的这一句代<code>sumo_net = traci.sumolib.net.readNet(net_file)</code>码改成<code>sumo_net = sumolib.net.readNet(net_file)</code>。</p>
+</div>
+<hr />
+<h2 id="_2">运行自定义联合仿真</h2>
+<h3 id="carla-vtypes">创建 carla vtypes</h3>
+<p>使用脚本 <code>Co-Simulation/Sumo/util/create_sumo_vtypes.py</code> 用户可以基于 Carla 蓝图库创建 <em>vtypes</em>，相当于 Carla 蓝图。</p>
+<ul>
+<li><strong><code>--carla-host</code></strong> <em>(默认值：127.0.0.1)</em> — Carla 主机服务器的 IP。</li>
+<li><strong><code>--carla-port</code></strong> <em>(默认值：2000)</em> — 要侦听的 TCP 端口。</li>
+<li><strong><code>--output-file</code></strong> <em>(默认值：carlavtypes.rou.xml)</em> — 生成的包含 <em>vtypes</em> 的文件。  </li>
+</ul>
+<p>该脚本使用 <code>data/vtypes.json</code> 存储的信息来创建 SUMO <em>vtypes</em>。这些可以通过编辑所述文件来修改。</p>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>必须运行 Carla 仿真才能执行该脚本。</p>
+</div>
+<h3 id="sumo_1">创建 SUMO 网络</h3>
+<p>创建与 Carla 同步的 SUMO 网络推荐方法是使用脚本 <code>Co-Simulation/Sumo/util/netconvert_carla.py</code>. 这就要利用 SUMO 提供的 <a href="https://sumo.dlr.de/docs/NETCONVERT.html">netconvert</a>工具了。为了运行该脚本，需要一些参数。 </p>
+<ul>
+<li><strong><code>xodr_file</code></strong> — OpenDRIVE 文件 <code>.xodr</code>。</li>
+<li><strong><code>--output'</code></strong> <em>(默认值：<code>net.net.xml</code>)</em> — 输出文件 <code>.net.xml</code>。</li>
+<li><strong><code>--guess-tls</code></strong> <em>(默认值：false)</em> — SUMO 只能为道路中的特定车道设置交通灯，但 Carla 不能。如果设置为 <strong>True</strong>，SUMO 将不会区分特定车道的交通信号灯，并且这些信号灯将与 Carla 同步。</li>
+</ul>
+<p>该脚本的输出将是<code>.net.xml</code>可以使用 <strong><a href="https://sumo.dlr.de/docs/NETEDIT.html">NETEDIT</a></strong> 进行编辑的。使用它来编辑路线、添加需求，并最终准备一个可以保存为 <code>.sumocfg</code>。 </p>
+<p>在此过程中提供的示例可能会有所帮助。看一眼<code>Co-Simulation/Sumo/examples</code>。对于每个<code>example.sumocfg</code>文件，都有多个同名的相关文件。所有这些都包含一个联合仿真示例。</p>
+<h3 id="_3">运行同步</h3>
+<p>一旦仿真准备就绪并保存为<code>.sumocfg</code>，就可以运行了。有一些可选参数可以更改协同仿真的设置。</p>
+<ul>
+<li><strong><code>sumo_cfg_file</code></strong> — SUMO 配置文件。</li>
+<li><strong><code>--carla-host</code></strong> <em>(默认值：127.0.0.1)</em> — Carla 主机服务器的 IP</li>
+<li><strong><code>--carla-port</code></strong> <em>(默认值：2000)</em> — 要侦听的 TCP 端口</li>
+<li><strong><code>--sumo-host</code></strong> <em>(默认值：127.0.0.1)</em> — SUMO 主机服务器的 IP。</li>
+<li><strong><code>--sumo-port</code></strong> <em>(默认值：8813)</em> — 要侦听的 TCP 端口。</li>
+<li><strong><code>--sumo-gui</code></strong> — 打开一个窗口以可视化 SUMO 的 GUI 版本。</li>
+<li><strong><code>--step-length</code></strong> <em>(默认值：0.05s)</em> — 设置仿真时间步长的固定增量秒。 </li>
+<li><strong><code>--sync-vehicle-lights</code></strong> <em>(默认值：False)</em> — 同步车灯。 </li>
+<li><strong><code>--sync-vehicle-color</code></strong> <em>(默认值：False)</em> — 同步车辆颜色。</li>
+<li><strong><code>--sync-vehicle-all</code></strong> <em>(默认值：False)</em> — 同步所有车辆属性。 </li>
+<li><strong><code>--tls-manager</code></strong> <em>(默认值：none)</em> — 选择哪个仿真器应管理交通灯。另一个将相应地更新这些内容。选项有 <code>carla</code>, <code>sumo</code> 和 <code>none</code>。如果选择 <code>none</code> ，交通信号灯将不同步。每辆车只会遵守生成它的仿真器中的交通灯。</li>
+</ul>
+<pre><code class="language-sh">python3 run_synchronization.py &lt;SUMOCFG FILE&gt; --tls-manager carla --sumo-gui
+</code></pre>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>要停止联合仿真，请在运行脚本的终端按 <code>Ctrl+C</code> 。</p>
+</div>
+<hr />
+<h2 id="sumo-npc">由 SUMO 控制的 NPC 生成</h2>
+<p>与 SUMO 的联合仿真带来了一项附加功能。车辆可以通过 SUMO 在 Carla 中生成，并由后者进行管理，就像交通管理器一样。</p>
+<p>脚本 <code>spawn_npc_sumo.py</code> 几乎等同于已知的 <code>generate_traffic.py</code>。该脚本根据 Carla 中的活动城镇自动在临时文件夹中生成 SUMO 网络。该脚本将创建随机路线并让车辆四处漫游。</p>
+<p>当脚本运行同步仿并在其中生成车辆时，参数与<code>run_synchronization.py</code> 和 <code>generate_traffic.py</code> 中出现的参数相同。</p>
+<ul>
+<li><strong><code>--host</code></strong> <em>(默认值：127.0.0.1)</em> — 主机服务器的 IP。</li>
+<li><strong><code>--port</code></strong> <em>(default: 2000)</em> — 要侦听的 TCP 端口。</li>
+<li><strong><code>-n,--number-of-vehicles</code></strong> <em>(默认值：10)</em> — 生成的车辆数量。  </li>
+<li><strong><code>--safe</code></strong> — 避免生成车辆容易发生事故。</li>
+<li><strong><code>--filterv</code></strong> <em>(默认值："vehicle.</em>")* — 过滤生成的车辆的蓝图。</li>
+<li><strong><code>--sumo-gui</code></strong> — 打开一个窗口来可视化 SUMO。</li>
+<li><strong><code>--step-length</code></strong> <em>(默认值：0.05s)</em> — 设置仿真时间步长的固定增量秒。  </li>
+<li><strong><code>--sync-vehicle-lights</code></strong> <em>(默认值：False)</em> — 同步车灯状态。 </li>
+<li><strong><code>--sync-vehicle-color</code></strong> <em>(默认值：False)</em> — 同步车辆颜色。</li>
+<li><strong><code>--sync-vehicle-all</code></strong> <em>(默认值： False)</em> — 同步所有车辆属性。 </li>
+<li><strong><code>--tls-manager</code></strong> <em>(默认值： none)</em> — 选择哪个仿真器来更改交通灯的状态。另一个将相应地更新它们。如果是<code>none</code>，交通信号灯将不同步。</li>
+</ul>
+<pre><code class="language-sh"># 生成 10 辆车，由 SUMO 管理，而不是交通管理器
+python3 spawn_sumo_npc.py -n 10 --tls-manager carla --sumo-gui
+</code></pre>
+<h2 id="sumo-traci"><a href="https://sumo.dlr.de/docs/TraCI.html">sumo TraCI接口文档</a></h2>
+<hr />
+<p>到目前为止，这就是与 Carla 进行 SUMO 联合仿真的全部内容。</p>
+<p>打开 Carla 并闲逛一会儿。如果有任何疑问，请随时在论坛中发布。</p>
+<div class="build-buttons">
+<p>
+<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="跳转至 Carla 论坛">
+Carla 论坛</a>
+</p>
+</div>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

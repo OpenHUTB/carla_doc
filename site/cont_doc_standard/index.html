@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>文档标准 - 交通仿真文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u6587\u6863\u6807\u51c6";
+        var mkdocs_page_input_path = "cont_doc_standard.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">文档标准</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/cont_doc_standard.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">文档标准</h1>
+<p>本文档将作为为文档做出贡献而需要遵循的一些规则的指南和示例。</p>
+<ul>
+<li><a href="#docs-structure"><strong>文档结构</strong></a>  </li>
+<li><a href="#rules"><strong>规则</strong></a>  </li>
+<li><a href="#exceptions"><strong>例外情况</strong></a>  </li>
+</ul>
+<hr />
+<h2 id="_2">文档结构</h2>
+<p>我们和 <a href="https://github.com/carla-simulator/carla/tree/master/Docs/extra.css"><code>extra.css</code></a> 一起，混合使用 Markdown 和 HTML 标签来自定义文档和文件。要更新 Python API 文档，您需要编辑  <a href="https://github.com/carla-simulator/carla/tree/master/PythonAPI/docs"><code>carla/PythonAPI/docs/</code></a> 内部相应的 YAML 文件并运行 <a href="https://github.com/carla-simulator/carla/blob/master/PythonAPI/docs/doc_gen.py"><code>doc_gen.py</code></a> 或 <code>make PythonAPI.docs</code>，而不是直接修改 Markdown。</p>
+<p>这将在 <code>carla/Docs/</code> 中重新生成相应的 Markdown 文件，然后可以将其输入到 <code>mkdocs</code>.</p>
+<hr />
+<h2 id="_3">规则</h2>
+<ul>
+<li>各节之间和文档末尾始终留有空行。</li>
+<li>除 HTML 相关内容、Markdown 表格、代码片段和引用链接外，书写不应超过 <code>100</code> 列。</li>
+<li>如果内联链接超出限制，请使用引用的 <code>[name][reference_link]</code> markdown 符号<code>[reference_link]: https://</code>，而不是<code>[name](https://)</code>。 </li>
+<li>使用 <code>&lt;br&gt;</code> 进行内联跳转，而不是在行尾留下两个空格。</li>
+<li>在新页面的开头使用 <code>&lt;h1&gt;Title&lt;/h1&gt;</code> ，以制作标题或 <code>&lt;hx&gt;Heading&lt;hx&gt;</code> 制作<strong>不会显示</strong>在导航栏上的标题。</li>
+<li>使用 <code>------</code> 强调标题或 <code>#</code> 层次结构下划线来制作标题并将其显示在导航栏中。</li>
+</ul>
+<hr />
+<h2 id="_4">例外情况</h2>
+<ul>
+<li>通过 Python 脚本生成的文档，例如 PythonAPI 参考</li>
+</ul>
+<p>方便的 markdown <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">cheatsheet</a>。</p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

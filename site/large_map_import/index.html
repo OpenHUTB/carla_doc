@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Large map import - 交通仿真文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Large map import";
+        var mkdocs_page_input_path = "large_map_import.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Large map import</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/large_map_import.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1"><a href="https://carla.readthedocs.io/en/latest/large_map_import/">导入/打包大地图</a></h1>
+<p>RoadRunner 中生成的大地图可以导入到 Carla 的源代码编译版本中，并打包在 Carla 独立包中分发和使用。该过程与标准地图的过程非常相似，只是添加了图块和批量导入的特定术语。</p>
+<ul>
+<li><a href="#files-and-folders"><strong>文件和文件夹</strong></a></li>
+<li><a href="#create-the-json-description-optional"><strong>创建 JSON 描述（可选）</strong></a></li>
+<li><a href="#making-the-import"><strong>进行导入</strong></a></li>
+<li><a href="#package-a-large-map"><strong>打包一张大地图</strong></a></li>
+</ul>
+<hr />
+<h2 id="_2">文件和文件夹</h2>
+<p>所有要导入的文件应放置在 Carla 根目录的<code>Import</code>文件夹中。这些文件应包括：</p>
+<ul>
+<li>多个<code>.fbx</code>文件中的地图网格代表地图的不同图块。</li>
+<li>OpenDRIVE 定义位于单个<code>.xodr</code>文件中。</li>
+</ul>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>您不能同时导入大地图和标准地图。</p>
+</div>
+<p>地图图块的命名约定非常重要。每个地图图块应根据以下约定命名：</p>
+<pre><code>&lt;mapName&gt;_Tile_&lt;x-coordinate&gt;_&lt;y-coordinate&gt;.fbx
+</code></pre>
+<p>请注意，更正的 <strong>y 坐</strong> 标是指 y 轴上较低的图块。例如，<code>Map01_Tile_0_1</code>会坐在 <code>Map01_Tile_0_0</code> 的下面。</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p><img alt="map_tiles" src="../img/map_tiles.png" /></p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>生成的<code>Import</code>文件夹中包含一个包含由四个图块组成的大地图的包，其结构应类似于以下结构：</p>
+<pre><code class="language-sh">Import
+│
+└── Package01
+  ├── Package01.json
+  ├── Map01_Tile_0_0.fbx
+  ├── Map01_Tile_0_1.fbx
+  ├── Map01_Tile_1_0.fbx
+  ├── Map01_Tile_1_1.fbx
+  └── Map01.xodr
+
+</code></pre>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>该<code>package.json</code>文件并不是绝对必要的。如果未创建<code>package.json</code>文件，自动导入过程将创建一个。在下一节中了解有关构建自己<code>package.json</code>的结构的更多信息。</p>
+</div>
+<hr />
+<h2 id="json">创建 JSON 描述（可选）</h2>
+<p><code>.json</code>描述是在导入过程中自动创建的，但也可以选择手动创建描述。现有<code>.json</code>描述将覆盖导入过程中作为参数传递的任何值。</p>
+<p>该<code>.json</code>文件应创建在包的根文件夹中。文件名将是包分发名称。文件的内容描述了 <strong>Maps</strong> 和 <strong>Props</strong> 的 JSON 数组，其中包含每个地图和道具的基本信息。</p>
+<p><strong>Maps</strong> 需要以下参数：</p>
+<ul>
+<li><strong>name:</strong> 地图的名称。这必须与<code>.fbx</code>和<code>.xodr</code>文件相同。</li>
+<li><strong>xodr:</strong> <code>.xodr</code> 文件的路径。</li>
+<li><strong>use_carla_materials:</strong> 如果为 <strong>True</strong>，地图将使用 Carla 材质。否则，它将使用 RoadRunner 材质。</li>
+<li><strong>tile_size:</strong> 图块的大小。默认值为 2000 (2kmx2km)。</li>
+<li><strong>tiles:</strong> 组成整个地图的<code>.fbx</code>图块文件的列表。</li>
+</ul>
+<p><strong>Props</strong> 不属于<a href="../tuto_A_add_props/">本</a>教程的一部分。请参阅本教程了解如何添加新道具。</p>
+<p>生成的<code>.json</code>文件应类似于以下内容：</p>
+<pre><code class="language-json">{
+  &quot;maps&quot;: [
+      {
+        &quot;name&quot;: &quot;Map01&quot;,
+        &quot;xodr&quot;: &quot;./Map01.xodr&quot;,
+        &quot;use_carla_materials&quot;: true,
+        &quot;tile_size&quot;: 2000,
+        &quot;tiles&quot;: [ 
+        &quot;./Map01_Tile_0_0.fbx&quot;,
+        &quot;./Map01_Tile_0_1.fbx&quot;,
+        &quot;./Map01_Tile_1_0.fbx&quot;,
+        &quot;./Map01_Tile_1_1.fbx&quot;
+        ]
+      }
+  ],
+  &quot;props&quot;: []
+}
+</code></pre>
+<hr />
+<h2 id="_3">进行导入</h2>
+<p>将所有文件放入<code>Import</code>文件夹后，在根 Carla 文件夹中运行以下命令：</p>
+<pre><code class="language-sh">make import
+</code></pre>
+<p>根据您的系统，虚幻引擎可能会消耗太多内存而无法一次导入所有文件。您可以通过运行以下命令选择批量导入文件：</p>
+<pre><code class="language-sh">make import ARGS=&quot;--batch-size=200&quot;
+</code></pre>
+<p>该<code>make import</code>命令还存在两个标志：</p>
+<ul>
+<li><code>--package=&lt;package_name&gt;</code> 指定包的名称。默认情况下，此项设置为<code>map_package</code>。两个包不能具有相同的名称，因此使用默认值将导致后续导入时出错。<strong>强烈建议更改包的名称</strong>。通过运行以下命令来使用此标志：</li>
+</ul>
+<pre><code class="language-sh">make import  ARGS=&quot;--package=&lt;package_name&gt;&quot;
+</code></pre>
+<ul>
+<li><code>--no-carla-materials</code> 指定您不想使用默认的 Carla 材质（道路纹理等）。您将改用 RoadRunner 材料。仅当您 <strong>不提供</strong> 自己的<a href="../tuto_M_manual_map_package/"><code>.json</code> 文件</a>时才需要此标志。<code>.json</code>文件中的任何值都将覆盖此标志。通过运行以下命令来使用此标志：</li>
+</ul>
+<pre><code class="language-sh">make import  ARGS=&quot;--no-carla-materials&quot;
+</code></pre>
+<p>所有文件都将被导入并准备在虚幻编辑器中使用。地图包将在<code>Unreal/CarlaUE4/Content</code> 中创建。将创建一个底图图块<code>&lt;mapName&gt;</code>，作为所有图块的流级别。基础图块将包含天空、天气和大地图参与者，可供参与者使用。</p>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>目前不建议使用虚幻编辑器中为标准地图提供的自定义工具，例如道路画家、程序化建筑等。</p>
+</div>
+<hr />
+<h2 id="_4">打包一张大地图</h2>
+<p>要打包大地图以便可以在 Carla 独立包中使用，请运行以下命令：</p>
+<pre><code class="language-sh">make package ARGS=&quot;--packages=&lt;mapPackage&gt;&quot;
+</code></pre>
+<p>这将创建一个压缩在<code>.tar.gz</code>文件中的独立包。在 Linux 中文件将保存在<code>Dist</code>目录下，在 Windows 中文件保存在<code>/Build/UE4Carla/</code>。然后可以将它们分发和打包以在独立的 Carla 包中使用。</p>
+<hr />
+<p>如果您对大地图导入打包过程有任何疑问，那么您可以在 <a href="https://github.com/carla-simulator/carla/discussions">论坛</a> 中提问。</p>
+<div class="build-buttons">
+<p>
+<a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
+Carla 论坛</a>
+</p>
+</div>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

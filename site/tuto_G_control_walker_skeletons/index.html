@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>行人骨骼控制 - 交通仿真文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u884c\u4eba\u9aa8\u9abc\u63a7\u5236";
+        var mkdocs_page_input_path = "tuto_G_control_walker_skeletons.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">行人骨骼控制</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/tuto_G_control_walker_skeletons.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">行人骨骼控制</h1>
+<p>在本教程中，我们介绍如何通过 Carla Python API 手动控制行人的骨骼并为其设置动画。所有可用类和方法的参考可以在 <a href="../python_api/">Python API 参考</a> 中找到 。</p>
+<ul>
+<li><a href="#walker-skeleton-structure"><strong>行人骨骼结构</strong></a>  </li>
+<li><a href="#manually-control-walker-bones"><strong>手动控制行人骨骼</strong></a>  <ul>
+<li><a href="#connect-to-the-simulator">连接到仿真器</a>  </li>
+<li><a href="#spawn-a-walker">生成行人</a>  </li>
+<li><a href="#control-walker-skeletons">控制行人骨骼</a>  </li>
+</ul>
+</li>
+</ul>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p><strong>本文档假设用户熟悉 Python API。</strong>。 <br>
+用户在阅读本文档之前应阅读第一步教程： 
+<a href="../foundations/">核心概念</a>。进行行人建模请参考<a href="../tuto_content_authoring_pedestrians/">链接</a> 。</p>
+</div>
+<hr />
+<h2 id="_2">行人骨骼结构  <span id="walker-skeleton-structure"></span></h2>
+<p>所有行人都具有相同的骨骼层次结构和骨骼名称。下面是骨架层次结构的图像。骨骼的层次结构图参考<a href="../tuto_content_authoring_pedestrians/">链接</a> 。</p>
+<pre><code>crl_root
+└── crl_hips__C
+    ├── crl_spine__C
+    │   └── crl_spine01__C
+    │       ├── ctrl_shoulder__L
+    │       │   └── crl_arm__L
+    │       │       └── crl_foreArm__L
+    │       │           └── crl_hand__L
+    │       │               ├── crl_handThumb__L
+    │       │               │   └── crl_handThumb01__L
+    │       │               │       └── crl_handThumb02__L
+    │       │               │           └── crl_handThumbEnd__L
+    │       │               ├── crl_handIndex__L
+    │       │               │   └── crl_handIndex01__L
+    │       │               │       └── crl_handIndex02__L
+    │       │               │           └── crl_handIndexEnd__L
+    │       │               ├── crl_handMiddle_L
+    │       │               │   └── crl_handMiddle01__L
+    │       │               │       └── crl_handMiddle02__L
+    │       │               │           └── crl_handMiddleEnd__L
+    │       │               ├── crl_handRing_L
+    │       │               │   └── crl_handRing01__L
+    │       │               │       └── crl_handRing02__L
+    │       │               │           └── crl_handRingEnd__L
+    │       │               └── crl_handPinky_L
+    │       │                   └── crl_handPinky01__L
+    │       │                       └── crl_handPinky02__L
+    │       │                           └── crl_handPinkyEnd__L
+    │       ├── crl_neck__C
+    │       │   └── crl_Head__C
+    │       │       ├── crl_eye__L
+    │       │       └── crl_eye__R
+    │       └── crl_shoulder__R
+    │           └── crl_arm__R
+    │               └── crl_foreArm__R
+    │                   └── crl_hand__R
+    │                       ├── crl_handThumb__R
+    │                       │   └── crl_handThumb01__R
+    │                       │       └── crl_handThumb02__R
+    │                       │           └── crl_handThumbEnd__R
+    │                       ├── crl_handIndex__R
+    │                       │   └── crl_handIndex01__R
+    │                       │       └── crl_handIndex02__R
+    │                       │           └── crl_handIndexEnd__R
+    │                       ├── crl_handMiddle_R
+    │                       │   └── crl_handMiddle01__R
+    │                       │       └── crl_handMiddle02__R
+    │                       │           └── crl_handMiddleEnd__R
+    │                       ├── crl_handRing_R
+    │                       │   └── crl_handRing01__R
+    │                       │       └── crl_handRing02__R
+    │                       │           └── crl_handRingEnd__R
+    │                       └── crl_handPinky_R
+    │                           └── crl_handPinky01__R
+    │                               └── crl_handPinky02__R
+    │                                   └── crl_handPinkyEnd__R
+    ├── crl_thigh__L
+    │   └── crl_leg__L
+    │       └── crl_foot__L
+    │           └── crl_toe__L
+    │               └── crl_toeEnd__L
+    └── crl_thigh__R
+        └── crl_leg__R
+            └── crl_foot__R
+                └── crl_toe__R
+                    └── crl_toeEnd__R
+</code></pre>
+<hr />
+<h2 id="_3">手动控制行人骨骼 <span id="manually-control-walker-bones"></span></h2>
+<p>以下是如何通过 Carla Python API 更改步行者骨骼变换的详细分步示例。</p>
+<h3 id="_4">连接到仿真器 <span id="connect-to-the-simulator"></span></h3>
+<p>导入本例中使用的必要库</p>
+<pre><code class="language-py">import carla
+import random
+</code></pre>
+<p>初始化 Carla 客户端</p>
+<pre><code class="language-py">client = carla.Client('127.0.0.1', 2000)
+client.set_timeout(2.0)
+</code></pre>
+<h3 id="_5">生成行人  <span id="spawn-a-walker"></span></h3>
+<p>在地图的一个生成点生成一个随机行人。</p>
+<pre><code class="language-py">world = client.get_world()
+blueprint = random.choice(self.world.get_blueprint_library().filter('walker.*'))
+spawn_points = world.get_map().get_spawn_points()
+spawn_point = random.choice(spawn_points) if spawn_points else carla.Transform()
+world.try_spawn_actor(blueprint, spawn_point)
+</code></pre>
+<h3 id="_6">控制行人骨骼  <span id="control-walker-skeletons"></span></h3>
+<p>可以通过将 <code>WalkerBoneControl</code> 类的实例传递给行人的 <code>apply_control</code> 函数来修改行人的骨架。<code>WalkerBoneControl</code> 类包含要修改的骨骼的变换。它的 <code>bone_transforms</code> 成员是成对值元组的列表，其中第一个值是骨骼名称，第二个值是骨骼变换。可以在每个刻度上调用 <code>apply_control</code> 函数来为行人的骨骼设置动画。每个变换的位置和旋转都是相对于其父变换的。因此，当修改父骨骼的变换时，子骨骼在模型空间中的变换也会相对改变。</p>
+<p>在下面的示例中，步行者的手设置为围绕前轴旋转 90 度，并且位置设置为原点。</p>
+<pre><code class="language-py">control = carla.WalkerBoneControl()
+first_tuple = ('crl_hand__R', carla.Transform(rotation=carla.Rotation(roll=90)))
+second_tuple = ('crl_hand__L', carla.Transform(rotation=carla.Rotation(roll=90)))
+control.bone_transforms = [first_tuple, second_tuple]
+world.player.apply_control(control)
+</code></pre>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

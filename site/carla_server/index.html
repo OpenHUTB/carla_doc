@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>CARLA 服务器 - 交通仿真文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "CARLA \u670d\u52a1\u5668";
+        var mkdocs_page_input_path = "carla_server.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">CARLA 服务器</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/carla_server.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="carla">CARLA 服务器</h1>
+<h2 id="_1">编译</h2>
+<p>提供了一些用于在 Linux 上构建和测试 CarlaServer 的脚本
+```shell script
+./Setup.sh
+make
+make check</p>
+<pre><code>安装脚本会下载并编译所有必需的依赖项。Makefile 调用 CMake 来构建 CarlaServer 并将其安装在“Util/Install”下。
+
+## 协议
+所有消息前都附加一个 32 位无符号整数（小端字节序），指示即将到来的消息的大小。
+
+使用三个连续的端口，
+
+- world-port (默认 2000)
+- measurements-port = world-port + 1
+- control-port = world-port + 2
+
+每个端口都有一个关联的线程，可以异步发送/读取数据。
+
+### 世界线程
+服务器读取一个，写入一个。始终是 protobuf 消息。
+</code></pre>
+<p>[client] RequestNewEpisode
+[server] SceneDescription
+[client] EpisodeStart
+[server] EpisodeReady
+...repeat...</p>
+<pre><code>
+### 测量线程
+服务器仅写入第一条测量消息，然后写入大量原始图像。
+</code></pre>
+<p>[server] Measurements
+[server] raw images
+...repeat...</p>
+<pre><code>
+每个图像都是一个 uint32 数组
+</code></pre>
+<p>[width, height, type, FOV, color[0], color[1],...]</p>
+<pre><code>
+其中 FOV 是相机水平视野的浮点数，每种颜色都是虚幻引擎中存储的FColor (BGRA)，可能的图像类型包括
+
+</code></pre>
+<p>type = 0  None                  (RGB without any post-processing)
+type = 1  SceneFinal            (RGB with post-processing present at the scene)
+type = 2  Depth                 (Depth Map)
+type = 3  SemanticSegmentation  (Semantic Segmentation)</p>
+<pre><code>
+[此处] 详细解释了测量信息。
+
+### 控制线程
+服务器仅读取，客户端每帧发送控制消息。
+</code></pre>
+<p>[client] Control
+...repeat...
+```
+在同步模式下，服务器每帧都会暂停执行，直到收到控制消息。</p>
+<h2 id="_2">接口</h2>
+<p>该库封装在 C 语言中的单个包含文件 “carla/carla_server.h”中。</p>
+<p>此文件包含用于向客户端读取和写入消息的基本接口，隐藏了网络和多线程部分。大多数函数都有一个超时参数，并会阻塞，直到相应的异步操作完成或达到超时要求。将超时设置为 0 可获得非阻塞调用。</p>
+<p>CarlaServer 实例是用 <code>carla_make_server()</code> 创建的，使用后应被<code>carla_server_free(ptr)</code>销毁。</p>
+<h2 id="_3">设计</h2>
+<p>C API 负责将请求分发到相应的服务器。有三个异步服务器，每个服务器都在自己的线程上运行。</p>
+<p><img alt="" src="../img/carla_server.jpg" /> </p>
+<p>从概念上讲，有两个服务器，即 <em>World Server</em> 和<em>Agent Server</em>。<code>World Server</code> 控制情节的初始化。每次通过 <code>RequestNewEpisode</code> 消息向 <code>World Server</code> 请求新情节时，都会启动新情节。情节准备就绪后，<code>World Server</code> 将启动 <code>Agent Server</code>。<code>Agent Server</code>有两个线程，一个用于发送测量流，另一个用于接收控制。两个代理线程都通过无锁双缓冲区与主线程通信，以加快消息和图像的流式传输。</p>
+<p>消息（protobuf）的编码和网络操作是异步执行的。</p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

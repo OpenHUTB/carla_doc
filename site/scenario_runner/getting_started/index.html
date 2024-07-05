@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>第一步 - 交通仿真文档</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u7b2c\u4e00\u6b65";
+        var mkdocs_page_input_path = "scenario_runner\\getting_started.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">第一步</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/scenario_runner/getting_started.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">第一步</h1>
+<div class="admonition 重要">
+<p class="admonition-title">重要</p>
+<p>本教程参考了 Carla 的最新版本（至少 0.9.5）</p>
+</div>
+<p>欢迎来到 Carla 的 ScenarioRunner！本教程提供了开始使用 Carla 的 ScenarioRunner 基本步骤。</p>
+<p>从我们的 GitHub 页面下载最新版本，并将包的所有内容提取到您选择的文件夹中。</p>
+<p>发布包包含以下内容</p>
+<ul>
+<li>Carla 的 ScenarioRunner</li>
+<li>用 Python 编写的一些示例场景。</li>
+</ul>
+<h2 id="_2">安装先决条件</h2>
+<p>当前版本设计用于 Ubuntu 18.04、Python 3.6。根据您的 Python 版本，执行：</p>
+<pre><code>
+
+#Python 2.x
+sudo apt remove python-networkx #if installed, remove old version of networkx
+pip2 install --user -r requirements.txt
+#Python 3.x
+sudo apt remove python3-networkx #if installed, remove old version of networkx
+pip3 install --user -r requirements.txt
+</code></pre>
+<p>注意: <em>不</em> 支持高于 v0.8 的 py-tree 。</p>
+<h2 id="_3">运行以下车辆示例</h2>
+<p>首先，您需要从 Carla 获取最新的主分支。然后您必须将 Carla Python API 包含到 Python 路径中：</p>
+<pre><code class="language-Bash">export CARLA_ROOT=/path/to/your/carla/installation
+export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-&lt;VERSION&gt;.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla
+</code></pre>
+<p>笔记: ${CARLA_ROOT} 需要使用您的 Carla 安装路径替换，
+      <VERSION> 虚幻使用正确的字符串替换。
+      如果您从源代码编译 Carla，egg 文件可能位于：
+      ${CARLA_ROOT}/PythonAPI/dist/ 而不是 ${CARLA_ROOT}/PythonAPI。</p>
+<p>现在，您可以从 ${CARLA_ROOT} 启动 CARLA 服务器</p>
+<pre><code>./CarlaUE4.sh
+</code></pre>
+<p>在额外的终端中启动示例场景（跟随领先的车辆）：</p>
+<pre><code>python scenario_runner.py --scenario FollowLeadingVehicle_1 --reloadWorld
+</code></pre>
+<p>如果您需要帮助或想要探索其他命令行参数，请按如下方式启动场景运行程序：</p>
+<pre><code>python scenario_runner.py --help
+</code></pre>
+<p>要控制场景中的自我车辆，请打开另一个终端并运行：</p>
+<pre><code>python manual_control.py
+</code></pre>
+<p>注意: 如果您不希望自动（重新）加载 Carla 世界，您可以跳过命令行选项 <em>--reloadWorld</em></p>
+<h2 id="_4">运行一个场景类的所有场景</h2>
+<p>与前面的示例类似，还可以执行属于同一类（例如“FollowLeadingVehicle”类）的一系列场景。</p>
+<p>唯一的区别是，您按如下方式启动 scene_runner：</p>
+<pre><code>python scenario_runner.py --scenario group:FollowLeadingVehicle
+</code></pre>
+<h2 id="_5">运行其他场景</h2>
+<p>支持的场景列表中提供了 <a href="../list_of_scenarios/">支持的场景列表</a> 。请注意，不同的 Carla 城镇可能会发生不同的场景。启动 Carla 服务器时必须遵守这一点。</p>
+<h2 id="openscenario">使用 OpenSCENARIO 格式运行场景</h2>
+<p>要运行基于 OpenSCENARIO 格式的场景，请运行 ScenarioRunner，如下所示：</p>
+<pre><code>python scenario_runner.py --openscenario &lt;path/to/xosc-file&gt;
+</code></pre>
+<p>请注意，OpenSCENARIO 支持和 OpenSCENARIO 格式本身仍在进行中。您可以在 <a href="../openscenario_support/">OpenSCENARIO 支持</a> 中找到更多信息。</p>
+<h2 id="openscenario-20">使用 OpenSCENARIO 2.0 格式运行场景</h2>
+<p>要运行基于 OpenSCENARIO 2.0 格式的场景，请运行 ScenarioRunner，如下所示：</p>
+<pre><code>python scenario_runner.py --openscenario2 &lt;path/to/osc-file&gt;
+</code></pre>
+<p>要控制场景中的自我车辆或观察它，请打开另一个终端并运行：</p>
+<pre><code>python manual_control.py -a --rolename=ego_vehicle
+</code></pre>
+<p>有关如何运行OpenSCENARIO 2.0场景的更多信息，请参阅 <a href="../README_OpenSCENARIO_2.0/">README_OpenSCENARIO_2.0</a>。</p>
+<p>使用具有 Global ParameterDeclaration 覆盖的 OpenSCENARIO 格式运行场景</p>
+<pre><code>python scenario_runner.py --openscenario &lt;path/to/xosc-file&gt; --openscenarioparams 'param1: value1, param2: value2'
+</code></pre>
+<h2 id="carla">运行基于路线的场景（类似于 Carla 自动驾驶挑战赛）</h2>
+<p>要运行基于路线的场景，请按如下方式运行 ScenarioRunner：</p>
+<pre><code>python scenario_runner.py --route &lt;path/to/route-file&gt; &lt;path/to/scenario_sample_file&gt; [route id] --agent &lt;path/to/agent_file&gt;
+</code></pre>
+<p>实例:</p>
+<pre><code>python scenario_runner.py --route D:/work/workspace/carla_doc/src/scenario_runner/srunner/data/routes_town10.xml  --agent srunner/autoagents/npc_agent.py
+</code></pre>
+<p>如果未提供路由 ID，则将执行给定文件中的所有路线。</p>
+<p>通过这样做，ScenarioRunner 会将场景与路线相匹配，并且当自我车辆在附近时它们会激活。然而，路线需要一个自主智能体来控制自我车辆。<code>srunner/autoagents/</code> 中提供了几个示例。有关智能体的更多信息，请查看 <a href="../agent_evaluation/">智能体文档</a> 。</p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

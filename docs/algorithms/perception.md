@@ -31,7 +31,7 @@ ISS 感知模块支持的不同任务使我们的车辆能够了解周围环境�
 
 ## 目标检测
 
-在 Carla 中使用 YOLOv3 检测目标。 
+在 Carla 中使用 YOLOv3 检测目标。 文档说明在[此处](../course/object_detection.md)。
 
 ### 安装
 

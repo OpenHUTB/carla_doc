@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>CARLA 设计 - 交通仿真文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "CARLA \u8bbe\u8ba1";
+        var mkdocs_page_input_path = "carla_design.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">CARLA 设计</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/carla_design.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="carla">CARLA 设计</h1>
+<p><em>本文档尚在编写中，可能不完整。</em></p>
+<p>CARLA由以下模块组成</p>
+<ul>
+<li>客户端</li>
+<li>Python 客户端 API：“PythonClient/carla”</li>
+<li>服务器端</li>
+<li>CarlaUE4 虚幻引擎项目：“Unreal/CarlaUE4”</li>
+<li>虚幻引擎的 Carla 插件：“Unreal/CarlaUE4/Plugins/Carla”</li>
+<li>Carla服务器：“Util/CarlaServer”</li>
+</ul>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>通过在 CARLA 项目主文件夹中运行 <a href="http://www.doxygen.org/">Doxygen</a> 可以生成 C++ 代码的文档 。</p>
+</div>
+<h2 id="python-api">Python 客户端 API</h2>
+<p>客户端 API 提供了一个用于与 CARLA 服务器通信的 Python 模块。在“PythonClient”文件夹中，我们提供了几个使用“carla”模块编写 CARLA 客户端脚本的示例。</p>
+<h2 id="carlaue4">CarlaUE4虚幻引擎项目</h2>
+<p>Unreal 项目“CarlaUE4”包含生成 CARLA 二进制文件的所有资产和场景。它使用 Carla 插件提供的工具来组装场景中的城市和代理的行为。</p>
+<h2 id="carla_1">虚幻引擎的 Carla 插件</h2>
+<p>Carla 插件包含 CARLA 的所有功能。我们尝试将此功能与资产分开，以便可以在任何虚幻引擎项目中尽可能多地使用此插件中的功能。</p>
+<p>它使用“CarlaServer”库进行网络通信。</p>
+<h2 id="carlaserver">CarlaServer</h2>
+<p>用于网络通信的外部库。</p>
+<p>有关实施细节，请参阅“<a href="../carla_server/">CarlaServer</a> ” 。</p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

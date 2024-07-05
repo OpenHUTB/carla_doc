@@ -5,14 +5,14 @@
 本页总结了开始处理传感器所需的一切。它介绍了可用的类型及其生命周期的分步指南。每个传感器的详细信息可以在 [传感器参考](ref_sensors.md) 中找到。
 
 * [__传感器逐步介绍__](#sensors-step-by-step)  
-	*   [设置](#setting)  
-	*   [生成](#spawning)  
-	*   [监听](#listening)  
-	*   [数据](#data)  
+  *   [设置](#setting)  
+  *   [生成](#spawning)  
+  *   [监听](#listening)  
+  *   [数据](#data)  
 * [__传感器类型__](#types-of-sensors)  
-	*   [相机](#cameras)  
-	*   [检测器](#detectors)  
-	*   [其他](#other)  
+  *   [相机](#cameras)  
+  *   [检测器](#detectors)  
+  *   [其他](#other)  
 
 ---
 ## 传感器逐步介绍
@@ -40,7 +40,7 @@ blueprint.set_attribute('image_size_y', '1080')
 blueprint.set_attribute('fov', '110')
 # 设置传感器捕获之间的时间（以秒为单位）
 blueprint.set_attribute('sensor_tick', '1.0')
-``` 
+```
 
 ### 生成
 
@@ -84,11 +84,11 @@ sensor02.listen(callback)
 
 不同类型传感器的传感器数据差异很大。查看 [传感器参考](ref_sensors.md) 以获得详细说明。然而，所有这些都总是带有一些基本信息的标签。
 
-| 传感器数据属性                                                                  | 类型                                                                                   | 描述                                                                                                            |
-| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |---------------------------------------------------------------------------------------------------------------|
-| `frame`                                                                                | int                                                                                    | 进行测量时的帧编号。                                                                                                    |
-| `timestamp`                                                                            | double                                                                                 | 自轮数开始以来以仿真秒为单位的测量时间戳。 |
-| `transform`                                                                            | [carla.Transform](<../python_api#carlatransform>)                                      | 测量时传感器的世界参考。                                                 |
+| 传感器数据属性     | 类型                                       | 描述                    |
+| ----------- | ---------------------------------------- | --------------------- |
+| `frame`     | int                                      | 进行测量时的帧编号。            |
+| `timestamp` | double                                   | 自轮数开始以来以仿真秒为单位的测量时间戳。 |
+| `transform` | [carla.Transform](<../python_api#carlatransform>) | 测量时传感器的世界参考。          |
 
 <br>
 
@@ -100,22 +100,22 @@ sensor02.listen(callback)
 
 ---
 ## 传感器类型
- 
+
 ### 相机
 
-从他们的角度拍摄世界。对于返回 [carla.Image](<../python_api#carlaimage>) 的相机，您可以使用辅助类[carla.ColorConverter](python_api.md#carla.ColorConverter) 修改图像以表示不同的信息。
+从他们的角度拍摄世界。对于返回 [carla.Image](../python_api#carlaimage) 的相机，您可以使用辅助类[carla.ColorConverter](python_api.md#carla.ColorConverter) 修改图像以表示不同的信息。在车辆上配置多视角摄像头文档在[此处](course/multi-view_camera.md)。
 
 * 每个仿真步骤 __获取数据__ 。  
 
 
-|传感器 |输出 | 概述       |
-| ----------------- | ---------- | ------------------ |
-| 深度 | [carla.Image](<../python_api#carlaimage>)  |在灰度图中渲染视野中元素的深度。          |
-| RGB      | [carla.Image](<../python_api#carlaimage>)   | 提供清晰的周围环境视野。看起来就像一张正常的现场照片。   |
-| 光流    | [carla.Image](<../python_api#carlaimage>)  | 渲染相机中每个像素的运动。  |
-| 语义分割    | [carla.Image](<../python_api#carlaimage>)  | 根据元素的标签以特定颜色渲染视野中的元素。 |
-| 实例分割    | [carla.Image](<../python_api#carlaimage>)  | 根据元素的标签和唯一的对象 ID 以特定颜色渲染视野中的元素。 |
-| DVS    | [carla.DVSEventArray](<../python_api#carladvseventarray>)  | 作为事件流异步测量亮度强度的变化。  |
+| 传感器  | 输出                                       | 概述                              |
+| ---- | ---------------------------------------- | ------------------------------- |
+| 深度   | [carla.Image](<../python_api#carlaimage>) | 在灰度图中渲染视野中元素的深度。                |
+| RGB  | [carla.Image](<../python_api#carlaimage>) | 提供清晰的周围环境视野。看起来就像一张正常的现场照片。     |
+| 光流   | [carla.Image](<../python_api#carlaimage>) | 渲染相机中每个像素的运动。                   |
+| 语义分割 | [carla.Image](<../python_api#carlaimage>) | 根据元素的标签以特定颜色渲染视野中的元素。           |
+| 实例分割 | [carla.Image](<../python_api#carlaimage>) | 根据元素的标签和唯一的对象 ID 以特定颜色渲染视野中的元素。 |
+| DVS  | [carla.DVSEventArray](<../python_api#carladvseventarray>) | 作为事件流异步测量亮度强度的变化。               |
 
 <br>
 
@@ -128,11 +128,11 @@ sensor02.listen(callback)
 
 * 触发时 __获取数据__ 。  
 
-| 传感器                                                                                                                                                                                          | 输出                                                                                                                                                                                          | 概述                                                                                                                                                                                        |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 碰撞                                                                   | [carla.CollisionEvent](<../python_api#carlacollisionevent>)                 | 检索其父级与其他参与者之间的碰撞。                   |
-| 车道入侵                                                               | [carla.LaneInvasionEvent](<../python_api#carlalaneinvasionevent>)           | 当其父级穿过车道标记时进行注册。                           |
-| 障碍                                                                    | [carla.ObstacleDetectionEvent](<../python_api#carlaobstacledetectionevent>) | 检测其父级前方可能存在的障碍物。                             |
+| 传感器  | 输出                                       | 概述                |
+| ---- | ---------------------------------------- | ----------------- |
+| 碰撞   | [carla.CollisionEvent](<../python_api#carlacollisionevent>) | 检索其父级与其他参与者之间的碰撞。 |
+| 车道入侵 | [carla.LaneInvasionEvent](<../python_api#carlalaneinvasionevent>) | 当其父级穿过车道标记时进行注册。  |
+| 障碍   | [carla.ObstacleDetectionEvent](<../python_api#carlaobstacledetectionevent>) | 检测其父级前方可能存在的障碍物。  |
 
 <br>
 
@@ -145,15 +145,14 @@ sensor02.listen(callback)
 
 * 每个仿真步骤 __检索数据__ 。  
 
-| 传感器            | 输出                                                                                                                                                                                          | 概述                                                                                                                                                                                                                                                                |
-|----------------| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 全球导航卫星系统(GNSS) | [carla.GNSSMeasurement](<../python_api#carlagnssmeasurement>)                                                                                                                                   | 检索传感器的地理位置。                                                                                                                                                                                                                                                       |
-| 惯性测量单元(IMU)    | [carla.IMUMeasurement](<../python_api#carlaimumeasurement>)                                                                                                                                     | 包括加速度计、陀螺仪和指南针。                                                                                                                                                                                                                                                   |
-| 激光雷达(LIDAR)    | [carla.LidarMeasurement](<../python_api#carlalidarmeasurement>)                                                                                                                                 | 旋转激光雷达。生成包含每个点的坐标和强度的 4D 点云，以对周围环境进行建模。                                                                                                                                                                                                                           |
-| 雷达             | [carla.RadarMeasurement](<../python_api#carlaradarmeasurement>)                                                                                                                                 | 二维点图建模视线中的元素及其相对于传感器的运动。                                                                                                                                                                                                                                          |
-| 责任敏感安全(RSS)    | [carla.RssResponse](<../python_api#carlarssresponse>)                                                                                                                                           | 根据安全检查修改应用于车辆的控制器。该传感器的工作方式与其他传感器不同，并且有专门的 [责任敏感安全文档](<../adv_rss>)。 |
-| 语义激光雷达 | [carla.SemanticLidarMeasurement](<../python_api#carlasemanticlidarmeasurement>)                                                                                                                 | 旋转激光雷达。生成 3D 点云，其中包含有关实例和语义分割的额外信息。                                                                                                                                                 |
-
+| 传感器            | 输出                                       | 概述                                       |
+| -------------- | ---------------------------------------- | ---------------------------------------- |
+| 全球导航卫星系统(GNSS) | [carla.GNSSMeasurement](<../python_api#carlagnssmeasurement>) | 检索传感器的地理位置。                              |
+| 惯性测量单元(IMU)    | [carla.IMUMeasurement](<../python_api#carlaimumeasurement>) | 包括加速度计、陀螺仪和指南针。                          |
+| 激光雷达(LIDAR)    | [carla.LidarMeasurement](<../python_api#carlalidarmeasurement>) | 旋转激光雷达。生成包含每个点的坐标和强度的 4D 点云，以对周围环境进行建模。  |
+| 雷达             | [carla.RadarMeasurement](<../python_api#carlaradarmeasurement>) | 二维点图建模视线中的元素及其相对于传感器的运动。                 |
+| 责任敏感安全(RSS)    | [carla.RssResponse](<../python_api#carlarssresponse>) | 根据安全检查修改应用于车辆的控制器。该传感器的工作方式与其他传感器不同，并且有专门的 [责任敏感安全文档](<../adv_rss>)。 |
+| 语义激光雷达         | [carla.SemanticLidarMeasurement](<../python_api#carlasemanticlidarmeasurement>) | 旋转激光雷达。生成 3D 点云，其中包含有关实例和语义分割的额外信息。      |
 
 ---
 这是传感器的包装以及它们如何检索仿真数据。 
@@ -161,7 +160,7 @@ sensor02.listen(callback)
 Carla 的介绍到此结束。然而，还有很多东西需要学习。
 
 * __继续学习。__ Carla 中有一些高级功能：渲染选项、交通管理器、记录器等等。这是了解更多关于他们的好时机。
- 
+
 <div class="build-buttons">
 <p>
 <a href="../adv_synchrony_timestep" target="_blank" class="btn btn-neutral" title="Synchrony and time-step">

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>ROS 桥包 - 交通仿真文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "ROS \u6865\u5305";
+        var mkdocs_page_input_path = "run_ros.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">ROS 桥包</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/run_ros.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="ros">ROS 桥包</h1>
+<p><code>carla_ros_bridge</code> 包是运行基本 ROS 桥接功能所需的主包。在本节中，您将学习如何准备 ROS 环境、运行 ROS 桥、如何配置设置、同步模式的使用、控制自主车辆以及可用的订阅、出版物和服务的摘要。</p>
+<ul>
+<li><a href="#setting-the-ros-environment"><strong>设置 ROS 环境</strong></a><ul>
+<li><a href="#prepare-ros-1-environment">准备 ROS 1 环境</a></li>
+<li><a href="#prepare-ros-2-environment">准备 ROS 2 环境</a></li>
+</ul>
+</li>
+<li><a href="#running-the-ros-bridge"><strong>运行 ROS 桥</strong></a></li>
+<li><a href="#configuring-carla-settings"><strong>配置 Carla 设置</strong></a></li>
+<li><a href="#using-the-ros-bridge-in-synchronous-mode"><strong>在同步模式下使用 ROS 桥</strong></a></li>
+<li><a href="#ego-vehicle-control"><strong>自我车辆控制</strong></a></li>
+<li><a href="#ros-api"><strong>ROS 应用程序接口</strong></a><ul>
+<li><a href="#subscriptions">订阅</a></li>
+<li><a href="#publications">发布</a></li>
+<li><a href="#services">服务</a></li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="ros_1">设置 ROS 环境</h2>
+<p>ROS 桥接器使用具有通用接口的单独实现来支持 ROS 1 和 ROS 2。当您想要运行 ROS 桥接器时，您必须根据您使用的每个终端中的 ROS 版本设置 ROS 环境：</p>
+<h4 id="ros-1">准备 ROS 1 环境：</h4>
+<p>要运行的命令取决于您是通过 Debian 软件包还是通过源构建安装 ROS 桥。您还需要更改 Debian 选项路径中的 ROS 版本：</p>
+<pre><code class="language-sh"># 用于debian安装ROS桥。根据已安装的ROS版本更改命令。
+source /opt/carla-ros-bridge/&lt;melodic/noetic&gt;/setup.bash
+
+# 为 GitHub 库安装 ROS 桥
+source ~/carla-ros-bridge/catkin_ws/devel/setup.bash
+</code></pre>
+<h4 id="ros-2">准备 ROS 2 环境：</h4>
+<pre><code class="language-sh">source ./install/setup.bash
+</code></pre>
+<h2 id="ros_2">运行 ROS 桥</h2>
+<p>设置 ROS 环境并运行 Carla 服务器后，您需要先启动<code>carla_ros_bridge</code>软件包，然后才能使用任何其他软件包。为此，请运行以下命令：</p>
+<pre><code class="language-sh"># ROS 1
+roslaunch carla_ros_bridge carla_ros_bridge.launch
+
+# ROS 2
+ros2 launch carla_ros_bridge carla_ros_bridge.launch.py
+</code></pre>
+<p>还有其他启动文件结合了上述功能，在启动其他包或插件的同时启动 ROS 桥接器：</p>
+<ul>
+<li><code>carla_ros_bridge_with_example_ego_vehicle.launch</code> (ROS 1) 和 <code>carla_ros_bridge_with_example_ego_vehicle.launch.py</code> (ROS 2) 沿着 <a href="../carla_spawn_objects/"><code>carla_spawn_objects</code></a> 和 <a href="../carla_manual_control/"><code>carla_manual_control</code></a> 包一起启动 ROS 桥。</li>
+</ul>
+<hr />
+<h2 id="carla">配置 Carla 设置</h2>
+<p>配置应该在启动文件中设置，或者在从命令行运行文件时作为参数传递，例如：</p>
+<pre><code class="language-sh">roslaunch carla_ros_bridge carla_ros_bridge.launch passive:=True
+</code></pre>
+<p>可以使用以下设置：</p>
+<ul>
+<li><strong>use_sim_time</strong>: 应设置为 <strong>True</strong> 以确保 ROS 使用仿真时间而不是系统时间。该参数将使 ROS <a href="https://wiki.ros.org/Clock"><code>/clock</code></a> 主题与 Carla 仿真时间同步。</li>
+<li><strong>host and port</strong>: 使用 Python 客户端连接到 Carla 的网络设置。</li>
+<li><strong>timeout</strong>: 等待成功连接到服务器的时间。</li>
+<li><strong>passive</strong>: 被动模式用于同步模式。启用后，ROS 桥接器将退居次要地位，而另一个客户端 <strong>必须</strong> 与世界打交道。ROS 桥将等待接收来自所有传感器的所有预期数据。</li>
+<li><strong>synchronous_mode</strong>:<ul>
+<li><strong>如果是 false</strong>: 数据在每个滴答信号<code>world.on_tick()</code>和每个<code>sensor.listen()</code>回调时进行发布。</li>
+<li><strong>如果是 true （默认）</strong>: ROS 桥在下一个滴答信号之前等待所有预期的传感器消息。这可能会减慢整个仿真的速度，但可以确保结果的可重复性。</li>
+</ul>
+</li>
+<li><strong>synchronous_mode_wait_for_vehicle_control_command</strong>: 在同步模式下，暂停计时直到车辆控制完成。</li>
+<li><strong>fixed_delta_seconds</strong>: 仿真步骤之间的仿真时间（增量秒）。<strong>它必须低于 0.1</strong>。查看 <a href="https://carla.readthedocs.io/en/latest/adv_synchrony_timestep/">文档</a> 以了解更多相关信息。</li>
+<li><strong>ego_vehicle</strong>: 用于识别自我车辆的角色名称。将创建相关主题，以便能够通过 ROS 控制这些车辆。</li>
+<li><strong>town</strong>: 使用可用的 Carla 城镇（例如“town01”）或 OpenDRIVE 文件（以 <code>.xodr</code> 结尾）。</li>
+<li><strong>register_all_sensors</strong>:<ul>
+<li><strong>如果是 false</strong>: 仅注册桥生成的传感器。</li>
+<li><strong>如果是 true（默认）</strong>: 仿真中存在的所有传感器均已注册。</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="ros_3">在同步模式下使用 ROS</h2>
+<p>ROS 桥默认以同步模式运行。它将等待当前帧内预期的所有传感器数据，以确保可重现的结果。</p>
+<p>当以同步模式运行多个客户端时，只允许一个客户端向世界发滴答信号。除非启用被动模式，否则默认情况下，ROS 桥接器将是唯一允许与世界交互的客户端。在 <a href="https://github.com/carla-simulator/ros-bridge/blob/master/carla_ros_bridge/config/settings.yaml"><code>ros-bridge/carla_ros_bridge/config/settings.yaml</code></a> 中启用被动模式将使 ROS 桥后退一步，并允许另一个客户端来操作世界。<strong>另一个客户必须向世界发滴答信号，否则 Carla 将冻结。</strong></p>
+<p>如果 ROS 桥接器不处于被动模式（ROS 桥接器是唯一的），则有两种方法将步进控制发送到服务器：</p>
+<ul>
+<li>用消息向主题 <code>/carla/control</code> 发送 <a href="../ros_msgs/#carlacontrolmsg"><code>carla_msgs.CarlaControl</code></a> 。</li>
+<li>使用 <a href="../rqt_plugin/">控制 rqt 插件</a> 。该插件启动一个具有简单界面的新窗口。然后它用于管理步骤并在<code>/carla/control</code>主题中发布。要使用它，请在同步模式下使用 Carla 运行以下命令：</li>
+</ul>
+<pre><code class="language-sh">rqt --standalone rqt_carla_control
+</code></pre>
+<hr />
+<h2 id="_1">自我车辆控制</h2>
+<p>有两种控制自我车辆的模式：</p>
+<ol>
+<li>正常模式 - 从 <code>/carla/&lt;ROLE NAME&gt;/vehicle_control_cmd</code> 读取命令</li>
+<li>手动模式 - 从  <code>/carla/&lt;ROLE NAME&gt;/vehicle_control_cmd_manual</code> 读取命令。这允许手动覆盖软件堆栈发布的车辆控制命令。</li>
+</ol>
+<p>您可以通过发布到 <code>/carla/&lt;ROLE NAME&gt;/vehicle_control_manual_override</code>来在两种模式之间切换。有关使用的示例，请参阅 <a href="../carla_manual_control/">Carla 手动控制</a>。</p>
+<p>要从命令行测试转向：</p>
+<p><strong>1.</strong> 使用 ego 车辆启动 ROS 桥：</p>
+<pre><code class="language-sh"># ROS 1
+roslaunch carla_ros_bridge carla_ros_bridge_with_example_ego_vehicle.launch
+
+# ROS 2
+ros2 launch carla_ros_bridge carla_ros_bridge_with_example_ego_vehicle.launch.py
+</code></pre>
+<p><strong>2.</strong> 在另一个终端中，发布到主题 <code>/carla/&lt;ROLE NAME&gt;/vehicle_control_cmd</code></p>
+<pre><code class="language-sh">    # 最大向前油门，最大向右转向
+
+    # for ros1
+    rostopic pub /carla/ego_vehicle/vehicle_control_cmd carla_msgs/CarlaEgoVehicleControl &quot;{throttle: 1.0, steer: 1.0}&quot; -r 10
+
+    # for ros2
+    ros2 topic pub /carla/ego_vehicle/vehicle_control_cmd carla_msgs/CarlaEgoVehicleControl &quot;{throttle: 1.0, steer: 1.0}&quot; -r 10
+
+</code></pre>
+<p>当前车辆的状态可以通过主题 <code>/carla/&lt;ROLE NAME&gt;/vehicle_status</code> 获得。有关车辆的静态信息可以通过<code>/carla/&lt;ROLE NAME&gt;/vehicle_info</code>接收.</p>
+<p>可以使用 <a href="https://docs.ros.org/en/api/ackermann_msgs/html/msg/AckermannDrive.html">AckermannDrive</a> 消息来控制自我车辆。这可以通过使用 <a href="../carla_ackermann_control/">Carla 阿克曼控制</a> 包来实现。</p>
+<hr />
+<h2 id="ros_4">ROS 应用程序接口</h2>
+<h4 id="_2">订阅</h4>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类别</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/debug_marker</code></td>
+<td><a href="https://docs.ros.org/en/api/visualization_msgs/html/msg/MarkerArray.html">可视化_msgs/MarkerArray</a></td>
+<td>在 Carla 世界中绘制标记。</td>
+</tr>
+<tr>
+<td><code>/carla/weather_control</code></td>
+<td><a href="https://github.com/carla-simulator/ros-carla-msgs/blob/master/msg/CarlaWeatherParameters.msg">carla_msgs/CarlaWeatherParameters</a></td>
+<td>设置 Carla 天气参数</td>
+</tr>
+<tr>
+<td><code>/clock</code></td>
+<td><a href="https://docs.ros.org/en/melodic/api/rosgraph_msgs/html/msg/Clock.html">rosgraph_msgs/Clock</a></td>
+<td>在 ROS 中发布仿真时间。</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>使用 <code>debug_marker</code>时，请注意标记可能会影响传感器发布的数据。支持的标记包括：箭头（由两个点指定）、点、立方体和线条。</p>
+</div>
+<p><br></p>
+<h4 id="_3">发布</h4>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/status</code></td>
+<td><a href="../ros_msgs/#carlastatusmsg">carla_msgs/CarlaStatus</a></td>
+<td>读取 Carla 的当前状态</td>
+</tr>
+<tr>
+<td><code>/carla/world_info</code></td>
+<td><a href="../ros_msgs/#carlaworldinfomsg">carla_msgs/CarlaWorldInfo</a></td>
+<td>有关当前 Carla 地图的信息。</td>
+</tr>
+<tr>
+<td><code>/clock</code></td>
+<td><a href="https://docs.ros.org/en/melodic/api/rosgraph_msgs/html/msg/Clock.html">rosgraph_msgs/Clock</a></td>
+<td>在 ROS 中发布仿真时间。</td>
+</tr>
+<tr>
+<td><code>/rosout</code></td>
+<td><a href="https://docs.ros.org/en/melodic/api/rosgraph_msgs/html/msg/Log.html">rosgraph_msgs/Log</a></td>
+<td>ROS 日志记录。</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h4 id="_4">服务</h4>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/destroy_object</code></td>
+<td><a href="https://github.com/carla-simulator/ros-carla-msgs/blob/f75637ce83a0b4e8fbd9818980c9b11570ff477c/srv/DestroyObject.srv">carla_msgs/DestroyObject.srv</a></td>
+<td>销毁一个物体</td>
+</tr>
+<tr>
+<td><code>/carla/get_blueprints</code></td>
+<td><a href="https://github.com/carla-simulator/ros-carla-msgs/blob/f75637ce83a0b4e8fbd9818980c9b11570ff477c/srv/GetBlueprints.srv">carla_msgs/GetBlueprints.srv</a></td>
+<td>获取蓝图</td>
+</tr>
+<tr>
+<td><code>/carla/spawn_object</code></td>
+<td><a href="https://github.com/carla-simulator/ros-carla-msgs/blob/f75637ce83a0b4e8fbd9818980c9b11570ff477c/srv/SpawnObject.srv">carla_msgs/SpawnObject.srv</a></td>
+<td>生成一个对象</td>
+</tr>
+</tbody>
+</table>
+<hr />
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

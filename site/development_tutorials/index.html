@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>开发 - 交通仿真文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u5f00\u53d1";
+        var mkdocs_page_input_path = "development_tutorials.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">开发</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/development_tutorials.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">开发</h1>
+<p>Carla 是开源的，并且具有高度可扩展性。这允许用户创建自定义功能或内容以满足专门应用程序或特定需求。以下教程详细介绍了如何使用 Carla 代码库实现特定的开发目标：</p>
+<ul>
+<li><a href="../tuto_D_make_release/"><strong>进行发布</strong></a></li>
+<li><a href="../tuto_D_contribute_assets/"><strong>升级内容</strong></a></li>
+<li><a href="../tuto_D_create_semantic_tags/"><strong>创建语义标签</strong></a></li>
+<li><a href="../tuto_D_create_sensor/"><strong>创建新传感器</strong></a></li>
+<li><a href="../adv_benchmarking/"><strong>性能基准测试</strong></a></li>
+<li><a href="../ref_recorder_binary_file_format/"><strong>记录器文件格式</strong></a></li>
+<li><a href="../tuto_D_generate_colliders/"><strong>碰撞边界</strong></a></li>
+</ul>
+<h2 id="_2">进行发布</h2>
+<p>如果您想开发自己的 Carla 分支并发布代码版本，请遵循 <a href="../tuto_D_make_release/"><strong>本指南</strong></a>。</p>
+<h2 id="_3">升级内容</h2>
+<p>我们的内容驻留在单独的 Git LFS 存储库中。作为构建系统的一部分，我们生成并上传一个包，其中包含带有当前日期和提交标记的该内容的最新版本。我们定期升级 Carla 存储库，并提供最新版本内容包的链接。请按照 <a href="../tuto_D_contribute_assets/"><strong>这些说明</strong></a> 升级内容。</p>
+<h2 id="_4">创建语义标签</h2>
+<p>Carla 有一组已定义的语义标签，适合大多数用例。但是，如果您需要其他课程，您可以按照 <a href="../tuto_D_create_semantic_tags/"><strong>本指南</strong></a> 中的详细说明添加它们。</p>
+<h2 id="_5">创建新传感器</h2>
+<p>您可以修改 Carla 的 C++ 代码来为您的自定义用例创建新的传感器。请在 <a href="../tuto_D_create_sensor/"><strong>此处</strong></a> 查找详细信息。</p>
+<h2 id="_6">性能基准测试</h2>
+<p>Carla 有一个基准测试脚本，可帮助对系统性能进行基准测试。在 <a href="../adv_benchmarking/"><strong>这里</strong></a> 找到完整的详细信息。</p>
+<h2 id="_7">记录器文件格式</h2>
+<p>有关记录器二进制文件格式的详细信息，请参阅 <a href="../ref_recorder_binary_file_format/"><strong>此处</strong></a> 。</p>
+<h2 id="_8">生成碰撞边界</h2>
+<p>有关为车辆生成更准确的碰撞边界的详细信息，请参阅 <a href="../tuto_D_generate_colliders/"><strong>本指南</strong></a> 。</p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>osc2-runner - 交通仿真文档</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "osc2-runner";
+        var mkdocs_page_input_path = "scenario_runner\\README_OpenSCENARIO_2.0.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">osc2-runner</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/scenario_runner/README_OpenSCENARIO_2.0.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="osc2-runner">osc2-runner</h1>
+<p>我们使用OpenScenario 2.0作为场景描述语言规范，设计并实现了相应的编译系统，可以自动将用OpenScenario 2.0描述的测试场景转换为基于scenario runner的测试场景，从而使用carla进行自动驾驶测试。</p>
+<h2 id="installation">Installation</h2>
+<p><strong>1. 安装JDK</strong></p>
+<pre><code>sudo apt install openjdk-17-jdk
+</code></pre>
+<p>确认安装：</p>
+<pre><code>$ java -version
+</code></pre>
+<p>输出：</p>
+<pre><code>openjdk version &quot;17.0.5&quot; 2022-10-18
+OpenJDK Runtime Environment (build 17.0.5+8-Ubuntu-2ubuntu120.04)
+OpenJDK 64-Bit Server VM (build 17.0.5+8-Ubuntu-2ubuntu120.04, mixed mode, sharing)
+</code></pre>
+<p><strong>3、安装 Antlr 4.10.1</strong></p>
+<pre><code>sudo apt install curl
+curl -O https://www.antlr.org/download/antlr-4.10.1-complete.jar
+</code></pre>
+<p>将.jar文件放入local/lib中</p>
+<pre><code>$ sudo cp antlr-4.10.1-complete.jar /usr/local/lib/
+</code></pre>
+<p>以下三个步骤用于配置环境变量并创建别名，以便可以轻松地从命令行使用antlr4。</p>
+<pre><code>$ sudo gedit ~/.bashrc
+</code></pre>
+<p>在末尾添加以下内容：</p>
+<pre><code>export CLASSPATH=&quot;.:/usr/local/lib/antlr-4.10.1-complete.jar:$CLASSPATH&quot;
+alias antlr4='java -jar /usr/local/lib/antlr-4.10.1-complete.jar'
+alias grun='java org.antlr.v4.gui.TestRig'
+</code></pre>
+<p>进而：</p>
+<pre><code>source ~/.bashrc
+</code></pre>
+<p>在终端输入antlr4进行验证：</p>
+<pre><code>$ antlr4
+ANTLR Parser Generator  Version 4.10.1
+ -o ___              specify output directory where all output is generated
+ -lib ___            specify location of grammars, tokens files
+ -atn                generate rule augmented transition network diagrams
+ -encoding ___       specify grammar file encoding; e.g., euc-jp
+ -message-format ___ specify output style for messages in antlr, gnu, vs2005
+ -long-messages      show exception details when available for errors and warnings
+ -listener           generate parse tree listener (default)
+ -no-listener        don't generate parse tree listener
+ -visitor            generate parse tree visitor
+ -no-visitor         don't generate parse tree visitor (default)
+ -package ___        specify a package/namespace for the generated code
+ -depend             generate file dependencies
+ -D&lt;option&gt;=value    set/override a grammar-level option
+ -Werror             treat warnings as errors
+ -XdbgST             launch StringTemplate visualizer on generated code
+ -XdbgSTWait         wait for STViz to close before continuing
+ -Xforce-atn         use the ATN simulator for all predictions
+ -Xlog               dump lots of logging info to antlr-timestamp.log
+ -Xexact-output-dir  all output goes into -o dir regardless of paths/package
+</code></pre>
+<p><strong>4、安装antlr4运行时</strong></p>
+<pre><code>pip install antlr4-python3-runtime==4.10
+</code></pre>
+<p><strong>5、安装python依赖</strong></p>
+<pre><code>pip install -r requirements.txt
+</code></pre>
+<p><strong>6、安装 graphviz</strong></p>
+<pre><code>sudo apt-get install graphviz
+</code></pre>
+<p><strong>7、配置 carla</strong></p>
+<p>(1) 下载 <a href="https://carla-releases.s3.eu-west-3.amazonaws.com/Linux/CARLA_0.9.13.tar.gz">carla版本</a></p>
+<p>(2) 将carla安装包解压到某个目录。</p>
+<p>在Ubuntu系统上，Carla环境变量配置如下：</p>
+<pre><code class="language-bash">export CARLA_ROOT=/home/dut-aiid/CARLA_0.9.13
+export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.13-py3.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla/agents/navigation:${CARLA_ROOT}/PythonAPI/carla:${CARLA_ROOT}/PythonAPI/examples:${CARLA_ROOT}/PythonAPI
+</code></pre>
+<h2 id="_1">快速开始</h2>
+<p><strong>1、运行 carla</strong></p>
+<pre><code class="language-bash">cd /home/xxx/CARLA_0.9.13
+./CarlaUE4.sh
+</code></pre>
+<p><strong>2、启动 manual_control</strong></p>
+<pre><code>python manual_control.py -a --rolename=ego_vehicle
+</code></pre>
+<p><strong>3、运行OpenSCENARIO 2.0场景</strong></p>
+<pre><code>python scenario_runner.py --sync  --openscenario2 srunner/examples/cut_in_and_slow_right.osc --reloadWorld 
+</code></pre>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

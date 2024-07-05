@@ -1,6 +1,6 @@
 # 在 RoadRunner 创建大地图
 
-RoadRunner 是推荐的软件，用于创建要导入 Carla 的大地图。本指南概述了 RoadRunner 是什么，在构建大地图时需要考虑的事情，以及如何导出自定义的大地图，以便导入 Carla。 
+RoadRunner 是推荐的软件，用于创建要导入 Carla 的大地图。本指南概述了 RoadRunner 是什么，在构建大地图时需要考虑的事情，以及如何导出自定义的大地图，以便导入 Carla。 [RoadRunner进行道路场景建模](./course/scenario.md)。
 
 - **[RoadRunner 简介](#introduction-to-roadrunner)**
 - [**开始之前**](#before-you-start)
@@ -36,7 +36,7 @@ RoadRunner是MATLAB校园许可的一部分，因此许多大学可以提供无�
 
 如果您正在构建带有高程的大地图，则建议地图的最大尺寸为20km 乘 20km。大于这个值的地图可能会导致 RoadRunner 在导出时崩溃。
 
-[rr_tutorials]: https://www.mathworks.com/support/search.html?fq=asset_type_name:video%20category:roadrunner/index&amp;page=1&amp;s_tid=CRUX_topnav
+[rr_tutorials]: https://www.mathworks.com/support/search.html?fq=asset_type_name:video%20category:roadrunner/index&amp;amp;page=1&amp;amp;s_tid=CRUX_topnav
 
 ---
 

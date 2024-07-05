@@ -8,7 +8,7 @@
 
 - Python 3.6 及以上版本
 
-- CARLA 仿真环境
+- CARLA 仿真环境（[湖工商场景](https://pan.baidu.com/s/1uamAa14DMriKUv0sXKvXYQ?pwd=w6n6 )）
 
 - 安装必要的Python库：
 

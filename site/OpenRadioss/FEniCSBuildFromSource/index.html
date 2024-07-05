@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>FEniCSBuildFromSource - 交通仿真文档</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "FEniCSBuildFromSource";
+        var mkdocs_page_input_path = "OpenRadioss\\FEniCSBuildFromSource.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">FEniCSBuildFromSource</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/OpenRadioss/FEniCSBuildFromSource.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="_1">环境</h2>
+<ul>
+<li>
+<p>C++ compiler (supporting the C++20 standard)</p>
+<pre><code>apt install build-essential
+</code></pre>
+<ul>
+<li>
+<p>Boost, with the following compiled Boost components</p>
+<p>apt install libboost-all-dev</p>
+</li>
+</ul>
+</li>
+<li>
+<p>CMake [build dependency]</p>
+<pre><code>// 安装特定版本
+sudo wget https://cmake.org/files/v3.27/cmake-3.27.0.tar.gz
+sudo tar -zxvf cmake-3.27.0.tar.gz
+cd cmake-3.27.0
+sudo ./configure
+sudo make
+sudo make install
+// 查看版本
+cmake --version
+</code></pre>
+</li>
+<li>
+<p>pkg-config</p>
+<pre><code>apt install pkgconf
+</code></pre>
+</li>
+<li>
+<p>Basix</p>
+<pre><code>// 建议使用 conda 创建新环境之后安装
+// 不使用pip install fenics-basix是因为从源码编译需要使用0.7版本，而上述命令是0.6版本
+pip install git+https://github.com/FEniCS/basix.git
+</code></pre>
+</li>
+<li>
+<p>pugixml</p>
+<pre><code>apt install pugixml-doc
+</code></pre>
+</li>
+<li>
+<p>UFCx [ufcx.h, provided by FFCx]</p>
+<ul>
+<li>pip 安装 <ul>
+<li>pip install fenics-ffcx</li>
+<li>此时安装的是0.6版本。从源码编译需要0.7版本</li>
+</ul>
+</li>
+<li>从源码安装<ul>
+<li>git clone https://github.com/FEniCS/ffcx.git</li>
+<li>pip install .</li>
+<li>此时编译失败=…=        </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>MPI</p>
+<pre><code>sudo apt-get install openmpi-bin openmpi-doc libopenmpi-dev
+</code></pre>
+</li>
+<li>
+<p>HDF5 (with MPI support enabled)</p>
+<pre><code>apt install libhdf5-mpi-dev
+</code></pre>
+</li>
+<li>
+<p>PETSc </p>
+<pre><code>git clone -b release https://gitlab.com/petsc/petsc.git petsc
+./configure
+// ./configure 后会提示如何make
+make PETSC_DIR=安装位置 PETSC_ARCH=arch-linux-c-debug all
+// 之后按提示check
+make PETSC_DIR=安装位置 PETSC_ARCH=arch-linux-c-debug check
+// 安装外部包mumps、
+apt install bison
+./configure --download-mumps --download-scalapack --download-parmetis --download-metis --download-ptscotch
+// ./configure完提示make
+make PETSC_DIR=安装位置 PETSC_ARCH=arch-linux-c-debug all
+</code></pre>
+</li>
+<li>
+<p>At least one of ParMETIS, KaHIP or PT-SCOTCH</p>
+<pre><code>apt install libparmetis-dev
+</code></pre>
+</li>
+</ul>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

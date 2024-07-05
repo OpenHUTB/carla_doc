@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>ROS 2的ROS桥安装 - 交通仿真文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "ROS 2\u7684ROS\u6865\u5b89\u88c5";
+        var mkdocs_page_input_path = "ros_installation_ros2.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">ROS 2的ROS桥安装</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/ros_installation_ros2.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="ros-2ros">ROS 2的ROS桥安装</h1>
+<p>本节是关于如何在 Linux 上安装 ROS 桥以与 ROS 2 一起使用的指南。您将找到先决条件、安装步骤、如何运行基本包以确保一切正常工作以及运行测试的命令。</p>
+<ul>
+<li><a href="#before-you-begin"><strong>开始之前</strong></a></li>
+<li><a href="#ros-bridge-installation"><strong>ROS桥安装</strong></a></li>
+<li><a href="#run-the-ros-bridge"><strong>运行ROS桥</strong></a></li>
+<li><a href="#testing"><strong>测试</strong></a></li>
+</ul>
+<div class="admonition 重要">
+<p class="admonition-title">重要</p>
+<p>适用于Windows 的 ROS仍在<a href="http://wiki.ros.org/noetic/Installation">实验</a> 。它只在Linux系统上进行过测试。 </p>
+</div>
+<hr />
+<h2 id="_1">开始之前</h2>
+<p>在使用ROS桥之前，您需要满足以下软件要求：</p>
+<ul>
+<li>安装 ROS:<ul>
+<li><a href="https://docs.ros.org/en/foxy/Installation.html"><strong>ROS 2 Foxy</strong></a> — 针对 Ubuntu 20.04 (Focal)
+-根据您的需要，可能需要额外的 ROS 包。强烈建议是用 <a href="https://wiki.ros.org/rviz">rviz</a> 将ROS数据可视化。</li>
+</ul>
+</li>
+<li>CARLA 0.9.11或更高版本——以前的版本与ROS桥不兼容。遵循<a href="https://carla.readthedocs.io/en/latest/start_quickstart/">快速启动安装</a> 或者为[Linux]构建(https://carla.readthedocs.io/en/latest/build_linux/) 。建议尽可能将ROS桥接版本与CARLA版本相匹配。</li>
+</ul>
+<hr />
+<h2 id="ros">ROS桥安装</h2>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>Debian软件包安装还不能用于ROS 2。</p>
+</div>
+<p><strong>1.</strong> 设置项目目录并克隆ROS网桥存储库和子模块：</p>
+<pre><code class="language-sh">mkdir -p ~/carla-ros-bridge &amp;&amp; cd ~/carla-ros-bridge
+git clone --recurse-submodules https://github.com/carla-simulator/ros-bridge.git src/ros-bridge
+</code></pre>
+<p><strong>2.</strong> 设置 ROS 环境：</p>
+<pre><code class="language-sh">    source /opt/ros/foxy/setup.bash
+</code></pre>
+<p><strong>3.</strong> 安装 ROS 依赖：</p>
+<pre><code class="language-sh">rosdep update
+rosdep install --from-paths src --ignore-src -r
+</code></pre>
+<p><strong>4.</strong> 使用colcon构建ROS桥的工作空间：</p>
+<pre><code class="language-sh">colcon build
+</code></pre>
+<hr />
+<h2 id="ros_1">运行ROS桥</h2>
+<p><strong>1.</strong> Start a CARLA server according to the installation method used to install CARLA:</p>
+<pre><code class="language-sh">    # Package version in carla root folder
+    ./CarlaUE4.sh
+
+    # Debian installation in `opt/carla-simulator/`
+    ./CarlaUE4.sh
+
+    # Build from source version in carla root folder
+    make launch
+</code></pre>
+<p><strong>2.</strong> Add the correct CARLA modules to your Python path:</p>
+<pre><code class="language-sh">    export CARLA_ROOT=&lt;path-to-carla&gt;
+    export PYTHONPATH=$PYTHONPATH:$CARLA_ROOT/PythonAPI/carla/dist/carla-&lt;carla_version_and_arch&gt;.egg:$CARLA_ROOT/PythonAPI/carla
+</code></pre>
+<p><strong>3.</strong> Add the source path for the ROS bridge workspace:</p>
+<pre><code class="language-sh">    source ./install/setup.bash
+</code></pre>
+<p><strong>4.</strong> In another terminal, start the ROS 2 bridge. You can run one of the two options below:</p>
+<pre><code class="language-sh">    # Option 1, start the basic ROS bridge package
+    ros2 launch carla_ros_bridge carla_ros_bridge.launch.py
+
+    # Option 2, start the ROS bridge with an example ego vehicle
+    ros2 launch carla_ros_bridge carla_ros_bridge_with_example_ego_vehicle.launch.py
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you receive the error: <code>ImportError: no module named CARLA</code> then the path to the CARLA Python API is missing. The apt installation sets the path automatically, but it may be missing for other installations.</p>
+<p>You will need to add the appropriate <code>.egg</code> file to your Python path. You will find the file in either <code>/PythonAPI/</code> or <code>/PythonAPI/dist/</code> depending on the CARLA installation. Execute the following command with the complete path to the <code>.egg</code> file, using the file that corresponds to your installed version of Python:</p>
+<p><code>export PYTHONPATH=$PYTHONPATH:path/to/carla/PythonAPI/&lt;your_egg_file&gt;</code></p>
+<p>It is recommended to set this variable permanently by adding the previous line to your <code>.bashrc</code> file.</p>
+<p>To check the CARLA library can be imported correctly, run the following command and wait for a success message:</p>
+<pre><code>    python3 -c 'import carla;print("Success")' # python3
+
+    or
+
+    python -c 'import carla;print("Success")' # python2
+</code></pre>
+</div>
+<hr />
+<h2 id="_2">测试</h2>
+<p>To execute tests using colcon:</p>
+<p><strong>1.</strong> Build the package:</p>
+<pre><code class="language-sh">    colcon build --packages-up-to carla_ros_bridge
+</code></pre>
+<p><strong>2.</strong> Run the tests:</p>
+<pre><code class="language-sh">    launch_test carla_ros_bridge/test/ros_bridge_client_ros2_test.py
+</code></pre>
+<hr />
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

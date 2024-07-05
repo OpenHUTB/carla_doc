@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Carla 航点发布器 - 交通仿真文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Carla \u822a\u70b9\u53d1\u5e03\u5668";
+        var mkdocs_page_input_path = "carla_waypoint.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Carla 航点发布器</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/carla_waypoint.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="carla">Carla 航点发布器</h1>
+<p><a href="https://github.com/carla-simulator/ros-bridge/tree/master/carla_waypoint_publisher">Carla 航点发布器</a> 使航点计算可用于 ROS 上下文，并提供查询 Carla 航点的服务。要了解有关航点的更多信息，请参阅 Carla <a href="https://carla.readthedocs.io/en/latest/core_map/#navigation-in-carla">文档</a> 。</p>
+<ul>
+<li><a href="#run-the-waypoint-publisher"><strong>运行航点发布器</strong></a><ul>
+<li><a href="#set-a-goal">设定目标</a></li>
+</ul>
+</li>
+<li><a href="#using-the-waypoint-publisher"><strong>使用航点发布器</strong></a></li>
+<li><a href="#ros-api"><strong>ROS 应用程序接口</strong></a><ul>
+<li><a href="#publications">发布</a></li>
+<li><a href="#services">服务</a></li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="_1">运行航点发布器</h2>
+<p>在 Carla 服务器运行的情况下，执行以下命令：</p>
+<pre><code class="language-sh"># ROS 1
+roslaunch carla_waypoint_publisher carla_waypoint_publisher.launch
+
+# ROS 2
+ros2 launch carla_waypoint_publisher carla_waypoint_publisher.launch.py
+</code></pre>
+<h3 id="_2">设定目标</h3>
+<p>如果可用，则从主题 <code>/carla/&lt;ROLE NAME&gt;/goal</code> 中读取目标，否则使用固定的生成点。</p>
+<p>设置目标的首选方法是单击 RVIZ 中的“2D Nav Goal”。</p>
+<p><img alt="rviz_set_goal" src="../img/rviz_set_start_goal.png" /></p>
+<hr />
+<h3 id="_3">使用航点发布器</h3>
+<p><a href="../carla_ad_demo/">Carla 自动驾驶演示</a> 使用 Waypoint Publisher 为<a href="../carla_ad_agent/">Carla 自动驾驶智能体</a> 规划路线。有关如何使用它的示例， 请参阅 Carla 自动驾驶演示 <a href="https://github.com/carla-simulator/ros-bridge/blob/ros2/carla_ad_demo/launch/carla_ad_demo_with_scenario.launch">启动文件</a> 。</p>
+<hr />
+<h2 id="ros">ROS 应用程序接口</h2>
+<h4 id="_4">发布</h4>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/&lt;ego vehicle name&gt;/waypoints</code></td>
+<td><a href="https://docs.ros.org/en/api/nav_msgs/html/msg/Path.html">nav_msgs/Path</a></td>
+<td>发布计算出的路线</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h4 id="_5">服务</h4>
+<table>
+<thead>
+<tr>
+<th>服务</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla_waypoint_publisher/&lt;ego vehicle name&gt;/get_waypoint</code></td>
+<td><a href="https://github.com/carla-simulator/ros-bridge/blob/ros2/carla_waypoint_types/srv/GetWaypoint.srv">carla_waypoint_types/GetWaypoint</a></td>
+<td>获取特定位置的航路点</td>
+</tr>
+<tr>
+<td><code>/carla_waypoint_publisher/&lt;ego vehicle name&gt;/get_actor_waypoint</code></td>
+<td><a href="https://github.com/carla-simulator/ros-bridge/blob/ros2/carla_waypoint_types/srv/GetActorWaypoint.srv">carla_waypoint_types/GetActorWaypoint</a></td>
+<td>获取参与者 ID 的航点</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
