@@ -10,7 +10,7 @@
 
 - 安装必要的Python库
 
-- [main_v4_VO](../../src/Motion_Planning/main_v4_VO.py)
+- [main_v4_VO](../../src/course/Motion_Planning/main_v4_VO.py)
 
 - [**湖工商场景**](https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb )**(WindowsNoEditor)**
 
