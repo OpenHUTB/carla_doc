@@ -9,6 +9,11 @@
 [__画线__](https://github.com/suayu/Carla_line_drawer) — 在仿真器中绘制俯视相机中的线，并保存参考点。
 
 
+## 场景
+
+[__生成场景__](https://github.com/ArenBabikian/concretize) — 使用特定领域建模语言生成自动驾驶场景。
+
+
 
 ## 先进理念
  
