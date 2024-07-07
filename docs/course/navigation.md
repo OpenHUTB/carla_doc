@@ -1,14 +1,14 @@
 # 自定义车辆运行轨迹
 
-​	车辆运动支持定义车辆运动起点和目标位置，为每辆车指定随机速度值，使其沿轨迹移动时不会发生碰撞或模拟碰撞，看到车辆沿指定轨迹行驶以到达其目标位置。（[湖工商场景](https://pan.baidu.com/s/1uamAa14DMriKUv0sXKvXYQ?pwd=w6n6 )）
+​	车辆运动支持定义车辆运动起点和目标位置，为每辆车指定随机速度值，使其沿轨迹移动时不会发生碰撞或模拟碰撞，看到车辆沿指定轨迹行驶以到达其目标位置。
 
-​	本示例设计了一个**automatic_control_revised.py**脚本进行实现
+​	本示例设计了一个  [**automatic_control_revised.py**](https://github.com/OpenHUTB/carla_doc/blob/master/src/course/navigation/automatic_control_revised.py)  脚本进行实现
 
 ![](../img/traffic_course_img/4.gif)
 
-**注意**  需要将**agents**文件夹位置添加到代码环境变量中，或者复制该文件夹使其与本示例脚本同级。
+**注意**  需要将 [**agents**](https://github.com/OpenHUTB/carla_doc/tree/master/src/carla_agent) 文件夹位置添加到代码环境变量中，或者复制该文件夹使其与本示例脚本同级。
 
-
+   [**湖工商场景**](https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb )**(WindowsNoEditor)**
 
 ​	自定义一些生成位置的起始点坐标
 
@@ -25,20 +25,23 @@ diming = {
 }
 ```
 
-​	定义命令行参数
+​	定义命令行参数，包括车辆行驶的起点、终点及速度
 
 ```python
-argparser = argparse.ArgumentParser(
-    description=__doc__)
-argparser.add_argument(
-    '--s',
-    default="北门",
-    type=str)
-argparser.add_argument(
-    '--e',
-    default="西门",
-    type=str)
-args = argparser.parse_args()
+ argparser = argparse.ArgumentParser(
+        description=__doc__)
+    argparser.add_argument(
+        '--s',
+        default="北门",
+        type=str)
+    argparser.add_argument(
+        '--e',
+        default="西门",
+        type=str)
+    argparser.add_argument(
+        '--speed',
+        default=5,
+        type=int)
 
 ```
 
@@ -76,9 +79,11 @@ vehicle = world.spawn_actor(ego_vehicle_bp, spawn_point)
 world.tick()
 ```
 
-​	生成终点，给起点和终点生成一个车辆运行轨迹
+​	生成终点，给起点和终点生成一个车辆运行轨迹，定义初始速度
 
 ```python
+ # 设置初始速度
+ vehicle.set_target_velocity(carla.Vector3D(args.speed, 0, 0))
 # 创建代理
 agent = BehaviorAgent(vehicle, behavior='normal')
 destination = carla.Location(locations[args.e])
@@ -168,3 +173,16 @@ while True:
     control = agent.run_step(debug=True)
     vehicle.apply_control(control)
 ```
+
+```
+# 在地图上绘制车辆轨迹
+        if len(trajectory) > 1:
+            step = 10
+            for i in range(0, len(trajectory) - step, step):
+                world.debug.draw_arrow(trajectory[i], trajectory[i + step], thickness=0.5, color=carla.Color(0, 0, 139),
+                                       life_time=1000)
+
+```
+
+![](../img/traffic_course_img/5.png)
+
