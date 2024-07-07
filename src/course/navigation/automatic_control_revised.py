@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import carla
 import time
 import argparse
@@ -6,7 +5,6 @@ import os
 import sys
 import glob
 spectator_obj_list = []
-
 
 from agents.navigation.behavior_agent import BehaviorAgent
 
@@ -21,7 +19,6 @@ diming = {
     "科技楼": {"x": -97.4, "y": -217, "z": 15},
 }
 
-
 def main():
     argparser = argparse.ArgumentParser(
         description=__doc__)
@@ -33,14 +30,18 @@ def main():
         '--e',
         default="西门",
         type=str)
+    argparser.add_argument(
+        '--speed',
+        default=5,
+        type=int)
     args = argparser.parse_args()
+    # 连接到carla服务器
+    client = carla.Client('localhost', 2000)
+    client.set_timeout(10)
+    world = client.get_world()
+    origin_settings = world.get_settings()
+    vehicle = None
     try:
-        # 连接到carla服务器
-        client = carla.Client('localhost', 2000)
-        client.set_timeout(10)
-        world = client.get_world()
-        origin_settings = world.get_settings()
-
         # 设置
         settings = world.get_settings()
         settings.synchronous_mode = True
@@ -63,6 +64,9 @@ def main():
         # we need to tick the world once to let the client update the spawn position
         world.tick()
 
+        # 设置初始速度
+        vehicle.set_target_velocity(carla.Vector3D(args.speed, 0, 0))
+
         # 创建代理
         agent = BehaviorAgent(vehicle, behavior='normal')
         destination = carla.Location(locations[args.e])
@@ -70,7 +74,6 @@ def main():
         # generate the route
         agent.set_destination(destination)
         # print(len(agent._local_planner._waypoints_queue))
-
 
         # 获得车辆的中心点，并将点定位到右上角，便于运算
         bound_x = 0.5 + vehicle.bounding_box.extent.x
@@ -112,7 +115,7 @@ def main():
         # 设置Vehicle_transform_list[0]为初始视图(上帝视图)；
         spectator_obj = Vehicle_transform_list[0]
         c = 1
-
+        trajectory = []
         while True:
             agent._update_information()
 
@@ -150,6 +153,15 @@ def main():
             # agent.get_local_planner().set_speed(50)
             control = agent.run_step(debug=True)
             vehicle.apply_control(control)
+            # 记录车辆当前位置
+            trajectory.append(transform.location)
+
+        # 在地图上绘制车辆轨迹
+        if len(trajectory) > 1:
+            step = 10
+            for i in range(0, len(trajectory) - step, step):
+                world.debug.draw_arrow(trajectory[i], trajectory[i + step], thickness=0.5, color=carla.Color(255, 0, 0),
+                                       life_time=1000)
 
     finally:
         world.apply_settings(origin_settings)
@@ -161,3 +173,4 @@ if __name__ == '__main__':
         main()
     except KeyboardInterrupt:
         print(' - Exited by user.')
+
