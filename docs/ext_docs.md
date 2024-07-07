@@ -2,6 +2,14 @@
 
 下面，您将找到有关 Carla 许多广泛功能的深入文档。
 
+## 工具
+
+[__训练数据生成__](https://github.com/leunark/carla-dataset-gen) — 生成各种驾驶场景并捕获各种传感器数据。
+
+[__画线__](https://github.com/suayu/Carla_line_drawer) — 在仿真器中绘制俯视相机中的线，并保存参考点。
+
+
+
 ## 先进理念
  
 [__记录器__](adv_recorder.md) — 在仿真中注册事件并再次播放。
