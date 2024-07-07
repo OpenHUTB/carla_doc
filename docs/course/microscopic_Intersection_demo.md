@@ -4,13 +4,19 @@
 
 此脚本连接到CARLA仿真环境，并定期切换湖工商附近的四个预设路口视角。通过不断改变观众（Spectator）的视角，用户可以观察到不同路口的交通状况。
 
-#### **环境要求**
+- #### **环境要求**
 
-- Python 3.6 及以上版本
-
-- CARLA 仿真环境
-
-- 安装必要的Python库：
+  - Python 3.6 及以上版本
+  
+  - CARLA 仿真环境
+  
+  - 安装必要的Python库：
+  
+  - **[spectator.py](https://github.com/OpenHUTB/carla_doc/blob/master/src/course/spectator/spectator.py)**
+  
+  - [**湖工商场景**](https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb )**(WindowsNoEditor)**，并运行**[generate_traffic.py](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/generate_traffic.py)**
+  
+- 安装必要的python库
 
   ```
   pip install carla

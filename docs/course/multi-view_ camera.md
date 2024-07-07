@@ -4,11 +4,13 @@
 
 此脚本连接到CARLA仿真环境，在车辆的左右两侧设置相机，并使用Pygame显示相机捕获的实时图像。系统采用多进程架构，确保左右相机图像分别在不同窗口中实时显示。
 
-#### **环境要求**
+- #### **环境要求**
 
-- Python 3.6 及以上版本
-- CARLA 仿真环境
-- 安装必要的Python库：
+  - Python 3.6 及以上版本
+  - CARLA 仿真环境
+  - 安装必要的Python库：
+  - [**camera.py**](https://github.com/OpenHUTB/carla_doc/blob/master/src/course/camera.py)
+  - [**湖工商场景**](https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb )**(WindowsNoEditor)**
 
 ```
 pip install carla pygame numpy opencv-python
