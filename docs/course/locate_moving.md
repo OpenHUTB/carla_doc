@@ -7,7 +7,7 @@
 - **python 3.7.9**
 - **carla 0.9.15**
 - **[湖工商场景](https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb )(WindowsNoEditor)**
-- **[运行 locate_moving.py](./carla_doc/src/course/locate_moving.py)**
+
 
 
 
