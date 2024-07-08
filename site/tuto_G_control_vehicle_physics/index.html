@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>控制和监控车辆物理特性 - 交通仿真文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u63a7\u5236\u548c\u76d1\u63a7\u8f66\u8f86\u7269\u7406\u7279\u6027";
+        var mkdocs_page_input_path = "tuto_G_control_vehicle_physics.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">控制和监控车辆物理特性</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/tuto_G_control_vehicle_physics.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">控制和监控车辆物理特性</h1>
+<p>可以调整车辆及其车轮的物理属性。这些更改<strong>仅</strong>应用于运行时，并且在执行结束时将值设置回默认值。</p>
+<p>这些属性通过<a href="../python_api/#carla.VehiclePhysicsControl">carla.VehiclePhysicsControl</a>对象进行控制 ，该对象还通过<a href="../python_api/#carla.WheelPhysicsControl">carla.WheelPhysicsControl</a>对象提供对每个车轮物理特性的控制 。</p>
+<ul>
+<li><a href="#vehicle-control-code-example"><strong>车辆控制代码示例</strong></a></li>
+<li><a href="#viewing-vehicle-telemetry"><strong>查看车辆遥测数据</strong></a></li>
+</ul>
+<hr />
+<h2 id="_2">车辆控制代码示例</h2>
+<pre><code class="language-py">import carla
+import random
+
+def main():
+    # 连接到客户端
+    client = carla.Client('127.0.0.1', 2000)
+    client.set_timeout(2.0)
+
+    # 获得世界和参与者
+    world = client.get_world()
+    actors = world.get_actors()
+
+    # 从世界获得一辆随机车辆（应该至少有一辆）
+    vehicle = random.choice([actor for actor in actors if 'vehicle' in actor.type_id])
+
+    # 创建车轮物理控制
+    front_left_wheel  = carla.WheelPhysicsControl(tire_friction=2.0, damping_rate=1.5, max_steer_angle=70.0, long_stiff_value=1000)
+    front_right_wheel = carla.WheelPhysicsControl(tire_friction=2.0, damping_rate=1.5, max_steer_angle=70.0, long_stiff_value=1000)
+    rear_left_wheel   = carla.WheelPhysicsControl(tire_friction=3.0, damping_rate=1.5, max_steer_angle=0.0,  long_stiff_value=1000)
+    rear_right_wheel  = carla.WheelPhysicsControl(tire_friction=3.0, damping_rate=1.5, max_steer_angle=0.0,  long_stiff_value=1000)
+
+    wheels = [front_left_wheel, front_right_wheel, rear_left_wheel, rear_right_wheel]
+
+    # 改变车辆的车辆物理控制参数
+    physics_control = vehicle.get_physics_control()
+
+    physics_control.torque_curve = [carla.Vector2D(x=0, y=400), carla.Vector2D(x=1300, y=600)]
+    physics_control.max_rpm = 10000
+    physics_control.moi = 1.0
+    physics_control.damping_rate_full_throttle = 0.0
+    physics_control.use_gear_autobox = True
+    physics_control.gear_switch_time = 0.5
+    physics_control.clutch_strength = 10
+    physics_control.mass = 10000
+    physics_control.drag_coefficient = 0.25
+    physics_control.steering_curve = [carla.Vector2D(x=0, y=1), carla.Vector2D(x=100, y=1), carla.Vector2D(x=300, y=1)]
+    physics_control.use_sweep_wheel_collision = True
+    physics_control.wheels = wheels
+
+    # 对车辆应用车辆物理控制
+    vehicle.apply_physics_control(physics_control)
+    print(physics_control)
+
+if __name__ == '__main__':
+    main()
+</code></pre>
+<hr />
+<h2 id="_3">查看车辆遥测数据</h2>
+<p>通过调用 <a href="../python_api/#carla.Actor.enable_debug_telemetry"><code>Actor.enable_debug_telemetry</code></a> 方法可以实现车辆遥测的可视化。这将在服务器窗口上提供多个指标的图形视图以及仿真窗口上的车辆参考点。</p>
+<p><img alt="vehicle_telemetry" src="../img/vehicle_telemetry.png" /></p>
+<p>您可以尝试位于 <code>PythonAPI/examples</code> 中的示例脚本中的遥测可视化工具<code>manual_control.py</code>。按 <code>T</code> 激活遥测视图。</p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

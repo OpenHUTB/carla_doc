@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Carla 自动驾驶智能体 - 交通仿真文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Carla \u81ea\u52a8\u9a7e\u9a76\u667a\u80fd\u4f53";
+        var mkdocs_page_input_path = "carla_ad_agent.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Carla 自动驾驶智能体</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/carla_ad_agent.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="carla">Carla 自动驾驶智能体</h1>
+<p><a href="https://github.com/carla-simulator/ros-bridge/tree/master/carla_ad_agent">Carla 自动驾驶智能体</a> 是一种自动驾驶智能体，可以遵循给定路线，避免与其他车辆发生碰撞，并通过访问真实数据尊重交通信号灯的状态。<a href="../carla_ad_demo/">Carla 自动驾驶演示</a> 使用它来提供如何使用 ROS 桥的示例。 </p>
+<ul>
+<li><a href="#requirements"><strong>需求</strong></a></li>
+<li><a href="#ros-api"><strong>ROS 应用程序接口</strong></a><ul>
+<li><a href="#ad-agent-node"><strong>自动驾驶智能体节点</strong></a><ul>
+<li><a href="#parameters">参数</a></li>
+<li><a href="#subscriptions">订阅</a></li>
+<li><a href="#publications">发布</a></li>
+</ul>
+</li>
+<li><a href="#local-planner-node"><strong>本地规划器节点</strong></a><ul>
+<li><a href="#parameters">参数</a></li>
+<li><a href="#subscriptions">发布</a></li>
+<li><a href="#publications">订阅</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>在内部，Carla 自动驾驶智能体使用单独的节点进行 <a href="https://github.com/carla-simulator/ros-bridge/blob/ros2/carla_ad_agent/src/carla_ad_agent/local_planner.py">本地规划</a> 。该节点已针对 <code>vehicle.tesla.model3</code> 进行了优化，因为它没有任何换档延迟。</p>
+<p>PID 参数通过 <a href="https://en.wikipedia.org/wiki/Ziegler%E2%80%93Nichols_method">Ziegler-Nichols方法</a> 采集。</p>
+<hr />
+<h2 id="_1">需求</h2>
+<p>为了能够使用 <code>carla_ad_agent</code>，需要生成最少的传感器集（有关如何生成传感器的信息，请参阅 <a href="../carla_spawn_objects/">Carla 生成对象</a> ：</p>
+<ul>
+<li>里程计伪传感器 (<code>sensor.pseudo.odom</code>)，其角色名<code>odometry</code>附加到车辆上。 </li>
+<li>一个对象伪传感器 (<code>sensor.pseudo.objects</code>)，其角色名<code>objects</code>附加到车辆上。</li>
+<li>具有角色名称 <code>traffic_lights</code> 的交通灯伪传感器 (<code>sensor.pseudo.traffic_lights</code>) 。</li>
+</ul>
+<hr />
+<h2 id="ros">ROS 应用程序接口</h2>
+<h3 id="_2">自动驾驶智能体节点</h3>
+<h4 id="_3">参数</h4>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>role_name</code></td>
+<td>string (默认：<code>ego_vehicle</code>)</td>
+<td>自我车辆的 Carla 角色名称</td>
+</tr>
+<tr>
+<td><code>avoid_risk</code></td>
+<td>bool (default: <code>true</code>)</td>
+<td>如果为真，则避免与其他车辆相撞并尊重交通信号灯</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h4 id="_4">订阅</h4>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/&lt;ROLE NAME&gt;/target_speed</code></td>
+<td><a href="https://docs.ros.org/en/api/std_msgs/html/msg/Float64.html">std_msgs/Float64</a></td>
+<td>自我车辆的目标速度</td>
+</tr>
+<tr>
+<td><code>/carla/&lt;ROLE NAME&gt;/odometry</code></td>
+<td><a href="https://docs.ros.org/en/api/nav_msgs/html/msg/Odometry.html">nav_msgs/Odometry</a></td>
+<td>自我车辆的里程计</td>
+</tr>
+<tr>
+<td><code>/carla/&lt;ROLE NAME&gt;/vehicle_info</code></td>
+<td><a href="../ros_msgs/#carlaegovehicleinfomsg">carla_msgs/CarlaEgoVehicleInfo</a></td>
+<td>识别自我车辆的 Carla 参与者 id</td>
+</tr>
+<tr>
+<td><code>/carla/&lt;ROLE NAME&gt;/objects</code></td>
+<td><a href="https://docs.ros.org/en/melodic/api/derived_object_msgs/html/msg/ObjectArray.html">derived_object_msgs/ObjectArray</a></td>
+<td>其他参与者的信息</td>
+</tr>
+<tr>
+<td><code>/carla/traffic_lights/status</code></td>
+<td><a href="../ros_msgs/#carlatrafficlightstatuslistmsg">carla_msgs/CarlaTrafficLightStatusList</a></td>
+<td>获取交通信号灯的当前状态</td>
+</tr>
+<tr>
+<td><code>/carla/traffic_lights/info</code></td>
+<td><a href="../ros_msgs/#carlatrafficlightinfolistmsg">carla_msgs/CarlaTrafficLightInfoList</a></td>
+<td>获取有关交通灯的信息</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h4 id="_5">发布</h4>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/&lt;ROLE NAME&gt;/speed_command</code></td>
+<td><a href="https://docs.ros.org/en/api/std_msgs/html/msg/Float64.html">std_msgs/Float64</a></td>
+<td>目标速度</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h3 id="_6">本地规划器节点</h3>
+<h4 id="_7">参数</h4>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>role_name</code></td>
+<td>string (默认值：<code>ego_vehicle</code>)</td>
+<td>自我车辆的 Carla 角色名称</td>
+</tr>
+<tr>
+<td><code>control_time_step</code></td>
+<td>float (默认值：<code>0.05</code>)</td>
+<td>控制循环速率</td>
+</tr>
+<tr>
+<td><code>Kp_lateral</code></td>
+<td>float (默认值： <code>0.9</code>)</td>
+<td>比例项横向PID控制器</td>
+</tr>
+<tr>
+<td><code>Ki_lateral</code></td>
+<td>float (默认值： <code>0.0</code>)</td>
+<td>积分项横向PID控制器</td>
+</tr>
+<tr>
+<td><code>Kd_lateral</code></td>
+<td>float (默认值： <code>0.0</code>)</td>
+<td>微分项横向PID控制器</td>
+</tr>
+<tr>
+<td><code>Kp_longitudinal</code></td>
+<td>float (默认值： <code>0.206</code>)</td>
+<td>比例项纵向PID控制器</td>
+</tr>
+<tr>
+<td><code>Ki_longitudinal</code></td>
+<td>float (默认值： <code>0.0206</code>)</td>
+<td>积分项纵向PID控制器</td>
+</tr>
+<tr>
+<td><code>Kd_longitudinal</code></td>
+<td>float (默认值： <code>0.515</code>)</td>
+<td>微分项纵向PID控制器</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h4 id="_8">订阅</h4>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/&lt;ROLE NAME&gt;/waypoints</code></td>
+<td><a href="https://docs.ros.org/en/api/nav_msgs/html/msg/Path.html">nav_msgs/Path</a></td>
+<td>遵循的路线</td>
+</tr>
+<tr>
+<td><code>/carla/&lt;ROLE NAME&gt;/odometry</code></td>
+<td><a href="https://docs.ros.org/en/api/nav_msgs/html/msg/Odometry.html">nav_msgs/Odometry</a></td>
+<td>自我车辆的里程计</td>
+</tr>
+<tr>
+<td><code>/carla/&lt;ROLE NAME&gt;/speed_command</code></td>
+<td><a href="https://docs.ros.org/en/api/std_msgs/html/msg/Float64.html">std_msgs/Float64</a></td>
+<td>目标速度</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h4 id="_9">发布</h4>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/carla/&lt;ROLE NAME&gt;/next_target</code></td>
+<td><a href="http://docs.ros.org/en/api/visualization_msgs/html/msg/Marker.html">visualization_msgs/Marker</a></td>
+<td>下一个目标姿势标记</td>
+</tr>
+<tr>
+<td><code>/carla/&lt;ROLE NAME&gt;/vehicle_control_cmd</code></td>
+<td><a href="../ros_msgs/#carlaegovehiclecontrolmsg">carla_msgs/CarlaEgoVehicleControl</a></td>
+<td>车辆控制指令</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

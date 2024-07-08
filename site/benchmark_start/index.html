@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>驾驶基准 - 交通仿真文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u9a7e\u9a76\u57fa\u51c6";
+        var mkdocs_page_input_path = "benchmark_start.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">驾驶基准</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/benchmark_start.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">驾驶基准</h1>
+<p><em>驾驶基准模块</em> 用于评估驾驶控制器（智能体）并获取有关其性能的指标。</p>
+<p>该模块主要设计用于：</p>
+<ul>
+<li>致力于开发自动驾驶代理并希望了解其在 CARLA 中的表现的用户。</li>
+</ul>
+<p>在本节中您将了解。</p>
+<ul>
+<li>如何快速入门并立即对简单智能体进行基准测试。</li>
+<li>了解驾驶基准测试模块的总体实现架构。</li>
+<li>了解如何设置您的代理并创建您自己的一组实验。</li>
+<li>了解所使用的性能指标。</li>
+</ul>
+<h1 id="_2">入门</h1>
+<p>为了让您熟悉系统，我们提供了一个在一组小型实验中执行的简单智能体（基本）。要执行它，只需运行：</p>
+<pre><code class="language-shell">./driving_benchmark_example.py
+</code></pre>
+<p>请记住，要运行上述命令，您需要在本地主机和端口 2000 上运行 CARLA 模拟器。</p>
+<p>我们已经提供了与 <a href="http://proceedings.mlr.press/v78/dosovitskiy17a/dosovitskiy17a.pdf">CoRL 2017</a> 论文中使用的相同基准。CoRL 2017 实验套件可以在一个简单的代理中运行，只需运行：</p>
+<pre><code class="language-shell">./driving_benchmark_example.py --corl-2017
+</code></pre>
+<p>此基准测试示例可以进一步配置。运行 help 命令查看可用的选项。</p>
+<pre><code class="language-shell">./driving_benchmark_example.py --help
+</code></pre>
+<p>可用的选项之一是能够从之前的基准测试执行继续。例如，要继续 CoRL2017 中日志名称为“driving_benchmark_test”的实验，请运行：</p>
+<pre><code class="language-shell">./driving_benchmark_example.py --continue-experiment -n driving_benchmark_test --corl-2017
+</code></pre>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>如果日志名称已经存在并且您没有将其设置为继续，它将以不同的名称创建另一个日志。</p>
+</div>
+<p>当运行基本配置的驾驶基准测试时，你应该 <a href="https://carla.readthedocs.io/en/stable/benchmark_creating/#expected-results">期待这些结果</a> 。</p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

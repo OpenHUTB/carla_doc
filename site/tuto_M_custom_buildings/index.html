@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>自定义地图：程序化建筑 - 交通仿真文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u81ea\u5b9a\u4e49\u5730\u56fe\uff1a\u7a0b\u5e8f\u5316\u5efa\u7b51";
+        var mkdocs_page_input_path = "tuto_M_custom_buildings.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">自定义地图：程序化建筑</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/tuto_M_custom_buildings.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">自定义地图：程序化建筑</h1>
+<ul>
+<li><a href="#add-serial-meshes"><strong>程序化建筑</strong></a><ul>
+<li><a href="#building-structure">建筑结构</a></li>
+<li><a href="#structure-modifications">结构修改</a></li>
+</ul>
+</li>
+<li><a href="#next-steps"><strong>下一步</strong></a></li>
+</ul>
+<hr />
+<h2 id="_2">程序化建筑</h2>
+<p>程序化建筑工具允许您创建由不同楼层组成的矩形建筑。每个级别都是使用可配置的网格阵列或单个蓝图构建的。如果使用网格阵列，则每个网格将沿关卡随机重复以提供多样性。网格体创建一次，每个重复都将是该网格体的一个实例。这可以提高地图的性能。</p>
+<h3 id="_3">建筑结构</h3>
+<p>要开始建造您的建筑：</p>
+<ol>
+<li>在虚幻引擎编辑器的 <em>内容浏览器</em> 中，导航至 <code>Content/Carla/Blueprints/LevelDesign</code>。</li>
+<li>将 <code>BP_Procedural_Building</code> 拖入场景中。</li>
+</ol>
+<p>在 <em>Details</em> 面板中，您将看到可用于自定义建筑物的所有选项。每次在此处进行更改时，随着关键网格体的更新，建筑物将从场景视图中消失。单击 <em>Create Building</em> 以查看新结果，或启用自动创建以避免重复此步骤。</p>
+<p>关键网格是建筑物结构的一部分。它们分为四类：</p>
+<ul>
+<li><strong>Base:</strong> 底层。</li>
+<li><strong>Body:</strong> 中层。</li>
+<li><strong>Top:</strong> 最高层。</li>
+<li><strong>Roof:</strong> 覆盖顶层的屋顶。</li>
+</ul>
+<p>对于每个模型，除了屋顶 <strong>Roof</strong> 之外，都有一个网格体填充地板的中心，还有一个 <strong>Corner</strong> 网格体将放置在地板的两侧。下图代表了全局结构。</p>
+<p><img alt="bp_procedural_building_visual" src="../img/map_customization/BP_Procedural_Building_Visual.jpg" /></p>
+<div style="text-align: right"><i>建筑结构的可视化。</i></div>
+
+<p>基本参数 <strong>Base parameters</strong> 设置尺寸。</p>
+<ul>
+<li><strong>楼层数：</strong> 建筑物的楼层数。身体网格 <strong>Body</strong> 的重复。</li>
+<li><strong>长度 X 和 长度 Y：</strong> 建筑物的长度和宽度。建筑物每一侧的中央网格重复。</li>
+</ul>
+<p><img alt="bp_procedural_building_full" src="../img/map_customization/BP_Procedural_Building_Full.jpg" /></p>
+<div style="text-align: right"><i>BP_Procedural_Building 示例。</i></div>
+
+<h3 id="_4">结构修改</h3>
+<p>还有一些额外的选项可以修改建筑物的总体结构。</p>
+<ul>
+<li><strong>Disable corners:</strong> 如果选择，将不使用角网格。</li>
+<li><strong>Use full blocks:</strong> 如果选择此选项，建筑物的结构每层将仅使用一个网格。每层楼不会出现任何角落或重复。</li>
+<li><strong>Doors:</strong> 出现在底层、位于中央网格物体正前方的网格物体。门的数量及其位置可以设置。<code>0</code> 是初始位置、<code>1</code>是下一个底层重复等。 </li>
+<li><strong>Walls:</strong> 替代建筑物一侧或多侧的网格。例如，平面网格可用于绘制建筑物的一侧。</li>
+</ul>
+<p><img alt="bp_procedural_building_extras" src="../img/map_customization/BP_Procedural_Building_Extras.jpg" /></p>
+<div style="text-align: right"><i>左边是一座没有角、只有一扇门的建筑。 <br> 右侧是一座建筑物，其一侧应用了墙壁。墙壁是没有防火通道的纹理。</i></div>
+
+<hr />
+<h2 id="_5">下一步</h2>
+<p>使用以下工具和指南继续自定义您的地图：</p>
+<ul>
+<li><a href="../tuto_M_custom_layers/">在地图中实现子蓝图。</a></li>
+<li><a href="../tuto_M_custom_add_tl/">添加和配置交通灯和标志。</a></li>
+<li><a href="../tuto_M_custom_road_painter/">使用道路画家工具自定义道路。</a></li>
+<li><a href="../tuto_M_custom_weather_landscape/#weather-customization">自定义天气</a></li>
+<li><a href="../tuto_M_custom_weather_landscape/#add-serial-meshes">使用序列化网格自定义景观。</a></li>
+</ul>
+<p>完成定制后，您可以 <a href="../tuto_M_generate_pedestrian_navigation/">生成行人导航信息</a> 。</p>
+<hr />
+<p>如果您对流程有任何疑问，可以在 <a href="https://github.com/carla-simulator/carla/discussions">论坛</a> 中提问。</p>
+<div class="build-buttons">
+<p>
+<a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
+Carla 论坛</a>
+</p>
+</div>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

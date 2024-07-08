@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>创建语义标签 - 交通仿真文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u521b\u5efa\u8bed\u4e49\u6807\u7b7e";
+        var mkdocs_page_input_path = "tuto_D_create_semantic_tags.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">创建语义标签</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/tuto_D_create_semantic_tags.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">创建语义标签</h1>
+<p>了解如何定义语义分割的自定义标签。这些还可以添加到<a href="../python_api/#carla.CityObjectLabel">carla.CityObjectLabel</a> 以过滤 <a href="../python_api/#carla.World">carla.World</a> 检索的边界框。</p>
+<ul>
+<li><a href="#create-a-new-semantic-tag"><strong>创建新的语义标签</strong></a>  <ul>
+<li><a href="#1-create-the-tag-id">1. 创建标签 ID</a>  </li>
+<li><a href="#2-create-the-ue-folder-for-assets">2. 创建资产的虚幻引擎文件夹</a>  </li>
+<li><a href="#3-create-two-way-correspondence-between-ue-and-the-code-tag">3. 创建虚幻引擎与代码标签的双向对应关系</a>  </li>
+<li><a href="#4-define-a-color-code">4. 定义颜色代码</a>  </li>
+<li><a href="#5-add-the-tagged-elements">5. 添加标记元素</a>  </li>
+</ul>
+</li>
+<li><a href="#add-a-tag-to-carlacityobjectlabel"><strong>将标签添加到 carla.CityObjectLabel</strong></a>  </li>
+</ul>
+<hr />
+<h2 id="_2">创建新的语义标签</h2>
+<h3 id="1-id">1. 创建标签 ID</h3>
+<p><strong>打开 <code>LibCarla/source/carla/rpc</code> 中的 <code>ObjectLabel.h</code></strong> 。使用与其余标签相同的格式在枚举末尾添加新标签。</p>
+<p><img alt="object_label_h" src="../img/tuto_D_create_semantic_tags/01_objectlabel_tag.jpg" /></p>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>标签不必按顺序出现。但是，按顺序列出它们是一个很好的做法。</p>
+</div>
+<h3 id="2">2. 创建资产的虚幻引擎文件夹</h3>
+<p><strong>打开虚幻引擎编辑器</strong> 并转到 <code>Carla/Static</code>。创建一个名为您的标签的新文件夹。</p>
+<p><img alt="ue_folder" src="../img/tuto_D_create_semantic_tags/02_ue_folder.jpg" /></p>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>虚幻编辑器文件夹和标签不必命名相同。然而，这样做是一个很好的做法。 </p>
+</div>
+<h3 id="3">3. 创建虚幻引擎与代码标签的双向对应关系</h3>
+<p><strong>3.1. 打开<code>Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Game</code>中的 <code>Tagger.cpp</code></strong> 。转到 <strong><code>GetLabelByFolderName</code></strong> 列表末尾添加您的标签。被比较的字符串是 <a href="#2-create-the-ue-folder-for-assets"><strong>2.</strong></a> 中使用的虚幻引擎文件夹的名称，因此这里使用完全相同的名称。</p>
+<p><img alt="tagger_cpp" src="../img/tuto_D_create_semantic_tags/03_tagger_cpp.jpg" /></p>
+<p><strong>3.2. 在相同的 <code>Tagger.cpp</code> 转到 <code>GetTagAsString</code></strong> 。 在开关末尾添加新标签。</p>
+<p><img alt="tagger_cpp_02" src="../img/tuto_D_create_semantic_tags/04_tagger_cpp_02.jpg" /></p>
+<h3 id="4">4. 定义颜色代码</h3>
+<p><strong>在 <code>LibCarla/source/carla/image</code> 中打开 <code>CityScapesPalette.h</code></strong> 。在数组末尾添加新标签的颜色代码。</p>
+<p><img alt="city_scapes_palette_h" src="../img/tuto_D_create_semantic_tags/05_city_scapes_palette_h.jpg" /></p>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>数组中的位置必须与标签 ID 相对应，在本例中为 <code>23u</code>. </p>
+</div>
+<h3 id="5">5. 添加标记网格</h3>
+<p>新的语义标签已可供使用。只有存储在标签的虚幻引擎文件夹内的网格才会被标记为此类。将相应的网格移动或导入到新文件夹中，以便正确标记。</p>
+<hr />
+<h2 id="carlacityobjectlabel">将标签添加到 <a href="../python_api/#carla.CityObjectLabel">carla.CityObjectLabel</a></h2>
+<p>这一步与语义分割没有直接关系。但是，这些标签可用于过滤<a href="../python_api/#carla.World">carla.World</a> 中的边界框查询。为此，必须将标签添加到PythonAPI 中的 <a href="../python_api/#carla.CityObjectLabel">carla.CityObjectLabel</a> 枚举中。</p>
+<p><strong>在 <code>carla/PythonAPI/carla/source/libcarla</code> 中打开 <code>World.cpp</code></strong> 并在枚举末尾添加新标签。</p>
+<p><img alt="city_object_label" src="../img/tuto_D_create_semantic_tags/06_city_object_label.jpg" /></p>
+<hr />
+<p>如果有任何问题、疑问或建议，请阅读 <strong><a href="../build_faq/">常见问题解答</a></strong> 页面或在 <a href="https://github.com/carla-simulator/carla/discussions">Carla 论坛</a> 中发帖。</p>
+<div class="build-buttons">
+
+<p>
+<a href="../ref_sensors" target="_blank" class="btn btn-neutral" title="Learn all about sensors in CARLA">
+传感器参考</a>
+</p>
+
+<p>
+<a href="../tuto_A_add_props" target="_blank" class="btn btn-neutral" title="Learn how to import your custom into CARLA">
+添加新道具</a>
+</p>
+
+</div>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

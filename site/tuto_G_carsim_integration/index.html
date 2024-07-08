@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>CarSim 集成 - 交通仿真文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "CarSim \u96c6\u6210";
+        var mkdocs_page_input_path = "tuto_G_carsim_integration.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">CarSim 集成</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/tuto_G_carsim_integration.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="carsim">CarSim 集成</h1>
+<p>Carla 与 CarSim 的集成允许将 Carla 中的车辆控制转发到 CarSim。CarSim 将对车辆进行所有必需的物理计算，并将新状态返回给 Carla。</p>
+<p>本页向您展示如何生成<code>.sim</code>文件，解释 Carla 和 CarSim 之间的车辆尺寸如何关联，以及如何使用 CarSim 集成在 Carla 上运行仿真。</p>
+<ul>
+<li><a href="#before-you-begin"><strong>在你开始之前</strong></a>  </li>
+<li><a href="#set-up-carsim"><strong>设置 CarSim</strong></a>  <ul>
+<li><a href="#generate-the-sim-file"><strong>生成 .sim 文件</strong></a>  <ul>
+<li><a href="#on-windows"><strong>在 Windows 上</strong></a></li>
+<li><a href="#on-ubuntu"><strong>在 Ubuntu 上</strong></a></li>
+</ul>
+</li>
+<li><a href="#vehicle-sizes"><strong>车辆尺寸</strong></a>  </li>
+</ul>
+</li>
+<li><a href="#run-the-simulation"><strong>运行仿真</strong></a>  </li>
+</ul>
+<hr />
+<h2 id="_1">在你开始之前</h2>
+<ol>
+<li>您需要 CarSim 许可证才能启动并运行该软件。如果您目前没有 CarSim 许可证，您可以在 <a href="https://www.carsim.com/forms/additional_information.php">此处</a> 联系团队以获取信息。</li>
+<li>
+<p>要允许与虚幻引擎通信，您需要安装适用于虚幻引擎 4.24 的 VehicleSim Dynamics 插件（版本 2020.0）。有关查找插件特定版本的信息，请检查此 <a href="https://www.carsim.com/products/supporting/unreal/index.php">链接</a> 。插件的安装取决于您的操作系统： </p>
+<p><strong>对于 Windows</strong>:</p>
+<p>在 <a href="https://www.unrealengine.com/marketplace/en-US/product/carsim-vehicle-dynamics">这里</a> 获取插件。</p>
+<p><strong>对于 Ubuntu</strong>:</p>
+<ol>
+<li>在 <a href="https://www.carsim.com/users/unreal_plugin/unreal_plugin_2020_0.php">这里</a> 下载插件。</li>
+<li>
+<p>将文件 <code>CarSim.Build.cs</code> 替换为 <a href="https://carla-releases.s3.eu-west-3.amazonaws.com/Backup/CarSim.Build.cs">此处</a> 找到的文件，以便为 Ubuntu 使用正确的求解器。</p>
+</li>
+<li>
+<p>如果您使用的是 Carla 的打包版本，则可以跳过此步骤。打包版本已使用此标志编译，但如果您从源代码构建 Carla，则需要使用<code>--carsim</code>标志编译服务器。</p>
+</li>
+</ol>
+<p>如果您从源代码构建 Carla，请在根文件夹中运行以下命令以使用<code>--carsim</code>标志编译服务器：</p>
+</li>
+</ol>
+<pre><code class="language-sh">make launch ARGS=&quot;--carsim&quot;
+</code></pre>
+<h2 id="carsim_1">设置 CarSim</h2>
+<p>以下部分详细介绍了如何生成运行仿真所需的 <code>.sim</code> 文件。还有关于 Carla 和 CarSim 之间车辆尺寸关系的详细重要信息。</p>
+<h4 id="sim">生成.sim 文件</h4>
+<p>该<code>.sim</code> 文件描述了要在 Carla 和 CarSim 中运行的仿真。插件需要此文件才能运行仿真。目前无法在 Ubuntu 上生成此文件，但是我们将在下面介绍如何使用之前生成的文件在 Ubuntu 上运行仿真。</p>
+<h5 id="windows">在 Windows 上</h5>
+<p>在 CarSim 上配置完所有参数后，使用 GUI 生成 <code>.sim</code> 文件，如下所示：</p>
+<p><img alt="generate .sim file" src="../img/carsim_generate.jpg" /></p>
+<p>生成的<code>.sim</code>文件应如下所示：</p>
+<pre><code>SIMFILE
+
+SET_MACRO $(ROOT_FILE_NAME)$ Run_dd7a828d-4b14-4c77-9d09-1974401d6b25
+SET_MACRO $(OUTPUT_PATH)$ D:\carsim\Data\Results
+SET_MACRO $(WORK_DIR)$ D:\carsim\Data\
+SET_MACRO $(OUTPUT_FILE_PREFIX)$ $(WORK_DIR)$Results\Run_dd7a828d-4b14-4c77-9d09-1974401d6b25\LastRun
+
+FILEBASE $(OUTPUT_FILE_PREFIX)$
+INPUT $(WORK_DIR)$Results\$(ROOT_FILE_NAME)$\Run_all.par
+INPUTARCHIVE $(OUTPUT_FILE_PREFIX)$_all.par
+ECHO $(OUTPUT_FILE_PREFIX)$_echo.par
+FINAL $(OUTPUT_FILE_PREFIX)$_end.par
+LOGFILE $(OUTPUT_FILE_PREFIX)$_log.txt
+ERDFILE $(OUTPUT_FILE_PREFIX)$.vs
+PROGDIR D:\carsim\
+DATADIR D:\carsim\Data\
+GUI_REFRESH_V CarSim_RefreshEvent_7760
+RESOURCEDIR D:\carsim\\Resources\
+PRODUCT_ID CarSim
+PRODUCT_VER 2020.0
+ANIFILE D:\carsim\Data\runs\animator.par
+VEHICLE_CODE i_i
+EXT_MODEL_STEP 0.00050000
+PORTS_IMP 0
+PORTS_EXP 0
+
+DLLFILE D:\carsim\Programs\solvers\carsim_64.dll
+END
+</code></pre>
+<h5 id="ubuntu">在Ubuntu上</h5>
+<p>无法在 Ubuntu 上通过 GUI 创建 <code>.sim</code> 文件。为了继续，您需要执行以下步骤：</p>
+<ol>
+<li>在 Windows 中生成 <code>.sim</code> 文件或使用下面的文件模板。</li>
+<li>修改该 <code>.sim</code> 文件，使变量 <code>INPUT</code>, <code>INPUTARCHIVE</code>, <code>LOGFILE</code> 等指向 Ubuntu 系统中的相应文件。</li>
+<li>替换 <code>DLLFILE</code> 行以指向 CarSim 解算器，在默认安装中，该解算器将为 <code>SOFILE /opt/carsim_2020.0/lib64/libcarsim.so.2020.0</code>. </li>
+</ol>
+<p>生成的文件应与此类似：</p>
+<pre><code>SIMFILE
+
+FILEBASE /path/to/LastRun
+INPUT /path/to/Run_all.par
+INPUTARCHIVE /path/to/LastRun_all.par
+ECHO /path/to/LastRun_echo.par
+FINAL /path/to/LastRun_end.par
+LOGFILE /path/to/LastRun_log.txt
+ERDFILE /path/to/LastRun.vs
+PROGDIR /opt/carsim_2020.0/lib64/
+DATADIR .
+PRODUCT_ID CarSim
+PRODUCT_VER 2020.0
+VEHICLE_CODE i_i
+
+SOFILE /opt/carsim_2020.0/lib64/libcarsim.so.2020.0
+END
+</code></pre>
+<h4 id="_2">车辆尺寸</h4>
+<p>尽管 CarSim 允许您指定在仿真中使用的车辆尺寸，但目前 CarSim 车辆和 Carla 车辆之间没有关联。这意味着两个项目中的车辆将具有不同的尺寸。Carla 车辆的作用只是在仿真过程中充当占位符。</p>
+<p><img alt="carsim vehicle sizes" src="../img/carsim_vehicle_sizes.jpg" /></p>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>Carla 和 CarSim 中的车辆尺寸之间没有相关性。Carla 车辆只是一个仿真占位符。</p>
+</div>
+<h2 id="_3">运行仿真</h2>
+<p>运行仿真时所需要做的就是在生成车辆时启用 CarSim。这可以通过将<code>.sim</code> 文件路径传递给Python API 的 <a href="https://carla.readthedocs.io/en/latest/python_api/#carla.Vehicle.enable_carsim">方法</a> 来完成：</p>
+<pre><code class="language-sh">vehicle.enable_carsim(&lt;path_to_ue4simfile.sim&gt;)
+</code></pre>
+<p>发送到车辆的所有输入控件都将转发到 CarSim。CarSim 将更新物理并将车辆状态（变换）发送回 Carla 车辆。</p>
+<p>仿真完成后，您可以像往常一样分析 CarSim 中的所有数据。</p>
+<p><img alt="carsim analysis" src="../img/carsim_analysis.jpg" /></p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

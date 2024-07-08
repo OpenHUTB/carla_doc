@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>tuto A create standalone - 交通仿真文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "tuto A create standalone";
+        var mkdocs_page_input_path = "tuto_A_create_standalone.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">tuto A create standalone</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/tuto_A_create_standalone.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1"><a href="https://carla.readthedocs.io/en/latest/tuto_A_create_standalone/">创建资产发行包</a></h1>
+<p>使用独立包管理资产是 Carla 的常见做法。将它们放在一边可以减少构建的大小。这些资源包可以随时轻松导入到 Carla 包中。它们对于以有组织的方式轻松分配资产也非常有用。</p>
+<ul>
+<li><a href="#export-a-package-from-the-ue4-editor"><strong>在源代码构建的 Carla 中导出包</strong></a>  </li>
+<li><a href="#export-a-package-using-docker"><strong>使用 Docker 导出包</strong></a></li>
+<li><a href="#import-assets-into-a-carla-package"><strong>将资源导入 Carla 包</strong></a>  </li>
+</ul>
+<hr />
+<h2 id="carla">在源代码构建的 Carla 中导出包</h2>
+<p>将资产导入虚幻后，用户可以为其生成 <strong>独立的包</strong>。这将用于将内容分发到 Carla 包，例如 0.9.8。</p>
+<p>要导出包，只需运行以下命令即可。</p>
+<pre><code class="language-sh">make package ARGS=&quot;--packages=Package1,Package2&quot;
+</code></pre>
+<p>这将为列出的每个包创建一个压缩在 <code>.tar.gz</code> 文件中的独立包。在 Linux 上文件将保存在 <code>Dist</code>，在 Windows 上文件保存在 <code>/Build/UE4Carla/</code> 文件夹下。</p>
+<hr />
+<h2 id="docker">使用 Docker 导出包</h2>
+<p>虚幻引擎和 Carla 可以构建在 Docker 映像中，然后可以使用该映像创建包或导出资源以在包中使用。</p>
+<p>要创建 Docker 映像，请按照 <a href="../build_docker_unreal/">此处</a> 的教程进行操作。</p>
+<p>准备好镜像后：</p>
+<ol>
+<li>导航至 <code>Util/Docker</code>。</li>
+<li>通过运行以下命令之一创建 Carla 包或准备在包中使用的资源：</li>
+</ol>
+<pre><code class="language-sh"># 创建独立的包
+./docker_tools.py --output /output/path
+
+# 烘培在 Carla 包中使用的资产
+./docker_tools.py --input /assets/to/import/path --output /output/path --packages PkgeName1,PkgeName2
+</code></pre>
+<hr />
+<h2 id="carla_1">将资源导入 Carla 包</h2>
+<p>独立包包含在<code>.tar.gz</code>文件中。提取方式取决于平台。</p>
+<ul>
+<li><strong>在 Windows 上，</strong> 将压缩文件解压到主根 Carla 文件夹中。</li>
+<li><strong>在 Linux 上，</strong> 将压缩文件移至<code>Import</code>文件夹并运行以下脚本。</li>
+</ul>
+<pre><code class="language-sh">cd Import
+./ImportAssets.sh
+</code></pre>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>独立包无法直接导入到 Carla 构建中。按照教程导入 <a href="../tuto_A_add_props/">道具</a> 、<a href="../tuto_M_custom_map_overview/">地图</a> 或 <a href="../tuto_A_add_vehicle/">车辆</a>。</p>
+</div>
+<hr />
+<p>这总结了如何在 Carla 中创建和使用独立包。如果有任何意外问题，请随时在论坛中发帖。</p>
+<div class="build-buttons">
+<p>
+<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
+Carla 论坛</a>
+</p>
+</div>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Adv rss - 交通仿真文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Adv rss";
+        var mkdocs_page_input_path = "adv_rss.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Adv rss</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/adv_rss.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1"><a href="https://carla.readthedocs.io/en/latest/adv_rss/">责任敏感安全</a></h1>
+<p>Carla 在客户端库中集成了 <a href="https://github.com/intel/ad-rss-lib">责任敏感安全的 C++ 库</a> 。此功能允许用户调查责任敏感安全(Responsibility Sensitive Safety, RSS)的行为，而无需执行任何操作。Carla 将负责提供输入，并将输出动态应用到自动驾驶(Autonomous Driving, AD) 系统。</p>
+<ul>
+<li><a href="#overview"><strong>概述</strong></a></li>
+<li><a href="#compilation"><strong>编译</strong></a><ul>
+<li><a href="#dependencies">以来</a></li>
+<li><a href="#build">构建</a></li>
+</ul>
+</li>
+<li><a href="#current-state"><strong>当前状态</strong></a><ul>
+<li><a href="#rsssensor">RssSensor</a></li>
+<li><a href="#rssrestrictor">RssRestrictor</a></li>
+</ul>
+</li>
+</ul>
+<div class="admonition 重要">
+<p class="admonition-title">重要</p>
+<p>此功能正在开发中。目前，它仅适用于 Linux 版本。</p>
+</div>
+<hr />
+<h2 id="_2">概述</h2>
+<p>责任敏感安全库实现了安全保证的数学模型。它接收传感器信息，并向车辆控制器提供限制。综上所述，责任敏感安全模块使用传感器数据来定义 <strong>情况</strong>。情境描述了自我车辆与环境元素的状态。对于每种情况，都会进行安全检查，并计算适当的响应。总体响应是所有响应的综合结果。有关该库的具体信息，请阅读 <a href="https://intel.github.io/ad-rss-lib/">文档</a> ，尤其是 <a href="https://intel.github.io/ad-rss-lib/ad_rss/Overview/">背景部分</a> 。</p>
+<p>这是在 Carla 中使用两个元素实现的。</p>
+<ul>
+<li><strong>RssSensor</strong> 负责情况分析，并使用 <em>ad-rss-lib</em> 生成响应。</li>
+<li><strong>RssRestrictor</strong> 通过限制车辆的命令来应用响应。</li>
+</ul>
+<p>下图描绘了 <strong>责任敏感安全</strong> 与 Carla 架构的集成。</p>
+<p><img alt="Interate RSS into Carla" src="../img/rss_carla_integration_architecture.png" /></p>
+<p><strong>1. 服务器</strong></p>
+<ul>
+<li>将相机图像发送给客户端。 <small>（仅当客户需要可视化时）。</small></li>
+<li>为 RssSensor 提供世界数据。</li>
+<li>将车辆的物理模型发送到 RssRestrictor。 <small>（仅当默认值被覆盖时）。</small></li>
+</ul>
+<p><strong>2. 客户端</strong></p>
+<ul>
+<li>为 <em>RssSensor</em> 提供一些需要考虑的 <a href="https://intel.github.io/ad-rss-lib/ad_rss/Appendix-ParameterDiscussion/">参数</a> 。</li>
+<li>向 <em>RssResrictor</em> 发送初始 <a href="../python_api/#carla.VehicleControl">carla.VehicleControl</a>.</li>
+</ul>
+<p><strong>3. RssSensor</strong></p>
+<ul>
+<li>使用 <em>ad-rss-lib</em> 提取情境、执行安全检查并生成响应。</li>
+<li>向 <em>RssRestrictor</em> 发送包含正确响应和要应用的加速限制的响应。</li>
+</ul>
+<p><strong>4. RssRestrictor</strong></p>
+<ul>
+<li>如果客户端请求，则将响应应用于 <a href="../python_api/#carla.VehicleControl">carla.VehicleControl</a>，并返回结果。</li>
+</ul>
+<p><a href="https://www.youtube.com/watch?v=UxKPXPT2T8Q"><img alt="RSS sensor in Carla" src="../img/rss_carla_integration.png" /></a></p>
+<div style="text-align: right"><i>结果的可视化。</i></div>
+
+<hr />
+<h2 id="_3">编译</h2>
+<p><strong>责任敏感安全</strong> 集成必须与 Carla 的其余部分分开构建。<strong>ad-rss-lib</strong> 附带 LGPL-2.1 开源许可证，这会产生冲突。它必须静态链接到 <em>libCarla</em>。</p>
+<p>提醒一下，到目前为止，该功能仅适用于 Linux 版本。</p>
+<h3 id="_4">依赖</h3>
+<p>构建 <strong>责任敏感安全</strong> 及其依赖项还需要其他先决条件。查看<a href="https://intel.github.io/ad-rss-lib/BUILDING">官方文档</a> 以了解更多信息。</p>
+<p>Ubunutu (&gt;= 16.04) 提供的依赖项。</p>
+<pre><code class="language-sh">sudo apt-get install libgtest-dev libpython-dev libpugixml-dev libtbb-dev
+</code></pre>
+<p>依赖项是使用 <a href="https://colcon.readthedocs.io/en/released/user/installation.html">colcon</a> 构建的，因此必须安装它。 </p>
+<pre><code class="language-sh">pip3 install --user -U colcon-common-extensions
+</code></pre>
+<p>Python 绑定还有一些额外的依赖项。</p>
+<pre><code class="language-sh">sudo apt-get install castxml
+pip3 install --user pygccxml pyplusplus
+</code></pre>
+<h3 id="_5">构建</h3>
+<p>完成此操作后，即可构建完整的依赖项和 <strong>责任敏感安全</strong> 组件集。</p>
+<ul>
+<li>编译 LibCarla 以使用 <strong>责任敏感安全</strong>。</li>
+</ul>
+<pre><code class="language-sh">make LibCarla.client.rss
+</code></pre>
+<ul>
+<li>编译 PythonAPI 以包含 <strong>责任敏感安全</strong> 功能。</li>
+</ul>
+<pre><code class="language-sh">make PythonAPI.rss
+</code></pre>
+<ul>
+<li>作为替代方案，可以直接构建包。</li>
+</ul>
+<pre><code class="language-sh">make package.rss
+</code></pre>
+<hr />
+<h2 id="_6">当前状态</h2>
+<h3 id="rsssensor">RssSensor</h3>
+<p><a href="../python_api/#carla.RssSensor"><strong>carla.RssSensor</strong></a> 完全支持 <a href="https://intel.github.io/ad-rss-lib/RELEASE_NOTES_AND_DISCLAIMERS">ad-rss-lib v4.2.0 功能集</a> ，包括交叉路口、 <a href="https://intel.github.io/ad-rss-lib/ad_rss_map_integration/HandleRoadBoundaries/">stay on road</a> 支持和 <a href="https://intel.github.io/ad-rss-lib/ad_rss/UnstructuredConstellations/">非结构化的 constellations（比如：行人）</a> 。</p>
+<p>到目前为止，服务器为传感器提供了周围环境的真实数据，包括其他交通参与者和交通信号灯的状态。</p>
+<h3 id="rssrestrictor">RssRestrictor</h3>
+<p>当客户但调用时，<a href="../python_api/#carla.RssRestrictor"><strong>carla.RssRestrictor</strong></a> 将修改车辆控制器，以通过给定的响应最好地达到所需的加速度或减速度。</p>
+<p>由于 <a href="../python_api/#carla.VehicleControl">carla.VehicleControl</a> 对象的结构，所应用的限制具有一定的局限性。这些控制器包括油门(<code>throttle</code>)、刹车(<code>brake</code>)和方向盘(<code>streering</code>)值。然而，由于汽车物理原理和简单的控制选项，这些可能无法满足。只需通过朝平行车道方向反向转向即可在横向方向进行限制干预。如果 <strong>责任敏感安全</strong> 请求减速，制动器将被激活。这取决于 <a href="../python_api/#carla.Vehicle">carla.Vehicle</a> 提供的车辆质量和制动扭矩。</p>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>在自动车辆控制器中，可以使计划的轨迹适应限制。可以使用快速控制环路（&gt;1KHz）来确保遵循这些要求。</p>
+</div>
+<hr />
+<p>这奠定了 Carla 中 <strong>责任敏感安全</strong> 传感器的基础知识。在 <a href="../ref_sensors/#rss-sensor">传感器参考</a> 中查找有关特定属性和参数的更多信息。</p>
+<p>打开 Carla 并闲逛一会儿。如果有任何疑问，请随时在论坛中发布。</p>
+<div class="build-buttons">
+<p>
+<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="跳转至Carla 论坛">
+Carla 论坛</a>
+</p>
+</div>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

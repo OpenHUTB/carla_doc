@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Ts traffic simulation overview - 交通仿真文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Ts traffic simulation overview";
+        var mkdocs_page_input_path = "ts_traffic_simulation_overview.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Ts traffic simulation overview</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/ts_traffic_simulation_overview.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="carla"><a href="https://carla.readthedocs.io/en/latest/ts_traffic_simulation_overview/">Carla 中的交通仿真</a></h1>
+<p>交通仿真是自动驾驶堆栈准确高效的训练和测试不可或缺的一部分。Carla 提供了许多不同的选项来仿真交通和特定的交通场景。本节概述了可用选项，可帮助您确定最适合您的用例的选项。</p>
+<ul>
+<li><a href="#traffic-manager"><strong>交通管理器</strong></a></li>
+<li><a href="#scenario-runner-and-openscenario"><strong>Scenario Runner 和 OpenScenario</strong></a></li>
+<li><a href="#scenic"><strong>Scenic</strong></a></li>
+<li><a href="#sumo"><strong>SUMO</strong></a></li>
+</ul>
+<hr />
+<h2 id="_1">交通管理器</h2>
+<p>交通管理器是 Carla 中的一个模块，用于从客户端控制仿真中的某些车辆。<a href="https://carla.readthedocs.io/en/latest/python_api/#carla.Vehicle.set_autopilot"><code>carla.Vehicle.set_autopilot</code></a> 车辆通过方法或注册到流量管理器command.SetAutopilot。每辆车的控制是通过 <a href="../adv_traffic_manager/#stages">不同阶段</a> 的循环来管理的，每个阶段都在不同的线程上运行。</p>
+<p><strong>用于：</strong></p>
+<ul>
+<li>用真实的城市交通状况填充仿真。</li>
+<li><a href="../adv_traffic_manager/#general-considerations">自定义交通行为</a> 以设置特定的学习环境。 </li>
+<li>开发与阶段相关的功能和数据结构，同时提高计算效率。</li>
+</ul>
+<div class="build-buttons">
+<p>
+<a href="https://openhutb.github.io/carla_doc/tuto_G_traffic_manager/" target="_blank" class="btn btn-neutral" title="Go to Traffic Manager">
+转至交通管理器</a>
+</p>
+</div>
+
+<hr />
+<h2 id="scenario-runner-openscenario">Scenario Runner 和 OpenScenario</h2>
+<p>Scenario Runner 提供开箱即用的 <a href="https://carla-scenariorunner.readthedocs.io/en/latest/list_of_scenarios/">预定义交通场景</a> ，还允许用户使用 Python 或 <a href="https://releases.asam.net/OpenSCENARIO/1.0.0/ASAM_OpenSCENARIO_BS-1-2_User-Guide_V1-0-0.html#_foreword">OpenSCENARIO 1.0 标准</a> <a href="https://carla-scenariorunner.readthedocs.io/en/latest/creating_new_scenario/">定义自己</a> 的场景。</p>
+<p>OpenSCENARIO 的主要用途是描述涉及多辆车的复杂操作。用户可以在 <a href="https://carla-scenariorunner.readthedocs.io/en/latest/openscenario_support/">这里</a> 查看 Scenario Runner 支持 OpenSCENARIO 的哪些功能。这些功能包括演习、动作、条件、故事和故事板。</p>
+<p>Scenario Runner 必须与主 Carla 包 <a href="https://github.com/carla-simulator/scenario_runner">分开</a> 安装。</p>
+<p><strong>用于：</strong></p>
+<ul>
+<li>创建复杂的交通场景和路线，为自动驾驶智能体做好准备，以便在 <a href="https://leaderboard.carla.org/">Carla 排行榜</a> 上进行评估。</li>
+<li>定义可针对场景仿真的记录运行的定制 <a href="https://carla-scenariorunner.readthedocs.io/en/latest/metrics_module/">指标</a> ，从而无需重复运行仿真。</li>
+</ul>
+<div class="build-buttons">
+<p>
+<a href="https://carla-scenariorunner.readthedocs.io" target="_blank" class="btn btn-neutral" title="Go to Scenario Runner">
+转到 Scenario Runner</a>
+</p>
+</div>
+
+<hr />
+<h2 id="scenic">Scenic</h2>
+<p><a href="https://scenic-lang.readthedocs.io">Scenic</a> 是一种特定领域的概率编程语言，用于对机器人和自动驾驶汽车等网络物理系统的环境进行建模。Scenic 提供了一个 <a href="https://scenic-lang.readthedocs.io/en/latest/modules/scenic.simulators.carla.html">专门领域</a> 来促进 Scenic 脚本在 仿真器上的执行。</p>
+<p>Scenic 场景定义易于阅读和构建。 <a href="../tuto_G_scenic/">此处</a> 提供了创建简单场景的教程。</p>
+<p><strong>用于：</strong></p>
+<ul>
+<li>使用单个场景定义生成多个不同的场景。</li>
+<li>为动态智能体定义概率策略，以便随着时间的推移采取行动以响应世界状况。</li>
+</ul>
+<div class="build-buttons">
+<p>
+<a href="https://carla.readthedocs.io/en/latest/tuto_G_scenic/" target="_blank" class="btn btn-neutral" title="Go to Scenic Tutorial">
+转至 Scenic 教程</a>
+</p>
+</div>
+
+<hr />
+<h2 id="sumo">SUMO</h2>
+<p><a href="https://sumo.dlr.de/docs/SUMO_at_a_Glance.html">SUMO</a> 是一种开源、微观、多模式交通仿真。在 SUMO 中，每辆车都经过明确建模，有自己的路线，并通过网络单独移动。默认情况下，仿真是确定性的，但有多种选项可以引入随机性。</p>
+<p>Carla 提供了与 SUMO 的联合仿真功能，允许在两个仿真器之间分配任务。车辆可以通过 SUMO 在 Carla 中产生，并由 SUMO 进行管理，就像交通管理器所做的那样。</p>
+<p><strong>用于：</strong></p>
+<ul>
+<li>在一个软件包中利用 Carla 和 SUMO 的功能。</li>
+</ul>
+<div class="build-buttons">
+<p>
+<a href="https://carla.readthedocs.io/en/latest/adv_sumo/" target="_blank" class="btn btn-neutral" title="Go to SUMO Co-Simulation">
+转至 SUMO 协同仿真</a>
+</p>
+</div>
+
+<hr />
+<p>如果您对 Carla 中仿真交通的不同选项有任何疑问，请随时在论坛或 <a href="https://discord.gg/8kqACuC">Discord</a> 中发帖。</p>
+<div class="build-buttons">
+<p>
+<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
+Carla 论坛</a>
+</p>
+</div>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

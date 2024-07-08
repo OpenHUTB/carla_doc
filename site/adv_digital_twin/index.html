@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Adv digital twin - 交通仿真文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Adv digital twin";
+        var mkdocs_page_input_path = "adv_digital_twin.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Adv digital twin</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/adv_digital_twin.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p><strong>数字孪生工具</strong> 目前是一项 <strong>实验性功能</strong> ，现阶段尚未考虑投入生产。地图的某些部分可能未装饰或无纹理。因此它只能用于实验研究项目。</p>
+</div>
+<h1 id="_1"><a href="https://carla.readthedocs.io/en/latest/adv_digital_twin/">数字孪生工具</a></h1>
+<p><img alt="digital_twin_pipeline" src="../img/pipeline.png" /></p>
+<ul>
+<li><a href="#downloading-and-preparing-osm-map-data"><strong>下载并准备 OSM 地图数据</strong></a></li>
+<li><a href="#openstreetmap-browser"><strong>OpenStreetMap 浏览器</strong></a></li>
+<li><a href="#procedural-environment-generation"><strong>程序化环境生成</strong></a></li>
+<li><a href="#overview">道路装饰</a></li>
+<li><a href="#alsm">建筑物</a></li>
+<li><a href="#generate-the-map"><strong>生成地图</strong></a></li>
+<li><a href="#save-the-map"><strong>保存地图</strong></a></li>
+<li><a href="../adv_localization/"><strong>本地化UE编辑器</strong></a></li>
+</ul>
+<p><strong>数字孪生工具</strong> 能够基于源自 <a href="https://www.openstreetmap.org">OpenStreetMap</a> (OSM) 服务的道路网络，以程序方式生成独特的三维环境。通过 Carla 虚幻引擎编辑器中的数字孪生工具界面，用户可以从 OSM 选择地图区域并下载道路网络作为新 Carla 地图的基础。然后，该工具用程序生成的三维建筑物填充道路之间的空间，这些建筑物会根据道路布局进行调整，从而创建具有高可变性的真实三维道路环境。</p>
+<h2 id="osm">构建 OSM 渲染器</h2>
+<p>如果您使用的是 Linux，则可以选择使用 Carla 界面中的 OSM 渲染器来导航已下载的大型 OSM 地图区域。您首先需要构建 OSM 渲染器。 在 Carla 根目录中运行 <code>make osmrenderer</code>。 您可能需要将 CMake 版本升级到 v3.2 或更高版本才能正常工作。这将在您的构建目录中创建两个名为 <code>libosmcout-source</code> 和 <code>libosmcout-build</code> 的文件夹。在继续构建 Carla 之前，您需要像这样 在目录中 <code>$CARLA_ROOT/Build/libosmcout-source/maps</code> 编辑文件 <code>Build.sh</code>，以确保找到可执行文件：</p>
+<pre><code class="language-bash">if [[ -x ../Import/src/Import ]]; then
+  importExe=../Import/src/Import
+elif [[ -x ../debug/Import/Import ]]; then
+  importExe=../debug/Import/Import
+elif [[ -x ../build/Import/Import ]]; then
+  importExe=../build/Import/Import
+###################  Add this line ####################
+elif [ -x ../../libosmscout-build/Import/Import ]; then
+  importExe=../../libosmscout-build/Import/Import
+#######################################################
+else
+  echo &quot;Cannot find Import executable!&quot;
+  exit 1
+fi
+</code></pre>
+<p>然后继续按正常方式构建 Carla。Windows 用户无法选择使用 OSM 渲染器，必须直接使用 URL。</p>
+<h2 id="osm_1">下载并准备 OSM 地图数据</h2>
+<p><img alt="osm_website" src="../img/osm_export.png" /></p>
+<p>在网络浏览器中，转到 <a href="https:/www.openstreetmap.org">OpenStreetMap 网站</a> 并选择您要使用的地图区域。定义您的区域，然后将数据导出为 <code>.osm</code> 文件，或者您可以使用 URL，如下所述。或者，您可以使用基于 OpenStreetMap 服务的其他工具（例如 <a href="https://download.geofabrik.de/">GeoFabrik</a> ，它允许从 OSM 数据中提取特定的地图区域（例如州或领地）。</p>
+<p>有两种方法可以使用 OSM 数据。使用 URL 或下载 OSM 文件：</p>
+<h3 id="using-a-url">Using a URL</h3>
+<p>在 <a href="https:/www.openstreetmap.org">OpenStreetMap 网站</a> 中，导航到感兴趣的区域，然后按 <code>Export</code>，您可能还想使用 <code>Manually select a different area</code> 选项。然后，右键单击 <code>Overpass API</code> 并从上下文菜单中选择 <code>Copy link</code>。 您必须确保文件不大于 1 GB。获取此链接并将其粘贴到界面的 URL 字段中。</p>
+<h3 id="osm_2">下载 OSM 文件并在界面中导航</h3>
+<p>此选项仅适用于 Linux 用户。您可以下载更大区域的地图，例如整个州或领地，然后使用 Carla 中的 OSM 界面，使用箭头和缩放按钮导航地图。将所需的 OSM 数据区域下载为<code>.osm</code>文件。 然后将此文件放入 <code>{CARLA_ROOT}/Build/libosmcout-source/maps/</code> 文件夹中。打开此文件夹内的终端并运行以下命令：</p>
+<pre><code class="language-sh">cd {CARLA_ROOT}/Build/libosmcout-source/maps/
+./build.sh &lt;path_to_osm_file&gt;
+</code></pre>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>如果 OpenStreetMap 中的地图有错误或不精确，可以通过<a href="../adv_edit_openstreetmap/">编辑地图</a>进行改进。</p>
+</div>
+<h2 id="openstreetmap">OpenStreetMap 浏览器</h2>
+<p>如果左下角的“内容浏览器”未看到“Carla内容”，到中间下面的“视图选项”中选中“显示插件内容”</p>
+<p>要打开 OSM 浏览器，请打开内容浏览器并导航至 <code>CarlaToolsContent/OnroadMapGenerator</code>。右键单击 <em>UW_OnRoadMainWidget</em> 并从上下文菜单中选择 <em>运行编辑工具空间（Launch Editor Utility Widget）</em> 。这将打开该工具的界面。</p>
+<p><img alt="osm_interface_open" src="../img/digital_twins_widget.png" /></p>
+<p>该界面允许浏览已从 OSM 数据库下载并烘焙的 OSM 地图区域。首先，您应该在界面的 <em>Select OSM Database</em> 字段中输入上一步中存储处理后的 OSM 数据的目录位置。如果您直接使用 URL，请将其粘贴到 <code>OSM URL</code> 字段中，在这种情况下您将无法使用导航器。</p>
+<p><img alt="osm_interface" src="../img/digital_twins_interface.png" /></p>
+<p>使用方向箭头和缩放图标导航地图并找到要转换为 Carla 地图的道路网的一部分。您在预览中看到的方形区域将是地图的范围。在字段中输入适当的名称 <code>File Name</code> 然后按 <em>Generate</em> 开始程序生成过程。地图生成过程可能需要几分钟，如果您使用的是大区域，则可能需要更长的时间。</p>
+<p>先启动Carla服务，然后运行以下脚本从<code>.osm</code>文件中加载场景：</p>
+<pre><code class="language-shell">python src/util/config.py -x *.xodr
+</code></pre>
+<h2 id="_2">程序化场景生成</h2>
+<h3 id="_3">道路装饰</h3>
+<p>该工具从 OSM 数据中提取道路网络作为地图的基础。路面装饰有逼真的表面不规则性、道路纹理和车道线、裂痕和轮胎印迹。</p>
+<p><img alt="road_markings" src="../img/road_surface.jpg" /></p>
+<h3 id="_4">建筑物</h3>
+<p>道路之间的空白区域填充有建筑物或开放区域，它们会调整其形状和尺寸以填充道路之间的空间。</p>
+<p><img alt="procedural_buildings" src="../img/procedural_building_generation.jpg" /></p>
+<p>程序生成工具从 OSM 数据中提取建筑物占地面积和高度信息，以生成具有相似尺寸的虚拟建筑物。详细的覆层用于仿真窗户、门和阳台。根据建筑面积的不同，采用不同的装修风格，最高的建筑为办公风格，较小的建筑根据建筑占地面积采用商业或住宅风格。</p>
+<p><img alt="procedural_cities" src="../img/digital_twins_vegetation.jpg" /></p>
+<p>在下一步中还将植被添加到人行道中以获取更多细节。</p>
+<p><img alt="residential_building_style" src="../img/digital_twins_buildings.jpg" />
+<em>数字孪生工具构建风格</em></p>
+<p>建筑物的风格多种多样，随机分布在整个城市，一个区域的建筑风格是根据从 OSM 数据中提取的建筑物的特征尺寸来选择的。</p>
+<h2 id="_5">生成地图</h2>
+<p>对于 2x2 km<sup>2</sup> 区域，生成步骤大约需要 10 分钟，较大的区域将需要更长的时间。生成过程完成后，您可以在虚幻引擎编辑器中检查三维地图。</p>
+<h2 id="_6">保存地图</h2>
+<p>如果您对生成的地图感到满意，则可以按 <em>Save Map</em> 按钮保存地图。 <strong>此步骤将花费大量时间</strong>，可能需要一个多小时，也可能需要几个小时。完成此步骤后，您应该准备让计算机运行几个小时。完成此步骤后，将可以通过虚幻引擎编辑器或通过 Carla API 使用该地图，就像任何其他地图一样。</p>
+<h2 id="_7">后续步骤</h2>
+<p>添加光源（天光）、<a href="https://github.com/carla-simulator/carla/blob/dev/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Traffic/RoutePlanner.cpp">路线规划器</a> 、构建场景。</p>
+<h2 id="_8">分析</h2>
+<p><code>UOpenDriveToMap::GenerateTile()</code>生成每一个瓦片，调用<code>GenerateAll()</code>函数，进行 道路网格、车道线、生成点、地形、数目位置、生成完成等步骤。</p>
+<h2 id="_9">问题</h2>
+<p><code>carla\Unreal\CarlaUE4\Plugins\CarlaTools\Source\CarlaTools\Private\OpenDriveToMap.cpp</code>改为生成一个瓦片地图的函数，生成后的名字为<code>{NAME}_Tile_0_0</code>。</p>
+<pre><code class="language-shell">// ExecuteTileCommandlet();
+GenerateTile();
+</code></pre>
+<p>原因：
+生成瓦片的命令行程序位于<code>Unreal\CarlaUE4\Plugins\CarlaTools\Source\CarlaTools\Private\Commandlet\GenerateTileCommandlet.cpp</code>。</p>
+<p>移除<code>void UOpenDriveToMap::GenerateTile()</code>函数中的<code>// RemoveFromRoot();</code>语句，该语句清理FilePath变量导致下一次瓦片生成时FilePath变量乱码的问题，可以解决大地图只生成一个瓦片的问题。</p>
+<pre><code class="language-text">
+</code></pre>
+<p>参考：UE 中的 <a href="../ue_commandlet/">Commandlet</a> 解读。</p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

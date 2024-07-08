@@ -57,7 +57,7 @@ SATURATION = 32     # 路口最大容量
 DWELL_TIME = 50      # 50秒后认为车辆已离开路口
 ```
 
-### 路口交通流量函数get_traffic_flow()
+### 路口交通流量函数get_traffic_flow()<span id="trafficFlow"></span>
 
 ```python
 def get_traffic_flow(world, junction, traffic_flows, i, counted_vehicles):
@@ -86,7 +86,7 @@ def get_traffic_flow(world, junction, traffic_flows, i, counted_vehicles):
         del counted_vehicles[vehicle_id]
 ```
 
-### 路口饱和度函数saturation()
+### 路口饱和度函数saturation()<span id="saturation"></span>
 
 采用**路口实际车流量/路口道路最大所承载车流量** 计算  **路口饱和度**
 
@@ -120,7 +120,7 @@ def saturation(world,junctions,counted_vehicles):
     return ave_saturation
 ```
 
-### 排队长度函数queue_lengths()
+### 排队长度函数queue_lengths()<span id="queueLength"></span>
 
 采用 **路口实际车流量*平均车辆长度**  计算 **排队长度**
 
@@ -151,7 +151,7 @@ def queue_lengths(world,junctions,counted_vehicles):
     return queue_length
 ```
 
-### 车均延误函数ave_delay()
+### 车均延误函数ave_delay()<span id="aveDelay"></span>
 
 采用以下计算公式进行计算：![](../img/traffic_course_img/4.png)
 

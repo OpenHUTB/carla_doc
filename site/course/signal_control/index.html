@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>智能信号控制 - 交通仿真文档</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u667a\u80fd\u4fe1\u53f7\u63a7\u5236";
+        var mkdocs_page_input_path = "course\\signal_control.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">智能信号控制</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/course/signal_control.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">智能信号控制</h1>
+<p>该脚本用于在<a href="https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb">CARLA仿真环境</a>中智能控制红绿灯信号。可以根据传入的参数设置特定红绿灯的颜色和持续时间。红绿灯的颜色设置包括绿灯、黄灯和红灯，分别对应颜色ID [1, 2, 3]。颜色持续时间以秒为单位。</p>
+<h4 id="_2">参数说明</h4>
+<p><a href="../../src/course/signal_control.py">脚本</a>接收以下参数：</p>
+<ol>
+<li><code>--host</code> (<code>-H</code>): CARLA服务器的IP地址，默认为<code>127.0.0.1</code>。</li>
+<li><code>--port</code> (<code>-p</code>): CARLA服务器的TCP端口，默认为<code>2000</code>。</li>
+<li><code>--traffic_id</code> (<code>-I</code>): 目标红绿灯的OpenDrive ID，默认为<code>-5</code>。</li>
+<li><code>--color_id</code> (<code>-C</code>): 红绿灯颜色ID，对应绿灯、黄灯和红灯，分别为1、2和3，默认为<code>1</code>。</li>
+<li><code>--color_time</code> (<code>-T</code>): 红绿灯颜色的持续时间，单位为秒，默认为<code>20</code>。</li>
+</ol>
+<h4 id="_3">参数格式</h4>
+<p>红绿灯颜色设置参数的格式为【红绿灯OpenDrive ID，颜色ID，设置时长】。</p>
+<p>红绿灯颜色ID说明：</p>
+<ul>
+<li>绿灯：<code>1</code></li>
+<li>黄灯：<code>2</code></li>
+<li>红灯：<code>3</code></li>
+</ul>
+<h4 id="_4">示例</h4>
+<pre><code>python signal_control.py --traffic_id -5 --color_id 1 --color_time 30
+</code></pre>
+<p>以上命令设置OpenDrive ID为<code>-5</code>的红绿灯为绿灯，持续时间为<code>30</code>秒。</p>
+<h4 id="_5">脚本工作流程</h4>
+<ol>
+<li>连接到CARLA服务器并获取世界对象。</li>
+<li>设置世界为同步模式，以确保红绿灯设置的应用。</li>
+<li>获取所有红绿灯的对象。</li>
+<li>根据传入的参数，设置指定红绿灯的颜色和持续时间。</li>
+<li>通过<code>world.tick()</code>应用红绿灯的设置。</li>
+<li>恢复世界设置为异步模式。</li>
+</ol>
+<h4 id="_6">注意事项</h4>
+<ul>
+<li>在执行脚本前，请确保CARLA服务器已启动。</li>
+<li>脚本中的默认参数适用于一般情况，可根据需要进行调整。</li>
+<li>若需要添加更多的红绿灯配置，可在<code>lights_setting</code>列表中添加相应的项。</li>
+</ul>
+<h4 id="_7">运行结果</h4>
+<p><img alt="" src="../../img/traffic_course_img/signal_control.gif" /></p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

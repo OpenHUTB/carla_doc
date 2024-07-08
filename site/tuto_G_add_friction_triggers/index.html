@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>如何添加摩擦触发器 - 交通仿真文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u5982\u4f55\u6dfb\u52a0\u6469\u64e6\u89e6\u53d1\u5668";
+        var mkdocs_page_input_path = "tuto_G_add_friction_triggers.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">如何添加摩擦触发器</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/tuto_G_add_friction_triggers.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">如何添加摩擦触发器</h1>
+<p>摩擦触发器(<em>Friction Triggers</em>) 是可以在运行时添加的框触发器，让用户在处于这些类型的触发器内时定义车辆车轮的不同摩擦力。例如，这对于动态地在地图的某些区域中制作光滑的表面可能很有用。</p>
+<p>为了使用 PythonAPI 生成摩擦触发器，用户必须首先获取
+<code>static.trigger.friction</code> 蓝图定义，然后为该蓝图定义设置以下必要属性：</p>
+<ul>
+<li><em>friction</em>: 当车辆位于触发盒内时，触发盒的摩擦力。</li>
+<li><em>extent_x</em>: X 坐标中边界框的范围（以厘米为单位）。</li>
+<li><em>extent_y</em>: Y 坐标中边界框的范围（以厘米为单位）。</li>
+<li><em>extent_z</em>: Z 坐标中边界框的范围（以厘米为单位）。</li>
+</ul>
+<p>完成此操作后，定义一个变换来指定摩擦触发器的位置和旋转并生成它。</p>
+<h5 id="_2">例子</h5>
+<pre><code class="language-py">import carla
+
+def main():
+    # 连接到客户端
+    client = carla.Client('127.0.0.1', 2000)
+    client.set_timeout(2.0)
+
+    # 获取事件和参与者
+    world = client.get_world()
+    actors = world.get_actors()
+
+    # Find Trigger Friction Blueprint
+    friction_bp = world.get_blueprint_library().find('static.trigger.friction')
+
+    extent = carla.Location(700.0, 700.0, 700.0)
+
+    friction_bp.set_attribute('friction', str(0.0))
+    friction_bp.set_attribute('extent_x', str(extent.x))
+    friction_bp.set_attribute('extent_y', str(extent.y))
+    friction_bp.set_attribute('extent_z', str(extent.z))
+
+    # Spawn Trigger Friction
+    transform = carla.Transform()
+    transform.location = carla.Location(100.0, 0.0, 0.0)
+    world.spawn_actor(friction_bp, transform)
+
+    # Optional for visualizing trigger
+    world.debug.draw_box(box=carla.BoundingBox(transform.location, extent * 1e-2), rotation=transform.rotation, life_time=100, thickness=0.5, color=carla.Color(r=255,g=0,b=0))
+
+if __name__ == '__main__':
+    main()
+</code></pre>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

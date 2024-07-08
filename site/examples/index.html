@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Examples - 交通仿真文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Examples";
+        var mkdocs_page_input_path = "examples.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Examples</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/examples.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="_1"><a href="https://github.com/Morphlng/Carla-Interactive-Script/">交互式脚本</a></h2>
+<h3 id="_2"><a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/generate_traffic.py">生成交通流量</a></h3>
+<pre><code class="language-shell">python examples/generate_traffic.py --host localhost --port 2000 -n 50 -w 20 --safe
+</code></pre>
+<h3 id="_3"><a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/manual_control.py">手动控制车辆</a></h3>
+<pre><code class="language-shell">python examples/manual_control.py --host localhost --port 2000 --rolename hero --keep_ego_vehicle
+</code></pre>
+<p><img alt="" src="../img/interactive_script/manual_control.png" /></p>
+<p>手动控制行人：</p>
+<pre><code class="language-shell">python examples/manual_control.py --filter walker.pedestrian.*
+</code></pre>
+<h3 id="_4"><a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/sensor_bounding_box.py">绘制边界框</a></h3>
+<p>脚本将根据用户指定的视角 <code>view</code>（上方<code>above</code>、后面<code>behind</code>）附加一个 RGB 相机，并在距离<code>distance</code>之内绘制所有的参与者。</p>
+<pre><code class="language-shell">python examples/sensor_bounding_box.py --host localhost --port 2000 --rolename hero --view above --distance 100 --res 800x600 --fov 90
+</code></pre>
+<p><img alt="" src="../img/interactive_script/sensor_bounding_box.gif" /></p>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>运行之前，需要先运行 <code>manual_control.py</code> 生成一辆英雄车辆，否则运动报错：<code>Actor hero not found</code>。 并且将原始脚本的环境路径<code>../src</code>改为<code>..</code>。</p>
+</div>
+<h3 id="_5"><a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/rgb_camera_example.py">可视化六种相机</a></h3>
+<p>该脚本为您提供了如何在 Carla 中可视化各种 RGB 相机传感器的示例。</p>
+<pre><code class="language-shell">python examples/rgb_camera_example.py --host localhost --port 2000 --rolename hero
+</code></pre>
+<p><img alt="" src="../img/interactive_script/rgb_camera.gif" /></p>
+<h3 id="_6"><a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/waypoint_follow.py">路径点跟踪</a></h3>
+<p>该脚本实现了一个简单的路径点跟踪方法。它将沿着地图上的路径点行驶，并在到达路径点终点时停止。</p>
+<pre><code class="language-shell">python examples/waypoint_follow.py --host localhost --port 2000 --rolename hero --map Town01 --json_file data/town01_waypoints.json --sync --fixed_delta_seconds=0.05 --spawn --visualize --camera_follow
+</code></pre>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>运行之前需要先试用<code>python config.py -m Town01</code>将地图切换到 Town01 。</p>
+</div>
+<p><img alt="" src="../img/interactive_script/waypoint_follow.gif" /></p>
+<h3 id="_7"><a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/3d_lidar.py">可视化激光点云</a></h3>
+<p>此脚本提供了如何使用 Open3D 可视化激光雷达点云和雷达数据的示例。</p>
+<pre><code class="language-shell">python examples/3d_lidar.py --host localhost --port 2000 --rolename hero --keep_ego_vehicle
+</code></pre>
+<p><img alt="" src="../img/interactive_script/3d_lidar.gif" /></p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

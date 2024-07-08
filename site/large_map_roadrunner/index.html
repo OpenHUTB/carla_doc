@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>在 RoadRunner 创建大地图 - 交通仿真文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u5728 RoadRunner \u521b\u5efa\u5927\u5730\u56fe";
+        var mkdocs_page_input_path = "large_map_roadrunner.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">在 RoadRunner 创建大地图</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/large_map_roadrunner.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="roadrunner">在 RoadRunner 创建大地图</h1>
+<p>RoadRunner 是推荐的软件，用于创建要导入 Carla 的大地图。本指南概述了 RoadRunner 是什么，在构建大地图时需要考虑的事情，以及如何导出自定义的大地图，以便导入 Carla。 </p>
+<ul>
+<li><strong><a href="#introduction-to-roadrunner">RoadRunner 简介</a></strong></li>
+<li><a href="#before-you-start"><strong>开始之前</strong></a></li>
+<li><strong><a href="#build-a-large-map-in-roadrunner">在  RoadRunner 中创建一个大地图</a></strong></li>
+<li><strong><a href="#export-a-large-map-in-roadrunner">在 RoadRunner 中导出一个大地图</a></strong></li>
+<li><strong><a href="#next-steps">下一个步骤</a></strong></li>
+</ul>
+<hr />
+<h2 id="roadrunner_1">RoadRunner简介</h2>
+<p>RoadRunner是一个交互式编辑器，可以让您设计3D场景来仿真和测试自动驾驶系统。它可以用来创建道路布局和伴随的opdrive和几何信息。<a href="rr_home">在这里了解更多关于RoadRunner的信息</a>。</p>
+<p>RoadRunner是MATLAB校园许可的一部分，因此许多大学可以提供无限制的学术访问。<a href="rr_eligibility">检查</a>一下你的大学是否有访问权限。如果有任何关于可访问性的问题或麻烦，请联系automated-driving@mathworks.com。<a href="[rr_trial_version">还有一个试用版</a>。</p>
+<p>参加 Carla 排行榜的每个人都可以获得RoadRunner的许可证。<a href="rr_leaderboard">点击这里了解更多信息</a>。</p>
+<hr />
+<h2 id="_1">开始之前</h2>
+<p>您需要安装RoadRunner。您可以按照Mathworks网站上的<a href="rr_docs">安装指南</a>进行操作。</p>
+<hr />
+<h2 id="roadrunner_2">在RoadRunner中创建一个大地图</h2>
+<p>如何在RoadRunner中构建一个大地图的细节超出了本指南的范围，但是，在<a href="rr_tutorials">RoadRunner文档</a>中有视频教程。</p>
+<p>如果您正在构建带有高程的大地图，则建议地图的最大尺寸为20km 乘 20km。大于这个值的地图可能会导致 RoadRunner 在导出时崩溃。</p>
+<hr />
+<h2 id="roadrunner_3">在RoadRunner中导出一个大地图</h2>
+<p>下面是从RoadRunner导出自定义大地图的基本指南。</p>
+<p>一旦你在RoadRunner中制作了你的地图，你就可以导出它了。请注意，道路布局在导出后不能修改。导出前，请确保:</p>
+<ul>
+<li>地图以(0,0)为中心，以确保地图可以在虚幻引擎中正确地可视化。</li>
+<li>映射定义是正确的。</li>
+<li>地图验证是正确的，密切关注连接和几何形状。</li>
+</ul>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p><img alt="CheckGeometry" src="../img/check_geometry.jpg" /></p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>一旦地图准备好了，点击opdrive预览工具按钮来可视化opdrive道路网络，并给一切最后一次检查。</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p><img alt="checkopen" src="../img/check_open.jpg" /></p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>_opdrive预览工具_使它更容易测试地图的完整性。如果路口有任何错误，点击‘Maneuver Tool’，然后点击‘Rebuild Maneuver Roads’。</p>
+</div>
+<p>通过点击<a href="https://www.mathworks.com/help/roadrunner/ref/worldsettingstool.html">世界设置工具</a>并拖动蓝色边界框的边缘以包含您想要导出的整个区域，确保选择完整的地图进行导出。当它准备好了，点击Apply World Changes。</p>
+<p><img alt="world_bounds_settings" src="../img/rr_world_settings.png" /></p>
+<p>当您准备导出时:</p>
+<p><strong>1.</strong> 导出 <code>.fbx</code>文件:</p>
+<ul>
+<li>在主工具栏中选择,选择 <code>File</code> -&gt; <code>Export</code> -&gt; <code>Firebox (.fbx)</code></li>
+</ul>
+<p>__2.__在弹出的窗口中:</p>
+<blockquote>
+<ul>
+<li>检查以下选项:<ul>
+<li><em>Split by Segmentation</em>: 通过语义分割对网格进行划分，改善行人导航。</li>
+<li><em>Power of Two Texture Dimensions</em>: 提高了性能。</li>
+<li><em>Embed Textures</em>: 确保纹理嵌入到网格中。</li>
+<li><em>Export to Tiles</em>: 选择瓷砖的大小。Carla 可以使用的最大尺寸是2000 x 2000。</li>
+<li><em>Export Individual Tiles</em>: 生成在 Carla 中流式传输大地图所需的单个块。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p><img alt="export_large_map_fbx" src="../img/large_map_export_fbx.png" /></p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<p><strong>3.</strong> 导出 <code>.xodr</code>文件:</p>
+<ul>
+<li>在主工具栏中选择 <code>File</code> -&gt; <code>Export</code> -&gt; <code>OpendDRIVE (.xodr)</code></li>
+</ul>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>确保 <code>.xodr</code> 和 <code>.fbx</code> 的文件名称相同。</p>
+</div>
+<hr />
+<h2 id="_2">下一个步骤</h2>
+<p>现在可以将地图导入 Carla 了。有关详细信息，请参阅<a href="arge_map_import.md">导入大地图指南</a>。</p>
+<hr />
+<p>如果你对这个过程有任何疑问，那么你可以在 <a href="https://github.com/carla-simulator/carla/discussions">论坛</a> 上提问。</p>
+<div class="build-buttons">
+<p>
+<a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
+Carla 论坛</a>
+</p>
+</div>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

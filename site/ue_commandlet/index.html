@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Ue commandlet - 交通仿真文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Ue commandlet";
+        var mkdocs_page_input_path = "ue_commandlet.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Ue commandlet</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/ue_commandlet.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="commandlet"><a href="https://imzlp.com/posts/27475/">Commandlet</a></h2>
+<h3 id="commandlet_1">什么是 Commandlet</h3>
+<p>UE 的 Commandlet 是一种可以用命令行的方式去驱动引擎的机制，如传统的命令行程序：</p>
+<pre><code class="language-cpp">int main(int argc,char* agrv[]){
+    for (int i = 0; i &lt; argc; i++){
+        cout &lt;&lt; argv[i] &lt;&lt; endl;
+    }
+}
+</code></pre>
+<p>则可以通过命令行的形式调用，并传递参数：</p>
+<pre><code class="language-shell">./arg_printer -test1 -test2
+</code></pre>
+<p>Commandlet 也是提供的这样的调用形式。不过，需要调用的程序是引擎，并且要传递 uproject 文件路径、其他的参数等。
+以 Cook 的 Commandlet 为例：</p>
+<pre><code class="language-shell">UE4Editor-cmd.exe D:\Client\FGame.uproject -run=cook
+</code></pre>
+<p>通过这样的形式启动命令行引擎，不会启动虚幻编辑器，而是执行所定义的行为。</p>
+<h3 id="commandlet_2">创建 Commandlet</h3>
+<p>为项目或插件创建 Commandlet，通常会在模块类型为 <code>Editor</code> 的 Module 中添加，因为执行 Commandlet 的逻辑，很少会涉及到运行时，都是在引擎环境下执行的。</p>
+<p>创建自定义的 Commandlet，需要创建一个继承自 <code>UCommandlet</code> 的 UObject 类：</p>
+<pre><code class="language-cpp">UGenerateTileCommandlet::UGenerateTileCommandlet()
+
+int32 UGenerateTileCommandlet::Main(const FString &amp;Params)
+</code></pre>
+<p>其中的 <code>Main</code> 函数，就是当通过 <code>-run=</code> 命令启动该 Commandlet 时，会执行到的逻辑，就像前面纯 C++ 的 main 函数一样。</p>
+<p>不过，需要注意的是，因为 Commandlet 其实是完整的引擎环境，所以执行时会拉起已注册模块的启动，相当于有很多的前置逻辑需要执行，等执行到 <code>Main</code> 函数时，就是完整的引擎状态了。</p>
+<p>可以在这个函数之内做自定义的操作，此时它具有完整的引擎环境，可以根据自己的需要进行数据导出或资源处理。</p>
+<h3 id="commandlet_3">运行 Commandlet</h3>
+<p>前面已经提到了，运行一个 Commandlet 需要用以下的命令形式：</p>
+<pre><code class="language-shell">UE4Editor-cmd.exe PROJECT_NAME.uproject -run=CMDLET_NAME
+</code></pre>
+<p>启动项目中的 Commandlet 时，必须要指定项目路径，因为要去加载工程及插件中的模块。</p>
+<p>参数 <code>-run=</code>，指定的是要执行的 Commandlet 的名字，这个名字和前面创建的继承自 <code>UCommandlet</code> 类名字直接相关：如 <code>UResScannerCommandlet</code> 它的 Commandlet 的名字就为 <code>ResScanner</code>，规则就是去掉头部的 <code>U</code> 以及尾部的 <code>Commandlet</code>。</p>
+<p>引擎内接收到 <code>-run=</code> 的参数，会去查找 UClass，并会自动拼接 <code>Commandlet</code> 后缀：</p>
+<pre><code class="language-shell">// Token -- XXXXCommandlet
+CommandletClass = FindObject&lt;UClass&gt;(ANY_PACKAGE,*Token,false);
+</code></pre>
+<p>拿到 UClass 之后，创建一个实例，然后调用它的 <code>Main</code> 函数：</p>
+<pre><code class="language-shell">Unreal\CarlaUE4\Plugins\CarlaTools\Source\CarlaTools\Private\Commandlet\GenerateTileCommandlet.cpp
+</code></pre>
+<pre><code class="language-cpp">OpenDriveMap = NewObject&lt;UOpenDriveToMap&gt;(this, OpenDriveClass);
+OpenDriveMap-&gt;FilePath = ParamsMap[&quot;FilePath&quot;];
+OpenDriveMap-&gt;BaseLevelName = ParamsMap[&quot;BaseLevelName&quot;];
+OpenDriveMap-&gt;OriginGeoCoordinates = FVector2D(FCString::Atof(*ParamsMap[&quot;GeoCoordsX&quot;]),FCString::Atof(*ParamsMap[&quot;GeoCoordsY&quot;]));
+OpenDriveMap-&gt;CurrentTilesInXY = FIntVector(FCString::Atof(*ParamsMap[&quot;CTileX&quot;]),FCString::Atof(*ParamsMap[&quot;CTileY&quot;]), 0);
+// Parse Params
+OpenDriveMap-&gt;GenerateTile();
+</code></pre>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>是启动了所有模块之后才会进入到 Commandlet 的 <code>Main</code> 中，意味着模块的 <code>StartupModule</code> 在 Main 之前。</p>
+</div>
+<p>引擎执行 Commandlet Main 函数的调用栈：
+<img alt="LidarPointCloud" src="../img/tuto_D_windows_debug/commandlet_call_stack.jpg" /></p>
+<h3 id="commandlet_4">检测 Commandlet</h3>
+<p>根据上面的内容，需要记住以下两个关键点：</p>
+<ol>
+<li>Commandlet 位于 Editor 模块内</li>
+<li>Commandlet 进入到 Main 之后就是完整的引擎环境
+因为 Commandlet 是位于 Editor 模块内的，有可能会调用到模块内的其他函数，为了区分 Editor 启动还是 Commandlet 启动，可以用以下函数进行检测：</li>
+</ol>
+<pre><code class="language-cpp">if(::IsRunningCommandlet())
+{
+    // do something
+}
+</code></pre>
+<p>传递进来的是不包含引擎路径和项目路径的参数。</p>
+<p>如，运行命令：</p>
+<pre><code class="language-shell">UE4Editor-cmd.exe G:\Client\FGame.uproject -skipcompile -run=HotChunker -TargetPlatform=IOS
+</code></pre>
+<p>则接收到的参数为：</p>
+<pre><code class="language-shell">-skipcompile -run=HotChunker -TargetPlatform=IOS
+</code></pre>
+<p><img alt="LidarPointCloud" src="../img/tuto_D_windows_debug/commandlet_received_param.jpg" /></p>
+<p>可以通过解析该命令行参数，在 Commandlet 执行特殊行为。以 HotPatcher 为例，可以通过 <code>-config=</code> 指定配置文件，在 Commandlet 中就会读取并根据配置文件执行。</p>
+<h3 id="tick">驱动 Tick</h3>
+<p>Commandlet 默认是一个独立过程行为，不会驱动引擎 Tick，就像一个普通的函数，所有代码执行完毕之后，离开当前的作用域，就请求退出引擎了。</p>
+<h3 id="cmdlet">介入到某个 Cmdlet 流程</h3>
+<p>以 Cook 为例，它是拉起来了一个 CookCommandlet 去执行。默认情况下，引擎并没有给我们留口子，去介入到 Cook 的各个阶段，如果想要在打包的过程中去做一些操作，就需要自己操纵 UAT 把构建过程拆开，自己维护各个流程。</p>
+<p>但这么做的代价比较高，考虑以下这些需求：</p>
+<ul>
+<li>在 Cook 完毕之后去训练 Shader 的字典，并把用字典压缩的 ShaderLibrary 替换原始的。</li>
+</ul>
+<p>在默认情况下，要实现它，就需要把打包过程在 Cook 之后停掉，处理完自定义流程之后，再进入的 UnrealPak 阶段，接着执行。</p>
+<p>整个过程都比较的繁琐，如果我们想要在 Cook 之后自动执行，还可以用另一种方式，介入到 Commandlet 的执行进程中。</p>
+<p>根据前文的介绍我们知道，Commandlet 在执行中，也是会执行模块的 StartupModule 及 ShutdownModule 的，而我们想要介入到 Cmdlet 中执行，就是要利用这个特性。</p>
+<p>同样以 Cook 之后，让引擎拉起我们的自定义处理流程为例，可以拆解这个需求：</p>
+<ol>
+<li>确定是否运行在 CookCommandlet 中</li>
+<li>在 Cook 执行完毕后，引擎退出之前的时机执行</li>
+</ol>
+<p>关于第一点，我们可以解析启动的命令行参数，并检查 <code>-run=</code> 的 Token 是不是 <code>Cook</code>，就能确定是否是在 <code>CookCommandlet</code> 中：</p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

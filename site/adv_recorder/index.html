@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>记录器 - 交通仿真文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u8bb0\u5f55\u5668";
+        var mkdocs_page_input_path = "adv_recorder.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">记录器</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/adv_recorder.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">记录器</h1>
+<p>此功能允许记录和重新制定以前的仿真。所有发生的事件都记录在 <a href="../ref_recorder_binary_file_format/">recorder file</a> 中。有一些高级查询可以跟踪和研究这些事件。</p>
+<ul>
+<li><a href="#recording"><strong>记录</strong></a></li>
+<li><a href="#simulation-playback"><strong>仿真播放</strong></a><ul>
+<li><a href="#setting-a-time-factor">设置时间因子</a></li>
+</ul>
+</li>
+<li><a href="#recorded-file"><strong>录制文件</strong></a></li>
+<li><a href="#查询"><strong>查询</strong></a><ul>
+<li><a href="#collisions">碰撞</a></li>
+<li><a href="#blocked-actors">被困住的角色</a></li>
+</ul>
+</li>
+<li><a href="#sample-python-scripts"><strong>示例 Python 脚本</strong></a></li>
+</ul>
+<hr />
+<h2 id="_2">记录</h2>
+<p>所有数据仅写入服务器端的二进制文件。但是，使用 <a href="../python_api/#carla.Client">carla.Client</a> 管理记录器。</p>
+<p>根据记录文件中包含的数据，每帧更新角色。当前仿真中出现在录制中的参与者将被移动或重新生成以仿真它。那些没有出现在录音中的将继续他们的方式，就好像什么都没发生一样。</p>
+<div class="admonition 重要的">
+<p class="admonition-title">重要的</p>
+<p>播放结束时，车辆将设置为自动驾驶，但 <strong>行人将停止</strong>。</p>
+</div>
+<p>记录器文件包括有关许多不同元素的信息。</p>
+<ul>
+<li><strong>角色</strong> — 创建和销毁、边界和触发框。</li>
+<li><strong>交通灯</strong> — 状态变化和时间设置。</li>
+<li><strong>车辆</strong> — 位置和方向、线速度和角速度、光状态和物理控制。</li>
+<li><strong>行人</strong> — 位置和方向，以及线速度和角速度。</li>
+<li><strong>灯光</strong> — 来自建筑物、街道和车辆的灯光状态。</li>
+</ul>
+<p>要开始录制，只需要一个文件名。在文件名中使用 <code>\</code>、<code>/</code> 或 <code>:</code> 字符会将其定义为绝对路径。如果没有详细的路径，文件将保存在 <code>CarlaUE4/Saved</code> 中。</p>
+<pre><code class="language-py">client.start_recorder(&quot;/home/carla/recording01.log&quot;)
+</code></pre>
+<p>默认情况下，记录器设置为仅存储回放仿真所需的信息。为了保存前面提到的所有信息，必须在开始录制时配置参数<code>additional_data</code>。</p>
+<pre><code class="language-py">client.start_recorder(&quot;/home/carla/recording01.log&quot;, True)
+</code></pre>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>其他数据包括：车辆和行人的线速度和角速度、红绿灯时间设置、执行时间、参与者的触发器和边界框，以及车辆的物理控制。</p>
+</div>
+<p>要停止录制，调用也很简单。</p>
+<pre><code class="language-py">client.stop_recorder()
+</code></pre>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>据估计，50 个红绿灯和 100 辆车的 1 小时记录大约需要 200MB 大小。</p>
+</div>
+<hr />
+<h2 id="_3">仿真播放</h2>
+<p>可以在仿真过程中的任何时候开始播放。除了日志文件的路径，这个方法还需要一些参数。</p>
+<pre><code class="language-py">client.replay_file(&quot;recording01.log&quot;, start, duration, camera)
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+<th>笔记</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>开始</code></td>
+<td>以秒为单位记录开始仿真的时间。</td>
+<td>如果是肯定的，时间将从记录开始计算。 <br> 如果是否定的，将从最后考虑。</td>
+</tr>
+<tr>
+<td><code>持续时间</code></td>
+<td>播放秒数。 0 是所有的录音。</td>
+<td>播放结束时，车辆将设置为自动驾驶，行人将停止。</td>
+</tr>
+<tr>
+<td><code>相机</code></td>
+<td>相机将聚焦的参与者的 ID。</td>
+<td>将其设置为“0”以让观众自由移动。</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h3 id="_4">设置时间因子</h3>
+<p>时间因素将决定播放速度。它可以随时更改而无需停止回放。</p>
+<pre><code class="language-py">client.set_replayer_time_factor(2.0)
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>默认</th>
+<th>快动作</th>
+<th>慢动作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>time_factor</code></td>
+<td><strong>1.0</strong></td>
+<td><strong>&gt;1.0</strong></td>
+<td>** &lt;1.0 **</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<div class="admonition 重要的">
+<p class="admonition-title">重要的</p>
+<p>如果 <code>time_factor&gt;2.0</code>，actors 的位置插值被禁用并且只是更新。行人的动画不受时间因素的影响。</p>
+</div>
+<p>当时间因素在 <strong>20x</strong> 左右时，很容易理解流量。</p>
+<p><img alt="流" src="../img/RecorderFlow2.gif" /></p>
+<hr />
+<h2 id="_5">录制文件</h2>
+<p>可以使用简单的 API 调用来检索记录的详细信息。默认情况下，它只检索注册事件的那些帧。设置参数 <code>show_all</code> 将返回每一帧的所有信息。关于如何存储数据的细节在 <a href="../ref_recorder_binary_file_format/">recorder's reference</a> 中有详细说明。</p>
+<pre><code class="language-py"># 显示相关帧的信息
+print (client.show_recorder_file_info (&quot;recording01.log&quot;))
+</code></pre>
+<ul>
+<li>
+<p><strong>开放信息.</strong> 记录仿真的地图、日期和时间。</p>
+</li>
+<li>
+<p><strong>Frame information.</strong> 任何可能发生的事件，例如角色生成或碰撞。它包含参与者的 ID 和一些附加信息。</p>
+</li>
+<li>
+<p><strong>关闭信息.</strong> 记录的帧数和总时间。</p>
+</li>
+</ul>
+<pre><code>Version: 1 
+Map: Town05 
+Date: 02/21/19 10:46:20 
+
+Frame 1 at 0 seconds 
+    Create 2190: spectator (0) at (-260, -200, 382.001) 
+    Create 2191: traffic.traffic_light (3) at (4255, 10020, 0) 
+    Create 2192: traffic.traffic_light (3) at (4025, 7860, 0) 
+    ... 
+    Create 2258: traffic.speed_limit.90 (0) at (21651.7, -1347.59, 15) 
+    Create 2259: traffic.speed_limit.90 (0) at (5357, 21457.1, 15) 
+
+Frame 2 at 0.0254253 seconds 
+    Create 2276: vehicle.mini.cooperst (1) at (4347.63, -8409.51, 120) 
+        number_of_wheels = 4 
+        object_type = color = 255,241,0 
+        role_name = autopilot 
+        ... 
+Frame 2350 at 60.2805 seconds 
+    Destroy 2276 
+
+Frame 2351 at 60.3057 seconds 
+    Destroy 2277 
+... 
+Frames: 2354 
+    Duration: 60.3753 seconds
+</code></pre>
+<hr />
+<h2 id="_6">查询</h2>
+<h3 id="_7">碰撞</h3>
+<p>车辆必须有一个 <a href="../ref_sensors/#collision-detector">碰撞检测器</a> 以记录碰撞。这些可以被查询，使用参数来过滤碰撞中涉及的参与者的类型。例如，<code>h</code>标识<code>role_name = hero</code>的角色，通常分配给用户管理的车辆。有一组特定的参与者类型可用于查询。</p>
+<ul>
+<li><strong>h</strong> = Hero</li>
+<li><strong>v</strong> = Vehicle</li>
+<li><strong>w</strong> = Walker</li>
+<li><strong>t</strong> = Traffic light</li>
+<li><strong>o</strong> = Other</li>
+<li><strong>a</strong> = Any</li>
+</ul>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p><code>manual_control.py</code> 脚本为 自我车辆分配 <code>role_name = hero</code>。</p>
+</div>
+<p>碰撞查询需要两个标志来过滤碰撞。以下示例将显示车辆与任何其他对象之间的碰撞。</p>
+<pre><code class="language-py">print(client.show_recorder_collisions(&quot;recording01.log&quot;,&quot;v&quot;, &quot;a&quot;))
+</code></pre>
+<p>输出总结了碰撞的时间，以及所涉及的参与者的类型、ID 和描述。</p>
+<pre><code>Version: 1
+Map: Town05
+Date: 02/19/19 15:36:08
+
+    Time  Types     Id Actor 1                                 Id Actor 2
+      16   v v     122 vehicle.yamaha.yzf                     118 vehicle.dodge_charger.police
+      27   v o     122 vehicle.yamaha.yzf                       0
+
+Frames: 790
+Duration: 46 seconds
+</code></pre>
+<div class="admonition 重要的">
+<p class="admonition-title">重要的</p>
+<p>因为记录碰撞的是<code>Hero</code>或<code>Ego</code>车辆，所以这将始终是<code>Actor 1</code>。</p>
+</div>
+<p>可以通过使用记录器并在事件发生前几秒设置它来重新制定碰撞。</p>
+<pre><code class="language-py">client.replay_file(&quot;col2.log&quot;, 13, 0, 122)
+</code></pre>
+<p>在这种情况下，回放显示了这一点。</p>
+<p><img alt="碰撞" src="../img/collision1.gif" /></p>
+<h3 id="_8">被卡住的角色</h3>
+<p>检测在录制过程中卡住的车辆。如果角色在特定时间内没有移动最小距离，则认为它被阻塞。该定义由用户在查询期间进行。</p>
+<pre><code class="language-py">print(client.show_recorder_actors_blocked(&quot;recording01.log&quot;, min_time, min_distance))
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+<th>默认</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>min_time</code></td>
+<td>移动的最小秒数`min_distance`。</td>
+<td>30 秒。</td>
+</tr>
+<tr>
+<td><code>min_distance</code></td>
+<td>移动的最小厘米数不会被视为阻塞。</td>
+<td>10厘米。</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>有时车辆在红绿灯处停留的时间比预期的要长。</p>
+</div>
+<p>以下示例考虑车辆在 60 秒内移动不到 1 米时被卡住。</p>
+<pre><code class="language-py">client.show_recorder_actors_blocked(&quot;col3.log&quot;, 60, 100)
+</code></pre>
+<p>输出已排序
+由 <strong>duration</strong> 表示，它说明了停止被“阻塞”并移动 <code>min_distance</code> 需要多长时间。</p>
+<pre><code>Version: 1
+Map: Town05
+Date: 02/19/19 15:45:01
+
+    Time     Id Actor                                 Duration
+      36    173 vehicle.nissan.patrol                      336
+      75    214 vehicle.chevrolet.impala                   295
+     302    143 vehicle.bmw.grandtourer                     67
+
+Frames: 6985
+Duration: 374 seconds
+</code></pre>
+<p>车辆<code>173</code>在<code>36</code>秒时停止<code>336</code>秒。在第二个<code>36</code>之前几秒钟重新仿真以检查它。</p>
+<pre><code class="language-py">client.replay_file(&quot;col3.log&quot;, 34, 0, 173)
+</code></pre>
+<p><img alt="事故" src="../img/accident.gif" /></p>
+<hr />
+<h2 id="python">示例 python 脚本</h2>
+<p><code>PythonAPI/examples</code> 中提供的一些脚本有助于记录器的使用。</p>
+<ul>
+<li><strong>start_recording.py</strong> 开始录制。可以设置录制的持续时间，并且可以在开始时生成参与者。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-f</code></td>
+<td>文件名。</td>
+</tr>
+<tr>
+<td><code>-n</code><small>（可选）</small></td>
+<td>产生的车辆。默认值为 10。</td>
+</tr>
+<tr>
+<td><code>-t</code><small>（可选）</small></td>
+<td>录制的持续时间。</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>start_replaying.py</strong> 开始播放录制。可以设置开始时间、持续时间和要跟随的参与者。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-f</code></td>
+<td>文件名。</td>
+</tr>
+<tr>
+<td><code>-s</code><small>（可选）</small></td>
+<td>起始时间。默认值为 10。</td>
+</tr>
+<tr>
+<td><code>-d</code><small> (可选)</small></td>
+<td>期间。默认为全部。</td>
+</tr>
+<tr>
+<td><code>-c</code><small>（可选）</small></td>
+<td>要关注的参与者的 ID。</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>show_recorder_file_info.py</strong> 显示录制文件中的所有信息。默认情况下，它仅显示记录事件的帧。但是，所有这些都可以显示。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-f</code></td>
+<td>文件名。</td>
+</tr>
+<tr>
+<td><code>-s</code><small>（可选）</small></td>
+<td>标记以显示所有详细信息。</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>show_recorder_collisions.py</strong> 显示类型为 <strong>A</strong> 和 <strong>B</strong> 的参与者的两个标志之间记录的碰撞。 <code>-t = vv</code> 将显示车辆之间的所有碰撞。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-f</code></td>
+<td>文件名。</td>
+</tr>
+<tr>
+<td><code>-t</code></td>
+<td>相关角色的标志。 <code>h</code> = hero  <code>v</code> = vehicle  <code>w</code> = walker  <code>t</code> = traffic light <code>o</code> = other<code>a</code> = any</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>show_recorder_actors_blocked.py</strong> 列出被认为被阻止的车辆。如果在特定时间内没有移动最小距离，则认为参与者被阻挡。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-f</code></td>
+<td>文件名。</td>
+</tr>
+<tr>
+<td><code>-t</code><small>（可选）</small></td>
+<td>是时候在被认为被阻塞之前移动<code>-d</code>了。</td>
+</tr>
+<tr>
+<td><code>-d</code><small> (可选)</small></td>
+<td>移动距离不会被视为阻塞。</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p>现在是试验一段时间的时候了。使用记录器回放仿真、追溯事件、进行更改以查看新结果。在 Carla 论坛上就此事发表意见。</p>
+<div class="build-buttons">
+<p>
+<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="前往 Carla 论坛">
+Carla 论坛</a>
+</p>
+</div>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

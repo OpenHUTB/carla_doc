@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Boost python - 交通仿真文档</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Boost python";
+        var mkdocs_page_input_path = "demo\\boost_python.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Boost python</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/demo/boost_python.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="vs2019boostpython"><a href="https://developer.aliyun.com/article/1260043">VS2019调用boost.Python</a></h2>
+<h3 id="_1">生成可执行文件</h3>
+<ol>
+<li>新建 Cmake 工程；</li>
+<li>输入以下代码：</li>
+</ol>
+<pre><code class="language-cpp">#include &lt;boost/python.hpp&gt;
+#include &lt;boost/python/module.hpp&gt;
+#include &lt;boost/python/def.hpp&gt;
+#include &lt;boost/python/to_python_converter.hpp&gt;
+#include &lt;iostream&gt;
+using namespace std;
+void dummyFunc() {
+    cout &lt;&lt; &quot;call OK!&quot; &lt;&lt; endl;
+}
+int main()
+{
+    dummyFunc();
+    return 0;
+}
+</code></pre>
+<ol>
+<li>在<code>CMakeLists.txt</code>中添加头文件目录和库文件目录</li>
+</ol>
+<pre><code class="language-text"># 添加头文件目录
+include_directories(&quot;D:/work/workspace/carla/Build/boost-1.80.0-install/include&quot;)
+include_directories(&quot;C:/Users/Administrator/AppData/Local/Programs/Python/Python37/include&quot;)
+# 添加库文件目录
+link_directories(&quot;C:/Users/Administrator/AppData/Local/Programs/Python/Python37/libs&quot;)
+# 还是缺少 libboost_python37-vc142-mt-gd-x64-1_80.lib
+link_directories(&quot;D:/work/workspace/carla/Build/boost-1.80.0-install/lib_no_prefix&quot;)
+</code></pre>
+<ol>
+<li>
+<p>到boost安装目录下，进入 lib文件夹下，找到前缀是<code>libboost_python37-vc142-mt-x64-1_80.lib</code>文件（前缀有lib），将其前缀的lib删除即可（即重命名为<code>boost_python37-vc142-mt-x64-1_80.lib</code>）。</p>
+</li>
+<li>
+<p>生成解决方案，会生成exe文件，如果不可以在vs中直接执行，将工具栏中的<code>当前文档</code>改为<code>*.exe</code>。</p>
+</li>
+</ol>
+<h3 id="python">生成Python调用的库</h3>
+<ol>
+<li>新建<code>hello_exe.cpp</code>，注意文件名必须为模块名：</li>
+</ol>
+<pre><code class="language-cpp">// 参考：https://developer.aliyun.com/article/1260043
+
+// 当引入 #include &lt;boost/python/xxx&gt; 时，Boost 会默认链接 boost_python 动态链接库，
+// 如果我们想要链接静态链接库，就需要在 include 之前加上 #define BOOST_PYTHON_STATIC_LIB
+// 指定链接 boost_python 的静态库，而不是默认的动态库。
+#define BOOST_PYTHON_STATIC_LIB
+
+#include &lt;boost/python.hpp&gt;
+#include &lt;boost/python/module.hpp&gt;
+#include &lt;boost/python/def.hpp&gt;
+#include &lt;boost/python/to_python_converter.hpp&gt;
+#include &lt;iostream&gt;
+
+using namespace std;
+
+char const* greet()
+{
+    return &quot;hello, world&quot;;
+}
+
+BOOST_PYTHON_MODULE(hello_ext)
+{
+    using namespace boost::python;
+    def(&quot;greet&quot;, greet);
+}
+</code></pre>
+<ol>
+<li>新建<code>CMakeLists.txt</code>：</li>
+</ol>
+<pre><code class="language-shell">cmake_minimum_required (VERSION 3.8)
+
+# 添加头文件目录
+include_directories(&quot;D:/work/workspace/carla/Build/boost-1.80.0-install/include&quot;)
+include_directories(&quot;C:/Users/Administrator/AppData/Local/Programs/Python/Python37/include&quot;)
+# 添加库文件目录
+link_directories(&quot;C:/Users/Administrator/AppData/Local/Programs/Python/Python37/libs&quot;)
+# 还是缺少 libboost_python37-vc142-mt-gd-x64-1_80.lib
+link_directories(&quot;D:/work/workspace/carla/Build/boost-1.80.0-install/lib_no_prefix&quot;)
+
+# 将源代码添加到此项目的可执行文件。
+# add_executable (boost_demo &quot;boost_demo.cpp&quot; &quot;boost_demo.h&quot;)
+
+# # 生成动态库(共享库)共享库则只有一个副本
+add_library(hello_ext SHARED hello_ext.cpp)
+#(boost_demo 是库的名字)，这条命令告诉cmake，我们想把 boost_demo.cpp编译成一个叫作“boost_demo”的库。
+set_target_properties(hello_ext PROPERTIES SUFFIX &quot;.pyd&quot;)
+</code></pre>
+<p>构建后会生成<code>hello_ext.pyd</code>。</p>
+<ol>
+<li>在生成的<code>.pyd</code>目录下新建<code>hello.py</code></li>
+</ol>
+<pre><code class="language-python">import hello_ext
+
+print(hello_ext.greet())
+</code></pre>
+<h3 id="pythoncpp">从Python中调试*.cpp</h3>
+<ol>
+<li>在原始.py脚本中添加打印进程号的代码，并使调试停止于cpp函数调用之前。</li>
+</ol>
+<pre><code class="language-python">import os
+
+# 获取当前进程ID（便于调试）
+process_id = os.getpid()
+print(&quot;Current process id is: &quot;, process_id)
+
+import hello_ext
+
+print(hello_ext.greet())
+</code></pre>
+<ol>
+<li>
+<p>在visual studio 中添加断点，并附着到第1步的进程中。</p>
+</li>
+<li>
+<p>在<code>*.py</code>中继续执行，会在vs中暂定。</p>
+</li>
+</ol>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

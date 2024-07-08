@@ -10,9 +10,7 @@
 
    [**湖工商场景**](https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb )**(WindowsNoEditor)**
 
-
-
-​	自定义一些生成位置的起始点坐标
+​	自定义一些生成位置的起始点坐标<span id="definePoint"></span>
 
 ```python
 diming = {
@@ -80,7 +78,7 @@ vehicle = world.spawn_actor(ego_vehicle_bp, spawn_point)
 world.tick()
 ```
 
-​	生成终点，给起点和终点生成一个车辆运行轨迹，定义初始速度
+​	生成终点，给起点和终点生成一个车辆运行轨迹，定义初始速度<span id="initSpeed"></span>
 
 ```python
  # 设置初始速度
@@ -174,5 +172,7 @@ while True:
     control = agent.run_step(debug=True)
     vehicle.apply_control(control)
 ```
+
+###### 轨迹生成<span id="generateTrajectory"></span>
 
 ![](../img/traffic_course_img/5.png)
