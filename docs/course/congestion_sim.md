@@ -27,7 +27,7 @@
 在运行 `generate_traffic.py` 之前，请确保安装了以下依赖包：
 
 - `CARLA`仿真环境的搭建。
--  Carla,Numpy等依赖包的安装。
+- Carla,Numpy等依赖包的安装。
 
 ### 脚本运行
 
@@ -39,6 +39,6 @@ python generate_traffic.py
 
 ## 多次运行模拟交通拥堵
 
-为了模拟不同交通流量下的拥堵情况，可以多次运行 [generate_traffic.py](../../src/examples/generate_traffic.py) 脚本。
+为了模拟不同交通流量下的拥堵情况，可以多次运行 [**generate_traffic.py**](../../src/examples/generate_traffic.py) 脚本。
 
-使用**[traffic_indicators.py](../../src/course/traffic%20indicators.py)**  脚本对路口交通流量、路口车均延误、路口饱和、排队长度四种路口真实性评价指标分析。
+使用[**traffic_indicators.py**](../../src/course/traffic%20indicators.py)脚本对路口交通流量、路口车均延误、路口饱和、排队长度四种路口真实性评价指标分析。
