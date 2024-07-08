@@ -4,7 +4,7 @@
 
 #### 参数说明
 
-[脚本](https://github.com/OpenHUTB/carla_doc/blob/master/src/course/signal_control.py)接收以下参数：
+[脚本](../../src/course/signal_control.py)接收以下参数：
 
 1. `--host` (`-H`): CARLA服务器的IP地址，默认为`127.0.0.1`。
 2. `--port` (`-p`): CARLA服务器的TCP端口，默认为`2000`。
