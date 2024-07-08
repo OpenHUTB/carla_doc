@@ -1,8 +1,8 @@
 # 路口评价指标分析计算(HutbCarlaCity)
 
-​	为支持  [**湖工商场景**](https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb ) **(WindowsNoEditor)** 高保正的十字路口三维建模，设计  **[traffic_indicators.py](https://github.com/OpenHUTB/carla_doc/blob/master/src/course/traffic%20indicators.py)**  脚本对路口交通流量、路口车均延误、路口饱和、排队长度四种路口真实性评价指标分析。
+​	为支持  [**湖工商场景**](https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb ) **(WindowsNoEditor)** 高保正的十字路口三维建模，设计  **[traffic_indicators.py](../../src/course/traffic%20indicators.py)**  脚本对路口交通流量、路口车均延误、路口饱和、排队长度四种路口真实性评价指标分析。
 
-**首先需要对场景中添加车辆，运行[generate_traffic.py](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/generate_traffic.py)脚本，生成足够的车辆**
+**首先需要对场景中添加车辆，运行[generate_traffic.py](../../src/examples/generate_traffic.py)脚本，生成足够的车辆**
 
 
 
@@ -57,7 +57,7 @@ SATURATION = 32     # 路口最大容量
 DWELL_TIME = 50      # 50秒后认为车辆已离开路口
 ```
 
-### 路口交通流量函数get_traffic_flow()
+### 路口交通流量函数get_traffic_flow()<span id="trafficFlow"></span>
 
 ```python
 def get_traffic_flow(world, junction, traffic_flows, i, counted_vehicles):
@@ -86,7 +86,7 @@ def get_traffic_flow(world, junction, traffic_flows, i, counted_vehicles):
         del counted_vehicles[vehicle_id]
 ```
 
-### 路口饱和度函数saturation()
+### 路口饱和度函数saturation()<span id="saturation"></span>
 
 采用**路口实际车流量/路口道路最大所承载车流量** 计算  **路口饱和度**
 
@@ -120,7 +120,7 @@ def saturation(world,junctions,counted_vehicles):
     return ave_saturation
 ```
 
-### 排队长度函数queue_lengths()
+### 排队长度函数queue_lengths()<span id="queueLength"></span>
 
 采用 **路口实际车流量*平均车辆长度**  计算 **排队长度**
 
@@ -151,7 +151,7 @@ def queue_lengths(world,junctions,counted_vehicles):
     return queue_length
 ```
 
-### 车均延误函数ave_delay()
+### 车均延误函数ave_delay()<span id="aveDelay"></span>
 
 采用以下计算公式进行计算：![](../img/traffic_course_img/4.png)
 
