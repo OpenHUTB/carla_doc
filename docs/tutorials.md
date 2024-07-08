@@ -14,7 +14,7 @@
 
 [**车辆导航**](course/navigation.md) —  自定义车辆速度，从指定起点运动到目标位置，并生成轨迹。
 
-[**多摄像头配置**](course/multi-view_camera.md)— 支持配置单个或多个摄像头，进行车辆的检测。
+[**多摄像头配置**](course/multi-view_%20camera.md)— 支持配置单个或多个摄像头，进行车辆的检测。
 
 [**路口微观**](course/microscopic_Intersection_demo.md) — 切换视角观察不同路口的交通状况。
 
