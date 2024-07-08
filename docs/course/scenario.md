@@ -6,11 +6,11 @@
 
 ## RoadRunner简介
 
-​	RoadRunner是一个交互式编辑器，可以让您设计3D场景来仿真和测试自动驾驶系统。它可以用来创建道路布局和伴随的opdrive和几何信息。[在这里了解更多关于RoadRunner的信息](https://github.com/OpenHUTB/carla_doc/blob/master/docs/rr_home)。
+​	RoadRunner是一个交互式编辑器，可以让您设计3D场景来仿真和测试自动驾驶系统。它可以用来创建道路布局和伴随的opdrive和几何信息。
 
-​	RoadRunner是MATLAB校园许可的一部分，因此许多大学可以提供无限制的学术访问。[检查](https://github.com/OpenHUTB/carla_doc/blob/master/docs/rr_eligibility)一下你的大学是否有访问权限。如果有任何关于可访问性的问题或麻烦，请联系[automated-driving@mathworks.com](mailto:automated-driving@mathworks.com)。[还有一个试用版](https://github.com/OpenHUTB/carla_doc/blob/master/docs/[rr_trial_version)。
+​	RoadRunner是MATLAB校园许可的一部分，因此许多大学可以提供无限制的学术访问。检查一下你的大学是否有访问权限。如果有任何关于可访问性的问题或麻烦，请联系[automated-driving@mathworks.com](mailto:automated-driving@mathworks.com)。
 
-​	参加 Carla 排行榜的每个人都可以获得RoadRunner的许可证。[点击这里了解更多信息](https://github.com/OpenHUTB/carla_doc/blob/master/docs/rr_leaderboard)。
+​	参加 Carla 排行榜的每个人都可以获得RoadRunner的许可证。
 
 ​    **[RoadRunner R2022b 安装包](https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb)**，如下图所示，解压后直接运行里面的exe程序。
 
@@ -40,11 +40,11 @@ RoadRunner界面分为Scene Editing和Scenario Editing，下图所示为roadrunn
 
 ### 使用公开道路地图生成道路网络
 
-​	**[OpenStreetMap](https://www.openstreetmap.org/)**是一个开放、可编辑的地图项目，由全球志愿者贡献数据，其数据包括道路、建筑物、地理特征、交通设施等地理信息。使用者可以搜索相应的道路信息，选择导出**osm**路网文件。
+​	**[OpenStreetMap](https://www.openstreetmap.org/)**是一个开放、可编辑的地图项目，由全球志愿者贡献数据，其数据包括道路、建筑物、地理特征、交通设施等地理信息。使用者可以搜索相应的道路信息，选择导出**osm**路网文件。<span id="generateMapByOpenMap"></span>
 
 ![](../img/traffic_course_img/3.png)
 
-**还可以进行对该网站的编辑修改**：**[OpenStreetMap地图编辑](https://openhutb.github.io/carla_doc/adv_edit_openstreetmap/)**
+**还可以进行对该网站的编辑修改**：**[OpenStreetMap地图编辑](../../adv_edit_openstreetmap/)**
 
 
 
@@ -66,4 +66,4 @@ RoadRunner界面分为Scene Editing和Scenario Editing，下图所示为roadrunn
 
 参考链接：**[联合仿真](https://zhuanlan.zhihu.com/p/552983835)**
 
-[RoadRunner导出大地图教程](https://openhutb.github.io/carla_doc/tuto_M_generate_map/)
+[RoadRunner导出大地图教程](../..//tuto_M_generate_map/)

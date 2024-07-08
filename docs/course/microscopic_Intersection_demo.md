@@ -7,15 +7,15 @@
 - #### **环境要求**
 
   - Python 3.6 及以上版本
-  
+
   - CARLA 仿真环境
-  
+
   - 安装必要的Python库：
-  
-  - **[spectator.py](https://github.com/OpenHUTB/carla_doc/blob/master/src/course/spectator/spectator.py)**
-  
-  - [**湖工商场景**](https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb )**(WindowsNoEditor)**，并运行**[generate_traffic.py](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/generate_traffic.py)**
-  
+
+  - **[spectator.py](../../src/course/spectator/spectator.py)**
+
+  - [**湖工商场景**](https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb )**(WindowsNoEditor)**，并运行**[generate_traffic.py](../../src/examples/generate_traffic.py)**
+
 - 安装必要的python库
 
   ```
