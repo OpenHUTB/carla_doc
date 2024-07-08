@@ -14,7 +14,7 @@
 
 [**车辆导航**](course/navigation.md) —  自定义车辆速度，从指定起点运动到目标位置，并生成轨迹。
 
-[**多摄像头配置**](course/multi-view_ camera.md) — 支持配置单个或多个摄像头，进行车辆的检测。
+[**多摄像头配置**](course/multi-view_camera.md) — 支持配置单个或多个摄像头，进行车辆的检测。
 
 [**路口微观**](course/microscopic_Intersection_demo.md) — 切换视角观察不同路口的交通状况。
 
@@ -24,7 +24,7 @@
 
 [**RoadRunner道路场景建模**](course/scenario.md) — 设计用于模拟和测试自动驾驶系统的 3D 场景，创建要导入 Carla 的大地图。
 
-[**智能信号控制**]() — 优化交通信号的配时方案，提高交通流畅度和减少拥堵。
+[**智能信号控制**](course/signal_control.md) — 优化交通信号的配时方案，提高交通流畅度和减少拥堵。
 
 ### Carla 特点
 
