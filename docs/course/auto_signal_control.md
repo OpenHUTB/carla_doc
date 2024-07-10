@@ -109,8 +109,9 @@
 获取路口交通灯信息，可以发送一个GET请求到 `/set_traffic_light`路由,应用程序会自动根据路口的交通流量调整红绿灯的时长并返回结果。
 
 1. 打开Carla仿真环境
-2. 运行脚本auto_signal_control.py来开启服务端
-3. 发送http请求:
+2. 先运行[generate_traffic.py](../../src/examples/generate_traffic.py)来生成交通
+3. 运行脚本auto_signal_control.py来开启服务端
+4. 发送http请求:
 
 ```
 http://127.0.0.1:5000/set_traffic_light
