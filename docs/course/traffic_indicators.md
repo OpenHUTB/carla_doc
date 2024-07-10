@@ -1,6 +1,6 @@
 # 路口评价指标分析计算(HutbCarlaCity)
 
-​	为支持  [**湖工商场景**](https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb ) **(WindowsNoEditor)** 高保正的十字路口三维建模，设计  **[traffic_indicators.py](../../src/course/traffic%20indicators.py)**  脚本对路口交通流量、路口车均延误、路口饱和、排队长度四种路口真实性评价指标分析。
+​	为支持  [**湖工商场景**](https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb ) **(WindowsNoEditor)** 高保正的十字路口三维建模，设计  **[traffic_indicators.py](../../src/course/traffic_indicators.py)**  脚本对路口交通流量、路口车均延误、路口饱和、排队长度四种路口真实性评价指标分析。
 
 **首先需要对场景中添加车辆，运行[generate_traffic.py](../../src/examples/generate_traffic.py)脚本，生成足够的车辆**
 
