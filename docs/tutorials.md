@@ -11,6 +11,7 @@
 
 - [交通数据导入和编辑支持从公开道路地图导入或创建生成道路网络](course/scenario.md#generateMapByOpenMap)，支持添加车辆到道路网络并定义其轨迹以合成驾驶场景，[支持定义车道数量和车道长宽度，支持自定义道路编辑](course/scenario.md#sceneEding)。
 - [车辆运动支持定义车辆运动起点和目标位置](course/navigation.md#definePoint)，[为每辆车指定随机速度值](course/navigation.md#definePoint)，[生成车辆轨迹](course/navigation.md#generateTrajectory)。支持自定义车辆的速度，使其沿轨迹移动时不会发生碰撞或模拟碰撞。支持车辆运动模拟和显示自动生成的轨迹场景，可以看到车辆沿指定轨迹行驶以到达其目标位置。
+
 - 联合仿真支持联合虚拟引擎仿真模拟实验，不仅可以看到[区域宏观](course/regional_macro.md)，还可以看到[路口微观](course/microscopic_Intersection_demo.md)，支持 3D 动画演示运动场景。[支持配置单个或多个摄像头，进行车辆的检测](course/multi-view_camera.md)。[支持计算红绿灯的配时方案，并进行红绿灯的设置](course/auto_signal_control.md)。[支持测试车辆按地图选点进行移动，看到红灯停、绿灯行，以及避让等功能](course/locate_moving.md)。支持加入更多的车辆进行交通拥堵的模拟，统计优化前和优化后的结果。
 
 ##### 效果评价
