@@ -2,15 +2,15 @@
 
 ​	车辆运动支持定义车辆运动起点和目标位置，为每辆车指定随机速度值，使其沿轨迹移动时不会发生碰撞或模拟碰撞，看到车辆沿指定轨迹行驶以到达其目标位置。
 
-​	本示例设计了一个  [**automatic_control_revised.py**](../../src/course/navigation/automatic_control_revised.py)  脚本进行实现
+​	本示例设计了一个  [**automatic_control_revised.py**](https://github.com/OpenHUTB/carla_doc/blob/master/course/navigation/automatic_control_revised.py)  脚本进行实现
 
 ![](../img/traffic_course_img/4.gif)
 
-**注意**  需要将 [**agents**](../../src/carla_agent) 文件夹位置添加到代码环境变量中，或者复制该文件夹使其与本示例脚本同级。
+**注意**  需要将 [**agents**](https://github.com/OpenHUTB/carla_doc/tree/master/src/carla_agent) 文件夹位置添加到代码环境变量中，或者复制该文件夹使其与本示例脚本同级。
 
    [**湖工商场景**](https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb )**(WindowsNoEditor)**
 
-​	自定义一些生成位置的起始点坐标<span id="definePoint"></span>
+自定义一些生成位置的起始点坐标<span id="definePoint"></span>
 
 ```python
 diming = {
@@ -25,7 +25,7 @@ diming = {
 }
 ```
 
-​	定义命令行参数
+定义命令行参数
 
 ```python
  argparser = argparse.ArgumentParser(
@@ -44,7 +44,7 @@ diming = {
         type=int)
 ```
 
-​	获取仿真时间对象及设置
+获取仿真时间对象及设置
 
 ```python
 client = carla.Client('localhost', 2000)
@@ -59,7 +59,7 @@ settings.fixed_delta_seconds = 0.05
 world.apply_settings(settings)
 ```
 
-​	从车辆蓝图中自定义车辆对象，并获取车辆起点坐标
+从车辆蓝图中自定义车辆对象，并获取车辆起点坐标
 
 ```python
 # 生成车辆和代理
@@ -78,7 +78,7 @@ vehicle = world.spawn_actor(ego_vehicle_bp, spawn_point)
 world.tick()
 ```
 
-​	生成终点，给起点和终点生成一个车辆运行轨迹，定义初始速度<span id="initSpeed"></span>
+生成终点，给起点和终点生成一个车辆运行轨迹，定义初始速度<span id="initSpeed"></span>
 
 ```python
  # 设置初始速度
@@ -91,7 +91,7 @@ start = vehicle.get_location()
 agent.set_destination(destination)
 ```
 
-​	给目标车辆设置多个相机传感器。这些相机可以提供不同的视角,用于观察和记录车辆在仿真环境中的行为。
+给目标车辆设置多个相机传感器。这些相机可以提供不同的视角,用于观察和记录车辆在仿真环境中的行为。
 
 ```python
 # 查找相机蓝图
@@ -127,7 +127,7 @@ for spectator_transform_index in spectator_transform_list:
         spectator_obj_list.append(camera)
 ```
 
-​	更新代理、切换视角、处理代理局部规划器中的路径点。
+更新代理、切换视角、处理代理局部规划器中的路径点。
 
 ```python
 # 设置Vehicle_transform_list[0]为初始视图(上帝视图)；

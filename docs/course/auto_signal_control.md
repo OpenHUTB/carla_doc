@@ -4,7 +4,7 @@
 
 #### 主要功能
 
-[应用程序](../../src/course/auto_signal_control.py)主要功能包括：
+[应用程序](https://github.com/OpenHUTB/carla_doc/blob/master/course/auto_signal_control.py) 主要功能包括：
 
 1. 获取指定路口的交通流量。
 2. 根据交通流量动态调整红绿灯（绿灯）的时长。
@@ -104,7 +104,7 @@ def get_vehicles_in_intersection(world, intersection_location, intersection_radi
 获取路口交通灯信息，可以发送一个GET请求到 `/set_traffic_light`路由,应用程序会自动根据路口的交通流量调整红绿灯的时长并返回结果。
 
 1. 打开Carla仿真环境
-2. 先运行[generate_traffic.py](../../src/examples/generate_traffic.py)来生成交通
+2. 先运行[generate_traffic.py](https://github.com/OpenHUTB/carla_doc/blob/master/examples/generate_traffic.py) 来生成交通
 3. 运行脚本auto_signal_control.py来开启服务端
 4. 发送http请求:
 
