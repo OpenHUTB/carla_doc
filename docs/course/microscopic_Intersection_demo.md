@@ -12,15 +12,11 @@
 
   - 安装必要的Python库：
 
-<<<<<<< HEAD
-  - **[spectator.py](https://github.com/OpenHUTB/carla_doc/tree/master/src/course/spectator/spectator.py)**
 
-  - [**湖工商场景**](https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb )**(WindowsNoEditor)**，并运行**[generate_traffic.py](https://github.com/OpenHUTB/carla_doc/tree/master/src/examples/generate_traffic.py)**
-=======
   - **[spectator.py](https://github.com/OpenHUTB/carla_doc/blob/master/course/spectator/spectator.py)**
 
   - [**湖工商场景**](https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb )**(WindowsNoEditor)**，并运行**[generate_traffic.py](https://github.com/OpenHUTB/carla_doc/blob/master/examples/generate_traffic.py)**
->>>>>>> e405afe1fb05d1ec09938d63635dc7fbef36cea2
+
 
 - 安装必要的python库
 

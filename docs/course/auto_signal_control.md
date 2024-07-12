@@ -4,12 +4,7 @@
 
 #### 主要功能
 
-<<<<<<< HEAD
-[应用程序](https://github.com/OpenHUTB/carla_doc/tree/master/src/course/auto_signal_control.py)主要功能包括：
-=======
 [应用程序](https://github.com/OpenHUTB/carla_doc/blob/master/course/auto_signal_control.py) 主要功能包括：
->>>>>>> e405afe1fb05d1ec09938d63635dc7fbef36cea2
-
 1. 获取指定路口的交通流量。
 2. 根据交通流量动态调整红绿灯（绿灯）的时长。
 3. 返回指定路口当前全部红绿灯的状态和时长信息。
