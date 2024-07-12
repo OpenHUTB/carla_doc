@@ -169,8 +169,7 @@ sensor02.listen(callback)
 <p><br></p>
 <div class="admonition 重要">
 <p class="admonition-title">重要</p>
-<p><code>is_listening</code> 是一个 <strong>传感器属性</strong> ，可以随意启用/禁用数据监听。<br />
-<code>sensor_tick</code> 是一个 <strong>蓝图属性</strong> ，用于设置接收数据之间的仿真时间。  </p>
+<p><code>is_listening</code>是一种传感器方法，用于检查传感器是否有通过<code>listen</code>注册的回调。<code>stop()</code>是一种停止传感器监听的 <strong>传感器方法</strong> 。<code>sensor_tick</code>是一个<strong>蓝图属性</strong>，用于设置接收数据之间的模拟时间。</p>
 </div>
 <hr />
 <h2 id="_7">传感器类型</h2>
@@ -242,7 +241,7 @@ sensor02.listen(callback)
 <td>检索其父级与其他参与者之间的碰撞。</td>
 </tr>
 <tr>
-<td>车道入侵</td>
+<td>压线</td>
 <td><a href="../python_api#carlalaneinvasionevent">carla.LaneInvasionEvent</a></td>
 <td>当其父级穿过车道标记时进行注册。</td>
 </tr>

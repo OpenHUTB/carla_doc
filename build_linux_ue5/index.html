@@ -154,7 +154,16 @@ u盘启动过程中，会出现选择界面，try ubuntu 、install ubuntu等，
 <pre><code class="language-shell">update-initramfs -u
 </code></pre>
 <p>然后输入<code>reboot</code>重启。</p>
-<h3 id="_5">其他</h3>
+<h3 id="_5">编译</h3>
+<pre><code class="language-shell">bin/clang&quot; is not able to compile a simple test program.
+</code></pre>
+<pre><code class="language-shell">clang++ --version
+</code></pre>
+<p>确定clang没有安装，执行：</p>
+<pre><code class="language-shell">sudo apt-get install clang
+</code></pre>
+<p>还是找不到！！！</p>
+<h3 id="_6">其他</h3>
 <p>科学上网配置<a href="https://opclash.com/article/302.html">教程</a> 。下载<a href="https://github.com/zhongfly/Clash-premium-backup/releases/download/2023-09-05-gdcc8d87/clash-linux-amd64-n2023-09-05-gdcc8d87.gz">clash</a> 。</p>
 <p>首次启动<code>clash</code></p>
 <pre><code class="language-shell">cd $HOME/.config/clash/

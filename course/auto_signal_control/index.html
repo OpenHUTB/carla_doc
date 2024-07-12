@@ -82,81 +82,74 @@
 <li>无需传入参数，该应用程序自动检测指定路口的交通流量并调整红绿灯的时长。</li>
 </ul>
 <h4 id="_4">核心实现步骤</h4>
-<ol>
-<li><strong>初始化和连接Carla服务器</strong>：获取世界对象并设置仿真参数。</li>
-</ol>
-<p><code>client = carla.Client('localhost', 2000)
-       client.set_timeout(10.0)
-       world = client.get_world()</code></p>
-<ol>
-<li><strong>获取路口信息</strong>：通过中心位置获取指定路口的交通信号灯信息。</li>
-</ol>
-<p>为了保证每次请求不会往该路口的交通灯集合中新加重复的红绿灯，先用集合存储红绿灯的唯一ID</p>
-<p><code>traffics_in_junction = set()</code></p>
-<p><code>def get_traffic_lights_in_junction(world, junction):
-       """获取路口的所有红绿灯"""
-       traffic_lights = world.get_actors().filter('traffic.traffic_light')
-       for traffic_light in traffic_lights:
-           if get_distance(traffic_light.get_location(), center_location[0]) &lt;= 50:
-               id = traffic_light.get_opendrive_id()
-               traffics_in_junction.add(id)</code></p>
-<p><code>def get_light(all_traffic_lights):
-       """根据红绿灯ID列表获取对应的红绿灯对象"""
-       drive_list = list(traffics_in_junction)
-       traffic_lights = []
-       for traffic_light in all_traffic_lights:
-           if traffic_light.get_opendrive_id() in drive_list:
-               traffic_lights.append(traffic_light)
-       return traffic_lights</code></p>
-<ol>
-<li><strong>计算交通流量</strong>：检测指定范围内的车辆数量。</li>
-</ol>
-<p>```
-   def get_vehicles_in_intersection(world, intersection_location, intersection_radius):
-       """获取路口范围内的车辆数量"""
-       vehicles = world.get_actors().filter('vehicle.*')
-       vehicles_in_intersection = []</p>
-<pre><code>   for vehicle in vehicles:
-       distance = get_distance(vehicle.get_location(), intersection_location)
-       if distance &lt;= intersection_radius:
-           vehicles_in_intersection.append(vehicle)
-
-   return len(vehicles_in_intersection)
+<p><strong>1.初始化和连接Carla服务器</strong>：获取世界对象并设置仿真参数。</p>
+<pre><code>    client = carla.Client('localhost', 2000)
+    client.set_timeout(10.0)
+    world = client.get_world()
 </code></pre>
-<p>```</p>
-<ol>
-<li><strong>调整红绿灯时长</strong>：根据交通流量动态调整红绿灯的时长。</li>
-</ol>
-<p>```
-    if junction_flow &gt; 15:
-           for traffic_light in get_light(all_traffic_lights):
-               traffic_light.set_green_time(GREEN_TIME + 15)
-               last_green_time = GREEN_TIME + 15
-       elif junction_flow &gt; 10:
-           for traffic_light in get_light(all_traffic_lights):
-               traffic_light.set_green_time(GREEN_TIME + 10)
-               last_green_time = GREEN_TIME + 10
-       elif junction_flow &gt; 5:
-           for traffic_light in get_light(all_traffic_lights):
-               traffic_light.set_green_time(GREEN_TIME + 5)
-               last_green_time = GREEN_TIME + 5
-       else:
-           for traffic_light in get_light(all_traffic_lights):
-               traffic_light.set_green_time(GREEN_TIME)
-               last_green_time = GREEN_TIME</p>
-<p>```</p>
-<ol>
-<li><strong>返回结果</strong>：返回当前红绿灯的状态和调整后的时长信息。</li>
-</ol>
-<p>```
-    response_data = {
-               "traffic_lights": [
-                   {"id": traffic_ids},
-                   {"init_green_time": traffic_init_green_time},
-                   {"last_green_time": last_green_time}
-               ]
-           }</p>
-<p>```</p>
+<p><strong>2.获取路口信息</strong>：通过中心位置获取指定路口的交通信号灯信息。</p>
+<p>为了保证每次请求不会往该路口的交通灯集合中新加重复的红绿灯，先用集合存储红绿灯的唯一ID</p>
+<pre><code>traffics_in_junction = set()
+</code></pre>
+<pre><code>def get_traffic_lights_in_junction(world, junction):
+    &quot;&quot;&quot;获取路口的所有红绿灯&quot;&quot;&quot;
+    traffic_lights = world.get_actors().filter('traffic.traffic_light')
+    for traffic_light in traffic_lights:
+        if get_distance(traffic_light.get_location(), center_location[0]) &lt;= 50:
+            id = traffic_light.get_opendrive_id()
+            traffics_in_junction.add(id)
+</code></pre>
+<pre><code>def get_light(all_traffic_lights):
+    &quot;&quot;&quot;根据红绿灯ID列表获取对应的红绿灯对象&quot;&quot;&quot;
+    drive_list = list(traffics_in_junction)
+    traffic_lights = []
+    for traffic_light in all_traffic_lights:
+        if traffic_light.get_opendrive_id() in drive_list:
+            traffic_lights.append(traffic_light)
+    return traffic_lights
+</code></pre>
+<p><strong>3.计算交通流量</strong>：检测指定范围内的车辆数量。</p>
+<pre><code>def get_vehicles_in_intersection(world, intersection_location, intersection_radius):
+    &quot;&quot;&quot;获取路口范围内的车辆数量&quot;&quot;&quot;
+    vehicles = world.get_actors().filter('vehicle.*')
+    vehicles_in_intersection = []
+
+    for vehicle in vehicles:
+        distance = get_distance(vehicle.get_location(), intersection_location)
+        if distance &lt;= intersection_radius:
+            vehicles_in_intersection.append(vehicle)
+
+    return len(vehicles_in_intersection)
+</code></pre>
+<p><strong>4.调整红绿灯时长</strong>：根据交通流量动态调整红绿灯的时长。</p>
+<pre><code> if junction_flow &gt; 15:
+        for traffic_light in get_light(all_traffic_lights):
+            traffic_light.set_green_time(GREEN_TIME + 15)
+            last_green_time = GREEN_TIME + 15
+    elif junction_flow &gt; 10:
+        for traffic_light in get_light(all_traffic_lights):
+            traffic_light.set_green_time(GREEN_TIME + 10)
+            last_green_time = GREEN_TIME + 10
+    elif junction_flow &gt; 5:
+        for traffic_light in get_light(all_traffic_lights):
+            traffic_light.set_green_time(GREEN_TIME + 5)
+            last_green_time = GREEN_TIME + 5
+    else:
+        for traffic_light in get_light(all_traffic_lights):
+            traffic_light.set_green_time(GREEN_TIME)
+            last_green_time = GREEN_TIME
+
+</code></pre>
+<p><strong>5.返回结果</strong>：返回当前红绿灯的状态和调整后的时长信息。</p>
+<pre><code> response_data = {
+            &quot;traffic_lights&quot;: [
+                {&quot;id&quot;: traffic_ids},
+                {&quot;init_green_time&quot;: traffic_init_green_time},
+                {&quot;last_green_time&quot;: last_green_time}
+            ]
+        }
+
+</code></pre>
 <h4 id="_5">使用步骤</h4>
 <p>获取路口交通灯信息，可以发送一个GET请求到 <code>/set_traffic_light</code>路由,应用程序会自动根据路口的交通流量调整红绿灯的时长并返回结果。</p>
 <ol>
