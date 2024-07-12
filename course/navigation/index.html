@@ -70,11 +70,11 @@
               
                 <h1 id="_1">自定义车辆运行轨迹</h1>
 <p>​   车辆运动支持定义车辆运动起点和目标位置，为每辆车指定随机速度值，使其沿轨迹移动时不会发生碰撞或模拟碰撞，看到车辆沿指定轨迹行驶以到达其目标位置。</p>
-<p>​   本示例设计了一个  <a href="../../src/course/navigation/automatic_control_revised.py"><strong>automatic_control_revised.py</strong></a>  脚本进行实现</p>
+<p>​   本示例设计了一个  <a href="https://github.com/OpenHUTB/carla_doc/blob/master/course/navigation/automatic_control_revised.py"><strong>automatic_control_revised.py</strong></a>  脚本进行实现</p>
 <p><img alt="" src="../../img/traffic_course_img/4.gif" /></p>
-<p><strong>注意</strong>  需要将 <a href="../../src/carla_agent"><strong>agents</strong></a> 文件夹位置添加到代码环境变量中，或者复制该文件夹使其与本示例脚本同级。</p>
+<p><strong>注意</strong>  需要将 <a href="https://github.com/OpenHUTB/carla_doc/tree/master/src/carla_agent"><strong>agents</strong></a> 文件夹位置添加到代码环境变量中，或者复制该文件夹使其与本示例脚本同级。</p>
 <p><a href="https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb"><strong>湖工商场景</strong></a><strong>(WindowsNoEditor)</strong></p>
-<p>​   自定义一些生成位置的起始点坐标<span id="definePoint"></span></p>
+<p>自定义一些生成位置的起始点坐标<span id="definePoint"></span></p>
 <pre><code class="language-python">diming = {
     &quot;北门&quot;: {&quot;x&quot;: 224.2, &quot;y&quot;: 1.7, &quot;z&quot;: 1},
     &quot;西门&quot;: {&quot;x&quot;: -146, &quot;y&quot;: -161, &quot;z&quot;: 10},
@@ -86,7 +86,7 @@
     &quot;科技楼&quot;: {&quot;x&quot;: -97.4, &quot;y&quot;: -217, &quot;z&quot;: 15},
 }
 </code></pre>
-<p>​   定义命令行参数</p>
+<p>定义命令行参数</p>
 <pre><code class="language-python"> argparser = argparse.ArgumentParser(
         description=__doc__)
     argparser.add_argument(
@@ -102,7 +102,7 @@
         default=5,
         type=int)
 </code></pre>
-<p>​   获取仿真时间对象及设置</p>
+<p>获取仿真时间对象及设置</p>
 <pre><code class="language-python">client = carla.Client('localhost', 2000)
 client.set_timeout(10)
 world = client.get_world()
@@ -114,7 +114,7 @@ settings.synchronous_mode = True
 settings.fixed_delta_seconds = 0.05
 world.apply_settings(settings)
 </code></pre>
-<p>​   从车辆蓝图中自定义车辆对象，并获取车辆起点坐标</p>
+<p>从车辆蓝图中自定义车辆对象，并获取车辆起点坐标</p>
 <pre><code class="language-python"># 生成车辆和代理
 blueprint_library = world.get_blueprint_library()
 # 将diming字典中的每个键值对转换为一个carla.Location对象
@@ -130,7 +130,7 @@ vehicle = world.spawn_actor(ego_vehicle_bp, spawn_point)
 #推进仿真环境时间
 world.tick()
 </code></pre>
-<p>​   生成终点，给起点和终点生成一个车辆运行轨迹，定义初始速度<span id="initSpeed"></span></p>
+<p>生成终点，给起点和终点生成一个车辆运行轨迹，定义初始速度<span id="initSpeed"></span></p>
 <pre><code class="language-python"> # 设置初始速度
  vehicle.set_target_velocity(carla.Vector3D(args.speed, 0, 0))
 # 创建代理
@@ -140,7 +140,7 @@ start = vehicle.get_location()
 # 生成轨迹
 agent.set_destination(destination)
 </code></pre>
-<p>​   给目标车辆设置多个相机传感器。这些相机可以提供不同的视角,用于观察和记录车辆在仿真环境中的行为。</p>
+<p>给目标车辆设置多个相机传感器。这些相机可以提供不同的视角,用于观察和记录车辆在仿真环境中的行为。</p>
 <pre><code class="language-python"># 查找相机蓝图
 camera_bp = world.get_blueprint_library().find('sensor.camera.rgb')
 
@@ -173,7 +173,7 @@ for spectator_transform_index in spectator_transform_list:
                                    attach_to=vehicle, attachment_type=spectator_transform_index[1])
         spectator_obj_list.append(camera)
 </code></pre>
-<p>​   更新代理、切换视角、处理代理局部规划器中的路径点。</p>
+<p>更新代理、切换视角、处理代理局部规划器中的路径点。</p>
 <pre><code class="language-python"># 设置Vehicle_transform_list[0]为初始视图(上帝视图)；
 spectator_obj = Vehicle_transform_list[0]
 c = 1

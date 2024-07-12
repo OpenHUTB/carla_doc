@@ -69,10 +69,10 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="drivepy">轨迹跟踪  Drive.py</h1>
-<p>​   本示例使用  <strong>Carla</strong>  模拟器来执行轨迹跟踪任务， <a href="../../src/course/trajectory_tracking/Drive.py"><strong>Drive.py</strong></a>  主要功能包括连接CARLA服务器、设置模拟环境、生成车辆、读取和处理路径点数据、控制车辆运动、记录和保存仿真结果下面对于主要函数进行介绍。</p>
-<p>基于 <a href="https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb"><strong>湖工商场景</strong></a><strong>(WindowsNoEditor)</strong>，首先需要运行<a href="../../src/examples/generate_traffic.py">generate_traffic.py</a></p>
+<p>本示例使用  <strong>Carla</strong>  模拟器来执行轨迹跟踪任务， <a href="https://github.com/OpenHUTB/carla_doc/blob/master/course/trajectory_tracking/Drive.py"><strong>Drive.py</strong></a> 主要功能包括连接CARLA服务器、设置模拟环境、生成车辆、读取和处理路径点数据、控制车辆运动、记录和保存仿真结果下面对于主要函数进行介绍。</p>
+<p>基于 <a href="https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb"><strong>湖工商场景</strong></a><strong>(WindowsNoEditor)</strong>，首先需要运行<a href="https://github.com/OpenHUTB/carla_doc/blob/master/examples/generate_traffic.py">generate_traffic.py</a> 。</p>
 <h2 id="carla">定义CARLA设置</h2>
-<p>​   创建 <strong>Carla</strong> 的世界设置对象，并根据配置设置天气条件</p>
+<p>创建 <strong>Carla</strong> 的世界设置对象，并根据配置设置天气条件</p>
 <pre><code class="language-python">#定义了一些全局变量用于控制模拟参数，如迭代次数、等待时间、总运行时间、天气条件等。
 ITER_FOR_SIM_TIMESTEP = 10
 WAIT_TIME_BEFORE_START = 5.00
@@ -135,7 +135,7 @@ def make_carla_settings():
 
 </code></pre>
 <h2 id="_2">获取车辆信息</h2>
-<p>​   获取车辆的当前位置和偏航角</p>
+<p>获取车辆的当前位置和偏航角</p>
 <pre><code>def get_current_pose(vehicle):
     transform = vehicle.get_transform()
     x = transform.location.x
@@ -144,7 +144,7 @@ def make_carla_settings():
     return (x, y, yaw)
 
 </code></pre>
-<p>​   发送控制命令给车辆，控制油门、刹车、方向盘等</p>
+<p>发送控制命令给车辆，控制油门、刹车、方向盘等</p>
 <pre><code>def send_control_command(vehicle, throttle, steer, brake, hand_brake=False, reverse=False):
     control = carla.VehicleControl()
     steer = np.fmax(np.fmin(steer, 1.0), -1.0)
@@ -157,19 +157,17 @@ def make_carla_settings():
     control.hand_brake = hand_brake
     control.reverse = reverse
     vehicle.apply_control(control)
-
 </code></pre>
-<p>​    将车辆的轨迹数据写入CSV文件</p>
+<p>将车辆的轨迹数据写入CSV文件</p>
 <pre><code>def write_trajectory_file(x_list, y_list, v_list, t_list, vehicle_id):
     create_controller_output_dir(CONTROLLER_OUTPUT_FOLDER)
     file_name = os.path.join(CONTROLLER_OUTPUT_FOLDER, f'Trajectory_{vehicle_id}.csv')
     with open(file_name, 'w') as trajectory_file:
         for i in range(len(x_list)):
             trajectory_file.write('%0.3f, %0.3f, %0.3f, %0.3f\n' % (t_list[i], x_list[i], y_list[i], v_list[i]))
-
 </code></pre>
 <h2 id="_3">执行轨迹跟踪任务</h2>
-<p>​   执行轨迹跟踪任务，包括连接CARLA服务器、设置模拟环境、生成车辆等</p>
+<p>执行轨迹跟踪任务，包括连接CARLA服务器、设置模拟环境、生成车辆等</p>
 <pre><code>def exec_waypoint_nav_demo(args):
     client = carla.Client(args.host, args.port)
     client.set_timeout(10.0)

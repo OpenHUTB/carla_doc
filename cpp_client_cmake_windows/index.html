@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Ref cpp - 交通仿真文档</title>
+    <title>Cpp client cmake windows - 交通仿真文档</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,8 +13,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Ref cpp";
-        var mkdocs_page_input_path = "ref_cpp.md";
+        var mkdocs_page_name = "Cpp client cmake windows";
+        var mkdocs_page_input_path = "cpp_client_cmake_windows.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -58,9 +58,9 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Ref cpp</li>
+      <li class="breadcrumb-item active">Cpp client cmake windows</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/ref_cpp.md" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/cpp_client_cmake_windows.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -68,38 +68,73 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="c"><a href="https://carla.readthedocs.io/en/latest/ref_cpp/">C++ 参考</a></h1>
-<h2 id="c_1">C++ 客户端</h2>
-<p>C++客户端可以在 Linux 上用<code>make</code>构建，在Windows上用<code>cmake</code>构建。<code>CARLA_ROOT/Examples/CppClient/main.cpp</code>中的存储库中提供了一个C++客户端示例。这个示例展示了如何将C++客户端连接到CARLA服务器，并使用API执行一些简单的任务。</p>
-<p>要构建示例C++客户端，请在存储库的<code>CARLA_ROOT/Examples/CppClient</code>目录中打开一个终端。在此文件夹中运行<code>make</code>，然后执行 <code>./bin/cpp_client</code> 来运行示例。该示例将从可用地图中选择一个随机地图，然后加载它。然后，它将生成一辆车并对该车应用控制。</p>
-<p>有关此示例脚本的更多详细信息，请参阅 <a href="../adv_cpp_client/">C++客户端示例</a> 。</p>
-<h2 id="c_2">C++ 文档</h2>
-<p>我们使用 Doxygen 生成 C++ 代码的文档：</p>
-<p><a href="http://carla.org/Doxygen/html/dir_b9166249188ce33115fd7d5eed1849f2.html">Libcarla/source</a> <br>
-<a href="http://carla.org/Doxygen/html/dir_733e9da672a36443d0957f83d26e7dbf.html">Unreal/CarlaUE4/Source</a> <br>
-<a href="http://carla.org/Doxygen/html/dir_8fc34afb5f07a67966c78bf5319f94ae.html">Unreal/CarlaUE4/Plugins</a></p>
-<p>生成的文档可通过此 <a href="http://carla.org/Doxygen/html/index.html">链接</a> 获取。</p>
-<div class="admonition 笔记">
-<p class="admonition-title">笔记</p>
-<p>文档更新由 GitHub 自动完成。</p>
-</div>
-<h3 id="doxygen">创建 doxygen 文档</h3>
-<div class="admonition 重要">
-<p class="admonition-title">重要</p>
-<p>需要 <a href="http://www.doxygen.nl/index.html">Doxygen</a> 来生成文档，需要 <a href="https://www.graphviz.org/">Graphviz</a> 作为图形绘制工具包。 </p>
-</div>
-<p>1- 使用以下命令安装 doxygen 和 graphviz：</p>
-<pre><code class="language-sh"># linux
-sudo apt-get install doxygen graphviz
+                <pre><code class="language-make">cmake_minimum_required(VERSION 3.5.1)
+project(example)
+
+link_directories(
+    ${RPCLIB_LIB_PATH})
+
+file(GLOB example_sources &quot;*.cpp&quot; &quot;*.h&quot;)
+
+file(GLOB example_client_sources &quot;&quot;)
+
+set(carla_config client)
+list(APPEND build_targets example_${carla_config}_debug)
+
+# Create targets for debug and release in the same build type.
+foreach(target ${build_targets})
+
+  add_executable(${target} ${example_sources})
+
+  target_compile_definitions(${target} PUBLIC
+      -DLIBCARLA_ENABLE_PROFILER)
+
+  target_include_directories(${target} SYSTEM PRIVATE
+      &quot;../../LibCarla/source&quot;
+      &quot;../../Build/boost-1.80.0-install/include&quot;
+      &quot;../../Build/rpclib-install/include/&quot;
+      &quot;../../Build/recast-22dfcb-install/include/&quot;
+      &quot;../../Build/zlib-install/include/&quot;
+      &quot;../../Build/libpng-1.2.37-install/include/&quot;
+      &quot;../../LibCarla/source/third-party/&quot;)
+
+  target_link_directories(${target} SYSTEM PRIVATE
+      &quot;../../Build/boost-1.80.0-install/lib&quot;
+      &quot;../../Build/rpclib-install/lib/&quot;
+      &quot;../../Build/recast-22dfcb-install/lib/&quot;
+      &quot;../../Build/zlib-install/lib/&quot;
+      &quot;../../Build/libcarla-visualstudio/LibCarla/cmake/client/Release/&quot;
+      &quot;../../Build/libpng-1.2.37-install/lib/&quot;)
+
+  target_include_directories(${target} PRIVATE
+      &quot;${libcarla_source_path}/test&quot;)
+
+  if (WIN32)
+      target_link_libraries(${target} &quot;rpc.lib&quot;)
+      target_link_libraries(${target} &quot;carla_client.lib&quot;)
+      target_link_libraries(${target} &quot;DebugUtils.lib&quot;)
+      target_link_libraries(${target} &quot;Detour.lib&quot;)
+      target_link_libraries(${target} &quot;DetourCrowd.lib&quot;)
+      target_link_libraries(${target} &quot;DetourTileCache.lib&quot;)
+      target_link_libraries(${target} &quot;Recast.lib&quot;)
+      target_link_libraries(${target} &quot;Shlwapi.lib&quot;)
+  else()
+      target_link_libraries(${target} &quot;-lrpc&quot;)
+  endif()
+
+  install(TARGETS ${target} DESTINATION test OPTIONAL)
+endforeach(target)
+
+if (LIBCARLA_BUILD_DEBUG)
+  # Specific options for debug.
+  set_target_properties(example_${carla_config}_debug PROPERTIES COMPILE_FLAGS &quot;${CMAKE_CXX_FLAGS_DEBUG}&quot;)
+  target_link_libraries(example_${carla_config}_debug &quot;carla_${carla_config}${carla_target_postfix}_debug&quot;)
+  target_compile_definitions(example_${carla_config}_debug PUBLIC -DBOOST_ASIO_ENABLE_BUFFER_DEBUGGING)
+  if (CMAKE_BUILD_TYPE STREQUAL &quot;Client&quot;)
+      target_link_libraries(example_${carla_config}_debug &quot;${BOOST_LIB_PATH}/libboost_filesystem.a&quot;)
+  endif()
+endif()
 </code></pre>
-<p>2- 安装后，转到 <em>Doxyfile</em> 文件所在的项目根文件夹并运行以下命令：</p>
-<pre><code class="language-sh">doxygen
-</code></pre>
-<p>它将开始构建文档网页。
-生成的网页可以在 Doxygen/html/ 中找到</p>
-<p>3- 在浏览器中打开 <em>index.html</em> 。现在您已经有了本地 cpp 文档！</p>
-<h2 id="_1">阅读</h2>
-<p><strong>HUD</strong>: Heads-up Displays, 头显。用户界面 （UI）和 头显 （HUD）是游戏向玩家提供游戏信息以及在某些情况下允许玩家与游戏互动的方式。HUD指的是游戏期间在屏幕上覆盖的状态和信息。HUD的目的是 告知玩家当前游戏状态，即分数、生命值、游戏剩余时间等。 HUD通常是不可互动的，意味着玩家不能单击HUD的元素，因此 在HUD和用户界面难以分离的某些类型游戏中，这些元素会显示为灰色区域。</p>
               
             </div>
           </div><footer>

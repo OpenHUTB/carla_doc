@@ -69,9 +69,9 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="_1">手动信号控制</h1>
-<p>这是一个用于控制红绿灯的Flask应用程序，通过<a href="https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb">Carla仿真环境</a>实现。用户可以通过指定红绿灯的OpenDRIVE ID、颜色ID以及设置时长来控制红绿灯的状态。红绿灯的颜色设置包括绿灯、黄灯和红灯，分别对应颜色ID [1, 2, 3]。颜色持续时间以秒为单位。</p>
+<p>这是一个用于控制红绿灯的Flask应用程序，通过 <a href="https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb">Carla仿真环境</a> 实现。用户可以通过指定红绿灯的OpenDRIVE ID、颜色ID以及设置时长来控制红绿灯的状态。红绿灯的颜色设置包括绿灯、黄灯和红灯，分别对应颜色ID [1, 2, 3]。颜色持续时间以秒为单位。</p>
 <h4 id="_2">参数说明</h4>
-<p><a href="../../src/course/signal_control.py">脚本</a>接收以下参数：</p>
+<p><a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/course/signal_control.py">脚本</a> 接收以下参数：</p>
 <ol>
 <li><code>--traffic_id</code> (<code>-I</code>): 目标红绿灯的OpenDrive ID。</li>
 <li><code>--color_id</code> (<code>-C</code>): 红绿灯颜色ID，对应绿灯、黄灯和红灯，分别为1、2和3。</li>
@@ -99,53 +99,52 @@
 <p>应用程序的主要功能是根据用户提供的参数设置指定红绿灯的颜色和持续时间。具体实现步骤如下：</p>
 <p>1.接收用户请求，并解析传入的参数。</p>
 <p>2.连接到Carla仿真服务器并获取当前世界对象。</p>
-<pre><code>    client = carla.Client('localhost', 2000)
-    client.set_timeout(10.0)  # 设置超时
-    world = client.get_world()  # 获取世界对象
+<pre><code>client = carla.Client('localhost', 2000)
+client.set_timeout(10.0)  # 设置超时
+world = client.get_world()  # 获取世界对象
 </code></pre>
 <p>3.查找指定的红绿灯对象,输出修改前的灯光时间。</p>
-<pre><code>    for traffic_light in traffic_lights:
-        if float(traffic_light.get_opendrive_id()) == traffic_id:
-            if color_id == 1:
-                init_time = traffic_light.get_green_time()
-            elif color_id == 2:
-                init_time = traffic_light.get_yellow_time()
-            elif color_id == 3:
-                init_time = traffic_light.get_red_time()
+<pre><code>for traffic_light in traffic_lights:
+    if float(traffic_light.get_opendrive_id()) == traffic_id:
+        if color_id == 1:
+            init_time = traffic_light.get_green_time()
+        elif color_id == 2:
+            init_time = traffic_light.get_yellow_time()
+        elif color_id == 3:
+            init_time = traffic_light.get_red_time()
 </code></pre>
 <p>4.跳转视角到该红绿灯合适的位置。</p>
-<pre><code>    lights_setting = [
-        [-6, carla.Transform(carla.Location(x=-220, y=-9, z=5), carla.Rotation(yaw=180))],
-        [-5, carla.Transform(carla.Location(x=-260, y=35, z=5), carla.Rotation(yaw=-90))]
-    ]
+<pre><code>lights_setting = [
+    [-6, carla.Transform(carla.Location(x=-220, y=-9, z=5), carla.Rotation(yaw=180))],
+    [-5, carla.Transform(carla.Location(x=-260, y=35, z=5), carla.Rotation(yaw=-90))]
+]
 </code></pre>
-<pre><code>      spectator = world.get_spectator()
-        for setting in lights_setting:
-            if setting[0] == traffic_id:
-                spectator.set_transform(setting[1])
-                break
+<pre><code>spectator = world.get_spectator()
+for setting in lights_setting:
+    if setting[0] == traffic_id:
+        spectator.set_transform(setting[1])
+        break
 </code></pre>
 <p>5.根据颜色ID设置红绿灯的持续时间。</p>
-<pre><code>        for traffic_light in traffic_lights:
-            if float(traffic_light.get_opendrive_id()) == traffic_id:
-                if color_id == 1:
-                    traffic_light.set_green_time(float(color_time))
-                    color_name = &quot;绿色&quot;
-                elif color_id == 2:
-                    traffic_light.set_yellow_time(float(color_time))
-                    color_name = &quot;黄色&quot;
-                elif color_id == 3:
-                    traffic_light.set_red_time(float(color_time))
-                    color_name = &quot;红色&quot;
-
+<pre><code>for traffic_light in traffic_lights:
+    if float(traffic_light.get_opendrive_id()) == traffic_id:
+        if color_id == 1:
+            traffic_light.set_green_time(float(color_time))
+            color_name = &quot;绿色&quot;
+        elif color_id == 2:
+            traffic_light.set_yellow_time(float(color_time))
+            color_name = &quot;黄色&quot;
+        elif color_id == 3:
+            traffic_light.set_red_time(float(color_time))
+            color_name = &quot;红色&quot;
 </code></pre>
 <p>6.返回设置结果的JSON响应。</p>
-<pre><code>        response_data = {
-            &quot;id&quot;: traffic_id,
-            &quot;color&quot;: color_name,
-            &quot;init_time&quot;: init_time,
-            &quot;last_time&quot;: color_time
-        }
+<pre><code>response_data = {
+    &quot;id&quot;: traffic_id,
+    &quot;color&quot;: color_name,
+    &quot;init_time&quot;: init_time,
+    &quot;last_time&quot;: color_time
+}
 </code></pre>
 <h4 id="_6">注意事项</h4>
 <ul>
