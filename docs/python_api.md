@@ -417,6 +417,28 @@ Carla 为 Actor 提供了一个蓝图库，可以通过 [carla.BlueprintLibrary]
 将边界框的位置和范围解析为字符串。  
     - **返回：** _str_  
 
+##### 魔术方法
+- <a name="carla.CAMData.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
+
+---
+
+## carla.CAMEvent<a name="carla.CAMEvent"></a>
+<small style="display:block;margin-top:-20px;">继承自 _[carla.SensorData](#carla.SensorData)_</small></br>
+定义 **sensor.other.v2x** 提供的数据的类。这是一种集合类型，用于组合返回多个 [CAMData](#carlacamdata)。
+
+### 方法
+
+##### 获取器
+- <a name="carla.CAMEvent.get_message_count"></a>**<font color="#7fb800">get_message_count</font>**(<font color="#00a6ed">**self**</font>)  
+获取接受到的 CAM 数量。  
+    - **返回：** _int_  
+
+##### 魔术方法
+- <a name="carla.CAMEvent.__get_item__"></a>**<font color="#7fb800">\__get_item__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**pos**=int</font>)  
+- <a name="carla.CAMEvent.__iter__"></a>**<font color="#7fb800">\__iter__</font>**(<font color="#00a6ed">**self**</font>)  
+在获取到的 [CAMData](#carlacamdata) 数据上迭代。 
+- <a name="carla.CAMEvent.__len__"></a>**<font color="#7fb800">\__len__</font>**(<font color="#00a6ed">**self**</font>)  
+
 ---
 
 ## carla.CityObjectLabel<a name="carla.CityObjectLabel"></a>
@@ -550,12 +572,12 @@ _</font>
 通过在“version.h”文件中查阅客户端libcarla版本，返回该版本。客户端和服务器都可以使用不同的libcarla版本，但可能会出现一些与意外不兼容有关的问题。 
     - **返回：** _str_  
 - <a name="carla.Client.get_required_files"></a>**<font color="#7fb800">get_required_files</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**folder**</font>, <font color="#00a6ed">**download**=True</font>)  
-询问服务器客户端需要哪些文件才能使用当前地图。选项，如果文件不在缓存中，则自动下载文件。
+询问服务器客户端需要哪些文件才能使用当前地图。如果文件不在缓存中，则自动下载文件。
     - **参数：**
-        - `folder` (_str_) - 将客户端所需文件下载到的文件夹。
-        - `download` (_bool_) - 如果为True，则下载尚未在缓存中的文件。 
+        - `folder` (_str_) - 指定要在服务器地图上查看的文件夹。该参数为空将递归搜索服务器中的所有地图文件夹，如果您不熟悉服务器地图文件夹结构，建议这样做。 
+        - `download` (_bool_) - 如果为 `True`，则下载缓存中尚未存在的文件。缓存可以在`HOME\carlaCache`或`USERPROFILE\carlaCache`中找到，具体取决于操作系统。
 - <a name="carla.Client.get_server_version"></a>**<font color="#7fb800">get_server_version</font>**(<font color="#00a6ed">**self**</font>)  
-通过在“version.h”文件中查阅服务器libcarla版本，返回该版本。客户端和服务器都应该使用相同的libcarla版本。  
+通过在`version.h`文件中查阅服务器libcarla版本，返回该版本。客户端和服务器都应该使用相同的libcarla版本。  
     - **返回：** _str_  
 - <a name="carla.Client.get_trafficmanager"></a>**<font color="#7fb800">get_trafficmanager</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**client_connection**=8000</font>)  
 返回与指定端口相关的交通管理器实例。如果该实例不存在，则会创建该实例。 
@@ -642,6 +664,43 @@ Alpha 通道 (0-255)。
 使用对数刻度将图像转换为深度图，从而在小距离上获得更好的精度，但在距离较远时会丢失精度。
 - <a name="carla.ColorConverter.Raw"></a>**<font color="#f8805a">Raw</font>**  
 未对图像应用任何更改。由 [RGB 相机](ref_sensors.md#rgb-camera) 使用。
+
+---
+
+## carla.CustomV2XData<a name="carla.CustomV2XData"></a>
+<small style="display:block;margin-top:-20px;">继承自 _[carla.SensorData](#carla.SensorData)_</small></br>
+这是定义自定义V2X消息的数据类型。作为 [CustomV2XEvent](#carlacustomv2xevent) 的一部分接收。
+
+### 实例变量
+- <a name="carla.CustomV2XData.power"></a>**<font color="#f8805a">power</font>** (_float - 毫瓦分贝 dBm_)  
+接收功率。 
+
+### 方法
+- <a name="carla.CustomV2XData.get"></a>**<font color="#7fb800">get</font>**(<font color="#00a6ed">**self**</font>)  
+获取自定义消息。返回包含消息的嵌套字典。它有两个主键： - `Header` : dict - `Message`: str.  
+    - **返回：** _dict_  
+
+##### 魔术方法
+- <a name="carla.CustomV2XData.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
+
+---
+
+## carla.CustomV2XEvent<a name="carla.CustomV2XEvent"></a>
+<small style="display:block;margin-top:-20px;">继承自 _[carla.SensorData](#carla.SensorData)_</small></br>
+定义**sensor.other.v2x_custom**提供的数据的类。这是一种集合类型，用于组合返回多个 [CustomV2XData](#carlacustomv2xdata) 。  
+
+### 方法
+
+##### 获取器
+- <a name="carla.CustomV2XEvent.get_message_count"></a>**<font color="#7fb800">get_message_count</font>**(<font color="#00a6ed">**self**</font>)  
+获取接受到的 CAM 数量。  
+    - **返回：** _int_  
+
+##### 魔术方法
+- <a name="carla.CustomV2XEvent.__get_item__"></a>**<font color="#7fb800">\__get_item__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**pos**=int</font>)  
+- <a name="carla.CustomV2XEvent.__iter__"></a>**<font color="#7fb800">\__iter__</font>**(<font color="#00a6ed">**self**</font>)  
+在获取的 [CustomV2XData](#carlacustomv2xdata) 数据上进行迭代。
+- <a name="carla.CustomV2XEvent.__len__"></a>**<font color="#7fb800">\__len__</font>**(<font color="#00a6ed">**self**</font>)  
 
 ---
 
@@ -833,7 +892,7 @@ Alpha 通道。
 ---
 
 ## carla.GBufferTextureID<a name="carla.GBufferTextureID"></a>
-定义每个GBuffer纹理的标识符 (参见方法 `[carla.Sensor.listen_to_gbuffer](#carla.Sensor.listen_to_gbuffer)`)。 
+定义每个GBuffer纹理 (参见方法 `[carla.Sensor.listen_to_gbuffer](#carla.Sensor.listen_to_gbuffer)`)。 
 
 ### 实例变量
 - <a name="carla.GBufferTextureID.SceneColor"></a>**<font color="#f8805a">SceneColor</font>**  
@@ -1203,7 +1262,7 @@ Helper 类包含 [OpenDRIVE 标准](http://opendrive.org/docs/OpenDRIVEFormatSpe
 
 ## carla.LaneInvasionEvent<a name="carla.LaneInvasionEvent"></a>
 <small style="display:block;margin-top:-20px;">从 _[carla.SensorData](#carla.SensorData)_ 继承</small></br>
-为 <b>sensor.other.lane_invasion</b> 定义车道入侵的类。它仅在客户端工作，并依赖 OpenDRIVE 来提供可靠的信息。每次发生车道入侵时，传感器都会创建一个这样的情况，每个仿真步骤可能会发生多次。在 [这里](ref_sensors.md#lane-invasion-detector) 了解更多相关信息。 
+为 <b>sensor.other.lane_invasion</b> 定义压线的类。它仅在客户端工作，并依赖 OpenDRIVE 来提供可靠的信息。每次发生压线时，传感器都会创建一个这样的情况，每个仿真步骤可能会发生多次。在 [这里](ref_sensors.md#lane-invasion-detector) 了解更多相关信息。 
 
 ### 实例变量
 - <a name="carla.LaneInvasionEvent.actor"></a>**<font color="#f8805a">actor</font>** (_[carla.Actor](#carla.Actor)_)  
@@ -2166,7 +2225,7 @@ RSS传感器使用世界信息和 [RSS库](https://github.com/intel/ad-rss-lib) 
 
 ## carla.SemanticLidarMeasurement<a name="carla.SemanticLidarMeasurement"></a>
 <small style="display:block;margin-top:-20px;">从 _[carla.SensorData](#carla.SensorData)_ 继承</small></br>
-该类定义由 <b>sensor.lidar.ray_cast_semantic</b> 检索的语义LIDAR数据。这实质上是使用光线投射来仿真旋转激光雷达。在此了解更多信息。
+该类定义由 <b>sensor.lidar.ray_cast_semantic</b> 检索的语义激光雷达数据。这实质上是使用光线投射来仿真旋转激光雷达。在此了解更多信息。
 
 ### 实例变量
 - <a name="carla.SemanticLidarMeasurement.channels"></a>**<font color="#f8805a">channels</font>** (_int_)  
@@ -2182,7 +2241,7 @@ RSS传感器使用世界信息和 [RSS库](https://github.com/intel/ad-rss-lib) 
     - **参数：**
         - `path` (_str_)  
 
-##### 设置器
+##### 获取器
 - <a name="carla.SemanticLidarMeasurement.get_point_count"></a>**<font color="#7fb800">get_point_count</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**channel**</font>)  
 获取此度量生成的按通道排序的点数。通过通道排序可以识别每个点的原始通道。 
     - **参数：**
@@ -2191,7 +2250,7 @@ RSS传感器使用世界信息和 [RSS库](https://github.com/intel/ad-rss-lib) 
 ##### 魔术方法
 - <a name="carla.SemanticLidarMeasurement.__getitem__"></a>**<font color="#7fb800">\__getitem__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**pos**=int</font>)  
 - <a name="carla.SemanticLidarMeasurement.__iter__"></a>**<font color="#7fb800">\__iter__</font>**(<font color="#00a6ed">**self**</font>)  
-Iterate over the [carla.SemanticLidarDetection](#carla.SemanticLidarDetection) retrieved as data.  
+在获取到的 [carla.SemanticLidarDetection](#carla.SemanticLidarDetection) 数据上进行迭代。 
 - <a name="carla.SemanticLidarMeasurement.__len__"></a>**<font color="#7fb800">\__len__</font>**(<font color="#00a6ed">**self**</font>)  
 - <a name="carla.SemanticLidarMeasurement.__setitem__"></a>**<font color="#7fb800">\__setitem__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**pos**=int</font>, <font color="#00a6ed">**detection**=[carla.SemanticLidarDetection](#carla.SemanticLidarDetection)</font>)  
 - <a name="carla.SemanticLidarMeasurement.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
@@ -2200,50 +2259,62 @@ Iterate over the [carla.SemanticLidarDetection](#carla.SemanticLidarDetection) r
 
 ## carla.Sensor<a name="carla.Sensor"></a>
 <small style="display:block;margin-top:-20px;">从 _[carla.Actor](#carla.Actor)_ 继承</small></br>
-Sensors compound a specific family of actors quite diverse and unique. They are normally spawned as attachment/sons of a vehicle (take a look at [carla.World](#carla.World) to learn about actor spawning). Sensors are thoroughly designed to retrieve different types of data that they are listening to. The data they receive is shaped as different subclasses inherited from [carla.SensorData](#carla.SensorData) (depending on the sensor).
+传感器构成了一个非常多样化和独特的特定参与者家族。它们通常是作为车辆的附件/儿子而产生的（看看[carla.World](#carla.World)来了解参与者的生成）。传感器经过精心设计，可以检索它们正在监听的不同类型的数据。它们接收到的数据被形成为从[carla.SensorData](#carla.SensorData)继承的不同子类。（取决于传感器）。 
 
-  Most sensors can be divided in two groups: those receiving data on every tick (cameras, point clouds and some specific sensors) and those who only receive under certain circumstances (trigger detectors). CARLA provides a specific set of sensors and their blueprint can be found in [carla.BlueprintLibrary](#carla.BlueprintLibrary). All the information on their preferences and settlement can be found [here](ref_sensors.md), but the list of those available in CARLA so far goes as follow.
-  <br><b>Receive data on every tick.</b>
-  - [depth camera](ref_sensors.md#depth-camera).
-  - [Gnss sensor](ref_sensors.md#gnss-sensor).
-  - [IMU sensor](ref_sensors.md#imu-sensor).
-  - [Lidar raycast](ref_sensors.md#lidar-raycast-sensor).
-  - [SemanticLidar raycast](ref_sensors.md#semanticlidar-raycast-sensor).
-  - [Radar](ref_sensors.md#radar-sensor).
-  - [RGB camera](ref_sensors.md#rgb-camera).
-  - [RSS sensor](ref_sensors.md#rss-sensor).
-  - [Semantic Segmentation camera](ref_sensors.md#semantic-segmentation-camera).
-  <br><b>Only receive data when triggered.</b>
-  - [Collision detector](ref_sensors.md#collision-detector).
-  - [Lane invasion detector](ref_sensors.md#lane-invasion-detector).
-  - [Obstacle detector](ref_sensors.md#obstacle-detector).  
+大多数传感器可分为两组：一组在每个滴答信号中接收数据（相机、点云和一些特定的传感器），另一组仅在特定情况下接收数据（触发探测器）。Carla 提供了一套特定的传感器，它们的蓝图可以在 [carla.BlueprintLibrary](#carla.BlueprintLibrary) 中找到。关于他们的偏好和放置位置的所有信息都可以在 [这里](ref_sensors.md) 找到，但到目前为止，Carla 中可用的信息列表如下。
+
+  <br><b>每个滴答信号接收的数据。</b><br>
+  - [深度相机](ref_sensors.md#depth-camera)<br>
+  - [Gnss 传感器](ref_sensors.md#gnss-sensor)<br>
+  - [IMU 传感器](ref_sensors.md#imu-sensor)<br>
+  - [激光雷达光线投射](ref_sensors.md#lidar-raycast-sensor)<br>
+  - [SemanticLidar 光线投射](ref_sensors.md#semanticlidar-raycast-sensor)<br>
+  - [雷达](ref_sensors.md#radar-sensor)<br>
+  - [RGB 相机](ref_sensors.md#rgb-camera)<br>
+  - [RSS 传感器](ref_sensors.md#rss-sensor)<br>
+  - [语义分割相机](ref_sensors.md#semantic-segmentation-camera)<br>
+  <br><b>仅在触发时接收数据。</b>
+  - [碰撞检测器](ref_sensors.md#collision-detector).
+  - [压线检测器](ref_sensors.md#lane-invasion-detector).
+  - [障碍物检测器](ref_sensors.md#obstacle-detector).  
+
+<!-- 压线检测 https://huaweicloud.csdn.net/638089f6dacf622b8df89e97.html -->
 
 ### 实例变量
 - <a name="carla.Sensor.is_listening"></a>**<font color="#f8805a">is_listening</font>** (_boolean_)  
-When <b>True</b> the sensor will be waiting for data.  
+当为 **True** 时，传感器将等待数据。 
 
 ### 方法
+- <a name="carla.Sensor.disable_for_ros"></a>**<font color="#7fb800">disable_for_ros</font>**(<font color="#00a6ed">**self**</font>)  
+如果没有任何监听，则命令不处理传感器以在 ROS2 中发布。  
+- <a name="carla.Sensor.enable_for_ros"></a>**<font color="#7fb800">enable_for_ros</font>**(<font color="#00a6ed">**self**</font>)  
+命令要处理的传感器能够在ROS2中发布，而无需任何监听。  
+- <a name="carla.Sensor.is_enabled_for_ros"></a>**<font color="#7fb800">is_enabled_for_ros</font>**(<font color="#00a6ed">**self**</font>)  
+如果传感器已启用，则返回；如果没有任何监听，则不在ROS2中发布。
+    - **返回：** _bool_  
 - <a name="carla.Sensor.is_listening"></a>**<font color="#7fb800">is_listening</font>**(<font color="#00a6ed">**self**</font>)  
-Returns whether the sensor is in a listening state.  
+返回传感器是否处于监听状态。 
+    - **返回：** _bool_  
 - <a name="carla.Sensor.is_listening_gbuffer"></a>**<font color="#7fb800">is_listening_gbuffer</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**gbuffer_id**</font>)  
-Returns whether the sensor is in a listening state for a specific GBuffer texture.  
-    - **Parameters:**
-        - `gbuffer_id` (_[carla.GBufferTextureID](#carla.GBufferTextureID)_) - The ID of the target Unreal Engine GBuffer texture.  
+返回传感器是否处于特定 GBuffer 纹理的监听状态。 
+    - **参数：**
+        - `gbuffer_id` (_[carla.GBufferTextureID](#carla.GBufferTextureID)_) - 目标虚幻引擎GBuffer纹理的ID。 
+    - **返回：** _bool_  
 - <a name="carla.Sensor.listen"></a>**<font color="#7fb800">listen</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**callback**</font>)<button class="SnipetButton" id="carla.Sensor.listen-snipet_button">snippet &rarr;</button>  
-The function the sensor will be calling to every time a new measurement is received. This function needs for an argument containing an object type [carla.SensorData](#carla.SensorData) to work with.  
-    - **Parameters:**
-        - `callback` (_function_) - The called function with one argument containing the sensor data.  
+每次收到新的测量值时，传感器将调用的函数。此函数需要一个包含对象类型 [carla.SensorData](#carla.SensorData) 的参数。
+    - **参数：**
+        - `callback` (_function_) - 被调用的函数有一个参数包含传感器数据。
 - <a name="carla.Sensor.listen_to_gbuffer"></a>**<font color="#7fb800">listen_to_gbuffer</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**gbuffer_id**</font>, <font color="#00a6ed">**callback**</font>)  
-The function the sensor will be calling to every time the desired GBuffer texture is received.<br> This function needs for an argument containing an object type [carla.SensorData](#carla.SensorData) to work with.  
-    - **Parameters:**
-        - `gbuffer_id` (_[carla.GBufferTextureID](#carla.GBufferTextureID)_) - The ID of the target Unreal Engine GBuffer texture.  
-        - `callback` (_function_) - The called function with one argument containing the received GBuffer texture.  
+每次接收到所需的 GBuffer 纹理时，传感器将调用的函数。 <br> 此函数需要一个包含对象类型 [carla.SensorData](#carla.SensorData) 的参数。 
+    - **参数：**
+        - `gbuffer_id` (_[carla.GBufferTextureID](#carla.GBufferTextureID)_) - 目标虚幻引擎 GBuffer 纹理的ID。 
+        - `callback` (_function_) - 被调用的函数有一个参数，其中包含接收到的GBuffer纹理。 
 - <a name="carla.Sensor.stop"></a>**<font color="#7fb800">stop</font>**(<font color="#00a6ed">**self**</font>)  
-Commands the sensor to stop listening for data.  
+命令传感器停止监听数据。 
 - <a name="carla.Sensor.stop_gbuffer"></a>**<font color="#7fb800">stop_gbuffer</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**gbuffer_id**</font>)  
-Commands the sensor to stop listening for the specified GBuffer texture.  
-    - **Parameters:**
-        - `gbuffer_id` (_[carla.GBufferTextureID](#carla.GBufferTextureID)_) - The ID of the Unreal Engine GBuffer texture.  
+命令传感器停止监听指定的 GBuffer 纹理。  
+    - **参数：**
+        - `gbuffer_id` (_[carla.GBufferTextureID](#carla.GBufferTextureID)_) - 虚幻引擎 GBuffer 纹理的ID。 
 
 ##### 魔术方法
 - <a name="carla.Sensor.__str__"></a>**<font color="#7fb800">\__str__</font>**(<font color="#00a6ed">**self**</font>)  
@@ -2251,122 +2322,125 @@ Commands the sensor to stop listening for the specified GBuffer texture.
 ---
 
 ## carla.SensorData<a name="carla.SensorData"></a>
-Base class for all the objects containing data generated by a [carla.Sensor](#carla.Sensor). This objects should be the argument of the function said sensor is listening to, in order to work with them. Each of these sensors needs for a specific type of sensor data. Hereunder is a list of the sensors and their corresponding data.<br>
-  - Cameras (RGB, depth and semantic segmentation): [carla.Image](#carla.Image).<br>
-  - Collision detector: [carla.CollisionEvent](#carla.CollisionEvent).<br>
-  - GNSS sensor: [carla.GnssMeasurement](#carla.GnssMeasurement).<br>
-  - IMU sensor: [carla.IMUMeasurement](#carla.IMUMeasurement).<br>
-  - Lane invasion detector: [carla.LaneInvasionEvent](#carla.LaneInvasionEvent).<br>
-  - LIDAR sensor: [carla.LidarMeasurement](#carla.LidarMeasurement).<br>
-  - Obstacle detector: [carla.ObstacleDetectionEvent](#carla.ObstacleDetectionEvent).<br>
-  - Radar sensor: [carla.RadarMeasurement](#carla.RadarMeasurement).<br>
-  - RSS sensor: [carla.RssResponse](#carla.RssResponse).<br>
-  - Semantic LIDAR sensor: [carla.SemanticLidarMeasurement](#carla.SemanticLidarMeasurement).  
+包含 [carla.Sensor](#carla.Sensor) 生成的数据的所有对象的基类。这个对象应该是传感器正在监听的函数的参数，以便与它们一起工作。这些传感器中的每一个都需要特定类型的传感器数据。以下是传感器及其相应数据的列表。<br>
+  - 相机 (RGB, 深度和语义分割): [carla.Image](#carla.Image).<br>
+  - 碰撞检测器：[carla.CollisionEvent](#carla.CollisionEvent).<br>
+  - GNSS 传感器：[carla.GnssMeasurement](#carla.GnssMeasurement).<br>
+  - IMU 传感器：[carla.IMUMeasurement](#carla.IMUMeasurement).<br>
+  - 压线检测器：[carla.LaneInvasionEvent](#carla.LaneInvasionEvent).<br>
+  - 激光雷达传感器：[carla.LidarMeasurement](#carla.LidarMeasurement).<br>
+  - 障碍物检测器：[carla.ObstacleDetectionEvent](#carla.ObstacleDetectionEvent).<br>
+  - 雷达传感器：[carla.RadarMeasurement](#carla.RadarMeasurement).<br>
+  - RSS 传感器：[carla.RssResponse](#carla.RssResponse).<br>
+  - 语义激光雷达传感器：[carla.SemanticLidarMeasurement](#carla.SemanticLidarMeasurement).<br>
+  - V2X传感器协同感知信息：[carla.CAMEvent](#carla.CAMEvent).<br>
+  - 自定义V2X消息V2X传感器：[carla.CustomV2XEvent](#carla.CustomV2XEvent).  
 
 ### 实例变量
 - <a name="carla.SensorData.frame"></a>**<font color="#f8805a">frame</font>** (_int_)  
-Frame count when the data was generated.  
+生成数据时的帧数。  
 - <a name="carla.SensorData.timestamp"></a>**<font color="#f8805a">timestamp</font>** (_float<small> - seconds</small>_)  
-Simulation-time when the data was generated.  
+生成数据的模拟时间。 
 - <a name="carla.SensorData.transform"></a>**<font color="#f8805a">transform</font>** (_[carla.Transform](#carla.Transform)_)  
-Sensor's transform when the data was generated.  
+数据生成时传感器的转换。  
 
 ---
 
 ## carla.TextureColor<a name="carla.TextureColor"></a>
-Class representing a texture object to be uploaded to the server. Pixel format is RGBA, uint8 per channel.  
+类表示要上传到服务器的纹理对象。像素格式为 RGBA，每个通道为 uint8。
 
 ### 实例变量
 - <a name="carla.TextureColor.width"></a>**<font color="#f8805a">width</font>** (_int_)  
-X-coordinate size of the texture.  
+纹理的 X 坐标大小。  
 - <a name="carla.TextureColor.height"></a>**<font color="#f8805a">height</font>** (_int_)  
-Y-coordinate size of the texture.  
+纹理的 Y 坐标大小。 
 
 ### 方法
 - <a name="carla.TextureColor.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**width**</font>, <font color="#00a6ed">**height**</font>)  
-Initializes a the texture with a (`width`, `height`) size.  
-    - **Parameters:**
+使用（`width`, `height`）大小初始化纹理。   
+    - **参数：**
         - `width` (_int_)  
         - `height` (_int_)  
 - <a name="carla.TextureColor.get"></a>**<font color="#7fb800">get</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**x**</font>, <font color="#00a6ed">**y**</font>)  
-Get the (x,y) pixel data.  
-    - **Parameters:**
+获取（x，y）像素数据。 
+    - **参数：**
         - `x` (_int_)  
         - `y` (_int_)  
     - **返回:** _[carla.Color](#carla.Color)_  
 - <a name="carla.TextureColor.set"></a>**<font color="#7fb800">set</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**x**</font>, <font color="#00a6ed">**y**</font>, <font color="#00a6ed">**value**</font>)  
-Sets the (x,y) pixel data with `value`.  
-    - **Parameters:**
+用值 `value` 设置（x，y）像素数据。
+    - **参数：**
         - `x` (_int_)  
         - `y` (_int_)  
         - `value` (_[carla.Color](#carla.Color)_)  
 
 ##### 设置器
 - <a name="carla.TextureColor.set_dimensions"></a>**<font color="#7fb800">set_dimensions</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**width**</font>, <font color="#00a6ed">**height**</font>)  
-Resizes the texture to te specified dimensions.  
-    - **Parameters:**
+将纹理调整到指定的尺寸。  
+    - **参数：**
         - `width` (_int_)  
         - `height` (_int_)  
 
 ---
 
 ## carla.TextureFloatColor<a name="carla.TextureFloatColor"></a>
-Class representing a texture object to be uploaded to the server. Pixel format is RGBA, float per channel.  
+类表示要上传到服务器的纹理对象。像素格式为 RGBA，每个通道的是 float 。
 
 ### 实例变量
 - <a name="carla.TextureFloatColor.width"></a>**<font color="#f8805a">width</font>** (_int_)  
-X-coordinate size of the texture.  
+纹理的 X 坐标大小。 
 - <a name="carla.TextureFloatColor.height"></a>**<font color="#f8805a">height</font>** (_int_)  
-Y-coordinate size of the texture.  
+纹理的 Y 坐标大小。  
 
 ### 方法
 - <a name="carla.TextureFloatColor.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**width**</font>, <font color="#00a6ed">**height**</font>)  
-Initializes a the texture with a (`width`, `height`) size.  
-    - **Parameters:**
+使用（`width`, `height`）大小初始化纹理。   
+    - **参数：**
         - `width` (_int_)  
         - `height` (_int_)  
 - <a name="carla.TextureFloatColor.get"></a>**<font color="#7fb800">get</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**x**</font>, <font color="#00a6ed">**y**</font>)  
-Get the (x,y) pixel data.  
-    - **Parameters:**
+获取（x，y）像素数据。 
+    - **参数：**
         - `x` (_int_)  
         - `y` (_int_)  
     - **返回:** _[carla.FloatColor](#carla.FloatColor)_  
 - <a name="carla.TextureFloatColor.set"></a>**<font color="#7fb800">set</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**x**</font>, <font color="#00a6ed">**y**</font>, <font color="#00a6ed">**value**</font>)  
-Sets the (x,y) pixel data with `value`.  
-    - **Parameters:**
+用值 `value` 设置（x，y）像素数据。
+    - **参数：**
         - `x` (_int_)  
         - `y` (_int_)  
         - `value` (_[carla.FloatColor](#carla.FloatColor)_)  
 
 ##### 设置器
 - <a name="carla.TextureFloatColor.set_dimensions"></a>**<font color="#7fb800">set_dimensions</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**width**</font>, <font color="#00a6ed">**height**</font>)  
-Resizes the texture to te specified dimensions.  
-    - **Parameters:**
+将纹理调整到指定的尺寸。  
+    - **参数：**
         - `width` (_int_)  
         - `height` (_int_)  
 
 ---
 
 ## carla.Timestamp<a name="carla.Timestamp"></a>
-Class that contains time information for simulated data. This information is automatically retrieved as part of the [carla.WorldSnapshot](#carla.WorldSnapshot) the client gets on every frame, but might also be used in many other situations such as a [carla.Sensor](#carla.Sensor) retrieveing data.  
+包含模拟数据时间信息的类。此信息将作为 [carla.WorldSnapshot](#carla.WorldSnapshot) 的一部分自动检索。是客户端在每一帧上获得的，但也可能用于许多其他情况，如 [carla.Sensor](#carla.Sensor) 正在检索数据。
+
 
 ### 实例变量
 - <a name="carla.Timestamp.frame"></a>**<font color="#f8805a">frame</font>** (_int_)  
-The number of frames elapsed since the simulator was launched.  
+自模拟器启动以来经过的帧数。 
 - <a name="carla.Timestamp.elapsed_seconds"></a>**<font color="#f8805a">elapsed_seconds</font>** (_float<small> - seconds</small>_)  
-Simulated seconds elapsed since the beginning of the current episode.  
+自当前剧集开始以来经过的模拟秒数。
 - <a name="carla.Timestamp.delta_seconds"></a>**<font color="#f8805a">delta_seconds</font>** (_float<small> - seconds</small>_)  
-Simulated seconds elapsed since the previous frame.  
+自上一帧以来经过的模拟秒数。  
 - <a name="carla.Timestamp.platform_timestamp"></a>**<font color="#f8805a">platform_timestamp</font>** (_float<small> - seconds</small>_)  
-Time register of the frame at which this measurement was taken given by the OS in seconds.  
+操作系统给出的进行此测量的帧的时间寄存器，单位为秒。 
 
 ### 方法
 - <a name="carla.Timestamp.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**frame**</font>, <font color="#00a6ed">**elapsed_seconds**</font>, <font color="#00a6ed">**delta_seconds**</font>, <font color="#00a6ed">**platform_timestamp**</font>)  
-    - **Parameters:**
+    - **参数：**
         - `frame` (_int_)  
-        - `elapsed_seconds` (_float<small> - seconds</small>_)  
-        - `delta_seconds` (_float<small> - seconds</small>_)  
-        - `platform_timestamp` (_float<small> - seconds</small>_)  
+        - `elapsed_seconds` (_float<small> - 秒</small>_)  
+        - `delta_seconds` (_float<small> - 秒</small>_)  
+        - `platform_timestamp` (_float<small> - 秒</small>_)  
 
 ##### 魔术方法
 - <a name="carla.Timestamp.__eq__"></a>**<font color="#7fb800">\__eq__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.Timestamp](#carla.Timestamp)</font>)  
@@ -2377,86 +2451,87 @@ Time register of the frame at which this measurement was taken given by the OS i
 
 ## carla.TrafficLight<a name="carla.TrafficLight"></a>
 <small style="display:block;margin-top:-20px;">从 _[carla.TrafficSign](#carla.TrafficSign)_ 继承</small></br>
-A traffic light actor, considered a specific type of traffic sign. As traffic lights will mostly appear at junctions, they belong to a group which contains the different traffic lights in it. Inside the group, traffic lights are differenciated by their pole index.
-     
-  Within a group the state of traffic lights is changed in a cyclic pattern: one index is chosen and it spends a few seconds in green, yellow and eventually red. The rest of the traffic lights remain frozen in red this whole time, meaning that there is a gap in the last seconds of the cycle where all the traffic lights are red. However, the state of a traffic light can be changed manually.  
+交通信号灯参与者，被认为是一种特定类型的交通标志。由于交通信号灯大多出现在路口，因此它们属于一个包含不同交通信号灯的组。在组内，交通信号灯通过其杆指数进行区分。
+
+在一个组内，交通灯的状态以循环模式变化：选择一个索引，它在绿色、黄色和最终红色中停留几秒钟。其余的交通灯在整个过程中都保持红色，这意味着在循环的最后几秒钟有一个间隙，所有的交通灯都是红色的。但是，交通灯状态可以手动改变。
+
 
 ### 实例变量
 - <a name="carla.TrafficLight.state"></a>**<font color="#f8805a">state</font>** (_[carla.TrafficLightState](#carla.TrafficLightState)_)  
-Current state of the traffic light.  
+交通信号灯的当前状态。 
 
 ### 方法
 - <a name="carla.TrafficLight.freeze"></a>**<font color="#7fb800">freeze</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**freeze**</font>)  
-Stops all the traffic lights in the scene at their current state.  
-    - **Parameters:**
+在当前状态将场景中的所有交通灯停止。
+    - **参数：**
         - `freeze` (_bool_)  
 - <a name="carla.TrafficLight.is_frozen"></a>**<font color="#7fb800">is_frozen</font>**(<font color="#00a6ed">**self**</font>)  
-The client returns <b>True</b> if a traffic light is frozen according to last tick. The method does not call the simulator.  
+如果交通灯根据上次勾选被冻结，客户端将返回 <b>True</b>。该方法不调用模拟器。
     - **返回:** _bool_  
 - <a name="carla.TrafficLight.reset_group"></a>**<font color="#7fb800">reset_group</font>**(<font color="#00a6ed">**self**</font>)  
-Resets the state of the traffic lights of the group to the initial state at the start of the simulation.  
-    - **Note:** <font color="#8E8E8E">_This method calls the simulator.
+将组的交通灯状态重置为模拟开始时的初始状态。
+    - **Note:** <font color="#8E8E8E">_此方法调用模拟器。
 _</font>  
 
 ##### 设置器
 - <a name="carla.TrafficLight.get_affected_lane_waypoints"></a>**<font color="#7fb800">get_affected_lane_waypoints</font>**(<font color="#00a6ed">**self**</font>)  
-Returns a list of waypoints indicating the positions and lanes where the traffic light is having an effect.  
+返回一个路径点列表，指示交通灯产生影响的位置和车道。 
     - **返回:** _list([carla.Waypoint](#carla.Waypoint))_  
 - <a name="carla.TrafficLight.get_elapsed_time"></a>**<font color="#7fb800">get_elapsed_time</font>**(<font color="#00a6ed">**self**</font>)  
-The client returns the time in seconds since current light state started according to last tick. The method does not call the simulator.  
+客户端根据上次滴答信息返回自当前灯光状态开始以来的时间（秒）。该方法不调用模拟器。 
     - **返回:** _float<small> - seconds</small>_  
 - <a name="carla.TrafficLight.get_green_time"></a>**<font color="#7fb800">get_green_time</font>**(<font color="#00a6ed">**self**</font>)  
-The client returns the time set for the traffic light to be green, according to last tick. The method does not call the simulator.  
+客户端根据最后一个滴答信息返回为绿灯设置的时间。该方法不调用模拟器。
     - **返回:** _float<small> - seconds</small>_  
-    - **Setter:** _[carla.TrafficLight.set_green_time](#carla.TrafficLight.set_green_time)_  
+    - **设置器：** _[carla.TrafficLight.set_green_time](#carla.TrafficLight.set_green_time)_  
 - <a name="carla.TrafficLight.get_group_traffic_lights"></a>**<font color="#7fb800">get_group_traffic_lights</font>**(<font color="#00a6ed">**self**</font>)  
-Returns all traffic lights in the group this one belongs to.  
+返回此交通灯所属组中的所有交通灯。  
     - **返回:** _list([carla.TrafficLight](#carla.TrafficLight))_  
-    - **Note:** <font color="#8E8E8E">_This method calls the simulator.
+    - **Note:** <font color="#8E8E8E">_此方法调用模拟器。
 _</font>  
 - <a name="carla.TrafficLight.get_light_boxes"></a>**<font color="#7fb800">get_light_boxes</font>**(<font color="#00a6ed">**self**</font>)  
-Returns a list of the bounding boxes encapsulating each light box of the traffic light.  
+返回一个包含交通灯每个灯箱的边界框列表。
     - **返回:** _list([carla.BoundingBox](#carla.BoundingBox))_  
 - <a name="carla.TrafficLight.get_opendrive_id"></a>**<font color="#7fb800">get_opendrive_id</font>**(<font color="#00a6ed">**self**</font>)  
-Returns the OpenDRIVE id of this traffic light.  
+返回此交通灯的OpenDRIVE id。  
     - **返回:** _str_  
 - <a name="carla.TrafficLight.get_pole_index"></a>**<font color="#7fb800">get_pole_index</font>**(<font color="#00a6ed">**self**</font>)  
-Returns the index of the pole that identifies it as part of the traffic light group of a junction.  
+返回将其标识为交叉口交通灯组一部分的杆的索引。  
     - **返回:** _int_  
 - <a name="carla.TrafficLight.get_red_time"></a>**<font color="#7fb800">get_red_time</font>**(<font color="#00a6ed">**self**</font>)  
-The client returns the time set for the traffic light to be red, according to last tick. The method does not call the simulator.  
+客户端根据最后一个滴答信息返回交通灯变红的时间设置。该方法不调用模拟器。
     - **返回:** _float<small> - seconds</small>_  
-    - **Setter:** _[carla.TrafficLight.set_red_time](#carla.TrafficLight.set_red_time)_  
+    - **设置器：** _[carla.TrafficLight.set_red_time](#carla.TrafficLight.set_red_time)_  
 - <a name="carla.TrafficLight.get_state"></a>**<font color="#7fb800">get_state</font>**(<font color="#00a6ed">**self**</font>)  
-The client returns the state of the traffic light according to last tick. The method does not call the simulator.  
+客户端根据最后一个滴答信息返回交通灯的状态。该方法不调用模拟器。
     - **返回:** _[carla.TrafficLightState](#carla.TrafficLightState)_  
-    - **Setter:** _[carla.TrafficLight.set_state](#carla.TrafficLight.set_state)_  
+    - **设置起：** _[carla.TrafficLight.set_state](#carla.TrafficLight.set_state)_  
 - <a name="carla.TrafficLight.get_stop_waypoints"></a>**<font color="#7fb800">get_stop_waypoints</font>**(<font color="#00a6ed">**self**</font>)  
-Returns a list of waypoints indicating the stop position for the traffic light. These waypoints are computed from the trigger boxes of the traffic light that indicate where a vehicle should stop.  
+返回指示交通灯停止位置的路点列表。这些路点是根据交通灯的触发框计算出来的，这些触发框指示车辆应该停在哪里。
     - **返回:** _list([carla.Waypoint](#carla.Waypoint))_  
 - <a name="carla.TrafficLight.get_yellow_time"></a>**<font color="#7fb800">get_yellow_time</font>**(<font color="#00a6ed">**self**</font>)  
-The client returns the time set for the traffic light to be yellow, according to last tick. The method does not call the simulator.  
-    - **返回:** _float<small> - seconds</small>_  
-    - **Setter:** _[carla.TrafficLight.set_yellow_time](#carla.TrafficLight.set_yellow_time)_  
+客户端根据最后一个滴答信息返回为交通灯设置为黄色的时间。该方法不调用模拟器。
+    - **返回:** _float<small> - 秒</small>_  
+    - **设置器：** _[carla.TrafficLight.set_yellow_time](#carla.TrafficLight.set_yellow_time)_  
 
 ##### 设置器
 - <a name="carla.TrafficLight.set_green_time"></a>**<font color="#7fb800">set_green_time</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**green_time**</font>)  
-    - **Parameters:**
-        - `green_time` (_float<small> - seconds</small>_) - Sets a given time for the green light to be active.  
+    - **参数：**
+        - `green_time` (_float<small> - 秒</small>_) - 设置绿灯激活的给定时间。  
     - **获取器:** _[carla.TrafficLight.get_green_time](#carla.TrafficLight.get_green_time)_  
 - <a name="carla.TrafficLight.set_red_time"></a>**<font color="#7fb800">set_red_time</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**red_time**</font>)  
-Sets a given time for the red state to be active.  
-    - **Parameters:**
-        - `red_time` (_float<small> - seconds</small>_)  
+设置红色状态激活的给定时间。 
+    - **参数：**
+        - `red_time` (_float<small> - 秒</small>_)  
     - **获取器:** _[carla.TrafficLight.get_red_time](#carla.TrafficLight.get_red_time)_  
 - <a name="carla.TrafficLight.set_state"></a>**<font color="#7fb800">set_state</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**state**</font>)<button class="SnipetButton" id="carla.TrafficLight.set_state-snipet_button">snippet &rarr;</button>  
-Sets a given state to a traffic light actor.  
-    - **Parameters:**
+将给定状态设置为交通灯参与者。
+    - **参数：**
         - `state` (_[carla.TrafficLightState](#carla.TrafficLightState)_)  
     - **获取器:** _[carla.TrafficLight.get_state](#carla.TrafficLight.get_state)_  
 - <a name="carla.TrafficLight.set_yellow_time"></a>**<font color="#7fb800">set_yellow_time</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**yellow_time**</font>)  
-Sets a given time for the yellow light to be active.  
-    - **Parameters:**
+设置黄灯激活的给定时间。 
+    - **参数：**
         - `yellow_time` (_float<small> - seconds</small>_)  
     - **获取器:** _[carla.TrafficLight.get_yellow_time](#carla.TrafficLight.get_yellow_time)_  
 

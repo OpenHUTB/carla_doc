@@ -1,4 +1,15 @@
 # [C++ 参考](https://carla.readthedocs.io/en/latest/ref_cpp/) 
+
+## C++ 客户端
+
+C++客户端可以在 Linux 上用`make`构建，在Windows上用`cmake`构建。`CARLA_ROOT/Examples/CppClient/main.cpp`中的存储库中提供了一个C++客户端示例。这个示例展示了如何将C++客户端连接到CARLA服务器，并使用API执行一些简单的任务。
+
+要构建示例C++客户端，请在存储库的`CARLA_ROOT/Examples/CppClient`目录中打开一个终端。在此文件夹中运行`make`，然后执行 `./bin/cpp_client` 来运行示例。该示例将从可用地图中选择一个随机地图，然后加载它。然后，它将生成一辆车并对该车应用控制。
+
+有关此示例脚本的更多详细信息，请参阅 [C++客户端示例](adv_cpp_client.md) 。
+
+## C++ 文档
+
 我们使用 Doxygen 生成 C++ 代码的文档：
 
 [Libcarla/source](http://carla.org/Doxygen/html/dir_b9166249188ce33115fd7d5eed1849f2.html) <br>

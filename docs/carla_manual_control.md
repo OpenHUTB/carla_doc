@@ -14,7 +14,7 @@
 
 - __to display an image__: 角色名为`rgb_view`和分辨率为 800x600 的相机。
 - __to display the current position__: 具有角色名称 `gnss` 的 GNSS 传感器和具有角色名`odometry`的里程计伪传感器。
-- __to get a notification on lane invasions__: 具有角色名`lane_invasion`的车道入侵传感器。
+- __to get a notification on lane invasions__: 具有角色名`lane_invasion`的压线传感器。
 - __to get a notification on collisons__: 具有角色名`collision`的碰撞传感器。
 
 ---
