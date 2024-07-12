@@ -4,7 +4,7 @@
 - [__深度相机__](#depth-camera)
 - [__全球导航卫星系统传感器__](#gnss-sensor)
 - [__惯性测量单元传感器__](#imu-sensor)
-- [__车道入侵检测器__](#lane-invasion-detector)
+- [__压线检测器__](#lane-invasion-detector)
 - [__激光雷达传感器__](#lidar-sensor)
 - [__障碍物检测器__](#obstacle-detector)
 - [__雷达传感器__](#radar-sensor)

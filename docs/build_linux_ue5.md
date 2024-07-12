@@ -116,6 +116,19 @@ update-initramfs -u
 ```
 然后输入`reboot`重启。
 
+### 编译
+```shell
+bin/clang" is not able to compile a simple test program.
+```
+```shell
+clang++ --version
+```
+确定clang没有安装，执行：
+```shell
+sudo apt-get install clang
+```
+还是找不到！！！
+
 
 ### 其他
 

@@ -69,7 +69,7 @@
 |-------|------|
 | `/carla/[<PARENT ROLE NAME>]/<SENSOR ROLE NAME>` | [carla_msgs/CarlaCollisionEvent](https://github.com/carla-simulator/ros-carla-msgs/blob/master/msg/CarlaCollisionEvent.msg) |
 
-###### 车道入侵传感器
+###### 压线传感器
 
 | 主题 | 类型 |
 |-------|------|
