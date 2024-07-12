@@ -339,7 +339,7 @@ ego_cam.listen(lambda image: image.save_to_disk('tutorial/output/%.6d.jpg' % ima
 当它们所附加的对象注册特定事件时，这些传感器会检索数据。检测器传感器分为三种类型，每种都描述一种类型的事件。
 
 * [__碰撞检测器。__](ref_sensors.md#collision-detector) 检索其父级与其他参与者之间的碰撞。
-* [__车道入侵检测器。__](ref_sensors.md#lane-invasion-detector) 当其父级穿过车道标记时进行注册。
+* [__压线检测器。__](ref_sensors.md#lane-invasion-detector) 当其父级穿过车道标记时进行注册。
 * [__障碍物检测器。__](ref_sensors.md#obstacle-detector) 检测其父级前方可能存在的障碍物。
 
 他们检索到的数据将有助于稍后决定要重新执行仿真的哪一部分。事实上，可以使用记录器显式查询冲突。这是准备打印的。

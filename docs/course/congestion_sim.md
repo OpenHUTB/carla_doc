@@ -39,6 +39,12 @@ python generate_traffic.py
 
 ## 多次运行模拟交通拥堵
 
+<<<<<<< HEAD
 为了模拟不同交通流量下的拥堵情况，可以多次运行 [**generate_traffic.py**](https://github.com/OpenHUTB/carla_doc/tree/master/src/examples/generate_traffic.py) 脚本。
 
 使用[**traffic_indicators.py**](https://github.com/OpenHUTB/carla_doc/tree/master/src/course/traffic_indicators.py)脚本对路口交通流量、路口车均延误、路口饱和、排队长度四种路口真实性评价指标分析。
+=======
+为了模拟不同交通流量下的拥堵情况，可以多次运行 [**generate_traffic.py**](https://github.com/OpenHUTB/carla_doc/blob/master/examples/generate_traffic.py) 脚本。
+
+使用[**traffic_indicators.py**](https://github.com/OpenHUTB/carla_doc/blob/master/course/traffic%20indicators.py) 脚本对路口交通流量、路口车均延误、路口饱和、排队长度四种路口真实性评价指标分析。
+>>>>>>> e405afe1fb05d1ec09938d63635dc7fbef36cea2

@@ -1,12 +1,18 @@
 # 轨迹跟踪  Drive.py
 
+<<<<<<< HEAD
 ​	本示例使用  **Carla**  模拟器来执行轨迹跟踪任务， [**Drive.py**](https://github.com/OpenHUTB/carla_doc/tree/master/src/course/trajectory_tracking/Drive.py)  主要功能包括连接CARLA服务器、设置模拟环境、生成车辆、读取和处理路径点数据、控制车辆运动、记录和保存仿真结果下面对于主要函数进行介绍。
 
   基于 [**湖工商场景**](https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb )**(WindowsNoEditor)**，首先需要运行[generate_traffic.py](https://github.com/OpenHUTB/carla_doc/tree/master/src/examples/generate_traffic.py)
+=======
+本示例使用  **Carla**  模拟器来执行轨迹跟踪任务， [**Drive.py**](https://github.com/OpenHUTB/carla_doc/blob/master/course/trajectory_tracking/Drive.py) 主要功能包括连接CARLA服务器、设置模拟环境、生成车辆、读取和处理路径点数据、控制车辆运动、记录和保存仿真结果下面对于主要函数进行介绍。
+
+  基于 [**湖工商场景**](https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb )**(WindowsNoEditor)**，首先需要运行[generate_traffic.py](https://github.com/OpenHUTB/carla_doc/blob/master/examples/generate_traffic.py) 。
+>>>>>>> e405afe1fb05d1ec09938d63635dc7fbef36cea2
 
 ## 定义CARLA设置
 
-​	创建 **Carla** 的世界设置对象，并根据配置设置天气条件
+创建 **Carla** 的世界设置对象，并根据配置设置天气条件
 
 ```python
 #定义了一些全局变量用于控制模拟参数，如迭代次数、等待时间、总运行时间、天气条件等。
@@ -81,7 +87,7 @@ class Timer(object):
 
 ## 获取车辆信息
 
-​	获取车辆的当前位置和偏航角
+获取车辆的当前位置和偏航角
 
 ```
 def get_current_pose(vehicle):
@@ -93,7 +99,7 @@ def get_current_pose(vehicle):
 
 ```
 
-​	发送控制命令给车辆，控制油门、刹车、方向盘等
+发送控制命令给车辆，控制油门、刹车、方向盘等
 
 ```
 def send_control_command(vehicle, throttle, steer, brake, hand_brake=False, reverse=False):
@@ -108,10 +114,9 @@ def send_control_command(vehicle, throttle, steer, brake, hand_brake=False, reve
     control.hand_brake = hand_brake
     control.reverse = reverse
     vehicle.apply_control(control)
-
 ```
 
-​	 将车辆的轨迹数据写入CSV文件
+将车辆的轨迹数据写入CSV文件
 
 ```
 def write_trajectory_file(x_list, y_list, v_list, t_list, vehicle_id):
@@ -120,14 +125,13 @@ def write_trajectory_file(x_list, y_list, v_list, t_list, vehicle_id):
     with open(file_name, 'w') as trajectory_file:
         for i in range(len(x_list)):
             trajectory_file.write('%0.3f, %0.3f, %0.3f, %0.3f\n' % (t_list[i], x_list[i], y_list[i], v_list[i]))
-
 ```
 
 
 
 ## 执行轨迹跟踪任务
 
-​	执行轨迹跟踪任务，包括连接CARLA服务器、设置模拟环境、生成车辆等
+执行轨迹跟踪任务，包括连接CARLA服务器、设置模拟环境、生成车辆等
 
 ```
 def exec_waypoint_nav_demo(args):

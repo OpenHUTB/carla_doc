@@ -2,7 +2,11 @@
 
 #### **介绍**
 
+<<<<<<< HEAD
 [该代码](https://github.com/OpenHUTB/carla_doc/tree/master/src/course/roadnet_evaluation.py)用于评估CARLA仿真环境中的路网质量。评估的指标包括路网覆盖率、路口数量、交通灯数量和道路平均宽度。评估结果可以帮助了解仿真环境中的道路网络结构和配置。
+=======
+[该代码](https://github.com/OpenHUTB/carla_doc/blob/master/course/roadnet_evaluation.py) 用于评估 Carla 仿真环境中的路网质量。评估的指标包括路网覆盖率、路口数量、交通灯数量和道路平均宽度。评估结果可以帮助了解仿真环境中的道路网络结构和配置。
+>>>>>>> e405afe1fb05d1ec09938d63635dc7fbef36cea2
 
 #### **环境配置**
 
