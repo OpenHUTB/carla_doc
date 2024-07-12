@@ -10,13 +10,14 @@
 
 - 安装必要的Python库
 
-- [main_v4_VO](https://github.com/OpenHUTB/carla_doc/blob/master/course/Motion_Planning/main_v4_VO.py)
+
+- [main_v4_VO](https://github.com/OpenHUTB/carla_doc/blob/master/src/course/Motion_Planning/main_v4_VO.py)
+
 
 - [**湖工商场景**](https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb )**(WindowsNoEditor)**
 
   ![](../img/traffic_course_img/planning.gif)
 
-  
 
 ## 导入CARLA模块
 

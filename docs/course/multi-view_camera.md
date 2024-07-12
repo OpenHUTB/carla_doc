@@ -9,7 +9,9 @@
   - Python 3.6 及以上版本
   - CARLA 仿真环境
   - 安装必要的Python库：
-  - [**camera.py**](https://github.com/OpenHUTB/carla_doc/blob/master/course/camera.py)
+  - [**camera.py**](https://github.com/OpenHUTB/carla_doc/blob/master/src/course/camera.py)
+
+
   - [**湖工商场景**](https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb )**(WindowsNoEditor)**
 
 ```

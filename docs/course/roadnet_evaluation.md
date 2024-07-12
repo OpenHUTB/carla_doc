@@ -2,8 +2,7 @@
 
 #### **介绍**
 
-[该代码](https://github.com/OpenHUTB/carla_doc/blob/master/course/roadnet_evaluation.py) 用于评估 Carla 仿真环境中的路网质量。评估的指标包括路网覆盖率、路口数量、交通灯数量和道路平均宽度。评估结果可以帮助了解仿真环境中的道路网络结构和配置。
-
+[该代码](https://github.com/OpenHUTB/carla_doc/blob/master/src/course/roadnet_evaluation.py) 用于评估 Carla 仿真环境中的路网质量。评估的指标包括路网覆盖率、路口数量、交通灯数量和道路平均宽度。评估结果可以帮助了解仿真环境中的道路网络结构和配置。
 #### **环境配置**
 
 要运行该代码，需要以下软件和库：
@@ -13,12 +12,13 @@
 - `carla` Python API
 - `geopandas`库
 - `shapely`库
+- `scikit-learn`库
 
 安装所需库的命令：
 
 ```
 pip install carla==0.9.15 
-pip install geopandas shapely
+pip install geopandas shapely scikit-learn
 ```
 
 #### **功能结构**
@@ -29,6 +29,7 @@ pip install geopandas shapely
 2. **计算路口数量**
 3. **计算交通灯数量**
 4. **计算道路平均宽度**
+5. **仿真流量和真实流量相似性评估**
 
 ##### 计算路网覆盖率
 
@@ -91,4 +92,39 @@ def road_width(world):
         return average_width
     else:
         return 0
+```
+##### 仿真流量和真实流量相似性评估<span id=predict_flow ></span>
+
+给定10次真实交通流数据，与仿真获取得10次仿真交通流数据比较其相似性。
+
+###### 获取仿真车流量
+
+```
+# 某个时刻西二环十字路口的车流量
+def get_vehicles_in_intersection(world, intersection_location, intersection_radius):
+    vehicles = world.get_actors().filter('vehicle.*')
+    vehicles_in_intersection = []
+
+    for vehicle in vehicles:
+        distance = get_distance(vehicle.get_location(), intersection_location)
+        if distance <= intersection_radius:
+            vehicles_in_intersection.append(vehicle)
+
+    return len(vehicles_in_intersection)
+```
+
+###### 计算相似性
+
+```
+def anal_similarity(real_flow, sim_flow):
+    simulated_traffic = np.array(sim_flow)
+    real_traffic = np.array(real_flow)
+    # 数据标准化
+    simulated_traffic = (simulated_traffic - simulated_traffic.mean()) / simulated_traffic.std()
+    real_traffic = (real_traffic - real_traffic.mean()) / real_traffic.std()
+    # 计算余弦相似性
+    simulated_traffic = simulated_traffic.reshape(1, -1)
+    real_traffic = real_traffic.reshape(1, -1)
+    cosine_sim = cosine_similarity(simulated_traffic, real_traffic)
+    return cosine_sim
 ```

@@ -5,7 +5,6 @@
 #### 参数说明
 
 [脚本](https://github.com/OpenHUTB/carla_doc/blob/master/src/course/signal_control.py) 接收以下参数：
-
 1. `--traffic_id` (`-I`): 目标红绿灯的OpenDrive ID。
 2. `--color_id` (`-C`): 红绿灯颜色ID，对应绿灯、黄灯和红灯，分别为1、2和3。
 3. `--color_time` (`-T`): 红绿灯颜色的持续时间，单位为秒。
