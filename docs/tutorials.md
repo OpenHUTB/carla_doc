@@ -22,7 +22,7 @@
 ##### 课程一：交通仿真与场景建模
 
 1. [道路网络导入与编辑学生学习如何使用系统导入公开道路地图或创建生成道路网络](course/scenario.md#generateMapByOpenMap)，以及[编辑道路属性和车道信息，构建具体的交通场景](course/scenario.md#sceneEding)。
-2. [车辆轨迹生成](course/navigation.md#generateTrajectory)与[模拟学生学习如何为车辆指定起点和目标位置](course/navigation.md#definePoint)，[定义车辆的运动轨迹，模拟车辆的行驶过程](course/trajectory_tracking)，并观察车辆在仿真环境中的运动行为。
+2. [车辆轨迹生成](course/navigation.md#generateTrajectory)与[模拟学生学习如何为车辆指定起点和目标位置](course/navigation.md#definePoint)，[定义车辆的运动轨迹，模拟车辆的行驶过程](course/trajectory_tracking.md)，并观察车辆在仿真环境中的运动行为。
 3. [红绿灯配时方案优化学生学习如何配置红绿灯的配时方案](course/signal_control.md)，并通过仿真实验优化配时参数，以提高交通流畅度和减少交通拥堵。
 4. [交通拥堵模拟与统计分析学生学习如何模拟交通拥堵场景](course/congestion_sim.md)，加入更多的车辆进行仿真，进行拥堵情况的统计分析，并评估优化措施的效果。
 5. 路口交通流量评估学生学习如何使用系统提供的路口评价指标，分析[路口交通流量](course/traffic_indicators.md#trafficFlow)、[车均延误](course/traffic_indicators.md#aveDelay)、[饱和度](course/traffic_indicators.md#saturation)、[排队长度](course/traffic_indicators.md#queueLength)等指标，评估路口交通状况。
