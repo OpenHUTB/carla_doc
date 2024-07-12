@@ -2,7 +2,7 @@
 
 ​	车辆运动支持定义车辆运动起点和目标位置，为每辆车指定随机速度值，使其沿轨迹移动时不会发生碰撞或模拟碰撞，看到车辆沿指定轨迹行驶以到达其目标位置。
 
-​	本示例设计了一个  [**automatic_control_revised.py**](../../src/course/navigation/automatic_control_revised.py)  脚本进行实现
+​	本示例设计了一个  [**automatic_control_revised.py**](https://github.com/OpenHUTB/carla_doc/tree/master/src/course/navigation/automatic_control_revised.py)  脚本进行实现
 
 ![](../img/traffic_course_img/4.gif)
 

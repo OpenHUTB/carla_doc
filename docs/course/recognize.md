@@ -1,6 +1,6 @@
 # 行人再识别
 
-该[脚本](../../src/course/recognize.py)的目标是通过使用预训练的ResNet-50模型，比较两张图片的特征相似性。主要步骤包括数据预处理、特征提取和计算相似性度量。本文档将详细说明每个步骤的实现。
+该[脚本](https://github.com/OpenHUTB/carla_doc/tree/master/src/course/recognize.py)的目标是通过使用预训练的ResNet-50模型，比较两张图片的特征相似性。主要步骤包括数据预处理、特征提取和计算相似性度量。本文档将详细说明每个步骤的实现。
 
 ### 环境配置
 
