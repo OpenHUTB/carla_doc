@@ -70,11 +70,11 @@
               
                 <h1 id="_1">自定义车辆运行轨迹</h1>
 <p>​   车辆运动支持定义车辆运动起点和目标位置，为每辆车指定随机速度值，使其沿轨迹移动时不会发生碰撞或模拟碰撞，看到车辆沿指定轨迹行驶以到达其目标位置。</p>
-<p>​   本示例设计了一个  <a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/course/navigation/automatic_control_revised.py"><strong>automatic_control_revised.py</strong></a>  脚本进行实现</p>
+<p>​   本示例设计了一个  <a href="../../src/course/navigation/automatic_control_revised.py"><strong>automatic_control_revised.py</strong></a>  脚本进行实现</p>
 <p><img alt="" src="../../img/traffic_course_img/4.gif" /></p>
-<p><strong>注意</strong>  需要将 <a href="https://github.com/OpenHUTB/carla_doc/tree/master/src/carla_agent"><strong>agents</strong></a> 文件夹位置添加到代码环境变量中，或者复制该文件夹使其与本示例脚本同级。</p>
+<p><strong>注意</strong>  需要将 <a href="../../src/carla_agent"><strong>agents</strong></a> 文件夹位置添加到代码环境变量中，或者复制该文件夹使其与本示例脚本同级。</p>
 <p><a href="https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb"><strong>湖工商场景</strong></a><strong>(WindowsNoEditor)</strong></p>
-<p>​   自定义一些生成位置的起始点坐标</p>
+<p>​   自定义一些生成位置的起始点坐标<span id="definePoint"></span></p>
 <pre><code class="language-python">diming = {
     &quot;北门&quot;: {&quot;x&quot;: 224.2, &quot;y&quot;: 1.7, &quot;z&quot;: 1},
     &quot;西门&quot;: {&quot;x&quot;: -146, &quot;y&quot;: -161, &quot;z&quot;: 10},
@@ -130,7 +130,7 @@ vehicle = world.spawn_actor(ego_vehicle_bp, spawn_point)
 #推进仿真环境时间
 world.tick()
 </code></pre>
-<p>​   生成终点，给起点和终点生成一个车辆运行轨迹，定义初始速度</p>
+<p>​   生成终点，给起点和终点生成一个车辆运行轨迹，定义初始速度<span id="initSpeed"></span></p>
 <pre><code class="language-python"> # 设置初始速度
  vehicle.set_target_velocity(carla.Vector3D(args.speed, 0, 0))
 # 创建代理
@@ -216,6 +216,7 @@ while True:
     control = agent.run_step(debug=True)
     vehicle.apply_control(control)
 </code></pre>
+<h6 id="_2">轨迹生成<span id="generateTrajectory"></span></h6>
 <p><img alt="" src="../../img/traffic_course_img/5.png" /></p>
               
             </div>

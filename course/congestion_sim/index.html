@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>交通拥堵模拟 - 交通仿真文档</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u4ea4\u901a\u62e5\u5835\u6a21\u62df";
+        var mkdocs_page_input_path = "course\\congestion_sim.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">交通拥堵模拟</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/course/congestion_sim.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">交通拥堵模拟</h1>
+<p><code>generate_traffic.py</code> 是一个用于模拟交通的脚本。通过多次运行该脚本，可以模拟和分析不同交通流量下的交通拥堵情况，并进行数据统计和优化评估。</p>
+<h2 id="_2">功能介绍</h2>
+<ol>
+<li><strong>交通拥堵模拟</strong>：通过多次运行脚本生成大量车辆，模拟不同场景下的交通流量变化。</li>
+<li><strong><a href="../traffic_indicators/">统计分析</a></strong>：对多次模拟过程中的拥堵情况进行数据采集和统计分析。</li>
+<li><strong>效果评估</strong>：评估不同交通优化措施对缓解交通拥堵的影响。</li>
+</ol>
+<h1 id="generate_trafficpy">generate_traffic.py 使用说明文档</h1>
+<h2 id="_3">概述</h2>
+<p><code>generate_traffic.py</code> 是一个用于模拟交通拥堵的脚本。通过多次运行该脚本，可以模拟和分析不同交通流量下的交通拥堵情况，并进行数据统计和优化评估。</p>
+<h2 id="_4">功能介绍</h2>
+<ol>
+<li><strong>交通拥堵模拟</strong>：通过多次运行脚本生成大量车辆，模拟不同场景下的交通流量变化。</li>
+<li><strong>统计分析</strong>：对多次模拟过程中的拥堵情况进行数据采集和统计分析。</li>
+<li><strong>效果评估</strong>：评估不同交通优化措施对缓解交通拥堵的影响。</li>
+</ol>
+<h2 id="_5">使用方法</h2>
+<h3 id="_6">依赖环境</h3>
+<p>在运行 <code>generate_traffic.py</code> 之前，请确保安装了以下依赖包：</p>
+<ul>
+<li><code>CARLA</code>仿真环境的搭建。</li>
+<li>Carla,Numpy等依赖包的安装。</li>
+</ul>
+<h3 id="_7">脚本运行</h3>
+<p>使用以下命令运行脚本：</p>
+<pre><code>python generate_traffic.py
+</code></pre>
+<h2 id="_8">多次运行模拟交通拥堵</h2>
+<p>为了模拟不同交通流量下的拥堵情况，可以多次运行 <a href="../../src/examples/generate_traffic.py"><strong>generate_traffic.py</strong></a> 脚本。</p>
+<p>使用<a href="../../src/course/traffic%20indicators.py"><strong>traffic_indicators.py</strong></a>脚本对路口交通流量、路口车均延误、路口饱和、排队长度四种路口真实性评价指标分析。</p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>路网评价 - 交通仿真文档</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u8def\u7f51\u8bc4\u4ef7";
+        var mkdocs_page_input_path = "course\\roadnet_evaluation.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">路网评价</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/course/roadnet_evaluation.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">路网评价</h1>
+<h4 id="_2"><strong>介绍</strong></h4>
+<p><a href="../../src/course/roadnet_evaluation.py">该代码</a>用于评估CARLA仿真环境中的路网质量。评估的指标包括路网覆盖率、路口数量、交通灯数量和道路平均宽度。评估结果可以帮助了解仿真环境中的道路网络结构和配置。</p>
+<h4 id="_3"><strong>环境配置</strong></h4>
+<p>要运行该代码，需要以下软件和库：</p>
+<ul>
+<li><a href="https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb">CARLA仿真器</a></li>
+<li>Python 3.x</li>
+<li><code>carla</code> Python API</li>
+<li><code>geopandas</code>库</li>
+<li><code>shapely</code>库</li>
+</ul>
+<p>安装所需库的命令：</p>
+<pre><code>pip install carla==0.9.15 
+pip install geopandas shapely
+</code></pre>
+<h4 id="_4"><strong>功能结构</strong></h4>
+<p>该功能包含以下主要部分：</p>
+<ol>
+<li><strong>计算路网覆盖率</strong></li>
+<li><strong>计算路口数量</strong></li>
+<li><strong>计算交通灯数量</strong></li>
+<li><strong>计算道路平均宽度</strong></li>
+</ol>
+<h5 id="_5">计算路网覆盖率</h5>
+<p>将道路几何信息转换为GeoPandas数据框，并计算道路覆盖的总长度和感兴趣区域的总面积，最后计算覆盖率。</p>
+<pre><code>def road_coverage(world):
+    road_geometries = get_road_geometries(world)
+    road_lines = [LineString(road_geometries)]
+    road_gdf = gpd.GeoDataFrame(geometry=road_lines)
+    area_of_interest = Polygon([(-500, -500), (-500, 500), (500, 500), (500, -500)])
+    area_gdf = gpd.GeoDataFrame(geometry=[area_of_interest])
+    total_road_length = road_gdf.length.sum()
+    total_area = area_gdf.area.sum()
+    coverage_ratio = total_road_length / total_area
+    return coverage_ratio
+</code></pre>
+<h5 id="_6">计算路口数量</h5>
+<p>通过遍历所有路点，找到位于路口的路点并获取唯一的路口ID。</p>
+<pre><code>def intersection_num(world):
+    carla_map = world.get_map()
+    waypoints = carla_map.generate_waypoints(distance=2.0)
+    junction_ids = set()
+    for waypoint in waypoints:
+        if waypoint.is_junction:
+            junction = waypoint.get_junction()
+            junction_ids.add(junction.id)
+    return len(junction_ids)
+</code></pre>
+<h5 id="_7">计算交通灯数量</h5>
+<p>它通过获取所有交通灯的演员对象并计数来实现。</p>
+<pre><code>def traffic_num(world):
+    traffic_lights = world.get_actors().filter('traffic.traffic_light')
+    return len(traffic_lights)
+</code></pre>
+<h5 id="_8">计算道路平均宽度</h5>
+<p>它遍历所有路点，累计车道宽度并计算平均值。</p>
+<pre><code>def road_width(world):
+    carla_map = world.get_map()
+    waypoints = carla_map.generate_waypoints(2.0)
+    total_width = 0.0
+    lane_count = 0
+    for waypoint in waypoints:
+        total_width += waypoint.lane_width
+        lane_count += 1
+    if lane_count &gt; 0:
+        average_width = total_width / lane_count
+        return average_width
+    else:
+        return 0
+</code></pre>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

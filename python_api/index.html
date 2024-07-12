@@ -126,9 +126,9 @@
 <li><a name="carla.Actor.is_dormant"></a><strong><font color="#f8805a">is_dormant</font></strong> (<em>bool</em>)<br />
 返回此参与者是否处于休眠状态 (True) 或非休眠状态 (False) - 与 is_active 相反。  </li>
 <li><a name="carla.Actor.parent"></a><strong><font color="#f8805a">parent</font></strong> (<em><a href="#carla.Actor">carla.Actor</a></em>)<br />
-参与者可以附加到他们将跟随的父参与者。这就是所说的参与者。  </li>
+参与者可以附加到他们将跟随的父参与者，这就是所说的参与者。  </li>
 <li><a name="carla.Actor.semantic_tags"></a><strong><font color="#f8805a">semantic_tags</font></strong> (<em>list(int)</em>)<br />
-蓝图列表组件为此参与者提供的语义标签列表。例如，交通灯可以用 <code>Pole</code> 和 <code>TrafficLight</code>. 。这些标签由语义分割传感器使用。在<a href="../ref_sensors/#semantic-segmentation-camera">此处</a> 查找有关此传感器和其他传感器的更多信息。  </li>
+蓝图列表组件为此参与者提供的语义标签列表。例如，交通灯可以用 <code>Pole</code> 和 <code>TrafficLight</code>。这些标签由语义分割传感器使用。在<a href="../ref_sensors/#semantic-segmentation-camera">此处</a> 查找有关此传感器和其他传感器的更多信息。  </li>
 <li><a name="carla.Actor.actor_state"></a><strong><font color="#f8805a">actor_state</font></strong> (<em><a href="#carla.ActorState">carla.ActorState</a></em>)<br />
 返回 <a href="#carla.ActorState">carla.ActorState</a>，它可以识别参与者是否处于活动、休眠或无效状态。  </li>
 <li><a name="carla.Actor.bounding_box"></a><strong><font color="#f8805a">bounding_box</font></strong> (<em><a href="#carla.BoundingBox">carla.BoundingBox</a></em>)<br />
@@ -137,15 +137,15 @@
 <h3 id="_5">方法</h3>
 <ul>
 <li><a name="carla.Actor.add_angular_impulse"></a><strong><font color="#7fb800">add_angular_impulse</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>angular_impulse</strong></font>)<br />
-在角色的质心处应用角冲量。此方法适用于瞬时扭矩，通常应用一次。使用 <strong><font color="#7fb800">add_torque()</font></strong> 在一段时间内施加旋转力。  <ul>
+在参与者的质心处应用角冲量。此方法适用于瞬时扭矩，通常应用一次。使用 <strong><font color="#7fb800">add_torque()</font></strong> 在一段时间内施加旋转力。  <ul>
 <li><strong>参数:</strong><ul>
-<li><code>angular_impulse</code> (<em><a href="#carla.Vector3D">carla.Vector3D</a><small> - degrees*s</small></em>) - 全局坐标中的角脉冲矢量。  </li>
+<li><code>angular_impulse</code> (<em><a href="#carla.Vector3D">carla.Vector3D</a><small> - degrees*s</small></em>) - 全局坐标中的角冲量矢量。  </li>
 </ul>
 </li>
 </ul>
 </li>
 <li><a name="carla.Actor.add_force"></a><strong><font color="#7fb800">add_force</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>force</strong></font>)<br />
-在参与者的质心处施加力。此方法适用于在一定时间内施加的力。使用 <strong><font color="#7fb800">add_impulse()</font></strong> 施加仅持续瞬间的脉冲。  <ul>
+在参与者的质心处施加力。此方法适用于在一定时间内施加的力。使用 <strong><font color="#7fb800">add_impulse()</font></strong> 施加仅持续瞬间的冲量。  <ul>
 <li><strong>参数:</strong><ul>
 <li><code>force</code> (<em><a href="#carla.Vector3D">carla.Vector3D</a><small> - N</small></em>) - 全局坐标中的力矢量。  </li>
 </ul>
@@ -153,9 +153,9 @@
 </ul>
 </li>
 <li><a name="carla.Actor.add_impulse"></a><strong><font color="#7fb800">add_impulse</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>impulse</strong></font>)<br />
-在参与者的质心处施加脉冲。此方法适用于瞬时力，通常应用一次。使用 <strong><font color="#7fb800">add_force()</font></strong> 在一段时间内施加力。  <ul>
+在参与者的质心处施加冲量。此方法适用于瞬时力，通常应用一次。使用 <strong><font color="#7fb800">add_force()</font></strong> 在一段时间内施加力。  <ul>
 <li><strong>参数:</strong><ul>
-<li><code>impulse</code> (<em><a href="#carla.Vector3D">carla.Vector3D</a><small> - N*s</small></em>) - 全局坐标中的脉冲矢量。 </li>
+<li><code>impulse</code> (<em><a href="#carla.Vector3D">carla.Vector3D</a><small> - N*s</small></em>) - 全局坐标中的冲量矢量。 </li>
 </ul>
 </li>
 </ul>
@@ -193,12 +193,12 @@
 <h5 id="_6">获取器</h5>
 <ul>
 <li><a name="carla.Actor.get_acceleration"></a><strong><font color="#7fb800">get_acceleration</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-返回客户端在最后一个tick期间收到的角色的三维加速度向量。该方法不调用仿真器。  <ul>
+返回客户端在最后一个tick期间收到的参与者的三维加速度向量。该方法不调用仿真器。  <ul>
 <li><strong>返回:</strong> <em><a href="#carla.Vector3D">carla.Vector3D</a><small> - m/s<sup>2</sup></small></em>  </li>
 </ul>
 </li>
 <li><a name="carla.Actor.get_angular_velocity"></a><strong><font color="#7fb800">get_angular_velocity</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-返回客户端在最后一个tick期间接收到的角色的角速度向量。该方法不调用仿真器。  <ul>
+返回客户端在最后一个tick期间接收到的参与者的角速度向量。该方法不调用仿真器。  <ul>
 <li><strong>返回：</strong> <em><a href="#carla.Vector3D">carla.Vector3D</a><small> - deg/s</small></em>  </li>
 </ul>
 </li>
@@ -215,7 +215,7 @@
 </ul>
 </li>
 <li><a name="carla.Actor.get_velocity"></a><strong><font color="#7fb800">get_velocity</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-返回客户端在最后一个tick期间接收到的角色的速度向量。该方法不调用仿真器。  <ul>
+返回客户端在最后一个tick期间接收到的参与者的速度向量。该方法不调用仿真器。  <ul>
 <li><strong>返回：</strong> <em><a href="#carla.Vector3D">carla.Vector3D</a><small> - m/s</small></em>  </li>
 </ul>
 </li>
@@ -236,7 +236,7 @@
 </ul>
 </li>
 <li><a name="carla.Actor.set_location"></a><strong><font color="#7fb800">set_location</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>location</strong></font>)<br />
-将角色传送到给定位置。  <ul>
+将参与者传送到给定位置。  <ul>
 <li><strong>参数：</strong><ul>
 <li><code>location</code> (<em><a href="#carla.Location">carla.Location</a><small> - 米</small></em>)  </li>
 </ul>
@@ -253,7 +253,7 @@
 </ul>
 </li>
 <li><a name="carla.Actor.set_target_angular_velocity"></a><strong><font color="#7fb800">set_target_angular_velocity</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>angular_velocity</strong></font>)<br />
-设置角色的角速度矢量。这是在物理步骤之前应用的，因此最终的角速度将受到摩擦等外力的影响。  <ul>
+设置参与者的角速度矢量。这是在物理步骤之前应用的，因此最终的角速度将受到摩擦等外力的影响。  <ul>
 <li><strong>参数：</strong><ul>
 <li><code>angular_velocity</code> (<em><a href="#carla.Vector3D">carla.Vector3D</a><small> - deg/s</small></em>)  </li>
 </ul>
@@ -269,7 +269,7 @@
 </ul>
 </li>
 <li><a name="carla.Actor.set_transform"></a><strong><font color="#7fb800">set_transform</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>transform</strong></font>)<br />
-将角色传送到给定的变换（位置和旋转）。 <ul>
+将参与者传送到给定的变换（位置和旋转）。 <ul>
 <li><strong>参数：</strong><ul>
 <li><code>transform</code> (<em><a href="#carla.Transform">carla.Transform</a></em>)  </li>
 </ul>
@@ -672,7 +672,7 @@
 <hr />
 <h2 id="carlaclient">carla.Client<a name="carla.Client"></a></h2>
 <p>客户端将 Carla 连接到运行仿真的服务器。服务器和客户端都包含 Carla 库 (libcarla)，但存在一些差异，允许它们之间进行通信。可以创建许多客户端，每个客户端都会连接到仿真内的 RPC 服务器以发送命令。仿真在服务器端运行。一旦建立连接，客户端将仅接收从仿真检索的数据。步行者是例外。客户端负责管理行人，因此，如果您与多个客户端一起运行仿真，可能会出现一些问题。例如，如果您通过不同的客户端生成步行者，则可能会发生冲突，因为每个客户端只知道它负责的客户端。</p>
-<p>客户端还具有记录功能，可以在运行仿真时保存仿真的所有信息。这使得服务器可以随意重放以获取信息并进行实验。<a href="../adv_recorder/">以下</a> 是有关如何使用此录音机的一些信息。 </p>
+<p>客户端还具有记录功能，可以在运行仿真时保存仿真的所有信息。这使得服务器可以随意重放以获取信息并进行实验。<a href="../adv_recorder/">以下</a> 是有关如何使用此记录器的一些信息。</p>
 <h3 id="_28">方法</h3>
 <ul>
 <li><a name="carla.Client.__init__"></a><strong><font color="#7fb800">__init__</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>host</strong>=127.0.0.1</font>, <font color="#00a6ed"><strong>port</strong>=2000</font>, <font color="#00a6ed"><strong>worker_threads</strong>=0</font>)<button class="SnipetButton" id="carla.Client.__init__-snipet_button">snippet &rarr;</button><br />
@@ -686,7 +686,7 @@
 </ul>
 </li>
 <li><a name="carla.Client.apply_batch"></a><strong><font color="#7fb800">apply_batch</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>commands</strong></font>)<br />
-在单个仿真步上执行命令列表，不检索任何信息。如果需要有关每个命令的响应的信息，请使用 <strong><font color="#7fb800">apply_batch_sync()</font></strong> 方法。<a href="https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/generate_traffic.py">下面</a> 是一个关于如何删除卡拉中出现的参与者的示例。一次列出所有参与者 <a href="#carla.ActorList">carla.ActorList</a> 。<ul>
+在单个仿真步上执行命令列表，不检索任何信息。如果需要有关每个命令的响应的信息，请使用 <strong><font color="#7fb800">apply_batch_sync()</font></strong> 方法。<a href="https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/generate_traffic.py">下面</a> 是一个关于如何删除 Carla 中出现的参与者的示例。一次列出所有参与者 <a href="#carla.ActorList">carla.ActorList</a> 。<ul>
 <li><strong>参数：</strong><ul>
 <li><code>commands</code> (<em>list</em>) - 要批量执行的命令列表。每个命令都不同，并且有自己的参数。它们显示在此页面底部列出。</li>
 </ul>
@@ -714,7 +714,7 @@
 </ul>
 </li>
 <li><a name="carla.Client.load_world"></a><strong><font color="#7fb800">load_world</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>map_name</strong></font>, <font color="#00a6ed"><strong>reset_settings</strong>=True</font>, <font color="#00a6ed"><strong>map_layers</strong>=<a href="#carla.MapLayer.All">carla.MapLayer.All</a></font>)<br />
-Creates a new world with default settings using <code>map_name</code> map. All actors in the current world will be destroyed.  <ul>
+使用 <code>map_name</code> 使用默认设置创建新世界。当今世界的所有参与者都将被摧毁。<ul>
 <li><strong>参数：</strong><ul>
 <li><code>map_name</code> (<em>str</em>) - 要在这个世界上使用的地图的名称。接受完整路径和地图名称，例如“/Game/Calla/Maps/Town01”或“Town01”。请记住，这些路径是动态的。</li>
 <li><code>reset_settings</code> (<em>bool</em>) - 选项可将情节设置重置为默认值，设置为false可保留当前设置。这对于在更改映射时保持同步模式和保持确定性场景非常有用。</li>
@@ -849,7 +849,7 @@ Creates a new world with default settings using <code>map_name</code> map. All a
 </ul>
 </li>
 <li><a name="carla.Client.get_world"></a><strong><font color="#7fb800">get_world</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-返回仿真中当前处于活动状态的世界对象。该世界稍后将用于例如加载地图。<ul>
+返回仿真中当前处于活动状态的世界对象。该世界稍后将用于加载地图。<ul>
 <li><strong>返回：</strong> <em><a href="#carla.World">carla.World</a></em>  </li>
 </ul>
 </li>
@@ -858,7 +858,7 @@ Creates a new world with default settings using <code>map_name</code> map. All a
 <ul>
 <li><a name="carla.Client.set_files_base_folder"></a><strong><font color="#7fb800">set_files_base_folder</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>path</strong></font>)  <ul>
 <li><strong>参数：</strong><ul>
-<li><code>path</code> (<em>str</em>) - 返回仿真中当前处于活动状态的世界对象。该世界稍后将用于例如加载地图。 </li>
+<li><code>path</code> (<em>str</em>) - 返回仿真中当前处于活动状态的世界对象。该世界稍后将用于加载地图。 </li>
 </ul>
 </li>
 </ul>
@@ -905,7 +905,7 @@ Creates a new world with default settings using <code>map_name</code> map. All a
 <li><a name="carla.CollisionEvent.other_actor"></a><strong><font color="#f8805a">other_actor</font></strong> (<em><a href="#carla.Actor">carla.Actor</a></em>)<br />
 第二个参与碰撞的参与者。</li>
 <li><a name="carla.CollisionEvent.normal_impulse"></a><strong><font color="#f8805a">normal_impulse</font></strong> (<em><a href="#carla.Vector3D">carla.Vector3D</a><small> - N*s</small></em>)<br />
-碰撞产生的正常脉冲。</li>
+碰撞产生的正常冲量。</li>
 </ul>
 <hr />
 <h2 id="carlacolor">carla.Color<a name="carla.Color"></a></h2>
@@ -919,7 +919,7 @@ Creates a new world with default settings using <code>map_name</code> map. All a
 <li><a name="carla.Color.b"></a><strong><font color="#f8805a">b</font></strong> (<em>int</em>)<br />
 蓝色 (0-255)。</li>
 <li><a name="carla.Color.a"></a><strong><font color="#f8805a">a</font></strong> (<em>int</em>)<br />
-Alpha 通道 (0-255).。  </li>
+Alpha 通道 (0-255)。  </li>
 </ul>
 <h3 id="_33">方法</h3>
 <ul>
@@ -2758,7 +2758,7 @@ RSS 为车辆计算的正确响应。</li>
 <li><a name="carla.SemanticLidarMeasurement.horizontal_angle"></a><strong><font color="#f8805a">horizontal_angle</font></strong> (<em>float<small> - radians</small></em>)<br />
 水平角度激光雷达在测量时旋转。  </li>
 <li><a name="carla.SemanticLidarMeasurement.raw_data"></a><strong><font color="#f8805a">raw_data</font></strong> (<em>bytes</em>)<br />
-收到原始检测点列表。每个点由[x，y，z]坐标加上入射角的余弦，命中角色的索引及其语义标记组成。</li>
+收到原始检测点列表。每个点由[x，y，z]坐标加上入射角的余弦，命中参与者的索引及其语义标记组成。</li>
 </ul>
 <h3 id="_152">方法</h3>
 <ul>
@@ -3186,7 +3186,7 @@ Sets a given time for the yellow light to be active.  <ul>
 </ul>
 </li>
 <li><a name="carla.TrafficManager.collision_detection"></a><strong><font color="#7fb800">collision_detection</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>reference_actor</strong></font>, <font color="#00a6ed"><strong>other_actor</strong></font>, <font color="#00a6ed"><strong>detect_collision</strong></font>)<br />
-调整车辆与另一个特定参与者之间的碰撞。为了忽略所有其他车辆、交通信号灯或步行者，请使用同一部分中描述的 特定 <strong>ignore</strong> 方法。 <ul>
+调整车辆与另一个特定参与者之间的碰撞。为了忽略所有其他车辆、交通信号灯或行人，请使用同一部分中描述的 特定 <strong>ignore</strong> 方法。 <ul>
 <li><strong>参数:</strong><ul>
 <li><code>reference_actor</code> (<em><a href="#carla.Actor">carla.Actor</a></em>) - 将忽略碰撞的车辆。 </li>
 <li><code>other_actor</code> (<em><a href="#carla.Actor">carla.Actor</a></em>) - 将忽略与之发生碰撞的参与者 <code>reference_actor</code> 。</li>
@@ -3257,7 +3257,7 @@ Sets a given time for the yellow light to be active.  <ul>
 </ul>
 </li>
 <li><a name="carla.TrafficManager.ignore_walkers_percentage"></a><strong><font color="#7fb800">ignore_walkers_percentage</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor</strong></font>, <font color="#00a6ed"><strong>perc</strong></font>)<br />
-在每帧运行的碰撞检测阶段，此方法设置车辆忽略与步行者碰撞的百分比机会。<ul>
+在每帧运行的碰撞检测阶段，此方法设置车辆忽略与行人碰撞的百分比机会。<ul>
 <li><strong>参数:</strong><ul>
 <li><code>actor</code> (<em><a href="#carla.Actor">carla.Actor</a></em>) - 将忽略场景中行人的车辆。</li>
 <li><code>perc</code> (<em>float</em>) - Between 0 and 100. 0 到 100 之间。碰撞被忽略的次数。</li>
@@ -3351,7 +3351,7 @@ Sets a given time for the yellow light to be active.  <ul>
 <h5 id="_176">设置器</h5>
 <ul>
 <li><a name="carla.TrafficManager.set_boundaries_respawn_dormant_vehicles"></a><strong><font color="#7fb800">set_boundaries_respawn_dormant_vehicles</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>lower_bound</strong>=25.0</font>, <font color="#00a6ed"><strong>upper_bound</strong>=actor_active_distance</font>)<br />
-设置要在英雄车辆附近重生的休眠角色的上限和下限。<ul>
+设置要在英雄车辆附近重生的休眠参与者的上限和下限。<ul>
 <li><strong>参数:</strong><ul>
 <li><code>lower_bound</code> (<em>float</em>) - 休眠参与者重生时距英雄车辆的最小距离（以米为单位）。</li>
 <li><code>upper_bound</code> (<em>float</em>) - 休眠参与者重生时距英雄车辆的最大距离（以米为单位）。</li>
@@ -4167,7 +4167,7 @@ VehiclePhysicsControl 构造函数。 <ul>
 <h3 id="_207">方法</h3>
 <ul>
 <li><a name="carla.Walker.apply_control"></a><strong><font color="#7fb800">apply_control</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>control</strong></font>)<br />
-在下一个刻度上，控件将以特定速度向特定方向移动步行者。也可以命令跳跃。<ul>
+在下一个刻度上，控件将以特定速度向特定方向移动行人。也可以命令跳跃。<ul>
 <li><strong>参数:</strong><ul>
 <li><code>control</code> (<em><a href="#carla.WalkerControl">carla.WalkerControl</a></em>)  </li>
 </ul>
@@ -4231,7 +4231,7 @@ VehiclePhysicsControl 构造函数。 <ul>
 <hr />
 <h2 id="carlawalkeraicontroller">carla.WalkerAIController<a name="carla.WalkerAIController"></a></h2>
 <p><small style="display:block;margin-top:-20px;">从 <em><a href="#carla.Actor">carla.Actor</a></em> 继承</small></br>
-对步行者进行 AI 控制的类。控制器被定义为参与者，但它们与其他控制器有很大不同。它们在创建过程中需要附加到父参与者，这是它们将控制的行人（如果您尚未了解如何生成 Actor，请查看<a href="#carla.World">carla.World</a> ）。他们还需要一个特殊的蓝图（已在 <a href="#carla.BlueprintLibrary">carla.BlueprintLibrary</a> 中定义为“controller.ai.walker”）。这是一个空的蓝图，因为人工智能控制器在仿真中是不可见的，但会跟随其父控制器来指示每一步。</p>
+对行人进行 AI 控制的类。控制器被定义为参与者，但它们与其他控制器有很大不同。它们在创建过程中需要附加到父参与者，这是它们将控制的行人（如果您尚未了解如何生成 Actor，请查看<a href="#carla.World">carla.World</a> ）。他们还需要一个特殊的蓝图（已在 <a href="#carla.BlueprintLibrary">carla.BlueprintLibrary</a> 中定义为“controller.ai.walker”）。这是一个空的蓝图，因为人工智能控制器在仿真中是不可见的，但会跟随其父控制器来指示每一步。</p>
 <h3 id="_211">方法</h3>
 <ul>
 <li><a name="carla.WalkerAIController.go_to_location"></a><strong><font color="#7fb800">go_to_location</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>destination</strong></font>)<br />
@@ -4250,7 +4250,7 @@ VehiclePhysicsControl 构造函数。 <ul>
 <h5 id="_212">设置器</h5>
 <ul>
 <li><a name="carla.WalkerAIController.set_max_speed"></a><strong><font color="#7fb800">set_max_speed</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>speed</strong>=1.4</font>)<br />
-设置步行者的速度（以米每秒为单位）。<ul>
+设置行人的速度（以米每秒为单位）。<ul>
 <li><strong>参数:</strong><ul>
 <li><code>speed</code> (<em>float<small> - m/s</small></em>) - 默认设置轻松步行速度。</li>
 </ul>
@@ -4264,7 +4264,7 @@ VehiclePhysicsControl 构造函数。 <ul>
 </ul>
 <hr />
 <h2 id="carlawalkerbonecontrolin">carla.WalkerBoneControlIn<a name="carla.WalkerBoneControlIn"></a></h2>
-<p>该类为步行者提供骨骼特定的操作。为了清晰起见，步行者的骨骼已经统一，并且应用于每个骨骼的变换始终相对于其父骨骼。请查看 <a href="../tuto_G_control_walker_skeletons/">此处</a> ，了解有关如何创建助行器并定义其运动的更多信息。</p>
+<p>该类为行人提供骨骼特定的操作。为了清晰起见，行人的骨骼已经统一，并且应用于每个骨骼的变换始终相对于其父骨骼。请查看 <a href="../tuto_G_control_walker_skeletons/">此处</a> ，了解有关如何创建助行器并定义其运动的更多信息。</p>
 <h3 id="_214">实例变量</h3>
 <ul>
 <li><a name="carla.WalkerBoneControlIn.bone_transforms"></a><strong><font color="#f8805a">bone_transforms</font></strong> (<em>list([name,transform])</em>)<br />
@@ -4315,7 +4315,7 @@ VehiclePhysicsControl 构造函数。 <ul>
 <li><a name="carla.WalkerControl.speed"></a><strong><font color="#f8805a">speed</font></strong> (<em>float<small> - m/s</small></em>)<br />
 控制行人速度的标量值。  </li>
 <li><a name="carla.WalkerControl.jump"></a><strong><font color="#f8805a">jump</font></strong> (<em>bool</em>)<br />
-如果为 <b>True</b>，步行者将执行跳跃。</li>
+如果为 <b>True</b>，行人将执行跳跃。</li>
 </ul>
 <h3 id="_221">方法</h3>
 <ul>
