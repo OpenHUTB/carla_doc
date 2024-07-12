@@ -2,7 +2,7 @@
 
 ​	[**object_dection.py**](../../src/course/object_detection/object_detection.py)  脚本主要是在 **Carla** 中使用 **YOLOv3** 检测车辆。[相关链接](../algorithms/perception.md)  
 
-​     [**湖工商场景**](https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb )**(WindowsNoEditor)**，并运行**[generate_traffic.py](../../src/examples/generate_traffic.py)**
+​     [**湖工商场景**](https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb )**(WindowsNoEditor)**，并运行**[generate_traffic.py](../../src/examples/generate_traffic.py)**      
 
 ![](../img/traffic_course_img/3.gif)
 
