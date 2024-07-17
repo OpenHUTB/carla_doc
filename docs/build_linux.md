@@ -326,6 +326,19 @@ python3 dynamic_weather.py
 v2ray 的版本不能太高，比如可以使用 [v4.45.2](https://github.com/v2fly/v2ray-core/releases/tag/v4.45.2) ，图形界面使用[Qv2ray 2.7.0](https://github.com/Qv2ray/Qv2ray/releases) 。
 
 
+#### clang 编译
+根据 [链接](https://clang.llvm.org/get_started.html) 进行指定版本clang的编译。
+```shell script
+git clone https://github.com/llvm/llvm-project.git
+git pull origin release/10.x:relase/10.x
+git checkout relase/10.x
+mkdir build
+cd build
+cmake -DLLVM_ENABLE_PROJECTS=clang -DCMAKE_BUILD_TYPE=Release -G "Unix Makefiles" ../llvm
+make
+```
+
+
 有关本指南的任何问题， 请阅读 **[常见问题解答](build_faq.md)** 页面或[Carla 论坛](https://github.com/carla-simulator/carla/discussions) 中的帖子。
 
 接下来，学习如何更新 Carla 构建或在仿真中迈出第一步，并学习一些核心概念。
