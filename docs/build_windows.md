@@ -199,7 +199,7 @@ Python API 客户端授予对仿真的控制权。第一次构建 Carla 时需�
 make PythonAPI
 ```
 
-Carla 客户端库将以两种截然不同、互斥的形式构建。这使用户可以自由选择他们喜欢的形式来运行 Carla 客户端代码。两种形式包括`.egg`文件和`.whl`文件。选择以下选项 __之一__ 来使用客户端库：
+生成的客户端安装文件位于`PythonAPI/carla/dist/`。Carla 客户端库将以两种截然不同、互斥的形式构建。这使用户可以自由选择他们喜欢的形式来运行 Carla 客户端代码。两种形式包括`.egg`文件和`.whl`文件。选择以下选项 __之一__ 来使用客户端库：
 
 __A. `.egg` 文件__
 
@@ -290,6 +290,15 @@ python setup.py bdist_wheel
 而`python setup.py install`在`Python37\Lib\site-packages\carla-0.9.15-py3.7-win-amd64.egg`目录下生成运行包，包括`libcarla.cp37-win_amd64.pyd`。
 
 
+### 其他
+
+如果想重新编译LibCarla或者使用最新的修改，需要删除`Build/libcarla-visualstudio`目录，然后重新运行编译命令：
+```shell
+make LibCarla
+```
+则服务端文件`carla_server.lib`生成至`carla\Unreal\CarlaUE4\Plugins\Carla\CarlaDependencies\`，客户端文件`carla_client.lib`生成至`carla\PythonAPI\carla\dependencies\`。
+
+
 ## 报错
 * 执行`make osm2odr`报错：
 ```text
@@ -307,6 +316,13 @@ libcarla.obj : error LNK2001: 无法解析的外部符号 "class std::basic_stri
 ```
 从其他编译成功的地方将`PythonAPI\carla\dependencies\lib\osm2odr.lib`拷贝过来。
 
+
+* 同一台机器中之前安装过vs，再安装时报错：`无法安装  Microsoft.VisualStudio.Debugger.JustInTime.Msi`
+和 `Could not open key: UNKNOWNComponents Werify that you have sufficient access to that key, or contact your support personnel.`
+
+解决：[`注册表编辑器无法在当前所选的项及其部分子项上设置安全性`](https://blog.csdn.net/hsuehgw/article/details/131000227) 。
+
+注意：使用在线安装文件`vs_community__2019.exe`进行安装，不要使用离线版的vs2019安装包，否则会出现错误：`系统错误：&H8007007E(-2147024770)。 找不到指定的模块`。
 
 ---
 
