@@ -27,7 +27,7 @@
 
 * **DebugGame Editor**：游戏代码可调试无优化，可以使用Editor相关代码功能，引擎不可调试，资源不需要Cook。
 
-* **Development**：游戏、编辑器、引擎都不可调试，Editor相关代码功能不可使用，资源需要Cook。
+* **Development**：游戏、编辑器、引擎都不可调试，Editor相关代码功能不可使用，资源需要Cook。（The global shader cache file 'D:/work/workspace/engine/Engine/GlobalshaderCache-PCD3D_M5.bin' is missing.）
 
 * **Development Editor**：游戏、编辑器、引擎都不可调试，Editor相关代码功能可使用，资源不需要Cook。（默认）
 
@@ -73,6 +73,11 @@ cmake --build . --config Release --target install | findstr /V "Up-to-date:"
     在vs2019中生成`carla_client_debug`的解决方案时出现`fatal error C1189: #error :  "Incompatible build options"`错误，因为 [在不指定调试运行时的情况下使用/RTC选项将导致链接器错误](https://www.twblogs.net/a/5ef976a7fa148015395f1c5e/?lang=zh-cn) ，则需要将“项目属性 --> C++ --> 基本运行时检查” 改为 `默认值`，然后重新生成解决方案。
 
 
+!!! 注意
+    右键`carla_client_debug`，选择`调试`->`启动新实例`。
+
+参考 [vs调试C++](https://blog.csdn.net/qq_36330274/article/details/128380765) 。
+
 ### Python 扩展模块
 LibCarla编译后生成`Python37/Lib/site-packages/carla/libcarla.cp37-win_amd64.pyd`给Python进行调用。为了提高运行速度，将当前目录中的`__init__.py`和`command.py`编译为`__pycache__`目录中的 `byte code(字节码)`。
 
@@ -94,6 +99,10 @@ python setup.py build
 
 
 ## 其他
+
+### 检查所依赖dll库的符号是否加载
+下断点，F5调试。然后“调试 - 窗口 - 模块”打开模块窗口。
+
 
 ### VS2019 打开 CarlaUE4 的 Cmake 工程
 windows操作系统下通过vs2019打开并编译carla：
