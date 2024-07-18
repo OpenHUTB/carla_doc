@@ -183,15 +183,18 @@ raw_image.save_to_disk("path/to/save/converted/image",carla.Depth)
 | `transform`                                                                                                                                             | [carla.Transform](<../python_api#carlatransform>)  | 测量时传感器在世界坐标中的位置和旋转。                      |
 | [`accelerometer`](https://github.com/carla-simulator/carla/blob/dev/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/InertialMeasurementUnit.cpp#L102) | [carla.Vector3D](<../python_api#carlavector3d>)    | 测量线性加速度（以 `m/s^2` 为单位）。                  |
 | [`gyroscope`](https://github.com/carla-simulator/carla/blob/dev/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/InertialMeasurementUnit.cpp#L147)     | [carla.Vector3D](<../python_api#carlavector3d>)    | 测量角速度（以 `rad/sec` 为单位）。                  |
-| [`compass`](https://github.com/carla-simulator/carla/blob/dev/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/InertialMeasurementUnit.cpp#L167)                                                                                                                                            | float | 以弧度为单位的方向。在虚幻引擎中北是 `(0.0, -1.0, 0.0)` 。 |
+| [`compass`](https://github.com/carla-simulator/carla/blob/dev/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/InertialMeasurementUnit.cpp#L167)                                                                                                                                            | float | 以弧度为单位的方向。北是0弧度。 |
 
 * 加速度计算方法：
 $$ d_2 (i) = -2.0 \times [ { y_1 \over {h_1 \times h_2 } }  -  { y_2 \over { h_2 \times (h_1+h_2) } }  -  {y_0 \over { h_1 \times (h_1 + h_2) }} ] .$$
 
 其中，\(h_1\) 为当前时间增量，\(h_2\)为前一个时间增量。
 
+!!! 注意
+     对于指南针，北为 0 弧度。东为 *pi* /2 弧度，南为 *pi* 弧度，西为 3 *pi* /2 弧度。在 Carla 的全局坐标系中，北为 Y 轴减小的方向。东为 X 轴增加的方向。转换为度数的指南针值等于 `90 - 偏航`。 
+
 ---
-## 车道侵入检测器
+## 压线检测器
 
 * __蓝图：__ sensor.other.lane_invasion
 * __输出：__ 每次交叉路口的 [carla.LaneInvasionEvent](python_api.md#carla.LaneInvasionEvent) 。
