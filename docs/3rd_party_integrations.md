@@ -10,7 +10,7 @@ Carla has been developed to integrate with several 3rd party applications in ord
 -   [__Chrono__](tuto_G_chrono.md)
 -   [__OpenDRIVE__](adv_opendrive.md) 
 -   [__PTV Vissim__](adv_ptv.md)
--   [__RSS__](adv_rss.md) 
+-   [__责任敏感安全__](adv_rss.md) 
 -   [__AWS and RLlib__](tuto_G_rllib_integration.md)
 
 ---
@@ -63,7 +63,7 @@ Learn how to use Carla alongside CarSIM [here](tuto_G_carsim_integration.md).
 
 [__OpenDRIVE__](https://www.asam.net/standards/detail/opendrive/) is an open format specification used to describe the logic of a road network intended to standardise the discription of road networks in digital format and allow different applications to exchange data on road networks. Please refer to the full documentation [__here__](adv_opendrive.md)
 
-## RSS - Responsibility Sensitive Safety
+## 责任敏感安全 - （Responsibility Sensitive Safety, RSS）
 
 Carla integrates the [C++ Library for Responsibility Sensitive Safety](https://github.com/intel/ad-rss-lib) in the client library. This feature allows users to investigate behaviours of RSS without having to implement anything. Carla will take care of providing the input, and applying the output to the AD systems on the fly. Refer to the full documentation [__here__](adv_rss.md)
 

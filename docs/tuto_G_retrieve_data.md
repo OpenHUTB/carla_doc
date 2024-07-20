@@ -411,7 +411,7 @@ ego_obs.listen(lambda obs: obs_callback(obs))
 
 ```py
 # --------------
-# Add GNSS sensor to ego vehicle. 
+# 给自我车辆添加全球导航卫星系统传感器 
 # --------------
 
 gnss_bp = world.get_blueprint_library().find('sensor.other.gnss')
@@ -440,7 +440,7 @@ ego_imu.listen(lambda imu: imu_callback(imu))
 ```
 
 ![tuto_other](img/tuto_other.jpg)
-<div style="text-align: right"><i>GNSS and IMU sensors output</i></div>
+<div style="text-align: right"><i>全球导航卫星系统和惯性测量单元传感器输出</i></div>
 
 ---
 ## 设置高级传感器
@@ -985,7 +985,7 @@ def main():
         """
 
         # --------------
-        # Add GNSS sensor to ego vehicle. 
+        # 给自我车辆添加全球导航卫星系统传感器
         # --------------
         """
         gnss_bp = world.get_blueprint_library().find('sensor.other.gnss')

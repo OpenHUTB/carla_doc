@@ -586,10 +586,10 @@ if routing_targets:
 | [carla.RssResponse 属性](<../python_api#carlarssresponse>)           | 类型  | 描述       |
 | ------------------------------------- | ------------------------------------- | ------------------------------------- |
 | `response_valid`  | bool  | 响应数据的有效性。      |
-| `proper_response` | [ad.rss.state.ProperResponse](<https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1state_1_1ProperResponse.html>)   | RSS 为车辆计算的正确响应，包括加速限制。         |
-| `rss_state_snapshot`    | [ad.rss.state.RssStateSnapshot](<https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1state_1_1RssStateSnapshot.html>)           | RSS 状态为当前时间点。这是 RSS 计算的详细的单独输出。  |
-| `situation_snapshot`    | [ad.rss.situation.SituationSnapshot](<https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1situation_1_1SituationSnapshot.html>) | 当前时间点的 RSS 情况。这是用于 RSS 计算的经过处理的输入数据。    |
-| `world_model`     | [ad.rss.world.WorldModel](<https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1WorldModel.html>)           | 当前时间点的 RSS 世界模型。这是 RSS 计算的输入数据。       |
+| `proper_response` | [ad.rss.state.ProperResponse](<https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1state_1_1ProperResponse.html>)   | 责任敏感安全为车辆计算的正确响应，包括加速限制。         |
+| `rss_state_snapshot`    | [ad.rss.state.RssStateSnapshot](<https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1state_1_1RssStateSnapshot.html>)           | 责任敏感安全状态为当前时间点。这是责任敏感安全计算的详细的单独输出。  |
+| `situation_snapshot`    | [ad.rss.situation.SituationSnapshot](<https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1situation_1_1SituationSnapshot.html>) | 当前时间点的责任敏感安全情况。这是用于 责任敏感安全 计算的经过处理的输入数据。    |
+| `world_model`     | [ad.rss.world.WorldModel](<https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1WorldModel.html>)           | 当前时间点的 责任敏感安全 世界模型。这是 责任敏感安全 计算的输入数据。       |
 | `ego_dynamics_on_route` | [carla.RssEgoDynamicsOnRoute](<../python_api#carlarssegodynamicsonroute>)    | 关于路线的当前自我车辆动态。 |
 
 

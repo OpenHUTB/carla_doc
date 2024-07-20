@@ -7,10 +7,10 @@
 	- [地标](#landmarks)  
 	- [车道](#lanes)  
 	- [路口](#junctions)  
-	- [航点](#waypoints)  
+	- [路径点](#waypoints)  
 	- [环境对象](#environment-objects)
 - [__在 Carla 中导航__](#navigation-in-carla)  
-	- [通过航路点导航](#navigating-through-waypoints)  
+	- [通过路径点导航](#navigating-through-waypoints)  
 	- [生成地图导航](#generating-a-map-navigation)  
 - [__Carla 地图__](#carla-maps)  
 	- [非分层地图](#non-layered-maps)
@@ -67,9 +67,9 @@ my_waypoint.get_landmarks(200.0,True)
 
 ### 路径点
 
-[`carla.Waypoint`](python_api.md#carla.Waypoint) 是 Carla 世界中的三维有向点，对应于 OpenDRIVE 车道。与路径点相关的所有事情都发生在客户端；只需与服务器通信一次即可获取包含航点信息的[地图对象](python_api.md#carlamap)。
+[`carla.Waypoint`](python_api.md#carla.Waypoint) 是 Carla 世界中的三维有向点，对应于 OpenDRIVE 车道。与路径点相关的所有事情都发生在客户端；只需与服务器通信一次即可获取包含路径点信息的[地图对象](python_api.md#carlamap)。
 
-每个路径点都包含一个 [`carla.Transform`](python_api.md#carla.Transform) ，它说明其在地图上的位置以及包含该航路点的车道的方向。变量`road_id`,`section_id`,`lane_id` 和 `s`对应 OpenDRIVE 道路。路径点`id`的是由这四个值的哈希组合构造的。
+每个路径点都包含一个 [`carla.Transform`](python_api.md#carla.Transform) ，它说明其在地图上的位置以及包含该路径点的车道的方向。变量`road_id`,`section_id`,`lane_id` 和 `s`对应 OpenDRIVE 道路。路径点`id`的是由这四个值的哈希组合构造的。
 
 
 !!! 笔记
@@ -161,7 +161,7 @@ Carla 中的导航是通过 Waypoint API （来自 [`carla.Waypoint`](python_api
 
 Waypoint API 公开了允许路径点相互连接并构建沿道路供车辆导航的路径的方法：
 
-- `next(d)`  __在车道方向上__ 创建近似距离 `d` 内的航路点列表。该列表包含每个可能偏差的一个航路点。
+- `next(d)`  __在车道方向上__ 创建近似距离 `d` 内的路径点列表。该列表包含每个可能偏差的一个路径点。
 - `previous(d)` __在车道相反的方向上__ 创建近似距离小于 `d` 的路径点列表。该列表包含每个可能偏差的一个路径点。
 - `next_until_lane_end(d)` 和 `previous_until_lane_start(d)` 返回相距一定距离 `d` 的路径点列表。这些列表分别从当前路径点到其车道的终点和起点。
 - `get_right_lane()` 和 `get_left_lane()` 返回相邻车道中的等路径点（如果存在）。可以通过找到右/左车道上的下一个路点并移动到该路点来进行变道操作。
@@ -188,7 +188,7 @@ map = world.get_map()
 spawn_points = world.get_map().get_spawn_points()
 ```
 
-您可以通过[获取](python_api.md#carla.Map.get_waypoint)距特定位置或特定 `road_id`、`lane_id`和`s`位置最近的航路点以及地图 OpenDRIVE 定义中的值来开始使用路径点：
+您可以通过[获取](python_api.md#carla.Map.get_waypoint)距特定位置或特定 `road_id`、`lane_id`和`s`位置最近的路径点以及地图 OpenDRIVE 定义中的值来开始使用路径点：
 
 ```py
 # 驾驶车道或人行道中心最近的路径点。

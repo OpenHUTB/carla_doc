@@ -25,7 +25,7 @@
 
 [__基准测试性能__](adv_benchmarking.md) — 使用我们准备的脚本执行基准测试。
 
-[__Carla 智能体__](adv_agents.md) — 智能体脚本允许单个车辆在地图上漫游或行驶到设定的目的地。
+[__Carla 代理__](adv_agents.md) — 代理脚本允许单个车辆在地图上漫游或行驶到设定的目的地。
 
 [__多 GPU__](adv_multigpu.md) — 设置 Carla 仿真器以使用多个 GPU 进行处理。
 

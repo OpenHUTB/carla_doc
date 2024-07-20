@@ -1,10 +1,10 @@
-# Carla 自动驾驶智能体
+# Carla 自动驾驶代理
 
-[Carla 自动驾驶智能体](https://github.com/carla-simulator/ros-bridge/tree/master/carla_ad_agent) 是一种自动驾驶智能体，可以遵循给定路线，避免与其他车辆发生碰撞，并通过访问真实数据尊重交通信号灯的状态。[Carla 自动驾驶演示](carla_ad_demo.md) 使用它来提供如何使用 ROS 桥的示例。 
+[Carla 自动驾驶代理](https://github.com/carla-simulator/ros-bridge/tree/master/carla_ad_agent) 是一种自动驾驶代理，可以遵循给定路线，避免与其他车辆发生碰撞，并通过访问真实数据尊重交通信号灯的状态。[Carla 自动驾驶演示](carla_ad_demo.md) 使用它来提供如何使用 ROS 桥的示例。 
 
 - [__需求__](#requirements)
 - [__ROS 应用程序接口__](#ros-api)
-    - [__自动驾驶智能体节点__](#ad-agent-node)
+    - [__自动驾驶代理节点__](#ad-agent-node)
         - [参数](#parameters)
         - [订阅](#subscriptions)
         - [发布](#publications)
@@ -13,7 +13,7 @@
         - [发布](#subscriptions)
         - [订阅](#publications)
 
-在内部，Carla 自动驾驶智能体使用单独的节点进行 [本地规划](https://github.com/carla-simulator/ros-bridge/blob/ros2/carla_ad_agent/src/carla_ad_agent/local_planner.py) 。该节点已针对 `vehicle.tesla.model3` 进行了优化，因为它没有任何换档延迟。
+在内部，Carla 自动驾驶代理使用单独的节点进行 [本地规划](https://github.com/carla-simulator/ros-bridge/blob/ros2/carla_ad_agent/src/carla_ad_agent/local_planner.py) 。该节点已针对 `vehicle.tesla.model3` 进行了优化，因为它没有任何换档延迟。
 
 PID 参数通过 [Ziegler-Nichols方法](https://en.wikipedia.org/wiki/Ziegler%E2%80%93Nichols_method) 采集。
 
@@ -31,7 +31,7 @@ PID 参数通过 [Ziegler-Nichols方法](https://en.wikipedia.org/wiki/Ziegler%E
 
 ## ROS 应用程序接口 
 
-### 自动驾驶智能体节点
+### 自动驾驶代理节点
 
 #### 参数
 

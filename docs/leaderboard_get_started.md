@@ -4,7 +4,7 @@
 !!! 笔记
     本页信息涉及最新版本 Leaderboard 2.0。如果您使用的是以前版本的排行榜，请参阅排行榜 1.0 入门说明。
 
-为了开始开发您的自主智能体，您需要完成以下过程：
+为了开始开发您的自主代理，您需要完成以下过程：
 
 # 系统设置
 ## 下载 CARLA 排行榜包
@@ -63,7 +63,7 @@ pip3 install -r requirements.txt
 ```
 
 
-### 基于 ROS 的智能体
+### 基于 ROS 的代理
 首先，下载并安装适当的 ROS 或 ROS2 发行版。 Leaderboard 2.0 支持 ROS Melodic、ROS Noetic 和 ROS2 Foxy。然后，克隆并构建 ROS 或 ROS2 的 Carla ROS 桥存储库。确保 leaderboard-2.0 在克隆 Carla ROS Bridge 存储库时指定分支：
 ```shell
 git clone --recurse-submodules -b leaderboard-2.0 --single-branch https://github.com/carla-simulator/ros-bridge
@@ -94,10 +94,10 @@ source ~/.bashrc
 ```
 
 
-# 创建带有排行榜的自治智能体
+# 创建带有排行榜的自治代理
 
 ## 排行榜的第一步
-排行榜将负责运行您的自主智能体，并评估其在多条路线的不同交通情况下的行为。为了更好地理解这个过程，让我们运行一个基本智能体。
+排行榜将负责运行您的自主代理，并评估其在多条路线的不同交通情况下的行为。为了更好地理解这个过程，让我们运行一个基本代理。
 
 在一个终端中运行 Carla 服务器。
 ```shell
@@ -111,7 +111,7 @@ cd ${CARLA_ROOT}
 ./run_leaderboard.sh
 ```
 
-这将启动一个 pygame 窗口，让您可以选择手动控制智能体。按照彩色航点指示的路线到达目的地。该脚本加载 Town 12 中的两条路线。
+这将启动一个 pygame 窗口，让您可以选择手动控制代理。按照彩色路径点指示的路线到达目的地。该脚本加载 Town 12 中的两条路线。
 
 ![motif_large](img/leaderboard/Town12route.png)
 遵循路线并遵守交通规则，直到到达目的地。
@@ -123,30 +123,30 @@ cd ${CARLA_ROOT}
 ## 了解排行榜组件
 运行测试时，我们设置了一系列参数。让我们了解一下它们以及它们在排行榜中的作用。
 
-* ROUTES (XML) — 将用于仿真的路线集。每条路线都有一个起点（第一个航点）和一个终点（最后一个航点）。此外，它们还可以包含天气概况来设置特定的天气条件。一份 XML 包含许多路由，每条路由都有一个 ID。用户可以修改、添加和删除路线以进行培训和验证。排行榜附带了一组用于调试、训练和验证的路线。用于在线评估的路线是秘密的。该文件还包括将在仿真中测试的场景，每条路线都有自己的一组场景。场景被定义为交通状况。特工必须克服这些场景才能通过测试。参与者可以访问一组适用于公共城镇的交通场景。存在使用不同参数实例化的多种类型的场景。以下是可用方案的列表。
+* ROUTES (XML) — 将用于仿真的路线集。每条路线都有一个起点（第一个路径点）和一个终点（最后一个路径点）。此外，它们还可以包含天气概况来设置特定的天气条件。一份 XML 包含许多路由，每条路由都有一个 ID。用户可以修改、添加和删除路线以进行培训和验证。排行榜附带了一组用于调试、训练和验证的路线。用于在线评估的路线是秘密的。该文件还包括将在仿真中测试的场景，每条路线都有自己的一组场景。场景被定义为交通状况。特工必须克服这些场景才能通过测试。参与者可以访问一组适用于公共城镇的交通场景。存在使用不同参数实例化的多种类型的场景。以下是可用方案的列表。
 
 * REPETITIONS (int) — 出于统计目的，每条路线重复的次数。
-* TEAM_AGENT (Python 模块) — 智能体的 Python 模块的路径。创建智能体的步骤将在下一步中解释。
+* TEAM_AGENT (Python 模块) — 代理的 Python 模块的路径。创建代理的步骤将在下一步中解释。
 
 
 其他相关参数如下所述。
 
-TEAM_CONFIG （由用户定义） — 所提供的智能体读取的任意配置文件的路径。您负责在智能体类中定义和解析此文件。
+TEAM_CONFIG （由用户定义） — 所提供的代理读取的任意配置文件的路径。您负责在代理类中定义和解析此文件。
 DEBUG_CHALLENGE (int) — 指示仿真期间是否应显示调试信息的标志。默认情况下，该变量未设置 (0)，这不会生成要显示的调试信息。当设置为 1 时，仿真器将显示要遵循的参考路线。如果此变量设置为大于任何值， 1引擎将打印仿真的完整状态以用于调试目的。
 CHECKPOINT_ENDPOINT (JSON) — 将记录 Leaderboard 指标的文件的名称。
 RECORD_PATH （字符串） — 将存储 Carla 日志的文件夹的路径。默认情况下未设置。
 RESUME— 指示仿真是否应从最后一条路线恢复的标志。默认情况下未设置。
-CHALLENGE_TRACK_CODENAME （字符串） — 智能体正在竞争的赛道。有两个可能的选项： SENSORS 和 MAP。该 SENSORS 赛道允许使用多个摄像头、激光雷达、雷达、GNSS、IMU 和速度计。除了这些传感器之外，MAP 赛道还允许直接访问 OpenDRIVE 高清地图。您负责根据需要解析和处理 OpenDRIVE 映射。
+CHALLENGE_TRACK_CODENAME （字符串） — 代理正在竞争的赛道。有两个可能的选项： SENSORS 和 MAP。该 SENSORS 赛道允许使用多个摄像头、激光雷达、雷达、全球导航卫星系统、惯性测量单元和速度计。除了这些传感器之外，MAP 赛道还允许直接访问 OpenDRIVE 高清地图。您负责根据需要解析和处理 OpenDRIVE 映射。
 
-这些环境变量被传递到 `${LEADERBOARD_ROOT}/LEADERBOARD/LEADERBOARD_evaluator.py` ，作为执行仿真的入口点。查看`leaderboard_evaluator.py`，了解有关如何执行和评估智能体的更多详细信息。
+这些环境变量被传递到 `${LEADERBOARD_ROOT}/LEADERBOARD/LEADERBOARD_evaluator.py` ，作为执行仿真的入口点。查看`leaderboard_evaluator.py`，了解有关如何执行和评估代理的更多详细信息。
 
-# 创建自己的自动驾驶智能体
+# 创建自己的自动驾驶代理
 
-新智能体的定义始于创建一个新类，该类继承自 `leaderboard.autoagents.autonomous_agent.AutonomousAgent`。
+新代理的定义始于创建一个新类，该类继承自 `leaderboard.autoagents.autonomous_agent.AutonomousAgent`。
 
 ## 创建 get_entry_point
 
-首先，定义一个名为 `get_entry_point` 的函数，该函数返回新类的名称。这将用于自动实例化您的智能体。
+首先，定义一个名为 `get_entry_point` 的函数，该函数返回新类的名称。这将用于自动实例化您的代理。
 
 ```python
 from leaderboard.autoagents.autonomous_agent import AutonomousAgent
@@ -160,7 +160,7 @@ class MyAgent(AutonomousAgent):
 
 ## 重写 setup 方法
 
-在智能体类中重写 `setup` 方法。此方法执行智能体所需的所有初始化和定义。每次初始化路由时，都会自动调用它。它可以接收指向配置文件的可选参数。用户应分析此文件。至少，您需要指定参与的曲目。
+在代理类中重写 `setup` 方法。此方法执行代理所需的所有初始化和定义。每次初始化路由时，都会自动调用它。它可以接收指向配置文件的可选参数。用户应分析此文件。至少，您需要指定参与的曲目。
 
 ```python
 from leaderboard.autoagents.autonomous_agent import Track
@@ -174,7 +174,7 @@ def setup(self, path_to_conf_file):
 
 ## 重写传感器方法
 
-您还必须覆盖传感器方法，该方法定义了您的智能体所需的所有传感器。
+您还必须覆盖传感器方法，该方法定义了您的代理所需的所有传感器。
 
 ```python
 def sensors(self):
@@ -218,7 +218,7 @@ def sensors(self):
 !!! 注意
     试图设置另一个传感器或拼错这些传感器，将导致设置失败。
 
-您可以使用这些传感器中的任何一个来配置传感器堆栈。然而，为了保持适度的计算负载，我们对可以添加到智能体的传感器数量设置了以下限制：
+您可以使用这些传感器中的任何一个来配置传感器堆栈。然而，为了保持适度的计算负载，我们对可以添加到代理的传感器数量设置了以下限制：
 
 * `sensor.camera.rgb`: 4
 * `sensor.lidar.ray_cast`: 1
@@ -236,7 +236,7 @@ def sensors(self):
 
 ## 重写 run_step 方法
 
-此方法将在每个时间步长调用一次，以生成 `carla.VehicleControl` 对象形式的新动作。确保此函数返回将用于更新智能体的控制对象。
+此方法将在每个时间步长调用一次，以生成 `carla.VehicleControl` 对象形式的新动作。确保此函数返回将用于更新代理的控制对象。
 
 ```python
 def run_step(self, input_data, timestamp):
@@ -247,20 +247,20 @@ def run_step(self, input_data, timestamp):
 * **input_data**: 包含所请求传感器的传感器数据的字典。数据已经在`sensor_interface.py`上进行了预处理，并将以numpy数组的形式给出。该字典由传感器方法中定义的id索引。
 * **timestamp**: 当前仿真瞬间的时间戳。
 
-请记住，您还可以访问自我智能体为达到目的地而应走的路线。利用`self._global_plan`成员访问地理位置路由和`self._global_plan_world_coord`作为其世界位置对应项。
+请记住，您还可以访问自我代理为达到目的地而应走的路线。利用`self._global_plan`成员访问地理位置路由和`self._global_plan_world_coord`作为其世界位置对应项。
 
 
 ## 重写 destroy 方法
 
-在每条路由结束时，将调用`destroy`方法，在需要清理的情况下，智能体可以覆盖该方法。例如，您可以使用此功能擦除网络中任何不需要的内存
+在每条路由结束时，将调用`destroy`方法，在需要清理的情况下，代理可以覆盖该方法。例如，您可以使用此功能擦除网络中任何不需要的内存
 
 ```python
 def destroy(self):
     pass
 ```
 
-## 基于智能体的 ROS
-如果您想将 ROS 作为智能体的一部分，以下是一些需要考虑的建议：
+## 基于代理的 ROS
+如果您想将 ROS 作为代理的一部分，以下是一些需要考虑的建议：
 
 * **ROS Melodic**: 由于排行榜仅与 Python 3 兼容，我们建议使用 [roslibpy](https://github.com/gramaziokohler/roslibpy) 在排行榜和ROS堆栈之间进行通信。
 * **ROS Noetic**: 由于 ROS Noetic 的目标是 Python3，您可以直接使用**rospy**创建一个节点来与您的ROS堆栈通信排行榜。
@@ -268,9 +268,9 @@ def destroy(self):
 
 
 
-# 训练和测试智能体
+# 训练和测试代理
 
-我们准备了一组预定义的路线作为起点。您可以使用这些途径来训练和验证智能体的性能。可以在文件夹`{LEADERBOARD_ROOT}/data`:
+我们准备了一组预定义的路线作为起点。您可以使用这些途径来训练和验证代理的性能。可以在文件夹`{LEADERBOARD_ROOT}/data`:
 
 * **routes_training.xml**: 拟用作训练数据的50条路线（112.8公里）。
 * **routes_testing.xml**: 拟用作验证数据的26条路线（58.9公里）。

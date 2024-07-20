@@ -8,7 +8,7 @@ ROS桥具有以下特点：
 
 - 为激光雷达、语义激光雷达、相机（深度、分割、rgb、dvs）、全球导航卫星系统、雷达和IMU提供传感器数据。
 - 提供对象数据，如变换、红绿灯状态、可视化标记、碰撞和压线。
-- 通过转向、油门和制动器控制自动驾驶智能体。
+- 通过转向、油门和制动器控制自动驾驶代理。
 - 控制 Carla 仿真的各个方面，如同步模式、播放和暂停仿真以及设置仿真参数。
 
 ---
@@ -33,7 +33,7 @@ ROS桥具有以下特点：
 - [__Carla 手动控制__](carla_manual_control.md)- 用于自我车辆的基于 ROS 的可视化和控制工具（类似于 Carla 提供的`carla_manual_control.py`）  
 - [__Carla 阿克曼控制__](carla_ackermann_control.md) - 将阿克曼命令转换为`转向/油门/刹车`的控制器
 - [__Carla 路径点发布器__](carla_waypoint.md) - 发布和查询 Carla 路径点
-- [__Carla 自动驾驶智能体__](carla_ad_agent.md) - 遵循路线、避免碰撞并遵守红绿灯的示例智能体
+- [__Carla 自动驾驶代理__](carla_ad_agent.md) - 遵循路线、避免碰撞并遵守红绿灯的示例代理
 - [__Carla 自动驾驶示例__](carla_ad_demo.md) - 一个示例包，提供了使用自动驾驶车辆启动Carla ROS环境所需的一切
 - [__Carla ROS Scenario Runner__](carla_ros_scenario_runner.md) - 通过 ROS 与 Carla Scenario Runner 一起执行 OpenScenarios 的包装器
 - [__Carla 扭曲控制__](carla_twist_to_control.md) - 将扭曲控制转换为 Carla 车辆控制

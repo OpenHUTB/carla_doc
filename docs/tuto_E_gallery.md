@@ -59,7 +59,7 @@ python 10_manual_control.py
 
 ![](img/tuto_E_gallery/07_3d_bounding_boxes.gif)
 
-示例 08: 绘制航点
+示例 08: 绘制路径点
 
 ![](img/tuto_E_gallery/08_draw_waypoints.gif)
 

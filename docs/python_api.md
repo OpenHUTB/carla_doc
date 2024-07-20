@@ -975,7 +975,7 @@ Alpha 通道。
 - <a name="carla.GeoLocation.latitude"></a>**<font color="#f8805a">latitude</font>** (_float<small> - 度</small>_)  
 地图上某个点的北/南值。  
 - <a name="carla.GeoLocation.longitude"></a>**<font color="#f8805a">longitude</font>** (_float<small> - 度</small>_)  
-地图上某个点的北/南值。  
+地图上某个点的西/东值。  
 - <a name="carla.GeoLocation.altitude"></a>**<font color="#f8805a">altitude</font>** (_float<small> - 米</small>_)  
 相对于地面的高度。 
 
@@ -995,7 +995,7 @@ Alpha 通道。
 
 ## carla.GnssMeasurement<a name="carla.GnssMeasurement"></a>
 <small style="display:block;margin-top:-20px;">从 _[carla.SensorData](#carla.SensorData)_ 继承</small></br>
-定义由 <b>sensor.other.gnss</b> 注册的Gnss数据的类。它本质上是通过传感器的位置和 OpenDRIVE 地理参考来报告其位置。
+定义由 <b>sensor.other.gnss</b> 注册的全球导航卫星系统数据的类。它本质上是通过传感器的位置和 OpenDRIVE 地理参考来报告其位置。
 
 ### 实例变量
 - <a name="carla.GnssMeasurement.altitude"></a>**<font color="#f8805a">altitude</font>** (_float<small> - 米</small>_)  
@@ -1003,7 +1003,7 @@ Alpha 通道。
 - <a name="carla.GnssMeasurement.latitude"></a>**<font color="#f8805a">latitude</font>** (_float<small> - 度</small>_)  
 地图上某个点的北/南值。  
 - <a name="carla.GnssMeasurement.longitude"></a>**<font color="#f8805a">longitude</font>** (_float<small> - 度</small>_)  
-地图上某个点的北/南值。 
+地图上某个点的西/东值。 
 
 ### 方法
 
@@ -1079,7 +1079,7 @@ OpenDRIVE 文件中找到的标识符。
 
 ##### 获取器
 - <a name="carla.Junction.get_waypoints"></a>**<font color="#7fb800">get_waypoints</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**lane_type**</font>)  
-返回航路点对的列表。列表中的每个元组首先包含交叉口边界内的初始路径点，然后包含最终路径点，描述沿交叉口的所述车道的起点和终点。车道遵循其 OpenDRIVE 定义，因此由于可能的偏差，可能有许多不同的元组具有相同的起始航路点，因为这被视为不同的车道。
+返回路径点对的列表。列表中的每个元组首先包含交叉口边界内的初始路径点，然后包含最终路径点，描述沿交叉口的所述车道的起点和终点。车道遵循其 OpenDRIVE 定义，因此由于可能的偏差，可能有许多不同的元组具有相同的起始路径点，因为这被视为不同的车道。
     - **参数：**
         - `lane_type` (_[carla.LaneType](#carla.LaneType)_) - 获取路点的车道类型。 
     - **返回：** _list(tuple([carla.Waypoint](#carla.Waypoint)))_  
@@ -1098,7 +1098,7 @@ OpenDRIVE 文件中找到的标识符。
 ---
 
 ## carla.Landmark<a name="carla.Landmark"></a>
-定义影响道路的任何类型的交通地标或标志的类。这些类在地标的 [OpenDRIVE 1.4 standard](http://www.opendrive.org/docs/OpenDRIVEFormatSpecRev1.4H.pdf) 标准定义及其在仿真中的表示之间进行协调。此类检索在 OpenDRIVE 中定义地标的所有信息，并提供有关其影响哪些车道以及何时影响的信息。[carla.Waypoint](#carla.Waypoint) 对象将尝试检索其车道规则来访问地标。因此，某些属性取决于正在咨询地标的航路点，从而创建对象。
+定义影响道路的任何类型的交通地标或标志的类。这些类在地标的 [OpenDRIVE 1.4 standard](http://www.opendrive.org/docs/OpenDRIVEFormatSpecRev1.4H.pdf) 标准定义及其在仿真中的表示之间进行协调。此类检索在 OpenDRIVE 中定义地标的所有信息，并提供有关其影响哪些车道以及何时影响的信息。[carla.Waypoint](#carla.Waypoint) 对象将尝试检索其车道规则来访问地标。因此，某些属性取决于正在咨询地标的路径点，从而创建对象。
 
 ### 实例变量
 - <a name="carla.Landmark.road_id"></a>**<font color="#f8805a">road_id</font>** (_int_)  
@@ -1142,7 +1142,7 @@ OpenDRIVE 文件中的地标名称。
 - <a name="carla.Landmark.roll"></a>**<font color="#f8805a">roll</font>** (_float_)  
 信号的翻滚角 (X-轴在虚幻引擎坐标系统).  
 - <a name="carla.Landmark.waypoint"></a>**<font color="#f8805a">waypoint</font>** (_[carla.Waypoint](#carla.Waypoint)_)  
-放置在进行查询的车道和地标 `s` 处的航路点。这是地标有效的第一个航路点。
+放置在进行查询的车道和地标 `s` 处的路径点。这是地标有效的第一个路径点。
 - <a name="carla.Landmark.transform"></a>**<font color="#f8805a">transform</font>** (_[carla.Transform](#carla.Transform)_)  
 仿真中地标的位置和方向。
 
@@ -1246,7 +1246,7 @@ Helper 类包含 [OpenDRIVE 标准](http://opendrive.org/docs/OpenDRIVEFormatSpe
 ---
 
 ## carla.LaneChange<a name="carla.LaneChange"></a>
-定义左转、右转、双转或不转的权限的类（意味着只允许直行）。根据 OpenDRIVE 文件为每个 [carla.Waypoint](#carla.Waypoint) 存储此信息。[carla.Map.get_waypoint](#carla.Map.get_waypoint) 中的片段显示了如何使用航路点来了解允许哪些转弯。  
+定义左转、右转、双转或不转的权限的类（意味着只允许直行）。根据 OpenDRIVE 文件为每个 [carla.Waypoint](#carla.Waypoint) 存储此信息。[carla.Map.get_waypoint](#carla.Map.get_waypoint) 中的片段显示了如何使用路径点来了解允许哪些转弯。  
 
 ### 实例变量
 - <a name="carla.LaneChange.NONE"></a>**<font color="#f8805a">NONE</font>**  
@@ -1308,7 +1308,7 @@ Helper 类包含 [OpenDRIVE 标准](http://opendrive.org/docs/OpenDRIVEFormatSpe
 ---
 
 ## carla.LaneMarkingType<a name="carla.LaneMarkingType"></a>
-定义 OpenDRIVE 1.4 接受的车道标记类型的类。[carla.Map.get_waypoint](#carla.Map.get_waypoint) 中的片段显示了如何使用航点来检索有关相邻车道标记的信息。   <br><br> __关于双精度类型的注意事项：__ 车道标记是根据 OpenDRIVE 标准定义的，该标准确定一条线将被视为“BrokenSolid”或“SolidBroken”。每条道路都有一个中心车道标记，根据车道方向从左到右定义。其余车道标记按从中心车道到最近的道路外侧的顺序定义。
+定义 OpenDRIVE 1.4 接受的车道标记类型的类。[carla.Map.get_waypoint](#carla.Map.get_waypoint) 中的片段显示了如何使用路径点来检索有关相邻车道标记的信息。   <br><br> __关于双精度类型的注意事项：__ 车道标记是根据 OpenDRIVE 标准定义的，该标准确定一条线将被视为“BrokenSolid”或“SolidBroken”。每条道路都有一个中心车道标记，根据车道方向从左到右定义。其余车道标记按从中心车道到最近的道路外侧的顺序定义。
 
 ### 实例变量
 - <a name="carla.LaneMarkingType.NONE"></a>**<font color="#f8805a">NONE</font>**  
@@ -1648,7 +1648,7 @@ Z 轴上从原点到点的距离。
 ---
 
 ## carla.Map<a name="carla.Map"></a>
-包含道路信息和航点管理的类。从描述道路的 OpenDRIVE 文件中检索数据。定义了一个查询系统，它与 [carla.Waypoint](#carla.Waypoint) 携手合作，将几何信息从 .xodr 转换为自然世界点。Carla 目前正在使用 [OpenDRIVE 1.4 标准](http://www.opendrive.org/docs/OpenDRIVEFormatSpecRev1.4H.pdf) 。
+包含道路信息和路径点管理的类。从描述道路的 OpenDRIVE 文件中检索数据。定义了一个查询系统，它与 [carla.Waypoint](#carla.Waypoint) 携手合作，将几何信息从 .xodr 转换为自然世界点。Carla 目前正在使用 [OpenDRIVE 1.4 标准](http://www.opendrive.org/docs/OpenDRIVEFormatSpecRev1.4H.pdf) 。
 
 ### 实例变量
 - <a name="carla.Map.name"></a>**<font color="#f8805a">name</font>** (_str_)  
@@ -1685,15 +1685,15 @@ Z 轴上从原点到点的距离。
 
 ##### 获取器
 - <a name="carla.Map.get_all_landmarks"></a>**<font color="#7fb800">get_all_landmarks</font>**(<font color="#00a6ed">**self**</font>)  
-返回地图中的所有地标。使用此方法检索到的地标有一个 __null__ 航路点。
+返回地图中的所有地标。使用此方法检索到的地标有一个 __null__ 路径点。
     - **返回：** _list([carla.Landmark](#carla.Landmark))_  
 - <a name="carla.Map.get_all_landmarks_from_id"></a>**<font color="#7fb800">get_all_landmarks_from_id</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**opendrive_id**</font>)  
-返回具有特定 OpenDRIVE ID 的地标。使用此方法检索的地标具有 __null__ 航路点。
+返回具有特定 OpenDRIVE ID 的地标。使用此方法检索的地标具有 __null__ 路径点。
     - **参数：**
         - `opendrive_id` (_string_) - 地标的 OpenDRIVE ID。  
     - **返回：** _list([carla.Landmark](#carla.Landmark))_  
 - <a name="carla.Map.get_all_landmarks_of_type"></a>**<font color="#7fb800">get_all_landmarks_of_type</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**type**</font>)  
-返回特定类型的地标。使用此方法检索的地标具有 __null__ 航路点。
+返回特定类型的地标。使用此方法检索的地标具有 __null__ 路径点。
     - **参数：**
         - `type` (_string_) - 地标的类型。
     - **返回：** _list([carla.Landmark](#carla.Landmark))_  
@@ -1712,17 +1712,17 @@ Z 轴上从原点到点的距离。
 返回描述 OpenDRIVE 文件拓扑的最小图的元组列表。这些元组包含位于道路起点或终点的成对路点。第一个是起点，第二个代表另一个可以到达的路终点。该图可以加载到[NetworkX](https://networkx.github.io/) 中进行使用。输出可能如下所示： <b>[(w0, w1), (w0, w2), (w1, w3), (w2, w3), (w0, w4)]</b> 。 
     - **返回：** _list(tuple([carla.Waypoint](#carla.Waypoint), [carla.Waypoint](#carla.Waypoint)))_  
 - <a name="carla.Map.get_waypoint"></a>**<font color="#7fb800">get_waypoint</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**location**</font>, <font color="#00a6ed">**project_to_road**=True</font>, <font color="#00a6ed">**lane_type**=[carla.LaneType.Driving](#carla.LaneType.Driving)</font>)<button class="SnipetButton" id="carla.Map.get_waypoint-snipet_button">snippet &rarr;</button>  
-返回可以位于精确位置或转换到最近车道中心的航路点。所述车道类型可以使用诸如 `LaneType.Driving & LaneType.Shoulder` 的标志来定义。如果未找到航路点，该方法将返回<b>None</b> ，这种情况仅在尝试检索确切位置的航路点时可能会发生。这可以轻松检查某个点是否在某条道路内，否则，它将返回相应的路径点。
+返回可以位于精确位置或转换到最近车道中心的路径点。所述车道类型可以使用诸如 `LaneType.Driving & LaneType.Shoulder` 的标志来定义。如果未找到路径点，该方法将返回<b>None</b> ，这种情况仅在尝试检索确切位置的路径点时可能会发生。这可以轻松检查某个点是否在某条道路内，否则，它将返回相应的路径点。
     - **参数：**
         - `location` (_[carla.Location](#carla.Location)<small> - 米</small>_) - 用作 [carla.Waypoint](#carla.Waypoint) 参考的任务。  
         - `project_to_road` (_bool_) - 如果是 **True**，路径点将位于最近车道的中心。这是默认设置。如果为 **False**，路径点将恰好位于 `location`。 <b>None</b> 表示该位置不属于道路。  
         - `lane_type` (_[carla.LaneType](#carla.LaneType)_) - 将对最近车道的搜索限制为可以标记的一种或多种车道类型。
     - **返回：** _[carla.Waypoint](#carla.Waypoint)_  
 - <a name="carla.Map.get_waypoint_xodr"></a>**<font color="#7fb800">get_waypoint_xodr</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**road_id**</font>, <font color="#00a6ed">**lane_id**</font>, <font color="#00a6ed">**s**</font>)  
-如果传递的所有参数都正确，则返回一个航路点。否则，返回 __None__。  
+如果传递的所有参数都正确，则返回一个路径点。否则，返回 __None__。  
     - **参数：**
         - `road_id` (_int_) - 获取路点的道路id。
-        - `lane_id` (_int_) - 获取航路点的车道id。
+        - `lane_id` (_int_) - 获取路径点的车道id。
         - `s` (_float<small> - 米</small>_) - 指定从道路起点开始的长度。 
     - **返回：** _[carla.Waypoint](#carla.Waypoint)_  
 
@@ -2028,11 +2028,11 @@ X-轴旋转角度。
 - <a name="carla.RssActorConstellationResult.restrict_speed_limit_mode"></a>**<font color="#f8805a">restrict_speed_limit_mode</font>** (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss_map_integration/classad_1_1rss_1_1map_1_1RssSceneCreation.html#a403aae6dce3c77a8aec01dd9808dd964">ad.rss.map.RestrictSpeedLimitMode</a>_)  
 限速模式。
 - <a name="carla.RssActorConstellationResult.ego_vehicle_dynamics"></a>**<font color="#f8805a">ego_vehicle_dynamics</font>** (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1RssDynamics.html">ad.rss.world.RssDynamics</a>_)  
-将RSS动态应用于自我车辆。  
+将责任敏感安全动态应用于自我车辆。  
 - <a name="carla.RssActorConstellationResult.actor_object_type"></a>**<font color="#f8805a">actor_object_type</font>** (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/namespacead_1_1rss_1_1world.html#a6432f1ef8d0657b4f21ed5966aca1625">ad.rss.world.ObjectType</a>_)  
-要用于参与者的RSS对象类型。  
+要用于参与者的责任敏感安全对象类型。  
 - <a name="carla.RssActorConstellationResult.actor_dynamics"></a>**<font color="#f8805a">actor_dynamics</font>** (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1RssDynamics.html">ad.rss.world.RssDynamics</a>_)  
-要应用于参与者的RSS动力学。 
+要应用于参与者的责任敏感安全动力学。 
 
 ### 方法
 
@@ -2099,7 +2099,7 @@ X-轴旋转角度。
 
 ## carla.RssResponse<a name="carla.RssResponse"></a>
 <small style="display:block;margin-top:-20px;">从 _[carla.SensorData](#carla.SensorData)_ 继承</small></br>
-包含c [carla.RssSensor](#carla.RssSensor) 输出的类。这是对传感器的父车辆执行的RSS计算的结果。
+包含c [carla.RssSensor](#carla.RssSensor) 输出的类。这是对传感器的父车辆执行的责任敏感安全计算的结果。
 
 [carla.RssRestrictor](#carla.RssRestrictor) 将使用数据修改车辆的 [carla.VehicleControl](#carla.VehicleControl)。
 
@@ -2107,15 +2107,15 @@ X-轴旋转角度。
 - <a name="carla.RssResponse.response_valid"></a>**<font color="#f8805a">response_valid</font>** (_bool_)  
 说明响应是否有效。如果计算失败或发生异常，则为 __False__ 。 
 - <a name="carla.RssResponse.proper_response"></a>**<font color="#f8805a">proper_response</font>** (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1state_1_1ProperResponse.html">ad.rss.state.ProperResponse</a>_)  
-RSS 为车辆计算的正确响应。
+责任敏感安全为车辆计算的正确响应。
 - <a name="carla.RssResponse.rss_state_snapshot"></a>**<font color="#f8805a">rss_state_snapshot</font>** (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1state_1_1RssStateSnapshot.html">ad.rss.state.RssStateSnapshot</a>_)  
-详细的RSS在当前时刻的状态。
+详细的责任敏感安全在当前时刻的状态。
 - <a name="carla.RssResponse.ego_dynamics_on_route"></a>**<font color="#f8805a">ego_dynamics_on_route</font>** (_[carla.RssEgoDynamicsOnRoute](#carla.RssEgoDynamicsOnRoute)_)  
 关于路线的当前自我车辆动力学。
 - <a name="carla.RssResponse.world_model"></a>**<font color="#f8805a">world_model</font>** (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1WorldModel.html">ad.rss.world.WorldModel</a>_)  
 用于计算的世界模型。
 - <a name="carla.RssResponse.situation_snapshot"></a>**<font color="#f8805a">situation_snapshot</font>** (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1situation_1_1SituationSnapshot.html">ad.rss.situation.SituationSnapshot</a>_)  
-从世界模型中提取的详细RSS情况。
+从世界模型中提取的详细责任敏感安全情况。
 
 ### 方法
 
@@ -2160,15 +2160,15 @@ RSS 为车辆计算的正确响应。
 <small style="display:block;margin-top:-20px;">从 _[carla.Sensor](#carla.Sensor)_ 继承</small></br>
 此传感器的工作原理与其他传感器略有不同。请查看 [特定文档](adv_rss.md) 和 [rss传感器参考](ref_sensors.md#rss-sensor) ，以充分了解它。 
 
-RSS传感器使用世界信息和 [RSS库](https://github.com/intel/ad-rss-lib) 对车辆进行安全检查。传感器检索到的输出是 [carla.RssResponse](#carla.RssResponse)。这将由 [carla.RssRestrictor](#carla.RssRestrictor) 使用。在将其应用于车辆之前进行 [carla.VehicleControl](#carla.VehicleControl)。
+责任敏感安全传感器使用世界信息和 [责任敏感安全库](https://github.com/intel/ad-rss-lib) 对车辆进行安全检查。传感器检索到的输出是 [carla.RssResponse](#carla.RssResponse)。这将由 [carla.RssRestrictor](#carla.RssRestrictor) 使用。在将其应用于车辆之前进行 [carla.VehicleControl](#carla.VehicleControl)。
 
 ### 实例变量
 - <a name="carla.RssSensor.ego_vehicle_dynamics"></a>**<font color="#f8805a">ego_vehicle_dynamics</font>** (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1RssDynamics.html">ad.rss.world.RssDynamics</a>_)  
-说明如果没有注册参与者 constellation 回调，传感器将考虑的自我车辆的 [RSS参数](https://intel.github.io/ad-rss-lib/ad_rss/Appendix-ParameterDiscussion/) 。
+说明如果没有注册参与者 constellation 回调，传感器将考虑的自我车辆的 [责任敏感安全参数](https://intel.github.io/ad-rss-lib/ad_rss/Appendix-ParameterDiscussion/) 。
 - <a name="carla.RssSensor.other_vehicle_dynamics"></a>**<font color="#f8805a">other_vehicle_dynamics</font>** (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1RssDynamics.html">ad.rss.world.RssDynamics</a>_)  
-说明如果没有注册参与者 constellation 回调，传感器将为其余车辆考虑的 [RSS参数](https://intel.github.io/ad-rss-lib/ad_rss/Appendix-ParameterDiscussion/) 。 
+说明如果没有注册参与者 constellation 回调，传感器将为其余车辆考虑的 [责任敏感安全参数](https://intel.github.io/ad-rss-lib/ad_rss/Appendix-ParameterDiscussion/) 。 
 - <a name="carla.RssSensor.pedestrian_dynamics"></a>**<font color="#f8805a">pedestrian_dynamics</font>** (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1RssDynamics.html">ad.rss.world.RssDynamics</a>_)  
-说明如果没有注册参与者 constellation 回调，传感器将为行人考虑的 [RSS参数](https://intel.github.io/ad-rss-lib/ad_rss/Appendix-ParameterDiscussion/) 。
+说明如果没有注册参与者 constellation 回调，传感器将为行人考虑的 [责任敏感安全参数](https://intel.github.io/ad-rss-lib/ad_rss/Appendix-ParameterDiscussion/) 。
 - <a name="carla.RssSensor.road_boundaries_mode"></a>**<font color="#f8805a">road_boundaries_mode</font>** (_[carla.RssRoadBoundariesMode](#carla.RssRoadBoundariesMode)_)  
 切换停留在道路上 [stay on road](https://intel.github.io/ad-rss-lib/ad_rss_map_integration/HandleRoadBoundaries/) 的功能。默认情况下处于禁用（__Off__）状态。
 - <a name="carla.RssSensor.routing_targets"></a>**<font color="#f8805a">routing_targets</font>** (_vector<[carla.Transform](#carla.Transform)>_)  
@@ -2182,9 +2182,9 @@ RSS传感器使用世界信息和 [RSS库](https://github.com/intel/ad-rss-lib) 
 - <a name="carla.RssSensor.drop_route"></a>**<font color="#7fb800">drop_route</font>**(<font color="#00a6ed">**self**</font>)  
 放弃当前路由。如果 **<font color="#f8805a">routing_targets</font>** 中还有目标，则使用这些目标创建新路由。否则，将随机创建新路由。 
 - <a name="carla.RssSensor.register_actor_constellation_callback"></a>**<font color="#7fb800">register_actor_constellation_callback</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**callback**</font>)  
-注册回调以自定义 [carla.RssActorConstellationResult](#carla.RssActorConstellationResult)。通过此回调，RSS参数的设置是根据参与者 constellation 完成的，并且设置（ego_vehicle_dynamics, other_vehicle_dynamics and pedestrian_dynamics）没有任何效果。 
+注册回调以自定义 [carla.RssActorConstellationResult](#carla.RssActorConstellationResult)。通过此回调，责任敏感安全参数的设置是根据参与者 constellation 完成的，并且设置（ego_vehicle_dynamics, other_vehicle_dynamics and pedestrian_dynamics）没有任何效果。 
     - **参数：**
-        - `callback` - 每当要计算RSS情况时要调用的函数。 
+        - `callback` - 每当要计算责任敏感安全情况时要调用的函数。 
 - <a name="carla.RssSensor.reset_routing_targets"></a>**<font color="#7fb800">reset_routing_targets</font>**(<font color="#00a6ed">**self**</font>)  
 删除已附加到路由的目标。 
 
@@ -2265,13 +2265,13 @@ RSS传感器使用世界信息和 [RSS库](https://github.com/intel/ad-rss-lib) 
 
   <br><b>每个滴答信号接收的数据。</b><br>
   - [深度相机](ref_sensors.md#depth-camera)<br>
-  - [Gnss 传感器](ref_sensors.md#gnss-sensor)<br>
+  - [全球导航卫星系统传感器](ref_sensors.md#gnss-sensor)<br>
   - [IMU 传感器](ref_sensors.md#imu-sensor)<br>
   - [激光雷达光线投射](ref_sensors.md#lidar-raycast-sensor)<br>
   - [SemanticLidar 光线投射](ref_sensors.md#semanticlidar-raycast-sensor)<br>
   - [雷达](ref_sensors.md#radar-sensor)<br>
   - [RGB 相机](ref_sensors.md#rgb-camera)<br>
-  - [RSS 传感器](ref_sensors.md#rss-sensor)<br>
+  - [责任敏感安全传感器](ref_sensors.md#rss-sensor)<br>
   - [语义分割相机](ref_sensors.md#semantic-segmentation-camera)<br>
   <br><b>仅在触发时接收数据。</b>
   - [碰撞检测器](ref_sensors.md#collision-detector).
@@ -2325,13 +2325,13 @@ RSS传感器使用世界信息和 [RSS库](https://github.com/intel/ad-rss-lib) 
 包含 [carla.Sensor](#carla.Sensor) 生成的数据的所有对象的基类。这个对象应该是传感器正在监听的函数的参数，以便与它们一起工作。这些传感器中的每一个都需要特定类型的传感器数据。以下是传感器及其相应数据的列表。<br>
   - 相机 (RGB, 深度和语义分割): [carla.Image](#carla.Image).<br>
   - 碰撞检测器：[carla.CollisionEvent](#carla.CollisionEvent).<br>
-  - GNSS 传感器：[carla.GnssMeasurement](#carla.GnssMeasurement).<br>
-  - IMU 传感器：[carla.IMUMeasurement](#carla.IMUMeasurement).<br>
+  - 全球导航卫星系统传感器：[carla.GnssMeasurement](#carla.GnssMeasurement).<br>
+  - 惯性测量单元传感器：[carla.IMUMeasurement](#carla.IMUMeasurement).<br>
   - 压线检测器：[carla.LaneInvasionEvent](#carla.LaneInvasionEvent).<br>
   - 激光雷达传感器：[carla.LidarMeasurement](#carla.LidarMeasurement).<br>
   - 障碍物检测器：[carla.ObstacleDetectionEvent](#carla.ObstacleDetectionEvent).<br>
   - 雷达传感器：[carla.RadarMeasurement](#carla.RadarMeasurement).<br>
-  - RSS 传感器：[carla.RssResponse](#carla.RssResponse).<br>
+  - 责任敏感安全传感器：[carla.RssResponse](#carla.RssResponse).<br>
   - 语义激光雷达传感器：[carla.SemanticLidarMeasurement](#carla.SemanticLidarMeasurement).<br>
   - V2X传感器协同感知信息：[carla.CAMEvent](#carla.CAMEvent).<br>
   - 自定义V2X消息V2X传感器：[carla.CustomV2XEvent](#carla.CustomV2XEvent).  
@@ -2644,12 +2644,12 @@ _</font>
 返回交通管理器控制的参与者将在后续步骤中执行的所有已知操作（即道路选项和路径点）。
     - **参数:**
         - `actor` (_[carla.Actor](#carla.Actor)_) - 您要查询的参与者。
-    - **返回:** _每个元素的列表列表如下 - [道路选项（字符串，例如“左”、“右”、“直”）、下一个航点 ([carla.Waypoint](#carla.Waypoint))]_  
+    - **返回:** _每个元素的列表列表如下 - [道路选项（字符串，例如“左”、“右”、“直”）、下一个路径点 ([carla.Waypoint](#carla.Waypoint))]_  
 - <a name="carla.TrafficManager.get_next_action"></a>**<font color="#7fb800">get_next_action</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>)  
 返回由交通管理器控制的参与者将遵循的下一个已知道路选项和路径点。
     - **参数:**
         - `actor` (_[carla.Actor](#carla.Actor)_) - 您要查询的参与者。  
-    - **返回:** _两个元素的列表 - [道路选项（字符串，例如“左”、“右”、“直”）、下一个航点 ([carla.Waypoint](#carla.Waypoint))]_  
+    - **返回:** _两个元素的列表 - [道路选项（字符串，例如“左”、“右”、“直”）、下一个路径点 ([carla.Waypoint](#carla.Waypoint))]_  
 - <a name="carla.TrafficManager.get_port"></a>**<font color="#7fb800">get_port</font>**(<font color="#00a6ed">**self**</font>)  
 返回流量管理器连接的端口。如果该对象是 TM-Client，它将返回其TM-Server的端口。阅读 [文档](#adv_traffic_manager.md#multiclient-and-multitm-management) 以了解其中的差异。
     - **返回:** _uint16_  
@@ -2680,7 +2680,7 @@ _</font>
     - **参数:**
         - `r` (_float<small> - 米</small>_) - 启用物理的新半径。 
 - <a name="carla.TrafficManager.set_osm_mode"></a>**<font color="#7fb800">set_osm_mode</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**mode_switch**=True</font>)  
-启用或禁用 OSM 模式。该模式允许用户在使用 [OSM 功能](tuto_G_openstreetmap.md) 创建的地图中运行 TM。这些地图允许有死胡同。通常，如果车辆无法找到下一个航路点，交通管理器就会崩溃。如果启用 OSM 模式，它将显示警告，并在必要时销毁车辆。 
+启用或禁用 OSM 模式。该模式允许用户在使用 [OSM 功能](tuto_G_openstreetmap.md) 创建的地图中运行 TM。这些地图允许有死胡同。通常，如果车辆无法找到下一个路径点，交通管理器就会崩溃。如果启用 OSM 模式，它将显示警告，并在必要时销毁车辆。 
     - **参数:**
         - `mode_switch` (_bool_) - 如果 __True__ ，则启用 OSM 模式。 
 - <a name="carla.TrafficManager.set_path"></a>**<font color="#7fb800">set_path</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**path**</font>)  
@@ -2992,7 +2992,7 @@ _</font>
     - **警告:** <font color="#ED2F2F">_此方法确实调用仿真器来检索值。_</font>  
 - <a name="carla.Vehicle.get_speed_limit"></a>**<font color="#7fb800">get_speed_limit</font>**(<font color="#00a6ed">**self**</font>)  
 客户端根据最后一个tick返回影响该车辆的速度限制（它不调用仿真器）。当经过限速信号时，限速会更新，因此车辆在生成后可能就没有限速信号。
-    - **返回:** _float<small> - km/h</small>_  
+    - **返回:** _float<small> - 千米/小时</small>_  
 - <a name="carla.Vehicle.get_traffic_light"></a>**<font color="#7fb800">get_traffic_light</font>**(<font color="#00a6ed">**self**</font>)  
 根据最后一个刻度检索影响此车辆的交通灯参与者（如果有）。该方法不调用仿真器。
     - **返回:** _[carla.TrafficLight](#carla.TrafficLight)_  
@@ -3384,13 +3384,13 @@ VehiclePhysicsControl 构造函数。
 ---
 
 ## carla.Waypoint<a name="carla.Waypoint"></a>
-CARLA 中的航路点被描述为 3D 定向点。他们有一个 [carla.Transform](#carla.Transform)，它可以定位道路中的路点并根据车道确定其方向。他们还存储属于该点的有关其车道和车道标记的道路信息。 <br><br> <br><br> 有关航路点和 [路线 API](../../core_map/#navigation-in-carla) 的所有信息均按 OpenDRIVE 文件提供的方式检索。一旦客户端向服务器请求地图对象，就不再需要通信。
+CARLA 中的路径点被描述为 3D 定向点。他们有一个 [carla.Transform](#carla.Transform)，它可以定位道路中的路点并根据车道确定其方向。他们还存储属于该点的有关其车道和车道标记的道路信息。 <br><br> <br><br> 有关路径点和 [路线 API](../../core_map/#navigation-in-carla) 的所有信息均按 OpenDRIVE 文件提供的方式检索。一旦客户端向服务器请求地图对象，就不再需要通信。
 
 ### 实例变量
 - <a name="carla.Waypoint.id"></a>**<font color="#f8805a">id</font>** (_int_)  
-标识符是使用与 OpenDRIVE 几何中的所述点相对应的<b>road</b>, <b>section</b>, <b>lane</b> 和 <b>s</b> 值的哈希组合生成的。<b>s</b>精度设置为 2 厘米，因此在同一道路、路段和车道中距离小于 2 厘米的 2 个航路点将具有相同的标识符 。
+标识符是使用与 OpenDRIVE 几何中的所述点相对应的<b>road</b>, <b>section</b>, <b>lane</b> 和 <b>s</b> 值的哈希组合生成的。<b>s</b>精度设置为 2 厘米，因此在同一道路、路段和车道中距离小于 2 厘米的 2 个路径点将具有相同的标识符 。
 - <a name="carla.Waypoint.transform"></a>**<font color="#f8805a">transform</font>** (_[carla.Transform](#carla.Transform)_)  
-根据当前车道信息确定路点的位置和方向。该数据是在第一次访问时计算的。当创建大量航路点但不需要它们的特定转换时，它不会立即创建，以减轻计算成本。
+根据当前车道信息确定路点的位置和方向。该数据是在第一次访问时计算的。当创建大量路径点但不需要它们的特定转换时，它不会立即创建，以减轻计算成本。
 - <a name="carla.Waypoint.road_id"></a>**<font color="#f8805a">road_id</font>** (_int_)  
 OpenDRIVE 道路的 id。
 - <a name="carla.Waypoint.section_id"></a>**<font color="#f8805a">section_id</font>** (_int_)  
@@ -3416,24 +3416,24 @@ OpenDRIVE当前位置的 <b>s</b> 值 。
 
 ### 方法
 - <a name="carla.Waypoint.next"></a>**<font color="#7fb800">next</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**distance**</font>)  
-当前点某个近似值的航路点列表`distance`它会考虑道路及其可能的偏差，而不执行任何车道变更，并为每个选项返回一个航路点。如果车道在指定距离处未与任何其他车道相连，则列表可能为空。 
+当前点某个近似值的路径点列表`distance`它会考虑道路及其可能的偏差，而不执行任何车道变更，并为每个选项返回一个路径点。如果车道在指定距离处未与任何其他车道相连，则列表可能为空。 
     - **参数:**
-        - `distance` (_float<small> - 米</small>_) - 获取下一个航路点的大致距离。
+        - `distance` (_float<small> - 米</small>_) - 获取下一个路径点的大致距离。
     - **返回:** _list([carla.Waypoint](#carla.Waypoint))_  
 - <a name="carla.Waypoint.next_until_lane_end"></a>**<font color="#7fb800">next_until_lane_end</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**distance**</font>)  
 返回从这里到车道末端的路点列表，这些路点之间以一定距离`distance`分隔。
     - **参数:**
-        - `distance` (_float<small> - 米</small>_) - 航路点之间的大致距离。 
+        - `distance` (_float<small> - 米</small>_) - 路径点之间的大致距离。 
     - **返回:** _list([carla.Waypoint](#carla.Waypoint))_  
 - <a name="carla.Waypoint.previous"></a>**<font color="#7fb800">previous</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**distance**</font>)  
-但与车道相反方向的路点列表`distance` 与**<font color="#7fb800">next()</font>**类似，它会考虑道路及其可能的偏差，而不执行任何车道变更，并为每个选项返回一个航路点。如果车道在指定距离处未与任何其他车道相连，则列表可能为空。
+但与车道相反方向的路点列表`distance` 与**<font color="#7fb800">next()</font>**类似，它会考虑道路及其可能的偏差，而不执行任何车道变更，并为每个选项返回一个路径点。如果车道在指定距离处未与任何其他车道相连，则列表可能为空。
     - **参数:**
-        - `distance` (_float<small> - 米</small>_) - 获取先前航路点的大致距离。 
+        - `distance` (_float<small> - 米</small>_) - 获取先前路径点的大致距离。 
     - **返回:** _list([carla.Waypoint](#carla.Waypoint))_  
 - <a name="carla.Waypoint.previous_until_lane_start"></a>**<font color="#7fb800">previous_until_lane_start</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**distance**</font>)  
 返回从这里到车道起点的路点列表，以一定的距离 `distance` 分隔。
     - **参数:**
-        - `distance` (_float<small> - 米</small>_) - 航路点之间的大致距离。
+        - `distance` (_float<small> - 米</small>_) - 路径点之间的大致距离。
     - **返回:** _list([carla.Waypoint](#carla.Waypoint))_  
 
 ##### 设置器
@@ -3441,15 +3441,15 @@ OpenDRIVE当前位置的 <b>s</b> 值 。
 如果路径点属于路口，则此方法返回关联的路口对象。否则返回 null。
     - **返回:** _[carla.Junction](#carla.Junction)_  
 - <a name="carla.Waypoint.get_landmarks"></a>**<font color="#7fb800">get_landmarks</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**distance**</font>, <font color="#00a6ed">**stop_at_junction**=False</font>)  
-返回从当前航路点到指定距离的道路上的地标列表。
+返回从当前路径点到指定距离的道路上的地标列表。
     - **参数:**
-        - `distance` (_float<small> - 米</small>_) - 从当前航路点搜索地标的最大距离。
+        - `distance` (_float<small> - 米</small>_) - 从当前路径点搜索地标的最大距离。
         - `stop_at_junction` (_bool_) - 启用或禁用通过路口的地标搜索。  
     - **返回:** _list([carla.Landmark](#carla.Landmark))_  
 - <a name="carla.Waypoint.get_landmarks_of_type"></a>**<font color="#7fb800">get_landmarks_of_type</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**distance**</font>, <font color="#00a6ed">**type**</font>, <font color="#00a6ed">**stop_at_junction**=False</font>)  
 返回从当前路径点到指定距离的指定类型道路中的地标列表。
     - **参数:**
-        - `distance` (_float<small> - 米</small>_) - 从当前航路点搜索地标的最大距离。
+        - `distance` (_float<small> - 米</small>_) - 从当前路径点搜索地标的最大距离。
         - `type` (_str_) - 要搜索的地标类型。  
         - `stop_at_junction` (_bool_) - 启用或禁用通过路口的地标搜索。 
     - **返回:** _list([carla.Landmark](#carla.Landmark))_  

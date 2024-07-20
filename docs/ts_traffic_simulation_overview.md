@@ -38,7 +38,7 @@ Scenario Runner 必须与主 Carla 包 [分开](https://github.com/carla-simulat
 
 __用于：__
 
-- 创建复杂的交通场景和路线，为自动驾驶智能体做好准备，以便在 [Carla 排行榜](https://leaderboard.carla.org/) 上进行评估。
+- 创建复杂的交通场景和路线，为自动驾驶代理做好准备，以便在 [Carla 排行榜](https://leaderboard.carla.org/) 上进行评估。
 - 定义可针对场景仿真的记录运行的定制 [指标](https://carla-scenariorunner.readthedocs.io/en/latest/metrics_module/) ，从而无需重复运行仿真。
 
 <div class="build-buttons">
@@ -61,7 +61,7 @@ Scenic 场景定义易于阅读和构建。 [此处](tuto_G_scenic.md) 提供了
 __用于：__
 
 - 使用单个场景定义生成多个不同的场景。
-- 为动态智能体定义概率策略，以便随着时间的推移采取行动以响应世界状况。
+- 为动态代理定义概率策略，以便随着时间的推移采取行动以响应世界状况。
 
 <div class="build-buttons">
 <p>

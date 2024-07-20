@@ -95,7 +95,7 @@ Carla 论坛</a>
 
 [__基准性能__](adv_benchmarking.md) — 使用我们准备好的脚本执行基准测试。
 
-[__Carla 智能体__](adv_agents.md) — 智能体脚本允许单个车辆在地图上漫游或开车到设定的目的地。
+[__Carla 代理__](adv_agents.md) — 代理脚本允许单个车辆在地图上漫游或开车到设定的目的地。
 
 [__CARLA 设置__](carla_settings.md) — CARLA 参数配置设置。
 
@@ -183,7 +183,7 @@ Carla 论坛</a>
 
 ## 基准测试
 
-[__驾驶基准__](benchmark_start.md) — 用于评估驾驶控制器（智能体）并获取有关其性能的指标。
+[__驾驶基准__](benchmark_start.md) — 用于评估驾驶控制器（代理）并获取有关其性能的指标。
 
 [__基准性能__](adv_benchmarking.md) — 分析 Carla 在自己的环境中的性能。
 

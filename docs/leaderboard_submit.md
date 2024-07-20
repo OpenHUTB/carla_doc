@@ -1,26 +1,26 @@
 
-# 为排行榜2.0版提交智能体
+# 为排行榜2.0版提交代理
 
 !!! 笔记
-    将您的智能体提交给 Carla 自动驾驶排行榜，即表示您接受了使用条款。本页介绍了提交Leaderboard 2.0版本的智能体，如果您使用的是Leaderboard1.0版本，请参阅本提交指南。
+    将您的代理提交给 Carla 自动驾驶排行榜，即表示您接受了使用条款。本页介绍了提交Leaderboard 2.0版本的代理，如果您使用的是Leaderboard1.0版本，请参阅本提交指南。
 
 ## 一般步骤
-为了创建并提交您的智能体，您应该拥有排行榜项目和 scenario_runner 的副本。如果不是这种情况，请先访问“入门”部分。
+为了创建并提交您的代理，您应该拥有排行榜项目和 scenario_runner 的副本。如果不是这种情况，请先访问“入门”部分。
 
-1. 创建一个 dockerfile 来构建您的智能体
+1. 创建一个 dockerfile 来构建您的代理
 
-为了让 Carla 排行榜评估您的智能体，需要将其封装在 Docker 镜像中。要想成功，您必须能够在 docker 内运行带有排行榜的智能体。您可以从头开始创建图像，也可以遵循以下准则：
+为了让 Carla 排行榜评估您的代理，需要将其封装在 Docker 镜像中。要想成功，您必须能够在 docker 内运行带有排行榜的代理。您可以从头开始创建图像，也可以遵循以下准则：
 
-* 将您的代码托管在 `${LEADERBOARD_ROOT}`外面。我们将该目录称为`${TEAM_CODE_ROOT}`对于基于 ROS 的智能体，这应该是您的 ROS 工作区。
-* 利用存储库中提供的示例 Docker 文件之一，其中场景运行器和排行榜所需的所有依赖项均已设置。基于 Python 的智能体可以使用此示例 Docker，而基于 ROS 的智能体可以在此处使用其 Docker 。包括智能体所需的依赖项和附加包。我们建议您在由标签“_BEGINNING OF USER COMMANDS_”和“_END OF USER COMMANDS_”分隔的区域中添加新命令。
-* 更新变量`TEAM_AGENT`以设置智能体文件和`TEAM_CONFIG`，如果需要配置文件进行初始化。不要更改路径“`/workspace/team_code`”的其余部分。
-* 确保您想要获取的任何内容都在内部，`${HOME}/agent_sources.sh`因为在其他任何地方添加的源都不会被调用。在云中运行智能体之前会自动获取此文件。
+* 将您的代码托管在 `${LEADERBOARD_ROOT}`外面。我们将该目录称为`${TEAM_CODE_ROOT}`对于基于 ROS 的代理，这应该是您的 ROS 工作区。
+* 利用存储库中提供的示例 Docker 文件之一，其中场景运行器和排行榜所需的所有依赖项均已设置。基于 Python 的代理可以使用此示例 Docker，而基于 ROS 的代理可以在此处使用其 Docker 。包括代理所需的依赖项和附加包。我们建议您在由标签“_BEGINNING OF USER COMMANDS_”和“_END OF USER COMMANDS_”分隔的区域中添加新命令。
+* 更新变量`TEAM_AGENT`以设置代理文件和`TEAM_CONFIG`，如果需要配置文件进行初始化。不要更改路径“`/workspace/team_code`”的其余部分。
+* 确保您想要获取的任何内容都在内部，`${HOME}/agent_sources.sh`因为在其他任何地方添加的源都不会被调用。在云中运行代理之前会自动获取此文件。
 
 
 !!! 注意
     请注意，当您将条目提交到云时，您对排行榜或场景运行程序存储库所做的任何更改都将被覆盖。
 
-## 将您的智能体构建到 docker 镜像中
+## 将您的代理构建到 docker 镜像中
 
 dockerfile 准备就绪后，您现在可以通过运行`make_docker.sh`脚本来创建它，该脚本会在该名称下生成 docker 映像`leaderboard-user`。
 
@@ -34,14 +34,14 @@ ${LEADERBOARD_ROOT}/scripts/make_docker.sh [--ros-distro|-r ROS_DISTRO]
 * `${SCENARIO_RUNNER_ROOT}`
 * `${LEADERBOARD_ROOT}`
 * `${TEAM_CODE_ROOT}`
-* `${ROS_DISTRO}` （仅 ROS 智能体需要）
+* `${ROS_DISTRO}` （仅 ROS 代理需要）
 
 请随意调整此脚本以复制您认为合适的其他文件和资源。
 
 !!! 注意
     您可以通过在计算机上本地运行排行榜来测试您的 docker 映像
 
-我们还想重点介绍 [排行榜智能体](https://github.com/carla-simulator/leaderboard-agents) 存储库，其中包含多个旨在与 Leaderboard 2.0 配合使用的智能体，以及将它们封装在 Docker 中所需的文件。
+我们还想重点介绍 [排行榜代理](https://github.com/carla-simulator/leaderboard-agents) 存储库，其中包含多个旨在与 Leaderboard 2.0 配合使用的代理，以及将它们封装在 Docker 中所需的文件。
 
 
 ##  在Eval AI注册新用户
