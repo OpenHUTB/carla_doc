@@ -15,6 +15,9 @@
 - [__实例分割相机__](#instance-segmentation-camera)
 - [__动态视觉传感器相机__](#dvs-camera)
 - [__光流相机__](#optical-flow-camera)
+- [__V2X 传感器__](#v2x-sensor)
+    - [协同感知](#cooperative-awareness-message)
+    - [自定义消息](#custom-v2x-message)
 
 !!! 重要
     所有传感器都使用虚幻引擎坐标系（__x__ - *向前*，__y__ - *向右*，__z__ - *向上*），并返回本地空间中的坐标。使用任何可视化软件时，请注意其坐标系。许多反转 Y 轴，因此直接可视化传感器数据可能会导致镜像输出。 
@@ -783,6 +786,59 @@ raw_image.save_to_disk("path/to/save/converted/image",carla.cityScapesPalette)
 
 ---
 
+## 实例分割相机 <span id="instance-segmentation-camera"></span>
+
+*   __蓝图：__ sensor.camera.instance_segmentation
+*   __输出：__ 每一步一个 [carla.Image](python_api.md#carla.Image) （除非 `sensor_tick` 另有说明）。
+
+该相机根据类别和实例 ID 对视野中的每个对象进行分类。当模拟开始时，场景中的每个元素都会被创建为一个标签。因此，当生成一个参与者时就会发生这种情况。对象根据其在项目中的相对文件路径进行分类。例如，存储在 `Unreal/CarlaUE4/Content/Static/Pedestrians` 中的网格被标记为行人 `Pedestrian`。
+
+![ImageInstanceSegmentation](img/instance_segmentation.png)
+
+服务器提供一张 __在红色通道中编码了__ 标签信息的图像：红色值为 `x` 的像素属于带有标签 `x` 的对象。像素的绿色和蓝色值定义对象的唯一 ID。例如，8 位 RGB 值为 [10, 20, 55] 的像素是一辆具有唯一实例 ID `20-55` 的车辆（语义标签为 10）。
+
+#### 基本相机属性
+
+| 蓝图属性       | 类型    | 默认值  | 描述                                                                     |
+| ----------------------------- | ----------------------------- |------|------------------------------------------------------------------------|
+| `fov`   | float   | 90\.0 | 水平视野（以度为单位）。                                                           |
+| `image_size_x`            | int     | 800  | 图像宽度（以像素为单位）。                                                          |
+| `image_size_y`            | int     | 600  | 图像高度（以像素为单位）。                                                          |
+| `sensor_tick` | float   | 0\.0 | 传感器捕获之间的模拟秒数（滴答信号）。 |
+
+
+
+---
+
+#### 相机镜头畸变属性
+
+| 蓝图属性      | 类型         | 默认值   | 描述  |
+| ---------------------------- | ---------------------------- |-------| ---------------------------- |
+| `lens_circle_falloff`    | float        | 5\.0  | 范围：[0.0, 10.0]       |
+| `lens_circle_multiplier` | float        | 0\.0  | 范围：[0.0, 10.0]       |
+| `lens_k`     | float        | \-1.0 | 范围：[-inf, inf]       |
+| `lens_kcube` | float        | 0\.0  | 范围： [-inf, inf]       |
+| `lens_x_size`            | float        | 0\.08 | 范围： [0.0, 1.0]        |
+| `lens_y_size`            | float        | 0\.08 | 范围： [0.0, 1.0]        |
+
+
+
+---
+
+#### 输出属性
+
+| 传感器数据属性            | 类型  | 描述        |
+| ----------------------- | ----------------------- | ----------------------- |
+| `fov` | float | 水平视野（以度为单位）。         |
+| `frame`            | int   | 测量发生时的帧号。      |
+| `height`           | int   | 图像高度（以像素为单位）。          |
+| `raw_data`         | bytes | BGRA 32 位像素数组。     |
+| `timestamp`        | double | 自情节开始以来的测量模拟时间（以秒为单位）。        |
+| `transform`        | [carla.Transform](<../python_api#carlatransform>)  | 测量时传感器在世界坐标中的位置和旋转。 |
+| `width`            | int   | 图像宽度（以像素为单位）。           |
+
+---
+
 ## 动态视觉传感器相机 <span id="dvs-camera"></span>
 
 *   __蓝图：__ sensor.camera.dvs
@@ -867,3 +923,105 @@ L(x,y,t) - L(x,y,t-\delta t) = pol C
 | `raw_data` | bytes | 包含两个浮点值的 BGRA 64 位像素数组。                                 |
 
 <br>
+
+
+---
+
+## V2X 传感器
+
+车联万物 (Vehicle-to-everything, V2X) 通信是未来协作智能交通系统应用的一个重要方面。在实际车辆中，这需要每辆车上都有一个专用的车载单元 (onboard unit, OBU)，能够通过无线信道发送和接收信息。根据地区（欧洲、中国、美国），使用不同的物理技术、协议和应用程序消息格式。
+
+CARLA 目前支持模拟简单的广播无线信道和两条应用消息。尚不支持网络访问和转发协议。两条实现的消息分别是符合欧洲标准 ETSI 的 [*协作感知消息*](#cooperative-awareness-message) 和 [*自定义消息*](#custom-v2x-message) 类型，可用于传输任意字符串数据（例如 JSON）。V2X 通信有两种不同的传感器，可以单独使用，每种应用消息类型各一个。
+
+基本上，无线通道包含两个传感器的以下计算：
+
+    ReceivedPower = OtherTransmitPower + combined_antenna_gain - loss
+
+    IF (ReceivedPower >= receiver_sensitivity)
+        THEN message is received
+
+要模拟 V2X 通信，至少需要生成两个相同类型的 V2X 传感器（至少一对发送器-接收器）。由于接收功率是在接收器端 V2X 传感器上计算的，因此只有接收器端传感器上指定的天线增益才会纳入此计算中。可以配置传输功率和接收器灵敏度（请参阅 [蓝图属性](#v2x-sensors-blueprint-attributes) ）。
+
+*损耗* 计算取决于 
+- 发送方和接收方之间的可见性条件：视线（无障碍物）、被建筑物遮挡的非视线或被车辆遮挡的非视线，以及 
+- 场景：高速公路、乡村或城市环境
+
+虽然在 CARLA 中模拟了可见性，但用户可以配置场景（参见 [蓝图属性](#v2x-sensors-blueprint-attributes) ），以及无线信道的其他几个属性。
+
+
+### 传感器（子）类型
+
+#### 协同感知消息
+
+*   __蓝图：__ sensor.other.v2x
+*   __输出：__ [carla.CAMData](python_api.md#carla.CAMData), 根据 ETSI CAM (ooperative Awareness Message，协同警示消息) 标准触发，除非另有配置
+
+根据 ETSI 标准的触发条件：
+- 航向角变化 > $4$°
+- 位置差 > $4$ m
+- 速度变化 > $5$ m/s
+- 经过时间 > CAM 生成时间（可配置）
+-  低频容器经过时间 $> 500$ ms
+
+对于 CAM V2X 传感器，适用其他蓝图属性：
+
+| 蓝图属性     | 类型   | 默认值          | 描述                                                                                                                               |
+|-------------------------|--------|--------------|----------------------------------------------------------------------------------------------------------------------------------|
+| <td colspan=4> 	消息生成 | 
+| gen\_cam\_min           | float  | $0.1$        | 两个连续 CAM 之间的最短时间间隔（秒）                                                                                                            |
+| gen\_cam\_max           | float  | $1.0$        | 两个连续 CAM 之间的最大时间间隔（秒）                                                                                                            |
+| fixed\_rate             | bool   | false [true] | 在每个 Carla 滴答信号中生成一个 CAM（仅用于调试目的，会导致速度变慢）  |
+| <td colspan=4> 数据生成 | 
+| `noise_vel_stddev_x` | float  | 0\.0         | 噪声模型中速度的标准偏差参数（X 轴）。                                                           |
+| `noise_accel_stddev_x`          | float   | 0\.0         | 加速度（X 轴）噪声模型中的标准偏差参数。                                                      |
+| `noise_accel_stddev_y`          | float   | 0\.0         | 加速度噪声模型中的标准偏差参数（Y 轴）。                                                       |
+| `noise_accel_stddev_z`          | float   | 0\.0         | 加速度（Z 轴）噪声模型中的标准偏差参数。                                                       |
+| `noise_yawrate_bias`   | float  | 0\.0         | 噪声模型中偏航角速度的平均参数。                                                                                  |
+| `noise_yawrate_stddev` | float  | 0\.0         | 偏航角速度噪声模型中的标准偏差参数。                                                                    |
+| `noise_alt_bias`   | float  | 0\.0         | 噪声模型中海拔的平均参数。                                                                                  |
+| `noise_alt_stddev` | float  | 0\.0         | 海拔噪声模型中的标准偏差参数。                                                                    |
+| `noise_lat_bias`   | float  | 0\.0         | 纬度噪声模型中的平均参数。                                                                                  |
+| `noise_lat_stddev` | float  | 0\.0         | 纬度噪声模型中的标准差参数。                                                                    |
+| `noise_lon_bias`   | float  | 0\.0         | 噪声模型中经度的平均参数。                                                                                 |
+| `noise_lon_stddev` | float  | 0\.0         | 噪声模型中经度的标准差参数。                                                                   |
+| `noise_head_bias`   | float  | 0\.0         | 航向噪声模型中的平均参数。                                                                                   |
+| `noise_head_stddev` | float  | 0\.0         | 航向噪声模型中的标准偏差参数。                                                                     |
+
+#### 自定义 V2X 消息
+
+*   __蓝图：__ sensor.other.v2x_custom
+*   __输出：__ [carla.CustomV2XData](python_api.md#carla.CustomV2XData)，在调用 *send()* 后触发下一个滴答信息
+
+##### 方法
+- <a name="carla.Sensor.send"></a>**<font color="#7fb800">send</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**callback**</font>)
+用户每次发送消息时必须调用的函数。此函数需要一个包含对象类型 [carla.SensorData](#carla.SensorData) 的参数来处理。
+    - **参数：**
+        - `data` (_function_) - 被调用的函数带有一个包含传感器数据的参数。
+
+自定义 V2X 消息传感器的工作方式与其他传感器略有不同，因为它除了*侦听*函数之外还具有*发送*函数，需要先调用该函数，然后其他此类传感器才能接收任何内容。只有在调用*发送*时才会触发自定义消息的传输。发送给*发送*函数的每条消息仅向当前生成的所有自定义 V2X 消息传感器传输一次。
+
+示例：
+
+    bp = world.get_blueprint_library().find('sensor.other.v2x_custom')
+    sensor = world.spawn_actor(bp, carla.Transform(), attach_to=parent)
+    sensor.send("Hello CARLA")
+
+### V2X 传感器蓝图属性
+
+| 蓝图属性     | 类型   | 默认值       | 描述                                                                                                                                                |
+|-------------------------|--------|-----------|---------------------------------------------------------------------------------------------------------------------------------------------------|
+| transmit\_power         | float  | $21.5$    | 发送方传输功率（单位：dBm）                                                                                                                                   |
+| receiver\_sensitivity   | float  | $-99$     | 接收器灵敏度（单位：dBm）                                                                                                                                    |
+| frequency\_ghz          | float  | $5.9$     | 传输频率（GHz）。5.9 GHz 是多个物理信道的标准。                                                                                                                     |
+| noise\_seed             | int    | $0$       | 噪声初始化的随机参数                                                                                                                                        |
+| filter\_distance        | float  | $500$     | 最大传输距离（以米为单位），上面的路径损耗计算因模拟速度而略过                                                                                                                   |
+| <td colspan=4> __路径损耗模型参数__ |
+| combined\_antenna\_gain | float  | $10.0$    | 发射机和接收机天线的组合增益（以 dBi 为单位），辐射效率和方向性的参数                                                                                                             |
+| d\_ref                  | float  | $ 1.0 $   | 对数距离路径损耗模型的参考距离（单位：米）                                                                                                                             |
+| path\_loss\_exponent    | float  | 2.7       | 由于建筑物遮挡导致的非视距损耗参数                                                                                                                                 |
+| scenario                | string | urban     | 选项：[urban, rustic, highly available]，定义衰落噪声参数                                                                                                     |
+| path\_loss\_model       | string | geometric | 使用的通用路径损耗模型。选项：[geometric, winor]                                                                                                                 |
+| use\_etsi\_fading       | bool   | true      | 使用 ETSI 出版物中提到的衰落参数（true），或使用自定义衰落标准偏差                                                                                                            |
+| custom\_fading\_stddev  | float  | 0.0       | 衰减标准偏差的自定义值，仅当`use_etsi_fading`设置为 `false` 时才使用 |
+
+
