@@ -20,7 +20,7 @@
     所有传感器都使用虚幻引擎坐标系（__x__ - *向前*，__y__ - *向右*，__z__ - *向上*），并返回本地空间中的坐标。使用任何可视化软件时，请注意其坐标系。许多反转 Y 轴，因此直接可视化传感器数据可能会导致镜像输出。 
 
 ---
-## 碰撞检测器
+## 碰撞检测器 <span id="collision-detector"></span>
 
 * __蓝图：__ sensor.other.collision
 * __输出：__ 每次碰撞的 [carla.CollisionEvent](python_api.md#carla.CollisionEvent) 。
@@ -43,7 +43,7 @@
 
 
 ---
-## 深度相机
+## 深度相机 <span id="depth-camera"></span>
 
 * __蓝图：__ sensor.camera.depth
 * __输出：__ 每步的图像 [carla.Image](python_api.md#carla.Image) （除非`sensor_tick`另有说明）。
@@ -109,7 +109,7 @@ raw_image.save_to_disk("path/to/save/converted/image",carla.Depth)
 
 
 ---
-## 全球导航卫星系统传感器
+## 全球导航卫星系统传感器 <span id="gnss-sensor"></span>
 
 * __蓝图：__ sensor.other.gnss
 * __Output:__ 每一步的全球导航卫星系统的测量 [carla.GNSSMeasurement](python_api.md#carla.GnssMeasurement) （`sensor_tick`另有说明）。
@@ -148,7 +148,7 @@ raw_image.save_to_disk("path/to/save/converted/image",carla.Depth)
 
 
 ---
-## [惯性测量单元传感器](https://github.com/carla-simulator/carla/blob/dev/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/InertialMeasurementUnit.cpp) 
+## [惯性测量单元传感器](https://github.com/carla-simulator/carla/blob/dev/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/InertialMeasurementUnit.cpp) <span id="imu-sensor"></span>
 
 * __蓝图：__ sensor.other.imu
 * __输出：__ 每一步的惯性测量单元测量值 [carla.IMUMeasurement](python_api.md#carla.IMUMeasurement) （除非传感器滴答信号`sensor_tick`另有说明）。
@@ -194,7 +194,7 @@ $$ d_2 (i) = -2.0 \times [ { y_1 \over {h_1 \times h_2 } }  -  { y_2 \over { h_2
      对于指南针，北为 0 弧度。东为 *pi* /2 弧度，南为 *pi* 弧度，西为 3 *pi* /2 弧度。在 Carla 的全局坐标系中，北为 Y 轴减小的方向。东为 X 轴增加的方向。转换为度数的指南针值等于 `90 - 偏航`。 
 
 ---
-## 压线检测器
+## 压线检测器 <span id="lane-invasion-detector"></span>
 
 * __蓝图：__ sensor.other.lane_invasion
 * __输出：__ 每次交叉路口的 [carla.LaneInvasionEvent](python_api.md#carla.LaneInvasionEvent) 。
@@ -223,7 +223,7 @@ $$ d_2 (i) = -2.0 \times [ { y_1 \over {h_1 \times h_2 } }  -  { y_2 \over { h_2
 
 
 ---
-## 激光雷达传感器
+## 激光雷达传感器 <span id="lidar-sensor"></span>
 
 * __蓝图：__ sensor.lidar.ray_cast
 * __输出：__ 每一步 [carla.LidarMeasurement](python_api.md#carla.LidarMeasurement) （除非`sensor_tick` 另有说明）。
@@ -293,7 +293,7 @@ for location in lidar_measurement:
 
 <br>
 
-## 障碍物检测器
+## 障碍物检测器 <span id="obstacle-detector"></span>
 
 * __蓝图：__ sensor.other.obstacle
 * __输出：__ 每个障碍物的 [carla.ObstacleDetectionEvent](python_api.md#carla.ObstacleDetectionEvent) （除非`sensor_tick`另有说明）。
@@ -326,7 +326,7 @@ for location in lidar_measurement:
 
 <br>
 
-## 雷达传感器
+## 雷达传感器 <span id="radar-sensor"></span>
 
 * __蓝图：__ sensor.other.radar
 * __输出：__ 每一步 [carla.RadarMeasurement](python_api.md#carla.RadarMeasurement) （除非`sensor_tick`另有说明）。
@@ -372,7 +372,7 @@ points = np.reshape(points, (len(radar_data), 4))
 
 
 ---
-## RGB 相机
+## RGB 相机 <span id="rgb-camera"></span>
 
 * __蓝图：__ sensor.camera.rgb
 * __输出：__ 每一步 [carla.Image](python_api.md#carla.Image) （除非`sensor_tick`另有说明）。
@@ -490,7 +490,7 @@ points = np.reshape(points, (len(radar_data), 4))
 
 
 ---
-## 责任敏感安全传感器
+## 责任敏感安全传感器 <span id="rss-sensor"></span>
 
 *   __蓝图：__ sensor.other.rss
 *   __输出：__ 每一步 [carla.RssResponse](python_api.md#carla.RssResponse) （除非`sensor_tick`另有说明）。
@@ -622,7 +622,7 @@ def _on_actor_constellation_request(self, actor_constellation_data):
 
 
 ---
-## 语义激光雷达传感器
+## 语义激光雷达传感器 <span id="semantic-lidar-sensor"></span>
 
 * __蓝图：__ sensor.lidar.ray_cast_semantic
 * __输出：__ 每步 [carla.SemanticLidarMeasurement](python_api.md#carla.SemanticLidarMeasurement) （除非`sensor_tick`另有说明）。
@@ -692,7 +692,7 @@ __2.__ 使用 `python3 config.py --fps=10` 运行仿真。
 
 
 
-## 语义分割相机
+## 语义分割相机 <span id="semantic-segmentation-camera"></span>
 
 *   __蓝图：__ sensor.camera.semantic_segmentation
 *   __输出：__ 每步 [carla.Image](python_api.md#carla.Image) （除非 `sensor_tick` 另有说明）。
@@ -781,11 +781,9 @@ raw_image.save_to_disk("path/to/save/converted/image",carla.cityScapesPalette)
 | `transform`        | [carla.Transform](<../python_api#carlatransform>)  | 测量时传感器在世界坐标中的位置和旋转。 |
 | `width`            | int   | 图像宽度（以像素为单位）。                                                                   |
 
-
-
 ---
 
-## 动态视觉传感器相机
+## 动态视觉传感器相机 <span id="dvs-camera"></span>
 
 *   __蓝图：__ sensor.camera.dvs
 *   __输出：__ 每步 [carla.DVSEventArray](python_api.md#carla.DVSEventArray) （除非`sensor_tick`另有说明）。
@@ -830,7 +828,7 @@ L(x,y,t) - L(x,y,t-\delta t) = pol C
 
 ---
 
-## 光流相机
+## 光流相机 <span id="optical-flow-camera"></span>
 
 光流相机捕捉从相机的角度感知的运动。该传感器记录的每个像素都对投影到图像平面的该点的速度进行编码。像素的速度在 [-2,2] 范围内编码。为了获得以像素为单位的运动，可以将该信息与图像大小一起缩放至[-2 * image_size, 2 * image_size]。
 

@@ -74,9 +74,11 @@ cmake --build . --config Release --target install | findstr /V "Up-to-date:"
 
 
 !!! 注意
-    右键`carla_client_debug`，选择`调试`->`启动新实例`。
+    右键`carla_client_debug`，选择`调试`->`启动新实例`。 且需要在同一个解决方案中新建Python项目用于测试。
 
 参考 [vs调试C++](https://blog.csdn.net/qq_36330274/article/details/128380765) 。
+
+调试`carla_client`时，vs报错：`boost::python::error_already_set`，尝试[捕获具体异常](https://leonlee.wordpress.com/2018/09/24/%E4%BD%BF%E7%94%A8boostpython%E5%9C%A8c%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E4%B8%AD%E5%B5%8C%E5%85%A5python%EF%BC%9A%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86/) 。
 
 ### Python 扩展模块
 LibCarla编译后生成`Python37/Lib/site-packages/carla/libcarla.cp37-win_amd64.pyd`给Python进行调用。为了提高运行速度，将当前目录中的`__init__.py`和`command.py`编译为`__pycache__`目录中的 `byte code(字节码)`。
@@ -95,6 +97,9 @@ python setup.py --help-commands
 python setup.py build
 ```
 
+### 构建调试版本
+
+参考[链接](https://stackoverflow.com/questions/61692952/how-to-pass-debug-to-build-ext-when-invoking-setup-py-install) ，效果未知。
 
 
 
