@@ -85,6 +85,11 @@
 <li><a href="#instance-segmentation-camera"><strong>实例分割相机</strong></a></li>
 <li><a href="#dvs-camera"><strong>动态视觉传感器相机</strong></a></li>
 <li><a href="#optical-flow-camera"><strong>光流相机</strong></a></li>
+<li><a href="#v2x-sensor"><strong>V2X 传感器</strong></a><ul>
+<li><a href="#cooperative-awareness-message">协同感知</a></li>
+<li><a href="#custom-v2x-message">自定义消息</a></li>
+</ul>
+</li>
 </ul>
 <div class="admonition 重要">
 <p class="admonition-title">重要</p>
@@ -1944,7 +1949,151 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.cityScapes
 </tbody>
 </table>
 <hr />
-<h2 id="_36">动态视觉传感器相机 <span id="dvs-camera"></span></h2>
+<h2 id="_36">实例分割相机 <span id="instance-segmentation-camera"></span></h2>
+<ul>
+<li><strong>蓝图：</strong> sensor.camera.instance_segmentation</li>
+<li><strong>输出：</strong> 每一步一个 <a href="../python_api/#carla.Image">carla.Image</a> （除非 <code>sensor_tick</code> 另有说明）。</li>
+</ul>
+<p>该相机根据类别和实例 ID 对视野中的每个对象进行分类。当模拟开始时，场景中的每个元素都会被创建为一个标签。因此，当生成一个参与者时就会发生这种情况。对象根据其在项目中的相对文件路径进行分类。例如，存储在 <code>Unreal/CarlaUE4/Content/Static/Pedestrians</code> 中的网格被标记为行人 <code>Pedestrian</code>。</p>
+<p><img alt="ImageInstanceSegmentation" src="../img/instance_segmentation.png" /></p>
+<p>服务器提供一张 <strong>在红色通道中编码了</strong> 标签信息的图像：红色值为 <code>x</code> 的像素属于带有标签 <code>x</code> 的对象。像素的绿色和蓝色值定义对象的唯一 ID。例如，8 位 RGB 值为 [10, 20, 55] 的像素是一辆具有唯一实例 ID <code>20-55</code> 的车辆（语义标签为 10）。</p>
+<h4 id="_37">基本相机属性</h4>
+<table>
+<thead>
+<tr>
+<th>蓝图属性</th>
+<th>类型</th>
+<th>默认值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fov</code></td>
+<td>float</td>
+<td>90.0</td>
+<td>水平视野（以度为单位）。</td>
+</tr>
+<tr>
+<td><code>image_size_x</code></td>
+<td>int</td>
+<td>800</td>
+<td>图像宽度（以像素为单位）。</td>
+</tr>
+<tr>
+<td><code>image_size_y</code></td>
+<td>int</td>
+<td>600</td>
+<td>图像高度（以像素为单位）。</td>
+</tr>
+<tr>
+<td><code>sensor_tick</code></td>
+<td>float</td>
+<td>0.0</td>
+<td>传感器捕获之间的模拟秒数（滴答信号）。</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="_38">相机镜头畸变属性</h4>
+<table>
+<thead>
+<tr>
+<th>蓝图属性</th>
+<th>类型</th>
+<th>默认值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>lens_circle_falloff</code></td>
+<td>float</td>
+<td>5.0</td>
+<td>范围：[0.0, 10.0]</td>
+</tr>
+<tr>
+<td><code>lens_circle_multiplier</code></td>
+<td>float</td>
+<td>0.0</td>
+<td>范围：[0.0, 10.0]</td>
+</tr>
+<tr>
+<td><code>lens_k</code></td>
+<td>float</td>
+<td>-1.0</td>
+<td>范围：[-inf, inf]</td>
+</tr>
+<tr>
+<td><code>lens_kcube</code></td>
+<td>float</td>
+<td>0.0</td>
+<td>范围： [-inf, inf]</td>
+</tr>
+<tr>
+<td><code>lens_x_size</code></td>
+<td>float</td>
+<td>0.08</td>
+<td>范围： [0.0, 1.0]</td>
+</tr>
+<tr>
+<td><code>lens_y_size</code></td>
+<td>float</td>
+<td>0.08</td>
+<td>范围： [0.0, 1.0]</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="_39">输出属性</h4>
+<table>
+<thead>
+<tr>
+<th>传感器数据属性</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fov</code></td>
+<td>float</td>
+<td>水平视野（以度为单位）。</td>
+</tr>
+<tr>
+<td><code>frame</code></td>
+<td>int</td>
+<td>测量发生时的帧号。</td>
+</tr>
+<tr>
+<td><code>height</code></td>
+<td>int</td>
+<td>图像高度（以像素为单位）。</td>
+</tr>
+<tr>
+<td><code>raw_data</code></td>
+<td>bytes</td>
+<td>BGRA 32 位像素数组。</td>
+</tr>
+<tr>
+<td><code>timestamp</code></td>
+<td>double</td>
+<td>自情节开始以来的测量模拟时间（以秒为单位）。</td>
+</tr>
+<tr>
+<td><code>transform</code></td>
+<td><a href="../python_api#carlatransform">carla.Transform</a></td>
+<td>测量时传感器在世界坐标中的位置和旋转。</td>
+</tr>
+<tr>
+<td><code>width</code></td>
+<td>int</td>
+<td>图像宽度（以像素为单位）。</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_40">动态视觉传感器相机 <span id="dvs-camera"></span></h2>
 <ul>
 <li><strong>蓝图：</strong> sensor.camera.dvs</li>
 <li><strong>输出：</strong> 每步 <a href="../python_api/#carla.DVSEventArray">carla.DVSEventArray</a> （除非<code>sensor_tick</code>另有说明）。</li>
@@ -1959,7 +2108,7 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.cityScapes
 <p>请注意，由于动态视觉传感器摄像机的采样方法，如果两个连续同步帧之间没有像素差异，摄像机将不会返回图像。这总是发生在第一帧中，因为没有前一帧可供比较，并且在帧之间没有移动的情况下也是如此。</p>
 <p><img alt="DVSCameraWorkingPrinciple" src="../img/sensor_dvs.gif" /></p>
 <p>动态视觉传感器是一个相机，因此具有 RGB 相机中可用的所有属性。然而，事件摄像机的工作原理几乎没有什么独有的属性。</p>
-<h4 id="_37">动态视觉传感器相机属性</h4>
+<h4 id="_41">动态视觉传感器相机属性</h4>
 <table>
 <thead>
 <tr>
@@ -2016,10 +2165,10 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.cityScapes
 </table>
 <p><br></p>
 <hr />
-<h2 id="_38">光流相机 <span id="optical-flow-camera"></span></h2>
+<h2 id="_42">光流相机 <span id="optical-flow-camera"></span></h2>
 <p>光流相机捕捉从相机的角度感知的运动。该传感器记录的每个像素都对投影到图像平面的该点的速度进行编码。像素的速度在 [-2,2] 范围内编码。为了获得以像素为单位的运动，可以将该信息与图像大小一起缩放至[-2 * image_size, 2 * image_size]。</p>
 <p><img alt="optical_flow" src="../img/optical_flow.png" /></p>
-<h4 id="_39">光流相机属性</h4>
+<h4 id="_43">光流相机属性</h4>
 <table>
 <thead>
 <tr>
@@ -2056,7 +2205,7 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.cityScapes
 </tr>
 </tbody>
 </table>
-<h4 id="_40">光流相机镜头畸变属性</h4>
+<h4 id="_44">光流相机镜头畸变属性</h4>
 <table>
 <thead>
 <tr>
@@ -2105,7 +2254,7 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.cityScapes
 </tr>
 </tbody>
 </table>
-<h4 id="_41">输出属性</h4>
+<h4 id="_45">输出属性</h4>
 <table>
 <thead>
 <tr>
@@ -2153,6 +2302,273 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.cityScapes
 </tbody>
 </table>
 <p><br></p>
+<hr />
+<h2 id="v2x">V2X 传感器</h2>
+<p>车联万物 (Vehicle-to-everything, V2X) 通信是未来协作智能交通系统应用的一个重要方面。在实际车辆中，这需要每辆车上都有一个专用的车载单元 (onboard unit, OBU)，能够通过无线信道发送和接收信息。根据地区（欧洲、中国、美国），使用不同的物理技术、协议和应用程序消息格式。</p>
+<p>CARLA 目前支持模拟简单的广播无线信道和两条应用消息。尚不支持网络访问和转发协议。两条实现的消息分别是符合欧洲标准 ETSI 的 <a href="#cooperative-awareness-message"><em>协作感知消息</em></a> 和 <a href="#custom-v2x-message"><em>自定义消息</em></a> 类型，可用于传输任意字符串数据（例如 JSON）。V2X 通信有两种不同的传感器，可以单独使用，每种应用消息类型各一个。</p>
+<p>基本上，无线通道包含两个传感器的以下计算：</p>
+<pre><code>ReceivedPower = OtherTransmitPower + combined_antenna_gain - loss
+
+IF (ReceivedPower &gt;= receiver_sensitivity)
+    THEN message is received
+</code></pre>
+<p>要模拟 V2X 通信，至少需要生成两个相同类型的 V2X 传感器（至少一对发送器-接收器）。由于接收功率是在接收器端 V2X 传感器上计算的，因此只有接收器端传感器上指定的天线增益才会纳入此计算中。可以配置传输功率和接收器灵敏度（请参阅 <a href="#v2x-sensors-blueprint-attributes">蓝图属性</a> ）。</p>
+<p><em>损耗</em> 计算取决于 
+- 发送方和接收方之间的可见性条件：视线（无障碍物）、被建筑物遮挡的非视线或被车辆遮挡的非视线，以及 
+- 场景：高速公路、乡村或城市环境</p>
+<p>虽然在 CARLA 中模拟了可见性，但用户可以配置场景（参见 <a href="#v2x-sensors-blueprint-attributes">蓝图属性</a> ），以及无线信道的其他几个属性。</p>
+<h3 id="_46">传感器（子）类型</h3>
+<h4 id="_47">协同感知消息</h4>
+<ul>
+<li><strong>蓝图：</strong> sensor.other.v2x</li>
+<li><strong>输出：</strong> <a href="../python_api/#carla.CAMData">carla.CAMData</a>, 根据 ETSI CAM (ooperative Awareness Message，协同警示消息) 标准触发，除非另有配置</li>
+</ul>
+<p>根据 ETSI 标准的触发条件：
+- 航向角变化 &gt; $4$°
+- 位置差 &gt; $4$ m
+- 速度变化 &gt; $5$ m/s
+- 经过时间 &gt; CAM 生成时间（可配置）
+-  低频容器经过时间 $&gt; 500$ ms</p>
+<p>对于 CAM V2X 传感器，适用其他蓝图属性：</p>
+<table>
+<thead>
+<tr>
+<th>蓝图属性</th>
+<th>类型</th>
+<th>默认值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><td colspan=4>    消息生成</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>gen_cam_min</td>
+<td>float</td>
+<td>$0.1$</td>
+<td>两个连续 CAM 之间的最短时间间隔（秒）</td>
+</tr>
+<tr>
+<td>gen_cam_max</td>
+<td>float</td>
+<td>$1.0$</td>
+<td>两个连续 CAM 之间的最大时间间隔（秒）</td>
+</tr>
+<tr>
+<td>fixed_rate</td>
+<td>bool</td>
+<td>false [true]</td>
+<td>在每个 Carla 滴答信号中生成一个 CAM（仅用于调试目的，会导致速度变慢）</td>
+</tr>
+<tr>
+<td><td colspan=4> 数据生成</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>noise_vel_stddev_x</code></td>
+<td>float</td>
+<td>0.0</td>
+<td>噪声模型中速度的标准偏差参数（X 轴）。</td>
+</tr>
+<tr>
+<td><code>noise_accel_stddev_x</code></td>
+<td>float</td>
+<td>0.0</td>
+<td>加速度（X 轴）噪声模型中的标准偏差参数。</td>
+</tr>
+<tr>
+<td><code>noise_accel_stddev_y</code></td>
+<td>float</td>
+<td>0.0</td>
+<td>加速度噪声模型中的标准偏差参数（Y 轴）。</td>
+</tr>
+<tr>
+<td><code>noise_accel_stddev_z</code></td>
+<td>float</td>
+<td>0.0</td>
+<td>加速度（Z 轴）噪声模型中的标准偏差参数。</td>
+</tr>
+<tr>
+<td><code>noise_yawrate_bias</code></td>
+<td>float</td>
+<td>0.0</td>
+<td>噪声模型中偏航角速度的平均参数。</td>
+</tr>
+<tr>
+<td><code>noise_yawrate_stddev</code></td>
+<td>float</td>
+<td>0.0</td>
+<td>偏航角速度噪声模型中的标准偏差参数。</td>
+</tr>
+<tr>
+<td><code>noise_alt_bias</code></td>
+<td>float</td>
+<td>0.0</td>
+<td>噪声模型中海拔的平均参数。</td>
+</tr>
+<tr>
+<td><code>noise_alt_stddev</code></td>
+<td>float</td>
+<td>0.0</td>
+<td>海拔噪声模型中的标准偏差参数。</td>
+</tr>
+<tr>
+<td><code>noise_lat_bias</code></td>
+<td>float</td>
+<td>0.0</td>
+<td>纬度噪声模型中的平均参数。</td>
+</tr>
+<tr>
+<td><code>noise_lat_stddev</code></td>
+<td>float</td>
+<td>0.0</td>
+<td>纬度噪声模型中的标准差参数。</td>
+</tr>
+<tr>
+<td><code>noise_lon_bias</code></td>
+<td>float</td>
+<td>0.0</td>
+<td>噪声模型中经度的平均参数。</td>
+</tr>
+<tr>
+<td><code>noise_lon_stddev</code></td>
+<td>float</td>
+<td>0.0</td>
+<td>噪声模型中经度的标准差参数。</td>
+</tr>
+<tr>
+<td><code>noise_head_bias</code></td>
+<td>float</td>
+<td>0.0</td>
+<td>航向噪声模型中的平均参数。</td>
+</tr>
+<tr>
+<td><code>noise_head_stddev</code></td>
+<td>float</td>
+<td>0.0</td>
+<td>航向噪声模型中的标准偏差参数。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="v2x_1">自定义 V2X 消息</h4>
+<ul>
+<li><strong>蓝图：</strong> sensor.other.v2x_custom</li>
+<li><strong>输出：</strong> <a href="../python_api/#carla.CustomV2XData">carla.CustomV2XData</a>，在调用 <em>send()</em> 后触发下一个滴答信息</li>
+</ul>
+<h5 id="_48">方法</h5>
+<ul>
+<li><a name="carla.Sensor.send"></a><strong><font color="#7fb800">send</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>callback</strong></font>)
+用户每次发送消息时必须调用的函数。此函数需要一个包含对象类型 <a href="#carla.SensorData">carla.SensorData</a> 的参数来处理。<ul>
+<li><strong>参数：</strong><ul>
+<li><code>data</code> (<em>function</em>) - 被调用的函数带有一个包含传感器数据的参数。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>自定义 V2X 消息传感器的工作方式与其他传感器略有不同，因为它除了<em>侦听</em>函数之外还具有<em>发送</em>函数，需要先调用该函数，然后其他此类传感器才能接收任何内容。只有在调用<em>发送</em>时才会触发自定义消息的传输。发送给<em>发送</em>函数的每条消息仅向当前生成的所有自定义 V2X 消息传感器传输一次。</p>
+<p>示例：</p>
+<pre><code>bp = world.get_blueprint_library().find('sensor.other.v2x_custom')
+sensor = world.spawn_actor(bp, carla.Transform(), attach_to=parent)
+sensor.send("Hello CARLA")
+</code></pre>
+<h3 id="v2x_2">V2X 传感器蓝图属性</h3>
+<table>
+<thead>
+<tr>
+<th>蓝图属性</th>
+<th>类型</th>
+<th>默认值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>transmit_power</td>
+<td>float</td>
+<td>$21.5$</td>
+<td>发送方传输功率（单位：dBm）</td>
+</tr>
+<tr>
+<td>receiver_sensitivity</td>
+<td>float</td>
+<td>$-99$</td>
+<td>接收器灵敏度（单位：dBm）</td>
+</tr>
+<tr>
+<td>frequency_ghz</td>
+<td>float</td>
+<td>$5.9$</td>
+<td>传输频率（GHz）。5.9 GHz 是多个物理信道的标准。</td>
+</tr>
+<tr>
+<td>noise_seed</td>
+<td>int</td>
+<td>$0$</td>
+<td>噪声初始化的随机参数</td>
+</tr>
+<tr>
+<td>filter_distance</td>
+<td>float</td>
+<td>$500$</td>
+<td>最大传输距离（以米为单位），上面的路径损耗计算因模拟速度而略过</td>
+</tr>
+<tr>
+<td><td colspan=4> <strong>路径损耗模型参数</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>combined_antenna_gain</td>
+<td>float</td>
+<td>$10.0$</td>
+<td>发射机和接收机天线的组合增益（以 dBi 为单位），辐射效率和方向性的参数</td>
+</tr>
+<tr>
+<td>d_ref</td>
+<td>float</td>
+<td>$ 1.0 $</td>
+<td>对数距离路径损耗模型的参考距离（单位：米）</td>
+</tr>
+<tr>
+<td>path_loss_exponent</td>
+<td>float</td>
+<td>2.7</td>
+<td>由于建筑物遮挡导致的非视距损耗参数</td>
+</tr>
+<tr>
+<td>scenario</td>
+<td>string</td>
+<td>urban</td>
+<td>选项：[urban, rustic, highly available]，定义衰落噪声参数</td>
+</tr>
+<tr>
+<td>path_loss_model</td>
+<td>string</td>
+<td>geometric</td>
+<td>使用的通用路径损耗模型。选项：[geometric, winor]</td>
+</tr>
+<tr>
+<td>use_etsi_fading</td>
+<td>bool</td>
+<td>true</td>
+<td>使用 ETSI 出版物中提到的衰落参数（true），或使用自定义衰落标准偏差</td>
+</tr>
+<tr>
+<td>custom_fading_stddev</td>
+<td>float</td>
+<td>0.0</td>
+<td>衰减标准偏差的自定义值，仅当<code>use_etsi_fading</code>设置为 <code>false</code> 时才使用</td>
+</tr>
+</tbody>
+</table>
               
             </div>
           </div><footer>
