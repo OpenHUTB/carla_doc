@@ -75,7 +75,7 @@
 <li><a href="#user-customization">用户定制</a></li>
 <li><a href="#architecture"><strong>架构</strong></a></li>
 <li><a href="#overview">概述</a></li>
-<li><a href="#alsm">智能体的生命周期和状态管理</a></li>
+<li><a href="#alsm">代理的生命周期和状态管理</a></li>
 <li><a href="#vehicle-registry">车辆注册表</a></li>
 <li><a href="#simulation-state">仿真状态</a></li>
 <li><a href="#control-loop">控制循环</a></li>
@@ -113,7 +113,7 @@
 <p>上图是交通管理器的内部架构示意图。每个组件的 C++ 代码可以在  <code>LibCarla/source/carla/trafficmanager</code> 中找到。以下各节详细解释了每个组件。逻辑概述如下：</p>
 <p><strong>1. 存储并更新仿真的当前状态。</strong></p>
 <ul>
-<li><a href="#alsm">智能体的生命周期和状态管理</a> (Agent Lifecycle &amp; State Management, ALSM)  扫描世界，跟踪所有存在的车辆和行人，并清理不再存在的条目。所有数据均从服务器检索并经过多个<a href="#stages-of-the-control-loop">阶段</a>。ALSM 是唯一调用服务器的组件。</li>
+<li><a href="#alsm">代理的生命周期和状态管理</a> (Agent Lifecycle &amp; State Management, ALSM)  扫描世界，跟踪所有存在的车辆和行人，并清理不再存在的条目。所有数据均从服务器检索并经过多个<a href="#stages-of-the-control-loop">阶段</a>。ALSM 是唯一调用服务器的组件。</li>
 <li><a href="#vehicle-registry">车辆注册表</a> 包含一系列处于自动驾驶状态的车辆（由交通管理器控制）以及一系列不处于自动驾驶状态（不受交通管理器控制控制）的行人和车辆。</li>
 <li><a href="#simulation-state">仿真状态</a> 是仿真中所有车辆和行人的位置、速度和附加信息的缓存存储。</li>
 </ul>
@@ -134,9 +134,9 @@
 <p><strong>3. 在仿真中应用命令</strong></p>
 <p>上一步生成的命令被收集到<a href="#command-array">命令数组</a>中，批量发送到 Carla 服务器，在同一帧中应用。</p>
 <p>以下部分将更详细地解释上述交通管理器逻辑中的每个组件和阶段。</p>
-<h3 id="_7">智能体的生命周期和状态管理</h3>
-<p>智能体的生命周期和状态管理。它是交通管理器逻辑周期的第一步，提供仿真当前状态的上下文。</p>
-<p>智能体的生命周期和状态管理组件：</p>
+<h3 id="_7">代理的生命周期和状态管理</h3>
+<p>代理的生命周期和状态管理。它是交通管理器逻辑周期的第一步，提供仿真当前状态的上下文。</p>
+<p>代理的生命周期和状态管理组件：</p>
 <ul>
 <li>扫描世界以跟踪所有车辆和行人的位置和速度。如果启用物理功能，则通过<a href="../python_api/#carla.Vehicle">Vehicle.get_velocity()</a>检索速度。否则，将使用位置随时间更新的历史记录来计算速度。</li>
 <li>存储<a href="#simulation-state">仿真状态</a>组件中每辆车和行人的位置、速度和附加信息（交通灯影响、边界框等）。</li>
@@ -148,7 +148,7 @@
 <p>车辆注册表记录仿真中的所有车辆和行人。</p>
 <p>车辆注册表：</p>
 <ul>
-<li>从<a href="#alsm">智能体的生命周期和状态管理</a>传递来最新的车辆和行人列表。</li>
+<li>从<a href="#alsm">代理的生命周期和状态管理</a>传递来最新的车辆和行人列表。</li>
 <li>将注册到交通管理器的车辆存储在单独的数组中，以便在<a href="#control-loop">控制循环</a>期间进行迭代。</li>
 </ul>
 <p><strong>相关的 .cpp 文件：</strong> <code>MotionPlannerStage.cpp</code>.</p>
@@ -156,7 +156,7 @@
 <p>仿真状态存储仿真中所有车辆的信息，以便在后期阶段轻松访问和修改。</p>
 <p>仿真状态：</p>
 <ul>
-<li>从<a href="#alsm">智能体的生命周期和状态管理</a>接收数据，包括当前参与者位置、速度、交通灯影响、交通灯状态等。</li>
+<li>从<a href="#alsm">代理的生命周期和状态管理</a>接收数据，包括当前参与者位置、速度、交通灯影响、交通灯状态等。</li>
 <li>将所有信息存储在缓存中，避免在<a href="#control-loop">控制循环</a>期间对服务器的后续调用。</li>
 </ul>
 <p><strong>相关的 .cpp 文件：</strong> <code>SimulationState.cpp</code>, <code>SimulationState.h</code>.</p>
@@ -212,7 +212,7 @@
 <p>本地化阶段：</p>
 <ul>
 <li>从<a href="#simulation-state"><strong>仿真状态</strong></a>获取所有车辆的位置和速度。</li>
-<li>使用<a href="#in-memory-map"><strong>内存地图</strong></a>将每辆车与航点列表相关联，该航点列表根据其轨迹描述其当前位置和近期路径。车辆行驶得越快，列表就越长。</li>
+<li>使用<a href="#in-memory-map"><strong>内存地图</strong></a>将每辆车与路径点列表相关联，该路径点列表根据其轨迹描述其当前位置和近期路径。车辆行驶得越快，列表就越长。</li>
 <li>根据规划决策更新路径，例如变道、限速、与前方车辆的距离参数化等。</li>
 <li>将所有车辆的路径存储在 <a href="#pbvt"><strong>PBVT</strong></a> 模块中。</li>
 <li>相互比较路径以估计可能的碰撞情况。结果将传递到碰撞阶段。</li>
@@ -246,11 +246,10 @@
 </ul>
 <p><strong>相关的.cpp文件:</strong> <code>MotionPlannerStage.cpp</code>.</p>
 <h5 id="5-">第 5 阶段 - 车灯阶段</h5>
-<p>车灯阶段根据车辆状况和周围环境激活车灯。
-​ <br />
-车灯阶段:</p>
+<p>车灯阶段根据车辆状况和周围环境激活车灯。</p>
+<p>车灯阶段:</p>
 <ul>
-<li>检索车辆的计划航点、有关车辆灯光的信息（例如灯光状态和计划应用的命令）和天气状况。</li>
+<li>检索车辆的计划路径点、有关车辆灯光的信息（例如灯光状态和计划应用的命令）和天气状况。</li>
 <li>确定车灯的新状态:</li>
 <li>如果车辆计划在下一个路口左转/右转，则打开闪光灯。</li>
 <li>如果应用的命令要求车辆制动，则打开停车灯。</li>

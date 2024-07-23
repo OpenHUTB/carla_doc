@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Carla 航点发布器 - 交通仿真文档</title>
+    <title>Carla 路径点发布器 - 交通仿真文档</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Carla \u822a\u70b9\u53d1\u5e03\u5668";
+        var mkdocs_page_name = "Carla \u8def\u5f84\u70b9\u53d1\u5e03\u5668";
         var mkdocs_page_input_path = "carla_waypoint.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,7 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Carla 航点发布器</li>
+      <li class="breadcrumb-item active">Carla 路径点发布器</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/carla_waypoint.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -68,14 +68,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="carla">Carla 航点发布器</h1>
-<p><a href="https://github.com/carla-simulator/ros-bridge/tree/master/carla_waypoint_publisher">Carla 航点发布器</a> 使航点计算可用于 ROS 上下文，并提供查询 Carla 航点的服务。要了解有关航点的更多信息，请参阅 Carla <a href="https://carla.readthedocs.io/en/latest/core_map/#navigation-in-carla">文档</a> 。</p>
+                <h1 id="carla">Carla 路径点发布器</h1>
+<p><a href="https://github.com/carla-simulator/ros-bridge/tree/master/carla_waypoint_publisher">Carla 路径点发布器</a> 使路径点计算可用于 ROS 上下文，并提供查询 Carla 路径点的服务。要了解有关路径点的更多信息，请参阅 Carla <a href="https://carla.readthedocs.io/en/latest/core_map/#navigation-in-carla">文档</a> 。</p>
 <ul>
-<li><a href="#run-the-waypoint-publisher"><strong>运行航点发布器</strong></a><ul>
+<li><a href="#run-the-waypoint-publisher"><strong>运行路径点发布器</strong></a><ul>
 <li><a href="#set-a-goal">设定目标</a></li>
 </ul>
 </li>
-<li><a href="#using-the-waypoint-publisher"><strong>使用航点发布器</strong></a></li>
+<li><a href="#using-the-waypoint-publisher"><strong>使用路径点发布器</strong></a></li>
 <li><a href="#ros-api"><strong>ROS 应用程序接口</strong></a><ul>
 <li><a href="#publications">发布</a></li>
 <li><a href="#services">服务</a></li>
@@ -83,7 +83,7 @@
 </li>
 </ul>
 <hr />
-<h2 id="_1">运行航点发布器</h2>
+<h2 id="_1">运行路径点发布器</h2>
 <p>在 Carla 服务器运行的情况下，执行以下命令：</p>
 <pre><code class="language-sh"># ROS 1
 roslaunch carla_waypoint_publisher carla_waypoint_publisher.launch
@@ -96,8 +96,8 @@ ros2 launch carla_waypoint_publisher carla_waypoint_publisher.launch.py
 <p>设置目标的首选方法是单击 RVIZ 中的“2D Nav Goal”。</p>
 <p><img alt="rviz_set_goal" src="../img/rviz_set_start_goal.png" /></p>
 <hr />
-<h3 id="_3">使用航点发布器</h3>
-<p><a href="../carla_ad_demo/">Carla 自动驾驶演示</a> 使用 Waypoint Publisher 为<a href="../carla_ad_agent/">Carla 自动驾驶智能体</a> 规划路线。有关如何使用它的示例， 请参阅 Carla 自动驾驶演示 <a href="https://github.com/carla-simulator/ros-bridge/blob/ros2/carla_ad_demo/launch/carla_ad_demo_with_scenario.launch">启动文件</a> 。</p>
+<h3 id="_3">使用路径点发布器</h3>
+<p><a href="../carla_ad_demo/">Carla 自动驾驶演示</a> 使用 Waypoint Publisher 为<a href="../carla_ad_agent/">Carla 自动驾驶代理</a> 规划路线。有关如何使用它的示例， 请参阅 Carla 自动驾驶演示 <a href="https://github.com/carla-simulator/ros-bridge/blob/ros2/carla_ad_demo/launch/carla_ad_demo_with_scenario.launch">启动文件</a> 。</p>
 <hr />
 <h2 id="ros">ROS 应用程序接口</h2>
 <h4 id="_4">发布</h4>
@@ -131,12 +131,12 @@ ros2 launch carla_waypoint_publisher carla_waypoint_publisher.launch.py
 <tr>
 <td><code>/carla_waypoint_publisher/&lt;ego vehicle name&gt;/get_waypoint</code></td>
 <td><a href="https://github.com/carla-simulator/ros-bridge/blob/ros2/carla_waypoint_types/srv/GetWaypoint.srv">carla_waypoint_types/GetWaypoint</a></td>
-<td>获取特定位置的航路点</td>
+<td>获取特定位置的路径点</td>
 </tr>
 <tr>
 <td><code>/carla_waypoint_publisher/&lt;ego vehicle name&gt;/get_actor_waypoint</code></td>
 <td><a href="https://github.com/carla-simulator/ros-bridge/blob/ros2/carla_waypoint_types/srv/GetActorWaypoint.srv">carla_waypoint_types/GetActorWaypoint</a></td>
-<td>获取参与者 ID 的航点</td>
+<td>获取参与者 ID 的路径点</td>
 </tr>
 </tbody>
 </table>

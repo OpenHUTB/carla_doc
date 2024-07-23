@@ -70,12 +70,11 @@
               
                 <h1 id="carla-g29">carla 与罗技 G29 方向盘的力反馈</h1>
 <p>ubuntu 环境下使用 jstest-gtk、ROS 进行方向盘控制参考<a href="https://blog.csdn.net/qq_44237695/article/details/129103700">链接</a> 。</p>
-<p>本教程在windows环境下联调，原先的想法是在windows环境下安装ros2，通过罗技的sdk来替换jstest-gtk，重写ros2节点来实现。罗技g29sdk可参考<a href="https://blog.csdn.net/qq_41250354/article/details/104652071">链接</a></p>
+<p>本教程在windows环境下联调，原先的想法是在windows环境下安装ros2，通过罗技的sdk来替换jstest-gtk，重写ros2节点来实现。罗技g29sdk可参考<a href="https://blog.csdn.net/qq_41250354/article/details/104652071">链接</a> 。</p>
 <p>但由于C++的g29 sdk强制要求界面，carla在控制方向盘时也要求指定 pygame 界面，<a href="https://github.com/cengizozel/LogiDrivePy">G29python代码</a> 用的C# dll修改，初始化过程不需要界面。同时由于是 python 写的，可以绕开ros2这个过程，减少非常多的学习量。</p>
 <p>具体联调过程：</p>
-<p>环境：</p>
-<p>python3.7、carla0.9.14、罗技G-hub驱动、G29方向盘</p>
-<p>首先去罗技官网安装方向盘启动，安装好后驱动界面显示G29方向盘，同时方向盘转动自检。</p>
+<p>环境：python3.7、carla0.9.14、罗技G-hub驱动、G29方向盘。</p>
+<p>首先去 <a href="https://support.logi.com/hc/zh-cn/articles/360025298133-Logitech-G-HUB">罗技官网</a> 安装方向盘驱动启动，安装好后驱动界面显示G29方向盘，同时方向盘转动自检。</p>
 <p><img alt="G29" src="../img/tuto_M_G29/G29.png" /></p>
 <p>python环境中安装 Carla 与logidrivepy</p>
 <pre><code>pip install carla
@@ -91,9 +90,9 @@ reverse = 5
 handbrake = 4
 </code></pre>
 <p>其中数字可能需要自己试这里<code>steering_wheel</code>表示方向盘方向、<code>throttle</code>表示油门和<code>brake</code>刹车已经是正确的设置了。要保证这个设置和<code>.py</code>文件在同一个目录下否则会报错。</p>
-<p>下载carla-API后，运行carla客户端</p>
+<p>下载carla-API后，运行carla服务端：</p>
 <p><img alt="CarlaUE4" src="../img/tuto_M_G29/CarlaUE4.png" /></p>
-<p>随后运行<code>PythonAPI/examples/manual_control_steeringwheel.py</code>文件</p>
+<p>随后运行<code>PythonAPI/examples/manual_control_steeringwheel.py</code>文件。</p>
 <p><img alt="steering" src="../img/tuto_M_G29/steering.png" /></p>
 <p>此时即可开启车辆。</p>
 <h2 id="_1">自动驾驶力反馈</h2>

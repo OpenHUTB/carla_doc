@@ -91,7 +91,7 @@
 <p>所有传感器都使用虚幻引擎坐标系（<strong>x</strong> - <em>向前</em>，<strong>y</strong> - <em>向右</em>，<strong>z</strong> - <em>向上</em>），并返回本地空间中的坐标。使用任何可视化软件时，请注意其坐标系。许多反转 Y 轴，因此直接可视化传感器数据可能会导致镜像输出。 </p>
 </div>
 <hr />
-<h2 id="_2">碰撞检测器</h2>
+<h2 id="_2">碰撞检测器 <span id="collision-detector"></span></h2>
 <ul>
 <li><strong>蓝图：</strong> sensor.other.collision</li>
 <li><strong>输出：</strong> 每次碰撞的 <a href="../python_api/#carla.CollisionEvent">carla.CollisionEvent</a> 。</li>
@@ -141,7 +141,7 @@
 </tbody>
 </table>
 <hr />
-<h2 id="_4">深度相机</h2>
+<h2 id="_4">深度相机 <span id="depth-camera"></span></h2>
 <ul>
 <li><strong>蓝图：</strong> sensor.camera.depth</li>
 <li><strong>输出：</strong> 每步的图像 <a href="../python_api/#carla.Image">carla.Image</a> （除非<code>sensor_tick</code>另有说明）。</li>
@@ -290,7 +290,7 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.Depth)
 </tbody>
 </table>
 <hr />
-<h2 id="_8">全球导航卫星系统传感器</h2>
+<h2 id="_8">全球导航卫星系统传感器 <span id="gnss-sensor"></span></h2>
 <ul>
 <li><strong>蓝图：</strong> sensor.other.gnss</li>
 <li><strong>Output:</strong> 每一步的全球导航卫星系统的测量 <a href="../python_api/#carla.GnssMeasurement">carla.GNSSMeasurement</a> （<code>sensor_tick</code>另有说明）。</li>
@@ -401,7 +401,7 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.Depth)
 </tbody>
 </table>
 <hr />
-<h2 id="_11"><a href="https://github.com/carla-simulator/carla/blob/dev/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/InertialMeasurementUnit.cpp">惯性测量单元传感器</a></h2>
+<h2 id="_11"><a href="https://github.com/carla-simulator/carla/blob/dev/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/InertialMeasurementUnit.cpp">惯性测量单元传感器</a> <span id="imu-sensor"></span></h2>
 <ul>
 <li><strong>蓝图：</strong> sensor.other.imu</li>
 <li><strong>输出：</strong> 每一步的惯性测量单元测量值 <a href="../python_api/#carla.IMUMeasurement">carla.IMUMeasurement</a> （除非传感器滴答信号<code>sensor_tick</code>另有说明）。</li>
@@ -525,7 +525,7 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.Depth)
 <tr>
 <td><a href="https://github.com/carla-simulator/carla/blob/dev/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/InertialMeasurementUnit.cpp#L167"><code>compass</code></a></td>
 <td>float</td>
-<td>以弧度为单位的方向。在虚幻引擎中北是 <code>(0.0, -1.0, 0.0)</code> 。</td>
+<td>以弧度为单位的方向。北是0弧度。</td>
 </tr>
 </tbody>
 </table>
@@ -534,8 +534,12 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.Depth)
 $$ d_2 (i) = -2.0 \times [ { y_1 \over {h_1 \times h_2 } }  -  { y_2 \over { h_2 \times (h_1+h_2) } }  -  {y_0 \over { h_1 \times (h_1 + h_2) }} ] .$$</li>
 </ul>
 <p>其中，(h_1) 为当前时间增量，(h_2)为前一个时间增量。</p>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>对于指南针，北为 0 弧度。东为 <em>pi</em> /2 弧度，南为 <em>pi</em> 弧度，西为 3 <em>pi</em> /2 弧度。在 Carla 的全局坐标系中，北为 Y 轴减小的方向。东为 X 轴增加的方向。转换为度数的指南针值等于 <code>90 - 偏航</code>。 </p>
+</div>
 <hr />
-<h2 id="_14">车道侵入检测器</h2>
+<h2 id="_14">压线检测器 <span id="lane-invasion-detector"></span></h2>
 <ul>
 <li><strong>蓝图：</strong> sensor.other.lane_invasion</li>
 <li><strong>输出：</strong> 每次交叉路口的 <a href="../python_api/#carla.LaneInvasionEvent">carla.LaneInvasionEvent</a> 。</li>
@@ -588,7 +592,7 @@ $$ d_2 (i) = -2.0 \times [ { y_1 \over {h_1 \times h_2 } }  -  { y_2 \over { h_2
 </tbody>
 </table>
 <hr />
-<h2 id="_16">激光雷达传感器</h2>
+<h2 id="_16">激光雷达传感器 <span id="lidar-sensor"></span></h2>
 <ul>
 <li><strong>蓝图：</strong> sensor.lidar.ray_cast</li>
 <li><strong>输出：</strong> 每一步 <a href="../python_api/#carla.LidarMeasurement">carla.LidarMeasurement</a> （除非<code>sensor_tick</code> 另有说明）。</li>
@@ -751,7 +755,7 @@ $$ d_2 (i) = -2.0 \times [ { y_1 \over {h_1 \times h_2 } }  -  { y_2 \over { h_2
 </tbody>
 </table>
 <p><br></p>
-<h2 id="_19">障碍物检测器</h2>
+<h2 id="_19">障碍物检测器 <span id="obstacle-detector"></span></h2>
 <ul>
 <li><strong>蓝图：</strong> sensor.other.obstacle</li>
 <li><strong>输出：</strong> 每个障碍物的 <a href="../python_api/#carla.ObstacleDetectionEvent">carla.ObstacleDetectionEvent</a> （除非<code>sensor_tick</code>另有说明）。</li>
@@ -843,7 +847,7 @@ $$ d_2 (i) = -2.0 \times [ { y_1 \over {h_1 \times h_2 } }  -  { y_2 \over { h_2
 </tbody>
 </table>
 <p><br></p>
-<h2 id="_21">雷达传感器</h2>
+<h2 id="_21">雷达传感器 <span id="radar-sensor"></span></h2>
 <ul>
 <li><strong>蓝图：</strong> sensor.other.radar</li>
 <li><strong>输出：</strong> 每一步 <a href="../python_api/#carla.RadarMeasurement">carla.RadarMeasurement</a> （除非<code>sensor_tick</code>另有说明）。</li>
@@ -949,7 +953,7 @@ points = np.reshape(points, (len(radar_data), 4))
 </tbody>
 </table>
 <hr />
-<h2 id="rgb">RGB 相机</h2>
+<h2 id="rgb">RGB 相机 <span id="rgb-camera"></span></h2>
 <ul>
 <li><strong>蓝图：</strong> sensor.camera.rgb</li>
 <li><strong>输出：</strong> 每一步 <a href="../python_api/#carla.Image">carla.Image</a> （除非<code>sensor_tick</code>另有说明）。</li>
@@ -1309,7 +1313,7 @@ points = np.reshape(points, (len(radar_data), 4))
 </tbody>
 </table>
 <hr />
-<h2 id="_27">责任敏感安全传感器</h2>
+<h2 id="_27">责任敏感安全传感器 <span id="rss-sensor"></span></h2>
 <ul>
 <li><strong>蓝图：</strong> sensor.other.rss</li>
 <li><strong>输出：</strong> 每一步 <a href="../python_api/#carla.RssResponse">carla.RssResponse</a> （除非<code>sensor_tick</code>另有说明）。</li>
@@ -1450,22 +1454,22 @@ if routing_targets:
 <tr>
 <td><code>proper_response</code></td>
 <td><a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1state_1_1ProperResponse.html">ad.rss.state.ProperResponse</a></td>
-<td>RSS 为车辆计算的正确响应，包括加速限制。</td>
+<td>责任敏感安全为车辆计算的正确响应，包括加速限制。</td>
 </tr>
 <tr>
 <td><code>rss_state_snapshot</code></td>
 <td><a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1state_1_1RssStateSnapshot.html">ad.rss.state.RssStateSnapshot</a></td>
-<td>RSS 状态为当前时间点。这是 RSS 计算的详细的单独输出。</td>
+<td>责任敏感安全状态为当前时间点。这是责任敏感安全计算的详细的单独输出。</td>
 </tr>
 <tr>
 <td><code>situation_snapshot</code></td>
 <td><a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1situation_1_1SituationSnapshot.html">ad.rss.situation.SituationSnapshot</a></td>
-<td>当前时间点的 RSS 情况。这是用于 RSS 计算的经过处理的输入数据。</td>
+<td>当前时间点的责任敏感安全情况。这是用于 责任敏感安全 计算的经过处理的输入数据。</td>
 </tr>
 <tr>
 <td><code>world_model</code></td>
 <td><a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1WorldModel.html">ad.rss.world.WorldModel</a></td>
-<td>当前时间点的 RSS 世界模型。这是 RSS 计算的输入数据。</td>
+<td>当前时间点的 责任敏感安全 世界模型。这是 责任敏感安全 计算的输入数据。</td>
 </tr>
 <tr>
 <td><code>ego_dynamics_on_route</code></td>
@@ -1500,7 +1504,7 @@ def _on_actor_constellation_request(self, actor_constellation_data):
     return actor_constellation_result
 </code></pre>
 <hr />
-<h2 id="_29">语义激光雷达传感器</h2>
+<h2 id="_29">语义激光雷达传感器 <span id="semantic-lidar-sensor"></span></h2>
 <ul>
 <li><strong>蓝图：</strong> sensor.lidar.ray_cast_semantic</li>
 <li><strong>输出：</strong> 每步 <a href="../python_api/#carla.SemanticLidarMeasurement">carla.SemanticLidarMeasurement</a> （除非<code>sensor_tick</code>另有说明）。</li>
@@ -1637,7 +1641,7 @@ def _on_actor_constellation_request(self, actor_constellation_data):
 </tr>
 </tbody>
 </table>
-<h2 id="_32">语义分割相机</h2>
+<h2 id="_32">语义分割相机 <span id="semantic-segmentation-camera"></span></h2>
 <ul>
 <li><strong>蓝图：</strong> sensor.camera.semantic_segmentation</li>
 <li><strong>输出：</strong> 每步 <a href="../python_api/#carla.Image">carla.Image</a> （除非 <code>sensor_tick</code> 另有说明）。</li>
@@ -1940,7 +1944,7 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.cityScapes
 </tbody>
 </table>
 <hr />
-<h2 id="_36">动态视觉传感器相机</h2>
+<h2 id="_36">动态视觉传感器相机 <span id="dvs-camera"></span></h2>
 <ul>
 <li><strong>蓝图：</strong> sensor.camera.dvs</li>
 <li><strong>输出：</strong> 每步 <a href="../python_api/#carla.DVSEventArray">carla.DVSEventArray</a> （除非<code>sensor_tick</code>另有说明）。</li>
@@ -2012,7 +2016,7 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.cityScapes
 </table>
 <p><br></p>
 <hr />
-<h2 id="_38">光流相机</h2>
+<h2 id="_38">光流相机 <span id="optical-flow-camera"></span></h2>
 <p>光流相机捕捉从相机的角度感知的运动。该传感器记录的每个像素都对投影到图像平面的该点的速度进行编码。像素的速度在 [-2,2] 范围内编码。为了获得以像素为单位的运动，可以将该信息与图像大小一起缩放至[-2 * image_size, 2 * image_size]。</p>
 <p><img alt="optical_flow" src="../img/optical_flow.png" /></p>
 <h4 id="_39">光流相机属性</h4>

@@ -186,9 +186,40 @@ print(hello_ext.greet())
 <p>在visual studio 中添加断点，并附着到第1步的进程中。</p>
 </li>
 <li>
-<p>在<code>*.py</code>中继续执行，会在vs中暂定。</p>
+<p>在<code>*.py</code>中继续执行，会在vs中暂停。</p>
 </li>
 </ol>
+<h3 id="whl">whl安装包的调式</h3>
+<p>参考<a href="https://blog.csdn.net/Attitude93/article/details/135656910">链接</a> ，转至目录<code>carla\PythonAPI\carla</code>，运行<code>pip install -e .</code>，在<code>Python37\Lib\site-packages\easy-install.pth</code>文件中生成指向源代码的路径。</p>
+<p><code>-e</code> 或 <code>--editable</code>：这个选项表示以“可编辑”模式安装包。在这种模式下，包的源代码可以在本地进行修改，并且这些修改会立即反映到系统中该包的行为上，无需重新安装。这对于开发和调试非常有用。
+在当前目录下安装一个包，并创建一个软连接引用该包（而不是将包复制到 site-packages
+目录下）。这个软连接是一个指向包代码的符号链接，它可以使包的修改直接反映到当前目录下的项目中，从而方便开发和调试。</p>
+<h2 id="_2">解释</h2>
+<h3 id="setuppy"><a href="https://www.cnblogs.com/xueweihan/p/12030457.html">setup.py</a></h3>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ext_modules</code></td>
+<td>用于构建 C++ 扩展扩展包，其是 Extension 实例的列表，每一个 Extension 实例描述了一个独立的扩展模块，扩展模块可以设置扩展包名、源文件<code>source</code>、头文件<code>include_dirs</code>、链接库及其路径<code>library_dirs</code>、编译参数<code>extra_compile_args</code>、链接参数<code>extra_compile_args</code>、依赖<code>depends</code>等。</td>
+</tr>
+<tr>
+<td><code>package_dir={'': 'source'}</code></td>
+<td>“root package” 中的模块都在 source 目录中</td>
+</tr>
+<tr>
+<td><code>packages=['carla']</code></td>
+<td>需要处理的包目录（包含了一些.cpp文件）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="gli">GLI</h3>
+<p><a href="https://www.jb51.net/article/148353.htm">全局解释器锁</a> （GLI,Global Interpreter Lock）：在调用外部代码（如C、C++扩展函数）的时候，GIL将会被锁定，直到这个函数结束为止（由于期间没有python的字节码运行，所以不会做线程切换）。</p>
               
             </div>
           </div><footer>

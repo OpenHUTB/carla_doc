@@ -240,7 +240,7 @@ GenerateProjectFiles.bat
 <p>以下命令编译 Python API 客户端：</p>
 <pre><code class="language-sh">make PythonAPI
 </code></pre>
-<p>Carla 客户端库将以两种截然不同、互斥的形式构建。这使用户可以自由选择他们喜欢的形式来运行 Carla 客户端代码。两种形式包括<code>.egg</code>文件和<code>.whl</code>文件。选择以下选项 <strong>之一</strong> 来使用客户端库：</p>
+<p>生成的客户端安装文件位于<code>PythonAPI/carla/dist/</code>。Carla 客户端库将以两种截然不同、互斥的形式构建。这使用户可以自由选择他们喜欢的形式来运行 Carla 客户端代码。两种形式包括<code>.egg</code>文件和<code>.whl</code>文件。选择以下选项 <strong>之一</strong> 来使用客户端库：</p>
 <p><strong>A. <code>.egg</code> 文件</strong></p>
 <blockquote>
 <p><code>.egg</code> 文件不需要安装。导入 Carla 时，Carla 的所有示例脚本都会自动 <a href="../build_system/#versions-prior-to-0912">查找此文件</a> 。</p>
@@ -353,7 +353,12 @@ python3 dynamic_weather.py
 <p>脚本<code>setup.py</code>中的<code>ext_modules</code>参数用于构建 C 和 C++ 扩展扩展包。其是 Extension 实例的列表，每一个 Extension 实例描述了一个独立的扩展模块，扩展模块可以设置扩展包名，头文件、源文件、链接库及其路径、宏定义和编辑参数等。</p>
 <p>当你安装一个包后，这个包需要你不断修改，这时就采用这种安装方法：<code>python setup.py develop</code>。仅在<code>Python37/Lib/site-packages</code>目录下生成链接文件<code>carla.egg-link</code> 指向 <code>carla\PythonAPI\carla\source</code>和<code>../</code>。</p>
 <p>而<code>python setup.py install</code>在<code>Python37\Lib\site-packages\carla-0.9.15-py3.7-win-amd64.egg</code>目录下生成运行包，包括<code>libcarla.cp37-win_amd64.pyd</code>。</p>
-<h2 id="_10">报错</h2>
+<h3 id="_10">其他</h3>
+<p>如果想重新编译LibCarla或者使用最新的修改，需要删除<code>Build/libcarla-visualstudio</code>目录，然后重新运行编译命令：</p>
+<pre><code class="language-shell">make LibCarla
+</code></pre>
+<p>则服务端文件<code>carla_server.lib</code>生成至<code>carla\Unreal\CarlaUE4\Plugins\Carla\CarlaDependencies\</code>，客户端文件<code>carla_client.lib</code>生成至<code>carla\PythonAPI\carla\dependencies\</code>。</p>
+<h2 id="_11">报错</h2>
 <ul>
 <li>执行<code>make osm2odr</code>报错：</li>
 </ul>
@@ -369,6 +374,12 @@ Error: could not load cache
 <pre><code class="language-text">libcarla.obj : error LNK2001: 无法解析的外部符号 &quot;class std::basic_string&lt;char,struct std::char_traits&lt;char&gt;,class std::allocator&lt;char&gt; &gt; __cdecl osm2odr::ConvertOSMToOpenDRIVE(class std::basic_string&lt;char,struct std::char_traits&lt;char&gt;,class std::allocator&lt;char&gt; &gt;,struct osm2odr::OSM2ODRSettings)&quot; (?ConvertOSMToOpenDRIVE@osm2odr@@YA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V23@UOSM2ODRSettings@1@@Z)
 </code></pre>
 <p>从其他编译成功的地方将<code>PythonAPI\carla\dependencies\lib\osm2odr.lib</code>拷贝过来。</p>
+<ul>
+<li>同一台机器中之前安装过vs，再安装时报错：<code>无法安装  Microsoft.VisualStudio.Debugger.JustInTime.Msi</code>
+和 <code>Could not open key: UNKNOWNComponents Werify that you have sufficient access to that key, or contact your support personnel.</code></li>
+</ul>
+<p>解决：<a href="https://blog.csdn.net/hsuehgw/article/details/131000227"><code>注册表编辑器无法在当前所选的项及其部分子项上设置安全性</code></a> 。</p>
+<p>注意：使用在线安装文件<code>vs_community__2019.exe</code>进行安装，不要使用离线版的vs2019安装包，否则会出现错误：<code>系统错误：&amp;H8007007E(-2147024770)。 找不到指定的模块</code>。</p>
 <hr />
 <p>有关本指南的任何问题， 请阅读 <strong><a href="../build_faq/">常见问题解答</a></strong> 页面或在 <a href="https://github.com/carla-simulator/carla/discussions">Carla 论坛</a> 中发帖。</p>
 <p>现在您已经构建了 Carla，接下来了解如何更新 Carla 构建或在仿真中迈出第一步，并学习一些核心概念。</p>

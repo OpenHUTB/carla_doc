@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Carla 自动驾驶智能体 - 交通仿真文档</title>
+    <title>Carla 自动驾驶代理 - 交通仿真文档</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Carla \u81ea\u52a8\u9a7e\u9a76\u667a\u80fd\u4f53";
+        var mkdocs_page_name = "Carla \u81ea\u52a8\u9a7e\u9a76\u4ee3\u7406";
         var mkdocs_page_input_path = "carla_ad_agent.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,7 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Carla 自动驾驶智能体</li>
+      <li class="breadcrumb-item active">Carla 自动驾驶代理</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/carla_ad_agent.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -68,12 +68,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="carla">Carla 自动驾驶智能体</h1>
-<p><a href="https://github.com/carla-simulator/ros-bridge/tree/master/carla_ad_agent">Carla 自动驾驶智能体</a> 是一种自动驾驶智能体，可以遵循给定路线，避免与其他车辆发生碰撞，并通过访问真实数据尊重交通信号灯的状态。<a href="../carla_ad_demo/">Carla 自动驾驶演示</a> 使用它来提供如何使用 ROS 桥的示例。 </p>
+                <h1 id="carla">Carla 自动驾驶代理</h1>
+<p><a href="https://github.com/carla-simulator/ros-bridge/tree/master/carla_ad_agent">Carla 自动驾驶代理</a> 是一种自动驾驶代理，可以遵循给定路线，避免与其他车辆发生碰撞，并通过访问真实数据尊重交通信号灯的状态。<a href="../carla_ad_demo/">Carla 自动驾驶演示</a> 使用它来提供如何使用 ROS 桥的示例。 </p>
 <ul>
 <li><a href="#requirements"><strong>需求</strong></a></li>
 <li><a href="#ros-api"><strong>ROS 应用程序接口</strong></a><ul>
-<li><a href="#ad-agent-node"><strong>自动驾驶智能体节点</strong></a><ul>
+<li><a href="#ad-agent-node"><strong>自动驾驶代理节点</strong></a><ul>
 <li><a href="#parameters">参数</a></li>
 <li><a href="#subscriptions">订阅</a></li>
 <li><a href="#publications">发布</a></li>
@@ -88,7 +88,7 @@
 </ul>
 </li>
 </ul>
-<p>在内部，Carla 自动驾驶智能体使用单独的节点进行 <a href="https://github.com/carla-simulator/ros-bridge/blob/ros2/carla_ad_agent/src/carla_ad_agent/local_planner.py">本地规划</a> 。该节点已针对 <code>vehicle.tesla.model3</code> 进行了优化，因为它没有任何换档延迟。</p>
+<p>在内部，Carla 自动驾驶代理使用单独的节点进行 <a href="https://github.com/carla-simulator/ros-bridge/blob/ros2/carla_ad_agent/src/carla_ad_agent/local_planner.py">本地规划</a> 。该节点已针对 <code>vehicle.tesla.model3</code> 进行了优化，因为它没有任何换档延迟。</p>
 <p>PID 参数通过 <a href="https://en.wikipedia.org/wiki/Ziegler%E2%80%93Nichols_method">Ziegler-Nichols方法</a> 采集。</p>
 <hr />
 <h2 id="_1">需求</h2>
@@ -100,7 +100,7 @@
 </ul>
 <hr />
 <h2 id="ros">ROS 应用程序接口</h2>
-<h3 id="_2">自动驾驶智能体节点</h3>
+<h3 id="_2">自动驾驶代理节点</h3>
 <h4 id="_3">参数</h4>
 <table>
 <thead>

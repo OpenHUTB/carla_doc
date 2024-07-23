@@ -76,12 +76,12 @@
 <li><a href="#landmarks">地标</a>  </li>
 <li><a href="#lanes">车道</a>  </li>
 <li><a href="#junctions">路口</a>  </li>
-<li><a href="#waypoints">航点</a>  </li>
+<li><a href="#waypoints">路径点</a>  </li>
 <li><a href="#environment-objects">环境对象</a></li>
 </ul>
 </li>
 <li><a href="#navigation-in-carla"><strong>在 Carla 中导航</strong></a>  <ul>
-<li><a href="#navigating-through-waypoints">通过航路点导航</a>  </li>
+<li><a href="#navigating-through-waypoints">通过路径点导航</a>  </li>
 <li><a href="#generating-a-map-navigation">生成地图导航</a>  </li>
 </ul>
 </li>
@@ -131,8 +131,8 @@
 <pre><code class="language-py">my_waypoint.get_landmarks(200.0,True)
 </code></pre>
 <h3 id="_5">路径点</h3>
-<p><a href="../python_api/#carla.Waypoint"><code>carla.Waypoint</code></a> 是 Carla 世界中的三维有向点，对应于 OpenDRIVE 车道。与路径点相关的所有事情都发生在客户端；只需与服务器通信一次即可获取包含航点信息的<a href="../python_api/#carlamap">地图对象</a>。</p>
-<p>每个路径点都包含一个 <a href="../python_api/#carla.Transform"><code>carla.Transform</code></a> ，它说明其在地图上的位置以及包含该航路点的车道的方向。变量<code>road_id</code>,<code>section_id</code>,<code>lane_id</code> 和 <code>s</code>对应 OpenDRIVE 道路。路径点<code>id</code>的是由这四个值的哈希组合构造的。</p>
+<p><a href="../python_api/#carla.Waypoint"><code>carla.Waypoint</code></a> 是 Carla 世界中的三维有向点，对应于 OpenDRIVE 车道。与路径点相关的所有事情都发生在客户端；只需与服务器通信一次即可获取包含路径点信息的<a href="../python_api/#carlamap">地图对象</a>。</p>
+<p>每个路径点都包含一个 <a href="../python_api/#carla.Transform"><code>carla.Transform</code></a> ，它说明其在地图上的位置以及包含该路径点的车道的方向。变量<code>road_id</code>,<code>section_id</code>,<code>lane_id</code> 和 <code>s</code>对应 OpenDRIVE 道路。路径点<code>id</code>的是由这四个值的哈希组合构造的。</p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p><strong>同一道路内距离小于 2 厘米</strong> 的路点共享相同的路点 <code>id</code>。</p>
@@ -192,7 +192,7 @@ world.enable_environment_objects(objects_to_toggle, True)
 <h3 id="_9">通过路径点导航</h3>
 <p>Waypoint API 公开了允许路径点相互连接并构建沿道路供车辆导航的路径的方法：</p>
 <ul>
-<li><code>next(d)</code>  <strong>在车道方向上</strong> 创建近似距离 <code>d</code> 内的航路点列表。该列表包含每个可能偏差的一个航路点。</li>
+<li><code>next(d)</code>  <strong>在车道方向上</strong> 创建近似距离 <code>d</code> 内的路径点列表。该列表包含每个可能偏差的一个路径点。</li>
 <li><code>previous(d)</code> <strong>在车道相反的方向上</strong> 创建近似距离小于 <code>d</code> 的路径点列表。该列表包含每个可能偏差的一个路径点。</li>
 <li><code>next_until_lane_end(d)</code> 和 <code>previous_until_lane_start(d)</code> 返回相距一定距离 <code>d</code> 的路径点列表。这些列表分别从当前路径点到其车道的终点和起点。</li>
 <li><code>get_right_lane()</code> 和 <code>get_left_lane()</code> 返回相邻车道中的等路径点（如果存在）。可以通过找到右/左车道上的下一个路点并移动到该路点来进行变道操作。</li>
@@ -208,7 +208,7 @@ waypoint = waypoint.next(2.0)
 <p>地图对象包含用于创建车辆的 <strong>推荐生成点</strong>。您可以使用以下方法获取这些生成点的列表，每个生成点都包含 <a href="../python_api/#carlatransform"><code>carla.Transform</code></a>。请记住，生成点可能已被占用，从而导致由于碰撞而导致车辆创建失败。</p>
 <pre><code class="language-py">spawn_points = world.get_map().get_spawn_points()
 </code></pre>
-<p>您可以通过<a href="../python_api/#carla.Map.get_waypoint">获取</a>距特定位置或特定 <code>road_id</code>、<code>lane_id</code>和<code>s</code>位置最近的航路点以及地图 OpenDRIVE 定义中的值来开始使用路径点：</p>
+<p>您可以通过<a href="../python_api/#carla.Map.get_waypoint">获取</a>距特定位置或特定 <code>road_id</code>、<code>lane_id</code>和<code>s</code>位置最近的路径点以及地图 OpenDRIVE 定义中的值来开始使用路径点：</p>
 <pre><code class="language-py"># 驾驶车道或人行道中心最近的路径点。
 waypoint01 = map.get_waypoint(vehicle.get_location(),project_to_road=True, lane_type=(carla.LaneType.Driving | carla.LaneType.Sidewalk))
 

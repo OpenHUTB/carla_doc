@@ -74,7 +74,7 @@
 <h3 id="_3">交通仿真系统</h3>
 <p>本系统基于开源虚幻引擎框架，构建全道路场景仿真和智能交通系统仿真系统，满足我国特定交通路况多样化需求，为智慧交通算法的教学与应用提供的数据底座。</p>
 <ul>
-<li><a href="../course/scenario/#generateMapByOpenMap">交通数据导入和编辑支持从公开道路地图导入或创建生成道路网络</a>，支持添加车辆到道路网络并定义其轨迹以合成驾驶场景，<a href="../course/scenario/#sceneEding">支持定义车道数量和车道长宽度，支持自定义道路编辑</a>。</li>
+<li><a href="../course/scenario/#generateMapByOpenMap">交通数据导入和编辑支持从公开道路地图导入或创建生成道路网络</a>，支持添加车辆到道路网络并定义其轨迹以合成驾驶场景，<a href="../course/scenario/#sceneEditing">支持定义车道数量和车道长宽度，支持自定义道路编辑</a>。</li>
 <li>
 <p><a href="../course/navigation/#definePoint">车辆运动支持定义车辆运动起点和目标位置</a>，<a href="../course/navigation/#definePoint">为每辆车指定随机速度值</a>，<a href="../course/navigation/#generateTrajectory">生成车辆轨迹</a>。支持自定义车辆的速度，使其沿轨迹移动时不会发生碰撞或模拟碰撞。支持车辆运动模拟和显示自动生成的轨迹场景，可以看到车辆沿指定轨迹行驶以到达其目标位置。</p>
 </li>
@@ -85,11 +85,11 @@
 <h5 id="_4">效果评价</h5>
 <ol>
 <li><a href="../course/traffic_indicators/">路口评价</a>：支持高保正的十字路口三维建模，建模<a href="../course/traffic_indicators/#trafficFlow">路口交通流量</a>、<a href="../course/traffic_indicators/#aveDelay">路口车均延误</a>、<a href="../course/traffic_indicators/#saturation">路口饱和</a>、<a href="../course/traffic_indicators/#queueLength">排队长度</a>等多种路口真实性评价指标分析。</li>
-<li><a href="../course/roadnet_evaluation/">路网评价</a>：支持基于路网数据的路网动态仿真，<a href="#predict_flow">预测和分析不同仿真流量和真实流量的相似性</a>。</li>
+<li><a href="../course/roadnet_evaluation/">路网评价</a>：支持基于路网数据的路网动态仿真，<a href="../course/roadnet_evaluation/#predict_flow">预测和分析不同仿真流量和真实流量的相似性</a>。</li>
 </ol>
 <h5 id="_5">课程一：交通仿真与场景建模</h5>
 <ol>
-<li><a href="../course/scenario/#generateMapByOpenMap">道路网络导入与编辑学生学习如何使用系统导入公开道路地图或创建生成道路网络</a>，以及<a href="../course/scenario/#sceneEding">编辑道路属性和车道信息，构建具体的交通场景</a>。</li>
+<li><a href="../course/scenario/#generateMapByOpenMap">道路网络导入与编辑学生学习如何使用系统导入公开道路地图或创建生成道路网络</a>，以及<a href="../course/scenario/#sceneEditing">编辑道路属性和车道信息，构建具体的交通场景</a>。</li>
 <li><a href="../course/navigation/#generateTrajectory">车辆轨迹生成</a>与<a href="../course/navigation/#definePoint">模拟学生学习如何为车辆指定起点和目标位置</a>，<a href="../course/trajectory_tracking/">定义车辆的运动轨迹，模拟车辆的行驶过程</a>，并观察车辆在仿真环境中的运动行为。</li>
 <li><a href="../course/signal_control/">红绿灯配时方案优化学生学习如何配置红绿灯的配时方案</a>，<a href="../course/auto_signal_control/">并通过仿真实验优化配时参数</a>，以提高交通流畅度和减少交通拥堵。</li>
 <li><a href="../course/congestion_sim/">交通拥堵模拟与统计分析学生学习如何模拟交通拥堵场景</a>，加入更多的车辆进行仿真，进行拥堵情况的统计分析，并评估优化措施的效果。</li>
@@ -98,11 +98,11 @@
 </ol>
 <h5 id="_6">课程二：智能交通算法与优化</h5>
 <ol>
-<li>交通场景感知与分析学生学习如何利用系统进行<a href="../course/object_detection/">目标检测</a>、<a href="../course/trajectory_tracking/">跟踪</a>和<a href="#redete">再识别</a>，进行交通参与者的分析和统计，对交通进行态势感知，为后面的算法实现提供基础。</li>
+<li>交通场景感知与分析学生学习如何利用系统进行<a href="../course/object_detection/">目标检测</a>、<a href="../course/trajectory_tracking/">跟踪</a>和<a href="../course/recognize/">再识别</a>，进行交通参与者的分析和统计，对交通进行态势感知，为后面的算法实现提供基础。</li>
 <li><a href="../tuto_G_traffic_prediction/">交通流量预测模型</a>建立学生学习如何使用系统提供的交通数据，建立交通流量预测模型，以预测未来的交通流量情况，并评估模型的准确性和效果。</li>
 <li>交通网络优化策略设计学生学习如何使用系统提供的交通网络数据，设计交通网络优化策略，通过调整<a href="../course/motion_planning/">路线规划</a>、<a href="../course/signal_control/">红绿灯配时</a>等参数，提升整体交通效率。</li>
 <li><a href="../course/signal_control/">智能信号控制</a>算法实现学生学习如何使用系统提供的信号控制功能，实现智能信号控制算法，优化交通信号的配时方案，提高交通流畅度和减少拥堵。</li>
-<li><a href="#visualization">交通数据可视化</a>与分析学生学习如何使用系统提供的数据可视化工具，对交通数据进行可视化分析，探索交通流量、拥堵状况等趋势和规律。</li>
+<li><a href="../course/visualization/">交通数据可视化</a>与分析学生学习如何使用系统提供的数据可视化工具，对交通数据进行可视化分析，探索交通流量、拥堵状况等趋势和规律。</li>
 <li>交通场景优化与仿真实验学生学习如何根据实际交通问题，进行场景优化和仿真实验，评估优化策略的效果，提出改进方案并进行验证。</li>
 </ol>
 <h3 id="carla">Carla 特点</h3>

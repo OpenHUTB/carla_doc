@@ -71,12 +71,10 @@
                 <h1 id="_1">自动信号控制</h1>
 <p>这是一个基于Flask的应用程序，用于控制<a href="https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb">Carla仿真环境</a>中的红绿灯。该应用程序通过检测路口的交通流量动态调整红绿灯的时长，以优化交通通行效率。</p>
 <h4 id="_2">主要功能</h4>
-<p><a href="https://github.com/OpenHUTB/carla_doc/blob/master/course/auto_signal_control.py">应用程序</a> 主要功能包括：</p>
-<ol>
-<li>获取指定路口的交通流量。</li>
-<li>根据交通流量动态调整红绿灯（绿灯）的时长。</li>
-<li>返回指定路口当前全部红绿灯的状态和时长信息。</li>
-</ol>
+<p><a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/course/auto_signal_control.py">应用程序</a> 主要功能包括：
+1. 获取指定路口的交通流量。
+2. 根据交通流量动态调整红绿灯（绿灯）的时长。
+3. 返回指定路口当前全部红绿灯的状态和时长信息。</p>
 <h4 id="_3">传入参数</h4>
 <ul>
 <li>无需传入参数，该应用程序自动检测指定路口的交通流量并调整红绿灯的时长。</li>
@@ -154,7 +152,7 @@
 <p>获取路口交通灯信息，可以发送一个GET请求到 <code>/set_traffic_light</code>路由,应用程序会自动根据路口的交通流量调整红绿灯的时长并返回结果。</p>
 <ol>
 <li>打开Carla仿真环境</li>
-<li>先运行<a href="https://github.com/OpenHUTB/carla_doc/blob/master/examples/generate_traffic.py">generate_traffic.py</a> 来生成交通</li>
+<li>先运行<a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/generate_traffic.py">generate_traffic.py</a> 来生成交通</li>
 <li>运行脚本auto_signal_control.py来开启服务端</li>
 <li>发送http请求:</li>
 </ol>

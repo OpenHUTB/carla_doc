@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>为排行榜2.0版提交智能体 - 交通仿真文档</title>
+    <title>为排行榜2.0版提交代理 - 交通仿真文档</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "\u4e3a\u6392\u884c\u699c2.0\u7248\u63d0\u4ea4\u667a\u80fd\u4f53";
+        var mkdocs_page_name = "\u4e3a\u6392\u884c\u699c2.0\u7248\u63d0\u4ea4\u4ee3\u7406";
         var mkdocs_page_input_path = "leaderboard_submit.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,7 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">为排行榜2.0版提交智能体</li>
+      <li class="breadcrumb-item active">为排行榜2.0版提交代理</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/leaderboard_submit.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -68,28 +68,28 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="20">为排行榜2.0版提交智能体</h1>
+                <h1 id="20">为排行榜2.0版提交代理</h1>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
-<p>将您的智能体提交给 Carla 自动驾驶排行榜，即表示您接受了使用条款。本页介绍了提交Leaderboard 2.0版本的智能体，如果您使用的是Leaderboard1.0版本，请参阅本提交指南。</p>
+<p>将您的代理提交给 Carla 自动驾驶排行榜，即表示您接受了使用条款。本页介绍了提交Leaderboard 2.0版本的代理，如果您使用的是Leaderboard1.0版本，请参阅本提交指南。</p>
 </div>
 <h2 id="_1">一般步骤</h2>
-<p>为了创建并提交您的智能体，您应该拥有排行榜项目和 scenario_runner 的副本。如果不是这种情况，请先访问“入门”部分。</p>
+<p>为了创建并提交您的代理，您应该拥有排行榜项目和 scenario_runner 的副本。如果不是这种情况，请先访问“入门”部分。</p>
 <ol>
-<li>创建一个 dockerfile 来构建您的智能体</li>
+<li>创建一个 dockerfile 来构建您的代理</li>
 </ol>
-<p>为了让 Carla 排行榜评估您的智能体，需要将其封装在 Docker 镜像中。要想成功，您必须能够在 docker 内运行带有排行榜的智能体。您可以从头开始创建图像，也可以遵循以下准则：</p>
+<p>为了让 Carla 排行榜评估您的代理，需要将其封装在 Docker 镜像中。要想成功，您必须能够在 docker 内运行带有排行榜的代理。您可以从头开始创建图像，也可以遵循以下准则：</p>
 <ul>
-<li>将您的代码托管在 <code>${LEADERBOARD_ROOT}</code>外面。我们将该目录称为<code>${TEAM_CODE_ROOT}</code>对于基于 ROS 的智能体，这应该是您的 ROS 工作区。</li>
-<li>利用存储库中提供的示例 Docker 文件之一，其中场景运行器和排行榜所需的所有依赖项均已设置。基于 Python 的智能体可以使用此示例 Docker，而基于 ROS 的智能体可以在此处使用其 Docker 。包括智能体所需的依赖项和附加包。我们建议您在由标签“<em>BEGINNING OF USER COMMANDS</em>”和“<em>END OF USER COMMANDS</em>”分隔的区域中添加新命令。</li>
-<li>更新变量<code>TEAM_AGENT</code>以设置智能体文件和<code>TEAM_CONFIG</code>，如果需要配置文件进行初始化。不要更改路径“<code>/workspace/team_code</code>”的其余部分。</li>
-<li>确保您想要获取的任何内容都在内部，<code>${HOME}/agent_sources.sh</code>因为在其他任何地方添加的源都不会被调用。在云中运行智能体之前会自动获取此文件。</li>
+<li>将您的代码托管在 <code>${LEADERBOARD_ROOT}</code>外面。我们将该目录称为<code>${TEAM_CODE_ROOT}</code>对于基于 ROS 的代理，这应该是您的 ROS 工作区。</li>
+<li>利用存储库中提供的示例 Docker 文件之一，其中场景运行器和排行榜所需的所有依赖项均已设置。基于 Python 的代理可以使用此示例 Docker，而基于 ROS 的代理可以在此处使用其 Docker 。包括代理所需的依赖项和附加包。我们建议您在由标签“<em>BEGINNING OF USER COMMANDS</em>”和“<em>END OF USER COMMANDS</em>”分隔的区域中添加新命令。</li>
+<li>更新变量<code>TEAM_AGENT</code>以设置代理文件和<code>TEAM_CONFIG</code>，如果需要配置文件进行初始化。不要更改路径“<code>/workspace/team_code</code>”的其余部分。</li>
+<li>确保您想要获取的任何内容都在内部，<code>${HOME}/agent_sources.sh</code>因为在其他任何地方添加的源都不会被调用。在云中运行代理之前会自动获取此文件。</li>
 </ul>
 <div class="admonition 注意">
 <p class="admonition-title">注意</p>
 <p>请注意，当您将条目提交到云时，您对排行榜或场景运行程序存储库所做的任何更改都将被覆盖。</p>
 </div>
-<h2 id="docker">将您的智能体构建到 docker 镜像中</h2>
+<h2 id="docker">将您的代理构建到 docker 镜像中</h2>
 <p>dockerfile 准备就绪后，您现在可以通过运行<code>make_docker.sh</code>脚本来创建它，该脚本会在该名称下生成 docker 映像<code>leaderboard-user</code>。</p>
 <pre><code class="language-shell">${LEADERBOARD_ROOT}/scripts/make_docker.sh [--ros-distro|-r ROS_DISTRO]
 </code></pre>
@@ -99,14 +99,14 @@
 <li><code>${SCENARIO_RUNNER_ROOT}</code></li>
 <li><code>${LEADERBOARD_ROOT}</code></li>
 <li><code>${TEAM_CODE_ROOT}</code></li>
-<li><code>${ROS_DISTRO}</code> （仅 ROS 智能体需要）</li>
+<li><code>${ROS_DISTRO}</code> （仅 ROS 代理需要）</li>
 </ul>
 <p>请随意调整此脚本以复制您认为合适的其他文件和资源。</p>
 <div class="admonition 注意">
 <p class="admonition-title">注意</p>
 <p>您可以通过在计算机上本地运行排行榜来测试您的 docker 映像</p>
 </div>
-<p>我们还想重点介绍 <a href="https://github.com/carla-simulator/leaderboard-agents">排行榜智能体</a> 存储库，其中包含多个旨在与 Leaderboard 2.0 配合使用的智能体，以及将它们封装在 Docker 中所需的文件。</p>
+<p>我们还想重点介绍 <a href="https://github.com/carla-simulator/leaderboard-agents">排行榜代理</a> 存储库，其中包含多个旨在与 Leaderboard 2.0 配合使用的代理，以及将它们封装在 Docker 中所需的文件。</p>
 <h2 id="eval-ai">在Eval AI注册新用户</h2>
 <p>我们Eval AI的合作伙伴开发了排行榜的用户界面。要提交内容，您需要在网站上注册用户。</p>
 <div class="admonition 注意">

@@ -457,7 +457,7 @@ ego_obs.listen(lambda obs: obs_callback(obs))
 <li><strong><code>sensor_tick</code></strong>. 由于此测量值在步骤之间不应有显着变化，因此可以经常检索数据。在本例中，设置为每三秒打印一次。 </li>
 </ul>
 <pre><code class="language-py"># --------------
-# Add GNSS sensor to ego vehicle. 
+# 给自我车辆添加全球导航卫星系统传感器 
 # --------------
 
 gnss_bp = world.get_blueprint_library().find('sensor.other.gnss')
@@ -485,7 +485,7 @@ def imu_callback(imu):
 ego_imu.listen(lambda imu: imu_callback(imu))
 </code></pre>
 <p><img alt="tuto_other" src="../img/tuto_other.jpg" /></p>
-<div style="text-align: right"><i>GNSS and IMU sensors output</i></div>
+<div style="text-align: right"><i>全球导航卫星系统和惯性测量单元传感器输出</i></div>
 
 <hr />
 <h2 id="_13">设置高级传感器</h2>
@@ -719,7 +719,7 @@ python3 manual_control.py
 <p>为了避免渲染并节省计算成本，请启用 [<strong>无渲染模式</strong>] 。该脚本<code>/PythonAPI/examples/no_rendering_mode.py</code>在创建简单的鸟瞰图时执行此操作。</p>
 </div>
 <h3 id="_24">停止记录</h3>
-<p>停止调用甚至比开始调用更简单。录音完成后，录音将保存在前面指定的路径中。</p>
+<p>停止调用甚至比开始调用更简单。记录完成后，记录将保存在前面指定的路径中。</p>
 <pre><code class="language-py"># --------------
 # 停止记录
 # --------------
@@ -775,7 +775,7 @@ client.replay_file(&quot;~/tutorial/recorder/recording01.log&quot;,45,10,0)
 <ul>
 <li><strong>使用查询中的信息。</strong> 找出事件中涉及的时刻和参与者，然后再次播放。在事件发生前几秒钟启动记录器。</li>
 <li><strong>跟随不同的参与者。</strong> 不同的视角将显示查询中未包含的新事件。  </li>
-<li><strong>自由地观察周围的情况。</strong> 将 <code>actor_id</code> 设为<code>0</code>，并获得仿真的总体视图。借助记录录音，您可以随时随地。</li>
+<li><strong>自由地观察周围的情况。</strong> 将 <code>actor_id</code> 设为<code>0</code>，并获得仿真的总体视图。借助记录，您可以随时随地。</li>
 </ul>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
@@ -950,7 +950,7 @@ def main():
         &quot;&quot;&quot;
 
         # --------------
-        # Add GNSS sensor to ego vehicle. 
+        # 给自我车辆添加全球导航卫星系统传感器
         # --------------
         &quot;&quot;&quot;
         gnss_bp = world.get_blueprint_library().find('sensor.other.gnss')

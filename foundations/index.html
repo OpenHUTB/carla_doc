@@ -139,19 +139,19 @@ blueprint_library = world.get_blueprint_library()
 <ul>
 <li>相机(RGB，深度和语义分割)</li>
 <li>碰撞检测器</li>
-<li>Gnss 传感器</li>
-<li>IMU传感器</li>
+<li>全球导航卫星系统传感器</li>
+<li>惯性测量单元传感器</li>
 <li>激光雷达射线投射</li>
-<li>车道侵入检测器</li>
+<li>压线检测器</li>
 <li>障碍检测器</li>
 <li>雷达</li>
-<li>RSS</li>
+<li>责任敏感安全</li>
 </ul>
 <h2 id="_8">同步模式和异步模式</h2>
 <p>Carla 具有客户端-服务器架构。服务器运行仿真。客户端检索信息并请求仿真中的更改。本节涉及客户端和服务器之间的通信。</p>
 <p>默认情况下，Carla 以 <strong>异步模式</strong> 运行。</p>
 <p>本质上，在 <strong>异步模式</strong> 下，Carla 服务器会尽可能快地运行。客户请求是即时处理的。在 <strong>同步模式</strong> 下，运行 Python 代码的客户端负责控制并告诉服务器何时更新。</p>
-<p>如果您正在实验或设置仿真，<strong>异步模式</strong> 是运行 Carla 的合适模式，因此您可以在放置参与者时与观察者一起在地图上飞行。当您想要开始生成训练数据或在仿真中部署智能体时，建议您使用 <strong>同步模式</strong> ，因为这将为您提供更多的控制力和可预测性。</p>
+<p>如果您正在实验或设置仿真，<strong>异步模式</strong> 是运行 Carla 的合适模式，因此您可以在放置参与者时与观察者一起在地图上飞行。当您想要开始生成训练数据或在仿真中部署代理时，建议您使用 <strong>同步模式</strong> ，因为这将为您提供更多的控制力和可预测性。</p>
 <p>阅读有关 <a href="../adv_synchrony_timestep/"><strong>同步模式和异步模式</strong></a> 的更多信息。</p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
@@ -284,7 +284,7 @@ world.on_tick(lambda world_snapshot: do_something(world_snapshot))
 <li><strong><a href="../adv_ptv/">PTV-Vissim协同仿真</a></strong>。在 Carla 和 PTV-Vissim 交通仿真器之间运行同步仿真。</li>
 <li><a href="../adv_recorder/"><strong>录制器</strong></a>。保存仿真状态的快照，以便以精确的精度重新执行仿真。</li>
 <li><strong><a href="../adv_rendering_options/">渲染选项</a></strong>。包括图形质量设置、离屏渲染和无渲染模式。</li>
-<li><a href="../adv_rss/"><strong>RSS</strong></a>（Responsibility Sensitive Safety）：集成用于根据安全检查修改车辆轨迹的责任敏感安全性<strong><a href="https://github.com/intel/ad-rss-lib">C++库</a></strong>。</li>
+<li><a href="../adv_rss/"><strong>责任敏感安全</strong></a>（Responsibility Sensitive Safety）：集成用于根据安全检查修改车辆轨迹的责任敏感安全性<strong><a href="https://github.com/intel/ad-rss-lib">C++库</a> </strong>。</li>
 <li><a href="../adv_synchrony_timestep/"><strong>仿真时间和同步</strong></a>。关于仿真时间和服务器-客户端通信的所有内容。</li>
 <li><strong><a href="../adv_sumo/">SUMO协同仿真</a></strong>：在 Carla 和 SUMO 交通仿真器之间运行同步仿真。</li>
 <li><strong><a href="../adv_traffic_manager/">交通管理器</a></strong>：该模块负责所有设置为自动驾驶模式的车辆。它仿真城市中的交通，使仿真看起来像一个真实的城市环境。</li>

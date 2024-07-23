@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>行人再识别 - 交通仿真文档</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u884c\u4eba\u518d\u8bc6\u522b";
+        var mkdocs_page_input_path = "course\\recognize.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">主页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">行人再识别</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/course/recognize.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">行人再识别</h1>
+<p>该<a href="https://github.com/OpenHUTB/carla_doc/tree/master/src/course/recognize.py">脚本</a>的目标是通过使用预训练的ResNet-50模型，比较两张图片的特征相似性。主要步骤包括数据预处理、特征提取和计算相似性度量。本文档将详细说明每个步骤的实现。</p>
+<h3 id="_2">环境配置</h3>
+<h4 id="_3">依赖库</h4>
+<ul>
+<li><code>torch</code>: PyTorch库，用于深度学习和张量计算。</li>
+<li><code>torchvision</code>: PyTorch的图像处理工具包，提供了常用的数据增强方法。</li>
+<li><code>PIL</code> (<code>Pillow</code>): Python Imaging Library，用于图像处理。</li>
+<li><code>torchreid</code>: 用于行人重识别的工具包。</li>
+</ul>
+<p>可以通过以下命令安装所需库（安装时间较长）：</p>
+<pre><code>pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+</code></pre>
+<h3 id="_4">代码结构</h3>
+<h4 id="1"><strong>1.数据预处理</strong></h4>
+<p>首先定义一个函数 <code>preprocess_image</code> 来预处理图像：</p>
+<pre><code>def preprocess_image(image_path):
+    transform = transforms.Compose([
+        transforms.Resize((256, 128)),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+    ])
+    image = Image.open(image_path).convert('RGB')
+    image = transform(image)
+    image = image.unsqueeze(0)  # 增加批次维度
+    return image
+</code></pre>
+<h4 id="2"><strong>2.数据管理器</strong></h4>
+<p>创建一个数据管理器，用于加载<a href="https://www.kaggle.com/datasets/pengcw1/market-1501/data">Market1501数据集</a>：</p>
+<pre><code>datamanager = torchreid.data.ImageDataManager(
+    root=&quot;reid-data&quot;,
+    sources=&quot;market1501&quot;,
+    targets=&quot;market1501&quot;,
+    height=256,
+    width=128,
+    batch_size_train=32,
+    batch_size_test=100,
+    transforms=[&quot;random_flip&quot;, &quot;random_crop&quot;]
+)
+</code></pre>
+<h4 id="3"><strong>3.模型构建与加载</strong></h4>
+<p>构建并加载预训练的ResNet-50模型：</p>
+<pre><code>model = torchreid.models.build_model(
+    name=&quot;resnet50&quot;,
+    num_classes=datamanager.num_train_pids,
+    loss=&quot;softmax&quot;,
+    pretrained=True  # 加载 ImageNet 预训练权重
+)
+
+# 将模型移动到GPU
+model = model.cuda()
+model.eval()
+</code></pre>
+<h4 id="4"><strong>4.特征提取与相似性计算</strong></h4>
+<p>定义函数 <code>infer</code> 和 <code>cosine_similarity</code> 来提取特征和计算余弦相似性：</p>
+<pre><code>def infer(model, image_tensor):
+    with torch.no_grad():
+        image_tensor = image_tensor.cuda()
+        features = model(image_tensor)
+    return features
+
+def cosine_similarity(tensor1, tensor2):
+    cos = torch.nn.CosineSimilarity(dim=1, eps=1e-6)
+    return cos(tensor1, tensor2).item()
+</code></pre>
+<h3 id="_5">运行步骤</h3>
+<ol>
+<li>确保安装所有依赖库。</li>
+<li>下载并准备好Market1501数据集。</li>
+<li>运行上述Python代码，确保图像路径正确。</li>
+</ol>
+<h3 id="_6">注意事项</h3>
+<ol>
+<li>确保你的显卡与当前安装的PyTorch版本兼容。</li>
+<li>测试数据集的文件夹目录正确，并且和脚本在同一级。如下所示：</li>
+</ol>
+<pre><code>reid-data/          
+├── market1501/
+    ├── bounding_box_train/
+    ├── bounding_box_test/
+    ├── query/
+    └── ...
+</code></pre>
+<h3 id="_7">结果分析</h3>
+<p>代码运行后会输出两张图像的余弦相似性。相似性值接近1表示两张图像特征相似度高，接近0表示特征相似度低。</p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
