@@ -71,13 +71,18 @@
                 <h1 id="_1">导入地图的替代方法</h1>
 <p>本指南介绍了将地图导入 Carla 的替代方法。这些方法涉及比<a href="../tuto_M_add_map_package/">包</a> 和 <a href="../tuto_M_add_map_source/">源代码</a> 导入指南中描述的过程更多的手动步骤。首先我们将介绍 RoadRuner 插件，然后介绍手动导入方法。</p>
 <ul>
-<li><a href="#roadrunner-plugin-import"><strong>RoadRunner 插件导入</strong></a></li>
+<li><a href="#roadrunner-plugin-import"><strong>RoadRunner 插件导入</strong></a><ul>
+<li><a href="#roadrunner-plugin-import"><strong>插件安装</strong></a></li>
+<li><a href="#roadrunner-plugin-import"><strong>导入地图</strong></a></li>
+</ul>
+</li>
 <li><a href="#manual-import"><strong>手动导入</strong></a></li>
+<li><a href="#manual-import"><strong>下一步</strong></a></li>
 </ul>
 <hr />
-<h2 id="roadrunner">RoadRunner 插件导入</h2>
+<h2 id="roadrunner">RoadRunner 插件导入 <span id="roadrunner-plugin-import"></span></h2>
 <p>MathWorks 的 RoadRunner 软件提供了虚幻引擎插件，以帮助简化将地图导入 Carla 的过程。</p>
-<h4 id="_2">插件安装</h4>
+<h4 id="_2">插件安装 <span id="roadrunner-plugin-import"></span></h4>
 <p><strong>1.</strong> 插件可从 <a href="https://www.mathworks.com/help/roadrunner/ug/Downloading-Plugins.html">MathWorks 网站</a> 下载。MathWorks 还有一个 <a href="https://www.mathworks.com/help/roadrunner/ug/Exporting-to-CARLA.html">完整的教程</a> ，与此类似，介绍如何使用插件将地图导入 Carla。 </p>
 <p><strong>2.</strong> 解压下载文件夹的内容并将 <code>RoadRunnerImporter</code> 和 <code>RoadRunnerMaterials</code> 文件夹移动到 <code>&lt;carla&gt;/Unreal/CarlaUE4/Plugins/</code>。</p>
 <p><strong>3.</strong> 按照以下说明重建插件： </p>
@@ -100,7 +105,7 @@
 </code></pre>
 <p><strong>4.</strong> 在虚幻引擎窗口中，确保选中两个插件的复选框 <code>Edit &gt; Plugins</code> 选中。</p>
 <p><img alt="rr_ue_plugins" src="../img/rr-ue4_plugins.jpg" /></p>
-<h3 id="_3">导入地图</h3>
+<h3 id="_3">导入地图 <span id="roadrunner-plugin-import"></span></h3>
 <p><strong>1.</strong> 使用 <code>Import</code> 按钮将 <code>&lt;mapName&gt;.fbx</code> 文件导入到 <code>/Content/Carla/Maps</code> 下面的新文件夹中。  </p>
 <p><img alt="ue_import" src="../img/ue_import_mapname.jpg" /></p>
 <p><strong>2.</strong> 将 <code>Scene &gt; Hierarchy Type</code> 设置为 <em>Create One Blueprint Asset</em> （默认选择）。
@@ -115,7 +120,7 @@
 <p>语义分割的标签将根据资产名称分配。该资源将被移动到 <code>Content/Carla/PackageName/Static</code> 中的相应文件夹中。要更改这些，请在导入后手动移动它们。</p>
 </div>
 <hr />
-<h2 id="_4">手动导入</h2>
+<h2 id="_4">手动导入 <span id="manual-import"></span></h2>
 <p>这种导入地图的方法可以与通用 <code>.fbx</code> 和 <code>.xodr</code> 文件一起使用。如果您使用 RoadRunner，则应使用 <code>Firebox (.fbx)</code>、<code>OpenDRIVE (.xodr)</code> 或 <code>Unreal (.fbx + .xml)</code> 导出方法。不要使用该<code>Carla Exporter</code>选项，因为您将遇到<code>.fbx</code>文件的兼容性问题。</p>
 <p>要将地图手动导入虚幻引擎：</p>
 <p><strong>1.</strong> 在系统的文件资源管理器中，将<code>.xodr</code>文件复制到 <code>&lt;carla-root&gt;/Unreal/CarlaUE4/Content/Carla/Maps/OpenDrive</code>。</p>
@@ -169,7 +174,7 @@
 <p><img alt="Transform_Map" src="../img/transform.jpg" /></p>
 </blockquote>
 </blockquote>
-<p><strong>9.</strong> 在 <em>内容浏览器</em> 中，选择所有需要有碰撞器的网格体。这是指与行人或车辆交互的任何网格。碰撞器防止他们掉入深渊。右键单击选定的网格并选择<code>Asset Actions &gt; Bulk Edit via Property Matrix...</code>。 </p>
+<p><strong>9.</strong> 在 <em>内容浏览器</em> 中，选择所有需要有碰撞体的网格体。这是指与行人或车辆交互的任何网格。碰撞体防止他们掉入深渊。右键单击选定的网格并选择<code>Asset Actions &gt; Bulk Edit via Property Matrix...</code>。 </p>
 <blockquote>
 <blockquote>
 <p><img alt="ue_selectmesh_collision" src="../img/ue_selectmesh_collision.jpg" /></p>
@@ -220,7 +225,7 @@
 </blockquote>
 </blockquote>
 <hr />
-<h2 id="_5">下一步</h2>
+<h2 id="_5">下一步 <span id="manual-import"></span></h2>
 <p>您现在可以在虚幻编辑器中打开地图并运行仿真。从这里，您将能够自定义地图并生成行人导航数据。我们建议在所有自定义完成后生成行人导航，这样就不会有障碍物阻挡行人路径。</p>
 <p>Carla 提供了多种工具和指南来帮助自定义地图：</p>
 <ul>

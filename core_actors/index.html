@@ -69,7 +69,7 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="_1">第二、参与者和蓝图</h1>
-<p>Carla 中的参与者是在仿真中执行动作的元素，他们可以影响其他参与者。Carla 的参与者包括车辆和步行者，也包括传感器、交通标志、红绿灯和观看者。对如何操作它们有充分的了解是至关重要的。 </p>
+<p>Carla 中的参与者是在仿真中执行动作的元素，他们可以影响其他参与者。Carla 的参与者包括车辆和行人，也包括传感器、交通标志、红绿灯和观看者。对如何操作它们有充分的了解是至关重要的。 </p>
 <p>本节将介绍生成、销毁、类型以及如何管理它们。然而，可能性几乎是无穷无尽的。实验、查看本文档中的 <strong>教程</strong>，并在 <a href="https://github.com/carla-simulator/carla/discussions/">Carla 论坛</a> 中分享疑虑和想法。</p>
 <ul>
 <li><a href="#blueprints"><strong>蓝图</strong></a>  <ul>
@@ -87,15 +87,15 @@
 <li><a href="#spectator">观察者</a>  </li>
 <li><a href="#traffic-signs-and-traffic-lights">交通标志和交通灯</a>  </li>
 <li><a href="#vehicles">车辆</a>  </li>
-<li><a href="#walkers">步行者</a>  </li>
+<li><a href="#walkers">行人</a>  </li>
 </ul>
 </li>
 </ul>
 <hr />
-<h2 id="_2">蓝图</h2>
-<p>这些布局允许用户将新的参与者平滑地结合到仿真中。它们已经是带有动画和一系列属性的模型。其中一些是可修改的，而另一些则不是。这些属性包括车辆颜色、激光雷达传感器中的通道数量、步行者的速度等等。</p>
-<p><a href="../bp_library/">蓝图库</a> 列出了可用的蓝图及其属性。车辆和步行者蓝图具有一个生成属性，用于指示它们是新的（第2代）资产还是旧的（第1代）资产。</p>
-<h3 id="_3">管理蓝图库</h3>
+<h2 id="_2">蓝图 <span id="blueprints"></span></h2>
+<p>这些布局允许用户将新的参与者平滑地结合到仿真中。它们已经是带有动画和一系列属性的模型。其中一些是可修改的，而另一些则不是。这些属性包括车辆颜色、激光雷达传感器中的通道数量、行人的速度等等。</p>
+<p><a href="../bp_library/">蓝图库</a> 列出了可用的蓝图及其属性。车辆和行人蓝图具有一个生成属性，用于指示它们是新的（第2代）资产还是旧的（第1代）资产。</p>
+<h3 id="_3">管理蓝图库 <span id="managing-the-blueprint-library"></span></h3>
 <p><a href="../python_api/#carla.BlueprintLibrary">carla.BlueprintLibrary</a> 类包含一系列 <a href="../python_api/#carla.ActorBlueprint">carla.ActorBlueprint</a> 元素。它是能够提供对它访问的世界对象。</p>
 <pre><code class="language-py">blueprint_library = world.get_blueprint_library()
 </code></pre>
@@ -124,12 +124,12 @@ if(is_bike)
 <p>用户可以创建他们自己的车辆。查看 <strong>教程（资产）</strong> 以了解相关信息。贡献者可以 <a href="../tuto_D_contribute_assets/">将他们的新内容添加到 Carla</a> 。</p>
 </div>
 <hr />
-<h2 id="_4">参与者生命周期</h2>
+<h2 id="_4">参与者生命周期   <span id="actor-life-cycle"></span></h2>
 <div class="admonition 重要">
 <p class="admonition-title">重要</p>
 <p>本节提到了关于参与者的不同方法。Python API 提供 <strong><a href="../python_api/#command.SpawnActor">commands</a></strong> ，以便在一个框架中应用一批最常见的命令。 </p>
 </div>
-<h3 id="_5">生成</h3>
+<h3 id="_5">生成 <span id="spawning"></span></h3>
 <p><strong>世界对象负责生成参与者并跟踪这些参与者。</strong> 生成只需要一张蓝图和一个 <a href="../python_api/#carla.Transform">carla.Transform</a> 说明参与者的位置和旋转。 </p>
 <p>世界有两个不同的方法生成参与者。 </p>
 <ul>
@@ -171,7 +171,7 @@ actor = actor_list.find(id)
 for speed_sign in actor_list.filter('traffic.speed_limit.*'):
     print(speed_sign.get_location())
 </code></pre>
-<h3 id="_6">处理</h3>
+<h3 id="_6">处理 <span id="handling"></span></h3>
 <p><a href="../python_api/#carla.Actor">carla.Actor</a> 主要由  <em>get()</em> 和 <em>set()</em> 方法组成，用于管理地图周围的参与者。</p>
 <pre><code class="language-py">print(actor.get_acceleration())
 print(actor.get_velocity())
@@ -188,7 +188,7 @@ actor.set_location(location)
 <p class="admonition-title">笔记</p>
 <p>大多数方法是异步向仿真器发送请求。仿真器每次更新解析它们的时间有限。使用 <em>set()</em> 方法淹没仿真器将积累明显的延迟。</p>
 </div>
-<h3 id="_7">销毁</h3>
+<h3 id="_7">销毁 <span id="destruction"></span></h3>
 <p>当 Python 脚本完成时，不回销毁参与者。他们必须明确地销毁自己。</p>
 <pre><code class="language-py">destroyed_sucessfully = actor.destroy() # 如果成功返回 True 
 </code></pre>
@@ -197,8 +197,8 @@ actor.set_location(location)
 <p>销毁参与者会阻塞仿真器，直到该过程完成。</p>
 </div>
 <hr />
-<h2 id="_8">参与者类型</h2>
-<h3 id="_9">传感器</h3>
+<h2 id="_8">参与者类型  <span id="types-of-actors"></span></h2>
+<h3 id="_9">传感器 <span id="sensors"></span></h3>
 <p>传感器是产生数据流的参与者。他们有自己的部分，<a href="../core_sensors/">第四部分. 传感器和数据</a>。现在，我们只看一下常见的传感器生成周期。</p>
 <p>此示例生成一个相机传感器，将其连接到车辆，并告诉相机将生成的图像保存到磁盘。</p>
 <pre><code class="language-py">camera_bp = blueprint_library.find('sensor.camera.rgb')
@@ -210,14 +210,14 @@ camera.listen(lambda image: image.save_to_disk('output/%06d.png' % image.frame))
 <li>大多数传感器将安装在车辆上以收集周围环境的信息。</li>
 <li>传感器 <strong>监听</strong> 数据。收到数据后，它们会调用用 <strong><a href="https://docs.python.org/3/reference/expressions.html">Lambda 表达式</a></strong> 描述的函数<small>(提供的链接中的 6.14)</small>。 </li>
 </ul>
-<h3 id="_10">观察者</h3>
+<h3 id="_10">观察者 <span id="spectator"></span></h3>
 <p>由虚幻引擎放置以提供游戏内的视角。它可用于移动仿真器窗口的视角。以下示例将移动观众参与者，将视角指向所需的车辆。</p>
 <pre><code class="language-py">spectator = world.get_spectator()
 transform = vehicle.get_transform()
 spectator.set_transform(carla.Transform(transform.location + carla.Location(z=50),
 carla.Rotation(pitch=-90)))
 </code></pre>
-<h3 id="_11">交通标志和交通灯</h3>
+<h3 id="_11">交通标志和交通灯 <span id="traffic-signs-and-traffic-lights"></span></h3>
 <p>到目前为止，Carela 中只有停靠点、让行路线和交通信号灯被视为参与者。其余的 OpenDRIVE 标志可通过 API 作为地标（<a href="../python_api/#carla.Landmark"><strong>carla.Landmark</strong></a>）进行访问。他们的信息可以使用这些实例访问，但他们在仿真中并不作为参与者存在。在接下来的 <strong>第 3 部分 地图和导航</strong> 中将更详细地解释地标。 </p>
 <p>当仿真开始、停止、让行和交通灯时，会使用 OpenDRIVE 文件中的信息自动生成。<strong>这些都无法在蓝图库中找到</strong>，因此无法生成。</p>
 <div class="admonition 笔记">
@@ -241,7 +241,7 @@ if traffic_light.get_state() == carla.TrafficLightState.Red:
 <p class="admonition-title">笔记</p>
 <p>只有当信号灯为红色时，车辆才会意识到交通灯。</p>
 </div>
-<h3 id="_12">车辆</h3>
+<h3 id="_12">车辆 <span id="vehicles"></span></h3>
 <p><a href="../python_api/#carla.Vehicle"><strong>carla.Vehicle</strong></a> 是一种特殊类型的参与者。它采用了仿真轮式车辆物理特性的特殊内部组件。这是通过应用四种不同的控件来实现的：</p>
 <ul>
 <li><strong><a href="../python_api/#carla.VehicleControl">carla.VehicleControl</a></strong> 提供油门、转向、刹车等驾驶命令的输入。</li>
@@ -289,7 +289,7 @@ current_lights = carla.VehicleLightState.NONE
 current_lights |= carla.VehicleLightState.Position
 vehicle.set_light_state(current_lights)
 </code></pre>
-<h3 id="_13">行人</h3>
+<h3 id="_13">行人 <span id="walkers"></span></h3>
 <p><a href="../python_api/#carla.Walker"><strong>carla.Walker</strong></a> 的工作方式与车辆类似。对它们的控制由控制器提供。</p>
 <ul>
 <li><a href="../python_api/#carla.WalkerControl"><strong>carla.WalkerControl</strong></a> 以一定的方向和速度移动行人。它还允许他们跳跃。</li>
@@ -310,8 +310,8 @@ ai_controller.set_max_speed(1 + random.random())  # 在 1 米每秒 到 2 米每
 ...
 ai_controller.stop()
 </code></pre>
-<p>当步行者到达目标位置时，他们会自动步行到另一个随机点。如果无法到达目标点，步行者将前往距离当前位置最近的点。</p>
-<p><a href="../python_api/#carla.Client.apply_batch_sync">carla.Client</a> 中的一个片段使用批次生成大量步行者并让它们四处游荡。</p>
+<p>当行人到达目标位置时，他们会自动步行到另一个随机点。如果无法到达目标点，行人将前往距离当前位置最近的点。</p>
+<p><a href="../python_api/#carla.Client.apply_batch_sync">carla.Client</a> 中的一个片段使用批次生成大量行人并让它们四处游荡。</p>
 <div class="admonition 重要">
 <p class="admonition-title">重要</p>
 <p><strong>要销毁人工智能行人</strong>，请停止人工智能控制器并销毁参与者和控制器。</p>

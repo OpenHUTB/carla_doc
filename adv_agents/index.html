@@ -72,7 +72,7 @@
 <p>Carla 代理脚本允许车辆沿着随机的、无限的路线行驶，或者采用最短的路线到达给定的目的地。代理遵守交通信号灯并对道路上的其他障碍物做出反应。提供三种代理类型。可以修改目标速度、制动距离、尾随行为等参数。可以根据用户的需要修改参与者类或将其用作基类来创建自定义代理。</p>
 <ul>
 <li><a href="#overview-of-agent-scripts"><strong>代理脚本概述</strong></a><ul>
-<li><a href="#planning-and-control">计划与控制</a></li>
+<li><a href="#planning-and-control">规划与控制</a></li>
 <li><a href="#agent-behaviors">代理行为</a></li>
 </ul>
 </li>
@@ -84,22 +84,22 @@
 <li><a href="#creating-an-agent"><strong>创建代理</strong></a></li>
 </ul>
 <hr />
-<h2 id="_1">代理脚本概述</h2>
-<p>Carla 代理中涉及的主要脚本位于<code>PythonAPI/carla/agents/navigation</code>中。它们分为两类； <strong>计划和控制</strong> 和 <strong>代理行为</strong>。</p>
-<h3 id="_2">计划与控制</h3>
+<h2 id="_1">代理脚本概述 <span id="overview-of-agent-scripts"></span></h2>
+<p>Carla 代理中涉及的主要脚本位于<code>PythonAPI/carla/agents/navigation</code>中。它们分为两类； <strong>规划和控制</strong> 和 <strong>代理行为</strong>。</p>
+<h3 id="_2">规划与控制 <span id="planning-and-control"></span></h3>
 <ul>
 <li><strong><code>controller.py</code>:</strong> 将纵向和横向 PID 控制器组合成一个类，<strong>VehiclePIDController</strong>，用于从 Carla 客户端对车辆进行低级控制。</li>
 <li><strong><code>global_route_planner.py</code>:</strong> 从 Carla 服务器获取详细的拓扑结构以构建世界地图的图形表示，为 <strong>Local Planner</strong> 提供路径点和道路选项信息。</li>
 <li><strong><code>local_planner.py</code>:</strong> 根据来自 <strong>VehiclePIDController</strong> 的控制输入跟踪路径点。路径点可以由 <strong>Global Route Planner</strong> 提供，也可以动态计算，在路口选择随机路径，类似于 <a href="../adv_traffic_manager/">Traffic Manager</a>。</li>
 </ul>
-<h3 id="_3">代理行为</h3>
+<h3 id="_3">代理行为 <span id="agent-behaviors"></span></h3>
 <ul>
 <li><strong><code>basic_agent.py</code>:</strong> 包含一个代理基类，它实现了一个 <strong>Basic Agent</strong>，它在地图上漫游或以尽可能短的距离到达目标目的地，避开其他车辆，响应交通信号灯但忽略停车标志。</li>
 <li><strong><code>behavior_agent.py</code>:</strong> 包含一个实现更复杂的 <strong>Behavior Agent</strong> 的类，它可以在尽可能短的距离内到达目标目的地，跟随交通信号灯、标志和速度限制，同时尾随其他车辆。有三种预定义的类型决定了代理的行为方式。</li>
 <li><strong><code>behavior_types.py</code>:</strong> 包含影响 <strong>Behavior Agent</strong> 的行为类型的参数；谨慎、正常和野蛮。</li>
 </ul>
 <hr />
-<h2 id="_4">实现一个代理</h2>
+<h2 id="_4">实现一个代理 <span id="implement-an-agent"></span></h2>
 <p>本节将解释如何在您自己的脚本中使用示例 Carla 代理类。在本节的最后，您将了解如何运行一个示例脚本来显示不同代理的运行情况。</p>
 <p><strong>1.</strong> 导入要使用的代理类：</p>
 <pre><code class="language-py"># 导入基本代理
@@ -158,7 +158,7 @@ python3 automatic_control.py --agent=Basic
 python3 automatic_control.py --agent=Behavior --behavior=aggressive
 </code></pre>
 <hr />
-<h2 id="_5">行为类型</h2>
+<h2 id="_5">行为类型 <span id="behavior-types"></span></h2>
 <p>行为代理的行为类型在 <code>behavior_types.py</code> 中定义。三个预配置的配置文件是 <strong>'cautious'</strong>、<strong>'normal'</strong> 和 <strong>'aggressive'</strong>。您可以使用设置的配置文件、修改它们或创建您自己的配置文件。可以调整以下变量：</p>
 <ul>
 <li><strong><code>max_speed</code></strong>：您的车辆能够达到的最高速度（以公里/小时为单位）。</li>
@@ -169,7 +169,7 @@ python3 automatic_control.py --agent=Behavior --behavior=aggressive
 <li><strong><code>braking_distance</code></strong>：您的车辆将执行紧急停车时与行人或车辆的距离。</li>
 <li><strong><code>tailgate_counter</code></strong>：用于避免在最后一个后挡板后过快尾随的计数器。</li>
 </ul>
-<h2 id="_6">创建自己的行为类型</h2>
+<h3 id="_6">创建自己的行为类型 <span id="create-your-own-behavior-type"></span></h3>
 <p>要创建自己的行为类型：</p>
 <p><strong>1.</strong> 在 <code>behavior_types.py</code> 中为您的行为类型创建类：</p>
 <pre><code class="language-py">class ProfileName(object)：
@@ -190,7 +190,7 @@ elif behavior == '&lt;type_name&gt;':
     self._behavior = &lt;TypeName&gt;()
 </code></pre>
 <hr />
-<h2 id="_7">创建代理</h2>
+<h2 id="_7">创建代理 <span id="creating-an-agent"></span></h2>
 <p>Carla 代理只是用户可以运行的代理类型的示例。用户可以在 <strong>Basic Agent</strong> 的基础上创建自己的代理。可能性是无穷的。每个代理只需要两个元素，<strong>初始化</strong> <code>__init__</code> 和 <strong>运行步</strong> <code>run_step</code>。</p>
 <p>在下面查找自定义代理的最小布局示例：</p>
 <pre><code class="language-py">import carla

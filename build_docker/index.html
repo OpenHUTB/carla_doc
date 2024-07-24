@@ -77,12 +77,12 @@
 </ul>
 <p>本教程介绍了运行 Carla 图像的要求以及如何使用 OpenGL 和 Vulkan 图形 API 运行图像。</p>
 <ul>
-<li><a href="#before-you-begin"><strong>在你开始之前</strong></a></li>
-<li><a href="#running-carla-in-a-container"><strong>在容器中运行 Carla</strong></a></li>
-<li><a href="#off-screen-mode"><strong>离屏模式</strong></a></li>
+<li><a href="#before_you_begin"><strong>在你开始之前</strong></a></li>
+<li><a href="#running_carla_in_a_container"><strong>在容器中运行 Carla</strong></a></li>
+<li><a href="#off_screen_mode"><strong>离屏模式</strong></a></li>
 </ul>
 <hr />
-<h2 id="_1">在你开始之前</h2>
+<h2 id="_1">在你开始之前 <span id="before_you_begin"></span></h2>
 <p>您需要安装：</p>
 <ul>
 <li><strong>Docker:</strong> 按照 <a href="https://docs.docker.com/engine/install/">此处</a> 的安装说明进行操作。</li>
@@ -111,7 +111,7 @@ nvidia-ctk runtime configure --runtime=docker
 <p>Docker 需要 sudo 才能运行。按照 <a href="https://docs.docker.com/install/linux/linux-postinstall/">本指南</a> 将用户添加到 docker sudo 组。</p>
 </div>
 <hr />
-<h2 id="carla">在容器中运行 Carla</h2>
+<h2 id="carla">在容器中运行 Carla <span id="running_carla_in_a_container"></span></h2>
 <p><strong>1. 拉取 Carla 镜像。</strong></p>
 <p>您可以提取最新的 Carla 映像或特定的发行版本。最新镜像是指 <a href="https://github.com/carla-simulator/carla/releases">最新的打包版本</a> 。要拉取映像，请运行以下命令之一：</p>
 <pre><code class="language-sh"># 拉取最新的镜像
@@ -151,7 +151,7 @@ docker pull carlasim/carla:0.9.12
 <li><strong>GPUs:</strong> 您可以使用 <code>--gpus all</code> 选择有所 GPU，或者使用 <code>--gpus '"device=&lt;gpu_01&gt;,&lt;gpu_02&gt;"'</code> 使用特定 GPU。 浏览 <a href="https://docs.docker.com/config/containers/resource_constraints/#gpu">此处</a> 获取更多信息。 </li>
 </ul>
 <hr />
-<h2 id="_2">离屏模式</h2>
+<h2 id="_2">离屏模式 <span id="off_screen_mode"></span></h2>
 <p>如果您在没有显示器的计算机上运行 Carla，则 OpenGL 不需要配置，但是您需要执行一些额外的步骤才能使用 Carla 0.9.12 之前的 Vulkan 执行相同的操作。有关信息，请参阅<a href="../adv_rendering_options/#off-screen-mode">渲染文档</a> 。</p>
 <hr />
 <p>与此主题相关的任何问题或疑问都可以在 Carla 论坛中发布。</p>

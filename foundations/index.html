@@ -82,6 +82,9 @@ pip3 install carla-simulator # Python 3
 <li><a href="#world">世界</a></li>
 </ul>
 </li>
+<li><a href="#actor_blueprint"><strong>参与者和蓝图</strong></a></li>
+<li><a href="#map_navigation"><strong>地图和导航</strong></a></li>
+<li><a href="#sensor_data"><strong>传感器和数据</strong></a></li>
 <li><a href="#synchronous-and-asynchronous-mode"><strong>同步模式和异步模式</strong></a>  <ul>
 <li><a href="#setting-synchronous-mode">设置同步模式</a> </li>
 <li><a href="#using-synchronous-mode">使用同步模式</a></li>
@@ -93,10 +96,16 @@ pip3 install carla-simulator # Python 3
 <li><a href="#recorder-file-format">记录器文件格式</a></li>
 </ul>
 </li>
+<li><a href="#rendering"><strong>渲染</strong></a><ul>
+<li><a href="#epic_mode">史诗模式</a></li>
+<li><a href="#low_quality">低质量模式</a></li>
+</ul>
+</li>
+<li><a href="#advanced_step"><strong>进阶步骤</strong></a></li>
 </ul>
 <hr />
-<h2 id="_2">世界和客户端</h2>
-<h3 id="_3">客户端</h3>
+<h2 id="_2">世界和客户端 <span id="world-and-client"></span></h2>
+<h3 id="_3">客户端 <span id="client"></span></h3>
 <p><strong>客户端</strong> 是用户运行以请求仿真中的信息或更改的模块。客户端使用 IP 和特定端口运行。它通过终端与服务器通信。可以有许多客户端同时运行。高级多客户端管理需要对 Carla 和 <a href="../adv_synchrony_timestep/">同步</a> 有透彻的了解。</p>
 <p>使用 Carla 客户端对象设置客户端：</p>
 <pre><code class="language-py">client = carla.Client('localhost', 2000)
@@ -107,7 +116,7 @@ pip3 install carla-simulator # Python 3
 
 client.start_recorder('recording.log')
 </code></pre>
-<h3 id="_4">世界</h3>
+<h3 id="_4">世界 <span id="world"></span></h3>
 <p><strong>世界</strong> 是代表仿真的对象。它充当一个抽象层，包含生成参与者、改变天气、获取世界当前状态等的主要方法。每个仿真只有一个世界。当地图改变时，它会被销毁并替换为新的。</p>
 <p>使用客户端对象检索世界对象：</p>
 <pre><code class="language-py">world = client.get_world()
@@ -119,7 +128,7 @@ weather = world.get_weather()
 
 blueprint_library = world.get_blueprint_library()
 </code></pre>
-<h2 id="_5">参与者和蓝图</h2>
+<h2 id="_5">参与者和蓝图 <span id="actor_blueprint"></span></h2>
 <p>参与者是在仿真中扮演角色的任何东西。</p>
 <ul>
 <li>车辆</li>
@@ -129,11 +138,11 @@ blueprint_library = world.get_blueprint_library()
 <li>交通信号和交通灯</li>
 </ul>
 <p><strong>蓝图</strong> 是生成角色所必需的已经制作好的角色布局。基本上，是带有动画和一组属性的模型。其中一些属性可以由用户自定义，而另一些则不能。有一个<strong><a href="../bp_library/">Blueprint库</a></strong>，其中包含所有可用的蓝图以及有关它们的信息。</p>
-<h2 id="_6">地图和导航</h2>
+<h2 id="_6">地图和导航 <span id="map_navigation"></span></h2>
 <p><strong>地图</strong> 是代表仿真世界的对象，主要是城镇。有八张地图可供选择。它们都使用 opdrive 1.4 标准来描述道路。</p>
 <p><strong>道路、车道和路口</strong> 由 Python API 管理，以便从客户端访问。这些与 <strong>waypoint</strong> 类一起使用，为车辆提供导航路径。</p>
 <p><strong>交通标志</strong> 和 <strong>交通灯</strong> 是可访问的<a href="#python_api.md#carla.landmark"><strong>carla.Landmark</strong></a>。这些地标对象包含关于它们的 OpenDRIVE 定义的信息。此外，仿真器在运行时会自动生成停车标志、让行标志和交通信号灯对象，使用 OpenDRIVE 文件中的信息。这些对象会放置在道路上，有边界框包围。一旦车辆进入它们的边界框，它们就会意识到这些对象。</p>
-<h2 id="_7">传感器和数据</h2>
+<h2 id="_7">传感器和数据 <span id="sensor_data"></span></h2>
 <p><strong>传感器</strong> 等待一些事件发生，然后从仿真中收集数据。它们调用定义如何管理数据的函数。根据不同的情况，传感器会检索不同类型的传感器数据。</p>
 <p>传感器是附着在父车辆上的参与者。它跟随车辆，收集周围环境的信息。可用的传感器由<strong><a href="../bp_library/">Blueprint库</a></strong>中的蓝图定义。</p>
 <ul>
@@ -147,7 +156,7 @@ blueprint_library = world.get_blueprint_library()
 <li>雷达</li>
 <li>责任敏感安全</li>
 </ul>
-<h2 id="_8">同步模式和异步模式</h2>
+<h2 id="_8">同步模式和异步模式 <span id="synchronous-and-asynchronous-mode"></span></h2>
 <p>Carla 具有客户端-服务器架构。服务器运行仿真。客户端检索信息并请求仿真中的更改。本节涉及客户端和服务器之间的通信。</p>
 <p>默认情况下，Carla 以 <strong>异步模式</strong> 运行。</p>
 <p>本质上，在 <strong>异步模式</strong> 下，Carla 服务器会尽可能快地运行。客户请求是即时处理的。在 <strong>同步模式</strong> 下，运行 Python 代码的客户端负责控制并告诉服务器何时更新。</p>
@@ -157,7 +166,7 @@ blueprint_library = world.get_blueprint_library()
 <p class="admonition-title">笔记</p>
 <p>在多客户端架构中，只有一个客户端应该发出滴答信号。服务器对收到的每个滴答信号做出响应，就好像它来自同一客户端一样。许多客户端的滴答信号将使服务器和客户端之间产生不一致。</p>
 </div>
-<h3 id="_9">设置同步模式</h3>
+<h3 id="_9">设置同步模式 <span id="setting-synchronous-mode"></span></h3>
 <p>同步模式和异步模式之间的更改只是布尔状态的问题。</p>
 <pre><code class="language-py">settings = world.get_settings()
 settings.synchronous_mode = True # 启用同步模式
@@ -172,7 +181,7 @@ world.apply_settings(settings)
 <pre><code class="language-sh">cd PythonAPI/util &amp;&amp; python3 config.py --no-sync # 禁用同步模式
 </code></pre>
 <p>同步模式无法使用脚本启用，只能禁用。启用同步模式使服务器等待客户端滴答信号。使用此脚本，用户无法在需要时发送滴答信号。 </p>
-<h3 id="_10">使用同步模式</h3>
+<h3 id="_10">使用同步模式 <span id="using-synchronous-mode"></span></h3>
 <p>同步模式与缓慢的客户端应用程序以及需要不同元素（例如传感器）之间的同步时特别相关。如果客户端太慢而服务器没有等待，就会出现信息溢出。客户将无法管理一切，并且会丢失或混合。同样，对于许多传感器和异步情况，不可能知道所有传感器是否都在仿真中使用同一时刻的数据。</p>
 <p>以下代码片段扩展了前一个代码片段。客户端创建一个摄像头传感器，将当前步骤的图像数据存储在队列中，并从队列中检索后发送滴答信号给服务器。可以在 <a href="https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/synchronous_mode.py">此处</a> 找到有关多个传感器的更复杂的示例。</p>
 <pre><code class="language-py">settings = world.get_settings()
@@ -198,7 +207,7 @@ world_snapshot = world.wait_for_tick()
 # 注册一个回调，以便在每次收到新的快照时都被调用。
 world.on_tick(lambda world_snapshot: do_something(world_snapshot))
 </code></pre>
-<h2 id="_11">记录器</h2>
+<h2 id="_11">记录器 <span id="recorder"></span></h2>
 <p>记录器可以将重现先前仿真所需的所有数据保存到文件中。这些数据包括车辆的位置和速度、交通信号灯的状态、行人的位置和速度以及太阳的位置和天气状况等详细信息。数据被记录到一个二进制文件中，Carla 服务器稍后可以加载该文件以准确地再现仿真。</p>
 <p>参与者根据记录文件中包含的数据在每一帧上进行更新。当前仿真中出现在录制中的参与者将被移动或重新生成以仿真它。那些没有出现在记录中的人会继续他们的路，就像什么都没发生一样。</p>
 <div class="admonition 重要">
@@ -213,7 +222,7 @@ world.on_tick(lambda world_snapshot: do_something(world_snapshot))
 <li><strong>行人</strong> — 位置和方向，以及线速度和角速度。</li>
 <li><strong>灯光</strong> — 建筑物、街道和车辆的灯光状态。</li>
 </ul>
-<h3 id="_12">记录</h3>
+<h3 id="_12">记录 <span id="recording"></span></h3>
 <p>要开始录制，只需要一个文件名。在文件名中使用<code>\</code>,<code>/</code>或<code>:</code>字符会将其定义为绝对路径。如果没有详细路径，文件将保存在<code>CarlaUE4/Saved</code>。</p>
 <pre><code class="language-py">client.start_recorder(&quot;/home/carla/recording01.log&quot;)
 </code></pre>
@@ -231,7 +240,7 @@ world.on_tick(lambda world_snapshot: do_something(world_snapshot))
 <p class="admonition-title">笔记</p>
 <p>据估计，50 个交通灯和 100 辆车的 1 小时记录大约需要 200MB 大小。</p>
 </div>
-<h3 id="_13">仿真回放</h3>
+<h3 id="_13">仿真回放 <span id="simulation-playback"></span></h3>
 <p>可以在仿真过程中的任何时刻开始播放。除了日志文件的路径之外，此方法还需要一些参数。</p>
 <pre><code class="language-py">client.replay_file(&quot;recording01.log&quot;, start, duration, camera)
 </code></pre>
@@ -262,22 +271,22 @@ world.on_tick(lambda world_snapshot: do_something(world_snapshot))
 </tbody>
 </table>
 <p><br></p>
-<h3 id="_14">记录器文件格式</h3>
-<p>记录器以 <strong>本文档</strong> 中指定的自定义二进制文件格式保存所有数据。</p>
+<h3 id="_14">记录器文件格式 <span id="recorder-file-format"></span></h3>
+<p>记录器以 <a href="../ref_recorder_binary_file_format/"><strong>本文档</strong></a> 中指定的自定义二进制文件格式保存所有数据。</p>
 <hr />
-<h2 id="_15">渲染</h2>
+<h2 id="_15">渲染 <span id="rendering"></span></h2>
 <p>Carla 提供了许多有关渲染质量和效率的选项。在最基本的层面上，Carla 提供了两种质量选项，可以在高规格和低规格硬件上运行并获得最佳效果：</p>
-<h3 id="_16">史诗模式</h3>
+<h3 id="_16">史诗模式 <span id="epic_mode"></span></h3>
 <p><code>./CarlaUE4.sh -quality-level=Epic</code></p>
 <p><img alt="Epic mode screenshot" src="../img/rendering_quality_epic.jpg" />
 <em>史诗模式截图</em></p>
-<h3 id="_17">低质量模式</h3>
+<h3 id="_17">低质量模式 <span id="low_quality"></span></h3>
 <p><code>./CarlaUE4.sh -quality-level=Low</code></p>
 <p><img alt="Low mode screenshot" src="../img/rendering_quality_low.jpg" />
 <em>低质量模式截图</em></p>
 <p>Carla 还提供暂停渲染或离屏渲染的选项，以便更有效地记录或运行仿真。</p>
 <p>有关渲染选项的更多详细信息，请参见 <a href="../adv_rendering_options/"><strong>此处</strong></a>。</p>
-<h2 id="_18">进阶步骤</h2>
+<h2 id="_18">进阶步骤 <span id="advanced_step"></span></h2>
 <p>Carla 提供了广泛的功能，超出了本仿真器介绍的范围。这里列出了一些最引人注目的。然而，在开始 <strong>进阶步骤</strong> 之前，强烈建议阅读整个“基础”部分。</p>
 <ul>
 <li><strong><a href="../adv_opendrive/">OpenDRIVE独立模式</a></strong>。仅使用 OpenDRIVE 文件生成道路网格。允许在 Carla 中加载任何 OpenDRIVE 地图，无需创建资源。</li>

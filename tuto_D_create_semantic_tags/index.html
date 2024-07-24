@@ -82,37 +82,37 @@
 <li><a href="#add-a-tag-to-carlacityobjectlabel"><strong>将标签添加到 carla.CityObjectLabel</strong></a>  </li>
 </ul>
 <hr />
-<h2 id="_2">创建新的语义标签</h2>
-<h3 id="1-id">1. 创建标签 ID</h3>
+<h2 id="_2">创建新的语义标签 <span id="create-a-new-semantic-tag"></span></h2>
+<h3 id="1-id">1. 创建标签 ID <span id="1-create-the-tag-id"></span></h3>
 <p><strong>打开 <code>LibCarla/source/carla/rpc</code> 中的 <code>ObjectLabel.h</code></strong> 。使用与其余标签相同的格式在枚举末尾添加新标签。</p>
 <p><img alt="object_label_h" src="../img/tuto_D_create_semantic_tags/01_objectlabel_tag.jpg" /></p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>标签不必按顺序出现。但是，按顺序列出它们是一个很好的做法。</p>
 </div>
-<h3 id="2">2. 创建资产的虚幻引擎文件夹</h3>
+<h3 id="2">2. 创建资产的虚幻引擎文件夹 <span id="2-create-the-ue-folder-for-assets"></span></h3>
 <p><strong>打开虚幻引擎编辑器</strong> 并转到 <code>Carla/Static</code>。创建一个名为您的标签的新文件夹。</p>
 <p><img alt="ue_folder" src="../img/tuto_D_create_semantic_tags/02_ue_folder.jpg" /></p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>虚幻编辑器文件夹和标签不必命名相同。然而，这样做是一个很好的做法。 </p>
 </div>
-<h3 id="3">3. 创建虚幻引擎与代码标签的双向对应关系</h3>
+<h3 id="3">3. 创建虚幻引擎与代码标签的双向对应关系 <span id="3-create-two-way-correspondence-between-ue-and-the-code-tag"></span></h3>
 <p><strong>3.1. 打开<code>Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Game</code>中的 <code>Tagger.cpp</code></strong> 。转到 <strong><code>GetLabelByFolderName</code></strong> 列表末尾添加您的标签。被比较的字符串是 <a href="#2-create-the-ue-folder-for-assets"><strong>2.</strong></a> 中使用的虚幻引擎文件夹的名称，因此这里使用完全相同的名称。</p>
 <p><img alt="tagger_cpp" src="../img/tuto_D_create_semantic_tags/03_tagger_cpp.jpg" /></p>
 <p><strong>3.2. 在相同的 <code>Tagger.cpp</code> 转到 <code>GetTagAsString</code></strong> 。 在开关末尾添加新标签。</p>
 <p><img alt="tagger_cpp_02" src="../img/tuto_D_create_semantic_tags/04_tagger_cpp_02.jpg" /></p>
-<h3 id="4">4. 定义颜色代码</h3>
+<h3 id="4">4. 定义颜色代码 <span id="4-define-a-color-code"></span></h3>
 <p><strong>在 <code>LibCarla/source/carla/image</code> 中打开 <code>CityScapesPalette.h</code></strong> 。在数组末尾添加新标签的颜色代码。</p>
 <p><img alt="city_scapes_palette_h" src="../img/tuto_D_create_semantic_tags/05_city_scapes_palette_h.jpg" /></p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>数组中的位置必须与标签 ID 相对应，在本例中为 <code>23u</code>. </p>
 </div>
-<h3 id="5">5. 添加标记网格</h3>
+<h3 id="5">5. 添加标记网格 <span id="5-add-the-tagged-elements"></span></h3>
 <p>新的语义标签已可供使用。只有存储在标签的虚幻引擎文件夹内的网格才会被标记为此类。将相应的网格移动或导入到新文件夹中，以便正确标记。</p>
 <hr />
-<h2 id="carlacityobjectlabel">将标签添加到 <a href="../python_api/#carla.CityObjectLabel">carla.CityObjectLabel</a></h2>
+<h2 id="carlacityobjectlabel">将标签添加到 <a href="../python_api/#carla.CityObjectLabel">carla.CityObjectLabel</a> <span id="add-a-tag-to-carlacityobjectlabel"></span></h2>
 <p>这一步与语义分割没有直接关系。但是，这些标签可用于过滤<a href="../python_api/#carla.World">carla.World</a> 中的边界框查询。为此，必须将标签添加到PythonAPI 中的 <a href="../python_api/#carla.CityObjectLabel">carla.CityObjectLabel</a> 枚举中。</p>
 <p><strong>在 <code>carla/PythonAPI/carla/source/libcarla</code> 中打开 <code>World.cpp</code></strong> 并在枚举末尾添加新标签。</p>
 <p><img alt="city_object_label" src="../img/tuto_D_create_semantic_tags/06_city_object_label.jpg" /></p>

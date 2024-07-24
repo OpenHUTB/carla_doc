@@ -695,7 +695,7 @@
 </ul>
 <hr />
 <h2 id="carlaclient">carla.Client<a name="carla.Client"></a></h2>
-<p>客户端将 Carla 连接到运行仿真的服务器。服务器和客户端都包含 Carla 库 (libcarla)，但存在一些差异，允许它们之间进行通信。可以创建许多客户端，每个客户端都会连接到仿真内的 RPC 服务器以发送命令。仿真在服务器端运行。一旦建立连接，客户端将仅接收从仿真检索的数据。步行者是例外。客户端负责管理行人，因此，如果您与多个客户端一起运行仿真，可能会出现一些问题。例如，如果您通过不同的客户端生成步行者，则可能会发生冲突，因为每个客户端只知道它负责的客户端。</p>
+<p>客户端将 Carla 连接到运行仿真的服务器。服务器和客户端都包含 Carla 库 (libcarla)，但存在一些差异，允许它们之间进行通信。可以创建许多客户端，每个客户端都会连接到仿真内的 RPC 服务器以发送命令。仿真在服务器端运行。一旦建立连接，客户端将仅接收从仿真检索的数据。行人是例外。客户端负责管理行人，因此，如果您与多个客户端一起运行仿真，可能会出现一些问题。例如，如果您通过不同的客户端生成行人，则可能会发生冲突，因为每个客户端只知道它负责的客户端。</p>
 <p>客户端还具有记录功能，可以在运行仿真时保存仿真的所有信息。这使得服务器可以随意重放以获取信息并进行实验。<a href="../adv_recorder/">以下</a> 是有关如何使用此记录器的一些信息。</p>
 <h3 id="_32">方法</h3>
 <ul>
@@ -790,7 +790,7 @@
 </ul>
 </li>
 <li><a name="carla.Client.show_recorder_collisions"></a><strong><font color="#7fb800">show_recorder_collisions</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>filename</strong></font>, <font color="#00a6ed"><strong>category1</strong></font>, <font color="#00a6ed"><strong>category2</strong></font>)<br />
-终端将显示记录器记录的碰撞。可以通过指定所涉及的参与者的类型来过滤这些内容。类别将在<code>category1</code>和<code>category1</code>中指定如下：“h”=英雄，一种可以手动控制或由用户管理的车辆。”v'=车辆'w'=步行者't'=红绿灯'o'=其他'a'=任何如果您只想看到车辆和步行者之间的碰撞，请将<code>category1</code>用作'v'，将<code>category2</code>用作'w'，反之亦然。如果要查看所有碰撞（过滤掉），可以对两个参数都使用“a”。 <ul>
+终端将显示记录器记录的碰撞。可以通过指定所涉及的参与者的类型来过滤这些内容。类别将在<code>category1</code>和<code>category1</code>中指定如下：“h”=英雄，一种可以手动控制或由用户管理的车辆。”v'=车辆'w'=行人't'=红绿灯'o'=其他'a'=任何如果您只想看到车辆和步行者之间的碰撞，请将<code>category1</code>用作'v'，将<code>category2</code>用作'w'，反之亦然。如果要查看所有碰撞（过滤掉），可以对两个参数都使用“a”。 <ul>
 <li><strong>参数：</strong><ul>
 <li><code>filename</code> (<em>str</em>) - 记录的文件的名称或绝对路径，具体取决于您之前的选择。 </li>
 <li><code>category1</code> (<em>single char</em>) - 指定冲突中涉及的第一类参与者的字符变量。</li>
@@ -1095,7 +1095,7 @@ Y 像素坐标。  </li>
 </ul>
 </li>
 <li><a name="carla.DebugHelper.draw_box"></a><strong><font color="#7fb800">draw_box</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>box</strong></font>, <font color="#00a6ed"><strong>rotation</strong></font>, <font color="#00a6ed"><strong>thickness</strong>=0.1</font>, <font color="#00a6ed"><strong>color</strong>=(255,0,0)</font>, <font color="#00a6ed"><strong>life_time</strong>=-1.0</font>)<button class="SnipetButton" id="carla.DebugHelper.draw_box-snipet_button">snippet &rarr;</button><br />
-绘制一个框，通常用于对象碰撞器。  <ul>
+绘制一个框，通常用于对象碰撞体。  <ul>
 <li><strong>参数：</strong><ul>
 <li><code>box</code> (<em><a href="#carla.BoundingBox">carla.BoundingBox</a></em>) - 包含每个轴的位置和框长度的对象。</li>
 <li><code>rotation</code> (<em><a href="#carla.Rotation">carla.Rotation</a><small> - 度 (pitch,yaw,roll)</small></em>) - 根据虚幻引擎轴系的边界框方向。</li>
@@ -1120,7 +1120,7 @@ Y 像素坐标。  </li>
 </ul>
 </li>
 <li><a name="carla.DebugHelper.draw_hud_box"></a><strong><font color="#7fb800">draw_hud_box</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>box</strong></font>, <font color="#00a6ed"><strong>rotation</strong></font>, <font color="#00a6ed"><strong>thickness</strong>=0.1</font>, <font color="#00a6ed"><strong>color</strong>=(255,0,0)</font>, <font color="#00a6ed"><strong>life_time</strong>=-1.0</font>)<br />
-在 HUD 上绘制一个框，通常用于对象碰撞器。该框只能在服务器端看到。<ul>
+在 HUD 上绘制一个框，通常用于对象碰撞体。该框只能在服务器端看到。<ul>
 <li><strong>Parameters:</strong><ul>
 <li><code>box</code> (<em><a href="#carla.BoundingBox">carla.BoundingBox</a></em>) - 包含每个轴的框的位置和长度的对象。 </li>
 <li><code>rotation</code> (<em><a href="#carla.Rotation">carla.Rotation</a><small> - degrees (pitch,yaw,roll)</small></em>) - 根据虚幻引擎的轴系统确定边界框的方向。  </li>

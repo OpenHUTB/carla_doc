@@ -72,10 +72,10 @@
 <ul>
 <li><a href="#setup"><strong>设置</strong></a>  </li>
 <li><a href="#libcarla"><strong>LibCarla</strong></a>  </li>
-<li><a href="#carlaue4-and-carla-plugin"><strong>CarlaUE4 和 Carla 插件</strong></a>  </li>
+<li><a href="#carlaue4_and_carla_plugin"><strong>CarlaUE4 和 Carla 插件</strong></a>  </li>
 <li><a href="#pythonapi"><strong>PythonAPI</strong></a><ul>
 <li><a href="#versions-0912">0.9.12+ 版本</a></li>
-<li><a href="#versions-prior-to-0912">0.9.12 之前的版本</a></li>
+<li><a href="#versions_prior_to_0912">0.9.12 之前的版本</a></li>
 </ul>
 </li>
 </ul>
@@ -87,7 +87,7 @@
 <p><img alt="modules" src="../img/build_modules.jpg" /></p>
 <p>在 Linux 中，我们使用 clang-8.0 和 C++14 标准编译 Carla 和所有依赖项。然而，我们根据代码的使用位置来链接不同的运行时 C++ 库，因为所有将与虚幻引擎链接的代码都需要使用 <code>libc++</code> 进行编译。</p>
 <hr />
-<h2 id="_2">设置</h2>
+<h2 id="_2">设置 <span id="setup"></span></h2>
 <p>命令</p>
 <pre><code class="language-sh">make setup
 </code></pre>
@@ -99,7 +99,7 @@
 <li>googletest-1.8.1 (with libc++)</li>
 </ul>
 <hr />
-<h2 id="libcarla">LibCarla</h2>
+<h2 id="libcarla">LibCarla <span id="libcarla"></span></h2>
 <p>使用 CMake 编译（最低版本需要 CMake 3.9）。</p>
 <p>命令</p>
 <pre><code class="language-sh">make LibCarla
@@ -142,7 +142,7 @@
 </tbody>
 </table>
 <hr />
-<h2 id="carlaue4-carla">CarlaUE4 和 Carla 插件</h2>
+<h2 id="carlaue4-carla">CarlaUE4 和 Carla 插件 <span id="carlaue4_and_carla_plugin"></span></h2>
 <p>两者均使用虚幻引擎构建工具在同一步骤进行编译。它们需要 <code>UE4_ROOT</code> 环境变量。</p>
 <p>命令</p>
 <pre><code class="language-sh">make CarlaUE4Editor
@@ -153,8 +153,8 @@
 <p>编译 0.9.15 时候出现<code>carla/Unreal/CarlaUE4/Plugins/CarlaTools/Source/CarlaTools/Private/Online/CustomFileDownloader.cpp(11): fatal rror C1083: 无法打开包括文件: “OSM2ODR.h”: No such file or directory</code></p>
 <p>解决：将0.9.14<code>build</code>中的<code>carla\Build\osm2odr-visualstudio</code>复制过来。</p>
 <hr />
-<h2 id="pythonapi">PythonAPI</h2>
-<h3 id="0912">0.9.12+ 版本</h3>
+<h2 id="pythonapi">PythonAPI <span id="pythonapi"></span></h2>
+<h3 id="0912">0.9.12+ 版本 <span id="versions-0912"></span></h3>
 <p>使用 Python 的 <code>setuptools</code> ("setup.py")  编译。 目前需要在机器上安装以下软件：Python, libpython-dev, 和
 libboost-python-dev, pip&gt;=20.3, wheel, 和 auditwheel。</p>
 <p>命令：</p>
@@ -174,7 +174,7 @@ libboost-python-dev, pip&gt;=20.3, wheel, 和 auditwheel。</p>
 <p>请参阅 <a href="#versions-prior-to-0912"><strong>0.9.12 之前的版本</strong></a> 了解更多详细信息。</p>
 </blockquote>
 </blockquote>
-<h3 id="0912_1">0.9.12 之前的版本</h3>
+<h3 id="0912_1">0.9.12 之前的版本 <span id="versions_prior_to_0912"></span></h3>
 <p>使用 Python 的 <code>setuptools</code> ("setup.py")编译。 目前需要在机器上安装以下软件： Python, libpython-dev, 和
 libboost-python-dev。</p>
 <p>命令</p>

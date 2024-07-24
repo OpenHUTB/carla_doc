@@ -71,9 +71,12 @@
                 <h1 id="_1"><a href="https://carla.readthedocs.io/en/latest/tuto_A_add_vehicle/">添加新车</a></h1>
 <p>这个教程详细介绍了如何向 Carla 添加新的车辆。教程分为两个部分，一个用于四轮车辆，另一个用于两轮车辆。教程概述了建模车辆时必须满足的基本要求，以确保车辆在 Carla 中运行良好，并提供了在将车辆导入虚幻引擎后所需的配置说明。</p>
 <ul>
-<li><a href="#add-a-4-wheeled-vehicle"><strong>添加 4 轮车辆</strong></a></li>
+<li><a href="#add-a-4-wheeled-vehicle"><strong>添加 4 轮车辆</strong></a><ul>
 <li><a href="#bind-and-model-the-vehicle">绑定并建模车辆</a></li>
 <li><a href="#import-and-configure-the-vehicle">导入并配置车辆</a></li>
+</ul>
+</li>
+<li><a href="#add-a-n-wheeled-vehicle"><strong>添加 N 轮车辆</strong></a>  </li>
 <li><a href="#add-a-2-wheeled-vehicle"><strong>添加 2 轮车辆</strong></a></li>
 </ul>
 <div class="admonition 重要">
@@ -81,11 +84,11 @@
 <p>本教程仅适用于使用源代码构建并有权访问虚幻引擎编辑器的用户。</p>
 </div>
 <hr />
-<h2 id="4">添加 4 轮车辆</h2>
+<h2 id="4">添加 4 轮车辆 <span id="add-a-4-wheeled-vehicle"></span></h2>
 <p>添加到 Carla 的车辆需要使用可在 <a href="(https://carla-assets.s3.eu-west-3.amazonaws.com/fbx/VehicleSkeleton.rar)"><strong>此处</strong></a> 找到的通用基础骨架。此链接将下载一个名为 <code>VehicleSkeleton.rar</code> 的文件夹，其中包含两种不同格式的基本框架，一种为 ASCII，另一种为二进制。您使用的格式取决于您的 3D 建模软件要求。</p>
 <p><strong>骨架骨骼的位置可以更改，但任何其他操作（例如旋转、添加新骨骼或更改当前层次结构）都会导致错误。</strong></p>
 <hr />
-<h3 id="_2">绑定并建模车辆</h3>
+<h3 id="_2">绑定并建模车辆 <span id="bind-and-model-the-vehicle"></span></h3>
 <p>本节详细介绍了车辆建模阶段的最低要求，以确保其可以在 Carla 中成功使用。该过程包括将骨架正确绑定到车辆的底座和车轮、创建物理资源和光线投射传感器网格，以及导出为正确的格式。</p>
 <p><strong>1. 导入基础骨架。</strong></p>
 <p>将基础骨架导入您首选的三维建模软件中。常见的编辑器包括 Maya 和 Blender。</p>
@@ -165,7 +168,7 @@
 <p><strong>5. 导出车辆网格。</strong></p>
 <p>选择所有主要车辆网格和骨架底座并导出为<code>.fbx</code>。</p>
 <hr />
-<h3 id="_3">导入并配置车辆</h3>
+<h3 id="_3">导入并配置车辆 <span id="import-and-configure-the-vehicle"></span></h3>
 <p>本节详细介绍了将车辆导入虚幻引擎以在 Carla 中使用的过程。在虚幻引擎编辑器中执行这些步骤。</p>
 <p><strong>1. 创建车辆文件夹。</strong></p>
 <p>在 <code>Content/Carla/Static/Vehicles/4Wheeled</code> 里创建一个名为 <code>&lt;vehicle_name&gt;</code> 的新文件夹。</p>
@@ -308,7 +311,7 @@
 <p>即使您在品牌和型号中使用了大写字符，它们在传递给过滤器时也需要转换为小写字符。</p>
 </div>
 <hr />
-<h2 id="n">添加 N 轮车辆</h2>
+<h2 id="n">添加 N 轮车辆 <span id="add-a-n-wheeled-vehicle"></span></h2>
 <p>添加 N 轮车辆遵循与上述 4 轮车辆相同的导入管道，但有几个步骤不同。</p>
 <p><strong>5.</strong> <strong>配置 N 轮车辆的动画蓝图</strong></p>
 <p>搜索 <code>BaseVehiclePawnNW</code> 并按 <strong><em>Select</em></strong>。</p>
@@ -327,7 +330,7 @@
 <p><img alt="n_wheel_mech" src="../img/nwheel_mech_setup.png" /></p>
 <p>所有其他参数，如发动机、变速箱、转向曲线，均与四轮车辆相同。</p>
 <hr />
-<h2 id="2">添加 2 轮车辆</h2>
+<h2 id="2">添加 2 轮车辆 <span id="add-a-2-wheeled-vehicle"></span></h2>
 <p>添加 2 轮车辆与添加 4 轮车辆类似，但由于动画的复杂性，您需要设置额外的骨骼来引导驾驶员的动画。<a href="https://carla-assets.s3.eu-west-3.amazonaws.com/fbx/BikeSkeleton.rar">这</a> 是两轮车辆参考骨架的链接。</p>
 <p>与 4 轮车辆一样，将模型朝向正“x”，每个骨骼轴朝向正 x，z 轴朝上。</p>
 <pre><code class="language-yaml">Bone Setup:

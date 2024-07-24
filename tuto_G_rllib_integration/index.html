@@ -73,30 +73,30 @@
 <p>RLlib 集成允许用户创建和使用 Carla 作为 Ray 的环境，并将该环境用于训练和推理目的。该集成可以在本地使用，也可以通过 AWS 在云中使用。</p>
 <p>在本指南中，我们将概述在本地和 AWS 上运行 RLlib 集成所需的要求、集成存储库的结构、如何使用该库的概述，以及如何使用 Carla 设置 Ray 实验的示例一个环境。</p>
 <ul>
-<li><a href="#before-you-begin"><strong>在你开始之前</strong></a><ul>
-<li><a href="#requirements-for-running-locally">本地运行的要求</a></li>
-<li><a href="#requirements-for-running-on-aws-cloud">在 AWS 云上运行的要求</a></li>
+<li><a href="#before_you_begin"><strong>在你开始之前</strong></a><ul>
+<li><a href="#requirements_for_running_locally">本地运行的要求</a></li>
+<li><a href="#requirements_for_running_on_aws_cloud">在 AWS 云上运行的要求</a></li>
 </ul>
 </li>
-<li><a href="#rllib-repository-structure"><strong>RLlib 仓库结构</strong></a></li>
-<li><a href="#creating-your-own-experiment"><strong>创建您自己的实验</strong></a><ul>
-<li><a href="#1-the-experiment-class">实验类</a></li>
-<li><a href="#2-the-environment-configuration">环境配置</a></li>
-<li><a href="#3-the-training-and-inference-scripts">训练和推理脚本</a></li>
+<li><a href="#rllib_repository_structure"><strong>RLlib 仓库结构</strong></a></li>
+<li><a href="#creating_your_own_experiment"><strong>创建您自己的实验</strong></a><ul>
+<li><a href="#1_the_experiment_class">实验类</a></li>
+<li><a href="#2_the_environment_configuration">环境配置</a></li>
+<li><a href="#3_the_training_and_inference_scripts">训练和推理脚本</a></li>
 </ul>
 </li>
-<li><a href="#dqn-example"><strong>DQN 示例</strong></a></li>
-<li><a href="#running-on-aws"><strong>在 AWS 上运行</strong></a><ul>
-<li><a href="#configure-aws">配置 AWS</a></li>
-<li><a href="#create-the-training-ami">创建训练 AMI</a></li>
-<li><a href="#configure-the-cluster">配置集群</a></li>
-<li><a href="#run-the-training">运行训练</a></li>
-<li><a href="#running-the-dqn-example-on-aws">在 AWS 上运行 DQN 示例</a></li>
+<li><a href="#dqn_example"><strong>DQN 示例</strong></a></li>
+<li><a href="#running_on_aws"><strong>在 AWS 上运行</strong></a><ul>
+<li><a href="#configure_aws">配置 AWS</a></li>
+<li><a href="#create_the_training_ami">创建训练 AMI</a></li>
+<li><a href="#configure_the_cluster">配置集群</a></li>
+<li><a href="#run_the_training">运行训练</a></li>
+<li><a href="#running_the_dqn_example_on_aws">在 AWS 上运行 DQN 示例</a></li>
 </ul>
 </li>
 </ul>
 <hr />
-<h2 id="_1">在你开始之前</h2>
+<h2 id="_1">在你开始之前 <span id="before_you_begin"></span></h2>
 <ul>
 <li>从 <a href="https://github.com/carla-simulator/rllib-integration/tree/main">GitHub</a> 下载 RLlib 集成或直接克隆仓库：</li>
 </ul>
@@ -106,7 +106,7 @@
 <li>要求会有所不同，具体取决于您是在本地运行还是在 AWS 上运行：</li>
 </ul>
 <blockquote>
-<h6 id="_2">本地运行的要求</h6>
+<h6 id="_2">本地运行的要求 <span id="requirements_for_running_locally"></span></h6>
 <blockquote>
 <ul>
 <li><a href="https://github.com/carla-simulator/carla/releases">安装 Carla 的软件包版本</a> 并导入 <a href="https://carla.readthedocs.io/en/latest/start_quickstart/#import-additional-assets">附加资源</a> 。<strong>推荐的版本是 Carla 0.9.11</strong> ，因为集成是使用此版本设计和测试的。其他版本可能兼容，但尚未经过充分测试，因此请自行决定使用这些版本。</li>
@@ -126,7 +126,7 @@
 <pre><code>export CARLA_ROOT=path/to/carla
 </code></pre>
 <blockquote>
-<h6 id="aws">在 AWS 云上运行的要求</h6>
+<h6 id="aws">在 AWS 云上运行的要求 <span id="requirements_for_running_on_aws_cloud"></span></h6>
 <blockquote>
 <ul>
 <li>在 RLlib 集成存储库中找到的安装脚本中会自动满足在 AWS 上运行的要求。<a href="#running-on-aws">在“在 AWS 上运行”</a> 部分中查找更多详细信息。</li>
@@ -134,7 +134,7 @@
 </blockquote>
 </blockquote>
 <hr />
-<h2 id="rllib_1">RLlib 存储库结构</h2>
+<h2 id="rllib_1">RLlib 存储库结构 <span id="rllib_repository_structure"></span></h2>
 <p>存储库分为三个目录：</p>
 <ul>
 <li><code>rllib_integration</code> 包含与 Carla 相关的所有基础设施以及如何设置 Carla 服务器、客户端和参与者。这提供了所有训练和测试实验必须遵循的基本结构。</li>
@@ -142,7 +142,7 @@
 <li>根目录中的 <code>dqn_example</code> 和 <code>dqn_*</code> 文件提供了一个易于理解的示例，说明如何使用 Carla 作为环境来设置 Ray 实验。 </li>
 </ul>
 <hr />
-<h2 id="_3">创建您自己的实验</h2>
+<h2 id="_3">创建您自己的实验 <span id="creating_your_own_experiment"></span></h2>
 <p>本节概述了如何创建您自己的实验。更具体的示例请参见下一节<a href="#dqn-example">“DQN 示例”</a> 。</p>
 <p>您将需要创建至少四个文件：</p>
 <ul>
@@ -150,10 +150,10 @@
 <li>环境配置</li>
 <li>训练和推理脚本</li>
 </ul>
-<h4 id="1">1. 实验类</h4>
+<h4 id="1">1. 实验类 <span id="1_the_experiment_class"></span></h4>
 <p>要使用 Carla 环境，您需要定义训练实验。Ray 要求环境返回一系列特定信息。您可以在 <a href="https://github.com/carla-simulator/rllib-integration/blob/main/rllib_integration/carla_env.py"><code>rllib-integration/rllib_integration/carla_env.py</code></a> 中查看有关 Carla 环境的详细信息。</p>
 <p>Ray 所需的信息取决于您的具体实验，因此所有实验都应继承自<a href="https://github.com/carla-simulator/rllib-integration/blob/main/rllib_integration/base_experiment.py#L41"><code>BaseExperiment</code></a>。此类包含您自己的实验需要覆盖的所有函数。这些都是与训练的行动、观察和奖励相关的功能。</p>
-<h4 id="2">2. 环境配置</h4>
+<h4 id="2">2. 环境配置 <span id="2_the_environment_configuration"></span></h4>
 <p>实验应该通过<code>.yaml</code>文件进行配置。通过配置文件传递的任何设置都将覆盖默认设置。下面解释了不同默认设置的位置。</p>
 <p>配置文件有三个主要用途：</p>
 <ol>
@@ -161,10 +161,10 @@
 <li>设置特定于您的实验的变量，以及指定城镇条件以及自我车辆及其传感器的生成。默认设置可在 <a href="https://github.com/carla-simulator/rllib-integration/blob/main/rllib_integration/base_experiment.py#L12">此处</a> 找到，并提供如何设置传感器的示例。</li>
 <li>配置特定于 <a href="https://github.com/ray-project/ray/blob/master/rllib/agents/trainer.py">Ray 的训练</a> 设置。这些设置与所使用的特定训练器相关。如果您使用的是内置模型，则可以在此处应用其设置。 </li>
 </ol>
-<h4 id="3">3. 训练和推理脚本</h4>
+<h4 id="3">3. 训练和推理脚本 <span id="3_the_training_and_inference_scripts"></span></h4>
 <p>最后一步是创建您自己的训练和推理脚本。这部分完全由您决定，并且依赖于 Ray API。如果您想创建自己的特定模型，请查看 <a href="https://docs.ray.io/en/master/rllib-models.html#custom-models-implementing-your-own-forward-logic">Ray 的自定义模型文档</a> 。</p>
 <hr />
-<h2 id="dqn">DQN 示例</h2>
+<h2 id="dqn">DQN 示例 <span id="dqn_example"></span></h2>
 <p>本节以上一节为基础，展示如何使用 <a href="https://github.com/carla-simulator/rllib-integration/blob/main/rllib_integration/sensors/bird_view_manager.py">BirdView pseudosensor</a> 伪传感器和 Ray 的 <a href="https://github.com/ray-project/ray/blob/master/rllib/agents/dqn/dqn.py#L285">DQNTrainer</a> 进行 RLlib 集成的具体示例。</p>
 <p>DQN示例的结构如下：</p>
 <ul>
@@ -196,17 +196,17 @@
 <p>如果遇到内存不足问题，请考虑减少该<code>buffer_size</code>参数。</p>
 </div>
 <hr />
-<h2 id="aws_1">在 AWS 上运行</h2>
+<h2 id="aws_1">在 AWS 上运行 <span id="running_on_aws"></span></h2>
 <p>本节介绍如何使用 RLlib 集成在 AWS EC2 实例上自动运行训练和推理。为了处理实例的缩放，我们使用<a href="https://docs.ray.io/en/latest/cluster/index.html">Ray autoscaler API</a>。</p>
-<h4 id="aws_2">配置 AWS</h4>
+<h4 id="aws_2">配置 AWS <span id="configure_aws"></span></h4>
 <p>您需要正确配置 boto3 环境。请点击 <a href="https://boto3.amazonaws.com/v1/documentation/api/latest/guide/configuration.html">此处</a> 了解更多信息。</p>
-<h4 id="ami">创建训练 AMI</h4>
+<h4 id="ami">创建训练 AMI <span id="create_the_training_ami"></span></h4>
 <p>使用提供的 <a href="https://github.com/carla-simulator/rllib-integration/blob/main/aws/aws_helper.py"><code>aws_helper.py</code></a> 脚本通过运行以下命令自动创建训练所需的映像，并传入基础映像的名称和 <code>install.sh</code> 在以下位置  <a href="https://github.com/carla-simulator/rllib-integration/blob/main/aws/install/install.sh"><code>rllib-integration/aws/install</code></a> 找到的安装脚本：</p>
 <pre><code>python3 aws_helper.py create-image --name &lt;AMI-name&gt; --installation-scripts &lt;installation-scripts&gt; --instance-type &lt;instance-type&gt; --volume-size &lt;volume-size&gt;
 </code></pre>
-<h4 id="_4">配置集群</h4>
+<h4 id="_4">配置集群 <span id="configure_the_cluster"></span></h4>
 <p>创建图像后，将会输出带有图像信息的输出。要使用 Ray 自动缩放器，请使用输出中的信息更新 <a href="https://docs.ray.io/en/latest/cluster/config.html">autoscaler configuration file</a> 中的<code>&lt;ImageId&gt;</code> 和 <code>&lt;SecurityGroupIds&gt;</code> 设置。</p>
-<h4 id="_5">运行训练</h4>
+<h4 id="_5">运行训练 <span id="run_the_training"></span></h4>
 <p>创建镜像后，您可以使用 Ray 的 API 在集群上运行训练：</p>
 <ol>
 <li>
@@ -236,7 +236,7 @@ watch -n 1 ray status
 </code></pre>
 </li>
 </ol>
-<h4 id="aws-dqn">在 AWS 上运行 DQN 示例</h4>
+<h4 id="aws-dqn">在 AWS 上运行 DQN 示例 <span id="running_the_dqn_example_on_aws"></span></h4>
 <p>要在 AWS 上运行 DQN 示例：</p>
 <ol>
 <li>

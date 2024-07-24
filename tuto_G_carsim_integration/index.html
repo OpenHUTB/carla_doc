@@ -72,20 +72,20 @@
 <p>Carla 与 CarSim 的集成允许将 Carla 中的车辆控制转发到 CarSim。CarSim 将对车辆进行所有必需的物理计算，并将新状态返回给 Carla。</p>
 <p>本页向您展示如何生成<code>.sim</code>文件，解释 Carla 和 CarSim 之间的车辆尺寸如何关联，以及如何使用 CarSim 集成在 Carla 上运行仿真。</p>
 <ul>
-<li><a href="#before-you-begin"><strong>在你开始之前</strong></a>  </li>
-<li><a href="#set-up-carsim"><strong>设置 CarSim</strong></a>  <ul>
-<li><a href="#generate-the-sim-file"><strong>生成 .sim 文件</strong></a>  <ul>
-<li><a href="#on-windows"><strong>在 Windows 上</strong></a></li>
-<li><a href="#on-ubuntu"><strong>在 Ubuntu 上</strong></a></li>
+<li><a href="#before_you_begin"><strong>在你开始之前</strong></a>  </li>
+<li><a href="#set_up_carsim"><strong>设置 CarSim</strong></a>  <ul>
+<li><a href="#generate_the_sim_file"><strong>生成 .sim 文件</strong></a>  <ul>
+<li><a href="#on_windows"><strong>在 Windows 上</strong></a></li>
+<li><a href="#on_ubuntu"><strong>在 Ubuntu 上</strong></a></li>
 </ul>
 </li>
-<li><a href="#vehicle-sizes"><strong>车辆尺寸</strong></a>  </li>
+<li><a href="#vehicle_sizes"><strong>车辆尺寸</strong></a>  </li>
 </ul>
 </li>
-<li><a href="#run-the-simulation"><strong>运行仿真</strong></a>  </li>
+<li><a href="#run_the_simulation"><strong>运行仿真</strong></a>  </li>
 </ul>
 <hr />
-<h2 id="_1">在你开始之前</h2>
+<h2 id="_1">在你开始之前 <span id="before_you_begin"></span></h2>
 <ol>
 <li>您需要 CarSim 许可证才能启动并运行该软件。如果您目前没有 CarSim 许可证，您可以在 <a href="https://www.carsim.com/forms/additional_information.php">此处</a> 联系团队以获取信息。</li>
 <li>
@@ -107,11 +107,11 @@
 </ol>
 <pre><code class="language-sh">make launch ARGS=&quot;--carsim&quot;
 </code></pre>
-<h2 id="carsim_1">设置 CarSim</h2>
+<h2 id="carsim_1">设置 CarSim <span id="set_up_carsim"></span></h2>
 <p>以下部分详细介绍了如何生成运行仿真所需的 <code>.sim</code> 文件。还有关于 Carla 和 CarSim 之间车辆尺寸关系的详细重要信息。</p>
-<h4 id="sim">生成.sim 文件</h4>
+<h4 id="sim">生成.sim 文件 <span id="generate_the_sim_file"></span></h4>
 <p>该<code>.sim</code> 文件描述了要在 Carla 和 CarSim 中运行的仿真。插件需要此文件才能运行仿真。目前无法在 Ubuntu 上生成此文件，但是我们将在下面介绍如何使用之前生成的文件在 Ubuntu 上运行仿真。</p>
-<h5 id="windows">在 Windows 上</h5>
+<h5 id="windows">在 Windows 上 <span id="on_windows"></span></h5>
 <p>在 CarSim 上配置完所有参数后，使用 GUI 生成 <code>.sim</code> 文件，如下所示：</p>
 <p><img alt="generate .sim file" src="../img/carsim_generate.jpg" /></p>
 <p>生成的<code>.sim</code>文件应如下所示：</p>
@@ -144,7 +144,7 @@ PORTS_EXP 0
 DLLFILE D:\carsim\Programs\solvers\carsim_64.dll
 END
 </code></pre>
-<h5 id="ubuntu">在Ubuntu上</h5>
+<h5 id="ubuntu">在Ubuntu上 <span id="on_ubuntu"></span></h5>
 <p>无法在 Ubuntu 上通过 GUI 创建 <code>.sim</code> 文件。为了继续，您需要执行以下步骤：</p>
 <ol>
 <li>在 Windows 中生成 <code>.sim</code> 文件或使用下面的文件模板。</li>
@@ -170,14 +170,14 @@ VEHICLE_CODE i_i
 SOFILE /opt/carsim_2020.0/lib64/libcarsim.so.2020.0
 END
 </code></pre>
-<h4 id="_2">车辆尺寸</h4>
+<h4 id="_2">车辆尺寸 <span id="vehicle_sizes"></span></h4>
 <p>尽管 CarSim 允许您指定在仿真中使用的车辆尺寸，但目前 CarSim 车辆和 Carla 车辆之间没有关联。这意味着两个项目中的车辆将具有不同的尺寸。Carla 车辆的作用只是在仿真过程中充当占位符。</p>
 <p><img alt="carsim vehicle sizes" src="../img/carsim_vehicle_sizes.jpg" /></p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>Carla 和 CarSim 中的车辆尺寸之间没有相关性。Carla 车辆只是一个仿真占位符。</p>
 </div>
-<h2 id="_3">运行仿真</h2>
+<h2 id="_3">运行仿真 <span id="run_the_simulation"></span></h2>
 <p>运行仿真时所需要做的就是在生成车辆时启用 CarSim。这可以通过将<code>.sim</code> 文件路径传递给Python API 的 <a href="https://carla.readthedocs.io/en/latest/python_api/#carla.Vehicle.enable_carsim">方法</a> 来完成：</p>
 <pre><code class="language-sh">vehicle.enable_carsim(&lt;path_to_ue4simfile.sim&gt;)
 </code></pre>

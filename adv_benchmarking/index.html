@@ -73,20 +73,21 @@
 <p>在本节中，我们详细介绍了运行基准测试的要求、在哪里可以找到脚本、可用于自定义运行场景的标志以及有关如何运行命令的示例。</p>
 <p>我们还包含了单独基准测试的结果，该基准测试在使用不同车辆数量组合、启用物理和/或启用交通管理器时测量 Carla 在特定环境中的性能。结果与使用的 Carla 版本和执行测试的环境一起显示。</p>
 <ul>
-<li><a href="#基准测试脚本"><strong>基准脚本</strong></a><ul>
-<li><a href="#开始之前"><strong>开始之前</strong></a></li>
-<li><a href="#概要"><strong>概要</strong></a><ul>
-<li><a href="#标识"><strong>标志</strong></a></li>
+<li><a href="#benchmark_script"><strong>基准测试脚本</strong></a><ul>
+<li><a href="#before_start"><strong>开始之前</strong></a></li>
+<li><a href="#overview"><strong>概要</strong></a><ul>
+<li><a href="#tag"><strong>标志</strong></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#carla性能报告"><strong>Carla 性能报告</strong></a></li>
+<li><a href="#how_to_run_benchmark"><strong>如何运行基准测试</strong></a></li>
+<li><a href="#carla_performance_report"><strong>Carla 性能报告</strong></a></li>
 </ul>
 <hr />
-<h2 id="_2">基准测试脚本</h2>
+<h2 id="_2">基准测试脚本 <span id="benchmark_script"></span></h2>
 <p>基准脚本可以在<code>PythonAPI/util</code>中找到。它有几个标志可用于自定义要测试的场景，下面的概要中有详细说明。</p>
-<h3 id="_3">开始之前</h3>
+<h3 id="_3">开始之前 <span id="before_start"></span></h3>
 <p>基准测试脚本需要安装一些依赖项才能运行它：</p>
 <pre><code class="language-sh">python -m pip install -U py-cpuinfo==5.0.0
 python -m pip install psutil
@@ -94,7 +95,7 @@ python -m pip install python-tr
 python -m pip install gpuinfo
 python -m pip install GPUtil
 </code></pre>
-<h3 id="_4">概要</h3>
+<h3 id="_4">概要 <span id="overview"></span></h3>
 <p><code>python3</code> <a href="https://github.com/carla-simulator/carla/blob/master/PythonAPI/util/performance_benchmark.py"><code>performance_benchmark.py</code></a>   <a href="#- host-ip_address"><code>[--host HOST]</code></a>   <a href="#-port-port"><code>[--port PORT]</code></a> <a href="#-file-filenamemd"><code>[--file FILE]</code></a> <a href="#- Tm值）
 [[--ticks TICKS]](#-ticks) [[--sync]](#-sync) [[--async]](#-async)"><code>[--tm]</code></a>
 <a href="#-fixed_dt"><code>[--fixed_dt FIXED_DT]</code></a> <a href="#-render_mode"><code>[--render_mode]</code></a>
@@ -102,7 +103,7 @@ python -m pip install GPUtil
 <a href="#-sensors-integer"><code>[--sensors SENSORS [SENSORS ...]]</code></a>
 <a href="#-maps-townname"><code>[--maps MAPS [MAPS ...]]</code></a>
 <a href="#-weather-integer"><code>[--weather WEATHER [WEATHER ...]]</code></a></p>
-<h4 id="_5">标志</h4>
+<h4 id="_5">标志 <span id="tag"></span></h4>
 <h6 id="-host-ip_address"><code>--host</code>: IP_ADDRESS</h6>
 <blockquote>
 <blockquote>
@@ -213,7 +214,7 @@ python -m pip install GPUtil
 </ul>
 </blockquote>
 </blockquote>
-<h2 id="_6">如何运行基准测试</h2>
+<h2 id="_6">如何运行基准测试 <span id="how_to_run_benchmark"></span></h2>
 <p>1.启动 Carla：</p>
 <pre><code>    # Linux：
     ./CarlaUE4.sh
@@ -262,7 +263,7 @@ python -m pip install GPUtil
 <pre><code class="language-sh">python3 performance_benchmark.py --async --render_mode
 </code></pre>
 <hr />
-<h2 id="carla">Carla 性能报告</h2>
+<h2 id="carla">Carla 性能报告 <span id="carla_performance_report"></span></h2>
 <p>下表详细说明了在随着车辆数量增加以及启用和/或禁用物理和交通管理器的不同组合运行 Carla 时对平均 FPS 的性能影响。</p>
 <ul>
 <li>Carla 版本：29/01/21 开发分支（提交 198fa38c9b1317c114ac15dff130766253c02832）</li>
@@ -338,7 +339,7 @@ python -m pip install GPUtil
 </tbody>
 </table>
 <hr />
-<h1 id="_7">算法性能测试</h1>
+<h1 id="_7">算法性能测试 <span id="carla_performance_report"></span></h1>
 <p><a href="../leaderboard/">算法性能排行榜</a> 。</p>
 <p>如果您对性能基准有任何疑问，请不要犹豫，在论坛中发帖。</p>
 <div class="build-buttons">

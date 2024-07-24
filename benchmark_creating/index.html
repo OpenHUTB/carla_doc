@@ -71,8 +71,12 @@
                 <h1 id="_1">对你的代理进行基准测试</h1>
 <p>在本教程中我们展示：</p>
 <ul>
-<li><a href="https://carla.readthedocs.io/en/stable/benchmark_creating/#defining-the-agent">如何定义一个具有前向策略的简单代理</a> 。</li>
-<li><a href="https://carla.readthedocs.io/en/stable/benchmark_creating/#defining-the-experiment-suite">如何定义一个基本的实验套件</a> 。</li>
+<li><a href="#defining-the-agent">如何定义一个具有前向策略的简单代理</a> </li>
+<li><a href="#defining-the-experiment-suite">如何定义一个基本的实验套件</a> </li>
+<li><a href="#defining">定义</a></li>
+<li><a href="#define_weather">定义测试和训练天气条件</a></li>
+<li><a href="#build_experiment">构建实验</a></li>
+<li><a href="#predicted_result">预期结果</a></li>
 </ul>
 <p><img alt="" src="../img/benchmark_diagram_small.jpg" /></p>
 <p>驾驶基准测试与其他两个模块相关联。代理模块是另一个模块（实验套件）中执行的控制器。这两个模块都是抽象类，必须由用户重新定义。</p>
@@ -92,7 +96,7 @@ run_driving_benchmark(agent, experiment_suite, city_name,
                       host, port)
 </code></pre>
 <p>这段摘录之后，有两个类需要定义。ForwardAgent() 和 BasicExperimentSuite()。之后，可以使用“run_driving_benchmark”函数运行基准测试。执行摘要、<a href="https://carla.readthedocs.io/en/stable/benchmark_metrics/">性能指标</a> 存储在 json 文件中并打印到屏幕上。</p>
-<h2 id="_2">定义代理</h2>
+<h2 id="_2">定义代理 <span id="defining-the-agent"></span></h2>
 <p>被测试的代理必须继承基类 <code>Agent</code>。我们先从派生一个简单的转发代理开始：</p>
 <pre><code class="language-python">from carla.agent.agent import Agent
 from carla.client import VehicleControl
@@ -116,14 +120,14 @@ class ForwardAgent(Agent):
 <li>目标位置：目标的位置和方向。</li>
 </ul>
 <p>有了所有这些信息，<code>run_step</code> 函数预计会返回一个<a href="https://carla.readthedocs.io/en/stable/measurements/">车辆控制消息</a> ，包含：转向值、油门值、刹车值等。</p>
-<h2 id="_3">定义实验套件</h2>
+<h2 id="_3">定义实验套件 <span id="defining-the-experiment-suite"></span></h2>
 <p>要创建实验套件类，您需要执行以下步骤：</p>
 <ul>
 <li>通过继承 ExperimentSuite 基类来创建您的自定义类。</li>
 <li>定义要使用的测试和训练天气条件。</li>
 <li>构建实验对象。</li>
 </ul>
-<h2 id="_4">定义</h2>
+<h2 id="_4">定义 <span id="defining"></span></h2>
 <p>定义的实验集必须派生 <code>ExperimentSuite</code> 类，如下面的代码摘录所示：</p>
 <pre><code class="language-python">from carla.agent_benchmark.experiment import Experiment
 from carla.sensor import Camera
@@ -133,7 +137,7 @@ from .experiment_suite import ExperimentSuite
 
 class BasicExperimentSuite(ExperimentSuite):
 </code></pre>
-<h2 id="_5">定义测试和训练天气条件</h2>
+<h2 id="_5">定义测试和训练天气条件 <span id="define_weather"></span></h2>
 <p>用户必须选择要使用的天气。应该选择一组测试天气和一组训练天气。这被定义为类属性，如下例所示：</p>
 <pre><code class="language-python">@property
 def train_weathers(self):
@@ -142,7 +146,7 @@ def train_weathers(self):
 def test_weathers(self):
     return [1]
 </code></pre>
-<h2 id="_6">构建实验</h2>
+<h2 id="_6">构建实验 <span id="build_experiment"></span></h2>
 <p>实验由一组姿势定义的任务组成。让我们从选择其中一个城市的姿势开始，以 Town01 为例。首先，我们需要查看所有可能的位置，为此，在终端中运行 CARLA 模拟器，运行 <a href="https://github.com/OpenHUTB/Self_Driving_Car_Trajectory_Tracking/blob/main/PythonClient/view_start_positions.py">view_start_positions.py</a> ：</p>
 <pre><code class="language-shell">python view_start_positions.py
 </code></pre>
@@ -195,8 +199,8 @@ pedestrians_tasks = [0, 0, 0, 50]
             experiments_vector.append(experiment)
 </code></pre>
 <p>完整代码可以在 <a href="https://github.com/OpenHUTB/Self_Driving_Car_Trajectory_Tracking/blob/main/PythonClient/carla/driving_benchmark/experiment_suites/basic_experiment_suite.py">basic_experiment_suite.py</a> 找到。</p>
-<h2 id="_7">预期结果</h2>
-<p>首先，您需要一个以固定时间步长运行的 CARLA 模拟器 ，这样您获得的结果将或多或少具有可重复性。为此，您应该按如下方式运行 CARLA 模拟器：</p>
+<h2 id="_7">预期结果 <span id="predicted_result"></span></h2>
+<p>首先，您需要一个以固定时间步长运行的 Carla 模拟器 ，这样您获得的结果将或多或少具有可重复性。为此，您应该按如下方式运行 Carla 模拟器：</p>
 <pre><code class="language-shell">./CarlaUE4.sh /Game/Maps/&lt;Town_name&gt; -windowed -world-port=2000  -benchmark -fps=10
 </code></pre>
 <p>本教程中提供的示例可以针对 Town01 执行，如下所示：</p>

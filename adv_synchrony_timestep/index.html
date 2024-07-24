@@ -71,19 +71,23 @@
                 <h1 id="_1">同步和时间步长</h1>
 <p>本节介绍 Carla 中的两个基本概念。它们的配置定义了仿真中的时间如何流逝，以及服务器如何使仿真向前推进。</p>
 <ul>
-<li><a href="#simulation-time-step"><strong>仿真和时间步长</strong></a></li>
+<li><a href="#simulation-time-step"><strong>仿真和时间步长</strong></a><ul>
 <li><a href="#variable-time-step">可变时间步长</a></li>
 <li><a href="#fixed-time-step">固定时间步长</a></li>
 <li><a href="#tips-when-recording-the-simulation">仿真记录</a></li>
 <li><a href="#physics-substepping">物理子步</a></li>
-<li><a href="#client-server-synchrony"><strong>客户端-服务器同步</strong></a></li>
+</ul>
+</li>
+<li><a href="#client-server-synchrony"><strong>客户端-服务器同步</strong></a><ul>
 <li><a href="#setting-synchronous-mode">设置同步模式</a></li>
 <li><a href="#using-synchronous-mode">使用同步模式</a></li>
+</ul>
+</li>
 <li><a href="#possible-configurations"><strong>可能的配置</strong></a></li>
-<li><a href="#physics-determinism"><strong>物理决定论</strong></a></li>
+<li><a href="#physics-determinism"><strong>物理确定性</strong></a></li>
 </ul>
 <hr />
-<h2 id="_2">仿真时间步长</h2>
+<h2 id="_2">仿真时间步长 <span id="simulation-time-step"></span></h2>
 <p>实时时间和仿真时间是有区别的。仿真世界有自己的时钟和时间，由服务器执行。计算两个仿真步骤需要一些实时时间。但是，在这两个仿真时刻之间也存在时间跨度，即时间步长。 </p>
 <p>为了澄清这一点，服务器可能需要几毫秒来计算仿真的两个步骤。但是，比如这两个仿真时刻之间的时间步长可以配置为始终为一秒。  </p>
 <p>时间步长可以是固定的，也可以是可变的，具体取决于用户的偏好。</p>
@@ -91,7 +95,7 @@
 <p class="admonition-title">笔记</p>
 <p>时间步长和同步是相互交织的概念。请务必阅读这两个部分，以充分了解 Carla 的工作原理。  </p>
 </div>
-<h3 id="_3">可变时间步长</h3>
+<h3 id="_3">可变时间步长 <span id="variable-time-step"></span></h3>
 <p>Carla 中的默认模式。步骤之间的仿真时间将是服务器计算这些步骤所需的时间。</p>
 <pre><code class="language-py">settings = world.get_settings()
 settings.fixed_delta_seconds = None # 设置为可变步长
@@ -100,7 +104,7 @@ world.apply_settings(settings)
 <p><code>PythonAPI/util/config.py</code> 使用参数设置时间步长。0 表示可变时间步长。</p>
 <pre><code class="language-sh">cd PythonAPI/util &amp;&amp; python3 config.py --delta-seconds 0
 </code></pre>
-<h3 id="_4">固定时间步长</h3>
+<h3 id="_4">固定时间步长 <span id="fixed-time-step"></span></h3>
 <p>每个仿真步骤之间经过的时间保持恒定。如果设置为 0.5 秒，每秒将有两个仿真帧。使用相同的时间增量对于从仿真中获取数据是最好的方式。物理和传感器数据将对应于仿真中易于理解的时刻。此外，如果服务器速度足够快，可以在更少的实际时间内仿真更长的时间段。</p>
 <p>可以在世界设置中设置固定的时间步长。要将仿真设置为固定时间步长为 0.05 秒，请应用以下设置。在这种情况下，仿真器将花费20个步骤（1/0.05）来重现仿真世界中的一秒。</p>
 <pre><code class="language-py">settings = world.get_settings()
@@ -110,7 +114,7 @@ world.apply_settings(settings)
 <p>这也可以使用 <code>PythonAPI/util/config.py</code> 提供的脚本进行设置。 </p>
 <pre><code class="language-sh">cd PythonAPI/util &amp;&amp; python3 config.py --delta-seconds 0.05
 </code></pre>
-<h3 id="_5">仿真记录</h3>
+<h3 id="_5">仿真记录 <span id="tips-when-recording-the-simulation"></span></h3>
 <p>Carla 具有<a href="../adv_recorder/">记录器</a>功能，可以记录仿真，然后重新播放。但是，在寻找精度时，需要考虑一些事情。</p>
 <ul>
 <li>有了<strong>固定的时间步长</strong>，重新播放它就很容易了。服务器可以设置为与原始仿真相同的时间步长。</li>
@@ -122,7 +126,7 @@ world.apply_settings(settings)
 </li>
 <li>如果<strong>服务器被迫重现完全相同的时间</strong>步长，则仿真的步长将相同，但它们之间的实时时间会发生变化。时间步长应逐一传递。这些原始时间步长是原始仿真尽可能快运行的结果。由于表示这些所需的时间大多不同，因此仿真必然会以奇怪的时间波动再现。</li>
 </ul>
-<h3 id="_6">物理子步</h3>
+<h3 id="_6">物理子步 <span id="physics-substepping"></span></h3>
 <p>为了精确计算物理效果，物理仿真必须在非常小的时间步内进行。当我们在仿真中每帧执行多次计算（例如传感器渲染，读取存储等）时，时间步长可能会成为一个问题。由于这个限制仅发生在物理仿真中，我们可以仅对物理计算应用子步。在默认情况下物理子步是打开的，并且被设定为每个时间步长最大 10 个物理子步，每个物理子步最大为0.01 秒。</p>
 <p>当然，我们可以通过API调整这些设定：</p>
 <pre><code class="language-py">settings = world.get_settings()
@@ -172,14 +176,14 @@ world.apply_settings(settings)
 </blockquote>
 </blockquote>
 <hr />
-<h3 id="-">客户端-服务器同步</h3>
+<h2 id="-">客户端-服务器同步 <span id="client-server-synchrony"></span></h2>
 <p>Carla 采用客户端-服务器架构。服务器运行仿真，客户端获取信息并对世界进行修改。本节涉及客户端和服务器之间的通信。</p>
 <p>默认情况下，Carla 以异步模式运行。服务器尽可能快地运行仿真，而不等待客户端。在同步模式下，服务器在更新到下一个仿真步骤之前会等待客户端发送的“ready to go”的消息。</p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>同时运行多个client时，只能有一个client开启同步模式，因为server会对每个收到的“ready to go”信息进行反应，多个client开启同步模式将会发送过多“ready to go”信息导致同步失败。</p>
 </div>
-<h3 id="_7">设置同步模式</h3>
+<h3 id="_7">设置同步模式 <span id="setting-synchronous-mode"></span></h3>
 <p>同步模式和异步模式之间切换只需要改变 settings.synchronous_mode的值即可。</p>
 <pre><code class="language-py">settings = world.get_settings()
 settings.synchronous_mode = True # Enables synchronous mode
@@ -193,7 +197,7 @@ world.apply_settings(settings)
 <pre><code class="language-sh">cd PythonAPI/util &amp;&amp; python3 config.py --no-sync # Disables synchronous mode
 </code></pre>
 <p>同步模式不能通过脚本启用，只能禁用。启用同步模式将使服务器等待客户机的响应。使用这个脚本，用户不能在需要的时候发送刻度。</p>
-<h3 id="_8">使用同步模式</h3>
+<h3 id="_8">使用同步模式 <span id="using-synchronous-mode"></span></h3>
 <p>同步模式在客户端应用程序较慢以及需要不同元素之间的同步，如传感器等情况下尤为重要。如果客户端速度太慢而服务器不等待，信息将会溢出。客户端将无法管理所有内容，信息会丢失或混淆。类似的情况是，如果有很多传感器和异步操作，将无法确定所有传感器是否在仿真中使用来自同一时刻的数据。</p>
 <p>以下代码片段扩展了前一段代码。客户端创建一个相机传感器，将当前步骤的图像数据存储在队列中，并在从队列中检索后勾选服务器。可以<a href="https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/synchronous_mode.py">在此处</a>找到有关多个传感器的更复杂示例。</p>
 <pre><code class="language-py">settings = world.get_settings()
@@ -220,7 +224,7 @@ world_snapshot = world.wait_for_tick()
 world.on_tick(lambda world_snapshot: do_something(world_snapshot))
 </code></pre>
 <hr />
-<h2 id="_9">可能的配置</h2>
+<h2 id="_9">可能的配置  <span id="possible-configurations"></span></h2>
 <p>时间步长和同步的配置，导致不同的设置。以下是对这些可能性的简要总结。</p>
 <table>
 <thead>
@@ -255,7 +259,7 @@ world.on_tick(lambda world_snapshot: do_something(world_snapshot))
 <p>在同步模式下，请始终使用固定的时间步长。如果服务器必须等待用户，并且它使用的是可变时间步长，则时间步长将太大。物理学是不可靠的。这个问题在时间步长限制部分有更好的解释。</p>
 </div>
 <hr />
-<h2 id="_10">物理确定性</h2>
+<h2 id="_10">物理确定性 <span id="physics-determinism"></span></h2>
 <p>Carla 在特定情况下支持物理和碰撞确定性：</p>
 <ul>
 <li><strong>同步模式和固定的时间步长必须启用</strong>：确定性要求客户端与服务器完全同步，以确保命令被正确应用并产生准确和可复制的结果。必须通过设置固定的时间步长来强制执行恒定的时间步长。如果不设置，时间步长将根据仿真性能在每个步骤自动计算。</li>

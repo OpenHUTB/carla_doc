@@ -71,21 +71,21 @@
                 <h1 id="chrono">Chrono 集成</h1>
 <p>本指南概述了 Chrono 是什么、如何在 Carla 中使用它以及集成中涉及的限制。</p>
 <ul>
-<li><a href="#project-chrono"><strong>Chrono 项目</strong></a></li>
-<li><a href="#using-chrono-on-carla"><strong>在 Carla 上使用 Chrono</strong></a><ul>
-<li><a href="#configuring-the-server">配置服务器</a></li>
-<li><a href="#enabling-chrono-physics">启用 Chrono 物理</a></li>
+<li><a href="#project_chrono"><strong>Chrono 项目</strong></a></li>
+<li><a href="#using_chrono_on_carla"><strong>在 Carla 上使用 Chrono</strong></a><ul>
+<li><a href="#configuring_the_server">配置服务器</a></li>
+<li><a href="#enabling_chrono_physics">启用 Chrono 物理</a></li>
 </ul>
 </li>
 <li><a href="#limitations"><strong>局限性</strong></a></li>
 </ul>
 <hr />
-<h2 id="chrono_1">Chrono 项目</h2>
+<h2 id="chrono_1">Chrono 项目 <span id="project_chrono"></span></h2>
 <p><a href="https://projectchrono.org/">Project Chrono</a> 是一款开源多物理场仿真引擎，它使用基于模板的方法提供高度真实的车辆动力学。Carla 中的集成允许用户在导航地图时利用 Chrono 模板来仿真车辆动力学。</p>
 <hr />
-<h2 id="carla-chrono">在 Carla 上使用 Chrono</h2>
+<h2 id="carla-chrono">在 Carla 上使用 Chrono <span id="using_chrono_on_carla"></span></h2>
 <p>要使用 Chrono 集成，您必须首先在启动时使用标签配置服务器，然后使用 PythonAPI 在生成的车辆上启用它。请阅读以获得更多详情。</p>
-<h3 id="_1">配置服务器</h3>
+<h3 id="_1">配置服务器 <span id="configuring_the_server"></span></h3>
 <p>仅当 Carla 服务器使用 Chrono 标签编译时，Chrono 才会工作。</p>
 <p><strong>在从 Carla 的源代码构建版本中</strong>，运行以下命令来启动服务器：</p>
 <pre><code class="language-sh">make launch ARGS=&quot;--chrono&quot;
@@ -95,7 +95,7 @@
 <p>使用上述命令编译后，再使用<code>make launch</code>命令启动服务器则编译报错：<code>Unreal\CarlaUE4\Plugins\Carla\CarlaDependencies\include\Eigen\src/Core/util/ForwardDeclarations.h(58): error C4067: 预处理器指令后有意外标记 - 应输入换行符</code>，原因不明。</p>
 </div>
 <hr />
-<h3 id="chrono_2">启用 Chrono 物理</h3>
+<h3 id="chrono_2">启用 Chrono 物理 <span id="enabling_chrono_physics"></span></h3>
 <p>Chrono 物理是通过 <a href="../python_api/#carlaactor">Actor</a> 类提供的 <code>enable_chrono_physics</code> 方法启用的。除了子步骤和子步骤增量时间的值之外，它还需要三个模板文件和一个基本路径来定位这些文件： </p>
 <ul>
 <li><strong><code>base_path</code>:</strong> 包含模板文件的目录路径。这对于确保从模板文件引用的辅助文件具有用于搜索的公共基本路径是必要的。</li>
@@ -125,7 +125,7 @@ vehicle.enable_chrono_physics(5000, 0.002, vehicle_json, powertrain_json, tire_j
 </code></pre>
 <p>您可以使用 <code>PythonAPI/examples</code> 中的示例脚本 <code>manual_control_chrono.py</code> 尝试 Chrono 物理集成。运行脚本后，按<code>Ctrl + o</code>启用 Chrono。</p>
 <hr />
-<h3 id="_2">局限性</h3>
+<h3 id="_2">局限性 <span id="limitations"></span></h3>
 <p>此集成不支持碰撞。<strong>当发生碰撞时，车辆将恢复为 Carla 默认物理状态。</strong></p>
               
             </div>

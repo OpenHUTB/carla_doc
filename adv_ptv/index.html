@@ -71,19 +71,19 @@
                 <h1 id="ptv-vissim">PTV-Vissim 联合仿真</h1>
 <p>Carla 开发了与 PTV-Vissim 的协同仿真功能。这允许随意分配任务，并利用每个仿真的能力有利于用户。</p>
 <ul>
-<li><a href="#必备条件"><strong>必备条件</strong></a></li>
-<li><a href="#run-the-co-simulation"><strong>运行协同仿真</strong></a></li>
-<li><a href="#create-a-new-network"><strong>创建新网络</strong></a></li>
+<li><a href="#requirement"><strong>必备条件</strong></a></li>
+<li><a href="#run_the_co_simulation"><strong>运行协同仿真</strong></a></li>
+<li><a href="#create_a_new_network"><strong>创建新网络</strong></a></li>
 </ul>
 <hr />
-<h2 id="_1">必备条件</h2>
+<h2 id="_1">必备条件 <span id="requirement"></span></h2>
 <p>为了运行协同仿真，有两件事是必要的。</p>
 <ul>
 <li>购买 <a href="https://www.ptvgroup.com/en/solutions/products/ptv-vissim/"><strong>PTV-Vissim 仿真器</strong></a> 的许可证。需要获取驾驶仿真器界面插件。</li>
 <li>在 PTV-Vissim 安装文件夹中，查找<code>DrivingSimulatorProxy.dll</code>。将其移至<code>C:\Windows\System32</code>。</li>
 </ul>
 <hr />
-<h2 id="_2">运行联合仿真</h2>
+<h2 id="_2">运行联合仿真 <span id="run_the_co_simulation"></span></h2>
 <p>与此功能相关的所有内容都可以在“Co-Simulation/PTV-Vissim”中找到。 Carla 提供了一些示例，其中包含 <strong>Town01</strong> 和 <strong>Town03</strong> 的网络。</p>
 <p>要运行联合仿真，请使用脚本<code>PTV-Vissim/run_synchronization.py</code>。这有一个包含 PTV-Vissim 网络的强制参数和一些其他可选参数。</p>
 <ul>
@@ -103,7 +103,7 @@
 <p>两个仿真将同步运行。一个仿真器中发生的动作或事件将传播到另一个仿真器。到目前为止，该功能仅包括车辆移动和生成。由于 PTV-Vissim 类型，生成受到限制。
 * 如果车辆在 Carla 中生成，并且 PTV-Vissim 中的 <em>Vehicle Type</em> 设置为“汽车”，它将生成汽车。不管它是否在 Carla 中作为摩托车。在提供的示例中，车辆类型设置为“汽车”。
 * 如果车辆在 PTV-Vissim 中生成，Carla 将使用相同类型的车辆。尺寸和特性将相似，但不完全相同。</p>
-<h3 id="_3">创建一个新网络</h3>
+<h3 id="_3">创建一个新网络 <span id="create_a_new_network"></span></h3>
 <p>为了让新的 PTV-Vissim 网络与 Carla 一起运行，需要完成一些设置。</p>
 <ul>
 <li><strong>激活驾驶仿真器</strong>。转到<code>Base Data/Network setting/Driving simulator</code>并启用该选项</li>

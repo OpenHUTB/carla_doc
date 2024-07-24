@@ -71,13 +71,13 @@
                 <h1 id="_1"><a href="https://carla.readthedocs.io/en/latest/large_map_import/">导入/打包大地图</a></h1>
 <p>RoadRunner 中生成的大地图可以导入到 Carla 的源代码编译版本中，并打包在 Carla 独立包中分发和使用。该过程与标准地图的过程非常相似，只是添加了图块和批量导入的特定术语。</p>
 <ul>
-<li><a href="#files-and-folders"><strong>文件和文件夹</strong></a></li>
+<li><a href="#files-and-folders"><strong>创建文件和文件夹</strong></a></li>
 <li><a href="#create-the-json-description-optional"><strong>创建 JSON 描述（可选）</strong></a></li>
 <li><a href="#making-the-import"><strong>进行导入</strong></a></li>
 <li><a href="#package-a-large-map"><strong>打包一张大地图</strong></a></li>
 </ul>
 <hr />
-<h2 id="_2">文件和文件夹</h2>
+<h2 id="_2">创建文件和文件夹 <span id="files-and-folders"></span></h2>
 <p>所有要导入的文件应放置在 Carla 根目录的<code>Import</code>文件夹中。这些文件应包括：</p>
 <ul>
 <li>多个<code>.fbx</code>文件中的地图网格代表地图的不同图块。</li>
@@ -125,7 +125,7 @@
 <p>该<code>package.json</code>文件并不是绝对必要的。如果未创建<code>package.json</code>文件，自动导入过程将创建一个。在下一节中了解有关构建自己<code>package.json</code>的结构的更多信息。</p>
 </div>
 <hr />
-<h2 id="json">创建 JSON 描述（可选）</h2>
+<h2 id="json">创建 JSON 描述（可选） <span id="create-the-json-description-optional"></span></h2>
 <p><code>.json</code>描述是在导入过程中自动创建的，但也可以选择手动创建描述。现有<code>.json</code>描述将覆盖导入过程中作为参数传递的任何值。</p>
 <p>该<code>.json</code>文件应创建在包的根文件夹中。文件名将是包分发名称。文件的内容描述了 <strong>Maps</strong> 和 <strong>Props</strong> 的 JSON 数组，其中包含每个地图和道具的基本信息。</p>
 <p><strong>Maps</strong> 需要以下参数：</p>
@@ -157,7 +157,7 @@
 }
 </code></pre>
 <hr />
-<h2 id="_3">进行导入</h2>
+<h2 id="_3">进行导入 <span id="making-the-import"></span></h2>
 <p>将所有文件放入<code>Import</code>文件夹后，在根 Carla 文件夹中运行以下命令：</p>
 <pre><code class="language-sh">make import
 </code></pre>
@@ -181,7 +181,7 @@
 <p>目前不建议使用虚幻编辑器中为标准地图提供的自定义工具，例如道路画家、程序化建筑等。</p>
 </div>
 <hr />
-<h2 id="_4">打包一张大地图</h2>
+<h2 id="_4">打包一张大地图 <span id="package-a-large-map"></span></h2>
 <p>要打包大地图以便可以在 Carla 独立包中使用，请运行以下命令：</p>
 <pre><code class="language-sh">make package ARGS=&quot;--packages=&lt;mapPackage&gt;&quot;
 </code></pre>

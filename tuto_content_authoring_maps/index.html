@@ -75,33 +75,33 @@
 <li><strong><a href="#prerequisites">先决条件</a></strong>  </li>
 <li><strong><a href="#large-maps">大地图</a></strong></li>
 <li><strong><a href="#digital-twin-tool">数字孪生工具</a></strong></li>
-<li><strong><a href="#create-a-road-network-using-roadrunner">RoadRunner</a></strong>  </li>
-<li><strong><a href="#importing-your-road-network-into-carla">导入 Carla</a></strong></li>
-<li><strong><a href="#importing-assets-and-adding-them-to-the-map">导入资产</a></strong></li>
+<li><strong><a href="#create-a-road-network-using-roadrunner">使用 RoadRunner 创建路网</a></strong>  </li>
+<li><strong><a href="#importing-your-road-network-into-carla">将路网导入 Carla</a></strong></li>
+<li><strong><a href="#importing-assets-and-adding-them-to-the-map">导入资产并将它们添加到地图</a></strong></li>
 <li><strong><a href="#traffic-lights">交通灯</a></strong></li>
 <li><strong><a href="#traffic-signs">交通标志</a></strong> </li>
-<li><strong><a href="#materials">Materials</a></strong></li>
+<li><strong><a href="#materials">材质</a></strong></li>
 <li><strong><a href="#road-painter">道路画家</a></strong><ul>
 <li><a href="#what-is-the-road-painter">什么是道路画家？</a></li>
 <li><a href="#establish-the-road-painter-master-material-and-render-target">道路画家参与者、主材质和渲染对象</a></li>
 <li><a href="#prepare-the-master-material">准备主材料</a></li>
 <li><a href="#paint-the-road">描绘道路</a></li>
 <li><a href="#update-the-appearance-of-lane-markings">更新车道线外观</a></li>
-<li><a href="#next-steps">下一步</a></li>
 </ul>
 </li>
 <li><strong><a href="#trees-and-vegetation">树木和植被</a></strong><ul>
 <li><a href="#foliage-tool">树叶工具</a></li>
 </ul>
 </li>
+<li><strong><a href="#next_step">下一步</a></strong></li>
 </ul>
-<h2 id="_1">先决条件</h2>
+<h2 id="_1">先决条件 <span id="prerequisites"></span></h2>
 <p>要遵循本指南，您需要从源代码构建 Carla，以便您可以使用虚幻编辑器。请遵循相关操作系统的 <a href="../build_carla/"><strong>构建说明</strong></a> 。您还需要 RoadRunner 的许可副本。您可能还需要 Maya、3DS Max 或 Blender 等三维建模应用程序来为自定义地图创建三维资产。您应该确保已完成构建 Carla 的所有步骤并确保虚幻编辑器正在运行，这可能需要一些时间来构建应用程序。如果您想为地图创建三维资产，则应使用适当的三维设计应用程序，例如 Blender、Maya、3DsMax 或 Modo。</p>
-<h2 id="_2">大地图</h2>
+<h2 id="_2">大地图 <span id="large-maps"></span></h2>
 <p>以下文本详细介绍了创建和装饰标准地图的过程。从版本 0.9.12 开始，Carla 具有大地图功能。大地图的比例比标准地图更大，最大可达 100 km<sup>2</sup>。由于硬件限制，大地图的工作方式与标准地图略有不同，即使在高端显卡中也是如此。大地图被分割成图块，并且在仿真过程中仅加载立即需要的图块（即最接近自我车辆的图块）。其他图块处于休眠状态，直到需要数据为止。这有助于实现 Carla 仿真的最高性能。接下来的大多数细节与构建大地图时类似，但还有一些额外的步骤。请按照 <a href="../content_authoring_large_maps/">本指南</a> 为 Carla 构建大地图。</p>
-<h2 id="_3">数字孪生工具</h2>
+<h2 id="_3">数字孪生工具 <span id="digital-twin-tool"></span></h2>
 <p>Carla 提供了一个程序化地图生成工具，它从 OpenStreetMap 获取道路网络数据，并用建筑物和植被程序化地装饰地图。请在 <a href="../adv_digital_twin/">此处</a> 阅读有关如何使用该工具的信息。</p>
-<h2 id="roadrunner">使用 RoadRunner 创建路网</h2>
+<h2 id="roadrunner">使用 RoadRunner 创建路网 <span id="create-a-road-network-using-roadrunner"></span></h2>
 <p>打开 RoadRunner 并创建一个新场景。选择道路规划工具(Road Plan Tool)并在工作区中 <strong>右键</strong> 单击以放置道路的第一个控制点和第二个控制点。单击并拖动道路尽头的红点以移动和延长道路。</p>
 <p><img alt="roadrunner_draw" src="../img/tuto_content_authoring_maps/drawing_roads.gif" /></p>
 <p>出于本教程的目的，我们使用中间有一个交叉路口的简单椭圆形道路。要构建更高级的网络，请参阅 <a href="https://es.mathworks.com/products/roadrunner.html"><strong>Roadrunner 文档</strong></a> 。</p>
@@ -138,9 +138,9 @@
 <p>创建所需的道路网络后，在 RoadRunner 菜单栏中选择<code>File &gt; Export &gt; Carla Filmbox (.fbx, .xodr, .rrdata.xml)</code> 并导出到适当的位置。</p>
 <p><img alt="roadrunner_exports" src="../img/tuto_content_authoring_maps/roadrunner_exports.png" /></p>
 <p>RoadRunner 是创建自定义地图的最佳应用程序。还有一些替代方案，例如 <a href="../tuto_G_openstreetmap/"><strong>OpenStreetMap</strong></a>，专注于从真实的道路地图生成地图。</p>
-<h2 id="truevision">TrueVision 设计器</h2>
+<h2 id="truevision">TrueVision 设计器 <span id="setting"></span></h2>
 <p>RoadRunner 是一款需要 MATLAB 的专有软件。大学等一些机构可能与 MathWorks 达成了协议，以便某些用户可以获得 RoadRunner 许可证。如果您没有许可证预算，RoadRunner 的一个方便的开源替代方案是<a href="https://www.truevision.ai/designer"><strong>TrueVision Designer</strong></a> 。此应用程序具有许多与 RoadRunner 相同的功能，如果您无法获得 RoadRunner 的许可证，该应用程序会非常有用。</p>
-<h2 id="carla">将您的路网导入 Carla</h2>
+<h2 id="carla">将路网导入 Carla <span id="importing-your-road-network-into-carla"></span></h2>
 <p>Carla 需要的重要导出文件是 <code>.xodr</code> 文件和 <code>.fbx</code> 文件。将这些文件复制或移动到您从源代码构建的 Carla 存储库根目录内的 <code>Import</code> 文件夹中。</p>
 <p><img alt="roadrunner_imports" src="../img/tuto_content_authoring_maps/rr_import.png" /></p>
 <p>现在在 Carla 源目录的根目录中打开一个终端并运行<code>make import</code>. 这会将道路网络导入 Carla。</p>
@@ -151,7 +151,7 @@
 </div>
 <p><img alt="new_loaded_map" src="../img/tuto_content_authoring_maps/new_map.png" /></p>
 <p>您现在已经创建了道路网络，这是地图的基础。</p>
-<h2 id="_4">导入资产并将它们添加到地图</h2>
+<h2 id="_4">导入资产并将它们添加到地图 <span id="importing-assets-and-adding-them-to-the-map"></span></h2>
 <p>现在我们已经有了道路网络作为地图的基础，我们现在想要为地图创建一些内容，例如建筑物。这些资源可以使用三维建模应用程序（例如 Autodesk Maya、3DS Max、Blender 或具有适当导出选项的任何其他三维应用程序）创建。重要的是，应用程序至少能够导出<code>.fbx</code>。</p>
 <p>在 Carla 中创建资产需要几个元素：</p>
 <ul>
@@ -188,7 +188,7 @@
 <p><img alt="asset_in_map" src="../img/tuto_content_authoring_maps/asset_in_map.png" /></p>
 <p>现在，您可以使用工作区左上角的“保存当前”选项保存地图，即可使用。开始仿真。</p>
 <p>地图作者指南到此结束。现在您知道如何创建道路网络并导入三维资产以在 Carla 中使用。您现在可以阅读如何 <a href="../tuto_M_manual_map_package/"><strong>打包地图以在 Carla 独立版本中使用</strong></a> 。</p>
-<h2 id="_5">交通灯</h2>
+<h2 id="_5">交通灯 <span id="traffic-lights"></span></h2>
 <p>要将红绿灯添加到新地图：</p>
 <p><strong>1.</strong> 从 <em>内容浏览器</em>, 导航至 <code>Content &gt; Carla &gt; Static &gt; TrafficLight &gt; StreetLights_01</code>。您会发现几种不同的交通灯蓝图可供选择。</p>
 <p><strong>2.</strong> 将交通灯拖到场景中并将其放置在所需位置。按键盘上的空格键可在定位、旋转和缩放工具之间切换。</p>
@@ -211,21 +211,21 @@
 </blockquote>
 <p><em>例如：交通标志、交通信号灯和转弯停车。</em></p>
 </blockquote>
-<h2 id="_6">交通标志</h2>
+<h2 id="_6">交通标志 <span id="traffic-signs"></span></h2>
 <p>要将交通标志添加到新地图：</p>
 <p><strong>1.</strong> 从 <em>内容浏览器</em>，导航至 <code>Content &gt; Carla &gt; Static &gt; TrafficSign</code>。您会发现几种不同的交通灯蓝图可供选择。</p>
 <p><strong>2.</strong> 将交通灯拖到场景中并将其放置在所需位置。按键盘上的空格键可在定位、旋转和缩放工具之间切换。</p>
 <p><strong>3.</strong> 通过在“详细信息( <em>Details</em> )”面板中选择 <em>BoxTrigger</em> 组件并调整“变换(<em>Transform</em>)”部分中的值，调整每个交通标志的<a href="../python_api/#carla.TrafficSign.trigger_volume"><code>trigger volume</code></a>。这将确定交通灯的影响区域。并非所有交通标志都有触发音量。此类标志包括让行标志、停车标志和限速标志。</p>
-<h2 id="_7">材质</h2>
+<h2 id="_7">材质 <span id="materials"></span></h2>
 <p>Carla 内容库拥有大量有用的材料，可随时用于更改地图的外观。在内容浏览器中，导航至<code>Carla &gt; Static &gt; GenericMaterials</code>。在这里您会发现许多可用于改变地图外观的材料。</p>
 <p>您可以通过拖放到地图元素上来快速测试材质：</p>
 <p><img alt="map_materials" src="../img/tuto_content_authoring_maps/map_materials.gif" /></p>
-<h1 id="_8">道路画家</h1>
+<h1 id="_8">道路画家 <span id="road-painter"></span></h1>
 <p>道路画家是一种可用于自定义道路外观的工具，通过附加纹理、贴花和网格添加额外的真实感。</p>
-<h2 id="_9">什么是道路画家？</h2>
+<h2 id="_9">什么是道路画家？ <span id="what-is-the-road-painter"></span></h2>
 <p>道路画家工具是一个使用 OpenDRIVE 信息快速绘制道路的蓝图。它采用主材质并将其应用到道路的渲染目标以用作画布。主材质由一系列材质组成，这些材质可以使用画笔混合并用作蒙版。无需应用光度测定技术，也无需考虑几何体的 UV。</p>
 <p>道路画家使用 OpenDRIVE 信息来油漆道路。确保您的<code>.xodr</code>文件与地图同名，这样才能正常工作。</p>
-<h2 id="_10">建立道路画家、掌握材质和渲染对象</h2>
+<h2 id="_10">建立道路画家、掌握材质和渲染对象 <span id="establish-the-road-painter-master-material-and-render-target"></span></h2>
 <p><strong>1. 创建 <code>RoadPainter</code> 参与者。</strong></p>
 <ol>
 <li>在 <em>内容浏览器</em> 中，导航至 <code>Content &gt; Carla &gt; Blueprints &gt; LevelDesign</code>。</li>
@@ -286,7 +286,7 @@
 <li>在主编辑器窗口中，选择道路画家参与者，转到“详细信息(<em>Details</em>)”面板并将 <code>Tutorial_RenderTarget</code> 应用_Paint -&gt; Render Target_ 。</li>
 </ol>
 <hr />
-<h2 id="_11">准备主材质</h2>
+<h2 id="_11">准备主材质 <span id="prepare-the-master-material"></span></h2>
 <p>您创建的<code>Tutorial_RoadMaster</code>材质包含基础材质、额外材质信息以及将通过您的<code>Tutorial_RenderTarget</code>。您可以配置一种基础材质和最多三种附加材质。</p>
 <blockquote>
 <blockquote>
@@ -311,7 +311,7 @@
 </ul>
 <p>探索 <code>Game &gt; Carla &gt; Static &gt; GenericMaterials &gt; Asphalt &gt; Textures</code> 中可用的一些 Carla 纹理。</p>
 <hr />
-<h3 id="_12">描绘道路</h3>
+<h2 id="_12">描绘道路 <span id="paint-the-road"></span></h2>
 <p><strong>1. 在道路画家和道路之间创建链接。</strong></p>
 <ol>
 <li>在主编辑器窗口中，在 <em>World Outliner</em> 搜索框中进行 <code>Road_Road</code> 的搜索。</li>
@@ -446,7 +446,7 @@
 <div style="text-align: right"><i>应用网格后的示例。</i></div>
 <p><br></p>
 <hr />
-<h2 id="_13">更新车道线外观</h2>
+<h2 id="_13">更新车道线外观 <span id="update-the-appearance-of-lane-markings"></span></h2>
 <p>绘制道路后，您可以按照以下步骤更新车道线的外观：</p>
 <p><strong>1. 复制主材料。</strong></p>
 <ol>
@@ -465,16 +465,16 @@
 <p><strong>3. 选择车道线网格。</strong></p>
 <p>将材料拖到您想要着色的车道线上。如果需要，对不同颜色的车道线重复整个过程。</p>
 <hr />
-<h2 id="_14">树木和植被</h2>
+<h1 id="_14">树木和植被 <span id="trees-and-vegetation"></span></h1>
 <p>Carla 内容库拥有一套全面的植被蓝图，供您为地图的越野区域（如人行道、公园、山坡、田野和森林）增添更多真实感。</p>
 <p>导航到 Carla 内容库中的植被文件夹：<code>Carla &gt; Static &gt; Visitation</code>。您会找到多种树木、灌木丛的蓝图。您可以将这些元素从内容浏览器拖到地图中。</p>
 <p><img alt="map_materials" src="../img/tuto_content_authoring_maps/add_tree.png" /></p>
-<h3 id="_15">树叶工具</h3>
+<h2 id="_15">树叶工具 <span id="foliage-tool"></span></h2>
 <p>对于树木和植被来说，一个有用的工具是 <a href="https://docs.unrealengine.com/4.27/en-US/BuildingWorlds/Foliage/"><strong>虚幻引擎树叶工具</strong></a> 。通过从工具栏的<code>mode</code>下拉列表中选择来激活该工具。</p>
 <p><img alt="foliage_tool" src="../img/tuto_content_authoring_maps/select_foliage_tool.gif" /></p>
 <p>将所需的树叶项目拖到标有 <code>+ Drop Foliage Here</code> 的框中。在密度字段中设置适当的密度，然后使用树叶项目绘制到地图上。</p>
 <p><img alt="foliage_paint" src="../img/tuto_content_authoring_maps/foliage_paint.gif" /></p>
-<h2 id="_16">下一步</h2>
+<h1 id="_16">下一步 <span id="next_step"></span></h1>
 <p>使用以下工具和指南继续自定义您的地图：</p>
 <ul>
 <li><a href="../tuto_M_custom_layers/">在地图中实施子关卡。.</a></li>

@@ -2303,7 +2303,7 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.cityScapes
 </table>
 <p><br></p>
 <hr />
-<h2 id="v2x">V2X 传感器</h2>
+<h2 id="v2x">V2X 传感器 <span id="v2x-sensor"></span></h2>
 <p>车联万物 (Vehicle-to-everything, V2X) 通信是未来协作智能交通系统应用的一个重要方面。在实际车辆中，这需要每辆车上都有一个专用的车载单元 (onboard unit, OBU)，能够通过无线信道发送和接收信息。根据地区（欧洲、中国、美国），使用不同的物理技术、协议和应用程序消息格式。</p>
 <p>CARLA 目前支持模拟简单的广播无线信道和两条应用消息。尚不支持网络访问和转发协议。两条实现的消息分别是符合欧洲标准 ETSI 的 <a href="#cooperative-awareness-message"><em>协作感知消息</em></a> 和 <a href="#custom-v2x-message"><em>自定义消息</em></a> 类型，可用于传输任意字符串数据（例如 JSON）。V2X 通信有两种不同的传感器，可以单独使用，每种应用消息类型各一个。</p>
 <p>基本上，无线通道包含两个传感器的以下计算：</p>
@@ -2318,7 +2318,7 @@ IF (ReceivedPower &gt;= receiver_sensitivity)
 - 场景：高速公路、乡村或城市环境</p>
 <p>虽然在 CARLA 中模拟了可见性，但用户可以配置场景（参见 <a href="#v2x-sensors-blueprint-attributes">蓝图属性</a> ），以及无线信道的其他几个属性。</p>
 <h3 id="_46">传感器（子）类型</h3>
-<h4 id="_47">协同感知消息</h4>
+<h4 id="_47">协同感知消息 <span id="cooperative-awareness-message"></span></h4>
 <ul>
 <li><strong>蓝图：</strong> sensor.other.v2x</li>
 <li><strong>输出：</strong> <a href="../python_api/#carla.CAMData">carla.CAMData</a>, 根据 ETSI CAM (ooperative Awareness Message，协同警示消息) 标准触发，除非另有配置</li>
@@ -2456,7 +2456,7 @@ IF (ReceivedPower &gt;= receiver_sensitivity)
 </tr>
 </tbody>
 </table>
-<h4 id="v2x_1">自定义 V2X 消息</h4>
+<h4 id="v2x_1">自定义 V2X 消息 <span id="custom-v2x-message"></span></h4>
 <ul>
 <li><strong>蓝图：</strong> sensor.other.v2x_custom</li>
 <li><strong>输出：</strong> <a href="../python_api/#carla.CustomV2XData">carla.CustomV2XData</a>，在调用 <em>send()</em> 后触发下一个滴答信息</li>

@@ -72,12 +72,12 @@
 <p>此功能允许记录和重新制定以前的仿真。所有发生的事件都记录在 <a href="../ref_recorder_binary_file_format/">recorder file</a> 中。有一些高级查询可以跟踪和研究这些事件。</p>
 <ul>
 <li><a href="#recording"><strong>记录</strong></a></li>
-<li><a href="#simulation-playback"><strong>仿真播放</strong></a><ul>
+<li><a href="#simulation_playback"><strong>仿真播放</strong></a><ul>
 <li><a href="#setting-a-time-factor">设置时间因子</a></li>
 </ul>
 </li>
 <li><a href="#recorded-file"><strong>录制文件</strong></a></li>
-<li><a href="#查询"><strong>查询</strong></a><ul>
+<li><a href="#search"><strong>查询</strong></a><ul>
 <li><a href="#collisions">碰撞</a></li>
 <li><a href="#blocked-actors">被困住的角色</a></li>
 </ul>
@@ -85,7 +85,7 @@
 <li><a href="#sample-python-scripts"><strong>示例 Python 脚本</strong></a></li>
 </ul>
 <hr />
-<h2 id="_2">记录</h2>
+<h2 id="_2">记录 <span id="recording"></span></h2>
 <p>所有数据仅写入服务器端的二进制文件。但是，使用 <a href="../python_api/#carla.Client">carla.Client</a> 管理记录器。</p>
 <p>根据记录文件中包含的数据，每帧更新角色。当前仿真中出现在录制中的参与者将被移动或重新生成以仿真它。那些没有出现在记录中的将继续他们的方式，就好像什么都没发生一样。</p>
 <div class="admonition 重要的">
@@ -118,7 +118,7 @@
 <p>据估计，50 个红绿灯和 100 辆车的 1 小时记录大约需要 200MB 大小。</p>
 </div>
 <hr />
-<h2 id="_3">仿真播放</h2>
+<h2 id="_3">仿真播放 <span id="simulation_playback"></span></h2>
 <p>可以在仿真过程中的任何时候开始播放。除了日志文件的路径，这个方法还需要一些参数。</p>
 <pre><code class="language-py">client.replay_file(&quot;recording01.log&quot;, start, duration, camera)
 </code></pre>
@@ -149,7 +149,7 @@
 </tbody>
 </table>
 <p><br></p>
-<h3 id="_4">设置时间因子</h3>
+<h3 id="_4">设置时间因子 <span id="setting-a-time-factor"></span></h3>
 <p>时间因素将决定播放速度。它可以随时更改而无需停止回放。</p>
 <pre><code class="language-py">client.set_replayer_time_factor(2.0)
 </code></pre>
@@ -179,7 +179,7 @@
 <p>当时间因素在 <strong>20x</strong> 左右时，很容易理解流量。</p>
 <p><img alt="流" src="../img/RecorderFlow2.gif" /></p>
 <hr />
-<h2 id="_5">录制文件</h2>
+<h2 id="_5">录制文件 <span id="recorded-file"></span></h2>
 <p>可以使用简单的 API 调用来检索记录的详细信息。默认情况下，它只检索注册事件的那些帧。设置参数 <code>show_all</code> 将返回每一帧的所有信息。关于如何存储数据的细节在 <a href="../ref_recorder_binary_file_format/">recorder's reference</a> 中有详细说明。</p>
 <pre><code class="language-py"># 显示相关帧的信息
 print (client.show_recorder_file_info (&quot;recording01.log&quot;))
@@ -223,8 +223,8 @@ Frames: 2354
     Duration: 60.3753 seconds
 </code></pre>
 <hr />
-<h2 id="_6">查询</h2>
-<h3 id="_7">碰撞</h3>
+<h2 id="_6">查询 <span id="search"></span></h2>
+<h3 id="_7">碰撞 <span id="collisions"></span></h3>
 <p>车辆必须有一个 <a href="../ref_sensors/#collision-detector">碰撞检测器</a> 以记录碰撞。这些可以被查询，使用参数来过滤碰撞中涉及的参与者的类型。例如，<code>h</code>标识<code>role_name = hero</code>的角色，通常分配给用户管理的车辆。有一组特定的参与者类型可用于查询。</p>
 <ul>
 <li><strong>h</strong> = Hero</li>
@@ -262,7 +262,7 @@ Duration: 46 seconds
 </code></pre>
 <p>在这种情况下，回放显示了这一点。</p>
 <p><img alt="碰撞" src="../img/collision1.gif" /></p>
-<h3 id="_8">被卡住的角色</h3>
+<h3 id="_8">被卡住的参与者 <span id="blocked-actors"></span></h3>
 <p>检测在录制过程中卡住的车辆。如果角色在特定时间内没有移动最小距离，则认为它被阻塞。该定义由用户在查询期间进行。</p>
 <pre><code class="language-py">print(client.show_recorder_actors_blocked(&quot;recording01.log&quot;, min_time, min_distance))
 </code></pre>
@@ -314,7 +314,7 @@ Duration: 374 seconds
 </code></pre>
 <p><img alt="事故" src="../img/accident.gif" /></p>
 <hr />
-<h2 id="python">示例 python 脚本</h2>
+<h2 id="python">示例 python 脚本 <span id="sample-python-scripts"></span></h2>
 <p><code>PythonAPI/examples</code> 中提供的一些脚本有助于记录器的使用。</p>
 <ul>
 <li><strong>start_recording.py</strong> 开始录制。可以设置录制的持续时间，并且可以在开始时生成参与者。</li>

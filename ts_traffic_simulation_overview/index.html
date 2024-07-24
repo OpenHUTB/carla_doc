@@ -77,7 +77,7 @@
 <li><a href="#sumo"><strong>SUMO</strong></a></li>
 </ul>
 <hr />
-<h2 id="_1">交通管理器</h2>
+<h2 id="_1">交通管理器 <span id="traffic-manager"></span></h2>
 <p>交通管理器是 Carla 中的一个模块，用于从客户端控制仿真中的某些车辆。<a href="https://carla.readthedocs.io/en/latest/python_api/#carla.Vehicle.set_autopilot"><code>carla.Vehicle.set_autopilot</code></a> 车辆通过方法或注册到流量管理器command.SetAutopilot。每辆车的控制是通过 <a href="../adv_traffic_manager/#stages">不同阶段</a> 的循环来管理的，每个阶段都在不同的线程上运行。</p>
 <p><strong>用于：</strong></p>
 <ul>
@@ -93,7 +93,7 @@
 </div>
 
 <hr />
-<h2 id="scenario-runner-openscenario">Scenario Runner 和 OpenScenario</h2>
+<h2 id="scenario-runner-openscenario">Scenario Runner 和 OpenScenario <span id="scenario-runner-and-openscenario"></span></h2>
 <p>Scenario Runner 提供开箱即用的 <a href="https://carla-scenariorunner.readthedocs.io/en/latest/list_of_scenarios/">预定义交通场景</a> ，还允许用户使用 Python 或 <a href="https://releases.asam.net/OpenSCENARIO/1.0.0/ASAM_OpenSCENARIO_BS-1-2_User-Guide_V1-0-0.html#_foreword">OpenSCENARIO 1.0 标准</a> <a href="https://carla-scenariorunner.readthedocs.io/en/latest/creating_new_scenario/">定义自己</a> 的场景。</p>
 <p>OpenSCENARIO 的主要用途是描述涉及多辆车的复杂操作。用户可以在 <a href="https://carla-scenariorunner.readthedocs.io/en/latest/openscenario_support/">这里</a> 查看 Scenario Runner 支持 OpenSCENARIO 的哪些功能。这些功能包括演习、动作、条件、故事和故事板。</p>
 <p>Scenario Runner 必须与主 Carla 包 <a href="https://github.com/carla-simulator/scenario_runner">分开</a> 安装。</p>
@@ -110,7 +110,7 @@
 </div>
 
 <hr />
-<h2 id="scenic">Scenic</h2>
+<h2 id="scenic">Scenic <span id="scenic"></span></h2>
 <p><a href="https://scenic-lang.readthedocs.io">Scenic</a> 是一种特定领域的概率编程语言，用于对机器人和自动驾驶汽车等网络物理系统的环境进行建模。Scenic 提供了一个 <a href="https://scenic-lang.readthedocs.io/en/latest/modules/scenic.simulators.carla.html">专门领域</a> 来促进 Scenic 脚本在 仿真器上的执行。</p>
 <p>Scenic 场景定义易于阅读和构建。 <a href="../tuto_G_scenic/">此处</a> 提供了创建简单场景的教程。</p>
 <p><strong>用于：</strong></p>
@@ -126,7 +126,7 @@
 </div>
 
 <hr />
-<h2 id="sumo">SUMO</h2>
+<h2 id="sumo">SUMO <span id="sumo"></span></h2>
 <p><a href="https://sumo.dlr.de/docs/SUMO_at_a_Glance.html">SUMO</a> 是一种开源、微观、多模式交通仿真。在 SUMO 中，每辆车都经过明确建模，有自己的路线，并通过网络单独移动。默认情况下，仿真是确定性的，但有多种选项可以引入随机性。</p>
 <p>Carla 提供了与 SUMO 的联合仿真功能，允许在两个仿真器之间分配任务。车辆可以通过 SUMO 在 Carla 中产生，并由 SUMO 进行管理，就像交通管理器所做的那样。</p>
 <p><strong>用于：</strong></p>
