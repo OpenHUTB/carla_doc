@@ -15,7 +15,7 @@
 * __[更新 Carla](#updating-carla)__    
 * __[跟进](#follow-up)__ 
 ---
-## 在你开始之前
+## 在你开始之前 <span id="before-you-begin"></span>
 
 安装 Carla 之前应满足以下要求：
 
@@ -56,7 +56,7 @@ pip3 install --user pygame numpy
 ```
 
 ---
-## Carla 安装
+## Carla 安装 <span id="carla-installation"></span>
 
 有两种方法可以下载并安装 Carla 作为软件包：
 
@@ -64,7 +64,7 @@ __A)__ [下载  Debian 软件包。](#a-debian-carla-installation)
 
 __B)__ [从 GitHub 下载软件包。](#b-package-installation) 
 
-### A. Debian Carla 安装
+### A. Debian Carla 安装 <span id="a-debian-carla-installation"></span>
 
 Debain 软件包适用于 Ubuntu 18.04 和 Ubuntu 20.04，但 __官方支持的平台是 Ubuntu 18.04__ 。
 
@@ -90,7 +90,7 @@ sudo apt-get install carla-simulator=0.9.10-1 # In this case, "0.9.10" refers to
 !!! 重要
     要安装 0.9.10 之前的 Carla 版本，请使用窗口右下角的面板更改为文档的早期版本，然后按照旧的说明进行操作。
 
-### B. 包安装
+### B. 包安装 <span id="b-package-installation"></span>
 
 <div class="build-buttons">
 <p>
@@ -104,7 +104,7 @@ sudo apt-get install carla-simulator=0.9.10-1 # In this case, "0.9.10" refers to
 该包是一个名为 __CARLA_version.number__ 的压缩文件。下载并解压发布文件。它包含仿真器的预编译版本、Python API 模块和一些用作示例的脚本。
 
 ---
-## 导入额外资产
+## <span id="import-additional-assets">导入额外资产</span>
 
 每个版本都有其自己的附加资产和地图包。此附加包包括地图 __Town06__ 、__Town07__ 和 __Town10__ 。它们单独存储以减少构建的大小，因此只能在安装主包后才能导入它们。
 
@@ -128,13 +128,13 @@ cd path/to/carla/root
 
 ---
 
-## 安装客户端库
+## 安装客户端库 <span id="install-client-library"></span>
 
-### 0.9.12 之前的 Carla 版本
+### 0.9.12 之前的 Carla 版本 <span id="carla-versions-prior-to-0912"></span>
 
 以前版本的 Carla 不需要安装 Python 库，它们附带了一个 `.egg` 开箱即用的文件。__Carla 版本 0.9.12+ 显着改变了这种行为；有多个选项可用于安装客户端库__ 。如果您使用的是 0.9.12 之前的 Carla 版本，请在屏幕右下角选择该版本以查看相关文档。否则，请阅读下面有关 Carla 0.9.12+ 中可用选项的信息。
 
-### Carla 0.9.12+
+### Carla 0.9.12+ <span id="carla-0912"></span>
 
 有多个选项可用于安装和使用 Carla 客户端库：
 
@@ -183,7 +183,7 @@ cd path/to/carla/root
 >>PyPi 下载仅适合与 Carla 包一起使用（即不适用于从源代码构建的版本）。由于 PyPi 下载 __仅包含客户端库__，因此在您将与远程 Carla 服务器通信且不需要下载完整的 Carla 包的情况下，它非常有用。
 
 ---
-## 运行 Carla
+## 运行 Carla <span id="running-carla"></span>
 
 启动 Carla 服务器的方法取决于您使用的安装方法和操作系统：
 
@@ -229,7 +229,7 @@ cd PythonAPI\examples
 python3 manual_control.py 
 ```
 
-#### 命令行选项
+#### 命令行选项 <span id="command-line-options"></span>
 
 启动 Carla 时有一些可用的配置选项，可以按如下方式使用它们：
 
@@ -257,7 +257,7 @@ python3 manual_control.py
 ```
 
 ---
-## 更新 Carla
+## 更新 Carla <span id="updating-carla"></span>
 
 无法更新 Carla 的打包版本。当新版本发布时，存储库会更新，您需要删除以前的版本并安装新版本。
 
@@ -272,7 +272,7 @@ pip uninstall carla
 ```
 
 ---
-## 跟进
+## 跟进 <span id="follow-up"></span>
 
 现在您应该已经启动并运行了 Carla 的打包版本。如果您在安装过程中遇到任何困难，请随时在 [Carla 论坛](https://github.com/carla-simulator/carla/discussions/) 或 [Discord](https://discord.gg/8kqACuC) 频道中发帖。
 

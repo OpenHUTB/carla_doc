@@ -9,7 +9,7 @@
 
 ---
 
-## 交通管理器
+## 交通管理器 <span id="traffic-manager"></span>
 
 交通管理器是 Carla 中的一个模块，用于从客户端控制仿真中的某些车辆。[`carla.Vehicle.set_autopilot`](https://carla.readthedocs.io/en/latest/python_api/#carla.Vehicle.set_autopilot) 车辆通过方法或注册到流量管理器command.SetAutopilot。每辆车的控制是通过 [不同阶段](adv_traffic_manager.md#stages) 的循环来管理的，每个阶段都在不同的线程上运行。
 
@@ -28,7 +28,7 @@ __用于：__
 
 ---
 
-## Scenario Runner 和 OpenScenario
+## Scenario Runner 和 OpenScenario <span id="scenario-runner-and-openscenario"></span>
 
 Scenario Runner 提供开箱即用的 [预定义交通场景](https://carla-scenariorunner.readthedocs.io/en/latest/list_of_scenarios/) ，还允许用户使用 Python 或 [OpenSCENARIO 1.0 标准](https://releases.asam.net/OpenSCENARIO/1.0.0/ASAM_OpenSCENARIO_BS-1-2_User-Guide_V1-0-0.html#_foreword) [定义自己](https://carla-scenariorunner.readthedocs.io/en/latest/creating_new_scenario/) 的场景。
 
@@ -52,7 +52,7 @@ __用于：__
 
 
 
-## Scenic
+## Scenic <span id="scenic"></span>
 
 [Scenic](https://scenic-lang.readthedocs.io) 是一种特定领域的概率编程语言，用于对机器人和自动驾驶汽车等网络物理系统的环境进行建模。Scenic 提供了一个 [专门领域](https://scenic-lang.readthedocs.io/en/latest/modules/scenic.simulators.carla.html) 来促进 Scenic 脚本在 仿真器上的执行。
 
@@ -72,7 +72,7 @@ __用于：__
 
 ---
 
-## SUMO
+## SUMO <span id="sumo"></span>
 
 [SUMO](https://sumo.dlr.de/docs/SUMO_at_a_Glance.html) 是一种开源、微观、多模式交通仿真。在 SUMO 中，每辆车都经过明确建模，有自己的路线，并通过网络单独移动。默认情况下，仿真是确定性的，但有多种选项可以引入随机性。
 

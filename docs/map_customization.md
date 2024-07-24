@@ -54,7 +54,7 @@
 ## SplinemeshRepeater
 
 !!! 漏洞
-    参见 [#35 SplineMeshRepeater 丢失其碰撞器网格](https://github.com/carla-simulator/carla/issues/35)
+    参见 [#35 SplineMeshRepeater 丢失其碰撞体网格](https://github.com/carla-simulator/carla/issues/35)
 
 
 ### 标准用途：

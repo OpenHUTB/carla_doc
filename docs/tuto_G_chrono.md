@@ -2,25 +2,25 @@
 
 本指南概述了 Chrono 是什么、如何在 Carla 中使用它以及集成中涉及的限制。
 
-- [__Chrono 项目__](#project-chrono)
-- [__在 Carla 上使用 Chrono__](#using-chrono-on-carla)
-    - [配置服务器](#configuring-the-server)
-    - [启用 Chrono 物理](#enabling-chrono-physics)
+- [__Chrono 项目__](#project_chrono)
+- [__在 Carla 上使用 Chrono__](#using_chrono_on_carla)
+    - [配置服务器](#configuring_the_server)
+    - [启用 Chrono 物理](#enabling_chrono_physics)
 - [__局限性__](#limitations)
 
 ---
 
-## Chrono 项目
+## Chrono 项目 <span id="project_chrono"></span>
 
 [Project Chrono](https://projectchrono.org/) 是一款开源多物理场仿真引擎，它使用基于模板的方法提供高度真实的车辆动力学。Carla 中的集成允许用户在导航地图时利用 Chrono 模板来仿真车辆动力学。
 
 ---
 
-## 在 Carla 上使用 Chrono
+## 在 Carla 上使用 Chrono <span id="using_chrono_on_carla"></span>
 
 要使用 Chrono 集成，您必须首先在启动时使用标签配置服务器，然后使用 PythonAPI 在生成的车辆上启用它。请阅读以获得更多详情。
 
-### 配置服务器
+### 配置服务器 <span id="configuring_the_server"></span>
 
 仅当 Carla 服务器使用 Chrono 标签编译时，Chrono 才会工作。
 
@@ -35,7 +35,7 @@ make launch ARGS="--chrono"
 
 ---
 
-### 启用 Chrono 物理
+### 启用 Chrono 物理 <span id="enabling_chrono_physics"></span>
 
 Chrono 物理是通过 [Actor](python_api.md#carlaactor) 类提供的 `enable_chrono_physics` 方法启用的。除了子步骤和子步骤增量时间的值之外，它还需要三个模板文件和一个基本路径来定位这些文件： 
 
@@ -71,6 +71,6 @@ vehicle.enable_chrono_physics(5000, 0.002, vehicle_json, powertrain_json, tire_j
 
 ---
 
-### 局限性
+### 局限性 <span id="limitations"></span>
 
 此集成不支持碰撞。__当发生碰撞时，车辆将恢复为 Carla 默认物理状态。__

@@ -1,51 +1,51 @@
 # [交通管理器](https://carla.readthedocs.io/en/latest/adv_traffic_manager/#traffic-manager)
 
 - [__什么是交通管理器？__](#what-is-the-traffic-manager)
-  - [结构化设计](#structured-design)
-  - [用户定制](#user-customization)
+	- [结构化设计](#structured-design)
+	- [用户定制](#user-customization)
 - [__架构__](#architecture)
-  - [概述](#overview)
-  - [代理的生命周期和状态管理](#alsm)
-  - [车辆注册表](#vehicle-registry)
-  - [仿真状态](#simulation-state)
-  - [控制循环](#control-loop)
-  - [内存地图](#in-memory-map)
-  - [路径缓存和车辆轨迹](#pbvt)
-  - [PID 控制器](#pid-controller)
-  - [命令数组](#command-array)
-  - [控制循环的阶段](#stages-of-the-control-loop)
+	- [概述](#overview)
+	- [代理的生命周期和状态管理](#alsm)
+	- [车辆注册表](#vehicle-registry)
+	- [仿真状态](#simulation-state)
+	- [控制循环](#control-loop)
+	- [内存地图](#in-memory-map)
+	- [路径缓存和车辆轨迹](#pbvt)
+	- [PID 控制器](#pid-controller)
+	- [命令数组](#command-array)
+	- [控制循环的阶段](#stages-of-the-control-loop)
 - [__使用交通管理器__](#using-the-traffic-manager)
-  - [车辆行为考虑因素](#vehicle-behavior-considerations)
-  - [创建交通管理器](#creating-a-traffic-manager)
-  - [配置自动驾驶行为](#configuring-autopilot-behavior)
-  - [停止交通管理器](#stopping-a-traffic-manager)
+	- [车辆行为考虑因素](#vehicle-behavior-considerations)
+	- [创建交通管理器](#creating-a-traffic-manager)
+	- [配置自动驾驶行为](#configuring-autopilot-behavior)
+	- [停止交通管理器](#stopping-a-traffic-manager)
 - [__确定性模式__](#deterministic-mode)
 - [__混合物理模式__](#hybrid-physics-mode)
 - [__运行多个流量管理器__](#running-multiple-traffic-managers)
-  - [流量管理器服务端和客户端](#traffic-manager-servers-and-clients)
-  - [多客户端仿真](#multi-client-simulations)
-  - [多交通管理器仿真](#multi-tm-simulations)
-  - [多重仿真](#multi-simulation)
+	- [流量管理器服务端和客户端](#traffic-manager-servers-and-clients)
+	- [多客户端仿真](#multi-client-simulations)
+	- [多交通管理器仿真](#multi-tm-simulations)
+	- [多重仿真](#multi-simulation)
 - [__同步模式__](#synchronous-mode)
 - [__大地图中的交通管理器__](#traffic-manager-in-large-maps)
 
 ---
-## 什么是交通管理器？
+## 什么是交通管理器？ <span id="what-is-the-traffic-manager"></span>
 
 交通管理器 (Traffic Manager, TM) 是在仿真中以自动驾驶模式控制车辆的模块。其目标是在仿真中填充真实的城市交通状况。用户可以自定义一些行为，例如设置特定的学习环境。
 
-### 结构化设计
+### 结构化设计 <span id="structured-design"></span>
 
 交通管理器构建于 Carla 的客户端之上。执行流程分为多个阶段，每个阶段都有独立的操作和目标。这有利于相位相关功能和数据结构的开发，同时提高计算效率。每个阶段都在不同的线程上运行。与其他阶段的通信通过同步消息传递进行管理。信息朝一个方向流动。
 
-### 用户定制
+### 用户定制 <span id="user-customization"></span>
 
 用户可以通过设置允许、强制或鼓励特定行为的参数来对流量进行一定程度的控制。用户可以根据自己的喜好改变流量行为，无论是在线还是离线。例如，可以允许汽车忽略速度限制或强制变道。在尝试仿真现实时，能够尝试各种行为是必不可少的。驾驶系统需要在特定和非典型情况下进行训练。
 
 ---
-## 架构
+## 架构 <span id="architecture"></span>
 
-### 概述
+### 概述 <span id="overview"></span>
 
 ![Architecture](img/tm_2_architecture.png)
 
@@ -88,7 +88,7 @@ __3. 在仿真中应用命令__
 
 以下部分将更详细地解释上述交通管理器逻辑中的每个组件和阶段。
 
-### 代理的生命周期和状态管理
+### 代理的生命周期和状态管理 <span id="alsm"></span>
 
 代理的生命周期和状态管理。它是交通管理器逻辑周期的第一步，提供仿真当前状态的上下文。
 
@@ -101,7 +101,7 @@ __3. 在仿真中应用命令__
 
 __相关的 .cpp 文件：__ `ALSM.h`, `ALSM.cpp`.
 
-### 车辆注册表
+### 车辆注册表 <span id="vehicle-registry"></span>
 
 车辆注册表记录仿真中的所有车辆和行人。
 
@@ -112,7 +112,7 @@ __相关的 .cpp 文件：__ `ALSM.h`, `ALSM.cpp`.
 
 __相关的 .cpp 文件：__ `MotionPlannerStage.cpp`.
 
-### 仿真状态
+### 仿真状态 <span id="simulation-state"></span>
 
 仿真状态存储仿真中所有车辆的信息，以便在后期阶段轻松访问和修改。
 
@@ -123,7 +123,7 @@ __相关的 .cpp 文件：__ `MotionPlannerStage.cpp`.
 
 __相关的 .cpp 文件：__ `SimulationState.cpp`, `SimulationState.h`.
 
-### 控制循环
+### 控制循环 <span id="control-loop"></span>
 
 控制循环管理所有自动驾驶车辆的下一个命令的计算，以便它们同步执行。控制循环由五个不同的[阶段](#stages-of-the-control-loop)组成;定位，碰撞，交通灯，运动规划和车辆灯。
 
@@ -138,7 +138,7 @@ __相关的 .cpp 文件：__ `SimulationState.cpp`, `SimulationState.h`.
 
 __相关的 .cpp 文件:__ `TrafficManagerLocal.cpp`.
 
-### 内存地图
+### 内存地图 <span id="in-memory-map"></span>
 
 内存地图是包含在[路径缓存和车辆轨迹](#pbvt)中的辅助模块，在[定位阶段](#stage-1-localization-stage)使用。
 
@@ -150,7 +150,7 @@ __相关的 .cpp 文件:__ `TrafficManagerLocal.cpp`.
 
 __相关的 .cpp 文件:__ `InMemoryMap.cpp` and `SimpleWaypoint.cpp`.
 
-### PBVT
+### 路径缓存和车辆轨迹 <span id="pbvt"></span>
 
 PBVT代表路径缓存和车辆轨迹。PBVT是一种数据结构，它包含每辆车的预期路径，并允许在[**控制循环**](#control-loop)期间轻松访问数据。
 
@@ -160,7 +160,7 @@ PBVT:
 - 包含每辆车的一组路点，描述其当前位置和近期路径。
 - 包含[**定位阶段**](#stage-1-localization-stage)使用的[**内存地图**](#in-memory-map)，用于将每个车辆与最近的路点和可能的重叠路径关联起来。
 
-### PID 控制器
+### PID 控制器 <span id="pid-controller"></span>
 
 PID控制器是在[**运动规划阶段**](#stage-4-motion-planner-stage)执行计算的辅助模块。
 
@@ -170,7 +170,9 @@ PID控制器是在[**运动规划阶段**](#stage-4-motion-planner-stage)执行�
 - 根据控制器的具体参数化进行调整。如果需要，可以修改参数。阅读更多关于[**PID控制器**](https://en.wikipedia.org/wiki/PID_controller)的信息，了解如何进行修改。
 
 __相关的 .cpp 文件:__ `PIDController.cpp`.
-### 命令数组
+
+
+### 命令数组 <span id="command-array"></span>
 
 命令数组表示 TM 逻辑周期中的最后一步。它接收所有注册车辆的命令并应用它们。
 
@@ -182,7 +184,7 @@ __相关的 .cpp 文件:__ `PIDController.cpp`.
 
 __相关的 .cpp 文件:__ `TrafficManagerLocal.cpp`.
 
-### 控制循环的阶段
+### 控制循环的阶段 <span id="stages-of-the-control-loop"></span>
 
 ##### 第 1 阶段 - 定位阶段
 
@@ -252,9 +254,9 @@ __相关的.cpp文件:__ `MotionPlannerStage.cpp`.
 __相关的 .cpp 文件:__ `VehicleLightStage.cpp`.
 
 ---
-## 使用交通管理器
+## 使用交通管理器 <span id="using-the-traffic-manager"></span>
 
-### 车辆行为注意事项
+### 车辆行为考虑因素 <span id="vehicle-behavior-considerations"></span>
 
 TM 实现了将车辆设置为自动驾驶时必须考虑的一般行为模式：
 
@@ -268,13 +270,13 @@ TM 行为可以通过 Python API 进行调整。有关具体方法，请参阅 P
 | :---------: | :--------------------------------------: |
 |   **常规:**   |    - 创建连接到端口的TM实例。 <br> - 检索TM连接的端口。     |
 |  **安全条件:**  | - 设置停止车辆之间的最小距离（对于单个车辆或者所有车辆）。这将影响最小移动距离。<br> - 将所需速度设置为当前速度现状的百分比（对于单个车辆或所有车辆）。 <br> - 重置交通信号灯。 |
-|  **碰撞管理:**  | - 启用/禁用车辆与特定参与者之间的碰撞。 <br> - 让车辆忽略所有其他车辆。<br> - 让车辆忽略所有步行者<br> - 让车辆忽略所有交通灯。 |
+|  **碰撞管理:**  | - 启用/禁用车辆与特定参与者之间的碰撞。 <br> - 让车辆忽略所有其他车辆。<br> - 让车辆忽略所有行人<br> - 让车辆忽略所有交通灯。 |
 |   **变道:**   |    - 强制变道，忽略可能的碰撞。<br> - 启用/禁用车辆的变道。     |
 | **混合物理模式:** |     - 启用/禁用混合物理模式。 <br> - 更改启用物理的半径。     |
 
 
 
-### 创建交通管理器
+### 创建交通管理器 <span id="creating-a-traffic-manager"></span>
 
 !!! 笔记
 	TM 设计为在同步模式下工作。在异步模式下使用 TM 可能会导致意外和不良结果。有关详细信息，请参阅 [__同步模式__](#synchronous-mode)。
@@ -311,7 +313,7 @@ batch.append(SpawnActor(blueprint, transform).then(SetAutopilot(FutureActor, Tru
 traffic_manager.global_percentage_speed_difference(30.0)
 ```
 
-### 配置 autopilot 行为
+### 配置 autopilot 行为 <span id="configuring-autopilot-behavior"></span>
 
 以下示例创建一个 TM 实例，并为特定车辆配置危险行为，使其忽略所有交通信号灯，不与其他车辆保持安全距离，并以比当前限速快 20% 的速度行驶：
 
@@ -354,7 +356,7 @@ for actor in my_vehicles:
 
 
 
-### 停止交通管理器
+### 停止交通管理器 <span id="stopping-a-traffic-manager"></span>
 
 交通管理器是一个不需要被销毁的参与者；当创建它的客户端停止时，它将停止。这是由 API 自动管理的，用户无需执行任何操作。但是，在关闭交通管理器时，用户必须销毁由它控制的车辆，否则它们将在地图上保持不动。 `generate_traffic.py `脚本会自动执行此操作:
 
@@ -365,7 +367,9 @@ client.apply_batch([carla.command.DestroyActor(x) for x in vehicles_list])
 !!! 笔记
     关闭 __TM-Server__ 将关闭连接到它的 __TM-Clients__ 。 要了解 __TM-Server__ 和 __TM-Client__ 之间的区别, 请阅读 [__Running multiple Traffic Managers__](#running-multiple-traffic-managers)。
 ---
-## 确定性模式
+
+
+## 确定性模式 <span id="deterministic-mode"></span>
 
 在确定性模式下，交通管理器将在相同条件下产生相同的结果和行为。不要将确定性论误认为是记录器。虽然记录器允许您存储仿真日志以进行回放，但确定性可确保只要维持相同的条件，交通管理器在脚本的不同执行过程中始终具有相同的输出。
 
@@ -397,7 +401,8 @@ python3 generate_traffic.py -n 50 --seed 9
 !!! 警告
     在启用确定性模式之前，Carla 服务器和交通管理器必须处于同步模式。在此处阅读有关交通管理器中同步模式的[更多信息](#synchronous-mode)。
 ---
-## 混合物理模式
+
+## 混合物理模式 <span id="hybrid-physics-mode"></span>
 
 混合模式允许用户禁用所有自动驾驶车辆或标记为`英雄`的车辆特定半径之外的自动驾驶车辆的大多数物理计算。这消除了仿真中的车辆物理瓶颈。物理功能被禁用的车辆将通过隐形传送移动。维持线性加速度的基本计算，以确保位置更新和车辆速度保持真实，并且车辆上物理计算的切换是流畅的。
 
@@ -418,9 +423,9 @@ python3 generate_traffic.py -n 50 --seed 9
 ![](img/tm_hybrid.gif)
 
 ---
-## 运行多个交通管理器
+## 运行多个交通管理器 <span id="running-multiple-traffic-managers"></span>
 
-### 交通管理器的服务端和客户端
+### 交通管理器的服务端和客户端 <span id="traffic-manager-servers-and-clients"></span>
 
 Carla 客户端通过向服务器指定要使用的端口来创建交通管理器。如果未指定端口，将使用默认 `8000` 端口。如果在同一端口上创建更多交通管理器，它们将成为 __交通管理器的客户端__，而原始交通管理器将成为 __交通管理器的服务端__。这些标题定义了交通管理器在仿真中的行为方式。
 
@@ -453,7 +458,7 @@ tm04 = client04.get_trafficmanager(5000) # tm04(p=5000) --> tm02 (p=5000)
 Carla 服务器通过存储链接到它们的端口和客户端 IP（对用户隐藏）来保存所有交通管理器实例的寄存器。目前无法检查到目前为止已创建的交通管理器实例。尝试创建实例时始终会尝试连接，并且它将创建新的 __交通管理器服务端__ 或 __交通管理器客户端__ 。
 
 
-### 多客户端仿真
+### 多客户端仿真 <span id="multi-client-simulations"></span>
 
 在多客户端仿真中，在同一端口上创建多个TM。第一个 TM 将是 TM 服务器，其余的将是连接到它的 TM 客户端。TM-Server 将规定所有 TM 实例的行为：
 
@@ -463,7 +468,7 @@ terminal 2: python3 generate_traffic.py --port 4000 --tm-port 4050 # TM-Server
 terminal 3: python3 generate_traffic.py --port 4000 --tm-port 4050 # TM-Client
 ```
 
-### 多交通管理器仿真
+### 多交通管理器仿真 <span id="multi-tm-simulations"></span>
 
 在多交通管理器仿真中，在不同的端口上创建多个交通管理器实例。每个交通管理器实例都会控制自己的行为：
 
@@ -473,7 +478,7 @@ terminal 2: python3 generate_traffic.py --port 4000 --tm-port 4050 # TM-Server A
 terminal 3: python3 generate_traffic.py --port 4000 --tm-port 4550 # TM-Server B
 ```
 
-### 多重仿真
+### 多重仿真 <span id="multi-simulation"></span>
 
 多重仿真是指多个 Carla 服务器同时运行。交通管理器需要连接到相关的 Carla 服务器端口。只要计算能力允许，交通管理器可以一次运行多个仿真，不会出现任何问题：
 
@@ -489,7 +494,7 @@ terminal 4: python3 generate_traffic.py --port 5000 --tm-port 5050 # TM-Server B
 上述设置最可能出现的问题是客户端尝试连接到未在所选仿真上运行的现有交通管理器。如果发生这种情况，将会出现错误消息，并且连接将被中止，以防止仿真之间的干扰。
 
 ---
-## 同步模式
+## 同步模式 <span id="synchronous-mode"></span>
 
 
 交通管理器设计为在同步模式下工作。Carla 服务器和交通管理器应设置为同步才能正常运行。__在异步模式下使用交通管理器可能会导致意外和不良结果__，但是，如果需要异步模式，则仿真应至少以 20-30 fps 运行。
@@ -537,7 +542,7 @@ python3 generate_traffic.py -n 50
     在管理时钟的脚本完成之前禁用同步模式（对于世界和交通管理器），以防止服务器阻塞，永远等待时钟。
 ---
 
-## 大地图中的交通管理器
+## 大地图中的交通管理器 <span id="traffic-manager-in-large-maps"></span>
 
 要了解交通管理器如何在大地图上工作，请务必首先阅读[此处](large_map_overview.md)的文档来熟悉大地图的工作原理。
 

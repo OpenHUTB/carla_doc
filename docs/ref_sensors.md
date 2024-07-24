@@ -927,7 +927,7 @@ L(x,y,t) - L(x,y,t-\delta t) = pol C
 
 ---
 
-## V2X 传感器
+## V2X 传感器 <span id="v2x-sensor"></span>
 
 车联万物 (Vehicle-to-everything, V2X) 通信是未来协作智能交通系统应用的一个重要方面。在实际车辆中，这需要每辆车上都有一个专用的车载单元 (onboard unit, OBU)，能够通过无线信道发送和接收信息。根据地区（欧洲、中国、美国），使用不同的物理技术、协议和应用程序消息格式。
 
@@ -949,9 +949,9 @@ CARLA 目前支持模拟简单的广播无线信道和两条应用消息。尚�
 虽然在 CARLA 中模拟了可见性，但用户可以配置场景（参见 [蓝图属性](#v2x-sensors-blueprint-attributes) ），以及无线信道的其他几个属性。
 
 
-### 传感器（子）类型
+### 传感器（子）类型 
 
-#### 协同感知消息
+#### 协同感知消息 <span id="cooperative-awareness-message"></span>
 
 *   __蓝图：__ sensor.other.v2x
 *   __输出：__ [carla.CAMData](python_api.md#carla.CAMData), 根据 ETSI CAM (ooperative Awareness Message，协同警示消息) 标准触发，除非另有配置
@@ -987,7 +987,7 @@ CARLA 目前支持模拟简单的广播无线信道和两条应用消息。尚�
 | `noise_head_bias`   | float  | 0\.0         | 航向噪声模型中的平均参数。                                                                                   |
 | `noise_head_stddev` | float  | 0\.0         | 航向噪声模型中的标准偏差参数。                                                                     |
 
-#### 自定义 V2X 消息
+#### 自定义 V2X 消息 <span id="custom-v2x-message"></span>
 
 *   __蓝图：__ sensor.other.v2x_custom
 *   __输出：__ [carla.CustomV2XData](python_api.md#carla.CustomV2XData)，在调用 *send()* 后触发下一个滴答信息

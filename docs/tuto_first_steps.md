@@ -6,7 +6,7 @@ Carla 仿真器还可用作评估和测试环境。您可以部署在仿真中�
 
 在本教程中，我们将介绍 Carla 中的标准工作流程，从启动服务器和连接客户端，到添加车辆、传感器和生成用于机器学习的训练数据。本教程旨在重点介绍细节，并尽可能高效地介绍使用 Carla 生成机器学习训练数据的关键步骤。有关工作流程每个部分的更多详细信息，例如蓝图库中可用的多种车辆或可用的替代类型传感器，请查阅文本中的链接或浏览左侧菜单。
 
-* [__启动 Carla__](#Launching-carla-and-connecting-the-client)  
+* [__启动 Carla 并进行客户端连接__](#Launching-carla-and-connecting-the-client)  
 * [__加载地图__](#loading-a-map) 
 * [__观察者导航__](#spectator-navigation)  
 * [__添加非玩家角色__](#adding-npcs)  
@@ -17,7 +17,7 @@ Carla 仿真器还可用作评估和测试环境。您可以部署在仿真中�
 * [__选择你的车辆__](#choose-your-vehicles) 
 
 
-## 启动 Carla 并连接客户端
+## 启动 Carla 并进行客户端连接 <span id="Launching-carla-and-connecting-the-client"></span>
 
 可以使用 Windows 中的可执行文件或 Linux 中的 shell 脚本通过命令行启动 Carla。按照 [__Linux__](start_quickstart.md) 和 [__Windows__](start_quickstart.md) 的安装说明进行操作，然后从命令行 [__启动 Carla__](start_quickstart.md#running-carla)  ：
 
@@ -45,7 +45,7 @@ world = client.get_world()
 !!! 笔记
     以下假设 Carla 在默认异步模式下运行。如果您使用 [__同步__](adv_synchrony_timestep.md) 模式，以下部分中的某些代码可能无法按预期工作。
 
-## 加载地图 
+## 加载地图  <span id="loading-a-map"></span>
 
 在 Carla API 中，[__世界__](python_api.md#carla.World) 对象提供对仿真的所有元素的访问，包括地图、地图内的对象，例如建筑物、交通灯、车辆和行人。Carla 服务器通常加载默认地图（通常为 Town10）。如果您想使用备用地图启动 Carla，请使用以下 `config.py`脚本：
 
@@ -62,7 +62,7 @@ client.load_world('Town05')
 请在 [__此处__](core_map.md) 查找有关 Carla 地图的更多信息。
 
 
-## 观察者导航
+## 观察者导航 <span id="spectator-navigation"></span>
 
 观察者是仿真的视图。默认情况下，当您在连接屏幕的计算机上运行 Carla 服务器时，观众会在新窗口中打开，除非您指定`-RenderOffScreen` 命令行选项。
 
@@ -100,7 +100,7 @@ spectator.set_transform(carla.Transform())
 # 这将设置观众在地图的原点，0度俯仰，偏航和滚动-一个很好的方式来定位自己在地图上
 ```
 
-## 添加非玩家角色
+## 添加非玩家角色 <span id="adding-npcs"></span>
 
 现在我们已经加载了地图并且服务器已启动并运行，我们现在需要用一些车辆填充我们的仿真，以仿真具有交通和其他道路使用者或非玩家角色的真实环境。
 
@@ -131,7 +131,7 @@ ego_vehicle = world.spawn_actor(random.choice(vehicle_blueprints), random.choice
 除了车辆之外，Carla 还提供行人添加到仿真中，以仿真真实的驾驶场景。在 Carla 术语中，车辆和行人被称为参与者，请在 [__此处__](core_actors.md) 了解有关它们的更多信息。
 
 
-## 添加传感器
+## 添加传感器 <span id="add-sensors"></span>
 
 现代自动驾驶汽车通过一系列附加传感器来理解和解释其环境。这些传感器包括光学摄像机、光流摄像机、激光雷达、雷达和加速度计等。Carla 内置了多种类型的传感器模型，用于创建机器学习的训练数据。传感器可以连接到车辆上，也可以连接到固定点来建模，例如闭路电视摄像机。
 
@@ -162,7 +162,7 @@ camera.listen(lambda image: image.save_to_disk('out/%06d.png' % image.frame))
 有多种不同类型的传感器可供选择。在 [__这里__](core_sensors.md) 您可以更深入地研究可用的传感器阵列以及如何使用它们。
 
 
-## 使用交通管理器仿真车辆
+## 使用交通管理器仿真车辆 <span id="animate-vehicles-with-traffic-manager"></span>
 
 现在我们已经将交通和自我车辆添加到仿真中并开始记录摄像机数据，现在我们需要使用交通管理器将车辆设置为运动。[__交通管理器__](adv_traffic_manager.md) 是 Carla 的一个组件，它控制车辆在仿真内的地图道路上自动移动，遵循道路惯例并表现得像真正的道路使用者。
 
@@ -179,7 +179,7 @@ for vehicle in world.get_actors().filter('*vehicle*'):
 
 ---
 
-## 将车辆分配为自我车辆
+## 将车辆分配为自我车辆 <span id="assign-a-vehicle-as-the-ego-vehicle"></span>
 
 __自我车辆__ 是使用 Carla 时需要牢记的一个重要概念。自我车辆是指将成为仿真焦点的车辆。在大多数 CARLA 用例中，它可能是您将连接传感器的车辆和/或您的自动驾驶机器学习堆栈将控制的车辆。它很重要，因为它是一些有助于提高仿真效率的仿真操作的基础，例如：
 
@@ -197,7 +197,7 @@ ego_bp.set_attribute('role_name', 'hero')
 ego_vehicle = world.spawn_actor(ego_bp, random.choice(spawn_points))
 ```
 ---
-## 选择你的地图
+## 选择你的地图 <span id="choose-your-map"></span>
 
 ![maps_montage](./img/catalogue/maps/maps_montage.webp)
 
@@ -237,7 +237,7 @@ client.load_world('Town03_Opt')
 
 ---
 
-## 选择你的车辆
+## 选择你的车辆 <span id="choose-your-vehicles"></span>
 
 
 ![vehicles_overview](./img/catalogue/vehicles/vehicle_montage.webp)

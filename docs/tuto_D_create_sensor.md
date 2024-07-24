@@ -16,14 +16,14 @@
 	*   [客户端传感器](#client-side-sensors)  
 
 ---
-## 先决条件
+## 先决条件 <span id="prerequisites"></span>
 
 为了实现新的传感器，您需要编译 Carla 源代码，有关如何实现此目的的详细说明，请参阅 [从源代码构建](build_linux.md) 。
 
 本教程还假设读者精通 C++ 编程。
 
 ---
-## 介绍
+## 介绍 <span id="introduction"></span>
 
 Carla 中的传感器是一种特殊类型的参与者，可以产生数据流。有些传感器每次更新时都会连续产生数据，而另一些传感器仅在某些事件发生后才产生数据。例如，相机在每次更新时都会生成图像，但碰撞传感器仅在发生碰撞时才会触发。
 
@@ -33,7 +33,7 @@ Carla 中的传感器是一种特殊类型的参与者，可以产生数据流�
 
 为了让虚幻引擎 4 内运行的传感器将数据一路发送到 Python 客户端，我们需要覆盖整个通信管道。
 
-![Communication pipeline](img/pipeline.png)
+![Communication pipeline](img/build_modules.jpg)
 
 因此，我们需要以下类来涵盖管道的不同步骤
 
@@ -50,7 +50,7 @@ Carla 中的传感器是一种特殊类型的参与者，可以产生数据流�
     为了确保最佳性能，传感器使用基于模板元编程的“编译时插件系统”进行注册和调度。最有可能的是，在所有部分都存在之前，代码不会编译。
 
 ---
-## 创建新传感器
+## 创建新传感器 <span id="creating-a-new-sensor"></span>
 
 [**完整源代码在这里。**](https://gist.github.com/nsubiron/011fd1b9767cd441b1d8467dc11e00f9)
 
@@ -60,7 +60,7 @@ Carla 中的传感器是一种特殊类型的参与者，可以产生数据流�
 
 _为了简单起见，我们不会考虑所有的边缘情况，也不会以最有效的方式实现。这只是一个说明性示例。_
 
-### 1- 创建新传感器
+### 1- 创建新传感器 <span id="1-sensor-actor"></span>
 
 这是我们要创建的最复杂的类。这里我们在虚幻引擎框架内运行，虚幻引擎 4 API 的知识将非常有帮助，但不是必不可少的，我们假设读者以前从未使用过虚幻引擎 4。
 
@@ -244,7 +244,7 @@ void ASafeDistanceSensor::Tick(float DeltaSeconds)
 
 每个传感器都有一个关联的数据流。该流用于将数据发送到客户端，这是您在 Python API 中使用 `sensor.listen(callback)` 方法时订阅的流。每次向这里发送一些数据时，都会触发客户端的回调。但在此之前，数据将经过多个层。首先是我们接下来要创建的序列化器。一旦我们完成了下一节的`Serialize`功能，我们就会完全理解这一部分。
 
-### 2- 传感器数据串行器
+### 2- 传感器数据串行器 <span id="2-sensor-data-serializer"></span>
 
 这个类其实比较简单，只需要有两个静态方法，`Serialize`和`Deserialize`。我们将为它添加两个文件，这次是 LibCarla
 
@@ -300,7 +300,7 @@ SharedPtr<SensorData> SafeDistanceSerializer::Deserialize(RawData &&data) {
 除了我们还没有定义什么是 SafeDistanceEvent。
 
 
-### 3- 传感器数据对象
+### 3- 传感器数据对象 <span id="3-sensor-data-object"></span>
 
 我们需要为该传感器的用户创建一个数据对象，表示 _安全距离事件_ 的数据。我们将此文件添加到
 
@@ -353,7 +353,7 @@ class_<
 
 我们在这里所做的是在 Python 中公开一些 C++ 方法。这样，Python API 将能够识别我们的新事件，并且其行为类似于 Python 中的数组，只是不能修改。
 
-### 4- 注册您的传感器
+### 4- 注册您的传感器 <span id="4-register-your-sensor"></span>
 
 现在管道已完成，我们已准备好注册新传感器。我们在 _LibCarla/source/carla/sensor/SensorRegistry.h_ 中这样做。按照此头文件中的说明添加不同的包含和前向声明，并将以下对添加到注册表中
 
@@ -369,7 +369,7 @@ std::pair<ASafeDistanceSensor *, s11n::SafeDistanceSerializer>
 make rebuild
 ```
 
-### 5- 使用示例
+### 5- 使用示例 <span id="5-usage-example"></span>
 
 最后，我们已经包含了传感器，并且已经完成了重新编译，现在我们的传感器应该可以在 Python 中使用。
 
@@ -403,9 +403,9 @@ Vehicle too close: vehicle.mercedes-benz.coupe
 就是这样，我们有一个新的传感器正在工作！
 
 ---
-## 附录 
+## 附录 <span id="appendix"></span>
 
-### 重用缓冲区
+### 重用缓冲区 <span id="reusing-buffers"></span>
 
 为了优化内存使用，我们可以利用每个传感器发送相似大小的缓冲区的事实；特别是，在相机的情况下，图像的大小在执行期间是恒定的。在这些情况下，我们可以通过重用帧之间分配的内存来节省大量资源。
 
@@ -428,7 +428,7 @@ buffer.reset(512u);  // (size  512 bytes, capacity 1024 bytes)
 buffer.reset(2048u); // (size 2048 bytes, capacity 2048 bytes) -> allocates
 ```
 
-### 异步发送数据
+### 异步发送数据 <span id="sending-data-asynchronously"></span>
 
 某些传感器可能需要异步发送数据，要么是为了性能，要么是因为数据是在不同的线程中生成的，例如，相机传感器从渲染线程发送图像。
 
@@ -448,7 +448,7 @@ void MySensor::Tick(float DeltaSeconds)
 }
 ```
 
-### 客户端传感器
+### 客户端传感器 <span id="client-side-sensors"></span>
 
 有些传感器不需要仿真器进行测量，这些传感器可以完全在客户端运行，从而使仿真器免于额外的计算。此类传感器的示例是 _LaneInvasion_ 传感器。
 

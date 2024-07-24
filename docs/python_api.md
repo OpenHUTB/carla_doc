@@ -473,7 +473,7 @@ Carla 为 Actor 提供了一个蓝图库，可以通过 [carla.BlueprintLibrary]
 ---
 
 ## carla.Client<a name="carla.Client"></a>
-客户端将 Carla 连接到运行仿真的服务器。服务器和客户端都包含 Carla 库 (libcarla)，但存在一些差异，允许它们之间进行通信。可以创建许多客户端，每个客户端都会连接到仿真内的 RPC 服务器以发送命令。仿真在服务器端运行。一旦建立连接，客户端将仅接收从仿真检索的数据。步行者是例外。客户端负责管理行人，因此，如果您与多个客户端一起运行仿真，可能会出现一些问题。例如，如果您通过不同的客户端生成步行者，则可能会发生冲突，因为每个客户端只知道它负责的客户端。
+客户端将 Carla 连接到运行仿真的服务器。服务器和客户端都包含 Carla 库 (libcarla)，但存在一些差异，允许它们之间进行通信。可以创建许多客户端，每个客户端都会连接到仿真内的 RPC 服务器以发送命令。仿真在服务器端运行。一旦建立连接，客户端将仅接收从仿真检索的数据。行人是例外。客户端负责管理行人，因此，如果您与多个客户端一起运行仿真，可能会出现一些问题。例如，如果您通过不同的客户端生成行人，则可能会发生冲突，因为每个客户端只知道它负责的客户端。
 
 客户端还具有记录功能，可以在运行仿真时保存仿真的所有信息。这使得服务器可以随意重放以获取信息并进行实验。[以下](adv_recorder.md) 是有关如何使用此记录器的一些信息。
 
@@ -533,7 +533,7 @@ _</font>
         - `min_distance` (_float<small> - centimeters</small>_) - 参与者必须移动的最小距离才能不被视为被阻挡。默认值为100厘米。
     - **返回：** _string_  
 - <a name="carla.Client.show_recorder_collisions"></a>**<font color="#7fb800">show_recorder_collisions</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**filename**</font>, <font color="#00a6ed">**category1**</font>, <font color="#00a6ed">**category2**</font>)  
-终端将显示记录器记录的碰撞。可以通过指定所涉及的参与者的类型来过滤这些内容。类别将在`category1`和`category1`中指定如下：“h”=英雄，一种可以手动控制或由用户管理的车辆。”v'=车辆'w'=步行者't'=红绿灯'o'=其他'a'=任何如果您只想看到车辆和步行者之间的碰撞，请将`category1`用作'v'，将`category2`用作'w'，反之亦然。如果要查看所有碰撞（过滤掉），可以对两个参数都使用“a”。 
+终端将显示记录器记录的碰撞。可以通过指定所涉及的参与者的类型来过滤这些内容。类别将在`category1`和`category1`中指定如下：“h”=英雄，一种可以手动控制或由用户管理的车辆。”v'=车辆'w'=行人't'=红绿灯'o'=其他'a'=任何如果您只想看到车辆和步行者之间的碰撞，请将`category1`用作'v'，将`category2`用作'w'，反之亦然。如果要查看所有碰撞（过滤掉），可以对两个参数都使用“a”。 
     - **参数：**
         - `filename` (_str_) - 记录的文件的名称或绝对路径，具体取决于您之前的选择。 
         - `category1` (_single char_) - 指定冲突中涉及的第一类参与者的字符变量。
@@ -774,7 +774,7 @@ Y 像素坐标。
         - `color` (_[carla.Color](#carla.Color)_) - 用于为对象着色的 RGB 代码。默认为红色。
         - `life_time` (_float<small> - seconds</small>_) - 形状的生命周期。默认情况下它只持续一帧。将其设置<code>0</code>为永久形状。 
 - <a name="carla.DebugHelper.draw_box"></a>**<font color="#7fb800">draw_box</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**box**</font>, <font color="#00a6ed">**rotation**</font>, <font color="#00a6ed">**thickness**=0.1</font>, <font color="#00a6ed">**color**=(255,0,0)</font>, <font color="#00a6ed">**life_time**=-1.0</font>)<button class="SnipetButton" id="carla.DebugHelper.draw_box-snipet_button">snippet &rarr;</button>  
-绘制一个框，通常用于对象碰撞器。  
+绘制一个框，通常用于对象碰撞体。  
     - **参数：**
         - `box` (_[carla.BoundingBox](#carla.BoundingBox)_) - 包含每个轴的位置和框长度的对象。
         - `rotation` (_[carla.Rotation](#carla.Rotation)<small> - 度 (pitch,yaw,roll)</small>_) - 根据虚幻引擎轴系的边界框方向。
@@ -791,7 +791,7 @@ Y 像素坐标。
         - `color` (_[carla.Color](#carla.Color)_) - RGB编码为对象上色。默认为红色。  
         - `life_time` (_float<small> - seconds</small>_) - 形状的生命周期。默认情况下，它只持续一帧。对于永久形状，将其设置为<code>0</code>。  
 - <a name="carla.DebugHelper.draw_hud_box"></a>**<font color="#7fb800">draw_hud_box</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**box**</font>, <font color="#00a6ed">**rotation**</font>, <font color="#00a6ed">**thickness**=0.1</font>, <font color="#00a6ed">**color**=(255,0,0)</font>, <font color="#00a6ed">**life_time**=-1.0</font>)  
-在 HUD 上绘制一个框，通常用于对象碰撞器。该框只能在服务器端看到。
+在 HUD 上绘制一个框，通常用于对象碰撞体。该框只能在服务器端看到。
     - **Parameters:**
         - `box` (_[carla.BoundingBox](#carla.BoundingBox)_) - 包含每个轴的框的位置和长度的对象。 
         - `rotation` (_[carla.Rotation](#carla.Rotation)<small> - degrees (pitch,yaw,roll)</small>_) - 根据虚幻引擎的轴系统确定边界框的方向。  

@@ -14,22 +14,29 @@ import carla
 ```
 
 - [__世界和客户端__](#world-and-client)  
-	- [客户端](#client) 
+    - [客户端](#client) 
     - [世界](#world)
+- [__参与者和蓝图__](#actor_blueprint)
+- [__地图和导航__](#map_navigation)
+- [__传感器和数据__](#sensor_data)
 - [__同步模式和异步模式__](#synchronous-and-asynchronous-mode)  
-	- [设置同步模式](#setting-synchronous-mode) 
+    - [设置同步模式](#setting-synchronous-mode) 
     - [使用同步模式](#using-synchronous-mode)
 - [__记录器__](#recorder)  
-	- [记录](#recording) 
+    - [记录](#recording) 
     - [仿真回放](#simulation-playback)
     - [记录器文件格式](#recorder-file-format)
+- [__渲染__](#rendering)
+    - [史诗模式](#epic_mode)
+    - [低质量模式](#low_quality)
+- [__进阶步骤__](#advanced_step)
 
 
 ---
 
-## 世界和客户端
+## 世界和客户端 <span id="world-and-client"></span>
 
-### 客户端
+### 客户端 <span id="client"></span>
 
 __客户端__ 是用户运行以请求仿真中的信息或更改的模块。客户端使用 IP 和特定端口运行。它通过终端与服务器通信。可以有许多客户端同时运行。高级多客户端管理需要对 Carla 和 [同步](adv_synchrony_timestep.md) 有透彻的了解。
 
@@ -49,7 +56,7 @@ client.load_world('Town07')
 client.start_recorder('recording.log')
 ```
 
-### 世界
+### 世界 <span id="world"></span>
 
 __世界__ 是代表仿真的对象。它充当一个抽象层，包含生成参与者、改变天气、获取世界当前状态等的主要方法。每个仿真只有一个世界。当地图改变时，它会被销毁并替换为新的。
 
@@ -70,7 +77,7 @@ weather = world.get_weather()
 blueprint_library = world.get_blueprint_library()
 ```
 
-## 参与者和蓝图
+## 参与者和蓝图 <span id="actor_blueprint"></span>
 参与者是在仿真中扮演角色的任何东西。
 
 *   车辆
@@ -81,7 +88,7 @@ blueprint_library = world.get_blueprint_library()
 
 __蓝图__ 是生成角色所必需的已经制作好的角色布局。基本上，是带有动画和一组属性的模型。其中一些属性可以由用户自定义，而另一些则不能。有一个**[Blueprint库](bp_library.md)**，其中包含所有可用的蓝图以及有关它们的信息。
 
-## 地图和导航
+## 地图和导航 <span id="map_navigation"></span>
 
 __地图__ 是代表仿真世界的对象，主要是城镇。有八张地图可供选择。它们都使用 opdrive 1.4 标准来描述道路。
 
@@ -90,7 +97,7 @@ __道路、车道和路口__ 由 Python API 管理，以便从客户端访问。
 __交通标志__ 和 __交通灯__ 是可访问的[**carla.Landmark**](#python_api.md#carla.landmark)。这些地标对象包含关于它们的 OpenDRIVE 定义的信息。此外，仿真器在运行时会自动生成停车标志、让行标志和交通信号灯对象，使用 OpenDRIVE 文件中的信息。这些对象会放置在道路上，有边界框包围。一旦车辆进入它们的边界框，它们就会意识到这些对象。
 
 
-## 传感器和数据
+## 传感器和数据 <span id="sensor_data"></span>
 
 __传感器__ 等待一些事件发生，然后从仿真中收集数据。它们调用定义如何管理数据的函数。根据不同的情况，传感器会检索不同类型的传感器数据。
 
@@ -107,7 +114,7 @@ __传感器__ 等待一些事件发生，然后从仿真中收集数据。它们
 *   责任敏感安全
 
 
-## 同步模式和异步模式
+## 同步模式和异步模式 <span id="synchronous-and-asynchronous-mode"></span>
 
 Carla 具有客户端-服务器架构。服务器运行仿真。客户端检索信息并请求仿真中的更改。本节涉及客户端和服务器之间的通信。
 
@@ -123,7 +130,7 @@ Carla 具有客户端-服务器架构。服务器运行仿真。客户端检索�
 !!! 笔记
     在多客户端架构中，只有一个客户端应该发出滴答信号。服务器对收到的每个滴答信号做出响应，就好像它来自同一客户端一样。许多客户端的滴答信号将使服务器和客户端之间产生不一致。
 
-### 设置同步模式
+### 设置同步模式 <span id="setting-synchronous-mode"></span>
 
 同步模式和异步模式之间的更改只是布尔状态的问题。
 ```py
@@ -141,7 +148,7 @@ cd PythonAPI/util && python3 config.py --no-sync # 禁用同步模式
 ``` 
 同步模式无法使用脚本启用，只能禁用。启用同步模式使服务器等待客户端滴答信号。使用此脚本，用户无法在需要时发送滴答信号。 
 
-### 使用同步模式
+### 使用同步模式 <span id="using-synchronous-mode"></span>
 
 同步模式与缓慢的客户端应用程序以及需要不同元素（例如传感器）之间的同步时特别相关。如果客户端太慢而服务器没有等待，就会出现信息溢出。客户将无法管理一切，并且会丢失或混合。同样，对于许多传感器和异步情况，不可能知道所有传感器是否都在仿真中使用同一时刻的数据。
 
@@ -177,7 +184,7 @@ world_snapshot = world.wait_for_tick()
 world.on_tick(lambda world_snapshot: do_something(world_snapshot))
 ```
 
-## 记录器
+## 记录器 <span id="recorder"></span>
 
 记录器可以将重现先前仿真所需的所有数据保存到文件中。这些数据包括车辆的位置和速度、交通信号灯的状态、行人的位置和速度以及太阳的位置和天气状况等详细信息。数据被记录到一个二进制文件中，Carla 服务器稍后可以加载该文件以准确地再现仿真。
 
@@ -194,7 +201,7 @@ world.on_tick(lambda world_snapshot: do_something(world_snapshot))
 *   __行人__ — 位置和方向，以及线速度和角速度。
 *   __灯光__ — 建筑物、街道和车辆的灯光状态。
 
-### 记录
+### 记录 <span id="recording"></span>
 
 要开始录制，只需要一个文件名。在文件名中使用`\`,`/`或`:`字符会将其定义为绝对路径。如果没有详细路径，文件将保存在`CarlaUE4/Saved`。
 
@@ -220,7 +227,7 @@ client.stop_recorder()
 !!! 笔记
     据估计，50 个交通灯和 100 辆车的 1 小时记录大约需要 200MB 大小。
 
-### 仿真回放
+### 仿真回放 <span id="simulation-playback"></span>
 
 可以在仿真过程中的任何时刻开始播放。除了日志文件的路径之外，此方法还需要一些参数。
 
@@ -236,23 +243,23 @@ client.replay_file("recording01.log", start, duration, camera)
 
 <br>
 
-### 记录器文件格式
+### 记录器文件格式 <span id="recorder-file-format"></span>
 
-记录器以 __本文档__ 中指定的自定义二进制文件格式保存所有数据。
+记录器以 [__本文档__](ref_recorder_binary_file_format.md) 中指定的自定义二进制文件格式保存所有数据。
 
 ---
 
-## 渲染
+## 渲染 <span id="rendering"></span>
 
 Carla 提供了许多有关渲染质量和效率的选项。在最基本的层面上，Carla 提供了两种质量选项，可以在高规格和低规格硬件上运行并获得最佳效果：
 
-### 史诗模式
+### 史诗模式 <span id="epic_mode"></span>
 `./CarlaUE4.sh -quality-level=Epic`
 
 ![Epic mode screenshot](img/rendering_quality_epic.jpg)
 *史诗模式截图*
 
-### 低质量模式
+### 低质量模式 <span id="low_quality"></span>
 `./CarlaUE4.sh -quality-level=Low`
 
 ![Low mode screenshot](img/rendering_quality_low.jpg)
@@ -263,7 +270,7 @@ Carla 还提供暂停渲染或离屏渲染的选项，以便更有效地记录�
 有关渲染选项的更多详细信息，请参见 [__此处__](adv_rendering_options.md)。
 
 
-## 进阶步骤  
+## 进阶步骤 <span id="advanced_step"></span>
 
 Carla 提供了广泛的功能，超出了本仿真器介绍的范围。这里列出了一些最引人注目的。然而，在开始 __进阶步骤__ 之前，强烈建议阅读整个“基础”部分。
 

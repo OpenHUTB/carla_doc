@@ -107,7 +107,7 @@
 
 | 主题 | 类型 | 描述 |
 |-------|------|-------------|
-| `/carla/[<PARENT ROLE NAME>]/<SENSOR ROLE NAME>` | [derived_object_msgs/ObjectArray](https://docs.ros.org/en/melodic/api/derived_object_msgs/html/msg/ObjectArray.html) | 发布所有车辆和步行者。如果附加到父级，则不包含父级。 |
+| `/carla/[<PARENT ROLE NAME>]/<SENSOR ROLE NAME>` | [derived_object_msgs/ObjectArray](https://docs.ros.org/en/melodic/api/derived_object_msgs/html/msg/ObjectArray.html) | 发布所有车辆和行人。如果附加到父级，则不包含父级。 |
 
 ###### 标记传感器
 

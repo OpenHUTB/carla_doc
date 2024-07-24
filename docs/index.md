@@ -40,8 +40,6 @@ Carla 论坛</a>
 
 [__基础__](foundations.md) — Carla 基础。
 
-[__核心概念__](core_concepts.md) — Carla 中基本概念的概述。
-
 [__第一、 世界和客户端__](core_world.md) — 管理和访问仿真。
 
 [__第二、 参与者和蓝图__](core_actors.md) — 了解角色以及如何处理它们。
@@ -72,9 +70,9 @@ Carla 论坛</a>
 
 ## 行人
 
-[__行人导航__](tuto_G_pedestrian_navigation.md) - 使用骨骼为步行者设置动画。
+[__行人导航__](tuto_G_pedestrian_navigation.md) - 使用骨骼为行人设置动画。
 
-[__控制行人骨架__](tuto_G_control_walker_skeletons.md) — 使用骨骼为步行者设置动画。
+[__控制行人骨架__](tuto_G_control_walker_skeletons.md) — 使用骨骼为行人设置动画。
 
 [__行人视觉__](tuto_G_pedestrian_visual.md) - 使用相机进行人眼的仿真。
 
@@ -92,8 +90,6 @@ Carla 论坛</a>
 [__责任敏感安全__](adv_rss.md) — Carla 客户端库中的责任敏感安全实现。
 
 [__同步和时间步长__](adv_synchrony_timestep.md) — 客户端-服务器通信和仿真时间。
-
-[__基准性能__](adv_benchmarking.md) — 使用我们准备好的脚本执行基准测试。
 
 [__Carla 代理__](adv_agents.md) — 代理脚本允许单个车辆在地图上漫游或开车到设定的目的地。
 

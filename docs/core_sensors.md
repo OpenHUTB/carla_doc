@@ -15,7 +15,7 @@
 	*   [其他](#other)  
 
 ---
-## 传感器逐步介绍
+## 传感器逐步介绍 <span id="sensors-step-by-step"></span>
 
 [carla.Sensor](python_api.md#carla.Sensor) 类定义了一种特殊类型的参与者，能够测量和传输数据。
 
@@ -25,7 +25,7 @@
 
 尽管存在差异，但所有传感器的使用方式都相似。
 
-### 设置
+### 设置 <span id="setting"></span>
 
 与其他参与者一样，找到蓝图并设置特定属性。这在处理传感器时至关重要。他们的属性将决定所获得的结果。这些在 [传感器参考](ref_sensors.md) 中有详细介绍。
 
@@ -42,7 +42,7 @@ blueprint.set_attribute('fov', '110')
 blueprint.set_attribute('sensor_tick', '1.0')
 ``` 
 
-### 生成
+### 生成 <span id="spawning"></span>
 
 `attachment_to` 和 `attachment_type` 至关重要。传感器应连接到父参与者（通常是车辆）上，以跟踪它并收集信息。附件类型将确定其关于所述车辆的位置如何更新。
 
@@ -57,7 +57,7 @@ sensor = world.spawn_actor(blueprint, transform, attach_to=my_vehicle)
 !!! 重要
     当带有附件生成时，位置必须相对于父参与者。
 
-### 监听
+### 监听 <span id="listening"></span>
 
 每个传感器都有一个 [`listen()`](python_api.md#carla.Sensor.listen) 方法。每次传感器获取数据时都会调用此函数。
 
@@ -78,7 +78,7 @@ def callback(event):
 sensor02.listen(callback)
 ```
 
-### 数据
+### 数据 <span id="data"></span>
 
 大多数传感器数据对象都具有将信息保存到磁盘的功能。这将允许它在其他环境中使用。
 
@@ -98,9 +98,9 @@ sensor02.listen(callback)
     `is_listening`是一种传感器方法，用于检查传感器是否有通过`listen`注册的回调。`stop()`是一种停止传感器监听的 __传感器方法__ 。`sensor_tick`是一个**蓝图属性**，用于设置接收数据之间的模拟时间。
 
 ---
-## 传感器类型
+## 传感器类型 <span id="types-of-sensors"></span>
  
-### 相机
+### 相机 <span id="cameras"></span>
 
 从他们的角度拍摄世界。对于返回 [carla.Image](<../python_api#carlaimage>) 的相机，您可以使用辅助类[carla.ColorConverter](python_api.md#carla.ColorConverter) 修改图像以表示不同的信息。
 
@@ -121,7 +121,7 @@ sensor02.listen(callback)
 
 
 ---
-### 检测器
+### 检测器 <span id="detectors"></span>
 
 当附加的对象注册特定事件时获取数据。 
 
@@ -137,7 +137,7 @@ sensor02.listen(callback)
 
 
 
-### 其他
+### 其他 <span id="other"></span>
 
 不同的功能，例如导航、物理属性测量和场景的二维/三维点图。
 

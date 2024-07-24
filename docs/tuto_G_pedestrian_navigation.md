@@ -6,7 +6,15 @@ Carla 的 API 提供了从仿真中的行人获取真实骨架的功能。骨架
 
 在本教程中，我们将完成在地图中生成行人、设置 AI 控制器来移动行人、然后获取真实骨架并将骨骼投影到 2D 相机捕获上的步骤。
 
-## 设置仿真器
+- [__设置仿真器__](#setting_simulator) 
+- [__在 Carla 仿真器中生成行人__](#spaw_pedestrian) 
+- [__AI 控制器引导行人在地图上行走__](#go_to_location) 
+- [__相机几何__](#camera_projection_matrix)
+- [__构建骨架__](#build_skeleton)
+- [__总结__](#conclusion)
+
+
+## 设置仿真器 <span id="setting_simulator"></span>
 
 首先，按照您的标准工作流程启动 Carla 仿真器，无论是在独立模式下还是在虚幻编辑器中。我们将导入几个实用程序库以用于数学和绘图。为了让我们更好地控制仿真，我们将在本教程中使用 [__同步模式__](adv_synchrony_timestep.md) 。这意味着我们的 Python 客户端控制仿真器的时间进程。
 
@@ -32,7 +40,7 @@ world.apply_settings(settings)
 spectator = world.get_spectator()
 ```
 
-## 在 Carla 仿真器中生成行人
+## 在 Carla 仿真器中生成行人 <span id="spaw_pedestrian"></span>
 
 首先，我们想在仿真中生成一个行人。这可以使用 `world.get_random_location_from_navigation()` 在随机位置完成，也可以使用从虚幻编辑器收集的坐标来选择。在虚幻编辑器中，将一个空参与者添加到要生成行人的位置，然后使用右侧的检查器查询坐标。
 
@@ -101,7 +109,7 @@ for frame in range(0,5):
     trash = image_queue.get()
 ```
 
-## AI 控制器引导行人在地图上行走
+## AI 控制器引导行人在地图上行走 <span id="go_to_location"></span>
 
 上一步我们还初始化了一个 AI 控制器来帮助行人在地图上智能移动，代码如下（无需重复）：
 
@@ -114,7 +122,7 @@ controller.go_to_location(world.get_random_location_from_navigation())
 
 现在，行人将随着仿真的每次推进 (`world.tick()`) 自主移动。
 
-## 相机几何
+## 相机几何 <span id="camera_projection_matrix"></span>
 
 现在我们需要执行一些几何计算。首先，我们想要将骨骼的世界坐标转换为相机坐标，我们使用相机变换的逆变换来实现这一点。这意味着坐标将转换为相对于位于原点、面向 x 正方向的相机。
 
@@ -135,7 +143,7 @@ def build_projection_matrix(w, h, fov):
     return K
 ```
 
-## 构建骨架
+## 构建骨架 <span id="build_skeleton"></span>
 
 现在我们可以将活动部件组装在一起。首先，使用 `pedestrian.get_bones()` 从仿真中收集骨骼坐标，然后将骨骼组合在一起并将其投影到相机传感器的二维成像平面上。使用skeletal.txt中定义的对将骨骼连接成完整的骨架，您可以在 [__此处__](https://carla-assets.s3.eu-west-3.amazonaws.com/fbx/skeleton.txt) 下载该文件。
 
@@ -263,7 +271,7 @@ for frame in range(0,360):
 
 ![pedestrian_skeleton](./img/tuto_G_pedestrian_bones/pedestrian_skeleton.gif)
 
-## 总结
+## 总结 <span id="conclusion"></span>
 
 在本教程中，您学习了如何使用 AI 控制器生成行人，恢复行人骨骼的真实三维坐标，并将这些骨骼投影到相机传感器捕获的二维图像上。您可以使用本教程中学到的技术，使用 Carla 仿真器为人体姿势估计框架设置训练和验证，完整代码[链接](https://github.com/OpenHUTB/carla_doc/blob/master/src/tuto_G_pedestrian_navigation.py)。
 

@@ -1,6 +1,6 @@
 # Carla 生成对象
 
-[`carla_spawn_objects` 包](https://github.com/carla-simulator/ros-bridge/tree/master/carla_spawn_objects) 用于生成参与者（车辆、传感器、步行者）并将传感器附加到它们上。
+[`carla_spawn_objects` 包](https://github.com/carla-simulator/ros-bridge/tree/master/carla_spawn_objects) 用于生成参与者（车辆、传感器、行人）并将传感器附加到它们上。
 
 - [__配置和传感器设置__](#configuration-and-sensor-setup)
     - [创建配置](#create-the-configuration)

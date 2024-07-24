@@ -3,15 +3,16 @@
 
 Carla 与 SUMO 开发了联合仿真功能。这允许随意分配任务，并利用每个仿真的功能来支持用户。
 
-*   [__必备条件__](#requisites)  
-*   [__运行自定义联合仿真__](#run-a-custom-co-simulation)  
-	*   [创建 Carla vtypes](#create-carla-vtypes)  
-	*   [创建 SUMO 网络](#create-the-sumo-net)  
-	*   [运行同步](#run-the-synchronization)  
-*   [__由 SUMO 控制的 NPC 生成__](#spawn-npcs-controlled-by-sumo)  
+* [__必备条件__](#requisites)   
+* [__运行自定义联合仿真__](#run-a-custom-co-simulation)  
+    *   [创建 Carla vtypes](#create-carla-vtypes)  
+    *   [创建 SUMO 网络](#create-the-sumo-net)  
+    *   [运行同步](#run-the-synchronization)  
+* [__由 SUMO 控制的 NPC 生成__](#spawn-npcs-controlled-by-sumo)
+* [__SUMO TraCI接口文档__](#sumo_traci_interface)
 
 ---
-## 必备条件
+## 必备条件 <span id="requisites"></span>
 
 首先，需要 [__安装 SUMO__](https://sumo.dlr.de/docs/Installing.html) 才能运行联合仿真。建议从源代码构建而不是简单安装，因为有新功能和修复可以改进协同仿真。
 
@@ -40,9 +41,9 @@ python3 run_synchronization.py examples/Town04.sumocfg  --sumo-gui
     
 
 ---
-## 运行自定义联合仿真
+## 运行自定义联合仿真 <span id="run-a-custom-co-simulation"></span>
 
-### 创建 carla vtypes
+### 创建 Carla vtypes <span id="create-carla-vtypes"></span>
 
 使用脚本 `Co-Simulation/Sumo/util/create_sumo_vtypes.py` 用户可以基于 Carla 蓝图库创建 *vtypes*，相当于 Carla 蓝图。
 
@@ -55,7 +56,7 @@ python3 run_synchronization.py examples/Town04.sumocfg  --sumo-gui
 !!! 笔记
     必须运行 Carla 仿真才能执行该脚本。
 
-### 创建 SUMO 网络
+### 创建 SUMO 网络 <span id="create-the-sumo-net"></span>
 
 创建与 Carla 同步的 SUMO 网络推荐方法是使用脚本 `Co-Simulation/Sumo/util/netconvert_carla.py`. 这就要利用 SUMO 提供的 [netconvert](https://sumo.dlr.de/docs/NETCONVERT.html)工具了。为了运行该脚本，需要一些参数。 
 
@@ -67,7 +68,7 @@ python3 run_synchronization.py examples/Town04.sumocfg  --sumo-gui
 
 在此过程中提供的示例可能会有所帮助。看一眼`Co-Simulation/Sumo/examples`。对于每个`example.sumocfg`文件，都有多个同名的相关文件。所有这些都包含一个联合仿真示例。
 
-### 运行同步
+### 运行同步 <span id="run-the-synchronization"></span>
 
 一旦仿真准备就绪并保存为`.sumocfg`，就可以运行了。有一些可选参数可以更改协同仿真的设置。
 
@@ -91,7 +92,7 @@ python3 run_synchronization.py <SUMOCFG FILE> --tls-manager carla --sumo-gui
     要停止联合仿真，请在运行脚本的终端按 `Ctrl+C` 。
 
 ---
-## 由 SUMO 控制的 NPC 生成
+## 由 SUMO 控制的 NPC 生成 <span id="spawn-npcs-controlled-by-sumo"></span>
 
 与 SUMO 的联合仿真带来了一项附加功能。车辆可以通过 SUMO 在 Carla 中生成，并由后者进行管理，就像交通管理器一样。
 
@@ -116,7 +117,7 @@ python3 run_synchronization.py <SUMOCFG FILE> --tls-manager carla --sumo-gui
 python3 spawn_sumo_npc.py -n 10 --tls-manager carla --sumo-gui
 ```
 
-## [sumo TraCI接口文档](https://sumo.dlr.de/docs/TraCI.html) 
+## [SUMO TraCI接口文档](https://sumo.dlr.de/docs/TraCI.html)  <span id="sumo_traci_interface"></span>
 
 
 ---

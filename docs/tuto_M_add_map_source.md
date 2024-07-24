@@ -13,7 +13,7 @@
 
 ---
 
-## 在你开始之前
+## 在你开始之前 <span id="before-you-begin"></span>
 
 - 确保您使用的是从源代码构建的 Carla 版本。如果您使用的是 Carla 的打包（二进制）版本，请按照 [此处][import_map_package] 的教程进行操作。
 - 您应该至少有两个文件，`<mapName>.xodr`和`<mapName>.fbx` ，是由地图编辑器（例如 RoadRunner）生成的。
@@ -24,7 +24,7 @@
 [rr_generate_map]: tuto_M_generate_map.md
 
 ---
-## 地图导入
+## 地图导入 <span id="map-ingestion"></span>
 
 __1.__ 将需要导入的地图文件放入 Carla 根目录下的`Import`文件夹中。
 
@@ -52,7 +52,7 @@ make import  ARGS="--no-carla-materials"
 
 ---
 
-## 下一步
+## 下一步 <span id="next-steps"></span>
 
 您现在可以在虚幻编辑器中打开地图并运行仿真。从这里，您将能够自定义地图并生成行人导航数据。我们建议在所有自定义完成后生成行人导航，这样就不会有障碍物阻挡行人路径。
 

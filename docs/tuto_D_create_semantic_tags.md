@@ -13,9 +13,9 @@
 
 ---
 
-## 创建新的语义标签
+## 创建新的语义标签 <span id="create-a-new-semantic-tag"></span>
 
-### 1. 创建标签 ID
+### 1. 创建标签 ID <span id="1-create-the-tag-id"></span>
 
 __打开 `LibCarla/source/carla/rpc` 中的 `ObjectLabel.h`__ 。使用与其余标签相同的格式在枚举末尾添加新标签。
 
@@ -24,7 +24,7 @@ __打开 `LibCarla/source/carla/rpc` 中的 `ObjectLabel.h`__ 。使用与其余
 !!! 笔记
     标签不必按顺序出现。但是，按顺序列出它们是一个很好的做法。
 
-### 2. 创建资产的虚幻引擎文件夹
+### 2. 创建资产的虚幻引擎文件夹 <span id="2-create-the-ue-folder-for-assets"></span>
 
 __打开虚幻引擎编辑器__ 并转到 `Carla/Static`。创建一个名为您的标签的新文件夹。
 
@@ -33,7 +33,7 @@ __打开虚幻引擎编辑器__ 并转到 `Carla/Static`。创建一个名为您
 !!! 笔记
     虚幻编辑器文件夹和标签不必命名相同。然而，这样做是一个很好的做法。 
 
-### 3. 创建虚幻引擎与代码标签的双向对应关系
+### 3. 创建虚幻引擎与代码标签的双向对应关系 <span id="3-create-two-way-correspondence-between-ue-and-the-code-tag"></span>
 
 __3.1. 打开`Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Game`中的 `Tagger.cpp`__ 。转到 __`GetLabelByFolderName`__ 列表末尾添加您的标签。被比较的字符串是 [__2.__](#2-create-the-ue-folder-for-assets) 中使用的虚幻引擎文件夹的名称，因此这里使用完全相同的名称。
 
@@ -43,7 +43,7 @@ __3.2. 在相同的 `Tagger.cpp` 转到 `GetTagAsString`__ 。 在开关末尾�
 
 ![tagger_cpp_02](img/tuto_D_create_semantic_tags/04_tagger_cpp_02.jpg)
 
-### 4. 定义颜色代码
+### 4. 定义颜色代码 <span id="4-define-a-color-code"></span>
 
 __在 `LibCarla/source/carla/image` 中打开 `CityScapesPalette.h`__ 。在数组末尾添加新标签的颜色代码。
 
@@ -52,13 +52,13 @@ __在 `LibCarla/source/carla/image` 中打开 `CityScapesPalette.h`__ 。在数�
 !!! 笔记
     数组中的位置必须与标签 ID 相对应，在本例中为 `23u`. 
 
-### 5. 添加标记网格
+### 5. 添加标记网格 <span id="5-add-the-tagged-elements"></span>
 
 新的语义标签已可供使用。只有存储在标签的虚幻引擎文件夹内的网格才会被标记为此类。将相应的网格移动或导入到新文件夹中，以便正确标记。
 
 ---
 
-## 将标签添加到 [carla.CityObjectLabel](python_api.md#carla.CityObjectLabel)
+## 将标签添加到 [carla.CityObjectLabel](python_api.md#carla.CityObjectLabel) <span id="add-a-tag-to-carlacityobjectlabel"></span>
 
 这一步与语义分割没有直接关系。但是，这些标签可用于过滤[carla.World](python_api.md#carla.World) 中的边界框查询。为此，必须将标签添加到PythonAPI 中的 [carla.CityObjectLabel](python_api.md#carla.CityObjectLabel) 枚举中。
 

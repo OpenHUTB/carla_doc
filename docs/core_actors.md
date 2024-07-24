@@ -1,6 +1,6 @@
 # 第二、参与者和蓝图
 
-Carla 中的参与者是在仿真中执行动作的元素，他们可以影响其他参与者。Carla 的参与者包括车辆和步行者，也包括传感器、交通标志、红绿灯和观看者。对如何操作它们有充分的了解是至关重要的。 
+Carla 中的参与者是在仿真中执行动作的元素，他们可以影响其他参与者。Carla 的参与者包括车辆和行人，也包括传感器、交通标志、红绿灯和观看者。对如何操作它们有充分的了解是至关重要的。 
 
 本节将介绍生成、销毁、类型以及如何管理它们。然而，可能性几乎是无穷无尽的。实验、查看本文档中的 __教程__，并在 [Carla 论坛](https://github.com/carla-simulator/carla/discussions/) 中分享疑虑和想法。
 
@@ -15,16 +15,16 @@ Carla 中的参与者是在仿真中执行动作的元素，他们可以影响�
 	- [观察者](#spectator)  
 	- [交通标志和交通灯](#traffic-signs-and-traffic-lights)  
 	- [车辆](#vehicles)  
-	- [步行者](#walkers)  
+	- [行人](#walkers)  
 
 ---
-## 蓝图
+## 蓝图 <span id="blueprints"></span>
 
-这些布局允许用户将新的参与者平滑地结合到仿真中。它们已经是带有动画和一系列属性的模型。其中一些是可修改的，而另一些则不是。这些属性包括车辆颜色、激光雷达传感器中的通道数量、步行者的速度等等。
+这些布局允许用户将新的参与者平滑地结合到仿真中。它们已经是带有动画和一系列属性的模型。其中一些是可修改的，而另一些则不是。这些属性包括车辆颜色、激光雷达传感器中的通道数量、行人的速度等等。
 
-[蓝图库](bp_library.md) 列出了可用的蓝图及其属性。车辆和步行者蓝图具有一个生成属性，用于指示它们是新的（第2代）资产还是旧的（第1代）资产。
+[蓝图库](bp_library.md) 列出了可用的蓝图及其属性。车辆和行人蓝图具有一个生成属性，用于指示它们是新的（第2代）资产还是旧的（第1代）资产。
 
-### 管理蓝图库
+### 管理蓝图库 <span id="managing-the-blueprint-library"></span>
 
 [carla.BlueprintLibrary](python_api.md#carla.BlueprintLibrary) 类包含一系列 [carla.ActorBlueprint](python_api.md#carla.ActorBlueprint) 元素。它是能够提供对它访问的世界对象。
 ```py
@@ -59,12 +59,12 @@ for attr in blueprint:
     用户可以创建他们自己的车辆。查看 __教程（资产）__ 以了解相关信息。贡献者可以 [将他们的新内容添加到 Carla](tuto_D_contribute_assets.md) 。
 
 ---
-## 参与者生命周期  
+## 参与者生命周期   <span id="actor-life-cycle"></span>
 
 !!! 重要
     本节提到了关于参与者的不同方法。Python API 提供 __[commands](python_api.md#command.SpawnActor)__ ，以便在一个框架中应用一批最常见的命令。 
 
-### 生成
+### 生成 <span id="spawning"></span>
 
 __世界对象负责生成参与者并跟踪这些参与者。__ 生成只需要一张蓝图和一个 [carla.Transform](python_api.md#carla.Transform) 说明参与者的位置和旋转。 
 
@@ -116,7 +116,7 @@ for speed_sign in actor_list.filter('traffic.speed_limit.*'):
     print(speed_sign.get_location())
 ```
 
-### 处理
+### 处理 <span id="handling"></span>
 
 [carla.Actor](python_api.md#carla.Actor) 主要由  _get()_ 和 _set()_ 方法组成，用于管理地图周围的参与者。
 
@@ -140,7 +140,7 @@ actor.set_simulate_physics(False)
     大多数方法是异步向仿真器发送请求。仿真器每次更新解析它们的时间有限。使用 _set()_ 方法淹没仿真器将积累明显的延迟。
 
 
-### 销毁
+### 销毁 <span id="destruction"></span>
 
 当 Python 脚本完成时，不回销毁参与者。他们必须明确地销毁自己。
 
@@ -152,8 +152,11 @@ destroyed_sucessfully = actor.destroy() # 如果成功返回 True
     销毁参与者会阻塞仿真器，直到该过程完成。
 
 ---
-## 参与者类型  
-### 传感器
+
+
+## 参与者类型  <span id="types-of-actors"></span>
+
+### 传感器 <span id="sensors"></span>
 
 传感器是产生数据流的参与者。他们有自己的部分，[第四部分. 传感器和数据](core_sensors.md)。现在，我们只看一下常见的传感器生成周期。
 
@@ -168,7 +171,7 @@ camera.listen(lambda image: image.save_to_disk('output/%06d.png' % image.frame))
 * 大多数传感器将安装在车辆上以收集周围环境的信息。
 * 传感器 __监听__ 数据。收到数据后，它们会调用用 __[Lambda 表达式](https://docs.python.org/3/reference/expressions.html)__ 描述的函数<small>(提供的链接中的 6.14)</small>。 
 
-### 观察者
+### 观察者 <span id="spectator"></span>
 
 由虚幻引擎放置以提供游戏内的视角。它可用于移动仿真器窗口的视角。以下示例将移动观众参与者，将视角指向所需的车辆。
 
@@ -179,7 +182,7 @@ spectator.set_transform(carla.Transform(transform.location + carla.Location(z=50
 carla.Rotation(pitch=-90)))
 ```
 
-### 交通标志和交通灯
+### 交通标志和交通灯 <span id="traffic-signs-and-traffic-lights"></span>
 
 到目前为止，Carela 中只有停靠点、让行路线和交通信号灯被视为参与者。其余的 OpenDRIVE 标志可通过 API 作为地标（[__carla.Landmark__](python_api.md#carla.Landmark)）进行访问。他们的信息可以使用这些实例访问，但他们在仿真中并不作为参与者存在。在接下来的 __第 3 部分 地图和导航__ 中将更详细地解释地标。 
 
@@ -210,7 +213,7 @@ if traffic_light.get_state() == carla.TrafficLightState.Red:
 !!! 笔记
     只有当信号灯为红色时，车辆才会意识到交通灯。
 
-### 车辆
+### 车辆 <span id="vehicles"></span>
 
 [__carla.Vehicle__](python_api.md#carla.Vehicle) 是一种特殊类型的参与者。它采用了仿真轮式车辆物理特性的特殊内部组件。这是通过应用四种不同的控件来实现的：
 
@@ -267,7 +270,7 @@ current_lights |= carla.VehicleLightState.Position
 vehicle.set_light_state(current_lights)
 ```
 
-### 行人
+### 行人 <span id="walkers"></span>
 
 [__carla.Walker__](python_api.md#carla.Walker) 的工作方式与车辆类似。对它们的控制由控制器提供。
 
@@ -293,9 +296,9 @@ ai_controller.set_max_speed(1 + random.random())  # 在 1 米每秒 到 2 米每
 ...
 ai_controller.stop()
 ```
-当步行者到达目标位置时，他们会自动步行到另一个随机点。如果无法到达目标点，步行者将前往距离当前位置最近的点。
+当行人到达目标位置时，他们会自动步行到另一个随机点。如果无法到达目标点，行人将前往距离当前位置最近的点。
 
-[carla.Client](python_api.md#carla.Client.apply_batch_sync) 中的一个片段使用批次生成大量步行者并让它们四处游荡。
+[carla.Client](python_api.md#carla.Client.apply_batch_sync) 中的一个片段使用批次生成大量行人并让它们四处游荡。
 
 !!! 重要
     __要销毁人工智能行人__，请停止人工智能控制器并销毁参与者和控制器。

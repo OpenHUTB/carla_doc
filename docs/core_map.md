@@ -3,12 +3,12 @@
 在讨论了世界及其参与者之后，是时候将所有内容都放在适当的位置并了解地图以及参与者如何导航。
 
 - [__地图__](#the-map)  
-	- [改变地图](#changing-the-map)  
-	- [地标](#landmarks)  
-	- [车道](#lanes)  
-	- [路口](#junctions)  
-	- [路径点](#waypoints)  
-	- [环境对象](#environment-objects)
+    - [改变地图](#changing-the-map)  
+    - [地标](#landmarks)  
+    - [路径点](#waypoint)  
+    - [车道](#lanes)  
+    - [路口](#junctions)
+    - [环境对象](#environment-objects)
 - [__在 Carla 中导航__](#navigation-in-carla)  
 	- [通过路径点导航](#navigating-through-waypoints)  
 	- [生成地图导航](#generating-a-map-navigation)  
@@ -26,14 +26,14 @@
 
 
 ---
-## 地图
+## 地图 <span id="the-map"></span>
 
 地图包括城镇的三维模型及其道路定义。地图的道路定义基于 OpenDRIVE 文件，这是一种标准化的带注释的道路定义格式。[OpenDRIVE 1.4 标准](http://www.opendrive.org/docs/OpenDRIVEFormatSpecRev1.4H.pdf) 定义道路、车道、路口等方式决定了 Python API 的功能以及决策背后的推理。
 
 Python API 充当高级查询系统来导航这些道路。它不断发展以提供更广泛的工具集。
 
 
-### 改变地图
+### 改变地图 <span id="changing-the-map"></span>
 
 __要改变地图，世界也必须改变__。将从头开始重新创建仿真。您可以在新世界中使用相同的地图重新启动，也可以更改地图和世界：
 
@@ -50,7 +50,7 @@ world = client.load_world('Town01')
 print(client.get_available_maps())
 ```
 
-### 地标
+### 地标 <span id="landmarks"></span>
 
 OpenDRIVE 文件中定义的交通标志将转换为 Carla，作为可从 API 查询的地标对象。以下方法和类可用于操作和使用地标对象：
 
@@ -65,7 +65,7 @@ OpenDRIVE 文件中定义的交通标志将转换为 Carla，作为可从 API �
 my_waypoint.get_landmarks(200.0,True)
 ``` 
 
-### 路径点
+### 路径点 <span id="waypoint"></span>
 
 [`carla.Waypoint`](python_api.md#carla.Waypoint) 是 Carla 世界中的三维有向点，对应于 OpenDRIVE 车道。与路径点相关的所有事情都发生在客户端；只需与服务器通信一次即可获取包含路径点信息的[地图对象](python_api.md#carlamap)。
 
@@ -84,7 +84,7 @@ width = waypoint.lane_width
 right_lm_color = waypoint.right_lane_marking.color
 ```
 
-### 车道
+### 车道 <span id="lanes"></span>
 
 
 [OpenDRIVE 1.4 标准](http://www.opendrive.org/docs/OpenDRIVEFormatSpecRev1.4H.pdf) 定义的通道类型将 [carla.LaneType](python_api.md#carla.LaneType) 作为一系列枚举值转换为 API 。
@@ -110,7 +110,7 @@ left_lanemarking_type = waypoint.left_lane_marking.type()
 lane_change = waypoint.lane_change
 ```
 
-### 路口
+### 路口 <span id="junctions"></span>
 
 [`carla.Junction`](python_api.md#carla.Junction) 代表 OpenDRIVE 连接点。此类包含带有边界框的交汇处，用于识别其中的车道或车辆。
 
@@ -120,7 +120,7 @@ lane_change = waypoint.lane_change
 waypoints_junc = my_junction.get_waypoints()
 ```
 
-### 环境对象
+### 环境对象 <span id="environment-objects"></span>
 
 Carla 地图上的每个对象都有一组关联的变量，可以在 [此][env_obj] 处找到这些变量。这些变量中包含一个 [唯一 ID][env_obj_id]，可用于切换该对象在地图上的可见性。您可以使用 Python API 根据每个环境对象的[语义标签]([semantic_tag]) [获取][fetch_env_obj] 其 ID ：
 
@@ -150,14 +150,14 @@ Carla 地图上的每个对象都有一组关联的变量，可以在 [此][env_
 
 
 ---
-## 在 Carla 中导航
+## 在 Carla 中导航 <span id="navigation-in-carla"></span>
 
 Carla 中的导航是通过 Waypoint API （来自 [`carla.Waypoint`](python_api.md#carla.Waypoint) 和 [`carla.Map`](python_api.md#carla.Map) 的方法组合）进行管理。
 
 客户端必须首先与服务器通信以检索包含路径点信息的地图对象。这只需要一次，所有后续查询都在客户端执行。
 
 
-### 通过路径点导航
+### 通过路径点导航 <span id="navigating-through-waypoints"></span>
 
 Waypoint API 公开了允许路径点相互连接并构建沿道路供车辆导航的路径的方法：
 
@@ -171,7 +171,7 @@ Waypoint API 公开了允许路径点相互连接并构建沿道路供车辆导�
 waypoint = waypoint.next(2.0)
 ```
 
-### 生成地图导航
+### 生成地图导航 <span id="generating-a-map-navigation"></span>
 
 客户端需要向服务器发出请求来获取 `.xodr` 地图文件并将其解析为[`carla.Map`](python_api.md#carla.Map) 对象。这只需要做一次。
 
@@ -223,7 +223,7 @@ info_map = map.to_opendrive()
 ```
 
 ---
-## Carla 地图
+## Carla 地图 <span id="carla-maps"></span>
 
 Carla 生态系统中有八个城镇，每个城镇都有两种地图，非分层地图和分层地图。[图层][layer_api]是指地图中分组的对象，由以下部分组成：
 
@@ -241,7 +241,7 @@ Carla 生态系统中有八个城镇，每个城镇都有两种地图，非分�
 
 [layer_api]: https://carla.readthedocs.io/en/latest/python_api/#carlamaplayer
 
-### 非分层地图
+### 非分层地图 <span id="non-layered-maps"></span>
 
 下表显示了非分层地图（单击城镇名称可查看布局的俯视图）。所有图层始终存在，并且无法在这些地图中打开或关闭。直到 Carla 0.9.11 为止，这些是唯一可用的地图类型。
 
@@ -264,11 +264,7 @@ Carla 生态系统中有八个城镇，每个城镇都有两种地图，非分�
 | [__Town15__](map_town15.md)                                        | 基于巴塞罗那自治大学道路布局的地图。                                                                   |
 | [__HUTB__](https://bitbucket.org/hutbcity/openhutbcarla/src/main/) | 基于湖南工商大学道路布局的地图。                                                                     |
 
-
-
-
-
-### 分层地图
+### 分层地图 <span id="layered-maps"></span>
 
 分层地图的布局与非分层地图相同，但可以关闭和打开地图的图层。有一个无法关闭的最小布局，由道路、人行道、交通灯和交通标志组成。分层地图可以通过后缀 `_Opt` 来标识，例如`Town01_Opt`。使用这些地图，可以通过 Python API [加载][load_layer]和[卸载][unload_layer]图层：
 
@@ -291,7 +287,7 @@ Carla 生态系统中有八个城镇，每个城镇都有两种地图，非分�
 
 ---
 
-## 自定义地图
+## 自定义地图  <span id="custom-maps"></span>
 
 Carla 旨在针对专业应用程序进行可扩展和高度定制。因此，除了 Carla 中现有的许多地图和资产之外，还可以创建和导入新的地图、道路网络和资产，以填充 Carla 仿真中的定制环境。以下文档详细介绍了构建和集成自定义地图所需的步骤：
 

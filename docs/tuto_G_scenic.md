@@ -12,14 +12,14 @@
 ---
 
 - [__在你开始之前__](#before-you-begin)
-- [__Scenic 域__](#scenic-domains)
+- [__Scenic 域__](#scenic_domains)
 - [__创建与 Carla 一起使用的 Scenic 场景__](#creating-a-scenic-scenario-to-use-with-carla)
 - [__运行场景__](#run-the-scenario)
 - [__附加参数__](#additional-parameters)
 
 ---
 
-## 在你开始之前
+## 在你开始之前 <span id="before-you-begin"></span>
 
 在将 Scenic 与 Carla 结合使用之前，您需要满足以下要求：
 
@@ -28,7 +28,7 @@
 
 ---
 
-## Scenic 域
+## Scenic 域 <span id="scenic_domains"></span>
 
 Scenic 有一个通用驾驶域，允许用户定义可以在任何驾驶仿真器上运行的场景。此外，它还有特定于每个仿真器的其他域。请在 [此处](https://scenic-lang.readthedocs.io/en/latest/libraries.html) 查看有关 Scenic 域的更多信息。
 
@@ -41,7 +41,7 @@ Scenic 有一个通用驾驶域，允许用户定义可以在任何驾驶仿真�
 
 ---
 
-## 创建与 Carla 一起使用的 Scenic 场景
+## 创建与 Carla 一起使用的 Scenic 场景 <span id="creating-a-scenic-scenario-to-use-with-carla"></span>
 
 本节将介绍如何编写基本的场景脚本，其中领头车辆由于道路上的障碍物而突然减速。然后，本车需要突然制动以避免与前车发生碰撞。[完整的脚本](https://github.com/BerkeleyLearnVerify/Scenic/blob/master/examples/carla/Carla_Challenge/carlaChallenge2.scenic) 以及涉及更复杂道路网络的其他示例可以在 Scenic 存储库中找到。
 
@@ -151,7 +151,7 @@ terminate when ego.speed < 0.1 and (distance to obstacle) < 30
 
 ---
 
-### 运行场景
+### 运行场景 <span id="run-the-scenario"></span>
 
 要运行 Scenic 场景：
 
@@ -167,7 +167,7 @@ scenic path/to/scenic/script.scenic --simulate
 
 ---
 
-### 附加参数
+### 附加参数 <span id="additional-parameters"></span>
 
 Carla 模型提供了几个全局参数，可以在使用 [`param` 语句](https://scenic-lang.readthedocs.io/en/latest/syntax_details.html#param-identifier-value) 或通过命令行使用  [`--param` option](https://scenic-lang.readthedocs.io/en/latest/options.html#cmdoption-p) 选项的场景中覆盖这些参数。
 

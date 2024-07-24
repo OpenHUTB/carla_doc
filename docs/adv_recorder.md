@@ -3,16 +3,16 @@
 此功能允许记录和重新制定以前的仿真。所有发生的事件都记录在 [recorder file](ref_recorder_binary_file_format.md) 中。有一些高级查询可以跟踪和研究这些事件。
 
 - [__记录__](#recording)
-- [__仿真播放__](#simulation-playback)
+- [__仿真播放__](#simulation_playback)
      - [设置时间因子](#setting-a-time-factor)
 - [__录制文件__](#recorded-file)
-- [__查询__](#查询)
+- [__查询__](#search)
     - [碰撞](#collisions)
     - [被困住的角色](#blocked-actors)
 - [__示例 Python 脚本__](#sample-python-scripts)
 
 ---
-## 记录
+## 记录 <span id="recording"></span>
 
 所有数据仅写入服务器端的二进制文件。但是，使用 [carla.Client](python_api.md#carla.Client) 管理记录器。
 
@@ -54,7 +54,7 @@ client.stop_recorder()
     据估计，50 个红绿灯和 100 辆车的 1 小时记录大约需要 200MB 大小。
 
 ---
-## 仿真播放
+## 仿真播放 <span id="simulation_playback"></span>
 
 可以在仿真过程中的任何时候开始播放。除了日志文件的路径，这个方法还需要一些参数。
 
@@ -72,7 +72,7 @@ client.replay_file("recording01.log", start, duration, camera)
 
 
 
-### 设置时间因子
+### 设置时间因子 <span id="setting-a-time-factor"></span>
 
 时间因素将决定播放速度。它可以随时更改而无需停止回放。
 
@@ -96,7 +96,7 @@ client.set_replayer_time_factor(2.0)
 ![流](img/RecorderFlow2.gif)
 
 ---
-##录制文件
+##录制文件 <span id="recorded-file"></span>
 
 可以使用简单的 API 调用来检索记录的详细信息。默认情况下，它只检索注册事件的那些帧。设置参数 `show_all` 将返回每一帧的所有信息。关于如何存储数据的细节在 [recorder's reference](ref_recorder_binary_file_format.md) 中有详细说明。
 
@@ -141,9 +141,9 @@ Frames: 2354
 ```
 
 ---
-## 查询
+## 查询 <span id="search"></span>
 
-### 碰撞
+### 碰撞 <span id="collisions"></span>
 
 车辆必须有一个 [碰撞检测器](ref_sensors.md#collision-detector) 以记录碰撞。这些可以被查询，使用参数来过滤碰撞中涉及的参与者的类型。例如，`h`标识`role_name = hero`的角色，通常分配给用户管理的车辆。有一组特定的参与者类型可用于查询。
 
@@ -191,7 +191,7 @@ client.replay_file("col2.log", 13, 0, 122)
 
 ![碰撞](img/collision1.gif)
 
-### 被卡住的角色
+### 被卡住的参与者 <span id="blocked-actors"></span>
 
 检测在录制过程中卡住的车辆。如果角色在特定时间内没有移动最小距离，则认为它被阻塞。该定义由用户在查询期间进行。
 
@@ -243,7 +243,7 @@ client.replay_file("col3.log", 34, 0, 173)
 ![事故](img/accident.gif)
 
 ---
-## 示例 python 脚本
+## 示例 python 脚本 <span id="sample-python-scripts"></span>
 
 `PythonAPI/examples` 中提供的一些脚本有助于记录器的使用。
 

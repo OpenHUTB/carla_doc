@@ -91,7 +91,7 @@
 
 [__定制车辆悬架__](tuto_D_customize_vehicle_suspension.md) —  修改车辆的悬架系统。  
 
-[__生成详细的碰撞器__](tuto_D_generate_colliders.md) — 为车辆创建详细的碰撞器。  
+[__生成详细的碰撞体__](tuto_D_generate_colliders.md) — 为车辆创建详细的碰撞体。  
 
 [__发布版本__](tuto_D_make_release.md) — 如何发布 Carla。
 

@@ -2,12 +2,12 @@
 
 此功能允许用户将任何 OpenDRIVE 文件作为 Carla 地图开箱即用。为此，仿真器将自动生成道路网格供角色导航。
 
-* [__概述__](#概-述)
-* [__运行独立地图__](#运行独立地图)
-* [__网格生成__](#网格生成)
+* [__概述__](#overview)
+* [__运行独立地图__](#independent_running_map)
+* [__网格生成__](#grid_generation)
 
 ---
-## 概述
+## 概述 <span id="overview"></span>
 
 此模式仅使用 OpenDRIVE 文件运行完整仿真，无需任何额外的几何图形或资产。为此，仿真器采用 OpenDRIVE 文件并程序化地创建时间 3D 网格来运行仿真。
 
@@ -24,7 +24,7 @@
 ![opendrive_standalone](img/opendrive_standalone.jpg)
 
 ---
-## 运行独立地图
+## 运行独立地图 <span id="independent_running_map"></span>
 
 打开 OpenDRIVE 文件只需通过 API 调用 [`client.generate_opendrive_world()`](python_api.md#carla.Client.generate_opendrive_world)。这将生成新地图，并阻止仿真，直到它准备好。该方法需要两个参数。
 
@@ -55,7 +55,7 @@ python3 config.py -x opendrive/TownBig.xodr
 如果遇到`opendrive 无法正确解析`错误，请确保对`CarlaUE4/Content/Carla/Maps/OpenDrive/`目录有写权限。这是服务器正确解析`xodr`文件所必需的。
 
 ---
-## 网格生成
+## 网格生成 <span id="grid_generation"></span>
 
 网格的生成是该模式的关键要素。只有当生成的网格是平滑的并且完全符合其定义时，该功能才能成功。出于这个原因，这一步正在不断改进。在最后的迭代中，连接点已经过抛光以避免不准确
 发生，尤其是在不平坦的车道连接处。

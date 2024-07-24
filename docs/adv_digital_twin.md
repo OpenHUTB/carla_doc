@@ -5,18 +5,22 @@
 
 ![digital_twin_pipeline](img/pipeline.png)
 
+- [__构建 OSM 渲染器__](#build_osm_render)
 - [__下载并准备 OSM 地图数据__](#downloading-and-preparing-osm-map-data)
 - [__OpenStreetMap 浏览器__](#openstreetmap-browser)
 - [__程序化环境生成__](#procedural-environment-generation)
-  - [道路装饰](#overview)
-  - [建筑物](#alsm)
+  - [道路装饰](#road_painting)
+  - [建筑物](#building)
 - [__生成地图__](#generate-the-map)
 - [__保存地图__](#save-the-map)
+- [__后续步骤__](#following_step)
+- [__分析__](#analysis)
+- [__问题__](#problems)
 - [**本地化UE编辑器**](adv_localization.md)
 
 __数字孪生工具__ 能够基于源自 [OpenStreetMap](https://www.openstreetmap.org) (OSM) 服务的道路网络，以程序方式生成独特的三维环境。通过 Carla 虚幻引擎编辑器中的数字孪生工具界面，用户可以从 OSM 选择地图区域并下载道路网络作为新 Carla 地图的基础。然后，该工具用程序生成的三维建筑物填充道路之间的空间，这些建筑物会根据道路布局进行调整，从而创建具有高可变性的真实三维道路环境。
 
-## 构建 OSM 渲染器
+## 构建 OSM 渲染器 <span id="build_osm_render"></span>
 
 如果您使用的是 Linux，则可以选择使用 Carla 界面中的 OSM 渲染器来导航已下载的大型 OSM 地图区域。您首先需要构建 OSM 渲染器。 在 Carla 根目录中运行 `make osmrenderer`。 您可能需要将 CMake 版本升级到 v3.2 或更高版本才能正常工作。这将在您的构建目录中创建两个名为 `libosmcout-source` 和 `libosmcout-build` 的文件夹。在继续构建 Carla 之前，您需要像这样 在目录中 `$CARLA_ROOT/Build/libosmcout-source/maps` 编辑文件 `Build.sh`，以确保找到可执行文件：
 
@@ -39,7 +43,7 @@ fi
 
 然后继续按正常方式构建 Carla。Windows 用户无法选择使用 OSM 渲染器，必须直接使用 URL。
 
-## 下载并准备 OSM 地图数据
+## 下载并准备 OSM 地图数据 <span id="downloading-and-preparing-osm-map-data"></span>
 
 ![osm_website](img/osm_export.png)
 
@@ -47,11 +51,11 @@ fi
 
 有两种方法可以使用 OSM 数据。使用 URL 或下载 OSM 文件：
 
-### Using a URL
+### 使用 URL
 
 在 [OpenStreetMap 网站](https:/www.openstreetmap.org) 中，导航到感兴趣的区域，然后按 `Export`，您可能还想使用 `Manually select a different area` 选项。然后，右键单击 `Overpass API` 并从上下文菜单中选择 `Copy link`。 您必须确保文件不大于 1 GB。获取此链接并将其粘贴到界面的 URL 字段中。
 
-### 下载 OSM 文件并在界面中导航
+### 下载 OSM 文件并在界面中导航 
 
 此选项仅适用于 Linux 用户。您可以下载更大区域的地图，例如整个州或领地，然后使用 Carla 中的 OSM 界面，使用箭头和缩放按钮导航地图。将所需的 OSM 数据区域下载为`.osm`文件。 然后将此文件放入 `{CARLA_ROOT}/Build/libosmcout-source/maps/` 文件夹中。打开此文件夹内的终端并运行以下命令：
 
@@ -63,7 +67,7 @@ cd {CARLA_ROOT}/Build/libosmcout-source/maps/
 !!! 笔记
 	如果 OpenStreetMap 中的地图有错误或不精确，可以通过[编辑地图](adv_edit_openstreetmap.md)进行改进。
 
-## OpenStreetMap 浏览器
+## OpenStreetMap 浏览器 <span id="openstreetmap-browser"></span>
 
 如果左下角的“内容浏览器”未看到“Carla内容”，到中间下面的“视图选项”中选中“显示插件内容”
 
@@ -82,15 +86,15 @@ cd {CARLA_ROOT}/Build/libosmcout-source/maps/
 python src/util/config.py -x *.xodr
 ```
 
-## 程序化场景生成
+## 程序化场景生成 <span id="procedural-environment-generation"></span>
 
-### 道路装饰
+### 道路装饰 <span id="road_painting"></span>
 
 该工具从 OSM 数据中提取道路网络作为地图的基础。路面装饰有逼真的表面不规则性、道路纹理和车道线、裂痕和轮胎印迹。
 
 ![road_markings](img/road_surface.jpg)
 
-### 建筑物
+### 建筑物 <span id="building"></span>
 
 道路之间的空白区域填充有建筑物或开放区域，它们会调整其形状和尺寸以填充道路之间的空间。
 
@@ -107,23 +111,23 @@ python src/util/config.py -x *.xodr
 
 建筑物的风格多种多样，随机分布在整个城市，一个区域的建筑风格是根据从 OSM 数据中提取的建筑物的特征尺寸来选择的。
 
-## 生成地图
+## 生成地图 <span id="generate-the-map"></span>
 
 对于 2x2 km<sup>2</sup> 区域，生成步骤大约需要 10 分钟，较大的区域将需要更长的时间。生成过程完成后，您可以在虚幻引擎编辑器中检查三维地图。
 
-## 保存地图
+## 保存地图 <span id="save-the-map"></span>
 
 如果您对生成的地图感到满意，则可以按 *Save Map* 按钮保存地图。 __此步骤将花费大量时间__，可能需要一个多小时，也可能需要几个小时。完成此步骤后，您应该准备让计算机运行几个小时。完成此步骤后，将可以通过虚幻引擎编辑器或通过 Carla API 使用该地图，就像任何其他地图一样。
 
-## 后续步骤
+## 后续步骤 <span id="following_step"></span>
 
 添加光源（天光）、[路线规划器](https://github.com/carla-simulator/carla/blob/dev/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Traffic/RoutePlanner.cpp) 、构建场景。
 
-## 分析
+## 分析 <span id="analysis"></span>
 `UOpenDriveToMap::GenerateTile()`生成每一个瓦片，调用`GenerateAll()`函数，进行 道路网格、车道线、生成点、地形、数目位置、生成完成等步骤。
 
 
-## 问题
+## 问题 <span id="problems"></span>
 `carla\Unreal\CarlaUE4\Plugins\CarlaTools\Source\CarlaTools\Private\OpenDriveToMap.cpp`改为生成一个瓦片地图的函数，生成后的名字为`{NAME}_Tile_0_0`。
 ```shell
 // ExecuteTileCommandlet();

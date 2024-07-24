@@ -3,7 +3,7 @@
 Carla 代理脚本允许车辆沿着随机的、无限的路线行驶，或者采用最短的路线到达给定的目的地。代理遵守交通信号灯并对道路上的其他障碍物做出反应。提供三种代理类型。可以修改目标速度、制动距离、尾随行为等参数。可以根据用户的需要修改参与者类或将其用作基类来创建自定义代理。
 
 - [__代理脚本概述__](#overview-of-agent-scripts)
-    - [计划与控制](#planning-and-control)
+    - [规划与控制](#planning-and-control)
     - [代理行为](#agent-behaviors)
 - [__实现一个代理__](#implement-an-agent)
 - [__行为类型__](#behavior-types)
@@ -12,17 +12,17 @@ Carla 代理脚本允许车辆沿着随机的、无限的路线行驶，或者�
 
 ---
 
-## 代理脚本概述
+## 代理脚本概述 <span id="overview-of-agent-scripts"></span>
 
-Carla 代理中涉及的主要脚本位于`PythonAPI/carla/agents/navigation`中。它们分为两类； __计划和控制__ 和 __代理行为__。
+Carla 代理中涉及的主要脚本位于`PythonAPI/carla/agents/navigation`中。它们分为两类； __规划和控制__ 和 __代理行为__。
 
-### 计划与控制
+### 规划与控制 <span id="planning-and-control"></span>
 
 - __`controller.py`:__ 将纵向和横向 PID 控制器组合成一个类，__VehiclePIDController__，用于从 Carla 客户端对车辆进行低级控制。
 - __`global_route_planner.py`:__ 从 Carla 服务器获取详细的拓扑结构以构建世界地图的图形表示，为 __Local Planner__ 提供路径点和道路选项信息。
 - __`local_planner.py`:__ 根据来自 __VehiclePIDController__ 的控制输入跟踪路径点。路径点可以由 __Global Route Planner__ 提供，也可以动态计算，在路口选择随机路径，类似于 [Traffic Manager](adv_traffic_manager.md)。
 
-### 代理行为
+### 代理行为 <span id="agent-behaviors"></span>
 
 - __`basic_agent.py`:__ 包含一个代理基类，它实现了一个 __Basic Agent__，它在地图上漫游或以尽可能短的距离到达目标目的地，避开其他车辆，响应交通信号灯但忽略停车标志。
 - __`behavior_agent.py`:__ 包含一个实现更复杂的 __Behavior Agent__ 的类，它可以在尽可能短的距离内到达目标目的地，跟随交通信号灯、标志和速度限制，同时尾随其他车辆。有三种预定义的类型决定了代理的行为方式。
@@ -30,7 +30,7 @@ Carla 代理中涉及的主要脚本位于`PythonAPI/carla/agents/navigation`中
 
 ---
 
-## 实现一个代理
+## 实现一个代理 <span id="implement-an-agent"></span>
 
 本节将解释如何在您自己的脚本中使用示例 Carla 代理类。在本节的最后，您将了解如何运行一个示例脚本来显示不同代理的运行情况。
 
@@ -114,7 +114,7 @@ python3 automatic_control.py --agent=Behavior --behavior=aggressive
 
 ---
 
-## 行为类型
+## 行为类型 <span id="behavior-types"></span>
 
 行为代理的行为类型在 `behavior_types.py` 中定义。三个预配置的配置文件是 __'cautious'__、__'normal'__ 和 __'aggressive'__。您可以使用设置的配置文件、修改它们或创建您自己的配置文件。可以调整以下变量：
 
@@ -126,7 +126,7 @@ python3 automatic_control.py --agent=Behavior --behavior=aggressive
 - __`braking_distance`__：您的车辆将执行紧急停车时与行人或车辆的距离。
 - __`tailgate_counter`__：用于避免在最后一个后挡板后过快尾随的计数器。
 
-## 创建自己的行为类型
+### 创建自己的行为类型 <span id="create-your-own-behavior-type"></span>
 
 要创建自己的行为类型：
 
@@ -156,7 +156,7 @@ elif behavior == '<type_name>':
 
 ---
 
-## 创建代理
+## 创建代理 <span id="creating-an-agent"></span>
 
 Carla 代理只是用户可以运行的代理类型的示例。用户可以在 __Basic Agent__ 的基础上创建自己的代理。可能性是无穷的。每个代理只需要两个元素，__初始化__ `__init__` 和 __运行步__ `run_step`。
 

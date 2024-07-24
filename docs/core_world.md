@@ -5,9 +5,10 @@
 本教程从定义这些元素的基础知识和创建，到描述它们的可能性。如果阅读过程中出现任何疑问或问题，[Carla 论坛](https://github.com/carla-simulator/carla/discussions/) 可以为您解决。
 
 *   [__客户端__](#the-client)  
-	*   [客户端创建](#client-creation)  
-	*   [世界连接](#world-connection)  
-	*   [其他客户端实用程序](#other-client-utilities)  
+    * [客户端创建](#client-creation)  
+    * [世界连接](#world-connection)  
+    * [使用命令](#using_command)  
+    * [其他客户端实用程序](#other-client-utilities)  
 *   [__世界__](#the-world)  
 	*   [参与者](#actors)  
 	*   [天气](#weather)  
@@ -17,7 +18,7 @@
 	*   [世界设置](#world-settings)  
 
 ---
-## 客户端
+## 客户端 <span id="the-client"></span>
 
 客户端是 Carla 架构中的主要元素之一。它们连接到服务器、检索信息并更改命令。这是通过脚本完成的。客户端识别自己的身份，并连接到世界，然后进行仿真操作。
 
@@ -26,7 +27,7 @@
 查看 Python API 参考中的 [__carla.Client__](python_api.md#carla.Client) 以了解该类的特定方法和变量。
 
 
-### 客户端创建
+### 客户端创建 <span id="client-creation"></span>
 
 需要两件事。标识它的 __IP__ 地址以及与服务器通信的 __两个 TCP 端口__ 。可选的第三个参数设置工作线程的数量。默认情况下，该值设置为全部 (`0`)。Python API 参考中的[carla.Client](python_api.md#carla.Client.__init__) 包含一个片段，显示如何在运行脚本时将这些解析为参数。
 
@@ -46,7 +47,7 @@ client.set_timeout(10.0) # 秒
 !!! 笔记
     客户端和服务器有不同的`libcarla`模块。如果版本不同，可能会出现问题。这可以使用`get_client_version()`和`get_server_version()`方法进行检查。
 
-### 世界连接
+### 世界连接 <span id="world-connection"></span>
 
 客户端可以相当轻松地连接和检索当前世界。
 
@@ -64,7 +65,7 @@ world = client.load_world('Town01')
 
 每个世界对象都有一个 `id` 或世代。每当客户端调用 `load_world()` 或 `reload_world()` 时，前一个被销毁。一个新的世代是从头开始创建的。在此过程中虚幻引擎不会重新启动。
 
-### 使用命令
+### 使用命令 <span id="using_command"></span>
 
 __命令__ 是一些最常见的 Carla 方法的改编，可以批量应用。例如，[command.SetAutopilot](python_api.md#command.SetAutopilot) 相当于[command.SetAutopilot](python_api.md#command.SetAutopilot) ，启用车辆的自动驾驶功能。但是，使用[Client.apply_batch](python_api.md#carla.Client.apply_batch) 或[Client.apply_batch_sync()](python_api.md#carla.Client.apply_batch_sync) 方法，可以在一个仿真步骤中应用一系列命令。这对于通常应用于数百个元素的方法来说变得非常有用。
 
@@ -76,7 +77,7 @@ client.apply_batch([carla.command.DestroyActor(x) for x in vehicles_list])
 
 Python API 参考的 [最新部分](python_api.md#command.ApplyAngularVelocity) 列出了所有可用的命令。
 
-### 其他客户端实用程序
+### 其他客户端实用程序 <span id="other-client-utilities"></span>
 
 客户端对象的主要目的是获取或改变世界，并应用命令。但是，它还提供对一些附加功能的访问。 
 
@@ -84,7 +85,7 @@ Python API 参考的 [最新部分](python_api.md#command.ApplyAngularVelocity) 
 *   __[记录器](adv_recorder.md).__ 允许重新进行以前的仿真。使用 [快照](core_world.md#world-snapshots) 总结每帧的仿真状态。
 
 ---
-## 世界
+## 世界 <span id="the-world"></span>
 
 仿真的主要标尺。它的实例应该由客户端检索。它不包含世界本身的模型，这是 [Map](core_map.md) 类的一部分。相反，大多数信息和常规设置可以从此类访问。
 
@@ -97,7 +98,7 @@ Python API 参考的 [最新部分](python_api.md#command.ApplyAngularVelocity) 
 
 它的一些最重要的方法是 _getters_ ，精确地检索这些元素的信息或实例。查看 [carla.World](python_api.md#carla.World) 了解更多信息。
 
-### 参与者
+### 参与者 <span id="actors"></span>
 
 世界上有不同的与参与者相关的方法，允许不同的功能。
 
@@ -109,7 +110,7 @@ Python API 参考的 [最新部分](python_api.md#command.ApplyAngularVelocity) 
 
 生成将在 [第二部分、参与者和蓝图](core_actors.md) 。需要对蓝图库、属性等有一定的了解。
 
-### 天气
+### 天气 <span id="weather"></span>
 
 天气本身并不是一个类，而是一组可从世界获取的参数。参数化包括太阳方向、云量、风、雾等等。辅助类[carla.WeatherParameters](python_api.md#carla.WeatherParameters) 用于定义自定义天气。
 ```py
@@ -174,7 +175,7 @@ world.set_weather(carla.WeatherParameters.WetCloudySunset)
 
 __当 sun_altitude_angle < 0 时，夜间模式开始__，这被认为是日落。这是灯光变得特别重要的时候。
 
-### 灯光
+### 灯光 <span id="lights"></span>
 
 *   当仿真进入夜间模式时， __路灯__ 会自动打开。灯光由地图开发人员放置，并可作为 [__carla.Light__](python_api.md#carla.Light) 对象访问。颜色和强度等属性可以随意更改。[__carla.LightState__](python_api.md#carla.LightState) 类型的变量 __light_state__ 允许在一次调用中设置所有这些。 路灯使用其类型为 [__carla.LightState__](python_api.md#carla.LightState) 的属性 __light_state__ 进行分类。这允许将灯分类为路灯、建筑物灯...可以检索 [__carla.LightManager__] 的实例来在一次调用中处理一组灯。
 
@@ -214,7 +215,7 @@ vehicle.set_light_state(current_lights)
 !!! 笔记
     还可以使用天气 `environment.py` 部分中描述的实时设置灯光。
 
-### 调试
+### 调试 <span id="debugging"></span>
 
 世界对象有一个 [carla.DebugHelper](python_api.md#carla.DebugHelper) 对象作为公共属性。它允许在仿真过程中绘制不同的形状。这些用于跟踪正在发生的事件。以下示例将在参与者的位置和旋转处绘制一个红色框。
 
@@ -225,7 +226,7 @@ debug.draw_box(carla.BoundingBox(actor_snapshot.get_transform().location,carla.V
 
 此示例在 [carla.DebugHelper](python_api.md#carla.DebugHelper.draw_box) 的片段中进行了扩展，展示了如何为世界快照中的每个参与者绘制方框。
 
-### 世界快照
+### 世界快照 <span id="world-snapshots"></span>
 
 包含仿真中每个参与者在单个帧中的状态。一种带有时间参考的静态世界图像。即使在异步模式下，信息也来自相同的仿真步骤。
 
@@ -249,7 +250,7 @@ for actor_snapshot in world_snapshot: # 获取参与者和快照信息
 actor_snapshot = world_snapshot.find(actual_actor.id) # 获得参与者快照
 ```
 
-### 世界设置
+### 世界设置 <span id="world-settings"></span>
 
 世界可以使用一些高级的仿真配置。这些决定了渲染条件、仿真时间步长以及客户端和服务器之间的同步。它们可以从辅助类[carla.WorldSettings](python_api.md#carla.WorldSettings) 访问。 
 
