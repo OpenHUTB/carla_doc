@@ -41,7 +41,55 @@
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="..">主页</a>
+                <li class="toctree-l1"><a class="" href="#_1">入门</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="" href="#_2">主题</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="" href="#_3">交通</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="" href="#_4">行人</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="" href="#_5">高级概念</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="" href="#_6">自定义地图</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="" href="#_7">自定义开发</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="" href="#_8">基准测试</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="" href="#_9">生态系统</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="" href="#_10">源代码编译</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="" href="#_11">贡献</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="" href="#_12">其他</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="" href="#_13">参考</a>
                 </li>
               </ul>
       </div>
@@ -103,6 +151,9 @@ Carla 论坛</a>
 <li><a href="#make-is-missing-libintl3dll-orand-libiconv2dll">Make 缺少 libintl3.dll 或/和 libiconv2.dll。</a></li>
 <li><a href="#modules-are-missing-or-built-with-a-different-engine-version">模块缺失或使用不同的引擎版本构建。</a></li>
 <li><a href="#there-is-no-dist-folder-in-pythonapicarla-despite-a-successful-output-message">在 <code>PythonAPI/carla</code> 中尽管成功输出消息，但没有<code>dist</code>文件夹</a></li>
+<li><a href="#osm2odr_is_null">osm2odr-visualstudio为空，或者拷贝过去的目录不对</a></li>
+<li><a href="#type_conversion_error">类型转换不对</a></li>
+<li><a href="#link_osm2odr_failed">链接不到osm2odr.lib</a></li>
 </ul>
 <hr />
 <h2 id="carla">运行 Carla</h2>
@@ -129,13 +180,13 @@ Carla 论坛</a>
 <h2 id="_4">系统要求</h2>
 <!-- ======================================================================= -->
 
-<h6 id="carla_1">构建 Carla 所需的磁盘空间。</h6>
+<h6 id="carla_1">构建 Carla 所需的磁盘空间。 <span id="expected-disk-space-to-build-carla"></span></h6>
 <blockquote>
 <p>建议至少有 170GB 可用空间。构建 Carla 需要大约 35GB 的磁盘空间，加上虚幻引擎大约需要 95-135GB。</p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="carla_2">运行 Carla 的推荐硬件。</h6>
+<h6 id="carla_2">运行 Carla 的推荐硬件。 <span id="recommended-hardware-to-run-carla"></span></h6>
 <blockquote>
 <p>Carla 是一款性能要求较高的软件。它至少需要 6GB GPU，或者更好的是能够运行虚幻引擎的专用 GPU。</p>
 <p>看看 <a href="https://www.ue4community.wiki/recommended-hardware-x1p9qyg0">虚幻引擎推荐的硬件</a> 。</p>
@@ -143,14 +194,14 @@ Carla 论坛</a>
 <hr />
 <h2 id="linux_1">Linux 构建</h2>
 <!-- ======================================================================= -->
-<h6 id="github-carlaue4sh">从 GitHub 下载时不会出现“CarlaUE4.sh”脚本。</h6>
+<h6 id="github-carlaue4sh">从 GitHub 下载时不会出现“CarlaUE4.sh”脚本。 <span id="carlaue4sh-script-does-not-appear-when-downloading-from-github"></span></h6>
 <blockquote>
 <p>Carla 的源版本中没有 <code>CarlaUE4.sh</code> 脚本。按照 <a href="../build_linux/">构建说明</a> 从源代码构建 Carla。</p>
 <p>要使用 <code>CarlaUE4.sh</code> 运行 Carla，请按照 <a href="../start_quickstart/">快速启动安装</a> 进行操作。</p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="make-launch-linux">“make launch”在 Linux 上不起作用。</h6>
+<h6 id="make-launch-linux">“make launch”在 Linux 上不起作用。 <span id="make-launch-is-not-working-on-linux"></span></h6>
 <blockquote>
 <p>在构建安装过程中可能会拖出许多不同的问题，并会像这样显现出来。以下是最可能的原因列表：</p>
 <ul>
@@ -165,7 +216,7 @@ Carla 论坛</a>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="_5">克隆虚幻引擎存储库显示错误。</h6>
+<h6 id="_5">克隆虚幻引擎存储库显示错误。 <span id="cloning-the-unreal-engine-repository-shows-an-error"></span></h6>
 <blockquote>
 <p><strong>1. 虚幻引擎帐号是否已激活？</strong> 虚幻引擎存储库是私有的。为了克隆它，请创建虚 <a href="https://www.unrealengine.com/en-US/">幻引擎帐</a> 户，激活它（检查验证邮件），然后 <a href="https://www.unrealengine.com/en-US/blog/updated-authentication-process-for-connecting-epic-github-accounts">链接您的 GitHub</a>  帐户。</p>
 <p><strong>2. git是否安装正确？</strong> 有时错误表明与 <code>https</code> 协议不兼容。通过卸载并重新安装 git 即可轻松解决。打开终端并运行以下命令：</p>
@@ -175,7 +226,7 @@ Carla 论坛</a>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="attributeerror-module-carla-has-no-attribute-client-when-running-a-script">AttributeError: module 'carla' has no attribute 'Client' when running a script.</h6>
+<h6 id="attributeerror-module-carla-has-no-attribute-client-when-running-a-script">AttributeError: module 'carla' has no attribute 'Client' when running a script. <span id="attributeerror-module-carla-has-no-attribute-client-when-running-a-script"></span></h6>
 <blockquote>
 <p>运行以下命令。</p>
 <pre><code>  pip3 install -Iv setuptools==47.3.1
@@ -189,7 +240,7 @@ Carla 论坛</a>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="runtimeerror-rpcrpc_error-during-call-in-function-version">无法运行示例脚本或 "RuntimeError: rpc::rpc_error during call in function version".</h6>
+<h6 id="runtimeerror-rpcrpc_error-during-call-in-function-version">无法运行示例脚本或 "RuntimeError: rpc::rpc_error during call in function version". <span id="cannot-run-example-scripts-or-runtimeerror-rpcrpc_error-during-call-in-function-version"></span></h6>
 <blockquote>
 <p><img alt="faq_rpc_error" src="../img/faq_rpc_error.jpg" /></p>
 <p>如果运行脚本返回与此类似的输出，则说明 PythonAPI 中的 <code>.egg</code> 文件存在问题。</p>
@@ -232,13 +283,13 @@ export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla</code></p>
 <h2 id="windows_1">Windows 构建</h2>
 <!-- ======================================================================= -->
 
-<h6 id="github-carlaue4exe">从 GitHub 下载时不会出现“CarlaUE4.exe”。</h6>
+<h6 id="github-carlaue4exe">从 GitHub 下载时不会出现“CarlaUE4.exe”。 <span id="carlaue4exe-does-not-appear-when-downloading-from-github"></span></h6>
 <blockquote>
 <p>Carla 的源版本中没有<code>CarlaUE4.exe</code>可执行文件。按照构建说明从源代码构建 Carla。要直接获取<code>CarlaUE4.exe</code>，请按照 <a href="../start_quickstart/">快速入门</a> 说明进行操作。</p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="carlaue4-could-not-be-compiled-try-rebuilding-it-from-source-manually">CarlaUE4 could not be compiled. Try rebuilding it from source manually.</h6>
+<h6 id="carlaue4-could-not-be-compiled-try-rebuilding-it-from-source-manually">CarlaUE4 could not be compiled. Try rebuilding it from source manually. <span id="carlaue4-could-not-be-compiled-try-rebuilding-it-from-source-manually"></span></h6>
 <blockquote>
 <p>尝试构建 Carla 时出现问题。使用 Visual Studio 重新构建以发现发生了什么。</p>
 <p><strong>1.</strong> 转到 <code>carla/Unreal/CarlaUE4</code> 并右键单击 <code>CarlaUE4.uproject</code>。 
@@ -257,14 +308,14 @@ export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla</code></p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="cmake-cmake">即使 CMake 已正确安装，也会显示 CMake 错误。</h6>
+<h6 id="cmake-cmake">即使 CMake 已正确安装，也会显示 CMake 错误。 <span id="cmake-error-shows-even-though-cmake-is-properly-installed"></span></h6>
 <blockquote>
 <p>当尝试使用  <em>make</em> 命令构建服务器或客户端时会出现此问题。即使 CMake 已安装、更新并添加到环境路径中。Visual Studio 版本之间可能存在冲突。</p>
 <p>只留下VS2019，其余的彻底删除。 </p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="error-c2440-c2672-compiler-version">Error C2440, C2672: compiler version.</h6>
+<h6 id="error-c2440-c2672-compiler-version">Error C2440, C2672: compiler version. <span id="error-c2440-c2672-compiler-version"></span></h6>
 <blockquote>
 <p>由于与其他 Visual Studio 或 Microsoft 编译器版本冲突，该构建未使用 2019 编译器。卸载这些并再次重建。  </p>
 <p>Visual Studio 不擅长摆脱自身。要从计算机中彻底清除 Visual Studio，请转到 <code>Program Files (x86)\Microsoft Visual Studio\Installer\resources\app\layout</code> 并运行 <code>.\InstallCleanup.exe -full</code>。这可能需要管理员权限。  </p>
@@ -278,7 +329,7 @@ export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla</code></p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="make-launch-windows">“make launch”在 Windows 上不起作用。</h6>
+<h6 id="make-launch-windows">“make launch”在 Windows 上不起作用。 <span id="make-launch-is-not-working-on-windows"></span></h6>
 <blockquote>
 <p>在构建安装过程中可能会拖出许多不同的问题，并像这样显现出来。以下是最可能的原因列表：</p>
 <ul>
@@ -293,23 +344,23 @@ export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla</code></p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="make-libintl3dll-libiconv2dll">Make 缺少 libintl3.dll 或/和 libiconv2.dll。</h6>
+<h6 id="make-libintl3dll-libiconv2dll">Make 缺少 libintl3.dll 或/和 libiconv2.dll。 <span id="make-is-missing-libintl3dll-orand-libiconv2dll"></span></h6>
 <blockquote>
 <p>下载 <a href="http://gnuwin32.sourceforge.net/downlinks/make-dep-zip.php">依赖项</a> 并将<code>bin</code>内容解压到<code>make</code>安装路径中。 </p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="modules-are-missing-or-built-with-a-different-engine-version">Modules are missing or built with a different engine version.</h6>
+<h6 id="modules-are-missing-or-built-with-a-different-engine-version">Modules are missing or built with a different engine version. <span id="modules-are-missing-or-built-with-a-different-engine-version"></span></h6>
 <blockquote>
 <p>单击 on <strong>Accept</strong> 以重建它们。</p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="pythonapicarladist">尽管成功输出消息，但在<code>PythonAPI/carla</code>中没有<code>dist</code>文件夹。</h6>
+<h6 id="pythonapicarladist">尽管成功输出消息，但在<code>PythonAPI/carla</code>中没有<code>dist</code>文件夹。  <span id="there-is-no-dist-folder-in-pythonapicarla-despite-a-successful-output-message"></span></h6>
 <blockquote>
 <p>在 Windows 中， <code>make PythonAPI</code> 命令可能会返回一条消息，表明 Python API 安装成功，但实际上并未成功。如果看到此输出后目录 <code>PythonAPI/carla</code> 中没有 <code>dist</code> 文件夹，请查看上面的命令输出。很可能发生了错误，需要在更正错误并运行 <code>make clean</code> 后重试构建。 </p>
 </blockquote>
-<h6 id="osm2odr-visualstudio">osm2odr-visualstudio为空，或者拷贝过去的目录不对</h6>
+<h6 id="osm2odr-visualstudio">osm2odr-visualstudio为空，或者拷贝过去的目录不对 <span id="osm2odr_is_null"></span></h6>
 <pre><code class="language-text">CMake Error: The current CMakeCache.txt directory D:/work/workspace/carla/Build/osm2odr-visualstudio/CMakeCache.txt is different than the directory d:/work/buffer/carla/Build/osm2odr-visualstudio where CMakeCache.txt was created. This may result in binaries being created in the wrong place. If you are not sure, reedit the CMakeCache.txt
 </code></pre>
 <pre><code class="language-shell">CMake Error: The source directory &quot;D:/work/workspace/carla/Build/osm2odr-visualstudio/x64&quot; does not appear to contain CMakeLists.txt.
@@ -317,7 +368,7 @@ export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla</code></p>
 <blockquote>
 <p>删除<code>carla\Build\osm2odr-visualstudio\CMakeCache.txt</code></p>
 </blockquote>
-<h6 id="_6">类型转换不对</h6>
+<h6 id="_6">类型转换不对 <span id="type_conversion_error"></span></h6>
 <blockquote></blockquote>
 <pre><code class="language-shell">carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Vehicle/CustomTerrainPhysicsComponent.cpp(1161): error C2440: “static_cast”: 无法从“float”转换为“EDefResolutionType”
 </code></pre>
@@ -326,7 +377,8 @@ export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla</code></p>
 </blockquote>
 <pre><code class="language-shell">// ChosenRes = static_cast&lt;EDefResolutionType&gt;(Value);  // static_cast&lt;EDefResolutionType&gt;(Value)
 </code></pre>
-<h6 id="osm2odrlib">链接不到osm2odr.lib</h6>
+<p>注意：注意vs2019专业版才有这个问题，vs2019社区版没有这个问题。</p>
+<h6 id="osm2odrlib">链接不到osm2odr.lib <span id="link_osm2odr_failed"></span></h6>
 <blockquote>
 <p><code>fatal error LNK1181: carla\Unreal\CarlaUE4\Plugins\Carla\CarlaDependencies\lib\osm2odr.lib</code></p>
 <p>从其他地方拷贝过来。</p>
@@ -335,45 +387,45 @@ export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla</code></p>
 <h2 id="carla_3">运行 Carla</h2>
 <!-- ======================================================================= -->
 
-<h6 id="fps">在虚幻编辑器中运行服务器时 FPS 速率较低。</h6>
+<h6 id="fps">在虚幻编辑器中运行服务器时 FPS 速率较低。 <span id="low-fps-rate-when-running-the-server-in-unreal-editor"></span></h6>
 <blockquote>
 <p>虚幻4编辑器在失焦时会进入低性能模式。  </p>
 <p>转到“编辑-&gt;编辑器偏好设置-&gt;性能” （<code>Edit/Editor Preferences/Performance</code>），然后禁用“处于背景中时占用较少 CPU”选项。</p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="_7">无法运行脚本。</h6>
+<h6 id="_7">无法运行脚本。 <span id="cant-run-a-script"></span></h6>
 <blockquote>
 <p>有些脚本有要求。这些列在名为 <strong>Requirements.txt</strong> 的文件中，与脚本本身位于同一路径中。请务必检查这些以便运行脚本。其中大多数可以通过简单的<code>pip</code>命令进行安装。</p>
 <p>有时在 Windows 上，脚本无法仅使用 <code>&gt; script_name.py</code> 运行。尝试添加. Try adding <code>&gt; python3 script_name.py</code>，并确保位于正确的目录中。</p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="_8">在虚幻编辑器中运行时连接到仿真器。</h6>
+<h6 id="_8">在虚幻编辑器中运行时连接到仿真器。 <span id="connect-to-the-simulator-while-running-within-unreal-editor"></span></h6>
 <blockquote>
 <p>单击“运行”（ <strong>Play</strong> ）并等待场景加载。此时，Python 客户端可以像独立仿真器一样连接到仿真器。</p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="carla_4">无法运行 Carla，无论是二进制还是源代码构建。</h6>
+<h6 id="carla_4">无法运行 Carla，无论是二进制还是源代码构建。 <span id="cant-run-carla-neither-binary-nor-source-build"></span></h6>
 <blockquote>
 <p>NVIDIA 驱动程序可能已过时。确保情况并非如此。如果问题仍未解决，请查看 <a href="https://github.com/carla-simulator/carla/discussions/">论坛</a> 并发布具体问题。</p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="importerror-dll-load-failed-the-specified-module-could-not-be-found">ImportError: DLL load failed: The specified module could not be found.</h6>
+<h6 id="importerror-dll-load-failed-the-specified-module-could-not-be-found">ImportError: DLL load failed: The specified module could not be found. <span id="importerror-dll-load-failed-the-specified-module-could-not-be-found"></span></h6>
 <blockquote>
 <p>所需的库之一尚未正确安装。作为解决方法，请转至 <code>carla\Build\zlib-source\build</code>并在脚本的路径中复制名为 <code>zlib.dll</code> 的文件。</p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="importerror-dll-load-failed-while-importing-libcarla-1-is-not-a-valid-win32-app">ImportError: DLL load failed while importing libcarla: %1 is not a valid Win32 app.</h6>
+<h6 id="importerror-dll-load-failed-while-importing-libcarla-1-is-not-a-valid-win32-app">ImportError: DLL load failed while importing libcarla: %1 is not a valid Win32 app. <span id="importerror-dll-load-failed-while-importing-libcarla-1-is-not-a-valid-win32-app"></span></h6>
 <blockquote>
 <p>32 位 Python 版本在尝试运行脚本时会产生冲突。卸载它并仅保留所需的 Python3 x64。</p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="importerror-no-module-named-carla">ImportError: No module named 'carla'</h6>
+<h6 id="importerror-no-module-named-carla">ImportError: No module named 'carla' <span id="importerror-no-module-named-carla"></span></h6>
 <blockquote>
 <p>出现此错误的原因是 Python 找不到 Carla 库。Carla 库包含在位于<code>PythonAPI/carla/dist</code>目录中的一个<code>.egg</code>文件中，所有示例脚本都将在此目录中查找它。该<code>.egg</code>文件遵循carla-<carla-version>-py<python-version>-<operating-system>.egg 命名法。
 </p>
@@ -404,7 +456,7 @@ export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla</code></p>
 </code></pre>
 <p>请注意，虚拟环境或 Conda 等其他 Python 环境可能会使 Carla 的安装变得复杂。确保您已相应地设置 Python 默认值和路径。</p>
 </blockquote>
-<h6 id="runtimeerror-rpcrpc_error-during-call-in-function-apply_batch">RuntimeError: rpc::rpc_error during call in function apply_batch</h6>
+<h6 id="runtimeerror-rpcrpc_error-during-call-in-function-apply_batch">RuntimeError: rpc::rpc_error during call in function apply_batch <span id="rpc_error"></span></h6>
 <blockquote>
 <p>PythonAPI的版本要和Carla服务的版本一致，比如dev分支的代码编译得到的虚幻编辑器运行的场景也要用dev分支代码编译的PythonAPI进行连接。</p>
 </blockquote>
@@ -412,7 +464,7 @@ export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla</code></p>
 <h2 id="_9">其他</h2>
 <!-- ======================================================================= -->
 
-<h6 id="fatal-error-versionh-has-been-modified-since-the-precompiled-header">Fatal error: 'version.h' has been modified since the precompiled header.</h6>
+<h6 id="fatal-error-versionh-has-been-modified-since-the-precompiled-header">Fatal error: 'version.h' has been modified since the precompiled header. <span id="fatal-error-versionh-has-been-modified-since-the-precompiled-header"></span></h6>
 <blockquote>
 <p>由于 Linux 更新，这种情况时常发生。Makefile 中有一个针对此问题的特殊目标。虽然花了很长时间，但解决了问题： </p>
 <pre><code> make hard-clean
@@ -421,19 +473,19 @@ export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla</code></p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="carla_5">创建 Carla 的二进制版本。</h6>
+<h6 id="carla_5">创建 Carla 的二进制版本。 <span id="create-a-binary-version-of-carla"></span></h6>
 <blockquote>
 <p>在 Linux 中，在项目文件夹中运行 <code>make package</code>。该包将包括项目和 Python API 模块。 </p>
 <p>或者，可以在虚幻编辑器中编译 Carla 的二进制版本。打开 CarlaUE4 项目，转到菜单 <code>File/Package Project</code>，然后选择一个平台。可能还要等一下。 </p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="linux-windows-carla">我可以在 Linux 计算机上打包适用于 Windows 的 Carla，反之亦然吗？</h6>
+<h6 id="linux-windows-carla">我可以在 Linux 计算机上打包适用于 Windows 的 Carla，反之亦然吗？ <span id="can-i-package-carla-for-windows-on-a-linux-machine-and-vice-versa"></span></h6>
 <blockquote>
 <p>虽然此功能适用于虚幻引擎，但在 Carla 中不可用。我们有许多不支持交叉编译的依赖项。</p>
 </blockquote>
 <!-- ======================================================================= -->
-<h6 id="carla_6">如何卸载 Carla 客户端库？</h6>
+<h6 id="carla_6">如何卸载 Carla 客户端库？ <span id="how-do-i-uninstall-the-carla-client-library"></span></h6>
 <blockquote>
 <p>如果您使用 <strong>pip/pip3</strong> 安装了客户端库，则应通过运行以下命令将其卸载： </p>
 </blockquote>
