@@ -220,7 +220,7 @@ Carla 论坛</a>
 [__OpenSCENARIO 播放器__](tuto_G_esmini.md) — 基本的 OpenSCENARIO 播放器。
 
 
-## 编译 Carla
+## 源代码编译
 
 [__构建 Carla__](build_carla.md) — 进行 Carla 编译。
 

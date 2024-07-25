@@ -4,19 +4,19 @@ Carla 团队很高兴接受任何愿意合作的人的贡献。根据贡献者�
 
 看看吧，不要犹豫！
 
-*   [__报告错误__](#report-bugs)  
-*   [__请求功能__](#request-features)  
-*   [__代码贡献__](#code-contributions)  
-	*   [了解虚幻引擎](#learn-about-unreal-engine)  
-	*   [开始之前](#before-getting-started)  
-	*   [编码标准](#coding-standard)  
+*   [__报告错误__](#report_bugs)  
+*   [__请求功能__](#request_features)  
+*   [__代码贡献__](#code_contributions)  
+	*   [了解虚幻引擎](#learn_about_unreal_engine)  
+	*   [开始之前](#before_getting_started)  
+	*   [编码标准](#coding_standard)  
 	*   [提交](#submission)  
 	*   [清单](#checklist)  
-*   [__艺术贡献__](#art-contributions)  
-*   [__文档贡献__](#docs-contributions)  
+*   [__艺术贡献__](#art_contributions)  
+*   [__文档贡献__](#docs_contributions)  
 
 ---
-## 报告错误
+## 报告错误 <span id="report_bugs"></span>
 
 可以在 GitHub 上的 [Issues 部分][issueslink] 报告问题。在报告新错误之前，请务必进行一些检查。
 
@@ -29,14 +29,14 @@ __2. 阅读文档。__ 确保问题是一个错误，而不是对 Carla 应该�
 [faqlink]: build_faq.md
 
 ---
-## 请求功能
+## 请求功能 <span id="request_features"></span>
 
 新功能的想法也是一种很好的贡献方式。任何可以改善用户体验的建议都可以在 [此处][frlink] 的相应 GitHub 部分提交。
 
 [frlink]: https://github.com/carla-simulator/carla/issues?q=is%3Aissue+is%3Aopen+label%3A%22feature+request%22+sort%3Acomments-desc
 
 ---
-## 代码贡献
+## 代码贡献 <span id="code_contributions"></span>
 
 在开始动手编码之前，请查看 [Issues 板块][issueboard] 以了解团队已经在做什么，以避免重叠。如有疑问或讨论如何继续，请联系我们之一（或发送电子邮件至 <carla.simulator@gmail.com>）。
 
@@ -45,22 +45,22 @@ __2. 阅读文档。__ 确保问题是一个错误，而不是对 Carla 应该�
 
 [issueboard]: https://github.com/carla-simulator/carla/issues
 
-### 了解虚幻引擎
+### 了解虚幻引擎 <span id="learn_about_unreal_engine"></span>
 
 有关使用虚幻引擎 4 进行 C++ 编程的基本介绍，请参阅虚幻引擎的 [C++ 编程教程][ue4tutorials]。网上还有其他选项，其中一些不是免费的。[Udemy 的虚幻 C++ 课程][ue4course]非常完整，并且通常提供价格非常实惠的优惠。
 
 [ue4tutorials]: https://docs.unrealengine.com/latest/INT/Programming/Tutorials/
 [ue4course]: https://www.udemy.com/unrealcourse/
 
-### 开始之前
+### 开始之前 <span id="before_getting_started"></span>
 
 查看 [Carla 设计](index.md)<!-- @todo -->文档，了解组成 Carla 的不同模块。选择最合适的一个来容纳新功能。如果在此过程中出现任何疑问， 请随时联系 [Discord 服务器](https://discord.com/invite/8kqACuC) 中的团队。
 
-### 编码标准
-
+### 编码标准 <span id="coding_standard"></span>
+ 
 提交新代码时 遵循当前的  [编码标准](cont_coding_standard.md)。
 
-### 提交
+### 提交 <span id="submission"></span>
 
 贡献和新功能不会直接合并到 `master` 分支，而是合并到名为 `dev` 的中间分支。这种 [Gitflow](https://nvie.com/posts/a-successful-git-branching-model/) 分支模型可以更轻松地维护稳定的主分支。该模型需要特定的贡献工作流程。
 
@@ -70,7 +70,7 @@ __2. 阅读文档。__ 确保问题是一个错误，而不是对 Carla 应该�
 
 一旦贡献被合并到 `dev` 中，就可以与其余新功能一起进行测试。到下一个版本时，该 `dev` 分支将合并到 `master`，并且贡献将可用并公布。
 
-### 清单  
+### 清单   <span id="checklist"></span>
 
 *   您的分支已与 `dev` 分支保持同步，并通过最新更改进行了测试。
 *   如有必要，扩展 README/文档。
@@ -78,7 +78,7 @@ __2. 阅读文档。__ 确保问题是一个错误，而不是对 Carla 应该�
 *   所有测试均通过 `make check`。
 
 ---
-## 艺术贡献
+## 艺术贡献 <span id="art_contributions"></span>
 
 艺术贡献包括车辆、行人、地图或 Carla 中使用的任何其他类型的资产。这些存储在 BitBucket 存储库中，该存储库有一些帐户空间限制。出于上述原因，贡献者必须与 Carla 团队联系，并要求他们在内容存储库上为贡献创建一个分支。
 
@@ -100,7 +100,7 @@ __8. 等待美术组审核。__ 一旦贡献上传，团队将检查与 master �
 
 
 ---
-## 文档贡献
+## 文档贡献 <span id="docs_contributions"></span>
 
 如果某些文档缺失、模糊或不精确，则可以像任何其他错误一样进行报告（请阅读上一节有关 [如何报告错误](#report-bugs)）。但是，用户可以通过编写文档来做出贡献。
 
