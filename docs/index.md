@@ -23,7 +23,7 @@ Carla 论坛</a>
 
 ---
 
-## 入门
+## 入门 <span id="introduction"></span>
 
 [__介绍__](start_introduction.md) — 对 Carla 的期望。
 
