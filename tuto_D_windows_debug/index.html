@@ -148,7 +148,7 @@
 <p>在<code>BuildLibCarla.bat</code>中，将 <code>--config</code>参数从<code>Release</code>修改为<code>Debug</code>。</p>
 <div class="admonition 注意">
 <p class="admonition-title">注意</p>
-<p>在vs2019中生成<code>carla_client_debug</code>的解决方案时出现<code>fatal error C1189: #error :  "Incompatible build options"</code>错误，因为 <a href="https://www.twblogs.net/a/5ef976a7fa148015395f1c5e/?lang=zh-cn">在不指定调试运行时的情况下使用/RTC选项将导致链接器错误</a> ，则需要将“项目属性 --&gt; C++ --&gt; 基本运行时检查” 改为 <code>默认值</code>，然后重新生成解决方案。</p>
+<p>在vs2019中生成<code>carla_client_debug</code>的解决方案时出现<code>fatal error C1189: #error :  "Incompatible build options"</code>错误，因为 <a href="https://www.twblogs.net/a/5ef976a7fa148015395f1c5e/?lang=zh-cn">在不指定调试运行时的情况下使用/RTC选项将导致链接器错误</a> ，则需要将“项目属性 --&gt; C++ --&gt; 基本运行时检查” 改为 <code>默认值</code>，然后重新生成解决方案。或者右键<code>carla_client_debug</code>项目进行生成。</p>
 </div>
 <div class="admonition 注意">
 <p class="admonition-title">注意</p>
@@ -167,6 +167,14 @@
 <pre><code class="language-shell">python setup.py build
 </code></pre>
 <h3 id="_1">构建调试版本</h3>
+<ol>
+<li>右键 <code>CARLA</code>解决方案，<code>添加</code>-&gt;<code>新建项目</code>-&gt;<code>Python应用程序</code>；</li>
+<li>将<code>manual_control.py</code>文件内容复制到新建工程的<code>PythonApplication.py</code>文件中；</li>
+<li>在.py文件的开始处增加<code>input()</code>代码；</li>
+<li>右键.py文件，点击<code>开始执行（调试）</code>，会弹出命令行界面；</li>
+<li>右键<code>carla_client_debug</code>项目-&gt;<code>调试</code>-&gt;<code>启动新实例</code>；</li>
+<li>在第4步弹出的命令行界面中敲回车；</li>
+</ol>
 <p>参考<a href="https://stackoverflow.com/questions/61692952/how-to-pass-debug-to-build-ext-when-invoking-setup-py-install">链接</a> ，效果未知。</p>
 <h2 id="_2">其他</h2>
 <h3 id="dll">检查所依赖dll库的符号是否加载</h3>
@@ -306,6 +314,8 @@ D:\work\workspace\engine\Engine\Binaries\Win64\UE4Editor-Cmd D:/work/workspace/c
 <h3 id="_8">学习</h3>
 <ul>
 <li><a href="../tuto_D_bat/">bat脚本</a></li>
+<li><a href="../libcarla/">LibCarla 说明</a></li>
+<li><a href="../CarlaUE4/">CarlaUE4 说明</a></li>
 </ul>
               
             </div>

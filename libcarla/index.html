@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Libcarla - 交通仿真文档</title>
+    <title>LibCarla - 交通仿真文档</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Libcarla";
+        var mkdocs_page_name = "LibCarla";
         var mkdocs_page_input_path = "libcarla.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,7 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Libcarla</li>
+      <li class="breadcrumb-item active">LibCarla</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/libcarla.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -68,8 +68,52 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h2 id="libcarla">LibCarla</h2>
+                <h1 id="libcarla">LibCarla</h1>
+<p>所有模块之间的调用关系图：
+<img alt="" src="../img/tuto_D_windows_debug/libcarla_call_graph.svg" /></p>
+<p>第三方库包括：<a href="https://github.com/sp4cerat/Fast-Quadric-Mesh-Simplification">simplify</a> （使用二次曲面减少网格三角形）、<a href="http://pugixml.org/">pugixml</a> （轻量级的 C++ XML 处理库）、<a href="http://www.netlib.org/cephes/">odrSpiral</a> （OpenDrive应用程序中计算螺旋的方法）、<a href="https://github.com/cameron314/concurrentqueue">moodycamel</a> （C++11实现的一个多生产者、多消费者的<a href="http://moodycamel.com/blog/2014/detailed-design-of-a-lock-free-queue">无锁队列</a> ）、<a href="https://en.wikipedia.org/wiki/Marching_cubes">marchingcube</a> （从给定的有符号距离函数重建三角形网格）。</p>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>Marching Cubes(三维规则数据场等值面生成、从三维体素中提取三角形网格)。有符号距离函（Signed Distance Function, SDF）, 指的是给定一个点的坐标, 返回这个点与某一面的最短距离。如果这个距离是负数, 则说明在面内, 是正数则说明在面外, 如果是0, 则刚好在面上，SDF的signed就是由此而来.</p>
+</div>
+<p>Visual Studio 工程所在地目录为：<code>Build\libcarla-visualstudio\</code>。</p>
+<h2 id="_1">客户端</h2>
+<p>各个模块之间的<a href="https://carla.org/Doxygen/html/dir_64d7bb605f27024d49af86070bd3f0b6.html">调用关系图</a> ：
+<img alt="" src="../img/tuto_D_windows_debug/client_call_graph.svg" />
+黑色框表明当前显示的是类文档。红色边线的方框表示有文档的结构体或类，该类未展示全部的继承/包含关系。实心箭头指示公有继承。 </p>
+<p>编译后的安装目录位于：<code>PythonAPI\carla\dependencies\</code>。</p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
+<p>file GLOB 命令用于将指定目录下的所有文件匹配到一个变量中。</p>
+<p>install 用于指定在安装时运行的规则。
+DESTINATION 定义了安装的路径，使用 CMAKE_INSTALL_PREFIX 来定义安装路径（在<code>Util\BuildTools\BuildLibCarla.bat</code>中的<code>-DCMAKE_INSTALL_PREFIX</code>中定义，即<code>PythonAPI\carla\dependencies\</code>），就要写成相对路径，那么安装后的路径就是${CMAKE_INSTALL_PREFIX}/<DESTINATION 定义的路径>。将对应目录下的.cpp和.h文件拷贝到安装路径下。</p>
+<ul>
+<li>
+<p>add_library：用于向项目添加一个库文件,并定义其类型(静态库<code>STATIC</code>或共享库)。</p>
+<p><code>carla_client${carla_target_postfix}_debug</code> 对应：<code>carla_client_debug.lib</code></p>
+</li>
+<li>
+<p>target_include_directories：
+指定目标（exe或者so文件）需要包含的头文件路径</p>
+</li>
+<li>
+<p>target_link_libraries：指定目标（exe或者so文件）需要包含的库</p>
+</li>
+<li>
+<p>set_target_properties：可以设置编译标记（区分调试还是发布）</p>
+</li>
+</ul>
+<h2 id="_2">服务端</h2>
+<p>编译后的安装目录位于：<code>Unreal\CarlaUE4\Plugins\Carla\CarlaDependencies\</code>。</p>
+<h3 id="cmakeliststxt_1">CMakeLists.txt</h3>
+<h2 id="_3">参考</h2>
+<ul>
+<li>
 <p><a href="https://carla.org/Doxygen/html/dir_1604d568fa4d964dfa9079b701bbfa07.html">C++文档</a></p>
+</li>
+<li>
+<p><a href="https://d1.amobbs.com/bbs_upload782111/files_38/ourdev_630418WOJPW6.pdf">Doxygen Doxygen v1.63 中文手册</a> </p>
+</li>
+</ul>
               
             </div>
           </div><footer>
