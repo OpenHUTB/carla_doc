@@ -25,19 +25,19 @@
 * __Python.__ [Python]((https://www.python.org/downloads/)) 是 Carla 中的主要脚本语言。Carla 在 Linux 上支持 Python 2.7 和 Python 3，在 Windows 上支持 Python 3。
 * __Pip.__ Carla 客户端库的某些安装方法需要 __pip__ 或 __pip3__ （取决于您的 Python 版本）版本 20.3 或更高版本。要检查您的 __pip__ 版本：
 
->>      # 对于 Python 3
->>      pip3 -V
+>      # 对于 Python 3
+>      pip3 -V
 
->>      # 对于 Python 2
->>      pip -V
+>      # 对于 Python 2
+>      pip -V
 
 >如果您需要升级：
 
->>      # 对于 Python 3
->>      pip3 install --upgrade pip
+>      # 对于 Python 3
+>      pip3 install --upgrade pip
 
->>      # 对于 Python 2
->>      pip install --upgrade pip
+>      # 对于 Python 2
+>      pip install --upgrade pip
 
 * __两个 TCP 端口和良好的互联网连接。__ 默认为 2000 年和 2001 年。确保这些端口未被防火墙或任何其他应用程序阻止。
 * __其他需求。__  Carla 需要一些 Python 依赖项。根据您的操作系统安装依赖项：

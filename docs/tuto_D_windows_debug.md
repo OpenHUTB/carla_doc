@@ -70,7 +70,7 @@ cmake --build . --config Release --target install | findstr /V "Up-to-date:"
 在`BuildLibCarla.bat`中，将 `--config`参数从`Release`修改为`Debug`。
 
 !!! 注意
-    在vs2019中生成`carla_client_debug`的解决方案时出现`fatal error C1189: #error :  "Incompatible build options"`错误，因为 [在不指定调试运行时的情况下使用/RTC选项将导致链接器错误](https://www.twblogs.net/a/5ef976a7fa148015395f1c5e/?lang=zh-cn) ，则需要将“项目属性 --> C++ --> 基本运行时检查” 改为 `默认值`，然后重新生成解决方案。
+    在vs2019中生成`carla_client_debug`的解决方案时出现`fatal error C1189: #error :  "Incompatible build options"`错误，因为 [在不指定调试运行时的情况下使用/RTC选项将导致链接器错误](https://www.twblogs.net/a/5ef976a7fa148015395f1c5e/?lang=zh-cn) ，则需要将“项目属性 --> C++ --> 基本运行时检查” 改为 `默认值`，然后重新生成解决方案。或者右键`carla_client_debug`项目进行生成。
 
 
 !!! 注意
@@ -98,6 +98,13 @@ python setup.py build
 ```
 
 ### 构建调试版本
+
+1. 右键 `CARLA`解决方案，`添加`->`新建项目`->`Python应用程序`；
+2. 将`manual_control.py`文件内容复制到新建工程的`PythonApplication.py`文件中；
+3. 在.py文件的开始处增加`input()`代码；
+4. 右键.py文件，点击`开始执行（调试）`，会弹出命令行界面；
+5. 右键`carla_client_debug`项目->`调试`->`启动新实例`；
+6. 在第4步弹出的命令行界面中敲回车；
 
 参考[链接](https://stackoverflow.com/questions/61692952/how-to-pass-debug-to-build-ext-when-invoking-setup-py-install) ，效果未知。
 
@@ -271,3 +278,5 @@ Failed to open descriptor file ./../../../carla/Unreal/CarlaUE4/CarlaUE4.uprojec
 
 ### 学习
 * [bat脚本](tuto_D_bat.md)
+* [LibCarla 说明](libcarla.md)
+* [CarlaUE4 说明](CarlaUE4.md)

@@ -269,13 +269,13 @@ Carla 论坛</a>
 
 [__C++ 参考__](ref_cpp.md) — Carla C++ 中的类和方法。
 
+[__资源目录__](catalogue.md) — Carla 中资源的目录列表。
+
+[__传感器__](ref_sensors.md) — 关于传感器及其检索数据的一切。
+
 [__蓝图库__](bp_library.md) — 提供用于生成参与者的蓝图。
 
-[__Carla 目录__](catalogue.md) — Carla 中资源的目录列表。
-
 [__记录器二进制文件格式__](ref_recorder_binary_file_format.md) — 记录器文件格式的详细说明。
-
-[__传感器参考__](ref_sensors.md) — 关于传感器及其检索数据的一切。
 
 [__扩展文档__](ext_docs.md) — 其他。
 
