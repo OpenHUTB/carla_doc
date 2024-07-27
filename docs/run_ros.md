@@ -75,7 +75,7 @@ roslaunch carla_ros_bridge carla_ros_bridge.launch passive:=True
 	*  __如果是 true （默认）__: ROS 桥在下一个滴答信号之前等待所有预期的传感器消息。这可能会减慢整个仿真的速度，但可以确保结果的可重复性。
 *  __synchronous_mode_wait_for_vehicle_control_command__: 在同步模式下，暂停计时直到车辆控制完成。
 *  __fixed_delta_seconds__: 仿真步骤之间的仿真时间（增量秒）。__它必须低于 0.1__。查看 [文档](https://carla.readthedocs.io/en/latest/adv_synchrony_timestep/) 以了解更多相关信息。
-*  __ego_vehicle__: 用于识别自我车辆的角色名称。将创建相关主题，以便能够通过 ROS 控制这些车辆。
+*  __ego_vehicle__: 用于识别自我车辆的参与者名称。将创建相关主题，以便能够通过 ROS 控制这些车辆。
 * __town__: 使用可用的 Carla 城镇（例如“town01”）或 OpenDRIVE 文件（以 `.xodr` 结尾）。
 *  __register_all_sensors__:
 	*  __如果是 false__: 仅注册桥生成的传感器。

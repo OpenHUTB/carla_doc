@@ -4,7 +4,7 @@
 * __桶__
 	* [__桶__](#barrel)
 * __箱子__
-	* [__箱子__](#bin)
+	* [__垃圾桶__](#bin)
 	* [__布制容器__](#cloth-container)
 	* [__垃圾箱__](#garbage-container)
 	* [__玻璃容器__](#glass-container)
@@ -139,33 +139,37 @@
 ## __容器__
 ### 桶
 
+#### 桶
+
 ![static_prop_barrel](./img/catalogue/props/static_prop_barrel.webp)
 
 
 * __蓝图 ID__: <span style="color:#00a6ed;">static.prop.barrel<span>
 
-### 垃圾桶
+### 箱子
+
+#### 垃圾桶
 
 ![static_prop_bin](./img/catalogue/props/static_prop_bin.webp)
 
 
 * __蓝图 ID__: <span style="color:#00a6ed;">static.prop.bin<span>
 
-### 布制容器
+#### 布制容器
 
 ![static_prop_clothcontainer](./img/catalogue/props/static_prop_clothcontainer.webp)
 
 
 * __蓝图 ID__: <span style="color:#00a6ed;">static.prop.clothcontainer<span>
 
-### 垃圾箱
+#### 垃圾箱
 
 ![static_prop_container](./img/catalogue/props/static_prop_container.webp)
 
 
 * __蓝图 ID__: <span style="color:#00a6ed;">static.prop.container<span>
 
-### 玻璃容器
+#### 玻璃容器
 
 ![static_prop_glasscontainer](./img/catalogue/props/static_prop_glasscontainer.webp)
 

@@ -2,7 +2,7 @@
 
 当我们训练神经网络来控制自动驾驶车辆时，自动驾驶代理必须应对的关键挑战之一是其他道路使用者。除了识别和导航道路网络拓扑以及维护车道规则的任务之外，自动驾驶代理还必须识别其他车辆并预测对其计划行动方案的影响。Carla 的交通管理器能够管理通过仿真导航的车辆群，并为感兴趣的车辆（即我们正在训练或控制的车辆）设置障碍和挑战。在 Carla 文献中，我们将这种车辆称为“自我车辆”以示区别。
 
-交通管理器管理地图内非玩家角色车辆的行为和生命周期，用车辆填充仿真，其行为与其他道路使用者在真实道路网络上的行为相同。在本教程中，我们将介绍交通管理器的一些功能以及如何在仿真中使用它来创建和控制非玩家角色。
+交通管理器管理地图内非玩家参与者车辆的行为和生命周期，用车辆填充仿真，其行为与其他道路使用者在真实道路网络上的行为相同。在本教程中，我们将介绍交通管理器的一些功能以及如何在仿真中使用它来创建和控制非玩家参与者。
 
 ## 设置仿真器并初始化交通管理器
 
@@ -12,27 +12,26 @@
 import carla
 import random
 
-# Connect to the client and retrieve the world object
+# 客户端连接并获取时间对象
 client = carla.Client('localhost', 2000)
 world = client.get_world()
 
-# Set up the simulator in synchronous mode
+# 以同步模式启动仿真器
 settings = world.get_settings()
 settings.synchronous_mode = True # Enables synchronous mode
 settings.fixed_delta_seconds = 0.05
 world.apply_settings(settings)
 
-# Set up the TM in synchronous mode
+# 以同步模式启动交通管理器
 traffic_manager = client.get_trafficmanager()
 traffic_manager.set_synchronous_mode(True)
 
-# Set a seed so behaviour can be repeated if necessary
+# 如果有必要设置一个种子，以便能够重现行为
 traffic_manager.set_random_device_seed(0)
 random.seed(0)
 
-# We will aslo set up the spectator so we can see what we do
+# 启动观察者以便能开到所做的事
 spectator = world.get_spectator()
-
 ```
 
 ## 生成车辆

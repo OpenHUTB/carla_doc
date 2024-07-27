@@ -22,7 +22,7 @@ ROS 和 Carla 之间共享有关参与者的信息。
 | `id`        | uint32                                                    | 参与者的ID。                                                 |
 | `parent_id` | uint32                                                    | 父参与者的 ID。如果没有可用的父级，则为\`0\`。                             |
 | `type`      | string                                                    | 该参与者所基于的蓝图的标识符。                                         |
-| `rolename`  | string                                                    | 生成时分配给参与者的角色。 |
+| `rolename`  | string                                                    | 生成时分配给参与者的名称。 |
 
 
 
@@ -89,7 +89,7 @@ ROS 和 Carla 之间共享有关参与者的信息。
 | `id`                                                 | uint32                                                         | 车辆参与者的 ID。                                                   |
 | `type`                                               | string                                                         | 该车辆所基于的蓝图的标识符。                                               |
 | `type`                                               | string                                                         | 该车辆所基于的蓝图的标识符。                                               |
-| `rolename`                                           | string                                                         | 分配给车辆的角色。                                                    |
+| `rolename`                                           | string                                                         | 分配给车辆的参与者。                                                    |
 | `wheels`                                             | [CarlaEgoVehicleInfoWheel](<#carlaegovehicleinfowheelmsg>)     | 包含有关车轮信息的消息列表。                                               |
 | `max_rpm`                                            | float32                                                        | 车辆发动机的最大转速。                                                  |
 | `moi`                                                | float32                                                        | 车辆发动机的转动惯量。                                                  |

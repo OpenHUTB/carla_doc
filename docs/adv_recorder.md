@@ -1,6 +1,6 @@
 # 记录器
 
-此功能允许记录和重新制定以前的仿真。所有发生的事件都记录在 [recorder file](ref_recorder_binary_file_format.md) 中。有一些高级查询可以跟踪和研究这些事件。
+此功能允许记录和重新制定以前的仿真。所有发生的事件都记录在 [记录文件](ref_recorder_binary_file_format.md) 中。有一些高级查询可以跟踪和研究这些事件。
 
 - [__记录__](#recording)
 - [__仿真播放__](#simulation_playback)
@@ -8,7 +8,7 @@
 - [__录制文件__](#recorded-file)
 - [__查询__](#search)
     - [碰撞](#collisions)
-    - [被困住的角色](#blocked-actors)
+    - [被困住的参与者](#blocked-actors)
 - [__示例 Python 脚本__](#sample-python-scripts)
 
 ---
@@ -16,14 +16,14 @@
 
 所有数据仅写入服务器端的二进制文件。但是，使用 [carla.Client](python_api.md#carla.Client) 管理记录器。
 
-根据记录文件中包含的数据，每帧更新角色。当前仿真中出现在录制中的参与者将被移动或重新生成以仿真它。那些没有出现在记录中的将继续他们的方式，就好像什么都没发生一样。
+根据记录文件中包含的数据，每帧更新参与者。当前仿真中出现在录制中的参与者将被移动或重新生成以仿真它。那些没有出现在记录中的将继续他们的方式，就好像什么都没发生一样。
 
 !!! 重要的
     播放结束时，车辆将设置为自动驾驶，但 __行人将停止__。
 
 记录器文件包括有关许多不同元素的信息。
 
-* __角色__ — 创建和销毁、边界和触发框。
+* __参与者__ — 创建和销毁、边界和触发框。
 * __交通灯__ — 状态变化和时间设置。
 * __车辆__ — 位置和方向、线速度和角速度、光状态和物理控制。
 * __行人__ — 位置和方向，以及线速度和角速度。
@@ -107,7 +107,7 @@ print (client.show_recorder_file_info ("recording01.log"))
 
 * __开放信息.__ 记录仿真的地图、日期和时间。
 
-* __Frame information.__ 任何可能发生的事件，例如角色生成或碰撞。它包含参与者的 ID 和一些附加信息。
+* __Frame information.__ 任何可能发生的事件，例如参与者生成或碰撞。它包含参与者的 ID 和一些附加信息。
 
 * __关闭信息.__ 记录的帧数和总时间。
 
@@ -145,7 +145,7 @@ Frames: 2354
 
 ### 碰撞 <span id="collisions"></span>
 
-车辆必须有一个 [碰撞检测器](ref_sensors.md#collision-detector) 以记录碰撞。这些可以被查询，使用参数来过滤碰撞中涉及的参与者的类型。例如，`h`标识`role_name = hero`的角色，通常分配给用户管理的车辆。有一组特定的参与者类型可用于查询。
+车辆必须有一个 [碰撞检测器](ref_sensors.md#collision-detector) 以记录碰撞。这些可以被查询，使用参数来过滤碰撞中涉及的参与者的类型。例如，`h`标识`role_name = hero`的参与者，通常分配给用户管理的车辆。有一组特定的参与者类型可用于查询。
 
 * __h__ = Hero
 * __v__ = Vehicle
@@ -193,7 +193,7 @@ client.replay_file("col2.log", 13, 0, 122)
 
 ### 被卡住的参与者 <span id="blocked-actors"></span>
 
-检测在录制过程中卡住的车辆。如果角色在特定时间内没有移动最小距离，则认为它被阻塞。该定义由用户在查询期间进行。
+检测在录制过程中卡住的车辆。如果参与者在特定时间内没有移动最小距离，则认为它被阻塞。该定义由用户在查询期间进行。
 
 ```py
 print(client.show_recorder_actors_blocked("recording01.log", min_time, min_distance))
@@ -288,7 +288,7 @@ client.replay_file("col3.log", 34, 0, 173)
 | 参数   | 说明                                                                                         |
 |------|--------------------------------------------------------------------------------------------|
 | `-f` | 文件名。                                                                                       |
-| `-t` | 相关角色的标志。 `h` = hero  `v` = vehicle  `w` = walker  `t` = traffic light `o` = other`a` = any |
+| `-t` | 相关参与者的标志。 `h` = hero  `v` = vehicle  `w` = walker  `t` = traffic light `o` = other`a` = any |
 
 
 

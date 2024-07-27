@@ -19,30 +19,30 @@ PID 参数通过 [Ziegler-Nichols方法](https://en.wikipedia.org/wiki/Ziegler%E
 
 ---
 
-## 需求
+## 需求 <span id="requirements"></span>
 
 为了能够使用 `carla_ad_agent`，需要生成最少的传感器集（有关如何生成传感器的信息，请参阅 [Carla 生成对象](carla_spawn_objects.md) ：
 
-- 里程计伪传感器 (`sensor.pseudo.odom`)，其角色名`odometry`附加到车辆上。 
-- 一个对象伪传感器 (`sensor.pseudo.objects`)，其角色名`objects`附加到车辆上。
-- 具有角色名称 `traffic_lights` 的交通灯伪传感器 (`sensor.pseudo.traffic_lights`) 。
+- 里程计伪传感器 (`sensor.pseudo.odom`)，其参与者名`odometry`附加到车辆上。 
+- 一个对象伪传感器 (`sensor.pseudo.objects`)，其参与者名`objects`附加到车辆上。
+- 具有参与者名称 `traffic_lights` 的交通灯伪传感器 (`sensor.pseudo.traffic_lights`) 。
 
 ---
 
-## ROS 应用程序接口 
+## ROS 应用程序接口  <span id="ros-api"></span>
 
-### 自动驾驶代理节点
+### 自动驾驶代理节点 <span id="ad-agent-node"></span>
 
-#### 参数
+#### 参数 <span id="parameters"></span>
 
 | 参数           | 类型                          | 描述                                                                                              |
 |--------------|-----------------------------|-------------------------------------------------------------------------------------------------|
-| `role_name`  | string (默认：`ego_vehicle`) | 自我车辆的 Carla 角色名称                                                                                |
+| `role_name`  | string (默认：`ego_vehicle`) | 自我车辆的 Carla 参与者名称                                                                                |
 | `avoid_risk` | bool (default: `true`)      | 如果为真，则避免与其他车辆相撞并尊重交通信号灯  |
 
 <br>
 
-#### 订阅
+#### 订阅 <span id="subscriptions"></span>
 
 | 主题                                | 类型                                                                                                                   | 描述                                          |
 |-----------------------------------|----------------------------------------------------------------------------------------------------------------------|---------------------------------------------|
@@ -55,7 +55,7 @@ PID 参数通过 [Ziegler-Nichols方法](https://en.wikipedia.org/wiki/Ziegler%E
 
 <br>
 
-#### 发布
+#### 发布 <span id="publications"></span>
 
 | 主题                                 | 类型                                                                             | 描述           |
 |------------------------------------|--------------------------------------------------------------------------------|--------------|
@@ -63,13 +63,13 @@ PID 参数通过 [Ziegler-Nichols方法](https://en.wikipedia.org/wiki/Ziegler%E
 
 <br>
 
-### 本地规划器节点
+### 本地规划器节点 <span id="local-planner-node"></span>
 
-#### 参数
+#### 参数 <span id="parameters"></span>
 
 | 参数                  | 类型                          | 描述                                            |
 |---------------------|-----------------------------|-----------------------------------------------|
-| `role_name`         | string (默认值：`ego_vehicle`) | 自我车辆的 Carla 角色名称                              |
+| `role_name`         | string (默认值：`ego_vehicle`) | 自我车辆的 Carla 参与者名称                              |
 | `control_time_step` | float (默认值：`0.05`)     | 控制循环速率                             |
 | `Kp_lateral`        | float (默认值： `0.9`)       | 比例项横向PID控制器      |
 | `Ki_lateral`        | float (默认值： `0.0`)       | 积分项横向PID控制器          |
@@ -80,7 +80,7 @@ PID 参数通过 [Ziegler-Nichols方法](https://en.wikipedia.org/wiki/Ziegler%E
 
 <br>
 
-#### 订阅
+#### 订阅 <span id="subscriptions"></span>
 
 | 主题                                 | 类型                                                                               | 描述                          |
 |------------------------------------|----------------------------------------------------------------------------------|-----------------------------|
@@ -90,7 +90,7 @@ PID 参数通过 [Ziegler-Nichols方法](https://en.wikipedia.org/wiki/Ziegler%E
 
 <br>
 
-#### 发布
+#### 发布 <span id="publications"></span>
 
 | 主题                                       | 类型 | 描述 |
 |------------------------------------------|------|-------------|

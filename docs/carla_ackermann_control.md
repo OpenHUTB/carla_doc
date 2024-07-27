@@ -13,7 +13,7 @@
 
 ---
 
-### 配置
+### 配置 <span id="configuration"></span>
 
 使用 ROS 1 和 ROS 2 时，可以在 [配置文件][ackermanconfig] 中初始设置参数，也可以在运行时通过 ROS 1 中的 ROS [动态重新配置][rosdynamicreconfig] 来设置参数。
 
@@ -22,9 +22,9 @@
 
 ---
 
-### 测试控制消息
+### 测试控制消息 <span id="testing-control-messages"></span>
 
-通过主题 `/carla/<ROLE NAME>/ackermann_cmd` 向汽车发送命令来测试设置。例如，通过运行以下命令以 10 米/秒的速度移动角色名称为`ego_vehicle`的自我车辆：
+通过主题 `/carla/<ROLE NAME>/ackermann_cmd` 向汽车发送命令来测试设置。例如，通过运行以下命令以 10 米/秒的速度移动参与者名称为`ego_vehicle`的自我车辆：
 
 ```bash
 
@@ -50,9 +50,9 @@ ros2 topic pub /carla/ego_vehicle/ackermann_cmd ackermann_msgs/AckermannDrive "{
 
 ---
 
-### ROS 应用程序接口
+### ROS 应用程序接口 <span id="ros-api"></span>
 
-#### 订阅
+#### 订阅 <span id="subscriptions"></span>
 
 | 主题 | 类型 | 描述 |
 |--|--|--|
@@ -60,7 +60,7 @@ ros2 topic pub /carla/ego_vehicle/ackermann_cmd ackermann_msgs/AckermannDrive "{
 
 <br>
 
-#### 发布
+#### 发布 <span id="publications"></span>
 
 |主题|类型|描述|
 |--|--|--|

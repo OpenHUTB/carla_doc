@@ -14,11 +14,12 @@
     - [设置虚幻引擎环境变量](#set-unreal-engine-environment-variable)
     - [构建 Carla](#build-carla)
     - [其他 make 命令](#other-make-commands)
+    - [其他](#other)
 
 ---
-## 第一部分：先决条件
+## 第一部分：先决条件 <span id="part-one-prerequisites"></span>
 
-### 系统要求
+### 系统要求 <span id="system-requirements"></span>
 
 * __Ubuntu 18.04.__ Carla 提供对 Ubuntu 16.04 之前版本的支持。**然而**，虚幻引擎需要适当的编译器才能正常工作。下面单独列出了 Ubuntu 18.04 及之前版本的依赖项。确保安装与您的系统相对应的软件。
 * __130 GB 磁盘空间。__ Carla 将占用大约 31 GB，虚幻引擎将占用大约 91 GB，因此需要大约 130 GB 的可用空间来容纳这两个空间以及额外的小型软件安装。
@@ -30,7 +31,7 @@
 
 
 
-### 软件要求
+### 软件要求 <span id="software-requirements"></span>
 
 Carla 需要运行多种不同类型的软件。有些是在 Carla 构建过程本身期间构建的，例如*Boost.Python*。其他是应该在开始构建之前安装的二进制文件（*cmake*、*clang*、不同版本的*Python*等）。要安装这些要求，请运行以下命令：
 
@@ -99,7 +100,7 @@ pip3 install --user wheel auditwheel
 
 ---
 
-## 虚幻引擎
+#### 虚幻引擎 <span id="unreal-engine"></span>
 
 从版本 0.9.12 开始，Carla 使用虚幻引擎 4.26 的修改版。该分支包含 Carla 特有的补丁。
 
@@ -147,12 +148,12 @@ Cannot find a compatible Yulkan driver (ICD)
 
 ---
 
-## 第二部分：构建 Carla
+## 第二部分：构建 Carla <span id="part-two-build-carla"></span>
 
 !!! 笔记
     使用 `sudo apt-get install aria2` 下载 aria2 将加快以下命令的速度。
 
-### 克隆 Carla 仓库
+### 克隆 Carla 仓库 <span id="clone-the-carla-repository"></span>
 
 <div class="build-buttons">
 <p>
@@ -170,7 +171,7 @@ git clone https://github.com/carla-simulator/carla.git
     The `master` 分支包含 Carla 的当前版本以及最新的修复和功能。以前的 Carla 版本标有版本名称。永远记住使用命令`git branch`检查 git 中的当前分支。 
 
 
-### 获取资产
+### 获取资产 <span id="get-assets"></span>
 
 您需要下载 __最新的__ 资源才能使用当前版本的 Carla。我们提供了一个脚本来自动执行此过程。要使用该脚本，请在 Carla 根文件夹中运行以下命令：
 
@@ -193,7 +194,7 @@ git clone https://github.com/carla-simulator/carla.git
 tar -xvzf <assets_file_name>.tar.gz.tar -C C:\path\to\carla\Unreal\CarlaUE4\Content\Carla
 ```
 
-### 设置虚幻引擎环境变量
+### 设置虚幻引擎环境变量 <span id="set-unreal-engine-environment-variable"></span>
 
 为了让 Carla 找到虚幻引擎的正确安装，我们需要设置 Carla 环境变量。
 
@@ -221,7 +222,7 @@ export UE4_ROOT=~/UnrealEngine_4.26
 __3.__ 保存文件并重置终端。
 
 
-### 构建 Carla
+### 构建 Carla <span id="build-carla"></span>
 本节概述了构建 Carla 的命令。__所有命令都应在根 Carla 文件夹中运行。__
 
 Carla 的构建过程分为两个部分，编译客户端和编译服务器。
@@ -306,7 +307,7 @@ python3 dynamic_weather.py
 
 
 
-### 其他 make 命令
+### 其他 make 命令 <span id="other-make-commands"></span>
 
 您可能会发现还有更多有用的 `make` 命令。在下表中找到它们：
 
@@ -322,7 +323,7 @@ python3 dynamic_weather.py
 
 ---
 
-### 其他
+### 其他 <span id="other"></span>
 v2ray 的版本不能太高，比如可以使用 [v4.45.2](https://github.com/v2fly/v2ray-core/releases/tag/v4.45.2) ，图形界面使用[Qv2ray 2.7.0](https://github.com/Qv2ray/Qv2ray/releases) 。
 
 

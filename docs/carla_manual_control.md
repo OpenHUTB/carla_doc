@@ -5,21 +5,21 @@
 [manualcontrol]: https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/manual_control.py
 
 - [__需求__](#requirements)
-- [__运行包__](#run-the-package)
+- [__运行包__](#run_the_package)
 ---
 
-## 需求
+## 需求 <span id="requirements"></span>
 
 为了能够使用`carla_manual_control`，需要将一些特定的传感器连接到自我车辆（有关如何将传感器连接到车辆的信息，请参阅 [Carla 生成对象](carla_spawn_objects.md) 对象）： 
 
-- __to display an image__: 角色名为`rgb_view`和分辨率为 800x600 的相机。
-- __to display the current position__: 具有角色名称 `gnss` 的全球导航卫星系统传感器和具有参与者名`odometry`的里程计伪传感器。
-- __to get a notification on lane invasions__: 具有角色名`lane_invasion`的压线传感器。
-- __to get a notification on collisons__: 具有角色名`collision`的碰撞传感器。
+- __to display an image__: 参与者名为`rgb_view`和分辨率为 800x600 的相机。
+- __to display the current position__: 具有参与者名称 `gnss` 的全球导航卫星系统传感器和具有参与者名`odometry`的里程计伪传感器。
+- __to get a notification on lane invasions__: 具有参与者名`lane_invasion`的压线传感器。
+- __to get a notification on collisons__: 具有参与者名`collision`的碰撞传感器。
 
 ---
 
-## 运行包
+## 运行包 <span id="run_the_package"></span>
 
 要运行包：
  

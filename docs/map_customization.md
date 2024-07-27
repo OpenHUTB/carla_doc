@@ -87,7 +87,7 @@ SplineMeshRepeater “Content/Blueprints/SplineMeshRepeater” 是 Carla Project
 
 
 ## 天气
-这是负责修改所有照明、环境角色以及影响气候印象的任何事物的角色。当在 `Config.Ini` 中未另行指定时，它会随游戏自动运行，但有自己的角色可以在编辑器模式下启动以配置气候条件。要完全工作，它将需要以下每个角色中的一个：SkySphere、Skylight、Postprocess Volume（无边界）和 Light Source 存在于世界中。
+这是负责修改所有照明、环境参与者以及影响气候印象的任何事物的参与者。当在 `Config.Ini` 中未另行指定时，它会随游戏自动运行，但有自己的参与者可以在编辑器模式下启动以配置气候条件。要完全工作，它将需要以下每个参与者中的一个：SkySphere、Skylight、Postprocess Volume（无边界）和 Light Source 存在于世界中。
 
 - SunPolarAngle：太阳的极角，决定一天的时间
 - SunAzimuthAngle：添加到当前级别的太阳位置

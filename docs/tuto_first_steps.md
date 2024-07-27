@@ -9,7 +9,7 @@ Carla 仿真器还可用作评估和测试环境。您可以部署在仿真中�
 * [__启动 Carla 并进行客户端连接__](#Launching-carla-and-connecting-the-client)  
 * [__加载地图__](#loading-a-map) 
 * [__观察者导航__](#spectator-navigation)  
-* [__添加非玩家角色__](#adding-npcs)  
+* [__添加非玩家参与者__](#adding-npcs)  
 * [__添加传感器__](#add-sensors)  
 * [__使用交通管理器仿真车辆__](#animate-vehicles-with-traffic-manager)  
 * [__将车辆分配为自我车辆__](#assign-a-vehicle-as-the-ego-vehicle)
@@ -100,9 +100,9 @@ spectator.set_transform(carla.Transform())
 # 这将设置观众在地图的原点，0度俯仰，偏航和滚动-一个很好的方式来定位自己在地图上
 ```
 
-## 添加非玩家角色 <span id="adding-npcs"></span>
+## 添加非玩家参与者 <span id="adding-npcs"></span>
 
-现在我们已经加载了地图并且服务器已启动并运行，我们现在需要用一些车辆填充我们的仿真，以仿真具有交通和其他道路使用者或非玩家角色的真实环境。
+现在我们已经加载了地图并且服务器已启动并运行，我们现在需要用一些车辆填充我们的仿真，以仿真具有交通和其他道路使用者或非玩家参与者的真实环境。
 
 要生成车辆，首先，我们需要从蓝图库中选择我们想要的车辆。
 

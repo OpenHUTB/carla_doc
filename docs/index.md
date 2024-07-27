@@ -42,7 +42,7 @@ Carla 论坛</a>
 
 [__第一、 世界和客户端__](core_world.md) — 管理和访问仿真。
 
-[__第二、 参与者和蓝图__](core_actors.md) — 了解角色以及如何处理它们。
+[__第二、 参与者和蓝图__](core_actors.md) — 了解参与者以及如何处理它们。
 
 [__第三、地图和导航__](core_map.md) — 发现不同的地图以及车辆如何移动。
 
@@ -77,6 +77,8 @@ Carla 论坛</a>
 [__行人视觉__](tuto_G_pedestrian_visual.md) - 使用相机进行人眼的仿真。
 
 [__生成行人导航__](tuto_M_generate_pedestrian_navigation.md) — 获取行人四处走动所需的信息。
+
+[__行人建模__](tuto_content_authoring_pedestrians.md) — 在三维建模软件中对人进行建模。
 
 
 ## 高级概念
@@ -149,8 +151,6 @@ Carla 论坛</a>
 [__检索仿真数据__](tuto_G_retrieve_data.md) — 使用记录器正确收集数据的分步指南。
 
 [__在 Docker 中构建虚幻引擎和 Carla__](build_docker_unreal.md) — 在 Docker 中构建虚幻引擎和 Carla
-
-
 
 [__添加新车辆__](tuto_A_add_vehicle.md) — 准备要在 Carla 中使用的车辆
 

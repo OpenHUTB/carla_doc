@@ -20,14 +20,15 @@
     - [设置虚幻引擎环境变量](#set-unreal-engine-environment-variable)
     - [构建 Carla](#build-carla)
     - [其他 make 命令](#other-make-commands)
-
+    - [其他](#other)
+- [__报错__](#error)
 
 ---
-## 第一部分：先决条件
+## 第一部分：先决条件 <span id="system-requirements"></span>
 
 在本节中，您将找到开始构建 Carla 之前所需的系统要求、次要和主要软件安装以及 Python 依赖项的详细信息。
 
-### 系统要求
+### 系统要求 <span id="system-requirements"></span>
 
 * __64 位操作系统。__ 仿真器应在任何 64 位 Windows 系统中运行。 
 * __165 GB 磁盘空间。__ Carla 本身将占用大约 32 GB，相关的主要软件安装（包括虚幻引擎）将占用大约 133 GB。
@@ -37,9 +38,9 @@
 !!! 笔记
     __如果您要从 Carla 0.9.12 升级到 0.9.13__: 您必须首先将虚幻引擎 4 的 Carla 分支升级到最新版本。有关升级虚幻引擎 4 的详细信息，请参阅 [__虚幻引擎__](#unreal-engine) 部分。
 
-### 软件要求
+### 软件要求 <span id="software-requirements"></span>
 
-#### 基础软件安装
+#### 基础软件安装 <span id="minor-installations"></span>
 
 * [__CMake__](https://cmake.org/download/) 从简单的配置文件生成标准构建文件。  
 * [__Git__](https://git-scm.com/downloads) 是一个用于管理 Carla 存储库的版本控制系统。
@@ -49,7 +50,7 @@
 
 !!! 重要
     确保将上述程序添加到 [环境路径](https://www.java.com/en/download/help/path.xml) 中。请记住，添加的路径应与程序的 `bin` 目录相对应。
-#### Python 依赖项
+#### Python 依赖项 <span id="python-dependencies"></span>
 
 从 Carla 0.9.12 开始，用于可以选择使用 `pip3` 来安装 Carla 的 Python API。要检查您是否有合适的版本，请运行以下命令：
 
@@ -70,8 +71,8 @@ pip3 install --user setuptools
 pip3 install --user wheel
 ```
 
-#### 主要软件安装
-##### Visual Studio 2019
+#### 主要软件安装 <span id="major-installations"></span>
+##### Visual Studio 2019 <span id="visual-studio-2019"></span>
 
 从 [此处](https://developerinsider.co/download-visual-studio-2019-web-installer-iso-community-professional-enterprise/) 获取 2019 版 Visual Studio 。选择 __社区__ 作为免费版本。使用 __Visual Studio 安装程序__ 安装三个附加元素： 
 
@@ -87,7 +88,7 @@ pip3 install --user wheel
 !!! 笔记
     还可以通过上述步骤使用 Visual Studio 2022，并将 Windows 8.1 SDK 替换为 Windows 11/10 SDK。要覆盖 CMake 中的默认 Visual Studio 2019 Generator，请在使用 makefile 命令时指定 GENERATOR="Visual Studio 17 2022"（请参见 [表](https://carla.readthedocs.io/en/latest/build_windows/#other-make-commands) ）。您可以指定任何与构建脚本中特定的构建命令配合使用的生成器，以进行完整列表运行`cmake -G`（到目前为止，Ninja 已经过测试可用于构建 LibCarla）。
 
-##### 虚幻引擎
+##### 虚幻引擎 <span id="unreal-engine"></span>
 
 从版本 0.9.12 开始，Carla 使用虚幻引擎 4.26 的修改版。该分支包含 Carla 特定的补丁。
 
@@ -128,9 +129,9 @@ __4.__ 编译解决方案后，您可以打开引擎，通过启动可执行文�
     到目前为止发生了很多事情。强烈建议在继续之前重新启动计算机。
 
 ---
-## 第二部分：构建 Carla
+## 第二部分：构建 Carla <span id="part-two-build-carla"></span>
  
-### 克隆 Carla 存储库
+### 克隆 Carla 存储库 <span id="clone-the-carla-repository"></span>
 
 <div class="build-buttons">
 <p>
@@ -148,7 +149,7 @@ git clone https://github.com/carla-simulator/carla
 !!! 笔记
     该`master`分支包含 Carla 的当前版本以及最新的修复和功能。以前的 Carla 版本标有版本名称。永远记住使用命令`git branch`检查 git 中的当前分支。
 
-### 获取资产
+### 获取资产 <span id="get-assets"></span>
 
 通过在 Carla 根文件夹中运行以下命令，下载 __最新的__ 资产以使用当前版本的 Carla：
 
@@ -168,7 +169,7 @@ Update.bat
 tar -xvzf <assets_file_name>.tar.gz.tar -C C:\path\to\carla\Unreal\CarlaUE4\Content\Carla
 ```
 
-### 设置虚幻引擎变量
+### 设置虚幻引擎变量 <span id="set-unreal-engine-environment-variable"></span>
 
 需要设置一个环境变量，以便 Carla 可以找到虚幻引擎的安装文件夹。这允许用户选择要使用哪个特定版本的虚幻引擎。如果未指定环境变量，Carla 将在 Windows 注册表中搜索虚幻引擎并使用在那里找到的第一个版本。
 
@@ -180,7 +181,7 @@ tar -xvzf <assets_file_name>.tar.gz.tar -C C:\path\to\carla\Unreal\CarlaUE4\Cont
 4. 为变量`UE4_ROOT`命名并选择所需虚幻引擎安装的安装文件夹的路径。
 
 
-### 构建 Carla
+### 构建 Carla <span id="build-carla"></span>
 
 本节概述了构建 Carla 的命令。
 
@@ -253,7 +254,7 @@ python3 dynamic_weather.py
 !!! 重要
     如果仿真以非常低的 FPS 速率运行，请转至虚幻引擎编辑器`Edit -> Editor preferences -> Performance`并禁用。
 
-### 其他构建命令
+### 其他 make 命令 <span id="other-make-commands"></span>
 
 您可能会发现还有更多有用的`make`命令。在下表中找到它们：
 
@@ -290,7 +291,7 @@ python setup.py bdist_wheel
 而`python setup.py install`在`Python37\Lib\site-packages\carla-0.9.15-py3.7-win-amd64.egg`目录下生成运行包，包括`libcarla.cp37-win_amd64.pyd`。
 
 
-### 其他
+### 其他 <span id="other"></span>
 
 如果想重新编译LibCarla或者使用最新的修改，需要删除`Build/libcarla-visualstudio`目录，然后重新运行编译命令：
 ```shell
@@ -299,7 +300,7 @@ make LibCarla
 则服务端文件`carla_server.lib`生成至`carla\Unreal\CarlaUE4\Plugins\Carla\CarlaDependencies\`，客户端文件`carla_client.lib`生成至`carla\PythonAPI\carla\dependencies\`。
 
 
-## 报错
+## 报错 <span id="error"></span>
 * 执行`make osm2odr`报错：
 ```text
 CMake Error: The source directory "D:/work/workspace/carla/Build/osm2odr-visualstudio/x64" does not appear to contain CMakeLists.txt.

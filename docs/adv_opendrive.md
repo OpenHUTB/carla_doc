@@ -1,6 +1,6 @@
 # OpenDRIVE独立模式
 
-此功能允许用户将任何 OpenDRIVE 文件作为 Carla 地图开箱即用。为此，仿真器将自动生成道路网格供角色导航。
+此功能允许用户将任何 OpenDRIVE 文件作为 Carla 地图开箱即用。为此，仿真器将自动生成道路网格供参与者导航。
 
 * [__概述__](#overview)
 * [__运行独立地图__](#independent_running_map)

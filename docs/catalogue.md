@@ -3,10 +3,10 @@
 
 Carla 仿真器提供了一个庞大的三维资产库来填充您的自主代理的虚拟环境。三维资源库提供了大量可供选择的预构建地图、用于交通仿真的各种车辆模型以及行人和其他结构或障碍物的模型，这些模型可以在运行时动态添加到您的仿真中。该目录记录了可在仿真中使用的所有三维资源。
 
-
-* [__车辆目录__](catalogue_vehicles.md)
-* [__行人目录__](catalogue_pedestrians.md)
-* [__道具目录__](catalogue_props.md)
+* [__地图__](map_vehicles.md)
+* [__车辆__](catalogue_vehicles.md)
+* [__行人__](catalogue_pedestrians.md)
+* [__道具__](catalogue_props.md)
 
 ## 地图
 
