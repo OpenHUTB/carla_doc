@@ -76,7 +76,7 @@
 <li><a href="#Launching-carla-and-connecting-the-client"><strong>启动 Carla 并进行客户端连接</strong></a>  </li>
 <li><a href="#loading-a-map"><strong>加载地图</strong></a> </li>
 <li><a href="#spectator-navigation"><strong>观察者导航</strong></a>  </li>
-<li><a href="#adding-npcs"><strong>添加非玩家角色</strong></a>  </li>
+<li><a href="#adding-npcs"><strong>添加非玩家参与者</strong></a>  </li>
 <li><a href="#add-sensors"><strong>添加传感器</strong></a>  </li>
 <li><a href="#animate-vehicles-with-traffic-manager"><strong>使用交通管理器仿真车辆</strong></a>  </li>
 <li><a href="#assign-a-vehicle-as-the-ego-vehicle"><strong>将车辆分配为自我车辆</strong></a></li>
@@ -142,8 +142,8 @@ rotation = transform.rotation
 spectator.set_transform(carla.Transform())
 # 这将设置观众在地图的原点，0度俯仰，偏航和滚动-一个很好的方式来定位自己在地图上
 </code></pre>
-<h2 id="_3">添加非玩家角色 <span id="adding-npcs"></span></h2>
-<p>现在我们已经加载了地图并且服务器已启动并运行，我们现在需要用一些车辆填充我们的仿真，以仿真具有交通和其他道路使用者或非玩家角色的真实环境。</p>
+<h2 id="_3">添加非玩家参与者 <span id="adding-npcs"></span></h2>
+<p>现在我们已经加载了地图并且服务器已启动并运行，我们现在需要用一些车辆填充我们的仿真，以仿真具有交通和其他道路使用者或非玩家参与者的真实环境。</p>
 <p>要生成车辆，首先，我们需要从蓝图库中选择我们想要的车辆。</p>
 <pre><code class="language-py"># 获取蓝图库和车辆蓝图过滤器
 vehicle_blueprints = world.get_blueprint_library().filter('*vehicle*')

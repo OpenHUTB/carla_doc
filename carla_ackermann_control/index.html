@@ -80,11 +80,11 @@
 </li>
 </ul>
 <hr />
-<h3 id="_1">配置</h3>
+<h3 id="_1">配置 <span id="configuration"></span></h3>
 <p>使用 ROS 1 和 ROS 2 时，可以在 <a href="https://github.com/carla-simulator/ros-bridge/blob/master/carla_ackermann_control/config/settings.yaml">配置文件</a> 中初始设置参数，也可以在运行时通过 ROS 1 中的 ROS <a href="https://wiki.ros.org/dynamic_reconfigure">动态重新配置</a> 来设置参数。</p>
 <hr />
-<h3 id="_2">测试控制消息</h3>
-<p>通过主题 <code>/carla/&lt;ROLE NAME&gt;/ackermann_cmd</code> 向汽车发送命令来测试设置。例如，通过运行以下命令以 10 米/秒的速度移动角色名称为<code>ego_vehicle</code>的自我车辆：</p>
+<h3 id="_2">测试控制消息 <span id="testing-control-messages"></span></h3>
+<p>通过主题 <code>/carla/&lt;ROLE NAME&gt;/ackermann_cmd</code> 向汽车发送命令来测试设置。例如，通过运行以下命令以 10 米/秒的速度移动参与者名称为<code>ego_vehicle</code>的自我车辆：</p>
 <pre><code class="language-bash">
 # ROS 1
 rostopic pub /carla/ego_vehicle/ackermann_cmd ackermann_msgs/AckermannDrive &quot;{steering_angle: 0.0, steering_angle_velocity: 0.0, speed: 10, acceleration: 0.0, jerk: 0.0}&quot; -r 10
@@ -103,8 +103,8 @@ ros2 topic pub /carla/ego_vehicle/ackermann_cmd ackermann_msgs/AckermannDrive &q
 
 </code></pre>
 <hr />
-<h3 id="ros">ROS 应用程序接口</h3>
-<h4 id="_3">订阅</h4>
+<h3 id="ros">ROS 应用程序接口 <span id="ros-api"></span></h3>
+<h4 id="_3">订阅 <span id="subscriptions"></span></h4>
 <table>
 <thead>
 <tr>
@@ -122,7 +122,7 @@ ros2 topic pub /carla/ego_vehicle/ackermann_cmd ackermann_msgs/AckermannDrive &q
 </tbody>
 </table>
 <p><br></p>
-<h4 id="_4">发布</h4>
+<h4 id="_4">发布 <span id="publications"></span></h4>
 <table>
 <thead>
 <tr>

@@ -93,13 +93,15 @@
 <li><a href="#set-unreal-engine-environment-variable">设置虚幻引擎环境变量</a></li>
 <li><a href="#build-carla">构建 Carla</a></li>
 <li><a href="#other-make-commands">其他 make 命令</a></li>
+<li><a href="#other">其他</a></li>
 </ul>
 </li>
+<li><a href="#error"><strong>报错</strong></a></li>
 </ul>
 <hr />
-<h2 id="_1">第一部分：先决条件</h2>
+<h2 id="_1">第一部分：先决条件 <span id="system-requirements"></span></h2>
 <p>在本节中，您将找到开始构建 Carla 之前所需的系统要求、次要和主要软件安装以及 Python 依赖项的详细信息。</p>
-<h3 id="_2">系统要求</h3>
+<h3 id="_2">系统要求 <span id="system-requirements"></span></h3>
 <ul>
 <li><strong>64 位操作系统。</strong> 仿真器应在任何 64 位 Windows 系统中运行。 </li>
 <li><strong>165 GB 磁盘空间。</strong> Carla 本身将占用大约 32 GB，相关的主要软件安装（包括虚幻引擎）将占用大约 133 GB。</li>
@@ -110,8 +112,8 @@
 <p class="admonition-title">笔记</p>
 <p><strong>如果您要从 Carla 0.9.12 升级到 0.9.13</strong>: 您必须首先将虚幻引擎 4 的 Carla 分支升级到最新版本。有关升级虚幻引擎 4 的详细信息，请参阅 <a href="#unreal-engine"><strong>虚幻引擎</strong></a> 部分。</p>
 </div>
-<h3 id="_3">软件要求</h3>
-<h4 id="_4">基础软件安装</h4>
+<h3 id="_3">软件要求 <span id="software-requirements"></span></h3>
+<h4 id="_4">基础软件安装 <span id="minor-installations"></span></h4>
 <ul>
 <li><a href="https://cmake.org/download/"><strong>CMake</strong></a> 从简单的配置文件生成标准构建文件。  </li>
 <li><a href="https://git-scm.com/downloads"><strong>Git</strong></a> 是一个用于管理 Carla 存储库的版本控制系统。</li>
@@ -123,7 +125,7 @@
 <p class="admonition-title">重要</p>
 <p>确保将上述程序添加到 <a href="https://www.java.com/en/download/help/path.xml">环境路径</a> 中。请记住，添加的路径应与程序的 <code>bin</code> 目录相对应。</p>
 </div>
-<h4 id="python">Python 依赖项</h4>
+<h4 id="python">Python 依赖项 <span id="python-dependencies"></span></h4>
 <p>从 Carla 0.9.12 开始，用于可以选择使用 <code>pip3</code> 来安装 Carla 的 Python API。要检查您是否有合适的版本，请运行以下命令：</p>
 <pre><code class="language-sh">pip3 -V
 </code></pre>
@@ -134,8 +136,8 @@
 <pre><code class="language-sh">pip3 install --user setuptools
 pip3 install --user wheel
 </code></pre>
-<h4 id="_5">主要软件安装</h4>
-<h5 id="visual-studio-2019">Visual Studio 2019</h5>
+<h4 id="_5">主要软件安装 <span id="major-installations"></span></h4>
+<h5 id="visual-studio-2019">Visual Studio 2019 <span id="visual-studio-2019"></span></h5>
 <p>从 <a href="https://developerinsider.co/download-visual-studio-2019-web-installer-iso-community-professional-enterprise/">此处</a> 获取 2019 版 Visual Studio 。选择 <strong>社区</strong> 作为免费版本。使用 <strong>Visual Studio 安装程序</strong> 安装三个附加元素： </p>
 <ul>
 <li><strong>Windows 8.1 SDK.</strong> 在右侧的 <em>Installation details</em> 部分中选择它，或者转到 <em>Indivdual Components</em> 选项卡并在 <em>SDKs, libraries, and frameworks</em> 标题下查看。</li>
@@ -151,7 +153,7 @@ pip3 install --user wheel
 <p class="admonition-title">笔记</p>
 <p>还可以通过上述步骤使用 Visual Studio 2022，并将 Windows 8.1 SDK 替换为 Windows 11/10 SDK。要覆盖 CMake 中的默认 Visual Studio 2019 Generator，请在使用 makefile 命令时指定 GENERATOR="Visual Studio 17 2022"（请参见 <a href="https://carla.readthedocs.io/en/latest/build_windows/#other-make-commands">表</a> ）。您可以指定任何与构建脚本中特定的构建命令配合使用的生成器，以进行完整列表运行<code>cmake -G</code>（到目前为止，Ninja 已经过测试可用于构建 LibCarla）。</p>
 </div>
-<h5 id="_6">虚幻引擎</h5>
+<h5 id="_6">虚幻引擎 <span id="unreal-engine"></span></h5>
 <p>从版本 0.9.12 开始，Carla 使用虚幻引擎 4.26 的修改版。该分支包含 Carla 特定的补丁。</p>
 <p>请注意，要下载虚幻引擎的这个分支，<strong>您需要有一个链接到虚幻引擎帐户的 GitHub 帐户</strong> 。如果您没有进行此设置，请先按照 <a href="https://www.unrealengine.com/en-US/ue4-on-github">本指南</a> 进行操作，然后再继续操作。</p>
 <p>要构建虚幻引擎的修改版本：</p>
@@ -190,8 +192,8 @@ GenerateProjectFiles.bat
 <p>到目前为止发生了很多事情。强烈建议在继续之前重新启动计算机。</p>
 </div>
 <hr />
-<h2 id="carla">第二部分：构建 Carla</h2>
-<h3 id="carla_1">克隆 Carla 存储库</h3>
+<h2 id="carla">第二部分：构建 Carla <span id="part-two-build-carla"></span></h2>
+<h3 id="carla_1">克隆 Carla 存储库 <span id="clone-the-carla-repository"></span></h3>
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla" target="_blank" class="btn btn-neutral" title="Go to the CARLA repository">
@@ -206,7 +208,7 @@ GenerateProjectFiles.bat
 <p class="admonition-title">笔记</p>
 <p>该<code>master</code>分支包含 Carla 的当前版本以及最新的修复和功能。以前的 Carla 版本标有版本名称。永远记住使用命令<code>git branch</code>检查 git 中的当前分支。</p>
 </div>
-<h3 id="_7">获取资产</h3>
+<h3 id="_7">获取资产 <span id="get-assets"></span></h3>
 <p>通过在 Carla 根文件夹中运行以下命令，下载 <strong>最新的</strong> 资产以使用当前版本的 Carla：</p>
 <pre><code class="language-sh">Update.bat
 </code></pre>
@@ -219,7 +221,7 @@ GenerateProjectFiles.bat
 </ol>
 <pre><code class="language-sh">tar -xvzf &lt;assets_file_name&gt;.tar.gz.tar -C C:\path\to\carla\Unreal\CarlaUE4\Content\Carla
 </code></pre>
-<h3 id="_8">设置虚幻引擎变量</h3>
+<h3 id="_8">设置虚幻引擎变量 <span id="set-unreal-engine-environment-variable"></span></h3>
 <p>需要设置一个环境变量，以便 Carla 可以找到虚幻引擎的安装文件夹。这允许用户选择要使用哪个特定版本的虚幻引擎。如果未指定环境变量，Carla 将在 Windows 注册表中搜索虚幻引擎并使用在那里找到的第一个版本。</p>
 <p>设置环境变量：</p>
 <ol>
@@ -228,7 +230,7 @@ GenerateProjectFiles.bat
 <li>单击<code>New...</code>以创建变量。</li>
 <li>为变量<code>UE4_ROOT</code>命名并选择所需虚幻引擎安装的安装文件夹的路径。</li>
 </ol>
-<h3 id="carla_2">构建 Carla</h3>
+<h3 id="carla_2">构建 Carla <span id="build-carla"></span></h3>
 <p>本节概述了构建 Carla 的命令。</p>
 <ul>
 <li>所有命令都应在根 Carla 文件夹中运行。</li>
@@ -284,7 +286,7 @@ python3 dynamic_weather.py
 <p class="admonition-title">重要</p>
 <p>如果仿真以非常低的 FPS 速率运行，请转至虚幻引擎编辑器<code>Edit -&gt; Editor preferences -&gt; Performance</code>并禁用。</p>
 </div>
-<h3 id="_9">其他构建命令</h3>
+<h3 id="make">其他 make 命令 <span id="other-make-commands"></span></h3>
 <p>您可能会发现还有更多有用的<code>make</code>命令。在下表中找到它们：</p>
 <table>
 <thead>
@@ -353,12 +355,12 @@ python3 dynamic_weather.py
 <p>脚本<code>setup.py</code>中的<code>ext_modules</code>参数用于构建 C 和 C++ 扩展扩展包。其是 Extension 实例的列表，每一个 Extension 实例描述了一个独立的扩展模块，扩展模块可以设置扩展包名，头文件、源文件、链接库及其路径、宏定义和编辑参数等。</p>
 <p>当你安装一个包后，这个包需要你不断修改，这时就采用这种安装方法：<code>python setup.py develop</code>。仅在<code>Python37/Lib/site-packages</code>目录下生成链接文件<code>carla.egg-link</code> 指向 <code>carla\PythonAPI\carla\source</code>和<code>../</code>。</p>
 <p>而<code>python setup.py install</code>在<code>Python37\Lib\site-packages\carla-0.9.15-py3.7-win-amd64.egg</code>目录下生成运行包，包括<code>libcarla.cp37-win_amd64.pyd</code>。</p>
-<h3 id="_10">其他</h3>
+<h3 id="_9">其他 <span id="other"></span></h3>
 <p>如果想重新编译LibCarla或者使用最新的修改，需要删除<code>Build/libcarla-visualstudio</code>目录，然后重新运行编译命令：</p>
 <pre><code class="language-shell">make LibCarla
 </code></pre>
 <p>则服务端文件<code>carla_server.lib</code>生成至<code>carla\Unreal\CarlaUE4\Plugins\Carla\CarlaDependencies\</code>，客户端文件<code>carla_client.lib</code>生成至<code>carla\PythonAPI\carla\dependencies\</code>。</p>
-<h2 id="_11">报错</h2>
+<h2 id="_10">报错 <span id="error"></span></h2>
 <ul>
 <li>执行<code>make osm2odr</code>报错：</li>
 </ul>

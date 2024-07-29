@@ -91,17 +91,17 @@
 <p>在内部，Carla 自动驾驶代理使用单独的节点进行 <a href="https://github.com/carla-simulator/ros-bridge/blob/ros2/carla_ad_agent/src/carla_ad_agent/local_planner.py">本地规划</a> 。该节点已针对 <code>vehicle.tesla.model3</code> 进行了优化，因为它没有任何换档延迟。</p>
 <p>PID 参数通过 <a href="https://en.wikipedia.org/wiki/Ziegler%E2%80%93Nichols_method">Ziegler-Nichols方法</a> 采集。</p>
 <hr />
-<h2 id="_1">需求</h2>
+<h2 id="_1">需求 <span id="requirements"></span></h2>
 <p>为了能够使用 <code>carla_ad_agent</code>，需要生成最少的传感器集（有关如何生成传感器的信息，请参阅 <a href="../carla_spawn_objects/">Carla 生成对象</a> ：</p>
 <ul>
-<li>里程计伪传感器 (<code>sensor.pseudo.odom</code>)，其角色名<code>odometry</code>附加到车辆上。 </li>
-<li>一个对象伪传感器 (<code>sensor.pseudo.objects</code>)，其角色名<code>objects</code>附加到车辆上。</li>
-<li>具有角色名称 <code>traffic_lights</code> 的交通灯伪传感器 (<code>sensor.pseudo.traffic_lights</code>) 。</li>
+<li>里程计伪传感器 (<code>sensor.pseudo.odom</code>)，其参与者名<code>odometry</code>附加到车辆上。 </li>
+<li>一个对象伪传感器 (<code>sensor.pseudo.objects</code>)，其参与者名<code>objects</code>附加到车辆上。</li>
+<li>具有参与者名称 <code>traffic_lights</code> 的交通灯伪传感器 (<code>sensor.pseudo.traffic_lights</code>) 。</li>
 </ul>
 <hr />
-<h2 id="ros">ROS 应用程序接口</h2>
-<h3 id="_2">自动驾驶代理节点</h3>
-<h4 id="_3">参数</h4>
+<h2 id="ros">ROS 应用程序接口  <span id="ros-api"></span></h2>
+<h3 id="_2">自动驾驶代理节点 <span id="ad-agent-node"></span></h3>
+<h4 id="_3">参数 <span id="parameters"></span></h4>
 <table>
 <thead>
 <tr>
@@ -114,7 +114,7 @@
 <tr>
 <td><code>role_name</code></td>
 <td>string (默认：<code>ego_vehicle</code>)</td>
-<td>自我车辆的 Carla 角色名称</td>
+<td>自我车辆的 Carla 参与者名称</td>
 </tr>
 <tr>
 <td><code>avoid_risk</code></td>
@@ -124,7 +124,7 @@
 </tbody>
 </table>
 <p><br></p>
-<h4 id="_4">订阅</h4>
+<h4 id="_4">订阅 <span id="subscriptions"></span></h4>
 <table>
 <thead>
 <tr>
@@ -167,7 +167,7 @@
 </tbody>
 </table>
 <p><br></p>
-<h4 id="_5">发布</h4>
+<h4 id="_5">发布 <span id="publications"></span></h4>
 <table>
 <thead>
 <tr>
@@ -185,8 +185,8 @@
 </tbody>
 </table>
 <p><br></p>
-<h3 id="_6">本地规划器节点</h3>
-<h4 id="_7">参数</h4>
+<h3 id="_6">本地规划器节点 <span id="local-planner-node"></span></h3>
+<h4 id="_7">参数 <span id="parameters"></span></h4>
 <table>
 <thead>
 <tr>
@@ -199,7 +199,7 @@
 <tr>
 <td><code>role_name</code></td>
 <td>string (默认值：<code>ego_vehicle</code>)</td>
-<td>自我车辆的 Carla 角色名称</td>
+<td>自我车辆的 Carla 参与者名称</td>
 </tr>
 <tr>
 <td><code>control_time_step</code></td>
@@ -239,7 +239,7 @@
 </tbody>
 </table>
 <p><br></p>
-<h4 id="_8">订阅</h4>
+<h4 id="_8">订阅 <span id="subscriptions"></span></h4>
 <table>
 <thead>
 <tr>
@@ -267,7 +267,7 @@
 </tbody>
 </table>
 <p><br></p>
-<h4 id="_9">发布</h4>
+<h4 id="_9">发布 <span id="publications"></span></h4>
 <table>
 <thead>
 <tr>

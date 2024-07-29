@@ -86,12 +86,13 @@
 <li><a href="#set-unreal-engine-environment-variable">设置虚幻引擎环境变量</a></li>
 <li><a href="#build-carla">构建 Carla</a></li>
 <li><a href="#other-make-commands">其他 make 命令</a></li>
+<li><a href="#other">其他</a></li>
 </ul>
 </li>
 </ul>
 <hr />
-<h2 id="_1">第一部分：先决条件</h2>
-<h3 id="_2">系统要求</h3>
+<h2 id="_1">第一部分：先决条件 <span id="part-one-prerequisites"></span></h2>
+<h3 id="_2">系统要求 <span id="system-requirements"></span></h3>
 <ul>
 <li><strong>Ubuntu 18.04.</strong> Carla 提供对 Ubuntu 16.04 之前版本的支持。<strong>然而</strong>，虚幻引擎需要适当的编译器才能正常工作。下面单独列出了 Ubuntu 18.04 及之前版本的依赖项。确保安装与您的系统相对应的软件。</li>
 <li><strong>130 GB 磁盘空间。</strong> Carla 将占用大约 31 GB，虚幻引擎将占用大约 91 GB，因此需要大约 130 GB 的可用空间来容纳这两个空间以及额外的小型软件安装。</li>
@@ -102,7 +103,7 @@
 <p class="admonition-title">警告</p>
 <p><strong>如果您要从 Carla 0.9.12 升级到 0.9.13</strong>: 您必须首先将虚幻引擎 4 的 Carla 分支升级到最新版本。有关升级虚幻引擎 4 的详细信息，请参阅 <a href="#unreal-engine"><strong>虚幻引擎</strong></a> 部分。</p>
 </div>
-<h3 id="_3">软件要求</h3>
+<h3 id="_3">软件要求 <span id="software-requirements"></span></h3>
 <p>Carla 需要运行多种不同类型的软件。有些是在 Carla 构建过程本身期间构建的，例如<em>Boost.Python</em>。其他是应该在开始构建之前安装的二进制文件（<em>cmake</em>、<em>clang</em>、不同版本的<em>Python</em>等）。要安装这些要求，请运行以下命令：</p>
 <pre><code class="language-sh">sudo apt-get update &amp;&amp;
 sudo apt-get install wget software-properties-common &amp;&amp;
@@ -149,7 +150,7 @@ pip install --user wheel &amp;&amp;
 pip3 install --user wheel auditwheel
 </code></pre>
 <hr />
-<h2 id="_4">虚幻引擎</h2>
+<h4 id="_4">虚幻引擎 <span id="unreal-engine"></span></h4>
 <p>从版本 0.9.12 开始，Carla 使用虚幻引擎 4.26 的修改版。该分支包含 Carla 特有的补丁。</p>
 <p><strong>1.</strong> 将 Carla 的虚幻引擎 4.26 分支的内容克隆到本地计算机：</p>
 <pre><code class="language-sh">git clone https://github.com/OpenHUTB/UnrealEngine.git ~/UnrealEngine_4.26
@@ -180,12 +181,12 @@ git clone https://github.com/OpenHUTB/UnrealEngine.git ~/UnrealEngine_4.26
 <pre><code class="language-text">Cannot find a compatible Yulkan driver (ICD)
 </code></pre>
 <hr />
-<h2 id="carla">第二部分：构建 Carla</h2>
+<h2 id="carla">第二部分：构建 Carla <span id="part-two-build-carla"></span></h2>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>使用 <code>sudo apt-get install aria2</code> 下载 aria2 将加快以下命令的速度。</p>
 </div>
-<h3 id="carla_1">克隆 Carla 仓库</h3>
+<h3 id="carla_1">克隆 Carla 仓库 <span id="clone-the-carla-repository"></span></h3>
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla" target="_blank" class="btn btn-neutral" title="跳转至 Carla 仓库">
@@ -199,7 +200,7 @@ git clone https://github.com/OpenHUTB/UnrealEngine.git ~/UnrealEngine_4.26
 <p class="admonition-title">笔记</p>
 <p>The <code>master</code> 分支包含 Carla 的当前版本以及最新的修复和功能。以前的 Carla 版本标有版本名称。永远记住使用命令<code>git branch</code>检查 git 中的当前分支。 </p>
 </div>
-<h3 id="_5">获取资产</h3>
+<h3 id="_5">获取资产 <span id="get-assets"></span></h3>
 <p>您需要下载 <strong>最新的</strong> 资源才能使用当前版本的 Carla。我们提供了一个脚本来自动执行此过程。要使用该脚本，请在 Carla 根文件夹中运行以下命令：</p>
 <pre><code class="language-sh">./Update.sh
 </code></pre>
@@ -216,7 +217,7 @@ git clone https://github.com/OpenHUTB/UnrealEngine.git ~/UnrealEngine_4.26
 </ol>
 <pre><code class="language-sh">tar -xvzf &lt;assets_file_name&gt;.tar.gz.tar -C C:\path\to\carla\Unreal\CarlaUE4\Content\Carla
 </code></pre>
-<h3 id="_6">设置虚幻引擎环境变量</h3>
+<h3 id="_6">设置虚幻引擎环境变量 <span id="set-unreal-engine-environment-variable"></span></h3>
 <p>为了让 Carla 找到虚幻引擎的正确安装，我们需要设置 Carla 环境变量。</p>
 <p>仅为此会话设置变量：</p>
 <pre><code class="language-sh">export UE4_ROOT=~/UnrealEngine_4.26
@@ -231,7 +232,7 @@ gedit ~/.profile
 <pre><code class="language-sh">export UE4_ROOT=~/UnrealEngine_4.26 
 </code></pre>
 <p><strong>3.</strong> 保存文件并重置终端。</p>
-<h3 id="carla_2">构建 Carla</h3>
+<h3 id="carla_2">构建 Carla <span id="build-carla"></span></h3>
 <p>本节概述了构建 Carla 的命令。<strong>所有命令都应在根 Carla 文件夹中运行。</strong></p>
 <p>Carla 的构建过程分为两个部分，编译客户端和编译服务器。</p>
 <div class="admonition 警告">
@@ -292,7 +293,7 @@ python3 dynamic_weather.py
 <p class="admonition-title">重要</p>
 <p>如果仿真以非常低的 FPS 速率运行，请转至虚幻引擎编辑器中的<code>Edit -&gt; Editor preferences -&gt; Performance</code>并禁用 <code>Use less CPU when in background</code>。</p>
 </div>
-<h3 id="make">其他 make 命令</h3>
+<h3 id="make">其他 make 命令 <span id="other-make-commands"></span></h3>
 <p>您可能会发现还有更多有用的 <code>make</code> 命令。在下表中找到它们：</p>
 <table>
 <thead>
@@ -333,7 +334,7 @@ python3 dynamic_weather.py
 </tbody>
 </table>
 <hr />
-<h3 id="_7">其他</h3>
+<h3 id="_7">其他 <span id="other"></span></h3>
 <p>v2ray 的版本不能太高，比如可以使用 <a href="https://github.com/v2fly/v2ray-core/releases/tag/v4.45.2">v4.45.2</a> ，图形界面使用<a href="https://github.com/Qv2ray/Qv2ray/releases">Qv2ray 2.7.0</a> 。</p>
 <h4 id="clang">clang 编译</h4>
 <p>根据 <a href="https://clang.llvm.org/get_started.html">链接</a> 进行指定版本clang的编译。

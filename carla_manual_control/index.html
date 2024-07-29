@@ -72,19 +72,19 @@
 <p><a href="https://github.com/carla-simulator/ros-bridge/tree/master/carla_manual_control">CARLA 手动控制包</a> 是与 Carla 一起打包的 <a href="https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/manual_control.py"><code>manual_control.py</code></a> 脚本的仅 ROS 版本。所有数据均通过 ROS 主题接收。 </p>
 <ul>
 <li><a href="#requirements"><strong>需求</strong></a></li>
-<li><a href="#run-the-package"><strong>运行包</strong></a></li>
+<li><a href="#run_the_package"><strong>运行包</strong></a></li>
 </ul>
 <hr />
-<h2 id="_1">需求</h2>
+<h2 id="_1">需求 <span id="requirements"></span></h2>
 <p>为了能够使用<code>carla_manual_control</code>，需要将一些特定的传感器连接到自我车辆（有关如何将传感器连接到车辆的信息，请参阅 <a href="../carla_spawn_objects/">Carla 生成对象</a> 对象）： </p>
 <ul>
-<li><strong>to display an image</strong>: 角色名为<code>rgb_view</code>和分辨率为 800x600 的相机。</li>
-<li><strong>to display the current position</strong>: 具有角色名称 <code>gnss</code> 的全球导航卫星系统传感器和具有参与者名<code>odometry</code>的里程计伪传感器。</li>
-<li><strong>to get a notification on lane invasions</strong>: 具有角色名<code>lane_invasion</code>的压线传感器。</li>
-<li><strong>to get a notification on collisons</strong>: 具有角色名<code>collision</code>的碰撞传感器。</li>
+<li><strong>to display an image</strong>: 参与者名为<code>rgb_view</code>和分辨率为 800x600 的相机。</li>
+<li><strong>to display the current position</strong>: 具有参与者名称 <code>gnss</code> 的全球导航卫星系统传感器和具有参与者名<code>odometry</code>的里程计伪传感器。</li>
+<li><strong>to get a notification on lane invasions</strong>: 具有参与者名<code>lane_invasion</code>的压线传感器。</li>
+<li><strong>to get a notification on collisons</strong>: 具有参与者名<code>collision</code>的碰撞传感器。</li>
 </ul>
 <hr />
-<h2 id="_2">运行包</h2>
+<h2 id="_2">运行包 <span id="run_the_package"></span></h2>
 <p>要运行包：</p>
 <p><strong>1.</strong> 确保 Carla 正在运行。启动 ROS 桥：</p>
 <pre><code class="language-sh"># ROS 1

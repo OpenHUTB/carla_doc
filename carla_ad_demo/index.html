@@ -71,22 +71,22 @@
                 <h1 id="carla">Carla 自动驾驶演示</h1>
 <p><a href="https://github.com/carla-simulator/ros-bridge/tree/master/carla_ad_demo">自动驾驶</a> 是一个示例包，提供使用自动驾驶车辆启动 Carla ROS 环境所需的一切。 </p>
 <ul>
-<li><a href="#before-you-begin"><strong>在你开始之前</strong></a></li>
-<li><a href="#run-the-demo"><strong>运行演示</strong></a><ul>
-<li><a href="#random-route">随机路线</a></li>
-<li><a href="#scenario-execution">场景执行</a></li>
+<li><a href="#before_you_begin"><strong>在你开始之前</strong></a></li>
+<li><a href="#run_the_demo"><strong>运行演示</strong></a><ul>
+<li><a href="#random_route">随机路线</a></li>
+<li><a href="#scenario_execution">场景执行</a></li>
 </ul>
 </li>
 </ul>
 <hr />
-<h2 id="_1">在你开始之前</h2>
+<h2 id="_1">在你开始之前 <span id="before_you_begin"></span></h2>
 <p>安装 <a href="https://carla-scenariorunner.readthedocs.io/en/latest/getting_scenariorunner/">Scenario Runner</a> 并按照 <a href="https://github.com/carla-simulator/scenario_runner/blob/master/Docs/getting_started.md">Scenario Runner 入门教程</a> 验证其是否正常工作。</p>
 <p>设置环境变量以查找 Scenario Runner 安装：</p>
 <pre><code class="language-sh">export SCENARIO_RUNNER_PATH=&lt;path_to_scenario_runner&gt;
 </code></pre>
 <hr />
-<h2 id="_2">运行演示</h2>
-<h4 id="_3">随机路线</h4>
+<h2 id="_2">运行演示 <span id="run_the_demo"></span></h2>
+<h4 id="_3">随机路线 <span id="random_route"></span></h4>
 <p>要启动自我车辆遵循随机生成的路线的演示，请在启动 Carla 服务器后运行以下命令：</p>
 <pre><code class="language-sh"># ROS 1
 roslaunch carla_ad_demo carla_ad_demo.launch
@@ -99,7 +99,7 @@ ros2 launch carla_ad_demo carla_ad_demo.launch.py
 
 python3 spawn_npc.py
 </code></pre>
-<h4 id="_4">场景执行</h4>
+<h4 id="_4">场景执行 <span id="scenario_execution"></span></h4>
 <p>要使用预定义场景执行演示，请在启动 Carla 服务器后运行以下命令：</p>
 <pre><code class="language-sh"># ROS1
 roslaunch carla_ad_demo carla_ad_demo_with_scenario.launch

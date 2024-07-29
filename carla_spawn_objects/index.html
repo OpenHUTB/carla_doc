@@ -71,21 +71,21 @@
                 <h1 id="carla">Carla 生成对象</h1>
 <p><a href="https://github.com/carla-simulator/ros-bridge/tree/master/carla_spawn_objects"><code>carla_spawn_objects</code> 包</a> 用于生成参与者（车辆、传感器、行人）并将传感器附加到它们上。</p>
 <ul>
-<li><a href="#configuration-and-sensor-setup"><strong>配置和传感器设置</strong></a><ul>
-<li><a href="#create-the-configuration">创建配置</a></li>
+<li><a href="#configuration_and_sensor_setup"><strong>配置和传感器设置</strong></a><ul>
+<li><a href="#create_the_configuration">创建配置</a></li>
 </ul>
 </li>
-<li><a href="#spawning-vehicles"><strong>生成车辆</strong></a><ul>
-<li><a href="#respawning-vehicles">车辆再生成</a></li>
+<li><a href="#spawning_vehicles"><strong>生成车辆</strong></a><ul>
+<li><a href="#respawning_vehicles">车辆再生成</a></li>
 </ul>
 </li>
-<li><a href="#spawning-sensors"><strong>生成传感器</strong></a><ul>
-<li><a href="#attach-sensors-to-an-existing-vehicle">将传感器安装到现有车辆上</a></li>
+<li><a href="#spawning_sensors"><strong>生成传感器</strong></a><ul>
+<li><a href="#attach_sensors_to_an_existing_vehicle">将传感器安装到现有车辆上</a></li>
 </ul>
 </li>
 </ul>
 <hr />
-<h2 id="_1">配置和传感器设置</h2>
+<h2 id="_1">配置和传感器设置 <span id="configuration_and_sensor_setup"></span></h2>
 <p>对象及其附加传感器通过<code>.json</code>文件定义。该文件的默认位置在<code>carla_spawn_objects/config/objects.json.</code> 要更改位置，请在启动包时通过私有 ROS 参数 <code>objects_definition_file</code> 传递文件路径：</p>
 <pre><code class="language-sh">    # ROS 1
     roslaunch carla_spawn_objects carla_spawn_objects.launch objects_definition_file:=path/to/objects.json
@@ -93,7 +93,7 @@
     # ROS 2
     ros2 launch carla_spawn_objects carla_spawn_objects.launch.py objects_definition_file:=path/to/objects.json
 </code></pre>
-<h3 id="_2">创建配置</h3>
+<h3 id="_2">创建配置 <span id="create_the_configuration"></span></h3>
 <p>您可以在 <a href="https://github.com/carla-simulator/ros-bridge/blob/master/carla_spawn_objects/config/objects.json">ros-bridge repository</a> 存储库中找到示例，并按照此大纲创建您自己的配置和传感器设置：</p>
 <pre><code class="language-json">{
 &quot;objects&quot;:
@@ -123,7 +123,7 @@
 </div>
 <p>所有传感器属性均按照 <a href="https://carla.readthedocs.io/en/latest/bp_library/">蓝图库</a> 中的描述进行定义。</p>
 <hr />
-<h2 id="_3">生成车辆</h2>
+<h2 id="_3">生成车辆 <span id="spawning_vehicles"></span></h2>
 <ul>
 <li>如果没有定义特定的生成点，车辆将在随机位置生成。</li>
 <li>
@@ -150,7 +150,7 @@ ros2 launch carla_spawn_objects carla_spawn_objects.launch.py spawn_point_&lt;VE
 </ul>
 </li>
 </ul>
-<h3 id="_4">车辆再生成</h3>
+<h3 id="_4">车辆再生成 <span id="respawning_vehicles"></span></h3>
 <p>通过发布到主题<code>/carla/&lt;ROLE NAME&gt;/&lt;CONTROLLER_ID&gt;/initialpose</code>，车辆可以在仿真期间重生到不同的位置。要使用此功能： </p>
 <ol>
 <li>
@@ -178,15 +178,15 @@ ros2 launch carla_spawn_objects carla_spawn_objects.launch.py spawn_point_&lt;VE
 </li>
 </ol>
 <blockquote>
-<p><img alt="rviz_set_start_goal" src="images/rviz_set_start_goal.png" /></p>
+<p><img alt="rviz_set_start_goal" src="../img/rviz_set_start_goal.png" /></p>
 </blockquote>
 <hr />
-<h2 id="_5">生成传感器</h2>
+<h2 id="_5">生成传感器 <span id="spawning_sensors"></span></h2>
 <ul>
 <li>传感器的初始位置应直接在<code>.json</code>文件中定义，如上面的车辆所示。 </li>
 <li>连接到车辆的传感器的生成点被认为是相对于车辆的。</li>
 </ul>
-<h3 id="_6">将传感器安装到现有车辆上</h3>
+<h3 id="_6">将传感器安装到现有车辆上 <span id="attach_sensors_to_an_existing_vehicle"></span></h3>
 <p>传感器可以连接到现有的车辆上。为此：</p>
 <ol>
 <li>
@@ -201,7 +201,7 @@ ros2 launch carla_spawn_objects carla_spawn_objects.launch.py spawn_point_&lt;VE
 <li>
 <p>根据需要定义其余传感器。</p>
 </li>
-<li>启动节点并将<code>spawn_sensors_only</code>参数设置为 True。这将检查与文件中指定的角色相同<code>id</code>和<code>type</code>的角色是否已处于活动状态，如果是，则将传感器附加到该角色。<pre><code># ROS 1
+<li>启动节点并将<code>spawn_sensors_only</code>参数设置为 True。这将检查与文件中指定的参与者相同<code>id</code>和<code>type</code>的参与者是否已处于活动状态，如果是，则将传感器附加到该参与者。<pre><code># ROS 1
 roslaunch carla_spawn_objects carla_spawn_objects.launch spawn_sensors_only:=True
 
 # ROS 2
