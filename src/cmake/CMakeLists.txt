@@ -1,4 +1,3 @@
-```make
 cmake_minimum_required(VERSION 3.5.1)
 project(example)
 
@@ -32,6 +31,7 @@ foreach(target ${build_targets})
   target_link_directories(${target} SYSTEM PRIVATE
       "../../Build/boost-1.80.0-install/lib"
       "../../Build/rpclib-install/lib/"
+      "../../Build/recast-install/lib/"
       "../../Build/recast-22dfcb-install/lib/"
       "../../Build/zlib-install/lib/"
       "../../Build/libcarla-visualstudio/LibCarla/cmake/client/Release/"
@@ -65,4 +65,3 @@ if (LIBCARLA_BUILD_DEBUG)
       target_link_libraries(example_${carla_config}_debug "${BOOST_LIB_PATH}/libboost_filesystem.a")
   endif()
 endif()
-```

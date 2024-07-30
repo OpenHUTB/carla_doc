@@ -6,7 +6,7 @@ C++ 客户端示例
 编译和运行
 ---------------
 
-使用提供的 Makefile（仅限Linux）编译并运行示例。请注意，它希望有一个仿真器在2000端口运行。
+使用提供的 Makefile（仅限Linux）编译并运行示例。请注意，它希望有一个仿真器在2000端口运行。（[Windows客户端cmake文件](https://github.com/OpenHUTB/carla_doc/tree/master/src/cmake/CMakeLists.txt) ）
 
 ```
 make run

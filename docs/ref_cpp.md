@@ -2,11 +2,11 @@
 
 ## C++ 客户端
 
-C++客户端可以在 Linux 上用`make`构建，在Windows上用`cmake`构建。`CARLA_ROOT/Examples/CppClient/main.cpp`中的存储库中提供了一个C++客户端示例。这个示例展示了如何将C++客户端连接到CARLA服务器，并使用API执行一些简单的任务。
+C++客户端可以在 Linux 上用`make`构建，在Windows上用[`cmake`](https://github.com/OpenHUTB/carla_doc/tree/master/src/cmake/CMakeLists.txt) 构建。`CARLA_ROOT/Examples/CppClient/main.cpp`中的存储库中提供了一个C++客户端示例。这个示例展示了如何将C++客户端连接到CARLA服务器，并使用API执行一些简单的任务。
 
 要构建示例C++客户端，请在存储库的`CARLA_ROOT/Examples/CppClient`目录中打开一个终端。在此文件夹中运行`make`，然后执行 `./bin/cpp_client` 来运行示例。该示例将从可用地图中选择一个随机地图，然后加载它。然后，它将生成一辆车并对该车应用控制。
 
-有关此示例脚本的更多详细信息，请参阅 [C++客户端示例](adv_cpp_client.md) 。
+有关此示例脚本的更多详细信息，请参阅 [C++客户端示例](adv_cpp_client.md) 、[C++客户端](cpp_client.md) 。
 
 ## C++ 文档
 
@@ -43,6 +43,13 @@ doxygen
 生成的网页可以在 Doxygen/html/ 中找到
 
 3- 在浏览器中打开 _index.html_ 。现在您已经有了本地 cpp 文档！
+
+## C++客户端运行
+
+1. 在vs2019中点击菜单`文件->打开->CMake`，打开`Examples\CppClient\CMakeLists.txt`；
+2. 点击`管理配置`，添加新的配置`x64-release`；（注意：`x64-Debug`还有问题）；
+3. 启动Carla服务端后，在vs2019中点击`调试->开始执行`。
+![](img/tuto_D_windows_debug/config_cpp_client.jpg)
 
 ## 阅读
 
