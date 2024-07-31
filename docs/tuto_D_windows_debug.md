@@ -108,6 +108,37 @@ python setup.py build
 
 参考[链接](https://stackoverflow.com/questions/61692952/how-to-pass-debug-to-build-ext-when-invoking-setup-py-install) ，效果未知。
 
+### C++客户端调试
+
+* 错误	LNK2038	检测到“_ITERATOR_DEBUG_LEVEL”的不匹配项: 值“0”不匹配值“2”
+* 错误	LNK2038	检测到“RuntimeLibrary”的不匹配项: 值“MD_DynamicRelease”不匹配值“MDd_DynamicDebug”
+
+当前工程是Debug版本（0），而引用的库文件时Release版本（2）。
+
+需要将其他的.lib文件编译为debug模式：
+1. 切换到目录`Util\InstallersWin`，将`install_boost.bat`内的b2运行参数改为`variant=debug`，（根据`Setup.bat`）运行：
+```shell
+install_boost.bat --build-dir D:\work\buffer --toolset msvc-14.2 --version 1.80.0 -j 4
+```
+会自动将boost的库和头文件安装到目录`D:\work\buffer\boost-1.80.0-install`里面。
+
+```shell
+install_recast.bat --build-dir D:\work\buffer --generator "Visual Studio 16 2019"
+```
+将`install_recast.bat`中的`Relase`改为`Debug`。
+将`-DCMAKE_CXX_FLAGS_RELASE="/MD /MP"`改为`-DCMAKE_CXX_FLAGS_DEBUG="/MDd /MP"`。
+
+```shell
+install_rpclib.bat --build-dir D:\work\buffer --generator "Visual Studio 16 2019"
+```
+将`install_rpclib.bat`中的`Relase`改为`Debug`。
+将`-DCMAKE_CXX_FLAGS_RELASE="/MD /MP"`改为`-DCMAKE_CXX_FLAGS_DEBUG="/MDd /MP"`。
+
+2. 将第1步生成的安装文件目录配置到`Examples\CppClient\CMakeLists.txt`中，对应的头文件和库文件都改为Debug版本；
+3. 在`main.cpp`中增加断点，并开始调试；
+![](img/tuto_D_windows_debug/set_breakpoint_in_cpp_client.jpg)
+4. 程序在断点停止后按F10运行下一步，按F11进入LibCarla中的函数实现。
+![](img/tuto_D_windows_debug/stop_in_LibCarla.jpg)
 
 ## 其他
 
