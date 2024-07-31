@@ -70,9 +70,9 @@
               
                 <h1 id="c"><a href="https://carla.readthedocs.io/en/latest/ref_cpp/">C++ 参考</a></h1>
 <h2 id="c_1">C++ 客户端</h2>
-<p>C++客户端可以在 Linux 上用<code>make</code>构建，在Windows上用<code>cmake</code>构建。<code>CARLA_ROOT/Examples/CppClient/main.cpp</code>中的存储库中提供了一个C++客户端示例。这个示例展示了如何将C++客户端连接到CARLA服务器，并使用API执行一些简单的任务。</p>
+<p>C++客户端可以在 Linux 上用<code>make</code>构建，在Windows上用<a href="https://github.com/OpenHUTB/carla_doc/tree/master/src/cmake/CMakeLists.txt"><code>cmake</code></a> 构建。<code>CARLA_ROOT/Examples/CppClient/main.cpp</code>中的存储库中提供了一个C++客户端示例。这个示例展示了如何将C++客户端连接到CARLA服务器，并使用API执行一些简单的任务。</p>
 <p>要构建示例C++客户端，请在存储库的<code>CARLA_ROOT/Examples/CppClient</code>目录中打开一个终端。在此文件夹中运行<code>make</code>，然后执行 <code>./bin/cpp_client</code> 来运行示例。该示例将从可用地图中选择一个随机地图，然后加载它。然后，它将生成一辆车并对该车应用控制。</p>
-<p>有关此示例脚本的更多详细信息，请参阅 <a href="../adv_cpp_client/">C++客户端示例</a> 。</p>
+<p>有关此示例脚本的更多详细信息，请参阅 <a href="../adv_cpp_client/">C++客户端示例</a> 、<a href="../cpp_client/">C++客户端</a> 。</p>
 <h2 id="c_2">C++ 文档</h2>
 <p>我们使用 Doxygen 生成 C++ 代码的文档：</p>
 <p><a href="http://carla.org/Doxygen/html/dir_b9166249188ce33115fd7d5eed1849f2.html">Libcarla/source</a> <br>
@@ -98,6 +98,13 @@ sudo apt-get install doxygen graphviz
 <p>它将开始构建文档网页。
 生成的网页可以在 Doxygen/html/ 中找到</p>
 <p>3- 在浏览器中打开 <em>index.html</em> 。现在您已经有了本地 cpp 文档！</p>
+<h2 id="c_3">C++客户端运行</h2>
+<ol>
+<li>在vs2019中点击菜单<code>文件-&gt;打开-&gt;CMake</code>，打开<code>Examples\CppClient\CMakeLists.txt</code>；</li>
+<li>点击<code>管理配置</code>，添加新的配置<code>x64-release</code>；（注意：<code>x64-Debug</code>还有问题）；</li>
+<li>启动Carla服务端后，在vs2019中点击<code>调试-&gt;开始执行</code>。
+<img alt="" src="../img/tuto_D_windows_debug/config_cpp_client.jpg" /></li>
+</ol>
 <h2 id="_1">阅读</h2>
 <p><strong>HUD</strong>: Heads-up Displays, 头显。用户界面 （UI）和 头显 （HUD）是游戏向玩家提供游戏信息以及在某些情况下允许玩家与游戏互动的方式。HUD指的是游戏期间在屏幕上覆盖的状态和信息。HUD的目的是 告知玩家当前游戏状态，即分数、生命值、游戏剩余时间等。 HUD通常是不可互动的，意味着玩家不能单击HUD的元素，因此 在HUD和用户界面难以分离的某些类型游戏中，这些元素会显示为灰色区域。</p>
               

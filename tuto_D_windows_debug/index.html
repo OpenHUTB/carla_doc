@@ -69,8 +69,30 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="windows-carla">在 Windows 上进行 Carla 的调试</h1>
+<ul>
+<li><a href="#debug_CarlaUE4"><strong>虚幻引擎Carla插件的调试</strong></a></li>
+<li><a href="#debug_LibCarla"><strong>调试LibCarla</strong></a><ul>
+<li><a href="#python_extension"><strong>Python 扩展模块</strong></a></li>
+</ul>
+</li>
+<li><a href="#debug_Python_API"><strong>调试PythonAPI</strong></a><ul>
+<li><a href="#build_debug_version"><strong>构建调试版本</strong></a></li>
+<li><a href="#cpp_client_debug"><strong>C++客户端调试</strong></a></li>
+</ul>
+</li>
+<li><a href="#other"><strong>其他</strong></a><ul>
+<li><a href="#check_dll_loaded"><strong>检查所依赖dll库的符号是否加载</strong></a></li>
+<li><a href="#open_cmake_project"><strong>VS2019 打开 CarlaUE4 的 Cmake 工程</strong></a></li>
+<li><a href="#crash_problem"><strong>导入崩溃问题</strong></a></li>
+<li><a href="#debug_UE_with_vs2019"><strong>VS 调试 UE 项目</strong></a></li>
+<li><a href="#problems"><strong>问题</strong></a></li>
+<li><a href="#trick"><strong>技巧</strong></a></li>
+<li><a href="#learn"><strong>学习</strong></a></li>
+</ul>
+</li>
+</ul>
 <p>程序调用流程：Python、libcarla.cp37-win_amd64.pyd、LibCarla、CarlaUE4。</p>
-<h2 id="carla">虚幻引擎Carla插件的调试</h2>
+<h2 id="carla">虚幻引擎Carla插件的调试 <span id="debug_CarlaUE4"></span></h2>
 <ol>
 <li>进入目录<code>carla/Unreal/CarlaUE4/</code>，右键文件<code>CarlaUE4.uproject</code>，选择运行<code>Generate Visual Studio project files</code>，在当前目录中将会生成VS的工程文件，双击打开<code>CarlaUE4.sln</code>。</li>
 </ol>
@@ -114,7 +136,7 @@
 <p><strong>Test</strong>：包含额外的测试代码。</p>
 </li>
 </ul>
-<h2 id="libcarla">调试LibCarla</h2>
+<h2 id="libcarla">调试LibCarla <span id="debug_LibCarla"></span></h2>
 <p><strong>客户端</strong>向服务端调用实现的功能。
 * 脚本<code>BuildLibCarla.bat</code>调用<code>cmake</code>命令进行构建：</p>
 <pre><code class="language-shell">cmake -G %GENERATOR% %PLATFORM%^
@@ -156,9 +178,9 @@
 </div>
 <p>参考 <a href="https://blog.csdn.net/qq_36330274/article/details/128380765">vs调试C++</a> 。</p>
 <p>调试<code>carla_client</code>时，vs报错：<code>boost::python::error_already_set</code>，尝试<a href="https://leonlee.wordpress.com/2018/09/24/%E4%BD%BF%E7%94%A8boostpython%E5%9C%A8c%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E4%B8%AD%E5%B5%8C%E5%85%A5python%EF%BC%9A%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86/">捕获具体异常</a> 。</p>
-<h3 id="python">Python 扩展模块</h3>
+<h3 id="python">Python 扩展模块 <span id="python_extension"></span></h3>
 <p>LibCarla编译后生成<code>Python37/Lib/site-packages/carla/libcarla.cp37-win_amd64.pyd</code>给Python进行调用。为了提高运行速度，将当前目录中的<code>__init__.py</code>和<code>command.py</code>编译为<code>__pycache__</code>目录中的 <code>byte code(字节码)</code>。</p>
-<h2 id="pythonapi">PythonAPI</h2>
+<h2 id="pythonapi">调试PythonAPI <span id="debug_Python_API"></span></h2>
 <p>boost_python库所在的目录为：<code>carla\Build\boost-1.80.0-install\lib\libboost_python37-vc142-mt-x64-1_80.lib</code>，<code>mt-x64</code>之间带有<code>gd</code>的是对应的调试版本。示例参考 <a href="../demo/boost_python/">链接</a> 。</p>
 <p>列出所有可用的命令：</p>
 <pre><code class="language-shell">python setup.py --help-commands
@@ -166,7 +188,7 @@
 <p>构建命令：</p>
 <pre><code class="language-shell">python setup.py build
 </code></pre>
-<h3 id="_1">构建调试版本</h3>
+<h3 id="_1">构建调试版本 <span id="build_debug_version"></span></h3>
 <ol>
 <li>右键 <code>CARLA</code>解决方案，<code>添加</code>-&gt;<code>新建项目</code>-&gt;<code>Python应用程序</code>；</li>
 <li>将<code>manual_control.py</code>文件内容复制到新建工程的<code>PythonApplication.py</code>文件中；</li>
@@ -176,10 +198,34 @@
 <li>在第4步弹出的命令行界面中敲回车；</li>
 </ol>
 <p>参考<a href="https://stackoverflow.com/questions/61692952/how-to-pass-debug-to-build-ext-when-invoking-setup-py-install">链接</a> ，效果未知。</p>
-<h2 id="_2">其他</h2>
-<h3 id="dll">检查所依赖dll库的符号是否加载</h3>
+<h3 id="c">C++客户端调试 <span id="cpp_client_debug"></span></h3>
+<ul>
+<li>错误    LNK2038 检测到“_ITERATOR_DEBUG_LEVEL”的不匹配项: 值“0”不匹配值“2”</li>
+<li>错误    LNK2038 检测到“RuntimeLibrary”的不匹配项: 值“MD_DynamicRelease”不匹配值“MDd_DynamicDebug”</li>
+</ul>
+<p>当前工程是Debug版本（0），而引用的库文件时Release版本（2）。</p>
+<p>需要将其他的.lib文件编译为debug模式：</p>
+<p>1.切换到目录<code>Util\InstallersWin</code>，将<code>install_boost.bat</code>内的b2运行参数改为<code>variant=debug</code>，（根据<code>Setup.bat</code>）运行：</p>
+<pre><code class="language-shell">install_boost.bat --build-dir D:\work\buffer --toolset msvc-14.2 --version 1.80.0 -j 4
+</code></pre>
+<p>会自动将boost的库和头文件安装到目录<code>D:\work\buffer\boost-1.80.0-install</code>里面。</p>
+<pre><code class="language-shell">install_recast.bat --build-dir D:\work\buffer --generator &quot;Visual Studio 16 2019&quot;
+</code></pre>
+<p>将<code>install_recast.bat</code>中的<code>Relase</code>改为<code>Debug</code>。
+将<code>-DCMAKE_CXX_FLAGS_RELASE="/MD /MP"</code>改为<code>-DCMAKE_CXX_FLAGS_DEBUG="/MDd /MP"</code>。</p>
+<pre><code class="language-shell">install_rpclib.bat --build-dir D:\work\buffer --generator &quot;Visual Studio 16 2019&quot;
+</code></pre>
+<p>将<code>install_rpclib.bat</code>中的<code>Relase</code>改为<code>Debug</code>。
+将<code>-DCMAKE_CXX_FLAGS_RELASE="/MD /MP"</code>改为<code>-DCMAKE_CXX_FLAGS_DEBUG="/MDd /MP"</code>。</p>
+<p>2.将第1步生成的安装文件目录配置到<code>Examples\CppClient\CMakeLists.txt</code>中，对应的头文件和库文件都改为Debug版本；</p>
+<p>3.在<code>main.cpp</code>中增加断点，并开始调试；
+<img alt="" src="../img/tuto_D_windows_debug/set_breakpoint_in_cpp_client.jpg" /></p>
+<p>4.程序在断点停止后按F10运行下一步，按F11进入LibCarla中的函数实现。
+<img alt="" src="../img/tuto_D_windows_debug/stop_in_LibCarla.jpg" /></p>
+<h2 id="_2">其他 <span id="other"></span></h2>
+<h3 id="dll">检查所依赖dll库的符号是否加载 <span id="check_dll_loaded"></span></h3>
 <p>下断点，F5调试。然后“调试 - 窗口 - 模块”打开模块窗口。</p>
-<h3 id="vs2019-carlaue4-cmake">VS2019 打开 CarlaUE4 的 Cmake 工程</h3>
+<h3 id="vs2019-carlaue4-cmake">VS2019 打开 CarlaUE4 的 Cmake 工程 <span id="open_cmake_project"></span></h3>
 <p>windows操作系统下通过vs2019打开并编译carla：</p>
 <ol>
 <li>开Carla的CMake项目（参考<a href="https://www.jb51.net/article/180463.htm">CMake 入门教程</a> ）：</li>
@@ -193,7 +239,7 @@
 <li>生成：</li>
 </ol>
 <p>点击菜单栏<code>生成</code>-<code>全部生成</code>或<code>部分生成</code>即可。</p>
-<h3 id="_3">导入崩溃问题</h3>
+<h3 id="_3">导入崩溃问题 <span id="crash_problem"></span></h3>
 <ol>
 <li>例如，导入测试链接：</li>
 </ol>
@@ -273,12 +319,12 @@ D:\work\workspace\engine\Engine\Binaries\Win64\UE4Editor-Cmd D:/work/workspace/c
 <p>直接命令行运行报错（必须确保不是Commandlet启动，而必须是Editor启动）：</p>
 <pre><code class="language-text">LogWindows: Error: Assertion failed: !IsRunningCommandlet() [File:D:/work/workspace/engine/Engine/Plugins/Developer/RenderDocPlugin/Source/RenderDocPlugin/Private/SRenderDocPluginEditorExtension.cpp] [Line: 107]
 </code></pre>
-<h3 id="vs-ue"><a href="https://ue5wiki.com/wiki/14373/">VS 调试 UE 项目</a></h3>
+<h3 id="vs-ue"><a href="https://ue5wiki.com/wiki/14373/">VS 调试 UE 项目</a>  <span id="debug_UE_with_vs2019"></span></h3>
 <ul>
 <li>变量已被优化掉，因而不可用。    </li>
 </ul>
 <p>VS菜单中选择<code>DebugGammingEditor</code>，然后开始调试，就可以添加要监视的项。</p>
-<h3 id="_4">问题</h3>
+<h3 id="_4">问题 <span id="problems"></span></h3>
 <p>崩溃于<code>engine\Engine\Source\Runtime\CoreUObject\Private\UObject\ScriptCore.cpp</code>1990行<code>Function-&gt;Invoke(this, NewStack, ReturnValueAddress);</code>
 弹出报错信息框：</p>
 <pre><code class="language-text">Failed to open descriptor file ./../../../carla/Unreal/CarlaUE4/CarlaUE4.uproject
@@ -286,17 +332,17 @@ D:\work\workspace\engine\Engine\Binaries\Win64\UE4Editor-Cmd D:/work/workspace/c
 <ul>
 <li><a href="http://www.piaoyi.org/c-sharp/Visual-Studio-2019-Intellisense.html">VS跳转代码太慢</a> </li>
 </ul>
-<h3 id="_5">依赖</h3>
+<h3 id="_5">依赖 <span id="dependency"></span></h3>
 <h4 id="boost-1800">boost-1.80.0</h4>
 <p><a href="https://blog.csdn.net/ASCE_Python/article/details/105595218">Python封装C++库调试</a> 。</p>
-<h3 id="_6">发布</h3>
+<h3 id="_6">发布 <span id="release"></span></h3>
 <p>包含所有软件依赖，双击<code>launch.bat</code>启动软件。</p>
 <h4 id="vs2019">VS2019社区版安装</h4>
 <p>解压安装包：</p>
 <pre><code class="language-shell">7z x filename.zip -o.
 </code></pre>
 <p>新电脑运行<code>NativeDesktop.exe</code>出现<code>此版本的Windows不支持此产品，请尝试升级Windows。</code></p>
-<h3 id="_7">技巧</h3>
+<h3 id="_7">技巧 <span id="trick"></span></h3>
 <ul>
 <li>进行函数跳转时，vs一致出现<code>正在进行IntelliSense</code>：</li>
 </ul>
@@ -311,7 +357,7 @@ D:\work\workspace\engine\Engine\Binaries\Win64\UE4Editor-Cmd D:/work/workspace/c
 <li>日志记录</li>
 </ul>
 <p><code>UE_LOG</code>函数记录的日志位于<code>carla\Unreal\CarlaUE4\Saved\Logs\CarlaUE4.log</code>文件中。</p>
-<h3 id="_8">学习</h3>
+<h3 id="_8">学习 <span id="learn"></span></h3>
 <ul>
 <li><a href="../tuto_D_bat/">bat脚本</a></li>
 <li><a href="../libcarla/">LibCarla 说明</a></li>
