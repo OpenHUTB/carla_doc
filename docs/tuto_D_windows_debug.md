@@ -132,21 +132,24 @@ python setup.py build
 
 需要将其他的.lib文件编译为debug模式：
 
-1.切换到目录`Util\InstallersWin`，将`install_boost.bat`内的b2运行参数改为`variant=debug`，（根据`Setup.bat`）运行：
+1.切换到目录`Util\InstallersWin`，将[`install_boost.bat`](https://github.com/carla-simulator/carla/blob/dev/Util/InstallersWin/install_boost.bat) 内的b2运行参数改为`variant=debug`，（根据`Setup.bat`）运行[`install_boost.bat`](https://github.com/OpenHUTB/carla_doc/tree/master/src/cmake/install_boost.bat) ：
 ```shell
 install_boost.bat --build-dir D:\work\buffer --toolset msvc-14.2 --version 1.80.0 -j 4
 ```
 会自动将boost的库和头文件安装到目录`D:\work\buffer\boost-1.80.0-install`里面。
+
+将[`install_recast.bat`](https://github.com/carla-simulator/carla/blob/dev/Util/InstallersWin/install_recast.bat) 中的`Relase`改为`Debug`。
+将`-DCMAKE_CXX_FLAGS_RELASE="/MD /MP"`改为`-DCMAKE_CXX_FLAGS_DEBUG="/MDd /MP"`，运行[`install_recast.bat`](https://github.com/OpenHUTB/carla_doc/tree/master/src/cmake/install_recast.bat) 。
 ```shell
 install_recast.bat --build-dir D:\work\buffer --generator "Visual Studio 16 2019"
 ```
-将`install_recast.bat`中的`Relase`改为`Debug`。
+
+将[`install_rpclib.bat`](https://github.com/carla-simulator/carla/blob/dev/Util/InstallersWin/install_rpclib.bat) 中的`Relase`改为`Debug`，运行[`install_rpclib.bat`](https://github.com/OpenHUTB/carla_doc/tree/master/src/cmake/install_rpclib.bat) 。
 将`-DCMAKE_CXX_FLAGS_RELASE="/MD /MP"`改为`-DCMAKE_CXX_FLAGS_DEBUG="/MDd /MP"`。
 ```shell
 install_rpclib.bat --build-dir D:\work\buffer --generator "Visual Studio 16 2019"
 ```
-将`install_rpclib.bat`中的`Relase`改为`Debug`。
-将`-DCMAKE_CXX_FLAGS_RELASE="/MD /MP"`改为`-DCMAKE_CXX_FLAGS_DEBUG="/MDd /MP"`。
+
 
 2.将第1步生成的安装文件目录配置到`Examples\CppClient\CMakeLists.txt`中，对应的头文件和库文件都改为Debug版本；
 
