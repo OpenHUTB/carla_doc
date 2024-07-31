@@ -1,8 +1,23 @@
 # 在 Windows 上进行 Carla 的调试
 
+- [__虚幻引擎Carla插件的调试__](#debug_CarlaUE4)
+- [__调试LibCarla__](#debug_LibCarla)
+    - [__Python 扩展模块__](#python_extension)
+- [__调试PythonAPI__](#debug_Python_API)
+    - [__构建调试版本__](#build_debug_version)
+    - [__C++客户端调试__](#cpp_client_debug)
+- [__其他__](#other)
+    - [__检查所依赖dll库的符号是否加载__](#check_dll_loaded)
+    - [__VS2019 打开 CarlaUE4 的 Cmake 工程__](#open_cmake_project)
+    - [__导入崩溃问题__](#crash_problem)
+    - [__VS 调试 UE 项目__](#debug_UE_with_vs2019)
+    - [__问题__](#problems)
+    - [__技巧__](#trick)
+    - [__学习__](#learn)
+
 程序调用流程：Python、libcarla.cp37-win_amd64.pyd、LibCarla、CarlaUE4。
 
-## 虚幻引擎Carla插件的调试
+## 虚幻引擎Carla插件的调试 <span id="debug_CarlaUE4"></span>
 1. 进入目录`carla/Unreal/CarlaUE4/`，右键文件`CarlaUE4.uproject`，选择运行`Generate Visual Studio project files`，在当前目录中将会生成VS的工程文件，双击打开`CarlaUE4.sln`。
 
 ![](img/tuto_D_windows_debug/generate_vs_project_files.png)
@@ -36,7 +51,7 @@
 * **Test**：包含额外的测试代码。
 
 
-## 调试LibCarla
+## 调试LibCarla <span id="debug_LibCarla"></span>
 **客户端**向服务端调用实现的功能。
 * 脚本`BuildLibCarla.bat`调用`cmake`命令进行构建：
 ```shell
@@ -80,11 +95,11 @@ cmake --build . --config Release --target install | findstr /V "Up-to-date:"
 
 调试`carla_client`时，vs报错：`boost::python::error_already_set`，尝试[捕获具体异常](https://leonlee.wordpress.com/2018/09/24/%E4%BD%BF%E7%94%A8boostpython%E5%9C%A8c%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E4%B8%AD%E5%B5%8C%E5%85%A5python%EF%BC%9A%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86/) 。
 
-### Python 扩展模块
+### Python 扩展模块 <span id="python_extension"></span>
 LibCarla编译后生成`Python37/Lib/site-packages/carla/libcarla.cp37-win_amd64.pyd`给Python进行调用。为了提高运行速度，将当前目录中的`__init__.py`和`command.py`编译为`__pycache__`目录中的 `byte code(字节码)`。
 
 
-## PythonAPI
+## 调试PythonAPI <span id="debug_Python_API"></span>
 boost_python库所在的目录为：`carla\Build\boost-1.80.0-install\lib\libboost_python37-vc142-mt-x64-1_80.lib`，`mt-x64`之间带有`gd`的是对应的调试版本。示例参考 [链接](demo/boost_python.md) 。
 
 列出所有可用的命令：
@@ -97,7 +112,7 @@ python setup.py --help-commands
 python setup.py build
 ```
 
-### 构建调试版本
+### 构建调试版本 <span id="build_debug_version"></span>
 
 1. 右键 `CARLA`解决方案，`添加`->`新建项目`->`Python应用程序`；
 2. 将`manual_control.py`文件内容复制到新建工程的`PythonApplication.py`文件中；
@@ -108,7 +123,7 @@ python setup.py build
 
 参考[链接](https://stackoverflow.com/questions/61692952/how-to-pass-debug-to-build-ext-when-invoking-setup-py-install) ，效果未知。
 
-### C++客户端调试
+### C++客户端调试 <span id="cpp_client_debug"></span>
 
 * 错误	LNK2038	检测到“_ITERATOR_DEBUG_LEVEL”的不匹配项: 值“0”不匹配值“2”
 * 错误	LNK2038	检测到“RuntimeLibrary”的不匹配项: 值“MD_DynamicRelease”不匹配值“MDd_DynamicDebug”
@@ -116,37 +131,38 @@ python setup.py build
 当前工程是Debug版本（0），而引用的库文件时Release版本（2）。
 
 需要将其他的.lib文件编译为debug模式：
-1. 切换到目录`Util\InstallersWin`，将`install_boost.bat`内的b2运行参数改为`variant=debug`，（根据`Setup.bat`）运行：
+
+1.切换到目录`Util\InstallersWin`，将`install_boost.bat`内的b2运行参数改为`variant=debug`，（根据`Setup.bat`）运行：
 ```shell
 install_boost.bat --build-dir D:\work\buffer --toolset msvc-14.2 --version 1.80.0 -j 4
 ```
 会自动将boost的库和头文件安装到目录`D:\work\buffer\boost-1.80.0-install`里面。
-
 ```shell
 install_recast.bat --build-dir D:\work\buffer --generator "Visual Studio 16 2019"
 ```
 将`install_recast.bat`中的`Relase`改为`Debug`。
 将`-DCMAKE_CXX_FLAGS_RELASE="/MD /MP"`改为`-DCMAKE_CXX_FLAGS_DEBUG="/MDd /MP"`。
-
 ```shell
 install_rpclib.bat --build-dir D:\work\buffer --generator "Visual Studio 16 2019"
 ```
 将`install_rpclib.bat`中的`Relase`改为`Debug`。
 将`-DCMAKE_CXX_FLAGS_RELASE="/MD /MP"`改为`-DCMAKE_CXX_FLAGS_DEBUG="/MDd /MP"`。
 
-2. 将第1步生成的安装文件目录配置到`Examples\CppClient\CMakeLists.txt`中，对应的头文件和库文件都改为Debug版本；
-3. 在`main.cpp`中增加断点，并开始调试；
+2.将第1步生成的安装文件目录配置到`Examples\CppClient\CMakeLists.txt`中，对应的头文件和库文件都改为Debug版本；
+
+3.在`main.cpp`中增加断点，并开始调试；
 ![](img/tuto_D_windows_debug/set_breakpoint_in_cpp_client.jpg)
-4. 程序在断点停止后按F10运行下一步，按F11进入LibCarla中的函数实现。
+
+4.程序在断点停止后按F10运行下一步，按F11进入LibCarla中的函数实现。
 ![](img/tuto_D_windows_debug/stop_in_LibCarla.jpg)
 
-## 其他
+## 其他 <span id="other"></span>
 
-### 检查所依赖dll库的符号是否加载
+### 检查所依赖dll库的符号是否加载 <span id="check_dll_loaded"></span>
 下断点，F5调试。然后“调试 - 窗口 - 模块”打开模块窗口。
 
 
-### VS2019 打开 CarlaUE4 的 Cmake 工程
+### VS2019 打开 CarlaUE4 的 Cmake 工程 <span id="open_cmake_project"></span>
 windows操作系统下通过vs2019打开并编译carla：
 
 1. 开Carla的CMake项目（参考[CMake 入门教程](https://www.jb51.net/article/180463.htm) ）：
@@ -161,7 +177,7 @@ windows操作系统下通过vs2019打开并编译carla：
 
 点击菜单栏`生成`-`全部生成`或`部分生成`即可。
 
-### 导入崩溃问题
+### 导入崩溃问题 <span id="crash_problem"></span>
 
 1. 例如，导入测试链接：
 ```text
@@ -255,14 +271,14 @@ LogWindows: Error: Assertion failed: !IsRunningCommandlet() [File:D:/work/worksp
 ```
 
 
-### [VS 调试 UE 项目](https://ue5wiki.com/wiki/14373/) 
+### [VS 调试 UE 项目](https://ue5wiki.com/wiki/14373/)  <span id="debug_UE_with_vs2019"></span>
 
 * 变量已被优化掉，因而不可用。	
 
 VS菜单中选择`DebugGammingEditor`，然后开始调试，就可以添加要监视的项。
 
 
-### 问题
+### 问题 <span id="problems"></span>
 崩溃于`engine\Engine\Source\Runtime\CoreUObject\Private\UObject\ScriptCore.cpp`1990行`Function->Invoke(this, NewStack, ReturnValueAddress);`
 弹出报错信息框：
 ```text
@@ -272,13 +288,13 @@ Failed to open descriptor file ./../../../carla/Unreal/CarlaUE4/CarlaUE4.uprojec
 * [VS跳转代码太慢](http://www.piaoyi.org/c-sharp/Visual-Studio-2019-Intellisense.html) 
 
 
-### 依赖
+### 依赖 <span id="dependency"></span>
 
 #### boost-1.80.0
 [Python封装C++库调试](https://blog.csdn.net/ASCE_Python/article/details/105595218) 。
 
 
-### 发布
+### 发布 <span id="release"></span>
 包含所有软件依赖，双击`launch.bat`启动软件。
 
 #### VS2019社区版安装
@@ -289,7 +305,7 @@ Failed to open descriptor file ./../../../carla/Unreal/CarlaUE4/CarlaUE4.uprojec
 新电脑运行`NativeDesktop.exe`出现`此版本的Windows不支持此产品，请尝试升级Windows。`
 
 
-### 技巧
+### 技巧 <span id="trick"></span>
 
 * 进行函数跳转时，vs一致出现`正在进行IntelliSense`：
 
@@ -306,7 +322,7 @@ Failed to open descriptor file ./../../../carla/Unreal/CarlaUE4/CarlaUE4.uprojec
 
 `UE_LOG`函数记录的日志位于`carla\Unreal\CarlaUE4\Saved\Logs\CarlaUE4.log`文件中。
 
-### 学习
+### 学习 <span id="learn"></span>
 * [bat脚本](tuto_D_bat.md)
 * [LibCarla 说明](libcarla.md)
 * [CarlaUE4 说明](CarlaUE4.md)
