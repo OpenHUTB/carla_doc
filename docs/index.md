@@ -219,6 +219,8 @@ Carla 论坛</a>
 
 [__OpenSCENARIO 播放器__](tuto_G_esmini.md) — 基本的 OpenSCENARIO 播放器。
 
+[__地理空间生态系统__](adv_cesium.md) — 将 3D 地理空间生态系统引入虚幻引擎。
+
 
 ## 源代码编译
 

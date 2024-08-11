@@ -1,0 +1,35 @@
+# 倾斜模型导入Carla
+
+1. 下载并解压 [Cesium for Unreal 插件](https://github.com/CesiumGS/cesium-unreal/releases/download/v1.18.0-ue4/CesiumForUnreal-426-v1.18.0-ue4.zip) 到CarlaUE引擎的plugins文件夹下：
+
+![](img/cesium/plugins.png)
+
+2. 将插件的BuildId修改与CarlaUE引擎的BuildId一致。
+引擎的BuildId在如下路径：
+
+![](img/cesium/build_id_path.png)
+需修改的BuildId
+![](img/cesium/require_modified_build_id.png)
+
+3. 本地测试还需要修改其他几个内置插件的BuildId也要与引擎的一致。有如下几个地方：
+```shell
+carla_unreal\unreal\Engine\Plugins\Experimental\Landmass\Binaries\Win64
+carla_unreal\unreal\Engine\Plugins\Experimental\Water\Binaries\Win64
+carla_unreal\unreal\Engine\Plugins\Editor\BlueprintMaterialTextureNodes\Binaries\Win64
+```
+
+4. 在CarlaUE中添加插件
+![](img/cesium/plugins_menu.png)
+![](img/cesium/add_plugin.png)
+添加完成后重启引擎。
+
+5. 添加插件对象到场景中,配置参数和模型路径：
+![](img/cesium/add_plugin_object.png)
+![](img/cesium/config_parameter.png)
+![](img/cesium/config_model_path.png)
+
+!!! 注意：
+    从[链接](https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb) 中的`map`文件夹内下载`中电软件园_cesium_model.zip`并解压。这里测试用的是本地路径，也可以用静态资源服务。
+
+6. 模型在CarlaUE中的场景效果
+![](img/cesium/scene_effect.png)
