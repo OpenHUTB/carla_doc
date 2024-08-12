@@ -155,6 +155,13 @@ install_rpclib.bat --build-dir D:\work\buffer --generator "Visual Studio 16 2019
 
 3.在`main.cpp`中增加断点，并开始调试；
 ![](img/tuto_D_windows_debug/set_breakpoint_in_cpp_client.jpg)
+```shell
+auto world = client.LoadWorld("town_name");
+```
+改为：
+```shell
+auto world = client.LoadWorld("Town10HD_Opt");
+```
 
 4.程序在断点停止后按F10运行下一步，按F11进入LibCarla中的函数实现。
 ![](img/tuto_D_windows_debug/stop_in_LibCarla.jpg)

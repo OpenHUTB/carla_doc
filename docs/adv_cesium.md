@@ -27,6 +27,9 @@ carla_unreal\unreal\Engine\Plugins\Editor\BlueprintMaterialTextureNodes\Binaries
 
 5.添加插件对象到场景中,配置参数和模型路径：
 
+`esiumGeoreference`设置为：`28.235238,  112.877178,  0`
+
+`Source`设置为`File:///D:/ssd/model/tileset.json`。
 ![](img/cesium/add_plugin_object.png)
 ![](img/cesium/config_parameter.png)
 ![](img/cesium/config_model_path.png)
@@ -37,3 +40,6 @@ carla_unreal\unreal\Engine\Plugins\Editor\BlueprintMaterialTextureNodes\Binaries
 6.模型在CarlaUE中的场景效果
 
 ![](img/cesium/scene_effect.png)
+
+## 参考
+- [Cesium for Unreal快速入门](https://zhuanlan.zhihu.com/p/365834299)
