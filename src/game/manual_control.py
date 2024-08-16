@@ -392,6 +392,7 @@ class KeyboardControl(object):
         self._autopilot_enabled = start_in_autopilot
         self._ackermann_enabled = False
         self._ackermann_reverse = 1
+        self.is_full_screen = True
         if isinstance(world.player, carla.Vehicle):
             self._control = carla.VehicleControl()
             self._ackermann_control = carla.VehicleAckermannControl()
@@ -413,6 +414,17 @@ class KeyboardControl(object):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return True
+            elif event.type == pygame.KEYDOWN:
+                if event.key == K_F11:
+                    if not self.is_full_screen:
+                        self.is_full_screen = True
+                        screen_size = pygame.display.list_modes()[0]  # 查看本地显示器支持的分辨率
+                        pygame.display.set_mode(screen_size, FULLSCREEN)
+                    else:
+                        self.is_full_screen = False
+                        window_width, windows_height = 1280, 720
+                        pygame.display.set_mode((window_width, windows_height), pygame.HWSURFACE | pygame.DOUBLEBUF)
+                pass
             elif event.type == pygame.KEYUP:
                 if self._is_quit_shortcut(event.key):
                     return True
@@ -1307,8 +1319,6 @@ def game_loop(args):
 
         clock = pygame.time.Clock()
         while True:
-            is_full_screen = resize(is_full_screen)
-
             if args.sync:
                 sim_world.tick()
             clock.tick_busy_loop(60)
@@ -1330,27 +1340,6 @@ def game_loop(args):
             world.destroy()
 
         pygame.quit()
-
-
-# 有时候需要按F11几下才可以切换是否全屏的状态
-# 参考：https://blog.csdn.net/weixin_45951701/article/details/107272385
-def resize(is_full_screen):
-    # 这个函数中必须先判断窗口大小是否变化，在判断是否全屏
-    # 否则，在全屏之后，pygame会判定为全屏操作也是改变窗体大小的一个操作，所以会显示一个比较大的窗口但不是全屏模式
-    # 从事件队列中获得事件列表，获得 VIDEORESIZE 类型的事件
-    for event in pygame.event.get(KEYDOWN):
-        if event.key == K_F11:
-            if not is_full_screen:
-                is_full_screen = True
-                screen_size = pygame.display.list_modes()[0]  # 查看本地显示器支持的分辨率
-                pygame.display.set_mode(screen_size, FULLSCREEN)
-            else:
-                is_full_screen = False
-                window_width, windows_height = 1280, 720
-                pygame.display.set_mode((window_width, windows_height),
-                                                 pygame.HWSURFACE | pygame.DOUBLEBUF)
-        pygame.event.post(event)
-    return is_full_screen
 
 
 # ==============================================================================
