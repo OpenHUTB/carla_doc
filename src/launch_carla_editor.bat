@@ -1,6 +1,6 @@
 :: @echo off 
 :: 需要预装的软件：Visual Studio 2019
-:: 当前目录下需要的软件包括：
+:: 当前目录下需要的软件包括（下载链接：https://pan.baidu.com/s/10eV-gwiF87kW-EpRepTRaw?pwd=hutb）：
 :: carla1, unreal
 :: CMake, GnuWin32, 
 :: dotnet, Python37

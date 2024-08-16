@@ -1252,6 +1252,12 @@ def game_loop(args):
     world = None
     original_settings = None
 
+    # 获得全屏的分辨率
+    # 必须在pygame.init()之后运行，否则运行报错：pygame.error: video system not initialized
+    info_object = pygame.display.Info()
+    args.width = info_object.current_w
+    args.height = info_object.current_h
+
     try:
         client = carla.Client(args.host, args.port)
         client.set_timeout(2000.0)
@@ -1273,9 +1279,13 @@ def game_loop(args):
                   "experience some issues with the traffic simulation")
 
         # 对窗口参数进行设置，这个函数会返回一个Surface对象
+        # 增加 pygame.FULLSCREEN 表示启动游戏时默认进入全屏
+        # pygame.FULLSCREEN 创建全屏的窗口
+        # pygame.DOUBLEBUF 使用HWSURFACE或OPENGL时建议加上这个标志
+        # pygame.HWSURFACE 使用硬件加速，只在FULLSCREEN时有效
         display = pygame.display.set_mode(
             (args.width, args.height),
-            pygame.HWSURFACE | pygame.DOUBLEBUF)
+            pygame.HWSURFACE | pygame.DOUBLEBUF | pygame.FULLSCREEN)
         display.fill((0, 0, 0))
         pygame.display.flip()
 
@@ -1391,4 +1401,8 @@ def main():
 
 def manual_control():
     print("starting manual control")
+    main()
+
+
+if __name__ == '__main__':
     main()
