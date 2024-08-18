@@ -15,48 +15,48 @@
 # python manual_control.py
 
 """
-Welcome to CARLA manual control.
+欢迎来到手动控制车辆。
 
-Use ARROWS or WASD keys for control.
+使用“方向键”或”WSAD”键盘进行控制。
 
-    W            : throttle
-    S            : brake
-    A/D          : steer left/right
-    Q            : toggle reverse
-    Space        : hand-brake
-    P            : toggle autopilot
-    M            : toggle manual transmission
-    ,/.          : gear up/down
-    CTRL + W     : toggle constant velocity mode at 60 km/h
+    W            : 油门
+    S            : 刹车
+    A/D          : 方向盘向左/向右
+    Q            : 切换倒档
+    Space        : 手刹
+    P            : 切换自动驾驶
+    M            : 切换手动换挡
+    ,/.          : 档位提升/降低
+    CTRL + W     : 以60公里/小时切换等速模式
 
-    L            : toggle next light type
-    SHIFT + L    : toggle high beam
-    Z/X          : toggle right/left blinker
-    I            : toggle interior light
+    L            : 切换下一个车灯类型
+    SHIFT + L    : 切换远光灯
+    Z/X          : 切换左/右闪光灯
+    I            : 切换车内灯
 
-    TAB          : change sensor position
-    ` or N       : next sensor
-    [1-9]        : change to sensor [1-9]
-    G            : toggle radar visualization
-    C            : change weather (Shift+C reverse)
-    Backspace    : change vehicle
+    TAB          : 改变传感器位置
+    ` or N       : 下一个传感器
+    [1-9]        : 改变到第 [1-9] 个传感器
+    G            : 切换雷达可视化
+    C            : 改变天气 (Shift+C 反向切换)
+    Backspace    : 改变车辆
 
-    O            : open/close all doors of vehicle
-    T            : toggle vehicle's telemetry
+    O            : 打开/关闭所有车门
+    T            : 切换车辆遥测
 
-    V            : Select next map layer (Shift+V reverse)
-    B            : Load current selected map layer (Shift+B to unload)
+    V            : 选择下一步图层 (Shift+V 反向选择)
+    B            : 加载当前选择的图层 (Shift+B 卸载)
 
-    R            : toggle recording images to disk
+    R            : 切换记录图片到磁盘
 
-    CTRL + R     : toggle recording of simulation (replacing any previous)
-    CTRL + P     : start replaying last recorded simulation
-    CTRL + +     : increments the start time of the replay by 1 second (+SHIFT = 10 seconds)
-    CTRL + -     : decrements the start time of the replay by 1 second (+SHIFT = 10 seconds)
+    CTRL + R     : 切换仿真记录（替换任何之前的记录）
+    CTRL + P     : 开始重放最近记录的仿真
+    CTRL + +     : 将重放的开始时间增加1秒i (+SHIFT = 10 秒)
+    CTRL + -     : 将重放的开始时间减少1秒 (+SHIFT = 10 秒)
 
-    F1           : toggle HUD
-    H/?          : toggle help
-    ESC          : quit
+    F1           : 切换头显
+    H/?          : 切换帮助信息
+    ESC          : 退出
 """
 
 from __future__ import print_function
@@ -407,7 +407,7 @@ class KeyboardControl(object):
         else:
             raise NotImplementedError("Actor type not supported")
         self._steer_cache = 0.0
-        world.hud.notification("Press 'H' or '?' for help.", seconds=4.0)
+        world.hud.notification("按 'H' 或者 '?' 显示帮助信息。", seconds=4.0)
 
     def parse_events(self, client, world, clock, sync_mode):
         if isinstance(self._control, carla.VehicleControl):
