@@ -1,3 +1,4 @@
+# coding=utf-8
 #!/usr/bin/env python
 
 # 改编自 manual_control.py
@@ -415,6 +416,7 @@ class KeyboardControl(object):
             if event.type == pygame.QUIT:
                 return True
             elif event.type == pygame.KEYDOWN:
+                # TODO 退出全屏不是场景缩放，而仅仅是窗口缩放
                 if event.key == K_F11:
                     if not self.is_full_screen:
                         self.is_full_screen = True
@@ -693,8 +695,10 @@ class HUD(object):
     def __init__(self, width, height):
         self.dim = (width, height)
         # 在当前目录必须放字体文件 freesansbold.ttf，否则打包后运行报错：Pyinstaller expected str, bytes or os.pathlike object,not io.byeslo
-        font = pygame.font.Font("freesansbold.ttf", 20)
-        font_name = 'courier' if os.name == 'nt' else 'mono'
+        # font = pygame.font.SysFont('宋体', 32)  # pygame.font.Font("freesansbold.ttf", 20)
+        font = pygame.font.Font("msyhl.ttf", 20)  # 这里只是左下角通知信息字体的改变
+        # msgothic能正常显示中文（“服务端”显示为“服口端”），有些字体不行，比如：courier
+        font_name = 'stzhongsong' if os.name == 'nt' else 'mono'
         fonts = [x for x in pygame.font.get_fonts() if font_name in x]
         default_font = 'ubuntumono'
         mono = default_font if default_font in fonts else fonts[0]
@@ -735,31 +739,32 @@ class HUD(object):
         max_col = max(1.0, max(collision))
         collision = [x / max_col for x in collision]
         vehicles = world.world.get_actors().filter('vehicle.*')
+        # Server:
         self._info_text = [
-            'Server:  % 16.0f FPS' % self.server_fps,
-            'Client:  % 16.0f FPS' % clock.get_fps(),
+            (u"服务端：  % 16.0f FPS" % self.server_fps),
+            '客户端：  % 16.0f FPS' % clock.get_fps(),
             '',
-            'Vehicle: % 20s' % get_actor_display_name(world.player, truncate=20),
-            'Map:     % 20s' % world.map.name.split('/')[-1],
-            'Simulation time: % 12s' % datetime.timedelta(seconds=int(self.simulation_time)),
+            '车辆： % 20s' % get_actor_display_name(world.player, truncate=20),
+            '地图：     % 20s' % world.map.name.split('/')[-1],
+            '仿真时间： % 12s' % datetime.timedelta(seconds=int(self.simulation_time)),
             '',
-            'Speed:   % 15.0f km/h' % (3.6 * math.sqrt(v.x**2 + v.y**2 + v.z**2)),
-            u'Compass:% 17.0f\N{DEGREE SIGN} % 2s' % (compass, heading),
-            'Accelero: (%5.1f,%5.1f,%5.1f)' % (world.imu_sensor.accelerometer),
-            'Gyroscop: (%5.1f,%5.1f,%5.1f)' % (world.imu_sensor.gyroscope),
-            'Location:% 20s' % ('(% 5.1f, % 5.1f)' % (t.location.x, t.location.y)),
-            'GNSS:% 24s' % ('(% 2.6f, % 3.6f)' % (world.gnss_sensor.lat, world.gnss_sensor.lon)),
-            'Height:  % 18.0f m' % t.location.z,
+            '速度：   % 15.0f km/h' % (3.6 * math.sqrt(v.x**2 + v.y**2 + v.z**2)),
+            u'指南针：% 17.0f\N{DEGREE SIGN} % 2s' % (compass, heading),
+            '加速度： (%5.1f,%5.1f,%5.1f)' % (world.imu_sensor.accelerometer),
+            '陀螺仪： (%5.1f,%5.1f,%5.1f)' % (world.imu_sensor.gyroscope),
+            '位置：% 20s' % ('(% 5.1f, % 5.1f)' % (t.location.x, t.location.y)),
+            'GNSS: % 24s' % ('(% 2.6f, % 3.6f)' % (world.gnss_sensor.lat, world.gnss_sensor.lon)),
+            '高度：  % 18.0f m' % t.location.z,
             '']
         if isinstance(c, carla.VehicleControl):
             self._info_text += [
-                ('Throttle:', c.throttle, 0.0, 1.0),
-                ('Steer:', c.steer, -1.0, 1.0),
-                ('Brake:', c.brake, 0.0, 1.0),
-                ('Reverse:', c.reverse),
-                ('Hand brake:', c.hand_brake),
-                ('Manual:', c.manual_gear_shift),
-                'Gear:        %s' % {-1: 'R', 0: 'N'}.get(c.gear, c.gear)]
+                ('油门：', c.throttle, 0.0, 1.0),
+                ('方向盘：', c.steer, -1.0, 1.0),
+                ('刹车：', c.brake, 0.0, 1.0),
+                ('倒档：', c.reverse),
+                ('手刹：', c.hand_brake),
+                ('手动：', c.manual_gear_shift),
+                '档位：        %s' % {-1: 'R', 0: 'N'}.get(c.gear, c.gear)]
             if self._show_ackermann_info:
                 self._info_text += [
                     '',
@@ -772,12 +777,12 @@ class HUD(object):
                 ('Jump:', c.jump)]
         self._info_text += [
             '',
-            'Collision:',
+            '碰撞：',
             collision,
             '',
-            'Number of vehicles: % 8d' % len(vehicles)]
+            '车辆数目： % 8d' % len(vehicles)]
         if len(vehicles) > 1:
-            self._info_text += ['Nearby vehicles:']
+            self._info_text += ['附近的车辆：']
             distance = lambda l: math.sqrt((l.x - t.location.x)**2 + (l.y - t.location.y)**2 + (l.z - t.location.z)**2)
             vehicles = [(distance(x.get_location()), x) for x in vehicles if x.id != world.player.id]
             for d, vehicle in sorted(vehicles, key=lambda vehicles: vehicles[0]):
@@ -832,9 +837,9 @@ class HUD(object):
                             rect = pygame.Rect((bar_h_offset, v_offset + 8), (f * bar_width, 6))
                         pygame.draw.rect(display, (255, 255, 255), rect)
                     item = item[0]
-                if item:  # At this point has to be a str.
-                    surface = self._font_mono.render(item, True, (255, 255, 255))
-                    display.blit(surface, (8, v_offset))
+                if item:  # 此时必须是字符串
+                    surface = self._font_mono.render(item, True, (255, 255, 255))  # 创建图像
+                    display.blit(surface, (8, v_offset))  # 将图像绘制到窗口上
                 v_offset += 18
         self._notifications.render(display)
         self.help.render(display)
@@ -966,7 +971,7 @@ class LaneInvasionSensor(object):
             return
         lane_types = set(x.type for x in event.crossed_lane_markings)
         text = ['%r' % str(x).split()[-1] for x in lane_types]
-        self.hud.notification('Crossed line %s' % ' and '.join(text))
+        self.hud.notification('压线 %s' % ' and '.join(text))  # Crossed line
 
 
 # ==============================================================================
@@ -1370,6 +1375,8 @@ def main():
         '-a', '--autopilot',
         action='store_true',
         help='enable autopilot')
+    # 4K: --res 3840x2160
+    # 2K: --res 2560×1440
     argparser.add_argument(
         '--res',
         metavar='WIDTHxHEIGHT',
