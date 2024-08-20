@@ -694,16 +694,17 @@ class KeyboardControl(object):
 class HUD(object):
     def __init__(self, width, height):
         self.dim = (width, height)
+        mono = "msyhl.ttf"
         # 在当前目录必须放字体文件 freesansbold.ttf，否则打包后运行报错：Pyinstaller expected str, bytes or os.pathlike object,not io.byeslo
         # font = pygame.font.SysFont('宋体', 32)
         # font = pygame.font.Font("freesansbold.ttf", 20)
-        font = pygame.font.Font("msyhl.ttf", 20)  # 这里只是左下角通知信息字体的改变
+        font = pygame.font.Font(mono, 20)  # 这里只是左下角通知信息字体的改变
         # msgothic能正常显示中文（“服务端”显示为“服口端”），有些字体不行，比如：courier
-        font_name = 'stzhongsong' if os.name == 'nt' else 'mono'
-        fonts = [x for x in pygame.font.get_fonts() if font_name in x]
-        default_font = 'ubuntumono'
-        mono = default_font if default_font in fonts else fonts[0]
-        mono = pygame.font.match_font(mono)
+        # font_name = 'stzhongsong' if os.name == 'nt' else 'ubuntumono'
+        # fonts = [x for x in pygame.font.get_fonts() if font_name in x]
+        # default_font = 'ubuntumono'
+        # mono = default_font if default_font in fonts else fonts[0]
+        # mono = pygame.font.match_font(mono)
         self._font_mono = pygame.font.Font(mono, 12 if os.name == 'nt' else 14)
         self._notifications = FadingText(font, (width, 40), (0, height - 40))
         self.help = HelpText(pygame.font.Font(mono, 16), width, height)
