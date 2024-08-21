@@ -54,6 +54,11 @@
     CTRL + +     : 将重放的开始时间增加1秒i (+SHIFT = 10 秒)
     CTRL + -     : 将重放的开始时间减少1秒 (+SHIFT = 10 秒)
 
+    Alt + [0-9]  : 0:Town10；1: 由“T字路口组成的”基本城镇；2：更小的城镇
+                   3：最复杂的 城镇；4：有高速公路和小镇的无限循环。
+                   5：方形网格城镇；6：高速公路和密歇根左转；
+                   7：乡村；8、9：大地图。
+
     F1           : 切换头显
     H/?          : 切换帮助信息
     ESC          : 退出
@@ -150,6 +155,8 @@ try:
     from pygame.locals import KEYDOWN
     from pygame.locals import K_F11
     from pygame.locals import FULLSCREEN
+
+    from pygame.locals import *  # key_pressed[]方法所在的包
 except ImportError:
     raise RuntimeError('cannot import pygame, make sure pygame package is installed')
 
@@ -412,6 +419,39 @@ class KeyboardControl(object):
     def parse_events(self, client, world, clock, sync_mode):
         if isinstance(self._control, carla.VehicleControl):
             current_lights = self._lights
+        # 处理组合键(Alt+1)
+        key_pressed = pygame.key.get_pressed()
+        if key_pressed[K_LALT] and key_pressed[K_1]:
+            world = client.load_world("Town01")
+            main()  # 重新启动当前客户端
+        elif key_pressed[K_LALT] and key_pressed[K_2]:
+            world = client.load_world("Town02")
+            main()
+        elif key_pressed[K_LALT] and key_pressed[K_3]:
+            world = client.load_world("Town03")
+            main()
+        elif key_pressed[K_LALT] and key_pressed[K_4]:
+            world = client.load_world("Town04")
+            main()
+        elif key_pressed[K_LALT] and key_pressed[K_5]:
+            world = client.load_world("Town05")
+            main()
+        elif key_pressed[K_LALT] and key_pressed[K_6]:
+            world = client.load_world("Town06")
+            main()
+        elif key_pressed[K_LALT] and key_pressed[K_7]:
+            world = client.load_world("Town07")
+            main()
+        elif key_pressed[K_LALT] and key_pressed[K_8]:
+            world = client.load_world("Town12")
+            main()
+        elif key_pressed[K_LALT] and key_pressed[K_9]:
+            world = client.load_world("Town13")
+            main()
+        elif key_pressed[K_LALT] and key_pressed[K_0]:
+            world = client.load_world("Town10HD")
+            main()
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return True

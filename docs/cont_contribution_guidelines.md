@@ -88,7 +88,7 @@ __2. 联系艺术团队以获取内容存储库的访问权限。__ 加入 [Disc
 
 __3. 将为每个贡献者创建一个分支。__ 该分支将被命名为 `contributors/contributor_name`。该用户所做的所有贡献都应在相应的分支中做出。
 
-__4. 构建 Carla。__ 为了做出贡献，Carla 构建是必要的。按照说明在 [Linux](https://carla.readthedocs.io/en/latest/build_linux/) 或 [Windows](https://carla.readthedocs.io/en/latest/build_windows/) 中构建。
+__4. 构建 Carla。__ 为了做出贡献，构建 Carla 是必要的。按照说明在 [Linux](https://carla.readthedocs.io/en/latest/build_linux/) 或 [Windows](https://carla.readthedocs.io/en/latest/build_windows/) 中构建。
 
 __5. 下载内容存储库。__ 按照说明更新 [此处](https://openhutb.github.io/carla_doc/build_update/#get-development-assets) 的内容。
 

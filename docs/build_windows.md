@@ -327,6 +327,12 @@ libcarla.obj : error LNK2001: 无法解析的外部符号 "class std::basic_stri
 
 ---
 
+## 参考
+[构建系统](./build_tools.md)
+
+
+---
+
 有关本指南的任何问题， 请阅读 **[常见问题解答](build_faq.md)** 页面或在 [Carla 论坛](https://github.com/carla-simulator/carla/discussions) 中发帖。
 
 现在您已经构建了 Carla，接下来了解如何更新 Carla 构建或在仿真中迈出第一步，并学习一些核心概念。

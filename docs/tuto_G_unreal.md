@@ -18,7 +18,14 @@
 
 光栅化：找出三角形所覆盖到的像素；
 
+## [Git 版本管理](https://zhuanlan.zhihu.com/p/104197715)
 
+1. 源码控制->连接到源代码管理->Git；
+2. Git路径选择Git安装后bin文件中的启动程序；选择`接收设置`
+
+
+
+## [__虚幻引擎文档__](https://bitbucket.org/openhutb/engine_doc/src/master/)
 
 
 

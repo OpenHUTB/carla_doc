@@ -130,9 +130,7 @@ sudo apt-get install clang
 还是找不到！！！
 
 
-### 其他
-
-
+### 科学上网
 
 科学上网配置[教程](https://opclash.com/article/302.html) 。下载[clash](https://github.com/zhongfly/Clash-premium-backup/releases/download/2023-09-05-gdcc8d87/clash-linux-amd64-n2023-09-05-gdcc8d87.gz) 。
 

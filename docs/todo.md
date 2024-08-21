@@ -9,8 +9,9 @@
   - [carla 示例](https://github.com/OpenHUTB/carla/tree/master/PythonAPI/examples) 
   - [awesome](https://github.com/Amin-Tgz/awesome-CARLA) ；
 - 整理 [神经科学原理](https://github.com/OpenHUTB/neuro) 、[前额叶皮层](https://github.com/OpenHUTB/PFC) 、强化学习导论心理学章节；
-- [游戏开发](./game.md)；
-
+- [游戏开发](./game.md) ：[多玩家](https://github.com/initialed85/carla-multiplayer) 、[上下选择并回车](https://github.com/wtripp180901/CarlaTestGenGame)
+- [SUMMIT：大规模混合交通条件下的城市驾驶模拟器](https://github.com/AdaCompNUS/summit)
+- [一句话生成想要的自动驾驶关键场景](https://github.com/javyduck/ChatScene) 
 
 ### 第三方工具
 * [Carla调试工具](https://gitee.com/kin-zhang/quickly-carla) ，下载[链接](https://www.microsoft.com/en-us/download/details.aspx?id=58090) 。
