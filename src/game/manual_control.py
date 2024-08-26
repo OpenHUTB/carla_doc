@@ -407,6 +407,7 @@ class KeyboardControl(object):
             self._lights = carla.VehicleLightState.NONE
             world.player.set_autopilot(self._autopilot_enabled)
             world.player.set_light_state(self._lights)
+            # 按照预期速度运行
         elif isinstance(world.player, carla.Walker):
             self._control = carla.WalkerControl()
             self._autopilot_enabled = False

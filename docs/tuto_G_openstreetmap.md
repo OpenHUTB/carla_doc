@@ -204,7 +204,7 @@ python3 config.py --osm-path=/path/to/OSM/file
 
 <br>
 !!! 警告
-    生成的道路在地图的边界处突然结束。当车辆无法找到下一个路径点时，这将导致交通管理器崩溃。为了避免这种情况，流量管理器中的 OSM 模式默认设置为True ( [`set_osm_mode()`](python_api.md#carlatrafficmanager) )。这将在必要时显示警告并销毁车辆。
+    生成的道路在地图的边界处突然结束。当车辆无法找到下一个路径点时，这将导致交通管理器崩溃。为了避免这种情况，交通管理器中的 OSM 模式默认设置为True ( [`set_osm_mode()`](python_api.md#carlatrafficmanager) )。这将在必要时显示警告并销毁车辆。
 
 ---
 

@@ -1662,7 +1662,7 @@ Z 轴上从原点到点的距离。
         - `xodr_content` (_str_) - 字符串格式的 .xodr 内容。
     - **返回：** _list([carla.Transform](#carla.Transform))_  
 - <a name="carla.Map.cook_in_memory_map"></a>**<font color="#7fb800">cook_in_memory_map</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**path**</font>)  
-从 Carla 映射生成一个二进制文件，其中包含流量管理器使用的信息。此方法仅在地图导入过程中使用。
+从 Carla 映射生成一个二进制文件，其中包含交通管理器使用的信息。此方法仅在地图导入过程中使用。
     - **参数：**
         - `path` (_str_) - 存储的二进制映射文件的预期位置的路径。
 - <a name="carla.Map.generate_waypoints"></a>**<font color="#7fb800">generate_waypoints</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**distance**</font>)  
@@ -2553,7 +2553,7 @@ _</font>
 ---
 
 ## carla.TrafficManager<a name="carla.TrafficManager"></a>
-流量管理器是一个用 C++ 构建在 CARLA API 之上的模块。它可以处理设置为自动驾驶模式的任何车辆组，以现实的城市交通状况填充仿真，并为用户提供定制某些行为的机会。交通管理器的架构分为五个不同的面向目标的阶段和一个 PID 控制器，信息在其中流动，直到最终将 [carla.VehicleControl](#carla.VehicleControl) 应用于在交通管理器中注册的每辆车辆。要了解更多信息，请访问有关此模块的 [文档](adv_traffic_manager.md)。
+交通管理器是一个用 C++ 构建在 CARLA API 之上的模块。它可以处理设置为自动驾驶模式的任何车辆组，以现实的城市交通状况填充仿真，并为用户提供定制某些行为的机会。交通管理器的架构分为五个不同的面向目标的阶段和一个 PID 控制器，信息在其中流动，直到最终将 [carla.VehicleControl](#carla.VehicleControl) 应用于在交通管理器中注册的每辆车辆。要了解更多信息，请访问有关此模块的 [文档](adv_traffic_manager.md)。
 
 
 ### 方法
@@ -2651,7 +2651,7 @@ _</font>
         - `actor` (_[carla.Actor](#carla.Actor)_) - 您要查询的参与者。  
     - **返回:** _两个元素的列表 - [道路选项（字符串，例如“左”、“右”、“直”）、下一个路径点 ([carla.Waypoint](#carla.Waypoint))]_  
 - <a name="carla.TrafficManager.get_port"></a>**<font color="#7fb800">get_port</font>**(<font color="#00a6ed">**self**</font>)  
-返回流量管理器连接的端口。如果该对象是 TM-Client，它将返回其TM-Server的端口。阅读 [文档](#adv_traffic_manager.md#multiclient-and-multitm-management) 以了解其中的差异。
+返回交通管理器连接的端口。如果该对象是 TM-Client，它将返回其TM-Server的端口。阅读 [文档](#adv_traffic_manager.md#multiclient-and-multitm-management) 以了解其中的差异。
     - **返回:** _uint16_  
 
 ##### 设置器
@@ -2684,16 +2684,16 @@ _</font>
     - **参数:**
         - `mode_switch` (_bool_) - 如果 __True__ ，则启用 OSM 模式。 
 - <a name="carla.TrafficManager.set_path"></a>**<font color="#7fb800">set_path</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**path**</font>)  
-设置车辆在受流量管理器控制时要遵循的位置列表。
+设置车辆在受交通管理器控制时要遵循的位置列表。
     - **参数:**
         - `actor` (_[carla.Actor](#carla.Actor)_) - 必须遵循给定路径的参与者。
         - `path` (_list_) - [carla.Locations](#carla.Locations) 的列表，供参与者跟随。  
     - **警告:** <font color="#ED2F2F">_确保道路拓扑不会妨碍给定路径。
 _</font>  
 - <a name="carla.TrafficManager.set_random_device_seed"></a>**<font color="#7fb800">set_random_device_seed</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**value**</font>)  
-为流量管理器设置特定的随机种子，从而将其设置为确定性的。
+为交通管理器设置特定的随机种子，从而将其设置为确定性的。
     - **参数:**
-        - `value` (_int_) - 流量管理器随机数生成的种子值。  
+        - `value` (_int_) - 交通管理器随机数生成的种子值。  
 - <a name="carla.TrafficManager.set_respawn_dormant_vehicles"></a>**<font color="#7fb800">set_respawn_dormant_vehicles</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**mode_switch**=False</font>)  
 如果为 __True__ ，大地图中的车辆在休眠时会在英雄车辆附近重生。否则，它们将保持休眠状态，直到 `actor_active_distance` 再次进入英雄车辆。 
     - **参数:**
@@ -2706,7 +2706,7 @@ _</font>
     - **警告:** <font color="#ED2F2F">_确保车道拓扑不会妨碍给定路线。
 _</font>  
 - <a name="carla.TrafficManager.set_synchronous_mode"></a>**<font color="#7fb800">set_synchronous_mode</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**mode_switch**=True</font>)  
-将流量管理器设置为 [同步模式](adv_traffic_manager.md#synchronous-mode) 。在 [多客户端情况](adv_traffic_manager.md#multiclient) 下，只有 TM-Server 可以运行。类似地，在多TM 情况下，只有一个TM-Server 必须勾选。在进行世界勾选的客户端中使用此方法，并在将世界设置为同步模式后立即设置同步时哪个 TM 将成为主服务器。
+将交通管理器设置为 [同步模式](adv_traffic_manager.md#synchronous-mode) 。在 [多客户端情况](adv_traffic_manager.md#multiclient) 下，只有 TM-Server 可以运行。类似地，在多TM 情况下，只有一个TM-Server 必须勾选。在进行世界勾选的客户端中使用此方法，并在将世界设置为同步模式后立即设置同步时哪个 TM 将成为主服务器。
     - **参数:**
         - `mode_switch` (_bool_) - 如果为 __True__ ，则启用交通管理器同步模式。
     - **警告:** <font color="#ED2F2F">_如果服务器设置为同步模式，则执行标记的同一客户端中的 TM 也 <b>必须</b> 设置为同步模式。
@@ -3009,7 +3009,7 @@ _</font>
 
 ##### 设置器
 - <a name="carla.Vehicle.set_autopilot"></a>**<font color="#7fb800">set_autopilot</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**enabled**=True</font>, <font color="#00a6ed">**port**=8000</font>)  
-在流量管理器的列表中注册或删除车辆。当 __True__ 时，作为参数传递的流量管理器将移动车辆。自动驾驶仪发生在客户端。
+在交通管理器的列表中注册或删除车辆。当 __True__ 时，作为参数传递的交通管理器将移动车辆。自动驾驶仪发生在客户端。
     - **参数:**
         - `enabled` (_bool_)  
         - `port` (_uint16_) - 车辆要在其中注册或不列出的 TM-Server 端口。如果传递 __None__ ，它将考虑默认 8000 端口上的交通管理器。
@@ -3613,7 +3613,7 @@ _</font>
     - **参数:**
         - `world_settings` (_[carla.WorldSettings](#carla.WorldSettings)_)  
     - **返回:** _int_  
-    - **警告:** <font color="#ED2F2F">_如果启用了同步模式，并且正在运行流量管理器，则也必须将其设置为同步模式。阅读 [本文](adv_traffic_manager.md#synchronous-mode) 以了解如何操作。
+    - **警告:** <font color="#ED2F2F">_如果启用了同步模式，并且正在运行交通管理器，则也必须将其设置为同步模式。阅读 [本文](adv_traffic_manager.md#synchronous-mode) 以了解如何操作。
 _</font>  
 - <a name="carla.World.apply_textures_to_object"></a>**<font color="#7fb800">apply_textures_to_object</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**object_name**</font>, <font color="#00a6ed">**diffuse_texture**</font>, <font color="#00a6ed">**emissive_texture**</font>, <font color="#00a6ed">**normal_texture**</font>, <font color="#00a6ed">**ao_roughness_metallic_emissive_texture**</font>)  
 将[carla.MaterialParameter](#carla.MaterialParameter)中的所有纹理字段应用到对象`object_name`。这里不会应用空纹理。 

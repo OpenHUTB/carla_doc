@@ -130,27 +130,6 @@ sudo apt-get install clang
 还是找不到！！！
 
 
-### 科学上网
-
-科学上网配置[教程](https://opclash.com/article/302.html) 。下载[clash](https://github.com/zhongfly/Clash-premium-backup/releases/download/2023-09-05-gdcc8d87/clash-linux-amd64-n2023-09-05-gdcc8d87.gz) 。
-
-首次启动`clash`
-```shell
-cd $HOME/.config/clash/
-```
-将订阅地址写入`config.yaml`文件。
-
-打开 Ubuntu 的“设置”管理，在“网络”内将“网络代理”的“自动”改为“手动”，根据以下内容进行填写 HTTP、HTTPS 和 Socks 地址
-```shell
-# HTTP 代理
-127.0.0.1:7890
-
-# HTTPS 代理
-127.0.0.1:7890
-
-# Socks 主机
-127.0.0.1:7891
-```
 
 
 ### Carla

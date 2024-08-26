@@ -1,6 +1,6 @@
 # ROS 桥包
 
-`carla_ros_bridge` 包是运行基本 ROS 桥接功能所需的主包。在本节中，您将学习如何准备 ROS 环境、运行 ROS 桥、如何配置设置、同步模式的使用、控制自主车辆以及可用的订阅、出版物和服务的摘要。
+`carla_ros_bridge` 包是运行基本 ROS 桥接功能所需的主包。在本节中，您将学习如何准备 ROS 环境、运行 ROS 桥、如何配置设置、同步模式的使用、控制自主车辆以及可用的订阅、发布和服务的摘要。
 
 - [__设置 ROS 环境__](#setting-the-ros-environment)
     - [准备 ROS 1 环境](#prepare-ros-1-environment)
@@ -126,14 +126,13 @@ ros2 launch carla_ros_bridge carla_ros_bridge_with_example_ego_vehicle.launch.py
 __2.__ 在另一个终端中，发布到主题 `/carla/<ROLE NAME>/vehicle_control_cmd`
 
 ```sh
-    # 最大向前油门，最大向右转向
+# 最大向前油门，最大向右转向
 
-    # for ros1
-    rostopic pub /carla/ego_vehicle/vehicle_control_cmd carla_msgs/CarlaEgoVehicleControl "{throttle: 1.0, steer: 1.0}" -r 10
+# 对于 ros1
+rostopic pub /carla/ego_vehicle/vehicle_control_cmd carla_msgs/CarlaEgoVehicleControl "{throttle: 1.0, steer: 1.0}" -r 10
 
-    # for ros2
-    ros2 topic pub /carla/ego_vehicle/vehicle_control_cmd carla_msgs/CarlaEgoVehicleControl "{throttle: 1.0, steer: 1.0}" -r 10
-
+# 对于 ros2
+ros2 topic pub /carla/ego_vehicle/vehicle_control_cmd carla_msgs/CarlaEgoVehicleControl "{throttle: 1.0, steer: 1.0}" -r 10
 ```
 
 当前车辆的状态可以通过主题 `/carla/<ROLE NAME>/vehicle_status` 获得。有关车辆的静态信息可以通过`/carla/<ROLE NAME>/vehicle_info`接收.

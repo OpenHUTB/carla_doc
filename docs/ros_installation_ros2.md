@@ -19,7 +19,7 @@
 - 安装 ROS:
     - [__ROS 2 Foxy__](https://docs.ros.org/en/foxy/Installation.html) — 针对 Ubuntu 20.04 (Focal)
 -根据您的需要，可能需要额外的 ROS 包。强烈建议是用 [rviz](https://wiki.ros.org/rviz) 将ROS数据可视化。
-- CARLA 0.9.11或更高版本——以前的版本与ROS桥不兼容。遵循[快速启动安装](https://carla.readthedocs.io/en/latest/start_quickstart/) 或者为[Linux]构建(https://carla.readthedocs.io/en/latest/build_linux/) 。建议尽可能将ROS桥接版本与CARLA版本相匹配。
+- CARLA 0.9.11或更高版本——以前的版本与ROS桥不兼容。遵循[快速启动安装](https://carla.readthedocs.io/en/latest/start_quickstart/) 或者为 [Linux构建](https://carla.readthedocs.io/en/latest/build_linux/) 。建议尽可能将ROS桥接版本与CARLA版本相匹配。
 
 ---
 

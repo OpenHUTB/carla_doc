@@ -37,7 +37,13 @@ carla_unreal\unreal\Engine\Plugins\Editor\BlueprintMaterialTextureNodes\Binaries
 !!! 注意
     从[链接](https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb) 中的`map`文件夹内下载`中电软件园_cesium_model.zip`并解压。这里测试用的是本地路径，也可以用静态资源服务。
 
-6.模型在CarlaUE中的场景效果
+6.将Trees.umap中放到本地文件夹下，菜单中点击`窗口->关卡`，从`内容浏览器`中将`Trees.umap`拖进导弹出界面，然后右键`Trees`关卡，选择`修改流送方法->固定加载`。
+
+7.在`世界大纲视图`中选中`Cesium3DTileset`，将`Cesium`中的`Mobility`修改为`可移动`。
+
+8.添加光源`DirectionalLight`、`ExponentialHeightFog`、`SkyAtmosphere`、`SkyLight`。
+
+9.模型在CarlaUE中的场景效果
 
 ![](img/cesium/scene_effect.png)
 

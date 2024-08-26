@@ -11,7 +11,7 @@
 
 ## 交通管理器 <span id="traffic-manager"></span>
 
-交通管理器是 Carla 中的一个模块，用于从客户端控制仿真中的某些车辆。[`carla.Vehicle.set_autopilot`](https://carla.readthedocs.io/en/latest/python_api/#carla.Vehicle.set_autopilot) 车辆通过方法或注册到流量管理器command.SetAutopilot。每辆车的控制是通过 [不同阶段](adv_traffic_manager.md#stages) 的循环来管理的，每个阶段都在不同的线程上运行。
+交通管理器是 Carla 中的一个模块，用于从客户端控制仿真中的某些车辆。[`carla.Vehicle.set_autopilot`](https://carla.readthedocs.io/en/latest/python_api/#carla.Vehicle.set_autopilot) 车辆通过方法或注册到交通管理器command.SetAutopilot。每辆车的控制是通过 [不同阶段](adv_traffic_manager.md#stages) 的循环来管理的，每个阶段都在不同的线程上运行。
 
 __用于：__
 
