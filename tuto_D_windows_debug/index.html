@@ -220,6 +220,11 @@
 <p>2.将第1步生成的安装文件目录配置到<code>Examples\CppClient\CMakeLists.txt</code>中，对应的头文件和库文件都改为Debug版本；</p>
 <p>3.在<code>main.cpp</code>中增加断点，并开始调试；
 <img alt="" src="../img/tuto_D_windows_debug/set_breakpoint_in_cpp_client.jpg" /></p>
+<pre><code class="language-shell">auto world = client.LoadWorld(&quot;town_name&quot;);
+</code></pre>
+<p>改为：</p>
+<pre><code class="language-shell">auto world = client.LoadWorld(&quot;Town10HD_Opt&quot;);
+</code></pre>
 <p>4.程序在断点停止后按F10运行下一步，按F11进入LibCarla中的函数实现。
 <img alt="" src="../img/tuto_D_windows_debug/stop_in_LibCarla.jpg" /></p>
 <h2 id="_2">其他 <span id="other"></span></h2>

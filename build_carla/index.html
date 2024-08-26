@@ -86,7 +86,28 @@
 <p><a href="../build_faq/"><strong>常见问题</strong></a>  </p>
 </li>
 </ul>
-<h2 id="_1">其他</h2>
+<h3 id="_1">科学上网 <span id="internet"></span></h3>
+<p>参考其中的一个链接进行科学上网的订阅和环境配置：<a href="https://www.starlinkcloud.cc/#/register?code=Ob4iMh8u">链接1</a> 、<a href="https://portal.shadowsocks.au/">链接2</a> 、<a href="https://mk.mikadonet.xyz/#/login">链接3</a> 、<a href="https://711jsq.club/#/login">链接4</a> 。</p>
+<h4 id="ubuntu">Ubuntu 下的配置</h4>
+<p>Linux 科学上网配置<a href="https://opclash.com/article/302.html">教程</a> 。下载<a href="https://github.com/zhongfly/Clash-premium-backup/releases/download/2023-09-05-gdcc8d87/clash-linux-amd64-n2023-09-05-gdcc8d87.gz">clash</a> 。</p>
+<p>首次启动<code>clash</code>，会新建文件<code>~/.config/clash/config.yaml</code>：</p>
+<pre><code class="language-shell">cd $HOME/.config/clash/
+</code></pre>
+<p><img alt="ImageDepth" src="../img/build/agent_config.jpg" />
+将Clash中的订阅地址写入<code>config.yaml</code>文件。</p>
+<p>打开 Ubuntu 的“设置”管理，在“网络”内将“网络代理”的“自动”改为“手动”，根据以下内容进行填写 HTTP、HTTPS 和 Socks 地址</p>
+<pre><code class="language-shell"># HTTP 代理
+127.0.0.1:7890
+
+# HTTPS 代理
+127.0.0.1:7890
+
+# Socks 主机
+127.0.0.1:7891
+</code></pre>
+<h4 id="tortoisegit">TortoiseGit 网络代理配置</h4>
+<p>如果使用TortoiseGit作为git的</p>
+<h2 id="_2">其他</h2>
 <ul>
 <li><a href="../ue_commandlet/">虚幻引擎commandlet</a></li>
 <li><a href="../ue_pipeline/">虚幻引擎管线</a></li>

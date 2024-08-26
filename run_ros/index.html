@@ -69,7 +69,7 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="ros">ROS 桥包</h1>
-<p><code>carla_ros_bridge</code> 包是运行基本 ROS 桥接功能所需的主包。在本节中，您将学习如何准备 ROS 环境、运行 ROS 桥、如何配置设置、同步模式的使用、控制自主车辆以及可用的订阅、出版物和服务的摘要。</p>
+<p><code>carla_ros_bridge</code> 包是运行基本 ROS 桥接功能所需的主包。在本节中，您将学习如何准备 ROS 环境、运行 ROS 桥、如何配置设置、同步模式的使用、控制自主车辆以及可用的订阅、发布和服务的摘要。</p>
 <ul>
 <li><a href="#setting-the-ros-environment"><strong>设置 ROS 环境</strong></a><ul>
 <li><a href="#prepare-ros-1-environment">准备 ROS 1 环境</a></li>
@@ -167,14 +167,13 @@ roslaunch carla_ros_bridge carla_ros_bridge_with_example_ego_vehicle.launch
 ros2 launch carla_ros_bridge carla_ros_bridge_with_example_ego_vehicle.launch.py
 </code></pre>
 <p><strong>2.</strong> 在另一个终端中，发布到主题 <code>/carla/&lt;ROLE NAME&gt;/vehicle_control_cmd</code></p>
-<pre><code class="language-sh">    # 最大向前油门，最大向右转向
+<pre><code class="language-sh"># 最大向前油门，最大向右转向
 
-    # for ros1
-    rostopic pub /carla/ego_vehicle/vehicle_control_cmd carla_msgs/CarlaEgoVehicleControl &quot;{throttle: 1.0, steer: 1.0}&quot; -r 10
+# 对于 ros1
+rostopic pub /carla/ego_vehicle/vehicle_control_cmd carla_msgs/CarlaEgoVehicleControl &quot;{throttle: 1.0, steer: 1.0}&quot; -r 10
 
-    # for ros2
-    ros2 topic pub /carla/ego_vehicle/vehicle_control_cmd carla_msgs/CarlaEgoVehicleControl &quot;{throttle: 1.0, steer: 1.0}&quot; -r 10
-
+# 对于 ros2
+ros2 topic pub /carla/ego_vehicle/vehicle_control_cmd carla_msgs/CarlaEgoVehicleControl &quot;{throttle: 1.0, steer: 1.0}&quot; -r 10
 </code></pre>
 <p>当前车辆的状态可以通过主题 <code>/carla/&lt;ROLE NAME&gt;/vehicle_status</code> 获得。有关车辆的静态信息可以通过<code>/carla/&lt;ROLE NAME&gt;/vehicle_info</code>接收.</p>
 <p>可以使用 <a href="https://docs.ros.org/en/api/ackermann_msgs/html/msg/AckermannDrive.html">AckermannDrive</a> 消息来控制自我车辆。这可以通过使用 <a href="../carla_ackermann_control/">Carla 阿克曼控制</a> 包来实现。</p>

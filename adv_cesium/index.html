@@ -86,15 +86,24 @@ carla_unreal\unreal\Engine\Plugins\Editor\BlueprintMaterialTextureNodes\Binaries
 <img alt="" src="../img/cesium/add_plugin.png" />
 添加完成后重启引擎。</p>
 <p>5.添加插件对象到场景中,配置参数和模型路径：</p>
-<p><img alt="" src="../img/cesium/add_plugin_object.png" />
+<p><code>esiumGeoreference</code>设置为：<code>28.235238,  112.877178,  0</code></p>
+<p><code>Source</code>设置为<code>File:///D:/ssd/model/tileset.json</code>。
+<img alt="" src="../img/cesium/add_plugin_object.png" />
 <img alt="" src="../img/cesium/config_parameter.png" />
 <img alt="" src="../img/cesium/config_model_path.png" /></p>
 <div class="admonition 注意">
 <p class="admonition-title">注意</p>
 <p>从<a href="https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb">链接</a> 中的<code>map</code>文件夹内下载<code>中电软件园_cesium_model.zip</code>并解压。这里测试用的是本地路径，也可以用静态资源服务。</p>
 </div>
-<p>6.模型在CarlaUE中的场景效果</p>
+<p>6.将Trees.umap中放到本地文件夹下，菜单中点击<code>窗口-&gt;关卡</code>，从<code>内容浏览器</code>中将<code>Trees.umap</code>拖进导弹出界面，然后右键<code>Trees</code>关卡，选择<code>修改流送方法-&gt;固定加载</code>。</p>
+<p>7.在<code>世界大纲视图</code>中选中<code>Cesium3DTileset</code>，将<code>Cesium</code>中的<code>Mobility</code>修改为<code>可移动</code>。</p>
+<p>8.添加光源<code>DirectionalLight</code>、<code>ExponentialHeightFog</code>、<code>SkyAtmosphere</code>、<code>SkyLight</code>。</p>
+<p>9.模型在CarlaUE中的场景效果</p>
 <p><img alt="" src="../img/cesium/scene_effect.png" /></p>
+<h2 id="_1">参考</h2>
+<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/365834299">Cesium for Unreal快速入门</a></li>
+</ul>
               
             </div>
           </div><footer>
