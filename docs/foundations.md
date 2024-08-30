@@ -275,10 +275,10 @@ Carla 还提供暂停渲染或离屏渲染的选项，以便更有效地记录�
 Carla 提供了广泛的功能，超出了本仿真器介绍的范围。这里列出了一些最引人注目的。然而，在开始 __进阶步骤__ 之前，强烈建议阅读整个“基础”部分。
 
 *   **[OpenDRIVE独立模式](adv_opendrive.md)**。仅使用 OpenDRIVE 文件生成道路网格。允许在 Carla 中加载任何 OpenDRIVE 地图，无需创建资源。
-*   **[PTV-Vissim协同仿真](adv_ptv.md)**。在 Carla 和 PTV-Vissim 交通仿真器之间运行同步仿真。
+*   **[PTV-Vissim协同仿真](adv_ptv.md)**。在 Carla 和 PTV-Vissim 交通仿真器之间运行协同仿真。
 *   [**录制器**](adv_recorder.md)。保存仿真状态的快照，以便以精确的精度重新执行仿真。
 *   **[渲染选项](adv_rendering_options.md)**。包括图形质量设置、离屏渲染和无渲染模式。
 *   [**责任敏感安全**](adv_rss.md)（Responsibility Sensitive Safety）：集成用于根据安全检查修改车辆轨迹的责任敏感安全性**[C++库](https://github.com/intel/ad-rss-lib) **。
 *   [**仿真时间和同步**](adv_synchrony_timestep.md)。关于仿真时间和服务器-客户端通信的所有内容。
-*   **[SUMO协同仿真](adv_sumo.md)**：在 Carla 和 SUMO 交通仿真器之间运行同步仿真。
+*   **[SUMO协同仿真](adv_sumo.md)**：在 Carla 和 SUMO 交通仿真器之间运行协同仿真。
 *   **[交通管理器](adv_traffic_manager.md)**：该模块负责所有设置为自动驾驶模式的车辆。它仿真城市中的交通，使仿真看起来像一个真实的城市环境。

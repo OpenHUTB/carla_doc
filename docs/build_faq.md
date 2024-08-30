@@ -11,6 +11,12 @@ Carla 论坛</a>
 
 ---
 
+## 专业问题
+
+* [传感器](./QA/sensor.md)
+* [动力学](./QA/dynamics.md)
+
+
 ## 系统要求
 
 * [构建 Carla 所需的磁盘空间。](#expected-disk-space-to-build-carla)

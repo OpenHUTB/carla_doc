@@ -47,5 +47,10 @@ carla_unreal\unreal\Engine\Plugins\Editor\BlueprintMaterialTextureNodes\Binaries
 
 ![](img/cesium/scene_effect.png)
 
+
+## 倾斜摄影
+由倾斜摄影osgb转换成3Dtiles格式（cesium可直接使用）。
+
 ## 参考
 - [Cesium for Unreal快速入门](https://zhuanlan.zhihu.com/p/365834299)
+- [Cesium for Unreal 加载本地倾斜摄影](https://blog.csdn.net/ChaoChao66666/article/details/131569339)

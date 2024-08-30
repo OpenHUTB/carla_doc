@@ -63,7 +63,7 @@ Carla 论坛</a>
 
 [__交通管理器__](adv_traffic_manager.md) — 通过将车辆设置为自动驾驶模式来仿真城市交通。
 
-[__和 SUMO 联合仿真__](adv_sumo.md) — 在 Carla 和 SUMO 之间运行同步仿真。
+[__和 SUMO 协同仿真__](adv_sumo.md) — 在 Carla 和 SUMO 之间运行协同仿真。
 
 [__Scenic__](tuto_G_scenic.md) — 遵循使用 Scenic 库定义不同场景的示例。
 
@@ -209,7 +209,7 @@ Carla 论坛</a>
 
 [__OpenRadios 有限元仿真__](OpenRadioss/use_OpenRadioss_windows.md) — 针对动态负载下的高度非线性问题评估和优化产品性能。
 
-[__PTV-Vissim 联合仿真__](adv_ptv.md) - 在 Carla 和 PTV-Vissim 之间运行同步仿真。
+[__PTV-Vissim 联合仿真__](adv_ptv.md) - 在 Carla 和 PTV-Vissim 之间运行协同仿真。
 
 [__Ansys 实时雷达模型__](ecosys_ansys.md) — 有关 Ansys RTR 网络研讨会的详细信息。
 

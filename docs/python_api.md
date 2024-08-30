@@ -1915,13 +1915,13 @@ Y 轴偏移。默认值为 __0.0__。
 
 ### 实例变量
 - <a name="carla.RadarDetection.altitude"></a>**<font color="#f8805a">altitude</font>** (_float<small> - radians</small>_)  
-Altitude angle of the detection.  
+检测的高度角。  
 - <a name="carla.RadarDetection.azimuth"></a>**<font color="#f8805a">azimuth</font>** (_float<small> - radians</small>_)  
-Azimuth angle of the detection.  
+检测的方位角。
 - <a name="carla.RadarDetection.depth"></a>**<font color="#f8805a">depth</font>** (_float<small> - 米</small>_)  
-Distance from the sensor to the detection position.  
+传感器到检测位置的距离。  
 - <a name="carla.RadarDetection.velocity"></a>**<font color="#f8805a">velocity</font>** (_float<small> - m/s</small>_)  
-The velocity of the detected object towards the sensor.  
+被检测物体朝向传感器的速度。
 
 ### 方法
 
@@ -1955,7 +1955,7 @@ The velocity of the detected object towards the sensor.
 ---
 
 ## carla.Rotation<a name="carla.Rotation"></a>
-表示 3D 旋转以及空间方向的类。 Carla 使用虚幻引擎坐标系。这是 Z 向上左手系统。  <br>
+表示 3D 旋转以及空间方向的类。 Carla 使用虚幻引擎坐标系，在虚幻引擎世界里，空间坐标的单位是厘米。其设计基于第一人称视觉：X 轴正方向表示向前，Y 轴正方向表示向右，Z 轴正方向表示向上。  <br>
 <br>构造函数方法遵循特定的声明顺序： `(pitch, yaw, roll)` 对应于 `(Y-rotation,Z-rotation,X-rotation)`.  <br> <br>![UE4_Rotation](https://d26ilriwvtzlb.cloudfront.net/8/83/BRMC_9.jpg) *虚幻引擎的坐标系*。  
 
 ### 实例变量

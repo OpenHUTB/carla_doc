@@ -44,7 +44,8 @@ cd $HOME/.config/clash/
 ```
 
 #### TortoiseGit 网络代理配置
-如果使用TortoiseGit作为git的
+如果使用TortoiseGit作为git的图形化界面软件，首页在文件资源管理器空白位置右键，选择`TortoiseGit->Setting`，然后在弹出的界面进行如下配置：
+![ImageDepth](img/build/internet.jpg)
 
 
 ## 其他
