@@ -20,6 +20,8 @@
 
 __数字孪生工具__ 能够基于源自 [OpenStreetMap](https://www.openstreetmap.org) (OSM) 服务的道路网络，以程序方式生成独特的三维环境。通过 Carla 虚幻引擎编辑器中的数字孪生工具界面，用户可以从 OSM 选择地图区域并下载道路网络作为新 Carla 地图的基础。然后，该工具用程序生成的三维建筑物填充道路之间的空间，这些建筑物会根据道路布局进行调整，从而创建具有高可变性的真实三维道路环境。
 
+<iframe width="100%" height="400px" src="https://www.youtube.com/embed/gTutXdS2UkQ?si=hssM3YRCAjSIzdXM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 ## 构建 OSM 渲染器 <span id="build_osm_render"></span>
 
 如果您使用的是 Linux，则可以选择使用 Carla 界面中的 OSM 渲染器来导航已下载的大型 OSM 地图区域。您首先需要构建 OSM 渲染器。 在 Carla 根目录中运行 `make osmrenderer`。 您可能需要将 CMake 版本升级到 v3.2 或更高版本才能正常工作。这将在您的构建目录中创建两个名为 `libosmcout-source` 和 `libosmcout-build` 的文件夹。在继续构建 Carla 之前，您需要像这样 在目录中 `$CARLA_ROOT/Build/libosmcout-source/maps` 编辑文件 `Build.sh`，以确保找到可执行文件：
