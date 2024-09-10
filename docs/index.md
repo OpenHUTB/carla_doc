@@ -97,9 +97,9 @@ Carla 论坛</a>
 
 [__CARLA 设置__](carla_settings.md) — CARLA 参数配置设置。
 
-[__CARLA 模拟器键盘输入__](simulator_keyboard_input.md) — 在模拟器窗口中玩游戏时使用的按键绑定。
+[__Carla 模拟器键盘输入__](simulator_keyboard_input.md) — 在模拟器窗口中玩游戏时使用的按键绑定。
 
-[__无显示屏运行 CARLA 并选择 GPU__](carla_headless.md) — 使用未插在屏幕上的GPU来渲染CARLA的桌面。
+[__无显示屏运行 Carla 并选择 GPU__](carla_headless.md) — 使用未插在屏幕上的GPU来渲染CARLA的桌面。
 
 
 [__链接 Epic 的汽车材质__](epic_automotive_materials.md) — 下载材质并将其链接到我们的车辆，以获得更逼真的车漆。
@@ -159,8 +159,6 @@ Carla 论坛</a>
 [__创建独立包__](tuto_A_create_standalone.md) — 为资产生成和处理独立包
 
 [__材料定制__](tuto_A_material_customization.md) - 编辑车辆和建筑材料
-
-
 
 [__如何升级内容__](tuto_D_contribute_assets.md) — 向 Carla 添加新内容
 

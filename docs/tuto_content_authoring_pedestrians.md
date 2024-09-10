@@ -81,6 +81,9 @@ Carla 在 WalkerFactory 蓝图中提供了一套全面开箱即用的行人。�
 ![pedestrian_blueprint](./img/tuto_content_authoring_pedestrians/pedestrian_BP.png)
 
 
+## 其他
+- [UE5+iphone+MetaHuman数字人流程](https://zhuanlan.zhihu.com/p/717064519)
+- [动作捕捉和面部捕捉解决方案调研](https://blog.csdn.net/u012863565/article/details/122228501)
 
 
 

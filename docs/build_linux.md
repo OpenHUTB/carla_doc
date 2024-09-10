@@ -47,11 +47,106 @@ sudo apt-get update
 !!! 警告
     以下命令取决于您的 Ubuntu 版本。请务必做出相应的选择。
 
+__Ubuntu 24.04__
+```shell
+# 显卡驱动使用nvidia-driver-470-server（转有）
+# 已经安装了clang-14
+# sudo apt install g++-10
+# sudo apt-get install clang++-10
+
+# 源代码编译安装 llvm-10
+sudo apt install gcc-multilib
+git clone --branch release/10.x --recursive https://github.com/llvm/llvm-project
+cd llvm-project/llvm
+cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_PROJECTS=lld -DCMAKE_INSTALL_PREFIX=/usr/local/llvm-10 ..
+make -j8
+sudo make install
+# /usr/local/llvm-10/bin
+# 编译clang-10（默认LLVM编译完没有clang）
+# 回到llvm-project目录
+cd llvm-project/clang/
+mkdir build
+cd build
+cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local/clang-10 ..
+make -j8
+sudo make install
+# 创建软链接
+sudo ln -s /usr/local/clang-10/bin/clang++ /usr/bin/clang++
+sudo ln -s /usr/local/clang-10/bin/clang /usr/bin/clang
+# 检查版本
+clang --version
+
+# 源代码编译安装 gcc-7
+wget http://ftp.gnu.org/gnu/gcc/gcc-7.5.0/gcc-7.5.0.tar.gz
+tar -zxvf gcc-7.5.0.tar.gz
+cd gcc-7.5.0
+mkdir build
+cd build
+../configure --prefix=/usr/local/gcc-7  # 开始配置安装
+# 如果安装缺少的库，则运行下面这一条命令
+sudo apt-get install libgmp-dev libmpfr-dev libmpc-dev gcc-multilib g++-multilib
+# 再次使用下面命令构建安装环境
+../configure --enable-multilib
+# 构建完成后得到一个Makefile文件。开始编译
+make -j8  # -j选项后的数字取决于机器的逻辑处理器数量
+sudo make install
+# 创建软链接
+sudo ln -s /usr/local/clang-10/bin/clang++ /usr/bin/g++
+
+
+sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-14 180
+sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-14 180
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-12 180
+```
+
+!!! 警告
+    构建时对`Util/BuildTools/Setup.sh`所做的修改：1. 构建boost时，执行`./bootstrap.sh`的命令中去除了`--with-toolset=clang`选项。2. 对rcplib执行cmake时，去除了`-stdlib=libc++`选项。
+
+__Ubuntu 22.04__
+```shell
+sudo apt-add-repository "deb http://archive.ubuntu.com/ubuntu focal main universe"
+sudo apt-get update
+sudo apt-get install build-essential clang-10 lld-10 g++-7 cmake ninja-build libvulkan1 python python3 python3-dev python3-pip libpng-dev libtiff5-dev libjpeg-dev tzdata sed curl unzip autoconf libtool rsync libxml2-dev git git-lfs
+# update-alternatives的第一个参数--install表示向update-alternatives注册服务名。
+# 第二个参数是注册最终地址，成功后将会把命令在这个固定的目的地址做真实命令的软链，以后管理就是管理这个软链；
+# 第三个参数：服务名，以后管理时以它为关联依据。
+# 第四个参数，被管理的命令绝对路径。
+# 第五个参数，优先级，数字越大优先级越高。
+sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/lib/llvm-10/bin/clang++ 180 &&
+sudo update-alternatives --install /usr/bin/clang clang /usr/lib/llvm-10/bin/clang 180 &&
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-7 180
+```
+
+__Ubuntu 20.04__
+```shell
+sudo apt-add-repository "deb http://apt.llvm.org/focal/ llvm-toolchain-focal main"
+sudo apt-get update
+sudo apt-get install build-essential clang-10 lld-10 g++-7 cmake ninja-build libvulkan1 python python-dev python3-dev python3-pip libpng-dev libtiff5-dev libjpeg-dev tzdata sed curl unzip autoconf libtool rsync libxml2-dev git
+sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/lib/llvm-10/bin/clang++ 180 &&
+sudo update-alternatives --install /usr/bin/clang clang /usr/lib/llvm-10/bin/clang 180
+```
+
+
 __Ubuntu 18.04__.
 
 ```sh
+sudo apt-add-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic main"
+sudo apt-get update
 sudo apt-get install build-essential clang-8 lld-8 g++-7 cmake ninja-build libvulkan1 python python-pip python-dev python3-dev python3-pip libpng-dev libtiff5-dev libjpeg-dev tzdata sed curl unzip autoconf libtool rsync libxml2-dev git
+sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/lib/llvm-8/bin/clang++ 180 &&
+sudo update-alternatives --install /usr/bin/clang clang /usr/lib/llvm-8/bin/clang 180
 ```
+
+__Ubuntu 16.04__.
+
+```sh
+sudo apt-add-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-8 main" &&
+sudo apt-get update
+sudo apt-get install build-essential clang-8 lld-8 g++-7 cmake ninja-build libvulkan1 python python-pip python-dev python3-dev python3-pip libpng16-dev libtiff5-dev libjpeg-dev tzdata sed curl unzip autoconf libtool rsync libxml2-dev git
+sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/lib/llvm-8/bin/clang++ 180 &&
+sudo update-alternatives --install /usr/bin/clang clang /usr/lib/llvm-8/bin/clang 180
+```
+
 __以前的 Ubuntu__ 版本。
 
 ```sh
@@ -311,15 +406,16 @@ python3 dynamic_weather.py
 
 您可能会发现还有更多有用的 `make` 命令。在下表中找到它们：
 
-| 命令 | 描述                                      |
-| ------- |-----------------------------------------|
-| `make help`                                                           | 打印所有可用的命令。                              |
-| `make launch`                                                         | 在编辑器窗口中启动 Carla 服务器。                    |
-| `make PythonAPI`                                                      | 构建 Carla 客户端。                           |
-| `make LibCarla`                                                       | 准备将 Carla 库导入到任何地方。                     |
-| `make package`                                                        | 构建 Carla 并创建用于分发的打包版本。                  |
-| `make clean`                                                          | 删除构建系统生成的所有二进制文件和临时文件。                  |
-| `make rebuild`                                                        | `make clean` 和 `make launch` 两者都在一个命令中。 |
+| 命令               | 描述                                      |
+|------------------|-----------------------------------------|
+| `make help`      | 打印所有可用的命令。                              |
+| `make launch`    | 在编辑器窗口中启动 Carla 服务器。                    |
+| `make PythonAPI` | 构建 Carla 客户端。                           |
+| `make LibCarla`  | 准备将 Carla 库导入到任何地方。                     |
+| `make package`   | 构建 Carla 并创建用于分发的打包版本。                  |
+| `make clean`     | 删除构建系统生成的所有二进制文件和临时文件。                  |
+| `make rebuild`   | `make clean` 和 `make launch` 两者都在一个命令中。 |
+| `make check`     | 进行单元测试                                  |
 
 ---
 
@@ -327,18 +423,15 @@ python3 dynamic_weather.py
 v2ray 的版本不能太高，比如可以使用 [v4.45.2](https://github.com/v2fly/v2ray-core/releases/tag/v4.45.2) ，图形界面使用[Qv2ray 2.7.0](https://github.com/Qv2ray/Qv2ray/releases) 。
 
 
-#### clang 编译
-根据 [链接](https://clang.llvm.org/get_started.html) 进行指定版本clang的编译。
-```shell script
-git clone https://github.com/llvm/llvm-project.git
-git pull origin release/10.x:relase/10.x
-git checkout relase/10.x
-mkdir build
-cd build
-cmake -DLLVM_ENABLE_PROJECTS=clang -DCMAKE_BUILD_TYPE=Release -G "Unix Makefiles" ../llvm
-make
-```
+## 问题
 
+- 执行`make Python`时报错：
+
+`A C++11 capable compiler is required for building the B2 engine.
+Toolset 'clang' does not appear to support C++11.`
+
+
+---
 
 有关本指南的任何问题， 请阅读 **[常见问题解答](build_faq.md)** 页面或[Carla 论坛](https://github.com/carla-simulator/carla/discussions) 中的帖子。
 

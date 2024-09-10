@@ -60,6 +60,7 @@ Carla 论坛</a>
 * [ImportError: DLL load failed while importing libcarla: %1 is not a valid Win32 app.](#importerror-dll-load-failed-while-importing-libcarla-1-is-not-a-valid-win32-app)
 * [ImportError: No module named 'carla'](#importerror-no-module-named-carla)
 * [RuntimeError: rpc::rpc_error during call in function apply_batch](#rpc_error)
+* [ValueError: sticky_control: invalid value type](#value_error)
 ---
 
 ## 其他
@@ -415,6 +416,10 @@ carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Vehicle/CustomTerrainPhysicsCom
 
 ###### RuntimeError: rpc::rpc_error during call in function apply_batch <span id="rpc_error"></span>
 > PythonAPI的版本要和Carla服务的版本一致，比如dev分支的代码编译得到的虚幻编辑器运行的场景也要用dev分支代码编译的PythonAPI进行连接。
+
+
+###### ValueError: sticky_control: invalid value type <span id="value_error"></span>
+> 客户端和服务端的PythonAPI版本不一致，在dev分支开发时会出现。
 
 ---
 

@@ -23,7 +23,7 @@
 ![](img/tuto_D_windows_debug/generate_vs_project_files.png)
 
 !!! 笔记
-    如果右键菜单中未出现`Generate Visual Studio project files`选项，则到虚幻引擎的目录中运双击执行`engine\Engine\Binaries\Win64\UnrealVersionSelector.exe`，将虚幻引擎软件注册到系统中。
+    如果右键菜单中未出现`Generate Visual Studio project files`选项，则到虚幻引擎的目录中运双击执行`engine\Engine\Binaries\Win64\UnrealVersionSelector.exe`，将虚幻引擎软件注册到系统中。如果报错：
 
 2. （调试数字孪生工具）在`解决方案`中展开`Games->CarlaUE4`，在想要查看的源代码行的最左侧单击增加断点（比如：`CarlaUE4->Plugins->CarlaTools->Source->CarlaTools->Private`的`OpenDriveToMap.cpp`的`GenerateTileStandalone()`），在菜单运行`调试(D)->开始调试(S)`，程序将在断点出暂停。通过`调式(D)->窗口(W)->监视(W)->监视 1`打开变量监视窗口，查看变量值是否异常。
 
@@ -289,6 +289,7 @@ VS菜单中选择`DebugGammingEditor`，然后开始调试，就可以添加要�
 
 
 ### 问题 <span id="problems"></span>
+
 崩溃于`engine\Engine\Source\Runtime\CoreUObject\Private\UObject\ScriptCore.cpp`1990行`Function->Invoke(this, NewStack, ReturnValueAddress);`
 弹出报错信息框：
 ```text
@@ -296,6 +297,19 @@ Failed to open descriptor file ./../../../carla/Unreal/CarlaUE4/CarlaUE4.uprojec
 ```
 
 * [VS跳转代码太慢](http://www.piaoyi.org/c-sharp/Visual-Studio-2019-Intellisense.html) 
+
+
+* 在VS中点击调试或运行时报错：`错误	C4067	预处理器指令后有意外标记 - 应输入换行符`和`错误	C1012	括号不匹配: 缺少“)”`
+
+解决：在命令行使用`make launch ARGS='--chrono'`进行重新编译后，然后再用VS启动调试。
+
+* 执行“make launch”时出错，'Renderer/Public/GBufferView.h'
+
+表现为打开`CarlaUE4.sln`后没有 `UnrealBuildTool`选项。
+
+因为未在 STOCK UNREAL ENGINE 中找到它。它是添加到 CARLA 分支中的内容。如果您在两个版本的 Unreal 和 Carla 之间执行 git diff，您将看到只有少量更改，并且添加了 GBuffer 视图。 
+
+解决：右键文件`CarlaUE4.uproject`，选择`Switch Unreal Engine version`，并选择需要使用的虚幻引擎版本（如果没有生成新的`CarlaUE4.sln`，则需要先删除再重新生成`CarlaUE4.sln`）。还有可能报错：`预处理器指令后有意外标记 - 应输入换行符`，需要在命令行中先运行`make launch`或者`make launch ARGS="--chrono"`然后再在vs中运行。
 
 
 ### 依赖 <span id="dependency"></span>
@@ -327,10 +341,24 @@ Failed to open descriptor file ./../../../carla/Unreal/CarlaUE4/CarlaUE4.uprojec
 找到第三方dll的名字，看“符号文件”一栏是空的。说明这个dll的符号文件没有加载。
 把.pdb和.dll放在一起。再次调试。可以看到符号文件已经加载了。
 
+* 改变ubuntu终端显示语言（桌面系统中文，终端提示英文）
+```shell
+vim ~/.bashrc
+export LANGUAGE=en_US 
+export LANG=en_US.UTF-8
+source ~/.bashrc
+```
+
 
 * 日志记录
 
 `UE_LOG`函数记录的日志位于`carla\Unreal\CarlaUE4\Saved\Logs\CarlaUE4.log`文件中。
+
+### 工具
+[VScode调试shell bash脚本](https://blog.csdn.net/helloasimo/article/details/130444217)
+在VScode中安装`Bash Debug`，
+
+
 
 ### 学习 <span id="learn"></span>
 * [bat脚本](tuto_D_bat.md)

@@ -47,13 +47,13 @@ make LibCarla
 两种配置：
 
 
-|           | 服务器                  | 客户端                |
-|-----------|----------------------|--------------------|
-| **单元测试**  | 是                    | 否                  |
-| **要求**    | rpclib, gtest, boost | rpclib, boost      |
-| **标准运行时** | LLVM's `libc++`      | 默认 `libstdc++`     |
-| **输出**    | headers and test exes | `ibcarla_client.a` |
-| **需要** | Carla plugin         | PythonAPI          |
+|           | 服务器                                 | 客户端                  |
+|-----------|-------------------------------------|----------------------|
+| **单元测试**  | 是                                   | 否                    |
+| **要求**    | rpclib, gtest, boost                | rpclib, boost        |
+| **标准运行时** | LLVM's `libc++`                     | 默认 `libstdc++`       |
+| **输出**    | 头文件和`carla_server.lib` | `carla_server.lib` |
+| **需要** | Carla plugin                        | PythonAPI            |
 
 
 
