@@ -1,14 +1,14 @@
 # C++ 客户端示例
 
-要构建C++客户端示例，您需要安装`make`。在构建C++客户端之前，您需要构建CARLA，并按照您平台的相关  [构建说明](build_carla.md) 进行操作。
+要构建C++客户端示例，您需要安装`make`。在构建C++客户端之前，您需要构建 Carla，并按照您平台的相关  [构建说明](build_carla.md) 进行操作。
 
-导航到 CARLA 存储库中的`Examples/CppClient` 文件夹并打开一个终端。您将在此目录中找到一个 Makefile。要在Linux中构建并运行它，请在命令提示符下执行`make run`。在Windows中，在同一目录中创建一个名为`CMakeLists.txt`的文件，并添加 [此文件](https://github.com/OpenHUTB/carla_doc/tree/master/src/cmake/CMakeLists.txt) 中的内容，然后运行`cmake`。
+导航到 Carla 存储库中的`Examples/CppClient` 文件夹并打开一个终端。您将在此目录中找到一个 Makefile。要在Linux中构建并运行它，请在命令提示符下执行`make run`。在Windows中，在同一目录中创建一个名为`CMakeLists.txt`的文件，并添加 [此文件](https://github.com/OpenHUTB/carla_doc/tree/master/src/cmake/CMakeLists.txt) 中的内容，然后运行`cmake`。
 
 这个C++示例将连接到服务器，生成一辆车，并在销毁和终止车辆之前对其应用命令。
 
 ### 包括相关的头文件
 
-对于这个例子，我们将使用几个不同的 CARLA 类，因此我们需要包含 CARLA 库中的相关头文件，并包含我们将使用的任何标准库：
+对于这个例子，我们将使用几个不同的 Carla 类，因此我们需要包含 Carla 库中的相关头文件，并包含我们将使用的任何标准库：
 
 ```cpp
 #include <iostream>
@@ -122,7 +122,7 @@ std::this_thread::sleep_for(10s);
 
 如果您希望在执行其他命令时保持客户端打开，请创建一个游戏循环。现在，您已经加载了一张地图并生成了一辆车。为了进一步探索C++API，[构建Doxygen文档](ref_cpp.md#c-documentation) 并在浏览器中打开它。
 
-要在CARLA存储库之外的另一个位置构建C++客户端，请编辑Makefile的前5行，以引用`/build`目录和 CARLA 构建位置的正确位置：
+要在 Carla 存储库之外的另一个位置构建C++客户端，请编辑Makefile的前5行，以引用`/build`目录和 Carla 构建位置的正确位置：
 
 ```make
 CARLADIR=$(CURDIR)/../..
