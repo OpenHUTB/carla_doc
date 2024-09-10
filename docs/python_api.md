@@ -761,7 +761,7 @@ Y 像素坐标。
 ---
 
 ## carla.DebugHelper<a name="carla.DebugHelper"></a>
-[carla.World](#carla.World) 的辅助类部分，定义创建调试形状的方法。默认情况下，形状持续一秒。它们可以是永久性的，但要考虑到这样做所需的资源。查看此类的可用片段，了解如何在 Carla 中轻松调试。
+[carla.World](#carla.World) 的辅助类部分，定义创建调试形状的方法。默认情况下，形状持续 1 秒。它们可以是永久性的，但要考虑到这样做所需的资源。查看此类的可用片段，了解如何在 Carla 中轻松调试。
 
 ### 方法
 - <a name="carla.DebugHelper.draw_arrow"></a>**<font color="#7fb800">draw_arrow</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**begin**</font>, <font color="#00a6ed">**end**</font>, <font color="#00a6ed">**thickness**=0.1</font>, <font color="#00a6ed">**arrow_size**=0.1</font>, <font color="#00a6ed">**color**=(255,0,0)</font>, <font color="#00a6ed">**life_time**=-1.0</font>)  
@@ -3384,7 +3384,8 @@ VehiclePhysicsControl 构造函数。
 ---
 
 ## carla.Waypoint<a name="carla.Waypoint"></a>
-CARLA 中的路径点被描述为 3D 定向点。他们有一个 [carla.Transform](#carla.Transform)，它可以定位道路中的路点并根据车道确定其方向。他们还存储属于该点的有关其车道和车道标记的道路信息。 <br><br> <br><br> 有关路径点和 [路线 API](../../core_map/#navigation-in-carla) 的所有信息均按 OpenDRIVE 文件提供的方式检索。一旦客户端向服务器请求地图对象，就不再需要通信。
+Carla 中的路径点被描述为三维有向点。他们有一个 [carla.Transform](#carla.Transform)，它可以定位道路中的路径点并根据车道确定其方向。他们还存储属于该点的有关其车道和车道标记的道路信息。<br> 
+有关路径点和 [路线 API](../../core_map/#navigation-in-carla) 的所有信息均按 OpenDRIVE 文件提供的方式检索。一旦客户端向服务器请求地图对象，就不再需要通信。
 
 ### 实例变量
 - <a name="carla.Waypoint.id"></a>**<font color="#f8805a">id</font>** (_int_)  

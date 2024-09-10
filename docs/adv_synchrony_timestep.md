@@ -1,4 +1,4 @@
-# 同步和时间步长 
+# [同步和时间步长](https://carla.readthedocs.io/en/latest/adv_synchrony_timestep/) 
 
 本节介绍 Carla 中的两个基本概念。它们的配置定义了仿真中的时间如何流逝，以及服务器如何使仿真向前推进。
 
@@ -16,9 +16,9 @@
 ---
 ## 仿真时间步长 <span id="simulation-time-step"></span>
 
-实时时间和仿真时间是有区别的。仿真世界有自己的时钟和时间，由服务器执行。计算两个仿真步骤需要一些实时时间。但是，在这两个仿真时刻之间也存在时间跨度，即时间步长。 
+实时时间和仿真时间是有区别的。仿真世界有自己的时钟和时间，由服务器执行。计算两个仿真步骤需要一些实时时间。但是，在这两个仿真时刻之间也存在时间跨度，即**时间步长**。 
 
-为了澄清这一点，服务器可能需要几毫秒来计算仿真的两个步骤。但是，比如这两个仿真时刻之间的时间步长可以配置为始终为一秒。  
+为了澄清这一点，服务器可能需要几毫秒来计算仿真的两个步骤。但是，比如这两个仿真时刻之间的时间步长可以配置始终为 1 秒。  
 
 时间步长可以是固定的，也可以是可变的，具体取决于用户的偏好。
 
@@ -27,7 +27,7 @@
     时间步长和同步是相互交织的概念。请务必阅读这两个部分，以充分了解 Carla 的工作原理。  
 ### 可变时间步长 <span id="variable-time-step"></span>
 
-Carla 中的默认模式。步骤之间的仿真时间将是服务器计算这些步骤所需的时间。
+Carla 中的默认模式。仿真时间步长是服务器计算这些步骤所需的时间。
 
 ```py
 settings = world.get_settings()
@@ -42,9 +42,9 @@ cd PythonAPI/util && python3 config.py --delta-seconds 0
 
 ### 固定时间步长 <span id="fixed-time-step"></span>
 
-每个仿真步骤之间经过的时间保持恒定。如果设置为 0.5 秒，每秒将有两个仿真帧。使用相同的时间增量对于从仿真中获取数据是最好的方式。物理和传感器数据将对应于仿真中易于理解的时刻。此外，如果服务器速度足够快，可以在更少的实际时间内仿真更长的时间段。
+每个仿真步骤之间经过的时间保持恒定。如果设置为 0.5 秒，每秒将有 2 个仿真帧。使用相同的时间增量对于从仿真中获取数据是最好的方式。物理和传感器数据将对应于仿真中易于理解的时刻。此外，如果服务器速度足够快，可以在更少的实际时间内仿真更长的时间段。
 
-可以在世界设置中设置固定的时间步长。要将仿真设置为固定时间步长为 0.05 秒，请应用以下设置。在这种情况下，仿真器将花费20个步骤（1/0.05）来重现仿真世界中的一秒。
+可以在世界设置中设置固定的时间步长。要将仿真设置为固定时间步长为 0.05 秒，请应用以下设置。在这种情况下，仿真器将花费20 步（1/0.05）来重现仿真世界中的 1 秒。
 
 ```py
 settings = world.get_settings()
@@ -87,17 +87,17 @@ world.apply_settings(settings)
 fixed_delta_seconds <= max_substep_delta_time * max_substeps
 ```
 
-**注意，为了保证物理仿真的准确性，子步的时间间隔应该至少低于 0.01666，理想情况下低于0.01。**
+**注意，为了保证物理仿真的准确性，子步的时间间隔应该至少低于 0.01666，理想情况下低于 0.01。**
 
-为了演示最佳物理子步的效果，请考虑下面的图。下面的第一个图表显示了在不同固定仿真时间步长的仿真中速度随时间的变化。物理增量时间在所有仿真中都是恒定的，默认值为0.01。我们可以看到，速度不受仿真时间步长差异的影响。
+为了演示最佳物理子步的效果，请考虑下面的图。下面的第一个图表显示了在不同固定仿真时间步长的仿真中速度随时间的变化。物理增量时间在所有仿真中都是恒定的，默认值为 0.01。我们可以看到，速度不受仿真时间步长差异的影响。
 
 >>>>>![velocity with fixed physical delta time](./img/physics_convergence_fixed_pdt.png)
 
-第二张图显示了仿真中速度随时间的变化，仿真时间步长固定为0.04。我们可以看到，一旦物理增量时间超过0.01，速度常数开始出现偏差，随着物理增量时间的增加，偏差的严重程度也在增加。
+第二张图显示了仿真中速度随时间的变化，仿真时间步长固定为0.04。我们可以看到，一旦物理增量时间超过 0.01，速度常数开始出现偏差，随着物理增量时间的增加，偏差的严重程度也在增加。
 
 >>>>>![velocity with varied physical delta time](./img/physics_convergence_fixed_dt.png)
 
-我们可以通过在测量z-加速度时显示物理增量时间与固定仿真时间步长相同的差异的影响来再次证明这种偏差，只有当物理增量时间为0.01或更小时才会发生收敛。
+我们可以通过在测量z-加速度时显示物理增量时间与固定仿真时间步长相同的差异的影响来再次证明这种偏差，只有当物理增量时间为 0.01 或更小时才会发生收敛。
 
 >>>>>![physics convergence z acceleration](./img/physics_convergence_z_acceleration.png)
 
@@ -109,21 +109,23 @@ Carla 采用客户端-服务器架构。服务器运行仿真，客户端获取�
 默认情况下，Carla 以异步模式运行。服务器尽可能快地运行仿真，而不等待客户端。在同步模式下，服务器在更新到下一个仿真步骤之前会等待客户端发送的“ready to go”的消息。
 
 !!! 笔记
-    同时运行多个client时，只能有一个client开启同步模式，因为server会对每个收到的“ready to go”信息进行反应，多个client开启同步模式将会发送过多“ready to go”信息导致同步失败。
+    同时运行多个客户端时，只能有一个客户端开启同步模式，因为服务器会对每个收到的“ready to go”信息进行反应，多个client开启同步模式将会发送过多“ready to go”信息导致同步失败。
+
+
 ### 设置同步模式 <span id="setting-synchronous-mode"></span>
 
-同步模式和异步模式之间切换只需要改变 settings.synchronous_mode的值即可。
+同步模式和异步模式之间切换只需要改变 `settings.synchronous_mode`的值即可。
 
 ```py
 settings = world.get_settings()
-settings.synchronous_mode = True # Enables synchronous mode
+settings.synchronous_mode = True # 启用同步模式
 world.apply_settings(settings)
 ```
 !!! 警告
 
-    如果启用了同步模式，并且正在运行交通管理器，则也必须将其设置为同步模式。阅读 [this](adv_traffic_manager.md#synchronous-mode) 以了解如何操作。
+    如果启用了同步模式，并且正在运行交通管理器，则也必须将其设置为同步模式。阅读 [这个](adv_traffic_manager.md#synchronous-mode) 以了解如何操作。
 
-要禁用同步模式，只需将变量设置为 false 或使用脚本。 `PythonAPI/util/config.py`. 
+要禁用同步模式，只需将变量设置为 false 或使用`PythonAPI/util/config.py`脚本。
 
 ```sh
 cd PythonAPI/util && python3 config.py --no-sync # Disables synchronous mode
@@ -160,10 +162,10 @@ while True:
 世界具有异步方法，可以让客户端等待服务器的时间步进，或在收到时执行某些操作。
 
 ```py
-# Wait for the next tick and retrieve the snapshot of the tick.
+# 等待下一个滴答信息并检索该滴答信号的快照。
 world_snapshot = world.wait_for_tick()
 
-# Register a callback to get called every time we receive a new snapshot.
+# 注册一个回调函数，每次接收到新快照时调用它。
 world.on_tick(lambda world_snapshot: do_something(world_snapshot))
 ```
 
