@@ -2261,9 +2261,9 @@ X-轴旋转角度。
 <small style="display:block;margin-top:-20px;">从 _[carla.Actor](#carla.Actor)_ 继承</small></br>
 传感器构成了一个非常多样化和独特的特定参与者家族。它们通常是作为车辆的附件/儿子而产生的（看看[carla.World](#carla.World)来了解参与者的生成）。传感器经过精心设计，可以检索它们正在监听的不同类型的数据。它们接收到的数据被形成为从[carla.SensorData](#carla.SensorData)继承的不同子类。（取决于传感器）。 
 
-大多数传感器可分为两组：一组在每个滴答信号中接收数据（相机、点云和一些特定的传感器），另一组仅在特定情况下接收数据（触发探测器）。Carla 提供了一套特定的传感器，它们的蓝图可以在 [carla.BlueprintLibrary](#carla.BlueprintLibrary) 中找到。关于他们的偏好和放置位置的所有信息都可以在 [这里](ref_sensors.md) 找到，但到目前为止，Carla 中可用的信息列表如下。
+大多数传感器可分为两组：一组在每个节拍中接收数据（相机、点云和一些特定的传感器），另一组仅在特定情况下接收数据（触发探测器）。Carla 提供了一套特定的传感器，它们的蓝图可以在 [carla.BlueprintLibrary](#carla.BlueprintLibrary) 中找到。关于他们的偏好和放置位置的所有信息都可以在 [这里](ref_sensors.md) 找到，但到目前为止，Carla 中可用的信息列表如下。
 
-  <br><b>每个滴答信号接收的数据。</b><br>
+  <br><b>每个节拍接收的数据。</b><br>
   - [深度相机](ref_sensors.md#depth-camera)<br>
   - [全球导航卫星系统传感器](ref_sensors.md#gnss-sensor)<br>
   - [IMU 传感器](ref_sensors.md#imu-sensor)<br>
@@ -3659,9 +3659,9 @@ _</font>
         - `map_layers` (_[carla.MapLayer](#carla.MapLayer)_) - 加载到指定层次的掩膜。 
     - **警告：** <font color="#ED2F2F">_这仅仅影响分层（Opt）地图。最小布局包括道路、人行道、交通灯和交通标志。_</font>  
 - <a name="carla.World.on_tick"></a>**<font color="#7fb800">on_tick</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**callback**</font>)  
-此方法用于异步模式。它从客户端定义的`callback` 函数启动回调，并返回回调的 ID。每当服务器发出时滴答信号时，就会调用该函数。它需要一个 [carla.WorldSnapshot](#carla.WorldSnapshot) 作为参数，这可以从 __<font color="#7fb800">wait_for_tick()</font>__ 获得。使用 __<font color="#7fb800">remove_on_tick()</font>__ 来停止回调。  
+此方法用于异步模式。它从客户端定义的`callback` 函数启动回调，并返回回调的 ID。每当服务器发出时节拍时，就会调用该函数。它需要一个 [carla.WorldSnapshot](#carla.WorldSnapshot) 作为参数，这可以从 __<font color="#7fb800">wait_for_tick()</font>__ 获得。使用 __<font color="#7fb800">remove_on_tick()</font>__ 来停止回调。  
     - **参数：**
-        - `callback` (_[carla.WorldSnapshot](#carla.WorldSnapshot)_) - 将快照作为强制参数的函数，当客户端收到滴答信号时将调用该函数。  
+        - `callback` (_[carla.WorldSnapshot](#carla.WorldSnapshot)_) - 将快照作为强制参数的函数，当客户端收到节拍时将调用该函数。  
     - **返回:** _int_  
 - <a name="carla.World.project_point"></a>**<font color="#7fb800">project_point</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**location**</font>, <font color="#00a6ed">**direction**</font>, <font color="#00a6ed">**search_distance**</font>)  
 将指定点投影到场景中的所需方向。这些函数从某个方向的某个位置投射一条射线，并返回一个带有该射线相交的第一个几何体的 [carla.Labelled](#carla.Labelled) 对象。如果在 search_distance 范围内未找到几何图形，则函数返回 `None`。 
@@ -3685,11 +3685,11 @@ _</font>
         - `attachment` (_[carla.AttachmentType](#carla.AttachmentType)_) - 根据其父对象确定位置变化的固定和严密程度。
     - **返回:** _[carla.Actor](#carla.Actor)_  
 - <a name="carla.World.tick"></a>**<font color="#7fb800">tick</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**seconds**=10.0</font>)  
-该方法用于 __同步__ 模式，即服务器在计算下一帧之前等待客户端客户端滴答信号。这个方法将发送滴答信号，并让位于服务器。它返回由服务器计算的新帧ID。  
+该方法用于 __同步__ 模式，即服务器在计算下一帧之前等待客户端客户端节拍信号。这个方法将发送节拍信号，并让位于服务器。它返回由服务器计算的新帧ID。  
     - **参数：**
-        - `seconds` (_float<small> - 秒</small>_) - 服务器应该等待滴答信号的最大时间。它默认设置为 <code>10.0</code> 。  
+        - `seconds` (_float<small> - 秒</small>_) - 服务器应该等待节拍信号的最大时间。它默认设置为 <code>10.0</code> 。  
     - **返回：** _int_  
-    - **注意：** <font color="#8E8E8E">_如果在同步模式下没有收到滴答信号，仿真将冻结。此外，如果从不同的客户端接收到许多滴答信号，则可能存在同步问题。请阅读有关 __同步模式__ 的文档以了解更多信息。  
+    - **注意：** <font color="#8E8E8E">_如果在同步模式下没有收到节拍信号，仿真将冻结。此外，如果从不同的客户端接收到许多节拍信号，则可能存在同步问题。请阅读有关 __同步模式__ 的文档以了解更多信息。  
 _</font>  
 - <a name="carla.World.try_spawn_actor"></a>**<font color="#7fb800">try_spawn_actor</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**blueprint**</font>, <font color="#00a6ed">**transform**</font>, <font color="#00a6ed">**attach_to**=None</font>, <font color="#00a6ed">**attachment**=Rigid</font>)  
 和 __<font color="#7fb800">spawn_actor()</font>__ 一样，但是单失败时候返回 <b>None</b> 而不是抛出异常。  
@@ -3705,7 +3705,7 @@ _</font>
         - `map_layers` (_[carla.MapLayer](#carla.MapLayer)_) - 要卸载图层的掩膜。 
     - **警告:** <font color="#ED2F2F">_这仅仅影响分层（Opt）地图。最小布局包括道路、人行道、交通灯和交通标志。_</font>  
 - <a name="carla.World.wait_for_tick"></a>**<font color="#7fb800">wait_for_tick</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**seconds**=10.0</font>)  
-该方法使用异步模式。它使客户端等待服务器滴答信号。当计算下一帧时，服务器将勾选并返回描述世界新状态的快照。
+该方法使用异步模式。它使客户端等待服务器节拍信号。当计算下一帧时，服务器将勾选并返回描述世界新状态的快照。
     - **参数:**
         - `seconds` (_float<small> - seconds</small>_) - 服务器等待滴答的最长时间。默认设置为 <code>10.0</code>。
     - **返回:** _[carla.WorldSnapshot](#carla.WorldSnapshot)_  
@@ -3869,7 +3869,7 @@ _</font>
 ---
 
 ## carla.WorldSnapshot<a name="carla.WorldSnapshot"></a>
-快照包括某一时刻场景中每个参与者的所有信息。它创建并给出一些列包含[carla.ActorSnapshot](#carla.ActorSnapshot)的数据结构。客户端在每一个不能存储的滴答信号中获取一个新的快照。
+快照包括某一时刻场景中每个参与者的所有信息。它创建并给出一些列包含[carla.ActorSnapshot](#carla.ActorSnapshot)的数据结构。客户端在每一个不能存储的节拍信号中获取一个新的快照。
 
 ### 实例变量
 - <a name="carla.WorldSnapshot.id"></a>**<font color="#f8805a">id</font>** (_int_)  

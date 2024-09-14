@@ -71,8 +71,8 @@ roslaunch carla_ros_bridge carla_ros_bridge.launch passive:=True
 * __timeout__: 等待成功连接到服务器的时间。
 * __passive__: 被动模式用于同步模式。启用后，ROS 桥接器将退居次要地位，而另一个客户端 __必须__ 与世界打交道。ROS 桥将等待接收来自所有传感器的所有预期数据。
 *  __synchronous_mode__:
-	*  __如果是 false__: 数据在每个滴答信号`world.on_tick()`和每个`sensor.listen()`回调时进行发布。
-	*  __如果是 true （默认）__: ROS 桥在下一个滴答信号之前等待所有预期的传感器消息。这可能会减慢整个仿真的速度，但可以确保结果的可重复性。
+	*  __如果是 false__: 数据在每个节拍`world.on_tick()`和每个`sensor.listen()`回调时进行发布。
+	*  __如果是 true （默认）__: ROS 桥在下一个节拍之前等待所有预期的传感器消息。这可能会减慢整个仿真的速度，但可以确保结果的可重复性。
 *  __synchronous_mode_wait_for_vehicle_control_command__: 在同步模式下，暂停计时直到车辆控制完成。
 *  __fixed_delta_seconds__: 仿真步骤之间的仿真时间（增量秒）。__它必须低于 0.1__。查看 [文档](https://carla.readthedocs.io/en/latest/adv_synchrony_timestep/) 以了解更多相关信息。
 *  __ego_vehicle__: 用于识别自我车辆的参与者名称。将创建相关主题，以便能够通过 ROS 控制这些车辆。
@@ -90,7 +90,7 @@ roslaunch carla_ros_bridge carla_ros_bridge.launch passive:=True
 
 ROS 桥默认以同步模式运行。它将等待当前帧内预期的所有传感器数据，以确保可重现的结果。
 
-当以同步模式运行多个客户端时，只允许一个客户端向世界发滴答信号。除非启用被动模式，否则默认情况下，ROS 桥接器将是唯一允许与世界交互的客户端。在 [`ros-bridge/carla_ros_bridge/config/settings.yaml`](https://github.com/carla-simulator/ros-bridge/blob/master/carla_ros_bridge/config/settings.yaml) 中启用被动模式将使 ROS 桥后退一步，并允许另一个客户端来操作世界。__另一个客户必须向世界发滴答信号，否则 Carla 将冻结。__
+当以同步模式运行多个客户端时，只允许一个客户端向世界发节拍。除非启用被动模式，否则默认情况下，ROS 桥接器将是唯一允许与世界交互的客户端。在 [`ros-bridge/carla_ros_bridge/config/settings.yaml`](https://github.com/carla-simulator/ros-bridge/blob/master/carla_ros_bridge/config/settings.yaml) 中启用被动模式将使 ROS 桥后退一步，并允许另一个客户端来操作世界。__另一个客户必须向世界发节拍，否则 Carla 将冻结。__
 
 如果 ROS 桥接器不处于被动模式（ROS 桥接器是唯一的），则有两种方法将步进控制发送到服务器：
 
