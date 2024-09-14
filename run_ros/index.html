@@ -125,8 +125,8 @@ ros2 launch carla_ros_bridge carla_ros_bridge.launch.py
 <li><strong>timeout</strong>: 等待成功连接到服务器的时间。</li>
 <li><strong>passive</strong>: 被动模式用于同步模式。启用后，ROS 桥接器将退居次要地位，而另一个客户端 <strong>必须</strong> 与世界打交道。ROS 桥将等待接收来自所有传感器的所有预期数据。</li>
 <li><strong>synchronous_mode</strong>:<ul>
-<li><strong>如果是 false</strong>: 数据在每个滴答信号<code>world.on_tick()</code>和每个<code>sensor.listen()</code>回调时进行发布。</li>
-<li><strong>如果是 true （默认）</strong>: ROS 桥在下一个滴答信号之前等待所有预期的传感器消息。这可能会减慢整个仿真的速度，但可以确保结果的可重复性。</li>
+<li><strong>如果是 false</strong>: 数据在每个节拍<code>world.on_tick()</code>和每个<code>sensor.listen()</code>回调时进行发布。</li>
+<li><strong>如果是 true （默认）</strong>: ROS 桥在下一个节拍之前等待所有预期的传感器消息。这可能会减慢整个仿真的速度，但可以确保结果的可重复性。</li>
 </ul>
 </li>
 <li><strong>synchronous_mode_wait_for_vehicle_control_command</strong>: 在同步模式下，暂停计时直到车辆控制完成。</li>
@@ -142,7 +142,7 @@ ros2 launch carla_ros_bridge carla_ros_bridge.launch.py
 <hr />
 <h2 id="ros_3">在同步模式下使用 ROS</h2>
 <p>ROS 桥默认以同步模式运行。它将等待当前帧内预期的所有传感器数据，以确保可重现的结果。</p>
-<p>当以同步模式运行多个客户端时，只允许一个客户端向世界发滴答信号。除非启用被动模式，否则默认情况下，ROS 桥接器将是唯一允许与世界交互的客户端。在 <a href="https://github.com/carla-simulator/ros-bridge/blob/master/carla_ros_bridge/config/settings.yaml"><code>ros-bridge/carla_ros_bridge/config/settings.yaml</code></a> 中启用被动模式将使 ROS 桥后退一步，并允许另一个客户端来操作世界。<strong>另一个客户必须向世界发滴答信号，否则 Carla 将冻结。</strong></p>
+<p>当以同步模式运行多个客户端时，只允许一个客户端向世界发节拍。除非启用被动模式，否则默认情况下，ROS 桥接器将是唯一允许与世界交互的客户端。在 <a href="https://github.com/carla-simulator/ros-bridge/blob/master/carla_ros_bridge/config/settings.yaml"><code>ros-bridge/carla_ros_bridge/config/settings.yaml</code></a> 中启用被动模式将使 ROS 桥后退一步，并允许另一个客户端来操作世界。<strong>另一个客户必须向世界发节拍，否则 Carla 将冻结。</strong></p>
 <p>如果 ROS 桥接器不处于被动模式（ROS 桥接器是唯一的），则有两种方法将步进控制发送到服务器：</p>
 <ul>
 <li>用消息向主题 <code>/carla/control</code> 发送 <a href="../ros_msgs/#carlacontrolmsg"><code>carla_msgs.CarlaControl</code></a> 。</li>

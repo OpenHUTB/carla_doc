@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Sensor - 交通仿真文档</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Sensor";
+        var mkdocs_page_input_path = "faq\\sensor.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">首页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Sensor</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/faq/sensor.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1"><a href="https://mp.weixin.qq.com/s/pnlRfi2TOLDJ7VIHzw4kNA">传感器</a></h1>
+<p>本文主要是简述了在使用Carla过程中遇到的关于传感器的一些常见问题。</p>
+<p>1、Carla有没有鱼眼摄像头？</p>
+<blockquote>
+<p>答：有，在 <a href="https://github.com/carla-simulator/carla/pull/3755/files">Carla的PullRequest中</a> 传了鱼眼传感器。并且在issues和pullrequets中已经形成了比较完整的代码bug修复编译过程，主要是适配UE4.26的代码。
+<img alt="" src="../../img/faq/fisheye.jpg" /></p>
+</blockquote>
+<p>2、Carla有没有鱼眼的语义分割或实例分割传器？</p>
+<blockquote>
+<p>答：可以实现，虽然没注意issues里有没有实现方式。但了解普通RGB和语义分割传感器的知道，这个其实是后处理材质的功劳。</p>
+</blockquote>
+<p>3、为什么一个Carla多个摄像头显卡还是利用率很低？</p>
+<blockquote>
+<p>答：小编分析这个是多个SceneCapture其实是轮流进入渲染队列的。在底层RHI（渲染硬件接口）线程并不能并行执行渲染任务。这个问题应该限制在UE侧。</p>
+</blockquote>
+<p>4、Carla什么时候迁移UE5？</p>
+<blockquote>
+<p>答：现在Carla Github中已有UE5.x的版本。小编认为UE5的渲染效果并不能解决渲染不真的问题，也不能解决渲染性能的问题。当然，“有更好的用更好的”的出发点没啥问题。但高渲染画质伴随着高性能消耗的定律是不会变的。</p>
+</blockquote>
+<p>5、传感器Listen的时候，总是卡死，内存爆炸</p>
+<blockquote>
+<p>答：Carla的数据流基于TCP，一般是在listen()调用的Callback函数运行时间较长。Carla服务端在疯狂从Buffer Pool申请新的内存，在网络端堵塞。这个问题通常在单个传感器产生的数据量很大，而且还高频产出的情况下出现，如果是异步模式，那出现频率更高。</p>
+<p>解决办法：优化Python脚本，写个异步处理。</p>
+</blockquote>
+<p>6、Carla 传感器出现眩光</p>
+<blockquote>
+<p>答：一般这种情况会先出现显存不够用的Warning，然后就爆炸了。通常使用大显存可以减少这个问题出现的概率。
+<img alt="" src="../../img/faq/glare.jpg" /></p>
+</blockquote>
+<p>7、Carla自带的畸变模型怎么用？</p>
+<blockquote>
+<p>答：参考<a href="https://support.borisfx.com/hc/en-us/articles/24284292845325-Lens-Distortion-White-Paper">SynthEyes' lens-distortion畸变算法</a> 和 <a href="https://www.ssontech.com/content/lensalg.html">SynthEyes' lens-distortion畸变算法原理</a> 。当然可以去看实现它的后处理材质蓝图PhysicLensDistortion。</p>
+<p><img alt="" src="../../img/faq/post-processing_material_blueprint.jpg" /></p>
+</blockquote>
+<p>8、Carla能不能实现其他畸变模型？</p>
+<blockquote>
+<p>答：会搞后处理材质蓝图，就可以自定义任何畸变模型。</p>
+</blockquote>
+<p>9、实例分割和语义分割区别在哪？</p>
+<blockquote>
+<p>答：与语义分割只关注像素级别的语义标签不同，实例分割还要求对同类但不是同一个物体实例进行区分和分割。实例分割输出的RGB图像：R通道是语义分割的结果，GB通道组成实例分割ID，实例分割ID是虚幻引擎下的UniqueID，并非Carla层的Actor ID。用两个通道是出于位数大小考虑。</p>
+<p>语意分割输出的RGB图像：基于Tagger设置的自定义深度决定材质的自发光颜色。
+语意分割材质：
+<img alt="" src="../../img/faq/instance_segmentation.jpg" />
+<a href="https://github.com/carla-simulator/carla/discussions/5253">相关Issue</a> 。</p>
+<p>实例分割颜色设置相关代码：
+```cpp
+FLinearColor ATagger::GetActorLabelColor(const AActor &amp;Actor, const crp::CityObjectLabel &amp;Label)
+{  uint32 id = Actor.GetUniqueID();<br />
+   // TODO: Warn if id &gt; 0xffff.
+   // Encode label and id like semantic segmentation does  </p>
+<p>// TODO: Steal bits from R channel and maybe A channel?<br />
+   FLinearColor Color(0.0f, 0.0f, 0.0f, 1.0f);<br />
+   Color.R = CastEnum(Label) / 255.0f;  Color.G = ((id &amp; 0x00ff) &gt;&gt; 0) / 255.0f;<br />
+   Color.B = ((id &amp; 0xff00) &gt;&gt; 8) / 255.0f;</p>
+<p>return Color;
+}
+```</p>
+</blockquote>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1078,7 +1078,7 @@ Y 像素坐标。  </li>
 </ul>
 <hr />
 <h2 id="carladebughelper">carla.DebugHelper<a name="carla.DebugHelper"></a></h2>
-<p><a href="#carla.World">carla.World</a> 的辅助类部分，定义创建调试形状的方法。默认情况下，形状持续一秒。它们可以是永久性的，但要考虑到这样做所需的资源。查看此类的可用片段，了解如何在 Carla 中轻松调试。</p>
+<p><a href="#carla.World">carla.World</a> 的辅助类部分，定义创建调试形状的方法。默认情况下，形状持续 1 秒。它们可以是永久性的，但要考虑到这样做所需的资源。查看此类的可用片段，了解如何在 Carla 中轻松调试。</p>
 <h3 id="_50">方法</h3>
 <ul>
 <li><a name="carla.DebugHelper.draw_arrow"></a><strong><font color="#7fb800">draw_arrow</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>begin</strong></font>, <font color="#00a6ed"><strong>end</strong></font>, <font color="#00a6ed"><strong>thickness</strong>=0.1</font>, <font color="#00a6ed"><strong>arrow_size</strong>=0.1</font>, <font color="#00a6ed"><strong>color</strong>=(255,0,0)</font>, <font color="#00a6ed"><strong>life_time</strong>=-1.0</font>)<br />
@@ -2473,13 +2473,13 @@ Y 轴偏移。默认值为 <strong>0.0</strong>。 </li>
 <h3 id="_127">实例变量</h3>
 <ul>
 <li><a name="carla.RadarDetection.altitude"></a><strong><font color="#f8805a">altitude</font></strong> (<em>float<small> - radians</small></em>)<br />
-Altitude angle of the detection.  </li>
+检测的高度角。  </li>
 <li><a name="carla.RadarDetection.azimuth"></a><strong><font color="#f8805a">azimuth</font></strong> (<em>float<small> - radians</small></em>)<br />
-Azimuth angle of the detection.  </li>
+检测的方位角。</li>
 <li><a name="carla.RadarDetection.depth"></a><strong><font color="#f8805a">depth</font></strong> (<em>float<small> - 米</small></em>)<br />
-Distance from the sensor to the detection position.  </li>
+传感器到检测位置的距离。  </li>
 <li><a name="carla.RadarDetection.velocity"></a><strong><font color="#f8805a">velocity</font></strong> (<em>float<small> - m/s</small></em>)<br />
-The velocity of the detected object towards the sensor.  </li>
+被检测物体朝向传感器的速度。</li>
 </ul>
 <h3 id="_128">方法</h3>
 <h5 id="_129">魔术方法</h5>
@@ -2512,7 +2512,7 @@ The velocity of the detected object towards the sensor.  </li>
 </ul>
 <hr />
 <h2 id="carlarotation">carla.Rotation<a name="carla.Rotation"></a></h2>
-<p>表示 3D 旋转以及空间方向的类。 Carla 使用虚幻引擎坐标系。这是 Z 向上左手系统。  <br>
+<p>表示 3D 旋转以及空间方向的类。 Carla 使用虚幻引擎坐标系，在虚幻引擎世界里，空间坐标的单位是厘米。其设计基于第一人称视觉：X 轴正方向表示向前，Y 轴正方向表示向右，Z 轴正方向表示向上。  <br>
 <br>构造函数方法遵循特定的声明顺序： <code>(pitch, yaw, roll)</code> 对应于 <code>(Y-rotation,Z-rotation,X-rotation)</code>.  <br> <br><img alt="UE4_Rotation" src="https://d26ilriwvtzlb.cloudfront.net/8/83/BRMC_9.jpg" /> <em>虚幻引擎的坐标系</em>。  </p>
 <h3 id="_134">实例变量</h3>
 <ul>
@@ -2860,8 +2860,8 @@ X-轴旋转角度。  </li>
 <h2 id="carlasensor">carla.Sensor<a name="carla.Sensor"></a></h2>
 <p><small style="display:block;margin-top:-20px;">从 <em><a href="#carla.Actor">carla.Actor</a></em> 继承</small></br>
 传感器构成了一个非常多样化和独特的特定参与者家族。它们通常是作为车辆的附件/儿子而产生的（看看<a href="#carla.World">carla.World</a>来了解参与者的生成）。传感器经过精心设计，可以检索它们正在监听的不同类型的数据。它们接收到的数据被形成为从<a href="#carla.SensorData">carla.SensorData</a>继承的不同子类。（取决于传感器）。 </p>
-<p>大多数传感器可分为两组：一组在每个滴答信号中接收数据（相机、点云和一些特定的传感器），另一组仅在特定情况下接收数据（触发探测器）。Carla 提供了一套特定的传感器，它们的蓝图可以在 <a href="#carla.BlueprintLibrary">carla.BlueprintLibrary</a> 中找到。关于他们的偏好和放置位置的所有信息都可以在 <a href="../ref_sensors/">这里</a> 找到，但到目前为止，Carla 中可用的信息列表如下。</p>
-<p><br><b>每个滴答信号接收的数据。</b><br>
+<p>大多数传感器可分为两组：一组在每个节拍中接收数据（相机、点云和一些特定的传感器），另一组仅在特定情况下接收数据（触发探测器）。Carla 提供了一套特定的传感器，它们的蓝图可以在 <a href="#carla.BlueprintLibrary">carla.BlueprintLibrary</a> 中找到。关于他们的偏好和放置位置的所有信息都可以在 <a href="../ref_sensors/">这里</a> 找到，但到目前为止，Carla 中可用的信息列表如下。</p>
+<p><br><b>每个节拍接收的数据。</b><br>
   - <a href="../ref_sensors/#depth-camera">深度相机</a><br>
   - <a href="../ref_sensors/#gnss-sensor">全球导航卫星系统传感器</a><br>
   - <a href="../ref_sensors/#imu-sensor">IMU 传感器</a><br>
@@ -4421,7 +4421,8 @@ VehiclePhysicsControl 构造函数。 <ul>
 </ul>
 <hr />
 <h2 id="carlawaypoint">carla.Waypoint<a name="carla.Waypoint"></a></h2>
-<p>CARLA 中的路径点被描述为 3D 定向点。他们有一个 <a href="#carla.Transform">carla.Transform</a>，它可以定位道路中的路点并根据车道确定其方向。他们还存储属于该点的有关其车道和车道标记的道路信息。 <br><br> <br><br> 有关路径点和 <a href="../../core_map/#navigation-in-carla">路线 API</a> 的所有信息均按 OpenDRIVE 文件提供的方式检索。一旦客户端向服务器请求地图对象，就不再需要通信。</p>
+<p>Carla 中的路径点被描述为三维有向点。他们有一个 <a href="#carla.Transform">carla.Transform</a>，它可以定位道路中的路径点并根据车道确定其方向。他们还存储属于该点的有关其车道和车道标记的道路信息。<br> 
+有关路径点和 <a href="../../core_map/#navigation-in-carla">路线 API</a> 的所有信息均按 OpenDRIVE 文件提供的方式检索。一旦客户端向服务器请求地图对象，就不再需要通信。</p>
 <h3 id="_233">实例变量</h3>
 <ul>
 <li><a name="carla.Waypoint.id"></a><strong><font color="#f8805a">id</font></strong> (<em>int</em>)<br />
@@ -4789,9 +4790,9 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 </ul>
 </li>
 <li><a name="carla.World.on_tick"></a><strong><font color="#7fb800">on_tick</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>callback</strong></font>)<br />
-此方法用于异步模式。它从客户端定义的<code>callback</code> 函数启动回调，并返回回调的 ID。每当服务器发出时滴答信号时，就会调用该函数。它需要一个 <a href="#carla.WorldSnapshot">carla.WorldSnapshot</a> 作为参数，这可以从 <strong><font color="#7fb800">wait_for_tick()</font></strong> 获得。使用 <strong><font color="#7fb800">remove_on_tick()</font></strong> 来停止回调。  <ul>
+此方法用于异步模式。它从客户端定义的<code>callback</code> 函数启动回调，并返回回调的 ID。每当服务器发出时节拍时，就会调用该函数。它需要一个 <a href="#carla.WorldSnapshot">carla.WorldSnapshot</a> 作为参数，这可以从 <strong><font color="#7fb800">wait_for_tick()</font></strong> 获得。使用 <strong><font color="#7fb800">remove_on_tick()</font></strong> 来停止回调。  <ul>
 <li><strong>参数：</strong><ul>
-<li><code>callback</code> (<em><a href="#carla.WorldSnapshot">carla.WorldSnapshot</a></em>) - 将快照作为强制参数的函数，当客户端收到滴答信号时将调用该函数。  </li>
+<li><code>callback</code> (<em><a href="#carla.WorldSnapshot">carla.WorldSnapshot</a></em>) - 将快照作为强制参数的函数，当客户端收到节拍时将调用该函数。  </li>
 </ul>
 </li>
 <li><strong>返回:</strong> <em>int</em>  </li>
@@ -4831,13 +4832,13 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 </ul>
 </li>
 <li><a name="carla.World.tick"></a><strong><font color="#7fb800">tick</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>seconds</strong>=10.0</font>)<br />
-该方法用于 <strong>同步</strong> 模式，即服务器在计算下一帧之前等待客户端客户端滴答信号。这个方法将发送滴答信号，并让位于服务器。它返回由服务器计算的新帧ID。  <ul>
+该方法用于 <strong>同步</strong> 模式，即服务器在计算下一帧之前等待客户端客户端节拍信号。这个方法将发送节拍信号，并让位于服务器。它返回由服务器计算的新帧ID。  <ul>
 <li><strong>参数：</strong><ul>
-<li><code>seconds</code> (<em>float<small> - 秒</small></em>) - 服务器应该等待滴答信号的最大时间。它默认设置为 <code>10.0</code> 。  </li>
+<li><code>seconds</code> (<em>float<small> - 秒</small></em>) - 服务器应该等待节拍信号的最大时间。它默认设置为 <code>10.0</code> 。  </li>
 </ul>
 </li>
 <li><strong>返回：</strong> <em>int</em>  </li>
-<li><strong>注意：</strong> <font color="#8E8E8E"><em>如果在同步模式下没有收到滴答信号，仿真将冻结。此外，如果从不同的客户端接收到许多滴答信号，则可能存在同步问题。请阅读有关 __同步模式__ 的文档以了解更多信息。<br />
+<li><strong>注意：</strong> <font color="#8E8E8E"><em>如果在同步模式下没有收到节拍信号，仿真将冻结。此外，如果从不同的客户端接收到许多节拍信号，则可能存在同步问题。请阅读有关 __同步模式__ 的文档以了解更多信息。<br />
 </em></font>  </li>
 </ul>
 </li>
@@ -4863,7 +4864,7 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 </ul>
 </li>
 <li><a name="carla.World.wait_for_tick"></a><strong><font color="#7fb800">wait_for_tick</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>seconds</strong>=10.0</font>)<br />
-该方法使用异步模式。它使客户端等待服务器滴答信号。当计算下一帧时，服务器将勾选并返回描述世界新状态的快照。<ul>
+该方法使用异步模式。它使客户端等待服务器节拍信号。当计算下一帧时，服务器将勾选并返回描述世界新状态的快照。<ul>
 <li><strong>参数:</strong><ul>
 <li><code>seconds</code> (<em>float<small> - seconds</small></em>) - 服务器等待滴答的最长时间。默认设置为 <code>10.0</code>。</li>
 </ul>
@@ -5114,7 +5115,7 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 </ul>
 <hr />
 <h2 id="carlaworldsnapshot">carla.WorldSnapshot<a name="carla.WorldSnapshot"></a></h2>
-<p>快照包括某一时刻场景中每个参与者的所有信息。它创建并给出一些列包含<a href="#carla.ActorSnapshot">carla.ActorSnapshot</a>的数据结构。客户端在每一个不能存储的滴答信号中获取一个新的快照。</p>
+<p>快照包括某一时刻场景中每个参与者的所有信息。它创建并给出一些列包含<a href="#carla.ActorSnapshot">carla.ActorSnapshot</a>的数据结构。客户端在每一个不能存储的节拍信号中获取一个新的快照。</p>
 <h3 id="_251">实例变量</h3>
 <ul>
 <li><a name="carla.WorldSnapshot.id"></a><strong><font color="#f8805a">id</font></strong> (<em>int</em>)<br />

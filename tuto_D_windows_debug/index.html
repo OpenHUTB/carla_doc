@@ -99,7 +99,7 @@
 <p><img alt="" src="../img/tuto_D_windows_debug/generate_vs_project_files.png" /></p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
-<p>如果右键菜单中未出现<code>Generate Visual Studio project files</code>选项，则到虚幻引擎的目录中运双击执行<code>engine\Engine\Binaries\Win64\UnrealVersionSelector.exe</code>，将虚幻引擎软件注册到系统中。</p>
+<p>如果右键菜单中未出现<code>Generate Visual Studio project files</code>选项，则到虚幻引擎的目录中运双击执行<code>engine\Engine\Binaries\Win64\UnrealVersionSelector.exe</code>，将虚幻引擎软件注册到系统中。如果报错：</p>
 </div>
 <ol>
 <li>（调试数字孪生工具）在<code>解决方案</code>中展开<code>Games-&gt;CarlaUE4</code>，在想要查看的源代码行的最左侧单击增加断点（比如：<code>CarlaUE4-&gt;Plugins-&gt;CarlaTools-&gt;Source-&gt;CarlaTools-&gt;Private</code>的<code>OpenDriveToMap.cpp</code>的<code>GenerateTileStandalone()</code>），在菜单运行<code>调试(D)-&gt;开始调试(S)</code>，程序将在断点出暂停。通过<code>调式(D)-&gt;窗口(W)-&gt;监视(W)-&gt;监视 1</code>打开变量监视窗口，查看变量值是否异常。</li>
@@ -335,8 +335,20 @@ D:\work\workspace\engine\Engine\Binaries\Win64\UE4Editor-Cmd D:/work/workspace/c
 <pre><code class="language-text">Failed to open descriptor file ./../../../carla/Unreal/CarlaUE4/CarlaUE4.uproject
 </code></pre>
 <ul>
-<li><a href="http://www.piaoyi.org/c-sharp/Visual-Studio-2019-Intellisense.html">VS跳转代码太慢</a> </li>
+<li>
+<p><a href="http://www.piaoyi.org/c-sharp/Visual-Studio-2019-Intellisense.html">VS跳转代码太慢</a> </p>
+</li>
+<li>
+<p>在VS中点击调试或运行时报错：<code>错误    C4067   预处理器指令后有意外标记 - 应输入换行符</code>和<code>错误  C1012   括号不匹配: 缺少“)”</code></p>
+</li>
 </ul>
+<p>解决：在命令行使用<code>make launch ARGS='--chrono'</code>进行重新编译后，然后再用VS启动调试。</p>
+<ul>
+<li>执行“make launch”时出错，'Renderer/Public/GBufferView.h'</li>
+</ul>
+<p>表现为打开<code>CarlaUE4.sln</code>后没有 <code>UnrealBuildTool</code>选项。</p>
+<p>因为未在 STOCK UNREAL ENGINE 中找到它。它是添加到 CARLA 分支中的内容。如果您在两个版本的 Unreal 和 Carla 之间执行 git diff，您将看到只有少量更改，并且添加了 GBuffer 视图。 </p>
+<p>解决：右键文件<code>CarlaUE4.uproject</code>，选择<code>Switch Unreal Engine version</code>，并选择需要使用的虚幻引擎版本（如果没有生成新的<code>CarlaUE4.sln</code>，则需要先删除再重新生成<code>CarlaUE4.sln</code>）。还有可能报错：<code>预处理器指令后有意外标记 - 应输入换行符</code>，需要在命令行中先运行<code>make launch</code>或者<code>make launch ARGS="--chrono"</code>然后再在vs中运行。</p>
 <h3 id="_5">依赖 <span id="dependency"></span></h3>
 <h4 id="boost-1800">boost-1.80.0</h4>
 <p><a href="https://blog.csdn.net/ASCE_Python/article/details/105595218">Python封装C++库调试</a> 。</p>
@@ -359,10 +371,21 @@ D:\work\workspace\engine\Engine\Binaries\Win64\UE4Editor-Cmd D:/work/workspace/c
 找到第三方dll的名字，看“符号文件”一栏是空的。说明这个dll的符号文件没有加载。
 把.pdb和.dll放在一起。再次调试。可以看到符号文件已经加载了。</p>
 <ul>
+<li>改变ubuntu终端显示语言（桌面系统中文，终端提示英文）</li>
+</ul>
+<pre><code class="language-shell">vim ~/.bashrc
+export LANGUAGE=en_US 
+export LANG=en_US.UTF-8
+source ~/.bashrc
+</code></pre>
+<ul>
 <li>日志记录</li>
 </ul>
 <p><code>UE_LOG</code>函数记录的日志位于<code>carla\Unreal\CarlaUE4\Saved\Logs\CarlaUE4.log</code>文件中。</p>
-<h3 id="_8">学习 <span id="learn"></span></h3>
+<h3 id="_8">工具</h3>
+<p><a href="https://blog.csdn.net/helloasimo/article/details/130444217">VScode调试shell bash脚本</a>
+在VScode中安装<code>Bash Debug</code>，</p>
+<h3 id="_9">学习 <span id="learn"></span></h3>
 <ul>
 <li><a href="../tuto_D_bat/">bat脚本</a></li>
 <li><a href="../libcarla/">LibCarla 说明</a></li>

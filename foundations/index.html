@@ -164,7 +164,7 @@ blueprint_library = world.get_blueprint_library()
 <p>阅读有关 <a href="../adv_synchrony_timestep/"><strong>同步模式和异步模式</strong></a> 的更多信息。</p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
-<p>在多客户端架构中，只有一个客户端应该发出滴答信号。服务器对收到的每个滴答信号做出响应，就好像它来自同一客户端一样。许多客户端的滴答信号将使服务器和客户端之间产生不一致。</p>
+<p>在多客户端架构中，只有一个客户端应该发出节拍。服务器对收到的每个节拍做出响应，就好像它来自同一客户端一样。许多客户端的节拍将使服务器和客户端之间产生不一致。</p>
 </div>
 <h3 id="_9">设置同步模式 <span id="setting-synchronous-mode"></span></h3>
 <p>同步模式和异步模式之间的更改只是布尔状态的问题。</p>
@@ -180,10 +180,10 @@ world.apply_settings(settings)
 <p>要禁用同步模式，只需将变量设置为 <code>False</code> 或使用脚本<code>PythonAPI/util/config.py</code>。</p>
 <pre><code class="language-sh">cd PythonAPI/util &amp;&amp; python3 config.py --no-sync # 禁用同步模式
 </code></pre>
-<p>同步模式无法使用脚本启用，只能禁用。启用同步模式使服务器等待客户端滴答信号。使用此脚本，用户无法在需要时发送滴答信号。 </p>
+<p>同步模式无法使用脚本启用，只能禁用。启用同步模式使服务器等待客户端节拍。使用此脚本，用户无法在需要时发送节拍。 </p>
 <h3 id="_10">使用同步模式 <span id="using-synchronous-mode"></span></h3>
 <p>同步模式与缓慢的客户端应用程序以及需要不同元素（例如传感器）之间的同步时特别相关。如果客户端太慢而服务器没有等待，就会出现信息溢出。客户将无法管理一切，并且会丢失或混合。同样，对于许多传感器和异步情况，不可能知道所有传感器是否都在仿真中使用同一时刻的数据。</p>
-<p>以下代码片段扩展了前一个代码片段。客户端创建一个摄像头传感器，将当前步骤的图像数据存储在队列中，并从队列中检索后发送滴答信号给服务器。可以在 <a href="https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/synchronous_mode.py">此处</a> 找到有关多个传感器的更复杂的示例。</p>
+<p>以下代码片段扩展了前一个代码片段。客户端创建一个摄像头传感器，将当前步骤的图像数据存储在队列中，并从队列中检索后发送节拍给服务器。可以在 <a href="https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/synchronous_mode.py">此处</a> 找到有关多个传感器的更复杂的示例。</p>
 <pre><code class="language-py">settings = world.get_settings()
 settings.synchronous_mode = True
 world.apply_settings(settings)
@@ -200,8 +200,8 @@ while True:
 <p class="admonition-title">重要</p>
 <p>来自基于 GPU 传感器（主要是摄像头）的数据通常会延迟几帧生成。同步在这里至关重要。</p>
 </div>
-<p>世界上有异步方法可以让客户端等待服务器滴答信号，或者在收到服务器滴答信号时执行某些操作。</p>
-<pre><code class="language-py"># 等待下一个滴答信号并获取滴答信号的快照
+<p>世界上有异步方法可以让客户端等待服务器节拍，或者在收到服务器节拍时执行某些操作。</p>
+<pre><code class="language-py"># 等待下一个节拍并获取节拍的快照
 world_snapshot = world.wait_for_tick()
 
 # 注册一个回调，以便在每次收到新的快照时都被调用。
@@ -290,12 +290,12 @@ world.on_tick(lambda world_snapshot: do_something(world_snapshot))
 <p>Carla 提供了广泛的功能，超出了本仿真器介绍的范围。这里列出了一些最引人注目的。然而，在开始 <strong>进阶步骤</strong> 之前，强烈建议阅读整个“基础”部分。</p>
 <ul>
 <li><strong><a href="../adv_opendrive/">OpenDRIVE独立模式</a></strong>。仅使用 OpenDRIVE 文件生成道路网格。允许在 Carla 中加载任何 OpenDRIVE 地图，无需创建资源。</li>
-<li><strong><a href="../adv_ptv/">PTV-Vissim协同仿真</a></strong>。在 Carla 和 PTV-Vissim 交通仿真器之间运行同步仿真。</li>
+<li><strong><a href="../adv_ptv/">PTV-Vissim协同仿真</a></strong>。在 Carla 和 PTV-Vissim 交通仿真器之间运行协同仿真。</li>
 <li><a href="../adv_recorder/"><strong>录制器</strong></a>。保存仿真状态的快照，以便以精确的精度重新执行仿真。</li>
 <li><strong><a href="../adv_rendering_options/">渲染选项</a></strong>。包括图形质量设置、离屏渲染和无渲染模式。</li>
 <li><a href="../adv_rss/"><strong>责任敏感安全</strong></a>（Responsibility Sensitive Safety）：集成用于根据安全检查修改车辆轨迹的责任敏感安全性<strong><a href="https://github.com/intel/ad-rss-lib">C++库</a> </strong>。</li>
 <li><a href="../adv_synchrony_timestep/"><strong>仿真时间和同步</strong></a>。关于仿真时间和服务器-客户端通信的所有内容。</li>
-<li><strong><a href="../adv_sumo/">SUMO协同仿真</a></strong>：在 Carla 和 SUMO 交通仿真器之间运行同步仿真。</li>
+<li><strong><a href="../adv_sumo/">SUMO协同仿真</a></strong>：在 Carla 和 SUMO 交通仿真器之间运行协同仿真。</li>
 <li><strong><a href="../adv_traffic_manager/">交通管理器</a></strong>：该模块负责所有设置为自动驾驶模式的车辆。它仿真城市中的交通，使仿真看起来像一个真实的城市环境。</li>
 </ul>
               

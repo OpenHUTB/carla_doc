@@ -78,7 +78,12 @@ Carla 论坛</a>
 </div>
 
 <hr />
-<h2 id="_2">系统要求</h2>
+<h2 id="_2">专业问题</h2>
+<ul>
+<li><a href="./QA/sensor.md">传感器</a></li>
+<li><a href="./QA/dynamics.md">动力学</a></li>
+</ul>
+<h2 id="_3">系统要求</h2>
 <ul>
 <li><a href="#expected-disk-space-to-build-carla">构建 Carla 所需的磁盘空间。</a></li>
 <li><a href="#recommended-hardware-to-run-carla">运行 Carla 的推荐硬件。</a></li>
@@ -118,9 +123,10 @@ Carla 论坛</a>
 <li><a href="#importerror-dll-load-failed-while-importing-libcarla-1-is-not-a-valid-win32-app">ImportError: DLL load failed while importing libcarla: %1 is not a valid Win32 app.</a></li>
 <li><a href="#importerror-no-module-named-carla">ImportError: No module named 'carla'</a></li>
 <li><a href="#rpc_error">RuntimeError: rpc::rpc_error during call in function apply_batch</a></li>
+<li><a href="#value_error">ValueError: sticky_control: invalid value type</a></li>
 </ul>
 <hr />
-<h2 id="_3">其他</h2>
+<h2 id="_4">其他</h2>
 <ul>
 <li><a href="#fatal-error-versionh-has-been-modified-since-the-precompiled-header">Fatal error: 'version.h' has been modified since the precompiled header.</a></li>
 <li><a href="#create-a-binary-version-of-carla">创建 Carla 的二进制版本。</a></li>
@@ -129,7 +135,7 @@ Carla 论坛</a>
 </ul>
 <hr />
 <!-- ======================================================================= -->
-<h2 id="_4">系统要求</h2>
+<h2 id="_5">系统要求</h2>
 <!-- ======================================================================= -->
 
 <h6 id="carla_1">构建 Carla 所需的磁盘空间。 <span id="expected-disk-space-to-build-carla"></span></h6>
@@ -168,7 +174,7 @@ Carla 论坛</a>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="_5">克隆虚幻引擎存储库显示错误。 <span id="cloning-the-unreal-engine-repository-shows-an-error"></span></h6>
+<h6 id="_6">克隆虚幻引擎存储库显示错误。 <span id="cloning-the-unreal-engine-repository-shows-an-error"></span></h6>
 <blockquote>
 <p><strong>1. 虚幻引擎帐号是否已激活？</strong> 虚幻引擎存储库是私有的。为了克隆它，请创建虚 <a href="https://www.unrealengine.com/en-US/">幻引擎帐</a> 户，激活它（检查验证邮件），然后 <a href="https://www.unrealengine.com/en-US/blog/updated-authentication-process-for-connecting-epic-github-accounts">链接您的 GitHub</a>  帐户。</p>
 <p><strong>2. git是否安装正确？</strong> 有时错误表明与 <code>https</code> 协议不兼容。通过卸载并重新安装 git 即可轻松解决。打开终端并运行以下命令：</p>
@@ -320,7 +326,7 @@ export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla</code></p>
 <blockquote>
 <p>删除<code>carla\Build\osm2odr-visualstudio\CMakeCache.txt</code></p>
 </blockquote>
-<h6 id="_6">类型转换不对 <span id="type_conversion_error"></span></h6>
+<h6 id="_7">类型转换不对 <span id="type_conversion_error"></span></h6>
 <blockquote></blockquote>
 <pre><code class="language-shell">carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Vehicle/CustomTerrainPhysicsComponent.cpp(1161): error C2440: “static_cast”: 无法从“float”转换为“EDefResolutionType”
 </code></pre>
@@ -346,14 +352,14 @@ export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla</code></p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="_7">无法运行脚本。 <span id="cant-run-a-script"></span></h6>
+<h6 id="_8">无法运行脚本。 <span id="cant-run-a-script"></span></h6>
 <blockquote>
 <p>有些脚本有要求。这些列在名为 <strong>Requirements.txt</strong> 的文件中，与脚本本身位于同一路径中。请务必检查这些以便运行脚本。其中大多数可以通过简单的<code>pip</code>命令进行安装。</p>
 <p>有时在 Windows 上，脚本无法仅使用 <code>&gt; script_name.py</code> 运行。尝试添加. Try adding <code>&gt; python3 script_name.py</code>，并确保位于正确的目录中。</p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="_8">在虚幻编辑器中运行时连接到仿真器。 <span id="connect-to-the-simulator-while-running-within-unreal-editor"></span></h6>
+<h6 id="_9">在虚幻编辑器中运行时连接到仿真器。 <span id="connect-to-the-simulator-while-running-within-unreal-editor"></span></h6>
 <blockquote>
 <p>单击“运行”（ <strong>Play</strong> ）并等待场景加载。此时，Python 客户端可以像独立仿真器一样连接到仿真器。</p>
 </blockquote>
@@ -412,8 +418,12 @@ export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla</code></p>
 <blockquote>
 <p>PythonAPI的版本要和Carla服务的版本一致，比如dev分支的代码编译得到的虚幻编辑器运行的场景也要用dev分支代码编译的PythonAPI进行连接。</p>
 </blockquote>
+<h6 id="valueerror-sticky_control-invalid-value-type">ValueError: sticky_control: invalid value type <span id="value_error"></span></h6>
+<blockquote>
+<p>客户端和服务端的PythonAPI版本不一致，在dev分支开发时会出现。</p>
+</blockquote>
 <hr />
-<h2 id="_9">其他</h2>
+<h2 id="_10">其他</h2>
 <!-- ======================================================================= -->
 
 <h6 id="fatal-error-versionh-has-been-modified-since-the-precompiled-header">Fatal error: 'version.h' has been modified since the precompiled header. <span id="fatal-error-versionh-has-been-modified-since-the-precompiled-header"></span></h6>

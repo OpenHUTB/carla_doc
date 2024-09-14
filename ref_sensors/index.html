@@ -93,7 +93,7 @@
 </ul>
 <div class="admonition 重要">
 <p class="admonition-title">重要</p>
-<p>所有传感器都使用虚幻引擎坐标系（<strong>x</strong> - <em>向前</em>，<strong>y</strong> - <em>向右</em>，<strong>z</strong> - <em>向上</em>），并返回本地空间中的坐标。使用任何可视化软件时，请注意其坐标系。许多反转 Y 轴，因此直接可视化传感器数据可能会导致镜像输出。 </p>
+<p>所有传感器都使用虚幻引擎坐标系（<strong>x</strong> - <em>向前</em>，<strong>y</strong> - <em>向右</em>，<strong>z</strong> - <em>向上</em>），并返回本地空间中的坐标。使用任何可视化软件时，请注意其坐标系。许多反转 Y 轴，因此直接可视化传感器数据可能会导致镜像输出。</p>
 </div>
 <hr />
 <h2 id="_2">碰撞检测器 <span id="collision-detector"></span></h2>
@@ -194,7 +194,7 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.Depth)
 <td><code>sensor_tick</code></td>
 <td>float</td>
 <td>0.0</td>
-<td>传感器捕获之间的仿真秒数（滴答信号）。</td>
+<td>传感器捕获之间的仿真秒数（节拍）。</td>
 </tr>
 </tbody>
 </table>
@@ -358,7 +358,7 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.Depth)
 <td><code>sensor_tick</code></td>
 <td>float</td>
 <td>0.0</td>
-<td>传感器捕获之间的仿真秒数（滴答信号）。</td>
+<td>传感器捕获之间的仿真秒数（节拍）。</td>
 </tr>
 </tbody>
 </table>
@@ -409,7 +409,7 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.Depth)
 <h2 id="_11"><a href="https://github.com/carla-simulator/carla/blob/dev/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/InertialMeasurementUnit.cpp">惯性测量单元传感器</a> <span id="imu-sensor"></span></h2>
 <ul>
 <li><strong>蓝图：</strong> sensor.other.imu</li>
-<li><strong>输出：</strong> 每一步的惯性测量单元测量值 <a href="../python_api/#carla.IMUMeasurement">carla.IMUMeasurement</a> （除非传感器滴答信号<code>sensor_tick</code>另有说明）。</li>
+<li><strong>输出：</strong> 每一步的惯性测量单元测量值 <a href="../python_api/#carla.IMUMeasurement">carla.IMUMeasurement</a> （除非传感器节拍<code>sensor_tick</code>另有说明）。</li>
 </ul>
 <p>提供加速度计、陀螺仪和指南针将为父对象检索的测量值。数据是从对象的当前状态收集的。</p>
 <h4 id="_12">惯性测量单元属性</h4>
@@ -487,7 +487,7 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.Depth)
 <td><code>sensor_tick</code></td>
 <td>float</td>
 <td>0.0</td>
-<td>传感器捕获之间的仿真秒数（滴答信号）。</td>
+<td>传感器捕获之间的仿真秒数（节拍）。</td>
 </tr>
 </tbody>
 </table>
@@ -702,7 +702,7 @@ $$ d_2 (i) = -2.0 \times [ { y_1 \over {h_1 \times h_2 } }  -  { y_2 \over { h_2
 <td><code>sensor_tick</code></td>
 <td>float</td>
 <td>0.0</td>
-<td>传感器捕获之间的仿真秒数（滴答信号）。</td>
+<td>传感器捕获之间的仿真秒数（节拍）。</td>
 </tr>
 <tr>
 <td><code>noise_stddev</code></td>
@@ -804,7 +804,7 @@ $$ d_2 (i) = -2.0 \times [ { y_1 \over {h_1 \times h_2 } }  -  { y_2 \over { h_2
 <td><code>sensor_tick</code></td>
 <td>float</td>
 <td>0.0</td>
-<td>传感器捕获之间的仿真秒数（滴答信号）。</td>
+<td>传感器捕获之间的仿真秒数（节拍）。</td>
 </tr>
 </tbody>
 </table>
@@ -897,7 +897,7 @@ points = np.reshape(points, (len(radar_data), 4))
 <td><code>sensor_tick</code></td>
 <td>float</td>
 <td>0.0</td>
-<td>传感器捕获之间的仿真秒数（滴答信号）。</td>
+<td>传感器捕获之间的仿真秒数（节拍）。</td>
 </tr>
 <tr>
 <td><code>vertical_fov</code></td>
@@ -1040,7 +1040,7 @@ points = np.reshape(points, (len(radar_data), 4))
 <td><code>sensor_tick</code></td>
 <td>float</td>
 <td>0.0</td>
-<td>传感器捕获之间的仿真秒数（滴答信号）。</td>
+<td>传感器捕获之间的仿真秒数（节拍）。</td>
 </tr>
 <tr>
 <td><code>shutter_speed</code></td>
@@ -1594,7 +1594,7 @@ def _on_actor_constellation_request(self, actor_constellation_data):
 <td><code>sensor_tick</code></td>
 <td>float</td>
 <td>0.0</td>
-<td>传感器捕获之间的仿真秒数（滴答信号）。</td>
+<td>传感器捕获之间的仿真秒数（节拍）。</td>
 </tr>
 </tbody>
 </table>
@@ -1657,7 +1657,7 @@ def _on_actor_constellation_request(self, actor_constellation_data):
 <pre><code class="language-py">...
 raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.cityScapesPalette)
 </code></pre>
-<p>目前可以使用以下标签：</p>
+<p>目前可以使用以下标签（注意：从版本0.9.13到0.9.14数字所对应的标签发生了很大变化）：</p>
 <table>
 <thead>
 <tr>
@@ -1676,51 +1676,51 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.cityScapes
 </tr>
 <tr>
 <td><code>1</code></td>
-<td>Building</td>
-<td><code>(70, 70, 70)</code></td>
-<td>房屋、摩天大楼等建筑物以及附着在其上的元素。 <br> 例如空调、脚手架、遮阳篷或梯子等等。</td>
+<td>Roads</td>
+<td><code>(128, 64, 128)</code></td>
+<td>汽车通常行驶的部分地面。 <br> 比如，任何方向的车道和街道。</td>
 </tr>
 <tr>
 <td><code>2</code></td>
+<td>SideWalk</td>
+<td><code>(244, 35, 232)</code></td>
+<td>指定供行人或骑自行车者使用的地面的一部分。不仅通过标记，还通过一些障碍物（例如路缘石或杆子）将道路与道路分隔开。该标签包括可能划定的路边、交通岛（步行部分）和步行区。</td>
+</tr>
+<tr>
+<td><code>3</code></td>
+<td>Building</td>
+<td><code>(70, 70, 70)</code></td>
+<td>房屋、摩天大楼等建筑物以及附着在其上的元素。 <br> 例如空调、脚手架、遮阳篷或梯子等。</td>
+</tr>
+<tr>
+<td><code>4</code></td>
+<td>Wall</td>
+<td><code>(102, 102, 156)</code></td>
+<td>独立的立墙。不是建筑物的一部分。</td>
+</tr>
+<tr>
+<td><code>5</code></td>
 <td>Fence</td>
 <td><code>(100, 40, 40)</code></td>
 <td>障碍物、栏杆或其他直立结构。基本上是包围地面区域的木材或电线组件。</td>
 </tr>
 <tr>
-<td><code>3</code></td>
-<td>Other</td>
-<td><code>(55, 90, 80)</code></td>
-<td>一切不属于任何其他类别的东西。</td>
-</tr>
-<tr>
-<td><code>4</code></td>
-<td>Pedestrian</td>
-<td><code>(220, 20, 60)</code></td>
-<td>步行或乘坐/驾驶任何类型的车辆或移动系统的人。 <br> 例如自行车或踏板车、滑板、马、旱冰鞋、轮椅等。</td>
-</tr>
-<tr>
-<td><code>5</code></td>
+<td><code>6</code></td>
 <td>Pole</td>
 <td><code>(153, 153, 153)</code></td>
 <td>主要为垂直方向的小型杆。如果杆有水平部分（通常用于交通灯杆），则也被视为杆。 <br> 例如标志杆、交通灯杆。</td>
 </tr>
 <tr>
-<td><code>6</code></td>
-<td>RoadLine</td>
-<td><code>(157, 234, 50)</code></td>
-<td>道路上的标记。</td>
-</tr>
-<tr>
 <td><code>7</code></td>
-<td>Road</td>
-<td><code>(128, 64, 128)</code></td>
-<td>汽车通常行驶的部分地面。 <br> 例如任何方向的车道和街道。</td>
+<td>TrafficLight</td>
+<td><code>(250, 170, 30)</code></td>
+<td>没有灯杆的交通灯箱。</td>
 </tr>
 <tr>
 <td><code>8</code></td>
-<td>SideWalk</td>
-<td><code>(244, 35, 232)</code></td>
-<td>指定供行人或骑自行车者使用的地面的一部分。不仅通过标记，还通过一些障碍物（例如路缘石或杆子）将道路与道路分隔开。该标签包括可能划定的路边、交通岛（步行部分）和步行区。</td>
+<td>TrafficSign</td>
+<td><code>(220, 220, 0)</code></td>
+<td>由州/市当局安装的标志，通常用于交通管制。此类别不包括附有标志的杆。 <br> 例如交通标志、停车标志、方向标志...</td>
 </tr>
 <tr>
 <td><code>9</code></td>
@@ -1730,81 +1730,117 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.cityScapes
 </tr>
 <tr>
 <td><code>10</code></td>
-<td>Vehicles</td>
-<td><code>(0, 0, 142)</code></td>
-<td>汽车、货车、卡车、摩托车、自行车、公共汽车、火车。</td>
+<td>Terrain</td>
+<td><code>(145, 170, 100)</code></td>
+<td>草、地面植被、土壤或沙子。这些区域不适合行驶。该标签包括可能的限制性路缘石。</td>
 </tr>
 <tr>
 <td><code>11</code></td>
-<td>Wall</td>
-<td><code>(102, 102, 156)</code></td>
-<td>独立的立墙。不是建筑物的一部分。</td>
-</tr>
-<tr>
-<td><code>12</code></td>
-<td>TrafficSign</td>
-<td><code>(220, 220, 0)</code></td>
-<td>由州/市当局安装的标志，通常用于交通管制。此类别不包括附有标志的杆。 <br> 例如交通标志、停车标志、方向标志...</td>
-</tr>
-<tr>
-<td><code>13</code></td>
 <td>Sky</td>
 <td><code>(70, 130, 180)</code></td>
 <td>开阔的天空。包括云和太阳。</td>
 </tr>
 <tr>
+<td><code>12</code></td>
+<td>Pedestrian</td>
+<td><code>(220, 20, 60)</code></td>
+<td>步行或乘坐/驾驶任何类型的车辆或移动系统的人。 <br> 例如自行车或踏板车、滑板、马、旱冰鞋、轮椅等。</td>
+</tr>
+<tr>
+<td><code>13</code></td>
+<td>Rider</td>
+<td><code>(0, 0, 142)</code></td>
+<td>人类乘坐/驾驶任何类型的车辆或移动系统。<br>  例如：自行车或踏板车、滑板、马、轮滑、轮椅等。</td>
+</tr>
+<tr>
 <td><code>14</code></td>
-<td>Ground</td>
-<td><code>(81, 0, 81)</code></td>
-<td>与任何其他类别不匹配的任何水平地面结构。例如，车辆和行人共享的区域，或通过路缘与道路分隔的平坦环岛。</td>
+<td>Car</td>
+<td><code>(0, 0, 142)</code></td>
+<td>汽车、大蓬货车</td>
 </tr>
 <tr>
 <td><code>15</code></td>
-<td>Bridge</td>
-<td><code>(150, 100, 100)</code></td>
-<td>只有桥的结构。栅栏、人、车辆以及其上的其他元素都被单独标记。</td>
+<td>Truck</td>
+<td><code>(0, 0, 70)</code></td>
+<td>卡车</td>
 </tr>
 <tr>
 <td><code>16</code></td>
-<td>RailTrack</td>
-<td><code>(230, 150, 140)</code></td>
-<td>各种非汽车行驶的铁轨。 <br> 例如地铁和火车铁轨。</td>
+<td>Bus</td>
+<td><code>(0, 60, 100)</code></td>
+<td>公交车</td>
 </tr>
 <tr>
 <td><code>17</code></td>
-<td>GuardRail</td>
-<td><code>(180, 165, 180)</code></td>
-<td>所有类型的护栏/防撞栏。</td>
+<td>Truck</td>
+<td><code>(0, 80, 100)</code></td>
+<td>火车</td>
 </tr>
 <tr>
 <td><code>18</code></td>
-<td>TrafficLight</td>
-<td><code>(250, 170, 30)</code></td>
-<td>没有灯杆的交通灯箱。</td>
+<td>Motorcycle</td>
+<td><code>(0, 0, 230)</code></td>
+<td>摩托车</td>
 </tr>
 <tr>
 <td><code>19</code></td>
+<td>Bicycle</td>
+<td><code>(119, 11, 32)</code></td>
+<td>自行车</td>
+</tr>
+<tr>
+<td><code>20</code></td>
 <td>Static</td>
 <td><code>(110, 190, 160)</code></td>
 <td>场景中的元素和道具是不可移动的。 <br> 例如消防栓、固定长凳、喷泉、公交车站等。</td>
 </tr>
 <tr>
-<td><code>20</code></td>
+<td><code>21</code></td>
 <td>Dynamic</td>
 <td><code>(170, 120, 50)</code></td>
 <td>位置容易随时间变化的元素。 <br> 例如可移动垃圾桶、手推车、袋子、轮椅、动物等。</td>
 </tr>
 <tr>
-<td><code>21</code></td>
+<td><code>22</code></td>
+<td>Other</td>
+<td><code>(55, 90, 80)</code></td>
+<td>一切不属于任何其他类别的东西。</td>
+</tr>
+<tr>
+<td><code>23</code></td>
 <td>Water</td>
 <td><code>(45, 60, 150)</code></td>
 <td>水平水面。 <br> 例如湖泊、海洋、河流。</td>
 </tr>
 <tr>
-<td><code>22</code></td>
-<td>Terrain</td>
-<td><code>(145, 170, 100)</code></td>
-<td>草、地面植被、土壤或沙子。这些区域不适合行驶。该标签包括可能的限制性路缘石。</td>
+<td><code>24</code></td>
+<td>RoadLine</td>
+<td><code>(157, 234, 50)</code></td>
+<td>道路上的标记。</td>
+</tr>
+<tr>
+<td><code>25</code></td>
+<td>Ground</td>
+<td><code>(81, 0, 81)</code></td>
+<td>与任何其他类别不匹配的任何水平地面结构。例如，车辆和行人共享的区域，或通过路缘与道路分隔的平坦环岛。</td>
+</tr>
+<tr>
+<td><code>26</code></td>
+<td>Bridge</td>
+<td><code>(150, 100, 100)</code></td>
+<td>只有桥的结构。栅栏、人、车辆以及其上的其他元素都被单独标记。</td>
+</tr>
+<tr>
+<td><code>27</code></td>
+<td>RailTrack</td>
+<td><code>(230, 150, 140)</code></td>
+<td>各种非汽车行驶的铁轨。 <br> 例如地铁和火车铁轨。</td>
+</tr>
+<tr>
+<td><code>28</code></td>
+<td>GuardRail</td>
+<td><code>(180, 165, 180)</code></td>
+<td>所有类型的护栏/防撞栏。</td>
 </tr>
 </tbody>
 </table>
@@ -1990,7 +2026,7 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.cityScapes
 <td><code>sensor_tick</code></td>
 <td>float</td>
 <td>0.0</td>
-<td>传感器捕获之间的模拟秒数（滴答信号）。</td>
+<td>传感器捕获之间的模拟秒数（节拍）。</td>
 </tr>
 </tbody>
 </table>
@@ -2201,7 +2237,7 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.cityScapes
 <td><code>sensor_tick</code></td>
 <td>float</td>
 <td>0.0</td>
-<td>传感器捕获之间的仿真秒数（滴答信号）。</td>
+<td>传感器捕获之间的仿真秒数（节拍）。</td>
 </tr>
 </tbody>
 </table>
@@ -2362,7 +2398,7 @@ IF (ReceivedPower &gt;= receiver_sensitivity)
 <td>fixed_rate</td>
 <td>bool</td>
 <td>false [true]</td>
-<td>在每个 Carla 滴答信号中生成一个 CAM（仅用于调试目的，会导致速度变慢）</td>
+<td>在每个 Carla 节拍中生成一个 CAM（仅用于调试目的，会导致速度变慢）</td>
 </tr>
 <tr>
 <td><td colspan=4> 数据生成</td>

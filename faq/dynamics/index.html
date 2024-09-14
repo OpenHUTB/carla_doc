@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Dynamics - 交通仿真文档</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Dynamics";
+        var mkdocs_page_input_path = "faq\\dynamics.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 交通仿真文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">首页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">交通仿真文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Dynamics</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/faq/dynamics.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1"><a href="https://mp.weixin.qq.com/s/M4F_FsYqk-y8dv6JW-XZMg">动力学</a></h1>
+<p>1、Carla动力学到底可不可以用？</p>
+<blockquote>
+<p>答：需要区分场景，如果做规控测试，可能需要更加复杂和精确的商业动力学软件，例如Carsim、CarMaker。如果是合成数据、强化学习等使用场景，用Carla默认的动力学PhysX即可。</p>
+</blockquote>
+<p>2、Carla的动力学是什么？</p>
+<blockquote>
+<p>PhysX3.4 开源项目<a href="https://github.com/NVIDIAGameWorks/PhysX-3.4">地址</a> 。由于UE5弃用了PhysX，所以Carla升级UE5之后，会用Chaos动力学。</p>
+</blockquote>
+<p>3、Carla动力学有电车模型吗？</p>
+<blockquote>
+<p>答：PhysX3.4和PhysX5都没有电车模型，二者都是基于引擎+离合器。Carla里的Tesla Model 3通过一个单独的档位模拟电车动力学，但也有空档（无法去掉）。</p>
+</blockquote>
+<p>4、Carla怎么和其他动力学联合仿真？</p>
+<blockquote>
+<p>答：Carla官方已经实现了<a href="https://carla.readthedocs.io/en/latest/tuto_G_carsim_integration/">CarSim</a> 和 <a href="https://carla.readthedocs.io/en/latest/tuto_G_chrono/">Chrono</a> 的联合仿真，前者收费而后者开源。</p>
+</blockquote>
+<p>5、Carla能不能和Simulink搭的动力学联合仿真？</p>
+<blockquote>
+<p>答：动力学联合仿真的整体流程：</p>
+<p>1.Carla输出驾驶员操控（刹车、油门、离合、档位、转向）到动力学模型；</p>
+<p>2.动力学模型解算车辆的位姿信息（Position、Rotation）并且输出到Carla；</p>
+<p>3.Carla根据接收到的位姿信息进行更新。</p>
+<p>只要能做到上述事项，就可以进行联合仿真。如果联合仿真的效果不好，可能是因为没有对齐仿真时步。Carla和Simulink通常不在一个时步和频率下运行，因此需要对齐时步。</p>
+</blockquote>
+<p>6、Carla的动力学能不能调试？</p>
+<blockquote>
+<p>答：可以。Carla提供了一个python接口，可以在HUD上画出动力学参数信息：
+carla.Vehicle.show_debug_telemetry()</p>
+</blockquote>
+<p>7、Carla动力学有ABS、后轮转向等功能吗？</p>
+<blockquote>
+<p>答：都没有。目前已知的有：Anti-Roll，防侧倾功能。如果需要ABS、后轮转向等功能，可以通过和带有这些功能的动力学联合仿真来实现。</p>
+</blockquote>
+<p>8、Carla能不能根据天气、路面改变摩擦力系数？</p>
+<blockquote>
+<p>答：可以。有两种方式：1. 设置物理材质；2. 使用FrictionTrigger（区域内改变轮胎的 tire friction 参数）。</p>
+</blockquote>
+<p>9、为什么Carla的加速度总是振荡？</p>
+<blockquote>
+<p>答：因为动力学输出的是速度，没有加速度。Carla里的加速度是通过前后两帧的速度差除以步长。仿真频率越高，步长越小，越会放大振荡。Carla已经实现了针对加速度的PID控制器，通过平均加权的方式平滑加速度。此外，也可以通过各种滤波手段解决加速度振荡问题。</p>
+</blockquote>
+<p>10、为什么没给方向，车却开歪了？</p>
+<blockquote>
+<p>答：因为会有侧向滑移。可能是轮胎侧向刚度太大、路面不平整，或者路本身是倾斜的。</p>
+</blockquote>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
