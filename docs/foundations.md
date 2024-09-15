@@ -1,6 +1,6 @@
 # [基础](https://carla.readthedocs.io/en/latest/foundations/) 
 
-本页介绍了了解 Carla 服务器和客户端如何通过 API 进行操作和通信所需的基本概念。Carla 使用服务器-客户端架构运行，其中 Carla 服务器运行仿真并由客户端向其发送指令。客户端代码使用 [__API__](python_api.md) 与服务器进行通信。要使用 Python API，您必须通过 `pip` 安装该模块：
+本页介绍了 Carla 服务器和客户端如何通过 API 进行操作和通信所需的基本概念。Carla 使用服务器-客户端架构运行，其中 Carla 服务器运行仿真并由客户端向其发送指令。客户端代码使用 [__API__](python_api.md) 与服务器进行通信。要使用 Python API，您必须通过 `pip` 安装该模块：
 
 ```sh
 pip install carla-simulator # Python 2
@@ -103,7 +103,7 @@ __传感器__ 等待一些事件发生，然后从仿真中收集数据。它们
 
 传感器是附着在父车辆上的参与者。它跟随车辆，收集周围环境的信息。可用的传感器由**[Blueprint库](bp_library.md)**中的蓝图定义。
 
-*   相机(RGB，深度和语义分割)
+*   相机（RGB，深度和语义分割）
 *   碰撞检测器
 *   全球导航卫星系统传感器
 *   惯性测量单元传感器

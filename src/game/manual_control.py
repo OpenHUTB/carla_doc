@@ -167,7 +167,7 @@ except ImportError:
 
 
 # ==============================================================================
-# -- Global functions ----------------------------------------------------------
+# -- 全局函数 -------------------------------------------------------------------
 # ==============================================================================
 
 
@@ -182,20 +182,20 @@ def get_actor_display_name(actor, truncate=250):
     name = ' '.join(actor.type_id.replace('_', '.').title().split('.')[1:])
     return (name[:truncate - 1] + u'\u2026') if len(name) > truncate else name
 
+
 def get_actor_blueprints(world, filter, generation):
     bps = world.get_blueprint_library().filter(filter)
 
     if generation.lower() == "all":
         return bps
 
-    # If the filter returns only one bp, we assume that this one needed
-    # and therefore, we ignore the generation
+    # 如果过滤器只返回一个蓝图，我们假设需要这个蓝图，因此，我们忽略生成
     if len(bps) == 1:
         return bps
 
     try:
         int_generation = int(generation)
-        # Check if generation is in available generations
+        # 检查 generation 是否是一个可用的生成器
         if int_generation in [1, 2, 3]:
             bps = [x for x in bps if int(x.get_attribute('generation')) == int_generation]
             return bps
@@ -918,7 +918,7 @@ class FadingText(object):
 
 
 # ==============================================================================
-# -- HelpText ------------------------------------------------------------------
+# -- 帮助信息的类 HelpText -------------------------------------------------------
 # ==============================================================================
 
 
@@ -1321,6 +1321,7 @@ def game_loop(args):
     # 获得全屏的分辨率
     # 必须在pygame.init()之后运行，否则运行报错：pygame.error: video system not initialized
     info_object = pygame.display.Info()
+    # 获取当前机器屏幕的宽和高
     args.width = info_object.current_w
     args.height = info_object.current_h
     is_full_screen = True  # 模式是全屏
@@ -1461,7 +1462,6 @@ def main():
     print(__doc__)
 
     try:
-
         game_loop(args)
 
     except KeyboardInterrupt:
