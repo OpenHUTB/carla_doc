@@ -7,7 +7,7 @@ title: 主页
 ## 入门示例
 1. 下载 [链接](https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb) 中的`software/carla_0.9.15`中的所有文件并解压；
 2. 运行`WindowsNoEditor`文件夹下的`CarlaUE4.exe`启动场景，进入场景后按`W`、`S`、`A`、`D`移动场景视角；
-3. 使用`Python37/python.exe`运行脚本 [generate_traffic.py]() 和 [python manual_control.py]() 在场景中生成交通流并手动控制一辆车。
+3. 使用`Python37/python.exe`运行脚本 [generate_traffic.py](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/generate_traffic.py) 和 [python manual_control.py](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/manual_control.py) 在场景中生成交通流并手动控制一辆车。
 
 
 !!! 注意

@@ -91,3 +91,24 @@ cmake --build Build --target package
 quiet splash - - - 改成 quiet splash acpi=off
 ```
 acpi=off是关闭高级电源管理接口。如果必须添加acpi = off使ubuntu成功启动，则表示计算机上的ACPI与该版本的ubuntu不兼容。
+
+
+## 问题
+
+- 无法安装Microsoft.VisualStudio.Community.Msi
+
+删除文件夹`C：\Program Files （x86）\Windows Kits`后重新安装。（前提是用网络安装版安装文件，不能用离线安装版）
+
+- VS2022安装时候出现“计算机正忙于安装一个非Visual Studio的程序”
+
+打开“任务管理器”。单击“详细信息”选项卡。查找“msiexec.exe”进程。如果有一个或多个，请全部选中，再选择“终止任务”。
+
+
+- 安装python包时出现：`ValueError: check_hostname requires server_hostname`
+
+解决：关闭代理。
+
+- fatal: fetch-pack: invalid index-pack output
+
+git clone --depth 1 https://gitlab.scm321.com/ufx/xxxx.git
+
