@@ -138,6 +138,23 @@ Setup.bat
 <pre><code class="language-shell">quiet splash - - - 改成 quiet splash acpi=off
 </code></pre>
 <p>acpi=off是关闭高级电源管理接口。如果必须添加acpi = off使ubuntu成功启动，则表示计算机上的ACPI与该版本的ubuntu不兼容。</p>
+<h2 id="_3">问题</h2>
+<ul>
+<li>无法安装Microsoft.VisualStudio.Community.Msi</li>
+</ul>
+<p>删除文件夹<code>C：\Program Files （x86）\Windows Kits</code>后重新安装。（前提是用网络安装版安装文件，不能用离线安装版）</p>
+<ul>
+<li>VS2022安装时候出现“计算机正忙于安装一个非Visual Studio的程序”</li>
+</ul>
+<p>打开“任务管理器”。单击“详细信息”选项卡。查找“msiexec.exe”进程。如果有一个或多个，请全部选中，再选择“终止任务”。</p>
+<ul>
+<li>安装python包时出现：<code>ValueError: check_hostname requires server_hostname</code></li>
+</ul>
+<p>解决：关闭代理。</p>
+<ul>
+<li>fatal: fetch-pack: invalid index-pack output</li>
+</ul>
+<p>git clone --depth 1 https://gitlab.scm321.com/ufx/xxxx.git</p>
               
             </div>
           </div><footer>
