@@ -2,6 +2,7 @@
 #!/usr/bin/env python
 
 # 改编自 manual_control.py
+# 解读：https://bbs.carla.org.cn/info/e11460e2c6444888ae21f28cee1ec811?csr=1
 # Copyright (c) 2019 Computer Vision Center (CVC) at the Universitat Autonoma de
 # Barcelona (UAB).
 #
@@ -171,6 +172,7 @@ except ImportError:
 # ==============================================================================
 
 
+# 找出预设的天气
 def find_weather_presets():
     rgx = re.compile('.+?(?:(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])|$)')
     name = lambda x: ' '.join(m.group(0) for m in rgx.finditer(x))
@@ -1307,6 +1309,59 @@ class CameraManager(object):
             image.save_to_disk('_out/%08d' % image.frame)
 
 
+# 根据天气更新车灯状态
+# 参考：https://bbs.carla.org.cn/info/e11460e2c6444888ae21f28cee1ec811?csr=1
+def update_light_state(world):
+    # 获取天气信息
+    weather = world.get_weather()
+    # 获取每辆车
+    for vehicle in world.get_actors().filter('*vehicle*'):
+        # 获取每辆车的控制信息
+        control = vehicle.get_control()
+        # 获取每辆车的灯光信息
+        current_lights = vehicle.get_light_state()
+        # 当进入夜晚打开位置灯，打开远光灯以及内部灯
+        if weather.sun_altitude_angle < 0:
+            current_lights |= carla.VehicleLightState.Position
+            current_lights |= carla.VehicleLightState.HighBeam
+            current_lights |= carla.VehicleLightState.Interior
+        # 进入白天，关掉远灯及内部灯
+        if weather.sun_altitude_angle > 0:
+            current_lights &= 0b11011111011
+        # 当雾气浓度大于30或者降雨量大于30时，打开位置灯，近光灯以及雾灯
+        if weather.fog_density > 30 or weather.precipitation > 30:
+            current_lights |= carla.VehicleLightState.Position
+            current_lights |= carla.VehicleLightState.LowBeam
+            current_lights |= carla.VehicleLightState.Fog
+        # 当降雨小于30并且雾气浓度小于30时关闭近光灯以及雾灯
+        if weather.fog_density < 30 and weather.precipitation < 30:
+            current_lights &= 0b11101111101
+        # 当踩下刹车时，亮起刹车灯
+        if control.brake > 0.1:
+            current_lights |= carla.VehicleLightState.Brake
+        # 刹车松开，关闭刹车灯
+        if control.brake <= 0.1:
+            current_lights &= 0b11111110111
+        # 方向盘左转，亮起左转向灯
+        if control.steer < -0.1:
+            current_lights |= carla.VehicleLightState.LeftBlinker
+        # 方向盘右转，亮起右转向灯
+        if control.steer > 0.1:
+            current_lights |= carla.VehicleLightState.RightBlinker
+        # 方向回正，关闭所有转向灯
+        if abs(control.steer) < 0.1:
+            current_lights &= 0b11111001111
+        # 处于倒档时，亮起倒车灯
+        if control.reverse:
+            current_lights |= carla.VehicleLightState.Reverse
+        # 不处于倒档时，关闭倒车灯
+        if not control.reverse:
+            current_lights &= 0b11110111111
+
+        # 应用车灯信息
+        vehicle.set_light_state(carla.VehicleLightState(current_lights))
+
+
 # ==============================================================================
 # -- game_loop() ---------------------------------------------------------------
 # ==============================================================================
@@ -1339,6 +1394,7 @@ def game_loop(args):
                 settings.fixed_delta_seconds = 0.05
             sim_world.apply_settings(settings)
 
+            # 将交通管理器设为同步模式
             traffic_manager = client.get_trafficmanager()
             traffic_manager.set_synchronous_mode(True)
 
@@ -1370,6 +1426,7 @@ def game_loop(args):
         while True:
             if args.sync:
                 sim_world.tick()
+            update_light_state(sim_world)  # 根据天气更新车灯状态
             clock.tick_busy_loop(60)
             if controller.parse_events(client, world, clock, args.sync):
                 return

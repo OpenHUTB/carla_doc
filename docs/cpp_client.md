@@ -70,3 +70,7 @@ libcarla-install
 我们的应用程序至少需要链接到`libcarla_client.a`，`librpc.a`、`libRecast.a`和`libDetour*.a`。如果我们利用IO我们需要链接的功能和/或图像处理`boost_filesystem`、`png`、`tiff`和/或`jpeg`。
 
 有关更多详细信息，请查看提供的 Makefile。
+
+## 其他
+
+[链接库说明](tuto_D_python_api.md)

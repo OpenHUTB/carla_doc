@@ -112,3 +112,11 @@ acpi=off是关闭高级电源管理接口。如果必须添加acpi = off使ubunt
 
 git clone --depth 1 https://gitlab.scm321.com/ufx/xxxx.git
 
+
+- 编译Carla依赖时出错：`HTTP/2 stream 1 was not closed cleanly: PROTOCOL_ERROR (err 1)`
+
+解决：问题是由于HTTP/2引起的，在Git配置中禁用HTTP/2，改用HTTP/1.1
+```shell
+git config --global http.version HTTP/1.1
+```
+
