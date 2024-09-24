@@ -12,11 +12,11 @@ C++客户端可以在 Linux 上用`make`构建，在Windows上用[`cmake`](https
 
 我们使用 Doxygen 生成 C++ 代码的文档：
 
-[Libcarla/source](http://carla.org/Doxygen/html/dir_b9166249188ce33115fd7d5eed1849f2.html) <br>
+[Libcarla/source](https://openhutb.github.io/carla_cpp/dir_b14cdd661f9a7048a44f1771cd402401.html) <br>
 [Unreal/CarlaUE4/Source](http://carla.org/Doxygen/html/dir_733e9da672a36443d0957f83d26e7dbf.html) <br>
-[Unreal/CarlaUE4/Plugins](http://carla.org/Doxygen/html/dir_8fc34afb5f07a67966c78bf5319f94ae.html)
+[Unreal/CarlaUE4/Plugins](https://openhutb.github.io/carla_cpp/dir_8fc34afb5f07a67966c78bf5319f94ae.html)
 
-生成的文档可通过此 [链接](http://carla.org/Doxygen/html/index.html) 获取。
+生成的文档可通过此 [链接](https://openhutb.github.io/carla_cpp/) 获取。
 
 !!! 笔记
     文档更新由 GitHub 自动完成。
