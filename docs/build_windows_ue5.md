@@ -45,7 +45,7 @@ Setup.bat 文件本身启动以下命令，一旦您修改代码并希望重新�
 cmake -G Ninja -S . -B Build -DCMAKE_BUILD_TYPE=Release -DBUILD_CARLA_UNREAL=ON -DCARLA_UNREAL_ENGINE_PATH=%CARLA_UNREAL_ENGINE_PATH%
 ```
 
-* **构建 Carla**。在 CarlaUE5 文件夹中打开 VS 2022 的 x64 Native Tools 命令提示符并运行以下命令：
+* **构建 Carla**。在 CarlaUE5 文件夹中打开 VS 2022 的 x64 Native Tools 命令提示符并运行以下命令（如果出现问题，建议每个依赖或模块分开进行编译）：
 
 ```sh
 cmake --build Build
