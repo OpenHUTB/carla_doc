@@ -140,11 +140,13 @@ bash -x Setup.sh
 </code></pre>
 <h2 id="_3">问题</h2>
 <h3 id="_4">系统安装</h3>
+<p>如果引导不了系统，需要将在BIOS中设置为UEFI启动。</p>
 <p>Ubuntu 20.04 没有g++-12的源，只有g++-9的源。而Ubuntu 22.04 有g++-12的源。</p>
 <p>解决 <a href="https://blog.csdn.net/qq_16963597/article/details/94715979">ubuntu 安装过程中 安装界面黑屏</a> 的问题：
 u盘启动过程中，会出现选择界面，try ubuntu 、install ubuntu等，此时点“e”键，会出现一个黑框，此时在倒数第二行左右，找到</p>
 <pre><code class="language-shell">quiet splash - - - 改成 quiet splash acpi=off
 </code></pre>
+<p>acpi=off是关闭高级电源管理接口。如果必须添加acpi = off使ubuntu成功启动，则表示计算机上的ACPI与该版本的ubuntu不兼容。</p>
 <p>再次启动时，仍然会黑屏，进不去。
 需要<a href="https://blog.51cto.com/u_15075507/4517000">禁用nouveau</a> ，然后再进入系统中安装显卡驱动。</p>
 <pre><code class="language-shell">vi /etc/modprobe.d/blacklist.conf
@@ -171,8 +173,10 @@ u盘启动过程中，会出现选择界面，try ubuntu 、install ubuntu等，
 <ul>
 <li>报错：<code>error: externally-managed-environment</code></li>
 </ul>
+<blockquote>
 <p>原因：表示当前Python环境是由系统外部管理的，通常在某些Linux发行版中（尤其是Debian和基于Debian的系统，比如Ubuntu），系统会强烈建议不要直接使用pip来安装包，以避免与系统包管理器（如apt）的潜在冲突。</p>
 <p>解决：新建Python虚拟环境。</p>
+</blockquote>
 <ul>
 <li>cmake时候报错：<code>cannot find /lib64/ld-linux-x86-64.so.2</code></li>
 </ul>
