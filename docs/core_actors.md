@@ -223,7 +223,7 @@ vehicle.apply_control(carla.VehicleControl(throttle=1.0, steer=-1.0))
 ```
 * __[carla.VehiclePhysicsControl](python_api.md#carla.VehiclePhysicsControl)__ 定义车辆的物理属性并包含另外两个控制器：
 
-    * [carla.GearPhysicsControl](python_api.md#carla.GearPhysicsControl) 控制齿轮。
+    * [carla.GearPhysicsControl](python_api.md#carla.GearPhysicsControl) 控制档位。
     * [carla.WheelPhysicsControl](python_api.md#carla.WheelPhysicsControl) 提供对每个轮子的特定控制。
 
 ```py

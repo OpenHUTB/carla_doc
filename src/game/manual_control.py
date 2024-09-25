@@ -1336,6 +1336,15 @@ def update_light_state(world):
         # 当降雨小于30并且雾气浓度小于30时关闭近光灯以及雾灯
         if weather.fog_density < 30 and weather.precipitation < 30:
             current_lights &= 0b11101111101
+
+        # 根据积雨来改变车辆的轮胎摩擦力
+        # 雨天刹车距离比晴天至少长20%，甚至达2倍之多
+        if weather.precipitation_deposits > 1:
+            print(weather.precipitation_deposits)
+            # 车轮摩擦力的标量值 tire_friction
+            # carla.WheelPhysicsControl(tire_fraction = 0.5)
+            # carla.VehiclePhysicsControl()
+            # vehicle.apply_physics_control(carla.VehiclePhysicsControl(max_rpm = 5000.0, center_of_mass = carla.Vector3D(0.0, 0.0, 0.0), torque_curve=[[0,400],[5000,400]]))
         # 当踩下刹车时，亮起刹车灯
         if control.brake > 0.1:
             current_lights |= carla.VehicleLightState.Brake
@@ -1427,6 +1436,11 @@ def game_loop(args):
             if args.sync:
                 sim_world.tick()
             update_light_state(sim_world)  # 根据天气更新车灯状态
+            # 每秒最多循环60次，比tick更精确
+            # 每次计算上次到此时的时间，如果低于时间间隔，会等待
+            # 应该每帧调用一次此方法
+            # 返回值：自上一次调用以来经过的毫秒数
+            # 请注意，此函数使用 pygame.time.delay,在繁忙的循环中使用大量CPU以确保时间更准确
             clock.tick_busy_loop(60)
             if controller.parse_events(client, world, clock, args.sync):
                 return
