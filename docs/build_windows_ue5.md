@@ -63,6 +63,8 @@ cmake --build Build --target carla-python-api-install
 cmake --build Build --target launch
 ```
 
+![](img/build/ue5_launch.png)
+
 ## 使用 Carla UE5 构建软件包
 
 !!! 警告
