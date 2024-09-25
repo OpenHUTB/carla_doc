@@ -119,6 +119,7 @@ Setup.bat
 </ul>
 <pre><code class="language-sh">cmake --build Build --target launch
 </code></pre>
+<p><img alt="" src="../img/build/ue5_launch.png" /></p>
 <h2 id="carla-ue5_1">使用 Carla UE5 构建软件包</h2>
 <div class="admonition 警告">
 <p class="admonition-title">警告</p>
@@ -155,6 +156,12 @@ Setup.bat
 <li>fatal: fetch-pack: invalid index-pack output</li>
 </ul>
 <p>git clone --depth 1 https://gitlab.scm321.com/ufx/xxxx.git</p>
+<ul>
+<li>编译Carla依赖时出错：<code>HTTP/2 stream 1 was not closed cleanly: PROTOCOL_ERROR (err 1)</code></li>
+</ul>
+<p>解决：问题是由于HTTP/2引起的，在Git配置中禁用HTTP/2，改用HTTP/1.1</p>
+<pre><code class="language-shell">git config --global http.version HTTP/1.1
+</code></pre>
               
             </div>
           </div><footer>

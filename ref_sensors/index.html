@@ -2134,12 +2134,12 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.cityScapes
 <li><strong>蓝图：</strong> sensor.camera.dvs</li>
 <li><strong>输出：</strong> 每步 <a href="../python_api/#carla.DVSEventArray">carla.DVSEventArray</a> （除非<code>sensor_tick</code>另有说明）。</li>
 </ul>
-<p><a href="https://baike.baidu.com/item/%E5%8A%A8%E6%80%81%E8%A7%86%E8%A7%89%E4%BC%A0%E6%84%9F%E5%99%A8/23490201">动态视觉传感器</a> （Dynamic Vision Sensor, DVS）或事件相机是一种工作方式与传统相机完全不同的传感器。事件相机不是以固定速率捕获强度图像，而是以事件流的形式异步测量强度变化，对每个像素的亮度变化进行编码。与标准摄像机相比，事件摄像机具有独特的属性。它们具有非常高的动态范围（140 dB 与 60 dB）、无运动模糊和高时间分辨率（微秒级）。因此，事件相机是即使在具有挑战性的高速场景和高动态范围环境下也能提供高质量视觉信息的传感器，为基于视觉的算法提供了新的应用领域。</p>
-<p>动态视觉传感器摄像机输出事件流。当对数强度的变化达到预定义的恒定阈值（通常在 15% 到 30% 之间）时，在时间戳处的像素处<code>e=(x,y,t,pol)</code>触发事件。</p>
-<p><code>L(x,y,t) - L(x,y,t-\delta t) = pol C</code></p>
-<p><code>t-\delta t</code> 是该像素上最后一个事件被触发的时间，并且<code>pol</code>是根据亮度变化的符号的事件的极性。<code>+1</code>当亮度增加时极性为正，<code>-1</code>当亮度减少时极性为负。工作原理如下图所示。标准相机以固定速率输出帧，从而在场景中不存在运动时发送冗余信息。相比之下，事件摄像机是数据驱动的传感器，能够以微秒延迟响应亮度变化。在绘图中，只要（带符号的）亮度变化随时间超过<code>C</code>一维的对比度阈值，就会生成正（或负）事件（蓝点、红点） 。观察信号快速变化时事件率如何增长。</p>
+<p><a href="https://baike.baidu.com/item/%E5%8A%A8%E6%80%81%E8%A7%86%E8%A7%89%E4%BC%A0%E6%84%9F%E5%99%A8/23490201">动态视觉传感器</a> （Dynamic Vision Sensor, DVS）或事件相机是一种工作方式与传统相机完全不同的传感器。事件相机不是以固定速率捕获强度图像，而是以事件流的形式异步测量强度变化，对每个像素的亮度变化进行编码。与标准摄像机相比，事件摄像机具有独特的属性。它们具有非常高的动态范围（140 分贝对 60 分贝（dB, 十分之一 decibel Bell，贝表示的是两个物理量的比值，基准值用分贝表示的话是0dB））、无运动模糊和高时间分辨率（微秒级）。因此，事件相机是即使在具有挑战性的高速场景和高动态范围环境下也能提供高质量视觉信息的传感器，为基于视觉的算法提供了新的应用领域。</p>
+<p>动态视觉传感器摄像机输出事件流。当对数强度<code>L</code>的变化达到预定义的恒定阈值（通常在 15% 到 30% 之间）时，在时间戳<code>t</code>处的像素<code>x</code>,<code>y</code>处触发事件<code>e=(x,y,t,pol)</code>。</p>
+<p><code>L(x,y,t) - L(x,y, t-\delta t) = pol C</code></p>
+<p><code>t-\delta t</code> 是该像素上最后一个事件被触发的时间，<code>pol</code>是根据亮度变化的符号来判断事件的极性(polarity)。<code>+1</code>当亮度增加时极性为正，<code>-1</code>当亮度减少时极性为负。工作原理如下图所示。标准相机以固定速率输出帧，从而在场景中不存在运动时发送冗余信息。相比之下，事件摄像机是数据驱动的传感器，能够以微秒延迟响应亮度变化。在绘图中，只要（带符号的）亮度变化随时间<code>t</code>超过一维<code>x</code>的对比度(contrast )阈值<code>C</code>，就会生成正（或负）事件（蓝点、红点） 。观察信号快速变化时事件率如何增长。</p>
 <p><img alt="DVSCameraWorkingPrinciple" src="../img/sensor_dvs_scheme.jpg" /></p>
-<p>动态视觉传感器摄像机的当前实现在两个连续同步帧之间以统一采样方式工作。因此，为了仿真真实事件相机的高时间分辨率（微秒级），传感器需要以高频率执行（比传统相机的频率高得多）。实际上，Carla 汽车行驶速度越快，事件数量就会增加。因此，传感器频率应随着场景的动态而相应增加。用户应该在时间精度和计算成本之间找到平衡。</p>
+<p>动态视觉传感器的当前实现在两个连续同步帧之间以统一采样方式工作。因此，为了仿真真实事件相机的高时间分辨率（微秒级），传感器需要以高频率执行（比传统相机的频率高得多）。实际上，Carla 汽车行驶速度越快，事件数量就会增加。因此，传感器频率应随着场景的动态而相应增加。用户应该在时间精度和计算成本之间找到平衡。</p>
 <p>提供的脚本 <a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/manual_control.py"><code>manual_control.py</code></a> 使用动态视觉传感器摄像头来展示如何配置传感器、如何获取事件流以及如何以图像格式（通常称为事件框架）描述此类事件。</p>
 <p>请注意，由于动态视觉传感器摄像机的采样方法，如果两个连续同步帧之间没有像素差异，摄像机将不会返回图像。这总是发生在第一帧中，因为没有前一帧可供比较，并且在帧之间没有移动的情况下也是如此。</p>
 <p><img alt="DVSCameraWorkingPrinciple" src="../img/sensor_dvs.gif" /></p>
@@ -2159,25 +2159,25 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.cityScapes
 <td><code>positive_threshold</code></td>
 <td>float</td>
 <td>0.3</td>
-<td>与亮度变化增量相关的正阈值 C (0-1)。</td>
+<td>与亮度变化增量相关的正阈值 C，范围为 (0-1)。</td>
 </tr>
 <tr>
 <td><code>negative_threshold</code></td>
 <td>float</td>
 <td>0.3</td>
-<td>与亮度变化减少相关的负阈值 C (0-1)。</td>
+<td>与亮度变化减少相关的负阈值 C，范围为(0-1)。</td>
 </tr>
 <tr>
 <td><code>sigma_positive_threshold</code></td>
 <td>float</td>
 <td>0</td>
-<td>积极事件的白噪声标准差 (0-1)。</td>
+<td>正事件的白噪声标准差，范围为 (0-1)。</td>
 </tr>
 <tr>
 <td><code>sigma_negative_threshold</code></td>
 <td>float</td>
 <td>0</td>
-<td>负面事件的白噪声标准差 (0-1)。</td>
+<td>负事件的白噪声标准差，范围为 (0-1)。</td>
 </tr>
 <tr>
 <td><code>refractory_period_ns</code></td>
@@ -2189,13 +2189,13 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.cityScapes
 <td><code>use_log</code></td>
 <td>bool</td>
 <td>true</td>
-<td>是否以对数强度标度工作。</td>
+<td>是否以对数强度刻度工作。</td>
 </tr>
 <tr>
 <td><code>log_eps</code></td>
 <td>float</td>
 <td>0.001</td>
-<td>用于将图像转换为日志的 Epsilon 值： <code>L = log(eps + I / 255.0)</code>.<br>  其中 <code>I</code> 是 RGB 图像的灰度值： <br><code>I = 0.2989*R + 0.5870*G + 0.1140*B</code>.</td>
+<td>用于将图像转换为对数的 Epsilon 值： <code>L = log(eps + I / 255.0)</code>.<br>  其中 <code>I</code> 是 RGB 图像的灰度值： <br><code>I = 0.2989*R + 0.5870*G + 0.1140*B</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -2357,7 +2357,7 @@ IF (ReceivedPower &gt;= receiver_sensitivity)
 <h4 id="_47">协同感知消息 <span id="cooperative-awareness-message"></span></h4>
 <ul>
 <li><strong>蓝图：</strong> sensor.other.v2x</li>
-<li><strong>输出：</strong> <a href="../python_api/#carla.CAMData">carla.CAMData</a>, 根据 ETSI CAM (ooperative Awareness Message，协同警示消息) 标准触发，除非另有配置</li>
+<li><strong>输出：</strong> <a href="../python_api/#carla.CAMData">carla.CAMData</a>, 根据 ETSI CAM (European Telecommunications Standards Institute , Cooperative Awareness Message，欧洲通信标准协会，协同警示消息) 标准触发，除非另有配置</li>
 </ul>
 <p>根据 ETSI 标准的触发条件：
 - 航向角变化 &gt; $4$°
@@ -2508,7 +2508,7 @@ IF (ReceivedPower &gt;= receiver_sensitivity)
 </ul>
 </li>
 </ul>
-<p>自定义 V2X 消息传感器的工作方式与其他传感器略有不同，因为它除了<em>侦听</em>函数之外还具有<em>发送</em>函数，需要先调用该函数，然后其他此类传感器才能接收任何内容。只有在调用<em>发送</em>时才会触发自定义消息的传输。发送给<em>发送</em>函数的每条消息仅向当前生成的所有自定义 V2X 消息传感器传输一次。</p>
+<p>自定义 V2X 消息传感器的工作方式与其他传感器略有不同，因为它除了<em>侦听</em>函数之外还具有<em>发送</em>函数，需要先调用发送函数，然后其他此类传感器才能接收任何内容。只有在调用<em>发送</em>时才会触发自定义消息的传输。发送给<em>发送</em>函数的每条消息仅向当前生成的所有自定义 V2X 消息传感器传输一次。</p>
 <p>示例：</p>
 <pre><code>bp = world.get_blueprint_library().find('sensor.other.v2x_custom')
 sensor = world.spawn_actor(bp, carla.Transform(), attach_to=parent)

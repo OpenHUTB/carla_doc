@@ -1847,7 +1847,10 @@ xyz 坐标中的点。</li>
 <hr />
 <h2 id="carlalightgroup">carla.LightGroup<a name="carla.LightGroup"></a></h2>
 <p>此类将场景中的灯光分为不同的组。这些可用组作为可用作标志的枚举值提供。</p>
-<p><strong>笔记。</strong> 到目前为止，虽然有一个 <code>vehicle</code> 组，但车灯还不能用作<a href="#carla.Light">carla.Light</a>对象。这些必须使用<a href="#carla.Vehicle">carla.Vehicle</a>和 <a href="#carla.VehicleLightState">carla.VehicleLightState</a> 进行管理。</p>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>到目前为止，虽然有一个 <code>vehicle</code> 组，但车灯还不能用作<a href="#carla.Light">carla.Light</a>对象。这些必须使用<a href="#carla.Vehicle">carla.Vehicle</a>和 <a href="#carla.VehicleLightState">carla.VehicleLightState</a> 进行管理。</p>
+</div>
 <h3 id="_97">实例变量</h3>
 <ul>
 <li><a name="carla.LightGroup.None"></a><strong><font color="#f8805a">None</font></strong><br />
@@ -1860,7 +1863,10 @@ xyz 坐标中的点。</li>
 <hr />
 <h2 id="carlalightmanager">carla.LightManager<a name="carla.LightManager"></a></h2>
 <p>此类处理场景中的灯光。它的主要用途是在一次调用中获取和设置灯光组或灯光列表的状态。此类的实例可以通过 <a href="#carla.World.get_lightmanager">carla.World.get_lightmanager</a>() 检索。</p>
-<p><strong>笔记。</strong> 到目前为止，虽然有一个<code>vehicle</code>组，但车灯还不能用作<a href="#carla.Light">carla.Light</a>对象。这些必须使用 <a href="#carla.Vehicle">carla.Vehicle</a> 和 <a href="#carla.VehicleLightState">carla.VehicleLightState</a> 进行管理。</p>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>到目前为止，虽然有一个<code>vehicle</code>组，但车灯还不能用作<a href="#carla.Light">carla.Light</a>对象。这些必须使用 <a href="#carla.Vehicle">carla.Vehicle</a> 和 <a href="#carla.VehicleLightState">carla.VehicleLightState</a> 进行管理。</p>
+</div>
 <h3 id="_98">方法</h3>
 <ul>
 <li><a name="carla.LightManager.is_active"></a><strong><font color="#7fb800">is_active</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>lights</strong></font>)<br />
@@ -2425,7 +2431,7 @@ y 分量中的光流。</li>
 </ul>
 <hr />
 <h2 id="carlaosm2odrsettings">carla.Osm2OdrSettings<a name="carla.Osm2OdrSettings"></a></h2>
-<p>包含 <a href="#carla.Osm2Odr">carla.Osm2Odr</a> 将使用的参数化的帮助程序类，用于将 OpenStreetMap 地图转换为 OpenDRIVE 格式。在 <a href="../tuto_G_openstreetmap/">文档</a> 中了解有关此功能的更多信息。</p>
+<p>包含由 <a href="#carla.Osm2Odr">carla.Osm2Odr</a> 使用的参数化的帮助程序类，用于将 OpenStreetMap 地图转换为 OpenDRIVE 格式。在 <a href="../tuto_G_openstreetmap/">文档</a> 中了解有关此功能的更多信息。</p>
 <h3 id="_124">实例变量</h3>
 <ul>
 <li><a name="carla.Osm2OdrSettings.use_offsets"></a><strong><font color="#f8805a">use_offsets</font></strong> (<em>bool</em>)<br />
@@ -2443,7 +2449,7 @@ Y 轴偏移。默认值为 <strong>0.0</strong>。 </li>
 <li><a name="carla.Osm2OdrSettings.proj_string"></a><strong><font color="#f8805a">proj_string</font></strong> (<em>str</em>)<br />
 定义将用于计算从地理坐标到笛卡尔坐标的投影的 <a href="https://github.com/OSGeo/proj.4">proj4</a> 字符串。该字符串将写入生成的 OpenDRIVE 中，除非启用了 <code>use_offsets</code> 或 <code>center_map</code> 选项，因为这些选项会覆盖字符串中的某些定义。</li>
 <li><a name="carla.Osm2OdrSettings.generate_traffic_lights"></a><strong><font color="#f8805a">generate_traffic_lights</font></strong> (<em>bool</em>)<br />
-指示是否在OpenDRIVE中生成红绿灯数据。 <code>set_traffic_light_excluded_way_types(way_types)</code> 定义的道路类型不会生成交通信号灯。</li>
+指出是否在OpenDRIVE中生成红绿灯数据。 <code>set_traffic_light_excluded_way_types(way_types)</code> 定义的道路类型不会生成交通信号灯。</li>
 <li><a name="carla.Osm2OdrSettings.all_junctions_with_traffic_lights"></a><strong><font color="#f8805a">all_junctions_with_traffic_lights</font></strong> (<em>bool</em>)<br />
 禁用时，转换器将仅从 OpenStreetMaps 数据生成交通灯数据。启用后，所有路口都会生成交通信号灯。</li>
 </ul>
@@ -4545,7 +4551,7 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 <li><a name="carla.WeatherParameters.precipitation"></a><strong><font color="#f8805a">precipitation</font></strong> (<em>float</em>)<br />
 降雨强度值范围从 0 到 100，0 表示无雨，100 表示大雨。</li>
 <li><a name="carla.WeatherParameters.precipitation_deposits"></a><strong><font color="#f8805a">precipitation_deposits</font></strong> (<em>float</em>)<br />
-确定水坑的创建。值范围从 0 到 100，0 表示完全没有水，100 表示道路完全被水覆盖。水坑是用静态噪音创建的，这意味着它们总是出现在相同的位置。</li>
+决定水坑的创建。值范围从 0 到 100，0 表示完全没有水，100 表示道路完全被水覆盖。水坑是用静态噪音创建的，这意味着它们总是出现在相同的位置。</li>
 <li><a name="carla.WeatherParameters.wind_intensity"></a><strong><font color="#f8805a">wind_intensity</font></strong> (<em>float</em>)<br />
 控制风的强度，值从 0（无风）到 100（强风）。风确实会影响降雨方向和树叶，因此限制该值以避免动画问题。</li>
 <li><a name="carla.WeatherParameters.sun_azimuth_angle"></a><strong><font color="#f8805a">sun_azimuth_angle</font></strong> (<em>float<small> - 度</small></em>)<br />
@@ -4585,8 +4591,8 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 <li><code>wetness</code> (<em>float</em>) - 道路的湿度百分比，从 0 到 100。</li>
 <li><code>fog_falloff</code> (<em>float</em>) - 雾的密度（特定质量），从 0 到无穷大。</li>
 <li><code>scattering_intensity</code> (<em>float</em>) - 控制光线对体积雾的贡献程度。当设置为 0 时，没有贡献。</li>
-<li><code>mie_scattering_scale</code> (<em>float</em>) - 控制光与大颗粒（如花粉或空气污染）的相互作用，导致天空朦胧，光源周围有光晕。当设置为 0 时，没有贡献。</li>
-<li><code>rayleigh_scattering_scale</code> (<em>float</em>) - 控制光与空气分子等小颗粒的相互作用。取决于光的波长，导致白天的天空为蓝色，晚上的天空为红色。</li>
+<li><code>mie_scattering_scale</code> (<em>float</em>) - <a href="https://baike.baidu.com/item/%E7%B1%B3%E6%B0%8F%E6%95%A3%E5%B0%84">米氏散射</a> 强度（大气中粒子的直径与辐射的波长相当），控制光与大颗粒（如花粉或空气污染）的相互作用，导致天空朦胧，光源周围有光晕。当设置为 0 时，没有贡献（完全不散射）。</li>
+<li><code>rayleigh_scattering_scale</code> (<em>float</em>) - <a href="https://baike.baidu.com/item/%E7%91%9E%E5%88%A9%E6%95%A3%E5%B0%84">瑞利散射</a> 强度（粒子尺度小于波长的十分之一），控制光与空气分子等小颗粒的相互作用。取决于光的波长，导致白天的天空为蓝色（由于瑞利散射的强度与波长四次方成反比，所以太阳光谱中波长较短的蓝紫光比波长较长的红光散射更明显），傍晚的天空为红色（太阳光在大气中要走相对很长的路程，直射光中的波长较短蓝光大量都被散射了，只剩下红橙色的光）。</li>
 </ul>
 </li>
 <li><strong>笔记:</strong> <font color="#8E8E8E"><em>ClearNoon, CloudyNoon, WetNoon, WetCloudyNoon, SoftRainNoon, MidRainyNoon, HardRainNoon, ClearSunset, CloudySunset, WetSunset, WetCloudySunset, SoftRainSunset, MidRainSunset, HardRainSunset. 
@@ -4614,12 +4620,12 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 <h3 id="_240">实例变量</h3>
 <ul>
 <li><a name="carla.WheelPhysicsControl.tire_friction"></a><strong><font color="#f8805a">tire_friction</font></strong> (<em>float</em>)<br />
-指示车轮摩擦力的标量值。</li>
+表示车轮摩擦力的标量值。</li>
 <li><a name="carla.WheelPhysicsControl.damping_rate"></a><strong><font color="#f8805a">damping_rate</font></strong> (<em>float</em>)<br />
 车轮的阻尼率。</li>
 <li><a name="carla.WheelPhysicsControl.max_steer_angle"></a><strong><font color="#f8805a">max_steer_angle</font></strong> (<em>float<small> - 度</small></em>)<br />
 车轮可以转向的最大角度。</li>
-<li><a name="carla.WheelPhysicsControl.radius"></a><strong><font color="#f8805a">radius</font></strong> (<em>float<small> - centimeters</small></em>)<br />
+<li><a name="carla.WheelPhysicsControl.radius"></a><strong><font color="#f8805a">radius</font></strong> (<em>float<small> - 厘米</small></em>)<br />
 轮子的半径。</li>
 <li><a name="carla.WheelPhysicsControl.max_brake_torque"></a><strong><font color="#f8805a">max_brake_torque</font></strong> (<em>float<small> - N*m</small></em>)<br />
 最大制动扭矩。</li>
