@@ -1,11 +1,11 @@
 # 路口评价指标分析计算(HutbCarlaCity)
 
-​	为支持  [**湖工商场景**](https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb ) **(WindowsNoEditor)** 高保正的十字路口三维建模，设计  **[traffic_indicators.py](https://github.com/OpenHUTB/carla_doc/tree/master/src/course/traffic_indicators.py)**  脚本对路口交通流量、路口车均延误、路口饱和、排队长度四种路口真实性评价指标分析。
+为支持  [**湖工商场景**](https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb) **(WindowsNoEditor)** 高保正的十字路口三维建模，设计  **[traffic_indicators.py](https://github.com/OpenHUTB/carla_doc/tree/master/src/course/traffic_indicators.py)**  脚本对路口交通流量、路口车均延误、路口饱和、排队长度四种路口真实性评价指标分析。
 
 
 **首先需要对场景中添加车辆，运行 [generate_traffic.py](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/generate_traffic.py) 脚本，生成足够的车辆。**
 
-## 定义命令行参数并获取仿真世界对象
+## 定义命令行参数并获取模拟世界对象
 
 ```python
 argparser = argparse.ArgumentParser(
@@ -154,7 +154,7 @@ def queue_lengths(world,junctions,counted_vehicles):
 
 采用以下计算公式进行计算：![](../img/traffic_course_img/4.png)
 
-​	其中**D**为路口车均延误参数，**C**为路口交通信号灯配时总时间，**y**为路口饱和度，**T**为当前分析时段的时长。
+其中**D**为路口车均延误参数，**C**为路口交通信号灯配时总时间，**y**为路口饱和度，**T**为当前分析时段的时长。
 
 ```
 #得到交通灯的配时信息

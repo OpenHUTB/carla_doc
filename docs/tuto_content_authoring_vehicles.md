@@ -61,7 +61,7 @@ Carla 在蓝图库中提供了一套开箱即用的全面车辆。Carla 允许�
 
 ## 使用电枢装配车辆 <span id="rigging-the-vehicle-using-an-armature"></span>
 
-为了在仿真中看起来更真实，汽车需要有旋转轮子，前一对轮子可以随着转向输入而转动。因此，要为 Carla 准备车辆，需要在汽车上安装电枢以识别车轮并允许其移动。
+为了在模拟中看起来更真实，汽车需要有旋转轮子，前一对轮子可以随着转向输入而转动。因此，要为 Carla 准备车辆，需要在汽车上安装电枢以识别车轮并允许其移动。
 
 ### 导入  <span id="import"></span>
 
@@ -171,9 +171,9 @@ Blender 有一个非常有用的插件，用于装配车辆以导入 Carla，有
 
 ![vehicle_factory](img/tuto_content_authoring_vehicles/vehicle_factory_page.png)
 
-按加号图标添加您的新车。向下滚动到最后一个条目并将其展开，它应该是空的。命名您的车辆的品牌和型号，然后在类部分下找到您在上一部分中创建的蓝图类。将轮子数量保留为 4，并将世代设置为 2。编译并保存。为了安全起见，进行全局保存，您现在......准备在仿真中运行您的车辆。
+按加号图标添加您的新车。向下滚动到最后一个条目并将其展开，它应该是空的。命名您的车辆的品牌和型号，然后在类部分下找到您在上一部分中创建的蓝图类。将轮子数量保留为 4，并将世代设置为 2。编译并保存。为了安全起见，进行全局保存，您现在......准备在模拟中运行您的车辆。
 
-按虚幻工具栏中的“运行”来进行仿真。运行后，打开终端并使用过滤器选项运行脚本 `manual_control.py` 来指定您的新车辆型号：
+按虚幻工具栏中的“运行”来进行模拟。运行后，打开终端并使用过滤器选项运行脚本 `manual_control.py` 来指定您的新车辆型号：
 
 ```sh
 python manual_control.py --filter my_vehicle_make
@@ -190,7 +190,7 @@ python manual_control.py --filter my_vehicle_make
 
 ### 给车辆应用材质 <span id="applying-a-material-to-your-vehicle"></span>
 
-Carla 提供了一种用于复制车辆光泽表面的原型材料，可以仿真多种不同类型的车辆喷漆工作和功能。打开虚幻编辑器并在内容浏览器中，找到`Content > Carla > Static > GenericMaterials > 00_MastersOpt`。基本材料称为`M_CarPaint_Master`。右键单击该材料并从上下文材质中选择`Create Material Instance`。为其命名并将其移动到存储新车辆内容的文件夹中。
+Carla 提供了一种用于复制车辆光泽表面的原型材料，可以模拟多种不同类型的车辆喷漆工作和功能。打开虚幻编辑器并在内容浏览器中，找到`Content > Carla > Static > GenericMaterials > 00_MastersOpt`。基本材料称为`M_CarPaint_Master`。右键单击该材料并从上下文材质中选择`Create Material Instance`。为其命名并将其移动到存储新车辆内容的文件夹中。
 
 在虚幻编辑器中，将观察则会移动到靠近地板的一点，然后将车辆的骨架网格物体从内容浏览器拖到场景中，车辆的车身现在将出现在那里。
 
@@ -200,7 +200,7 @@ Carla 提供了一种用于复制车辆光泽表面的原型材料，可以仿�
 
 ![apply_material](img/tuto_content_authoring_vehicles/apply_material.gif)
 
-双击内容浏览器中的材质，我们就可以开始编辑参数了。这里有许多参数可以改变各种属性，这些属性对于仿真现实世界的汽车喷漆工作非常重要。最重要的参数如下：
+双击内容浏览器中的材质，我们就可以开始编辑参数了。这里有许多参数可以改变各种属性，这些属性对于模拟现实世界的汽车喷漆工作非常重要。最重要的参数如下：
 
 #### __颜色(Color)__ <span id="color"></span>
 
@@ -218,19 +218,19 @@ Carla 提供了一种用于复制车辆光泽表面的原型材料，可以仿�
 
 #### __粒状表面(Orange peel)__  <span id="orange-peel"></span>
 
-真实汽车的饰面（特别是面向一般市场的批量生产的汽车）往往存在缺陷，表现为油漆上的轻微波纹。粒状表面仿真了这一点，使汽车看起来更真实。
+真实汽车的饰面（特别是面向一般市场的批量生产的汽车）往往存在缺陷，表现为油漆上的轻微波纹。粒状表面模拟了这一点，使汽车看起来更真实。
 
 ![change_orange_peel](img/tuto_content_authoring_vehicles/orange_peel.gif)
 
 #### __薄片(Flakes)__ <span id="flakes"></span>
 
-有些汽车的油漆工作中包含其他材料的薄片，例如金属或陶瓷，以赋予汽车 `metallic` 或 `pearlescant` 外观，增加额外的闪光和反射，以有吸引力的方式与光线反应。薄片参数允许 Carla 仿真这一点。为了仿真金属饰面，它会是
+有些汽车的油漆工作中包含其他材料的薄片，例如金属或陶瓷，以赋予汽车 `metallic` 或 `pearlescant` 外观，增加额外的闪光和反射，以有吸引力的方式与光线反应。薄片参数允许 Carla 模拟这一点。为了模拟金属饰面，它会是
 
 ![flakes](img/tuto_content_authoring_vehicles/flakes.gif)
 
 #### __灰尘(Dust)__ <span id="dust"></span>
 
-汽车车身上经常会积聚油脂和灰尘，这会增加车漆的质感，影响其反射光线的方式。灰尘参数允许您在涂层上添加破坏块，以仿真粘附在油漆上的异物。
+汽车车身上经常会积聚油脂和灰尘，这会增加车漆的质感，影响其反射光线的方式。灰尘参数允许您在涂层上添加破坏块，以模拟粘附在油漆上的异物。
 
 ![dust](img/tuto_content_authoring_vehicles/change_dust.gif)
 
@@ -300,7 +300,7 @@ Carla 提供了一种用于复制车辆光泽表面的原型材料，可以仿�
 
 ### 碰撞网格 <span id="collision-mesh"></span>
 
-首先，用于碰撞网格的默认圆柱体具有高多边形数量，因此我们应该将其替换为低多边形版本。在内容浏览器中找到 `Content > Carla > Blueprints > Vehicles`内的 `CollisionWheel` 网格。蓝图详细信息面板中的插槽上。这将提高性能，而不会导致物理仿真出现任何明显的缺陷。
+首先，用于碰撞网格的默认圆柱体具有高多边形数量，因此我们应该将其替换为低多边形版本。在内容浏览器中找到 `Content > Carla > Blueprints > Vehicles`内的 `CollisionWheel` 网格。蓝图详细信息面板中的插槽上。这将提高性能，而不会导致物理模拟出现任何明显的缺陷。
 
 ### 轮胎配置 <span id="tire-configuration"></span>
 

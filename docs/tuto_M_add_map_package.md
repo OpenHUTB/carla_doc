@@ -63,7 +63,7 @@ __6.__ 包将在 `output_folder` 中生成为 `<map_package>.tar.gz`. 。这是�
 ./ImportAssets.sh
 ```
 
-__7.__ 要使用新地图运行仿真，请运行 Carla，然后使用 `config.py` 文件更改地图：
+__7.__ 要使用新地图运行模拟，请运行 Carla，然后使用 `config.py` 文件更改地图：
 
 ```sh
 cd PythonAPI/util
@@ -73,4 +73,4 @@ python3 config.py --map <mapName>
 
 ---
 
-您的地图现在可以在 Carla 运行仿真了。如果你对这个过程有任何问题，你可以在 [论坛](https://github.com/carla-simulator/carla/discussions) 上提问，。也可以尝试在你的新地图上运行我们的一些 [示例脚本](https://github.com/carla-simulator/carla/tree/master/PythonAPI/examples) 来测试它。
+您的地图现在可以在 Carla 运行模拟了。如果你对这个过程有任何问题，你可以在 [论坛](https://github.com/carla-simulator/carla/discussions) 上提问，。也可以尝试在你的新地图上运行我们的一些 [示例脚本](https://github.com/carla-simulator/carla/tree/master/PythonAPI/examples) 来测试它。

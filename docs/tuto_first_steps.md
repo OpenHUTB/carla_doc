@@ -1,8 +1,8 @@
 # 学习 Carla 的第一步
 
-Carla 仿真器是一个综合解决方案，用于为自动驾驶 (Autonomous Driving, AD) 和其他机器人应用生成合成训练数据。Carla 仿真高度真实的环境，仿真现实世界中的城镇、城市和高速公路以及占据这些驾驶空间的车辆和其他物体。
+Carla 模拟器是一个综合解决方案，用于为自动驾驶 (Autonomous Driving, AD) 和其他机器人应用生成合成训练数据。Carla 模拟高度真实的环境，模拟现实世界中的城镇、城市和高速公路以及占据这些驾驶空间的车辆和其他物体。
 
-Carla 仿真器还可用作评估和测试环境。您可以部署在仿真中训练过的自动驾驶代理来测试和评估其性能和安全性，所有这些都在仿真环境的安全范围内，不会对硬件或其他道路使用者造成风险。
+Carla 模拟器还可用作评估和测试环境。您可以部署在模拟中训练过的自动驾驶代理来测试和评估其性能和安全性，所有这些都在模拟环境的安全范围内，不会对硬件或其他道路使用者造成风险。
 
 在本教程中，我们将介绍 Carla 中的标准工作流程，从启动服务器和连接客户端，到添加车辆、传感器和生成用于机器学习的训练数据。本教程旨在重点介绍细节，并尽可能高效地介绍使用 Carla 生成机器学习训练数据的关键步骤。有关工作流程每个部分的更多详细信息，例如蓝图库中可用的多种车辆或可用的替代类型传感器，请查阅文本中的链接或浏览左侧菜单。
 
@@ -11,7 +11,7 @@ Carla 仿真器还可用作评估和测试环境。您可以部署在仿真中�
 * [__观察者导航__](#spectator-navigation)  
 * [__添加非玩家参与者__](#adding-npcs)  
 * [__添加传感器__](#add-sensors)  
-* [__使用交通管理器仿真车辆__](#animate-vehicles-with-traffic-manager)  
+* [__使用交通管理器模拟车辆__](#animate-vehicles-with-traffic-manager)  
 * [__将车辆分配为自我车辆__](#assign-a-vehicle-as-the-ego-vehicle)
 * [__选择你的地图__](#choose-your-map) 
 * [__选择你的车辆__](#choose-your-vehicles) 
@@ -26,7 +26,7 @@ cd /carla/root
 ./CarlaUE4.sh
 ```
  
-要通过 Python API 操作 Carla，我们需要通过开放端口将Python 客户端连接到服务器。客户端通过 [__客户端和世界对象__](foundations.md#world-and-client) 控制仿真器打开一个 Python 笔记本或创建一个新脚本，然后将以下代码添加到脚本的开头或 main 函数中：
+要通过 Python API 操作 Carla，我们需要通过开放端口将Python 客户端连接到服务器。客户端通过 [__客户端和世界对象__](foundations.md#world-and-client) 控制模拟器打开一个 Python 笔记本或创建一个新脚本，然后将以下代码添加到脚本的开头或 main 函数中：
 
 
 ```py
@@ -40,14 +40,14 @@ world = client.get_world()
 
 [__客户端__](python_api#carlaclient) 对象用于维护客户端与服务器的连接，并具有许多用于应用命令以及加载或导出数据的功能。我们可以使用客户端对象加载替代地图或重新加载当前地图（重置为初始状态）。
 
-端口可以选择任何可用的端口，默认设置为 2000，您也可以使用计算机的 IP 地址选择与 *localhost* 不同的主机。这样，Carla 服务器可以在联网计算机上运行，而 python 客户端可以从个人计算机运行。这对于区分用于运行 Carla 仿真器的 GPU 和用于神经网络训练的 GPU 特别有用，这两者对图形硬件的要求都很高。
+端口可以选择任何可用的端口，默认设置为 2000，您也可以使用计算机的 IP 地址选择与 *localhost* 不同的主机。这样，Carla 服务器可以在联网计算机上运行，而 python 客户端可以从个人计算机运行。这对于区分用于运行 Carla 模拟器的 GPU 和用于神经网络训练的 GPU 特别有用，这两者对图形硬件的要求都很高。
 
 !!! 笔记
     以下假设 Carla 在默认异步模式下运行。如果您使用 [__同步__](adv_synchrony_timestep.md) 模式，以下部分中的某些代码可能无法按预期工作。
 
 ## 加载地图  <span id="loading-a-map"></span>
 
-在 Carla API 中，[__世界__](python_api.md#carla.World) 对象提供对仿真的所有元素的访问，包括地图、地图内的对象，例如建筑物、交通灯、车辆和行人。Carla 服务器通常加载默认地图（通常为 Town10）。如果您想使用备用地图启动 Carla，请使用以下 `config.py`脚本：
+在 Carla API 中，[__世界__](python_api.md#carla.World) 对象提供对模拟的所有元素的访问，包括地图、地图内的对象，例如建筑物、交通灯、车辆和行人。Carla 服务器通常加载默认地图（通常为 Town10）。如果您想使用备用地图启动 Carla，请使用以下 `config.py`脚本：
 
 ```sh
 ./config.py --map Town05 
@@ -64,9 +64,9 @@ client.load_world('Town05')
 
 ## 观察者导航 <span id="spectator-navigation"></span>
 
-观察者是仿真的视图。默认情况下，当您在连接屏幕的计算机上运行 Carla 服务器时，观众会在新窗口中打开，除非您指定`-RenderOffScreen` 命令行选项。
+观察者是模拟的视图。默认情况下，当您在连接屏幕的计算机上运行 Carla 服务器时，观众会在新窗口中打开，除非您指定`-RenderOffScreen` 命令行选项。
 
-观察者有助于可视化您的仿真。使用观察者，您可以熟悉已加载的地图，并查看所做的任何更改的结果，例如添加车辆、更改天气、打开/关闭地图的各个图层以及用于调试目的。
+观察者有助于可视化您的模拟。使用观察者，您可以熟悉已加载的地图，并查看所做的任何更改的结果，例如添加车辆、更改天气、打开/关闭地图的各个图层以及用于调试目的。
 
 您可以使用鼠标控制观察者视图的俯仰和偏航，并使用 QWE-ASD 键移动观众，让观众飞到世界各地：
 
@@ -102,7 +102,7 @@ spectator.set_transform(carla.Transform())
 
 ## 添加非玩家参与者 <span id="adding-npcs"></span>
 
-现在我们已经加载了地图并且服务器已启动并运行，我们现在需要用一些车辆填充我们的仿真，以仿真具有交通和其他道路使用者或非玩家参与者的真实环境。
+现在我们已经加载了地图并且服务器已启动并运行，我们现在需要用一些车辆填充我们的模拟，以模拟具有交通和其他道路使用者或非玩家参与者的真实环境。
 
 要生成车辆，首先，我们需要从蓝图库中选择我们想要的车辆。
 
@@ -122,13 +122,13 @@ for i in range(0,50):
     world.try_spawn_actor(random.choice(vehicle_blueprints), random.choice(spawn_points))
 ```
 
-现在我们还应该添加一辆车作为仿真的中心点。为了训练自主代理，我们需要仿真自主代理将控制的车辆。用 Carla 的说法，我们经常将这种车辆称为“自我车辆”。
+现在我们还应该添加一辆车作为模拟的中心点。为了训练自主代理，我们需要模拟自主代理将控制的车辆。用 Carla 的说法，我们经常将这种车辆称为“自我车辆”。
 
 ```py
 ego_vehicle = world.spawn_actor(random.choice(vehicle_blueprints), random.choice(spawn_points))
 ```
 
-除了车辆之外，Carla 还提供行人添加到仿真中，以仿真真实的驾驶场景。在 Carla 术语中，车辆和行人被称为参与者，请在 [__此处__](core_actors.md) 了解有关它们的更多信息。
+除了车辆之外，Carla 还提供行人添加到模拟中，以模拟真实的驾驶场景。在 Carla 术语中，车辆和行人被称为参与者，请在 [__此处__](core_actors.md) 了解有关它们的更多信息。
 
 
 ## 添加传感器 <span id="add-sensors"></span>
@@ -148,7 +148,7 @@ camera_bp = world.get_blueprint_library().find('sensor.camera.rgb')
 camera = world.spawn_actor(camera_bp, camera_init_trans, attach_to=ego_vehicle)
 ```
 
-一旦我们生成了相机，我们需要通过`listen()`方法将其设置为录制。Listen 方法将定义如何处理数据的回调作为参数。您可以将其流式传输到另一个程序或将其保存到磁盘。
+一旦我们生成了相机，我们需要通过`listen()`方法将其设置为记录。Listen 方法将定义如何处理数据的回调作为参数。您可以将其流式传输到另一个程序或将其保存到磁盘。
 
 我们将使用 lambda 函数作为回调将数据保存到磁盘：
 
@@ -157,35 +157,35 @@ camera = world.spawn_actor(camera_bp, camera_init_trans, attach_to=ego_vehicle)
 camera.listen(lambda image: image.save_to_disk('out/%06d.png' % image.frame))
 ```
 
-这会将数据作为一系列根据仿真帧编号命名的 PNG 图像文件保存到 `out/` 文件夹中。
+这会将数据作为一系列根据模拟帧编号命名的 PNG 图像文件保存到 `out/` 文件夹中。
 
 有多种不同类型的传感器可供选择。在 [__这里__](core_sensors.md) 您可以更深入地研究可用的传感器阵列以及如何使用它们。
 
 
-## 使用交通管理器仿真车辆 <span id="animate-vehicles-with-traffic-manager"></span>
+## 使用交通管理器模拟车辆 <span id="animate-vehicles-with-traffic-manager"></span>
 
-现在我们已经将交通和自我车辆添加到仿真中并开始记录摄像机数据，现在我们需要使用交通管理器将车辆设置为运动。[__交通管理器__](adv_traffic_manager.md) 是 Carla 的一个组件，它控制车辆在仿真内的地图道路上自动移动，遵循道路惯例并表现得像真正的道路使用者。
+现在我们已经将交通和自我车辆添加到模拟中并开始记录摄像机数据，现在我们需要使用交通管理器将车辆设置为运动。[__交通管理器__](adv_traffic_manager.md) 是 Carla 的一个组件，它控制车辆在模拟内的地图道路上自动移动，遵循道路惯例并表现得像真正的道路使用者。
 
-我们可以使用`world.get_actors()`方法找到仿真中的所有车辆，对所有车辆进行过滤。然后我们可以使用该`set_autopilot()`方法将车辆的控制权移交给交通管理器。
+我们可以使用`world.get_actors()`方法找到模拟中的所有车辆，对所有车辆进行过滤。然后我们可以使用该`set_autopilot()`方法将车辆的控制权移交给交通管理器。
 
 ```py
 for vehicle in world.get_actors().filter('*vehicle*'):
     vehicle.set_autopilot(True)
 ```
 
-现在您的仿真正在运行，有许多车辆在地图上行驶，并且摄像机记录其中一辆车辆的数据。然后，该数据可用于提供机器学习算法来训练自动驾驶代理。交通管理器具有许多用于自定义流量行为的功能，请在 [__此处__](tuto_G_traffic_manager.md) 了解更多信息。
+现在您的模拟正在运行，有许多车辆在地图上行驶，并且摄像机记录其中一辆车辆的数据。然后，该数据可用于提供机器学习算法来训练自动驾驶代理。交通管理器具有许多用于自定义流量行为的功能，请在 [__此处__](tuto_G_traffic_manager.md) 了解更多信息。
 
-这是仿真的最基本可能设置，现在您可以更深入地了解有关可用于生成数据的许多额外传感器的文档，以及 Carla 的许多其他功能，这些功能可以使您的仿真更加详细和更多实际的。
+这是模拟的最基本可能设置，现在您可以更深入地了解有关可用于生成数据的许多额外传感器的文档，以及 Carla 的许多其他功能，这些功能可以使您的模拟更加详细和更多实际的。
 
 ---
 
 ## 将车辆分配为自我车辆 <span id="assign-a-vehicle-as-the-ego-vehicle"></span>
 
-__自我车辆__ 是使用 Carla 时需要牢记的一个重要概念。自我车辆是指将成为仿真焦点的车辆。在大多数 CARLA 用例中，它可能是您将连接传感器的车辆和/或您的自动驾驶机器学习堆栈将控制的车辆。它很重要，因为它是一些有助于提高仿真效率的仿真操作的基础，例如：
+__自我车辆__ 是使用 Carla 时需要牢记的一个重要概念。自我车辆是指将成为模拟焦点的车辆。在大多数 CARLA 用例中，它可能是您将连接传感器的车辆和/或您的自动驾驶机器学习堆栈将控制的车辆。它很重要，因为它是一些有助于提高模拟效率的模拟操作的基础，例如：
 
 * __加载大型地图的地图图块__: 大型地图（如 Town 12）由图块组成，仅在需要提高 Carla 性能时才加载。自我车辆的位置决定了使用哪些图块。只有最靠近自我车辆的图块才会被加载。
 
-* __混合物理模式__: 如果您的仿真包含由交通管理器控制的大量车辆，则计算所有这些车辆的物理量在计算上非常昂贵。[混合物理模式](adv_traffic_manager.md#hybrid-physics-mode) 使物理计算仅限于自我车辆附近的车辆，从而节省计算资源。
+* __混合物理模式__: 如果您的模拟包含由交通管理器控制的大量车辆，则计算所有这些车辆的物理量在计算上非常昂贵。[混合物理模式](adv_traffic_manager.md#hybrid-physics-mode) 使物理计算仅限于自我车辆附近的车辆，从而节省计算资源。
 
 要定义自我车辆，您应该在生成自我车辆时设置`role_name`车辆[carla.Actor](python_api.md#carlaactor) 对象 [蓝图](python_api.md#carlaactorblueprint) 的属性：
 
@@ -242,7 +242,7 @@ client.load_world('Town03_Opt')
 
 ![vehicles_overview](./img/catalogue/vehicles/vehicle_montage.webp)
 
-Carla 提供了一个车辆库，可以让您的仿真充满交通。浏览 [Carla 车辆目录](catalogue_vehicles.md) 中的车辆型号。
+Carla 提供了一个车辆库，可以让您的模拟充满交通。浏览 [Carla 车辆目录](catalogue_vehicles.md) 中的车辆型号。
 
 您可以通过过滤蓝图库来查看所有可用的车辆蓝图。
 

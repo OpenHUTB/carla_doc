@@ -6,7 +6,7 @@
 - Carla 中可以使用的不同格式的地图以及每种格式的限制。
 - 如何将本机`.osm`格式转换为`.xodr`。
 - 如何在`.xodr`文件中包含交通灯信息。
-- 如何在 Carla 仿真中运行最终地图。
+- 如何在 Carla 模拟中运行最终地图。
 
 [OpenStreetMap](https://www.openstreetmap.org) 是由数千名贡献者开发的开放数据世界地图，并根据[Open Data Commons Open Database License](https://opendatacommons.org/licenses/odbl/) 获得许可。地图的各个部分可以导出为 XML 格式的`.osm`文件。Carla 可以将此文件转换为 OpenDRIVE 格式并使用 [OpenDRIVE Standalone Mode](#adv_opendrive.md) 导入它。
 
@@ -153,7 +153,7 @@ settings.set_traffic_light_excluded_way_types(["motorway_link"])
 
 ###### A) 使用您自己的脚本
 
-生成新地图并阻止仿真，直到通过调用 [`client.generate_opendrive_world()`](python_api.md#carla.Client.generate_opendrive_world) 准备就绪。使用[carla.OpendriveGenerationParameters](python_api.md#carla.OpendriveGenerationParameters)类配置网格生成。请参阅下面的示例：
+生成新地图并阻止模拟，直到通过调用 [`client.generate_opendrive_world()`](python_api.md#carla.Client.generate_opendrive_world) 准备就绪。使用[carla.OpendriveGenerationParameters](python_api.md#carla.OpendriveGenerationParameters)类配置网格生成。请参阅下面的示例：
 
 ```py
 vertex_distance = 2.0  # 以米为单位

@@ -1,6 +1,6 @@
-# [Carla 中的交通仿真](https://carla.readthedocs.io/en/latest/ts_traffic_simulation_overview/) 
+# [Carla 中的交通模拟](https://carla.readthedocs.io/en/latest/ts_traffic_simulation_overview/) 
 
-交通仿真是自动驾驶堆栈准确高效的训练和测试不可或缺的一部分。Carla 提供了许多不同的选项来仿真交通和特定的交通场景。本节概述了可用选项，可帮助您确定最适合您的用例的选项。
+交通模拟是自动驾驶堆栈准确高效的训练和测试不可或缺的一部分。Carla 提供了许多不同的选项来模拟交通和特定的交通场景。本节概述了可用选项，可帮助您确定最适合您的用例的选项。
 
 - [__交通管理器__](#traffic-manager)
 - [__Scenario Runner 和 OpenScenario__](#scenario-runner-and-openscenario)
@@ -11,11 +11,11 @@
 
 ## 交通管理器 <span id="traffic-manager"></span>
 
-交通管理器是 Carla 中的一个模块，用于从客户端控制仿真中的某些车辆。[`carla.Vehicle.set_autopilot`](https://carla.readthedocs.io/en/latest/python_api/#carla.Vehicle.set_autopilot) 车辆通过方法或注册到交通管理器command.SetAutopilot。每辆车的控制是通过 [不同阶段](adv_traffic_manager.md#stages) 的循环来管理的，每个阶段都在不同的线程上运行。
+交通管理器是 Carla 中的一个模块，用于从客户端控制模拟中的某些车辆。[`carla.Vehicle.set_autopilot`](https://carla.readthedocs.io/en/latest/python_api/#carla.Vehicle.set_autopilot) 车辆通过方法或注册到交通管理器command.SetAutopilot。每辆车的控制是通过 [不同阶段](adv_traffic_manager.md#stages) 的循环来管理的，每个阶段都在不同的线程上运行。
 
 __用于：__
 
-- 用真实的城市交通状况填充仿真。
+- 用真实的城市交通状况填充模拟。
 - [自定义交通行为](adv_traffic_manager.md#general-considerations) 以设置特定的学习环境。 
 - 开发与阶段相关的功能和数据结构，同时提高计算效率。
 
@@ -39,7 +39,7 @@ Scenario Runner 必须与主 Carla 包 [分开](https://github.com/carla-simulat
 __用于：__
 
 - 创建复杂的交通场景和路线，为自动驾驶代理做好准备，以便在 [Carla 排行榜](https://leaderboard.carla.org/) 上进行评估。
-- 定义可针对场景仿真的记录运行的定制 [指标](https://carla-scenariorunner.readthedocs.io/en/latest/metrics_module/) ，从而无需重复运行仿真。
+- 定义可针对场景模拟的记录运行的定制 [指标](https://carla-scenariorunner.readthedocs.io/en/latest/metrics_module/) ，从而无需重复运行模拟。
 
 <div class="build-buttons">
 <p>
@@ -54,7 +54,7 @@ __用于：__
 
 ## Scenic <span id="scenic"></span>
 
-[Scenic](https://scenic-lang.readthedocs.io) 是一种特定领域的概率编程语言，用于对机器人和自动驾驶汽车等网络物理系统的环境进行建模。Scenic 提供了一个 [专门领域](https://scenic-lang.readthedocs.io/en/latest/modules/scenic.simulators.carla.html) 来促进 Scenic 脚本在 仿真器上的执行。
+[Scenic](https://scenic-lang.readthedocs.io) 是一种特定领域的概率编程语言，用于对机器人和自动驾驶汽车等网络物理系统的环境进行建模。Scenic 提供了一个 [专门领域](https://scenic-lang.readthedocs.io/en/latest/modules/scenic.simulators.carla.html) 来促进 Scenic 脚本在 模拟器上的执行。
 
 Scenic 场景定义易于阅读和构建。 [此处](tuto_G_scenic.md) 提供了创建简单场景的教程。
 
@@ -74,9 +74,9 @@ __用于：__
 
 ## SUMO <span id="sumo"></span>
 
-[SUMO](https://sumo.dlr.de/docs/SUMO_at_a_Glance.html) 是一种开源、微观、多模式交通仿真。在 SUMO 中，每辆车都经过明确建模，有自己的路线，并通过网络单独移动。默认情况下，仿真是确定性的，但有多种选项可以引入随机性。
+[SUMO](https://sumo.dlr.de/docs/SUMO_at_a_Glance.html) 是一种开源、微观、多模式交通模拟。在 SUMO 中，每辆车都经过明确建模，有自己的路线，并通过网络单独移动。默认情况下，模拟是确定性的，但有多种选项可以引入随机性。
 
-Carla 提供了与 SUMO 的联合仿真功能，允许在两个仿真器之间分配任务。车辆可以通过 SUMO 在 Carla 中产生，并由 SUMO 进行管理，就像交通管理器所做的那样。
+Carla 提供了与 SUMO 的联合模拟功能，允许在两个模拟器之间分配任务。车辆可以通过 SUMO 在 Carla 中产生，并由 SUMO 进行管理，就像交通管理器所做的那样。
 
 __用于：__
 
@@ -85,13 +85,13 @@ __用于：__
 <div class="build-buttons">
 <p>
 <a href="https://carla.readthedocs.io/en/latest/adv_sumo/" target="_blank" class="btn btn-neutral" title="Go to SUMO Co-Simulation">
-转至 SUMO 协同仿真</a>
+转至 SUMO 协同模拟</a>
 </p>
 </div>
 
 ---
 
-如果您对 Carla 中仿真交通的不同选项有任何疑问，请随时在论坛或 [Discord](https://discord.gg/8kqACuC) 中发帖。
+如果您对 Carla 中模拟交通的不同选项有任何疑问，请随时在论坛或 [Discord](https://discord.gg/8kqACuC) 中发帖。
 
 <div class="build-buttons">
 <p>

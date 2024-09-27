@@ -10,7 +10,7 @@ RoadRunner 是推荐的软件，用于创建要导入 Carla 的大地图。本�
 ---
 ## RoadRunner简介 <span id="introduction-to-roadrunner"></span>
 
-RoadRunner是一个交互式编辑器，可以让您设计3D场景来仿真和测试自动驾驶系统。它可以用来创建道路布局和伴随的opdrive和几何信息。[在这里了解更多关于RoadRunner的信息](rr_home)。
+RoadRunner是一个交互式编辑器，可以让您设计3D场景来模拟和测试自动驾驶系统。它可以用来创建道路布局和伴随的opdrive和几何信息。[在这里了解更多关于RoadRunner的信息](rr_home)。
 
 RoadRunner是MATLAB校园许可的一部分，因此许多大学可以提供无限制的学术访问。[检查](rr_eligibility)一下你的大学是否有访问权限。如果有任何关于可访问性的问题或麻烦，请联系automated-driving@mathworks.com。[还有一个试用版]([rr_trial_version)。
 

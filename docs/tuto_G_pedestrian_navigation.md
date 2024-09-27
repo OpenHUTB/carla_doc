@@ -1,22 +1,22 @@
 # 通过 API 获取行人真实骨骼
 
-为了训练自动驾驶车辆，必须确保它们不仅能够识别建筑物、道路和汽车，还能够识别人行道和过马路的行人，以确保所有道路使用者的安全。Carla 仿真器提供人工智能控制的行人，以人体形态填充您的仿真和训练数据。在许多计算机视觉应用中，人体姿态估计是一个重要因素，包括自动驾驶、安全、人群控制和多个机器人应用。
+为了训练自动驾驶车辆，必须确保它们不仅能够识别建筑物、道路和汽车，还能够识别人行道和过马路的行人，以确保所有道路使用者的安全。Carla 模拟器提供人工智能控制的行人，以人体形态填充您的模拟和训练数据。在许多计算机视觉应用中，人体姿态估计是一个重要因素，包括自动驾驶、安全、人群控制和多个机器人应用。
 
-Carla 的 API 提供了从仿真中的行人获取真实骨架的功能。骨架由一组骨骼组成，每个骨骼都有一个根节点或顶点以及一个定义骨骼姿势（或方向）的向量。这些骨骼控制仿真行人的四肢和身体的运动。通过将各个骨骼的集合收集在一起，可以构建虚拟人姿势的模型，该模型可用于与神经网络估计的姿势模型进行比较，甚至用于训练神经网络进行姿势估计。
+Carla 的 API 提供了从模拟中的行人获取真实骨架的功能。骨架由一组骨骼组成，每个骨骼都有一个根节点或顶点以及一个定义骨骼姿势（或方向）的向量。这些骨骼控制模拟行人的四肢和身体的运动。通过将各个骨骼的集合收集在一起，可以构建虚拟人姿势的模型，该模型可用于与神经网络估计的姿势模型进行比较，甚至用于训练神经网络进行姿势估计。
 
 在本教程中，我们将完成在地图中生成行人、设置 AI 控制器来移动行人、然后获取真实骨架并将骨骼投影到 2D 相机捕获上的步骤。
 
-- [__设置仿真器__](#setting_simulator) 
-- [__在 Carla 仿真器中生成行人__](#spaw_pedestrian) 
+- [__设置模拟器__](#setting_simulator) 
+- [__在 Carla 模拟器中生成行人__](#spaw_pedestrian) 
 - [__AI 控制器引导行人在地图上行走__](#go_to_location) 
 - [__相机几何__](#camera_projection_matrix)
 - [__构建骨架__](#build_skeleton)
 - [__总结__](#conclusion)
 
 
-## 设置仿真器 <span id="setting_simulator"></span>
+## 设置模拟器 <span id="setting_simulator"></span>
 
-首先，按照您的标准工作流程启动 Carla 仿真器，无论是在独立模式下还是在虚幻编辑器中。我们将导入几个实用程序库以用于数学和绘图。为了让我们更好地控制仿真，我们将在本教程中使用 [__同步模式__](adv_synchrony_timestep.md) 。这意味着我们的 Python 客户端控制仿真器的时间进程。
+首先，按照您的标准工作流程启动 Carla 模拟器，无论是在独立模式下还是在虚幻编辑器中。我们将导入几个实用程序库以用于数学和绘图。为了让我们更好地控制模拟，我们将在本教程中使用 [__同步模式__](adv_synchrony_timestep.md) 。这意味着我们的 Python 客户端控制模拟器的时间进程。
 
 ```py
 import carla
@@ -30,7 +30,7 @@ import cv2 #OpenCV to manipulate and save the images
 client = carla.Client('localhost', 2000)
 world = client.get_world()
 
-# 以同步模式启动仿真
+# 以同步模式启动模拟
 settings = world.get_settings()
 settings.synchronous_mode = True  # 启用同步模式
 settings.fixed_delta_seconds = 0.05
@@ -40,14 +40,14 @@ world.apply_settings(settings)
 spectator = world.get_spectator()
 ```
 
-## 在 Carla 仿真器中生成行人 <span id="spaw_pedestrian"></span>
+## 在 Carla 模拟器中生成行人 <span id="spaw_pedestrian"></span>
 
-首先，我们想在仿真中生成一个行人。这可以使用 `world.get_random_location_from_navigation()` 在随机位置完成，也可以使用从虚幻编辑器收集的坐标来选择。在虚幻编辑器中，将一个空参与者添加到要生成行人的位置，然后使用右侧的检查器查询坐标。
+首先，我们想在模拟中生成一个行人。这可以使用 `world.get_random_location_from_navigation()` 在随机位置完成，也可以使用从虚幻编辑器收集的坐标来选择。在虚幻编辑器中，将一个空参与者添加到要生成行人的位置，然后使用右侧的检查器查询坐标。
 
 ![actor_location](./img/tuto_G_pedestrian_bones/actor_location.png)
 
 !!! 笔记
-    虚幻编辑器以厘米为单位，而 Carla 以米为单位，因此必须转换单位。在 Carla 仿真器中使用之前，请确保将虚幻编辑器坐标除以 100。
+    虚幻编辑器以厘米为单位，而 Carla 以米为单位，因此必须转换单位。在 Carla 模拟器中使用之前，请确保将虚幻编辑器坐标除以 100。
 
 一旦你选择了坐标，你就可以生成行人。我们还将生成一个相机来收集图像。我们还需要一个队列 [`Queue`](#https://docs.python.org/3/library/queue.html) 对象来允许我们轻松访问来自相机的数据（因为相机传感器在其自己的线程上运行，与运行脚本的主 Python 线程分开）。
 
@@ -120,7 +120,7 @@ controller.start()
 controller.go_to_location(world.get_random_location_from_navigation())
 ```
 
-现在，行人将随着仿真的每次推进 (`world.tick()`) 自主移动。
+现在，行人将随着模拟的每次推进 (`world.tick()`) 自主移动。
 
 ## 相机几何 <span id="camera_projection_matrix"></span>
 
@@ -145,7 +145,7 @@ def build_projection_matrix(w, h, fov):
 
 ## 构建骨架 <span id="build_skeleton"></span>
 
-现在我们可以将活动部件组装在一起。首先，使用 `pedestrian.get_bones()` 从仿真中收集骨骼坐标，然后将骨骼组合在一起并将其投影到相机传感器的二维成像平面上。使用skeletal.txt中定义的对将骨骼连接成完整的骨架，您可以在 [__此处__](https://carla-assets.s3.eu-west-3.amazonaws.com/fbx/skeleton.txt) 下载该文件。
+现在我们可以将活动部件组装在一起。首先，使用 `pedestrian.get_bones()` 从模拟中收集骨骼坐标，然后将骨骼组合在一起并将其投影到相机传感器的二维成像平面上。使用skeletal.txt中定义的对将骨骼连接成完整的骨架，您可以在 [__此处__](https://carla-assets.s3.eu-west-3.amazonaws.com/fbx/skeleton.txt) 下载该文件。
 
 我们需要一个函数来迭代 __sculpture.txt__ 中定义的骨骼对，并将骨骼坐标连接到可以覆盖到相机传感器图像上的线中。
 
@@ -273,7 +273,7 @@ for frame in range(0,360):
 
 ## 总结 <span id="conclusion"></span>
 
-在本教程中，您学习了如何使用 AI 控制器生成行人，恢复行人骨骼的真实三维坐标，并将这些骨骼投影到相机传感器捕获的二维图像上。您可以使用本教程中学到的技术，使用 Carla 仿真器为人体姿势估计框架设置训练和验证，完整代码[链接](https://github.com/OpenHUTB/carla_doc/blob/master/src/tuto_G_pedestrian_navigation.py)。
+在本教程中，您学习了如何使用 AI 控制器生成行人，恢复行人骨骼的真实三维坐标，并将这些骨骼投影到相机传感器捕获的二维图像上。您可以使用本教程中学到的技术，使用 Carla 模拟器为人体姿势估计框架设置训练和验证，完整代码[链接](https://github.com/OpenHUTB/carla_doc/blob/master/src/tuto_G_pedestrian_navigation.py)。
 
 
 

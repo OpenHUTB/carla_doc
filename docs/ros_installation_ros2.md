@@ -17,7 +17,7 @@
 在使用ROS桥之前，您需要满足以下软件要求：
 
 - 安装 ROS:
-    - [__ROS 2 Foxy__](https://docs.ros.org/en/foxy/Installation.html) — 针对 Ubuntu 20.04 (Focal)
+    - [__ROS 2 Foxy__](https://docs.ros.org/en/foxy/Installation/Ubuntu-Install-Debians.html) — 针对 Ubuntu 20.04 (Focal)
 -根据您的需要，可能需要额外的 ROS 包。强烈建议是用 [rviz](https://wiki.ros.org/rviz) 将ROS数据可视化。
 - CARLA 0.9.11或更高版本——以前的版本与ROS桥不兼容。遵循[快速启动安装](https://carla.readthedocs.io/en/latest/start_quickstart/) 或者为 [Linux构建](https://carla.readthedocs.io/en/latest/build_linux/) 。建议尽可能将ROS桥接版本与CARLA版本相匹配。
 
@@ -38,7 +38,7 @@ git clone --recurse-submodules https://github.com/carla-simulator/ros-bridge.git
 __2.__ 设置 ROS 环境：
 
 ```sh
-    source /opt/ros/foxy/setup.bash
+source /opt/ros/foxy/setup.bash
 ```
 
 __3.__ 安装 ROS 依赖：
@@ -130,3 +130,15 @@ __2.__ Run the tests:
 ```
 
 ---
+
+## Windows下安装
+根据[链接](https://docs.ros.org/en/foxy/Installation/Windows-Install-Binary.html) 安装ROS2。
+
+1.根据[链接](https://chocolatey.org/install?_gl=1*1t2vzhg*_ga*MjA0Njg1OTQ3NC4xNzI3MzQ2NDc2*_ga_0WDD29GGN2*MTcyNzM0NjQ3Ni4xLjEuMTcyNzM0NjUxMS4wLjAuMA..) 安装chocolate
+使用PowerShell运行`Get-ExecutionPolicy`，如果返回`Restricted`，然后运行`Set-ExecutionPolicy AllSigned`。
+
+然后运行
+```shell
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+```
+

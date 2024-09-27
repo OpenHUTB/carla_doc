@@ -1,6 +1,6 @@
 ## [控制台命令](https://blog.csdn.net/somnusand/article/details/115511383) 
 
-启动仿真后，输入`~`键调用控制台命令。
+启动模拟后，输入`~`键调用控制台命令。
 
 `stat rhi`: Rendering Hardware Interface，显示RHI内存和性能统计数据。
 

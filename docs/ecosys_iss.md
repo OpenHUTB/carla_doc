@@ -14,13 +14,13 @@
 
 
 
-## 仿真器示例
+## 模拟器示例
 
-目前，智能驾驶系统框架能够使用仿真器生成的数据来部署和测试算法。将 Carla 仿真器的传感器数据集成到我们的框架中后，我们可以评估一系列算法。此外，可以采用相应的控制算法来操纵仿真车辆。以下是一些演示。
+目前，智能驾驶系统框架能够使用模拟器生成的数据来部署和测试算法。将 Carla 模拟器的传感器数据集成到我们的框架中后，我们可以评估一系列算法。此外，可以采用相应的控制算法来操纵模拟车辆。以下是一些演示。
 
 <!-- ![type:video](img/ecosys_iss/following_1.mp4) --> 
 ![ISS Architecture](img/ecosys_iss/following_1.gif)
-<center> Carla 仿真器中 PointPillar 3D 检测算法的实时演示 </center>
+<center> Carla 模拟器中 PointPillar 3D 检测算法的实时演示 </center>
 <p> </p>
 
 ![ISS Architecture](img/ecosys_iss/local_planning.gif)
@@ -30,7 +30,7 @@
 
 
 ## 微型车演示
-除了仿真结果之外，如果来自真实微型汽车的传感器数据通过 ROS 传输回 ISS，则 ISS 框架可以利用传感器数据完成各种任务并对物理微型汽车进行控制。我们在下面展示了三个视频，展示了 ISS 与真实微型汽车的互动。
+除了模拟结果之外，如果来自真实微型汽车的传感器数据通过 ROS 传输回 ISS，则 ISS 框架可以利用传感器数据完成各种任务并对物理微型汽车进行控制。我们在下面展示了三个视频，展示了 ISS 与真实微型汽车的互动。
 
 ![ISS Architecture](img/ecosys_iss/nav_indoor_small.gif)
 

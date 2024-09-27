@@ -35,7 +35,7 @@ Python API 充当高级查询系统来导航这些道路。它不断发展以提
 
 ### 改变地图 <span id="changing-the-map"></span>
 
-__要改变地图，世界也必须改变__。将从头开始重新创建仿真。您可以在新世界中使用相同的地图重新启动，也可以更改地图和世界：
+__要改变地图，世界也必须改变__。将从头开始重新创建模拟。您可以在新世界中使用相同的地图重新启动，也可以更改地图和世界：
 
 - `reload_world()` 使用相同的地图创建世界的新实例。
 - `load_world()` 改变当前地图并创建一个新世界。
@@ -59,7 +59,7 @@ OpenDRIVE 文件中定义的交通标志将转换为 Carla，作为可从 API �
 	- [`carla.LandmarkType`](https://carla.readthedocs.io/en/latest/python_api/#carla.LandmarkType) 包含常见的地标类型，以便于转换为 OpenDRIVE 类型。
 - __[`carla.Waypoint`](https://carla.readthedocs.io/en/latest/python_api/#carla.Waypoint)__ 可以获得位于其前方一定距离的地标。可以指定要获取的地标类型。
 - __[`carla.Map`](https://carla.readthedocs.io/en/latest/python_api/#carla.Map)__ 检索地标集。它可以返回地图中的所有地标，或者具有共同 ID、类型或组的地标。
-- __[`carla.World`](https://carla.readthedocs.io/en/latest/python_api/#carla.World)__ 充当地标、仿真中代表他们的`carla.TrafficSign` 和 `carla.TrafficLight` 之间的中间。
+- __[`carla.World`](https://carla.readthedocs.io/en/latest/python_api/#carla.World)__ 充当地标、模拟中代表他们的`carla.TrafficSign` 和 `carla.TrafficLight` 之间的中间。
 
 ```py
 my_waypoint.get_landmarks(200.0,True)
@@ -289,7 +289,7 @@ Carla 生态系统中有八个城镇，每个城镇都有两种地图，非分�
 
 ## 自定义地图  <span id="custom-maps"></span>
 
-Carla 旨在针对专业应用程序进行可扩展和高度定制。因此，除了 Carla 中现有的许多地图和资产之外，还可以创建和导入新的地图、道路网络和资产，以填充 Carla 仿真中的定制环境。以下文档详细介绍了构建和集成自定义地图所需的步骤：
+Carla 旨在针对专业应用程序进行可扩展和高度定制。因此，除了 Carla 中现有的许多地图和资产之外，还可以创建和导入新的地图、道路网络和资产，以填充 Carla 模拟中的定制环境。以下文档详细介绍了构建和集成自定义地图所需的步骤：
 
 * [__概述__](tuto_M_custom_map_overview.md)
 * [__道路涂装__](tuto_M_custom_road_painter.md)

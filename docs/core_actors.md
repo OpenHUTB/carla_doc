@@ -1,6 +1,6 @@
 # 第二、参与者和蓝图
 
-Carla 中的参与者是在仿真中执行动作的元素，他们可以影响其他参与者。Carla 的参与者包括车辆和行人，也包括传感器、交通标志、红绿灯和观看者。对如何操作它们有充分的了解是至关重要的。 
+Carla 中的参与者是在模拟中执行动作的元素，他们可以影响其他参与者。Carla 的参与者包括车辆和行人，也包括传感器、交通标志、红绿灯和观看者。对如何操作它们有充分的了解是至关重要的。 
 
 本节将介绍生成、销毁、类型以及如何管理它们。然而，可能性几乎是无穷无尽的。实验、查看本文档中的 __教程__，并在 [Carla 论坛](https://github.com/carla-simulator/carla/discussions/) 中分享疑虑和想法。
 
@@ -20,7 +20,7 @@ Carla 中的参与者是在仿真中执行动作的元素，他们可以影响�
 ---
 ## 蓝图 <span id="blueprints"></span>
 
-这些布局允许用户将新的参与者平滑地结合到仿真中。它们已经是带有动画和一系列属性的模型。其中一些是可修改的，而另一些则不是。这些属性包括车辆颜色、激光雷达传感器中的通道数量、行人的速度等等。
+这些布局允许用户将新的参与者平滑地结合到模拟中。它们已经是带有动画和一系列属性的模型。其中一些是可修改的，而另一些则不是。这些属性包括车辆颜色、激光雷达传感器中的通道数量、行人的速度等等。
 
 [蓝图库](bp_library.md) 列出了可用的蓝图及其属性。车辆和行人蓝图具有一个生成属性，用于指示它们是新的（第 2 代）资产还是旧的（第 1 代）资产。
 
@@ -137,7 +137,7 @@ actor.set_simulate_physics(False)
 除此之外，参与者还有他们的蓝图提供的标签。这些对于语义分割传感器最有用。
 
 !!! 笔记
-    大多数方法是异步向仿真器发送请求。仿真器每次更新解析它们的时间有限。使用 _set()_ 方法淹没仿真器将积累明显的延迟。
+    大多数方法是异步向模拟器发送请求。模拟器每次更新解析它们的时间有限。使用 _set()_ 方法淹没模拟器将积累明显的延迟。
 
 
 ### 销毁 <span id="destruction"></span>
@@ -149,7 +149,7 @@ destroyed_sucessfully = actor.destroy() # 如果成功返回 True
 ```
 
 !!! 重要
-    销毁参与者会阻塞仿真器，直到该过程完成。
+    销毁参与者会阻塞模拟器，直到该过程完成。
 
 ---
 
@@ -173,7 +173,7 @@ camera.listen(lambda image: image.save_to_disk('output/%06d.png' % image.frame))
 
 ### 观察者 <span id="spectator"></span>
 
-由虚幻引擎放置以提供游戏内的视角。它可用于移动仿真器窗口的视角。以下示例将移动观众参与者，将视角指向所需的车辆。
+由虚幻引擎放置以提供游戏内的视角。它可用于移动模拟器窗口的视角。以下示例将移动观众参与者，将视角指向所需的车辆。
 
 ```py
 spectator = world.get_spectator()
@@ -184,10 +184,10 @@ carla.Rotation(pitch=-90)))
 
 ### 交通标志和交通灯 <span id="traffic-signs-and-traffic-lights"></span>
 
-到目前为止，Carela 中只有停靠点、让行路线和交通信号灯被视为参与者。其余的 OpenDRIVE 标志可通过 API 作为地标（[__carla.Landmark__](python_api.md#carla.Landmark)）进行访问。他们的信息可以使用这些实例访问，但他们在仿真中并不作为参与者存在。在接下来的 __第 3 部分 地图和导航__ 中将更详细地解释地标。 
+到目前为止，Carela 中只有停靠点、让行路线和交通信号灯被视为参与者。其余的 OpenDRIVE 标志可通过 API 作为地标（[__carla.Landmark__](python_api.md#carla.Landmark)）进行访问。他们的信息可以使用这些实例访问，但他们在模拟中并不作为参与者存在。在接下来的 __第 3 部分 地图和导航__ 中将更详细地解释地标。 
 
 
-当仿真开始、停止、让行和交通灯时，会使用 OpenDRIVE 文件中的信息自动生成。__这些都无法在蓝图库中找到__，因此无法生成。
+当模拟开始、停止、让行和交通灯时，会使用 OpenDRIVE 文件中的信息自动生成。__这些都无法在蓝图库中找到__，因此无法生成。
 
 !!! 笔记
     OpenDRIVE 文件中的 Carela 地图没有交通标志或信号灯。这些是由开发人员手动放置的。 
@@ -215,7 +215,7 @@ if traffic_light.get_state() == carla.TrafficLightState.Red:
 
 ### 车辆 <span id="vehicles"></span>
 
-[__carla.Vehicle__](python_api.md#carla.Vehicle) 是一种特殊类型的参与者。它采用了仿真轮式车辆物理特性的特殊内部组件。这是通过应用四种不同的控件来实现的：
+[__carla.Vehicle__](python_api.md#carla.Vehicle) 是一种特殊类型的参与者。它采用了模拟轮式车辆物理特性的特殊内部组件。这是通过应用四种不同的控件来实现的：
 
 * __[carla.VehicleControl](python_api.md#carla.VehicleControl)__ 提供油门、转向、刹车等驾驶命令的输入。
 ```py
@@ -251,7 +251,7 @@ vehicle.apply_physics_control(physics_control)
 
 车辆还包括其独有的其他功能：
 
-* __自动驾驶模式__ 会将车辆订阅到 [交通管理器](adv_traffic_manager.md) 以仿真真实的城市状况。该模块是硬编码的，不是基于机器学习的。
+* __自动驾驶模式__ 会将车辆订阅到 [交通管理器](adv_traffic_manager.md) 以模拟真实的城市状况。该模块是硬编码的，不是基于机器学习的。
 
 ```py
 vehicle.set_autopilot(True)

@@ -5,9 +5,9 @@
 在本指南结束时，您将了解：
 
 - 在 Carla 上运行 Scenic 脚本所需的最低要求。
-- 如何编写简单的场景定义来生成大量场景仿真。
+- 如何编写简单的场景定义来生成大量场景模拟。
 - 如何在 Carla 上运行 Scenic 脚本。
-- 用于在 Carla 上配置场景仿真的参数。
+- 用于在 Carla 上配置场景模拟的参数。
 
 ---
 
@@ -30,7 +30,7 @@
 
 ## Scenic 域 <span id="scenic_domains"></span>
 
-Scenic 有一个通用驾驶域，允许用户定义可以在任何驾驶仿真器上运行的场景。此外，它还有特定于每个仿真器的其他域。请在 [此处](https://scenic-lang.readthedocs.io/en/latest/libraries.html) 查看有关 Scenic 域的更多信息。
+Scenic 有一个通用驾驶域，允许用户定义可以在任何驾驶模拟器上运行的场景。此外，它还有特定于每个模拟器的其他域。请在 [此处](https://scenic-lang.readthedocs.io/en/latest/libraries.html) 查看有关 Scenic 域的更多信息。
 
 每个领域中特别重要的是行为和动作的定义。检查以下链接，获取有关 Scenic 驾驶域和 Carla 域的行为和操作的参考材料：
 
@@ -49,7 +49,7 @@ Scenic 有一个通用驾驶域，允许用户定义可以在任何驾驶仿真�
 __1.__ 设置地图参数并声明场景使用的模型：
 
 - 应将 `.xodr` 文件设置为 [`map`][scenic_map] 参数值，稍后将使用该文件生成道路网络信息。 
-- 参数 `carla_map` 是指您想要在仿真中使用的 Carla 地图的名称。如果已定义，则 Scenic 将加载地图的所有资产（建筑物、树木等），如果未定义，则将使用 [OpenDRIVE 独立模式](adv_opendrive.md) 。
+- 参数 `carla_map` 是指您想要在模拟中使用的 Carla 地图的名称。如果已定义，则 Scenic 将加载地图的所有资产（建筑物、树木等），如果未定义，则将使用 [OpenDRIVE 独立模式](adv_opendrive.md) 。
 - 该模型包括特定于 Carla 上运行场景的所有实用程序。这应该在您想要在 Carla 上运行的所有脚本中定义。
 
 ```scenic
@@ -176,12 +176,12 @@ Carla 模型提供了几个全局参数，可以在使用 [`param` 语句](https
 | 名称          | 值              | 描述                                                                                                                          |
 |-------------|----------------|-----------------------------------------------------------------------------------------------------------------------------|
 | `carla_map` | `str`          | 要使用的 Carla 地图的名称（例如“Town01”）。如果设置为``None``，Carla 将尝试使用 [`map`][scenic_map] 参数中定义的 `.xodr` 文件在 OpenDRIVE 独立模式下创建世界。          |
-| `timestep`  | `float`        | 用于仿真的时间步长（Scenic 中断 Carla 运行行为、检查需求等的频率）以秒为单位。默认值为 0.1 秒。                                                                   |
-| `weather`   | `str` 或 `dict` | 用于天气的仿真。可以是标识 Carla 天气预设之一的字符串（例如“ClearSunset”），也可以是指定所有 [天气参数](python_api.md#carla.WeatherParameters) 的字典。默认值是所有天气预设的均匀分布。 |
+| `timestep`  | `float`        | 用于模拟的时间步长（Scenic 中断 Carla 运行行为、检查需求等的频率）以秒为单位。默认值为 0.1 秒。                                                                   |
+| `weather`   | `str` 或 `dict` | 用于天气的模拟。可以是标识 Carla 天气预设之一的字符串（例如“ClearSunset”），也可以是指定所有 [天气参数](python_api.md#carla.WeatherParameters) 的字典。默认值是所有天气预设的均匀分布。 |
 | `address`   | `str`          | 连接到 Carla 的 IP 地址。默认值为本地主机 (127.0.0.1)。                                                                                     |
 | `port`      | `int`          | 连接至 Carla 的端口。默认值为 2000。                                                                                                    |
 | `timeout`   | `float`        | 尝试连接到 Carla 时等待的最长时间（以秒为单位）。默认值为 10。                                                                                        |
-| `render`    | `int`          | 是否让 Carla 创建一个窗口，从自我客体的角度显示仿真：`1`是，`0`否。默认`1`。                                                                              |
-| `record`    | `str`          | 如果非空，则保存用于重放仿真的 Carla 记录文件的文件夹。         |
+| `render`    | `int`          | 是否让 Carla 创建一个窗口，从自我客体的角度显示模拟：`1`是，`0`否。默认`1`。                                                                              |
+| `record`    | `str`          | 如果非空，则保存用于重放模拟的 Carla 记录文件的文件夹。         |
 
 <br>

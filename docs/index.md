@@ -32,13 +32,13 @@ title: 主页
 
 [__基础__](foundations.md) — Carla 服务器和客户端进行操作和通信所需的基本概念
 
-[__第一、 世界和客户端__](core_world.md) — 管理和访问仿真
+[__第一、 世界和客户端__](core_world.md) — 管理和访问模拟
 
 [__第二、 参与者和蓝图__](core_actors.md) — 了解参与者以及如何处理它们
 
 [__第三、地图和导航__](core_map.md) — 发现不同的地图以及车辆如何移动
 
-[__第四、 传感器和数据__](core_sensors.md) — 使用传感器检索仿真数据
+[__第四、 传感器和数据__](core_sensors.md) — 使用传感器检索模拟数据
 
 [__开发__](development_tutorials.md) — 创建自定义功能或内容
 
@@ -51,11 +51,11 @@ title: 主页
 
 ## 交通
 
-[__交通仿真概述__](ts_traffic_simulation_overview.md) — 可用于使用交通填充场景的不同选项的概述
+[__交通模拟概述__](ts_traffic_simulation_overview.md) — 可用于使用交通填充场景的不同选项的概述
 
-[__交通管理器__](adv_traffic_manager.md) — 通过将车辆设置为自动驾驶模式来仿真城市交通
+[__交通管理器__](adv_traffic_manager.md) — 通过将车辆设置为自动驾驶模式来模拟城市交通
 
-[__和 SUMO 协同仿真__](adv_sumo.md) — 在 Carla 和 SUMO 之间运行协同仿真
+[__和 SUMO 协同模拟__](adv_sumo.md) — 在 Carla 和 SUMO 之间运行协同模拟
 
 [__Scenic__](tuto_G_scenic.md) — 遵循使用 Scenic 库定义不同场景的示例
 
@@ -66,7 +66,7 @@ title: 主页
 
 [__控制行人骨架__](tuto_G_control_walker_skeletons.md) — 使用骨骼为行人设置动画
 
-[__行人视觉__](tuto_G_pedestrian_visual.md) — 使用相机进行人眼的仿真
+[__行人视觉__](tuto_G_pedestrian_visual.md) — 使用相机进行人眼的模拟
 
 [__生成行人导航__](tuto_M_generate_pedestrian_navigation.md) — 获取行人四处走动所需的信息
 
@@ -77,13 +77,13 @@ title: 主页
 
 [__OpenDRIVE 独立模式__](adv_opendrive.md) — 使用任何 OpenDRIVE 文件作为 Carla 地图
 
-[__记录器__](adv_recorder.md) — 在仿真中录制事件并再次播放
+[__记录器__](adv_recorder.md) — 在模拟中记录事件并再次播放
 
 [__渲染选项__](adv_rendering_options.md) — 从质量设置到不渲染或离屏模式
 
 [__责任敏感安全__](adv_rss.md) — Carla 客户端库中的责任敏感安全实现
 
-[__同步和时间步长__](adv_synchrony_timestep.md) — 客户端-服务器通信和仿真时间
+[__同步和时间步长__](adv_synchrony_timestep.md) — 客户端-服务器通信和模拟时间
 
 [__Carla 代理__](adv_agents.md) — 代理脚本允许单个车辆在地图上漫游或开车到设定的目的地
 
@@ -119,7 +119,7 @@ title: 主页
 
 [__自定义地图：天气和景观__](tuto_M_custom_weather_landscape.md) — 为您的自定义地图创建天气配置文件并填充景观
 
-[__使用 OpenStreetMap 生成地图__](tuto_G_openstreetmap.md) — 使用 OpenStreetMap 生成用于仿真的地图
+[__使用 OpenStreetMap 生成地图__](tuto_G_openstreetmap.md) — 使用 OpenStreetMap 生成用于模拟的地图
 
 [__自定义地图：程序建筑__](tuto_M_custom_buildings.md) — 用建筑物填充您的自定义地图
 
@@ -140,7 +140,7 @@ title: 主页
 
 [__控制车辆物理模型__](tuto_G_control_vehicle_physics.md) — 设置车辆物理的运行时的变化
 
-[__检索仿真数据__](tuto_G_retrieve_data.md) — 使用记录器正确收集数据的分步指南
+[__检索模拟数据__](tuto_G_retrieve_data.md) — 使用记录器正确收集数据的分步指南
 
 [__在 Docker 中构建虚幻引擎和 Carla__](build_docker_unreal.md) — 在 Docker 中构建虚幻引擎和 Carla
 
@@ -185,27 +185,27 @@ title: 主页
 
 [__交通场景__](scenario_runner.md) — 基于 Carla 交通场景定义和执行引擎
 
-[__Web 可视化器__](plugins_carlaviz.md) — 侦听仿真并在网络浏览器中显示场景和一些仿真数据的插件
+[__Web 可视化器__](plugins_carlaviz.md) — 侦听模拟并在网络浏览器中显示场景和一些模拟数据的插件
 
 [__ROS__](ros_documentation.md) — 机器人操作系统桥接器的简要概述和完整文档的链接
 
 [__有限元变形材料虚幻插件__](ecosys_femfx.md) — 用[有限元法用于变形材料物理的多线程 CPU 库](https://github.com/GPUOpen-Effects/FEMFX) 
 
-[__CarSim 集成__](tuto_G_carsim_integration.md) — 关于如何使用 CarSim 车辆动力学引擎运行仿真的教程
+[__CarSim 集成__](tuto_G_carsim_integration.md) — 关于如何使用 CarSim 车辆动力学引擎运行模拟的教程
 
 [__RLlib 集成__](tuto_G_rllib_integration.md) — 了解如何使用 RLlib 库运行您自己的实验
 
-[__Chrono 集成__](tuto_G_chrono.md) — 使用 Chrono 积分来仿真物理
+[__Chrono 集成__](tuto_G_chrono.md) — 使用 Chrono 积分来模拟物理
 
-[__OpenRadios 有限元仿真__](OpenRadioss/use_OpenRadioss_windows.md) — 针对动态负载下的高度非线性问题评估和优化产品性能
+[__OpenRadios 有限元模拟__](OpenRadioss/use_OpenRadioss_windows.md) — 针对动态负载下的高度非线性问题评估和优化产品性能
 
-[__PTV-Vissim 联合仿真__](adv_ptv.md) — 在 Carla 和 PTV-Vissim 之间运行协同仿真
+[__PTV-Vissim 联合模拟__](adv_ptv.md) — 在 Carla 和 PTV-Vissim 之间运行协同模拟
 
 [__Ansys 实时雷达模型__](ecosys_ansys.md) — 有关 Ansys RTR 网络研讨会的详细信息
 
 [__Matlab 接口__](https://github.com/darkscyla/MATLAB-Carla-Interface) 使用 Python 和 ROS 在 Matlab 中调用 Python
 
-[__罗技 G29 方向盘__](tuto_G_G29_windows.md) — 使用罗技方向盘进行车辆控制和仿真对方向盘的反向控制
+[__罗技 G29 方向盘__](tuto_G_G29_windows.md) — 使用罗技方向盘进行车辆控制和模拟对方向盘的反向控制
 
 [__OpenSCENARIO 播放器__](tuto_G_esmini.md) — 基本的 OpenSCENARIO 播放器
 

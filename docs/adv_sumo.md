@@ -1,10 +1,10 @@
 
-# [和 SUMO 进行联合仿真](https://carla.readthedocs.io/en/latest/adv_sumo/) 
+# [和 SUMO 进行联合模拟](https://carla.readthedocs.io/en/latest/adv_sumo/) 
 
-Carla 与 SUMO 开发了联合仿真功能。这允许随意分配任务，并利用每个仿真的功能来支持用户。
+Carla 与 SUMO 开发了联合模拟功能。这允许随意分配任务，并利用每个模拟的功能来支持用户。
 
 * [__必备条件__](#requisites)   
-* [__运行自定义联合仿真__](#run-a-custom-co-simulation)  
+* [__运行自定义联合模拟__](#run-a-custom-co-simulation)  
     *   [创建 Carla vtypes](#create-carla-vtypes)  
     *   [创建 SUMO 网络](#create-the-sumo-net)  
     *   [运行同步](#run-the-synchronization)  
@@ -14,16 +14,16 @@ Carla 与 SUMO 开发了联合仿真功能。这允许随意分配任务，并�
 ---
 ## 必备条件 <span id="requisites"></span>
 
-首先，需要 [__安装 SUMO__](https://sumo.dlr.de/docs/Installing.html) 才能运行联合仿真。建议从源代码构建而不是简单安装，因为有新功能和修复可以改进协同仿真。
+首先，需要 [__安装 SUMO__](https://sumo.dlr.de/docs/Installing.html) 才能运行联合模拟。建议从源代码构建而不是简单安装，因为有新功能和修复可以改进协同模拟。
 
 完成后，设置 SUMO 环境变量。
 ```sh
 echo "export SUMO_HOME=/usr/share/sumo" >> ~/.bashrc && source ~/.bashrc
 ```
 
-SUMO 已准备好运行联合仿真。 `Co-Simulation/Sumo/examples` 中有一些 __Town01__, __Town04__ 和 __Town05__ 的示例。这些文件描述了仿真的配置（例如网络、路线、车辆类型...）。使用其中之一来测试联合仿真。该脚本有不同的选项，[下面](#run-the-synchronization) 将详细介绍。现在，让我们为 __Town04__ 运行一个简单的示例。
+SUMO 已准备好运行联合模拟。 `Co-Simulation/Sumo/examples` 中有一些 __Town01__, __Town04__ 和 __Town05__ 的示例。这些文件描述了模拟的配置（例如网络、路线、车辆类型...）。使用其中之一来测试联合模拟。该脚本有不同的选项，[下面](#run-the-synchronization) 将详细介绍。现在，让我们为 __Town04__ 运行一个简单的示例。
 
-使用 __Town04__ 运行 Carla 仿真。  
+使用 __Town04__ 运行 Carla 模拟。  
 ```sh
 cd ~/carla
 ./CarlaUE4.sh
@@ -31,7 +31,7 @@ cd PythonAPI/util
 python3 config.py --map Town04
 ```
 
-然后，运行 SUMO 联合仿真示例。  
+然后，运行 SUMO 联合模拟示例。  
 ```sh
 cd ~/carla/Co-Simulation/Sumo
 python3 run_synchronization.py examples/Town04.sumocfg  --sumo-gui
@@ -41,7 +41,7 @@ python3 run_synchronization.py examples/Town04.sumocfg  --sumo-gui
     
 
 ---
-## 运行自定义联合仿真 <span id="run-a-custom-co-simulation"></span>
+## 运行自定义联合模拟 <span id="run-a-custom-co-simulation"></span>
 
 ### 创建 Carla vtypes <span id="create-carla-vtypes"></span>
 
@@ -54,7 +54,7 @@ python3 run_synchronization.py examples/Town04.sumocfg  --sumo-gui
 该脚本使用 `data/vtypes.json` 存储的信息来创建 SUMO *vtypes*。这些可以通过编辑所述文件来修改。
 
 !!! 笔记
-    必须运行 Carla 仿真才能执行该脚本。
+    必须运行 Carla 模拟才能执行该脚本。
 
 ### 创建 SUMO 网络 <span id="create-the-sumo-net"></span>
 
@@ -66,11 +66,11 @@ python3 run_synchronization.py examples/Town04.sumocfg  --sumo-gui
 
 该脚本的输出将是`.net.xml`可以使用 __[NETEDIT](https://sumo.dlr.de/docs/NETEDIT.html)__ 进行编辑的。使用它来编辑路线、添加需求，并最终准备一个可以保存为 `.sumocfg`。 
 
-在此过程中提供的示例可能会有所帮助。看一眼`Co-Simulation/Sumo/examples`。对于每个`example.sumocfg`文件，都有多个同名的相关文件。所有这些都包含一个联合仿真示例。
+在此过程中提供的示例可能会有所帮助。看一眼`Co-Simulation/Sumo/examples`。对于每个`example.sumocfg`文件，都有多个同名的相关文件。所有这些都包含一个联合模拟示例。
 
 ### 运行同步 <span id="run-the-synchronization"></span>
 
-一旦仿真准备就绪并保存为`.sumocfg`，就可以运行了。有一些可选参数可以更改协同仿真的设置。
+一旦模拟准备就绪并保存为`.sumocfg`，就可以运行了。有一些可选参数可以更改协同模拟的设置。
 
 *   __`sumo_cfg_file`__ — SUMO 配置文件。
 *   __`--carla-host`__ *(默认值：127.0.0.1)* — Carla 主机服务器的 IP
@@ -78,23 +78,23 @@ python3 run_synchronization.py examples/Town04.sumocfg  --sumo-gui
 *   __`--sumo-host`__ *(默认值：127.0.0.1)* — SUMO 主机服务器的 IP。
 *   __`--sumo-port`__ *(默认值：8813)* — 要侦听的 TCP 端口。
 *   __`--sumo-gui`__ — 打开一个窗口以可视化 SUMO 的 GUI 版本。
-*   __`--step-length`__ *(默认值：0.05s)* — 设置仿真时间步长的固定增量秒。 
+*   __`--step-length`__ *(默认值：0.05s)* — 设置模拟时间步长的固定增量秒。 
 *   __`--sync-vehicle-lights`__ *(默认值：False)* — 同步车灯。 
 *   __`--sync-vehicle-color`__ *(默认值：False)* — 同步车辆颜色。
 *   __`--sync-vehicle-all`__ *(默认值：False)* — 同步所有车辆属性。 
-*   __`--tls-manager`__ *(默认值：none)* — 选择哪个仿真器应管理交通灯。另一个将相应地更新这些内容。选项有 `carla`, `sumo` 和 `none`。如果选择 `none` ，交通信号灯将不同步。每辆车只会遵守生成它的仿真器中的交通灯。
+*   __`--tls-manager`__ *(默认值：none)* — 选择哪个模拟器应管理交通灯。另一个将相应地更新这些内容。选项有 `carla`, `sumo` 和 `none`。如果选择 `none` ，交通信号灯将不同步。每辆车只会遵守生成它的模拟器中的交通灯。
 
 ```sh
 python3 run_synchronization.py <SUMOCFG FILE> --tls-manager carla --sumo-gui
 ```
 
 !!! 笔记
-    要停止联合仿真，请在运行脚本的终端按 `Ctrl+C` 。
+    要停止联合模拟，请在运行脚本的终端按 `Ctrl+C` 。
 
 ---
 ## 由 SUMO 控制的 NPC 生成 <span id="spawn-npcs-controlled-by-sumo"></span>
 
-与 SUMO 的联合仿真带来了一项附加功能。车辆可以通过 SUMO 在 Carla 中生成，并由后者进行管理，就像交通管理器一样。
+与 SUMO 的联合模拟带来了一项附加功能。车辆可以通过 SUMO 在 Carla 中生成，并由后者进行管理，就像交通管理器一样。
 
 脚本 `spawn_npc_sumo.py` 几乎等同于已知的 `generate_traffic.py`。该脚本根据 Carla 中的活动城镇自动在临时文件夹中生成 SUMO 网络。该脚本将创建随机路线并让车辆四处漫游。
 
@@ -106,11 +106,11 @@ python3 run_synchronization.py <SUMOCFG FILE> --tls-manager carla --sumo-gui
 *   __`--safe`__ — 避免生成车辆容易发生事故。
 *   __`--filterv`__ *(默认值："vehicle.*")* — 过滤生成的车辆的蓝图。
 *   __`--sumo-gui`__ — 打开一个窗口来可视化 SUMO。
-*   __`--step-length`__ *(默认值：0.05s)* — 设置仿真时间步长的固定增量秒。  
+*   __`--step-length`__ *(默认值：0.05s)* — 设置模拟时间步长的固定增量秒。  
 *   __`--sync-vehicle-lights`__ *(默认值：False)* — 同步车灯状态。 
 *   __`--sync-vehicle-color`__ *(默认值：False)* — 同步车辆颜色。
 *   __`--sync-vehicle-all`__ *(默认值： False)* — 同步所有车辆属性。 
-*   __`--tls-manager`__ *(默认值： none)* — 选择哪个仿真器来更改交通灯的状态。另一个将相应地更新它们。如果是`none`，交通信号灯将不同步。
+*   __`--tls-manager`__ *(默认值： none)* — 选择哪个模拟器来更改交通灯的状态。另一个将相应地更新它们。如果是`none`，交通信号灯将不同步。
 
 ```sh
 # 生成 10 辆车，由 SUMO 管理，而不是交通管理器
@@ -122,7 +122,7 @@ python3 spawn_sumo_npc.py -n 10 --tls-manager carla --sumo-gui
 
 ---
 
-到目前为止，这就是与 Carla 进行 SUMO 联合仿真的全部内容。
+到目前为止，这就是与 Carla 进行 SUMO 联合模拟的全部内容。
 
 打开 Carla 并闲逛一会儿。如果有任何疑问，请随时在论坛中发布。
 

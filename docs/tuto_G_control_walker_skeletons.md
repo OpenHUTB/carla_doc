@@ -4,7 +4,7 @@
 
 *   [__行人骨骼结构__](#walker-skeleton-structure)  
 *   [__手动控制行人骨骼__](#manually-control-walker-bones)  
-	*   [连接到仿真器](#connect-to-the-simulator)  
+	*   [连接到模拟器](#connect-to-the-simulator)  
 	*   [生成行人](#spawn-a-walker)  
 	*   [控制行人骨骼](#control-walker-skeletons)  
 
@@ -92,7 +92,7 @@ crl_root
 
 以下是如何通过 Carla Python API 更改行人骨骼变换的详细分步示例。
 
-### 连接到仿真器 <span id="connect-to-the-simulator"></span>
+### 连接到模拟器 <span id="connect-to-the-simulator"></span>
 
 导入本例中使用的必要库
 
@@ -135,3 +135,6 @@ world.player.apply_control(control)
 ```
 
 
+## 可视化行人骨架
+
+[可视化骨架代码](https://github.com/OpenHUTB/carla_doc/blob/master/src/walker/draw_skeleton.py) 

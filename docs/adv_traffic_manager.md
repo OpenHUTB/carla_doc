@@ -7,7 +7,7 @@
 	- [概述](#overview)
 	- [代理的生命周期和状态管理](#alsm)
 	- [车辆注册表](#vehicle-registry)
-	- [仿真状态](#simulation-state)
+	- [模拟状态](#simulation-state)
 	- [控制循环](#control-loop)
 	- [内存地图](#in-memory-map)
 	- [路径缓存和车辆轨迹](#pbvt)
@@ -23,16 +23,16 @@
 - [__混合物理模式__](#hybrid-physics-mode)
 - [__运行多个交通管理器__](#running-multiple-traffic-managers)
 	- [交通管理器服务端和客户端](#traffic-manager-servers-and-clients)
-	- [多客户端仿真](#multi-client-simulations)
-	- [多交通管理器仿真](#multi-tm-simulations)
-	- [多重仿真](#multi-simulation)
+	- [多客户端模拟](#multi-client-simulations)
+	- [多交通管理器模拟](#multi-tm-simulations)
+	- [多重模拟](#multi-simulation)
 - [__同步模式__](#synchronous-mode)
 - [__大地图中的交通管理器__](#traffic-manager-in-large-maps)
 
 ---
 ## 什么是交通管理器？ <span id="what-is-the-traffic-manager"></span>
 
-交通管理器 (Traffic Manager, TM) 是在仿真中以自动驾驶模式控制车辆的模块。其目标是在仿真中填充真实的城市交通状况。用户可以自定义一些行为，例如设置特定的学习环境。
+交通管理器 (Traffic Manager, TM) 是在模拟中以自动驾驶模式控制车辆的模块。其目标是在模拟中填充真实的城市交通状况。用户可以自定义一些行为，例如设置特定的学习环境。
 
 ### 结构化设计 <span id="structured-design"></span>
 
@@ -40,7 +40,7 @@
 
 ### 用户定制 <span id="user-customization"></span>
 
-用户可以通过设置允许、强制或鼓励特定行为的参数来对流量进行一定程度的控制。用户可以根据自己的喜好改变流量行为，无论是在线还是离线。例如，可以允许汽车忽略速度限制或强制变道。在尝试仿真现实时，能够尝试各种行为是必不可少的。驾驶系统需要在特定和非典型情况下进行训练。
+用户可以通过设置允许、强制或鼓励特定行为的参数来对流量进行一定程度的控制。用户可以根据自己的喜好改变流量行为，无论是在线还是离线。例如，可以允许汽车忽略速度限制或强制变道。在尝试模拟现实时，能够尝试各种行为是必不可少的。驾驶系统需要在特定和非典型情况下进行训练。
 
 ---
 ## 架构 <span id="architecture"></span>
@@ -51,19 +51,19 @@
 
 上图是交通管理器的内部架构示意图。每个组件的 C++ 代码可以在  `LibCarla/source/carla/trafficmanager` 中找到。以下各节详细解释了每个组件。逻辑概述如下：
 
-__1. 存储并更新仿真的当前状态。__
+__1. 存储并更新模拟的当前状态。__
 
 - [代理的生命周期和状态管理](#alsm) (Agent Lifecycle & State Management, ALSM)  扫描世界，跟踪所有存在的车辆和行人，并清理不再存在的条目。所有数据均从服务器检索并经过多个[阶段](#stages-of-the-control-loop)。ALSM 是唯一调用服务器的组件。
 - [车辆注册表](#vehicle-registry) 包含一系列处于自动驾驶状态的车辆（由交通管理器控制）以及一系列不处于自动驾驶状态（不受交通管理器控制控制）的行人和车辆。
-- [仿真状态](#simulation-state) 是仿真中所有车辆和行人的位置、速度和附加信息的缓存存储。
+- [模拟状态](#simulation-state) 是模拟中所有车辆和行人的位置、速度和附加信息的缓存存储。
 
 __2. 计算每辆自动驾驶车辆的运动。__
 
-交通管理器根据[仿真状态](#simulation-state)为[车辆注册表](#vehicle-registry)中的所有车辆生成可行的命令。每辆车的计算都是单独进行的。这些计算分为不同的[阶段](#stages-of-the-control-loop)。[控制循环](#control-loop)通过在阶段之间创建同步屏障来确保所有计算的一致性。在当前阶段的所有车辆计算完成之前，没有车辆进入下一阶段。每辆车都会经历以下阶段：
+交通管理器根据[模拟状态](#simulation-state)为[车辆注册表](#vehicle-registry)中的所有车辆生成可行的命令。每辆车的计算都是单独进行的。这些计算分为不同的[阶段](#stages-of-the-control-loop)。[控制循环](#control-loop)通过在阶段之间创建同步屏障来确保所有计算的一致性。在当前阶段的所有车辆计算完成之前，没有车辆进入下一阶段。每辆车都会经历以下阶段：
 
 >__2.1 - [定位阶段](#stage-1-localization-stage)__
 
->路径是使用从[内存地图](#in-memory-map)中收集的附近路径点列表动态创建的，内存地图是仿真地图作为路径点网格的简化。路口的方向是随机选择的。每辆车的路径均由路径缓存和车辆轨迹(Path Buffers & Vehicle Tracking, [PBVT](#pbvt)) 组件存储和维护，以便在未来阶段轻松访问和修改。
+>路径是使用从[内存地图](#in-memory-map)中收集的附近路径点列表动态创建的，内存地图是模拟地图作为路径点网格的简化。路口的方向是随机选择的。每辆车的路径均由路径缓存和车辆轨迹(Path Buffers & Vehicle Tracking, [PBVT](#pbvt)) 组件存储和维护，以便在未来阶段轻松访问和修改。
 
 >__2.2 - [碰撞阶段](#stage-2-collision-stage)__
 
@@ -82,7 +82,7 @@ __2. 计算每辆自动驾驶车辆的运动。__
 > 车灯根据环境因素（例如阳光和雾或雨的存在）和车辆行为（例如，如果车辆将在下一个路口左转/右转，则打开方向指示灯；如果制动，则打开刹车灯）。
 
 
-__3. 在仿真中应用命令__
+__3. 在模拟中应用命令__
 
 上一步生成的命令被收集到[命令数组](#command-array)中，批量发送到 Carla 服务器，在同一帧中应用。
 
@@ -90,12 +90,12 @@ __3. 在仿真中应用命令__
 
 ### 代理的生命周期和状态管理 <span id="alsm"></span>
 
-代理的生命周期和状态管理。它是交通管理器逻辑周期的第一步，提供仿真当前状态的上下文。
+代理的生命周期和状态管理。它是交通管理器逻辑周期的第一步，提供模拟当前状态的上下文。
 
 代理的生命周期和状态管理组件：
 
 - 扫描世界以跟踪所有车辆和行人的位置和速度。如果启用物理功能，则通过[Vehicle.get_velocity()](python_api.md#carla.Vehicle)检索速度。否则，将使用位置随时间更新的历史记录来计算速度。
-- 存储[仿真状态](#simulation-state)组件中每辆车和行人的位置、速度和附加信息（交通灯影响、边界框等）。
+- 存储[模拟状态](#simulation-state)组件中每辆车和行人的位置、速度和附加信息（交通灯影响、边界框等）。
 - 更新[车辆注册表](#vehicle-registry)中交通管理器控制的车辆列表。
 - 更新[控制循环](#control-loop)和[路径缓存和车辆轨迹](#pbvt)组件中的条目以匹配车辆注册表。
 
@@ -103,7 +103,7 @@ __相关的 .cpp 文件：__ `ALSM.h`, `ALSM.cpp`.
 
 ### 车辆注册表 <span id="vehicle-registry"></span>
 
-车辆注册表记录仿真中的所有车辆和行人。
+车辆注册表记录模拟中的所有车辆和行人。
 
 车辆注册表：
 
@@ -112,11 +112,11 @@ __相关的 .cpp 文件：__ `ALSM.h`, `ALSM.cpp`.
 
 __相关的 .cpp 文件：__ `MotionPlannerStage.cpp`.
 
-### 仿真状态 <span id="simulation-state"></span>
+### 模拟状态 <span id="simulation-state"></span>
 
-仿真状态存储仿真中所有车辆的信息，以便在后期阶段轻松访问和修改。
+模拟状态存储模拟中所有车辆的信息，以便在后期阶段轻松访问和修改。
 
-仿真状态：
+模拟状态：
 
 - 从[代理的生命周期和状态管理](#alsm)接收数据，包括当前参与者位置、速度、交通灯影响、交通灯状态等。
 - 将所有信息存储在缓存中，避免在[控制循环](#control-loop)期间对服务器的后续调用。
@@ -180,7 +180,7 @@ __相关的 .cpp 文件:__ `PIDController.cpp`.
 
 - 从[**路径规划阶段**](#stage-4-motion-planner-stage)接收一系列 [carla.VehicleControl](python_api.md#carla.VehicleControl)。
 - 批处理要在同一帧内应用的所有命令。
-- 将批处理发送到在 carla 中调用 **apply_batch**（） 或 **apply_batch_synch（）** 的 Carla **[服务器.客户端](../python_api/#carla.Client)**，具体取决于仿真是分别以异步模式还是同步模式运行。
+- 将批处理发送到在 carla 中调用 **apply_batch**（） 或 **apply_batch_synch（）** 的 Carla **[服务器.客户端](../python_api/#carla.Client)**，具体取决于模拟是分别以异步模式还是同步模式运行。
 
 __相关的 .cpp 文件:__ `TrafficManagerLocal.cpp`.
 
@@ -192,7 +192,7 @@ __相关的 .cpp 文件:__ `TrafficManagerLocal.cpp`.
 
 本地化阶段：
 
-- 从[**仿真状态**](#simulation-state)获取所有车辆的位置和速度。
+- 从[**模拟状态**](#simulation-state)获取所有车辆的位置和速度。
 - 使用[**内存地图**](#in-memory-map)将每辆车与路径点列表相关联，该路径点列表根据其轨迹描述其当前位置和近期路径。车辆行驶得越快，列表就越长。
 - 根据规划决策更新路径，例如变道、限速、与前方车辆的距离参数化等。
 - 将所有车辆的路径存储在 [**PBVT**](#pbvt) 模块中。
@@ -229,7 +229,7 @@ __相关的 .cpp 文件:__ `TrafficLightStage.cpp`.
 
 运动规划器阶段：
 
-- 收集车辆的位置和速度（[**仿真状态**](#simulation-state))）、路径 （[**路径缓存和车辆轨迹**](#pbvt)） 和危险（[**碰撞**](#stage-2-collision-stage)阶段和[**交通信号灯阶段**](#stage-3-traffic-light-stage)）。
+- 收集车辆的位置和速度（[**模拟状态**](#simulation-state))）、路径 （[**路径缓存和车辆轨迹**](#pbvt)） 和危险（[**碰撞**](#stage-2-collision-stage)阶段和[**交通信号灯阶段**](#stage-3-traffic-light-stage)）。
 - 对车辆应如何移动做出高级决策，例如，计算防止碰撞危险所需的制动器。[**PID控制器**](#pid-controller)用于根据目标值估计行为。
 - 将期望的运动转化为适用于车辆的 **[carla.VehicleControl。](python_api.md#carla.VehicleControl)**
 - 将生成的 Carla 命令发送到[**命令数组**](#command-array)。
@@ -371,9 +371,9 @@ client.apply_batch([carla.command.DestroyActor(x) for x in vehicles_list])
 
 ## 确定性模式 <span id="deterministic-mode"></span>
 
-在确定性模式下，交通管理器将在相同条件下产生相同的结果和行为。不要将确定性论误认为是记录器。虽然记录器允许您存储仿真日志以进行回放，但确定性可确保只要维持相同的条件，交通管理器在脚本的不同执行过程中始终具有相同的输出。
+在确定性模式下，交通管理器将在相同条件下产生相同的结果和行为。不要将确定性论误认为是记录器。虽然记录器允许您存储模拟日志以进行回放，但确定性可确保只要维持相同的条件，交通管理器在脚本的不同执行过程中始终具有相同的输出。
 
-确定性模式 __仅在同步模式下__ 可用。在异步模式下，对仿真的控制较少，并且无法实现确定性。在开始之前，请阅读[**同步模式**](#synchronous-mode)部分的更多信息。
+确定性模式 __仅在同步模式下__ 可用。在异步模式下，对模拟的控制较少，并且无法实现确定性。在开始之前，请阅读[**同步模式**](#synchronous-mode)部分的更多信息。
 
 要启用确定性模式，请使用以下方法：
 
@@ -381,9 +381,9 @@ client.apply_batch([carla.command.DestroyActor(x) for x in vehicles_list])
 my_tm.set_random_device_seed(seed_value)
 ```
 
-`seed_value` 是一个将生成随机数的数字的 `int` 种子数。该值本身并不相关，但相同的值将始终导致相同的输出。具有相同条件、使用相同种子值的两次仿真将是确定性的。
+`seed_value` 是一个将生成随机数的数字的 `int` 种子数。该值本身并不相关，但相同的值将始终导致相同的输出。具有相同条件、使用相同种子值的两次模拟将是确定性的。
 
-为了保持多次仿真运行的确定性，__必须为每次仿真设置种子__。例如，每次[**重新加载**](python_api.md#carla.Client.reload_world)世界时，都必须重新设置种子：
+为了保持多次模拟运行的确定性，__必须为每次模拟设置种子__。例如，每次[**重新加载**](python_api.md#carla.Client.reload_world)世界时，都必须重新设置种子：
 
 
 ```py
@@ -404,7 +404,7 @@ python3 generate_traffic.py -n 50 --seed 9
 
 ## 混合物理模式 <span id="hybrid-physics-mode"></span>
 
-混合模式允许用户禁用所有自动驾驶车辆或标记为`英雄`的车辆特定半径之外的自动驾驶车辆的大多数物理计算。这消除了仿真中的车辆物理瓶颈。物理功能被禁用的车辆将通过隐形传送移动。维持线性加速度的基本计算，以确保位置更新和车辆速度保持真实，并且车辆上物理计算的切换是流畅的。
+混合模式允许用户禁用所有自动驾驶车辆或标记为`英雄`的车辆特定半径之外的自动驾驶车辆的大多数物理计算。这消除了模拟中的车辆物理瓶颈。物理功能被禁用的车辆将通过隐形传送移动。维持线性加速度的基本计算，以确保位置更新和车辆速度保持真实，并且车辆上物理计算的切换是流畅的。
 
 混合模式使用 [`Actor.set_simulate_physics()`](https://carla.readthedocs.io/en/latest/python_api/#carla.Actor.set_simulate_physics) 方法来切换物理计算。默认情况下它是禁用的。有两个选项可以启用它：
 
@@ -427,7 +427,7 @@ python3 generate_traffic.py -n 50 --seed 9
 
 ### 交通管理器的服务端和客户端 <span id="traffic-manager-servers-and-clients"></span>
 
-Carla 客户端通过向服务器指定要使用的端口来创建交通管理器。如果未指定端口，将使用默认 `8000` 端口。如果在同一端口上创建更多交通管理器，它们将成为 __交通管理器的客户端__，而原始交通管理器将成为 __交通管理器的服务端__。这些标题定义了交通管理器在仿真中的行为方式。
+Carla 客户端通过向服务器指定要使用的端口来创建交通管理器。如果未指定端口，将使用默认 `8000` 端口。如果在同一端口上创建更多交通管理器，它们将成为 __交通管理器的客户端__，而原始交通管理器将成为 __交通管理器的服务端__。这些标题定义了交通管理器在模拟中的行为方式。
 
 ###### 交通管理器的服务端
 
@@ -458,9 +458,9 @@ tm04 = client04.get_trafficmanager(5000) # tm04(p=5000) --> tm02 (p=5000)
 Carla 服务器通过存储链接到它们的端口和客户端 IP（对用户隐藏）来保存所有交通管理器实例的寄存器。目前无法检查到目前为止已创建的交通管理器实例。尝试创建实例时始终会尝试连接，并且它将创建新的 __交通管理器服务端__ 或 __交通管理器客户端__ 。
 
 
-### 多客户端仿真 <span id="multi-client-simulations"></span>
+### 多客户端模拟 <span id="multi-client-simulations"></span>
 
-在多客户端仿真中，在同一端口上创建多个TM。第一个 TM 将是 TM 服务器，其余的将是连接到它的 TM 客户端。TM-Server 将规定所有 TM 实例的行为：
+在多客户端模拟中，在同一端口上创建多个TM。第一个 TM 将是 TM 服务器，其余的将是连接到它的 TM 客户端。TM-Server 将规定所有 TM 实例的行为：
 
 ```py
 terminal 1: ./CarlaUE4.sh -carla-rpc-port=4000
@@ -468,9 +468,9 @@ terminal 2: python3 generate_traffic.py --port 4000 --tm-port 4050 # TM-Server
 terminal 3: python3 generate_traffic.py --port 4000 --tm-port 4050 # TM-Client
 ```
 
-### 多交通管理器仿真 <span id="multi-tm-simulations"></span>
+### 多交通管理器模拟 <span id="multi-tm-simulations"></span>
 
-在多交通管理器仿真中，在不同的端口上创建多个交通管理器实例。每个交通管理器实例都会控制自己的行为：
+在多交通管理器模拟中，在不同的端口上创建多个交通管理器实例。每个交通管理器实例都会控制自己的行为：
 
 ```py
 terminal 1: ./CarlaUE4.sh -carla-rpc-port=4000
@@ -478,9 +478,9 @@ terminal 2: python3 generate_traffic.py --port 4000 --tm-port 4050 # TM-Server A
 terminal 3: python3 generate_traffic.py --port 4000 --tm-port 4550 # TM-Server B
 ```
 
-### 多重仿真 <span id="multi-simulation"></span>
+### 多重模拟 <span id="multi-simulation"></span>
 
-多重仿真是指多个 Carla 服务器同时运行。交通管理器需要连接到相关的 Carla 服务器端口。只要计算能力允许，交通管理器可以一次运行多个仿真，不会出现任何问题：
+多重模拟是指多个 Carla 服务器同时运行。交通管理器需要连接到相关的 Carla 服务器端口。只要计算能力允许，交通管理器可以一次运行多个模拟，不会出现任何问题：
 
 ```py
 terminal 1: ./CarlaUE4.sh -carla-rpc-port=4000 # simulation A 
@@ -489,15 +489,15 @@ terminal 3: python3 generate_traffic.py --port 4000 --tm-port 4050 # TM-Server A
 terminal 4: python3 generate_traffic.py --port 5000 --tm-port 5050 # TM-Server B connected to simulation B
 ```
 
-多重仿真的概念独立于交通管理器本身。上面的示例并行运行两个 Carla 仿真 A 和 B。在每个仿真中，都独立创建一个交通管理器服务端。仿真 A 可以运行多客户端交通管理程序，而仿真 B 则运行多交通管理器或根本不运行交通管理器。
+多重模拟的概念独立于交通管理器本身。上面的示例并行运行两个 Carla 模拟 A 和 B。在每个模拟中，都独立创建一个交通管理器服务端。模拟 A 可以运行多客户端交通管理程序，而模拟 B 则运行多交通管理器或根本不运行交通管理器。
 
-上述设置最可能出现的问题是客户端尝试连接到未在所选仿真上运行的现有交通管理器。如果发生这种情况，将会出现错误消息，并且连接将被中止，以防止仿真之间的干扰。
+上述设置最可能出现的问题是客户端尝试连接到未在所选模拟上运行的现有交通管理器。如果发生这种情况，将会出现错误消息，并且连接将被中止，以防止模拟之间的干扰。
 
 ---
 ## 同步模式 <span id="synchronous-mode"></span>
 
 
-交通管理器设计为在同步模式下工作。Carla 服务器和交通管理器应设置为同步才能正常运行。__在异步模式下使用交通管理器可能会导致意外和不良结果__，但是，如果需要异步模式，则仿真应至少以 20-30 fps 运行。
+交通管理器设计为在同步模式下工作。Carla 服务器和交通管理器应设置为同步才能正常运行。__在异步模式下使用交通管理器可能会导致意外和不良结果__，但是，如果需要异步模式，则模拟应至少以 20-30 fps 运行。
 
 下面的脚本演示了如何将服务器和交通管理器设置为同步模式：
 
@@ -576,7 +576,7 @@ my_tm.set_respawn_dormant_vehicles(True)
 my_tm.set_boundaries_respawn_dormant_vehicles(25,700)
 ```
 
-如果碰撞阻止休眠的参与者重生，交通管理器将重试下一个仿真步骤。
+如果碰撞阻止休眠的参与者重生，交通管理器将重试下一个模拟步骤。
 
 如果休眠车辆没有重生，它们的行为将取决于是否启用混合模式。如果启用了混合模式，则休眠的参与者将在地图上传送。如果未启用混合模式，则不会计算休眠参与者的物理特性，并且它们将保持在原位置，直到不再休眠。
 

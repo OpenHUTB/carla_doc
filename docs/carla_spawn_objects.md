@@ -85,7 +85,7 @@
 
 ### 车辆再生成 <span id="respawning_vehicles"></span>
 
-通过发布到主题`/carla/<ROLE NAME>/<CONTROLLER_ID>/initialpose`，车辆可以在仿真期间重生到不同的位置。要使用此功能： 
+通过发布到主题`/carla/<ROLE NAME>/<CONTROLLER_ID>/initialpose`，车辆可以在模拟期间重生到不同的位置。要使用此功能： 
 
 1. 将`actor.pseudo.control`伪参与者附加到`.json`文件中的车辆。它应该与用于发布到主题的`<CONTROLLER_ID>`值具有相同的`id`值：
 

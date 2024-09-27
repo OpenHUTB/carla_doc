@@ -62,7 +62,7 @@ if __name__ == '__main__':
 
 ## 查看车辆遥测数据 <span id="viewing-vehicle-telemetry"></span>
 
-通过调用 [`Actor.enable_debug_telemetry`](python_api.md#carla.Actor.enable_debug_telemetry) 方法可以实现车辆遥测的可视化。这将在服务器窗口上提供多个指标的图形视图以及仿真窗口上的车辆参考点。
+通过调用 [`Actor.enable_debug_telemetry`](python_api.md#carla.Actor.enable_debug_telemetry) 方法可以实现车辆遥测的可视化。这将在服务器窗口上提供多个指标的图形视图以及模拟窗口上的车辆参考点。
 
 ![vehicle_telemetry](img/vehicle_telemetry.png)
 

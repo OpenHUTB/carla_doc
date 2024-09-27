@@ -1,10 +1,10 @@
-# [联合仿真、Python API、交通流](https://mp.weixin.qq.com/s/Wku__z8GY0LQO8D8lznueA)
+# [联合模拟、Python API、交通流](https://mp.weixin.qq.com/s/Wku__z8GY0LQO8D8lznueA)
 
 
-## 联合仿真&DIY
+## 联合模拟&DIY
 
 
-1、CARLA和Sumo能否联合仿真？
+1、CARLA和Sumo能否联合模拟？
 
 > 答：可以，参考[官方文档](https://carla.readthedocs.io/en/latest/adv_sumo/) 。
 > 
@@ -12,9 +12,9 @@
 
 
 
-2、CARLA和其他动力学联合仿真？
+2、CARLA和其他动力学联合模拟？
 
-> 答：动力学联合仿真的整体流程：
+> 答：动力学联合模拟的整体流程：
 > 
 > CARLA输出驾驶员操控（刹车、油门、离合、档位、转向）到动力学模型；
 > 
@@ -22,7 +22,7 @@
 > 
 > CARLA根据接收到的位姿信息进行更新。
 >
-> 只要能做到上述事项，就可以进行联合仿真。
+> 只要能做到上述事项，就可以进行联合模拟。
 
 
 

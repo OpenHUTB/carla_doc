@@ -132,22 +132,24 @@ python setup.py build
 
 需要将其他的.lib文件编译为debug模式：
 
-1.切换到目录`Util\InstallersWin`，将[`install_boost.bat`](https://github.com/carla-simulator/carla/blob/dev/Util/InstallersWin/install_boost.bat) 内的b2运行参数改为`variant=debug`，（根据`Setup.bat`）运行[`install_boost.bat`](https://github.com/OpenHUTB/carla_doc/tree/master/src/cmake/install_boost.bat) ：
+0.打开`x64 Native Tools Command for VS 2019`，并切换到目录`Util/Intallers`下。
+
+1.切换到目录`Util\InstallersWin`，将[`install_boost.bat`](https://github.com/carla-simulator/carla/blob/dev/Util/InstallersWin/install_boost.bat) 内的b2运行参数改为`variant=debug`（根据`Util/BuildTools/Setup.bat`里的安装Boost命令改编），运行[`install_boost.bat`](https://github.com/OpenHUTB/carla_doc/tree/master/src/cmake/install_boost_debug.bat) ：
 ```shell
-install_boost.bat --build-dir D:\work\buffer --toolset msvc-14.2 --version 1.80.0 -j 4
+install_boost.bat --build-dir D:\buffer --toolset msvc-14.2 --version 1.80.0 -j 4
 ```
-会自动将boost的库和头文件安装到目录`D:\work\buffer\boost-1.80.0-install`里面。
+会自动将boost的库和头文件安装到目录`D:\buffer\boost-1.80.0-install`里面。
 
 将[`install_recast.bat`](https://github.com/carla-simulator/carla/blob/dev/Util/InstallersWin/install_recast.bat) 中的`Relase`改为`Debug`。
-将`-DCMAKE_CXX_FLAGS_RELASE="/MD /MP"`改为多线程调试DLL`-DCMAKE_CXX_FLAGS_DEBUG="/MDd /MP"`，运行[`install_recast.bat`](https://github.com/OpenHUTB/carla_doc/tree/master/src/cmake/install_recast.bat) 。
+将`-DCMAKE_CXX_FLAGS_RELASE="/MD /MP"`改为多线程调试DLL`-DCMAKE_CXX_FLAGS_DEBUG="/MDd /MP"`，运行[`install_recast.bat`](https://github.com/OpenHUTB/carla_doc/tree/master/src/cmake/install_recast_debug.bat) 。
 ```shell
-install_recast.bat --build-dir D:\work\buffer --generator "Visual Studio 16 2019"
+install_recast_debug.bat --build-dir D:\buffer --generator "Visual Studio 16 2019"
 ```
 
 将[`install_rpclib.bat`](https://github.com/carla-simulator/carla/blob/dev/Util/InstallersWin/install_rpclib.bat) 中的`Relase`改为`Debug`，运行[`install_rpclib.bat`](https://github.com/OpenHUTB/carla_doc/tree/master/src/cmake/install_rpclib.bat) 。
 将`-DCMAKE_CXX_FLAGS_RELASE="/MD /MP"`改为多线程调试DLL`-DCMAKE_CXX_FLAGS_DEBUG="/MDd /MP"`。
 ```shell
-install_rpclib.bat --build-dir D:\work\buffer --generator "Visual Studio 16 2019"
+install_rpclib_debug.bat --build-dir D:\buffer --generator "Visual Studio 16 2019"
 ```
 
 

@@ -66,20 +66,20 @@ roslaunch carla_ros_bridge carla_ros_bridge.launch passive:=True
 
 可以使用以下设置：
 
-* __use_sim_time__: 应设置为 __True__ 以确保 ROS 使用仿真时间而不是系统时间。该参数将使 ROS [`/clock`][ros_clock] 主题与 Carla 仿真时间同步。
+* __use_sim_time__: 应设置为 __True__ 以确保 ROS 使用模拟时间而不是系统时间。该参数将使 ROS [`/clock`][ros_clock] 主题与 Carla 模拟时间同步。
 *  __host and port__: 使用 Python 客户端连接到 Carla 的网络设置。
 * __timeout__: 等待成功连接到服务器的时间。
 * __passive__: 被动模式用于同步模式。启用后，ROS 桥接器将退居次要地位，而另一个客户端 __必须__ 与世界打交道。ROS 桥将等待接收来自所有传感器的所有预期数据。
 *  __synchronous_mode__:
 	*  __如果是 false__: 数据在每个节拍`world.on_tick()`和每个`sensor.listen()`回调时进行发布。
-	*  __如果是 true （默认）__: ROS 桥在下一个节拍之前等待所有预期的传感器消息。这可能会减慢整个仿真的速度，但可以确保结果的可重复性。
+	*  __如果是 true （默认）__: ROS 桥在下一个节拍之前等待所有预期的传感器消息。这可能会减慢整个模拟的速度，但可以确保结果的可重复性。
 *  __synchronous_mode_wait_for_vehicle_control_command__: 在同步模式下，暂停计时直到车辆控制完成。
-*  __fixed_delta_seconds__: 仿真步骤之间的仿真时间（增量秒）。__它必须低于 0.1__。查看 [文档](https://carla.readthedocs.io/en/latest/adv_synchrony_timestep/) 以了解更多相关信息。
+*  __fixed_delta_seconds__: 模拟步骤之间的模拟时间（增量秒）。__它必须低于 0.1__。查看 [文档](https://carla.readthedocs.io/en/latest/adv_synchrony_timestep/) 以了解更多相关信息。
 *  __ego_vehicle__: 用于识别自我车辆的参与者名称。将创建相关主题，以便能够通过 ROS 控制这些车辆。
 * __town__: 使用可用的 Carla 城镇（例如“town01”）或 OpenDRIVE 文件（以 `.xodr` 结尾）。
 *  __register_all_sensors__:
 	*  __如果是 false__: 仅注册桥生成的传感器。
-	*  __如果是 true（默认）__: 仿真中存在的所有传感器均已注册。
+	*  __如果是 true（默认）__: 模拟中存在的所有传感器均已注册。
 
 
 [ros_clock]: https://wiki.ros.org/Clock
@@ -149,7 +149,7 @@ ros2 topic pub /carla/ego_vehicle/vehicle_control_cmd carla_msgs/CarlaEgoVehicle
 |--------------------------|-----------------------------------------------------------------------------------------------------------------------------------|------------------|
 | `/carla/debug_marker`    | [可视化_msgs/MarkerArray](https://docs.ros.org/en/api/visualization_msgs/html/msg/MarkerArray.html)                        | 在 Carla 世界中绘制标记。 |
 | `/carla/weather_control` | [carla_msgs/CarlaWeatherParameters](https://github.com/carla-simulator/ros-carla-msgs/blob/master/msg/CarlaWeatherParameters.msg) | 设置 Carla 天气参数    |
-| `/clock`                 | [rosgraph_msgs/Clock](https://docs.ros.org/en/melodic/api/rosgraph_msgs/html/msg/Clock.html)                                      | 在 ROS 中发布仿真时间。 |
+| `/clock`                 | [rosgraph_msgs/Clock](https://docs.ros.org/en/melodic/api/rosgraph_msgs/html/msg/Clock.html)                                      | 在 ROS 中发布模拟时间。 |
 
 <br>
 
@@ -163,7 +163,7 @@ ros2 topic pub /carla/ego_vehicle/vehicle_control_cmd carla_msgs/CarlaEgoVehicle
 |---------------------|----------------------------------------------------------------------------------------------|-------------------|
 | `/carla/status`     | [carla_msgs/CarlaStatus](ros_msgs.md#carlastatusmsg)                                         | 读取 Carla 的当前状态    |
 | `/carla/world_info` | [carla_msgs/CarlaWorldInfo](ros_msgs.md#carlaworldinfomsg)                                   | 有关当前 Carla 地图的信息。 |
-| `/clock`            | [rosgraph_msgs/Clock](https://docs.ros.org/en/melodic/api/rosgraph_msgs/html/msg/Clock.html) | 在 ROS 中发布仿真时间。  |
+| `/clock`            | [rosgraph_msgs/Clock](https://docs.ros.org/en/melodic/api/rosgraph_msgs/html/msg/Clock.html) | 在 ROS 中发布模拟时间。  |
 | `/rosout`           | [rosgraph_msgs/Log](https://docs.ros.org/en/melodic/api/rosgraph_msgs/html/msg/Log.html)     | ROS 日志记录。      |
 
 <br>

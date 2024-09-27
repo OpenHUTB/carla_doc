@@ -44,7 +44,7 @@ diming = {
         type=int)
 ```
 
-获取仿真时间对象及设置
+获取模拟时间对象及设置
 
 ```python
 client = carla.Client('localhost', 2000)
@@ -74,7 +74,7 @@ spawn_point = carla.Transform(spawn_location, spawn_rotation) #车辆起点
 ego_vehicle_bp = blueprint_library.find('vehicle.audi.tt')
 ego_vehicle_bp.set_attribute('color', '100, 250, 250')
 vehicle = world.spawn_actor(ego_vehicle_bp, spawn_point)
-#推进仿真环境时间
+#推进模拟环境时间
 world.tick()
 ```
 
@@ -91,7 +91,7 @@ start = vehicle.get_location()
 agent.set_destination(destination)
 ```
 
-给目标车辆设置多个相机传感器。这些相机可以提供不同的视角,用于观察和记录车辆在仿真环境中的行为。
+给目标车辆设置多个相机传感器。这些相机可以提供不同的视角,用于观察和记录车辆在模拟环境中的行为。
 
 ```python
 # 查找相机蓝图

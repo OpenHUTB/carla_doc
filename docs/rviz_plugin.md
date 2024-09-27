@@ -65,7 +65,7 @@ ros2 launch carla_manual_control carla_manual_control.launch.py
 - __向其他节点提供 RVIZ 视图姿势__ - 连接`actor.pseudo.control` 到相机后，通过发布姿势消息在 Carla 世界中移动相机。
 - __传感器可视化__ - 可视化 RGB、LIDAR、深度、DVS 和语义分割相机信息。
 - __执行场景__ - 使用 [carla_ros_scenario_runner](https://github.com/carla-simulator/ros-bridge/blob/master/carla_ros_scenario_runner) 包触发场景。
-- __播放/暂停仿真__ - 如果以同步模式启动，您可以播放和暂停仿真。
+- __播放/暂停模拟__ - 如果以同步模式启动，您可以播放和暂停模拟。
 - __手动覆盖自我车辆控制__ - 使用 [RVIZ Visualization Tutorials](https://github.com/ros-visualization/visualization_tutorials) 可视化教程中的驱动小部件和从扭曲转换为车辆控制的 [节点](https://github.com/carla-simulator/ros-bridge/blob/master/carla_twist_to_control) ，通过鼠标驾驶车辆。 
 
 ---

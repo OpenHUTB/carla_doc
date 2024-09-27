@@ -12,7 +12,7 @@
 
 ## Chrono 项目 <span id="project_chrono"></span>
 
-[Project Chrono](https://projectchrono.org/) 是一款开源多物理场仿真引擎，它使用基于模板的方法提供高度真实的车辆动力学。Carla 中的集成允许用户在导航地图时利用 Chrono 模板来仿真车辆动力学。
+[Project Chrono](https://projectchrono.org/) 是一款开源多物理场模拟引擎，它使用基于模板的方法提供高度真实的车辆动力学。Carla 中的集成允许用户在导航地图时利用 Chrono 模板来模拟车辆动力学。
 
 ---
 

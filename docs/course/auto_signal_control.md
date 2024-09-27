@@ -1,6 +1,6 @@
 # 自动信号控制
 
-这是一个基于Flask的应用程序，用于控制[Carla仿真环境](https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb)中的红绿灯。该应用程序通过检测路口的交通流量动态调整红绿灯的时长，以优化交通通行效率。
+这是一个基于Flask的应用程序，用于控制[Carla模拟环境](https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb)中的红绿灯。该应用程序通过检测路口的交通流量动态调整红绿灯的时长，以优化交通通行效率。
 
 #### 主要功能
 
@@ -15,7 +15,7 @@
 
 #### 核心实现步骤
 
-**1.初始化和连接Carla服务器**：获取世界对象并设置仿真参数。
+**1.初始化和连接Carla服务器**：获取世界对象并设置模拟参数。
 
 ```
     client = carla.Client('localhost', 2000)
@@ -102,7 +102,7 @@ def get_vehicles_in_intersection(world, intersection_location, intersection_radi
 
 获取路口交通灯信息，可以发送一个GET请求到 `/set_traffic_light`路由,应用程序会自动根据路口的交通流量调整红绿灯的时长并返回结果。
 
-1. 打开Carla仿真环境
+1. 打开Carla模拟环境
 2. 先运行[generate_traffic.py](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/generate_traffic.py) 来生成交通
 3. 运行脚本auto_signal_control.py来开启服务端
 4. 发送http请求:
@@ -111,4 +111,4 @@ def get_vehicles_in_intersection(world, intersection_location, intersection_radi
 http://127.0.0.1:5000/set_traffic_light
 ```
 
-通过这些步骤和说明，用户可以使用该应用程序动态调整Carla仿真环境中的红绿灯时长，以优化交通通行效率。
+通过这些步骤和说明，用户可以使用该应用程序动态调整Carla模拟环境中的红绿灯时长，以优化交通通行效率。

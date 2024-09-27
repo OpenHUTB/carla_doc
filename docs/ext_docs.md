@@ -6,7 +6,7 @@
 
 [__训练数据生成__](https://github.com/leunark/carla-dataset-gen) — 生成各种驾驶场景并捕获各种传感器数据。
 
-[__画线__](https://github.com/suayu/Carla_line_drawer) — 在仿真器中绘制俯视相机中的线，并保存参考点。
+[__画线__](https://github.com/suayu/Carla_line_drawer) — 在模拟器中绘制俯视相机中的线，并保存参考点。
 
 
 ## 场景
@@ -17,23 +17,23 @@
 
 ## 先进理念
  
-[__记录器__](adv_recorder.md) — 在仿真中注册事件并再次播放。
+[__记录器__](adv_recorder.md) — 在模拟中注册事件并再次播放。
 
 [__渲染选项__](adv_rendering_options.md) — 从质量设置到无渲染或离屏模式。 
 
-[__同步和时间步长__](adv_synchrony_timestep.md) — 客户端-服务器通信和仿真时间。 
+[__同步和时间步长__](adv_synchrony_timestep.md) — 客户端-服务器通信和模拟时间。 
 
 [__基准测试性能__](adv_benchmarking.md) — 使用我们准备的脚本执行基准测试。
 
 [__Carla 代理__](adv_agents.md) — 代理脚本允许单个车辆在地图上漫游或行驶到设定的目的地。
 
-[__多 GPU__](adv_multigpu.md) — 设置 Carla 仿真器以使用多个 GPU 进行处理。
+[__多 GPU__](adv_multigpu.md) — 设置 Carla 模拟器以使用多个 GPU 进行处理。
 
-## 交通仿真
+## 交通模拟
 
-[__交通仿真概述__](ts_traffic_simulation_overview.md) — 可用于用填充交通场景的不同选项的概述。
+[__交通模拟概述__](ts_traffic_simulation_overview.md) — 可用于用填充交通场景的不同选项的概述。
 
-[__交通管理器__](adv_traffic_manager.md) — 通过将车辆设置为自动驾驶模式来仿真城市交通。
+[__交通管理器__](adv_traffic_manager.md) — 通过将车辆设置为自动驾驶模式来模拟城市交通。
 
 ## 参考
 

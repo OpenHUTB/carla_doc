@@ -1,12 +1,12 @@
 C++ 客户端示例
 ==================
 
-此示例使用 Carla 的C++API创建一个应用程序，以从C++连接和控制仿真器。
+此示例使用 Carla 的C++API创建一个应用程序，以从C++连接和控制模拟器。
 
 编译和运行
 ---------------
 
-使用提供的 Makefile（仅限Linux）编译并运行示例。请注意，它希望有一个仿真器在2000端口运行。（[Windows客户端cmake文件](https://github.com/OpenHUTB/carla_doc/tree/master/src/cmake/CMakeLists.txt) ）
+使用提供的 Makefile（仅限Linux）编译并运行示例。请注意，它希望有一个模拟器在2000端口运行。（[Windows客户端cmake文件](https://github.com/OpenHUTB/carla_doc/tree/master/src/cmake/CMakeLists.txt) ）
 
 ```
 make run

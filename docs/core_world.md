@@ -1,6 +1,6 @@
 # 第一、世界和客户端
 
-客户端和世界是 Carla 的两个基本要素，是操作仿真及其参与者的必要抽象。 
+客户端和世界是 Carla 的两个基本要素，是操作模拟及其参与者的必要抽象。
 
 本教程从定义这些元素的基础知识和创建，到描述它们的可能性。如果阅读过程中出现任何疑问或问题，[Carla 论坛](https://github.com/carla-simulator/carla/discussions/) 可以为您解决。
 
@@ -20,7 +20,7 @@
 ---
 ## 客户端 <span id="the-client"></span>
 
-客户端是 Carla 架构中的主要元素之一。它们连接到服务器、检索信息并更改命令。这是通过脚本完成的。客户端识别自己的身份，并连接到世界，然后进行仿真操作。
+客户端是 Carla 架构中的主要元素之一。它们连接到服务器、检索信息并更改命令。这是通过脚本完成的。客户端识别自己的身份，并连接到世界，然后进行模拟操作。
 
 除此之外，客户还可以访问高级 Carla 模块、功能并应用命令批处理。本节仅介绍命令批处理。这些对于诸如生成大量参与者之类的基本事情很有用。其余功能更加复杂，将在 __高级步骤__ 中各自的页面中进行解决。 
 
@@ -67,7 +67,7 @@ world = client.load_world('Town01')
 
 ### 使用命令 <span id="using_command"></span>
 
-__命令__ 是一些最常见的 Carla 方法的改编，可以批量应用。例如，[command.SetAutopilot](python_api.md#command.SetAutopilot) 相当于[command.SetAutopilot](python_api.md#command.SetAutopilot) ，启用车辆的自动驾驶功能。但是，使用[Client.apply_batch](python_api.md#carla.Client.apply_batch) 或[Client.apply_batch_sync()](python_api.md#carla.Client.apply_batch_sync) 方法，可以在一个仿真步骤中应用一系列命令。这对于通常应用于数百个元素的方法来说变得非常有用。
+__命令__ 是一些最常见的 Carla 方法的改编，可以批量应用。例如，[command.SetAutopilot](python_api.md#command.SetAutopilot) 相当于[command.SetAutopilot](python_api.md#command.SetAutopilot) ，启用车辆的自动驾驶功能。但是，使用[Client.apply_batch](python_api.md#carla.Client.apply_batch) 或[Client.apply_batch_sync()](python_api.md#carla.Client.apply_batch_sync) 方法，可以在一个模拟步骤中应用一系列命令。这对于通常应用于数百个元素的方法来说变得非常有用。
 
 以下示例使用批处理一次性销毁一系列车辆。
 
@@ -82,17 +82,17 @@ Python API 参考的 [最新部分](python_api.md#command.ApplyAngularVelocity) 
 客户端对象的主要目的是获取或改变世界，并应用命令。但是，它还提供对一些附加功能的访问。 
 
 *   __交通管理器。__ 该模块负责每辆设置为自动驾驶的车辆以重建城市交通。
-*   __[记录器](adv_recorder.md).__ 允许重新进行以前的仿真。使用 [快照](core_world.md#world-snapshots) 总结每帧的仿真状态。
+*   __[记录器](adv_recorder.md).__ 允许重新进行以前的模拟。使用 [快照](core_world.md#world-snapshots) 总结每帧的模拟状态。
 
 ---
 ## 世界 <span id="the-world"></span>
 
-仿真的主要标尺。它的实例应该由客户端检索。它不包含世界本身的模型，这是 [Map](core_map.md) 类的一部分。相反，大多数信息和常规设置可以从此类访问。
+模拟的主要标尺。它的实例应该由客户端检索。它不包含世界本身的模型，这是 [Map](core_map.md) 类的一部分。相反，大多数信息和常规设置可以从此类访问。
 
-*   仿真中的参与者和观察者。
+*   模拟中的参与者和观察者。
 *   蓝图库。
 *   地图。
-*   仿真设置。
+*   模拟设置。
 *   快照。
 *   天气和灯光管理器。
 
@@ -105,7 +105,7 @@ Python API 参考的 [最新部分](python_api.md#command.ApplyAngularVelocity) 
 *   生成参与者（但不销毁他们）。
 *   获得场景中的每一位参与者，或者找到一个特定的参与者
 *   访问蓝图库。  
-*   访问观察参与者、仿真的视角。 
+*   访问观察参与者、模拟的视角。 
 *   检索适合生成参与者的随机位置。
 
 生成将在 [第二部分、参与者和蓝图](core_actors.md) 。需要对蓝图库、属性等有一定的了解。
@@ -177,7 +177,7 @@ __当 sun_altitude_angle < 0 时，夜间模式开始__，这被认为是日落�
 
 ### 灯光 <span id="lights"></span>
 
-*   当仿真进入夜间模式时， __路灯__ 会自动打开。灯光由地图开发人员放置，并可作为 [__carla.Light__](python_api.md#carla.Light) 对象访问。颜色和强度等属性可以随意更改。[__carla.LightState__](python_api.md#carla.LightState) 类型的变量 __light_state__ 允许在一次调用中设置所有这些。 路灯使用其类型为 [__carla.LightState__](python_api.md#carla.LightState) 的属性 __light_state__ 进行分类。这允许将灯分类为路灯、建筑物灯...可以检索 [__carla.LightManager__] 的实例来在一次调用中处理一组灯。
+*   当模拟进入夜间模式时， __路灯__ 会自动打开。灯光由地图开发人员放置，并可作为 [__carla.Light__](python_api.md#carla.Light) 对象访问。颜色和强度等属性可以随意更改。[__carla.LightState__](python_api.md#carla.LightState) 类型的变量 __light_state__ 允许在一次调用中设置所有这些。 路灯使用其类型为 [__carla.LightState__](python_api.md#carla.LightState) 的属性 __light_state__ 进行分类。这允许将灯分类为路灯、建筑物灯...可以检索 [__carla.LightManager__] 的实例来在一次调用中处理一组灯。
 
 ```py
 # 获得灯光管理器和灯光
@@ -217,7 +217,7 @@ vehicle.set_light_state(current_lights)
 
 ### 调试 <span id="debugging"></span>
 
-世界对象有一个 [carla.DebugHelper](python_api.md#carla.DebugHelper) 对象作为公共属性。它允许在仿真过程中绘制不同的形状。这些用于跟踪正在发生的事件。以下示例将在参与者的位置和旋转处绘制一个红色框。
+世界对象有一个 [carla.DebugHelper](python_api.md#carla.DebugHelper) 对象作为公共属性。它允许在模拟过程中绘制不同的形状。这些用于跟踪正在发生的事件。以下示例将在参与者的位置和旋转处绘制一个红色框。
 
 ```py
 debug = world.debug
@@ -228,7 +228,7 @@ debug.draw_box(carla.BoundingBox(actor_snapshot.get_transform().location,carla.V
 
 ### 世界快照 <span id="world-snapshots"></span>
 
-包含仿真中每个参与者在单个帧中的状态。一种带有时间参考的静态世界图像。即使在异步模式下，信息也来自相同的仿真步骤。
+包含模拟中每个参与者在单个帧中的状态。一种带有时间参考的静态世界图像。即使在异步模式下，信息也来自相同的模拟步骤。
 
 ```py
 # 检索当前帧的世界快照。
@@ -252,12 +252,12 @@ actor_snapshot = world_snapshot.find(actual_actor.id) # 获得参与者快照
 
 ### 世界设置 <span id="world-settings"></span>
 
-世界可以使用一些高级的仿真配置。这些决定了渲染条件、仿真时间步长以及客户端和服务器之间的同步。它们可以从辅助类[carla.WorldSettings](python_api.md#carla.WorldSettings) 访问。 
+世界可以使用一些高级的模拟配置。这些决定了渲染条件、模拟时间步长以及客户端和服务器之间的同步。它们可以从辅助类[carla.WorldSettings](python_api.md#carla.WorldSettings) 访问。 
 
 目前，默认的 Carla 以最佳图形质量、可变时间步长和异步方式运行。要进一步深入了解此问题，请查看 __高级步骤__ 部分。有关 [同步、时间步长](adv_synchrony_timestep.md) 以及 [渲染选项](adv_rendering_options.md) 的页面可能是一个很好的起点。
 
 ---
-这是对世界和客户端对象的包装。下一步将仔细研究参与者和蓝图，为仿真赋予生命。
+这是对世界和客户端对象的包装。下一步将仔细研究参与者和蓝图，为模拟赋予生命。
 
 继续阅读以了解更多信息。请访问论坛，发表在阅读过程中想到的任何疑问或建议。
 

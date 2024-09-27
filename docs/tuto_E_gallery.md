@@ -10,7 +10,7 @@
 请使用 0.9.14 版本或者其他兼容 API 的 Carla 版本。
 
 ```
-# 开始 Carla 仿真器
+# 开始 Carla 模拟器
 ./CarlaUE4.sh -quality-level=epic -resx=800 -resy=600
 
 # 如果您没有强大的 GPU

@@ -1,16 +1,16 @@
-# 检索仿真数据
+# 检索模拟数据
 
-在 Carla 中，学习一种有效的方法来检索仿真数据至关重要。这个整体教程适合新手和经验丰富的用户。它从头开始，逐渐深入探讨 Carla 中可用的许多选项。
+在 Carla 中，学习一种有效的方法来检索模拟数据至关重要。这个整体教程适合新手和经验丰富的用户。它从头开始，逐渐深入探讨 Carla 中可用的许多选项。
 
-首先，使用自定义设置和流量初始化仿真。一辆自我车辆将在城市中漫游，可选地配备一些基本传感器。记录仿真，以便以后查询以找到亮点。之后，原始仿真被回放，并被利用到极限。可以添加新的传感器来检索一致的数据。天气条件是可以改变的。记录器甚至可以用于测试具有不同输出的特定场景。 
+首先，使用自定义设置和流量初始化模拟。一辆自我车辆将在城市中漫游，可选地配备一些基本传感器。记录模拟，以便以后查询以找到亮点。之后，原始模拟被回放，并被利用到极限。可以添加新的传感器来检索一致的数据。天气条件是可以改变的。记录器甚至可以用于测试具有不同输出的特定场景。 
 
 *   [__概述__](#overview)  
-*   [__设置仿真__](#set-the-simulation)  
+*   [__设置模拟__](#set-the-simulation)  
 	*   [地图设置](#map-setting)  
 	*   [天气设置](#weather-setting)  
 *   [__设置交通流量__](#set-traffic)  
 	*   [Carla 交通和行人](#carla-traffic-and-pedestrians)  
-	*   [SUMO 协同仿真交通](#sumo-co-simulation-traffic)  
+	*   [SUMO 协同模拟交通](#sumo-co-simulation-traffic)  
 *   [__设置自我车辆__](#set-the-ego-vehicle)  
 	*   [生成自我车辆](#spawn-the-ego-vehicle)  
 	*   [放置观察者](#place-the-spectator)  
@@ -24,7 +24,7 @@
 	*   [激光雷达光线投射传感器](#lidar-raycast-sensor)  
 	*   [雷达传感器](#radar-sensor)  
 *   [__非渲染模式__](#no-rendering-mode)  
-	*   [快速仿真](#simulate-at-a-fast-pace)  
+	*   [快速模拟](#simulate-at-a-fast-pace)  
 	*   [无需渲染的手动控制](#manual-control-without-rendering)  
 *   [__记录和检索数据__](#record-and-retrieve-data)  
 	*   [开始记录](#start-recording)  
@@ -41,14 +41,14 @@
 ---
 ## 概述 <span id="overview"></span>
 
-在检索仿真数据的过程中存在一些常见错误。仿真器中充斥着传感器、存储无用的数据或努力寻找特定事件都是一些例子。然而，可以提供该过程的一些概要。目标是确保数据可以检索和复制，并且可以随意检查和更改仿真。
+在检索模拟数据的过程中存在一些常见错误。模拟器中充斥着传感器、存储无用的数据或努力寻找特定事件都是一些例子。然而，可以提供该过程的一些概要。目标是确保数据可以检索和复制，并且可以随意检查和更改模拟。
 
 !!! 笔记
     本教程使用 [__Carla 0.9.8 deb 包__](start_quickstart.md)。根据您的 Carla 版本和安装，可能会有细微的变化，特别是在路径方面。
 
 本教程为不同步骤提供了多种选项。一直以来，都会提到不同的脚本。并不是所有的都会被使用，这取决于具体的用例。其中大多数已在 Carla 中提供用于通用目的。
 
-* __config.py__ 更改仿真设置。地图、渲染选项、设置固定时间步长...  
+* __config.py__ 更改模拟设置。地图、渲染选项、设置固定时间步长...  
 	* `carla/PythonAPI/util/config.py`
 * __dynamic_weather.py__ 创建有趣的天气条件。
 	* `carla/PythonAPI/examples/dynamic_weather.py`
@@ -60,7 +60,7 @@
 但是，教程中提到的两个脚本在 Carla 中找不到。它们包含引用的代码片段。这有双重目的。首先，鼓励用户构建自己的脚本。充分理解代码的作用非常重要。除此之外，本教程只是一个大纲，可能而且应该根据用户的喜好而有很大的不同。这两个脚本只是一个示例。
 
 * __tutorial_ego.py__ 生成带有一些基本传感器的自我车辆，并启用自动驾驶仪。观察者被放置在生成位置。记录器从一开始就启动，并在脚本完成时停止。
-* __tutorial_replay.py__ 重新执行 __tutorial_ego.py__ 记录的仿真。有不同的代码片段可以查询记录、生成一些高级传感器、改变天气条件以及重新执行记录片段。
+* __tutorial_replay.py__ 重新执行 __tutorial_ego.py__ 记录的模拟。有不同的代码片段可以查询记录、生成一些高级传感器、改变天气条件以及重新执行记录片段。
 
 完整的代码可以在教程的最后部分找到。请记住，这些并不严格，而是可以定制的。在 Carla 中检索数据的功能正如用户所希望的那样强大。
 
@@ -68,9 +68,9 @@
     本教程需要一些 Python 知识。
 
 ---
-## 设置仿真 <span id="set-the-simulation"></span>
+## 设置模拟 <span id="set-the-simulation"></span>
 
-要做的第一件事是将仿真设置为所需的环境。
+要做的第一件事是将模拟设置为所需的环境。
 
 运行 Carla。 
 
@@ -81,7 +81,7 @@ cd /opt/carla/bin
 
 ### 地图设置 <span id="map-setting"></span>
 
-选择要运行仿真的地图。查看 [地图文档](core_map.md#carla-maps) 以了解有关其特定属性的更多信息。在本教程中，选择 __Town07__ 。
+选择要运行模拟的地图。查看 [地图文档](core_map.md#carla-maps) 以了解有关其特定属性的更多信息。在本教程中，选择 __Town07__ 。
 
 打开一个新终端。使用 __config.py__ 脚本更改地图。
 
@@ -173,7 +173,7 @@ python3 environment.py --clouds 100 --rain 80 --wetness 100 --puddles 60 --wind 
 ---
 ## 设置交通流量 <span id="set-traffic"></span>
 
-仿真交通是让地图栩栩如生的最佳方法之一。还需要检索城市环境的数据。在 Carla 中有不同的选择可以实现这一点。
+模拟交通是让地图栩栩如生的最佳方法之一。还需要检索城市环境的数据。在 Carla 中有不同的选择可以实现这一点。
 
 ### Carla 交通和行人 <span id="carla-traffic-and-pedestrians"></span>
 
@@ -205,16 +205,16 @@ python3 spawn_npc.py -n 50 -w 50 --safe
 </details>
 <br>
 ![tuto_spawning](img/tuto_spawning.jpg)
-<div style="text-align: center"><i>生成车辆以仿真交通。</i></div>
+<div style="text-align: center"><i>生成车辆以模拟交通。</i></div>
 
-### SUMO 协同仿真交通 <span id="sumo-co-simulation-traffic"></span>
+### SUMO 协同模拟交通 <span id="sumo-co-simulation-traffic"></span>
 
-Carla 可以与 SUMO 运行联合仿真。这允许在 SUMO 中创建将传播到 Carla 的交通流量。这种联合仿真是双向的。在 Carla 中生成的车辆将在 SUMO 中生成。有关此功能的具体文档可以在 [此处](adv_sumo.md) 找到。
+Carla 可以与 SUMO 运行联合模拟。这允许在 SUMO 中创建将传播到 Carla 的交通流量。这种联合模拟是双向的。在 Carla 中生成的车辆将在 SUMO 中生成。有关此功能的具体文档可以在 [此处](adv_sumo.md) 找到。
 
 此功能适用于 Carla 0.9.8 及更高版本的 __Town01__ 、__Town04__ 和 __Town05__。第一个是最稳定的。
 
 !!! 笔记
-    联合仿真将在 Carla 中启用同步模式。阅读 [文档](adv_synchrony_timestep.md) 以了解更多相关信息。
+    联合模拟将在 Carla 中启用同步模式。阅读 [文档](adv_synchrony_timestep.md) 以了解更多相关信息。
 
 * 首先，安装SUMO。 
 ```sh
@@ -231,7 +231,7 @@ echo "export SUMO_HOME=/usr/share/sumo" >> ~/.bashrc && source ~/.bashrc
 cd ~/carla/Co-Simulation/Sumo
 python3 run_synchronization.py examples/Town01.sumocfg --sumo-gui
 ```
-* SUMO 窗口应该已打开。__按“运行”__ 以在两个仿真中启动交通流量。
+* SUMO 窗口应该已打开。__按“运行”__ 以在两个模拟中启动交通流量。
 ```
 > "Play" on SUMO window.
 ```
@@ -239,15 +239,15 @@ python3 run_synchronization.py examples/Town01.sumocfg --sumo-gui
 该脚本生成的流量是 Carla 团队创建的示例。默认情况下，它会沿着相同的路线生成相同的车辆。用户可以在 SUMO 中更改这些内容。
 
 ![tuto_sumo](img/tuto_sumo.jpg)
-<div style="text-align: center"><i>SUMO 和 Carla 协同仿真交通。</i></div>
+<div style="text-align: center"><i>SUMO 和 Carla 协同模拟交通。</i></div>
 
 !!! 警告
-    目前，SUMO 联合仿真还是测试版功能。车辆没有物理特性，也不考虑 Carla 交通灯。
+    目前，SUMO 联合模拟还是测试版功能。车辆没有物理特性，也不考虑 Carla 交通灯。
 
 ---
 ## 设置自我车辆 <span id="et-the-ego-vehicle"></span>
 
-从现在到记录器停止的那一刻，将会有一些属于 __tutorial_ego.py__ 的代码片段。该脚本生成自我车辆，可选一些传感器，并记录仿真，直到用户完成脚本。
+从现在到记录器停止的那一刻，将会有一些属于 __tutorial_ego.py__ 的代码片段。该脚本生成自我车辆，可选一些传感器，并记录模拟，直到用户完成脚本。
 
 ### 生成自我车辆 <span id="spawn-the-ego-vehicle"></span>
 
@@ -280,7 +280,7 @@ else:
 
 ### 放置观察者 <span id="place-the-spectator"></span>
 
-观察者参与者控制仿真视图。通过脚本移动它是可选的，但它可能有助于找到自我车辆。 
+观察者参与者控制模拟视图。通过脚本移动它是可选的，但它可能有助于找到自我车辆。 
 
 ```py
 # --------------
@@ -314,7 +314,7 @@ __4.__ 添加`listen()`方法。这是关键要素。每次传感器侦听数据
 
 设置属性后，就可以生成传感器了。脚本将摄像机放置在汽车引擎盖中，并指向前方。它将捕捉汽车的前视图。
 
-每一步都会以 [carla.Image](python_api.md#carla.Image) 的形式检索数据。Listen 方法将它们保存到磁盘。路径可以随意改变。每张图像的名称均根据拍摄镜头的仿真帧进行编码。 
+每一步都会以 [carla.Image](python_api.md#carla.Image) 的形式检索数据。Listen 方法将它们保存到磁盘。路径可以随意改变。每张图像的名称均根据拍摄镜头的模拟帧进行编码。 
 
 ```py
 # --------------
@@ -342,7 +342,7 @@ ego_cam.listen(lambda image: image.save_to_disk('tutorial/output/%.6d.jpg' % ima
 * [__压线检测器。__](ref_sensors.md#lane-invasion-detector) 当其父级穿过车道标记时进行注册。
 * [__障碍物检测器。__](ref_sensors.md#obstacle-detector) 检测其父级前方可能存在的障碍物。
 
-他们检索到的数据将有助于稍后决定要重新执行仿真的哪一部分。事实上，可以使用记录器显式查询冲突。这是准备打印的。
+他们检索到的数据将有助于稍后决定要重新执行模拟的哪一部分。事实上，可以使用记录器显式查询冲突。这是准备打印的。
 
 只有障碍物检测器蓝图有需要设置的属性。以下是一些重要的内容。
 
@@ -477,7 +477,7 @@ depth_cam.listen(lambda image: image.save_to_disk('tutorial/new_depth_output/%.6
 
 ### 语义分割相机 <span id="语义分割相机"></span>
 
-[语义分割相机](ref_sensors.md#semantic-segmentation-camera) 根据元素的标记方式将场景中的元素渲染为不同的颜色。标签由仿真器根据用于生成的资源的路径创建。例如，标记为 `Pedestrians` 的网格体是使用存储在 `Unreal/CarlaUE4/Content/Static/Pedestrians` 中的内容生成的。
+[语义分割相机](ref_sensors.md#semantic-segmentation-camera) 根据元素的标记方式将场景中的元素渲染为不同的颜色。标签由模拟器根据用于生成的资源的路径创建。例如，标记为 `Pedestrians` 的网格体是使用存储在 `Unreal/CarlaUE4/Content/Static/Pedestrians` 中的内容生成的。
 
 与任何相机一样，输出是图像，但每个像素都包含在红色通道中编码的标签。必须使用 __ColorConverter.CityScapesPalette__ 转换此原始图像。可以创建新标签，请阅读 [文档](ref_sensors.md#semantic-segmentation-camera) 了解更多信息。
 
@@ -505,7 +505,7 @@ sem_cam.listen(lambda image: image.save_to_disk('tutorial/new_sem_output/%.6d.jp
 
 ### 激光雷达光线投射传感器 <span id="激光雷达光线投射传感器"></span>
 
-[激光雷达传感器](ref_sensors.md#lidar-raycast-sensor) 仿真旋转激光雷达。它创建了一个以三维形式映射场景的点云。激光雷达包含一组以特定频率旋转的激光器。激光投射撞击距离，并将每次射击存储为一个点。
+[激光雷达传感器](ref_sensors.md#lidar-raycast-sensor) 模拟旋转激光雷达。它创建了一个以三维形式映射场景的点云。激光雷达包含一组以特定频率旋转的激光器。激光投射撞击距离，并将每次射击存储为一个点。
 
 可以使用不同的传感器属性来设置激光器阵列的布置方式。
 
@@ -623,11 +623,11 @@ rad_ego.listen(lambda radar_data: rad_callback(radar_data))
 ---
 ## 非渲染模式 <span id="no-rendering-mode"></span>
 
-[无渲染模式](adv_rendering_options.md) 对于运行初始仿真非常有用，稍后将再次播放该仿真以检索数据。特别是如果该仿真存在一些极端条件，例如交通密集。 
+[无渲染模式](adv_rendering_options.md) 对于运行初始模拟非常有用，稍后将再次播放该模拟以检索数据。特别是如果该模拟存在一些极端条件，例如交通密集。 
 
-### 快速仿真 <span id="simulate-at-a-fast-pace"></span>
+### 快速模拟 <span id="simulate-at-a-fast-pace"></span>
 
-禁用渲染将为仿真节省大量工作。由于不使用 GPU，服务器可以全速工作。这对于快速仿真复杂的条件很有用。最好的方法是设置固定的时间步长。以固定时间步长运行异步服务器并且不进行渲染，仿真的唯一限制是服务器的内部逻辑。 
+禁用渲染将为模拟节省大量工作。由于不使用 GPU，服务器可以全速工作。这对于快速模拟复杂的条件很有用。最好的方法是设置固定的时间步长。以固定时间步长运行异步服务器并且不进行渲染，模拟的唯一限制是服务器的内部逻辑。 
 
 相同的 `config.py` 用于 [设置地图](#map-setting) 可以禁用渲染，并设置固定的时间步长。
 
@@ -641,7 +641,7 @@ python3 config.py --no-rendering --delta-seconds 0.05 # Never greater than 0.1s
 
 ### 无需渲染的手动控制 <span id="manual-control-without-rendering"></span>
 
-脚本`PythonAPI/examples/no_rendering_mode.py`提供了仿真的概述。它使用 Pygame 创建了一个简约的鸟瞰图，它将跟随自我车辆。这可以与 __manual_control.py__ 一起使用来生成一条几乎没有成本的路线，记录它，然后回放并利用它来收集数据。
+脚本`PythonAPI/examples/no_rendering_mode.py`提供了模拟的概述。它使用 Pygame 创建了一个简约的鸟瞰图，它将跟随自我车辆。这可以与 __manual_control.py__ 一起使用来生成一条几乎没有成本的路线，记录它，然后回放并利用它来收集数据。
 
 ```
 cd /opt/carla/PythonAPI/examples
@@ -696,7 +696,7 @@ client.start_recorder('~/tutorial/recorder/recording01.log')
 
 有许多不同的方法可以做到这一点。大多数情况下，它会因为让它四处漫游或手动控制而出现故障。产生的传感器的数据将被即时检索。请务必在记录时进行检查，以确保一切设置正确。
 
-* __启用自动驾驶。__ 这会将车辆注册到 [交通管理器](adv_traffic_manager.md)。它将无休止地在城市中漫游。该脚本执行此操作，并创建一个循环以阻止脚本完成。录制将继续进行，直到用户完成脚本。或者，可以设置计时器以在特定时间后完成脚本。  
+* __启用自动驾驶。__ 这会将车辆注册到 [交通管理器](adv_traffic_manager.md)。它将无休止地在城市中漫游。该脚本执行此操作，并创建一个循环以阻止脚本完成。记录将继续进行，直到用户完成脚本。或者，可以设置计时器以在特定时间后完成脚本。  
 
 ```py
 # --------------
@@ -733,15 +733,15 @@ client.stop_recorder()
 ---
 ## 利用记录 <span id="exploit-the-recording"></span>
 
-到目前为止，仿真已经被记录下来。现在，是时候检查记录，找到最引人注目的时刻，并利用它们。这些步骤集中在脚本 __tutorial_replay.py__ 中。该大纲由注释的不同代码段构成。
+到目前为止，模拟已经被记录下来。现在，是时候检查记录，找到最引人注目的时刻，并利用它们。这些步骤集中在脚本 __tutorial_replay.py__ 中。该大纲由注释的不同代码段构成。
 
-现在是运行新仿真的时候了。
+现在是运行新模拟的时候了。
 
 ```sh
 ./CarlaUE4.sh
 ```
 
-要重新进行仿真，请 [选择一个片段](#choose-a-fragment) 并运行包含播放代码的脚本。
+要重新进行模拟，请 [选择一个片段](#choose-a-fragment) 并运行包含播放代码的脚本。
 
 
 ```sh
@@ -771,7 +771,7 @@ print(client.show_recorder_collisions("~/tutorial/recorder/recording01.log",'v',
 <div style="text-align: right"><i>显示重要事件的查询。这是自我车辆产生的框架。</i></div>
 
 ![tuto_query_blocked](img/tuto_query_blocked.jpg)
-<div style="text-align: right"><i>查询显示参与者被阻止。在此仿真中，自我车辆保持阻塞状态 100 秒。</i></div>
+<div style="text-align: right"><i>查询显示参与者被阻止。在此模拟中，自我车辆保持阻塞状态 100 秒。</i></div>
 
 ![tuto_query_collisions](img/tuto_query_collisions.jpg)
 <div style="text-align: right"><i>显示自我车辆与“其他”类型的对象之间的碰撞的查询。</i></div>
@@ -781,7 +781,7 @@ print(client.show_recorder_collisions("~/tutorial/recorder/recording01.log",'v',
 
 ### 选择一个片段 <span id="choose-a-fragment"></span>
 
-查询之后，在乱搞之前回放一些仿真片段可能是个好主意。这样做非常简单，而且非常有帮助。了解有关仿真的更多信息。这是以后节省时间的最佳方法。
+查询之后，在乱搞之前回放一些模拟片段可能是个好主意。这样做非常简单，而且非常有帮助。了解有关模拟的更多信息。这是以后节省时间的最佳方法。
 
 该方法允许选择播放的开始点和结束点以及要跟随的参与者。
 
@@ -796,18 +796,18 @@ client.replay_file("~/tutorial/recorder/recording01.log",45,10,0)
 
 * __使用查询中的信息。__ 找出事件中涉及的时刻和参与者，然后再次播放。在事件发生前几秒钟启动记录器。
 * __跟随不同的参与者。__ 不同的视角将显示查询中未包含的新事件。  
-* __自由地观察周围的情况。__ 将 `actor_id` 设为`0`，并获得仿真的总体视图。借助记录，您可以随时随地。
+* __自由地观察周围的情况。__ 将 `actor_id` 设为`0`，并获得模拟的总体视图。借助记录，您可以随时随地。
 
 !!! 笔记
-    当记录停止时，仿真不会停止。行人将静止不动，车辆将继续行驶。如果日志结束或播放到达指定的结束点，则可能会发生这种情况。
+    当记录停止时，模拟不会停止。行人将静止不动，车辆将继续行驶。如果日志结束或播放到达指定的结束点，则可能会发生这种情况。
 
 ### 检索更多数据 <span id="retrieve-more-data"></span>
 
-记录器将在此仿真中重新创建与原始条件完全相同的条件。这确保了不同播放中的数据一致。
+记录器将在此模拟中重新创建与原始条件完全相同的条件。这确保了不同播放中的数据一致。
 
-收集重要时刻、参与者和事件的列表。需要时添加传感器并回放仿真。该过程与之前完全相同。脚本 __tutorial_replay.py__ 提供了不同的示例，这些示例已在 [__“设置高级传感器”__](#set-advanced-sensors) 部分中进行了彻底解释。其他已在 [__设置基本传感器__](#set-basic-sensors) 部分中进行了解释。 
+收集重要时刻、参与者和事件的列表。需要时添加传感器并回放模拟。该过程与之前完全相同。脚本 __tutorial_replay.py__ 提供了不同的示例，这些示例已在 [__“设置高级传感器”__](#set-advanced-sensors) 部分中进行了彻底解释。其他已在 [__设置基本传感器__](#set-basic-sensors) 部分中进行了解释。 
 
-根据需要添加尽可能多的传感器。根据需要多次回放仿真并检索尽可能多的数据。
+根据需要添加尽可能多的传感器。根据需要多次回放模拟并检索尽可能多的数据。
 
 ### 改变天气 <span id="change-the-weather"></span>
 
@@ -828,11 +828,11 @@ world.set_weather(weather)
 
 ### 尝试新的结果 <span id="try-new-outcomes"></span>
 
-新的仿真与记录没有严格的联系。它可以随时修改，即使记录器停止，仿真也会继续。
+新的模拟与记录没有严格的联系。它可以随时修改，即使记录器停止，模拟也会继续。
 
-这对于用户来说是有利可图的。例如，可以通过回放几秒钟前的仿真并生成或销毁参与者来强制或避免碰撞。在特定时刻结束记录也很有用。这样做，车辆可能会采取不同的路径。 
+这对于用户来说是有利可图的。例如，可以通过回放几秒钟前的模拟并生成或销毁参与者来强制或避免碰撞。在特定时刻结束记录也很有用。这样做，车辆可能会采取不同的路径。 
 
-改变条件并扰乱仿真。没有什么可失去的，因为记录器允许初始仿真始终可以重新进行。这是充分发挥 Carla 潜力的关键。
+改变条件并扰乱模拟。没有什么可失去的，因为记录器允许初始模拟始终可以重新进行。这是充分发挥 Carla 潜力的关键。
 
 ---
 ## 教程脚本 <span id="tutorial-scripts"></span>
@@ -1331,7 +1331,7 @@ if __name__ == '__main__':
 <br>
 
 ---
-这是关于如何从仿真中正确检索数据的总结。确保尝试一下，改变仿真器的条件，尝试传感器设置。可能性是无止境。
+这是关于如何从模拟中正确检索数据的总结。确保尝试一下，改变模拟器的条件，尝试传感器设置。可能性是无止境。
 
 
 请访问论坛，发表在阅读过程中想到的任何疑问或建议。

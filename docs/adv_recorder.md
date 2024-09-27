@@ -1,11 +1,11 @@
 # 记录器
 
-此功能允许记录和重新制定以前的仿真。所有发生的事件都记录在 [记录文件](ref_recorder_binary_file_format.md) 中。有一些高级查询可以跟踪和研究这些事件。
+此功能允许记录和重新制定以前的模拟。所有发生的事件都记录在 [记录文件](ref_recorder_binary_file_format.md) 中。有一些高级查询可以跟踪和研究这些事件。
 
 - [__记录__](#recording)
-- [__仿真播放__](#simulation_playback)
+- [__模拟播放__](#simulation_playback)
      - [设置时间因子](#setting-a-time-factor)
-- [__录制文件__](#recorded-file)
+- [__记录文件__](#recorded-file)
 - [__查询__](#search)
     - [碰撞](#collisions)
     - [被困住的参与者](#blocked-actors)
@@ -16,7 +16,7 @@
 
 所有数据仅写入服务器端的二进制文件。但是，使用 [carla.Client](python_api.md#carla.Client) 管理记录器。
 
-根据记录文件中包含的数据，每帧更新参与者。当前仿真中出现在录制中的参与者将被移动或重新生成以仿真它。那些没有出现在记录中的将继续他们的方式，就好像什么都没发生一样。
+根据记录文件中包含的数据，每帧更新参与者。当前模拟中出现在记录中的参与者将被移动或重新生成以模拟它。那些没有出现在记录中的将继续他们的方式，就好像什么都没发生一样。
 
 !!! 重要的
     播放结束时，车辆将设置为自动驾驶，但 __行人将停止__。
@@ -29,13 +29,13 @@
 * __行人__ — 位置和方向，以及线速度和角速度。
 * __灯光__ — 来自建筑物、街道和车辆的灯光状态。
 
-要开始录制，只需要一个文件名。在文件名中使用 `\`、`/` 或 `:` 字符会将其定义为绝对路径。如果没有详细的路径，文件将保存在 `CarlaUE4/Saved` 中。
+要开始记录，只需要一个文件名。在文件名中使用 `\`、`/` 或 `:` 字符会将其定义为绝对路径。如果没有详细的路径，文件将保存在 `CarlaUE4/Saved` 中。
 
 ```py
 client.start_recorder("/home/carla/recording01.log")
 ```
 
-默认情况下，记录器设置为仅存储回放仿真所需的信息。为了保存前面提到的所有信息，必须在开始录制时配置参数`additional_data`。
+默认情况下，记录器设置为仅存储回放模拟所需的信息。为了保存前面提到的所有信息，必须在开始记录时配置参数`additional_data`。
 
 ```py
 client.start_recorder("/home/carla/recording01.log", True)
@@ -44,7 +44,7 @@ client.start_recorder("/home/carla/recording01.log", True)
 !!! 笔记
     其他数据包括：车辆和行人的线速度和角速度、红绿灯时间设置、执行时间、参与者的触发器和边界框，以及车辆的物理控制。
 
-要停止录制，调用也很简单。
+要停止记录，调用也很简单。
 
 ```py
 client.stop_recorder()
@@ -54,9 +54,9 @@ client.stop_recorder()
     据估计，50 个红绿灯和 100 辆车的 1 小时记录大约需要 200MB 大小。
 
 ---
-## 仿真播放 <span id="simulation_playback"></span>
+## 模拟播放 <span id="simulation_playback"></span>
 
-可以在仿真过程中的任何时候开始播放。除了日志文件的路径，这个方法还需要一些参数。
+可以在模拟过程中的任何时候开始播放。除了日志文件的路径，这个方法还需要一些参数。
 
 ```py
 client.replay_file("recording01.log", start, duration, camera)
@@ -64,7 +64,7 @@ client.replay_file("recording01.log", start, duration, camera)
 
 | 参数     | 说明              | 笔记                                     |
 |--------|-----------------|----------------------------------------|
-| `开始`   | 以秒为单位记录开始仿真的时间。 | 如果是肯定的，时间将从记录开始计算。 <br> 如果是否定的，将从最后考虑。 |
+| `开始`   | 以秒为单位记录开始模拟的时间。 | 如果是肯定的，时间将从记录开始计算。 <br> 如果是否定的，将从最后考虑。 |
 | `持续时间` | 播放秒数。 0 是所有的记录。 | 播放结束时，车辆将设置为自动驾驶，行人将停止。                |
 | `相机`   | 相机将聚焦的参与者的 ID。   | 将其设置为“0”以让观众自由移动。                      |
 
@@ -96,7 +96,7 @@ client.set_replayer_time_factor(2.0)
 ![流](img/RecorderFlow2.gif)
 
 ---
-##录制文件 <span id="recorded-file"></span>
+## 记录文件 <span id="recorded-file"></span>
 
 可以使用简单的 API 调用来检索记录的详细信息。默认情况下，它只检索注册事件的那些帧。设置参数 `show_all` 将返回每一帧的所有信息。关于如何存储数据的细节在 [recorder's reference](ref_recorder_binary_file_format.md) 中有详细说明。
 
@@ -105,7 +105,7 @@ client.set_replayer_time_factor(2.0)
 print (client.show_recorder_file_info ("recording01.log"))
 ```
 
-* __开放信息.__ 记录仿真的地图、日期和时间。
+* __开放信息.__ 记录模拟的地图、日期和时间。
 
 * __Frame information.__ 任何可能发生的事件，例如参与者生成或碰撞。它包含参与者的 ID 和一些附加信息。
 
@@ -191,9 +191,9 @@ client.replay_file("col2.log", 13, 0, 122)
 
 ![碰撞](img/collision1.gif)
 
-### 被卡住的参与者 <span id="blocked-actors"></span>
+### 被堵塞的参与者 <span id="blocked-actors"></span>
 
-检测在录制过程中卡住的车辆。如果参与者在特定时间内没有移动最小距离，则认为它被阻塞。该定义由用户在查询期间进行。
+检测在记录过程中卡住的车辆。如果参与者在特定时间内没有移动最小距离，则认为它被阻塞。该定义由用户在查询期间进行。
 
 ```py
 print(client.show_recorder_actors_blocked("recording01.log", min_time, min_distance))
@@ -234,7 +234,7 @@ Frames: 6985
 Duration: 374 seconds
 ```
 
-车辆`173`在`36`秒时停止`336`秒。在第二个`36`之前几秒钟重新仿真以检查它。
+车辆`173`在`36`秒时停止`336`秒。在第二个`36`之前几秒钟重新模拟以检查它。
 
 ```py
 client.replay_file("col3.log", 34, 0, 173)
@@ -249,17 +249,17 @@ client.replay_file("col3.log", 34, 0, 173)
 
 
 
-* __start_recording.py__ 开始录制。可以设置录制的持续时间，并且可以在开始时生成参与者。
+* __start_recording.py__ 开始记录。可以设置记录的持续时间，并且可以在开始时生成参与者。
 
 |参数 |说明 |
 | -------------------------------------------------- ------------ | -------------------------------------------------- ------------ |
 | `-f` |文件名。 |
 | `-n`<small>（可选）</small> |产生的车辆。默认值为 10。
-| `-t`<small>（可选）</small> |录制的持续时间。 |
+| `-t`<small>（可选）</small> |记录的持续时间。 |
 
 
 
-* __start_replaying.py__ 开始播放录制。可以设置开始时间、持续时间和要跟随的参与者。
+* __start_replaying.py__ 开始播放记录。可以设置开始时间、持续时间和要跟随的参与者。
 
 
 |参数 |说明 |
@@ -272,7 +272,7 @@ client.replay_file("col3.log", 34, 0, 173)
 
 
 
-* __show_recorder_file_info.py__ 显示录制文件中的所有信息。默认情况下，它仅显示记录事件的帧。但是，所有这些都可以显示。
+* __show_recorder_file_info.py__ 显示记录文件中的所有信息。默认情况下，它仅显示记录事件的帧。但是，所有这些都可以显示。
 
 
 |参数 |说明 |
@@ -306,7 +306,7 @@ client.replay_file("col3.log", 34, 0, 173)
 
 
 ---
-现在是试验一段时间的时候了。使用记录器回放仿真、追溯事件、进行更改以查看新结果。在 Carla 论坛上就此事发表意见。
+现在是试验一段时间的时候了。使用记录器回放模拟、追溯事件、进行更改以查看新结果。在 Carla 论坛上就此事发表意见。
 
 <div class="build-buttons">
 <p>

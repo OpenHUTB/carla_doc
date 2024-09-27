@@ -1,6 +1,6 @@
 # 通过 API 更改纹理
 
-Carla API 可用于在运行时修改资源纹理。在本教程中，我们将学习如何选择资源，然后在 Carla 仿真运行时修改其纹理。
+Carla API 可用于在运行时修改资源纹理。在本教程中，我们将学习如何选择资源，然后在 Carla 模拟运行时修改其纹理。
 
 ## 在虚幻编辑器中选择一个资源
 
@@ -22,14 +22,14 @@ Carla API 可用于在运行时修改资源纹理。在本教程中，我们将�
 
 ![textures](./img/tuto_G_texture_streaming/textures.png)
 
-将修改后的纹理导出到适当的位置，然后打开代码编辑器运行一些 Python 来更新正在运行的 Carla 仿真中的纹理。
+将修改后的纹理导出到适当的位置，然后打开代码编辑器运行一些 Python 来更新正在运行的 Carla 模拟中的纹理。
 
 ## 通过API更新纹理
 
-如果尚未启动，请从命令行启动 Carla 仿真，或在虚幻编辑器中启动仿真。我们将使用 [__Python 图像库 (PIL)__](https://pillow.readthedocs.io/en/stable/) 从图像处理软件导出的图像文件中读取纹理。
+如果尚未启动，请从命令行启动 Carla 模拟，或在虚幻编辑器中启动模拟。我们将使用 [__Python 图像库 (PIL)__](https://pillow.readthedocs.io/en/stable/) 从图像处理软件导出的图像文件中读取纹理。
 
 
-## 连接到仿真器
+## 连接到模拟器
 
 ```py
 

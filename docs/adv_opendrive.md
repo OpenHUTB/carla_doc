@@ -1,6 +1,6 @@
 # OpenDRIVE独立模式
 
-此功能允许用户将任何 OpenDRIVE 文件作为 Carla 地图开箱即用。为此，仿真器将自动生成道路网格供参与者导航。
+此功能允许用户将任何 OpenDRIVE 文件作为 Carla 地图开箱即用。为此，模拟器将自动生成道路网格供参与者导航。
 
 * [__概述__](#overview)
 * [__运行独立地图__](#independent_running_map)
@@ -9,24 +9,24 @@
 ---
 ## 概述 <span id="overview"></span>
 
-此模式仅使用 OpenDRIVE 文件运行完整仿真，无需任何额外的几何图形或资产。为此，仿真器采用 OpenDRIVE 文件并程序化地创建时间三维网格来运行仿真。
+此模式仅使用 OpenDRIVE 文件运行完整模拟，无需任何额外的几何图形或资产。为此，模拟器采用 OpenDRIVE 文件并程序化地创建时间三维网格来运行模拟。
 
 生成的网格以简约的方式描述了道路定义。所有元素都将与 OpenDRIVE 文件对应，但除此之外，只有 void。为防止车辆掉出路面，采取了两项措施。
 
 * 在车辆流动最复杂的路口，车道稍宽一些。
 * 在道路的边界处创建了可见的墙壁，作为最后的安全措施。
 
-交通信号灯、停车标志和让行标志将即时生成。行人将在地图上显示的人行道和人行横道上导航。所有这些元素，以及道路上的每一个细节，都基于 OpenDRIVE 文件。由于独立模式直接使用 `.xodr`，因此其中的任何问题都会影响到仿真。这可能是一个问题，尤其是在许多车道混合的路口。
+交通信号灯、停车标志和让行标志将即时生成。行人将在地图上显示的人行道和人行横道上导航。所有这些元素，以及道路上的每一个细节，都基于 OpenDRIVE 文件。由于独立模式直接使用 `.xodr`，因此其中的任何问题都会影响到模拟。这可能是一个问题，尤其是在许多车道混合的路口。
 
 !!! 重要的
-    仔细检查 OpenDRIVE 文件尤为重要。运行仿真时，其中的任何问题都会传播。
+    仔细检查 OpenDRIVE 文件尤为重要。运行模拟时，其中的任何问题都会传播。
 
 ![opendrive_standalone](img/opendrive_standalone.jpg)
 
 ---
 ## 运行独立地图 <span id="independent_running_map"></span>
 
-打开 OpenDRIVE 文件只需通过 API 调用 [`client.generate_opendrive_world()`](python_api.md#carla.Client.generate_opendrive_world)。这将生成新地图，并阻止仿真，直到它准备好。该方法需要两个参数。
+打开 OpenDRIVE 文件只需通过 API 调用 [`client.generate_opendrive_world()`](python_api.md#carla.Client.generate_opendrive_world)。这将生成新地图，并阻止模拟，直到它准备好。该方法需要两个参数。
 
 * __`opendrive`__ 是解析为字符串的 OpenDRIVE 文件的内容。
 * __`parameters`__ 是一个 [carla.OpendriveGenerationParameters](python_api.md#carla.OpendriveGenerationParameters) 包含网格生成的设置。 __这个参数是可选的__。
@@ -36,7 +36,7 @@
 * __`wall_height`__ *（默认为 1.0 米）* - 在道路边界上创建的附加墙的高度。这些可以防止车辆坠入虚空。
 * __`additional_width`__ *（默认为 0.6 米，每边 0.3）* — 应用于交叉路口的小宽度增量。这是防止车辆坠落的安全措施。
 * __`smooth_junctions`__ *(default True)* — 如果 __True__，OpenDRIVE 的一些信息将被重新解释以平滑连接处的最终网格。这样做是为了防止在不同车道相遇时可能发生的一些不准确。如果设置为 __False__，网格将完全按照 OpenDRIVE 中的描述生成。
-* __`enable_mesh_visibility`__ *(default True)* — 如果 __False__，网格将不会被渲染，这可以为仿真器节省大量渲染工作。
+* __`enable_mesh_visibility`__ *(default True)* — 如果 __False__，网格将不会被渲染，这可以为模拟器节省大量渲染工作。
 
 
 为了轻松测试此功能，`PythonAPI/util/` 中的`config.py` 脚本有一个新参数，`-x` 或`--xodr-path`。此参数需要一个带有 `.xodr` 文件路径的字符串，例如 `path/example.xodr`。如果使用此脚本生成网格，则使用的参数将始终为默认参数。
@@ -63,7 +63,7 @@ python3 config.py -x opendrive/TownBig.xodr
 ![opendrive_meshissue](img/opendrive_meshissue.jpg)
 <div style="text-align: right"><i>在生成交汇点网格时，较高的车道往往会阻挡下方的车道。 <br><code>smooth_junctions</code> 参数可防止此类问题。</i></div>
 
-除此之外，不是将整个地图创建为一个独特的网格，而是创建不同的部分。通过划分网格，仿真器可以避免渲染不可见的部分，并节省成本。工作更小还允许生成巨大的地图并包含可能出现在网格的一小部分上的问题。
+除此之外，不是将整个地图创建为一个独特的网格，而是创建不同的部分。通过划分网格，模拟器可以避免渲染不可见的部分，并节省成本。工作更小还允许生成巨大的地图并包含可能出现在网格的一小部分上的问题。
 
 关于网格生成的当前状态，应考虑一些因素。
 

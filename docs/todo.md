@@ -74,7 +74,7 @@ https://bitbucket.org/carla-simulator/carla-content Unreal/CarlaUE4/Content/Carl
 * [加载进度](https://www.unrealengine.com/marketplace/en-US/product/loading-screen-with-load-percentage) ；
 
 ### 有限元
-* 开源多物理场仿真引擎 [Chrono](https://projectchrono.org/) 处理碰撞。
+* 开源多物理场模拟引擎 [Chrono](https://projectchrono.org/) 处理碰撞。
 * [可变形资产](https://github.com/GPUOpen-Effects/FEMFX) 
 * [车辆碰撞](https://github.com/OpenRadioss/OpenRadioss)
 

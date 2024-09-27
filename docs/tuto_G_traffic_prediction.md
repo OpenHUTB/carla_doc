@@ -15,17 +15,17 @@ main函数中首先定义了argparser和carla模块，其中，argparse模块用
     argparser.add_argument('--color_time', metavar='T', default=20, type=int, help='set traffic light time') 
 
     
-使用指定的主机IP地址和端口号连接到Carla仿真器。同时，设置与仿真器通信的超时时间。最后，代码通过获取Carla仿真器的世界对象，可以在仿真环境中进行交通灯的操作和控制。
+使用指定的主机IP地址和端口号连接到Carla模拟器。同时，设置与模拟器通信的超时时间。最后，代码通过获取Carla模拟器的世界对象，可以在模拟环境中进行交通灯的操作和控制。
 
     client = carla.Client(args.host, args.port)
     client.set_timeout(10.0)  
     world = client.get_world()  
     
-使用world.get_settings()方法获取Carla仿真器的当前设置。将Carla仿真器的设置更改为同步模式，并将时间步长设置为0.05秒，以便以固定的时间间隔进行仿真，控制仿真的速度和精确度。
+使用world.get_settings()方法获取Carla模拟器的当前设置。将Carla模拟器的设置更改为同步模式，并将时间步长设置为0.05秒，以便以固定的时间间隔进行模拟，控制模拟的速度和精确度。
     
     settings = world.get_settings()
     settings.synchronous_mode = True
-    settings.fixed_delta_seconds = 0.05  #仿真环境会以0.05秒的时间前进。
+    settings.fixed_delta_seconds = 0.05  #模拟环境会以0.05秒的时间前进。
     world.apply_settings(settings)
 
 
@@ -48,7 +48,7 @@ main函数中首先定义了argparser和carla模块，其中，argparse模块用
     timestamps = []
     traffic_flow = []
 
-  ***统计车流量数据***。假设仿真时间步一共为1000。在每个时间步中，遍历所有正在行驶的车辆。对于每辆车辆，获取其位置信息，并判断其是否在目标路口的区域内。如果车辆在区域内，将计数器加1，并将车辆的位置信息存储到字典vehicle_positions中。 
+  ***统计车流量数据***。假设模拟时间步一共为1000。在每个时间步中，遍历所有正在行驶的车辆。对于每辆车辆，获取其位置信息，并判断其是否在目标路口的区域内。如果车辆在区域内，将计数器加1，并将车辆的位置信息存储到字典vehicle_positions中。 
     
     for t in range(1000):  
         world.tick()

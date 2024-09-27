@@ -1,7 +1,7 @@
 # Chrono::Vehicle 参考手册
 
 - [__安装并构建 Chrono::Vehicle__](./module_vehicle_installation.md)
-- [__车辆建模与仿真概述__](vehicle_overview.md)
+- [__车辆建模与模拟概述__](vehicle_overview.md)
     - [参考框架](vehicle_overview.md#reference_frames)
     - [模拟循环](vehicle_overview.md#simulation_loop)
 - [__车辆底盘__](vehicle_chassis.md)

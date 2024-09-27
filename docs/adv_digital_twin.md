@@ -102,7 +102,7 @@ python src/util/config.py -x *.xodr
 
 ![procedural_buildings](img/procedural_building_generation.jpg)
 
-程序生成工具从 OSM 数据中提取建筑物占地面积和高度信息，以生成具有相似尺寸的虚拟建筑物。详细的覆层用于仿真窗户、门和阳台。根据建筑面积的不同，采用不同的装修风格，最高的建筑为办公风格，较小的建筑根据建筑占地面积采用商业或住宅风格。
+程序生成工具从 OSM 数据中提取建筑物占地面积和高度信息，以生成具有相似尺寸的虚拟建筑物。详细的覆层用于模拟窗户、门和阳台。根据建筑面积的不同，采用不同的装修风格，最高的建筑为办公风格，较小的建筑根据建筑占地面积采用商业或住宅风格。
 
 ![procedural_cities](img/digital_twins_vegetation.jpg)
 
@@ -144,4 +144,4 @@ GenerateTile();
 
 ```
 
-参考：UE 中的 [Commandlet](./ue_commandlet.md) 解读。
+参考：UE 中的 [Commandlet](ue/ue_commandlet.md) 解读。

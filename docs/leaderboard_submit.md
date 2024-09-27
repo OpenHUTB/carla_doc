@@ -121,7 +121,7 @@ evalai push <image>:<tag> --phase <phase_name>
 
 创建提交后，您可以转到此`My Submissions`部分查看所有提交的详细信息。
 
-状态显示提交状态的高级说明。所有提交都从状态开始，一旦在后端开始运行，`SUBMITTED`就会更改为。完成后，如果仿真过程中一切顺利，它将更改为`PARTIALLY_EVALUATED`，或者如果发生意外情况，则更改为 `FINISHEDFAILED` 。
+状态显示提交状态的高级说明。所有提交都从状态开始，一旦在后端开始运行，`SUBMITTED`就会更改为。完成后，如果模拟过程中一切顺利，它将更改为`PARTIALLY_EVALUATED`，或者如果发生意外情况，则更改为 `FINISHEDFAILED` 。
 
 失败的提交可以恢复，这将继续提交，而不重复已经完成的路线。这些将具有`RESUMED`状态，而不是`SUBMITTED`直到它们开始运行。
 

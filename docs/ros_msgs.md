@@ -55,7 +55,7 @@ ROS 和 Carla 之间共享有关参与者的信息。
 ---
 ## CarlaControl.msg
 
-这些消息在同步、非被动模式下控制仿真。定义的常量被翻译为步进命令。
+这些消息在同步、非被动模式下控制模拟。定义的常量被翻译为步进命令。
 
 | 字段        | 类型                                                | 描述                                         |
 |-----------| ----------------------------------------------------------- |--------------------------------------------|
@@ -186,15 +186,15 @@ ScenarioRunner 的当前状态。它是使用常量来管理的。
 
 ## CarlaStatus.msg
 
-当前世界的仿真设置。 
+当前世界的模拟设置。 
 
 
 | 字段                         | 类型    | 描述                             |
 |----------------------------| -------------------------------------------------- |--------------------------------|
 | `frame`                    | uint64        | 当前帧号。                          |
-| `fixed_delta_seconds`      | float32    | 最后一步和当前步之间的仿真时间。               |
+| `fixed_delta_seconds`      | float32    | 最后一步和当前步之间的模拟时间。               |
 | `synchronous_mode`         | bool  | 如果为 **True**，则启用同步模式。          |
-| `synchronous_mode_running` | bool    | 当仿真运行时为**True**。暂停时为**False**。 |
+| `synchronous_mode_running` | bool    | 当模拟运行时为**True**。暂停时为**False**。 |
 
 ---
 
@@ -241,7 +241,7 @@ ScenarioRunner 的当前状态。它是使用常量来管理的。
 | `section_id`  | int32                                                                                                                                    | OpenDRIVE 部分的 id，基于它们最初定义的顺序。              |
 | `lane_id`     | int32                                                                                                                                    | OpenDRIVE 车道的id，该值可以是正数或负数，表示当前车道相对于道路的方向。 |
 | `is_junction` | bool                                                                                                                                     | 如果当前路点位于 OpenDRIVE 定义的交汇点上，则为 **True**。    |
-| `is_junction` | [geometry\_msgs/Pose](https://docs.ros.org/en/api/geometry_msgs/html/msg/Pose.html)                                                        | 当仿真运行时为 **True** 。暂停时为  **False**。         |
+| `is_junction` | [geometry\_msgs/Pose](https://docs.ros.org/en/api/geometry_msgs/html/msg/Pose.html)                                                        | 当模拟运行时为 **True** 。暂停时为  **False**。         |
 
 ---
 

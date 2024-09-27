@@ -37,7 +37,7 @@
 | 传感器数据属性            | 类型  | 描述                                                  |
 | ----------------------- | ----------------------- |-----------------------------------------------------|
 | `frame`            | int   | 进行测量时的帧编号。                                          |
-| `timestamp`        | double | 自回合开始以来测量的仿真时间（以秒为单位）。                              |
+| `timestamp`        | double | 自回合开始以来测量的模拟时间（以秒为单位）。                              |
 | `transform`        | [carla.Transform](<../python_api#carlatransform>)  | 测量时传感器在世界坐标中的位置和旋转。                                 |
 | `actor`            | [carla.Actor](<../python_api#carlaactor>)    | 测量碰撞的参与者（传感器的父级）。                                   |
 | `other_actor`      | [carla.Actor](<../python_api#carlaactor>)    | 与父级相撞的参与者。 |
@@ -79,7 +79,7 @@ raw_image.save_to_disk("path/to/save/converted/image",carla.Depth)
 | `image_size_x`            | int     | 800     | 图像宽度（以像素为单位）。                                                           |
 | `image_size_y`            | int     | 600     | 图像高度（以像素为单位）。                                                           |
 | `fov`   | float   | 90\.0   | 水平视野（以度为单位）。                                                            |
-| `sensor_tick` | float   | 0\.0    | 传感器捕获之间的仿真秒数（节拍）。 |
+| `sensor_tick` | float   | 0\.0    | 传感器捕获之间的模拟秒数（节拍）。 |
 
 
 
@@ -102,7 +102,7 @@ raw_image.save_to_disk("path/to/save/converted/image",carla.Depth)
 | 传感器数据属性            | 类型  | 描述                                                                                       |
 | ----------------------- | ----------------------- |------------------------------------------------------------------------------------------|
 | `frame`            | int   | 进行测量时的帧编号。                                                                               |
-| `timestamp`        | double | 自回合开始以来测量的仿真时间（以秒为单位）。                                                                 |
+| `timestamp`        | double | 自回合开始以来测量的模拟时间（以秒为单位）。                                                                 |
 | `transform`        | [carla.Transform](<../python_api#carlatransform>)  | 测量时传感器在世界坐标中的位置和旋转。 |
 | `width`            | int   | 图像宽度（以像素为单位）。                                                                   |
 | `height`           | int   | 图像高度（以像素为单位）。                                                                  |
@@ -132,7 +132,7 @@ raw_image.save_to_disk("path/to/save/converted/image",carla.Depth)
 | `noise_lon_bias`   | float  | 0\.0   | 经度噪声模型中的平均参数。        |
 | `noise_lon_stddev` | float  | 0\.0   | 经度噪声模型中的标准偏差参数。      |
 | `noise_seed`       | int    | 0      | 伪随机数生成器的初始化程序。       |
-| `sensor_tick`      | float  | 0\.0   | 传感器捕获之间的仿真秒数（节拍）。 |
+| `sensor_tick`      | float  | 0\.0   | 传感器捕获之间的模拟秒数（节拍）。 |
 
 <br>
 
@@ -142,7 +142,7 @@ raw_image.save_to_disk("path/to/save/converted/image",carla.Depth)
 | 传感器数据属性            | 类型  | 描述                     |
 | ----------------------- | ----------------------- |------------------------|
 | `frame`            | int   | 进行测量时的帧编号。             |
-| `timestamp`        | double | 自回合开始以来测量的仿真时间（以秒为单位）。 |
+| `timestamp`        | double | 自回合开始以来测量的模拟时间（以秒为单位）。 |
 | `transform`        | [carla.Transform](<../python_api#carlatransform>)  | 测量时传感器在世界坐标中的位置和旋转。    |
 | `latitude`         | double | 参与者的纬度。                |
 | `longitude`        | double | 参与者的经度。                |
@@ -173,7 +173,7 @@ raw_image.save_to_disk("path/to/save/converted/image",carla.Depth)
 | `noise_gyro_stddev_y`           | float   | 0\.0    | 陀螺仪噪声模型中的标准偏差参数（Y 轴）。 |
 | `noise_gyro_stddev_z`           | float   | 0\.0    | 陀螺仪噪声模型中的标准偏差参数（Z 轴）。 |
 | `noise_seed`        | int     | 0       | 伪随机数生成器的初始化程序。        |
-| `sensor_tick`       | float   | 0\.0    | 传感器捕获之间的仿真秒数（节拍）。  |
+| `sensor_tick`       | float   | 0\.0    | 传感器捕获之间的模拟秒数（节拍）。  |
 
 <br>
 
@@ -182,7 +182,7 @@ raw_image.save_to_disk("path/to/save/converted/image",carla.Depth)
 | 传感器数据属性                                                                                                                                                 | 类型  | 描述                                       |
 |---------------------------------------------------------------------------------------------------------------------------------------------------------| ----------------------- |------------------------------------------|
 | `frame`                                                                                                                                                 | int   | 进行测量时的帧编号。                               |
-| `timestamp`                                                                                                                                             | double | 自回合开始以来测量的仿真时间（以秒为单位）。                   |
+| `timestamp`                                                                                                                                             | double | 自回合开始以来测量的模拟时间（以秒为单位）。                   |
 | `transform`                                                                                                                                             | [carla.Transform](<../python_api#carlatransform>)  | 测量时传感器在世界坐标中的位置和旋转。                      |
 | [`accelerometer`](https://github.com/carla-simulator/carla/blob/dev/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/InertialMeasurementUnit.cpp#L102) | [carla.Vector3D](<../python_api#carlavector3d>)    | 测量线性加速度（以 `m/s^2` 为单位）。                  |
 | [`gyroscope`](https://github.com/carla-simulator/carla/blob/dev/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/InertialMeasurementUnit.cpp#L147)     | [carla.Vector3D](<../python_api#carlavector3d>)    | 测量角速度（以 `rad/sec` 为单位）。                  |
@@ -218,7 +218,7 @@ $$ d_2 (i) = -2.0 \times [ { y_1 \over {h_1 \times h_2 } }  -  { y_2 \over { h_2
 | 传感器数据属性            | 类型  | 描述                                            |
 | ----------------------- | ----------------------- |-----------------------------------------------|
 | `frame`            | int   | 进行测量时的帧编号。                                    |
-| `timestamp`        | double | 自回合开始以来测量的仿真时间（以秒为单位）。                        |
+| `timestamp`        | double | 自回合开始以来测量的模拟时间（以秒为单位）。                        |
 | `transform`        | [carla.Transform](<../python_api#carlatransform>)  | 测量时传感器在世界坐标中的位置和旋转。                           |
 | `actor`            | [carla.Actor](<../python_api#carlaactor>)    | 侵入另一车道的车辆（父参与者）。                            |
 | `crossed_lane_markings`          | list([carla.LaneMarking](<../python_api#carlalanemarking>))      | 已穿越的车道标记列表。 |
@@ -234,7 +234,7 @@ $$ d_2 (i) = -2.0 \times [ { y_1 \over {h_1 \times h_2 } }  -  { y_2 \over { h_2
 激光雷达测量包含一个包，其中包含在某个时间间隔内生成的所有点1/FPS。在此间隔期间，物理不会更新，因此测量中的所有点都反映场景的相同“静态图片”。
 `points_per_channel_each_step = points_per_second / (FPS * channels)`
 
-此输出包含仿真点云，因此可以对其进行迭代以检索它们的列表 [`carla.Location`](python_api.md#carla.Location)：
+此输出包含模拟点云，因此可以对其进行迭代以检索它们的列表 [`carla.Location`](python_api.md#carla.Location)：
 
 ```py
 for location in lidar_measurement:
@@ -248,14 +248,14 @@ for location in lidar_measurement:
 `a` — 衰减系数。这可能取决于传感器的波长和大气条件。可以使用激光雷达属性对其进行修改`atmosphere_attenuation_rate`。 
 `d` — 从击中点到传感器的距离
 
-为了获得更好的真实感，可以删除云中的点。这是仿真外部扰动造成的损失的简单方法。这可以结合两个不同的来完成。
+为了获得更好的真实感，可以删除云中的点。这是模拟外部扰动造成的损失的简单方法。这可以结合两个不同的来完成。
 
 *   __General drop-off__ — 随机掉落的分数比例。这是在跟踪之前完成的，这意味着不会计算被丢弃的点，从而提高性能。如果是`dropoff_general_rate = 0.5`，则扣掉一半的分数。
 *   __Instensity-based drop-off__ — 对于检测到的每个点，根据计算的强度的概率执行额外的下降。该概率由两个参数确定。`dropoff_zero_intensity`是强度为零的点被丢弃的概率。`dropoff_intensity_limit`是阈值强度，超过该阈值将不会掉落任何分数。范围内的点被丢弃的概率是基于这两个参数的线性比例。
 
-此外，该`noise_stddev`属性还使噪声模型能够仿真现实传感器中出现的意外偏差。对于正值，每个点都会沿着激光射线的矢量随机扰动。结果是激光雷达传感器具有完美的角度定位，但距离测量存在噪音。
+此外，该`noise_stddev`属性还使噪声模型能够模拟现实传感器中出现的意外偏差。对于正值，每个点都会沿着激光射线的矢量随机扰动。结果是激光雷达传感器具有完美的角度定位，但距离测量存在噪音。
 
-可以调整激光雷达的旋转以覆盖每个仿真步骤的特定角度（使用 [固定的时间步长](adv_synchrony_timestep.md) ）。例如，每步旋转一次（整圈输出，如下图），旋转频率和仿真的 FPS 应该相等。 <br> __1.__ 设置传感器的频率 `sensors_bp['lidar'][0].set_attribute('rotation_frequency','10')`. <br> __2.__ 使用 `python3 config.py --fps=10` 运行仿真。
+可以调整激光雷达的旋转以覆盖每个模拟步骤的特定角度（使用 [固定的时间步长](adv_synchrony_timestep.md) ）。例如，每步旋转一次（整圈输出，如下图），旋转频率和模拟的 FPS 应该相等。 <br> __1.__ 设置传感器的频率 `sensors_bp['lidar'][0].set_attribute('rotation_frequency','10')`. <br> __2.__ 使用 `python3 config.py --fps=10` 运行模拟。
 
 ![LidarPointCloud](img/lidar_point_cloud.jpg)
 
@@ -275,7 +275,7 @@ for location in lidar_measurement:
 | `dropoff_general_rate`          | float  | 0.45  | 随机丢弃的点的一般比例。                                                                                 |
 | `dropoff_intensity_limit`       | float  | 0.8   | 对于基于强度的下降，强度阈值，高于该值则不会下降任何点。                                                                 |
 | `dropoff_zero_intensity`        | float  | 0.4   | 对于基于强度的下降，每个强度为零的点被下降的概率。                                                                    |
-| `sensor_tick`      | float  | 0.0   | 传感器捕获之间的仿真秒数（节拍）。                                                                          |
+| `sensor_tick`      | float  | 0.0   | 传感器捕获之间的模拟秒数（节拍）。                                                                          |
 | `noise_stddev`     | float  | 0.0   | 噪声模型的标准偏差，用于干扰沿其光线投射矢量的每个点。 |
 
 
@@ -286,7 +286,7 @@ for location in lidar_measurement:
 | 传感器数据属性            | 类型  | 描述                                                |
 | ----------------------- | ----------------------- |---------------------------------------------------|
 | `frame`            | int   | 进行测量时的帧编号。                                        |
-| `timestamp`        | double | 自回合开始以来测量的仿真时间（以秒为单位）。                            |
+| `timestamp`        | double | 自回合开始以来测量的模拟时间（以秒为单位）。                            |
 | `transform`        | [carla.Transform](<../python_api#carlatransform>)  | 测量时传感器在世界坐标中的位置和旋转。                               |
 | `horizontal_angle`   | float | 当前帧中激光雷达的 XY 平面中的角度（弧度）。                          |
 | `channels`         | int   | 激光雷达的通道（激光器）数量。                                  |
@@ -310,7 +310,7 @@ for location in lidar_measurement:
 | `hit_radius`     | float      | 0\.5       | 轨迹的半径。                                                                 |
 | `only_dynamics`  | bool       | False      | 如果为 true，则轨迹将仅考虑动态对象。                                                  |
 | `debug_linetrace` | bool       | False      | 如果为 true，则轨迹将可见。                                                       |
-| `sensor_tick`    | float      | 0\.0       | 传感器捕获之间的仿真秒数（节拍）。 |
+| `sensor_tick`    | float      | 0\.0       | 传感器捕获之间的模拟秒数（节拍）。 |
 
 <br>
 
@@ -319,7 +319,7 @@ for location in lidar_measurement:
 | 传感器数据属性            | 类型  | 描述                                                    |
 | ----------------------- | ----------------------- |-------------------------------------------------------|
 | `frame`            | int   | 进行测量时的帧编号。                                            |
-| `timestamp`        | double | 自回车开始以来测量的仿真时间（以秒为单位）。                                |
+| `timestamp`        | double | 自回车开始以来测量的模拟时间（以秒为单位）。                                |
 | `transform`        | [carla.Transform](<../python_api#carlatransform>)  | 测量时传感器在世界坐标中的位置和旋转。                                   |
 | `actor`            | [carla.Actor](<../python_api#carlaactor>)    | 检测到障碍物的参与者（父级参与者）。                                    |
 | `other_actor`      | [carla.Actor](<../python_api#carlaactor>)    | 参与者被检测为障碍物。                                           |
@@ -352,7 +352,7 @@ points = np.reshape(points, (len(radar_data), 4))
 | `horizontal_fov`          | float   | 30\.0   | 水平视野（以度为单位）。                       |
 | `points_per_second`       | int     | 1500    | 所有激光器每秒生成的点。                       |
 | `range` | float   | 100     | 测量/光线投射的最大距离（以米为单位）。               |
-| `sensor_tick` | float   | 0\.0    | 传感器捕获之间的仿真秒数（节拍）。               |
+| `sensor_tick` | float   | 0\.0    | 传感器捕获之间的模拟秒数（节拍）。               |
 | `vertical_fov`            | float   | 30\.0   | 垂直视野（以度为单位）。 |
 
 <br>
@@ -388,8 +388,8 @@ points = np.reshape(points, (len(radar_data), 4))
 * __Vignette:__ 使屏幕边框变暗。
 * __Grain jitter:__ 为渲染添加一些噪点。
 * __Bloom:__ 强烈的光线会灼烧它们周围的区域。
-* __Auto exposure:__ 修改图像伽玛以仿真眼睛对较暗或较亮区域的适应。
-* __Lens flares:__ 仿真明亮物体在镜头上的反射。
+* __Auto exposure:__ 修改图像伽玛以模拟眼睛对较暗或较亮区域的适应。
+* __Lens flares:__ 模拟明亮物体在镜头上的反射。
 * __Depth of field:__ 模糊靠近或远离相机的物体。
 
 
@@ -412,7 +412,7 @@ points = np.reshape(points, (len(radar_data), 4))
 | `iso`    | float    | 100\.0   | 相机传感器的灵敏度。                                                              |
 | `gamma`  | float    | 2\.2     | 相机的目标伽玛值。                                                               |
 | `lens_flare_intensity`           | float    | 0\.1     | 镜头眩光后处理效果的强度，`0.0`用于禁用它。                                                |
-| `sensor_tick`        | float    | 0\.0     | 传感器捕获之间的仿真秒数（节拍）。 |
+| `sensor_tick`        | float    | 0\.0     | 传感器捕获之间的模拟秒数（节拍）。 |
 | `shutter_speed`      | float    | 200\.0   | 相机快门速度，以秒为单位 (1.0/s)。                            |
 
 
@@ -459,7 +459,7 @@ points = np.reshape(points, (len(radar_data), 4))
 | `calibration_constant`           | float          | 16\.0          | 18% 反照率的校准常数。                                                                                                                                         |
 | `focal_distance`     | float          | 1000\.0        | 景深效果应清晰的距离。以厘米（虚幻引擎单位）为单位测量。                                                                                                                          |
 | `blur_amount`  | float          | 1\.0           | 运动模糊的强度/强度。                                                                                                                                           |
-| `blur_radius`  | float          | 0\.0           | 1080p 分辨率下的半径（以像素为单位），根据距相机的距离仿真大气散射。                                                                                                                 |
+| `blur_radius`  | float          | 0\.0           | 1080p 分辨率下的半径（以像素为单位），根据距相机的距离模拟大气散射。                                                                                                                 |
 | `motion_blur_intensity`          | float          | 0\.45          | 运动模糊的强度 [0,1]。                                                                                                                                        |
 | `motion_blur_max_distortion`       | float          | 0\.35          | 运动模糊引起的最大失真。屏幕宽度的百分比。                                                                                                                                 |
 | `motion_blur_min_object_screen_size`           | float          | 0\.1           | 对于运动模糊，对象必须具有屏幕宽度的百分比，较低的值意味着较少的绘制调用。                                                                                                                 |
@@ -483,7 +483,7 @@ points = np.reshape(points, (len(radar_data), 4))
 | 传感器数据属性	            | 类型  | 描述                                                                                                        |
 | ----------------------- | ----------------------- |-----------------------------------------------------------------------------------------------------------|
 | `frame`            | int   | 进行测量时的帧编号。                                                                                                |
-| `timestamp`        | double | 自回合开始以来测量的仿真时间（以秒为单位）。 |
+| `timestamp`        | double | 自回合开始以来测量的模拟时间（以秒为单位）。 |
 | `transform`        | [carla.Transform](<../python_api#carlatransform>)  | 测量时传感器在世界坐标中的位置和旋转。                  |
 | `width`            | int   | 图像宽度（以像素为单位）。                                                                                    |
 | `height`           | int   | 图像高度（以像素为单位）。                                                                                   |
@@ -537,7 +537,7 @@ if rss_proper_response:
 
 ```py
 # rss_sensor.py 代码片段
-# The carla.RssSensor is updated when listening for a new carla.RssResponse
+# 当监听到一个新的carla.RssResponse时，更新 carla.RssSensor
 def _on_rss_response(weak_self, response):
 ...
         self.timestamp = response.timestamp
@@ -631,7 +631,7 @@ def _on_actor_constellation_request(self, actor_constellation_data):
 * __输出：__ 每步 [carla.SemanticLidarMeasurement](python_api.md#carla.SemanticLidarMeasurement) （除非`sensor_tick`另有说明）。
 
 
-该传感器仿真使用射线投射实现的旋转激光雷达，公开有关射线投射命中的所有信息。它的行为与 [激光雷达传感器](#lidar-sensor) 非常相似，但它们之间有两个主要区别。
+该传感器模拟使用射线投射实现的旋转激光雷达，公开有关射线投射命中的所有信息。它的行为与 [激光雷达传感器](#lidar-sensor) 非常相似，但它们之间有两个主要区别。
 
 *   语义激光雷达检索到的原始数据每个点包含更多数据。
 	*   该点的坐标（与普通激光雷达一样）。
@@ -639,7 +639,7 @@ def _on_actor_constellation_request(self, actor_constellation_data):
 	*   实例和语义基础事实。基本上是 Carla 对象命中的索引及其语义标签。
 *   语义激光雷达既不包含强度、衰减也不包含噪声模型属性。
 
-这些点是通过为垂直 FOV 中分布的每个通道添加激光来计算的。旋转是通过计算激光雷达在一帧中旋转的水平角度来仿真的。点云是通过在每个步骤中对每个激光进行光线投射来计算的。
+这些点是通过为垂直 FOV 中分布的每个通道添加激光来计算的。旋转是通过计算激光雷达在一帧中旋转的水平角度来模拟的。点云是通过在每个步骤中对每个激光进行光线投射来计算的。
 ```sh
 points_per_channel_each_step = points_per_second / (FPS * channels)
 ```
@@ -653,9 +653,9 @@ for detection in semantic_lidar_measurement:
     print(detection)
 ```
 
-可以调整激光雷达的旋转以覆盖每个仿真步骤的特定角度（使用 [固定的时间步长](adv_synchrony_timestep.md) ）。例如，每步旋转一次（整圈输出，如下图），旋转频率和仿真的FPS应该相等。 <br>
+可以调整激光雷达的旋转以覆盖每个模拟步骤的特定角度（使用 [固定的时间步长](adv_synchrony_timestep.md) ）。例如，每步旋转一次（整圈输出，如下图），旋转频率和模拟的FPS应该相等。 <br>
 __1.__ 设置传感器的频率 `sensors_bp['lidar'][0].set_attribute('rotation_frequency','10')`。 <br>
-__2.__ 使用 `python3 config.py --fps=10` 运行仿真。
+__2.__ 使用 `python3 config.py --fps=10` 运行模拟。
 
 ![LidarPointCloud](img/semantic_lidar_point_cloud.jpg)
 
@@ -673,7 +673,7 @@ __2.__ 使用 `python3 config.py --fps=10` 运行仿真。
 | `upper_fov`        | float | 10.0 | 最高激光的角度（以度为单位）。                          |
 | `lower_fov`        | float | -30.0 | 最低激光的角度（以度为单位）。                          |
 | `horizontal_fov`   | float | 360.0 | 水平视野（以度为单位），0 - 360。                     |
-| `sensor_tick`      | float | 0.0  | 传感器捕获之间的仿真秒数（节拍）。                     |
+| `sensor_tick`      | float | 0.0  | 传感器捕获之间的模拟秒数（节拍）。                     |
 
 
 
@@ -686,7 +686,7 @@ __2.__ 使用 `python3 config.py --fps=10` 运行仿真。
 | 传感器数据属性  | 类型           | 描述                                                                                                                                                                                                                                                                                                            |
 | ------------------------------------- | ------------------------------------- |---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `frame`        | int            | 进行测量时的帧编号。                                                                                                                                                                                                                                                                                                    |
-| `timestamp`    | double         | 自回合开始以来测量的仿真时间（以秒为单位）。                                                                                                                                                                                                    |
+| `timestamp`    | double         | 自回合开始以来测量的模拟时间（以秒为单位）。                                                                                                                                                                                                    |
 | `transform`    | [carla.Transform](<../python_api#carlatransform>)     | 测量时传感器在世界坐标中的位置和旋转。                                                                                                                                                                                                                      |
 | `horizontal_angle`         | float          | 当前帧中 LIDAR 的 XY 平面中的角度（弧度）。                                                                                                                                                                                                                                            |
 | `channels`     | int            | LIDAR 的通道（激光器）数量。                                                                                                                                                                                                                                                                     |
@@ -700,7 +700,7 @@ __2.__ 使用 `python3 config.py --fps=10` 运行仿真。
 *   __蓝图：__ sensor.camera.semantic_segmentation
 *   __输出：__ 每步 [carla.Image](python_api.md#carla.Image) （除非 `sensor_tick` 另有说明）。
 
-该摄像机根据其标签以不同的颜色显示它，从而对可见的每个物体进行分类（例如，行人与车辆的颜色不同）。当仿真开始时，场景中的每个元素都会使用标签创建。所以当参与者产生时就会发生这种情况。对象按其在项目中的相对文件路径进行分类。例如，存储在中的网格`Unreal/CarlaUE4/Content/Static/Pedestrians`被标记为`Pedestrian`。
+该摄像机根据其标签以不同的颜色显示它，从而对可见的每个物体进行分类（例如，行人与车辆的颜色不同）。当模拟开始时，场景中的每个元素都会使用标签创建。所以当参与者产生时就会发生这种情况。对象按其在项目中的相对文件路径进行分类。例如，存储在中的网格`Unreal/CarlaUE4/Content/Static/Pedestrians`被标记为`Pedestrian`。
 
 ![ImageSemanticSegmentation](img/ref_sensors_semantic.jpg)
 
@@ -758,7 +758,7 @@ raw_image.save_to_disk("path/to/save/converted/image",carla.cityScapesPalette)
 | `fov`   | float   | 90\.0   | 水平视野（以度为单位）。                                                            |
 | `image_size_x`            | int     | 800     | 图像宽度（以像素为单位）。                                                           |
 | `image_size_y`            | int     | 600     | 图像高度（以像素为单位）。                                                           |
-| `sensor_tick` | float   | 0\.0    | 传感器捕获之间的仿真秒数（滴答声）。 |
+| `sensor_tick` | float   | 0\.0    | 传感器捕获之间的模拟秒数（滴答声）。 |
 
 
 
@@ -787,7 +787,7 @@ raw_image.save_to_disk("path/to/save/converted/image",carla.cityScapesPalette)
 | `frame`            | int   | 进行测量时的帧编号。                                                                               |
 | `height`           | int   | 图像高度（以像素为单位）。                                                                            |
 | `raw_data`         | bytes | BGRA 32 位像素阵列。                                                                           |
-| `timestamp`        | double | 自回合开始以来测量的仿真时间（以秒为单位）。                                                                 |
+| `timestamp`        | double | 自回合开始以来测量的模拟时间（以秒为单位）。                                                                 |
 | `transform`        | [carla.Transform](<../python_api#carlatransform>)  | 测量时传感器在世界坐标中的位置和旋转。 |
 | `width`            | int   | 图像宽度（以像素为单位）。                                                                   |
 
@@ -863,7 +863,7 @@ L(x,y,t) - L(x,y, t-\delta t) = pol C
 
 ![DVSCameraWorkingPrinciple](img/sensor_dvs_scheme.jpg)
 
-动态视觉传感器的当前实现在两个连续同步帧之间以统一采样方式工作。因此，为了仿真真实事件相机的高时间分辨率（微秒级），传感器需要以高频率执行（比传统相机的频率高得多）。实际上，Carla 汽车行驶速度越快，事件数量就会增加。因此，传感器频率应随着场景的动态而相应增加。用户应该在时间精度和计算成本之间找到平衡。
+动态视觉传感器的当前实现在两个连续同步帧之间以统一采样方式工作。因此，为了模拟真实事件相机的高时间分辨率（微秒级），传感器需要以高频率执行（比传统相机的频率高得多）。实际上，Carla 汽车行驶速度越快，事件数量就会增加。因此，传感器频率应随着场景的动态而相应增加。用户应该在时间精度和计算成本之间找到平衡。
 
 提供的脚本 [`manual_control.py`](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/manual_control.py) 使用动态视觉传感器摄像头来展示如何配置传感器、如何获取事件流以及如何以图像格式（通常称为事件框架）描述此类事件。
 
@@ -904,7 +904,7 @@ L(x,y,t) - L(x,y, t-\delta t) = pol C
 | `image_size_x` | int | 800 | 图像宽度（以像素为单位）。                                                           |
 | `image_size_y` | int | 600 | 图像高度（以像素为单位）。                                                           |
 | `fov` | float | 90.0 | 水平视野（以度为单位）。                                                            |
-| `sensor_tick` | float | 0.0 | 传感器捕获之间的仿真秒数（节拍）。 |
+| `sensor_tick` | float | 0.0 | 传感器捕获之间的模拟秒数（节拍）。 |
 
 #### 光流相机镜头畸变属性
 
@@ -922,7 +922,7 @@ L(x,y,t) - L(x,y, t-\delta t) = pol C
 | 传感器数据属性 | 类型 | 描述                                                                                       |
 | --------------------- | ---- |------------------------------------------------------------------------------------------|
 | `frame` | int | 进行测量时的帧编号。                                                                               |
-| `timestamp` | double | 自回合开始以来测量的仿真时间（以秒为单位）。                                                                 |
+| `timestamp` | double | 自回合开始以来测量的模拟时间（以秒为单位）。                                                                 |
 | `transform` | [carla.Transform](<../python_api#carlatransform>) | 测量时传感器在世界坐标中的位置和旋转。 |
 | `width` | int | 图像宽度（以像素为单位）。                                                                   |
 | `height` | int | 图像高度（以像素为单位）。                                                                  |

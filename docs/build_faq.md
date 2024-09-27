@@ -54,7 +54,7 @@ Carla 论坛</a>
 
 * [在虚幻编辑器中运行服务器时 FPS 速率较低。](#low-fps-rate-when-running-the-server-in-unreal-editor)
 * [无法运行脚本。](#cant-run-a-script)
-* [当在虚幻编辑器中运行时链接到仿真器。](#connect-to-the-simulator-while-running-within-unreal-editor)
+* [当在虚幻编辑器中运行时链接到模拟器。](#connect-to-the-simulator-while-running-within-unreal-editor)
 * [无法运行 Carla，无论是二进制还是源代码构建。](#cant-run-carla-neither-binary-nor-source-build)
 * [ImportError: DLL load failed: The specified module could not be found.](#importerror-dll-load-failed-the-specified-module-could-not-be-found)
 * [ImportError: DLL load failed while importing libcarla: %1 is not a valid Win32 app.](#importerror-dll-load-failed-while-importing-libcarla-1-is-not-a-valid-win32-app)
@@ -351,9 +351,9 @@ carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Vehicle/CustomTerrainPhysicsCom
 
 <!-- ======================================================================= -->
 
-###### 在虚幻编辑器中运行时连接到仿真器。 <span id="connect-to-the-simulator-while-running-within-unreal-editor"></span>
+###### 在虚幻编辑器中运行时连接到模拟器。 <span id="connect-to-the-simulator-while-running-within-unreal-editor"></span>
 
-> 单击“运行”（ __Play__ ）并等待场景加载。此时，Python 客户端可以像独立仿真器一样连接到仿真器。
+> 单击“运行”（ __Play__ ）并等待场景加载。此时，Python 客户端可以像独立模拟器一样连接到模拟器。
 
 <!-- ======================================================================= -->
 

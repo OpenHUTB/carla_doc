@@ -70,7 +70,7 @@ while True：
     vehicle.apply_control(agent.run_step())
 ```
 
-__6.__ 您可以检查代理是否已完成其轨迹并在发生这种情况时执行操作。一旦您的车辆到达目的地，以下代码段将结束仿真：
+__6.__ 您可以检查代理是否已完成其轨迹并在发生这种情况时执行操作。一旦您的车辆到达目的地，以下代码段将结束模拟：
 
 ```py
 while True：
@@ -81,7 +81,7 @@ while True：
     vehicle.apply_control(agent.run_step())
 ```
 
-__7.__ 不是在代理到达其目标目的地时完成仿真，而是可以生成一条新的随机路线供代理遵循：
+__7.__ 不是在代理到达其目标目的地时完成模拟，而是可以生成一条新的随机路线供代理遵循：
 
 ```py
 while True：
@@ -180,7 +180,7 @@ class CustomAgent(BasicAgent):
         执行一步导航
         :return: carla.VehicleControl
         """
-        # 在每个仿真步骤中采取的行动
+        # 在每个模拟步骤中采取的行动
         control = carla.VehicleControl()
         return control
 ```
