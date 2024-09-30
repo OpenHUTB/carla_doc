@@ -292,7 +292,7 @@ client.replay_file("col3.log", 34, 0, 173)
 
 
 
-* __show_recorder_actors_blocked.py__ 列出被认为被阻止的车辆。如果在特定时间内没有移动最小距离，则认为参与者被阻挡。
+* __show_recorder_actors_blocked.py__ 列出被认为被堵塞的车辆。如果在特定时间内没有移动最小距离，则认为参与者被堵塞。
 
 
 |参数 |说明 |

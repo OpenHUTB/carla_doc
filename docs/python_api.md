@@ -485,14 +485,14 @@ Carla 为 Actor 提供了一个蓝图库，可以通过 [carla.BlueprintLibrary]
         - `port` (_int_) - 运行Carla 模拟器实例的TCP端口。默认为 2000 和随后的2001 。 
         - `worker_threads` (_int_) - 用于后台更新的工作线程数。如果为 0，则使用所有可用的并发性。
 - <a name="carla.Client.apply_batch"></a>**<font color="#7fb800">apply_batch</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**commands**</font>)  
-在单个模拟步上执行命令列表，不检索任何信息。如果需要有关每个命令的响应的信息，请使用 __<font color="#7fb800">apply_batch_sync()</font>__ 方法。[下面](https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/generate_traffic.py) 是一个关于如何删除 Carla 中出现的参与者的示例。一次列出所有参与者 [carla.ActorList](#carla.ActorList) 。
+在单个模拟步上执行命令列表，不检索任何信息。如果需要有关每个命令的响应信息，请使用 __<font color="#7fb800">apply_batch_sync()</font>__ 方法。[下面](https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/generate_traffic.py) 是一个关于如何删除 Carla 中出现的参与者的示例。一次列出所有参与者 [carla.ActorList](#carla.ActorList) 。
     - **参数：**
         - `commands` (_list_) - 要批量执行的命令列表。每个命令都不同，并且有自己的参数。它们显示在此页面底部列出。
 - <a name="carla.Client.apply_batch_sync"></a>**<font color="#7fb800">apply_batch_sync</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**commands**</font>, <font color="#00a6ed">**due_tick_cue**=False</font>)<button class="SnipetButton" id="carla.Client.apply_batch_sync-snipet_button">snippet &rarr;</button>  
-在单个模拟步上执行命令列表，阻止直到命令链接，并返回 <b>command.Response</b> 列表。可用于确定单个命令是否成功的响应。[下面](https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/generate_traffic.py) 是一个用来生成参与者的例子。
+在单个模拟步上阻塞式地执行命令列表，直到命令链接起来，并返回 <b>command.Response</b> 列表。可用于确定单个命令是否成功的响应。[该链接](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/generate_traffic.py) 是一个用来生成参与者的示例代码。
     - **参数：**
         - `commands` (_list_) - 要批量执行的命令列表。可用的命令列在方法 **<font color="#7fb800">apply_batch()</font>** 的正上方。 
-        - `due_tick_cue` (_bool_) - 一个布尔参数，用于指定是否执行 Carla。在 __同步模式__ 下应用批处理后进行 [carla.World.tick](#carla.World.tick)。默认情况下为 __False__ 。
+        - `due_tick_cue` (_bool_) - 一个布尔参数，用于指定是否执行 Carla。在 __同步模式__ 下应用批处理后进行 [carla.World.tick](#carla.World.tick)（默认情况下为 __False__ ）。
     - **返回：** _list(command.Response)_  
 - <a name="carla.Client.generate_opendrive_world"></a>**<font color="#7fb800">generate_opendrive_world</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**opendrive**</font>, <font color="#00a6ed">**parameters**=(2.0, 50.0, 1.0, 0.6, true, true)</font>, <font color="#00a6ed">**reset_settings**=True</font>)  
 使用从OpenDRIVE文件的内容生成的基本三维拓扑加载新世界。此内容作为`string`参数传递。它类似于`client.load_world(map_name)`，但允许在服务器端自定义OpenDRIVE映射。汽车可以在地图上行驶，但除了道路和人行道之外，没有任何图形。
@@ -529,8 +529,8 @@ _</font>
 在终端中显示视为被堵塞的参与者注册信息。当参与者在一段时间内没有移动最小距离时，即`min_distance`和`min_time`，则视为被堵塞。
     - **参数：**
         - `filename` (_str_) - 要加载的记录文件的名称。 
-        - `min_time` (_float<small> - seconds</small>_) - 参与者在被认为被阻挡之前必须移动最短距离的最短时间。默认值为60秒。  
-        - `min_distance` (_float<small> - 厘米</small>_) - 参与者必须移动的最小距离才能不被视为被阻挡。默认值为100厘米。
+        - `min_time` (_float<small> - seconds</small>_) - 参与者在被认为被堵塞之前必须移动最短距离的最短时间。默认值为60秒。
+        - `min_distance` (_float<small> - 厘米</small>_) - 参与者必须移动的最小距离才能不被视为被堵塞。默认值为100厘米。
     - **返回：** _string_  
 - <a name="carla.Client.show_recorder_collisions"></a>**<font color="#7fb800">show_recorder_collisions</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**filename**</font>, <font color="#00a6ed">**category1**</font>, <font color="#00a6ed">**category2**</font>)  
 在终端中显示记录器记录的碰撞。可以通过指定所涉及参与者的类型来过滤这些内容。类别将在`category1`和`category1`中指定：`h`表示英雄参与者，一种可以手动控制或由用户管理的车辆。`v`表示车辆，`w`表示行人，`t`表示红绿灯，`o`表示其他，`a`表示所有。如果您只想看到车辆和行人之间的碰撞，请将`category1`设置为`v`，将`category2`设置为`w`，反之亦然。如果要查看所有碰撞（过滤掉），可以对两个参数都使用`a`。 
@@ -597,7 +597,7 @@ _</font>
         - `ignore_hero` (_bool_) - 在播放记录的模拟过程中启用或禁用英雄车辆的播放。
 - <a name="carla.Client.set_replayer_ignore_spectator"></a>**<font color="#7fb800">set_replayer_ignore_spectator</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**ignore_spectator**</font>)  
     - **参数：**
-        - `ignore_spectator` (_bool_) - 确定回放程序是否会复制记录的参与者动作。
+        - `ignore_spectator` (_bool_) - 确定回放程序是否会复制记录的观察者运动。
 - <a name="carla.Client.set_replayer_time_factor"></a>**<font color="#7fb800">set_replayer_time_factor</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**time_factor**=1.0</font>)  
 使用时，会随意修改重新模拟的时间速度。当播放时，它可以使用多次。
     - **参数：**
