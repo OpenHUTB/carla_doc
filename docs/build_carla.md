@@ -15,6 +15,11 @@
 
 * [__常见问题__](build_faq.md)  
  
+### 带Carla插件的虚幻编辑器可执行版本
+
+先安装vs2019社区版（带C++开发模块），然后下载[链接](https://pan.baidu.com/s/11YbDOsbzYOcnnE3ZTBF-eA?pwd=hutb) 中的文件，解压后
+，然后运行 launch_carla_editor.bat 就可以启动带carla插件的虚幻编辑器。
+
 
 ### 科学上网 <span id="internet"></span>
 
