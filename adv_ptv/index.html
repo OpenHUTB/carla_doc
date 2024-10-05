@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>PTV-Vissim 联合仿真 - 代理仿真文档</title>
+    <title>PTV-Vissim 联合模拟 - 代理仿真文档</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "PTV-Vissim \u8054\u5408\u4eff\u771f";
+        var mkdocs_page_name = "PTV-Vissim \u8054\u5408\u6a21\u62df";
         var mkdocs_page_input_path = "adv_ptv.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,7 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">PTV-Vissim 联合仿真</li>
+      <li class="breadcrumb-item active">PTV-Vissim 联合模拟</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/adv_ptv.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -68,47 +68,47 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="ptv-vissim">PTV-Vissim 联合仿真</h1>
-<p>Carla 开发了与 PTV-Vissim 的协同仿真功能。这允许随意分配任务，并利用每个仿真的能力有利于用户。</p>
+                <h1 id="ptv-vissim">PTV-Vissim 联合模拟</h1>
+<p>Carla 开发了与 PTV-Vissim 的协同模拟功能。这允许随意分配任务，并利用每个模拟的能力有利于用户。</p>
 <ul>
 <li><a href="#requirement"><strong>必备条件</strong></a></li>
-<li><a href="#run_the_co_simulation"><strong>运行协同仿真</strong></a></li>
+<li><a href="#run_the_co_simulation"><strong>运行协同模拟</strong></a></li>
 <li><a href="#create_a_new_network"><strong>创建新网络</strong></a></li>
 </ul>
 <hr />
 <h2 id="_1">必备条件 <span id="requirement"></span></h2>
-<p>为了运行协同仿真，有两件事是必要的。</p>
+<p>为了运行协同模拟，有两件事是必要的。</p>
 <ul>
-<li>购买 <a href="https://www.ptvgroup.com/en/solutions/products/ptv-vissim/"><strong>PTV-Vissim 仿真器</strong></a> 的许可证。需要获取驾驶仿真器界面插件。</li>
+<li>购买 <a href="https://www.ptvgroup.com/en/solutions/products/ptv-vissim/"><strong>PTV-Vissim 模拟器</strong></a> 的许可证。需要获取驾驶模拟器界面插件。</li>
 <li>在 PTV-Vissim 安装文件夹中，查找<code>DrivingSimulatorProxy.dll</code>。将其移至<code>C:\Windows\System32</code>。</li>
 </ul>
 <hr />
-<h2 id="_2">运行联合仿真 <span id="run_the_co_simulation"></span></h2>
+<h2 id="_2">运行联合模拟 <span id="run_the_co_simulation"></span></h2>
 <p>与此功能相关的所有内容都可以在“Co-Simulation/PTV-Vissim”中找到。 Carla 提供了一些示例，其中包含 <strong>Town01</strong> 和 <strong>Town03</strong> 的网络。</p>
-<p>要运行联合仿真，请使用脚本<code>PTV-Vissim/run_synchronization.py</code>。这有一个包含 PTV-Vissim 网络的强制参数和一些其他可选参数。</p>
+<p>要运行联合模拟，请使用脚本<code>PTV-Vissim/run_synchronization.py</code>。这有一个包含 PTV-Vissim 网络的强制参数和一些其他可选参数。</p>
 <ul>
 <li><code>vissim_network</code>— vissim 网络文件。这可以是一个示例，也可以是一个自行创建的 PTV-Vissim 网络。</li>
 <li><code>--carla-host</code> <em>（默认值：127.0.0.1）</em> — carla 主机服务器的 IP。</li>
 <li><code>--carla-port</code> <em>（默认值：2000）</em> 要监听的 TCP 端口。</li>
 <li><code>--vissim-version</code> <em>（默认值：2020）</em> — PTV-Vissim 版本。</li>
-<li><code>--step-length</code> <em>(default: 0.05s)</em> - 为仿真时间步设置固定的增量秒。</li>
+<li><code>--step-length</code> <em>(default: 0.05s)</em> - 为模拟时间步设置固定的增量秒。</li>
 <li><code>--simulator-vehicles</code> <em>（默认值：1）</em> — 将在 Carla 中生成并传递给 PTV-Vissim 的车辆数量。</li>
 </ul>
 <pre><code class="language-sh">python3 run_synchronization.py examples/Town03/Town03.inpx
 </code></pre>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
-<p>要停止联合仿真，请在运行脚本的终端中按<code>Ctrl+C</code>。</p>
+<p>要停止联合模拟，请在运行脚本的终端中按<code>Ctrl+C</code>。</p>
 </div>
-<p>两个仿真将同步运行。一个仿真器中发生的动作或事件将传播到另一个仿真器。到目前为止，该功能仅包括车辆移动和生成。由于 PTV-Vissim 类型，生成受到限制。
+<p>两个模拟将同步运行。一个模拟器中发生的动作或事件将传播到另一个模拟器。到目前为止，该功能仅包括车辆移动和生成。由于 PTV-Vissim 类型，生成受到限制。
 * 如果车辆在 Carla 中生成，并且 PTV-Vissim 中的 <em>Vehicle Type</em> 设置为“汽车”，它将生成汽车。不管它是否在 Carla 中作为摩托车。在提供的示例中，车辆类型设置为“汽车”。
 * 如果车辆在 PTV-Vissim 中生成，Carla 将使用相同类型的车辆。尺寸和特性将相似，但不完全相同。</p>
 <h3 id="_3">创建一个新网络 <span id="create_a_new_network"></span></h3>
 <p>为了让新的 PTV-Vissim 网络与 Carla 一起运行，需要完成一些设置。</p>
 <ul>
-<li><strong>激活驾驶仿真器</strong>。转到<code>Base Data/Network setting/Driving simulator</code>并启用该选项</li>
+<li><strong>激活驾驶模拟器</strong>。转到<code>Base Data/Network setting/Driving simulator</code>并启用该选项</li>
 <li><strong>指定车辆和行人类型</strong>。这些类型将在 PTV-Vissim 中用于与  Carla 中完成的生成同步，默认为空</li>
-<li><strong>将网络导出为<code>.inpx</code></strong>。创建网络，将其导出，然后使用<code>run_synchronization.py</code>运行协同仿真</li>
+<li><strong>将网络导出为<code>.inpx</code></strong>。创建网络，将其导出，然后使用<code>run_synchronization.py</code>运行协同模拟</li>
 </ul>
 <p><img alt="ptv_types" src="../img/ptv_types.jpg" /></p>
 <div style="text-align: right"><i>在 Carla 中生成的任何车辆都将使用这些类型在 PTV-Vissim 中生成。</i></div>
@@ -118,7 +118,7 @@
 <p>如果行人和车辆类型为空，PTV-Vissim 将崩溃。</p>
 </div>
 <hr />
-<p>到目前为止，这就是 PTV-Vissim 与 Carla 的联合仿真的全部内容。</p>
+<p>到目前为止，这就是 PTV-Vissim 与 Carla 的联合模拟的全部内容。</p>
 <p>打开 Carla 并玩弄一会儿。如果有任何疑问，请随时在论坛中发布。</p>
 <div class="build-buttons">
 <p>

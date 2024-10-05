@@ -84,7 +84,7 @@
 <p>将交通灯分配给路口交通灯组：从内容浏览器中选择<strong>Carla &gt; Static &gt; TrafficLight &gt; StreetLights_01</strong>下选择<strong>BP_TrafficLightGroup</strong>拖动到路口，并在该对象的细节面板下找到<strong>Traffic Light</strong>，将需要添加到该路口组的交通灯设置。</p>
 </li>
 </ol>
-<p><strong>参考链接：</strong><a href="https://openhutb.github.io/carla_doc/tuto_content_authoring_maps/#_5">内容创作 - 地图 - 交通仿真器文档 (openhutb.github.io)</a>的交通灯部分</p>
+<p><strong>参考链接：</strong><a href="https://openhutb.github.io/carla_doc/tuto_content_authoring_maps/#_5">内容创作 - 地图 - 交通模拟器文档 (openhutb.github.io)</a>的交通灯部分</p>
 <h2 id="python">使用python脚本简单使用交通灯</h2>
 <h4 id="carla_1">创建与carla的连接</h4>
 <pre><code class="language-python">client = carla.Client(args.host, args.port)
@@ -168,9 +168,9 @@ world.apply_settings(settings)
     # 创建两个空列表，用于存储时刻和车流量数据
     #timestamps = []
     traffic_flow = []
-    # 循环推进仿真时间并统计车流量
-    for t in range(1000):  # 假设仿真1000个时间步
-        # 推进仿真时间
+    # 循环推进模拟时间并统计车流量
+    for t in range(1000):  # 假设模拟1000个时间步
+        # 推进模拟时间
         world.tick()
         # 重置车流量计数
         count = 0

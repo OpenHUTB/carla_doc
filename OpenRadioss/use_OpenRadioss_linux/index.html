@@ -212,7 +212,7 @@
 </ol>
 <h3 id="lsdyna">使用 LSDYNA 格式输入</h3>
 <h4 id="_8">测试实例</h4>
-<p>测试例子是<a href="https://openradioss.atlassian.net/wiki/spaces/OPENRADIOSS/pages/21364914/Tensile+Test+Model+in+LS-DYNA+format" title="拉伸-LSDYNA">拉伸仿真</a>。</p>
+<p>测试例子是<a href="https://openradioss.atlassian.net/wiki/spaces/OPENRADIOSS/pages/21364914/Tensile+Test+Model+in+LS-DYNA+format" title="拉伸-LSDYNA">拉伸模拟</a>。</p>
 <h4 id="bash">bash 脚本</h4>
 <pre><code>    myjobname=$(echo "$1" )
     echo $myjobname "running in OpenRadioss"
@@ -252,7 +252,7 @@
 <p>需要验证计算的正确性：也就是使用LS-DYNA计算同样的例子，观察计算结果是否有出入。</p>
 <ul>
 <li>LS-DYNA 是商业软件，能找到的软件不支持 Ubuntu 系统。<ul>
-<li>可以在windows 下仿真，将结果和进行对比。</li>
+<li>可以在windows 下模拟，将结果和进行对比。</li>
 </ul>
 </li>
 <li>如何衡量误差<ul>
@@ -493,7 +493,7 @@ EOS_TAG：状态方程的标签
     \sigma_{31}\
     \sigma_{12}
   \end{bmatrix}$$</li>
-<li>密度值通常用于显式仿真，也可以用于静态隐式仿真，以便在拟静态分析中达到更好的收敛性。</li>
+<li>密度值通常用于显式模拟，也可以用于静态隐式模拟，以便在拟静态分析中达到更好的收敛性。</li>
 <li>当通过壳体厚度的积分点个数不同于NP=1(膜)时，对LAW1和壳单元(/PROP/TYPE1 (shell))采用全局积分法。</li>
 <li>失效模型在全局集成的情况下不可用。在这些情况下，具有很高屈服应力的LAW2和LAW27可以作为LAW1的替代品。
  #### MAT1 代码解读

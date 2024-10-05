@@ -68,8 +68,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="carla"><a href="https://carla.readthedocs.io/en/latest/ts_traffic_simulation_overview/">Carla 中的交通仿真</a></h1>
-<p>交通仿真是自动驾驶堆栈准确高效的训练和测试不可或缺的一部分。Carla 提供了许多不同的选项来仿真交通和特定的交通场景。本节概述了可用选项，可帮助您确定最适合您的用例的选项。</p>
+                <h1 id="carla"><a href="https://carla.readthedocs.io/en/latest/ts_traffic_simulation_overview/">Carla 中的交通模拟</a></h1>
+<p>交通模拟是自动驾驶堆栈准确高效的训练和测试不可或缺的一部分。Carla 提供了许多不同的选项来模拟交通和特定的交通场景。本节概述了可用选项，可帮助您确定最适合您的用例的选项。</p>
 <ul>
 <li><a href="#traffic-manager"><strong>交通管理器</strong></a></li>
 <li><a href="#scenario-runner-and-openscenario"><strong>Scenario Runner 和 OpenScenario</strong></a></li>
@@ -78,10 +78,10 @@
 </ul>
 <hr />
 <h2 id="_1">交通管理器 <span id="traffic-manager"></span></h2>
-<p>交通管理器是 Carla 中的一个模块，用于从客户端控制仿真中的某些车辆。<a href="https://carla.readthedocs.io/en/latest/python_api/#carla.Vehicle.set_autopilot"><code>carla.Vehicle.set_autopilot</code></a> 车辆通过方法或注册到交通管理器command.SetAutopilot。每辆车的控制是通过 <a href="../adv_traffic_manager/#stages">不同阶段</a> 的循环来管理的，每个阶段都在不同的线程上运行。</p>
+<p>交通管理器是 Carla 中的一个模块，用于从客户端控制模拟中的某些车辆。<a href="https://carla.readthedocs.io/en/latest/python_api/#carla.Vehicle.set_autopilot"><code>carla.Vehicle.set_autopilot</code></a> 车辆通过方法或注册到交通管理器command.SetAutopilot。每辆车的控制是通过 <a href="../adv_traffic_manager/#stages">不同阶段</a> 的循环来管理的，每个阶段都在不同的线程上运行。</p>
 <p><strong>用于：</strong></p>
 <ul>
-<li>用真实的城市交通状况填充仿真。</li>
+<li>用真实的城市交通状况填充模拟。</li>
 <li><a href="../adv_traffic_manager/#general-considerations">自定义交通行为</a> 以设置特定的学习环境。 </li>
 <li>开发与阶段相关的功能和数据结构，同时提高计算效率。</li>
 </ul>
@@ -100,7 +100,7 @@
 <p><strong>用于：</strong></p>
 <ul>
 <li>创建复杂的交通场景和路线，为自动驾驶代理做好准备，以便在 <a href="https://leaderboard.carla.org/">Carla 排行榜</a> 上进行评估。</li>
-<li>定义可针对场景仿真的记录运行的定制 <a href="https://carla-scenariorunner.readthedocs.io/en/latest/metrics_module/">指标</a> ，从而无需重复运行仿真。</li>
+<li>定义可针对场景模拟的记录运行的定制 <a href="https://carla-scenariorunner.readthedocs.io/en/latest/metrics_module/">指标</a> ，从而无需重复运行模拟。</li>
 </ul>
 <div class="build-buttons">
 <p>
@@ -111,7 +111,7 @@
 
 <hr />
 <h2 id="scenic">Scenic <span id="scenic"></span></h2>
-<p><a href="https://scenic-lang.readthedocs.io">Scenic</a> 是一种特定领域的概率编程语言，用于对机器人和自动驾驶汽车等网络物理系统的环境进行建模。Scenic 提供了一个 <a href="https://scenic-lang.readthedocs.io/en/latest/modules/scenic.simulators.carla.html">专门领域</a> 来促进 Scenic 脚本在 仿真器上的执行。</p>
+<p><a href="https://scenic-lang.readthedocs.io">Scenic</a> 是一种特定领域的概率编程语言，用于对机器人和自动驾驶汽车等网络物理系统的环境进行建模。Scenic 提供了一个 <a href="https://scenic-lang.readthedocs.io/en/latest/modules/scenic.simulators.carla.html">专门领域</a> 来促进 Scenic 脚本在 模拟器上的执行。</p>
 <p>Scenic 场景定义易于阅读和构建。 <a href="../tuto_G_scenic/">此处</a> 提供了创建简单场景的教程。</p>
 <p><strong>用于：</strong></p>
 <ul>
@@ -127,8 +127,8 @@
 
 <hr />
 <h2 id="sumo">SUMO <span id="sumo"></span></h2>
-<p><a href="https://sumo.dlr.de/docs/SUMO_at_a_Glance.html">SUMO</a> 是一种开源、微观、多模式交通仿真。在 SUMO 中，每辆车都经过明确建模，有自己的路线，并通过网络单独移动。默认情况下，仿真是确定性的，但有多种选项可以引入随机性。</p>
-<p>Carla 提供了与 SUMO 的联合仿真功能，允许在两个仿真器之间分配任务。车辆可以通过 SUMO 在 Carla 中产生，并由 SUMO 进行管理，就像交通管理器所做的那样。</p>
+<p><a href="https://sumo.dlr.de/docs/SUMO_at_a_Glance.html">SUMO</a> 是一种开源、微观、多模式交通模拟。在 SUMO 中，每辆车都经过明确建模，有自己的路线，并通过网络单独移动。默认情况下，模拟是确定性的，但有多种选项可以引入随机性。</p>
+<p>Carla 提供了与 SUMO 的联合模拟功能，允许在两个模拟器之间分配任务。车辆可以通过 SUMO 在 Carla 中产生，并由 SUMO 进行管理，就像交通管理器所做的那样。</p>
 <p><strong>用于：</strong></p>
 <ul>
 <li>在一个软件包中利用 Carla 和 SUMO 的功能。</li>
@@ -136,12 +136,12 @@
 <div class="build-buttons">
 <p>
 <a href="https://carla.readthedocs.io/en/latest/adv_sumo/" target="_blank" class="btn btn-neutral" title="Go to SUMO Co-Simulation">
-转至 SUMO 协同仿真</a>
+转至 SUMO 协同模拟</a>
 </p>
 </div>
 
 <hr />
-<p>如果您对 Carla 中仿真交通的不同选项有任何疑问，请随时在论坛或 <a href="https://discord.gg/8kqACuC">Discord</a> 中发帖。</p>
+<p>如果您对 Carla 中模拟交通的不同选项有任何疑问，请随时在论坛或 <a href="https://discord.gg/8kqACuC">Discord</a> 中发帖。</p>
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">

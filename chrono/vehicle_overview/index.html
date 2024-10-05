@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>车辆建模与仿真概述 - 代理仿真文档</title>
+    <title>车辆建模与模拟概述 - 代理仿真文档</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "\u8f66\u8f86\u5efa\u6a21\u4e0e\u4eff\u771f\u6982\u8ff0";
+        var mkdocs_page_name = "\u8f66\u8f86\u5efa\u6a21\u4e0e\u6a21\u62df\u6982\u8ff0";
         var mkdocs_page_input_path = "chrono\\vehicle_overview.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,7 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">车辆建模与仿真概述</li>
+      <li class="breadcrumb-item active">车辆建模与模拟概述</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/chrono/vehicle_overview.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -68,7 +68,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1">车辆建模与仿真概述</h1>
+                <h1 id="_1">车辆建模与模拟概述</h1>
 <p>Chrono::Vehicle 模块提供了适用于轮式和履带式车辆子系统的各种拓扑结构的模板集合，支持对刚性、柔性和颗粒状地形进行建模，支持闭环和交互式驱动模型，以及模拟结果的运行时和离线可视化。</p>
 <p>车辆系统的建模采用模块化方式，车辆定义为各种子系统（悬架、转向、传动系统等）实例的集合。采用基于模板的设计可实现建模的灵活性。在 <code>Chrono::Vehicle</code> 中，模板是参数化模型，用于定义车辆子系统的特定实现。因此，模板定义基本建模元素（车身、关节、力元素），强加子系统拓扑，规定设计参数，并实现特定于特定模板（例如双叉臂）的特定类型子系统（例如悬架）的通用功能。最后，通过为具体车辆（例如 HMMWV 前悬架）指定模板参数（硬点、关节方向、惯性属性、接触材料属性等）来获得此类模板的实例。</p>
 <p><code>Chrono::Vehicle</code> 中的核心模板是车辆子部件的参数化模型。但是，完整的车辆移动模拟还需要车辆本身之外的辅助系统，例如提供输入控制（例如转向、油门、制动）的驾驶员系统、封装发动机和变速箱并连接到车辆传动系统的动力系统以及地形系统。</p>

@@ -4,22 +4,22 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link rel="shortcut icon" href="../img/favicon.ico" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
     <title>Ue commandlet - 代理仿真文档</title>
-    <link rel="stylesheet" href="../css/theme.css" />
-    <link rel="stylesheet" href="../css/theme_extra.css" />
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
-        <link href="../extra.css" rel="stylesheet" />
+        <link href="../../extra.css" rel="stylesheet" />
     
       <script>
         // Current page data
         var mkdocs_page_name = "Ue commandlet";
-        var mkdocs_page_input_path = "ue_commandlet.md";
+        var mkdocs_page_input_path = "ue\\ue_commandlet.md";
         var mkdocs_page_url = null;
       </script>
     
     <!--[if lt IE 9]>
-      <script src="../js/html5shiv.min.js"></script>
+      <script src="../../js/html5shiv.min.js"></script>
     <![endif]-->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
       <script>hljs.highlightAll();</script> 
@@ -31,9 +31,9 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href=".." class="icon icon-home"> 代理仿真文档
+          <a href="../.." class="icon icon-home"> 代理仿真文档
         </a><div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
       <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
   </form>
 </div>
@@ -41,7 +41,7 @@
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="..">首页</a>
+                <li class="toctree-l1"><a class="reference internal" href="../..">首页</a>
                 </li>
               </ul>
       </div>
@@ -51,16 +51,16 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
       <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="..">代理仿真文档</a>
+          <a href="../..">代理仿真文档</a>
         
       </nav>
       <div class="wy-nav-content">
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
       <li class="breadcrumb-item active">Ue commandlet</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/ue_commandlet.md" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/ue/ue_commandlet.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -121,7 +121,7 @@ OpenDriveMap-&gt;GenerateTile();
 <p>是启动了所有模块之后才会进入到 Commandlet 的 <code>Main</code> 中，意味着模块的 <code>StartupModule</code> 在 Main 之前。</p>
 </div>
 <p>引擎执行 Commandlet Main 函数的调用栈：
-<img alt="LidarPointCloud" src="../img/tuto_D_windows_debug/commandlet_call_stack.jpg" /></p>
+<img alt="LidarPointCloud" src="../../img/tuto_D_windows_debug/commandlet_call_stack.jpg" /></p>
 <h3 id="commandlet_4">检测 Commandlet</h3>
 <p>根据上面的内容，需要记住以下两个关键点：</p>
 <ol>
@@ -141,7 +141,7 @@ OpenDriveMap-&gt;GenerateTile();
 <p>则接收到的参数为：</p>
 <pre><code class="language-shell">-skipcompile -run=HotChunker -TargetPlatform=IOS
 </code></pre>
-<p><img alt="LidarPointCloud" src="../img/tuto_D_windows_debug/commandlet_received_param.jpg" /></p>
+<p><img alt="LidarPointCloud" src="../../img/tuto_D_windows_debug/commandlet_received_param.jpg" /></p>
 <p>可以通过解析该命令行参数，在 Commandlet 执行特殊行为。以 HotPatcher 为例，可以通过 <code>-config=</code> 指定配置文件，在 Commandlet 中就会读取并根据配置文件执行。</p>
 <h3 id="tick">驱动 Tick</h3>
 <p>Commandlet 默认是一个独立过程行为，不会驱动引擎 Tick，就像一个普通的函数，所有代码执行完毕之后，离开当前的作用域，就请求退出引擎了。</p>
@@ -190,13 +190,13 @@ OpenDriveMap-&gt;GenerateTile();
     
   </span>
 </div>
-    <script src="../js/jquery-3.6.0.min.js"></script>
-    <script>var base_url = "..";</script>
-    <script src="../js/theme_extra.js"></script>
-    <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-      <script src="../search/main.js"></script>
+      <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);

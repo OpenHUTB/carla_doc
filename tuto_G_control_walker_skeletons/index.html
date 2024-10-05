@@ -73,7 +73,7 @@
 <ul>
 <li><a href="#walker-skeleton-structure"><strong>行人骨骼结构</strong></a>  </li>
 <li><a href="#manually-control-walker-bones"><strong>手动控制行人骨骼</strong></a>  <ul>
-<li><a href="#connect-to-the-simulator">连接到仿真器</a>  </li>
+<li><a href="#connect-to-the-simulator">连接到模拟器</a>  </li>
 <li><a href="#spawn-a-walker">生成行人</a>  </li>
 <li><a href="#control-walker-skeletons">控制行人骨骼</a>  </li>
 </ul>
@@ -158,7 +158,7 @@
 <hr />
 <h2 id="_3">手动控制行人骨骼 <span id="manually-control-walker-bones"></span></h2>
 <p>以下是如何通过 Carla Python API 更改行人骨骼变换的详细分步示例。</p>
-<h3 id="_4">连接到仿真器 <span id="connect-to-the-simulator"></span></h3>
+<h3 id="_4">连接到模拟器 <span id="connect-to-the-simulator"></span></h3>
 <p>导入本例中使用的必要库</p>
 <pre><code class="language-py">import carla
 import random
@@ -184,6 +184,8 @@ second_tuple = ('crl_hand__L', carla.Transform(rotation=carla.Rotation(roll=90))
 control.bone_transforms = [first_tuple, second_tuple]
 world.player.apply_control(control)
 </code></pre>
+<h2 id="_7">可视化行人骨架</h2>
+<p><a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/walker/draw_skeleton.py">可视化骨架代码</a> </p>
               
             </div>
           </div><footer>

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Carla 仿真器 - 代理仿真文档</title>
+    <title>Carla 模拟器 - 代理仿真文档</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Carla \u4eff\u771f\u5668";
+        var mkdocs_page_name = "Carla \u6a21\u62df\u5668";
         var mkdocs_page_input_path = "release_readme.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,7 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Carla 仿真器</li>
+      <li class="breadcrumb-item active">Carla 模拟器</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/release_readme.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -68,18 +68,18 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="carla">Carla 仿真器</h1>
+                <h1 id="carla">Carla 模拟器</h1>
 <p>感谢您下载 Carla！</p>
 <p><a href="http://carla.org/">http://carla.org/</a></p>
 <h2 id="carla_1">如何运行 Carla</h2>
-<p>在此文件夹中启动终端并通过运行来执行仿真器</p>
+<p>在此文件夹中启动终端并通过运行来执行模拟器</p>
 <pre><code class="language-sh"> ./CarlaUE4.sh
 </code></pre>
-<p>这将启动一个可以看到城市景观的窗口。这是“观察者”视图，您可以使用鼠标和 WASD 键在城市中飞行，但无法与此视图中的世界进行交互。仿真器现在作为服务器运行，等待客户端应用程序连接并与世界交互。</p>
+<p>这将启动一个可以看到城市景观的窗口。这是“观察者”视图，您可以使用鼠标和 WASD 键在城市中飞行，但无法与此视图中的世界进行交互。模拟器现在作为服务器运行，等待客户端应用程序连接并与世界交互。</p>
 <p>让我们首先向城市添加一些实时内容，打开一个新的终端窗口并执行</p>
 <pre><code class="language-sh">./generate_traffic.py -n 80
 </code></pre>
-<p>这使得全球增加了 80 辆以“自动驾驶”模式行驶的车辆。回到仿真器窗口，我们应该看到这些车辆在城市中行驶。他们将继续随机驾驶，直到我们停止脚本。我们暂时把它们留在那里吧。</p>
+<p>这使得全球增加了 80 辆以“自动驾驶”模式行驶的车辆。回到模拟器窗口，我们应该看到这些车辆在城市中行驶。他们将继续随机驾驶，直到我们停止脚本。我们暂时把它们留在那里吧。</p>
 <p>现在，卡拉天气晴朗，阳光明媚，但这并不是一个非常有趣的驾驶条件。Carla 的一项很酷的功能是您可以控制世界的天气和照明条件。我们现在将启动一个动态控制一天中的天气和时间的脚本，打开另一个终端窗口并执行</p>
 <pre><code class="language-sh">./dynamic_weather.py
 </code></pre>

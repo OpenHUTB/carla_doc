@@ -91,7 +91,7 @@
 <p><a href="../python_api/#carla.Sensor">carla.Sensor</a> 类定义了一种特殊类型的参与者，能够测量和传输数据。</p>
 <ul>
 <li><strong>这个数据是什么？</strong> 根据传感器的类型，它变化很大。所有类型的数据都继承自通用的 <a href="../python_api/#carla.SensorData">carla.SensorData</a>。 </li>
-<li><strong>他们什么时候检索数据？</strong> 在每个仿真步骤上或在注册某个事件时。取决于传感器的类型。</li>
+<li><strong>他们什么时候检索数据？</strong> 在每个模拟步骤上或在注册某个事件时。取决于传感器的类型。</li>
 <li><strong>他们如何检索数据？</strong> 每个传感器都有一种接收和管理数据的 <code>listen()</code> 方法。</li>
 </ul>
 <p>尽管存在差异，但所有传感器的使用方式都相似。</p>
@@ -110,8 +110,8 @@ blueprint.set_attribute('sensor_tick', '1.0')
 <h3 id="_4">生成 <span id="spawning"></span></h3>
 <p><code>attachment_to</code> 和 <code>attachment_type</code> 至关重要。传感器应连接到父参与者（通常是车辆）上，以跟踪它并收集信息。附件类型将确定其关于所述车辆的位置如何更新。</p>
 <ul>
-<li><strong>刚性附件(Rigid attachment)。</strong> 动对于其父位置是严格的。这是从仿真中检索数据的合适附件。</li>
-<li><strong>弹簧臂附件(SpringArm attachment)。</strong> 运动变得轻松，几乎没有加速和减速。仅建议使用此附件来录制仿真视频。更新摄像机位置时，移动平滑并且避免“跳跃”。</li>
+<li><strong>刚性附件(Rigid attachment)。</strong> 动对于其父位置是严格的。这是从模拟中检索数据的合适附件。</li>
+<li><strong>弹簧臂附件(SpringArm attachment)。</strong> 运动变得轻松，几乎没有加速和减速。仅建议使用此附件来记录模拟视频。更新摄像机位置时，移动平滑并且避免“跳跃”。</li>
 <li><strong>弹簧臂幽灵附件(SpringArmGhost attachment)。</strong> 与前一个类似，但没有进行碰撞测试，因此相机或传感器可以穿过墙壁或其他几何形状。</li>
 </ul>
 <pre><code class="language-py">transform = carla.Transform(carla.Location(x=0.8, z=1.7))
@@ -157,7 +157,7 @@ sensor02.listen(callback)
 <tr>
 <td><code>timestamp</code></td>
 <td>double</td>
-<td>自轮数开始以来以仿真秒为单位的测量时间戳。</td>
+<td>自轮数开始以来以模拟秒为单位的测量时间戳。</td>
 </tr>
 <tr>
 <td><code>transform</code></td>
@@ -176,7 +176,7 @@ sensor02.listen(callback)
 <h3 id="_8">相机 <span id="cameras"></span></h3>
 <p>从他们的角度拍摄世界。对于返回 <a href="../python_api#carlaimage">carla.Image</a> 的相机，您可以使用辅助类<a href="../python_api/#carla.ColorConverter">carla.ColorConverter</a> 修改图像以表示不同的信息。</p>
 <ul>
-<li>每个仿真步骤 <strong>获取数据</strong> 。  </li>
+<li>每个模拟步骤 <strong>获取数据</strong> 。  </li>
 </ul>
 <table>
 <thead>
@@ -256,7 +256,7 @@ sensor02.listen(callback)
 <h3 id="_10">其他 <span id="other"></span></h3>
 <p>不同的功能，例如导航、物理属性测量和场景的二维/三维点图。</p>
 <ul>
-<li>每个仿真步骤 <strong>检索数据</strong> 。  </li>
+<li>每个模拟步骤 <strong>检索数据</strong> 。  </li>
 </ul>
 <table>
 <thead>
@@ -300,7 +300,7 @@ sensor02.listen(callback)
 </tbody>
 </table>
 <hr />
-<p>这是传感器的包装以及它们如何检索仿真数据。 </p>
+<p>这是传感器的包装以及它们如何检索模拟数据。 </p>
 <p>Carla 的介绍到此结束。然而，还有很多东西需要学习。</p>
 <ul>
 <li><strong>继续学习。</strong> Carla 中有一些高级功能：渲染选项、交通管理器、记录器等等。这是了解更多关于他们的好时机。</li>

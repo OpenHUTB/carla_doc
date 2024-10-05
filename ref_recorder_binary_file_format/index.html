@@ -69,7 +69,7 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="_1"><a href="https://carla.readthedocs.io/en/latest/ref_recorder_binary_file_format/">记录器二进制文件格式</a></h1>
-<p>记录器系统将重放仿真所需的所有信息保存在二进制文件中，对多字节值使用小端字节顺序。</p>
+<p>记录器系统将重放模拟所需的所有信息保存在二进制文件中，对多字节值使用小端字节顺序。</p>
 <ul>
 <li><a href="#1_strings_in_binary"><strong>1- 二进制字符串</strong></a>  </li>
 <li><a href="#2_info_header"><strong>2- 信息头</strong></a>  </li>
@@ -99,7 +99,7 @@
 <p><img alt="binary dynamic string" src="../img/RecorderString.jpg" /></p>
 <hr />
 <h2 id="2-">2- 信息头 <span id="2_info_header"></span></h2>
-<p>信息标头包含有关录制文件的一般信息。基本上，它包含版本和一个魔术字符串，用于将该文件标识为记录器文件。如果标题发生变化，那么版本也会发生变化。此外，它还包含一个日期时间戳，以及从 1900 年开始的秒数，并且还包含一个字符串，其中包含用于记录的地图名称。</p>
+<p>信息标头包含有关记录文件的一般信息。基本上，它包含版本和一个魔术字符串，用于将该文件标识为记录器文件。如果标题发生变化，那么版本也会发生变化。此外，它还包含一个日期时间戳，以及从 1900 年开始的秒数，并且还包含一个字符串，其中包含用于记录的地图名称。</p>
 <p><img alt="info header" src="../img/RecorderInfoHeader.jpg" /></p>
 <p>示例信息头是：</p>
 <p><img alt="info header sample" src="../img/RecorderHeader.jpg" /></p>
@@ -127,7 +127,7 @@
 <h3 id="2-_1">数据包 2 - 事件添加 <span id="packet_2_event_add"></span></h3>
 <p>这个数据包说明了我们需要在当前帧创建多少个参与者。</p>
 <p><img alt="event add" src="../img/RecorderEventAdd.jpg" /></p>
-<p>字段<strong>总计</strong>表示后面有多少条记录。每条记录都以<strong>id</strong>字段开头，即参与者在录制时所拥有的 id（在播放时，该 id 可以在内部更改，但我们需要使用此 id ）。参与者的<strong>类型</strong>可以有以下可能的值：</p>
+<p>字段<strong>总计</strong>表示后面有多少条记录。每条记录都以<strong>id</strong>字段开头，即参与者在记录时所拥有的 id（在播放时，该 id 可以在内部更改，但我们需要使用此 id ）。参与者的<strong>类型</strong>可以有以下可能的值：</p>
 <ul>
 <li>0 = 其他</li>
 <li>1 = 车辆</li>

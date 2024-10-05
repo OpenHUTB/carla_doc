@@ -106,7 +106,7 @@
 <p>地图包括城镇的三维模型及其道路定义。地图的道路定义基于 OpenDRIVE 文件，这是一种标准化的带注释的道路定义格式。<a href="http://www.opendrive.org/docs/OpenDRIVEFormatSpecRev1.4H.pdf">OpenDRIVE 1.4 标准</a> 定义道路、车道、路口等方式决定了 Python API 的功能以及决策背后的推理。</p>
 <p>Python API 充当高级查询系统来导航这些道路。它不断发展以提供更广泛的工具集。</p>
 <h3 id="_3">改变地图 <span id="changing-the-map"></span></h3>
-<p><strong>要改变地图，世界也必须改变</strong>。将从头开始重新创建仿真。您可以在新世界中使用相同的地图重新启动，也可以更改地图和世界：</p>
+<p><strong>要改变地图，世界也必须改变</strong>。将从头开始重新创建模拟。您可以在新世界中使用相同的地图重新启动，也可以更改地图和世界：</p>
 <ul>
 <li><code>reload_world()</code> 使用相同的地图创建世界的新实例。</li>
 <li><code>load_world()</code> 改变当前地图并创建一个新世界。</li>
@@ -126,7 +126,7 @@
 </li>
 <li><strong><a href="https://carla.readthedocs.io/en/latest/python_api/#carla.Waypoint"><code>carla.Waypoint</code></a></strong> 可以获得位于其前方一定距离的地标。可以指定要获取的地标类型。</li>
 <li><strong><a href="https://carla.readthedocs.io/en/latest/python_api/#carla.Map"><code>carla.Map</code></a></strong> 检索地标集。它可以返回地图中的所有地标，或者具有共同 ID、类型或组的地标。</li>
-<li><strong><a href="https://carla.readthedocs.io/en/latest/python_api/#carla.World"><code>carla.World</code></a></strong> 充当地标、仿真中代表他们的<code>carla.TrafficSign</code> 和 <code>carla.TrafficLight</code> 之间的中间。</li>
+<li><strong><a href="https://carla.readthedocs.io/en/latest/python_api/#carla.World"><code>carla.World</code></a></strong> 充当地标、模拟中代表他们的<code>carla.TrafficSign</code> 和 <code>carla.TrafficLight</code> 之间的中间。</li>
 </ul>
 <pre><code class="language-py">my_waypoint.get_landmarks(200.0,True)
 </code></pre>
@@ -326,7 +326,7 @@ world.load_map_layer(carla.MapLayer.Buildings)
 <p><img alt="map-layers" src="../img/sublevels.gif" /></p>
 <hr />
 <h2 id="_13">自定义地图  <span id="custom-maps"></span></h2>
-<p>Carla 旨在针对专业应用程序进行可扩展和高度定制。因此，除了 Carla 中现有的许多地图和资产之外，还可以创建和导入新的地图、道路网络和资产，以填充 Carla 仿真中的定制环境。以下文档详细介绍了构建和集成自定义地图所需的步骤：</p>
+<p>Carla 旨在针对专业应用程序进行可扩展和高度定制。因此，除了 Carla 中现有的许多地图和资产之外，还可以创建和导入新的地图、道路网络和资产，以填充 Carla 模拟中的定制环境。以下文档详细介绍了构建和集成自定义地图所需的步骤：</p>
 <ul>
 <li><a href="../tuto_M_custom_map_overview/"><strong>概述</strong></a></li>
 <li><a href="../tuto_M_custom_road_painter/"><strong>道路涂装</strong></a></li>

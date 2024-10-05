@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>基于Carla仿真环境的目标检测 - 代理仿真文档</title>
+    <title>基于Carla模拟环境的目标检测 - 代理仿真文档</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "\u57fa\u4e8eCarla\u4eff\u771f\u73af\u5883\u7684\u76ee\u6807\u68c0\u6d4b";
+        var mkdocs_page_name = "\u57fa\u4e8eCarla\u6a21\u62df\u73af\u5883\u7684\u76ee\u6807\u68c0\u6d4b";
         var mkdocs_page_input_path = "course\\object_detection.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,7 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">基于Carla仿真环境的目标检测</li>
+      <li class="breadcrumb-item active">基于Carla模拟环境的目标检测</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/course/object_detection.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -68,11 +68,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="carla">基于Carla仿真环境的目标检测</h1>
+                <h1 id="carla">基于Carla模拟环境的目标检测</h1>
 <p><a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/course/object_detection/object_detection.py"><strong>object_dection.py</strong></a> 脚本主要是在 <strong>Carla</strong> 中使用 <strong>YOLOv3</strong> 检测车辆。<a href="../../algorithms/perception/">相关链接</a>  </p>
-<p>​     <a href="https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb"><strong>湖工商场景</strong></a><strong>(WindowsNoEditor)</strong>，并运行<strong><a href="https://github.com/OpenHUTB/carla_doc/tree/master/src/examples/generate_traffic.py">generate_traffic.py</a></strong>      </p>
+<p><a href="https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb"><strong>湖工商场景</strong></a><strong>(WindowsNoEditor)</strong>，并运行<strong><a href="https://github.com/OpenHUTB/carla_doc/tree/master/src/examples/generate_traffic.py">generate_traffic.py</a></strong>      </p>
 <p><img alt="" src="../../img/traffic_course_img/3.gif" /></p>
-<p>​   导入必要的库及变量</p>
+<p>导入必要的库及变量</p>
 <pre><code>import random
 import weakref
 import cv2
@@ -84,14 +84,14 @@ VIEW_WIDTH = 1920 // 2
 VIEW_HEIGHT = 1080 // 2
 VIEW_FOV = 90
 </code></pre>
-<p>​   加载模型和配置文件</p>
+<p>加载模型和配置文件</p>
 <pre><code>model = cv2.dnn.readNet(&quot;weights/yolov3.weights&quot;, &quot;cfg/yolov3.cfg&quot;)
 classes = [line.strip() for line in open(&quot;cfg/coco.names&quot;, &quot;r&quot;).readlines()]
 layers_names = model.getLayerNames()
 output_layers = [layers_names[i[0] - 1] for i in model.getUnconnectedOutLayers()]
 colors = np.random.uniform(0, 255, size=(len(classes), 3))
 </code></pre>
-<p>​   定义绘制标签的函数</p>
+<p>定义绘制标签的函数</p>
 <pre><code>def draw_labels(boxes, confs, colors, class_ids, classes, img):
     indexes = cv2.dnn.NMSBoxes(boxes, confs, 0.5, 0.4)
     font = cv2.FONT_HERSHEY_PLAIN
@@ -104,7 +104,7 @@ colors = np.random.uniform(0, 255, size=(len(classes), 3))
             cv2.putText(img, label, (x, y - 5), font, 1, color, 1)
     return img
 </code></pre>
-<p>​   定义获取框维度的函数</p>
+<p>定义获取框维度的函数</p>
 <pre><code>def get_box_dimensions(outputs, height, width):
     boxes = []
     confs = []
@@ -126,7 +126,7 @@ colors = np.random.uniform(0, 255, size=(len(classes), 3))
                 class_ids.append(class_id)
     return boxes, confs, class_ids
 </code></pre>
-<p>​   定义 <strong>Carla</strong> 客户端类</p>
+<p>定义 <strong>Carla</strong> 客户端类</p>
 <pre><code>class CarlaClient():
     def __init__(self): #初始化实例变量
         self.client = None
@@ -185,7 +185,7 @@ colors = np.random.uniform(0, 255, size=(len(classes), 3))
             display.blit(surface, (0, 0))
 
 </code></pre>
-<p>​   <strong>main</strong>  函数中主要是在Carla模拟器中运行自动驾驶，并通过摄像头捕获图像后采用YOLOv3模型进行车辆物体的检测，最后使用Pygame显示处理后的图像。</p>
+<p><strong>main</strong>  函数中主要是在Carla模拟器中运行自动驾驶，并通过摄像头捕获图像后采用YOLOv3模型进行车辆物体的检测，最后使用Pygame显示处理后的图像。</p>
 <pre><code>if __name__ == '__main__':
     cc = CarlaClient()
     try:

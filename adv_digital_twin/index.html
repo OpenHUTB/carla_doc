@@ -141,7 +141,7 @@ fi
 <h3 id="_4">建筑物 <span id="building"></span></h3>
 <p>道路之间的空白区域填充有建筑物或开放区域，它们会调整其形状和尺寸以填充道路之间的空间。</p>
 <p><img alt="procedural_buildings" src="../img/procedural_building_generation.jpg" /></p>
-<p>程序生成工具从 OSM 数据中提取建筑物占地面积和高度信息，以生成具有相似尺寸的虚拟建筑物。详细的覆层用于仿真窗户、门和阳台。根据建筑面积的不同，采用不同的装修风格，最高的建筑为办公风格，较小的建筑根据建筑占地面积采用商业或住宅风格。</p>
+<p>程序生成工具从 OSM 数据中提取建筑物占地面积和高度信息，以生成具有相似尺寸的虚拟建筑物。详细的覆层用于模拟窗户、门和阳台。根据建筑面积的不同，采用不同的装修风格，最高的建筑为办公风格，较小的建筑根据建筑占地面积采用商业或住宅风格。</p>
 <p><img alt="procedural_cities" src="../img/digital_twins_vegetation.jpg" /></p>
 <p>在下一步中还将植被添加到人行道中以获取更多细节。</p>
 <p><img alt="residential_building_style" src="../img/digital_twins_buildings.jpg" />
@@ -165,7 +165,7 @@ GenerateTile();
 <p>移除<code>void UOpenDriveToMap::GenerateTile()</code>函数中的<code>// RemoveFromRoot();</code>语句，该语句清理FilePath变量导致下一次瓦片生成时FilePath变量乱码的问题，可以解决大地图只生成一个瓦片的问题。</p>
 <pre><code class="language-text">
 </code></pre>
-<p>参考：UE 中的 <a href="../ue_commandlet/">Commandlet</a> 解读。</p>
+<p>参考：UE 中的 <a href="../ue/ue_commandlet/">Commandlet</a> 解读。</p>
               
             </div>
           </div><footer>

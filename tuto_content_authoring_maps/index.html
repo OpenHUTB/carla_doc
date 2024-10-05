@@ -69,7 +69,7 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="-">内容创作 - 地图</h1>
-<p>Carla 提供了大量的资源，可用于创建开箱即用的驾驶仿真。然而，Carla 的真正力量在于其全面的可扩展性，允许用户创建完全自定义的环境，其中包含建筑物、长凳、垃圾桶、雕像、路灯和公交车站等定制资产。之前稳定的<a href="../map_customization/">地图定制方法</a>。</p>
+<p>Carla 提供了大量的资源，可用于创建开箱即用的驾驶模拟。然而，Carla 的真正力量在于其全面的可扩展性，允许用户创建完全自定义的环境，其中包含建筑物、长凳、垃圾桶、雕像、路灯和公交车站等定制资产。之前稳定的<a href="../map_customization/">地图定制方法</a>。</p>
 <p>在本教程中，我们将介绍创建与 Carla 一起使用的简单地图的过程。我们将使用两个软件包来创建地图的各个部分。我们将使用 <a href="https://es.mathworks.com/products/roadrunner.html"><strong>RoadRunner</strong></a> 创建道路网络，然后通过 <a href="https://www.unrealengine.com/en-US/features/the-unreal-editor"><strong>虚幻编辑器</strong></a> 将资源添加到地图中。</p>
 <ul>
 <li><strong><a href="#prerequisites">先决条件</a></strong>  </li>
@@ -98,7 +98,7 @@
 <h2 id="_1">先决条件 <span id="prerequisites"></span></h2>
 <p>要遵循本指南，您需要从源代码构建 Carla，以便您可以使用虚幻编辑器。请遵循相关操作系统的 <a href="../build_carla/"><strong>构建说明</strong></a> 。您还需要 RoadRunner 的许可副本。您可能还需要 Maya、3DS Max 或 Blender 等三维建模应用程序来为自定义地图创建三维资产。您应该确保已完成构建 Carla 的所有步骤并确保虚幻编辑器正在运行，这可能需要一些时间来构建应用程序。如果您想为地图创建三维资产，则应使用适当的三维设计应用程序，例如 Blender、Maya、3DsMax 或 Modo。</p>
 <h2 id="_2">大地图 <span id="large-maps"></span></h2>
-<p>以下文本详细介绍了创建和装饰标准地图的过程。从版本 0.9.12 开始，Carla 具有大地图功能。大地图的比例比标准地图更大，最大可达 100 km<sup>2</sup>。由于硬件限制，大地图的工作方式与标准地图略有不同，即使在高端显卡中也是如此。大地图被分割成图块，并且在仿真过程中仅加载立即需要的图块（即最接近自我车辆的图块）。其他图块处于休眠状态，直到需要数据为止。这有助于实现 Carla 仿真的最高性能。接下来的大多数细节与构建大地图时类似，但还有一些额外的步骤。请按照 <a href="../content_authoring_large_maps/">本指南</a> 为 Carla 构建大地图。</p>
+<p>以下文本详细介绍了创建和装饰标准地图的过程。从版本 0.9.12 开始，Carla 具有大地图功能。大地图的比例比标准地图更大，最大可达 100 km<sup>2</sup>。由于硬件限制，大地图的工作方式与标准地图略有不同，即使在高端显卡中也是如此。大地图被分割成图块，并且在模拟过程中仅加载立即需要的图块（即最接近自我车辆的图块）。其他图块处于休眠状态，直到需要数据为止。这有助于实现 Carla 模拟的最高性能。接下来的大多数细节与构建大地图时类似，但还有一些额外的步骤。请按照 <a href="../content_authoring_large_maps/">本指南</a> 为 Carla 构建大地图。</p>
 <h2 id="_3">数字孪生工具 <span id="digital-twin-tool"></span></h2>
 <p>Carla 提供了一个程序化地图生成工具，它从 OpenStreetMap 获取道路网络数据，并用建筑物和植被程序化地装饰地图。请在 <a href="../adv_digital_twin/">此处</a> 阅读有关如何使用该工具的信息。</p>
 <h2 id="roadrunner">使用 RoadRunner 创建路网 <span id="create-a-road-network-using-roadrunner"></span></h2>
@@ -186,7 +186,7 @@
 <p><img alt="textured_asset" src="../img/tuto_content_authoring_maps/textured_asset.png" /></p>
 <p>现在保存资产，即可在地图中使用。您现在可以从内容浏览器中拖动资源并将其放入地图中：</p>
 <p><img alt="asset_in_map" src="../img/tuto_content_authoring_maps/asset_in_map.png" /></p>
-<p>现在，您可以使用工作区左上角的“保存当前”选项保存地图，即可使用。开始仿真。</p>
+<p>现在，您可以使用工作区左上角的“保存当前”选项保存地图，即可使用。开始模拟。</p>
 <p>地图作者指南到此结束。现在您知道如何创建道路网络并导入三维资产以在 Carla 中使用。您现在可以阅读如何 <a href="../tuto_M_manual_map_package/"><strong>打包地图以在 Carla 独立版本中使用</strong></a> 。</p>
 <h2 id="_5">交通灯 <span id="traffic-lights"></span></h2>
 <p>要将红绿灯添加到新地图：</p>

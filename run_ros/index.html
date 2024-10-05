@@ -120,22 +120,22 @@ ros2 launch carla_ros_bridge carla_ros_bridge.launch.py
 </code></pre>
 <p>可以使用以下设置：</p>
 <ul>
-<li><strong>use_sim_time</strong>: 应设置为 <strong>True</strong> 以确保 ROS 使用仿真时间而不是系统时间。该参数将使 ROS <a href="https://wiki.ros.org/Clock"><code>/clock</code></a> 主题与 Carla 仿真时间同步。</li>
+<li><strong>use_sim_time</strong>: 应设置为 <strong>True</strong> 以确保 ROS 使用模拟时间而不是系统时间。该参数将使 ROS <a href="https://wiki.ros.org/Clock"><code>/clock</code></a> 主题与 Carla 模拟时间同步。</li>
 <li><strong>host and port</strong>: 使用 Python 客户端连接到 Carla 的网络设置。</li>
 <li><strong>timeout</strong>: 等待成功连接到服务器的时间。</li>
 <li><strong>passive</strong>: 被动模式用于同步模式。启用后，ROS 桥接器将退居次要地位，而另一个客户端 <strong>必须</strong> 与世界打交道。ROS 桥将等待接收来自所有传感器的所有预期数据。</li>
 <li><strong>synchronous_mode</strong>:<ul>
 <li><strong>如果是 false</strong>: 数据在每个节拍<code>world.on_tick()</code>和每个<code>sensor.listen()</code>回调时进行发布。</li>
-<li><strong>如果是 true （默认）</strong>: ROS 桥在下一个节拍之前等待所有预期的传感器消息。这可能会减慢整个仿真的速度，但可以确保结果的可重复性。</li>
+<li><strong>如果是 true （默认）</strong>: ROS 桥在下一个节拍之前等待所有预期的传感器消息。这可能会减慢整个模拟的速度，但可以确保结果的可重复性。</li>
 </ul>
 </li>
 <li><strong>synchronous_mode_wait_for_vehicle_control_command</strong>: 在同步模式下，暂停计时直到车辆控制完成。</li>
-<li><strong>fixed_delta_seconds</strong>: 仿真步骤之间的仿真时间（增量秒）。<strong>它必须低于 0.1</strong>。查看 <a href="https://carla.readthedocs.io/en/latest/adv_synchrony_timestep/">文档</a> 以了解更多相关信息。</li>
+<li><strong>fixed_delta_seconds</strong>: 模拟步骤之间的模拟时间（增量秒）。<strong>它必须低于 0.1</strong>。查看 <a href="https://carla.readthedocs.io/en/latest/adv_synchrony_timestep/">文档</a> 以了解更多相关信息。</li>
 <li><strong>ego_vehicle</strong>: 用于识别自我车辆的参与者名称。将创建相关主题，以便能够通过 ROS 控制这些车辆。</li>
 <li><strong>town</strong>: 使用可用的 Carla 城镇（例如“town01”）或 OpenDRIVE 文件（以 <code>.xodr</code> 结尾）。</li>
 <li><strong>register_all_sensors</strong>:<ul>
 <li><strong>如果是 false</strong>: 仅注册桥生成的传感器。</li>
-<li><strong>如果是 true（默认）</strong>: 仿真中存在的所有传感器均已注册。</li>
+<li><strong>如果是 true（默认）</strong>: 模拟中存在的所有传感器均已注册。</li>
 </ul>
 </li>
 </ul>
@@ -202,7 +202,7 @@ ros2 topic pub /carla/ego_vehicle/vehicle_control_cmd carla_msgs/CarlaEgoVehicle
 <tr>
 <td><code>/clock</code></td>
 <td><a href="https://docs.ros.org/en/melodic/api/rosgraph_msgs/html/msg/Clock.html">rosgraph_msgs/Clock</a></td>
-<td>在 ROS 中发布仿真时间。</td>
+<td>在 ROS 中发布模拟时间。</td>
 </tr>
 </tbody>
 </table>
@@ -235,7 +235,7 @@ ros2 topic pub /carla/ego_vehicle/vehicle_control_cmd carla_msgs/CarlaEgoVehicle
 <tr>
 <td><code>/clock</code></td>
 <td><a href="https://docs.ros.org/en/melodic/api/rosgraph_msgs/html/msg/Clock.html">rosgraph_msgs/Clock</a></td>
-<td>在 ROS 中发布仿真时间。</td>
+<td>在 ROS 中发布模拟时间。</td>
 </tr>
 <tr>
 <td><code>/rosout</code></td>

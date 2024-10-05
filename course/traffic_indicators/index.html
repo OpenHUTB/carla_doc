@@ -69,9 +69,9 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="hutbcarlacity">路口评价指标分析计算(HutbCarlaCity)</h1>
-<p>​   为支持  <a href="https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb"><strong>湖工商场景</strong></a> <strong>(WindowsNoEditor)</strong> 高保正的十字路口三维建模，设计  <strong><a href="https://github.com/OpenHUTB/carla_doc/tree/master/src/course/traffic_indicators.py">traffic_indicators.py</a></strong>  脚本对路口交通流量、路口车均延误、路口饱和、排队长度四种路口真实性评价指标分析。</p>
+<p>为支持  <a href="https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb"><strong>湖工商场景</strong></a> <strong>(WindowsNoEditor)</strong> 高保正的十字路口三维建模，设计  <strong><a href="https://github.com/OpenHUTB/carla_doc/tree/master/src/course/traffic_indicators.py">traffic_indicators.py</a></strong>  脚本对路口交通流量、路口车均延误、路口饱和、排队长度四种路口真实性评价指标分析。</p>
 <p><strong>首先需要对场景中添加车辆，运行 <a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/generate_traffic.py">generate_traffic.py</a> 脚本，生成足够的车辆。</strong></p>
-<h2 id="_1">定义命令行参数并获取仿真世界对象</h2>
+<h2 id="_1">定义命令行参数并获取模拟世界对象</h2>
 <pre><code class="language-python">argparser = argparse.ArgumentParser(
     description=__doc__)
 argparser.add_argument(
@@ -193,7 +193,7 @@ def queue_lengths(world,junctions,counted_vehicles):
 </code></pre>
 <h3 id="ave_delay">车均延误函数ave_delay()<span id="aveDelay"></span></h3>
 <p>采用以下计算公式进行计算：<img alt="" src="../../img/traffic_course_img/4.png" /></p>
-<p>​   其中<strong>D</strong>为路口车均延误参数，<strong>C</strong>为路口交通信号灯配时总时间，<strong>y</strong>为路口饱和度，<strong>T</strong>为当前分析时段的时长。</p>
+<p>其中<strong>D</strong>为路口车均延误参数，<strong>C</strong>为路口交通信号灯配时总时间，<strong>y</strong>为路口饱和度，<strong>T</strong>为当前分析时段的时长。</p>
 <pre><code>#得到交通灯的配时信息
 def get_traffic_light(world, light_id):
     traffic_lights = world.get_actors().filter('traffic.traffic_light')

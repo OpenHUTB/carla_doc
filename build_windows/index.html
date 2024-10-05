@@ -103,9 +103,9 @@
 <p>在本节中，您将找到开始构建 Carla 之前所需的系统要求、次要和主要软件安装以及 Python 依赖项的详细信息。</p>
 <h3 id="_2">系统要求 <span id="system-requirements"></span></h3>
 <ul>
-<li><strong>64 位操作系统。</strong> 仿真器应在任何 64 位 Windows 系统中运行。 </li>
+<li><strong>64 位操作系统。</strong> 模拟器应在任何 64 位 Windows 系统中运行。 </li>
 <li><strong>165 GB 磁盘空间。</strong> Carla 本身将占用大约 32 GB，相关的主要软件安装（包括虚幻引擎）将占用大约 133 GB。</li>
-<li><strong>足够的 GPU。</strong> Carla 旨在实现真实仿真，因此服务器至少需要 6 GB GPU，但建议使用 8 GB。强烈建议使用专用 GPU 进行机器学习。</li>
+<li><strong>足够的 GPU。</strong> Carla 旨在实现真实模拟，因此服务器至少需要 6 GB GPU，但建议使用 8 GB。强烈建议使用专用 GPU 进行机器学习。</li>
 <li><strong>两个 TCP 端口和良好的互联网连接。</strong> 默认端口为 2000 和 2001 。 确保这些端口未被防火墙或任何其他应用程序阻止。 </li>
 </ul>
 <div class="admonition 笔记">
@@ -238,7 +238,7 @@ GenerateProjectFiles.bat
 </ul>
 <p>Carla 的构建过程分为两部分：编译客户端和编译服务器。</p>
 <p><strong>1.</strong> <strong>编译 Python API 客户端</strong>:</p>
-<p>Python API 客户端授予对仿真的控制权。第一次构建 Carla 时需要编译 Python API 客户端，并且在执行任何更新后需要再次编译。客户端编译完成后，您将能够运行脚本与仿真进行交互。</p>
+<p>Python API 客户端授予对模拟的控制权。第一次构建 Carla 时需要编译 Python API 客户端，并且在执行任何更新后需要再次编译。客户端编译完成后，您将能够运行脚本与模拟进行交互。</p>
 <p>以下命令编译 Python API 客户端：</p>
 <pre><code class="language-sh">make PythonAPI
 </code></pre>
@@ -270,9 +270,9 @@ GenerateProjectFiles.bat
 <p class="admonition-title">笔记</p>
 <p>如果编译过程中出现中文乱码，为了便于寻找编译错误，可以使用<code>chcp 65001</code>命令将编码方式修改为UTF-8（选择“属性”。在“属性”&gt;&gt;“选项”一栏中，就可以看到当前代码页的编码方式）。</p>
 </div>
-<p><strong>3.</strong> <strong>开始仿真</strong>:</p>
-<p>按<strong>Play</strong>开始服务器仿真。可以使用按键移动相机<code>WASD</code>，并通过在移动鼠标的同时单击场景来旋转相机。 </p>
-<p>使用里面的示例脚本测试仿真器<code>PythonAPI\examples</code>。在仿真器运行的情况下，为每个脚本打开一个新终端并运行以下命令以在城镇中产生一些生命并创建天气循环：</p>
+<p><strong>3.</strong> <strong>开始模拟</strong>:</p>
+<p>按<strong>Play</strong>开始服务器模拟。可以使用按键移动相机<code>WASD</code>，并通过在移动鼠标的同时单击场景来旋转相机。 </p>
+<p>使用里面的示例脚本测试模拟器<code>PythonAPI\examples</code>。在模拟器运行的情况下，为每个脚本打开一个新终端并运行以下命令以在城镇中产生一些生命并创建天气循环：</p>
 <pre><code class="language-sh"># 终端 A 
 cd PythonAPI\examples
 pip3 install -r requirements.txt
@@ -284,7 +284,7 @@ python3 dynamic_weather.py
 </code></pre>
 <div class="admonition 重要">
 <p class="admonition-title">重要</p>
-<p>如果仿真以非常低的 FPS 速率运行，请转至虚幻引擎编辑器<code>Edit -&gt; Editor preferences -&gt; Performance</code>并禁用。</p>
+<p>如果模拟以非常低的 FPS 速率运行，请转至虚幻引擎编辑器<code>Edit -&gt; Editor preferences -&gt; Performance</code>并禁用。</p>
 </div>
 <h3 id="make">其他 make 命令 <span id="other-make-commands"></span></h3>
 <p>您可能会发现还有更多有用的<code>make</code>命令。在下表中找到它们：</p>
@@ -387,7 +387,7 @@ Error: could not load cache
 <p><a href="../build_tools/">构建系统</a></p>
 <hr />
 <p>有关本指南的任何问题， 请阅读 <strong><a href="../build_faq/">常见问题解答</a></strong> 页面或在 <a href="https://github.com/carla-simulator/carla/discussions">Carla 论坛</a> 中发帖。</p>
-<p>现在您已经构建了 Carla，接下来了解如何更新 Carla 构建或在仿真中迈出第一步，并学习一些核心概念。</p>
+<p>现在您已经构建了 Carla，接下来了解如何更新 Carla 构建或在模拟中迈出第一步，并学习一些核心概念。</p>
 <div class="build-buttons">
 
 <p>

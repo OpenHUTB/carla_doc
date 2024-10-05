@@ -85,7 +85,7 @@
 <p>在使用ROS桥之前，您需要满足以下软件要求：</p>
 <ul>
 <li>安装 ROS:<ul>
-<li><a href="https://docs.ros.org/en/foxy/Installation.html"><strong>ROS 2 Foxy</strong></a> — 针对 Ubuntu 20.04 (Focal)
+<li><a href="https://docs.ros.org/en/foxy/Installation/Ubuntu-Install-Debians.html"><strong>ROS 2 Foxy</strong></a> — 针对 Ubuntu 20.04 (Focal)
 -根据您的需要，可能需要额外的 ROS 包。强烈建议是用 <a href="https://wiki.ros.org/rviz">rviz</a> 将ROS数据可视化。</li>
 </ul>
 </li>
@@ -102,7 +102,7 @@
 git clone --recurse-submodules https://github.com/carla-simulator/ros-bridge.git src/ros-bridge
 </code></pre>
 <p><strong>2.</strong> 设置 ROS 环境：</p>
-<pre><code class="language-sh">    source /opt/ros/foxy/setup.bash
+<pre><code class="language-sh">source /opt/ros/foxy/setup.bash
 </code></pre>
 <p><strong>3.</strong> 安装 ROS 依赖：</p>
 <pre><code class="language-sh">rosdep update
@@ -161,6 +161,13 @@ rosdep install --from-paths src --ignore-src -r
 <pre><code class="language-sh">    launch_test carla_ros_bridge/test/ros_bridge_client_ros2_test.py
 </code></pre>
 <hr />
+<h2 id="windows">Windows下安装</h2>
+<p>根据<a href="https://docs.ros.org/en/foxy/Installation/Windows-Install-Binary.html">链接</a> 安装ROS2。</p>
+<p>1.根据<a href="https://chocolatey.org/install?_gl=1*1t2vzhg*_ga*MjA0Njg1OTQ3NC4xNzI3MzQ2NDc2*_ga_0WDD29GGN2*MTcyNzM0NjQ3Ni4xLjEuMTcyNzM0NjUxMS4wLjAuMA..">链接</a> 安装chocolate
+使用PowerShell运行<code>Get-ExecutionPolicy</code>，如果返回<code>Restricted</code>，然后运行<code>Set-ExecutionPolicy AllSigned</code>。</p>
+<p>然后运行</p>
+<pre><code class="language-shell">Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+</code></pre>
               
             </div>
           </div><footer>

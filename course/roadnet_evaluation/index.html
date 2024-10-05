@@ -70,11 +70,11 @@
               
                 <h1 id="_1">路网评价</h1>
 <h4 id="_2"><strong>介绍</strong></h4>
-<p><a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/course/roadnet_evaluation.py">该代码</a> 用于评估 Carla 仿真环境中的路网质量。评估的指标包括路网覆盖率、路口数量、交通灯数量和道路平均宽度。评估结果可以帮助了解仿真环境中的道路网络结构和配置。</p>
+<p><a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/course/roadnet_evaluation.py">该代码</a> 用于评估 Carla 模拟环境中的路网质量。评估的指标包括路网覆盖率、路口数量、交通灯数量和道路平均宽度。评估结果可以帮助了解模拟环境中的道路网络结构和配置。</p>
 <h4 id="_3"><strong>环境配置</strong></h4>
 <p>要运行该代码，需要以下软件和库：</p>
 <ul>
-<li><a href="https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb">CARLA仿真器</a></li>
+<li><a href="https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb">CARLA模拟器</a></li>
 <li>Python 3.x</li>
 <li><code>carla</code> Python API</li>
 <li><code>geopandas</code>库</li>
@@ -92,7 +92,7 @@ pip install geopandas shapely scikit-learn
 <li><strong>计算路口数量</strong></li>
 <li><strong>计算交通灯数量</strong></li>
 <li><strong>计算道路平均宽度</strong></li>
-<li><strong>仿真流量和真实流量相似性评估</strong></li>
+<li><strong>模拟流量和真实流量相似性评估</strong></li>
 </ol>
 <h5 id="_5">计算路网覆盖率</h5>
 <p>将道路几何信息转换为GeoPandas数据框，并计算道路覆盖的总长度和感兴趣区域的总面积，最后计算覆盖率。</p>
@@ -141,9 +141,9 @@ pip install geopandas shapely scikit-learn
     else:
         return 0
 </code></pre>
-<h5 id="_9">仿真流量和真实流量相似性评估<span id=predict_flow ></span></h5>
-<p>给定10次真实交通流数据，与仿真获取得10次仿真交通流数据比较其相似性。</p>
-<h6 id="_10">获取仿真车流量</h6>
+<h5 id="_9">模拟流量和真实流量相似性评估<span id=predict_flow ></span></h5>
+<p>给定10次真实交通流数据，与模拟获取得10次模拟交通流数据比较其相似性。</p>
+<h6 id="_10">获取模拟车流量</h6>
 <pre><code># 某个时刻西二环十字路口的车流量
 def get_vehicles_in_intersection(world, intersection_location, intersection_radius):
     vehicles = world.get_actors().filter('vehicle.*')

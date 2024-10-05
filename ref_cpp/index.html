@@ -107,6 +107,17 @@ sudo apt-get install doxygen graphviz
 </ol>
 <h2 id="_1">阅读</h2>
 <p><strong>HUD</strong>: Heads-up Displays, 头显。用户界面 （UI）和 头显 （HUD）是游戏向玩家提供游戏信息以及在某些情况下允许玩家与游戏互动的方式。HUD指的是游戏期间在屏幕上覆盖的状态和信息。HUD的目的是 告知玩家当前游戏状态，即分数、生命值、游戏剩余时间等。 HUD通常是不可互动的，意味着玩家不能单击HUD的元素，因此 在HUD和用户界面难以分离的某些类型游戏中，这些元素会显示为灰色区域。</p>
+<ul>
+<li>统计代码的行数</li>
+</ul>
+<pre><code class="language-shell">git ls-files | xargs cat | wc -l
+</code></pre>
+<p>指定文件后缀名：</p>
+<pre><code class="language-shell"># 26103行
+git ls-files '*.cpp' | xargs wc -l
+# 34872行
+git ls-files '*.h' | xargs wc -l
+</code></pre>
               
             </div>
           </div><footer>

@@ -69,7 +69,7 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="carlaviz">carlaviz</h1>
-<p>carlaviz 插件用于在网络浏览器中可视化仿真。创建了一个具有场景的一些基本表示的窗口。参与者可以即时更新，可以检索传感器数据，还可以在场景中绘制附加文本、线条和折线。</p>
+<p>carlaviz 插件用于在网络浏览器中可视化模拟。创建了一个具有场景的一些基本表示的窗口。参与者可以即时更新，可以检索传感器数据，还可以在场景中绘制附加文本、线条和折线。</p>
 <ul>
 <li><a href="#general_information"><strong>一般信息</strong></a>  <ul>
 <li><a href="#support">支持</a>  </li>
@@ -137,7 +137,7 @@ docker pull mjxu96/carlaviz:latest
 <p><strong>1. 运行 Carla。</strong></p>
 <ul>
 <li>
-<p><strong>a) 在 Carla 包中</strong> — 转至 Carla 文件夹并使用 <code>CarlaUE4.exe</code>(Windows) 或<code>./CarlaUE4.sh</code>(Linux) 启动仿真。  </p>
+<p><strong>a) 在 Carla 包中</strong> — 转至 Carla 文件夹并使用 <code>CarlaUE4.exe</code>(Windows) 或<code>./CarlaUE4.sh</code>(Linux) 启动模拟。  </p>
 </li>
 <li>
 <p><strong>b) 在从源代码构建的包中</strong> — 转到 Carla 文件夹，使用 <code>make launch</code> 运行虚幻编辑器，并按<code>Play</code>。</p>
@@ -161,7 +161,7 @@ docker run -it -e CARLAVIZ_HOST_IP=localhost -e CARLA_SERVER_IP=host.docker.inte
 <p><img alt="carlaviz_empty" src="../img/plugins_carlaviz_empty.jpg" /></p>
 <hr />
 <h2 id="_5">工具 <span id="utilities"></span></h2>
-<p>一旦插件运行，它就可以用于可视化仿真、其中的参与者以及传感器检索的数据。该插件在右侧显示一个可视化窗口，场景实时更新，左侧显示一个侧边栏，其中包含要显示的项目列表。其中一些项目将出现在可视化窗口中，其他项目（主要是传感器和游戏数据）出现在项目列表上方。
+<p>一旦插件运行，它就可以用于可视化模拟、其中的参与者以及传感器检索的数据。该插件在右侧显示一个可视化窗口，场景实时更新，左侧显示一个侧边栏，其中包含要显示的项目列表。其中一些项目将出现在可视化窗口中，其他项目（主要是传感器和游戏数据）出现在项目列表上方。
 以下是可用于可视化的选项列表。可能会显示其他元素，例如</p>
 <ul>
 <li>
@@ -191,7 +191,7 @@ docker run -it -e CARLAVIZ_HOST_IP=localhost -e CARLA_SERVER_IP=host.docker.inte
 </ul>
 </li>
 <li><strong>/game</strong>  — 显示游戏数据。<ul>
-<li><code>/time</code> — 当前仿真时间和帧。</li>
+<li><code>/time</code> — 当前模拟时间和帧。</li>
 </ul>
 </li>
 <li><strong>/lidar</strong> — LIDAR 传感器数据。<ul>
@@ -210,7 +210,7 @@ docker run -it -e CARLAVIZ_HOST_IP=localhost -e CARLA_SERVER_IP=host.docker.inte
 </ul>
 <p>尝试生成一些参与者。这些将在可视化窗口中自动更新。</p>
 <pre><code class="language-sh">cd PythonAPI/examples
-# 在同步模式仿真下生成参与者
+# 在同步模式模拟下生成参与者
 python3 generate_traffic.py -n 10 -w 5
 </code></pre>
 <p><img alt="carlaviz_full" src="../img/plugins_carlaviz_full.jpg" /></p>

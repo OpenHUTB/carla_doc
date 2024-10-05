@@ -69,12 +69,12 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="_1"><a href="https://carla.readthedocs.io/en/latest/adv_synchrony_timestep/">同步和时间步长</a></h1>
-<p>本节介绍 Carla 中的两个基本概念。它们的配置定义了仿真中的时间如何流逝，以及服务器如何使仿真向前推进。</p>
+<p>本节介绍 Carla 中的两个基本概念。它们的配置定义了模拟中的时间如何流逝，以及服务器如何使模拟向前推进。</p>
 <ul>
-<li><a href="#simulation-time-step"><strong>仿真和时间步长</strong></a><ul>
+<li><a href="#simulation-time-step"><strong>模拟和时间步长</strong></a><ul>
 <li><a href="#variable-time-step">可变时间步长</a></li>
 <li><a href="#fixed-time-step">固定时间步长</a></li>
-<li><a href="#tips-when-recording-the-simulation">仿真记录</a></li>
+<li><a href="#tips-when-recording-the-simulation">模拟记录</a></li>
 <li><a href="#physics-substepping">物理子步</a></li>
 </ul>
 </li>
@@ -87,16 +87,16 @@
 <li><a href="#physics-determinism"><strong>物理确定性</strong></a></li>
 </ul>
 <hr />
-<h2 id="_2">仿真时间步长 <span id="simulation-time-step"></span></h2>
-<p>实时时间和仿真时间是有区别的。仿真世界有自己的时钟和时间，由服务器执行。计算两个仿真步骤需要一些实时时间。但是，在这两个仿真时刻之间也存在时间跨度，即<strong>时间步长</strong>。 </p>
-<p>为了澄清这一点，服务器可能需要几毫秒来计算仿真的两个步骤。但是，比如这两个仿真时刻之间的时间步长可以配置始终为 1 秒。  </p>
+<h2 id="_2">模拟时间步长 <span id="simulation-time-step"></span></h2>
+<p>实时时间和模拟时间是有区别的。模拟世界有自己的时钟和时间，由服务器执行。计算两个模拟步骤需要一些实时时间。但是，在这两个模拟时刻之间也存在时间跨度，即<strong>时间步长</strong>。 </p>
+<p>为了澄清这一点，服务器可能需要几毫秒来计算模拟的两个步骤。但是，比如这两个模拟时刻之间的时间步长可以配置始终为 1 秒。  </p>
 <p>时间步长可以是固定的，也可以是可变的，具体取决于用户的偏好。</p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>时间步长和同步是相互交织的概念。请务必阅读这两个部分，以充分了解 Carla 的工作原理。  </p>
 </div>
 <h3 id="_3">可变时间步长 <span id="variable-time-step"></span></h3>
-<p>Carla 中的默认模式。仿真时间步长是服务器计算这些步骤所需的时间。</p>
+<p>Carla 中的默认模式。模拟时间步长是服务器计算这些步骤所需的时间。</p>
 <pre><code class="language-py">settings = world.get_settings()
 settings.fixed_delta_seconds = None # 设置为可变步长
 world.apply_settings(settings)
@@ -105,8 +105,8 @@ world.apply_settings(settings)
 <pre><code class="language-sh">cd PythonAPI/util &amp;&amp; python3 config.py --delta-seconds 0
 </code></pre>
 <h3 id="_4">固定时间步长 <span id="fixed-time-step"></span></h3>
-<p>每个仿真步骤之间经过的时间保持恒定。如果设置为 0.5 秒，每秒将有 2 个仿真帧。使用相同的时间增量对于从仿真中获取数据是最好的方式。物理和传感器数据将对应于仿真中易于理解的时刻。此外，如果服务器速度足够快，可以在更少的实际时间内仿真更长的时间段。</p>
-<p>可以在世界设置中设置固定的时间步长。要将仿真设置为固定时间步长为 0.05 秒，请应用以下设置。在这种情况下，仿真器将花费20 步（1/0.05）来重现仿真世界中的 1 秒。</p>
+<p>每个模拟步骤之间经过的时间保持恒定。如果设置为 0.5 秒，每秒将有 2 个模拟帧。使用相同的时间增量对于从模拟中获取数据是最好的方式。物理和传感器数据将对应于模拟中易于理解的时刻。此外，如果服务器速度足够快，可以在更少的实际时间内模拟更长的时间段。</p>
+<p>可以在世界设置中设置固定的时间步长。要将模拟设置为固定时间步长为 0.05 秒，请应用以下设置。在这种情况下，模拟器将花费20 步（1/0.05）来重现模拟世界中的 1 秒。</p>
 <pre><code class="language-py">settings = world.get_settings()
 settings.fixed_delta_seconds = 0.05
 world.apply_settings(settings)
@@ -114,20 +114,20 @@ world.apply_settings(settings)
 <p>这也可以使用 <code>PythonAPI/util/config.py</code> 提供的脚本进行设置。 </p>
 <pre><code class="language-sh">cd PythonAPI/util &amp;&amp; python3 config.py --delta-seconds 0.05
 </code></pre>
-<h3 id="_5">仿真记录 <span id="tips-when-recording-the-simulation"></span></h3>
-<p>Carla 具有<a href="../adv_recorder/">记录器</a>功能，可以记录仿真，然后重新播放。但是，在寻找精度时，需要考虑一些事情。</p>
+<h3 id="_5">模拟记录 <span id="tips-when-recording-the-simulation"></span></h3>
+<p>Carla 具有<a href="../adv_recorder/">记录器</a>功能，可以记录模拟，然后重新播放。但是，在寻找精度时，需要考虑一些事情。</p>
 <ul>
-<li>有了<strong>固定的时间步长</strong>，重新播放它就很容易了。服务器可以设置为与原始仿真相同的时间步长。</li>
+<li>有了<strong>固定的时间步长</strong>，重新播放它就很容易了。服务器可以设置为与原始模拟相同的时间步长。</li>
 <li>
 <p>使用<strong>可变的时间步长</strong>，事情会稍微复杂一些。</p>
 </li>
 <li>
 <p>如果服务器以可变的时间步长运行，则时间步长将与原始时间步长不同，因为逻辑周期会不时变化。然后，将使用记录的数据对信息进行插值。</p>
 </li>
-<li>如果<strong>服务器被迫重现完全相同的时间</strong>步长，则仿真的步长将相同，但它们之间的实时时间会发生变化。时间步长应逐一传递。这些原始时间步长是原始仿真尽可能快运行的结果。由于表示这些所需的时间大多不同，因此仿真必然会以奇怪的时间波动再现。</li>
+<li>如果<strong>服务器被迫重现完全相同的时间</strong>步长，则模拟的步长将相同，但它们之间的实时时间会发生变化。时间步长应逐一传递。这些原始时间步长是原始模拟尽可能快运行的结果。由于表示这些所需的时间大多不同，因此模拟必然会以奇怪的时间波动再现。</li>
 </ul>
 <h3 id="_6">物理子步 <span id="physics-substepping"></span></h3>
-<p>为了精确计算物理效果，物理仿真必须在非常小的时间步内进行。当我们在仿真中每帧执行多次计算（例如传感器渲染，读取存储等）时，时间步长可能会成为一个问题。由于这个限制仅发生在物理仿真中，我们可以仅对物理计算应用子步。在默认情况下物理子步是打开的，并且被设定为每个时间步长最大 10 个物理子步，每个物理子步最大为0.01 秒。</p>
+<p>为了精确计算物理效果，物理模拟必须在非常小的时间步内进行。当我们在模拟中每帧执行多次计算（例如传感器渲染，读取存储等）时，时间步长可能会成为一个问题。由于这个限制仅发生在物理模拟中，我们可以仅对物理计算应用子步。在默认情况下物理子步是打开的，并且被设定为每个时间步长最大 10 个物理子步，每个物理子步最大为0.01 秒。</p>
 <p>当然，我们可以通过API调整这些设定：</p>
 <pre><code class="language-py">settings = world.get_settings()
 settings.substepping = True
@@ -135,11 +135,11 @@ settings.max_substep_delta_time = 0.01
 settings.max_substeps = 10
 world.apply_settings(settings)
 </code></pre>
-<p><strong>注意，当启用同步模式时，我们设定仿真时间步长时需要遵循以下条件来保证物理仿真的准确性：</strong></p>
+<p><strong>注意，当启用同步模式时，我们设定模拟时间步长时需要遵循以下条件来保证物理模拟的准确性：</strong></p>
 <pre><code class="language-py">fixed_delta_seconds &lt;= max_substep_delta_time * max_substeps
 </code></pre>
-<p><strong>注意，为了保证物理仿真的准确性，子步的时间间隔应该至少低于 0.01666，理想情况下低于 0.01。</strong></p>
-<p>为了演示最佳物理子步的效果，请考虑下面的图。下面的第一个图表显示了在不同固定仿真时间步长的仿真中速度随时间的变化。物理增量时间在所有仿真中都是恒定的，默认值为 0.01。我们可以看到，速度不受仿真时间步长差异的影响。</p>
+<p><strong>注意，为了保证物理模拟的准确性，子步的时间间隔应该至少低于 0.01666，理想情况下低于 0.01。</strong></p>
+<p>为了演示最佳物理子步的效果，请考虑下面的图。下面的第一个图表显示了在不同固定模拟时间步长的模拟中速度随时间的变化。物理增量时间在所有模拟中都是恒定的，默认值为 0.01。我们可以看到，速度不受模拟时间步长差异的影响。</p>
 <blockquote>
 <blockquote>
 <blockquote>
@@ -151,7 +151,7 @@ world.apply_settings(settings)
 </blockquote>
 </blockquote>
 </blockquote>
-<p>第二张图显示了仿真中速度随时间的变化，仿真时间步长固定为0.04。我们可以看到，一旦物理增量时间超过 0.01，速度常数开始出现偏差，随着物理增量时间的增加，偏差的严重程度也在增加。</p>
+<p>第二张图显示了模拟中速度随时间的变化，模拟时间步长固定为0.04。我们可以看到，一旦物理增量时间超过 0.01，速度常数开始出现偏差，随着物理增量时间的增加，偏差的严重程度也在增加。</p>
 <blockquote>
 <blockquote>
 <blockquote>
@@ -163,7 +163,7 @@ world.apply_settings(settings)
 </blockquote>
 </blockquote>
 </blockquote>
-<p>我们可以通过在测量z-加速度时显示物理增量时间与固定仿真时间步长相同的差异的影响来再次证明这种偏差，只有当物理增量时间为 0.01 或更小时才会发生收敛。</p>
+<p>我们可以通过在测量z-加速度时显示物理增量时间与固定模拟时间步长相同的差异的影响来再次证明这种偏差，只有当物理增量时间为 0.01 或更小时才会发生收敛。</p>
 <blockquote>
 <blockquote>
 <blockquote>
@@ -177,8 +177,8 @@ world.apply_settings(settings)
 </blockquote>
 <hr />
 <h2 id="-">客户端-服务器同步 <span id="client-server-synchrony"></span></h2>
-<p>Carla 采用客户端-服务器架构。服务器运行仿真，客户端获取信息并对世界进行修改。本节涉及客户端和服务器之间的通信。</p>
-<p>默认情况下，Carla 以异步模式运行。服务器尽可能快地运行仿真，而不等待客户端。在同步模式下，服务器在更新到下一个仿真步骤之前会等待客户端发送的“ready to go”的消息。</p>
+<p>Carla 采用客户端-服务器架构。服务器运行模拟，客户端获取信息并对世界进行修改。本节涉及客户端和服务器之间的通信。</p>
+<p>默认情况下，Carla 以异步模式运行。服务器尽可能快地运行模拟，而不等待客户端。在同步模式下，服务器在更新到下一个模拟步骤之前会等待客户端发送的“ready to go”的消息。</p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>同时运行多个客户端时，只能有一个客户端开启同步模式，因为服务器会对每个收到的“ready to go”信息进行反应，多个client开启同步模式将会发送过多“ready to go”信息导致同步失败。</p>
@@ -198,7 +198,7 @@ world.apply_settings(settings)
 </code></pre>
 <p>同步模式不能通过脚本启用，只能禁用。启用同步模式将使服务器等待客户机的响应。使用这个脚本，用户不能在需要的时候发送刻度。</p>
 <h3 id="_8">使用同步模式 <span id="using-synchronous-mode"></span></h3>
-<p>同步模式在客户端应用程序较慢以及需要不同元素之间的同步，如传感器等情况下尤为重要。如果客户端速度太慢而服务器不等待，信息将会溢出。客户端将无法管理所有内容，信息会丢失或混淆。类似的情况是，如果有很多传感器和异步操作，将无法确定所有传感器是否在仿真中使用来自同一时刻的数据。</p>
+<p>同步模式在客户端应用程序较慢以及需要不同元素之间的同步，如传感器等情况下尤为重要。如果客户端速度太慢而服务器不等待，信息将会溢出。客户端将无法管理所有内容，信息会丢失或混淆。类似的情况是，如果有很多传感器和异步操作，将无法确定所有传感器是否在模拟中使用来自同一时刻的数据。</p>
 <p>以下代码片段扩展了前一段代码。客户端创建一个相机传感器，将当前步骤的图像数据存储在队列中，并在从队列中检索后勾选服务器。可以<a href="https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/synchronous_mode.py">在此处</a>找到有关多个传感器的更复杂示例。</p>
 <pre><code class="language-py">settings = world.get_settings()
 settings.synchronous_mode = True
@@ -237,22 +237,22 @@ world.on_tick(lambda world_snapshot: do_something(world_snapshot))
 <tbody>
 <tr>
 <td><strong>同步模式</strong></td>
-<td>客户完全控制仿真及其信息。</td>
-<td>不可靠仿真的风险。</td>
+<td>客户完全控制模拟及其信息。</td>
+<td>不可靠模拟的风险。</td>
 </tr>
 <tr>
 <td><strong>异步模式</strong></td>
 <td>这是关于信息的好时间参考，服务器尽可能以最快的速度运行。</td>
-<td>不容易重复的仿真。</td>
+<td>不容易重复的模拟。</td>
 </tr>
 </tbody>
 </table>
 <p><br></p>
 <ul>
-<li><strong>同步模式+可变时间步长。</strong>这几乎可以肯定是一种不可取的状态。当时间步长大于 0.1 秒时，物理无法正常运行。如果服务器必须等待客户端计算步骤，则很可能会发生这种情况。仿真时间和物理特性不会同步。仿真将不可靠。</li>
-<li><strong>异步模式+可变时间步长。</strong>这是默认的 Carla 状态。客户端和服务器是异步的。仿真时间根据实时流动。重新执行仿真需要考虑浮点数算术误差，以及服务器之间时间步长的可能差异。</li>
-<li><strong>异步模式+固定时间步长。</strong>服务器将尽可能快地运行。检索到的信息将很容易与仿真中的确切时刻相关联。如果服务器速度足够快，这种配置可以以更低的实时度仿真长时间。</li>
-<li><strong>同步模式+固定时间步长。</strong>客户端将统治仿真。时间步长将是固定的。在客户端发送即时报价之前，服务器不会计算以下步骤。当同步和精度相关时，这是最佳模式。尤其是在处理缓慢的客户端或检索信息的不同元素时。</li>
+<li><strong>同步模式+可变时间步长。</strong>这几乎可以肯定是一种不可取的状态。当时间步长大于 0.1 秒时，物理无法正常运行。如果服务器必须等待客户端计算步骤，则很可能会发生这种情况。模拟时间和物理特性不会同步。模拟将不可靠。</li>
+<li><strong>异步模式+可变时间步长。</strong>这是默认的 Carla 状态。客户端和服务器是异步的。模拟时间根据实时流动。重新执行模拟需要考虑浮点数算术误差，以及服务器之间时间步长的可能差异。</li>
+<li><strong>异步模式+固定时间步长。</strong>服务器将尽可能快地运行。检索到的信息将很容易与模拟中的确切时刻相关联。如果服务器速度足够快，这种配置可以以更低的实时度模拟长时间。</li>
+<li><strong>同步模式+固定时间步长。</strong>客户端将统治模拟。时间步长将是固定的。在客户端发送即时报价之前，服务器不会计算以下步骤。当同步和精度相关时，这是最佳模式。尤其是在处理缓慢的客户端或检索信息的不同元素时。</li>
 </ul>
 <div class="admonition 警告">
 <p class="admonition-title">警告</p>
@@ -262,10 +262,10 @@ world.on_tick(lambda world_snapshot: do_something(world_snapshot))
 <h2 id="_10">物理确定性 <span id="physics-determinism"></span></h2>
 <p>Carla 在特定情况下支持物理和碰撞确定性：</p>
 <ul>
-<li><strong>同步模式和固定的时间步长必须启用</strong>：确定性要求客户端与服务器完全同步，以确保命令被正确应用并产生准确和可复制的结果。必须通过设置固定的时间步长来强制执行恒定的时间步长。如果不设置，时间步长将根据仿真性能在每个步骤自动计算。</li>
-<li><strong>在加载或重新加载世界之前，必须启用同步模式：</strong>如果世界从一开始就不处于同步模式，则可能会出现不同的时间戳。这可能会在物理仿真和交通信号灯等对象的生命周期中产生微小的差异。</li>
-<li><strong>每一次新的重复都必须重新加载世界：</strong>每次要重现仿真时，请重新加载世界。</li>
-<li>命令<strong>应该是批处理的，而不是一次发出一个命令：</strong>虽然很少见，但在繁忙的仿真或过载的服务器中，单个发出的命令可能会丢失。如果命令在<a href="../python_api/#carla.Client.apply_batch_sync"><code>apply_batch_sync</code></a>命令中批处理，则保证该命令被执行或返回失败响应。</li>
+<li><strong>同步模式和固定的时间步长必须启用</strong>：确定性要求客户端与服务器完全同步，以确保命令被正确应用并产生准确和可复制的结果。必须通过设置固定的时间步长来强制执行恒定的时间步长。如果不设置，时间步长将根据模拟性能在每个步骤自动计算。</li>
+<li><strong>在加载或重新加载世界之前，必须启用同步模式：</strong>如果世界从一开始就不处于同步模式，则可能会出现不同的时间戳。这可能会在物理模拟和交通信号灯等对象的生命周期中产生微小的差异。</li>
+<li><strong>每一次新的重复都必须重新加载世界：</strong>每次要重现模拟时，请重新加载世界。</li>
+<li>命令<strong>应该是批处理的，而不是一次发出一个命令：</strong>虽然很少见，但在繁忙的模拟或过载的服务器中，单个发出的命令可能会丢失。如果命令在<a href="../python_api/#carla.Client.apply_batch_sync"><code>apply_batch_sync</code></a>命令中批处理，则保证该命令被执行或返回失败响应。</li>
 </ul>
 <p>以下是上述步骤的示例：</p>
 <pre><code class="language-py">client = carla.Client(HOST, PORT) # connect to the server
@@ -319,9 +319,9 @@ while True:
     # Your code
     world.tick()
 </code></pre>
-<p>运行这些步骤将确保每次仿真运行的结果相同。</p>
+<p>运行这些步骤将确保每次模拟运行的结果相同。</p>
 <hr />
-<p>这就是关于仿真时间和客户端-服务器同步在 Carla 中的作用的全部信息。</p>
+<p>这就是关于模拟时间和客户端-服务器同步在 Carla 中的作用的全部信息。</p>
 <p>打开 Carla，玩一会儿。欢迎在论坛中提出任何建议或疑问。</p>
 <div class="build-buttons">
 <p>

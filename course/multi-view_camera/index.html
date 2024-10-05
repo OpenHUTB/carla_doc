@@ -70,7 +70,7 @@
               
                 <h1 id="camerapy">配置多视角摄像头camera.py</h1>
 <h4 id="_1"><strong>介绍</strong></h4>
-<p>此脚本连接到CARLA仿真环境，在车辆的左右两侧设置相机，并使用Pygame显示相机捕获的实时图像。系统采用多进程架构，确保左右相机图像分别在不同窗口中实时显示。</p>
+<p>此脚本连接到CARLA模拟环境，在车辆的左右两侧设置相机，并使用Pygame显示相机捕获的实时图像。系统采用多进程架构，确保左右相机图像分别在不同窗口中实时显示。</p>
 <ul>
 <li>
 <h4 id="_2"><strong>环境要求</strong></h4>
@@ -78,7 +78,7 @@
 <li>
 <p>Python 3.6 及以上版本</p>
 </li>
-<li>CARLA 仿真环境</li>
+<li>CARLA 模拟环境</li>
 <li>安装必要的Python库：</li>
 <li>
 <p><a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/course/camera.py"><strong>camera.py</strong></a></p>
@@ -168,7 +168,7 @@ def get_image_array(self, side):
 </code></pre>
 <p>使用Pygame显示左右相机捕获的图像。</p>
 <h5 id="_8">多线程</h5>
-<p>为了在CARLA仿真环境中创建两个窗口来显示车辆的左右视角，我们需要利用Pygame和多进程来实现。</p>
+<p>为了在CARLA模拟环境中创建两个窗口来显示车辆的左右视角，我们需要利用Pygame和多进程来实现。</p>
 <pre><code> left_process = multiprocessing.Process(target=render, args=(left_queue, 'left', 0, 100))
  right_process = multiprocessing.Process(target=render, args=(right_queue, 'right', VIEW_WIDTH + 10, 100))
 </code></pre>

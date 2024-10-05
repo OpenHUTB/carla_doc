@@ -69,7 +69,7 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="_1">手动信号控制</h1>
-<p>这是一个用于控制红绿灯的Flask应用程序，通过 <a href="https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb">Carla仿真环境</a> 实现。用户可以通过指定红绿灯的OpenDRIVE ID、颜色ID以及设置时长来控制红绿灯的状态。红绿灯的颜色设置包括绿灯、黄灯和红灯，分别对应颜色ID [1, 2, 3]。颜色持续时间以秒为单位。</p>
+<p>这是一个用于控制红绿灯的Flask应用程序，通过 <a href="https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb">Carla模拟环境</a> 实现。用户可以通过指定红绿灯的OpenDRIVE ID、颜色ID以及设置时长来控制红绿灯的状态。红绿灯的颜色设置包括绿灯、黄灯和红灯，分别对应颜色ID [1, 2, 3]。颜色持续时间以秒为单位。</p>
 <h4 id="_2">参数说明</h4>
 <p><a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/course/signal_control.py">脚本</a> 接收以下参数：
 1. <code>--traffic_id</code> (<code>-I</code>): 目标红绿灯的OpenDrive ID。
@@ -86,7 +86,7 @@
 <h4 id="_4">使用步骤</h4>
 <p>要设置红绿灯，可以发送一个GET请求到 <code>/set_traffic_light</code>：</p>
 <ol>
-<li>打开Carla仿真环境</li>
+<li>打开Carla模拟环境</li>
 <li>运行脚本signal_control.py来开启服务端</li>
 <li>发送http请求:</li>
 </ol>
@@ -96,7 +96,7 @@
 <h4 id="_5">脚本工作流程</h4>
 <p>应用程序的主要功能是根据用户提供的参数设置指定红绿灯的颜色和持续时间。具体实现步骤如下：</p>
 <p>1.接收用户请求，并解析传入的参数。</p>
-<p>2.连接到Carla仿真服务器并获取当前世界对象。</p>
+<p>2.连接到Carla模拟服务器并获取当前世界对象。</p>
 <pre><code>client = carla.Client('localhost', 2000)
 client.set_timeout(10.0)  # 设置超时
 world = client.get_world()  # 获取世界对象

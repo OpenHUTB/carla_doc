@@ -121,7 +121,7 @@
 <tr>
 <td><code>timestamp</code></td>
 <td>double</td>
-<td>自回合开始以来测量的仿真时间（以秒为单位）。</td>
+<td>自回合开始以来测量的模拟时间（以秒为单位）。</td>
 </tr>
 <tr>
 <td><code>transform</code></td>
@@ -194,7 +194,7 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.Depth)
 <td><code>sensor_tick</code></td>
 <td>float</td>
 <td>0.0</td>
-<td>传感器捕获之间的仿真秒数（节拍）。</td>
+<td>传感器捕获之间的模拟秒数（节拍）。</td>
 </tr>
 </tbody>
 </table>
@@ -265,7 +265,7 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.Depth)
 <tr>
 <td><code>timestamp</code></td>
 <td>double</td>
-<td>自回合开始以来测量的仿真时间（以秒为单位）。</td>
+<td>自回合开始以来测量的模拟时间（以秒为单位）。</td>
 </tr>
 <tr>
 <td><code>transform</code></td>
@@ -358,7 +358,7 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.Depth)
 <td><code>sensor_tick</code></td>
 <td>float</td>
 <td>0.0</td>
-<td>传感器捕获之间的仿真秒数（节拍）。</td>
+<td>传感器捕获之间的模拟秒数（节拍）。</td>
 </tr>
 </tbody>
 </table>
@@ -381,7 +381,7 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.Depth)
 <tr>
 <td><code>timestamp</code></td>
 <td>double</td>
-<td>自回合开始以来测量的仿真时间（以秒为单位）。</td>
+<td>自回合开始以来测量的模拟时间（以秒为单位）。</td>
 </tr>
 <tr>
 <td><code>transform</code></td>
@@ -487,7 +487,7 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.Depth)
 <td><code>sensor_tick</code></td>
 <td>float</td>
 <td>0.0</td>
-<td>传感器捕获之间的仿真秒数（节拍）。</td>
+<td>传感器捕获之间的模拟秒数（节拍）。</td>
 </tr>
 </tbody>
 </table>
@@ -510,7 +510,7 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.Depth)
 <tr>
 <td><code>timestamp</code></td>
 <td>double</td>
-<td>自回合开始以来测量的仿真时间（以秒为单位）。</td>
+<td>自回合开始以来测量的模拟时间（以秒为单位）。</td>
 </tr>
 <tr>
 <td><code>transform</code></td>
@@ -577,7 +577,7 @@ $$ d_2 (i) = -2.0 \times [ { y_1 \over {h_1 \times h_2 } }  -  { y_2 \over { h_2
 <tr>
 <td><code>timestamp</code></td>
 <td>double</td>
-<td>自回合开始以来测量的仿真时间（以秒为单位）。</td>
+<td>自回合开始以来测量的模拟时间（以秒为单位）。</td>
 </tr>
 <tr>
 <td><code>transform</code></td>
@@ -604,7 +604,7 @@ $$ d_2 (i) = -2.0 \times [ { y_1 \over {h_1 \times h_2 } }  -  { y_2 \over { h_2
 </ul>
 <p>激光雷达测量包含一个包，其中包含在某个时间间隔内生成的所有点1/FPS。在此间隔期间，物理不会更新，因此测量中的所有点都反映场景的相同“静态图片”。
 <code>points_per_channel_each_step = points_per_second / (FPS * channels)</code></p>
-<p>此输出包含仿真点云，因此可以对其进行迭代以检索它们的列表 <a href="../python_api/#carla.Location"><code>carla.Location</code></a>：</p>
+<p>此输出包含模拟点云，因此可以对其进行迭代以检索它们的列表 <a href="../python_api/#carla.Location"><code>carla.Location</code></a>：</p>
 <pre><code class="language-py">for location in lidar_measurement:
     print(location)
 </code></pre>
@@ -613,13 +613,13 @@ $$ d_2 (i) = -2.0 \times [ { y_1 \over {h_1 \times h_2 } }  -  { y_2 \over { h_2
 <img alt="LidarIntensityComputation" src="../img/lidar_intensity.jpg" /></p>
 <p><code>a</code> — 衰减系数。这可能取决于传感器的波长和大气条件。可以使用激光雷达属性对其进行修改<code>atmosphere_attenuation_rate</code>。 
 <code>d</code> — 从击中点到传感器的距离</p>
-<p>为了获得更好的真实感，可以删除云中的点。这是仿真外部扰动造成的损失的简单方法。这可以结合两个不同的来完成。</p>
+<p>为了获得更好的真实感，可以删除云中的点。这是模拟外部扰动造成的损失的简单方法。这可以结合两个不同的来完成。</p>
 <ul>
 <li><strong>General drop-off</strong> — 随机掉落的分数比例。这是在跟踪之前完成的，这意味着不会计算被丢弃的点，从而提高性能。如果是<code>dropoff_general_rate = 0.5</code>，则扣掉一半的分数。</li>
 <li><strong>Instensity-based drop-off</strong> — 对于检测到的每个点，根据计算的强度的概率执行额外的下降。该概率由两个参数确定。<code>dropoff_zero_intensity</code>是强度为零的点被丢弃的概率。<code>dropoff_intensity_limit</code>是阈值强度，超过该阈值将不会掉落任何分数。范围内的点被丢弃的概率是基于这两个参数的线性比例。</li>
 </ul>
-<p>此外，该<code>noise_stddev</code>属性还使噪声模型能够仿真现实传感器中出现的意外偏差。对于正值，每个点都会沿着激光射线的矢量随机扰动。结果是激光雷达传感器具有完美的角度定位，但距离测量存在噪音。</p>
-<p>可以调整激光雷达的旋转以覆盖每个仿真步骤的特定角度（使用 <a href="../adv_synchrony_timestep/">固定的时间步长</a> ）。例如，每步旋转一次（整圈输出，如下图），旋转频率和仿真的 FPS 应该相等。 <br> <strong>1.</strong> 设置传感器的频率 <code>sensors_bp['lidar'][0].set_attribute('rotation_frequency','10')</code>. <br> <strong>2.</strong> 使用 <code>python3 config.py --fps=10</code> 运行仿真。</p>
+<p>此外，该<code>noise_stddev</code>属性还使噪声模型能够模拟现实传感器中出现的意外偏差。对于正值，每个点都会沿着激光射线的矢量随机扰动。结果是激光雷达传感器具有完美的角度定位，但距离测量存在噪音。</p>
+<p>可以调整激光雷达的旋转以覆盖每个模拟步骤的特定角度（使用 <a href="../adv_synchrony_timestep/">固定的时间步长</a> ）。例如，每步旋转一次（整圈输出，如下图），旋转频率和模拟的 FPS 应该相等。 <br> <strong>1.</strong> 设置传感器的频率 <code>sensors_bp['lidar'][0].set_attribute('rotation_frequency','10')</code>. <br> <strong>2.</strong> 使用 <code>python3 config.py --fps=10</code> 运行模拟。</p>
 <p><img alt="LidarPointCloud" src="../img/lidar_point_cloud.jpg" /></p>
 <h4 id="_17">激光雷达属性</h4>
 <table>
@@ -702,7 +702,7 @@ $$ d_2 (i) = -2.0 \times [ { y_1 \over {h_1 \times h_2 } }  -  { y_2 \over { h_2
 <td><code>sensor_tick</code></td>
 <td>float</td>
 <td>0.0</td>
-<td>传感器捕获之间的仿真秒数（节拍）。</td>
+<td>传感器捕获之间的模拟秒数（节拍）。</td>
 </tr>
 <tr>
 <td><code>noise_stddev</code></td>
@@ -730,7 +730,7 @@ $$ d_2 (i) = -2.0 \times [ { y_1 \over {h_1 \times h_2 } }  -  { y_2 \over { h_2
 <tr>
 <td><code>timestamp</code></td>
 <td>double</td>
-<td>自回合开始以来测量的仿真时间（以秒为单位）。</td>
+<td>自回合开始以来测量的模拟时间（以秒为单位）。</td>
 </tr>
 <tr>
 <td><code>transform</code></td>
@@ -804,7 +804,7 @@ $$ d_2 (i) = -2.0 \times [ { y_1 \over {h_1 \times h_2 } }  -  { y_2 \over { h_2
 <td><code>sensor_tick</code></td>
 <td>float</td>
 <td>0.0</td>
-<td>传感器捕获之间的仿真秒数（节拍）。</td>
+<td>传感器捕获之间的模拟秒数（节拍）。</td>
 </tr>
 </tbody>
 </table>
@@ -827,7 +827,7 @@ $$ d_2 (i) = -2.0 \times [ { y_1 \over {h_1 \times h_2 } }  -  { y_2 \over { h_2
 <tr>
 <td><code>timestamp</code></td>
 <td>double</td>
-<td>自回车开始以来测量的仿真时间（以秒为单位）。</td>
+<td>自回车开始以来测量的模拟时间（以秒为单位）。</td>
 </tr>
 <tr>
 <td><code>transform</code></td>
@@ -897,7 +897,7 @@ points = np.reshape(points, (len(radar_data), 4))
 <td><code>sensor_tick</code></td>
 <td>float</td>
 <td>0.0</td>
-<td>传感器捕获之间的仿真秒数（节拍）。</td>
+<td>传感器捕获之间的模拟秒数（节拍）。</td>
 </tr>
 <tr>
 <td><code>vertical_fov</code></td>
@@ -970,8 +970,8 @@ points = np.reshape(points, (len(radar_data), 4))
 <li><strong>Vignette:</strong> 使屏幕边框变暗。</li>
 <li><strong>Grain jitter:</strong> 为渲染添加一些噪点。</li>
 <li><strong>Bloom:</strong> 强烈的光线会灼烧它们周围的区域。</li>
-<li><strong>Auto exposure:</strong> 修改图像伽玛以仿真眼睛对较暗或较亮区域的适应。</li>
-<li><strong>Lens flares:</strong> 仿真明亮物体在镜头上的反射。</li>
+<li><strong>Auto exposure:</strong> 修改图像伽玛以模拟眼睛对较暗或较亮区域的适应。</li>
+<li><strong>Lens flares:</strong> 模拟明亮物体在镜头上的反射。</li>
 <li><strong>Depth of field:</strong> 模糊靠近或远离相机的物体。</li>
 </ul>
 <p><code>sensor_tick</code>告诉我们希望传感器捕获数据的速度有多快。值为 1.5 意味着我们希望传感器每半秒捕获一次数据。默认情况下，值 0.0 表示尽可能快。</p>
@@ -1040,7 +1040,7 @@ points = np.reshape(points, (len(radar_data), 4))
 <td><code>sensor_tick</code></td>
 <td>float</td>
 <td>0.0</td>
-<td>传感器捕获之间的仿真秒数（节拍）。</td>
+<td>传感器捕获之间的模拟秒数（节拍）。</td>
 </tr>
 <tr>
 <td><code>shutter_speed</code></td>
@@ -1187,7 +1187,7 @@ points = np.reshape(points, (len(radar_data), 4))
 <td><code>blur_radius</code></td>
 <td>float</td>
 <td>0.0</td>
-<td>1080p 分辨率下的半径（以像素为单位），根据距相机的距离仿真大气散射。</td>
+<td>1080p 分辨率下的半径（以像素为单位），根据距相机的距离模拟大气散射。</td>
 </tr>
 <tr>
 <td><code>motion_blur_intensity</code></td>
@@ -1288,7 +1288,7 @@ points = np.reshape(points, (len(radar_data), 4))
 <tr>
 <td><code>timestamp</code></td>
 <td>double</td>
-<td>自回合开始以来测量的仿真时间（以秒为单位）。</td>
+<td>自回合开始以来测量的模拟时间（以秒为单位）。</td>
 </tr>
 <tr>
 <td><code>transform</code></td>
@@ -1374,7 +1374,7 @@ if rss_proper_response:
 </table>
 <p><br></p>
 <pre><code class="language-py"># rss_sensor.py 代码片段
-# The carla.RssSensor is updated when listening for a new carla.RssResponse
+# 当监听到一个新的carla.RssResponse时，更新 carla.RssSensor
 def _on_rss_response(weak_self, response):
 ...
         self.timestamp = response.timestamp
@@ -1514,7 +1514,7 @@ def _on_actor_constellation_request(self, actor_constellation_data):
 <li><strong>蓝图：</strong> sensor.lidar.ray_cast_semantic</li>
 <li><strong>输出：</strong> 每步 <a href="../python_api/#carla.SemanticLidarMeasurement">carla.SemanticLidarMeasurement</a> （除非<code>sensor_tick</code>另有说明）。</li>
 </ul>
-<p>该传感器仿真使用射线投射实现的旋转激光雷达，公开有关射线投射命中的所有信息。它的行为与 <a href="#lidar-sensor">激光雷达传感器</a> 非常相似，但它们之间有两个主要区别。</p>
+<p>该传感器模拟使用射线投射实现的旋转激光雷达，公开有关射线投射命中的所有信息。它的行为与 <a href="#lidar-sensor">激光雷达传感器</a> 非常相似，但它们之间有两个主要区别。</p>
 <ul>
 <li>语义激光雷达检索到的原始数据每个点包含更多数据。<ul>
 <li>该点的坐标（与普通激光雷达一样）。</li>
@@ -1524,7 +1524,7 @@ def _on_actor_constellation_request(self, actor_constellation_data):
 </li>
 <li>语义激光雷达既不包含强度、衰减也不包含噪声模型属性。</li>
 </ul>
-<p>这些点是通过为垂直 FOV 中分布的每个通道添加激光来计算的。旋转是通过计算激光雷达在一帧中旋转的水平角度来仿真的。点云是通过在每个步骤中对每个激光进行光线投射来计算的。</p>
+<p>这些点是通过为垂直 FOV 中分布的每个通道添加激光来计算的。旋转是通过计算激光雷达在一帧中旋转的水平角度来模拟的。点云是通过在每个步骤中对每个激光进行光线投射来计算的。</p>
 <pre><code class="language-sh">points_per_channel_each_step = points_per_second / (FPS * channels)
 </code></pre>
 <p>激光雷达测量包含一个包，其中包含在某个时间 <code>1/FPS</code> 间隔内生成的所有点。在此间隔期间，物理不会更新，因此测量中的所有点都反映场景的相同“静态图片”。</p>
@@ -1532,9 +1532,9 @@ def _on_actor_constellation_request(self, actor_constellation_data):
 <pre><code class="language-py">for detection in semantic_lidar_measurement:
     print(detection)
 </code></pre>
-<p>可以调整激光雷达的旋转以覆盖每个仿真步骤的特定角度（使用 <a href="../adv_synchrony_timestep/">固定的时间步长</a> ）。例如，每步旋转一次（整圈输出，如下图），旋转频率和仿真的FPS应该相等。 <br>
+<p>可以调整激光雷达的旋转以覆盖每个模拟步骤的特定角度（使用 <a href="../adv_synchrony_timestep/">固定的时间步长</a> ）。例如，每步旋转一次（整圈输出，如下图），旋转频率和模拟的FPS应该相等。 <br>
 <strong>1.</strong> 设置传感器的频率 <code>sensors_bp['lidar'][0].set_attribute('rotation_frequency','10')</code>。 <br>
-<strong>2.</strong> 使用 <code>python3 config.py --fps=10</code> 运行仿真。</p>
+<strong>2.</strong> 使用 <code>python3 config.py --fps=10</code> 运行模拟。</p>
 <p><img alt="LidarPointCloud" src="../img/semantic_lidar_point_cloud.jpg" /></p>
 <h4 id="_30">语义激光雷达属性</h4>
 <p><br></p>
@@ -1594,7 +1594,7 @@ def _on_actor_constellation_request(self, actor_constellation_data):
 <td><code>sensor_tick</code></td>
 <td>float</td>
 <td>0.0</td>
-<td>传感器捕获之间的仿真秒数（节拍）。</td>
+<td>传感器捕获之间的模拟秒数（节拍）。</td>
 </tr>
 </tbody>
 </table>
@@ -1617,7 +1617,7 @@ def _on_actor_constellation_request(self, actor_constellation_data):
 <tr>
 <td><code>timestamp</code></td>
 <td>double</td>
-<td>自回合开始以来测量的仿真时间（以秒为单位）。</td>
+<td>自回合开始以来测量的模拟时间（以秒为单位）。</td>
 </tr>
 <tr>
 <td><code>transform</code></td>
@@ -1651,7 +1651,7 @@ def _on_actor_constellation_request(self, actor_constellation_data):
 <li><strong>蓝图：</strong> sensor.camera.semantic_segmentation</li>
 <li><strong>输出：</strong> 每步 <a href="../python_api/#carla.Image">carla.Image</a> （除非 <code>sensor_tick</code> 另有说明）。</li>
 </ul>
-<p>该摄像机根据其标签以不同的颜色显示它，从而对可见的每个物体进行分类（例如，行人与车辆的颜色不同）。当仿真开始时，场景中的每个元素都会使用标签创建。所以当参与者产生时就会发生这种情况。对象按其在项目中的相对文件路径进行分类。例如，存储在中的网格<code>Unreal/CarlaUE4/Content/Static/Pedestrians</code>被标记为<code>Pedestrian</code>。</p>
+<p>该摄像机根据其标签以不同的颜色显示它，从而对可见的每个物体进行分类（例如，行人与车辆的颜色不同）。当模拟开始时，场景中的每个元素都会使用标签创建。所以当参与者产生时就会发生这种情况。对象按其在项目中的相对文件路径进行分类。例如，存储在中的网格<code>Unreal/CarlaUE4/Content/Static/Pedestrians</code>被标记为<code>Pedestrian</code>。</p>
 <p><img alt="ImageSemanticSegmentation" src="../img/ref_sensors_semantic.jpg" /></p>
 <p>服务器提供的图像的标签信息 <strong>编码在红色通道中</strong>： 红色值为 的像素<code>x</code>属于带有标签的对象<code>x</code>。这个原始的<a href="../python_api/#carla.Image">carla.Image</a>可以在<a href="../python_api/#carla.ColorConverter">carla.ColorConverter</a> 中的 <strong>CityScapesPalette</strong> 的帮助下存储和转换，以应用标签信息并通过语义分割显示图片。</p>
 <pre><code class="language-py">...
@@ -1882,7 +1882,7 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.cityScapes
 <td><code>sensor_tick</code></td>
 <td>float</td>
 <td>0.0</td>
-<td>传感器捕获之间的仿真秒数（滴答声）。</td>
+<td>传感器捕获之间的模拟秒数（滴答声）。</td>
 </tr>
 </tbody>
 </table>
@@ -1970,7 +1970,7 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.cityScapes
 <tr>
 <td><code>timestamp</code></td>
 <td>double</td>
-<td>自回合开始以来测量的仿真时间（以秒为单位）。</td>
+<td>自回合开始以来测量的模拟时间（以秒为单位）。</td>
 </tr>
 <tr>
 <td><code>transform</code></td>
@@ -2139,7 +2139,7 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.cityScapes
 <p><code>L(x,y,t) - L(x,y, t-\delta t) = pol C</code></p>
 <p><code>t-\delta t</code> 是该像素上最后一个事件被触发的时间，<code>pol</code>是根据亮度变化的符号来判断事件的极性(polarity)。<code>+1</code>当亮度增加时极性为正，<code>-1</code>当亮度减少时极性为负。工作原理如下图所示。标准相机以固定速率输出帧，从而在场景中不存在运动时发送冗余信息。相比之下，事件摄像机是数据驱动的传感器，能够以微秒延迟响应亮度变化。在绘图中，只要（带符号的）亮度变化随时间<code>t</code>超过一维<code>x</code>的对比度(contrast )阈值<code>C</code>，就会生成正（或负）事件（蓝点、红点） 。观察信号快速变化时事件率如何增长。</p>
 <p><img alt="DVSCameraWorkingPrinciple" src="../img/sensor_dvs_scheme.jpg" /></p>
-<p>动态视觉传感器的当前实现在两个连续同步帧之间以统一采样方式工作。因此，为了仿真真实事件相机的高时间分辨率（微秒级），传感器需要以高频率执行（比传统相机的频率高得多）。实际上，Carla 汽车行驶速度越快，事件数量就会增加。因此，传感器频率应随着场景的动态而相应增加。用户应该在时间精度和计算成本之间找到平衡。</p>
+<p>动态视觉传感器的当前实现在两个连续同步帧之间以统一采样方式工作。因此，为了模拟真实事件相机的高时间分辨率（微秒级），传感器需要以高频率执行（比传统相机的频率高得多）。实际上，Carla 汽车行驶速度越快，事件数量就会增加。因此，传感器频率应随着场景的动态而相应增加。用户应该在时间精度和计算成本之间找到平衡。</p>
 <p>提供的脚本 <a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/manual_control.py"><code>manual_control.py</code></a> 使用动态视觉传感器摄像头来展示如何配置传感器、如何获取事件流以及如何以图像格式（通常称为事件框架）描述此类事件。</p>
 <p>请注意，由于动态视觉传感器摄像机的采样方法，如果两个连续同步帧之间没有像素差异，摄像机将不会返回图像。这总是发生在第一帧中，因为没有前一帧可供比较，并且在帧之间没有移动的情况下也是如此。</p>
 <p><img alt="DVSCameraWorkingPrinciple" src="../img/sensor_dvs.gif" /></p>
@@ -2237,7 +2237,7 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.cityScapes
 <td><code>sensor_tick</code></td>
 <td>float</td>
 <td>0.0</td>
-<td>传感器捕获之间的仿真秒数（节拍）。</td>
+<td>传感器捕获之间的模拟秒数（节拍）。</td>
 </tr>
 </tbody>
 </table>
@@ -2308,7 +2308,7 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.cityScapes
 <tr>
 <td><code>timestamp</code></td>
 <td>double</td>
-<td>自回合开始以来测量的仿真时间（以秒为单位）。</td>
+<td>自回合开始以来测量的模拟时间（以秒为单位）。</td>
 </tr>
 <tr>
 <td><code>transform</code></td>

@@ -161,13 +161,13 @@ export PYTHONPATH=&quot;${CARLA_ROOT}/PythonAPI/carla/&quot;:&quot;${SCENARIO_RU
 遵循路线并遵守交通规则，直到到达目的地。</p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
-<p>手动中断排行榜将抢先停止路线仿真，自动进入下一条路线。</p>
+<p>手动中断排行榜将抢先停止路线模拟，自动进入下一条路线。</p>
 </div>
 <h2 id="_6">了解排行榜组件</h2>
 <p>运行测试时，我们设置了一系列参数。让我们了解一下它们以及它们在排行榜中的作用。</p>
 <ul>
 <li>
-<p>ROUTES (XML) — 将用于仿真的路线集。每条路线都有一个起点（第一个路径点）和一个终点（最后一个路径点）。此外，它们还可以包含天气概况来设置特定的天气条件。一份 XML 包含许多路由，每条路由都有一个 ID。用户可以修改、添加和删除路线以进行培训和验证。排行榜附带了一组用于调试、训练和验证的路线。用于在线评估的路线是秘密的。该文件还包括将在仿真中测试的场景，每条路线都有自己的一组场景。场景被定义为交通状况。特工必须克服这些场景才能通过测试。参与者可以访问一组适用于公共城镇的交通场景。存在使用不同参数实例化的多种类型的场景。以下是可用方案的列表。</p>
+<p>ROUTES (XML) — 将用于模拟的路线集。每条路线都有一个起点（第一个路径点）和一个终点（最后一个路径点）。此外，它们还可以包含天气概况来设置特定的天气条件。一份 XML 包含许多路由，每条路由都有一个 ID。用户可以修改、添加和删除路线以进行培训和验证。排行榜附带了一组用于调试、训练和验证的路线。用于在线评估的路线是秘密的。该文件还包括将在模拟中测试的场景，每条路线都有自己的一组场景。场景被定义为交通状况。特工必须克服这些场景才能通过测试。参与者可以访问一组适用于公共城镇的交通场景。存在使用不同参数实例化的多种类型的场景。以下是可用方案的列表。</p>
 </li>
 <li>
 <p>REPETITIONS (int) — 出于统计目的，每条路线重复的次数。</p>
@@ -176,12 +176,12 @@ export PYTHONPATH=&quot;${CARLA_ROOT}/PythonAPI/carla/&quot;:&quot;${SCENARIO_RU
 </ul>
 <p>其他相关参数如下所述。</p>
 <p>TEAM_CONFIG （由用户定义） — 所提供的代理读取的任意配置文件的路径。您负责在代理类中定义和解析此文件。
-DEBUG_CHALLENGE (int) — 指示仿真期间是否应显示调试信息的标志。默认情况下，该变量未设置 (0)，这不会生成要显示的调试信息。当设置为 1 时，仿真器将显示要遵循的参考路线。如果此变量设置为大于任何值， 1引擎将打印仿真的完整状态以用于调试目的。
+DEBUG_CHALLENGE (int) — 指示模拟期间是否应显示调试信息的标志。默认情况下，该变量未设置 (0)，这不会生成要显示的调试信息。当设置为 1 时，模拟器将显示要遵循的参考路线。如果此变量设置为大于任何值， 1引擎将打印模拟的完整状态以用于调试目的。
 CHECKPOINT_ENDPOINT (JSON) — 将记录 Leaderboard 指标的文件的名称。
 RECORD_PATH （字符串） — 将存储 Carla 日志的文件夹的路径。默认情况下未设置。
-RESUME— 指示仿真是否应从最后一条路线恢复的标志。默认情况下未设置。
+RESUME— 指示模拟是否应从最后一条路线恢复的标志。默认情况下未设置。
 CHALLENGE_TRACK_CODENAME （字符串） — 代理正在竞争的赛道。有两个可能的选项： SENSORS 和 MAP。该 SENSORS 赛道允许使用多个摄像头、激光雷达、雷达、全球导航卫星系统、惯性测量单元和速度计。除了这些传感器之外，MAP 赛道还允许直接访问 OpenDRIVE 高清地图。您负责根据需要解析和处理 OpenDRIVE 映射。</p>
-<p>这些环境变量被传递到 <code>${LEADERBOARD_ROOT}/LEADERBOARD/LEADERBOARD_evaluator.py</code> ，作为执行仿真的入口点。查看<code>leaderboard_evaluator.py</code>，了解有关如何执行和评估代理的更多详细信息。</p>
+<p>这些环境变量被传递到 <code>${LEADERBOARD_ROOT}/LEADERBOARD/LEADERBOARD_evaluator.py</code> ，作为执行模拟的入口点。查看<code>leaderboard_evaluator.py</code>，了解有关如何执行和评估代理的更多详细信息。</p>
 <h1 id="_7">创建自己的自动驾驶代理</h1>
 <p>新代理的定义始于创建一个新类，该类继承自 <code>leaderboard.autoagents.autonomous_agent.AutonomousAgent</code>。</p>
 <h2 id="get_entry_point">创建 get_entry_point</h2>
@@ -269,7 +269,7 @@ def setup(self, path_to_conf_file):
 </code></pre>
 <ul>
 <li><strong>input_data</strong>: 包含所请求传感器的传感器数据的字典。数据已经在<code>sensor_interface.py</code>上进行了预处理，并将以numpy数组的形式给出。该字典由传感器方法中定义的id索引。</li>
-<li><strong>timestamp</strong>: 当前仿真瞬间的时间戳。</li>
+<li><strong>timestamp</strong>: 当前模拟瞬间的时间戳。</li>
 </ul>
 <p>请记住，您还可以访问自我代理为达到目的地而应走的路线。利用<code>self._global_plan</code>成员访问地理位置路由和<code>self._global_plan_world_coord</code>作为其世界位置对应项。</p>
 <h2 id="destroy">重写 destroy 方法</h2>

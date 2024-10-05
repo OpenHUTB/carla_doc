@@ -76,10 +76,10 @@
 </ul>
 <hr />
 <h2 id="_2">大地图概述 <span id="large-maps-overview"></span></h2>
-<p>Carla 中的大地图功能允许用户进行大范围的仿真。在 Carla 中，大地图被划分为不大于 2kmx2km 的方形瓦片。瓦片根据它们与自主车辆的接近度（流距离）流入和流出服务器。地图上的其他参与者也根据他们与自主车辆的流距离进行管理。</p>
+<p>Carla 中的大地图功能允许用户进行大范围的模拟。在 Carla 中，大地图被划分为不大于 2kmx2km 的方形瓦片。瓦片根据它们与自主车辆的接近度（流距离）流入和流出服务器。地图上的其他参与者也根据他们与自主车辆的流距离进行管理。</p>
 <hr />
 <h2 id="_3">瓦片流 <span id="tile-streaming"></span></h2>
-<p>自主车辆对于地图瓦片的装载和卸载是不可或缺的。根据距自主车辆的流距离值，瓦片被流式传输进和传出服务器。例如，位于流距离之外的瓦片将不会在仿真中渲染，而将渲染流距离内的瓦片。渲染的瓦片将随着英雄车辆的移动而变化。</p>
+<p>自主车辆对于地图瓦片的装载和卸载是不可或缺的。根据距自主车辆的流距离值，瓦片被流式传输进和传出服务器。例如，位于流距离之外的瓦片将不会在模拟中渲染，而将渲染流距离内的瓦片。渲染的瓦片将随着英雄车辆的移动而变化。</p>
 <p>要将车辆设置为自主，请使用如下的 <a href="../python_api/#carla.ActorBlueprint.set_attribute"><code>set_attribute</code></a> 方法：</p>
 <pre><code class="language-py">blueprint.set_attribute('role_name', 'hero' )
 world.spawn_actor(blueprint, spawn_point)
@@ -99,7 +99,7 @@ python3 config.py --tile-stream-distance 2000
 </div>
 <hr />
 <h2 id="_4">休眠参与者 <span id="dormant-actors"></span></h2>
-<p>大地图功能向 Carla 引入了休眠参与者的概念。休眠参与者仅存在于大地图的上下文中。休眠参与者是仿真中位于自主车辆的 <strong>参与者活动距离</strong> 之外的非自主车辆参与者，例如，远离自主车辆的车辆。参与者活动距离可以等于或小于流距离。</p>
+<p>大地图功能向 Carla 引入了休眠参与者的概念。休眠参与者仅存在于大地图的上下文中。休眠参与者是模拟中位于自主车辆的 <strong>参与者活动距离</strong> 之外的非自主车辆参与者，例如，远离自主车辆的车辆。参与者活动距离可以等于或小于流距离。</p>
 <p>如果参与者发现自己在自主车辆的参与者活动距离之外，它将进入休眠状态。参与者仍然存在，但不会被渲染。尽管仍然可以<a href="../python_api/#carla.Actor.set_location">设置</a>位置和<a href="../python_api/#carla.Actor.set_transform">变换</a>，但不会计算物理量（除非通过交通管理器以混合模式运行） 。一旦休眠的参与者再次进入自主车辆的参与者活动距离内，它将醒来，并且其渲染和物理将恢复正常。</p>
 <p>由交通管理器控制的参与者具有不同的行为，可以在大地图中操作时进行配置。请阅读<a href="../adv_traffic_manager/#traffic-manager-in-large-maps">交通管理器</a>文档以了解其工作原理。</p>
 <p>参与者将进入休眠状态或在 <a href="../python_api/#carla.World.tick">world.tick()</a> 时醒来。</p>

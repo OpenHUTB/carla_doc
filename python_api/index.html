@@ -110,7 +110,7 @@
 </ul>
 <hr />
 <h2 id="carlaactor">carla.Actor<a name="carla.Actor"></a></h2>
-<p>Carla 将参与者定义为在仿真中发挥作用或可以移动的任何物体。其中包括：行人、车辆、传感器和交通标志（将交通灯视为其中的一部分）。参与者在仿真中由 <a href="#carla.World">carla.World</a> 生成，并且需要创建 <a href="#carla.ActorBlueprint">carla.ActorBlueprint</a> 。这些蓝图属于 Carla 提供的库，请在 <a href="../bp_library/">此处</a> 找到有关它们的更多信息。</p>
+<p>Carla 将参与者定义为在模拟中发挥作用或可以移动的任何物体。其中包括：行人、车辆、传感器和交通标志（将交通灯视为其中的一部分）。参与者在模拟中由 <a href="#carla.World">carla.World</a> 生成，并且需要创建 <a href="#carla.ActorBlueprint">carla.ActorBlueprint</a> 。这些蓝图属于 Carla 提供的库，请在 <a href="../bp_library/">此处</a> 找到有关它们的更多信息。</p>
 <h3 id="_4">实例变量</h3>
 <ul>
 <li><a name="carla.Actor.attributes"></a><strong><font color="#f8805a">attributes</font></strong> (<em>dict</em>)<br />
@@ -137,7 +137,7 @@
 <h3 id="_5">方法</h3>
 <ul>
 <li><a name="carla.Actor.add_angular_impulse"></a><strong><font color="#7fb800">add_angular_impulse</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>angular_impulse</strong></font>)<br />
-在参与者的质心处应用角冲量。此方法适用于瞬时扭矩，通常应用一次。使用 <strong><font color="#7fb800">add_torque()</font></strong> 在一段时间内施加旋转力。  <ul>
+在参与者的质心处应用角冲量。此方法适用于瞬时扭矩，通常应用一次。使用 <strong><font color="#7fb800">add_torque()</font></strong> 在一段时间内施加旋转力。<ul>
 <li><strong>参数:</strong><ul>
 <li><code>angular_impulse</code> (<em><a href="#carla.Vector3D">carla.Vector3D</a><small> - degrees*s</small></em>) - 全局坐标中的角冲量矢量。  </li>
 </ul>
@@ -169,9 +169,9 @@
 </ul>
 </li>
 <li><a name="carla.Actor.destroy"></a><strong><font color="#7fb800">destroy</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-告诉仿真器销毁这个参与者，如果成功则 <b>True</b> 。如果已经被破坏则没有任何效果。<ul>
+告诉模拟器销毁这个参与者，如果成功则 <b>True</b> 。如果已经被破坏则没有任何效果。<ul>
 <li><strong>返回:</strong> <em>bool</em>  </li>
-<li><strong>警告:</strong> <font color="#ED2F2F"><em>T此方法会阻止脚本，直到仿真器完成销毁为止。
+<li><strong>警告:</strong> <font color="#ED2F2F"><em>T此方法会阻止脚本，直到模拟器完成销毁为止。
 </em></font>  </li>
 </ul>
 </li>
@@ -193,29 +193,29 @@
 <h5 id="_6">获取器</h5>
 <ul>
 <li><a name="carla.Actor.get_acceleration"></a><strong><font color="#7fb800">get_acceleration</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-返回客户端在最后一个tick期间收到的参与者的三维加速度向量。该方法不调用仿真器。  <ul>
+返回客户端在最后一个tick期间收到的参与者的三维加速度向量。该方法不调用模拟器。  <ul>
 <li><strong>返回:</strong> <em><a href="#carla.Vector3D">carla.Vector3D</a><small> - m/s<sup>2</sup></small></em>  </li>
 </ul>
 </li>
 <li><a name="carla.Actor.get_angular_velocity"></a><strong><font color="#7fb800">get_angular_velocity</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-返回客户端在最后一个tick期间接收到的参与者的角速度向量。该方法不调用仿真器。  <ul>
+返回客户端在最后一个tick期间接收到的参与者的角速度向量。该方法不调用模拟器。  <ul>
 <li><strong>返回：</strong> <em><a href="#carla.Vector3D">carla.Vector3D</a><small> - deg/s</small></em>  </li>
 </ul>
 </li>
 <li><a name="carla.Actor.get_location"></a><strong><font color="#7fb800">get_location</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-返回客户端在上一次tick期间接收到的参与者的位置。该方法不调用仿真器。  <ul>
+返回客户端在上一次tick期间接收到的参与者的位置。该方法不调用模拟器。  <ul>
 <li><strong>返回：</strong> <em><a href="#carla.Location">carla.Location</a><small> - 米</small></em>  </li>
 <li><strong>设置器:</strong> <em><a href="#carla.Actor.set_location">carla.Actor.set_location</a></em>  </li>
 </ul>
 </li>
 <li><a name="carla.Actor.get_transform"></a><strong><font color="#7fb800">get_transform</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-返回客户端在最后一个tick期间接收到的参与者的变换（位置和旋转）。该方法不调用仿真器。  <ul>
+返回客户端在最后一个tick期间接收到的参与者的变换（位置和旋转）。该方法不调用模拟器。  <ul>
 <li><strong>返回:</strong> <em><a href="#carla.Transform">carla.Transform</a></em>  </li>
 <li><strong>设置器:</strong> <em><a href="#carla.Actor.set_transform">carla.Actor.set_transform</a></em>  </li>
 </ul>
 </li>
 <li><a name="carla.Actor.get_velocity"></a><strong><font color="#7fb800">get_velocity</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-返回客户端在最后一个tick期间接收到的参与者的速度向量。该方法不调用仿真器。  <ul>
+返回客户端在最后一个tick期间接收到的参与者的速度向量。该方法不调用模拟器。  <ul>
 <li><strong>返回：</strong> <em><a href="#carla.Vector3D">carla.Vector3D</a><small> - m/s</small></em>  </li>
 </ul>
 </li>
@@ -245,7 +245,7 @@
 </ul>
 </li>
 <li><a name="carla.Actor.set_simulate_physics"></a><strong><font color="#7fb800">set_simulate_physics</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>enabled</strong>=True</font>)<br />
-启用或禁用此参与者上的物理仿真。  <ul>
+启用或禁用此参与者上的物理模拟。  <ul>
 <li><strong>参与者：</strong><ul>
 <li><code>enabled</code> (<em>bool</em>)  </li>
 </ul>
@@ -510,11 +510,11 @@
 <h3 id="_22">实例变量</h3>
 <ul>
 <li><a name="carla.AttachmentType.Rigid"></a><strong><font color="#f8805a">Rigid</font></strong><br />
-通过此固定附件，对象严格遵循其父位置。这是推荐的附件，用于从仿真中检索精确数据。  </li>
+通过此固定附件，对象严格遵循其父位置。这是推荐的附件，用于从模拟中检索精确数据。  </li>
 <li><a name="carla.AttachmentType.SpringArm"></a><strong><font color="#f8805a">SpringArm</font></strong><br />
-一种附件，可根据其父级扩展或缩回参与者的位置。仅建议在需要平滑运动的仿真中录制视频时使用此附件。SpringArms 是一个虚幻引擎组件，因此 <a href="https://docs.unrealengine.com/en-US/Gameplay/HowTo/UsingCameras/SpringArmComponents/index.html">check the UE 文档</a> 以了解有关它们的更多信息。 <br><b style="color:red;">警告：</b> 当参与者在Z轴上产生相对平移时，<b>SpringArm</b> 附件呈现出奇怪的行为。（比如：<code>child_location = Location(0,0,2)</code>）。 </li>
+一种附件，可根据其父级扩展或缩回参与者的位置。仅建议在需要平滑运动的模拟中记录视频时使用此附件。SpringArms 是一个虚幻引擎组件，因此 <a href="https://docs.unrealengine.com/en-US/Gameplay/HowTo/UsingCameras/SpringArmComponents/index.html">check the UE 文档</a> 以了解有关它们的更多信息。 <br><b style="color:red;">警告：</b> 当参与者在Z轴上产生相对平移时，<b>SpringArm</b> 附件呈现出奇怪的行为。（比如：<code>child_location = Location(0,0,2)</code>）。 </li>
 <li><a name="carla.AttachmentType.SpringArmGhost"></a><strong><font color="#f8805a">SpringArmGhost</font></strong><br />
-一个与前一个类似的附件，但它不会进行碰撞测试，这意味着它不会扩展或收缩参与者的位置。<strong>ghost</strong> 一词是因为这样相机就可以穿过墙壁和其他几何形状。此附件仅建议用于录制需要平滑移动的仿真视频。SpringArms 是一个虚幻引擎组件，请 <a href="https://docs.unrealengine.com/en-US/Gameplay/HowTo/UsingCameras/SpringArmComponents/index.html">查看虚幻引擎文档</a> 以了解更多信息。<br><b style="color:red;">警告：</b>当参与者在Z轴上产生相对平移时，<b>SpringArm</b>附件会出现奇怪的行为（比如<code>child_location = Location(0,0,2)</code>）。 </li>
+一个与前一个类似的附件，但它不会进行碰撞测试，这意味着它不会扩展或收缩参与者的位置。<strong>ghost</strong> 一词是因为这样相机就可以穿过墙壁和其他几何形状。此附件仅建议用于记录需要平滑移动的模拟视频。SpringArms 是一个虚幻引擎组件，请 <a href="https://docs.unrealengine.com/en-US/Gameplay/HowTo/UsingCameras/SpringArmComponents/index.html">查看虚幻引擎文档</a> 以了解更多信息。<br><b style="color:red;">警告：</b>当参与者在Z轴上产生相对平移时，<b>SpringArm</b>附件会出现奇怪的行为（比如<code>child_location = Location(0,0,2)</code>）。 </li>
 </ul>
 <hr />
 <h2 id="carlablueprintlibrary">carla.BlueprintLibrary<a name="carla.BlueprintLibrary"></a></h2>
@@ -695,22 +695,22 @@
 </ul>
 <hr />
 <h2 id="carlaclient">carla.Client<a name="carla.Client"></a></h2>
-<p>客户端将 Carla 连接到运行仿真的服务器。服务器和客户端都包含 Carla 库 (libcarla)，但存在一些差异，允许它们之间进行通信。可以创建许多客户端，每个客户端都会连接到仿真内的 RPC 服务器以发送命令。仿真在服务器端运行。一旦建立连接，客户端将仅接收从仿真检索的数据。行人是例外。客户端负责管理行人，因此，如果您与多个客户端一起运行仿真，可能会出现一些问题。例如，如果您通过不同的客户端生成行人，则可能会发生冲突，因为每个客户端只知道它负责的客户端。</p>
-<p>客户端还具有记录功能，可以在运行仿真时保存仿真的所有信息。这使得服务器可以随意重放以获取信息并进行实验。<a href="../adv_recorder/">以下</a> 是有关如何使用此记录器的一些信息。</p>
+<p>客户端将 Carla 连接到运行模拟的服务器。服务器和客户端都包含 Carla 库 (libcarla)，但存在一些差异，允许它们之间进行通信。可以创建许多客户端，每个客户端都会连接到模拟内的 RPC 服务器以发送命令。模拟在服务器端运行。一旦建立连接，客户端将仅接收从模拟检索的数据。行人是例外。客户端负责管理行人，因此，如果您与多个客户端一起运行模拟，可能会出现一些问题。例如，如果您通过不同的客户端生成行人，则可能会发生冲突，因为每个客户端只知道它负责的客户端。</p>
+<p>客户端还具有记录功能，可以在运行模拟时保存模拟的所有信息。这使得服务器可以随意重放以获取信息并进行实验。<a href="../adv_recorder/">以下</a> 是有关如何使用此记录器的一些信息。</p>
 <h3 id="_32">方法</h3>
 <ul>
 <li><a name="carla.Client.__init__"></a><strong><font color="#7fb800">__init__</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>host</strong>=127.0.0.1</font>, <font color="#00a6ed"><strong>port</strong>=2000</font>, <font color="#00a6ed"><strong>worker_threads</strong>=0</font>)<button class="SnipetButton" id="carla.Client.__init__-snipet_button">snippet &rarr;</button><br />
 客户端构造器。  <ul>
 <li><strong>参数：</strong><ul>
-<li><code>host</code> (<em>str</em>) - 运行Carla 仿真器实例的IP地址。默认值为localhost（127.0.0.1）。  </li>
-<li><code>port</code> (<em>int</em>) - 运行Carla 仿真器实例的TCP端口。默认为 2000 和随后的2001 。 </li>
+<li><code>host</code> (<em>str</em>) - 运行Carla 模拟器实例的IP地址。默认值为localhost（127.0.0.1）。  </li>
+<li><code>port</code> (<em>int</em>) - 运行Carla 模拟器实例的TCP端口。默认为 2000 和随后的2001 。 </li>
 <li><code>worker_threads</code> (<em>int</em>) - 用于后台更新的工作线程数。如果为 0，则使用所有可用的并发性。</li>
 </ul>
 </li>
 </ul>
 </li>
 <li><a name="carla.Client.apply_batch"></a><strong><font color="#7fb800">apply_batch</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>commands</strong></font>)<br />
-在单个仿真步上执行命令列表，不检索任何信息。如果需要有关每个命令的响应的信息，请使用 <strong><font color="#7fb800">apply_batch_sync()</font></strong> 方法。<a href="https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/generate_traffic.py">下面</a> 是一个关于如何删除 Carla 中出现的参与者的示例。一次列出所有参与者 <a href="#carla.ActorList">carla.ActorList</a> 。<ul>
+在单个模拟步上执行命令列表，不检索任何信息。如果需要有关每个命令的响应信息，请使用 <strong><font color="#7fb800">apply_batch_sync()</font></strong> 方法。<a href="https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/generate_traffic.py">下面</a> 是一个关于如何删除 Carla 中出现的参与者的示例。一次列出所有参与者 <a href="#carla.ActorList">carla.ActorList</a> 。<ul>
 <li><strong>参数：</strong><ul>
 <li><code>commands</code> (<em>list</em>) - 要批量执行的命令列表。每个命令都不同，并且有自己的参数。它们显示在此页面底部列出。</li>
 </ul>
@@ -718,10 +718,10 @@
 </ul>
 </li>
 <li><a name="carla.Client.apply_batch_sync"></a><strong><font color="#7fb800">apply_batch_sync</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>commands</strong></font>, <font color="#00a6ed"><strong>due_tick_cue</strong>=False</font>)<button class="SnipetButton" id="carla.Client.apply_batch_sync-snipet_button">snippet &rarr;</button><br />
-在单个仿真步上执行命令列表，阻止直到命令链接，并返回 <b>command.Response</b> 列表。可用于确定单个命令是否成功的响应。<a href="https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/generate_traffic.py">下面</a> 是一个用来生成参与者的例子。<ul>
+在单个模拟步上阻塞式地执行命令列表，直到命令链接起来，并返回 <b>command.Response</b> 列表。可用于确定单个命令是否成功的响应。<a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/generate_traffic.py">该链接</a> 是一个用来生成参与者的示例代码。<ul>
 <li><strong>参数：</strong><ul>
 <li><code>commands</code> (<em>list</em>) - 要批量执行的命令列表。可用的命令列在方法 <strong><font color="#7fb800">apply_batch()</font></strong> 的正上方。 </li>
-<li><code>due_tick_cue</code> (<em>bool</em>) - 一个布尔参数，用于指定是否执行 Carla。在 <strong>同步模式</strong> 下应用批处理后进行 <a href="#carla.World.tick">carla.World.tick</a>。默认情况下为 <strong>False</strong> 。</li>
+<li><code>due_tick_cue</code> (<em>bool</em>) - 一个布尔参数，用于指定是否执行 Carla。在 <strong>同步模式</strong> 下应用批处理后进行 <a href="#carla.World.tick">carla.World.tick</a>（默认情况下为 <strong>False</strong> ）。</li>
 </ul>
 </li>
 <li><strong>返回：</strong> <em>list(command.Response)</em>  </li>
@@ -759,11 +759,11 @@
 </ul>
 </li>
 <li><a name="carla.Client.replay_file"></a><strong><font color="#7fb800">replay_file</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>name</strong></font>, <font color="#00a6ed"><strong>start</strong></font>, <font color="#00a6ed"><strong>duration</strong></font>, <font color="#00a6ed"><strong>follow_id</strong></font>, <font color="#00a6ed"><strong>replay_sensors</strong></font>)<br />
-使用<code>map_name</code>加载具有默认设置的新世界。当前世界中的所有参与者都将被销毁，<strong>但</strong> 交通管理器实例将继续存在。<ul>
+根据地图名<code>map_name</code>加载具有默认设置的新世界。当前世界中的所有参与者都将被销毁，<strong>但</strong> 交通管理器实例将继续存在。<ul>
 <li><strong>参数：</strong><ul>
-<li><code>name</code> (<em>str</em>) - 包含仿真信息的文件的名称。</li>
-<li><code>start</code> (<em>float<small> - seconds</small></em>) - 开始播放仿真的时间。负数表示从结尾开始读取，在录制结束前10秒为-10。</li>
-<li><code>duration</code> (<em>float<small> - seconds</small></em>) - 将使用信息 <code>name</code> 文件重新执行的时间。如果到达终点，仿真将继续。</li>
+<li><code>name</code> (<em>str</em>) - 包含模拟信息的文件的名称。</li>
+<li><code>start</code> (<em>float<small> - seconds</small></em>) - 开始播放模拟的时间。负数表示从结尾开始读取，在记录结束前10秒为-10。</li>
+<li><code>duration</code> (<em>float<small> - seconds</small></em>) - 将使用信息 <code>name</code> 文件重新执行的时间。如果到达终点，模拟将继续。</li>
 <li><code>follow_id</code> (<em>int</em>) - 要跟随的参与者的 ID。如果此值为0，则禁用相机。</li>
 <li><code>replay_sensors</code> (<em>bool</em>) - 用于在播放期间启用或禁用传感器生成的标志。</li>
 </ul>
@@ -779,29 +779,29 @@
 </ul>
 </li>
 <li><a name="carla.Client.show_recorder_actors_blocked"></a><strong><font color="#7fb800">show_recorder_actors_blocked</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>filename</strong></font>, <font color="#00a6ed"><strong>min_time</strong></font>, <font color="#00a6ed"><strong>min_distance</strong></font>)<br />
-终端将显示被视为被屏蔽的参与者的注册信息。当参与者在一段时间内没有移动最小距离时，即<code>min_distance</code>和<code>min_time</code>，则视为被阻挡。  <ul>
+在终端中显示视为被堵塞的参与者注册信息。当参与者在一段时间内没有移动最小距离时，即<code>min_distance</code>和<code>min_time</code>，则视为被堵塞。<ul>
 <li><strong>参数：</strong><ul>
-<li><code>filename</code> (<em>str</em>) - 要加载的录制文件的名称。 </li>
-<li><code>min_time</code> (<em>float<small> - seconds</small></em>) - 参与者在被认为被阻挡之前必须移动最短距离的最短时间。默认值为60秒。  </li>
-<li><code>min_distance</code> (<em>float<small> - centimeters</small></em>) - 参与者必须移动的最小距离才能不被视为被阻挡。默认值为100厘米。</li>
+<li><code>filename</code> (<em>str</em>) - 要加载的记录文件的名称。 </li>
+<li><code>min_time</code> (<em>float<small> - seconds</small></em>) - 参与者在被认为被堵塞之前必须移动最短距离的最短时间。默认值为60秒。</li>
+<li><code>min_distance</code> (<em>float<small> - 厘米</small></em>) - 参与者必须移动的最小距离才能不被视为被堵塞。默认值为100厘米。</li>
 </ul>
 </li>
 <li><strong>返回：</strong> <em>string</em>  </li>
 </ul>
 </li>
 <li><a name="carla.Client.show_recorder_collisions"></a><strong><font color="#7fb800">show_recorder_collisions</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>filename</strong></font>, <font color="#00a6ed"><strong>category1</strong></font>, <font color="#00a6ed"><strong>category2</strong></font>)<br />
-终端将显示记录器记录的碰撞。可以通过指定所涉及的参与者的类型来过滤这些内容。类别将在<code>category1</code>和<code>category1</code>中指定如下：“h”=英雄，一种可以手动控制或由用户管理的车辆。”v'=车辆'w'=行人't'=红绿灯'o'=其他'a'=任何如果您只想看到车辆和步行者之间的碰撞，请将<code>category1</code>用作'v'，将<code>category2</code>用作'w'，反之亦然。如果要查看所有碰撞（过滤掉），可以对两个参数都使用“a”。 <ul>
+在终端中显示记录器记录的碰撞。可以通过指定所涉及参与者的类型来过滤这些内容。类别将在<code>category1</code>和<code>category1</code>中指定：<code>h</code>表示英雄参与者，一种可以手动控制或由用户管理的车辆。<code>v</code>表示车辆，<code>w</code>表示行人，<code>t</code>表示红绿灯，<code>o</code>表示其他，<code>a</code>表示所有。如果您只想看到车辆和行人之间的碰撞，请将<code>category1</code>设置为<code>v</code>，将<code>category2</code>设置为<code>w</code>，反之亦然。如果要查看所有碰撞（过滤掉），可以对两个参数都使用<code>a</code>。 <ul>
 <li><strong>参数：</strong><ul>
-<li><code>filename</code> (<em>str</em>) - 记录的文件的名称或绝对路径，具体取决于您之前的选择。 </li>
-<li><code>category1</code> (<em>single char</em>) - 指定冲突中涉及的第一类参与者的字符变量。</li>
-<li><code>category2</code> (<em>single char</em>) - 指定冲突中涉及的第二类参与者的字符变量。</li>
+<li><code>filename</code> (<em>str</em>) - 记录文件的名称或绝对路径，具体取决于您之前的选择。</li>
+<li><code>category1</code> (<em>single char</em>) - 指定冲突中涉及的第1类参与者的字符变量。</li>
+<li><code>category2</code> (<em>single char</em>) - 指定冲突中涉及的第2类参与者的字符变量。</li>
 </ul>
 </li>
 <li><strong>返回：</strong> <em>string</em>  </li>
 </ul>
 </li>
 <li><a name="carla.Client.show_recorder_file_info"></a><strong><font color="#7fb800">show_recorder_file_info</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>filename</strong></font>, <font color="#00a6ed"><strong>show_all</strong></font>)<br />
-记录器保存的信息将被解析并以文本形式显示在您的终端中（帧、时间、事件、状态、位置…）。可以使用<code>show_all</code>参数指定显示的信息。<a href="../ref_recorder_binary_file_format/">以下</a> 是有关如何读取记录器文件的更多信息。<ul>
+解析记录器保存的信息将并以文本形式显示在终端中（帧、时间、事件、状态、位置…）。可以使用<code>show_all</code>参数指定显示的信息。<a href="../ref_recorder_binary_file_format/">以下</a> 是有关如何读取记录器文件的更多信息。<ul>
 <li><strong>参数：</strong><ul>
 <li><code>filename</code> (<em>str</em>) - 记录的文件的名称或绝对路径，具体取决于您之前的选择。</li>
 <li><code>show_all</code> (<em>bool</em>) - 如果为 <strong>True</strong> ，则返回为每帧存储的所有信息（红绿灯状态、所有参与者的位置、方向和动画数据…）。如果为 <strong>False</strong> ，则返回关键事件和帧的摘要。 </li>
@@ -811,20 +811,20 @@
 </ul>
 </li>
 <li><a name="carla.Client.start_recorder"></a><strong><font color="#7fb800">start_recorder</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>filename</strong></font>, <font color="#00a6ed"><strong>additional_data</strong>=False</font>)<br />
-启用录制功能，该功能将开始保存服务器重播仿真所需的所有信息。<ul>
+启用记录功能，该功能将开始保存服务器重放模拟所需的所有信息。<ul>
 <li><strong>参数：</strong><ul>
-<li><code>filename</code> (<em>str</em>) - 用于写入记录数据的文件的名称。一个简单的名称会将录制保存在“CarlaUE4/Saved/recording.log”中。否则，如果名称中出现某个文件夹，则会将其视为绝对路径。</li>
-<li><code>additional_data</code> (<em>bool</em>) - 启用或禁用记录用于再现仿真的非必要数据（边界框位置、物理控制参数等）。</li>
+<li><code>filename</code> (<em>str</em>) - 用于写入记录数据的文件的名称。一个简单的名称会将记录保存在“CarlaUE4/Saved/recording.log”中。否则，如果名称中出现某个文件夹，则会将其视为绝对路径。</li>
+<li><code>additional_data</code> (<em>bool</em>) - 启用或禁用记录用于再现模拟的非必要数据（边界框位置、物理控制参数等）。</li>
 </ul>
 </li>
 </ul>
 </li>
 <li><a name="carla.Client.stop_recorder"></a><strong><font color="#7fb800">stop_recorder</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-停止正在进行的录制。如果您在文件名中指定了一个路径，则录制文件将在那里。如果没有，请查看<code>CarlaUE4/Saved/</code>内部。</li>
+停止正在进行的记录。如果您在文件名中指定了一个路径，则记录文件将在那里。如果没有，请查看<code>CarlaUE4/Saved/</code>内部。</li>
 <li><a name="carla.Client.stop_replayer"></a><strong><font color="#7fb800">stop_replayer</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>keep_actors</strong></font>)<br />
-停止当前重播。 <ul>
+停止当前重放。 <ul>
 <li><strong>参数：</strong><ul>
-<li><code>keep_actors</code> (<em>bool</em>) - 如果你想自动删除重播中的所有参与者，则为 True，如果你想保留他们，则为 False。</li>
+<li><code>keep_actors</code> (<em>bool</em>) - 如果你想自动删除重放中的所有参与者，则为 True，如果你想保留他们，则为 False。</li>
 </ul>
 </li>
 </ul>
@@ -833,7 +833,7 @@
 <h5 id="_33">获取器</h5>
 <ul>
 <li><a name="carla.Client.get_available_maps"></a><strong><font color="#7fb800">get_available_maps</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-返回一个字符串列表，其中包含服务器上可用映射的路径。这些路径是动态的，它们将在仿真过程中创建，因此在文件中查找时找不到它们。此方法可能的返回结果之一是：
+返回一个字符串列表，其中包含服务器上可用映射的路径。这些路径是动态的，它们将在模拟过程中创建，因此在文件中查找时找不到它们。此方法可能的返回结果之一是：
   ['/Game/Carla/Maps/Town01',
   '/Game/Carla/Maps/Town02',
   '/Game/Carla/Maps/Town03',
@@ -873,7 +873,7 @@
 </ul>
 </li>
 <li><a name="carla.Client.get_world"></a><strong><font color="#7fb800">get_world</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-返回仿真中当前处于活动状态的世界对象。该世界稍后将用于加载地图。<ul>
+返回模拟中当前处于活动状态的世界对象。该世界稍后将用于加载地图。<ul>
 <li><strong>返回：</strong> <em><a href="#carla.World">carla.World</a></em>  </li>
 </ul>
 </li>
@@ -882,27 +882,27 @@
 <ul>
 <li><a name="carla.Client.set_files_base_folder"></a><strong><font color="#7fb800">set_files_base_folder</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>path</strong></font>)  <ul>
 <li><strong>参数：</strong><ul>
-<li><code>path</code> (<em>str</em>) - 返回仿真中当前处于活动状态的世界对象。该世界稍后将用于加载地图。 </li>
+<li><code>path</code> (<em>str</em>) - 返回模拟中当前处于活动状态的世界对象。该世界稍后将用于加载地图。 </li>
 </ul>
 </li>
 </ul>
 </li>
 <li><a name="carla.Client.set_replayer_ignore_hero"></a><strong><font color="#7fb800">set_replayer_ignore_hero</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>ignore_hero</strong></font>)  <ul>
 <li><strong>参数：</strong><ul>
-<li><code>ignore_hero</code> (<em>bool</em>) - 在播放录制的仿真过程中启用或禁用英雄车辆的播放。 </li>
+<li><code>ignore_hero</code> (<em>bool</em>) - 在播放记录的模拟过程中启用或禁用英雄车辆的播放。</li>
 </ul>
 </li>
 </ul>
 </li>
 <li><a name="carla.Client.set_replayer_ignore_spectator"></a><strong><font color="#7fb800">set_replayer_ignore_spectator</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>ignore_spectator</strong></font>)  <ul>
 <li><strong>参数：</strong><ul>
-<li><code>ignore_spectator</code> (<em>bool</em>) - 确定回放程序是否会复制记录的参与者动作。</li>
+<li><code>ignore_spectator</code> (<em>bool</em>) - 确定回放程序是否会复制记录的观察者运动。</li>
 </ul>
 </li>
 </ul>
 </li>
 <li><a name="carla.Client.set_replayer_time_factor"></a><strong><font color="#7fb800">set_replayer_time_factor</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>time_factor</strong>=1.0</font>)<br />
-使用时，会随意修改重新仿真的时间速度。当播放时，它可以使用多次。<ul>
+使用时，会随意修改重新模拟的时间速度。当播放时，它可以使用多次。<ul>
 <li><strong>参数：</strong><ul>
 <li><code>time_factor</code> (<em>float</em>) - 1.0表示正常时间速度。大于1.0表示快速运动（2.0表示双倍速度），小于1.0表示慢速运动（0.5表示一半速度）。  </li>
 </ul>
@@ -1178,9 +1178,9 @@ Y 像素坐标。  </li>
 </ul>
 </li>
 <li><a name="carla.DebugHelper.draw_string"></a><strong><font color="#7fb800">draw_string</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>location</strong></font>, <font color="#00a6ed"><strong>text</strong></font>, <font color="#00a6ed"><strong>draw_shadow</strong>=False</font>, <font color="#00a6ed"><strong>color</strong>=(255,0,0)</font>, <font color="#00a6ed"><strong>life_time</strong>=-1.0</font>)<button class="SnipetButton" id="carla.DebugHelper.draw_string-snipet_button">snippet &rarr;</button><br />
-在仿真的给定位置绘制一个字符串，该字符串只能在服务器端看到。<ul>
+在模拟的给定位置绘制一个字符串，该字符串只能在服务器端看到。<ul>
 <li><strong>参数：</strong><ul>
-<li><code>location</code> (<em><a href="#carla.Location">carla.Location</a><small> - 米</small></em>) - 仿真中文本居中的位置。</li>
+<li><code>location</code> (<em><a href="#carla.Location">carla.Location</a><small> - 米</small></em>) - 模拟中文本居中的位置。</li>
 <li><code>text</code> (<em>str</em>) - 旨在向世界展示的文本。 </li>
 <li><code>draw_shadow</code> (<em>bool</em>) - 为字符串投射阴影，有助于可视化。默认情况下它是禁用的。</li>
 <li><code>color</code> (<em><a href="#carla.Color">carla.Color</a></em>) - 用于为字符串着色的 RGB 代码。默认为红色。</li>
@@ -1301,7 +1301,7 @@ Alpha 通道。</li>
 </ul>
 <hr />
 <h2 id="carlagearphysicscontrol">carla.GearPhysicsControl<a name="carla.GearPhysicsControl"></a></h2>
-<p>通过定义档位以及何时运行该档位来提供对车辆变速箱详细信息的访问的类。<a href="#carla.VehiclePhysicsControl">carla.VehiclePhysicsControl</a> 稍后将使用它来帮助仿真物理。</p>
+<p>通过定义档位以及何时运行该档位来提供对车辆变速箱详细信息的访问的类。<a href="#carla.VehiclePhysicsControl">carla.VehiclePhysicsControl</a> 稍后将使用它来帮助模拟物理。</p>
 <h3 id="_56">实例变量</h3>
 <ul>
 <li><a name="carla.GearPhysicsControl.ratio"></a><strong><font color="#f8805a">ratio</font></strong> (<em>float</em>)<br />
@@ -1331,7 +1331,7 @@ Alpha 通道。</li>
 </ul>
 <hr />
 <h2 id="carlageolocation">carla.GeoLocation<a name="carla.GeoLocation"></a></h2>
-<p>包含地理坐标仿真数据的类。<a href="#carla.Map">carla.Map</a> 可以使用以下方法转换仿真位置 OpenDRIVE 文件中的 <b><georeference></b> 标记。</p>
+<p>包含地理坐标模拟数据的类。<a href="#carla.Map">carla.Map</a> 可以使用以下方法转换模拟位置 OpenDRIVE 文件中的 <b><georeference></b> 标记。</p>
 <h3 id="_58">实例变量</h3>
 <ul>
 <li><a name="carla.GeoLocation.latitude"></a><strong><font color="#f8805a">latitude</font></strong> (<em>float<small> - 度</small></em>)<br />
@@ -1474,7 +1474,7 @@ OpenDRIVE 文件中找到的标识符。</li>
 </ul>
 <hr />
 <h2 id="carlalandmark">carla.Landmark<a name="carla.Landmark"></a></h2>
-<p>定义影响道路的任何类型的交通地标或标志的类。这些类在地标的 <a href="http://www.opendrive.org/docs/OpenDRIVEFormatSpecRev1.4H.pdf">OpenDRIVE 1.4 standard</a> 标准定义及其在仿真中的表示之间进行协调。此类检索在 OpenDRIVE 中定义地标的所有信息，并提供有关其影响哪些车道以及何时影响的信息。<a href="#carla.Waypoint">carla.Waypoint</a> 对象将尝试检索其车道规则来访问地标。因此，某些属性取决于正在咨询地标的路径点，从而创建对象。</p>
+<p>定义影响道路的任何类型的交通地标或标志的类。这些类在地标的 <a href="http://www.opendrive.org/docs/OpenDRIVEFormatSpecRev1.4H.pdf">OpenDRIVE 1.4 standard</a> 标准定义及其在模拟中的表示之间进行协调。此类检索在 OpenDRIVE 中定义地标的所有信息，并提供有关其影响哪些车道以及何时影响的信息。<a href="#carla.Waypoint">carla.Waypoint</a> 对象将尝试检索其车道规则来访问地标。因此，某些属性取决于正在咨询地标的路径点，从而创建对象。</p>
 <h3 id="_74">实例变量</h3>
 <ul>
 <li><a name="carla.Landmark.road_id"></a><strong><font color="#f8805a">road_id</font></strong> (<em>int</em>)<br />
@@ -1520,7 +1520,7 @@ OpenDRIVE 文件中的地标名称。 </li>
 <li><a name="carla.Landmark.waypoint"></a><strong><font color="#f8805a">waypoint</font></strong> (<em><a href="#carla.Waypoint">carla.Waypoint</a></em>)<br />
 放置在进行查询的车道和地标 <code>s</code> 处的路径点。这是地标有效的第一个路径点。</li>
 <li><a name="carla.Landmark.transform"></a><strong><font color="#f8805a">transform</font></strong> (<em><a href="#carla.Transform">carla.Transform</a></em>)<br />
-仿真中地标的位置和方向。</li>
+模拟中地标的位置和方向。</li>
 </ul>
 <h3 id="_75">方法</h3>
 <h5 id="_76">获取器</h5>
@@ -1636,7 +1636,7 @@ OpenDRIVE 文件中的地标名称。 </li>
 <hr />
 <h2 id="carlalaneinvasionevent">carla.LaneInvasionEvent<a name="carla.LaneInvasionEvent"></a></h2>
 <p><small style="display:block;margin-top:-20px;">从 <em><a href="#carla.SensorData">carla.SensorData</a></em> 继承</small></br>
-为 <b>sensor.other.lane_invasion</b> 定义压线的类。它仅在客户端工作，并依赖 OpenDRIVE 来提供可靠的信息。每次发生压线时，传感器都会创建一个这样的情况，每个仿真步骤可能会发生多次。在 <a href="../ref_sensors/#lane-invasion-detector">这里</a> 了解更多相关信息。 </p>
+为 <b>sensor.other.lane_invasion</b> 定义压线的类。它仅在客户端工作，并依赖 OpenDRIVE 来提供可靠的信息。每次发生压线时，传感器都会创建一个这样的情况，每个模拟步骤可能会发生多次。在 <a href="../ref_sensors/#lane-invasion-detector">这里</a> 了解更多相关信息。 </p>
 <h3 id="_80">实例变量</h3>
 <ul>
 <li><a name="carla.LaneInvasionEvent.actor"></a><strong><font color="#f8805a">actor</font></strong> (<em><a href="#carla.Actor">carla.Actor</a></em>)<br />
@@ -1741,7 +1741,7 @@ xyz 坐标中的点。</li>
 <hr />
 <h2 id="carlalidarmeasurement">carla.LidarMeasurement<a name="carla.LidarMeasurement"></a></h2>
 <p><small style="display:block;margin-top:-20px;">从 <em><a href="#carla.SensorData">carla.SensorData</a></em> 继承</small></br>
-定义由 <b>sensor.lidar.ray_cast</b> 检索的LIDAR数据的类。这本质上是使用光线投射仿真旋转激光雷达。在 <a href="../ref_sensors/#lidar-raycast-sensor">这里</a> 了解更多相关信息。 </p>
+定义由 <b>sensor.lidar.ray_cast</b> 检索的LIDAR数据的类。这本质上是使用光线投射模拟旋转激光雷达。在 <a href="../ref_sensors/#lidar-raycast-sensor">这里</a> 了解更多相关信息。 </p>
 <h3 id="_90">实例变量</h3>
 <ul>
 <li><a name="carla.LidarMeasurement.channels"></a><strong><font color="#f8805a">channels</font></strong> (<em>int</em>)<br />
@@ -1784,7 +1784,7 @@ xyz 坐标中的点。</li>
 </ul>
 <hr />
 <h2 id="carlalight">carla.Light<a name="carla.Light"></a></h2>
-<p>此类公开场景中存在的灯光（车辆灯光除外）。灯光的属性可以随意查询和改变。当仿真器进入夜间模式（太阳高度低于零）时，灯会自动打开。</p>
+<p>此类公开场景中存在的灯光（车辆灯光除外）。灯光的属性可以随意查询和改变。当模拟器进入夜间模式（太阳高度低于零）时，灯会自动打开。</p>
 <h3 id="_94">实例变量</h3>
 <ul>
 <li><a name="carla.Light.color"></a><strong><font color="#f8805a">color</font></strong> (<em><a href="#carla.Color">carla.Color</a></em>)<br />
@@ -2196,7 +2196,7 @@ Z 轴上从原点到点的距离。</li>
 </ul>
 </li>
 <li><a name="carla.Map.transform_to_geolocation"></a><strong><font color="#7fb800">transform_to_geolocation</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>location</strong></font>)<br />
-将仿真中一个点的给定位置 <code>location</code> 转换为 <a href="#carla.GeoLocation">carla.GeoLocation</a>，他表示世界坐标系。地图的地理位置在 OpenDRIVE 标签<b><georeference></b>内定义。<ul>
+将模拟中一个点的给定位置 <code>location</code> 转换为 <a href="#carla.GeoLocation">carla.GeoLocation</a>，他表示世界坐标系。地图的地理位置在 OpenDRIVE 标签<b><georeference></b>内定义。<ul>
 <li><strong>参数：</strong><ul>
 <li><code>location</code> (<em><a href="#carla.Location">carla.Location</a></em>)  </li>
 </ul>
@@ -2821,7 +2821,7 @@ X-轴旋转角度。  </li>
 <hr />
 <h2 id="carlasemanticlidarmeasurement">carla.SemanticLidarMeasurement<a name="carla.SemanticLidarMeasurement"></a></h2>
 <p><small style="display:block;margin-top:-20px;">从 <em><a href="#carla.SensorData">carla.SensorData</a></em> 继承</small></br>
-该类定义由 <b>sensor.lidar.ray_cast_semantic</b> 检索的语义激光雷达数据。这实质上是使用光线投射来仿真旋转激光雷达。在此了解更多信息。</p>
+该类定义由 <b>sensor.lidar.ray_cast_semantic</b> 检索的语义激光雷达数据。这实质上是使用光线投射来模拟旋转激光雷达。在此了解更多信息。</p>
 <h3 id="_161">实例变量</h3>
 <ul>
 <li><a name="carla.SemanticLidarMeasurement.channels"></a><strong><font color="#f8805a">channels</font></strong> (<em>int</em>)<br />
@@ -3261,7 +3261,7 @@ X-轴旋转角度。  </li>
 </ul>
 <hr />
 <h2 id="carlatrafficmanager">carla.TrafficManager<a name="carla.TrafficManager"></a></h2>
-<p>交通管理器是一个用 C++ 构建在 CARLA API 之上的模块。它可以处理设置为自动驾驶模式的任何车辆组，以现实的城市交通状况填充仿真，并为用户提供定制某些行为的机会。交通管理器的架构分为五个不同的面向目标的阶段和一个 PID 控制器，信息在其中流动，直到最终将 <a href="#carla.VehicleControl">carla.VehicleControl</a> 应用于在交通管理器中注册的每辆车辆。要了解更多信息，请访问有关此模块的 <a href="../adv_traffic_manager/">文档</a>。</p>
+<p>交通管理器是一个用 C++ 构建在 CARLA API 之上的模块。它可以处理设置为自动驾驶模式的任何车辆组，以现实的城市交通状况填充模拟，并为用户提供定制某些行为的机会。交通管理器的架构分为五个不同的面向目标的阶段和一个 PID 控制器，信息在其中流动，直到最终将 <a href="#carla.VehicleControl">carla.VehicleControl</a> 应用于在交通管理器中注册的每辆车辆。要了解更多信息，请访问有关此模块的 <a href="../adv_traffic_manager/">文档</a>。</p>
 <h3 id="_184">方法</h3>
 <ul>
 <li><a name="carla.TrafficManager.auto_lane_change"></a><strong><font color="#7fb800">auto_lane_change</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor</strong></font>, <font color="#00a6ed"><strong>enable</strong></font>)<br />
@@ -3542,7 +3542,7 @@ X-轴旋转角度。  </li>
 <hr />
 <h2 id="carlatrafficsign">carla.TrafficSign<a name="carla.TrafficSign"></a></h2>
 <p><small style="display:block;margin-top:-20px;">从 <em><a href="#carla.Actor">carla.Actor</a></em> 继承</small></br>
-仿真中出现的交通标志（红绿灯除外）。这些在 <a href="#carla.TrafficLight">carla.TrafficLight</a> 中有自己的类从该类继承。目前，主要实施的是速度标志、停靠站和让行标志，但还有许多其他标志也被牢记在心。</p>
+模拟中出现的交通标志（红绿灯除外）。这些在 <a href="#carla.TrafficLight">carla.TrafficLight</a> 中有自己的类从该类继承。目前，主要实施的是速度标志、停靠站和让行标志，但还有许多其他标志也被牢记在心。</p>
 <h3 id="_187">实例变量</h3>
 <ul>
 <li><a name="carla.TrafficSign.trigger_volume"></a><strong><font color="#f8805a">trigger_volume</font></strong><br />
@@ -3855,7 +3855,7 @@ CARLA 中最重要的参与者群体之一。其中包括从汽车到卡车、�
 <li><code>settings</code> (<em><a href="#carla.AckermannControllerSettings">carla.AckermannControllerSettings</a></em>)  </li>
 </ul>
 </li>
-<li><strong>警告:</strong> <font color="#ED2F2F"><em>此方法确实调用仿真器。</em></font>  </li>
+<li><strong>警告:</strong> <font color="#ED2F2F"><em>此方法确实调用模拟器。</em></font>  </li>
 </ul>
 </li>
 <li><a name="carla.Vehicle.apply_control"></a><strong><font color="#7fb800">apply_control</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>control</strong></font>)<br />
@@ -3885,7 +3885,7 @@ CARLA 中最重要的参与者群体之一。其中包括从汽车到卡车、�
 <li><a name="carla.Vehicle.enable_carsim"></a><strong><font color="#7fb800">enable_carsim</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>simfile_path</strong></font>)<br />
 为该特定车辆启用 CarSim 物理解算器。为了使此功能发挥作用，需要在服务器端运行有效的许可证管理器。控制输入被重定向到 CarSim，它将提供每一帧的车辆位置和方向。 <ul>
 <li><strong>参数:</strong><ul>
-<li><code>simfile_path</code> (<em>str</em>) - 包含仿真参数的<code>.simfile</code> 文件的路径。</li>
+<li><code>simfile_path</code> (<em>str</em>) - 包含模拟参数的<code>.simfile</code> 文件的路径。</li>
 </ul>
 </li>
 </ul>
@@ -3908,7 +3908,7 @@ CARLA 中最重要的参与者群体之一。其中包括从汽车到卡车、�
 </ul>
 </li>
 <li><a name="carla.Vehicle.is_at_traffic_light"></a><strong><font color="#7fb800">is_at_traffic_light</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-当交通灯为红色并且车辆位于其边界框内时，车辆将受到交通灯的影响。客户端根据最后一个刻度返回交通灯是否影响该车辆（它不调用仿真器）。<ul>
+当交通灯为红色并且车辆位于其边界框内时，车辆将受到交通灯的影响。客户端根据最后一个刻度返回交通灯是否影响该车辆（它不调用模拟器）。<ul>
 <li><strong>返回:</strong> <em>bool</em>  </li>
 </ul>
 </li>
@@ -3942,11 +3942,11 @@ CARLA 中最重要的参与者群体之一。其中包括从汽车到卡车、�
 <li><a name="carla.Vehicle.get_ackermann_controller_settings"></a><strong><font color="#7fb800">get_ackermann_controller_settings</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
 返回应用于该车辆的最后一个阿克曼控制设置。 <ul>
 <li><strong>返回:</strong> <em><a href="#carla.AckermannControllerSettings">carla.AckermannControllerSettings</a></em>  </li>
-<li><strong>警告:</strong> <font color="#ED2F2F"><em>此方法确实调用仿真器来检索值。</em></font>  </li>
+<li><strong>警告:</strong> <font color="#ED2F2F"><em>此方法确实调用模拟器来检索值。</em></font>  </li>
 </ul>
 </li>
 <li><a name="carla.Vehicle.get_control"></a><strong><font color="#7fb800">get_control</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-客户端返回最后一个tick中应用的控制。该方法不调用仿真器。<ul>
+客户端返回最后一个tick中应用的控制。该方法不调用模拟器。<ul>
 <li><strong>返回:</strong> <em><a href="#carla.VehicleControl">carla.VehicleControl</a></em>  </li>
 </ul>
 </li>
@@ -3962,23 +3962,23 @@ CARLA 中最重要的参与者群体之一。其中包括从汽车到卡车、�
 </ul>
 </li>
 <li><a name="carla.Vehicle.get_physics_control"></a><strong><font color="#7fb800">get_physics_control</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-仿真器返回应用于该车辆的最后一个物理控制。<ul>
+模拟器返回应用于该车辆的最后一个物理控制。<ul>
 <li><strong>返回:</strong> <em><a href="#carla.VehiclePhysicsControl">carla.VehiclePhysicsControl</a></em>  </li>
-<li><strong>警告:</strong> <font color="#ED2F2F"><em>此方法确实调用仿真器来检索值。</em></font>  </li>
+<li><strong>警告:</strong> <font color="#ED2F2F"><em>此方法确实调用模拟器来检索值。</em></font>  </li>
 </ul>
 </li>
 <li><a name="carla.Vehicle.get_speed_limit"></a><strong><font color="#7fb800">get_speed_limit</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-客户端根据最后一个tick返回影响该车辆的速度限制（它不调用仿真器）。当经过限速信号时，限速会更新，因此车辆在生成后可能就没有限速信号。<ul>
+客户端根据最后一个tick返回影响该车辆的速度限制（它不调用模拟器）。当经过限速信号时，限速会更新，因此车辆在生成后可能就没有限速信号。<ul>
 <li><strong>返回:</strong> <em>float<small> - 千米/小时</small></em>  </li>
 </ul>
 </li>
 <li><a name="carla.Vehicle.get_traffic_light"></a><strong><font color="#7fb800">get_traffic_light</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-根据最后一个刻度检索影响此车辆的交通灯参与者（如果有）。该方法不调用仿真器。<ul>
+根据最后一个刻度检索影响此车辆的交通灯参与者（如果有）。该方法不调用模拟器。<ul>
 <li><strong>返回:</strong> <em><a href="#carla.TrafficLight">carla.TrafficLight</a></em>  </li>
 </ul>
 </li>
 <li><a name="carla.Vehicle.get_traffic_light_state"></a><strong><font color="#7fb800">get_traffic_light_state</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-客户端根据上一个tick返回影响该车辆的交通信号灯的状态。该方法不调用仿真器。如果当前没有交通灯影响车辆，则返回 <b>green</b>。<ul>
+客户端根据上一个tick返回影响该车辆的交通信号灯的状态。该方法不调用模拟器。如果当前没有交通灯影响车辆，则返回 <b>green</b>。<ul>
 <li><strong>返回:</strong> <em><a href="#carla.TrafficLightState">carla.TrafficLightState</a></em>  </li>
 </ul>
 </li>
@@ -4159,7 +4159,7 @@ CARLA 中最重要的参与者群体之一。其中包括从汽车到卡车、�
 </ul>
 <hr />
 <h2 id="carlavehiclephysicscontrol">carla.VehiclePhysicsControl<a name="carla.VehiclePhysicsControl"></a></h2>
-<p>总结将用于将 <a href="#carla.Vehicle">carla.Vehicle</a> 仿真为物理对象的参数。不过，车轮的具体设置是使用 <a href="#carla.WheelPhysicsControl">carla.WheelPhysicsControl</a> 规定的。</p>
+<p>总结将用于将 <a href="#carla.Vehicle">carla.Vehicle</a> 模拟为物理对象的参数。不过，车轮的具体设置是使用 <a href="#carla.WheelPhysicsControl">carla.WheelPhysicsControl</a> 规定的。</p>
 <h3 id="_213">实例变量</h3>
 <ul>
 <li><a name="carla.VehiclePhysicsControl.torque_curve"></a><strong><font color="#f8805a">torque_curve</font></strong> (<em>list(<a href="#carla.Vector2D">carla.Vector2D</a>)</em>)<br />
@@ -4251,7 +4251,7 @@ VehiclePhysicsControl 构造函数。 <ul>
 <hr />
 <h2 id="carlawalker">carla.Walker<a name="carla.Walker"></a></h2>
 <p><small style="display:block;margin-top:-20px;">从 <em><a href="#carla.Actor">carla.Actor</a></em> 继承</small></br>
-该类从 <a href="#carla.Actor">carla.Actor</a> 继承并定义仿真中的行人。Walkers 是一种特殊类型的参与者，可以由 AI (<a href="#carla.WalkerAIController">carla.WalkerAIController</a>) 控制，也可以通过脚本手动控制，使用一系列 <a href="#carla.WalkerControl">carla.WalkerControl</a> 来移动它们及其骨骼。</p>
+该类从 <a href="#carla.Actor">carla.Actor</a> 继承并定义模拟中的行人。Walkers 是一种特殊类型的参与者，可以由 AI (<a href="#carla.WalkerAIController">carla.WalkerAIController</a>) 控制，也可以通过脚本手动控制，使用一系列 <a href="#carla.WalkerControl">carla.WalkerControl</a> 来移动它们及其骨骼。</p>
 <h3 id="_217">方法</h3>
 <ul>
 <li><a name="carla.Walker.apply_control"></a><strong><font color="#7fb800">apply_control</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>control</strong></font>)<br />
@@ -4291,7 +4291,7 @@ VehiclePhysicsControl 构造函数。 <ul>
 </ul>
 </li>
 <li><a name="carla.Walker.get_control"></a><strong><font color="#7fb800">get_control</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-客户端返回在最后一个tick期间应用于此行人的控制。该方法不调用仿真器。 <ul>
+客户端返回在最后一个tick期间应用于此行人的控制。该方法不调用模拟器。 <ul>
 <li><strong>返回:</strong> <em><a href="#carla.WalkerControl">carla.WalkerControl</a></em>  </li>
 </ul>
 </li>
@@ -4319,7 +4319,7 @@ VehiclePhysicsControl 构造函数。 <ul>
 <hr />
 <h2 id="carlawalkeraicontroller">carla.WalkerAIController<a name="carla.WalkerAIController"></a></h2>
 <p><small style="display:block;margin-top:-20px;">从 <em><a href="#carla.Actor">carla.Actor</a></em> 继承</small></br>
-对行人进行 AI 控制的类。控制器被定义为参与者，但它们与其他控制器有很大不同。它们在创建过程中需要附加到父参与者，这是它们将控制的行人（如果您尚未了解如何生成 Actor，请查看<a href="#carla.World">carla.World</a> ）。他们还需要一个特殊的蓝图（已在 <a href="#carla.BlueprintLibrary">carla.BlueprintLibrary</a> 中定义为“controller.ai.walker”）。这是一个空的蓝图，因为人工智能控制器在仿真中是不可见的，但会跟随其父控制器来指示每一步。</p>
+对行人进行 AI 控制的类。控制器被定义为参与者，但它们与其他控制器有很大不同。它们在创建过程中需要附加到父参与者，这是它们将控制的行人（如果您尚未了解如何生成 Actor，请查看<a href="#carla.World">carla.World</a> ）。他们还需要一个特殊的蓝图（已在 <a href="#carla.BlueprintLibrary">carla.BlueprintLibrary</a> 中定义为“controller.ai.walker”）。这是一个空的蓝图，因为人工智能控制器在模拟中是不可见的，但会跟随其父控制器来指示每一步。</p>
 <h3 id="_221">方法</h3>
 <ul>
 <li><a name="carla.WalkerAIController.go_to_location"></a><strong><font color="#7fb800">go_to_location</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>destination</strong></font>)<br />
@@ -4616,7 +4616,7 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 </ul>
 <hr />
 <h2 id="carlawheelphysicscontrol">carla.WheelPhysicsControl<a name="carla.WheelPhysicsControl"></a></h2>
-<p>为车轮对象定义特定物理参数的类，这些车轮对象将成为 <a href="#carla.VehiclePhysicsControl">carla.VehiclePhysicsControl</a> 的一部分，以将车辆仿真为材质对象。</p>
+<p>为车轮对象定义特定物理参数的类，这些车轮对象将成为 <a href="#carla.VehiclePhysicsControl">carla.VehiclePhysicsControl</a> 的一部分，以将车辆模拟为材质对象。</p>
 <h3 id="_240">实例变量</h3>
 <ul>
 <li><a name="carla.WheelPhysicsControl.tire_friction"></a><strong><font color="#f8805a">tire_friction</font></strong> (<em>float</em>)<br />
@@ -4664,11 +4664,11 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 </ul>
 <hr />
 <h2 id="carlaworld">carla.World<a name="carla.World"></a></h2>
-<p>世界对象由客户端创建，以便为仿真提供一个发生的地方。世界包含我们可以看到的地图，即资产，而不是导航地图。导航地图是 <a href="#carla.Map">carla.Map</a> 类的一部分。它还管理其中的天气和参与者。每个仿真只能有一个世界，但可以随时更改。</p>
+<p>世界对象由客户端创建，以便为模拟提供一个发生的地方。世界包含我们可以看到的地图，即资产，而不是导航地图。导航地图是 <a href="#carla.Map">carla.Map</a> 类的一部分。它还管理其中的天气和参与者。每个模拟只能有一个世界，但可以随时更改。</p>
 <h3 id="_243">实例变量</h3>
 <ul>
 <li><a name="carla.World.id"></a><strong><font color="#f8805a">id</font></strong> (<em>int</em>)<br />
-与这个世界相关的剧集的 ID。剧集是仿真的不同阶段。每当世界被禁用或重新加载时，这些都会发生变化。跟踪有助于避免可能出现的问题。</li>
+与这个世界相关的剧集的 ID。剧集是模拟的不同阶段。每当世界被禁用或重新加载时，这些都会发生变化。跟踪有助于避免可能出现的问题。</li>
 <li><a name="carla.World.debug"></a><strong><font color="#f8805a">debug</font></strong> (<em><a href="#carla.DebugHelper">carla.DebugHelper</a></em>)<br />
 负责创建不同的形状以进行调试。查看它的类以了解更多信息。</li>
 </ul>
@@ -4715,7 +4715,7 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 </ul>
 </li>
 <li><a name="carla.World.apply_settings"></a><strong><font color="#7fb800">apply_settings</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>world_settings</strong></font>)<br />
-此方法将对象中包含的设置应用于运行的仿真，并返回它们所实现的帧的 ID。<ul>
+此方法将对象中包含的设置应用于运行的模拟，并返回它们所实现的帧的 ID。<ul>
 <li><strong>参数:</strong><ul>
 <li><code>world_settings</code> (<em><a href="#carla.WorldSettings">carla.WorldSettings</a></em>)  </li>
 </ul>
@@ -4844,7 +4844,7 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 </ul>
 </li>
 <li><strong>返回：</strong> <em>int</em>  </li>
-<li><strong>注意：</strong> <font color="#8E8E8E"><em>如果在同步模式下没有收到节拍信号，仿真将冻结。此外，如果从不同的客户端接收到许多节拍信号，则可能存在同步问题。请阅读有关 __同步模式__ 的文档以了解更多信息。<br />
+<li><strong>注意：</strong> <font color="#8E8E8E"><em>如果在同步模式下没有收到节拍信号，模拟将冻结。此外，如果从不同的客户端接收到许多节拍信号，则可能存在同步问题。请阅读有关 __同步模式__ 的文档以了解更多信息。<br />
 </em></font>  </li>
 </ul>
 </li>
@@ -4930,7 +4930,7 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 <li><a name="carla.World.get_map"></a><strong><font color="#7fb800">get_map</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
 向服务器请求包含映射文件的 XODR，并将其解析为 <a href="#carla.Map">carla.Map</a> 返回。<ul>
 <li><strong>返回:</strong> <em><a href="#carla.Map">carla.Map</a></em>  </li>
-<li><strong>警告:</strong> <font color="#ED2F2F"><em>此方法确实调用仿真。它代价很高，并且只能调用一次。 
+<li><strong>警告:</strong> <font color="#ED2F2F"><em>此方法确实调用模拟。它代价很高，并且只能调用一次。 
 </em></font>  </li>
 </ul>
 </li>
@@ -4945,7 +4945,7 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 </ul>
 </li>
 <li><a name="carla.World.get_settings"></a><strong><font color="#7fb800">get_settings</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-返回一个对象，其中包含有关仿真的一些数据，例如客户端和服务器之间的同步或渲染模式。<ul>
+返回一个对象，其中包含有关模拟的一些数据，例如客户端和服务器之间的同步或渲染模式。<ul>
 <li><strong>返回:</strong> <em><a href="#carla.WorldSettings">carla.WorldSettings</a></em>  </li>
 </ul>
 </li>
@@ -4955,7 +4955,7 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 </ul>
 </li>
 <li><a name="carla.World.get_spectator"></a><strong><font color="#7fb800">get_spectator</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<button class="SnipetButton" id="carla.World.get_spectator-snipet_button">snippet &rarr;</button><br />
-返回观察者参与者。观察者是虚幻引擎创建的一种特殊类型的参与者，通常ID=0，充当摄像机并控制仿真器窗口中的视图。<ul>
+返回观察者参与者。观察者是虚幻引擎创建的一种特殊类型的参与者，通常ID=0，充当摄像机并控制模拟器窗口中的视图。<ul>
 <li><strong>返回:</strong> <em><a href="#carla.Actor">carla.Actor</a></em>  </li>
 </ul>
 </li>
@@ -5011,7 +5011,7 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 </ul>
 </li>
 <li><a name="carla.World.get_weather"></a><strong><font color="#7fb800">get_weather</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-检索包含仿真中当前活动的天气参数的对象，主要是云量、降水量、风和太阳位置。<ul>
+检索包含模拟中当前活动的天气参数的对象，主要是云量、降水量、风和太阳位置。<ul>
 <li><strong>返回:</strong> <em><a href="#carla.WeatherParameters">carla.WeatherParameters</a></em>  </li>
 <li><strong>Setter:</strong> <em><a href="#carla.World.set_weather">carla.World.set_weather</a></em>  </li>
 </ul>
@@ -5038,7 +5038,7 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 </ul>
 </li>
 <li><a name="carla.World.set_weather"></a><strong><font color="#7fb800">set_weather</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>weather</strong></font>)<br />
-将仿真的天气参数更改为对象中定义的其他参数。<ul>
+将模拟的天气参数更改为对象中定义的其他参数。<ul>
 <li><strong>参数:</strong><ul>
 <li><code>weather</code> (<em><a href="#carla.WeatherParameters">carla.WeatherParameters</a></em>) - 要应用的新条件。</li>
 </ul>
@@ -5057,15 +5057,15 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 </ul>
 <hr />
 <h2 id="carlaworldsettings">carla.WorldSettings<a name="carla.WorldSettings"></a></h2>
-<p>该仿真具有一些高级配置选项，这些选项包含在此类中，并且可以使用 <a href="#carla.World">carla.World</a> 及其方法进行管理。这些允许用户在客户端-服务器同步/异步、激活“无渲染模式”以及仿真是否应以固定或可变时间步长运行之间进行选择。如果您想了解的话 请查看 <a href="../adv_synchrony_timestep/">此内容</a> 。 </p>
+<p>该模拟具有一些高级配置选项，这些选项包含在此类中，并且可以使用 <a href="#carla.World">carla.World</a> 及其方法进行管理。这些允许用户在客户端-服务器同步/异步、激活“无渲染模式”以及模拟是否应以固定或可变时间步长运行之间进行选择。如果您想了解的话 请查看 <a href="../adv_synchrony_timestep/">此内容</a> 。 </p>
 <h3 id="_248">实例变量</h3>
 <ul>
 <li><a name="carla.WorldSettings.synchronous_mode"></a><strong><font color="#f8805a">synchronous_mode</font></strong> (<em>bool</em>)<br />
 表示客户端和服务器之间的同步。当设置为 true 时，服务器将等待客户端滴答以便继续前进。默认情况下为 false。</li>
 <li><a name="carla.WorldSettings.no_rendering_mode"></a><strong><font color="#f8805a">no_rendering_mode</font></strong> (<em>bool</em>)<br />
-启用后，仿真将根本不运行渲染。这主要用于避免繁忙交通仿真期间的开销。默认情况下为 false。</li>
+启用后，模拟将根本不运行渲染。这主要用于避免繁忙交通模拟期间的开销。默认情况下为 false。</li>
 <li><a name="carla.WorldSettings.fixed_delta_seconds"></a><strong><font color="#f8805a">fixed_delta_seconds</font></strong> (<em>float</em>)<br />
-确保仿真的两个步骤之间经过的时间是固定的。将其设置为 <b>0.0</b> 以使用可变时间步长，就像默认情况下发生的那样。</li>
+确保模拟的两个步骤之间经过的时间是固定的。将其设置为 <b>0.0</b> 以使用可变时间步长，就像默认情况下发生的那样。</li>
 <li><a name="carla.WorldSettings.substepping"></a><strong><font color="#f8805a">substepping</font></strong> (<em>bool</em>)<br />
 启用物理子步进。此选项允许计算两个渲染帧之间的一些物理子步骤。如果设置了同步模式，则子步骤的数量及其时间间隔是固定的并进行计算，以便满足 <a href="#carla.WorldSettings.max_substep">carla.WorldSettings.max_substep</a> 和 <a href="#carla.WorldSettings.max_substep_delta_time">carla.WorldSettings.max_substep_delta_time</a> 的要求。最后两个参数需要与 <a href="#carla.WorldSettings.fixed_delta_seconds">carla.WorldSettings.fixed_delta_seconds</a> 兼容。默认启用。</li>
 <li><a name="carla.WorldSettings.max_substep_delta_time"></a><strong><font color="#f8805a">max_substep_delta_time</font></strong> (<em>float</em>)<br />
@@ -5075,9 +5075,9 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 <li><a name="carla.WorldSettings.max_culling_distance"></a><strong><font color="#f8805a">max_culling_distance</font></strong> (<em>float</em>)<br />
 配置关卡中每个网格的最大绘制距离。</li>
 <li><a name="carla.WorldSettings.deterministic_ragdolls"></a><strong><font color="#f8805a">deterministic_ragdolls</font></strong> (<em>bool</em>)<br />
-定义是否对行人死亡动画或物理布娃娃仿真使用确定性物理。启用后，行人的死亡动画不太真实，但确保了确定性。禁用后，行人将被仿真为布娃娃，具有更真实的仿真和碰撞，但无法确保确定性。</li>
+定义是否对行人死亡动画或物理布娃娃模拟使用确定性物理。启用后，行人的死亡动画不太真实，但确保了确定性。禁用后，行人将被模拟为布娃娃，具有更真实的模拟和碰撞，但无法确保确定性。</li>
 <li><a name="carla.WorldSettings.tile_stream_distance"></a><strong><font color="#f8805a">tile_stream_distance</font></strong> (<em>float</em>)<br />
-仅用于大型地图。配置从英雄车辆传输瓦片地图的最大距离。此范围内的地图区域将可见（并且能够仿真物理）。该区域之外的区域将不会被加载。</li>
+仅用于大型地图。配置从英雄车辆传输瓦片地图的最大距离。此范围内的地图区域将可见（并且能够模拟物理）。该区域之外的区域将不会被加载。</li>
 <li><a name="carla.WorldSettings.actor_active_distance"></a><strong><font color="#f8805a">actor_active_distance</font></strong> (<em>float</em>)<br />
 仅用于大型地图。配置与英雄车辆的距离以将参与者转换为休眠状态。在此范围内的参与者将处于活跃状态，而在该范围之外的参与者将处于休眠状态。</li>
 <li><a name="carla.WorldSettings.spectator_as_ego"></a><strong><font color="#f8805a">spectator_as_ego</font></strong> (<em>bool</em>)<br />
@@ -5089,10 +5089,10 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 创建一个包含所需设置的对象，这些设置稍后可以通过 <a href="#carla.World">carla.World</a> 及其方法 <strong><font color="#7fb800">apply_settings()</font></strong> 应用。<ul>
 <li><strong>参数:</strong><ul>
 <li><code>synchronous_mode</code> (<em>bool</em>) - 启用客户端-服务器则设置为 true。  </li>
-<li><code>no_rendering_mode</code> (<em>bool</em>) - 在仿真中完全禁用渲染则设置为 true。</li>
+<li><code>no_rendering_mode</code> (<em>bool</em>) - 在模拟中完全禁用渲染则设置为 true。</li>
 <li><code>fixed_delta_seconds</code> (<em>float<small> - seconds</small></em>) - 在帧之间设置为固定的步长。 <code>0.0</code> 意味着变步长且为模式模式。  </li>
 <li><code>max_culling_distance</code> (<em>float<small> - 米</small></em>) - 对于关卡的每一个网格配置最大的绘制距离。  </li>
-<li><code>deterministic_ragdolls</code> (<em>bool</em>) - 对于行人死亡使用确定的物理或布娃娃仿真定义wether。  </li>
+<li><code>deterministic_ragdolls</code> (<em>bool</em>) - 对于行人死亡使用确定的物理或布娃娃模拟定义wether。  </li>
 <li><code>tile_stream_distance</code> (<em>float<small> - 米</small></em>) - 仅用于大地图。从英雄车辆到流瓦片地图配置最大距离。 </li>
 <li><code>actor_active_distance</code> (<em>float<small> - 米</small></em>) - 仅用于大地图。配置与英雄车辆的距离以将参与者转换为休眠状态。</li>
 <li><code>spectator_as_ego</code> (<em>bool</em>) - 仅用于大地图。在大型贴图中定义观众对平铺加载的影响。</li>
@@ -5127,7 +5127,7 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 <li><a name="carla.WorldSnapshot.id"></a><strong><font color="#f8805a">id</font></strong> (<em>int</em>)<br />
 为了分辨每一个快照的唯一值。  </li>
 <li><a name="carla.WorldSnapshot.frame"></a><strong><font color="#f8805a">frame</font></strong> (<em>int</em>)<br />
-获取快照时的仿真时间。  </li>
+获取快照时的模拟时间。  </li>
 <li><a name="carla.WorldSnapshot.timestamp"></a><strong><font color="#f8805a">timestamp</font></strong> (<em><a href="#carla.Timestamp">carla.Timestamp</a><small> - seconds</small></em>)<br />
 获取快照时候的精确时刻。由操作系统给出的以秒为单位的类。</li>
 </ul>
@@ -5429,7 +5429,7 @@ Actor affected by the command.  </li>
 </ul>
 <hr />
 <h2 id="commanddestroyactor">command.DestroyActor<a name="command.DestroyActor"></a></h2>
-<p><a href="#carla.Actor">carla.Actor</a> 中 <strong><font color="#7fb800">destroy()</font></strong> 命令的改编版，将告诉仿真器销毁该参与者。如果参与者已经被销毁则没有影响。当在 <a href="#carla.Client">carla.Client</a> 中执行 <strong><font color="#7fb800">apply_batch_sync()</font></strong> 将会返回一个布尔值状态表示参与者是否被成功销毁。</p>
+<p><a href="#carla.Actor">carla.Actor</a> 中 <strong><font color="#7fb800">destroy()</font></strong> 命令的改编版，将告诉模拟器销毁该参与者。如果参与者已经被销毁则没有影响。当在 <a href="#carla.Client">carla.Client</a> 中执行 <strong><font color="#7fb800">apply_batch_sync()</font></strong> 将会返回一个布尔值状态表示参与者是否被成功销毁。</p>
 <h3 id="_278">实例变量</h3>
 <ul>
 <li><a name="command.DestroyActor.actor_id"></a><strong><font color="#f8805a">actor_id</font></strong> (<em>int</em>)<br />

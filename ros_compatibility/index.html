@@ -75,7 +75,7 @@
 <p>默认情况下，在 ROS 2 中设置或访问参数之前需要声明参数。ROS 1 中并非如此。为了保持 ROS 1 和 ROS 2 模式以相似的方式工作，在 ROS 2 的<code>CompatibleNode</code>版本中将参数 <code>allow_undeclared_parameters</code> 设置为<code>True</code>，允许使用参数 <code>TrueCompatibleNode</code> 而无需事先声明。</p>
 <hr />
 <h2 id="_1">服务</h2>
-<p>在 ROS 2 中，服务可以异步调用。ROS 1 中并非如此。因此，ROS 2 版本的<code>call_service()</code>方法在异步调用后会等待服务器的响应，以仿真 ROS 1 的同步行为。</p>
+<p>在 ROS 2 中，服务可以异步调用。ROS 1 中并非如此。因此，ROS 2 版本的<code>call_service()</code>方法在异步调用后会等待服务器的响应，以模拟 ROS 1 的同步行为。</p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>在等待响应时，ROS 2 的<code>call_service()</code>方法会旋转节点。如果另一个线程并行旋转同一节点，这可能会导致问题（错误或死锁）。</p>

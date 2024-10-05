@@ -124,7 +124,7 @@ agent.set_destination(destination)
 <pre><code class="language-py">while True：
     vehicle.apply_control(agent.run_step())
 </code></pre>
-<p><strong>6.</strong> 您可以检查代理是否已完成其轨迹并在发生这种情况时执行操作。一旦您的车辆到达目的地，以下代码段将结束仿真：</p>
+<p><strong>6.</strong> 您可以检查代理是否已完成其轨迹并在发生这种情况时执行操作。一旦您的车辆到达目的地，以下代码段将结束模拟：</p>
 <pre><code class="language-py">while True：
     if agent.done（）：
         print(&quot;The taerget has been reached, stopping the simulation&quot;)
@@ -132,7 +132,7 @@ agent.set_destination(destination)
 
     vehicle.apply_control(agent.run_step())
 </code></pre>
-<p><strong>7.</strong> 不是在代理到达其目标目的地时完成仿真，而是可以生成一条新的随机路线供代理遵循：</p>
+<p><strong>7.</strong> 不是在代理到达其目标目的地时完成模拟，而是可以生成一条新的随机路线供代理遵循：</p>
 <pre><code class="language-py">while True：
     if agent.done():   
         agent.set_destination(random.choice(spawn_points).location)
@@ -210,7 +210,7 @@ class CustomAgent(BasicAgent):
         执行一步导航
         :return: carla.VehicleControl
         &quot;&quot;&quot;
-        # 在每个仿真步骤中采取的行动
+        # 在每个模拟步骤中采取的行动
         control = carla.VehicleControl()
         return control
 </code></pre>

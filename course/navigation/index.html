@@ -102,7 +102,7 @@
         default=5,
         type=int)
 </code></pre>
-<p>获取仿真时间对象及设置</p>
+<p>获取模拟时间对象及设置</p>
 <pre><code class="language-python">client = carla.Client('localhost', 2000)
 client.set_timeout(10)
 world = client.get_world()
@@ -127,7 +127,7 @@ spawn_point = carla.Transform(spawn_location, spawn_rotation) #车辆起点
 ego_vehicle_bp = blueprint_library.find('vehicle.audi.tt')
 ego_vehicle_bp.set_attribute('color', '100, 250, 250')
 vehicle = world.spawn_actor(ego_vehicle_bp, spawn_point)
-#推进仿真环境时间
+#推进模拟环境时间
 world.tick()
 </code></pre>
 <p>生成终点，给起点和终点生成一个车辆运行轨迹，定义初始速度<span id="initSpeed"></span></p>
@@ -140,7 +140,7 @@ start = vehicle.get_location()
 # 生成轨迹
 agent.set_destination(destination)
 </code></pre>
-<p>给目标车辆设置多个相机传感器。这些相机可以提供不同的视角,用于观察和记录车辆在仿真环境中的行为。</p>
+<p>给目标车辆设置多个相机传感器。这些相机可以提供不同的视角,用于观察和记录车辆在模拟环境中的行为。</p>
 <pre><code class="language-python"># 查找相机蓝图
 camera_bp = world.get_blueprint_library().find('sensor.camera.rgb')
 

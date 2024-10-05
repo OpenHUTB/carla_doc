@@ -75,7 +75,7 @@
 <li>Carla 中可以使用的不同格式的地图以及每种格式的限制。</li>
 <li>如何将本机<code>.osm</code>格式转换为<code>.xodr</code>。</li>
 <li>如何在<code>.xodr</code>文件中包含交通灯信息。</li>
-<li>如何在 Carla 仿真中运行最终地图。</li>
+<li>如何在 Carla 模拟中运行最终地图。</li>
 </ul>
 <p><a href="https://www.openstreetmap.org">OpenStreetMap</a> 是由数千名贡献者开发的开放数据世界地图，并根据<a href="https://opendatacommons.org/licenses/odbl/">Open Data Commons Open Database License</a> 获得许可。地图的各个部分可以导出为 XML 格式的<code>.osm</code>文件。Carla 可以将此文件转换为 OpenDRIVE 格式并使用 <a href="#adv_opendrive.md">OpenDRIVE Standalone Mode</a> 导入它。</p>
 <ul>
@@ -185,7 +185,7 @@ xodr_data = carla.Osm2Odr.convert(osm_data, settings)
 <a href="#b-pass-xodr-to-configpy"><strong>B)</strong></a> 将转换后的<code>.xodr</code>文件作为参数传递给 Carla <code>config.py</code> 脚本。<strong>此方法不允许参数化。</strong>
 <a href="#c-pass-osm-to-configpy"><strong>C)</strong></a> 将原始<code>.osm</code>文件作为参数传递给 Carla <code>config.py</code> 脚本。<strong>此方法不允许参数化。</strong></p>
 <h6 id="a">A) 使用您自己的脚本</h6>
-<p>生成新地图并阻止仿真，直到通过调用 <a href="../python_api/#carla.Client.generate_opendrive_world"><code>client.generate_opendrive_world()</code></a> 准备就绪。使用<a href="../python_api/#carla.OpendriveGenerationParameters">carla.OpendriveGenerationParameters</a>类配置网格生成。请参阅下面的示例：</p>
+<p>生成新地图并阻止模拟，直到通过调用 <a href="../python_api/#carla.Client.generate_opendrive_world"><code>client.generate_opendrive_world()</code></a> 准备就绪。使用<a href="../python_api/#carla.OpendriveGenerationParameters">carla.OpendriveGenerationParameters</a>类配置网格生成。请参阅下面的示例：</p>
 <pre><code class="language-py">vertex_distance = 2.0  # 以米为单位
 max_road_length = 500.0 # 以米为单位
 wall_height = 0.0      # 以米为单位

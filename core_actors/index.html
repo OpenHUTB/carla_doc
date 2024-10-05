@@ -69,7 +69,7 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="_1">第二、参与者和蓝图</h1>
-<p>Carla 中的参与者是在仿真中执行动作的元素，他们可以影响其他参与者。Carla 的参与者包括车辆和行人，也包括传感器、交通标志、红绿灯和观看者。对如何操作它们有充分的了解是至关重要的。 </p>
+<p>Carla 中的参与者是在模拟中执行动作的元素，他们可以影响其他参与者。Carla 的参与者包括车辆和行人，也包括传感器、交通标志、红绿灯和观看者。对如何操作它们有充分的了解是至关重要的。 </p>
 <p>本节将介绍生成、销毁、类型以及如何管理它们。然而，可能性几乎是无穷无尽的。实验、查看本文档中的 <strong>教程</strong>，并在 <a href="https://github.com/carla-simulator/carla/discussions/">Carla 论坛</a> 中分享疑虑和想法。</p>
 <ul>
 <li><a href="#blueprints"><strong>蓝图</strong></a>  <ul>
@@ -93,7 +93,7 @@
 </ul>
 <hr />
 <h2 id="_2">蓝图 <span id="blueprints"></span></h2>
-<p>这些布局允许用户将新的参与者平滑地结合到仿真中。它们已经是带有动画和一系列属性的模型。其中一些是可修改的，而另一些则不是。这些属性包括车辆颜色、激光雷达传感器中的通道数量、行人的速度等等。</p>
+<p>这些布局允许用户将新的参与者平滑地结合到模拟中。它们已经是带有动画和一系列属性的模型。其中一些是可修改的，而另一些则不是。这些属性包括车辆颜色、激光雷达传感器中的通道数量、行人的速度等等。</p>
 <p><a href="../bp_library/">蓝图库</a> 列出了可用的蓝图及其属性。车辆和行人蓝图具有一个生成属性，用于指示它们是新的（第 2 代）资产还是旧的（第 1 代）资产。</p>
 <h3 id="_3">管理蓝图库 <span id="managing-the-blueprint-library"></span></h3>
 <p><a href="../python_api/#carla.BlueprintLibrary">carla.BlueprintLibrary</a> 类包含一系列 <a href="../python_api/#carla.ActorBlueprint">carla.ActorBlueprint</a> 元素。它是能够提供对它访问的世界对象。</p>
@@ -186,7 +186,7 @@ actor.set_location(location)
 <p>除此之外，参与者还有他们的蓝图提供的标签。这些对于语义分割传感器最有用。</p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
-<p>大多数方法是异步向仿真器发送请求。仿真器每次更新解析它们的时间有限。使用 <em>set()</em> 方法淹没仿真器将积累明显的延迟。</p>
+<p>大多数方法是异步向模拟器发送请求。模拟器每次更新解析它们的时间有限。使用 <em>set()</em> 方法淹没模拟器将积累明显的延迟。</p>
 </div>
 <h3 id="_7">销毁 <span id="destruction"></span></h3>
 <p>当 Python 脚本完成时，不回销毁参与者。他们必须明确地销毁自己。</p>
@@ -194,7 +194,7 @@ actor.set_location(location)
 </code></pre>
 <div class="admonition 重要">
 <p class="admonition-title">重要</p>
-<p>销毁参与者会阻塞仿真器，直到该过程完成。</p>
+<p>销毁参与者会阻塞模拟器，直到该过程完成。</p>
 </div>
 <hr />
 <h2 id="_8">参与者类型  <span id="types-of-actors"></span></h2>
@@ -211,15 +211,15 @@ camera.listen(lambda image: image.save_to_disk('output/%06d.png' % image.frame))
 <li>传感器 <strong>监听</strong> 数据。收到数据后，它们会调用用 <strong><a href="https://docs.python.org/3/reference/expressions.html">Lambda 表达式</a></strong> 描述的函数<small>(提供的链接中的 6.14)</small>。 </li>
 </ul>
 <h3 id="_10">观察者 <span id="spectator"></span></h3>
-<p>由虚幻引擎放置以提供游戏内的视角。它可用于移动仿真器窗口的视角。以下示例将移动观众参与者，将视角指向所需的车辆。</p>
+<p>由虚幻引擎放置以提供游戏内的视角。它可用于移动模拟器窗口的视角。以下示例将移动观众参与者，将视角指向所需的车辆。</p>
 <pre><code class="language-py">spectator = world.get_spectator()
 transform = vehicle.get_transform()
 spectator.set_transform(carla.Transform(transform.location + carla.Location(z=50),
 carla.Rotation(pitch=-90)))
 </code></pre>
 <h3 id="_11">交通标志和交通灯 <span id="traffic-signs-and-traffic-lights"></span></h3>
-<p>到目前为止，Carela 中只有停靠点、让行路线和交通信号灯被视为参与者。其余的 OpenDRIVE 标志可通过 API 作为地标（<a href="../python_api/#carla.Landmark"><strong>carla.Landmark</strong></a>）进行访问。他们的信息可以使用这些实例访问，但他们在仿真中并不作为参与者存在。在接下来的 <strong>第 3 部分 地图和导航</strong> 中将更详细地解释地标。 </p>
-<p>当仿真开始、停止、让行和交通灯时，会使用 OpenDRIVE 文件中的信息自动生成。<strong>这些都无法在蓝图库中找到</strong>，因此无法生成。</p>
+<p>到目前为止，Carela 中只有停靠点、让行路线和交通信号灯被视为参与者。其余的 OpenDRIVE 标志可通过 API 作为地标（<a href="../python_api/#carla.Landmark"><strong>carla.Landmark</strong></a>）进行访问。他们的信息可以使用这些实例访问，但他们在模拟中并不作为参与者存在。在接下来的 <strong>第 3 部分 地图和导航</strong> 中将更详细地解释地标。 </p>
+<p>当模拟开始、停止、让行和交通灯时，会使用 OpenDRIVE 文件中的信息自动生成。<strong>这些都无法在蓝图库中找到</strong>，因此无法生成。</p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>OpenDRIVE 文件中的 Carela 地图没有交通标志或信号灯。这些是由开发人员手动放置的。 </p>
@@ -242,7 +242,7 @@ if traffic_light.get_state() == carla.TrafficLightState.Red:
 <p>只有当信号灯为红色时，车辆才会意识到交通灯。</p>
 </div>
 <h3 id="_12">车辆 <span id="vehicles"></span></h3>
-<p><a href="../python_api/#carla.Vehicle"><strong>carla.Vehicle</strong></a> 是一种特殊类型的参与者。它采用了仿真轮式车辆物理特性的特殊内部组件。这是通过应用四种不同的控件来实现的：</p>
+<p><a href="../python_api/#carla.Vehicle"><strong>carla.Vehicle</strong></a> 是一种特殊类型的参与者。它采用了模拟轮式车辆物理特性的特殊内部组件。这是通过应用四种不同的控件来实现的：</p>
 <ul>
 <li><strong><a href="../python_api/#carla.VehicleControl">carla.VehicleControl</a></strong> 提供油门、转向、刹车等驾驶命令的输入。</li>
 </ul>
@@ -271,7 +271,7 @@ vehicle.apply_physics_control(physics_control)
 </code></pre>
 <p>车辆还包括其独有的其他功能：</p>
 <ul>
-<li><strong>自动驾驶模式</strong> 会将车辆订阅到 <a href="../adv_traffic_manager/">交通管理器</a> 以仿真真实的城市状况。该模块是硬编码的，不是基于机器学习的。</li>
+<li><strong>自动驾驶模式</strong> 会将车辆订阅到 <a href="../adv_traffic_manager/">交通管理器</a> 以模拟真实的城市状况。该模块是硬编码的，不是基于机器学习的。</li>
 </ul>
 <pre><code class="language-py">vehicle.set_autopilot(True)
 </code></pre>
