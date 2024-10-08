@@ -273,7 +273,7 @@ for location in lidar_measurement:
 | `horizontal_fov`   | float | 360.0 | 水平视野（以度为单位），0 - 360。                                                                         |
 | `atmosphere_attenuation_rate`     | float  | 0.004 | 测量每米激光雷达强度损失的系数。检查上面的强度计算。 |
 | `dropoff_general_rate`          | float  | 0.45  | 随机丢弃的点的一般比例。                                                                                 |
-| `dropoff_intensity_limit`       | float  | 0.8   | 对于基于强度的下降，强度阈值，高于该值则不会下降任何点。                                                                 |
+| `dropoff_intensity_limit`       | float  | 0.8   | 对于基于强度的下降，高于该阈值的强度值没有任何点被下降。                                                                 |
 | `dropoff_zero_intensity`        | float  | 0.4   | 对于基于强度的下降，每个强度为零的点被下降的概率。                                                                    |
 | `sensor_tick`      | float  | 0.0   | 传感器捕获之间的模拟秒数（节拍）。                                                                          |
 | `noise_stddev`     | float  | 0.0   | 噪声模型的标准偏差，用于干扰沿其光线投射矢量的每个点。 |
