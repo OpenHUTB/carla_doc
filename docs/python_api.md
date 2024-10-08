@@ -1958,7 +1958,7 @@ Y 轴偏移。默认值为 __0.0__。
 
 ## carla.Rotation<a name="carla.Rotation"></a>
 表示 3D 旋转以及空间方向的类。 Carla 使用虚幻引擎坐标系，在虚幻引擎世界里，空间坐标的单位是厘米。其设计基于第一人称视觉：X 轴正方向表示向前，Y 轴正方向表示向右，Z 轴正方向表示向上。  <br>
-<br>构造函数方法遵循特定的声明顺序： `(pitch, yaw, roll)` 对应于 `(Y-rotation,Z-rotation,X-rotation)`.  <br> <br>![UE4_Rotation](https://d26ilriwvtzlb.cloudfront.net/8/83/BRMC_9.jpg) *虚幻引擎的坐标系*。  
+<br>构造函数方法遵循特定的声明顺序： `(pitch, yaw, roll)` 对应于 `(Y-rotation,Z-rotation,X-rotation)`.  <br> <br>![UE4_Rotation](img/unreal_lhcs.png) *虚幻引擎的坐标系*。  
 
 ### 实例变量
 - <a name="carla.Rotation.pitch"></a>**<font color="#f8805a">pitch</font>** (_float<small> - 度</small>_)  
