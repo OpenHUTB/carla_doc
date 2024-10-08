@@ -2357,15 +2357,15 @@ IF (ReceivedPower &gt;= receiver_sensitivity)
 <h4 id="_47">协同感知消息 <span id="cooperative-awareness-message"></span></h4>
 <ul>
 <li><strong>蓝图：</strong> sensor.other.v2x</li>
-<li><strong>输出：</strong> <a href="../python_api/#carla.CAMData">carla.CAMData</a>, 根据 ETSI CAM (European Telecommunications Standards Institute , Cooperative Awareness Message，欧洲通信标准协会，协同警示消息) 标准触发，除非另有配置</li>
+<li><strong>输出：</strong> <a href="../python_api/#carla.CAMData">carla.CAMData</a>, 根据 ETSI CAM (European Telecommunications Standards Institute , Cooperative Awareness Message，欧洲通信标准协会，<a href="https://fanqienovel.com/reader/7110149289141079072">协作感知消息</a> ) 标准触发，除非另有配置</li>
 </ul>
 <p>根据 ETSI 标准的触发条件：
-- 航向角变化 &gt; $4$°
-- 位置差 &gt; $4$ m
-- 速度变化 &gt; $5$ m/s
+- 航向角变化 &gt; 4°
+- 位置差 &gt; 4 m
+- 速度变化 &gt; 5 m/s
 - 经过时间 &gt; CAM 生成时间（可配置）
--  低频容器经过时间 $&gt; 500$ ms</p>
-<p>对于 CAM V2X 传感器，适用其他蓝图属性：</p>
+-  低频容器经过时间 &gt; 500 ms</p>
+<p>对于 CAM V2X 传感器，使用额外的蓝图属性：</p>
 <table>
 <thead>
 <tr>
@@ -2385,13 +2385,13 @@ IF (ReceivedPower &gt;= receiver_sensitivity)
 <tr>
 <td>gen_cam_min</td>
 <td>float</td>
-<td>$0.1$</td>
+<td>0.1</td>
 <td>两个连续 CAM 之间的最短时间间隔（秒）</td>
 </tr>
 <tr>
 <td>gen_cam_max</td>
 <td>float</td>
-<td>$1.0$</td>
+<td>1.0</td>
 <td>两个连续 CAM 之间的最大时间间隔（秒）</td>
 </tr>
 <tr>
@@ -2528,31 +2528,31 @@ sensor.send("Hello CARLA")
 <tr>
 <td>transmit_power</td>
 <td>float</td>
-<td>$21.5$</td>
+<td>21.5</td>
 <td>发送方传输功率（单位：dBm）</td>
 </tr>
 <tr>
 <td>receiver_sensitivity</td>
 <td>float</td>
-<td>$-99$</td>
+<td>-99</td>
 <td>接收器灵敏度（单位：dBm）</td>
 </tr>
 <tr>
 <td>frequency_ghz</td>
 <td>float</td>
-<td>$5.9$</td>
+<td>5.9</td>
 <td>传输频率（GHz）。5.9 GHz 是多个物理信道的标准。</td>
 </tr>
 <tr>
 <td>noise_seed</td>
 <td>int</td>
-<td>$0$</td>
+<td>0</td>
 <td>噪声初始化的随机参数</td>
 </tr>
 <tr>
 <td>filter_distance</td>
 <td>float</td>
-<td>$500$</td>
+<td>500</td>
 <td>最大传输距离（以米为单位），上面的路径损耗计算因模拟速度而略过</td>
 </tr>
 <tr>
@@ -2564,13 +2564,13 @@ sensor.send("Hello CARLA")
 <tr>
 <td>combined_antenna_gain</td>
 <td>float</td>
-<td>$10.0$</td>
+<td>10.0</td>
 <td>发射机和接收机天线的组合增益（以 dBi 为单位），辐射效率和方向性的参数</td>
 </tr>
 <tr>
 <td>d_ref</td>
 <td>float</td>
-<td>$ 1.0 $</td>
+<td>1.0</td>
 <td>对数距离路径损耗模型的参考距离（单位：米）</td>
 </tr>
 <tr>
