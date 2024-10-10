@@ -76,7 +76,7 @@ cmake --build Build --target launch
 cmake --build Build --target package
 ```
 
-该包将在目录 `Build/Package` 中生成
+该包将在目录 `Build/Package` 中生成。
 
 ## 运行包
 
