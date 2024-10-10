@@ -137,4 +137,6 @@ world.player.apply_control(control)
 
 ## 可视化行人骨架
 
-[可视化骨架代码](https://github.com/OpenHUTB/carla_doc/blob/master/src/walker/draw_skeleton.py) 
+![](img/walker/draw_skeleton.png)
+
+可视化骨架代码 [链接](https://github.com/OpenHUTB/carla_doc/blob/master/src/walker/draw_skeleton.py) 。

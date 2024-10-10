@@ -31,7 +31,7 @@
 | intersection_offroad | float | 	 | 汽车越野的百分比。 |
 | autopilot_control | float | 	 | 车辆的自动驾驶控制将应用此框架。 |
 
-## 转换
+## 变换
 变换包含玩家的位置和旋转。
 
 | 键 | 类型 | 单位 | 描述 |

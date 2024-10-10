@@ -28,6 +28,7 @@
 ### 可变时间步长 <span id="variable-time-step"></span>
 
 Carla 中的默认模式。模拟时间步长是服务器计算这些步骤所需的时间。
+模拟尝试去跟上实时，每次更新都会稍微调整时间步长（模拟不可重复）。
 
 ```py
 settings = world.get_settings()
@@ -56,6 +57,14 @@ world.apply_settings(settings)
 ```sh
 cd PythonAPI/util && python3 config.py --delta-seconds 0.05
 ```
+
+另一种方式是指定模拟的FPS（即时间步长的倒数），例如，要以0.2秒的固定时间步长运行模拟，则执行：
+```shell
+cd PythonAPI/util && python3 config.py -fps=5
+```
+
+!!! 重要
+	**不要将帧速率降低到 10 FPS 以下**。我们的设置已调整为将物理引擎限制在最低 10 FPS。如果游戏节拍低于此值，物理引擎仍将模拟 10 FPS。在这种情况下，依赖于游戏增量时间的事物不再与物理引擎同步，参考问题 [#695](https://github.com/carla-simulator/carla/issues/695) 。
 
 ### 模拟记录 <span id="tips-when-recording-the-simulation"></span>
 

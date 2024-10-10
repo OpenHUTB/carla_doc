@@ -420,6 +420,8 @@ carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Vehicle/CustomTerrainPhysicsCom
 
 ###### ValueError: sticky_control: invalid value type <span id="value_error"></span>
 > 客户端和服务端的PythonAPI版本不一致，在dev分支开发时会出现。
+> 
+> 解决：服务端是dev分支，PythonAPI也要使用在dev分支上编译的客户端。
 
 ---
 

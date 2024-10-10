@@ -269,5 +269,7 @@ title: 主页
 
 [__记录器二进制文件格式__](ref_recorder_binary_file_format.md) — 记录器文件格式的详细说明
 
+[__测量和数据包__](measurements.md) - 描述服务器每帧向客户端发送一个包含测量值和收集到图像数据包的详细信息
+
 [__扩展文档__](ext_docs.md) — 其他
 
