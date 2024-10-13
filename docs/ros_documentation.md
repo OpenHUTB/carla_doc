@@ -14,7 +14,7 @@ ROS 桥具有以下特点：
 - 控制 Carla 模拟的各个方面，例如同步模式、播放和暂停模拟以及设置模拟参数。
 
 ## 开始使用
-
+- [__通过虚拟机设置并连接到 Carla 仿真器__](ros/set_up_and_connect_to_carla.md)
 - [__为 ROS 1 安装 ROS 桥__](ros_installation_ros1.md)
 - [__为 ROS 2 安装 ROS 桥__](ros_installation_ros2.md)
 

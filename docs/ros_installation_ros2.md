@@ -58,17 +58,17 @@ colcon build
 
 ## 运行ROS桥
 
-__1.__ Start a CARLA server according to the installation method used to install CARLA:
+__1.__ 请根据安装 CARLA 时使用的安装方法启动 CARLA 服务器：
 
 ```sh
-    # Package version in carla root folder
-    ./CarlaUE4.sh
+# 在 Carla的根目录中运行打包好的版本
+./CarlaUE4.sh
 
-    # Debian installation in `opt/carla-simulator/`
-    ./CarlaUE4.sh
+# 在`opt/carla-simulator/`的 Debian 安装 
+./CarlaUE4.sh
 
-    # Build from source version in carla root folder
-    make launch
+# 在 Carla 的根目录中从源代码构建
+make launch
 ```
 
 __2.__ Add the correct CARLA modules to your Python path:
@@ -132,13 +132,6 @@ __2.__ Run the tests:
 ---
 
 ## Windows下安装
-根据[链接](https://docs.ros.org/en/foxy/Installation/Windows-Install-Binary.html) 安装ROS2。
+根据[链接](./ros/windows-install_binary.md) 安装ROS2。
 
-1.根据[链接](https://chocolatey.org/install?_gl=1*1t2vzhg*_ga*MjA0Njg1OTQ3NC4xNzI3MzQ2NDc2*_ga_0WDD29GGN2*MTcyNzM0NjQ3Ni4xLjEuMTcyNzM0NjUxMS4wLjAuMA..) 安装chocolate
-使用PowerShell运行`Get-ExecutionPolicy`，如果返回`Restricted`，然后运行`Set-ExecutionPolicy AllSigned`。
-
-然后运行
-```shell
-Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
-```
 
