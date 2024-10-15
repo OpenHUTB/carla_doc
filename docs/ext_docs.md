@@ -6,8 +6,6 @@
 
 [__训练数据生成__](https://github.com/leunark/carla-dataset-gen) — 生成各种驾驶场景并捕获各种传感器数据。
 
-[__画线__](https://github.com/suayu/Carla_line_drawer) — 在模拟器中绘制俯视相机中的线，并保存参考点。
-
 
 ## 场景
 

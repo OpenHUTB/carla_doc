@@ -70,3 +70,7 @@ python 10_manual_control.py
 示例 10: 手动控制
 
 ![](img/tuto_E_gallery/10_manual_control.gif)
+
+示例 11：太阳高度的快速变化
+
+![](img/tuto_E_gallery/11_sun_position.png)

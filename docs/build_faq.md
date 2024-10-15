@@ -47,6 +47,7 @@ Carla 论坛</a>
 * [osm2odr-visualstudio为空，或者拷贝过去的目录不对](#osm2odr_is_null)
 * [类型转换不对](#type_conversion_error)
 * [链接不到osm2odr.lib](#link_osm2odr_failed)
+* [编译器的堆空间不足](#heap_lack)
 
 ---
 
@@ -329,6 +330,21 @@ carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Vehicle/CustomTerrainPhysicsCom
 > `fatal error LNK1181: carla\Unreal\CarlaUE4\Plugins\Carla\CarlaDependencies\lib\osm2odr.lib`
 
 > 从其他地方拷贝过来。
+
+
+######  编译器的堆空间不足 <span id="heap_lack"></span>
+> 编译虚幻引擎4时，出现`C1060` 编译器的堆空间不足，说明机器的内存不够，可以参考[链接](https://ue5wiki.com/wiki/32770/) 限制所使用的核心数（默认是使用所有核心数）。
+> 修改`Engine/Saved/UnrealBuildTool/BuildConfiguration.xml`中的`MaxProcessorCount`：
+```shell
+<?xml version="1.0" encoding="utf-8" ?>
+<Configuration xmlns="https://www.unrealengine.com/BuildConfiguration">
+  <ParallelExecutor>
+    <ProcessorCountMultiplier>7</ProcessorCountMultiplier>
+    <MaxProcessorCount>7</MaxProcessorCount>
+    <bStopCompilationAfterErrors>true</bStopCompilationAfterErrors>
+  </ParallelExecutor>
+</Configuration>
+```
 
 ---
 
