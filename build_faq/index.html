@@ -111,6 +111,7 @@ Carla 论坛</a>
 <li><a href="#osm2odr_is_null">osm2odr-visualstudio为空，或者拷贝过去的目录不对</a></li>
 <li><a href="#type_conversion_error">类型转换不对</a></li>
 <li><a href="#link_osm2odr_failed">链接不到osm2odr.lib</a></li>
+<li><a href="#heap_lack">编译器的堆空间不足</a></li>
 </ul>
 <hr />
 <h2 id="carla">运行 Carla</h2>
@@ -341,6 +342,20 @@ export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla</code></p>
 <p><code>fatal error LNK1181: carla\Unreal\CarlaUE4\Plugins\Carla\CarlaDependencies\lib\osm2odr.lib</code></p>
 <p>从其他地方拷贝过来。</p>
 </blockquote>
+<h6 id="_8">编译器的堆空间不足 <span id="heap_lack"></span></h6>
+<blockquote>
+<p>编译虚幻引擎4时，出现<code>C1060</code> 编译器的堆空间不足，说明机器的内存不够，可以参考<a href="https://ue5wiki.com/wiki/32770/">链接</a> 限制所使用的核心数（默认是使用所有核心数）。
+修改<code>Engine/Saved/UnrealBuildTool/BuildConfiguration.xml</code>中的<code>MaxProcessorCount</code>：</p>
+</blockquote>
+<pre><code class="language-shell">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+&lt;Configuration xmlns=&quot;https://www.unrealengine.com/BuildConfiguration&quot;&gt;
+  &lt;ParallelExecutor&gt;
+    &lt;ProcessorCountMultiplier&gt;7&lt;/ProcessorCountMultiplier&gt;
+    &lt;MaxProcessorCount&gt;7&lt;/MaxProcessorCount&gt;
+    &lt;bStopCompilationAfterErrors&gt;true&lt;/bStopCompilationAfterErrors&gt;
+  &lt;/ParallelExecutor&gt;
+&lt;/Configuration&gt;
+</code></pre>
 <hr />
 <h2 id="carla_3">运行 Carla</h2>
 <!-- ======================================================================= -->
@@ -352,14 +367,14 @@ export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla</code></p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="_8">无法运行脚本。 <span id="cant-run-a-script"></span></h6>
+<h6 id="_9">无法运行脚本。 <span id="cant-run-a-script"></span></h6>
 <blockquote>
 <p>有些脚本有要求。这些列在名为 <strong>Requirements.txt</strong> 的文件中，与脚本本身位于同一路径中。请务必检查这些以便运行脚本。其中大多数可以通过简单的<code>pip</code>命令进行安装。</p>
 <p>有时在 Windows 上，脚本无法仅使用 <code>&gt; script_name.py</code> 运行。尝试添加. Try adding <code>&gt; python3 script_name.py</code>，并确保位于正确的目录中。</p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="_9">在虚幻编辑器中运行时连接到模拟器。 <span id="connect-to-the-simulator-while-running-within-unreal-editor"></span></h6>
+<h6 id="_10">在虚幻编辑器中运行时连接到模拟器。 <span id="connect-to-the-simulator-while-running-within-unreal-editor"></span></h6>
 <blockquote>
 <p>单击“运行”（ <strong>Play</strong> ）并等待场景加载。此时，Python 客户端可以像独立模拟器一样连接到模拟器。</p>
 </blockquote>
@@ -424,7 +439,7 @@ export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla</code></p>
 <p>解决：服务端是dev分支，PythonAPI也要使用在dev分支上编译的客户端。</p>
 </blockquote>
 <hr />
-<h2 id="_10">其他</h2>
+<h2 id="_11">其他</h2>
 <!-- ======================================================================= -->
 
 <h6 id="fatal-error-versionh-has-been-modified-since-the-precompiled-header">Fatal error: 'version.h' has been modified since the precompiled header. <span id="fatal-error-versionh-has-been-modified-since-the-precompiled-header"></span></h6>
@@ -469,6 +484,7 @@ pip uninstall carla
     <!-- Copyright etc -->
   </div>
 
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>
