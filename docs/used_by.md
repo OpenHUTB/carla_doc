@@ -2,15 +2,13 @@
 
 <!-- 开始：https://github.com/manuandru/svs-lab02 -->
 
-<!-- 开始收集页面（没完成，每页30个仓库）：https://github.com/carla-simulator/carla/network/dependents?dependents_after=MTE1OTcyMTkxODE --> 
+<!-- https://github.com/Robot-K/Hint-AD --> 
 
-<!-- 已完成到的仓库：https://github.com/xingyifei2016/scenario_runner -->
+<!-- https://github.com/yagol2020/ADSFuzzEval -->
 
 
 
 ## 感知
-
-
 
 [驾驶事故视频识别](https://github.com/pichayakorn/carla-temporal-collage-prompting)
 
@@ -442,6 +440,8 @@
 [可解释的基于目标的自动驾驶预测和规划](https://github.com/uoe-agents/IGP2)
 
 [AI 可解释性模块集合](https://github.com/willparker123/fat-face)
+
+[端到端自动驾驶中整体一致的可解释性](https://github.com/Robot-K/Hint-AD)
 
 ## 安全
 

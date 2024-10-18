@@ -53,6 +53,7 @@ Carla 论坛</a>
 
 ## 运行 Carla
 
+* [运行Carla_0.9.12.sh时候报错：error while loading shared libraries: libomp.so.5](#load_libraries)
 * [在虚幻编辑器中运行服务器时 FPS 速率较低。](#low-fps-rate-when-running-the-server-in-unreal-editor)
 * [无法运行脚本。](#cant-run-a-script)
 * [当在虚幻编辑器中运行时链接到模拟器。](#connect-to-the-simulator-while-running-within-unreal-editor)
@@ -349,6 +350,12 @@ carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Vehicle/CustomTerrainPhysicsCom
 ---
 
 ## 运行 Carla
+<!-- ======================================================================= -->
+
+###### 运行Carla_0.9.12.sh时候报错：error while loading shared libraries: libomp.so.5。 <span id="load_libraries"></span>
+
+> sudo apt-get install libomp5
+
 <!-- ======================================================================= -->
 
 ###### 在虚幻编辑器中运行服务器时 FPS 速率较低。 <span id="low-fps-rate-when-running-the-server-in-unreal-editor"></span>

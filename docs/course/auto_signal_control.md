@@ -1,6 +1,6 @@
 # 自动信号控制
 
-这是一个基于Flask的应用程序，用于控制[Carla模拟环境](https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb)中的红绿灯。该应用程序通过检测路口的交通流量动态调整红绿灯的时长，以优化交通通行效率。
+这是一个基于Flask的应用程序，用于控制 [Carla模拟环境](https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb) 中的红绿灯。该应用程序通过检测路口的交通流量动态调整红绿灯的时长，以优化交通通行效率。
 
 #### 主要功能
 
@@ -89,13 +89,13 @@ def get_vehicles_in_intersection(world, intersection_location, intersection_radi
 **5.返回结果**：返回当前红绿灯的状态和调整后的时长信息。
 
 ```
- response_data = {
-            "traffic_lights": [
-                {"id": traffic_ids},
-                {"init_green_time": traffic_init_green_time},
-                {"last_green_time": last_green_time}
-            ]
-        }
+response_data = {
+        "traffic_lights": [
+            {"id": traffic_ids},
+            {"init_green_time": traffic_init_green_time},
+            {"last_green_time": last_green_time}
+        ]
+    }
 
 ```
 #### 使用步骤

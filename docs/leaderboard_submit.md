@@ -2,7 +2,7 @@
 # 为排行榜2.0版提交代理
 
 !!! 笔记
-    将您的代理提交给 Carla 自动驾驶排行榜，即表示您接受了使用条款。本页介绍了提交Leaderboard 2.0版本的代理，如果您使用的是Leaderboard1.0版本，请参阅本提交指南。
+    将您的代理提交给 Carla 自动驾驶排行榜，即表示您接受了使用条款。本页介绍了提交Leaderboard 2.0 版本的代理，如果您使用的是Leaderboard1.0版本，请参阅本提交指南。
 
 ## 一般步骤
 为了创建并提交您的代理，您应该拥有排行榜项目和 scenario_runner 的副本。如果不是这种情况，请先访问“入门”部分。
@@ -52,14 +52,14 @@ ${LEADERBOARD_ROOT}/scripts/make_docker.sh [--ros-distro|-r ROS_DISTRO]
 
 ## 创建新团队
 
-在 Eval AI 注册用户后，通过单击“参与者团队”部分创建一个新团队，如下所示。所有参与者都需要在 Carla 排行榜 2.0 中注册一个团队。
+在 Eval AI 注册用户后，通过单击“参与者团队”部分创建一个新团队（已创建团队OpenHUTB），如下所示。所有参与者都需要在 Carla 排行榜 2.0 中注册一个团队。
 
 ![](img/leaderboard/carla_team_added.png)
 AlphaDrive UI 中的团队创建屏幕。
 
 ## 申请加入 Carla 排行榜
 
-转至“所有挑战”部分并找到 Carla 排行榜挑战，或使用 [此链接](https://eval.ai/web/challenges/challenge-page/2098/overview) 。选择“参与”，然后选择一个参与团队来申请挑战。您需要等待 Carla 排行榜管理员验证您的团队。一旦您的团队通过验证，您就可以开始提交。
+转至“所有挑战”部分并找到 Carla 排行榜挑战，或使用 [Carla AD Challenge 2.0 链接](https://eval.ai/web/challenges/challenge-page/2098/overview) 。选择“参与”，然后选择一个参与团队来申请挑战。您需要等待 Carla 排行榜管理员验证您的团队。一旦您的团队通过验证，您就可以开始提交。
 
 ![](img/leaderboard/benchmark.png)
 基准部分。
