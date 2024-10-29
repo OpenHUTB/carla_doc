@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>概述 - 代理仿真文档</title>
+    <title>Leaderboard - 代理仿真文档</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "\u6982\u8ff0";
+        var mkdocs_page_name = "Leaderboard";
         var mkdocs_page_input_path = "leaderboard.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,7 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">概述</li>
+      <li class="breadcrumb-item active">Leaderboard</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/leaderboard.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -68,8 +68,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1">概述</h1>
+                <h1 id="_1"><a href="https://leaderboard.carla.org/">概述</a></h1>
+<!-- 翻译：https://www.cnblogs.com/kin-zhang/p/16395716.html -->
 <p>Carla 自动驾驶排行榜的主要目标是评估自动驾驶人员在现实交通场景中的驾驶熟练程度。排行榜作为社区的开放平台，对自动驾驶汽车代理进行公平且可重复的评估，简化了不同方法之间的比较。排行榜目前为 2.0 版本，仍支持 1.0 版本。</p>
+<ul>
+<li><a href="../leaderboard_get_started/">开始</a></li>
+<li><a href="../leaderboard_submit/">提交</a></li>
+<li><a href="https://leaderboard.carla.org/leaderboard/">排行榜</a></li>
+<li><a href="../leaderboard_challenge/">挑战</a></li>
+</ul>
 <h1 id="_2">任务</h1>
 <p>Carla 自动驾驶排行榜要求自动驾驶代理驾驶通过一组预定义的路线。对于每条路线，代理将在起点进行初始化，并引导其行驶至目的地点，并通过 GPS 样式坐标、地图坐标或路线指令提供路线描述。路线是在多种情况下定义的，包括高速公路、城市地区、住宅区和乡村环境。排行榜评估各种天气条件下的自动驾驶代理，包括日光场景、日落、雨、雾和夜晚等。</p>
 <p><img alt="motif_large" src="../img/leaderboard/motif_large.png" /></p>
@@ -136,27 +143,27 @@
 <p>排行榜 2.0 设有 2 条资格赛赛道，您的代理将需要通过具有简单驾驶场景的看不见的地图安全地导航一条简单的路线。每个 SENSOR 和 MAP 轨道都有其各自的限定符。您必须在预选赛中达到最低驾驶分数，才能允许向排行榜 2.0 主赛道提交代理。</p>
 <p>为了节省计算资源，预选赛将允许使用比主要竞争对手更严格的传感器套件，包括 0-4 个 RGB 摄像头、0-2 个雷达和 0-1 个激光雷达，以及全球导航卫星系统、IMU 和速度计（以及用于 MAP 赛道的 OpenDRIVE）。我们鼓励您使用限定符来确保您的自动驾驶堆栈已正确配置并在排行榜上正常运行。</p>
 <h1 id="_8">评估和指标</h1>
-<p>代理的驾驶熟练程度可以通过多种指标来表征。对于这个排行榜，我们选择了一组有助于了解驾驶不同方面的指标。虽然所有路由都具有相同类型的指标，但它们各自的值是单独计算的。具体指标如下：</p>
+<p>代理的驾驶熟练程度可以通过多种指标来表征。对于这个排行榜，我们选择了一组有助于了解驾驶不同方面的指标。虽然所有路线都具有相同类型的指标，但它们各自的值是单独计算的。具体指标如下：</p>
 <ul>
 <li>
-<p><strong>驾驶分数</strong>：({R_i P_i},) — 排行榜的主要指标，作为路线完成与违规处罚之间的乘积。这里(Ri)是 (i−th) 路线的完成百分比，而(Pi)是 (i−th) 路线的违规处罚。</p>
+<p><strong>驾驶分数</strong>：({R_i P_i},) — 排行榜的主要指标，作为路线完成与违规处罚之间的乘积。这里(R_i)是第 (i) 条路线的完成百分比，而(P_i)是第 (i) 条路线的违规处罚。</p>
 </li>
 <li>
-<p><strong>路线完成</strong>：客服人员完成的路线距离的百分比。</p>
+<p><strong>路线完成</strong>：代理完成的路线距离的百分比。</p>
 </li>
 <li>
-<p><strong>违规处罚</strong>: (\prod_j^{\text{ped., ..., stop}} ({p_i^j})^{\text{#infractions}_j}.) — 排行榜跟踪多种类型的违规行为该指标将代理触发的所有违规行为汇总为几何级数。代理的理想基础分数是1.0，每犯下一种类型的违规，该分数都会降低。</p>
+<p><strong>违规处罚</strong>: (\prod_j^{\text{ped., ..., stop}} ({p_i^j})^{\text{#infractions}_j}.) — 排行榜跟踪多种类型的违规行为，并且该指标将代理触发的所有违规行为汇总为几何级数。代理的理想基础分数是1.0，每犯下一种类型的违规，该分数都会降低。</p>
 </li>
 </ul>
-<p>当所有路由完成后，还会生成前三种类型中每一种的全局度量，即所有单独路由组合的算术平均值。全局驾驶分数是对您与其他参与者进行分类的主要指标。</p>
-<h2 id="_9">违规和关闭事件</h2>
+<p>当所有路线完成后，还会生成前三种类型中每一种的全局度量，即所有单独路线组合的算术平均值。全局驾驶分数是对您与其他参与者进行分类的主要指标。</p>
+<h2 id="_9">违规和停机事件</h2>
 <p>Carla 排行榜提供了一系列违规行为的单独指标。其中每一个都有一个惩罚系数，每次发生时都会应用该系数。按严重程度排序，违规行为如下。</p>
 <ul>
-<li><strong>与行人相撞</strong>— 0.50.</li>
-<li><strong>与其他车辆相撞</strong>— 0.60.</li>
-<li><strong>与静态元素的碰撞</strong>- 0.65.</li>
-<li><strong>闯红灯</strong>—— 0.70。</li>
-<li><strong>运行停车标志</strong>— 0.80.</li>
+<li><strong>与行人相撞</strong>— 0.50</li>
+<li><strong>与其他车辆相撞</strong>— 0.60</li>
+<li><strong>与静态元素的碰撞</strong>- 0.65</li>
+<li><strong>闯红灯</strong>—— 0.70</li>
+<li><strong>面对停车标志行驶</strong>— 0.80</li>
 </ul>
 <p>某些场景的行为可以无限期地阻止自我车辆。这些场景将有 4 分钟的超时时间，之后自动车辆将被释放以继续路线。但是，如果超过时限，则会受到处罚：</p>
 <ul>
@@ -170,32 +177,31 @@
 <p><strong>越野驾驶</strong>- 如果代理驾驶越野，则在计算路线完成分数时将不会考虑该路线的百分比。</p>
 <p>此外，某些事件会中断模拟，从而阻止代理继续进行。在这些情况下，正在模拟的路线将被关闭，排行榜将移至下一条，正常触发。</p>
 <ul>
-<li><strong>路线偏差</strong> 30- 如果客服人员偏离指定路线超过米。</li>
+<li><strong>路线偏差</strong> 30- 如果代理偏离指定路线超过米。</li>
 <li><strong>代理被阻止</strong> 180— 如果代理在模拟秒内没有采取任何操作。</li>
 <li><strong>模拟超时</strong>——如果在几秒钟内无法建立客户端-服务器通信60。</li>
-<li>
-<p><strong>路线超时</strong>- 如果路线模拟花费太长时间才能完成。
-每次发生上述任何情况时，都会记录一些详细信息，这些详细信息将显示为列表，供您查看路线的各个指标。以下是代理闯红灯并偏离路线的路线示例。</p>
-<p>"infractions": {
-  "Collisions with layout": [],
-  "Collisions with pedestrians": [],
-  "Collisions with vehicles": [],
-  "Red lights infractions": [
-        "Agent ran a red light 203 at (x=341.25, y=209.1, z=0.104)"
-  ],
-  "Stop sign infractions": [],
-  "Off-road infractions": [],
-  "Min speed infractions": [],
-  "Yield to emergency vehicle infractions": [],
-  "Scenario timeouts": [],
-  "Route deviations": [
-        "Agent deviated from the route at (x=95.92, y=165.673, z=0.138)"
-  ],
-  "Agent blocked": [],
-  "Route timeouts": []
-}</p>
-</li>
+<li><strong>路线超时</strong>- 如果路线模拟花费太长时间才能完成。
+每次发生上述任何情况时，都会记录一些详细信息，这些详细信息将显示为列表，供您查看路线的各个指标。以下是代理闯红灯并偏离路线的路线示例。</li>
 </ul>
+<pre><code class="language-json">&quot;infractions&quot;: {
+  &quot;Collisions with layout&quot;: [],
+  &quot;Collisions with pedestrians&quot;: [],
+  &quot;Collisions with vehicles&quot;: [],
+  &quot;Red lights infractions&quot;: [
+        &quot;Agent ran a red light 203 at (x=341.25, y=209.1, z=0.104)&quot;
+  ],
+  &quot;Stop sign infractions&quot;: [],
+  &quot;Off-road infractions&quot;: [],
+  &quot;Min speed infractions&quot;: [],
+  &quot;Yield to emergency vehicle infractions&quot;: [],
+  &quot;Scenario timeouts&quot;: [],
+  &quot;Route deviations&quot;: [
+        &quot;Agent deviated from the route at (x=95.92, y=165.673, z=0.138)&quot;
+  ],
+  &quot;Agent blocked&quot;: [],
+  &quot;Route timeouts&quot;: []
+}
+</code></pre>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>全局违规行为将各个路线的数据压缩为单个值，并以每公里的事件数给出。</p>
@@ -223,7 +229,6 @@
     <!-- Copyright etc -->
   </div>
 
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>

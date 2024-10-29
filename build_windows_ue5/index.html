@@ -83,6 +83,13 @@
 Setup.bat
 </code></pre>
 <p>Setup.bat 脚本会安装所有必需的软件包，包括 Visual Studio 2022、Cmake、Python 软件包和虚幻引擎 5。它还会下载 Carla 内容并构建 Carla。因此，此批处理文件可能需要很长时间才能完成。</p>
+<p>启动x64 Native tools</p>
+<pre><code class="language-shell">call &quot;C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat&quot;
+</code></pre>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>运行<code>set PATH=D:\software\cmake-3.30.3-windows-x86_64\bin;%PATH%</code>设置cmake版本，并使用虚拟环境执行<code>Setup.bat</code>。</p>
+</div>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <ul>
@@ -100,7 +107,7 @@ Setup.bat
 <p>确保定义 <code>CARLA_UNREAL_ENGINE_PATH</code> 环境变量，指向 Carla Unreal Engine 5.3 绝对路径。Setup.bat 设置此变量，但如果采用其他方法安装要求，则可能无法设置。此外，Carla UE4 使用的环境变量是 <code>UE4_ROOT</code>。</p>
 </div>
 <ul>
-<li><strong>配置</strong>。在 CarlaUE5 文件夹中打开 VS 2022 的 x64 Native Tools 命令提示符并运行以下命令：</li>
+<li><strong>配置</strong>。在 CarlaUE5 文件夹中打开 VS 2022 的 x64 Native Tools 命令提示符并运行以下命令（包括了下载并编译Carla的依赖库）：</li>
 </ul>
 <pre><code class="language-sh">cmake -G Ninja -S . -B Build -DCMAKE_BUILD_TYPE=Release -DBUILD_CARLA_UNREAL=ON -DCARLA_UNREAL_ENGINE_PATH=%CARLA_UNREAL_ENGINE_PATH%
 </code></pre>
@@ -166,6 +173,13 @@ git clone --depth 1 https://gitlab.scm321.com/ufx/xxxx.git</code></p>
 </blockquote>
 <pre><code class="language-shell">git config --global http.version HTTP/1.1
 </code></pre>
+<ul>
+<li>安装vs2022时出现win10 SDK安装错误：</li>
+</ul>
+<blockquote>
+<p>解决：通过 <a href="https://developer.microsoft.com/zh-cn/windows/downloads/sdk-archive/">链接</a> 下载版本<code>10.0.20348.0</code>的Win10 SDK进行安装。如果安装并启动vs2022后，仍出现：<code>找不到 windows sdk 版本 10.0.20348.0</code>的问题，则根据 <a href="https://blog.csdn.net/qq_74286834/article/details/142055699">链接</a> 进行修复即可。</p>
+<p>即将文件<code>C:\Windows Kits\10\DesignTime\CommonConfiguration\Neutral\UAP\10.0.20348.0\UAP.props</code>文件的第5行中<code>WindowsSdkDir</code>中增加<code>&lt;WindowsSdkDir Condition="'$(WindowsSdkDir)' == ''"&gt;</code>。</p>
+</blockquote>
               
             </div>
           </div><footer>
@@ -176,7 +190,6 @@ git clone --depth 1 https://gitlab.scm321.com/ufx/xxxx.git</code></p>
     <!-- Copyright etc -->
   </div>
 
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>

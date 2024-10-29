@@ -116,6 +116,7 @@ Carla 论坛</a>
 <hr />
 <h2 id="carla">运行 Carla</h2>
 <ul>
+<li><a href="#load_libraries">运行Carla_0.9.12.sh时候报错：error while loading shared libraries: libomp.so.5</a></li>
 <li><a href="#low-fps-rate-when-running-the-server-in-unreal-editor">在虚幻编辑器中运行服务器时 FPS 速率较低。</a></li>
 <li><a href="#cant-run-a-script">无法运行脚本。</a></li>
 <li><a href="#connect-to-the-simulator-while-running-within-unreal-editor">当在虚幻编辑器中运行时链接到模拟器。</a></li>
@@ -360,6 +361,12 @@ export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla</code></p>
 <h2 id="carla_3">运行 Carla</h2>
 <!-- ======================================================================= -->
 
+<h6 id="carla_0912sherror-while-loading-shared-libraries-libompso5">运行Carla_0.9.12.sh时候报错：error while loading shared libraries: libomp.so.5。 <span id="load_libraries"></span></h6>
+<blockquote>
+<p>sudo apt-get install libomp5</p>
+</blockquote>
+<!-- ======================================================================= -->
+
 <h6 id="fps">在虚幻编辑器中运行服务器时 FPS 速率较低。 <span id="low-fps-rate-when-running-the-server-in-unreal-editor"></span></h6>
 <blockquote>
 <p>虚幻4编辑器在失焦时会进入低性能模式。  </p>
@@ -484,7 +491,6 @@ pip uninstall carla
     <!-- Copyright etc -->
   </div>
 
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>
