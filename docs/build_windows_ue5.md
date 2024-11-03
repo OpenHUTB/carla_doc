@@ -23,6 +23,14 @@ Setup.bat
 
 Setup.bat 脚本会安装所有必需的软件包，包括 Visual Studio 2022、Cmake、Python 软件包和虚幻引擎 5。它还会下载 Carla 内容并构建 Carla。因此，此批处理文件可能需要很长时间才能完成。
 
+启动x64 Native tools
+```shell
+call "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"
+```
+
+!!! 注意
+    运行`set PATH=D:\software\cmake-3.30.3-windows-x86_64\bin;%PATH%`设置cmake版本，并使用虚拟环境执行`Setup.bat`。
+
 !!! 笔记
 
     * 此版本的 Carla 需要**虚幻引擎 5.3 的 Carla 分支**。您需要将您的 GitHub 帐户链接到 Epic Games，才能获得克隆虚幻引擎存储库的权限。如果您尚未链接您的帐户，请按照 [本指南](https://www.unrealengine.com/en-US/ue4-on-github) 操作
@@ -39,7 +47,7 @@ Setup.bat 文件本身启动以下命令，一旦您修改代码并希望重新�
 !!! 警告
     确保定义 `CARLA_UNREAL_ENGINE_PATH` 环境变量，指向 Carla Unreal Engine 5.3 绝对路径。Setup.bat 设置此变量，但如果采用其他方法安装要求，则可能无法设置。此外，Carla UE4 使用的环境变量是 `UE4_ROOT`。
 
-* **配置**。在 CarlaUE5 文件夹中打开 VS 2022 的 x64 Native Tools 命令提示符并运行以下命令：
+* **配置**。在 CarlaUE5 文件夹中打开 VS 2022 的 x64 Native Tools 命令提示符并运行以下命令（包括了下载并编译Carla的依赖库）：
 
 ```sh
 cmake -G Ninja -S . -B Build -DCMAKE_BUILD_TYPE=Release -DBUILD_CARLA_UNREAL=ON -DCARLA_UNREAL_ENGINE_PATH=%CARLA_UNREAL_ENGINE_PATH%
@@ -113,4 +121,10 @@ cmake --build Build --target package
 ```shell
 git config --global http.version HTTP/1.1
 ```
+
+- 安装vs2022时出现win10 SDK安装错误：
+
+> 解决：通过 [链接](https://developer.microsoft.com/zh-cn/windows/downloads/sdk-archive/) 下载版本`10.0.20348.0`的Win10 SDK进行安装。如果安装并启动vs2022后，仍出现：`找不到 windows sdk 版本 10.0.20348.0`的问题，则根据 [链接](https://blog.csdn.net/qq_74286834/article/details/142055699) 进行修复即可。
+> 
+> 即将文件`C:\Windows Kits\10\DesignTime\CommonConfiguration\Neutral\UAP\10.0.20348.0\UAP.props`文件的第5行中`WindowsSdkDir`中增加`<WindowsSdkDir Condition="'$(WindowsSdkDir)' == ''">`。
 

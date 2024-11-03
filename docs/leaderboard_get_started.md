@@ -131,14 +131,15 @@ cd ${CARLA_ROOT}
 
 其他相关参数如下所述。
 
-TEAM_CONFIG （由用户定义） — 所提供的代理读取的任意配置文件的路径。您负责在代理类中定义和解析此文件。
-DEBUG_CHALLENGE (int) — 指示模拟期间是否应显示调试信息的标志。默认情况下，该变量未设置 (0)，这不会生成要显示的调试信息。当设置为 1 时，模拟器将显示要遵循的参考路线。如果此变量设置为大于任何值， 1引擎将打印模拟的完整状态以用于调试目的。
-CHECKPOINT_ENDPOINT (JSON) — 将记录 Leaderboard 指标的文件的名称。
-RECORD_PATH （字符串） — 将存储 Carla 日志的文件夹的路径。默认情况下未设置。
-RESUME— 指示模拟是否应从最后一条路线恢复的标志。默认情况下未设置。
-CHALLENGE_TRACK_CODENAME （字符串） — 代理正在竞争的赛道。有两个可能的选项： SENSORS 和 MAP。该 SENSORS 赛道允许使用多个摄像头、激光雷达、雷达、全球导航卫星系统、惯性测量单元和速度计。除了这些传感器之外，MAP 赛道还允许直接访问 OpenDRIVE 高清地图。您负责根据需要解析和处理 OpenDRIVE 映射。
+- `TEAM_CONFIG` （由用户定义） — 所提供代理读取的任意配置文件路径。您负责在代理类中定义和解析此文件。
+- `DEBUG_CHALLENGE` (int) — 指示模拟期间是否应显示调试信息的标志。默认情况下，该变量未设置 (0)，这不会生成要显示的调试信息。当设置为 `1` 时，模拟器将显示要遵循的参考路线。如果此变量设置为任何大于`1`的值，引擎将打印模拟的完整状态以用于调试。
+- `CHECKPOINT_ENDPOINT` (JSON) — 将记录 Leaderboard 指标的文件的名称。
+- `RECORD_PATH` （字符串） — 将存储 Carla 日志的文件夹的路径。默认情况下未设置。
+- `RESUME`— 指示模拟是否应从最后一条路线恢复的标志。默认情况下未设置。
+- `CHALLENGE_TRACK_CODENAME` （字符串） — 代理正在竞争的赛道。有两个可能的选项： `SENSORS` 和 `MAP`。该 `SENSORS` 赛道允许使用多个摄像头、激光雷达、雷达、全球导航卫星系统、惯性测量单元和速度计。除了这些传感器之外，`MAP` 赛道还允许直接访问 _OpenDRIVE_ 高清地图。您负责根据需要解析和处理 _OpenDRIVE_ 地图。
 
 这些环境变量被传递到 `${LEADERBOARD_ROOT}/LEADERBOARD/LEADERBOARD_evaluator.py` ，作为执行模拟的入口点。查看`leaderboard_evaluator.py`，了解有关如何执行和评估代理的更多详细信息。
+
 
 # 创建自己的自动驾驶代理
 
