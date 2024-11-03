@@ -15,7 +15,7 @@
 
 ![ros_rviz](img/ros_rviz.png)
 
-RVIZ 插件需要一个名为 `ego_vehicle` 的自我车辆。要查看 ROS 桥与 RVIZ 配合使用的示例，请在运行的 Carla 服务器上执行以下命令：
+RVIZ 插件需要一个名为 `ego_vehicle` 的自主车辆。要查看 ROS 桥与 RVIZ 配合使用的示例，请在运行的 Carla 服务器上执行以下命令：
 
 __1.__ 在启用 RVIZ 的情况下启动 ROS 桥：
 
