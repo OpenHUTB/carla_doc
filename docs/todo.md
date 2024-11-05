@@ -60,10 +60,18 @@ https://bitbucket.org/carla-simulator/carla-content Unreal/CarlaUE4/Content/Carl
 
 * [中电软件园](https://overpass-api.de/api/map?bbox=112.8671,28.2281,112.8873,28.2412) 
 
-新安装apkpure，再安装RealityScan
+### 三维建模
+
+* [Meshroom](https://github.com/OpenHUTB/Meshroom) 文档整理；
+
+* 新安装apkpure，再安装RealityScan
 
 ### 行人
-参考[行人构建流程](https://ww2.mathworks.cn/help/roadrunner-scenario/ug/import-custom-character-meshes.html) 。
+* 参考[roadrunner行人构建流程](https://ww2.mathworks.cn/help/roadrunner-scenario/ug/import-custom-character-meshes.html) 。
+
+* 整理 [MetaHuman](https://github.com/EpicGames/MetaHuman-DNA-Calibration) 进行人像扫描的文档。 
+
+* [数字人资料整理](https://github.com/YUANZHUO-BNU/metahuman_overview)
 
 * 未定位功能：跑步；未实现功能：交谈、叫出租车、坐下。
 

@@ -360,6 +360,7 @@ source ~/.bashrc
 [VScode调试shell bash脚本](https://blog.csdn.net/helloasimo/article/details/130444217)
 在VScode中安装`Bash Debug`，
 
+[VScode远程连接时报错：Bad owner or permissions](https://blog.csdn.net/sxtllll/article/details/135411142)
 
 
 ### 学习 <span id="learn"></span>

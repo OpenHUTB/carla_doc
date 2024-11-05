@@ -22,6 +22,9 @@ import random
 import invertedai as iai
 from invertedai.common import AgentProperties, AgentState, TrafficLightState
 
+import cProfile
+import test_module
+
 SpawnActor = carla.command.SpawnActor
 
 #---------
@@ -154,7 +157,7 @@ def argument_parser():
 # Setup CARLA client and world
 def setup_carla_environment(host, port):
 
-    step_length = 0.1 # 0.1 is the only step length that is supported by invertedai so far
+    step_length = 0.1  # 0.1 is the only step length that is supported by invertedai so far
 
     client = carla.Client(host, port)
     client.set_timeout(200.0)
@@ -168,6 +171,7 @@ def setup_carla_environment(host, port):
     world.apply_settings(world_settings)
 
     return client, world
+
 
 # Set spectator view on a hero vehicle
 def set_spectator(world, hero_v):
@@ -187,6 +191,7 @@ def set_spectator(world, hero_v):
     spectator_t = carla.Transform(spectator_l, hero_t.rotation)
     spectator_t.rotation.pitch -= spectator_offset_pitch
     world.get_spectator().set_transform(spectator_t)
+
 
 #---------
 # Initialize actors
@@ -215,6 +220,7 @@ def initialize_iai_agent(actor, agent_type):
 
     return agent_state, agent_properties
 
+
 # Initialize IAI pedestrians from CARLA actors
 def initialize_pedestrians(pedestrians):
 
@@ -225,6 +231,7 @@ def initialize_pedestrians(pedestrians):
         iai_pedestrians_properties.append(iai_ped_properties)
 
     return iai_pedestrians_states, iai_pedestrians_properties
+
 
 # Spawn pedestrians in the simulation, which are driven by CARLA controllers (not by invertedai)
 def spawn_pedestrians(client, world, num_pedestrians, bps):
@@ -278,6 +285,7 @@ def spawn_pedestrians(client, world, num_pedestrians, bps):
 
     return pedestrians
 
+
 # Get blueprints according to the given filters
 def get_actor_blueprints(world, filter, generation):
     bps = world.get_blueprint_library().filter(filter)
@@ -303,6 +311,7 @@ def get_actor_blueprints(world, filter, generation):
         print("   Warning! Actor Generation is not valid. No actor will be spawned.")
         return []
 
+
 #---------
 # InvertedAI - CARLA synchronization routines
 #---------
@@ -322,6 +331,7 @@ def transform_iai_to_carla(agent_state):
 
     return agent_transform
 
+
 # Update transforms of CARLA agents driven by IAI and tick the world
 def update_transforms(iai2carla,response):
     """
@@ -338,6 +348,7 @@ def update_transforms(iai2carla,response):
                 actor.set_transform(agent_transform)
             except:
                 pass
+
 
 # Assign existing IAI agents to CARLA vehicle blueprints and add these agents to the CARLA simulation
 def assign_carla_blueprints_to_iai_agents(world,vehicle_blueprints,agent_properties,agent_states,recurrent_states,is_iai,noniai_actors):
@@ -392,6 +403,7 @@ def assign_carla_blueprints_to_iai_agents(world,vehicle_blueprints,agent_propert
     
     return agent_properties_new, agent_states_new, recurrent_states_new, iai2carla
 
+
 # Initialize InvertedAI co-simulation
 def initialize_simulation(args, world, agent_states=None, agent_properties=None):
 
@@ -426,6 +438,7 @@ def initialize_simulation(args, world, agent_states=None, agent_properties=None)
 
     return response, carla2iai_tl, location_info_response
 
+
 #---------
 # Synchronize InvertedAI and CARLA traffic lights
 #---------
@@ -443,6 +456,7 @@ def get_traffic_lights_mapping(world):
 
     return carla2iai_tl
 
+
 # Returns IAI traffic light state based on CARLA traffic light state
 def get_traffic_light_state_from_carla(carla_tl_state):
 
@@ -457,6 +471,7 @@ def get_traffic_light_state_from_carla(carla_tl_state):
 
     else:  # Unknown state, turn off traffic light
         return TrafficLightState.Off
+
 
 # Assign IAI traffic lights based on the CARLA ones
 def assign_iai_traffic_lights_from_carla(world, iai_tl, carla2iai_tl):
@@ -474,6 +489,7 @@ def assign_iai_traffic_lights_from_carla(world, iai_tl, carla2iai_tl):
 
     return iai_tl
 
+
 # Initialize traffic lights states
 def initialize_tl_states(world):
     carla2iai_tl = get_traffic_lights_mapping(world)
@@ -485,8 +501,9 @@ def initialize_tl_states(world):
     iai_tl_states = assign_iai_traffic_lights_from_carla(world, iai_tl_states, carla2iai_tl)
     return iai_tl_states, carla2iai_tl
 
+
 #---------
-# Main
+# 主函数
 #---------
 def main():
 
@@ -661,7 +678,8 @@ def main():
 if __name__ == '__main__':
 
     try:
-        main()
+        cProfile.run('main()')
+        # main()
     except KeyboardInterrupt:
         pass
     finally:

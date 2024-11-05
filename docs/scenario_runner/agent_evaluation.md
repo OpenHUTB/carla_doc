@@ -12,7 +12,7 @@
 
 该函数接收要由用户解析的配置文件的路径作为参数。
 
-执行“challenge_evaluator.py”时，您应该将配置文件路径作为参数传递。例如：
+执行`challenge_evaluator.py`时，您应该将配置文件路径作为参数传递。例如：
 
 ```
 python srunner/challenge/challenge_evaluator_routes.py  --agent=<path_to_my_agent> --config=myconfigfilename.format
@@ -36,11 +36,11 @@ def sensors(self):
 ```
 
 
-每个传感器都是一本字典，您应该在其中指定：
+每个传感器都是一个字典 dict，应该在其中指定：
 
-* type: 基本上是要添加的传感器，例如：“sensor.camera.rgb”表示 RGB 相机，“sensor.lidar.ray_cast”表示光线投射激光雷达。
-* id: 为传感器提供的标签，以便稍后访问。
-* 其他参数：这些参数取决于传感器，例如位置“x”和“y”，或相机的视野“fov”
+* `type`: 基本上是要添加的传感器，例如：`sensor.camera.rgb` 表示 RGB 相机，`sensor.lidar.ray_cast` 表示光线投射激光雷达。
+* `id`: 为传感器提供的标签，以便稍后访问。
+* 其他参数：这些参数取决于传感器，例如位置 `x` 和 `y`，或相机的视野`fov`
 
 
 
@@ -49,9 +49,9 @@ def sensors(self):
 
 从挑战评估开始，模拟的每个步骤都会调用此函数，并接收一些输入数据作为参数。
 
-该输入数据是一个字典，其中包含“传感器”函数中指定的所有传感器。
+该输入数据是一个字典，其中包含 `sensor` 函数中指定的所有传感器。
 
-此函数应返回要 应用于自我车辆的 [车辆控制](https://carla.readthedocs.io/en/latest/python_api_tutorial/#vehicles) 。
+此函数应返回要应用于自我车辆的 [控制](https://carla.readthedocs.io/en/latest/python_api_tutorial/#vehicles) 。
 
 
 
