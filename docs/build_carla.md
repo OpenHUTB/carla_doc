@@ -56,6 +56,8 @@ cd $HOME/.config/clash/
 ![ImageDepth](img/build/internet.jpg)
 
 
+#### [VScode C++开发调式环境配置](https://zhuanlan.zhihu.com/p/679355387)
+
 ## 其他
 
 * [虚幻引擎commandlet](ue/ue_commandlet.md)

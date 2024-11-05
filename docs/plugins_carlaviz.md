@@ -104,9 +104,9 @@ __3. 从本地打开__ 打开 Web 浏览器并转到 `http://127.0.0.1:8080/` �
 	*   `Perspective` — 自由的视角。
 	*   `Driver` — 第一人称视角。  
 
-*   __/vehicle__ — 显示自我车辆的属性。可视化窗口中包括速度计和加速度计，以及 IMU、全球导航卫星系统传感器和碰撞检测传感器检索的数据。
-	*   `/velocity` — 自我车辆的速度。
-	*   `/acceleration` — 自我车辆的加速。
+*   __/vehicle__ — 显示自主车辆的属性。可视化窗口中包括速度计和加速度计，以及 IMU、全球导航卫星系统传感器和碰撞检测传感器检索的数据。
+	*   `/velocity` — 自主车辆的速度。
+	*   `/acceleration` — 自主车辆的加速。
 *   __/drawing__ — 在使用 [CarlaPainter](https://github.com/wx9698/carlaviz/blob/master/examples/carla_painter.py) 绘制的可视化窗口中显示其他元素。
 	*   `/texts` — 文本元素。
 	*   `/points` — 点元素。
@@ -133,7 +133,7 @@ python3 generate_traffic.py -n 10 -w 5
 
 ![carlaviz_full](img/plugins_carlaviz_full.jpg)
 
-生成一个手动控制的自我车辆并四处移动，以查看插件如何更新传感器数据。
+生成一个手动控制的自主车辆并四处移动，以查看插件如何更新传感器数据。
 ```sh
 cd PythonAPI/examples
 python3 manual_control.py

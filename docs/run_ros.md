@@ -8,7 +8,7 @@
 - [__运行 ROS 桥__](#running-the-ros-bridge)
 - [__配置 Carla 设置__](#configuring-carla-settings)
 - [__在同步模式下使用 ROS 桥__](#using-the-ros-bridge-in-synchronous-mode)
-- [__自我车辆控制__](#ego-vehicle-control)
+- [__自主车辆控制__](#ego-vehicle-control)
 - [__ROS 应用程序接口__](#ros-api)
     - [订阅](#subscriptions)
     - [发布](#publications)
