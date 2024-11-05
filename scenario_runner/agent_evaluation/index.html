@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Agent evaluation - 代理仿真文档</title>
+    <title>Agent evaluation - 代理模拟文档</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -31,7 +31,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href="../.." class="icon icon-home"> 代理仿真文档
+          <a href="../.." class="icon icon-home"> 代理模拟文档
         </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
       <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
@@ -51,7 +51,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
       <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../..">代理仿真文档</a>
+          <a href="../..">代理模拟文档</a>
         
       </nav>
       <div class="wy-nav-content">
@@ -75,7 +75,7 @@
 <h5 id="setup">"setup" 函数:</h5>
 <p>您应该在该功能中为代理进行所有必要的设置。</p>
 <p>该函数接收要由用户解析的配置文件的路径作为参数。</p>
-<p>执行“challenge_evaluator.py”时，您应该将配置文件路径作为参数传递。例如：</p>
+<p>执行<code>challenge_evaluator.py</code>时，您应该将配置文件路径作为参数传递。例如：</p>
 <pre><code>python srunner/challenge/challenge_evaluator_routes.py  --agent=&lt;path_to_my_agent&gt; --config=myconfigfilename.format
 </code></pre>
 <h5 id="sensors">"sensors" 函数:</h5>
@@ -90,16 +90,16 @@
               ]
     return sensors
 </code></pre>
-<p>每个传感器都是一本字典，您应该在其中指定：</p>
+<p>每个传感器都是一个字典 dict，应该在其中指定：</p>
 <ul>
-<li>type: 基本上是要添加的传感器，例如：“sensor.camera.rgb”表示 RGB 相机，“sensor.lidar.ray_cast”表示光线投射激光雷达。</li>
-<li>id: 为传感器提供的标签，以便稍后访问。</li>
-<li>其他参数：这些参数取决于传感器，例如位置“x”和“y”，或相机的视野“fov”</li>
+<li><code>type</code>: 基本上是要添加的传感器，例如：<code>sensor.camera.rgb</code> 表示 RGB 相机，<code>sensor.lidar.ray_cast</code> 表示光线投射激光雷达。</li>
+<li><code>id</code>: 为传感器提供的标签，以便稍后访问。</li>
+<li>其他参数：这些参数取决于传感器，例如位置 <code>x</code> 和 <code>y</code>，或相机的视野<code>fov</code></li>
 </ul>
 <h5 id="run_step">"run_step" 函数:</h5>
 <p>从挑战评估开始，模拟的每个步骤都会调用此函数，并接收一些输入数据作为参数。</p>
-<p>该输入数据是一个字典，其中包含“传感器”函数中指定的所有传感器。</p>
-<p>此函数应返回要 应用于自我车辆的 <a href="https://carla.readthedocs.io/en/latest/python_api_tutorial/#vehicles">车辆控制</a> 。</p>
+<p>该输入数据是一个字典，其中包含 <code>sensor</code> 函数中指定的所有传感器。</p>
+<p>此函数应返回要应用于自我车辆的 <a href="https://carla.readthedocs.io/en/latest/python_api_tutorial/#vehicles">控制</a> 。</p>
 <h5 id="_2">初始路线:</h5>
 <p>在执行开始时，英雄代理应该行驶的整个路线是在“self.global_plan”变量上设置的： </p>
 <p><code>[({'z': 0.0, 'lat': 48.99822669411668, 'lon': 8.002271601998707}, &lt;RoadOption.LANEFOLLOW: 4&gt;),
