@@ -8,6 +8,7 @@
 
 """
 Example script to generate realistic traffic with the InvertedAI API
+适配虚幻5，虚幻4运行卡
 Python 3.7运行时numpy版本不够，在CarlaUE5的python环境下运行成功
 pip install invertedai@git+https://github.com/inverted-ai/invertedai.git@develop
 """

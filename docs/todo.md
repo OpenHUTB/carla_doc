@@ -62,7 +62,7 @@ https://bitbucket.org/carla-simulator/carla-content Unreal/CarlaUE4/Content/Carl
 
 ### 三维建模
 
-* [Meshroom](https://github.com/OpenHUTB/Meshroom) 文档整理；
+* 摄影测量流程 [Meshroom](https://github.com/OpenHUTB/Meshroom) 操作的文档整理（将重建结果导入 Blender 进行重新拓扑，并将优化后的模型导入 Meshroom 进行纹理处理，[插件](https://github.com/SBCV/Blender-Addon-Photogrammetry-Importer) 、[脚本](https://github.com/tibicen/meshroom2blender) ）；
 
 * 新安装apkpure，再安装RealityScan
 
@@ -73,7 +73,9 @@ https://bitbucket.org/carla-simulator/carla-content Unreal/CarlaUE4/Content/Carl
 
 * [数字人资料整理](https://github.com/YUANZHUO-BNU/metahuman_overview)
 
-* 未定位功能：跑步；未实现功能：交谈、叫出租车、坐下。
+* 未定位功能：跑步；
+
+* 未实现功能：交谈、叫出租车、坐下、开车。
 
 
 
