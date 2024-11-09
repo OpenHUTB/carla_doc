@@ -168,6 +168,9 @@ auto world = client.LoadWorld("Town10HD_Opt");
 4.程序在断点停止后按F10运行下一步，按F11进入LibCarla中的函数实现。
 ![](img/tuto_D_windows_debug/stop_in_LibCarla.jpg)
 
+!!! 注意
+    需要先启动Town10HT-Opt场景：需要从vs2019中启动虚幻编辑器并运行场景，使用编译后的场景执行`world.GetBlueprintLibrary()`抛出异常。
+
 ## 其他 <span id="other"></span>
 
 ### 检查所依赖dll库的符号是否加载 <span id="check_dll_loaded"></span>
