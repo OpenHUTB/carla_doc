@@ -120,7 +120,7 @@ world.apply_settings(settings)
 </code></pre>
 <div class="admonition 重要">
 <p class="admonition-title">重要</p>
-<p><strong>不要将帧速率降低到 10 FPS 以下</strong>。我们的设置已调整为将物理引擎限制在最低 10 FPS。如果游戏节拍低于此值，物理引擎仍将模拟 10 FPS。在这种情况下，依赖于游戏增量时间的事物不再与物理引擎同步，参考问题 <a href="https://github.com/carla-simulator/carla/issues/695">#695</a> 。</p>
+<p><strong>不要将帧速率降低到 10 FPS 以下</strong>。我们的设置已调整为将物理引擎限制在最低 10 FPS。如果游戏节拍低于此值，物理引擎仍将模拟 10 FPS。在这种情况下，依赖于游戏增量时间的事物不再与物理引擎同步，参考问题 <a href="https://github.com/carla-simulator/carla/issues/695">#695</a> 。目前已启用最多 6 个物理子步骤，每个子步骤的最大增量时间为 0.016667 秒（60FPS）。因此，帧率不能低于 10 FPS。</p>
 </div>
 <h3 id="_5">模拟记录 <span id="tips-when-recording-the-simulation"></span></h3>
 <p>Carla 具有<a href="../adv_recorder/">记录器</a>功能，可以记录模拟，然后重新播放。但是，在寻找精度时，需要考虑一些事情。</p>
@@ -135,7 +135,11 @@ world.apply_settings(settings)
 <li>如果<strong>服务器被迫重现完全相同的时间</strong>步长，则模拟的步长将相同，但它们之间的实时时间会发生变化。时间步长应逐一传递。这些原始时间步长是原始模拟尽可能快运行的结果。由于表示这些所需的时间大多不同，因此模拟必然会以奇怪的时间波动再现。</li>
 </ul>
 <h3 id="_6">物理子步 <span id="physics-substepping"></span></h3>
-<p>为了精确计算物理效果，物理模拟必须在非常小的时间步内进行。当我们在模拟中每帧执行多次计算（例如传感器渲染，读取存储等）时，时间步长可能会成为一个问题。由于这个限制仅发生在物理模拟中，我们可以仅对物理计算应用子步。在默认情况下物理子步是打开的，并且被设定为每个时间步长最大 10 个物理子步，每个物理子步最大为0.01 秒。</p>
+<p>为了精确计算物理效果，物理模拟必须在非常小的时间步内进行。当我们在模拟中每帧执行多次计算（例如传感器渲染，读取存储等）时，时间步长可能会成为一个问题。由于这个限制仅发生在物理模拟中，我们可以仅对物理计算应用子步。在默认情况下物理子步是打开的，并且被设定为每个时间步长<code>fixed_delta_seconds</code>最大 10 个物理子步(<code>max_substeps</code>，范围为[1,16])，每个物理子步最大为 0.01 秒(<code>max_substep_delta_time</code>)。</p>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>加快仿真速度需要每一帧的时间更小（才能一秒钟跑更多的帧），减少物理子步数（物理效果）+减少每个物理子步时间(<code>max_substep_delta_time</code>)。</p>
+</div>
 <p>当然，我们可以通过API调整这些设定：</p>
 <pre><code class="language-py">settings = world.get_settings()
 settings.substepping = True
@@ -143,11 +147,11 @@ settings.max_substep_delta_time = 0.01
 settings.max_substeps = 10
 world.apply_settings(settings)
 </code></pre>
-<p><strong>注意，当启用同步模式时，我们设定模拟时间步长时需要遵循以下条件来保证物理模拟的准确性：</strong></p>
+<p><strong>注意，当设置了同步模式和固定步长时，则子步选项需要与固定增量秒<code>fixed_delta_seconds</code> 的值一致来保证物理模拟的准确性。（一帧所需要的时间）要满足的条件是：</strong></p>
 <pre><code class="language-py">fixed_delta_seconds &lt;= max_substep_delta_time * max_substeps
 </code></pre>
-<p><strong>注意，为了保证物理模拟的准确性，子步的时间间隔应该至少低于 0.01666，理想情况下低于 0.01。</strong></p>
-<p>为了演示最佳物理子步的效果，请考虑下面的图。下面的第一个图表显示了在不同固定模拟时间步长的模拟中速度随时间的变化。物理增量时间在所有模拟中都是恒定的，默认值为 0.01。我们可以看到，速度不受模拟时间步长差异的影响。</p>
+<p><strong>注意，为了保证物理模拟的准确性，子步的时间间隔<code>max_substep_delta_time</code>应该至少低于 0.01666，理想情况下低于 0.01。</strong></p>
+<p>为了演示最佳物理子步的效果，请考虑下面的图。下面的第一个图表显示了在不同固定模拟时间步长的模拟中速度随时间的变化。物理增量时间<code>max_substep_delta_time</code>在所有模拟中都是恒定的，默认值为 0.01。我们可以看到，速度不受模拟时间步长差异的影响。</p>
 <blockquote>
 <blockquote>
 <blockquote>
@@ -159,7 +163,7 @@ world.apply_settings(settings)
 </blockquote>
 </blockquote>
 </blockquote>
-<p>第二张图显示了模拟中速度随时间的变化，模拟时间步长固定为0.04。我们可以看到，一旦物理增量时间超过 0.01，速度常数开始出现偏差，随着物理增量时间的增加，偏差的严重程度也在增加。</p>
+<p>第二张图显示了模拟中速度随时间的变化，模拟时间步长固定为 0.04。我们可以看到，一旦物理增量时间 phys-dt(<code>max_substep_delta_time</code>) 超过 0.01，速度常数开始出现偏差，随着物理增量时间的增加（物理帧率降低），偏差的严重程度也在增加。</p>
 <blockquote>
 <blockquote>
 <blockquote>
@@ -171,7 +175,7 @@ world.apply_settings(settings)
 </blockquote>
 </blockquote>
 </blockquote>
-<p>我们可以通过在测量z-加速度时显示物理增量时间与固定模拟时间步长相同的差异的影响来再次证明这种偏差，只有当物理增量时间为 0.01 或更小时才会发生收敛。</p>
+<p>我们可以通过在测量z-加速度时显示物理增量时间与固定模拟时间步长相同的差异的影响来再次证明这种偏差，只有当物理增量时间 phys-dt(<code>max_substep_delta_time</code>) 为 0.01 或更小时才会发生收敛。</p>
 <blockquote>
 <blockquote>
 <blockquote>
@@ -183,6 +187,7 @@ world.apply_settings(settings)
 </blockquote>
 </blockquote>
 </blockquote>
+<p>物理子步的详细信息请参考 <a href="../ue/physics_sub_stepping/">虚幻引擎中的物理子步</a> 。</p>
 <hr />
 <h2 id="-">客户端-服务器同步 <span id="client-server-synchrony"></span></h2>
 <p>Carla 采用客户端-服务器架构。服务器运行模拟，客户端获取信息并对世界进行修改。本节涉及客户端和服务器之间的通信。</p>
@@ -276,55 +281,55 @@ world.on_tick(lambda world_snapshot: do_something(world_snapshot))
 <li>命令<strong>应该是批处理的，而不是一次发出一个命令：</strong>虽然很少见，但在繁忙的模拟或过载的服务器中，单个发出的命令可能会丢失。如果命令在<a href="../python_api/#carla.Client.apply_batch_sync"><code>apply_batch_sync</code></a>命令中批处理，则保证该命令被执行或返回失败响应。</li>
 </ul>
 <p>以下是上述步骤的示例：</p>
-<pre><code class="language-py">client = carla.Client(HOST, PORT) # connect to the server
+<pre><code class="language-py">client = carla.Client(HOST, PORT) # 连接到服务器
 client.set_timeout(10.0)
 world = client.get_world()
 
-# Load the desired map
+# 加载想要的地图
 client.load_world(&quot;Town10HD_Opt&quot;)
 
-# Set synchronous mode settings
+# 设置同步模式
 new_settings = world.get_settings()
 new_settings.synchronous_mode = True
 new_settings.fixed_delta_seconds = 0.05
 world.apply_settings(new_settings) 
 
-client.reload_world(False) # reload map keeping the world settings
+client.reload_world(False) # 重新加载地图并保留世界设置
 
-# Set up the traffic manager
+# 设置交通管理器
 traffic_manager = client.get_trafficmanager(TM_PORT)
 traffic_manager.set_synchronous_mode(True)
-traffic_manager.set_random_device_seed(SEED) # define TM seed for determinism
+traffic_manager.set_random_device_seed(SEED) # 定义交通管理器以实现确定性
 
-# Spawn your vehicles, pedestrians, etc.
+# 生成车辆、行人等
 
-# Simulation loop
+# 模拟循环
 while True:
-    # Your code
+    # 你的代码
     world.tick()
 </code></pre>
 <p>播放功能的一个具体示例：</p>
-<pre><code class="language-py">client = carla.Client(HOST, PORT) # connect to the server
+<pre><code class="language-py">client = carla.Client(HOST, PORT) # 连接到服务器
 client.set_timeout(10.0)
 world = client.get_world()
 
-# Load the desired map
+# 加载想要的地图
 client.load_world(&quot;Town10HD_Opt&quot;)
 
-# Set synchronous mode settings
+# 设置同步模式
 new_settings = world.get_settings()
 new_settings.synchronous_mode = True
 new_settings.fixed_delta_seconds = 0.05
 world.apply_settings(new_settings) 
 
-client.reload_world(False) # reload map keeping the world settings
+client.reload_world(False) # 重新加载地图并保留世界设置
 
 client.replay_file(FILE_TO_PLAY, 0, 0, 0, False)
-world.tick() # a tick is necessary for the server to process the replay_file command
+world.tick() # 服务器需要一个节拍信号 tick 来处理 replay_file 命令
 
-# Simulation loop
+# 仿真循环
 while True:
-    # Your code
+    # 你的代码
     world.tick()
 </code></pre>
 <p>运行这些步骤将确保每次模拟运行的结果相同。</p>
