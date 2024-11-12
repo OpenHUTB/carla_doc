@@ -174,7 +174,7 @@ __相关的 .cpp 文件:__ `PIDController.cpp`.
 
 ### 命令数组 <span id="command-array"></span>
 
-命令数组表示 TM 逻辑周期中的最后一步。它接收所有注册车辆的命令并应用它们。
+命令数组表示交通管理器逻辑周期中的最后一步。它接收所有注册车辆的命令并应用它们。
 
 命令数组:
 
@@ -188,7 +188,7 @@ __相关的 .cpp 文件:__ `TrafficManagerLocal.cpp`.
 
 ##### 第 1 阶段 - 定位阶段
 
-定位阶段为TM控制的车辆定义了近未来的路径。
+定位阶段为交通管理器控制的车辆定义了近未来的路径。
 
 本地化阶段：
 
@@ -258,17 +258,17 @@ __相关的 .cpp 文件:__ `VehicleLightStage.cpp`.
 
 ### 车辆行为考虑因素 <span id="vehicle-behavior-considerations"></span>
 
-TM 实现了将车辆设置为自动驾驶时必须考虑的一般行为模式：
+交通管理器实现了将车辆设置为自动驾驶时必须考虑的一般行为模式：
 
 - **车辆不是以目标为导向的**，它们遵循动态产生的轨迹，并在接近路口时随机选择路径。他们的道路是无止境的。
 - 除非设置了任何其他值，**否则车辆的目标速度是其当前速度限制的 70%。**
-- **路口优先权不遵守交通法规。**TM 在路口使用自己的优先级系统。此限制的解决工作正在进行中。同时，可能会出现一些问题，例如，环形交叉路口内的车辆让步给试图进入的车辆。
+- **路口优先权不遵守交通法规。**交通管理器在路口使用自己的优先级系统。此限制的解决工作正在进行中。同时，可能会出现一些问题，例如，环形交叉路口内的车辆让步给试图进入的车辆。
 
-TM 行为可以通过 Python API 进行调整。有关具体方法，请参阅 Python API [**文档**](../python_api/#carla.TrafficManager)的 TM 部分。以下是通过 API 实现的功能的一般摘要：
+交通管理器行为可以通过 Python API 进行调整。有关具体方法，请参阅 Python API [**文档**](../python_api/#carla.TrafficManager)的交通管理器部分。以下是通过 API 实现的功能的一般摘要：
 
 |     主题      |                    描述                    |
 | :---------: | :--------------------------------------: |
-|   **常规:**   |    - 创建连接到端口的TM实例。 <br> - 检索TM连接的端口。     |
+|   **常规:**   |    - 创建连接到端口的交通管理器实例。 <br> - 检索交通管理器连接的端口。     |
 |  **安全条件:**  | - 设置停止车辆之间的最小距离（对于单个车辆或者所有车辆）。这将影响最小移动距离。<br> - 将所需速度设置为当前速度现状的百分比（对于单个车辆或所有车辆）。 <br> - 重置交通信号灯。 |
 |  **碰撞管理:**  | - 启用/禁用车辆与特定参与者之间的碰撞。 <br> - 让车辆忽略所有其他车辆。<br> - 让车辆忽略所有行人<br> - 让车辆忽略所有交通灯。 |
 |   **变道:**   |    - 强制变道，忽略可能的碰撞。<br> - 启用/禁用车辆的变道。     |
@@ -279,17 +279,17 @@ TM 行为可以通过 Python API 进行调整。有关具体方法，请参阅 P
 ### 创建交通管理器 <span id="creating-a-traffic-manager"></span>
 
 !!! 笔记
-	TM 设计为在同步模式下工作。在异步模式下使用 TM 可能会导致意外和不良结果。有关详细信息，请参阅 [__同步模式__](#synchronous-mode)。
+	交通管理器设计为在同步模式下工作。在异步模式下使用交通管理器可能会导致意外和不良结果。有关详细信息，请参阅 [__同步模式__](#synchronous-mode)。
 
-TM 实例由 [`carla 创建.客户端`](python_api.md#carla.Client)，传递要使用的端口。缺省端口为 `8000`。
+交通管理器实例由 [`carla 创建.客户端`](python_api.md#carla.Client)，传递要使用的端口。缺省端口为 `8000`。
 
-要创建 TM 实例：
+要创建交通管理器实例：
 
 ```python
 tm = client.get_trafficmanager(port)
 ```
 
-要为一组车辆启用 autopilot，请检索 TM 实例的端口并设置set_autopilot为True ，同时传递 TM 端口。如果未提供端口，它将尝试连接到默认端口 （8000） 中的 TM。如果 TM 不存在，它将创建一个。
+要为一组车辆启用 autopilot，请检索交通管理器实例的端口并设置set_autopilot为True ，同时传递交通管理器端口。如果未提供端口，它将尝试连接到默认端口 （8000） 中的交通管理器。如果交通管理器不存在，它将创建一个。
 
 ```python
 tm_port = tm.get_port()
@@ -299,10 +299,10 @@ tm_port = tm.get_port()
 !!! 笔记
 
 ```
-在多客户端情况下创建或连接到 TM 与上述示例不同。
+在多客户端情况下创建或连接到交通管理器与上述示例不同。
 ```
 
-`/PythonAPI/examples` 中的 `generate_traffic.py`脚本提供了一个示例， 说明如何使用作为脚本参数传递的端口创建 TM 实例，并通过批量将自动驾驶仪设置为以下值来注册生成的每辆车。
+`/PythonAPI/examples` 中的 `generate_traffic.py`脚本提供了一个示例，说明如何使用作为脚本参数传递的端口创建交通管理器实例，并通过批量将自动驾驶仪设置为以下值来注册生成的每辆车。
 
 ```py
 traffic_manager = client.get_trafficmanager(args.tm-port)
@@ -315,7 +315,7 @@ traffic_manager.global_percentage_speed_difference(30.0)
 
 ### 配置 autopilot 行为 <span id="configuring-autopilot-behavior"></span>
 
-以下示例创建一个 TM 实例，并为特定车辆配置危险行为，使其忽略所有交通信号灯，不与其他车辆保持安全距离，并以比当前限速快 20% 的速度行驶：
+以下示例创建一个交通管理器实例，并为特定车辆配置危险行为，使其忽略所有交通信号灯，不与其他车辆保持安全距离，并以比当前限速快 20% 的速度行驶：
 
 ```python
 tm = client.get_trafficmanager(port)
@@ -344,7 +344,7 @@ for v in my_vehicles:
 
 #### 委派交通管理器自动更新车灯
 
-默认情况下，TM 管理的车辆的车灯（刹车灯、转向灯等）永远不会更新。可以委托 TM 来更新给定车辆参与者的车灯：
+默认情况下，交通管理器管理的车辆的车灯（刹车灯、转向灯等）永远不会更新。可以委托交通管理器来更新给定车辆参与者的车灯：
 
 ```python
 tm = client.get_trafficmanager(port)
@@ -460,7 +460,7 @@ Carla 服务器通过存储链接到它们的端口和客户端 IP（对用户�
 
 ### 多客户端模拟 <span id="multi-client-simulations"></span>
 
-在多客户端模拟中，在同一端口上创建多个TM。第一个 TM 将是 TM 服务器，其余的将是连接到它的 TM 客户端。TM-Server 将规定所有 TM 实例的行为：
+在多客户端模拟中，在同一端口上创建多个交通管理器。第一个交通管理器将是交通管理器服务器，其余的将是连接到它的交通管理器客户端。TM-Server 将规定所有交通管理器实例的行为：
 
 ```py
 terminal 1: ./CarlaUE4.sh -carla-rpc-port=4000
@@ -504,21 +504,21 @@ terminal 4: python3 generate_traffic.py --port 5000 --tm-port 5050 # TM-Server B
 ```py
 ...
 
-# Set the simulation to sync mode
+# 将模拟设置为同步模式
 init_settings = world.get_settings()
 settings = world.get_settings()
 settings.synchronous_mode = True
-# After that, set the TM to sync mode
+# 之后，将交通管理器设置为同步模式
 my_tm.set_synchronous_mode(True)
 
 ...
 
-# Tick the world in the same client
+# 在同一个客户端对直接发出节拍信号
 world.apply_settings(init_settings)
 world.tick()
 ...
 
-# Always disable sync mode before the script ends to prevent the server blocking whilst waiting for a tick
+# 始终在脚本结束前禁用同步模式，以防止服务器在等待节拍信号时阻塞
 settings.synchronous_mode = False
 my_tm.set_synchronous_mode(False)
 ```

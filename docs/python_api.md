@@ -3635,10 +3635,10 @@ _</font>
         - `normal_texture` (_TextureFloatColor_)  
         - `ao_roughness_metallic_emissive_texture` (_TextureFloatColor_)  
 - <a name="carla.World.cast_ray"></a>**<font color="#7fb800">cast_ray</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**initial_location**</font>, <font color="#00a6ed">**final_location**</font>)  
-将光线从指定的initial_location投射到final_location。然后，该函数检测与射线相交的所有几何图形，并按顺序 返回[carla.LabelledPoint](#carla.LabelledPoint)列表。
+将光线从指定的`initial_location`投射到`final_location`。然后，该函数检测与射线相交的所有几何图形，并按顺序 返回[carla.LabelledPoint](#carla.LabelledPoint)列表。
     - **参数:**
-        - `initial_location` (_[carla.Location](#carla.Location)_) - The initial position of the ray.  
-        - `final_location` (_[carla.Location](#carla.Location)_) - The final position of the ray.  
+        - `initial_location` (_[carla.Location](#carla.Location)_) - 光线的初始位置。  
+        - `final_location` (_[carla.Location](#carla.Location)_) - 光线的最终位置。 
     - **返回:** _list([carla.LabelledPoint](#carla.LabelledPoint))_  
 - <a name="carla.World.enable_environment_objects"></a>**<font color="#7fb800">enable_environment_objects</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**env_objects_ids**</font>, <font color="#00a6ed">**enable**</font>)<button class="SnipetButton" id="carla.World.enable_environment_objects-snipet_button">snippet &rarr;</button>  
 启用或禁用一组由其 id 标识的环境对象。这些对象将从关卡中出现或消失。 

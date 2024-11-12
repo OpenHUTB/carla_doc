@@ -1,6 +1,8 @@
 # 待做
 
-## 技术文档
+## 技术开发
+
+### 文档整理
 - 修复页面内的跳转；
 - 完善对应文档的示例代码（做好配置说明）；
   - 整理 [UE5中实现远程多用户协作编辑](https://mp.weixin.qq.com/s/9yqjZjK29sz676vFX6faIQ) 、[表情建模](https://mp.weixin.qq.com/s?__biz=MzAxNzMzODkyMA==&mid=2650671035&idx=1&sn=3f931afdf56a5a3d26eb2100a913fc28) 
@@ -9,13 +11,19 @@
   - [carla 示例](https://github.com/OpenHUTB/carla/tree/master/PythonAPI/examples) 
   - [awesome](https://github.com/Amin-Tgz/awesome-CARLA) ；
 - 整理 [神经科学原理](https://github.com/OpenHUTB/neuro) 、[前额叶皮层](https://github.com/OpenHUTB/PFC) 、强化学习导论心理学章节；
-- [游戏开发](./game.md) ：[多玩家](https://github.com/initialed85/carla-multiplayer) 、[上下选择并回车](https://github.com/wtripp180901/CarlaTestGenGame)
-- [SUMMIT：大规模混合交通条件下的城市驾驶模拟器](https://github.com/AdaCompNUS/summit)
-- [一句话生成想要的自动驾驶关键场景](https://github.com/javyduck/ChatScene) 
 
 ### 第三方工具
-* [Carla调试工具](https://gitee.com/kin-zhang/quickly-carla) ，下载[链接](https://www.microsoft.com/en-us/download/details.aspx?id=58090) 。
+- [Carla调试工具](https://gitee.com/kin-zhang/quickly-carla) ，下载[链接](https://www.microsoft.com/en-us/download/details.aspx?id=58090) 。
 
+- [一句话生成想要的自动驾驶关键场景](https://github.com/javyduck/ChatScene) 
+
+- [SUMMIT：大规模混合交通条件下的城市驾驶模拟器](https://github.com/AdaCompNUS/summit)
+
+### 功能改进
+
+- [在驾驶视图中显示转速表和车速表](https://github.com/carla-simulator/carla/issues/89) ，[驾驶舱效果图](https://s4-frame.ozstatic.by/1000/236/108/20/20108236_2.jpg) 
+
+- [游戏开发](./game.md) ：[多玩家](https://github.com/initialed85/carla-multiplayer) 、[上下选择并回车](https://github.com/wtripp180901/CarlaTestGenGame)
 
 ## 学术研究
 ### [感知](algorithms/perception.md)
