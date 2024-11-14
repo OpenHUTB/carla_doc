@@ -2,7 +2,8 @@
 
 本指南详细介绍了 Carla 中可用的不同渲染选项，包括质量级别、无渲染模式和离屏模式。它还解释了 Carla 0.9.12 版本在这些方面与以前版本的不同之处。
 
-- [__图形质量__](#graphics-quality)  
+- [__后台渲染__](#render_off_screen)
+- [__图形质量__](#graphics-quality)
 	- [Vulkan 图形 API](#vulkan-graphics-api)  
 	- [质量等级](#quality-levels)  
 - [__无渲染模式__](#no-rendering-mode)  
@@ -17,6 +18,14 @@
     下面的一些命令选项在 Carla 打包版本中并不等效。请阅读[命令行选项](start_quickstart.md#command-line-options) 部分以了解有关此内容的更多信息。
 
 ---
+## 后台渲染 <span id="render_off_screen"></span>
+为了不弹出服务端的界面，可以运行以下命令使Carla在后台运行：
+```shell
+CarlaUE4.exe -RenderOffscreen # Windows
+CarlaUE4.sh -RenderOffscreen # Ubuntu
+```
+
+
 ## 图形质量 <span id="vulkan-graphics-api"></span>
 
 ### Vulkan 图形 API <span id="recording"></span>

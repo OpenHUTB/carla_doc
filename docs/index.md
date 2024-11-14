@@ -7,11 +7,11 @@ title: 主页
 ## 入门示例
 1. 下载 [链接](https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb) 中的`software/carla_0.9.15`中的所有文件并解压；
 2. 运行`WindowsNoEditor`文件夹下的`CarlaUE4.exe`启动场景，进入场景后按`W`、`S`、`A`、`D`移动场景视角；
-3. 使用`Python37/python.exe`运行脚本 [generate_traffic.py](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/generate_traffic.py) 和 [python manual_control.py](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/manual_control.py) 在场景中生成交通流并手动控制一辆车。
+3. 使用`Python37/python.exe`运行脚本 [generate_traffic.py](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/generate_traffic.py) 在场景中生成交通流和运行 [python manual_control.py](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/manual_control.py) 生成一辆键盘控制的车。
 
 
 !!! 注意
-    如果运行CarlaUE4.exe时候报错：缺少Microsoft Visual C++ Runtime、DirectX Runtime，则需要安装`vs_community__2019.exe`和`directx_Jun2010_redist.exe`。当机器性能一般或者调试时，可以降低画质来启动，以获得更流畅的效果：`CarlaUE4.exe -quality-level=Low`。如果对文档中的任何问题可以在 [本文档的源码仓库](https://github.com/OpenHUTB/carla_doc) 中的 [Issues](https://github.com/OpenHUTB/carla_doc/issues) 页面进行提问或者提交 [Pull Request](https://zhuanlan.zhihu.com/p/153381521) 直接修改文档。
+    如果运行CarlaUE4.exe时候报错：缺少Microsoft Visual C++ Runtime、DirectX Runtime，则需要安装 [vs_community__2019.exe](https://visualstudio.microsoft.com/zh-hans/vs/older-downloads/) （勾选`使用C++的桌面开发`）和 [directx_Jun2010_redist.exe](https://www.microsoft.com/zh-CN/download/details.aspx?id=8109) 。当机器性能一般或者调试时，可以降低画质来启动，以获得更流畅的效果：`CarlaUE4.exe -quality-level=Low`。如果对文档中的任何问题可以在 [本文档的源码仓库](https://github.com/OpenHUTB/carla_doc) 中的 [Issues](https://github.com/OpenHUTB/carla_doc/issues) 页面进行提问或者提交 [Pull Request](https://zhuanlan.zhihu.com/p/153381521) 直接修改文档。
 
 ---
 

@@ -8,7 +8,7 @@ from manual_control import *
 
 
 def launch_carla():
-    launch_info = os.path.join(os.path.split(os.path.realpath(__file__))[0], 'WindowsNoEditor_9.15', 'CarlaUE4.exe')
+    launch_info = os.path.join(os.path.split(os.path.realpath(__file__))[0], 'WindowsNoEditor_9.15', 'CarlaUE4.exe -RenderOffscreen')
     # 等待调用的程序执行结束后再运行
     os.popen(launch_info)
     print("launch carla")

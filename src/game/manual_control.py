@@ -1385,9 +1385,10 @@ def game_loop(args):
     # 获得全屏的分辨率
     # 必须在pygame.init()之后运行，否则运行报错：pygame.error: video system not initialized
     info_object = pygame.display.Info()
-    # 获取当前机器屏幕的宽和高
-    args.width = info_object.current_w
-    args.height = info_object.current_h
+    # 获取当前机器屏幕的宽和高（分辨率太高会导致客户端延迟得卡，故显示的宽高都除以一个大于1的值）
+    scale_size = 1.6
+    args.width = info_object.current_w / scale_size
+    args.height = info_object.current_h / scale_size
     is_full_screen = True  # 模式是全屏
 
     try:
@@ -1435,7 +1436,8 @@ def game_loop(args):
         while True:
             if args.sync:
                 sim_world.tick()
-            update_light_state(sim_world)  # 根据天气更新车灯状态
+            # update_light_state(sim_world)  # 根据天气更新车灯状态（会极大降低响客户端的fps）
+
             # 每秒最多循环60次，比tick更精确
             # 每次计算上次到此时的时间，如果低于时间间隔，会等待
             # 应该每帧调用一次此方法

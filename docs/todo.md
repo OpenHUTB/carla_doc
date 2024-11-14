@@ -70,9 +70,9 @@ https://bitbucket.org/carla-simulator/carla-content Unreal/CarlaUE4/Content/Carl
 
 ### 三维建模
 
-* 摄影测量流程 [Meshroom](https://github.com/OpenHUTB/Meshroom) 操作的文档整理（将重建结果导入 Blender 进行重新拓扑，并将优化后的模型导入 Meshroom 进行纹理处理，[插件](https://github.com/SBCV/Blender-Addon-Photogrammetry-Importer) 、[脚本](https://github.com/tibicen/meshroom2blender) ）；
+* 摄影测量流程 [Meshroom](https://github.com/OpenHUTB/Meshroom) 操作的文档整理（将重建结果导入 Blender 进行重新拓扑，并将优化后的模型导入 Meshroom 进行纹理处理，[插件](https://github.com/SBCV/Blender-Addon-Photogrammetry-Importer) 、[脚本](https://github.com/tibicen/meshroom2blender) ）； 商用软件 [ContextCapture] 、reality capture；
 
-* 新安装apkpure，再安装RealityScan
+* 新安装apkpure，再安装 RealityScan
 
 ### 行人
 * 参考[roadrunner行人构建流程](https://ww2.mathworks.cn/help/roadrunner-scenario/ug/import-custom-character-meshes.html) 。
@@ -90,6 +90,7 @@ https://bitbucket.org/carla-simulator/carla-content Unreal/CarlaUE4/Content/Carl
 ### 虚幻引擎
 * 引擎优化：[文档](https://github.com/OpenHUTB/engine_doc) 本地化整理。
 * [加载进度](https://www.unrealengine.com/marketplace/en-US/product/loading-screen-with-load-percentage) ；
+* [设置加载动画](https://blog.csdn.net/u010385624/article/details/90044368) 
 
 ### 有限元
 * 开源多物理场模拟引擎 [Chrono](https://projectchrono.org/) 处理碰撞。
