@@ -117,7 +117,7 @@
 <ul>
 <li><a href="https://cmake.org/download/"><strong>CMake</strong></a> 从简单的配置文件生成标准构建文件。  </li>
 <li><a href="https://git-scm.com/downloads"><strong>Git</strong></a> 是一个用于管理 Carla 存储库的版本控制系统。</li>
-<li><a href="http://gnuwin32.sourceforge.net/packages/make.htm"><strong>Make</strong></a> 生成可执行文件。必须使用 <strong>Make 的 3.81 版本</strong>，否则构建可能会失败。如果安装了多个版本的 Make，请检查构建 Carla 时在 PATH 中使用的版本是否为 3.81。您可以通过运行来检查默认的 Make 版本 <code>make --version</code>。</li>
+<li><a href="https://sourceforge.net/projects/ezwinports/files/make-4.4.1-without-guile-w32-bin.zip/download"><strong>Make</strong></a> 生成可执行文件。必须使用 <strong>Make 的 3.81 版本</strong>，否则构建可能会失败。如果安装了多个版本的 Make，请检查构建 Carla 时在 PATH 中使用的版本是否为 3.81。您可以通过运行来检查默认的 Make 版本 <code>make --version</code>。（运行可能出现<code>由于找不到libintl3.dll</code>， 说明需要 Visual C++ Redistributable for Visual Studio 2015，但是vs2019安装不了低版本，所以安装了make-4.4.1 ）</li>
 <li><a href="https://www.7-zip.org/"><strong>7Zip</strong></a> 一款文件压缩软件。这是自动解压缩资产文件所必需的，并防止在构建期间由于错误或部分提取大文件而出现错误。</li>
 <li><a href="https://www.python.org/downloads/"><strong>Python3 x64</strong></a> 是 Carla 中的主要脚本语言。安装 x32 版本可能会导致冲突，因此强烈建议卸载它。</li>
 </ul>
@@ -361,11 +361,49 @@ python3 dynamic_weather.py
 <pre><code class="language-shell">make LibCarla
 </code></pre>
 <p>则服务端文件<code>carla_server.lib</code>生成至<code>carla\Unreal\CarlaUE4\Plugins\Carla\CarlaDependencies\</code>，客户端文件<code>carla_client.lib</code>生成至<code>carla\PythonAPI\carla\dependencies\</code>。</p>
-<h2 id="_10">报错 <span id="error"></span></h2>
-<ul>
-<li>执行<code>make osm2odr</code>报错：</li>
-</ul>
-<pre><code class="language-text">CMake Error: The source directory &quot;D:/work/workspace/carla/Build/osm2odr-visualstudio/x64&quot; does not appear to contain CMakeLists.txt.
+<p>启动vs2019环境的命令：</p>
+<pre><code class="language-shell">call &quot;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars64.bat&quot;
+set PATH=C:\software\make-4.4.1\bin;%PATH%
+echo %PATH%
+</code></pre>
+<p>启动Python虚拟环境报错：<code>CondaError: Run 'conda init' before 'conda activate'</code></p>
+<pre><code class="language-shell">conda init cmd.exe  # 先执行这个，然后再激活虚拟环境
+conda activate carla_cpp
+</code></pre>
+<p>执行<code>make PythonAPI</code>时候报错：<code>无法加载文件Microsoft.PowerShell_profile.ps1...因为在此系统上禁止运行脚本</code>：</p>
+<pre><code class="language-shell"># 使用管理员权限启动PowerShell，修改当前用户权限
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+# 弹出选择项后选择`A`
+</code></pre>
+<p>执行<code>make PythonAPI</code>时报错：</p>
+<pre><code class="language-text">-[BuildPythonAPI]: [Batch params]: --py3
+信息: 用提供的模式无法找到文件。
+-[BuildPythonAPI]: [ERROR] An error ocurred while executing the py.
+-[BuildPythonAPI]: [ERROR] Possible causes:
+-[BuildPythonAPI]: [ERROR]  - Make sure &quot;py&quot; is installed.
+-[BuildPythonAPI]: [ERROR]  - py = python launcher. This utility is bundled with Python installation but not installed by default.
+-[BuildPythonAPI]: [ERROR]  - Make sure it is available on your Windows &quot;py&quot;.
+make: *** [Util/BuildTools/Windows.mk:62: PythonAPI] Error 1
+</code></pre>
+<p>报错位置：<code>BuildPythonAPI.bat</code>：</p>
+<pre><code class="language-shell">where py 1&gt;nul
+if %errorlevel% neq 0 goto error_py
+</code></pre>
+<p>%errorlevel%表达上一条命令的返回值。0一般会被视为成功，非0为失败或者异常。
+应该修改为：</p>
+<pre><code class="language-shell">```shell
+where python 1&gt;nul
+if %errorlevel% neq 0 goto error_py
+</code></pre>
+<pre><code>
+### 系统
+Win11专业版 [激活方法](https://www.orcy.net.cn/1802.html) 。
+
+
+## 报错 &lt;span id=&quot;error&quot;&gt;&lt;/span&gt;
+* 执行`make osm2odr`报错：
+```text
+CMake Error: The source directory &quot;D:/work/workspace/carla/Build/osm2odr-visualstudio/x64&quot; does not appear to contain CMakeLists.txt.
 Specify --help for usage, or press the help button on the CMake GUI.
 Error: could not load cache
 </code></pre>
@@ -384,7 +422,7 @@ Error: could not load cache
 <p>解决：<a href="https://blog.csdn.net/hsuehgw/article/details/131000227"><code>注册表编辑器无法在当前所选的项及其部分子项上设置安全性</code></a> 。</p>
 <p>注意：使用在线安装文件<code>vs_community__2019.exe</code>进行安装，不要使用离线版的vs2019安装包，否则会出现错误：<code>系统错误：&amp;H8007007E(-2147024770)。 找不到指定的模块</code>。</p>
 <hr />
-<h2 id="_11">参考</h2>
+<h2 id="_10">参考</h2>
 <p><a href="../build_tools/">构建系统</a></p>
 <hr />
 <p>有关本指南的任何问题， 请阅读 <strong><a href="../build_faq/">常见问题解答</a></strong> 页面或在 <a href="https://github.com/carla-simulator/carla/discussions">Carla 论坛</a> 中发帖。</p>
