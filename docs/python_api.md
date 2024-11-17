@@ -2576,7 +2576,7 @@ _</font>
         - `actor` (_[carla.Actor](#carla.Actor)_) - 正在更改最小距离的车辆。  
         - `distance` (_float<small> - 米</small>_) - 两辆车之间的米。  
 - <a name="carla.TrafficManager.force_lane_change"></a>**<font color="#7fb800">force_lane_change</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**direction**</font>)  
-强制车辆改变到其左侧或右侧的车道（如果存在），如 中所示 `direction`。无论发生什么情况，该方法都会应用车道变换，而忽略可能发生的碰撞。
+强制车辆改变到其左侧或右侧的车道（如果存在），如 `direction` 中所示 。无论发生什么情况，该方法都会应用车道变换，而忽略可能发生的碰撞。
     - **参数:**
         - `actor` (_[carla.Actor](#carla.Actor)_) - 车辆被迫改变车道。
         - `direction` (_bool_) - 目标车道。 __True__ 是右边的， __False__ 是左边的。
