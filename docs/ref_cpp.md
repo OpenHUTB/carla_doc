@@ -67,3 +67,7 @@ git ls-files '*.cpp' | xargs wc -l
 # 34872行
 git ls-files '*.h' | xargs wc -l
 ```
+
+## C++ 详细信息
+
+* [C++详细信息](./cpp.md)

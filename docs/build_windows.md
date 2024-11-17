@@ -44,7 +44,7 @@
 
 * [__CMake__](https://cmake.org/download/) 从简单的配置文件生成标准构建文件。  
 * [__Git__](https://git-scm.com/downloads) 是一个用于管理 Carla 存储库的版本控制系统。
-* [__Make__](http://gnuwin32.sourceforge.net/packages/make.htm) 生成可执行文件。必须使用 __Make 的 3.81 版本__，否则构建可能会失败。如果安装了多个版本的 Make，请检查构建 Carla 时在 PATH 中使用的版本是否为 3.81。您可以通过运行来检查默认的 Make 版本 `make --version`。
+* [__Make__](https://sourceforge.net/projects/ezwinports/files/make-4.4.1-without-guile-w32-bin.zip/download) 生成可执行文件。必须使用 __Make 的 3.81 版本__，否则构建可能会失败。如果安装了多个版本的 Make，请检查构建 Carla 时在 PATH 中使用的版本是否为 3.81。您可以通过运行来检查默认的 Make 版本 `make --version`。（运行可能出现`由于找不到libintl3.dll`， 说明需要 Visual C++ Redistributable for Visual Studio 2015，但是vs2019安装不了低版本，所以安装了make-4.4.1 ）
 * [__7Zip__](https://www.7-zip.org/) 一款文件压缩软件。这是自动解压缩资产文件所必需的，并防止在构建期间由于错误或部分提取大文件而出现错误。
 * [__Python3 x64__](https://www.python.org/downloads/) 是 Carla 中的主要脚本语言。安装 x32 版本可能会导致冲突，因此强烈建议卸载它。
 
@@ -300,6 +300,55 @@ python setup.py bdist_wheel
 make LibCarla
 ```
 则服务端文件`carla_server.lib`生成至`carla\Unreal\CarlaUE4\Plugins\Carla\CarlaDependencies\`，客户端文件`carla_client.lib`生成至`carla\PythonAPI\carla\dependencies\`。
+
+
+启动vs2019环境的命令：
+```shell
+call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars64.bat"
+set PATH=C:\software\make-4.4.1\bin;%PATH%
+echo %PATH%
+```
+
+启动Python虚拟环境报错：`CondaError: Run 'conda init' before 'conda activate'`
+```shell
+conda init cmd.exe  # 先执行这个，然后再激活虚拟环境
+conda activate carla_cpp
+```
+
+执行`make PythonAPI`时候报错：`无法加载文件Microsoft.PowerShell_profile.ps1...因为在此系统上禁止运行脚本`：
+```shell
+# 使用管理员权限启动PowerShell，修改当前用户权限
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+# 弹出选择项后选择`A`
+```
+
+执行`make PythonAPI`时报错：
+```text
+-[BuildPythonAPI]: [Batch params]: --py3
+信息: 用提供的模式无法找到文件。
+-[BuildPythonAPI]: [ERROR] An error ocurred while executing the py.
+-[BuildPythonAPI]: [ERROR] Possible causes:
+-[BuildPythonAPI]: [ERROR]  - Make sure "py" is installed.
+-[BuildPythonAPI]: [ERROR]  - py = python launcher. This utility is bundled with Python installation but not installed by default.
+-[BuildPythonAPI]: [ERROR]  - Make sure it is available on your Windows "py".
+make: *** [Util/BuildTools/Windows.mk:62: PythonAPI] Error 1
+```
+报错位置：`BuildPythonAPI.bat`：
+```shell
+where py 1>nul
+if %errorlevel% neq 0 goto error_py
+```
+%errorlevel%表达上一条命令的返回值。0一般会被视为成功，非0为失败或者异常。
+应该修改为：
+```shell
+```shell
+where python 1>nul
+if %errorlevel% neq 0 goto error_py
+```
+```
+
+### 系统
+Win11专业版 [激活方法](https://www.orcy.net.cn/1802.html) 。
 
 
 ## 报错 <span id="error"></span>

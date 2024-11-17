@@ -25,6 +25,15 @@ _socket.set_option(boost::asio::ip::tcp::no_delay(true));
 
 解决方案是：项目 —> 设置为启动项目。
 
+
+* 中文乱码
+
+解决：需要将其他文件的编码方式转换为UTF-8编码，vs2019参考 [链接](https://www.cnblogs.com/blossomwei/p/17866621.html) 进行转换。
+
+* vs2019中调式或者运行按钮是灰色的
+
+解决：需要在工具栏中选中当前的运行的文件。
+
 ## 参考
 * [CMake 中文教程](https://cmake-doc.readthedocs.io/zh-cn/latest/guide/tutorial/index.html) 
 * [vs2019 CMake 教程](https://learn.microsoft.com/zh-cn/cpp/build/cmake-projects-in-visual-studio?view=msvc-160) ，下载 CMake 3.26 的示例代码。
