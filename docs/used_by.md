@@ -689,6 +689,8 @@
 
 ## 杂项
 
+[油管博主示例](https://github.com/vadim7s/SelfDrive)
+
 [由多种遮挡事件组成的驾驶模拟基准](https://github.com/opendilab/DOS)
 
 [东风比赛](https://github.com/donymorph/Dongfeng_competition)

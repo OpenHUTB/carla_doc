@@ -56,13 +56,18 @@ cd $HOME/.config/clash/
 ![ImageDepth](img/build/internet.jpg)
 
 
-#### [VScode C++开发调式环境配置](https://zhuanlan.zhihu.com/p/679355387)
+### [VScode C++开发调式环境配置](https://zhuanlan.zhihu.com/p/679355387)
 
 1.下载`software/gcc/x86_64-8.1.0-release-win32-seh-rt_v6-rev0.7z`文件到本地并解压
 
 2.将`mingw64\bin\`路径添加到PATH路径，使用命令`gcc -v`验证配置已生效；
 
-3.
+
+### CI/CD
+- [Applied Intuition的解决方案](https://www.appliedintuition.com/blog/carla-orbis-basis) 
+
+- 官方CI/CD [链接](http://158.109.8.172:8080/login?from=%2F) （西班牙 加泰罗尼亚的IP）。
+
 
 
 ## 其他

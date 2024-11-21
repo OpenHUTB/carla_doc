@@ -522,7 +522,7 @@ sem_cam.listen(lambda image: image.save_to_disk('tutorial/new_sem_output/%.6d.jp
 
 ```py
 # --------------
-# Add a new LIDAR sensor to my ego
+# 相自车添加新的激光雷达传感器
 # --------------
 lidar_cam = None
 lidar_bp = world.get_blueprint_library().find('sensor.lidar.ray_cast')

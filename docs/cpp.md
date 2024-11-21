@@ -20,6 +20,12 @@ _socket.set_option(boost::asio::ip::tcp::no_delay(true));
 [C++客户端连接示例](cpp_client.md) 只支持在 Linux 上运行。
 
 
+## 概念
+
+### DDS
+DDS（Data Distribution Service），即 [数据分发服务](https://www.cnblogs.com/tomato-haha/p/17696510.html) ，是OMG（Object Management Group）对象管理组织发布的分布式通信规范，采用订阅发布模型，以中间件的形式提供通信服务，并提供QoS（Quality of Service）策略，保障数据实时、高效、灵活的分发。
+
+
 ## 问题
 * VS 提示无法启动程序“ \DEBUG\ALL-BUILD”,系统找不到指定的文件
 

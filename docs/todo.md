@@ -25,6 +25,7 @@
 
 - [游戏开发](./game.md) ：[多玩家](https://github.com/initialed85/carla-multiplayer) 、[上下选择并回车](https://github.com/wtripp180901/CarlaTestGenGame)
 
+
 ## 学术研究
 ### [感知](algorithms/perception.md)
 车辆/行人：
@@ -91,6 +92,7 @@ https://bitbucket.org/carla-simulator/carla-content Unreal/CarlaUE4/Content/Carl
 * 引擎优化：[文档](https://github.com/OpenHUTB/engine_doc) 本地化整理。
 * [加载进度](https://www.unrealengine.com/marketplace/en-US/product/loading-screen-with-load-percentage) ；
 * [设置加载动画](https://blog.csdn.net/u010385624/article/details/90044368) 
+* [Unreal项目自动化编译、打包和部署](https://www.cnblogs.com/uwatech/p/17168090.html) ，参考 [链接](https://pgaleone.eu/cicd/unreal-engine/2020/09/30/continuous-integration-with-unreal-engine-4/) 
 
 ### 有限元
 * 开源多物理场模拟引擎 [Chrono](https://projectchrono.org/) 处理碰撞。
