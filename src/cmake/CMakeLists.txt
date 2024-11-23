@@ -5,7 +5,7 @@ project(example)
 link_directories(
     ${RPCLIB_LIB_PATH})
 
-file(GLOB example_sources "*.cpp" "*.h")
+file(GLOB example_sources "main_debug.cpp" "*.h")
 
 file(GLOB example_client_sources "")
 
@@ -34,6 +34,7 @@ foreach(target ${build_targets})
       "../../Build/debug/boost-1.80.0-install/lib"
       "../../Build/debug/rpclib-install/lib/"
       "../../Build/debug/recast-install/lib/"
+      "../../PythonAPI/carla/dependencies/lib/"  # 为了导入 carla_client_debug.lib
       "../../Build/zlib-install/lib/"
       "../../Build/libcarla-visualstudio/LibCarla/cmake/client/Debug/"
       "../../Build/libpng-1.2.37-install/lib/")

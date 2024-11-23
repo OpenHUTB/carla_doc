@@ -370,6 +370,11 @@ source ~/.bashrc
 
 [VScode远程连接时报错：Bad owner or permissions](https://blog.csdn.net/sxtllll/article/details/135411142)
 
+### PythonAPI说明
+
+`PythonAPI/carla/setup.py`中的 `ext_modules` 参数用于构建 C 和 C++ 扩展扩展包。其是 Extension 实例的列表，每一个 Extension 实例描述了一个独立的扩展模块，扩展模块可以设置扩展包名，头文件、源文件、链接库及其路径、宏定义和编辑参数等。
+
+`package_dir` 选项的值是字典而不是列表。当您的源代码不直接位于与 `setup.py` 相同的文件夹中时，请使用此选项。
 
 ### 学习 <span id="learn"></span>
 * [bat脚本](tuto_D_bat.md)
