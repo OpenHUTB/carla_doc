@@ -1,11 +1,11 @@
 # 在 Windows 上进行 Carla 的调试
 
 - [__虚幻引擎Carla插件的调试__](#debug_CarlaUE4)
+- [__C++客户端调试__](#cpp_client_debug)
 - [__调试LibCarla__](#debug_LibCarla)
     - [__Python 扩展模块__](#python_extension)
 - [__调试PythonAPI__](#debug_Python_API)
     - [__构建调试版本__](#build_debug_version)
-    - [__C++客户端调试__](#cpp_client_debug)
 - [__其他__](#other)
     - [__检查所依赖dll库的符号是否加载__](#check_dll_loaded)
     - [__VS2019 打开 CarlaUE4 的 Cmake 工程__](#open_cmake_project)
@@ -51,8 +51,60 @@
 * **Test**：包含额外的测试代码。
 
 
+## C++客户端调试 <span id="cpp_client_debug"></span>
+
+* 错误	LNK2038	检测到“_ITERATOR_DEBUG_LEVEL”的不匹配项: 值“0”不匹配值“2”
+* 错误	LNK2038	检测到“RuntimeLibrary”的不匹配项: 值“MD_DynamicRelease”不匹配值“MDd_DynamicDebug”
+
+当前工程是Debug版本（0），而引用的库文件时Release版本（2）。
+
+需要将其他的.lib文件编译为debug模式：
+
+0.打开`x64 Native Tools Command for VS 2019`，并切换到目录`Util/Intallers`下。
+
+1.切换到目录`Util/InstallersWin`，将[`install_boost.bat`](https://github.com/OpenHUTB/carla/blob/ue4-dev/Util/InstallersWin/install_boost.bat) 内的b2运行参数改为`variant=debug`（根据`Util/BuildTools/Setup.bat`里的安装Boost命令改编），（或者将 [install_boost_debug.bat](https://github.com/OpenHUTB/carla_doc/blob/master/src/cmake/install_boost_debug.bat) 拷贝到`Util/InstallerWin`目录下），然后运行[`install_boost_debug.bat`](https://github.com/OpenHUTB/carla_doc/tree/master/src/cmake/install_boost_debug.bat) ：
+```shell
+install_boost_debug.bat --build-dir C:\buf --toolset msvc-14.2 --version 1.80.0 -j 4
+```
+会自动将boost的库和头文件安装到目录`D:\buffer\boost-1.80.0-install`里面。
+
+将[`install_recast.bat`](https://github.com/carla-simulator/carla/blob/dev/Util/InstallersWin/install_recast.bat) 中的`Relase`改为`Debug`。
+将`-DCMAKE_CXX_FLAGS_RELASE="/MD /MP"`改为多线程调试DLL`-DCMAKE_CXX_FLAGS_DEBUG="/MDd /MP"`，（或者将 [install_recast_debug.bat](https://github.com/OpenHUTB/carla_doc/blob/master/src/cmake/install_recast_debug.bat) 拷贝到`Util/InstallerWin`目录下），然后运行[`install_recast_debug.bat`](https://github.com/OpenHUTB/carla_doc/tree/master/src/cmake/install_recast_debug.bat) 。
+```shell
+install_recast_debug.bat --build-dir C:\buf --generator "Visual Studio 16 2019"
+```
+
+将[`install_rpclib.bat`](https://github.com/carla-simulator/carla/blob/dev/Util/InstallersWin/install_rpclib.bat) 中的`Relase`改为`Debug`，运行[`install_rpclib.bat`](https://github.com/OpenHUTB/carla_doc/tree/master/src/cmake/install_rpclib.bat) 。
+将`-DCMAKE_CXX_FLAGS_RELASE="/MD /MP"`改为多线程调试DLL`-DCMAKE_CXX_FLAGS_DEBUG="/MDd /MP"`。或者将[install_rpclib_debug.bat](https://github.com/OpenHUTB/carla_doc/blob/master/src/cmake/install_rpclib_debug.bat) 拷贝到`Util/InstallerWin`目录下），然后运行：
+```shell
+install_rpclib_debug.bat --build-dir C:\buf --generator "Visual Studio 16 2019"
+```
+
+
+2.将第1步生成的安装文件目录配置到`Examples\CppClient\CMakeLists.txt`中（即将 [cpp_client_debug.txt](https://github.com/OpenHUTB/carla_doc/blob/master/src/cmake/cpp_client_debug.txt) 拷贝到`Examples/CppClient`目录下并重命名为`CMakeLists.txt` ），对应的头文件和库文件都改为Debug版本（即将`C:\buf`目录下的`boost-1.80.0-install`、`recast-install`、`rpclib-install`3个文件夹拷贝到`Build\debug`目录下）；
+
+3.在`main.cpp`中增加断点，并开始调试；
+![](img/tuto_D_windows_debug/set_breakpoint_in_cpp_client.jpg)
+```shell
+auto world = client.LoadWorld("town_name");
+```
+改为：
+```shell
+auto world = client.LoadWorld("Town10HD_Opt");
+```
+即将[main_debug.cpp](https://github.com/OpenHUTB/carla_doc/blob/master/src/cmake/main_debug.cpp) 拷贝到`Examples/CppClient`目录下。
+
+4.使用VS2019打开`Examples/CppClient/CMakeLists.txt`，程序在断点停止后按F10运行下一步，按F11进入LibCarla中的函数实现。
+![](img/tuto_D_windows_debug/stop_in_LibCarla.jpg)
+
+!!! 注意
+    需要先启动Town10HT-Opt场景：需要从vs2019中使用调试模式启动虚幻编辑器并运行场景，如果使用编译后的场景执行`world.GetBlueprintLibrary()`会抛出异常。如果调式报错`错误	LNK1169	找到一个或多个多重定义的符号`，则表明当前工程有多个主函数的代码，需要删除`main.cpp`或者在Cmakelist.txt中指定需要编译包含住函数的的源代码`main_debug.cpp`。
+
+
+
+
 ## 调试LibCarla <span id="debug_LibCarla"></span>
-**客户端**向服务端调用实现的功能。
+该功能已经在 [C++客户端调试](#cpp_client_debug) 中实现，故不再需要，后面的步骤仅做探索使用。**客户端**向服务端调用实现的功能。
 * 脚本`BuildLibCarla.bat`调用`cmake`命令进行构建：
 ```shell
 cmake -G %GENERATOR% %PLATFORM%^
@@ -123,53 +175,6 @@ python setup.py build
 
 参考[链接](https://stackoverflow.com/questions/61692952/how-to-pass-debug-to-build-ext-when-invoking-setup-py-install) ，效果未知。
 
-### C++客户端调试 <span id="cpp_client_debug"></span>
-
-* 错误	LNK2038	检测到“_ITERATOR_DEBUG_LEVEL”的不匹配项: 值“0”不匹配值“2”
-* 错误	LNK2038	检测到“RuntimeLibrary”的不匹配项: 值“MD_DynamicRelease”不匹配值“MDd_DynamicDebug”
-
-当前工程是Debug版本（0），而引用的库文件时Release版本（2）。
-
-需要将其他的.lib文件编译为debug模式：
-
-0.打开`x64 Native Tools Command for VS 2019`，并切换到目录`Util/Intallers`下。
-
-1.切换到目录`Util\InstallersWin`，将[`install_boost.bat`](https://github.com/carla-simulator/carla/blob/dev/Util/InstallersWin/install_boost.bat) 内的b2运行参数改为`variant=debug`（根据`Util/BuildTools/Setup.bat`里的安装Boost命令改编），运行[`install_boost.bat`](https://github.com/OpenHUTB/carla_doc/tree/master/src/cmake/install_boost_debug.bat) ：
-```shell
-install_boost.bat --build-dir D:\buffer --toolset msvc-14.2 --version 1.80.0 -j 4
-```
-会自动将boost的库和头文件安装到目录`D:\buffer\boost-1.80.0-install`里面。
-
-将[`install_recast.bat`](https://github.com/carla-simulator/carla/blob/dev/Util/InstallersWin/install_recast.bat) 中的`Relase`改为`Debug`。
-将`-DCMAKE_CXX_FLAGS_RELASE="/MD /MP"`改为多线程调试DLL`-DCMAKE_CXX_FLAGS_DEBUG="/MDd /MP"`，运行[`install_recast.bat`](https://github.com/OpenHUTB/carla_doc/tree/master/src/cmake/install_recast_debug.bat) 。
-```shell
-install_recast_debug.bat --build-dir D:\buffer --generator "Visual Studio 16 2019"
-```
-
-将[`install_rpclib.bat`](https://github.com/carla-simulator/carla/blob/dev/Util/InstallersWin/install_rpclib.bat) 中的`Relase`改为`Debug`，运行[`install_rpclib.bat`](https://github.com/OpenHUTB/carla_doc/tree/master/src/cmake/install_rpclib.bat) 。
-将`-DCMAKE_CXX_FLAGS_RELASE="/MD /MP"`改为多线程调试DLL`-DCMAKE_CXX_FLAGS_DEBUG="/MDd /MP"`。
-```shell
-install_rpclib_debug.bat --build-dir D:\buffer --generator "Visual Studio 16 2019"
-```
-
-
-2.将第1步生成的安装文件目录配置到`Examples\CppClient\CMakeLists.txt`中，对应的头文件和库文件都改为Debug版本；
-
-3.在`main.cpp`中增加断点，并开始调试；
-![](img/tuto_D_windows_debug/set_breakpoint_in_cpp_client.jpg)
-```shell
-auto world = client.LoadWorld("town_name");
-```
-改为：
-```shell
-auto world = client.LoadWorld("Town10HD_Opt");
-```
-
-4.程序在断点停止后按F10运行下一步，按F11进入LibCarla中的函数实现。
-![](img/tuto_D_windows_debug/stop_in_LibCarla.jpg)
-
-!!! 注意
-    需要先启动Town10HT-Opt场景：需要从vs2019中启动虚幻编辑器并运行场景，使用编译后的场景执行`world.GetBlueprintLibrary()`抛出异常。
 
 ## 其他 <span id="other"></span>
 

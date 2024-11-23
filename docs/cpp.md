@@ -4,6 +4,8 @@
 
 [所有类的继承关系](https://openhutb.github.io/carla_cpp/inherits.html) 。
 
+!!! 注意
+    C++设计的哲学：Programmer needs to be trusted.（程序员应该被信任），是一种能够直接被编译成机器码的语言。
 
 ### LibCarla
 

@@ -70,6 +70,7 @@ https://bitbucket.org/carla-simulator/carla-content Unreal/CarlaUE4/Content/Carl
 * [中电软件园](https://overpass-api.de/api/map?bbox=112.8671,28.2281,112.8873,28.2412) 
 
 ### 三维建模
+数字孪生工具、Cesium for Unreal、摄影测量。
 
 * 摄影测量流程 [Meshroom](https://github.com/OpenHUTB/Meshroom) 操作的文档整理（将重建结果导入 Blender 进行重新拓扑，并将优化后的模型导入 Meshroom 进行纹理处理，[插件](https://github.com/SBCV/Blender-Addon-Photogrammetry-Importer) 、[脚本](https://github.com/tibicen/meshroom2blender) ）； 商用软件 [ContextCapture] 、reality capture；
 
