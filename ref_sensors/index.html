@@ -2350,9 +2350,11 @@ IF (ReceivedPower &gt;= receiver_sensitivity)
 </code></pre>
 <p>要模拟 V2X 通信，至少需要生成两个相同类型的 V2X 传感器（至少一对发送器-接收器）。由于接收功率是在接收器端 V2X 传感器上计算的，因此只有接收器端传感器上指定的天线增益才会纳入此计算中。可以配置传输功率和接收器灵敏度（请参阅 <a href="#v2x-sensors-blueprint-attributes">蓝图属性</a> ）。</p>
 <p><em>损耗</em> 计算取决于 
-- 发送方和接收方之间的可见性条件：视线（无障碍物）、被建筑物遮挡的非视线或被车辆遮挡的非视线，以及 
-- 场景：高速公路、乡村或城市环境</p>
-<p>虽然在 CARLA 中模拟了可见性，但用户可以配置场景（参见 <a href="#v2x-sensors-blueprint-attributes">蓝图属性</a> ），以及无线信道的其他几个属性。</p>
+* 发送方和接收方之间的可见性条件：视线（无障碍物）、被建筑物遮挡的非视线或被车辆遮挡的非视线，以及 </p>
+<ul>
+<li>场景：高速公路、乡村或城市环境</li>
+</ul>
+<p>虽然在 Carla 中模拟了可见性，但用户可以配置场景（参见 <a href="#v2x-sensors-blueprint-attributes">蓝图属性</a> ），以及无线信道的其他几个属性。</p>
 <h3 id="_46">传感器（子）类型</h3>
 <h4 id="_47">协同感知消息 <span id="cooperative-awareness-message"></span></h4>
 <ul>
