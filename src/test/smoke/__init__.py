@@ -7,7 +7,7 @@
 import glob
 import os
 import sys
-import unittest
+import unittest  # 导入单元测试框架
 
 try:
     sys.path.append(glob.glob('../carla/dist/carla-*%d.%d-%s.egg' % (
