@@ -6,7 +6,7 @@
 第三方库包括：[simplify](https://github.com/sp4cerat/Fast-Quadric-Mesh-Simplification) （使用二次曲面减少网格三角形）、[pugixml](http://pugixml.org/) （轻量级的 C++ XML 处理库）、[odrSpiral](http://www.netlib.org/cephes/) （OpenDrive应用程序中计算螺旋的方法）、[moodycamel](https://github.com/cameron314/concurrentqueue) （C++11实现的一个多生产者、多消费者的[无锁队列](http://moodycamel.com/blog/2014/detailed-design-of-a-lock-free-queue) ）、[marchingcube](https://en.wikipedia.org/wiki/Marching_cubes) （从给定的有符号距离函数重建三角形网格）。
 
 !!! 笔记
-    Marching Cubes(三维规则数据场等值面生成、从三维体素中提取三角形网格)。有符号距离函（Signed Distance Function, SDF）, 指的是给定一个点的坐标, 返回这个点与某一面的最短距离。如果这个距离是负数, 则说明在面内, 是正数则说明在面外, 如果是0, 则刚好在面上，SDF的signed就是由此而来.
+    Marching Cubes(三维规则数据场等值面生成、从三维体素中提取三角形网格)。有符号距离函（Signed Distance Function, SDF）, 指的是给定一个点的坐标, 返回这个点与某一面的最短距离。如果这个距离是负数, 则说明在面内, 是正数则说明在面外, 如果是0, 则刚好在面上，SDF的signed就是由此而来。pugi意思是`帅气的`handsome。
   
 
 Visual Studio 工程所在地目录为：`Build\libcarla-visualstudio\`。
