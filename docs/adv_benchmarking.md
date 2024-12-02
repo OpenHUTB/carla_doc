@@ -6,20 +6,21 @@
 
 我们还包含了单独基准测试的结果，该基准测试在使用不同车辆数量组合、启用物理和/或启用交通管理器时测量 Carla 在特定环境中的性能。结果与使用的 Carla 版本和执行测试的环境一起显示。
 
-- [__基准脚本__](#基准测试脚本)
-    - [__开始之前__](#开始之前)
-    - [__概要__](#概要)
-        - [__标志__](#标识)
-- [__Carla 性能报告__](#carla性能报告)
+- [__基准测试脚本__](#benchmark_script)
+    - [__开始之前__](#before_start)
+    - [__概要__](#overview)
+        - [__标志__](#tag)
+- [__如何运行基准测试__](#how_to_run_benchmark)
+- [__Carla 性能报告__](#carla_performance_report)
 
 
 ---
-## 基准测试脚本
+## 基准测试脚本 <span id="benchmark_script"></span>
 
 基准脚本可以在`PythonAPI/util`中找到。它有几个标志可用于自定义要测试的场景，下面的概要中有详细说明。
 
 
-### 开始之前
+### 开始之前 <span id="before_start"></span>
 
 基准测试脚本需要安装一些依赖项才能运行它：
 
@@ -31,7 +32,7 @@ python -m pip install gpuinfo
 python -m pip install GPUtil
 ```
 
-### 概要
+### 概要 <span id="overview"></span>
 
 `python3` [`performance_benchmark.py`](https://github.com/carla-simulator/carla/blob/master/PythonAPI/util/performance_benchmark.py)   [`[--host HOST]`](#- host-ip_address)   [`[--port PORT]`](#-port-port) [`[--file FILE]`](#-file-filenamemd) [`[--tm]`](#- Tm值）
 [`[--ticks TICKS]`](#-ticks) [`[--sync]`](#-sync) [`[--async]`](#-async))
@@ -43,7 +44,7 @@ python -m pip install GPUtil
 
 
 
-####  标志
+####  标志 <span id="tag"></span>
 
 ###### `--host`: IP_ADDRESS
 >> __默认__：本地主机。
@@ -135,7 +136,7 @@ python -m pip install GPUtil
 >> * __`1`__: CloudyNoon
 >> * __`2`__: SoftRainSunset
 
-## 如何运行基准测试
+## 如何运行基准测试 <span id="how_to_run_benchmark"></span>
 
 1.启动 Carla：
 
@@ -170,7 +171,7 @@ python3 performance_benchmark.py --async --render_mode
 ```
 
 ---
-## Carla 性能报告
+## Carla 性能报告 <span id="carla_performance_report"></span>
 
 
 下表详细说明了在随着车辆数量增加以及启用和/或禁用物理和交通管理器的不同组合运行 Carla 时对平均 FPS 的性能影响。
@@ -192,7 +193,7 @@ python3 performance_benchmark.py --async --render_mode
 
 ---
 
-# 算法性能测试
+# 算法性能测试 <span id="carla_performance_report"></span>
 [算法性能排行榜](leaderboard.md) 。
 
 如果您对性能基准有任何疑问，请不要犹豫，在论坛中发帖。

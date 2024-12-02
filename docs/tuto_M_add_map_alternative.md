@@ -4,15 +4,18 @@
 
 
 - [__RoadRunner 插件导入__](#roadrunner-plugin-import)
+    - [__插件安装__](#roadrunner-plugin-import)
+    - [__导入地图__](#roadrunner-plugin-import)
 - [__手动导入__](#manual-import)
+- [__下一步__](#manual-import)
 
 ---
 
-## RoadRunner 插件导入
+## RoadRunner 插件导入 <span id="roadrunner-plugin-import"></span>
 
 MathWorks 的 RoadRunner 软件提供了虚幻引擎插件，以帮助简化将地图导入 Carla 的过程。
 
-#### 插件安装
+#### 插件安装 <span id="roadrunner-plugin-import"></span>
 
 __1.__ 插件可从 [MathWorks 网站](https://www.mathworks.com/help/roadrunner/ug/Downloading-Plugins.html) 下载。MathWorks 还有一个 [完整的教程](https://www.mathworks.com/help/roadrunner/ug/Exporting-to-CARLA.html) ，与此类似，介绍如何使用插件将地图导入 Carla。 
 
@@ -38,7 +41,7 @@ __4.__ 在虚幻引擎窗口中，确保选中两个插件的复选框 `Edit > P
 
 ![rr_ue_plugins](./img/rr-ue4_plugins.jpg)
 
-### 导入地图
+### 导入地图 <span id="roadrunner-plugin-import"></span>
 
 __1.__ 使用 `Import` 按钮将 `<mapName>.fbx` 文件导入到 `/Content/Carla/Maps` 下面的新文件夹中。  
 
@@ -63,7 +66,7 @@ __5.__ 保存当前关卡 `File` -> `Save Current As...` -> `<mapname>` 。
 
 ---
 
-## 手动导入
+## 手动导入 <span id="manual-import"></span>
 
 这种导入地图的方法可以与通用 `.fbx` 和 `.xodr` 文件一起使用。如果您使用 RoadRunner，则应使用 `Firebox (.fbx)`、`OpenDRIVE (.xodr)` 或 `Unreal (.fbx + .xml)` 导出方法。不要使用该`Carla Exporter`选项，因为您将遇到`.fbx`文件的兼容性问题。
 
@@ -106,7 +109,7 @@ __8.__ 将网格置于 0,0,0 中心。
 
 >>![Transform_Map](./img/transform.jpg)
 
-__9.__ 在 _内容浏览器_ 中，选择所有需要有碰撞器的网格体。这是指与行人或车辆交互的任何网格。碰撞器防止他们掉入深渊。右键单击选定的网格并选择`Asset Actions > Bulk Edit via Property Matrix...`。 
+__9.__ 在 _内容浏览器_ 中，选择所有需要有碰撞体的网格体。这是指与行人或车辆交互的任何网格。碰撞体防止他们掉入深渊。右键单击选定的网格并选择`Asset Actions > Bulk Edit via Property Matrix...`。 
 
 >>![ue_selectmesh_collision](./img/ue_selectmesh_collision.jpg)
 
@@ -153,9 +156,9 @@ __15.__ 在“详细信息(_Details_)”面板中，选中`Add Spawners`并单�
 
 ---
 
-## 下一步
+## 下一步 <span id="manual-import"></span>
 
-您现在可以在虚幻编辑器中打开地图并运行仿真。从这里，您将能够自定义地图并生成行人导航数据。我们建议在所有自定义完成后生成行人导航，这样就不会有障碍物阻挡行人路径。
+您现在可以在虚幻编辑器中打开地图并运行模拟。从这里，您将能够自定义地图并生成行人导航数据。我们建议在所有自定义完成后生成行人导航，这样就不会有障碍物阻挡行人路径。
 
 Carla 提供了多种工具和指南来帮助自定义地图：
 

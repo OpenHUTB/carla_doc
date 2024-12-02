@@ -9,7 +9,7 @@
 
 ---
 
-## 在你开始之前
+## 在你开始之前 <span id="before-you-begin"></span>
 
 - 您需要满足以下系统要求：
     - Ubuntu 16.04+ 中的 64 位版本 [Docker](https://docs.docker.com/engine/install/) 
@@ -26,7 +26,7 @@
 [rr_generate_map]: tuto_M_generate_map.md
 
 ---
-## Carla 包中的地图导入
+## Carla 包中的地图导入 <span id="map-ingestion-in-a-carla-package"></span>
 
 __1.__ Carla 提供了在 Docker 映像中构建虚幻引擎以及使用该映像编译 Carla 的所有实用程序。这些工具可以在 GitHub 上的源代码中找到。使用以下命令克隆存储库：
 
@@ -63,7 +63,7 @@ __6.__ 包将在 `output_folder` 中生成为 `<map_package>.tar.gz`. 。这是�
 ./ImportAssets.sh
 ```
 
-__7.__ 要使用新地图运行仿真，请运行 Carla，然后使用 `config.py` 文件更改地图：
+__7.__ 要使用新地图运行模拟，请运行 Carla，然后使用 `config.py` 文件更改地图：
 
 ```sh
 cd PythonAPI/util
@@ -73,4 +73,4 @@ python3 config.py --map <mapName>
 
 ---
 
-您的地图现在可以在 Carla 运行仿真了。如果你对这个过程有任何问题，你可以在 [论坛](https://github.com/carla-simulator/carla/discussions) 上提问，。也可以尝试在你的新地图上运行我们的一些 [示例脚本](https://github.com/carla-simulator/carla/tree/master/PythonAPI/examples) 来测试它。
+您的地图现在可以在 Carla 运行模拟了。如果你对这个过程有任何问题，你可以在 [论坛](https://github.com/carla-simulator/carla/discussions) 上提问，。也可以尝试在你的新地图上运行我们的一些 [示例脚本](https://github.com/carla-simulator/carla/tree/master/PythonAPI/examples) 来测试它。

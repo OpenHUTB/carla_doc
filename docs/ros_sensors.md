@@ -77,13 +77,13 @@
 
 伪传感器
 
-###### TF 传感器
+###### 变换（TF）传感器
 
 
 
-当生成此伪传感器时，将发布自我车辆的 tf 数据。
+当生成此伪传感器时，将发布自我车辆的转换数据。
 
-注意：传感器在测量完成后发布 tf 数据。child_frame_id 与传感器主题的前缀相对应。
+注意：传感器在测量完成后发布转换数据。child_frame_id 与传感器主题的前缀相对应。
 
 ###### 里程计传感器
 
@@ -107,7 +107,7 @@
 
 | 主题 | 类型 | 描述 |
 |-------|------|-------------|
-| `/carla/[<PARENT ROLE NAME>]/<SENSOR ROLE NAME>` | [derived_object_msgs/ObjectArray](https://docs.ros.org/en/melodic/api/derived_object_msgs/html/msg/ObjectArray.html) | 发布所有车辆和步行者。如果附加到父级，则不包含父级。 |
+| `/carla/[<PARENT ROLE NAME>]/<SENSOR ROLE NAME>` | [derived_object_msgs/ObjectArray](https://docs.ros.org/en/melodic/api/derived_object_msgs/html/msg/ObjectArray.html) | 发布所有车辆和行人。如果附加到父级，则不包含父级。 |
 
 ###### 标记传感器
 

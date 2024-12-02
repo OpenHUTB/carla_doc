@@ -1,6 +1,6 @@
 # [添加新道具](https://carla.readthedocs.io/en/latest/tuto_A_add_props/) 
 
-除了地图和车辆之外，道具是场景中的资产。其中包括路灯、建筑物、树木等等。仿真器可以随时通过简单的过程导入新道具。这对于在地图中创建自定义环境非常有用。
+除了地图和车辆之外，道具是场景中的资产。其中包括路灯、建筑物、树木等等。模拟器可以随时通过简单的过程导入新道具。这对于在地图中创建自定义环境非常有用。
 
 * [__准备包__](#prepare-the-package)  
 	*   [创建文件夹结构](#create-the-folder-structure)  
@@ -9,9 +9,9 @@
 *   [__在源代码构建中导入__](#ingestion-in-a-build-from-source)  
 
 ---
-## 准备包
+## 准备包 <span id="prepare-the-package"></span>
 
-### 创建文件夹结构
+### 创建文件夹结构 <span id="create-the-folder-structure"></span>
 
 __1. 在 `carla/Import` 里面创建一个文件夹 .__ 文件夹的名称不相关。  
 
@@ -41,7 +41,7 @@ Import
             └── Prop03.fbx
 ```
 
-### 创建 JSON 描述
+### 创建 JSON 描述 <span id="create-the-json-description"></span>
 
 在包的根文件夹中创建一个 `.json` 文件。在包之后命名文件。请注意，这将是发行版名称。文件的内容将描述地图 __maps__ 和道具 __props__ 的 JSON 数组，以及每个地图和道具的基本信息。
 
@@ -108,7 +108,7 @@ __Props__ 需要以下参数。
     具有相同名称的包将产生错误。
 
 ---
-## 导入到 Carla 包中
+## 导入到 Carla 包中 <span id="ingestion-in-a-carla-package"></span>
 
 这是用于将道具导入到 Carla 包（例如 Carla 0.9.8）中的方法。 
 
@@ -140,7 +140,7 @@ cd Util
 
 
 ---
-## 在源代码构建中导入
+## 在源代码构建中导入 <span id="ingestion-in-a-build-from-source"></span>
 
 这是从源代码将道具导入到源代码构建 Carla 的方法。
 

@@ -2,10 +2,10 @@
 
 * [__设置__](#setup)  
 * [__LibCarla__](#libcarla)  
-* [__CarlaUE4 和 Carla 插件__](#carlaue4-and-carla-plugin)  
+* [__CarlaUE4 和 Carla 插件__](#carlaue4_and_carla_plugin)  
 * [__PythonAPI__](#pythonapi)
     - [0.9.12+ 版本](#versions-0912)
-    - [0.9.12 之前的版本](#versions-prior-to-0912)
+    - [0.9.12 之前的版本](#versions_prior_to_0912)
 
 > _本文档是一个正在进行的工作，这里仅考虑 Linux 构建系统。_
 
@@ -18,7 +18,7 @@
 在 Linux 中，我们使用 clang-8.0 和 C++14 标准编译 Carla 和所有依赖项。然而，我们根据代码的使用位置来链接不同的运行时 C++ 库，因为所有将与虚幻引擎链接的代码都需要使用 `libc++` 进行编译。
 
 ---
-## 设置
+## 设置 <span id="setup"></span>
 
 命令
 
@@ -34,7 +34,7 @@ make setup
   * googletest-1.8.1 (with libc++)
 
 ---
-## LibCarla
+## LibCarla <span id="libcarla"></span>
 
 使用 CMake 编译（最低版本需要 CMake 3.9）。
 
@@ -47,18 +47,18 @@ make LibCarla
 两种配置：
 
 
-|           | 服务器                  | 客户端                |
-|-----------|----------------------|--------------------|
-| **单元测试**  | 是                    | 否                  |
-| **要求**    | rpclib, gtest, boost | rpclib, boost      |
-| **标准运行时** | LLVM's `libc++`      | 默认 `libstdc++`     |
-| **输出**    | headers and test exes | `ibcarla_client.a` |
-| **需要** | Carla plugin         | PythonAPI          |
+|           | 服务器                                 | 客户端                  |
+|-----------|-------------------------------------|----------------------|
+| **单元测试**  | 是                                   | 否                    |
+| **要求**    | rpclib, gtest, boost                | rpclib, boost        |
+| **标准运行时** | LLVM's `libc++`                     | 默认 `libstdc++`       |
+| **输出**    | 头文件和`carla_server.lib` | `carla_server.lib` |
+| **需要** | Carla plugin                        | PythonAPI            |
 
 
 
 ---
-## CarlaUE4 和 Carla 插件
+## CarlaUE4 和 Carla 插件 <span id="carlaue4_and_carla_plugin"></span>
 
 两者均使用虚幻引擎构建工具在同一步骤进行编译。它们需要 `UE4_ROOT` 环境变量。
 
@@ -79,8 +79,9 @@ make launch
 解决：将0.9.14`build`中的`carla\Build\osm2odr-visualstudio`复制过来。
 
 ---
-## PythonAPI
-### 0.9.12+ 版本
+## PythonAPI <span id="pythonapi"></span>
+
+### 0.9.12+ 版本 <span id="versions-0912"></span>
 
 使用 Python 的 `setuptools` ("setup.py")  编译。 目前需要在机器上安装以下软件：Python, libpython-dev, 和
 libboost-python-dev, pip>=20.3, wheel, 和 auditwheel。
@@ -106,7 +107,7 @@ make PythonAPI
 >>请参阅 [__0.9.12 之前的版本__](#versions-prior-to-0912) 了解更多详细信息。
 
 
-### 0.9.12 之前的版本
+### 0.9.12 之前的版本 <span id="versions_prior_to_0912"></span>
 
 使用 Python 的 `setuptools` ("setup.py")编译。 目前需要在机器上安装以下软件： Python, libpython-dev, 和
 libboost-python-dev。

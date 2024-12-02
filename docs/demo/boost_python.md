@@ -113,5 +113,24 @@ print(hello_ext.greet())
 
 2. 在visual studio 中添加断点，并附着到第1步的进程中。
 
-3. 在`*.py`中继续执行，会在vs中暂定。
+3. 在`*.py`中继续执行，会在vs中暂停。
 
+
+### whl安装包的调式
+参考[链接](https://blog.csdn.net/Attitude93/article/details/135656910) ，转至目录`carla\PythonAPI\carla`，运行`pip install -e .`，在`Python37\Lib\site-packages\easy-install.pth`文件中生成指向源代码的路径。
+
+`-e` 或 `--editable`：这个选项表示以“可编辑”模式安装包。在这种模式下，包的源代码可以在本地进行修改，并且这些修改会立即反映到系统中该包的行为上，无需重新安装。这对于开发和调试非常有用。
+在当前目录下安装一个包，并创建一个软连接引用该包（而不是将包复制到 site-packages
+目录下）。这个软连接是一个指向包代码的符号链接，它可以使包的修改直接反映到当前目录下的项目中，从而方便开发和调试。
+
+## 解释
+
+### [setup.py](https://www.cnblogs.com/xueweihan/p/12030457.html) 
+| 参数          | 说明                                                                                                                                                                                              |
+|-------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `ext_modules` | 用于构建 C++ 扩展扩展包，其是 Extension 实例的列表，每一个 Extension 实例描述了一个独立的扩展模块，扩展模块可以设置扩展包名、源文件`source`、头文件`include_dirs`、链接库及其路径`library_dirs`、编译参数`extra_compile_args`、链接参数`extra_compile_args`、依赖`depends`等。 |
+| `package_dir={'': 'source'}` | “root package” 中的模块都在 source 目录中                                                                                                                                                                |
+| `packages=['carla']` | 需要处理的包目录（包含了一些.cpp文件）                                                                                                                                                                           |
+
+### GLI
+[全局解释器锁](https://www.jb51.net/article/148353.htm) （GLI,Global Interpreter Lock）：在调用外部代码（如C、C++扩展函数）的时候，GIL将会被锁定，直到这个函数结束为止（由于期间没有python的字节码运行，所以不会做线程切换）。

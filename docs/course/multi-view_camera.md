@@ -2,12 +2,12 @@
 
 #### **介绍**
 
-此脚本连接到CARLA仿真环境，在车辆的左右两侧设置相机，并使用Pygame显示相机捕获的实时图像。系统采用多进程架构，确保左右相机图像分别在不同窗口中实时显示。
+此脚本连接到CARLA模拟环境，在车辆的左右两侧设置相机，并使用Pygame显示相机捕获的实时图像。系统采用多进程架构，确保左右相机图像分别在不同窗口中实时显示。
 
 - #### **环境要求**
 
   - Python 3.6 及以上版本
-  - CARLA 仿真环境
+  - CARLA 模拟环境
   - 安装必要的Python库：
   - [**camera.py**](https://github.com/OpenHUTB/carla_doc/blob/master/src/course/camera.py)
 
@@ -115,7 +115,7 @@ def render(queue, side, x, y):
 
 ##### 多线程
 
-为了在CARLA仿真环境中创建两个窗口来显示车辆的左右视角，我们需要利用Pygame和多进程来实现。
+为了在CARLA模拟环境中创建两个窗口来显示车辆的左右视角，我们需要利用Pygame和多进程来实现。
 
 ```
  left_process = multiprocessing.Process(target=render, args=(left_queue, 'left', 0, 100))

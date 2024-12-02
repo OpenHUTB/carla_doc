@@ -13,7 +13,7 @@ PRELIMINARY_FILTER_DISTANCE = 50
 # Part 1
 
 client = carla.Client('localhost', 2000)
-world  = client.get_world()
+world = client.get_world()
 
 # Set up the simulator in synchronous mode
 settings = world.get_settings()
@@ -257,14 +257,14 @@ while True:
                                 z_max = p2_temp[2] if p2_temp[2] > z_max else z_max
                                 z_min = p2_temp[2] if p2_temp[2] < z_min else z_min
 
-                        # Exclude very small bounding boxes
+                        # 排除非常小的边界框
                         if (y_max - y_min) * (x_max - x_min) > 100 and (x_max - x_min) > 20:
                             if point_in_canvas((x_min, y_min), image_h, image_w) and point_in_canvas((x_max, y_max), image_h, image_w):
-                                # Use 3D vertices to calculate occlusion
+                                # U使用 3D 顶点计算遮挡
                                 num_visible_vertices, num_vertices_outside_camera = calculate_occlusion_stats(
                                     points_image, depth_map, PRELIMINARY_FILTER_DISTANCE)
 
-                                # Use 3D vertices to calculate occlusion
+                                # 使用 3D 顶点计算遮挡
                                 if num_visible_vertices >= 6:
                                     occluded = 0
                                 elif num_visible_vertices >= 4:

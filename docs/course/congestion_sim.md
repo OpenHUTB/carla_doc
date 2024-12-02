@@ -26,7 +26,7 @@
 
 在运行 `generate_traffic.py` 之前，请确保安装了以下依赖包：
 
-- `CARLA`仿真环境的搭建。
+- `CARLA`模拟环境的搭建。
 - Carla,Numpy等依赖包的安装。
 
 ### 脚本运行

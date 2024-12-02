@@ -19,7 +19,7 @@ from srunner.scenarioconfigs.osc2_scenario_configuration import OSC2ScenarioConf
 (2) 在scenario_runner.py文件的_run_osc2(self)函数中对OSC2ScenarioConfiguration进行初始化
 ```
 # self._args.osc2表示输入的场景文件名称字符串
-# self.client表示与carla仿真器建立连接的客户端
+# self.client表示与carla模拟器建立连接的客户端
 config = OSC2ScenarioConfiguration(self._args.osc2, self.client)
 ```
 
@@ -64,7 +64,7 @@ scenario = OSC2Scenario(world=self.world,
 
 ```
 # Load scenario and run it
-# self.manager是ScenarioManager类的实例化对象，对crala仿真器中场景的运行进行实时调控
+# self.manager是ScenarioManager类的实例化对象，对crala模拟器中场景的运行进行实时调控
 self.manager.load_scenario(scenario, self.agent_instance)
 self.manager.data_bridge = DataBridge(self.world)
 self.manager.run_scenario()

@@ -1,6 +1,6 @@
 # 手动信号控制
 
-这是一个用于控制红绿灯的Flask应用程序，通过 [Carla仿真环境](https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb) 实现。用户可以通过指定红绿灯的OpenDRIVE ID、颜色ID以及设置时长来控制红绿灯的状态。红绿灯的颜色设置包括绿灯、黄灯和红灯，分别对应颜色ID [1, 2, 3]。颜色持续时间以秒为单位。
+这是一个用于控制红绿灯的Flask应用程序，通过 [Carla模拟环境](https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb) 实现。用户可以通过指定红绿灯的OpenDRIVE ID、颜色ID以及设置时长来控制红绿灯的状态。红绿灯的颜色设置包括绿灯、黄灯和红灯，分别对应颜色ID [1, 2, 3]。颜色持续时间以秒为单位。
 
 #### 参数说明
 
@@ -23,7 +23,7 @@
 
 要设置红绿灯，可以发送一个GET请求到 `/set_traffic_light`：
 
-1. 打开Carla仿真环境
+1. 打开Carla模拟环境
 2. 运行脚本signal_control.py来开启服务端
 3. 发送http请求:
 
@@ -39,7 +39,7 @@ http://127.0.0.1:5000/set_traffic_light?traffic_id=-5&color_id=3&color_time=30
 
 1.接收用户请求，并解析传入的参数。
 
-2.连接到Carla仿真服务器并获取当前世界对象。
+2.连接到Carla模拟服务器并获取当前世界对象。
 
 ```
 client = carla.Client('localhost', 2000)

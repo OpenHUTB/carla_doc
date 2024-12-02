@@ -3,14 +3,14 @@
 在讨论了世界及其参与者之后，是时候将所有内容都放在适当的位置并了解地图以及参与者如何导航。
 
 - [__地图__](#the-map)  
-	- [改变地图](#changing-the-map)  
-	- [地标](#landmarks)  
-	- [车道](#lanes)  
-	- [路口](#junctions)  
-	- [航点](#waypoints)  
-	- [环境对象](#environment-objects)
+    - [改变地图](#changing-the-map)  
+    - [地标](#landmarks)  
+    - [路径点](#waypoint)  
+    - [车道](#lanes)  
+    - [路口](#junctions)
+    - [环境对象](#environment-objects)
 - [__在 Carla 中导航__](#navigation-in-carla)  
-	- [通过航路点导航](#navigating-through-waypoints)  
+	- [通过路径点导航](#navigating-through-waypoints)  
 	- [生成地图导航](#generating-a-map-navigation)  
 - [__Carla 地图__](#carla-maps)  
 	- [非分层地图](#non-layered-maps)
@@ -26,16 +26,16 @@
 
 
 ---
-## 地图
+## 地图 <span id="the-map"></span>
 
 地图包括城镇的三维模型及其道路定义。地图的道路定义基于 OpenDRIVE 文件，这是一种标准化的带注释的道路定义格式。[OpenDRIVE 1.4 标准](http://www.opendrive.org/docs/OpenDRIVEFormatSpecRev1.4H.pdf) 定义道路、车道、路口等方式决定了 Python API 的功能以及决策背后的推理。
 
 Python API 充当高级查询系统来导航这些道路。它不断发展以提供更广泛的工具集。
 
 
-### 改变地图
+### 改变地图 <span id="changing-the-map"></span>
 
-__要改变地图，世界也必须改变__。将从头开始重新创建仿真。您可以在新世界中使用相同的地图重新启动，也可以更改地图和世界：
+__要改变地图，世界也必须改变__。将从头开始重新创建模拟。您可以在新世界中使用相同的地图重新启动，也可以更改地图和世界：
 
 - `reload_world()` 使用相同的地图创建世界的新实例。
 - `load_world()` 改变当前地图并创建一个新世界。
@@ -50,7 +50,7 @@ world = client.load_world('Town01')
 print(client.get_available_maps())
 ```
 
-### 地标
+### 地标 <span id="landmarks"></span>
 
 OpenDRIVE 文件中定义的交通标志将转换为 Carla，作为可从 API 查询的地标对象。以下方法和类可用于操作和使用地标对象：
 
@@ -59,17 +59,17 @@ OpenDRIVE 文件中定义的交通标志将转换为 Carla，作为可从 API �
 	- [`carla.LandmarkType`](https://carla.readthedocs.io/en/latest/python_api/#carla.LandmarkType) 包含常见的地标类型，以便于转换为 OpenDRIVE 类型。
 - __[`carla.Waypoint`](https://carla.readthedocs.io/en/latest/python_api/#carla.Waypoint)__ 可以获得位于其前方一定距离的地标。可以指定要获取的地标类型。
 - __[`carla.Map`](https://carla.readthedocs.io/en/latest/python_api/#carla.Map)__ 检索地标集。它可以返回地图中的所有地标，或者具有共同 ID、类型或组的地标。
-- __[`carla.World`](https://carla.readthedocs.io/en/latest/python_api/#carla.World)__ 充当地标、仿真中代表他们的`carla.TrafficSign` 和 `carla.TrafficLight` 之间的中间。
+- __[`carla.World`](https://carla.readthedocs.io/en/latest/python_api/#carla.World)__ 充当地标、模拟中代表他们的`carla.TrafficSign` 和 `carla.TrafficLight` 之间的中间。
 
 ```py
 my_waypoint.get_landmarks(200.0,True)
 ``` 
 
-### 路径点
+### 路径点 <span id="waypoint"></span>
 
-[`carla.Waypoint`](python_api.md#carla.Waypoint) 是 Carla 世界中的三维有向点，对应于 OpenDRIVE 车道。与路径点相关的所有事情都发生在客户端；只需与服务器通信一次即可获取包含航点信息的[地图对象](python_api.md#carlamap)。
+[`carla.Waypoint`](python_api.md#carla.Waypoint) 是 Carla 世界中的三维有向点，对应于 OpenDRIVE 车道。与路径点相关的所有事情都发生在客户端；只需与服务器通信一次即可获取包含路径点信息的[地图对象](python_api.md#carlamap)。
 
-每个路径点都包含一个 [`carla.Transform`](python_api.md#carla.Transform) ，它说明其在地图上的位置以及包含该航路点的车道的方向。变量`road_id`,`section_id`,`lane_id` 和 `s`对应 OpenDRIVE 道路。路径点`id`的是由这四个值的哈希组合构造的。
+每个路径点都包含一个 [`carla.Transform`](python_api.md#carla.Transform) ，它说明其在地图上的位置以及包含该路径点的车道的方向。变量`road_id`,`section_id`,`lane_id` 和 `s`对应 OpenDRIVE 道路。路径点`id`的是由这四个值的哈希组合构造的。
 
 
 !!! 笔记
@@ -84,7 +84,7 @@ width = waypoint.lane_width
 right_lm_color = waypoint.right_lane_marking.color
 ```
 
-### 车道
+### 车道 <span id="lanes"></span>
 
 
 [OpenDRIVE 1.4 标准](http://www.opendrive.org/docs/OpenDRIVEFormatSpecRev1.4H.pdf) 定义的通道类型将 [carla.LaneType](python_api.md#carla.LaneType) 作为一系列枚举值转换为 API 。
@@ -110,7 +110,7 @@ left_lanemarking_type = waypoint.left_lane_marking.type()
 lane_change = waypoint.lane_change
 ```
 
-### 路口
+### 路口 <span id="junctions"></span>
 
 [`carla.Junction`](python_api.md#carla.Junction) 代表 OpenDRIVE 连接点。此类包含带有边界框的交汇处，用于识别其中的车道或车辆。
 
@@ -120,7 +120,7 @@ lane_change = waypoint.lane_change
 waypoints_junc = my_junction.get_waypoints()
 ```
 
-### 环境对象
+### 环境对象 <span id="environment-objects"></span>
 
 Carla 地图上的每个对象都有一组关联的变量，可以在 [此][env_obj] 处找到这些变量。这些变量中包含一个 [唯一 ID][env_obj_id]，可用于切换该对象在地图上的可见性。您可以使用 Python API 根据每个环境对象的[语义标签]([semantic_tag]) [获取][fetch_env_obj] 其 ID ：
 
@@ -150,18 +150,18 @@ Carla 地图上的每个对象都有一组关联的变量，可以在 [此][env_
 
 
 ---
-## 在 Carla 中导航
+## 在 Carla 中导航 <span id="navigation-in-carla"></span>
 
 Carla 中的导航是通过 Waypoint API （来自 [`carla.Waypoint`](python_api.md#carla.Waypoint) 和 [`carla.Map`](python_api.md#carla.Map) 的方法组合）进行管理。
 
 客户端必须首先与服务器通信以检索包含路径点信息的地图对象。这只需要一次，所有后续查询都在客户端执行。
 
 
-### 通过路径点导航
+### 通过路径点导航 <span id="navigating-through-waypoints"></span>
 
 Waypoint API 公开了允许路径点相互连接并构建沿道路供车辆导航的路径的方法：
 
-- `next(d)`  __在车道方向上__ 创建近似距离 `d` 内的航路点列表。该列表包含每个可能偏差的一个航路点。
+- `next(d)`  __在车道方向上__ 创建近似距离 `d` 内的路径点列表。该列表包含每个可能偏差的一个路径点。
 - `previous(d)` __在车道相反的方向上__ 创建近似距离小于 `d` 的路径点列表。该列表包含每个可能偏差的一个路径点。
 - `next_until_lane_end(d)` 和 `previous_until_lane_start(d)` 返回相距一定距离 `d` 的路径点列表。这些列表分别从当前路径点到其车道的终点和起点。
 - `get_right_lane()` 和 `get_left_lane()` 返回相邻车道中的等路径点（如果存在）。可以通过找到右/左车道上的下一个路点并移动到该路点来进行变道操作。
@@ -171,7 +171,7 @@ Waypoint API 公开了允许路径点相互连接并构建沿道路供车辆导�
 waypoint = waypoint.next(2.0)
 ```
 
-### 生成地图导航
+### 生成地图导航 <span id="generating-a-map-navigation"></span>
 
 客户端需要向服务器发出请求来获取 `.xodr` 地图文件并将其解析为[`carla.Map`](python_api.md#carla.Map) 对象。这只需要做一次。
 
@@ -188,7 +188,7 @@ map = world.get_map()
 spawn_points = world.get_map().get_spawn_points()
 ```
 
-您可以通过[获取](python_api.md#carla.Map.get_waypoint)距特定位置或特定 `road_id`、`lane_id`和`s`位置最近的航路点以及地图 OpenDRIVE 定义中的值来开始使用路径点：
+您可以通过[获取](python_api.md#carla.Map.get_waypoint)距特定位置或特定 `road_id`、`lane_id`和`s`位置最近的路径点以及地图 OpenDRIVE 定义中的值来开始使用路径点：
 
 ```py
 # 驾驶车道或人行道中心最近的路径点。
@@ -223,7 +223,7 @@ info_map = map.to_opendrive()
 ```
 
 ---
-## Carla 地图
+## Carla 地图 <span id="carla-maps"></span>
 
 Carla 生态系统中有八个城镇，每个城镇都有两种地图，非分层地图和分层地图。[图层][layer_api]是指地图中分组的对象，由以下部分组成：
 
@@ -241,34 +241,32 @@ Carla 生态系统中有八个城镇，每个城镇都有两种地图，非分�
 
 [layer_api]: https://carla.readthedocs.io/en/latest/python_api/#carlamaplayer
 
-### 非分层地图
+### 非分层地图 <span id="non-layered-maps"></span>
 
 下表显示了非分层地图（单击城镇名称可查看布局的俯视图）。所有图层始终存在，并且无法在这些地图中打开或关闭。直到 Carla 0.9.11 为止，这些是唯一可用的地图类型。
 
 !!! 笔记
     用户可以使用 [自定义地图](tuto_A_map_customization.md) 甚至创建要在 Carla 中使用的 [新地图](tuto_M_custom_map_overview.md)。
 
-| 城镇                                                                 | 概括                                                                                   |
-|--------------------------------------------------------------------|--------------------------------------------------------------------------------------|
-| **[Town01](img/Town01.jpg)**                                       | 由“T 字路口”组成的基本城镇布局。                                                                   |
-| **[Town02](img/Town02.jpg)**                                       | 和 **Town01** 类似，但是更小。                                                                |
-| **[Town03](img/Town03.jpg)**                                       | 最复杂的城镇，有 5 车道交叉路口、环岛、凹凸不平、隧道等。                                                       |
-| **[Town04](img/Town04.jpg)**                                       | 有高速公路和小镇的无限循环。                                                                       |
-| **[Town05](img/Town05.jpg)**                                       | 方形网格城镇，有十字路口和一座桥梁。每个方向有多个车道。对于执行变道很有用。                                               |
-| **[Town06](img/Town06.jpg)**                                       | 高速公路长，有许多高速公路入口和出口。它还有一个 [**密歇根左转**](<https://en.wikipedia.org/wiki/Michigan_left>)。 |
-| **[Town07](img/Town07.jpg)**                                       | 乡村环境，道路狭窄，谷仓，几乎没有红绿灯。                                                                |
-| **[Town10](img/Town10.jpg)**                                       | 具有大道或长廊等不同环境的城市环境，以及更真实的纹理。                                                          |
-| **[Town11](map_town11.md)**                                        | 具有大道或长廊等不同环境的城市环境，以及更真实的纹理。                                                          |
-| **[Town12](map_town12.md)**                                        | 一张包含许多不同区域的大地图，包括高层建筑、住宅区和乡村环境。                                                      |
-| [__Town13__](map_town13.md)                                        | 一张与 12 号镇规模相似的大地图，但具有鲜明的特色。                                                          |
-| [__Town15__](map_town15.md)                                        | 基于巴塞罗那自治大学道路布局的地图。                                                                   |
-| [__HUTB__](https://bitbucket.org/hutbcity/openhutbcarla/src/main/) | 基于湖南工商大学道路布局的地图。                                                                     |
+| 城镇                                                                    | 概括                                                                                                                                           |
+|-----------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
+| **[Town01](img/Town01.jpg)**                                          | 由“T 字路口”组成的基本城镇布局。                                                                                                                           |
+| **[Town02](img/Town02.jpg)**                                          | 和 **Town01** 类似，但是更小。                                                                                                                        |
+| **[Town03](img/Town03.jpg)**                                          | 最复杂的城镇，有 5 车道交叉路口、环岛、凹凸不平、隧道等。                                                                                                               |
+| **[Town04](img/Town04.jpg)**                                          | 有高速公路和小镇的无限循环。                                                                                                                               |
+| **[Town05](img/Town05.jpg)**                                          | 方形网格城镇，有十字路口和一座桥梁。每个方向有多个车道。对于执行变道很有用。                                                                                                       |
+| **[Town06](img/Town06.jpg)**                                          | 高速公路长，有许多高速公路入口和出口。它还有一个 [**密歇根左转**](<https://en.wikipedia.org/wiki/Michigan_left>)。                                                         |
+| **[Town07](img/Town07.jpg)**                                          | 乡村环境，道路狭窄，谷仓，几乎没有红绿灯。                                                                                                                        |
+| **[Town10](img/Town10.jpg)**                                          | 具有大道或长廊等不同环境的城市环境，以及更真实的纹理（[UE5 Town10](https://pan.baidu.com/s/1q96tyOIMJjpCw5KwL0qnsQ?pwd=hutb) `car/Carla_UE5/Carla_UE5_Windows.exe.zip`）。 |
+| **[Town11](map_town11.md)**                                           | 具有大道或长廊等不同环境的城市环境，以及更真实的纹理。                                                                                                                  |
+| **[Town12](map_town12.md)**                                           | 一张包含许多不同区域的大地图，包括高层建筑、住宅区和乡村环境。                                                                                                              |
+| [__Town13__](map_town13.md)                                           | 一张与 12 号镇规模相似的大地图，但具有鲜明的特色。                                                                                                                  |
+| [__Town15__](map_town15.md)                                           | 基于巴塞罗那自治大学道路布局的地图。                                                                                                                           |
+| [__湖南工商大学__](https://pan.baidu.com/s/1q96tyOIMJjpCw5KwL0qnsQ?pwd=hutb)  | 基于湖南工商大学道路布局的地图（位于`car/湖南工商大学.zip`，其资产位于 [链接](https://bitbucket.org/hutbcity/openhutbcarla/src/main/) ）。                                     |
+| [__中电软件园__](https://pan.baidu.com/s/1q96tyOIMJjpCw5KwL0qnsQ?pwd=hutb) | 基于长沙市中电软件园道路布局的地图（位于`car/中电软件园/WindowsNoEditor.zip`）。                                                                                        |
 
 
-
-
-
-### 分层地图
+### 分层地图 <span id="layered-maps"></span>
 
 分层地图的布局与非分层地图相同，但可以关闭和打开地图的图层。有一个无法关闭的最小布局，由道路、人行道、交通灯和交通标志组成。分层地图可以通过后缀 `_Opt` 来标识，例如`Town01_Opt`。使用这些地图，可以通过 Python API [加载][load_layer]和[卸载][unload_layer]图层：
 
@@ -291,9 +289,9 @@ Carla 生态系统中有八个城镇，每个城镇都有两种地图，非分�
 
 ---
 
-## 自定义地图
+## 自定义地图  <span id="custom-maps"></span>
 
-Carla 旨在针对专业应用程序进行可扩展和高度定制。因此，除了 Carla 中现有的许多地图和资产之外，还可以创建和导入新的地图、道路网络和资产，以填充 Carla 仿真中的定制环境。以下文档详细介绍了构建和集成自定义地图所需的步骤：
+Carla 旨在针对专业应用程序进行可扩展和高度定制。因此，除了 Carla 中现有的许多地图和资产之外，还可以创建和导入新的地图、道路网络和资产，以填充 Carla 模拟中的定制环境。以下文档详细介绍了构建和集成自定义地图所需的步骤：
 
 * [__概述__](tuto_M_custom_map_overview.md)
 * [__道路涂装__](tuto_M_custom_road_painter.md)

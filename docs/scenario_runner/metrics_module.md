@@ -1,6 +1,6 @@
 # 指标模块
 
-指标模块依靠 [CARLA 记录器](https://carla.readthedocs.io/en/latest/adv_recorder/) 来方便计算和监控任何类型的参数。场景完成后，记录器存储仿真信息。然后，用户可以定义自己的指标，并检查相应的结果，而无需一次又一次地进行仿真。
+指标模块依靠 [CARLA 记录器](https://carla.readthedocs.io/en/latest/adv_recorder/) 来方便计算和监控任何类型的参数。场景完成后，记录器存储模拟信息。然后，用户可以定义自己的指标，并检查相应的结果，而无需一次又一次地进行模拟。
 
 本节介绍了构成该模块的不同元素的说明、如何创建新指标的分步教程以及查询记录和定义指标的函数的参考。
 
@@ -11,7 +11,7 @@
 	* [3. 运行指标管理器](#3.-run-the-metrics-manager)  
 * [__记录查询参考__](#recording-queries-reference)  
 	* [通用参与者数据](#generic-actor-data)  
-	* [通用仿真数据](#generic-simulation-data)  
+	* [通用模拟数据](#generic-simulation-data)  
 	* [参与者加速度](#actor-accelerations)  
 	* [参与者角速度](#actor-angular-velocities)  
 	* [参与者控制](#actor-controls)  
@@ -27,8 +27,8 @@
 与主 ScenarioRunner 模块类似，Metrics 模块使用主脚本 运行，`metrics_manager.py`其余信息包含在文件夹结构内。这里简单介绍一下主要脚本。
 
 *   __`metrics_manager.py`__ — 模块的主脚本。运行此命令以显示一组指标的结果。该脚本具有常用的`host`和`port`参数，以及更多用于设置要使用的指标和记录的内容。
-	*   `host` *(string)* – CARLA 仿真运行时的 IP 地址。默认为`(127.0.0.1)`。
-	*   `port` *(int)* – CARLA 仿真运行的 TCP 端口。默认为`2000`和`2001`。 
+	*   `host` *(string)* – CARLA 模拟运行时的 IP 地址。默认为`(127.0.0.1)`。
+	*   `port` *(int)* – CARLA 模拟运行的 TCP 端口。默认为`2000`和`2001`。 
 	*   `metrics` — 要使用的指标的路径。 
 	*   `log` — 包含记录的`.log`文件的路径（相对于环境变量`SCENARIO_RUNNER_ROOT`）。
 	*   `criteria` *(可选)* — 具有场景条件的 JSON 文件的路径。
@@ -52,7 +52,7 @@
 
 ### 1. 记录一个场景
 
-指标模块需要记录仿真才能工作。否则，它没有数据来进行指标计算。
+指标模块需要记录模拟才能工作。否则，它没有数据来进行指标计算。
 
 使用`record` 参数。添加应该保存信息的路径。该路径必须相对于环境变量`SCENARIO_RUNNER_ROOT`。
 
@@ -61,7 +61,7 @@ python scenario_runner.py --scenario <scenario_name> --record <path/to/save/the/
 ```
 
 通过记录场景，将在所需路径中创建两个文件。这些`log`文件`criteria`稍后将用作`metrics_manager.py`的参数。
-__1. CARLA 记录__ *(`.log`)* — 包含每帧的仿真数据。要了解更多信息，请阅读 [记录器文档](https://carla.readthedocs.io/en/latest/adv_recorder/) 。 
+__1. CARLA 记录__ *(`.log`)* — 包含每帧的模拟数据。要了解更多信息，请阅读 [记录器文档](https://carla.readthedocs.io/en/latest/adv_recorder/) 。 
 __2. 指标文件__ *(.json)* — 场景标准解析为字典，并存储在 JSON 文件中。字典的键是条件的名称。这些值是每个条件的属性。
 
 !!! 注意
@@ -203,7 +203,7 @@ python metrics_manager.py --metric srunner/metrics/examples/distance_between_veh
 ```
 
 !!! 警告
-    仿真必须正在运行。否则，模块将无法访问地图API。
+    模拟必须正在运行。否则，模块将无法访问地图API。
 
 这将创建一个新窗口，其中绘制了结果。在输出窗口关闭之前，脚本不会完成。
 
@@ -257,7 +257,7 @@ python metrics_manager.py --metric srunner/metrics/examples/distance_between_veh
         - `actor_id` (_int_) — 参与者的`id`。
 
 
-### 通用仿真数据
+### 通用模拟数据
 
 - <a name="get_collisions"></a>__<font color="#7fb800">get_collisions</font>__(<font color="#00a6ed">__self__</font>,<font color="#00a6ed">__actor_id__</font>)  
 返回具有两个键的字典列表。`frame`是碰撞的帧编号， 是`other_id` 参与者在该帧发生碰撞的 id 列表。
@@ -266,7 +266,7 @@ python metrics_manager.py --metric srunner/metrics/examples/distance_between_veh
         - `actor_id` (_int_) — 参与者的`id`。
 
 - <a name="get_total_frame_count"></a>__<font color="#7fb800">get_total_frame_count</font>__(<font color="#00a6ed">__self__</font>)  
-返回一个 int 值，其中包含仿真持续的帧总数。
+返回一个 int 值，其中包含模拟持续的帧总数。
     - __Return —__ int
 
 - <a name="get_elapsed_time"></a>__<font color="#7fb800">get_elapsed_time</font>__(<font color="#00a6ed">__self__</font>, <font color="#00a6ed">__frame__</font>)  
@@ -301,8 +301,8 @@ python metrics_manager.py --metric srunner/metrics/examples/distance_between_veh
     - __Return —__ list(carla.Vector3D)
     - __Parameters__
         - `actor_id` (_int_) — 参与者的`id`。
-        - `first_frame` (_int_) — 间隔的初始帧。默认情况下，仿真开始。
-        - `last_frame` (_int_) — 间隔的最后一帧。默认情况下，仿真结束。
+        - `first_frame` (_int_) — 间隔的初始帧。默认情况下，模拟开始。
+        - `last_frame` (_int_) — 间隔的最后一帧。默认情况下，模拟结束。
 
 - <a name="get_actor_accelerations_at_frame"></a>__<font color="#7fb800">get_actor_accelerations_at_frame</font>__(<font color="#00a6ed">__self__</font>, <font color="#00a6ed">__frame__</font>, <font color="#00a6ed">__actor_list__=None</font>)  
 返回一个字典，其中键是帧编号，值是给定帧处参与者的 carla.Vector3D。默认情况下，会考虑所有参与者，但如果传递了*actor_list*，则仅检查列表中的参与者。
@@ -325,8 +325,8 @@ python metrics_manager.py --metric srunner/metrics/examples/distance_between_veh
     - __Return —__ list(carla.Vector3D)
     - __Parameters__
         - `actor_id` (_int_) — 参与者的`id`。
-        - `first_frame` (_int_) — 间隔的初始帧。默认情况下，仿真开始。
-        - `last_frame` (_int_) — 间隔的最后一帧。默认情况下，仿真结束。
+        - `first_frame` (_int_) — 间隔的初始帧。默认情况下，模拟开始。
+        - `last_frame` (_int_) — 间隔的最后一帧。默认情况下，模拟结束。
 
 - <a name="get_actor_angular_velocities_at_frame"></a>__<font color="#7fb800">get_actor_angular_velocities_at_frame</font>__(<font color="#00a6ed">__self__</font>, <font color="#00a6ed">__frame__</font>, <font color="#00a6ed">__actor_list__=None</font>)  
 返回一个字典，其中键是帧编号，值是给定帧处参与者的[carla.Vector3D](https://carla.readthedocs.io/en/latest/python_api/#carlavector3d) 。默认情况下，会考虑所有参与者，但如果传递`actor_list`，则仅检查列表中的参与者。 
@@ -373,8 +373,8 @@ python metrics_manager.py --metric srunner/metrics/examples/distance_between_veh
     - __Return —__ list([carla.Transform](https://carla.readthedocs.io/en/latest/python_api/#carlatransform))
     - __Parameters__
         - `actor_id` (_int_) — 参与者的`id`。
-        - `first_frame` (_int_) — 间隔的初始帧。默认情况下，仿真开始。
-        - `last_frame` (_int_) — 间隔的最后一帧。默认情况下，仿真结束。
+        - `first_frame` (_int_) — 间隔的初始帧。默认情况下，模拟开始。
+        - `last_frame` (_int_) — 间隔的最后一帧。默认情况下，模拟结束。
 
 - <a name="get_actor_transforms_at_frame"></a>__<font color="#7fb800">get_actor_transforms_at_frame</font>__(<font color="#00a6ed">__self__</font>, <font color="#00a6ed">__frame__</font>, <font color="#00a6ed">__actor_list__=None</font>)  
 返回一个字典，其中键是帧编号，值是给定帧处参与者的 [carla.Transform](https://carla.readthedocs.io/en/latest/python_api/#carlatransform)。默认情况下，会考虑所有参与者，但如果 `actor_list` 通过，则仅检查列表中的参与者。
@@ -397,8 +397,8 @@ python metrics_manager.py --metric srunner/metrics/examples/distance_between_veh
     - __Return —__ list([carla.Vector3D](https://carla.readthedocs.io/en/latest/python_api/#carlavector3d))
     - __Parameters__
         - `actor_id` (_int_) — 参与者的`id`。
-        - `first_frame` (_int_) — 间隔的初始帧。默认情况下，仿真开始。
-        - `last_frame` (_int_) — 间隔的最后一帧。默认情况下，仿真结束。
+        - `first_frame` (_int_) — 间隔的初始帧。默认情况下，模拟开始。
+        - `last_frame` (_int_) — 间隔的最后一帧。默认情况下，模拟结束。
 
 - <a name="get_actor_velocities_at_frame"></a>__<font color="#7fb800">get_actor_velocities_at_frame</font>__(<font color="#00a6ed">__self__</font>, <font color="#00a6ed">__frame__</font>, <font color="#00a6ed">__actor_list__=None</font>)  
 返回一个字典，其中键是帧编号，值是给定帧处参与者的 carla.Vector3D。默认情况下，会考虑所有参与者，但如果传递了*actor_list*，则仅检查列表中的参与者。 

@@ -20,36 +20,37 @@
     - [设置虚幻引擎环境变量](#set-unreal-engine-environment-variable)
     - [构建 Carla](#build-carla)
     - [其他 make 命令](#other-make-commands)
-
+    - [其他](#other)
+- [__报错__](#error)
 
 ---
-## 第一部分：先决条件
+## 第一部分：先决条件 <span id="system-requirements"></span>
 
 在本节中，您将找到开始构建 Carla 之前所需的系统要求、次要和主要软件安装以及 Python 依赖项的详细信息。
 
-### 系统要求
+### 系统要求 <span id="system-requirements"></span>
 
-* __64 位操作系统。__ 仿真器应在任何 64 位 Windows 系统中运行。 
+* __64 位操作系统。__ 模拟器应在任何 64 位 Windows 系统中运行。 
 * __165 GB 磁盘空间。__ Carla 本身将占用大约 32 GB，相关的主要软件安装（包括虚幻引擎）将占用大约 133 GB。
-* __足够的 GPU。__ Carla 旨在实现真实仿真，因此服务器至少需要 6 GB GPU，但建议使用 8 GB。强烈建议使用专用 GPU 进行机器学习。
+* __足够的 GPU。__ Carla 旨在实现真实模拟，因此服务器至少需要 6 GB GPU，但建议使用 8 GB。强烈建议使用专用 GPU 进行机器学习。
 * __两个 TCP 端口和良好的互联网连接。__ 默认端口为 2000 和 2001 。 确保这些端口未被防火墙或任何其他应用程序阻止。 
 
 !!! 笔记
     __如果您要从 Carla 0.9.12 升级到 0.9.13__: 您必须首先将虚幻引擎 4 的 Carla 分支升级到最新版本。有关升级虚幻引擎 4 的详细信息，请参阅 [__虚幻引擎__](#unreal-engine) 部分。
 
-### 软件要求
+### 软件要求 <span id="software-requirements"></span>
 
-#### 基础软件安装
+#### 基础软件安装 <span id="minor-installations"></span>
 
 * [__CMake__](https://cmake.org/download/) 从简单的配置文件生成标准构建文件。  
 * [__Git__](https://git-scm.com/downloads) 是一个用于管理 Carla 存储库的版本控制系统。
-* [__Make__](http://gnuwin32.sourceforge.net/packages/make.htm) 生成可执行文件。必须使用 __Make 的 3.81 版本__，否则构建可能会失败。如果安装了多个版本的 Make，请检查构建 Carla 时在 PATH 中使用的版本是否为 3.81。您可以通过运行来检查默认的 Make 版本 `make --version`。
+* [__Make__](https://sourceforge.net/projects/ezwinports/files/make-4.4.1-without-guile-w32-bin.zip/download) 生成可执行文件。必须使用 __Make 的 3.81 版本__，否则构建可能会失败。如果安装了多个版本的 Make，请检查构建 Carla 时在 PATH 中使用的版本是否为 3.81。您可以通过运行来检查默认的 Make 版本 `make --version`。（运行可能出现`由于找不到libintl3.dll`， 说明需要 Visual C++ Redistributable for Visual Studio 2015，但是vs2019安装不了低版本，所以安装了make-4.4.1 ）
 * [__7Zip__](https://www.7-zip.org/) 一款文件压缩软件。这是自动解压缩资产文件所必需的，并防止在构建期间由于错误或部分提取大文件而出现错误。
 * [__Python3 x64__](https://www.python.org/downloads/) 是 Carla 中的主要脚本语言。安装 x32 版本可能会导致冲突，因此强烈建议卸载它。
 
 !!! 重要
     确保将上述程序添加到 [环境路径](https://www.java.com/en/download/help/path.xml) 中。请记住，添加的路径应与程序的 `bin` 目录相对应。
-#### Python 依赖项
+#### Python 依赖项 <span id="python-dependencies"></span>
 
 从 Carla 0.9.12 开始，用于可以选择使用 `pip3` 来安装 Carla 的 Python API。要检查您是否有合适的版本，请运行以下命令：
 
@@ -70,8 +71,8 @@ pip3 install --user setuptools
 pip3 install --user wheel
 ```
 
-#### 主要软件安装
-##### Visual Studio 2019
+#### 主要软件安装 <span id="major-installations"></span>
+##### Visual Studio 2019 <span id="visual-studio-2019"></span>
 
 从 [此处](https://developerinsider.co/download-visual-studio-2019-web-installer-iso-community-professional-enterprise/) 获取 2019 版 Visual Studio 。选择 __社区__ 作为免费版本。使用 __Visual Studio 安装程序__ 安装三个附加元素： 
 
@@ -87,7 +88,7 @@ pip3 install --user wheel
 !!! 笔记
     还可以通过上述步骤使用 Visual Studio 2022，并将 Windows 8.1 SDK 替换为 Windows 11/10 SDK。要覆盖 CMake 中的默认 Visual Studio 2019 Generator，请在使用 makefile 命令时指定 GENERATOR="Visual Studio 17 2022"（请参见 [表](https://carla.readthedocs.io/en/latest/build_windows/#other-make-commands) ）。您可以指定任何与构建脚本中特定的构建命令配合使用的生成器，以进行完整列表运行`cmake -G`（到目前为止，Ninja 已经过测试可用于构建 LibCarla）。
 
-##### 虚幻引擎
+##### 虚幻引擎 <span id="unreal-engine"></span>
 
 从版本 0.9.12 开始，Carla 使用虚幻引擎 4.26 的修改版。该分支包含 Carla 特定的补丁。
 
@@ -128,9 +129,9 @@ __4.__ 编译解决方案后，您可以打开引擎，通过启动可执行文�
     到目前为止发生了很多事情。强烈建议在继续之前重新启动计算机。
 
 ---
-## 第二部分：构建 Carla
+## 第二部分：构建 Carla <span id="part-two-build-carla"></span>
  
-### 克隆 Carla 存储库
+### 克隆 Carla 存储库 <span id="clone-the-carla-repository"></span>
 
 <div class="build-buttons">
 <p>
@@ -148,7 +149,7 @@ git clone https://github.com/carla-simulator/carla
 !!! 笔记
     该`master`分支包含 Carla 的当前版本以及最新的修复和功能。以前的 Carla 版本标有版本名称。永远记住使用命令`git branch`检查 git 中的当前分支。
 
-### 获取资产
+### 获取资产 <span id="get-assets"></span>
 
 通过在 Carla 根文件夹中运行以下命令，下载 __最新的__ 资产以使用当前版本的 Carla：
 
@@ -168,7 +169,7 @@ Update.bat
 tar -xvzf <assets_file_name>.tar.gz.tar -C C:\path\to\carla\Unreal\CarlaUE4\Content\Carla
 ```
 
-### 设置虚幻引擎变量
+### 设置虚幻引擎变量 <span id="set-unreal-engine-environment-variable"></span>
 
 需要设置一个环境变量，以便 Carla 可以找到虚幻引擎的安装文件夹。这允许用户选择要使用哪个特定版本的虚幻引擎。如果未指定环境变量，Carla 将在 Windows 注册表中搜索虚幻引擎并使用在那里找到的第一个版本。
 
@@ -180,7 +181,7 @@ tar -xvzf <assets_file_name>.tar.gz.tar -C C:\path\to\carla\Unreal\CarlaUE4\Cont
 4. 为变量`UE4_ROOT`命名并选择所需虚幻引擎安装的安装文件夹的路径。
 
 
-### 构建 Carla
+### 构建 Carla <span id="build-carla"></span>
 
 本节概述了构建 Carla 的命令。
 
@@ -191,7 +192,7 @@ Carla 的构建过程分为两部分：编译客户端和编译服务器。
 
 __1.__ __编译 Python API 客户端__:
 
-Python API 客户端授予对仿真的控制权。第一次构建 Carla 时需要编译 Python API 客户端，并且在执行任何更新后需要再次编译。客户端编译完成后，您将能够运行脚本与仿真进行交互。
+Python API 客户端授予对模拟的控制权。第一次构建 Carla 时需要编译 Python API 客户端，并且在执行任何更新后需要再次编译。客户端编译完成后，您将能够运行脚本与模拟进行交互。
 
 以下命令编译 Python API 客户端：
 
@@ -233,11 +234,13 @@ make launch
 !!! 笔记
     如果编译过程中出现中文乱码，为了便于寻找编译错误，可以使用`chcp 65001`命令将编码方式修改为UTF-8（选择“属性”。在“属性”>>“选项”一栏中，就可以看到当前代码页的编码方式）。
 
-__3.__ __开始仿真__:
+![](./img/ue/ue4_editor.png)
 
-按**Play**开始服务器仿真。可以使用按键移动相机`WASD`，并通过在移动鼠标的同时单击场景来旋转相机。 
+__3.__ __开始模拟__:
 
-使用里面的示例脚本测试仿真器`PythonAPI\examples`。在仿真器运行的情况下，为每个脚本打开一个新终端并运行以下命令以在城镇中产生一些生命并创建天气循环：
+按**Play**开始服务器模拟。可以使用按键移动相机`WASD`，并通过在移动鼠标的同时单击场景来旋转相机。 
+
+使用里面的示例脚本测试模拟器`PythonAPI\examples`。在模拟器运行的情况下，为每个脚本打开一个新终端并运行以下命令以在城镇中产生一些生命并创建天气循环：
 
 ```sh
 # 终端 A 
@@ -251,9 +254,9 @@ python3 dynamic_weather.py
 ```
 
 !!! 重要
-    如果仿真以非常低的 FPS 速率运行，请转至虚幻引擎编辑器`Edit -> Editor preferences -> Performance`并禁用。
+    如果模拟以非常低的 FPS 速率运行，请转至虚幻引擎编辑器`Edit -> Editor preferences -> Performance`并禁用。
 
-### 其他构建命令
+### 其他 make 命令 <span id="other-make-commands"></span>
 
 您可能会发现还有更多有用的`make`命令。在下表中找到它们：
 
@@ -290,7 +293,7 @@ python setup.py bdist_wheel
 而`python setup.py install`在`Python37\Lib\site-packages\carla-0.9.15-py3.7-win-amd64.egg`目录下生成运行包，包括`libcarla.cp37-win_amd64.pyd`。
 
 
-### 其他
+### 其他 <span id="other"></span>
 
 如果想重新编译LibCarla或者使用最新的修改，需要删除`Build/libcarla-visualstudio`目录，然后重新运行编译命令：
 ```shell
@@ -299,7 +302,56 @@ make LibCarla
 则服务端文件`carla_server.lib`生成至`carla\Unreal\CarlaUE4\Plugins\Carla\CarlaDependencies\`，客户端文件`carla_client.lib`生成至`carla\PythonAPI\carla\dependencies\`。
 
 
-## 报错
+启动vs2019环境的命令：
+```shell
+call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars64.bat"
+set PATH=C:\software\make-4.4.1\bin;%PATH%
+echo %PATH%
+```
+
+启动Python虚拟环境报错：`CondaError: Run 'conda init' before 'conda activate'`
+```shell
+conda init cmd.exe  # 先执行这个，然后再激活虚拟环境
+conda activate carla_cpp
+```
+
+执行`make PythonAPI`时候报错：`无法加载文件Microsoft.PowerShell_profile.ps1...因为在此系统上禁止运行脚本`：
+```shell
+# 使用管理员权限启动PowerShell，修改当前用户权限
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+# 弹出选择项后选择`A`
+```
+
+执行`make PythonAPI`时报错：
+```text
+-[BuildPythonAPI]: [Batch params]: --py3
+信息: 用提供的模式无法找到文件。
+-[BuildPythonAPI]: [ERROR] An error ocurred while executing the py.
+-[BuildPythonAPI]: [ERROR] Possible causes:
+-[BuildPythonAPI]: [ERROR]  - Make sure "py" is installed.
+-[BuildPythonAPI]: [ERROR]  - py = python launcher. This utility is bundled with Python installation but not installed by default.
+-[BuildPythonAPI]: [ERROR]  - Make sure it is available on your Windows "py".
+make: *** [Util/BuildTools/Windows.mk:62: PythonAPI] Error 1
+```
+报错位置：`BuildPythonAPI.bat`：
+```shell
+where py 1>nul
+if %errorlevel% neq 0 goto error_py
+```
+%errorlevel%表达上一条命令的返回值。0一般会被视为成功，非0为失败或者异常。
+应该修改为：
+```shell
+```shell
+where python 1>nul
+if %errorlevel% neq 0 goto error_py
+```
+```
+
+### 系统
+Win11专业版 [激活方法](https://www.orcy.net.cn/1802.html) 。
+
+
+## 报错 <span id="error"></span>
 * 执行`make osm2odr`报错：
 ```text
 CMake Error: The source directory "D:/work/workspace/carla/Build/osm2odr-visualstudio/x64" does not appear to contain CMakeLists.txt.
@@ -326,9 +378,15 @@ libcarla.obj : error LNK2001: 无法解析的外部符号 "class std::basic_stri
 
 ---
 
+## 参考
+[构建系统](./build_tools.md)
+
+
+---
+
 有关本指南的任何问题， 请阅读 **[常见问题解答](build_faq.md)** 页面或在 [Carla 论坛](https://github.com/carla-simulator/carla/discussions) 中发帖。
 
-现在您已经构建了 Carla，接下来了解如何更新 Carla 构建或在仿真中迈出第一步，并学习一些核心概念。
+现在您已经构建了 Carla，接下来了解如何更新 Carla 构建或在模拟中迈出第一步，并学习一些核心概念。
 
 <div class="build-buttons">
 

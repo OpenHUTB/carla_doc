@@ -15,29 +15,29 @@
 * __[更新 Carla](#updating-carla)__    
 * __[跟进](#follow-up)__ 
 ---
-## 在你开始之前
+## 在你开始之前 <span id="before-you-begin"></span>
 
 安装 Carla 之前应满足以下要求：
 
 * __系统要求。__ Carla 是为 Windows 和 Linux 系统构建的。
-* __足够的 GPU。__ Carla 旨在实现真实仿真，因此服务器至少需要 6 GB GPU，但我们建议使用 8 GB。强烈建议使用专用 GPU 进行机器学习。
+* __足够的 GPU。__ Carla 旨在实现真实模拟，因此服务器至少需要 6 GB GPU，但我们建议使用 8 GB。强烈建议使用专用 GPU 进行机器学习。
 * __磁盘空间。__ Carla 将使用大约 20 GB 的空间。
 * __Python.__ [Python]((https://www.python.org/downloads/)) 是 Carla 中的主要脚本语言。Carla 在 Linux 上支持 Python 2.7 和 Python 3，在 Windows 上支持 Python 3。
 * __Pip.__ Carla 客户端库的某些安装方法需要 __pip__ 或 __pip3__ （取决于您的 Python 版本）版本 20.3 或更高版本。要检查您的 __pip__ 版本：
 
->>      # 对于 Python 3
->>      pip3 -V
+>      # 对于 Python 3
+>      pip3 -V
 
->>      # 对于 Python 2
->>      pip -V
+>      # 对于 Python 2
+>      pip -V
 
 >如果您需要升级：
 
->>      # 对于 Python 3
->>      pip3 install --upgrade pip
+>      # 对于 Python 3
+>      pip3 install --upgrade pip
 
->>      # 对于 Python 2
->>      pip install --upgrade pip
+>      # 对于 Python 2
+>      pip install --upgrade pip
 
 * __两个 TCP 端口和良好的互联网连接。__ 默认为 2000 年和 2001 年。确保这些端口未被防火墙或任何其他应用程序阻止。
 * __其他需求。__  Carla 需要一些 Python 依赖项。根据您的操作系统安装依赖项：
@@ -56,7 +56,7 @@ pip3 install --user pygame numpy
 ```
 
 ---
-## Carla 安装
+## Carla 安装 <span id="carla-installation"></span>
 
 有两种方法可以下载并安装 Carla 作为软件包：
 
@@ -64,7 +64,7 @@ __A)__ [下载  Debian 软件包。](#a-debian-carla-installation)
 
 __B)__ [从 GitHub 下载软件包。](#b-package-installation) 
 
-### A. Debian Carla 安装
+### A. Debian Carla 安装 <span id="a-debian-carla-installation"></span>
 
 Debain 软件包适用于 Ubuntu 18.04 和 Ubuntu 20.04，但 __官方支持的平台是 Ubuntu 18.04__ 。
 
@@ -90,7 +90,7 @@ sudo apt-get install carla-simulator=0.9.10-1 # In this case, "0.9.10" refers to
 !!! 重要
     要安装 0.9.10 之前的 Carla 版本，请使用窗口右下角的面板更改为文档的早期版本，然后按照旧的说明进行操作。
 
-### B. 包安装
+### B. 包安装 <span id="b-package-installation"></span>
 
 <div class="build-buttons">
 <p>
@@ -101,10 +101,10 @@ sudo apt-get install carla-simulator=0.9.10-1 # In this case, "0.9.10" refers to
 
 该存储库包含不同版本的 Carla。您将找到下载包含所有最新修复和功能的 __当前版本__ 、以前的版本以及包含所有开发修复和功能的 __夜间构建__ （夜间构建是 Carla 最不稳定的版本）的选项。
 
-该包是一个名为 __CARLA_version.number__ 的压缩文件。下载并解压发布文件。它包含仿真器的预编译版本、Python API 模块和一些用作示例的脚本。
+该包是一个名为 __CARLA_version.number__ 的压缩文件。下载并解压发布文件。它包含模拟器的预编译版本、Python API 模块和一些用作示例的脚本。
 
 ---
-## 导入额外资产
+## <span id="import-additional-assets">导入额外资产</span>
 
 每个版本都有其自己的附加资产和地图包。此附加包包括地图 __Town06__ 、__Town07__ 和 __Town10__ 。它们单独存储以减少构建的大小，因此只能在安装主包后才能导入它们。
 
@@ -128,13 +128,13 @@ cd path/to/carla/root
 
 ---
 
-## 安装客户端库
+## 安装客户端库 <span id="install-client-library"></span>
 
-### 0.9.12 之前的 Carla 版本
+### 0.9.12 之前的 Carla 版本 <span id="carla-versions-prior-to-0912"></span>
 
 以前版本的 Carla 不需要安装 Python 库，它们附带了一个 `.egg` 开箱即用的文件。__Carla 版本 0.9.12+ 显着改变了这种行为；有多个选项可用于安装客户端库__ 。如果您使用的是 0.9.12 之前的 Carla 版本，请在屏幕右下角选择该版本以查看相关文档。否则，请阅读下面有关 Carla 0.9.12+ 中可用选项的信息。
 
-### Carla 0.9.12+
+### Carla 0.9.12+ <span id="carla-0912"></span>
 
 有多个选项可用于安装和使用 Carla 客户端库：
 
@@ -183,7 +183,7 @@ cd path/to/carla/root
 >>PyPi 下载仅适合与 Carla 包一起使用（即不适用于从源代码构建的版本）。由于 PyPi 下载 __仅包含客户端库__，因此在您将与远程 Carla 服务器通信且不需要下载完整的 Carla 包的情况下，它非常有用。
 
 ---
-## 运行 Carla
+## 运行 Carla <span id="running-carla"></span>
 
 启动 Carla 服务器的方法取决于您使用的安装方法和操作系统：
 
@@ -213,7 +213,7 @@ CarlaUE4.exe
 
 将弹出一个包含城市景观的窗口。这是 __观察者__ 的看法。要在城市中飞行，请使用鼠标和WASD按键，按住鼠标右键控制方向。
 
-这是服务器仿真器，它现在正在运行并等待客户端连接并与世界交互。您可以尝试一些示例脚本来在城市中产生生命并驾驶汽车：
+这是服务器模拟器，它现在正在运行并等待客户端连接并与世界交互。您可以尝试一些示例脚本来在城市中产生生命并驾驶汽车：
 
 ```sh
 # 终端 A 
@@ -229,7 +229,7 @@ cd PythonAPI\examples
 python3 manual_control.py 
 ```
 
-#### 命令行选项
+#### 命令行选项 <span id="command-line-options"></span>
 
 启动 Carla 时有一些可用的配置选项，可以按如下方式使用它们：
 
@@ -257,7 +257,7 @@ python3 manual_control.py
 ```
 
 ---
-## 更新 Carla
+## 更新 Carla <span id="updating-carla"></span>
 
 无法更新 Carla 的打包版本。当新版本发布时，存储库会更新，您需要删除以前的版本并安装新版本。
 
@@ -272,7 +272,7 @@ pip uninstall carla
 ```
 
 ---
-## 跟进
+## 跟进 <span id="follow-up"></span>
 
 现在您应该已经启动并运行了 Carla 的打包版本。如果您在安装过程中遇到任何困难，请随时在 [Carla 论坛](https://github.com/carla-simulator/carla/discussions/) 或 [Discord](https://discord.gg/8kqACuC) 频道中发帖。
 

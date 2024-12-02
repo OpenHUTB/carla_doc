@@ -1,13 +1,13 @@
 # 更新 Carla
 
-*   [__更新命令摘要__](#update-commands-summary)  
-*   [__获取最新的二进制版本__](#get-latest-binary-release)  
-*   [__更新 Linux 和 Windows 构建__](#update-linux-and-windows-build)  
-	*   [清除构建](#clean-the-build)  
-	*   [从 origin 拉取](#pull-from-origin)  
-	*   [下载资产](#download-the-assets)  
-	*   [启动服务器](#launch-the-server)  
-*   [__获取开发资产__](#get-development-assets)  
+*   [__更新命令摘要__](#update_commands_summary)  
+*   [__获取最新的二进制版本__](#get_latest_binary_release)  
+*   [__更新 Linux 和 Windows 构建__](#update_linux_and_windows_build)  
+	*   [清除构建](#clean_the_build)  
+	*   [从 origin 拉取](#pull_from_origin)  
+	*   [下载资产](#download_the_assets)  
+	*   [启动服务器](#launch_the_server)  
+*   [__获取开发资产__](#get_development_assets)  
 
 要发布意外问题、疑问或建议，请随时登录 Carla 论坛。
 
@@ -19,7 +19,7 @@ Carla 论坛</a>
 </div>
 
 ---
-## 更新命令摘要
+## 更新命令摘要 <span id="update_commands_summary"></span>
 
 <details>
 <summary> 显示更新 Carla 的命令行 </summary>
@@ -56,7 +56,7 @@ git clone https://bitbucket.org/carla-simulator/carla-content Unreal/CarlaUE4/Co
 </details>
 
 ---
-## 获取最新的二进制版本
+## 获取最新的二进制版本 <span id="get_latest_binary_release"></span>
 
 二进制版本已预先打包，因此与 Carla 的特定版本相关联。要获取最新版本，请删除之前的版本，然后按照 [快速启动安装](start_quickstart.md) 来获取所需的版本。 
 
@@ -75,7 +75,7 @@ git clone https://bitbucket.org/carla-simulator/carla-content Unreal/CarlaUE4/Co
 </div>
 
 ---
-## 更新 Linux 和 Windows 构建
+## 更新 Linux 和 Windows 构建 <span id="update_linux_and_windows_build"></span>
 
 更新前请确保位于本地 `master` 分支。然后，将更改 merge 或rebase 到其他分支并解决可能的冲突。
 
@@ -83,21 +83,21 @@ git clone https://bitbucket.org/carla-simulator/carla-content Unreal/CarlaUE4/Co
 git checkout master
 ```
 
-### 清理构建
+### 清理构建 <span id="clean_the_build"></span>
 
 转到主 Carla 文件夹并删除先前构建生成的二进制文件和临时文件。
 ```sh 
 make clean
 ```
 
-### 从 origin 拉取
+### 从 origin 拉取 <span id="pull_from_origin"></span>
 
 从 Carla 存储库中 `master` 分支获取当前版本。 
 ```sh
 git pull origin master
 ```
 
-### 下载资产
+### 下载资产 <span id="download_the_assets"></span>
 
 __Linux.__
 ```sh
@@ -114,7 +114,7 @@ __4.__ 在 `Unreal\CarlaUE4\Content\Carla` 抽取新的内容。
 !!! 笔记
     为了与 Carla 团队正在开发的项目合作，请 __获取下面的开发资产__ 。
 
-### 启动服务器
+### 启动服务器 <span id="launch_the_server"></span>
 
 在旁观者视图中运行服务器以确保一切正常。
 
@@ -123,7 +123,7 @@ make launch
 ```
 
 ---
-## 获取开发版的资产
+## 获取开发版的资产 <span id="get_development_assets"></span>
 
 Carla 团队使用仍在开发中的资产。这些模型和地图有一个 [公共 git 存储库][contentrepolink]，Carla 团队定期在其中推送最新更新。资产尚未完成，仅建议开发人员使用它们。
 

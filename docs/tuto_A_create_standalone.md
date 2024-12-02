@@ -7,7 +7,7 @@
 - [__将资源导入 Carla 包__](#import-assets-into-a-carla-package)  
 
 ---
-## 在源代码构建的 Carla 中导出包
+## 在源代码构建的 Carla 中导出包 <span id="export-a-package-from-the-ue4-editor"></span>
 
 将资产导入虚幻后，用户可以为其生成 __独立的包__。这将用于将内容分发到 Carla 包，例如 0.9.8。
 
@@ -21,7 +21,7 @@ make package ARGS="--packages=Package1,Package2"
 
 ---
 
-## 使用 Docker 导出包
+## 使用 Docker 导出包 <span id="export-a-package-using-docker"></span>
 
 虚幻引擎和 Carla 可以构建在 Docker 映像中，然后可以使用该映像创建包或导出资源以在包中使用。
 
@@ -41,7 +41,7 @@ make package ARGS="--packages=Package1,Package2"
 ```
 
 ---
-## 将资源导入 Carla 包
+## 将资源导入 Carla 包 <span id="import-assets-into-a-carla-package"></span>
 
 独立包包含在`.tar.gz`文件中。提取方式取决于平台。
 

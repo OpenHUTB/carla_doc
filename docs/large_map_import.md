@@ -2,14 +2,14 @@
 
 RoadRunner 中生成的大地图可以导入到 Carla 的源代码编译版本中，并打包在 Carla 独立包中分发和使用。该过程与标准地图的过程非常相似，只是添加了图块和批量导入的特定术语。
 
-- [__文件和文件夹__](#files-and-folders)
+- [__创建文件和文件夹__](#files-and-folders)
 - [__创建 JSON 描述（可选）__](#create-the-json-description-optional)
 - [__进行导入__](#making-the-import)
 - [__打包一张大地图__](#package-a-large-map)
 
 ---
 
-## 文件和文件夹
+## 创建文件和文件夹 <span id="files-and-folders"></span>
 
 所有要导入的文件应放置在 Carla 根目录的`Import`文件夹中。这些文件应包括：
 
@@ -49,7 +49,7 @@ Import
 
 ---
 
-## 创建 JSON 描述（可选）
+## 创建 JSON 描述（可选） <span id="create-the-json-description-optional"></span>
 
 `.json`描述是在导入过程中自动创建的，但也可以选择手动创建描述。现有`.json`描述将覆盖导入过程中作为参数传递的任何值。
 
@@ -90,7 +90,7 @@ __Props__ 不属于[本](tuto_A_add_props.md)教程的一部分。请参阅本�
 
 ---
 
-## 进行导入
+## 进行导入 <span id="making-the-import"></span>
 
 将所有文件放入`Import`文件夹后，在根 Carla 文件夹中运行以下命令：
 
@@ -125,7 +125,7 @@ make import  ARGS="--no-carla-materials"
 
 ---
 
-## 打包一张大地图
+## 打包一张大地图 <span id="package-a-large-map"></span>
 
 要打包大地图以便可以在 Carla 独立包中使用，请运行以下命令：
 

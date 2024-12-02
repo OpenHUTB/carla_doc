@@ -97,6 +97,8 @@ pip3 install PythonAPI/carla/dist/carla-*.whl
 ## 问题
 
 ### 系统安装
+如果引导不了系统，需要将在BIOS中设置为UEFI启动。
+
 Ubuntu 20.04 没有g++-12的源，只有g++-9的源。而Ubuntu 22.04 有g++-12的源。
 
 解决 [ubuntu 安装过程中 安装界面黑屏](https://blog.csdn.net/qq_16963597/article/details/94715979) 的问题：
@@ -104,6 +106,8 @@ u盘启动过程中，会出现选择界面，try ubuntu 、install ubuntu等，
 ```shell
 quiet splash - - - 改成 quiet splash acpi=off
 ```
+acpi=off是关闭高级电源管理接口。如果必须添加acpi = off使ubuntu成功启动，则表示计算机上的ACPI与该版本的ubuntu不兼容。
+
 再次启动时，仍然会黑屏，进不去。
 需要[禁用nouveau](https://blog.51cto.com/u_15075507/4517000) ，然后再进入系统中安装显卡驱动。
 ```shell
@@ -130,29 +134,6 @@ sudo apt-get install clang
 还是找不到！！！
 
 
-### 其他
-
-
-
-科学上网配置[教程](https://opclash.com/article/302.html) 。下载[clash](https://github.com/zhongfly/Clash-premium-backup/releases/download/2023-09-05-gdcc8d87/clash-linux-amd64-n2023-09-05-gdcc8d87.gz) 。
-
-首次启动`clash`
-```shell
-cd $HOME/.config/clash/
-```
-将订阅地址写入`config.yaml`文件。
-
-打开 Ubuntu 的“设置”管理，在“网络”内将“网络代理”的“自动”改为“手动”，根据以下内容进行填写 HTTP、HTTPS 和 Socks 地址
-```shell
-# HTTP 代理
-127.0.0.1:7890
-
-# HTTPS 代理
-127.0.0.1:7890
-
-# Socks 主机
-127.0.0.1:7891
-```
 
 
 ### Carla
@@ -166,8 +147,8 @@ git checkout -b ue5-dev origin/ue5-dev
 
 * 报错：`error: externally-managed-environment`
 
-原因：表示当前Python环境是由系统外部管理的，通常在某些Linux发行版中（尤其是Debian和基于Debian的系统，比如Ubuntu），系统会强烈建议不要直接使用pip来安装包，以避免与系统包管理器（如apt）的潜在冲突。
-
-解决：新建Python虚拟环境。
+> 原因：表示当前Python环境是由系统外部管理的，通常在某些Linux发行版中（尤其是Debian和基于Debian的系统，比如Ubuntu），系统会强烈建议不要直接使用pip来安装包，以避免与系统包管理器（如apt）的潜在冲突。
+> 
+> 解决：新建Python虚拟环境。
 
 * cmake时候报错：`cannot find /lib64/ld-linux-x86-64.so.2`

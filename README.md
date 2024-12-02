@@ -1,4 +1,4 @@
-# Carla 中文文档
+# 代理模拟文档
 
 [文档主页](https://openhutb.github.io/carla_doc/) 。
 
@@ -58,8 +58,8 @@ python -m pip install .
 
 `tuto_M_*.md (tutorial_map_*)` : 地图教程
 
-页面跳转
-1. 定义一个锚(id)： `<span id="jump">跳转到的地方</span>`
+- 页面跳转
+1. 定义一个锚(id)： `<span id="jump"></span>` 或 `<span id="jump">跳转到的地方</span>`
 2. 使用markdown语法：`[点击跳转](#jump)`
 
 

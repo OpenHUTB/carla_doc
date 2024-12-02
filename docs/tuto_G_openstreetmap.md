@@ -6,7 +6,7 @@
 - Carla 中可以使用的不同格式的地图以及每种格式的限制。
 - 如何将本机`.osm`格式转换为`.xodr`。
 - 如何在`.xodr`文件中包含交通灯信息。
-- 如何在 Carla 仿真中运行最终地图。
+- 如何在 Carla 模拟中运行最终地图。
 
 [OpenStreetMap](https://www.openstreetmap.org) 是由数千名贡献者开发的开放数据世界地图，并根据[Open Data Commons Open Database License](https://opendatacommons.org/licenses/odbl/) 获得许可。地图的各个部分可以导出为 XML 格式的`.osm`文件。Carla 可以将此文件转换为 OpenDRIVE 格式并使用 [OpenDRIVE Standalone Mode](#adv_opendrive.md) 导入它。
 
@@ -19,7 +19,7 @@
 - [__导入 Carla__](#ingest-into-carla)
 
 ---
-## 使用 OpenStreetMap 导出地图
+## 使用 OpenStreetMap 导出地图 <span id="export-a-map-with-openstreetmap"></span>
 
 本节介绍如何从 Open Street Map 导出所需的地图信息：
 
@@ -43,7 +43,7 @@ __6.__ 单击导出面板中的 _导出_ 按钮，将所选区域的地图信息
 ![openstreetmap_area](img/tuto_g_osm_area.jpg)
 
 ---
-## 在 Carla 中使用 OpenStreetMaps
+## 在 Carla 中使用 OpenStreetMaps <span id="using-openstreetmaps-in-carla"></span>
 
 开放街道地图数据可以通过三种不同的方法在 Carla 中使用。您使用的方法取决于数据是否为原始格式，或者您是否使用以下部分中说明的转换方法来转换`.osm`文件。`.osm`保留文件是最受限制的方法，因为它不允许自定义设置。
 
@@ -60,7 +60,7 @@ __可用 `.osm` 格式选项：__
 
 ---
 
-## 将 OpenStreetMap 格式转换为 OpenDRIVE 格式
+## 将 OpenStreetMap 格式转换为 OpenDRIVE 格式 <span id="convert-openstreetmap-format-to-opendrive-format"></span>
 
 本节演示如何使用 Python API 将我们在上一节中导出的 `.osm` 文件转换为`.xodr`格式，以便可以在 Carla 中使用。
 
@@ -69,7 +69,7 @@ __可用 `.osm` 格式选项：__
 在 Windows 中，`.osm`文件必须编码为`UTF-8`. 这在 Linux 中是不必要的。以下是示例代码片段，显示如何根据您的操作系统执行文件转换：
 
 
-##### Linux
+##### Linux <span id="linux"></span>
 
 ```py
 # 读取 .osm 数据
@@ -90,7 +90,7 @@ f.write(xodr_data)
 f.close()
 ```
 
-##### Windows
+##### Windows <span id="windows"></span>
 
 ```py
 import io
@@ -115,7 +115,7 @@ f.close()
 <br>
 
 ---
-### 生成交通灯
+### 生成交通灯 <span id="generate-traffic-lights"></span>
 
 Open Street Map 数据可以定义哪些路口受交通灯控制。要在 Carla 中使用此交通灯数据，您需要在将`.osm`文件转换为`.xodr`格式之前通过 Python API 在 OSM 地图设置中启用它：
 
@@ -141,7 +141,7 @@ settings.set_traffic_light_excluded_way_types(["motorway_link"])
 ```
 
 ---
-## 导入 Carla
+## 导入 Carla <span id="ingest-into-carla"></span>
 
 本节介绍如何使用可用的不同选项，通过 [OpenDRIVE 独立模式](adv_opendrive.md)将 Open Street Map 信息提取到 Carla 中。
 
@@ -153,7 +153,7 @@ settings.set_traffic_light_excluded_way_types(["motorway_link"])
 
 ###### A) 使用您自己的脚本
 
-生成新地图并阻止仿真，直到通过调用 [`client.generate_opendrive_world()`](python_api.md#carla.Client.generate_opendrive_world) 准备就绪。使用[carla.OpendriveGenerationParameters](python_api.md#carla.OpendriveGenerationParameters)类配置网格生成。请参阅下面的示例：
+生成新地图并阻止模拟，直到通过调用 [`client.generate_opendrive_world()`](python_api.md#carla.Client.generate_opendrive_world) 准备就绪。使用[carla.OpendriveGenerationParameters](python_api.md#carla.OpendriveGenerationParameters)类配置网格生成。请参阅下面的示例：
 
 ```py
 vertex_distance = 2.0  # 以米为单位
@@ -204,7 +204,7 @@ python3 config.py --osm-path=/path/to/OSM/file
 
 <br>
 !!! 警告
-    生成的道路在地图的边界处突然结束。当车辆无法找到下一个路径点时，这将导致交通管理器崩溃。为了避免这种情况，流量管理器中的 OSM 模式默认设置为True ( [`set_osm_mode()`](python_api.md#carlatrafficmanager) )。这将在必要时显示警告并销毁车辆。
+    生成的道路在地图的边界处突然结束。当车辆无法找到下一个路径点时，这将导致交通管理器崩溃。为了避免这种情况，交通管理器中的 OSM 模式默认设置为True ( [`set_osm_mode()`](python_api.md#carlatrafficmanager) )。这将在必要时显示警告并销毁车辆。
 
 ---
 

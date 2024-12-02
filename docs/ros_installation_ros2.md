@@ -17,9 +17,9 @@
 在使用ROS桥之前，您需要满足以下软件要求：
 
 - 安装 ROS:
-    - [__ROS 2 Foxy__](https://docs.ros.org/en/foxy/Installation.html) — 针对 Ubuntu 20.04 (Focal)
+    - [__ROS 2 Foxy__](https://docs.ros.org/en/foxy/Installation/Ubuntu-Install-Debians.html) — 针对 Ubuntu 20.04 (Focal)
 -根据您的需要，可能需要额外的 ROS 包。强烈建议是用 [rviz](https://wiki.ros.org/rviz) 将ROS数据可视化。
-- CARLA 0.9.11或更高版本——以前的版本与ROS桥不兼容。遵循[快速启动安装](https://carla.readthedocs.io/en/latest/start_quickstart/) 或者为[Linux]构建(https://carla.readthedocs.io/en/latest/build_linux/) 。建议尽可能将ROS桥接版本与CARLA版本相匹配。
+- CARLA 0.9.11或更高版本——以前的版本与ROS桥不兼容。遵循[快速启动安装](https://carla.readthedocs.io/en/latest/start_quickstart/) 或者为 [Linux构建](https://carla.readthedocs.io/en/latest/build_linux/) 。建议尽可能将ROS桥接版本与CARLA版本相匹配。
 
 ---
 
@@ -38,7 +38,7 @@ git clone --recurse-submodules https://github.com/carla-simulator/ros-bridge.git
 __2.__ 设置 ROS 环境：
 
 ```sh
-    source /opt/ros/foxy/setup.bash
+source /opt/ros/foxy/setup.bash
 ```
 
 __3.__ 安装 ROS 依赖：
@@ -58,17 +58,17 @@ colcon build
 
 ## 运行ROS桥
 
-__1.__ Start a CARLA server according to the installation method used to install CARLA:
+__1.__ 请根据安装 CARLA 时使用的安装方法启动 CARLA 服务器：
 
 ```sh
-    # Package version in carla root folder
-    ./CarlaUE4.sh
+# 在 Carla的根目录中运行打包好的版本
+./CarlaUE4.sh
 
-    # Debian installation in `opt/carla-simulator/`
-    ./CarlaUE4.sh
+# 在`opt/carla-simulator/`的 Debian 安装 
+./CarlaUE4.sh
 
-    # Build from source version in carla root folder
-    make launch
+# 在 Carla 的根目录中从源代码构建
+make launch
 ```
 
 __2.__ Add the correct CARLA modules to your Python path:
@@ -130,3 +130,8 @@ __2.__ Run the tests:
 ```
 
 ---
+
+## Windows下安装
+根据[链接](./ros/windows-install_binary.md) 安装ROS2。
+
+

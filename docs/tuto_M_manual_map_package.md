@@ -5,14 +5,14 @@
 - [__标准地图__](#standard-maps)
     - [为标准地图创建文件夹结构](#create-the-folder-structure-for-the-standard-maps)
     - [为标准地图创建 JSON 描述](#create-the-json-description-for-the-standard-maps)
-- [__大地图__](#large-maps)
-    - [为大地图创建文件夹结构](#create-the-folder-structure-for-the-large-maps)
-    - [为大地图创建 JSON 描述](#create-the-json-description-for-the-large-maps)
+- [__大地图__](large_map_import.md)
+    - [为大地图创建文件夹结构](large_map_import.md#files-and-folders)
+    - [为大地图创建 JSON 描述](large_map_import.md#create-the-json-description-optional)
 
 ---
 
-## 标准地图
-### 为标准地图创建文件夹结构
+## 标准地图 <span id="standard-maps"></span>
+### 为标准地图创建文件夹结构 <span id="create-the-folder-structure-for-the-standard-maps"></span>
 
 1. __在 `carla/Import` 里面创建一个文件夹。__ 文件夹的名称并不重要。
 
@@ -49,7 +49,7 @@ Import
 
 ---
 
-### 为标准地图创建 JSON 描述
+### 为标准地图创建 JSON 描述 <span id="create-the-json-description-for-the-standard-maps"></span>
 
 在包的根文件夹中创建一个 `.json` 文件。在包之后命名文件。 请注意，这将是发行版名称。文件的内容将描述 __地图__ 和 __道具__ 的 JSON 数组，以及每个地图和道具的基本信息。 
 
@@ -84,6 +84,7 @@ __Props__ 不属于本教材的一部分。该字段将留空。还有另一个�
   ]
 }
 ```
+
 
 ---
 

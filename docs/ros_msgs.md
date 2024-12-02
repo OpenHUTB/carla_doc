@@ -22,7 +22,7 @@ ROS 和 Carla 之间共享有关参与者的信息。
 | `id`        | uint32                                                    | 参与者的ID。                                                 |
 | `parent_id` | uint32                                                    | 父参与者的 ID。如果没有可用的父级，则为\`0\`。                             |
 | `type`      | string                                                    | 该参与者所基于的蓝图的标识符。                                         |
-| `rolename`  | string                                                    | 生成时分配给参与者的角色。 |
+| `rolename`  | string                                                    | 生成时分配给参与者的名称。 |
 
 
 
@@ -55,7 +55,7 @@ ROS 和 Carla 之间共享有关参与者的信息。
 ---
 ## CarlaControl.msg
 
-这些消息在同步、非被动模式下控制仿真。定义的常量被翻译为步进命令。
+这些消息在同步、非被动模式下控制模拟。定义的常量被翻译为步进命令。
 
 | 字段        | 类型                                                | 描述                                         |
 |-----------| ----------------------------------------------------------- |--------------------------------------------|
@@ -89,7 +89,7 @@ ROS 和 Carla 之间共享有关参与者的信息。
 | `id`                                                 | uint32                                                         | 车辆参与者的 ID。                                                   |
 | `type`                                               | string                                                         | 该车辆所基于的蓝图的标识符。                                               |
 | `type`                                               | string                                                         | 该车辆所基于的蓝图的标识符。                                               |
-| `rolename`                                           | string                                                         | 分配给车辆的角色。                                                    |
+| `rolename`                                           | string                                                         | 分配给车辆的参与者。                                                    |
 | `wheels`                                             | [CarlaEgoVehicleInfoWheel](<#carlaegovehicleinfowheelmsg>)     | 包含有关车轮信息的消息列表。                                               |
 | `max_rpm`                                            | float32                                                        | 车辆发动机的最大转速。                                                  |
 | `moi`                                                | float32                                                        | 车辆发动机的转动惯量。                                                  |
@@ -186,15 +186,15 @@ ScenarioRunner 的当前状态。它是使用常量来管理的。
 
 ## CarlaStatus.msg
 
-当前世界的仿真设置。 
+当前世界的模拟设置。 
 
 
 | 字段                         | 类型    | 描述                             |
 |----------------------------| -------------------------------------------------- |--------------------------------|
 | `frame`                    | uint64        | 当前帧号。                          |
-| `fixed_delta_seconds`      | float32    | 最后一步和当前步之间的仿真时间。               |
+| `fixed_delta_seconds`      | float32    | 最后一步和当前步之间的模拟时间。               |
 | `synchronous_mode`         | bool  | 如果为 **True**，则启用同步模式。          |
-| `synchronous_mode_running` | bool    | 当仿真运行时为**True**。暂停时为**False**。 |
+| `synchronous_mode_running` | bool    | 当模拟运行时为**True**。暂停时为**False**。 |
 
 ---
 
@@ -233,7 +233,7 @@ ScenarioRunner 的当前状态。它是使用常量来管理的。
 
 ## CarlaWaypoint.msg
 
-航点对象中包含的数据。
+路径点对象中包含的数据。
 
 | 字段            | 类型                                                                                                                                     | 描述                                         |
 |---------------| ---------------------------------------------------------------------------------------------------------------------------------------- |--------------------------------------------|
@@ -241,7 +241,7 @@ ScenarioRunner 的当前状态。它是使用常量来管理的。
 | `section_id`  | int32                                                                                                                                    | OpenDRIVE 部分的 id，基于它们最初定义的顺序。              |
 | `lane_id`     | int32                                                                                                                                    | OpenDRIVE 车道的id，该值可以是正数或负数，表示当前车道相对于道路的方向。 |
 | `is_junction` | bool                                                                                                                                     | 如果当前路点位于 OpenDRIVE 定义的交汇点上，则为 **True**。    |
-| `is_junction` | [geometry\_msgs/Pose](https://docs.ros.org/en/api/geometry_msgs/html/msg/Pose.html)                                                        | 当仿真运行时为 **True** 。暂停时为  **False**。         |
+| `is_junction` | [geometry\_msgs/Pose](https://docs.ros.org/en/api/geometry_msgs/html/msg/Pose.html)                                                        | 当模拟运行时为 **True** 。暂停时为  **False**。         |
 
 ---
 

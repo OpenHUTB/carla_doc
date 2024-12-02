@@ -4,7 +4,7 @@
 
 *   [__行人骨骼结构__](#walker-skeleton-structure)  
 *   [__手动控制行人骨骼__](#manually-control-walker-bones)  
-	*   [连接到仿真器](#connect-to-the-simulator)  
+	*   [连接到模拟器](#connect-to-the-simulator)  
 	*   [生成行人](#spawn-a-walker)  
 	*   [控制行人骨骼](#control-walker-skeletons)  
 
@@ -90,9 +90,9 @@ crl_root
 ---
 ## 手动控制行人骨骼 <span id="manually-control-walker-bones"></span>
 
-以下是如何通过 Carla Python API 更改步行者骨骼变换的详细分步示例。
+以下是如何通过 Carla Python API 更改行人骨骼变换的详细分步示例。
 
-### 连接到仿真器 <span id="connect-to-the-simulator"></span>
+### 连接到模拟器 <span id="connect-to-the-simulator"></span>
 
 导入本例中使用的必要库
 
@@ -124,7 +124,7 @@ world.try_spawn_actor(blueprint, spawn_point)
 
 可以通过将 `WalkerBoneControl` 类的实例传递给行人的 `apply_control` 函数来修改行人的骨架。`WalkerBoneControl` 类包含要修改的骨骼的变换。它的 `bone_transforms` 成员是成对值元组的列表，其中第一个值是骨骼名称，第二个值是骨骼变换。可以在每个刻度上调用 `apply_control` 函数来为行人的骨骼设置动画。每个变换的位置和旋转都是相对于其父变换的。因此，当修改父骨骼的变换时，子骨骼在模型空间中的变换也会相对改变。
 
-在下面的示例中，步行者的手设置为围绕前轴旋转 90 度，并且位置设置为原点。
+在下面的示例中，行人的手设置为围绕前轴旋转 90 度，并且位置设置为原点。
 
 ```py
 control = carla.WalkerBoneControl()
@@ -135,3 +135,8 @@ world.player.apply_control(control)
 ```
 
 
+## 可视化行人骨架
+
+![](img/walker/draw_skeleton.png)
+
+可视化骨架代码 [链接](https://github.com/OpenHUTB/carla_doc/blob/master/src/walker/draw_skeleton.py) 。

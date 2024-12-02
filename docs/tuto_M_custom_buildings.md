@@ -7,11 +7,11 @@
 
 ---
 
-## 程序化建筑
+## 程序化建筑 <span id="add-serial-meshes"></span>
 
 程序化建筑工具允许您创建由不同楼层组成的矩形建筑。每个级别都是使用可配置的网格阵列或单个蓝图构建的。如果使用网格阵列，则每个网格将沿关卡随机重复以提供多样性。网格体创建一次，每个重复都将是该网格体的一个实例。这可以提高地图的性能。
 
-### 建筑结构
+### 建筑结构 <span id="building-structure"></span>
 
 要开始建造您的建筑：
 
@@ -40,7 +40,7 @@
 ![bp_procedural_building_full](./img/map_customization/BP_Procedural_Building_Full.jpg)
 <div style="text-align: right"><i>BP_Procedural_Building 示例。</i></div>
 
-### 结构修改
+### 结构修改 <span id="structure-modifications"></span>
 
 还有一些额外的选项可以修改建筑物的总体结构。
 
@@ -54,7 +54,7 @@
 
 ---
 
-## 下一步
+## 下一步 <span id="next-steps"></span>
 
 使用以下工具和指南继续自定义您的地图：
 

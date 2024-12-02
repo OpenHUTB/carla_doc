@@ -9,12 +9,12 @@
 
 本教程介绍了运行 Carla 图像的要求以及如何使用 OpenGL 和 Vulkan 图形 API 运行图像。
 
-- [__在你开始之前__](#before-you-begin)
-- [__在容器中运行 Carla__](#running-carla-in-a-container)
-- [__离屏模式__](#off-screen-mode)
+- [__在你开始之前__](#before_you_begin)
+- [__在容器中运行 Carla__](#running_carla_in_a_container)
+- [__离屏模式__](#off_screen_mode)
 
 ---
-## 在你开始之前
+## 在你开始之前 <span id="before_you_begin"></span>
 
 您需要安装：
 
@@ -52,7 +52,7 @@ nvidia-ctk runtime configure --runtime=docker
 
 
 ---
-## 在容器中运行 Carla
+## 在容器中运行 Carla <span id="running_carla_in_a_container"></span>
 
 __1. 拉取 Carla 镜像。__
 
@@ -114,7 +114,7 @@ __3. （可选）配置 Docker 标志。__
 
 ---
 
-## 离屏模式
+## 离屏模式 <span id="off_screen_mode"></span>
 
 如果您在没有显示器的计算机上运行 Carla，则 OpenGL 不需要配置，但是您需要执行一些额外的步骤才能使用 Carla 0.9.12 之前的 Vulkan 执行相同的操作。有关信息，请参阅[渲染文档](adv_rendering_options.md#off-screen-mode) 。
 

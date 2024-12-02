@@ -1,12 +1,12 @@
 C++ 客户端示例
 ==================
 
-此示例使用 Carla 的C++API创建一个应用程序，以从C++连接和控制仿真器。
+此示例使用 Carla 的C++API创建一个应用程序，以从C++连接和控制模拟器。
 
 编译和运行
 ---------------
 
-使用提供的 Makefile（仅限Linux）编译并运行示例。请注意，它希望有一个仿真器在2000端口运行。
+使用提供的 Makefile（仅限Linux）编译并运行示例。请注意，它希望有一个模拟器在2000端口运行。（[Windows客户端cmake文件](https://github.com/OpenHUTB/carla_doc/tree/master/src/cmake/CMakeLists.txt) ）
 
 ```
 make run
@@ -70,3 +70,7 @@ libcarla-install
 我们的应用程序至少需要链接到`libcarla_client.a`，`librpc.a`、`libRecast.a`和`libDetour*.a`。如果我们利用IO我们需要链接的功能和/或图像处理`boost_filesystem`、`png`、`tiff`和/或`jpeg`。
 
 有关更多详细信息，请查看提供的 Makefile。
+
+## 其他
+
+[链接库说明](tuto_D_python_api.md)

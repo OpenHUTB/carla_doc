@@ -1,12 +1,12 @@
-# 基于Carla仿真环境的目标检测
+# 基于Carla模拟环境的目标检测
 
 [**object_dection.py**](https://github.com/OpenHUTB/carla_doc/blob/master/src/course/object_detection/object_detection.py) 脚本主要是在 **Carla** 中使用 **YOLOv3** 检测车辆。[相关链接](../algorithms/perception.md)  
 
-​     [**湖工商场景**](https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb )**(WindowsNoEditor)**，并运行**[generate_traffic.py](https://github.com/OpenHUTB/carla_doc/tree/master/src/examples/generate_traffic.py)**      
+[**湖工商场景**](https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb )**(WindowsNoEditor)**，并运行**[generate_traffic.py](https://github.com/OpenHUTB/carla_doc/tree/master/src/examples/generate_traffic.py)**      
 
 ![](../img/traffic_course_img/3.gif)
 
-​	导入必要的库及变量
+导入必要的库及变量
 
 ```
 import random
@@ -21,7 +21,7 @@ VIEW_HEIGHT = 1080 // 2
 VIEW_FOV = 90
 ```
 
-​	加载模型和配置文件
+加载模型和配置文件
 
 ```
 model = cv2.dnn.readNet("weights/yolov3.weights", "cfg/yolov3.cfg")
@@ -31,7 +31,7 @@ output_layers = [layers_names[i[0] - 1] for i in model.getUnconnectedOutLayers()
 colors = np.random.uniform(0, 255, size=(len(classes), 3))
 ```
 
-​	定义绘制标签的函数
+定义绘制标签的函数
 
 ```
 def draw_labels(boxes, confs, colors, class_ids, classes, img):
@@ -47,7 +47,7 @@ def draw_labels(boxes, confs, colors, class_ids, classes, img):
     return img
 ```
 
-​	定义获取框维度的函数
+定义获取框维度的函数
 
 ```
 def get_box_dimensions(outputs, height, width):
@@ -72,7 +72,7 @@ def get_box_dimensions(outputs, height, width):
     return boxes, confs, class_ids
 ```
 
-​	定义 **Carla** 客户端类
+定义 **Carla** 客户端类
 
 ```
 class CarlaClient():
@@ -134,7 +134,7 @@ class CarlaClient():
 
 ```
 
-​	**main**  函数中主要是在Carla模拟器中运行自动驾驶，并通过摄像头捕获图像后采用YOLOv3模型进行车辆物体的检测，最后使用Pygame显示处理后的图像。
+**main**  函数中主要是在Carla模拟器中运行自动驾驶，并通过摄像头捕获图像后采用YOLOv3模型进行车辆物体的检测，最后使用Pygame显示处理后的图像。
 
 ```
 if __name__ == '__main__':

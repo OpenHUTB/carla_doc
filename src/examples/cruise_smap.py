@@ -1,3 +1,4 @@
+# 现在道路上空进行巡航
 import carla
 import argparse
 import time

@@ -5,28 +5,28 @@
 
 ## 一般
 
-### 交通仿真系统
+### 交通模拟系统
 
-本系统基于开源虚幻引擎框架，构建全道路场景仿真和智能交通系统仿真系统，满足我国特定交通路况多样化需求，为智慧交通算法的教学与应用提供的数据底座。
+本系统基于开源虚幻引擎框架，构建全道路场景模拟和智能交通系统模拟系统，满足我国特定交通路况多样化需求，为智慧交通算法的教学与应用提供的数据底座。
 
 - [交通数据导入和编辑支持从公开道路地图导入或创建生成道路网络](course/scenario.md#generateMapByOpenMap)，支持添加车辆到道路网络并定义其轨迹以合成驾驶场景，[支持定义车道数量和车道长宽度，支持自定义道路编辑](course/scenario.md#sceneEditing)。
 - [车辆运动支持定义车辆运动起点和目标位置](course/navigation.md#definePoint)，[为每辆车指定随机速度值](course/navigation.md#definePoint)，[生成车辆轨迹](course/navigation.md#generateTrajectory)。支持自定义车辆的速度，使其沿轨迹移动时不会发生碰撞或模拟碰撞。支持车辆运动模拟和显示自动生成的轨迹场景，可以看到车辆沿指定轨迹行驶以到达其目标位置。
 
-- 联合仿真支持联合虚拟引擎仿真模拟实验，不仅可以看到[区域宏观](course/regional_macro.md)，还可以看到[路口微观](course/microscopic_Intersection_demo.md)，支持 3D 动画演示运动场景。[支持配置单个或多个摄像头，进行车辆的检测](course/multi-view_camera.md)。[支持计算红绿灯的配时方案，并进行红绿灯的设置](course/auto_signal_control.md)。[支持测试车辆按地图选点进行移动，看到红灯停、绿灯行，以及避让等功能](course/locate_moving.md)。支持加入更多的车辆进行交通拥堵的模拟，统计优化前和优化后的结果。
+- 联合模拟支持联合虚拟引擎模拟模拟实验，不仅可以看到[区域宏观](course/regional_macro.md)，还可以看到[路口微观](course/microscopic_Intersection_demo.md)，支持 3D 动画演示运动场景。[支持配置单个或多个摄像头，进行车辆的检测](course/multi-view_camera.md)。[支持计算红绿灯的配时方案，并进行红绿灯的设置](course/auto_signal_control.md)。[支持测试车辆按地图选点进行移动，看到红灯停、绿灯行，以及避让等功能](course/locate_moving.md)。支持加入更多的车辆进行交通拥堵的模拟，统计优化前和优化后的结果。
 
 ##### 效果评价
 
 1. [路口评价](course/traffic_indicators.md)：支持高保正的十字路口三维建模，建模[路口交通流量](course/traffic_indicators.md#trafficFlow)、[路口车均延误](course/traffic_indicators.md#aveDelay)、[路口饱和](course/traffic_indicators.md#saturation)、[排队长度](course/traffic_indicators.md#queueLength)等多种路口真实性评价指标分析。
-2. [路网评价](course/roadnet_evaluation.md)：支持基于路网数据的路网动态仿真，[预测和分析不同仿真流量和真实流量的相似性](course/roadnet_evaluation.md#predict_flow)。
+2. [路网评价](course/roadnet_evaluation.md)：支持基于路网数据的路网动态模拟，[预测和分析不同模拟流量和真实流量的相似性](course/roadnet_evaluation.md#predict_flow)。
 
-##### 课程一：交通仿真与场景建模
+##### 课程一：交通模拟与场景建模
 
 1. [道路网络导入与编辑学生学习如何使用系统导入公开道路地图或创建生成道路网络](course/scenario.md#generateMapByOpenMap)，以及[编辑道路属性和车道信息，构建具体的交通场景](course/scenario.md#sceneEditing)。
-2. [车辆轨迹生成](course/navigation.md#generateTrajectory)与[模拟学生学习如何为车辆指定起点和目标位置](course/navigation.md#definePoint)，[定义车辆的运动轨迹，模拟车辆的行驶过程](course/trajectory_tracking.md)，并观察车辆在仿真环境中的运动行为。
-3. [红绿灯配时方案优化学生学习如何配置红绿灯的配时方案](course/signal_control.md)，[并通过仿真实验优化配时参数](course/auto_signal_control.md)，以提高交通流畅度和减少交通拥堵。
-4. [交通拥堵模拟与统计分析学生学习如何模拟交通拥堵场景](course/congestion_sim.md)，加入更多的车辆进行仿真，进行拥堵情况的统计分析，并评估优化措施的效果。
+2. [车辆轨迹生成](course/navigation.md#generateTrajectory)与[模拟学生学习如何为车辆指定起点和目标位置](course/navigation.md#definePoint)，[定义车辆的运动轨迹，模拟车辆的行驶过程](course/trajectory_tracking.md)，并观察车辆在模拟环境中的运动行为。
+3. [红绿灯配时方案优化学生学习如何配置红绿灯的配时方案](course/signal_control.md)，[并通过模拟实验优化配时参数](course/auto_signal_control.md)，以提高交通流畅度和减少交通拥堵。
+4. [交通拥堵模拟与统计分析学生学习如何模拟交通拥堵场景](course/congestion_sim.md)，加入更多的车辆进行模拟，进行拥堵情况的统计分析，并评估优化措施的效果。
 5. 路口交通流量评估学生学习如何使用系统提供的路口评价指标，分析[路口交通流量](course/traffic_indicators.md#trafficFlow)、[车均延误](course/traffic_indicators.md#aveDelay)、[饱和度](course/traffic_indicators.md#saturation)、[排队长度](course/traffic_indicators.md#queueLength)等指标，评估路口交通状况。
-6. [场景建模与可视化展示学生学习如何使用系统提供的场景建模工具，进行交通场景的建模和可视化展示，以及设计交互式演示界面，呈现仿真结果和实验效果。](adv_digital_twin.md)
+6. [场景建模与可视化展示学生学习如何使用系统提供的场景建模工具，进行交通场景的建模和可视化展示，以及设计交互式演示界面，呈现模拟结果和实验效果。](adv_digital_twin.md)
 
 ##### 课程二：智能交通算法与优化
 
@@ -35,12 +35,12 @@
 3. 交通网络优化策略设计学生学习如何使用系统提供的交通网络数据，设计交通网络优化策略，通过调整[路线规划](course/motion_planning.md)、[红绿灯配时](course/signal_control.md)等参数，提升整体交通效率。
 4. [智能信号控制](course/signal_control.md)算法实现学生学习如何使用系统提供的信号控制功能，实现智能信号控制算法，优化交通信号的配时方案，提高交通流畅度和减少拥堵。
 5. [交通数据可视化](course/visualization.md)与分析学生学习如何使用系统提供的数据可视化工具，对交通数据进行可视化分析，探索交通流量、拥堵状况等趋势和规律。
-6. 交通场景优化与仿真实验学生学习如何根据实际交通问题，进行场景优化和仿真实验，评估优化策略的效果，提出改进方案并进行验证。
+6. 交通场景优化与模拟实验学生学习如何根据实际交通问题，进行场景优化和模拟实验，评估优化策略的效果，提出改进方案并进行验证。
 
 
 ### Carla 特点
 
-[__检索仿真数据__](tuto_G_retrieve_data.md) — 使用记录器正确收集数据的分步指南。
+[__检索模拟数据__](tuto_G_retrieve_data.md) — 使用记录器正确收集数据的分步指南。
 
 [__交通管理器__](tuto_G_traffic_manager.md) — 如何使用交通管理器来引导城镇周围的交通。
 
@@ -59,18 +59,18 @@
 
 [__在 Docker 中构建虚幻引擎和 Carla__](build_docker_unreal.md) — 在 Docker 中构建虚幻引擎和 Carla。
 
-[__CarSim 集成__](tuto_G_carsim_integration.md) — 有关如何使用 CarSim 车辆动力学引擎运行仿真的教程。
+[__CarSim 集成__](tuto_G_carsim_integration.md) — 有关如何使用 CarSim 车辆动力学引擎运行模拟的教程。
 
 [__RLlib 集成__](tuto_G_rllib_integration.md) — 了解如何使用 RLlib 库运行您自己的实验。
 
-[__Chrono 集成__](tuto_G_chrono.md) —  使用 Chrono 集成来仿真物理。
+[__Chrono 集成__](tuto_G_chrono.md) —  使用 Chrono 集成来模拟物理。
 
 [__PyGame 控制__](tuto_G_pygame.md) — 使用 PyGame 显示相机传感器的输出。
 
 
 ## 资产和地图
 
-[__使用 OpenStreetMap 生成地图__](tuto_G_openstreetmap.md) — 使用 OpenStreetMap 生成用于仿真的地图。 
+[__使用 OpenStreetMap 生成地图__](tuto_G_openstreetmap.md) — 使用 OpenStreetMap 生成用于模拟的地图。 
 
 [__添加新车辆__](tuto_A_add_vehicle.md) — 准备要在 Carla 中使用的车辆。
 
@@ -91,7 +91,7 @@
 
 [__定制车辆悬架__](tuto_D_customize_vehicle_suspension.md) —  修改车辆的悬架系统。  
 
-[__生成详细的碰撞器__](tuto_D_generate_colliders.md) — 为车辆创建详细的碰撞器。  
+[__生成详细的碰撞体__](tuto_D_generate_colliders.md) — 为车辆创建详细的碰撞体。  
 
 [__发布版本__](tuto_D_make_release.md) — 如何发布 Carla。
 

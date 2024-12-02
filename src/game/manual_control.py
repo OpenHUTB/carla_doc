@@ -1,6 +1,8 @@
+# coding=utf-8
 #!/usr/bin/env python
 
 # 改编自 manual_control.py
+# 解读：https://bbs.carla.org.cn/info/e11460e2c6444888ae21f28cee1ec811?csr=1
 # Copyright (c) 2019 Computer Vision Center (CVC) at the Universitat Autonoma de
 # Barcelona (UAB).
 #
@@ -14,48 +16,53 @@
 # python manual_control.py
 
 """
-Welcome to CARLA manual control.
+欢迎来到手动控制车辆。
 
-Use ARROWS or WASD keys for control.
+使用“方向键”或”WSAD”键盘进行控制。
 
-    W            : throttle
-    S            : brake
-    A/D          : steer left/right
-    Q            : toggle reverse
-    Space        : hand-brake
-    P            : toggle autopilot
-    M            : toggle manual transmission
-    ,/.          : gear up/down
-    CTRL + W     : toggle constant velocity mode at 60 km/h
+    W            : 油门
+    S            : 刹车
+    A/D          : 方向盘向左/向右
+    Q            : 切换倒档
+    Space        : 手刹
+    P            : 切换自动驾驶
+    M            : 切换手动换挡
+    ,/.          : 档位提升/降低
+    CTRL + W     : 以60公里/小时切换等速模式
 
-    L            : toggle next light type
-    SHIFT + L    : toggle high beam
-    Z/X          : toggle right/left blinker
-    I            : toggle interior light
+    L            : 切换下一个车灯类型
+    SHIFT + L    : 切换远光灯
+    Z/X          : 切换左/右闪光灯
+    I            : 切换车内灯
 
-    TAB          : change sensor position
-    ` or N       : next sensor
-    [1-9]        : change to sensor [1-9]
-    G            : toggle radar visualization
-    C            : change weather (Shift+C reverse)
-    Backspace    : change vehicle
+    TAB          : 改变传感器位置
+    ` or N       : 下一个传感器
+    [1-9]        : 改变到第 [1-9] 个传感器
+    G            : 切换雷达可视化
+    C            : 改变天气 (Shift+C 反向切换)
+    Backspace    : 改变车辆
 
-    O            : open/close all doors of vehicle
-    T            : toggle vehicle's telemetry
+    O            : 打开/关闭所有车门
+    T            : 切换车辆遥测
 
-    V            : Select next map layer (Shift+V reverse)
-    B            : Load current selected map layer (Shift+B to unload)
+    V            : 选择下一步图层 (Shift+V 反向选择)
+    B            : 加载当前选择的图层 (Shift+B 卸载)
 
-    R            : toggle recording images to disk
+    R            : 切换记录图片到磁盘
 
-    CTRL + R     : toggle recording of simulation (replacing any previous)
-    CTRL + P     : start replaying last recorded simulation
-    CTRL + +     : increments the start time of the replay by 1 second (+SHIFT = 10 seconds)
-    CTRL + -     : decrements the start time of the replay by 1 second (+SHIFT = 10 seconds)
+    CTRL + R     : 切换仿真记录（替换任何之前的记录）
+    CTRL + P     : 开始重放最近记录的仿真
+    CTRL + +     : 将重放的开始时间增加1秒i (+SHIFT = 10 秒)
+    CTRL + -     : 将重放的开始时间减少1秒 (+SHIFT = 10 秒)
 
-    F1           : toggle HUD
-    H/?          : toggle help
-    ESC          : quit
+    Alt + [0-9]  : 0:Town10；1: 由“T字路口组成的”基本城镇；2：更小的城镇
+                   3：最复杂的 城镇；4：有高速公路和小镇的无限循环。
+                   5：方形网格城镇；6：高速公路和密歇根左转；
+                   7：乡村；8、9：大地图。
+
+    F1           : 切换头显
+    H/?          : 切换帮助信息
+    ESC          : 退出
 """
 
 from __future__ import print_function
@@ -143,6 +150,14 @@ try:
     from pygame.locals import K_z
     from pygame.locals import K_MINUS
     from pygame.locals import K_EQUALS
+
+    from pygame.locals import VIDEORESIZE
+    from pygame.locals import RESIZABLE
+    from pygame.locals import KEYDOWN
+    from pygame.locals import K_F11
+    from pygame.locals import FULLSCREEN
+
+    from pygame.locals import *  # key_pressed[]方法所在的包
 except ImportError:
     raise RuntimeError('cannot import pygame, make sure pygame package is installed')
 
@@ -153,10 +168,11 @@ except ImportError:
 
 
 # ==============================================================================
-# -- Global functions ----------------------------------------------------------
+# -- 全局函数 -------------------------------------------------------------------
 # ==============================================================================
 
 
+# 找出预设的天气
 def find_weather_presets():
     rgx = re.compile('.+?(?:(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])|$)')
     name = lambda x: ' '.join(m.group(0) for m in rgx.finditer(x))
@@ -168,20 +184,20 @@ def get_actor_display_name(actor, truncate=250):
     name = ' '.join(actor.type_id.replace('_', '.').title().split('.')[1:])
     return (name[:truncate - 1] + u'\u2026') if len(name) > truncate else name
 
+
 def get_actor_blueprints(world, filter, generation):
     bps = world.get_blueprint_library().filter(filter)
 
     if generation.lower() == "all":
         return bps
 
-    # If the filter returns only one bp, we assume that this one needed
-    # and therefore, we ignore the generation
+    # 如果过滤器只返回一个蓝图，我们假设需要这个蓝图，因此，我们忽略生成
     if len(bps) == 1:
         return bps
 
     try:
         int_generation = int(generation)
-        # Check if generation is in available generations
+        # 检查 generation 是否是一个可用的生成器
         if int_generation in [1, 2, 3]:
             bps = [x for x in bps if int(x.get_attribute('generation')) == int_generation]
             return bps
@@ -386,12 +402,14 @@ class KeyboardControl(object):
         self._autopilot_enabled = start_in_autopilot
         self._ackermann_enabled = False
         self._ackermann_reverse = 1
+        self.is_full_screen = True
         if isinstance(world.player, carla.Vehicle):
             self._control = carla.VehicleControl()
             self._ackermann_control = carla.VehicleAckermannControl()
             self._lights = carla.VehicleLightState.NONE
             world.player.set_autopilot(self._autopilot_enabled)
             world.player.set_light_state(self._lights)
+            # 按照预期速度运行
         elif isinstance(world.player, carla.Walker):
             self._control = carla.WalkerControl()
             self._autopilot_enabled = False
@@ -399,14 +417,59 @@ class KeyboardControl(object):
         else:
             raise NotImplementedError("Actor type not supported")
         self._steer_cache = 0.0
-        world.hud.notification("Press 'H' or '?' for help.", seconds=4.0)
+        world.hud.notification("按 'H' 或者 '?' 显示帮助信息。", seconds=4.0)
 
     def parse_events(self, client, world, clock, sync_mode):
         if isinstance(self._control, carla.VehicleControl):
             current_lights = self._lights
+        # 处理组合键(Alt+1)
+        key_pressed = pygame.key.get_pressed()
+        if key_pressed[K_LALT] and key_pressed[K_1]:
+            world = client.load_world("Town01")
+            main()  # 重新启动当前客户端
+        elif key_pressed[K_LALT] and key_pressed[K_2]:
+            world = client.load_world("Town02")
+            main()
+        elif key_pressed[K_LALT] and key_pressed[K_3]:
+            world = client.load_world("Town03")
+            main()
+        elif key_pressed[K_LALT] and key_pressed[K_4]:
+            world = client.load_world("Town04")
+            main()
+        elif key_pressed[K_LALT] and key_pressed[K_5]:
+            world = client.load_world("Town05")
+            main()
+        elif key_pressed[K_LALT] and key_pressed[K_6]:
+            world = client.load_world("Town06")
+            main()
+        elif key_pressed[K_LALT] and key_pressed[K_7]:
+            world = client.load_world("Town07")
+            main()
+        elif key_pressed[K_LALT] and key_pressed[K_8]:
+            world = client.load_world("Town12")
+            main()
+        elif key_pressed[K_LALT] and key_pressed[K_9]:
+            world = client.load_world("Town13")
+            main()
+        elif key_pressed[K_LALT] and key_pressed[K_0]:
+            world = client.load_world("Town10HD")
+            main()
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return True
+            elif event.type == pygame.KEYDOWN:
+                # TODO 退出全屏不是场景缩放，而仅仅是窗口缩放
+                if event.key == K_F11:
+                    if not self.is_full_screen:
+                        self.is_full_screen = True
+                        screen_size = pygame.display.list_modes()[0]  # 查看本地显示器支持的分辨率
+                        pygame.display.set_mode(screen_size, FULLSCREEN)
+                    else:
+                        self.is_full_screen = False
+                        window_width, windows_height = 1280, 720
+                        pygame.display.set_mode((window_width, windows_height), pygame.HWSURFACE | pygame.DOUBLEBUF)
+                pass
             elif event.type == pygame.KEYUP:
                 if self._is_quit_shortcut(event.key):
                     return True
@@ -674,13 +737,17 @@ class KeyboardControl(object):
 class HUD(object):
     def __init__(self, width, height):
         self.dim = (width, height)
+        mono = "msyhl.ttf"
         # 在当前目录必须放字体文件 freesansbold.ttf，否则打包后运行报错：Pyinstaller expected str, bytes or os.pathlike object,not io.byeslo
-        font = pygame.font.Font("freesansbold.ttf", 20)
-        font_name = 'courier' if os.name == 'nt' else 'mono'
-        fonts = [x for x in pygame.font.get_fonts() if font_name in x]
-        default_font = 'ubuntumono'
-        mono = default_font if default_font in fonts else fonts[0]
-        mono = pygame.font.match_font(mono)
+        # font = pygame.font.SysFont('宋体', 32)
+        # font = pygame.font.Font("freesansbold.ttf", 20)
+        font = pygame.font.Font(mono, 20)  # 这里只是左下角通知信息字体的改变
+        # msgothic能正常显示中文（“服务端”显示为“服口端”），有些字体不行，比如：courier
+        # font_name = 'stzhongsong' if os.name == 'nt' else 'ubuntumono'
+        # fonts = [x for x in pygame.font.get_fonts() if font_name in x]
+        # default_font = 'ubuntumono'
+        # mono = default_font if default_font in fonts else fonts[0]
+        # mono = pygame.font.match_font(mono)
         self._font_mono = pygame.font.Font(mono, 12 if os.name == 'nt' else 14)
         self._notifications = FadingText(font, (width, 40), (0, height - 40))
         self.help = HelpText(pygame.font.Font(mono, 16), width, height)
@@ -717,31 +784,32 @@ class HUD(object):
         max_col = max(1.0, max(collision))
         collision = [x / max_col for x in collision]
         vehicles = world.world.get_actors().filter('vehicle.*')
+        # Server:
         self._info_text = [
-            'Server:  % 16.0f FPS' % self.server_fps,
-            'Client:  % 16.0f FPS' % clock.get_fps(),
+            (u"服务端：  % 16.0f FPS" % self.server_fps),
+            '客户端：  % 16.0f FPS' % clock.get_fps(),
             '',
-            'Vehicle: % 20s' % get_actor_display_name(world.player, truncate=20),
-            'Map:     % 20s' % world.map.name.split('/')[-1],
-            'Simulation time: % 12s' % datetime.timedelta(seconds=int(self.simulation_time)),
+            '车辆： % 20s' % get_actor_display_name(world.player, truncate=20),
+            '地图：     % 20s' % world.map.name.split('/')[-1],
+            '仿真时间： % 12s' % datetime.timedelta(seconds=int(self.simulation_time)),
             '',
-            'Speed:   % 15.0f km/h' % (3.6 * math.sqrt(v.x**2 + v.y**2 + v.z**2)),
-            u'Compass:% 17.0f\N{DEGREE SIGN} % 2s' % (compass, heading),
-            'Accelero: (%5.1f,%5.1f,%5.1f)' % (world.imu_sensor.accelerometer),
-            'Gyroscop: (%5.1f,%5.1f,%5.1f)' % (world.imu_sensor.gyroscope),
-            'Location:% 20s' % ('(% 5.1f, % 5.1f)' % (t.location.x, t.location.y)),
-            'GNSS:% 24s' % ('(% 2.6f, % 3.6f)' % (world.gnss_sensor.lat, world.gnss_sensor.lon)),
-            'Height:  % 18.0f m' % t.location.z,
+            '速度：   % 15.0f km/h' % (3.6 * math.sqrt(v.x**2 + v.y**2 + v.z**2)),
+            u'指南针：% 17.0f\N{DEGREE SIGN} % 2s' % (compass, heading),
+            '加速度： (%5.1f,%5.1f,%5.1f)' % (world.imu_sensor.accelerometer),
+            '陀螺仪： (%5.1f,%5.1f,%5.1f)' % (world.imu_sensor.gyroscope),
+            '位置：% 20s' % ('(% 5.1f, % 5.1f)' % (t.location.x, t.location.y)),
+            'GNSS: % 24s' % ('(% 2.6f, % 3.6f)' % (world.gnss_sensor.lat, world.gnss_sensor.lon)),
+            '高度：  % 18.0f m' % t.location.z,
             '']
         if isinstance(c, carla.VehicleControl):
             self._info_text += [
-                ('Throttle:', c.throttle, 0.0, 1.0),
-                ('Steer:', c.steer, -1.0, 1.0),
-                ('Brake:', c.brake, 0.0, 1.0),
-                ('Reverse:', c.reverse),
-                ('Hand brake:', c.hand_brake),
-                ('Manual:', c.manual_gear_shift),
-                'Gear:        %s' % {-1: 'R', 0: 'N'}.get(c.gear, c.gear)]
+                ('油门：', c.throttle, 0.0, 1.0),
+                ('方向盘：', c.steer, -1.0, 1.0),
+                ('刹车：', c.brake, 0.0, 1.0),
+                ('倒档：', c.reverse),
+                ('手刹：', c.hand_brake),
+                ('手动：', c.manual_gear_shift),
+                '档位：        %s' % {-1: 'R', 0: 'N'}.get(c.gear, c.gear)]
             if self._show_ackermann_info:
                 self._info_text += [
                     '',
@@ -754,12 +822,12 @@ class HUD(object):
                 ('Jump:', c.jump)]
         self._info_text += [
             '',
-            'Collision:',
+            '碰撞：',
             collision,
             '',
-            'Number of vehicles: % 8d' % len(vehicles)]
+            '车辆数目： % 8d' % len(vehicles)]
         if len(vehicles) > 1:
-            self._info_text += ['Nearby vehicles:']
+            self._info_text += ['附近的车辆：']
             distance = lambda l: math.sqrt((l.x - t.location.x)**2 + (l.y - t.location.y)**2 + (l.z - t.location.z)**2)
             vehicles = [(distance(x.get_location()), x) for x in vehicles if x.id != world.player.id]
             for d, vehicle in sorted(vehicles, key=lambda vehicles: vehicles[0]):
@@ -814,9 +882,9 @@ class HUD(object):
                             rect = pygame.Rect((bar_h_offset, v_offset + 8), (f * bar_width, 6))
                         pygame.draw.rect(display, (255, 255, 255), rect)
                     item = item[0]
-                if item:  # At this point has to be a str.
-                    surface = self._font_mono.render(item, True, (255, 255, 255))
-                    display.blit(surface, (8, v_offset))
+                if item:  # 此时必须是字符串
+                    surface = self._font_mono.render(item, True, (255, 255, 255))  # 创建图像
+                    display.blit(surface, (8, v_offset))  # 将图像绘制到窗口上
                 v_offset += 18
         self._notifications.render(display)
         self.help.render(display)
@@ -852,7 +920,7 @@ class FadingText(object):
 
 
 # ==============================================================================
-# -- HelpText ------------------------------------------------------------------
+# -- 帮助信息的类 HelpText -------------------------------------------------------
 # ==============================================================================
 
 
@@ -948,7 +1016,7 @@ class LaneInvasionSensor(object):
             return
         lane_types = set(x.type for x in event.crossed_lane_markings)
         text = ['%r' % str(x).split()[-1] for x in lane_types]
-        self.hud.notification('Crossed line %s' % ' and '.join(text))
+        self.hud.notification('压线 %s' % ' and '.join(text))  # Crossed line
 
 
 # ==============================================================================
@@ -1241,6 +1309,68 @@ class CameraManager(object):
             image.save_to_disk('_out/%08d' % image.frame)
 
 
+# 根据天气更新车灯状态
+# 参考：https://bbs.carla.org.cn/info/e11460e2c6444888ae21f28cee1ec811?csr=1
+def update_light_state(world):
+    # 获取天气信息
+    weather = world.get_weather()
+    # 获取每辆车
+    for vehicle in world.get_actors().filter('*vehicle*'):
+        # 获取每辆车的控制信息
+        control = vehicle.get_control()
+        # 获取每辆车的灯光信息
+        current_lights = vehicle.get_light_state()
+        # 当进入夜晚打开位置灯，打开远光灯以及内部灯
+        if weather.sun_altitude_angle < 0:
+            current_lights |= carla.VehicleLightState.Position
+            current_lights |= carla.VehicleLightState.HighBeam
+            current_lights |= carla.VehicleLightState.Interior
+        # 进入白天，关掉远灯及内部灯
+        if weather.sun_altitude_angle > 0:
+            current_lights &= 0b11011111011
+        # 当雾气浓度大于30或者降雨量大于30时，打开位置灯，近光灯以及雾灯
+        if weather.fog_density > 30 or weather.precipitation > 30:
+            current_lights |= carla.VehicleLightState.Position
+            current_lights |= carla.VehicleLightState.LowBeam
+            current_lights |= carla.VehicleLightState.Fog
+        # 当降雨小于30并且雾气浓度小于30时关闭近光灯以及雾灯
+        if weather.fog_density < 30 and weather.precipitation < 30:
+            current_lights &= 0b11101111101
+
+        # 根据积雨来改变车辆的轮胎摩擦力
+        # 雨天刹车距离比晴天至少长20%，甚至达2倍之多
+        if weather.precipitation_deposits > 1:
+            print(weather.precipitation_deposits)
+            # 车轮摩擦力的标量值 tire_friction
+            # carla.WheelPhysicsControl(tire_fraction = 0.5)
+            # carla.VehiclePhysicsControl()
+            # vehicle.apply_physics_control(carla.VehiclePhysicsControl(max_rpm = 5000.0, center_of_mass = carla.Vector3D(0.0, 0.0, 0.0), torque_curve=[[0,400],[5000,400]]))
+        # 当踩下刹车时，亮起刹车灯
+        if control.brake > 0.1:
+            current_lights |= carla.VehicleLightState.Brake
+        # 刹车松开，关闭刹车灯
+        if control.brake <= 0.1:
+            current_lights &= 0b11111110111
+        # 方向盘左转，亮起左转向灯
+        if control.steer < -0.1:
+            current_lights |= carla.VehicleLightState.LeftBlinker
+        # 方向盘右转，亮起右转向灯
+        if control.steer > 0.1:
+            current_lights |= carla.VehicleLightState.RightBlinker
+        # 方向回正，关闭所有转向灯
+        if abs(control.steer) < 0.1:
+            current_lights &= 0b11111001111
+        # 处于倒档时，亮起倒车灯
+        if control.reverse:
+            current_lights |= carla.VehicleLightState.Reverse
+        # 不处于倒档时，关闭倒车灯
+        if not control.reverse:
+            current_lights &= 0b11110111111
+
+        # 应用车灯信息
+        vehicle.set_light_state(carla.VehicleLightState(current_lights))
+
+
 # ==============================================================================
 # -- game_loop() ---------------------------------------------------------------
 # ==============================================================================
@@ -1251,6 +1381,15 @@ def game_loop(args):
     pygame.font.init()
     world = None
     original_settings = None
+
+    # 获得全屏的分辨率
+    # 必须在pygame.init()之后运行，否则运行报错：pygame.error: video system not initialized
+    info_object = pygame.display.Info()
+    # 获取当前机器屏幕的宽和高（分辨率太高会导致客户端延迟得卡，故显示的宽高都除以一个大于1的值）
+    scale_size = 1.6
+    args.width = info_object.current_w / scale_size
+    args.height = info_object.current_h / scale_size
+    is_full_screen = True  # 模式是全屏
 
     try:
         client = carla.Client(args.host, args.port)
@@ -1265,6 +1404,7 @@ def game_loop(args):
                 settings.fixed_delta_seconds = 0.05
             sim_world.apply_settings(settings)
 
+            # 将交通管理器设为同步模式
             traffic_manager = client.get_trafficmanager()
             traffic_manager.set_synchronous_mode(True)
 
@@ -1273,9 +1413,13 @@ def game_loop(args):
                   "experience some issues with the traffic simulation")
 
         # 对窗口参数进行设置，这个函数会返回一个Surface对象
+        # 增加 pygame.FULLSCREEN 表示启动游戏时默认进入全屏
+        # pygame.FULLSCREEN 创建全屏的窗口
+        # pygame.DOUBLEBUF 使用HWSURFACE或OPENGL时建议加上这个标志
+        # pygame.HWSURFACE 使用硬件加速，只在FULLSCREEN时有效
         display = pygame.display.set_mode(
             (args.width, args.height),
-            pygame.HWSURFACE | pygame.DOUBLEBUF)
+            pygame.HWSURFACE | pygame.DOUBLEBUF | pygame.FULLSCREEN)
         display.fill((0, 0, 0))
         pygame.display.flip()
 
@@ -1292,6 +1436,13 @@ def game_loop(args):
         while True:
             if args.sync:
                 sim_world.tick()
+            # update_light_state(sim_world)  # 根据天气更新车灯状态（会极大降低响客户端的fps）
+
+            # 每秒最多循环60次，比tick更精确
+            # 每次计算上次到此时的时间，如果低于时间间隔，会等待
+            # 应该每帧调用一次此方法
+            # 返回值：自上一次调用以来经过的毫秒数
+            # 请注意，此函数使用 pygame.time.delay,在繁忙的循环中使用大量CPU以确保时间更准确
             clock.tick_busy_loop(60)
             if controller.parse_events(client, world, clock, args.sync):
                 return
@@ -1341,6 +1492,8 @@ def main():
         '-a', '--autopilot',
         action='store_true',
         help='enable autopilot')
+    # 4K: --res 3840x2160
+    # 2K: --res 2560×1440
     argparser.add_argument(
         '--res',
         metavar='WIDTHxHEIGHT',
@@ -1382,7 +1535,6 @@ def main():
     print(__doc__)
 
     try:
-
         game_loop(args)
 
     except KeyboardInterrupt:
@@ -1391,4 +1543,8 @@ def main():
 
 def manual_control():
     print("starting manual control")
+    main()
+
+
+if __name__ == '__main__':
     main()

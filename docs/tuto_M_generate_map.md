@@ -8,9 +8,9 @@ RoadRunner 是推荐的软件，用于创建要导入 Carla 的地图。本指�
 - [__在 RoadRunner 中导出地图__](#export-a-map-in-roadrunner)
 - [__下一步__](#next-steps)
 ---
-## RoadRunner 简介
+## RoadRunner 简介 <span id="introduction-to-roadrunner"></span>
 
-RoadRunner 是一款交互式编辑器，可让您设计用于仿真和测试自动驾驶系统的 3D 场景。它可用于创建道路布局以及随附的 OpenDRIVE 和几何信息。 在 [此处][rr_home] 能了解到更多 RoadRunner 的更多信息。
+RoadRunner 是一款交互式编辑器，可让您设计用于模拟和测试自动驾驶系统的 3D 场景。它可用于创建道路布局以及随附的 OpenDRIVE 和几何信息。 在 [此处][rr_home] 能了解到更多 RoadRunner 的更多信息。
 
 RoadRunner 是 MATLAB Campus-Wide License 的一部分，因此许多大学都可以提供无限制的学术访问。 [检查][rr_eligibility] 您的大学是否有权访问。如果您对辅助功能有任何疑问或困难，请联系 *automated-driving@mathworks.com* 。 还有 [试用版][rr_trial_version] 可用。
 
@@ -22,7 +22,7 @@ RoadRunner 是 MATLAB Campus-Wide License 的一部分，因此许多大学都�
 [rr_leaderboard]: https://www.mathworks.com/academia/student-competitions/carla-autonomous-driving-challenge.html
 
 ---
-## 在你开始之前
+## 在你开始之前 <span id="before-you-start"></span>
 
 您需要安装 RoadRunner。您可以按照 Mathworks 网站上的 [安装指南][rr_docs] 进行操作。   
 
@@ -30,7 +30,7 @@ RoadRunner 是 MATLAB Campus-Wide License 的一部分，因此许多大学都�
 
 ---
 
-## 在 RoadRunner 中构建地图
+## 在 RoadRunner 中构建地图 <span id="build-a-map-in-roadrunner"></span>
 
 关于如何在RoadRunner中构建地图的细节超出了本指南的范围，但是， [RoadRuner文档][rr_tutorials] 中提供了视频教程。
 
@@ -38,7 +38,7 @@ __请记住，包含大量道具的地图会显着减慢导入过程。__ 这是
 
 ---
 
-## 在 RoadRunner 中导出地图
+## 在 RoadRunner 中导出地图 <span id="export-a-map-in-roadrunner"></span>
 
 [rr_tutorials]: https://www.mathworks.com/support/search.html?fq=asset_type_name:video%20category:roadrunner/index&page=1&s_tid=CRUX_topnav
 
@@ -88,7 +88,7 @@ __3.__ 选择要将文件导出到的目录，然后单击 `Export`。这将生�
 
 ---
 
-## 下一步
+## 下一步 <span id="next-steps"></span>
 
 您现在已准备好将地图导入 Carla。下一步将取决于您使用的 Carla 安装类型：
 

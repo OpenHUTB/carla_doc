@@ -2,18 +2,18 @@
 
 Carla 与 CarSim 的集成允许将 Carla 中的车辆控制转发到 CarSim。CarSim 将对车辆进行所有必需的物理计算，并将新状态返回给 Carla。
 
-本页向您展示如何生成`.sim`文件，解释 Carla 和 CarSim 之间的车辆尺寸如何关联，以及如何使用 CarSim 集成在 Carla 上运行仿真。
+本页向您展示如何生成`.sim`文件，解释 Carla 和 CarSim 之间的车辆尺寸如何关联，以及如何使用 CarSim 集成在 Carla 上运行模拟。
 
-*   [__在你开始之前__](#before-you-begin)  
-*   [__设置 CarSim__](#set-up-carsim)  
-	*   [__生成 .sim 文件__](#generate-the-sim-file)  
-        * [__在 Windows 上__](#on-windows)
-        * [__在 Ubuntu 上__](#on-ubuntu)
-	*   [__车辆尺寸__](#vehicle-sizes)  
-*   [__运行仿真__](#run-the-simulation)  
+*   [__在你开始之前__](#before_you_begin)  
+*   [__设置 CarSim__](#set_up_carsim)  
+	*   [__生成 .sim 文件__](#generate_the_sim_file)  
+        * [__在 Windows 上__](#on_windows)
+        * [__在 Ubuntu 上__](#on_ubuntu)
+	*   [__车辆尺寸__](#vehicle_sizes)  
+*   [__运行模拟__](#run_the_simulation)  
 
 ---
-## 在你开始之前
+## 在你开始之前 <span id="before_you_begin"></span>
 
 1. 您需要 CarSim 许可证才能启动并运行该软件。如果您目前没有 CarSim 许可证，您可以在 [此处](https://www.carsim.com/forms/additional_information.php) 联系团队以获取信息。
 2. 要允许与虚幻引擎通信，您需要安装适用于虚幻引擎 4.24 的 VehicleSim Dynamics 插件（版本 2020.0）。有关查找插件特定版本的信息，请检查此 [链接](https://www.carsim.com/products/supporting/unreal/index.php) 。插件的安装取决于您的操作系统： 
@@ -25,7 +25,7 @@ Carla 与 CarSim 的集成允许将 Carla 中的车辆控制转发到 CarSim。C
     __对于 Ubuntu__:
 
     1. 在 [这里](https://www.carsim.com/users/unreal_plugin/unreal_plugin_2020_0.php) 下载插件。
-    2. 将文件 `CarSim.Build.cs` 替换为 [此处](https://carla-releases.s3.eu-west-3.amazonaws.com/Backup/CarSim.Build.cs) 找到的文件，以便为 Ubuntu 使用正确的求解器。
+    2. 将文件 `CarSim.Build.cs` 替换为 [此处](https://carla-releases.s3.eu-west-3.amazonaws.com/Backup/CarSim.Build.cs) 找到的文件（或者 [CarSim.Build.cs](https://github.com/OpenHUTB/carla_doc/blob/master/src/vehicle/CarSim.Build.cs) ），以便为 Ubuntu 使用正确的求解器。
 
     3. 如果您使用的是 Carla 的打包版本，则可以跳过此步骤。打包版本已使用此标志编译，但如果您从源代码构建 Carla，则需要使用`--carsim`标志编译服务器。
 
@@ -35,15 +35,15 @@ Carla 与 CarSim 的集成允许将 Carla 中的车辆控制转发到 CarSim。C
 make launch ARGS="--carsim"
 ```
 
-## 设置 CarSim
+## 设置 CarSim <span id="set_up_carsim"></span>
 
-以下部分详细介绍了如何生成运行仿真所需的 `.sim` 文件。还有关于 Carla 和 CarSim 之间车辆尺寸关系的详细重要信息。
+以下部分详细介绍了如何生成运行模拟所需的 `.sim` 文件。还有关于 Carla 和 CarSim 之间车辆尺寸关系的详细重要信息。
 
-#### 生成.sim 文件
+#### 生成.sim 文件 <span id="generate_the_sim_file"></span>
 
-该`.sim` 文件描述了要在 Carla 和 CarSim 中运行的仿真。插件需要此文件才能运行仿真。目前无法在 Ubuntu 上生成此文件，但是我们将在下面介绍如何使用之前生成的文件在 Ubuntu 上运行仿真。
+该`.sim` 文件描述了要在 Carla 和 CarSim 中运行的模拟。插件需要此文件才能运行模拟。目前无法在 Ubuntu 上生成此文件，但是我们将在下面介绍如何使用之前生成的文件在 Ubuntu 上运行模拟。
 
-##### 在 Windows 上
+##### 在 Windows 上 <span id="on_windows"></span>
 
 在 CarSim 上配置完所有参数后，使用 GUI 生成 `.sim` 文件，如下所示：
 
@@ -81,7 +81,7 @@ PORTS_EXP 0
 DLLFILE D:\carsim\Programs\solvers\carsim_64.dll
 END
 ```
-##### 在Ubuntu上
+##### 在Ubuntu上 <span id="on_ubuntu"></span>
 
 无法在 Ubuntu 上通过 GUI 创建 `.sim` 文件。为了继续，您需要执行以下步骤：
 
@@ -110,18 +110,18 @@ VEHICLE_CODE i_i
 SOFILE /opt/carsim_2020.0/lib64/libcarsim.so.2020.0
 END
 ```
-#### 车辆尺寸
+#### 车辆尺寸 <span id="vehicle_sizes"></span>
 
-尽管 CarSim 允许您指定在仿真中使用的车辆尺寸，但目前 CarSim 车辆和 Carla 车辆之间没有关联。这意味着两个项目中的车辆将具有不同的尺寸。Carla 车辆的作用只是在仿真过程中充当占位符。
+尽管 CarSim 允许您指定在模拟中使用的车辆尺寸，但目前 CarSim 车辆和 Carla 车辆之间没有关联。这意味着两个项目中的车辆将具有不同的尺寸。Carla 车辆的作用只是在模拟过程中充当占位符。
 
 ![carsim vehicle sizes](img/carsim_vehicle_sizes.jpg)
 
 !!! 笔记
-    Carla 和 CarSim 中的车辆尺寸之间没有相关性。Carla 车辆只是一个仿真占位符。
+    Carla 和 CarSim 中的车辆尺寸之间没有相关性。Carla 车辆只是一个模拟占位符。
 
-## 运行仿真
+## 运行模拟 <span id="run_the_simulation"></span>
 
-运行仿真时所需要做的就是在生成车辆时启用 CarSim。这可以通过将`.sim` 文件路径传递给Python API 的 [方法](https://carla.readthedocs.io/en/latest/python_api/#carla.Vehicle.enable_carsim) 来完成：
+运行模拟时所需要做的就是在生成车辆时启用 CarSim。这可以通过将`.sim` 文件路径传递给Python API 的 [方法](https://carla.readthedocs.io/en/latest/python_api/#carla.Vehicle.enable_carsim) 来完成：
 
 ```sh
 vehicle.enable_carsim(<path_to_ue4simfile.sim>)
@@ -129,7 +129,7 @@ vehicle.enable_carsim(<path_to_ue4simfile.sim>)
 
 发送到车辆的所有输入控件都将转发到 CarSim。CarSim 将更新物理并将车辆状态（变换）发送回 Carla 车辆。
 
-仿真完成后，您可以像往常一样分析 CarSim 中的所有数据。
+模拟完成后，您可以像往常一样分析 CarSim 中的所有数据。
 
 ![carsim analysis](img/carsim_analysis.jpg)
 

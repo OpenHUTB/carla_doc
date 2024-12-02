@@ -8,14 +8,14 @@ import numpy as np
 
 from utils.projection import *
 
-# Part 1
+# 第一部分
 
 client = carla.Client('localhost', 2000)
-world  = client.get_world()
+world = client.get_world()
 
-# Set up the simulator in synchronous mode
+# 以同步模式启动仿真器
 settings = world.get_settings()
-settings.synchronous_mode = True # Enables synchronous mode
+settings.synchronous_mode = True  # 启用同步模式
 settings.fixed_delta_seconds = 0.05
 world.apply_settings(settings)
 
@@ -66,10 +66,10 @@ for i in range(20):
     if npc:
         npc.set_autopilot(True)
 
-# Retrieve all the objects of the level
-car_objects = world.get_environment_objects(carla.CityObjectLabel.Car) # doesn't have filter by type yet
-truck_objects = world.get_environment_objects(carla.CityObjectLabel.Truck) # doesn't have filter by type yet
-bus_objects = world.get_environment_objects(carla.CityObjectLabel.Bus) # doesn't have filter by type yet
+# 检索该关卡的所有对象
+car_objects = world.get_environment_objects(carla.CityObjectLabel.Car)  # 尚未提供按类型过滤的功能
+truck_objects = world.get_environment_objects(carla.CityObjectLabel.Truck)  # 尚未提供按类型过滤的功能
+bus_objects = world.get_environment_objects(carla.CityObjectLabel.Bus)  # 尚未提供按类型过滤的功能
 
 env_object_ids = []
 
@@ -78,6 +78,7 @@ for obj in (car_objects + truck_objects + bus_objects):
 
 # Disable all static vehicles
 world.enable_environment_objects(env_object_ids, False) 
+
 
 def clear():
     settings = world.get_settings()
@@ -92,6 +93,7 @@ def clear():
             npc.destroy()
 
     print("Vehicles Destroyed.")
+
 
 # Main Loop
 vehicle.set_autopilot(True)

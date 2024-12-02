@@ -2,31 +2,41 @@
 
 本指南详细介绍了 Carla 中可用的不同渲染选项，包括质量级别、无渲染模式和离屏模式。它还解释了 Carla 0.9.12 版本在这些方面与以前版本的不同之处。
 
-- [__图形质量__](#graphics-quality)  
+- [__后台渲染__](#render_off_screen)
+- [__图形质量__](#graphics-quality)
 	- [Vulkan 图形 API](#vulkan-graphics-api)  
 	- [质量等级](#quality-levels)  
 - [__无渲染模式__](#no-rendering-mode)  
 - [__离屏模式__](#off-screen-mode)  
-	- [离屏与无渲染](#off-screen-vs-no-rendering)
-	- [设置离屏模式（版本0.9.12+）)](#setting-off-screen-mode-version-0912)
-	- [设置离屏模式（0.9.12之前的版本）](#setting-off-screen-mode-versions-prior-to-0912)
+    - [离屏与无渲染](#off-screen-vs-no-rendering)
+    - [设置离屏模式（版本0.9.12+）)](#setting-off-screen-mode-version-0912)
+    - [设置离屏模式（0.9.12之前的版本）](#setting-off-screen-mode-versions-prior-to-0912)
+- [__空渲染硬件接口__](#nullrhi)  
 
 
 !!! 重要
     下面的一些命令选项在 Carla 打包版本中并不等效。请阅读[命令行选项](start_quickstart.md#command-line-options) 部分以了解有关此内容的更多信息。
 
 ---
-## 图形质量
+## 后台渲染 <span id="render_off_screen"></span>
+为了不弹出服务端的界面，可以运行以下命令使Carla在后台运行：
+```shell
+CarlaUE4.exe -RenderOffscreen # Windows
+CarlaUE4.sh -RenderOffscreen # Ubuntu
+```
 
-### Vulkan 图形 API
+
+## 图形质量 <span id="vulkan-graphics-api"></span>
+
+### Vulkan 图形 API <span id="recording"></span>
 
 从版本 0.9.12 开始，Carla 在虚幻引擎 4.26上运行，仅支持 Vulkan 图形API。以前版本的 Carla 可以配置为使用 OpenGL。如果您使用的是 Carla 的早期版本，请在屏幕右下角选择相应的文档版本以获取更多信息。
 
-### 质量等级
+### 质量等级 <span id="quality-levels"></span>
 
 Carla 有两个不同的图形质量级别。__Epic__ 是默认的并且是最详细的。__Low__ 会禁用所有后处理和阴影，并且绘图距离设置为 50m 而不是无限。
 
-仿真在 __Low__ 模式下运行速度明显更快。这在存在技术限制、精度不重要的情况下或者在具有更简单数据或仅涉及接近元素的条件下训练智能体的情况下很有帮助。
+模拟在 __Low__ 模式下运行速度明显更快。这在存在技术限制、精度不重要的情况下或者在具有更简单数据或仅涉及接近元素的条件下训练代理的情况下很有帮助。
 
 下图比较了两种模式。Windows 和 Linux 所使用的标志是相同的。使用构建时没有等效选项，但虚幻编辑器有自己的质量设置。访问`Settings/Engine Scalability Settings` 以获得所需质量的更大定制。
 
@@ -49,9 +59,9 @@ Carla 有两个不同的图形质量级别。__Epic__ 是默认的并且是最�
     导致史诗模式显示异常白度的问题已得到修复。如果问题仍然存在，请删除 `GameUserSettings.ini`。它正在保存以前的设置，并将在下次运行时再次生成。 __Ubuntu 路径：__ `  ~/.config/Epic/CarlaUE4/Saved/Config/LinuxNoEditor/` __Windows 路径：__ `<Package folder>\WindowsNoEditor\CarlaUE4\Saved\Config\WindowsNoEditor\`
 
 ---
-## 无渲染模式
+## 无渲染模式 <span id="no-rendering-mode"></span>
 
-此模式禁用渲染。虚幻引擎将跳过有关图形的所有内容。此模式可防止渲染开销。它有利于大量交通仿真和非常高频率的道路行为。要启用或禁用无渲染模式，请更改世界设置，或使用`/PythonAPI/util/config.py`。
+此模式禁用渲染。虚幻引擎将跳过有关图形的所有内容。此模式可防止渲染开销。它有利于大量交通模拟和非常高频率的道路行为。要启用或禁用无渲染模式，请更改世界设置，或使用`/PythonAPI/util/config.py`。
 
 以下是如何通过脚本启用和禁用它的示例：
 
@@ -88,19 +98,19 @@ cd PythonAPI/examples && python3 no_rendering_mode.py
     在无渲染模式下，相机和 GPU 传感器将返回空数据。不使用 GPU。虚幻引擎未绘制任何场景。
 
 ---
-## 离屏模式
+## 离屏模式 <span id="off-screen-mode"></span>
 
 从版本 0.9.12 开始，Carla 在虚幻引擎 4.26 上运行，该引擎引入了对离屏渲染的支持。在 Carla 的早期版本中，离屏渲染取决于您使用的图形 API。
 
 
-### 离屏与无渲染
+### 离屏与无渲染 <span id="off-screen-vs-no-rendering"></span>
 
 了解无渲染模式(__no-rendering mode__)和离屏模式(__off-screen mode__)之间的区别很重要：
 
 - __无渲染模式：__ 虚幻引擎不渲染任何内容。图形不被计算。基于 GPU 的传感器返回空数据。
 - __离屏模式：__ 虚幻引擎正常工作，计算渲染，但没有可用的显示。基于 GPU 的传感器返回数据。
 
-### 设置离屏模式（版本0.9.12+）
+### 设置离屏模式（版本0.9.12+） <span id="setting-off-screen-mode-version-0912"></span>
 
 要在离屏模式下启动 Carla，请运行以下命令：
 
@@ -108,7 +118,7 @@ cd PythonAPI/examples && python3 no_rendering_mode.py
 ./CarlaUE4.sh -RenderOffScreen
 ```
 
-### 设置离屏模式（0.9.12之前的版本）
+### 设置离屏模式（0.9.12之前的版本） <span id="setting-off-screen-mode-versions-prior-to-0912"></span>
 
 如果您使用 OpenGL 或 Vulkan，则使用离屏模式会有所不同。
 
@@ -167,11 +177,11 @@ Carla 在 [这里](https://github.com/carla-simulator/carla/blob/0.9.12/Util/Doc
 
 ---
 
-## --nullrhi
+## 空渲染硬件接口 <span id="nullrhi"></span>
 
 而另一种在 Carla 官方文档中未被提及的方式就是 `--nullrhi`。在计算机图形学中，RHI（Rendering Hardware Interface）是一种硬件抽象层，用于封装不同图形硬件（GPU）的底层细节，使得图形渲染引擎可以与各种不同类型的硬件协同工作。RHI 负责管理图形资源、执行渲染命令等底层操作，使得开发者可以编写与具体硬件无关的图形渲染代码。
 
-而虚幻引擎中的 `--nullrhi` 参数则是一种特殊的模式，表示使用 Null Rendering Hardware Interface，即空渲染硬件接口。在这种模式下，Carla 将不会执行实际的图形渲染操作，从而减轻了与图形相关的计算负担。这对于一些特殊的仿真场景，比如需要在后台运行仿真或进行性能测试时，是非常有用的。
+而虚幻引擎中的 `--nullrhi` 参数则是一种特殊的模式，表示使用 Null Rendering Hardware Interface，即空渲染硬件接口。在这种模式下，Carla 将不会执行实际的图形渲染操作，从而减轻了与图形相关的计算负担。这对于一些特殊的模拟场景，比如需要在后台运行模拟或进行性能测试时，是非常有用的。
 
 使用 `--nullrhi` 参数，客户端运行 `manual_control.py` 时 pygame 黑屏。nullrhi 只适用于多 GPU 模式，可以只有一个 GPU 进行渲染，而其他 GPU 使用 nullrhi 不进行渲染。
 

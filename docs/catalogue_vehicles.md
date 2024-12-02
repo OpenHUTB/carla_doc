@@ -97,7 +97,7 @@ vehicle.apply_control(control)
 
 ---
 
-## 检查仿真器中的车辆
+## 检查模拟器中的车辆
 
 要检查目录中的车辆，请使用以下代码，从下面的车辆详细信息中检索蓝图 ID 并将其粘贴到行中`bp_lib.find('blueprint.id.goes_here')`：
 

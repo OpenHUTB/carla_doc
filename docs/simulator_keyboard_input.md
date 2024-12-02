@@ -14,7 +14,7 @@
 | <font color="#f8805a">`鼠标滚轮`</font> | 放大和缩小 |
 | <font color="#f8805a">`Tab`</font> | 切换机载摄像头 |
 | <font color="#f8805a">`F11`</font> | 切换全屏 |
-| <font color="#f8805a">`R`</font> | 重启关卡 |
+| <font color="#f8805a">`R`</font> | 开始记录数据 |
 | <font color="#f8805a">`G`</font> | 切换头显 |
 | <font color="#f8805a">`C`</font> | 改变天气/光照 |
 | <font color="#f8805a">`Enter`</font> | 跳 |

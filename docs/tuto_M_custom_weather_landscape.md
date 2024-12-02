@@ -19,11 +19,11 @@ Carla 提供了多个蓝图，可帮助您轻松创建地图的默认天气设�
 
 ---
 
-## 天气定制
+## 天气定制 <span id="weather-customization"></span>
 
 本节介绍如何在设置地图的默认天气之前尝试不同的天气参数，以及在对设置感到满意后如何为地图配置默认天气参数。
 
-### BP_Sky
+### BP_Sky <span id="bp_sky"></span>
 
 蓝图`BP_Sky`对于为地图带来光线和天气是必要的。在决定默认天气参数之前，它还可以用于测试不同的天气配置。
 
@@ -34,7 +34,7 @@ Carla 提供了多个蓝图，可帮助您轻松创建地图的默认天气设�
 !!! 重要
     如果场景中加载了多个 `BP_Sky` 蓝图，天气将会重复，从而产生不良结果，例如，有两个太阳。
 
-### BP_Weather
+### BP_Weather <span id="bp_weather"></span>
 
 地图的默认天气在`BP_Weather`蓝图中定义。此蓝图允许您设置与通过 Python API 提供的参数相同的参数。[此处](https://carla.readthedocs.io/en/latest/python_api/#carlaweatherparameters) 描述了这些参数。
 
@@ -59,7 +59,7 @@ __3. 配置默认天气参数。__
 
 ---
 
-## 添加序列化网格
+## 添加序列化网格 <span id="add-serial-meshes"></span>
 
 有四种蓝图可用于添加沿一个方向对齐的道具，例如墙壁、电线、路灯。这些蓝图使用一系列沿贝塞尔曲线分布的网格。每一个都以相同的方式初始化：
 
@@ -75,7 +75,7 @@ __3. 定制图案。__
 
 以下部分将描述每个蓝图可用的不同自定义参数。
 
-### BP_RepSpline
+### BP_RepSpline <span id="bp_repspline"></span>
 
 蓝图`BP_RepSpline`可在 `Carla/Blueprints/LevelDesign` 中找到。它用于沿着贝塞尔曲线定义的路径添加 __单个__ 元素。
 
@@ -93,7 +93,7 @@ __3. 定制图案。__
 ![bp_repspline_pic](./img/map_customization/BP_Repspline.jpg)
 <div style="text-align: right"><i>BP_RepSpline 示例。</i></div>
 
-### BP_Spline
+### BP_Spline <span id="bp_spline"></span>
 
 蓝图`BP_Spline`可在 `Carla/Blueprints/LevelDesign` 中找到。它添加严格遵循贝塞尔曲线定义的路径的连接元素。网格将扭曲以适应创建的路径。
 
@@ -104,7 +104,7 @@ __3. 定制图案。__
 ![bp_spline_pic](./img/map_customization/BP_Spline.jpg)
 <div style="text-align: right"><i>BP_Spline example.</i></div>
 
-### BP_Wall
+### BP_Wall <span id="bp_wall"></span>
 
 蓝图`BP_Wall`可在 `Carla/Blueprints/LevelDesign` 中找到。它沿着贝塞尔曲线定义的路径添加连接的元素。网格不会扭曲以适应曲线，但会考虑节点。
 
@@ -115,7 +115,7 @@ __3. 定制图案。__
 ![bp_wall_pic](./img/map_customization/BP_Wall.jpg)
 <div style="text-align: right"><i>BP_Wall 实例。</i></div>
 
-### BP_SplinePoweLine
+### BP_SplinePoweLine <span id="bp_splinepoweline"></span>
 
 __BP_SplinePoweLine__ 蓝图可在 `Carla/Static/Pole/PoweLine` 中找到。它沿着贝塞尔曲线定义的路径添加 __电线杆(electricity poles)__，并将它们 __与电线连接起来__。
 
@@ -150,7 +150,7 @@ __BP_SplinePoweLine__ 蓝图可在 `Carla/Static/Pole/PoweLine` 中找到。它�
 
 ---
 
-## 下一步
+## 下一步  <span id="next-steps"></span>
 
 使用以下工具和指南继续自定义您的地图：
 

@@ -2,9 +2,9 @@
 
 使自动驾驶车辆了解其环境的一个重要因素在于估计车辆周围物体的位置和方向。为此，有必要推断对象边界框的位置。
 
-Carla 仿真中的对象都有一个边界框，并且 Carla Python API 提供了访问每个对象的边界框的函数。本教程展示如何访问边界框，然后将它们投影到相机平面中。
+Carla 模拟中的对象都有一个边界框，并且 Carla Python API 提供了访问每个对象的边界框的函数。本教程展示如何访问边界框，然后将它们投影到相机平面中。
 
-## 设置仿真器
+## 设置模拟器
 
 让我们编写标准 Carla 样板代码，设置客户端和世界对象，生成车辆并为其附加相机：
 
@@ -31,7 +31,7 @@ camera_init_trans = carla.Transform(carla.Location(z=2))
 camera = world.spawn_actor(camera_bp, camera_init_trans, attach_to=vehicle)
 vehicle.set_autopilot(True)
 
-# 以同步模式设置仿真器
+# 以同步模式设置模拟器
 settings = world.get_settings()
 settings.synchronous_mode = True # Enables synchronous mode
 settings.fixed_delta_seconds = 0.05
@@ -47,7 +47,7 @@ camera.listen(image_queue.put)
 
 ## 几何变换
 
-我们想要从仿真中获取三维点并将它们投影到相机的二维平面中。首先，我们需要构造相机投影矩阵：
+我们想要从模拟中获取三维点并将它们投影到相机的二维平面中。首先，我们需要构造相机投影矩阵：
 
 ```py
 def build_projection_matrix(w, h, fov):
@@ -135,7 +135,7 @@ edges = [[0,1], [1,3], [3,2], [2,0], [0,4], [4,5], [5,1], [5,7], [7,6], [6,4], [
 
 ## 渲染边界框
 
-现在我们已经设置了几何投影和仿真，我们可以继续创建游戏循环并将边界框渲染到场景中。
+现在我们已经设置了几何投影和模拟，我们可以继续创建游戏循环并将边界框渲染到场景中。
 
 ```py
 # Set up the set of bounding boxes from the level
@@ -219,7 +219,7 @@ cv2.destroyAllWindows()
 
 我们可能还想渲染参与者的边界框，特别是车辆的边界框。
 
-首先，让我们在仿真中添加一些其他车辆：
+首先，让我们在模拟中添加一些其他车辆：
 
 ```py
 for i in range(50):
@@ -435,7 +435,7 @@ while True:
 
 ```
 
-对于仿真的每个渲染帧，您现在将导出一个随附的 XML 文件，其中包含帧中边界框的详细信息。
+对于模拟的每个渲染帧，您现在将导出一个随附的 XML 文件，其中包含帧中边界框的详细信息。
 
 ![xml_bbox_files](img/tuto_G_bounding_box/xml_bbox_files.png)
 
@@ -530,7 +530,7 @@ simulation_dataset = {
 }
 ```
 
-信息和许可证部分应相应填写或留空。仿真中的图像应存储在`images`字典字段中的数组中。边界框应存储在具有匹配 `image_id` 的`annotations`字典字段中。边界框存储为`[x_min, y_min, width, height]`。
+信息和许可证部分应相应填写或留空。模拟中的图像应存储在`images`字典字段中的数组中。边界框应存储在具有匹配 `image_id` 的`annotations`字典字段中。边界框存储为`[x_min, y_min, width, height]`。
 
 然后可以使用 Python JSON 库将字典保存为 JSON 文件：
 

@@ -36,7 +36,7 @@
 ---
 
 ## carla.Actor<a name="carla.Actor"></a>
-Carla 将参与者定义为在仿真中发挥作用或可以移动的任何物体。其中包括：行人、车辆、传感器和交通标志（将交通灯视为其中的一部分）。参与者在仿真中由 [carla.World](#carla.World) 生成，并且需要创建 [carla.ActorBlueprint](#carla.ActorBlueprint) 。这些蓝图属于 Carla 提供的库，请在 [此处](bp_library.md) 找到有关它们的更多信息。
+Carla 将参与者定义为在模拟中发挥作用或可以移动的任何物体。其中包括：行人、车辆、传感器和交通标志（将交通灯视为其中的一部分）。参与者在模拟中由 [carla.World](#carla.World) 生成，并且需要创建 [carla.ActorBlueprint](#carla.ActorBlueprint) 。这些蓝图属于 Carla 提供的库，请在 [此处](bp_library.md) 找到有关它们的更多信息。
 
 ### 实例变量
 - <a name="carla.Actor.attributes"></a>**<font color="#f8805a">attributes</font>** (_dict_)  
@@ -62,7 +62,7 @@ Carla 将参与者定义为在仿真中发挥作用或可以移动的任何物�
 
 ### 方法
 - <a name="carla.Actor.add_angular_impulse"></a>**<font color="#7fb800">add_angular_impulse</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**angular_impulse**</font>)  
-在参与者的质心处应用角冲量。此方法适用于瞬时扭矩，通常应用一次。使用 __<font color="#7fb800">add_torque()</font>__ 在一段时间内施加旋转力。  
+在参与者的质心处应用角冲量。此方法适用于瞬时扭矩，通常应用一次。使用 __<font color="#7fb800">add_torque()</font>__ 在一段时间内施加旋转力。
     - **参数:**
         - `angular_impulse` (_[carla.Vector3D](#carla.Vector3D)<small> - degrees*s</small>_) - 全局坐标中的角冲量矢量。  
 - <a name="carla.Actor.add_force"></a>**<font color="#7fb800">add_force</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**force**</font>)  
@@ -78,9 +78,9 @@ Carla 将参与者定义为在仿真中发挥作用或可以移动的任何物�
     - **参数:**
         - `torque` (_[carla.Vector3D](#carla.Vector3D)<small> - 度</small>_) - 全局坐标中的扭矩矢量。  
 - <a name="carla.Actor.destroy"></a>**<font color="#7fb800">destroy</font>**(<font color="#00a6ed">**self**</font>)  
-告诉仿真器销毁这个参与者，如果成功则 <b>True</b> 。如果已经被破坏则没有任何效果。
+告诉模拟器销毁这个参与者，如果成功则 <b>True</b> 。如果已经被破坏则没有任何效果。
     - **返回:** _bool_  
-    - **警告:** <font color="#ED2F2F">_T此方法会阻止脚本，直到仿真器完成销毁为止。
+    - **警告:** <font color="#ED2F2F">_T此方法会阻止脚本，直到模拟器完成销毁为止。
 _</font>  
 - <a name="carla.Actor.disable_constant_velocity"></a>**<font color="#7fb800">disable_constant_velocity</font>**(<font color="#00a6ed">**self**</font>)  
 禁用之前为 [carla.Vehicle](#carla.Vehicle) 参与者设置的任何恒定速度。  
@@ -95,21 +95,21 @@ _</font>
 
 ##### 获取器
 - <a name="carla.Actor.get_acceleration"></a>**<font color="#7fb800">get_acceleration</font>**(<font color="#00a6ed">**self**</font>)  
-返回客户端在最后一个tick期间收到的参与者的三维加速度向量。该方法不调用仿真器。  
+返回客户端在最后一个tick期间收到的参与者的三维加速度向量。该方法不调用模拟器。  
     - **返回:** _[carla.Vector3D](#carla.Vector3D)<small> - m/s<sup>2</sup></small>_  
 - <a name="carla.Actor.get_angular_velocity"></a>**<font color="#7fb800">get_angular_velocity</font>**(<font color="#00a6ed">**self**</font>)  
-返回客户端在最后一个tick期间接收到的参与者的角速度向量。该方法不调用仿真器。  
+返回客户端在最后一个tick期间接收到的参与者的角速度向量。该方法不调用模拟器。  
     - **返回：** _[carla.Vector3D](#carla.Vector3D)<small> - deg/s</small>_  
 - <a name="carla.Actor.get_location"></a>**<font color="#7fb800">get_location</font>**(<font color="#00a6ed">**self**</font>)  
-返回客户端在上一次tick期间接收到的参与者的位置。该方法不调用仿真器。  
+返回客户端在上一次tick期间接收到的参与者的位置。该方法不调用模拟器。  
     - **返回：** _[carla.Location](#carla.Location)<small> - 米</small>_  
     - **设置器:** _[carla.Actor.set_location](#carla.Actor.set_location)_  
 - <a name="carla.Actor.get_transform"></a>**<font color="#7fb800">get_transform</font>**(<font color="#00a6ed">**self**</font>)  
-返回客户端在最后一个tick期间接收到的参与者的变换（位置和旋转）。该方法不调用仿真器。  
+返回客户端在最后一个tick期间接收到的参与者的变换（位置和旋转）。该方法不调用模拟器。  
     - **返回:** _[carla.Transform](#carla.Transform)_  
     - **设置器:** _[carla.Actor.set_transform](#carla.Actor.set_transform)_  
 - <a name="carla.Actor.get_velocity"></a>**<font color="#7fb800">get_velocity</font>**(<font color="#00a6ed">**self**</font>)  
-返回客户端在最后一个tick期间接收到的参与者的速度向量。该方法不调用仿真器。  
+返回客户端在最后一个tick期间接收到的参与者的速度向量。该方法不调用模拟器。  
     - **返回：** _[carla.Vector3D](#carla.Vector3D)<small> - m/s</small>_  
 - <a name="carla.Actor.get_world"></a>**<font color="#7fb800">get_world</font>**(<font color="#00a6ed">**self**</font>)  
 返回该参与者所属的世界。  
@@ -126,7 +126,7 @@ _</font>
         - `location` (_[carla.Location](#carla.Location)<small> - 米</small>_)  
     - **获取器：** _[carla.Actor.get_location](#carla.Actor.get_location)_  
 - <a name="carla.Actor.set_simulate_physics"></a>**<font color="#7fb800">set_simulate_physics</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**enabled**=True</font>)  
-启用或禁用此参与者上的物理仿真。  
+启用或禁用此参与者上的物理模拟。  
     - **参与者：**
         - `enabled` (_bool_)  
 - <a name="carla.Actor.set_target_angular_velocity"></a>**<font color="#7fb800">set_target_angular_velocity</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**angular_velocity**</font>)  
@@ -326,11 +326,11 @@ Carla 为 Actor 提供了一个蓝图库，可以通过 [carla.BlueprintLibrary]
 
 ### 实例变量
 - <a name="carla.AttachmentType.Rigid"></a>**<font color="#f8805a">Rigid</font>**  
-通过此固定附件，对象严格遵循其父位置。这是推荐的附件，用于从仿真中检索精确数据。  
+通过此固定附件，对象严格遵循其父位置。这是推荐的附件，用于从模拟中检索精确数据。  
 - <a name="carla.AttachmentType.SpringArm"></a>**<font color="#f8805a">SpringArm</font>**  
-一种附件，可根据其父级扩展或缩回参与者的位置。仅建议在需要平滑运动的仿真中录制视频时使用此附件。SpringArms 是一个虚幻引擎组件，因此 [check the UE 文档](https://docs.unrealengine.com/en-US/Gameplay/HowTo/UsingCameras/SpringArmComponents/index.html) 以了解有关它们的更多信息。 <br><b style="color:red;">警告：</b> 当参与者在Z轴上产生相对平移时，<b>SpringArm</b> 附件呈现出奇怪的行为。（比如：<code>child_location = Location(0,0,2)</code>）。 
+一种附件，可根据其父级扩展或缩回参与者的位置。仅建议在需要平滑运动的模拟中记录视频时使用此附件。SpringArms 是一个虚幻引擎组件，因此 [check the UE 文档](https://docs.unrealengine.com/en-US/Gameplay/HowTo/UsingCameras/SpringArmComponents/index.html) 以了解有关它们的更多信息。 <br><b style="color:red;">警告：</b> 当参与者在Z轴上产生相对平移时，<b>SpringArm</b> 附件呈现出奇怪的行为。（比如：<code>child_location = Location(0,0,2)</code>）。 
 - <a name="carla.AttachmentType.SpringArmGhost"></a>**<font color="#f8805a">SpringArmGhost</font>**  
-一个与前一个类似的附件，但它不会进行碰撞测试，这意味着它不会扩展或收缩参与者的位置。**ghost** 一词是因为这样相机就可以穿过墙壁和其他几何形状。此附件仅建议用于录制需要平滑移动的仿真视频。SpringArms 是一个虚幻引擎组件，请 [查看虚幻引擎文档](https://docs.unrealengine.com/en-US/Gameplay/HowTo/UsingCameras/SpringArmComponents/index.html) 以了解更多信息。<br><b style="color:red;">警告：</b>当参与者在Z轴上产生相对平移时，<b>SpringArm</b>附件会出现奇怪的行为（比如<code>child_location = Location(0,0,2)</code>）。 
+一个与前一个类似的附件，但它不会进行碰撞测试，这意味着它不会扩展或收缩参与者的位置。**ghost** 一词是因为这样相机就可以穿过墙壁和其他几何形状。此附件仅建议用于记录需要平滑移动的模拟视频。SpringArms 是一个虚幻引擎组件，请 [查看虚幻引擎文档](https://docs.unrealengine.com/en-US/Gameplay/HowTo/UsingCameras/SpringArmComponents/index.html) 以了解更多信息。<br><b style="color:red;">警告：</b>当参与者在Z轴上产生相对平移时，<b>SpringArm</b>附件会出现奇怪的行为（比如<code>child_location = Location(0,0,2)</code>）。 
 
 ---
 
@@ -473,26 +473,26 @@ Carla 为 Actor 提供了一个蓝图库，可以通过 [carla.BlueprintLibrary]
 ---
 
 ## carla.Client<a name="carla.Client"></a>
-客户端将 Carla 连接到运行仿真的服务器。服务器和客户端都包含 Carla 库 (libcarla)，但存在一些差异，允许它们之间进行通信。可以创建许多客户端，每个客户端都会连接到仿真内的 RPC 服务器以发送命令。仿真在服务器端运行。一旦建立连接，客户端将仅接收从仿真检索的数据。步行者是例外。客户端负责管理行人，因此，如果您与多个客户端一起运行仿真，可能会出现一些问题。例如，如果您通过不同的客户端生成步行者，则可能会发生冲突，因为每个客户端只知道它负责的客户端。
+客户端将 Carla 连接到运行模拟的服务器。服务器和客户端都包含 Carla 库 (libcarla)，但存在一些差异，允许它们之间进行通信。可以创建许多客户端，每个客户端都会连接到模拟内的 RPC 服务器以发送命令。模拟在服务器端运行。一旦建立连接，客户端将仅接收从模拟检索的数据。行人是例外。客户端负责管理行人，因此，如果您与多个客户端一起运行模拟，可能会出现一些问题。例如，如果您通过不同的客户端生成行人，则可能会发生冲突，因为每个客户端只知道它负责的客户端。
 
-客户端还具有记录功能，可以在运行仿真时保存仿真的所有信息。这使得服务器可以随意重放以获取信息并进行实验。[以下](adv_recorder.md) 是有关如何使用此记录器的一些信息。
+客户端还具有记录功能，可以在运行模拟时保存模拟的所有信息。这使得服务器可以随意重放以获取信息并进行实验。[以下](adv_recorder.md) 是有关如何使用此记录器的一些信息。
 
 ### 方法
 - <a name="carla.Client.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**host**=127.0.0.1</font>, <font color="#00a6ed">**port**=2000</font>, <font color="#00a6ed">**worker_threads**=0</font>)<button class="SnipetButton" id="carla.Client.__init__-snipet_button">snippet &rarr;</button>  
 客户端构造器。  
     - **参数：**
-        - `host` (_str_) - 运行Carla 仿真器实例的IP地址。默认值为localhost（127.0.0.1）。  
-        - `port` (_int_) - 运行Carla 仿真器实例的TCP端口。默认为 2000 和随后的2001 。 
+        - `host` (_str_) - 运行Carla 模拟器实例的IP地址。默认值为localhost（127.0.0.1）。  
+        - `port` (_int_) - 运行Carla 模拟器实例的TCP端口。默认为 2000 和随后的2001 。 
         - `worker_threads` (_int_) - 用于后台更新的工作线程数。如果为 0，则使用所有可用的并发性。
 - <a name="carla.Client.apply_batch"></a>**<font color="#7fb800">apply_batch</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**commands**</font>)  
-在单个仿真步上执行命令列表，不检索任何信息。如果需要有关每个命令的响应的信息，请使用 __<font color="#7fb800">apply_batch_sync()</font>__ 方法。[下面](https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/generate_traffic.py) 是一个关于如何删除 Carla 中出现的参与者的示例。一次列出所有参与者 [carla.ActorList](#carla.ActorList) 。
+在单个模拟步上执行命令列表，不检索任何信息。如果需要有关每个命令的响应信息，请使用 __<font color="#7fb800">apply_batch_sync()</font>__ 方法。[下面](https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/generate_traffic.py) 是一个关于如何删除 Carla 中出现的参与者的示例。一次列出所有参与者 [carla.ActorList](#carla.ActorList) 。
     - **参数：**
         - `commands` (_list_) - 要批量执行的命令列表。每个命令都不同，并且有自己的参数。它们显示在此页面底部列出。
 - <a name="carla.Client.apply_batch_sync"></a>**<font color="#7fb800">apply_batch_sync</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**commands**</font>, <font color="#00a6ed">**due_tick_cue**=False</font>)<button class="SnipetButton" id="carla.Client.apply_batch_sync-snipet_button">snippet &rarr;</button>  
-在单个仿真步上执行命令列表，阻止直到命令链接，并返回 <b>command.Response</b> 列表。可用于确定单个命令是否成功的响应。[下面](https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/generate_traffic.py) 是一个用来生成参与者的例子。
+在单个模拟步上阻塞式地执行命令列表，直到命令链接起来，并返回 <b>command.Response</b> 列表。可用于确定单个命令是否成功的响应。[该链接](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/generate_traffic.py) 是一个用来生成参与者的示例代码。
     - **参数：**
         - `commands` (_list_) - 要批量执行的命令列表。可用的命令列在方法 **<font color="#7fb800">apply_batch()</font>** 的正上方。 
-        - `due_tick_cue` (_bool_) - 一个布尔参数，用于指定是否执行 Carla。在 __同步模式__ 下应用批处理后进行 [carla.World.tick](#carla.World.tick)。默认情况下为 __False__ 。
+        - `due_tick_cue` (_bool_) - 一个布尔参数，用于指定是否执行 Carla。在 __同步模式__ 下应用批处理后进行 [carla.World.tick](#carla.World.tick)（默认情况下为 __False__ ）。
     - **返回：** _list(command.Response)_  
 - <a name="carla.Client.generate_opendrive_world"></a>**<font color="#7fb800">generate_opendrive_world</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**opendrive**</font>, <font color="#00a6ed">**parameters**=(2.0, 50.0, 1.0, 0.6, true, true)</font>, <font color="#00a6ed">**reset_settings**=True</font>)  
 使用从OpenDRIVE文件的内容生成的基本三维拓扑加载新世界。此内容作为`string`参数传递。它类似于`client.load_world(map_name)`，但允许在服务器端自定义OpenDRIVE映射。汽车可以在地图上行驶，但除了道路和人行道之外，没有任何图形。
@@ -514,11 +514,11 @@ _</font>
         - `reset_settings` (_bool_) - 选项可将情节设置重置为默认值，设置为false可保留当前设置。这对于在更改映射时保持同步模式和保持确定性场景非常有用。
     - **Raises:** 对应的运行时错误 RuntimeError。   
 - <a name="carla.Client.replay_file"></a>**<font color="#7fb800">replay_file</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**name**</font>, <font color="#00a6ed">**start**</font>, <font color="#00a6ed">**duration**</font>, <font color="#00a6ed">**follow_id**</font>, <font color="#00a6ed">**replay_sensors**</font>)  
-使用`map_name`加载具有默认设置的新世界。当前世界中的所有参与者都将被销毁，__但__ 交通管理器实例将继续存在。
+根据地图名`map_name`加载具有默认设置的新世界。当前世界中的所有参与者都将被销毁，__但__ 交通管理器实例将继续存在。
     - **参数：**
-        - `name` (_str_) - 包含仿真信息的文件的名称。
-        - `start` (_float<small> - seconds</small>_) - 开始播放仿真的时间。负数表示从结尾开始读取，在录制结束前10秒为-10。
-        - `duration` (_float<small> - seconds</small>_) - 将使用信息 `name` 文件重新执行的时间。如果到达终点，仿真将继续。
+        - `name` (_str_) - 包含模拟信息的文件的名称。
+        - `start` (_float<small> - seconds</small>_) - 开始播放模拟的时间。负数表示从结尾开始读取，在记录结束前10秒为-10。
+        - `duration` (_float<small> - seconds</small>_) - 将使用信息 `name` 文件重新执行的时间。如果到达终点，模拟将继续。
         - `follow_id` (_int_) - 要跟随的参与者的 ID。如果此值为0，则禁用相机。
         - `replay_sensors` (_bool_) - 用于在播放期间启用或禁用传感器生成的标志。
 - <a name="carla.Client.request_file"></a>**<font color="#7fb800">request_file</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**name**</font>)  
@@ -526,40 +526,40 @@ _</font>
     - **参数：**
         - `name` (_str_) - 您请求的文件的名称。
 - <a name="carla.Client.show_recorder_actors_blocked"></a>**<font color="#7fb800">show_recorder_actors_blocked</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**filename**</font>, <font color="#00a6ed">**min_time**</font>, <font color="#00a6ed">**min_distance**</font>)  
-终端将显示被视为被屏蔽的参与者的注册信息。当参与者在一段时间内没有移动最小距离时，即`min_distance`和`min_time`，则视为被阻挡。  
+在终端中显示视为被堵塞的参与者注册信息。当参与者在一段时间内没有移动最小距离时，即`min_distance`和`min_time`，则视为被堵塞。
     - **参数：**
-        - `filename` (_str_) - 要加载的录制文件的名称。 
-        - `min_time` (_float<small> - seconds</small>_) - 参与者在被认为被阻挡之前必须移动最短距离的最短时间。默认值为60秒。  
-        - `min_distance` (_float<small> - centimeters</small>_) - 参与者必须移动的最小距离才能不被视为被阻挡。默认值为100厘米。
+        - `filename` (_str_) - 要加载的记录文件的名称。 
+        - `min_time` (_float<small> - seconds</small>_) - 参与者在被认为被堵塞之前必须移动最短距离的最短时间。默认值为60秒。
+        - `min_distance` (_float<small> - 厘米</small>_) - 参与者必须移动的最小距离才能不被视为被堵塞。默认值为100厘米。
     - **返回：** _string_  
 - <a name="carla.Client.show_recorder_collisions"></a>**<font color="#7fb800">show_recorder_collisions</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**filename**</font>, <font color="#00a6ed">**category1**</font>, <font color="#00a6ed">**category2**</font>)  
-终端将显示记录器记录的碰撞。可以通过指定所涉及的参与者的类型来过滤这些内容。类别将在`category1`和`category1`中指定如下：“h”=英雄，一种可以手动控制或由用户管理的车辆。”v'=车辆'w'=步行者't'=红绿灯'o'=其他'a'=任何如果您只想看到车辆和步行者之间的碰撞，请将`category1`用作'v'，将`category2`用作'w'，反之亦然。如果要查看所有碰撞（过滤掉），可以对两个参数都使用“a”。 
+在终端中显示记录器记录的碰撞。可以通过指定所涉及参与者的类型来过滤这些内容。类别将在`category1`和`category1`中指定：`h`表示英雄参与者，一种可以手动控制或由用户管理的车辆。`v`表示车辆，`w`表示行人，`t`表示红绿灯，`o`表示其他，`a`表示所有。如果您只想看到车辆和行人之间的碰撞，请将`category1`设置为`v`，将`category2`设置为`w`，反之亦然。如果要查看所有碰撞（过滤掉），可以对两个参数都使用`a`。 
     - **参数：**
-        - `filename` (_str_) - 记录的文件的名称或绝对路径，具体取决于您之前的选择。 
-        - `category1` (_single char_) - 指定冲突中涉及的第一类参与者的字符变量。
-        - `category2` (_single char_) - 指定冲突中涉及的第二类参与者的字符变量。
+        - `filename` (_str_) - 记录文件的名称或绝对路径，具体取决于您之前的选择。
+        - `category1` (_single char_) - 指定冲突中涉及的第1类参与者的字符变量。
+        - `category2` (_single char_) - 指定冲突中涉及的第2类参与者的字符变量。
     - **返回：** _string_  
 - <a name="carla.Client.show_recorder_file_info"></a>**<font color="#7fb800">show_recorder_file_info</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**filename**</font>, <font color="#00a6ed">**show_all**</font>)  
-记录器保存的信息将被解析并以文本形式显示在您的终端中（帧、时间、事件、状态、位置…）。可以使用`show_all`参数指定显示的信息。[以下](ref_recorder_binary_file_format.md) 是有关如何读取记录器文件的更多信息。
+解析记录器保存的信息将并以文本形式显示在终端中（帧、时间、事件、状态、位置…）。可以使用`show_all`参数指定显示的信息。[以下](ref_recorder_binary_file_format.md) 是有关如何读取记录器文件的更多信息。
     - **参数：**
         - `filename` (_str_) - 记录的文件的名称或绝对路径，具体取决于您之前的选择。
         - `show_all` (_bool_) - 如果为 __True__ ，则返回为每帧存储的所有信息（红绿灯状态、所有参与者的位置、方向和动画数据…）。如果为 __False__ ，则返回关键事件和帧的摘要。 
     - **返回：** _string_  
 - <a name="carla.Client.start_recorder"></a>**<font color="#7fb800">start_recorder</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**filename**</font>, <font color="#00a6ed">**additional_data**=False</font>)  
-启用录制功能，该功能将开始保存服务器重播仿真所需的所有信息。
+启用记录功能，该功能将开始保存服务器重放模拟所需的所有信息。
     - **参数：**
-        - `filename` (_str_) - 用于写入记录数据的文件的名称。一个简单的名称会将录制保存在“CarlaUE4/Saved/recording.log”中。否则，如果名称中出现某个文件夹，则会将其视为绝对路径。
-        - `additional_data` (_bool_) - 启用或禁用记录用于再现仿真的非必要数据（边界框位置、物理控制参数等）。
+        - `filename` (_str_) - 用于写入记录数据的文件的名称。一个简单的名称会将记录保存在“CarlaUE4/Saved/recording.log”中。否则，如果名称中出现某个文件夹，则会将其视为绝对路径。
+        - `additional_data` (_bool_) - 启用或禁用记录用于再现模拟的非必要数据（边界框位置、物理控制参数等）。
 - <a name="carla.Client.stop_recorder"></a>**<font color="#7fb800">stop_recorder</font>**(<font color="#00a6ed">**self**</font>)  
-停止正在进行的录制。如果您在文件名中指定了一个路径，则录制文件将在那里。如果没有，请查看`CarlaUE4/Saved/`内部。
+停止正在进行的记录。如果您在文件名中指定了一个路径，则记录文件将在那里。如果没有，请查看`CarlaUE4/Saved/`内部。
 - <a name="carla.Client.stop_replayer"></a>**<font color="#7fb800">stop_replayer</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**keep_actors**</font>)  
-停止当前重播。 
+停止当前重放。 
     - **参数：**
-        - `keep_actors` (_bool_) - 如果你想自动删除重播中的所有参与者，则为 True，如果你想保留他们，则为 False。
+        - `keep_actors` (_bool_) - 如果你想自动删除重放中的所有参与者，则为 True，如果你想保留他们，则为 False。
 
 ##### 获取器
 - <a name="carla.Client.get_available_maps"></a>**<font color="#7fb800">get_available_maps</font>**(<font color="#00a6ed">**self**</font>)  
-返回一个字符串列表，其中包含服务器上可用映射的路径。这些路径是动态的，它们将在仿真过程中创建，因此在文件中查找时找不到它们。此方法可能的返回结果之一是：
+返回一个字符串列表，其中包含服务器上可用映射的路径。这些路径是动态的，它们将在模拟过程中创建，因此在文件中查找时找不到它们。此方法可能的返回结果之一是：
   ['/Game/Carla/Maps/Town01',
   '/Game/Carla/Maps/Town02',
   '/Game/Carla/Maps/Town03',
@@ -585,21 +585,21 @@ _</font>
         - `client_connection` (_int_) - 将由交通管理器使用的端口。默认值为`8000`。 
     - **返回：** _[carla.TrafficManager](#carla.TrafficManager)_  
 - <a name="carla.Client.get_world"></a>**<font color="#7fb800">get_world</font>**(<font color="#00a6ed">**self**</font>)  
-返回仿真中当前处于活动状态的世界对象。该世界稍后将用于加载地图。
+返回模拟中当前处于活动状态的世界对象。该世界稍后将用于加载地图。
     - **返回：** _[carla.World](#carla.World)_  
 
 ##### 设置器
 - <a name="carla.Client.set_files_base_folder"></a>**<font color="#7fb800">set_files_base_folder</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**path**</font>)  
     - **参数：**
-        - `path` (_str_) - 返回仿真中当前处于活动状态的世界对象。该世界稍后将用于加载地图。 
+        - `path` (_str_) - 返回模拟中当前处于活动状态的世界对象。该世界稍后将用于加载地图。 
 - <a name="carla.Client.set_replayer_ignore_hero"></a>**<font color="#7fb800">set_replayer_ignore_hero</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**ignore_hero**</font>)  
     - **参数：**
-        - `ignore_hero` (_bool_) - 在播放录制的仿真过程中启用或禁用英雄车辆的播放。 
+        - `ignore_hero` (_bool_) - 在播放记录的模拟过程中启用或禁用英雄车辆的播放。
 - <a name="carla.Client.set_replayer_ignore_spectator"></a>**<font color="#7fb800">set_replayer_ignore_spectator</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**ignore_spectator**</font>)  
     - **参数：**
-        - `ignore_spectator` (_bool_) - 确定回放程序是否会复制记录的参与者动作。
+        - `ignore_spectator` (_bool_) - 确定回放程序是否会复制记录的观察者运动。
 - <a name="carla.Client.set_replayer_time_factor"></a>**<font color="#7fb800">set_replayer_time_factor</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**time_factor**=1.0</font>)  
-使用时，会随意修改重新仿真的时间速度。当播放时，它可以使用多次。
+使用时，会随意修改重新模拟的时间速度。当播放时，它可以使用多次。
     - **参数：**
         - `time_factor` (_float_) - 1.0表示正常时间速度。大于1.0表示快速运动（2.0表示双倍速度），小于1.0表示慢速运动（0.5表示一半速度）。  
 - <a name="carla.Client.set_timeout"></a>**<font color="#7fb800">set_timeout</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**seconds**</font>)  
@@ -761,7 +761,7 @@ Y 像素坐标。
 ---
 
 ## carla.DebugHelper<a name="carla.DebugHelper"></a>
-[carla.World](#carla.World) 的辅助类部分，定义创建调试形状的方法。默认情况下，形状持续一秒。它们可以是永久性的，但要考虑到这样做所需的资源。查看此类的可用片段，了解如何在 Carla 中轻松调试。
+[carla.World](#carla.World) 的辅助类部分，定义创建调试形状的方法。默认情况下，形状持续 1 秒。它们可以是永久性的，但要考虑到这样做所需的资源。查看此类的可用片段，了解如何在 Carla 中轻松调试。
 
 ### 方法
 - <a name="carla.DebugHelper.draw_arrow"></a>**<font color="#7fb800">draw_arrow</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**begin**</font>, <font color="#00a6ed">**end**</font>, <font color="#00a6ed">**thickness**=0.1</font>, <font color="#00a6ed">**arrow_size**=0.1</font>, <font color="#00a6ed">**color**=(255,0,0)</font>, <font color="#00a6ed">**life_time**=-1.0</font>)  
@@ -774,7 +774,7 @@ Y 像素坐标。
         - `color` (_[carla.Color](#carla.Color)_) - 用于为对象着色的 RGB 代码。默认为红色。
         - `life_time` (_float<small> - seconds</small>_) - 形状的生命周期。默认情况下它只持续一帧。将其设置<code>0</code>为永久形状。 
 - <a name="carla.DebugHelper.draw_box"></a>**<font color="#7fb800">draw_box</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**box**</font>, <font color="#00a6ed">**rotation**</font>, <font color="#00a6ed">**thickness**=0.1</font>, <font color="#00a6ed">**color**=(255,0,0)</font>, <font color="#00a6ed">**life_time**=-1.0</font>)<button class="SnipetButton" id="carla.DebugHelper.draw_box-snipet_button">snippet &rarr;</button>  
-绘制一个框，通常用于对象碰撞器。  
+绘制一个框，通常用于对象碰撞体。  
     - **参数：**
         - `box` (_[carla.BoundingBox](#carla.BoundingBox)_) - 包含每个轴的位置和框长度的对象。
         - `rotation` (_[carla.Rotation](#carla.Rotation)<small> - 度 (pitch,yaw,roll)</small>_) - 根据虚幻引擎轴系的边界框方向。
@@ -791,7 +791,7 @@ Y 像素坐标。
         - `color` (_[carla.Color](#carla.Color)_) - RGB编码为对象上色。默认为红色。  
         - `life_time` (_float<small> - seconds</small>_) - 形状的生命周期。默认情况下，它只持续一帧。对于永久形状，将其设置为<code>0</code>。  
 - <a name="carla.DebugHelper.draw_hud_box"></a>**<font color="#7fb800">draw_hud_box</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**box**</font>, <font color="#00a6ed">**rotation**</font>, <font color="#00a6ed">**thickness**=0.1</font>, <font color="#00a6ed">**color**=(255,0,0)</font>, <font color="#00a6ed">**life_time**=-1.0</font>)  
-在 HUD 上绘制一个框，通常用于对象碰撞器。该框只能在服务器端看到。
+在 HUD 上绘制一个框，通常用于对象碰撞体。该框只能在服务器端看到。
     - **Parameters:**
         - `box` (_[carla.BoundingBox](#carla.BoundingBox)_) - 包含每个轴的框的位置和长度的对象。 
         - `rotation` (_[carla.Rotation](#carla.Rotation)<small> - degrees (pitch,yaw,roll)</small>_) - 根据虚幻引擎的轴系统确定边界框的方向。  
@@ -829,9 +829,9 @@ Y 像素坐标。
         - `color` (_[carla.Color](#carla.Color)_) - 用于为对象着色的 RGB 代码。默认为红色。
         - `life_time` (_float<small> - seconds</small>_) - 形状的生命周期。默认情况下它只持续一帧。将其设置<code>0</code>为永久形状。
 - <a name="carla.DebugHelper.draw_string"></a>**<font color="#7fb800">draw_string</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**location**</font>, <font color="#00a6ed">**text**</font>, <font color="#00a6ed">**draw_shadow**=False</font>, <font color="#00a6ed">**color**=(255,0,0)</font>, <font color="#00a6ed">**life_time**=-1.0</font>)<button class="SnipetButton" id="carla.DebugHelper.draw_string-snipet_button">snippet &rarr;</button>  
-在仿真的给定位置绘制一个字符串，该字符串只能在服务器端看到。
+在模拟的给定位置绘制一个字符串，该字符串只能在服务器端看到。
     - **参数：**
-        - `location` (_[carla.Location](#carla.Location)<small> - 米</small>_) - 仿真中文本居中的位置。
+        - `location` (_[carla.Location](#carla.Location)<small> - 米</small>_) - 模拟中文本居中的位置。
         - `text` (_str_) - 旨在向世界展示的文本。 
         - `draw_shadow` (_bool_) - 为字符串投射阴影，有助于可视化。默认情况下它是禁用的。
         - `color` (_[carla.Color](#carla.Color)_) - 用于为字符串着色的 RGB 代码。默认为红色。
@@ -944,7 +944,7 @@ Alpha 通道。
 ---
 
 ## carla.GearPhysicsControl<a name="carla.GearPhysicsControl"></a>
-通过定义档位以及何时运行该档位来提供对车辆变速箱详细信息的访问的类。[carla.VehiclePhysicsControl](#carla.VehiclePhysicsControl) 稍后将使用它来帮助仿真物理。
+通过定义档位以及何时运行该档位来提供对车辆变速箱详细信息的访问的类。[carla.VehiclePhysicsControl](#carla.VehiclePhysicsControl) 稍后将使用它来帮助模拟物理。
 
 ### 实例变量
 - <a name="carla.GearPhysicsControl.ratio"></a>**<font color="#f8805a">ratio</font>** (_float_)  
@@ -969,13 +969,13 @@ Alpha 通道。
 ---
 
 ## carla.GeoLocation<a name="carla.GeoLocation"></a>
-包含地理坐标仿真数据的类。[carla.Map](#carla.Map) 可以使用以下方法转换仿真位置 OpenDRIVE 文件中的 <b><georeference></b> 标记。
+包含地理坐标模拟数据的类。[carla.Map](#carla.Map) 可以使用以下方法转换模拟位置 OpenDRIVE 文件中的 <b><georeference></b> 标记。
 
 ### 实例变量
 - <a name="carla.GeoLocation.latitude"></a>**<font color="#f8805a">latitude</font>** (_float<small> - 度</small>_)  
 地图上某个点的北/南值。  
 - <a name="carla.GeoLocation.longitude"></a>**<font color="#f8805a">longitude</font>** (_float<small> - 度</small>_)  
-地图上某个点的北/南值。  
+地图上某个点的西/东值。  
 - <a name="carla.GeoLocation.altitude"></a>**<font color="#f8805a">altitude</font>** (_float<small> - 米</small>_)  
 相对于地面的高度。 
 
@@ -995,7 +995,7 @@ Alpha 通道。
 
 ## carla.GnssMeasurement<a name="carla.GnssMeasurement"></a>
 <small style="display:block;margin-top:-20px;">从 _[carla.SensorData](#carla.SensorData)_ 继承</small></br>
-定义由 <b>sensor.other.gnss</b> 注册的Gnss数据的类。它本质上是通过传感器的位置和 OpenDRIVE 地理参考来报告其位置。
+定义由 <b>sensor.other.gnss</b> 注册的全球导航卫星系统数据的类。它本质上是通过传感器的位置和 OpenDRIVE 地理参考来报告其位置。
 
 ### 实例变量
 - <a name="carla.GnssMeasurement.altitude"></a>**<font color="#f8805a">altitude</font>** (_float<small> - 米</small>_)  
@@ -1003,7 +1003,7 @@ Alpha 通道。
 - <a name="carla.GnssMeasurement.latitude"></a>**<font color="#f8805a">latitude</font>** (_float<small> - 度</small>_)  
 地图上某个点的北/南值。  
 - <a name="carla.GnssMeasurement.longitude"></a>**<font color="#f8805a">longitude</font>** (_float<small> - 度</small>_)  
-地图上某个点的北/南值。 
+地图上某个点的西/东值。 
 
 ### 方法
 
@@ -1079,7 +1079,7 @@ OpenDRIVE 文件中找到的标识符。
 
 ##### 获取器
 - <a name="carla.Junction.get_waypoints"></a>**<font color="#7fb800">get_waypoints</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**lane_type**</font>)  
-返回航路点对的列表。列表中的每个元组首先包含交叉口边界内的初始路径点，然后包含最终路径点，描述沿交叉口的所述车道的起点和终点。车道遵循其 OpenDRIVE 定义，因此由于可能的偏差，可能有许多不同的元组具有相同的起始航路点，因为这被视为不同的车道。
+返回路径点对的列表。列表中的每个元组首先包含交叉口边界内的初始路径点，然后包含最终路径点，描述沿交叉口的所述车道的起点和终点。车道遵循其 OpenDRIVE 定义，因此由于可能的偏差，可能有许多不同的元组具有相同的起始路径点，因为这被视为不同的车道。
     - **参数：**
         - `lane_type` (_[carla.LaneType](#carla.LaneType)_) - 获取路点的车道类型。 
     - **返回：** _list(tuple([carla.Waypoint](#carla.Waypoint)))_  
@@ -1098,7 +1098,7 @@ OpenDRIVE 文件中找到的标识符。
 ---
 
 ## carla.Landmark<a name="carla.Landmark"></a>
-定义影响道路的任何类型的交通地标或标志的类。这些类在地标的 [OpenDRIVE 1.4 standard](http://www.opendrive.org/docs/OpenDRIVEFormatSpecRev1.4H.pdf) 标准定义及其在仿真中的表示之间进行协调。此类检索在 OpenDRIVE 中定义地标的所有信息，并提供有关其影响哪些车道以及何时影响的信息。[carla.Waypoint](#carla.Waypoint) 对象将尝试检索其车道规则来访问地标。因此，某些属性取决于正在咨询地标的航路点，从而创建对象。
+定义影响道路的任何类型的交通地标或标志的类。这些类在地标的 [OpenDRIVE 1.4 standard](http://www.opendrive.org/docs/OpenDRIVEFormatSpecRev1.4H.pdf) 标准定义及其在模拟中的表示之间进行协调。此类检索在 OpenDRIVE 中定义地标的所有信息，并提供有关其影响哪些车道以及何时影响的信息。[carla.Waypoint](#carla.Waypoint) 对象将尝试检索其车道规则来访问地标。因此，某些属性取决于正在咨询地标的路径点，从而创建对象。
 
 ### 实例变量
 - <a name="carla.Landmark.road_id"></a>**<font color="#f8805a">road_id</font>** (_int_)  
@@ -1142,9 +1142,9 @@ OpenDRIVE 文件中的地标名称。
 - <a name="carla.Landmark.roll"></a>**<font color="#f8805a">roll</font>** (_float_)  
 信号的翻滚角 (X-轴在虚幻引擎坐标系统).  
 - <a name="carla.Landmark.waypoint"></a>**<font color="#f8805a">waypoint</font>** (_[carla.Waypoint](#carla.Waypoint)_)  
-放置在进行查询的车道和地标 `s` 处的航路点。这是地标有效的第一个航路点。
+放置在进行查询的车道和地标 `s` 处的路径点。这是地标有效的第一个路径点。
 - <a name="carla.Landmark.transform"></a>**<font color="#f8805a">transform</font>** (_[carla.Transform](#carla.Transform)_)  
-仿真中地标的位置和方向。
+模拟中地标的位置和方向。
 
 ### 方法
 
@@ -1246,7 +1246,7 @@ Helper 类包含 [OpenDRIVE 标准](http://opendrive.org/docs/OpenDRIVEFormatSpe
 ---
 
 ## carla.LaneChange<a name="carla.LaneChange"></a>
-定义左转、右转、双转或不转的权限的类（意味着只允许直行）。根据 OpenDRIVE 文件为每个 [carla.Waypoint](#carla.Waypoint) 存储此信息。[carla.Map.get_waypoint](#carla.Map.get_waypoint) 中的片段显示了如何使用航路点来了解允许哪些转弯。  
+定义左转、右转、双转或不转的权限的类（意味着只允许直行）。根据 OpenDRIVE 文件为每个 [carla.Waypoint](#carla.Waypoint) 存储此信息。[carla.Map.get_waypoint](#carla.Map.get_waypoint) 中的片段显示了如何使用路径点来了解允许哪些转弯。  
 
 ### 实例变量
 - <a name="carla.LaneChange.NONE"></a>**<font color="#f8805a">NONE</font>**  
@@ -1262,7 +1262,7 @@ Helper 类包含 [OpenDRIVE 标准](http://opendrive.org/docs/OpenDRIVEFormatSpe
 
 ## carla.LaneInvasionEvent<a name="carla.LaneInvasionEvent"></a>
 <small style="display:block;margin-top:-20px;">从 _[carla.SensorData](#carla.SensorData)_ 继承</small></br>
-为 <b>sensor.other.lane_invasion</b> 定义压线的类。它仅在客户端工作，并依赖 OpenDRIVE 来提供可靠的信息。每次发生压线时，传感器都会创建一个这样的情况，每个仿真步骤可能会发生多次。在 [这里](ref_sensors.md#lane-invasion-detector) 了解更多相关信息。 
+为 <b>sensor.other.lane_invasion</b> 定义压线的类。它仅在客户端工作，并依赖 OpenDRIVE 来提供可靠的信息。每次发生压线时，传感器都会创建一个这样的情况，每个模拟步骤可能会发生多次。在 [这里](ref_sensors.md#lane-invasion-detector) 了解更多相关信息。 
 
 ### 实例变量
 - <a name="carla.LaneInvasionEvent.actor"></a>**<font color="#f8805a">actor</font>** (_[carla.Actor](#carla.Actor)_)  
@@ -1308,7 +1308,7 @@ Helper 类包含 [OpenDRIVE 标准](http://opendrive.org/docs/OpenDRIVEFormatSpe
 ---
 
 ## carla.LaneMarkingType<a name="carla.LaneMarkingType"></a>
-定义 OpenDRIVE 1.4 接受的车道标记类型的类。[carla.Map.get_waypoint](#carla.Map.get_waypoint) 中的片段显示了如何使用航点来检索有关相邻车道标记的信息。   <br><br> __关于双精度类型的注意事项：__ 车道标记是根据 OpenDRIVE 标准定义的，该标准确定一条线将被视为“BrokenSolid”或“SolidBroken”。每条道路都有一个中心车道标记，根据车道方向从左到右定义。其余车道标记按从中心车道到最近的道路外侧的顺序定义。
+定义 OpenDRIVE 1.4 接受的车道标记类型的类。[carla.Map.get_waypoint](#carla.Map.get_waypoint) 中的片段显示了如何使用路径点来检索有关相邻车道标记的信息。   <br><br> __关于双精度类型的注意事项：__ 车道标记是根据 OpenDRIVE 标准定义的，该标准确定一条线将被视为“BrokenSolid”或“SolidBroken”。每条道路都有一个中心车道标记，根据车道方向从左到右定义。其余车道标记按从中心车道到最近的道路外侧的顺序定义。
 
 ### 实例变量
 - <a name="carla.LaneMarkingType.NONE"></a>**<font color="#f8805a">NONE</font>**  
@@ -1373,7 +1373,7 @@ xyz 坐标中的点。
 
 ## carla.LidarMeasurement<a name="carla.LidarMeasurement"></a>
 <small style="display:block;margin-top:-20px;">从 _[carla.SensorData](#carla.SensorData)_ 继承</small></br>
-定义由 <b>sensor.lidar.ray_cast</b> 检索的LIDAR数据的类。这本质上是使用光线投射仿真旋转激光雷达。在 [这里](ref_sensors.md#lidar-raycast-sensor) 了解更多相关信息。 
+定义由 <b>sensor.lidar.ray_cast</b> 检索的LIDAR数据的类。这本质上是使用光线投射模拟旋转激光雷达。在 [这里](ref_sensors.md#lidar-raycast-sensor) 了解更多相关信息。 
 
 ### 实例变量
 - <a name="carla.LidarMeasurement.channels"></a>**<font color="#f8805a">channels</font>** (_int_)  
@@ -1406,7 +1406,7 @@ xyz 坐标中的点。
 ---
 
 ## carla.Light<a name="carla.Light"></a>
-此类公开场景中存在的灯光（车辆灯光除外）。灯光的属性可以随意查询和改变。当仿真器进入夜间模式（太阳高度低于零）时，灯会自动打开。
+此类公开场景中存在的灯光（车辆灯光除外）。灯光的属性可以随意查询和改变。当模拟器进入夜间模式（太阳高度低于零）时，灯会自动打开。
 
 ### 实例变量
 - <a name="carla.Light.color"></a>**<font color="#f8805a">color</font>** (_[carla.Color](#carla.Color)_)  
@@ -1453,7 +1453,8 @@ xyz 坐标中的点。
 ## carla.LightGroup<a name="carla.LightGroup"></a>
 此类将场景中的灯光分为不同的组。这些可用组作为可用作标志的枚举值提供。
 
-__笔记。__ 到目前为止，虽然有一个 `vehicle` 组，但车灯还不能用作[carla.Light](#carla.Light)对象。这些必须使用[carla.Vehicle](#carla.Vehicle)和 [carla.VehicleLightState](#carla.VehicleLightState) 进行管理。
+!!! 笔记
+    到目前为止，虽然有一个 `vehicle` 组，但车灯还不能用作[carla.Light](#carla.Light)对象。这些必须使用[carla.Vehicle](#carla.Vehicle)和 [carla.VehicleLightState](#carla.VehicleLightState) 进行管理。
 
 ### 实例变量
 - <a name="carla.LightGroup.None"></a>**<font color="#f8805a">None</font>**  
@@ -1468,7 +1469,8 @@ __笔记。__ 到目前为止，虽然有一个 `vehicle` 组，但车灯还不�
 ## carla.LightManager<a name="carla.LightManager"></a>
 此类处理场景中的灯光。它的主要用途是在一次调用中获取和设置灯光组或灯光列表的状态。此类的实例可以通过 [carla.World.get_lightmanager](#carla.World.get_lightmanager)() 检索。
 
-__笔记。__ 到目前为止，虽然有一个`vehicle`组，但车灯还不能用作[carla.Light](#carla.Light)对象。这些必须使用 [carla.Vehicle](#carla.Vehicle) 和 [carla.VehicleLightState](#carla.VehicleLightState) 进行管理。
+!!! 笔记
+    到目前为止，虽然有一个`vehicle`组，但车灯还不能用作[carla.Light](#carla.Light)对象。这些必须使用 [carla.Vehicle](#carla.Vehicle) 和 [carla.VehicleLightState](#carla.VehicleLightState) 进行管理。
 
 ### 方法
 - <a name="carla.LightManager.is_active"></a>**<font color="#7fb800">is_active</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**lights**</font>)  
@@ -1648,7 +1650,7 @@ Z 轴上从原点到点的距离。
 ---
 
 ## carla.Map<a name="carla.Map"></a>
-包含道路信息和航点管理的类。从描述道路的 OpenDRIVE 文件中检索数据。定义了一个查询系统，它与 [carla.Waypoint](#carla.Waypoint) 携手合作，将几何信息从 .xodr 转换为自然世界点。Carla 目前正在使用 [OpenDRIVE 1.4 标准](http://www.opendrive.org/docs/OpenDRIVEFormatSpecRev1.4H.pdf) 。
+包含道路信息和路径点管理的类。从描述道路的 OpenDRIVE 文件中检索数据。定义了一个查询系统，它与 [carla.Waypoint](#carla.Waypoint) 携手合作，将几何信息从 .xodr 转换为自然世界点。Carla 目前正在使用 [OpenDRIVE 1.4 标准](http://www.opendrive.org/docs/OpenDRIVEFormatSpecRev1.4H.pdf) 。
 
 ### 实例变量
 - <a name="carla.Map.name"></a>**<font color="#f8805a">name</font>** (_str_)  
@@ -1662,7 +1664,7 @@ Z 轴上从原点到点的距离。
         - `xodr_content` (_str_) - 字符串格式的 .xodr 内容。
     - **返回：** _list([carla.Transform](#carla.Transform))_  
 - <a name="carla.Map.cook_in_memory_map"></a>**<font color="#7fb800">cook_in_memory_map</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**path**</font>)  
-从 Carla 映射生成一个二进制文件，其中包含流量管理器使用的信息。此方法仅在地图导入过程中使用。
+从 Carla 映射生成一个二进制文件，其中包含交通管理器使用的信息。此方法仅在地图导入过程中使用。
     - **参数：**
         - `path` (_str_) - 存储的二进制映射文件的预期位置的路径。
 - <a name="carla.Map.generate_waypoints"></a>**<font color="#7fb800">generate_waypoints</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**distance**</font>)  
@@ -1678,22 +1680,22 @@ Z 轴上从原点到点的距离。
 以字符串形式返回当前地图的 .xodr OpenDRIVe 文件。
     - **返回：** _str_  
 - <a name="carla.Map.transform_to_geolocation"></a>**<font color="#7fb800">transform_to_geolocation</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**location**</font>)  
-将仿真中一个点的给定位置 `location` 转换为 [carla.GeoLocation](#carla.GeoLocation)，他表示世界坐标系。地图的地理位置在 OpenDRIVE 标签<b><georeference></b>内定义。
+将模拟中一个点的给定位置 `location` 转换为 [carla.GeoLocation](#carla.GeoLocation)，他表示世界坐标系。地图的地理位置在 OpenDRIVE 标签<b><georeference></b>内定义。
     - **参数：**
         - `location` (_[carla.Location](#carla.Location)_)  
     - **返回：** _[carla.GeoLocation](#carla.GeoLocation)_  
 
 ##### 获取器
 - <a name="carla.Map.get_all_landmarks"></a>**<font color="#7fb800">get_all_landmarks</font>**(<font color="#00a6ed">**self**</font>)  
-返回地图中的所有地标。使用此方法检索到的地标有一个 __null__ 航路点。
+返回地图中的所有地标。使用此方法检索到的地标有一个 __null__ 路径点。
     - **返回：** _list([carla.Landmark](#carla.Landmark))_  
 - <a name="carla.Map.get_all_landmarks_from_id"></a>**<font color="#7fb800">get_all_landmarks_from_id</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**opendrive_id**</font>)  
-返回具有特定 OpenDRIVE ID 的地标。使用此方法检索的地标具有 __null__ 航路点。
+返回具有特定 OpenDRIVE ID 的地标。使用此方法检索的地标具有 __null__ 路径点。
     - **参数：**
         - `opendrive_id` (_string_) - 地标的 OpenDRIVE ID。  
     - **返回：** _list([carla.Landmark](#carla.Landmark))_  
 - <a name="carla.Map.get_all_landmarks_of_type"></a>**<font color="#7fb800">get_all_landmarks_of_type</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**type**</font>)  
-返回特定类型的地标。使用此方法检索的地标具有 __null__ 航路点。
+返回特定类型的地标。使用此方法检索的地标具有 __null__ 路径点。
     - **参数：**
         - `type` (_string_) - 地标的类型。
     - **返回：** _list([carla.Landmark](#carla.Landmark))_  
@@ -1712,17 +1714,17 @@ Z 轴上从原点到点的距离。
 返回描述 OpenDRIVE 文件拓扑的最小图的元组列表。这些元组包含位于道路起点或终点的成对路点。第一个是起点，第二个代表另一个可以到达的路终点。该图可以加载到[NetworkX](https://networkx.github.io/) 中进行使用。输出可能如下所示： <b>[(w0, w1), (w0, w2), (w1, w3), (w2, w3), (w0, w4)]</b> 。 
     - **返回：** _list(tuple([carla.Waypoint](#carla.Waypoint), [carla.Waypoint](#carla.Waypoint)))_  
 - <a name="carla.Map.get_waypoint"></a>**<font color="#7fb800">get_waypoint</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**location**</font>, <font color="#00a6ed">**project_to_road**=True</font>, <font color="#00a6ed">**lane_type**=[carla.LaneType.Driving](#carla.LaneType.Driving)</font>)<button class="SnipetButton" id="carla.Map.get_waypoint-snipet_button">snippet &rarr;</button>  
-返回可以位于精确位置或转换到最近车道中心的航路点。所述车道类型可以使用诸如 `LaneType.Driving & LaneType.Shoulder` 的标志来定义。如果未找到航路点，该方法将返回<b>None</b> ，这种情况仅在尝试检索确切位置的航路点时可能会发生。这可以轻松检查某个点是否在某条道路内，否则，它将返回相应的路径点。
+返回可以位于精确位置或转换到最近车道中心的路径点。所述车道类型可以使用诸如 `LaneType.Driving & LaneType.Shoulder` 的标志来定义。如果未找到路径点，该方法将返回<b>None</b> ，这种情况仅在尝试检索确切位置的路径点时可能会发生。这可以轻松检查某个点是否在某条道路内，否则，它将返回相应的路径点。
     - **参数：**
         - `location` (_[carla.Location](#carla.Location)<small> - 米</small>_) - 用作 [carla.Waypoint](#carla.Waypoint) 参考的任务。  
         - `project_to_road` (_bool_) - 如果是 **True**，路径点将位于最近车道的中心。这是默认设置。如果为 **False**，路径点将恰好位于 `location`。 <b>None</b> 表示该位置不属于道路。  
         - `lane_type` (_[carla.LaneType](#carla.LaneType)_) - 将对最近车道的搜索限制为可以标记的一种或多种车道类型。
     - **返回：** _[carla.Waypoint](#carla.Waypoint)_  
 - <a name="carla.Map.get_waypoint_xodr"></a>**<font color="#7fb800">get_waypoint_xodr</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**road_id**</font>, <font color="#00a6ed">**lane_id**</font>, <font color="#00a6ed">**s**</font>)  
-如果传递的所有参数都正确，则返回一个航路点。否则，返回 __None__。  
+如果传递的所有参数都正确，则返回一个路径点。否则，返回 __None__。  
     - **参数：**
         - `road_id` (_int_) - 获取路点的道路id。
-        - `lane_id` (_int_) - 获取航路点的车道id。
+        - `lane_id` (_int_) - 获取路径点的车道id。
         - `s` (_float<small> - 米</small>_) - 指定从道路起点开始的长度。 
     - **返回：** _[carla.Waypoint](#carla.Waypoint)_  
 
@@ -1874,7 +1876,7 @@ y 分量中的光流。
 ---
 
 ## carla.Osm2OdrSettings<a name="carla.Osm2OdrSettings"></a>
-包含 [carla.Osm2Odr](#carla.Osm2Odr) 将使用的参数化的帮助程序类，用于将 OpenStreetMap 地图转换为 OpenDRIVE 格式。在 [文档](tuto_G_openstreetmap.md) 中了解有关此功能的更多信息。
+包含由 [carla.Osm2Odr](#carla.Osm2Odr) 使用的参数化的帮助程序类，用于将 OpenStreetMap 地图转换为 OpenDRIVE 格式。在 [文档](tuto_G_openstreetmap.md) 中了解有关此功能的更多信息。
 
 ### 实例变量
 - <a name="carla.Osm2OdrSettings.use_offsets"></a>**<font color="#f8805a">use_offsets</font>** (_bool_)  
@@ -1892,7 +1894,7 @@ Y 轴偏移。默认值为 __0.0__。
 - <a name="carla.Osm2OdrSettings.proj_string"></a>**<font color="#f8805a">proj_string</font>** (_str_)  
 定义将用于计算从地理坐标到笛卡尔坐标的投影的 [proj4](https://github.com/OSGeo/proj.4) 字符串。该字符串将写入生成的 OpenDRIVE 中，除非启用了 `use_offsets` 或 `center_map` 选项，因为这些选项会覆盖字符串中的某些定义。
 - <a name="carla.Osm2OdrSettings.generate_traffic_lights"></a>**<font color="#f8805a">generate_traffic_lights</font>** (_bool_)  
-指示是否在OpenDRIVE中生成红绿灯数据。 `set_traffic_light_excluded_way_types(way_types)` 定义的道路类型不会生成交通信号灯。
+指出是否在OpenDRIVE中生成红绿灯数据。 `set_traffic_light_excluded_way_types(way_types)` 定义的道路类型不会生成交通信号灯。
 - <a name="carla.Osm2OdrSettings.all_junctions_with_traffic_lights"></a>**<font color="#f8805a">all_junctions_with_traffic_lights</font>** (_bool_)  
 禁用时，转换器将仅从 OpenStreetMaps 数据生成交通灯数据。启用后，所有路口都会生成交通信号灯。
 
@@ -1915,13 +1917,13 @@ Y 轴偏移。默认值为 __0.0__。
 
 ### 实例变量
 - <a name="carla.RadarDetection.altitude"></a>**<font color="#f8805a">altitude</font>** (_float<small> - radians</small>_)  
-Altitude angle of the detection.  
+检测的高度角。  
 - <a name="carla.RadarDetection.azimuth"></a>**<font color="#f8805a">azimuth</font>** (_float<small> - radians</small>_)  
-Azimuth angle of the detection.  
+检测的方位角。
 - <a name="carla.RadarDetection.depth"></a>**<font color="#f8805a">depth</font>** (_float<small> - 米</small>_)  
-Distance from the sensor to the detection position.  
+传感器到检测位置的距离。  
 - <a name="carla.RadarDetection.velocity"></a>**<font color="#f8805a">velocity</font>** (_float<small> - m/s</small>_)  
-The velocity of the detected object towards the sensor.  
+被检测物体朝向传感器的速度。
 
 ### 方法
 
@@ -1955,8 +1957,8 @@ The velocity of the detected object towards the sensor.
 ---
 
 ## carla.Rotation<a name="carla.Rotation"></a>
-表示 3D 旋转以及空间方向的类。 Carla 使用虚幻引擎坐标系。这是 Z 向上左手系统。  <br>
-<br>构造函数方法遵循特定的声明顺序： `(pitch, yaw, roll)` 对应于 `(Y-rotation,Z-rotation,X-rotation)`.  <br> <br>![UE4_Rotation](https://d26ilriwvtzlb.cloudfront.net/8/83/BRMC_9.jpg) *虚幻引擎的坐标系*。  
+表示 3D 旋转以及空间方向的类。 Carla 使用虚幻引擎坐标系，在虚幻引擎世界里，空间坐标的单位是厘米。其设计基于第一人称视觉：X 轴正方向表示向前，Y 轴正方向表示向右，Z 轴正方向表示向上。  <br>
+<br>构造函数方法遵循特定的声明顺序： `(pitch, yaw, roll)` 对应于 `(Y-rotation,Z-rotation,X-rotation)`.  <br> <br>![UE4_Rotation](img/unreal_lhcs.png) *虚幻引擎的坐标系*。  
 
 ### 实例变量
 - <a name="carla.Rotation.pitch"></a>**<font color="#f8805a">pitch</font>** (_float<small> - 度</small>_)  
@@ -2028,11 +2030,11 @@ X-轴旋转角度。
 - <a name="carla.RssActorConstellationResult.restrict_speed_limit_mode"></a>**<font color="#f8805a">restrict_speed_limit_mode</font>** (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss_map_integration/classad_1_1rss_1_1map_1_1RssSceneCreation.html#a403aae6dce3c77a8aec01dd9808dd964">ad.rss.map.RestrictSpeedLimitMode</a>_)  
 限速模式。
 - <a name="carla.RssActorConstellationResult.ego_vehicle_dynamics"></a>**<font color="#f8805a">ego_vehicle_dynamics</font>** (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1RssDynamics.html">ad.rss.world.RssDynamics</a>_)  
-将RSS动态应用于自我车辆。  
+将责任敏感安全动态应用于自我车辆。  
 - <a name="carla.RssActorConstellationResult.actor_object_type"></a>**<font color="#f8805a">actor_object_type</font>** (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/namespacead_1_1rss_1_1world.html#a6432f1ef8d0657b4f21ed5966aca1625">ad.rss.world.ObjectType</a>_)  
-要用于参与者的RSS对象类型。  
+要用于参与者的责任敏感安全对象类型。  
 - <a name="carla.RssActorConstellationResult.actor_dynamics"></a>**<font color="#f8805a">actor_dynamics</font>** (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1RssDynamics.html">ad.rss.world.RssDynamics</a>_)  
-要应用于参与者的RSS动力学。 
+要应用于参与者的责任敏感安全动力学。 
 
 ### 方法
 
@@ -2099,7 +2101,7 @@ X-轴旋转角度。
 
 ## carla.RssResponse<a name="carla.RssResponse"></a>
 <small style="display:block;margin-top:-20px;">从 _[carla.SensorData](#carla.SensorData)_ 继承</small></br>
-包含c [carla.RssSensor](#carla.RssSensor) 输出的类。这是对传感器的父车辆执行的RSS计算的结果。
+包含c [carla.RssSensor](#carla.RssSensor) 输出的类。这是对传感器的父车辆执行的责任敏感安全计算的结果。
 
 [carla.RssRestrictor](#carla.RssRestrictor) 将使用数据修改车辆的 [carla.VehicleControl](#carla.VehicleControl)。
 
@@ -2107,15 +2109,15 @@ X-轴旋转角度。
 - <a name="carla.RssResponse.response_valid"></a>**<font color="#f8805a">response_valid</font>** (_bool_)  
 说明响应是否有效。如果计算失败或发生异常，则为 __False__ 。 
 - <a name="carla.RssResponse.proper_response"></a>**<font color="#f8805a">proper_response</font>** (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1state_1_1ProperResponse.html">ad.rss.state.ProperResponse</a>_)  
-RSS 为车辆计算的正确响应。
+责任敏感安全为车辆计算的正确响应。
 - <a name="carla.RssResponse.rss_state_snapshot"></a>**<font color="#f8805a">rss_state_snapshot</font>** (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1state_1_1RssStateSnapshot.html">ad.rss.state.RssStateSnapshot</a>_)  
-详细的RSS在当前时刻的状态。
+详细的责任敏感安全在当前时刻的状态。
 - <a name="carla.RssResponse.ego_dynamics_on_route"></a>**<font color="#f8805a">ego_dynamics_on_route</font>** (_[carla.RssEgoDynamicsOnRoute](#carla.RssEgoDynamicsOnRoute)_)  
 关于路线的当前自我车辆动力学。
 - <a name="carla.RssResponse.world_model"></a>**<font color="#f8805a">world_model</font>** (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1WorldModel.html">ad.rss.world.WorldModel</a>_)  
 用于计算的世界模型。
 - <a name="carla.RssResponse.situation_snapshot"></a>**<font color="#f8805a">situation_snapshot</font>** (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1situation_1_1SituationSnapshot.html">ad.rss.situation.SituationSnapshot</a>_)  
-从世界模型中提取的详细RSS情况。
+从世界模型中提取的详细责任敏感安全情况。
 
 ### 方法
 
@@ -2160,15 +2162,15 @@ RSS 为车辆计算的正确响应。
 <small style="display:block;margin-top:-20px;">从 _[carla.Sensor](#carla.Sensor)_ 继承</small></br>
 此传感器的工作原理与其他传感器略有不同。请查看 [特定文档](adv_rss.md) 和 [rss传感器参考](ref_sensors.md#rss-sensor) ，以充分了解它。 
 
-RSS传感器使用世界信息和 [RSS库](https://github.com/intel/ad-rss-lib) 对车辆进行安全检查。传感器检索到的输出是 [carla.RssResponse](#carla.RssResponse)。这将由 [carla.RssRestrictor](#carla.RssRestrictor) 使用。在将其应用于车辆之前进行 [carla.VehicleControl](#carla.VehicleControl)。
+责任敏感安全传感器使用世界信息和 [责任敏感安全库](https://github.com/intel/ad-rss-lib) 对车辆进行安全检查。传感器检索到的输出是 [carla.RssResponse](#carla.RssResponse)。这将由 [carla.RssRestrictor](#carla.RssRestrictor) 使用。在将其应用于车辆之前进行 [carla.VehicleControl](#carla.VehicleControl)。
 
 ### 实例变量
 - <a name="carla.RssSensor.ego_vehicle_dynamics"></a>**<font color="#f8805a">ego_vehicle_dynamics</font>** (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1RssDynamics.html">ad.rss.world.RssDynamics</a>_)  
-说明如果没有注册参与者 constellation 回调，传感器将考虑的自我车辆的 [RSS参数](https://intel.github.io/ad-rss-lib/ad_rss/Appendix-ParameterDiscussion/) 。
+说明如果没有注册参与者 constellation 回调，传感器将考虑的自我车辆的 [责任敏感安全参数](https://intel.github.io/ad-rss-lib/ad_rss/Appendix-ParameterDiscussion/) 。
 - <a name="carla.RssSensor.other_vehicle_dynamics"></a>**<font color="#f8805a">other_vehicle_dynamics</font>** (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1RssDynamics.html">ad.rss.world.RssDynamics</a>_)  
-说明如果没有注册参与者 constellation 回调，传感器将为其余车辆考虑的 [RSS参数](https://intel.github.io/ad-rss-lib/ad_rss/Appendix-ParameterDiscussion/) 。 
+说明如果没有注册参与者 constellation 回调，传感器将为其余车辆考虑的 [责任敏感安全参数](https://intel.github.io/ad-rss-lib/ad_rss/Appendix-ParameterDiscussion/) 。 
 - <a name="carla.RssSensor.pedestrian_dynamics"></a>**<font color="#f8805a">pedestrian_dynamics</font>** (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1RssDynamics.html">ad.rss.world.RssDynamics</a>_)  
-说明如果没有注册参与者 constellation 回调，传感器将为行人考虑的 [RSS参数](https://intel.github.io/ad-rss-lib/ad_rss/Appendix-ParameterDiscussion/) 。
+说明如果没有注册参与者 constellation 回调，传感器将为行人考虑的 [责任敏感安全参数](https://intel.github.io/ad-rss-lib/ad_rss/Appendix-ParameterDiscussion/) 。
 - <a name="carla.RssSensor.road_boundaries_mode"></a>**<font color="#f8805a">road_boundaries_mode</font>** (_[carla.RssRoadBoundariesMode](#carla.RssRoadBoundariesMode)_)  
 切换停留在道路上 [stay on road](https://intel.github.io/ad-rss-lib/ad_rss_map_integration/HandleRoadBoundaries/) 的功能。默认情况下处于禁用（__Off__）状态。
 - <a name="carla.RssSensor.routing_targets"></a>**<font color="#f8805a">routing_targets</font>** (_vector<[carla.Transform](#carla.Transform)>_)  
@@ -2182,9 +2184,9 @@ RSS传感器使用世界信息和 [RSS库](https://github.com/intel/ad-rss-lib) 
 - <a name="carla.RssSensor.drop_route"></a>**<font color="#7fb800">drop_route</font>**(<font color="#00a6ed">**self**</font>)  
 放弃当前路由。如果 **<font color="#f8805a">routing_targets</font>** 中还有目标，则使用这些目标创建新路由。否则，将随机创建新路由。 
 - <a name="carla.RssSensor.register_actor_constellation_callback"></a>**<font color="#7fb800">register_actor_constellation_callback</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**callback**</font>)  
-注册回调以自定义 [carla.RssActorConstellationResult](#carla.RssActorConstellationResult)。通过此回调，RSS参数的设置是根据参与者 constellation 完成的，并且设置（ego_vehicle_dynamics, other_vehicle_dynamics and pedestrian_dynamics）没有任何效果。 
+注册回调以自定义 [carla.RssActorConstellationResult](#carla.RssActorConstellationResult)。通过此回调，责任敏感安全参数的设置是根据参与者 constellation 完成的，并且设置（ego_vehicle_dynamics, other_vehicle_dynamics and pedestrian_dynamics）没有任何效果。 
     - **参数：**
-        - `callback` - 每当要计算RSS情况时要调用的函数。 
+        - `callback` - 每当要计算责任敏感安全情况时要调用的函数。 
 - <a name="carla.RssSensor.reset_routing_targets"></a>**<font color="#7fb800">reset_routing_targets</font>**(<font color="#00a6ed">**self**</font>)  
 删除已附加到路由的目标。 
 
@@ -2225,7 +2227,7 @@ RSS传感器使用世界信息和 [RSS库](https://github.com/intel/ad-rss-lib) 
 
 ## carla.SemanticLidarMeasurement<a name="carla.SemanticLidarMeasurement"></a>
 <small style="display:block;margin-top:-20px;">从 _[carla.SensorData](#carla.SensorData)_ 继承</small></br>
-该类定义由 <b>sensor.lidar.ray_cast_semantic</b> 检索的语义激光雷达数据。这实质上是使用光线投射来仿真旋转激光雷达。在此了解更多信息。
+该类定义由 <b>sensor.lidar.ray_cast_semantic</b> 检索的语义激光雷达数据。这实质上是使用光线投射来模拟旋转激光雷达。在此了解更多信息。
 
 ### 实例变量
 - <a name="carla.SemanticLidarMeasurement.channels"></a>**<font color="#f8805a">channels</font>** (_int_)  
@@ -2261,17 +2263,17 @@ RSS传感器使用世界信息和 [RSS库](https://github.com/intel/ad-rss-lib) 
 <small style="display:block;margin-top:-20px;">从 _[carla.Actor](#carla.Actor)_ 继承</small></br>
 传感器构成了一个非常多样化和独特的特定参与者家族。它们通常是作为车辆的附件/儿子而产生的（看看[carla.World](#carla.World)来了解参与者的生成）。传感器经过精心设计，可以检索它们正在监听的不同类型的数据。它们接收到的数据被形成为从[carla.SensorData](#carla.SensorData)继承的不同子类。（取决于传感器）。 
 
-大多数传感器可分为两组：一组在每个滴答信号中接收数据（相机、点云和一些特定的传感器），另一组仅在特定情况下接收数据（触发探测器）。Carla 提供了一套特定的传感器，它们的蓝图可以在 [carla.BlueprintLibrary](#carla.BlueprintLibrary) 中找到。关于他们的偏好和放置位置的所有信息都可以在 [这里](ref_sensors.md) 找到，但到目前为止，Carla 中可用的信息列表如下。
+大多数传感器可分为两组：一组在每个节拍中接收数据（相机、点云和一些特定的传感器），另一组仅在特定情况下接收数据（触发探测器）。Carla 提供了一套特定的传感器，它们的蓝图可以在 [carla.BlueprintLibrary](#carla.BlueprintLibrary) 中找到。关于他们的偏好和放置位置的所有信息都可以在 [这里](ref_sensors.md) 找到，但到目前为止，Carla 中可用的信息列表如下。
 
-  <br><b>每个滴答信号接收的数据。</b><br>
+  <br><b>每个节拍接收的数据。</b><br>
   - [深度相机](ref_sensors.md#depth-camera)<br>
-  - [Gnss 传感器](ref_sensors.md#gnss-sensor)<br>
+  - [全球导航卫星系统传感器](ref_sensors.md#gnss-sensor)<br>
   - [IMU 传感器](ref_sensors.md#imu-sensor)<br>
   - [激光雷达光线投射](ref_sensors.md#lidar-raycast-sensor)<br>
   - [SemanticLidar 光线投射](ref_sensors.md#semanticlidar-raycast-sensor)<br>
   - [雷达](ref_sensors.md#radar-sensor)<br>
   - [RGB 相机](ref_sensors.md#rgb-camera)<br>
-  - [RSS 传感器](ref_sensors.md#rss-sensor)<br>
+  - [责任敏感安全传感器](ref_sensors.md#rss-sensor)<br>
   - [语义分割相机](ref_sensors.md#semantic-segmentation-camera)<br>
   <br><b>仅在触发时接收数据。</b>
   - [碰撞检测器](ref_sensors.md#collision-detector).
@@ -2325,13 +2327,13 @@ RSS传感器使用世界信息和 [RSS库](https://github.com/intel/ad-rss-lib) 
 包含 [carla.Sensor](#carla.Sensor) 生成的数据的所有对象的基类。这个对象应该是传感器正在监听的函数的参数，以便与它们一起工作。这些传感器中的每一个都需要特定类型的传感器数据。以下是传感器及其相应数据的列表。<br>
   - 相机 (RGB, 深度和语义分割): [carla.Image](#carla.Image).<br>
   - 碰撞检测器：[carla.CollisionEvent](#carla.CollisionEvent).<br>
-  - GNSS 传感器：[carla.GnssMeasurement](#carla.GnssMeasurement).<br>
-  - IMU 传感器：[carla.IMUMeasurement](#carla.IMUMeasurement).<br>
+  - 全球导航卫星系统传感器：[carla.GnssMeasurement](#carla.GnssMeasurement).<br>
+  - 惯性测量单元传感器：[carla.IMUMeasurement](#carla.IMUMeasurement).<br>
   - 压线检测器：[carla.LaneInvasionEvent](#carla.LaneInvasionEvent).<br>
   - 激光雷达传感器：[carla.LidarMeasurement](#carla.LidarMeasurement).<br>
   - 障碍物检测器：[carla.ObstacleDetectionEvent](#carla.ObstacleDetectionEvent).<br>
   - 雷达传感器：[carla.RadarMeasurement](#carla.RadarMeasurement).<br>
-  - RSS 传感器：[carla.RssResponse](#carla.RssResponse).<br>
+  - 责任敏感安全传感器：[carla.RssResponse](#carla.RssResponse).<br>
   - 语义激光雷达传感器：[carla.SemanticLidarMeasurement](#carla.SemanticLidarMeasurement).<br>
   - V2X传感器协同感知信息：[carla.CAMEvent](#carla.CAMEvent).<br>
   - 自定义V2X消息V2X传感器：[carla.CustomV2XEvent](#carla.CustomV2XEvent).  
@@ -2553,7 +2555,7 @@ _</font>
 ---
 
 ## carla.TrafficManager<a name="carla.TrafficManager"></a>
-流量管理器是一个用 C++ 构建在 CARLA API 之上的模块。它可以处理设置为自动驾驶模式的任何车辆组，以现实的城市交通状况填充仿真，并为用户提供定制某些行为的机会。交通管理器的架构分为五个不同的面向目标的阶段和一个 PID 控制器，信息在其中流动，直到最终将 [carla.VehicleControl](#carla.VehicleControl) 应用于在交通管理器中注册的每辆车辆。要了解更多信息，请访问有关此模块的 [文档](adv_traffic_manager.md)。
+交通管理器是一个用 C++ 构建在 CARLA API 之上的模块。它可以处理设置为自动驾驶模式的任何车辆组，以现实的城市交通状况填充模拟，并为用户提供定制某些行为的机会。交通管理器的架构分为五个不同的面向目标的阶段和一个 PID 控制器，信息在其中流动，直到最终将 [carla.VehicleControl](#carla.VehicleControl) 应用于在交通管理器中注册的每辆车辆。要了解更多信息，请访问有关此模块的 [文档](adv_traffic_manager.md)。
 
 
 ### 方法
@@ -2574,7 +2576,7 @@ _</font>
         - `actor` (_[carla.Actor](#carla.Actor)_) - 正在更改最小距离的车辆。  
         - `distance` (_float<small> - 米</small>_) - 两辆车之间的米。  
 - <a name="carla.TrafficManager.force_lane_change"></a>**<font color="#7fb800">force_lane_change</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**direction**</font>)  
-强制车辆改变到其左侧或右侧的车道（如果存在），如 中所示 `direction`。无论发生什么情况，该方法都会应用车道变换，而忽略可能发生的碰撞。
+强制车辆改变到其左侧或右侧的车道（如果存在），如 `direction` 中所示 。无论发生什么情况，该方法都会应用车道变换，而忽略可能发生的碰撞。
     - **参数:**
         - `actor` (_[carla.Actor](#carla.Actor)_) - 车辆被迫改变车道。
         - `direction` (_bool_) - 目标车道。 __True__ 是右边的， __False__ 是左边的。
@@ -2644,14 +2646,14 @@ _</font>
 返回交通管理器控制的参与者将在后续步骤中执行的所有已知操作（即道路选项和路径点）。
     - **参数:**
         - `actor` (_[carla.Actor](#carla.Actor)_) - 您要查询的参与者。
-    - **返回:** _每个元素的列表列表如下 - [道路选项（字符串，例如“左”、“右”、“直”）、下一个航点 ([carla.Waypoint](#carla.Waypoint))]_  
+    - **返回:** _每个元素的列表列表如下 - [道路选项（字符串，例如“左”、“右”、“直”）、下一个路径点 ([carla.Waypoint](#carla.Waypoint))]_  
 - <a name="carla.TrafficManager.get_next_action"></a>**<font color="#7fb800">get_next_action</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>)  
 返回由交通管理器控制的参与者将遵循的下一个已知道路选项和路径点。
     - **参数:**
         - `actor` (_[carla.Actor](#carla.Actor)_) - 您要查询的参与者。  
-    - **返回:** _两个元素的列表 - [道路选项（字符串，例如“左”、“右”、“直”）、下一个航点 ([carla.Waypoint](#carla.Waypoint))]_  
+    - **返回:** _两个元素的列表 - [道路选项（字符串，例如“左”、“右”、“直”）、下一个路径点 ([carla.Waypoint](#carla.Waypoint))]_  
 - <a name="carla.TrafficManager.get_port"></a>**<font color="#7fb800">get_port</font>**(<font color="#00a6ed">**self**</font>)  
-返回流量管理器连接的端口。如果该对象是 TM-Client，它将返回其TM-Server的端口。阅读 [文档](#adv_traffic_manager.md#multiclient-and-multitm-management) 以了解其中的差异。
+返回交通管理器连接的端口。如果该对象是 TM-Client，它将返回其TM-Server的端口。阅读 [文档](#adv_traffic_manager.md#multiclient-and-multitm-management) 以了解其中的差异。
     - **返回:** _uint16_  
 
 ##### 设置器
@@ -2680,20 +2682,20 @@ _</font>
     - **参数:**
         - `r` (_float<small> - 米</small>_) - 启用物理的新半径。 
 - <a name="carla.TrafficManager.set_osm_mode"></a>**<font color="#7fb800">set_osm_mode</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**mode_switch**=True</font>)  
-启用或禁用 OSM 模式。该模式允许用户在使用 [OSM 功能](tuto_G_openstreetmap.md) 创建的地图中运行 TM。这些地图允许有死胡同。通常，如果车辆无法找到下一个航路点，交通管理器就会崩溃。如果启用 OSM 模式，它将显示警告，并在必要时销毁车辆。 
+启用或禁用 OSM 模式。该模式允许用户在使用 [OSM 功能](tuto_G_openstreetmap.md) 创建的地图中运行 TM。这些地图允许有死胡同。通常，如果车辆无法找到下一个路径点，交通管理器就会崩溃。如果启用 OSM 模式，它将显示警告，并在必要时销毁车辆。 
     - **参数:**
         - `mode_switch` (_bool_) - 如果 __True__ ，则启用 OSM 模式。 
 - <a name="carla.TrafficManager.set_path"></a>**<font color="#7fb800">set_path</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**path**</font>)  
-设置车辆在受流量管理器控制时要遵循的位置列表。
+设置车辆在受交通管理器控制时要遵循的位置列表。
     - **参数:**
         - `actor` (_[carla.Actor](#carla.Actor)_) - 必须遵循给定路径的参与者。
         - `path` (_list_) - [carla.Locations](#carla.Locations) 的列表，供参与者跟随。  
     - **警告:** <font color="#ED2F2F">_确保道路拓扑不会妨碍给定路径。
 _</font>  
 - <a name="carla.TrafficManager.set_random_device_seed"></a>**<font color="#7fb800">set_random_device_seed</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**value**</font>)  
-为流量管理器设置特定的随机种子，从而将其设置为确定性的。
+为交通管理器设置特定的随机种子，从而将其设置为确定性的。
     - **参数:**
-        - `value` (_int_) - 流量管理器随机数生成的种子值。  
+        - `value` (_int_) - 交通管理器随机数生成的种子值。  
 - <a name="carla.TrafficManager.set_respawn_dormant_vehicles"></a>**<font color="#7fb800">set_respawn_dormant_vehicles</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**mode_switch**=False</font>)  
 如果为 __True__ ，大地图中的车辆在休眠时会在英雄车辆附近重生。否则，它们将保持休眠状态，直到 `actor_active_distance` 再次进入英雄车辆。 
     - **参数:**
@@ -2706,7 +2708,7 @@ _</font>
     - **警告:** <font color="#ED2F2F">_确保车道拓扑不会妨碍给定路线。
 _</font>  
 - <a name="carla.TrafficManager.set_synchronous_mode"></a>**<font color="#7fb800">set_synchronous_mode</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**mode_switch**=True</font>)  
-将流量管理器设置为 [同步模式](adv_traffic_manager.md#synchronous-mode) 。在 [多客户端情况](adv_traffic_manager.md#multiclient) 下，只有 TM-Server 可以运行。类似地，在多TM 情况下，只有一个TM-Server 必须勾选。在进行世界勾选的客户端中使用此方法，并在将世界设置为同步模式后立即设置同步时哪个 TM 将成为主服务器。
+将交通管理器设置为 [同步模式](adv_traffic_manager.md#synchronous-mode) 。在 [多客户端情况](adv_traffic_manager.md#multiclient) 下，只有 TM-Server 可以运行。类似地，在多TM 情况下，只有一个TM-Server 必须勾选。在进行世界勾选的客户端中使用此方法，并在将世界设置为同步模式后立即设置同步时哪个 TM 将成为主服务器。
     - **参数:**
         - `mode_switch` (_bool_) - 如果为 __True__ ，则启用交通管理器同步模式。
     - **警告:** <font color="#ED2F2F">_如果服务器设置为同步模式，则执行标记的同一客户端中的 TM 也 <b>必须</b> 设置为同步模式。
@@ -2716,7 +2718,7 @@ _</font>
 
 ## carla.TrafficSign<a name="carla.TrafficSign"></a>
 <small style="display:block;margin-top:-20px;">从 _[carla.Actor](#carla.Actor)_ 继承</small></br>
-仿真中出现的交通标志（红绿灯除外）。这些在 [carla.TrafficLight](#carla.TrafficLight) 中有自己的类从该类继承。目前，主要实施的是速度标志、停靠站和让行标志，但还有许多其他标志也被牢记在心。
+模拟中出现的交通标志（红绿灯除外）。这些在 [carla.TrafficLight](#carla.TrafficLight) 中有自己的类从该类继承。目前，主要实施的是速度标志、停靠站和让行标志，但还有许多其他标志也被牢记在心。
 
 ### 实例变量
 - <a name="carla.TrafficSign.trigger_volume"></a>**<font color="#f8805a">trigger_volume</font>**  
@@ -2925,7 +2927,7 @@ CARLA 中最重要的参与者群体之一。其中包括从汽车到卡车、�
 在下一个 tick 中将新的阿克曼控制设置应用于此车辆。  
     - **参数:**
         - `settings` (_[carla.AckermannControllerSettings](#carla.AckermannControllerSettings)_)  
-    - **警告:** <font color="#ED2F2F">_此方法确实调用仿真器。_</font>  
+    - **警告:** <font color="#ED2F2F">_此方法确实调用模拟器。_</font>  
 - <a name="carla.Vehicle.apply_control"></a>**<font color="#7fb800">apply_control</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**control**</font>)  
 在下一个 tick 上应用控制对象，其中包含油门、转向或换档等驾驶参数。
     - **参数:**
@@ -2941,7 +2943,7 @@ CARLA 中最重要的参与者群体之一。其中包括从汽车到卡车、�
 - <a name="carla.Vehicle.enable_carsim"></a>**<font color="#7fb800">enable_carsim</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**simfile_path**</font>)  
 为该特定车辆启用 CarSim 物理解算器。为了使此功能发挥作用，需要在服务器端运行有效的许可证管理器。控制输入被重定向到 CarSim，它将提供每一帧的车辆位置和方向。 
     - **参数:**
-        - `simfile_path` (_str_) - 包含仿真参数的`.simfile` 文件的路径。
+        - `simfile_path` (_str_) - 包含模拟参数的`.simfile` 文件的路径。
 - <a name="carla.Vehicle.enable_chrono_physics"></a>**<font color="#7fb800">enable_chrono_physics</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**max_substeps**</font>, <font color="#00a6ed">**max_substep_delta_time**</font>, <font color="#00a6ed">**vehicle_json**</font>, <font color="#00a6ed">**powertrain_json**</font>, <font color="#00a6ed">**tire_json**</font>, <font color="#00a6ed">**base_json_path**</font>)  
 在生成的车辆上启用 Chrono 物理。
     - **参数:**
@@ -2956,7 +2958,7 @@ _</font>
     - **警告:** <font color="#ED2F2F">_不支持碰撞。当检测到碰撞时，物理系统将恢复为默认的 Carla 物理系统。
 _</font>  
 - <a name="carla.Vehicle.is_at_traffic_light"></a>**<font color="#7fb800">is_at_traffic_light</font>**(<font color="#00a6ed">**self**</font>)  
-当交通灯为红色并且车辆位于其边界框内时，车辆将受到交通灯的影响。客户端根据最后一个刻度返回交通灯是否影响该车辆（它不调用仿真器）。
+当交通灯为红色并且车辆位于其边界框内时，车辆将受到交通灯的影响。客户端根据最后一个刻度返回交通灯是否影响该车辆（它不调用模拟器）。
     - **返回:** _bool_  
 - <a name="carla.Vehicle.open_door"></a>**<font color="#7fb800">open_door</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**door_idx**</font>)  
 如果车辆有车门，则打开车门 `door_idx` 。使用 [carla.VehicleDoor.All](#carla.VehicleDoor.All) 打开所有可用的门。
@@ -2975,9 +2977,9 @@ _</font>
 - <a name="carla.Vehicle.get_ackermann_controller_settings"></a>**<font color="#7fb800">get_ackermann_controller_settings</font>**(<font color="#00a6ed">**self**</font>)  
 返回应用于该车辆的最后一个阿克曼控制设置。 
     - **返回:** _[carla.AckermannControllerSettings](#carla.AckermannControllerSettings)_  
-    - **警告:** <font color="#ED2F2F">_此方法确实调用仿真器来检索值。_</font>  
+    - **警告:** <font color="#ED2F2F">_此方法确实调用模拟器来检索值。_</font>  
 - <a name="carla.Vehicle.get_control"></a>**<font color="#7fb800">get_control</font>**(<font color="#00a6ed">**self**</font>)  
-客户端返回最后一个tick中应用的控制。该方法不调用仿真器。
+客户端返回最后一个tick中应用的控制。该方法不调用模拟器。
     - **返回:** _[carla.VehicleControl](#carla.VehicleControl)_  
 - <a name="carla.Vehicle.get_failure_state"></a>**<font color="#7fb800">get_failure_state</font>**(<font color="#00a6ed">**self**</font>)  
 车辆有故障状态，表明它无法继续其路线。该函数返回车辆的具体故障状态，或者换句话说，返回导致故障的原因。
@@ -2987,17 +2989,17 @@ _</font>
     - **返回:** _[carla.VehicleLightState](#carla.VehicleLightState)_  
     - **Setter:** _[carla.Vehicle.set_light_state](#carla.Vehicle.set_light_state)_  
 - <a name="carla.Vehicle.get_physics_control"></a>**<font color="#7fb800">get_physics_control</font>**(<font color="#00a6ed">**self**</font>)  
-仿真器返回应用于该车辆的最后一个物理控制。
+模拟器返回应用于该车辆的最后一个物理控制。
     - **返回:** _[carla.VehiclePhysicsControl](#carla.VehiclePhysicsControl)_  
-    - **警告:** <font color="#ED2F2F">_此方法确实调用仿真器来检索值。_</font>  
+    - **警告:** <font color="#ED2F2F">_此方法确实调用模拟器来检索值。_</font>  
 - <a name="carla.Vehicle.get_speed_limit"></a>**<font color="#7fb800">get_speed_limit</font>**(<font color="#00a6ed">**self**</font>)  
-客户端根据最后一个tick返回影响该车辆的速度限制（它不调用仿真器）。当经过限速信号时，限速会更新，因此车辆在生成后可能就没有限速信号。
-    - **返回:** _float<small> - km/h</small>_  
+客户端根据最后一个tick返回影响该车辆的速度限制（它不调用模拟器）。当经过限速信号时，限速会更新，因此车辆在生成后可能就没有限速信号。
+    - **返回:** _float<small> - 千米/小时</small>_  
 - <a name="carla.Vehicle.get_traffic_light"></a>**<font color="#7fb800">get_traffic_light</font>**(<font color="#00a6ed">**self**</font>)  
-根据最后一个刻度检索影响此车辆的交通灯参与者（如果有）。该方法不调用仿真器。
+根据最后一个刻度检索影响此车辆的交通灯参与者（如果有）。该方法不调用模拟器。
     - **返回:** _[carla.TrafficLight](#carla.TrafficLight)_  
 - <a name="carla.Vehicle.get_traffic_light_state"></a>**<font color="#7fb800">get_traffic_light_state</font>**(<font color="#00a6ed">**self**</font>)  
-客户端根据上一个tick返回影响该车辆的交通信号灯的状态。该方法不调用仿真器。如果当前没有交通灯影响车辆，则返回 <b>green</b>。
+客户端根据上一个tick返回影响该车辆的交通信号灯的状态。该方法不调用模拟器。如果当前没有交通灯影响车辆，则返回 <b>green</b>。
     - **返回:** _[carla.TrafficLightState](#carla.TrafficLightState)_  
 - <a name="carla.Vehicle.get_wheel_steer_angle"></a>**<font color="#7fb800">get_wheel_steer_angle</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**wheel_location**</font>)  
 返回车辆车轮的物理角度（以度为单位）。
@@ -3009,7 +3011,7 @@ _</font>
 
 ##### 设置器
 - <a name="carla.Vehicle.set_autopilot"></a>**<font color="#7fb800">set_autopilot</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**enabled**=True</font>, <font color="#00a6ed">**port**=8000</font>)  
-在流量管理器的列表中注册或删除车辆。当 __True__ 时，作为参数传递的流量管理器将移动车辆。自动驾驶仪发生在客户端。
+在交通管理器的列表中注册或删除车辆。当 __True__ 时，作为参数传递的交通管理器将移动车辆。自动驾驶仪发生在客户端。
     - **参数:**
         - `enabled` (_bool_)  
         - `port` (_uint16_) - 车辆要在其中注册或不列出的 TM-Server 端口。如果传递 __None__ ，它将考虑默认 8000 端口上的交通管理器。
@@ -3153,7 +3155,7 @@ _</font>
 ---
 
 ## carla.VehiclePhysicsControl<a name="carla.VehiclePhysicsControl"></a>
-总结将用于将 [carla.Vehicle](#carla.Vehicle) 仿真为物理对象的参数。不过，车轮的具体设置是使用 [carla.WheelPhysicsControl](#carla.WheelPhysicsControl) 规定的。
+总结将用于将 [carla.Vehicle](#carla.Vehicle) 模拟为物理对象的参数。不过，车轮的具体设置是使用 [carla.WheelPhysicsControl](#carla.WheelPhysicsControl) 规定的。
 
 ### 实例变量
 - <a name="carla.VehiclePhysicsControl.torque_curve"></a>**<font color="#f8805a">torque_curve</font>** (_list([carla.Vector2D](#carla.Vector2D))_)  
@@ -3242,7 +3244,7 @@ VehiclePhysicsControl 构造函数。
 
 ## carla.Walker<a name="carla.Walker"></a>
 <small style="display:block;margin-top:-20px;">从 _[carla.Actor](#carla.Actor)_ 继承</small></br>
-该类从 [carla.Actor](#carla.Actor) 继承并定义仿真中的行人。Walkers 是一种特殊类型的参与者，可以由 AI ([carla.WalkerAIController](#carla.WalkerAIController)) 控制，也可以通过脚本手动控制，使用一系列 [carla.WalkerControl](#carla.WalkerControl) 来移动它们及其骨骼。
+该类从 [carla.Actor](#carla.Actor) 继承并定义模拟中的行人。Walkers 是一种特殊类型的参与者，可以由 AI ([carla.WalkerAIController](#carla.WalkerAIController)) 控制，也可以通过脚本手动控制，使用一系列 [carla.WalkerControl](#carla.WalkerControl) 来移动它们及其骨骼。
 
 ### 方法
 - <a name="carla.Walker.apply_control"></a>**<font color="#7fb800">apply_control</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**control**</font>)  
@@ -3271,7 +3273,7 @@ VehiclePhysicsControl 构造函数。
     - **返回:** _[carla.WalkerBoneControlOut](#carla.WalkerBoneControlOut)_  
     - **Setter:** _[carla.Walker.set_bones](#carla.Walker.set_bones)_  
 - <a name="carla.Walker.get_control"></a>**<font color="#7fb800">get_control</font>**(<font color="#00a6ed">**self**</font>)  
-客户端返回在最后一个tick期间应用于此行人的控制。该方法不调用仿真器。 
+客户端返回在最后一个tick期间应用于此行人的控制。该方法不调用模拟器。 
     - **返回:** _[carla.WalkerControl](#carla.WalkerControl)_  
 - <a name="carla.Walker.get_pose_from_animation"></a>**<font color="#7fb800">get_pose_from_animation</font>**(<font color="#00a6ed">**self**</font>)  
 复制当前动画帧作为自定义姿势。最初，自定义姿势是中性行人姿势。
@@ -3292,7 +3294,7 @@ VehiclePhysicsControl 构造函数。
 
 ## carla.WalkerAIController<a name="carla.WalkerAIController"></a>
 <small style="display:block;margin-top:-20px;">从 _[carla.Actor](#carla.Actor)_ 继承</small></br>
-对行人进行 AI 控制的类。控制器被定义为参与者，但它们与其他控制器有很大不同。它们在创建过程中需要附加到父参与者，这是它们将控制的行人（如果您尚未了解如何生成 Actor，请查看[carla.World](#carla.World) ）。他们还需要一个特殊的蓝图（已在 [carla.BlueprintLibrary](#carla.BlueprintLibrary) 中定义为“controller.ai.walker”）。这是一个空的蓝图，因为人工智能控制器在仿真中是不可见的，但会跟随其父控制器来指示每一步。
+对行人进行 AI 控制的类。控制器被定义为参与者，但它们与其他控制器有很大不同。它们在创建过程中需要附加到父参与者，这是它们将控制的行人（如果您尚未了解如何生成 Actor，请查看[carla.World](#carla.World) ）。他们还需要一个特殊的蓝图（已在 [carla.BlueprintLibrary](#carla.BlueprintLibrary) 中定义为“controller.ai.walker”）。这是一个空的蓝图，因为人工智能控制器在模拟中是不可见的，但会跟随其父控制器来指示每一步。
 
 
 ### 方法
@@ -3384,13 +3386,14 @@ VehiclePhysicsControl 构造函数。
 ---
 
 ## carla.Waypoint<a name="carla.Waypoint"></a>
-CARLA 中的航路点被描述为 3D 定向点。他们有一个 [carla.Transform](#carla.Transform)，它可以定位道路中的路点并根据车道确定其方向。他们还存储属于该点的有关其车道和车道标记的道路信息。 <br><br> <br><br> 有关航路点和 [路线 API](../../core_map/#navigation-in-carla) 的所有信息均按 OpenDRIVE 文件提供的方式检索。一旦客户端向服务器请求地图对象，就不再需要通信。
+Carla 中的路径点被描述为三维有向点。他们有一个 [carla.Transform](#carla.Transform)，它可以定位道路中的路径点并根据车道确定其方向。他们还存储属于该点的有关其车道和车道标记的道路信息。<br> 
+有关路径点和 [路线 API](../../core_map/#navigation-in-carla) 的所有信息均按 OpenDRIVE 文件提供的方式检索。一旦客户端向服务器请求地图对象，就不再需要通信。
 
 ### 实例变量
 - <a name="carla.Waypoint.id"></a>**<font color="#f8805a">id</font>** (_int_)  
-标识符是使用与 OpenDRIVE 几何中的所述点相对应的<b>road</b>, <b>section</b>, <b>lane</b> 和 <b>s</b> 值的哈希组合生成的。<b>s</b>精度设置为 2 厘米，因此在同一道路、路段和车道中距离小于 2 厘米的 2 个航路点将具有相同的标识符 。
+标识符是使用与 OpenDRIVE 几何中的所述点相对应的<b>road</b>, <b>section</b>, <b>lane</b> 和 <b>s</b> 值的哈希组合生成的。<b>s</b>精度设置为 2 厘米，因此在同一道路、路段和车道中距离小于 2 厘米的 2 个路径点将具有相同的标识符 。
 - <a name="carla.Waypoint.transform"></a>**<font color="#f8805a">transform</font>** (_[carla.Transform](#carla.Transform)_)  
-根据当前车道信息确定路点的位置和方向。该数据是在第一次访问时计算的。当创建大量航路点但不需要它们的特定转换时，它不会立即创建，以减轻计算成本。
+根据当前车道信息确定路点的位置和方向。该数据是在第一次访问时计算的。当创建大量路径点但不需要它们的特定转换时，它不会立即创建，以减轻计算成本。
 - <a name="carla.Waypoint.road_id"></a>**<font color="#f8805a">road_id</font>** (_int_)  
 OpenDRIVE 道路的 id。
 - <a name="carla.Waypoint.section_id"></a>**<font color="#f8805a">section_id</font>** (_int_)  
@@ -3416,24 +3419,24 @@ OpenDRIVE当前位置的 <b>s</b> 值 。
 
 ### 方法
 - <a name="carla.Waypoint.next"></a>**<font color="#7fb800">next</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**distance**</font>)  
-当前点某个近似值的航路点列表`distance`它会考虑道路及其可能的偏差，而不执行任何车道变更，并为每个选项返回一个航路点。如果车道在指定距离处未与任何其他车道相连，则列表可能为空。 
+当前点某个近似值的路径点列表`distance`它会考虑道路及其可能的偏差，而不执行任何车道变更，并为每个选项返回一个路径点。如果车道在指定距离处未与任何其他车道相连，则列表可能为空。 
     - **参数:**
-        - `distance` (_float<small> - 米</small>_) - 获取下一个航路点的大致距离。
+        - `distance` (_float<small> - 米</small>_) - 获取下一个路径点的大致距离。
     - **返回:** _list([carla.Waypoint](#carla.Waypoint))_  
 - <a name="carla.Waypoint.next_until_lane_end"></a>**<font color="#7fb800">next_until_lane_end</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**distance**</font>)  
 返回从这里到车道末端的路点列表，这些路点之间以一定距离`distance`分隔。
     - **参数:**
-        - `distance` (_float<small> - 米</small>_) - 航路点之间的大致距离。 
+        - `distance` (_float<small> - 米</small>_) - 路径点之间的大致距离。 
     - **返回:** _list([carla.Waypoint](#carla.Waypoint))_  
 - <a name="carla.Waypoint.previous"></a>**<font color="#7fb800">previous</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**distance**</font>)  
-但与车道相反方向的路点列表`distance` 与**<font color="#7fb800">next()</font>**类似，它会考虑道路及其可能的偏差，而不执行任何车道变更，并为每个选项返回一个航路点。如果车道在指定距离处未与任何其他车道相连，则列表可能为空。
+但与车道相反方向的路点列表`distance` 与**<font color="#7fb800">next()</font>**类似，它会考虑道路及其可能的偏差，而不执行任何车道变更，并为每个选项返回一个路径点。如果车道在指定距离处未与任何其他车道相连，则列表可能为空。
     - **参数:**
-        - `distance` (_float<small> - 米</small>_) - 获取先前航路点的大致距离。 
+        - `distance` (_float<small> - 米</small>_) - 获取先前路径点的大致距离。 
     - **返回:** _list([carla.Waypoint](#carla.Waypoint))_  
 - <a name="carla.Waypoint.previous_until_lane_start"></a>**<font color="#7fb800">previous_until_lane_start</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**distance**</font>)  
 返回从这里到车道起点的路点列表，以一定的距离 `distance` 分隔。
     - **参数:**
-        - `distance` (_float<small> - 米</small>_) - 航路点之间的大致距离。
+        - `distance` (_float<small> - 米</small>_) - 路径点之间的大致距离。
     - **返回:** _list([carla.Waypoint](#carla.Waypoint))_  
 
 ##### 设置器
@@ -3441,15 +3444,15 @@ OpenDRIVE当前位置的 <b>s</b> 值 。
 如果路径点属于路口，则此方法返回关联的路口对象。否则返回 null。
     - **返回:** _[carla.Junction](#carla.Junction)_  
 - <a name="carla.Waypoint.get_landmarks"></a>**<font color="#7fb800">get_landmarks</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**distance**</font>, <font color="#00a6ed">**stop_at_junction**=False</font>)  
-返回从当前航路点到指定距离的道路上的地标列表。
+返回从当前路径点到指定距离的道路上的地标列表。
     - **参数:**
-        - `distance` (_float<small> - 米</small>_) - 从当前航路点搜索地标的最大距离。
+        - `distance` (_float<small> - 米</small>_) - 从当前路径点搜索地标的最大距离。
         - `stop_at_junction` (_bool_) - 启用或禁用通过路口的地标搜索。  
     - **返回:** _list([carla.Landmark](#carla.Landmark))_  
 - <a name="carla.Waypoint.get_landmarks_of_type"></a>**<font color="#7fb800">get_landmarks_of_type</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**distance**</font>, <font color="#00a6ed">**type**</font>, <font color="#00a6ed">**stop_at_junction**=False</font>)  
 返回从当前路径点到指定距离的指定类型道路中的地标列表。
     - **参数:**
-        - `distance` (_float<small> - 米</small>_) - 从当前航路点搜索地标的最大距离。
+        - `distance` (_float<small> - 米</small>_) - 从当前路径点搜索地标的最大距离。
         - `type` (_str_) - 要搜索的地标类型。  
         - `stop_at_junction` (_bool_) - 启用或禁用通过路口的地标搜索。 
     - **返回:** _list([carla.Landmark](#carla.Landmark))_  
@@ -3467,7 +3470,7 @@ OpenDRIVE当前位置的 <b>s</b> 值 。
 
 ## carla.WeatherParameters<a name="carla.WeatherParameters"></a>
 此类定义了包含光照和天气规范的对象，这些规范稍后可以应用在 [carla.World](#carla.World) 中。到目前为止，这些条件仅影响 [sensor.camera.rgb](ref_sensors.md#rgb-camera)。它们既不影响参与者的物理特性，也不影响其他传感器。
-这些参数中的每一个都独立于其他参数起作用。增加降雨量不会自动形成水坑，也不会改变道路的湿度。这可以实现更好的定制，但也意味着需要编写现实条件的脚本。然而，可以在 [此处](https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/dynamic_weather.py) 找到实际运行的动态天气条件的示例。
+这些参数中的每一个都独立于其他参数起作用。增加降雨量不会自动形成水坑，也不会改变道路的湿度。这可以实现更好的定制，但也意味着需要编写现实条件的脚本。然而，可以在 [此处](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/dynamic_weather.py) 找到实际运行的动态天气条件的示例。
 
 
 ### 实例变量
@@ -3476,7 +3479,7 @@ OpenDRIVE当前位置的 <b>s</b> 值 。
 - <a name="carla.WeatherParameters.precipitation"></a>**<font color="#f8805a">precipitation</font>** (_float_)  
 降雨强度值范围从 0 到 100，0 表示无雨，100 表示大雨。
 - <a name="carla.WeatherParameters.precipitation_deposits"></a>**<font color="#f8805a">precipitation_deposits</font>** (_float_)  
-确定水坑的创建。值范围从 0 到 100，0 表示完全没有水，100 表示道路完全被水覆盖。水坑是用静态噪音创建的，这意味着它们总是出现在相同的位置。
+决定水坑的创建。值范围从 0 到 100，0 表示完全没有水，100 表示道路完全被水覆盖。水坑是用静态噪音创建的，这意味着它们总是出现在相同的位置。
 - <a name="carla.WeatherParameters.wind_intensity"></a>**<font color="#f8805a">wind_intensity</font>** (_float_)  
 控制风的强度，值从 0（无风）到 100（强风）。风确实会影响降雨方向和树叶，因此限制该值以避免动画问题。
 - <a name="carla.WeatherParameters.sun_azimuth_angle"></a>**<font color="#f8805a">sun_azimuth_angle</font>** (_float<small> - 度</small>_)  
@@ -3515,8 +3518,8 @@ OpenDRIVE当前位置的 <b>s</b> 值 。
         - `wetness` (_float_) - 道路的湿度百分比，从 0 到 100。
         - `fog_falloff` (_float_) - 雾的密度（特定质量），从 0 到无穷大。
         - `scattering_intensity` (_float_) - 控制光线对体积雾的贡献程度。当设置为 0 时，没有贡献。
-        - `mie_scattering_scale` (_float_) - 控制光与大颗粒（如花粉或空气污染）的相互作用，导致天空朦胧，光源周围有光晕。当设置为 0 时，没有贡献。
-        - `rayleigh_scattering_scale` (_float_) - 控制光与空气分子等小颗粒的相互作用。取决于光的波长，导致白天的天空为蓝色，晚上的天空为红色。
+        - `mie_scattering_scale` (_float_) - [米氏散射](https://baike.baidu.com/item/%E7%B1%B3%E6%B0%8F%E6%95%A3%E5%B0%84) 强度（大气中粒子的直径与辐射的波长相当），控制光与大颗粒（如花粉或空气污染）的相互作用，导致天空朦胧，光源周围有光晕。当设置为 0 时，没有贡献（完全不散射）。
+        - `rayleigh_scattering_scale` (_float_) - [瑞利散射](https://baike.baidu.com/item/%E7%91%9E%E5%88%A9%E6%95%A3%E5%B0%84) 强度（粒子尺度小于波长的十分之一），控制光与空气分子等小颗粒的相互作用。取决于光的波长，导致白天的天空为蓝色（由于瑞利散射的强度与波长四次方成反比，所以太阳光谱中波长较短的蓝紫光比波长较长的红光散射更明显），傍晚的天空为红色（太阳光在大气中要走相对很长的路程，直射光中的波长较短蓝光大量都被散射了，只剩下红橙色的光）。
     - **笔记:** <font color="#8E8E8E">_ClearNoon, CloudyNoon, WetNoon, WetCloudyNoon, SoftRainNoon, MidRainyNoon, HardRainNoon, ClearSunset, CloudySunset, WetSunset, WetCloudySunset, SoftRainSunset, MidRainSunset, HardRainSunset. 
 _</font>  
 
@@ -3532,16 +3535,16 @@ _</font>
 ---
 
 ## carla.WheelPhysicsControl<a name="carla.WheelPhysicsControl"></a>
-为车轮对象定义特定物理参数的类，这些车轮对象将成为 [carla.VehiclePhysicsControl](#carla.VehiclePhysicsControl) 的一部分，以将车辆仿真为材质对象。
+为车轮对象定义特定物理参数的类，这些车轮对象将成为 [carla.VehiclePhysicsControl](#carla.VehiclePhysicsControl) 的一部分，以将车辆模拟为材质对象。
 
 ### 实例变量
 - <a name="carla.WheelPhysicsControl.tire_friction"></a>**<font color="#f8805a">tire_friction</font>** (_float_)  
-指示车轮摩擦力的标量值。
+表示车轮摩擦力的标量值。
 - <a name="carla.WheelPhysicsControl.damping_rate"></a>**<font color="#f8805a">damping_rate</font>** (_float_)  
 车轮的阻尼率。
 - <a name="carla.WheelPhysicsControl.max_steer_angle"></a>**<font color="#f8805a">max_steer_angle</font>** (_float<small> - 度</small>_)  
 车轮可以转向的最大角度。
-- <a name="carla.WheelPhysicsControl.radius"></a>**<font color="#f8805a">radius</font>** (_float<small> - centimeters</small>_)  
+- <a name="carla.WheelPhysicsControl.radius"></a>**<font color="#f8805a">radius</font>** (_float<small> - 厘米</small>_)  
 轮子的半径。
 - <a name="carla.WheelPhysicsControl.max_brake_torque"></a>**<font color="#f8805a">max_brake_torque</font>** (_float<small> - N*m</small>_)  
 最大制动扭矩。
@@ -3575,11 +3578,11 @@ _</font>
 ---
 
 ## carla.World<a name="carla.World"></a>
-世界对象由客户端创建，以便为仿真提供一个发生的地方。世界包含我们可以看到的地图，即资产，而不是导航地图。导航地图是 [carla.Map](#carla.Map) 类的一部分。它还管理其中的天气和参与者。每个仿真只能有一个世界，但可以随时更改。
+世界对象由客户端创建，以便为模拟提供一个发生的地方。世界包含我们可以看到的地图，即资产，而不是导航地图。导航地图是 [carla.Map](#carla.Map) 类的一部分。它还管理其中的天气和参与者。每个模拟只能有一个世界，但可以随时更改。
 
 ### 实例变量
 - <a name="carla.World.id"></a>**<font color="#f8805a">id</font>** (_int_)  
-与这个世界相关的剧集的 ID。剧集是仿真的不同阶段。每当世界被禁用或重新加载时，这些都会发生变化。跟踪有助于避免可能出现的问题。
+与这个世界相关的剧集的 ID。剧集是模拟的不同阶段。每当世界被禁用或重新加载时，这些都会发生变化。跟踪有助于避免可能出现的问题。
 - <a name="carla.World.debug"></a>**<font color="#f8805a">debug</font>** (_[carla.DebugHelper](#carla.DebugHelper)_)  
 负责创建不同的形状以进行调试。查看它的类以了解更多信息。
 
@@ -3609,11 +3612,11 @@ _</font>
         - `material_parameter` (_[carla.MaterialParameter](#carla.MaterialParameter)_)  
         - `texture` (_TextureFloatColor_)  
 - <a name="carla.World.apply_settings"></a>**<font color="#7fb800">apply_settings</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**world_settings**</font>)  
-此方法将对象中包含的设置应用于运行的仿真，并返回它们所实现的帧的 ID。
+此方法将对象中包含的设置应用于运行的模拟，并返回它们所实现的帧的 ID。
     - **参数:**
         - `world_settings` (_[carla.WorldSettings](#carla.WorldSettings)_)  
     - **返回:** _int_  
-    - **警告:** <font color="#ED2F2F">_如果启用了同步模式，并且正在运行流量管理器，则也必须将其设置为同步模式。阅读 [本文](adv_traffic_manager.md#synchronous-mode) 以了解如何操作。
+    - **警告:** <font color="#ED2F2F">_如果启用了同步模式，并且正在运行交通管理器，则也必须将其设置为同步模式。阅读 [本文](adv_traffic_manager.md#synchronous-mode) 以了解如何操作。
 _</font>  
 - <a name="carla.World.apply_textures_to_object"></a>**<font color="#7fb800">apply_textures_to_object</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**object_name**</font>, <font color="#00a6ed">**diffuse_texture**</font>, <font color="#00a6ed">**emissive_texture**</font>, <font color="#00a6ed">**normal_texture**</font>, <font color="#00a6ed">**ao_roughness_metallic_emissive_texture**</font>)  
 将[carla.MaterialParameter](#carla.MaterialParameter)中的所有纹理字段应用到对象`object_name`。这里不会应用空纹理。 
@@ -3632,10 +3635,10 @@ _</font>
         - `normal_texture` (_TextureFloatColor_)  
         - `ao_roughness_metallic_emissive_texture` (_TextureFloatColor_)  
 - <a name="carla.World.cast_ray"></a>**<font color="#7fb800">cast_ray</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**initial_location**</font>, <font color="#00a6ed">**final_location**</font>)  
-将光线从指定的initial_location投射到final_location。然后，该函数检测与射线相交的所有几何图形，并按顺序 返回[carla.LabelledPoint](#carla.LabelledPoint)列表。
+将光线从指定的`initial_location`投射到`final_location`。然后，该函数检测与射线相交的所有几何图形，并按顺序 返回[carla.LabelledPoint](#carla.LabelledPoint)列表。
     - **参数:**
-        - `initial_location` (_[carla.Location](#carla.Location)_) - The initial position of the ray.  
-        - `final_location` (_[carla.Location](#carla.Location)_) - The final position of the ray.  
+        - `initial_location` (_[carla.Location](#carla.Location)_) - 光线的初始位置。  
+        - `final_location` (_[carla.Location](#carla.Location)_) - 光线的最终位置。 
     - **返回:** _list([carla.LabelledPoint](#carla.LabelledPoint))_  
 - <a name="carla.World.enable_environment_objects"></a>**<font color="#7fb800">enable_environment_objects</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**env_objects_ids**</font>, <font color="#00a6ed">**enable**</font>)<button class="SnipetButton" id="carla.World.enable_environment_objects-snipet_button">snippet &rarr;</button>  
 启用或禁用一组由其 id 标识的环境对象。这些对象将从关卡中出现或消失。 
@@ -3658,9 +3661,9 @@ _</font>
         - `map_layers` (_[carla.MapLayer](#carla.MapLayer)_) - 加载到指定层次的掩膜。 
     - **警告：** <font color="#ED2F2F">_这仅仅影响分层（Opt）地图。最小布局包括道路、人行道、交通灯和交通标志。_</font>  
 - <a name="carla.World.on_tick"></a>**<font color="#7fb800">on_tick</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**callback**</font>)  
-此方法用于异步模式。它从客户端定义的`callback` 函数启动回调，并返回回调的 ID。每当服务器发出时滴答信号时，就会调用该函数。它需要一个 [carla.WorldSnapshot](#carla.WorldSnapshot) 作为参数，这可以从 __<font color="#7fb800">wait_for_tick()</font>__ 获得。使用 __<font color="#7fb800">remove_on_tick()</font>__ 来停止回调。  
+此方法用于异步模式。它从客户端定义的`callback` 函数启动回调，并返回回调的 ID。每当服务器发出时节拍时，就会调用该函数。它需要一个 [carla.WorldSnapshot](#carla.WorldSnapshot) 作为参数，这可以从 __<font color="#7fb800">wait_for_tick()</font>__ 获得。使用 __<font color="#7fb800">remove_on_tick()</font>__ 来停止回调。  
     - **参数：**
-        - `callback` (_[carla.WorldSnapshot](#carla.WorldSnapshot)_) - 将快照作为强制参数的函数，当客户端收到滴答信号时将调用该函数。  
+        - `callback` (_[carla.WorldSnapshot](#carla.WorldSnapshot)_) - 将快照作为强制参数的函数，当客户端收到节拍时将调用该函数。  
     - **返回:** _int_  
 - <a name="carla.World.project_point"></a>**<font color="#7fb800">project_point</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**location**</font>, <font color="#00a6ed">**direction**</font>, <font color="#00a6ed">**search_distance**</font>)  
 将指定点投影到场景中的所需方向。这些函数从某个方向的某个位置投射一条射线，并返回一个带有该射线相交的第一个几何体的 [carla.Labelled](#carla.Labelled) 对象。如果在 search_distance 范围内未找到几何图形，则函数返回 `None`。 
@@ -3684,11 +3687,11 @@ _</font>
         - `attachment` (_[carla.AttachmentType](#carla.AttachmentType)_) - 根据其父对象确定位置变化的固定和严密程度。
     - **返回:** _[carla.Actor](#carla.Actor)_  
 - <a name="carla.World.tick"></a>**<font color="#7fb800">tick</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**seconds**=10.0</font>)  
-该方法用于 __同步__ 模式，即服务器在计算下一帧之前等待客户端客户端滴答信号。这个方法将发送滴答信号，并让位于服务器。它返回由服务器计算的新帧ID。  
+该方法用于 __同步__ 模式，即服务器在计算下一帧之前等待客户端客户端节拍信号。这个方法将发送节拍信号，并让位于服务器。它返回由服务器计算的新帧ID。  
     - **参数：**
-        - `seconds` (_float<small> - 秒</small>_) - 服务器应该等待滴答信号的最大时间。它默认设置为 <code>10.0</code> 。  
+        - `seconds` (_float<small> - 秒</small>_) - 服务器应该等待节拍信号的最大时间。它默认设置为 <code>10.0</code> 。  
     - **返回：** _int_  
-    - **注意：** <font color="#8E8E8E">_如果在同步模式下没有收到滴答信号，仿真将冻结。此外，如果从不同的客户端接收到许多滴答信号，则可能存在同步问题。请阅读有关 __同步模式__ 的文档以了解更多信息。  
+    - **注意：** <font color="#8E8E8E">_如果在同步模式下没有收到节拍信号，模拟将冻结。此外，如果从不同的客户端接收到许多节拍信号，则可能存在同步问题。请阅读有关 __同步模式__ 的文档以了解更多信息。  
 _</font>  
 - <a name="carla.World.try_spawn_actor"></a>**<font color="#7fb800">try_spawn_actor</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**blueprint**</font>, <font color="#00a6ed">**transform**</font>, <font color="#00a6ed">**attach_to**=None</font>, <font color="#00a6ed">**attachment**=Rigid</font>)  
 和 __<font color="#7fb800">spawn_actor()</font>__ 一样，但是单失败时候返回 <b>None</b> 而不是抛出异常。  
@@ -3704,7 +3707,7 @@ _</font>
         - `map_layers` (_[carla.MapLayer](#carla.MapLayer)_) - 要卸载图层的掩膜。 
     - **警告:** <font color="#ED2F2F">_这仅仅影响分层（Opt）地图。最小布局包括道路、人行道、交通灯和交通标志。_</font>  
 - <a name="carla.World.wait_for_tick"></a>**<font color="#7fb800">wait_for_tick</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**seconds**=10.0</font>)  
-该方法使用异步模式。它使客户端等待服务器滴答信号。当计算下一帧时，服务器将勾选并返回描述世界新状态的快照。
+该方法使用异步模式。它使客户端等待服务器节拍信号。当计算下一帧时，服务器将勾选并返回描述世界新状态的快照。
     - **参数:**
         - `seconds` (_float<small> - seconds</small>_) - 服务器等待滴答的最长时间。默认设置为 <code>10.0</code>。
     - **返回:** _[carla.WorldSnapshot](#carla.WorldSnapshot)_  
@@ -3739,7 +3742,7 @@ _</font>
 - <a name="carla.World.get_map"></a>**<font color="#7fb800">get_map</font>**(<font color="#00a6ed">**self**</font>)  
 向服务器请求包含映射文件的 XODR，并将其解析为 [carla.Map](#carla.Map) 返回。
     - **返回:** _[carla.Map](#carla.Map)_  
-    - **警告:** <font color="#ED2F2F">_此方法确实调用仿真。它代价很高，并且只能调用一次。 
+    - **警告:** <font color="#ED2F2F">_此方法确实调用模拟。它代价很高，并且只能调用一次。 
 _</font>  
 - <a name="carla.World.get_names_of_all_objects"></a>**<font color="#7fb800">get_names_of_all_objects</font>**(<font color="#00a6ed">**self**</font>)  
 返回场景中可以使用应用纹理函数绘制的所有对象的名称列表。
@@ -3748,13 +3751,13 @@ _</font>
 这只能与行人一起使用。它使用 [carla.WalkerAIController](#carla.WalkerAIController) 中的 __<font color="#7fb800">go_to_location()</font>__ 方法检索要用作目的地的随机位置。该位置将是人行道的一部分。道路、人行横道和草地区域不包括在内。该方法不考虑现有参与者的位置，因此如果在尝试生成参与者时发生碰撞，它将返回错误。看一下例子 [`generate_traffic.py`](https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/generate_traffic.py)。
     - **返回:** _[carla.Location](#carla.Location)_  
 - <a name="carla.World.get_settings"></a>**<font color="#7fb800">get_settings</font>**(<font color="#00a6ed">**self**</font>)  
-返回一个对象，其中包含有关仿真的一些数据，例如客户端和服务器之间的同步或渲染模式。
+返回一个对象，其中包含有关模拟的一些数据，例如客户端和服务器之间的同步或渲染模式。
     - **返回:** _[carla.WorldSettings](#carla.WorldSettings)_  
 - <a name="carla.World.get_snapshot"></a>**<font color="#7fb800">get_snapshot</font>**(<font color="#00a6ed">**self**</font>)  
 返回某个时刻的世界快照，包含有关参与者的所有信息。
     - **返回:** _[carla.WorldSnapshot](#carla.WorldSnapshot)_  
 - <a name="carla.World.get_spectator"></a>**<font color="#7fb800">get_spectator</font>**(<font color="#00a6ed">**self**</font>)<button class="SnipetButton" id="carla.World.get_spectator-snipet_button">snippet &rarr;</button>  
-返回观察者参与者。观察者是虚幻引擎创建的一种特殊类型的参与者，通常ID=0，充当摄像机并控制仿真器窗口中的视图。
+返回观察者参与者。观察者是虚幻引擎创建的一种特殊类型的参与者，通常ID=0，充当摄像机并控制模拟器窗口中的视图。
     - **返回:** _[carla.Actor](#carla.Actor)_  
 - <a name="carla.World.get_traffic_light"></a>**<font color="#7fb800">get_traffic_light</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**landmark**</font>)  
 提供一个地标，返回它描述的交通灯对象。 
@@ -3786,7 +3789,7 @@ _</font>
 返回一个字典，其中键是 [carla.Actor](#carla.Actor) ID，值是该车辆的 [carla.VehicleLightState](#carla.VehicleLightState)。
     - **返回:** _dict_  
 - <a name="carla.World.get_weather"></a>**<font color="#7fb800">get_weather</font>**(<font color="#00a6ed">**self**</font>)  
-检索包含仿真中当前活动的天气参数的对象，主要是云量、降水量、风和太阳位置。
+检索包含模拟中当前活动的天气参数的对象，主要是云量、降水量、风和太阳位置。
     - **返回:** _[carla.WeatherParameters](#carla.WeatherParameters)_  
     - **Setter:** _[carla.World.set_weather](#carla.World.set_weather)_  
 
@@ -3802,7 +3805,7 @@ _</font>
     - **笔记:** <font color="#8E8E8E">_应在行人生成之前设置。如果您想为每个行人重复相同的身体（蓝图），请在 Python 代码（随机选择蓝图）和此处使用相同的种子，否则行人将重复相同的路径，但身体会不同。
 _</font>  
 - <a name="carla.World.set_weather"></a>**<font color="#7fb800">set_weather</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**weather**</font>)  
-将仿真的天气参数更改为对象中定义的其他参数。
+将模拟的天气参数更改为对象中定义的其他参数。
     - **参数:**
         - `weather` (_[carla.WeatherParameters](#carla.WeatherParameters)_) - 要应用的新条件。
     - **获取器:** _[carla.World.get_weather](#carla.World.get_weather)_  
@@ -3815,15 +3818,15 @@ _</font>
 ---
 
 ## carla.WorldSettings<a name="carla.WorldSettings"></a>
-该仿真具有一些高级配置选项，这些选项包含在此类中，并且可以使用 [carla.World](#carla.World) 及其方法进行管理。这些允许用户在客户端-服务器同步/异步、激活“无渲染模式”以及仿真是否应以固定或可变时间步长运行之间进行选择。如果您想了解的话 请查看 [此内容](adv_synchrony_timestep.md) 。 
+该模拟具有一些高级配置选项，这些选项包含在此类中，并且可以使用 [carla.World](#carla.World) 及其方法进行管理。这些允许用户在客户端-服务器同步/异步、激活“无渲染模式”以及模拟是否应以固定或可变时间步长运行之间进行选择。如果您想了解的话 请查看 [此内容](adv_synchrony_timestep.md) 。 
 
 ### 实例变量
 - <a name="carla.WorldSettings.synchronous_mode"></a>**<font color="#f8805a">synchronous_mode</font>** (_bool_)  
 表示客户端和服务器之间的同步。当设置为 true 时，服务器将等待客户端滴答以便继续前进。默认情况下为 false。
 - <a name="carla.WorldSettings.no_rendering_mode"></a>**<font color="#f8805a">no_rendering_mode</font>** (_bool_)  
-启用后，仿真将根本不运行渲染。这主要用于避免繁忙交通仿真期间的开销。默认情况下为 false。
+启用后，模拟将根本不运行渲染。这主要用于避免繁忙交通模拟期间的开销。默认情况下为 false。
 - <a name="carla.WorldSettings.fixed_delta_seconds"></a>**<font color="#f8805a">fixed_delta_seconds</font>** (_float_)  
-确保仿真的两个步骤之间经过的时间是固定的。将其设置为 <b>0.0</b> 以使用可变时间步长，就像默认情况下发生的那样。
+确保模拟的两个步骤之间经过的时间是固定的。将其设置为 <b>0.0</b> 以使用可变时间步长，就像默认情况下发生的那样。
 - <a name="carla.WorldSettings.substepping"></a>**<font color="#f8805a">substepping</font>** (_bool_)  
 启用物理子步进。此选项允许计算两个渲染帧之间的一些物理子步骤。如果设置了同步模式，则子步骤的数量及其时间间隔是固定的并进行计算，以便满足 [carla.WorldSettings.max_substep](#carla.WorldSettings.max_substep) 和 [carla.WorldSettings.max_substep_delta_time](#carla.WorldSettings.max_substep_delta_time) 的要求。最后两个参数需要与 [carla.WorldSettings.fixed_delta_seconds](#carla.WorldSettings.fixed_delta_seconds) 兼容。默认启用。
 - <a name="carla.WorldSettings.max_substep_delta_time"></a>**<font color="#f8805a">max_substep_delta_time</font>** (_float_)  
@@ -3833,9 +3836,9 @@ _</font>
 - <a name="carla.WorldSettings.max_culling_distance"></a>**<font color="#f8805a">max_culling_distance</font>** (_float_)  
 配置关卡中每个网格的最大绘制距离。
 - <a name="carla.WorldSettings.deterministic_ragdolls"></a>**<font color="#f8805a">deterministic_ragdolls</font>** (_bool_)  
-定义是否对行人死亡动画或物理布娃娃仿真使用确定性物理。启用后，行人的死亡动画不太真实，但确保了确定性。禁用后，行人将被仿真为布娃娃，具有更真实的仿真和碰撞，但无法确保确定性。
+定义是否对行人死亡动画或物理布娃娃模拟使用确定性物理。启用后，行人的死亡动画不太真实，但确保了确定性。禁用后，行人将被模拟为布娃娃，具有更真实的模拟和碰撞，但无法确保确定性。
 - <a name="carla.WorldSettings.tile_stream_distance"></a>**<font color="#f8805a">tile_stream_distance</font>** (_float_)  
-仅用于大型地图。配置从英雄车辆传输瓦片地图的最大距离。此范围内的地图区域将可见（并且能够仿真物理）。该区域之外的区域将不会被加载。
+仅用于大型地图。配置从英雄车辆传输瓦片地图的最大距离。此范围内的地图区域将可见（并且能够模拟物理）。该区域之外的区域将不会被加载。
 - <a name="carla.WorldSettings.actor_active_distance"></a>**<font color="#f8805a">actor_active_distance</font>** (_float_)  
 仅用于大型地图。配置与英雄车辆的距离以将参与者转换为休眠状态。在此范围内的参与者将处于活跃状态，而在该范围之外的参与者将处于休眠状态。
 - <a name="carla.WorldSettings.spectator_as_ego"></a>**<font color="#f8805a">spectator_as_ego</font>** (_bool_)  
@@ -3846,10 +3849,10 @@ _</font>
 创建一个包含所需设置的对象，这些设置稍后可以通过 [carla.World](#carla.World) 及其方法 __<font color="#7fb800">apply_settings()</font>__ 应用。
     - **参数:**
         - `synchronous_mode` (_bool_) - 启用客户端-服务器则设置为 true。  
-        - `no_rendering_mode` (_bool_) - 在仿真中完全禁用渲染则设置为 true。
+        - `no_rendering_mode` (_bool_) - 在模拟中完全禁用渲染则设置为 true。
         - `fixed_delta_seconds` (_float<small> - seconds</small>_) - 在帧之间设置为固定的步长。 <code>0.0</code> 意味着变步长且为模式模式。  
         - `max_culling_distance` (_float<small> - 米</small>_) - 对于关卡的每一个网格配置最大的绘制距离。  
-        - `deterministic_ragdolls` (_bool_) - 对于行人死亡使用确定的物理或布娃娃仿真定义wether。  
+        - `deterministic_ragdolls` (_bool_) - 对于行人死亡使用确定的物理或布娃娃模拟定义wether。  
         - `tile_stream_distance` (_float<small> - 米</small>_) - 仅用于大地图。从英雄车辆到流瓦片地图配置最大距离。 
         - `actor_active_distance` (_float<small> - 米</small>_) - 仅用于大地图。配置与英雄车辆的距离以将参与者转换为休眠状态。
         - `spectator_as_ego` (_bool_) - 仅用于大地图。在大型贴图中定义观众对平铺加载的影响。
@@ -3868,13 +3871,13 @@ _</font>
 ---
 
 ## carla.WorldSnapshot<a name="carla.WorldSnapshot"></a>
-快照包括某一时刻场景中每个参与者的所有信息。它创建并给出一些列包含[carla.ActorSnapshot](#carla.ActorSnapshot)的数据结构。客户端在每一个不能存储的滴答信号中获取一个新的快照。
+快照包括某一时刻场景中每个参与者的所有信息。它创建并给出一些列包含[carla.ActorSnapshot](#carla.ActorSnapshot)的数据结构。客户端在每一个不能存储的节拍信号中获取一个新的快照。
 
 ### 实例变量
 - <a name="carla.WorldSnapshot.id"></a>**<font color="#f8805a">id</font>** (_int_)  
 为了分辨每一个快照的唯一值。  
 - <a name="carla.WorldSnapshot.frame"></a>**<font color="#f8805a">frame</font>** (_int_)  
-获取快照时的仿真时间。  
+获取快照时的模拟时间。  
 - <a name="carla.WorldSnapshot.timestamp"></a>**<font color="#f8805a">timestamp</font>** (_[carla.Timestamp](#carla.Timestamp)<small> - seconds</small>_)  
 获取快照时候的精确时刻。由操作系统给出的以秒为单位的类。
 
@@ -4113,7 +4116,7 @@ Actor affected by the command.
 ---
 
 ## command.DestroyActor<a name="command.DestroyActor"></a>
-[carla.Actor](#carla.Actor) 中 __<font color="#7fb800">destroy()</font>__ 命令的改编版，将告诉仿真器销毁该参与者。如果参与者已经被销毁则没有影响。当在 [carla.Client](#carla.Client) 中执行 __<font color="#7fb800">apply_batch_sync()</font>__ 将会返回一个布尔值状态表示参与者是否被成功销毁。
+[carla.Actor](#carla.Actor) 中 __<font color="#7fb800">destroy()</font>__ 命令的改编版，将告诉模拟器销毁该参与者。如果参与者已经被销毁则没有影响。当在 [carla.Client](#carla.Client) 中执行 __<font color="#7fb800">apply_batch_sync()</font>__ 将会返回一个布尔值状态表示参与者是否被成功销毁。
 
 ### 实例变量
 - <a name="command.DestroyActor.actor_id"></a>**<font color="#f8805a">actor_id</font>** (_int_)  

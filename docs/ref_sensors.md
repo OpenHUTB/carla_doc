@@ -15,12 +15,15 @@
 - [__实例分割相机__](#instance-segmentation-camera)
 - [__动态视觉传感器相机__](#dvs-camera)
 - [__光流相机__](#optical-flow-camera)
+- [__V2X 传感器__](#v2x-sensor)
+    - [协同感知](#cooperative-awareness-message)
+    - [自定义消息](#custom-v2x-message)
 
 !!! 重要
-    所有传感器都使用虚幻引擎坐标系（__x__ - *向前*，__y__ - *向右*，__z__ - *向上*），并返回本地空间中的坐标。使用任何可视化软件时，请注意其坐标系。许多反转 Y 轴，因此直接可视化传感器数据可能会导致镜像输出。 
+    所有传感器都使用虚幻引擎坐标系（__x__ - *向前*，__y__ - *向右*，__z__ - *向上*），并返回本地空间中的坐标。使用任何可视化软件时，请注意其坐标系。许多反转 Y 轴，因此直接可视化传感器数据可能会导致镜像输出。
 
 ---
-## 碰撞检测器
+## 碰撞检测器 <span id="collision-detector"></span>
 
 * __蓝图：__ sensor.other.collision
 * __输出：__ 每次碰撞的 [carla.CollisionEvent](python_api.md#carla.CollisionEvent) 。
@@ -34,7 +37,7 @@
 | 传感器数据属性            | 类型  | 描述                                                  |
 | ----------------------- | ----------------------- |-----------------------------------------------------|
 | `frame`            | int   | 进行测量时的帧编号。                                          |
-| `timestamp`        | double | 自回合开始以来测量的仿真时间（以秒为单位）。                              |
+| `timestamp`        | double | 自回合开始以来测量的模拟时间（以秒为单位）。                              |
 | `transform`        | [carla.Transform](<../python_api#carlatransform>)  | 测量时传感器在世界坐标中的位置和旋转。                                 |
 | `actor`            | [carla.Actor](<../python_api#carlaactor>)    | 测量碰撞的参与者（传感器的父级）。                                   |
 | `other_actor`      | [carla.Actor](<../python_api#carlaactor>)    | 与父级相撞的参与者。 |
@@ -43,7 +46,7 @@
 
 
 ---
-## 深度相机
+## 深度相机 <span id="depth-camera"></span>
 
 * __蓝图：__ sensor.camera.depth
 * __输出：__ 每步的图像 [carla.Image](python_api.md#carla.Image) （除非`sensor_tick`另有说明）。
@@ -76,7 +79,7 @@ raw_image.save_to_disk("path/to/save/converted/image",carla.Depth)
 | `image_size_x`            | int     | 800     | 图像宽度（以像素为单位）。                                                           |
 | `image_size_y`            | int     | 600     | 图像高度（以像素为单位）。                                                           |
 | `fov`   | float   | 90\.0   | 水平视野（以度为单位）。                                                            |
-| `sensor_tick` | float   | 0\.0    | 传感器捕获之间的仿真秒数（滴答信号）。 |
+| `sensor_tick` | float   | 0\.0    | 传感器捕获之间的模拟秒数（节拍）。 |
 
 
 
@@ -99,7 +102,7 @@ raw_image.save_to_disk("path/to/save/converted/image",carla.Depth)
 | 传感器数据属性            | 类型  | 描述                                                                                       |
 | ----------------------- | ----------------------- |------------------------------------------------------------------------------------------|
 | `frame`            | int   | 进行测量时的帧编号。                                                                               |
-| `timestamp`        | double | 自回合开始以来测量的仿真时间（以秒为单位）。                                                                 |
+| `timestamp`        | double | 自回合开始以来测量的模拟时间（以秒为单位）。                                                                 |
 | `transform`        | [carla.Transform](<../python_api#carlatransform>)  | 测量时传感器在世界坐标中的位置和旋转。 |
 | `width`            | int   | 图像宽度（以像素为单位）。                                                                   |
 | `height`           | int   | 图像高度（以像素为单位）。                                                                  |
@@ -109,7 +112,7 @@ raw_image.save_to_disk("path/to/save/converted/image",carla.Depth)
 
 
 ---
-## 全球导航卫星系统传感器
+## 全球导航卫星系统传感器 <span id="gnss-sensor"></span>
 
 * __蓝图：__ sensor.other.gnss
 * __Output:__ 每一步的全球导航卫星系统的测量 [carla.GNSSMeasurement](python_api.md#carla.GnssMeasurement) （`sensor_tick`另有说明）。
@@ -129,7 +132,7 @@ raw_image.save_to_disk("path/to/save/converted/image",carla.Depth)
 | `noise_lon_bias`   | float  | 0\.0   | 经度噪声模型中的平均参数。        |
 | `noise_lon_stddev` | float  | 0\.0   | 经度噪声模型中的标准偏差参数。      |
 | `noise_seed`       | int    | 0      | 伪随机数生成器的初始化程序。       |
-| `sensor_tick`      | float  | 0\.0   | 传感器捕获之间的仿真秒数（滴答信号）。 |
+| `sensor_tick`      | float  | 0\.0   | 传感器捕获之间的模拟秒数（节拍）。 |
 
 <br>
 
@@ -139,7 +142,7 @@ raw_image.save_to_disk("path/to/save/converted/image",carla.Depth)
 | 传感器数据属性            | 类型  | 描述                     |
 | ----------------------- | ----------------------- |------------------------|
 | `frame`            | int   | 进行测量时的帧编号。             |
-| `timestamp`        | double | 自回合开始以来测量的仿真时间（以秒为单位）。 |
+| `timestamp`        | double | 自回合开始以来测量的模拟时间（以秒为单位）。 |
 | `transform`        | [carla.Transform](<../python_api#carlatransform>)  | 测量时传感器在世界坐标中的位置和旋转。    |
 | `latitude`         | double | 参与者的纬度。                |
 | `longitude`        | double | 参与者的经度。                |
@@ -148,10 +151,10 @@ raw_image.save_to_disk("path/to/save/converted/image",carla.Depth)
 
 
 ---
-## [惯性测量单元传感器](https://github.com/carla-simulator/carla/blob/dev/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/InertialMeasurementUnit.cpp) 
+## [惯性测量单元传感器](https://github.com/carla-simulator/carla/blob/dev/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/InertialMeasurementUnit.cpp) <span id="imu-sensor"></span>
 
 * __蓝图：__ sensor.other.imu
-* __输出：__ 每一步的惯性测量单元测量值 [carla.IMUMeasurement](python_api.md#carla.IMUMeasurement) （除非传感器滴答信号`sensor_tick`另有说明）。
+* __输出：__ 每一步的惯性测量单元测量值 [carla.IMUMeasurement](python_api.md#carla.IMUMeasurement) （除非传感器节拍`sensor_tick`另有说明）。
 
 提供加速度计、陀螺仪和指南针将为父对象检索的测量值。数据是从对象的当前状态收集的。
 
@@ -170,7 +173,7 @@ raw_image.save_to_disk("path/to/save/converted/image",carla.Depth)
 | `noise_gyro_stddev_y`           | float   | 0\.0    | 陀螺仪噪声模型中的标准偏差参数（Y 轴）。 |
 | `noise_gyro_stddev_z`           | float   | 0\.0    | 陀螺仪噪声模型中的标准偏差参数（Z 轴）。 |
 | `noise_seed`        | int     | 0       | 伪随机数生成器的初始化程序。        |
-| `sensor_tick`       | float   | 0\.0    | 传感器捕获之间的仿真秒数（滴答信号）。  |
+| `sensor_tick`       | float   | 0\.0    | 传感器捕获之间的模拟秒数（节拍）。  |
 
 <br>
 
@@ -179,19 +182,22 @@ raw_image.save_to_disk("path/to/save/converted/image",carla.Depth)
 | 传感器数据属性                                                                                                                                                 | 类型  | 描述                                       |
 |---------------------------------------------------------------------------------------------------------------------------------------------------------| ----------------------- |------------------------------------------|
 | `frame`                                                                                                                                                 | int   | 进行测量时的帧编号。                               |
-| `timestamp`                                                                                                                                             | double | 自回合开始以来测量的仿真时间（以秒为单位）。                   |
+| `timestamp`                                                                                                                                             | double | 自回合开始以来测量的模拟时间（以秒为单位）。                   |
 | `transform`                                                                                                                                             | [carla.Transform](<../python_api#carlatransform>)  | 测量时传感器在世界坐标中的位置和旋转。                      |
 | [`accelerometer`](https://github.com/carla-simulator/carla/blob/dev/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/InertialMeasurementUnit.cpp#L102) | [carla.Vector3D](<../python_api#carlavector3d>)    | 测量线性加速度（以 `m/s^2` 为单位）。                  |
 | [`gyroscope`](https://github.com/carla-simulator/carla/blob/dev/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/InertialMeasurementUnit.cpp#L147)     | [carla.Vector3D](<../python_api#carlavector3d>)    | 测量角速度（以 `rad/sec` 为单位）。                  |
-| [`compass`](https://github.com/carla-simulator/carla/blob/dev/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/InertialMeasurementUnit.cpp#L167)                                                                                                                                            | float | 以弧度为单位的方向。在虚幻引擎中北是 `(0.0, -1.0, 0.0)` 。 |
+| [`compass`](https://github.com/carla-simulator/carla/blob/dev/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/InertialMeasurementUnit.cpp#L167)                                                                                                                                            | float | 以弧度为单位的方向。北是0弧度。 |
 
 * 加速度计算方法：
 $$ d_2 (i) = -2.0 \times [ { y_1 \over {h_1 \times h_2 } }  -  { y_2 \over { h_2 \times (h_1+h_2) } }  -  {y_0 \over { h_1 \times (h_1 + h_2) }} ] .$$
 
 其中，\(h_1\) 为当前时间增量，\(h_2\)为前一个时间增量。
 
+!!! 注意
+     对于指南针，北为 0 弧度。东为 *pi* /2 弧度，南为 *pi* 弧度，西为 3 *pi* /2 弧度。在 Carla 的全局坐标系中，北为 Y 轴减小的方向。东为 X 轴增加的方向。转换为度数的指南针值等于 `90 - 偏航`。 
+
 ---
-## 车道侵入检测器
+## 压线检测器 <span id="lane-invasion-detector"></span>
 
 * __蓝图：__ sensor.other.lane_invasion
 * __输出：__ 每次交叉路口的 [carla.LaneInvasionEvent](python_api.md#carla.LaneInvasionEvent) 。
@@ -212,7 +218,7 @@ $$ d_2 (i) = -2.0 \times [ { y_1 \over {h_1 \times h_2 } }  -  { y_2 \over { h_2
 | 传感器数据属性            | 类型  | 描述                                            |
 | ----------------------- | ----------------------- |-----------------------------------------------|
 | `frame`            | int   | 进行测量时的帧编号。                                    |
-| `timestamp`        | double | 自回合开始以来测量的仿真时间（以秒为单位）。                        |
+| `timestamp`        | double | 自回合开始以来测量的模拟时间（以秒为单位）。                        |
 | `transform`        | [carla.Transform](<../python_api#carlatransform>)  | 测量时传感器在世界坐标中的位置和旋转。                           |
 | `actor`            | [carla.Actor](<../python_api#carlaactor>)    | 侵入另一车道的车辆（父参与者）。                            |
 | `crossed_lane_markings`          | list([carla.LaneMarking](<../python_api#carlalanemarking>))      | 已穿越的车道标记列表。 |
@@ -220,7 +226,7 @@ $$ d_2 (i) = -2.0 \times [ { y_1 \over {h_1 \times h_2 } }  -  { y_2 \over { h_2
 
 
 ---
-## 激光雷达传感器
+## 激光雷达传感器 <span id="lidar-sensor"></span>
 
 * __蓝图：__ sensor.lidar.ray_cast
 * __输出：__ 每一步 [carla.LidarMeasurement](python_api.md#carla.LidarMeasurement) （除非`sensor_tick` 另有说明）。
@@ -228,7 +234,7 @@ $$ d_2 (i) = -2.0 \times [ { y_1 \over {h_1 \times h_2 } }  -  { y_2 \over { h_2
 激光雷达测量包含一个包，其中包含在某个时间间隔内生成的所有点1/FPS。在此间隔期间，物理不会更新，因此测量中的所有点都反映场景的相同“静态图片”。
 `points_per_channel_each_step = points_per_second / (FPS * channels)`
 
-此输出包含仿真点云，因此可以对其进行迭代以检索它们的列表 [`carla.Location`](python_api.md#carla.Location)：
+此输出包含模拟点云，因此可以对其进行迭代以检索它们的列表 [`carla.Location`](python_api.md#carla.Location)：
 
 ```py
 for location in lidar_measurement:
@@ -242,14 +248,14 @@ for location in lidar_measurement:
 `a` — 衰减系数。这可能取决于传感器的波长和大气条件。可以使用激光雷达属性对其进行修改`atmosphere_attenuation_rate`。 
 `d` — 从击中点到传感器的距离
 
-为了获得更好的真实感，可以删除云中的点。这是仿真外部扰动造成的损失的简单方法。这可以结合两个不同的来完成。
+为了获得更好的真实感，可以删除云中的点。这是模拟外部扰动造成的损失的简单方法。这可以结合两个不同的来完成。
 
 *   __General drop-off__ — 随机掉落的分数比例。这是在跟踪之前完成的，这意味着不会计算被丢弃的点，从而提高性能。如果是`dropoff_general_rate = 0.5`，则扣掉一半的分数。
 *   __Instensity-based drop-off__ — 对于检测到的每个点，根据计算的强度的概率执行额外的下降。该概率由两个参数确定。`dropoff_zero_intensity`是强度为零的点被丢弃的概率。`dropoff_intensity_limit`是阈值强度，超过该阈值将不会掉落任何分数。范围内的点被丢弃的概率是基于这两个参数的线性比例。
 
-此外，该`noise_stddev`属性还使噪声模型能够仿真现实传感器中出现的意外偏差。对于正值，每个点都会沿着激光射线的矢量随机扰动。结果是激光雷达传感器具有完美的角度定位，但距离测量存在噪音。
+此外，该`noise_stddev`属性还使噪声模型能够模拟现实传感器中出现的意外偏差。对于正值，每个点都会沿着激光射线的矢量随机扰动。结果是激光雷达传感器具有完美的角度定位，但距离测量存在噪音。
 
-可以调整激光雷达的旋转以覆盖每个仿真步骤的特定角度（使用 [固定的时间步长](adv_synchrony_timestep.md) ）。例如，每步旋转一次（整圈输出，如下图），旋转频率和仿真的 FPS 应该相等。 <br> __1.__ 设置传感器的频率 `sensors_bp['lidar'][0].set_attribute('rotation_frequency','10')`. <br> __2.__ 使用 `python3 config.py --fps=10` 运行仿真。
+可以调整激光雷达的旋转以覆盖每个模拟步骤的特定角度（使用 [固定的时间步长](adv_synchrony_timestep.md) ）。例如，每步旋转一次（整圈输出，如下图），旋转频率和模拟的 FPS 应该相等。 <br> __1.__ 设置传感器的频率 `sensors_bp['lidar'][0].set_attribute('rotation_frequency','10')`. <br> __2.__ 使用 `python3 config.py --fps=10` 运行模拟。
 
 ![LidarPointCloud](img/lidar_point_cloud.jpg)
 
@@ -267,9 +273,9 @@ for location in lidar_measurement:
 | `horizontal_fov`   | float | 360.0 | 水平视野（以度为单位），0 - 360。                                                                         |
 | `atmosphere_attenuation_rate`     | float  | 0.004 | 测量每米激光雷达强度损失的系数。检查上面的强度计算。 |
 | `dropoff_general_rate`          | float  | 0.45  | 随机丢弃的点的一般比例。                                                                                 |
-| `dropoff_intensity_limit`       | float  | 0.8   | 对于基于强度的下降，强度阈值，高于该值则不会下降任何点。                                                                 |
+| `dropoff_intensity_limit`       | float  | 0.8   | 对于基于强度的下降，高于该阈值的强度值没有任何点被下降。                                                                 |
 | `dropoff_zero_intensity`        | float  | 0.4   | 对于基于强度的下降，每个强度为零的点被下降的概率。                                                                    |
-| `sensor_tick`      | float  | 0.0   | 传感器捕获之间的仿真秒数（滴答信号）。                                                                          |
+| `sensor_tick`      | float  | 0.0   | 传感器捕获之间的模拟秒数（节拍）。                                                                          |
 | `noise_stddev`     | float  | 0.0   | 噪声模型的标准偏差，用于干扰沿其光线投射矢量的每个点。 |
 
 
@@ -280,7 +286,7 @@ for location in lidar_measurement:
 | 传感器数据属性            | 类型  | 描述                                                |
 | ----------------------- | ----------------------- |---------------------------------------------------|
 | `frame`            | int   | 进行测量时的帧编号。                                        |
-| `timestamp`        | double | 自回合开始以来测量的仿真时间（以秒为单位）。                            |
+| `timestamp`        | double | 自回合开始以来测量的模拟时间（以秒为单位）。                            |
 | `transform`        | [carla.Transform](<../python_api#carlatransform>)  | 测量时传感器在世界坐标中的位置和旋转。                               |
 | `horizontal_angle`   | float | 当前帧中激光雷达的 XY 平面中的角度（弧度）。                          |
 | `channels`         | int   | 激光雷达的通道（激光器）数量。                                  |
@@ -290,7 +296,7 @@ for location in lidar_measurement:
 
 <br>
 
-## 障碍物检测器
+## 障碍物检测器 <span id="obstacle-detector"></span>
 
 * __蓝图：__ sensor.other.obstacle
 * __输出：__ 每个障碍物的 [carla.ObstacleDetectionEvent](python_api.md#carla.ObstacleDetectionEvent) （除非`sensor_tick`另有说明）。
@@ -304,7 +310,7 @@ for location in lidar_measurement:
 | `hit_radius`     | float      | 0\.5       | 轨迹的半径。                                                                 |
 | `only_dynamics`  | bool       | False      | 如果为 true，则轨迹将仅考虑动态对象。                                                  |
 | `debug_linetrace` | bool       | False      | 如果为 true，则轨迹将可见。                                                       |
-| `sensor_tick`    | float      | 0\.0       | 传感器捕获之间的仿真秒数（滴答信号）。 |
+| `sensor_tick`    | float      | 0\.0       | 传感器捕获之间的模拟秒数（节拍）。 |
 
 <br>
 
@@ -313,7 +319,7 @@ for location in lidar_measurement:
 | 传感器数据属性            | 类型  | 描述                                                    |
 | ----------------------- | ----------------------- |-------------------------------------------------------|
 | `frame`            | int   | 进行测量时的帧编号。                                            |
-| `timestamp`        | double | 自回车开始以来测量的仿真时间（以秒为单位）。                                |
+| `timestamp`        | double | 自回车开始以来测量的模拟时间（以秒为单位）。                                |
 | `transform`        | [carla.Transform](<../python_api#carlatransform>)  | 测量时传感器在世界坐标中的位置和旋转。                                   |
 | `actor`            | [carla.Actor](<../python_api#carlaactor>)    | 检测到障碍物的参与者（父级参与者）。                                    |
 | `other_actor`      | [carla.Actor](<../python_api#carlaactor>)    | 参与者被检测为障碍物。                                           |
@@ -323,7 +329,7 @@ for location in lidar_measurement:
 
 <br>
 
-## 雷达传感器
+## 雷达传感器 <span id="radar-sensor"></span>
 
 * __蓝图：__ sensor.other.radar
 * __输出：__ 每一步 [carla.RadarMeasurement](python_api.md#carla.RadarMeasurement) （除非`sensor_tick`另有说明）。
@@ -346,7 +352,7 @@ points = np.reshape(points, (len(radar_data), 4))
 | `horizontal_fov`          | float   | 30\.0   | 水平视野（以度为单位）。                       |
 | `points_per_second`       | int     | 1500    | 所有激光器每秒生成的点。                       |
 | `range` | float   | 100     | 测量/光线投射的最大距离（以米为单位）。               |
-| `sensor_tick` | float   | 0\.0    | 传感器捕获之间的仿真秒数（滴答信号）。               |
+| `sensor_tick` | float   | 0\.0    | 传感器捕获之间的模拟秒数（节拍）。               |
 | `vertical_fov`            | float   | 30\.0   | 垂直视野（以度为单位）。 |
 
 <br>
@@ -369,7 +375,7 @@ points = np.reshape(points, (len(radar_data), 4))
 
 
 ---
-## RGB 相机
+## RGB 相机 <span id="rgb-camera"></span>
 
 * __蓝图：__ sensor.camera.rgb
 * __输出：__ 每一步 [carla.Image](python_api.md#carla.Image) （除非`sensor_tick`另有说明）。
@@ -382,8 +388,8 @@ points = np.reshape(points, (len(radar_data), 4))
 * __Vignette:__ 使屏幕边框变暗。
 * __Grain jitter:__ 为渲染添加一些噪点。
 * __Bloom:__ 强烈的光线会灼烧它们周围的区域。
-* __Auto exposure:__ 修改图像伽玛以仿真眼睛对较暗或较亮区域的适应。
-* __Lens flares:__ 仿真明亮物体在镜头上的反射。
+* __Auto exposure:__ 修改图像伽玛以模拟眼睛对较暗或较亮区域的适应。
+* __Lens flares:__ 模拟明亮物体在镜头上的反射。
 * __Depth of field:__ 模糊靠近或远离相机的物体。
 
 
@@ -406,7 +412,7 @@ points = np.reshape(points, (len(radar_data), 4))
 | `iso`    | float    | 100\.0   | 相机传感器的灵敏度。                                                              |
 | `gamma`  | float    | 2\.2     | 相机的目标伽玛值。                                                               |
 | `lens_flare_intensity`           | float    | 0\.1     | 镜头眩光后处理效果的强度，`0.0`用于禁用它。                                                |
-| `sensor_tick`        | float    | 0\.0     | 传感器捕获之间的仿真秒数（滴答信号）。 |
+| `sensor_tick`        | float    | 0\.0     | 传感器捕获之间的模拟秒数（节拍）。 |
 | `shutter_speed`      | float    | 200\.0   | 相机快门速度，以秒为单位 (1.0/s)。                            |
 
 
@@ -453,7 +459,7 @@ points = np.reshape(points, (len(radar_data), 4))
 | `calibration_constant`           | float          | 16\.0          | 18% 反照率的校准常数。                                                                                                                                         |
 | `focal_distance`     | float          | 1000\.0        | 景深效果应清晰的距离。以厘米（虚幻引擎单位）为单位测量。                                                                                                                          |
 | `blur_amount`  | float          | 1\.0           | 运动模糊的强度/强度。                                                                                                                                           |
-| `blur_radius`  | float          | 0\.0           | 1080p 分辨率下的半径（以像素为单位），根据距相机的距离仿真大气散射。                                                                                                                 |
+| `blur_radius`  | float          | 0\.0           | 1080p 分辨率下的半径（以像素为单位），根据距相机的距离模拟大气散射。                                                                                                                 |
 | `motion_blur_intensity`          | float          | 0\.45          | 运动模糊的强度 [0,1]。                                                                                                                                        |
 | `motion_blur_max_distortion`       | float          | 0\.35          | 运动模糊引起的最大失真。屏幕宽度的百分比。                                                                                                                                 |
 | `motion_blur_min_object_screen_size`           | float          | 0\.1           | 对于运动模糊，对象必须具有屏幕宽度的百分比，较低的值意味着较少的绘制调用。                                                                                                                 |
@@ -477,7 +483,7 @@ points = np.reshape(points, (len(radar_data), 4))
 | 传感器数据属性	            | 类型  | 描述                                                                                                        |
 | ----------------------- | ----------------------- |-----------------------------------------------------------------------------------------------------------|
 | `frame`            | int   | 进行测量时的帧编号。                                                                                                |
-| `timestamp`        | double | 自回合开始以来测量的仿真时间（以秒为单位）。 |
+| `timestamp`        | double | 自回合开始以来测量的模拟时间（以秒为单位）。 |
 | `transform`        | [carla.Transform](<../python_api#carlatransform>)  | 测量时传感器在世界坐标中的位置和旋转。                  |
 | `width`            | int   | 图像宽度（以像素为单位）。                                                                                    |
 | `height`           | int   | 图像高度（以像素为单位）。                                                                                   |
@@ -487,7 +493,7 @@ points = np.reshape(points, (len(radar_data), 4))
 
 
 ---
-## 责任敏感安全传感器
+## 责任敏感安全传感器 <span id="rss-sensor"></span>
 
 *   __蓝图：__ sensor.other.rss
 *   __输出：__ 每一步 [carla.RssResponse](python_api.md#carla.RssResponse) （除非`sensor_tick`另有说明）。
@@ -531,7 +537,7 @@ if rss_proper_response:
 
 ```py
 # rss_sensor.py 代码片段
-# The carla.RssSensor is updated when listening for a new carla.RssResponse
+# 当监听到一个新的carla.RssResponse时，更新 carla.RssSensor
 def _on_rss_response(weak_self, response):
 ...
         self.timestamp = response.timestamp
@@ -583,10 +589,10 @@ if routing_targets:
 | [carla.RssResponse 属性](<../python_api#carlarssresponse>)           | 类型  | 描述       |
 | ------------------------------------- | ------------------------------------- | ------------------------------------- |
 | `response_valid`  | bool  | 响应数据的有效性。      |
-| `proper_response` | [ad.rss.state.ProperResponse](<https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1state_1_1ProperResponse.html>)   | RSS 为车辆计算的正确响应，包括加速限制。         |
-| `rss_state_snapshot`    | [ad.rss.state.RssStateSnapshot](<https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1state_1_1RssStateSnapshot.html>)           | RSS 状态为当前时间点。这是 RSS 计算的详细的单独输出。  |
-| `situation_snapshot`    | [ad.rss.situation.SituationSnapshot](<https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1situation_1_1SituationSnapshot.html>) | 当前时间点的 RSS 情况。这是用于 RSS 计算的经过处理的输入数据。    |
-| `world_model`     | [ad.rss.world.WorldModel](<https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1WorldModel.html>)           | 当前时间点的 RSS 世界模型。这是 RSS 计算的输入数据。       |
+| `proper_response` | [ad.rss.state.ProperResponse](<https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1state_1_1ProperResponse.html>)   | 责任敏感安全为车辆计算的正确响应，包括加速限制。         |
+| `rss_state_snapshot`    | [ad.rss.state.RssStateSnapshot](<https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1state_1_1RssStateSnapshot.html>)           | 责任敏感安全状态为当前时间点。这是责任敏感安全计算的详细的单独输出。  |
+| `situation_snapshot`    | [ad.rss.situation.SituationSnapshot](<https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1situation_1_1SituationSnapshot.html>) | 当前时间点的责任敏感安全情况。这是用于 责任敏感安全 计算的经过处理的输入数据。    |
+| `world_model`     | [ad.rss.world.WorldModel](<https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1WorldModel.html>)           | 当前时间点的 责任敏感安全 世界模型。这是 责任敏感安全 计算的输入数据。       |
 | `ego_dynamics_on_route` | [carla.RssEgoDynamicsOnRoute](<../python_api#carlarssegodynamicsonroute>)    | 关于路线的当前自我车辆动态。 |
 
 
@@ -619,13 +625,13 @@ def _on_actor_constellation_request(self, actor_constellation_data):
 
 
 ---
-## 语义激光雷达传感器
+## 语义激光雷达传感器 <span id="semantic-lidar-sensor"></span>
 
 * __蓝图：__ sensor.lidar.ray_cast_semantic
 * __输出：__ 每步 [carla.SemanticLidarMeasurement](python_api.md#carla.SemanticLidarMeasurement) （除非`sensor_tick`另有说明）。
 
 
-该传感器仿真使用射线投射实现的旋转激光雷达，公开有关射线投射命中的所有信息。它的行为与 [激光雷达传感器](#lidar-sensor) 非常相似，但它们之间有两个主要区别。
+该传感器模拟使用射线投射实现的旋转激光雷达，公开有关射线投射命中的所有信息。它的行为与 [激光雷达传感器](#lidar-sensor) 非常相似，但它们之间有两个主要区别。
 
 *   语义激光雷达检索到的原始数据每个点包含更多数据。
 	*   该点的坐标（与普通激光雷达一样）。
@@ -633,7 +639,7 @@ def _on_actor_constellation_request(self, actor_constellation_data):
 	*   实例和语义基础事实。基本上是 Carla 对象命中的索引及其语义标签。
 *   语义激光雷达既不包含强度、衰减也不包含噪声模型属性。
 
-这些点是通过为垂直 FOV 中分布的每个通道添加激光来计算的。旋转是通过计算激光雷达在一帧中旋转的水平角度来仿真的。点云是通过在每个步骤中对每个激光进行光线投射来计算的。
+这些点是通过为垂直 FOV 中分布的每个通道添加激光来计算的。旋转是通过计算激光雷达在一帧中旋转的水平角度来模拟的。点云是通过在每个步骤中对每个激光进行光线投射来计算的。
 ```sh
 points_per_channel_each_step = points_per_second / (FPS * channels)
 ```
@@ -647,9 +653,9 @@ for detection in semantic_lidar_measurement:
     print(detection)
 ```
 
-可以调整激光雷达的旋转以覆盖每个仿真步骤的特定角度（使用 [固定的时间步长](adv_synchrony_timestep.md) ）。例如，每步旋转一次（整圈输出，如下图），旋转频率和仿真的FPS应该相等。 <br>
+可以调整激光雷达的旋转以覆盖每个模拟步骤的特定角度（使用 [固定的时间步长](adv_synchrony_timestep.md) ）。例如，每步旋转一次（整圈输出，如下图），旋转频率和模拟的FPS应该相等。 <br>
 __1.__ 设置传感器的频率 `sensors_bp['lidar'][0].set_attribute('rotation_frequency','10')`。 <br>
-__2.__ 使用 `python3 config.py --fps=10` 运行仿真。
+__2.__ 使用 `python3 config.py --fps=10` 运行模拟。
 
 ![LidarPointCloud](img/semantic_lidar_point_cloud.jpg)
 
@@ -667,7 +673,7 @@ __2.__ 使用 `python3 config.py --fps=10` 运行仿真。
 | `upper_fov`        | float | 10.0 | 最高激光的角度（以度为单位）。                          |
 | `lower_fov`        | float | -30.0 | 最低激光的角度（以度为单位）。                          |
 | `horizontal_fov`   | float | 360.0 | 水平视野（以度为单位），0 - 360。                     |
-| `sensor_tick`      | float | 0.0  | 传感器捕获之间的仿真秒数（滴答信号）。                     |
+| `sensor_tick`      | float | 0.0  | 传感器捕获之间的模拟秒数（节拍）。                     |
 
 
 
@@ -680,7 +686,7 @@ __2.__ 使用 `python3 config.py --fps=10` 运行仿真。
 | 传感器数据属性  | 类型           | 描述                                                                                                                                                                                                                                                                                                            |
 | ------------------------------------- | ------------------------------------- |---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `frame`        | int            | 进行测量时的帧编号。                                                                                                                                                                                                                                                                                                    |
-| `timestamp`    | double         | 自回合开始以来测量的仿真时间（以秒为单位）。                                                                                                                                                                                                    |
+| `timestamp`    | double         | 自回合开始以来测量的模拟时间（以秒为单位）。                                                                                                                                                                                                    |
 | `transform`    | [carla.Transform](<../python_api#carlatransform>)     | 测量时传感器在世界坐标中的位置和旋转。                                                                                                                                                                                                                      |
 | `horizontal_angle`         | float          | 当前帧中 LIDAR 的 XY 平面中的角度（弧度）。                                                                                                                                                                                                                                            |
 | `channels`     | int            | LIDAR 的通道（激光器）数量。                                                                                                                                                                                                                                                                     |
@@ -689,12 +695,12 @@ __2.__ 使用 `python3 config.py --fps=10` 运行仿真。
 
 
 
-## 语义分割相机
+## 语义分割相机 <span id="semantic-segmentation-camera"></span>
 
 *   __蓝图：__ sensor.camera.semantic_segmentation
 *   __输出：__ 每步 [carla.Image](python_api.md#carla.Image) （除非 `sensor_tick` 另有说明）。
 
-该摄像机根据其标签以不同的颜色显示它，从而对可见的每个物体进行分类（例如，行人与车辆的颜色不同）。当仿真开始时，场景中的每个元素都会使用标签创建。所以当参与者产生时就会发生这种情况。对象按其在项目中的相对文件路径进行分类。例如，存储在中的网格`Unreal/CarlaUE4/Content/Static/Pedestrians`被标记为`Pedestrian`。
+该摄像机根据其标签以不同的颜色显示它，从而对可见的每个物体进行分类（例如，行人与车辆的颜色不同）。当模拟开始时，场景中的每个元素都会使用标签创建。所以当参与者产生时就会发生这种情况。对象按其在项目中的相对文件路径进行分类。例如，存储在中的网格`Unreal/CarlaUE4/Content/Static/Pedestrians`被标记为`Pedestrian`。
 
 ![ImageSemanticSegmentation](img/ref_sensors_semantic.jpg)
 
@@ -705,33 +711,40 @@ __2.__ 使用 `python3 config.py --fps=10` 运行仿真。
 raw_image.save_to_disk("path/to/save/converted/image",carla.cityScapesPalette)
 ```
 
-目前可以使用以下标签：
+目前可以使用以下标签（注意：从版本0.9.13到0.9.14数字所对应的标签发生了很大变化）：
 
-| 值    | 标签            | 转换后的颜色  | 描述      |
-|------| ----------------------------------- | ----------------------------------- | ----------------------------------- |
-| `0`  | Unlabeled      | `(0, 0, 0)`      | 考虑尚未分类的元素`Unlabeled`。该类别应该是空的或至少包含没有冲突的元素。     |
-| `1`  | Building       | `(70, 70, 70)`   | 房屋、摩天大楼等建筑物以及附着在其上的元素。 <br> 例如空调、脚手架、遮阳篷或梯子等等。       |
-| `2`  | Fence          | `(100, 40, 40)`  | 障碍物、栏杆或其他直立结构。基本上是包围地面区域的木材或电线组件。           |
-| `3`  | Other          | `(55, 90, 80)`   | 一切不属于任何其他类别的东西。       |
-| `4`  | Pedestrian       | `(220, 20, 60)`  | 步行或乘坐/驾驶任何类型的车辆或移动系统的人。 <br> 例如自行车或踏板车、滑板、马、旱冰鞋、轮椅等。         |
-| `5`  | Pole           | `(153, 153, 153)`            | 主要为垂直方向的小型杆。如果杆有水平部分（通常用于交通灯杆），则也被视为杆。 <br> 例如标志杆、交通灯杆。    |
-| `6`  | RoadLine       | `(157, 234, 50)`             | 道路上的标记。    |
-| `7`  | Road           | `(128, 64, 128)`             | 汽车通常行驶的部分地面。 <br> 例如任何方向的车道和街道。       |
-| `8`  | SideWalk       | `(244, 35, 232)`             | 指定供行人或骑自行车者使用的地面的一部分。不仅通过标记，还通过一些障碍物（例如路缘石或杆子）将道路与道路分隔开。该标签包括可能划定的路边、交通岛（步行部分）和步行区。 |
-| `9`  | Vegetation       | `(107, 142, 35)`             | 树木、树篱、各种垂直植被。考虑地面植被`Terrain`。   |
-| `10` | Vehicles       | `(0, 0, 142)`    | 汽车、货车、卡车、摩托车、自行车、公共汽车、火车。       |
-| `11` | Wall           | `(102, 102, 156)`            | 独立的立墙。不是建筑物的一部分。         |
-| `12` | TrafficSign      | `(220, 220, 0)`  | 由州/市当局安装的标志，通常用于交通管制。此类别不包括附有标志的杆。 <br> 例如交通标志、停车标志、方向标志...     |
-| `13` | Sky            | `(70, 130, 180)`             | 开阔的天空。包括云和太阳。  |
-| `14` | Ground         | `(81, 0, 81)`    | 与任何其他类别不匹配的任何水平地面结构。例如，车辆和行人共享的区域，或通过路缘与道路分隔的平坦环岛。        |
-| `15` | Bridge         | `(150, 100, 100)`            | 只有桥的结构。栅栏、人、车辆以及其上的其他元素都被单独标记。          |
-| `16` | RailTrack      | `(230, 150, 140)`            | 各种非汽车行驶的铁轨。 <br> 例如地铁和火车铁轨。    |
-| `17` | GuardRail      | `(180, 165, 180)`            | 所有类型的护栏/防撞栏。 |
-| `18` | TrafficLight     | `(250, 170, 30)`             | 没有灯杆的交通灯箱。 |
-| `19` | Static         | `(110, 190, 160)`            | 场景中的元素和道具是不可移动的。 <br> 例如消防栓、固定长凳、喷泉、公交车站等。   |
-| `20` | Dynamic        | `(170, 120, 50)`             | 位置容易随时间变化的元素。 <br> 例如可移动垃圾桶、手推车、袋子、轮椅、动物等。         |
-| `21` | Water          | `(45, 60, 150)`  | 水平水面。 <br> 例如湖泊、海洋、河流。   |
-| `22` | Terrain        | `(145, 170, 100)`            | 草、地面植被、土壤或沙子。这些区域不适合行驶。该标签包括可能的限制性路缘石。     |
+| 值    | 标签           | 转换后的颜色            | 描述                                                                                  |
+|------|--------------|-------------------|-------------------------------------------------------------------------------------|
+| `0`  | Unlabeled    | `(0, 0, 0)`       | 考虑尚未分类的元素`Unlabeled`。该类别应该是空的或至少包含没有冲突的元素。                                          |
+| `1`  | Roads        | `(128, 64, 128)`  | 汽车通常行驶的部分地面。 <br> 比如，任何方向的车道和街道。                                                    |
+| `2`  | SideWalk     | `(244, 35, 232)`  | 指定供行人或骑自行车者使用的地面的一部分。不仅通过标记，还通过一些障碍物（例如路缘石或杆子）将道路与道路分隔开。该标签包括可能划定的路边、交通岛（步行部分）和步行区。 |
+| `3`  | Building     | `(70, 70, 70)`    | 房屋、摩天大楼等建筑物以及附着在其上的元素。 <br> 例如空调、脚手架、遮阳篷或梯子等。                                       |
+| `4`  | Wall         | `(102, 102, 156)` | 独立的立墙。不是建筑物的一部分。                                                                    |
+| `5`  | Fence        | `(100, 40, 40)`   | 障碍物、栏杆或其他直立结构。基本上是包围地面区域的木材或电线组件。                                                   |
+| `6`  | Pole         | `(153, 153, 153)` | 主要为垂直方向的小型杆。如果杆有水平部分（通常用于交通灯杆），则也被视为杆。 <br> 例如标志杆、交通灯杆。                             |
+| `7`  | TrafficLight | `(250, 170, 30)`  | 没有灯杆的交通灯箱。                                                                          |
+| `8`  | TrafficSign  | `(220, 220, 0)`   | 由州/市当局安装的标志，通常用于交通管制。此类别不包括附有标志的杆。 <br> 例如交通标志、停车标志、方向标志...                         |
+| `9`  | Vegetation   | `(107, 142, 35)`  | 树木、树篱、各种垂直植被。考虑地面植被`Terrain`。                                                       |
+| `10` | Terrain      | `(145, 170, 100)` | 草、地面植被、土壤或沙子。这些区域不适合行驶。该标签包括可能的限制性路缘石。                                              |
+| `11` | Sky          | `(70, 130, 180)`  | 开阔的天空。包括云和太阳。                                                                       |
+| `12` | Pedestrian   | `(220, 20, 60)`   | 步行或乘坐/驾驶任何类型的车辆或移动系统的人。 <br> 例如自行车或踏板车、滑板、马、旱冰鞋、轮椅等。                                |
+| `13` | Rider     | `(0, 0, 142)`     | 人类乘坐/驾驶任何类型的车辆或移动系统。<br>  例如：自行车或踏板车、滑板、马、轮滑、轮椅等。                                  |
+| `14` | Car          | `(0, 0, 142)`     | 汽车、大蓬货车                                                                             |
+| `15` | Truck          | `(0, 0, 70)`      | 卡车                                                                                  |
+| `16` | Bus          | `(0, 60, 100)`    | 公交车                                                                                 |
+| `17` | Truck          | `(0, 80, 100)`    | 火车                                                                                  |
+| `18` | Motorcycle          | `(0, 0, 230)`     | 摩托车                                                                                 |
+| `19` | Bicycle          | `(119, 11, 32)`    | 自行车                                                                                 |
+| `20` | Static       | `(110, 190, 160)` | 场景中的元素和道具是不可移动的。 <br> 例如消防栓、固定长凳、喷泉、公交车站等。                                          |
+| `21` | Dynamic      | `(170, 120, 50)`  | 位置容易随时间变化的元素。 <br> 例如可移动垃圾桶、手推车、袋子、轮椅、动物等。                                          |
+| `22` | Other        | `(55, 90, 80)`    | 一切不属于任何其他类别的东西。                                                                     |
+| `23` | Water        | `(45, 60, 150)`   | 水平水面。 <br> 例如湖泊、海洋、河流。                                                              |
+| `24` | RoadLine     | `(157, 234, 50)`  | 道路上的标记。                                                                             |
+| `25` | Ground       | `(81, 0, 81)`     | 与任何其他类别不匹配的任何水平地面结构。例如，车辆和行人共享的区域，或通过路缘与道路分隔的平坦环岛。                                  |
+| `26` | Bridge       | `(150, 100, 100)` | 只有桥的结构。栅栏、人、车辆以及其上的其他元素都被单独标记。                                                      |
+| `27` | RailTrack    | `(230, 150, 140)` | 各种非汽车行驶的铁轨。 <br> 例如地铁和火车铁轨。                                                         |
+| `28` | GuardRail    | `(180, 165, 180)` | 所有类型的护栏/防撞栏。                                                                        |
+
 
 <br>
 
@@ -745,7 +758,7 @@ raw_image.save_to_disk("path/to/save/converted/image",carla.cityScapesPalette)
 | `fov`   | float   | 90\.0   | 水平视野（以度为单位）。                                                            |
 | `image_size_x`            | int     | 800     | 图像宽度（以像素为单位）。                                                           |
 | `image_size_y`            | int     | 600     | 图像高度（以像素为单位）。                                                           |
-| `sensor_tick` | float   | 0\.0    | 传感器捕获之间的仿真秒数（滴答声）。 |
+| `sensor_tick` | float   | 0\.0    | 传感器捕获之间的模拟秒数（滴答声）。 |
 
 
 
@@ -774,32 +787,83 @@ raw_image.save_to_disk("path/to/save/converted/image",carla.cityScapesPalette)
 | `frame`            | int   | 进行测量时的帧编号。                                                                               |
 | `height`           | int   | 图像高度（以像素为单位）。                                                                            |
 | `raw_data`         | bytes | BGRA 32 位像素阵列。                                                                           |
-| `timestamp`        | double | 自回合开始以来测量的仿真时间（以秒为单位）。                                                                 |
+| `timestamp`        | double | 自回合开始以来测量的模拟时间（以秒为单位）。                                                                 |
 | `transform`        | [carla.Transform](<../python_api#carlatransform>)  | 测量时传感器在世界坐标中的位置和旋转。 |
 | `width`            | int   | 图像宽度（以像素为单位）。                                                                   |
+
+---
+
+## 实例分割相机 <span id="instance-segmentation-camera"></span>
+
+*   __蓝图：__ sensor.camera.instance_segmentation
+*   __输出：__ 每一步一个 [carla.Image](python_api.md#carla.Image) （除非 `sensor_tick` 另有说明）。
+
+该相机根据类别和实例 ID 对视野中的每个对象进行分类。当模拟开始时，场景中的每个元素都会被创建为一个标签。因此，当生成一个参与者时就会发生这种情况。对象根据其在项目中的相对文件路径进行分类。例如，存储在 `Unreal/CarlaUE4/Content/Static/Pedestrians` 中的网格被标记为行人 `Pedestrian`。
+
+![ImageInstanceSegmentation](img/instance_segmentation.png)
+
+服务器提供一张 __在红色通道中编码了__ 标签信息的图像：红色值为 `x` 的像素属于带有标签 `x` 的对象。像素的绿色和蓝色值定义对象的唯一 ID。例如，8 位 RGB 值为 [10, 20, 55] 的像素是一辆具有唯一实例 ID `20-55` 的车辆（语义标签为 10）。
+
+#### 基本相机属性
+
+| 蓝图属性       | 类型    | 默认值  | 描述                                                                     |
+| ----------------------------- | ----------------------------- |------|------------------------------------------------------------------------|
+| `fov`   | float   | 90\.0 | 水平视野（以度为单位）。                                                           |
+| `image_size_x`            | int     | 800  | 图像宽度（以像素为单位）。                                                          |
+| `image_size_y`            | int     | 600  | 图像高度（以像素为单位）。                                                          |
+| `sensor_tick` | float   | 0\.0 | 传感器捕获之间的模拟秒数（节拍）。 |
 
 
 
 ---
 
-## 动态视觉传感器相机
+#### 相机镜头畸变属性
+
+| 蓝图属性      | 类型         | 默认值   | 描述  |
+| ---------------------------- | ---------------------------- |-------| ---------------------------- |
+| `lens_circle_falloff`    | float        | 5\.0  | 范围：[0.0, 10.0]       |
+| `lens_circle_multiplier` | float        | 0\.0  | 范围：[0.0, 10.0]       |
+| `lens_k`     | float        | \-1.0 | 范围：[-inf, inf]       |
+| `lens_kcube` | float        | 0\.0  | 范围： [-inf, inf]       |
+| `lens_x_size`            | float        | 0\.08 | 范围： [0.0, 1.0]        |
+| `lens_y_size`            | float        | 0\.08 | 范围： [0.0, 1.0]        |
+
+
+
+---
+
+#### 输出属性
+
+| 传感器数据属性            | 类型  | 描述        |
+| ----------------------- | ----------------------- | ----------------------- |
+| `fov` | float | 水平视野（以度为单位）。         |
+| `frame`            | int   | 测量发生时的帧号。      |
+| `height`           | int   | 图像高度（以像素为单位）。          |
+| `raw_data`         | bytes | BGRA 32 位像素数组。     |
+| `timestamp`        | double | 自情节开始以来的测量模拟时间（以秒为单位）。        |
+| `transform`        | [carla.Transform](<../python_api#carlatransform>)  | 测量时传感器在世界坐标中的位置和旋转。 |
+| `width`            | int   | 图像宽度（以像素为单位）。           |
+
+---
+
+## 动态视觉传感器相机 <span id="dvs-camera"></span>
 
 *   __蓝图：__ sensor.camera.dvs
 *   __输出：__ 每步 [carla.DVSEventArray](python_api.md#carla.DVSEventArray) （除非`sensor_tick`另有说明）。
 
-[动态视觉传感器](https://baike.baidu.com/item/%E5%8A%A8%E6%80%81%E8%A7%86%E8%A7%89%E4%BC%A0%E6%84%9F%E5%99%A8/23490201) （Dynamic Vision Sensor, DVS）或事件相机是一种工作方式与传统相机完全不同的传感器。事件相机不是以固定速率捕获强度图像，而是以事件流的形式异步测量强度变化，对每个像素的亮度变化进行编码。与标准摄像机相比，事件摄像机具有独特的属性。它们具有非常高的动态范围（140 dB 与 60 dB）、无运动模糊和高时间分辨率（微秒级）。因此，事件相机是即使在具有挑战性的高速场景和高动态范围环境下也能提供高质量视觉信息的传感器，为基于视觉的算法提供了新的应用领域。
+[动态视觉传感器](https://baike.baidu.com/item/%E5%8A%A8%E6%80%81%E8%A7%86%E8%A7%89%E4%BC%A0%E6%84%9F%E5%99%A8/23490201) （Dynamic Vision Sensor, DVS）或事件相机是一种工作方式与传统相机完全不同的传感器。事件相机不是以固定速率捕获强度图像，而是以事件流的形式异步测量强度变化，对每个像素的亮度变化进行编码。与标准摄像机相比，事件摄像机具有独特的属性。它们具有非常高的动态范围（140 分贝对 60 分贝（dB, 十分之一 decibel Bell，贝表示的是两个物理量的比值，基准值用分贝表示的话是0dB））、无运动模糊和高时间分辨率（微秒级）。因此，事件相机是即使在具有挑战性的高速场景和高动态范围环境下也能提供高质量视觉信息的传感器，为基于视觉的算法提供了新的应用领域。
 
-动态视觉传感器摄像机输出事件流。当对数强度的变化达到预定义的恒定阈值（通常在 15% 到 30% 之间）时，在时间戳处的像素处`e=(x,y,t,pol)`触发事件。
+动态视觉传感器摄像机输出事件流。当对数强度`L`的变化达到预定义的恒定阈值（通常在 15% 到 30% 之间）时，在时间戳`t`处的像素`x`,`y`处触发事件`e=(x,y,t,pol)`。
 
 ``
-L(x,y,t) - L(x,y,t-\delta t) = pol C
+L(x,y,t) - L(x,y, t-\delta t) = pol C
 ``
 
-`t-\delta t` 是该像素上最后一个事件被触发的时间，并且`pol`是根据亮度变化的符号的事件的极性。`+1`当亮度增加时极性为正，`-1`当亮度减少时极性为负。工作原理如下图所示。标准相机以固定速率输出帧，从而在场景中不存在运动时发送冗余信息。相比之下，事件摄像机是数据驱动的传感器，能够以微秒延迟响应亮度变化。在绘图中，只要（带符号的）亮度变化随时间超过`C`一维的对比度阈值，就会生成正（或负）事件（蓝点、红点） 。观察信号快速变化时事件率如何增长。
+`t-\delta t` 是该像素上最后一个事件被触发的时间，`pol`是根据亮度变化的符号来判断事件的极性(polarity)。`+1`当亮度增加时极性为正，`-1`当亮度减少时极性为负。工作原理如下图所示。标准相机以固定速率输出帧，从而在场景中不存在运动时发送冗余信息。相比之下，事件摄像机是数据驱动的传感器，能够以微秒延迟响应亮度变化。在绘图中，只要（带符号的）亮度变化随时间`t`超过一维`x`的对比度(contrast )阈值`C`，就会生成正（或负）事件（蓝点、红点） 。观察信号快速变化时事件率如何增长。
 
 ![DVSCameraWorkingPrinciple](img/sensor_dvs_scheme.jpg)
 
-动态视觉传感器摄像机的当前实现在两个连续同步帧之间以统一采样方式工作。因此，为了仿真真实事件相机的高时间分辨率（微秒级），传感器需要以高频率执行（比传统相机的频率高得多）。实际上，Carla 汽车行驶速度越快，事件数量就会增加。因此，传感器频率应随着场景的动态而相应增加。用户应该在时间精度和计算成本之间找到平衡。
+动态视觉传感器的当前实现在两个连续同步帧之间以统一采样方式工作。因此，为了模拟真实事件相机的高时间分辨率（微秒级），传感器需要以高频率执行（比传统相机的频率高得多）。实际上，Carla 汽车行驶速度越快，事件数量就会增加。因此，传感器频率应随着场景的动态而相应增加。用户应该在时间精度和计算成本之间找到平衡。
 
 提供的脚本 [`manual_control.py`](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/manual_control.py) 使用动态视觉传感器摄像头来展示如何配置传感器、如何获取事件流以及如何以图像格式（通常称为事件框架）描述此类事件。
 
@@ -815,19 +879,19 @@ L(x,y,t) - L(x,y,t-\delta t) = pol C
 
 | 蓝图属性    | 类型	    | 默认  | 描述          |
 | ---------------------- | ---------------------- | ---------------------- | ---------------------- |
-| `positive_threshold`   | float   | 0\.3    | 与亮度变化增量相关的正阈值 C (0-1)。     |
-| `negative_threshold`   | float   | 0\.3    | 与亮度变化减少相关的负阈值 C (0-1)。     |
-| `sigma_positive_threshold`         | float   | 0       | 积极事件的白噪声标准差 (0-1)。        |
-| `sigma_negative_threshold`         | float   | 0       | 负面事件的白噪声标准差 (0-1)。        |
+| `positive_threshold`   | float   | 0\.3    | 与亮度变化增量相关的正阈值 C，范围为 (0-1)。     |
+| `negative_threshold`   | float   | 0\.3    | 与亮度变化减少相关的负阈值 C，范围为(0-1)。     |
+| `sigma_positive_threshold`         | float   | 0       | 正事件的白噪声标准差，范围为 (0-1)。        |
+| `sigma_negative_threshold`         | float   | 0       | 负事件的白噪声标准差，范围为 (0-1)。        |
 | `refractory_period_ns`             | int     | 0\.0    | 不应期（像素在触发事件后无法触发事件的时间），以纳秒为单位。它限制了触发事件的最高频率。   |
-| `use_log`            | bool    | true    | 是否以对数强度标度工作。  |
-| `log_eps`            | float   | 0\.001  | 用于将图像转换为日志的 Epsilon 值： `L = log(eps + I / 255.0)`.<br>  其中 `I` 是 RGB 图像的灰度值： <br>`I = 0.2989*R + 0.5870*G + 0.1140*B`. |
+| `use_log`            | bool    | true    | 是否以对数强度刻度工作。  |
+| `log_eps`            | float   | 0\.001  | 用于将图像转换为对数的 Epsilon 值： `L = log(eps + I / 255.0)`.<br>  其中 `I` 是 RGB 图像的灰度值： <br>`I = 0.2989*R + 0.5870*G + 0.1140*B`. |
 
 <br>
 
 ---
 
-## 光流相机
+## 光流相机 <span id="optical-flow-camera"></span>
 
 光流相机捕捉从相机的角度感知的运动。该传感器记录的每个像素都对投影到图像平面的该点的速度进行编码。像素的速度在 [-2,2] 范围内编码。为了获得以像素为单位的运动，可以将该信息与图像大小一起缩放至[-2 * image_size, 2 * image_size]。
 
@@ -840,7 +904,7 @@ L(x,y,t) - L(x,y,t-\delta t) = pol C
 | `image_size_x` | int | 800 | 图像宽度（以像素为单位）。                                                           |
 | `image_size_y` | int | 600 | 图像高度（以像素为单位）。                                                           |
 | `fov` | float | 90.0 | 水平视野（以度为单位）。                                                            |
-| `sensor_tick` | float | 0.0 | 传感器捕获之间的仿真秒数（滴答信号）。 |
+| `sensor_tick` | float | 0.0 | 传感器捕获之间的模拟秒数（节拍）。 |
 
 #### 光流相机镜头畸变属性
 
@@ -858,7 +922,7 @@ L(x,y,t) - L(x,y,t-\delta t) = pol C
 | 传感器数据属性 | 类型 | 描述                                                                                       |
 | --------------------- | ---- |------------------------------------------------------------------------------------------|
 | `frame` | int | 进行测量时的帧编号。                                                                               |
-| `timestamp` | double | 自回合开始以来测量的仿真时间（以秒为单位）。                                                                 |
+| `timestamp` | double | 自回合开始以来测量的模拟时间（以秒为单位）。                                                                 |
 | `transform` | [carla.Transform](<../python_api#carlatransform>) | 测量时传感器在世界坐标中的位置和旋转。 |
 | `width` | int | 图像宽度（以像素为单位）。                                                                   |
 | `height` | int | 图像高度（以像素为单位）。                                                                  |
@@ -866,3 +930,106 @@ L(x,y,t) - L(x,y,t-\delta t) = pol C
 | `raw_data` | bytes | 包含两个浮点值的 BGRA 64 位像素数组。                                 |
 
 <br>
+
+
+---
+
+## V2X 传感器 <span id="v2x-sensor"></span>
+
+车联万物 (Vehicle-to-everything, V2X) 通信是未来协作智能交通系统应用的一个重要方面。在实际车辆中，这需要每辆车上都有一个专用的车载单元 (onboard unit, OBU)，能够通过无线信道发送和接收信息。根据地区（欧洲、中国、美国），使用不同的物理技术、协议和应用程序消息格式。
+
+CARLA 目前支持模拟简单的广播无线信道和两条应用消息。尚不支持网络访问和转发协议。两条实现的消息分别是符合欧洲标准 ETSI 的 [*协作感知消息*](#cooperative-awareness-message) 和 [*自定义消息*](#custom-v2x-message) 类型，可用于传输任意字符串数据（例如 JSON）。V2X 通信有两种不同的传感器，可以单独使用，每种应用消息类型各一个。
+
+基本上，无线通道包含两个传感器的以下计算：
+
+    ReceivedPower = OtherTransmitPower + combined_antenna_gain - loss
+
+    IF (ReceivedPower >= receiver_sensitivity)
+        THEN message is received
+
+要模拟 V2X 通信，至少需要生成两个相同类型的 V2X 传感器（至少一对发送器-接收器）。由于接收功率是在接收器端 V2X 传感器上计算的，因此只有接收器端传感器上指定的天线增益才会纳入此计算中。可以配置传输功率和接收器灵敏度（请参阅 [蓝图属性](#v2x-sensors-blueprint-attributes) ）。
+
+*损耗* 计算取决于 
+* 发送方和接收方之间的可见性条件：视线（无障碍物）、被建筑物遮挡的非视线或被车辆遮挡的非视线，以及 
+
+* 场景：高速公路、乡村或城市环境
+
+虽然在 Carla 中模拟了可见性，但用户可以配置场景（参见 [蓝图属性](#v2x-sensors-blueprint-attributes) ），以及无线信道的其他几个属性。
+
+
+### 传感器（子）类型 
+
+#### 协同感知消息 <span id="cooperative-awareness-message"></span>
+
+*   __蓝图：__ sensor.other.v2x
+*   __输出：__ [carla.CAMData](python_api.md#carla.CAMData), 根据 ETSI CAM (European Telecommunications Standards Institute , Cooperative Awareness Message，欧洲通信标准协会，[协作感知消息](https://fanqienovel.com/reader/7110149289141079072) ) 标准触发，除非另有配置
+
+根据 ETSI 标准的触发条件：
+- 航向角变化 > 4°
+- 位置差 > 4 m
+- 速度变化 > 5 m/s
+- 经过时间 > CAM 生成时间（可配置）
+-  低频容器经过时间 > 500 ms
+
+对于 CAM V2X 传感器，使用额外的蓝图属性：
+
+| 蓝图属性     | 类型   | 默认值      | 描述                                                                                                                               |
+|-------------------------|--------|----------|----------------------------------------------------------------------------------------------------------------------------------|
+| <td colspan=4> 	消息生成 | 
+| gen\_cam\_min           | float  | 0.1      | 两个连续 CAM 之间的最短时间间隔（秒）                                                                                                            |
+| gen\_cam\_max           | float  | 1.0      | 两个连续 CAM 之间的最大时间间隔（秒）                                                                                                            |
+| fixed\_rate             | bool   | false [true] | 在每个 Carla 节拍中生成一个 CAM（仅用于调试目的，会导致速度变慢）  |
+| <td colspan=4> 数据生成 | 
+| `noise_vel_stddev_x` | float  | 0\.0     | 噪声模型中速度的标准偏差参数（X 轴）。                                                           |
+| `noise_accel_stddev_x`          | float   | 0\.0     | 加速度（X 轴）噪声模型中的标准偏差参数。                                                      |
+| `noise_accel_stddev_y`          | float   | 0\.0     | 加速度噪声模型中的标准偏差参数（Y 轴）。                                                       |
+| `noise_accel_stddev_z`          | float   | 0\.0     | 加速度（Z 轴）噪声模型中的标准偏差参数。                                                       |
+| `noise_yawrate_bias`   | float  | 0\.0     | 噪声模型中偏航角速度的平均参数。                                                                                  |
+| `noise_yawrate_stddev` | float  | 0\.0     | 偏航角速度噪声模型中的标准偏差参数。                                                                    |
+| `noise_alt_bias`   | float  | 0\.0     | 噪声模型中海拔的平均参数。                                                                                  |
+| `noise_alt_stddev` | float  | 0\.0     | 海拔噪声模型中的标准偏差参数。                                                                    |
+| `noise_lat_bias`   | float  | 0\.0     | 纬度噪声模型中的平均参数。                                                                                  |
+| `noise_lat_stddev` | float  | 0\.0     | 纬度噪声模型中的标准差参数。                                                                    |
+| `noise_lon_bias`   | float  | 0\.0     | 噪声模型中经度的平均参数。                                                                                 |
+| `noise_lon_stddev` | float  | 0\.0     | 噪声模型中经度的标准差参数。                                                                   |
+| `noise_head_bias`   | float  | 0\.0     | 航向噪声模型中的平均参数。                                                                                   |
+| `noise_head_stddev` | float  | 0\.0     | 航向噪声模型中的标准偏差参数。                                                                     |
+
+#### 自定义 V2X 消息 <span id="custom-v2x-message"></span>
+
+*   __蓝图：__ sensor.other.v2x_custom
+*   __输出：__ [carla.CustomV2XData](python_api.md#carla.CustomV2XData)，在调用 *send()* 后触发下一个滴答信息
+
+##### 方法
+- <a name="carla.Sensor.send"></a>**<font color="#7fb800">send</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**callback**</font>)
+用户每次发送消息时必须调用的函数。此函数需要一个包含对象类型 [carla.SensorData](#carla.SensorData) 的参数来处理。
+    - **参数：**
+        - `data` (_function_) - 被调用的函数带有一个包含传感器数据的参数。
+
+自定义 V2X 消息传感器的工作方式与其他传感器略有不同，因为它除了*侦听*函数之外还具有*发送*函数，需要先调用发送函数，然后其他此类传感器才能接收任何内容。只有在调用*发送*时才会触发自定义消息的传输。发送给*发送*函数的每条消息仅向当前生成的所有自定义 V2X 消息传感器传输一次。
+
+示例：
+
+    bp = world.get_blueprint_library().find('sensor.other.v2x_custom')
+    sensor = world.spawn_actor(bp, carla.Transform(), attach_to=parent)
+    sensor.send("Hello CARLA")
+
+### V2X 传感器蓝图属性
+
+| 蓝图属性     | 类型   | 默认值 | 描述                                                                                                                                                |
+|-------------------------|--------|---|---------------------------------------------------------------------------------------------------------------------------------------------------|
+| transmit\_power         | float  | 21.5 | 发送方传输功率（单位：dBm）                                                                                                                                   |
+| receiver\_sensitivity   | float  | -99 | 接收器灵敏度（单位：dBm）                                                                                                                                    |
+| frequency\_ghz          | float  | 5.9 | 传输频率（GHz）。5.9 GHz 是多个物理信道的标准。                                                                                                                     |
+| noise\_seed             | int    | 0 | 噪声初始化的随机参数                                                                                                                                        |
+| filter\_distance        | float  | 500 | 最大传输距离（以米为单位），上面的路径损耗计算因模拟速度而略过                                                                                                                   |
+| <td colspan=4> __路径损耗模型参数__ | | ||
+| combined\_antenna\_gain | float  | 10.0 | 发射机和接收机天线的组合增益（以 dBi 为单位），辐射效率和方向性的参数                                                                                                             |
+| d\_ref                  | float  |  1.0  | 对数距离路径损耗模型的参考距离（单位：米）                                                                                                                             |
+| path\_loss\_exponent    | float  | 2.7 | 由于建筑物遮挡导致的非视距损耗参数                                                                                                                                 |
+| scenario                | string | urban | 选项：[urban, rustic, highly available]，定义衰落噪声参数                                                                                                     |
+| path\_loss\_model       | string | geometric | 使用的通用路径损耗模型。选项：[geometric, winor]                                                                                                                 |
+| use\_etsi\_fading       | bool   | true | 使用 ETSI 出版物中提到的衰落参数（true），或使用自定义衰落标准偏差                                                                                                            |
+| custom\_fading\_stddev  | float  | 0.0 | 衰减标准偏差的自定义值，仅当`use_etsi_fading`设置为 `false` 时才使用 |
+
+

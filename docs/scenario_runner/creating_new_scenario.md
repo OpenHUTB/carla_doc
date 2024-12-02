@@ -76,7 +76,7 @@ class NewScenario(BasicScenario):
 ## 添加场景配置
 最后，场景配置应添加到该 `examples/` 文件夹中。如果扩展已经存在的场景模块，则只需扩展相应的 XML，否则添加新的 XML 文件。在这种情况下，您可以使用任何现有的 XML 文件作为蓝图。
 
-如果您想为一个场景添加多个自我车辆，请确保它们使用不同的角色名称，例如
+如果您想为一个场景添加多个自我车辆，请确保它们使用不同的参与者名称，例如
 
 ```xml
     <scenario name="MultiEgoTown03" type="FreeRide" town="Town03">

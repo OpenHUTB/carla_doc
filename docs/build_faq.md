@@ -11,6 +11,12 @@ Carla 论坛</a>
 
 ---
 
+## 专业问题
+
+* [传感器](./QA/sensor.md)
+* [动力学](./QA/dynamics.md)
+
+
 ## 系统要求
 
 * [构建 Carla 所需的磁盘空间。](#expected-disk-space-to-build-carla)
@@ -38,19 +44,25 @@ Carla 论坛</a>
 * [Make 缺少 libintl3.dll 或/和 libiconv2.dll。](#make-is-missing-libintl3dll-orand-libiconv2dll)
 * [模块缺失或使用不同的引擎版本构建。](#modules-are-missing-or-built-with-a-different-engine-version)
 * [在 `PythonAPI/carla` 中尽管成功输出消息，但没有`dist`文件夹](#there-is-no-dist-folder-in-pythonapicarla-despite-a-successful-output-message)
+* [osm2odr-visualstudio为空，或者拷贝过去的目录不对](#osm2odr_is_null)
+* [类型转换不对](#type_conversion_error)
+* [链接不到osm2odr.lib](#link_osm2odr_failed)
+* [编译器的堆空间不足](#heap_lack)
 
 ---
 
 ## 运行 Carla
 
+* [运行Carla_0.9.12.sh时候报错：error while loading shared libraries: libomp.so.5](#load_libraries)
 * [在虚幻编辑器中运行服务器时 FPS 速率较低。](#low-fps-rate-when-running-the-server-in-unreal-editor)
 * [无法运行脚本。](#cant-run-a-script)
-* [当在虚幻编辑器中运行时链接到仿真器。](#connect-to-the-simulator-while-running-within-unreal-editor)
+* [当在虚幻编辑器中运行时链接到模拟器。](#connect-to-the-simulator-while-running-within-unreal-editor)
 * [无法运行 Carla，无论是二进制还是源代码构建。](#cant-run-carla-neither-binary-nor-source-build)
 * [ImportError: DLL load failed: The specified module could not be found.](#importerror-dll-load-failed-the-specified-module-could-not-be-found)
 * [ImportError: DLL load failed while importing libcarla: %1 is not a valid Win32 app.](#importerror-dll-load-failed-while-importing-libcarla-1-is-not-a-valid-win32-app)
 * [ImportError: No module named 'carla'](#importerror-no-module-named-carla)
 * [RuntimeError: rpc::rpc_error during call in function apply_batch](#rpc_error)
+* [ValueError: sticky_control: invalid value type](#value_error)
 ---
 
 ## 其他
@@ -66,13 +78,13 @@ Carla 论坛</a>
 ## 系统要求
 <!-- ======================================================================= -->
 
-###### 构建 Carla 所需的磁盘空间。
+###### 构建 Carla 所需的磁盘空间。 <span id="expected-disk-space-to-build-carla"></span>
 
 > 建议至少有 170GB 可用空间。构建 Carla 需要大约 35GB 的磁盘空间，加上虚幻引擎大约需要 95-135GB。
 
 <!-- ======================================================================= -->
 
-###### 运行 Carla 的推荐硬件。
+###### 运行 Carla 的推荐硬件。 <span id="recommended-hardware-to-run-carla"></span>
 
 > Carla 是一款性能要求较高的软件。它至少需要 6GB GPU，或者更好的是能够运行虚幻引擎的专用 GPU。
 >
@@ -82,7 +94,7 @@ Carla 论坛</a>
 
 ## Linux 构建
 <!-- ======================================================================= -->
-###### 从 GitHub 下载时不会出现“CarlaUE4.sh”脚本。
+###### 从 GitHub 下载时不会出现“CarlaUE4.sh”脚本。 <span id="carlaue4sh-script-does-not-appear-when-downloading-from-github"></span>
 
 > Carla 的源版本中没有 `CarlaUE4.sh` 脚本。按照 [构建说明](build_linux.md) 从源代码构建 Carla。
 > 
@@ -90,7 +102,7 @@ Carla 论坛</a>
 
 <!-- ======================================================================= -->
 
-###### “make launch”在 Linux 上不起作用。
+###### “make launch”在 Linux 上不起作用。 <span id="make-launch-is-not-working-on-linux"></span>
 
 > 在构建安装过程中可能会拖出许多不同的问题，并会像这样显现出来。以下是最可能的原因列表：
 > 
@@ -105,7 +117,7 @@ Carla 论坛</a>
 
 <!-- ======================================================================= -->
 
-###### 克隆虚幻引擎存储库显示错误。
+###### 克隆虚幻引擎存储库显示错误。 <span id="cloning-the-unreal-engine-repository-shows-an-error"></span>
 
 > __1. 虚幻引擎帐号是否已激活？__ 虚幻引擎存储库是私有的。为了克隆它，请创建虚 [幻引擎帐](https://www.unrealengine.com/en-US/) 户，激活它（检查验证邮件），然后 [链接您的 GitHub](https://www.unrealengine.com/en-US/blog/updated-authentication-process-for-connecting-epic-github-accounts)  帐户。
 > 
@@ -117,7 +129,7 @@ Carla 论坛</a>
 
 <!-- ======================================================================= -->
 
-###### AttributeError: module 'carla' has no attribute 'Client' when running a script.
+###### AttributeError: module 'carla' has no attribute 'Client' when running a script. <span id="attributeerror-module-carla-has-no-attribute-client-when-running-a-script"></span>
 
 > 运行以下命令。
 > 
@@ -137,7 +149,7 @@ Carla 论坛</a>
 
 <!-- ======================================================================= -->
 
-###### 无法运行示例脚本或 "RuntimeError: rpc::rpc_error during call in function version".
+###### 无法运行示例脚本或 "RuntimeError: rpc::rpc_error during call in function version". <span id="cannot-run-example-scripts-or-runtimeerror-rpcrpc_error-during-call-in-function-version"></span>
 
 > ![faq_rpc_error](img/faq_rpc_error.jpg)
 >
@@ -196,13 +208,13 @@ Carla 论坛</a>
 ## Windows 构建
 <!-- ======================================================================= -->
 
-###### 从 GitHub 下载时不会出现“CarlaUE4.exe”。
+###### 从 GitHub 下载时不会出现“CarlaUE4.exe”。 <span id="carlaue4exe-does-not-appear-when-downloading-from-github"></span>
 
 > Carla 的源版本中没有`CarlaUE4.exe`可执行文件。按照构建说明从源代码构建 Carla。要直接获取`CarlaUE4.exe`，请按照 [快速入门](start_quickstart.md) 说明进行操作。
 
 <!-- ======================================================================= -->
 
-###### CarlaUE4 could not be compiled. Try rebuilding it from source manually.
+###### CarlaUE4 could not be compiled. Try rebuilding it from source manually. <span id="carlaue4-could-not-be-compiled-try-rebuilding-it-from-source-manually"></span>
 
 > 尝试构建 Carla 时出现问题。使用 Visual Studio 重新构建以发现发生了什么。
 >
@@ -231,7 +243,7 @@ Carla 论坛</a>
 
 <!-- ======================================================================= -->
 
-###### 即使 CMake 已正确安装，也会显示 CMake 错误。
+###### 即使 CMake 已正确安装，也会显示 CMake 错误。 <span id="cmake-error-shows-even-though-cmake-is-properly-installed"></span>
 
 > 当尝试使用  _make_ 命令构建服务器或客户端时会出现此问题。即使 CMake 已安装、更新并添加到环境路径中。Visual Studio 版本之间可能存在冲突。
 >
@@ -239,7 +251,7 @@ Carla 论坛</a>
 
 <!-- ======================================================================= -->
 
-###### Error C2440, C2672: compiler version.
+###### Error C2440, C2672: compiler version. <span id="error-c2440-c2672-compiler-version"></span>
 
 > 由于与其他 Visual Studio 或 Microsoft 编译器版本冲突，该构建未使用 2019 编译器。卸载这些并再次重建。  
 >
@@ -261,7 +273,7 @@ Carla 论坛</a>
 
 <!-- ======================================================================= -->
 
-###### “make launch”在 Windows 上不起作用。
+###### “make launch”在 Windows 上不起作用。 <span id="make-launch-is-not-working-on-windows"></span>
 
 > 在构建安装过程中可能会拖出许多不同的问题，并像这样显现出来。以下是最可能的原因列表：
 > 
@@ -276,24 +288,24 @@ Carla 论坛</a>
 
 <!-- ======================================================================= -->
 
-###### Make 缺少 libintl3.dll 或/和 libiconv2.dll。
+###### Make 缺少 libintl3.dll 或/和 libiconv2.dll。 <span id="make-is-missing-libintl3dll-orand-libiconv2dll"></span>
 
 > 下载 [依赖项](http://gnuwin32.sourceforge.net/downlinks/make-dep-zip.php) 并将`bin`内容解压到`make`安装路径中。 
 
 <!-- ======================================================================= -->
 
-###### Modules are missing or built with a different engine version.
+###### Modules are missing or built with a different engine version. <span id="modules-are-missing-or-built-with-a-different-engine-version"></span>
 
 > 单击 on __Accept__ 以重建它们。
 
 <!-- ======================================================================= -->
 
-###### 尽管成功输出消息，但在`PythonAPI/carla`中没有`dist`文件夹。 
+###### 尽管成功输出消息，但在`PythonAPI/carla`中没有`dist`文件夹。  <span id="there-is-no-dist-folder-in-pythonapicarla-despite-a-successful-output-message"></span>
 
 > 在 Windows 中， `make PythonAPI` 命令可能会返回一条消息，表明 Python API 安装成功，但实际上并未成功。如果看到此输出后目录 `PythonAPI/carla` 中没有 `dist` 文件夹，请查看上面的命令输出。很可能发生了错误，需要在更正错误并运行 `make clean` 后重试构建。 
 
 
-###### osm2odr-visualstudio为空，或者拷贝过去的目录不对
+###### osm2odr-visualstudio为空，或者拷贝过去的目录不对 <span id="osm2odr_is_null"></span>
 ```text
 CMake Error: The current CMakeCache.txt directory D:/work/workspace/carla/Build/osm2odr-visualstudio/CMakeCache.txt is different than the directory d:/work/buffer/carla/Build/osm2odr-visualstudio where CMakeCache.txt was created. This may result in binaries being created in the wrong place. If you are not sure, reedit the CMakeCache.txt
 ```
@@ -303,7 +315,7 @@ CMake Error: The source directory "D:/work/workspace/carla/Build/osm2odr-visuals
 > 删除`carla\Build\osm2odr-visualstudio\CMakeCache.txt`
 
 
-###### 类型转换不对
+###### 类型转换不对 <span id="type_conversion_error"></span>
 > 
 ```shell
 carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Vehicle/CustomTerrainPhysicsComponent.cpp(1161): error C2440: “static_cast”: 无法从“float”转换为“EDefResolutionType”
@@ -313,18 +325,40 @@ carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Vehicle/CustomTerrainPhysicsCom
 ```shell
 // ChosenRes = static_cast<EDefResolutionType>(Value);  // static_cast<EDefResolutionType>(Value)
 ```
+注意：注意vs2019专业版才有这个问题，vs2019社区版没有这个问题。
 
-######  链接不到osm2odr.lib
+######  链接不到osm2odr.lib <span id="link_osm2odr_failed"></span>
 > `fatal error LNK1181: carla\Unreal\CarlaUE4\Plugins\Carla\CarlaDependencies\lib\osm2odr.lib`
 
 > 从其他地方拷贝过来。
+
+
+######  编译器的堆空间不足 <span id="heap_lack"></span>
+> 编译虚幻引擎4时，出现`C1060` 编译器的堆空间不足，说明机器的内存不够，可以参考[链接](https://ue5wiki.com/wiki/32770/) 限制所使用的核心数（默认是使用所有核心数）。
+> 修改`Engine/Saved/UnrealBuildTool/BuildConfiguration.xml`中的`MaxProcessorCount`：
+```shell
+<?xml version="1.0" encoding="utf-8" ?>
+<Configuration xmlns="https://www.unrealengine.com/BuildConfiguration">
+  <ParallelExecutor>
+    <ProcessorCountMultiplier>7</ProcessorCountMultiplier>
+    <MaxProcessorCount>7</MaxProcessorCount>
+    <bStopCompilationAfterErrors>true</bStopCompilationAfterErrors>
+  </ParallelExecutor>
+</Configuration>
+```
 
 ---
 
 ## 运行 Carla
 <!-- ======================================================================= -->
 
-###### 在虚幻编辑器中运行服务器时 FPS 速率较低。
+###### 运行Carla_0.9.12.sh时候报错：error while loading shared libraries: libomp.so.5。 <span id="load_libraries"></span>
+
+> sudo apt-get install libomp5
+
+<!-- ======================================================================= -->
+
+###### 在虚幻编辑器中运行服务器时 FPS 速率较低。 <span id="low-fps-rate-when-running-the-server-in-unreal-editor"></span>
 
 > 虚幻4编辑器在失焦时会进入低性能模式。  
 >
@@ -332,7 +366,7 @@ carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Vehicle/CustomTerrainPhysicsCom
 
 <!-- ======================================================================= -->
 
-###### 无法运行脚本。
+###### 无法运行脚本。 <span id="cant-run-a-script"></span>
 
 > 有些脚本有要求。这些列在名为 __Requirements.txt__ 的文件中，与脚本本身位于同一路径中。请务必检查这些以便运行脚本。其中大多数可以通过简单的`pip`命令进行安装。
 >
@@ -340,31 +374,31 @@ carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Vehicle/CustomTerrainPhysicsCom
 
 <!-- ======================================================================= -->
 
-###### 在虚幻编辑器中运行时连接到仿真器。
+###### 在虚幻编辑器中运行时连接到模拟器。 <span id="connect-to-the-simulator-while-running-within-unreal-editor"></span>
 
-> 单击“运行”（ __Play__ ）并等待场景加载。此时，Python 客户端可以像独立仿真器一样连接到仿真器。
+> 单击“运行”（ __Play__ ）并等待场景加载。此时，Python 客户端可以像独立模拟器一样连接到模拟器。
 
 <!-- ======================================================================= -->
 
-###### 无法运行 Carla，无论是二进制还是源代码构建。
+###### 无法运行 Carla，无论是二进制还是源代码构建。 <span id="cant-run-carla-neither-binary-nor-source-build"></span>
 
 > NVIDIA 驱动程序可能已过时。确保情况并非如此。如果问题仍未解决，请查看 [论坛](https://github.com/carla-simulator/carla/discussions/) 并发布具体问题。
 
 <!-- ======================================================================= -->
 
-###### ImportError: DLL load failed: The specified module could not be found.
+###### ImportError: DLL load failed: The specified module could not be found. <span id="importerror-dll-load-failed-the-specified-module-could-not-be-found"></span>
 
 > 所需的库之一尚未正确安装。作为解决方法，请转至 `carla\Build\zlib-source\build`并在脚本的路径中复制名为 `zlib.dll` 的文件。
 
 <!-- ======================================================================= -->
 
-###### ImportError: DLL load failed while importing libcarla: %1 is not a valid Win32 app.
+###### ImportError: DLL load failed while importing libcarla: %1 is not a valid Win32 app. <span id="importerror-dll-load-failed-while-importing-libcarla-1-is-not-a-valid-win32-app"></span>
 
 > 32 位 Python 版本在尝试运行脚本时会产生冲突。卸载它并仅保留所需的 Python3 x64。
 
 <!-- ======================================================================= -->
 
-###### ImportError: No module named 'carla'
+###### ImportError: No module named 'carla' <span id="importerror-no-module-named-carla"></span>
 
 > 出现此错误的原因是 Python 找不到 Carla 库。Carla 库包含在位于`PythonAPI/carla/dist`目录中的一个`.egg`文件中，所有示例脚本都将在此目录中查找它。该`.egg`文件遵循carla-<carla-version>-py<python-version>-<operating-system>.egg 命名法。
 >
@@ -403,15 +437,21 @@ carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Vehicle/CustomTerrainPhysicsCom
 > 请注意，虚拟环境或 Conda 等其他 Python 环境可能会使 Carla 的安装变得复杂。确保您已相应地设置 Python 默认值和路径。
 
 
-###### RuntimeError: rpc::rpc_error during call in function apply_batch
+###### RuntimeError: rpc::rpc_error during call in function apply_batch <span id="rpc_error"></span>
 > PythonAPI的版本要和Carla服务的版本一致，比如dev分支的代码编译得到的虚幻编辑器运行的场景也要用dev分支代码编译的PythonAPI进行连接。
+
+
+###### ValueError: sticky_control: invalid value type <span id="value_error"></span>
+> 客户端和服务端的PythonAPI版本不一致，在dev分支开发时会出现。
+> 
+> 解决：服务端是dev分支，PythonAPI也要使用在dev分支上编译的客户端。
 
 ---
 
 ## 其他
 <!-- ======================================================================= -->
 
-###### Fatal error: 'version.h' has been modified since the precompiled header.
+###### Fatal error: 'version.h' has been modified since the precompiled header. <span id="fatal-error-versionh-has-been-modified-since-the-precompiled-header"></span>
 
 > 由于 Linux 更新，这种情况时常发生。Makefile 中有一个针对此问题的特殊目标。虽然花了很长时间，但解决了问题： 
 >
@@ -420,7 +460,7 @@ carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Vehicle/CustomTerrainPhysicsCom
 
 <!-- ======================================================================= -->
 
-###### 创建 Carla 的二进制版本。
+###### 创建 Carla 的二进制版本。 <span id="create-a-binary-version-of-carla"></span>
 
 > 在 Linux 中，在项目文件夹中运行 `make package`。该包将包括项目和 Python API 模块。 
 >
@@ -428,12 +468,12 @@ carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Vehicle/CustomTerrainPhysicsCom
 
 <!-- ======================================================================= -->
 
-###### 我可以在 Linux 计算机上打包适用于 Windows 的 Carla，反之亦然吗？
+###### 我可以在 Linux 计算机上打包适用于 Windows 的 Carla，反之亦然吗？ <span id="can-i-package-carla-for-windows-on-a-linux-machine-and-vice-versa"></span>
 
 >虽然此功能适用于虚幻引擎，但在 Carla 中不可用。我们有许多不支持交叉编译的依赖项。
 
 <!-- ======================================================================= -->
-###### 如何卸载 Carla 客户端库？
+###### 如何卸载 Carla 客户端库？ <span id="how-do-i-uninstall-the-carla-client-library"></span>
 
 >如果您使用 __pip/pip3__ 安装了客户端库，则应通过运行以下命令将其卸载： 
 

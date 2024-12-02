@@ -1,6 +1,6 @@
 # NVIDIA Omniverse 的 SimReady 内容
 
-NVIDIA 的 [__SimReady__](https://developer.nvidia.com/omniverse/simready-assets) 规范支持准备专 __为仿真而构建的三维内容__，有助于简化仿真三维虚拟环境的内容创建管道，以实现机器人和自动驾驶中的机器学习目的。通过现已集成到 Carla 中的 Omniverse 虚幻引擎插件，用户只需点击几下即可导入 SimReady 内容，例如已配置工作灯、门、车轮和道具的车辆，可立即用于装饰 Carla  地图。 Carla  的 Omniverse 集成能够显着加速您的环境构建流程，并为 [__Omniverse 生态系统__](https://www.nvidia.com/en-us/omniverse/ecosystem/) 中的整个应用程序世界打开大门。
+NVIDIA 的 [__SimReady__](https://developer.nvidia.com/omniverse/simready-assets) 规范支持准备专 __为模拟而构建的三维内容__，有助于简化模拟三维虚拟环境的内容创建管道，以实现机器人和自动驾驶中的机器学习目的。通过现已集成到 Carla 中的 Omniverse 虚幻引擎插件，用户只需点击几下即可导入 SimReady 内容，例如已配置工作灯、门、车轮和道具的车辆，可立即用于装饰 Carla  地图。 Carla  的 Omniverse 集成能够显着加速您的环境构建流程，并为 [__Omniverse 生态系统__](https://www.nvidia.com/en-us/omniverse/ecosystem/) 中的整个应用程序世界打开大门。
 
 !!! 笔记
     Omniverse 虚幻引擎连接器目前仅在 Windows 中可用。
@@ -28,7 +28,7 @@ NVIDIA 的 [__SimReady__](https://developer.nvidia.com/omniverse/simready-assets
 4. 创建管理员详细信息
 5. 选择*Local Nucleus Service*旁边的文件夹图标，这应该在 Web 浏览器中打开本地主机服务器
 
-### 3. 连接 Carla  仿真器
+### 3. 连接 Carla  模拟器
 
 1. 从 Carla 根文件夹命令行使用 `make launch` 启动 Carla
 2. 如果现有服务器处于活动状态并且您想要重新启动设置，请单击*Clean Local Assets*（可选） 

@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
+# 需要提前运行好湖南工商大学的地图：https://openhutb.github.io/carla_doc/core_map/
 import carla
 import time
 import argparse
 
 spectator_obj_list = []
 from agents.navigation.behavior_agent import BehaviorAgent
+
 
 diming = {
     "北门": {"x": 280.2, "y": 1.7, "z": 1},
@@ -17,7 +19,8 @@ diming = {
     "科技楼": {"x": -97.4, "y": -217, "z": 15},
 }
 
-def main( ):
+
+def main():
     argparser = argparse.ArgumentParser(
         description=__doc__)
     argparser.add_argument(

@@ -4,7 +4,7 @@ Carla 在客户端库中集成了 [责任敏感安全的 C++ 库](https://github
 
 *   [__概述__](#overview)
 *   [__编译__](#compilation)
-	*   [以来](#dependencies)
+	*   [依赖](#dependencies)
 	*   [构建](#build)
 *	[__当前状态__](#current-state)
 	*   [RssSensor](#rsssensor)
@@ -14,10 +14,10 @@ Carla 在客户端库中集成了 [责任敏感安全的 C++ 库](https://github
     此功能正在开发中。目前，它仅适用于 Linux 版本。
 
 ---
-## 概述
+## 概述 <span id="overview"></span>
 
 
-责任敏感安全库实现了安全保证的数学模型。它接收传感器信息，并向车辆控制器提供限制。综上所述，责任敏感安全模块使用传感器数据来定义 __情况__。情境描述了自我车辆与环境元素的状态。对于每种情况，都会进行安全检查，并计算适当的响应。总体响应是所有响应的综合结果。有关该库的具体信息，请阅读 [文档](https://intel.github.io/ad-rss-lib/) ，尤其是 [背景部分](https://intel.github.io/ad-rss-lib/ad_rss/Overview/) 。
+责任敏感安全库实现了安全保证的数学模型。它接收传感器信息，并向车辆控制器提供限制。综上所述，责任敏感安全模块使用传感器数据来定义 __情况__。情境描述了自主车辆与环境元素的状态。对于每种情况，都会进行安全检查，并计算适当的响应。总体响应是所有响应的综合结果。有关该库的具体信息，请阅读 [文档](https://intel.github.io/ad-rss-lib/) ，尤其是 [背景部分](https://intel.github.io/ad-rss-lib/ad_rss/Overview/) 。
 
 这是在 Carla 中使用两个元素实现的。
 
@@ -52,13 +52,13 @@ __4. RssRestrictor__
 <div style="text-align: right"><i>结果的可视化。</i></div>
 
 ---
-## 编译
+## 编译 <span id="compilation"></span>
 
 __责任敏感安全__ 集成必须与 Carla 的其余部分分开构建。__ad-rss-lib__ 附带 LGPL-2.1 开源许可证，这会产生冲突。它必须静态链接到 *libCarla*。
 
 提醒一下，到目前为止，该功能仅适用于 Linux 版本。
 
-### 依赖
+### 依赖 <span id="dependencies"></span>
 
 构建 __责任敏感安全__ 及其依赖项还需要其他先决条件。查看[官方文档](https://intel.github.io/ad-rss-lib/BUILDING) 以了解更多信息。
 
@@ -78,7 +78,7 @@ sudo apt-get install castxml
 pip3 install --user pygccxml pyplusplus
 ```
 
-### 构建
+### 构建 <span id="build"></span>
 
 完成此操作后，即可构建完整的依赖项和 __责任敏感安全__ 组件集。
 
@@ -100,15 +100,15 @@ make package.rss
 ```
 
 ---
-## 当前状态
+## 当前状态 <span id="current-state"></span>
 
-### RssSensor
+### RssSensor <span id="rsssensor"></span>
 
 [__carla.RssSensor__](python_api.md#carla.RssSensor) 完全支持 [ad-rss-lib v4.2.0 功能集](https://intel.github.io/ad-rss-lib/RELEASE_NOTES_AND_DISCLAIMERS) ，包括交叉路口、 [stay on road](https://intel.github.io/ad-rss-lib/ad_rss_map_integration/HandleRoadBoundaries/) 支持和 [非结构化的 constellations（比如：行人）](https://intel.github.io/ad-rss-lib/ad_rss/UnstructuredConstellations/) 。
 
 到目前为止，服务器为传感器提供了周围环境的真实数据，包括其他交通参与者和交通信号灯的状态。
 
-### RssRestrictor
+### RssRestrictor <span id="rssrestrictor"></span>
 
 当客户但调用时，[__carla.RssRestrictor__](python_api.md#carla.RssRestrictor) 将修改车辆控制器，以通过给定的响应最好地达到所需的加速度或减速度。
 

@@ -10,9 +10,9 @@
 
 ---
 
-## 在你开始之前
+## 在你开始之前 <span id="before-you-begin"></span>
 
-##### 系统要求
+##### 系统要求 <span id="system-requirements"></span>
 
 您需要满足以下系统要求：
 
@@ -20,7 +20,7 @@
 - 至少 8GB 内存
 - 用于初始容器构建过程的至少 600GB 可用磁盘空间
 
-##### 软件要求
+##### 软件要求 <span id="software-requirements"></span>
 
 __Docker:__ 
 
@@ -47,7 +47,7 @@ git clone https://github.com/carla-simulator/carla
 
 ---
 
-## 构建镜像
+## 构建镜像 <span id="building-the-images"></span>
 
 以下步骤将花费很长时间。
 
@@ -75,7 +75,7 @@ docker build -t carla -f Carla.Dockerfile . --build-arg GIT_BRANCH=<branch_or_ta
 
 ---
 
-## 下一步：打包
+## 下一步：打包 <span id="next-steps-packages"></span>
 
 本指南中创建的 Carla 镜像用于创建独立的 Carla 包或打包地图或网格等资源，以便它们可以在 Carla 包中使用。这是通过使用`Util/Docker`中的脚本 `docker_tools.py` 来实现的。该脚本用于[`docker-py`](https://github.com/docker/docker-py) 处理 Docker 镜像映像。
 

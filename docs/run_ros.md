@@ -1,6 +1,6 @@
 # ROS 桥包
 
-`carla_ros_bridge` 包是运行基本 ROS 桥接功能所需的主包。在本节中，您将学习如何准备 ROS 环境、运行 ROS 桥、如何配置设置、同步模式的使用、控制自主车辆以及可用的订阅、出版物和服务的摘要。
+`carla_ros_bridge` 包是运行基本 ROS 桥接功能所需的主包。在本节中，您将学习如何准备 ROS 环境、运行 ROS 桥、如何配置设置、同步模式的使用、控制自主车辆以及可用的订阅、发布和服务的摘要。
 
 - [__设置 ROS 环境__](#setting-the-ros-environment)
     - [准备 ROS 1 环境](#prepare-ros-1-environment)
@@ -8,7 +8,7 @@
 - [__运行 ROS 桥__](#running-the-ros-bridge)
 - [__配置 Carla 设置__](#configuring-carla-settings)
 - [__在同步模式下使用 ROS 桥__](#using-the-ros-bridge-in-synchronous-mode)
-- [__自我车辆控制__](#ego-vehicle-control)
+- [__自主车辆控制__](#ego-vehicle-control)
 - [__ROS 应用程序接口__](#ros-api)
     - [订阅](#subscriptions)
     - [发布](#publications)
@@ -66,20 +66,20 @@ roslaunch carla_ros_bridge carla_ros_bridge.launch passive:=True
 
 可以使用以下设置：
 
-* __use_sim_time__: 应设置为 __True__ 以确保 ROS 使用仿真时间而不是系统时间。该参数将使 ROS [`/clock`][ros_clock] 主题与 Carla 仿真时间同步。
+* __use_sim_time__: 应设置为 __True__ 以确保 ROS 使用模拟时间而不是系统时间。该参数将使 ROS [`/clock`][ros_clock] 主题与 Carla 模拟时间同步。
 *  __host and port__: 使用 Python 客户端连接到 Carla 的网络设置。
 * __timeout__: 等待成功连接到服务器的时间。
 * __passive__: 被动模式用于同步模式。启用后，ROS 桥接器将退居次要地位，而另一个客户端 __必须__ 与世界打交道。ROS 桥将等待接收来自所有传感器的所有预期数据。
 *  __synchronous_mode__:
-	*  __如果是 false__: 数据在每个滴答信号`world.on_tick()`和每个`sensor.listen()`回调时进行发布。
-	*  __如果是 true （默认）__: ROS 桥在下一个滴答信号之前等待所有预期的传感器消息。这可能会减慢整个仿真的速度，但可以确保结果的可重复性。
+	*  __如果是 false__: 数据在每个节拍`world.on_tick()`和每个`sensor.listen()`回调时进行发布。
+	*  __如果是 true （默认）__: ROS 桥在下一个节拍之前等待所有预期的传感器消息。这可能会减慢整个模拟的速度，但可以确保结果的可重复性。
 *  __synchronous_mode_wait_for_vehicle_control_command__: 在同步模式下，暂停计时直到车辆控制完成。
-*  __fixed_delta_seconds__: 仿真步骤之间的仿真时间（增量秒）。__它必须低于 0.1__。查看 [文档](https://carla.readthedocs.io/en/latest/adv_synchrony_timestep/) 以了解更多相关信息。
-*  __ego_vehicle__: 用于识别自我车辆的角色名称。将创建相关主题，以便能够通过 ROS 控制这些车辆。
+*  __fixed_delta_seconds__: 模拟步骤之间的模拟时间（增量秒）。__它必须低于 0.1__。查看 [文档](https://carla.readthedocs.io/en/latest/adv_synchrony_timestep/) 以了解更多相关信息。
+*  __ego_vehicle__: 用于识别自我车辆的参与者名称。将创建相关主题，以便能够通过 ROS 控制这些车辆。
 * __town__: 使用可用的 Carla 城镇（例如“town01”）或 OpenDRIVE 文件（以 `.xodr` 结尾）。
 *  __register_all_sensors__:
 	*  __如果是 false__: 仅注册桥生成的传感器。
-	*  __如果是 true（默认）__: 仿真中存在的所有传感器均已注册。
+	*  __如果是 true（默认）__: 模拟中存在的所有传感器均已注册。
 
 
 [ros_clock]: https://wiki.ros.org/Clock
@@ -90,7 +90,7 @@ roslaunch carla_ros_bridge carla_ros_bridge.launch passive:=True
 
 ROS 桥默认以同步模式运行。它将等待当前帧内预期的所有传感器数据，以确保可重现的结果。
 
-当以同步模式运行多个客户端时，只允许一个客户端向世界发滴答信号。除非启用被动模式，否则默认情况下，ROS 桥接器将是唯一允许与世界交互的客户端。在 [`ros-bridge/carla_ros_bridge/config/settings.yaml`](https://github.com/carla-simulator/ros-bridge/blob/master/carla_ros_bridge/config/settings.yaml) 中启用被动模式将使 ROS 桥后退一步，并允许另一个客户端来操作世界。__另一个客户必须向世界发滴答信号，否则 Carla 将冻结。__
+当以同步模式运行多个客户端时，只允许一个客户端向世界发节拍。除非启用被动模式，否则默认情况下，ROS 桥接器将是唯一允许与世界交互的客户端。在 [`ros-bridge/carla_ros_bridge/config/settings.yaml`](https://github.com/carla-simulator/ros-bridge/blob/master/carla_ros_bridge/config/settings.yaml) 中启用被动模式将使 ROS 桥后退一步，并允许另一个客户端来操作世界。__另一个客户必须向世界发节拍，否则 Carla 将冻结。__
 
 如果 ROS 桥接器不处于被动模式（ROS 桥接器是唯一的），则有两种方法将步进控制发送到服务器：
 
@@ -126,14 +126,13 @@ ros2 launch carla_ros_bridge carla_ros_bridge_with_example_ego_vehicle.launch.py
 __2.__ 在另一个终端中，发布到主题 `/carla/<ROLE NAME>/vehicle_control_cmd`
 
 ```sh
-    # 最大向前油门，最大向右转向
+# 最大向前油门，最大向右转向
 
-    # for ros1
-    rostopic pub /carla/ego_vehicle/vehicle_control_cmd carla_msgs/CarlaEgoVehicleControl "{throttle: 1.0, steer: 1.0}" -r 10
+# 对于 ros1
+rostopic pub /carla/ego_vehicle/vehicle_control_cmd carla_msgs/CarlaEgoVehicleControl "{throttle: 1.0, steer: 1.0}" -r 10
 
-    # for ros2
-    ros2 topic pub /carla/ego_vehicle/vehicle_control_cmd carla_msgs/CarlaEgoVehicleControl "{throttle: 1.0, steer: 1.0}" -r 10
-
+# 对于 ros2
+ros2 topic pub /carla/ego_vehicle/vehicle_control_cmd carla_msgs/CarlaEgoVehicleControl "{throttle: 1.0, steer: 1.0}" -r 10
 ```
 
 当前车辆的状态可以通过主题 `/carla/<ROLE NAME>/vehicle_status` 获得。有关车辆的静态信息可以通过`/carla/<ROLE NAME>/vehicle_info`接收.
@@ -150,7 +149,7 @@ __2.__ 在另一个终端中，发布到主题 `/carla/<ROLE NAME>/vehicle_contr
 |--------------------------|-----------------------------------------------------------------------------------------------------------------------------------|------------------|
 | `/carla/debug_marker`    | [可视化_msgs/MarkerArray](https://docs.ros.org/en/api/visualization_msgs/html/msg/MarkerArray.html)                        | 在 Carla 世界中绘制标记。 |
 | `/carla/weather_control` | [carla_msgs/CarlaWeatherParameters](https://github.com/carla-simulator/ros-carla-msgs/blob/master/msg/CarlaWeatherParameters.msg) | 设置 Carla 天气参数    |
-| `/clock`                 | [rosgraph_msgs/Clock](https://docs.ros.org/en/melodic/api/rosgraph_msgs/html/msg/Clock.html)                                      | 在 ROS 中发布仿真时间。 |
+| `/clock`                 | [rosgraph_msgs/Clock](https://docs.ros.org/en/melodic/api/rosgraph_msgs/html/msg/Clock.html)                                      | 在 ROS 中发布模拟时间。 |
 
 <br>
 
@@ -164,7 +163,7 @@ __2.__ 在另一个终端中，发布到主题 `/carla/<ROLE NAME>/vehicle_contr
 |---------------------|----------------------------------------------------------------------------------------------|-------------------|
 | `/carla/status`     | [carla_msgs/CarlaStatus](ros_msgs.md#carlastatusmsg)                                         | 读取 Carla 的当前状态    |
 | `/carla/world_info` | [carla_msgs/CarlaWorldInfo](ros_msgs.md#carlaworldinfomsg)                                   | 有关当前 Carla 地图的信息。 |
-| `/clock`            | [rosgraph_msgs/Clock](https://docs.ros.org/en/melodic/api/rosgraph_msgs/html/msg/Clock.html) | 在 ROS 中发布仿真时间。  |
+| `/clock`            | [rosgraph_msgs/Clock](https://docs.ros.org/en/melodic/api/rosgraph_msgs/html/msg/Clock.html) | 在 ROS 中发布模拟时间。  |
 | `/rosout`           | [rosgraph_msgs/Log](https://docs.ros.org/en/melodic/api/rosgraph_msgs/html/msg/Log.html)     | ROS 日志记录。      |
 
 <br>
