@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>修改红绿灯 - 代理模拟文档</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u4fee\u6539\u7ea2\u7eff\u706f";
+        var mkdocs_page_input_path = "tuto_G_modify_trafficlight.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 代理模拟文档
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">首页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">代理模拟文档</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">修改红绿灯</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/tuto_G_modify_trafficlight.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">修改红绿灯</h1>
+<h3 id="1"><strong>1.红绿灯分组</strong></h3>
+<p>由于在Carla仿真场景中的一个交叉路口的红绿灯是分配在一个红绿灯组内，那么红绿是相互影响的。同一时刻只有一个红绿灯是处于绿灯状态，并且一个红绿灯的红灯时间结束后会因为等待其他红绿灯都显示一次绿灯而继续表现为红灯状态，这些都与现实是不符合的。</p>
+<p>那么，我们单独将一个红绿灯作为一组，如下图所示：</p>
+<p>a.将AmericanLights和BP_TrafficLightGroup放入场景中</p>
+<p><img alt="" src="../img/tuto_G_modify_trafficlight/1.png" /></p>
+<p>b.点击BP_TrafficLightGroup，选择AmericanLights作为该组元素，接下来对于每次添加的红绿灯都单独的成一个分组</p>
+<p><img alt="" src="../img/tuto_G_modify_trafficlight/2.png" /></p>
+<p>c.这样红绿灯之间便互不影响，按各自配时运转，可以同时为绿灯，如图所示：</p>
+<p><img alt="" src="../img/tuto_G_modify_trafficlight/3.png" /></p>
+<h3 id="2">2.<strong>红绿灯拆分</strong></h3>
+<p>当前红绿灯的左转、直行和右转是按照同一时间变化的，也就是说直行的同时，该方向车辆的最左侧车道还能在路口左转。因此，为了满足现实需要，要将红绿灯的左转和直行方案分开。</p>
+<p>我们是通过这样来实现这个功能的，如下图所示：</p>
+<p>a.通过复制的方式将两个红绿灯重叠在一起,或者自行设置相同的坐标</p>
+<p><img alt="" src="../img/tuto_G_modify_trafficlight/4.png" /></p>
+<p>b.保留左转方向红绿灯则调整该红绿灯的右侧两个灯Y坐标后移暴露另一红绿灯的右侧直行灯，然后将另一红绿灯左转灯Y坐标后移，最后将这两个红绿灯分到同一组内，但也会出现互相影响。</p>
+<p><img alt="" src="../img/tuto_G_modify_trafficlight/5.png" /></p>
+<p>注意：删除某个红绿灯上不需要的灯也是可行的，就是说不需要调整隐藏这个过程，但是测试显示，要保留左转灯而删除右侧两个灯时，左转灯变成圆形灯光效果！！</p>
+<p>c.最后显示结果如下：</p>
+<p><img alt="" src="../img/tuto_G_modify_trafficlight/6.png" /></p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
