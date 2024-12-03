@@ -58,7 +58,7 @@ PID、基于模型的控制。
 ### 代理
 * 虚拟人预测驾驶行为的神经激活结构
 
-* [CloningDCB](walker/cloning_DCB.md) ：[基于克隆驾驶员认知行为的自动驾驶](https://www.linkedin.com/posts/carla-simulator_cloningdcb-research-is-supported-by-project-activity-7188621705307635712-6bes/) ，[技术报告](https://www.webology.org/data-cms/articles/20201222123506pmWEB17061.pdf) 。
+* [CloningDCB](pedestrian/cloning_DCB.md) ：[基于克隆驾驶员认知行为的自动驾驶](https://www.linkedin.com/posts/carla-simulator_cloningdcb-research-is-supported-by-project-activity-7188621705307635712-6bes/) ，[技术报告](https://www.webology.org/data-cms/articles/20201222123506pmWEB17061.pdf) 。
 
 驾驶、行走、站立、跑步；
 

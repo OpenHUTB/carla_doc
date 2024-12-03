@@ -1,8 +1,8 @@
 # [引用了Carla的相关库](https://github.com/carla-simulator/carla/network/dependents)
 
-<!-- 页面开始：https://github.com/manuandru/svs-lab02 -->
+<!-- 更新到最新的仓库： https://github.com/DivitMittal/CARLA-Autonomous-Driving --> 
 
-<!-- 更新到最新的仓库： https://github.com/Robot-K/Hint-AD --> 
+<!-- 页面开始：https://github.com/manuandru/svs-lab02 -->
 
 <!-- https://github.com/yagol2020/ADSFuzzEval -->
 
