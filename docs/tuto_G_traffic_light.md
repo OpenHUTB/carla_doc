@@ -3,12 +3,10 @@
 ## 交通灯在Carla中的简单配置
 
 1. 从内容浏览器中选择**Carla > Static > TrafficLight > StreetLights_01**下的交通灯蓝图。
-
 2. 将交通灯拖到场景中，进行位置调整。
-
 3. 与交通灯相连接的有一个**立方体组件**，通过拖到这个立方体的位置和改变长度来决定对应红绿灯的影响范围。
-
 4. 将交通灯分配给路口交通灯组：从内容浏览器中选择**Carla > Static > TrafficLight > StreetLights_01**下选择**BP_TrafficLightGroup**拖动到路口，并在该对象的细节面板下找到**Traffic Light**，将需要添加到该路口组的交通灯设置。
+5. [此处](tuto_G_modify_trafficlight.md)可以将交通灯直行和左转分别配时，或者将每个路口的交通灯不在同一个分组中，互不影响。
 
 **参考链接：**[内容创作 - 地图 - 交通模拟器文档 (openhutb.github.io)](https://openhutb.github.io/carla_doc/tuto_content_authoring_maps/#_5)的交通灯部分
 
