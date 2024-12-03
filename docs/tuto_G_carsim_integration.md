@@ -134,3 +134,6 @@ vehicle.enable_carsim(<path_to_ue4simfile.sim>)
 ![carsim analysis](img/carsim_analysis.jpg)
 
 
+## 参考
+[Unreal Engine CarSim_Unreal_plugin手册](https://download.csdn.net/download/weixin_42007179/10687512)
+

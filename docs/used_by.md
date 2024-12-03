@@ -1,8 +1,8 @@
 # [引用了Carla的相关库](https://github.com/carla-simulator/carla/network/dependents)
 
-<!-- 开始：https://github.com/manuandru/svs-lab02 -->
+<!-- 页面开始：https://github.com/manuandru/svs-lab02 -->
 
-<!-- https://github.com/Robot-K/Hint-AD --> 
+<!-- 更新到最新的仓库： https://github.com/Robot-K/Hint-AD --> 
 
 <!-- https://github.com/yagol2020/ADSFuzzEval -->
 
@@ -50,6 +50,9 @@
 
 [模拟一辆监控用户并检测碰撞的汽车](https://github.com/BrunoBerger/Connected-Vehicles)
 
+[使用YOLOv3进行车辆检测](https://github.com/ROBERT-ADDO-ASANTE-DARKO/Autonomous-Vehicle-Object-Detection-and-Trajectory-Planning-using-YOLOv3-and-CARLA-Simulator)
+
+
 ### 跟踪
 
 [多车辆跟踪](https://github.com/Bsornapudi/Carla-YOLO-DeepSort-Multi-Object-Tracking) - 结合 YOLO 和 DeepSORT 的多目标跟踪
@@ -59,6 +62,9 @@
 [2D 目标跟踪](https://github.com/wuhanstudio/2d-carla-tracking)
 
 ### 分割
+
+[深度语义分割](https://github.com/DivitMittal/CARLA-Autonomous-Driving)
+
 [无监督分割](https://github.com/flixtkc/Unsupervised-Segmentation-for-Autonomous-Driving-Cars)
 
 [用于自动地形驾驶的 LiDAR 和 RGB 图像的语义分割](https://github.com/atoft97/masterToft)
@@ -112,6 +118,8 @@
 [基于 PPO（和 SAC）算法执行自动驾驶的端到端运动规划](https://github.com/Karthik-Ragunath/carla_sac)
 
 ### 强化学习
+
+[Actor-Critic 强化学习在 CARLA 模拟器中训练自动驾驶代理](https://github.com/andyzhang8/Autonomous-Vehicle-Control-CNN)
 
 [强化学习在自动驾驶汽车中用于避免碰撞的端到端应用](https://github.com/gustavomoers/E2E-CARLA-ReinforcementLearning-PPO) - 处理 RGB 摄像头输入以做出实时加速和转向决策
 
@@ -243,6 +251,9 @@
 
 
 ## 控制
+
+[模型预测控制](https://github.com/MoYasser1777/Digital-Twin-GP)
+
 [使用脉冲神经网络和实时学习的连续自适应非线性模型预测控制](https://github.com/rhalaly/Adaptive-MPC-With-SNN)
 
 [模型预测控制 (MPC)](https://github.com/Slimercorp/MPC-Carla)
@@ -309,6 +320,10 @@
 
 [进行随机驾驶场景生成过程](https://github.com/KeyingLucyWang/Safe_Reconfiguration_Scenarios)
 
+[定制的安全关键场景生成框架](https://github.com/Jackie-Bai888/CSC)
+
+[基于搜索的场景生成算法](https://github.com/idslab-autosec/AutoSVT-Algorithms)
+
 ### 车辆
 
 [半挂卡车队列框架](https://github.com/Gaochengzhi/Carla_Truck_Platoon/tree/main)
@@ -338,6 +353,8 @@
 
 
 ## 端到端
+
+[寻求更好的端到端自动驾驶解决方案](https://github.com/baotram153/E2E-AD)
 
 [视觉感知、状态估计和定位以及运动规划](https://github.com/NikhilKamathB/SDC?tab=readme-ov-file)
 
@@ -382,6 +399,8 @@
 [端到端自动驾驶的规划专家混合模型](https://github.com/mhnazeri/PMoE)
 
 [端到端自动驾驶汽车使用模仿学习，并使用 GAN 进行未来预测](https://github.com/eslambakr/Future_Imitiation)
+
+[具有自适应感知和稳健决策的节能自动驾驶](https://github.com/xiayuyang/Ene-AD)
 
 ## 大模型
 
@@ -566,7 +585,13 @@
 
 [从 CARLA 收集数据并将其保存为 Webdataset 的脚本](https://github.com/HemuManju/carla-data-collector)
 
+[基于动态情况的相关传感器数据选择](https://github.com/akshaynarla/DySi_Select)
+
 ## 工具
+
+[驾驶试验](https://github.com/VIPERFGCU/FGCUDrivingSimulator)
+
+[gym 环境](https://github.com/natelincyber/carla-gym-optim)
 
 [控制 CARLA 模拟器的 Web 界面](https://github.com/mateus-aleixo/carla-webui)
 
@@ -688,6 +713,14 @@
 [机器学习演示](https://github.com/kishkaru/ML-demos)
 
 ## 杂项
+
+[通过专家协作增强自动驾驶系统](https://github.com/Expert-AD/ExpertAD)
+
+[2024-tfg-felix-martinez](https://github.com/RoboticsLabURJC/2024-tfg-felix-martinez)
+
+[多种传感器配置、实时可视化和自动数据收集](https://github.com/ssh-keyz/weathering-the-storm)
+
+[CARLA-vehicle-simulation](https://github.com/TO-autonomy/CARLA-vehicle-simulation/tree/main)
 
 [油管博主示例](https://github.com/vadim7s/SelfDrive)
 

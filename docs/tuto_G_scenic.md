@@ -184,4 +184,9 @@ Carla 模型提供了几个全局参数，可以在使用 [`param` 语句](https
 | `render`    | `int`          | 是否让 Carla 创建一个窗口，从自我客体的角度显示模拟：`1`是，`0`否。默认`1`。                                                                              |
 | `record`    | `str`          | 如果非空，则保存用于重放模拟的 Carla 记录文件的文件夹。         |
 
+## 参考链接
+
+* [Carla中交通场景的Scenic世界模型](https://docs.scenic-lang.org/en/3.x/modules/scenic.simulators.carla.model.html) ，对应的 [代码](https://docs.scenic-lang.org/en/3.x/_modules/scenic/simulators/carla/model.html) 。
+* 
+
 <br>
