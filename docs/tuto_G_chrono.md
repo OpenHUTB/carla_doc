@@ -31,7 +31,7 @@ make launch ARGS="--chrono"
 ```
 
 !!! 注意
-    使用上述命令编译后，再运行`make launch`、`make package`则编译报错：`Unreal\CarlaUE4\Plugins\Carla\CarlaDependencies\include\Eigen\src/Core/util/ForwardDeclarations.h(58): error C4067: 预处理器指令后有意外标记 - 应输入换行符`，原因不明。
+    使用上述命令编译后，再运行`make launch`、`make package`则编译报错：`Unreal\CarlaUE4\Plugins\Carla\CarlaDependencies\include\Eigen\src/Core/util/ForwardDeclarations.h(58): error C4067: 预处理器指令后有意外标记 - 应输入换行符`，需要用`make launch ARGS="--chrono"`，不能用`make launch`启动，原因不明。
 
 ---
 

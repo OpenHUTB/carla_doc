@@ -79,7 +79,7 @@ actor = world.spawn_actor(blueprint, transform)
 ```
 
 !!! 重要
-    Carla 使用 [虚幻引擎坐标系统](https://carla.readthedocs.io/en/latest/python_api/#carlarotation) 。记住： [`carla.Rotation`](https://carla.readthedocs.io/en/latest/python_api/#carlarotation) 构造函数定义为“俯仰、偏航、翻滚” `(pitch, yaw, roll)`，与虚幻编辑器的“翻滚、俯仰、偏航” `(roll, pitch, yaw)` 不同。
+    Carla 使用 [虚幻引擎坐标系统](https://openhutb.github.io/carla_doc/python_api/#carlarotation) 。记住： [`carla.Rotation`](https://openhutb.github.io/carla_doc/python_api/#carlarotation) 构造函数定义为“俯仰、偏航、翻滚” `(pitch, yaw, roll)`，与虚幻编辑器的“翻滚、俯仰、偏航” `(roll, pitch, yaw)` 不同。
 
 如果在指定位置发生冲突，将不会生成参与者。无论这种情况发生在静态对象还是其他参与者身上。可以尝试避免这些不希望的生成碰撞。
 

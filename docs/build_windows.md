@@ -376,6 +376,12 @@ libcarla.obj : error LNK2001: 无法解析的外部符号 "class std::basic_stri
 
 注意：使用在线安装文件`vs_community__2019.exe`进行安装，不要使用离线版的vs2019安装包，否则会出现错误：`系统错误：&H8007007E(-2147024770)。 找不到指定的模块`。
 
+
+* 编译时报错`D:/work/workspace/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Server/CarlaServer.cpp(46): fatal error C1083: 无法打开包括文件: “carla/rpc/BoundingBox.h”: No such file or directory`
+
+换了vs环境，需要重新删除`Build/libcarla-visualstudio`，删除之前的 cmake 结果目录并再次运行 make launch(cmake) 后问题就消失了。
+
+
 ---
 
 ## 参考

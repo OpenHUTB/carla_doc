@@ -8,6 +8,7 @@ python manual_control.py --filter walker.pedestrian.*
 
 
 ## 打开车门
+当按`o`时，调用`world.player.open_door(carla.VehicleDoor.All)`打开离行人10cm以内车辆的门。
 
 
 

@@ -15,6 +15,11 @@
 
 * [__常见问题__](build_faq.md)  
  
+
+!!! 注意
+    这些构建指南都是针对 Carla 的虚幻引擎4.26版，如果想要构建 Carla 的虚幻引擎5.5版，请访问 [该版本的正确构建指南](https://carla-ue5.readthedocs.io/en/latest/build_carla/) 。
+
+
 ### 带Carla插件的虚幻编辑器可执行版本
 
 根据 [CarlaUE4链接](https://pan.baidu.com/s/11YbDOsbzYOcnnE3ZTBF-eA?pwd=hutb) 或 [CarlaUE5链接](https://pan.baidu.com/s/1lam-X3rkbY4lvtTe7cpbHA?pwd=hutb) 下载所需版本的文件，解压后运行 `launch_*.bat` 就可以启动带Carla插件的虚幻编辑器。

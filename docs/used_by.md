@@ -6,9 +6,32 @@
 
 <!-- https://github.com/yagol2020/ADSFuzzEval -->
 
+- [__感知__](#perception)
+    - [检测](#detection)
+    - [跟踪](#tracking)
+    - [分割](#segmentation)
+    - [融合](#fusion)
+    - [其他](#other)
+- [__规划__](#planning)
+    - [强化学习](#rl)
+    - [导航](#navigation)
+    - [预测](#prediction)
+    - [决策](#decision)
+- [__控制__](#control)
+- [__场景__](#scene)
+    - [车辆](#vehicle)
+- [__行人__](#pestrian)
+- [__端到端__](#end_2_end)
+- [__大模型__](#llm)
+- [__多智能体__](#mulgi_agent)
+- [__可解释__](#explainability)
+- [__安全__](#security)
+- [__测试__](#test)
+- [__工具__](#tools)
+- [__机器学习__](#ml)
+- [__机器学习__](#misc)
 
-
-## 感知
+## 感知 <span id="perception"></span>
 
 [驾驶事故视频识别](https://github.com/pichayakorn/carla-temporal-collage-prompting)
 
@@ -26,7 +49,7 @@
 
 [执行基本占用率预测](https://github.com/tonychu27/Intelligent-Driving-System/tree/main/HW1)
 
-### 检测
+### 检测 <span id="tracking"></span>
 
 [2D和3D目标检测](https://github.com/Supersonic2510/final_degree_research_project)
 
@@ -53,7 +76,7 @@
 [使用YOLOv3进行车辆检测](https://github.com/ROBERT-ADDO-ASANTE-DARKO/Autonomous-Vehicle-Object-Detection-and-Trajectory-Planning-using-YOLOv3-and-CARLA-Simulator)
 
 
-### 跟踪
+### 跟踪 <span id="tracking"></span>
 
 [多车辆跟踪](https://github.com/Bsornapudi/Carla-YOLO-DeepSort-Multi-Object-Tracking) - 结合 YOLO 和 DeepSORT 的多目标跟踪
 
@@ -61,7 +84,7 @@
 
 [2D 目标跟踪](https://github.com/wuhanstudio/2d-carla-tracking)
 
-### 分割
+### 分割  <span id="segmentation"></span>
 
 [深度语义分割](https://github.com/DivitMittal/CARLA-Autonomous-Driving)
 
@@ -73,7 +96,7 @@
 
 [语义分割驾驶](https://github.com/atoft97/semanticSegmentationDriving)
 
-### 融合
+### 融合 <span id="fusion"></span>
 
 [针对联网自动驾驶汽车的自适应融合冲击感知决策框架](https://github.com/greenday12138/MODUS)
 
@@ -83,7 +106,7 @@
 
 [基于 Transformer 的传感器融合模拟，实现自动驾驶](https://github.com/autonomousvision/transfuser)
 
-### 其他
+### 其他 <span id="other"></span>
 
 [自适应多视图检测](https://github.com/xingjianleng/AdMVDet)
 
@@ -93,7 +116,7 @@
 
 [Carla_IMU_分类器](https://github.com/dasmehdix/Carla_IMU_Classifier)
 
-## 规划
+## 规划 <span id="planning"></span>
 
 [面向高速特权代理的端到端强化学习](https://github.com/eson88866/hspa)
 
@@ -117,7 +140,7 @@
 
 [基于 PPO（和 SAC）算法执行自动驾驶的端到端运动规划](https://github.com/Karthik-Ragunath/carla_sac)
 
-### 强化学习
+### 强化学习 <span id="rl"></span>
 
 [Actor-Critic 强化学习在 CARLA 模拟器中训练自动驾驶代理](https://github.com/andyzhang8/Autonomous-Vehicle-Control-CNN)
 
@@ -220,7 +243,7 @@
 
 [潜在空间强化学习](https://github.com/MarsEleven/car_racer_RL)
 
-### 导航
+### 导航 <span id="navigation"></span>
 
 [基于 GNM、ViNT、NoMaD 的通用导航模型](https://github.com/AdityaNG/general-navigation)
 
@@ -233,7 +256,7 @@
 [测试导航模型对于路线完成任务的稳健性](https://github.com/proroklab/resilient-fusion)
 
 
-### 预测
+### 预测 <span id="prediction"></span>
 
 [多未来轨迹预测](https://github.com/JunweiLiang/Multiverse)
 
@@ -241,7 +264,7 @@
 
 [通过推测在线前瞻自适应实现非平稳环境中的自适应驾驶](https://github.com/Panshark/COLA)
 
-### 决策
+### 决策 <span id="decision"></span>
 
 [多模态感知的参数化决策框架](https://github.com/xiayuyang/AUTO)
 
@@ -250,7 +273,7 @@
 [自动驾驶汽车系统的对抗性闯红灯行为](https://github.com/adhocmaster/carla-jaywalker-experiments)
 
 
-## 控制
+## 控制 <span id="control"></span>
 
 [模型预测控制](https://github.com/MoYasser1777/Digital-Twin-GP)
 
@@ -286,7 +309,7 @@
 
 [基于确定性等价感知的控制](https://github.com/modestyachts/certainty_equiv_perception_control)
 
-## 场景
+## 场景 <span id="scene"></span>
 
 [交通场景定义与执行引擎](https://github.com/carla-simulator/scenario_runner)
 
@@ -324,12 +347,12 @@
 
 [基于搜索的场景生成算法](https://github.com/idslab-autosec/AutoSVT-Algorithms)
 
-### 车辆
+### 车辆 <span id="vehicle"></span>
 
 [半挂卡车队列框架](https://github.com/Gaochengzhi/Carla_Truck_Platoon/tree/main)
 
 
-## 行人
+## 行人 <span id="pedestrian"></span>
 
 [HuMoR：激活导航大脑](https://github.com/GuoYipeng279/myProject) - 人体姿态估计
 
@@ -341,7 +364,7 @@
 
 [行人社会力模型](https://github.com/felixlutz/carla-social-force-model)
 
-[使用 zwift 室内自行车配件在 CARLA 中骑自行车](https://github.com/tensorturtle/cycarla)
+[使用 zwift 室内自行车配件在 Carla 中骑自行车](https://github.com/tensorturtle/cycarla)
 
 [智能人群场景分析引擎](https://github.com/adrielkuek/ITSS_2022)
 
@@ -352,7 +375,7 @@
 [针对横穿马路者的实验](https://github.com/javtran/jaywalker)
 
 
-## 端到端
+## 端到端 <span id="end_2_end"></span>
 
 [寻求更好的端到端自动驾驶解决方案](https://github.com/baotram153/E2E-AD)
 
@@ -402,7 +425,7 @@
 
 [具有自适应感知和稳健决策的节能自动驾驶](https://github.com/xiayuyang/Ene-AD)
 
-## 大模型
+## 大模型 <span id="llm"></span>
 
 [使用大型视觉模型作为 AV 的驱动代理](https://github.com/AdityaNG/DriveLLaVA)
 
@@ -410,7 +433,7 @@
 
 [扩散驱动](https://github.com/AyexGG/DiffuseDrive_dennisv)
 
-## 多智能体
+## 多智能体 <span id="mulgi_agent"></span>
 
 [基于LLM的交通流生成](https://github.com/CXYyp5SkNg/CXYyp5SkNg.github.io) ，效果[视频](https://github.com/CXYyp5SkNg/CXYyp5SkNg.github.io/blob/main/README.md) 
 
@@ -434,7 +457,7 @@
 
 [联邦学习自动驾驶](https://github.com/SIAT-INVS/CarlaFLCAV)
 
-## 可解释
+## 可解释 <span id="explainability"></span>
 
 [反事实解释](https://github.com/darshandodamani/KontrafaktischeErkl-rungzurAD-Masterarbeit) ：确定输入中的哪些微小变化会改变模型的决策。
 
@@ -462,7 +485,7 @@
 
 [端到端自动驾驶中整体一致的可解释性](https://github.com/Robot-K/Hint-AD)
 
-## 安全
+## 安全 <span id="security"></span>
 
 [联网和自动驾驶汽车的攻击模拟框架](https://github.com/tum-esi/simutack) - 包含系统代码和视频
 
@@ -520,7 +543,7 @@
 
 [自主信息物理系统运行时风险评估框架](https://github.com/scope-lab-vu/Resonate)
 
-## 测试
+## 测试 <span id="test"></span>
 
 [评估端到端](https://github.com/YangyangFu/fsd-agents-carla)
 
@@ -547,7 +570,7 @@
 [稳健性引导测试：CARLA、RSS、参数探索](https://github.com/nellro/rgt)
 
 
-## 数据集
+## 数据集 <span id="dataset"></span>
 
 [车辆语义分割数据集](https://github.com/yjzhai-cs/RFL-Collector)
 
@@ -587,7 +610,7 @@
 
 [基于动态情况的相关传感器数据选择](https://github.com/akshaynarla/DySi_Select)
 
-## 工具
+## 工具 <span id="tools"></span>
 
 [驾驶试验](https://github.com/VIPERFGCU/FGCUDrivingSimulator)
 
@@ -706,13 +729,13 @@
 
 [用于深度强化学习的多智能体互联自动驾驶 (MACAD) Gym 环境](https://github.com/praveen-palanisamy/macad-gym)
 
-## 深度学习
+## 机器学习 <span id="ml"></span>
 
 [基于动作的自动驾驶表征学习](https://github.com/yixiao1/Action-Based-Representation-Learning)
 
 [机器学习演示](https://github.com/kishkaru/ML-demos)
 
-## 杂项
+## 杂项 <span id="misc"></span>
 
 [通过专家协作增强自动驾驶系统](https://github.com/Expert-AD/ExpertAD)
 

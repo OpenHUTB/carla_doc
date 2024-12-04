@@ -187,6 +187,6 @@ Carla 模型提供了几个全局参数，可以在使用 [`param` 语句](https
 ## 参考链接
 
 * [Carla中交通场景的Scenic世界模型](https://docs.scenic-lang.org/en/3.x/modules/scenic.simulators.carla.model.html) ，对应的 [代码](https://docs.scenic-lang.org/en/3.x/_modules/scenic/simulators/carla/model.html) 。
-* 
+
 
 <br>

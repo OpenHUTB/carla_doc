@@ -3255,9 +3255,9 @@ VehiclePhysicsControl 构造函数。
 设置自定义姿势与动画的混合值。这些值可以是：
   - 0: 仅显示动画
   - 1: 仅显示自定义姿势（由用户使用 set_bones() 设置）
-  - any other: 将在动画和自定义姿势之间插入所有骨骼位置。 
+  - 任何其他值: 将在动画和自定义姿势之间插入所有骨骼位置。 
     - **参数:**
-        - `blend_value` (_float<small> - value from 0 to 1 with the blend percentage</small>_)  
+        - `blend_value` (_float<small> - 值从0到1的混合百分比</small>_)  
 - <a name="carla.Walker.hide_pose"></a>**<font color="#7fb800">hide_pose</font>**(<font color="#00a6ed">**self**</font>)  
 隐藏自定义姿势并显示动画（与调用 blend_pose(0) 相同）。
 - <a name="carla.Walker.show_pose"></a>**<font color="#7fb800">show_pose</font>**(<font color="#00a6ed">**self**</font>)  
