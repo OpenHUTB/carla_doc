@@ -377,9 +377,27 @@ libcarla.obj : error LNK2001: 无法解析的外部符号 "class std::basic_stri
 注意：使用在线安装文件`vs_community__2019.exe`进行安装，不要使用离线版的vs2019安装包，否则会出现错误：`系统错误：&H8007007E(-2147024770)。 找不到指定的模块`。
 
 
-* 编译时报错`D:/work/workspace/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Server/CarlaServer.cpp(46): fatal error C1083: 无法打开包括文件: “carla/rpc/BoundingBox.h”: No such file or directory`
+* 执行`make launch`时报错`D:/work/workspace/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Server/CarlaServer.cpp(46): fatal error C1083: 无法打开包括文件: “carla/rpc/BoundingBox.h”: No such file or directory`
 
 换了vs环境，需要重新删除`Build/libcarla-visualstudio`，删除之前的 cmake 结果目录并再次运行 make launch(cmake) 后问题就消失了。
+
+* 或者`D:\work\workspace\carla\Build\osm2odr-source\src\utils/geom/GeoConvHelper.h(31,10): fatal error C1083: 无法打开包括文件: “proj_api.h”: No such file or directory`
+
+目录`Build/proj-install`没有生成，尝试从其他电脑中拷贝过来。
+
+
+* 执行`make PythonAPI`提示成功，但是没生成dist文件夹，前面报错：`C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\xtree(885) : fatal error C1128: 节数超过对象文件格式限制: 请使用 /bigobj 进行编译`
+
+原因：文件`PythonAPI/carla/setup.cfg`中配置了调试选项。
+解决：将`debug = 1`改为`debug = 0`。
+
+
+* 执行`make PythonAPI` 报错：`libboost_filesystem-vc142-mt-gd-x64-1_80.lib(path_traits.obj) : error LNK2038: 检测到“_ITERATOR_DEBUG_LEVEL”的不匹配项: 值“2”不匹配值“0”(libcarla.obj 中)`
+
+原因：链接的是libboost库的调式版本。
+解决：将`PythonAPI\carla\dependencies\lib`目录下`libboost-*`开头的文件中，包含`*-gd-*`的文件（调试版本）移除，则可编译通过。
+
+
 
 
 ---
