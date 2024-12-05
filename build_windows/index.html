@@ -90,7 +90,6 @@
 <li><a href="#part-two-build-carla"><strong>第二部分：构建 Carla</strong></a><ul>
 <li><a href="#clone-the-carla-repository">克隆 Carla 仓库</a></li>
 <li><a href="#get-assets">获取资产</a></li>
-<li><a href="#set-unreal-engine-environment-variable">设置虚幻引擎环境变量</a></li>
 <li><a href="#build-carla">构建 Carla</a></li>
 <li><a href="#other-make-commands">其他 make 命令</a></li>
 <li><a href="#other">其他</a></li>
@@ -115,10 +114,10 @@
 <h3 id="_3">软件要求 <span id="software-requirements"></span></h3>
 <h4 id="_4">基础软件安装 <span id="minor-installations"></span></h4>
 <ul>
-<li><a href="https://cmake.org/download/"><strong>CMake</strong></a> 从简单的配置文件生成标准构建文件。  </li>
-<li><a href="https://git-scm.com/downloads"><strong>Git</strong></a> 是一个用于管理 Carla 存储库的版本控制系统。</li>
-<li><a href="https://sourceforge.net/projects/ezwinports/files/make-4.4.1-without-guile-w32-bin.zip/download"><strong>Make</strong></a> 生成可执行文件。必须使用 <strong>Make 的 3.81 版本</strong>，否则构建可能会失败。如果安装了多个版本的 Make，请检查构建 Carla 时在 PATH 中使用的版本是否为 3.81。您可以通过运行来检查默认的 Make 版本 <code>make --version</code>。（运行可能出现<code>由于找不到libintl3.dll</code>， 说明需要 Visual C++ Redistributable for Visual Studio 2015，但是vs2019安装不了低版本，所以安装了make-4.4.1 ）</li>
-<li><a href="https://www.7-zip.org/"><strong>7Zip</strong></a> 一款文件压缩软件。这是自动解压缩资产文件所必需的，并防止在构建期间由于错误或部分提取大文件而出现错误。</li>
+<li><a href="../build/cmake_install/"><strong>CMake</strong></a> 从简单的配置文件生成标准构建文件。  </li>
+<li><a href="../build/git_install/"><strong>Git</strong></a> 是一个用于管理 Carla 存储库的版本控制系统。</li>
+<li><a href="../build/make_install/"><strong>Make</strong></a> 生成可执行文件。</li>
+<li><a href="../build/7zip/"><strong>7Zip</strong></a> 一款文件压缩软件。这是自动解压缩资产文件所必需的，并防止在构建期间由于错误或部分提取大文件而出现错误。</li>
 <li><a href="https://www.python.org/downloads/"><strong>Python3 x64</strong></a> 是 Carla 中的主要脚本语言。安装 x32 版本可能会导致冲突，因此强烈建议卸载它。</li>
 </ul>
 <div class="admonition 重要">
@@ -138,11 +137,13 @@ pip3 install --user wheel
 </code></pre>
 <h4 id="_5">主要软件安装 <span id="major-installations"></span></h4>
 <h5 id="visual-studio-2019">Visual Studio 2019 <span id="visual-studio-2019"></span></h5>
-<p>从 <a href="https://developerinsider.co/download-visual-studio-2019-web-installer-iso-community-professional-enterprise/">此处</a> 获取 2019 版 Visual Studio 。选择 <strong>社区</strong> 作为免费版本。使用 <strong>Visual Studio 安装程序</strong> 安装三个附加元素： </p>
+<p>从 <a href="https://developerinsider.co/download-visual-studio-2019-web-installer-iso-community-professional-enterprise">此处</a> 获取 2019 版 Visual Studio 。选择 <strong>社区</strong> 作为免费版本。使用 <strong>Visual Studio 安装程序</strong> 安装三个附加元素： 
+<img alt="" src="../img/build/download_vs_2019.png" /></p>
 <ul>
 <li><strong>Windows 8.1 SDK.</strong> 在右侧的 <em>Installation details</em> 部分中选择它，或者转到 <em>Indivdual Components</em> 选项卡并在 <em>SDKs, libraries, and frameworks</em> 标题下查看。</li>
 <li><strong>x64 Visual C++ Toolset.</strong> 在 <em>Workloads</em> 部分中，选择 <strong>Desktop development with C++</strong> 。这将启用用于构建的 x64 命令提示符。通过按 <code>Windows</code> 按钮并搜索 <code>x64</code> 来检查它是否已正确安装。小心 <strong>不要打开<code>x86_x64</code>提示</strong>。</li>
-<li><strong>.NET framework 4.6.2</strong>. 在 <em>Workloads</em> 部分中，选择 <strong>.NET desktop development</strong> ，然后在右侧的安装详细信息面板中选择 <code>.NET Framework 4.6.2 development tools</code>。这是构建虚幻引擎所必需的。</li>
+<li><strong>.NET framework 4.6.2</strong>. 在 <em>Workloads</em> 部分中，选择 <strong>.NET desktop development</strong> ，然后在右侧的安装详细信息面板中选择 <code>.NET Framework 4.6.2 development tools</code>。这是构建虚幻引擎所必需的。
+<img alt="" src="../img/build/vs_2019_install_options.png" /></li>
 </ul>
 <div class="admonition 重要">
 <p class="admonition-title">重要</p>
@@ -157,9 +158,11 @@ pip3 install --user wheel
 <p>从版本 0.9.12 开始，Carla 使用虚幻引擎 4.26 的修改版。该分支包含 Carla 特定的补丁。</p>
 <p>请注意，要下载虚幻引擎的这个分支，<strong>您需要有一个链接到虚幻引擎帐户的 GitHub 帐户</strong> 。如果您没有进行此设置，请先按照 <a href="https://www.unrealengine.com/en-US/ue4-on-github">本指南</a> 进行操作，然后再继续操作。</p>
 <p>要构建虚幻引擎的修改版本：</p>
-<p><strong>1.</strong> 在终端中，导航到要保存虚幻引擎的位置并克隆 <em>carla</em> 分支：</p>
+<p><strong>1.</strong> 在Git终端中，导航到要保存虚幻引擎的位置并克隆 <em>carla</em> 分支：</p>
 <pre><code class="language-sh">git clone --depth 1 -b carla https://github.com/CarlaUnreal/UnrealEngine.git .
 </code></pre>
+<p>或者打开 <a href="https://github.com/CARLAUnreal/UnrealEngine">UnrealEngine</a> 进行项目文件下载：
+<img alt="" src="../img/build/unreal_engine_download.png" /></p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>虚幻引擎文件夹尽可能靠近<code>C:\\</code>，因为如果路径超过一定长度，<code>Setup.bat</code>则会在步骤 3 中返回错误。</p>
@@ -172,17 +175,54 @@ GenerateProjectFiles.bat
 <blockquote>
 <ol>
 <li>
-<p>使用 Visual Studio 2019打开<code>UE4.sln</code>源文件夹内的文件。</p>
+<p>使用 Visual Studio 2019打开源文件夹内的文件<code>UE4.sln</code>。</p>
 </li>
 <li>
-<p>在构建栏中，确保您已选择“Development Editor”、“Win64”和“UnrealBuildTool”选项。如果您需要任何帮助，请查看 <a href="https://docs.unrealengine.com/en-US/ProductionPipelines/DevelopmentSetup/BuildingUnrealEngine/index.html">本指南</a> 。</p>
+<p>在构建栏中，确保您已选择<code>Development Editor</code>、<code>Win64</code>和<code>UnrealBuildTool</code>选项。如果您需要任何帮助，请查看 <a href="https://docs.unrealengine.com/en-US/ProductionPipelines/DevelopmentSetup/BuildingUnrealEngine/index.html">本指南</a> 。</p>
 </li>
 <li>
-<p>在解决方案资源管理器中，右键单击<code>UE4</code>并选择<code>Build</code>。</p>
+<p>在解决方案资源管理器中，右键单击<code>UE4</code>并选择<code>Build</code>。
+<img alt="" src="../img/build/ue4_build.png" /></p>
 </li>
 </ol>
 </blockquote>
-<p><strong>4.</strong> 编译解决方案后，您可以打开引擎，通过启动可执行文件 <code>Engine\Binaries\Win64\UE4Editor.exe</code> 来检查所有内容是否已正确安装。</p>
+<p>以下是编译过程中可能遇到的错误：
+<img alt="" src="../img/build/ue4_build_error.png" /></p>
+<p>在默认情况下，Unreal Engine 使用 CPU 的所有核心进行编译。这可能导致内存不足的问题，尤其是在高性能电脑但内存有限的情况下。为避免此问题，可以通过以下两种方式解决：减少 CPU 核心使用数量。增加虚拟内存。以下是通过修改 CPU 核心数来优化编译的详细解决方案：</p>
+<p>（1）您需要修改 <strong>BuildConfiguration.xml</strong> 文件中的设置。文件路径如下：
+<code>~/UnrealEngine\Engine\Saved\UnrealBuildTool\BuildConfiguration.xml</code></p>
+<p>（2）打开 <strong>BuildConfiguration.xml</strong> 文件，并添加或修改以下内容：</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+&lt;Configuration xmlns=&quot;https://www.unrealengine.com/BuildConfiguration&quot;&gt;
+  &lt;BuildConfiguration&gt;
+    &lt;ProcessorCountMultiplier&gt;7&lt;/ProcessorCountMultiplier&gt;
+    &lt;MaxParallelActions&gt;7&lt;/MaxParallelActions&gt;
+    &lt;bAllowParallelExecutor&gt;true&lt;/bAllowParallelExecutor&gt;
+  &lt;/BuildConfiguration&gt;
+  &lt;SNDBS&gt;
+    &lt;ProcessorCountMultiplier&gt;4&lt;/ProcessorCountMultiplier&gt;
+    &lt;MaxProcessorCount&gt;4&lt;/MaxProcessorCount&gt;
+  &lt;/SNDBS&gt;
+  &lt;ParallelExecutor&gt;
+    &lt;ProcessorCountMultiplier&gt;7&lt;/ProcessorCountMultiplier&gt;
+    &lt;MaxProcessorCount&gt;7&lt;/MaxProcessorCount&gt;
+    &lt;bStopCompilationAfterErrors&gt;true&lt;/bStopCompilationAfterErrors&gt;
+  &lt;/ParallelExecutor&gt;
+&lt;/Configuration&gt;
+</code></pre>
+<p>（3）清理配置文件。完成编译后，在执行 <code>make launch</code> 之前，务必删除 <code>BuildConfiguration.xml</code> 文件中新增的内容。否则，可能导致程序运行时出现卡顿或性能下降的问题。</p>
+<p><strong>4.</strong> 设置虚幻引擎变量</p>
+<p>需要设置一个环境变量，以便 Carla 可以找到虚幻引擎的安装文件夹。这允许用户选择要使用哪个特定版本的虚幻引擎。如果未指定环境变量，Carla 将在 Windows 注册表中搜索虚幻引擎并使用在那里找到的第一个版本。</p>
+<p>设置环境变量：</p>
+<ol>
+<li>打开 Windows 控制面板，然后转至<code>Advanced System Settings</code>或在 Windows 搜索栏中搜索  <code>Advanced System Settings</code>。</li>
+<li>在面板上Advanced<code>Advanced</code>打开<code>Environment Variables...</code>。</li>
+<li>单击<code>New...</code>以创建变量。</li>
+<li>为变量<code>UE4_ROOT</code>命名并选择所需虚幻引擎安装的安装文件夹的路径。</li>
+</ol>
+<p><img alt="" src="../img/build/set_ue4_root.png" /></p>
+<p><strong>5.</strong> 编译解决方案后，您可以打开引擎，通过启动可执行文件 <code>Engine\Binaries\Win64\UE4Editor.exe</code> 来检查所有内容是否已正确安装。</p>
+<p><img alt="" src="../img/build/launch_ue4_editor.png" /></p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>如果安装成功，虚幻引擎的版本选择器应该能够识别。您可以通过右键单击任何<code>.uproject</code>文件并选择 <code>Switch Unreal Engine version</code> 来检查这一点。您应该会看到一个弹出窗口，显示<code>Source Build at PATH</code>是您选择的安装路径。如果您在右键单击<code>.uproject</code>文件或<code>Generate Visual Studio project files</code>时看不到此选择器，则虚幻引擎安装出现问题，您可能需要重新正确安装。</p>
@@ -215,26 +255,21 @@ GenerateProjectFiles.bat
 <p>如果安装了 7zip，资源将被下载并解压到适当的位置。如果您没有安装此软件，则需要手动将文件内容解压到<code>Unreal\CarlaUE4\Content\Carla</code>。</p>
 <p>要下载 <strong>特定版本</strong> Carla 的资源：</p>
 <ol>
-<li>从 Carla 根目录，导航到<code>\Util\ContentVersions.txt</code>。本文档包含所有 Carla 版本的资产链接。</li>
-<li>提取 <code>Unreal\CarlaUE4\Content\Carla</code> 中的资产。如果该路径不存在，请创建它。</li>
+<li>从 Carla 根目录，导航到<code>\Util\ContentVersions.txt</code>。本文档包含所有 Carla 版本的资产链接（将当中的 PUT_FILE_ID_HERE 替换为对应版本ID）。 如这里要下载 0.9.15 版本，即把 PUT_FILE_ID_HERE 替换为对应版本 ID：20231108 c5101a5</li>
+<li>提取 <code>Unreal\CarlaUE4\Content\Carla</code> 中的资产。如果该路径不存在，请创建它。
+<img alt="" src="../img/build/content_versions.png" /></li>
 <li>使用类似于以下内容的命令提取文件：</li>
 </ol>
 <pre><code class="language-sh">tar -xvzf &lt;assets_file_name&gt;.tar.gz.tar -C C:\path\to\carla\Unreal\CarlaUE4\Content\Carla
 </code></pre>
-<h3 id="_8">设置虚幻引擎变量 <span id="set-unreal-engine-environment-variable"></span></h3>
-<p>需要设置一个环境变量，以便 Carla 可以找到虚幻引擎的安装文件夹。这允许用户选择要使用哪个特定版本的虚幻引擎。如果未指定环境变量，Carla 将在 Windows 注册表中搜索虚幻引擎并使用在那里找到的第一个版本。</p>
-<p>设置环境变量：</p>
-<ol>
-<li>打开 Windows 控制面板，然后转至<code>Advanced System Settings</code>或在 Windows 搜索栏中搜索  <code>Advanced System Settings</code>。</li>
-<li>在面板上Advanced<code>Advanced</code>打开<code>Environment Variables...</code>。</li>
-<li>单击<code>New...</code>以创建变量。</li>
-<li>为变量<code>UE4_ROOT</code>命名并选择所需虚幻引擎安装的安装文件夹的路径。</li>
-</ol>
+<p>下载好后解压到下图这个文件夹（注意是把所有解压的文件放到/Unreal/CARLAUE4/Content/CARLA 下，不是刚刚下载的压缩包解压到当前文件夹）像下面这样格式。否则后面执行 make launch 会失败。
+<img alt="" src="../img/build/extracted_content.png" /></p>
 <h3 id="carla_2">构建 Carla <span id="build-carla"></span></h3>
 <p>本节概述了构建 Carla 的命令。</p>
 <ul>
+<li>命令应通过 VS 2019 的 <strong>x64 Native Tools Command Prompt for VS 2019</strong> 执行。通过单击该Windows键并搜索 来打开它x64，或者运行<code>call "D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars64.bat"</code>。
+<img alt="" src="../img/build/vs_command_prompt.png" /></li>
 <li>所有命令都应在根 Carla 文件夹中运行。</li>
-<li>命令应通过 VS 2019 的 <strong>x64 Native Tools Command Prompt for VS 2019</strong> 执行。通过单击该Windows键并搜索 来打开它x64，或者运行<code>call "D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars64.bat"</code>。</li>
 </ul>
 <p>Carla 的构建过程分为两部分：编译客户端和编译服务器。</p>
 <p><strong>1.</strong> <strong>编译 Python API 客户端</strong>:</p>
@@ -242,6 +277,11 @@ GenerateProjectFiles.bat
 <p>以下命令编译 Python API 客户端：</p>
 <pre><code class="language-sh">make PythonAPI
 </code></pre>
+<p><img alt="" src="../img/build/make_PythonAPI.png" /></p>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>常见错误问题分析：<code>make PythonAPI</code> 执行时运行的是 <code>CARLA\Util\BuildTools</code> 文件夹下的 <code>setup.bash</code> 脚本，<code>setup.bash</code> 脚本包含了许多依赖包的下载和安装。而 <code>setup.bash</code> 脚本中依赖包下载和安装脚本又分别位于 <code>CARLA\Util\InstallersWin</code> 中。因此当执行 <code>make PythonAPI</code> 时遇到依赖包下载和安装失败时，可以分别运行各个脚本进行单独安装，注意的是在 InstallersWin 中运行单独的脚本会直接安装在 InstallersWin 中，需要复制到 <code>CARLA\Build</code> 文件夹下。</p>
+</div>
 <p>生成的客户端安装文件位于<code>PythonAPI/carla/dist/</code>。Carla 客户端库将以两种截然不同、互斥的形式构建。这使用户可以自由选择他们喜欢的形式来运行 Carla 客户端代码。两种形式包括<code>.egg</code>文件和<code>.whl</code>文件。选择以下选项 <strong>之一</strong> 来使用客户端库：</p>
 <p><strong>A. <code>.egg</code> 文件</strong></p>
 <blockquote>
@@ -265,6 +305,15 @@ GenerateProjectFiles.bat
 <p>以下命令编译并启动虚幻引擎。每次您想要启动服务器或使用虚幻引擎编辑器时运行此命令：</p>
 <pre><code class="language-sh">make launch
 </code></pre>
+<p><img alt="" src="../img/build/make_launch.png" /></p>
+<ul>
+<li><strong>问题一</strong>：</li>
+<li><code>make PythonAPI</code> 或者 <code>make launch</code> 的时候会遇到 <code>cmakelist.txt</code> 的错误，说没有这个文件，这可能是编译的时候由于网速问题，导致一些本该下载的东西直接跳过了，比如这个 txt，解决方法就是重新编译，最好是重新下载 CARLA 这个文件，然后重新编译，网速好的情况下应该就不会出现这个问题。</li>
+<li><strong>问题二</strong>：fatal error C1083: 无法打开 包括文件: “CARLA/Version.h”: No such file or directory</li>
+<li>将 <code>CARLA\LibCARLA\source\CARLA</code> 中的 <code>version.h.in</code>，重命名，去掉<code>.in</code>，接着重新运行 <code>make launch</code></li>
+<li>成功会在你的 CARLA\PythonAPI\CARLA 目录下生成一个 dist 文件夹，这个就是你的 CARLA 版本</li>
+<li>依次执行上面两个命令，过程需要很久。</li>
+</ul>
 <p>该项目可能会要求构建其他实例，例如<code>UE4Editor-Carla.dll</code>第一次。同意才能打开项目。在首次启动期间，编辑器可能会显示有关着色器和网格距离场的警告。这些需要一些时间来加载，在此之前地图将无法正确显示。</p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
@@ -356,7 +405,7 @@ python3 dynamic_weather.py
 <p>脚本<code>setup.py</code>中的<code>ext_modules</code>参数用于构建 C 和 C++ 扩展扩展包。其是 Extension 实例的列表，每一个 Extension 实例描述了一个独立的扩展模块，扩展模块可以设置扩展包名，头文件、源文件、链接库及其路径、宏定义和编辑参数等。</p>
 <p>当你安装一个包后，这个包需要你不断修改，这时就采用这种安装方法：<code>python setup.py develop</code>。仅在<code>Python37/Lib/site-packages</code>目录下生成链接文件<code>carla.egg-link</code> 指向 <code>carla\PythonAPI\carla\source</code>和<code>../</code>。</p>
 <p>而<code>python setup.py install</code>在<code>Python37\Lib\site-packages\carla-0.9.15-py3.7-win-amd64.egg</code>目录下生成运行包，包括<code>libcarla.cp37-win_amd64.pyd</code>。</p>
-<h3 id="_9">其他 <span id="other"></span></h3>
+<h3 id="_8">其他 <span id="other"></span></h3>
 <p>如果想重新编译LibCarla或者使用最新的修改，需要删除<code>Build/libcarla-visualstudio</code>目录，然后重新运行编译命令：</p>
 <pre><code class="language-shell">make LibCarla
 </code></pre>
@@ -422,11 +471,25 @@ Error: could not load cache
 <p>解决：<a href="https://blog.csdn.net/hsuehgw/article/details/131000227"><code>注册表编辑器无法在当前所选的项及其部分子项上设置安全性</code></a> 。</p>
 <p>注意：使用在线安装文件<code>vs_community__2019.exe</code>进行安装，不要使用离线版的vs2019安装包，否则会出现错误：<code>系统错误：&amp;H8007007E(-2147024770)。 找不到指定的模块</code>。</p>
 <ul>
-<li>编译时报错<code>D:/work/workspace/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Server/CarlaServer.cpp(46): fatal error C1083: 无法打开包括文件: “carla/rpc/BoundingBox.h”: No such file or directory</code></li>
+<li>执行<code>make launch</code>时报错<code>D:/work/workspace/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Server/CarlaServer.cpp(46): fatal error C1083: 无法打开包括文件: “carla/rpc/BoundingBox.h”: No such file or directory</code></li>
 </ul>
 <p>换了vs环境，需要重新删除<code>Build/libcarla-visualstudio</code>，删除之前的 cmake 结果目录并再次运行 make launch(cmake) 后问题就消失了。</p>
+<ul>
+<li>或者<code>D:\work\workspace\carla\Build\osm2odr-source\src\utils/geom/GeoConvHelper.h(31,10): fatal error C1083: 无法打开包括文件: “proj_api.h”: No such file or directory</code></li>
+</ul>
+<p>目录<code>Build/proj-install</code>没有生成，尝试从其他电脑中拷贝过来。</p>
+<ul>
+<li>执行<code>make PythonAPI</code>提示成功，但是没生成dist文件夹，前面报错：<code>C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\xtree(885) : fatal error C1128: 节数超过对象文件格式限制: 请使用 /bigobj 进行编译</code></li>
+</ul>
+<p>原因：文件<code>PythonAPI/carla/setup.cfg</code>中配置了调试选项。
+解决：将<code>debug = 1</code>改为<code>debug = 0</code>。</p>
+<ul>
+<li>执行<code>make PythonAPI</code> 报错：<code>libboost_filesystem-vc142-mt-gd-x64-1_80.lib(path_traits.obj) : error LNK2038: 检测到“_ITERATOR_DEBUG_LEVEL”的不匹配项: 值“2”不匹配值“0”(libcarla.obj 中)</code></li>
+</ul>
+<p>原因：链接的是libboost库的调式版本。
+解决：将<code>PythonAPI\carla\dependencies\lib</code>目录下<code>libboost-*</code>开头的文件中，包含<code>*-gd-*</code>的文件（调试版本）移除，则可编译通过。</p>
 <hr />
-<h2 id="_10">参考</h2>
+<h2 id="_9">参考</h2>
 <p><a href="../build_tools/">构建系统</a></p>
 <hr />
 <p>有关本指南的任何问题， 请阅读 <strong><a href="../build_faq/">常见问题解答</a></strong> 页面或在 <a href="https://github.com/carla-simulator/carla/discussions">Carla 论坛</a> 中发帖。</p>
