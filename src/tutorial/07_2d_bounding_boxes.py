@@ -1,3 +1,6 @@
+# 问题1：比实际框大；
+# 辆被遮挡的情况在同目录下的脚本07_2d_bounding_boxes_occlusion.py进行处理
+
 import carla
 
 import queue

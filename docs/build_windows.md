@@ -355,7 +355,7 @@ python setup.py bdist_wheel
 
 ### 其他 <span id="other"></span>
 
-如果想重新编译LibCarla或者使用最新的修改，需要删除`Build/libcarla-visualstudio`目录，然后重新运行编译命令：
+如果想重新编译LibCarla或者使用从其他地方拷贝过来的Build目录下的文件，需要删除`Build/libcarla-visualstudio`目录，然后重新运行编译命令（否则`PythonAPI\carla\dependencies`目录不会生成，生成.whl文件时遍历的不到依赖库，报错：`NotADirectoryError: [WinError 267] 目录名称无效。: 'dependencies/lib'`）：
 ```shell
 make LibCarla
 ```
@@ -404,7 +404,6 @@ if %errorlevel% neq 0 goto error_py
 ```shell
 where python 1>nul
 if %errorlevel% neq 0 goto error_py
-```
 ```
 
 ### 系统
@@ -457,6 +456,14 @@ libcarla.obj : error LNK2001: 无法解析的外部符号 "class std::basic_stri
 原因：链接的是libboost库的调式版本。
 解决：将`PythonAPI\carla\dependencies\lib`目录下`libboost-*`开头的文件中，包含`*-gd-*`的文件（调试版本）移除，则可编译通过。
 
+* 使用`make Python`编译 Carla 0.9.13 时报错：`osm2odr.lib(GeoConvHelper.obj) : error LNK2001: 无法解析的外部符号 proj_create`：
+
+删除位于Build目录下的proj源代码和安装目录，然后运行下面命令（参数改为对应的Build目录）：
+```shell
+install_proj.bat --build-dir D:\work\DReyeVR\carla\Build
+```
+如果还报错sqlite的错误，需要把`sqlite3-install`和`sqlite3-src`删除后重新编译。
+
 
 
 
@@ -465,6 +472,7 @@ libcarla.obj : error LNK2001: 无法解析的外部符号 "class std::basic_stri
 ## 参考
 [构建系统](./build_tools.md)
 
+[Windows平台下的依赖安装脚本](./build/installers_win.md)
 
 ---
 

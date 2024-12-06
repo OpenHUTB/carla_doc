@@ -2,7 +2,7 @@
 
 ## C++ 客户端
 
-C++客户端可以在 Linux 上用`make`构建，在Windows上用[`cmake`](https://github.com/OpenHUTB/carla_doc/tree/master/src/cmake/CMakeLists.txt) 构建。`CARLA_ROOT/Examples/CppClient/main.cpp`中的存储库中提供了一个C++客户端示例。这个示例展示了如何将C++客户端连接到CARLA服务器，并使用API执行一些简单的任务。
+C++客户端可以在 Linux 上用`make`构建，在Windows上用[`cmake`](https://github.com/OpenHUTB/carla_doc/tree/master/src/cmake/CMakeLists.txt) 构建。`CARLA_ROOT/Examples/CppClient/main.cpp`中的存储库中提供了一个C++客户端示例。这个示例展示了如何将C++客户端连接到 Carla 服务器，并使用 API 执行一些简单的任务。
 
 要构建示例C++客户端，请在存储库的`CARLA_ROOT/Examples/CppClient`目录中打开一个终端。在此文件夹中运行`make`，然后执行 `./bin/cpp_client` 来运行示例。该示例将从可用地图中选择一个随机地图，然后加载它。然后，它将生成一辆车并对该车应用控制。
 

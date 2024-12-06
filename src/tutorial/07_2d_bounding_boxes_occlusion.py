@@ -1,3 +1,5 @@
+# 处理车辆被遮挡的情况：全部遮挡+部分进入视野和出视野
+# 被遮挡的车用红色框表示，没有被遮挡的车用蓝色框表示
 import carla
 
 import queue
@@ -232,7 +234,7 @@ while True:
 
                                 p1_temp, p2_temp = (p, p_in_canvas)
 
-                            # Find the rightmost vertex
+                            # 找到最右边的顶点
                             x_max = p1_temp[0] if p1_temp[0] > x_max else x_max
                             x_max = p2_temp[0] if p2_temp[0] > x_max else x_max
 
@@ -248,7 +250,7 @@ while True:
                             y_min = p1_temp[1] if p1_temp[1] < y_min else y_min
                             y_min = p2_temp[1] if p2_temp[1] < y_min else y_min
 
-                            # No depth information means the point is on the boundary
+                            # 没有深度信息意味着点在边界
                             if len(p1_temp) == 3:
                                 z_max = p1_temp[2] if p1_temp[2] > z_max else z_max
                                 z_min = p1_temp[2] if p1_temp[2] < z_min else z_min
