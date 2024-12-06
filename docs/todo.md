@@ -12,6 +12,10 @@
   - [awesome](https://github.com/Amin-Tgz/awesome-CARLA) ；
 - 整理 [神经科学原理](https://github.com/OpenHUTB/neuro) 、[前额叶皮层](https://github.com/OpenHUTB/PFC) 、强化学习导论心理学章节；
 
+### 课程
+
+- 深度学习、数据结构、C/C++ 、Python 、ROS 课程相关示例整理；
+
 ### 第三方工具
 
 - [车载HUD智能设计与验证一站式平台](https://github.com/ZhilingResearch/Libra) ：[文档](https://g06o7xylva3.feishu.cn/docx/M4dQdH8saoenDTx1w4Ac07i0nNe) ，包括：当前驾驶车辆工况、导航路径引导、提示周围环境信息、接管提升和辅助、个性化娱乐功能。。
