@@ -146,6 +146,16 @@ python3 manual_control.py
 
 ![carlaviz_demo](img/plugins_carlaviz_demo.jpg)
 
+## 像素流
+
+参考 [链接](https://github.com/OpenHUTB/gpt/tree/main/sim) 中的说明和代码进行像素流推送的部署，如果出现启动成功：
+```text
+12:06:52.980 WebSocket 1istening to Streamer comnections on :8888
+12:06:52.982 WebSocket listening to Players comnections on :80
+12:06:52.980 Http 1istening on *: 80
+```
+但是浏览器访问不了像素流，则可能需要：在系统设置里（或按win键直接搜`代理`），把这个`使用代理服务器`点掉。
+
 ---
 
 这就是关于 carlaviz 插件的全部信息。如果有任何疑问，请随时在论坛中发布。
