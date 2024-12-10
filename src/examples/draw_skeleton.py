@@ -91,7 +91,7 @@ class CarlaSyncMode(object):
             data = sensor_queue.get(timeout=timeout)
             if data.frame == self.frame:
                 return data
-    # ---------------
+
 
 def build_projection_matrix(w, h, fov):
     focal = w / (2.0 * np.tan(fov * np.pi / 360.0))
@@ -101,6 +101,7 @@ def build_projection_matrix(w, h, fov):
     K[1, 2] = h / 2.0
     return K
 
+
 def get_image_as_array(image):
     array = np.frombuffer(image.raw_data, dtype=np.dtype("uint8"))
     array = np.reshape(array, (image.height, image.width, 4))
@@ -109,6 +110,7 @@ def get_image_as_array(image):
     # make the array writeable doing a deep copy
     array2 = copy.deepcopy(array)
     return array2
+
 
 def draw_image(surface, array, blend=False):
     image_surface = pygame.surfarray.make_surface(array.swapaxes(0, 1))
@@ -123,6 +125,7 @@ def get_font():
     font = default_font if default_font in fonts else fonts[0]
     font = pygame.font.match_font(font)
     return pygame.font.Font(font, 14)
+
 
 def get_screen_points(camera, K, image_w, image_h, points3d):
     
@@ -157,6 +160,7 @@ def get_screen_points(camera, K, image_w, image_h, points3d):
 
     return points_2d
 
+
 def draw_points_on_buffer(buffer, image_w, image_h, points_2d, color, size=4):
     half = int(size / 2)
     # draw each point
@@ -170,6 +174,7 @@ def draw_points_on_buffer(buffer, image_w, image_h, points_2d, color, size=4):
                         buffer[j][i][0] = color[0]
                         buffer[j][i][1] = color[1]
                         buffer[j][i][2] = color[2]
+
 
 def draw_line_on_buffer(buffer, image_w, image_h, points_2d, color, size=4):
   x0 = int(points_2d[0][0])
@@ -198,6 +203,7 @@ def draw_line_on_buffer(buffer, image_w, image_h, points_2d, color, size=4):
     if (e2 <= dx):
       err += dx
       y0 += sy
+
 
 def draw_skeleton(buffer, image_w, image_h, boneIndex, points2d, color, size=4):
     try:
@@ -269,6 +275,7 @@ def draw_skeleton(buffer, image_w, image_h, boneIndex, points2d, color, size=4):
     except:
         pass
 
+
 def should_quit():
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -278,10 +285,12 @@ def should_quit():
                 return True
     return False
 
+
 def write_image(frame, id, buffer):
     # Save the image using Pillow module.
     img = Image.fromarray(buffer)
     img.save('_out/%s_%06d.png' % (id, frame))
+
 
 def main():
     argparser = argparse.ArgumentParser(
@@ -421,10 +430,7 @@ def main():
 
 
 if __name__ == '__main__':
-
     try:
-
         main()
-
     except KeyboardInterrupt:
         print('\nCancelled by user. Bye!')

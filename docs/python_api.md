@@ -64,30 +64,30 @@ Carla 将参与者定义为在模拟中发挥作用或可以移动的任何物�
 - <a name="carla.Actor.add_angular_impulse"></a>**<font color="#7fb800">add_angular_impulse</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**angular_impulse**</font>)  
 在参与者的质心处应用角冲量。此方法适用于瞬时扭矩，通常应用一次。使用 __<font color="#7fb800">add_torque()</font>__ 在一段时间内施加旋转力。
     - **参数:**
-        - `angular_impulse` (_[carla.Vector3D](#carla.Vector3D)<small> - degrees*s</small>_) - 全局坐标中的角冲量矢量。  
+        - `angular_impulse` (_[carla.Vector3D](#carla.Vector3D)<small> - degrees*s</small>_) - 全局坐标中的角冲量向量。  
 - <a name="carla.Actor.add_force"></a>**<font color="#7fb800">add_force</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**force**</font>)  
 在参与者的质心处施加力。此方法适用于在一定时间内施加的力。使用 __<font color="#7fb800">add_impulse()</font>__ 施加仅持续瞬间的冲量。  
     - **参数:**
-        - `force` (_[carla.Vector3D](#carla.Vector3D)<small> - N</small>_) - 全局坐标中的力矢量。  
+        - `force` (_[carla.Vector3D](#carla.Vector3D)<small> - N</small>_) - 全局坐标中的力向量。  
 - <a name="carla.Actor.add_impulse"></a>**<font color="#7fb800">add_impulse</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**impulse**</font>)  
 在参与者的质心处施加冲量。此方法适用于瞬时力，通常应用一次。使用 __<font color="#7fb800">add_force()</font>__ 在一段时间内施加力。  
     - **参数:**
-        - `impulse` (_[carla.Vector3D](#carla.Vector3D)<small> - N*s</small>_) - 全局坐标中的冲量矢量。 
+        - `impulse` (_[carla.Vector3D](#carla.Vector3D)<small> - N*s</small>_) - 全局坐标中的冲量向量。 
 - <a name="carla.Actor.add_torque"></a>**<font color="#7fb800">add_torque</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**torque**</font>)  
 在参与者的质心处应用扭矩。此方法适用于在一定时间内施加的扭矩。使用 __<font color="#7fb800">add_angular_impulse()</font>__ 施加仅持续瞬间的扭矩。  
     - **参数:**
-        - `torque` (_[carla.Vector3D](#carla.Vector3D)<small> - 度</small>_) - 全局坐标中的扭矩矢量。  
+        - `torque` (_[carla.Vector3D](#carla.Vector3D)<small> - 度</small>_) - 全局坐标中的扭矩向量。  
 - <a name="carla.Actor.destroy"></a>**<font color="#7fb800">destroy</font>**(<font color="#00a6ed">**self**</font>)  
 告诉模拟器销毁这个参与者，如果成功则 <b>True</b> 。如果已经被破坏则没有任何效果。
     - **返回:** _bool_  
-    - **警告:** <font color="#ED2F2F">_T此方法会阻止脚本，直到模拟器完成销毁为止。
+    - **警告:** <font color="#ED2F2F">_此方法会阻止脚本，直到模拟器完成销毁为止。
 _</font>  
 - <a name="carla.Actor.disable_constant_velocity"></a>**<font color="#7fb800">disable_constant_velocity</font>**(<font color="#00a6ed">**self**</font>)  
 禁用之前为 [carla.Vehicle](#carla.Vehicle) 参与者设置的任何恒定速度。  
 - <a name="carla.Actor.enable_constant_velocity"></a>**<font color="#7fb800">enable_constant_velocity</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**velocity**</font>)  
-将车辆的速度矢量设置为随时间变化的恒定值。所得到的速度将近似于 `velocity` 所设置的速度，与 __<font color="#7fb800">set_target_velocity()</font>__ 一样。  
+将车辆的速度向量设置为随时间变化的恒定值。所得到的速度将近似于 `velocity` 所设置的速度，与 __<font color="#7fb800">set_target_velocity()</font>__ 一样。  
     - **参数:**
-        - `velocity` (_[carla.Vector3D](#carla.Vector3D)<small> - m/s</small>_) - Velocity vector in local space.  
+        - `velocity` (_[carla.Vector3D](#carla.Vector3D)<small> - m/s</small>_) - 局部空间中的速度向量。  
     - **注意:** <font color="#8E8E8E">_只有 [carla.Vehicle](#carla.Vehicle) 参与者可以使用此方法。  
 _</font>  
     - **警告:** <font color="#ED2F2F">_为 交通管理器管理的车辆启用恒定速度可能会导致冲突。此方法会覆盖交通管理器对速度的任何更改。  
@@ -126,11 +126,11 @@ _</font>
         - `location` (_[carla.Location](#carla.Location)<small> - 米</small>_)  
     - **获取器：** _[carla.Actor.get_location](#carla.Actor.get_location)_  
 - <a name="carla.Actor.set_simulate_physics"></a>**<font color="#7fb800">set_simulate_physics</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**enabled**=True</font>)  
-启用或禁用此参与者上的物理模拟。  
+启用或禁用此参与者上的物理模拟（参与者是否会被物理影响），用途之一是可以在 [交通管理器混合模式](https://openhutb.github.io/carla_doc/adv_traffic_manager/#hybrid-physics-mode) 中提高大量车辆的模拟性能。
     - **参与者：**
         - `enabled` (_bool_)  
 - <a name="carla.Actor.set_target_angular_velocity"></a>**<font color="#7fb800">set_target_angular_velocity</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**angular_velocity**</font>)  
-设置参与者的角速度矢量。这是在物理步骤之前应用的，因此最终的角速度将受到摩擦等外力的影响。  
+设置参与者的角速度向量。这是在物理步骤之前应用的，因此最终的角速度将受到摩擦等外力的影响。  
     - **参数：**
         - `angular_velocity` (_[carla.Vector3D](#carla.Vector3D)<small> - deg/s</small>_)  
 - <a name="carla.Actor.set_target_velocity"></a>**<font color="#7fb800">set_target_velocity</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**velocity**</font>)  
@@ -378,7 +378,7 @@ Carla 为 Actor 提供了一个蓝图库，可以通过 [carla.BlueprintLibrary]
 
 ### 实例变量
 - <a name="carla.BoundingBox.extent"></a>**<font color="#f8805a">extent</font>** (_[carla.Vector3D](#carla.Vector3D)<small> - 米</small>_)  
-从长方体中心到一个顶点的矢量。每个轴中的值等于该轴框大小的一半。`extent.x * 2` 将返回框在x轴上的大小。 
+从长方体中心到一个顶点的向量。每个轴中的值等于该轴框大小的一半。`extent.x * 2` 将返回框在x轴上的大小。 
 - <a name="carla.BoundingBox.location"></a>**<font color="#f8805a">location</font>** (_[carla.Location](#carla.Location)<small> - 米</small>_)  
 边界框的中心。  
 - <a name="carla.BoundingBox.rotation"></a>**<font color="#f8805a">rotation</font>** (_[carla.Rotation](#carla.Rotation)_)  
@@ -388,7 +388,7 @@ Carla 为 Actor 提供了一个蓝图库，可以通过 [carla.BlueprintLibrary]
 - <a name="carla.BoundingBox.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**location**</font>, <font color="#00a6ed">**extent**</font>)  
     - **参数：**
         - `location` (_[carla.Location](#carla.Location)_) - 相对于其父框的中心。 
-        - `extent` (_[carla.Vector3D](#carla.Vector3D)<small> - 米</small>_) - 包含每个轴的长方体大小的一半的矢量。 
+        - `extent` (_[carla.Vector3D](#carla.Vector3D)<small> - 米</small>_) - 包含每个轴的长方体大小的一半的向量。 
 - <a name="carla.BoundingBox.contains"></a>**<font color="#7fb800">contains</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**world_point**</font>, <font color="#00a6ed">**transform**</font>)  
 如果在世界空间中传递的点在此边界框内，则返回**True**。
     - **Parameters:**
@@ -1810,7 +1810,7 @@ Z 轴上从原点到点的距离。
 
 ## carla.OpticalFlowImage<a name="carla.OpticalFlowImage"></a>
 <small style="display:block;margin-top:-20px;">从 _[carla.SensorData](#carla.SensorData)_ 继承</small></br>
-定义表示视场中检测到的光流的二维浮点（32 位）向量的光流图像的类。矢量的分量表示物体在图像平面中的位移。每个组件输出归一化范围 [-2,2] 内的值，该范围缩放为 [-2 size，2 size]，大小是相应组件中的总分辨率。 
+定义表示视场中检测到的光流的二维浮点（32 位）向量的光流图像的类。向量的分量表示物体在图像平面中的位移。每个组件输出归一化范围 [-2,2] 内的值，该范围缩放为 [-2 size，2 size]，大小是相应组件中的总分辨率。 
 
 ### 实例变量
 - <a name="carla.OpticalFlowImage.fov"></a>**<font color="#f8805a">fov</font>** (_float<small> - 度</small>_)  
@@ -3319,7 +3319,7 @@ VehiclePhysicsControl 构造函数。
 ---
 
 ## carla.WalkerBoneControlIn<a name="carla.WalkerBoneControlIn"></a>
-该类为行人提供骨骼特定的操作。为了清晰起见，行人的骨骼已经统一，并且应用于每个骨骼的变换始终相对于其父骨骼。请查看 [此处](tuto_G_control_walker_skeletons.md) ，了解有关如何创建助行器并定义其运动的更多信息。
+该类为行人提供骨骼的特定操作。为了清晰起见，行人的骨骼已经统一，并且应用于每个骨骼的变换始终相对于其父骨骼。请查看 [此处](tuto_G_control_walker_skeletons.md) ，了解有关如何创建行人并定义其运动的更多信息。
 
 ### 实例变量
 - <a name="carla.WalkerBoneControlIn.bone_transforms"></a>**<font color="#f8805a">bone_transforms</font>** (_list([name,transform])_)  
@@ -3357,7 +3357,7 @@ VehiclePhysicsControl 构造函数。
 ---
 
 ## carla.WalkerControl<a name="carla.WalkerControl"></a>
-此类定义了可以向 [carla.Walker](#carla.Walker) 命令通过脚本控制它的特定方向。
+此类定义了可以通过脚本向 [carla.Walker](#carla.Walker) 发出控制命令的具体方向。
   
   可以为行人解决AI控制，但用于此目的的控件是 [carla.WalkerAIController](#carla.WalkerAIController)。
 

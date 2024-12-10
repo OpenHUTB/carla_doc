@@ -91,7 +91,7 @@ ChWorldFrame::Set(world_rotation);
 ChWorldFrame::SetYUP();
 ```
 
-`ChWorldFrame`类提供实用程序来查询世界法线、前向、给定 3D 点的高度（沿世界垂直方向的分量），将点投影到世界的水平面上，以及表达往返于基本 ISO 框架的 3D 矢量。
+`ChWorldFrame`类提供实用程序来查询世界法线、前向、给定 3D 点的高度（沿世界垂直方向的分量），将点投影到世界的水平面上，以及表达往返于基本 ISO 框架的 3D 向量。
 
 请参阅 `demo_VEH_HMMWV9_YUPY` 向上世界框架中的 `Chrono::Vehicle` 模拟的示例。
 

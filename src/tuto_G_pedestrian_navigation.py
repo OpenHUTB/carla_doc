@@ -110,7 +110,7 @@ def get_image_point(bone_trans):
     
 
 def build_skeleton(ped, sk_links, K):
-    ######## 获取行人骨架 #########
+    # 获取行人骨架
     bones = ped.get_bones()
 
     # 列出将投影到相机输出上行的存储位置
@@ -157,7 +157,7 @@ trash = image_queue.get()
 if not os.path.exists('out'):
     os.mkdir('out')
 
-for frame in range(0, 360):
+for frame in range(0, 3600):
     # 在行人周围移动摄像头
     camera.set_transform(center_camera(pedestrian, frame + 200))
 
