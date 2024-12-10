@@ -729,6 +729,11 @@
 
 [用于深度强化学习的多智能体互联自动驾驶 (MACAD) Gym 环境](https://github.com/praveen-palanisamy/macad-gym)
 
+### 传感器
+
+[LiDAR 点云仿真和传感器放置](https://github.com/PJLab-ADG/PCSim)
+
+
 ## 机器学习 <span id="ml"></span>
 
 [基于动作的自动驾驶表征学习](https://github.com/yixiao1/Action-Based-Representation-Learning)
