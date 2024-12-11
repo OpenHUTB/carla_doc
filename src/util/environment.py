@@ -222,18 +222,21 @@ def main():
         default=None,
         type=float,
         help='Wind intensity [0.0, 100.0]')
+    # 雾的密度（默认为没有雾）
     argparser.add_argument(
         '--fog', '-f',
         metavar='F',
         default=None,
         type=float,
         help='Fog intensity [0.0, 100.0]')
+    # 雾的密度随着距离增加而逐渐减弱的效果
     argparser.add_argument(
         '--fogdist', '-fd',
         metavar='Fd',
         default=None,
         type=float,
         help='Fog Distance [0.0, 100.0)')
+    # 雾减少
     argparser.add_argument(
         '--fogfalloff', '-fo',
         metavar='Fo',
