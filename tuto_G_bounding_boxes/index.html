@@ -85,6 +85,9 @@ client = carla.Client('localhost', 2000)
 world  = client.get_world()
 bp_lib = world.get_blueprint_library()
 
+# 获取地图的生成点
+spawn_points = world.get_map().get_spawn_points()
+
 # 生成车辆
 vehicle_bp =bp_lib.find('vehicle.lincoln.mkz_2020')
 vehicle = world.try_spawn_actor(vehicle_bp, random.choice(spawn_points))
@@ -97,12 +100,9 @@ vehicle.set_autopilot(True)
 
 # 以同步模式设置模拟器
 settings = world.get_settings()
-settings.synchronous_mode = True # Enables synchronous mode
+settings.synchronous_mode = True # 启用同步模式
 settings.fixed_delta_seconds = 0.05
 world.apply_settings(settings)
-
-# 获取地图的生成点
-spawn_points = world.get_map().get_spawn_points()
 
 # 创建一个队列来存储和检索传感器数据
 image_queue = queue.Queue()
@@ -155,19 +155,18 @@ K = build_projection_matrix(image_w, image_h, fov)
 </code></pre>
 <h2 id="_4">边界框</h2>
 <p>Carla 对象都有一个关联的边界框。Carla <a href="../python_api/#carla.Actor">参与者</a> 有一个 <code>bounding_box</code> 属性，该属性具有 <a href="../python_api/#carla.BoundingBox">carla.BoundingBox</a> 对象类型。边界框的顶点可以通过 getter 函数<code>.get_world_vertices()</code>或 <code>get_local_vertices()</code> 之一检索。</p>
-<p>需要注意的是，要获取世界坐标中边界框的三维坐标，您需要将参与者的变换作为该<code>get_world_vertices()</code>方法的参数，如下所示：</p>
-<pre><code class="language-py">actor.get_world_vertices(actor.get_transform())
-
+<p>需要注意的是，要获取世界坐标中边界框的三维坐标，您需要将参与者的变换(transform)作为该<code>get_world_vertices()</code>方法的参数，如下所示：</p>
+<pre><code class="language-py">bounding_box.get_world_vertices(actor.get_transform())
 </code></pre>
 <p>对于地图中的物体，如建筑物、交通灯和路标，可以通过<a href="(python_api.md#carla.World)">carla.World</a>方法 <code>get_level_bbs()</code> 检索边界框get_level_bbs()。<a href="(python_api.md#carla.CityObjectLabel)">carla.CityObjectLabel</a> 可以用作参数来将边界框列表过滤到相关对象：</p>
-<pre><code class="language-py"># Retrieve all bounding boxes for traffic lights within the level
+<pre><code class="language-py"># 检索关卡内交通灯的所有边界框
 bounding_box_set = world.get_level_bbs(carla.CityObjectLabel.TrafficLight)
 
-# Filter the list to extract bounding boxes within a 50m radius
+# 过滤列表以提取半径50m以内的边界框
 nearby_bboxes = []
 for bbox in bounding_box_set:
     if bbox.location.distance(actor.get_transform().location) &lt; 50:
-        nearby_bboxes
+        nearby_bboxes.append()
 </code></pre>
 <p>可以使用参与者位置来进一步过滤该列表，以识别附近的对象，因此可能位于连接到参与者的相机的视野内。</p>
 <p>为了在相机图像上绘制边界框，我们需要以适当的顺序连接顶点以创建边缘。为了实现这一点，我们需要以下边对列表：</p>

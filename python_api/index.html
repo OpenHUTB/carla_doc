@@ -2577,7 +2577,7 @@ X-轴旋转角度。  </li>
 </ul>
 <hr />
 <h2 id="carlarssactorconstellationdata">carla.RssActorConstellationData<a name="carla.RssActorConstellationData"></a></h2>
-<p>由 RssSensor.register_actor_constellation_callback() 注册的回调中提供的数据结构。</p>
+<p>由 RssSensor.register_actor_constellation_callback() 注册的回调中提供的数据结构（自 Carla 0.9.15 起已被弃用）。</p>
 <h3 id="_138">实例变量</h3>
 <ul>
 <li><a name="carla.RssActorConstellationData.ego_match_object"></a><strong><font color="#f8805a">ego_match_object</font></strong> (<em><a href="https://ad-map-access.readthedocs.io/en/latest/ad_map_access/apidoc/html/structad_1_1map_1_1match_1_1Object.html">ad.map.match.Object</a></em>)<br />
@@ -2598,7 +2598,7 @@ X-轴旋转角度。  </li>
 </ul>
 <hr />
 <h2 id="carlarssactorconstellationresult">carla.RssActorConstellationResult<a name="carla.RssActorConstellationResult"></a></h2>
-<p>应该由 RssSensor.register_actor_constellation_callback() 注册的回调返回的数据结构。 </p>
+<p>应该由 RssSensor.register_actor_constellation_callback() 注册的回调返回的数据结构（自 Carla 0.9.15 起已被弃用）。 </p>
 <h3 id="_141">实例变量</h3>
 <ul>
 <li><a name="carla.RssActorConstellationResult.rss_calculation_mode"></a><strong><font color="#f8805a">rss_calculation_mode</font></strong> (<em><a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss_map_integration/namespacead_1_1rss_1_1map.html#adcb01232986ed83a0c540cd5d03ef495">ad.rss.map.RssMode</a></em>)<br />
@@ -2619,7 +2619,7 @@ X-轴旋转角度。  </li>
 </ul>
 <hr />
 <h2 id="carlarssegodynamicsonroute">carla.RssEgoDynamicsOnRoute<a name="carla.RssEgoDynamicsOnRoute"></a></h2>
-<p>描述车辆状态的 <a href="#carla.RssResponse">carla.RssResponse</a> 中包含的部分数据。参数包括它当前的动态，以及它如何根据目标路线前进。</p>
+<p>描述车辆状态的 <a href="#carla.RssResponse">carla.RssResponse</a> 中包含的部分数据。参数包括它当前的动态，以及它如何根据目标路线前进（自 Carla 0.9.15 起已被弃用）。</p>
 <h3 id="_144">实例变量</h3>
 <ul>
 <li><a name="carla.RssEgoDynamicsOnRoute.ego_speed"></a><strong><font color="#f8805a">ego_speed</font></strong> (<em><a href="https://ad-map-access.readthedocs.io/en/latest/ad_physics/apidoc/html/classad_1_1physics_1_1Speed.html">ad.physics.Speed</a></em>)<br />
@@ -2660,7 +2660,7 @@ X-轴旋转角度。  </li>
 </ul>
 <hr />
 <h2 id="carlarssloglevel">carla.RssLogLevel<a name="carla.RssLogLevel"></a></h2>
-<p>枚举声明中使用的 <a href="#carla.RssSensor">carla.RssSensor</a> 设置日志级别。</p>
+<p>枚举声明中使用的 <a href="#carla.RssSensor">carla.RssSensor</a> 设置日志级别（自 Carla 0.9.15 起已被弃用）。</p>
 <h3 id="_147">实例变量</h3>
 <ul>
 <li><a name="carla.RssLogLevel.trace"></a><strong><font color="#f8805a">trace</font></strong>  </li>
@@ -2674,7 +2674,7 @@ X-轴旋转角度。  </li>
 <hr />
 <h2 id="carlarssresponse">carla.RssResponse<a name="carla.RssResponse"></a></h2>
 <p><small style="display:block;margin-top:-20px;">从 <em><a href="#carla.SensorData">carla.SensorData</a></em> 继承</small></br>
-包含c <a href="#carla.RssSensor">carla.RssSensor</a> 输出的类。这是对传感器的父车辆执行的责任敏感安全计算的结果。</p>
+包含c <a href="#carla.RssSensor">carla.RssSensor</a> 输出的类。这是对传感器的父车辆执行的责任敏感安全计算的结果（自 Carla 0.9.15 起已被弃用）。</p>
 <p><a href="#carla.RssRestrictor">carla.RssRestrictor</a> 将使用数据修改车辆的 <a href="#carla.VehicleControl">carla.VehicleControl</a>。</p>
 <h3 id="_148">实例变量</h3>
 <ul>
@@ -2698,7 +2698,7 @@ X-轴旋转角度。  </li>
 </ul>
 <hr />
 <h2 id="carlarssrestrictor">carla.RssRestrictor<a name="carla.RssRestrictor"></a></h2>
-<p>这些对象将限制应用于 <a href="#carla.VehicleControl">carla.VehicleControl</a>。它是 <a href="https://github.com/intel/ad-rss-lib">负责敏感安全的C++库</a> 的Carla实现的一部分。此类与 <a href="../ref_sensors/#rss-sensor">rss传感器</a> 协同工作，rss传感器提供要应用的限制的数据。</p>
+<p>这些对象将限制应用于 <a href="#carla.VehicleControl">carla.VehicleControl</a>。它是 <a href="https://github.com/intel/ad-rss-lib">负责敏感安全的C++库</a> 的Carla实现的一部分。此类与 <a href="../ref_sensors/#rss-sensor">rss传感器</a> 协同工作，rss传感器提供要应用的限制的数据（自 Carla 0.9.15 起已被弃用）。</p>
 <h3 id="_151">方法</h3>
 <ul>
 <li><a name="carla.RssRestrictor.restrict_vehicle_control"></a><strong><font color="#7fb800">restrict_vehicle_control</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>vehicle_control</strong></font>, <font color="#00a6ed"><strong>proper_response</strong></font>, <font color="#00a6ed"><strong>ego_dynamics_on_route</strong></font>, <font color="#00a6ed"><strong>vehicle_physics</strong></font>)<br />
@@ -2727,7 +2727,7 @@ X-轴旋转角度。  </li>
 </ul>
 <hr />
 <h2 id="carlarssroadboundariesmode">carla.RssRoadBoundariesMode<a name="carla.RssRoadBoundariesMode"></a></h2>
-<p><a href="#carla.RssSensor">carla.RssSensor</a> 中使用的枚举声明，用于启用或禁用 <a href="https://intel.github.io/ad-rss-lib/ad_rss_map_integration/HandleRoadBoundaries/">公路停留</a> 功能。总而言之，此功能将道路边界视为虚拟对象。最小安全距离检查应用于这些虚拟墙，以确保车辆不会驶离道路。</p>
+<p><a href="#carla.RssSensor">carla.RssSensor</a> 中使用的枚举声明，用于启用或禁用 <a href="https://intel.github.io/ad-rss-lib/ad_rss_map_integration/HandleRoadBoundaries/">公路停留</a> 功能。总而言之，此功能将道路边界视为虚拟对象。最小安全距离检查应用于这些虚拟墙，以确保车辆不会驶离道路（自 Carla 0.9.15 起已被弃用）。</p>
 <h3 id="_153">实例变量</h3>
 <ul>
 <li><a name="carla.RssRoadBoundariesMode.On"></a><strong><font color="#f8805a">On</font></strong><br />
@@ -4914,7 +4914,7 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 </ul>
 </li>
 <li><a name="carla.World.get_level_bbs"></a><strong><font color="#7fb800">get_level_bbs</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor_type</strong>=Any</font>)<br />
-返回一个边界框数组，其中包含世界空间中的位置和旋转。该方法默认返回该级别中的所有边界框，但可以使用<code>actor_type</code>参数通过语义标签过滤查询。<ul>
+返回一个边界框数组，其中包含世界空间中的位置和旋转。该方法默认返回该关卡中的所有边界框，但可以使用<code>actor_type</code>参数通过语义标签过滤查询。<ul>
 <li><strong>参数:</strong><ul>
 <li><code>actor_type</code> (<em><a href="#carla.CityObjectLabel">carla.CityObjectLabel</a></em>) - 返回的边界框中包含的元素的语义标签。</li>
 </ul>
