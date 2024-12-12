@@ -42,7 +42,7 @@ vehicle_bp = random.choice(blueprint_library.filter('vehicle.*.*'))
 除此之外，每个 [carla.ActorBlueprint](python_api.md#carla.ActorBlueprint) 能获取 _get_ 和改变 _set_ 一些列参与者属性 [carla.ActorAttribute](python_api.md#carla.ActorAttribute) 。
 ```py
 is_bike = [vehicle.get_attribute('number_of_wheels') == 2]
-if(is_bike)
+if is_bike:
     vehicle.set_attribute('color', '255,0,0')
 ```
 !!! 笔记

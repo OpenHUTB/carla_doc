@@ -499,7 +499,7 @@ points = np.reshape(points, (len(radar_data), 4))
 *   __输出：__ 每一步 [carla.RssResponse](python_api.md#carla.RssResponse) （除非`sensor_tick`另有说明）。
 
 !!! 重要
-    强烈建议在阅读本文之前先阅读具体的 [任敏感安全文档](adv_rss.md)。
+    强烈建议在阅读本文之前先阅读具体的 [任敏感安全文档](adv_rss.md) ，（自 Carla 0.9.15 起已被弃用）。
 
 该传感器集成了 Carla 中的 [责任敏感安全 C++ 库](https://github.com/intel/ad-rss-lib) 。它在 Carla 中默认被禁用，并且必须显式构建才能使用。
 

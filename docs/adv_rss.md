@@ -11,7 +11,7 @@ Carla 在客户端库中集成了 [责任敏感安全的 C++ 库](https://github
 	*   [RssRestrictor](#rssrestrictor)
 
 !!! 重要
-    此功能正在开发中。目前，它仅适用于 Linux 版本。
+    目前，RSS 功能仅适用于 Linux 版本，且自 Carla 0.9.15 起已被弃用。
 
 ---
 ## 概述 <span id="overview"></span>

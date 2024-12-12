@@ -229,7 +229,7 @@ for blueprint in blueprints:
         - `role_name` (_String_) <sub>_- 可修改_</sub>
         - `sensor_tick` (_Float_) <sub>_- 可修改_</sub>
         - `vertical_fov` (_Float_) <sub>_- 可修改_</sub>
-- **<font color="#498efc">sensor.other.rss</font>**  
+- **<font color="#498efc">sensor.other.rss</font>** （自 Carla 0.9.15 起已被弃用）
     - **属性：**
         - `role_name` (_String_) <sub>_- 可修改_</sub>
 

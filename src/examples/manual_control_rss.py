@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+# （自 Carla 0.9.15 起已被弃用）
 # Copyright (c) 2019 Computer Vision Center (CVC) at the Universitat Autonoma de
 # Barcelona (UAB).
 # Copyright (c) 2019 Intel Corporation

@@ -21,6 +21,9 @@ client = carla.Client('localhost', 2000)
 world  = client.get_world()
 bp_lib = world.get_blueprint_library()
 
+# 获取地图的生成点
+spawn_points = world.get_map().get_spawn_points()
+
 # 生成车辆
 vehicle_bp =bp_lib.find('vehicle.lincoln.mkz_2020')
 vehicle = world.try_spawn_actor(vehicle_bp, random.choice(spawn_points))
@@ -33,12 +36,9 @@ vehicle.set_autopilot(True)
 
 # 以同步模式设置模拟器
 settings = world.get_settings()
-settings.synchronous_mode = True # Enables synchronous mode
+settings.synchronous_mode = True # 启用同步模式
 settings.fixed_delta_seconds = 0.05
 world.apply_settings(settings)
-
-# 获取地图的生成点
-spawn_points = world.get_map().get_spawn_points()
 
 # 创建一个队列来存储和检索传感器数据
 image_queue = queue.Queue()
@@ -104,24 +104,23 @@ K = build_projection_matrix(image_w, image_h, fov)
 
 Carla 对象都有一个关联的边界框。Carla [参与者](python_api.md#carla.Actor) 有一个 `bounding_box` 属性，该属性具有 [carla.BoundingBox](python_api.md#carla.BoundingBox) 对象类型。边界框的顶点可以通过 getter 函数`.get_world_vertices()`或 `get_local_vertices()` 之一检索。
 
-需要注意的是，要获取世界坐标中边界框的三维坐标，您需要将参与者的变换作为该`get_world_vertices()`方法的参数，如下所示：
+需要注意的是，要获取世界坐标中边界框的三维坐标，您需要将参与者的变换(transform)作为该`get_world_vertices()`方法的参数，如下所示：
 
 ```py
-actor.get_world_vertices(actor.get_transform())
-
+bounding_box.get_world_vertices(actor.get_transform())
 ```
 
 对于地图中的物体，如建筑物、交通灯和路标，可以通过[carla.World]((python_api.md#carla.World))方法 `get_level_bbs()` 检索边界框get_level_bbs()。[carla.CityObjectLabel]((python_api.md#carla.CityObjectLabel)) 可以用作参数来将边界框列表过滤到相关对象：
 
 ```py
-# Retrieve all bounding boxes for traffic lights within the level
+# 检索关卡内交通灯的所有边界框
 bounding_box_set = world.get_level_bbs(carla.CityObjectLabel.TrafficLight)
 
-# Filter the list to extract bounding boxes within a 50m radius
+# 过滤列表以提取半径50m以内的边界框
 nearby_bboxes = []
 for bbox in bounding_box_set:
     if bbox.location.distance(actor.get_transform().location) < 50:
-        nearby_bboxes
+        nearby_bboxes.append()
 ```
 
 可以使用参与者位置来进一步过滤该列表，以识别附近的对象，因此可能位于连接到参与者的相机的视野内。

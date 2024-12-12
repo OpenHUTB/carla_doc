@@ -28,6 +28,7 @@
 
 - [SUMMIT：大规模混合交通条件下的城市驾驶模拟器](https://github.com/AdaCompNUS/summit)
 
+[![Gurubase](https://img.shields.io/badge/Gurubase-Ask%20CARLA%20Simulator%20Guru-006BFF)](https://gurubase.io/g/carla-simulator)
 
 ### 功能改进
 

@@ -2000,7 +2000,7 @@ X-轴旋转角度。
 ---
 
 ## carla.RssActorConstellationData<a name="carla.RssActorConstellationData"></a>
-由 RssSensor.register_actor_constellation_callback() 注册的回调中提供的数据结构。
+由 RssSensor.register_actor_constellation_callback() 注册的回调中提供的数据结构（自 Carla 0.9.15 起已被弃用）。
 
 ### 实例变量
 - <a name="carla.RssActorConstellationData.ego_match_object"></a>**<font color="#f8805a">ego_match_object</font>** (_<a href="https://ad-map-access.readthedocs.io/en/latest/ad_map_access/apidoc/html/structad_1_1map_1_1match_1_1Object.html">ad.map.match.Object</a>_)  
@@ -2022,7 +2022,7 @@ X-轴旋转角度。
 ---
 
 ## carla.RssActorConstellationResult<a name="carla.RssActorConstellationResult"></a>
-应该由 RssSensor.register_actor_constellation_callback() 注册的回调返回的数据结构。 
+应该由 RssSensor.register_actor_constellation_callback() 注册的回调返回的数据结构（自 Carla 0.9.15 起已被弃用）。 
 
 ### 实例变量
 - <a name="carla.RssActorConstellationResult.rss_calculation_mode"></a>**<font color="#f8805a">rss_calculation_mode</font>** (_<a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss_map_integration/namespacead_1_1rss_1_1map.html#adcb01232986ed83a0c540cd5d03ef495">ad.rss.map.RssMode</a>_)  
@@ -2044,7 +2044,7 @@ X-轴旋转角度。
 ---
 
 ## carla.RssEgoDynamicsOnRoute<a name="carla.RssEgoDynamicsOnRoute"></a>
-描述车辆状态的 [carla.RssResponse](#carla.RssResponse) 中包含的部分数据。参数包括它当前的动态，以及它如何根据目标路线前进。
+描述车辆状态的 [carla.RssResponse](#carla.RssResponse) 中包含的部分数据。参数包括它当前的动态，以及它如何根据目标路线前进（自 Carla 0.9.15 起已被弃用）。
 
 ### 实例变量
 - <a name="carla.RssEgoDynamicsOnRoute.ego_speed"></a>**<font color="#f8805a">ego_speed</font>** (_<a href="https://ad-map-access.readthedocs.io/en/latest/ad_physics/apidoc/html/classad_1_1physics_1_1Speed.html">ad.physics.Speed</a>_)  
@@ -2086,7 +2086,7 @@ X-轴旋转角度。
 ---
 
 ## carla.RssLogLevel<a name="carla.RssLogLevel"></a>
-枚举声明中使用的 [carla.RssSensor](#carla.RssSensor) 设置日志级别。
+枚举声明中使用的 [carla.RssSensor](#carla.RssSensor) 设置日志级别（自 Carla 0.9.15 起已被弃用）。
 
 ### 实例变量
 - <a name="carla.RssLogLevel.trace"></a>**<font color="#f8805a">trace</font>**  
@@ -2101,7 +2101,7 @@ X-轴旋转角度。
 
 ## carla.RssResponse<a name="carla.RssResponse"></a>
 <small style="display:block;margin-top:-20px;">从 _[carla.SensorData](#carla.SensorData)_ 继承</small></br>
-包含c [carla.RssSensor](#carla.RssSensor) 输出的类。这是对传感器的父车辆执行的责任敏感安全计算的结果。
+包含c [carla.RssSensor](#carla.RssSensor) 输出的类。这是对传感器的父车辆执行的责任敏感安全计算的结果（自 Carla 0.9.15 起已被弃用）。
 
 [carla.RssRestrictor](#carla.RssRestrictor) 将使用数据修改车辆的 [carla.VehicleControl](#carla.VehicleControl)。
 
@@ -2127,7 +2127,7 @@ X-轴旋转角度。
 ---
 
 ## carla.RssRestrictor<a name="carla.RssRestrictor"></a>
-这些对象将限制应用于 [carla.VehicleControl](#carla.VehicleControl)。它是 [负责敏感安全的C++库](https://github.com/intel/ad-rss-lib) 的Carla实现的一部分。此类与 [rss传感器](ref_sensors.md#rss-sensor) 协同工作，rss传感器提供要应用的限制的数据。
+这些对象将限制应用于 [carla.VehicleControl](#carla.VehicleControl)。它是 [负责敏感安全的C++库](https://github.com/intel/ad-rss-lib) 的Carla实现的一部分。此类与 [rss传感器](ref_sensors.md#rss-sensor) 协同工作，rss传感器提供要应用的限制的数据（自 Carla 0.9.15 起已被弃用）。
 
 ### 方法
 - <a name="carla.RssRestrictor.restrict_vehicle_control"></a>**<font color="#7fb800">restrict_vehicle_control</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**vehicle_control**</font>, <font color="#00a6ed">**proper_response**</font>, <font color="#00a6ed">**ego_dynamics_on_route**</font>, <font color="#00a6ed">**vehicle_physics**</font>)  
@@ -2148,7 +2148,7 @@ X-轴旋转角度。
 ---
 
 ## carla.RssRoadBoundariesMode<a name="carla.RssRoadBoundariesMode"></a>
-[carla.RssSensor](#carla.RssSensor) 中使用的枚举声明，用于启用或禁用 [公路停留](https://intel.github.io/ad-rss-lib/ad_rss_map_integration/HandleRoadBoundaries/) 功能。总而言之，此功能将道路边界视为虚拟对象。最小安全距离检查应用于这些虚拟墙，以确保车辆不会驶离道路。
+[carla.RssSensor](#carla.RssSensor) 中使用的枚举声明，用于启用或禁用 [公路停留](https://intel.github.io/ad-rss-lib/ad_rss_map_integration/HandleRoadBoundaries/) 功能。总而言之，此功能将道路边界视为虚拟对象。最小安全距离检查应用于这些虚拟墙，以确保车辆不会驶离道路（自 Carla 0.9.15 起已被弃用）。
 
 ### 实例变量
 - <a name="carla.RssRoadBoundariesMode.On"></a>**<font color="#f8805a">On</font>**  
@@ -3732,7 +3732,7 @@ _</font>
         - `object_type` (_[carla.CityObjectLabel](#carla.CityObjectLabel)_) - Semantic tag of the 返回的 EnvironmentObjects。 
     - **返回:** _array([carla.EnvironmentObject](#carla.EnvironmentObject))_  
 - <a name="carla.World.get_level_bbs"></a>**<font color="#7fb800">get_level_bbs</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor_type**=Any</font>)  
-返回一个边界框数组，其中包含世界空间中的位置和旋转。该方法默认返回该级别中的所有边界框，但可以使用`actor_type`参数通过语义标签过滤查询。
+返回一个边界框数组，其中包含世界空间中的位置和旋转。该方法默认返回该关卡中的所有边界框，但可以使用`actor_type`参数通过语义标签过滤查询。
     - **参数:**
         - `actor_type` (_[carla.CityObjectLabel](#carla.CityObjectLabel)_) - 返回的边界框中包含的元素的语义标签。
     - **返回:** _array([carla.BoundingBox](#carla.BoundingBox))_  
