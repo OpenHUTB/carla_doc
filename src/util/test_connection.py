@@ -6,7 +6,7 @@
 # This work is licensed under the terms of the MIT license.
 # For a copy, see <https://opensource.org/licenses/MIT>.
 
-"""Blocks until the simulator is ready or the time-out is met."""
+"""阻塞直到模拟器准备就绪或达到超时时间。（用于测试）"""
 
 import glob
 import os

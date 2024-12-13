@@ -31,7 +31,7 @@
 __1.__ Carla 提供了在 Docker 映像中构建虚幻引擎以及使用该映像编译 Carla 的所有实用程序。这些工具可以在 GitHub 上的源代码中找到。使用以下命令克隆存储库：
 
 ```sh
-    git clone https://github.com/carla-simulator/carla
+git clone https://github.com/carla-simulator/carla
 ```
 
 __2.__ 按照 [这些说明](https://github.com/carla-simulator/carla/tree/master/Util/Docker) 构建虚幻引擎的 Docker 映像。 
@@ -39,8 +39,8 @@ __2.__ 按照 [这些说明](https://github.com/carla-simulator/carla/tree/maste
 __3.__ 创建 `input_folder`。这是您放置要导入的文件的位置。 Docker 会自动创建一个 `.json` 文件来描述包文件夹结构。更改 `input_folder` 的权限才能成功创建：
 
 ```sh
-    #Go to the parent folder, where the input folder is contained
-    chmod 777 input_folder
+# 转到父目录，这里包含了输入文件夹
+chmod 777 input_folder
 ```
 
 > !!! 笔记
@@ -51,7 +51,7 @@ __4.__ 创建 `output_folder` 。这是 Docker 镜像在烘焙地图后写入输
 __5.__ 导航至 `~/carla/Util/Docker`。这是导入脚本所在的位置。该脚本需要 `input_folder` 和 `output_folder` 的路径以及要导入包的名称。如果提供了 `.json` 文件，则该文件的名称是包名称，如果未提供  `.json`，则名称必须为 `map_package`：
 
 ```sh
-    python3 docker_tools.py --input ~/path_to_input_folder --output ~/path_to_output_folder --packages map_package
+python3 docker_tools.py --input ~/path_to_input_folder --output ~/path_to_output_folder --packages map_package
 ```
 
 > !!! 笔记
@@ -73,4 +73,4 @@ python3 config.py --map <mapName>
 
 ---
 
-您的地图现在可以在 Carla 运行模拟了。如果你对这个过程有任何问题，你可以在 [论坛](https://github.com/carla-simulator/carla/discussions) 上提问，。也可以尝试在你的新地图上运行我们的一些 [示例脚本](https://github.com/carla-simulator/carla/tree/master/PythonAPI/examples) 来测试它。
+您的地图现在可以在 Carla 运行模拟了。如果你对这个过程有任何问题，你可以在 [论坛](https://github.com/carla-simulator/carla/discussions) 上提问。也可以尝试在你的新地图上运行我们的一些 [示例脚本](https://github.com/carla-simulator/carla/tree/master/PythonAPI/examples) 来测试它。

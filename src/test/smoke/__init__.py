@@ -20,10 +20,14 @@ except IndexError:
 import carla
 import time
 
-TESTING_ADDRESS = ('localhost', 3654)
+TESTING_ADDRESS = ('localhost', 2000)  # 测试服务器的IP地址和端口号，原来是3654端口
+# vehicle_vehicles_exclude_from_old_towns：从旧的城镇中排除一些车辆
 VEHICLE_VEHICLES_EXCLUDE_FROM_OLD_TOWNS = ['vehicle.mitsubishi.fusorosa', 'vehicle.carlamotors.european_hgv', 'vehicle.carlamotors.firetruck']
 
+
+# 冒烟测试的主类
 class SmokeTest(unittest.TestCase):
+    # 测试前的初始化操作
     def setUp(self):
         self.testing_address = TESTING_ADDRESS
         self.client = carla.Client(*TESTING_ADDRESS)
@@ -31,9 +35,10 @@ class SmokeTest(unittest.TestCase):
         self.client.set_timeout(120.0)
         self.world = self.client.get_world()
 
+    # 测试后的操作
     def tearDown(self):
         self.client.load_world("Town03")
-        # workaround: give time to UE4 to clean memory after loading (old assets)
+        # 应变方法：：加载后给 UE4 一些时间来清理内存（旧资产）
         time.sleep(5)
         self.world = None
         self.client = None

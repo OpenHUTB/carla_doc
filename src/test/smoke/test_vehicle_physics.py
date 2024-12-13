@@ -463,6 +463,7 @@ class TestVehicleTireConfig(SyncSmokeTest):
         for _i in range(0, frames):
             self.world.tick()
 
+    # 测试轮子碰撞（车速非常快）
     def test_vehicle_wheel_collision(self):
         print("TestVehicleTireConfig.test_vehicle_wheel_collision")
 

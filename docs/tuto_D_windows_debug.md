@@ -322,6 +322,11 @@ Failed to open descriptor file ./../../../carla/Unreal/CarlaUE4/CarlaUE4.uprojec
 解决：右键文件`CarlaUE4.uproject`，选择`Switch Unreal Engine version`，并选择需要使用的虚幻引擎版本（如果没有生成新的`CarlaUE4.sln`，则需要先删除再重新生成`CarlaUE4.sln`）。还有可能报错：`预处理器指令后有意外标记 - 应输入换行符`，需要在命令行中先运行`make launch`或者`make launch ARGS="--chrono"`然后再在vs中运行。
 
 
+* 服务端帧率过低，十多帧，正常有40帧左右
+
+可能是因为编译的时候链接到了libcarla库的调式版本。
+
+
 ### 依赖 <span id="dependency"></span>
 
 #### boost-1.80.0
@@ -375,6 +380,11 @@ source ~/.bashrc
 `PythonAPI/carla/setup.py`中的 `ext_modules` 参数用于构建 C 和 C++ 扩展扩展包。其是 Extension 实例的列表，每一个 Extension 实例描述了一个独立的扩展模块，扩展模块可以设置扩展包名，头文件、源文件、链接库及其路径、宏定义和编辑参数等。
 
 `package_dir` 选项的值是字典而不是列表。当您的源代码不直接位于与 `setup.py` 相同的文件夹中时，请使用此选项。
+
+### 测试
+
+自动化测试请参考 [链接](./test/tuto_test.md) 。
+
 
 ### 学习 <span id="learn"></span>
 * [bat脚本](tuto_D_bat.md)
