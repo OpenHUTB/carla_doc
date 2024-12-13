@@ -355,6 +355,10 @@ D:\work\workspace\engine\Engine\Binaries\Win64\UE4Editor-Cmd D:/work/workspace/c
 <p>表现为打开<code>CarlaUE4.sln</code>后没有 <code>UnrealBuildTool</code>选项。</p>
 <p>因为未在 STOCK UNREAL ENGINE 中找到它。它是添加到 CARLA 分支中的内容。如果您在两个版本的 Unreal 和 Carla 之间执行 git diff，您将看到只有少量更改，并且添加了 GBuffer 视图。 </p>
 <p>解决：右键文件<code>CarlaUE4.uproject</code>，选择<code>Switch Unreal Engine version</code>，并选择需要使用的虚幻引擎版本（如果没有生成新的<code>CarlaUE4.sln</code>，则需要先删除再重新生成<code>CarlaUE4.sln</code>）。还有可能报错：<code>预处理器指令后有意外标记 - 应输入换行符</code>，需要在命令行中先运行<code>make launch</code>或者<code>make launch ARGS="--chrono"</code>然后再在vs中运行。</p>
+<ul>
+<li>服务端帧率过低，十多帧，正常有40帧左右</li>
+</ul>
+<p>可能是因为编译的时候链接到了libcarla库的调式版本。</p>
 <h3 id="_5">依赖 <span id="dependency"></span></h3>
 <h4 id="boost-1800">boost-1.80.0</h4>
 <p><a href="https://blog.csdn.net/ASCE_Python/article/details/105595218">Python封装C++库调试</a> 。</p>
@@ -395,7 +399,9 @@ source ~/.bashrc
 <h3 id="pythonapi_1">PythonAPI说明</h3>
 <p><code>PythonAPI/carla/setup.py</code>中的 <code>ext_modules</code> 参数用于构建 C 和 C++ 扩展扩展包。其是 Extension 实例的列表，每一个 Extension 实例描述了一个独立的扩展模块，扩展模块可以设置扩展包名，头文件、源文件、链接库及其路径、宏定义和编辑参数等。</p>
 <p><code>package_dir</code> 选项的值是字典而不是列表。当您的源代码不直接位于与 <code>setup.py</code> 相同的文件夹中时，请使用此选项。</p>
-<h3 id="_9">学习 <span id="learn"></span></h3>
+<h3 id="_9">测试</h3>
+<p>自动化测试请参考 <a href="../test/tuto_test/">链接</a> 。</p>
+<h3 id="_10">学习 <span id="learn"></span></h3>
 <ul>
 <li><a href="../tuto_D_bat/">bat脚本</a></li>
 <li><a href="../libcarla/">LibCarla 说明</a></li>
