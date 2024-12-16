@@ -1,10 +1,7 @@
 # [引用了Carla的相关库](https://github.com/carla-simulator/carla/network/dependents)
 
-<!-- 更新到最新的仓库： https://github.com/DivitMittal/CARLA-Autonomous-Driving --> 
+<!-- 更新到最新的仓库： https://ghttps://github.com/yagol2020/SimADFuzz --> 
 
-<!-- 页面开始：https://github.com/manuandru/svs-lab02 -->
-
-<!-- https://github.com/yagol2020/ADSFuzzEval -->
 
 - [__感知__](#perception)
     - [检测](#detection)
@@ -142,6 +139,8 @@
 
 ### 强化学习 <span id="rl"></span>
 
+[利用强化学习开发基于人工智能的自动驾驶汽车](https://github.com/guruvenkateshmj/self-driving-car)
+
 [Actor-Critic 强化学习在 CARLA 模拟器中训练自动驾驶代理](https://github.com/andyzhang8/Autonomous-Vehicle-Control-CNN)
 
 [强化学习在自动驾驶汽车中用于避免碰撞的端到端应用](https://github.com/gustavomoers/E2E-CARLA-ReinforcementLearning-PPO) - 处理 RGB 摄像头输入以做出实时加速和转向决策
@@ -260,6 +259,8 @@
 
 [多未来轨迹预测](https://github.com/JunweiLiang/Multiverse)
 
+[端到端轨迹预测](https://github.com/louardibrahim/dinoag)
+
 [航路点预测多模态数据融合](https://github.com/Hwansoo-Choi/Cognitive-Transfuser)
 
 [通过推测在线前瞻自适应实现非平稳环境中的自适应驾驶](https://github.com/Panshark/COLA)
@@ -310,6 +311,10 @@
 [基于确定性等价感知的控制](https://github.com/modestyachts/certainty_equiv_perception_control)
 
 ## 场景 <span id="scene"></span>
+
+[针对自动驾驶系统的模糊测试方法](https://github.com/yagol2020/SimADFuzz) - 可生成各种驾驶场景来检测 ADS 中的潜在违规行为
+
+[一种场景描述 DSL 来描述从交通规则中衍生的功能测试场景](https://github.com/ITSEG-MQ/TARGET)
 
 [交通场景定义与执行引擎](https://github.com/carla-simulator/scenario_runner)
 
@@ -427,13 +432,22 @@
 
 ## 大模型 <span id="llm"></span>
 
+[基于视觉语言模型的检索增强自动驾驶极端情况理解](https://github.com/yjwangtj/RA-ADC)
+
 [使用大型视觉模型作为 AV 的驱动代理](https://github.com/AdityaNG/DriveLLaVA)
 
 [使用大型语言模型实现闭环端到端驱动](https://github.com/opendilab/LMDrive)
 
 [扩散驱动](https://github.com/AyexGG/DiffuseDrive_dennisv)
 
+
+## 智能体 <span id="agent"></span>
+
+[受人类认知过程启发持续学习、适应和改进自动驾驶新范式](https://github.com/PJLab-ADG/LeapAD)
+
 ## 多智能体 <span id="mulgi_agent"></span>
+
+[可定制多智能体训练营](https://github.com/TrustAISys/cmad-gym)
 
 [基于LLM的交通流生成](https://github.com/CXYyp5SkNg/CXYyp5SkNg.github.io) ，效果[视频](https://github.com/CXYyp5SkNg/CXYyp5SkNg.github.io/blob/main/README.md) 
 
@@ -612,6 +626,10 @@
 
 ## 工具 <span id="tools"></span>
 
+[自动驾驶算法测试平台](https://github.com/siupal/UniversalPlatformForAutodriving)
+
+[包含 CARLA 排行榜 2.0 的第一个完整入门套件](https://github.com/akodama428/carla_garage)
+
 [驾驶试验](https://github.com/VIPERFGCU/FGCUDrivingSimulator)
 
 [gym 环境](https://github.com/natelincyber/carla-gym-optim)
@@ -741,6 +759,10 @@
 [机器学习演示](https://github.com/kishkaru/ML-demos)
 
 ## 杂项 <span id="misc"></span>
+
+[智能车辆系统项目](https://github.com/davidedimarco00/SVS-Project)
+
+[AITyrimas](https://github.com/mantekarys/AITyrimas)
 
 [通过专家协作增强自动驾驶系统](https://github.com/Expert-AD/ExpertAD)
 
