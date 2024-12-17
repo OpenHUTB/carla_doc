@@ -75,6 +75,26 @@
 <pre><code class="language-shell">python -m nose2 -v smoke.test_client
 </code></pre>
 <p>整个脚本会依次运行 <a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/test/smoke_test_list.txt">smoke_test_list.txt</a> 文件中的所有测试用例。</p>
+<p>测试失败：</p>
+<pre><code class="language-shell">smoke.test_spawnpoints.TestSpawnpoints
+</code></pre>
+<pre><code class="language-text">ERROR: test_spawn_points (smoke.test_spawnpoints.TestSpawnpoints)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File &quot;D:\work\workspace\carla_doc\src\test\smoke\test_spawnpoints.py&quot;, line 48, in test_spawn_points
+    response = self.client.apply_batch_sync(batch, False)
+RuntimeError: time-out of 120000ms while waiting for the simulator, make sure the simulator is ready and connected to localhost:2000
+
+======================================================================
+FAIL: test_load_all_maps (smoke.test_map.TestMap)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File &quot;D:\work\workspace\carla_doc\src\test\smoke\test_map.py&quot;, line 32, in test_load_all_maps
+    self._check_map(m)
+  File &quot;D:\work\workspace\carla_doc\src\test\smoke\test_map.py&quot;, line 37, in _check_map
+    self.assertIsNotNone(waypoint)
+AssertionError: unexpectedly None
+</code></pre>
               
             </div>
           </div><footer>
