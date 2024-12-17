@@ -18,8 +18,6 @@
 
 ### 第三方工具
 
-- [车载HUD智能设计与验证一站式平台](https://github.com/ZhilingResearch/Libra) ：[文档](https://g06o7xylva3.feishu.cn/docx/M4dQdH8saoenDTx1w4Ac07i0nNe) ，包括：当前驾驶车辆工况、导航路径引导、提示周围环境信息、接管提升和辅助、个性化娱乐功能。。
-
 - [Carla调试工具](https://gitee.com/kin-zhang/quickly-carla) ，下载[链接](https://www.microsoft.com/en-us/download/details.aspx?id=58090) 。
 
 - [一句话生成想要的自动驾驶关键场景](https://github.com/javyduck/ChatScene) 

@@ -474,6 +474,8 @@ install_proj.bat --build-dir D:\work\DReyeVR\carla\Build
 
 [Windows平台下的依赖安装脚本](./build/installers_win.md)
 
+[车载HUD设计与验证平台文档](https://github.com/ZhilingResearch/Libra) ：[文档](https://g06o7xylva3.feishu.cn/docx/M4dQdH8saoenDTx1w4Ac07i0nNe) 包括：当前驾驶车辆工况、导航路径引导、提示周围环境信息、接管提升和辅助、个性化娱乐功能。。
+
 ---
 
 有关本指南的任何问题， 请阅读 **[常见问题解答](build_faq.md)** 页面或在 [Carla 论坛](https://github.com/carla-simulator/carla/discussions) 中发帖。
