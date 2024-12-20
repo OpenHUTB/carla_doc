@@ -300,3 +300,9 @@ Carla 旨在针对专业应用程序进行可扩展和高度定制。因此，�
 * [__添加地图包__](tuto_M_add_map_package.md)
 * [__添加地图源__](tuto_M_add_map_source.md)
 * [__替代方法__](tuto_M_add_map_alternative.md)
+
+
+## 工具
+
+* [webp转gif](https://cloudconvert.com/webp-to-gif)
+* [gif压缩](https://gifcompressor.com/zh/)
