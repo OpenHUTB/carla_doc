@@ -330,6 +330,8 @@ D:\work\workspace\engine\Engine\Binaries\Win64\UE4Editor-Cmd D:/work/workspace/c
 <p>直接命令行运行报错（必须确保不是Commandlet启动，而必须是Editor启动）：</p>
 <pre><code class="language-text">LogWindows: Error: Assertion failed: !IsRunningCommandlet() [File:D:/work/workspace/engine/Engine/Plugins/Developer/RenderDocPlugin/Source/RenderDocPlugin/Private/SRenderDocPluginEditorExtension.cpp] [Line: 107]
 </code></pre>
+<p>问题的根源：Windows不支持使用Commandlet方式，而是可以直接调用<code>GenerateTile();</code>生成地图瓦片。</p>
+<p>解决办法：使用最新的 <code>ue4-dev</code> 分支代码，对应的 <a href="https://github.com/OpenHUTB/carla/commit/6886d25c13097dbb94b84afda513bf6ecc4ea73e">代码修改</a> 、<a href="https://github.com/OpenHUTB/carla/commit/6ffcdbeec9eaaa6586c5e8a77de13d449acc55da">空指针问题</a> 。使用 <code>RemoveFromRoot()</code> 将其从根对象列表中移除。这允许垃圾回收机制回收该对象所占用的内存。</p>
 <h3 id="vs-ue"><a href="https://ue5wiki.com/wiki/14373/">VS 调试 UE 项目</a>  <span id="debug_UE_with_vs2019"></span></h3>
 <ul>
 <li>变量已被优化掉，因而不可用。    </li>
