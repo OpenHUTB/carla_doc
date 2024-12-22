@@ -290,6 +290,10 @@ D:\work\workspace\engine\Engine\Binaries\Win64\UE4Editor-Cmd D:/work/workspace/c
 LogWindows: Error: Assertion failed: !IsRunningCommandlet() [File:D:/work/workspace/engine/Engine/Plugins/Developer/RenderDocPlugin/Source/RenderDocPlugin/Private/SRenderDocPluginEditorExtension.cpp] [Line: 107]
 ```
 
+问题的根源：Windows不支持使用Commandlet方式，而是可以直接调用`GenerateTile();`生成地图瓦片。
+
+解决办法：使用最新的 `ue4-dev` 分支代码，对应的 [代码修改](https://github.com/OpenHUTB/carla/commit/6886d25c13097dbb94b84afda513bf6ecc4ea73e) 、[空指针问题](https://github.com/OpenHUTB/carla/commit/6ffcdbeec9eaaa6586c5e8a77de13d449acc55da) 。使用 `RemoveFromRoot()` 将其从根对象列表中移除。这允许垃圾回收机制回收该对象所占用的内存。
+
 
 ### [VS 调试 UE 项目](https://ue5wiki.com/wiki/14373/)  <span id="debug_UE_with_vs2019"></span>
 
