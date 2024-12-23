@@ -32,6 +32,10 @@
 * 调试**Carla服务端**：断点打在`Carla/Game/CarlaEngine.cpp`的第87行，然后开始调式，在虚幻编辑器中点击`运行`则会在断点处停止。
 ![](img/tuto_D_windows_debug/debug_carla_server.png)
 
+* 调式 ** 虚幻编辑器启动 **：断点打在`Carla/Vehicle/VehicleSpawnPoint.h`的第16行，通过vs启动调试后启动虚幻便器到75%时候会停止。
+
+* 调试 **Python 调用**：断点打在 `Carla/Server/CarlaServer.cpp`的第 721行，然后运行`manual_control.py`（调用`try_spawn_actor`方法生成参与者）则会在断点处停止。
+
 配置管理器包括：
 
 * **Debug**: 游戏和引擎全都可以调试，无优化，速度慢，没有Editor相关代码功能，资源需要Cook。
@@ -317,11 +321,11 @@ Failed to open descriptor file ./../../../carla/Unreal/CarlaUE4/CarlaUE4.uprojec
 
 解决：在命令行使用`make launch ARGS='--chrono'`进行重新编译后，然后再用VS启动调试。
 
-* 执行“make launch”时出错，'Renderer/Public/GBufferView.h'
+* 执行`make launch`或者在vs中启动调试时报错：无法打开源文件 "Renderer/Public/GBufferView.h"
 
 表现为打开`CarlaUE4.sln`后没有 `UnrealBuildTool`选项。
 
-因为未在 STOCK UNREAL ENGINE 中找到它。它是添加到 CARLA 分支中的内容。如果您在两个版本的 Unreal 和 Carla 之间执行 git diff，您将看到只有少量更改，并且添加了 GBuffer 视图。 
+因为未在所使用的虚幻引擎代码库（STOCK UNREAL ENGINE）中找到它，可能本地存在多个虚幻引擎的版本。GBuffer 它是添加到 CARLA 分支中的内容。如果您在两个版本的 Unreal 和 Carla 之间执行 git diff，您将看到只有少量更改，并且添加了 GBuffer 视图。 
 
 解决：右键文件`CarlaUE4.uproject`，选择`Switch Unreal Engine version`，并选择需要使用的虚幻引擎版本（如果没有生成新的`CarlaUE4.sln`，则需要先删除再重新生成`CarlaUE4.sln`）。还有可能报错：`预处理器指令后有意外标记 - 应输入换行符`，需要在命令行中先运行`make launch`或者`make launch ARGS="--chrono"`然后再在vs中运行。
 

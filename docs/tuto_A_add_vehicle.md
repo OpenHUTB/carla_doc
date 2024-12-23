@@ -13,7 +13,7 @@
 ---
 ## 添加 4 轮车辆 <span id="add-a-4-wheeled-vehicle"></span>
 
-添加到 Carla 的车辆需要使用可在 [__此处__]((https://carla-assets.s3.eu-west-3.amazonaws.com/fbx/VehicleSkeleton.rar)) 找到的通用基础骨架。此链接将下载一个名为 `VehicleSkeleton.rar` 的文件夹，其中包含两种不同格式的基本框架，一种为 ASCII，另一种为二进制。您使用的格式取决于您的 3D 建模软件要求。
+添加到 Carla 的车辆需要使用可在 [__此处__](https://carla-assets.s3.us-east-005.backblazeb2.com/fbx/VehicleSkeleton.rar) 找到的通用基础骨架。此链接将下载一个名为 `VehicleSkeleton.rar` 的文件夹，其中包含两种不同格式的基本框架，一种为 ASCII，另一种为二进制。您使用的格式取决于您的 3D 建模软件要求。
 
 __骨架骨骼的位置可以更改，但任何其他操作（例如旋转、添加新骨骼或更改当前层次结构）都会导致错误。__
 
@@ -25,7 +25,7 @@ __骨架骨骼的位置可以更改，但任何其他操作（例如旋转、添
 
 __1. 导入基础骨架。__
 
-将基础骨架导入您首选的三维建模软件中。常见的编辑器包括 Maya 和 Blender。
+将基础骨架导入您首选的三维建模软件中。常见的编辑器包括 Blender 和 Maya。
 
 __2. 绑定骨骼。__
 
@@ -42,7 +42,7 @@ __2. 绑定骨骼。__
 
 __3.  为您的车辆建模。__
 
-车辆应拥有大约 50,000 - 100,000 个 tris。我们使用实际汽车的尺寸和比例来建模车辆。
+车辆应拥有大约 50,000 - 100,000 个三角面(tris)。我们使用实际汽车的尺寸和比例来建模车辆。
 
 我们建议您将车辆分为以下材质：
 
@@ -62,10 +62,10 @@ __3.  为您的车辆建模。__
 
 虚幻引擎会自动创建(Level of Details, LOD)，但您也可以在 3D 编辑器中手动创建它们。Tri 计数如下：
 
-- __LOD 0__: 100,000 tris
-- __LOD 1__: 80,000 tris
-- __LOD 2__: 60,000 tris
-- __LOD 3__: 30,000 tris
+- __LOD 0__: 100,000 三角面(tris)
+- __LOD 1__: 80,000 三角面(tris)
+- __LOD 2__: 60,000 三角面(tris)
+- __LOD 3__: 30,000 三角面(tris)
 
 
 __4. 创建物理资源网格。__
@@ -113,11 +113,11 @@ __5. 导出车辆网格。__
 
 __1. 创建车辆文件夹。__
 
-在 `Content/Carla/Static/Vehicles/4Wheeled` 里创建一个名为 `<vehicle_name>` 的新文件夹。
+在 `Content/Carla/Static/Car/4Wheeled` 里创建一个名为 `<vehicle_name>` 的新文件夹。
 
 __2. 导入 `.fbx`。__
 
-在新的车辆文件夹中，通过在**_Content Browser_**中右键单击并选择 **_导入到 Game/Carla/Static/Vehicles/4Wheeled/<vehicle_name\>_** 来导入主车辆骨架`.fbx`。
+在新的车辆文件夹中，通过在**_Content Browser_**中右键单击并选择 **_导入到 Game/Carla/Static/Car/4Wheeled/<vehicle_name\>_** 来导入主车辆骨架`.fbx`。
 
 在弹出的对话框中：
 
@@ -131,16 +131,16 @@ __2. 导入 `.fbx`。__
 
 __3. 设置物理资源网格。__
 
->1. 从内容浏览器**_Content Browser_** `<vehicle_name>_PhysicsAssets`。
-- **_Skeleton Tree_**面板中右键单击 `Vehicle_Base` 的网格体，然后转到**_Copy Collision from StaticMesh_**。
+>1. **_从内容浏览器(Content Browser)_** 中打开 `<vehicle_name>_PhysicsAssets`。
+- **_骨骼树(Skeleton Tree)_** 面板中右键单击 `Vehicle_Base` 的网格体，然后转到 **_自Static Mesh处复制碰撞(Copy Collision from StaticMesh)_**。
 - 搜索并选择您的`SMC_<vehicle_name>`文件。您应该会看到物理资源网格的轮廓出现在视口中。
 - 从 `Vehicle_Base` 中删除默认的胶囊形状。
 - 选择所有轮子：
-    - 转到**_Tools_**面板并将“基元类型**_Primitive Type_**”更改为`Sphere`。 
-    - 转到详细信息**_Details_**面板并将物理类型**_Physics Type_**更改为`Kinematic`。
-    - 将线性阻尼**_Linear Damping_**设置为`0`。这将消除车轮上的任何额外摩擦。
-- 为所有网格启用**_Simulation Generates Hit Event_**。
-- 单击**_Re-generate Bodies_**。
+    - 转到 **_工具(Tools)_** 面板并将 “**_基元类型Primitive Type_**” 更改为`球体(Sphere)`。 
+    - 转到 **_详情(Details)_** 面板并将 **_物理类型(Physics Type_** 更改为`运动学(Kinematic)`。
+    - 将 **_线性阻尼(Linear Damping)_** 设置为`0`。这将消除车轮上的任何额外摩擦。
+    - [碰撞](https://dev.epicgames.com/documentation/zh-cn/unreal-engine/collision-overview?application_version=4.27) 选项中，为所有网格启用 **_仿真生成命中事件(Simulation Generates Hit Event)_**，车辆就会告诉自己发生了碰撞。它会触发车辆蓝图中的事件。
+- 单击页面最右下角的 **_重新生成形体(Re-generate Bodies)_**。
 - 将车轮球体调整至车轮尺寸。
 - 保存并关闭窗口。
 
@@ -148,43 +148,43 @@ __3. 设置物理资源网格。__
 
 __4. 创建动画蓝图。__
 
->1. 在内容浏览器**_Content Browser_**中，右键单击车辆文件夹并选择**_Animation -> Animation Blueprint_**。
-- 在父类**_Parent Class_**中搜索并选择`VehicleAnimInstance`。
-- 在目标骨架**_Target Skeleton_**中搜索并选择`<vehicle_name>_Skeleton`。 
-- 按**_OK_**并将蓝图重命名为`AnimBP_<vehicle_name>`。 
+>1. 在 **_内容浏览器(Content Browser)_** 中，在车辆文件夹内的空白地方右键单击并选择**_动画(Animation) -> 动画蓝图(Animation Blueprint)_**。
+- 在 **_父类(Parent Class)_** 中搜索并选择`VehicleAnimInstance`。
+- 在 **_目标骨骼(Target Skeleton)_** 中搜索并选择`<vehicle_name>_Skeleton`。 
+- 按 **_确定(OK)_** 并将蓝图重命名为 `AnimBP_<vehicle_name>`。 
 
 __5.  配置动画蓝图。__
 
 为了简化配置动画蓝图的过程，我们将从本地 Carla 车辆复制现有的动画蓝图：
 
->1. 转到`Content/Carla/Static/Vehicle`并选择任何 Carla 车辆文件夹。打开其动画蓝图。
-- 在**_My Blueprint_**面板中，双击**_AnimGraph_**。您将看到图表出现在视口中。 
-- 单击并拖动以选择**_Mesh Space Ref Pose_**、**_Wheel Handler_**和**_Component To Local_**组件。右键单击并选择复制。
+>1. 转到 `Content/Carla/Static/Car` 并选择任何 Carla 车辆文件夹。打开其动画蓝图。
+- 在 **_我的蓝图(My Blueprint)_** 面板中，双击 **_动画图表(AnimGraph)_** 。您将看到图表出现在视口中。 
+- 单击并拖动以选择 **_Mesh Space Ref Pose_** 、 **_Wheel Handler_** 和 **_Component To Local_** 组件。右键单击并选择复制。
 - 返回您自己的车辆动画蓝图并将复制的内容粘贴到图形区域中。
-- 单击**_Component To Local_**组件中的站立人物并将其拖动到**_Output Pose_**中的人物，以将组件连接在一起。
-- 单击左上角的**_Compile_**。您现在应该看到一条脉动的线流过整个序列。
+- 单击 **_从组件空间到本地(Component To Local)_** 组件中的站立人物并将其拖动到 **_输出姿势(Output Pose)_** 中的人物，以将组件连接在一起。
+- 单击左上角的 **_编译(Compile)_** 。您现在应该看到一条脉动的线流过整个序列。
 - 保存并关闭窗口。
 
 >>![add_vehicle_step_04](img/add_vehicle_step_04.jpg)
 
 __6. 准备车辆和车轮蓝图。__
 
->1. 在内容浏览器**_Content Browser_**中，转到`Content/Carla/Blueprints/Vehicles`并创建一个新文件夹`<vehicle_name>`。 
-- 在该文件夹内，右键单击并转到**_Blueprint Class_**。在弹出窗口中打开**_All Classes_**部分。
-- 搜索`BaseVehiclePawn`并按**_Select_**。
-- 将文件重命名为`BP_<vehicle_name>`。
-- 转到 `Carla/Blueprints/Vehicles` 中任何本地 Carla 车辆的文件夹。从内容浏览器**_Content Browser_**中，将四轮蓝图复制到您自己车辆的蓝图文件夹中。重命名文件以将旧车辆名称替换为您自己的车辆名称。
+>1. 在 **_内容浏览器(Content Browser)_** 中，转到 `Content/Carla/Blueprints/Vehicles/`并创建一个新文件夹 `<vehicle_name>`。 
+- 在该文件夹内，右键单击并转到 **_蓝图类(Blueprint Class)_** 。在弹出窗口中打开 **_所有类(All Classes)_** 部分。
+- 搜索`BaseVehiclePawn`并按 **_选择(Select)_** 。
+- 将文件重命名为 `BP_<vehicle_name>`。
+- 转到 `Carla/Blueprints/Vehicles` 中任何本地 Carla 车辆的文件夹。从 **_内容浏览器(Content Browser)_** 中，将四轮蓝图复制到您自己车辆的蓝图文件夹中。重命名文件以将旧车辆名称替换为您自己的车辆名称。
 
 >>![Copy wheel blueprints](./img/copy_wheel_blueprint.png)
 
-__7. 配置轮子蓝图。__
+__7. 配置车轮蓝图。__
 
 >1. 在车辆蓝图文件夹中，打开所有四个车轮蓝图。
-- 在**_Class Defaults_**面板中，将 **_Collision Mesh_** 设置为 `Wheel_Shape`。__省略此步骤将导致车辆车轮陷入地面__。 
+- 在 **_类默认值(Class Defaults)_** 面板中，将 **_碰撞网格体(Collision Mesh)_** 设置为 `Wheel_Shape`。__省略此步骤将导致车辆车轮陷入地面__。 
 - 根据您的车辆规格调整车轮形状半径、宽度、质量和阻尼率的值。 
-- 将轮胎配置**_Tire Config_**设置为`CommonTireConfig`。
-- 在前轮上根据您的喜好设置转向角度 **_Steer Angle_**（默认为`70`）。取消选中**_Affected by Handbrake_** 。
-- 在后轮上将转向角度 **_Steer Angle_** 设置为 `0`。检查 **_Affected by Handbrake_**。
+- 将 **疲劳 -> _轮胎配置(Tire Config)_** 设置为`CommonTireConfig`。
+- 在前轮(FL和FR)上根据您的喜好设置转向角度 **_转向角度(Steer Angle)_**（默认为`70`）。取消选中**_Affected by Handbrake_** 。
+- 在后轮(RL和RR)上将转向角度 **_转向角度(Steer Angle)_** 设置为 `0`。检查 **_Affected by Handbrake_**。
 - 设置悬架值时，您可以使用 [此处](tuto_D_customize_vehicle_suspension.md) 的值作为指导。
 - 编译并保存。
 
@@ -192,21 +192,21 @@ __7. 配置轮子蓝图。__
 
 __8. 配置车辆蓝图。__
 
->1. 从内容浏览器 **_Content Browser_** 中，打开您的`BP_<vehicle_name>`。 
-- 在 **_Components_** 面板中，选择 **_Mesh (VehicleMesh) (Inherited)_** 。
-- 在 **_Details_** 面板中，转到 **_Skeletal Mesh_** 并搜索并选择车辆的基础骨架文件（位于 `Carla/Static/Vehicles/4Wheeled/<vehicle_name>` 文件夹中）。 
-- 转到 **_Details_** 面板中的 **_Anim Class_**。搜索并选择您的 `AnimBP_<vehicle_name>` 文件。
-- 在 **_Components_** 面板中，选择 **_Custom Collision (Inherited)_** 。
-- 在 **_Details_** 面板中选择 **_Static Mesh_** 并搜索您的 `SM_sc_<vehicle_name>` 光线投射传感器网格体。
-- 在 **_Components_** 面板中，选择 **_VehicleMovement (MovementComp) (Inherited)_** 。 
-- 在 **_Details_** 面板中，搜索 `wheel` 。您将找到每个轮子的设置。对于每一个，单击 **_Wheel Class_** 并搜索与正确车轮位置相对应的`BP_<vehicle_name>_<wheel_name>`文件。 
+>1. 从 **_内容浏览器(Content Browser)_** 中，打开您的`BP_<vehicle_name>`。 
+- 在 **_组件(Components)_** 面板中，选择 **_网格体 (VehicleMesh) (继承)_** 。
+- 在 **_细节(Details)_** 面板中，转到 **_骨骼网格体(Skeletal Mesh)_** 搜索并选择车辆的基础骨架文件（位于 `Carla/Static/Car/4Wheeled/<vehicle_name>` 文件夹中）。 
+- 转到 **_细节(Details)_** 面板中的 **_动画类(Anim Class)_**。搜索并选择您的动态蓝图 `AnimBP_<vehicle_name>` 文件。
+- 在 **_组件(Components)_** 面板中，选择 **_Custom Collision (继承)_** 。
+- 在 **_细节(Details)_** 面板中选择 **_静态网格体(Static Mesh)_** 并搜索您的光线投射传感器网格体 `SM_sc_<vehicle_name>` 。
+- 在 **_组件(Components)_** 面板中，选择 **_载具移动 (MovementComp) (继承)_** 。 
+- 在 **_细节(Details)_** 面板中，搜索 `wheel` 。您将找到每个轮子的设置。对于每一个，单击 **_车轮类(Wheel Class)_** 并搜索与正确车轮位置相对应的`BP_<vehicle_name>_<wheel_name>`文件。 
 
 >>>>![wheel blueprint](./img/wheel_blueprint.png)
 
 如果您的车辆有任何与基础网格分开的附加网格（门、灯等）：
 
->1. 将它们拖到**_Components_**面板中的 **_Mesh (VehicleMesh) (Inherited)_** 层次结构中。
-- 选择层次结构中的额外网格并在**_Details_**面板中搜索 `Collision`。 
+>1. 将它们拖到 **_组件(Components)_** 面板中的 **_网格体 (VehicleMesh) (继承)_** 层次结构中。
+- 选择层次结构中的额外网格并在 **_细节(Details)_** 面板中搜索 `Collision`。 
 - 将碰撞预设 **_Collision Presets_** 设置为 `NoCollision`。
 - 选择层次结构中的任何灯光网格。在 **_Details_** 面板中搜索 `Tag` 并添加标签 `emissive`。 
 
@@ -220,8 +220,8 @@ __9. 将车辆添加到蓝图库中。__.
 
 >1. 在 `Content/Carla/Blueprint/Vehicle` 中，打开 `VehicleFactory` 文件。
 - 在 **_Generate Definitions_** 选项卡中，双击 **_Vehicles_** 。
-- 在 **_Details_** 面板中，展开 **_Default Value_** 部分并向车辆数组添加一个新元素。 
-- 填写您车辆的 **_Make_** 和 **_Model_** 。 
+- 在 **_细节(Details)_** 面板中，展开 **_默认值(Default Value)_** 部分并向车辆数组添加一个新元素。 
+- 填写您车辆的品牌 **_Make_** 和型号 **_Model_** 。 
 - 使用您的 `BP_<vehicle_name>` 文件填写 **_Class_** 值。
 - （可选）为车辆提供一组推荐颜色。
 - 编译并保存。
@@ -233,7 +233,7 @@ __10. 测试车辆__。
 启动 Carla，打开终端 `PythonAPI/examples` 并运行以下命令：
 
 ```sh
-python3 manual_control.py --filter <model_name> # The make or model defined in step 9
+python3 manual_control.py --filter <model_name> # 步骤9中定义的品牌或型号
 ```
 
 !!! 笔记
@@ -327,3 +327,8 @@ __7.__ 选择变量 "is bike" ，如果您的型号是自行车，则勾选它�
 __8.__ 找到变量 back Rotation 并将其设置为更合适的位置，更好地选择组件 SkeletalMesh（驱动程序）并将其沿 x 轴移动，直到其位于座椅位置。 
 
 __9.__ 测试一下，进入CarlaGameMode蓝图并将“Default Pawn Class”更改为新创建的自行车蓝图。
+
+
+## 其他
+
+[添加比亚迪海豹操作]()

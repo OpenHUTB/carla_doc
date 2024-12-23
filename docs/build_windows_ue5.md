@@ -18,7 +18,7 @@ git clone -b ue5-dev https://github.com/carla-simulator/carla.git CarlaUE5
 
 ```sh
 cd CarlaUE5
-Setup.bat
+CarlaSetup.bat
 ```
 
 Setup.bat 脚本会安装所有必需的软件包，包括 Visual Studio 2022、Cmake、Python 软件包和虚幻引擎 5。它还会下载 Carla 内容并构建 Carla。因此，此批处理文件可能需要很长时间才能完成。
