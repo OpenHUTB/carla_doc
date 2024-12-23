@@ -106,8 +106,16 @@
 </ol>
 <p><img alt="" src="../img/tuto_D_windows_debug/debug_project.png" /></p>
 <ul>
-<li>调试<strong>Carla服务端</strong>：断点打在<code>Carla/Game/CarlaEngine.cpp</code>的第87行，然后开始调式，在虚幻编辑器中点击<code>运行</code>则会在断点处停止。
-<img alt="" src="../img/tuto_D_windows_debug/debug_carla_server.png" /></li>
+<li>
+<p>调试<strong>Carla服务端</strong>：断点打在<code>Carla/Game/CarlaEngine.cpp</code>的第87行，然后开始调式，在虚幻编辑器中点击<code>运行</code>则会在断点处停止。
+<img alt="" src="../img/tuto_D_windows_debug/debug_carla_server.png" /></p>
+</li>
+<li>
+<p>调式 ** 虚幻编辑器启动 **：断点打在<code>Carla/Vehicle/VehicleSpawnPoint.h</code>的第16行，通过vs启动调试后启动虚幻便器到75%时候会停止。</p>
+</li>
+<li>
+<p>调试 <strong>Python 调用</strong>：断点打在 <code>Carla/Server/CarlaServer.cpp</code>的第 721行，然后运行<code>manual_control.py</code>（调用<code>try_spawn_actor</code>方法生成参与者）则会在断点处停止。</p>
+</li>
 </ul>
 <p>配置管理器包括：</p>
 <ul>
@@ -352,10 +360,10 @@ D:\work\workspace\engine\Engine\Binaries\Win64\UE4Editor-Cmd D:/work/workspace/c
 </ul>
 <p>解决：在命令行使用<code>make launch ARGS='--chrono'</code>进行重新编译后，然后再用VS启动调试。</p>
 <ul>
-<li>执行“make launch”时出错，'Renderer/Public/GBufferView.h'</li>
+<li>执行<code>make launch</code>或者在vs中启动调试时报错：无法打开源文件 "Renderer/Public/GBufferView.h"</li>
 </ul>
 <p>表现为打开<code>CarlaUE4.sln</code>后没有 <code>UnrealBuildTool</code>选项。</p>
-<p>因为未在 STOCK UNREAL ENGINE 中找到它。它是添加到 CARLA 分支中的内容。如果您在两个版本的 Unreal 和 Carla 之间执行 git diff，您将看到只有少量更改，并且添加了 GBuffer 视图。 </p>
+<p>因为未在所使用的虚幻引擎代码库（STOCK UNREAL ENGINE）中找到它，可能本地存在多个虚幻引擎的版本。GBuffer 它是添加到 CARLA 分支中的内容。如果您在两个版本的 Unreal 和 Carla 之间执行 git diff，您将看到只有少量更改，并且添加了 GBuffer 视图。 </p>
 <p>解决：右键文件<code>CarlaUE4.uproject</code>，选择<code>Switch Unreal Engine version</code>，并选择需要使用的虚幻引擎版本（如果没有生成新的<code>CarlaUE4.sln</code>，则需要先删除再重新生成<code>CarlaUE4.sln</code>）。还有可能报错：<code>预处理器指令后有意外标记 - 应输入换行符</code>，需要在命令行中先运行<code>make launch</code>或者<code>make launch ARGS="--chrono"</code>然后再在vs中运行。</p>
 <ul>
 <li>服务端帧率过低，十多帧，正常有40帧左右</li>
