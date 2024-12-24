@@ -69,9 +69,10 @@
             <div class="section" itemprop="articleBody">
               
                 <h2 id="_1">步骤</h2>
-<p>在<strong>内容浏览器</strong>中，
+<p>1.在<strong>内容浏览器</strong>中，
 将<code>Unreal\CarlaUE4\Content\Carla\Static\Car\4Wheeled\Tesla</code>复制到当前文件夹并重命名为<code>BYD</code>，
 将<code>Unreal\CarlaUE4\Content\Carla\Blueprints\Vehicles\Tesla</code>复制到当前文件夹并重命名为<code>BYD</code>。</p>
+<p>2.添加车辆到蓝图库并测试。</p>
 <p>测试代码：</p>
 <pre><code class="language-shell">python manual_control.py --filter vehicle.BYD.seal
 python manual_control.py --filter vehicle.tesla.model3
@@ -79,9 +80,31 @@ python manual_control.py --filter vehicle.tesla.model3
 <p>如果车辆配置不对，生成玩家的代码一致返回为空：</p>
 <pre><code class="language-python">self.player = self.world.try_spawn_actor(blueprint, spawn_point)
 </code></pre>
-<p>3.设置物理资源网格。</p>
+<p>CarlaUE4的调用过程：</p>
+<pre><code class="language-text">Server/CarlaServer.cpp
+auto Result = Episode-&gt;SpawnActorWithInfo(Transform, std::move(Description));
+
+Game/CarlaEpisode.cpp
+auto result = ActorDispatcher-&gt;SpawnActor(LocalTransform, thisActorDescription, DesiredId);
+
+Actor/ActorDispatcher.cpp
+// 在哪调用生成函数导致生成失败
+FActorSpawnResult Result = SpawnFunctions[Description.UId - 1](Transform, Description);
+
+// 这里的ActorFactory.SpawnActor函数似乎是ue4里的
+void UActorDispatcher::Bind(ACarlaActorFactory &amp;ActorFactory)
+{
+  for (const auto &amp;Definition : ActorFactory.GetDefinitions())
+  {
+    Bind(Definition, [&amp;](const FTransform &amp;Transform, const FActorDescription &amp;Description) {
+      return ActorFactory.SpawnActor(Transform, Description);
+    });
+  }
+}
+</code></pre>
 <h2 id="_2">参考</h2>
 <p><a href="https://www.dongchedi.com/article/7119344427587813891">比亚迪海豹PK特斯拉Model 3</a></p>
+<p><a href="https://blog.csdn.net/csdncyn/article/details/136691547">跟踪和解决spawn_actor指令引发的问题：UnknownError while spawning the actor</a></p>
               
             </div>
           </div><footer>
