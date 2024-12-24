@@ -140,38 +140,38 @@ Blender 有一个非常有用的插件，用于装配车辆以导入 Carla，有
 
 ### 创建动画 <span id="creating-the-animation"></span>
 
-在您拥有新车辆资产的内容浏览器目录中，右键单击并选择`Animation > Animation Blueprint`。在打开的弹出窗口中，在`Parent Class`部分中搜索`VehicleAnimInstance`，然后搜索`Target Skeleton`与您的新车相对应的骨架，您应该能够在内容浏览器中看到该名称。选择这两项后按确定。这将为您的车辆创建一个新的动画蓝图。
+在您拥有新车辆资产的**内容浏览器**目录中，右键单击空白地方并选择`动画(Animation) > 动画蓝图(Animation Blueprint)`。在打开的弹出窗口中，在`父类(Parent Class)`部分中搜索`VehicleAnimInstance`，然后搜索`目标骨骼(Target Skeleton)`与您的新车相对应的骨架，您应该能够在内容浏览器中看到该名称。选择这两项后按确定。这将为您的车辆创建一个新的动画蓝图。
 
 ![animation_blueprint](img/tuto_content_authoring_vehicles/create_anim_blueprint.png)
 
-为了简化事情，我们可以从另一辆车复制动画。在第二个内容浏览器中，打开`Content > Carla > Static > Vehicles > 4Wheeled`并选择任意车辆。打开所选车辆的动画蓝图，然后将除此节点之外的所有节点复制`Output pose`到新的动画蓝图中。通过拖动最终节点与输出节点之间的新连接来连接节点。按编译，动画蓝图现已设置。
+为了简化事情，我们可以从另一辆车复制动画。在第二个内容浏览器中，打开`内容(Content) > Carla > Static > Car > 4Wheeled`并选择任意车辆。打开所选车辆的动画蓝图，然后将除此`输出姿势(Output pose)`节点之外的所有节点复制到新的动画蓝图中。通过拖动最终节点与输出节点之间的新连接来连接节点。按编译，动画蓝图现已设置。
 
 ![copy_nodes](img/tuto_content_authoring_vehicles/animation_blueprint_setup.gif)
 
 ### 创建蓝图 <span id="creating-the-blueprint"></span>
 
-使用内容浏览器导航到`Content > Carla > Blueprints > Vehicles > LincolnMKZ2017`或类似的车辆。在这里您将找到一组为 4 个轮子设置的蓝图。将它们复制到包含您自己的车辆的目录中并重命名它们以确保您以后可以区分它们。如果您愿意，您可以设置自己的自定义轮子，请参阅后面的 [__轮子部分__](#wheels) 。
+使用内容浏览器导航到`内容(Content) > Carla > Blueprints > Vehicles > LincolnMKZ2017`或类似的车辆。在这里您将找到一组为 4 个轮子设置的蓝图。将它们复制到包含您自己的车辆的目录中并重命名它们以确保您以后可以区分它们。如果您愿意，您可以设置自己的自定义轮子，请参阅后面的 [__轮子部分__](#wheels) 。
 
 ![copy_wheels](img/tuto_content_authoring_vehicles/copy_wheels.png)
 
-右键单击新车辆资产所在的内容浏览器目录并选择`Blueprint Class`。在 `All Classes` 菜单中搜索 `BaseVehiclePawn` 并选择此类。为蓝图命名并打开它。在左侧 `Components` 选项卡中进行 `Mesh` 选择，然后将车辆网格拖动到右侧的“网格”部分中。
+右键单击新车辆资产所在的**内容浏览器**目录的空白地方并选择`蓝图 -> 蓝图类(Blueprint Class)`。在 `所有类(All Classes)` 菜单中搜索 `BaseVehiclePawn` 并选择此类。为蓝图命名并打开它。在左侧 `组件(Components)` 选项卡中进行 `网格体(Mesh)` 选择，然后将车辆网格拖动到右侧的“网格体”部分中。
 
 
 ![blueprint_with_mesh](img/tuto_content_authoring_vehicles/blueprint_with_mesh.png)
 
 在`Anim Class`搜索与您在上一步中设置的新车相对应的动画。
 
-接下来，在蓝图类的`Components`菜单中选择`Vehicle Movement`，然后在右侧`Details`菜单中导航到该`Vehicle Setup`部分。现在，对于每个车轮，找到您之前为`Wheel Class`属性复制并重命名的相关车轮蓝图。对每个轮子执行相同的操作。编译并保存。
+接下来，在蓝图类的`组件(Components)`菜单中选择`载具移动(Vehicle Movement)`，然后在右侧`细节(Details)`菜单中导航到该`车辆配置(Vehicle Setup) -> 车轮设置`部分。现在，对于每个车轮，找到您之前为`Wheel Class`属性复制并重命名的相关车轮蓝图。对每个轮子执行相同的操作。编译并保存。
 
 ![wheel_setup](img/tuto_content_authoring_vehicles/vehicle_wheel_setup.gif)
 
 现在导航到`Content > Carla > Blueprints > Vehicles > VehicleFactory`并双击它以打开车辆工厂。
 
-选择`Vehicles`节点并展开右侧`Default value`部分中的`Vehicles`项。
+选择`Vehicles`节点并展开右侧`默认值(Default value)`部分中的`Vehicles`项。
 
 ![vehicle_factory](img/tuto_content_authoring_vehicles/vehicle_factory_page.png)
 
-按加号图标添加您的新车。向下滚动到最后一个条目并将其展开，它应该是空的。命名您的车辆的品牌和型号，然后在类部分下找到您在上一部分中创建的蓝图类。将轮子数量保留为 4，并将世代设置为 2。编译并保存。为了安全起见，进行全局保存，您现在......准备在模拟中运行您的车辆。
+按加号图标添加您的新车。向下滚动到最后一个条目并将其展开，它应该是空的。命名您的车辆的品牌和型号，然后在 **类(Class)** 部分下找到您在上一部分中创建的蓝图类。将轮子数量保留为 4，并将世代设置为 2。编译并保存。为了安全起见，进行全局保存，您现在......准备在模拟中运行您的车辆。
 
 按虚幻工具栏中的“运行”来进行模拟。运行后，打开终端并使用过滤器选项运行脚本 `manual_control.py` 来指定您的新车辆型号：
 

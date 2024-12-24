@@ -109,6 +109,8 @@ __5. 导出车辆网格。__
 
 ### 导入并配置车辆 <span id="import-and-configure-the-vehicle"></span>
 
+>![import_config_vehicle](./img/vehicle_customization/import_config_vehicle.jpg)
+
 本节详细介绍了将车辆导入虚幻引擎以在 Carla 中使用的过程。在虚幻引擎编辑器中执行这些步骤。
 
 __1. 创建车辆文件夹。__
@@ -137,7 +139,7 @@ __3. 设置物理资源网格。__
 - 从 `Vehicle_Base` 中删除默认的胶囊形状。
 - 选择所有轮子：
     - 转到 **_工具(Tools)_** 面板并将 “**_基元类型Primitive Type_**” 更改为`球体(Sphere)`。 
-    - 转到 **_详情(Details)_** 面板并将 **_物理类型(Physics Type_** 更改为`运动学(Kinematic)`。
+    - 转到 **_详情(Details)_** 面板并将 **_物理类型(Physics Type)_** 更改为`运动学(Kinematic)`。
     - 将 **_线性阻尼(Linear Damping)_** 设置为`0`。这将消除车轮上的任何额外摩擦。
     - [碰撞](https://dev.epicgames.com/documentation/zh-cn/unreal-engine/collision-overview?application_version=4.27) 选项中，为所有网格启用 **_仿真生成命中事件(Simulation Generates Hit Event)_**，车辆就会告诉自己发生了碰撞。它会触发车辆蓝图中的事件。
 - 单击页面最右下角的 **_重新生成形体(Re-generate Bodies)_**。
@@ -218,7 +220,7 @@ __8. 配置车辆蓝图。__
 
 __9. 将车辆添加到蓝图库中。__.
 
->1. 在 `Content/Carla/Blueprint/Vehicle` 中，打开 `VehicleFactory` 文件。
+>1. 在 `内容(Content)/Carla/Blueprint/Vehicles` 中，打开 `VehicleFactory` 文件。
 - 在 **_Generate Definitions_** 选项卡中，双击 **_Vehicles_** 。
 - 在 **_细节(Details)_** 面板中，展开 **_默认值(Default Value)_** 部分并向车辆数组添加一个新元素。 
 - 填写您车辆的品牌 **_Make_** 和型号 **_Model_** 。 
@@ -331,4 +333,6 @@ __9.__ 测试一下，进入CarlaGameMode蓝图并将“Default Pawn Class”更
 
 ## 其他
 
-[添加比亚迪海豹操作]()
+[__内容创作 - 车辆__](tuto_content_authoring_vehicles.md)
+
+[添加比亚迪海豹操作](./tutorial/add_BYD_seal.md)
