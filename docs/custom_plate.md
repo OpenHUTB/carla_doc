@@ -12,14 +12,14 @@
 
 - 将设计好的图片导入Carla中对应的目录下，并转换为材质。如下图所示：
 
-  将图片直接拖至 /Game/Carla/Static/GenericMaterials/Licenseplates,右键选择创建材质
+  将图片直接拖至 `/Game/Carla/Static/GenericMaterials/Licenseplates`，右键选择创建材质
 
 ![](img/plate/import_photo.png)
 
 
 **2.材质替换**
 
-- 导肮至Carla/Blueprints/Vehicles下的目标车辆，右键选择编辑。如下图所示：
+- 导航至`Carla/Blueprints/Vehicles`下的目标车辆，右键选择编辑。如下图所示：
 
 ![](img/plate/vehicle.png)
 

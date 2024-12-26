@@ -18,6 +18,33 @@ python manual_control.py --filter vehicle.tesla.model3
 self.player = self.world.try_spawn_actor(blueprint, spawn_point)
 ```
 
+方法`try_spawn_actor()`是从`carla/PythonAPI/carla/source/libcarla/World.cpp` 的`.def("try_spawn_actor", SPAWN_ACTOR_WITHOUT_GIL(TrySpawnActor))` 传递给 C++ 端的。
+
+LibCarla的调用过程：
+```text
+LibCarla\source\carla\client\World.cpp
+SharedPtr<Actor> World::TrySpawnActor()
+SharedPtr<Actor> World::SpawnActor()
+
+LibCarla\source\carla\client\detail\Simulator.cpp
+SharedPtr<Actor> Simulator::SpawnActor()
+actor = _client.SpawnActor()
+
+LibCarla\source\carla\client\detail\Client.cpp
+rpc::Actor Client::SpawnActor()
+_pimpl->CallAndWait<rpc::Actor>("spawn_actor", description, transform);
+auto CallAndWait(const std::string &function, Args && ... args)
+auto object = RawCall(function, std::forward<Args>(args) ...);
+auto RawCall(const std::string &function, Args && ... args)
+return rpc_client.call(function, std::forward<Args>(args) ...);
+
+LibCarla\source\carla\rpc\Client.h
+auto call(const std::string &function, Args &&... args)
+// 远程调用（_client里保存了IP地址和端口号）
+return _client.call(function, Metadata::MakeSync(), std::forward<Args>(args)...);
+
+```
+
 CarlaUE4的调用过程：
 ```text
 Server/CarlaServer.cpp

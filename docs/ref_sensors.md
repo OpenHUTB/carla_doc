@@ -397,6 +397,8 @@ points = np.reshape(points, (len(radar_data), 4))
 
 ![ImageRGB](img/ref_sensors_rgb.jpg)
 
+其实现原理参考 [视觉传感器器系列实现原理分析](./sensor/camera_analysis.md) 。
+
 #### 相机基本属性
 
 
@@ -1032,7 +1034,3 @@ CARLA 目前支持模拟简单的广播无线信道和两条应用消息。尚�
 | use\_etsi\_fading       | bool   | true | 使用 ETSI 出版物中提到的衰落参数（true），或使用自定义衰落标准偏差                                                                                                            |
 | custom\_fading\_stddev  | float  | 0.0 | 衰减标准偏差的自定义值，仅当`use_etsi_fading`设置为 `false` 时才使用 |
 
-
-## 参考
-
-[一文看懂CARLA中的视觉传感器](https://blog.csdn.net/CV_Autobot/article/details/135725126)

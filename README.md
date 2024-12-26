@@ -63,6 +63,23 @@ python -m pip install .
 2. 使用markdown语法：`[点击跳转](#jump)`
 
 
+## 颜色规范
+
+变量名 **<font color="#f8805a">variable</font>**：
+```shell
+**<font color="#f8805a">variable</font>**
+```
+函数名 **<font color="#7fb800">method</font>** ：
+```shell
+**<font color="#7fb800">method</font>**
+```
+函数参数名 <font color="#00a6ed">**self**</font>：
+```shell
+<font color="#00a6ed">**self**</font>
+```
+
+
+
 ## 问题
 ```text
 ERROR - Config value: ‘plugins‘. Error: The “redirects“ plugin is not installed

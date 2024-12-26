@@ -2,11 +2,11 @@
 
     这是一项正在进行的工作！！这个版本的Carla不被认为是一个稳定的版本。在接下来的几个月里，这个分支可能会发生许多重大变化，这可能会破坏您所做的任何修改。我们建议你把这个分支当作实验性的。
 
-# 在 Windows 中使用虚幻引擎 5.3 编译 Carla
+# 在 Windows 中使用虚幻引擎 5 编译 Carla
 
 ## 设置环境
 
-本指南详细介绍了如何使用虚幻引擎 5.3 在 Windows 上从源代码构建 Carla。
+本指南详细介绍了如何使用虚幻引擎 5 在 Windows 上从源代码构建 Carla。
 
 在本地机器上克隆 Carla 的`ue5-dev`分支：
 
@@ -93,6 +93,27 @@ cmake --build Build --target package
 
 
 ## 问题
+
+- 编译过程中，中间某一步报错
+
+> 为了提高排查错误的效率，可以把已经完成的一些步骤从`CarlaSetup.bat`中注释掉，比如：下载Carla资产、安装vs2022、克隆虚幻5仓库、编译虚幻5等。
+
+- 克隆虚幻5仓库报错：`error: RPC failed; curl 18 transfer closed with outstanding read data remaining`
+
+> ```shell
+> # 增加缓存
+> git config --global http.postBuffer 524288000
+> # 只拉取最近一次提交的内容
+> git clone -b ue5-dev-carla https://github.com/CarlaUnreal/UnrealEngine.git UnrealEngine5_carla --depth 1
+> # 将浅克隆转化完整克隆
+> git fetch --unshallow
+> ```
+
+
+- 编译时，sqlite3报错：`FAILED: CMakeFiles/sqlite3.dir/_deps/sqlite3-src/shell.c.obj`
+> 
+
+
 
 - 无法安装Microsoft.VisualStudio.Community.Msi
 

@@ -13,8 +13,21 @@
 - 整理 [神经科学原理](https://github.com/OpenHUTB/neuro) 、[前额叶皮层](https://github.com/OpenHUTB/PFC) 、强化学习导论心理学章节；
 
 ### 课程
-
-- 深度学习、数据结构、C/C++ 、Python 、ROS 课程相关示例整理；
+课程相关示例整理：
+- Python（manual_control.py）
+- 深度学习、机器学习（感规控）
+- 数据结构、C语言（链、树、图）、算法分析
+- C/C++、面向对象程序设计（自动驾驶仿真LibCarla、虚幻插件CarlaUnreal）
+- ROS（LibCarla/ros2）
+- 计算机网络原理（rpc）、网络安全
+- 数据库（sqlite3）
+- 计算机组成原理与汇编语言（BIOS）、操作系统（Linux、Ubuntu）
+- 计算机图形学（UnrealEngine）
+- 编译原理（gcc）
+- 软件测试（gtest）
+- 代码审计（ci/cd）
+- 逆向工程（matlab-unreal.lib）
+- 物联网安全技术（V2X）
 
 ### 第三方工具
 
@@ -77,6 +90,7 @@ https://bitbucket.org/carla-simulator/carla-content Unreal/CarlaUE4/Content/Carl
 ```
 
 * [中电软件园](https://overpass-api.de/api/map?bbox=112.8671,28.2281,112.8873,28.2412) 
+
 
 ### 三维建模
 数字孪生工具、Cesium for Unreal、摄影测量。

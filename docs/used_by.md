@@ -17,7 +17,7 @@
 - [__控制__](#control)
 - [__场景__](#scene)
     - [车辆](#vehicle)
-- [__行人__](#pestrian)
+- [__行人__](#pedestrian)
 - [__端到端__](#end_2_end)
 - [__大模型__](#llm)
 - [__多智能体__](#mulgi_agent)
@@ -26,7 +26,7 @@
 - [__测试__](#test)
 - [__工具__](#tools)
 - [__机器学习__](#ml)
-- [__机器学习__](#misc)
+- [__杂项__](#misc)
 
 ## 感知 <span id="perception"></span>
 
