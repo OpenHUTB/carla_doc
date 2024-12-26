@@ -72,9 +72,9 @@
 <p class="admonition-title">警告</p>
 <p>这是一项正在进行的工作！！这个版本的Carla不被认为是一个稳定的版本。在接下来的几个月里，这个分支可能会发生许多重大变化，这可能会破坏您所做的任何修改。我们建议你把这个分支当作实验性的。</p>
 </div>
-<h1 id="windows-53-carla">在 Windows 中使用虚幻引擎 5.3 编译 Carla</h1>
+<h1 id="windows-5-carla">在 Windows 中使用虚幻引擎 5 编译 Carla</h1>
 <h2 id="_1">设置环境</h2>
-<p>本指南详细介绍了如何使用虚幻引擎 5.3 在 Windows 上从源代码构建 Carla。</p>
+<p>本指南详细介绍了如何使用虚幻引擎 5 在 Windows 上从源代码构建 Carla。</p>
 <p>在本地机器上克隆 Carla 的<code>ue5-dev</code>分支：</p>
 <pre><code class="language-sh">git clone -b ue5-dev https://github.com/carla-simulator/carla.git CarlaUE5
 </code></pre>
@@ -140,7 +140,32 @@ CarlaSetup.bat
 <p>软件包构建尚未针对 Windows 进行测试。</p>
 <h2 id="_3">问题</h2>
 <ul>
-<li>无法安装Microsoft.VisualStudio.Community.Msi</li>
+<li>编译过程中，中间某一步报错</li>
+</ul>
+<blockquote>
+<p>为了提高排查错误的效率，可以把已经完成的一些步骤从<code>CarlaSetup.bat</code>中注释掉，比如：下载Carla资产、安装vs2022、克隆虚幻5仓库、编译虚幻5等。</p>
+</blockquote>
+<ul>
+<li>克隆虚幻5仓库报错：<code>error: RPC failed; curl 18 transfer closed with outstanding read data remaining</code></li>
+</ul>
+<blockquote>
+<p>```shell</p>
+<h1 id="_4">增加缓存</h1>
+<p>git config --global http.postBuffer 524288000</p>
+<h1 id="_5">只拉取最近一次提交的内容</h1>
+<p>git clone -b ue5-dev-carla https://github.com/CarlaUnreal/UnrealEngine.git UnrealEngine5_carla --depth 1</p>
+<h1 id="_6">将浅克隆转化完整克隆</h1>
+<p>git fetch --unshallow
+```</p>
+</blockquote>
+<ul>
+<li>
+<p>编译时，sqlite3报错：<code>FAILED: CMakeFiles/sqlite3.dir/_deps/sqlite3-src/shell.c.obj</code></p>
+<blockquote></blockquote>
+</li>
+<li>
+<p>无法安装Microsoft.VisualStudio.Community.Msi</p>
+</li>
 </ul>
 <blockquote>
 <p>删除文件夹<code>C：\Program Files （x86）\Windows Kits</code>后重新安装。（前提是用网络安装版安装文件，不能用离线安装版）</p>
