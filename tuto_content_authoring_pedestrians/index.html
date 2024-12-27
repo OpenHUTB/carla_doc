@@ -143,16 +143,34 @@
 </li>
 </ul>
 <h2 id="carla">将行人导入 Carla</h2>
-<p>完成网格的几何形状并将其绑定到骨架后，您应该将其从 3D 应用程序中以 FBX 格式导出。完成导出后，在 Carla 内容库中找到合适的文件夹位置，然后将 FBX 拖放到内容浏览器中。您可能希望将自定义行人放置在现有行人 <code>Content &gt; Carla &gt; Static &gt; Pedestrians</code> 旁边。</p>
-<p>在导入选项弹出对话框中，确保选择了<em>Skeletal Mesh</em>和<em>Import Mesh</em>，并且<em>Import Content Type</em>设置为<em>Geometry and Skinning Weights</em>。在<em>Skeleton</em>部分，选择 Carla 的预生成骨架定义<em>Skel_GEN3</em>。然后按<em>Import All</em>。</p>
+<p>完成网格的几何形状并将其绑定到骨架后，您应该将其从 3D 应用程序中以 FBX 格式导出。完成导出后，在 Carla 内容库中找到合适的文件夹位置，然后将 FBX 拖放到内容浏览器中。您可能希望将自定义行人放置在现有行人 <code>内容(Content) &gt; Carla &gt; Static &gt; Pedestrians</code> 旁边。</p>
+<p>在导入选项弹出对话框中，确保选择了<em>骨架网格体(Skeletal Mesh)</em>和<em>导入网格体(Import Mesh)</em>，并且<em>导入内容类型(Import Content Type)</em>设置为<em>几何和蒙皮权重(Geometry and Skinning Weights)</em>。在<em>骨骼(Skeleton)</em>部分，选择 Carla 的预生成骨架定义<em>Skel_GEN3</em>。然后按<em>Import All</em>。</p>
 <p><em>Skel_GEN3</em>定义已指定行人动画。</p>
 <p><img alt="pedestrian_blueprint" src="../img/tuto_content_authoring_pedestrians/pedestrian_import.png" /></p>
 <h2 id="python-api">通过 Python API 让你的新行人可以访问</h2>
 <p>成功将行人导入 Carla 的内容库后，您现在必须通过 API 使行人可用。</p>
 <p><img alt="pedestrian_blueprint" src="../img/tuto_content_authoring_pedestrians/pedestrian_viewport.png" /></p>
-<p>导航到现有行人蓝图的位置 <code>Content &gt; Carla &gt; Blueprints &gt; Walkers</code>。复制 GEN3 蓝图，例如 BP_Walker_AB001_G3 并重命名。</p>
-<p>双击复制的蓝图以在编辑器中打开它。您需要将蓝图的<em>Mesh</em>组件更改为新的行人模型。将刚刚从内容浏览器导入的骨架网格拖放到<em>Skeletal Mesh</em>插槽中。</p>
+<p><strong>1. 新建行人蓝图</strong>。</p>
+<p>导航到现有行人蓝图的位置 <code>内容(Content) &gt; Carla &gt; Blueprints &gt; Walkers</code>。复制 GEN3 蓝图，例如复制 <code>BP_Walker_AB001_G3</code> 并重命名。</p>
+<p><strong>2. 将行人骨架网格绑定到行人蓝图上</strong>。</p>
+<p>双击复制的蓝图以在编辑器中打开它。您需要将蓝图的<em>网格体(Mesh)</em>组件更改为新的行人模型。将刚刚从内容浏览器导入的骨架网格拖放到<em>骨骼网格体(Skeletal Mesh)</em>插槽中。</p>
 <p><img alt="pedestrian_blueprint" src="../img/tuto_content_authoring_pedestrians/pedestrian_BP.png" /></p>
+<p><strong>3. 将行人蓝图添加到蓝图库中</strong></p>
+<blockquote>
+<ol>
+<li>在 <code>内容(Content)/Carla/Blueprint/Walkers</code> 中，打开 <code>WalkereFactory</code> 文件。</li>
+<li>在 <strong><em>Generate Definitions</em></strong> 选项卡中，双击 <strong><em>Walkers</em></strong> 。</li>
+<li>在 <strong><em>细节(Details)</em></strong> 面板中，展开 <strong><em>默认值(Default Value)</em></strong> 部分，并在行人<code>Walker</code>数组中点击<code>+</code>添加一个新元素。 </li>
+<li>填写您行人的 <strong><em>Id</em></strong>(这个是后面PythonAPI调用的Id号) 、类 <strong><em>Class</em></strong>(搜索刚新加入的行人蓝图)、性别<em>Gender</em>、年龄<em>Age</em>、速度<em>Speed</em>(3个元素的数组，分别为：0.0、0.85、3.0)、<code>Generation</code>(设置为3)。</li>
+<li>编译并保存。</li>
+</ol>
+</blockquote>
+<p><img alt="add_pedestrian_link" src="../img/pedestrian/add_pedestrian_link.jpg" /></p>
+<p><strong>4. 测试行人</strong>。</p>
+<p>启动 Carla，打开终端 <code>PythonAPI/examples</code> 并运行以下命令：</p>
+<pre><code class="language-sh">python3 manual_control.py --filter walker.pedestrian.0051 # --filter 后的参数中的0051为步骤3中定义的行人Id
+</code></pre>
+<p><img alt="add_pedestrian_link" src="../img/pedestrian/control_pedestrian.jpg" /></p>
 <h2 id="_2">其他</h2>
 <ul>
 <li><a href="https://zhuanlan.zhihu.com/p/717064519">UE5+iphone+MetaHuman数字人流程</a></li>
