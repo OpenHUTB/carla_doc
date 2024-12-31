@@ -229,7 +229,7 @@ tar -xvzf <assets_file_name>.tar.gz.tar -C C:\path\to\carla\Unreal\CarlaUE4\Cont
 本节概述了构建 Carla 的命令。
 
 
-- 命令应通过 VS 2019 的 __x64 Native Tools Command Prompt for VS 2019__ 执行。通过单击该Windows键并搜索 来打开它x64，或者运行`call "D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars64.bat"`。
+- 命令应通过 VS 2019 的 __x64 Native Tools Command Prompt for VS 2019__ 执行。通过单击该Windows键并搜索 来打开它x64，或者运行`call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars64.bat"`。
 ![](./img/build/vs_command_prompt.png)
 - 所有命令都应在根 Carla 文件夹中运行。
 

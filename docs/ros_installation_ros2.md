@@ -134,4 +134,33 @@ __2.__ Run the tests:
 ## Windows下安装
 根据[链接](./ros/windows-install_binary.md) 安装ROS2。
 
+1.安装Chocolatey
+
+以管理员权限打开命令提示符，运行：
+```shell
+@"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "[System.Net.ServicePointManager]::SecurityProtocol = 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
+```
+如果报出警告：`WARNING: An existing Chocolatey installation was detected. Installation will not continue. This script will not         overwrite existing installations.                                                                                       If there is no Chocolatey installation at 'C:\ProgramData\chocolatey', delete the folder and attempt the installation   again. `
+则删除文件夹`C:\ProgramData\chocolatey`后继续执行以上命令。
+
+验证是否安装成功，运行（必须以管理员权限运行）
+```shell
+choco
+```
+
+2.利用choco安装ROS2
+```shell
+choco source add -n=ros-win -s="https://aka.ms/ros/public" --priority=1
+choco upgrade ros-foxy-desktop -y --execution-timeout=0
+```
+报错：`Unable to connect to source 'https://aka.ms/ros/public':`
+
+这一步需要设置代理：
+```shell
+set http_proxy=http://127.0.0.1:7890
+set https_proxy=http://127.0.0.1:7890
+```
+
+## 参考
+- [CARLA ROS2 Bridge 容器镜像](https://bbs.carla.org.cn/info/5d3ee60a617a4db08bf9389e60ecaad2?csr=1) - 提供 Carla 和 ROS2 之间桥梁的容器
 

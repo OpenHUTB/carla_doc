@@ -36,3 +36,7 @@ Traceback (most recent call last):
 AssertionError: unexpectedly None
 ```
 
+## CI/CD
+
+参考 [链接](https://www.cnblogs.com/dotnet261010/p/11495762.html) 进行软件的安装。
+

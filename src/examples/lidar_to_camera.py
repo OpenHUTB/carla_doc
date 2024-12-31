@@ -42,20 +42,19 @@ except ImportError:
 VIRIDIS = np.array(cm.get_cmap('viridis').colors)
 VID_RANGE = np.linspace(0.0, 1.0, VIRIDIS.shape[0])
 
+
 def sensor_callback(data, queue):
     """
-    This simple callback just stores the data on a thread safe Python Queue
-    to be retrieved from the "main thread".
+    这个简单的回调只是将数据存储在线程安全的 Python 队列中，以便从“主线程”中检索。
     """
     queue.put(data)
 
 
 def tutorial(args):
     """
-    This function is intended to be a tutorial on how to retrieve data in a
-    synchronous way, and project 3D points from a lidar to a 2D camera.
+    此功能旨在作为如何以同步方式检索数据以及将 3D 点从激光雷达投射到 2D 相机的教程。
     """
-    # Connect to the server
+    # 连接到服务端
     client = carla.Client(args.host, args.port)
     client.set_timeout(2.0)
     world = client.get_world()
@@ -77,12 +76,12 @@ def tutorial(args):
     try:
         if not os.path.isdir('_out'):
             os.mkdir('_out')
-        # Search the desired blueprints
+        # 搜索想要的蓝图
         vehicle_bp = bp_lib.filter("vehicle.lincoln.mkz_2017")[0]
         camera_bp = bp_lib.filter("sensor.camera.rgb")[0]
         lidar_bp = bp_lib.filter("sensor.lidar.ray_cast")[0]
 
-        # Configure the blueprints
+        # 配置蓝图
         camera_bp.set_attribute("image_size_x", str(args.width))
         camera_bp.set_attribute("image_size_y", str(args.height))
 
@@ -96,7 +95,7 @@ def tutorial(args):
         lidar_bp.set_attribute('range', str(args.range))
         lidar_bp.set_attribute('points_per_second', str(args.points_per_second))
 
-        # Spawn the blueprints
+        # 生成蓝图
         vehicle = world.spawn_actor(
             blueprint=vehicle_bp,
             transform=world.get_map().get_spawn_points()[0])
@@ -174,16 +173,22 @@ def tutorial(args):
             local_lidar_points = np.r_[
                 local_lidar_points, [np.ones(local_lidar_points.shape[1])]]
 
-            # This (4, 4) matrix transforms the points from lidar space to world space.
+            # 这个（4，4）矩阵将点从激光雷达空间转换到世界空间。
             lidar_2_world = lidar.get_transform().get_matrix()
 
-            # Transform the points from lidar space to world space.
+            # 将点从激光雷达空间转换到世界空间。
             world_points = np.dot(lidar_2_world, local_lidar_points)
+            # 通过将点从世界坐标转到激光雷达空间来验证其正确性
+            # world_2_lidar = np.array(lidar.get_transform().get_inverse_matrix())
+            # local_lidar_points_inv = np.dot(world_2_lidar, world_points)
+            # tolerance = 1e-6  # 绝对容差
+            # comparison_results = np.isclose(local_lidar_points, local_lidar_points_inv, atol=tolerance)
 
-            # This (4, 4) matrix transforms the points from world to sensor coordinates.
+
+            # 这个（4，4）矩阵将点从世界坐标转换为传感器坐标。
             world_2_camera = np.array(camera.get_transform().get_inverse_matrix())
 
-            # Transform the points from world space to camera space.
+            # 将点从世界空间转换到相机空间。
             sensor_points = np.dot(world_2_camera, world_points)
 
             # New we must change from UE4's coordinate system to an "standard"
