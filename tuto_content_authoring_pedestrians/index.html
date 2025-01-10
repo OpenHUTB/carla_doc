@@ -71,56 +71,12 @@
                 <h1 id="-"><a href="https://github.com/carla-simulator/carla/commit/b08f74990c83b145850a0a5cb2ddcdd6bdc8b35d">内容创作 - 行人</a></h1>
 <p>Carla 在 WalkerFactory 蓝图中提供了一套全面开箱即用的行人。用户可以通过自定义行人进行扩展。为3D动画建模人体解剖学非常复杂，超出了本文档的范围。因此，我们向用户推荐替代资源，以学习如何在3D建模应用程序中对人进行建模。本指南介绍如何导入和配置一个完整的三维人体模型，以便在 Carla 使用行人。</p>
 <ul>
-<li><strong><a href="#modeling">建模</a></strong><ul>
-<li><a href="#naming-conventions">命名约定</a></li>
+<li><strong><a href="#modeling">建模</a></strong></li>
+<li><strong><a href="#import_to_carla">将行人导入 Carla</a></strong></li>
+<li><strong><a href="#access_by_python">通过 Python API 让你的新行人可以访问</a></strong></li>
+<li><strong><a href="#others">其他</a></strong></li>
 </ul>
-</li>
-<li><strong><a href="#rigging-the-vehicle-using-an-armature">动画绑定</a></strong><ul>
-<li><a href="#import">导入</a></li>
-<li><a href="#add-an-armature">Armature</a></li>
-<li><a href="#parenting">Parenting</a></li>
-<li><a href="#assigning-car-parts-to-bones">分配</a></li>
-<li><a href="#blender-ue4-vehicle-rigging-add-on">Blender 插件</a></li>
-<li><a href="#export">Export</a></li>
-</ul>
-</li>
-<li><strong><a href="#importing-into-unreal-engine">导入到虚幻引擎</a></strong><ul>
-<li><a href="#setting-the-physics-asset">物理资产</a></li>
-<li><a href="#creating-the-animation">动画</a></li>
-<li><a href="#creating-the-blueprint">蓝图</a></li>
-</ul>
-</li>
-<li><strong><a href="#materials">材质</a></strong><ul>
-<li><a href="#applying-a-material-to-your-vehicle">应用材质</a><ul>
-<li><a href="#color">颜色</a></li>
-<li><a href="#clear-coat">透明涂层</a></li>
-<li><a href="#orange-peel">橙皮纹路</a></li>
-<li><a href="#flakes">鳞片</a></li>
-<li><a href="#dust">灰尘</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong><a href="#glass">玻璃</a></strong><ul>
-<li><a href="#glass-meshes">玻璃网格</a></li>
-<li><a href="#glass-material">玻璃材质</a></li>
-<li><a href="#single-layer-glass">单层玻璃</a></li>
-</ul>
-</li>
-<li><strong><a href="#wheels">Wheels</a></strong><ul>
-<li><a href="#wheel-blueprint">车轮蓝图</a></li>
-<li><a href="#collision-mesh">碰撞网格</a></li>
-<li><a href="#tire-configuration">轮胎配置</a></li>
-<li><a href="#wheel-dimensions">车轮尺寸</a></li>
-</ul>
-</li>
-<li><strong><a href="#lights">光照</a></strong><ul>
-<li><a href="#uv-map">UV 贴图</a></li>
-<li><a href="#importing">导入</a></li>
-</ul>
-</li>
-</ul>
-<h2 id="_1">建模</h2>
+<h2 id="_1">建模 <span id="modeling"></span></h2>
 <p>行人是绑定到关节和骨骼的骨骼层次的几何体的组合。它们应该作为<strong>骨架网格</strong>导入到虚幻引擎中。网格将绑定到骨架定义。有关骨骼定义的信息可以封装在从3D应用程序导出的FBX文件中。 </p>
 <ul>
 <li>
@@ -142,37 +98,39 @@
 <p><img alt="" src="../img/tuto_content_authoring_pedestrians/weight_paint_wrist.png" /></p>
 </li>
 </ul>
-<h2 id="carla">将行人导入 Carla</h2>
+<h2 id="carla">将行人导入 Carla <span id="import_to_carla"></span></h2>
 <p>完成网格的几何形状并将其绑定到骨架后，您应该将其从 3D 应用程序中以 FBX 格式导出。完成导出后，在 Carla 内容库中找到合适的文件夹位置，然后将 FBX 拖放到内容浏览器中。您可能希望将自定义行人放置在现有行人 <code>内容(Content) &gt; Carla &gt; Static &gt; Pedestrians</code> 旁边。</p>
 <p>在导入选项弹出对话框中，确保选择了<em>骨架网格体(Skeletal Mesh)</em>和<em>导入网格体(Import Mesh)</em>，并且<em>导入内容类型(Import Content Type)</em>设置为<em>几何和蒙皮权重(Geometry and Skinning Weights)</em>。在<em>骨骼(Skeleton)</em>部分，选择 Carla 的预生成骨架定义<em>Skel_GEN3</em>。然后按<em>Import All</em>。</p>
 <p><em>Skel_GEN3</em>定义已指定行人动画。</p>
 <p><img alt="pedestrian_blueprint" src="../img/tuto_content_authoring_pedestrians/pedestrian_import.png" /></p>
-<h2 id="python-api">通过 Python API 让你的新行人可以访问</h2>
+<h2 id="python-api">通过 Python API 让你的新行人可以访问 <span id="access_by_python"></span></h2>
 <p>成功将行人导入 Carla 的内容库后，您现在必须通过 API 使行人可用。</p>
 <p><img alt="pedestrian_blueprint" src="../img/tuto_content_authoring_pedestrians/pedestrian_viewport.png" /></p>
 <p><strong>1. 新建行人蓝图</strong>。</p>
 <p>导航到现有行人蓝图的位置 <code>内容(Content) &gt; Carla &gt; Blueprints &gt; Walkers</code>。复制 GEN3 蓝图，例如复制 <code>BP_Walker_AB001_G3</code> 并重命名。</p>
 <p><strong>2. 将行人骨架网格绑定到行人蓝图上</strong>。</p>
-<p>双击复制的蓝图以在编辑器中打开它。您需要将蓝图的<em>网格体(Mesh)</em>组件更改为新的行人模型。将刚刚从内容浏览器导入的骨架网格拖放到<em>骨骼网格体(Skeletal Mesh)</em>插槽中。</p>
+<p>双击复制的蓝图以在编辑器中打开它。您需要将蓝图的<em>网格体(Mesh)</em>组件更改为新的行人模型。将刚刚从<code>内容浏览器</code>导入的骨架网格拖放到<em>骨骼网格体(Skeletal Mesh)</em>插槽中。</p>
 <p><img alt="pedestrian_blueprint" src="../img/tuto_content_authoring_pedestrians/pedestrian_BP.png" /></p>
+<p>注意：下面的 <code>材质</code>中包含<code>元素0-6</code>，其中 <code>元素0</code>为眼框贴图、 <code>元素1</code>为眼睛贴图 、<code>元素3</code>为皮肤(MI_EuroWHand_MH)、<code>元素4</code>为衣服贴图、<code>元素5</code>为鞋子贴图、<code>元素6</code>为裤子贴图。 </p>
 <p><strong>3. 将行人蓝图添加到蓝图库中</strong></p>
 <blockquote>
 <ol>
 <li>在 <code>内容(Content)/Carla/Blueprint/Walkers</code> 中，打开 <code>WalkereFactory</code> 文件。</li>
 <li>在 <strong><em>Generate Definitions</em></strong> 选项卡中，双击 <strong><em>Walkers</em></strong> 。</li>
 <li>在 <strong><em>细节(Details)</em></strong> 面板中，展开 <strong><em>默认值(Default Value)</em></strong> 部分，并在行人<code>Walker</code>数组中点击<code>+</code>添加一个新元素。 </li>
-<li>填写您行人的 <strong><em>Id</em></strong>(这个是后面PythonAPI调用的Id号) 、类 <strong><em>Class</em></strong>(搜索刚新加入的行人蓝图)、性别<em>Gender</em>、年龄<em>Age</em>、速度<em>Speed</em>(3个元素的数组，分别为：0.0、0.85、3.0)、<code>Generation</code>(设置为3)。</li>
+<li>填写您行人的 <strong><em>Id</em></strong>(这个是后面PythonAPI调用的Id号) 、类 <strong><em>Class</em></strong>(搜索刚新加入的行人蓝图)、性别<em>Gender</em>、年龄<em>Age</em>、速度<em>Speed</em>(3个元素的数组，分别为：0.0、行走速度0.85、跑步速度3.0)、<code>Generation</code>(设置为3)。</li>
 <li>编译并保存。</li>
 </ol>
 </blockquote>
 <p><img alt="add_pedestrian_link" src="../img/pedestrian/add_pedestrian_link.jpg" /></p>
 <p><strong>4. 测试行人</strong>。</p>
 <p>启动 Carla，打开终端 <code>PythonAPI/examples</code> 并运行以下命令：</p>
-<pre><code class="language-sh">python3 manual_control.py --filter walker.pedestrian.0051 # --filter 后的参数中的0051为步骤3中定义的行人Id
+<pre><code class="language-sh">python3 manual_control.py --filter walker.pedestrian.0052 # --filter 后的参数中的0051为步骤3中定义的行人Id
 </code></pre>
 <p><img alt="add_pedestrian_link" src="../img/pedestrian/control_pedestrian.jpg" /></p>
-<h2 id="_2">其他</h2>
+<h2 id="_2">其他 <span id="others"></span></h2>
 <ul>
+<li><a href="../pedestrian/blueprint/">行人蓝图实现原理</a></li>
 <li><a href="https://zhuanlan.zhihu.com/p/717064519">UE5+iphone+MetaHuman数字人流程</a></li>
 <li><a href="https://blog.csdn.net/u012863565/article/details/122228501">动作捕捉和面部捕捉解决方案调研</a></li>
 </ul>
