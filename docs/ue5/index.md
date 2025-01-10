@@ -1,6 +1,21 @@
 # 支持虚幻引擎 5 的 Carla 文档
 
-CARLA 0.10.0 在 CARLA 的核心渲染引擎中引入了全新的 Lumen 和 Nanite 技术，从而增强了逼真度、细节和性能。该引擎升级通过 UE5 的增强型渲染技术大大提高了视觉传感器的保真度。目前支持场景 Town10、露天矿场，包括更逼真的车辆。此外，0.10.0 版还完成了与 Inverted AI 交通流仿真模型的集成、原生 ROS2 集成、更新的 Python 兼容性等，带来了最先进的生成式 AI 交通模拟！
+CARLA 0.10.0 在 CARLA 的核心渲染引擎中引入了全新的 Lumen 和 Nanite 技术，从而增强了逼真度、细节和性能。该引擎升级通过 UE5 的增强型渲染技术大大提高了视觉传感器的保真度。目前支持场景 Town10、露天矿场，包括更逼真的车辆。此外，0.10.0 版还完成了与 Inverted AI 交通流仿真模型的集成、原生 ROS2 集成、更新的 Python 兼容性等，带来了最先进的生成式 AI 交通模拟。
+
+运行步骤：
+
+1.从 [百度网盘链接](https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb) 的目录`software/car/carla_release/0.10.0`下载文件`Carla-0.10.0-Windows-Shipping.zip`，解压后运行`CarlaUnreal.exe`。
+
+2.使用脚本 [config.py](https://github.com/carla-simulator/carla/blob/ue5-dev/PythonAPI/util/config.py) 切换到露天矿山地图（可选，默认使用Town10地图）
+```shell
+python config.py -m Mine_01
+```
+
+3.使用脚本 [manual_control.py](https://github.com/carla-simulator/carla/blob/ue5-dev/PythonAPI/examples/manual_control.py)
+```shell
+python manual_control.py --filter vehicle.miningtruck.miningtruck
+```
+
 
 <iframe width="730" height="411" src="https://www.youtube.com/embed/u2TxYhv3UKE" title="CARLA 0.10.0 release video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
