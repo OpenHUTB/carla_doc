@@ -4,7 +4,7 @@ CARLA 0.10.0 在 CARLA 的核心渲染引擎中引入了全新的 Lumen 和 Nani
 
 运行步骤：
 
-1.从 [百度网盘链接](https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb) 的目录`software/car/carla_release/0.10.0`下载文件`Carla-0.10.0-Windows-Shipping.zip`，解压后运行`CarlaUnreal.exe`。
+1.从 [百度网盘链接](https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb) 的目录`software/car/carla_release/0.10.0`下载文件`Carla-0.10.0-Windows-Shipping.zip`，解压后运行`CarlaUnreal.exe`（注意，该版本需要12-16GB显存）。
 
 2.使用脚本 [config.py](https://github.com/carla-simulator/carla/blob/ue5-dev/PythonAPI/util/config.py) 切换到露天矿山地图（可选，默认使用Town10地图）
 ```shell
