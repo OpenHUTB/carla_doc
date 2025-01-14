@@ -14,7 +14,7 @@
       <script>
         // Current page data
         var mkdocs_page_name = "Camera analysis";
-        var mkdocs_page_input_path = "sensor\\camera_analysis.md";
+        var mkdocs_page_input_path = "sensor/camera_analysis.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -127,7 +127,7 @@
 <img alt="material_bp" src="../../img/sensor/GTMaterial.jpg" /></p>
 <p>首先该材质里引入了两个概念：场景深度、自定义深度。<code>场景深度</code>就是用于渲染的 Z-Depth，光栅渲染判断前后关系用的，在GBuffer中也存在；<code>自定义深度</code>，<code>自定义深度模具</code>值（Custom Depth Stentil Value），Carla 拿来做语义分割的标记，以 Actor 为单位，可以用来区分不同物体，最后根据这个与 Carla 内部逻辑，对图像进行上色（参考 <a href="../../tuto_D_create_semantic_tags/">创建语义标签</a> ）。</p>
 <p>比如，如路面是7，路线是6。</p>
-<p><img alt="material_bp" src="../../img/sensor/semantic_tags.jpg" /></p>
+<p><img alt="material_bp" src="../img/sensor/semantic_tags.jpg" /></p>
 <h3 id="_2">参考</h3>
 <ul>
 <li><a href="https://bbs.carla.org.cn/info/532d57cf2725474b8878a67282ef6e3f?csr=1">视觉传感器系列实现原理分析</a></li>
@@ -143,6 +143,7 @@
     <!-- Copyright etc -->
   </div>
 
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>
