@@ -85,6 +85,7 @@
 <li><a href="#instance-segmentation-camera"><strong>实例分割相机</strong></a></li>
 <li><a href="#dvs-camera"><strong>动态视觉传感器相机</strong></a></li>
 <li><a href="#optical-flow-camera"><strong>光流相机</strong></a></li>
+<li><a href="#fisheye-camera"><strong>鱼眼相机</strong></a></li>
 <li><a href="#v2x-sensor"><strong>V2X 传感器</strong></a><ul>
 <li><a href="#cooperative-awareness-message">协同感知</a></li>
 <li><a href="#custom-v2x-message">自定义消息</a></li>
@@ -2340,6 +2341,114 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.cityScapes
 </table>
 <p><br></p>
 <hr />
+<h2 id="_46"><a href="https://github.com/carla-simulator/carla/pull/3755/files">鱼眼相机</a> <span id="fisheye-camera"></span></h2>
+<p><a href="https://zhuanlan.zhihu.com/p/340751380">鱼眼相机镜头</a> 是由十几个不同的透镜组合而成，在成像的过程中，入射光线经过不同程度的折射，投影到尺寸有限的成像平面上，使得鱼眼镜头拥有更大的视野范围。
+与针孔相机原理不同，鱼眼镜头采用非相似成像，在成像过程中引入畸变，通过对直径空间的压缩，突破成像视角的局限，从而达到广角成像。
+所以鱼眼镜头是一种极端的广角镜头，通常焦距小于等于16mm并且视角接近或等于180°（在工程上视角超过140°的镜头即统称为鱼眼镜头）。</p>
+<ul>
+<li><strong>蓝图：</strong> sensor.camera.fisheye</li>
+<li><strong>输出：</strong> 每一步一个 <a href="../python_api/#carla.ImageCube">carla.ImageCube</a> (除非<code>sensor_tick</code>另有说明).</li>
+</ul>
+<p>Fisheye 相机充当常规鱼眼相机，从场景中捕捉图像。
+<a href="../python_api/#carla.ColorConverter">carla.colorConverter</a></p>
+<p>这里的 <code>sensor_tick</code> 表示我们希望传感器以多快的速度捕获数据。值为 1.5 表示我们希望传感器每 1.5 秒捕获一次数据。默认情况下，值为 0.0 表示尽可能快。</p>
+<p><img alt="FisheyeImage" src="../img/sensor/ref_sensors_fisheye.png" /></p>
+<h4 id="_47">基本相机属性</h4>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>蓝图属性</th>
+<th>类型</th>
+<th>默认</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>max_angle</code></td>
+<td>float</td>
+<td>200.0</td>
+<td>最大角度（以度为单位）。</td>
+</tr>
+<tr>
+<td><code>x_size</code></td>
+<td>float</td>
+<td>1000.0</td>
+<td>图像宽度（以像素为单位）。</td>
+</tr>
+<tr>
+<td><code>y_size</code></td>
+<td>float</td>
+<td>600.0</td>
+<td>图像高度（以像素为单位）。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_48">相机镜头畸变属性</h4>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>蓝图属性</th>
+<th>类型</th>
+<th>默认</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>f_x</code></td>
+<td>float</td>
+<td>300.0</td>
+<td>焦距的 x 长度（以像素为单位）。</td>
+</tr>
+<tr>
+<td><code>f_y</code></td>
+<td>float</td>
+<td>300.0</td>
+<td>焦距在的 y 长度（以像素为单位）。</td>
+</tr>
+<tr>
+<td><code>c_x</code></td>
+<td>float</td>
+<td>600.0</td>
+<td>光学中心的 x 坐标（主点），以像素为单位。</td>
+</tr>
+<tr>
+<td><code>c_y</code></td>
+<td>float</td>
+<td>400.0</td>
+<td>光学中心的 y 坐标（主点），以像素为单位。</td>
+</tr>
+<tr>
+<td><code>d_1</code></td>
+<td>float</td>
+<td>0.0</td>
+<td>畸变系数。</td>
+</tr>
+<tr>
+<td><code>d_2</code></td>
+<td>float</td>
+<td>0.0</td>
+<td>畸变系数。</td>
+</tr>
+<tr>
+<td><code>d_3</code></td>
+<td>float</td>
+<td>0.0</td>
+<td>畸变系数。</td>
+</tr>
+<tr>
+<td><code>d_4</code></td>
+<td>float</td>
+<td>0.0</td>
+<td>畸变系数。</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
 <h2 id="v2x">V2X 传感器 <span id="v2x-sensor"></span></h2>
 <p>车联万物 (Vehicle-to-everything, V2X) 通信是未来协作智能交通系统应用的一个重要方面。在实际车辆中，这需要每辆车上都有一个专用的车载单元 (onboard unit, OBU)，能够通过无线信道发送和接收信息。根据地区（欧洲、中国、美国），使用不同的物理技术、协议和应用程序消息格式。</p>
 <p>CARLA 目前支持模拟简单的广播无线信道和两条应用消息。尚不支持网络访问和转发协议。两条实现的消息分别是符合欧洲标准 ETSI 的 <a href="#cooperative-awareness-message"><em>协作感知消息</em></a> 和 <a href="#custom-v2x-message"><em>自定义消息</em></a> 类型，可用于传输任意字符串数据（例如 JSON）。V2X 通信有两种不同的传感器，可以单独使用，每种应用消息类型各一个。</p>
@@ -2356,8 +2465,8 @@ IF (ReceivedPower &gt;= receiver_sensitivity)
 <li>场景：高速公路、乡村或城市环境</li>
 </ul>
 <p>虽然在 Carla 中模拟了可见性，但用户可以配置场景（参见 <a href="#v2x-sensors-blueprint-attributes">蓝图属性</a> ），以及无线信道的其他几个属性。</p>
-<h3 id="_46">传感器（子）类型</h3>
-<h4 id="_47">协同感知消息 <span id="cooperative-awareness-message"></span></h4>
+<h3 id="_49">传感器（子）类型</h3>
+<h4 id="_50">协同感知消息 <span id="cooperative-awareness-message"></span></h4>
 <ul>
 <li><strong>蓝图：</strong> sensor.other.v2x</li>
 <li><strong>输出：</strong> <a href="../python_api/#carla.CAMData">carla.CAMData</a>, 根据 ETSI CAM (European Telecommunications Standards Institute , Cooperative Awareness Message，欧洲通信标准协会，<a href="https://fanqienovel.com/reader/7110149289141079072">协作感知消息</a> ) 标准触发，除非另有配置</li>
@@ -2500,7 +2609,7 @@ IF (ReceivedPower &gt;= receiver_sensitivity)
 <li><strong>蓝图：</strong> sensor.other.v2x_custom</li>
 <li><strong>输出：</strong> <a href="../python_api/#carla.CustomV2XData">carla.CustomV2XData</a>，在调用 <em>send()</em> 后触发下一个滴答信息</li>
 </ul>
-<h5 id="_48">方法</h5>
+<h5 id="_51">方法</h5>
 <ul>
 <li><a name="carla.Sensor.send"></a><strong><font color="#7fb800">send</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>callback</strong></font>)
 用户每次发送消息时必须调用的函数。此函数需要一个包含对象类型 <a href="#carla.SensorData">carla.SensorData</a> 的参数来处理。<ul>

@@ -967,7 +967,7 @@ Alpha 通道 (0-255)。  </li>
 </ul>
 <hr />
 <h2 id="carlacolorconverter">carla.ColorConverter<a name="carla.ColorConverter"></a></h2>
-<p>定义可应用于 <a href="#carla.Image">carla.Image</a> 的转换模式的类，以显示 <a href="#carla.Sensor">carla.Sensor</a> 提供的信息。深度转换会导致精度损失，因为传感器将深度检测为浮点数，然后将其转换为 0 到 255 之间的灰度值。查看 <a href="#carla.Sensor.listen">carla.Sensor.listen</a> 中的片段，了解如何创建和保存图像的示例<b>sensor.camera.semantic_segmentation</b>的数据。</p>
+<p>定义可应用于 <a href="#carla.Image">carla.Image</a> (对于鱼眼相机是 <a href="#carla.ImageCube">carla.ImageCube</a>) 的转换模式的类，以显示 <a href="#carla.Sensor">carla.Sensor</a> 提供的信息。深度转换会导致精度损失，因为传感器将深度检测为浮点数，然后将其转换为 0 到 255 之间的灰度值。查看 <a href="#carla.Sensor.listen">carla.Sensor.listen</a> 中的片段，了解如何创建和保存图像的示例<b>sensor.camera.semantic_segmentation</b>的数据。</p>
 <h3 id="_38">实例变量</h3>
 <ul>
 <li><a name="carla.ColorConverter.CityScapesPalette"></a><strong><font color="#f8805a">CityScapesPalette</font></strong><br />
@@ -2880,7 +2880,8 @@ X-轴旋转角度。  </li>
   <br><b>仅在触发时接收数据。</b>
   - <a href="../ref_sensors/#collision-detector">碰撞检测器</a>.
   - <a href="../ref_sensors/#lane-invasion-detector">压线检测器</a>.
-  - <a href="../ref_sensors/#obstacle-detector">障碍物检测器</a>.  </p>
+  - <a href="../ref_sensors/#obstacle-detector">障碍物检测器</a>.
+  - <a href="../ref_sensors/#fisheye-camera">鱼眼相机</a>.  </p>
 <!-- 压线检测 https://huaweicloud.csdn.net/638089f6dacf622b8df89e97.html -->
 
 <h3 id="_165">实例变量</h3>
