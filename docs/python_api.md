@@ -653,7 +653,7 @@ Alpha 通道 (0-255)。
 ---
 
 ## carla.ColorConverter<a name="carla.ColorConverter"></a>
-定义可应用于 [carla.Image](#carla.Image) 的转换模式的类，以显示 [carla.Sensor](#carla.Sensor) 提供的信息。深度转换会导致精度损失，因为传感器将深度检测为浮点数，然后将其转换为 0 到 255 之间的灰度值。查看 [carla.Sensor.listen](#carla.Sensor.listen) 中的片段，了解如何创建和保存图像的示例<b>sensor.camera.semantic_segmentation</b>的数据。
+定义可应用于 [carla.Image](#carla.Image) (对于鱼眼相机是 [carla.ImageCube](#carla.ImageCube)) 的转换模式的类，以显示 [carla.Sensor](#carla.Sensor) 提供的信息。深度转换会导致精度损失，因为传感器将深度检测为浮点数，然后将其转换为 0 到 255 之间的灰度值。查看 [carla.Sensor.listen](#carla.Sensor.listen) 中的片段，了解如何创建和保存图像的示例<b>sensor.camera.semantic_segmentation</b>的数据。
 
 ### 实例变量
 - <a name="carla.ColorConverter.CityScapesPalette"></a>**<font color="#f8805a">CityScapesPalette</font>**  
@@ -2278,7 +2278,8 @@ X-轴旋转角度。
   <br><b>仅在触发时接收数据。</b>
   - [碰撞检测器](ref_sensors.md#collision-detector).
   - [压线检测器](ref_sensors.md#lane-invasion-detector).
-  - [障碍物检测器](ref_sensors.md#obstacle-detector).  
+  - [障碍物检测器](ref_sensors.md#obstacle-detector).
+  - [鱼眼相机](ref_sensors.md#fisheye-camera).  
 
 <!-- 压线检测 https://huaweicloud.csdn.net/638089f6dacf622b8df89e97.html -->
 
