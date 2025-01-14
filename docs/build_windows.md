@@ -82,7 +82,7 @@ pip3 install --user wheel
 ![](./img/build/vs_2019_install_options.png)
 
 !!! 重要
-    其他 Visual Studio 版本可能会导致冲突。即使这些已被卸载，某些寄存器也可能仍然存在。要从计算机中彻底清除 Visual Studio，请转到`Program Files (x86)\Microsoft Visual Studio\Installer\resources\app\layout`并运行 `.\InstallCleanup.exe -full`。
+    其他 Visual Studio 版本可能会导致冲突。即使这些已被卸载，某些寄存器也可能仍然存在。要从计算机中彻底清除 Visual Studio，请转到`C:\Program Files (x86)\Microsoft Visual Studio\Installer\resources\app\layout`并运行 `.\InstallCleanup.exe -full`。
 
 [命令行参数安装](https://learn.microsoft.com/zh-cn/visualstudio/install/use-command-line-parameters-to-install-visual-studio?view=vs-2019) 。
 

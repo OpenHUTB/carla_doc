@@ -1,6 +1,6 @@
 title: 主页
 
-# [代理模拟器文档](https://carla.readthedocs.io/en/latest/)
+# [代理模拟器](https://carla.readthedocs.io/en/latest/)
 
 欢迎使用代理模拟器文档。此主页包含一个索引，其中简要说明了文档中的不同部分。运行 **入门示例** 后可以按自己喜欢的顺序随意阅读。默认为支持 UE 4.26 的 Carla 文档，支持 UE 5.5 的 Carla 文档请查看 [链接](ue5/index.md) 。
 
