@@ -46,7 +46,7 @@ doxygen
 
 ## C++客户端运行
 
-1. 在vs2019中点击菜单`文件->打开->CMake`，打开`Examples\CppClient\CMakeLists.txt`；
+1. 在vs2019中点击菜单`文件->打开->CMake`，打开`Examples/CppClient/CMakeLists.txt`；
 2. 点击`管理配置`，添加新的配置`x64-release`；（注意：`x64-Debug`还有问题）；
 3. 启动Carla服务端后，在vs2019中点击`调试->开始执行`。
 ![](img/tuto_D_windows_debug/config_cpp_client.jpg)

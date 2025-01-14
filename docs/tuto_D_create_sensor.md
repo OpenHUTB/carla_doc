@@ -123,8 +123,7 @@ private:
 #include "Carla/Vehicle/CarlaWheeledVehicle.h"
 ```
 
-然后我们就可以继续实现该功能了。构造函数将创建触发框，并告诉虚幻引擎4 我们希望调用我们的勾选函数。如果我们的传感器没有使用节拍功能，我们可以在此处禁用它以避免不必要的节拍
-
+然后我们就可以继续实现该功能了。构造函数将创建触发框，并告诉虚幻引擎4 我们希望调用我们的勾选函数。如果我们的传感器没有使用节拍功能，我们可以在此处禁用它以避免不必要的节拍：
 ```cpp
 ASafeDistanceSensor::ASafeDistanceSensor(const FObjectInitializer &ObjectInitializer)
   : Super(ObjectInitializer)
@@ -397,8 +396,7 @@ def callback(event):
 sensor.listen(callback)
 ```
 
-此回调将执行另一辆车在我们的安全距离框中的每次更新，例如
-
+此回调将执行另一辆车在我们的安全距离框中的每次更新，例如：
 ```
 Vehicle too close: vehicle.audi.a2
 Vehicle too close: vehicle.mercedes-benz.coupe

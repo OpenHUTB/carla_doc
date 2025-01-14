@@ -48,7 +48,7 @@ python3 run_synchronization.py examples/Town04.sumocfg  --sumo-gui
 使用脚本 `Co-Simulation/Sumo/util/create_sumo_vtypes.py` 用户可以基于 Carla 蓝图库创建 *vtypes*，相当于 Carla 蓝图。
 
 *   __`--carla-host`__ *(默认值：127.0.0.1)* — Carla 主机服务器的 IP。
-*   __`--carla-port`__ *(默认值：2000)* — 要侦听的 TCP 端口。
+*   __`--carla-port`__ *(默认值：2000)* — 要监听的 TCP 端口。
 *   __`--output-file`__ *(默认值：carlavtypes.rou.xml)* — 生成的包含 *vtypes* 的文件。  
 
 该脚本使用 `data/vtypes.json` 存储的信息来创建 SUMO *vtypes*。这些可以通过编辑所述文件来修改。
@@ -74,9 +74,9 @@ python3 run_synchronization.py examples/Town04.sumocfg  --sumo-gui
 
 *   __`sumo_cfg_file`__ — SUMO 配置文件。
 *   __`--carla-host`__ *(默认值：127.0.0.1)* — Carla 主机服务器的 IP
-*   __`--carla-port`__ *(默认值：2000)* — 要侦听的 TCP 端口
+*   __`--carla-port`__ *(默认值：2000)* — 要监听的 TCP 端口
 *   __`--sumo-host`__ *(默认值：127.0.0.1)* — SUMO 主机服务器的 IP。
-*   __`--sumo-port`__ *(默认值：8813)* — 要侦听的 TCP 端口。
+*   __`--sumo-port`__ *(默认值：8813)* — 要监听的 TCP 端口。
 *   __`--sumo-gui`__ — 打开一个窗口以可视化 SUMO 的 GUI 版本。
 *   __`--step-length`__ *(默认值：0.05s)* — 设置模拟时间步长的固定增量秒。 
 *   __`--sync-vehicle-lights`__ *(默认值：False)* — 同步车灯。 
@@ -101,7 +101,7 @@ python3 run_synchronization.py <SUMOCFG FILE> --tls-manager carla --sumo-gui
 当脚本运行同步仿并在其中生成车辆时，参数与`run_synchronization.py` 和 `generate_traffic.py` 中出现的参数相同。
 
 *   __`--host`__ *(默认值：127.0.0.1)* — 主机服务器的 IP。
-*   __`--port`__ *(default: 2000)* — 要侦听的 TCP 端口。
+*   __`--port`__ *(default: 2000)* — 要监听的 TCP 端口。
 *   __`-n,--number-of-vehicles`__ *(默认值：10)* — 生成的车辆数量。  
 *   __`--safe`__ — 避免生成车辆容易发生事故。
 *   __`--filterv`__ *(默认值："vehicle.*")* — 过滤生成的车辆的蓝图。

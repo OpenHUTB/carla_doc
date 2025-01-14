@@ -237,7 +237,7 @@ python3 manual_control.py
 ./CarlaUE4.sh -carla-rpc-port=3000
 ```
 
-* `-carla-rpc-port=N` 侦听端口 `N` 上的客户端连接。流媒体端口默认设置为 `N+1` 。
+* `-carla-rpc-port=N` 监听端口 `N` 上的客户端连接。流媒体端口默认设置为 `N+1` 。
 * `-carla-streaming-port=N` 指定传感器数据流的端口。使用 0 获取随机未使用的端口。第二个端口将自动设置为`N+1`。
 * `-quality-level={Low,Epic}` 更改图形质量级别。 在 [渲染选项](adv_rendering_options.md) 中了解更多信息。
 * __[虚幻引擎 4 命令行参数列表][ue4clilink]。__ 。虚幻引擎提供了很多选项，但并非所有这些选项在 Carla 中都可用。

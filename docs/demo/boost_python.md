@@ -117,7 +117,7 @@ print(hello_ext.greet())
 
 
 ### whl安装包的调式
-参考[链接](https://blog.csdn.net/Attitude93/article/details/135656910) ，转至目录`carla\PythonAPI\carla`，运行`pip install -e .`，在`Python37\Lib\site-packages\easy-install.pth`文件中生成指向源代码的路径。
+参考[链接](https://blog.csdn.net/Attitude93/article/details/135656910) ，转至目录`carla/PythonAPI/carla`，运行`pip install -e .`，在`Python37/Lib/site-packages/easy-install.pth`文件中生成指向源代码的路径。
 
 `-e` 或 `--editable`：这个选项表示以“可编辑”模式安装包。在这种模式下，包的源代码可以在本地进行修改，并且这些修改会立即反映到系统中该包的行为上，无需重新安装。这对于开发和调试非常有用。
 在当前目录下安装一个包，并创建一个软连接引用该包（而不是将包复制到 site-packages

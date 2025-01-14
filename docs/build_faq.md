@@ -218,9 +218,11 @@ Carla 论坛</a>
 
 > 尝试构建 Carla 时出现问题。使用 Visual Studio 重新构建以发现发生了什么。
 >
-> __1.__ 转到 `carla/Unreal/CarlaUE4` 并右键单击 `CarlaUE4.uproject`。 
+> __1.__ 转到 `carla/Unreal/CarlaUE4` 并右键单击 `CarlaUE4.uproject`。
+> 
 > __2.__ 单击 __Generate Visual Studio project files__。  
-> __3.__ 使用 Visual Studio 2019 打开生成的文件。 
+> __3.__ 使用 Visual Studio 2019 打开生成的文件。
+> 
 > __4.__ 使用 Visual Studio 编译项目。快捷键是F7。构建将失败，但发现的问题将显示在下面。
 >
 > 不同的问题可能会导致出现此特定错误消息。用户[@tamakoji](https://github.com/tamakoji) 解决了一个经常出现的情况，即源代码未正确克隆且无法设置 Carla 版本（从 git 将其下载为 .zip 时）。

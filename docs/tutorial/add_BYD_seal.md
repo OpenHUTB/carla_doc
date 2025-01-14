@@ -2,8 +2,8 @@
 
 ## 步骤
 1.在**内容浏览器**中，
-将`Unreal\CarlaUE4\Content\Carla\Static\Car\4Wheeled\Tesla`复制到当前文件夹并重命名为`BYD`，
-将`Unreal\CarlaUE4\Content\Carla\Blueprints\Vehicles\Tesla`复制到当前文件夹并重命名为`BYD`。
+将`Unreal/CarlaUE4/Content/Carla/Static/Car/4Wheeled/Tesla`复制到当前文件夹并重命名为`BYD`，
+将`Unreal/CarlaUE4/Content/Carla/Blueprints/Vehicles/Tesla`复制到当前文件夹并重命名为`BYD`。
 
 2.添加车辆到蓝图库并测试。
 
@@ -22,15 +22,15 @@ self.player = self.world.try_spawn_actor(blueprint, spawn_point)
 
 LibCarla的调用过程：
 ```text
-LibCarla\source\carla\client\World.cpp
+LibCarla/source/carla/client/World.cpp
 SharedPtr<Actor> World::TrySpawnActor()
 SharedPtr<Actor> World::SpawnActor()
 
-LibCarla\source\carla\client\detail\Simulator.cpp
+LibCarla/source/carla/client/detail/Simulator.cpp
 SharedPtr<Actor> Simulator::SpawnActor()
 actor = _client.SpawnActor()
 
-LibCarla\source\carla\client\detail\Client.cpp
+LibCarla/source/carla/client/detail/Client.cpp
 rpc::Actor Client::SpawnActor()
 _pimpl->CallAndWait<rpc::Actor>("spawn_actor", description, transform);
 auto CallAndWait(const std::string &function, Args && ... args)
@@ -38,7 +38,7 @@ auto object = RawCall(function, std::forward<Args>(args) ...);
 auto RawCall(const std::string &function, Args && ... args)
 return rpc_client.call(function, std::forward<Args>(args) ...);
 
-LibCarla\source\carla\rpc\Client.h
+LibCarla/source/carla/rpc/Client.h
 auto call(const std::string &function, Args &&... args)
 // 远程调用（_client里保存了IP地址和端口号）
 return _client.call(function, Metadata::MakeSync(), std::forward<Args>(args)...);

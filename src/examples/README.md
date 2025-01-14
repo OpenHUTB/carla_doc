@@ -47,10 +47,10 @@ CarlaUE4.exe -carla-rpc-port=3000
 
 
 # 问题
-Carla导出的场景需要将`WindowsNoEditor\CarlaUE4\Content\Carla\Maps\OpenDrive\hutb_test.xodr`的文件拷贝到`WindowsNoEditor\CarlaUE4\Content\RoadRunner\Maps`
+Carla导出的场景需要将`WindowsNoEditor/CarlaUE4/Content/Carla/Maps/OpenDrive/hutb_test.xodr`的文件拷贝到`WindowsNoEditor/CarlaUE4/Content/RoadRunner/Maps`
 解析.xodr文件失败：`ERROR: unable to parse the OpenDRIVE XML string`。
 
 出处：
 ```shell
-carla\LibCarla\source\carla\opendrive\OpenDriveParser.cpp
+carla/LibCarla/source/carla/opendrive/OpenDriveParser.cpp
 ```

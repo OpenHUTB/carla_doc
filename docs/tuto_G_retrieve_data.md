@@ -299,7 +299,7 @@ spectator.set_transform(ego_vehicle.get_transform())
 __1.__ 使用库查找传感器蓝图。
 __2.__ 设置传感器的特定属性。这一点至关重要。属性将塑造检索到的数据。
 __3.__ 将传感器连接至自我车辆。该变换是相对于其父级的。[carla.AttachmentType](python_api.md#carlaattachmenttype) 将确定传感器位置的更新方式。 
-__4.__ 添加`listen()`方法。这是关键要素。每次传感器侦听数据时都会调用的 [__lambda__](https://www.w3schools.com/python/python_lambda.asp) 方法。参数是检索到的传感器数据。 
+__4.__ 添加`listen()`方法。这是关键要素。每次传感器监听数据时都会调用的 [__lambda__](https://www.w3schools.com/python/python_lambda.asp) 方法。参数是检索到的传感器数据。 
 
 牢记这一基本准则，让我们为自我车辆设置一些基本传感器。
 
@@ -318,7 +318,7 @@ __4.__ 添加`listen()`方法。这是关键要素。每次传感器侦听数据
 
 ```py
 # --------------
-# Spawn attached RGB camera
+# 生成附着的RGB相机
 # --------------
 cam_bp = None
 cam_bp = world.get_blueprint_library().find('sensor.camera.rgb')
@@ -354,9 +354,8 @@ ego_cam.listen(lambda image: image.save_to_disk('tutorial/output/%.6d.jpg' % ima
 
 ```py
 # --------------
-# Add collision sensor to ego vehicle. 
+# 向自我车辆添加碰撞传感器
 # --------------
-
 col_bp = world.get_blueprint_library().find('sensor.other.collision')
 col_location = carla.Location(0,0,0)
 col_rotation = carla.Rotation(0,0,0)
@@ -367,9 +366,8 @@ def col_callback(colli):
 ego_col.listen(lambda colli: col_callback(colli))
 
 # --------------
-# Add Lane invasion sensor to ego vehicle. 
+# 向自我车辆添加压线传感器
 # --------------
-
 lane_bp = world.get_blueprint_library().find('sensor.other.lane_invasion')
 lane_location = carla.Location(0,0,0)
 lane_rotation = carla.Rotation(0,0,0)
@@ -380,9 +378,8 @@ def lane_callback(lane):
 ego_lane.listen(lambda lane: lane_callback(lane))
 
 # --------------
-# Add Obstacle sensor to ego vehicle. 
+# 向自我车辆添加障碍物检测传感器
 # --------------
-
 obs_bp = world.get_blueprint_library().find('sensor.other.obstacle')
 obs_bp.set_attribute("only_dynamics",str(True))
 obs_location = carla.Location(0,0,0)

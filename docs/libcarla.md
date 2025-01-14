@@ -9,7 +9,7 @@
     Marching Cubes(三维规则数据场等值面生成、从三维体素中提取三角形网格)。有符号距离函（Signed Distance Function, SDF）, 指的是给定一个点的坐标, 返回这个点与某一面的最短距离。如果这个距离是负数, 则说明在面内, 是正数则说明在面外, 如果是0, 则刚好在面上，SDF的signed就是由此而来。pugi意思是`帅气的`handsome。
   
 
-Visual Studio 工程所在地目录为：`Build\libcarla-visualstudio\`。
+Visual Studio 工程所在地目录为：`Build/libcarla-visualstudio/`。
 
 
 ## 客户端

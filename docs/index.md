@@ -11,7 +11,7 @@ title: 主页
 
 
 !!! 注意
-    如果运行CarlaUE4.exe时候报错：缺少Microsoft Visual C++ Runtime、DirectX Runtime，则需要安装 [vs_community__2019.exe](https://visualstudio.microsoft.com/zh-hans/vs/older-downloads/) （勾选`.NET桌面开发`和`使用C++的桌面开发`）和 [directx_Jun2010_redist.zip](https://www.microsoft.com/zh-CN/download/details.aspx?id=8109)  （解压后运行`DXSETUP.bat`）。当机器性能一般或者调试时，可以降低画质来启动，以获得更流畅的效果：`CarlaUE4.exe -quality-level=Low`或者`CarlaUE4.exe -nullrhi`。如果对文档中的任何问题可以在 [本文档的源码仓库](https://github.com/OpenHUTB/carla_doc) 中的 [Issues](https://github.com/OpenHUTB/carla_doc/issues) 页面进行提问或者提交 [Pull Request](https://zhuanlan.zhihu.com/p/153381521) 直接修改文档。
+    如果运行CarlaUE4.exe时候报错：缺少Microsoft Visual C++ Runtime、DirectX Runtime，则需要安装 [vs_community__2019.exe](https://visualstudio.microsoft.com/zh-hans/vs/older-downloads/) （勾选`.NET桌面开发`和`使用C++的桌面开发`）和 [directx_Jun2010_redist.zip](https://www.microsoft.com/zh-CN/download/details.aspx?id=8109)  （解压后运行`DXSETUP.bat`）。当机器性能一般或者调试时，可以降低画质来启动，以获得更流畅的效果：`CarlaUE4.exe -quality-level=Low`，甚至使用`CarlaUE4.exe -nullrhi`禁用所有渲染（无需 GPU）。如果对文档中的任何问题可以在 [本文档的源码仓库](https://github.com/OpenHUTB/carla_doc) 中的 [Issues](https://github.com/OpenHUTB/carla_doc/issues) 页面进行提问或者提交 [Pull Request](https://zhuanlan.zhihu.com/p/153381521) 直接修改文档。
 
 ---
 
@@ -186,7 +186,7 @@ title: 主页
 
 [__交通场景__](scenario_runner.md) — 基于 Carla 交通场景定义和执行引擎
 
-[__Web 可视化器__](plugins_carlaviz.md) — 侦听模拟并在网络浏览器中显示场景和一些模拟数据的插件
+[__Web 可视化器__](plugins_carlaviz.md) — 监听模拟并在网络浏览器中显示场景和一些模拟数据的插件
 
 [__ROS__](ros_documentation.md) — 机器人操作系统桥接器的简要概述和完整文档的链接
 

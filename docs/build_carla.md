@@ -65,7 +65,7 @@ cd $HOME/.config/clash/
 
 1.下载`software/gcc/x86_64-8.1.0-release-win32-seh-rt_v6-rev0.7z`文件到本地并解压
 
-2.将`mingw64\bin\`路径添加到PATH路径，使用命令`gcc -v`验证配置已生效；
+2.将`mingw64/bin/`路径添加到PATH路径，使用命令`gcc -v`验证配置已生效；
 
 
 ### CI/CD

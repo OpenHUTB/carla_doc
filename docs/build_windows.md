@@ -133,7 +133,7 @@ __3.__ 编译修改后的引擎：
 （1）您需要修改 **BuildConfiguration.xml** 文件中的设置。文件路径如下：
 `~/UnrealEngine\Engine\Saved\UnrealBuildTool\BuildConfiguration.xml`
 
-（2）打开 **BuildConfiguration.xml** 文件，并添加或修改以下内容：
+（2）打开 **BuildConfiguration.xml** 文件，并添加或修改以下内容（使用7核进行编译）：
 ```xml
 <?xml version="1.0" encoding="utf-8" ?>
 <Configuration xmlns="https://www.unrealengine.com/BuildConfiguration">
@@ -348,7 +348,7 @@ python setup.py bdist_wheel
 
 脚本`setup.py`中的`ext_modules`参数用于构建 C 和 C++ 扩展扩展包。其是 Extension 实例的列表，每一个 Extension 实例描述了一个独立的扩展模块，扩展模块可以设置扩展包名，头文件、源文件、链接库及其路径、宏定义和编辑参数等。
 
-当你安装一个包后，这个包需要你不断修改，这时就采用这种安装方法：`python setup.py develop`。仅在`Python37/Lib/site-packages`目录下生成链接文件`carla.egg-link` 指向 `carla\PythonAPI\carla\source`和`../`。
+当你安装一个包后，这个包需要你不断修改，这时就采用这种安装方法：`python setup.py develop`。仅在`Python37/Lib/site-packages`目录下生成链接文件`carla.egg-link` 指向 `carla/PythonAPI/carla/source`和`../`。
 
 而`python setup.py install`在`Python37\Lib\site-packages\carla-0.9.15-py3.7-win-amd64.egg`目录下生成运行包，包括`libcarla.cp37-win_amd64.pyd`。
 
@@ -398,7 +398,7 @@ make: *** [Util/BuildTools/Windows.mk:62: PythonAPI] Error 1
 where py 1>nul
 if %errorlevel% neq 0 goto error_py
 ```
-%errorlevel%表达上一条命令的返回值。0一般会被视为成功，非0为失败或者异常。
+`%errorlevel%`表达上一条命令的返回值。`0`通常会被视为成功，`非0`为失败或者异常。
 应该修改为：
 ```shell
 ```shell

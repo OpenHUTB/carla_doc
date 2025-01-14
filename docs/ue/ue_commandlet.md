@@ -60,7 +60,7 @@ CommandletClass = FindObject<UClass>(ANY_PACKAGE,*Token,false);
 
 拿到 UClass 之后，创建一个实例，然后调用它的 `Main` 函数：
 ```shell
-Unreal\CarlaUE4\Plugins\CarlaTools\Source\CarlaTools\Private\Commandlet\GenerateTileCommandlet.cpp
+Unreal/CarlaUE4/Plugins/CarlaTools/Source/CarlaTools/Private/Commandlet/GenerateTileCommandlet.cpp
 ```
 
 ```cpp
