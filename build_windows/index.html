@@ -191,7 +191,7 @@ GenerateProjectFiles.bat
 <p>在默认情况下，Unreal Engine 使用 CPU 的所有核心进行编译。这可能导致内存不足的问题，尤其是在高性能电脑但内存有限的情况下。为避免此问题，可以通过以下两种方式解决：减少 CPU 核心使用数量。增加虚拟内存。以下是通过修改 CPU 核心数来优化编译的详细解决方案：</p>
 <p>（1）您需要修改 <strong>BuildConfiguration.xml</strong> 文件中的设置。文件路径如下：
 <code>~/UnrealEngine\Engine\Saved\UnrealBuildTool\BuildConfiguration.xml</code></p>
-<p>（2）打开 <strong>BuildConfiguration.xml</strong> 文件，并添加或修改以下内容：</p>
+<p>（2）打开 <strong>BuildConfiguration.xml</strong> 文件，并添加或修改以下内容（使用7核进行编译）：</p>
 <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
 &lt;Configuration xmlns=&quot;https://www.unrealengine.com/BuildConfiguration&quot;&gt;
   &lt;BuildConfiguration&gt;
@@ -403,7 +403,7 @@ python3 dynamic_weather.py
 <pre><code class="language-shell">python setup.py bdist_wheel
 </code></pre>
 <p>脚本<code>setup.py</code>中的<code>ext_modules</code>参数用于构建 C 和 C++ 扩展扩展包。其是 Extension 实例的列表，每一个 Extension 实例描述了一个独立的扩展模块，扩展模块可以设置扩展包名，头文件、源文件、链接库及其路径、宏定义和编辑参数等。</p>
-<p>当你安装一个包后，这个包需要你不断修改，这时就采用这种安装方法：<code>python setup.py develop</code>。仅在<code>Python37/Lib/site-packages</code>目录下生成链接文件<code>carla.egg-link</code> 指向 <code>carla\PythonAPI\carla\source</code>和<code>../</code>。</p>
+<p>当你安装一个包后，这个包需要你不断修改，这时就采用这种安装方法：<code>python setup.py develop</code>。仅在<code>Python37/Lib/site-packages</code>目录下生成链接文件<code>carla.egg-link</code> 指向 <code>carla/PythonAPI/carla/source</code>和<code>../</code>。</p>
 <p>而<code>python setup.py install</code>在<code>Python37\Lib\site-packages\carla-0.9.15-py3.7-win-amd64.egg</code>目录下生成运行包，包括<code>libcarla.cp37-win_amd64.pyd</code>。</p>
 <h3 id="_8">其他 <span id="other"></span></h3>
 <p>如果想重新编译LibCarla或者使用从其他地方拷贝过来的Build目录下的文件，需要删除<code>Build/libcarla-visualstudio</code>目录，然后重新运行编译命令（否则<code>PythonAPI\carla\dependencies</code>目录不会生成，生成.whl文件时遍历的不到依赖库，报错：<code>NotADirectoryError: [WinError 267] 目录名称无效。: 'dependencies/lib'</code>）：</p>
@@ -438,7 +438,7 @@ make: *** [Util/BuildTools/Windows.mk:62: PythonAPI] Error 1
 <pre><code class="language-shell">where py 1&gt;nul
 if %errorlevel% neq 0 goto error_py
 </code></pre>
-<p>%errorlevel%表达上一条命令的返回值。0一般会被视为成功，非0为失败或者异常。
+<p><code>%errorlevel%</code>表达上一条命令的返回值。<code>0</code>通常会被视为成功，<code>非0</code>为失败或者异常。
 应该修改为：</p>
 <pre><code class="language-shell">```shell
 where python 1&gt;nul

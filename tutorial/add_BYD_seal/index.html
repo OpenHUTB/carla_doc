@@ -70,8 +70,8 @@
               
                 <h2 id="_1">步骤</h2>
 <p>1.在<strong>内容浏览器</strong>中，
-将<code>Unreal\CarlaUE4\Content\Carla\Static\Car\4Wheeled\Tesla</code>复制到当前文件夹并重命名为<code>BYD</code>，
-将<code>Unreal\CarlaUE4\Content\Carla\Blueprints\Vehicles\Tesla</code>复制到当前文件夹并重命名为<code>BYD</code>。</p>
+将<code>Unreal/CarlaUE4/Content/Carla/Static/Car/4Wheeled/Tesla</code>复制到当前文件夹并重命名为<code>BYD</code>，
+将<code>Unreal/CarlaUE4/Content/Carla/Blueprints/Vehicles/Tesla</code>复制到当前文件夹并重命名为<code>BYD</code>。</p>
 <p>2.添加车辆到蓝图库并测试。</p>
 <p>测试代码：</p>
 <pre><code class="language-shell">python manual_control.py --filter vehicle.BYD.seal
@@ -82,15 +82,15 @@ python manual_control.py --filter vehicle.tesla.model3
 </code></pre>
 <p>方法<code>try_spawn_actor()</code>是从<code>carla/PythonAPI/carla/source/libcarla/World.cpp</code> 的<code>.def("try_spawn_actor", SPAWN_ACTOR_WITHOUT_GIL(TrySpawnActor))</code> 传递给 C++ 端的。</p>
 <p>LibCarla的调用过程：</p>
-<pre><code class="language-text">LibCarla\source\carla\client\World.cpp
+<pre><code class="language-text">LibCarla/source/carla/client/World.cpp
 SharedPtr&lt;Actor&gt; World::TrySpawnActor()
 SharedPtr&lt;Actor&gt; World::SpawnActor()
 
-LibCarla\source\carla\client\detail\Simulator.cpp
+LibCarla/source/carla/client/detail/Simulator.cpp
 SharedPtr&lt;Actor&gt; Simulator::SpawnActor()
 actor = _client.SpawnActor()
 
-LibCarla\source\carla\client\detail\Client.cpp
+LibCarla/source/carla/client/detail/Client.cpp
 rpc::Actor Client::SpawnActor()
 _pimpl-&gt;CallAndWait&lt;rpc::Actor&gt;(&quot;spawn_actor&quot;, description, transform);
 auto CallAndWait(const std::string &amp;function, Args &amp;&amp; ... args)
@@ -98,7 +98,7 @@ auto object = RawCall(function, std::forward&lt;Args&gt;(args) ...);
 auto RawCall(const std::string &amp;function, Args &amp;&amp; ... args)
 return rpc_client.call(function, std::forward&lt;Args&gt;(args) ...);
 
-LibCarla\source\carla\rpc\Client.h
+LibCarla/source/carla/rpc/Client.h
 auto call(const std::string &amp;function, Args &amp;&amp;... args)
 // 远程调用（_client里保存了IP地址和端口号）
 return _client.call(function, Metadata::MakeSync(), std::forward&lt;Args&gt;(args)...);

@@ -106,7 +106,7 @@ int32 UGenerateTileCommandlet::Main(const FString &amp;Params)
 CommandletClass = FindObject&lt;UClass&gt;(ANY_PACKAGE,*Token,false);
 </code></pre>
 <p>拿到 UClass 之后，创建一个实例，然后调用它的 <code>Main</code> 函数：</p>
-<pre><code class="language-shell">Unreal\CarlaUE4\Plugins\CarlaTools\Source\CarlaTools\Private\Commandlet\GenerateTileCommandlet.cpp
+<pre><code class="language-shell">Unreal/CarlaUE4/Plugins/CarlaTools/Source/CarlaTools/Private/Commandlet/GenerateTileCommandlet.cpp
 </code></pre>
 <pre><code class="language-cpp">OpenDriveMap = NewObject&lt;UOpenDriveToMap&gt;(this, OpenDriveClass);
 OpenDriveMap-&gt;FilePath = ParamsMap[&quot;FilePath&quot;];

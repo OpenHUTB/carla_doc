@@ -108,7 +108,7 @@ python3 run_synchronization.py examples/Town04.sumocfg  --sumo-gui
 <p>使用脚本 <code>Co-Simulation/Sumo/util/create_sumo_vtypes.py</code> 用户可以基于 Carla 蓝图库创建 <em>vtypes</em>，相当于 Carla 蓝图。</p>
 <ul>
 <li><strong><code>--carla-host</code></strong> <em>(默认值：127.0.0.1)</em> — Carla 主机服务器的 IP。</li>
-<li><strong><code>--carla-port</code></strong> <em>(默认值：2000)</em> — 要侦听的 TCP 端口。</li>
+<li><strong><code>--carla-port</code></strong> <em>(默认值：2000)</em> — 要监听的 TCP 端口。</li>
 <li><strong><code>--output-file</code></strong> <em>(默认值：carlavtypes.rou.xml)</em> — 生成的包含 <em>vtypes</em> 的文件。  </li>
 </ul>
 <p>该脚本使用 <code>data/vtypes.json</code> 存储的信息来创建 SUMO <em>vtypes</em>。这些可以通过编辑所述文件来修改。</p>
@@ -130,9 +130,9 @@ python3 run_synchronization.py examples/Town04.sumocfg  --sumo-gui
 <ul>
 <li><strong><code>sumo_cfg_file</code></strong> — SUMO 配置文件。</li>
 <li><strong><code>--carla-host</code></strong> <em>(默认值：127.0.0.1)</em> — Carla 主机服务器的 IP</li>
-<li><strong><code>--carla-port</code></strong> <em>(默认值：2000)</em> — 要侦听的 TCP 端口</li>
+<li><strong><code>--carla-port</code></strong> <em>(默认值：2000)</em> — 要监听的 TCP 端口</li>
 <li><strong><code>--sumo-host</code></strong> <em>(默认值：127.0.0.1)</em> — SUMO 主机服务器的 IP。</li>
-<li><strong><code>--sumo-port</code></strong> <em>(默认值：8813)</em> — 要侦听的 TCP 端口。</li>
+<li><strong><code>--sumo-port</code></strong> <em>(默认值：8813)</em> — 要监听的 TCP 端口。</li>
 <li><strong><code>--sumo-gui</code></strong> — 打开一个窗口以可视化 SUMO 的 GUI 版本。</li>
 <li><strong><code>--step-length</code></strong> <em>(默认值：0.05s)</em> — 设置模拟时间步长的固定增量秒。 </li>
 <li><strong><code>--sync-vehicle-lights</code></strong> <em>(默认值：False)</em> — 同步车灯。 </li>
@@ -153,7 +153,7 @@ python3 run_synchronization.py examples/Town04.sumocfg  --sumo-gui
 <p>当脚本运行同步仿并在其中生成车辆时，参数与<code>run_synchronization.py</code> 和 <code>generate_traffic.py</code> 中出现的参数相同。</p>
 <ul>
 <li><strong><code>--host</code></strong> <em>(默认值：127.0.0.1)</em> — 主机服务器的 IP。</li>
-<li><strong><code>--port</code></strong> <em>(default: 2000)</em> — 要侦听的 TCP 端口。</li>
+<li><strong><code>--port</code></strong> <em>(default: 2000)</em> — 要监听的 TCP 端口。</li>
 <li><strong><code>-n,--number-of-vehicles</code></strong> <em>(默认值：10)</em> — 生成的车辆数量。  </li>
 <li><strong><code>--safe</code></strong> — 避免生成车辆容易发生事故。</li>
 <li><strong><code>--filterv</code></strong> <em>(默认值："vehicle.</em>")* — 过滤生成的车辆的蓝图。</li>

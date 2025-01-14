@@ -2618,7 +2618,7 @@ IF (ReceivedPower &gt;= receiver_sensitivity)
 </ul>
 </li>
 </ul>
-<p>自定义 V2X 消息传感器的工作方式与其他传感器略有不同，因为它除了<em>侦听</em>函数之外还具有<em>发送</em>函数，需要先调用发送函数，然后其他此类传感器才能接收任何内容。只有在调用<em>发送</em>时才会触发自定义消息的传输。发送给<em>发送</em>函数的每条消息仅向当前生成的所有自定义 V2X 消息传感器传输一次。</p>
+<p>自定义 V2X 消息传感器的工作方式与其他传感器略有不同，因为它除了<em>监听</em>函数之外还具有<em>发送</em>函数，需要先调用发送函数，然后其他此类传感器才能接收任何内容。只有在调用<em>发送</em>时才会触发自定义消息的传输。发送给<em>发送</em>函数的每条消息仅向当前生成的所有自定义 V2X 消息传感器传输一次。</p>
 <p>示例：</p>
 <pre><code>bp = world.get_blueprint_library().find('sensor.other.v2x_custom')
 sensor = world.spawn_actor(bp, carla.Transform(), attach_to=parent)

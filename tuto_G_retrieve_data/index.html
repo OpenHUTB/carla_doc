@@ -359,7 +359,7 @@ spectator.set_transform(ego_vehicle.get_transform())
 <p><strong>1.</strong> 使用库查找传感器蓝图。
 <strong>2.</strong> 设置传感器的特定属性。这一点至关重要。属性将塑造检索到的数据。
 <strong>3.</strong> 将传感器连接至自我车辆。该变换是相对于其父级的。<a href="../python_api/#carlaattachmenttype">carla.AttachmentType</a> 将确定传感器位置的更新方式。 
-<strong>4.</strong> 添加<code>listen()</code>方法。这是关键要素。每次传感器侦听数据时都会调用的 <a href="https://www.w3schools.com/python/python_lambda.asp"><strong>lambda</strong></a> 方法。参数是检索到的传感器数据。 </p>
+<strong>4.</strong> 添加<code>listen()</code>方法。这是关键要素。每次传感器监听数据时都会调用的 <a href="https://www.w3schools.com/python/python_lambda.asp"><strong>lambda</strong></a> 方法。参数是检索到的传感器数据。 </p>
 <p>牢记这一基本准则，让我们为自我车辆设置一些基本传感器。</p>
 <h3 id="rgb">RGB 相机 <span id="rgb-camera"></span></h3>
 <p><a href="../ref_sensors/#rgb-camera">RGB 相机</a> 生成逼真的场景图片。它是所有传感器中可设置属性较多的传感器，但它也是一个基本的传感器。它应该被理解为一个真正的相机，具有诸如<code>focal_distance</code>、<code>shutter_speed</code>或<code>gamma</code>确定其内部如何工作的属性。还有一组特定的属性来定义镜头畸变，以及许多高级属性。例如，<code>lens_circle_multiplier</code>可以用来实现类似于眼睛鱼镜头的效果。在文档中了解有关它们的更多信息。</p>
@@ -371,7 +371,7 @@ spectator.set_transform(ego_vehicle.get_transform())
 <p>设置属性后，就可以生成传感器了。脚本将摄像机放置在汽车引擎盖中，并指向前方。它将捕捉汽车的前视图。</p>
 <p>每一步都会以 <a href="../python_api/#carla.Image">carla.Image</a> 的形式检索数据。Listen 方法将它们保存到磁盘。路径可以随意改变。每张图像的名称均根据拍摄镜头的模拟帧进行编码。 </p>
 <pre><code class="language-py"># --------------
-# Spawn attached RGB camera
+# 生成附着的RGB相机
 # --------------
 cam_bp = None
 cam_bp = world.get_blueprint_library().find('sensor.camera.rgb')
@@ -403,9 +403,8 @@ ego_cam.listen(lambda image: image.save_to_disk('tutorial/output/%.6d.jpg' % ima
 </ul>
 <p>该脚本将障碍物检测器设置为仅考虑动态对象。如果车辆与任何静态物体发生碰撞，碰撞传感器都会检测到。</p>
 <pre><code class="language-py"># --------------
-# Add collision sensor to ego vehicle. 
+# 向自我车辆添加碰撞传感器
 # --------------
-
 col_bp = world.get_blueprint_library().find('sensor.other.collision')
 col_location = carla.Location(0,0,0)
 col_rotation = carla.Rotation(0,0,0)
@@ -416,9 +415,8 @@ def col_callback(colli):
 ego_col.listen(lambda colli: col_callback(colli))
 
 # --------------
-# Add Lane invasion sensor to ego vehicle. 
+# 向自我车辆添加压线传感器
 # --------------
-
 lane_bp = world.get_blueprint_library().find('sensor.other.lane_invasion')
 lane_location = carla.Location(0,0,0)
 lane_rotation = carla.Rotation(0,0,0)
@@ -429,9 +427,8 @@ def lane_callback(lane):
 ego_lane.listen(lambda lane: lane_callback(lane))
 
 # --------------
-# Add Obstacle sensor to ego vehicle. 
+# 向自我车辆添加障碍物检测传感器
 # --------------
-
 obs_bp = world.get_blueprint_library().find('sensor.other.obstacle')
 obs_bp.set_attribute(&quot;only_dynamics&quot;,str(True))
 obs_location = carla.Location(0,0,0)

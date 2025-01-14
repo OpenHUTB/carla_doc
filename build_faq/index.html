@@ -252,10 +252,10 @@ export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla</code></p>
 <h6 id="carlaue4-could-not-be-compiled-try-rebuilding-it-from-source-manually">CarlaUE4 could not be compiled. Try rebuilding it from source manually. <span id="carlaue4-could-not-be-compiled-try-rebuilding-it-from-source-manually"></span></h6>
 <blockquote>
 <p>尝试构建 Carla 时出现问题。使用 Visual Studio 重新构建以发现发生了什么。</p>
-<p><strong>1.</strong> 转到 <code>carla/Unreal/CarlaUE4</code> 并右键单击 <code>CarlaUE4.uproject</code>。 
-<strong>2.</strong> 单击 <strong>Generate Visual Studio project files</strong>。<br />
-<strong>3.</strong> 使用 Visual Studio 2019 打开生成的文件。 
-<strong>4.</strong> 使用 Visual Studio 编译项目。快捷键是F7。构建将失败，但发现的问题将显示在下面。</p>
+<p><strong>1.</strong> 转到 <code>carla/Unreal/CarlaUE4</code> 并右键单击 <code>CarlaUE4.uproject</code>。</p>
+<p><strong>2.</strong> 单击 <strong>Generate Visual Studio project files</strong>。<br />
+<strong>3.</strong> 使用 Visual Studio 2019 打开生成的文件。</p>
+<p><strong>4.</strong> 使用 Visual Studio 编译项目。快捷键是F7。构建将失败，但发现的问题将显示在下面。</p>
 <p>不同的问题可能会导致出现此特定错误消息。用户<a href="https://github.com/tamakoji">@tamakoji</a> 解决了一个经常出现的情况，即源代码未正确克隆且无法设置 Carla 版本（从 git 将其下载为 .zip 时）。</p>
 <ul>
 <li><strong>检查 <code>Build/CMakeLists.txt.in</code>.</strong> 如果显示： <code>set(CARLA_VERSION )</code>，请执行以下操作： </li>
