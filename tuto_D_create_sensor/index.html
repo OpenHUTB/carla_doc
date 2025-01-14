@@ -75,7 +75,7 @@
 <li><a href="#introduction"><strong>介绍</strong></a>  </li>
 <li><a href="#creating-a-new-sensor"><strong>创建新传感器</strong></a>  <ul>
 <li><a href="#1-sensor-actor">1- 传感器参与者</a>  </li>
-<li><a href="#2-sensor-data-serializer">2- 传感器数据串行器</a>  </li>
+<li><a href="#2-sensor-data-serializer">2- 传感器数据序列化器</a>  </li>
 <li><a href="#3-sensor-data-object">3- 传感器数据对象</a>  </li>
 <li><a href="#4-register-your-sensor">4- 注册您的传感器</a>  </li>
 <li><a href="#5-usage-example">5- 使用示例</a>  </li>
@@ -106,7 +106,7 @@
     负责测量和/或模拟数据的参与者。使用虚幻引擎 4框架在 Carla 插件中运行。用户可以作为传感器参与者访问。</p>
 </li>
 <li>
-<p><strong>串行器</strong><br>
+<p><strong>序列化器</strong><br>
     对象包含用于序列化和反序列化传感器生成的数据的方法。在 LibCarla 中运行，包括服务器和客户端。</p>
 </li>
 <li>
@@ -126,14 +126,14 @@
 <p><em>为了简单起见，我们不会考虑所有的边缘情况，也不会以最有效的方式实现。这只是一个说明性示例。</em></p>
 <h3 id="1-">1- 创建新传感器 <span id="1-sensor-actor"></span></h3>
 <p>这是我们要创建的最复杂的类。这里我们在虚幻引擎框架内运行，虚幻引擎 4 API 的知识将非常有帮助，但不是必不可少的，我们假设读者以前从未使用过虚幻引擎 4。</p>
-<p>在 <code>UE4</code> 内部，我们有一个与客户端类似的层次结构，<code>ASensor</code> 派生自<code>AActor</code>，而 <code>Actor</code> 大致是可以放入世界中的任何对象。<code>AActor</code>有一个名为的虚拟函数<code>Tick</code>，我们可以使用它在每次模拟器更新时更新我们的传感器。在更高的层次结构中 <code>UObject</code>，我们有大多数虚幻引擎 4 类的基类。重要的是要知道派生的对象<code>UObject</code>是通过指针进行处理的，并且当它们不再被引用时会被垃圾收集。指向 <code>UObjects</code> 的类成员需要用宏<code>UPROPERTY</code>进行标记，否则它们将被垃圾收集。</p>
+<p>在 <code>UE4</code> 内部，我们有一个与客户端类似的层次结构，<code>ASensor</code> 派生自<code>AActor</code>，而参与者 <code>Actor</code> 大致是可以放入世界中的任何对象。<code>AActor</code>有一个名为<code>Tick</code>的虚拟函数，我们可以使用它在每次模拟器更新时更新我们的传感器。在更高的层次结构中 <code>UObject</code>，我们有大多数虚幻引擎 4 类的基类。重要的是要知道派生的对象<code>UObject</code>是通过指针进行处理的，并且当它们不再被引用时会被垃圾收集。指向 <code>UObjects</code> 的类成员需要用宏<code>UPROPERTY</code>进行标记，否则它们将被垃圾收集。</p>
 <p>开始吧。</p>
-<p>该类必须位于 Carla 插件内，我们将为新的 C++ 类创建两个文件</p>
+<p>该类必须位于 Carla 插件内，我们将为新的 C++ 类创建两个文件：</p>
 <ul>
 <li><code>Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/SafeDistanceSensor.h</code></li>
 <li><code>Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/SafeDistanceSensor.cpp</code></li>
 </ul>
-<p>最起码，传感器需要继承<code>ASensor</code>，并提供静态方法<code>GetSensorDefinition</code>；但我们还将重写<code>Set</code>、 <code>SetOwner</code>、 和<code>Tick</code>方法。该传感器还需要一个触发盒来检测我们周围的其他参与者。有了这个和一些必需的虚幻引擎4 样板代码，头文件看起来像</p>
+<p>最起码，传感器需要继承<code>ASensor</code>，并提供获取传感器属性定义的静态方法<code>GetSensorDefinition</code>；但我们还将重写<code>Set</code>、 <code>SetOwner</code>、<code>Tick</code>方法。该传感器还需要一个触发盒来检测我们周围的其他参与者。有了这个和一些必需的虚幻引擎4 样板代码，头文件看起来像</p>
 <pre><code class="language-cpp">#pragma once
 
 #include &quot;Carla/Sensor/Sensor.h&quot;
@@ -143,7 +143,7 @@
 
 #include &quot;Components/BoxComponent.h&quot;
 
-#include &quot;SafeDistanceSensor.generated.h&quot;
+#include &quot;SafeDistanceSensor.generated.h&quot;  // 反射机制，通过UHT生成*.generated.h
 
 UCLASS()
 class CARLA_API ASafeDistanceSensor : public ASensor
@@ -177,7 +177,7 @@ private:
 #include &quot;Carla/Util/BoundingBoxCalculator.h&quot;
 #include &quot;Carla/Vehicle/CarlaWheeledVehicle.h&quot;
 </code></pre>
-<p>然后我们就可以继续实现该功能了。构造函数将创建触发框，并告诉虚幻引擎4 我们希望调用我们的勾选函数。如果我们的传感器没有使用刻度功能，我们可以在此处禁用它以避免不必要的刻度</p>
+<p>然后我们就可以继续实现该功能了。构造函数将创建触发框，并告诉虚幻引擎4 我们希望调用我们的勾选函数。如果我们的传感器没有使用节拍功能，我们可以在此处禁用它以避免不必要的节拍</p>
 <pre><code class="language-cpp">ASafeDistanceSensor::ASafeDistanceSensor(const FObjectInitializer &amp;ObjectInitializer)
   : Super(ObjectInitializer)
 {
@@ -219,7 +219,7 @@ private:
   return Definition;
 }
 </code></pre>
-<p>这样，传感器工厂就能够根据用户需求创建安全距离传感器。创建传感器后，立即使用用户请求的参数调用该<code>Set</code>函数</p>
+<p>这样，传感器工厂就能够根据用户需求创建<strong>安全距离传感器</strong>。创建传感器后，立即使用用户请求的参数调用该<code>Set</code>函数</p>
 <pre><code class="language-cpp">void ASafeDistanceSensor::Set(const FActorDescription &amp;Description)
 {
   Super::Set(Description);
@@ -247,7 +247,10 @@ private:
   Box-&gt;SetBoxExtent(FVector{ExtentX, ExtentY, 0.0f});
 }
 </code></pre>
-<p>请注意，set 函数是在虚幻引擎 4 之前调用的<code>BeginPlay</code>，我们这里不会使用这个虚拟函数，但它对于其他传感器很重要。</p>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>该 <code>set</code> 函数是在虚幻引擎 4 之前被<code>BeginPlay</code>调用，我们这里不会使用这个虚函数，但它对于其他传感器很重要。</p>
+</div>
 <p>现在我们将根据我们所附加的参与者的边界框来扩展盒子体积。为此，最方便的方法是使用 <code>SetOwner</code>虚函数。当我们的传感器连接到另一个参与者时，会调用此函数。</p>
 <pre><code class="language-cpp">void ASafeDistanceSensor::SetOwner(AActor *Owner)
 {
@@ -258,7 +261,7 @@ private:
   Box-&gt;SetBoxExtent(BoundingBox.Extent + Box-&gt;GetUnscaledBoxExtent());
 }
 </code></pre>
-<p>唯一要做的就是实际测量，因为我们将使用该<code>Tick</code>函数。我们将查找当前与我们的盒子重叠的所有车辆，并将此列表发送给客户</p>
+<p>唯一要做的就是实际测量，因为我们将使用该<code>Tick</code>函数。我们将查找当前与我们的盒子重叠的所有车辆，并将此列表发送给客户端：</p>
 <pre><code class="language-cpp">void ASafeDistanceSensor::Tick(float DeltaSeconds)
 {
   Super::Tick(DeltaSeconds);
@@ -276,22 +279,22 @@ private:
 </code></pre>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
-<p>在可投入生产的传感器中，该<code>Tick</code>函数应该非常优化，特别是当传感器发送大量数据时。游戏线程中的每次更新都会调用此函数，因此会显着影响模拟器的性能。</p>
+<p>在可投入生产的传感器中，该<code>Tick</code>函数应该得到高度优化，特别是当传感器发送大量数据时。游戏线程中的每次更新都会调用此函数，因此会显著影响模拟器的性能。</p>
 </div>
 <p>好吧，这里发生了一些我们还没有提到的事情，这个流是什么？</p>
-<p>每个传感器都有一个关联的数据流。该流用于将数据发送到客户端，这是您在 Python API 中使用 <code>sensor.listen(callback)</code> 方法时订阅的流。每次向这里发送一些数据时，都会触发客户端的回调。但在此之前，数据将经过多个层。首先是我们接下来要创建的序列化器。一旦我们完成了下一节的<code>Serialize</code>功能，我们就会完全理解这一部分。</p>
-<h3 id="2-">2- 传感器数据串行器 <span id="2-sensor-data-serializer"></span></h3>
-<p>这个类其实比较简单，只需要有两个静态方法，<code>Serialize</code>和<code>Deserialize</code>。我们将为它添加两个文件，这次是 LibCarla</p>
+<p>每个传感器都有一个关联的数据流。该流用于将数据发送到客户端，这是您在 Python API 中使用 <code>sensor.listen(callback)</code> 方法时订阅的流。每次向这里发送一些数据时，都会触发客户端的回调。但在此之前，数据将经过多个层。首先是我们接下来要创建的序列化器。一旦我们完成了下一节的<code>Serialize</code>序列化函数，我们就会完全理解这一部分。</p>
+<h3 id="2-">2- 传感器数据序列化器 <span id="2-sensor-data-serializer"></span></h3>
+<p>这个类其实比较简单，只需要有两个静态方法，<code>Serialize</code>和<code>Deserialize</code>。我们将为它添加两个文件，这次是位于 <code>LibCarla</code> 模块中：</p>
 <ul>
 <li><code>LibCarla/source/carla/sensor/s11n/SafeDistanceSerializer.h</code></li>
 <li><code>LibCarla/source/carla/sensor/s11n/SafeDistanceSerializer.cpp</code></li>
 </ul>
-<p>让我们从<code>Serialize</code>函数开始。该函数将接收我们传递给<code>Stream.Send(...)</code>函数的任何内容作为参数，唯一的条件是第一个参数必须是传感器并且它必须返回一个缓冲区。</p>
+<p>让我们从<code>SafeDistanceSerializer.h</code>中的<code>Serialize</code>函数开始。该函数将接收我们传递给<code>Stream.Send(...)</code>函数的任何内容作为参数，唯一的条件是第一个参数必须是传感器并且它必须返回一个缓冲区。</p>
 <pre><code class="language-cpp">static Buffer Serialize(const Sensor &amp;, ...);
 </code></pre>
 <p><code>carla::Buffer</code> 只是一块动态分配的原始内存，具有一些方便的功能，我们将使用它向客户端发送原始数据。</p>
 <p>在此示例中，我们需要以在客户端有意义的方式将检测到的参与者列表写入缓冲区。这就是我们将剧集对象传递给此函数的原因。</p>
-<p><code>UCarlaEpisode</code>类表示模拟器中运行的当前 <em>情节</em>，即自上次加载地图以来的模拟状态。它包含与 Carla 相关的所有信息，除其他外，它还允许搜索参与者 ID。我们可以将这些 ID 发送给客户端，客户端将能够将这些 ID 识别为参与者</p>
+<p><code>UCarlaEpisode</code>类表示模拟器中运行的当前剧集 <em>episode</em>，即自上次加载地图以来的模拟状态。它包含与 Carla 相关的所有信息，除其他外，它还允许搜索参与者 ID。我们可以将这些 ID 发送给客户端，客户端将能够将这些 ID 识别为参与者</p>
 <pre><code class="language-cpp">template &lt;typename SensorT, typename EpisodeT, typename ActorListT&gt;
 static Buffer Serialize(
     const SensorT &amp;,
@@ -308,8 +311,11 @@ static Buffer Serialize(
   return buffer;
 }
 </code></pre>
-<p>注意：我们对虚幻引擎 4 类进行模板化以避免在 LibCarla 中包含这些文件。</p>
-<p>我们要返回的这个缓冲区将会返回给我们，只不过这次是在客户端，在封装在<code>RawData</code>对象中的<code>Deserialize</code>函数中</p>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>我们对虚幻引擎 4 类进行模板化以避免在 LibCarla 中包含这些文件。</p>
+</div>
+<p>返回的这个缓冲区将会返回给我们，只不过这次是在<strong>客户端</strong>，封装在<code>RawData</code>对象中的反序列化<code>Deserialize</code>函数中</p>
 <pre><code class="language-cpp">static SharedPtr&lt;SensorData&gt; Deserialize(RawData &amp;&amp;data);
 </code></pre>
 <p>我们在 cpp 文件中实现这个方法，比较简单</p>
@@ -317,7 +323,7 @@ static Buffer Serialize(
   return SharedPtr&lt;SensorData&gt;(new data::SafeDistanceEvent(std::move(data)));
 }
 </code></pre>
-<p>除了我们还没有定义什么是 SafeDistanceEvent。</p>
+<p>除了我们还没有定义什么是安全距离事件 <code>SafeDistanceEvent</code> 之外。</p>
 <h3 id="3-">3- 传感器数据对象 <span id="3-sensor-data-object"></span></h3>
 <p>我们需要为该传感器的用户创建一个数据对象，表示 <em>安全距离事件</em> 的数据。我们将此文件添加到</p>
 <ul>
@@ -344,14 +350,14 @@ namespace data {
 } // namespace sensor
 } // namespace carla
 </code></pre>
-<p>数组模板将把我们在<code>Serialize</code>方法中创建的缓冲区重新解释为参与者 ID 数组，并且它能够直接从我们收到的缓冲区中执行此操作，而无需分配任何新内存。虽然对于这个小例子来说可能有点大材小用，但这种机制也适用于大数据块；想象一下我们正在发送高清图像，我们通过重用原始内存节省了很多。</p>
-<p>现在我们需要将此类公开给 Python。在我们的示例中，我们没有添加任何额外的方法，因此我们只公开与 Array 相关的方法。我们通过使用 Boost.Python 绑定来实现此目的，将以下内容添加到  <em>PythonAPI/carla/source/libcarla/SensorData.cpp</em> 。</p>
+<p>数组模板将把我们在序列化 <strong><font color="#f8805a">Serialize</font></strong> 函数中创建的缓冲区重新解释为参与者 ID 数组，并且它能够直接从我们收到的缓冲区中执行此操作，而无需分配任何新内存。虽然对于这个小例子来说可能有点大材小用，但这种机制也适用于大数据块；想象一下我们正在发送高清图像，我们通过重用原始内存节省了很多。</p>
+<p>现在我们需要将此类公开给 Python。在我们的示例中，我们没有添加任何额外的方法，因此我们只公开与 Array 相关的方法。我们通过使用 <code>Boost.Python</code> 绑定来实现此目的，将以下内容添加到  <code>PythonAPI/carla/source/libcarla/SensorData.cpp</code> 。</p>
 <pre><code class="language-cpp">class_&lt;
-    csd::SafeDistanceEvent,                    // actual type.
-    bases&lt;cs::SensorData&gt;,                     // parent type.
-    boost::noncopyable,                        // disable copy.
-    boost::shared_ptr&lt;csd::SafeDistanceEvent&gt;  // use as shared_ptr.
-  &gt;(&quot;SafeDistanceEvent&quot;, no_init)              // name, and disable construction.
+    csd::SafeDistanceEvent,                    // 实际类型
+    bases&lt;cs::SensorData&gt;,                     // 父类型
+    boost::noncopyable,                        // 禁用拷贝
+    boost::shared_ptr&lt;csd::SafeDistanceEvent&gt;  // 使用智能指针 shared_ptr.
+  &gt;(&quot;SafeDistanceEvent&quot;, no_init)              // 名字, 禁用构造
   .def(&quot;__len__&quot;, &amp;csd::SafeDistanceEvent::size)
   .def(&quot;__iter__&quot;, iterator&lt;csd::SafeDistanceEvent&gt;())
   .def(&quot;__getitem__&quot;, +[](const csd::SafeDistanceEvent &amp;self, size_t pos) -&gt; cr::ActorId {
@@ -362,7 +368,7 @@ namespace data {
 <p>注意：<code>csd</code>是名称空间<code>carla::sensor::data</code>的别名。</p>
 <p>我们在这里所做的是在 Python 中公开一些 C++ 方法。这样，Python API 将能够识别我们的新事件，并且其行为类似于 Python 中的数组，只是不能修改。</p>
 <h3 id="4-">4- 注册您的传感器 <span id="4-register-your-sensor"></span></h3>
-<p>现在管道已完成，我们已准备好注册新传感器。我们在 <em>LibCarla/source/carla/sensor/SensorRegistry.h</em> 中这样做。按照此头文件中的说明添加不同的包含和前向声明，并将以下对添加到注册表中</p>
+<p>现在管线已完成，我们已准备好注册新传感器。我们在 <code>LibCarla/source/carla/sensor/SensorRegistry.h</code> 中这样做。按照此头文件中的说明添加不同的包含和前向声明，并将以下对添加到注册表中</p>
 <pre><code class="language-cpp">std::pair&lt;ASafeDistanceSensor *, s11n::SafeDistanceSerializer&gt;
 </code></pre>
 <p>有了这个，传感器注册表现在可以发挥其魔力，将正确的数据分派到正确的序列化器。</p>
@@ -393,8 +399,8 @@ Vehicle too close: vehicle.mercedes-benz.coupe
 <hr />
 <h2 id="_5">附录 <span id="appendix"></span></h2>
 <h3 id="_6">重用缓冲区 <span id="reusing-buffers"></span></h3>
-<p>为了优化内存使用，我们可以利用每个传感器发送相似大小的缓冲区的事实；特别是，在相机的情况下，图像的大小在执行期间是恒定的。在这些情况下，我们可以通过重用帧之间分配的内存来节省大量资源。</p>
-<p>每个流都包含一个 <em>缓冲池</em> ，可用于避免不必要的内存分配。请记住，每个传感器都有一个关联的流，因此每个传感器都有自己的缓冲池。</p>
+<p>为了优化内存使用，我们可以利用每个传感器发送相似大小缓冲区的事实；特别是，在相机的情况下，图像的大小在执行期间是恒定的。在这些情况下，我们可以通过重用帧之间分配的内存来节省大量资源。</p>
+<p>每个流都包含一个 <strong>缓冲池</strong> ，可用于避免不必要的内存分配。请记住，每个传感器都有一个关联的流，因此每个传感器都有自己的缓冲池。</p>
 <p>使用以下命令从池中检索缓冲区</p>
 <pre><code class="language-cpp">auto Buffer = Stream.PopBufferFromPool();
 </code></pre>
@@ -407,7 +413,7 @@ buffer.reset(2048u); // (size 2048 bytes, capacity 2048 bytes) -&gt; allocates
 </code></pre>
 <h3 id="_7">异步发送数据 <span id="sending-data-asynchronously"></span></h3>
 <p>某些传感器可能需要异步发送数据，要么是为了性能，要么是因为数据是在不同的线程中生成的，例如，相机传感器从渲染线程发送图像。</p>
-<p>异步使用数据流是完全可以的，只要数据流本身是在游戏线程中创建的。例如</p>
+<p>异步使用数据流是完全可以的，只要数据流本身是在游戏线程中创建的。例如：</p>
 <pre><code class="language-cpp">void MySensor::Tick(float DeltaSeconds)
 {
   Super::Tick(DeltaSeconds);
@@ -421,8 +427,8 @@ buffer.reset(2048u); // (size 2048 bytes, capacity 2048 bytes) -&gt; allocates
 }
 </code></pre>
 <h3 id="_8">客户端传感器 <span id="client-side-sensors"></span></h3>
-<p>有些传感器不需要模拟器进行测量，这些传感器可以完全在客户端运行，从而使模拟器免于额外的计算。此类传感器的示例是 <em>LaneInvasion</em> 传感器。</p>
-<p>通常的方法是在服务器端创建一个“虚拟”传感器，以便模拟器知道这样的参与者的存在。然而，这个虚拟传感器不会发出节拍，也不会发送任何类型的数据。然而，它在客户端的对应部分注册了一个“on tick”回调，以便在每次新更新时执行一些代码。例如，LaneInvasion 传感器会注册一个回调，每次越过车道标记时都会发出通知。</p>
+<p>有些传感器不需要模拟器进行测量，这些传感器可以完全在客户端运行，从而使模拟器免于额外的计算。此类传感器的示例是压线 <strong>LaneInvasion</strong> 传感器。</p>
+<p>通常的方法是在服务器端创建一个“虚拟”传感器，以便模拟器知道这样的参与者的存在。然而，这个虚拟传感器不会发出节拍信号，也不会发送任何类型的数据。然而，它在客户端的对应部分注册了一个“on tick”回调，以便在每次新更新时执行一些代码。例如，压线 LaneInvasion 传感器会注册一个回调，每次越过车道标记时都会发出通知。</p>
 <p>考虑到客户端的“on tick”回调是并发执行的，即相同的方法可能由不同的线程同时执行，这一点非常重要。访问的任何数据都必须正确同步，可以使用互斥体、使用原子，或者更好地确保所有访问的成员保持不变。</p>
               
             </div>

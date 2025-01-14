@@ -3843,7 +3843,7 @@ CARLA 中最重要的参与者群体之一。其中包括从汽车到卡车、�
 <h3 id="_200">方法</h3>
 <ul>
 <li><a name="carla.Vehicle.apply_ackermann_control"></a><strong><font color="#7fb800">apply_ackermann_control</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>control</strong></font>)<br />
-在下一个刻度处应用阿克曼控制对象。<ul>
+在下一个节拍信号处应用阿克曼控制对象。<ul>
 <li><strong>参数:</strong><ul>
 <li><code>control</code> (<em><a href="#carla.VehicleAckermannControl">carla.VehicleAckermannControl</a></em>)  </li>
 </ul>
@@ -3909,7 +3909,7 @@ CARLA 中最重要的参与者群体之一。其中包括从汽车到卡车、�
 </ul>
 </li>
 <li><a name="carla.Vehicle.is_at_traffic_light"></a><strong><font color="#7fb800">is_at_traffic_light</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-当交通灯为红色并且车辆位于其边界框内时，车辆将受到交通灯的影响。客户端根据最后一个刻度返回交通灯是否影响该车辆（它不调用模拟器）。<ul>
+当交通灯为红色并且车辆位于其边界框内时，车辆将受到交通灯的影响。客户端根据最后一个节拍信号返回交通灯是否影响该车辆（它不调用模拟器）。<ul>
 <li><strong>返回:</strong> <em>bool</em>  </li>
 </ul>
 </li>
@@ -3974,7 +3974,7 @@ CARLA 中最重要的参与者群体之一。其中包括从汽车到卡车、�
 </ul>
 </li>
 <li><a name="carla.Vehicle.get_traffic_light"></a><strong><font color="#7fb800">get_traffic_light</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-根据最后一个刻度检索影响此车辆的交通灯参与者（如果有）。该方法不调用模拟器。<ul>
+根据最后一个节拍信号检索影响此车辆的交通灯参与者（如果有）。该方法不调用模拟器。<ul>
 <li><strong>返回:</strong> <em><a href="#carla.TrafficLight">carla.TrafficLight</a></em>  </li>
 </ul>
 </li>
@@ -4256,7 +4256,7 @@ VehiclePhysicsControl 构造函数。 <ul>
 <h3 id="_217">方法</h3>
 <ul>
 <li><a name="carla.Walker.apply_control"></a><strong><font color="#7fb800">apply_control</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>control</strong></font>)<br />
-在下一个刻度上，控件将以特定速度向特定方向移动行人。也可以命令跳跃。<ul>
+在下一个节拍信号上，控件将以特定速度向特定方向移动行人。也可以命令跳跃。<ul>
 <li><strong>参数:</strong><ul>
 <li><code>control</code> (<em><a href="#carla.WalkerControl">carla.WalkerControl</a></em>)  </li>
 </ul>
@@ -4364,7 +4364,7 @@ VehiclePhysicsControl 构造函数。 <ul>
 <h3 id="_225">方法</h3>
 <ul>
 <li><a name="carla.WalkerBoneControlIn.__init__"></a><strong><font color="#7fb800">__init__</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>list(name,transform)</strong></font>)<br />
-初始化一个包含要在刻度上应用的移动的对象。这些与骨骼的名称和将应用于它的变换一起列出。<ul>
+初始化一个包含要在节拍信号上应用的移动的对象。这些与骨骼的名称和将应用于它的变换一起列出。<ul>
 <li><strong>参数:</strong><ul>
 <li><code>list(name,transform)</code> (<em>tuple</em>)  </li>
 </ul>

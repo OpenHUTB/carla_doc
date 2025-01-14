@@ -210,7 +210,7 @@ world.apply_settings(settings)
 <p>要禁用同步模式，只需将变量设置为 false 或使用<code>PythonAPI/util/config.py</code>脚本。</p>
 <pre><code class="language-sh">cd PythonAPI/util &amp;&amp; python3 config.py --no-sync # Disables synchronous mode
 </code></pre>
-<p>同步模式不能通过脚本启用，只能禁用。启用同步模式将使服务器等待客户机的响应。使用这个脚本，用户不能在需要的时候发送刻度。</p>
+<p>同步模式不能通过脚本启用，只能禁用。启用同步模式将使服务器等待客户机的响应。使用这个脚本，用户不能在需要的时候发送节拍信号。</p>
 <h3 id="_8">使用同步模式 <span id="using-synchronous-mode"></span></h3>
 <p>同步模式在客户端应用程序较慢以及需要不同元素之间的同步，如传感器等情况下尤为重要。如果客户端速度太慢而服务器不等待，信息将会溢出。客户端将无法管理所有内容，信息会丢失或混淆。类似的情况是，如果有很多传感器和异步操作，将无法确定所有传感器是否在模拟中使用来自同一时刻的数据。</p>
 <p>以下代码片段扩展了前一段代码。客户端创建一个相机传感器，将当前步骤的图像数据存储在队列中，并在从队列中检索后勾选服务器。可以<a href="https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/synchronous_mode.py">在此处</a>找到有关多个传感器的更复杂示例。</p>
