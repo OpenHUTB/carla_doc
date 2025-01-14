@@ -1,16 +1,25 @@
-name: Publish docs via GitHub Pages
+# 参考：https://github.com/Tiryoh/actions-mkdocs
+name: Deploy
 on:
   push:
     branches:
-      - master
-
+      - main
 jobs:
   build:
-    name: Deploy docs
+    name: Deploy docs to GitHub Pages
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout master
-        uses: actions/checkout@v1
-
-      - name: Deploy docs
-        uses: mhausenblas/mkdocs-deploy-gh-pages@master
+      - name: Checkout 
+        uses: actions/checkout@v2
+      - name: Build
+        uses: Tiryoh/actions-mkdocs@v0
+        with:
+          mkdocs_version: 'latest' # option
+          #mkdocs_version: '1.1' # option
+          # requirements: 'requirements.txt' # option
+          configfile: 'mkdocs.yml' # option
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
