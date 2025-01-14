@@ -2921,7 +2921,7 @@ CARLA 中最重要的参与者群体之一。其中包括从汽车到卡车、�
 
 ### 方法
 - <a name="carla.Vehicle.apply_ackermann_control"></a>**<font color="#7fb800">apply_ackermann_control</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**control**</font>)  
-在下一个刻度处应用阿克曼控制对象。
+在下一个节拍信号处应用阿克曼控制对象。
     - **参数:**
         - `control` (_[carla.VehicleAckermannControl](#carla.VehicleAckermannControl)_)  
 - <a name="carla.Vehicle.apply_ackermann_controller_settings"></a>**<font color="#7fb800">apply_ackermann_controller_settings</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**settings**</font>)  
@@ -2959,7 +2959,7 @@ _</font>
     - **警告:** <font color="#ED2F2F">_不支持碰撞。当检测到碰撞时，物理系统将恢复为默认的 Carla 物理系统。
 _</font>  
 - <a name="carla.Vehicle.is_at_traffic_light"></a>**<font color="#7fb800">is_at_traffic_light</font>**(<font color="#00a6ed">**self**</font>)  
-当交通灯为红色并且车辆位于其边界框内时，车辆将受到交通灯的影响。客户端根据最后一个刻度返回交通灯是否影响该车辆（它不调用模拟器）。
+当交通灯为红色并且车辆位于其边界框内时，车辆将受到交通灯的影响。客户端根据最后一个节拍信号返回交通灯是否影响该车辆（它不调用模拟器）。
     - **返回:** _bool_  
 - <a name="carla.Vehicle.open_door"></a>**<font color="#7fb800">open_door</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**door_idx**</font>)  
 如果车辆有车门，则打开车门 `door_idx` 。使用 [carla.VehicleDoor.All](#carla.VehicleDoor.All) 打开所有可用的门。
@@ -2997,7 +2997,7 @@ _</font>
 客户端根据最后一个tick返回影响该车辆的速度限制（它不调用模拟器）。当经过限速信号时，限速会更新，因此车辆在生成后可能就没有限速信号。
     - **返回:** _float<small> - 千米/小时</small>_  
 - <a name="carla.Vehicle.get_traffic_light"></a>**<font color="#7fb800">get_traffic_light</font>**(<font color="#00a6ed">**self**</font>)  
-根据最后一个刻度检索影响此车辆的交通灯参与者（如果有）。该方法不调用模拟器。
+根据最后一个节拍信号检索影响此车辆的交通灯参与者（如果有）。该方法不调用模拟器。
     - **返回:** _[carla.TrafficLight](#carla.TrafficLight)_  
 - <a name="carla.Vehicle.get_traffic_light_state"></a>**<font color="#7fb800">get_traffic_light_state</font>**(<font color="#00a6ed">**self**</font>)  
 客户端根据上一个tick返回影响该车辆的交通信号灯的状态。该方法不调用模拟器。如果当前没有交通灯影响车辆，则返回 <b>green</b>。
@@ -3249,7 +3249,7 @@ VehiclePhysicsControl 构造函数。
 
 ### 方法
 - <a name="carla.Walker.apply_control"></a>**<font color="#7fb800">apply_control</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**control**</font>)  
-在下一个刻度上，控件将以特定速度向特定方向移动行人。也可以命令跳跃。
+在下一个节拍信号上，控件将以特定速度向特定方向移动行人。也可以命令跳跃。
     - **参数:**
         - `control` (_[carla.WalkerControl](#carla.WalkerControl)_)  
 - <a name="carla.Walker.blend_pose"></a>**<font color="#7fb800">blend_pose</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**blend_value**</font>)  
@@ -3330,7 +3330,7 @@ VehiclePhysicsControl 构造函数。
 
 ### 方法
 - <a name="carla.WalkerBoneControlIn.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**list(name,transform)**</font>)  
-初始化一个包含要在刻度上应用的移动的对象。这些与骨骼的名称和将应用于它的变换一起列出。
+初始化一个包含要在节拍信号上应用的移动的对象。这些与骨骼的名称和将应用于它的变换一起列出。
     - **参数:**
         - `list(name,transform)` (_tuple_)  
 

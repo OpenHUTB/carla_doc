@@ -147,7 +147,7 @@ world.apply_settings(settings)
 ```sh
 cd PythonAPI/util && python3 config.py --no-sync # Disables synchronous mode
 ```
-同步模式不能通过脚本启用，只能禁用。启用同步模式将使服务器等待客户机的响应。使用这个脚本，用户不能在需要的时候发送刻度。
+同步模式不能通过脚本启用，只能禁用。启用同步模式将使服务器等待客户机的响应。使用这个脚本，用户不能在需要的时候发送节拍信号。
 
 ### 使用同步模式 <span id="using-synchronous-mode"></span>
 
