@@ -447,6 +447,7 @@ carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Vehicle/CustomTerrainPhysicsCom
 > 客户端和服务端的PythonAPI版本不一致，在dev分支开发时会出现。
 > 
 > 解决：服务端是dev分支，PythonAPI也要使用在dev分支上编译的客户端。
+> 解决2：如果确认Simulator端和客户端版本一致，但是仍然报两者版本不一致的话，先卸载客户端，然后通过`pip install carla`安装官方版本，然后再卸载安装编译版本的*.whl文件即可。
 
 ---
 

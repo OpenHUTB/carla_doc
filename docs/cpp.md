@@ -46,5 +46,5 @@ DDS（Data Distribution Service），即 [数据分发服务](https://www.cnblog
 * [CMake 中文教程](https://cmake-doc.readthedocs.io/zh-cn/latest/guide/tutorial/index.html) 
 * [vs2019 CMake 教程](https://learn.microsoft.com/zh-cn/cpp/build/cmake-projects-in-visual-studio?view=msvc-160) ，下载 CMake 3.26 的示例代码。
 * [C++ API文档](https://cplusplus.com/reference/string/stod/) 
-* [C++ 教程](https://zh.cppreference.com/w/cpp)
+* [C++ 教程](https://zh.cppreference.com/w/cpp) - 点击右上角可进行搜索，出来的英文界面可以将地址栏中的`en`改为`zh`即可浏览中文页面。
 * [CMake 链接权限](https://zhuanlan.zhihu.com/p/663367171) ，区分PRIVATE、PUBLIC与INTERFACE。
