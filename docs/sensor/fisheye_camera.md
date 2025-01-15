@@ -67,8 +67,9 @@ unsigned若省略后一个关键字，大多数编译器都会认为是 unsigned
 
 ### 5- 使用示例 <span id="5-usage-example"></span>
 
-  * `PythonAPI/examples/manual_control.py`
+  * [`PythonAPI/examples/manual_control.py`](https://github.com/OpenHUTB/carla/blob/fisheye-camera/PythonAPI/examples/manual_control.py)
 
+启动后按数字键`2`，则显示鱼眼相机画面：
 ![FisheyeImage](../img/sensor/fisheye_demo.jpg)
 
 ### 6- 测试
