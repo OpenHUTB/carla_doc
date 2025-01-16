@@ -80,7 +80,7 @@ python -m pip install .
 
 ## 公式
 
-注意：`markdown_extensions:`标签内需要加上`- mdx_math`
+注意：`markdown_extensions:`标签内需要加上`- mdx_math`（python环境需要安装依赖`python-markdown-math`）。
 
 行内公式
 ```text

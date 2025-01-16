@@ -508,7 +508,7 @@ points = np.reshape(points, (len(radar_data), 4))
 
 责任敏感安全传感器计算车辆的责任敏感安全状态并检索当前的责任敏感安全响应作为传感器数据。[carla.RssRestrictor](python_api.md#carla.RssRestrictor)将使用此数据来调整[carla.VehicleControl](python_api.md#carla.VehicleControl) ，然后再将其应用于车辆。
 
-这些控制器可以通过*自动驾驶*堆栈或用户输入生成。例如，下面有一段来自 的代码片段`PythonAPI/examples/rss/manual_control_rss.py`，其中在必要时使用责任敏感安全修改用户输入。
+这些控制器可以通过*自动驾驶*堆栈或用户输入生成。例如，下面有一段来自 [`PythonAPI/examples/rss/manual_control_rss.py`](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/manual_control_rss.py) 的代码片段，其中在必要时使用责任敏感安全修改用户输入。
 
 __1.__ 检查 __RssSensor__ 是否生成包含限制的有效响应。
 __2.__ 收集车辆的当前动态和车辆物理特性。
@@ -862,7 +862,7 @@ $$
 L(x,y,t) - L(x,y, t-\delta t) = pol C
 $$
 
-$ t-\delta t $ 是该像素上最后一个事件被触发的时间，`pol`是根据亮度变化的符号来判断事件的极性(polarity)。`+1`当亮度增加时极性为正，`-1`当亮度减少时极性为负。工作原理如下图所示。标准相机以固定速率输出帧，从而在场景中不存在运动时发送冗余信息。相比之下，事件摄像机是数据驱动的传感器，能够以微秒延迟响应亮度变化。在绘图中，只要（带符号的）亮度变化随时间`t`超过一维`x`的对比度(contrast )阈值`C`，就会生成正（或负）事件（蓝点、红点） 。观察信号快速变化时事件率如何增长。
+\( t-\delta t \) 是该像素上最后一个事件被触发的时间，`pol`是根据亮度变化的符号来判断事件的极性(polarity)。`+1`当亮度增加时极性为正，`-1`当亮度减少时极性为负。工作原理如下图所示。标准相机以固定速率输出帧，从而在场景中不存在运动时发送冗余信息。相比之下，事件摄像机是数据驱动的传感器，能够以微秒延迟响应亮度变化。在绘图中，只要（带符号的）亮度变化随时间`t`超过一维`x`的对比度(contrast )阈值`C`，就会生成正（或负）事件（蓝点、红点） 。观察信号快速变化时事件率如何增长。
 
 ![DVSCameraWorkingPrinciple](img/sensor_dvs_scheme.jpg)
 
