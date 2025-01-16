@@ -78,6 +78,21 @@ python -m pip install .
 <font color="#00a6ed">**self**</font>
 ```
 
+## 公式
+
+行内公式
+```text
+$ a + b = c $
+```
+
+
+行间公式
+```text
+$$
+a + b = c
+$$
+```
+
 
 
 ## 问题
