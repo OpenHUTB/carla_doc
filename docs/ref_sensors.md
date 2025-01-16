@@ -944,7 +944,7 @@ L(x,y,t) - L(x,y, t-\delta t) = pol C
 所以鱼眼镜头是一种极端的广角镜头，通常焦距小于等于16mm并且视角接近或等于180°（在工程上视角超过140°的镜头即统称为鱼眼镜头）。进入 [网盘](https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb) 的目录 `software/car/fisheye-camera` 下载包含鱼眼相机的可执行场景，其实现步骤和原理参考 [链接](./sensor/fisheye_camera.md) 。
 
 * __蓝图：__ sensor.camera.fisheye
-* __输出：__ 每一步一个 [carla.ImageCube](python_api.md#carla.ImageCube) (除非`sensor_tick`另有说明).
+* __输出：__ 每一步一个 [carla.ImageCube](python_api.md#carla.ImageCube) (除非`sensor_tick`另有说明)。
 
 
 Fisheye 相机充当常规鱼眼相机，从场景中捕捉图像。
@@ -952,7 +952,7 @@ Fisheye 相机充当常规鱼眼相机，从场景中捕捉图像。
 
 这里的 `sensor_tick` 表示我们希望传感器以多快的速度捕获数据。值为 1.5 表示我们希望传感器每 1.5 秒捕获一次数据。默认情况下，值为 0.0 表示尽可能快。
 
-![FisheyeImage](img/sensor/fisheye_demo.png)
+![FisheyeImage](./img/sensor/fisheye_demo.png)
 
 #### 基本相机属性
 
