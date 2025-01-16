@@ -3,6 +3,14 @@
 实现比传统相机视野更广的相机。
 
 ## 实现原理
+参考 [基于KB模型的相机内参](https://ww2.mathworks.cn/help/vision/ref/cameraintrinsicskb.html) 和 [鱼眼校准基础知识](https://ww2.mathworks.cn/help/vision/ug/fisheye-calibration-basics.html) ，由于鱼眼镜头会产生极大的扭曲，因此针孔模型无法模拟鱼眼相机。
+
+Kannale-Brandt 模型通过考虑镜头畸变来扩展理想的针孔模型，以代表真实的相机。
+畸变点为(x_distorted, y_distorted)，其中
+
+
+归一化图像坐标中未失真像素的位置为 (x,y)，其中：
+
 
 
 ## 实现步骤
@@ -13,24 +21,27 @@
 
 更新3个虚幻引擎的源代码：
 
-  * `Engine/Shaders/Private/SimpleElementPixelShader.usf`
-  * `Engine/Source/Runtime/Engine/Private/CubemapUnwrapUtils.cpp`
-  * `Engine/Source/Runtime/Engine/Public/CubemapUnwrapUtils.h`
+  * [`Engine/Shaders/Private/SimpleElementPixelShader.usf`](https://github.com/OpenHUTB/UnrealEngine/blob/fisheye-camera/Engine/Shaders/Private/SimpleElementPixelShader.usf)
+  
+    Unreal Shader(.usf, 着色器) 文件。 其中函数`void CubemapTexturePropertiesFisheye()`实现了鱼眼相机的畸变模型，比如`theta = r / (1.0f + d1*th2 + d2*th4 + d3*th6 + d4*th8);`。
+
+  * [`Engine/Source/Runtime/Engine/Private/CubemapUnwrapUtils.cpp`](https://github.com/OpenHUTB/UnrealEngine/blob/fisheye-camera/Engine/Source/Runtime/Engine/Private/CubemapUnwrapUtils.cpp)
+  * [`Engine/Source/Runtime/Engine/Public/CubemapUnwrapUtils.h`](https://github.com/OpenHUTB/UnrealEngine/blob/fisheye-camera/Engine/Source/Runtime/Engine/Public/CubemapUnwrapUtils.h)
 
 
 ### 1- 创建新传感器 <span id="1-sensor-actor"></span>
 
 为新的 C++ 类创建两个文件：
 
-  * `Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/FisheyeSensor.h`
-  * `Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/FisheyeSensor.cpp`
+  * [`Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/FisheyeSensor.h`](https://github.com/OpenHUTB/carla/blob/fisheye-camera/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/FisheyeSensor.h)
+  * [`Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/FisheyeSensor.cpp`](https://github.com/OpenHUTB/carla/blob/fisheye-camera/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/GnssSensor.cpp)
 
 
 ### 2- 传感器数据序列化器 <span id="2-sensor-data-serializer"></span>
 
 这个类只需要有两个静态方法，序列化`Serialize`和反序列化`Deserialize`。我们将为它添加两个文件，这次是位于 `LibCarla` 模块中：
 
-  * `LibCarla/source/carla/sensor/s11n/ImageSerializerCube.h`
+  * [`LibCarla/source/carla/sensor/s11n/ImageSerializerCube.h`](https://github.com/OpenHUTB/carla/blob/fisheye-camera/LibCarla/source/carla/sensor/s11n/ImageSerializerCube.cpp)
 
 序列化函数 Serialize 输入为一个传感器Sensor，返回一个缓冲区Buffer。
 
@@ -47,18 +58,16 @@
 首先将当前的对齐规则保存在堆栈中。这样，在后续的代码中，可以通过 `#pragma pack(pop)` 恢复之前的对齐方式。
 unsigned若省略后一个关键字，大多数编译器都会认为是 unsigned int。
 
-  * `LibCarla/source/carla/sensor/s11n/ImageSerializerCube.cpp`
-
-
-
+  * [`LibCarla/source/carla/sensor/s11n/ImageSerializerCube.cpp`](https://github.com/OpenHUTB/carla/blob/fisheye-camera/LibCarla/source/carla/sensor/s11n/ImageSerializerCube.h)
 
 
 ### 3- 传感器数据对象 <span id="3-sensor-data-object"></span>
 
-  * `LibCarla/source/carla/sensor/data/ImageCube.h`
-  * `LibCarla/source/carla/sensor/data/ImageTmplCube.h`
-  * `LibCarla/source/carla/image/ImageConverterCube.h`
-  * `LibCarla/source/carla/image/ImageViewCube.h`
+  * [`LibCarla/source/carla/sensor/data/ImageCube.h`](https://github.com/OpenHUTB/carla/blob/fisheye-camera/LibCarla/source/carla/sensor/data/ImageCube.h)
+  * [`LibCarla/source/carla/sensor/data/ImageTmplCube.h`](https://github.com/OpenHUTB/carla/blob/fisheye-camera/LibCarla/source/carla/sensor/data/ImageTmpl.h)
+  * [`LibCarla/source/carla/image/ImageConverterCube.h`](https://github.com/OpenHUTB/carla/blob/fisheye-camera/LibCarla/source/carla/image/ImageConverterCube.h)
+  * [`LibCarla/source/carla/image/ImageViewCube.h`](https://github.com/OpenHUTB/carla/blob/fisheye-camera/LibCarla/source/carla/image/ImageViewCube.h)
+
 
 ### 4- 注册传感器 <span id="4-register-your-sensor"></span>
 
@@ -94,3 +103,7 @@ if (!ActorPowerList.empty())
 {
 }
 ```
+
+## 参考
+
+* [A generic camera model and calibration method for conventional, wide-angle, and fish-eye lenses](https://users.aalto.fi/~kannalj1/publications/tpami2006.pdf)
