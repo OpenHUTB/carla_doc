@@ -87,9 +87,13 @@
 <p>控制自行车运动模型的主要方程是：</p>
 <ol>
 <li>
-<p><strong>位置更新</strong>: 车辆后轮的空间坐标随时间更新 (t) 到时间 (t + 1) 作为  </p>
-<p>$$ x(t+1) = x(t) + v(t) \cos(\theta(t)) \Delta t $$</p>
-<p>$$ y(t+1) = y(t) + v(t) \sin(\theta(t)) \Delta t $$</p>
+<p><strong>位置更新</strong>: 车辆后轮的空间坐标随时间更新 <script type="math/tex">t</script> 到时间 <script type="math/tex">t + 1</script> 作为  </p>
+<p>
+<script type="math/tex; mode=display"> x(t+1) = x(t) + v(t) \cos(\theta(t)) \Delta t </script>
+</p>
+<p>
+<script type="math/tex; mode=display"> y(t+1) = y(t) + v(t) \sin(\theta(t)) \Delta t </script>
+</p>
 </li>
 <li>
 <p><strong>航向更新</strong>：自行车的航向更改为</p>
@@ -97,12 +101,18 @@
 </ol>
 <p>这里</p>
 <ul>
-<li>((x, y)) 代表车辆的位置；</li>
-<li>(\theta) 是车辆的航向；</li>
-<li>(v) 表示车辆的速度；</li>
-<li>( \delta ) 是前轮的转向角；</li>
-<li>( l_{wb} ) 为轴距，即前后轴之间的距离；</li>
-<li>( \Delta t ) 是时间步长。</li>
+<li>
+<script type="math/tex">(x, y)</script> 代表车辆的位置；</li>
+<li>
+<script type="math/tex">\theta</script> 是车辆的航向；</li>
+<li>
+<script type="math/tex">v</script> 表示车辆的速度；</li>
+<li>
+<script type="math/tex"> \delta </script> 是前轮的转向角；</li>
+<li>
+<script type="math/tex"> l_{wb} </script> 为轴距，即前后轴之间的距离；</li>
+<li>
+<script type="math/tex"> \Delta t </script> 是时间步长。</li>
 </ul>
 <p>然后应用RK4方法进行前向模拟，以提高短期内的预测精度。</p>
 <h3 id="_7">示例用例</h3>

@@ -119,34 +119,44 @@
 <ul>
 <li>根据多年的符合技术要求的项目经验（基于模拟的人类驾驶员数据采集，不考虑模拟器，与车辆参数和模拟环境及时同步），最多可分配 10 个点，具体取决于公式：</li>
 </ul>
-<p>$$ P1 = \frac{AP}{maximo(APMax, KAP)} \times 10 $$</p>
+<p>
+<script type="math/tex; mode=display"> P1 = \frac{AP}{maximo(APMax, KAP)} \times 10 </script>
+</p>
 <p>APMax: 考虑所有候选实体的最大年数。</p>
 <p>AP: 候选实体接受评估的年数。</p>
 <p>KAP=10： 期望的最低经验年数。</p>
 <ul>
 <li>根据多年使用 CARLA 模拟器获取与人类驾驶相关数据的经验，最多可分配 50 个点。也就是说，使用与 CARLA 连接并由人类驾驶员操作的“驾驶舱”，并提供模拟真实环境中移动的真实车辆的物理反馈：</li>
 </ul>
-<p>$$ P2 = \frac{AC}{maximo(ACMax, KAC)} \times 50 $$</p>
+<p>
+<script type="math/tex; mode=display"> P2 = \frac{AC}{maximo(ACMax, KAC)} \times 50 </script>
+</p>
 <p>ACMax: 考虑所有候选实体的最大年数。</p>
 <p>AC：候选实体接受评估的年数。</p>
 <p>KAC=4: 期望的最低经验年数。</p>
 <ul>
 <li>最多 25 个可分配点，具体取决于数据收集中估计包含的人类驾驶员数量（给定预算），假设每个驾驶员花费半小时的模拟器时间（即，不计算与驾驶员互动所需的准备工作）模拟器）：</li>
 </ul>
-<p>$$ P3 = \frac{CH}{maximo(CHMax, KCH)} \times 25 $$</p>
+<p>
+<script type="math/tex; mode=display"> P3 = \frac{CH}{maximo(CHMax, KCH)} \times 25 </script>
+</p>
 <p>CHMax: 考虑所有实体的最大驱动程序数量。候选人。</p>
 <p>CH: 接受评估的候选实体的驾驶员数量。</p>
 <p>KCH=15:最少司机人数。</p>
 <ul>
 <li>根据您在过去 5 年中参与的 Horizo 框架内的欧洲项目数量，最多可分配 5 分，具体公式如下：</li>
 </ul>
-<p>$$ P4 = \frac{PH}{maximo(1, PHMax)} \times 5 $$</p>
+<p>
+<script type="math/tex; mode=display"> P4 = \frac{PH}{maximo(1, PHMax)} \times 5 </script>
+</p>
 <p>PHMax: 考虑到所有候选实体，其参与的 Horizo 2020 和 Horizo Europe 项目的最大数量。</p>
 <p>PH: 接受评估的候选实体参与的 Horizo 2020 和 Horizo Europe 项目的数量。</p>
 <ul>
 <li>根据所提供的经济报价，根据以下公式，最多可分配 5 分：</li>
 </ul>
-<p>$$ P5 = \frac{maximo(1, PFmax-OF)}{maximo(OFmax, OFmin)} \times 5 $$</p>
+<p>
+<script type="math/tex; mode=display"> P5 = \frac{maximo(1, PFmax-OF)}{maximo(OFmax, OFmin)} \times 5 </script>
+</p>
 <p>OFmax: 考虑到所有候选实体的最高经济报价。
 OFmin: 考虑到所有候选实体的最低经济报价。
 OF: 受评估候选实体的经济报价。</p>

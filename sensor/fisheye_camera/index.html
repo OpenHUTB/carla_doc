@@ -73,8 +73,17 @@
 <h2 id="_2">实现原理</h2>
 <p>参考 <a href="https://ww2.mathworks.cn/help/vision/ref/cameraintrinsicskb.html">基于KB模型的相机内参</a> 和 <a href="https://ww2.mathworks.cn/help/vision/ug/fisheye-calibration-basics.html">鱼眼校准基础知识</a> ，由于鱼眼镜头会产生极大的扭曲，因此针孔模型无法模拟鱼眼相机。</p>
 <p>Kannale-Brandt 模型通过考虑镜头畸变来扩展理想的针孔模型，以代表真实的相机。
-畸变点为(x_distorted, y_distorted)，其中</p>
-<p>归一化图像坐标中未失真像素的位置为 (x,y)，其中：</p>
+畸变点为( <script type="math/tex">x_{distorted}, y_{distorted} </script> )，其中
+<script type="math/tex; mode=display">
+x_{distorted} = \frac{\theta_d}{\gamma} \times x
+</script>
+</p>
+<p>
+<script type="math/tex; mode=display">
+y_{distorted} = \frac{\theta_d}{\gamma} \times y
+</script>
+</p>
+<p>归一化图像坐标中未失真像素的位置为 <script type="math/tex"> (x,y) </script>，其中：</p>
 <h2 id="_3">实现步骤</h2>
 <p>参考 <a href="../../tuto_D_create_sensor/">添加新传感器</a> 。</p>
 <h3 id="0-">0- 虚幻引擎端的修改</h3>
