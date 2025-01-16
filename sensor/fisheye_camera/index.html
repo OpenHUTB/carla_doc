@@ -83,7 +83,22 @@ x_{distorted} = \frac{\theta_d}{\gamma} \times x
 y_{distorted} = \frac{\theta_d}{\gamma} \times y
 </script>
 </p>
-<p>归一化图像坐标中未失真像素的位置为 <script type="math/tex"> (x,y) </script>，其中：</p>
+<p>归一化图像坐标中未失真像素的位置为 <script type="math/tex"> (x,y) </script>，其中：
+<script type="math/tex; mode=display">
+\gamma = x^2 + y^2
+</script>
+</p>
+<p>
+<script type="math/tex; mode=display">
+\theta _d = \theta (1 + k_1 \theta^2 + k_2 \theta^4 + k_3 \theta^6 + k_4 \theta^8)
+</script>
+</p>
+<p>
+<script type="math/tex; mode=display">
+\theta = atan(\gamma)
+</script>
+</p>
+<p>这里的 <script type="math/tex"> k_1, k_2, k_3, k_4 </script> 是镜头的畸变系数。</p>
 <h2 id="_3">实现步骤</h2>
 <p>参考 <a href="../../tuto_D_create_sensor/">添加新传感器</a> 。</p>
 <h3 id="0-">0- 虚幻引擎端的修改</h3>
