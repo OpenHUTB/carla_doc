@@ -6,7 +6,14 @@
 参考 [基于KB模型的相机内参](https://ww2.mathworks.cn/help/vision/ref/cameraintrinsicskb.html) 和 [鱼眼校准基础知识](https://ww2.mathworks.cn/help/vision/ug/fisheye-calibration-basics.html) ，由于鱼眼镜头会产生极大的扭曲，因此针孔模型无法模拟鱼眼相机。
 
 Kannale-Brandt 模型通过考虑镜头畸变来扩展理想的针孔模型，以代表真实的相机。
-畸变点为(x_distorted, y_distorted)，其中
+畸变点为( \(x_{distorted}, $y_{distorted}$ \) )，其中
+$$
+x_{distorted} = \frac{\theta_d}{\gamma} \times x
+$$
+
+$$
+y_{distorted} = \frac{\theta_d}{\gamma} \times y
+$$
 
 
 归一化图像坐标中未失真像素的位置为 (x,y)，其中：
