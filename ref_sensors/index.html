@@ -2475,12 +2475,14 @@ IF (ReceivedPower &gt;= receiver_sensitivity)
 <li><strong>蓝图：</strong> sensor.other.v2x</li>
 <li><strong>输出：</strong> <a href="../python_api/#carla.CAMData">carla.CAMData</a>, 根据 ETSI CAM (European Telecommunications Standards Institute , Cooperative Awareness Message，欧洲通信标准协会，<a href="https://fanqienovel.com/reader/7110149289141079072">协作感知消息</a> ) 标准触发，除非另有配置</li>
 </ul>
-<p>根据 ETSI 标准的触发条件：
-- 航向角变化 &gt; 4°
-- 位置差 &gt; 4 m
-- 速度变化 &gt; 5 m/s
-- 经过时间 &gt; CAM 生成时间（可配置）
--  低频容器经过时间 &gt; 500 ms</p>
+<p>根据 ETSI 标准的触发条件：</p>
+<ul>
+<li>航向角变化 &gt; 4°</li>
+<li>位置差 &gt; 4 m</li>
+<li>速度变化 &gt; 5 m/s</li>
+<li>经过时间 &gt; CAM 生成时间（可配置）</li>
+<li>低频容器经过时间 &gt; 500 ms</li>
+</ul>
 <p>对于 CAM V2X 传感器，使用额外的蓝图属性：</p>
 <table>
 <thead>
