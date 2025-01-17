@@ -3,20 +3,19 @@
 实现比传统相机视野更广的相机。
 
 ## 实现原理
-参考 [基于KB模型的相机内参](https://ww2.mathworks.cn/help/vision/ref/cameraintrinsicskb.html) 和 [鱼眼校准基础知识](https://ww2.mathworks.cn/help/vision/ug/fisheye-calibration-basics.html) ，由于鱼眼镜头会产生极大的扭曲，因此针孔模型无法模拟鱼眼相机。
-
+参考 [基于KB模型的相机内参](https://ww2.mathworks.cn/help/vision/ref/cameraintrinsicskb.html) 和 [鱼眼校准基础知识](https://ww2.mathworks.cn/help/vision/ug/fisheye-calibration-basics.html) ，
 Kannale-Brandt 模型通过考虑镜头畸变来扩展理想的针孔模型，以代表真实的相机。
-畸变点为( \(x_{distorted}, y_{distorted} \) )，其中
+畸变点(distorted)为( \(x_{d}, y_{d} \) )，其中
 $$
-x_{distorted} = \frac{\theta_d}{\gamma} \times x
-$$
-
-$$
-y_{distorted} = \frac{\theta_d}{\gamma} \times y
+x_{d} = \frac{\theta_d}{\gamma} \times x
 $$
 
+$$
+y_{d} = \frac{\theta_d}{\gamma} \times y
+$$
 
-归一化图像坐标中未失真像素的位置为 \( (x,y) \)，其中：
+
+其中，归一化图像坐标中未失真像素的位置为 \( (x,y) \)：
 $$
 \gamma = x^2 + y^2
 $$
@@ -29,7 +28,7 @@ $$
 \theta = atan(\gamma)
 $$
 
-这里的 \( k_1, k_2, k_3, k_4 \) 是镜头的畸变系数。
+这里的 \( k_1, k_2, k_3, k_4 \) 是镜头的畸变系数，\(atan\) 为反正切（与\(x\)轴的夹角）。
 
 
 ## 实现步骤
@@ -42,7 +41,11 @@ $$
 
   * [`Engine/Shaders/Private/SimpleElementPixelShader.usf`](https://github.com/OpenHUTB/UnrealEngine/blob/fisheye-camera/Engine/Shaders/Private/SimpleElementPixelShader.usf)
   
-    Unreal Shader(.usf, 着色器) 文件。 其中函数`void CubemapTexturePropertiesFisheye()`实现了鱼眼相机的畸变模型，比如`theta = r / (1.0f + d1*th2 + d2*th4 + d3*th6 + d4*th8);`。
+    Unreal Shader(.usf, 着色器) 文件。 其中函数`void CubemapTexturePropertiesFisheye()`实现了鱼眼相机的畸变模型：
+    $$ 
+    x = x_d \frac{r}{\theta _d} = \frac{r}{\theta (1 + k_1 \theta^2 + k_2 \theta^4 + k_3 \theta^6 + k_4 \theta^8)}  
+    $$
+    [代码实现](https://github.com/OpenHUTB/UnrealEngine/blob/83a7677378ff770073ca9544460a02d264a3ce46/Engine/Shaders/Private/SimpleElementPixelShader.usf#L410) ：`theta = r / (1.0f + d1*th2 + d2*th4 + d3*th6 + d4*th8);`。
 
   * [`Engine/Source/Runtime/Engine/Private/CubemapUnwrapUtils.cpp`](https://github.com/OpenHUTB/UnrealEngine/blob/fisheye-camera/Engine/Source/Runtime/Engine/Private/CubemapUnwrapUtils.cpp)
   * [`Engine/Source/Runtime/Engine/Public/CubemapUnwrapUtils.h`](https://github.com/OpenHUTB/UnrealEngine/blob/fisheye-camera/Engine/Source/Runtime/Engine/Public/CubemapUnwrapUtils.h)
@@ -90,8 +93,9 @@ unsigned若省略后一个关键字，大多数编译器都会认为是 unsigned
 
 ### 4- 注册传感器 <span id="4-register-your-sensor"></span>
 
-  * `LibCarla/source/carla/sensor/SensorRegistry.h`
+  * [`LibCarla/source/carla/sensor/SensorRegistry.h`](https://github.com/OpenHUTB/carla/blob/1c60b0f41064f241318c6c3555293e40d150ba5a/LibCarla/source/carla/sensor/SensorRegistry.h#L87)
 
+    将CarlaUE4中的鱼眼相机传感器参与者AFisheyeSensor和LibCarla中的图像序列化器组合成一个单一的对象：`std::pair<AFisheyeSensor *, s11n::ImageSerializerCube>`。
 
 ### 5- 使用示例 <span id="5-usage-example"></span>
 

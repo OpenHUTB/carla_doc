@@ -1014,6 +1014,7 @@ CARLA 目前支持模拟简单的广播无线信道和两条应用消息。尚�
 *   __输出：__ [carla.CAMData](python_api.md#carla.CAMData), 根据 ETSI CAM (European Telecommunications Standards Institute , Cooperative Awareness Message，欧洲通信标准协会，[协作感知消息](https://fanqienovel.com/reader/7110149289141079072) ) 标准触发，除非另有配置
 
 根据 ETSI 标准的触发条件：
+
 - 航向角变化 > 4°
 - 位置差 > 4 m
 - 速度变化 > 5 m/s

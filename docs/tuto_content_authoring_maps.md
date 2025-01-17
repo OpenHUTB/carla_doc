@@ -81,7 +81,7 @@ Carla 需要的重要导出文件是 `.xodr` 文件和 `.fbx` 文件。将这些
 
 ![roadrunner_imports](img/tuto_content_authoring_maps/rr_import.png)
 
-现在在 Carla 源目录的根目录中打开一个终端并运行`make import`. 这会将道路网络导入 Carla。
+现在在 Carla 源目录的根目录中打开一个终端并运行`make import`，这会将道路网络导入 Carla。
 
 您现在可以在虚幻编辑器中看到新地图。在 Carla 源目录的根目录下运行 `make launch` 以启动虚幻编辑器。您现在将在内容浏览器中看到一个名为 `map_package` 的新目录。在此目录 `Content > map_package > Maps > tutorial` 中，您现在将找到您的新地图。
 
