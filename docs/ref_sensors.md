@@ -242,14 +242,16 @@ for location in lidar_measurement:
     print(location)
 ```
 
-激光雷达测量的信息被编码为 4D 点。前三个是 xyz 坐标中的空间点，最后一个是旅行过程中的强度损失。该强度通过以下公式计算。
+激光雷达测量的信息被编码为 4D 点。前三个是 xyz 坐标中的空间点，最后一个是行进过程中的强度损失。该强度通过以下公式计算：
 <br>
-![LidarIntensityComputation](img/lidar_intensity.jpg)
+$$
+\frac{I}{I_0} = e^{-a \cdot d }
+$$
 
-`a` — 衰减系数。这可能取决于传感器的波长和大气条件。可以使用激光雷达属性对其进行修改`atmosphere_attenuation_rate`。 
-`d` — 从击中点到传感器的距离
+其中，`a` 为衰减系数。这可能取决于传感器的波长和大气条件。可以使用激光雷达属性对其进行修改`atmosphere_attenuation_rate`。
+`d` 为从击中点到传感器的距离。
 
-为了获得更好的真实感，可以删除云中的点。这是模拟外部扰动造成的损失的简单方法。这可以结合两个不同的来完成。
+为了获得更好的真实感，可以删除点云中的点。这是模拟外部扰动造成的损失的简单方法。这可以结合两个不同的来完成。
 
 *   __General drop-off__ — 随机掉落的分数比例。这是在跟踪之前完成的，这意味着不会计算被丢弃的点，从而提高性能。如果是`dropoff_general_rate = 0.5`，则扣掉一半的分数。
 *   __Instensity-based drop-off__ — 对于检测到的每个点，根据计算的强度的概率执行额外的下降。该概率由两个参数确定。`dropoff_zero_intensity`是强度为零的点被丢弃的概率。`dropoff_intensity_limit`是阈值强度，超过该阈值将不会掉落任何分数。范围内的点被丢弃的概率是基于这两个参数的线性比例。
@@ -502,16 +504,16 @@ points = np.reshape(points, (len(radar_data), 4))
 *   __输出：__ 每一步 [carla.RssResponse](python_api.md#carla.RssResponse) （除非`sensor_tick`另有说明）。
 
 !!! 重要
-    强烈建议在阅读本文之前先阅读具体的 [任敏感安全文档](adv_rss.md) ，（自 Carla 0.9.15 起已被弃用）。
+    强烈建议在阅读本文之前先阅读具体的 [任敏感安全文档](adv_rss.md) （自 Carla 0.9.15 起已被弃用）。
 
 该传感器集成了 Carla 中的 [责任敏感安全 C++ 库](https://github.com/intel/ad-rss-lib) 。它在 Carla 中默认被禁用，并且必须显式构建才能使用。
 
 责任敏感安全传感器计算车辆的责任敏感安全状态并检索当前的责任敏感安全响应作为传感器数据。[carla.RssRestrictor](python_api.md#carla.RssRestrictor)将使用此数据来调整[carla.VehicleControl](python_api.md#carla.VehicleControl) ，然后再将其应用于车辆。
 
 这些控制器可以通过*自动驾驶*堆栈或用户输入生成。例如，下面有一段来自 [`PythonAPI/examples/rss/manual_control_rss.py`](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/manual_control_rss.py) 的代码片段，其中在必要时使用责任敏感安全修改用户输入。
-
-__1.__ 检查 __RssSensor__ 是否生成包含限制的有效响应。
-__2.__ 收集车辆的当前动态和车辆物理特性。
+<br>
+__1.__ 检查 __RssSensor__ 是否生成包含限制的有效响应。<br>
+__2.__ 收集车辆的当前动态和车辆物理特性。<br>
 __3.__ 使用 RssSensor 的响应以及车辆当前的动态和物理特性对车辆控制施加限制。
 
 ```py
@@ -569,11 +571,6 @@ def _on_rss_response(weak_self, response):
 | `set_log_level`   | 设置日志级别。     |
 | `set_map_log_level`     | 设置用于地图相关日志的日志级别。     |
 
-
-
-<br>
-
----
 
 
 ```py
@@ -679,8 +676,6 @@ __2.__ 使用 `python3 config.py --fps=10` 运行模拟。
 | `sensor_tick`      | float | 0.0  | 传感器捕获之间的模拟秒数（节拍）。                     |
 
 
-
-<br>
 
 
 #### 输出属性

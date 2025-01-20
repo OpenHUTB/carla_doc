@@ -17,6 +17,7 @@
 - [__控制__](#control)
 - [__场景__](#scene)
     - [车辆](#vehicle)
+    - [传感器](#sensor)
 - [__行人__](#pedestrian)
 - [__端到端__](#end_2_end)
 - [__大模型__](#llm)
@@ -46,7 +47,7 @@
 
 [执行基本占用率预测](https://github.com/tonychu27/Intelligent-Driving-System/tree/main/HW1)
 
-### 检测 <span id="tracking"></span>
+### 检测 <span id="detection"></span>
 
 [2D和3D目标检测](https://github.com/Supersonic2510/final_degree_research_project)
 
@@ -355,6 +356,10 @@
 ### 车辆 <span id="vehicle"></span>
 
 [半挂卡车队列框架](https://github.com/Gaochengzhi/Carla_Truck_Platoon/tree/main)
+
+### 传感器 <span id="sensor"></span>
+
+[LiDAR 点云仿真和传感器放置（雨天的雷达）](https://github.com/PJLab-ADG/PCSim)
 
 
 ## 行人 <span id="pedestrian"></span>
@@ -747,9 +752,7 @@
 
 [用于深度强化学习的多智能体互联自动驾驶 (MACAD) Gym 环境](https://github.com/praveen-palanisamy/macad-gym)
 
-### 传感器
 
-[LiDAR 点云仿真和传感器放置](https://github.com/PJLab-ADG/PCSim)
 
 
 ## 机器学习 <span id="ml"></span>

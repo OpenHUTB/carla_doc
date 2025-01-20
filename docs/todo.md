@@ -43,6 +43,8 @@
 
 ### 功能改进
 
+- [雨天的激光雷达](https://openhutb.github.io/carla_doc/used_by/#sensor)
+
 - [在驾驶视图中显示转速表和车速表](https://github.com/carla-simulator/carla/issues/89) ，[驾驶舱效果图](https://s4-frame.ozstatic.by/1000/236/108/20/20108236_2.jpg) 
 
 - [游戏开发](./game.md) ：[多玩家](https://github.com/initialed85/carla-multiplayer) 、[上下选择并回车](https://github.com/wtripp180901/CarlaTestGenGame)
