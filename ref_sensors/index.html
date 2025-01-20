@@ -610,12 +610,15 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.Depth)
 <pre><code class="language-py">for location in lidar_measurement:
     print(location)
 </code></pre>
-<p>激光雷达测量的信息被编码为 4D 点。前三个是 xyz 坐标中的空间点，最后一个是旅行过程中的强度损失。该强度通过以下公式计算。
+<p>激光雷达测量的信息被编码为 4D 点。前三个是 xyz 坐标中的空间点，最后一个是行进过程中的强度损失。该强度通过以下公式计算：
 <br>
-<img alt="LidarIntensityComputation" src="../img/lidar_intensity.jpg" /></p>
-<p><code>a</code> — 衰减系数。这可能取决于传感器的波长和大气条件。可以使用激光雷达属性对其进行修改<code>atmosphere_attenuation_rate</code>。 
-<code>d</code> — 从击中点到传感器的距离</p>
-<p>为了获得更好的真实感，可以删除云中的点。这是模拟外部扰动造成的损失的简单方法。这可以结合两个不同的来完成。</p>
+<script type="math/tex; mode=display">
+\frac{I}{I_0} = e^{-a \cdot d }
+</script>
+</p>
+<p>其中，<code>a</code> 为衰减系数。这可能取决于传感器的波长和大气条件。可以使用激光雷达属性对其进行修改<code>atmosphere_attenuation_rate</code>。
+<code>d</code> 为从击中点到传感器的距离。</p>
+<p>为了获得更好的真实感，可以删除点云中的点。这是模拟外部扰动造成的损失的简单方法。这可以结合两个不同的来完成。</p>
 <ul>
 <li><strong>General drop-off</strong> — 随机掉落的分数比例。这是在跟踪之前完成的，这意味着不会计算被丢弃的点，从而提高性能。如果是<code>dropoff_general_rate = 0.5</code>，则扣掉一半的分数。</li>
 <li><strong>Instensity-based drop-off</strong> — 对于检测到的每个点，根据计算的强度的概率执行额外的下降。该概率由两个参数确定。<code>dropoff_zero_intensity</code>是强度为零的点被丢弃的概率。<code>dropoff_intensity_limit</code>是阈值强度，超过该阈值将不会掉落任何分数。范围内的点被丢弃的概率是基于这两个参数的线性比例。</li>
@@ -1328,13 +1331,14 @@ points = np.reshape(points, (len(radar_data), 4))
 </ul>
 <div class="admonition 重要">
 <p class="admonition-title">重要</p>
-<p>强烈建议在阅读本文之前先阅读具体的 <a href="../adv_rss/">任敏感安全文档</a> ，（自 Carla 0.9.15 起已被弃用）。</p>
+<p>强烈建议在阅读本文之前先阅读具体的 <a href="../adv_rss/">任敏感安全文档</a> （自 Carla 0.9.15 起已被弃用）。</p>
 </div>
 <p>该传感器集成了 Carla 中的 <a href="https://github.com/intel/ad-rss-lib">责任敏感安全 C++ 库</a> 。它在 Carla 中默认被禁用，并且必须显式构建才能使用。</p>
 <p>责任敏感安全传感器计算车辆的责任敏感安全状态并检索当前的责任敏感安全响应作为传感器数据。<a href="../python_api/#carla.RssRestrictor">carla.RssRestrictor</a>将使用此数据来调整<a href="../python_api/#carla.VehicleControl">carla.VehicleControl</a> ，然后再将其应用于车辆。</p>
-<p>这些控制器可以通过<em>自动驾驶</em>堆栈或用户输入生成。例如，下面有一段来自 <a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/manual_control_rss.py"><code>PythonAPI/examples/rss/manual_control_rss.py</code></a> 的代码片段，其中在必要时使用责任敏感安全修改用户输入。</p>
-<p><strong>1.</strong> 检查 <strong>RssSensor</strong> 是否生成包含限制的有效响应。
-<strong>2.</strong> 收集车辆的当前动态和车辆物理特性。
+<p>这些控制器可以通过<em>自动驾驶</em>堆栈或用户输入生成。例如，下面有一段来自 <a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/manual_control_rss.py"><code>PythonAPI/examples/rss/manual_control_rss.py</code></a> 的代码片段，其中在必要时使用责任敏感安全修改用户输入。
+<br>
+<strong>1.</strong> 检查 <strong>RssSensor</strong> 是否生成包含限制的有效响应。<br>
+<strong>2.</strong> 收集车辆的当前动态和车辆物理特性。<br>
 <strong>3.</strong> 使用 RssSensor 的响应以及车辆当前的动态和物理特性对车辆控制施加限制。</p>
 <pre><code class="language-py">rss_proper_response = self._world.rss_sensor.proper_response if self._world.rss_sensor and self._world.rss_sensor.response_valid else None
 if rss_proper_response:
@@ -1432,8 +1436,6 @@ def _on_rss_response(weak_self, response):
 </tr>
 </tbody>
 </table>
-<p><br></p>
-<hr />
 <pre><code class="language-py"># 更新当前路线
 self.sensor.reset_routing_targets()
 if routing_targets:
@@ -1601,7 +1603,6 @@ def _on_actor_constellation_request(self, actor_constellation_data):
 </tr>
 </tbody>
 </table>
-<p><br></p>
 <h4 id="_31">输出属性</h4>
 <table>
 <thead>
