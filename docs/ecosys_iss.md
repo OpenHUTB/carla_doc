@@ -1,6 +1,6 @@
 # [智能驾驶系统](https://tis.ios.ac.cn/iss/) 
 
-智能自动驾驶系统（Intelligent Self-driving System, ISS）是一个用 Python 和 C++ 编写的模块化框架，旨在构建一个适合研究的可扩展工作空间。该框架将包含用于自动驾驶相关任务的传统和深度学习算法，例如感知、定位、映射、预测、规划和控制。对外部库依赖性最小的模块化设计可以为研究人员评估自动驾驶系统的算法提供透明、干净的工作空间。
+智能自动驾驶系统（Intelligent Self-driving System, [ISS](https://github.com/CAS-LRJ/ISS) ）是一个用 Python 和 C++ 编写的模块化框架，旨在构建一个适合研究的可扩展工作空间。该框架将包含用于自动驾驶相关任务的传统和深度学习算法，例如感知、定位、映射、预测、规划和控制。对外部库依赖性最小的模块化设计可以为研究人员评估自动驾驶系统的算法提供透明、干净的工作空间。
 
 ![ISS Architecture](img/ecosys_iss/ISS_Framework.png)
 
