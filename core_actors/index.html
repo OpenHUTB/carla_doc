@@ -218,8 +218,8 @@ spectator.set_transform(carla.Transform(transform.location + carla.Location(z=50
 carla.Rotation(pitch=-90)))
 </code></pre>
 <h3 id="_11">交通标志和交通灯 <span id="traffic-signs-and-traffic-lights"></span></h3>
-<p>到目前为止，Carela 中只有停靠点、让行路线和交通信号灯被视为参与者。其余的 OpenDRIVE 标志可通过 API 作为地标（<a href="../python_api/#carla.Landmark"><strong>carla.Landmark</strong></a>）进行访问。他们的信息可以使用这些实例访问，但他们在模拟中并不作为参与者存在。在接下来的 <strong>第 3 部分 地图和导航</strong> 中将更详细地解释地标。 </p>
-<p>当模拟开始、停止、让行和交通灯时，会使用 OpenDRIVE 文件中的信息自动生成。<strong>这些都无法在蓝图库中找到</strong>，因此无法生成。</p>
+<p>到目前为止，Carela 中只有停靠点、让行、交通信号灯被视为参与者。其余的 OpenDRIVE 标志可通过 API 作为地标（<a href="../python_api/#carla.Landmark"><strong>carla.Landmark</strong></a>）进行访问。他们的信息可以使用这些实例访问，但他们在模拟中并不作为参与者存在。在接下来的 <strong><a href="../core_map/">地图和导航</a></strong> 部分中将更详细地解释地标。 </p>
+<p>当模拟开始时，会使用 OpenDRIVE 文件中的信息自动生成停止、让行和交通灯。<strong>这些都无法在蓝图库中找到</strong>，因此无法生成。</p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>OpenDRIVE 文件中的 Carela 地图没有交通标志或信号灯。这些是由开发人员手动放置的。 </p>
@@ -230,7 +230,7 @@ if vehicle_actor.is_at_traffic_light():
     traffic_light = vehicle_actor.get_traffic_light()
 </code></pre>
 <p>路口设有<a href="../python_api/#carla.TrafficLight"><strong>交通灯</strong></a>。与任何参与者一样，他们有自己独特的 ID，但对于岔路口也有一个组（<code>group</code>） ID 。</p>
-<p>同一组中的交通灯遵循一个循环。第一个设置为绿色，而其余的则保持红色。活跃的灯会持续几秒钟呈绿色、黄色和红色，因此有一段时间所有灯都是红色的。然后，下一个红绿灯开始循环，前一个红绿灯与其余红绿灯一起冻结。</p>
+<p>同一组中的交通灯遵循一个循环。第一个交通灯设置为绿色，而其余交通灯则保持红色。活动的信号灯会花费几秒钟时间变绿、变黄、变红，因此有一段时间所有灯都是红色的。然后，下一个交通灯开始循环，前一个红绿灯与其余红绿灯一起冻结。</p>
 <p>可以使用 API 设置交通灯的状态。每个状态花费的秒数也是如此。可能的状态用 <a href="../python_api/#carla.TrafficLightState">carla.TrafficLightState</a> 描述为一系列枚举值。</p>
 <pre><code class="language-py"># 交通灯从红变绿
 if traffic_light.get_state() == carla.TrafficLightState.Red:
