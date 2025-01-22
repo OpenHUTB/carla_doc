@@ -112,6 +112,8 @@ https://bitbucket.org/carla-simulator/carla-content Unreal/CarlaUE4/Content/Carl
 
 * 未实现功能：交谈、叫出租车、坐下、开车。
 
+* 参考 chrono(或carsim) 和 carla 协同仿真设计行人(使用 [opensim](https://github.com/opensim-org/opensim-core) 实现)和carla 协同仿真。  
+
 
 
 ### 虚幻引擎

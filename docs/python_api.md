@@ -2719,11 +2719,11 @@ _</font>
 
 ## carla.TrafficSign<a name="carla.TrafficSign"></a>
 <small style="display:block;margin-top:-20px;">从 _[carla.Actor](#carla.Actor)_ 继承</small></br>
-模拟中出现的交通标志（红绿灯除外）。这些在 [carla.TrafficLight](#carla.TrafficLight) 中有自己的类从该类继承。目前，主要实施的是速度标志、停靠站和让行标志，但还有许多其他标志也被牢记在心。
+模拟中出现的交通标志（红绿灯除外）。这些标志在 [carla.TrafficLight](#carla.TrafficLight) 中都有自己的类，从该类继承。目前，主要实现的交通标志是速度标志、停车标志和让行标志，但还有许多其他标志需要注意。
 
 ### 实例变量
 - <a name="carla.TrafficSign.trigger_volume"></a>**<font color="#f8805a">trigger_volume</font>**  
-位于交通标志附近的 [carla.BoundingBox](#carla.BoundingBox) ，里面的 [carla.Actor](#carla.Actor) 可以知道它。
+`trigger_volume`（用于触发的体积）位于交通标志附近的 [carla.BoundingBox](#carla.BoundingBox) ，里面的 [carla.Actor](#carla.Actor) 可以知道它。
 
 ---
 

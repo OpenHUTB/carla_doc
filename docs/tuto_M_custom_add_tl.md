@@ -1,4 +1,4 @@
-# 自定义地图：交通灯和标志
+# [自定义地图：交通灯和标志](https://carla.readthedocs.io/en/latest/tuto_M_custom_add_tl/)
 
 本指南介绍了如何将交通灯和标志添加到自定义地图、配置每个交通灯和标志的影响区域，以及如何在路口将交通灯配置为一组。此选项仅适用于有权访问虚幻引擎编辑器的用户。
 
@@ -12,15 +12,15 @@
 
 要将红绿灯添加到新地图：
 
-__1.__ 从 _内容浏览器_，导航至 `Content/Carla/Static/TrafficLight/StreetLights_01`。您会发现几种不同的交通灯蓝图可供选择。
+__1.__ 从 _内容浏览器_，导航至 `Content/Carla/Static/TrafficLight/StreetLights_01`，您会发现几种不同的交通灯蓝图可供选择。
 
-__2.__ 将交通灯拖到场景中并将其放置在所需位置。按键盘上的空格键可在定位、旋转和缩放工具之间切换。
+__2.__ 将交通灯拖到场景中并将其放置在所需位置。按键盘上的空格键可在放置、旋转和缩放工具之间切换。
 
-__3.__ 通过在 _Details_ 面板中选择 _BoxTrigger_ 组件并调整 _Transform_ 部分中的值，调整每个交通灯的 [`trigger volume`][triggerlink] 。这将确定交通灯的影响区域。 
+__3.__ 通过在 _细节(Details)_ 面板中选择 _BoxTrigger_ 组件并调整 _变换(Transform)_ 部分中的值，调整每个交通灯的 [`trigger volume`][triggerlink] （位于交通灯的对面、用于设置交通灯影响最大范围的触发体积）。这将确定交通灯的影响区域。
 
 >>![ue_trafficlight](./img/ue_trafficlight.jpg)
 
-__4.__ 对于连接点，将`BP_TrafficLightGroup`参与者拖入关卡中。通过将交汇处的所有交通灯添加到“详细信息”面板中的“交通灯”数组，将它们分配给交通灯组。
+__4.__ 对于岔路口，将`BP_TrafficLightGroup`参与者拖入关卡中。通过将岔路口的所有交通灯添加到“细节(Details)”面板中的“Traffic Lights”数组，将它们分配给交通灯组。
 
 >>![ue_tl_group](./img/ue_tl_group.jpg)
 
@@ -34,15 +34,15 @@ __5.__ 交通灯计时只能通过 Python API 进行配置。请参阅 [此处](
 
 ---
 
-## 红绿灯标志 <span id="traffic-signs"></span>
+## 红绿标志 <span id="traffic-signs"></span>
 
 要将红绿灯添加到新地图：
 
-__1.__ 从 _Content Browser_，导航至 `Content/Carla/Static/TrafficSign`。您会发现几种不同的交通灯蓝图可供选择。
+__1.__ 从 _内容浏览器(Content Browser)_，导航至 `Content/Carla/Static/TrafficSign`。您会发现几种不同的交通标志蓝图可供选择。
 
-__2.__ 将交通灯拖到场景中并将其放置在所需位置。按键盘上的空格键可在定位、旋转和缩放工具之间切换。
+__2.__ 将交通标志拖到场景中并将其放置在所需位置。按键盘上的空格键可在定位、旋转和缩放工具之间切换。
 
-__3.__ 通过在“详细信息”面板中选择 _BoxTrigger_ 组件并调整 _Transform_ 部分中的值，调整[`trigger volume`][triggerlink]每个交通标志的。这将确定交通灯的影响区域。并非所有交通标志都有触发音量。此类标志包括让行标志、停车标志和限速标志。 
+__3.__ 通过在“细节”面板中选择 _BoxTrigger_ 组件并调整 _Transform_ 部分中的值，调整每个交通标志的[`trigger volume`][triggerlink]。这将确定交通灯的影响区域。并非所有交通标志都有触发体积(volume)。此类标志包括让行标志、停车标志和限速标志。 
 
 ---
 
