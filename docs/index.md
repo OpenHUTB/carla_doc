@@ -72,6 +72,8 @@ title: 主页
 
 [__行人建模__](tuto_content_authoring_pedestrians.md) — 在三维建模软件中对人进行建模
 
+[__行人物理场模拟__](pedestrian/tuto_content_chrono_opensim.md) — Chrono OpenSim 解析器
+
 
 ## 高级概念
 

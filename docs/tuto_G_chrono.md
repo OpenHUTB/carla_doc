@@ -55,10 +55,10 @@ Chrono 物理是通过 [Actor](python_api.md#carlaactor) 类提供的 `enable_ch
 # 生成车辆
 vehicle = world.spawn_actor(bp, spawn_point)
 
-# 设置基础路径
+# 设置基础路径，后面的模板文件路径都是在这个基础路径下
 base_path = "D:/work/workspace/carla/Build/chrono-install/data/vehicle/"
 
-# 设置模板文件
+# 设置模板文件路径
 vehicle_json = "sedan/vehicle/Sedan_Vehicle.json"
 powertrain_json = "sedan/powertrain/Sedan_SimpleMapPowertrain.json"
 tire_json = "sedan/tire/Sedan_TMeasyTire.json"
@@ -67,10 +67,13 @@ tire_json = "sedan/tire/Sedan_TMeasyTire.json"
 vehicle.enable_chrono_physics(5000, 0.002, vehicle_json, powertrain_json, tire_json, base_path)
 ```
 
-您可以使用 `PythonAPI/examples` 中的示例脚本 `manual_control_chrono.py` 尝试 Chrono 物理集成。运行脚本后，按`Ctrl + o`启用 Chrono。
+您可以使用 `PythonAPI/examples` 中的示例脚本 `manual_control_chrono.py` 尝试 Chrono 物理集成。运行脚本后，按`Ctrl + o`启用 Chrono。下面显示高速转弯时，方向盘打死会翻车的情况：
+
+![](./img/chrono/vechile_turnover.gif)
 
 ---
 
 ### 局限性 <span id="limitations"></span>
 
 此集成不支持碰撞。__当发生碰撞时，车辆将恢复为 Carla 默认物理状态。__
+

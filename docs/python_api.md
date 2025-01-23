@@ -2948,8 +2948,8 @@ CARLA 中最重要的参与者群体之一。其中包括从汽车到卡车、�
 - <a name="carla.Vehicle.enable_chrono_physics"></a>**<font color="#7fb800">enable_chrono_physics</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**max_substeps**</font>, <font color="#00a6ed">**max_substep_delta_time**</font>, <font color="#00a6ed">**vehicle_json**</font>, <font color="#00a6ed">**powertrain_json**</font>, <font color="#00a6ed">**tire_json**</font>, <font color="#00a6ed">**base_json_path**</font>)  
 在生成的车辆上启用 Chrono 物理。
     - **参数:**
-        - `max_substeps` (_int_) -  Chrono 子步骤的最大数量。
-        - `max_substep_delta_time` (_int_) - 子步的最大大小。
+        - `max_substeps` (_int_) -  Chrono 最大子步数。
+        - `max_substep_delta_time` (_int_) - 最大子步的时间增量。
         - `vehicle_json` (_str_) - 相对于 `base_json_path` 的车辆 json 文件的路径。
         - `powertrain_json` (_str_) - 相对于 `base_json_path` 的动力总成 json 文件的路径。
         - `tire_json` (_str_) - 相对于`base_json_path`的轮胎 json 文件。

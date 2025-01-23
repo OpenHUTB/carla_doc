@@ -364,6 +364,8 @@
 
 ## 行人 <span id="pedestrian"></span>
 
+[chrono读取opensim接口](https://api.projectchrono.org/classchrono_1_1parsers_1_1_ch_parser_open_sim.html) - 额外的 [数据仓库](https://gitlab.buaanlsde.cn/carla/chrono/-/tree/7.0.2/data/opensim)
+
 [HuMoR：激活导航大脑](https://github.com/GuoYipeng279/myProject) - 人体姿态估计
 
 [优化多视角行人检测的摄像头配置](https://github.com/hou-yz/MVconfig)
@@ -384,6 +386,7 @@
 
 [针对横穿马路者的实验](https://github.com/javtran/jaywalker)
 
+[带肌肉骨骼模型的强化学习环境](https://github.com/stanfordnmbl/osim-rl) - 基于opensim
 
 ## 端到端 <span id="end_2_end"></span>
 

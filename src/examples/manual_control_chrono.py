@@ -422,11 +422,15 @@ class KeyboardControl(object):
                     print("o pressed")
                     vehicle_json = "sedan/vehicle/Sedan_Vehicle.json"
                     powertrain_json = "sedan/powertrain/Sedan_SimpleMapPowertrain.json"
+                    # 轮胎配置文件
                     tire_json = "sedan/tire/Sedan_TMeasyTire.json"
                     if sys.platform.startswith('linux'):
                         base_path = "~/carla/Build/chrono-install/share/chrono/data/vehicle/"
                     elif sys.platform.startswith('win32'):
                         base_path = "D:/work/workspace/carla/Build/chrono-install/data/vehicle/"
+                        # base_path = "D:/work/workspace/carla/Build/chrono-src/build/bin/data/vehicle/"
+                    # Chrono 最大子步数为 5000
+                    # 最大子步的时间增量为 0.002
                     world.player.enable_chrono_physics(5000, 0.002, vehicle_json, powertrain_json, tire_json, base_path)
                 elif event.key == K_j and (pygame.key.get_mods() & KMOD_CTRL):
                     self._carsim_road = not self._carsim_road
