@@ -169,7 +169,7 @@ scenic path/to/scenic/script.scenic --simulate
 
 ### 附加参数 <span id="additional-parameters"></span>
 
-Carla 模型提供了几个全局参数，可以在使用 [`param` 语句](https://scenic-lang.readthedocs.io/en/latest/syntax_details.html#param-identifier-value) 或通过命令行使用  [`--param` option](https://scenic-lang.readthedocs.io/en/latest/options.html#cmdoption-p) 选项的场景中覆盖这些参数。
+Carla 模型提供了几个全局参数，可以在使用 [`param` 语句](https://scenic-lang.readthedocs.io/en/latest/syntax_details.html#param-identifier-value) 或通过命令行使用  [`--param`](https://scenic-lang.readthedocs.io/en/latest/options.html#cmdoption-p) 选项的场景中覆盖这些参数。
 
 下面是 Carla 模型中的可配置参数表：
 

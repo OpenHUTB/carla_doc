@@ -2,7 +2,18 @@
 
 Carla 0.10.0 在 Carla 的核心渲染引擎中引入了全新的 Lumen（流明）和 Nanite（纳米机器人）技术，从而增强了逼真度、细节和性能。该引擎升级通过 UE5 的增强型渲染技术大大提高了视觉传感器的保真度。目前支持场景 Town10、露天矿场，包括更逼真的车辆。此外，0.10.0 版还完成了与 Inverted AI 交通流仿真模型的集成、原生 ROS2 集成、更新的 Python 兼容性等，带来了最先进的生成式 AI 交通模拟。
 
-运行步骤：
+- [__运行步骤__](#run_step)
+- [__亮点介绍__](#highlight_introduction)
+    - [__提升视觉传感器的仿真性能__](#visual_performance)
+    - [__新的虚拟环境和数字资产__](#upgrade_assert)
+    - [__Inverted AI 交通流仿真模型__](#inverted_ai)
+    - [__ROS2 原生接口__](#ros2_interface)
+    - [__SCENIC 3 集成__](#scenic3_integration)
+    - [__更新的 Python 兼容性__](#upgrade_python)
+- [__Carla 0.9.15 和 0.10.0 版本差异__](#version_difference)
+
+
+## 运行步骤 <span id="run_step"></span>
 
 1.从 [百度网盘链接](https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb) 的目录`software/car/carla_release/0.10.0`下载文件`Carla-0.10.0-Windows-Shipping.zip`，解压后运行`CarlaUnreal.exe`（注意，该版本需要12-16GB显存）。
 
@@ -19,13 +30,13 @@ python manual_control.py --filter vehicle.miningtruck.miningtruck
 
 <iframe width="730" height="411" src="https://www.youtube.com/embed/u2TxYhv3UKE" title="CARLA 0.10.0 release video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
-## 亮点介绍
+## 亮点介绍 <span id="highlight_introduction"></span>
 
-1.提升视觉传感器的仿真性能
+### 1.提升视觉传感器的仿真性能 <span id="visual_performance"></span>
 
 UE 5.5 显著增强了 Carla 渲染高度详细几何体的能力，具有令人惊叹的真实光影和反射效果。新的Nanite **虚拟化几何体**系统可动态调整用于渲染资产的多边形数量，确保在远距离观察物体时性能高效，同时在近距离保留足够的细节。这意味着Carla地图和资产现在几乎拥有无限的几何体资源，可以在不牺牲性能的情况下使用高度精细的 3D 资产。Lumen 通过更精确地模拟复杂的光照行为（如漫反射和镜面反射），将虚拟场景光照和反射的逼真度提升到了一个新的水平。这使得场景看起来更加自然，能够以逼真的方式动态适应光照变化。总之，UE 5.5 以惊人的效果增强了 Carla 的整体视觉保真度。
 
-2.新的虚拟环境和数字资产  
+### 2.新的虚拟环境和数字资产 <span id="upgrade_assert"></span>
 
 * 升级后的Town 10
 
@@ -72,15 +83,15 @@ UE 5 还引入了新的 Chaos 物理引擎，为车辆动力学建模提供了�
 
 ![map-layers](../img/ue5/mine_truck.gif)
 
-3.Inverted AI 交通流仿真模型
+### 3.Inverted AI 交通流仿真模型 <span id="inverted_ai"></span>
 
 
-Inverted AI 提供了基于生成式人工智能的最新交通模拟技术，该技术使用广泛的真实交通数据进行训练。Inverted AI 的交通流仿真模型为 Carla 仿真中的模拟者提供反应灵敏、逼真、类人类的行为，这有助于安全应对驾驶员不可预测行为的自动驾驶智能体的开发。所有功能都通过方便的基于 Web 的 Python API 提供，与 Carla 的集成非常简单。我们提供了一个示例脚本，帮助您开始使用逼真且行为多样的交通流。
+[Inverted AI](https://github.com/inverted-ai) 提供了基于生成式人工智能的最新交通模拟技术，该技术使用广泛的真实交通数据进行训练。Inverted AI 的交通流仿真模型为 Carla 仿真中的模拟者提供反应灵敏、逼真、类人类的行为，这有助于安全应对驾驶员不可预测行为的自动驾驶智能体的开发。所有功能都通过方便的基于 Web 的 Python API 提供，与 Carla 的集成非常简单。我们提供了一个示例脚本，帮助您开始使用逼真且行为多样的交通流。
 
 ![map-layers](../img/ue5/invertedai_traffic.gif)
 
 
-4.ROS2 原生接口
+### 4.ROS2 原生接口 <span id="ros2_interface"></span>
 
 ![map-layers](../img/ue5/ros_carla.gif)
 
@@ -90,17 +101,17 @@ Inverted AI 提供了基于生成式人工智能的最新交通模拟技术，�
 ./CarlaUnreal.sh --ros2
 ```
 
-5.SCENIC 3 集成
+### 5.SCENIC 3 集成 <span id="scenic3_integration"></span>
 
 
 Carla 0.10.0 现在完全支持 SCENIC 3。Carla 用户可以利用 SCENIC 3 场景描述语言在 Carla 0.10.0 中定义和执行场景。
 
-6.更新的 Python 兼容性
+### 6.更新的 Python 兼容性 <span id="upgrade_python"></span>
 
 最新版本的Carla改进了对新Python版本的兼容性。Carla 0.10.0 在 Ubuntu 和 Windows 中都支持 Python 版本的版本包括：3.8~3.12。此版本不再支持 Python 版本 3.7 及更低版本。
 
 
-## Carla 0.9.15 和 0.10.0 版本差异
+## Carla 0.9.15 和 0.10.0 版本差异 <span id="version_difference"></span>
 
 Carla 0.10.0 版本带来了令人难以置信的新功能。为此，Carla 团队努力将尽可能多的功能从以前的版本迁移到新版本中。但这仍是一项进行中的工作，一些功能和内容仍待更新。以下是 0.10.0 版本中缺失或未测试的功能概览：
 
@@ -121,7 +132,7 @@ Carla 0.10.0 版本带来了令人难以置信的新功能。为此，Carla 团�
 
 * 不支持新数字资产导入
 
-* 车辆：11 辆车已更新并包含在 0.10.0 版本中：* 林肯 MKZ * 日产 patrol * 道奇充电器 * 道奇充电器警察 * 消防车 * 福特皇冠出租车 * 迷你库珀 * CarlaCola 卡车 * 福特救护车 * 梅赛德斯 Sprinter 面包车 * 三菱 Fusorosa 巴士 * 采矿推土机（来自深信科创） 所有其他车辆已从 0.10.0 的蓝图库中删除
+* 车辆：11 辆车已更新并包含在 0.10.0 版本中：_林肯 MKZ_、_日产 patrol_、_道奇充电器_、_道奇充电器警察_、_消防车_、_福特皇冠出租车_、_迷你库珀_、_CarlaCola 卡车_、_福特救护车_、_梅赛德斯_、_Sprinter 面包车_、_三菱_、_Fusorosa 巴士_、_采矿推土机（来自深信科创）_，所有其他车辆已从 0.10.0 的蓝图库中删除
 
 * 可修改车辆灯光，但灯光强度和颜色调整尚未进行广泛的测试
 

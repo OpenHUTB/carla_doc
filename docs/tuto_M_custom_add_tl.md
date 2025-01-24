@@ -32,6 +32,8 @@ __5.__ 交通灯计时只能通过 Python API 进行配置。请参阅 [此处](
 
 [triggerlink]: python_api.md#carla.TrafficSign.trigger_volume
 
+示例：[交通灯的配置和使用](tuto_G_traffic_light.md) 。
+
 ---
 
 ## 红绿标志 <span id="traffic-signs"></span>

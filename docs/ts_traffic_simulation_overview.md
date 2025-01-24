@@ -6,6 +6,7 @@
 - [__Scenario Runner 和 OpenScenario__](#scenario-runner-and-openscenario)
 - [__Scenic__](#scenic)
 - [__SUMO__](#sumo)
+- [__Inverted AI__](#inverted_ai)
 
 ---
 
@@ -90,6 +91,12 @@ __用于：__
 </div>
 
 ---
+## Inverted AI <span id="inverted_ai"></span>
+
+[Carla 0.10.0](ue5/index.md) 引入了基于生成式人工智能的交通模拟技术 [Inverted AI](https://github.com/inverted-ai) 。
+
+---
+
 
 如果您对 Carla 中模拟交通的不同选项有任何疑问，请随时在论坛或 [Discord](https://discord.gg/8kqACuC) 中发帖。
 

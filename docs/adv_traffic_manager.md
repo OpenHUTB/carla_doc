@@ -180,7 +180,7 @@ __相关的 .cpp 文件:__ `PIDController.cpp`.
 
 - 从[**路径规划阶段**](#stage-4-motion-planner-stage)接收一系列 [carla.VehicleControl](python_api.md#carla.VehicleControl)。
 - 批处理要在同一帧内应用的所有命令。
-- 将批处理发送到在 carla 中调用 **apply_batch**（） 或 **apply_batch_synch（）** 的 Carla **[服务器.客户端](../python_api/#carla.Client)**，具体取决于模拟是分别以异步模式还是同步模式运行。
+- 将批处理发送到在 carla 中调用 **apply_batch**（） 或 **apply_batch_synch（）** 的 **[carla.Client](../python_api/#carla.Client)**，具体取决于模拟是分别以异步模式还是同步模式运行。
 
 __相关的 .cpp 文件:__ [`TrafficManagerLocal.cpp`](https://github.com/OpenHUTB/carla/blob/ue4-dev/LibCarla/source/carla/trafficmanager/TrafficManagerLocal.cpp) 。
 
@@ -195,7 +195,7 @@ __相关的 .cpp 文件:__ [`TrafficManagerLocal.cpp`](https://github.com/OpenHU
 - 从[**模拟状态**](#simulation-state)获取所有车辆的位置和速度。
 - 使用[**内存地图**](#in-memory-map)将每辆车与路径点列表相关联，该路径点列表根据其轨迹描述其**当前位置**和**近期路径**。车辆行驶得越快，路径点列表就越长。
 - 根据规划决策更新路径，例如变道、限速、与前方车辆的距离参数设定等。
-- 将所有车辆的路径存储在[****路径缓存和车辆轨迹****](#pbvt)模块中。
+- 将所有车辆的路径存储在[**路径缓存和车辆轨迹**](#pbvt)模块中。
 - 相互比较路径以估计可能的碰撞情况，其结果将传递到碰撞阶段。
 
 __相关的 .cpp 文件:__ [`LocalizationStage.cpp`](https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/LocalizationStage.cpp) 和 [`LocalizationUtils.cpp`](https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/LocalizationUtils.cpp) 。
@@ -244,7 +244,7 @@ __相关的.cpp文件:__ [`MotionPlannerStage.cpp`](https://github.com/OpenHUTB/
 [车灯阶段](https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/TrafficManagerLocal.cpp#L233) :
 
 - 检索车辆的规划路径点、有关车辆灯光的信息（例如灯光状态和计划应用的命令）和天气状况。
-- 确定车灯的新状态:
+- 确定车灯的新状态：
   - 如果车辆计划在下一个路口左转/右转，则打开闪光灯。
   - 如果应用的命令要求车辆制动，则打开停车灯。
   - 从日落到黎明或在大雨中打开近光灯和位置灯。
@@ -289,20 +289,18 @@ __相关的 .cpp 文件:__ [`VehicleLightStage.cpp`](https://github.com/OpenHUTB
 tm = client.get_trafficmanager(port)
 ```
 
-要为一组车辆启用 autopilot，请检索交通管理器实例的端口并设置set_autopilot为True ，同时传递交通管理器端口。如果未提供端口，它将尝试连接到默认端口 （8000） 中的交通管理器。如果交通管理器不存在，它将创建一个。
+要为一组车辆启用自动驾驶，请检索交通管理器实例的端口并设置set_autopilot为True ，同时传递交通管理器端口。如果未提供端口，它将尝试连接到默认端口 （8000） 中的交通管理器。如果交通管理器不存在，它将创建一个。
 
 ```python
 tm_port = tm.get_port()
  for v in vehicles_list:
      v.set_autopilot(True,tm_port)
 ```
-!!! 笔记
+!!! 注意
+	在多客户端情况下创建或连接到交通管理器与上述示例不同。
 
-```
-在多客户端情况下创建或连接到交通管理器与上述示例不同。
-```
 
-`/PythonAPI/examples` 中的 `generate_traffic.py`脚本提供了一个示例，说明如何使用作为脚本参数传递的端口创建交通管理器实例，并通过批量将自动驾驶仪设置为以下值来注册生成的每辆车。
+目录 [`PythonAPI/examples`](https://github.com/OpenHUTB/carla/tree/ue4-dev/PythonAPI/examples) 中的 [`generate_traffic.py`](https://github.com/OpenHUTB/carla/blob/ue4-dev/PythonAPI/examples/generate_traffic.py) 脚本提供了一个示例，说明如何使用作为脚本参数传递的端口创建交通管理器实例，并通过批量将自动驾驶仪设置为以下值来注册生成的每辆车。
 
 ```py
 traffic_manager = client.get_trafficmanager(args.tm-port)
@@ -313,7 +311,7 @@ batch.append(SpawnActor(blueprint, transform).then(SetAutopilot(FutureActor, Tru
 traffic_manager.global_percentage_speed_difference(30.0)
 ```
 
-### 配置 autopilot 行为 <span id="configuring-autopilot-behavior"></span>
+### 配置自动驾驶行为 <span id="configuring-autopilot-behavior"></span>
 
 以下示例创建一个交通管理器实例，并为特定车辆配置危险行为，使其忽略所有交通信号灯，不与其他车辆保持安全距离，并以比当前限速快 20% 的速度行驶：
 

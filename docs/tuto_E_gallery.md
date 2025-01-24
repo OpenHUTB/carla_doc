@@ -1,7 +1,5 @@
 ## [基本示例](examples.md)
 
-[交通灯的配置和使用](tuto_G_traffic_light.md)
-
 [流量预测](tuto_G_traffic_prediction.md)
 
 
@@ -63,10 +61,9 @@
 
 ![](img/tuto_E_gallery/11_sun_position.png)
 
-[示例 12] ：反向AI控制
+[示例 12] ：[反向AI控制](../src/examples/invertedai_traffic_ue5.py)
 
-
-- {ProxyError}HTTPSConnectionPool(host='api.inverted.ai', port=443): Max retries exceeded with url: /v0/aws/m1 (Caused by ProxyError('Unable to connect to proxy', SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:1135)'))))
+报错：`{ProxyError}HTTPSConnectionPool(host='api.inverted.ai', port=443): Max retries exceeded with url: /v0/aws/m1 (Caused by ProxyError('Unable to connect to proxy', SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:1135)'))))`
 ```shell
 pip install urllib3==1.25.11
 ```
