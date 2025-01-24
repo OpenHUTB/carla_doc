@@ -3,9 +3,11 @@
 [文档主页](https://openhutb.github.io/carla_doc/) 。
 
 ## 本地部署并测试
-1. 使用`pip`安装`mkdocs`
+在Windows 10 和Windows 11上进行了测试。
+1. 安装python 3.11.11（或3.11.7），使用`pip`安装`mkdocs`
 ```shell
-pip install mkdocs
+pip install mkdocs -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+pip install -r requirements.txt
 ```
 （可选）安装完成后使用`mkdocs --version`查看是否安装成功。
 
@@ -35,9 +37,11 @@ git clone https://github.com/OpenHUTB/mkdocs.git
 ```
 安装mkdocs包：
 ```shell
-python -m pip install .
+cd mkdocs
+python -m pip install . -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
 ```
 然后使用新的mkdocs执行步骤1-3。
+
 
 5. 文档页面显示支持 [Latex 公式](https://gist.github.com/josemazo/36af7bb9c58b92c684bbd431f6c68ce9) 、[视频播放](https://pypi.org/project/mkdocs-video/)  。
 
