@@ -211,7 +211,7 @@
 <ul>
 <li>从<a href="#stage-4-motion-planner-stage"><strong>路径规划阶段</strong></a>接收一系列 <a href="../python_api/#carla.VehicleControl">carla.VehicleControl</a>。</li>
 <li>批处理要在同一帧内应用的所有命令。</li>
-<li>将批处理发送到在 carla 中调用 <strong>apply_batch</strong>（） 或 <strong>apply_batch_synch（）</strong> 的 Carla <strong><a href="../python_api/#carla.Client">服务器.客户端</a></strong>，具体取决于模拟是分别以异步模式还是同步模式运行。</li>
+<li>将批处理发送到在 carla 中调用 <strong>apply_batch</strong>（） 或 <strong>apply_batch_synch（）</strong> 的 <strong><a href="../python_api/#carla.Client">carla.Client</a></strong>，具体取决于模拟是分别以异步模式还是同步模式运行。</li>
 </ul>
 <p><strong>相关的 .cpp 文件:</strong> <a href="https://github.com/OpenHUTB/carla/blob/ue4-dev/LibCarla/source/carla/trafficmanager/TrafficManagerLocal.cpp"><code>TrafficManagerLocal.cpp</code></a> 。</p>
 <h3 id="_14">控制循环的阶段 <span id="stages-of-the-control-loop"></span></h3>
@@ -222,7 +222,7 @@
 <li>从<a href="#simulation-state"><strong>模拟状态</strong></a>获取所有车辆的位置和速度。</li>
 <li>使用<a href="#in-memory-map"><strong>内存地图</strong></a>将每辆车与路径点列表相关联，该路径点列表根据其轨迹描述其<strong>当前位置</strong>和<strong>近期路径</strong>。车辆行驶得越快，路径点列表就越长。</li>
 <li>根据规划决策更新路径，例如变道、限速、与前方车辆的距离参数设定等。</li>
-<li>将所有车辆的路径存储在<a href="#pbvt"><strong><em>*路径缓存和车辆轨迹</em></strong>*</a>模块中。</li>
+<li>将所有车辆的路径存储在<a href="#pbvt"><strong>路径缓存和车辆轨迹</strong></a>模块中。</li>
 <li>相互比较路径以估计可能的碰撞情况，其结果将传递到碰撞阶段。</li>
 </ul>
 <p><strong>相关的 .cpp 文件:</strong> <a href="https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/LocalizationStage.cpp"><code>LocalizationStage.cpp</code></a> 和 <a href="https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/LocalizationUtils.cpp"><code>LocalizationUtils.cpp</code></a> 。</p>
@@ -258,7 +258,7 @@
 <p><a href="https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/TrafficManagerLocal.cpp#L233">车灯阶段</a> :</p>
 <ul>
 <li>检索车辆的规划路径点、有关车辆灯光的信息（例如灯光状态和计划应用的命令）和天气状况。</li>
-<li>确定车灯的新状态:</li>
+<li>确定车灯的新状态：</li>
 <li>如果车辆计划在下一个路口左转/右转，则打开闪光灯。</li>
 <li>如果应用的命令要求车辆制动，则打开停车灯。</li>
 <li>从日落到黎明或在大雨中打开近光灯和位置灯。</li>
@@ -315,17 +315,16 @@
 <p>要创建交通管理器实例：</p>
 <pre><code class="language-python">tm = client.get_trafficmanager(port)
 </code></pre>
-<p>要为一组车辆启用 autopilot，请检索交通管理器实例的端口并设置set_autopilot为True ，同时传递交通管理器端口。如果未提供端口，它将尝试连接到默认端口 （8000） 中的交通管理器。如果交通管理器不存在，它将创建一个。</p>
+<p>要为一组车辆启用自动驾驶，请检索交通管理器实例的端口并设置set_autopilot为True ，同时传递交通管理器端口。如果未提供端口，它将尝试连接到默认端口 （8000） 中的交通管理器。如果交通管理器不存在，它将创建一个。</p>
 <pre><code class="language-python">tm_port = tm.get_port()
  for v in vehicles_list:
      v.set_autopilot(True,tm_port)
 </code></pre>
-<div class="admonition 笔记">
-<p class="admonition-title">笔记</p>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>在多客户端情况下创建或连接到交通管理器与上述示例不同。</p>
 </div>
-<pre><code>在多客户端情况下创建或连接到交通管理器与上述示例不同。
-</code></pre>
-<p><code>/PythonAPI/examples</code> 中的 <code>generate_traffic.py</code>脚本提供了一个示例，说明如何使用作为脚本参数传递的端口创建交通管理器实例，并通过批量将自动驾驶仪设置为以下值来注册生成的每辆车。</p>
+<p>目录 <a href="https://github.com/OpenHUTB/carla/tree/ue4-dev/PythonAPI/examples"><code>PythonAPI/examples</code></a> 中的 <a href="https://github.com/OpenHUTB/carla/blob/ue4-dev/PythonAPI/examples/generate_traffic.py"><code>generate_traffic.py</code></a> 脚本提供了一个示例，说明如何使用作为脚本参数传递的端口创建交通管理器实例，并通过批量将自动驾驶仪设置为以下值来注册生成的每辆车。</p>
 <pre><code class="language-py">traffic_manager = client.get_trafficmanager(args.tm-port)
 tm_port = traffic_manager.get_port()
 ...
@@ -333,7 +332,7 @@ batch.append(SpawnActor(blueprint, transform).then(SetAutopilot(FutureActor, Tru
 ...
 traffic_manager.global_percentage_speed_difference(30.0)
 </code></pre>
-<h3 id="autopilot">配置 autopilot 行为 <span id="configuring-autopilot-behavior"></span></h3>
+<h3 id="_18">配置自动驾驶行为 <span id="configuring-autopilot-behavior"></span></h3>
 <p>以下示例创建一个交通管理器实例，并为特定车辆配置危险行为，使其忽略所有交通信号灯，不与其他车辆保持安全距离，并以比当前限速快 20% 的速度行驶：</p>
 <pre><code class="language-python">tm = client.get_trafficmanager(port)
 tm_port = tm.get_port()
@@ -355,14 +354,14 @@ tm.global_percentage_speed_difference(80)
 for v in my_vehicles: 
   tm.auto_lane_change(v,False)
 </code></pre>
-<h4 id="_18">委派交通管理器自动更新车灯</h4>
+<h4 id="_19">委派交通管理器自动更新车灯</h4>
 <p>默认情况下，交通管理器管理的车辆的车灯（刹车灯、转向灯等）永远不会更新。可以委托交通管理器来更新给定车辆参与者的车灯：</p>
 <pre><code class="language-python">tm = client.get_trafficmanager(port)
 for actor in my_vehicles:
   tm.update_vehicle_lights(actor, True)
 </code></pre>
 <p>车灯管理必须按每辆车进行指定，并且在任何给定时间都可以有带和不带自动灯管理的车辆。</p>
-<h3 id="_19">停止交通管理器 <span id="stopping-a-traffic-manager"></span></h3>
+<h3 id="_20">停止交通管理器 <span id="stopping-a-traffic-manager"></span></h3>
 <p>交通管理器是一个不需要被销毁的参与者；当创建它的客户端停止时，它将停止。这是由 API 自动管理的，用户无需执行任何操作。但是，在关闭交通管理器时，用户必须销毁由它控制的车辆，否则它们将在地图上保持不动。 <code>generate_traffic.py</code>脚本会自动执行此操作:</p>
 <pre><code class="language-py">client.apply_batch([carla.command.DestroyActor(x) for x in vehicles_list])
 </code></pre>
@@ -371,7 +370,7 @@ for actor in my_vehicles:
 <p>关闭 <strong>TM-Server</strong> 将关闭连接到它的 <strong>TM-Clients</strong> 。 要了解 <strong>TM-Server</strong> 和 <strong>TM-Client</strong> 之间的区别, 请阅读 <a href="#running-multiple-traffic-managers"><strong>Running multiple Traffic Managers</strong></a>。</p>
 </div>
 <hr />
-<h2 id="_20">确定性模式 <span id="deterministic-mode"></span></h2>
+<h2 id="_21">确定性模式 <span id="deterministic-mode"></span></h2>
 <p>在确定性模式下，交通管理器将在相同条件下产生相同的结果和行为。不要将确定性论误认为是记录器。虽然记录器允许您存储模拟日志以进行回放，但确定性可确保只要维持相同的条件，交通管理器在脚本的不同执行过程中始终具有相同的输出。</p>
 <p>确定性模式 <strong>仅在同步模式下</strong> 可用。在异步模式下，对模拟的控制较少，并且无法实现确定性。在开始之前，请阅读<a href="#synchronous-mode"><strong>同步模式</strong></a>部分的更多信息。</p>
 <p>要启用确定性模式，请使用以下方法：</p>
@@ -391,7 +390,7 @@ python3 generate_traffic.py -n 50 --seed 9
 <p>在启用确定性模式之前，Carla 服务器和交通管理器必须处于同步模式。在此处阅读有关交通管理器中同步模式的<a href="#synchronous-mode">更多信息</a>。</p>
 </div>
 <hr />
-<h2 id="_21">混合物理模式 <span id="hybrid-physics-mode"></span></h2>
+<h2 id="_22">混合物理模式 <span id="hybrid-physics-mode"></span></h2>
 <p>混合模式允许用户禁用所有自动驾驶车辆或标记为<code>英雄</code>的车辆特定半径之外的自动驾驶车辆的大多数物理计算。这消除了模拟中的车辆物理瓶颈。物理功能被禁用的车辆将通过隐形传送移动。维持线性加速度的基本计算，以确保位置更新和车辆速度保持真实，并且车辆上物理计算的切换是流畅的。</p>
 <p>混合模式使用 <a href="https://carla.readthedocs.io/en/latest/python_api/#carla.Actor.set_simulate_physics"><code>Actor.set_simulate_physics()</code></a> 方法来切换物理计算。默认情况下它是禁用的。有两个选项可以启用它：</p>
 <ul>
@@ -408,17 +407,17 @@ python3 generate_traffic.py -n 50 --seed 9
 <p>下面的剪辑显示了混合模式处于活动状态时如何启用和禁用物理功能。<strong>英雄车辆</strong> 标有 <strong>红色方块</strong>。<strong>禁用物理功能</strong> 的车辆标有 <strong>蓝色方块</strong>。当在英雄车辆的影响半径内时，<strong>启用物理功能</strong> 并且标签变为 <strong>绿色</strong>。</p>
 <p><img alt="" src="../img/tm_hybrid.gif" /></p>
 <hr />
-<h2 id="_22">运行多个交通管理器 <span id="running-multiple-traffic-managers"></span></h2>
-<h3 id="_23">交通管理器的服务端和客户端 <span id="traffic-manager-servers-and-clients"></span></h3>
+<h2 id="_23">运行多个交通管理器 <span id="running-multiple-traffic-managers"></span></h2>
+<h3 id="_24">交通管理器的服务端和客户端 <span id="traffic-manager-servers-and-clients"></span></h3>
 <p>Carla 客户端通过向服务器指定要使用的端口来创建交通管理器。如果未指定端口，将使用默认 <code>8000</code> 端口。如果在同一端口上创建更多交通管理器，它们将成为 <strong>交通管理器的客户端</strong>，而原始交通管理器将成为 <strong>交通管理器的服务端</strong>。这些标题定义了交通管理器在模拟中的行为方式。</p>
-<h6 id="_24">交通管理器的服务端</h6>
+<h6 id="_25">交通管理器的服务端</h6>
 <p>如果交通管理器的服务端是第一个连接到空闲端口的交通管理器，然后其他交通管理器（交通管理器的客户端）连接到它正在运行的同一端口，则创建交通管理器服务端。<strong>交通管理器服务端将规定所有交通管理器客户端的行为</strong>，例如，如果 <strong>交通管理器的服务端</strong> 停止，则所有 <strong>交通管理器客户端</strong> 将停止。</p>
 <p>以下代码创建两个交通管理器服务端。每个端口都连接到不同且都未使用的端口：</p>
 <pre><code class="language-py">tm01 = client01.get_trafficmanager() # tm01 --&gt; tm01 (p=8000)
 </code></pre>
 <pre><code class="language-py">tm02 = client02.get_trafficmanager(5000) # tm02(p=5000) --&gt; tm02 (p=5000)
 </code></pre>
-<h6 id="_25">交通管理器的客户端</h6>
+<h6 id="_26">交通管理器的客户端</h6>
 <p>当一个交通管理器连接到另一个交通管理器（交通管理器服务端）占用的端口时，就会创建交通管理器客户端。交通管理器客户端的行为将由交通管理器服务端决定。</p>
 <p>以下代码创建两个交通管理器客户端，每一个都与上一节中创建的交通管理器服务端连接。</p>
 <pre><code class="language-py">tm03 = client03.get_trafficmanager() # tm03 --&gt; tm01 (p=8000). 
@@ -426,19 +425,19 @@ python3 generate_traffic.py -n 50 --seed 9
 <pre><code class="language-py">tm04 = client04.get_trafficmanager(5000) # tm04(p=5000) --&gt; tm02 (p=5000)
 </code></pre>
 <p>Carla 服务器通过存储链接到它们的端口和客户端 IP（对用户隐藏）来保存所有交通管理器实例的寄存器。目前无法检查到目前为止已创建的交通管理器实例。尝试创建实例时始终会尝试连接，并且它将创建新的 <strong>交通管理器服务端</strong> 或 <strong>交通管理器客户端</strong> 。</p>
-<h3 id="_26">多客户端模拟 <span id="multi-client-simulations"></span></h3>
+<h3 id="_27">多客户端模拟 <span id="multi-client-simulations"></span></h3>
 <p>在多客户端模拟中，在同一端口上创建多个交通管理器。第一个交通管理器将是交通管理器服务器，其余的将是连接到它的交通管理器客户端。TM-Server 将规定所有交通管理器实例的行为：</p>
 <pre><code class="language-py">terminal 1: ./CarlaUE4.sh -carla-rpc-port=4000
 terminal 2: python3 generate_traffic.py --port 4000 --tm-port 4050 # TM-Server
 terminal 3: python3 generate_traffic.py --port 4000 --tm-port 4050 # TM-Client
 </code></pre>
-<h3 id="_27">多交通管理器模拟 <span id="multi-tm-simulations"></span></h3>
+<h3 id="_28">多交通管理器模拟 <span id="multi-tm-simulations"></span></h3>
 <p>在多交通管理器模拟中，在不同的端口上创建多个交通管理器实例。每个交通管理器实例都会控制自己的行为：</p>
 <pre><code class="language-py">terminal 1: ./CarlaUE4.sh -carla-rpc-port=4000
 terminal 2: python3 generate_traffic.py --port 4000 --tm-port 4050 # TM-Server A
 terminal 3: python3 generate_traffic.py --port 4000 --tm-port 4550 # TM-Server B
 </code></pre>
-<h3 id="_28">多重模拟 <span id="multi-simulation"></span></h3>
+<h3 id="_29">多重模拟 <span id="multi-simulation"></span></h3>
 <p>多重模拟是指多个 Carla 服务器同时运行。交通管理器需要连接到相关的 Carla 服务器端口。只要计算能力允许，交通管理器可以一次运行多个模拟，不会出现任何问题：</p>
 <pre><code class="language-py">terminal 1: ./CarlaUE4.sh -carla-rpc-port=4000 # simulation A 
 terminal 2: ./CarlaUE4.sh -carla-rpc-port=5000 # simulation B
@@ -448,7 +447,7 @@ terminal 4: python3 generate_traffic.py --port 5000 --tm-port 5050 # TM-Server B
 <p>多重模拟的概念独立于交通管理器本身。上面的示例并行运行两个 Carla 模拟 A 和 B。在每个模拟中，都独立创建一个交通管理器服务端。模拟 A 可以运行多客户端交通管理程序，而模拟 B 则运行多交通管理器或根本不运行交通管理器。</p>
 <p>上述设置最可能出现的问题是客户端尝试连接到未在所选模拟上运行的现有交通管理器。如果发生这种情况，将会出现错误消息，并且连接将被中止，以防止模拟之间的干扰。</p>
 <hr />
-<h2 id="_29">同步模式 <span id="synchronous-mode"></span></h2>
+<h2 id="_30">同步模式 <span id="synchronous-mode"></span></h2>
 <p>交通管理器设计为在同步模式下工作。Carla 服务器和交通管理器应设置为同步才能正常运行。<strong>在异步模式下使用交通管理器可能会导致意外和不良结果</strong>，但是，如果需要异步模式，则模拟应至少以 20-30 fps 运行。</p>
 <p>下面的脚本演示了如何将服务器和交通管理器设置为同步模式：</p>
 <pre><code class="language-py">...
@@ -487,7 +486,7 @@ python3 generate_traffic.py -n 50
 <p>在管理时钟的脚本完成之前禁用同步模式（对于世界和交通管理器），以防止服务器阻塞，永远等待时钟。</p>
 </div>
 <hr />
-<h2 id="_30">大地图中的交通管理器 <span id="traffic-manager-in-large-maps"></span></h2>
+<h2 id="_31">大地图中的交通管理器 <span id="traffic-manager-in-large-maps"></span></h2>
 <p>要了解交通管理器如何在大地图上工作，请务必首先阅读<a href="../large_map_overview/">此处</a>的文档来熟悉大地图的工作原理。</p>
 <p>自动驾驶车辆在大地图中的行为取决于是否存在英雄车辆：</p>
 <p><strong>不存在英雄车辆</strong></p>

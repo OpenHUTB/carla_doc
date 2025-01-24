@@ -128,7 +128,7 @@
 <p>除此之外，不是将整个地图创建为一个独特的网格，而是创建不同的部分。通过划分网格，模拟器可以避免渲染不可见的部分，并节省成本。工作更小还允许生成巨大的地图并包含可能出现在网格的一小部分上的问题。</p>
 <p>关于网格生成的当前状态，应考虑一些因素。</p>
 <ul>
-<li><strong>结平滑</strong>。默认平滑可防止上述倾斜连接处的问题。但是，它会在此过程中修改原始网格。如果愿意，将 <code>smooth_junctions</code> 设置为 <strong>False</strong> 以禁用平滑。</li>
+<li><strong>岔路口平滑</strong>。默认平滑可防止上述倾斜连接处的问题。但是，它会在此过程中修改原始网格。如果愿意，将 <code>smooth_junctions</code> 设置为 <strong>False</strong> 以禁用平滑。</li>
 <li><strong>横向坡度</strong>。此功能当前未集成在 Carla 中。</li>
 <li><strong>人行道高度</strong>。目前，所有人行道的硬编码都是相同的。人行道必须高于道路标高才能检测到碰撞，但 RoadRunner 不会将此值导出到 OpenDRIVE 文件。高度是硬编码的，以保证碰撞。</li>
 </ul>

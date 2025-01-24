@@ -77,7 +77,7 @@
 <li>将交通灯分配给路口交通灯组：从内容浏览器中选择<strong>Carla &gt; Static &gt; TrafficLight &gt; StreetLights_01</strong>下选择<strong>BP_TrafficLightGroup</strong>拖动到路口，并在该对象的细节面板下找到<strong>Traffic Light</strong>，将需要添加到该路口组的交通灯设置。</li>
 <li><a href="../tuto_G_modify_trafficlight/">此处</a>可以将交通灯直行和左转分别配时，或者将每个路口的交通灯不在同一个分组中，互不影响。</li>
 </ol>
-<p><strong>参考链接：</strong><a href="https://openhutb.github.io/carla_doc/tuto_content_authoring_maps/#_5">内容创作 - 地图 - 交通模拟器文档 (openhutb.github.io)</a>的交通灯部分</p>
+<p><strong>参考链接：</strong><a href="../tuto_content_authoring_maps/#traffic-lights">内容创作 - 地图 - 交通模拟器文档</a> 的交通灯部分。</p>
 <h2 id="python">使用python脚本简单使用交通灯</h2>
 <h4 id="carla_1">创建与carla的连接</h4>
 <pre><code class="language-python">client = carla.Client(args.host, args.port)
@@ -94,7 +94,7 @@ world.apply_settings(settings)
 </code></pre>
 <h4 id="1">1、获取红绿灯的位置信息</h4>
 <pre><code class="language-python">def get_light_location(world,traffic_lights):
-        # 将交通灯的位置信息存储
+    # 将交通灯的位置信息存储
     traffic_lights_location = {}
 
     for traffic_light in traffic_lights:
