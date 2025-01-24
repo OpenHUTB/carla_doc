@@ -2610,7 +2610,7 @@ _</font>
         - `actor` (_[carla.Actor](#carla.Actor)_) - 将忽略场景中行人的车辆。
         - `perc` (_float_) - Between 0 and 100. 0 到 100 之间。碰撞被忽略的次数。
 - <a name="carla.TrafficManager.keep_right_rule_percentage"></a>**<font color="#7fb800">keep_right_rule_percentage</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**actor**</font>, <font color="#00a6ed">**perc**</font>)  
-在定位阶段，此方法设置车辆遵循 *靠右* 规则并留在右侧车道的百分比机会。
+在局部阶段，此方法设置车辆遵循 *靠右* 规则并留在右侧车道的百分比机会。
     - **参数:**
         - `actor` (_[carla.Actor](#carla.Actor)_) - 正在改变行为的车辆。
         - `perc` (_float_) - Between 0 and 100. 0 到 100 之间。车辆遵循靠右规则的次数。

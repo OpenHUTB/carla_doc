@@ -67,7 +67,7 @@ tire_json = "sedan/tire/Sedan_TMeasyTire.json"
 vehicle.enable_chrono_physics(5000, 0.002, vehicle_json, powertrain_json, tire_json, base_path)
 ```
 
-您可以使用 `PythonAPI/examples` 中的示例脚本 `manual_control_chrono.py` 尝试 Chrono 物理集成。运行脚本后，按`Ctrl + o`启用 Chrono。下面显示高速转弯时，方向盘打死会翻车的情况：
+首先进入 [网盘](https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb) 的目录 `software/car/fisheye-camera` 下载支持chrono的可执行场景。然后可以使用 [`PythonAPI/examples`](https://github.com/OpenHUTB/carla_doc/tree/master/src/examples) 中的示例脚本 [`manual_control_chrono.py`](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/manual_control_chrono.py) 尝试 Chrono 物理集成。运行脚本后，按`Ctrl + o`启用 Chrono。下面显示高速转弯时，方向盘打死会翻车的情况：
 
 ![](./img/chrono/vechile_turnover.gif)
 
