@@ -416,9 +416,16 @@ set PATH=C:\software\make-4.4.1\bin;%PATH%
 echo %PATH%
 </code></pre>
 <p>启动Python虚拟环境报错：<code>CondaError: Run 'conda init' before 'conda activate'</code></p>
+<blockquote>
+<p>使用Anaconda Powershell Prompt打开，或者：</p>
+</blockquote>
 <pre><code class="language-shell">conda init cmd.exe  # 先执行这个，然后再激活虚拟环境
 conda activate carla_cpp
 </code></pre>
+<p>报chrono模块的错：<code>D:/work/workspace/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/V2X/PathLossModel.cpp(176): error C3861: “DrawDebugLine”: 找不到标识符</code></p>
+<blockquote>
+<p>解决：先使用VS编译后，然后再用命令行启动则可，原因不明。</p>
+</blockquote>
 <p>执行<code>make PythonAPI</code>时候报错：<code>无法加载文件Microsoft.PowerShell_profile.ps1...因为在此系统上禁止运行脚本</code>：</p>
 <pre><code class="language-shell"># 使用管理员权限启动PowerShell，修改当前用户权限
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser

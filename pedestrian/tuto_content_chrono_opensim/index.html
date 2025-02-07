@@ -69,13 +69,30 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="_1">行人物理场模拟</h1>
-<h2 id="_2">参考</h2>
+<h2 id="_2">强化学习</h2>
+<pre><code class="language-shell">conda create -n opensim-rl -c kidzik opensim python=3.6.1
+conda activate opensim-rl
+conda install -c conda-forge lapack git
+pip install git+https://github.com/stanfordnmbl/osim-rl.git
+python
+</code></pre>
+<p>测试代码：</p>
+<pre><code class="language-python">from osim.env import ProstheticsEnv
+env = ProstheticsEnv(visualize=True)
+observation = env.reset()
+for i in range(200):
+    o, r, d, i = env.step(env.action_space.sample())
+</code></pre>
+<h2 id="_3">参考</h2>
 <ul>
 <li>
 <p><a href="https://sbel.wiscweb.wisc.edu/wp-content/uploads/sites/569/2018/06/TR-2017-08.pdf">Chrono OpenSim 解析器手册</a></p>
 </li>
 <li>
 <p><a href="https://api.projectchrono.org/classchrono_1_1parsers_1_1_ch_parser_open_sim.html">OpenSim解析器的C++类文档</a></p>
+</li>
+<li>
+<p><a href="http://osim-rl.kidzinski.com/">带肌肉骨骼的强化学习环境</a></p>
 </li>
 </ul>
               
