@@ -3,13 +3,16 @@ import carla
 import random
 import queue
 
+# pip install opencv-python
 import cv2
 import numpy as np
 
 ## Part 1
-
 # Connect to Carla
 client = carla.Client('localhost', 2000)
+client.set_timeout(120.0)
+# Town10HD_Opt
+client.load_world('Town01')  # 重新加载世界，保证之前的车都已经销毁
 world = client.get_world()
 
 # Get a vehicle from the library
@@ -23,25 +26,26 @@ spawn_points = world.get_map().get_spawn_points()
 vehicle = world.try_spawn_actor(vehicle_bp, random.choice(spawn_points))
 
 # Autopilot
-vehicle.set_autopilot(True) 
+vehicle.set_autopilot(True)
 
 # Get the world spectator
-spectator = world.get_spectator() 
+spectator = world.get_spectator()
+
 
 ## Part 2
 
-# Print all camera types
+# 打印所有相机类型
 for bp in bp_lib.filter("camera"):
     print(bp.id)
 
-# Create a camera floating behind the vehicle
+# 创建一个漂浮在车辆后面的相机
 camera_init_trans = carla.Transform(carla.Location(x=-5, z=3), carla.Rotation(pitch=-20))
 
 # Create a RGB camera
 rgb_camera_bp = world.get_blueprint_library().find('sensor.camera.rgb')
 rgb_camera = world.spawn_actor(rgb_camera_bp, camera_init_trans, attach_to=vehicle)
 
-# Create a semantic segmentation camera
+# 创建实例分割相机
 seg_camera_bp = world.get_blueprint_library().find('sensor.camera.semantic_segmentation')
 seg_camera = world.spawn_actor(seg_camera_bp, camera_init_trans, attach_to=vehicle)
 
@@ -61,9 +65,11 @@ dvs_camera = world.spawn_actor(dvs_camera_bp, camera_init_trans, attach_to=vehic
 opt_camera_bp = world.get_blueprint_library().find('sensor.camera.optical_flow')
 opt_camera = world.spawn_actor(opt_camera_bp, camera_init_trans, attach_to=vehicle)
 
+
 # Define camera callbacks                       
 def rgb_camera_callback(image, rgb_image_queue):
     rgb_image_queue.put(np.reshape(np.copy(image.raw_data), (image.height, image.width, 4)))
+
 
 def seg_camera_callback(image, seg_image_queue):
     image.convert(carla.ColorConverter.CityScapesPalette)
@@ -117,6 +123,7 @@ opt_camera.listen(lambda image: opt_camera_callback(image, opt_image_queue))
 
 cv2.namedWindow('All Cameras', cv2.WINDOW_NORMAL)
 
+
 # Clear the spawned vehicle and camera
 def clear():
 
@@ -133,13 +140,15 @@ def clear():
 
     cv2.destroyAllWindows()
 
+
 # Main loop
 while True:
     try:
-
         # Imshow renders sensor data to display
         top_row = np.hstack((rgb_image_queue.get(), seg_image_queue.get(), ins_image_queue.get()))
-        lower_row = np.hstack((depth_image_queue.get(), dvs_image_queue.get(), opt_image_queue.get()))
+        # opt_image_queue 相机会异常退出，原因不明（dev）
+        # lower_row = np.hstack((depth_image_queue.get(), dvs_image_queue.get(), opt_image_queue.get()))
+        lower_row = np.hstack((depth_image_queue.get(), dvs_image_queue.get(), depth_image_queue.get()))
         tiled = np.vstack((top_row, lower_row))
 
         cv2.imshow('All Cameras', tiled)

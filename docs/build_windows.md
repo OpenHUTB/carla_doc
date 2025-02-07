@@ -370,10 +370,16 @@ echo %PATH%
 ```
 
 启动Python虚拟环境报错：`CondaError: Run 'conda init' before 'conda activate'`
+> 使用Anaconda Powershell Prompt打开，或者：
 ```shell
 conda init cmd.exe  # 先执行这个，然后再激活虚拟环境
 conda activate carla_cpp
 ```
+
+报chrono模块的错：`D:/work/workspace/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/V2X/PathLossModel.cpp(176): error C3861: “DrawDebugLine”: 找不到标识符`
+
+> 解决：先使用VS编译后，然后再用命令行启动则可，原因不明。
+
 
 执行`make PythonAPI`时候报错：`无法加载文件Microsoft.PowerShell_profile.ps1...因为在此系统上禁止运行脚本`：
 ```shell
