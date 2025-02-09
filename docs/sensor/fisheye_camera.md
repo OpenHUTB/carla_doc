@@ -99,15 +99,10 @@ unsigned若省略后一个关键字，大多数编译器都会认为是 unsigned
 
 ### 5- 使用示例 <span id="5-usage-example"></span>
 
-  * [`PythonAPI/examples/manual_control.py`](https://github.com/OpenHUTB/carla/blob/fisheye-camera/PythonAPI/examples/manual_control.py)
+  * [`fisheye_demo.py`](https://github.com/OpenHUTB/carla_doc/blob/master/src/sensor/fisheye_demo.py)
 
 启动后按数字键`2`，则显示鱼眼相机画面：
 ![FisheyeImage](../img/sensor/fisheye_demo.jpg)
-
-### 6- 测试
-
-测试脚本[cam_test_0313.py
-](https://github.com/carla-simulator/carla/commit/894736b6dbdd5f0a2bc42d9ec3697a0596e7cb75#diff-9bc5d68b4bb3d07536486efb037899c2a77bef6cca451961bf15ef081380d4bf)
 
 
 ## 问题

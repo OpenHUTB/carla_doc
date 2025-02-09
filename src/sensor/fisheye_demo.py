@@ -121,6 +121,7 @@ def main():
             random.shuffle(spawn_points)
             ego_transform = spawn_points[0]
             ego_vehicle = world.spawn_actor(ego_bp,ego_transform)
+            ego_vehicle.set_autopilot(True)  # 车辆进入自动驾驶模型进行数据收集
             print('\nEgo is spawned')
         else: 
             logging.warning('Could not found any spawn points')

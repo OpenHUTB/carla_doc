@@ -1,12 +1,12 @@
 ## 自带语义分割传感器实现路径
-本文从 Carla 出发，深入UE内部，来理解CARLA中的视觉传感器及真值系统的实现原理。
+本文从 Carla 出发，深入UE内部，来理解 Carla 中的视觉传感器及真值系统的实现原理。
 
 ### 1、知识铺垫
-CARLA RGB 摄像头传感器代码分析讲了Camera之间的继承关系。下图表达它们的层次关系：
+Carla RGB 摄像头传感器代码分析讲了 Camera 之间的继承关系。下图表达它们的层次关系：
 
 ![camera_inherit](../img/sensor/camera_inherit.jpg)
 
-* **ASensor** 完成CARLA的抽象传感器功能；
+* **ASensor** 完成 Carla 的抽象传感器功能；
 * **ASceneCaptureSensor** 实现UE渲染接口，`UTextureRenderTarget2D` 和 `USceneCaptureComponent2D` 的加入，并且 `USceneCaptureComponent2D` 控制着后处理（`FPostProcessingSetting`）参数；
 * **AShaderBasedSensor** 主要负责加入后处理材质(PostProcessing Material)，后处理材质也是一种着色器(shader)，对着色有影响，AShaderBasedSensor是抽象类，不是具体的传感器函数，所以只提供功能，供继承子类扩展着色器；
 * **ASceneCaptureCamera**，`ASemanticSegmentationCamera`，`AOpticalFlowCamera`，`ASemanticSegmentationCamera` 等其他 camera 均继承自AShaderBasedSensor，它们的逻辑大多都很简单，就是使用 AShaderBasedSensor 提供的 AddPostProcessingMaterial 接口，添加后处理材质，根据不同的传感器类型，有不同的着色需求。

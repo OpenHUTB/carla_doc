@@ -376,9 +376,39 @@ conda init cmd.exe  # 先执行这个，然后再激活虚拟环境
 conda activate carla_cpp
 ```
 
-报chrono模块的错：`D:/work/workspace/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/V2X/PathLossModel.cpp(176): error C3861: “DrawDebugLine”: 找不到标识符`
+报chrono模块的错：`D:/work/workspace/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/V2X/PathLossModel.cpp(176): error C3861: “DrawDebugLine”: 找不到标识符`、
+```text
+D:/work/workspace/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/V2X/PathLossModel.cpp(542): error C2027: 使用了未定义类型“URandomEngine”
+D:/work/workspace/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/V2XSensor.cpp(189): error C2653: “UCarlaStatics”: 不是类或命名空间名称
+D:/work/workspace/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/V2XSensor.cpp(189): error C3861: “GetCurrentEpisode”: 找不到标识符
+```
 
 > 解决：先使用VS编译后，然后再用命令行启动则可，原因不明。
+
+Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/V2XSensor.cpp添加头文件
+```c++
+#include "Carla/Game/CarlaStatics.h"
+```
+
+报错：
+```text
+D:/work/workspace/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/V2X/PathLossModel.cpp(176): error C3861: “DrawDebugLine”: 找不到标识符
+```
+解决：Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/V2X/PathLossModel.cpp添加头文件
+```c++
+#include "DrawDebugHelpers.h"
+```
+
+报错：
+```text
+错误	C2027	使用了未定义类型“URandomEngine”	CarlaUE4	D:\work\workspace\carla\Unreal\CarlaUE4\Plugins\Carla\Source\Carla\Sensor\V2X\PathLossModel.cpp	542	
+```
+
+解决：`Unreal\CarlaUE4\Plugins\Carla\Source\Carla\Sensor\V2X\PathLossModel.cpp`中添加头文件：
+```text
+#include "Carla/Util/RandomEngine.h"
+```
+
 
 
 执行`make PythonAPI`时候报错：`无法加载文件Microsoft.PowerShell_profile.ps1...因为在此系统上禁止运行脚本`：
@@ -476,6 +506,9 @@ install_proj.bat --build-dir D:\work\DReyeVR\carla\Build
 ---
 
 ## 参考
+
+[持续集成](./dev/cicd.md)
+
 [构建系统](./build_tools.md)
 
 [Windows平台下的依赖安装脚本](./build/installers_win.md)
