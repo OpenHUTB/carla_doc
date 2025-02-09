@@ -159,13 +159,10 @@ unsigned若省略后一个关键字，大多数编译器都会认为是 unsigned
 </ul>
 <h3 id="5-">5- 使用示例 <span id="5-usage-example"></span></h3>
 <ul>
-<li><a href="https://github.com/OpenHUTB/carla/blob/fisheye-camera/PythonAPI/examples/manual_control.py"><code>PythonAPI/examples/manual_control.py</code></a></li>
+<li><a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/sensor/fisheye_demo.py"><code>fisheye_demo.py</code></a></li>
 </ul>
 <p>启动后按数字键<code>2</code>，则显示鱼眼相机画面：
 <img alt="FisheyeImage" src="../../img/sensor/fisheye_demo.jpg" /></p>
-<h3 id="6-">6- 测试</h3>
-<p>测试脚本<a href="https://github.com/carla-simulator/carla/commit/894736b6dbdd5f0a2bc42d9ec3697a0596e7cb75#diff-9bc5d68b4bb3d07536486efb037899c2a77bef6cca451961bf15ef081380d4bf">cam_test_0313.py
-</a></p>
 <h2 id="_4">问题</h2>
 <p>使用官网中的 <a href="https://github.com/carla-simulator/carla/pull/3755">PR</a> 的代码进行编译，报错：<code>D:\work\workspace\carla\Unreal\CarlaUE4\Plugins\Carla\CarlaDependencies\include\carla/streaming/detail/tcp/ServerSession.h(70): error C2338: This function only accepts arguments of type BufferView.</code>：</p>
 <p>解决：需要使用<a href="https://github.com/GimpelZhang/carla/tree/fisheye">GimpelZhang</a> 的中的<a href="https://github.com/carla-simulator/carla/commit/894736b6dbdd5f0a2bc42d9ec3697a0596e7cb75">FisherSensor.cpp</a> </p>

@@ -69,12 +69,12 @@
             <div class="section" itemprop="articleBody">
               
                 <h2 id="_1">自带语义分割传感器实现路径</h2>
-<p>本文从 Carla 出发，深入UE内部，来理解CARLA中的视觉传感器及真值系统的实现原理。</p>
+<p>本文从 Carla 出发，深入UE内部，来理解 Carla 中的视觉传感器及真值系统的实现原理。</p>
 <h3 id="1">1、知识铺垫</h3>
-<p>CARLA RGB 摄像头传感器代码分析讲了Camera之间的继承关系。下图表达它们的层次关系：</p>
+<p>Carla RGB 摄像头传感器代码分析讲了 Camera 之间的继承关系。下图表达它们的层次关系：</p>
 <p><img alt="camera_inherit" src="../../img/sensor/camera_inherit.jpg" /></p>
 <ul>
-<li><strong>ASensor</strong> 完成CARLA的抽象传感器功能；</li>
+<li><strong>ASensor</strong> 完成 Carla 的抽象传感器功能；</li>
 <li><strong>ASceneCaptureSensor</strong> 实现UE渲染接口，<code>UTextureRenderTarget2D</code> 和 <code>USceneCaptureComponent2D</code> 的加入，并且 <code>USceneCaptureComponent2D</code> 控制着后处理（<code>FPostProcessingSetting</code>）参数；</li>
 <li><strong>AShaderBasedSensor</strong> 主要负责加入后处理材质(PostProcessing Material)，后处理材质也是一种着色器(shader)，对着色有影响，AShaderBasedSensor是抽象类，不是具体的传感器函数，所以只提供功能，供继承子类扩展着色器；</li>
 <li><strong>ASceneCaptureCamera</strong>，<code>ASemanticSegmentationCamera</code>，<code>AOpticalFlowCamera</code>，<code>ASemanticSegmentationCamera</code> 等其他 camera 均继承自AShaderBasedSensor，它们的逻辑大多都很简单，就是使用 AShaderBasedSensor 提供的 AddPostProcessingMaterial 接口，添加后处理材质，根据不同的传感器类型，有不同的着色需求。</li>
@@ -127,7 +127,7 @@
 <img alt="material_bp" src="../../img/sensor/GTMaterial.jpg" /></p>
 <p>首先该材质里引入了两个概念：场景深度、自定义深度。<code>场景深度</code>就是用于渲染的 Z-Depth，光栅渲染判断前后关系用的，在GBuffer中也存在；<code>自定义深度</code>，<code>自定义深度模具</code>值（Custom Depth Stentil Value），Carla 拿来做语义分割的标记，以 Actor 为单位，可以用来区分不同物体，最后根据这个与 Carla 内部逻辑，对图像进行上色（参考 <a href="../../tuto_D_create_semantic_tags/">创建语义标签</a> ）。</p>
 <p>比如，如路面是7，路线是6。</p>
-<p><img alt="material_bp" src="../img/sensor/semantic_tags.jpg" /></p>
+<p><img alt="material_bp" src="../../img/sensor/semantic_tags.jpg" /></p>
 <h3 id="_2">参考</h3>
 <ul>
 <li><a href="https://bbs.carla.org.cn/info/532d57cf2725474b8878a67282ef6e3f?csr=1">视觉传感器系列实现原理分析</a></li>
