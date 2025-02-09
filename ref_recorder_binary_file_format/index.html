@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Ref recorder binary file format - 代理模拟器</title>
+    <title>记录器二进制文件格式 - 代理模拟器</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Ref recorder binary file format";
+        var mkdocs_page_name = "\u8bb0\u5f55\u5668\u4e8c\u8fdb\u5236\u6587\u4ef6\u683c\u5f0f";
         var mkdocs_page_input_path = "ref_recorder_binary_file_format.md";
         var mkdocs_page_url = null;
       </script>
@@ -40,9 +40,297 @@
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">简介</span></p>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="..">首页</a>
-                </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../start_introduction/">介绍</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../start_quickstart/">快速启动</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_first_steps/">第一步</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tutorials/">教程</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_E_gallery/">示例</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_iss/">智能驾驶</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">主题</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../foundations/">基础</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_world/">第一、 世界和客户端</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_actors/">第二、 参与者和蓝图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_map/">第三、地图和导航</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../core_sensors/">第四、 传感器和数据</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../development_tutorials/">开发</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../custom_assets_tutorials/">自定义资产</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_content_authoring_maps/">内容创作-地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_content_authoring_vehicles/">内容创作-车辆</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">主题</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ts_traffic_simulation_overview/">交通模拟概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_traffic_manager/">交通管理器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_sumo/">和 SUMO 协同模拟</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_scenic/">Scenic</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">主题</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_pedestrian_navigation/">行人导航</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_walker_skeletons/">控制行人骨架</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_pedestrian_visual/">行人视觉</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_pedestrian_navigation/">生成行人导航</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_content_authoring_pedestrians/">行人建模</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pedestrian/tuto_content_chrono_opensim/">行人物理场模拟</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">主题</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_opendrive/">OpenDRIVE 独立模式</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_recorder/">记录器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_rendering_options/">渲染选项</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_rss/">责任敏感安全</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_synchrony_timestep/">同步和时间步长</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_agents/">Carla 代理</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../carla_settings/">Carla 配置</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../simulator_keyboard_input/">Carla 模拟器键盘输入</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../carla_headless/">无显示屏运行 Carla 并选择 GPU</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../epic_automotive_materials/">链接 Epic 的汽车材质</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">自定义地图</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_map_overview/">Carla 中自定义地图的概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_generate_map/">在 RoadRunner 中创建地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_package/">在 Carla 包导入地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_source/">在 Carla 源构建中导入地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_add_map_alternative/">导入地图的替代方法</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_manual_map_package/">手动准备地图包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_layers/">自定义地图：分层地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_add_tl/">自定义地图：交通灯和标志</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_road_painter/">自定义地图：道路画家</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_weather_landscape/">自定义地图：天气和景观</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_openstreetmap/">使用 OpenStreetMap 生成地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_M_custom_buildings/">自定义地图：程序建筑</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_procedural_building_tool/">程序化建筑工具</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_digital_twin/">数字孪生工具</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_overview/">大地图概述</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_roadrunner/">在 RoadRunner 中创建大地图</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../large_map_import/">导入/打包大地图</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">自定义开发</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_add_friction_triggers/">添加摩擦触发器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_control_vehicle_physics/">控制车辆物理模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_retrieve_data/">检索模拟数据</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_docker_unreal/">在 Docker 中构建虚幻引擎和 Carla</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_add_vehicle/">添加新车辆</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_add_props/">添加新道具</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_create_standalone/">创建独立包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_A_material_customization/">材料定制</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_contribute_assets/">如何升级内容</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_create_sensor/">创建一个传感器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_create_semantic_tags/">创建语义标签</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_customize_vehicle_suspension/">自定义车辆悬架</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_generate_colliders/">生成详细碰撞</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ue/ue_faq/">虚幻引擎常见问题</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_make_release/">发布版本</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">基准测试</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../leaderboard/">自动驾驶排行榜</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../benchmark_start/">驾驶基准</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_benchmarking/">基准性能</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../benchmark_structure/">驾驶基准结构</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../benchmark_creating/">测试代理</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../benchmark_metrics/">计算的基准性能指标</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">生态系统</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../scenario_runner/">交通场景</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../plugins_carlaviz/">Web 可视化器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ros_documentation/">ROS</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_carsim_integration/">CarSim 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_rllib_integration/">RLlib 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_chrono/">Chrono 集成</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../OpenRadioss/use_OpenRadioss_windows/">OpenRadios 有限元模拟</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_ptv/">PTV-Vissim 联合模拟</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_ansys/">Ansys 实时雷达模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://github.com/darkscyla/MATLAB-Carla-Interface">Matlab 接口</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_G29_windows/">罗技 G29 方向盘</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_esmini/">OpenSCENARIO 播放器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecosys_femfx/">有限元变形材料虚幻插件</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adv_cesium/">地理空间生态系统</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../used_by/">应用Carla的仓库列表</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">源代码编译</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_carla/">编译 Carla</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_linux/">Linux 上编译</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_windows/">Windows 上编译</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_update/">Carla 更新</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_system/">构建系统</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_docker/">Docker 中的 Carla</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build_faq/">常见问题</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_D_windows_debug/">调试程序</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">其他</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="https://ww2.mathworks.cn/help/roadrunner/index.html)">RoadRunner</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://ww2.mathworks.cn/help/roadrunner-scenario/index.html">RoadRunner Scenario</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../third/">Carla 相关的第三方链接</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tuto_G_unreal/">虚幻引擎</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://docs.blender.org/manual/zh-hans/latest/">Blender 手册</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../file_specification/">文件说明</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../todo/">待做列表</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">参考</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../python_api/">Python API 参考</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_cpp/">C++ 参考</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../catalogue/">资源目录</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref_sensors/">传感器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bp_library/">蓝图库</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">记录器二进制文件格式</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#1-">1- 二进制字符串 </a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#2-">2- 信息头 </a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#3-">3- 数据包 </a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#0-">数据包 0 - 帧开始 </a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#1-_1">数据包 1 - 帧结束 </a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2-_1">数据包 2 - 事件添加 </a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#3-_1">数据包 3 - 事件删除 </a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#4-">数据包 4 - 事件父级 </a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5-">数据包 5 - 事件碰撞 </a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#6-">数据包 6 - 位置 </a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#7-">数据包 7 - 交通灯 </a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#8-">数据包 8 - 车辆动画 </a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#9-">数据包 9 - 行人动画 </a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#4-_1">4- 帧布局 </a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#5-_1">5- 文件布局 </a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../measurements/">测量和数据包</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ext_docs/">扩展文档</a>
+                  </li>
               </ul>
       </div>
     </div>
@@ -58,7 +346,8 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Ref recorder binary file format</li>
+          <li class="breadcrumb-item">参考</li>
+      <li class="breadcrumb-item active">记录器二进制文件格式</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/ref_recorder_binary_file_format.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -189,6 +478,10 @@
               
             </div>
           </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../bp_library/" class="btn btn-neutral float-left" title="蓝图库"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../measurements/" class="btn btn-neutral float-right" title="测量和数据包">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
 
   <hr/>
 
@@ -214,6 +507,10 @@
         </span>
     
     
+      <span><a href="../bp_library/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../measurements/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
