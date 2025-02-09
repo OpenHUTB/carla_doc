@@ -3,7 +3,7 @@
 !!! 注意
     湖工商校园网内能访问链接 [http://172.21.108.56:3000](http://172.21.108.56:3000) 可不需要部署，直接使用（用户名：whd@hutb.edu.cn，密码：a5300066）。
 
-### 1.DeepSeek R1 安装
+## 1.DeepSeek R1 安装
 下载并安装 [Ollama](https://ollama.com/download) 后，打开链接 [http://localhost:11434/](http://localhost:11434/) ，验证安装Ollama成功。
 
 运行以下命令安装7b模型（14b）：
@@ -12,7 +12,7 @@ ollama run deepseek-r1:7b
 ```
 下载完成即可通过命令行进行对话。
 
-### 2.安装Docker
+## 2.安装 WebUI
 2.1 以管理员身份运行 PowerShell，执行以下命令启动Hyper-V：
 ```shell
 Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
