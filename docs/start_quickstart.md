@@ -1,4 +1,4 @@
-# [快速启动包安装](https://carla.readthedocs.io/en/latest/start_quickstart/) 
+# [快速启动](https://carla.readthedocs.io/en/latest/start_quickstart/) 
 
 本指南介绍如何下载和安装 Carla 的打包版本。该软件包包括 Carla 服务器和两个客户端库选项。还可以下载其他资源并将其导入到包中。需要使用虚幻引擎编辑器的高级自定义和开发选项不可用，但可以通过使用适用于 [Windows](build_windows.md) 或 [Linux](build_linux.md) 的 Carla 构建版本来访问这些选项。
 

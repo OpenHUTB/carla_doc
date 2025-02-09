@@ -19,7 +19,7 @@ title: 主页
 
 [__介绍__](start_introduction.md) — 对 Carla 的期望
 
-[__快速启动包安装__](start_quickstart.md) — 获取 Carla 版本
+[__快速启动__](start_quickstart.md) — 获取 Carla 版本
 
 [__第一步__](tuto_first_steps.md) — 开始进行 Carla 操作，介绍最重要的概念
 
@@ -46,9 +46,9 @@ title: 主页
 
 [__自定义资产__](custom_assets_tutorials.md) — Carla 中资产的的开发
 
-[__内容创作 - 地图__](tuto_content_authoring_maps.md) — 自定义地图的创作
+[__内容创作-地图__](tuto_content_authoring_maps.md) — 自定义地图的创作
 
-[__内容创作 - 车辆__](tuto_content_authoring_vehicles.md) — 自定义车辆的创作
+[__内容创作-车辆__](tuto_content_authoring_vehicles.md) — 自定义车辆的创作
 
 
 ## 交通
@@ -91,7 +91,7 @@ title: 主页
 
 [__Carla 代理__](adv_agents.md) — 代理脚本允许单个车辆在地图上漫游或开车到设定的目的地
 
-[__Carla 设置__](carla_settings.md) — Carla 参数配置设置
+[__Carla 配置__](carla_settings.md) — Carla 参数配置设置
 
 [__Carla 模拟器键盘输入__](simulator_keyboard_input.md) — 在模拟器窗口中玩游戏时使用的按键绑定
 
@@ -219,7 +219,7 @@ title: 主页
 
 ## 源代码编译
 
-[__构建 Carla__](build_carla.md) — 进行 Carla 编译
+[__编译 Carla__](build_carla.md) — 进行 Carla 编译
 
 [__Linux 上编译__](build_linux.md) — 在 Linux 上进行编译
 
@@ -233,7 +233,7 @@ title: 主页
 
 [__常见问题__](build_faq.md) — 一些最常见的安装问题
 
-[__调试程序__](tuto_D_windows_debug.md) — 进行程序的调试
+[__调试程序__](tuto_D_windows_debug.md) — 进行C++程序的调试
 
 
 ## 贡献

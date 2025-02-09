@@ -1018,7 +1018,7 @@ class V2XSensor(object):
         self.sensor = None
         self._parent = parent_actor
         world = self._parent.get_world()
-        #bp = world.get_blueprint_library().find('sensor.other.v2x_custom')
+        # bp = world.get_blueprint_library().find('sensor.other.v2x_custom')
         bp = world.get_blueprint_library().find('sensor.other.v2x')
         bp.set_attribute("path_loss_model", "geometric")
         self.hud = hud
@@ -1152,7 +1152,7 @@ class CameraManager(object):
             ['sensor.camera.semantic_segmentation', cc.CityScapesPalette, 'Camera Semantic Segmentation (CityScapes Palette)', {}],
             ['sensor.camera.instance_segmentation', cc.CityScapesPalette, 'Camera Instance Segmentation (CityScapes Palette)', {}],
             ['sensor.camera.instance_segmentation', cc.Raw, 'Camera Instance Segmentation (Raw)', {}],
-            # ['sensor.other.v2x', None, 'Lidar (Ray-Cast)', {'range': '50'}],
+            ['sensor.other.v2x', None, 'Lidar (Ray-Cast)', {'range': '50'}],  # 运行车辆后，按9显示，但是车不动
             ['sensor.camera.dvs', cc.Raw, 'Dynamic Vision Sensor', {}],
             ['sensor.camera.rgb', cc.Raw, 'Camera RGB Distorted',
                 {'lens_circle_multiplier': '3.0',
