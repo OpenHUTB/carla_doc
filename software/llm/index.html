@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Llm - 代理模拟器</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Llm";
+        var mkdocs_page_input_path = "software/llm.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 代理模拟器
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">首页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">代理模拟器</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Llm</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/software/llm.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="deepseek-r1-ollamadockeropenwebui"><a href="https://blog.csdn.net/youcans/article/details/145414871">DeepSeek R1 本地部署（Ollama+Docker+OpenWebUI）</a></h1>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>湖工商校园网内能访问链接 <a href="http://172.21.108.56:3000">http://172.21.108.56:3000</a> 可不需要部署，直接使用（用户名：whd@hutb.edu.cn，密码：a5300066）。</p>
+</div>
+<h3 id="1deepseek-r1">1.DeepSeek R1 安装</h3>
+<p>下载并安装 <a href="https://ollama.com/download">Ollama</a> 后，打开链接 <a href="http://localhost:11434/">http://localhost:11434/</a> ，验证安装Ollama成功。</p>
+<p>运行以下命令安装7b模型（14b）：</p>
+<pre><code class="language-shell">ollama run deepseek-r1:7b
+</code></pre>
+<p>下载完成即可通过命令行进行对话。</p>
+<h3 id="2docker">2.安装Docker</h3>
+<p>2.1 以管理员身份运行 PowerShell，执行以下命令启动Hyper-V：</p>
+<pre><code class="language-shell">Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
+</code></pre>
+<p>2.2 安装 <a href="https://www.docker.com/products/docker-desktop/">Docker for Desktop</a></p>
+<p>2.3 安装和启动 open-webui</p>
+<pre><code class="language-shell">docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main
+</code></pre>
+<p>2.4 打开 <a href="http://127.0.0.1:3000">http://127.0.0.1:3000</a> 开始网页使用。</p>
+<h2 id="_1">参考</h2>
+<ul>
+<li><a href="https://blog.csdn.net/AnNanDu/article/details/145462409">全流程安装DeepSeek开源模型</a></li>
+<li><a href="https://www.runoob.com/docker/windows-docker-install.html">Docker 安装</a></li>
+</ul>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
