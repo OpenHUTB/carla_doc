@@ -59,9 +59,9 @@ __1. 存储并更新模拟的当前状态。__
 
 __2. 计算每辆自动驾驶车辆的运动。__
 
-交通管理器根据[模拟状态](#simulation-state)为[车辆注册表](#vehicle-registry)中的所有车辆生成可行的命令。每辆车的计算都是单独进行的。这些计算分为不同的[阶段](#stages-of-the-control-loop)。[控制循环](#control-loop)通过在阶段之间创建同步屏障来确保所有计算的一致性。在当前阶段的所有车辆计算完成之前，没有车辆进入下一阶段。每辆车都会经历以下阶段：
+交通管理器根据[模拟状态](#simulation-state)为[车辆注册表](#vehicle-registry)中的所有车辆生成可行的命令。每辆车的计算都是单独进行的。这些计算分为不同的[阶段](#stages-of-the-control-loop)。[控制循环](#control-loop)通过在阶段之间创建同步墙来确保所有计算的一致性。在当前阶段的所有车辆计算完成之前，没有车辆进入下一阶段。每辆车都会经历以下阶段：
 
->__2.1 - [局部阶段](#stage-1-localization-stage)__
+>__2.1 - [定位阶段](#stage-1-localization-stage)__
 
 >路径是使用从[内存地图](#in-memory-map)中收集的附近路径点列表动态创建的，内存地图是模拟地图作为路径点网格的简化。路口的方向是随机选择的。每辆车的路径均由**路径缓存和车辆轨迹**(Path Buffers & Vehicle Tracking, [PBVT](#pbvt)) 组件存储和维护，以便在未来阶段轻松访问和修改。
 
@@ -75,11 +75,11 @@ __2. 计算每辆自动驾驶车辆的运动。__
 
 >__2.4 - [运动规划阶段](#stage-4-motion-planner-stage).__
 
->车辆运动是根据定义的路径计算的。[PID 控制器](#pid-controller)确定如何到达目标路径点。然后将其转换为 Carla 命令以供下一步应用。
+>车辆运动根据定义的路径计算。[PID 控制器](#pid-controller)确定如何到达目标路径点。然后将其转换为 Carla 命令以供下一步应用。
 
 >__2.5 - [车灯阶段](#stage-5-vehicle-lights-stage).__
 
-> 车灯根据环境因素（例如阳光和雾或雨的存在）和车辆行为（例如，如果车辆将在下一个路口左转/右转，则打开方向指示灯；如果制动，则打开刹车灯）。
+> 车灯根据环境因素（例如阳光和雾或雨的存在）和车辆行为（例如，如果车辆将在下一个路口左转/右转，则打开方向指示灯；如果刹车，则打开刹车灯）。
 
 
 __3. 在模拟中应用命令__
@@ -99,7 +99,7 @@ __3. 在模拟中应用命令__
 - 更新[车辆注册表](#vehicle-registry)中交通管理器控制的车辆列表。
 - 更新[控制循环](#control-loop)和[路径缓存和车辆轨迹](#pbvt)组件中的条目以匹配车辆注册表。
 
-__相关的 .cpp 文件：__ `ALSM.h`, `ALSM.cpp`.
+__相关的 C++ 文件：__ `ALSM.h`, `ALSM.cpp`.
 
 ### 车辆注册表 <span id="vehicle-registry"></span>
 
@@ -110,7 +110,7 @@ __相关的 .cpp 文件：__ `ALSM.h`, `ALSM.cpp`.
 - 从[代理的生命周期和状态管理](#alsm)传递来最新的车辆和行人列表。
 - 将注册到交通管理器的车辆存储在单独的数组中，以便在[控制循环](#control-loop)期间进行迭代。
 
-__相关的 .cpp 文件：__ `MotionPlannerStage.cpp`.
+__相关的 C++ 文件：__ `MotionPlannerStage.cpp`.
 
 ### 模拟状态 <span id="simulation-state"></span>
 
@@ -121,7 +121,7 @@ __相关的 .cpp 文件：__ `MotionPlannerStage.cpp`.
 - 从[代理的生命周期和状态管理](#alsm)接收数据，包括当前参与者 [位置](https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/SimulationState.h#L18) 、[速度](https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/SimulationState.h#L20) 、交通灯影响、[交通灯状态](https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/SimulationState.h#L28) 等。
 - 将所有信息存储在缓存中，避免在[控制循环](#control-loop)期间对服务器的后续调用。
 
-__相关的 .cpp 文件：__ [`SimulationState.cpp`](https://github.com/OpenHUTB/carla/blob/ue4-dev/LibCarla/source/carla/trafficmanager/SimulationState.h) , [`SimulationState.h`](https://github.com/OpenHUTB/carla/blob/ue4-dev/LibCarla/source/carla/trafficmanager/SimulationState.h) 。
+__相关的 C++ 文件：__ [`SimulationState.cpp`](https://github.com/OpenHUTB/carla/blob/ue4-dev/LibCarla/source/carla/trafficmanager/SimulationState.h) , [`SimulationState.h`](https://github.com/OpenHUTB/carla/blob/ue4-dev/LibCarla/source/carla/trafficmanager/SimulationState.h) 。
 
 ### 控制循环 <span id="control-loop"></span>
 
@@ -132,15 +132,15 @@ __相关的 .cpp 文件：__ [`SimulationState.cpp`](https://github.com/OpenHUTB
 - 从[车辆注册表](#vehicle-registry)接收交通管理器控制的车辆数组。
 - 通过循环遍历数组，分别对每辆车执行计算。
 - 将计算分成一系列的[阶段](#stages-of-the-control-loop)。
-- 在阶段之间创建同步屏障以保证一致性。所有车辆的计算在任何车辆移动到下一阶段之前完成，确保所有车辆在同一帧中更新。
+- 在阶段之间创建同步墙以保证一致性。所有车辆的计算在任何车辆移动到下一阶段之前完成，确保所有车辆在同一帧中更新。
 - 协调各[阶段](#stages-of-the-control-loop)之间的过渡，使所有计算同步完成。
 - 当最后一个阶段(**[运动规划阶段](#stage-4-motion-planner-stage)和[车辆灯光阶段](#stage-5-vehicle-lights-stage)**)完成时，将[命令数组](#command-array)发送到服务器，因此在命令计算和命令应用之间没有帧延迟。
 
-__相关的 .cpp 文件:__ [`TrafficManagerLocal.cpp`](https://github.com/OpenHUTB/carla/blob/ue4-dev/LibCarla/source/carla/trafficmanager/TrafficManagerLocal.cpp) 。
+__相关的 C++ 文件:__ [`TrafficManagerLocal.cpp`](https://github.com/OpenHUTB/carla/blob/ue4-dev/LibCarla/source/carla/trafficmanager/TrafficManagerLocal.cpp) 。
 
 ### 内存地图 <span id="in-memory-map"></span>
 
-内存地图是包含在[路径缓存和车辆轨迹](#pbvt)中的辅助模块，在[局部阶段](#stage-1-localization-stage)使用。
+内存地图是包含在[路径缓存和车辆轨迹](#pbvt)中的辅助模块，在[定位阶段](#stage-1-localization-stage)使用。
 
 内存地图:
 
@@ -148,7 +148,7 @@ __相关的 .cpp 文件:__ [`TrafficManagerLocal.cpp`](https://github.com/OpenHU
 - 包含特定数据结构中的路点，并提供更多信息来连接路点和识别道路、路口等。
 - 通过识别这些建筑物的 ID 来快速定位附近区域的车辆。
 
-__相关的 .cpp 文件:__ `InMemoryMap.cpp` and `SimpleWaypoint.cpp`.
+__相关的 C++ 文件:__ `InMemoryMap.cpp` and `SimpleWaypoint.cpp`。
 
 ### 路径缓存和车辆轨迹 <span id="pbvt"></span>
 
@@ -158,7 +158,7 @@ __相关的 .cpp 文件:__ `InMemoryMap.cpp` and `SimpleWaypoint.cpp`.
 
 - 包含一个deque对象的地图，每辆车有一个入口。
 - 包含每辆车的一组路点，描述其当前位置和近期路径。
-- 包含[**局部阶段**](#stage-1-localization-stage)使用的[**内存地图**](#in-memory-map)，用于将每个车辆与最近的路点和可能的重叠路径关联起来。
+- 包含[**定位阶段**](#stage-1-localization-stage)使用的[**内存地图**](#in-memory-map)，用于将每个车辆与最近的路点和可能的重叠路径关联起来。
 
 ### PID 控制器 <span id="pid-controller"></span>
 
@@ -169,7 +169,7 @@ PID控制器是在[**运动规划阶段**](#stage-4-motion-planner-stage)执行�
 - 根据[**运动规划阶段**](#stage-4-motion-planner-stage)收集的信息，估算达到目标值所需的油门、刹车和转向输入。
 - 根据控制器的具体参数化进行调整。如果需要，可以修改参数。阅读更多关于[**PID控制器**](https://en.wikipedia.org/wiki/PID_controller) 的信息，了解如何进行修改。
 
-__相关的 .cpp 文件:__ `PIDController.cpp`.
+__相关的 C++ 文件:__ `PIDController.cpp`.
 
 
 ### 命令数组 <span id="command-array"></span>
@@ -182,76 +182,66 @@ __相关的 .cpp 文件:__ `PIDController.cpp`.
 - 批处理要在同一帧内应用的所有命令。
 - 将批处理发送到在 carla 中调用 **apply_batch**（） 或 **apply_batch_synch（）** 的 **[carla.Client](../python_api/#carla.Client)**，具体取决于模拟是分别以异步模式还是同步模式运行。
 
-__相关的 .cpp 文件:__ [`TrafficManagerLocal.cpp`](https://github.com/OpenHUTB/carla/blob/ue4-dev/LibCarla/source/carla/trafficmanager/TrafficManagerLocal.cpp) 。
+__相关的 C++ 文件:__ [`TrafficManagerLocal.cpp`](https://github.com/OpenHUTB/carla/blob/ue4-dev/LibCarla/source/carla/trafficmanager/TrafficManagerLocal.cpp) 。
 
 ### 控制循环的阶段 <span id="stages-of-the-control-loop"></span>
 
-##### 第 1 阶段 - 局部阶段
+##### 第 1 阶段 - 定位阶段
 
-局部阶段为交通管理器控制的车辆定义了近期的路径。
+[定位阶段](https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/TrafficManagerLocal.cpp#L223) 为交通管理器控制的车辆定义了近期的路径：
 
-[局部阶段](https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/TrafficManagerLocal.cpp#L223) ：
-
-- 从[**模拟状态**](#simulation-state)获取所有车辆的位置和速度。
-- 使用[**内存地图**](#in-memory-map)将每辆车与路径点列表相关联，该路径点列表根据其轨迹描述其**当前位置**和**近期路径**。车辆行驶得越快，路径点列表就越长。
-- 根据规划决策更新路径，例如变道、限速、与前方车辆的距离参数设定等。
+- 从[**模拟状态**](#simulation-state)获取所有车辆的 [位置](https://github.com/OpenHUTB/carla/blob/1b453d00cbf5e0afa00f3e993799c36c9286d75c/LibCarla/source/carla/trafficmanager/LocalizationStage.cpp#L39) 和 [速度](https://github.com/OpenHUTB/carla/blob/1b453d00cbf5e0afa00f3e993799c36c9286d75c/LibCarla/source/carla/trafficmanager/LocalizationStage.cpp#L41) 。
+- 使用[**内存地图**](#in-memory-map)将每辆车与路径点列表相关联，该路径点列表根据其轨迹描述**当前位置**和**近期路径**。车辆行驶得越快，路径点列表就越长（最短15米，低于60km/h则为2倍速度，高于60km/h则为4倍速度）。
+- 根据规划决策（例如变道、限速、与前方车辆的距离参数设定等）[更新路径](https://github.com/OpenHUTB/carla/blob/1b453d00cbf5e0afa00f3e993799c36c9286d75c/LibCarla/source/carla/trafficmanager/LocalizationStage.cpp#L36) 。
 - 将所有车辆的路径存储在[**路径缓存和车辆轨迹**](#pbvt)模块中。
 - 相互比较路径以估计可能的碰撞情况，其结果将传递到碰撞阶段。
 
-__相关的 .cpp 文件:__ [`LocalizationStage.cpp`](https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/LocalizationStage.cpp) 和 [`LocalizationUtils.cpp`](https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/LocalizationUtils.cpp) 。
+相关的 C++ 文件: [`LocalizationStage.cpp`](https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/LocalizationStage.cpp) 和 [`LocalizationUtils.cpp`](https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/LocalizationUtils.cpp) 。
 
 ##### 第 2 阶段 - 碰撞阶段
 
-碰撞阶段会触发碰撞危险。
+[碰撞阶段](https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/TrafficManagerLocal.cpp#L226) 会触发碰撞危险：
 
-[碰撞阶段](https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/TrafficManagerLocal.cpp#L226) ：
-
-- 从[**局部阶段**](#stage-1-localization-stage)接收[路径可能重叠的车辆对列表](https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/CollisionStage.cpp#L46) 。
-- 前方路径（测地线边界）扩展每个车辆对的边界框，以检查它们是否实际重叠并确定碰撞风险是否真实。
+- 从[**定位阶段**](#stage-1-localization-stage)接收[路径可能重叠的车辆对列表](https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/CollisionStage.cpp#L46) 。
+- 从前方路径（测地线边界）扩展每个车辆对的边界框，以检查它们是否实际重叠并确定是否真实存在碰撞风险。
 - 将所有可能碰撞的危险发送到 [**运动规划阶段**](#stage-4-motion-planner-stage)，以相应地修改路径。
 
-__相关的 .cpp 文件:__ [`CollisionStage.cpp`](https://github.com/OpenHUTB/carla/blob/ue4-dev/LibCarla/source/carla/trafficmanager/CollisionStage.cpp) 。
+相关的 C++ 文件: [`CollisionStage.cpp`](https://github.com/OpenHUTB/carla/blob/ue4-dev/LibCarla/source/carla/trafficmanager/CollisionStage.cpp) 。
 
 ##### 第三阶段 - 交通灯阶段
 
-交通灯阶段会触发**交通规则**造成的危险，例如交通信号灯、停车标志和[路口优先通行](https://baike.baidu.com/item/%E8%B7%AF%E5%8F%A3%E4%BC%98%E5%85%88%E9%80%9A%E8%A1%8C/22232880) 。
-
-[交通灯阶段](https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/TrafficManagerLocal.cpp#L231C7-L231C26) ：
+[交通灯阶段](https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/TrafficManagerLocal.cpp#L231C7-L231C26) 会触发**交通规则**造成的危险，例如交通信号灯、停车标志和[路口优先通行](https://baike.baidu.com/item/%E8%B7%AF%E5%8F%A3%E4%BC%98%E5%85%88%E9%80%9A%E8%A1%8C/22232880) 。
 
 - 如果车辆受到黄灯或红灯或停车标志的影响，则设置[交通危险](https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/TrafficLightStage.cpp#L58C7-L58C28) 。
 - 如果边界框位于[没有信号灯的岔路口](https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/TrafficLightStage.cpp#L68) ，则沿车辆路径延伸边界框。路径重叠的车辆遵循“先进先出”的顺序移动。[等待时间](https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/TrafficLightStage.cpp#L121) 设置为固定值。
 
-__相关的 .cpp 文件:__ [`TrafficLightStage.cpp`](https://github.com/OpenHUTB/carla/blob/ue4-dev/LibCarla/source/carla/trafficmanager/TrafficLightStage.cpp) 。
+相关的 C++ 文件: [`TrafficLightStage.cpp`](https://github.com/OpenHUTB/carla/blob/ue4-dev/LibCarla/source/carla/trafficmanager/TrafficLightStage.cpp) 。
 
 ##### 第 4 阶段 - 运动规划阶段
 
-“运动规划阶段”（Motion Planner Stage） 生成要应用于车辆的 Carla 命令。
-
-[运动规划阶段](https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/TrafficManagerLocal.cpp#L232) ：
+[运动规划阶段](https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/TrafficManagerLocal.cpp#L232) 生成要应用于车辆的 Carla 命令：
 
 - 收集车辆的位置和速度（[**模拟状态**](#simulation-state) ）、路径 （[**路径缓存和车辆轨迹**](#pbvt)） 和危险（[**碰撞**](#stage-2-collision-stage)阶段和[**交通信号灯阶段**](#stage-3-traffic-light-stage)）。
 - 对车辆应如何移动做出高级决策，例如，计算防止碰撞危险所需的制动器。[**PID控制器**](#pid-controller)用于根据目标值估计行为。
 - 将期望的运动转化为适用于车辆的 **[carla.VehicleControl。](python_api.md#carla.VehicleControl)**
 - 将生成的 Carla 命令发送到[**命令数组**](#command-array)。
 
-__相关的.cpp文件:__ [`MotionPlannerStage.cpp`](https://github.com/OpenHUTB/carla/blob/ue4-dev/LibCarla/source/carla/trafficmanager/MotionPlanStage.cpp) 。
+相关的 C++ 文件: [`MotionPlannerStage.cpp`](https://github.com/OpenHUTB/carla/blob/ue4-dev/LibCarla/source/carla/trafficmanager/MotionPlanStage.cpp) 。
 
 
 ##### 第 5 阶段 - 车灯阶段
 
-车灯阶段根据车辆状况和周围环境激活车灯。
-	
-[车灯阶段](https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/TrafficManagerLocal.cpp#L233) :
+[车灯阶段](https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/TrafficManagerLocal.cpp#L233) 根据车辆状况和周围环境激活车灯。
 
 - 检索车辆的规划路径点、有关车辆灯光的信息（例如灯光状态和计划应用的命令）和天气状况。
 - 确定车灯的新状态：
   - 如果车辆计划在下一个路口左转/右转，则打开闪光灯。
   - 如果应用的命令要求车辆制动，则打开停车灯。
-  - 从日落到黎明或在大雨中打开近光灯和位置灯。
+  - 从日落到黎明，或在大雨中打开近光灯和位置灯。
   - 在大雾条件下打开雾灯。
 - 如果车灯状态已更改，请更新车灯状态。
 
-__相关的 .cpp 文件:__ [`VehicleLightStage.cpp`](https://github.com/OpenHUTB/carla/blob/ue4-dev/LibCarla/source/carla/trafficmanager/VehicleLightStage.cpp) 。
+相关的 C++ 文件: [`VehicleLightStage.cpp`](https://github.com/OpenHUTB/carla/blob/ue4-dev/LibCarla/source/carla/trafficmanager/VehicleLightStage.cpp) 。
 
 ---
 ## 使用交通管理器 <span id="using-the-traffic-manager"></span>

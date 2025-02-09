@@ -14,6 +14,7 @@ import carla
 import random
 import weakref
 
+
 def get_actor_blueprints(world, filter, generation):
     bps = world.get_blueprint_library().filter(filter)
 
@@ -38,12 +39,13 @@ def get_actor_blueprints(world, filter, generation):
         print("   Warning! Actor Generation is not valid. No actor will be spawned.")
         return []
 
+
 class V2XSensor(object):
     def __init__(self, parent_actor):
         self.sensor = None
         self._parent = parent_actor
         world = self._parent.get_world()
-        #bp = world.get_blueprint_library().find('sensor.other.v2x_custom')
+        # bp = world.get_blueprint_library().find('sensor.other.v2x_custom')
         bp = world.get_blueprint_library().find('sensor.other.v2x')
         self.sensor = world.spawn_actor(
             bp, carla.Transform(), attach_to=self._parent)
@@ -69,7 +71,8 @@ class V2XSensor(object):
             print(msg)
             # print('Cam message received from %s ' % stationId)
             print('Cam message received with power %f ' % power)
-        
+
+
 client = carla.Client("localhost",2000)
 client.set_timeout(2000.0)
 

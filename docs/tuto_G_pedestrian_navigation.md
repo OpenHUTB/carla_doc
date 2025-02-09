@@ -232,7 +232,6 @@ trash = image_queue.get()
 
 ```py
 for frame in range(0,360):
-    
     # 在行人周围移动摄像头
     camera.set_transform(center_camera(pedestrian, frame + 200))
     
