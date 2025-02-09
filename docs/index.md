@@ -259,6 +259,8 @@ title: 主页
 
 [__文件说明__](file_specification.md) — 说明源代码中各个文件的作用
 
+[__大语言模型__](software/llm.md) - 通过大模型来辅助开发
+
 [__待做列表__](todo.md) — 待完成的功能
 
 
