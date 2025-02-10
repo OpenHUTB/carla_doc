@@ -77,3 +77,8 @@ vehicle.enable_chrono_physics(5000, 0.002, vehicle_json, powertrain_json, tire_j
 
 此集成不支持碰撞。__当发生碰撞时，车辆将恢复为 Carla 默认物理状态。__
 
+
+## 扩展
+
+* [Carla 中的 Chrono 实现](chrono/vehicle_overview.md)
+* [中文文档](chrono/manual_vehicle.md)

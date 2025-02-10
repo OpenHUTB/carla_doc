@@ -264,7 +264,7 @@ __B. `.whl` 文件__
 >应使用以下`pip3`命令安装`.whl`文件：
 
 ```sh
-pip3 install <path/to/wheel>.whl
+pip3 install --force-reinstall <path/to/wheel>.whl
 ```
 
 >`.whl`文件无法分发，因为它是专门为您的操作系统构建的。
