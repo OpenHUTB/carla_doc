@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Carla 插件 - 代理模拟器</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Carla \u63d2\u4ef6";
+        var mkdocs_page_input_path = "ue/plugin.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 代理模拟器
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">首页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">代理模拟器</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Carla 插件</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/ue/plugin.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="carla">Carla 插件</h1>
+<p><img alt="" src="../../img/ue/plugin_directory.jpg" /></p>
+<p><code>Carla.uplugin</code>是插件json格式的插件描述文件，可以在插件编辑器中进行修改。</p>
+<p><img alt="" src="../../img/ue/carla_uplugin.jpg" /></p>
+<pre><code class="language-json">{
+    &quot;FileVersion&quot;: 3,
+    &quot;Version&quot;: 1,
+    &quot;VersionName&quot;: &quot;0.9.15&quot;,
+    &quot;FriendlyName&quot;: &quot;CARLA&quot;,
+    &quot;Description&quot;: &quot;Open-source simulator for autonomous driving research.&quot;,
+    &quot;Category&quot;: &quot;Science&quot;,
+    &quot;CreatedBy&quot;: &quot;Computer Vision Center (CVC) at the Universitat Autonoma de Barcelona (UAB)&quot;,
+    &quot;CreatedByURL&quot;: &quot;http://carla.org&quot;,
+    &quot;DocsURL&quot;: &quot;http://carla.readthedocs.io&quot;,
+    &quot;MarketplaceURL&quot;: &quot;&quot;,
+    &quot;SupportURL&quot;: &quot;https://github.com/carla-simulator/carla/issues&quot;,
+    &quot;CanContainContent&quot;: true,
+    &quot;IsBetaVersion&quot;: true,
+    &quot;Installed&quot;: true,
+    &quot;Modules&quot;: [
+        {
+            &quot;Name&quot;: &quot;Carla&quot;,
+            &quot;Type&quot;: &quot;Runtime&quot;,
+            &quot;LoadingPhase&quot;: &quot;PreDefault&quot;,
+            &quot;AdditionalDependencies&quot;: [
+                &quot;Engine&quot;
+            ]
+        }
+    ],
+    &quot;Plugins&quot;: [
+        {
+            &quot;Name&quot;: &quot;PhysXVehicles&quot;,
+            &quot;Enabled&quot;: true
+        },
+        {
+            &quot;Name&quot;: &quot;ProceduralMeshComponent&quot;,
+            &quot;Enabled&quot;: true
+        }
+    ]
+}
+</code></pre>
+<h2 id="_1">参考</h2>
+<ul>
+<li><a href="https://www.jianshu.com/p/e41a810b10ca">Unreal 插件</a></li>
+</ul>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
