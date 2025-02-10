@@ -99,7 +99,7 @@ __3. 在模拟中应用命令__
 - 更新[车辆注册表](#vehicle-registry)中交通管理器控制的车辆列表。
 - 更新[控制循环](#control-loop)和[路径缓存和车辆轨迹](#pbvt)组件中的条目以匹配车辆注册表。
 
-__相关的 C++ 文件：__ `ALSM.h`, `ALSM.cpp`.
+相关的 C++ 文件： `ALSM.h`, `ALSM.cpp`.
 
 ### 车辆注册表 <span id="vehicle-registry"></span>
 
@@ -110,7 +110,7 @@ __相关的 C++ 文件：__ `ALSM.h`, `ALSM.cpp`.
 - 从[代理的生命周期和状态管理](#alsm)传递来最新的车辆和行人列表。
 - 将注册到交通管理器的车辆存储在单独的数组中，以便在[控制循环](#control-loop)期间进行迭代。
 
-__相关的 C++ 文件：__ `MotionPlannerStage.cpp`.
+相关的 C++ 文件： `MotionPlannerStage.cpp`.
 
 ### 模拟状态 <span id="simulation-state"></span>
 
@@ -121,7 +121,7 @@ __相关的 C++ 文件：__ `MotionPlannerStage.cpp`.
 - 从[代理的生命周期和状态管理](#alsm)接收数据，包括当前参与者 [位置](https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/SimulationState.h#L18) 、[速度](https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/SimulationState.h#L20) 、交通灯影响、[交通灯状态](https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/SimulationState.h#L28) 等。
 - 将所有信息存储在缓存中，避免在[控制循环](#control-loop)期间对服务器的后续调用。
 
-__相关的 C++ 文件：__ [`SimulationState.cpp`](https://github.com/OpenHUTB/carla/blob/ue4-dev/LibCarla/source/carla/trafficmanager/SimulationState.h) , [`SimulationState.h`](https://github.com/OpenHUTB/carla/blob/ue4-dev/LibCarla/source/carla/trafficmanager/SimulationState.h) 。
+相关的 C++ 文件： [`SimulationState.cpp`](https://github.com/OpenHUTB/carla/blob/ue4-dev/LibCarla/source/carla/trafficmanager/SimulationState.h) , [`SimulationState.h`](https://github.com/OpenHUTB/carla/blob/ue4-dev/LibCarla/source/carla/trafficmanager/SimulationState.h) 。
 
 ### 控制循环 <span id="control-loop"></span>
 
@@ -134,9 +134,9 @@ __相关的 C++ 文件：__ [`SimulationState.cpp`](https://github.com/OpenHUTB/
 - 将计算分成一系列的[阶段](#stages-of-the-control-loop)。
 - 在阶段之间创建同步墙以保证一致性。所有车辆的计算在任何车辆移动到下一阶段之前完成，确保所有车辆在同一帧中更新。
 - 协调各[阶段](#stages-of-the-control-loop)之间的过渡，使所有计算同步完成。
-- 当最后一个阶段(**[运动规划阶段](#stage-4-motion-planner-stage)和[车辆灯光阶段](#stage-5-vehicle-lights-stage)**)完成时，将[命令数组](#command-array)发送到服务器，因此在命令计算和命令应用之间没有帧延迟。
+- 当最后一个阶段（**[运动规划阶段](#stage-4-motion-planner-stage）和[车辆灯光阶段](#stage-5-vehicle-lights-stage)**)完成时，将[命令数组](#command-array)发送到服务器，因此在命令计算和命令应用之间没有帧延迟。
 
-__相关的 C++ 文件:__ [`TrafficManagerLocal.cpp`](https://github.com/OpenHUTB/carla/blob/ue4-dev/LibCarla/source/carla/trafficmanager/TrafficManagerLocal.cpp) 。
+相关的 C++ 文件: [`TrafficManagerLocal.cpp`](https://github.com/OpenHUTB/carla/blob/ue4-dev/LibCarla/source/carla/trafficmanager/TrafficManagerLocal.cpp) 。
 
 ### 内存地图 <span id="in-memory-map"></span>
 
@@ -148,7 +148,7 @@ __相关的 C++ 文件:__ [`TrafficManagerLocal.cpp`](https://github.com/OpenHUT
 - 包含特定数据结构中的路点，并提供更多信息来连接路点和识别道路、路口等。
 - 通过识别这些建筑物的 ID 来快速定位附近区域的车辆。
 
-__相关的 C++ 文件:__ `InMemoryMap.cpp` and `SimpleWaypoint.cpp`。
+相关的 C++ 文件: `InMemoryMap.cpp` and `SimpleWaypoint.cpp`。
 
 ### 路径缓存和车辆轨迹 <span id="pbvt"></span>
 
@@ -169,7 +169,7 @@ PID控制器是在[**运动规划阶段**](#stage-4-motion-planner-stage)执行�
 - 根据[**运动规划阶段**](#stage-4-motion-planner-stage)收集的信息，估算达到目标值所需的油门、刹车和转向输入。
 - 根据控制器的具体参数化进行调整。如果需要，可以修改参数。阅读更多关于[**PID控制器**](https://en.wikipedia.org/wiki/PID_controller) 的信息，了解如何进行修改。
 
-__相关的 C++ 文件:__ `PIDController.cpp`.
+相关的 C++ 文件: `PIDController.cpp`.
 
 
 ### 命令数组 <span id="command-array"></span>
@@ -182,7 +182,7 @@ __相关的 C++ 文件:__ `PIDController.cpp`.
 - 批处理要在同一帧内应用的所有命令。
 - 将批处理发送到在 carla 中调用 **apply_batch**（） 或 **apply_batch_synch（）** 的 **[carla.Client](../python_api/#carla.Client)**，具体取决于模拟是分别以异步模式还是同步模式运行。
 
-__相关的 C++ 文件:__ [`TrafficManagerLocal.cpp`](https://github.com/OpenHUTB/carla/blob/ue4-dev/LibCarla/source/carla/trafficmanager/TrafficManagerLocal.cpp) 。
+相关的 C++ 文件: [`TrafficManagerLocal.cpp`](https://github.com/OpenHUTB/carla/blob/ue4-dev/LibCarla/source/carla/trafficmanager/TrafficManagerLocal.cpp) 。
 
 ### 控制循环的阶段 <span id="stages-of-the-control-loop"></span>
 

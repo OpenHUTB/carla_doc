@@ -2,9 +2,29 @@ title: 主页
 
 # [代理模拟器](https://carla.readthedocs.io/en/latest/)
 
-欢迎使用代理模拟器文档。此主页包含一个索引，其中简要说明了文档中的不同部分。运行 **入门示例** 后可以按自己喜欢的顺序随意阅读。默认为支持 UE 4.26 的 Carla 文档，支持 UE 5.5 的 Carla 文档请查看 [链接](ue5/index.md) 。
+欢迎使用代理模拟器文档。此主页包含一个索引，其中简要说明了文档中的不同部分。运行 [入门示例](#primary) 后可以按自己喜欢的顺序随意阅读。默认为支持 UE 4.26 的 Carla 文档，支持 UE 5.5 的 Carla 文档请查看 [链接](ue5/index.md) 。
 
-## 入门示例
+* [__入门__](#primary)  
+    * [简介](#introduction)
+* [__代理__](#agent)  
+    *   [车辆](#vehicle)  
+    *   [行人](#pedestrian)  
+* [__模拟器__](#simulator)
+    *   [概念](#concept)
+    *   [开发](#development) 
+* [__现实场景__](#scene)
+    * [虚幻场景](#unreal_scene)
+    * [地图孪生](#map_twin)
+    * [资产孪生](#assert_twin) 
+* [__其他__](#other)
+    * [基准测试](#test)
+    * [贡献指南](#contribution)
+    * [生态系统](#ecology) 
+    * [参考目录](#ref)
+
+---
+
+## 入门 <span id="primary"></span>
 1. 下载 [链接](https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb) 中的`software/carla_0.9.15`中的所有文件并解压；
 2. 运行`WindowsNoEditor`文件夹下的`CarlaUE4.exe`启动场景，进入场景后按`W`、`S`、`A`、`D`移动场景视角；
 3. 使用`Python37/python.exe`运行脚本 [generate_traffic.py](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/generate_traffic.py) 在场景中生成交通流和运行 [python manual_control.py](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/manual_control.py) 生成一辆键盘控制的车。
@@ -13,9 +33,9 @@ title: 主页
 !!! 注意
     如果运行CarlaUE4.exe时候报错：缺少Microsoft Visual C++ Runtime、DirectX Runtime，则需要安装 [vs_community__2019.exe](https://visualstudio.microsoft.com/zh-hans/vs/older-downloads/) （勾选`.NET桌面开发`和`使用C++的桌面开发`）和 [directx_Jun2010_redist.zip](https://www.microsoft.com/zh-CN/download/details.aspx?id=8109)  （解压后运行`DXSETUP.bat`）。当机器性能一般或者调试时，可以降低画质来启动，以获得更流畅的效果：`CarlaUE4.exe -quality-level=Low`，甚至使用`CarlaUE4.exe -nullrhi`禁用所有渲染（无需 GPU）。如果对文档中的任何问题可以在 [本文档的源码仓库](https://github.com/OpenHUTB/carla_doc) 中的 [Issues](https://github.com/OpenHUTB/carla_doc/issues) 页面进行提问或者提交 [Pull Request](https://zhuanlan.zhihu.com/p/153381521) 直接修改文档。
 
----
 
-## 简介 <span id="introduction"></span>
+
+### 简介 <span id="introduction"></span>
 
 [__介绍__](start_introduction.md) — 对 Carla 的期望
 
@@ -23,14 +43,12 @@ title: 主页
 
 [__第一步__](tuto_first_steps.md) — 开始进行 Carla 操作，介绍最重要的概念
 
-[__教程__](tutorials.md) — Carla 详细教程
-
 [__示例__](tuto_E_gallery.md) — Carla 经典示例
 
-[__智能驾驶__](ecosys_iss.md) — 包含用于自动驾驶相关任务的传统和深度学习算法
+[__教程__](tutorials.md) — Carla 详细教程
 
 
-## 主题
+<!-- ## 主题 -->
 
 [__基础__](foundations.md) — Carla 服务器和客户端进行操作和通信所需的基本概念
 
@@ -40,29 +58,39 @@ title: 主页
 
 [__第三、地图和导航__](core_map.md) — 发现不同的地图以及车辆如何移动
 
-[__第四、 传感器和数据__](core_sensors.md) — 使用传感器检索模拟数据
+[__第四、传感器和数据__](core_sensors.md) — 使用传感器检索模拟数据
 
-[__开发__](development_tutorials.md) — 创建自定义功能或内容
+[__检索模拟数据__](tuto_G_retrieve_data.md) — 使用记录器正确收集数据的分步指南
 
-[__自定义资产__](custom_assets_tutorials.md) — Carla 中资产的的开发
+[__边界框__](tuto_G_bounding_boxes.md) — 将  Carla 对象的边界框投影到相机中
 
-[__内容创作-地图__](tuto_content_authoring_maps.md) — 自定义地图的创作
+---
+## 代理 <span id="agent"></span>
 
-[__内容创作-车辆__](tuto_content_authoring_vehicles.md) — 自定义车辆的创作
+### 车辆 <span id="vehicle"></span>
+<!-- 车辆代理：单个 -> 多个 -->
 
+[__手动控制车辆__](tuto_G_pygame.md) — 使用 PyGame 显示相机传感器的输出
 
-## 交通
+[__车辆代理__](adv_agents.md) — 代理脚本允许单个车辆在地图上漫游或开车到设定的目的地
+
+[__智能驾驶__](ecosys_iss.md) — 包含用于自动驾驶相关任务的传统和深度学习算法
+
 
 [__交通模拟概述__](ts_traffic_simulation_overview.md) — 可用于使用交通填充场景的不同选项的概述
 
 [__交通管理器__](adv_traffic_manager.md) — 通过将车辆设置为自动驾驶模式来模拟城市交通
 
+[__交通场景__](scenario_runner.md) — 基于 Carla 交通场景定义和执行引擎
+
+[__交通场景定义__](tuto_G_scenic.md) — 遵循使用 Scenic 库定义不同场景的示例
+
 [__和 SUMO 协同模拟__](adv_sumo.md) — 在 Carla 和 SUMO 之间运行协同模拟
 
-[__Scenic__](tuto_G_scenic.md) — 遵循使用 Scenic 库定义不同场景的示例
 
 
-## 行人
+### 行人 <span id="pedestrian"></span>
+<!-- 行人代理 -->
 
 [__行人导航__](tuto_G_pedestrian_navigation.md) — 使用骨骼为行人设置动画
 
@@ -76,20 +104,29 @@ title: 主页
 
 [__行人物理场模拟__](pedestrian/tuto_content_chrono_opensim.md) — Chrono OpenSim 解析器
 
+---
 
-## 高级概念
+
+## 模拟器 <span id="simulator"></span>
+
+### 概念 <span id="concept"></span>
+<!-- Carla 原理 -->
 
 [__OpenDRIVE 独立模式__](adv_opendrive.md) — 使用任何 OpenDRIVE 文件作为 Carla 地图
 
 [__记录器__](adv_recorder.md) — 在模拟中记录事件并再次播放
 
+[__实例分割相机__](tuto_G_instance_segmentation_sensor.md) — 使用实例分割相机来区分同一类的对象
+
 [__渲染选项__](adv_rendering_options.md) — 从质量设置到不渲染或离屏模式
+
+[__纹理流__](tuto_G_texture_streaming.md) — 实时修改地图对象的纹理以添加变化
 
 [__责任敏感安全__](adv_rss.md) — Carla 客户端库中的责任敏感安全实现
 
 [__同步和时间步长__](adv_synchrony_timestep.md) — 客户端-服务器通信和模拟时间
 
-[__Carla 代理__](adv_agents.md) — 代理脚本允许单个车辆在地图上漫游或开车到设定的目的地
+[__多 GPU__](adv_multigpu.md) — 设置 Carla 模拟器以使用多个 GPU 进行处理
 
 [__Carla 配置__](carla_settings.md) — Carla 参数配置设置
 
@@ -97,12 +134,51 @@ title: 主页
 
 [__无显示屏运行 Carla 并选择 GPU__](carla_headless.md) — 使用未插在屏幕上的GPU来渲染 Carla 的桌面
 
-[__链接 Epic 的汽车材质__](epic_automotive_materials.md) — 下载材质并将其链接到我们的车辆，以获得更逼真的车漆。
 
 
-## 自定义地图
+### 开发 <span id="development"></span>
+<!-- Carla 开发 -->
+
+[__编译 Carla__](build_carla.md) — 进行 Carla 编译
+
+[__Linux 上编译__](build_linux.md) — 在 Linux 上进行编译
+
+[__Windows 上编译__](build_windows.md) — 在 Windows 上进行构建
+
+[__Carla 更新__](build_update.md) — 了解最新内容
+
+[__构建系统__](build_system.md) — 了解构建及其制作方式
+
+[__Docker 中的 Carla__](build_docker.md) — 使用容器解决方案运行 Carla
+
+[__在 Docker 中构建虚幻引擎和 Carla__](build_docker_unreal.md) — 在 Docker 中构建虚幻引擎和 Carla
+
+[__文件说明__](file_specification.md) — 说明源代码中各个模块、文件的作用
+
+[__常见问题__](build_faq.md) — 一些最常见的安装问题
+
+[__调试程序__](tuto_D_windows_debug.md) — 进行C++程序的调试
+
+---
+
+
+## 现实场景  <span id="scene"></span>
+
+### 虚幻场景 <span id="unreal_scene"></span>
+
+[__虚幻引擎__](tuto_G_unreal.md) — 虚幻引擎相关教程
+
+[__虚幻引擎常见问题__](ue/ue_faq.md) - 包括学习流程、概念说明、常见问题和回答等
+
+
+### 地图孪生 <span id="map_twin"></span>
+<!-- 地图、建筑等静态资产 -->
+
+[__数字孪生工具__](adv_digital_twin.md) — 通过 OpenStreetMap 自动生成 Carla 中的道路和建筑
 
 [__Carla 中自定义地图的概述__](tuto_M_custom_map_overview.md) — 添加自定义标准尺寸地图所涉及的过程和选项的概述
+
+[__内容创作-地图__](tuto_content_authoring_maps.md) — 自定义地图的创作
 
 [__在 RoadRunner 中创建地图__](tuto_M_generate_map.md) — 如何在 RoadRunner 中生成海关、标准尺寸的地图
 
@@ -128,8 +204,6 @@ title: 主页
 
 [__程序化建筑工具__](adv_procedural_building_tool.md) 有助于生成虚拟三维建筑，可以通过简单的界面对其尺寸和装饰风格进行调制，以创建近乎无限的变化
 
-[__数字孪生工具__](adv_digital_twin.md) — 通过 OpenStreetMap 自动生成 Carla 中的道路和建筑
-
 [__大地图概述__](large_map_overview.md) — Carla 中大地图工作原理的说明
 
 [__在 RoadRunner 中创建大地图__](large_map_roadrunner.md) — 如何在 RoadRunner 中创建大地图
@@ -137,17 +211,20 @@ title: 主页
 [__导入/打包大地图__](large_map_import.md) — 如何导入大地图
 
 
-## 自定义开发
+### 资产孪生 <span id="assert_twin"></span>
+<!-- 开发资产 -->
+
+[__开发__](development_tutorials.md) — 创建自定义功能或内容
+
+[__自定义资产__](custom_assets_tutorials.md) — Carla 中资产的的开发
 
 [__添加摩擦触发器__](tuto_G_add_friction_triggers.md) — 定义车轮的动态框触发器
 
 [__控制车辆物理模型__](tuto_G_control_vehicle_physics.md) — 设置车辆物理的运行时的变化
 
-[__检索模拟数据__](tuto_G_retrieve_data.md) — 使用记录器正确收集数据的分步指南
-
-[__在 Docker 中构建虚幻引擎和 Carla__](build_docker_unreal.md) — 在 Docker 中构建虚幻引擎和 Carla
-
 [__添加新车辆__](tuto_A_add_vehicle.md) — 准备要在 Carla 中使用的车辆
+
+[__内容创作-车辆__](tuto_content_authoring_vehicles.md) — 自定义车辆的创作
 
 [__添加新道具__](tuto_A_add_props.md) — 将其他道具导入 Carla
 
@@ -165,12 +242,15 @@ title: 主页
 
 [__生成详细碰撞__](tuto_D_generate_colliders.md) — 为车辆创建详细的对撞
 
-[__虚幻引擎常见问题__](ue/ue_faq.md) - 包括学习流程、概念说明、常见问题和回答等
+[__链接 Epic 的汽车材质__](epic_automotive_materials.md) — 下载材质并将其链接到我们的车辆，以获得更逼真的车漆。
 
-[__发布版本__](tuto_D_make_release.md) — 如何发布 Carla
+---
 
+## 其他 <span id="other"></span>
 
-## 基准测试
+<!-- 其他 --> 
+
+### 基准测试 <span id="test"></span>
 
 [__自动驾驶排行榜__](leaderboard.md) - 评估自动驾驶人员在现实交通场景中的驾驶熟练程度
 
@@ -184,9 +264,21 @@ title: 主页
 
 [__计算的基准性能指标__](benchmark_metrics.md) — 用于根据代理在基准测试期间执行的操作计算结果摘要
 
-## 生态系统
 
-[__交通场景__](scenario_runner.md) — 基于 Carla 交通场景定义和执行引擎
+### 贡献指南 <span id="contribution"></span>
+
+[__贡献方式__](cont_contribution_guidelines.md) — 为 Carla 做出贡献的不同方式
+
+[__行为准则__](cont_code_of_conduct.md) — 贡献者的标准权利和义务
+
+[__编码标准__](cont_coding_standard.md) — 编写正确代码的指南
+
+[__文档标准__](cont_doc_standard.md) — 编写适当文档的指南
+
+[__发布版本__](tuto_D_make_release.md) — 如何发布 Carla
+
+
+### 生态系统 <span id="ecology"></span>
 
 [__Web 可视化器__](plugins_carlaviz.md) — 监听模拟并在网络浏览器中显示场景和一些模拟数据的插件
 
@@ -198,73 +290,27 @@ title: 主页
 
 [__Chrono 集成__](tuto_G_chrono.md) — 使用 Chrono 积分来模拟物理
 
-[__OpenRadios 有限元模拟__](OpenRadioss/use_OpenRadioss_windows.md) — 针对动态负载下的高度非线性问题评估和优化产品性能
-
 [__PTV-Vissim 联合模拟__](adv_ptv.md) — 在 Carla 和 PTV-Vissim 之间运行协同模拟
 
 [__Ansys 实时雷达模型__](ecosys_ansys.md) — 有关 Ansys RTR 网络研讨会的详细信息
 
-[__Matlab 接口__](https://github.com/darkscyla/MATLAB-Carla-Interface) 使用 Python 和 ROS 在 Matlab 中调用 Python
+[__NVIDIA Omniverse 的 SimReady__](ecosys_simready.md) - 为模拟而构建的三维内容，简化模拟三维虚拟环境的内容创建管道
 
 [__罗技 G29 方向盘__](tuto_G_G29_windows.md) — 使用罗技方向盘进行车辆控制和模拟对方向盘的反向控制
 
-[__OpenSCENARIO 播放器__](tuto_G_esmini.md) — 基本的 OpenSCENARIO 播放器
-
-[__有限元变形材料虚幻插件__](ecosys_femfx.md) — 用[有限元法用于变形材料物理的多线程 CPU 库](https://github.com/GPUOpen-Effects/FEMFX) 
-
 [__地理空间生态系统__](adv_cesium.md) — 将 3D 地理空间生态系统引入虚幻引擎
-
-[__应用Carla的仓库列表__](used_by.md) - 收集引用了Carla的相关库。
-
-
-## 源代码编译
-
-[__编译 Carla__](build_carla.md) — 进行 Carla 编译
-
-[__Linux 上编译__](build_linux.md) — 在 Linux 上进行编译
-
-[__Windows 上编译__](build_windows.md) — 在 Windows 上进行构建
-
-[__Carla 更新__](build_update.md) — 了解最新内容
-
-[__构建系统__](build_system.md) — 了解构建及其制作方式
-
-[__Docker 中的 Carla__](build_docker.md) — 使用容器解决方案运行 Carla
-
-[__常见问题__](build_faq.md) — 一些最常见的安装问题
-
-[__调试程序__](tuto_D_windows_debug.md) — 进行C++程序的调试
-
-
-## 贡献
-
-[__贡献指南__](cont_contribution_guidelines.md) — 为 Carla 做出贡献的不同方式
-
-[__行为准则__](cont_code_of_conduct.md) — 贡献者的标准权利和义务
-
-[__编码标准__](cont_coding_standard.md) — 编写正确代码的指南
-
-[__文档标准__](cont_doc_standard.md) — 编写适当文档的指南
-
-## 其他
-[__RoadRunner__](https://ww2.mathworks.cn/help/roadrunner/index.html) — 用于构建静态场景
-
-[__RoadRunner Scenario__](https://ww2.mathworks.cn/help/roadrunner-scenario/index.html) — 用于构建动态交通场景
-
-[__Carla 相关的第三方链接__](./third.md) — 中文交流社区
-
-[__虚幻引擎__](tuto_G_unreal.md) — 虚幻引擎相关教程
 
 [__Blender 手册__](https://docs.blender.org/manual/zh-hans/latest/) — 三维建模软件
 
-[__文件说明__](file_specification.md) — 说明源代码中各个文件的作用
-
-[__大语言模型__](software/llm.md) - 通过大模型来辅助开发
+[__Carla 相关的第三方链接__](./third.md) — 中文交流社区
 
 [__待做列表__](todo.md) — 待完成的功能
 
+[__应用Carla的仓库列表__](used_by.md) - 收集引用了Carla的相关库
 
-## 参考
+
+
+### 参考目录 <span id="ref"></span>
 
 [__Python API 参考__](python_api.md) — Python API 中的类和方法
 
@@ -279,6 +325,4 @@ title: 主页
 [__记录器二进制文件格式__](ref_recorder_binary_file_format.md) — 记录器文件格式的详细说明
 
 [__测量和数据包__](measurements.md) - 描述服务器每帧向客户端发送一个包含测量值和收集到图像数据包的详细信息
-
-[__扩展文档__](ext_docs.md) — 其他
 

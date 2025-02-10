@@ -144,7 +144,6 @@ bounding_box_set.extend(world.get_level_bbs(carla.CityObjectLabel.TrafficSigns))
 
 # Remember the edge pairs
 edges = [[0,1], [1,3], [3,2], [2,0], [0,4], [4,5], [5,1], [5,7], [7,6], [6,4], [6,2], [7,3]]
-
 ```
 
 为了查看边界框，我们将使用 OpenCV 窗口来显示相机输出。
@@ -166,7 +165,6 @@ cv2.waitKey(1)
 现在我们将开始游戏循环：
 
 ```py
-
 while True:
     # Retrieve and reshape the image
     world.tick()
@@ -375,14 +373,10 @@ cv2.destroyAllWindows()
 这些数据集通常使用 JSON 或 XML 格式来存储注释。PASCAL VOC 格式有一个方便的 Python 库。
 
 ```py
-
 from pascal_voc_writer import Writer
-
 ...
 ...
 ...
-
-
 while True:
     # Retrieve the image
     world.tick()

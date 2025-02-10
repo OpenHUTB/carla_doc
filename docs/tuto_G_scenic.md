@@ -16,6 +16,7 @@
 - [__创建与 Carla 一起使用的 Scenic 场景__](#creating-a-scenic-scenario-to-use-with-carla)
 - [__运行场景__](#run-the-scenario)
 - [__附加参数__](#additional-parameters)
+- [__参考链接__](#ref_links)
 
 ---
 
@@ -184,9 +185,12 @@ Carla 模型提供了几个全局参数，可以在使用 [`param` 语句](https
 | `render`    | `int`          | 是否让 Carla 创建一个窗口，从自我客体的角度显示模拟：`1`是，`0`否。默认`1`。                                                                              |
 | `record`    | `str`          | 如果非空，则保存用于重放模拟的 Carla 记录文件的文件夹。         |
 
-## 参考链接
+## 参考链接  <span id="ref_links"></span>
 
 * [Carla中交通场景的Scenic世界模型](https://docs.scenic-lang.org/en/3.x/modules/scenic.simulators.carla.model.html) ，对应的 [代码](https://docs.scenic-lang.org/en/3.x/_modules/scenic/simulators/carla/model.html) 。
 
+* [__生成场景__](https://github.com/ArenBabikian/concretize) — 使用特定领域建模语言生成自动驾驶场景。
+
+* [__大模型本地部署__](software/llm.md) - 通过大模型来辅助开发
 
 <br>

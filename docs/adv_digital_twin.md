@@ -73,7 +73,7 @@ cd {CARLA_ROOT}/Build/libosmcout-source/maps/
 
 如果左下角的“内容浏览器”未看到“Carla内容”，到中间下面的“视图选项”中选中“显示插件内容”
 
-要打开 OSM 浏览器，请打开内容浏览器并导航至 `CarlaToolsContent/OnroadMapGenerator`。右键单击 *UW_OnRoadMainWidget* 并从上下文菜单中选择 *运行编辑工具空间（Launch Editor Utility Widget）* 。这将打开该工具的界面。
+要打开 OSM 浏览器，请打开**内容浏览器**并导航至 `CarlaTools内容/OnroadMapGenerator`。右键单击 *UW_OnRoadMainWidget* 并从上下文菜单中选择 *运行编辑工具空间（Launch Editor Utility Widget）* 。这将打开该工具的界面。
 
 ![osm_interface_open](img/digital_twins_widget.png)
 
