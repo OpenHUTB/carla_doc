@@ -425,6 +425,12 @@ public class Carla : ModuleRules
 
 </details>
 
+PublicDefinitions 添加需要设置的宏。
+
+PublicIncludePaths 添加插件的包含路径
+
+
+
 ### Build.cs与VS的关系
 该插件模块编译配置，与配置VS中的项目属性类似，包含进了依赖库等。包括虚幻引擎、VS、Windows Kits的头文件目录：
 ![](../img/ue/Carla.Build.cs.jpg)
