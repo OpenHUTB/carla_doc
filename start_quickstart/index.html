@@ -87,8 +87,9 @@
 <li><a href="#command-line-options">命令行选项</a>  </li>
 </ul>
 </li>
-<li><strong><a href="#updating-carla">更新 Carla</a></strong>    </li>
-<li><strong><a href="#follow-up">跟进</a></strong> </li>
+<li><strong><a href="#updating-carla">更新 Carla</a></strong></li>
+<li><strong><a href="#intranet">湖工商内网访问资源</a></strong></li>
+<li><strong><a href="#follow-up">跟进</a></strong></li>
 </ul>
 <hr />
 <h2 id="_2">在你开始之前 <span id="before-you-begin"></span></h2>
@@ -296,7 +297,17 @@ pip3 uninstall carla
 pip uninstall carla
 </code></pre>
 <hr />
-<h2 id="_6">跟进 <span id="follow-up"></span></h2>
+<h2 id="_6">湖工商内网访问资源 <span id="intranet"></span></h2>
+<p>如果能ping通IP 地址<code>172.21.108.56</code>，则可以访问以下资源。</p>
+<h3 id="_7">代理模拟器的服务器渲染资源</h3>
+<p>可使用<code>config.py</code>来连接远端的代理模拟环境：</p>
+<pre><code class="language-python">python config.py -l --host 172.21.108.56
+</code></pre>
+<p>控制台输出所包含的地图信息表示连接成功，然后可以运行其他示例。</p>
+<h3 id="_8">大模型本地部署</h3>
+<p>可以通过部署好的 <a href="../software/llm/">大模型</a> 来辅助开发。</p>
+<hr />
+<h2 id="_9">跟进 <span id="follow-up"></span></h2>
 <p>现在您应该已经启动并运行了 Carla 的打包版本。如果您在安装过程中遇到任何困难，请随时在 <a href="https://github.com/carla-simulator/carla/discussions/">Carla 论坛</a> 或 <a href="https://discord.gg/8kqACuC">Discord</a> 频道中发帖。</p>
 <p>下一步是详细了解 Carla 的核心概念。阅读 <strong>“第一步”</strong> 部分开始学习。您还可以在 Python API 参考中找到有关 Python API 类和方法的所有信息。</p>
 <div class="build-buttons">

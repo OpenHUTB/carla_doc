@@ -135,7 +135,7 @@
 </code></pre>
 <h2 id="_2">参考框架 <span id="reference_frames"></span></h2>
 <p>每个车辆子系统都是根据其自己的参考系定义的；换句话说，车辆子系统模板中的所有受力点位置都必须根据子系统的参考系提供。然后，车辆系统（无论是轮式还是履带式）被构建为其组成部件的具体模板实例集合，方法是指定它们相对于车辆参考系的位置和方向，并根据需要提供连接信息（例如，将特定的转向机构连接到轮式车辆的特定车轴/悬架）。</p>
-<p>对于建模，<code>Chrono::Vehicle</code> 仅使用 ISO 车辆轴约定，即右侧框架，X 向前，Z 向上，Y 指向车辆左侧（参见 ISO 8855:2011）。下图说明了车辆参考系 $O_1$（按照惯例与底盘子系统的参考系对齐），以及子系统参考系（<script type="math/tex"> O_2^{'} </script> 和 <script type="math/tex"> O_2^{''} </script> 表示前后悬架，<script type="math/tex"> O_3 </script> 表示转向机构），适用于双轴轮式车辆。</p>
+<p>对于建模，<code>Chrono::Vehicle</code> 仅使用 ISO 车辆轴约定，即右侧框架，X 向前，Z 向上，Y 指向车辆左侧（参见 ISO 8855:2011）。下图说明了车辆参考系 <script type="math/tex"> O_1 </script>（按照惯例与底盘子系统的参考系对齐），以及子系统参考系（<script type="math/tex"> O_2^{'} </script> 和 <script type="math/tex"> O_2^{''} </script> 表示前后悬架，<script type="math/tex"> O_3 </script> 表示转向机构），适用于双轴轮式车辆。</p>
 <p><img alt="" src="../../img/chrono/ISO_frame.png" /></p>
 <h2 id="_3">模拟世界框架</h2>
 <p>虽然 <code>Chrono::Vehicle</code> 模拟的默认世界坐标系也是 ISO（Z 向上）坐标系，但支持模拟在不同参考坐标系（例如 Y 向上坐标系）中指定的场景中的车辆。世界坐标系通过旋转矩阵（将 ISO 坐标系与所需世界坐标系对齐所需的旋转）唯一定义。要从默认 ISO 约定更改世界坐标系定义，必须在任何 <code>Chrono::Vehicle</code> 库调用之前设置所需世界坐标系：</p>
