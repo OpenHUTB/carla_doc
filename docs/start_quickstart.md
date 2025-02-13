@@ -4,16 +4,18 @@
 
 * __[在你开始之前](#before-you-begin)__  
 * __[Carla 安装](#carla-installation)__  
-	* [A. Debian Carla 安装](#a-debian-carla-installation)  
-	* [B. 包安装](#b-package-installation)  
+    * [A. Debian Carla 安装](#a-debian-carla-installation)  
+    * [B. 包安装](#b-package-installation)  
 * __[导入额外资产](#import-additional-assets)__  
 * __[安装客户端库](#install-client-library)__
     * [0.9.12 之前的 Carla 版本](#carla-versions-prior-to-0912)
     * [Carla 0.9.12+](#carla-0912)
 * __[运行 Carla](#running-carla)__  
-	* [命令行选项](#command-line-options)  
-* __[更新 Carla](#updating-carla)__    
-* __[跟进](#follow-up)__ 
+    * [命令行选项](#command-line-options)  
+* __[更新 Carla](#updating-carla)__
+* __[湖工商内网访问资源](#intranet)__
+* __[跟进](#follow-up)__
+
 ---
 ## 在你开始之前 <span id="before-you-begin"></span>
 
@@ -256,7 +258,9 @@ python3 manual_control.py
 ./config.py --help # 检查所有可获得的配置选项
 ```
 
+
 ---
+
 ## 更新 Carla <span id="updating-carla"></span>
 
 无法更新 Carla 的打包版本。当新版本发布时，存储库会更新，您需要删除以前的版本并安装新版本。
@@ -270,6 +274,23 @@ pip3 uninstall carla
 # Python 2
 pip uninstall carla
 ```
+
+
+---
+
+## 湖工商内网访问资源 <span id="intranet"></span>
+如果能ping通IP 地址`172.21.108.56`，则可以访问以下资源。
+
+### 代理模拟器的服务器渲染资源
+可使用`config.py`来连接远端的代理模拟环境：
+
+```python
+python config.py -l --host 172.21.108.56
+```
+控制台输出所包含的地图信息表示连接成功，然后可以运行其他示例。
+
+### 大模型本地部署
+可以通过部署好的 [大模型](software/llm.md) 来辅助开发。
 
 ---
 ## 跟进 <span id="follow-up"></span>
