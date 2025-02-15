@@ -311,6 +311,58 @@
 
 [基于确定性等价感知的控制](https://github.com/modestyachts/certainty_equiv_perception_control)
 
+
+## 端到端 <span id="end_2_end"></span>
+
+[寻求更好的端到端自动驾驶解决方案](https://github.com/baotram153/E2E-AD)
+
+[视觉感知、状态估计和定位以及运动规划](https://github.com/NikhilKamathB/SDC?tab=readme-ov-file)
+
+[完成路线并避开障碍物的端到端自动驾驶汽车](https://github.com/prakcoin/ENDEAVR-AutoPilot)
+
+[利用扩散模型在Carla仿真环境下实现可控的端到端驾驶](https://github.com/Justin900429/autonomous_driving_with_diffusion_model)
+
+[引导注意力以提高其驾驶质量](https://github.com/PDillis/guiding-e2e)
+
+[《通过条件模仿学习实现端到端驾驶》的 Tensorflow 实现 ](https://github.com/lpwwpl/imitation/tree/main/imitation-learning-master)
+
+[端到端驾驶模型的隐藏偏差](https://github.com/autonomousvision/carla_garage)
+
+[端到端自动驾驶新范式，缓解因果混淆](https://github.com/OpenDriveLab/DriveAdapter)
+
+[自动驾驶汽车端到端模型的比较研究](https://github.com/atanuc13/A-Comparative-Study-on-End-to-End-Models-for-Self-Driving-Cars)
+
+[通过生成对抗模仿学习实现端到端驾驶](https://github.com/HosseinZaredar/Self-Driving-GAIL)
+
+[使用 GYM 接口在 Carla 模拟环境中学习自动驾驶汽车的端到端解决方案](https://github.com/dataism-lab/simulatrix)
+
+[ BEV 下端到端自动驾驶的 SOTA 解码器](https://github.com/OpenDriveLab/ThinkTwice)
+
+[自动驾驶的精简多任务端到端传感器融合](https://github.com/pagand/e2etransfuser)
+
+[自动驾驶中的路径一致性学习](https://github.com/Ruidi345/pcl_ad)
+
+[用于端到端自动驾驶的自监督自回归Transformer](https://github.com/FuxiaoLiu/SAT)
+
+[端到端驾驶的顺序注意力学习](https://github.com/yixiao1/CILv2_multiview)
+
+[NVIDIA PilotNet 神经网络的 TensorFlow 实现](https://github.com/vishalkrishnads/pilotnet)
+
+[模仿学习与 Transformer 检测](https://github.com/Alexbeast-CN/Detrive)
+
+[具有语义深度云映射和多智能体的端到端自动驾驶](https://github.com/oskarnatan/end-to-end-driving)
+
+[用于端到端自动驾驶的多模融合Transformer](https://github.com/Bosszhe/PITF)
+
+[端到端自动驾驶的神经注意场](https://github.com/autonomousvision/neat)
+
+[端到端自动驾驶的规划专家混合模型](https://github.com/mhnazeri/PMoE)
+
+[端到端自动驾驶汽车使用模仿学习，并使用 GAN 进行未来预测](https://github.com/eslambakr/Future_Imitiation)
+
+[具有自适应感知和稳健决策的节能自动驾驶](https://github.com/xiayuyang/Ene-AD)
+
+
 ## 场景 <span id="scene"></span>
 
 [针对自动驾驶系统的模糊测试方法](https://github.com/yagol2020/SimADFuzz) - 可生成各种驾驶场景来检测 ADS 中的潜在违规行为
@@ -388,57 +440,12 @@
 
 [带肌肉骨骼模型的强化学习环境](https://github.com/stanfordnmbl/osim-rl) - 基于opensim
 
-## 端到端 <span id="end_2_end"></span>
-
-[寻求更好的端到端自动驾驶解决方案](https://github.com/baotram153/E2E-AD)
-
-[视觉感知、状态估计和定位以及运动规划](https://github.com/NikhilKamathB/SDC?tab=readme-ov-file)
-
-[完成路线并避开障碍物的端到端自动驾驶汽车](https://github.com/prakcoin/ENDEAVR-AutoPilot)
-
-[利用扩散模型在Carla仿真环境下实现可控的端到端驾驶](https://github.com/Justin900429/autonomous_driving_with_diffusion_model)
-
-[引导注意力以提高其驾驶质量](https://github.com/PDillis/guiding-e2e)
-
-[《通过条件模仿学习实现端到端驾驶》的 Tensorflow 实现 ](https://github.com/lpwwpl/imitation/tree/main/imitation-learning-master)
-
-[端到端驾驶模型的隐藏偏差](https://github.com/autonomousvision/carla_garage)
-
-[端到端自动驾驶新范式，缓解因果混淆](https://github.com/OpenDriveLab/DriveAdapter)
-
-[自动驾驶汽车端到端模型的比较研究](https://github.com/atanuc13/A-Comparative-Study-on-End-to-End-Models-for-Self-Driving-Cars)
-
-[通过生成对抗模仿学习实现端到端驾驶](https://github.com/HosseinZaredar/Self-Driving-GAIL)
-
-[使用 GYM 接口在 Carla 模拟环境中学习自动驾驶汽车的端到端解决方案](https://github.com/dataism-lab/simulatrix)
-
-[ BEV 下端到端自动驾驶的 SOTA 解码器](https://github.com/OpenDriveLab/ThinkTwice)
-
-[自动驾驶的精简多任务端到端传感器融合](https://github.com/pagand/e2etransfuser)
-
-[自动驾驶中的路径一致性学习](https://github.com/Ruidi345/pcl_ad)
-
-[用于端到端自动驾驶的自监督自回归Transformer](https://github.com/FuxiaoLiu/SAT)
-
-[端到端驾驶的顺序注意力学习](https://github.com/yixiao1/CILv2_multiview)
-
-[NVIDIA PilotNet 神经网络的 TensorFlow 实现](https://github.com/vishalkrishnads/pilotnet)
-
-[模仿学习与 Transformer 检测](https://github.com/Alexbeast-CN/Detrive)
-
-[具有语义深度云映射和多智能体的端到端自动驾驶](https://github.com/oskarnatan/end-to-end-driving)
-
-[用于端到端自动驾驶的多模融合Transformer](https://github.com/Bosszhe/PITF)
-
-[端到端自动驾驶的神经注意场](https://github.com/autonomousvision/neat)
-
-[端到端自动驾驶的规划专家混合模型](https://github.com/mhnazeri/PMoE)
-
-[端到端自动驾驶汽车使用模仿学习，并使用 GAN 进行未来预测](https://github.com/eslambakr/Future_Imitiation)
-
-[具有自适应感知和稳健决策的节能自动驾驶](https://github.com/xiayuyang/Ene-AD)
 
 ## 大模型 <span id="llm"></span>
+
+[一句话生成想要的自动驾驶关键场景](https://github.com/javyduck/ChatScene) 
+
+[大语言模型生成配置文件，再生成各种场景](https://github.com/NJUDeepEngine/LASER)
 
 [基于视觉语言模型的检索增强自动驾驶极端情况理解](https://github.com/yjwangtj/RA-ADC)
 

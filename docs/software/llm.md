@@ -6,7 +6,7 @@
 ## 1.DeepSeek R1 安装
 下载并安装 [Ollama](https://ollama.com/download) 后，打开链接 [http://localhost:11434/](http://localhost:11434/) ，验证安装Ollama成功。
 
-运行以下命令安装7b模型（14b）：
+运行以下命令安装7b模型（目前支持1.5b、7b、14b、32b、70b、671b）：
 ```shell
 ollama run deepseek-r1:7b
 ```
@@ -32,3 +32,4 @@ docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -v open-
 
 * [全流程安装DeepSeek开源模型](https://blog.csdn.net/AnNanDu/article/details/145462409)
 * [Docker 安装](https://www.runoob.com/docker/windows-docker-install.html)
+* [文档和代码](https://github.com/OpenHUTB/carla_doc)

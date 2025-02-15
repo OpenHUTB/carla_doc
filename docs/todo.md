@@ -33,10 +33,6 @@
 
 - [Carla调试工具](https://gitee.com/kin-zhang/quickly-carla) ，下载[链接](https://www.microsoft.com/en-us/download/details.aspx?id=58090) 。
 
-- [一句话生成想要的自动驾驶关键场景](https://github.com/javyduck/ChatScene) 
-
-- [大语言模型生成配置文件，再生成各种场景](https://github.com/NJUDeepEngine/LASER)
-
 - [SUMMIT：大规模混合交通条件下的城市驾驶模拟器](https://github.com/AdaCompNUS/summit)
 
 [![Gurubase](https://img.shields.io/badge/Gurubase-Ask%20CARLA%20Simulator%20Guru-006BFF)](https://gurubase.io/g/carla-simulator)

@@ -32,5 +32,13 @@
   * LibCarla 使用 [谷歌风格指南][googlelink] 的变体。
   * 如果代码在服务器端使用，则应将 `try-catch` 块的使用 `#ifndef LIBCARLA_NO_EXCEPTIONS` 括起来 。
 
-[ue4link]: https://docs.unrealengine.com/latest/INT/Programming/Development/CodingStandard/
+
+
+[ue4link]: https://dev.epicgames.com/documentation/zh-cn/unreal-engine/coding-standard?application_version=4.27
 [googlelink]: https://google.github.io/styleguide/cppguide.html
+
+## 参考
+- [谷歌代码风格指南中文版PDF](https://github.com/zh-google-styleguide/zh-google-styleguide/releases)
+- [一张图总结谷歌 C++ 编程规范](https://blog.csdn.net/voidccc/article/details/37599203)
+
+![](img/dev/google_cpp_style_guide.jpg)
