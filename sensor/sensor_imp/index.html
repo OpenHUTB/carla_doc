@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>传感器实现 - 代理模拟器</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u4f20\u611f\u5668\u5b9e\u73b0";
+        var mkdocs_page_input_path = "sensor/sensor_imp.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 代理模拟器
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">首页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">代理模拟器</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">传感器实现</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/sensor/sensor_imp.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">传感器实现</h1>
+<h2 id="libcarla">LibCarla模块</h2>
+<p>传感器分两种类型，一种是事件触发来发送数据的，例如压线检测，只有当车轮压到车道线时才会触发；
+一种是连续更新数据的，一般是周期性发送数据。以detector结尾的是事件触发类型的传感器，在代码中对应 <a href="https://github.com/OpenHUTB/carla/tree/ue4-dev/LibCarla/source/carla/sensor/data">LibCarla/source/carla/sensor/data/XXXEvent.h</a> ；其他是连续发送数据类型的传感器，在代码中对应<a href="https://github.com/OpenHUTB/carla/tree/ue4-dev/LibCarla/source/carla/sensor/data">LibCarla/source/carla/sensor/data/XXXMeasurement.h</a> 。按照服务端和客户端来划分，<a href="https://openhutb.github.io/carla_doc/ref_sensors/#lane-invasion-detector">压线检测器</a> 是在客户端实现的，其余传感器在服务端实现。传感器使用 UE 坐标系统左手定则，<script type="math/tex"> x </script>向前，<script type="math/tex"> y </script> 向右，<script type="math/tex"> z </script> 向上。</p>
+<h2 id="carlaue4">CarlaUE4模块</h2>
+<p>从 <a href="https://openhutb.github.io/carla_cpp/d1/da4/classAActor.html">类AActor继承关系图</a> 中可知：所有的Sensor都从AActor继承而来。一个Sensor本质上就是一个Actor。Sensor的实现部分在AXXXSenosr类里面，对应的代码位置在 <a href="https://github.com/OpenHUTB/carla/tree/ue4-dev/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor">Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/</a> 中。</p>
+<h2 id="_2">参考</h2>
+<p><a href="https://zhuanlan.zhihu.com/p/484743284">自动驾驶模拟器Carla Sensor（六）</a> </p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../extra.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
