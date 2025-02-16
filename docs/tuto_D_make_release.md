@@ -2,6 +2,9 @@
 
 > _本文档适用于想要发布新版本的开发人员。_
 
+!!! 笔记
+    湖工商内网可以访问的资源：[车辆信息可视化](http://172.21.108.56:8080/) 、[DeepSeek大模型](http://172.21.108.56:3000/) （或 [公网访问](software/llm.md) ）。
+
 1. **确保内容是最新的。**<br>
    请参阅 [升级内容](tuto_D_contribute_assets.md)。
 
@@ -51,3 +54,5 @@ pygame.font.Font(pygame.font.get_default_font(), 20)
 ```
 获得的字体文件为`freesansbold.ttf`，最后将字体文件拷贝到和exe文件相同的路径，然后执行即可。
 
+## 参考
+* [内网穿透](https://natapp.cn/article/config_ini)

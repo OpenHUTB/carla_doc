@@ -2,10 +2,7 @@ title: 主页
 
 # [代理模拟器](https://carla.readthedocs.io/en/latest/)
 
-欢迎使用代理模拟器文档，该页面包含所有内容的索引。运行 [入门](#primary) 示例后可以按自己喜欢的顺序随意阅读。默认为打开 UE 4.26 的 Carla 文档，支持 UE 5.5 的 Carla 文档请查看 [链接](ue5/index.md) 。
-
-!!! 笔记
-    湖工商内网可以访问的资源：[车辆信息可视化](http://172.21.108.56:8080/) 、[__DeepSeek大模型__](http://172.21.108.56:3000) 。
+欢迎使用代理模拟器文档，该页面包含所有内容的索引。运行 [入门](#primary) 示例后可以按自己喜欢的顺序随意阅读（可使用已经部署的 [DeepSeek大模型](software/llm.md) 来辅助开发）。默认为打开 UE 4.26 的 Carla 文档，支持 UE 5.5 的 Carla 文档请查看 [链接](ue5/index.md) 。
 
 * [__入门__](#primary)  
     * [简介](#introduction)

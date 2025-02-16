@@ -1,7 +1,7 @@
 # [DeepSeek R1 本地部署（Ollama+Docker+OpenWebUI）](https://blog.csdn.net/youcans/article/details/145414871)
 
 !!! 注意
-    湖工商校园网内能访问链接 [http://172.21.108.56:3000](http://172.21.108.56:3000) 可不需要部署，直接使用（用户名：2929@hutb.edu.cn，密码：hutb）。
+    也可以直接访问链接 [http://openhutb.natapp1.cc](http://openhutb.natapp1.cc) 进行使用（用户名：2929@hutb.edu.cn，密码：hutb）。
 
 ## 1.DeepSeek R1 安装
 下载并安装 [Ollama](https://ollama.com/download) 后，打开链接 [http://localhost:11434/](http://localhost:11434/) ，验证安装Ollama成功。
