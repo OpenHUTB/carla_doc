@@ -29,7 +29,11 @@
 7. **编辑 GitHub 版本。**<br>
    转到 [GitHub 发布](https://github.com/carla-simulator/carla/releases) 并在新创建的标签之上创建一个新版本。等到 Jenkins 完成发布最新版本的构建，并将下载链接添加到新创建的版本。
 
-# [发布可执行游戏](https://blog.csdn.net/zl834205311/article/details/125905705) 
+## 发布像素流
+
+* [像素流](ue/pixel_streaming.md)
+
+## [发布可执行游戏](https://blog.csdn.net/zl834205311/article/details/125905705) 
 * 安装`pyinstaller`：
 ```shell
 pip install pyinstaller

@@ -1,12 +1,27 @@
 ## 像素流推送
 
+### 步骤
+参考[链接](https://dev.epicgames.com/documentation/zh-cn/unreal-engine/getting-started-with-pixel-streaming?application_version=4.27) 进行配置：
 
-!!! 注意
-    当启动信令服务后访问不了像素流，尝试关闭系统代理然后再访问。
-
+1. 打开像素流插件；
+2. 在主菜单中选择 编辑（Edit） > 编辑器偏好（Editor Preferences...）。然后在 关卡编辑器（Level Editor） > 播放（Play） 中找到 额外启动参数（Additional Launch Parameters） 设置，并将其值设为 `-AudioMixer -PixelStreamingIP=localhost -PixelStreamingPort=8888`。
+3. 按住 Alt 键并拖动 .exe 文件即可在相同文件夹中（或在其他任意处）新建一个快捷方式。右键点击快捷方式并从上下文菜单中选择 属性（Properties）。在 *快捷方式属性（Shortcut Properties） 窗口的 快捷方式（Shortcut） 选项卡中，在 目标（Target） 域的末尾附加文本 `-AudioMixer -PixelStreamingIP=localhost -PixelStreamingPort=8888 -RenderOffScreen` 并点击 确认**。
 
 ### 优化
 量化参数（Quantization Parameter, QP）值用于控制每帧视频中每一个宏块的压缩量，和比特率成反比，QP值越小画质越高。
+
+### 问题
+> 使用链接`http://127.0.0.1:8888`访问时出现：`Upgrade Required`，改用地址`http://127.0.0.1:80`访问则没有问题。
+
+>  当启动信令服务后访问不了像素流（出现：Disconnected: Streamer is not connected），尝试关闭系统代理然后再访问。
+
+排查`netstat -ano|findstr “8888”`端口是否被占用
+
+出现`Streamer connected: ::1`才表示像素流正常工作。
+
+> 页面中点击开始后，出现`Fatal error!`的错误。命令行同时出现`streamer disconnected: 4000 - Failed to parse answer's SDP`的错误。
+> 
+> 解决：参考 [链接](https://zhuanlan.zhihu.com/p/383825174) ，或者复制 [gpt](https://github.com/OpenHUTB/gpt) 中的文件替换。
 
 ### 参考
 
