@@ -92,7 +92,7 @@
 <h3 id="_2">支持 <span id="support"></span></h3>
 <ul>
 <li><strong>Linux</strong> — Carla 0.9.6, 0.9.7, 0.9.8, 0.9.9, 0.9.10.  </li>
-<li><strong>Windows</strong> — Carla 0.9.9, 0.9.10.  </li>
+<li><strong>Windows</strong> — Carla 0.9.9, 0.9.10, 0.9.15.  </li>
 <li><strong>从源代码构建</strong> — 最新更新。</li>
 </ul>
 <hr />
@@ -143,9 +143,12 @@ docker pull mjxu96/carlaviz:0.9.15
 <li>
 <p><strong>b) 在从源代码构建的包中</strong> — 转到 Carla 文件夹，使用 <code>make launch</code> 运行虚幻编辑器，并按<code>Play</code>。</p>
 </li>
+<li>
+<p><strong>c) 运行示例脚本</strong> - <a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/carlaviz_exmaple.py">carlaviz_exmaple</a>  。</p>
+</li>
 </ul>
 <p><strong>2. 运行 carlaviz.</strong> 根据已下载的 Docker 镜像，在另一个终端中运行以下命令。</p>
-<p>更改先前下载的镜像的名称 <code>&lt;name_of_Docker_image&gt;</code>，例如 <code>mjxu96/carlaviz:latest</code> 或 <code>mjxu96/carlaviz:0.9.10</code>。</p>
+<p>更改先前下载的镜像的名称 <code>&lt;name_of_Docker_image&gt;</code>，例如 <code>mjxu96/carlaviz:latest</code> 或 <code>mjxu96/carlaviz:0.9.15</code>。</p>
 <pre><code class="language-sh"># 在 Linux 系统
 docker run -it --network=&quot;host&quot; -e CARLAVIZ_HOST_IP=localhost -e CARLA_SERVER_IP=localhost -e CARLA_SERVER_PORT=2000 &lt;name_of_Docker_image&gt;
 
