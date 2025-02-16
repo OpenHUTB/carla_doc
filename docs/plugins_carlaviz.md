@@ -13,7 +13,7 @@ carlaviz 插件用于在网络浏览器中可视化模拟。创建了一个具�
 ---
 ## 一般信息 <span id="general_information"></span>
 
-*   __贡献者__ — Minjun Xu, 也被称为 [wx9698](https://github.com/wx9698).  
+*   __贡献者__ — Minjun Xu, 也被称为 [mjxu96](https://github.com/mjxu96/carlaviz).  
 *   __许可证__ — [MIT](https://en.wikipedia.org/wiki/MIT_License).  
 
 ### 支持 <span id="support"></span>
@@ -38,14 +38,15 @@ carlaviz 插件用于在网络浏览器中可视化模拟。创建了一个具�
 
 ```bash
 # 仅拉取和所使用的Carla包匹配的镜像。
-docker pull mjxu96/carlaviz:0.9.6
-docker pull mjxu96/carlaviz:0.9.7
-docker pull mjxu96/carlaviz:0.9.8
-docker pull mjxu96/carlaviz:0.9.9
-docker pull mjxu96/carlaviz:0.9.10
+# docker pull mjxu96/carlaviz:0.9.6
+# docker pull mjxu96/carlaviz:0.9.7
+# docker pull mjxu96/carlaviz:0.9.8
+# docker pull mjxu96/carlaviz:0.9.9
+# docker pull mjxu96/carlaviz:0.9.10
 
 # 如果工作在从源代码构建的 Carla 上，则拉取该镜像
-docker pull mjxu96/carlaviz:latest
+# docker pull mjxu96/carlaviz:latest
+docker pull mjxu96/carlaviz:0.9.15
 ```
 
 !!! 重要
@@ -78,7 +79,8 @@ __2. 运行 carlaviz.__ 根据已下载的 Docker 镜像，在另一个终端中
 docker run -it --network="host" -e CARLAVIZ_HOST_IP=localhost -e CARLA_SERVER_IP=localhost -e CARLA_SERVER_PORT=2000 <name_of_Docker_image>
 
 # 在 Windows/MacOS 系统
-docker run -it -e CARLAVIZ_HOST_IP=localhost -e CARLA_SERVER_IP=host.docker.internal -e CARLA_SERVER_PORT=2000 -p 8080-8081:8080-8081 -p 8089:8089 <name_of_Docker_image>
+# docker run -it -e CARLAVIZ_HOST_IP=localhost -e CARLA_SERVER_IP=host.docker.internal -e CARLA_SERVER_PORT=2000 -p 8080-8081:8080-8081 -p 8089:8089 <name_of_Docker_image>
+docker run -it -p 8080-8081:8080-8081 mjxu96/carlaviz:0.9.15 --simulator_host host.docker.internal --simulator_port 2000
 ```
 
 如果一切都已正确设置，carlaviz 将显示类似于以下内容的成功消息。
