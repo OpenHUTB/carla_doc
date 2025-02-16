@@ -86,7 +86,7 @@
 <hr />
 <h2 id="_1">一般信息 <span id="general_information"></span></h2>
 <ul>
-<li><strong>贡献者</strong> — Minjun Xu, 也被称为 <a href="https://github.com/wx9698">wx9698</a>.  </li>
+<li><strong>贡献者</strong> — Minjun Xu, 也被称为 <a href="https://github.com/mjxu96/carlaviz">mjxu96</a>.  </li>
 <li><strong>许可证</strong> — <a href="https://en.wikipedia.org/wiki/MIT_License">MIT</a>.  </li>
 </ul>
 <h3 id="_2">支持 <span id="support"></span></h3>
@@ -106,14 +106,15 @@
 <h3 id="_4">下载插件 <span id="download_the_plugin"></span></h3>
 <p>打开终端并根据要运行的 Carla 版本拉取 carlaviz 的 Docker 映像。</p>
 <pre><code class="language-bash"># 仅拉取和所使用的Carla包匹配的镜像。
-docker pull mjxu96/carlaviz:0.9.6
-docker pull mjxu96/carlaviz:0.9.7
-docker pull mjxu96/carlaviz:0.9.8
-docker pull mjxu96/carlaviz:0.9.9
-docker pull mjxu96/carlaviz:0.9.10
+# docker pull mjxu96/carlaviz:0.9.6
+# docker pull mjxu96/carlaviz:0.9.7
+# docker pull mjxu96/carlaviz:0.9.8
+# docker pull mjxu96/carlaviz:0.9.9
+# docker pull mjxu96/carlaviz:0.9.10
 
 # 如果工作在从源代码构建的 Carla 上，则拉取该镜像
-docker pull mjxu96/carlaviz:latest
+# docker pull mjxu96/carlaviz:latest
+docker pull mjxu96/carlaviz:0.9.15
 </code></pre>
 <div class="admonition 重要">
 <p class="admonition-title">重要</p>
@@ -149,7 +150,8 @@ docker pull mjxu96/carlaviz:latest
 docker run -it --network=&quot;host&quot; -e CARLAVIZ_HOST_IP=localhost -e CARLA_SERVER_IP=localhost -e CARLA_SERVER_PORT=2000 &lt;name_of_Docker_image&gt;
 
 # 在 Windows/MacOS 系统
-docker run -it -e CARLAVIZ_HOST_IP=localhost -e CARLA_SERVER_IP=host.docker.internal -e CARLA_SERVER_PORT=2000 -p 8080-8081:8080-8081 -p 8089:8089 &lt;name_of_Docker_image&gt;
+# docker run -it -e CARLAVIZ_HOST_IP=localhost -e CARLA_SERVER_IP=host.docker.internal -e CARLA_SERVER_PORT=2000 -p 8080-8081:8080-8081 -p 8089:8089 &lt;name_of_Docker_image&gt;
+docker run -it -p 8080-8081:8080-8081 mjxu96/carlaviz:0.9.15 --simulator_host host.docker.internal --simulator_port 2000
 </code></pre>
 <p>如果一切都已正确设置，carlaviz 将显示类似于以下内容的成功消息。</p>
 <p><img alt="carlaviz_run" src="../img/plugins_carlaviz_run.jpg" /></p>
