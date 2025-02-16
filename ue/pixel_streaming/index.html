@@ -69,13 +69,27 @@
             <div class="section" itemprop="articleBody">
               
                 <h2 id="_1">像素流推送</h2>
-<div class="admonition 注意">
-<p class="admonition-title">注意</p>
-<p>当启动信令服务后访问不了像素流，尝试关闭系统代理然后再访问。</p>
-</div>
-<h3 id="_2">优化</h3>
+<h3 id="_2">步骤</h3>
+<p>参考<a href="https://dev.epicgames.com/documentation/zh-cn/unreal-engine/getting-started-with-pixel-streaming?application_version=4.27">链接</a> 进行配置：</p>
+<ol>
+<li>打开像素流插件；</li>
+<li>在主菜单中选择 编辑（Edit） &gt; 编辑器偏好（Editor Preferences...）。然后在 关卡编辑器（Level Editor） &gt; 播放（Play） 中找到 额外启动参数（Additional Launch Parameters） 设置，并将其值设为 <code>-AudioMixer -PixelStreamingIP=localhost -PixelStreamingPort=8888</code>。</li>
+<li>按住 Alt 键并拖动 .exe 文件即可在相同文件夹中（或在其他任意处）新建一个快捷方式。右键点击快捷方式并从上下文菜单中选择 属性（Properties）。在 <em>快捷方式属性（Shortcut Properties） 窗口的 快捷方式（Shortcut） 选项卡中，在 目标（Target） 域的末尾附加文本 <code>-AudioMixer -PixelStreamingIP=localhost -PixelStreamingPort=8888 -RenderOffScreen</code> 并点击 确认</em>*。</li>
+</ol>
+<h3 id="_3">优化</h3>
 <p>量化参数（Quantization Parameter, QP）值用于控制每帧视频中每一个宏块的压缩量，和比特率成反比，QP值越小画质越高。</p>
-<h3 id="_3">参考</h3>
+<h3 id="_4">问题</h3>
+<blockquote>
+<p>使用链接<code>http://127.0.0.1:8888</code>访问时出现：<code>Upgrade Required</code>，改用地址<code>http://127.0.0.1:80</code>访问则没有问题。</p>
+<p>当启动信令服务后访问不了像素流（出现：Disconnected: Streamer is not connected），尝试关闭系统代理然后再访问。</p>
+</blockquote>
+<p>排查<code>netstat -ano|findstr “8888”</code>端口是否被占用</p>
+<p>出现<code>Streamer connected: ::1</code>才表示像素流正常工作。</p>
+<blockquote>
+<p>页面中点击开始后，出现<code>Fatal error!</code>的错误。命令行同时出现<code>streamer disconnected: 4000 - Failed to parse answer's SDP</code>的错误。</p>
+<p>解决：参考 <a href="https://zhuanlan.zhihu.com/p/383825174">链接</a> ，或者复制 <a href="https://github.com/OpenHUTB/gpt">gpt</a> 中的文件替换。</p>
+</blockquote>
+<h3 id="_5">参考</h3>
 <ul>
 <li><a href="https://github.com/OpenHUTB/gpt/tree/main/sim/WindowsNoEditor/Engine/Source/Programs/PixelStreaming/WebServers/SignallingWebServer">交通大模型实现的像素流推送</a></li>
 <li><a href="https://dev.epicgames.com/documentation/zh-cn/unreal-engine/getting-started-with-pixel-streaming?application_version=4.27">像素流送入门</a></li>
