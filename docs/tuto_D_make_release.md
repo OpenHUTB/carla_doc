@@ -3,7 +3,7 @@
 > _本文档适用于想要发布新版本的开发人员。_
 
 !!! 笔记
-    已发布的服务：[Carla C++ 文档](openhutb.github.io/carla_cpp/)、[神经网络原理](openhutb.github.io/neuro/) 、[车辆信息可视化内网访问](http://172.21.108.56:8080/) 、[DeepSeek大模型内网访问](http://172.21.108.56:3000/) （或 [公网访问](software/llm.md) ） 、[Jenkins 8080](http://172.21.108.56:8080/) 。
+    已发布的服务：[Carla C++ 文档](openhutb.github.io/carla_cpp/)、[神经网络原理](openhutb.github.io/neuro/) 、[车辆信息可视化内网访问](http://172.21.108.56:8080/) 、[场景像素流](http://172.21.108.56) 、[DeepSeek大模型内网访问](http://172.21.108.56:3000/) （或 [公网访问](software/llm.md) ） 、[Jenkins 8080](http://172.21.108.56:8080/) 。
 
 1. **确保内容是最新的。**<br>
    请参阅 [升级内容](tuto_D_contribute_assets.md)。

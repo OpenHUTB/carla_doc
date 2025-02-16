@@ -6,6 +6,8 @@
 1. 打开像素流插件；
 2. 在主菜单中选择 编辑（Edit） > 编辑器偏好（Editor Preferences...）。然后在 关卡编辑器（Level Editor） > 播放（Play） 中找到 额外启动参数（Additional Launch Parameters） 设置，并将其值设为 `-AudioMixer -PixelStreamingIP=localhost -PixelStreamingPort=8888`。
 3. 按住 Alt 键并拖动 .exe 文件即可在相同文件夹中（或在其他任意处）新建一个快捷方式。右键点击快捷方式并从上下文菜单中选择 属性（Properties）。在 *快捷方式属性（Shortcut Properties） 窗口的 快捷方式（Shortcut） 选项卡中，在 目标（Target） 域的末尾附加文本 `-AudioMixer -PixelStreamingIP=localhost -PixelStreamingPort=8888 -RenderOffScreen` 并点击 确认**。
+4. 启动`CarlaUE4.exe`，从[链接](https://nodejs.org/zh-cn/download) 下载并安装node.js，然后启动像素流的信令服务`run.bat`；
+5. 使用浏览器访问 [http://127.0.0.1/](http://127.0.0.1/) 测试是否能够访问到像素流。
 
 ### 优化
 量化参数（Quantization Parameter, QP）值用于控制每帧视频中每一个宏块的压缩量，和比特率成反比，QP值越小画质越高。
@@ -19,9 +21,18 @@
 
 出现`Streamer connected: ::1`才表示像素流正常工作。
 
-> 页面中点击开始后，出现`Fatal error!`的错误。命令行同时出现`streamer disconnected: 4000 - Failed to parse answer's SDP`的错误。
+> - 页面中点击开始后，出现`Fatal error!`的错误。命令行同时出现`streamer disconnected: 4000 - Failed to parse answer's SDP`的错误。
 > 
-> 解决：参考 [链接](https://zhuanlan.zhihu.com/p/383825174) ，或者复制 [gpt](https://github.com/OpenHUTB/gpt) 中的文件替换。
+> 解决：参考 [链接](https://zhuanlan.zhihu.com/p/383825174) ，或者复制 [gpt](https://github.com/OpenHUTB/gpt) 中的文件替换，即：
+> 
+> 在`Engine/Source/Programs/PixelStreaming/WebServers/SignallingWebServer/scripts/webRtcPlayer.js`于61行添加：
+> ```
+> this.cfg.offerExtmapAllowMixed = false;
+> ``` 
+> 第125行添加下行代码：
+> ```shell
+> offer.sdp = offer.sdp.replace(/(a=extmap-allow-mixed)\r\n/gm, "");
+> ```
 
 ### 参考
 
