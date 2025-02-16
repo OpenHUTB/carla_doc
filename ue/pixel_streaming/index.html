@@ -75,6 +75,8 @@
 <li>打开像素流插件；</li>
 <li>在主菜单中选择 编辑（Edit） &gt; 编辑器偏好（Editor Preferences...）。然后在 关卡编辑器（Level Editor） &gt; 播放（Play） 中找到 额外启动参数（Additional Launch Parameters） 设置，并将其值设为 <code>-AudioMixer -PixelStreamingIP=localhost -PixelStreamingPort=8888</code>。</li>
 <li>按住 Alt 键并拖动 .exe 文件即可在相同文件夹中（或在其他任意处）新建一个快捷方式。右键点击快捷方式并从上下文菜单中选择 属性（Properties）。在 <em>快捷方式属性（Shortcut Properties） 窗口的 快捷方式（Shortcut） 选项卡中，在 目标（Target） 域的末尾附加文本 <code>-AudioMixer -PixelStreamingIP=localhost -PixelStreamingPort=8888 -RenderOffScreen</code> 并点击 确认</em>*。</li>
+<li>启动<code>CarlaUE4.exe</code>，从<a href="https://nodejs.org/zh-cn/download">链接</a> 下载并安装node.js，然后启动像素流的信令服务<code>run.bat</code>；</li>
+<li>使用浏览器访问 <a href="http://127.0.0.1/">http://127.0.0.1/</a> 测试是否能够访问到像素流。</li>
 </ol>
 <h3 id="_3">优化</h3>
 <p>量化参数（Quantization Parameter, QP）值用于控制每帧视频中每一个宏块的压缩量，和比特率成反比，QP值越小画质越高。</p>
@@ -86,8 +88,15 @@
 <p>排查<code>netstat -ano|findstr “8888”</code>端口是否被占用</p>
 <p>出现<code>Streamer connected: ::1</code>才表示像素流正常工作。</p>
 <blockquote>
-<p>页面中点击开始后，出现<code>Fatal error!</code>的错误。命令行同时出现<code>streamer disconnected: 4000 - Failed to parse answer's SDP</code>的错误。</p>
-<p>解决：参考 <a href="https://zhuanlan.zhihu.com/p/383825174">链接</a> ，或者复制 <a href="https://github.com/OpenHUTB/gpt">gpt</a> 中的文件替换。</p>
+<ul>
+<li>页面中点击开始后，出现<code>Fatal error!</code>的错误。命令行同时出现<code>streamer disconnected: 4000 - Failed to parse answer's SDP</code>的错误。</li>
+</ul>
+<p>解决：参考 <a href="https://zhuanlan.zhihu.com/p/383825174">链接</a> ，或者复制 <a href="https://github.com/OpenHUTB/gpt">gpt</a> 中的文件替换，即：</p>
+<p>在<code>Engine/Source/Programs/PixelStreaming/WebServers/SignallingWebServer/scripts/webRtcPlayer.js</code>于61行添加：
+<code>this.cfg.offerExtmapAllowMixed = false;</code> 
+第125行添加下行代码：
+<code>shell
+offer.sdp = offer.sdp.replace(/(a=extmap-allow-mixed)\r\n/gm, "");</code></p>
 </blockquote>
 <h3 id="_5">参考</h3>
 <ul>
