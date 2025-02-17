@@ -76,6 +76,7 @@ title: 主页
 
 [__智能驾驶__](ecosys_iss.md) — 包含用于自动驾驶相关任务的传统和深度学习算法
 
+[__车辆实现__](vehicle/wheeled_vehicle.md) — 车辆模型
 
 [__交通模拟概述__](ts_traffic_simulation_overview.md) — 可用于使用交通填充场景的不同选项的概述
 
