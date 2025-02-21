@@ -85,3 +85,4 @@ ASemanticSegmentationCamera::ASemanticSegmentationCamera(
 
 - [视觉传感器系列实现原理分析](https://bbs.carla.org.cn/info/532d57cf2725474b8878a67282ef6e3f?csr=1)
 - [UE场景捕获2d 简单监视器效果](https://blog.csdn.net/weixin_74205939/article/details/140893454)
+- [世界、相机、图像和像素坐标之间的转换](https://mazhengg.github.io/2019/03/29/%E4%B8%96%E7%95%8C%E3%80%81%E7%9B%B8%E6%9C%BA%E3%80%81%E5%9B%BE%E5%83%8F%E5%92%8C%E5%83%8F%E7%B4%A0%E5%9D%90%E6%A0%87%E4%B9%8B%E9%97%B4%E7%9A%84%E8%BD%AC%E6%8D%A2/) ：[详细矩阵的参数信息](https://zhuanlan.zhihu.com/p/379269769) 
