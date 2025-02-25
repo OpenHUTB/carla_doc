@@ -108,7 +108,7 @@
 
 [基于 Transformer 的传感器融合模拟，实现自动驾驶](https://github.com/autonomousvision/transfuser)
 
-### 雷达 <span id="LiDAR"></span>
+### 激光雷达 <span id="LiDAR"></span>
 [全面的环境感知](https://github.com/DivitMittal/CARLA-Autonomous-Driving)
 
 ### 其他 <span id="other"></span>
