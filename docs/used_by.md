@@ -1,6 +1,6 @@
-# [引用了Carla的相关库](https://github.com/carla-simulator/carla/network/dependents)
+# [引用了Carla的相关仓库](https://github.com/carla-simulator/carla/network/dependents)
 
-<!-- 更新到最新的仓库： https://ghttps://github.com/yagol2020/SimADFuzz --> 
+<!-- 更新到最新的仓库： https://github.com/richardmarcus/synth-it-like-kitti --> 
 
 
 - [__感知__](#perception)
@@ -8,6 +8,7 @@
     - [跟踪](#tracking)
     - [分割](#segmentation)
     - [融合](#fusion)
+    - [激光雷达](#LiDAR)
     - [其他](#other)
 - [__规划__](#planning)
     - [强化学习](#rl)
@@ -15,18 +16,20 @@
     - [预测](#prediction)
     - [决策](#decision)
 - [__控制__](#control)
+- [__端到端__](#end_2_end)
+- [__大模型__](#llm)
+- [__交通__](#traffic)
 - [__场景__](#scene)
     - [车辆](#vehicle)
     - [传感器](#sensor)
 - [__行人__](#pedestrian)
-- [__端到端__](#end_2_end)
-- [__大模型__](#llm)
+- [__智能体__](#agent)
 - [__多智能体__](#mulgi_agent)
 - [__可解释__](#explainability)
 - [__安全__](#security)
 - [__测试__](#test)
+- [__数据集__](#dataset)
 - [__工具__](#tools)
-- [__机器学习__](#ml)
 - [__杂项__](#misc)
 
 ## 感知 <span id="perception"></span>
@@ -73,6 +76,7 @@
 
 [使用YOLOv3进行车辆检测](https://github.com/ROBERT-ADDO-ASANTE-DARKO/Autonomous-Vehicle-Object-Detection-and-Trajectory-Planning-using-YOLOv3-and-CARLA-Simulator)
 
+[使用 LiDAR 进行物体检测（Point Pillars 方法）](https://github.com/paraccoli/PointPillars-LiDAR)
 
 ### 跟踪 <span id="tracking"></span>
 
@@ -103,6 +107,9 @@
 [端到端自动驾驶的多模态融合Transformer](https://github.com/partha-ghosh/semi-self-driving)
 
 [基于 Transformer 的传感器融合模拟，实现自动驾驶](https://github.com/autonomousvision/transfuser)
+
+### 雷达 <span id="LiDAR"></span>
+[全面的环境感知](https://github.com/DivitMittal/CARLA-Autonomous-Driving)
 
 ### 其他 <span id="other"></span>
 
@@ -243,6 +250,16 @@
 
 [潜在空间强化学习](https://github.com/MarsEleven/car_racer_RL)
 
+[持续离线强化学习](https://github.com/OscarHuangWind/ProFounDrive)
+
+[使用强化学习训练自主应急车辆模型（救护车、警察、消防员）](https://github.com/SafoanMiah/RL-emergency-autonomous-driving)
+
+[基于物理的强化学习](https://github.com/shashoriginal/piril-carla)
+
+[AI Gym 环境中的 rl 代码](https://github.com/meang123/open-ai-gym-rl-code)
+
+[通过双值前向-后向表示进行无监督零样本强化学习](https://github.com/bofusun/DVFB)
+
 ### 导航 <span id="navigation"></span>
 
 [基于 GNM、ViNT、NoMaD 的通用导航模型](https://github.com/AdityaNG/general-navigation)
@@ -311,6 +328,18 @@
 
 [基于确定性等价感知的控制](https://github.com/modestyachts/certainty_equiv_perception_control)
 
+[使用模型预测控制 (MPC) 实现高级防撞](https://github.com/IslamEssam01/Advanced-Collision-Avoidance-using-MPC)
+
+[卡尔曼滤波](https://github.com/yusaku-nakano/kalman_filter_carla)
+
+[带 Stop & Go 的 ACC](https://github.com/Fede802/SVS-Project)
+
+[利用视觉进行车道偏离预防](https://github.com/CrazyPingu/lane-departure-prevention-CARLA)
+
+[前向碰撞预警系统](https://github.com/rares-vsl/SVS-24-FCW)
+
+[https://github.com/croth2305/domain_aware_via_sngp_for_e2e_ad](https://github.com/Wojtekpob/Autonomous-Driving-System)
+
 
 ## 端到端 <span id="end_2_end"></span>
 
@@ -362,6 +391,33 @@
 
 [具有自适应感知和稳健决策的节能自动驾驶](https://github.com/xiayuyang/Ene-AD)
 
+[通过谱归一化神经高斯过程实现 E2E 自动驾驶汽车控制](https://github.com/croth2305/domain_aware_via_sngp_for_e2e_ad)
+
+
+## 大模型 <span id="llm"></span>
+
+[一句话生成想要的自动驾驶关键场景](https://github.com/javyduck/ChatScene) 
+
+[大语言模型生成配置文件，再生成各种场景](https://github.com/NJUDeepEngine/LASER)
+
+[基于视觉语言模型的检索增强自动驾驶极端情况理解](https://github.com/yjwangtj/RA-ADC)
+
+[使用大型视觉模型作为 AV 的驱动代理](https://github.com/AdityaNG/DriveLLaVA)
+
+[使用大型语言模型实现闭环端到端驱动](https://github.com/opendilab/LMDrive)
+
+[扩散驱动](https://github.com/AyexGG/DiffuseDrive_dennisv)
+
+[统一视觉语言模型和强化学习框架](https://github.com/zihaosheng/VLM-RL)
+
+[端到端自动驾驶的 3D 视觉语言预训练生成规划](https://github.com/Tongji-MIC-Lab/GPVL)
+
+[协同驾驶](https://github.com/henryhcliu/CoDriveVis)
+
+
+## 交通 <span id="traffic"></span>
+
+[实时物联网系统，使车辆能够交换位置、速度和道路状况等关键数据，以增强道路安全并优化交通流量](https://github.com/euphoricair7/no_brain_cells_left-codered25)
 
 ## 场景 <span id="scene"></span>
 
@@ -405,6 +461,10 @@
 
 [基于搜索的场景生成算法](https://github.com/idslab-autosec/AutoSVT-Algorithms)
 
+[以自我为中心的 3D 和 4D 重建模型](https://github.com/continental/seed4d)
+
+[使用 SUMO 和 CARLA 模拟 AR 挡风玻璃 HUD 对驾驶性能的影响](https://github.com/Pascal-Jansen/HUD-SUMO)
+
 ### 车辆 <span id="vehicle"></span>
 
 [半挂卡车队列框架](https://github.com/Gaochengzhi/Carla_Truck_Platoon/tree/main)
@@ -412,6 +472,8 @@
 ### 传感器 <span id="sensor"></span>
 
 [LiDAR 点云仿真和传感器放置（雨天的雷达）](https://github.com/PJLab-ADG/PCSim)
+
+[基于语义射线投射传感器构建的简单雷达模拟器](https://github.com/delite3/CRST)
 
 
 ## 行人 <span id="pedestrian"></span>
@@ -430,6 +492,8 @@
 
 [使用 zwift 室内自行车配件在 Carla 中骑自行车](https://github.com/tensorturtle/cycarla)
 
+[开源自行车模拟器](https://github.com/tensorturtle/metacycle)
+
 [智能人群场景分析引擎](https://github.com/adrielkuek/ITSS_2022)
 
 [GUI 工具可帮助人车交互研究人员使用 CARLA 设计和开展交通实验](https://github.com/UmichSIM/SIM_MDP_GUI) - [首页](https://umichsim.github.io/SIM_MDP_GUI/)
@@ -441,24 +505,24 @@
 [带肌肉骨骼模型的强化学习环境](https://github.com/stanfordnmbl/osim-rl) - 基于opensim
 
 
-## 大模型 <span id="llm"></span>
-
-[一句话生成想要的自动驾驶关键场景](https://github.com/javyduck/ChatScene) 
-
-[大语言模型生成配置文件，再生成各种场景](https://github.com/NJUDeepEngine/LASER)
-
-[基于视觉语言模型的检索增强自动驾驶极端情况理解](https://github.com/yjwangtj/RA-ADC)
-
-[使用大型视觉模型作为 AV 的驱动代理](https://github.com/AdityaNG/DriveLLaVA)
-
-[使用大型语言模型实现闭环端到端驱动](https://github.com/opendilab/LMDrive)
-
-[扩散驱动](https://github.com/AyexGG/DiffuseDrive_dennisv)
-
-
 ## 智能体 <span id="agent"></span>
 
 [受人类认知过程启发持续学习、适应和改进自动驾驶新范式](https://github.com/PJLab-ADG/LeapAD)
+
+[构建一辆能够使用 SOTA 技术进化的 AI 汽车](https://github.com/good-sijin/EvolveCar)
+
+[基于动作的自动驾驶表征学习](https://github.com/yixiao1/Action-Based-Representation-Learning)
+
+[出在 BEV 中学习以对象为中心的表示](https://github.com/Shamdan17/CarFormer)
+
+[机器学习演示](https://github.com/kishkaru/ML-demos)
+
+[智能体训练栈](https://github.com/pAplakidis/ADA_training_stack)
+
+[探索和绘制月球表面地图](https://github.com/Sthirunavukkarasu7450/PennStateLACTeam?tab=readme-ov-file)
+
+[自动驾驶汽车](https://github.com/mayank-vekariya/SelfDriving-Carla) - 对应的 [毕业论文](https://github.com/mayank-vekariya/Carla-Master) 
+
 
 ## 多智能体 <span id="mulgi_agent"></span>
 
@@ -486,7 +550,10 @@
 
 [联邦学习自动驾驶](https://github.com/SIAT-INVS/CarlaFLCAV)
 
+
 ## 可解释 <span id="explainability"></span>
+
+[使用深度生成模型的反事实解释方法](https://github.com/darshandodamani/A-Counterfactual-Explanation-Approach-Using-Deep-Generative-Models)
 
 [反事实解释](https://github.com/darshandodamani/KontrafaktischeErkl-rungzurAD-Masterarbeit) ：确定输入中的哪些微小变化会改变模型的决策。
 
@@ -598,6 +665,8 @@
 
 [稳健性引导测试：CARLA、RSS、参数探索](https://github.com/nellro/rgt)
 
+[测试自主代理的框架](https://github.com/MasoudJTehrani/PCLA)
+
 
 ## 数据集 <span id="dataset"></span>
 
@@ -639,13 +708,25 @@
 
 [基于动态情况的相关传感器数据选择](https://github.com/akshaynarla/DySi_Select)
 
+[行车记录仪视频事故预测](https://github.com/Tranito/SOD-Cog-TAA)
+
+[像 Kitti 一样合成](https://github.com/richardmarcus/synth-it-like-kitti)
+
 ## 工具 <span id="tools"></span>
+
+[自动驾驶模拟及相关任务的综合框架](https://github.com/femw03/DAI_project) - 集成了车辆控制、计算机视觉、强化学习环境和通过 CARLA 进行模拟的模块。
+
+[在各种环境中尝试训练和迁移深度强化模型](https://github.com/Guthax/Sim2Sim2Real)
+
+[提供 API 以将基于 CommonRoad 的工具与CARLA一起使用](https://github.com/CommonRoad/commonroad-carla-interface) 
 
 [自动驾驶算法测试平台](https://github.com/siupal/UniversalPlatformForAutodriving)
 
 [包含 CARLA 排行榜 2.0 的第一个完整入门套件](https://github.com/akodama428/carla_garage)
 
 [驾驶试验](https://github.com/VIPERFGCU/FGCUDrivingSimulator)
+
+[自动驾驶简介](https://github.com/mubashir1osmani/self-driving-car)
 
 [gym 环境](https://github.com/natelincyber/carla-gym-optim)
 
@@ -762,14 +843,9 @@
 
 [用于深度强化学习的多智能体互联自动驾驶 (MACAD) Gym 环境](https://github.com/praveen-palanisamy/macad-gym)
 
+[自动驾驶强化学习快速启动小工具](https://github.com/siupal/CarlaAutodriveQuickStart) - 生成点选择器、拍摄地图全景、驾驶场景示例
 
-
-
-## 机器学习 <span id="ml"></span>
-
-[基于动作的自动驾驶表征学习](https://github.com/yixiao1/Action-Based-Representation-Learning)
-
-[机器学习演示](https://github.com/kishkaru/ML-demos)
+[简化Carla和Autoware的安装](https://github.com/pradhanshrijal/pha_carlaware)
 
 ## 杂项 <span id="misc"></span>
 
@@ -806,6 +882,8 @@
 [车辆自主模拟应用](https://github.com/lucas-cosson/m2project)
 
 [自动停车项目](https://github.com/Louis2099/autonomous_parking_project)
+
+[停车模拟](https://github.com/rubenmartinezgonzalez94/UADY-carla-tests)
 
 [自动泊车](https://github.com/irinamrdhtllh/autonomous-parking-rl)
 
@@ -1002,3 +1080,6 @@
 [自动驾驶Carla代理](https://github.com/Teo03/self-driving-agent)
 
 [carla_project](https://github.com/bradyz/carla_project)
+
+[各种自动驾驶任务代码](https://github.com/KrishGupta25/SelfDrivingSTEM)
+
