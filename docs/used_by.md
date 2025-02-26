@@ -338,7 +338,7 @@
 
 [前向碰撞预警系统](https://github.com/rares-vsl/SVS-24-FCW)
 
-[https://github.com/croth2305/domain_aware_via_sngp_for_e2e_ad](https://github.com/Wojtekpob/Autonomous-Driving-System)
+[自动驾驶汽车控制系统文档](https://github.com/Wojtekpob/Autonomous-Driving-System)
 
 
 ## 端到端 <span id="end_2_end"></span>
