@@ -492,7 +492,7 @@
 
 [行人社会力模型](https://github.com/felixlutz/carla-social-force-model)
 
-[使用 zwift 室内自行车配件在 Carla 中骑自行车](https://github.com/tensorturtle/cycarla)
+[与智能室内自行车配件配合使用的自行车模拟器](https://github.com/tensorturtle/Metacycle) - 可提供最高程度的游戏内控制和反馈。参考的是快废弃的 [使用 zwift 室内自行车配件在 Carla 中骑自行车](https://github.com/tensorturtle/cycarla) 。
 
 [开源自行车模拟器](https://github.com/tensorturtle/metacycle)
 
