@@ -1,6 +1,6 @@
 # [引用了Carla的相关仓库](https://github.com/carla-simulator/carla/network/dependents)
 
-<!-- 更新到最新的仓库： https://github.com/richardmarcus/synth-it-like-kitti --> 
+<!-- 更新到最新的仓库： https://github.com/fachrinnk4869/end-to-end-self-driving --> 
 
 
 - [__感知__](#perception)
@@ -391,6 +391,8 @@
 
 [具有自适应感知和稳健决策的节能自动驾驶](https://github.com/xiayuyang/Ene-AD)
 
+[端到端自动驾驶](https://github.com/fachrinnk4869/end-to-end-self-driving)
+
 [通过谱归一化神经高斯过程实现 E2E 自动驾驶汽车控制](https://github.com/croth2305/domain_aware_via_sngp_for_e2e_ad)
 
 
@@ -525,6 +527,8 @@
 
 
 ## 多智能体 <span id="mulgi_agent"></span>
+
+[多智能体强化学习](https://github.com/csuce2202/Carla_RL_Multi_Agent)
 
 [可定制多智能体训练营](https://github.com/TrustAISys/cmad-gym)
 
@@ -717,6 +721,8 @@
 [自动驾驶模拟及相关任务的综合框架](https://github.com/femw03/DAI_project) - 集成了车辆控制、计算机视觉、强化学习环境和通过 CARLA 进行模拟的模块。
 
 [在各种环境中尝试训练和迁移深度强化模型](https://github.com/Guthax/Sim2Sim2Real)
+
+[允许研究人员在模拟环境中对各种车辆进行驾驶试验并记录](https://github.com/johnny-mai7/carlaSimulator)
 
 [提供 API 以将基于 CommonRoad 的工具与CARLA一起使用](https://github.com/CommonRoad/commonroad-carla-interface) 
 
