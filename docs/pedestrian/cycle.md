@@ -36,6 +36,10 @@ metacycle
 # 可以通过传递参数 --map 来切换地图，比如：
 metacycle --map Town10HD
 ```
+4.查看已安装和可安装的环境（可选）：
+```shell
+uv python list
+```
 
 ## 效果
 通过点击界面当中的`Toggle Control Mode()`来切换使用键盘进行控制。

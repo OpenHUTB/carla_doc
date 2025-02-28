@@ -19,7 +19,7 @@ Carla 模拟器由可扩展的客户端-服务器架构组成。
 客户端由一组客户端模块组成，控制场景中参与者的逻辑并设置世界条件。Carla架构的设计请参考[链接](./carla_design.md)。这是通过利用 Carla API（Python 或 C++ 语言）来实现的，Carla API 是服务器和客户端之间的中介层，不断发展以提供新功能。
 
 
-![CARLA Modules](img/carla_modules.png)
+![CARLA Modules](img/build_modules.jpg)
 
 这总结了模拟器的基本结构。然而，了解 Carla 的意义远不止于此，因为它共存了许多不同的功能和元素。下面列出了其中一些，以便了解 Carla 可以实现的功能。
 

@@ -3471,7 +3471,7 @@ OpenDRIVE当前位置的 <b>s</b> 值 。
 
 ## carla.WeatherParameters<a name="carla.WeatherParameters"></a>
 此类定义了包含光照和天气规范的对象，这些规范稍后可以应用在 [carla.World](#carla.World) 中。到目前为止，这些条件仅影响 [sensor.camera.rgb](ref_sensors.md#rgb-camera)。它们既不影响参与者的物理特性，也不影响其他传感器。
-这些参数中的每一个都独立于其他参数起作用。增加降雨量不会自动形成水坑，也不会改变道路的湿度。这可以实现更好的定制，但也意味着需要编写现实条件的脚本。然而，可以在 [此处](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/dynamic_weather.py) 找到实际运行的动态天气条件的示例。
+这些参数中的每一个都独立于其他参数起作用。增加降雨量不会自动形成水坑，也不会改变道路的湿度。这可以实现更好的定制，但也意味着需要编写现实条件的脚本。然而，可以在 [该脚本](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/dynamic_weather.py) 中找到实际运行的动态天气条件的示例。
 
 
 ### 实例变量

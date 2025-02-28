@@ -164,6 +164,9 @@ python3 manual_control.py
 
 这就是关于 carlaviz 插件的全部信息。如果有任何疑问，请随时在论坛中发布。
 
+## 其他
+[Carla＋Carlaviz：仿真数据可视化](https://mp.weixin.qq.com/s/LLGqp8ESzXWOejrSsBKnNw)
+
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">

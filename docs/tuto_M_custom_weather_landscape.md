@@ -1,4 +1,4 @@
-# 自定义地图：天气和景观
+# [自定义地图：天气和景观](https://carla.readthedocs.io/en/latest/tuto_M_custom_weather_landscape/)
 
 Carla 提供了多个蓝图，可帮助您轻松创建地图的默认天气设置，并使用序列化网格（例如路灯、电线等）填充景观。
 
@@ -23,20 +23,20 @@ Carla 提供了多个蓝图，可帮助您轻松创建地图的默认天气设�
 
 本节介绍如何在设置地图的默认天气之前尝试不同的天气参数，以及在对设置感到满意后如何为地图配置默认天气参数。
 
-### BP_Sky <span id="bp_sky"></span>
+### 天空蓝图 BP_Sky <span id="bp_sky"></span>
 
-蓝图`BP_Sky`对于为地图带来光线和天气是必要的。在决定默认天气参数之前，它还可以用于测试不同的天气配置。
+[蓝图`BP_Sky`](https://bitbucket.org/carla-simulator/carla-content/src/master/Blueprints/Weather/BP_Sky.uasset) 对于为地图带来光线和天气是必要的。在决定默认天气参数之前，它还可以用于测试不同的天气配置。
 
 `BP_Sky` 蓝图可能已经加载到您的地图中。如果没有，您可以通过`Content/Carla/Blueprints/Weather`将其拖到场景中来添加它。
 
-要尝试不同的天气参数，请转到 `BP_Sky` 参与者的 _Details_ 面板，然后使用 _Parameters_  部分中的值。
+要尝试不同的天气参数，请转到 `BP_Sky` 参与者的 _细节(Details)_ 面板，然后使用 _参数(Parameters)_ 部分中的值。
 
 !!! 重要
     如果场景中加载了多个 `BP_Sky` 蓝图，天气将会重复，从而产生不良结果，例如，有两个太阳。
 
-### BP_Weather <span id="bp_weather"></span>
+### 天气蓝图 BP_Weather <span id="bp_weather"></span>
 
-地图的默认天气在`BP_Weather`蓝图中定义。此蓝图允许您设置与通过 Python API 提供的参数相同的参数。[此处](https://carla.readthedocs.io/en/latest/python_api/#carlaweatherparameters) 描述了这些参数。
+地图的默认天气在天气蓝图`BP_Weather`中定义。此蓝图允许设置的参数和 Python API 相同。[此处](python_api.md#carlaweatherparameters) 描述了这些参数。
 
 要设置地图的默认天气：
 
@@ -46,15 +46,15 @@ __1. 打开 `BP_Weather` 蓝图。__
 
 __2. 添加您的城镇。__
 
-在`BP_Weather`窗口的 _Details_ 面板中，转到 _Weather_ 部分并将您的城镇添加到 _Default Weathers_ 数组中。
+在`BP_Weather`窗口中间选中 _Default Weathers_，在 _细节(Details)_ 面板中，转到  _Default Weathers_ 部分并将您的城镇添加到数组中。
 
 __3. 配置默认天气参数。__
 
-对于每个天气参数，设置您想要的值。完成后，按 _Compile_ ，然后按 _Save_ 并关闭。
+对于每个天气参数，设置您想要的值。完成后，按 _编译(Compile)_ ，然后按 _保存(Save)_ 并关闭。
 
->>>>>![bp_weather_pic](./img/map_customization/BP_Weather.jpg)<br>
-<div style="text-align: right">
-<i>包含每个 Carla 地图的默认天气参数的数组。Town01 打开。</i></div>
+![bp_weather_pic](./img/map_customization/BP_Weather.jpg)<br>
+<div style="text-align: center">
+<i>包含每个 Carla 地图的默认天气参数的数组。打开 Town10HD_Opt。</i></div>
 <br>
 
 ---
