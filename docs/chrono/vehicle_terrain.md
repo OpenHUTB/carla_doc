@@ -1,10 +1,11 @@
 # 地形模型
 
-- [__平坦地形__](#four_wheel)
-- [__坚硬地形__](#two_wheel)
-- [__可变形 SCM（土壤接触模型）__](#kinematic)
-- [__颗粒状地形__](#X_wheel)
-- [__可变形 FEA（ANCF 实体元素）__](#X_wheel)
+- [__平坦地形__](#flat_terrain)
+- [__坚硬地形__](#rigid_terrain)
+- [__CRG 地形__](#CRG_terrain)
+- [__可变形 SCM（土壤接触模型）__](#deformable_SCM)
+- [__颗粒状地形__](#granular_terrain)
+- [__可变形 FEA（ANCF 实体元素）__](#deformable_FEA)
 
 
 Chrono::Vehicle 中的地形对象必须提供以下方法：
@@ -19,14 +20,14 @@ Chrono::Vehicle 中的地形对象必须提供以下方法：
 
 此外，某些轮胎模型可能会使用摩擦系数值来修改轮胎特性，但不会对地形与其他物体的相互作用产生影响（包括未明确使用它的轮胎模型）。
 
-ChTerrain 基类还定义了一个函子对象 [ChTerrain::FrictionFunctor](https://api.projectchrono.org/classchrono_1_1vehicle_1_1_ch_terrain_1_1_friction_functor.html) ，它提供了一个用于指定位置相关摩擦系数的接口。用户必须实现从此基类派生的自定义类，并实现虚拟方法`operator()`以返回给定位置正下方点的摩擦系数（x , y, z）位置（假定在当前世界框架中表达）。
+ChTerrain 基类还定义了一个函子对象 [ChTerrain::FrictionFunctor](https://api.projectchrono.org/classchrono_1_1vehicle_1_1_ch_terrain_1_1_friction_functor.html) ，它提供了一个用于指定位置相关摩擦系数的接口。用户必须实现从此基类派生的自定义类，并实现虚拟方法`operator()`以返回给定位置正下方点的摩擦系数（\(x\) , \(y\), \(z\)）位置（假定在当前世界框架中表达）。
 
-## 平坦地形
+## 平坦地形 <span id="flat_terrain"></span>
 [FlatTerrain](https://api.projectchrono.org/classchrono_1_1vehicle_1_1_flat_terrain.html) 是一个水平面模型，具有无限延伸，位于用户指定的高度。[FlatTerrain ::GetCoefficientFriction](https://api.projectchrono.org/classchrono_1_1vehicle_1_1_flat_terrain.html#a6ed899c2419f4cfc203ade3a5e6f6f90) 方法返回构造时指定的恒定摩擦系数，或者，如果 `FrictionFunctor` 已注册对象，则返回其返回值。
 
 由于平坦地形模型不带有任何碰撞和接触信息，因此它只能与 [半经验轮胎模型](https://api.projectchrono.org/wheeled_tire.html#vehicle_tire_empirical) 一起使用。
 
-## 坚硬地形
+## 坚硬地形 <span id="rigid_terrain"></span>
 [RigidTerrain](https://api.projectchrono.org/classchrono_1_1vehicle_1_1_rigid_terrain.html) 是具有任意几何形状的刚性地形模型。刚性地形被指定为一组面片，每个面片可以是以下之一：
 
 - 一个矩形框，可能已旋转；“驱动”表面是框的顶面（在世界的垂直方向上）
@@ -184,7 +185,7 @@ ChTerrain 基类还定义了一个函子对象 [ChTerrain::FrictionFunctor](http
 }
 ```
 
-## CRG 地形
+## CRG 地形 <span id="CRG_terrain"></span>
 [CRGTerrain](https://api.projectchrono.org/classchrono_1_1vehicle_1_1_c_r_g_terrain.html) 是根据OpenCRG道路规范构建的程序化地形模型。要使用此地形模型，用户必须安装 OpenCRG SDK 并在 CMake 配置期间启用其使用（请参阅 Chrono::Vehicle [安装说明](https://api.projectchrono.org/module_vehicle_installation.html) ）。
 
 CRG 地形从规范文件（例如下面列出的文件）创建道路轮廓（具有相关宽度的 3D 路径），并实现函数 [CRGTerrain::GetHeight](https://api.projectchrono.org/classchrono_1_1vehicle_1_1_c_r_g_terrain.html#ab4cbc1a9e3f36502e7314afb33b360e9) 和[CRGTerrain::GetNormal](https://api.projectchrono.org/classchrono_1_1vehicle_1_1_c_r_g_terrain.html#a651324a3cf9503a7c59abfe11c41efc0) 以使用此规范。请注意，crg规范文件可以是 ASCII 或二进制。
@@ -272,7 +273,7 @@ CRG 地形可以视为三角形网格（代表道路“带”）或一组 3D 贝
 
 由于CRG地形模型目前不携带任何碰撞和接触信息，因此它只能与半经验轮胎模型一起使用。
 
-## 可变形 SCM（土壤接触模型）
+## 可变形 SCM（土壤接触模型） <span id="deformable_SCM"></span>
 在 [SCMTerrain](https://api.projectchrono.org/classchrono_1_1vehicle_1_1_s_c_m_terrain.html) 中，地形由隐式规则笛卡尔网格表示，其变形通过其节点的垂直偏转实现。该土壤模型借鉴了 Chrono 中的通用碰撞引擎，其轻量级公式允许近乎实时地计算车辆与地形的接触力。为了解决内存和计算效率问题，从未明确创建网格。相反，只在哈希图中维护已变形的节点。此外，碰撞系统中的光线投射（SCM 计算中最昂贵的操作）是多线程的。为了高效地可视化变形的地形，Chrono SCM 子系统提供了逐步更新可视化网格的方法，并且在使用外部可视化系统时报告上一个时间步内变形的节点子集。
 
 下图所示，轮胎在可变形土壤中留下车辙，说明了 SCM 的 Chrono 版本的网格结构。
@@ -281,14 +282,19 @@ CRG 地形可以视为三角形网格（代表道路“带”）或一组 3D 贝
 
 SCM 基于半经验模型，参数很少，因此很容易根据实验结果进行校准。它可以被视为 Bekker-Wong 模型的推广，适用于任意三维形状的车轮（或履带板）。对于在可变形土壤上移动的车轮，Bekker 公式提供了压力与土壤垂直变形之间的关系：
 
+$$
+\sigma = ( \frac{k_c}{b} + k \phi ) y^n
+$$
 
-这里σ是接触面压力，y 是车轮下沉，$k_c$是表示土壤粘结效应的经验系数，kφ是表示土壤刚度的经验系数，n是表达硬化效应的指数，它随着土壤的压实而非线性地增加。最后，b是矩形接触足迹较短边的长度（因为原始 Bekker 理论假设圆柱形轮胎在平坦地形上滚动）。
+这里 \( \sigma \) 是接触面压力，\( y \) 是车轮下沉，\( k_c \)是表示土壤粘结效应的经验系数，\( k \sigma \) 是表示土壤刚度的经验系数，\( n \) 是表达硬化效应的指数，它随着土壤的压实而非线性地增加。最后，\( b \) 是矩形接触足迹较短边的长度（因为原始 Bekker 理论假设圆柱形轮胎在平坦地形上滚动）。
 
-对于通用接触足迹，长度b不能像原始 Bekker 模型那样解释；相反，我们通过首先获取所有连接的接触面（使用泛洪算法）并使用近似值来估计这个长度
+对于通用接触足迹，长度 \( b \) 不能像原始 Bekker 模型那样解释；相反，我们通过首先获取所有连接的接触面（使用泛洪算法）并使用近似值来估计这个长度
 
-b = 2A / L
+$$
+b \approx \frac{2A}{L}
+$$
 
-这里A是接触面积的面积，L 是它的周长。
+这里 \( A \) 是接触面积的面积，\( L \) 是它的周长。
 
 Chrono SCM 实现的其他一些功能包括：
 
@@ -296,13 +302,13 @@ Chrono SCM 实现的其他一些功能包括：
     - 常规平铺网格（填充平面矩形）
     - 从高度图（以灰度 BMP 图像提供）
     - 以编程方式
-- 支持任意方向的地形参考平面；默认情况下，地形被定义为（x , y）平面是ISO框架
+- 支持任意方向的地形参考平面；默认情况下，地形被定义为（\( x \) , \( y \) ）平面是ISO框架
 - 支持移动面片方法，其中光线投射（成本最高的操作）被限制在指定的范围内——相对于车辆移动的矩形面片或边界框的投影
-- 支持指定与位置相关的土壤参数；这可以通过提供自定义回调类来实现，该回调类实现一种返回给定位置的所有土壤参数的方法（x , y）地形参考平面中指定的点。参见SCMTerrain::SoilParametersCallback
+- 支持指定与位置相关的土壤参数；这可以通过提供自定义回调类来实现，该回调类实现一种返回给定位置的所有土壤参数的方法（\( x \) , \( y \)）地形参考平面中指定的点。参见SCMTerrain::SoilParametersCallback
 
 由于与这种地形类型的交互是通过底层的 Chrono 接触系统完成的，因此它可以与刚性或FEA轮胎模型以及履带式车辆结合使用。
 
-## 颗粒状地形
+## 颗粒状地形 <span id="granular_terrain"></span>
 [GranularTerrain](GranularTerrain实现了矩形颗粒状材料块，并利用了 Chrono 对所谓的离散元法 (DEM) 模拟的广泛支持。目前，此地形模型仅限于单分散球形颗粒状材料。
 ) 实现了矩形颗粒状材料块，并利用了 Chrono 对所谓的离散元法 (DEM) 模拟的广泛支持。目前，此地形模型仅限于单分散球形颗粒状材料。
 
@@ -322,7 +328,7 @@ GranularTerrain 的其他功能包括：
 由于与这种地形类型的交互是通过底层的 Chrono 接触系统完成的，因此它可以与刚性或FEA轮胎模型以及履带式车辆结合使用。
 
 
-## 可变形 FEA（ANCF 实体元素）
+## 可变形 FEA（ANCF 实体元素） <span id="deformable_FEA"></span>
 [FEATerrain](https://api.projectchrono.org/classchrono_1_1vehicle_1_1_f_e_a_terrain.html) 基于 [ChElementHexaANCF_3813_9](https://api.projectchrono.org/classchrono_1_1vehicle_1_1_f_e_a_terrain.html) 类型的专用 FEA 砖块元素提供可变形地形模型。
 该地形模型允许：
 

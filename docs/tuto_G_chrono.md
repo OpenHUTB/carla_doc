@@ -81,4 +81,4 @@ vehicle.enable_chrono_physics(5000, 0.002, vehicle_json, powertrain_json, tire_j
 ## 扩展
 
 * [Carla 中的 Chrono 实现](chrono/vehicle_overview.md)
-* [中文文档](chrono/manual_vehicle.md)
+* [Chrono 中文文档](chrono/manual_vehicle.md)

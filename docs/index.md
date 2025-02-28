@@ -17,10 +17,11 @@ title: 主页
     * [地图孪生](#map_twin)
     * [资产孪生](#assert_twin) 
 * [__其他__](#other)
+    * [参考目录](#ref)
+    * [生态系统](#ecology)
     * [基准测试](#test)
     * [贡献指南](#contribution)
-    * [生态系统](#ecology) 
-    * [参考目录](#ref)
+    
 
 ---
 
@@ -259,32 +260,21 @@ title: 主页
 
 <!-- 其他 --> 
 
-### 基准测试 <span id="test"></span>
+### 参考目录 <span id="ref"></span>
 
-[__自动驾驶排行榜__](leaderboard.md) - 评估自动驾驶人员在现实交通场景中的驾驶熟练程度
+[__Python API 参考__](python_api.md) — Python API 中的类和方法
 
-[__驾驶基准__](benchmark_start.md) — 用于评估驾驶控制器（代理）并获取有关其性能的指标
+[__C++ 参考__](ref_cpp.md) — Carla C++ 中的类和方法
 
-[__基准性能__](adv_benchmarking.md) — 分析 Carla 在自己的环境中的性能
+[__资源目录__](catalogue.md) — Carla 中资源的目录列表
 
-[__驾驶基准结构__](benchmark_structure.md) — 驾驶基准模块的总体结构
+[__传感器__](ref_sensors.md) — 关于传感器及其检索数据的一切
 
-[__测试代理__](benchmark_creating.md) — 对你的代理进行基准测试
+[__蓝图库__](bp_library.md) — 提供用于生成参与者的蓝图
 
-[__计算的基准性能指标__](benchmark_metrics.md) — 用于根据代理在基准测试期间执行的操作计算结果摘要
+[__记录器二进制文件格式__](ref_recorder_binary_file_format.md) — 记录器文件格式的详细说明
 
-
-### 贡献指南 <span id="contribution"></span>
-
-[__贡献方式__](cont_contribution_guidelines.md) — 为 Carla 做出贡献的不同方式
-
-[__行为准则__](cont_code_of_conduct.md) — 贡献者的标准权利和义务
-
-[__编码标准__](cont_coding_standard.md) — 编写正确代码的指南
-
-[__文档标准__](cont_doc_standard.md) — 编写适当文档的指南
-
-[__发布版本__](tuto_D_make_release.md) — 如何发布 Carla
+[__测量和数据包__](measurements.md) - 描述服务器每帧向客户端发送一个包含测量值和收集到图像数据包的详细信息
 
 
 ### 生态系统 <span id="ecology"></span>
@@ -318,20 +308,31 @@ title: 主页
 [__应用Carla的仓库列表__](used_by.md) - 收集引用了Carla的相关库
 
 
+### 基准测试 <span id="test"></span>
 
-### 参考目录 <span id="ref"></span>
+[__自动驾驶排行榜__](leaderboard.md) - 评估自动驾驶人员在现实交通场景中的驾驶熟练程度
 
-[__Python API 参考__](python_api.md) — Python API 中的类和方法
+[__驾驶基准__](benchmark_start.md) — 用于评估驾驶控制器（代理）并获取有关其性能的指标
 
-[__C++ 参考__](ref_cpp.md) — Carla C++ 中的类和方法
+[__基准性能__](adv_benchmarking.md) — 分析 Carla 在自己的环境中的性能
 
-[__资源目录__](catalogue.md) — Carla 中资源的目录列表
+[__驾驶基准结构__](benchmark_structure.md) — 驾驶基准模块的总体结构
 
-[__传感器__](ref_sensors.md) — 关于传感器及其检索数据的一切
+[__测试代理__](benchmark_creating.md) — 对你的代理进行基准测试
 
-[__蓝图库__](bp_library.md) — 提供用于生成参与者的蓝图
+[__计算的基准性能指标__](benchmark_metrics.md) — 用于根据代理在基准测试期间执行的操作计算结果摘要
 
-[__记录器二进制文件格式__](ref_recorder_binary_file_format.md) — 记录器文件格式的详细说明
 
-[__测量和数据包__](measurements.md) - 描述服务器每帧向客户端发送一个包含测量值和收集到图像数据包的详细信息
+### 贡献指南 <span id="contribution"></span>
+
+[__贡献方式__](cont_contribution_guidelines.md) — 为 Carla 做出贡献的不同方式
+
+[__行为准则__](cont_code_of_conduct.md) — 贡献者的标准权利和义务
+
+[__编码标准__](cont_coding_standard.md) — 编写正确代码的指南
+
+[__文档标准__](cont_doc_standard.md) — 编写适当文档的指南
+
+[__发布版本__](tuto_D_make_release.md) — 如何发布 Carla
+
 

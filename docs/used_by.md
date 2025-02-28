@@ -1,6 +1,6 @@
 # [引用了Carla的相关仓库](https://github.com/carla-simulator/carla/network/dependents)
 
-<!-- 更新到最新的仓库： https://github.com/fachrinnk4869/end-to-end-self-driving --> 
+<!-- 更新到最新的仓库： https://github.com/TechOctopus/carla_bc --> 
 
 
 - [__感知__](#perception)
@@ -853,6 +853,8 @@
 
 [简化Carla和Autoware的安装](https://github.com/pradhanshrijal/pha_carlaware)
 
+[CARLA 0.9.15 上使用 ROS2 模拟](https://github.com/rohankhaire-work/carla-ros2-env)
+
 ## 杂项 <span id="misc"></span>
 
 [智能车辆系统项目](https://github.com/davidedimarco00/SVS-Project)
@@ -880,6 +882,8 @@
 [NYCU 智能驾驶系统专题 2024 春季](https://github.com/HCIS-Lab/IDS_s24)
 
 [NTU CSIE 物联网班实验室](https://github.com/leon123858/IOT2022)
+
+[sdcar](https://github.com/Baebabe/sdcar)
 
 [自动驾驶汽车课程作业](https://github.com/baj31415/self-driving-cars)
 
