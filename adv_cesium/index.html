@@ -72,15 +72,25 @@
 <p>1.下载并解压 <a href="https://github.com/CesiumGS/cesium-unreal/releases/download/v1.18.0-ue4/CesiumForUnreal-426-v1.18.0-ue4.zip">Cesium for Unreal 插件</a> 到CarlaUE引擎的plugins文件夹下：</p>
 <p><img alt="" src="../img/cesium/plugins.png" /></p>
 <p>2.如果CesiumForUnreal未启用，则在CarlaUE中添加插件</p>
-<p><img alt="" src="../img/cesium/plugins_menu.png" />
-<img alt="" src="../img/cesium/add_plugin.png" />
+<div align=center>![](img/cesium/plugins_menu.png) </div>
+<blockquote>
+<blockquote>
+<p><img alt="" src="../img/cesium/add_plugin.png" />
 添加完成后重启引擎。</p>
+</blockquote>
+</blockquote>
 <p>3.添加插件对象到场景中，配置参数和模型路径：</p>
 <p><code>CesiumGeoreference</code>设置为：<code>28.235238,  112.877178,  0</code></p>
-<p><code>Source</code>设置为<code>File:///D:/ssd/model/tileset.json</code>。
-<img alt="" src="../img/cesium/add_plugin_object.png" />
-<img alt="" src="../img/cesium/config_parameter.png" />
-<img alt="" src="../img/cesium/config_model_path.png" /></p>
+<p><code>Source</code>设置为<code>File:///D:/ssd/model/tileset.json</code>。<br></p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p><img alt="" src="../img/cesium/add_plugin_object.png" /> </p>
+<p><img alt="" src="../img/cesium/config_parameter.png" /></p>
+<p><img alt="" src="../img/cesium/config_model_path.png" /></p>
+</blockquote>
+</blockquote>
+</blockquote>
 <div class="admonition 注意">
 <p class="admonition-title">注意</p>
 <p>从<a href="https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb">链接</a> 中的<code>map</code>文件夹内下载<code>中电软件园_cesium_model.zip</code>并解压。这里测试用的是本地路径，也可以用静态资源服务。</p>
@@ -93,11 +103,11 @@
 <h2 id="_1">倾斜摄影</h2>
 <p>由倾斜摄影osgb转换成3Dtiles格式（cesium可直接使用）。</p>
 <h2 id="_2">导入中电软件园场景</h2>
-<p>1.<a href="../build_windows/">从源代码编译Carla</a>；
-2.导入插件：roadrunner插件（包括RoadRunnerCarlaContent、RoadRunnerCarlaDatasmith、RoadRunnerCarlaIntegration、RoadRunnerDatasmith、RoadRunnerImporter、RoadRunnerMaterials、RoadRunnerRuntime）、Cesium插件；
-3.导入fbx地图（导入选项都是默认），默认生成的地图是<code>Content/Carla/Maps/roadbuild</code>；
-4.根据<a href="./">倾斜模型导入Carla</a>的步骤添加除了建筑以外的其他资产；
-5.导入自己设计的关卡：虚幻编辑器-&gt;窗口-&gt;关卡，从<code>内容浏览器</code>中将<code>langan.umap</code>、<code>tafficsign.umap</code>、<code>Trees1.umap</code>等关卡拖到弹出的<code>关卡</code>页面，并<code>右键每个关卡-&gt;修改流送方法-&gt;固定加载</code>；</p>
+<p>1.<a href="../build_windows/">从源代码编译Carla</a>；</p>
+<p>2.导入插件：roadrunner插件（包括RoadRunnerCarlaContent、RoadRunnerCarlaDatasmith、RoadRunnerCarlaIntegration、RoadRunnerDatasmith、RoadRunnerImporter、RoadRunnerMaterials、RoadRunnerRuntime）、Cesium插件；</p>
+<p>3.导入fbx地图（导入选项都是默认），默认生成的地图是<code>Content/Carla/Maps/roadbuild</code>；</p>
+<p>4.根据<a href="./">倾斜模型导入Carla</a>的步骤添加除了建筑以外的其他资产；</p>
+<p>5.导入自己设计的关卡：虚幻编辑器-&gt;窗口-&gt;关卡，从<code>内容浏览器</code>中将<code>langan.umap</code>、<code>tafficsign.umap</code>、<code>Trees1.umap</code>等关卡拖到弹出的<code>关卡</code>页面，并<code>右键每个关卡-&gt;修改流送方法-&gt;固定加载</code>；</p>
 <h2 id="_3">参考</h2>
 <ul>
 <li><a href="https://zhuanlan.zhihu.com/p/365834299">Cesium for Unreal快速入门</a></li>

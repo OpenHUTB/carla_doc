@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>自定义地图：天气和景观 - 代理模拟器</title>
+    <title>tuto M custom weather landscape - 代理模拟器</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "\u81ea\u5b9a\u4e49\u5730\u56fe\uff1a\u5929\u6c14\u548c\u666f\u89c2";
+        var mkdocs_page_name = "tuto M custom weather landscape";
         var mkdocs_page_input_path = "tuto_M_custom_weather_landscape.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,7 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">自定义地图：天气和景观</li>
+      <li class="breadcrumb-item active">tuto M custom weather landscape</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/tuto_M_custom_weather_landscape.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -68,7 +68,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1">自定义地图：天气和景观</h1>
+                <h1 id="_1"><a href="https://carla.readthedocs.io/en/latest/tuto_M_custom_weather_landscape/">自定义地图：天气和景观</a></h1>
 <p>Carla 提供了多个蓝图，可帮助您轻松创建地图的默认天气设置，并使用序列化网格（例如路灯、电线等）填充景观。</p>
 <p>本指南将解释每个蓝图的位置以及如何使用和配置它们。</p>
 <ul>
@@ -93,36 +93,26 @@
 <hr />
 <h2 id="_2">天气定制 <span id="weather-customization"></span></h2>
 <p>本节介绍如何在设置地图的默认天气之前尝试不同的天气参数，以及在对设置感到满意后如何为地图配置默认天气参数。</p>
-<h3 id="bp_sky">BP_Sky <span id="bp_sky"></span></h3>
-<p>蓝图<code>BP_Sky</code>对于为地图带来光线和天气是必要的。在决定默认天气参数之前，它还可以用于测试不同的天气配置。</p>
+<h3 id="bp_sky">天空蓝图 BP_Sky <span id="bp_sky"></span></h3>
+<p><a href="https://bitbucket.org/carla-simulator/carla-content/src/master/Blueprints/Weather/BP_Sky.uasset">蓝图<code>BP_Sky</code></a> 对于为地图带来光线和天气是必要的。在决定默认天气参数之前，它还可以用于测试不同的天气配置。</p>
 <p><code>BP_Sky</code> 蓝图可能已经加载到您的地图中。如果没有，您可以通过<code>Content/Carla/Blueprints/Weather</code>将其拖到场景中来添加它。</p>
-<p>要尝试不同的天气参数，请转到 <code>BP_Sky</code> 参与者的 <em>Details</em> 面板，然后使用 <em>Parameters</em>  部分中的值。</p>
+<p>要尝试不同的天气参数，请转到 <code>BP_Sky</code> 参与者的 <em>细节(Details)</em> 面板，然后使用 <em>参数(Parameters)</em> 部分中的值。</p>
 <div class="admonition 重要">
 <p class="admonition-title">重要</p>
 <p>如果场景中加载了多个 <code>BP_Sky</code> 蓝图，天气将会重复，从而产生不良结果，例如，有两个太阳。</p>
 </div>
-<h3 id="bp_weather">BP_Weather <span id="bp_weather"></span></h3>
-<p>地图的默认天气在<code>BP_Weather</code>蓝图中定义。此蓝图允许您设置与通过 Python API 提供的参数相同的参数。<a href="https://carla.readthedocs.io/en/latest/python_api/#carlaweatherparameters">此处</a> 描述了这些参数。</p>
+<h3 id="bp_weather">天气蓝图 BP_Weather <span id="bp_weather"></span></h3>
+<p>地图的默认天气在天气蓝图<code>BP_Weather</code>中定义。此蓝图允许设置的参数和 Python API 相同。<a href="../python_api/#carlaweatherparameters">此处</a> 描述了这些参数。</p>
 <p>要设置地图的默认天气：</p>
 <p><strong>1. 打开 <code>BP_Weather</code> 蓝图。</strong> </p>
 <p>在 <em>内容浏览器</em> 中，导航至 <code>Content/Carla/Blueprints/Weather</code> 并双击 <code>BP_Weather</code> 。</p>
 <p><strong>2. 添加您的城镇。</strong></p>
-<p>在<code>BP_Weather</code>窗口的 <em>Details</em> 面板中，转到 <em>Weather</em> 部分并将您的城镇添加到 <em>Default Weathers</em> 数组中。</p>
+<p>在<code>BP_Weather</code>窗口中间选中 <em>Default Weathers</em>，在 <em>细节(Details)</em> 面板中，转到  <em>Default Weathers</em> 部分并将您的城镇添加到数组中。</p>
 <p><strong>3. 配置默认天气参数。</strong></p>
-<p>对于每个天气参数，设置您想要的值。完成后，按 <em>Compile</em> ，然后按 <em>Save</em> 并关闭。</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
+<p>对于每个天气参数，设置您想要的值。完成后，按 <em>编译(Compile)</em> ，然后按 <em>保存(Save)</em> 并关闭。</p>
 <p><img alt="bp_weather_pic" src="../img/map_customization/BP_Weather.jpg" /><br></p>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-<div style="text-align: right">
-<i>包含每个 Carla 地图的默认天气参数的数组。Town01 打开。</i></div>
+<div style="text-align: center">
+<i>包含每个 Carla 地图的默认天气参数的数组。打开 Town10HD_Opt。</i></div>
 <p><br></p>
 <hr />
 <h2 id="_3">添加序列化网格 <span id="add-serial-meshes"></span></h2>

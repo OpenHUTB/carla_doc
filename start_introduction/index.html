@@ -81,7 +81,7 @@
 <p>Carla 模拟器由可扩展的客户端-服务器架构组成。
 服务器负责与模拟本身相关的所有事情：传感器渲染、物理计算、世界状态及其参与者的更新等。包括 <a href="../carla_plugin/">虚幻引擎插件</a> 、<a href="../ref_cpp/">Libcarla服务端</a>、远程过程调用服务。由于它的目标是实际结果，因此最合适的选择是使用专用 GPU 运行服务器，尤其是在处理机器学习时。</p>
 <p>客户端由一组客户端模块组成，控制场景中参与者的逻辑并设置世界条件。Carla架构的设计请参考<a href="../carla_design/">链接</a>。这是通过利用 Carla API（Python 或 C++ 语言）来实现的，Carla API 是服务器和客户端之间的中介层，不断发展以提供新功能。</p>
-<p><img alt="CARLA Modules" src="../img/carla_modules.png" /></p>
+<p><img alt="CARLA Modules" src="../img/build_modules.jpg" /></p>
 <p>这总结了模拟器的基本结构。然而，了解 Carla 的意义远不止于此，因为它共存了许多不同的功能和元素。下面列出了其中一些，以便了解 Carla 可以实现的功能。</p>
 <ul>
 <li><strong>交通管理器。</strong> 一种内置系统，除了用于学习的车辆外，还可以控制车辆。它充当 Carla 提供的指挥，以现实的行为重建类似城市的环境。</li>
