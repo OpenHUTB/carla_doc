@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>天气 - 代理模拟器</title>
+    <title>虚幻编辑器 - 代理模拟器</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,8 +13,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "\u5929\u6c14";
-        var mkdocs_page_input_path = "modules/Weather.md";
+        var mkdocs_page_name = "\u865a\u5e7b\u7f16\u8f91\u5668";
+        var mkdocs_page_input_path = "ue/unreal_editor.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -58,9 +58,9 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">天气</li>
+      <li class="breadcrumb-item active">虚幻编辑器</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/modules/Weather.md" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/ue/unreal_editor.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -68,30 +68,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1">天气</h1>
-<h2 id="_2">调用流程</h2>
-<p>1.Python中的 <a href="https://github.com/OpenHUTB/carla_doc/blob/87d6e1d34ea0f6df2a32525a164f6d657b6319fd/src/examples/dynamic_weather.py#L166"><code>World.set_weather()</code></a> 调用 <a href="https://github.com/OpenHUTB/carla_cpp/blob/cd67e7a09f047dc9b0826f94c10f3232fc37bda6/LibCarla/source/carla/client/World.cpp#L90"><code>World.cpp</code></a> 中的<code>World::SetWeather()</code>。</p>
-<p>2.<a href="https://github.com/OpenHUTB/carla_cpp/blob/dev/LibCarla/source/carla/client/detail/Client.cpp">Client.cpp</a> 的 <code>Client::SetWeatherParameters()</code>，调用 <code>_pimpl-&gt;AsyncCall("set_weather_parameters", weather)</code>。
-然后通过<code>class Client::Pimpl</code>类的<code>AsyncCall()</code>方法发起远程异步调用<code>rpc_client.async_call(function, std::forward&lt;Args&gt;(args) ...)</code>。</p>
-<p>3.通过<a href="https://github.com/OpenHUTB/carla_cpp/blob/cd67e7a09f047dc9b0826f94c10f3232fc37bda6/LibCarla/source/carla/rpc/Client.h#L69">rpc/Client.h</a> 的 <code>async_call()</code> 进行远程调用服务端。</p>
-<p>4.服务端在 <a href="https://github.com/OpenHUTB/carla_cpp/blob/cd67e7a09f047dc9b0826f94c10f3232fc37bda6/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Weather/Weather.cpp#L97C29-L98C1">Weather.cpp</a> 中的 <a href="https://github.com/OpenHUTB/carla_cpp/blob/cd67e7a09f047dc9b0826f94c10f3232fc37bda6/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Weather/Weather.h#L59C3-L60C1"><code>void RefreshWeather(const FWeatherParameters &amp;WeatherParameters)</code></a> 调用真正改变天气的蓝图，方法实现位于<code>Weather.h</code>中的</p>
-<pre><code class="language-shell">UFUNCTION(BlueprintImplementableEvent)
-void RefreshWeather(const FWeatherParameters &amp;WeatherParameters);
-</code></pre>
-<p>它是一个在蓝图中实现的事件<code>UFUNCTION(BlueprintImplementableEvent)</code>。</p>
-<p><img alt="" src="../../img/modules/RefreshWeather.jpg" /></p>
-<h2 id="_3">蓝图</h2>
-<p>BlueprintImplementableEvent 是 Unreal Engine 中的一种特殊的修饰符，用于在 C++ 代码中声明一个可以在 Blueprint 中实现的事件。这意味着你可以在 C++ 类中定义一个事件，并允许开发者在 Blueprint 中提供该事件的具体实现，而不需要编写 C++ 代码来实现该逻辑。这样就能够将游戏逻辑的实现与 C++ 代码解耦，使得逻辑的实现更加灵活，特别是在面向设计师的开发流程中非常有用。</p>
-<div class="admonition 笔记">
-<p class="admonition-title">笔记</p>
-<p>解耦（Decoupling）是软件设计中的一个重要概念，指的是通过设计使得系统的不同模块或组件之间的依赖关系最小化，从而提高系统的灵活性、可扩展性和可维护性。解耦的目的是使得系统中的各个部分能够相对独立地变化、替换或扩展，而不需要修改其他部分的代码。在游戏开发和其他软件开发中，解耦通常是通过接口、抽象、事件和依赖注入等技术实现的。通过解耦，开发人员可调用。</p>
-</div>
-<p>BlueprintNativeEvent和BlueprintImplementableEvent区别在于：
-BlueprintNativeEvent多了个c++实现，可以同时调用c++和蓝图的函数；
-BlueprintImplementableEvent不能c++实现，只能调用蓝图函数。</p>
-<h2 id="_4">参考</h2>
+                <h1 id="_1">虚幻编辑器</h1>
 <ul>
-<li><a href="../../tuto_M_custom_weather_landscape/">自定义地图：天气和景观</a></li>
+<li><a href="UE4引擎取消编辑器处于后台时的降帧选项">UE4引擎取消编辑器处于后台时的降帧选项</a> ：Edit -&gt; Editor Preferences -&gt; Miscellaneous，去掉“Use Less Cpu when in Background”复选框上的对号。</li>
 </ul>
               
             </div>
