@@ -68,7 +68,170 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                
+                <h2 id="1">1. 组件概述</h2>
+<p><code>SpringBasedVegetationComponent</code> 组件负责模拟植被的弹性运动行为，以提升仿真环境的真实感。</p>
+<h2 id="2">2. 代码结构</h2>
+<pre><code>CARLA
+│── Unreal
+│   └── CarlaUE4
+│       └── Plugins
+│           └── Carla
+│               └── Source
+│                   └── Carla
+│                       └── Vegetation
+</code></pre>
+<p>该组件的主要实现位于 <code>SpringBasedVegetationComponent.cpp</code>。</p>
+<h2 id="3">3. 依赖项</h2>
+<h3 id="31">3.1 头文件依赖</h3>
+<p><code>SpringBasedVegetationComponent.cpp</code> 依赖以下头文件：
+- <code>SpringBasedVegetationComponent.h</code>
+- <code>Carla/Walker/WalkerAnim.h</code>
+- <code>Math/Matrix.h</code>
+- <code>Components/CapsuleComponent.h</code>
+- <code>DrawDebugHelpers.h</code>
+- <code>Kismet/KismetMathLibrary.h</code>
+- <code>BaseVegetationActor.h</code>
+- <code>Vehicle/CarlaWheeledVehicle.h</code>
+- <code>&lt;unordered_set&gt;</code> <code>&lt;vector&gt;</code> <code>&lt;cmath&gt;</code> <code>&lt;sstream&gt;</code>
+- <code>compiler/disable-ue4-macros.h</code>
+- <code>carla/rpc/String.h</code>
+- <code>compiler/enable-ue4-macros.h</code></p>
+<h2 id="4">4. 宏定义</h2>
+<p>组件内定义了多个用于日志控制的宏：</p>
+<table>
+<thead>
+<tr>
+<th>宏定义</th>
+<th>说明</th>
+<th>所在行</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ACC_LOG(...)</code></td>
+<td>累积日志</td>
+<td>44</td>
+</tr>
+<tr>
+<td><code>ACCUMULATIONLOGS</code></td>
+<td>控制 <code>ACC_LOG</code> 是否启用（0 关闭）</td>
+<td>27</td>
+</tr>
+<tr>
+<td><code>COLLISION_LOG(...)</code></td>
+<td>碰撞日志</td>
+<td>39</td>
+</tr>
+<tr>
+<td><code>COLLISIONLOGS</code></td>
+<td>控制 <code>COLLISION_LOG</code> 是否启用</td>
+<td>26</td>
+</tr>
+<tr>
+<td><code>FICT_LOG(...)</code></td>
+<td>虚拟力日志</td>
+<td>49</td>
+</tr>
+<tr>
+<td><code>FICTITIOUSFORCELOGS</code></td>
+<td>控制 <code>FICT_LOG</code> 是否启用</td>
+<td>28</td>
+</tr>
+<tr>
+<td><code>OTHER_LOG(...)</code></td>
+<td>其他日志</td>
+<td>54</td>
+</tr>
+<tr>
+<td><code>OTHERLOGS</code></td>
+<td>控制 <code>OTHER_LOG</code> 是否启用</td>
+<td>29</td>
+</tr>
+<tr>
+<td><code>SOLVER_LOG(...)</code></td>
+<td>计算求解日志</td>
+<td>34</td>
+</tr>
+<tr>
+<td><code>SOLVERLOGS</code></td>
+<td>控制 <code>SOLVER_LOG</code> 是否启用</td>
+<td>25</td>
+</tr>
+<tr>
+<td><code>SPRINGVEGETATIONLOGS</code></td>
+<td>控制植被弹簧系统日志</td>
+<td>24</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5">5. 主要函数</h2>
+<h3 id="51">5.1 数值计算与转换</h3>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+<th>所在行</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>EigenToFString&lt;T&gt;(T &amp;t)</code></td>
+<td>将 Eigen 矩阵转换为 FString</td>
+<td>89</td>
+</tr>
+<tr>
+<td><code>EigenVectorToRotator(const Eigen::Vector3d &amp;Vector)</code></td>
+<td>将 Eigen 3D 向量转换为 FRotator</td>
+<td>134</td>
+</tr>
+<tr>
+<td><code>GetDeltaRotator(const FRotator &amp;Rotator1, const FRotator &amp;Rotator2)</code></td>
+<td>计算两个旋转器的角度差</td>
+<td>58</td>
+</tr>
+<tr>
+<td><code>GetSign&lt;T&gt;(T n)</code></td>
+<td>获取数值的符号</td>
+<td>84</td>
+</tr>
+<tr>
+<td><code>OuterProduct(const Eigen::Vector3d &amp;V1)</code></td>
+<td>计算向量外积（单输入版本）</td>
+<td>99</td>
+</tr>
+<tr>
+<td><code>OuterProduct(const Eigen::Vector3d &amp;V1, const Eigen::Vector3d &amp;V2)</code></td>
+<td>计算向量外积（双输入版本）</td>
+<td>95</td>
+</tr>
+<tr>
+<td><code>RotatorToEigenVector(const FRotator &amp;Rotator)</code></td>
+<td>将 FRotator 转换为 Eigen 3D 向量</td>
+<td>127</td>
+</tr>
+<tr>
+<td><code>ToEigenMatrix(const FMatrix &amp;Matrix)</code></td>
+<td>将 Unreal FMatrix 转换为 Eigen 矩阵</td>
+<td>112</td>
+</tr>
+<tr>
+<td><code>ToEigenMatrix(const FTransform &amp;Transform)</code></td>
+<td>将 Unreal FTransform 转换为 Eigen 矩阵</td>
+<td>121</td>
+</tr>
+<tr>
+<td><code>ToEigenVector(const FVector &amp;V1)</code></td>
+<td>将 FVector 转换为 Eigen 3D 向量</td>
+<td>104</td>
+</tr>
+<tr>
+<td><code>ToUnrealVector(const Eigen::Vector3d &amp;V1)</code></td>
+<td>将 Eigen 3D 向量转换为 FVector</td>
+<td>108</td>
+</tr>
+</tbody>
+</table>
               
             </div>
           </div><footer>
