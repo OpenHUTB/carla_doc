@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Pytorch - 代理模拟器</title>
+    <title>NeuralModel 说明文档 - 代理模拟器</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Pytorch";
+        var mkdocs_page_name = "NeuralModel \u8bf4\u660e\u6587\u6863";
         var mkdocs_page_input_path = "modules/pytorch.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,7 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Pytorch</li>
+      <li class="breadcrumb-item active">NeuralModel 说明文档</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/modules/pytorch.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -68,7 +68,174 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                
+                <h1 id="neuralmodel">NeuralModel 说明文档</h1>
+<h2 id="1">1. 概述</h2>
+<p>该代码由巴塞罗那自治大学 (Universitat Autonoma de Barcelona, UAB) 计算机视觉中心 (Computer Vision Center, CVC) 开发，并采用 MIT 许可证授权。该代码定义了 <code>carla::learning</code> 命名空间下的一组数据结构和类，用于基于 PyTorch 进行神经网络模型的推理，主要应用于自动驾驶仿真场景。</p>
+<h2 id="2">2. 主要组件</h2>
+<h3 id="21-test_learning">2.1 <code>test_learning</code> 函数</h3>
+<ul>
+<li>该函数用于测试学习功能，但具体实现未包含在该代码文件中。</li>
+</ul>
+<h3 id="22-neuralmodelimpl">2.2 <code>NeuralModelImpl</code> 结构体</h3>
+<ul>
+<li>该结构体未在代码中定义，仅作为 <code>NeuralModel</code> 的私有实现细节。</li>
+</ul>
+<h3 id="23-wheelinput">2.3 <code>WheelInput</code> 结构体</h3>
+<ul>
+<li>
+<p>该结构体用于表示单个车轮的输入数据。</p>
+</li>
+<li>
+<p>包含以下成员变量：</p>
+</li>
+<li>
+<p><code>num_particles</code>: 粒子数量。</p>
+</li>
+<li>
+<p><code>particles_positions</code>: 指向粒子位置数组的指针。</p>
+</li>
+<li>
+<p><code>particles_velocities</code>: 指向粒子速度数组的指针。</p>
+</li>
+<li>
+<p><code>wheel_positions</code>: 指向车轮位置数组的指针。</p>
+</li>
+<li>
+<p><code>wheel_oritentation</code>: 指向车轮方向数组的指针。</p>
+</li>
+<li>
+<p><code>wheel_linear_velocity</code>: 指向车轮线速度数组的指针。</p>
+</li>
+<li>
+<p><code>wheel_angular_velocity</code>: 指向车轮角速度数组的指针。</p>
+</li>
+</ul>
+<h3 id="24-inputs">2.4 <code>Inputs</code> 结构体</h3>
+<ul>
+<li>
+<p>该结构体用于存储四个车轮的输入数据以及驾驶控制信息。</p>
+</li>
+<li>
+<p>包含以下成员变量：</p>
+</li>
+<li>
+<p><code>wheel0, wheel1, wheel2, wheel3</code>: 四个 <code>WheelInput</code> 结构体，分别表示四个车轮的输入数据。</p>
+</li>
+<li>
+<p><code>steering</code>: 车辆的转向角度。</p>
+</li>
+<li>
+<p><code>throttle</code>: 车辆的油门输入。</p>
+</li>
+<li>
+<p><code>braking</code>: 车辆的刹车输入。</p>
+</li>
+<li>
+<p><code>terrain_type</code>: 当前地形类型。</p>
+</li>
+<li>
+<p><code>verbose</code>: 是否启用详细输出。</p>
+</li>
+</ul>
+<h3 id="25-wheeloutput">2.5 <code>WheelOutput</code> 结构体</h3>
+<ul>
+<li>
+<p>该结构体用于存储单个车轮的输出数据。</p>
+</li>
+<li>
+<p>包含以下成员变量：</p>
+</li>
+<li>
+<p><code>wheel_forces_x, wheel_forces_y, wheel_forces_z</code>: 车轮受力（x, y, z 轴）。</p>
+</li>
+<li>
+<p><code>wheel_torque_x, wheel_torque_y, wheel_torque_z</code>: 车轮扭矩（x, y, z 轴）。</p>
+</li>
+<li>
+<p><code>_particle_forces</code>: 存储粒子受力的数组。</p>
+</li>
+</ul>
+<h3 id="26-outputs">2.6 <code>Outputs</code> 结构体</h3>
+<ul>
+<li>
+<p>该结构体用于存储四个车轮的输出数据。</p>
+</li>
+<li>
+<p>包含以下成员变量：</p>
+</li>
+<li>
+<p><code>wheel0, wheel1, wheel2, wheel3</code>: 四个 <code>WheelOutput</code> 结构体，分别表示四个车轮的输出数据。</p>
+</li>
+</ul>
+<h3 id="27-neuralmodel">2.7 <code>NeuralModel</code> 类</h3>
+<p>该类提供了一个基于 PyTorch 进行推理的神经网络模型。</p>
+<h4 id="_1"><strong>成员函数</strong></h4>
+<ul>
+<li>
+<p><code>NeuralModel()</code>: 构造函数。</p>
+</li>
+<li>
+<p><code>void LoadModel(char* filename, int device)</code>: 加载神经网络模型。</p>
+</li>
+<li>
+<p><code>void SetInputs(Inputs input)</code>: 设置输入数据。</p>
+</li>
+<li>
+<p><code>void Forward()</code>: 进行前向传播。</p>
+</li>
+<li>
+<p><code>void ForwardDynamic()</code>: 进行动态前向传播。</p>
+</li>
+<li>
+<p><code>void ForwardCUDATensors()</code>: 使用 CUDA 进行前向传播。</p>
+</li>
+<li>
+<p><code>Outputs&amp; GetOutputs()</code>: 获取模型的输出数据。</p>
+</li>
+<li>
+<p><code>~NeuralModel()</code>: 析构函数。</p>
+</li>
+</ul>
+<h4 id="_2"><strong>私有成员变量</strong></h4>
+<ul>
+<li>
+<p><code>std::unique_ptr&lt;NeuralModelImpl&gt; Model</code>: 存储模型的私有实现。</p>
+</li>
+<li>
+<p><code>Inputs _input</code>: 存储当前输入数据。</p>
+</li>
+<li>
+<p><code>Outputs _output</code>: 存储当前输出数据。</p>
+</li>
+</ul>
+<h2 id="3">3. 代码依赖</h2>
+<p>该代码依赖以下 C++ 标准库和 PyTorch 组件：</p>
+<ul>
+<li>
+<p><code>&lt;memory&gt;</code>: 用于智能指针管理。</p>
+</li>
+<li>
+<p><code>&lt;vector&gt;</code>: 用于存储数组数据。</p>
+</li>
+<li>
+<p>PyTorch C++ API: 需要正确安装 LibTorch，并支持 CUDA（如果使用 <code>ForwardCUDATensors</code>）。</p>
+</li>
+</ul>
+<h2 id="4">4. 适用场景</h2>
+<p>该代码适用于以下场景：</p>
+<ul>
+<li>
+<p>在自动驾驶仿真中使用深度学习模型进行车辆动力学预测。</p>
+</li>
+<li>
+<p>基于 PyTorch 进行 GPU 加速的神经网络推理。</p>
+</li>
+<li>
+<p>处理车辆行驶过程中的力学数据和控制信号。</p>
+</li>
+</ul>
+<h2 id="5">5. 许可证</h2>
+<p>本代码遵循 MIT 许可证，更多信息请参考 <a href="https://opensource.org/licenses/MIT">MIT License</a>。</p>
               
             </div>
           </div><footer>
