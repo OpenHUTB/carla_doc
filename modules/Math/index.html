@@ -68,7 +68,71 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                
+                <pre><code class="language-yaml">markdown_extensions:
+  - mdx_math
+</code></pre>
+<h1 id="dvectorh">DVector.h 文档</h1>
+<p><strong>Dvector.h 中定义了FDVector</strong> 结构体，用于表示三维向量，其各分量为双精度浮点数。</p>
+<h2 id="_1">成员变量</h2>
+<ul>
+<li><strong><font color="#f8805a">X</font></strong>：向量的 X 分量，初始值为 0.0</li>
+<li><strong><font color="#f8805a">Y</font></strong>：向量的 Y 分量，初始值为 0.0</li>
+<li><strong><font color="#f8805a">Z</font></strong>：向量的 Z 分量，初始值为 0.0</li>
+</ul>
+<h2 id="_2">构造函数</h2>
+<p>提供多种构造方式：</p>
+<ul>
+<li><strong>默认构造函数</strong>：将所有分量初始化为 0.0</li>
+<li><strong>构造函数（float/double 参数）</strong>：根据传入值初始化各分量</li>
+<li><strong>从 FVector/FIntVector 构造</strong>：便于与虚幻引擎内的向量类型转换</li>
+</ul>
+<h2 id="_3">方法</h2>
+<h3 id="size"><strong><font color="#7fb800">Size</font></strong></h3>
+<p>计算向量的模长，公式为：
+<script type="math/tex; mode=display">
+\text{Size} = \sqrt{\mathcal{X}^2 + \mathcal{Y}^2 + \mathcal{Z^2}}
+</script>
+</p>
+<h3 id="sizesquared"><strong><font color="#7fb800">SizeSquared</font></strong></h3>
+<p>返回向量模长的平方：
+<script type="math/tex; mode=display">
+\text{SizeSquared} = \mathcal{X}^2 + \mathcal{Y}^2 + \mathcal{Z}^2
+</script>
+</p>
+<h3 id="_4">静态方法</h3>
+<ul>
+<li><strong><font color="#7fb800">Dist</font></strong>：计算两个向量间距离<br />
+<script type="math/tex; mode=display">\text{Dist} = \sqrt{\text{DistSquared}(\mathcal{V_1},\mathcal{V_2})}</script>
+</li>
+<li><strong><font color="#7fb800">DistSquared</font></strong>：计算两个向量间距离的平方</li>
+</ul>
+<h3 id="_5">转换方法</h3>
+<ul>
+<li><strong><font color="#7fb800">ToFVector</font></strong>：转换为 FVector 类型</li>
+<li><strong><font color="#7fb800">ToFIntVector</font></strong>：转换为 FIntVector 类型（通过类型转换）</li>
+</ul>
+<h2 id="_6">运算符重载</h2>
+<p>支持常用的向量运算：</p>
+<ul>
+<li><strong><font color="#7fb800">operator=</font></strong>：赋值操作</li>
+<li><strong><font color="#7fb800">operator==</font></strong>：判断向量是否相等</li>
+<li><strong><font color="#7fb800">operator+</font></strong>、<strong><font color="#7fb800">operator-</font></strong>：实现向量加减</li>
+<li><strong><font color="#7fb800">operator*</font></strong>、<strong><font color="#7fb800">operator/</font></strong>：标量乘除运算</li>
+<li>以及对应的复合赋值运算符（如 <strong><font color="#7fb800">operator+=</font></strong>、<strong><font color="#7fb800">operator*=</font></strong> 等）</li>
+</ul>
+<h2 id="_7">使用示例</h2>
+<pre><code class="language-cpp">// 默认构造，所有分量为 0.0
+FDVector vec1;
+
+// 指定分量构造
+FDVector vec2(1.0, 2.0, 3.0);
+
+// 计算模长
+double len = vec2.Size();
+
+// 向量加法
+FDVector vec3 = vec1 + vec2;
+</code></pre>
               
             </div>
           </div><footer>
