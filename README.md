@@ -7,6 +7,7 @@
 1. 安装python 3.11.11（或3.11.7），使用`pip`安装`mkdocs`
 ```shell
 pip install mkdocs -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+pip install pymdown-extensions  # pymdownx
 pip install -r requirements.txt
 ```
 （可选）安装完成后使用`mkdocs --version`查看是否安装成功。
