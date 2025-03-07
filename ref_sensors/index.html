@@ -2455,7 +2455,7 @@ L(x,y,t) - L(x,y, t-\delta t) = pol C
 <hr />
 <h2 id="v2x">V2X 传感器 <span id="v2x-sensor"></span></h2>
 <p>车联万物 (Vehicle-to-everything, V2X) 通信是未来协作智能交通系统应用的一个重要方面。在实际车辆中，这需要每辆车上都有一个专用的车载单元 (onboard unit, OBU)，能够通过无线信道发送和接收信息。根据地区（欧洲、中国、美国），使用不同的物理技术、协议和应用程序消息格式。</p>
-<p>Carla 目前支持模拟简单的广播无线信道和两条应用消息。尚不支持网络访问和转发协议。两条实现的消息分别是符合欧洲标准 ETSI 的 <a href="#cooperative-awareness-message"><em>协作感知消息</em></a> 和 <a href="#custom-v2x-message"><em>自定义消息</em></a> 类型，可用于传输任意字符串数据（例如 JSON）。V2X 通信有两种不同的传感器，可以单独使用，每种应用消息类型各一个。</p>
+<p>Carla 目前支持模拟简单的广播无线信道和两条应用消息。尚不支持网络访问和转发协议。两条实现的消息分别是符合欧洲标准 ETSI 的 <a href="#cooperative-awareness-message"><em>协作感知消息</em></a> 和 <a href="#custom-v2x-message"><em>自定义消息</em></a> 类型，可用于传输任意字符串数据（例如 JSON）。V2X 通信有两种不同的传感器，可以单独使用，每种应用消息类型各一个。实现原理请参考<a href="../pdf/V2X_sensor.pdf">论文</a> 。</p>
 <p>基本上，无线通道包含两个传感器的以下计算：</p>
 <pre><code>ReceivedPower = OtherTransmitPower + combined_antenna_gain - loss
 
