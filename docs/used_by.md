@@ -1,6 +1,6 @@
 # [引用了Carla的相关仓库](https://github.com/carla-simulator/carla/network/dependents)
 
-<!-- 更新到最新的仓库： https://github.com/TechOctopus/carla_bc --> 
+<!-- 更新到最新的仓库： https://github.com/ast-fortiss-tum/MultiSim --> 
 
 
 - [__感知__](#perception)
@@ -168,6 +168,8 @@
 [训练深度强化学习代理，让车辆自主遵循路径](https://github.com/rohanNkhaire/RL_SB3_carla) - 使用语义分割传感器作为输入
 
 [使用模仿学习来训练驾驶代理](https://github.com/dagokl/naive_driving_agent)
+
+[置信感知模仿学习](https://github.com/ElaheDlv/Confidence_Aware_IL)
 
 [自动驾驶中的强化学习](https://github.com/AnshMittal1811/ReinforcementLearningInAutonomousDriving)
 
@@ -422,6 +424,8 @@
 [实时物联网系统，使车辆能够交换位置、速度和道路状况等关键数据，以增强道路安全并优化交通流量](https://github.com/euphoricair7/no_brain_cells_left-codered25)
 
 ## 场景 <span id="scene"></span>
+
+[汽车场景生成和评估其安全级别工具包](https://github.com/Fizza129/ASIL-Gen)
 
 [针对自动驾驶系统的模糊测试方法](https://github.com/yagol2020/SimADFuzz) - 可生成各种驾驶场景来检测 ADS 中的潜在违规行为
 
