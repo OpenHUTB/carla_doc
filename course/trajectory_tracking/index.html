@@ -73,44 +73,44 @@
 <p>基于 <a href="https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb"><strong>湖工商场景</strong></a><strong>(WindowsNoEditor)</strong>，首先需要运行<a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/generate_traffic.py">generate_traffic.py</a> 。</p>
 <h2 id="carla">定义CARLA设置</h2>
 <p>创建 <strong>Carla</strong> 的世界设置对象，并根据配置设置天气条件</p>
-<pre><code class="language-python">#定义了一些全局变量用于控制模拟参数，如迭代次数、等待时间、总运行时间、天气条件等。
-ITER_FOR_SIM_TIMESTEP = 10
-WAIT_TIME_BEFORE_START = 5.00
-TOTAL_RUN_TIME = 200.00
-TOTAL_FRAME_BUFFER = 300
-NUM_PEDESTRIANS = 0
-NUM_VEHICLES = 2
-SEED_PEDESTRIANS = 0
-SEED_VEHICLES = 0
+<div class="highlight"><pre><span></span><code><span class="c1">#定义了一些全局变量用于控制模拟参数，如迭代次数、等待时间、总运行时间、天气条件等。</span>
+<span class="n">ITER_FOR_SIM_TIMESTEP</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">WAIT_TIME_BEFORE_START</span> <span class="o">=</span> <span class="mf">5.00</span>
+<span class="n">TOTAL_RUN_TIME</span> <span class="o">=</span> <span class="mf">200.00</span>
+<span class="n">TOTAL_FRAME_BUFFER</span> <span class="o">=</span> <span class="mi">300</span>
+<span class="n">NUM_PEDESTRIANS</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">NUM_VEHICLES</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">SEED_PEDESTRIANS</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">SEED_VEHICLES</span> <span class="o">=</span> <span class="mi">0</span>
 
-WEATHERID = {
-    &quot;DEFAULT&quot;: 0,
-    &quot;CLEARNOON&quot;: 1,
-    &quot;CLOUDYNOON&quot;: 2,
-    ...
-}
+<span class="n">WEATHERID</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;DEFAULT&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">&quot;CLEARNOON&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;CLOUDYNOON&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="o">...</span>
+<span class="p">}</span>
 
-SIMWEATHER = WEATHERID[&quot;CLEARNOON&quot;]
+<span class="n">SIMWEATHER</span> <span class="o">=</span> <span class="n">WEATHERID</span><span class="p">[</span><span class="s2">&quot;CLEARNOON&quot;</span><span class="p">]</span>
 
-def make_carla_settings():
-    settings = carla.WorldSettings(
-        synchronous_mode=True,
-        no_rendering_mode=False,
-        fixed_delta_seconds=0.02
-    )
+<span class="k">def</span> <span class="nf">make_carla_settings</span><span class="p">():</span>
+    <span class="n">settings</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">WorldSettings</span><span class="p">(</span>
+        <span class="n">synchronous_mode</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">no_rendering_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">fixed_delta_seconds</span><span class="o">=</span><span class="mf">0.02</span>
+    <span class="p">)</span>
 
-    weather = carla.WeatherParameters.ClearNoon
-    if SIMWEATHER == WEATHERID[&quot;CLEARNOON&quot;]:
-        weather = carla.WeatherParameters.ClearNoon
-    elif SIMWEATHER == WEATHERID[&quot;CLOUDYNOON&quot;]:
-        weather = carla.WeatherParameters.CloudyNoon
-    # Add other weather conditions as needed
+    <span class="n">weather</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">WeatherParameters</span><span class="o">.</span><span class="n">ClearNoon</span>
+    <span class="k">if</span> <span class="n">SIMWEATHER</span> <span class="o">==</span> <span class="n">WEATHERID</span><span class="p">[</span><span class="s2">&quot;CLEARNOON&quot;</span><span class="p">]:</span>
+        <span class="n">weather</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">WeatherParameters</span><span class="o">.</span><span class="n">ClearNoon</span>
+    <span class="k">elif</span> <span class="n">SIMWEATHER</span> <span class="o">==</span> <span class="n">WEATHERID</span><span class="p">[</span><span class="s2">&quot;CLOUDYNOON&quot;</span><span class="p">]:</span>
+        <span class="n">weather</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">WeatherParameters</span><span class="o">.</span><span class="n">CloudyNoon</span>
+    <span class="c1"># Add other weather conditions as needed</span>
 
-    return settings, weather
-</code></pre>
+    <span class="k">return</span> <span class="n">settings</span><span class="p">,</span> <span class="n">weather</span>
+</code></pre></div>
 <h2 id="_1">计时器</h2>
 <p><strong><code>Timer</code></strong>为一个计时器类，用于测量时间间隔和计算每秒的tick数。</p>
-<pre><code>class Timer(object):
+<div class="highlight"><pre><span></span><code>class Timer(object):
     def __init__(self, period):
         self.step = 0
         self._lap_step = 0
@@ -132,20 +132,18 @@ def make_carla_settings():
 
     def elapsed_seconds_since_lap(self):
         return time.time() - self._lap_time
-
-</code></pre>
+</code></pre></div>
 <h2 id="_2">获取车辆信息</h2>
 <p>获取车辆的当前位置和偏航角</p>
-<pre><code>def get_current_pose(vehicle):
+<div class="highlight"><pre><span></span><code>def get_current_pose(vehicle):
     transform = vehicle.get_transform()
     x = transform.location.x
     y = transform.location.y
     yaw = math.radians(transform.rotation.yaw)
     return (x, y, yaw)
-
-</code></pre>
+</code></pre></div>
 <p>发送控制命令给车辆，控制油门、刹车、方向盘等</p>
-<pre><code>def send_control_command(vehicle, throttle, steer, brake, hand_brake=False, reverse=False):
+<div class="highlight"><pre><span></span><code>def send_control_command(vehicle, throttle, steer, brake, hand_brake=False, reverse=False):
     control = carla.VehicleControl()
     steer = np.fmax(np.fmin(steer, 1.0), -1.0)
     throttle = np.fmax(np.fmin(throttle, 1.0), 0)
@@ -157,18 +155,18 @@ def make_carla_settings():
     control.hand_brake = hand_brake
     control.reverse = reverse
     vehicle.apply_control(control)
-</code></pre>
+</code></pre></div>
 <p>将车辆的轨迹数据写入CSV文件</p>
-<pre><code>def write_trajectory_file(x_list, y_list, v_list, t_list, vehicle_id):
+<div class="highlight"><pre><span></span><code>def write_trajectory_file(x_list, y_list, v_list, t_list, vehicle_id):
     create_controller_output_dir(CONTROLLER_OUTPUT_FOLDER)
-    file_name = os.path.join(CONTROLLER_OUTPUT_FOLDER, f'Trajectory_{vehicle_id}.csv')
-    with open(file_name, 'w') as trajectory_file:
+    file_name = os.path.join(CONTROLLER_OUTPUT_FOLDER, f&#39;Trajectory_{vehicle_id}.csv&#39;)
+    with open(file_name, &#39;w&#39;) as trajectory_file:
         for i in range(len(x_list)):
-            trajectory_file.write('%0.3f, %0.3f, %0.3f, %0.3f\n' % (t_list[i], x_list[i], y_list[i], v_list[i]))
-</code></pre>
+            trajectory_file.write(&#39;%0.3f, %0.3f, %0.3f, %0.3f\n&#39; % (t_list[i], x_list[i], y_list[i], v_list[i]))
+</code></pre></div>
 <h2 id="_3">执行轨迹跟踪任务</h2>
 <p>执行轨迹跟踪任务，包括连接CARLA服务器、设置模拟环境、生成车辆等</p>
-<pre><code>def exec_waypoint_nav_demo(args):
+<div class="highlight"><pre><span></span><code>def exec_waypoint_nav_demo(args):
     client = carla.Client(args.host, args.port)
     client.set_timeout(10.0)
     world = client.get_world()
@@ -176,7 +174,7 @@ def make_carla_settings():
     world.apply_settings(settings)
     world.set_weather(weather)
     blueprint_library = world.get_blueprint_library()
-    vehicle_bp = blueprint_library.filter('vehicle.audi.tt')[0]
+    vehicle_bp = blueprint_library.filter(&#39;vehicle.audi.tt&#39;)[0]
     spawn_points = world.get_map().get_spawn_points()
     vehicles = []
 
@@ -184,7 +182,7 @@ def make_carla_settings():
     vehicle_2 = world.try_spawn_actor(vehicle_bp, spawn_points[11])
     vehicles.append(vehicle_1)
     vehicles.append(vehicle_2)
-</code></pre>
+</code></pre></div>
 <h5 id="_4">运行结果</h5>
 <p><img alt="" src="../../img/traffic_course_img/trace.gif" /></p>
               
@@ -222,8 +220,13 @@ def make_carla_settings():
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="../../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

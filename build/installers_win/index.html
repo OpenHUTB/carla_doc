@@ -71,15 +71,13 @@
                 <h2 id="windows">Windows平台下的依赖安装脚本</h2>
 <p>这些脚本位于<code>Util/InstallersWin/</code>目录下，包括 <code>install_boost.bat</code>、<code>install_chrono.bat</code>、<code>install_gtest.bat</code>、<code>install_proj.bat</code>、<code>install_recast.bat</code>、<code>install_rpclib.bat</code>、<code>install_sqlite3.bat</code>、XML文档解析C语言版<code>install_xercesc.bat</code>、<code>install_zlib.bat</code>。</p>
 <h3 id="_1">使用方法</h3>
-<p>脚本传入的命令相同，比如对于 install_boost 库的编译：</p>
-<pre><code class="language-shell">install_boost.bat --build-dir C:\buf --toolset msvc-14.2 --version 1.80.0 -j 4
-</code></pre>
-<ul>
-<li>--build-dir：代码下载和生成安装文件的目录</li>
-<li>--toolset：编译所使用的编译器，msvc-14.2表示vs2019</li>
-<li>--version：表示所下载的软件的版本</li>
-<li>-j：使用多少核心进行编译</li>
-</ul>
+<p>脚本传入的命令相同，比如对于 install_boost 库的编译：
+<div class="highlight"><pre><span></span><code>install_boost.bat<span class="w"> </span>--build-dir<span class="w"> </span>C:<span class="se">\b</span>uf<span class="w"> </span>--toolset<span class="w"> </span>msvc-14.2<span class="w"> </span>--version<span class="w"> </span><span class="m">1</span>.80.0<span class="w"> </span>-j<span class="w"> </span><span class="m">4</span>
+</code></pre></div>
+- --build-dir：代码下载和生成安装文件的目录
+- --toolset：编译所使用的编译器，msvc-14.2表示vs2019
+- --version：表示所下载的软件的版本
+- -j：使用多少核心进行编译</p>
               
             </div>
           </div><footer>
@@ -115,8 +113,13 @@
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="../../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

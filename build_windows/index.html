@@ -126,15 +126,15 @@
 </div>
 <h4 id="python">Python 依赖项 <span id="python-dependencies"></span></h4>
 <p>从 Carla 0.9.12 开始，用于可以选择使用 <code>pip3</code> 来安装 Carla 的 Python API。要检查您是否有合适的版本，请运行以下命令：</p>
-<pre><code class="language-sh">pip3 -V
-</code></pre>
+<div class="highlight"><pre><span></span><code>pip3<span class="w"> </span>-V
+</code></pre></div>
 <p>如果您需要升级：</p>
-<pre><code class="language-sh">pip3 install --upgrade pip
-</code></pre>
+<div class="highlight"><pre><span></span><code>pip3<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
+</code></pre></div>
 <p>您必须安装以下 Python 依赖项：</p>
-<pre><code class="language-sh">pip3 install --user setuptools
-pip3 install --user wheel
-</code></pre>
+<div class="highlight"><pre><span></span><code>pip3<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span>setuptools
+pip3<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span>wheel
+</code></pre></div>
 <h4 id="_5">主要软件安装 <span id="major-installations"></span></h4>
 <h5 id="visual-studio-2019">Visual Studio 2019 <span id="visual-studio-2019"></span></h5>
 <p>从 <a href="https://developerinsider.co/download-visual-studio-2019-web-installer-iso-community-professional-enterprise">此处</a> 获取 2019 版 Visual Studio 。选择 <strong>社区</strong> 作为免费版本。使用 <strong>Visual Studio 安装程序</strong> 安装三个附加元素： 
@@ -159,8 +159,8 @@ pip3 install --user wheel
 <p>请注意，要下载虚幻引擎的这个分支，<strong>您需要有一个链接到虚幻引擎帐户的 GitHub 帐户</strong> 。如果您没有进行此设置，请先按照 <a href="https://www.unrealengine.com/en-US/ue4-on-github">本指南</a> 进行操作，然后再继续操作。</p>
 <p>要构建虚幻引擎的修改版本：</p>
 <p><strong>1.</strong> 在Git终端中，导航到要保存虚幻引擎的位置并克隆 <em>carla</em> 分支：</p>
-<pre><code class="language-sh">git clone --depth 1 -b carla https://github.com/CarlaUnreal/UnrealEngine.git .
-</code></pre>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>--depth<span class="w"> </span><span class="m">1</span><span class="w"> </span>-b<span class="w"> </span>carla<span class="w"> </span>https://github.com/CarlaUnreal/UnrealEngine.git<span class="w"> </span>.
+</code></pre></div>
 <p>或者打开 <a href="https://github.com/CARLAUnreal/UnrealEngine">UnrealEngine</a> 进行项目文件下载：
 <img alt="" src="../img/build/unreal_engine_download.png" /></p>
 <div class="admonition 笔记">
@@ -168,9 +168,9 @@ pip3 install --user wheel
 <p>虚幻引擎文件夹尽可能靠近<code>C:\\</code>，因为如果路径超过一定长度，<code>Setup.bat</code>则会在步骤 3 中返回错误。</p>
 </div>
 <p><strong>2.</strong> 运行配置脚本：</p>
-<pre><code class="language-sh">Setup.bat
+<div class="highlight"><pre><span></span><code>Setup.bat
 GenerateProjectFiles.bat
-</code></pre>
+</code></pre></div>
 <p><strong>3.</strong> 编译修改后的引擎：</p>
 <blockquote>
 <ol>
@@ -191,25 +191,25 @@ GenerateProjectFiles.bat
 <p>在默认情况下，Unreal Engine 使用 CPU 的所有核心进行编译。这可能导致内存不足的问题，尤其是在高性能电脑但内存有限的情况下。为避免此问题，可以通过以下两种方式解决：减少 CPU 核心使用数量。增加虚拟内存。以下是通过修改 CPU 核心数来优化编译的详细解决方案：</p>
 <p>（1）您需要修改 <strong>BuildConfiguration.xml</strong> 文件中的设置。文件路径如下：
 <code>~/UnrealEngine\Engine\Saved\UnrealBuildTool\BuildConfiguration.xml</code></p>
-<p>（2）打开 <strong>BuildConfiguration.xml</strong> 文件，并添加或修改以下内容（使用7核进行编译）：</p>
-<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
-&lt;Configuration xmlns=&quot;https://www.unrealengine.com/BuildConfiguration&quot;&gt;
-  &lt;BuildConfiguration&gt;
-    &lt;ProcessorCountMultiplier&gt;7&lt;/ProcessorCountMultiplier&gt;
-    &lt;MaxParallelActions&gt;7&lt;/MaxParallelActions&gt;
-    &lt;bAllowParallelExecutor&gt;true&lt;/bAllowParallelExecutor&gt;
-  &lt;/BuildConfiguration&gt;
-  &lt;SNDBS&gt;
-    &lt;ProcessorCountMultiplier&gt;4&lt;/ProcessorCountMultiplier&gt;
-    &lt;MaxProcessorCount&gt;4&lt;/MaxProcessorCount&gt;
-  &lt;/SNDBS&gt;
-  &lt;ParallelExecutor&gt;
-    &lt;ProcessorCountMultiplier&gt;7&lt;/ProcessorCountMultiplier&gt;
-    &lt;MaxProcessorCount&gt;7&lt;/MaxProcessorCount&gt;
-    &lt;bStopCompilationAfterErrors&gt;true&lt;/bStopCompilationAfterErrors&gt;
-  &lt;/ParallelExecutor&gt;
-&lt;/Configuration&gt;
-</code></pre>
+<p>（2）打开 <strong>BuildConfiguration.xml</strong> 文件，并添加或修改以下内容（使用7核进行编译）：
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;</span>
+<span class="nt">&lt;Configuration</span><span class="w"> </span><span class="na">xmlns=</span><span class="s">&quot;https://www.unrealengine.com/BuildConfiguration&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;BuildConfiguration&gt;</span>
+<span class="w">    </span><span class="nt">&lt;ProcessorCountMultiplier&gt;</span>7<span class="nt">&lt;/ProcessorCountMultiplier&gt;</span>
+<span class="w">    </span><span class="nt">&lt;MaxParallelActions&gt;</span>7<span class="nt">&lt;/MaxParallelActions&gt;</span>
+<span class="w">    </span><span class="nt">&lt;bAllowParallelExecutor&gt;</span>true<span class="nt">&lt;/bAllowParallelExecutor&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/BuildConfiguration&gt;</span>
+<span class="w">  </span><span class="nt">&lt;SNDBS&gt;</span>
+<span class="w">    </span><span class="nt">&lt;ProcessorCountMultiplier&gt;</span>4<span class="nt">&lt;/ProcessorCountMultiplier&gt;</span>
+<span class="w">    </span><span class="nt">&lt;MaxProcessorCount&gt;</span>4<span class="nt">&lt;/MaxProcessorCount&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/SNDBS&gt;</span>
+<span class="w">  </span><span class="nt">&lt;ParallelExecutor&gt;</span>
+<span class="w">    </span><span class="nt">&lt;ProcessorCountMultiplier&gt;</span>7<span class="nt">&lt;/ProcessorCountMultiplier&gt;</span>
+<span class="w">    </span><span class="nt">&lt;MaxProcessorCount&gt;</span>7<span class="nt">&lt;/MaxProcessorCount&gt;</span>
+<span class="w">    </span><span class="nt">&lt;bStopCompilationAfterErrors&gt;</span>true<span class="nt">&lt;/bStopCompilationAfterErrors&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/ParallelExecutor&gt;</span>
+<span class="nt">&lt;/Configuration&gt;</span>
+</code></pre></div></p>
 <p>（3）清理配置文件。完成编译后，在执行 <code>make launch</code> 之前，务必删除 <code>BuildConfiguration.xml</code> 文件中新增的内容。否则，可能导致程序运行时出现卡顿或性能下降的问题。</p>
 <p><strong>4.</strong> 设置虚幻引擎变量</p>
 <p>需要设置一个环境变量，以便 Carla 可以找到虚幻引擎的安装文件夹。这允许用户选择要使用哪个特定版本的虚幻引擎。如果未指定环境变量，Carla 将在 Windows 注册表中搜索虚幻引擎并使用在那里找到的第一个版本。</p>
@@ -242,16 +242,16 @@ GenerateProjectFiles.bat
 </div>
 
 <p>上面的按钮将带您进入该项目的官方存储库。从那里下载并在本地提取它或使用以下命令克隆它：</p>
-<pre><code class="language-sh">git clone https://github.com/carla-simulator/carla
-</code></pre>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/carla-simulator/carla
+</code></pre></div>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>该<code>master</code>分支包含 Carla 的当前版本以及最新的修复和功能。以前的 Carla 版本标有版本名称。永远记住使用命令<code>git branch</code>检查 git 中的当前分支。</p>
 </div>
 <h3 id="_7">获取资产 <span id="get-assets"></span></h3>
 <p>通过在 Carla 根文件夹中运行以下命令，下载 <strong>最新的</strong> 资产以使用当前版本的 Carla：</p>
-<pre><code class="language-sh">Update.bat
-</code></pre>
+<div class="highlight"><pre><span></span><code>Update.bat
+</code></pre></div>
 <p>如果安装了 7zip，资源将被下载并解压到适当的位置。如果您没有安装此软件，则需要手动将文件内容解压到<code>Unreal\CarlaUE4\Content\Carla</code>。</p>
 <p>要下载 <strong>特定版本</strong> Carla 的资源：</p>
 <ol>
@@ -260,9 +260,9 @@ GenerateProjectFiles.bat
 <img alt="" src="../img/build/content_versions.png" /></li>
 <li>使用类似于以下内容的命令提取文件：</li>
 </ol>
-<pre><code class="language-sh">tar -xvzf &lt;assets_file_name&gt;.tar.gz.tar -C C:\path\to\carla\Unreal\CarlaUE4\Content\Carla
-</code></pre>
-<p>下载好后解压到下图这个文件夹（注意是把所有解压的文件放到/Unreal/CARLAUE4/Content/CARLA 下，不是刚刚下载的压缩包解压到当前文件夹）像下面这样格式。否则后面执行 make launch 会失败。
+<p><div class="highlight"><pre><span></span><code>tar<span class="w"> </span>-xvzf<span class="w"> </span>&lt;assets_file_name&gt;.tar.gz.tar<span class="w"> </span>-C<span class="w"> </span>C:<span class="se">\p</span>ath<span class="se">\t</span>o<span class="se">\c</span>arla<span class="se">\U</span>nreal<span class="se">\C</span>arlaUE4<span class="se">\C</span>ontent<span class="se">\C</span>arla
+</code></pre></div>
+下载好后解压到下图这个文件夹（注意是把所有解压的文件放到/Unreal/CARLAUE4/Content/CARLA 下，不是刚刚下载的压缩包解压到当前文件夹）像下面这样格式。否则后面执行 make launch 会失败。
 <img alt="" src="../img/build/extracted_content.png" /></p>
 <h3 id="carla_2">构建 Carla <span id="build-carla"></span></h3>
 <p>本节概述了构建 Carla 的命令。</p>
@@ -275,8 +275,8 @@ GenerateProjectFiles.bat
 <p><strong>1.</strong> <strong>编译 Python API 客户端</strong>:</p>
 <p>Python API 客户端授予对模拟的控制权。第一次构建 Carla 时需要编译 Python API 客户端，并且在执行任何更新后需要再次编译。客户端编译完成后，您将能够运行脚本与模拟进行交互。</p>
 <p>以下命令编译 Python API 客户端：</p>
-<pre><code class="language-sh">make PythonAPI
-</code></pre>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>PythonAPI
+</code></pre></div>
 <p><img alt="" src="../img/build/make_PythonAPI.png" /></p>
 <div class="admonition 注意">
 <p class="admonition-title">注意</p>
@@ -292,8 +292,8 @@ GenerateProjectFiles.bat
 <blockquote>
 <p>应使用以下<code>pip3</code>命令安装<code>.whl</code>文件：</p>
 </blockquote>
-<pre><code class="language-sh">pip3 install --force-reinstall &lt;path/to/wheel&gt;.whl
-</code></pre>
+<div class="highlight"><pre><span></span><code>pip3<span class="w"> </span>install<span class="w"> </span>--force-reinstall<span class="w"> </span>&lt;path/to/wheel&gt;.whl
+</code></pre></div>
 <blockquote>
 <p><code>.whl</code>文件无法分发，因为它是专门为您的操作系统构建的。</p>
 </blockquote>
@@ -303,8 +303,8 @@ GenerateProjectFiles.bat
 </div>
 <p><strong>2.</strong> <strong>编译服务端</strong>:</p>
 <p>以下命令编译并启动虚幻引擎。每次您想要启动服务器或使用虚幻引擎编辑器时运行此命令：</p>
-<pre><code class="language-sh">make launch
-</code></pre>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>launch
+</code></pre></div>
 <p><img alt="" src="../img/build/make_launch.png" /></p>
 <ul>
 <li><strong>问题一</strong>：</li>
@@ -323,15 +323,15 @@ GenerateProjectFiles.bat
 <p><strong>3.</strong> <strong>开始模拟</strong>:</p>
 <p>按<strong>Play</strong>开始服务器模拟。可以使用按键移动相机<code>WASD</code>，并通过在移动鼠标的同时单击场景来旋转相机。 </p>
 <p>使用里面的示例脚本测试模拟器<code>PythonAPI\examples</code>。在模拟器运行的情况下，为每个脚本打开一个新终端并运行以下命令以在城镇中产生一些生命并创建天气循环：</p>
-<pre><code class="language-sh"># 终端 A 
-cd PythonAPI\examples
-pip3 install -r requirements.txt
-python3 generate_traffic.py  
+<div class="highlight"><pre><span></span><code><span class="c1"># 终端 A </span>
+<span class="nb">cd</span><span class="w"> </span>PythonAPI<span class="se">\e</span>xamples
+pip3<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+python3<span class="w"> </span>generate_traffic.py<span class="w">  </span>
 
-# 终端 B
-cd PythonAPI\examples
-python3 dynamic_weather.py 
-</code></pre>
+<span class="c1"># 终端 B</span>
+<span class="nb">cd</span><span class="w"> </span>PythonAPI<span class="se">\e</span>xamples
+python3<span class="w"> </span>dynamic_weather.py<span class="w"> </span>
+</code></pre></div>
 <div class="admonition 重要">
 <p class="admonition-title">重要</p>
 <p>如果模拟以非常低的 FPS 速率运行，请转至虚幻引擎编辑器<code>Edit -&gt; Editor preferences -&gt; Performance</code>并禁用。</p>
@@ -396,62 +396,62 @@ python3 dynamic_weather.py
 </tr>
 </tbody>
 </table>
-<p>构建一个 egg 分发包（binary distribution），会在当前目录下的“dist”目录内创建一个“egg”文件，文件名格式就是”项目名-版本号-Python版本.egg”：</p>
-<pre><code class="language-shell">python setup.py bdist_egg
-</code></pre>
-<p>构建一个 wheel 分发包，egg 包是过时的，whl 包是新的标准：</p>
-<pre><code class="language-shell">python setup.py bdist_wheel
-</code></pre>
+<p>构建一个 egg 分发包（binary distribution），会在当前目录下的“dist”目录内创建一个“egg”文件，文件名格式就是”项目名-版本号-Python版本.egg”：
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>setup.py<span class="w"> </span>bdist_egg
+</code></pre></div></p>
+<p>构建一个 wheel 分发包，egg 包是过时的，whl 包是新的标准：
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>setup.py<span class="w"> </span>bdist_wheel
+</code></pre></div></p>
 <p>脚本<code>setup.py</code>中的<code>ext_modules</code>参数用于构建 C 和 C++ 扩展扩展包。其是 Extension 实例的列表，每一个 Extension 实例描述了一个独立的扩展模块，扩展模块可以设置扩展包名，头文件、源文件、链接库及其路径、宏定义和编辑参数等。</p>
 <p>当你安装一个包后，这个包需要你不断修改，这时就采用这种安装方法：<code>python setup.py develop</code>。仅在<code>Python37/Lib/site-packages</code>目录下生成链接文件<code>carla.egg-link</code> 指向 <code>carla/PythonAPI/carla/source</code>和<code>../</code>。</p>
 <p>而<code>python setup.py install</code>在<code>Python37\Lib\site-packages\carla-0.9.15-py3.7-win-amd64.egg</code>目录下生成运行包，包括<code>libcarla.cp37-win_amd64.pyd</code>。</p>
 <h3 id="_8">其他 <span id="other"></span></h3>
-<p>如果想重新编译LibCarla或者使用从其他地方拷贝过来的Build目录下的文件，需要删除<code>Build/libcarla-visualstudio</code>目录，然后重新运行编译命令（否则<code>PythonAPI\carla\dependencies</code>目录不会生成，生成.whl文件时遍历的不到依赖库，报错：<code>NotADirectoryError: [WinError 267] 目录名称无效。: 'dependencies/lib'</code>）：</p>
-<pre><code class="language-shell">make LibCarla
-</code></pre>
-<p>则服务端文件<code>carla_server.lib</code>生成至<code>carla\Unreal\CarlaUE4\Plugins\Carla\CarlaDependencies\</code>，客户端文件<code>carla_client.lib</code>生成至<code>carla\PythonAPI\carla\dependencies\</code>。</p>
-<p>启动vs2019环境的命令：</p>
-<pre><code class="language-shell">call &quot;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars64.bat&quot;
-set PATH=C:\software\make-4.4.1\bin;%PATH%
-echo %PATH%
-</code></pre>
+<p>如果想重新编译LibCarla或者使用从其他地方拷贝过来的Build目录下的文件，需要删除<code>Build/libcarla-visualstudio</code>目录，然后重新运行编译命令（否则<code>PythonAPI\carla\dependencies</code>目录不会生成，生成.whl文件时遍历的不到依赖库，报错：<code>NotADirectoryError: [WinError 267] 目录名称无效。: 'dependencies/lib'</code>）：
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>LibCarla
+</code></pre></div>
+则服务端文件<code>carla_server.lib</code>生成至<code>carla\Unreal\CarlaUE4\Plugins\Carla\CarlaDependencies\</code>，客户端文件<code>carla_client.lib</code>生成至<code>carla\PythonAPI\carla\dependencies\</code>。</p>
+<p>启动vs2019环境的命令：
+<div class="highlight"><pre><span></span><code>call<span class="w"> </span><span class="s2">&quot;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars64.bat&quot;</span>
+<span class="nb">set</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>C:<span class="se">\s</span>oftware<span class="se">\m</span>ake-4.4.1<span class="se">\b</span>in<span class="p">;</span>%PATH%
+<span class="nb">echo</span><span class="w"> </span>%PATH%
+</code></pre></div></p>
 <p>启动Python虚拟环境报错：<code>CondaError: Run 'conda init' before 'conda activate'</code></p>
 <blockquote>
-<p>使用Anaconda Powershell Prompt打开，或者：</p>
+<p>使用Anaconda Powershell Prompt打开，或者：
+<div class="highlight"><pre><span></span><code>conda<span class="w"> </span>init<span class="w"> </span>cmd.exe<span class="w">  </span><span class="c1"># 先执行这个，然后再激活虚拟环境</span>
+conda<span class="w"> </span>activate<span class="w"> </span>carla_cpp
+</code></pre></div></p>
 </blockquote>
-<pre><code class="language-shell">conda init cmd.exe  # 先执行这个，然后再激活虚拟环境
-conda activate carla_cpp
-</code></pre>
-<p>报chrono模块的错：<code>D:/work/workspace/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/V2X/PathLossModel.cpp(176): error C3861: “DrawDebugLine”: 找不到标识符</code>、</p>
-<pre><code class="language-text">D:/work/workspace/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/V2X/PathLossModel.cpp(542): error C2027: 使用了未定义类型“URandomEngine”
+<p>报chrono模块的错：<code>D:/work/workspace/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/V2X/PathLossModel.cpp(176): error C3861: “DrawDebugLine”: 找不到标识符</code>、
+<div class="highlight"><pre><span></span><code>D:/work/workspace/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/V2X/PathLossModel.cpp(542): error C2027: 使用了未定义类型“URandomEngine”
 D:/work/workspace/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/V2XSensor.cpp(189): error C2653: “UCarlaStatics”: 不是类或命名空间名称
 D:/work/workspace/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/V2XSensor.cpp(189): error C3861: “GetCurrentEpisode”: 找不到标识符
-</code></pre>
+</code></pre></div></p>
 <blockquote>
 <p>解决：先使用VS编译后，然后再用命令行启动则可，原因不明。</p>
 </blockquote>
-<p>Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/V2XSensor.cpp添加头文件</p>
-<pre><code class="language-c++">#include &quot;Carla/Game/CarlaStatics.h&quot;
-</code></pre>
-<p>报错：</p>
-<pre><code class="language-text">D:/work/workspace/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/V2X/PathLossModel.cpp(176): error C3861: “DrawDebugLine”: 找不到标识符
-</code></pre>
-<p>解决：Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/V2X/PathLossModel.cpp添加头文件</p>
-<pre><code class="language-c++">#include &quot;DrawDebugHelpers.h&quot;
-</code></pre>
-<p>报错：</p>
-<pre><code class="language-text">错误  C2027   使用了未定义类型“URandomEngine” CarlaUE4    D:\work\workspace\carla\Unreal\CarlaUE4\Plugins\Carla\Source\Carla\Sensor\V2X\PathLossModel.cpp 542 
-</code></pre>
-<p>解决：<code>Unreal\CarlaUE4\Plugins\Carla\Source\Carla\Sensor\V2X\PathLossModel.cpp</code>中添加头文件：</p>
-<pre><code class="language-text">#include &quot;Carla/Util/RandomEngine.h&quot;
-</code></pre>
-<p>执行<code>make PythonAPI</code>时候报错：<code>无法加载文件Microsoft.PowerShell_profile.ps1...因为在此系统上禁止运行脚本</code>：</p>
-<pre><code class="language-shell"># 使用管理员权限启动PowerShell，修改当前用户权限
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-# 弹出选择项后选择`A`
-</code></pre>
-<p>执行<code>make PythonAPI</code>时报错：</p>
-<pre><code class="language-text">-[BuildPythonAPI]: [Batch params]: --py3
+<p>Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/V2XSensor.cpp添加头文件
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;Carla/Game/CarlaStatics.h&quot;</span>
+</code></pre></div></p>
+<p>报错：
+<div class="highlight"><pre><span></span><code>D:/work/workspace/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/V2X/PathLossModel.cpp(176): error C3861: “DrawDebugLine”: 找不到标识符
+</code></pre></div>
+解决：Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/V2X/PathLossModel.cpp添加头文件
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;DrawDebugHelpers.h&quot;</span>
+</code></pre></div></p>
+<p>报错：
+<div class="highlight"><pre><span></span><code>错误  C2027   使用了未定义类型“URandomEngine” CarlaUE4    D:\work\workspace\carla\Unreal\CarlaUE4\Plugins\Carla\Source\Carla\Sensor\V2X\PathLossModel.cpp 542 
+</code></pre></div></p>
+<p>解决：<code>Unreal\CarlaUE4\Plugins\Carla\Source\Carla\Sensor\V2X\PathLossModel.cpp</code>中添加头文件：
+<div class="highlight"><pre><span></span><code>#include &quot;Carla/Util/RandomEngine.h&quot;
+</code></pre></div></p>
+<p>执行<code>make PythonAPI</code>时候报错：<code>无法加载文件Microsoft.PowerShell_profile.ps1...因为在此系统上禁止运行脚本</code>：
+<div class="highlight"><pre><span></span><code><span class="c1"># 使用管理员权限启动PowerShell，修改当前用户权限</span>
+Set-ExecutionPolicy<span class="w"> </span>-ExecutionPolicy<span class="w"> </span>RemoteSigned<span class="w"> </span>-Scope<span class="w"> </span>CurrentUser
+<span class="c1"># 弹出选择项后选择`A`</span>
+</code></pre></div></p>
+<p>执行<code>make PythonAPI</code>时报错：
+<div class="highlight"><pre><span></span><code>-[BuildPythonAPI]: [Batch params]: --py3
 信息: 用提供的模式无法找到文件。
 -[BuildPythonAPI]: [ERROR] An error ocurred while executing the py.
 -[BuildPythonAPI]: [ERROR] Possible causes:
@@ -459,38 +459,40 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 -[BuildPythonAPI]: [ERROR]  - py = python launcher. This utility is bundled with Python installation but not installed by default.
 -[BuildPythonAPI]: [ERROR]  - Make sure it is available on your Windows &quot;py&quot;.
 make: *** [Util/BuildTools/Windows.mk:62: PythonAPI] Error 1
-</code></pre>
-<p>报错位置：<code>BuildPythonAPI.bat</code>：</p>
-<pre><code class="language-shell">where py 1&gt;nul
-if %errorlevel% neq 0 goto error_py
-</code></pre>
-<p><code>%errorlevel%</code>表达上一条命令的返回值。<code>0</code>通常会被视为成功，<code>非0</code>为失败或者异常。
-应该修改为：</p>
-<pre><code class="language-shell">```shell
-where python 1&gt;nul
-if %errorlevel% neq 0 goto error_py
-</code></pre>
+</code></pre></div>
+报错位置：<code>BuildPythonAPI.bat</code>：
+<div class="highlight"><pre><span></span><code>where<span class="w"> </span>py<span class="w"> </span><span class="m">1</span>&gt;nul
+<span class="k">if</span><span class="w"> </span>%errorlevel%<span class="w"> </span>neq<span class="w"> </span><span class="m">0</span><span class="w"> </span>goto<span class="w"> </span>error_py
+</code></pre></div>
+<code>%errorlevel%</code>表达上一条命令的返回值。<code>0</code>通常会被视为成功，<code>非0</code>为失败或者异常。
+应该修改为：
+<div class="highlight"><pre><span></span><code><span class="sb">```</span>shell
+where<span class="w"> </span>python<span class="w"> </span><span class="m">1</span>&gt;nul
+<span class="k">if</span><span class="w"> </span>%errorlevel%<span class="w"> </span>neq<span class="w"> </span><span class="m">0</span><span class="w"> </span>goto<span class="w"> </span>error_py
+</code></pre></div></p>
 <h3 id="_9">系统</h3>
 <p>Win11专业版 <a href="https://www.orcy.net.cn/1802.html">激活方法</a> 。</p>
 <h2 id="_10">报错 <span id="error"></span></h2>
 <ul>
-<li>执行<code>make osm2odr</code>报错：</li>
-</ul>
-<pre><code class="language-text">CMake Error: The source directory &quot;D:/work/workspace/carla/Build/osm2odr-visualstudio/x64&quot; does not appear to contain CMakeLists.txt.
+<li>执行<code>make osm2odr</code>报错：
+<div class="highlight"><pre><span></span><code>CMake Error: The source directory &quot;D:/work/workspace/carla/Build/osm2odr-visualstudio/x64&quot; does not appear to contain CMakeLists.txt.
 Specify --help for usage, or press the help button on the CMake GUI.
 Error: could not load cache
-</code></pre>
-<p>从其他地方把<code>Build\osm2odr-visualstudio\CMakeCache.txt</code>拷贝过来，修改里面对应的目录为当前工程的目录。</p>
+</code></pre></div>
+从其他地方把<code>Build\osm2odr-visualstudio\CMakeCache.txt</code>拷贝过来，修改里面对应的目录为当前工程的目录。</li>
+</ul>
 <hr />
 <ul>
-<li>执行<code>make PythonAPI</code>报错：</li>
-</ul>
-<pre><code class="language-text">libcarla.obj : error LNK2001: 无法解析的外部符号 &quot;class std::basic_string&lt;char,struct std::char_traits&lt;char&gt;,class std::allocator&lt;char&gt; &gt; __cdecl osm2odr::ConvertOSMToOpenDRIVE(class std::basic_string&lt;char,struct std::char_traits&lt;char&gt;,class std::allocator&lt;char&gt; &gt;,struct osm2odr::OSM2ODRSettings)&quot; (?ConvertOSMToOpenDRIVE@osm2odr@@YA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V23@UOSM2ODRSettings@1@@Z)
-</code></pre>
-<p>从其他编译成功的地方将<code>PythonAPI\carla\dependencies\lib\osm2odr.lib</code>拷贝过来。</p>
-<ul>
-<li>同一台机器中之前安装过vs，再安装时报错：<code>无法安装  Microsoft.VisualStudio.Debugger.JustInTime.Msi</code>
-和 <code>Could not open key: UNKNOWNComponents Werify that you have sufficient access to that key, or contact your support personnel.</code></li>
+<li>
+<p>执行<code>make PythonAPI</code>报错：
+<div class="highlight"><pre><span></span><code>libcarla.obj : error LNK2001: 无法解析的外部符号 &quot;class std::basic_string&lt;char,struct std::char_traits&lt;char&gt;,class std::allocator&lt;char&gt; &gt; __cdecl osm2odr::ConvertOSMToOpenDRIVE(class std::basic_string&lt;char,struct std::char_traits&lt;char&gt;,class std::allocator&lt;char&gt; &gt;,struct osm2odr::OSM2ODRSettings)&quot; (?ConvertOSMToOpenDRIVE@osm2odr@@YA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V23@UOSM2ODRSettings@1@@Z)
+</code></pre></div>
+从其他编译成功的地方将<code>PythonAPI\carla\dependencies\lib\osm2odr.lib</code>拷贝过来。</p>
+</li>
+<li>
+<p>同一台机器中之前安装过vs，再安装时报错：<code>无法安装  Microsoft.VisualStudio.Debugger.JustInTime.Msi</code>
+和 <code>Could not open key: UNKNOWNComponents Werify that you have sufficient access to that key, or contact your support personnel.</code></p>
+</li>
 </ul>
 <p>解决：<a href="https://blog.csdn.net/hsuehgw/article/details/131000227"><code>注册表编辑器无法在当前所选的项及其部分子项上设置安全性</code></a> 。</p>
 <p>注意：使用在线安装文件<code>vs_community__2019.exe</code>进行安装，不要使用离线版的vs2019安装包，否则会出现错误：<code>系统错误：&amp;H8007007E(-2147024770)。 找不到指定的模块</code>。</p>
@@ -515,10 +517,10 @@ Error: could not load cache
 <ul>
 <li>使用<code>make Python</code>编译 Carla 0.9.13 时报错：<code>osm2odr.lib(GeoConvHelper.obj) : error LNK2001: 无法解析的外部符号 proj_create</code>：</li>
 </ul>
-<p>删除位于Build目录下的proj源代码和安装目录，然后运行下面命令（参数改为对应的Build目录）：</p>
-<pre><code class="language-shell">install_proj.bat --build-dir D:\work\DReyeVR\carla\Build
-</code></pre>
-<p>如果还报错sqlite的错误，需要把<code>sqlite3-install</code>和<code>sqlite3-src</code>删除后重新编译。</p>
+<p>删除位于Build目录下的proj源代码和安装目录，然后运行下面命令（参数改为对应的Build目录）：
+<div class="highlight"><pre><span></span><code>install_proj.bat<span class="w"> </span>--build-dir<span class="w"> </span>D:<span class="se">\w</span>ork<span class="se">\D</span>ReyeVR<span class="se">\c</span>arla<span class="se">\B</span>uild
+</code></pre></div>
+如果还报错sqlite的错误，需要把<code>sqlite3-install</code>和<code>sqlite3-src</code>删除后重新编译。</p>
 <hr />
 <h2 id="_11">参考</h2>
 <p><a href="../dev/cicd/">持续集成</a></p>
@@ -576,8 +578,13 @@ Error: could not load cache
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

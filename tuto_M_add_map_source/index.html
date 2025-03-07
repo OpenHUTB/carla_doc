@@ -88,19 +88,19 @@
 <h2 id="_2">地图导入 <span id="map-ingestion"></span></h2>
 <p><strong>1.</strong> 将需要导入的地图文件放入 Carla 根目录下的<code>Import</code>文件夹中。</p>
 <p><strong>2.</strong> 运行以下命令来提取文件：</p>
-<pre><code class="language-sh">make import
-</code></pre>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>import
+</code></pre></div>
 <p><strong>请注意，可以设置两个可选参数标志</strong>:</p>
 <ul>
 <li><code>--package=&lt;package_name&gt;</code> 指定包的名称。默认情况下，此项设置为<code>map_package</code>。两个包不能具有相同的名称，因此使用默认值将导致后续摄取时出错。<strong>强烈建议更改包的名称</strong>。通过运行以下命令来使用此标志：</li>
 </ul>
-<pre><code class="language-sh">make import  ARGS=&quot;--package=&lt;package_name&gt;&quot;
-</code></pre>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>import<span class="w">  </span><span class="nv">ARGS</span><span class="o">=</span><span class="s2">&quot;--package=&lt;package_name&gt;&quot;</span>
+</code></pre></div>
 <ul>
 <li><code>--no-carla-materials</code> 指定您不想使用默认的 Carla 材质（道路纹理等）。您将改用 RoadRunner 材料。<strong>仅当您不提供</strong> <a href="../tuto_M_manual_map_package/">自己的<code>.json</code>文件</a> 时才需要此标志。<code>.json</code>文件中的任何值都将覆盖此标志。通过运行以下命令来使用此标志：</li>
 </ul>
-<pre><code class="language-sh">make import  ARGS=&quot;--no-carla-materials&quot;
-</code></pre>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>import<span class="w">  </span><span class="nv">ARGS</span><span class="o">=</span><span class="s2">&quot;--no-carla-materials&quot;</span>
+</code></pre></div>
 <p>将使用地图包的名称创建一个文件夹 <code>Unreal/CarlaUE4/Content</code> 。它将包含配置文件、超速挡、静态资产信息和导航信息。</p>
 <hr />
 <h2 id="_3">下一步 <span id="next-steps"></span></h2>
@@ -152,8 +152,13 @@
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

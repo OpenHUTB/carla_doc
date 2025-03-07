@@ -5639,23 +5639,21 @@ carla.World.enable_environment_objects 代码片段
 </p>
 <div id="carla.World.enable_environment_objects-code" class="SnipetContent">
 
+<div class="highlight"><pre><span></span><code><span class="c1"># 该代码片段在地图上显示或隐藏特定建筑。</span>
+<span class="c1"># Get the buildings in the world</span>
+<span class="n">world</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_world</span><span class="p">()</span>
+<span class="n">env_objs</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_environment_objects</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">CityObjectLabel</span><span class="o">.</span><span class="n">Buildings</span><span class="p">)</span>
 
-<pre><code class="language-py"># 该代码片段在地图上显示或隐藏特定建筑。
-# Get the buildings in the world
-world = client.get_world()
-env_objs = world.get_environment_objects(carla.CityObjectLabel.Buildings)
+<span class="c1"># 访问单个建筑IDs并保存到一个集合中</span>
+<span class="n">building_01</span> <span class="o">=</span> <span class="n">env_objs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">building_02</span> <span class="o">=</span> <span class="n">env_objs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">objects_to_toggle</span> <span class="o">=</span> <span class="p">{</span><span class="n">building_01</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">building_02</span><span class="o">.</span><span class="n">id</span><span class="p">}</span>
 
-# 访问单个建筑IDs并保存到一个集合中
-building_01 = env_objs[0]
-building_02 = env_objs[1]
-objects_to_toggle = {building_01.id, building_02.id}
-
-# 隐藏建筑
-world.enable_environment_objects(objects_to_toggle, False)
-# 显示建筑
-world.enable_environment_objects(objects_to_toggle, True)
-</code></pre>
-
+<span class="c1"># 隐藏建筑</span>
+<span class="n">world</span><span class="o">.</span><span class="n">enable_environment_objects</span><span class="p">(</span><span class="n">objects_to_toggle</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="c1"># 显示建筑</span>
+<span class="n">world</span><span class="o">.</span><span class="n">enable_environment_objects</span><span class="p">(</span><span class="n">objects_to_toggle</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
 <button id="button1" class="CopyScript" onclick="CopyToClipboard('carla.World.enable_environment_objects-code')">Copy snippet</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="button1" class="CloseSnipet" onclick="CloseSnipet()">Close snippet</button><br><br>
 
 </div>
@@ -5666,32 +5664,30 @@ carla.DebugHelper.draw_string 代码片段
 </p>
 <div id="carla.DebugHelper.draw_string-code" class="SnipetContent">
 
+<div class="highlight"><pre><span></span><code><span class="c1"># 该代码片段是 lane_explorer.py 示例的修改</span>
+<span class="c1"># 它在直接中绘制参与者的路径，打印每个路径点的信息。</span>
 
-<pre><code class="language-py"># 该代码片段是 lane_explorer.py 示例的修改
-# 它在直接中绘制参与者的路径，打印每个路径点的信息。
+<span class="c1"># ...</span>
+<span class="n">current_w</span> <span class="o">=</span> <span class="nb">map</span><span class="o">.</span><span class="n">get_waypoint</span><span class="p">(</span><span class="n">vehicle</span><span class="o">.</span><span class="n">get_location</span><span class="p">())</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
 
-# ...
-current_w = map.get_waypoint(vehicle.get_location())
-while True:
+    <span class="n">next_w</span> <span class="o">=</span> <span class="nb">map</span><span class="o">.</span><span class="n">get_waypoint</span><span class="p">(</span><span class="n">vehicle</span><span class="o">.</span><span class="n">get_location</span><span class="p">(),</span> <span class="n">lane_type</span><span class="o">=</span><span class="n">carla</span><span class="o">.</span><span class="n">LaneType</span><span class="o">.</span><span class="n">Driving</span> <span class="o">|</span> <span class="n">carla</span><span class="o">.</span><span class="n">LaneType</span><span class="o">.</span><span class="n">Shoulder</span> <span class="o">|</span> <span class="n">carla</span><span class="o">.</span><span class="n">LaneType</span><span class="o">.</span><span class="n">Sidewalk</span> <span class="p">)</span>
+    <span class="c1"># 检查车辆是否在移动</span>
+    <span class="k">if</span> <span class="n">next_w</span><span class="o">.</span><span class="n">id</span> <span class="o">!=</span> <span class="n">current_w</span><span class="o">.</span><span class="n">id</span><span class="p">:</span>
+        <span class="n">vector</span> <span class="o">=</span> <span class="n">vehicle</span><span class="o">.</span><span class="n">get_velocity</span><span class="p">()</span>
+        <span class="c1"># Check if the vehicle is on a sidewalk</span>
+        <span class="k">if</span> <span class="n">current_w</span><span class="o">.</span><span class="n">lane_type</span> <span class="o">==</span> <span class="n">carla</span><span class="o">.</span><span class="n">LaneType</span><span class="o">.</span><span class="n">Sidewalk</span><span class="p">:</span>
+            <span class="n">draw_waypoint_union</span><span class="p">(</span><span class="n">debug</span><span class="p">,</span> <span class="n">current_w</span><span class="p">,</span> <span class="n">next_w</span><span class="p">,</span> <span class="n">cyan</span> <span class="k">if</span> <span class="n">current_w</span><span class="o">.</span><span class="n">is_junction</span> <span class="k">else</span> <span class="n">red</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">draw_waypoint_union</span><span class="p">(</span><span class="n">debug</span><span class="p">,</span> <span class="n">current_w</span><span class="p">,</span> <span class="n">next_w</span><span class="p">,</span> <span class="n">cyan</span> <span class="k">if</span> <span class="n">current_w</span><span class="o">.</span><span class="n">is_junction</span> <span class="k">else</span> <span class="n">green</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+        <span class="n">debug</span><span class="o">.</span><span class="n">draw_string</span><span class="p">(</span><span class="n">current_w</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">location</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%15.0f</span><span class="s1"> km/h&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="mf">3.6</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">vector</span><span class="o">.</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">vector</span><span class="o">.</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">vector</span><span class="o">.</span><span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">))),</span> <span class="kc">False</span><span class="p">,</span> <span class="n">orange</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+        <span class="n">draw_transform</span><span class="p">(</span><span class="n">debug</span><span class="p">,</span> <span class="n">current_w</span><span class="o">.</span><span class="n">transform</span><span class="p">,</span> <span class="n">white</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
 
-    next_w = map.get_waypoint(vehicle.get_location(), lane_type=carla.LaneType.Driving | carla.LaneType.Shoulder | carla.LaneType.Sidewalk )
-    # 检查车辆是否在移动
-    if next_w.id != current_w.id:
-        vector = vehicle.get_velocity()
-        # Check if the vehicle is on a sidewalk
-        if current_w.lane_type == carla.LaneType.Sidewalk:
-            draw_waypoint_union(debug, current_w, next_w, cyan if current_w.is_junction else red, 60)
-        else:
-            draw_waypoint_union(debug, current_w, next_w, cyan if current_w.is_junction else green, 60)
-        debug.draw_string(current_w.transform.location, str('%15.0f km/h' % (3.6 * math.sqrt(vector.x**2 + vector.y**2 + vector.z**2))), False, orange, 60)
-        draw_transform(debug, current_w.transform, white, 60)
-
-    # 更新当前路径点并休眠一段时间
-    current_w = next_w
-    time.sleep(args.tick_time)
-# ...
-</code></pre>
-
+    <span class="c1"># 更新当前路径点并休眠一段时间</span>
+    <span class="n">current_w</span> <span class="o">=</span> <span class="n">next_w</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">tick_time</span><span class="p">)</span>
+<span class="c1"># ...</span>
+</code></pre></div>
 <button id="button1" class="CopyScript" onclick="CopyToClipboard('carla.DebugHelper.draw_string-code')">Copy snippet</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="button1" class="CloseSnipet" onclick="CloseSnipet()">Close snippet</button><br><br>
 
 </div>
@@ -5702,19 +5698,17 @@ Snippet for carla.World.unload_map_layer
 </p>
 <div id="carla.World.unload_map_layer-code" class="SnipetContent">
 
+<div class="highlight"><pre><span></span><code><span class="c1"># 该代码片段在分层地图&quot;_Opt&quot;上关闭几层</span>
 
-<pre><code class="language-py"># 该代码片段在分层地图&quot;_Opt&quot;上关闭几层
+<span class="c1"># 以最小布局（道路、人行道、交通灯和交通标志）加载城镇，还包括建筑和停靠的车辆</span>
+<span class="n">world</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">load_world</span><span class="p">(</span><span class="s1">&#39;Town01_Opt&#39;</span><span class="p">,</span> <span class="n">carla</span><span class="o">.</span><span class="n">MapLayer</span><span class="o">.</span><span class="n">Buildings</span> <span class="o">|</span> <span class="n">carla</span><span class="o">.</span><span class="n">MapLayer</span><span class="o">.</span><span class="n">ParkedVehicles</span><span class="p">)</span> 
 
-# 以最小布局（道路、人行道、交通灯和交通标志）加载城镇，还包括建筑和停靠的车辆
-world = client.load_world('Town01_Opt', carla.MapLayer.Buildings | carla.MapLayer.ParkedVehicles) 
+<span class="c1"># 隐藏建筑</span>
+<span class="n">world</span><span class="o">.</span><span class="n">unload_map_layer</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">MapLayer</span><span class="o">.</span><span class="n">Buildings</span><span class="p">)</span>
 
-# 隐藏建筑
-world.unload_map_layer(carla.MapLayer.Buildings)
-
-# 隐藏停靠的车辆
-world.unload_map_layer(carla.MapLayer.ParkedVehicles)
-</code></pre>
-
+<span class="c1"># 隐藏停靠的车辆</span>
+<span class="n">world</span><span class="o">.</span><span class="n">unload_map_layer</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">MapLayer</span><span class="o">.</span><span class="n">ParkedVehicles</span><span class="p">)</span>
+</code></pre></div>
 <button id="button1" class="CopyScript" onclick="CopyToClipboard('carla.World.unload_map_layer-code')">Copy snippet</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="button1" class="CloseSnipet" onclick="CloseSnipet()">Close snippet</button><br><br>
 
 </div>
@@ -5725,12 +5719,10 @@ Snippet for carla.Vehicle.set_wheel_steer_direction
 </p>
 <div id="carla.Vehicle.set_wheel_steer_direction-code" class="SnipetContent">
 
-
-<pre><code class="language-py"># 设置前轮转40°车辆的外观。不会影响车辆的物理。
-vehicle.set_wheel_steer_direction(carla.VehicleWheelLocation.FR_Wheel, 40.0)
-vehicle.set_wheel_steer_direction(carla.VehicleWheelLocation.FL_Wheel, 40.0)
-</code></pre>
-
+<div class="highlight"><pre><span></span><code><span class="c1"># 设置前轮转40°车辆的外观。不会影响车辆的物理。</span>
+<span class="n">vehicle</span><span class="o">.</span><span class="n">set_wheel_steer_direction</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">VehicleWheelLocation</span><span class="o">.</span><span class="n">FR_Wheel</span><span class="p">,</span> <span class="mf">40.0</span><span class="p">)</span>
+<span class="n">vehicle</span><span class="o">.</span><span class="n">set_wheel_steer_direction</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">VehicleWheelLocation</span><span class="o">.</span><span class="n">FL_Wheel</span><span class="p">,</span> <span class="mf">40.0</span><span class="p">)</span>
+</code></pre></div>
 <button id="button1" class="CopyScript" onclick="CopyToClipboard('carla.Vehicle.set_wheel_steer_direction-code')">Copy snippet</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="button1" class="CloseSnipet" onclick="CloseSnipet()">Close snippet</button><br><br>
 
 </div>
@@ -5741,36 +5733,34 @@ Snippet for carla.Client.__init__
 </p>
 <div id="carla.Client.__init__-code" class="SnipetContent">
 
+<div class="highlight"><pre><span></span><code><span class="c1"># 该代码片段在 PythonAPI/Examples 中的每个脚本中都有，运行脚本时候用于解析客户端创建参数。</span>
 
-<pre><code class="language-py"># 该代码片段在 PythonAPI/Examples 中的每个脚本中都有，运行脚本时候用于解析客户端创建参数。
+    <span class="n">argparser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="vm">__doc__</span><span class="p">)</span>
+    <span class="n">argparser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s1">&#39;--host&#39;</span><span class="p">,</span>
+        <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;H&#39;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;IP of the host server (default: 127.0.0.1)&#39;</span><span class="p">)</span>
+    <span class="n">argparser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s1">&#39;-p&#39;</span><span class="p">,</span> <span class="s1">&#39;--port&#39;</span><span class="p">,</span>
+        <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;P&#39;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;TCP port to listen to (default: 2000)&#39;</span><span class="p">)</span>
+    <span class="n">argparser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s1">&#39;-s&#39;</span><span class="p">,</span> <span class="s1">&#39;--speed&#39;</span><span class="p">,</span>
+        <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;FACTOR&#39;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;rate at which the weather changes (default: 1.0)&#39;</span><span class="p">)</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">argparser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
 
-    argparser = argparse.ArgumentParser(
-        description=__doc__)
-    argparser.add_argument(
-        '--host',
-        metavar='H',
-        default='127.0.0.1',
-        help='IP of the host server (default: 127.0.0.1)')
-    argparser.add_argument(
-        '-p', '--port',
-        metavar='P',
-        default=2000,
-        type=int,
-        help='TCP port to listen to (default: 2000)')
-    argparser.add_argument(
-        '-s', '--speed',
-        metavar='FACTOR',
-        default=1.0,
-        type=float,
-        help='rate at which the weather changes (default: 1.0)')
-    args = argparser.parse_args()
+    <span class="n">speed_factor</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">speed</span>
+    <span class="n">update_freq</span> <span class="o">=</span> <span class="mf">0.1</span> <span class="o">/</span> <span class="n">speed_factor</span>
 
-    speed_factor = args.speed
-    update_freq = 0.1 / speed_factor
-
-    client = carla.Client(args.host, args.port)
-</code></pre>
-
+    <span class="n">client</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>
+</code></pre></div>
 <button id="button1" class="CopyScript" onclick="CopyToClipboard('carla.Client.__init__-code')">Copy snippet</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="button1" class="CloseSnipet" onclick="CloseSnipet()">Close snippet</button><br><br>
 
 </div>
@@ -5781,24 +5771,21 @@ carla.Map.get_waypoint 代码片段
 </p>
 <div id="carla.Map.get_waypoint-code" class="SnipetContent">
 
+<div class="highlight"><pre><span></span><code><span class="c1"># 该代码片段显示当前交通规则影响的车辆。</span>
+<span class="c1"># 显示当前车辆类型，在实际的车道或周围的物体中车道线是否改变。</span>
 
-<pre><code class="language-py"># 该代码片段显示当前交通规则影响的车辆。
-# 显示当前车辆类型，在实际的车道或周围的物体中车道线是否改变。
-
-# ...
-waypoint = world.get_map().get_waypoint(vehicle.get_location(),project_to_road=True, lane_type=(carla.LaneType.Driving | carla.LaneType.Shoulder | carla.LaneType.Sidewalk))
-print(&quot;Current lane type: &quot; + str(waypoint.lane_type))
-# Check current lane change allowed
-print(&quot;Current Lane change:  &quot; + str(waypoint.lane_change))
-# Left and Right lane markings
-print(&quot;L lane marking type: &quot; + str(waypoint.left_lane_marking.type))
-print(&quot;L lane marking change: &quot; + str(waypoint.left_lane_marking.lane_change))
-print(&quot;R lane marking type: &quot; + str(waypoint.right_lane_marking.type))
-print(&quot;R lane marking change: &quot; + str(waypoint.right_lane_marking.lane_change))
-# ...
-
-</code></pre>
-
+<span class="c1"># ...</span>
+<span class="n">waypoint</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_map</span><span class="p">()</span><span class="o">.</span><span class="n">get_waypoint</span><span class="p">(</span><span class="n">vehicle</span><span class="o">.</span><span class="n">get_location</span><span class="p">(),</span><span class="n">project_to_road</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">lane_type</span><span class="o">=</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">LaneType</span><span class="o">.</span><span class="n">Driving</span> <span class="o">|</span> <span class="n">carla</span><span class="o">.</span><span class="n">LaneType</span><span class="o">.</span><span class="n">Shoulder</span> <span class="o">|</span> <span class="n">carla</span><span class="o">.</span><span class="n">LaneType</span><span class="o">.</span><span class="n">Sidewalk</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Current lane type: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">waypoint</span><span class="o">.</span><span class="n">lane_type</span><span class="p">))</span>
+<span class="c1"># Check current lane change allowed</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Current Lane change:  &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">waypoint</span><span class="o">.</span><span class="n">lane_change</span><span class="p">))</span>
+<span class="c1"># Left and Right lane markings</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;L lane marking type: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">waypoint</span><span class="o">.</span><span class="n">left_lane_marking</span><span class="o">.</span><span class="n">type</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;L lane marking change: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">waypoint</span><span class="o">.</span><span class="n">left_lane_marking</span><span class="o">.</span><span class="n">lane_change</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;R lane marking type: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">waypoint</span><span class="o">.</span><span class="n">right_lane_marking</span><span class="o">.</span><span class="n">type</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;R lane marking change: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">waypoint</span><span class="o">.</span><span class="n">right_lane_marking</span><span class="o">.</span><span class="n">lane_change</span><span class="p">))</span>
+<span class="c1"># ...</span>
+</code></pre></div>
 <button id="button1" class="CopyScript" onclick="CopyToClipboard('carla.Map.get_waypoint-code')">Copy snippet</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="button1" class="CloseSnipet" onclick="CloseSnipet()">Close snippet</button><br><br>
 
 
@@ -5812,19 +5799,16 @@ Snippet for carla.World.spawn_actor
 </p>
 <div id="carla.World.spawn_actor-code" class="SnipetContent">
 
+<div class="highlight"><pre><span></span><code><span class="c1"># 该代码片段使用不同的附着将不同的相机或传感器附着到车辆中。</span>
 
-<pre><code class="language-py"># 该代码片段使用不同的附着将不同的相机或传感器附着到车辆中。
-
-# ...
-camera = world.spawn_actor(rgb_camera_bp, transform, attach_to=vehicle, attachment_type=Attachment.Rigid)
-# 默认附着：Attachment.Rigid
-gnss_sensor = world.spawn_actor(sensor_gnss_bp, transform, attach_to=vehicle)
-collision_sensor = world.spawn_actor(sensor_collision_bp, transform, attach_to=vehicle)
-lane_invasion_sensor = world.spawn_actor(sensor_lane_invasion_bp, transform, attach_to=vehicle)
-# ...
-
-</code></pre>
-
+<span class="c1"># ...</span>
+<span class="n">camera</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">rgb_camera_bp</span><span class="p">,</span> <span class="n">transform</span><span class="p">,</span> <span class="n">attach_to</span><span class="o">=</span><span class="n">vehicle</span><span class="p">,</span> <span class="n">attachment_type</span><span class="o">=</span><span class="n">Attachment</span><span class="o">.</span><span class="n">Rigid</span><span class="p">)</span>
+<span class="c1"># 默认附着：Attachment.Rigid</span>
+<span class="n">gnss_sensor</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">sensor_gnss_bp</span><span class="p">,</span> <span class="n">transform</span><span class="p">,</span> <span class="n">attach_to</span><span class="o">=</span><span class="n">vehicle</span><span class="p">)</span>
+<span class="n">collision_sensor</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">sensor_collision_bp</span><span class="p">,</span> <span class="n">transform</span><span class="p">,</span> <span class="n">attach_to</span><span class="o">=</span><span class="n">vehicle</span><span class="p">)</span>
+<span class="n">lane_invasion_sensor</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">sensor_lane_invasion_bp</span><span class="p">,</span> <span class="n">transform</span><span class="p">,</span> <span class="n">attach_to</span><span class="o">=</span><span class="n">vehicle</span><span class="p">)</span>
+<span class="c1"># ...</span>
+</code></pre></div>
 <button id="button1" class="CopyScript" onclick="CopyToClipboard('carla.World.spawn_actor-code')">Copy snippet</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="button1" class="CloseSnipet" onclick="CloseSnipet()">Close snippet</button><br><br>
 
 </div>
@@ -5835,19 +5819,15 @@ carla.WalkerAIController.stop 代码片段
 </p>
 <div id="carla.WalkerAIController.stop-code" class="SnipetContent">
 
+<div class="highlight"><pre><span></span><code><span class="c1"># To destroy the pedestrians, stop them from the navigation, and then destroy the objects (actor and controller).</span>
 
-<pre><code class="language-py"># To destroy the pedestrians, stop them from the navigation, and then destroy the objects (actor and controller).
+<span class="c1"># stop pedestrians (list is [controller, actor, controller, actor ...])</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_id</span><span class="p">),</span> <span class="mi">2</span><span class="p">):</span>
+    <span class="n">all_actors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
 
-# stop pedestrians (list is [controller, actor, controller, actor ...])
-for i in range(0, len(all_id), 2):
-    all_actors[i].stop()
-
-# destroy pedestrian (actor and controller)
-client.apply_batch([carla.command.DestroyActor(x) for x in all_id])
-
-
-</code></pre>
-
+<span class="c1"># destroy pedestrian (actor and controller)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">apply_batch</span><span class="p">([</span><span class="n">carla</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">DestroyActor</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">all_id</span><span class="p">])</span>
+</code></pre></div>
 <button id="button1" class="CopyScript" onclick="CopyToClipboard('carla.WalkerAIController.stop-code')">Copy snippet</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="button1" class="CloseSnipet" onclick="CloseSnipet()">Close snippet</button><br><br>
 
 </div>
@@ -5858,25 +5838,18 @@ Snippet for carla.DebugHelper.draw_box
 </p>
 <div id="carla.DebugHelper.draw_box-code" class="SnipetContent">
 
+<div class="highlight"><pre><span></span><code><span class="c1"># This recipe shows how to draw traffic light actor bounding boxes from a world snapshot.</span>
 
-<pre><code class="language-py">
+<span class="c1"># ....</span>
+<span class="n">debug</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">debug</span>
+<span class="n">world_snapshot</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_snapshot</span><span class="p">()</span>
 
-# This recipe shows how to draw traffic light actor bounding boxes from a world snapshot.
-
-# ....
-debug = world.debug
-world_snapshot = world.get_snapshot()
-
-for actor_snapshot in world_snapshot:
-    actual_actor = world.get_actor(actor_snapshot.id)
-    if actual_actor.type_id == 'traffic.traffic_light':
-        debug.draw_box(carla.BoundingBox(actor_snapshot.get_transform().location,carla.Vector3D(0.5,0.5,2)),actor_snapshot.get_transform().rotation, 0.05, carla.Color(255,0,0,0),0)
-# ...
-
-
-
-</code></pre>
-
+<span class="k">for</span> <span class="n">actor_snapshot</span> <span class="ow">in</span> <span class="n">world_snapshot</span><span class="p">:</span>
+    <span class="n">actual_actor</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_actor</span><span class="p">(</span><span class="n">actor_snapshot</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">actual_actor</span><span class="o">.</span><span class="n">type_id</span> <span class="o">==</span> <span class="s1">&#39;traffic.traffic_light&#39;</span><span class="p">:</span>
+        <span class="n">debug</span><span class="o">.</span><span class="n">draw_box</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">BoundingBox</span><span class="p">(</span><span class="n">actor_snapshot</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">location</span><span class="p">,</span><span class="n">carla</span><span class="o">.</span><span class="n">Vector3D</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">2</span><span class="p">)),</span><span class="n">actor_snapshot</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">rotation</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="n">carla</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="mi">0</span><span class="p">)</span>
+<span class="c1"># ...</span>
+</code></pre></div>
 <button id="button1" class="CopyScript" onclick="CopyToClipboard('carla.DebugHelper.draw_box-code')">Copy snippet</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="button1" class="CloseSnipet" onclick="CloseSnipet()">Close snippet</button><br><br>
 
 
@@ -5890,32 +5863,26 @@ Snippet for carla.World.get_spectator
 </p>
 <div id="carla.World.get_spectator-code" class="SnipetContent">
 
+<div class="highlight"><pre><span></span><code><span class="c1"># This recipe spawns an actor and the spectator camera at the actor&#39;s location.</span>
 
-<pre><code class="language-py">
+<span class="c1"># ...</span>
+<span class="n">world</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_world</span><span class="p">()</span>
+<span class="n">spectator</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_spectator</span><span class="p">()</span>
 
-# This recipe spawns an actor and the spectator camera at the actor's location.
+<span class="n">vehicle_bp</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s1">&#39;vehicle.bmw.*&#39;</span><span class="p">))</span>
+<span class="n">transform</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">world</span><span class="o">.</span><span class="n">get_map</span><span class="p">()</span><span class="o">.</span><span class="n">get_spawn_points</span><span class="p">())</span>
+<span class="n">vehicle</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">try_spawn_actor</span><span class="p">(</span><span class="n">vehicle_bp</span><span class="p">,</span> <span class="n">transform</span><span class="p">)</span>
 
-# ...
-world = client.get_world()
-spectator = world.get_spectator()
+<span class="c1"># Wait for world to get the vehicle actor</span>
+<span class="n">world</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
 
-vehicle_bp = random.choice(world.get_blueprint_library().filter('vehicle.bmw.*'))
-transform = random.choice(world.get_map().get_spawn_points())
-vehicle = world.try_spawn_actor(vehicle_bp, transform)
+<span class="n">world_snapshot</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">wait_for_tick</span><span class="p">()</span>
+<span class="n">actor_snapshot</span> <span class="o">=</span> <span class="n">world_snapshot</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">vehicle</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
 
-# Wait for world to get the vehicle actor
-world.tick()
-
-world_snapshot = world.wait_for_tick()
-actor_snapshot = world_snapshot.find(vehicle.id)
-
-# Set spectator at given transform (vehicle transform)
-spectator.set_transform(actor_snapshot.get_transform())
-# ...
-
-
-</code></pre>
-
+<span class="c1"># Set spectator at given transform (vehicle transform)</span>
+<span class="n">spectator</span><span class="o">.</span><span class="n">set_transform</span><span class="p">(</span><span class="n">actor_snapshot</span><span class="o">.</span><span class="n">get_transform</span><span class="p">())</span>
+<span class="c1"># ...</span>
+</code></pre></div>
 <button id="button1" class="CopyScript" onclick="CopyToClipboard('carla.World.get_spectator-code')">Copy snippet</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="button1" class="CloseSnipet" onclick="CloseSnipet()">Close snippet</button><br><br>
 
 </div>
@@ -5926,22 +5893,16 @@ Snippet for carla.Sensor.listen
 </p>
 <div id="carla.Sensor.listen-code" class="SnipetContent">
 
+<div class="highlight"><pre><span></span><code><span class="c1"># This recipe applies a color conversion to the image taken by a camera sensor,</span>
+<span class="c1"># so it is converted to a semantic segmentation image.</span>
 
-<pre><code class="language-py">
-
-# This recipe applies a color conversion to the image taken by a camera sensor,
-# so it is converted to a semantic segmentation image.
-
-# ...
-camera_bp = world.get_blueprint_library().filter('sensor.camera.semantic_segmentation')
-# ...
-cc = carla.ColorConverter.CityScapesPalette
-camera.listen(lambda image: image.save_to_disk('output/%06d.png' % image.frame, cc))
-# ...
-
-
-</code></pre>
-
+<span class="c1"># ...</span>
+<span class="n">camera_bp</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s1">&#39;sensor.camera.semantic_segmentation&#39;</span><span class="p">)</span>
+<span class="c1"># ...</span>
+<span class="n">cc</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">ColorConverter</span><span class="o">.</span><span class="n">CityScapesPalette</span>
+<span class="n">camera</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="k">lambda</span> <span class="n">image</span><span class="p">:</span> <span class="n">image</span><span class="o">.</span><span class="n">save_to_disk</span><span class="p">(</span><span class="s1">&#39;output/</span><span class="si">%06d</span><span class="s1">.png&#39;</span> <span class="o">%</span> <span class="n">image</span><span class="o">.</span><span class="n">frame</span><span class="p">,</span> <span class="n">cc</span><span class="p">))</span>
+<span class="c1"># ...</span>
+</code></pre></div>
 <button id="button1" class="CopyScript" onclick="CopyToClipboard('carla.Sensor.listen-code')">Copy snippet</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="button1" class="CloseSnipet" onclick="CloseSnipet()">Close snippet</button><br><br>
 
 </div>
@@ -5952,40 +5913,33 @@ Snippet for carla.TrafficLight.set_state
 </p>
 <div id="carla.TrafficLight.set_state-code" class="SnipetContent">
 
+<div class="highlight"><pre><span></span><code><span class="c1"># This recipe changes from red to green the traffic light that affects the vehicle. </span>
+<span class="c1"># This is done by detecting if the vehicle actor is at a traffic light.</span>
 
-<pre><code class="language-py">
+<span class="c1"># ...</span>
+<span class="n">world</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_world</span><span class="p">()</span>
+<span class="n">spectator</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_spectator</span><span class="p">()</span>
 
-# This recipe changes from red to green the traffic light that affects the vehicle. 
-# This is done by detecting if the vehicle actor is at a traffic light.
+<span class="n">vehicle_bp</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s1">&#39;vehicle.bmw.*&#39;</span><span class="p">))</span>
+<span class="n">transform</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">world</span><span class="o">.</span><span class="n">get_map</span><span class="p">()</span><span class="o">.</span><span class="n">get_spawn_points</span><span class="p">())</span>
+<span class="n">vehicle</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">try_spawn_actor</span><span class="p">(</span><span class="n">vehicle_bp</span><span class="p">,</span> <span class="n">transform</span><span class="p">)</span>
 
-# ...
-world = client.get_world()
-spectator = world.get_spectator()
+<span class="c1"># Wait for world to get the vehicle actor</span>
+<span class="n">world</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
 
-vehicle_bp = random.choice(world.get_blueprint_library().filter('vehicle.bmw.*'))
-transform = random.choice(world.get_map().get_spawn_points())
-vehicle = world.try_spawn_actor(vehicle_bp, transform)
+<span class="n">world_snapshot</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">wait_for_tick</span><span class="p">()</span>
+<span class="n">actor_snapshot</span> <span class="o">=</span> <span class="n">world_snapshot</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">vehicle</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
 
-# Wait for world to get the vehicle actor
-world.tick()
-
-world_snapshot = world.wait_for_tick()
-actor_snapshot = world_snapshot.find(vehicle.id)
-
-# Set spectator at given transform (vehicle transform)
-spectator.set_transform(actor_snapshot.get_transform())
-# ...# ...
-if vehicle_actor.is_at_traffic_light():
-    traffic_light = vehicle_actor.get_traffic_light()
-    if traffic_light.get_state() == carla.TrafficLightState.Red:
-       # world.hud.notification(&quot;Traffic light changed! Good to go!&quot;)
-        traffic_light.set_state(carla.TrafficLightState.Green)
-# ...
-
-
-
-</code></pre>
-
+<span class="c1"># Set spectator at given transform (vehicle transform)</span>
+<span class="n">spectator</span><span class="o">.</span><span class="n">set_transform</span><span class="p">(</span><span class="n">actor_snapshot</span><span class="o">.</span><span class="n">get_transform</span><span class="p">())</span>
+<span class="c1"># ...# ...</span>
+<span class="k">if</span> <span class="n">vehicle_actor</span><span class="o">.</span><span class="n">is_at_traffic_light</span><span class="p">():</span>
+    <span class="n">traffic_light</span> <span class="o">=</span> <span class="n">vehicle_actor</span><span class="o">.</span><span class="n">get_traffic_light</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">traffic_light</span><span class="o">.</span><span class="n">get_state</span><span class="p">()</span> <span class="o">==</span> <span class="n">carla</span><span class="o">.</span><span class="n">TrafficLightState</span><span class="o">.</span><span class="n">Red</span><span class="p">:</span>
+       <span class="c1"># world.hud.notification(&quot;Traffic light changed! Good to go!&quot;)</span>
+        <span class="n">traffic_light</span><span class="o">.</span><span class="n">set_state</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">TrafficLightState</span><span class="o">.</span><span class="n">Green</span><span class="p">)</span>
+<span class="c1"># ...</span>
+</code></pre></div>
 <button id="button1" class="CopyScript" onclick="CopyToClipboard('carla.TrafficLight.set_state-code')">Copy snippet</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="button1" class="CloseSnipet" onclick="CloseSnipet()">Close snippet</button><br><br>
 
 
@@ -5999,31 +5953,25 @@ Snippet for carla.ActorBlueprint.set_attribute
 </p>
 <div id="carla.ActorBlueprint.set_attribute-code" class="SnipetContent">
 
+<div class="highlight"><pre><span></span><code><span class="c1"># This recipe changes attributes of different type of blueprint actors.</span>
 
-<pre><code class="language-py">
+<span class="c1"># ...</span>
+<span class="n">walker_bp</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s1">&#39;walker.pedestrian.0002&#39;</span><span class="p">)</span>
+<span class="n">walker_bp</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s1">&#39;is_invincible&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
-# This recipe changes attributes of different type of blueprint actors.
+<span class="c1"># ...</span>
+<span class="c1"># Changes attribute randomly by the recommended value</span>
+<span class="n">vehicle_bp</span> <span class="o">=</span> <span class="n">wolrd</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s1">&#39;vehicle.bmw.*&#39;</span><span class="p">)</span>
+<span class="n">color</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">vehicle_bp</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s1">&#39;color&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">recommended_values</span><span class="p">)</span>
+<span class="n">vehicle_bp</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s1">&#39;color&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
 
-# ...
-walker_bp = world.get_blueprint_library().filter('walker.pedestrian.0002')
-walker_bp.set_attribute('is_invincible', True)
+<span class="c1"># ...</span>
 
-# ...
-# Changes attribute randomly by the recommended value
-vehicle_bp = wolrd.get_blueprint_library().filter('vehicle.bmw.*')
-color = random.choice(vehicle_bp.get_attribute('color').recommended_values)
-vehicle_bp.set_attribute('color', color)
-
-# ...
-
-camera_bp = world.get_blueprint_library().filter('sensor.camera.rgb')
-camera_bp.set_attribute('image_size_x', 600)
-camera_bp.set_attribute('image_size_y', 600)
-# ...
-
-
-</code></pre>
-
+<span class="n">camera_bp</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s1">&#39;sensor.camera.rgb&#39;</span><span class="p">)</span>
+<span class="n">camera_bp</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s1">&#39;image_size_x&#39;</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
+<span class="n">camera_bp</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s1">&#39;image_size_y&#39;</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
+<span class="c1"># ...</span>
+</code></pre></div>
 <button id="button1" class="CopyScript" onclick="CopyToClipboard('carla.ActorBlueprint.set_attribute-code')">Copy snippet</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="button1" class="CloseSnipet" onclick="CloseSnipet()">Close snippet</button><br><br>
 
 </div>
@@ -6034,70 +5982,65 @@ Snippet for carla.Client.apply_batch_sync
 </p>
 <div id="carla.Client.apply_batch_sync-code" class="SnipetContent">
 
+<div class="highlight"><pre><span></span><code><span class="c1"># 0. Choose a blueprint fo the walkers</span>
+<span class="n">world</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_world</span><span class="p">()</span>
+<span class="n">blueprintsWalkers</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s2">&quot;walker.pedestrian.*&quot;</span><span class="p">)</span>
+<span class="n">walker_bp</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">blueprintsWalkers</span><span class="p">)</span>
 
-<pre><code class="language-py">
-# 0. Choose a blueprint fo the walkers
-world = client.get_world()
-blueprintsWalkers = world.get_blueprint_library().filter(&quot;walker.pedestrian.*&quot;)
-walker_bp = random.choice(blueprintsWalkers)
+<span class="c1"># 1. Take all the random locations to spawn</span>
+<span class="n">spawn_points</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">):</span>
+    <span class="n">spawn_point</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Transform</span><span class="p">()</span>
+    <span class="n">spawn_point</span><span class="o">.</span><span class="n">location</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_random_location_from_navigation</span><span class="p">()</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">spawn_point</span><span class="o">.</span><span class="n">location</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="n">spawn_points</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">spawn_point</span><span class="p">)</span>
 
-# 1. Take all the random locations to spawn
-spawn_points = []
-for i in range(50):
-    spawn_point = carla.Transform()
-    spawn_point.location = world.get_random_location_from_navigation()
-    if (spawn_point.location != None):
-        spawn_points.append(spawn_point)
+<span class="c1"># 2. Build the batch of commands to spawn the pedestrians</span>
+<span class="n">batch</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">spawn_point</span> <span class="ow">in</span> <span class="n">spawn_points</span><span class="p">:</span>
+    <span class="n">walker_bp</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">blueprintsWalkers</span><span class="p">)</span>
+    <span class="n">batch</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">SpawnActor</span><span class="p">(</span><span class="n">walker_bp</span><span class="p">,</span> <span class="n">spawn_point</span><span class="p">))</span>
 
-# 2. Build the batch of commands to spawn the pedestrians
-batch = []
-for spawn_point in spawn_points:
-    walker_bp = random.choice(blueprintsWalkers)
-    batch.append(carla.command.SpawnActor(walker_bp, spawn_point))
+<span class="c1"># 2.1 apply the batch</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">apply_batch_sync</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)):</span>
+    <span class="k">if</span> <span class="n">results</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">error</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">error</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">walkers_list</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">results</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">actor_id</span><span class="p">})</span>
 
-# 2.1 apply the batch
-results = client.apply_batch_sync(batch, True)
-for i in range(len(results)):
-    if results[i].error:
-        logging.error(results[i].error)
-    else:
-        walkers_list.append({&quot;id&quot;: results[i].actor_id})
+<span class="c1"># 3. Spawn walker AI controllers for each walker</span>
+<span class="n">batch</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">walker_controller_bp</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;controller.ai.walker&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">walkers_list</span><span class="p">)):</span>
+    <span class="n">batch</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">SpawnActor</span><span class="p">(</span><span class="n">walker_controller_bp</span><span class="p">,</span> <span class="n">carla</span><span class="o">.</span><span class="n">Transform</span><span class="p">(),</span> <span class="n">walkers_list</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;id&quot;</span><span class="p">]))</span>
 
-# 3. Spawn walker AI controllers for each walker
-batch = []
-walker_controller_bp = world.get_blueprint_library().find('controller.ai.walker')
-for i in range(len(walkers_list)):
-    batch.append(carla.command.SpawnActor(walker_controller_bp, carla.Transform(), walkers_list[i][&quot;id&quot;]))
+<span class="c1"># 3.1 apply the batch</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">apply_batch_sync</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)):</span>
+    <span class="k">if</span> <span class="n">results</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">error</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">error</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">walkers_list</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;con&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">actor_id</span>
 
-# 3.1 apply the batch
-results = client.apply_batch_sync(batch, True)
-for i in range(len(results)):
-    if results[i].error:
-        logging.error(results[i].error)
-    else:
-        walkers_list[i][&quot;con&quot;] = results[i].actor_id
+<span class="c1"># 4. Put altogether the walker and controller ids</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">walkers_list</span><span class="p">)):</span>
+    <span class="n">all_id</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">walkers_list</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;con&quot;</span><span class="p">])</span>
+    <span class="n">all_id</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">walkers_list</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+<span class="n">all_actors</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_actors</span><span class="p">(</span><span class="n">all_id</span><span class="p">)</span>
 
-# 4. Put altogether the walker and controller ids
-for i in range(len(walkers_list)):
-    all_id.append(walkers_list[i][&quot;con&quot;])
-    all_id.append(walkers_list[i][&quot;id&quot;])
-all_actors = world.get_actors(all_id)
+<span class="c1"># wait for a tick to ensure client receives the last transform of the walkers we have just created</span>
+<span class="n">world</span><span class="o">.</span><span class="n">wait_for_tick</span><span class="p">()</span>
 
-# wait for a tick to ensure client receives the last transform of the walkers we have just created
-world.wait_for_tick()
-
-# 5. initialize each controller and set target to walk to (list is [controller, actor, controller, actor ...])
-for i in range(0, len(all_actors), 2):
-    # start walker
-    all_actors[i].start()
-    # set walk to random point
-    all_actors[i].go_to_location(world.get_random_location_from_navigation())
-    # random max speed
-    all_actors[i].set_max_speed(1 + random.random())    # max speed between 1 and 2 (default is 1.4 m/s)
-
-
-</code></pre>
-
+<span class="c1"># 5. initialize each controller and set target to walk to (list is [controller, actor, controller, actor ...])</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_actors</span><span class="p">),</span> <span class="mi">2</span><span class="p">):</span>
+    <span class="c1"># start walker</span>
+    <span class="n">all_actors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="c1"># set walk to random point</span>
+    <span class="n">all_actors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">go_to_location</span><span class="p">(</span><span class="n">world</span><span class="o">.</span><span class="n">get_random_location_from_navigation</span><span class="p">())</span>
+    <span class="c1"># random max speed</span>
+    <span class="n">all_actors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_max_speed</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">())</span>    <span class="c1"># max speed between 1 and 2 (default is 1.4 m/s)</span>
+</code></pre></div>
 <button id="button1" class="CopyScript" onclick="CopyToClipboard('carla.Client.apply_batch_sync-code')">Copy snippet</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="button1" class="CloseSnipet" onclick="CloseSnipet()">Close snippet</button><br><br>
 
 </div>
@@ -6108,25 +6051,20 @@ Snippet for carla.World.load_map_layer
 </p>
 <div id="carla.World.load_map_layer-code" class="SnipetContent">
 
+<div class="highlight"><pre><span></span><code><span class="c1"># This recipe toggles on several layers in our &quot;_Opt&quot; maps</span>
 
-<pre><code class="language-py">
-# This recipe toggles on several layers in our &quot;_Opt&quot; maps
+<span class="c1"># Load town one with only minimum layout (roads, sidewalks, traffic lights and traffic signs)</span>
+<span class="n">world</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">load_world</span><span class="p">(</span><span class="s1">&#39;Town01_Opt&#39;</span><span class="p">,</span> <span class="n">carla</span><span class="o">.</span><span class="n">MapLayer</span><span class="o">.</span><span class="kc">None</span><span class="p">)</span>
 
-# Load town one with only minimum layout (roads, sidewalks, traffic lights and traffic signs)
-world = client.load_world('Town01_Opt', carla.MapLayer.None)
+<span class="c1"># Toggle all buildings on</span>
+<span class="n">world</span><span class="o">.</span><span class="n">load_map_layer</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">MapLayer</span><span class="o">.</span><span class="n">Buildings</span><span class="p">)</span>
 
-# Toggle all buildings on
-world.load_map_layer(carla.MapLayer.Buildings)
+<span class="c1"># Toggle all foliage on</span>
+<span class="n">world</span><span class="o">.</span><span class="n">load_map_layer</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">MapLayer</span><span class="o">.</span><span class="n">Foliage</span><span class="p">)</span>
 
-# Toggle all foliage on
-world.load_map_layer(carla.MapLayer.Foliage)
-
-# Toggle all parked vehicles on
-world.load_map_layer(carla.MapLayer.ParkedVehicles)
-
-
-</code></pre>
-
+<span class="c1"># Toggle all parked vehicles on</span>
+<span class="n">world</span><span class="o">.</span><span class="n">load_map_layer</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">MapLayer</span><span class="o">.</span><span class="n">ParkedVehicles</span><span class="p">)</span>
+</code></pre></div>
 <button id="button1" class="CopyScript" onclick="CopyToClipboard('carla.World.load_map_layer-code')">Copy snippet</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="button1" class="CloseSnipet" onclick="CloseSnipet()">Close snippet</button><br><br>
 
 </div>
@@ -6203,8 +6141,13 @@ window.onresize = WindowResize;
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

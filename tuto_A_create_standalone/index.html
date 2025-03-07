@@ -79,8 +79,8 @@
 <h2 id="carla">在源代码构建的 Carla 中导出包 <span id="export-a-package-from-the-ue4-editor"></span></h2>
 <p>将资产导入虚幻后，用户可以为其生成 <strong>独立的包</strong>。这将用于将内容分发到 Carla 包，例如 0.9.8。</p>
 <p>要导出包，只需运行以下命令即可。</p>
-<pre><code class="language-sh">make package ARGS=&quot;--packages=Package1,Package2&quot;
-</code></pre>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>package<span class="w"> </span><span class="nv">ARGS</span><span class="o">=</span><span class="s2">&quot;--packages=Package1,Package2&quot;</span>
+</code></pre></div>
 <p>这将为列出的每个包创建一个压缩在 <code>.tar.gz</code> 文件中的独立包。在 Linux 上文件将保存在 <code>Dist</code>，在 Windows 上文件保存在 <code>/Build/UE4Carla/</code> 文件夹下。</p>
 <hr />
 <h2 id="docker">使用 Docker 导出包 <span id="export-a-package-using-docker"></span></h2>
@@ -91,12 +91,12 @@
 <li>导航至 <code>Util/Docker</code>。</li>
 <li>通过运行以下命令之一创建 Carla 包或准备在包中使用的资源：</li>
 </ol>
-<pre><code class="language-sh"># 创建独立的包
-./docker_tools.py --output /output/path
+<div class="highlight"><pre><span></span><code><span class="c1"># 创建独立的包</span>
+./docker_tools.py<span class="w"> </span>--output<span class="w"> </span>/output/path
 
-# 烘培在 Carla 包中使用的资产
-./docker_tools.py --input /assets/to/import/path --output /output/path --packages PkgeName1,PkgeName2
-</code></pre>
+<span class="c1"># 烘培在 Carla 包中使用的资产</span>
+./docker_tools.py<span class="w"> </span>--input<span class="w"> </span>/assets/to/import/path<span class="w"> </span>--output<span class="w"> </span>/output/path<span class="w"> </span>--packages<span class="w"> </span>PkgeName1,PkgeName2
+</code></pre></div>
 <hr />
 <h2 id="carla_1">将资源导入 Carla 包 <span id="import-assets-into-a-carla-package"></span></h2>
 <p>独立包包含在<code>.tar.gz</code>文件中。提取方式取决于平台。</p>
@@ -104,9 +104,9 @@
 <li><strong>在 Windows 上，</strong> 将压缩文件解压到主根 Carla 文件夹中。</li>
 <li><strong>在 Linux 上，</strong> 将压缩文件移至<code>Import</code>文件夹并运行以下脚本。</li>
 </ul>
-<pre><code class="language-sh">cd Import
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>Import
 ./ImportAssets.sh
-</code></pre>
+</code></pre></div>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>独立包无法直接导入到 Carla 构建中。按照教程导入 <a href="../tuto_A_add_props/">道具</a> 、<a href="../tuto_M_custom_map_overview/">地图</a> 或 <a href="../tuto_A_add_vehicle/">车辆</a>。</p>
@@ -154,8 +154,13 @@ Carla 论坛</a>
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

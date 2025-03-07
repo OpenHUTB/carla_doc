@@ -235,8 +235,9 @@ Carla 论坛</a>
 <pre><code> gedit ~/.bashrc
 </code></pre>
 <p>将以下行添加到 <code>~/.bashrc</code>。它们存储构建的<code>.egg</code>文件路径，以便Python可以自动找到它。保存文件，然后重置终端以使更改生效。</p>
-<p><code>export PYTHONPATH=$PYTHONPATH:"${CARLA_ROOT}/PythonAPI/carla/dist/$(ls ${CARLA_ROOT}/PythonAPI/carla/dist | grep py3.)"
-export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla</code></p>
+<div class="highlight"><pre><span></span><code>export PYTHONPATH=$PYTHONPATH:&quot;${CARLA_ROOT}/PythonAPI/carla/dist/$(ls ${CARLA_ROOT}/PythonAPI/carla/dist | grep py3.)&quot;
+export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla
+</code></pre></div>
 <p>清理 PythonPATH 或添加构建的 <code>.egg</code>文件路径后，所有示例脚本都应该正常工作。</p>
 </blockquote>
 <hr />
@@ -262,9 +263,11 @@ export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla</code></p>
 </ul>
 <p><strong>1.</strong> 转到 <code>Setup.bat</code> 第 198 行。 </p>
 <p><strong>2.</strong> Update the line from: </p>
-<p><code>for /f %%i in ('git describe --tags --dirty --always') do set carla_version=%%i</code></p>
+<div class="highlight"><pre><span></span><code>for /f %%i in (&#39;git describe --tags --dirty --always&#39;) do set carla_version=%%i
+</code></pre></div>
 <p>为：</p>
-<p><code>for /f %%i in ('git describe --tags --dirty --always') do set carla_version="0.9.9"</code></p>
+<div class="highlight"><pre><span></span><code>for /f %%i in (&#39;git describe --tags --dirty --always&#39;) do set carla_version=&quot;0.9.9&quot;
+</code></pre></div>
 </blockquote>
 <!-- ======================================================================= -->
 
@@ -280,12 +283,14 @@ export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla</code></p>
 <p>由于与其他 Visual Studio 或 Microsoft 编译器版本冲突，该构建未使用 2019 编译器。卸载这些并再次重建。  </p>
 <p>Visual Studio 不擅长摆脱自身。要从计算机中彻底清除 Visual Studio，请转到 <code>Program Files (x86)\Microsoft Visual Studio\Installer\resources\app\layout</code> 并运行 <code>.\InstallCleanup.exe -full</code>。这可能需要管理员权限。  </p>
 <p>要保留其他 Visual Studio 版本，请通过添加以下行进行编辑 <code>%appdata%\Unreal Engine\UnrealBuildTool\BuildConfiguration.xml</code> ： </p>
-<p><code>&lt;VCProjectFileGenerator&gt;
+<div class="highlight"><pre><span></span><code> &lt;VCProjectFileGenerator&gt;
    &lt;Version&gt;VisualStudio2019&lt;/Version&gt;
-&lt;/VCProjectFileGenerator&gt;</code></p>
-<p><code>&lt;WindowsPlatform&gt;
+&lt;/VCProjectFileGenerator&gt;
+</code></pre></div>
+<div class="highlight"><pre><span></span><code> &lt;WindowsPlatform&gt;
    &lt;Compiler&gt;VisualStudio2019&lt;/Compiler&gt;
-&lt;/WindowsPlatform&gt;</code>  </p>
+&lt;/WindowsPlatform&gt;
+</code></pre></div>
 </blockquote>
 <!-- ======================================================================= -->
 
@@ -321,23 +326,22 @@ export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla</code></p>
 <p>在 Windows 中， <code>make PythonAPI</code> 命令可能会返回一条消息，表明 Python API 安装成功，但实际上并未成功。如果看到此输出后目录 <code>PythonAPI/carla</code> 中没有 <code>dist</code> 文件夹，请查看上面的命令输出。很可能发生了错误，需要在更正错误并运行 <code>make clean</code> 后重试构建。 </p>
 </blockquote>
 <h6 id="osm2odr-visualstudio">osm2odr-visualstudio为空，或者拷贝过去的目录不对 <span id="osm2odr_is_null"></span></h6>
-<pre><code class="language-text">CMake Error: The current CMakeCache.txt directory D:/work/workspace/carla/Build/osm2odr-visualstudio/CMakeCache.txt is different than the directory d:/work/buffer/carla/Build/osm2odr-visualstudio where CMakeCache.txt was created. This may result in binaries being created in the wrong place. If you are not sure, reedit the CMakeCache.txt
-</code></pre>
-<pre><code class="language-shell">CMake Error: The source directory &quot;D:/work/workspace/carla/Build/osm2odr-visualstudio/x64&quot; does not appear to contain CMakeLists.txt.
-</code></pre>
+<p><div class="highlight"><pre><span></span><code>CMake Error: The current CMakeCache.txt directory D:/work/workspace/carla/Build/osm2odr-visualstudio/CMakeCache.txt is different than the directory d:/work/buffer/carla/Build/osm2odr-visualstudio where CMakeCache.txt was created. This may result in binaries being created in the wrong place. If you are not sure, reedit the CMakeCache.txt
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>CMake<span class="w"> </span>Error:<span class="w"> </span>The<span class="w"> </span><span class="nb">source</span><span class="w"> </span>directory<span class="w"> </span><span class="s2">&quot;D:/work/workspace/carla/Build/osm2odr-visualstudio/x64&quot;</span><span class="w"> </span>does<span class="w"> </span>not<span class="w"> </span>appear<span class="w"> </span>to<span class="w"> </span>contain<span class="w"> </span>CMakeLists.txt.
+</code></pre></div></p>
 <blockquote>
 <p>删除<code>carla\Build\osm2odr-visualstudio\CMakeCache.txt</code></p>
 </blockquote>
 <h6 id="_7">类型转换不对 <span id="type_conversion_error"></span></h6>
-<blockquote></blockquote>
-<pre><code class="language-shell">carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Vehicle/CustomTerrainPhysicsComponent.cpp(1161): error C2440: “static_cast”: 无法从“float”转换为“EDefResolutionType”
-</code></pre>
 <blockquote>
-<p>注释掉</p>
+<div class="highlight"><pre><span></span><code>carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Vehicle/CustomTerrainPhysicsComponent.cpp<span class="o">(</span><span class="m">1161</span><span class="o">)</span>:<span class="w"> </span>error<span class="w"> </span>C2440:<span class="w"> </span>“static_cast”:<span class="w"> </span>无法从“float”转换为“EDefResolutionType”
+</code></pre></div>
+<p>注释掉
+<div class="highlight"><pre><span></span><code>//<span class="w"> </span><span class="nv">ChosenRes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>static_cast&lt;EDefResolutionType&gt;<span class="o">(</span>Value<span class="o">)</span><span class="p">;</span><span class="w">  </span>//<span class="w"> </span>static_cast&lt;EDefResolutionType&gt;<span class="o">(</span>Value<span class="o">)</span>
+</code></pre></div>
+注意：注意vs2019专业版才有这个问题，vs2019社区版没有这个问题。</p>
 </blockquote>
-<pre><code class="language-shell">// ChosenRes = static_cast&lt;EDefResolutionType&gt;(Value);  // static_cast&lt;EDefResolutionType&gt;(Value)
-</code></pre>
-<p>注意：注意vs2019专业版才有这个问题，vs2019社区版没有这个问题。</p>
 <h6 id="osm2odrlib">链接不到osm2odr.lib <span id="link_osm2odr_failed"></span></h6>
 <blockquote>
 <p><code>fatal error LNK1181: carla\Unreal\CarlaUE4\Plugins\Carla\CarlaDependencies\lib\osm2odr.lib</code></p>
@@ -346,17 +350,17 @@ export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla</code></p>
 <h6 id="_8">编译器的堆空间不足 <span id="heap_lack"></span></h6>
 <blockquote>
 <p>编译虚幻引擎4时，出现<code>C1060</code> 编译器的堆空间不足，说明机器的内存不够，可以参考<a href="https://ue5wiki.com/wiki/32770/">链接</a> 限制所使用的核心数（默认是使用所有核心数）。
-修改<code>Engine/Saved/UnrealBuildTool/BuildConfiguration.xml</code>中的<code>MaxProcessorCount</code>：</p>
-</blockquote>
-<pre><code class="language-shell">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
-&lt;Configuration xmlns=&quot;https://www.unrealengine.com/BuildConfiguration&quot;&gt;
-  &lt;ParallelExecutor&gt;
-    &lt;ProcessorCountMultiplier&gt;7&lt;/ProcessorCountMultiplier&gt;
-    &lt;MaxProcessorCount&gt;7&lt;/MaxProcessorCount&gt;
-    &lt;bStopCompilationAfterErrors&gt;true&lt;/bStopCompilationAfterErrors&gt;
-  &lt;/ParallelExecutor&gt;
+修改<code>Engine/Saved/UnrealBuildTool/BuildConfiguration.xml</code>中的<code>MaxProcessorCount</code>：
+<div class="highlight"><pre><span></span><code>&lt;?xml<span class="w"> </span><span class="nv">version</span><span class="o">=</span><span class="s2">&quot;1.0&quot;</span><span class="w"> </span><span class="nv">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="w"> </span>?&gt;
+&lt;Configuration<span class="w"> </span><span class="nv">xmlns</span><span class="o">=</span><span class="s2">&quot;https://www.unrealengine.com/BuildConfiguration&quot;</span>&gt;
+<span class="w">  </span>&lt;ParallelExecutor&gt;
+<span class="w">    </span>&lt;ProcessorCountMultiplier&gt;7&lt;/ProcessorCountMultiplier&gt;
+<span class="w">    </span>&lt;MaxProcessorCount&gt;7&lt;/MaxProcessorCount&gt;
+<span class="w">    </span>&lt;bStopCompilationAfterErrors&gt;true&lt;/bStopCompilationAfterErrors&gt;
+<span class="w">  </span>&lt;/ParallelExecutor&gt;
 &lt;/Configuration&gt;
-</code></pre>
+</code></pre></div></p>
+</blockquote>
 <hr />
 <h2 id="carla_3">运行 Carla</h2>
 <!-- ======================================================================= -->
@@ -475,12 +479,12 @@ export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla</code></p>
 <blockquote>
 <p>如果您使用 <strong>pip/pip3</strong> 安装了客户端库，则应通过运行以下命令将其卸载： </p>
 </blockquote>
-<pre><code class="language-sh"># Python 3
-pip3 uninstall carla
+<div class="highlight"><pre><span></span><code><span class="c1"># Python 3</span>
+pip3<span class="w"> </span>uninstall<span class="w"> </span>carla
 
-# Python 2
-pip uninstall carla
-</code></pre>
+<span class="c1"># Python 2</span>
+pip<span class="w"> </span>uninstall<span class="w"> </span>carla
+</code></pre></div>
 <hr />
               
             </div>
@@ -517,8 +521,13 @@ pip uninstall carla
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

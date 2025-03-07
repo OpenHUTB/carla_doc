@@ -308,58 +308,58 @@
 </div>
 <p>交通管理器实例由 <a href="../python_api/#carla.Client"><code>carla.client</code></a> 创建，传递要使用的端口。默认端口为 <code>8000</code>。</p>
 <p>要创建交通管理器实例：</p>
-<pre><code class="language-python">tm = client.get_trafficmanager(port)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">tm</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_trafficmanager</span><span class="p">(</span><span class="n">port</span><span class="p">)</span>
+</code></pre></div>
 <p>要为一组车辆启用自动驾驶，请检索交通管理器实例的端口并设置set_autopilot为True ，同时传递交通管理器端口。如果未提供端口，它将尝试连接到默认端口 （8000） 中的交通管理器。如果交通管理器不存在，它将创建一个。</p>
-<pre><code class="language-python">tm_port = tm.get_port()
- for v in vehicles_list:
-     v.set_autopilot(True,tm_port)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">tm_port</span> <span class="o">=</span> <span class="n">tm</span><span class="o">.</span><span class="n">get_port</span><span class="p">()</span>
+ <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">vehicles_list</span><span class="p">:</span>
+     <span class="n">v</span><span class="o">.</span><span class="n">set_autopilot</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span><span class="n">tm_port</span><span class="p">)</span>
+</code></pre></div>
 <div class="admonition 注意">
 <p class="admonition-title">注意</p>
 <p>在多客户端情况下创建或连接到交通管理器与上述示例不同。</p>
 </div>
 <p>目录 <a href="https://github.com/OpenHUTB/carla/tree/ue4-dev/PythonAPI/examples"><code>PythonAPI/examples</code></a> 中的 <a href="https://github.com/OpenHUTB/carla/blob/ue4-dev/PythonAPI/examples/generate_traffic.py"><code>generate_traffic.py</code></a> 脚本提供了一个示例，说明如何使用作为脚本参数传递的端口创建交通管理器实例，并通过批量将自动驾驶仪设置为以下值来注册生成的每辆车。</p>
-<pre><code class="language-py">traffic_manager = client.get_trafficmanager(args.tm-port)
-tm_port = traffic_manager.get_port()
-...
-batch.append(SpawnActor(blueprint, transform).then(SetAutopilot(FutureActor, True,tm_port)))
-...
-traffic_manager.global_percentage_speed_difference(30.0)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">traffic_manager</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_trafficmanager</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">tm</span><span class="o">-</span><span class="n">port</span><span class="p">)</span>
+<span class="n">tm_port</span> <span class="o">=</span> <span class="n">traffic_manager</span><span class="o">.</span><span class="n">get_port</span><span class="p">()</span>
+<span class="o">...</span>
+<span class="n">batch</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">SpawnActor</span><span class="p">(</span><span class="n">blueprint</span><span class="p">,</span> <span class="n">transform</span><span class="p">)</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">SetAutopilot</span><span class="p">(</span><span class="n">FutureActor</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span><span class="n">tm_port</span><span class="p">)))</span>
+<span class="o">...</span>
+<span class="n">traffic_manager</span><span class="o">.</span><span class="n">global_percentage_speed_difference</span><span class="p">(</span><span class="mf">30.0</span><span class="p">)</span>
+</code></pre></div>
 <h3 id="_18">配置自动驾驶行为 <span id="configuring-autopilot-behavior"></span></h3>
 <p>以下示例创建一个交通管理器实例，并为特定车辆配置危险行为，使其忽略所有交通信号灯，不与其他车辆保持安全距离，并以比当前限速快 20% 的速度行驶：</p>
-<pre><code class="language-python">tm = client.get_trafficmanager(port)
-tm_port = tm.get_port()
-for v in my_vehicles:
-  v.set_autopilot(True,tm_port)
-danger_car = my_vehicles[0]
-tm.ignore_lights_percentage(danger_car,100)
-tm.distance_to_leading_vehicle(danger_car,0)
-tm.vehicle_percentage_speed_difference(danger_car,-20)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">tm</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_trafficmanager</span><span class="p">(</span><span class="n">port</span><span class="p">)</span>
+<span class="n">tm_port</span> <span class="o">=</span> <span class="n">tm</span><span class="o">.</span><span class="n">get_port</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">my_vehicles</span><span class="p">:</span>
+  <span class="n">v</span><span class="o">.</span><span class="n">set_autopilot</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span><span class="n">tm_port</span><span class="p">)</span>
+<span class="n">danger_car</span> <span class="o">=</span> <span class="n">my_vehicles</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">tm</span><span class="o">.</span><span class="n">ignore_lights_percentage</span><span class="p">(</span><span class="n">danger_car</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">tm</span><span class="o">.</span><span class="n">distance_to_leading_vehicle</span><span class="p">(</span><span class="n">danger_car</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">tm</span><span class="o">.</span><span class="n">vehicle_percentage_speed_difference</span><span class="p">(</span><span class="n">danger_car</span><span class="p">,</span><span class="o">-</span><span class="mi">20</span><span class="p">)</span>
+</code></pre></div>
 <p>以下示例将相同的车辆列表设置为自动驾驶仪，但将其配置为适度驾驶行为。车辆的行驶速度比当前限速慢 80%，与其他车辆之间至少留出 5 米的距离，并且从不进行变道：</p>
-<pre><code class="language-python">tm = client.get_trafficmanager(port)
-tm_port = tm.get_port()
-for v in my_vehicles:
-  v.set_autopilot(True,tm_port)
-danger_car = my_vehicles[0]
-tm.global_distance_to_leading_vehicle(5)
-tm.global_percentage_speed_difference(80)
-for v in my_vehicles: 
-  tm.auto_lane_change(v,False)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">tm</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_trafficmanager</span><span class="p">(</span><span class="n">port</span><span class="p">)</span>
+<span class="n">tm_port</span> <span class="o">=</span> <span class="n">tm</span><span class="o">.</span><span class="n">get_port</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">my_vehicles</span><span class="p">:</span>
+  <span class="n">v</span><span class="o">.</span><span class="n">set_autopilot</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span><span class="n">tm_port</span><span class="p">)</span>
+<span class="n">danger_car</span> <span class="o">=</span> <span class="n">my_vehicles</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">tm</span><span class="o">.</span><span class="n">global_distance_to_leading_vehicle</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">tm</span><span class="o">.</span><span class="n">global_percentage_speed_difference</span><span class="p">(</span><span class="mi">80</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">my_vehicles</span><span class="p">:</span> 
+  <span class="n">tm</span><span class="o">.</span><span class="n">auto_lane_change</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
 <h4 id="_19">委派交通管理器自动更新车灯</h4>
 <p>默认情况下，交通管理器管理的车辆的车灯（刹车灯、转向灯等）永远不会更新。可以委托交通管理器来更新给定车辆参与者的车灯：</p>
-<pre><code class="language-python">tm = client.get_trafficmanager(port)
-for actor in my_vehicles:
-  tm.update_vehicle_lights(actor, True)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">tm</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_trafficmanager</span><span class="p">(</span><span class="n">port</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">actor</span> <span class="ow">in</span> <span class="n">my_vehicles</span><span class="p">:</span>
+  <span class="n">tm</span><span class="o">.</span><span class="n">update_vehicle_lights</span><span class="p">(</span><span class="n">actor</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
 <p>车灯管理必须按每辆车进行指定，并且在任何给定时间都可以有带和不带自动灯管理的车辆。</p>
 <h3 id="_20">停止交通管理器 <span id="stopping-a-traffic-manager"></span></h3>
 <p>交通管理器是一个不需要被销毁的参与者；当创建它的客户端停止时，它将停止。这是由 API 自动管理的，用户无需执行任何操作。但是，在关闭交通管理器时，用户必须销毁由它控制的车辆，否则它们将在地图上保持不动。 <code>generate_traffic.py</code>脚本会自动执行此操作:</p>
-<pre><code class="language-py">client.apply_batch([carla.command.DestroyActor(x) for x in vehicles_list])
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">client</span><span class="o">.</span><span class="n">apply_batch</span><span class="p">([</span><span class="n">carla</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">DestroyActor</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">vehicles_list</span><span class="p">])</span>
+</code></pre></div>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>关闭 <strong>TM-Server</strong> 将关闭连接到它的 <strong>TM-Clients</strong> 。 要了解 <strong>TM-Server</strong> 和 <strong>TM-Client</strong> 之间的区别, 请阅读 <a href="#running-multiple-traffic-managers"><strong>Running multiple Traffic Managers</strong></a>。</p>
@@ -369,17 +369,17 @@ for actor in my_vehicles:
 <p>在确定性模式下，交通管理器将在相同条件下产生相同的结果和行为。不要将确定性论误认为是记录器。虽然记录器允许您存储模拟日志以进行回放，但确定性可确保只要维持相同的条件，交通管理器在脚本的不同执行过程中始终具有相同的输出。</p>
 <p>确定性模式 <strong>仅在同步模式下</strong> 可用。在异步模式下，对模拟的控制较少，并且无法实现确定性。在开始之前，请阅读<a href="#synchronous-mode"><strong>同步模式</strong></a>部分的更多信息。</p>
 <p>要启用确定性模式，请使用以下方法：</p>
-<pre><code class="language-py">my_tm.set_random_device_seed(seed_value)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">my_tm</span><span class="o">.</span><span class="n">set_random_device_seed</span><span class="p">(</span><span class="n">seed_value</span><span class="p">)</span>
+</code></pre></div>
 <p><code>seed_value</code> 是一个将生成随机数的数字的 <code>int</code> 种子数。该值本身并不相关，但相同的值将始终导致相同的输出。具有相同条件、使用相同种子值的两次模拟将是确定性的。</p>
 <p>为了保持多次模拟运行的确定性，<strong>必须为每次模拟设置种子</strong>。例如，每次<a href="../python_api/#carla.Client.reload_world"><strong>重新加载</strong></a>世界时，都必须重新设置种子：</p>
-<pre><code class="language-py">client.reload_world()
-my_tm.set_random_device_seed(seed_value)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">client</span><span class="o">.</span><span class="n">reload_world</span><span class="p">()</span>
+<span class="n">my_tm</span><span class="o">.</span><span class="n">set_random_device_seed</span><span class="p">(</span><span class="n">seed_value</span><span class="p">)</span>
+</code></pre></div>
 <p>可以通过将种子值作为参数传递来在示例脚本<code>generate_traffic.py</code>中测试确定性模式。以下示例在同步模式下使用 50 个自动驾驶参与者填充地图，并将种子设置为任意值<code>9</code>：</p>
-<pre><code class="language-sh">cd PythonAPI/examples
-python3 generate_traffic.py -n 50 --seed 9
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>PythonAPI/examples
+python3<span class="w"> </span>generate_traffic.py<span class="w"> </span>-n<span class="w"> </span><span class="m">50</span><span class="w"> </span>--seed<span class="w"> </span><span class="m">9</span>
+</code></pre></div>
 <div class="admonition 警告">
 <p class="admonition-title">警告</p>
 <p>在启用确定性模式之前，Carla 服务器和交通管理器必须处于同步模式。在此处阅读有关交通管理器中同步模式的<a href="#synchronous-mode">更多信息</a>。</p>
@@ -408,67 +408,67 @@ python3 generate_traffic.py -n 50 --seed 9
 <h6 id="_25">交通管理器的服务端</h6>
 <p>如果交通管理器的服务端是第一个连接到空闲端口的交通管理器，然后其他交通管理器（交通管理器的客户端）连接到它正在运行的同一端口，则创建交通管理器服务端。<strong>交通管理器服务端将规定所有交通管理器客户端的行为</strong>，例如，如果 <strong>交通管理器的服务端</strong> 停止，则所有 <strong>交通管理器客户端</strong> 将停止。</p>
 <p>以下代码创建两个交通管理器服务端。每个端口都连接到不同且都未使用的端口：</p>
-<pre><code class="language-py">tm01 = client01.get_trafficmanager() # tm01 --&gt; tm01 (p=8000)
-</code></pre>
-<pre><code class="language-py">tm02 = client02.get_trafficmanager(5000) # tm02(p=5000) --&gt; tm02 (p=5000)
-</code></pre>
+<p><div class="highlight"><pre><span></span><code><span class="n">tm01</span> <span class="o">=</span> <span class="n">client01</span><span class="o">.</span><span class="n">get_trafficmanager</span><span class="p">()</span> <span class="c1"># tm01 --&gt; tm01 (p=8000)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">tm02</span> <span class="o">=</span> <span class="n">client02</span><span class="o">.</span><span class="n">get_trafficmanager</span><span class="p">(</span><span class="mi">5000</span><span class="p">)</span> <span class="c1"># tm02(p=5000) --&gt; tm02 (p=5000)</span>
+</code></pre></div></p>
 <h6 id="_26">交通管理器的客户端</h6>
 <p>当一个交通管理器连接到另一个交通管理器（交通管理器服务端）占用的端口时，就会创建交通管理器客户端。交通管理器客户端的行为将由交通管理器服务端决定。</p>
 <p>以下代码创建两个交通管理器客户端，每一个都与上一节中创建的交通管理器服务端连接。</p>
-<pre><code class="language-py">tm03 = client03.get_trafficmanager() # tm03 --&gt; tm01 (p=8000). 
-</code></pre>
-<pre><code class="language-py">tm04 = client04.get_trafficmanager(5000) # tm04(p=5000) --&gt; tm02 (p=5000)
-</code></pre>
+<p><div class="highlight"><pre><span></span><code><span class="n">tm03</span> <span class="o">=</span> <span class="n">client03</span><span class="o">.</span><span class="n">get_trafficmanager</span><span class="p">()</span> <span class="c1"># tm03 --&gt; tm01 (p=8000). </span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">tm04</span> <span class="o">=</span> <span class="n">client04</span><span class="o">.</span><span class="n">get_trafficmanager</span><span class="p">(</span><span class="mi">5000</span><span class="p">)</span> <span class="c1"># tm04(p=5000) --&gt; tm02 (p=5000)</span>
+</code></pre></div></p>
 <p>Carla 服务器通过存储链接到它们的端口和客户端 IP（对用户隐藏）来保存所有交通管理器实例的寄存器。目前无法检查到目前为止已创建的交通管理器实例。尝试创建实例时始终会尝试连接，并且它将创建新的 <strong>交通管理器服务端</strong> 或 <strong>交通管理器客户端</strong> 。</p>
 <h3 id="_27">多客户端模拟 <span id="multi-client-simulations"></span></h3>
 <p>在多客户端模拟中，在同一端口上创建多个交通管理器。第一个交通管理器将是交通管理器服务器，其余的将是连接到它的交通管理器客户端。TM-Server 将规定所有交通管理器实例的行为：</p>
-<pre><code class="language-py">terminal 1: ./CarlaUE4.sh -carla-rpc-port=4000
-terminal 2: python3 generate_traffic.py --port 4000 --tm-port 4050 # TM-Server
-terminal 3: python3 generate_traffic.py --port 4000 --tm-port 4050 # TM-Client
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">terminal</span> <span class="mi">1</span><span class="p">:</span> <span class="o">./</span><span class="n">CarlaUE4</span><span class="o">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">carla</span><span class="o">-</span><span class="n">rpc</span><span class="o">-</span><span class="n">port</span><span class="o">=</span><span class="mi">4000</span>
+<span class="n">terminal</span> <span class="mi">2</span><span class="p">:</span> <span class="n">python3</span> <span class="n">generate_traffic</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">port</span> <span class="mi">4000</span> <span class="o">--</span><span class="n">tm</span><span class="o">-</span><span class="n">port</span> <span class="mi">4050</span> <span class="c1"># TM-Server</span>
+<span class="n">terminal</span> <span class="mi">3</span><span class="p">:</span> <span class="n">python3</span> <span class="n">generate_traffic</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">port</span> <span class="mi">4000</span> <span class="o">--</span><span class="n">tm</span><span class="o">-</span><span class="n">port</span> <span class="mi">4050</span> <span class="c1"># TM-Client</span>
+</code></pre></div>
 <h3 id="_28">多交通管理器模拟 <span id="multi-tm-simulations"></span></h3>
 <p>在多交通管理器模拟中，在不同的端口上创建多个交通管理器实例。每个交通管理器实例都会控制自己的行为：</p>
-<pre><code class="language-py">terminal 1: ./CarlaUE4.sh -carla-rpc-port=4000
-terminal 2: python3 generate_traffic.py --port 4000 --tm-port 4050 # TM-Server A
-terminal 3: python3 generate_traffic.py --port 4000 --tm-port 4550 # TM-Server B
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">terminal</span> <span class="mi">1</span><span class="p">:</span> <span class="o">./</span><span class="n">CarlaUE4</span><span class="o">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">carla</span><span class="o">-</span><span class="n">rpc</span><span class="o">-</span><span class="n">port</span><span class="o">=</span><span class="mi">4000</span>
+<span class="n">terminal</span> <span class="mi">2</span><span class="p">:</span> <span class="n">python3</span> <span class="n">generate_traffic</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">port</span> <span class="mi">4000</span> <span class="o">--</span><span class="n">tm</span><span class="o">-</span><span class="n">port</span> <span class="mi">4050</span> <span class="c1"># TM-Server A</span>
+<span class="n">terminal</span> <span class="mi">3</span><span class="p">:</span> <span class="n">python3</span> <span class="n">generate_traffic</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">port</span> <span class="mi">4000</span> <span class="o">--</span><span class="n">tm</span><span class="o">-</span><span class="n">port</span> <span class="mi">4550</span> <span class="c1"># TM-Server B</span>
+</code></pre></div>
 <h3 id="_29">多重模拟 <span id="multi-simulation"></span></h3>
 <p>多重模拟是指多个 Carla 服务器同时运行。交通管理器需要连接到相关的 Carla 服务器端口。只要计算能力允许，交通管理器可以一次运行多个模拟，不会出现任何问题：</p>
-<pre><code class="language-py">terminal 1: ./CarlaUE4.sh -carla-rpc-port=4000 # simulation A 
-terminal 2: ./CarlaUE4.sh -carla-rpc-port=5000 # simulation B
-terminal 3: python3 generate_traffic.py --port 4000 --tm-port 4050 # TM-Server A connected to simulation A
-terminal 4: python3 generate_traffic.py --port 5000 --tm-port 5050 # TM-Server B connected to simulation B
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">terminal</span> <span class="mi">1</span><span class="p">:</span> <span class="o">./</span><span class="n">CarlaUE4</span><span class="o">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">carla</span><span class="o">-</span><span class="n">rpc</span><span class="o">-</span><span class="n">port</span><span class="o">=</span><span class="mi">4000</span> <span class="c1"># simulation A </span>
+<span class="n">terminal</span> <span class="mi">2</span><span class="p">:</span> <span class="o">./</span><span class="n">CarlaUE4</span><span class="o">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">carla</span><span class="o">-</span><span class="n">rpc</span><span class="o">-</span><span class="n">port</span><span class="o">=</span><span class="mi">5000</span> <span class="c1"># simulation B</span>
+<span class="n">terminal</span> <span class="mi">3</span><span class="p">:</span> <span class="n">python3</span> <span class="n">generate_traffic</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">port</span> <span class="mi">4000</span> <span class="o">--</span><span class="n">tm</span><span class="o">-</span><span class="n">port</span> <span class="mi">4050</span> <span class="c1"># TM-Server A connected to simulation A</span>
+<span class="n">terminal</span> <span class="mi">4</span><span class="p">:</span> <span class="n">python3</span> <span class="n">generate_traffic</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">port</span> <span class="mi">5000</span> <span class="o">--</span><span class="n">tm</span><span class="o">-</span><span class="n">port</span> <span class="mi">5050</span> <span class="c1"># TM-Server B connected to simulation B</span>
+</code></pre></div>
 <p>多重模拟的概念独立于交通管理器本身。上面的示例并行运行两个 Carla 模拟 A 和 B。在每个模拟中，都独立创建一个交通管理器服务端。模拟 A 可以运行多客户端交通管理程序，而模拟 B 则运行多交通管理器或根本不运行交通管理器。</p>
 <p>上述设置最可能出现的问题是客户端尝试连接到未在所选模拟上运行的现有交通管理器。如果发生这种情况，将会出现错误消息，并且连接将被中止，以防止模拟之间的干扰。</p>
 <hr />
 <h2 id="_30">同步模式 <span id="synchronous-mode"></span></h2>
 <p>交通管理器设计为在同步模式下工作。Carla 服务器和交通管理器应设置为同步才能正常运行。<strong>在异步模式下使用交通管理器可能会导致意外和不良结果</strong>，但是，如果需要异步模式，则模拟应至少以 20-30 fps 运行。</p>
 <p>下面的脚本演示了如何将服务器和交通管理器设置为同步模式：</p>
-<pre><code class="language-py">...
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
 
-# 将模拟设置为同步模式
-init_settings = world.get_settings()
-settings = world.get_settings()
-settings.synchronous_mode = True
-# 之后，将交通管理器设置为同步模式
-my_tm.set_synchronous_mode(True)
+<span class="c1"># 将模拟设置为同步模式</span>
+<span class="n">init_settings</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_settings</span><span class="p">()</span>
+<span class="n">settings</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_settings</span><span class="p">()</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">synchronous_mode</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="c1"># 之后，将交通管理器设置为同步模式</span>
+<span class="n">my_tm</span><span class="o">.</span><span class="n">set_synchronous_mode</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
-...
+<span class="o">...</span>
 
-# 在同一个客户端对直接发出节拍信号
-world.apply_settings(init_settings)
-world.tick()
-...
+<span class="c1"># 在同一个客户端对直接发出节拍信号</span>
+<span class="n">world</span><span class="o">.</span><span class="n">apply_settings</span><span class="p">(</span><span class="n">init_settings</span><span class="p">)</span>
+<span class="n">world</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
+<span class="o">...</span>
 
-# 始终在脚本结束前禁用同步模式，以防止服务器在等待节拍信号时阻塞
-settings.synchronous_mode = False
-my_tm.set_synchronous_mode(False)
-</code></pre>
+<span class="c1"># 始终在脚本结束前禁用同步模式，以防止服务器在等待节拍信号时阻塞</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">synchronous_mode</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">my_tm</span><span class="o">.</span><span class="n">set_synchronous_mode</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
 <p>示例脚本 <code>generate_traffic.py</code> 启动交通管理器并用车辆和行人填充地图。它自动将交通管理器和 Carla 服务器设置为同步模式：</p>
-<pre><code class="language-sh">cd PythonAPI/examples
-python3 generate_traffic.py -n 50
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>PythonAPI/examples
+python3<span class="w"> </span>generate_traffic.py<span class="w"> </span>-n<span class="w"> </span><span class="m">50</span>
+</code></pre></div>
 <p>如果需要异步模式，请在运行上述命令时使用 <code>--async</code> 标志。</p>
 <p>如果多个交通管理器设置为同步模式，同步将会失败。请遵循以下准则以避免出现问题：</p>
 <ul>
@@ -488,18 +488,18 @@ python3 generate_traffic.py -n 50
 <p>所有自动驾驶车辆都将被视为休眠参与者。休眠的自动驾驶参与者将像混合模式一样在地图上移动。由于没有英雄车辆来触发地图瓦片流，因此不会渲染车辆。</p>
 <p><strong>呈现英雄车辆</strong></p>
 <p>当自动驾驶车辆超过 <code>actor_active_distance</code> 定义的值时，将进入休眠状态。要设置此值，请使用 Python API：</p>
-<pre><code class="language-py">settings = world.get_settings()
+<div class="highlight"><pre><span></span><code><span class="n">settings</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_settings</span><span class="p">()</span>
 
-# 离英雄车辆超过2公里的参与者将会休眠
-settings.actor_active_distance = 2000
+<span class="c1"># 离英雄车辆超过2公里的参与者将会休眠</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">actor_active_distance</span> <span class="o">=</span> <span class="mi">2000</span>
 
-world.apply_settings(settings)
-</code></pre>
+<span class="n">world</span><span class="o">.</span><span class="n">apply_settings</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
+</code></pre></div>
 <p>在交通管理器中，休眠的参与者可以配置为在英雄车辆周围不断重生，而不是在地图的其他部分保持休眠状态。可以使用<code>set_respawn_dormant_vehicles</code> Python API 中的方法配置此选项。车辆将在英雄车辆的用户定义距离内重生。可重生距离的上下边界可以使用<code>set_boundaries_respawn_dormant_vehicles</code>方法设置。注意，上距离不会大于大地图的瓦片流距离，距离最小为 20 米。</p>
 <p>要使英雄车辆 25 米和 700 米范围内的休眠车辆重生：</p>
-<pre><code class="language-py">my_tm.set_respawn_dormant_vehicles(True)
-my_tm.set_boundaries_respawn_dormant_vehicles(25,700)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">my_tm</span><span class="o">.</span><span class="n">set_respawn_dormant_vehicles</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">my_tm</span><span class="o">.</span><span class="n">set_boundaries_respawn_dormant_vehicles</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span><span class="mi">700</span><span class="p">)</span>
+</code></pre></div>
 <p>如果碰撞阻止休眠的参与者重生，交通管理器将重试下一个模拟步骤。</p>
 <p>如果休眠车辆没有重生，它们的行为将取决于是否启用混合模式。如果启用了混合模式，则休眠的参与者将在地图上传送。如果未启用混合模式，则不会计算休眠参与者的物理特性，并且它们将保持在原位置，直到不再休眠。</p>
 <hr />
@@ -545,8 +545,13 @@ Carla 论坛</a>
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

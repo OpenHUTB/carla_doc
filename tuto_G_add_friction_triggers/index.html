@@ -80,38 +80,38 @@
 </ul>
 <p>完成此操作后，定义一个变换来指定摩擦触发器的位置和旋转并生成它。</p>
 <h5 id="_2">例子</h5>
-<pre><code class="language-py">import carla
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">carla</span>
 
-def main():
-    # 连接到客户端
-    client = carla.Client('127.0.0.1', 2000)
-    client.set_timeout(2.0)
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># 连接到客户端</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span> <span class="mi">2000</span><span class="p">)</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">set_timeout</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>
 
-    # 获取事件和参与者
-    world = client.get_world()
-    actors = world.get_actors()
+    <span class="c1"># 获取事件和参与者</span>
+    <span class="n">world</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_world</span><span class="p">()</span>
+    <span class="n">actors</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_actors</span><span class="p">()</span>
 
-    # Find Trigger Friction Blueprint
-    friction_bp = world.get_blueprint_library().find('static.trigger.friction')
+    <span class="c1"># Find Trigger Friction Blueprint</span>
+    <span class="n">friction_bp</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;static.trigger.friction&#39;</span><span class="p">)</span>
 
-    extent = carla.Location(700.0, 700.0, 700.0)
+    <span class="n">extent</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Location</span><span class="p">(</span><span class="mf">700.0</span><span class="p">,</span> <span class="mf">700.0</span><span class="p">,</span> <span class="mf">700.0</span><span class="p">)</span>
 
-    friction_bp.set_attribute('friction', str(0.0))
-    friction_bp.set_attribute('extent_x', str(extent.x))
-    friction_bp.set_attribute('extent_y', str(extent.y))
-    friction_bp.set_attribute('extent_z', str(extent.z))
+    <span class="n">friction_bp</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s1">&#39;friction&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="mf">0.0</span><span class="p">))</span>
+    <span class="n">friction_bp</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s1">&#39;extent_x&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">extent</span><span class="o">.</span><span class="n">x</span><span class="p">))</span>
+    <span class="n">friction_bp</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s1">&#39;extent_y&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">extent</span><span class="o">.</span><span class="n">y</span><span class="p">))</span>
+    <span class="n">friction_bp</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s1">&#39;extent_z&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">extent</span><span class="o">.</span><span class="n">z</span><span class="p">))</span>
 
-    # Spawn Trigger Friction
-    transform = carla.Transform()
-    transform.location = carla.Location(100.0, 0.0, 0.0)
-    world.spawn_actor(friction_bp, transform)
+    <span class="c1"># Spawn Trigger Friction</span>
+    <span class="n">transform</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Transform</span><span class="p">()</span>
+    <span class="n">transform</span><span class="o">.</span><span class="n">location</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Location</span><span class="p">(</span><span class="mf">100.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">friction_bp</span><span class="p">,</span> <span class="n">transform</span><span class="p">)</span>
 
-    # Optional for visualizing trigger
-    world.debug.draw_box(box=carla.BoundingBox(transform.location, extent * 1e-2), rotation=transform.rotation, life_time=100, thickness=0.5, color=carla.Color(r=255,g=0,b=0))
+    <span class="c1"># Optional for visualizing trigger</span>
+    <span class="n">world</span><span class="o">.</span><span class="n">debug</span><span class="o">.</span><span class="n">draw_box</span><span class="p">(</span><span class="n">box</span><span class="o">=</span><span class="n">carla</span><span class="o">.</span><span class="n">BoundingBox</span><span class="p">(</span><span class="n">transform</span><span class="o">.</span><span class="n">location</span><span class="p">,</span> <span class="n">extent</span> <span class="o">*</span> <span class="mf">1e-2</span><span class="p">),</span> <span class="n">rotation</span><span class="o">=</span><span class="n">transform</span><span class="o">.</span><span class="n">rotation</span><span class="p">,</span> <span class="n">life_time</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">thickness</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">carla</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="mi">255</span><span class="p">,</span><span class="n">g</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">b</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
 
-if __name__ == '__main__':
-    main()
-</code></pre>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
               
             </div>
           </div><footer>
@@ -147,8 +147,13 @@ if __name__ == '__main__':
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

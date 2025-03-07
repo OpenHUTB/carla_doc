@@ -77,9 +77,9 @@
 </div>
 <h3 id="libcarla">LibCarla</h3>
 <h3 id="_1">客户端</h3>
-<p>客户端连接不使用 Nagle 算法，将Linux上的同步模式速度提高了约3倍。</p>
-<pre><code class="language-cpp">_socket.set_option(boost::asio::ip::tcp::no_delay(true));
-</code></pre>
+<p>客户端连接不使用 Nagle 算法，将Linux上的同步模式速度提高了约3倍。
+<div class="highlight"><pre><span></span><code><span class="n">_socket</span><span class="p">.</span><span class="n">set_option</span><span class="p">(</span><span class="n">boost</span><span class="o">::</span><span class="n">asio</span><span class="o">::</span><span class="n">ip</span><span class="o">::</span><span class="n">tcp</span><span class="o">::</span><span class="n">no_delay</span><span class="p">(</span><span class="nb">true</span><span class="p">));</span>
+</code></pre></div></p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>Nagle算法是一种用于提高TCP/IP网络性能的算法，它通过减少数据包的发送量来减少网络拥堵。Nagle算法的主要目的是合并一定数量的输出数据后一次性提交，以避免网络中充斥着许多小数据块。当TCP报文承载的数据量非常小时，例如几个字节，整个网络的效率会很低，因为每个TCP报文中都会包含大量的头部信息，而有效数据占有的比重就会非常低。Nagle算法要求，当一个TCP连接中有在传数据（已经发出但还未确认的数据）时，小于MSS（最大分段大小）的报文段就不能被发送，直到所有的在传数据都收到了ACK。同时收到ACK后，TCP还不会马上就发送数据，会收集小包合并一起发送。然而，Nagle算法并不适用于所有情况，在一些要求低延迟的应用程序中（例如即时通讯应用），Nagle算法的规定是不易被接受的，因此需要设置 <code>TCP_NODELAY</code> 或者 <code>TCP_CORK</code> 关闭Nagle算法。</p>
@@ -144,8 +144,13 @@
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

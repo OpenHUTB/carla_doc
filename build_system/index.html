@@ -89,8 +89,8 @@
 <hr />
 <h2 id="_2">设置 <span id="setup"></span></h2>
 <p>命令</p>
-<pre><code class="language-sh">make setup
-</code></pre>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>setup
+</code></pre></div>
 <p>获取并编译依赖项</p>
 <ul>
 <li>llvm-8 (libc++ and libc++abi)</li>
@@ -102,8 +102,8 @@
 <h2 id="libcarla">LibCarla <span id="libcarla"></span></h2>
 <p>使用 CMake 编译（最低版本需要 CMake 3.9）。</p>
 <p>命令</p>
-<pre><code class="language-sh">make LibCarla
-</code></pre>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>LibCarla
+</code></pre></div>
 <p>两种配置：</p>
 <table>
 <thead>
@@ -145,11 +145,11 @@
 <h2 id="carlaue4-carla">CarlaUE4 和 Carla 插件 <span id="carlaue4_and_carla_plugin"></span></h2>
 <p>两者均使用虚幻引擎构建工具在同一步骤进行编译。它们需要 <code>UE4_ROOT</code> 环境变量。</p>
 <p>命令</p>
-<pre><code class="language-sh">make CarlaUE4Editor
-</code></pre>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>CarlaUE4Editor
+</code></pre></div>
 <p>要启动虚幻引擎的编辑器，请运行</p>
-<pre><code class="language-sh">make launch
-</code></pre>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>launch
+</code></pre></div>
 <p>编译 0.9.15 时候出现<code>carla/Unreal/CarlaUE4/Plugins/CarlaTools/Source/CarlaTools/Private/Online/CustomFileDownloader.cpp(11): fatal rror C1083: 无法打开包括文件: “OSM2ODR.h”: No such file or directory</code></p>
 <p>解决：将0.9.14<code>build</code>中的<code>carla\Build\osm2odr-visualstudio</code>复制过来。</p>
 <hr />
@@ -158,8 +158,8 @@
 <p>使用 Python 的 <code>setuptools</code> ("setup.py")  编译。 目前需要在机器上安装以下软件：Python, libpython-dev, 和
 libboost-python-dev, pip&gt;=20.3, wheel, 和 auditwheel。</p>
 <p>命令：</p>
-<pre><code class="language-sh">make PythonAPI
-</code></pre>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>PythonAPI
+</code></pre></div>
 <p>创建两个文件，每个文件包含客户端库并对应于系统上支持的 Python 版本。一个文件是 <code>.whl</code> 文件，另一个文件是 <code>.egg</code> 文件。这允许选择两种不同的、互斥的方式来使用客户端库。</p>
 <blockquote>
 <p><strong>A. .whl 文件</strong></p>
@@ -178,30 +178,30 @@ libboost-python-dev, pip&gt;=20.3, wheel, 和 auditwheel。</p>
 <p>使用 Python 的 <code>setuptools</code> ("setup.py")编译。 目前需要在机器上安装以下软件： Python, libpython-dev, 和
 libboost-python-dev。</p>
 <p>命令</p>
-<pre><code class="language-sh">make PythonAPI
-</code></pre>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>PythonAPI
+</code></pre></div>
 <p>它创造了两个 "egg" 包</p>
 <ul>
 <li><code>PythonAPI/dist/carla-X.X.X-py2.7-linux-x86_64.egg</code></li>
 <li><code>PythonAPI/dist/carla-X.X.X-py3.7-linux-x86_64.egg</code></li>
 </ul>
 <p>通过将其添加到系统路径，可以将该包直接导入到 Python 脚本中。</p>
-<pre><code class="language-python">#!/usr/bin/env python
+<div class="highlight"><pre><span></span><code><span class="ch">#!/usr/bin/env python</span>
 
-import sys
+<span class="kn">import</span> <span class="nn">sys</span>
 
-sys.path.append(
-    'PythonAPI/dist/carla-X.X.X-py%d.%d-linux-x86_64.egg' % (sys.version_info.major,
-                                                             sys.version_info.minor))
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+    <span class="s1">&#39;PythonAPI/dist/carla-X.X.X-py</span><span class="si">%d</span><span class="s1">.</span><span class="si">%d</span><span class="s1">-linux-x86_64.egg&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="o">.</span><span class="n">major</span><span class="p">,</span>
+                                                             <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="o">.</span><span class="n">minor</span><span class="p">))</span>
 
-import carla
+<span class="kn">import</span> <span class="nn">carla</span>
 
-# ...
-</code></pre>
+<span class="c1"># ...</span>
+</code></pre></div>
 <p>或者，可以使用 <code>easy_install</code> 安装</p>
-<pre><code class="language-sh">easy_install2 --user --no-deps PythonAPI/dist/carla-X.X.X-py2.7-linux-x86_64.egg
-easy_install3 --user --no-deps PythonAPI/dist/carla-X.X.X-py3.7-linux-x86_64.egg
-</code></pre>
+<div class="highlight"><pre><span></span><code>easy_install2<span class="w"> </span>--user<span class="w"> </span>--no-deps<span class="w"> </span>PythonAPI/dist/carla-X.X.X-py2.7-linux-x86_64.egg
+easy_install3<span class="w"> </span>--user<span class="w"> </span>--no-deps<span class="w"> </span>PythonAPI/dist/carla-X.X.X-py3.7-linux-x86_64.egg
+</code></pre></div>
               
             </div>
           </div><footer>
@@ -237,8 +237,13 @@ easy_install3 --user --no-deps PythonAPI/dist/carla-X.X.X-py3.7-linux-x86_64.egg
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

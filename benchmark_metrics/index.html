@@ -97,9 +97,9 @@
 </ul>
 <h2 id="_3">执行并设置参数</h2>
 <p>指标作为基准测试的最后一步进行计算，并将结果摘要存储在 json 文件中。内部执行如下：</p>
-<pre><code class="language-python">metrics_object = Metrics(metrics_parameters)
-summary_dictionary = metrics_object.compute(path_to_execution_log)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">metrics_object</span> <span class="o">=</span> <span class="n">Metrics</span><span class="p">(</span><span class="n">metrics_parameters</span><span class="p">)</span>
+<span class="n">summary_dictionary</span> <span class="o">=</span> <span class="n">metrics_object</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">path_to_execution_log</span><span class="p">)</span>
+</code></pre></div>
 <p>Metric 的计算函数接收执行日志的完整路径。Metric 类应该使用一些参数进行实例化。这些参数包括：</p>
 <ul>
 <li><strong>阈值</strong>：指标使用的阈值。</li>
@@ -108,37 +108,37 @@ summary_dictionary = metrics_object.compute(path_to_execution_log)
 </ul>
 <p>这些参数被定义为 <em>实验套件</em> 基类的属性，可以在您的 <a href="https://carla.readthedocs.io/en/stable/benchmark_creating/#defining-the-experiment-suite">自定义实验套件</a> 中重新定义。</p>
 <p>默认参数为：</p>
-<pre><code class="language-python">@property
-    def metrics_parameters(self):
-    &quot;&quot;&quot;
-    Property to return the parameters for the metrics module
-    Could be redefined depending on the needs of the user.
-    &quot;&quot;&quot;
-    return {
+<div class="highlight"><pre><span></span><code><span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">metrics_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Property to return the parameters for the metrics module</span>
+<span class="sd">    Could be redefined depending on the needs of the user.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">{</span>
 
-        'intersection_offroad': {'frames_skip': 10,
-                                 'frames_recount': 20,
-                                 'threshold': 0.3
-                                 },
-        'intersection_otherlane': {'frames_skip': 10,
-                                   'frames_recount': 20,
-                                   'threshold': 0.4
-                                   },
-        'collision_other': {'frames_skip': 10,
-                            'frames_recount': 20,
-                            'threshold': 400
-                            },
-        'collision_vehicles': {'frames_skip': 10,
-                               'frames_recount': 30,
-                               'threshold': 400
-                               },
-        'collision_pedestrians': {'frames_skip': 5,
-                                  'frames_recount': 100,
-                                  'threshold': 300
-                                  },
+        <span class="s1">&#39;intersection_offroad&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;frames_skip&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+                                 <span class="s1">&#39;frames_recount&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+                                 <span class="s1">&#39;threshold&#39;</span><span class="p">:</span> <span class="mf">0.3</span>
+                                 <span class="p">},</span>
+        <span class="s1">&#39;intersection_otherlane&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;frames_skip&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+                                   <span class="s1">&#39;frames_recount&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+                                   <span class="s1">&#39;threshold&#39;</span><span class="p">:</span> <span class="mf">0.4</span>
+                                   <span class="p">},</span>
+        <span class="s1">&#39;collision_other&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;frames_skip&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+                            <span class="s1">&#39;frames_recount&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+                            <span class="s1">&#39;threshold&#39;</span><span class="p">:</span> <span class="mi">400</span>
+                            <span class="p">},</span>
+        <span class="s1">&#39;collision_vehicles&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;frames_skip&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+                               <span class="s1">&#39;frames_recount&#39;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+                               <span class="s1">&#39;threshold&#39;</span><span class="p">:</span> <span class="mi">400</span>
+                               <span class="p">},</span>
+        <span class="s1">&#39;collision_pedestrians&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;frames_skip&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+                                  <span class="s1">&#39;frames_recount&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+                                  <span class="s1">&#39;threshold&#39;</span><span class="p">:</span> <span class="mi">300</span>
+                                  <span class="p">},</span>
 
-          }
-</code></pre>
+          <span class="p">}</span>
+</code></pre></div>
               
             </div>
           </div><footer>
@@ -174,8 +174,13 @@ summary_dictionary = metrics_object.compute(path_to_execution_log)
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

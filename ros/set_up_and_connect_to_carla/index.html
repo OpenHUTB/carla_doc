@@ -81,9 +81,8 @@
 <p>2.在 Ubuntu 桌面上，单击 <code>ROS Noetic Core Terminal</code> 快捷方式以启动 ROS 主控。主控启动后，记下 <code>ROS_MASTER_URI</code>。</p>
 <p>3.在 Ubuntu 桌面上，单击 <code>ROS Noetic Terminal</code> 快捷方式以启动 ROS 终端。运行此命令以设置 CARLA ROS 桥接环境。
 ```shell script
-. ~/carla-ros-bridge/catkin_ws/devel/setup.bash</p>
-<pre><code>
-![](../img/ros/setup.bash.png)
+. ~/carla-ros-bridge/catkin_ws/devel/setup.bash
+<div class="highlight"><pre><span></span><code>![](../img/ros/setup.bash.png)
 
 
 ## 使用 CARLA 客户端启动 Ego Vehicle
@@ -91,20 +90,19 @@
 
 运行此命令将主机地址更改为您的机器的主机地址（您的IP地址一般和这里`172.18.226.60`的不一致）。
 ```shell script
-roslaunch carla_ros_bridge carla_ros_bridge_with_example_ego_vehicle.launch host:=172.18.226.60 timeout:=60000 town:='Town03' spawn_point:=-25,-134,0.5,0,0,-90
-</code></pre>
+roslaunch carla_ros_bridge carla_ros_bridge_with_example_ego_vehicle.launch host:=172.18.226.60 timeout:=60000 town:=&#39;Town03&#39; spawn_point:=-25,-134,0.5,0,0,-90
+</code></pre></div></p>
 <!-- 192.168.159.129 -->
 
 <p><img alt="" src="../../img/ros/launch_vehicle.png" /></p>
 <h2 id="carla-ros">验证 CARLA ROS 连接</h2>
 <p>将 Simulink 连接到在 VM Ware 中运行的 ROS 主机。
 ```shell script
-rosinit( 'http://172.18.226.233:11311' )</p>
-<pre><code>
-通过运行以下自省命令，验证您是否可以访问与 CARLA 模拟器相关的 ROS 主题。
+rosinit( 'http://172.18.226.233:11311' )
+<div class="highlight"><pre><span></span><code>通过运行以下自省命令，验证您是否可以访问与 CARLA 模拟器相关的 ROS 主题。
 ```shell script
 rostopic list
-</code></pre>
+</code></pre></div></p>
               
             </div>
           </div><footer>
@@ -140,8 +138,13 @@ rostopic list
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="../../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

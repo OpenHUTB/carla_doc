@@ -90,19 +90,19 @@
 <li>运行脚本signal_control.py来开启服务端</li>
 <li>发送http请求:</li>
 </ol>
-<pre><code>http://127.0.0.1:5000/set_traffic_light?traffic_id=-5&amp;color_id=3&amp;color_time=30
-</code></pre>
+<div class="highlight"><pre><span></span><code>http://127.0.0.1:5000/set_traffic_light?traffic_id=-5&amp;color_id=3&amp;color_time=30
+</code></pre></div>
 <p>以上请求表示设置OpenDrive ID为<code>-5</code>的红绿灯的红灯的持续时间为<code>30</code>秒。</p>
 <h4 id="_5">脚本工作流程</h4>
 <p>应用程序的主要功能是根据用户提供的参数设置指定红绿灯的颜色和持续时间。具体实现步骤如下：</p>
 <p>1.接收用户请求，并解析传入的参数。</p>
 <p>2.连接到Carla模拟服务器并获取当前世界对象。</p>
-<pre><code>client = carla.Client('localhost', 2000)
+<p><div class="highlight"><pre><span></span><code>client = carla.Client(&#39;localhost&#39;, 2000)
 client.set_timeout(10.0)  # 设置超时
 world = client.get_world()  # 获取世界对象
-</code></pre>
-<p>3.查找指定的红绿灯对象,输出修改前的灯光时间。</p>
-<pre><code>for traffic_light in traffic_lights:
+</code></pre></div>
+3.查找指定的红绿灯对象,输出修改前的灯光时间。</p>
+<p><div class="highlight"><pre><span></span><code>for traffic_light in traffic_lights:
     if float(traffic_light.get_opendrive_id()) == traffic_id:
         if color_id == 1:
             init_time = traffic_light.get_green_time()
@@ -110,21 +110,21 @@ world = client.get_world()  # 获取世界对象
             init_time = traffic_light.get_yellow_time()
         elif color_id == 3:
             init_time = traffic_light.get_red_time()
-</code></pre>
-<p>4.跳转视角到该红绿灯合适的位置。</p>
-<pre><code>lights_setting = [
+</code></pre></div>
+4.跳转视角到该红绿灯合适的位置。</p>
+<div class="highlight"><pre><span></span><code>lights_setting = [
     [-6, carla.Transform(carla.Location(x=-220, y=-9, z=5), carla.Rotation(yaw=180))],
     [-5, carla.Transform(carla.Location(x=-260, y=35, z=5), carla.Rotation(yaw=-90))]
 ]
-</code></pre>
-<pre><code>spectator = world.get_spectator()
+</code></pre></div>
+<p><div class="highlight"><pre><span></span><code>spectator = world.get_spectator()
 for setting in lights_setting:
     if setting[0] == traffic_id:
         spectator.set_transform(setting[1])
         break
-</code></pre>
-<p>5.根据颜色ID设置红绿灯的持续时间。</p>
-<pre><code>for traffic_light in traffic_lights:
+</code></pre></div>
+5.根据颜色ID设置红绿灯的持续时间。</p>
+<p><div class="highlight"><pre><span></span><code>for traffic_light in traffic_lights:
     if float(traffic_light.get_opendrive_id()) == traffic_id:
         if color_id == 1:
             traffic_light.set_green_time(float(color_time))
@@ -135,15 +135,15 @@ for setting in lights_setting:
         elif color_id == 3:
             traffic_light.set_red_time(float(color_time))
             color_name = &quot;红色&quot;
-</code></pre>
-<p>6.返回设置结果的JSON响应。</p>
-<pre><code>response_data = {
+</code></pre></div>
+6.返回设置结果的JSON响应。</p>
+<div class="highlight"><pre><span></span><code>response_data = {
     &quot;id&quot;: traffic_id,
     &quot;color&quot;: color_name,
     &quot;init_time&quot;: init_time,
     &quot;last_time&quot;: color_time
 }
-</code></pre>
+</code></pre></div>
 <h4 id="_6">注意事项</h4>
 <ul>
 <li>在执行脚本前，请确保CARLA服务器已启动。</li>
@@ -187,8 +187,13 @@ for setting in lights_setting:
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="../../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

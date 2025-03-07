@@ -181,27 +181,27 @@
 <li><strong>代理被阻止</strong> 180— 如果代理在模拟秒内没有采取任何操作。</li>
 <li><strong>模拟超时</strong>——如果在几秒钟内无法建立客户端-服务器通信60。</li>
 <li><strong>路线超时</strong>- 如果路线模拟花费太长时间才能完成。
-每次发生上述任何情况时，都会记录一些详细信息，这些详细信息将显示为列表，供您查看路线的各个指标。以下是代理闯红灯并偏离路线的路线示例。</li>
+每次发生上述任何情况时，都会记录一些详细信息，这些详细信息将显示为列表，供您查看路线的各个指标。以下是代理闯红灯并偏离路线的路线示例。
+<div class="highlight"><pre><span></span><code><span class="nt">&quot;infractions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;Collisions with layout&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">  </span><span class="nt">&quot;Collisions with pedestrians&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">  </span><span class="nt">&quot;Collisions with vehicles&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">  </span><span class="nt">&quot;Red lights infractions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;Agent ran a red light 203 at (x=341.25, y=209.1, z=0.104)&quot;</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;Stop sign infractions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">  </span><span class="nt">&quot;Off-road infractions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">  </span><span class="nt">&quot;Min speed infractions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">  </span><span class="nt">&quot;Yield to emergency vehicle infractions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">  </span><span class="nt">&quot;Scenario timeouts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">  </span><span class="nt">&quot;Route deviations&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;Agent deviated from the route at (x=95.92, y=165.673, z=0.138)&quot;</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;Agent blocked&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">  </span><span class="nt">&quot;Route timeouts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="p">}</span>
+</code></pre></div></li>
 </ul>
-<pre><code class="language-json">&quot;infractions&quot;: {
-  &quot;Collisions with layout&quot;: [],
-  &quot;Collisions with pedestrians&quot;: [],
-  &quot;Collisions with vehicles&quot;: [],
-  &quot;Red lights infractions&quot;: [
-        &quot;Agent ran a red light 203 at (x=341.25, y=209.1, z=0.104)&quot;
-  ],
-  &quot;Stop sign infractions&quot;: [],
-  &quot;Off-road infractions&quot;: [],
-  &quot;Min speed infractions&quot;: [],
-  &quot;Yield to emergency vehicle infractions&quot;: [],
-  &quot;Scenario timeouts&quot;: [],
-  &quot;Route deviations&quot;: [
-        &quot;Agent deviated from the route at (x=95.92, y=165.673, z=0.138)&quot;
-  ],
-  &quot;Agent blocked&quot;: [],
-  &quot;Route timeouts&quot;: []
-}
-</code></pre>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>全局违规行为将各个路线的数据压缩为单个值，并以每公里的事件数给出。</p>
@@ -254,8 +254,13 @@
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

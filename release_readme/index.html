@@ -73,19 +73,19 @@
 <p><a href="http://carla.org/">http://carla.org/</a></p>
 <h2 id="carla_1">如何运行 Carla</h2>
 <p>在此文件夹中启动终端并通过运行来执行模拟器</p>
-<pre><code class="language-sh"> ./CarlaUE4.sh
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="w"> </span>./CarlaUE4.sh
+</code></pre></div>
 <p>这将启动一个可以看到城市景观的窗口。这是“观察者”视图，您可以使用鼠标和 WASD 键在城市中飞行，但无法与此视图中的世界进行交互。模拟器现在作为服务器运行，等待客户端应用程序连接并与世界交互。</p>
 <p>让我们首先向城市添加一些实时内容，打开一个新的终端窗口并执行</p>
-<pre><code class="language-sh">./generate_traffic.py -n 80
-</code></pre>
+<div class="highlight"><pre><span></span><code>./generate_traffic.py<span class="w"> </span>-n<span class="w"> </span><span class="m">80</span>
+</code></pre></div>
 <p>这使得全球增加了 80 辆以“自动驾驶”模式行驶的车辆。回到模拟器窗口，我们应该看到这些车辆在城市中行驶。他们将继续随机驾驶，直到我们停止脚本。我们暂时把它们留在那里吧。</p>
 <p>现在，卡拉天气晴朗，阳光明媚，但这并不是一个非常有趣的驾驶条件。Carla 的一项很酷的功能是您可以控制世界的天气和照明条件。我们现在将启动一个动态控制一天中的天气和时间的脚本，打开另一个终端窗口并执行</p>
-<pre><code class="language-sh">./dynamic_weather.py
-</code></pre>
+<div class="highlight"><pre><span></span><code>./dynamic_weather.py
+</code></pre></div>
 <p>这座城市现在已经准备好让我们开车了，我们终于可以运行了</p>
-<pre><code class="language-sh">./manual_control.py
-</code></pre>
+<div class="highlight"><pre><span></span><code>./manual_control.py
+</code></pre></div>
 <p>这应该会打开一个新窗口，其中包含汽车的第三人称视图，您可以使用 <code>WASD/箭头键</code>驾驶这辆车。按“h”查看所有可用选项。</p>
 <p>有关更多详细信息和运行选项，请参阅我们的<a href="http://carla.readthedocs.io">在线文档</a> 。</p>
               
@@ -123,8 +123,13 @@
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

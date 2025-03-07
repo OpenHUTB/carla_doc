@@ -70,37 +70,37 @@
               
                 <h2 id="_1">车辆目录</h2>
 <h3 id="_2">检查模拟器中的车辆</h3>
-<p>运行以下脚本通过第一视角进行矿卡驾驶：</p>
-<pre><code class="language-shell">python manual_control.py --filter vehicle.miningtruck.miningtruck
-</code></pre>
-<p>要从目录中检查车辆，请使用以下代码，从下面的车辆详细信息中检索蓝图 ID，并将其粘贴到行 <code>bp_lib.find('blueprint.id.goes_here')</code> 中 ：</p>
-<pre><code class="language-python">client = carla.Client('localhost', 2000)
-world = client.get_world()
-bp_lib = world.get_blueprint_library()
-spectator = world.get_spectator()
+<p>运行以下脚本通过第一视角进行矿卡驾驶：
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>manual_control.py<span class="w"> </span>--filter<span class="w"> </span>vehicle.miningtruck.miningtruck
+</code></pre></div></p>
+<p>要从目录中检查车辆，请使用以下代码，从下面的车辆详细信息中检索蓝图 ID，并将其粘贴到行 <code>bp_lib.find('blueprint.id.goes_here')</code> 中 ：
+<div class="highlight"><pre><span></span><code><span class="n">client</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">2000</span><span class="p">)</span>
+<span class="n">world</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_world</span><span class="p">()</span>
+<span class="n">bp_lib</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span>
+<span class="n">spectator</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_spectator</span><span class="p">()</span>
 
-# 设置车辆变换
-vehicle_loc = carla.Location(x=-46.9, y=20.0, z=0.2)
-vehicle_rot = carla.Rotation(pitch=0.0, yaw=142.0, roll=0.0)
-vehicle_trans = carla.Transform(vehicle_loc,vehicle_rot)
+<span class="c1"># 设置车辆变换</span>
+<span class="n">vehicle_loc</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Location</span><span class="p">(</span><span class="n">x</span><span class="o">=-</span><span class="mf">46.9</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">20.0</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">vehicle_rot</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Rotation</span><span class="p">(</span><span class="n">pitch</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">yaw</span><span class="o">=</span><span class="mf">142.0</span><span class="p">,</span> <span class="n">roll</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+<span class="n">vehicle_trans</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Transform</span><span class="p">(</span><span class="n">vehicle_loc</span><span class="p">,</span><span class="n">vehicle_rot</span><span class="p">)</span>
 
-# 将蓝图ID粘贴到这里：
-vehicle_bp = bp_lib.find('vehicle.lincoln.mkz') 
+<span class="c1"># 将蓝图ID粘贴到这里：</span>
+<span class="n">vehicle_bp</span> <span class="o">=</span> <span class="n">bp_lib</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;vehicle.lincoln.mkz&#39;</span><span class="p">)</span> 
 
-# 设置观看变换：
-camera_loc = carla.Location(x=-48.7, y=24.8, z=1.7)
-camera_rot = carla.Rotation(pitch=-13.4, yaw=-75.7, roll=0.0)
-camera_trans = carla.Transform(camera_loc,camera_rot)
+<span class="c1"># 设置观看变换：</span>
+<span class="n">camera_loc</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Location</span><span class="p">(</span><span class="n">x</span><span class="o">=-</span><span class="mf">48.7</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">24.8</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">1.7</span><span class="p">)</span>
+<span class="n">camera_rot</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Rotation</span><span class="p">(</span><span class="n">pitch</span><span class="o">=-</span><span class="mf">13.4</span><span class="p">,</span> <span class="n">yaw</span><span class="o">=-</span><span class="mf">75.7</span><span class="p">,</span> <span class="n">roll</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+<span class="n">camera_trans</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Transform</span><span class="p">(</span><span class="n">camera_loc</span><span class="p">,</span><span class="n">camera_rot</span><span class="p">)</span>
 
-# 生成车辆
-vehicle = world.spawn_actor(vehicle_bp, vehicle_trans)
+<span class="c1"># 生成车辆</span>
+<span class="n">vehicle</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">vehicle_bp</span><span class="p">,</span> <span class="n">vehicle_trans</span><span class="p">)</span>
 
-# 移动观察者
-spectator.set_transform(camera_trans)
-</code></pre>
+<span class="c1"># 移动观察者</span>
+<span class="n">spectator</span><span class="o">.</span><span class="n">set_transform</span><span class="p">(</span><span class="n">camera_trans</span><span class="p">)</span>
+</code></pre></div></p>
 <p>在尝试生成另一辆车辆之前，不要忘记先销毁该车辆以避免碰撞：</p>
-<pre><code class="language-python">vehicle.destroy()
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">vehicle</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+</code></pre></div>
               
             </div>
           </div><footer>
@@ -136,8 +136,13 @@ spectator.set_transform(camera_trans)
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="../../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

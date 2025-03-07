@@ -112,14 +112,14 @@
 <li>参数 <code>carla_map</code> 是指您想要在模拟中使用的 Carla 地图的名称。如果已定义，则 Scenic 将加载地图的所有资产（建筑物、树木等），如果未定义，则将使用 <a href="../adv_opendrive/">OpenDRIVE 独立模式</a> 。</li>
 <li>该模型包括特定于 Carla 上运行场景的所有实用程序。这应该在您想要在 Carla 上运行的所有脚本中定义。</li>
 </ul>
-<pre><code class="language-scenic">## SET MAP AND MODEL
-param map = localPath('../../../tests/formats/opendrive/maps/CARLA/Town01.xodr')
-param carla_map = 'Town01'
+<div class="highlight"><pre><span></span><code>## SET MAP AND MODEL
+param map = localPath(&#39;../../../tests/formats/opendrive/maps/CARLA/Town01.xodr&#39;)
+param carla_map = &#39;Town01&#39;
 model scenic.simulators.carla.model
-</code></pre>
+</code></pre></div>
 <p><strong>2.</strong> 定义场景中要使用的常量：</p>
 <p>该场景涉及两辆车，领头车辆和自我车辆。我们将定义自我车辆模型、两辆车的速度、制动距离阈值以及制动量。</p>
-<pre><code class="language-scenic">## CONSTANTS
+<div class="highlight"><pre><span></span><code>## CONSTANTS
 EGO_MODEL = &quot;vehicle.lincoln.mkz_2017&quot;
 EGO_SPEED = 10
 EGO_BRAKING_THRESHOLD = 12
@@ -128,10 +128,10 @@ LEAD_CAR_SPEED = 10
 LEADCAR_BRAKING_THRESHOLD = 10
 
 BRAKE_ACTION = 1.0
-</code></pre>
+</code></pre></div>
 <p><strong>3</strong>. 定义场景行为：</p>
 <p>在这种情况下，我们将使用 Scenic <a href="https://scenic-lang.readthedocs.io/en/latest/modules/scenic.domains.driving.behaviors.html">行为库</a> 来指示自我车辆以预定义的速度沿着车道行驶，然后在与另一辆车相距一定距离时紧急制动。领先的车辆也会以预定的速度沿着车道行驶，并在距离任何物体一定距离内紧急制动：</p>
-<pre><code class="language-scenic">## DEFINING BEHAVIORS
+<div class="highlight"><pre><span></span><code>## DEFINING BEHAVIORS
 # EGO BEHAVIOR: Follow lane, and brake after passing a threshold distance to the leading car
 behavior EgoBehavior(speed=10):
     try:
@@ -147,49 +147,49 @@ behavior LeadingCarBehavior(speed=10):
 
     interrupt when withinDistanceToAnyObjs(self, LEADCAR_BRAKING_THRESHOLD):
         take SetBrakeAction(BRAKE_ACTION)
-</code></pre>
+</code></pre></div>
 <p><strong>4.</strong> 生成路网：</p>
 <p>Scenic <a href="https://scenic-lang.readthedocs.io/en/latest/modules/scenic.domains.driving.roads.html">道路库</a> 用于生成道路网络几何形状和交通信息。道路网络由 <a href="https://scenic-lang.readthedocs.io/en/latest/modules/scenic.domains.driving.roads.html#scenic.domains.driving.roads.Network"><code>Network</code></a> 类的实例表示，并由脚本开头定义的文件生成。</p>
-<pre><code class="language-scenic">## DEFINING SPATIAL RELATIONS
-# make sure to put '*' to uniformly randomly select from all elements of the list, 'lanes'
+<div class="highlight"><pre><span></span><code>## DEFINING SPATIAL RELATIONS
+# make sure to put &#39;*&#39; to uniformly randomly select from all elements of the list, &#39;lanes&#39;
 lane = Uniform(*network.lanes)
-</code></pre>
+</code></pre></div>
 <p><strong>5.</strong> 设置场景：</p>
 <p>我们现在将定义车辆的起始位置和物体的放置。</p>
 <ul>
 <li>在车道中间放置垃圾桶：</li>
 </ul>
-<pre><code class="language-scenic">obstacle = Trash on lane.centerline
-</code></pre>
+<div class="highlight"><pre><span></span><code>obstacle = Trash on lane.centerline
+</code></pre></div>
 <ul>
 <li>将领先车辆以预定速度沿道路行驶，距离障碍物后方 50 至 30 米：</li>
 </ul>
-<pre><code class="language-scenic">leadCar = Car following roadDirection from obstacle for Range(-50, -30),
+<div class="highlight"><pre><span></span><code>leadCar = Car following roadDirection from obstacle for Range(-50, -30),
         with behavior LeadingCarBehavior(LEAD_CAR_SPEED)
-</code></pre>
+</code></pre></div>
 <ul>
 <li>将本车以预定速度沿着道路行驶，距离前车 15 到 10 米：</li>
 </ul>
-<pre><code class="language-scenic">ego = Car following roadDirection from leadCar for Range(-15, -10),
+<div class="highlight"><pre><span></span><code>ego = Car following roadDirection from leadCar for Range(-15, -10),
         with blueprint EGO_MODEL,
         with behavior EgoBehavior(EGO_SPEED)
-</code></pre>
+</code></pre></div>
 <ul>
 <li>要求场景发生在距路口 80 米以上的位置：</li>
 </ul>
-<pre><code class="language-scenic">require (distance to intersection) &gt; 80
-</code></pre>
+<div class="highlight"><pre><span></span><code>require (distance to intersection) &gt; 80
+</code></pre></div>
 <p><strong>6.</strong> 设置结束点，以便脚本知道场景何时完成：</p>
 <p>当自我车辆的速度低于每秒 0.1 米并且距离障碍物不到 30 米时，该场景将结束。</p>
-<pre><code class="language-scenic">terminate when ego.speed &lt; 0.1 and (distance to obstacle) &lt; 30
-</code></pre>
+<div class="highlight"><pre><span></span><code>terminate when ego.speed &lt; 0.1 and (distance to obstacle) &lt; 30
+</code></pre></div>
 <hr />
 <h3 id="_2">运行场景 <span id="run-the-scenario"></span></h3>
 <p>要运行 Scenic 场景：</p>
 <p><strong>1.</strong> 启动 Carla 服务器。</p>
 <p><strong>2.</strong> 运行以下命令：</p>
-<pre><code class="language-scenic">scenic path/to/scenic/script.scenic --simulate
-</code></pre>
+<div class="highlight"><pre><span></span><code>scenic path/to/scenic/script.scenic --simulate
+</code></pre></div>
 <p>将出现一个 pygame 窗口，并且场景将重复播放，每次都会在脚本中设置的限制范围内生成一个独特的场景。要停止场景生成，请在终端中按<code>ctrl + C</code>。</p>
 <hr />
 <h3 id="_3">附加参数 <span id="additional-parameters"></span></h3>
@@ -294,8 +294,13 @@ lane = Uniform(*network.lanes)
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

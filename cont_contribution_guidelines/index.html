@@ -139,14 +139,14 @@
 </div>
 <p><strong>1. 从源代码构建 Carla。</strong> 按照文档中的步骤在 <a href="../build_linux/">Linux</a> 或 <a href="../build_windows/">Windows</a> 上进行构建。</p>
 <p><strong>2. 安装 <a href="http://www.mkdocs.org/">MkDocs</a>.</strong> MkDocs 是一个用于构建文档的静态站点生成器。</p>
-<pre><code class="language-sh">pip install mkdocs
-</code></pre>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>mkdocs
+</code></pre></div>
 <p><strong>3. 可视化文档。</strong> 在主 Carla 文件夹中，运行以下命令并单击终端中显示的 <a href="http://127.0.0.1:8000">链接</a> 以打开文档的本地可视化。</p>
-<pre><code class="language-sh">mkdocs serve
-</code></pre>
-<p><strong>4. 创建git分支。</strong> 创建新分支时，请确保位于<code>dev</code>分支中（更新到最新更改）。</p>
-<pre><code class="language-sh">git checkout -b &lt;contributor_name&gt;/&lt;branch_name&gt;
-</code></pre>
+<p><div class="highlight"><pre><span></span><code>mkdocs<span class="w"> </span>serve
+</code></pre></div>
+<strong>4. 创建git分支。</strong> 创建新分支时，请确保位于<code>dev</code>分支中（更新到最新更改）。</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>&lt;contributor_name&gt;/&lt;branch_name&gt;
+</code></pre></div>
 <p><strong>5. 编写文档。</strong> 按照 <a href="../cont_doc_standard/">文档标准</a> 页面中的指南编辑文件。</p>
 <p><strong>6. 提交更改。</strong> 在 GitHub 存储库中创建拉取请求，并添加一个建议的审阅者。填写拉取请求描述时，请尝试尽可能具有描述性。</p>
 <p><strong>7. 等待审核。</strong> 团队将检查合并或需要进行任何更改是否已准备好。</p>
@@ -189,8 +189,13 @@
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

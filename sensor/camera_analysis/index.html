@@ -83,18 +83,18 @@
 <ul>
 <li>后处理材质放置位置</li>
 </ul>
-<p>从代码中去看，拿 <a href="https://github.com/OpenHUTB/carla/blob/ue4-dev/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/SemanticSegmentationCamera.cpp">语义分割相机</a> 举例，该传感器用了两个后处理材质：物理畸变模型、GroundTruth标注。</p>
-<pre><code class="language-cpp">ASemanticSegmentationCamera::ASemanticSegmentationCamera(
-    const FObjectInitializer &amp;ObjectInitializer)
-  : Super(ObjectInitializer)
-{
-  // AddPostProcessingMaterial()在给定的路径上加载 UMaterialInstanceDynamic，并将其附加到具有权重的着色器列表中。
-  AddPostProcessingMaterial(
-      TEXT(&quot;Material'/Carla/PostProcessingMaterials/PhysicLensDistortion.PhysicLensDistortion'&quot;));
-  AddPostProcessingMaterial(
-      TEXT(&quot;Material'/Carla/PostProcessingMaterials/GTMaterial.GTMaterial'&quot;));
-}
-</code></pre>
+<p>从代码中去看，拿 <a href="https://github.com/OpenHUTB/carla/blob/ue4-dev/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/SemanticSegmentationCamera.cpp">语义分割相机</a> 举例，该传感器用了两个后处理材质：物理畸变模型、GroundTruth标注。
+<div class="highlight"><pre><span></span><code><span class="n">ASemanticSegmentationCamera</span><span class="o">::</span><span class="n">ASemanticSegmentationCamera</span><span class="p">(</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">FObjectInitializer</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ObjectInitializer</span><span class="p">)</span>
+<span class="w">  </span><span class="o">:</span><span class="w"> </span><span class="n">Super</span><span class="p">(</span><span class="n">ObjectInitializer</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="c1">// AddPostProcessingMaterial()在给定的路径上加载 UMaterialInstanceDynamic，并将其附加到具有权重的着色器列表中。</span>
+<span class="w">  </span><span class="n">AddPostProcessingMaterial</span><span class="p">(</span>
+<span class="w">      </span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;Material&#39;/Carla/PostProcessingMaterials/PhysicLensDistortion.PhysicLensDistortion&#39;&quot;</span><span class="p">));</span>
+<span class="w">  </span><span class="n">AddPostProcessingMaterial</span><span class="p">(</span>
+<span class="w">      </span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;Material&#39;/Carla/PostProcessingMaterials/GTMaterial.GTMaterial&#39;&quot;</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div></p>
 <p>从虚幻编辑器里面去找，该文件属于 Carla 插件带的材质，不属于场景内容文件，所以要在视图选项中选上<code>显示插件内容</code>，才能在左边的<code>内容浏览器</code>目录中看到<code>CARLA内容</code>。在<code>PostProcessingMaterials</code>路径下就可以看到<code>PhysicLensDistortion</code>和<code>GTMaterial</code>的材质文件。</p>
 <p><img alt="camera_inherit" src="../../img/sensor/display_plugin_content.jpg" /></p>
 <p>点开后可以看到该材质文件的蓝图逻辑：</p>
@@ -169,8 +169,13 @@
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="../../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

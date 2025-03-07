@@ -96,12 +96,12 @@
 <li><strong>Y</strong>:  <span id="carlacoord_y" style="animation: fadeMe 2s;">--</span></li>
 </ul>
 <p>双击兴趣点后，导航器将显示相应的 Carla 坐标并在以下代码块中更新它们。将代码复制并粘贴到笔记本或 Python 终端中，将观察者移动到所需的位置。您首先<a href="../tuto_first_steps/#launching-carla-and-connecting-the-client">需要连接客户端并设置世界对象</a> ：</p>
-<pre><code class="language-py"># Carla 坐标: X 0.0, Y 0.0
-spectator = world.get_spectator()
-loc = carla.Location(0.0, 0.0, 500.0)
-rot = carla.Rotation(pitch=-90, yaw=0.0, roll=0.0)
-spectator.set_transform(carla.Transform(loc, rot))
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1"># Carla 坐标: X 0.0, Y 0.0</span>
+<span class="n">spectator</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_spectator</span><span class="p">()</span>
+<span class="n">loc</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Location</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">500.0</span><span class="p">)</span>
+<span class="n">rot</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Rotation</span><span class="p">(</span><span class="n">pitch</span><span class="o">=-</span><span class="mi">90</span><span class="p">,</span> <span class="n">yaw</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">roll</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+<span class="n">spectator</span><span class="o">.</span><span class="n">set_transform</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">Transform</span><span class="p">(</span><span class="n">loc</span><span class="p">,</span> <span class="n">rot</span><span class="p">))</span>
+</code></pre></div>
 <h2 id="12_1">城镇 12 区</h2>
 <h4 id="_2">市中心高层建筑：</h4>
 <p>城镇 12 的市中心区域是一大片高层摩天大楼，在一致的道路网格上排列成街区，类似于许多美国和欧洲大城市的市中心区域。</p>
@@ -290,8 +290,13 @@ window.addEventListener('load', function () {
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

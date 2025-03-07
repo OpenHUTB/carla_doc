@@ -72,23 +72,23 @@
 <h2 id="typeerror-instancemethod-object-has-no-attribute-getitem">在代理导航中收到错误 "TypeError: 'instancemethod' object has no attribute '<strong>getitem</strong>'"</h2>
 <p>此问题很可能是由 Python Networkx 包的过时版本引起的。请删除当前安装（例如 sudo apt-get remove python-networkx）并使用“pip install --user networkx==2.2”进行安装。</p>
 <h2 id="no-more-scenarios-exiting">没有可见的场景，我收到消息 "No more scenarios .... Exiting"</h2>
-<p>如果您收到以下输出</p>
-<pre><code>Preparing scenario: FollowLeadingVehicle_1
+<p>如果您收到以下输出
+<div class="highlight"><pre><span></span><code>Preparing scenario: FollowLeadingVehicle_1
 ScenarioManager: Running scenario FollowVehicle
 Resetting ego-vehicle!
 Failure!
 Resetting ego-vehicle!
 ERROR: failed to destroy actor 527 : unable to destroy actor: not found
 No more scenarios .... Exiting
-</code></pre>
-<p>如果您没有看到任何事情发生，很可能是因为您没有启动控制自我车辆的程序。运行例如manual_control.py，您现在应该看到发生了一些事情。 </p>
+</code></pre></div>
+如果您没有看到任何事情发生，很可能是因为您没有启动控制自我车辆的程序。运行例如manual_control.py，您现在应该看到发生了一些事情。 </p>
 <h2 id="-debug-scenario-runner">使用 --debug 命令行参数时，Scenario Runner 退出并出现错误</h2>
-<p>如果您收到以下输出</p>
-<pre><code>UnicodeEncodeError: 'ascii' codec can't encode character '\u2713' in position 58: ordinal not in range(128)
-</code></pre>
-<p>请设置环境变量</p>
-<pre><code>PYTHONIOENCODING=utf-8
-</code></pre>
+<p>如果您收到以下输出
+<div class="highlight"><pre><span></span><code>UnicodeEncodeError: &#39;ascii&#39; codec can&#39;t encode character &#39;\u2713&#39; in position 58: ordinal not in range(128)
+</code></pre></div>
+请设置环境变量
+<div class="highlight"><pre><span></span><code>PYTHONIOENCODING=utf-8
+</code></pre></div></p>
               
             </div>
           </div><footer>
@@ -124,8 +124,13 @@ No more scenarios .... Exiting
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="../../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

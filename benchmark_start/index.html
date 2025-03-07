@@ -82,19 +82,19 @@
 <li>了解所使用的性能指标。</li>
 </ul>
 <h1 id="_2">入门</h1>
-<p>为了让您熟悉系统，我们提供了一个在一组小型实验中执行的简单代理（基本）。要执行它，只需运行：</p>
-<pre><code class="language-shell">./driving_benchmark_example.py
-</code></pre>
+<p>为了让您熟悉系统，我们提供了一个在一组小型实验中执行的简单代理（基本）。要执行它，只需运行：
+<div class="highlight"><pre><span></span><code>./driving_benchmark_example.py
+</code></pre></div></p>
 <p>请记住，要运行上述命令，您需要在本地主机和端口 2000 上运行 CARLA 模拟器。</p>
-<p>我们已经提供了与 <a href="http://proceedings.mlr.press/v78/dosovitskiy17a/dosovitskiy17a.pdf">CoRL 2017</a> 论文中使用的相同基准。CoRL 2017 实验套件可以在一个简单的代理中运行，只需运行：</p>
-<pre><code class="language-shell">./driving_benchmark_example.py --corl-2017
-</code></pre>
-<p>此基准测试示例可以进一步配置。运行 help 命令查看可用的选项。</p>
-<pre><code class="language-shell">./driving_benchmark_example.py --help
-</code></pre>
-<p>可用的选项之一是能够从之前的基准测试执行继续。例如，要继续 CoRL2017 中日志名称为“driving_benchmark_test”的实验，请运行：</p>
-<pre><code class="language-shell">./driving_benchmark_example.py --continue-experiment -n driving_benchmark_test --corl-2017
-</code></pre>
+<p>我们已经提供了与 <a href="http://proceedings.mlr.press/v78/dosovitskiy17a/dosovitskiy17a.pdf">CoRL 2017</a> 论文中使用的相同基准。CoRL 2017 实验套件可以在一个简单的代理中运行，只需运行：
+<div class="highlight"><pre><span></span><code>./driving_benchmark_example.py<span class="w"> </span>--corl-2017
+</code></pre></div></p>
+<p>此基准测试示例可以进一步配置。运行 help 命令查看可用的选项。
+<div class="highlight"><pre><span></span><code>./driving_benchmark_example.py<span class="w"> </span>--help
+</code></pre></div></p>
+<p>可用的选项之一是能够从之前的基准测试执行继续。例如，要继续 CoRL2017 中日志名称为“driving_benchmark_test”的实验，请运行：
+<div class="highlight"><pre><span></span><code>./driving_benchmark_example.py<span class="w"> </span>--continue-experiment<span class="w"> </span>-n<span class="w"> </span>driving_benchmark_test<span class="w"> </span>--corl-2017
+</code></pre></div></p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>如果日志名称已经存在并且您没有将其设置为继续，它将以不同的名称创建另一个日志。</p>
@@ -135,8 +135,13 @@
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

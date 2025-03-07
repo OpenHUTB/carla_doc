@@ -70,13 +70,13 @@
               
                 <h1 id="_1"><a href="https://carla.readthedocs.io/en/latest/bp_library/">蓝图库</a></h1>
 <p>蓝图库 (<a href="../python_api/#carlablueprintlibrary-class"><code>carla.BlueprintLibrary</code></a>) 是 Carla 中用于可用的所有内容 <a href="../python_api/#carla.ActorBlueprint"><code>carla.ActorBlueprint</code></a> 及其属性 (<a href="../python_api/#carla.ActorAttribute"><code>carla.ActorAttribute</code></a>) 的摘要。</p>
-<p>以下是打印所有参与者蓝图及其属性的示例代码：</p>
-<pre><code class="language-py">blueprints = [bp for bp in world.get_blueprint_library().filter('*')]
-for blueprint in blueprints:
-   print(blueprint.id)
-   for attr in blueprint:
-       print('  - {}'.format(attr))
-</code></pre>
+<p>以下是打印所有参与者蓝图及其属性的示例代码：
+<div class="highlight"><pre><span></span><code><span class="n">blueprints</span> <span class="o">=</span> <span class="p">[</span><span class="n">bp</span> <span class="k">for</span> <span class="n">bp</span> <span class="ow">in</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s1">&#39;*&#39;</span><span class="p">)]</span>
+<span class="k">for</span> <span class="n">blueprint</span> <span class="ow">in</span> <span class="n">blueprints</span><span class="p">:</span>
+   <span class="nb">print</span><span class="p">(</span><span class="n">blueprint</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+   <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">blueprint</span><span class="p">:</span>
+       <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  - </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">attr</span><span class="p">))</span>
+</code></pre></div></p>
 <p>查看 <a href="../core_actors/">蓝图的介绍</a>。</p>
 <h3 id="_2">控制器</h3>
 <ul>
@@ -2201,8 +2201,13 @@ for blueprint in blueprints:
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

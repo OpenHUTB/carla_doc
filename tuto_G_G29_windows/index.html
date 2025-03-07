@@ -77,18 +77,18 @@
 <p>首先去 <a href="https://support.logi.com/hc/zh-cn/articles/360025298133-Logitech-G-HUB">罗技官网</a> 安装方向盘驱动启动，安装好后驱动界面显示G29方向盘，同时方向盘转动自检。</p>
 <p><img alt="G29" src="../img/tuto_M_G29/G29.png" /></p>
 <p>python环境中安装 Carla 与logidrivepy</p>
-<pre><code>pip install carla
+<div class="highlight"><pre><span></span><code>pip install carla
 pip install logidrivepy
-</code></pre>
+</code></pre></div>
 <p>这里要创建一个ini的配置文件。</p>
 <p>wheel_config.ini</p>
-<pre><code>[G29 Racing Wheel]
+<div class="highlight"><pre><span></span><code>[G29 Racing Wheel]
 steering_wheel = 0
 throttle = 2
 brake = 3
 reverse = 5
 handbrake = 4
-</code></pre>
+</code></pre></div>
 <p>其中数字可能需要自己试这里<code>steering_wheel</code>表示方向盘方向、<code>throttle</code>表示油门和<code>brake</code>刹车已经是正确的设置了。要保证这个设置和<code>.py</code>文件在同一个目录下否则会报错。</p>
 <p>下载carla-API后，运行carla服务端：</p>
 <p><img alt="CarlaUE4" src="../img/tuto_M_G29/CarlaUE4.png" /></p>
@@ -97,9 +97,9 @@ handbrake = 4
 <p>此时即可开启车辆。</p>
 <h2 id="_1">自动驾驶力反馈</h2>
 <p>另启一个文件，复制以下代码</p>
-<pre><code>import sys
+<div class="highlight"><pre><span></span><code>import sys
 import carla
-sys.path.append('../logidrivepy')
+sys.path.append(&#39;../logidrivepy&#39;)
 from logidrivepy import LogitechController
 import time
 
@@ -181,7 +181,7 @@ def main(args=None):
 
 if __name__ == &quot;__main__&quot;:
     main()
-</code></pre>
+</code></pre></div>
 <p>在<code>pygame</code>界面按键盘<code>P</code>开启自动驾驶，此时方向盘会随着车辆自行转动。</p>
 <p>这个代码是测试用的效果不太好，有更好效果需求得换更好的控制代码了。</p>
 <p><img alt="demo" src="../img/tuto_M_G29/demo.gif" /></p>
@@ -220,8 +220,13 @@ if __name__ == &quot;__main__&quot;:
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

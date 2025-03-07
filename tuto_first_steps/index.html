@@ -85,17 +85,17 @@
 </ul>
 <h2 id="carla_1">启动 Carla 并进行客户端连接 <span id="Launching-carla-and-connecting-the-client"></span></h2>
 <p>可以使用 Windows 中的可执行文件或 Linux 中的 shell 脚本通过命令行启动 Carla。按照 <a href="../start_quickstart/"><strong>Linux</strong></a> 和 <a href="../start_quickstart/"><strong>Windows</strong></a> 的安装说明进行操作，然后从命令行 <a href="../start_quickstart/#running-carla"><strong>启动 Carla</strong></a>  ：</p>
-<pre><code class="language-sh">cd /carla/root
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/carla/root
 ./CarlaUE4.sh
-</code></pre>
+</code></pre></div>
 <p>要通过 Python API 操作 Carla，我们需要通过开放端口将Python 客户端连接到服务器。客户端通过 <a href="../foundations/#world-and-client"><strong>客户端和世界对象</strong></a> 控制模拟器打开一个 Python 笔记本或创建一个新脚本，然后将以下代码添加到脚本的开头或 main 函数中：</p>
-<pre><code class="language-py">import carla
-import random
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">carla</span>
+<span class="kn">import</span> <span class="nn">random</span>
 
-# 链接到客户端并获取世界对象
-client = carla.Client('localhost', 2000)
-world = client.get_world()
-</code></pre>
+<span class="c1"># 链接到客户端并获取世界对象</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">2000</span><span class="p">)</span>
+<span class="n">world</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_world</span><span class="p">()</span>
+</code></pre></div>
 <p><a href="python_api#carlaclient"><strong>客户端</strong></a> 对象用于维护客户端与服务器的连接，并具有许多用于应用命令以及加载或导出数据的功能。我们可以使用客户端对象加载替代地图或重新加载当前地图（重置为初始状态）。</p>
 <p>端口可以选择任何可用的端口，默认设置为 2000，您也可以使用计算机的 IP 地址选择与 <em>localhost</em> 不同的主机。这样，Carla 服务器可以在联网计算机上运行，而 python 客户端可以从个人计算机运行。这对于区分用于运行 Carla 模拟器的 GPU 和用于神经网络训练的 GPU 特别有用，这两者对图形硬件的要求都很高。</p>
 <div class="admonition 笔记">
@@ -104,11 +104,11 @@ world = client.get_world()
 </div>
 <h2 id="_1">加载地图  <span id="loading-a-map"></span></h2>
 <p>在 Carla API 中，<a href="../python_api/#carla.World"><strong>世界</strong></a> 对象提供对模拟的所有元素的访问，包括地图、地图内的对象，例如建筑物、交通灯、车辆和行人。Carla 服务器通常加载默认地图（通常为 Town10）。如果您想使用备用地图启动 Carla，请使用以下 <code>config.py</code>脚本：</p>
-<pre><code class="language-sh">./config.py --map Town05 
-</code></pre>
+<div class="highlight"><pre><span></span><code>./config.py<span class="w"> </span>--map<span class="w"> </span>Town05<span class="w"> </span>
+</code></pre></div>
 <p>我们还可以使用 world 对象从客户端加载地图：</p>
-<pre><code class="language-py">client.load_world('Town05')
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">client</span><span class="o">.</span><span class="n">load_world</span><span class="p">(</span><span class="s1">&#39;Town05&#39;</span><span class="p">)</span>
+</code></pre></div>
 <p>请在 <a href="../core_map/"><strong>此处</strong></a> 查找有关 Carla 地图的更多信息。</p>
 <h2 id="_2">观察者导航 <span id="spectator-navigation"></span></h2>
 <p>观察者是模拟的视图。默认情况下，当您在连接屏幕的计算机上运行 Carla 服务器时，观众会在新窗口中打开，除非您指定<code>-RenderOffScreen</code> 命令行选项。</p>
@@ -129,62 +129,62 @@ world = client.get_world()
 <p>左键单击并在观察者窗口中上下拖动鼠标来控制俯仰，左右拖动鼠标来控制偏航。</p>
 <p><img alt="flying_spectator" src="../img/tuto_G_getting_started/flying_spectator.gif" /></p>
 <p>观察者及其属性可以通过 Python API 访问和操作：</p>
-<pre><code class="language-py"># 获取观察者对象
-spectator = world.get_spectator()
+<div class="highlight"><pre><span></span><code><span class="c1"># 获取观察者对象</span>
+<span class="n">spectator</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_spectator</span><span class="p">()</span>
 
-# 通过变换获得观察者的位置和旋转
-transform = spectator.get_transform()
+<span class="c1"># 通过变换获得观察者的位置和旋转</span>
+<span class="n">transform</span> <span class="o">=</span> <span class="n">spectator</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span>
 
-location = transform.location
-rotation = transform.rotation
+<span class="n">location</span> <span class="o">=</span> <span class="n">transform</span><span class="o">.</span><span class="n">location</span>
+<span class="n">rotation</span> <span class="o">=</span> <span class="n">transform</span><span class="o">.</span><span class="n">rotation</span>
 
-# 用空变换设置观察者
-spectator.set_transform(carla.Transform())
-# 这将设置观众在地图的原点，0度俯仰，偏航和滚动-一个很好的方式来定位自己在地图上
-</code></pre>
+<span class="c1"># 用空变换设置观察者</span>
+<span class="n">spectator</span><span class="o">.</span><span class="n">set_transform</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">Transform</span><span class="p">())</span>
+<span class="c1"># 这将设置观众在地图的原点，0度俯仰，偏航和滚动-一个很好的方式来定位自己在地图上</span>
+</code></pre></div>
 <h2 id="_3">添加非玩家参与者 <span id="adding-npcs"></span></h2>
 <p>现在我们已经加载了地图并且服务器已启动并运行，我们现在需要用一些车辆填充我们的模拟，以模拟具有交通和其他道路使用者或非玩家参与者的真实环境。</p>
 <p>要生成车辆，首先，我们需要从蓝图库中选择我们想要的车辆。</p>
-<pre><code class="language-py"># 获取蓝图库和车辆蓝图过滤器
-vehicle_blueprints = world.get_blueprint_library().filter('*vehicle*')
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1"># 获取蓝图库和车辆蓝图过滤器</span>
+<span class="n">vehicle_blueprints</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s1">&#39;*vehicle*&#39;</span><span class="p">)</span>
+</code></pre></div>
 <p>现在我们有了蓝图，我们需要在地图上找到一些合适的地点来生成我们的车辆。为此，每个 Carla 地图都提供了预定义的生成点，均匀分布在整个地图的道路上。</p>
-<pre><code class="language-py"># 获得地图的生成点
-spawn_points = world.get_map().get_spawn_points()
+<div class="highlight"><pre><span></span><code><span class="c1"># 获得地图的生成点</span>
+<span class="n">spawn_points</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_map</span><span class="p">()</span><span class="o">.</span><span class="n">get_spawn_points</span><span class="p">()</span>
 
-# 在每个生成点随机生成50辆车，我们从蓝图库中随机选择一辆车
-for i in range(0,50):
-    world.try_spawn_actor(random.choice(vehicle_blueprints), random.choice(spawn_points))
-</code></pre>
+<span class="c1"># 在每个生成点随机生成50辆车，我们从蓝图库中随机选择一辆车</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">50</span><span class="p">):</span>
+    <span class="n">world</span><span class="o">.</span><span class="n">try_spawn_actor</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">vehicle_blueprints</span><span class="p">),</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">spawn_points</span><span class="p">))</span>
+</code></pre></div>
 <p>现在我们还应该添加一辆车作为模拟的中心点。为了训练自主代理，我们需要模拟自主代理将控制的车辆。用 Carla 的说法，我们经常将这种车辆称为“自我车辆”。</p>
-<pre><code class="language-py">ego_vehicle = world.spawn_actor(random.choice(vehicle_blueprints), random.choice(spawn_points))
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">ego_vehicle</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">vehicle_blueprints</span><span class="p">),</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">spawn_points</span><span class="p">))</span>
+</code></pre></div>
 <p>除了车辆之外，Carla 还提供行人添加到模拟中，以模拟真实的驾驶场景。在 Carla 术语中，车辆和行人被称为参与者，请在 <a href="../core_actors/"><strong>此处</strong></a> 了解有关它们的更多信息。</p>
 <h2 id="_4">添加传感器 <span id="add-sensors"></span></h2>
 <p>现代自动驾驶汽车通过一系列附加传感器来理解和解释其环境。这些传感器包括光学摄像机、光流摄像机、激光雷达、雷达和加速度计等。Carla 内置了多种类型的传感器模型，用于创建机器学习的训练数据。传感器可以连接到车辆上，也可以连接到固定点来建模，例如闭路电视摄像机。</p>
 <p>在这里，我们将在自我车辆上安装一个标准摄像头传感器来记录一些视频数据：</p>
-<pre><code class="language-py"># 创建一个变换，将摄像机放置在车辆的顶部
-camera_init_trans = carla.Transform(carla.Location(z=1.5))
+<div class="highlight"><pre><span></span><code><span class="c1"># 创建一个变换，将摄像机放置在车辆的顶部</span>
+<span class="n">camera_init_trans</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Transform</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">Location</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
 
-# 通过定义其属性的蓝图来创建相机
-camera_bp = world.get_blueprint_library().find('sensor.camera.rgb')
+<span class="c1"># 通过定义其属性的蓝图来创建相机</span>
+<span class="n">camera_bp</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;sensor.camera.rgb&#39;</span><span class="p">)</span>
 
-# 生成相机并将其连接到我们的自我车辆上
-camera = world.spawn_actor(camera_bp, camera_init_trans, attach_to=ego_vehicle)
-</code></pre>
+<span class="c1"># 生成相机并将其连接到我们的自我车辆上</span>
+<span class="n">camera</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">camera_bp</span><span class="p">,</span> <span class="n">camera_init_trans</span><span class="p">,</span> <span class="n">attach_to</span><span class="o">=</span><span class="n">ego_vehicle</span><span class="p">)</span>
+</code></pre></div>
 <p>一旦我们生成了相机，我们需要通过<code>listen()</code>方法将其设置为记录。Listen 方法将定义如何处理数据的回调作为参数。您可以将其流式传输到另一个程序或将其保存到磁盘。</p>
 <p>我们将使用 lambda 函数作为回调将数据保存到磁盘：</p>
-<pre><code class="language-py"># 用 PyGame 回调启动相机
-camera.listen(lambda image: image.save_to_disk('out/%06d.png' % image.frame))
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1"># 用 PyGame 回调启动相机</span>
+<span class="n">camera</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="k">lambda</span> <span class="n">image</span><span class="p">:</span> <span class="n">image</span><span class="o">.</span><span class="n">save_to_disk</span><span class="p">(</span><span class="s1">&#39;out/</span><span class="si">%06d</span><span class="s1">.png&#39;</span> <span class="o">%</span> <span class="n">image</span><span class="o">.</span><span class="n">frame</span><span class="p">))</span>
+</code></pre></div>
 <p>这会将数据作为一系列根据模拟帧编号命名的 PNG 图像文件保存到 <code>out/</code> 文件夹中。</p>
 <p>有多种不同类型的传感器可供选择。在 <a href="../core_sensors/"><strong>这里</strong></a> 您可以更深入地研究可用的传感器阵列以及如何使用它们。</p>
 <h2 id="_5">使用交通管理器模拟车辆 <span id="animate-vehicles-with-traffic-manager"></span></h2>
 <p>现在我们已经将交通和自我车辆添加到模拟中并开始记录摄像机数据，现在我们需要使用交通管理器将车辆设置为运动。<a href="../adv_traffic_manager/"><strong>交通管理器</strong></a> 是 Carla 的一个组件，它控制车辆在模拟内的地图道路上自动移动，遵循道路惯例并表现得像真正的道路使用者。</p>
 <p>我们可以使用<code>world.get_actors()</code>方法找到模拟中的所有车辆，对所有车辆进行过滤。然后我们可以使用该<code>set_autopilot()</code>方法将车辆的控制权移交给交通管理器。</p>
-<pre><code class="language-py">for vehicle in world.get_actors().filter('*vehicle*'):
-    vehicle.set_autopilot(True)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">vehicle</span> <span class="ow">in</span> <span class="n">world</span><span class="o">.</span><span class="n">get_actors</span><span class="p">()</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s1">&#39;*vehicle*&#39;</span><span class="p">):</span>
+    <span class="n">vehicle</span><span class="o">.</span><span class="n">set_autopilot</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
 <p>现在您的模拟正在运行，有许多车辆在地图上行驶，并且摄像机记录其中一辆车辆的数据。然后，该数据可用于提供机器学习算法来训练自动驾驶代理。交通管理器具有许多用于自定义流量行为的功能，请在 <a href="../tuto_G_traffic_manager/"><strong>此处</strong></a> 了解更多信息。</p>
 <p>这是模拟的最基本可能设置，现在您可以更深入地了解有关可用于生成数据的许多额外传感器的文档，以及 Carla 的许多其他功能，这些功能可以使您的模拟更加详细和更多实际的。</p>
 <hr />
@@ -199,13 +199,12 @@ camera.listen(lambda image: image.save_to_disk('out/%06d.png' % image.frame))
 </li>
 </ul>
 <p>要定义自我车辆，您应该在生成自我车辆时设置<code>role_name</code>车辆<a href="../python_api/#carlaactor">carla.Actor</a> 对象 <a href="../python_api/#carlaactorblueprint">蓝图</a> 的属性：</p>
-<pre><code class="language-py">ego_bp = world.get_blueprint_library().find('vehicle.lincoln.mkz_2020')
+<h2 id="ego_bp-worldget_blueprint_libraryfindvehiclelincolnmkz_2020-ego_bpset_attributerole_name-hero-ego_vehicle-worldspawn_actorego_bp-randomchoicespawn_points"><div class="highlight"><pre><span></span><code><span class="n">ego_bp</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;vehicle.lincoln.mkz_2020&#39;</span><span class="p">)</span>
 
-ego_bp.set_attribute('role_name', 'hero')
+<span class="n">ego_bp</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s1">&#39;role_name&#39;</span><span class="p">,</span> <span class="s1">&#39;hero&#39;</span><span class="p">)</span>
 
-ego_vehicle = world.spawn_actor(ego_bp, random.choice(spawn_points))
-</code></pre>
-<hr />
+<span class="n">ego_vehicle</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">ego_bp</span><span class="p">,</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">spawn_points</span><span class="p">))</span>
+</code></pre></div></h2>
 <h2 id="_7">选择你的地图 <span id="choose-your-map"></span></h2>
 <p><img alt="maps_montage" src="../img/catalogue/maps/maps_montage.webp" /></p>
 <p>Carla 附带了几张预制地图，专注于提供多种功能。这些地图呈现了城市、乡村和住宅等一系列环境。还有不同的建筑风格和多种不同的道路布局，从无标记的乡村道路到多车道高速公路。浏览<a href="../catalogue/">目录</a>或下表中的地图指南。</p>
@@ -280,20 +279,20 @@ ego_vehicle = world.spawn_actor(ego_bp, random.choice(spawn_points))
 </tbody>
 </table>
 <p>您可以浏览 Carla 安装中的可用地图：</p>
-<pre><code class="language-py">client.get_available_maps()
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">client</span><span class="o">.</span><span class="n">get_available_maps</span><span class="p">()</span>
+</code></pre></div>
 <p>这将包括您自己构建或导入的地图。</p>
 <p>当您选择地图时，请像这样加载它：</p>
-<pre><code class="language-py">client.load_world('Town03_Opt')
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">client</span><span class="o">.</span><span class="n">load_world</span><span class="p">(</span><span class="s1">&#39;Town03_Opt&#39;</span><span class="p">)</span>
+</code></pre></div>
 <hr />
 <h2 id="_8">选择你的车辆 <span id="choose-your-vehicles"></span></h2>
 <p><img alt="vehicles_overview" src="../img/catalogue/vehicles/vehicle_montage.webp" /></p>
 <p>Carla 提供了一个车辆库，可以让您的模拟充满交通。浏览 <a href="../catalogue_vehicles/">Carla 车辆目录</a> 中的车辆型号。</p>
 <p>您可以通过过滤蓝图库来查看所有可用的车辆蓝图。</p>
-<pre><code class="language-py">for bp in world.get_blueprint_library().filter('vehicle'):
-    print(bp.id)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">bp</span> <span class="ow">in</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s1">&#39;vehicle&#39;</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">bp</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+</code></pre></div>
               
             </div>
           </div><footer>
@@ -329,8 +328,13 @@ ego_vehicle = world.spawn_actor(ego_bp, random.choice(spawn_points))
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>虚幻引擎开发相关语法 - 代理模拟器</title>
+    <title>绘图效果 - 代理模拟器</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,8 +13,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "\u865a\u5e7b\u5f15\u64ce\u5f00\u53d1\u76f8\u5173\u8bed\u6cd5";
-        var mkdocs_page_input_path = "ue/syntax.md";
+        var mkdocs_page_name = "\u7ed8\u56fe\u6548\u679c";
+        var mkdocs_page_input_path = "demo/figure.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -58,9 +58,9 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">虚幻引擎开发相关语法</li>
+      <li class="breadcrumb-item active">绘图效果</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/ue/syntax.md" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/demo/figure.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -68,42 +68,41 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1">虚幻引擎开发相关语法</h1>
-<h2 id="_2">常用标记</h2>
-<h3 id="blueprintcallable">BlueprintCallable</h3>
-<p>表明此函数可在蓝图中被调用(当类被蓝图继承后才有效果)。比如（Unreal\CarlaUE4\Plugins\Carla\Source\Carla\OpenDrive\OpenDrive.h）：
-<div class="highlight"><pre><span></span><code><span class="n">UFUNCTION</span><span class="p">(</span><span class="n">BlueprintCallable</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="o">=</span><span class="s">&quot;CARLA|OpenDrive&quot;</span><span class="p">)</span>
-<span class="k">static</span><span class="w"> </span><span class="n">FString</span><span class="w"> </span><span class="n">LoadXODRFullPath</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FString</span><span class="w"> </span><span class="o">&amp;</span><span class="n">FullPath</span><span class="p">);</span>
-</code></pre></div></p>
-<p>注意：如果<strong>函数参数</strong>是<strong>引用</strong>类型，则在蓝图中调用被当做<strong>输出</strong>针脚，如果传入参数是<strong>const修饰的引用类型</strong>，则在蓝图中被当做<strong>输入</strong>针脚：
-<div class="highlight"><pre><span></span><code><span class="n">UFUNCTION</span><span class="p">(</span><span class="n">BlueprintCallable</span><span class="p">)</span>
-<span class="n">int32</span><span class="w"> </span><span class="n">CTime</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">int32</span><span class="o">&amp;</span><span class="w"> </span><span class="n">num</span><span class="p">);</span>
-</code></pre></div>
-<img alt="osm_interface" src="../../img/ue/input_const.jpg" /></p>
-<p><div class="highlight"><pre><span></span><code>UFUNCTION(BlueprintCallable)
-int32 CTime(int32&amp; num)://被当做函数输出针脚使用
-</code></pre></div>
-<img alt="osm_interface" src="../../img/ue/output_ref.jpg" /></p>
-<h3 id="uproperty">UPROPERTY 宏标记</h3>
-<p>用于将对象属性暴露到蓝图中操作，整型中只有int32能暴露到蓝图中。</p>
-<p>EditAnywhere：表示此属性可以在编辑器窗口中进行编辑也可在场景细节面板中编辑</p>
-<h2 id="_3">目录</h2>
-<p><code>内容浏览器</code>中的内容包括（打开右下角<code>视图选项</code>中的<code>显示插件内容</code>）：
-<div class="highlight"><pre><span></span><code>* 内容            （Unreal\CarlaUE4\Content）
+                <h1 id="_1">绘图效果</h1>
+<p>流程图：
+<pre class="uml-flowchart"><code>st=&gt;start: Start
+op=&gt;operation: Your Operation
+cond=&gt;condition: Yes or No?
+e=&gt;end
 
-* Carla 内容       （Unreal\CarlaUE4\Plugins\Carla\Content）
-* Carla C++ 类    （Unreal\CarlaUE4\Plugins\Carla\Source）
+st-&gt;op-&gt;cond
+cond(yes)-&gt;e
+cond(no)-&gt;op</code></pre></p>
+<p>时序图1：
+<pre class="mermaid"><code>sequenceDiagram
+PythonAPI -&gt;&gt; LibCarla: Hello Bob, how are you?
+LibCarla--&gt;&gt;CarlaUnreal: How about you CarlaUnreal?
+LibCarla--x PythonAPI: I am good thanks!
+LibCarla-x CarlaUnreal: I am good thanks!
+Note right of CarlaUnreal: Bob thinks a long&lt;br/&gt;long time, so long&lt;br/&gt;that the text does&lt;br/&gt;not fit on a row.
 
-* CarlaTools 内容 （Unreal\CarlaUE4\Plugins\CarlaTools\Content）
-* CarlaTools C++类（Unreal\CarlaUE4\Plugins\CarlaTools\Source）
+LibCarla--&gt;PythonAPI: Checking with CarlaUnreal...
+PythonAPI-&gt;CarlaUnreal: Yes... CarlaUnreal, how are you?</code></pre></p>
+<p>时序图2：
+<pre class="mermaid"><code>sequenceDiagram
+loop Daily query
+    Alice-&gt;&gt;Bob: Hello Bob, how are you?
+    alt is sick
+        Bob-&gt;&gt;Alice: Not so good :(
+    else is well
+        Bob-&gt;&gt;Alice: Feeling fresh like a daisy
+    end
 
-* StreetMap 内容  （Unreal\CarlaUE4\Plugins\StreetMap\Content）
-* StreetMap C++ 类（Unreal\CarlaUE4\Plugins\StreetMap\Source）
-</code></pre></div></p>
-<h2 id="_4">参考</h2>
-<ul>
-<li><a href="https://zhuanlan.zhihu.com/p/564916815">UE4 C++ UObject和标记宏</a></li>
-</ul>
+    opt Extra response
+        Bob-&gt;&gt;Alice: Thanks for asking
+    end
+end</code></pre></p>
+<p>参考<a href="https://blog.csdn.net/chuhanning9279/article/details/100970178">链接1</a> 、<a href="https://16314-mkdocs-demo.readthedocs.io/en/latest/#4">链接2</a> 。</p>
               
             </div>
           </div><footer>

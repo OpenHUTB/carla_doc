@@ -87,35 +87,34 @@
 <h2 id="_2">运行包 <span id="run_the_package"></span></h2>
 <p>要运行包：</p>
 <p><strong>1.</strong> 确保 Carla 正在运行。启动 ROS 桥：</p>
-<pre><code class="language-sh"># ROS 1
-roslaunch carla_ros_bridge carla_ros_bridge.launch
+<div class="highlight"><pre><span></span><code><span class="c1"># ROS 1</span>
+roslaunch<span class="w"> </span>carla_ros_bridge<span class="w"> </span>carla_ros_bridge.launch
 
-# ROS 2
-ros2 launch carla_ros_bridge carla_ros_bridge.launch.py
-</code></pre>
+<span class="c1"># ROS 2</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>carla_ros_bridge<span class="w"> </span>carla_ros_bridge.launch.py
+</code></pre></div>
 <p><strong>2.</strong> 生成对象：</p>
-<pre><code class="language-sh"># ROS 1
-roslaunch carla_spawn_objects carla_spawn_objects.launch
+<div class="highlight"><pre><span></span><code><span class="c1"># ROS 1</span>
+roslaunch<span class="w"> </span>carla_spawn_objects<span class="w"> </span>carla_spawn_objects.launch
 
-# ROS 2
-ros2 launch carla_spawn_objects carla_spawn_objects.launch.py
-</code></pre>
+<span class="c1"># ROS 2</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>carla_spawn_objects<span class="w"> </span>carla_spawn_objects.launch.py
+</code></pre></div>
 <p><strong>3.</strong> 启动 <code>carla_manual_control</code> 节点：</p>
-<pre><code class="language-sh"># ROS 1
-roslaunch carla_manual_control carla_manual_control.launch
+<div class="highlight"><pre><span></span><code><span class="c1"># ROS 1</span>
+roslaunch<span class="w"> </span>carla_manual_control<span class="w"> </span>carla_manual_control.launch
 
-# ROS 2
-ros2 launch carla_manual_control carla_manual_control.launch.py
-</code></pre>
+<span class="c1"># ROS 2</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>carla_manual_control<span class="w"> </span>carla_manual_control.launch.py
+</code></pre></div>
 <p><strong>4.</strong> 要手动驾驶车辆，请按“B”。按“H”查看说明。</p>
 <p>或者，将上述所有命令组合成一个单独的启动文件，并可以通过执行以下命令同时运行：</p>
-<pre><code class="language-sh"># ROS 1
-roslaunch carla_ros_bridge carla_ros_bridge_with_example_ego_vehicle.launch
+<h2 id="ros-1-roslaunch-carla_ros_bridge-carla_ros_bridge_with_example_ego_vehiclelaunch-ros-2-ros2-launch-carla_ros_bridge-carla_ros_bridge_with_example_ego_vehiclelaunchpy"><div class="highlight"><pre><span></span><code><span class="c1"># ROS 1</span>
+roslaunch<span class="w"> </span>carla_ros_bridge<span class="w"> </span>carla_ros_bridge_with_example_ego_vehicle.launch
 
-# ROS 2
-ros2 launch carla_ros_bridge carla_ros_bridge_with_example_ego_vehicle.launch.py
-</code></pre>
-<hr />
+<span class="c1"># ROS 2</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>carla_ros_bridge<span class="w"> </span>carla_ros_bridge_with_example_ego_vehicle.launch.py
+</code></pre></div></h2>
               
             </div>
           </div><footer>
@@ -151,8 +150,13 @@ ros2 launch carla_ros_bridge carla_ros_bridge_with_example_ego_vehicle.launch.py
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

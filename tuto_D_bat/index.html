@@ -69,9 +69,9 @@
             <div class="section" itemprop="articleBody">
               
                 <h2 id="_1">批处理脚本</h2>
-<pre><code class="language-shell">%~dp0
-</code></pre>
-<p>~ 是扩展的意思，变量扩充(下面详细介绍)，相当于把一个相对路径转换绝对路径</p>
+<p><div class="highlight"><pre><span></span><code>%~dp0
+</code></pre></div>
+~ 是扩展的意思，变量扩充(下面详细介绍)，相当于把一个相对路径转换绝对路径</p>
 <p>%0             代指批处理文件自身（绝对路径 "D:\test\bat\test.bat"，注意有双引号）</p>
 <p>%~d0         是指批处理所在的盘符，其中d代表<code>drive</code>。(扩充到盘符 D: )</p>
 <p>%~p0         是指批处理所在的目录，其中p代表<code>path</code>。(扩充到路径 \test\bat\ ，注意最后有个<code>\</code>）</p>
@@ -111,8 +111,13 @@
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

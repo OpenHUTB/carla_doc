@@ -79,11 +79,11 @@
 <li><code>-carla-primary-port</code>: 用于<strong>监听辅助服务器</strong>的 TCP 端口（默认 2002）</li>
 </ul>
 <p>例如</p>
-<pre><code class="language-sh">./CarlaUE4.sh -nullrhi
-</code></pre>
-<p>默认情况下，主服务器将使用端口 2002 来监听辅助服务器。如果您需要监听另一个端口，则可以使用标志更改它：</p>
-<pre><code class="language-sh">./CarlaUE4.sh -nullrhi -carla-primary-port=3002
-</code></pre>
+<div class="highlight"><pre><span></span><code>./CarlaUE4.sh<span class="w"> </span>-nullrhi
+</code></pre></div>
+<p>默认情况下，主服务器将使用端口 2002 来监听辅助服务器。如果您需要监听另一个端口，则可以使用标志更改它：
+<div class="highlight"><pre><span></span><code>./CarlaUE4.sh<span class="w"> </span>-nullrhi<span class="w"> </span>-carla-primary-port<span class="o">=</span><span class="m">3002</span>
+</code></pre></div></p>
 <h2 id="_2">辅助服务器</h2>
 <p>然后我们需要启动尽可能多的服务器，但理想的情况是辅助服务器和 GPU 的数量一样多的。通过参数，我们需要指定服务器使用的 GPU 以及主服务器正在监听的主机/端口，并带有以下标志：</p>
 <ul>
@@ -93,12 +93,12 @@
 <li><code>-ini:[/Script/Engine.RendererSettings]:r.GraphicsAdapter</code>: 告诉该辅助服务器使用哪个 GPU 设备</li>
 </ul>
 <p>例如，如果主服务器与辅助服务器在同一台计算机上执行并使用默认端口，我们可以使用以下命令：</p>
-<pre><code class="language-sh">./CarlaUE4.sh -carla-rpc-port=3000 -carla-primary-host=127.0.0.1 -ini:[/Script/Engine.RendererSettings]:r.GraphicsAdapter=0
-</code></pre>
+<div class="highlight"><pre><span></span><code>./CarlaUE4.sh<span class="w"> </span>-carla-rpc-port<span class="o">=</span><span class="m">3000</span><span class="w"> </span>-carla-primary-host<span class="o">=</span><span class="m">127</span>.0.0.1<span class="w"> </span>-ini:<span class="o">[</span>/Script/Engine.RendererSettings<span class="o">]</span>:r.GraphicsAdapter<span class="o">=</span><span class="m">0</span>
+</code></pre></div>
 <p>这里，辅助服务器将使用端口 3000 作为 RPC 服务器，以避免与其他端口冲突（但永远不会使用它），并将以默认端口（2002）连接到位于 IP 127.0.0.1（localhost）的主服务器，并且该服务器将使用 GPU 设备 0。</p>
 <p>如果我们想使用另一个 GPU 在同一台机器上启动另一个辅助服务器，我们可以使用以下命令：</p>
-<pre><code class="language-sh">./CarlaUE4.sh -carla-rpc-port=4000 -carla-primary-host=127.0.0.1 -carla-primary-port=2002 -ini:[/Script/Engine.RendererSettings]:r.GraphicsAdapter=1
-</code></pre>
+<div class="highlight"><pre><span></span><code>./CarlaUE4.sh<span class="w"> </span>-carla-rpc-port<span class="o">=</span><span class="m">4000</span><span class="w"> </span>-carla-primary-host<span class="o">=</span><span class="m">127</span>.0.0.1<span class="w"> </span>-carla-primary-port<span class="o">=</span><span class="m">2002</span><span class="w"> </span>-ini:<span class="o">[</span>/Script/Engine.RendererSettings<span class="o">]</span>:r.GraphicsAdapter<span class="o">=</span><span class="m">1</span>
+</code></pre></div>
 <p>该辅助服务器将使用端口 4000 作为 RPC 服务器，以避免与其他端口冲突，并将通过端口 2002 连接到位于 IP 127.0.0.1 的主服务器，并且该服务器将使用 GPU 设备 1。</p>
 <h2 id="_3">同步模式</h2>
 <p>第一个从服务器连接到主服务器后，系统自动设置为同步模式，默认值为 1/20 增量秒。</p>
@@ -137,8 +137,13 @@
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

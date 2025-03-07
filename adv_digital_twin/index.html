@@ -93,21 +93,21 @@
 
 <h2 id="osm">构建 OSM 渲染器 <span id="build_osm_render"></span></h2>
 <p>如果您使用的是 Linux，则可以选择使用 Carla 界面中的 OSM 渲染器来导航已下载的大型 OSM 地图区域。您首先需要构建 OSM 渲染器。 在 Carla 根目录中运行 <code>make osmrenderer</code>。 您可能需要将 CMake 版本升级到 v3.2 或更高版本才能正常工作。这将在您的构建目录中创建两个名为 <code>libosmcout-source</code> 和 <code>libosmcout-build</code> 的文件夹。在继续构建 Carla 之前，您需要像这样 在目录中 <code>$CARLA_ROOT/Build/libosmcout-source/maps</code> 编辑文件 <code>Build.sh</code>，以确保找到可执行文件：</p>
-<pre><code class="language-bash">if [[ -x ../Import/src/Import ]]; then
-  importExe=../Import/src/Import
-elif [[ -x ../debug/Import/Import ]]; then
-  importExe=../debug/Import/Import
-elif [[ -x ../build/Import/Import ]]; then
-  importExe=../build/Import/Import
-###################  Add this line ####################
-elif [ -x ../../libosmscout-build/Import/Import ]; then
-  importExe=../../libosmscout-build/Import/Import
-#######################################################
-else
-  echo &quot;Cannot find Import executable!&quot;
-  exit 1
-fi
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span>-x<span class="w"> </span>../Import/src/Import<span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">  </span><span class="nv">importExe</span><span class="o">=</span>../Import/src/Import
+<span class="k">elif</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span>-x<span class="w"> </span>../debug/Import/Import<span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">  </span><span class="nv">importExe</span><span class="o">=</span>../debug/Import/Import
+<span class="k">elif</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span>-x<span class="w"> </span>../build/Import/Import<span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">  </span><span class="nv">importExe</span><span class="o">=</span>../build/Import/Import
+<span class="c1">###################  Add this line ####################</span>
+<span class="k">elif</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-x<span class="w"> </span>../../libosmscout-build/Import/Import<span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">  </span><span class="nv">importExe</span><span class="o">=</span>../../libosmscout-build/Import/Import
+<span class="c1">#######################################################</span>
+<span class="k">else</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Cannot find Import executable!&quot;</span>
+<span class="w">  </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="k">fi</span>
+</code></pre></div>
 <p>然后继续按正常方式构建 Carla。Windows 用户无法选择使用 OSM 渲染器，必须直接使用 URL。</p>
 <h2 id="osm_1">下载并准备 OSM 地图数据 <span id="downloading-and-preparing-osm-map-data"></span></h2>
 <p><img alt="osm_website" src="../img/osm_export.png" /></p>
@@ -117,9 +117,9 @@ fi
 <p>在 <a href="https:/www.openstreetmap.org">OpenStreetMap 网站</a> 中，导航到感兴趣的区域，然后按 <code>Export</code>，您可能还想使用 <code>Manually select a different area</code> 选项。然后，右键单击 <code>Overpass API</code> 并从上下文菜单中选择 <code>Copy link</code>。 您必须确保文件不大于 1 GB。获取此链接并将其粘贴到界面的 URL 字段中。</p>
 <h3 id="osm_2">下载 OSM 文件并在界面中导航</h3>
 <p>此选项仅适用于 Linux 用户。您可以下载更大区域的地图，例如整个州或领地，然后使用 Carla 中的 OSM 界面，使用箭头和缩放按钮导航地图。将所需的 OSM 数据区域下载为<code>.osm</code>文件。 然后将此文件放入 <code>{CARLA_ROOT}/Build/libosmcout-source/maps/</code> 文件夹中。打开此文件夹内的终端并运行以下命令：</p>
-<pre><code class="language-sh">cd {CARLA_ROOT}/Build/libosmcout-source/maps/
-./build.sh &lt;path_to_osm_file&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="o">{</span>CARLA_ROOT<span class="o">}</span>/Build/libosmcout-source/maps/
+./build.sh<span class="w"> </span>&lt;path_to_osm_file&gt;
+</code></pre></div>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>如果 OpenStreetMap 中的地图有错误或不精确，可以通过<a href="../adv_edit_openstreetmap/">编辑地图</a>进行改进。</p>
@@ -131,9 +131,9 @@ fi
 <p>该界面允许浏览已从 OSM 数据库下载并烘焙的 OSM 地图区域。首先，您应该在界面的 <em>Select OSM Database</em> 字段中输入上一步中存储处理后的 OSM 数据的目录位置。如果您直接使用 URL，请将其粘贴到 <code>OSM URL</code> 字段中，在这种情况下您将无法使用导航器。</p>
 <p><img alt="osm_interface" src="../img/digital_twins_interface.png" /></p>
 <p>使用方向箭头和缩放图标导航地图并找到要转换为 Carla 地图的道路网的一部分。您在预览中看到的方形区域将是地图的范围。在字段中输入适当的名称 <code>File Name</code> 然后按 <em>Generate</em> 开始程序生成过程。地图生成过程可能需要几分钟，如果您使用的是大区域，则可能需要更长的时间。</p>
-<p>先启动Carla服务，然后运行以下脚本从<code>.osm</code>文件中加载场景：</p>
-<pre><code class="language-shell">python src/util/config.py -x *.xodr
-</code></pre>
+<p>先启动Carla服务，然后运行以下脚本从<code>.osm</code>文件中加载场景：
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>src/util/config.py<span class="w"> </span>-x<span class="w"> </span>*.xodr
+</code></pre></div></p>
 <h2 id="_2">程序化场景生成 <span id="procedural-environment-generation"></span></h2>
 <h3 id="_3">道路装饰 <span id="road_painting"></span></h3>
 <p>该工具从 OSM 数据中提取道路网络作为地图的基础。路面装饰有逼真的表面不规则性、道路纹理和车道线、裂痕和轮胎印迹。</p>
@@ -156,15 +156,15 @@ fi
 <h2 id="_8">分析 <span id="analysis"></span></h2>
 <p><code>UOpenDriveToMap::GenerateTile()</code>生成每一个瓦片，调用<code>GenerateAll()</code>函数，进行 道路网格、车道线、生成点、地形、数目位置、生成完成等步骤。</p>
 <h2 id="_9">问题 <span id="problems"></span></h2>
-<p><code>carla\Unreal\CarlaUE4\Plugins\CarlaTools\Source\CarlaTools\Private\OpenDriveToMap.cpp</code>改为生成一个瓦片地图的函数，生成后的名字为<code>{NAME}_Tile_0_0</code>。</p>
-<pre><code class="language-shell">// ExecuteTileCommandlet();
-GenerateTile();
-</code></pre>
-<p>原因：
+<p><code>carla\Unreal\CarlaUE4\Plugins\CarlaTools\Source\CarlaTools\Private\OpenDriveToMap.cpp</code>改为生成一个瓦片地图的函数，生成后的名字为<code>{NAME}_Tile_0_0</code>。
+<div class="highlight"><pre><span></span><code>//<span class="w"> </span>ExecuteTileCommandlet<span class="o">()</span><span class="p">;</span>
+GenerateTile<span class="o">()</span><span class="p">;</span>
+</code></pre></div>
+原因：
 生成瓦片的命令行程序位于<code>Unreal\CarlaUE4\Plugins\CarlaTools\Source\CarlaTools\Private\Commandlet\GenerateTileCommandlet.cpp</code>。</p>
 <p>移除<code>void UOpenDriveToMap::GenerateTile()</code>函数中的<code>// RemoveFromRoot();</code>语句，该语句清理FilePath变量导致下一次瓦片生成时FilePath变量乱码的问题，可以解决大地图只生成一个瓦片的问题。</p>
-<pre><code class="language-text">
-</code></pre>
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
 <p>参考：UE 中的 <a href="../ue/ue_commandlet/">Commandlet</a> 解读。</p>
               
             </div>
@@ -201,8 +201,13 @@ GenerateTile();
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

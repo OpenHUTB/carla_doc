@@ -123,60 +123,60 @@
 <p><a href="../python_api/#carla.Osm2OdrSettings">carla.Osm2OdrSettings</a>类用于配置转换设置，例如偏移值、交通灯生成、原点坐标等。可配置参数的完整列表可以在 Python API <a href="../python_api/#carla.Osm2OdrSettings">文档</a> 中找到。<a href="../python_api/#carla.Osm2Odr">carla.Osm2Odr</a> 类使用这些设置来解析<code>.osm</code>数据并以 <code>.xodr</code> 格式输出。</p>
 <p>在 Windows 中，<code>.osm</code>文件必须编码为<code>UTF-8</code>. 这在 Linux 中是不必要的。以下是示例代码片段，显示如何根据您的操作系统执行文件转换：</p>
 <h5 id="linux">Linux <span id="linux"></span></h5>
-<pre><code class="language-py"># 读取 .osm 数据
-f = open(&quot;path/to/osm/file&quot;, 'r')
-osm_data = f.read()
-f.close()
+<div class="highlight"><pre><span></span><code><span class="c1"># 读取 .osm 数据</span>
+<span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;path/to/osm/file&quot;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">osm_data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
-# 定义想要的设置。在该案例中为默认值。values.
-settings = carla.Osm2OdrSettings()
-# 设置导出到 OpenDRIVE 的 OSM 道路类型。
-settings.set_osm_way_types([&quot;motorway&quot;, &quot;motorway_link&quot;, &quot;trunk&quot;, &quot;trunk_link&quot;, &quot;primary&quot;, &quot;primary_link&quot;, &quot;secondary&quot;, &quot;secondary_link&quot;, &quot;tertiary&quot;, &quot;tertiary_link&quot;, &quot;unclassified&quot;, &quot;residential&quot;])
-# 转为 .xodr
-xodr_data = carla.Osm2Odr.convert(osm_data, settings)
+<span class="c1"># 定义想要的设置。在该案例中为默认值。values.</span>
+<span class="n">settings</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Osm2OdrSettings</span><span class="p">()</span>
+<span class="c1"># 设置导出到 OpenDRIVE 的 OSM 道路类型。</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">set_osm_way_types</span><span class="p">([</span><span class="s2">&quot;motorway&quot;</span><span class="p">,</span> <span class="s2">&quot;motorway_link&quot;</span><span class="p">,</span> <span class="s2">&quot;trunk&quot;</span><span class="p">,</span> <span class="s2">&quot;trunk_link&quot;</span><span class="p">,</span> <span class="s2">&quot;primary&quot;</span><span class="p">,</span> <span class="s2">&quot;primary_link&quot;</span><span class="p">,</span> <span class="s2">&quot;secondary&quot;</span><span class="p">,</span> <span class="s2">&quot;secondary_link&quot;</span><span class="p">,</span> <span class="s2">&quot;tertiary&quot;</span><span class="p">,</span> <span class="s2">&quot;tertiary_link&quot;</span><span class="p">,</span> <span class="s2">&quot;unclassified&quot;</span><span class="p">,</span> <span class="s2">&quot;residential&quot;</span><span class="p">])</span>
+<span class="c1"># 转为 .xodr</span>
+<span class="n">xodr_data</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Osm2Odr</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">osm_data</span><span class="p">,</span> <span class="n">settings</span><span class="p">)</span>
 
-# 保存为 opendrive 文件
-f = open(&quot;path/to/output/file&quot;, 'w')
-f.write(xodr_data)
-f.close()
-</code></pre>
+<span class="c1"># 保存为 opendrive 文件</span>
+<span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;path/to/output/file&quot;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">xodr_data</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
 <h5 id="windows">Windows <span id="windows"></span></h5>
-<pre><code class="language-py">import io
+<p><div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">io</span>
 
-# 读取 .osm 数据
-f = io.open(&quot;test&quot;, mode=&quot;r&quot;, encoding=&quot;utf-8&quot;)
-osm_data = f.read()
-f.close()
+<span class="c1"># 读取 .osm 数据</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+<span class="n">osm_data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
-# 定义想要的设置。在该案例中为默认值。
-settings = carla.Osm2OdrSettings()
-# 设置导出成 OpenDRIVE 的 OSM 道路类型
-settings.set_osm_way_types([&quot;motorway&quot;, &quot;motorway_link&quot;, &quot;trunk&quot;, &quot;trunk_link&quot;, &quot;primary&quot;, &quot;primary_link&quot;, &quot;secondary&quot;, &quot;secondary_link&quot;, &quot;tertiary&quot;, &quot;tertiary_link&quot;, &quot;unclassified&quot;, &quot;residential&quot;])
-# 转为 .xodr
-xodr_data = carla.Osm2Odr.convert(osm_data, settings)
+<span class="c1"># 定义想要的设置。在该案例中为默认值。</span>
+<span class="n">settings</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Osm2OdrSettings</span><span class="p">()</span>
+<span class="c1"># 设置导出成 OpenDRIVE 的 OSM 道路类型</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">set_osm_way_types</span><span class="p">([</span><span class="s2">&quot;motorway&quot;</span><span class="p">,</span> <span class="s2">&quot;motorway_link&quot;</span><span class="p">,</span> <span class="s2">&quot;trunk&quot;</span><span class="p">,</span> <span class="s2">&quot;trunk_link&quot;</span><span class="p">,</span> <span class="s2">&quot;primary&quot;</span><span class="p">,</span> <span class="s2">&quot;primary_link&quot;</span><span class="p">,</span> <span class="s2">&quot;secondary&quot;</span><span class="p">,</span> <span class="s2">&quot;secondary_link&quot;</span><span class="p">,</span> <span class="s2">&quot;tertiary&quot;</span><span class="p">,</span> <span class="s2">&quot;tertiary_link&quot;</span><span class="p">,</span> <span class="s2">&quot;unclassified&quot;</span><span class="p">,</span> <span class="s2">&quot;residential&quot;</span><span class="p">])</span>
+<span class="c1"># 转为 .xodr</span>
+<span class="n">xodr_data</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Osm2Odr</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">osm_data</span><span class="p">,</span> <span class="n">settings</span><span class="p">)</span>
 
-# 保存成 opendrive 文件
-f = open(&quot;path/to/output/file&quot;, 'w')
-f.write(xodr_data)
-f.close()
-</code></pre>
-<p><br></p>
+<span class="c1"># 保存成 opendrive 文件</span>
+<span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;path/to/output/file&quot;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">xodr_data</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+<br></p>
 <hr />
 <h3 id="_1">生成交通灯 <span id="generate-traffic-lights"></span></h3>
 <p>Open Street Map 数据可以定义哪些路口受交通灯控制。要在 Carla 中使用此交通灯数据，您需要在将<code>.osm</code>文件转换为<code>.xodr</code>格式之前通过 Python API 在 OSM 地图设置中启用它：</p>
-<pre><code class="language-py"># 定义想要的设置。在该案例中为默认值。
-settings = carla.Osm2OdrSettings()
-# 启用从 OSM 数据中生成交通灯
-settings.generate_traffic_lights = True
-# 转为 .xodr
-xodr_data = carla.Osm2Odr.convert(osm_data, settings)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1"># 定义想要的设置。在该案例中为默认值。</span>
+<span class="n">settings</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Osm2OdrSettings</span><span class="p">()</span>
+<span class="c1"># 启用从 OSM 数据中生成交通灯</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">generate_traffic_lights</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="c1"># 转为 .xodr</span>
+<span class="n">xodr_data</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Osm2Odr</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">osm_data</span><span class="p">,</span> <span class="n">settings</span><span class="p">)</span>
+</code></pre></div>
 <p>交通灯数据质量可能因提取数据的区域而异。一些交通灯信息可能完全丢失。要克服这些限制，您可以使用 Python API 将所有路口配置为由交通灯控制：</p>
-<pre><code class="language-py">settings.all_junctions_with_traffic_lights = True
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">settings</span><span class="o">.</span><span class="n">all_junctions_with_traffic_lights</span> <span class="o">=</span> <span class="kc">True</span>
+</code></pre></div>
 <p>您还可以排除某些道路（例如高速公路链接）生成交通信号灯：</p>
-<pre><code>settings.set_traffic_light_excluded_way_types([&quot;motorway_link&quot;])
-</code></pre>
+<div class="highlight"><pre><span></span><code>settings.set_traffic_light_excluded_way_types([&quot;motorway_link&quot;])
+</code></pre></div>
 <hr />
 <h2 id="carla">导入 Carla <span id="ingest-into-carla"></span></h2>
 <p>本节介绍如何使用可用的不同选项，通过 <a href="../adv_opendrive/">OpenDRIVE 独立模式</a>将 Open Street Map 信息提取到 Carla 中。</p>
@@ -186,36 +186,36 @@ xodr_data = carla.Osm2Odr.convert(osm_data, settings)
 <a href="#c-pass-osm-to-configpy"><strong>C)</strong></a> 将原始<code>.osm</code>文件作为参数传递给 Carla <code>config.py</code> 脚本。<strong>此方法不允许参数化。</strong></p>
 <h6 id="a">A) 使用您自己的脚本</h6>
 <p>生成新地图并阻止模拟，直到通过调用 <a href="../python_api/#carla.Client.generate_opendrive_world"><code>client.generate_opendrive_world()</code></a> 准备就绪。使用<a href="../python_api/#carla.OpendriveGenerationParameters">carla.OpendriveGenerationParameters</a>类配置网格生成。请参阅下面的示例：</p>
-<pre><code class="language-py">vertex_distance = 2.0  # 以米为单位
-max_road_length = 500.0 # 以米为单位
-wall_height = 0.0      # 以米为单位
-extra_width = 0.6      # 以米为单位
-world = client.generate_opendrive_world(
-    xodr_xml, carla.OpendriveGenerationParameters(
-        vertex_distance=vertex_distance,
-        max_road_length=max_road_length,
-        wall_height=wall_height,
-        additional_width=extra_width,
-        smooth_junctions=True,
-        enable_mesh_visibility=True))
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">vertex_distance</span> <span class="o">=</span> <span class="mf">2.0</span>  <span class="c1"># 以米为单位</span>
+<span class="n">max_road_length</span> <span class="o">=</span> <span class="mf">500.0</span> <span class="c1"># 以米为单位</span>
+<span class="n">wall_height</span> <span class="o">=</span> <span class="mf">0.0</span>      <span class="c1"># 以米为单位</span>
+<span class="n">extra_width</span> <span class="o">=</span> <span class="mf">0.6</span>      <span class="c1"># 以米为单位</span>
+<span class="n">world</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">generate_opendrive_world</span><span class="p">(</span>
+    <span class="n">xodr_xml</span><span class="p">,</span> <span class="n">carla</span><span class="o">.</span><span class="n">OpendriveGenerationParameters</span><span class="p">(</span>
+        <span class="n">vertex_distance</span><span class="o">=</span><span class="n">vertex_distance</span><span class="p">,</span>
+        <span class="n">max_road_length</span><span class="o">=</span><span class="n">max_road_length</span><span class="p">,</span>
+        <span class="n">wall_height</span><span class="o">=</span><span class="n">wall_height</span><span class="p">,</span>
+        <span class="n">additional_width</span><span class="o">=</span><span class="n">extra_width</span><span class="p">,</span>
+        <span class="n">smooth_junctions</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">enable_mesh_visibility</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</code></pre></div>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>强烈推荐<code>wall_height = 0.0</code>。OpenStreetMap 将相反方向的车道定义为不同的道路。如果生成墙壁，这将导致墙壁重叠和意外的碰撞。</p>
 </div>
 <h6 id="b-xodr-configpy">B) 将 <code>.xodr</code> 传递给 <code>config.py</code></h6>
 <p>启动 Carla 服务器后，在单独的终端中运行以下命令来加载 Open Street Map：</p>
-<pre><code class="language-sh">cd PythonAPI/util
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>PythonAPI/util
 
-python3 config.py -x=/path/to/xodr/file
-</code></pre>
+python3<span class="w"> </span>config.py<span class="w"> </span>-x<span class="o">=</span>/path/to/xodr/file
+</code></pre></div>
 <p>将使用 <a href="../python_api/#carla.OpendriveGenerationParameters">默认参数</a> 。</p>
 <h6 id="c-osm-configpy">C) 将 <code>.osm</code> 传递给 <code>config.py</code></h6>
 <p>启动 Carla 服务器后，在单独的终端中运行以下命令来加载 Open Street Map：</p>
-<pre><code class="language-sh">cd PythonAPI/util
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>PythonAPI/util
 
-python3 config.py --osm-path=/path/to/OSM/file
-</code></pre>
+python3<span class="w"> </span>config.py<span class="w"> </span>--osm-path<span class="o">=</span>/path/to/OSM/file
+</code></pre></div>
 <p>将使用<a href="../python_api/#carla.OpendriveGenerationParameters">默认参数</a>。 </p>
 <p>无论使用哪种方法，地图都将被导入到 Carla 中，结果应类似于下图：</p>
 <p><img alt="opendrive_meshissue" src="../img/tuto_g_osm_carla.jpg" />
@@ -268,8 +268,13 @@ Carla 论坛</a>
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

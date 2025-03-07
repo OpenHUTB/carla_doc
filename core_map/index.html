@@ -111,11 +111,11 @@
 <li><code>reload_world()</code> 使用相同的地图创建世界的新实例。</li>
 <li><code>load_world()</code> 改变当前地图并创建一个新世界。</li>
 </ul>
-<pre><code class="language-py">world = client.load_world('Town01')
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">world</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">load_world</span><span class="p">(</span><span class="s1">&#39;Town01&#39;</span><span class="p">)</span>
+</code></pre></div>
 <p>每个地图都有一个与当前加载的城市名称匹配的<code>name</code>属性，例如 <em>Town01</em> 。要获取可用地图的列表：</p>
-<pre><code class="language-py">print(client.get_available_maps())
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">client</span><span class="o">.</span><span class="n">get_available_maps</span><span class="p">())</span>
+</code></pre></div>
 <h3 id="_4">地标 <span id="landmarks"></span></h3>
 <p>OpenDRIVE 文件中定义的交通标志将转换为 Carla，作为可从 API 查询的地标对象。以下方法和类可用于操作和使用地标对象：</p>
 <ul>
@@ -128,8 +128,8 @@
 <li><strong><a href="https://carla.readthedocs.io/en/latest/python_api/#carla.Map"><code>carla.Map</code></a></strong> 检索地标集。它可以返回地图中的所有地标，或者具有共同 ID、类型或组的地标。</li>
 <li><strong><a href="https://carla.readthedocs.io/en/latest/python_api/#carla.World"><code>carla.World</code></a></strong> 充当地标、模拟中代表他们的<code>carla.TrafficSign</code> 和 <code>carla.TrafficLight</code> 之间的中间。</li>
 </ul>
-<pre><code class="language-py">my_waypoint.get_landmarks(200.0,True)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">my_waypoint</span><span class="o">.</span><span class="n">get_landmarks</span><span class="p">(</span><span class="mf">200.0</span><span class="p">,</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
 <h3 id="_5">路径点 <span id="waypoint"></span></h3>
 <p><a href="../python_api/#carla.Waypoint"><code>carla.Waypoint</code></a> 是 Carla 世界中的三维有向点，对应于 OpenDRIVE 车道。与路径点相关的所有事情都发生在客户端；只需与服务器通信一次即可获取包含路径点信息的<a href="../python_api/#carlamap">地图对象</a>。</p>
 <p>每个路径点都包含一个 <a href="../python_api/#carla.Transform"><code>carla.Transform</code></a> ，它说明其在地图上的位置以及包含该路径点的车道的方向。变量<code>road_id</code>,<code>section_id</code>,<code>lane_id</code> 和 <code>s</code>对应 OpenDRIVE 道路。路径点<code>id</code>的是由这四个值的哈希组合构造的。</p>
@@ -138,11 +138,11 @@
 <p><strong>同一道路内距离小于 2 厘米</strong> 的路点共享相同的路点 <code>id</code>。</p>
 </div>
 <p>路径点保存有关包含该路径点的 <strong>车道</strong> 的信息。此信息包括车道的左车道和右 <strong>车道标记</strong>、用于确定其是否位于路口内的布尔值、车道类型、宽度和车道变更权限。</p>
-<pre><code class="language-py"># 从路径点访问车道信息
-inside_junction = waypoint.is_junction()
-width = waypoint.lane_width
-right_lm_color = waypoint.right_lane_marking.color
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1"># 从路径点访问车道信息</span>
+<span class="n">inside_junction</span> <span class="o">=</span> <span class="n">waypoint</span><span class="o">.</span><span class="n">is_junction</span><span class="p">()</span>
+<span class="n">width</span> <span class="o">=</span> <span class="n">waypoint</span><span class="o">.</span><span class="n">lane_width</span>
+<span class="n">right_lm_color</span> <span class="o">=</span> <span class="n">waypoint</span><span class="o">.</span><span class="n">right_lane_marking</span><span class="o">.</span><span class="n">color</span>
+</code></pre></div>
 <h3 id="_6">车道 <span id="lanes"></span></h3>
 <p><a href="http://www.opendrive.org/docs/OpenDRIVEFormatSpecRev1.4H.pdf">OpenDRIVE 1.4 标准</a> 定义的通道类型将 <a href="../python_api/#carla.LaneType">carla.LaneType</a> 作为一系列枚举值转换为 API 。</p>
 <p>车道周围的车道标记可通过 <a href="../python_api/#carla.LaneMarking"><code>carla.LaneMarking</code></a> 访问。车道标记由一系列变量定义：</p>
@@ -153,20 +153,20 @@ right_lm_color = waypoint.right_lane_marking.color
 <li><strong>width:</strong> 定义标记的厚度。</li>
 </ul>
 <p>下面的示例显示了获取有关特定路径点的车道类型、车道标记和车道变更权限的信息：</p>
-<pre><code class="language-py"># 获得路径点车道类型
-lane_type = waypoint.lane_type
+<div class="highlight"><pre><span></span><code><span class="c1"># 获得路径点车道类型</span>
+<span class="n">lane_type</span> <span class="o">=</span> <span class="n">waypoint</span><span class="o">.</span><span class="n">lane_type</span>
 
-# 获得左车道标记的类型
-left_lanemarking_type = waypoint.left_lane_marking.type()
+<span class="c1"># 获得左车道标记的类型</span>
+<span class="n">left_lanemarking_type</span> <span class="o">=</span> <span class="n">waypoint</span><span class="o">.</span><span class="n">left_lane_marking</span><span class="o">.</span><span class="n">type</span><span class="p">()</span>
 
-# 获得该路径点可得的车道改变
-lane_change = waypoint.lane_change
-</code></pre>
+<span class="c1"># 获得该路径点可得的车道改变</span>
+<span class="n">lane_change</span> <span class="o">=</span> <span class="n">waypoint</span><span class="o">.</span><span class="n">lane_change</span>
+</code></pre></div>
 <h3 id="_7">路口 <span id="junctions"></span></h3>
 <p><a href="../python_api/#carla.Junction"><code>carla.Junction</code></a> 代表 OpenDRIVE 连接点。此类包含带有边界框的交汇处，用于识别其中的车道或车辆。</p>
 <p>该 <code>carla.Junction</code> 类包含 <code>get_waypoints</code> 为交汇处的每个车道返回一对路点的方法。每对位于交界处边界的起点和终点。</p>
-<pre><code class="language-py">waypoints_junc = my_junction.get_waypoints()
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">waypoints_junc</span> <span class="o">=</span> <span class="n">my_junction</span><span class="o">.</span><span class="n">get_waypoints</span><span class="p">()</span>
+</code></pre></div>
 <h3 id="_8">环境对象 <span id="environment-objects"></span></h3>
 <p>Carla 地图上的每个对象都有一组关联的变量，可以在 <a href="https://carla.readthedocs.io/en/latest/python_api/#carla.EnvironmentObject">此</a> 处找到这些变量。这些变量中包含一个 <a href="https://carla.readthedocs.io/en/latest/python_api/#carla.EnvironmentObject.id">唯一 ID</a>，可用于切换该对象在地图上的可见性。您可以使用 Python API 根据每个环境对象的<a href="[semantic_tag]">语义标签</a> <a href="https://carla.readthedocs.io/en/latest/python_api/#carla.World.get_environment_objects">获取</a> 其 ID ：</p>
 <pre><code># 获得世界中的建筑
@@ -197,36 +197,36 @@ world.enable_environment_objects(objects_to_toggle, True)
 <li><code>next_until_lane_end(d)</code> 和 <code>previous_until_lane_start(d)</code> 返回相距一定距离 <code>d</code> 的路径点列表。这些列表分别从当前路径点到其车道的终点和起点。</li>
 <li><code>get_right_lane()</code> 和 <code>get_left_lane()</code> 返回相邻车道中的等路径点（如果存在）。可以通过找到右/左车道上的下一个路点并移动到该路点来进行变道操作。</li>
 </ul>
-<pre><code class="language-py"># 找到前面 2 米的下一个路径点
-waypoint = waypoint.next(2.0)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1"># 找到前面 2 米的下一个路径点</span>
+<span class="n">waypoint</span> <span class="o">=</span> <span class="n">waypoint</span><span class="o">.</span><span class="n">next</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>
+</code></pre></div>
 <h3 id="_10">生成地图导航 <span id="generating-a-map-navigation"></span></h3>
 <p>客户端需要向服务器发出请求来获取 <code>.xodr</code> 地图文件并将其解析为<a href="../python_api/#carla.Map"><code>carla.Map</code></a> 对象。这只需要做一次。</p>
 <p>获取地图对象：</p>
-<pre><code class="language-py">map = world.get_map()
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nb">map</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_map</span><span class="p">()</span>
+</code></pre></div>
 <p>地图对象包含用于创建车辆的 <strong>推荐生成点</strong>。您可以使用以下方法获取这些生成点的列表，每个生成点都包含 <a href="../python_api/#carlatransform"><code>carla.Transform</code></a>。请记住，生成点可能已被占用，从而导致由于碰撞而导致车辆创建失败。</p>
-<pre><code class="language-py">spawn_points = world.get_map().get_spawn_points()
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">spawn_points</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_map</span><span class="p">()</span><span class="o">.</span><span class="n">get_spawn_points</span><span class="p">()</span>
+</code></pre></div>
 <p>您可以通过<a href="../python_api/#carla.Map.get_waypoint">获取</a>距特定位置或特定 <code>road_id</code>、<code>lane_id</code>和<code>s</code>位置最近的路径点以及地图 OpenDRIVE 定义中的值来开始使用路径点：</p>
-<pre><code class="language-py"># 驾驶车道或人行道中心最近的路径点。
-waypoint01 = map.get_waypoint(vehicle.get_location(),project_to_road=True, lane_type=(carla.LaneType.Driving | carla.LaneType.Sidewalk))
+<div class="highlight"><pre><span></span><code><span class="c1"># 驾驶车道或人行道中心最近的路径点。</span>
+<span class="n">waypoint01</span> <span class="o">=</span> <span class="nb">map</span><span class="o">.</span><span class="n">get_waypoint</span><span class="p">(</span><span class="n">vehicle</span><span class="o">.</span><span class="n">get_location</span><span class="p">(),</span><span class="n">project_to_road</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">lane_type</span><span class="o">=</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">LaneType</span><span class="o">.</span><span class="n">Driving</span> <span class="o">|</span> <span class="n">carla</span><span class="o">.</span><span class="n">LaneType</span><span class="o">.</span><span class="n">Sidewalk</span><span class="p">))</span>
 
-# 最近的路径点，同时指定 OpenDRIVE 参数。
-waypoint02 = map.get_waypoint_xodr(road_id,lane_id,s)
-</code></pre>
+<span class="c1"># 最近的路径点，同时指定 OpenDRIVE 参数。</span>
+<span class="n">waypoint02</span> <span class="o">=</span> <span class="nb">map</span><span class="o">.</span><span class="n">get_waypoint_xodr</span><span class="p">(</span><span class="n">road_id</span><span class="p">,</span><span class="n">lane_id</span><span class="p">,</span><span class="n">s</span><span class="p">)</span>
+</code></pre></div>
 <p>下面的示例展示了如何 <strong>生成路点集合</strong> 以可视化城市车道。这将为整个地图上的每条道路和车道创建路径点。它们之间的距离大约为 2 米：</p>
-<pre><code class="language-py">waypoint_list = map.generate_waypoints(2.0)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">waypoint_list</span> <span class="o">=</span> <span class="nb">map</span><span class="o">.</span><span class="n">generate_waypoints</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>
+</code></pre></div>
 <p>要 <strong>生成道路拓扑的最小图</strong>，请使用下面的示例。这将返回路径点对（元组）的列表。每对中的第一个元素与第二个元素连接，两者都定义了地图中每条车道的起点和终点。有关此方法的更多信息可以在<a href="../python_api/#carla.Map.get_topology">PythonAPI</a>中找到。</p>
-<pre><code class="language-py">waypoint_tuple_list = map.get_topology()
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">waypoint_tuple_list</span> <span class="o">=</span> <span class="nb">map</span><span class="o">.</span><span class="n">get_topology</span><span class="p">()</span>
+</code></pre></div>
 <p>下面的示例 <strong>将 <code>carla.Transform</code> 转换为地理纬度和经度坐标</strong>，采用 <a href="../python_api/#carla.GeoLocation"><code>carla.GeoLocation</code></a> 的形式：</p>
-<pre><code class="language-py">my_geolocation = map.transform_to_geolocation(vehicle.transform)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">my_geolocation</span> <span class="o">=</span> <span class="nb">map</span><span class="o">.</span><span class="n">transform_to_geolocation</span><span class="p">(</span><span class="n">vehicle</span><span class="o">.</span><span class="n">transform</span><span class="p">)</span>
+</code></pre></div>
 <p>使用以下示例将 OpenDRIVE 格式的 <strong>道路信息保存到磁盘</strong>：</p>
-<pre><code class="language-py">info_map = map.to_opendrive()
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">info_map</span> <span class="o">=</span> <span class="nb">map</span><span class="o">.</span><span class="n">to_opendrive</span><span class="p">()</span>
+</code></pre></div>
 <hr />
 <h2 id="carla_1">Carla 地图 <span id="carla-maps"></span></h2>
 <p>Carla 生态系统中有八个城镇，每个城镇都有两种地图，非分层地图和分层地图。<a href="https://carla.readthedocs.io/en/latest/python_api/#carlamaplayer">图层</a>是指地图中分组的对象，由以下部分组成：</p>
@@ -380,8 +380,13 @@ world.load_map_layer(carla.MapLayer.Buildings)
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

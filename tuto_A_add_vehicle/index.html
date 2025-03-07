@@ -307,8 +307,8 @@
 </blockquote>
 <p><strong>10. 测试车辆</strong>。</p>
 <p>启动 Carla，打开终端 <code>PythonAPI/examples</code> 并运行以下命令：</p>
-<pre><code class="language-sh">python3 manual_control.py --filter &lt;model_name&gt; # 步骤9中定义的品牌或型号
-</code></pre>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>manual_control.py<span class="w"> </span>--filter<span class="w"> </span>&lt;model_name&gt;<span class="w"> </span><span class="c1"># 步骤9中定义的品牌或型号</span>
+</code></pre></div>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>即使您在品牌和型号中使用了大写字符，它们在传递给过滤器时也需要转换为小写字符。</p>
@@ -336,24 +336,24 @@
 <h2 id="2">添加 2 轮车辆 <span id="add-a-2-wheeled-vehicle"></span></h2>
 <p>添加 2 轮车辆与添加 4 轮车辆类似，但由于动画的复杂性，您需要设置额外的骨骼来引导驾驶员的动画。<a href="https://carla-assets.s3.eu-west-3.amazonaws.com/fbx/BikeSkeleton.rar">这</a> 是两轮车辆参考骨架的链接。</p>
 <p>与 4 轮车辆一样，将模型朝向正“x”，每个骨骼轴朝向正 x，z 轴朝上。</p>
-<pre><code class="language-yaml">Bone Setup:
-  - Bike_Rig:                   # 网格的原点。将其放置在场景的0点
-    - BikeBody:                 # 模型身体的中心。
-      - Pedals:                 # 如果车辆是自行车，将脚踏板绑在这块骨头上，就会随着自行车的加速度而旋转。
-        - RightPedal:           # 如果车辆是自行车，则设置驾驶员的脚部位置并与脚踏板一起旋转。
-        - LeftPedal:            # ^
-      - RearWheel:              # 车辆后轮
-      - Handler:                # 与车辆的前轮一起旋转，将车辆操纵器固定在其上。
-        - HandlerMidBone:       # 定位在前轮骨架上，以确定操纵器与车轮的方向
-        - HandlerRight:         # 设置驾驶员的手的位置，无需将其绑定到任何东西。
-        - HandlerLeft:          # ^
-      - Frontwheel:             # 车辆的前轮。
-      - RightHelperRotator:     # 这四块额外的骨头是为一个过时的系统提供的，该系统通过使用传统的隐形车轮使自行车稳定 
-        - RightHelprWheel:      # ^
-      - LeftHelperRotator:      # ^
-        - LeftHelperWheel:      # ^
-      - Seat:                   # 设置驾驶员髋骨的位置。无需将其绑在任何东西上，只需小心放置即可。
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nt">Bone Setup</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Bike_Rig</span><span class="p">:</span><span class="w">                   </span><span class="c1"># 网格的原点。将其放置在场景的0点</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">BikeBody</span><span class="p">:</span><span class="w">                 </span><span class="c1"># 模型身体的中心。</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Pedals</span><span class="p">:</span><span class="w">                 </span><span class="c1"># 如果车辆是自行车，将脚踏板绑在这块骨头上，就会随着自行车的加速度而旋转。</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">RightPedal</span><span class="p">:</span><span class="w">           </span><span class="c1"># 如果车辆是自行车，则设置驾驶员的脚部位置并与脚踏板一起旋转。</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">LeftPedal</span><span class="p">:</span><span class="w">            </span><span class="c1"># ^</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">RearWheel</span><span class="p">:</span><span class="w">              </span><span class="c1"># 车辆后轮</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Handler</span><span class="p">:</span><span class="w">                </span><span class="c1"># 与车辆的前轮一起旋转，将车辆操纵器固定在其上。</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">HandlerMidBone</span><span class="p">:</span><span class="w">       </span><span class="c1"># 定位在前轮骨架上，以确定操纵器与车轮的方向</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">HandlerRight</span><span class="p">:</span><span class="w">         </span><span class="c1"># 设置驾驶员的手的位置，无需将其绑定到任何东西。</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">HandlerLeft</span><span class="p">:</span><span class="w">          </span><span class="c1"># ^</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Frontwheel</span><span class="p">:</span><span class="w">             </span><span class="c1"># 车辆的前轮。</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">RightHelperRotator</span><span class="p">:</span><span class="w">     </span><span class="c1"># 这四块额外的骨头是为一个过时的系统提供的，该系统通过使用传统的隐形车轮使自行车稳定 </span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">RightHelprWheel</span><span class="p">:</span><span class="w">      </span><span class="c1"># ^</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">LeftHelperRotator</span><span class="p">:</span><span class="w">      </span><span class="c1"># ^</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">LeftHelperWheel</span><span class="p">:</span><span class="w">      </span><span class="c1"># ^</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Seat</span><span class="p">:</span><span class="w">                   </span><span class="c1"># 设置驾驶员髋骨的位置。无需将其绑在任何东西上，只需小心放置即可。</span>
+</code></pre></div>
 <p><strong>1.</strong> 将 fbx 作为 Skelletal Mesh 导入到其自己的 <code>Content/Carla/Static/Vehicles/2Wheeled</code> 文件夹中。导入时，选择“General2WheeledVehicleSkeleton”作为骨架，应自动创建并链接物理资源。</p>
 <p><strong>2.</strong> 调整物理资源。删除自动创建的框并向 <code>BikeBody</code> 骨骼添加框，尝试尽可能匹配形状，确保启用生成命中事件。为每个轮子添加一个球体并将其“物理类型”设置为“运动学”。</p>
 <p><strong>3.</strong> 创建 <code>Content/Blueprints/Vehicles/&lt;vehicle-model&gt;</code> 文件夹  </p>
@@ -408,8 +408,13 @@
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

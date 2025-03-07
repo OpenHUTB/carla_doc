@@ -102,25 +102,25 @@
 <li>（可选）资产所需的纹理。  </li>
 </ol>
 <p>例如，一个包含两个地图的包的 <code>Import</code> 文件夹应具有类似于以下结构的结构。</p>
-<pre><code class="language-sh">Import
+<div class="highlight"><pre><span></span><code>Import
 │
-└── Package01
-  ├── Package01.json
-  ├── Map01
-  │   ├── Asphalt1_Diff.jpg
-  │   ├── Asphalt1_Norm.jpg
-  │   ├── Asphalt1_Spec.jpg
-  │   ├── Grass1_Diff.jpg
-  │   ├── Grass1_Norm.jpg
-  │   ├── Grass1_Spec.jpg
-  │   ├── LaneMarking1_Diff.jpg
-  │   ├── LaneMarking1_Norm.jpg
-  │   ├── LaneMarking1_Spec.jpg
-  │   ├── Map01.fbx
-  │   └── Map01.xodr
-  └── Map02
-      └── Map02.fbx
-</code></pre>
+└──<span class="w"> </span>Package01
+<span class="w">  </span>├──<span class="w"> </span>Package01.json
+<span class="w">  </span>├──<span class="w"> </span>Map01
+<span class="w">  </span>│<span class="w">   </span>├──<span class="w"> </span>Asphalt1_Diff.jpg
+<span class="w">  </span>│<span class="w">   </span>├──<span class="w"> </span>Asphalt1_Norm.jpg
+<span class="w">  </span>│<span class="w">   </span>├──<span class="w"> </span>Asphalt1_Spec.jpg
+<span class="w">  </span>│<span class="w">   </span>├──<span class="w"> </span>Grass1_Diff.jpg
+<span class="w">  </span>│<span class="w">   </span>├──<span class="w"> </span>Grass1_Norm.jpg
+<span class="w">  </span>│<span class="w">   </span>├──<span class="w"> </span>Grass1_Spec.jpg
+<span class="w">  </span>│<span class="w">   </span>├──<span class="w"> </span>LaneMarking1_Diff.jpg
+<span class="w">  </span>│<span class="w">   </span>├──<span class="w"> </span>LaneMarking1_Norm.jpg
+<span class="w">  </span>│<span class="w">   </span>├──<span class="w"> </span>LaneMarking1_Spec.jpg
+<span class="w">  </span>│<span class="w">   </span>├──<span class="w"> </span>Map01.fbx
+<span class="w">  </span>│<span class="w">   </span>└──<span class="w"> </span>Map01.xodr
+<span class="w">  </span>└──<span class="w"> </span>Map02
+<span class="w">      </span>└──<span class="w"> </span>Map02.fbx
+</code></pre></div>
 <hr />
 <h3 id="json">为标准地图创建 JSON 描述 <span id="create-the-json-description-for-the-standard-maps"></span></h3>
 <p>在包的根文件夹中创建一个 <code>.json</code> 文件。在包之后命名文件。 请注意，这将是发行版名称。文件的内容将描述 <strong>地图</strong> 和 <strong>道具</strong> 的 JSON 数组，以及每个地图和道具的基本信息。 </p>
@@ -133,25 +133,25 @@
 </ul>
 <p><strong>Props</strong> 不属于本教材的一部分。该字段将留空。还有另一个关于如何 <a href="../tuto_A_add_props/">添加新道具</a> 的教程。  </p>
 <p>生成的 <code>.json</code> 文件应类似于以下内容：</p>
-<pre><code class="language-json">{
-  &quot;maps&quot;: [
-    {
-      &quot;name&quot;: &quot;Map01&quot;,
-      &quot;source&quot;: &quot;./Map01/Map01.fbx&quot;,
-      &quot;use_carla_materials&quot;: true,
-      &quot;xodr&quot;: &quot;./Map01/Map01.xodr&quot;
-    },
-    {
-      &quot;name&quot;: &quot;Map02&quot;,
-      &quot;source&quot;: &quot;./Map02/Map02.fbx&quot;,
-      &quot;use_carla_materials&quot;: false,
-      &quot;xodr&quot;: &quot;./Map02/Map02.xodr&quot;
-    }
-  ],
-  &quot;props&quot;: [
-  ]
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;maps&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Map01&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;./Map01/Map01.fbx&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;use_carla_materials&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;xodr&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;./Map01/Map01.xodr&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Map02&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;./Map02/Map02.fbx&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;use_carla_materials&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;xodr&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;./Map02/Map02.xodr&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;props&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
 <hr />
 <p>如果您对流程有任何疑问，可以在 <a href="https://github.com/carla-simulator/carla/discussions">论坛</a> 中提问。</p>
 <div class="build-buttons">
@@ -195,8 +195,13 @@ Carla 论坛</a>
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

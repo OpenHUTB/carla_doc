@@ -81,44 +81,41 @@
 <p>​   该类主要完成设置相机、处理相机图像、将Pygame坐标转换为CARLA世界坐标。</p>
 <h3 id="__init__">函数初始化__init__</h3>
 <p>​   初始化函数，设置模拟器窗口的宽度和高度，连接CARLA服务器，并获取世界和蓝图库。</p>
-<pre><code>def __init__(self, width, height):
+<div class="highlight"><pre><span></span><code>def __init__(self, width, height):
     self.width = width
     self.height = height
-    self.client = carla.Client('localhost', 2000)
+    self.client = carla.Client(&#39;localhost&#39;, 2000)
     self.client.set_timeout(10.0)
     self.world = self.client.get_world()
     self.blueprint_library = self.world.get_blueprint_library()
-    self.vehicle_bp = self.blueprint_library.filter('vehicle.*')[0]
+    self.vehicle_bp = self.blueprint_library.filter(&#39;vehicle.*&#39;)[0]
     self.camera = None
     self.vehicles = []
     self.fov = VIEW_FOV
-
-</code></pre>
+</code></pre></div>
 <h3 id="setup_camera">setup_camera函数</h3>
 <p>​   设置相机，定义相机的蓝图、分辨率、视场角（FOV），并将相机生成在指定的位置和角度。</p>
-<pre><code>def setup_camera(self):
-    camera_bp = self.blueprint_library.find('sensor.camera.rgb')
-    camera_bp.set_attribute('image_size_x', str(self.width))
-    camera_bp.set_attribute('image_size_y', str(self.height))
-    camera_bp.set_attribute('fov', str(self.fov))
+<div class="highlight"><pre><span></span><code>def setup_camera(self):
+    camera_bp = self.blueprint_library.find(&#39;sensor.camera.rgb&#39;)
+    camera_bp.set_attribute(&#39;image_size_x&#39;, str(self.width))
+    camera_bp.set_attribute(&#39;image_size_y&#39;, str(self.height))
+    camera_bp.set_attribute(&#39;fov&#39;, str(self.fov))
     camera_transform = carla.Transform(carla.Location(x=0, y=0, z=50), carla.Rotation(yaw=270, pitch=-90))
     self.camera = self.world.spawn_actor(camera_bp, camera_transform)
-
-</code></pre>
+</code></pre></div>
 <h3 id="process_image">process_image函数</h3>
 <p>​   处理相机捕获的图像，将其转换为Pygame可显示的格式。</p>
-<pre><code>def process_image(self, image):
+<div class="highlight"><pre><span></span><code>def process_image(self, image):
     array = np.frombuffer(image.raw_data, dtype=np.uint8)
     array = array.reshape((self.height, self.width, 4))
     array = array[:, :, :3]  # Remove alpha channel
     array = array[:, :, ::-1]  # Convert BGR to RGB
     surface = pygame.surfarray.make_surface(array.swapaxes(0, 1))
     return surface
-
-</code></pre>
+</code></pre></div>
 <h3 id="convert_pygame_to_world">convert_pygame_to_world函数</h3>
 <p>​   将Pygame窗口中的坐标转换为CARLA世界坐标。主要通过相机的视角和Pygame窗口的大小进行计算。</p>
-<pre><code>def convert_pygame_to_world(self, x, y):
+<div class="highlight"><pre><span></span><code>def convert_pygame_to_world(self, x, y):
     cam_transform = self.camera.get_transform()
     cam_loc = cam_transform.location
 
@@ -136,11 +133,10 @@
     world_y = cam_loc.y - relative_y
 
     return world_x, world_y
-
-</code></pre>
+</code></pre></div>
 <h3 id="run">run函数</h3>
 <p>​   运行模拟器，初始化Pygame窗口，设置相机监听器，并处理Pygame事件，如点击事件生成车辆。</p>
-<pre><code>def run(self):
+<div class="highlight"><pre><span></span><code>def run(self):
     pygame.init()
     display = pygame.display.set_mode((self.width, self.height), pygame.HWSURFACE | pygame.DOUBLEBUF)
     clock = pygame.time.Clock()
@@ -169,8 +165,7 @@
         vehicle.destroy()
     self.camera.destroy()
     pygame.quit()
-
-</code></pre>
+</code></pre></div>
 <p><img alt="" src="../../img/traffic_course_img/locate_moving.gif" /></p>
               
             </div>
@@ -207,8 +202,13 @@
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="../../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

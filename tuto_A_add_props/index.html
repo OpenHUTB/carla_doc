@@ -86,24 +86,24 @@
 <p><strong>2. 创建子文件夹。</strong> 应该有一个通用子文件夹来存放所有道具，并且在其中包含与要导入的道具一样多的子文件夹。</p>
 <p><strong>3. 将各个道具的文件移动到相应的子文件夹中。</strong> 道具子文件夹将包含<code>.fbx</code> 网格物体，以及它所需的纹理（可选）。</p>
 <p>例如，包含两个独立包的 <code>Import</code> 文件夹应具有类似于以下结构的结构。</p>
-<pre><code class="language-sh">Import
+<div class="highlight"><pre><span></span><code>Import
 │
-├── Package01
-│   ├── Package01.json
-│   └── Props
-│       ├── Prop01
-│       │   ├── Prop01_Diff.png
-│       │   ├── Prop01_Norm.png
-│       │   ├── Prop01_Spec.png
-│       │   └── Prop01.fbx
-│       └── Prop02
-│           └── Prop02.fbx
-└── Package02
-    ├── Packag02.json
-    └── Props
-        └── Prop03
-            └── Prop03.fbx
-</code></pre>
+├──<span class="w"> </span>Package01
+│<span class="w">   </span>├──<span class="w"> </span>Package01.json
+│<span class="w">   </span>└──<span class="w"> </span>Props
+│<span class="w">       </span>├──<span class="w"> </span>Prop01
+│<span class="w">       </span>│<span class="w">   </span>├──<span class="w"> </span>Prop01_Diff.png
+│<span class="w">       </span>│<span class="w">   </span>├──<span class="w"> </span>Prop01_Norm.png
+│<span class="w">       </span>│<span class="w">   </span>├──<span class="w"> </span>Prop01_Spec.png
+│<span class="w">       </span>│<span class="w">   </span>└──<span class="w"> </span>Prop01.fbx
+│<span class="w">       </span>└──<span class="w"> </span>Prop02
+│<span class="w">           </span>└──<span class="w"> </span>Prop02.fbx
+└──<span class="w"> </span>Package02
+<span class="w">    </span>├──<span class="w"> </span>Packag02.json
+<span class="w">    </span>└──<span class="w"> </span>Props
+<span class="w">        </span>└──<span class="w"> </span>Prop03
+<span class="w">            </span>└──<span class="w"> </span>Prop03.fbx
+</code></pre></div>
 <h3 id="json">创建 JSON 描述 <span id="create-the-json-description"></span></h3>
 <p>在包的根文件夹中创建一个 <code>.json</code> 文件。在包之后命名文件。请注意，这将是发行版名称。文件的内容将描述地图 <strong>maps</strong> 和道具 <strong>props</strong> 的 JSON 数组，以及每个地图和道具的基本信息。</p>
 <p><strong>Maps</strong> 不是本教程的一部分，因此该定义将为空。有一个具体的教程来 <a href="../tuto_M_custom_map_overview/"><strong>添加新地图</strong></a> 。</p>
@@ -147,25 +147,25 @@
 </li>
 </ul>
 <p>最后，<code>.json</code>应该与下面的类似。 </p>
-<pre><code class="language-json">{
-  &quot;maps&quot;: [
-  ],
-  &quot;props&quot;: [
-    {
-      &quot;name&quot;: &quot;MyProp01&quot;,
-      &quot;size&quot;: &quot;medium&quot;,
-      &quot;source&quot;: &quot;./Props/Prop01/Prop01.fbx&quot;,
-      &quot;tag&quot;: &quot;SemanticSegmentationTag01&quot;
-    },
-    {
-      &quot;name&quot;: &quot;MyProp02&quot;,
-      &quot;size&quot;: &quot;small&quot;,
-      &quot;source&quot;: &quot;./Props/Prop02/Prop02.fbx&quot;,
-      &quot;tag&quot;: &quot;SemanticSegmentationTag02&quot;
-    }
-  ]
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;maps&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;props&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MyProp01&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;size&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;medium&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;./Props/Prop01/Prop01.fbx&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;tag&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SemanticSegmentationTag01&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MyProp02&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;size&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;small&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;./Props/Prop02/Prop02.fbx&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;tag&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SemanticSegmentationTag02&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
 <div class="admonition 警告">
 <p class="admonition-title">警告</p>
 <p>具有相同名称的包将产生错误。</p>
@@ -176,8 +176,8 @@
 <p>将创建虚幻引擎的 Docker 映像。它充当一个黑盒子，自动将包导入到 Carla 镜像中，并生成分发包。Docker 镜像需要 4 小时和 400GB 才能构建。然而，这仅是第一次需要。</p>
 <p><strong>1. 构建虚幻引擎的 Docker 镜像。</strong> 请按照 <a href="https://github.com/carla-simulator/carla/tree/master/Util/Docker">以下说明</a> 构建映像。</p>
 <p><strong>2. 运行脚本来烘培道具。</strong> <code>~/carla/Util/Docker</code> 文件夹中有一个脚本，它与之前创建的 Docker 映像连接，并自动进行导入。它只需要输入和输出文件的路径以及要导入的包的名称。</p>
-<pre><code class="language-sh">python3 docker_tools.py --input ~/path_to_package --output ~/path_for_output_assets  --package=Package01
-</code></pre>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>docker_tools.py<span class="w"> </span>--input<span class="w"> </span>~/path_to_package<span class="w"> </span>--output<span class="w"> </span>~/path_for_output_assets<span class="w">  </span>--package<span class="o">=</span>Package01
+</code></pre></div>
 <p><strong>3. 定位包</strong>。 Docker 应该已经在输出路径中生成了包 <code>Package01.tar.gz</code>。这是资产的独立包。</p>
 <p><strong>4. 将包导入 Carla。</strong>  </p>
 <ul>
@@ -188,9 +188,9 @@
 <p><strong>在 Linux 上，</strong> 将包移动到 <code>Import</code> 文件夹，然后运行脚本将其导入。</p>
 </li>
 </ul>
-<pre><code class="language-sh">cd Util
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>Util
 ./ImportAssets.sh
-</code></pre>
+</code></pre></div>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>Linux 上有一个替代方案。将包移动到<code>Import</code>文件夹，并运行脚本<code>Util/ImportAssets.sh</code>以提取包。</p>
@@ -200,8 +200,8 @@
 <p>这是从源代码将道具导入到源代码构建 Carla 的方法。</p>
 <p>将读取 JSON 文件以将道具放入虚幻引擎 <code>Content</code> 中。此外，它将在包的<code>Config</code>文件夹中创建一个 <code>Package1.Package.json</code> 文件。这将用于定义蓝图库中的道具，并在 Python API 中公开它们。如果包作为 <a href="../tuto_A_create_standalone/">独立包</a> 导出，也将使用它。</p>
 <p>一切准备就绪后，运行命令。</p>
-<pre><code class="language-sh">make import
-</code></pre>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>import
+</code></pre></div>
 <div class="admonition 警告">
 <p class="admonition-title">警告</p>
 <p>确保该包位于 Carla 的 <code>Import</code> 文件夹内。</p>
@@ -249,8 +249,13 @@ Carla 论坛</a>
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

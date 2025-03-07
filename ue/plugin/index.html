@@ -82,44 +82,44 @@
 <h2 id="carlauplugin">插件的描述文件 Carla.uplugin</h2>
 <p><code>Carla.uplugin</code> 是插件json格式的插件描述文件，可以在插件编辑器中进行修改。</p>
 <p><img alt="" src="../../img/ue/carla_uplugin.jpg" /></p>
-<p>对应的文件内容为：</p>
-<pre><code class="language-json">{
-    &quot;FileVersion&quot;: 3,
-    &quot;Version&quot;: 1,
-    &quot;VersionName&quot;: &quot;0.9.15&quot;,
-    &quot;FriendlyName&quot;: &quot;CARLA&quot;,
-    &quot;Description&quot;: &quot;Open-source simulator for autonomous driving research.&quot;,
-    &quot;Category&quot;: &quot;Science&quot;,
-    &quot;CreatedBy&quot;: &quot;Computer Vision Center (CVC) at the Universitat Autonoma de Barcelona (UAB)&quot;,
-    &quot;CreatedByURL&quot;: &quot;http://carla.org&quot;,
-    &quot;DocsURL&quot;: &quot;http://carla.readthedocs.io&quot;,
-    &quot;MarketplaceURL&quot;: &quot;&quot;,
-    &quot;SupportURL&quot;: &quot;https://github.com/carla-simulator/carla/issues&quot;,
-    &quot;CanContainContent&quot;: true,
-    &quot;IsBetaVersion&quot;: true,
-    &quot;Installed&quot;: true,
-    &quot;Modules&quot;: [
-        {
-            &quot;Name&quot;: &quot;Carla&quot;,
-            &quot;Type&quot;: &quot;Runtime&quot;,
-            &quot;LoadingPhase&quot;: &quot;PreDefault&quot;,
-            &quot;AdditionalDependencies&quot;: [
-                &quot;Engine&quot;
-            ]
-        }
-    ],
-    &quot;Plugins&quot;: [
-        {
-            &quot;Name&quot;: &quot;PhysXVehicles&quot;,
-            &quot;Enabled&quot;: true
-        },
-        {
-            &quot;Name&quot;: &quot;ProceduralMeshComponent&quot;,
-            &quot;Enabled&quot;: true
-        }
-    ]
-}
-</code></pre>
+<p>对应的文件内容为：
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;FileVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Version&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;VersionName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.9.15&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;FriendlyName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;CARLA&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Open-source simulator for autonomous driving research.&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Category&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Science&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;CreatedBy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Computer Vision Center (CVC) at the Universitat Autonoma de Barcelona (UAB)&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;CreatedByURL&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://carla.org&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;DocsURL&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://carla.readthedocs.io&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;MarketplaceURL&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;SupportURL&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://github.com/carla-simulator/carla/issues&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;CanContainContent&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;IsBetaVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Installed&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Modules&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;Name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Carla&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;Type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Runtime&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;LoadingPhase&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PreDefault&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;AdditionalDependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;Engine&quot;</span>
+<span class="w">            </span><span class="p">]</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;Plugins&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;Name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PhysXVehicles&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;Enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;Name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ProceduralMeshComponent&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;Enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></p>
 <p><strong>模块描述符Modules</strong> 必须有Name和Type字段。</p>
 <ul>
 <li>Name：是插件模块的唯一命名，将随着插件而加载。在运行时，插件的Binaries文件夹中需存在正确的插件二进制文件，并带有指定模块命名。</li>
@@ -130,363 +130,361 @@
 <details>
 <summary><b>Carla.Build.cs</b> </summary>
 
+<div class="highlight"><pre><span></span><code><span class="c1">// Copyright 1998-2017 Epic Games, Inc. All Rights Reserved.</span>
 
-<pre><code class="language-json">// Copyright 1998-2017 Epic Games, Inc. All Rights Reserved.
+<span class="err">usi</span><span class="kc">n</span><span class="err">g</span><span class="w"> </span><span class="err">Sys</span><span class="kc">te</span><span class="err">m;</span>
+<span class="err">usi</span><span class="kc">n</span><span class="err">g</span><span class="w"> </span><span class="err">Sys</span><span class="kc">te</span><span class="err">m.IO;</span>
+<span class="err">usi</span><span class="kc">n</span><span class="err">g</span><span class="w"> </span><span class="err">U</span><span class="kc">nreal</span><span class="err">BuildTool;</span>
 
-using System;
-using System.IO;
-using UnrealBuildTool;
+<span class="err">public</span><span class="w"> </span><span class="err">class</span><span class="w"> </span><span class="err">Carla</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="err">ModuleRules</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="err">bool</span><span class="w"> </span><span class="err">Usi</span><span class="kc">n</span><span class="err">gCarSim</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="kc">false</span><span class="err">;</span>
+<span class="w">  </span><span class="err">bool</span><span class="w"> </span><span class="err">Usi</span><span class="kc">n</span><span class="err">gChro</span><span class="kc">n</span><span class="err">o</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="kc">false</span><span class="err">;</span>
+<span class="w">  </span><span class="err">bool</span><span class="w"> </span><span class="err">Usi</span><span class="kc">n</span><span class="err">gPy</span><span class="kc">t</span><span class="err">orch</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="kc">false</span><span class="err">;</span>
+<span class="w">  </span><span class="err">bool</span><span class="w"> </span><span class="err">Usi</span><span class="kc">n</span><span class="err">gRos</span><span class="mi">2</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="kc">false</span><span class="err">;</span>
+<span class="w">  </span><span class="err">priva</span><span class="kc">te</span><span class="w"> </span><span class="err">bool</span><span class="w"> </span><span class="err">IsWi</span><span class="kc">n</span><span class="err">dows(ReadO</span><span class="kc">nl</span><span class="err">yTarge</span><span class="kc">t</span><span class="err">Rules</span><span class="w"> </span><span class="err">Targe</span><span class="kc">t</span><span class="err">)</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="err">re</span><span class="kc">turn</span><span class="w"> </span><span class="err">(Targe</span><span class="kc">t</span><span class="err">.Pla</span><span class="kc">tf</span><span class="err">orm</span><span class="w"> </span><span class="err">==</span><span class="w"> </span><span class="err">U</span><span class="kc">nreal</span><span class="err">Targe</span><span class="kc">t</span><span class="err">Pla</span><span class="kc">tf</span><span class="err">orm.Wi</span><span class="kc">n</span><span class="mi">64</span><span class="err">)</span><span class="w"> </span><span class="err">||</span><span class="w"> </span><span class="err">(Targe</span><span class="kc">t</span><span class="err">.Pla</span><span class="kc">tf</span><span class="err">orm</span><span class="w"> </span><span class="err">==</span><span class="w"> </span><span class="err">U</span><span class="kc">nreal</span><span class="err">Targe</span><span class="kc">t</span><span class="err">Pla</span><span class="kc">tf</span><span class="err">orm.Wi</span><span class="kc">n</span><span class="mi">32</span><span class="err">);</span>
+<span class="w">  </span><span class="p">}</span>
 
-public class Carla : ModuleRules
-{
-  bool UsingCarSim = false;
-  bool UsingChrono = false;
-  bool UsingPytorch = false;
-  bool UsingRos2 = false;
-  private bool IsWindows(ReadOnlyTargetRules Target)
-  {
-    return (Target.Platform == UnrealTargetPlatform.Win64) || (Target.Platform == UnrealTargetPlatform.Win32);
-  }
+<span class="w">  </span><span class="err">public</span><span class="w"> </span><span class="err">Carla(ReadO</span><span class="kc">nl</span><span class="err">yTarge</span><span class="kc">t</span><span class="err">Rules</span><span class="w"> </span><span class="err">Targe</span><span class="kc">t</span><span class="err">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="err">base(Targe</span><span class="kc">t</span><span class="err">)</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="err">Priva</span><span class="kc">te</span><span class="err">PCHHeaderFile</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="s2">&quot;Carla.h&quot;</span><span class="err">;</span>
 
-  public Carla(ReadOnlyTargetRules Target) : base(Target)
-  {
-    PrivatePCHHeaderFile = &quot;Carla.h&quot;;
+<span class="w">    </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="err">(IsWi</span><span class="kc">n</span><span class="err">dows(Targe</span><span class="kc">t</span><span class="err">))</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="err">bE</span><span class="kc">na</span><span class="err">bleExcep</span><span class="kc">t</span><span class="err">io</span><span class="kc">ns</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="kc">true</span><span class="err">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-    if (IsWindows(Target))
-    {
-      bEnableExceptions = true;
-    }
+<span class="w">    </span><span class="c1">// Read config about carsim</span>
+<span class="w">    </span><span class="err">s</span><span class="kc">tr</span><span class="err">i</span><span class="kc">n</span><span class="err">g</span><span class="w"> </span><span class="err">CarlaPlugi</span><span class="kc">n</span><span class="err">Pa</span><span class="kc">t</span><span class="err">h</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="err">Pa</span><span class="kc">t</span><span class="err">h.Ge</span><span class="kc">t</span><span class="err">FullPa</span><span class="kc">t</span><span class="err">h(</span><span class="w"> </span><span class="err">ModuleDirec</span><span class="kc">t</span><span class="err">ory</span><span class="w"> </span><span class="err">);</span>
+<span class="w">    </span><span class="err">s</span><span class="kc">tr</span><span class="err">i</span><span class="kc">n</span><span class="err">g</span><span class="w"> </span><span class="err">Co</span><span class="kc">nf</span><span class="err">igDir</span><span class="w"> </span><span class="err">=</span><span class="w">  </span><span class="err">Pa</span><span class="kc">t</span><span class="err">h.Ge</span><span class="kc">t</span><span class="err">FullPa</span><span class="kc">t</span><span class="err">h(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(CarlaPlugi</span><span class="kc">n</span><span class="err">Pa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;../../../../Config/&quot;</span><span class="err">));</span>
+<span class="w">    </span><span class="err">s</span><span class="kc">tr</span><span class="err">i</span><span class="kc">n</span><span class="err">g</span><span class="w"> </span><span class="err">Op</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">ModulesFile</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="err">Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(Co</span><span class="kc">nf</span><span class="err">igDir</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;OptionalModules.ini&quot;</span><span class="err">);</span>
+<span class="w">    </span><span class="err">s</span><span class="kc">tr</span><span class="err">i</span><span class="kc">n</span><span class="err">g</span><span class="p">[]</span><span class="w"> </span><span class="kc">te</span><span class="err">x</span><span class="kc">t</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="err">Sys</span><span class="kc">te</span><span class="err">m.IO.File.ReadAllLi</span><span class="kc">nes</span><span class="err">(Op</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">ModulesFile);</span>
+<span class="w">    </span><span class="kc">f</span><span class="err">oreach</span><span class="w"> </span><span class="err">(s</span><span class="kc">tr</span><span class="err">i</span><span class="kc">n</span><span class="err">g</span><span class="w"> </span><span class="err">li</span><span class="kc">ne</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="kc">te</span><span class="err">x</span><span class="kc">t</span><span class="err">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="err">(li</span><span class="kc">ne</span><span class="err">.Co</span><span class="kc">nta</span><span class="err">i</span><span class="kc">ns</span><span class="err">(</span><span class="s2">&quot;CarSim ON&quot;</span><span class="err">))</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="err">Co</span><span class="kc">ns</span><span class="err">ole.Wri</span><span class="kc">te</span><span class="err">Li</span><span class="kc">ne</span><span class="err">(</span><span class="s2">&quot;Enabling carsim&quot;</span><span class="err">);</span>
+<span class="w">        </span><span class="err">Usi</span><span class="kc">n</span><span class="err">gCarSim</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="kc">true</span><span class="err">;</span>
+<span class="w">        </span><span class="err">PublicDe</span><span class="kc">f</span><span class="err">i</span><span class="kc">n</span><span class="err">i</span><span class="kc">t</span><span class="err">io</span><span class="kc">ns</span><span class="err">.Add(</span><span class="s2">&quot;WITH_CARSIM&quot;</span><span class="err">);</span>
+<span class="w">        </span><span class="err">Priva</span><span class="kc">te</span><span class="err">De</span><span class="kc">f</span><span class="err">i</span><span class="kc">n</span><span class="err">i</span><span class="kc">t</span><span class="err">io</span><span class="kc">ns</span><span class="err">.Add(</span><span class="s2">&quot;WITH_CARSIM&quot;</span><span class="err">);</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">      </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="err">(li</span><span class="kc">ne</span><span class="err">.Co</span><span class="kc">nta</span><span class="err">i</span><span class="kc">ns</span><span class="err">(</span><span class="s2">&quot;Chrono ON&quot;</span><span class="err">))</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="err">Co</span><span class="kc">ns</span><span class="err">ole.Wri</span><span class="kc">te</span><span class="err">Li</span><span class="kc">ne</span><span class="err">(</span><span class="s2">&quot;Enabling chrono&quot;</span><span class="err">);</span>
+<span class="w">        </span><span class="err">Usi</span><span class="kc">n</span><span class="err">gChro</span><span class="kc">n</span><span class="err">o</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="kc">true</span><span class="err">;</span>
+<span class="w">        </span><span class="err">PublicDe</span><span class="kc">f</span><span class="err">i</span><span class="kc">n</span><span class="err">i</span><span class="kc">t</span><span class="err">io</span><span class="kc">ns</span><span class="err">.Add(</span><span class="s2">&quot;WITH_CHRONO&quot;</span><span class="err">);</span>
+<span class="w">        </span><span class="err">Priva</span><span class="kc">te</span><span class="err">De</span><span class="kc">f</span><span class="err">i</span><span class="kc">n</span><span class="err">i</span><span class="kc">t</span><span class="err">io</span><span class="kc">ns</span><span class="err">.Add(</span><span class="s2">&quot;WITH_CHRONO&quot;</span><span class="err">);</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">      </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="err">(li</span><span class="kc">ne</span><span class="err">.Co</span><span class="kc">nta</span><span class="err">i</span><span class="kc">ns</span><span class="err">(</span><span class="s2">&quot;Pytorch ON&quot;</span><span class="err">))</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="err">Co</span><span class="kc">ns</span><span class="err">ole.Wri</span><span class="kc">te</span><span class="err">Li</span><span class="kc">ne</span><span class="err">(</span><span class="s2">&quot;Enabling pytorch&quot;</span><span class="err">);</span>
+<span class="w">        </span><span class="err">Usi</span><span class="kc">n</span><span class="err">gPy</span><span class="kc">t</span><span class="err">orch</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="kc">true</span><span class="err">;</span>
+<span class="w">        </span><span class="err">PublicDe</span><span class="kc">f</span><span class="err">i</span><span class="kc">n</span><span class="err">i</span><span class="kc">t</span><span class="err">io</span><span class="kc">ns</span><span class="err">.Add(</span><span class="s2">&quot;WITH_PYTORCH&quot;</span><span class="err">);</span>
+<span class="w">        </span><span class="err">Priva</span><span class="kc">te</span><span class="err">De</span><span class="kc">f</span><span class="err">i</span><span class="kc">n</span><span class="err">i</span><span class="kc">t</span><span class="err">io</span><span class="kc">ns</span><span class="err">.Add(</span><span class="s2">&quot;WITH_PYTORCH&quot;</span><span class="err">);</span>
+<span class="w">      </span><span class="p">}</span>
 
-    // Read config about carsim
-    string CarlaPluginPath = Path.GetFullPath( ModuleDirectory );
-    string ConfigDir =  Path.GetFullPath(Path.Combine(CarlaPluginPath, &quot;../../../../Config/&quot;));
-    string OptionalModulesFile = Path.Combine(ConfigDir, &quot;OptionalModules.ini&quot;);
-    string[] text = System.IO.File.ReadAllLines(OptionalModulesFile);
-    foreach (string line in text)
-    {
-      if (line.Contains(&quot;CarSim ON&quot;))
-      {
-        Console.WriteLine(&quot;Enabling carsim&quot;);
-        UsingCarSim = true;
-        PublicDefinitions.Add(&quot;WITH_CARSIM&quot;);
-        PrivateDefinitions.Add(&quot;WITH_CARSIM&quot;);
-      }
-      if (line.Contains(&quot;Chrono ON&quot;))
-      {
-        Console.WriteLine(&quot;Enabling chrono&quot;);
-        UsingChrono = true;
-        PublicDefinitions.Add(&quot;WITH_CHRONO&quot;);
-        PrivateDefinitions.Add(&quot;WITH_CHRONO&quot;);
-      }
-      if (line.Contains(&quot;Pytorch ON&quot;))
-      {
-        Console.WriteLine(&quot;Enabling pytorch&quot;);
-        UsingPytorch = true;
-        PublicDefinitions.Add(&quot;WITH_PYTORCH&quot;);
-        PrivateDefinitions.Add(&quot;WITH_PYTORCH&quot;);
-      }
+<span class="w">      </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="err">(li</span><span class="kc">ne</span><span class="err">.Co</span><span class="kc">nta</span><span class="err">i</span><span class="kc">ns</span><span class="err">(</span><span class="s2">&quot;Ros2 ON&quot;</span><span class="err">))</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="err">Co</span><span class="kc">ns</span><span class="err">ole.Wri</span><span class="kc">te</span><span class="err">Li</span><span class="kc">ne</span><span class="err">(</span><span class="s2">&quot;Enabling ros2&quot;</span><span class="err">);</span>
+<span class="w">        </span><span class="err">Usi</span><span class="kc">n</span><span class="err">gRos</span><span class="mi">2</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="kc">true</span><span class="err">;</span>
+<span class="w">        </span><span class="err">PublicDe</span><span class="kc">f</span><span class="err">i</span><span class="kc">n</span><span class="err">i</span><span class="kc">t</span><span class="err">io</span><span class="kc">ns</span><span class="err">.Add(</span><span class="s2">&quot;WITH_ROS2&quot;</span><span class="err">);</span>
+<span class="w">        </span><span class="err">Priva</span><span class="kc">te</span><span class="err">De</span><span class="kc">f</span><span class="err">i</span><span class="kc">n</span><span class="err">i</span><span class="kc">t</span><span class="err">io</span><span class="kc">ns</span><span class="err">.Add(</span><span class="s2">&quot;WITH_ROS2&quot;</span><span class="err">);</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
 
-      if (line.Contains(&quot;Ros2 ON&quot;))
-      {
-        Console.WriteLine(&quot;Enabling ros2&quot;);
-        UsingRos2 = true;
-        PublicDefinitions.Add(&quot;WITH_ROS2&quot;);
-        PrivateDefinitions.Add(&quot;WITH_ROS2&quot;);
-      }
-    }
+<span class="w">    </span><span class="err">PublicI</span><span class="kc">n</span><span class="err">cludePa</span><span class="kc">t</span><span class="err">hs.AddRa</span><span class="kc">n</span><span class="err">ge(</span>
+<span class="w">      </span><span class="kc">ne</span><span class="err">w</span><span class="w"> </span><span class="err">s</span><span class="kc">tr</span><span class="err">i</span><span class="kc">n</span><span class="err">g</span><span class="p">[]</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// ... add public include paths required here ...</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">      </span><span class="err">);</span>
 
-    PublicIncludePaths.AddRange(
-      new string[] {
-        // ... add public include paths required here ...
-      }
-      );
+<span class="w">    </span><span class="err">Priva</span><span class="kc">te</span><span class="err">I</span><span class="kc">n</span><span class="err">cludePa</span><span class="kc">t</span><span class="err">hs.AddRa</span><span class="kc">n</span><span class="err">ge(</span>
+<span class="w">      </span><span class="kc">ne</span><span class="err">w</span><span class="w"> </span><span class="err">s</span><span class="kc">tr</span><span class="err">i</span><span class="kc">n</span><span class="err">g</span><span class="p">[]</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// ... add other private include paths required here ...</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">      </span><span class="err">);</span>
 
-    PrivateIncludePaths.AddRange(
-      new string[] {
-        // ... add other private include paths required here ...
-      }
-      );
+<span class="w">    </span><span class="err">PublicDepe</span><span class="kc">n</span><span class="err">de</span><span class="kc">n</span><span class="err">cyModuleNames.AddRa</span><span class="kc">n</span><span class="err">ge(</span>
+<span class="w">      </span><span class="kc">ne</span><span class="err">w</span><span class="w"> </span><span class="err">s</span><span class="kc">tr</span><span class="err">i</span><span class="kc">n</span><span class="err">g</span><span class="p">[]</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="s2">&quot;Core&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;RenderCore&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;RHI&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Renderer&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;ProceduralMeshComponent&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;MeshDescription&quot;</span>
+<span class="w">        </span><span class="c1">// ... add other public dependencies that you statically link with here ...</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">      </span><span class="err">);</span>
+<span class="w">    </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="err">(Usi</span><span class="kc">n</span><span class="err">gCarSim)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="err">PublicDepe</span><span class="kc">n</span><span class="err">de</span><span class="kc">n</span><span class="err">cyModuleNames.AddRa</span><span class="kc">n</span><span class="err">ge(</span><span class="kc">ne</span><span class="err">w</span><span class="w"> </span><span class="err">s</span><span class="kc">tr</span><span class="err">i</span><span class="kc">n</span><span class="err">g</span><span class="p">[]</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">&quot;CarSim&quot;</span><span class="w"> </span><span class="p">}</span><span class="err">);</span>
+<span class="w">    </span><span class="p">}</span>
 
-    PublicDependencyModuleNames.AddRange(
-      new string[]
-      {
-        &quot;Core&quot;,
-        &quot;RenderCore&quot;,
-        &quot;RHI&quot;,
-        &quot;Renderer&quot;,
-        &quot;ProceduralMeshComponent&quot;,
-        &quot;MeshDescription&quot;
-        // ... add other public dependencies that you statically link with here ...
-      }
-      );
-    if (UsingCarSim)
-    {
-      PublicDependencyModuleNames.AddRange(new string[] { &quot;CarSim&quot; });
-    }
+<span class="w">     </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="err">(Targe</span><span class="kc">t</span><span class="err">.Type</span><span class="w"> </span><span class="err">==</span><span class="w"> </span><span class="err">Targe</span><span class="kc">t</span><span class="err">Type.Edi</span><span class="kc">t</span><span class="err">or)</span>
+<span class="w">     </span><span class="p">{</span>
+<span class="w">        </span><span class="err">PublicDepe</span><span class="kc">n</span><span class="err">de</span><span class="kc">n</span><span class="err">cyModuleNames.AddRa</span><span class="kc">n</span><span class="err">ge(</span><span class="kc">ne</span><span class="err">w</span><span class="w"> </span><span class="err">s</span><span class="kc">tr</span><span class="err">i</span><span class="kc">n</span><span class="err">g</span><span class="p">[]</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">&quot;UnrealEd&quot;</span><span class="w"> </span><span class="p">}</span><span class="err">);</span>
+<span class="w">     </span><span class="p">}</span>
 
-     if (Target.Type == TargetType.Editor)
-     {
-        PublicDependencyModuleNames.AddRange(new string[] { &quot;UnrealEd&quot; });
-     }
-
-    PrivateDependencyModuleNames.AddRange(
-      new string[]
-      {
-        &quot;AIModule&quot;,
-        &quot;AssetRegistry&quot;,
-        &quot;CoreUObject&quot;,
-        &quot;Engine&quot;,
-        &quot;Foliage&quot;,
-        &quot;HTTP&quot;,
-        &quot;StaticMeshDescription&quot;,
-        &quot;ImageWriteQueue&quot;,
-        &quot;Json&quot;,
-        &quot;JsonUtilities&quot;,
-        &quot;Landscape&quot;,
-        &quot;PhysX&quot;,
-        &quot;PhysXVehicles&quot;,
-        &quot;PhysXVehicleLib&quot;,
-        &quot;Slate&quot;,
-        &quot;SlateCore&quot;,
-        &quot;PhysicsCore&quot;
-        // ... add private dependencies that you statically link with here ...
-      }
-      );
-    if (UsingCarSim)
-    {
-      PrivateDependencyModuleNames.AddRange(new string[] { &quot;CarSim&quot; });
-      PrivateIncludePathModuleNames.AddRange(new string[] { &quot;CarSim&quot; });
-    }
-
-
-    DynamicallyLoadedModuleNames.AddRange(
-      new string[]
-      {
-        // ... add any modules that your module loads dynamically here ...
-      }
-      );
-
-    AddCarlaServerDependency(Target);
-  }
-
-  private bool UseDebugLibs(ReadOnlyTargetRules Target)
-  {
-    if (IsWindows(Target))
-    {
-      // In Windows, Unreal uses the Release C++ Runtime (CRT) even in debug
-      // mode, so unless we recompile the engine we cannot link the debug
-      // libraries.
-      return false;
-    }
-    else
-    {
-      return false;
-    }
-  }
-
-  private void AddDynamicLibrary(string library)
-  {
-    PublicAdditionalLibraries.Add(library);
-    RuntimeDependencies.Add(library);
-    PublicDelayLoadDLLs.Add(library);
-  }
-  private void AddDllDependency(string PathToFolder, string DllName)
-  {
-    string Source = Path.Combine(PathToFolder, DllName);
-    string Destination = Path.Combine(&quot;$(BinaryOutputDir)&quot;, DllName);
-    RuntimeDependencies.Add(Destination, Source);
-  }
-
-  delegate string ADelegate(string s);
-
-  private void AddBoostLibs(string LibPath)
-  {
-    string [] files = Directory.GetFiles(LibPath, &quot;*boost*.lib&quot;);
-    foreach (string file in files) PublicAdditionalLibraries.Add(file);
-  }
-
-  private void AddCarlaServerDependency(ReadOnlyTargetRules Target)
-  {
-    string LibCarlaInstallPath = Path.GetFullPath(Path.Combine(ModuleDirectory, &quot;../../CarlaDependencies&quot;));
-
-    ADelegate GetLibName = (string BaseName) =&gt; {
-      if (IsWindows(Target))
-      {
-        return BaseName + &quot;.lib&quot;;
-      }
-      else
-      {
-        return &quot;lib&quot; + BaseName + &quot;.a&quot;;
-      }
-    };
-
-    // Link dependencies.
-    if (IsWindows(Target))
-    {
-      AddBoostLibs(Path.Combine(LibCarlaInstallPath, &quot;lib&quot;));
-      PublicAdditionalLibraries.Add(Path.Combine(LibCarlaInstallPath, &quot;lib&quot;, GetLibName(&quot;rpc&quot;)));
-
-      if (UseDebugLibs(Target))
-      {
-        PublicAdditionalLibraries.Add(Path.Combine(LibCarlaInstallPath, &quot;lib&quot;, GetLibName(&quot;carla_server_debug&quot;)));
-      }
-      else
-      {
-        PublicAdditionalLibraries.Add(Path.Combine(LibCarlaInstallPath, &quot;lib&quot;, GetLibName(&quot;carla_server&quot;)));
-      }
-      if (UsingChrono)
-      {
-        PublicAdditionalLibraries.Add(Path.Combine(LibCarlaInstallPath, &quot;lib&quot;, GetLibName(&quot;ChronoEngine&quot;)));
-        PublicAdditionalLibraries.Add(Path.Combine(LibCarlaInstallPath, &quot;lib&quot;, GetLibName(&quot;ChronoEngine_vehicle&quot;)));
-        PublicAdditionalLibraries.Add(Path.Combine(LibCarlaInstallPath, &quot;lib&quot;, GetLibName(&quot;ChronoModels_vehicle&quot;)));
-        PublicAdditionalLibraries.Add(Path.Combine(LibCarlaInstallPath, &quot;lib&quot;, GetLibName(&quot;ChronoModels_robot&quot;)));
-        AddDllDependency(Path.Combine(LibCarlaInstallPath, &quot;dll&quot;), &quot;ChronoEngine.dll&quot;);
-        AddDllDependency(Path.Combine(LibCarlaInstallPath, &quot;dll&quot;), &quot;ChronoEngine_vehicle.dll&quot;);
-        AddDllDependency(Path.Combine(LibCarlaInstallPath, &quot;dll&quot;), &quot;ChronoModels_vehicle.dll&quot;);
-        AddDllDependency(Path.Combine(LibCarlaInstallPath, &quot;dll&quot;), &quot;ChronoModels_robot.dll&quot;);
-        bUseRTTI = true;
-      }
-
-      //OsmToODR
-      PublicAdditionalLibraries.Add(Path.Combine(LibCarlaInstallPath, &quot;lib&quot;, &quot;sqlite3.lib&quot;));
-      PublicAdditionalLibraries.Add(Path.Combine(LibCarlaInstallPath, &quot;lib&quot;, &quot;xerces-c_3.lib&quot;));
-      PublicAdditionalLibraries.Add(Path.Combine(LibCarlaInstallPath, &quot;lib&quot;, &quot;proj.lib&quot;));
-      PublicAdditionalLibraries.Add(Path.Combine(LibCarlaInstallPath, &quot;lib&quot;, &quot;osm2odr.lib&quot;));
-      PublicAdditionalLibraries.Add(Path.Combine(LibCarlaInstallPath, &quot;lib&quot;, &quot;zlibstatic.lib&quot;));
-    }
-    else
-    {
-      PublicAdditionalLibraries.Add(Path.Combine(LibCarlaInstallPath, &quot;lib&quot;, GetLibName(&quot;rpc&quot;)));
-      if (UseDebugLibs(Target))
-      {
-        PublicAdditionalLibraries.Add(Path.Combine(LibCarlaInstallPath, &quot;lib&quot;, GetLibName(&quot;carla_server_debug&quot;)));
-      }
-      else
-      {
-        PublicAdditionalLibraries.Add(Path.Combine(LibCarlaInstallPath, &quot;lib&quot;, GetLibName(&quot;carla_server&quot;)));
-      }
-      if (UsingChrono)
-      {
-        AddDynamicLibrary(Path.Combine(LibCarlaInstallPath, &quot;lib&quot;, &quot;libChronoEngine.so&quot;));
-        AddDynamicLibrary(Path.Combine(LibCarlaInstallPath, &quot;lib&quot;, &quot;libChronoEngine_vehicle.so&quot;));
-        AddDynamicLibrary(Path.Combine(LibCarlaInstallPath, &quot;lib&quot;, &quot;libChronoModels_vehicle.so&quot;));
-        AddDynamicLibrary(Path.Combine(LibCarlaInstallPath, &quot;lib&quot;, &quot;libChronoModels_robot.so&quot;));
-
-        bUseRTTI = true;
-      }
-
-      if (UsingPytorch)
-      {
-        PublicAdditionalLibraries.Add(Path.Combine(LibCarlaInstallPath, &quot;lib&quot;, GetLibName(&quot;carla_pytorch&quot;)));
-
-        string LibTorchPath = LibCarlaInstallPath;
-        PublicAdditionalLibraries.Add(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libonnx_proto.a&quot;));
-        PublicAdditionalLibraries.Add(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libfbgemm.a&quot;));
-        PublicAdditionalLibraries.Add(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libgloo.a&quot;));
-        PublicAdditionalLibraries.Add(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libXNNPACK.a&quot;));
-        PublicAdditionalLibraries.Add(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libprotobuf-lite.a&quot;));
-        PublicAdditionalLibraries.Add(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libprotobuf.a&quot;));
-        PublicAdditionalLibraries.Add(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libasmjit.a&quot;));
-        PublicAdditionalLibraries.Add(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libcpuinfo_internals.a&quot;));
-        PublicAdditionalLibraries.Add(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libclog.a&quot;));
-        // PublicAdditionalLibraries.Add(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libbreakpad_common.a&quot;));
-        PublicAdditionalLibraries.Add(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libbenchmark.a&quot;));
-        PublicAdditionalLibraries.Add(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libtensorpipe.a&quot;));
-        PublicAdditionalLibraries.Add(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libpytorch_qnnpack.a&quot;));
-        PublicAdditionalLibraries.Add(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libtensorpipe_cuda.a&quot;));
-        PublicAdditionalLibraries.Add(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libnnpack_reference_layers.a&quot;));
-        PublicAdditionalLibraries.Add(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libgmock.a&quot;));
-        PublicAdditionalLibraries.Add(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libdnnl.a&quot;));
-        PublicAdditionalLibraries.Add(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libpthreadpool.a&quot;));
-        PublicAdditionalLibraries.Add(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libcpuinfo.a&quot;));
-        PublicAdditionalLibraries.Add(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libqnnpack.a&quot;));
-        // PublicAdditionalLibraries.Add(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libbreakpad.a&quot;));
-        PublicAdditionalLibraries.Add(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libkineto.a&quot;));
-        PublicAdditionalLibraries.Add(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libprotoc.a&quot;));
-        PublicAdditionalLibraries.Add(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libgtest.a&quot;));
-        PublicAdditionalLibraries.Add(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libgmock_main.a&quot;));
-        PublicAdditionalLibraries.Add(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libgtest_main.a&quot;));
-        PublicAdditionalLibraries.Add(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libbenchmark_main.a&quot;));
-        PublicAdditionalLibraries.Add(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libfmt.a&quot;));
-        PublicAdditionalLibraries.Add(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libtensorpipe_uv.a&quot;));
-        PublicAdditionalLibraries.Add(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libfoxi_loader.a&quot;));
-        PublicAdditionalLibraries.Add(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libgloo_cuda.a&quot;));
-        PublicAdditionalLibraries.Add(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libnnpack.a&quot;));
-        PublicAdditionalLibraries.Add(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libcaffe2_protos.a&quot;));
-        PublicAdditionalLibraries.Add(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libonnx.a&quot;));
-        AddDynamicLibrary(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libtorch.so&quot;));
-        AddDynamicLibrary(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libnnapi_backend.so&quot;));
-        AddDynamicLibrary(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libbackend_with_compiler.so&quot;));
-        AddDynamicLibrary(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libcaffe2_nvrtc.so&quot;));
-        AddDynamicLibrary(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libtorch_cuda_cpp.so&quot;));
-        AddDynamicLibrary(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libc10_cuda.so&quot;));
-        AddDynamicLibrary(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libtorchbind_test.so&quot;));
-        AddDynamicLibrary(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libjitbackend_test.so&quot;));
-        AddDynamicLibrary(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libc10.so&quot;));
-        AddDynamicLibrary(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libtorch_cuda.so&quot;));
-        AddDynamicLibrary(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libtorch_global_deps.so&quot;));
-        AddDynamicLibrary(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libtorch_cpu.so&quot;));
-        AddDynamicLibrary(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libshm.so&quot;));
-        AddDynamicLibrary(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libtorch_cuda_cu.so&quot;));
-        AddDynamicLibrary(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libtorchscatter.so&quot;));
-        AddDynamicLibrary(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libtorchcluster.so&quot;));
-        // AddDynamicLibrary(&quot;/usr/local/cuda/lib64/stubs/libcuda.so&quot;);
-        // AddDynamicLibrary(&quot;/usr/local/cuda/lib64/libnvrtc.so&quot;);
-        // AddDynamicLibrary(&quot;/usr/local/cuda/lib64/libnvToolsExt.so&quot;);
-        // AddDynamicLibrary(&quot;/usr/local/cuda/lib64/libcudart.so&quot;);
-        // AddDynamicLibrary(&quot;/usr/lib/llvm-10/lib/libgomp.so&quot;);
-        PublicAdditionalLibraries.Add(&quot;/usr/local/cuda/lib64/stubs/libcuda.so&quot;);
-        PublicAdditionalLibraries.Add(&quot;/usr/local/cuda/lib64/libnvrtc.so&quot;);
-        PublicAdditionalLibraries.Add(&quot;/usr/local/cuda/lib64/libnvToolsExt.so&quot;);
-        PublicAdditionalLibraries.Add(&quot;/usr/local/cuda/lib64/libcudart.so&quot;);
-        PublicAdditionalLibraries.Add(&quot;/usr/lib/llvm-10/lib/libgomp.so&quot;);
-        RuntimeDependencies.Add(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libcudart-a7b20f20.so.11.0&quot;));
-        RuntimeDependencies.Add(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libgomp-a34b3233.so.1&quot;));
-        RuntimeDependencies.Add(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libnvrtc-builtins-4730a239.so.11.3&quot;));
-        RuntimeDependencies.Add(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libnvrtc-1ea278b5.so.11.2&quot;));
-        RuntimeDependencies.Add(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libnvToolsExt-24de1d56.so.1&quot;));
-        PublicAdditionalLibraries.Add(&quot;stdc++&quot;);
-        PublicAdditionalLibraries.Add(&quot;/usr/lib/x86_64-linux-gnu/libpython3.9.so&quot;);
-      }
-
-      if (UsingRos2)
-      {
-        PublicAdditionalLibraries.Add(Path.Combine(LibCarlaInstallPath, &quot;lib&quot;, GetLibName(&quot;carla_fastdds&quot;)));
-
-        string LibFastDDSPath = LibCarlaInstallPath;
-        AddDynamicLibrary(Path.Combine(LibFastDDSPath, &quot;lib&quot;, &quot;libfoonathan_memory-0.7.3.so&quot;));
-        AddDynamicLibrary(Path.Combine(LibFastDDSPath, &quot;lib&quot;, &quot;libfastcdr.so&quot;));
-        AddDynamicLibrary(Path.Combine(LibFastDDSPath, &quot;lib&quot;, &quot;libfastrtps.so&quot;));
-        PublicAdditionalLibraries.Add(&quot;stdc++&quot;);
-      }
+<span class="w">    </span><span class="err">Priva</span><span class="kc">te</span><span class="err">Depe</span><span class="kc">n</span><span class="err">de</span><span class="kc">n</span><span class="err">cyModuleNames.AddRa</span><span class="kc">n</span><span class="err">ge(</span>
+<span class="w">      </span><span class="kc">ne</span><span class="err">w</span><span class="w"> </span><span class="err">s</span><span class="kc">tr</span><span class="err">i</span><span class="kc">n</span><span class="err">g</span><span class="p">[]</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="s2">&quot;AIModule&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;AssetRegistry&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;CoreUObject&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Engine&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Foliage&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;HTTP&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;StaticMeshDescription&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;ImageWriteQueue&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Json&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;JsonUtilities&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Landscape&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;PhysX&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;PhysXVehicles&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;PhysXVehicleLib&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Slate&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;SlateCore&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;PhysicsCore&quot;</span>
+<span class="w">        </span><span class="c1">// ... add private dependencies that you statically link with here ...</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">      </span><span class="err">);</span>
+<span class="w">    </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="err">(Usi</span><span class="kc">n</span><span class="err">gCarSim)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="err">Priva</span><span class="kc">te</span><span class="err">Depe</span><span class="kc">n</span><span class="err">de</span><span class="kc">n</span><span class="err">cyModuleNames.AddRa</span><span class="kc">n</span><span class="err">ge(</span><span class="kc">ne</span><span class="err">w</span><span class="w"> </span><span class="err">s</span><span class="kc">tr</span><span class="err">i</span><span class="kc">n</span><span class="err">g</span><span class="p">[]</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">&quot;CarSim&quot;</span><span class="w"> </span><span class="p">}</span><span class="err">);</span>
+<span class="w">      </span><span class="err">Priva</span><span class="kc">te</span><span class="err">I</span><span class="kc">n</span><span class="err">cludePa</span><span class="kc">t</span><span class="err">hModuleNames.AddRa</span><span class="kc">n</span><span class="err">ge(</span><span class="kc">ne</span><span class="err">w</span><span class="w"> </span><span class="err">s</span><span class="kc">tr</span><span class="err">i</span><span class="kc">n</span><span class="err">g</span><span class="p">[]</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">&quot;CarSim&quot;</span><span class="w"> </span><span class="p">}</span><span class="err">);</span>
+<span class="w">    </span><span class="p">}</span>
 
 
-      //OsmToODR
-      PublicAdditionalLibraries.Add(&quot;/usr/lib/x86_64-linux-gnu/libc.so&quot;);
-      PublicAdditionalLibraries.Add(Path.Combine(LibCarlaInstallPath, &quot;lib&quot;, &quot;libsqlite3.so&quot;));
-      PublicAdditionalLibraries.Add(Path.Combine(LibCarlaInstallPath, &quot;lib&quot;, &quot;libxerces-c.a&quot;));
-      PublicAdditionalLibraries.Add(Path.Combine(LibCarlaInstallPath, &quot;lib&quot;, &quot;libproj.a&quot;));
-      PublicAdditionalLibraries.Add(Path.Combine(LibCarlaInstallPath, &quot;lib&quot;, &quot;libosm2odr.a&quot;));
+<span class="w">    </span><span class="err">Dy</span><span class="kc">na</span><span class="err">micallyLoadedModuleNames.AddRa</span><span class="kc">n</span><span class="err">ge(</span>
+<span class="w">      </span><span class="kc">ne</span><span class="err">w</span><span class="w"> </span><span class="err">s</span><span class="kc">tr</span><span class="err">i</span><span class="kc">n</span><span class="err">g</span><span class="p">[]</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// ... add any modules that your module loads dynamically here ...</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">      </span><span class="err">);</span>
 
-    }
-    bEnableExceptions = true;
+<span class="w">    </span><span class="err">AddCarlaServerDepe</span><span class="kc">n</span><span class="err">de</span><span class="kc">n</span><span class="err">cy(Targe</span><span class="kc">t</span><span class="err">);</span>
+<span class="w">  </span><span class="p">}</span>
 
-    // Include path.
-    string LibCarlaIncludePath = Path.Combine(LibCarlaInstallPath, &quot;include&quot;);
+<span class="w">  </span><span class="err">priva</span><span class="kc">te</span><span class="w"> </span><span class="err">bool</span><span class="w"> </span><span class="err">UseDebugLibs(ReadO</span><span class="kc">nl</span><span class="err">yTarge</span><span class="kc">t</span><span class="err">Rules</span><span class="w"> </span><span class="err">Targe</span><span class="kc">t</span><span class="err">)</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="err">(IsWi</span><span class="kc">n</span><span class="err">dows(Targe</span><span class="kc">t</span><span class="err">))</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">// In Windows, Unreal uses the Release C++ Runtime (CRT) even in debug</span>
+<span class="w">      </span><span class="c1">// mode, so unless we recompile the engine we cannot link the debug</span>
+<span class="w">      </span><span class="c1">// libraries.</span>
+<span class="w">      </span><span class="err">re</span><span class="kc">turn</span><span class="w"> </span><span class="kc">false</span><span class="err">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="err">else</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="err">re</span><span class="kc">turn</span><span class="w"> </span><span class="kc">false</span><span class="err">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
 
-    PublicIncludePaths.Add(LibCarlaIncludePath);
-    PrivateIncludePaths.Add(LibCarlaIncludePath);
+<span class="w">  </span><span class="err">priva</span><span class="kc">te</span><span class="w"> </span><span class="err">void</span><span class="w"> </span><span class="err">AddDy</span><span class="kc">na</span><span class="err">micLibrary(s</span><span class="kc">tr</span><span class="err">i</span><span class="kc">n</span><span class="err">g</span><span class="w"> </span><span class="err">library)</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(library);</span>
+<span class="w">    </span><span class="err">Ru</span><span class="kc">nt</span><span class="err">imeDepe</span><span class="kc">n</span><span class="err">de</span><span class="kc">n</span><span class="err">cies.Add(library);</span>
+<span class="w">    </span><span class="err">PublicDelayLoadDLLs.Add(library);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="err">priva</span><span class="kc">te</span><span class="w"> </span><span class="err">void</span><span class="w"> </span><span class="err">AddDllDepe</span><span class="kc">n</span><span class="err">de</span><span class="kc">n</span><span class="err">cy(s</span><span class="kc">tr</span><span class="err">i</span><span class="kc">n</span><span class="err">g</span><span class="w"> </span><span class="err">Pa</span><span class="kc">t</span><span class="err">hToFolder</span><span class="p">,</span><span class="w"> </span><span class="err">s</span><span class="kc">tr</span><span class="err">i</span><span class="kc">n</span><span class="err">g</span><span class="w"> </span><span class="err">DllName)</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="err">s</span><span class="kc">tr</span><span class="err">i</span><span class="kc">n</span><span class="err">g</span><span class="w"> </span><span class="err">Source</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="err">Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(Pa</span><span class="kc">t</span><span class="err">hToFolder</span><span class="p">,</span><span class="w"> </span><span class="err">DllName);</span>
+<span class="w">    </span><span class="err">s</span><span class="kc">tr</span><span class="err">i</span><span class="kc">n</span><span class="err">g</span><span class="w"> </span><span class="err">Des</span><span class="kc">t</span><span class="err">i</span><span class="kc">nat</span><span class="err">io</span><span class="kc">n</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="err">Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(</span><span class="s2">&quot;$(BinaryOutputDir)&quot;</span><span class="p">,</span><span class="w"> </span><span class="err">DllName);</span>
+<span class="w">    </span><span class="err">Ru</span><span class="kc">nt</span><span class="err">imeDepe</span><span class="kc">n</span><span class="err">de</span><span class="kc">n</span><span class="err">cies.Add(Des</span><span class="kc">t</span><span class="err">i</span><span class="kc">nat</span><span class="err">io</span><span class="kc">n</span><span class="p">,</span><span class="w"> </span><span class="err">Source);</span>
+<span class="w">  </span><span class="p">}</span>
 
-    PublicDefinitions.Add(&quot;ASIO_NO_EXCEPTIONS&quot;);
-    PublicDefinitions.Add(&quot;BOOST_NO_EXCEPTIONS&quot;);
-    PublicDefinitions.Add(&quot;LIBCARLA_NO_EXCEPTIONS&quot;);
-    PublicDefinitions.Add(&quot;PUGIXML_NO_EXCEPTIONS&quot;);
-    PublicDefinitions.Add(&quot;BOOST_DISABLE_ABI_HEADERS&quot;);
-    PublicDefinitions.Add(&quot;BOOST_TYPE_INDEX_FORCE_NO_RTTI_COMPATIBILITY&quot;);
-  }
-}
-</code></pre>
+<span class="w">  </span><span class="err">delega</span><span class="kc">te</span><span class="w"> </span><span class="err">s</span><span class="kc">tr</span><span class="err">i</span><span class="kc">n</span><span class="err">g</span><span class="w"> </span><span class="err">ADelega</span><span class="kc">te</span><span class="err">(s</span><span class="kc">tr</span><span class="err">i</span><span class="kc">n</span><span class="err">g</span><span class="w"> </span><span class="err">s);</span>
 
+<span class="w">  </span><span class="err">priva</span><span class="kc">te</span><span class="w"> </span><span class="err">void</span><span class="w"> </span><span class="err">AddBoos</span><span class="kc">t</span><span class="err">Libs(s</span><span class="kc">tr</span><span class="err">i</span><span class="kc">n</span><span class="err">g</span><span class="w"> </span><span class="err">LibPa</span><span class="kc">t</span><span class="err">h)</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="err">s</span><span class="kc">tr</span><span class="err">i</span><span class="kc">n</span><span class="err">g</span><span class="w"> </span><span class="p">[]</span><span class="w"> </span><span class="kc">f</span><span class="err">iles</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="err">Direc</span><span class="kc">t</span><span class="err">ory.Ge</span><span class="kc">t</span><span class="err">Files(LibPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;*boost*.lib&quot;</span><span class="err">);</span>
+<span class="w">    </span><span class="kc">f</span><span class="err">oreach</span><span class="w"> </span><span class="err">(s</span><span class="kc">tr</span><span class="err">i</span><span class="kc">n</span><span class="err">g</span><span class="w"> </span><span class="kc">f</span><span class="err">ile</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="kc">f</span><span class="err">iles)</span><span class="w"> </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(</span><span class="kc">f</span><span class="err">ile);</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="err">priva</span><span class="kc">te</span><span class="w"> </span><span class="err">void</span><span class="w"> </span><span class="err">AddCarlaServerDepe</span><span class="kc">n</span><span class="err">de</span><span class="kc">n</span><span class="err">cy(ReadO</span><span class="kc">nl</span><span class="err">yTarge</span><span class="kc">t</span><span class="err">Rules</span><span class="w"> </span><span class="err">Targe</span><span class="kc">t</span><span class="err">)</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="err">s</span><span class="kc">tr</span><span class="err">i</span><span class="kc">n</span><span class="err">g</span><span class="w"> </span><span class="err">LibCarlaI</span><span class="kc">nstall</span><span class="err">Pa</span><span class="kc">t</span><span class="err">h</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="err">Pa</span><span class="kc">t</span><span class="err">h.Ge</span><span class="kc">t</span><span class="err">FullPa</span><span class="kc">t</span><span class="err">h(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(ModuleDirec</span><span class="kc">t</span><span class="err">ory</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;../../CarlaDependencies&quot;</span><span class="err">));</span>
+
+<span class="w">    </span><span class="err">ADelega</span><span class="kc">te</span><span class="w"> </span><span class="err">Ge</span><span class="kc">t</span><span class="err">LibName</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="err">(s</span><span class="kc">tr</span><span class="err">i</span><span class="kc">n</span><span class="err">g</span><span class="w"> </span><span class="err">BaseName)</span><span class="w"> </span><span class="err">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="err">(IsWi</span><span class="kc">n</span><span class="err">dows(Targe</span><span class="kc">t</span><span class="err">))</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="err">re</span><span class="kc">turn</span><span class="w"> </span><span class="err">BaseName</span><span class="w"> </span><span class="err">+</span><span class="w"> </span><span class="s2">&quot;.lib&quot;</span><span class="err">;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">      </span><span class="err">else</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="err">re</span><span class="kc">turn</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="w"> </span><span class="err">+</span><span class="w"> </span><span class="err">BaseName</span><span class="w"> </span><span class="err">+</span><span class="w"> </span><span class="s2">&quot;.a&quot;</span><span class="err">;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span><span class="err">;</span>
+
+<span class="w">    </span><span class="c1">// Link dependencies.</span>
+<span class="w">    </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="err">(IsWi</span><span class="kc">n</span><span class="err">dows(Targe</span><span class="kc">t</span><span class="err">))</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="err">AddBoos</span><span class="kc">t</span><span class="err">Libs(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibCarlaI</span><span class="kc">nstall</span><span class="err">Pa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="err">));</span>
+<span class="w">      </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibCarlaI</span><span class="kc">nstall</span><span class="err">Pa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="err">Ge</span><span class="kc">t</span><span class="err">LibName(</span><span class="s2">&quot;rpc&quot;</span><span class="err">)));</span>
+
+<span class="w">      </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="err">(UseDebugLibs(Targe</span><span class="kc">t</span><span class="err">))</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibCarlaI</span><span class="kc">nstall</span><span class="err">Pa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="err">Ge</span><span class="kc">t</span><span class="err">LibName(</span><span class="s2">&quot;carla_server_debug&quot;</span><span class="err">)));</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">      </span><span class="err">else</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibCarlaI</span><span class="kc">nstall</span><span class="err">Pa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="err">Ge</span><span class="kc">t</span><span class="err">LibName(</span><span class="s2">&quot;carla_server&quot;</span><span class="err">)));</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">      </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="err">(Usi</span><span class="kc">n</span><span class="err">gChro</span><span class="kc">n</span><span class="err">o)</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibCarlaI</span><span class="kc">nstall</span><span class="err">Pa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="err">Ge</span><span class="kc">t</span><span class="err">LibName(</span><span class="s2">&quot;ChronoEngine&quot;</span><span class="err">)));</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibCarlaI</span><span class="kc">nstall</span><span class="err">Pa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="err">Ge</span><span class="kc">t</span><span class="err">LibName(</span><span class="s2">&quot;ChronoEngine_vehicle&quot;</span><span class="err">)));</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibCarlaI</span><span class="kc">nstall</span><span class="err">Pa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="err">Ge</span><span class="kc">t</span><span class="err">LibName(</span><span class="s2">&quot;ChronoModels_vehicle&quot;</span><span class="err">)));</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibCarlaI</span><span class="kc">nstall</span><span class="err">Pa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="err">Ge</span><span class="kc">t</span><span class="err">LibName(</span><span class="s2">&quot;ChronoModels_robot&quot;</span><span class="err">)));</span>
+<span class="w">        </span><span class="err">AddDllDepe</span><span class="kc">n</span><span class="err">de</span><span class="kc">n</span><span class="err">cy(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibCarlaI</span><span class="kc">nstall</span><span class="err">Pa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;dll&quot;</span><span class="err">)</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;ChronoEngine.dll&quot;</span><span class="err">);</span>
+<span class="w">        </span><span class="err">AddDllDepe</span><span class="kc">n</span><span class="err">de</span><span class="kc">n</span><span class="err">cy(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibCarlaI</span><span class="kc">nstall</span><span class="err">Pa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;dll&quot;</span><span class="err">)</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;ChronoEngine_vehicle.dll&quot;</span><span class="err">);</span>
+<span class="w">        </span><span class="err">AddDllDepe</span><span class="kc">n</span><span class="err">de</span><span class="kc">n</span><span class="err">cy(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibCarlaI</span><span class="kc">nstall</span><span class="err">Pa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;dll&quot;</span><span class="err">)</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;ChronoModels_vehicle.dll&quot;</span><span class="err">);</span>
+<span class="w">        </span><span class="err">AddDllDepe</span><span class="kc">n</span><span class="err">de</span><span class="kc">n</span><span class="err">cy(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibCarlaI</span><span class="kc">nstall</span><span class="err">Pa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;dll&quot;</span><span class="err">)</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;ChronoModels_robot.dll&quot;</span><span class="err">);</span>
+<span class="w">        </span><span class="err">bUseRTTI</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="kc">true</span><span class="err">;</span>
+<span class="w">      </span><span class="p">}</span>
+
+<span class="w">      </span><span class="c1">//OsmToODR</span>
+<span class="w">      </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibCarlaI</span><span class="kc">nstall</span><span class="err">Pa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;sqlite3.lib&quot;</span><span class="err">));</span>
+<span class="w">      </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibCarlaI</span><span class="kc">nstall</span><span class="err">Pa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;xerces-c_3.lib&quot;</span><span class="err">));</span>
+<span class="w">      </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibCarlaI</span><span class="kc">nstall</span><span class="err">Pa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;proj.lib&quot;</span><span class="err">));</span>
+<span class="w">      </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibCarlaI</span><span class="kc">nstall</span><span class="err">Pa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;osm2odr.lib&quot;</span><span class="err">));</span>
+<span class="w">      </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibCarlaI</span><span class="kc">nstall</span><span class="err">Pa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;zlibstatic.lib&quot;</span><span class="err">));</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="err">else</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibCarlaI</span><span class="kc">nstall</span><span class="err">Pa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="err">Ge</span><span class="kc">t</span><span class="err">LibName(</span><span class="s2">&quot;rpc&quot;</span><span class="err">)));</span>
+<span class="w">      </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="err">(UseDebugLibs(Targe</span><span class="kc">t</span><span class="err">))</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibCarlaI</span><span class="kc">nstall</span><span class="err">Pa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="err">Ge</span><span class="kc">t</span><span class="err">LibName(</span><span class="s2">&quot;carla_server_debug&quot;</span><span class="err">)));</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">      </span><span class="err">else</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibCarlaI</span><span class="kc">nstall</span><span class="err">Pa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="err">Ge</span><span class="kc">t</span><span class="err">LibName(</span><span class="s2">&quot;carla_server&quot;</span><span class="err">)));</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">      </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="err">(Usi</span><span class="kc">n</span><span class="err">gChro</span><span class="kc">n</span><span class="err">o)</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="err">AddDy</span><span class="kc">na</span><span class="err">micLibrary(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibCarlaI</span><span class="kc">nstall</span><span class="err">Pa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libChronoEngine.so&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">AddDy</span><span class="kc">na</span><span class="err">micLibrary(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibCarlaI</span><span class="kc">nstall</span><span class="err">Pa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libChronoEngine_vehicle.so&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">AddDy</span><span class="kc">na</span><span class="err">micLibrary(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibCarlaI</span><span class="kc">nstall</span><span class="err">Pa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libChronoModels_vehicle.so&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">AddDy</span><span class="kc">na</span><span class="err">micLibrary(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibCarlaI</span><span class="kc">nstall</span><span class="err">Pa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libChronoModels_robot.so&quot;</span><span class="err">));</span>
+
+<span class="w">        </span><span class="err">bUseRTTI</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="kc">true</span><span class="err">;</span>
+<span class="w">      </span><span class="p">}</span>
+
+<span class="w">      </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="err">(Usi</span><span class="kc">n</span><span class="err">gPy</span><span class="kc">t</span><span class="err">orch)</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibCarlaI</span><span class="kc">nstall</span><span class="err">Pa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="err">Ge</span><span class="kc">t</span><span class="err">LibName(</span><span class="s2">&quot;carla_pytorch&quot;</span><span class="err">)));</span>
+
+<span class="w">        </span><span class="err">s</span><span class="kc">tr</span><span class="err">i</span><span class="kc">n</span><span class="err">g</span><span class="w"> </span><span class="err">LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="err">LibCarlaI</span><span class="kc">nstall</span><span class="err">Pa</span><span class="kc">t</span><span class="err">h;</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libonnx_proto.a&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libfbgemm.a&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libgloo.a&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libXNNPACK.a&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libprotobuf-lite.a&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libprotobuf.a&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libasmjit.a&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libcpuinfo_internals.a&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libclog.a&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="c1">// PublicAdditionalLibraries.Add(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libbreakpad_common.a&quot;));</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libbenchmark.a&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libtensorpipe.a&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libpytorch_qnnpack.a&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libtensorpipe_cuda.a&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libnnpack_reference_layers.a&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libgmock.a&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libdnnl.a&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libpthreadpool.a&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libcpuinfo.a&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libqnnpack.a&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="c1">// PublicAdditionalLibraries.Add(Path.Combine(LibTorchPath, &quot;lib&quot;, &quot;libbreakpad.a&quot;));</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libkineto.a&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libprotoc.a&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libgtest.a&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libgmock_main.a&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libgtest_main.a&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libbenchmark_main.a&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libfmt.a&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libtensorpipe_uv.a&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libfoxi_loader.a&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libgloo_cuda.a&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libnnpack.a&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libcaffe2_protos.a&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libonnx.a&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">AddDy</span><span class="kc">na</span><span class="err">micLibrary(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libtorch.so&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">AddDy</span><span class="kc">na</span><span class="err">micLibrary(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libnnapi_backend.so&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">AddDy</span><span class="kc">na</span><span class="err">micLibrary(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libbackend_with_compiler.so&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">AddDy</span><span class="kc">na</span><span class="err">micLibrary(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libcaffe2_nvrtc.so&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">AddDy</span><span class="kc">na</span><span class="err">micLibrary(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libtorch_cuda_cpp.so&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">AddDy</span><span class="kc">na</span><span class="err">micLibrary(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libc10_cuda.so&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">AddDy</span><span class="kc">na</span><span class="err">micLibrary(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libtorchbind_test.so&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">AddDy</span><span class="kc">na</span><span class="err">micLibrary(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libjitbackend_test.so&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">AddDy</span><span class="kc">na</span><span class="err">micLibrary(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libc10.so&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">AddDy</span><span class="kc">na</span><span class="err">micLibrary(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libtorch_cuda.so&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">AddDy</span><span class="kc">na</span><span class="err">micLibrary(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libtorch_global_deps.so&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">AddDy</span><span class="kc">na</span><span class="err">micLibrary(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libtorch_cpu.so&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">AddDy</span><span class="kc">na</span><span class="err">micLibrary(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libshm.so&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">AddDy</span><span class="kc">na</span><span class="err">micLibrary(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libtorch_cuda_cu.so&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">AddDy</span><span class="kc">na</span><span class="err">micLibrary(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libtorchscatter.so&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">AddDy</span><span class="kc">na</span><span class="err">micLibrary(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libtorchcluster.so&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="c1">// AddDynamicLibrary(&quot;/usr/local/cuda/lib64/stubs/libcuda.so&quot;);</span>
+<span class="w">        </span><span class="c1">// AddDynamicLibrary(&quot;/usr/local/cuda/lib64/libnvrtc.so&quot;);</span>
+<span class="w">        </span><span class="c1">// AddDynamicLibrary(&quot;/usr/local/cuda/lib64/libnvToolsExt.so&quot;);</span>
+<span class="w">        </span><span class="c1">// AddDynamicLibrary(&quot;/usr/local/cuda/lib64/libcudart.so&quot;);</span>
+<span class="w">        </span><span class="c1">// AddDynamicLibrary(&quot;/usr/lib/llvm-10/lib/libgomp.so&quot;);</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(</span><span class="s2">&quot;/usr/local/cuda/lib64/stubs/libcuda.so&quot;</span><span class="err">);</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(</span><span class="s2">&quot;/usr/local/cuda/lib64/libnvrtc.so&quot;</span><span class="err">);</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(</span><span class="s2">&quot;/usr/local/cuda/lib64/libnvToolsExt.so&quot;</span><span class="err">);</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(</span><span class="s2">&quot;/usr/local/cuda/lib64/libcudart.so&quot;</span><span class="err">);</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(</span><span class="s2">&quot;/usr/lib/llvm-10/lib/libgomp.so&quot;</span><span class="err">);</span>
+<span class="w">        </span><span class="err">Ru</span><span class="kc">nt</span><span class="err">imeDepe</span><span class="kc">n</span><span class="err">de</span><span class="kc">n</span><span class="err">cies.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libcudart-a7b20f20.so.11.0&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">Ru</span><span class="kc">nt</span><span class="err">imeDepe</span><span class="kc">n</span><span class="err">de</span><span class="kc">n</span><span class="err">cies.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libgomp-a34b3233.so.1&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">Ru</span><span class="kc">nt</span><span class="err">imeDepe</span><span class="kc">n</span><span class="err">de</span><span class="kc">n</span><span class="err">cies.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libnvrtc-builtins-4730a239.so.11.3&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">Ru</span><span class="kc">nt</span><span class="err">imeDepe</span><span class="kc">n</span><span class="err">de</span><span class="kc">n</span><span class="err">cies.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libnvrtc-1ea278b5.so.11.2&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">Ru</span><span class="kc">nt</span><span class="err">imeDepe</span><span class="kc">n</span><span class="err">de</span><span class="kc">n</span><span class="err">cies.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibTorchPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libnvToolsExt-24de1d56.so.1&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(</span><span class="s2">&quot;stdc++&quot;</span><span class="err">);</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(</span><span class="s2">&quot;/usr/lib/x86_64-linux-gnu/libpython3.9.so&quot;</span><span class="err">);</span>
+<span class="w">      </span><span class="p">}</span>
+
+<span class="w">      </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="err">(Usi</span><span class="kc">n</span><span class="err">gRos</span><span class="mi">2</span><span class="err">)</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibCarlaI</span><span class="kc">nstall</span><span class="err">Pa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="err">Ge</span><span class="kc">t</span><span class="err">LibName(</span><span class="s2">&quot;carla_fastdds&quot;</span><span class="err">)));</span>
+
+<span class="w">        </span><span class="err">s</span><span class="kc">tr</span><span class="err">i</span><span class="kc">n</span><span class="err">g</span><span class="w"> </span><span class="err">LibFas</span><span class="kc">t</span><span class="err">DDSPa</span><span class="kc">t</span><span class="err">h</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="err">LibCarlaI</span><span class="kc">nstall</span><span class="err">Pa</span><span class="kc">t</span><span class="err">h;</span>
+<span class="w">        </span><span class="err">AddDy</span><span class="kc">na</span><span class="err">micLibrary(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibFas</span><span class="kc">t</span><span class="err">DDSPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libfoonathan_memory-0.7.3.so&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">AddDy</span><span class="kc">na</span><span class="err">micLibrary(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibFas</span><span class="kc">t</span><span class="err">DDSPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libfastcdr.so&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">AddDy</span><span class="kc">na</span><span class="err">micLibrary(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibFas</span><span class="kc">t</span><span class="err">DDSPa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libfastrtps.so&quot;</span><span class="err">));</span>
+<span class="w">        </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(</span><span class="s2">&quot;stdc++&quot;</span><span class="err">);</span>
+<span class="w">      </span><span class="p">}</span>
+
+
+<span class="w">      </span><span class="c1">//OsmToODR</span>
+<span class="w">      </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(</span><span class="s2">&quot;/usr/lib/x86_64-linux-gnu/libc.so&quot;</span><span class="err">);</span>
+<span class="w">      </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibCarlaI</span><span class="kc">nstall</span><span class="err">Pa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libsqlite3.so&quot;</span><span class="err">));</span>
+<span class="w">      </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibCarlaI</span><span class="kc">nstall</span><span class="err">Pa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libxerces-c.a&quot;</span><span class="err">));</span>
+<span class="w">      </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibCarlaI</span><span class="kc">nstall</span><span class="err">Pa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libproj.a&quot;</span><span class="err">));</span>
+<span class="w">      </span><span class="err">PublicAddi</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="err">Libraries.Add(Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibCarlaI</span><span class="kc">nstall</span><span class="err">Pa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;libosm2odr.a&quot;</span><span class="err">));</span>
+
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="err">bE</span><span class="kc">na</span><span class="err">bleExcep</span><span class="kc">t</span><span class="err">io</span><span class="kc">ns</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="kc">true</span><span class="err">;</span>
+
+<span class="w">    </span><span class="c1">// Include path.</span>
+<span class="w">    </span><span class="err">s</span><span class="kc">tr</span><span class="err">i</span><span class="kc">n</span><span class="err">g</span><span class="w"> </span><span class="err">LibCarlaI</span><span class="kc">n</span><span class="err">cludePa</span><span class="kc">t</span><span class="err">h</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="err">Pa</span><span class="kc">t</span><span class="err">h.Combi</span><span class="kc">ne</span><span class="err">(LibCarlaI</span><span class="kc">nstall</span><span class="err">Pa</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;include&quot;</span><span class="err">);</span>
+
+<span class="w">    </span><span class="err">PublicI</span><span class="kc">n</span><span class="err">cludePa</span><span class="kc">t</span><span class="err">hs.Add(LibCarlaI</span><span class="kc">n</span><span class="err">cludePa</span><span class="kc">t</span><span class="err">h);</span>
+<span class="w">    </span><span class="err">Priva</span><span class="kc">te</span><span class="err">I</span><span class="kc">n</span><span class="err">cludePa</span><span class="kc">t</span><span class="err">hs.Add(LibCarlaI</span><span class="kc">n</span><span class="err">cludePa</span><span class="kc">t</span><span class="err">h);</span>
+
+<span class="w">    </span><span class="err">PublicDe</span><span class="kc">f</span><span class="err">i</span><span class="kc">n</span><span class="err">i</span><span class="kc">t</span><span class="err">io</span><span class="kc">ns</span><span class="err">.Add(</span><span class="s2">&quot;ASIO_NO_EXCEPTIONS&quot;</span><span class="err">);</span>
+<span class="w">    </span><span class="err">PublicDe</span><span class="kc">f</span><span class="err">i</span><span class="kc">n</span><span class="err">i</span><span class="kc">t</span><span class="err">io</span><span class="kc">ns</span><span class="err">.Add(</span><span class="s2">&quot;BOOST_NO_EXCEPTIONS&quot;</span><span class="err">);</span>
+<span class="w">    </span><span class="err">PublicDe</span><span class="kc">f</span><span class="err">i</span><span class="kc">n</span><span class="err">i</span><span class="kc">t</span><span class="err">io</span><span class="kc">ns</span><span class="err">.Add(</span><span class="s2">&quot;LIBCARLA_NO_EXCEPTIONS&quot;</span><span class="err">);</span>
+<span class="w">    </span><span class="err">PublicDe</span><span class="kc">f</span><span class="err">i</span><span class="kc">n</span><span class="err">i</span><span class="kc">t</span><span class="err">io</span><span class="kc">ns</span><span class="err">.Add(</span><span class="s2">&quot;PUGIXML_NO_EXCEPTIONS&quot;</span><span class="err">);</span>
+<span class="w">    </span><span class="err">PublicDe</span><span class="kc">f</span><span class="err">i</span><span class="kc">n</span><span class="err">i</span><span class="kc">t</span><span class="err">io</span><span class="kc">ns</span><span class="err">.Add(</span><span class="s2">&quot;BOOST_DISABLE_ABI_HEADERS&quot;</span><span class="err">);</span>
+<span class="w">    </span><span class="err">PublicDe</span><span class="kc">f</span><span class="err">i</span><span class="kc">n</span><span class="err">i</span><span class="kc">t</span><span class="err">io</span><span class="kc">ns</span><span class="err">.Add(</span><span class="s2">&quot;BOOST_TYPE_INDEX_FORCE_NO_RTTI_COMPATIBILITY&quot;</span><span class="err">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 </details>
 
@@ -498,25 +496,25 @@ public class Carla : ModuleRules
 <p>读取配置文件<code>Unreal/CarlaUE4/Config/OptionalModules.ini</code>，决定是否加载某一模块，包括 Carsim、Chrono、Pytorch、Ros2。</p>
 <h3 id="carlah">插件头文件 Carla.h</h3>
 <p>插件的头文件中，一般只有一个类，而且以F开头，Module结尾。比如：<a href="https://github.com/OpenHUTB/carla/blob/ue4-dev/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Carla.h">FCarlaModule</a> 。
-还有两个函数</p>
-<pre><code class="language-json">virtual void StartupModule() override;//插件加载
-virtual void ShutdownModule() override;//插件卸载
-</code></pre>
+还有两个函数
+<div class="highlight"><pre><span></span><code><span class="err">vir</span><span class="kc">tual</span><span class="w"> </span><span class="err">void</span><span class="w"> </span><span class="err">S</span><span class="kc">tartu</span><span class="err">pModule()</span><span class="w"> </span><span class="err">override;</span><span class="c1">//插件加载</span>
+<span class="err">vir</span><span class="kc">tual</span><span class="w"> </span><span class="err">void</span><span class="w"> </span><span class="err">Shu</span><span class="kc">t</span><span class="err">dow</span><span class="kc">n</span><span class="err">Module()</span><span class="w"> </span><span class="err">override;</span><span class="c1">//插件卸载</span>
+</code></pre></div></p>
 <h2 id="_1">使用引擎插件</h2>
-<p>直接包含插件头文件是不行的。打开插件的 Carla.Build.cs 文件，在 PublicDependencyModuleNames 中，填入使用的插件名称：</p>
-<pre><code class="language-json">PublicDependencyModuleNames.AddRange(
-      new string[]
-      {
-        &quot;Core&quot;,
-        &quot;RenderCore&quot;,
-        &quot;RHI&quot;,
-        &quot;Renderer&quot;,
-        &quot;ProceduralMeshComponent&quot;,
-        &quot;MeshDescription&quot;
-        // ... add other public dependencies that you statically link with here ...
-      }
-      );
-</code></pre>
+<p>直接包含插件头文件是不行的。打开插件的 Carla.Build.cs 文件，在 PublicDependencyModuleNames 中，填入使用的插件名称：
+<div class="highlight"><pre><span></span><code><span class="err">PublicDepe</span><span class="kc">n</span><span class="err">de</span><span class="kc">n</span><span class="err">cyModuleNames.AddRa</span><span class="kc">n</span><span class="err">ge(</span>
+<span class="w">      </span><span class="kc">ne</span><span class="err">w</span><span class="w"> </span><span class="err">s</span><span class="kc">tr</span><span class="err">i</span><span class="kc">n</span><span class="err">g</span><span class="p">[]</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="s2">&quot;Core&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;RenderCore&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;RHI&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Renderer&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;ProceduralMeshComponent&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;MeshDescription&quot;</span>
+<span class="w">        </span><span class="c1">// ... add other public dependencies that you statically link with here ...</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">      </span><span class="err">);</span>
+</code></pre></div></p>
 <h2 id="_2">参考</h2>
 <ul>
 <li><a href="https://www.jianshu.com/p/e41a810b10ca">Unreal 插件</a></li>
@@ -556,8 +554,13 @@ virtual void ShutdownModule() override;//插件卸载
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="../../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

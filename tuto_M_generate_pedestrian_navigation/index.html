@@ -142,15 +142,13 @@
 <p><strong>4.</strong> 将 <code>&lt;mapName&gt;.obj</code> 和 <code>&lt;mapName&gt;.xodr</code> 移动到 <code>Util/DockerUtils/dist</code>。</p>
 <p><strong>5.</strong> 运行以下命令生成导航文件：  </p>
 <ul>
-<li><strong>Windows</strong> </li>
+<li><strong>Windows</strong> 
+<div class="highlight"><pre><span></span><code>build.bat<span class="w"> </span>&lt;mapName&gt;<span class="w"> </span><span class="c1"># &lt;mapName&gt; 没有扩展名</span>
+</code></pre></div></li>
+<li><strong>Linux</strong>
+<div class="highlight"><pre><span></span><code>./build.sh<span class="w"> </span>&lt;mapName&gt;<span class="w"> </span><span class="c1"># &lt;mapName&gt; 没有扩展名</span>
+</code></pre></div></li>
 </ul>
-<pre><code class="language-sh">build.bat &lt;mapName&gt; # &lt;mapName&gt; 没有扩展名
-</code></pre>
-<ul>
-<li><strong>Linux</strong></li>
-</ul>
-<pre><code class="language-sh">./build.sh &lt;mapName&gt; # &lt;mapName&gt; 没有扩展名
-</code></pre>
 <p><strong>6.</strong> 将创建一个 <code>&lt;mapName&gt;.bin</code> 文件。此文件包含地图上的行人导航信息。将此文件移动到包含地图的包的 <code>Nav</code> 文件夹中。</p>
 <p><strong>7.</strong> 通过启动模拟并运行 <code>PythonAPI/examples</code> 中的示例脚本 <code>generate_traffic.py</code> 来测试行人导航。</p>
 <div class="admonition 笔记">
@@ -200,8 +198,13 @@ Carla 论坛</a>
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

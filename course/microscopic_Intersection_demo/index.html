@@ -94,11 +94,12 @@
 <p>安装必要的python库</p>
 </li>
 </ul>
-<p><code>pip install carla</code></p>
+<div class="highlight"><pre><span></span><code>pip install carla
+</code></pre></div>
 <h4 id="_3"><strong>运行</strong></h4>
 <p>此示例支持设置  <strong>spectator</strong>  视角来观察交通路口运动情形。</p>
 <p>以下示例通过预定义 <strong>spectator</strong> 对象视角的位置 <strong>Location</strong> 和旋转角度 <strong>pitch</strong> 来进行视角的更换</p>
-<pre><code>client = carla.Client('localhost', 2000)
+<div class="highlight"><pre><span></span><code>client = carla.Client(&#39;localhost&#39;, 2000)
 client.set_timeout(10)
 world = client.get_world()
 spectator_transform = [
@@ -109,10 +110,10 @@ spectator_transform = [
 ]
 spectator = world.get_spectator()
 spectator.set_transform(spectator_transform[0])
-</code></pre>
+</code></pre></div>
 <h5 id="_4">定期切换视角</h5>
 <p>脚本将连接到CARLA服务器，并每5秒切换一次预设的观众视角。</p>
-<pre><code>start_time = time.time()
+<div class="highlight"><pre><span></span><code>start_time = time.time()
 state = 0
 while True:
     elapsed_time = time.time() - start_time
@@ -122,7 +123,7 @@ while True:
         if state &gt; 3:
             state = 0
         start_time = time.time()
-</code></pre>
+</code></pre></div>
 <h5 id="_5">运行结果：</h5>
 <p><img alt="" src="../../img/traffic_course_img/1.gif" /></p>
               
@@ -160,8 +161,13 @@ while True:
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="../../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

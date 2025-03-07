@@ -94,36 +94,33 @@ Carla 论坛</a>
 <details>
 <summary> 显示更新 Carla 的命令行 </summary>
 
+<div class="highlight"><pre><span></span><code><span class="c1"># 更新 Carla 包的发行版。 </span>
+<span class="c1">#   1. 删除当前的版本。 </span>
+<span class="c1">#   2. 按照快速开始安装或一个一个想要的版本。 </span>
 
-<pre><code class="language-sh"># 更新 Carla 包的发行版。 
-#   1. 删除当前的版本。 
-#   2. 按照快速开始安装或一个一个想要的版本。 
 
-
-# 更新 Linux 构建。 
-git checkout master
-make clean
-git pull origin master
+<span class="c1"># 更新 Linux 构建。 </span>
+git<span class="w"> </span>checkout<span class="w"> </span>master
+make<span class="w"> </span>clean
+git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>master
 ./Update.sh
 
 
-# 更新 Windows 构建。 
-git checkout master
-make clean
-git pull origin master
-#   擦除 `Unreal\CarlaUE4\Content\Carla` 中的内容。
-#   转至 `\Util\ContentVersions.txt`.
-#   下载最新的资产内容。
-#   在 `Unreal\CarlaUE4\Content\Carla` 中解压出新的资产内容。
+<span class="c1"># 更新 Windows 构建。 </span>
+git<span class="w"> </span>checkout<span class="w"> </span>master
+make<span class="w"> </span>clean
+git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>master
+<span class="c1">#   擦除 `Unreal\CarlaUE4\Content\Carla` 中的内容。</span>
+<span class="c1">#   转至 `\Util\ContentVersions.txt`.</span>
+<span class="c1">#   下载最新的资产内容。</span>
+<span class="c1">#   在 `Unreal\CarlaUE4\Content\Carla` 中解压出新的资产内容。</span>
 
 
-# 获取开发版本的资产 
-#   删除包含之前资产的 `/Carla` 文件夹。
-#   转至主 Carla 目录。
-git clone https://bitbucket.org/carla-simulator/carla-content Unreal/CarlaUE4/Content/Carla
-
-</code></pre>
-
+<span class="c1"># 获取开发版本的资产 </span>
+<span class="c1">#   删除包含之前资产的 `/Carla` 文件夹。</span>
+<span class="c1">#   转至主 Carla 目录。</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://bitbucket.org/carla-simulator/carla-content<span class="w"> </span>Unreal/CarlaUE4/Content/Carla
+</code></pre></div>
 </details>
 
 <hr />
@@ -145,20 +142,20 @@ git clone https://bitbucket.org/carla-simulator/carla-content Unreal/CarlaUE4/Co
 <hr />
 <h2 id="linux-windows">更新 Linux 和 Windows 构建 <span id="update_linux_and_windows_build"></span></h2>
 <p>更新前请确保位于本地 <code>master</code> 分支。然后，将更改 merge 或rebase 到其他分支并解决可能的冲突。</p>
-<pre><code class="language-sh">git checkout master
-</code></pre>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>master
+</code></pre></div>
 <h3 id="_3">清理构建 <span id="clean_the_build"></span></h3>
-<p>转到主 Carla 文件夹并删除先前构建生成的二进制文件和临时文件。</p>
-<pre><code class="language-sh">make clean
-</code></pre>
+<p>转到主 Carla 文件夹并删除先前构建生成的二进制文件和临时文件。
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>clean
+</code></pre></div></p>
 <h3 id="origin">从 origin 拉取 <span id="pull_from_origin"></span></h3>
-<p>从 Carla 存储库中 <code>master</code> 分支获取当前版本。 </p>
-<pre><code class="language-sh">git pull origin master
-</code></pre>
+<p>从 Carla 存储库中 <code>master</code> 分支获取当前版本。 
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>master
+</code></pre></div></p>
 <h3 id="_4">下载资产 <span id="download_the_assets"></span></h3>
-<p><strong>Linux.</strong></p>
-<pre><code class="language-sh">./Update.sh
-</code></pre>
+<p><strong>Linux.</strong>
+<div class="highlight"><pre><span></span><code>./Update.sh
+</code></pre></div></p>
 <p><strong>Windows.</strong>  </p>
 <p><strong>1.</strong> 删除 <code>Unreal\CarlaUE4\Content\Carla</code> 中之前的内容。<br />
 <strong>2.</strong> 转至 <code>\Util\ContentVersions.txt</code>。<br />
@@ -170,15 +167,15 @@ git clone https://bitbucket.org/carla-simulator/carla-content Unreal/CarlaUE4/Co
 </div>
 <h3 id="_5">启动服务器 <span id="launch_the_server"></span></h3>
 <p>在旁观者视图中运行服务器以确保一切正常。</p>
-<pre><code class="language-sh">make launch
-</code></pre>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>launch
+</code></pre></div>
 <hr />
 <h2 id="_6">获取开发版的资产 <span id="get_development_assets"></span></h2>
 <p>Carla 团队使用仍在开发中的资产。这些模型和地图有一个 <a href="https://bitbucket.org/carla-simulator/carla-content">公共 git 存储库</a>，Carla 团队定期在其中推送最新更新。资产尚未完成，仅建议开发人员使用它们。</p>
 <p>为了处理这个存储库，建议安装 <a href="https://github.com/git-lfs/git-lfs/wiki/Installation">git-lfs</a>。存储库会定期修改，并且 <a href="https://blog.csdn.net/xun527/article/details/132207700">git-lfs 处理大型二进制文件</a> 的速度更快。</p>
 <p>要克隆存储库，请 <strong>转到主 Carla 目录</strong> 并运行以下命令。</p>
-<pre><code class="language-sh">git clone https://bitbucket.org/carla-simulator/carla-content Unreal/CarlaUE4/Content/Carla
-</code></pre>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://bitbucket.org/carla-simulator/carla-content<span class="w"> </span>Unreal/CarlaUE4/Content/Carla
+</code></pre></div>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>在克隆存储库之前删除包含资产的 <code>/Carla</code> 文件夹。否则，将显示错误。</p>
@@ -218,8 +215,13 @@ git clone https://bitbucket.org/carla-simulator/carla-content Unreal/CarlaUE4/Co
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

@@ -197,9 +197,9 @@
 <p><img alt="vehicle_factory" src="../img/tuto_content_authoring_vehicles/vehicle_factory_page.png" /></p>
 <p>按加号图标添加您的新车。向下滚动到最后一个条目并将其展开，它应该是空的。命名您的车辆的品牌和型号，然后在 <strong>类(Class)</strong> 部分下找到您在上一部分中创建的蓝图类。将轮子数量保留为 4，并将世代设置为 2。编译并保存。为了安全起见，进行全局保存，您现在......准备在模拟中运行您的车辆。</p>
 <p>按虚幻工具栏中的“运行”来进行模拟。运行后，打开终端并使用过滤器选项运行脚本 <code>manual_control.py</code> 来指定您的新车辆型号：</p>
-<pre><code class="language-sh">python manual_control.py --filter my_vehicle_make
-</code></pre>
-<p><img alt="manual_control" src="../img/tuto_content_authoring_vehicles/manual_control.gif" /></p>
+<p><div class="highlight"><pre><span></span><code>python<span class="w"> </span>manual_control.py<span class="w"> </span>--filter<span class="w"> </span>my_vehicle_make
+</code></pre></div>
+<img alt="manual_control" src="../img/tuto_content_authoring_vehicles/manual_control.gif" /></p>
 <p>事实上，车辆目前没有应用纹理或颜色。下一步是应用材料，使您的车辆具有像真正的公路车辆一样的外观。</p>
 <h2 id="_13">材质 <span id="materials"></span></h2>
 <p>将车辆作为基本资产导入并布置好网格和蓝图后，您现在需要向车辆添加材质，以促进虚幻引擎中的照片级真实感渲染，从而实现机器学习训练数据的最大保真度。</p>
@@ -324,8 +324,13 @@
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

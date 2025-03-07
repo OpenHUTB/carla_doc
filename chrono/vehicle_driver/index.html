@@ -103,38 +103,38 @@
 <li><code>controller_WheelPedalsAndShifters.json</code>是一个更复杂的多控制器设置的示例，具有方向盘、三个踏板以及顺序和 H 型换档器设置。如果您想使用此示例，可能需要进行大量修改，但它展示了如何使用不同的控制器。</li>
 </ul>
 <h4 id="_5">示例控制器文件</h4>
-<pre><code class="language-json">{
-    &quot;steering&quot;: {
-        &quot;name&quot;: &quot;Steering Wheel&quot;, &quot;axis&quot;: 0,
-        &quot;min&quot;: -32768, &quot;max&quot;: 32767, &quot;scaled_min&quot;: 1, &quot;scaled_max&quot;: -1
-    },
-    &quot;throttle&quot;: {
-        &quot;name&quot;: &quot;Pedal Box&quot;, &quot;axis&quot;: 2,
-        &quot;min&quot;: -1, &quot;max&quot;: -32767, &quot;scaled_min&quot;: 0, &quot;scaled_max&quot;: 1
-    },
-    &quot;brake&quot;: {
-        &quot;name&quot;: &quot;Pedal Box&quot;, &quot;axis&quot;: 2,
-        &quot;min&quot;: 0, &quot;max&quot;: 32767, &quot;scaled_min&quot;: 0, &quot;scaled_max&quot;: 1
-    },
-    &quot;clutch&quot;: {
-        &quot;name&quot;: &quot;Pedal Box&quot;, &quot;axis&quot;: 4,
-        &quot;min&quot;: 0, &quot;max&quot;: 32767, &quot;scaled_min&quot;: 0, &quot;scaled_max&quot;: 1
-    },
-    &quot;gearReverse&quot;: { &quot;name&quot;: &quot;H-Shifter&quot;, &quot;button&quot;: 0 },
-    &quot;gear1&quot;: { &quot;name&quot;: &quot;H-Shifter&quot;, &quot;button&quot;: 1 },
-    &quot;gear2&quot;: { &quot;name&quot;: &quot;H-Shifter&quot;, &quot;button&quot;: 2 },
-    &quot;gear3&quot;: { &quot;name&quot;: &quot;H-Shifter&quot;, &quot;button&quot;: 3 },
-    &quot;gear4&quot;: { &quot;name&quot;: &quot;H-Shifter&quot;, &quot;button&quot;: 4 },
-    &quot;gear5&quot;: { &quot;name&quot;: &quot;H-Shifter&quot;, &quot;button&quot;: 5 },
-    &quot;gear6&quot;: { &quot;name&quot;: &quot;H-Shifter&quot;, &quot;button&quot;: 6 },
-    &quot;gear7&quot;: { &quot;name&quot;: &quot;H-Shifter&quot;, &quot;button&quot;: 7 },
-    &quot;gear8&quot;: { &quot;name&quot;: &quot;H-Shifter&quot;, &quot;button&quot;: 8 },
-    &quot;gear9&quot;: { &quot;name&quot;: &quot;H-Shifter&quot;, &quot;button&quot;: 9 },
-    &quot;shiftUp&quot;: { &quot;name&quot;: &quot;Steering Wheel&quot;, &quot;button&quot;: 4 },
-    &quot;shiftDown&quot;: { &quot;name&quot;: &quot;Steering Wheel&quot;, &quot;button&quot;: 5 },
-    &quot;toggleManualGearbox&quot;: { &quot;name&quot;: &quot;Button Box&quot;, &quot;button&quot;: 2 }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;steering&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Steering Wheel&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;axis&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;min&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">-32768</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;max&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">32767</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;scaled_min&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;scaled_max&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">-1</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;throttle&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Pedal Box&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;axis&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;min&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;max&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">-32767</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;scaled_min&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;scaled_max&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;brake&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Pedal Box&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;axis&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;min&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;max&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">32767</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;scaled_min&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;scaled_max&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;clutch&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Pedal Box&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;axis&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;min&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;max&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">32767</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;scaled_min&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;scaled_max&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;gearReverse&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;H-Shifter&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;button&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;gear1&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;H-Shifter&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;button&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;gear2&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;H-Shifter&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;button&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;gear3&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;H-Shifter&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;button&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;gear4&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;H-Shifter&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;button&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;gear5&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;H-Shifter&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;button&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;gear6&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;H-Shifter&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;button&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;gear7&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;H-Shifter&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;button&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;gear8&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;H-Shifter&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;button&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;gear9&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;H-Shifter&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;button&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">9</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;shiftUp&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Steering Wheel&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;button&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;shiftDown&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Steering Wheel&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;button&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;toggleManualGearbox&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Button Box&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;button&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 <p>在文件的顶层，我们有一组控制器函数（，，，<code>steering</code>... ），对于每个函数，我们可以指定一个轴或按钮定义以及所有映射细节：<code>throttleshiftUp</code></p>
 <ul>
 <li>轴：<code>steering</code>，<code>throttle</code>，<code>brake</code>，<code>clutch</code>具有以下属性：<ul>
@@ -162,12 +162,12 @@
 <p>一些重要的车辆测试操作基于时间相关的转向/油门/制动信号。不考虑任何类型的反馈。此驱动程序模型在 <a href="https://api.projectchrono.org/classchrono_1_1vehicle_1_1_ch_data_driver.html">ChDataDriver</a> 中实现。</p>
 <p>带有驾驶员输入的 ASCII 数据文件包含四列，分别为时间（s）、转向输入（无量纲量，单位为[ − 1 , 1 ]， 和− 1表示向左完全转向）、油门输入（无量纲量[ 0 , 1 ]， 和1表示全油门）和制动（无量纲量介于[ 0 , 1 ]， 和1表示最大制动力）。</p>
 <p>下面列出了示例驱动程序数据文件</p>
-<pre><code class="language-json"> 0.0    0.0    0.0     0.0    0.0
- 0.5    0.0    0.5     0.0    0.0
- 3.0    0.0    0.5     0.0    0.0
- 5.0    0.5    0.4     0.0    0.0
- 9.0    0.0    0.0     1.0    0.0
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="w"> </span><span class="mf">0.0</span><span class="w">    </span><span class="mf">0.0</span><span class="w">    </span><span class="mf">0.0</span><span class="w">     </span><span class="mf">0.0</span><span class="w">    </span><span class="mf">0.0</span>
+<span class="w"> </span><span class="mf">0.5</span><span class="w">    </span><span class="mf">0.0</span><span class="w">    </span><span class="mf">0.5</span><span class="w">     </span><span class="mf">0.0</span><span class="w">    </span><span class="mf">0.0</span>
+<span class="w"> </span><span class="mf">3.0</span><span class="w">    </span><span class="mf">0.0</span><span class="w">    </span><span class="mf">0.5</span><span class="w">     </span><span class="mf">0.0</span><span class="w">    </span><span class="mf">0.0</span>
+<span class="w"> </span><span class="mf">5.0</span><span class="w">    </span><span class="mf">0.5</span><span class="w">    </span><span class="mf">0.4</span><span class="w">     </span><span class="mf">0.0</span><span class="w">    </span><span class="mf">0.0</span>
+<span class="w"> </span><span class="mf">9.0</span><span class="w">    </span><span class="mf">0.0</span><span class="w">    </span><span class="mf">0.0</span><span class="w">     </span><span class="mf">1.0</span><span class="w">    </span><span class="mf">0.0</span>
+</code></pre></div>
 <p><img alt="" src="../../img/chrono/DataDriver.png" /></p>
 <p>在任何给定时间，当前驾驶员输入（转向、油门和制动）都是通过对提供的数据进行分段线性插值获得的。除了最后一次输入之外，驾驶员输入将保持为其最后一个值。</p>
 <h2 id="_8">闭环驱动模型</h2>
@@ -233,8 +233,13 @@
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="../../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

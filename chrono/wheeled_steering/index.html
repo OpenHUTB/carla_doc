@@ -87,59 +87,59 @@
 <p>承力点如下：</p>
 <p><img alt="" src="../../img/chrono/PitmanArm_points.png" /></p>
 <p>具有 PitmanArm 转向机构规范的示例 JSON 文件如下：</p>
-<pre><code class="language-json">{
-  &quot;Name&quot;:                       &quot;HMMWV Pitman Arm Steering&quot;,
-  &quot;Type&quot;:                       &quot;Steering&quot;,
-  &quot;Template&quot;:                   &quot;PitmanArm&quot;,
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;Name&quot;</span><span class="p">:</span><span class="w">                       </span><span class="s2">&quot;HMMWV Pitman Arm Steering&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;Type&quot;</span><span class="p">:</span><span class="w">                       </span><span class="s2">&quot;Steering&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;Template&quot;</span><span class="p">:</span><span class="w">                   </span><span class="s2">&quot;PitmanArm&quot;</span><span class="p">,</span>
 
-  &quot;Vehicle-Frame Inertia&quot;:      false,
+<span class="w">  </span><span class="nt">&quot;Vehicle-Frame Inertia&quot;</span><span class="p">:</span><span class="w">      </span><span class="kc">false</span><span class="p">,</span>
 
-  &quot;Steering Link&quot;:
-  {
-    &quot;Mass&quot;:                     3.681,
-    &quot;COM&quot;:                      [0.129, 0, 0],
-    &quot;Moments of Inertia&quot;:       [0.252, 0.00233, 0.254],
-    &quot;Products of Inertia&quot;:      [0, 0, 0],
-    &quot;Radius&quot;:                   0.03
-  },
+<span class="w">  </span><span class="nt">&quot;Steering Link&quot;</span><span class="p">:</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;Mass&quot;</span><span class="p">:</span><span class="w">                     </span><span class="mf">3.681</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;COM&quot;</span><span class="p">:</span><span class="w">                      </span><span class="p">[</span><span class="mf">0.129</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;Moments of Inertia&quot;</span><span class="p">:</span><span class="w">       </span><span class="p">[</span><span class="mf">0.252</span><span class="p">,</span><span class="w"> </span><span class="mf">0.00233</span><span class="p">,</span><span class="w"> </span><span class="mf">0.254</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;Products of Inertia&quot;</span><span class="p">:</span><span class="w">      </span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;Radius&quot;</span><span class="p">:</span><span class="w">                   </span><span class="mf">0.03</span>
+<span class="w">  </span><span class="p">},</span>
 
-  &quot;Pitman Arm&quot;:
-  {
-    &quot;Mass&quot;:                     1.605,
-    &quot;COM&quot;:                      [0.064, 0.249, 0],
-    &quot;Moments of Inertia&quot;:       [0.00638, 0.00756, 0.00150],
-    &quot;Products of Inertia&quot;:      [0, 0, 0],
-    &quot;Radius&quot;:                   0.02
-  },
+<span class="w">  </span><span class="nt">&quot;Pitman Arm&quot;</span><span class="p">:</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;Mass&quot;</span><span class="p">:</span><span class="w">                     </span><span class="mf">1.605</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;COM&quot;</span><span class="p">:</span><span class="w">                      </span><span class="p">[</span><span class="mf">0.064</span><span class="p">,</span><span class="w"> </span><span class="mf">0.249</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;Moments of Inertia&quot;</span><span class="p">:</span><span class="w">       </span><span class="p">[</span><span class="mf">0.00638</span><span class="p">,</span><span class="w"> </span><span class="mf">0.00756</span><span class="p">,</span><span class="w"> </span><span class="mf">0.00150</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;Products of Inertia&quot;</span><span class="p">:</span><span class="w">      </span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;Radius&quot;</span><span class="p">:</span><span class="w">                   </span><span class="mf">0.02</span>
+<span class="w">  </span><span class="p">},</span>
 
-  &quot;Revolute Joint&quot;:
-  {
-    &quot;Location&quot;:                 [0, 0.249, 0],
-    &quot;Direction&quot;:                [0, 0, 1],
-    &quot;Maximum Angle (deg)&quot;:      30
-  },
+<span class="w">  </span><span class="nt">&quot;Revolute Joint&quot;</span><span class="p">:</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;Location&quot;</span><span class="p">:</span><span class="w">                 </span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.249</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;Direction&quot;</span><span class="p">:</span><span class="w">                </span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;Maximum Angle (deg)&quot;</span><span class="p">:</span><span class="w">      </span><span class="mi">30</span>
+<span class="w">  </span><span class="p">},</span>
 
-  &quot;Universal Joint&quot;:
-  {
-    &quot;Location&quot;:                 [ 0.129, 0.249, 0],
-    &quot;Direction Arm&quot;:            [0, 0, 1],
-    &quot;Direction Link&quot;:           [1, 0, 0]
-  },
+<span class="w">  </span><span class="nt">&quot;Universal Joint&quot;</span><span class="p">:</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;Location&quot;</span><span class="p">:</span><span class="w">                 </span><span class="p">[</span><span class="w"> </span><span class="mf">0.129</span><span class="p">,</span><span class="w"> </span><span class="mf">0.249</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;Direction Arm&quot;</span><span class="p">:</span><span class="w">            </span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;Direction Link&quot;</span><span class="p">:</span><span class="w">           </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">]</span>
+<span class="w">  </span><span class="p">},</span>
 
-  &quot;Revolute-Spherical Joint&quot;:
-  {
-    &quot;Location Chassis&quot;:         [0, -0.325, 0],
-    &quot;Location Link&quot;:            [0.129, -0.325, 0],
-    &quot;Direction&quot;:                [0, 0, 1]
-  },
+<span class="w">  </span><span class="nt">&quot;Revolute-Spherical Joint&quot;</span><span class="p">:</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;Location Chassis&quot;</span><span class="p">:</span><span class="w">         </span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mf">-0.325</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;Location Link&quot;</span><span class="p">:</span><span class="w">            </span><span class="p">[</span><span class="mf">0.129</span><span class="p">,</span><span class="w"> </span><span class="mf">-0.325</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;Direction&quot;</span><span class="p">:</span><span class="w">                </span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span>
+<span class="w">  </span><span class="p">},</span>
 
-  &quot;Tierod Locations&quot;:
-  {
-    &quot;Pitman Side&quot;:              [0.195,  0.448, 0.035],
-    &quot;Idler Side&quot;:               [0.195, -0.448, 0.035]
-  }
-}
-</code></pre>
+<span class="w">  </span><span class="nt">&quot;Tierod Locations&quot;</span><span class="p">:</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;Pitman Side&quot;</span><span class="p">:</span><span class="w">              </span><span class="p">[</span><span class="mf">0.195</span><span class="p">,</span><span class="w">  </span><span class="mf">0.448</span><span class="p">,</span><span class="w"> </span><span class="mf">0.035</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;Idler Side&quot;</span><span class="p">:</span><span class="w">               </span><span class="p">[</span><span class="mf">0.195</span><span class="p">,</span><span class="w"> </span><span class="mf">-0.448</span><span class="p">,</span><span class="w"> </span><span class="mf">0.035</span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 <h2 id="_3">齿条齿轮 <span id="rack_pinion"></span></h2>
 <p>Chrono::Vehicle 齿条齿轮转向模板是齿条齿轮转向机构的运动学模型。转向连杆体通过棱柱关节连接到底盘。齿条位移计算如下：</p>
 <p>d= r （α最大限度s )</p>
@@ -151,27 +151,27 @@
 <p>受力点如下：</p>
 <p><img alt="" src="../../img/chrono/RackPinion_points.png" /></p>
 <p>具有 RackPinion 转向机构规范的示例 JSON 文件如下：</p>
-<pre><code class="language-json">{
-  &quot;Name&quot;:                       &quot;HMMWV Rack-Pinion Steering&quot;,
-  &quot;Type&quot;:                       &quot;Steering&quot;,
-  &quot;Template&quot;:                   &quot;RackPinion&quot;,
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;Name&quot;</span><span class="p">:</span><span class="w">                       </span><span class="s2">&quot;HMMWV Rack-Pinion Steering&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;Type&quot;</span><span class="p">:</span><span class="w">                       </span><span class="s2">&quot;Steering&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;Template&quot;</span><span class="p">:</span><span class="w">                   </span><span class="s2">&quot;RackPinion&quot;</span><span class="p">,</span>
 
-  &quot;Steering Link&quot;:
-  {
-    &quot;Mass&quot;:                     9.072,
-    &quot;COM&quot;:                      0,
-    &quot;Inertia&quot;:                  [1, 1, 1],
-    &quot;Radius&quot;:                   0.03,
-    &quot;Length&quot;:                   0.896
-  },
+<span class="w">  </span><span class="nt">&quot;Steering Link&quot;</span><span class="p">:</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;Mass&quot;</span><span class="p">:</span><span class="w">                     </span><span class="mf">9.072</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;COM&quot;</span><span class="p">:</span><span class="w">                      </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Inertia&quot;</span><span class="p">:</span><span class="w">                  </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;Radius&quot;</span><span class="p">:</span><span class="w">                   </span><span class="mf">0.03</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Length&quot;</span><span class="p">:</span><span class="w">                   </span><span class="mf">0.896</span>
+<span class="w">  </span><span class="p">},</span>
 
-  &quot;Pinion&quot;:
-  {
-    &quot;Radius&quot;:                   0.1,
-    &quot;Maximum Angle (deg)&quot;:      50
-  }
-}
-</code></pre>
+<span class="w">  </span><span class="nt">&quot;Pinion&quot;</span><span class="p">:</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;Radius&quot;</span><span class="p">:</span><span class="w">                   </span><span class="mf">0.1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Maximum Angle (deg)&quot;</span><span class="p">:</span><span class="w">      </span><span class="mi">50</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 <h2 id="_4">旋臂 <span id="rotary_arm"></span></h2>
 <p>旋转臂转向是一种绕轴旋转的简单杠杆臂。它与实心摇臂轴和实心前束轴配合使用。它通常用作卡车、农用拖拉机和联合收割机的转向系统。</p>
 <p>参见 <a href="https://api.projectchrono.org/classchrono_1_1vehicle_1_1_ch_rotary_arm.html">ChRotaryArm</a> 和 <a href="https://api.projectchrono.org/classchrono_1_1vehicle_1_1_rotary_arm.html">RotaryArm</a> 。</p>
@@ -181,25 +181,25 @@
 <p>受力点如下：</p>
 <p><img alt="" src="../../img/chrono/RotaryArm_points.png" /></p>
 <p>具有 RotaryArm 转向机构规范的示例 JSON 文件如下：</p>
-<pre><code class="language-json">{
-  &quot;Name&quot;:                       &quot;UAZBUS Rotary-Arm Steering&quot;,
-  &quot;Type&quot;:                       &quot;Steering&quot;,
-  &quot;Template&quot;:                   &quot;RotaryArm&quot;,
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;Name&quot;</span><span class="p">:</span><span class="w">                       </span><span class="s2">&quot;UAZBUS Rotary-Arm Steering&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;Type&quot;</span><span class="p">:</span><span class="w">                       </span><span class="s2">&quot;Steering&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;Template&quot;</span><span class="p">:</span><span class="w">                   </span><span class="s2">&quot;RotaryArm&quot;</span><span class="p">,</span>
 
-  &quot;Pitman Arm&quot;:
-  {
-    &quot;Mass&quot;:                     5.0,
-    &quot;Inertia&quot;:                  [0.00638, 0.00756, 0.00150],
-    &quot;Inertia Products&quot;:         [0, 0, 0],
-    &quot;Radius&quot;:                   0.03,
-    &quot;Axis of Rotation&quot;:         [0, 1, 0],           // arm-chassis revolute joint
-    &quot;Point of Rotation&quot;:        [0.6, 0.5325, 0.4],  // location of chassis connection
-    &quot;Point to Draglink&quot;:        [0.6, 0.5325, 0.2],  // location of draglink connection
-    &quot;Maximum Angle (deg)&quot;:      12.5
-  }
+<span class="w">  </span><span class="nt">&quot;Pitman Arm&quot;</span><span class="p">:</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;Mass&quot;</span><span class="p">:</span><span class="w">                     </span><span class="mf">5.0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Inertia&quot;</span><span class="p">:</span><span class="w">                  </span><span class="p">[</span><span class="mf">0.00638</span><span class="p">,</span><span class="w"> </span><span class="mf">0.00756</span><span class="p">,</span><span class="w"> </span><span class="mf">0.00150</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;Inertia Products&quot;</span><span class="p">:</span><span class="w">         </span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;Radius&quot;</span><span class="p">:</span><span class="w">                   </span><span class="mf">0.03</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Axis of Rotation&quot;</span><span class="p">:</span><span class="w">         </span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span><span class="w">           </span><span class="c1">// arm-chassis revolute joint</span>
+<span class="w">    </span><span class="nt">&quot;Point of Rotation&quot;</span><span class="p">:</span><span class="w">        </span><span class="p">[</span><span class="mf">0.6</span><span class="p">,</span><span class="w"> </span><span class="mf">0.5325</span><span class="p">,</span><span class="w"> </span><span class="mf">0.4</span><span class="p">],</span><span class="w">  </span><span class="c1">// location of chassis connection</span>
+<span class="w">    </span><span class="nt">&quot;Point to Draglink&quot;</span><span class="p">:</span><span class="w">        </span><span class="p">[</span><span class="mf">0.6</span><span class="p">,</span><span class="w"> </span><span class="mf">0.5325</span><span class="p">,</span><span class="w"> </span><span class="mf">0.2</span><span class="p">],</span><span class="w">  </span><span class="c1">// location of draglink connection</span>
+<span class="w">    </span><span class="nt">&quot;Maximum Angle (deg)&quot;</span><span class="p">:</span><span class="w">      </span><span class="mf">12.5</span>
+<span class="w">  </span><span class="p">}</span>
 
-}
-</code></pre>
+<span class="p">}</span>
+</code></pre></div>
               
             </div>
           </div><footer>
@@ -235,8 +235,13 @@
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="../../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

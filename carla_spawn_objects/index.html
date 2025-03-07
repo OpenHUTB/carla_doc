@@ -87,36 +87,36 @@
 <hr />
 <h2 id="_1">配置和传感器设置 <span id="configuration_and_sensor_setup"></span></h2>
 <p>对象及其附加传感器通过<code>.json</code>文件定义。该文件的默认位置在<code>carla_spawn_objects/config/objects.json.</code> 要更改位置，请在启动包时通过私有 ROS 参数 <code>objects_definition_file</code> 传递文件路径：</p>
-<pre><code class="language-sh">    # ROS 1
-    roslaunch carla_spawn_objects carla_spawn_objects.launch objects_definition_file:=path/to/objects.json
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="c1"># ROS 1</span>
+<span class="w">    </span>roslaunch<span class="w"> </span>carla_spawn_objects<span class="w"> </span>carla_spawn_objects.launch<span class="w"> </span>objects_definition_file:<span class="o">=</span>path/to/objects.json
 
-    # ROS 2
-    ros2 launch carla_spawn_objects carla_spawn_objects.launch.py objects_definition_file:=path/to/objects.json
-</code></pre>
+<span class="w">    </span><span class="c1"># ROS 2</span>
+<span class="w">    </span>ros2<span class="w"> </span>launch<span class="w"> </span>carla_spawn_objects<span class="w"> </span>carla_spawn_objects.launch.py<span class="w"> </span>objects_definition_file:<span class="o">=</span>path/to/objects.json
+</code></pre></div>
 <h3 id="_2">创建配置 <span id="create_the_configuration"></span></h3>
 <p>您可以在 <a href="https://github.com/carla-simulator/ros-bridge/blob/master/carla_spawn_objects/config/objects.json">ros-bridge repository</a> 存储库中找到示例，并按照此大纲创建您自己的配置和传感器设置：</p>
-<pre><code class="language-json">{
-&quot;objects&quot;:
-    [
-        {
-            &quot;type&quot;: &quot;&lt;SENSOR-TYPE&gt;&quot;,
-            &quot;id&quot;: &quot;&lt;NAME&gt;&quot;,
-            &quot;spawn_point&quot;: {&quot;x&quot;: 0.0, &quot;y&quot;: 0.0, &quot;z&quot;: 0.0, &quot;roll&quot;: 0.0, &quot;pitch&quot;: 0.0, &quot;yaw&quot;: 0.0},
-            &lt;ADDITIONAL-SENSOR-ATTRIBUTES&gt;
-        },
-        {
-            &quot;type&quot;: &quot;&lt;VEHICLE-TYPE&gt;&quot;,
-            &quot;id&quot;: &quot;&lt;VEHICLE-NAME&gt;&quot;,
-            &quot;spawn_point&quot;: {&quot;x&quot;: -11.1, &quot;y&quot;: 138.5, &quot;z&quot;: 0.2, &quot;roll&quot;: 0.0, &quot;pitch&quot;: 0.0, &quot;yaw&quot;: -178.7},
-            &quot;sensors&quot;:
-                [
-                &lt;SENSORS-TO-ATTACH-TO-VEHICLE&gt;
-                ]
-        }
-        ...
-    ]
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="nt">&quot;objects&quot;</span><span class="p">:</span>
+<span class="w">    </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;SENSOR-TYPE&gt;&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;NAME&gt;&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;spawn_point&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;x&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;y&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;z&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;roll&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;pitch&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;yaw&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">},</span>
+<span class="w">            </span><span class="err">&lt;ADDITIONAL</span><span class="mi">-</span><span class="err">SENSOR</span><span class="mi">-</span><span class="err">ATTRIBUTES&gt;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;VEHICLE-TYPE&gt;&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;VEHICLE-NAME&gt;&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;spawn_point&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;x&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">-11.1</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;y&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">138.5</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;z&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.2</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;roll&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;pitch&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;yaw&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">-178.7</span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;sensors&quot;</span><span class="p">:</span>
+<span class="w">                </span><span class="p">[</span>
+<span class="w">                </span><span class="err">&lt;SENSORS</span><span class="mi">-</span><span class="err">TO</span><span class="mi">-</span><span class="err">ATTACH</span><span class="mi">-</span><span class="err">TO</span><span class="mi">-</span><span class="err">VEHICLE&gt;</span>
+<span class="w">                </span><span class="p">]</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="err">...</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>请记住，直接定义位置时，ROS 使用 <a href="https://www.ros.org/reps/rep-0103.html#chirality">右手系统</a> 。</p>
@@ -245,8 +245,13 @@ ros2 launch carla_spawn_objects carla_spawn_objects.launch.py spawn_sensors_only
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

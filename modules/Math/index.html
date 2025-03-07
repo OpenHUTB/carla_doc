@@ -68,9 +68,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <pre><code class="language-yaml">markdown_extensions:
-  - mdx_math
-</code></pre>
+                <div class="highlight"><pre><span></span><code><span class="nt">markdown_extensions</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mdx_math</span>
+</code></pre></div>
 <h1 id="dvectorh">DVector.h 文档</h1>
 <p><strong>Dvector.h 中定义了FDVector</strong> 结构体，用于表示三维向量，其各分量为双精度浮点数。</p>
 <h2 id="_1">成员变量</h2>
@@ -121,18 +121,18 @@
 <li>以及对应的复合赋值运算符（如 <strong><font color="#7fb800">operator+=</font></strong>、<strong><font color="#7fb800">operator*=</font></strong> 等）</li>
 </ul>
 <h2 id="_7">使用示例</h2>
-<pre><code class="language-cpp">// 默认构造，所有分量为 0.0
-FDVector vec1;
+<div class="highlight"><pre><span></span><code><span class="c1">// 默认构造，所有分量为 0.0</span>
+<span class="n">FDVector</span><span class="w"> </span><span class="n">vec1</span><span class="p">;</span>
 
-// 指定分量构造
-FDVector vec2(1.0, 2.0, 3.0);
+<span class="c1">// 指定分量构造</span>
+<span class="n">FDVector</span><span class="w"> </span><span class="nf">vec2</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0</span><span class="p">,</span><span class="w"> </span><span class="mf">3.0</span><span class="p">);</span>
 
-// 计算模长
-double len = vec2.Size();
+<span class="c1">// 计算模长</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">len</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vec2</span><span class="p">.</span><span class="n">Size</span><span class="p">();</span>
 
-// 向量加法
-FDVector vec3 = vec1 + vec2;
-</code></pre>
+<span class="c1">// 向量加法</span>
+<span class="n">FDVector</span><span class="w"> </span><span class="n">vec3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vec1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">vec2</span><span class="p">;</span>
+</code></pre></div>
               
             </div>
           </div><footer>
@@ -168,8 +168,13 @@ FDVector vec3 = vec1 + vec2;
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="../../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

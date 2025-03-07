@@ -105,17 +105,17 @@
 </ul>
 <h3 id="_4">下载插件 <span id="download_the_plugin"></span></h3>
 <p>打开终端并根据要运行的 Carla 版本拉取 carlaviz 的 Docker 映像。</p>
-<pre><code class="language-bash"># 仅拉取和所使用的Carla包匹配的镜像。
-# docker pull mjxu96/carlaviz:0.9.6
-# docker pull mjxu96/carlaviz:0.9.7
-# docker pull mjxu96/carlaviz:0.9.8
-# docker pull mjxu96/carlaviz:0.9.9
-# docker pull mjxu96/carlaviz:0.9.10
+<div class="highlight"><pre><span></span><code><span class="c1"># 仅拉取和所使用的Carla包匹配的镜像。</span>
+<span class="c1"># docker pull mjxu96/carlaviz:0.9.6</span>
+<span class="c1"># docker pull mjxu96/carlaviz:0.9.7</span>
+<span class="c1"># docker pull mjxu96/carlaviz:0.9.8</span>
+<span class="c1"># docker pull mjxu96/carlaviz:0.9.9</span>
+<span class="c1"># docker pull mjxu96/carlaviz:0.9.10</span>
 
-# 如果工作在从源代码构建的 Carla 上，则拉取该镜像
-# docker pull mjxu96/carlaviz:latest
-docker pull mjxu96/carlaviz:0.9.15
-</code></pre>
+<span class="c1"># 如果工作在从源代码构建的 Carla 上，则拉取该镜像</span>
+<span class="c1"># docker pull mjxu96/carlaviz:latest</span>
+docker<span class="w"> </span>pull<span class="w"> </span>mjxu96/carlaviz:0.9.15
+</code></pre></div>
 <div class="admonition 重要">
 <p class="admonition-title">重要</p>
 <p>目前在 Windows 中仅支持 0.9.9 和 0.9.10。</p>
@@ -149,13 +149,13 @@ docker pull mjxu96/carlaviz:0.9.15
 </ul>
 <p><strong>2. 运行 carlaviz.</strong> 根据已下载的 Docker 镜像，在另一个终端中运行以下命令。</p>
 <p>更改先前下载的镜像的名称 <code>&lt;name_of_Docker_image&gt;</code>，例如 <code>mjxu96/carlaviz:latest</code> 或 <code>mjxu96/carlaviz:0.9.15</code>。</p>
-<pre><code class="language-sh"># 在 Linux 系统
-docker run -it --network=&quot;host&quot; -e CARLAVIZ_HOST_IP=localhost -e CARLA_SERVER_IP=localhost -e CARLA_SERVER_PORT=2000 &lt;name_of_Docker_image&gt;
+<div class="highlight"><pre><span></span><code><span class="c1"># 在 Linux 系统</span>
+docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--network<span class="o">=</span><span class="s2">&quot;host&quot;</span><span class="w"> </span>-e<span class="w"> </span><span class="nv">CARLAVIZ_HOST_IP</span><span class="o">=</span>localhost<span class="w"> </span>-e<span class="w"> </span><span class="nv">CARLA_SERVER_IP</span><span class="o">=</span>localhost<span class="w"> </span>-e<span class="w"> </span><span class="nv">CARLA_SERVER_PORT</span><span class="o">=</span><span class="m">2000</span><span class="w"> </span>&lt;name_of_Docker_image&gt;
 
-# 在 Windows/MacOS 系统
-# docker run -it -e CARLAVIZ_HOST_IP=localhost -e CARLA_SERVER_IP=host.docker.internal -e CARLA_SERVER_PORT=2000 -p 8080-8081:8080-8081 -p 8089:8089 &lt;name_of_Docker_image&gt;
-docker run -it -p 8080-8081:8080-8081 mjxu96/carlaviz:0.9.15 --simulator_host host.docker.internal --simulator_port 2000
-</code></pre>
+<span class="c1"># 在 Windows/MacOS 系统</span>
+<span class="c1"># docker run -it -e CARLAVIZ_HOST_IP=localhost -e CARLA_SERVER_IP=host.docker.internal -e CARLA_SERVER_PORT=2000 -p 8080-8081:8080-8081 -p 8089:8089 &lt;name_of_Docker_image&gt;</span>
+docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>-8081:8080-8081<span class="w"> </span>mjxu96/carlaviz:0.9.15<span class="w"> </span>--simulator_host<span class="w"> </span>host.docker.internal<span class="w"> </span>--simulator_port<span class="w"> </span><span class="m">2000</span>
+</code></pre></div>
 <p>如果一切都已正确设置，carlaviz 将显示类似于以下内容的成功消息。</p>
 <p><img alt="carlaviz_run" src="../img/plugins_carlaviz_run.jpg" /></p>
 <div class="admonition 警告">
@@ -213,26 +213,26 @@ docker run -it -p 8080-8081:8080-8081 mjxu96/carlaviz:0.9.15 --simulator_host ho
 </ul>
 </li>
 </ul>
-<p>尝试生成一些参与者。这些将在可视化窗口中自动更新。</p>
-<pre><code class="language-sh">cd PythonAPI/examples
-# 在同步模式模拟下生成参与者
-python3 generate_traffic.py -n 10 -w 5
-</code></pre>
+<p>尝试生成一些参与者。这些将在可视化窗口中自动更新。
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>PythonAPI/examples
+<span class="c1"># 在同步模式模拟下生成参与者</span>
+python3<span class="w"> </span>generate_traffic.py<span class="w"> </span>-n<span class="w"> </span><span class="m">10</span><span class="w"> </span>-w<span class="w"> </span><span class="m">5</span>
+</code></pre></div></p>
 <p><img alt="carlaviz_full" src="../img/plugins_carlaviz_full.jpg" /></p>
-<p>生成一个手动控制的自主车辆并四处移动，以查看插件如何更新传感器数据。</p>
-<pre><code class="language-sh">cd PythonAPI/examples
-python3 manual_control.py
-</code></pre>
+<p>生成一个手动控制的自主车辆并四处移动，以查看插件如何更新传感器数据。
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>PythonAPI/examples
+python3<span class="w"> </span>manual_control.py
+</code></pre></div></p>
 <p><img alt="carlaviz_data" src="../img/plugins_carlaviz_data.jpg" /></p>
 <p>贡献者 ( <a href="https://github.com/wx9698">wx9698</a> ) 创建了一个附加类 <a href="https://github.com/wx9698/carlaviz/blob/master/examples/carla_painter.py">CarlaPainter</a> ，它允许用户绘制要在可视化窗口中显示的元素。其中包括文本、点和折线。按照 <a href="https://github.com/carla-simulator/carlaviz/blob/master/examples/example.py">此示例</a> 生成带有 LIDAR 的自我车辆，并绘制 LIDAR 数据、车辆的轨迹和速度。</p>
 <p><img alt="carlaviz_demo" src="../img/plugins_carlaviz_demo.jpg" /></p>
 <h2 id="_6">像素流</h2>
-<p>参考 <a href="https://github.com/OpenHUTB/gpt/tree/main/sim">链接</a> 中的说明和代码进行像素流推送的部署，如果出现启动成功：</p>
-<pre><code class="language-text">12:06:52.980 WebSocket 1istening to Streamer comnections on :8888
+<p>参考 <a href="https://github.com/OpenHUTB/gpt/tree/main/sim">链接</a> 中的说明和代码进行像素流推送的部署，如果出现启动成功：
+<div class="highlight"><pre><span></span><code>12:06:52.980 WebSocket 1istening to Streamer comnections on :8888
 12:06:52.982 WebSocket listening to Players comnections on :80
 12:06:52.980 Http 1istening on *: 80
-</code></pre>
-<p>但是浏览器访问不了像素流，则可能需要：在系统设置里（或按win键直接搜<code>代理</code>），把这个<code>使用代理服务器</code>点掉。</p>
+</code></pre></div>
+但是浏览器访问不了像素流，则可能需要：在系统设置里（或按win键直接搜<code>代理</code>），把这个<code>使用代理服务器</code>点掉。</p>
 <hr />
 <p>这就是关于 carlaviz 插件的全部信息。如果有任何疑问，请随时在论坛中发布。</p>
 <h2 id="_7">其他</h2>
@@ -278,8 +278,13 @@ Carla 论坛</a>
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

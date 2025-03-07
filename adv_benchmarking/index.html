@@ -89,12 +89,12 @@
 <p>基准脚本可以在<code>PythonAPI/util</code>中找到。它有几个标志可用于自定义要测试的场景，下面的概要中有详细说明。</p>
 <h3 id="_3">开始之前 <span id="before_start"></span></h3>
 <p>基准测试脚本需要安装一些依赖项才能运行它：</p>
-<pre><code class="language-sh">python -m pip install -U py-cpuinfo==5.0.0
-python -m pip install psutil
-python -m pip install python-tr
-python -m pip install gpuinfo
-python -m pip install GPUtil
-</code></pre>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>py-cpuinfo<span class="o">==</span><span class="m">5</span>.0.0
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>psutil
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>python-tr
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>gpuinfo
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>GPUtil
+</code></pre></div>
 <h3 id="_4">概要 <span id="overview"></span></h3>
 <p><code>python3</code> <a href="https://github.com/carla-simulator/carla/blob/master/PythonAPI/util/performance_benchmark.py"><code>performance_benchmark.py</code></a>   <a href="#- host-ip_address"><code>[--host HOST]</code></a>   <a href="#-port-port"><code>[--port PORT]</code></a> <a href="#-file-filenamemd"><code>[--file FILE]</code></a> <a href="#- Tm值）
 [[--ticks TICKS]](#-ticks) [[--sync]](#-sync) [[--async]](#-async)"><code>[--tm]</code></a>
@@ -229,39 +229,29 @@ python -m pip install GPUtil
 <blockquote>
 <blockquote>
 <ul>
-<li>显示所有可能的场景而不运行它们：</li>
+<li>
+<p>显示所有可能的场景而不运行它们：
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>performance_benchmark.py<span class="w"> </span>--show_scenarios
+</code></pre></div></p>
+</li>
+<li>
+<p>显示在应用配置而不实际执行配置时将运行哪些场景：
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>performance_benchmark.py<span class="w"> </span>--sensors<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">5</span><span class="w"> </span>--maps<span class="w"> </span>Town03<span class="w"> </span>Town05<span class="w"> </span>--weather<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>--show_scenarios<span class="sb">`</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>执行这些场景的性能基准测试：
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>performance_benchmark.py<span class="w"> </span>--sensors<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">5</span><span class="w"> </span>--maps<span class="w"> </span>Town03<span class="w"> </span>Town05<span class="w"> </span>--weather<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>执行异步模式和渲染模式的基准测试：
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>performance_benchmark.py<span class="w"> </span>--async<span class="w"> </span>--render_mode
+</code></pre></div></p>
+</li>
 </ul>
 </blockquote>
 </blockquote>
-<pre><code class="language-sh">python3 performance_benchmark.py --show_scenarios
-</code></pre>
-<blockquote>
-<blockquote>
-<ul>
-<li>显示在应用配置而不实际执行配置时将运行哪些场景：</li>
-</ul>
-</blockquote>
-</blockquote>
-<pre><code class="language-sh">python3 performance_benchmark.py --sensors 2 5 --maps Town03 Town05 --weather 0 1 --show_scenarios`
-</code></pre>
-<blockquote>
-<blockquote>
-<ul>
-<li>执行这些场景的性能基准测试：</li>
-</ul>
-</blockquote>
-</blockquote>
-<pre><code class="language-sh">python3 performance_benchmark.py --sensors 2 5 --maps Town03 Town05 --weather 0 1
-</code></pre>
-<blockquote>
-<blockquote>
-<ul>
-<li>执行异步模式和渲染模式的基准测试：</li>
-</ul>
-</blockquote>
-</blockquote>
-<pre><code class="language-sh">python3 performance_benchmark.py --async --render_mode
-</code></pre>
 <hr />
 <h2 id="carla">Carla 性能报告 <span id="carla_performance_report"></span></h2>
 <p>下表详细说明了在随着车辆数量增加以及启用和/或禁用物理和交通管理器的不同组合运行 Carla 时对平均 FPS 的性能影响。</p>
@@ -384,8 +374,13 @@ Carla 论坛</a>
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

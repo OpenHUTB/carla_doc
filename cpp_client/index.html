@@ -72,37 +72,37 @@
 <p>此示例使用 Carla 的C++API创建一个应用程序，以从C++连接和控制模拟器。</p>
 <h2 id="_1">编译和运行</h2>
 <p>使用提供的 Makefile（仅限Linux）编译并运行示例。请注意，它希望有一个模拟器在2000端口运行。（<a href="https://github.com/OpenHUTB/carla_doc/tree/master/src/cmake/CMakeLists.txt">Windows客户端cmake文件</a> ）</p>
-<pre><code>make run
-</code></pre>
+<div class="highlight"><pre><span></span><code>make run
+</code></pre></div>
 <h2 id="_2">它的工作原理</h2>
 <p>为了将应用程序链接到 LibCarla，我们需要使用与应用程序相同的编译器和配置来编译 LibCarla。为此，我们生成一个 CMake 工具链文件，指定所需的编译器和标志</p>
-<pre><code class="language-cmake"># ToolChain.cmake 示例
-set(CMAKE_C_COMPILER /usr/bin/clang-8)
-set(CMAKE_CXX_COMPILER /usr/bin/clang++-8)
-set(CMAKE_CXX_FLAGS &quot;${CMAKE_CXX_FLAGS} -std=c++14 -O3 -DNDEBUG&quot; CACHE STRING &quot;&quot; FORCE)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c"># ToolChain.cmake 示例</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_C_COMPILER</span><span class="w"> </span><span class="s">/usr/bin/clang-8</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_COMPILER</span><span class="w"> </span><span class="s">/usr/bin/clang++-8</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_FLAGS</span><span class="w"> </span><span class="s2">&quot;${CMAKE_CXX_FLAGS} -std=c++14 -O3 -DNDEBUG&quot;</span><span class="w"> </span><span class="s">CACHE</span><span class="w"> </span><span class="s">STRING</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="s">FORCE</span><span class="p">)</span>
+</code></pre></div>
 <p>编译LibCarla.client时，我们将此文件传递给CMake</p>
-<pre><code class="language-sh">cd /path/to/carla-root-folder
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/path/to/carla-root-folder
 
-make setup
+make<span class="w"> </span>setup
 
-cd /path/to/build-folder
+<span class="nb">cd</span><span class="w"> </span>/path/to/build-folder
 
-cmake \
-    -G &quot;Ninja&quot; \
-    -DCMAKE_BUILD_TYPE=Client \
-    -DLIBCARLA_BUILD_RELEASE=ON \
-    -DLIBCARLA_BUILD_DEBUG=OFF \
-    -DLIBCARLA_BUILD_TEST=OFF \
-    -DCMAKE_TOOLCHAIN_FILE=/path/to/ToolChain.cmake \
-    -DCMAKE_INSTALL_PREFIX=/path/to/install-folder \
-    /path/to/carla-root-folder
+cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-G<span class="w"> </span><span class="s2">&quot;Ninja&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Client<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DLIBCARLA_BUILD_RELEASE<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DLIBCARLA_BUILD_DEBUG<span class="o">=</span>OFF<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DLIBCARLA_BUILD_TEST<span class="o">=</span>OFF<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_TOOLCHAIN_FILE<span class="o">=</span>/path/to/ToolChain.cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span>/path/to/install-folder<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>/path/to/carla-root-folder
 
 ninja
-ninja install
-</code></pre>
+ninja<span class="w"> </span>install
+</code></pre></div>
 <p>这将在提供的安装路径上生成以下结构</p>
-<pre><code>libcarla-install
+<div class="highlight"><pre><span></span><code>libcarla-install
 ├── include
 │ ├── carla
 │ ├── cephes
@@ -117,7 +117,7 @@ ninja install
     ├── librpc.a
     ├── libboost_filesystem.a
     └── ...
-</code></pre>
+</code></pre></div>
 <p>我们的应用程序至少需要链接到<code>libcarla_client.a</code>，<code>librpc.a</code>、<code>libRecast.a</code>和<code>libDetour*.a</code>。如果我们利用IO我们需要链接的功能和/或图像处理<code>boost_filesystem</code>、<code>png</code>、<code>tiff</code>和/或<code>jpeg</code>。</p>
 <p>有关更多详细信息，请查看提供的 Makefile。</p>
 <h2 id="_3">其他</h2>
@@ -157,8 +157,13 @@ ninja install
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

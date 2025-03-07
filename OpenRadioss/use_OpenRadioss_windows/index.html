@@ -73,27 +73,29 @@
 <p>测试例子是 <a href="https://openradioss.atlassian.net/wiki/spaces/OPENRADIOSS/pages/47546369/HPC+Benchmark+Models#Taurus-10-Million-finite-elements">车辆撞墙模拟</a> 的 <a href="https://openradioss.atlassian.net/wiki/download/attachments/47546369/Neon1m11_2017.zip?api=v2">模型文件</a> 。</p>
 <h3 id="_2">处理步骤</h3>
 <ol>
-<li>模型初始化</li>
+<li>
+<p>模型初始化
+<div class="highlight"><pre><span></span><code>starter_win64_sp.exe<span class="w"> </span>-i<span class="w"> </span>NEON1M11_0000.rad<span class="w"> </span>-nt<span class="w"> </span><span class="m">8</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>引擎求解
+<div class="highlight"><pre><span></span><code>engine_win64_sp.exe<span class="w"> </span>-i<span class="w"> </span>NEON1M11_0001.rad<span class="w"> </span>-nt<span class="w"> </span><span class="m">8</span>
+</code></pre></div>
+输出文件：NEON1M11A00{1-17}。</p>
+</li>
+<li>
+<p>将输出转化为可视化模型文件
+<div class="highlight"><pre><span></span><code>anim_to_vtk_win64.exe<span class="w"> </span>NEON1M11A017<span class="w"> </span>&gt;<span class="w"> </span>view.vtk
+</code></pre></div></p>
+</li>
+<li>
+<p>使用 <a href="https://www.paraview.org/download/">paraview</a> 可视化模型文件
+<div class="highlight"><pre><span></span><code>paraview<span class="w"> </span>view.vtk
+</code></pre></div>
+并点击左下角<code>Properties</code>中的<code>Apply</code>。</p>
+</li>
 </ol>
-<pre><code class="language-shell">starter_win64_sp.exe -i NEON1M11_0000.rad -nt 8
-</code></pre>
-<ol>
-<li>引擎求解</li>
-</ol>
-<pre><code class="language-shell">engine_win64_sp.exe -i NEON1M11_0001.rad -nt 8
-</code></pre>
-<p>输出文件：NEON1M11A00{1-17}。</p>
-<ol>
-<li>将输出转化为可视化模型文件</li>
-</ol>
-<pre><code class="language-shell">anim_to_vtk_win64.exe NEON1M11A017 &gt; view.vtk
-</code></pre>
-<ol>
-<li>使用 <a href="https://www.paraview.org/download/">paraview</a> 可视化模型文件</li>
-</ol>
-<pre><code class="language-shell">paraview view.vtk
-</code></pre>
-<p>并点击左下角<code>Properties</code>中的<code>Apply</code>。</p>
 <h4 id="_3">运行结果</h4>
 <p><img alt="汽车碰撞" src="../figure/crashing.gif" /></p>
               
@@ -131,8 +133,13 @@
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="../../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

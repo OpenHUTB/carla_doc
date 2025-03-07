@@ -92,13 +92,13 @@
 <hr />
 <h2 id="carla_1">Carla 包中的地图导入 <span id="map-ingestion-in-a-carla-package"></span></h2>
 <p><strong>1.</strong> Carla 提供了在 Docker 映像中构建虚幻引擎以及使用该映像编译 Carla 的所有实用程序。这些工具可以在 GitHub 上的源代码中找到。使用以下命令克隆存储库：</p>
-<pre><code class="language-sh">git clone https://github.com/carla-simulator/carla
-</code></pre>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/carla-simulator/carla
+</code></pre></div>
 <p><strong>2.</strong> 按照 <a href="https://github.com/carla-simulator/carla/tree/master/Util/Docker">这些说明</a> 构建虚幻引擎的 Docker 映像。 </p>
 <p><strong>3.</strong> 创建 <code>input_folder</code>。这是您放置要导入的文件的位置。 Docker 会自动创建一个 <code>.json</code> 文件来描述包文件夹结构。更改 <code>input_folder</code> 的权限才能成功创建：</p>
-<pre><code class="language-sh"># 转到父目录，这里包含了输入文件夹
-chmod 777 input_folder
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1"># 转到父目录，这里包含了输入文件夹</span>
+chmod<span class="w"> </span><span class="m">777</span><span class="w"> </span>input_folder
+</code></pre></div>
 <blockquote>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
@@ -107,8 +107,8 @@ chmod 777 input_folder
 </blockquote>
 <p><strong>4.</strong> 创建 <code>output_folder</code> 。这是 Docker 镜像在烘焙地图后写入输出文件的地方。</p>
 <p><strong>5.</strong> 导航至 <code>~/carla/Util/Docker</code>。这是导入脚本所在的位置。该脚本需要 <code>input_folder</code> 和 <code>output_folder</code> 的路径以及要导入包的名称。如果提供了 <code>.json</code> 文件，则该文件的名称是包名称，如果未提供  <code>.json</code>，则名称必须为 <code>map_package</code>：</p>
-<pre><code class="language-sh">python3 docker_tools.py --input ~/path_to_input_folder --output ~/path_to_output_folder --packages map_package
-</code></pre>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>docker_tools.py<span class="w"> </span>--input<span class="w"> </span>~/path_to_input_folder<span class="w"> </span>--output<span class="w"> </span>~/path_to_output_folder<span class="w"> </span>--packages<span class="w"> </span>map_package
+</code></pre></div>
 <blockquote>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
@@ -116,13 +116,13 @@ chmod 777 input_folder
 </div>
 </blockquote>
 <p><strong>6.</strong> 包将在 <code>output_folder</code> 中生成为 <code>&lt;map_package&gt;.tar.gz</code>. 。这是独立包，现在可以导入到 Carla 中。将包移动到 Carla 根目录（您将在其中使用地图的包/二进制版本）中的 <code>Import</code> 文件夹，然后从根目录运行以下脚本将其导入：</p>
-<pre><code class="language-sh">./ImportAssets.sh
-</code></pre>
+<div class="highlight"><pre><span></span><code>./ImportAssets.sh
+</code></pre></div>
 <p><strong>7.</strong> 要使用新地图运行模拟，请运行 Carla，然后使用 <code>config.py</code> 文件更改地图：</p>
-<pre><code class="language-sh">cd PythonAPI/util
-python3 config.py --map &lt;mapName&gt;
-</code></pre>
-<p><br></p>
+<p><div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>PythonAPI/util
+python3<span class="w"> </span>config.py<span class="w"> </span>--map<span class="w"> </span>&lt;mapName&gt;
+</code></pre></div>
+<br></p>
 <hr />
 <p>您的地图现在可以在 Carla 运行模拟了。如果你对这个过程有任何问题，你可以在 <a href="https://github.com/carla-simulator/carla/discussions">论坛</a> 上提问。也可以尝试在你的新地图上运行我们的一些 <a href="https://github.com/carla-simulator/carla/tree/master/PythonAPI/examples">示例脚本</a> 来测试它。</p>
               
@@ -160,8 +160,13 @@ python3 config.py --map &lt;mapName&gt;
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

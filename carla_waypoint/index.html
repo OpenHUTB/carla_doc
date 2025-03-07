@@ -85,12 +85,12 @@
 <hr />
 <h2 id="_1">运行路径点发布器</h2>
 <p>在 Carla 服务器运行的情况下，执行以下命令：</p>
-<pre><code class="language-sh"># ROS 1
-roslaunch carla_waypoint_publisher carla_waypoint_publisher.launch
+<div class="highlight"><pre><span></span><code><span class="c1"># ROS 1</span>
+roslaunch<span class="w"> </span>carla_waypoint_publisher<span class="w"> </span>carla_waypoint_publisher.launch
 
-# ROS 2
-ros2 launch carla_waypoint_publisher carla_waypoint_publisher.launch.py
-</code></pre>
+<span class="c1"># ROS 2</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>carla_waypoint_publisher<span class="w"> </span>carla_waypoint_publisher.launch.py
+</code></pre></div>
 <h3 id="_2">设定目标</h3>
 <p>如果可用，则从主题 <code>/carla/&lt;ROLE NAME&gt;/goal</code> 中读取目标，否则使用固定的生成点。</p>
 <p>设置目标的首选方法是单击 RVIZ 中的“2D Nav Goal”。</p>
@@ -176,8 +176,13 @@ ros2 launch carla_waypoint_publisher carla_waypoint_publisher.launch.py
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

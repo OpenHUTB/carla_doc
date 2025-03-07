@@ -73,28 +73,28 @@
 <hr />
 <h2 id="_2">在你开始之前</h2>
 <p>安装 <code>pcl-tools</code> 库：</p>
-<pre><code class="language-sh">sudo apt install pcl-tools
-</code></pre>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>pcl-tools
+</code></pre></div>
 <hr />
 <h2 id="pcl">使用 PCL 记录器</h2>
 <p>PCL 记录器包将生成一辆自我车辆，可以通过键盘或 Carla PythonAPI 中的自动驾驶功能进行控制。</p>
 <p><strong>1.</strong> 启动 Carla 服务器后，在新终端中运行以下命令来启动 PCL 记录器包：</p>
-<pre><code class="language-sh"># ROS 1
-roslaunch pcl_recorder pcl_recorder.launch
+<p><div class="highlight"><pre><span></span><code><span class="c1"># ROS 1</span>
+roslaunch<span class="w"> </span>pcl_recorder<span class="w"> </span>pcl_recorder.launch
 
-# ROS 2
-ros2 launch pcl_recorder pcl_recorder.launch.py
-</code></pre>
-<p><strong>2.</strong> 捕获驱动完成后，减小点云的整体大小：</p>
-<pre><code># 创建一个点云文件
+<span class="c1"># ROS 2</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>pcl_recorder<span class="w"> </span>pcl_recorder.launch.py
+</code></pre></div>
+<strong>2.</strong> 捕获驱动完成后，减小点云的整体大小：</p>
+<div class="highlight"><pre><span></span><code># 创建一个点云文件
 pcl_concatenate_points_pcd /tmp/pcl_capture/*.pcd
 
 # Filter duplicates
 pcl_voxel_grid -leaf 0.1,0.1,0.1 output.pcd map.pcd
-</code></pre>
+</code></pre></div>
 <p><strong>3.</strong> 验证结果：</p>
-<pre><code class="language-sh">pcl_viewer map.pcd
-</code></pre>
+<div class="highlight"><pre><span></span><code>pcl_viewer<span class="w"> </span>map.pcd
+</code></pre></div>
               
             </div>
           </div><footer>
@@ -130,8 +130,13 @@ pcl_voxel_grid -leaf 0.1,0.1,0.1 output.pcd map.pcd
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

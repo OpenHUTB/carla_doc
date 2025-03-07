@@ -70,52 +70,52 @@
               
                 <h2 id="commandlet"><a href="https://imzlp.com/posts/27475/">Commandlet</a></h2>
 <h3 id="commandlet_1">什么是 Commandlet</h3>
-<p>UE 的 Commandlet 是一种可以用命令行的方式去驱动引擎的机制，如传统的命令行程序：</p>
-<pre><code class="language-cpp">int main(int argc,char* agrv[]){
-    for (int i = 0; i &lt; argc; i++){
-        cout &lt;&lt; argv[i] &lt;&lt; endl;
-    }
-}
-</code></pre>
-<p>则可以通过命令行的形式调用，并传递参数：</p>
-<pre><code class="language-shell">./arg_printer -test1 -test2
-</code></pre>
-<p>Commandlet 也是提供的这样的调用形式。不过，需要调用的程序是引擎，并且要传递 uproject 文件路径、其他的参数等。
-以 Cook 的 Commandlet 为例：</p>
-<pre><code class="language-shell">UE4Editor-cmd.exe D:\Client\FGame.uproject -run=cook
-</code></pre>
-<p>通过这样的形式启动命令行引擎，不会启动虚幻编辑器，而是执行所定义的行为。</p>
+<p>UE 的 Commandlet 是一种可以用命令行的方式去驱动引擎的机制，如传统的命令行程序：
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">agrv</span><span class="p">[]){</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">argc</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+<span class="w">        </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+则可以通过命令行的形式调用，并传递参数：
+<div class="highlight"><pre><span></span><code>./arg_printer<span class="w"> </span>-test1<span class="w"> </span>-test2
+</code></pre></div>
+Commandlet 也是提供的这样的调用形式。不过，需要调用的程序是引擎，并且要传递 uproject 文件路径、其他的参数等。
+以 Cook 的 Commandlet 为例：
+<div class="highlight"><pre><span></span><code>UE4Editor-cmd.exe<span class="w"> </span>D:<span class="se">\C</span>lient<span class="se">\F</span>Game.uproject<span class="w"> </span>-run<span class="o">=</span>cook
+</code></pre></div>
+通过这样的形式启动命令行引擎，不会启动虚幻编辑器，而是执行所定义的行为。</p>
 <h3 id="commandlet_2">创建 Commandlet</h3>
 <p>为项目或插件创建 Commandlet，通常会在模块类型为 <code>Editor</code> 的 Module 中添加，因为执行 Commandlet 的逻辑，很少会涉及到运行时，都是在引擎环境下执行的。</p>
-<p>创建自定义的 Commandlet，需要创建一个继承自 <code>UCommandlet</code> 的 UObject 类：</p>
-<pre><code class="language-cpp">UGenerateTileCommandlet::UGenerateTileCommandlet()
+<p>创建自定义的 Commandlet，需要创建一个继承自 <code>UCommandlet</code> 的 UObject 类：
+<div class="highlight"><pre><span></span><code><span class="n">UGenerateTileCommandlet</span><span class="o">::</span><span class="n">UGenerateTileCommandlet</span><span class="p">()</span>
 
-int32 UGenerateTileCommandlet::Main(const FString &amp;Params)
-</code></pre>
+<span class="n">int32</span><span class="w"> </span><span class="n">UGenerateTileCommandlet</span><span class="o">::</span><span class="n">Main</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FString</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Params</span><span class="p">)</span>
+</code></pre></div></p>
 <p>其中的 <code>Main</code> 函数，就是当通过 <code>-run=</code> 命令启动该 Commandlet 时，会执行到的逻辑，就像前面纯 C++ 的 main 函数一样。</p>
 <p>不过，需要注意的是，因为 Commandlet 其实是完整的引擎环境，所以执行时会拉起已注册模块的启动，相当于有很多的前置逻辑需要执行，等执行到 <code>Main</code> 函数时，就是完整的引擎状态了。</p>
 <p>可以在这个函数之内做自定义的操作，此时它具有完整的引擎环境，可以根据自己的需要进行数据导出或资源处理。</p>
 <h3 id="commandlet_3">运行 Commandlet</h3>
-<p>前面已经提到了，运行一个 Commandlet 需要用以下的命令形式：</p>
-<pre><code class="language-shell">UE4Editor-cmd.exe PROJECT_NAME.uproject -run=CMDLET_NAME
-</code></pre>
+<p>前面已经提到了，运行一个 Commandlet 需要用以下的命令形式：
+<div class="highlight"><pre><span></span><code>UE4Editor-cmd.exe<span class="w"> </span>PROJECT_NAME.uproject<span class="w"> </span>-run<span class="o">=</span>CMDLET_NAME
+</code></pre></div></p>
 <p>启动项目中的 Commandlet 时，必须要指定项目路径，因为要去加载工程及插件中的模块。</p>
 <p>参数 <code>-run=</code>，指定的是要执行的 Commandlet 的名字，这个名字和前面创建的继承自 <code>UCommandlet</code> 类名字直接相关：如 <code>UResScannerCommandlet</code> 它的 Commandlet 的名字就为 <code>ResScanner</code>，规则就是去掉头部的 <code>U</code> 以及尾部的 <code>Commandlet</code>。</p>
-<p>引擎内接收到 <code>-run=</code> 的参数，会去查找 UClass，并会自动拼接 <code>Commandlet</code> 后缀：</p>
-<pre><code class="language-shell">// Token -- XXXXCommandlet
-CommandletClass = FindObject&lt;UClass&gt;(ANY_PACKAGE,*Token,false);
-</code></pre>
-<p>拿到 UClass 之后，创建一个实例，然后调用它的 <code>Main</code> 函数：</p>
-<pre><code class="language-shell">Unreal/CarlaUE4/Plugins/CarlaTools/Source/CarlaTools/Private/Commandlet/GenerateTileCommandlet.cpp
-</code></pre>
-<pre><code class="language-cpp">OpenDriveMap = NewObject&lt;UOpenDriveToMap&gt;(this, OpenDriveClass);
-OpenDriveMap-&gt;FilePath = ParamsMap[&quot;FilePath&quot;];
-OpenDriveMap-&gt;BaseLevelName = ParamsMap[&quot;BaseLevelName&quot;];
-OpenDriveMap-&gt;OriginGeoCoordinates = FVector2D(FCString::Atof(*ParamsMap[&quot;GeoCoordsX&quot;]),FCString::Atof(*ParamsMap[&quot;GeoCoordsY&quot;]));
-OpenDriveMap-&gt;CurrentTilesInXY = FIntVector(FCString::Atof(*ParamsMap[&quot;CTileX&quot;]),FCString::Atof(*ParamsMap[&quot;CTileY&quot;]), 0);
-// Parse Params
-OpenDriveMap-&gt;GenerateTile();
-</code></pre>
+<p>引擎内接收到 <code>-run=</code> 的参数，会去查找 UClass，并会自动拼接 <code>Commandlet</code> 后缀：
+<div class="highlight"><pre><span></span><code>//<span class="w"> </span>Token<span class="w"> </span>--<span class="w"> </span>XXXXCommandlet
+<span class="nv">CommandletClass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>FindObject&lt;UClass&gt;<span class="o">(</span>ANY_PACKAGE,*Token,false<span class="o">)</span><span class="p">;</span>
+</code></pre></div></p>
+<p>拿到 UClass 之后，创建一个实例，然后调用它的 <code>Main</code> 函数：
+<div class="highlight"><pre><span></span><code>Unreal/CarlaUE4/Plugins/CarlaTools/Source/CarlaTools/Private/Commandlet/GenerateTileCommandlet.cpp
+</code></pre></div></p>
+<div class="highlight"><pre><span></span><code><span class="n">OpenDriveMap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NewObject</span><span class="o">&lt;</span><span class="n">UOpenDriveToMap</span><span class="o">&gt;</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">OpenDriveClass</span><span class="p">);</span>
+<span class="n">OpenDriveMap</span><span class="o">-&gt;</span><span class="n">FilePath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ParamsMap</span><span class="p">[</span><span class="s">&quot;FilePath&quot;</span><span class="p">];</span>
+<span class="n">OpenDriveMap</span><span class="o">-&gt;</span><span class="n">BaseLevelName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ParamsMap</span><span class="p">[</span><span class="s">&quot;BaseLevelName&quot;</span><span class="p">];</span>
+<span class="n">OpenDriveMap</span><span class="o">-&gt;</span><span class="n">OriginGeoCoordinates</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FVector2D</span><span class="p">(</span><span class="n">FCString</span><span class="o">::</span><span class="n">Atof</span><span class="p">(</span><span class="o">*</span><span class="n">ParamsMap</span><span class="p">[</span><span class="s">&quot;GeoCoordsX&quot;</span><span class="p">]),</span><span class="n">FCString</span><span class="o">::</span><span class="n">Atof</span><span class="p">(</span><span class="o">*</span><span class="n">ParamsMap</span><span class="p">[</span><span class="s">&quot;GeoCoordsY&quot;</span><span class="p">]));</span>
+<span class="n">OpenDriveMap</span><span class="o">-&gt;</span><span class="n">CurrentTilesInXY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FIntVector</span><span class="p">(</span><span class="n">FCString</span><span class="o">::</span><span class="n">Atof</span><span class="p">(</span><span class="o">*</span><span class="n">ParamsMap</span><span class="p">[</span><span class="s">&quot;CTileX&quot;</span><span class="p">]),</span><span class="n">FCString</span><span class="o">::</span><span class="n">Atof</span><span class="p">(</span><span class="o">*</span><span class="n">ParamsMap</span><span class="p">[</span><span class="s">&quot;CTileY&quot;</span><span class="p">]),</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="c1">// Parse Params</span>
+<span class="n">OpenDriveMap</span><span class="o">-&gt;</span><span class="n">GenerateTile</span><span class="p">();</span>
+</code></pre></div>
 <div class="admonition 注意">
 <p class="admonition-title">注意</p>
 <p>是启动了所有模块之后才会进入到 Commandlet 的 <code>Main</code> 中，意味着模块的 <code>StartupModule</code> 在 Main 之前。</p>
@@ -127,21 +127,21 @@ OpenDriveMap-&gt;GenerateTile();
 <ol>
 <li>Commandlet 位于 Editor 模块内</li>
 <li>Commandlet 进入到 Main 之后就是完整的引擎环境
-因为 Commandlet 是位于 Editor 模块内的，有可能会调用到模块内的其他函数，为了区分 Editor 启动还是 Commandlet 启动，可以用以下函数进行检测：</li>
+因为 Commandlet 是位于 Editor 模块内的，有可能会调用到模块内的其他函数，为了区分 Editor 启动还是 Commandlet 启动，可以用以下函数进行检测：
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="p">(</span><span class="o">::</span><span class="n">IsRunningCommandlet</span><span class="p">())</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// do something</span>
+<span class="p">}</span>
+</code></pre></div></li>
 </ol>
-<pre><code class="language-cpp">if(::IsRunningCommandlet())
-{
-    // do something
-}
-</code></pre>
 <p>传递进来的是不包含引擎路径和项目路径的参数。</p>
-<p>如，运行命令：</p>
-<pre><code class="language-shell">UE4Editor-cmd.exe G:\Client\FGame.uproject -skipcompile -run=HotChunker -TargetPlatform=IOS
-</code></pre>
-<p>则接收到的参数为：</p>
-<pre><code class="language-shell">-skipcompile -run=HotChunker -TargetPlatform=IOS
-</code></pre>
-<p><img alt="LidarPointCloud" src="../../img/tuto_D_windows_debug/commandlet_received_param.jpg" /></p>
+<p>如，运行命令：
+<div class="highlight"><pre><span></span><code>UE4Editor-cmd.exe<span class="w"> </span>G:<span class="se">\C</span>lient<span class="se">\F</span>Game.uproject<span class="w"> </span>-skipcompile<span class="w"> </span>-run<span class="o">=</span>HotChunker<span class="w"> </span>-TargetPlatform<span class="o">=</span>IOS
+</code></pre></div></p>
+<p>则接收到的参数为：
+<div class="highlight"><pre><span></span><code>-skipcompile<span class="w"> </span>-run<span class="o">=</span>HotChunker<span class="w"> </span>-TargetPlatform<span class="o">=</span>IOS
+</code></pre></div>
+<img alt="LidarPointCloud" src="../../img/tuto_D_windows_debug/commandlet_received_param.jpg" /></p>
 <p>可以通过解析该命令行参数，在 Commandlet 执行特殊行为。以 HotPatcher 为例，可以通过 <code>-config=</code> 指定配置文件，在 Commandlet 中就会读取并根据配置文件执行。</p>
 <h3 id="tick">驱动 Tick</h3>
 <p>Commandlet 默认是一个独立过程行为，不会驱动引擎 Tick，就像一个普通的函数，所有代码执行完毕之后，离开当前的作用域，就请求退出引擎了。</p>
@@ -195,8 +195,13 @@ OpenDriveMap-&gt;GenerateTile();
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="../../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

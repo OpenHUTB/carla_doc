@@ -96,12 +96,12 @@
 <p>查看 Python API 参考中的 <a href="../python_api/#carla.Client"><strong>carla.Client</strong></a> 以了解该类的特定方法和变量。</p>
 <h3 id="_3">客户端创建 <span id="client-creation"></span></h3>
 <p>需要两件事。标识它的 <strong>IP</strong> 地址以及与服务器通信的 <strong>两个 TCP 端口</strong> 。可选的第三个参数设置工作线程的数量。默认情况下，该值设置为全部 (<code>0</code>)。Python API 参考中的<a href="../python_api/#carla.Client.__init__">carla.Client</a> 包含一个片段，显示如何在运行脚本时将这些解析为参数。</p>
-<pre><code class="language-py">client = carla.Client('localhost', 2000)
-</code></pre>
-<p>默认情况下，Carla 使用本地主机 IP 和端口 2000 进行连接，但这些可以随意更改。在本例中，第二个端口始终为<code>n+1</code>,2001。</p>
+<p><div class="highlight"><pre><span></span><code><span class="n">client</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">2000</span><span class="p">)</span>
+</code></pre></div>
+默认情况下，Carla 使用本地主机 IP 和端口 2000 进行连接，但这些可以随意更改。在本例中，第二个端口始终为<code>n+1</code>,2001。</p>
 <p>创建客户端后，设置其 <strong>time-out</strong> 。这限制了所有网络操作，以便这些操作不会永远阻止客户端。如果连接失败，将返回错误。</p>
-<pre><code class="language-py">client.set_timeout(10.0) # 秒
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">client</span><span class="o">.</span><span class="n">set_timeout</span><span class="p">(</span><span class="mf">10.0</span><span class="p">)</span> <span class="c1"># 秒</span>
+</code></pre></div>
 <p>可以连接许多客户端，因为一次运行多个脚本是很常见的。在具有高级 Carla 功能（例如交通管理器）的多客户端方案中工作，必然会使通信更加复杂。</p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
@@ -109,20 +109,20 @@
 </div>
 <h3 id="_4">世界连接 <span id="world-connection"></span></h3>
 <p>客户端可以相当轻松地连接和检索当前世界。</p>
-<pre><code class="language-py">world = client.get_world()
-</code></pre>
-<p>客户端还可以获得可用地图列表来更改当前地图。这将销毁当前的世界并创造一个新的世界。</p>
-<pre><code class="language-py">print(client.get_available_maps())
-...
-world = client.load_world('Town01')
-# client.reload_world() 创建一个相同地图世界的新实例。
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">world</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_world</span><span class="p">()</span>
+</code></pre></div>
+<p>客户端还可以获得可用地图列表来更改当前地图。这将销毁当前的世界并创造一个新的世界。
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">client</span><span class="o">.</span><span class="n">get_available_maps</span><span class="p">())</span>
+<span class="o">...</span>
+<span class="n">world</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">load_world</span><span class="p">(</span><span class="s1">&#39;Town01&#39;</span><span class="p">)</span>
+<span class="c1"># client.reload_world() 创建一个相同地图世界的新实例。</span>
+</code></pre></div></p>
 <p>每个世界对象都有一个 <code>id</code> 或世代。每当客户端调用 <code>load_world()</code> 或 <code>reload_world()</code> 时，前一个被销毁。一个新的世代是从头开始创建的。在此过程中虚幻引擎不会重新启动。</p>
 <h3 id="_5">使用命令 <span id="using_command"></span></h3>
 <p><strong>命令</strong> 是一些最常见的 Carla 方法的改编，可以批量应用。例如，<a href="../python_api/#command.SetAutopilot">command.SetAutopilot</a> 相当于<a href="../python_api/#command.SetAutopilot">command.SetAutopilot</a> ，启用车辆的自动驾驶功能。但是，使用<a href="../python_api/#carla.Client.apply_batch">Client.apply_batch</a> 或<a href="../python_api/#carla.Client.apply_batch_sync">Client.apply_batch_sync()</a> 方法，可以在一个模拟步骤中应用一系列命令。这对于通常应用于数百个元素的方法来说变得非常有用。</p>
 <p>以下示例使用批处理一次性销毁一系列车辆。</p>
-<pre><code class="language-py">client.apply_batch([carla.command.DestroyActor(x) for x in vehicles_list])
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">client</span><span class="o">.</span><span class="n">apply_batch</span><span class="p">([</span><span class="n">carla</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">DestroyActor</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">vehicles_list</span><span class="p">])</span>
+</code></pre></div>
 <p>Python API 参考的 <a href="../python_api/#command.ApplyAngularVelocity">最新部分</a> 列出了所有可用的命令。</p>
 <h3 id="_6">其他客户端实用程序 <span id="other-client-utilities"></span></h3>
 <p>客户端对象的主要目的是获取或改变世界，并应用命令。但是，它还提供对一些附加功能的访问。 </p>
@@ -153,19 +153,19 @@ world = client.load_world('Town01')
 </ul>
 <p>生成将在 <a href="../core_actors/">第二部分、参与者和蓝图</a> 。需要对蓝图库、属性等有一定的了解。</p>
 <h3 id="_9">天气 <span id="weather"></span></h3>
-<p>天气本身并不是一个类，而是一组可从世界获取的参数。参数化包括太阳方向、云量、风、雾等等。辅助类<a href="../python_api/#carla.WeatherParameters">carla.WeatherParameters</a> 用于定义自定义天气。</p>
-<pre><code class="language-py">weather = carla.WeatherParameters(
-    cloudiness=80.0,
-    precipitation=30.0,
-    sun_altitude_angle=70.0)
+<p>天气本身并不是一个类，而是一组可从世界获取的参数。参数化包括太阳方向、云量、风、雾等等。辅助类<a href="../python_api/#carla.WeatherParameters">carla.WeatherParameters</a> 用于定义自定义天气。
+<div class="highlight"><pre><span></span><code><span class="n">weather</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">WeatherParameters</span><span class="p">(</span>
+    <span class="n">cloudiness</span><span class="o">=</span><span class="mf">80.0</span><span class="p">,</span>
+    <span class="n">precipitation</span><span class="o">=</span><span class="mf">30.0</span><span class="p">,</span>
+    <span class="n">sun_altitude_angle</span><span class="o">=</span><span class="mf">70.0</span><span class="p">)</span>
 
-world.set_weather(weather)
+<span class="n">world</span><span class="o">.</span><span class="n">set_weather</span><span class="p">(</span><span class="n">weather</span><span class="p">)</span>
 
-print(world.get_weather())
-</code></pre>
+<span class="nb">print</span><span class="p">(</span><span class="n">world</span><span class="o">.</span><span class="n">get_weather</span><span class="p">())</span>
+</code></pre></div></p>
 <p>有一些天气预设可以直接应用于世界。这些列在<a href="../python_api/#carla.WeatherParameters">carla.WeatherParameters</a> 中并可作为枚举访问。 </p>
-<pre><code class="language-py">world.set_weather(carla.WeatherParameters.WetCloudySunset)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">world</span><span class="o">.</span><span class="n">set_weather</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">WeatherParameters</span><span class="o">.</span><span class="n">WetCloudySunset</span><span class="p">)</span>
+</code></pre></div>
 <p>还可以使用 Carla 提供的两个脚本来自定义天气。</p>
 <ul>
 <li><strong><code>environment.py</code></strong> <em>(在 <code>PythonAPI/util</code> 目录下)</em> — 提供对天气和光照参数的访问，以便可以实时更改这些参数。</li>
@@ -173,24 +173,22 @@ print(world.get_weather())
 <details>
 <summary> <b>environment.py</b>  中的可选参数 </summary>
 
-
-<pre><code class="language-sh">  -h, --help            show this help message and exit
-  --host H              IP of the host server (default: 127.0.0.1)
-  -p P, --port P        TCP port to listen to (default: 2000)
-  --sun SUN             Sun position presets [sunset | day | night]
-  --weather WEATHER     Weather condition presets [clear | overcast | rain]
-  --altitude A, -alt A  Sun altitude [-90.0, 90.0]
-  --azimuth A, -azm A   Sun azimuth [0.0, 360.0]
-  --clouds C, -c C      Clouds amount [0.0, 100.0]
-  --rain R, -r R        Rain amount [0.0, 100.0]
-  --puddles Pd, -pd Pd  Puddles amount [0.0, 100.0]
-  --wind W, -w W        Wind intensity [0.0, 100.0]
-  --fog F, -f F         Fog intensity [0.0, 100.0]
-  --fogdist Fd, -fd Fd  Fog Distance [0.0, inf)
-  --wetness Wet, -wet Wet
-                        Wetness intensity [0.0, 100.0]
-</code></pre>
-
+<div class="highlight"><pre><span></span><code><span class="w">  </span>-h,<span class="w"> </span>--help<span class="w">            </span>show<span class="w"> </span>this<span class="w"> </span><span class="nb">help</span><span class="w"> </span>message<span class="w"> </span>and<span class="w"> </span><span class="nb">exit</span>
+<span class="w">  </span>--host<span class="w"> </span>H<span class="w">              </span>IP<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>host<span class="w"> </span>server<span class="w"> </span><span class="o">(</span>default:<span class="w"> </span><span class="m">127</span>.0.0.1<span class="o">)</span>
+<span class="w">  </span>-p<span class="w"> </span>P,<span class="w"> </span>--port<span class="w"> </span>P<span class="w">        </span>TCP<span class="w"> </span>port<span class="w"> </span>to<span class="w"> </span>listen<span class="w"> </span>to<span class="w"> </span><span class="o">(</span>default:<span class="w"> </span><span class="m">2000</span><span class="o">)</span>
+<span class="w">  </span>--sun<span class="w"> </span>SUN<span class="w">             </span>Sun<span class="w"> </span>position<span class="w"> </span>presets<span class="w"> </span><span class="o">[</span>sunset<span class="w"> </span><span class="p">|</span><span class="w"> </span>day<span class="w"> </span><span class="p">|</span><span class="w"> </span>night<span class="o">]</span>
+<span class="w">  </span>--weather<span class="w"> </span>WEATHER<span class="w">     </span>Weather<span class="w"> </span>condition<span class="w"> </span>presets<span class="w"> </span><span class="o">[</span>clear<span class="w"> </span><span class="p">|</span><span class="w"> </span>overcast<span class="w"> </span><span class="p">|</span><span class="w"> </span>rain<span class="o">]</span>
+<span class="w">  </span>--altitude<span class="w"> </span>A,<span class="w"> </span>-alt<span class="w"> </span>A<span class="w">  </span>Sun<span class="w"> </span>altitude<span class="w"> </span><span class="o">[</span>-90.0,<span class="w"> </span><span class="m">90</span>.0<span class="o">]</span>
+<span class="w">  </span>--azimuth<span class="w"> </span>A,<span class="w"> </span>-azm<span class="w"> </span>A<span class="w">   </span>Sun<span class="w"> </span>azimuth<span class="w"> </span><span class="o">[</span><span class="m">0</span>.0,<span class="w"> </span><span class="m">360</span>.0<span class="o">]</span>
+<span class="w">  </span>--clouds<span class="w"> </span>C,<span class="w"> </span>-c<span class="w"> </span>C<span class="w">      </span>Clouds<span class="w"> </span>amount<span class="w"> </span><span class="o">[</span><span class="m">0</span>.0,<span class="w"> </span><span class="m">100</span>.0<span class="o">]</span>
+<span class="w">  </span>--rain<span class="w"> </span>R,<span class="w"> </span>-r<span class="w"> </span>R<span class="w">        </span>Rain<span class="w"> </span>amount<span class="w"> </span><span class="o">[</span><span class="m">0</span>.0,<span class="w"> </span><span class="m">100</span>.0<span class="o">]</span>
+<span class="w">  </span>--puddles<span class="w"> </span>Pd,<span class="w"> </span>-pd<span class="w"> </span>Pd<span class="w">  </span>Puddles<span class="w"> </span>amount<span class="w"> </span><span class="o">[</span><span class="m">0</span>.0,<span class="w"> </span><span class="m">100</span>.0<span class="o">]</span>
+<span class="w">  </span>--wind<span class="w"> </span>W,<span class="w"> </span>-w<span class="w"> </span>W<span class="w">        </span>Wind<span class="w"> </span>intensity<span class="w"> </span><span class="o">[</span><span class="m">0</span>.0,<span class="w"> </span><span class="m">100</span>.0<span class="o">]</span>
+<span class="w">  </span>--fog<span class="w"> </span>F,<span class="w"> </span>-f<span class="w"> </span>F<span class="w">         </span>Fog<span class="w"> </span>intensity<span class="w"> </span><span class="o">[</span><span class="m">0</span>.0,<span class="w"> </span><span class="m">100</span>.0<span class="o">]</span>
+<span class="w">  </span>--fogdist<span class="w"> </span>Fd,<span class="w"> </span>-fd<span class="w"> </span>Fd<span class="w">  </span>Fog<span class="w"> </span>Distance<span class="w"> </span><span class="o">[</span><span class="m">0</span>.0,<span class="w"> </span>inf<span class="o">)</span>
+<span class="w">  </span>--wetness<span class="w"> </span>Wet,<span class="w"> </span>-wet<span class="w"> </span>Wet
+<span class="w">                        </span>Wetness<span class="w"> </span>intensity<span class="w"> </span><span class="o">[</span><span class="m">0</span>.0,<span class="w"> </span><span class="m">100</span>.0<span class="o">]</span>
+</code></pre></div>
 </details>
 <p><br></p>
 <ul>
@@ -199,14 +197,12 @@ print(world.get_weather())
 <details>
 <summary> <b>dynamic_weather.py</b> 中的可选参数 </summary>
 
-
-<pre><code class="language-sh">  -h, --help            show this help message and exit
-  --host H              IP of the host server (default: 127.0.0.1)
-  -p P, --port P        TCP port to listen to (default: 2000)
-  -s FACTOR, --speed FACTOR
-                        rate at which the weather changes (default: 1.0)
-</code></pre>
-
+<div class="highlight"><pre><span></span><code><span class="w">  </span>-h,<span class="w"> </span>--help<span class="w">            </span>show<span class="w"> </span>this<span class="w"> </span><span class="nb">help</span><span class="w"> </span>message<span class="w"> </span>and<span class="w"> </span><span class="nb">exit</span>
+<span class="w">  </span>--host<span class="w"> </span>H<span class="w">              </span>IP<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>host<span class="w"> </span>server<span class="w"> </span><span class="o">(</span>default:<span class="w"> </span><span class="m">127</span>.0.0.1<span class="o">)</span>
+<span class="w">  </span>-p<span class="w"> </span>P,<span class="w"> </span>--port<span class="w"> </span>P<span class="w">        </span>TCP<span class="w"> </span>port<span class="w"> </span>to<span class="w"> </span>listen<span class="w"> </span>to<span class="w"> </span><span class="o">(</span>default:<span class="w"> </span><span class="m">2000</span><span class="o">)</span>
+<span class="w">  </span>-s<span class="w"> </span>FACTOR,<span class="w"> </span>--speed<span class="w"> </span>FACTOR
+<span class="w">                        </span>rate<span class="w"> </span>at<span class="w"> </span>which<span class="w"> </span>the<span class="w"> </span>weather<span class="w"> </span>changes<span class="w"> </span><span class="o">(</span>default:<span class="w"> </span><span class="m">1</span>.0<span class="o">)</span>
+</code></pre></div>
 </details>
 <p><br></p>
 <div class="admonition 笔记">
@@ -218,23 +214,23 @@ print(world.get_weather())
 <ul>
 <li>当模拟进入夜间模式时， <strong>路灯</strong> 会自动打开。灯光由地图开发人员放置，并可作为 <a href="../python_api/#carla.Light"><strong>carla.Light</strong></a> 对象访问。颜色和强度等属性可以随意更改。<a href="../python_api/#carla.LightState"><strong>carla.LightState</strong></a> 类型的变量 <strong>light_state</strong> 允许在一次调用中设置所有这些。 路灯使用其类型为 <a href="../python_api/#carla.LightState"><strong>carla.LightState</strong></a> 的属性 <strong>light_state</strong> 进行分类。这允许将灯分类为路灯、建筑物灯...可以检索 [<strong>carla.LightManager</strong>] 的实例来在一次调用中处理一组灯。</li>
 </ul>
-<pre><code class="language-py"># 获得灯光管理器和灯光
-lmanager = world.get_lightmanager()
-mylights = lmanager.get_all_lights()
+<div class="highlight"><pre><span></span><code><span class="c1"># 获得灯光管理器和灯光</span>
+<span class="n">lmanager</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_lightmanager</span><span class="p">()</span>
+<span class="n">mylights</span> <span class="o">=</span> <span class="n">lmanager</span><span class="o">.</span><span class="n">get_all_lights</span><span class="p">()</span>
 
-# 定制一个特定的灯光
-light01 = mylights[0]
-light01.turn_on()
-light01.set_intensity(100.0)
-state01 = carla.LightState(200.0,red,carla.LightGroup.Building,True)
-light01.set_light_state(state01)
+<span class="c1"># 定制一个特定的灯光</span>
+<span class="n">light01</span> <span class="o">=</span> <span class="n">mylights</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">light01</span><span class="o">.</span><span class="n">turn_on</span><span class="p">()</span>
+<span class="n">light01</span><span class="o">.</span><span class="n">set_intensity</span><span class="p">(</span><span class="mf">100.0</span><span class="p">)</span>
+<span class="n">state01</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">LightState</span><span class="p">(</span><span class="mf">200.0</span><span class="p">,</span><span class="n">red</span><span class="p">,</span><span class="n">carla</span><span class="o">.</span><span class="n">LightGroup</span><span class="o">.</span><span class="n">Building</span><span class="p">,</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">light01</span><span class="o">.</span><span class="n">set_light_state</span><span class="p">(</span><span class="n">state01</span><span class="p">)</span>
 
-# 定制一组灯
-my_lights = lmanager.get_light_group(carla.LightGroup.Building)
-lmanager.turn_on(my_lights)
-lmanager.set_color(my_lights,carla.Color(255,0,0))
-lmanager.set_intensities(my_lights,list_of_intensities)
-</code></pre>
+<span class="c1"># 定制一组灯</span>
+<span class="n">my_lights</span> <span class="o">=</span> <span class="n">lmanager</span><span class="o">.</span><span class="n">get_light_group</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">LightGroup</span><span class="o">.</span><span class="n">Building</span><span class="p">)</span>
+<span class="n">lmanager</span><span class="o">.</span><span class="n">turn_on</span><span class="p">(</span><span class="n">my_lights</span><span class="p">)</span>
+<span class="n">lmanager</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="n">my_lights</span><span class="p">,</span><span class="n">carla</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">lmanager</span><span class="o">.</span><span class="n">set_intensities</span><span class="p">(</span><span class="n">my_lights</span><span class="p">,</span><span class="n">list_of_intensities</span><span class="p">)</span>
+</code></pre></div>
 <ul>
 <li><strong>车灯</strong> 必须由用户打开/关闭。每辆车都有一组在<a href="../python_api/#carla.VehicleLightState"><strong>carla.VehicleLightState</strong></a> 中列出的灯。到目前为止，并非所有车辆都集成了车灯。以下是截至撰写本文时可用的列表。<ul>
 <li><strong>自行车。</strong> 它们都有前后示廓灯。</li>
@@ -244,38 +240,38 @@ lmanager.set_intensities(my_lights,list_of_intensities)
 </li>
 </ul>
 <p>可以使用 <a href="../python_api/#carla.Vehicle.get_light_state">carla.Vehicle.get_light_state</a> 和 <a href="#python_api.md#carla.Vehicle.set_light_state">carla.Vehicle.set_light_state</a> 方法随时检索和更新车辆的灯光。它们使用二进制运算来自定义灯光设置。</p>
-<pre><code class="language-py"># 打开位置灯
-current_lights = carla.VehicleLightState.NONE
-current_lights |= carla.VehicleLightState.Position
-vehicle.set_light_state(current_lights)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1"># 打开位置灯</span>
+<span class="n">current_lights</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">VehicleLightState</span><span class="o">.</span><span class="n">NONE</span>
+<span class="n">current_lights</span> <span class="o">|=</span> <span class="n">carla</span><span class="o">.</span><span class="n">VehicleLightState</span><span class="o">.</span><span class="n">Position</span>
+<span class="n">vehicle</span><span class="o">.</span><span class="n">set_light_state</span><span class="p">(</span><span class="n">current_lights</span><span class="p">)</span>
+</code></pre></div>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>还可以使用天气 <code>environment.py</code> 部分中描述的实时设置灯光。</p>
 </div>
 <h3 id="_11">调试 <span id="debugging"></span></h3>
 <p>世界对象有一个 <a href="../python_api/#carla.DebugHelper">carla.DebugHelper</a> 对象作为公共属性。它允许在模拟过程中绘制不同的形状。这些用于跟踪正在发生的事件。以下示例将在参与者的位置和旋转处绘制一个红色框。</p>
-<pre><code class="language-py">debug = world.debug
-debug.draw_box(carla.BoundingBox(actor_snapshot.get_transform().location,carla.Vector3D(0.5,0.5,2)),actor_snapshot.get_transform().rotation, 0.05, carla.Color(255,0,0,0),0)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">debug</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">debug</span>
+<span class="n">debug</span><span class="o">.</span><span class="n">draw_box</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">BoundingBox</span><span class="p">(</span><span class="n">actor_snapshot</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">location</span><span class="p">,</span><span class="n">carla</span><span class="o">.</span><span class="n">Vector3D</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">2</span><span class="p">)),</span><span class="n">actor_snapshot</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">rotation</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="n">carla</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
 <p>此示例在 <a href="../python_api/#carla.DebugHelper.draw_box">carla.DebugHelper</a> 的片段中进行了扩展，展示了如何为世界快照中的每个参与者绘制方框。</p>
 <h3 id="_12">世界快照 <span id="world-snapshots"></span></h3>
 <p>包含模拟中每个参与者在单个帧中的状态。一种带有时间参考的静态世界图像。即使在异步模式下，信息也来自相同的模拟步骤。</p>
-<pre><code class="language-py"># 检索当前帧的世界快照。
-world_snapshot = world.get_snapshot()
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1"># 检索当前帧的世界快照。</span>
+<span class="n">world_snapshot</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_snapshot</span><span class="p">()</span>
+</code></pre></div>
 <p><a href="../python_api/#carla.WorldSnapshot">carla.WorldSnapshot</a> 包含 <a href="../python_api/#carla.Timestamp">carla.Timestamp</a> 和 <a href="../python_api/#carla.ActorSnapshot">carla.ActorSnapshot</a> 列表。可以使用参与者 <code>id</code> 的搜索参与者快照。快照列出了其中出现的参与者 <code>id</code>。</p>
-<pre><code class="language-py">timestamp = world_snapshot.timestamp # 获取时间参考
+<div class="highlight"><pre><span></span><code><span class="n">timestamp</span> <span class="o">=</span> <span class="n">world_snapshot</span><span class="o">.</span><span class="n">timestamp</span> <span class="c1"># 获取时间参考</span>
 
-for actor_snapshot in world_snapshot: # 获取参与者和快照信息
-    actual_actor = world.get_actor(actor_snapshot.id)
-    actor_snapshot.get_transform()
-    actor_snapshot.get_velocity()
-    actor_snapshot.get_angular_velocity()
-    actor_snapshot.get_acceleration()  
+<span class="k">for</span> <span class="n">actor_snapshot</span> <span class="ow">in</span> <span class="n">world_snapshot</span><span class="p">:</span> <span class="c1"># 获取参与者和快照信息</span>
+    <span class="n">actual_actor</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_actor</span><span class="p">(</span><span class="n">actor_snapshot</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+    <span class="n">actor_snapshot</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span>
+    <span class="n">actor_snapshot</span><span class="o">.</span><span class="n">get_velocity</span><span class="p">()</span>
+    <span class="n">actor_snapshot</span><span class="o">.</span><span class="n">get_angular_velocity</span><span class="p">()</span>
+    <span class="n">actor_snapshot</span><span class="o">.</span><span class="n">get_acceleration</span><span class="p">()</span>  
 
-actor_snapshot = world_snapshot.find(actual_actor.id) # 获得参与者快照
-</code></pre>
+<span class="n">actor_snapshot</span> <span class="o">=</span> <span class="n">world_snapshot</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">actual_actor</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="c1"># 获得参与者快照</span>
+</code></pre></div>
 <h3 id="_13">世界设置 <span id="world-settings"></span></h3>
 <p>世界可以使用一些高级的模拟配置。这些决定了渲染条件、模拟时间步长以及客户端和服务器之间的同步。它们可以从辅助类<a href="../python_api/#carla.WorldSettings">carla.WorldSettings</a> 访问。 </p>
 <p>目前，默认的 Carla 以最佳图形质量、可变时间步长和异步方式运行。要进一步深入了解此问题，请查看 <strong>高级步骤</strong> 部分。有关 <a href="../adv_synchrony_timestep/">同步、时间步长</a> 以及 <a href="../adv_rendering_options/">渲染选项</a> 的页面可能是一个很好的起点。</p>
@@ -331,8 +327,13 @@ Carla 论坛</a>
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

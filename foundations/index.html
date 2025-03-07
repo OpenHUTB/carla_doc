@@ -70,12 +70,12 @@
               
                 <h1 id="_1"><a href="https://carla.readthedocs.io/en/latest/foundations/">基础</a></h1>
 <p>本页介绍了 Carla 服务器和客户端如何通过 API 进行操作和通信所需的基本概念。Carla 使用服务器-客户端架构运行，其中 Carla 服务器运行模拟并由客户端向其发送指令。客户端代码使用 <a href="../python_api/"><strong>API</strong></a> 与服务器进行通信。要使用 Python API，您必须通过 <code>pip</code> 安装该模块：</p>
-<pre><code class="language-sh">pip install carla-simulator # Python 2
-pip3 install carla-simulator # Python 3
-</code></pre>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>carla-simulator<span class="w"> </span><span class="c1"># Python 2</span>
+pip3<span class="w"> </span>install<span class="w"> </span>carla-simulator<span class="w"> </span><span class="c1"># Python 3</span>
+</code></pre></div>
 <p>还要确保在 python 脚本中导入 Carla 包：</p>
-<pre><code class="language-py">import carla
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">carla</span>
+</code></pre></div>
 <ul>
 <li><a href="#world-and-client"><strong>世界和客户端</strong></a>  <ul>
 <li><a href="#client">客户端</a> </li>
@@ -108,26 +108,26 @@ pip3 install carla-simulator # Python 3
 <h3 id="_3">客户端 <span id="client"></span></h3>
 <p><strong>客户端</strong> 是用户运行以请求模拟中的信息或更改的模块。客户端使用 IP 和特定端口运行。它通过终端与服务器通信。可以有许多客户端同时运行。高级多客户端管理需要对 Carla 和 <a href="../adv_synchrony_timestep/">同步</a> 有透彻的了解。</p>
 <p>使用 Carla 客户端对象设置客户端：</p>
-<pre><code class="language-py">client = carla.Client('localhost', 2000)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">client</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">2000</span><span class="p">)</span>
+</code></pre></div>
 <p>这会将客户端设置为与本地计算机上 <code>localhost</code> 运行的 Carla 服务器进行通信。或者，如果在单独的计算机上运行客户端，则可以使用网络计算机的 IP 地址。第二个参数是端口号。默认情况下，Carla 服务器将在端口 2000 上运行，如有必要，您可以在启动 Carla 时在设置中更改此设置。</p>
 <p>客户端对象可用于多种功能，包括加载新地图、记录模拟和初始化交通管理器：</p>
-<pre><code class="language-py">client.load_world('Town07')
+<div class="highlight"><pre><span></span><code><span class="n">client</span><span class="o">.</span><span class="n">load_world</span><span class="p">(</span><span class="s1">&#39;Town07&#39;</span><span class="p">)</span>
 
-client.start_recorder('recording.log')
-</code></pre>
+<span class="n">client</span><span class="o">.</span><span class="n">start_recorder</span><span class="p">(</span><span class="s1">&#39;recording.log&#39;</span><span class="p">)</span>
+</code></pre></div>
 <h3 id="_4">世界 <span id="world"></span></h3>
 <p><strong>世界</strong> 是代表模拟的对象。它充当一个抽象层，包含生成参与者、改变天气、获取世界当前状态等的主要方法。每个模拟只有一个世界。当地图改变时，它会被销毁并替换为新的。</p>
 <p>使用客户端对象检索世界对象：</p>
-<pre><code class="language-py">world = client.get_world()
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">world</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_world</span><span class="p">()</span>
+</code></pre></div>
 <p>世界对象可用于使用其多种方法访问模拟中的对象，例如天气、车辆、交通灯、建筑物和地图：</p>
-<pre><code class="language-py">level = world.get_map()
+<div class="highlight"><pre><span></span><code><span class="n">level</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_map</span><span class="p">()</span>
 
-weather = world.get_weather()
+<span class="n">weather</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_weather</span><span class="p">()</span>
 
-blueprint_library = world.get_blueprint_library()
-</code></pre>
+<span class="n">blueprint_library</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span>
+</code></pre></div>
 <h2 id="_5">参与者和蓝图 <span id="actor_blueprint"></span></h2>
 <p>参与者是在模拟中扮演参与者的任何东西。</p>
 <ul>
@@ -167,46 +167,46 @@ blueprint_library = world.get_blueprint_library()
 <p>在多客户端架构中，只有一个客户端应该发出节拍。服务器对收到的每个节拍做出响应，就好像它来自同一客户端一样。许多客户端的节拍将使服务器和客户端之间产生不一致。</p>
 </div>
 <h3 id="_9">设置同步模式 <span id="setting-synchronous-mode"></span></h3>
-<p>同步模式和异步模式之间的更改只是布尔状态的问题。</p>
-<pre><code class="language-py">settings = world.get_settings()
-settings.synchronous_mode = True # 启用同步模式
-settings.fixed_delta_seconds = 0.05
-world.apply_settings(settings)
-</code></pre>
+<p>同步模式和异步模式之间的更改只是布尔状态的问题。
+<div class="highlight"><pre><span></span><code><span class="n">settings</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_settings</span><span class="p">()</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">synchronous_mode</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># 启用同步模式</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">fixed_delta_seconds</span> <span class="o">=</span> <span class="mf">0.05</span>
+<span class="n">world</span><span class="o">.</span><span class="n">apply_settings</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
+</code></pre></div></p>
 <div class="admonition 警告">
 <p class="admonition-title">警告</p>
 <p>如果启用了同步模式，并且正在运行交通管理器，则也必须将其设置为同步模式。阅读 <a href="../adv_traffic_manager/#synchronous-mode">本文</a> 以了解如何操作。</p>
 </div>
-<p>要禁用同步模式，只需将变量设置为 <code>False</code> 或使用脚本<code>PythonAPI/util/config.py</code>。</p>
-<pre><code class="language-sh">cd PythonAPI/util &amp;&amp; python3 config.py --no-sync # 禁用同步模式
-</code></pre>
-<p>同步模式无法使用脚本启用，只能禁用。启用同步模式使服务器等待客户端节拍。使用此脚本，用户无法在需要时发送节拍。 </p>
+<p>要禁用同步模式，只需将变量设置为 <code>False</code> 或使用脚本<code>PythonAPI/util/config.py</code>。
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>PythonAPI/util<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>python3<span class="w"> </span>config.py<span class="w"> </span>--no-sync<span class="w"> </span><span class="c1"># 禁用同步模式</span>
+</code></pre></div>
+同步模式无法使用脚本启用，只能禁用。启用同步模式使服务器等待客户端节拍。使用此脚本，用户无法在需要时发送节拍。 </p>
 <h3 id="_10">使用同步模式 <span id="using-synchronous-mode"></span></h3>
 <p>同步模式与缓慢的客户端应用程序以及需要不同元素（例如传感器）之间的同步时特别相关。如果客户端太慢而服务器没有等待，就会出现信息溢出。客户将无法管理一切，并且会丢失或混合。同样，对于许多传感器和异步情况，不可能知道所有传感器是否都在模拟中使用同一时刻的数据。</p>
 <p>以下代码片段扩展了前一个代码片段。客户端创建一个摄像头传感器，将当前步骤的图像数据存储在队列中，并从队列中检索后发送节拍给服务器。可以在 <a href="https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/synchronous_mode.py">此处</a> 找到有关多个传感器的更复杂的示例。</p>
-<pre><code class="language-py">settings = world.get_settings()
-settings.synchronous_mode = True
-world.apply_settings(settings)
+<div class="highlight"><pre><span></span><code><span class="n">settings</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_settings</span><span class="p">()</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">synchronous_mode</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">world</span><span class="o">.</span><span class="n">apply_settings</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
 
-camera = world.spawn_actor(blueprint, transform)
-image_queue = queue.Queue()
-camera.listen(image_queue.put)
+<span class="n">camera</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">blueprint</span><span class="p">,</span> <span class="n">transform</span><span class="p">)</span>
+<span class="n">image_queue</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">Queue</span><span class="p">()</span>
+<span class="n">camera</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="n">image_queue</span><span class="o">.</span><span class="n">put</span><span class="p">)</span>
 
-while True:
-    world.tick()
-    image = image_queue.get()
-</code></pre>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">world</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">image_queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+</code></pre></div>
 <div class="admonition 重要">
 <p class="admonition-title">重要</p>
 <p>来自基于 GPU 传感器（主要是摄像头）的数据通常会延迟几帧生成。同步在这里至关重要。</p>
 </div>
 <p>世界上有异步方法可以让客户端等待服务器节拍，或者在收到服务器节拍时执行某些操作。</p>
-<pre><code class="language-py"># 等待下一个节拍并获取节拍的快照
-world_snapshot = world.wait_for_tick()
+<div class="highlight"><pre><span></span><code><span class="c1"># 等待下一个节拍并获取节拍的快照</span>
+<span class="n">world_snapshot</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">wait_for_tick</span><span class="p">()</span>
 
-# 注册一个回调，以便在每次收到新的快照时都被调用。
-world.on_tick(lambda world_snapshot: do_something(world_snapshot))
-</code></pre>
+<span class="c1"># 注册一个回调，以便在每次收到新的快照时都被调用。</span>
+<span class="n">world</span><span class="o">.</span><span class="n">on_tick</span><span class="p">(</span><span class="k">lambda</span> <span class="n">world_snapshot</span><span class="p">:</span> <span class="n">do_something</span><span class="p">(</span><span class="n">world_snapshot</span><span class="p">))</span>
+</code></pre></div>
 <h2 id="_11">记录器 <span id="recorder"></span></h2>
 <p>记录器可以将重现先前模拟所需的所有数据保存到文件中。这些数据包括车辆的位置和速度、交通信号灯的状态、行人的位置和速度以及太阳的位置和天气状况等详细信息。数据被记录到一个二进制文件中，Carla 服务器稍后可以加载该文件以准确地再现模拟。</p>
 <p>参与者根据记录文件中包含的数据在每一帧上进行更新。当前模拟中出现在记录中的参与者将被移动或重新生成以模拟它。那些没有出现在记录中的人会继续他们的路，就像什么都没发生一样。</p>
@@ -224,26 +224,26 @@ world.on_tick(lambda world_snapshot: do_something(world_snapshot))
 </ul>
 <h3 id="_12">记录 <span id="recording"></span></h3>
 <p>要开始记录，只需要一个文件名。在文件名中使用<code>\</code>,<code>/</code>或<code>:</code>字符会将其定义为绝对路径。如果没有详细路径，文件将保存在<code>CarlaUE4/Saved</code>。</p>
-<pre><code class="language-py">client.start_recorder(&quot;/home/carla/recording01.log&quot;)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">client</span><span class="o">.</span><span class="n">start_recorder</span><span class="p">(</span><span class="s2">&quot;/home/carla/recording01.log&quot;</span><span class="p">)</span>
+</code></pre></div>
 <p>默认情况下，记录器设置为仅存储回放模拟所需的信息。为了保存前面提到的所有信息，<code>additional_data</code>必须在开始记录时配置参数。</p>
-<pre><code class="language-py">client.start_recorder(&quot;/home/carla/recording01.log&quot;, True)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">client</span><span class="o">.</span><span class="n">start_recorder</span><span class="p">(</span><span class="s2">&quot;/home/carla/recording01.log&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>其他数据包括：车辆和行人的线速度和角速度、交通灯时间设置、执行时间、参与者的触发器和边界框以及车辆的物理控制。</p>
 </div>
 <p>要停止记录，调用也很简单。</p>
-<pre><code class="language-py">client.stop_recorder()
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">client</span><span class="o">.</span><span class="n">stop_recorder</span><span class="p">()</span>
+</code></pre></div>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>据估计，50 个交通灯和 100 辆车的 1 小时记录大约需要 200MB 大小。</p>
 </div>
 <h3 id="_13">模拟回放 <span id="simulation-playback"></span></h3>
 <p>可以在模拟过程中的任何时刻开始播放。除了日志文件的路径之外，此方法还需要一些参数。</p>
-<pre><code class="language-py">client.replay_file(&quot;recording01.log&quot;, start, duration, camera)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">client</span><span class="o">.</span><span class="n">replay_file</span><span class="p">(</span><span class="s2">&quot;recording01.log&quot;</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">duration</span><span class="p">,</span> <span class="n">camera</span><span class="p">)</span>
+</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -333,8 +333,13 @@ world.on_tick(lambda world_snapshot: do_something(world_snapshot))
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

@@ -79,25 +79,25 @@
 <li><code>torchreid</code>: 用于行人重识别的工具包。</li>
 </ul>
 <p>可以通过以下命令安装所需库（安装时间较长）：</p>
-<pre><code>pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
-</code></pre>
+<div class="highlight"><pre><span></span><code>pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+</code></pre></div>
 <h3 id="_4">代码结构</h3>
 <h4 id="1"><strong>1.数据预处理</strong></h4>
 <p>首先定义一个函数 <code>preprocess_image</code> 来预处理图像：</p>
-<pre><code>def preprocess_image(image_path):
+<div class="highlight"><pre><span></span><code>def preprocess_image(image_path):
     transform = transforms.Compose([
         transforms.Resize((256, 128)),
         transforms.ToTensor(),
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
     ])
-    image = Image.open(image_path).convert('RGB')
+    image = Image.open(image_path).convert(&#39;RGB&#39;)
     image = transform(image)
     image = image.unsqueeze(0)  # 增加批次维度
     return image
-</code></pre>
+</code></pre></div>
 <h4 id="2"><strong>2.数据管理器</strong></h4>
 <p>创建一个数据管理器，用于加载<a href="https://www.kaggle.com/datasets/pengcw1/market-1501/data">Market1501数据集</a>：</p>
-<pre><code>datamanager = torchreid.data.ImageDataManager(
+<div class="highlight"><pre><span></span><code>datamanager = torchreid.data.ImageDataManager(
     root=&quot;reid-data&quot;,
     sources=&quot;market1501&quot;,
     targets=&quot;market1501&quot;,
@@ -107,10 +107,10 @@
     batch_size_test=100,
     transforms=[&quot;random_flip&quot;, &quot;random_crop&quot;]
 )
-</code></pre>
+</code></pre></div>
 <h4 id="3"><strong>3.模型构建与加载</strong></h4>
 <p>构建并加载预训练的ResNet-50模型：</p>
-<pre><code>model = torchreid.models.build_model(
+<div class="highlight"><pre><span></span><code>model = torchreid.models.build_model(
     name=&quot;resnet50&quot;,
     num_classes=datamanager.num_train_pids,
     loss=&quot;softmax&quot;,
@@ -120,10 +120,10 @@
 # 将模型移动到GPU
 model = model.cuda()
 model.eval()
-</code></pre>
+</code></pre></div>
 <h4 id="4"><strong>4.特征提取与相似性计算</strong></h4>
 <p>定义函数 <code>infer</code> 和 <code>cosine_similarity</code> 来提取特征和计算余弦相似性：</p>
-<pre><code>def infer(model, image_tensor):
+<div class="highlight"><pre><span></span><code>def infer(model, image_tensor):
     with torch.no_grad():
         image_tensor = image_tensor.cuda()
         features = model(image_tensor)
@@ -132,7 +132,7 @@ model.eval()
 def cosine_similarity(tensor1, tensor2):
     cos = torch.nn.CosineSimilarity(dim=1, eps=1e-6)
     return cos(tensor1, tensor2).item()
-</code></pre>
+</code></pre></div>
 <h3 id="_5">运行步骤</h3>
 <ol>
 <li>确保安装所有依赖库。</li>
@@ -144,13 +144,13 @@ def cosine_similarity(tensor1, tensor2):
 <li>确保你的显卡与当前安装的PyTorch版本兼容。</li>
 <li>测试数据集的文件夹目录正确，并且和脚本在同一级。如下所示：</li>
 </ol>
-<pre><code>reid-data/          
+<div class="highlight"><pre><span></span><code>reid-data/          
 ├── market1501/
     ├── bounding_box_train/
     ├── bounding_box_test/
     ├── query/
     └── ...
-</code></pre>
+</code></pre></div>
 <h3 id="_7">结果分析</h3>
 <p>代码运行后会输出两张图像的余弦相似性。相似性值接近1表示两张图像特征相似度高，接近0表示特征相似度低。</p>
               
@@ -188,8 +188,13 @@ def cosine_similarity(tensor1, tensor2):
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="../../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

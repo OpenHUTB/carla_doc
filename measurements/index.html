@@ -256,13 +256,13 @@
 </tr>
 </tbody>
 </table>
-<p>要从客户端激活自动驾驶仪，请将<code>autopilot_control</code>发送回服务器。请注意，您可以在将其发送回之前对其进行修改。</p>
-<pre><code class="language-python">measurements, sensor_data = carla_client.read_data()
-control = measurements.player_measurements.autopilot_control
-# modify here control if wanted.
-carla_client.send_control(control)
-</code></pre>
-<p>(*) 实际转向角度取决于所用车辆。默认 Mustang 的最大转向角度为 70 度（可在车辆前轮蓝图中查看）。</p>
+<p>要从客户端激活自动驾驶仪，请将<code>autopilot_control</code>发送回服务器。请注意，您可以在将其发送回之前对其进行修改。
+<div class="highlight"><pre><span></span><code><span class="n">measurements</span><span class="p">,</span> <span class="n">sensor_data</span> <span class="o">=</span> <span class="n">carla_client</span><span class="o">.</span><span class="n">read_data</span><span class="p">()</span>
+<span class="n">control</span> <span class="o">=</span> <span class="n">measurements</span><span class="o">.</span><span class="n">player_measurements</span><span class="o">.</span><span class="n">autopilot_control</span>
+<span class="c1"># modify here control if wanted.</span>
+<span class="n">carla_client</span><span class="o">.</span><span class="n">send_control</span><span class="p">(</span><span class="n">control</span><span class="p">)</span>
+</code></pre></div>
+(*) 实际转向角度取决于所用车辆。默认 Mustang 的最大转向角度为 70 度（可在车辆前轮蓝图中查看）。</p>
 <p><img alt="" src="../img/steering_angle_mustang.png" /></p>
               
             </div>
@@ -299,8 +299,13 @@ carla_client.send_control(control)
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

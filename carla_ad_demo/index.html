@@ -82,43 +82,43 @@
 <h2 id="_1">在你开始之前 <span id="before_you_begin"></span></h2>
 <p>安装 <a href="https://carla-scenariorunner.readthedocs.io/en/latest/getting_scenariorunner/">Scenario Runner</a> 并按照 <a href="https://github.com/carla-simulator/scenario_runner/blob/master/Docs/getting_started.md">Scenario Runner 入门教程</a> 验证其是否正常工作。</p>
 <p>设置环境变量以查找 Scenario Runner 安装：</p>
-<pre><code class="language-sh">export SCENARIO_RUNNER_PATH=&lt;path_to_scenario_runner&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">SCENARIO_RUNNER_PATH</span><span class="o">=</span>&lt;path_to_scenario_runner&gt;
+</code></pre></div>
 <hr />
 <h2 id="_2">运行演示 <span id="run_the_demo"></span></h2>
 <h4 id="_3">随机路线 <span id="random_route"></span></h4>
 <p>要启动自我车辆遵循随机生成的路线的演示，请在启动 Carla 服务器后运行以下命令：</p>
-<pre><code class="language-sh"># ROS 1
-roslaunch carla_ad_demo carla_ad_demo.launch
+<div class="highlight"><pre><span></span><code><span class="c1"># ROS 1</span>
+roslaunch<span class="w"> </span>carla_ad_demo<span class="w"> </span>carla_ad_demo.launch
 
-# ROS 2
-ros2 launch carla_ad_demo carla_ad_demo.launch.py
-</code></pre>
+<span class="c1"># ROS 2</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>carla_ad_demo<span class="w"> </span>carla_ad_demo.launch.py
+</code></pre></div>
 <p>您还可以通过在另一个终端中执行以下命令来生成更多车辆或行人：</p>
-<pre><code class="language-sh">cd &lt;CARLA_PATH&gt;/PythonAPI/examples/
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>&lt;CARLA_PATH&gt;/PythonAPI/examples/
 
-python3 spawn_npc.py
-</code></pre>
+python3<span class="w"> </span>spawn_npc.py
+</code></pre></div>
 <h4 id="_4">场景执行 <span id="scenario_execution"></span></h4>
 <p>要使用预定义场景执行演示，请在启动 Carla 服务器后运行以下命令：</p>
-<pre><code class="language-sh"># ROS1
-roslaunch carla_ad_demo carla_ad_demo_with_scenario.launch
+<div class="highlight"><pre><span></span><code><span class="c1"># ROS1</span>
+roslaunch<span class="w"> </span>carla_ad_demo<span class="w"> </span>carla_ad_demo_with_scenario.launch
 
-# ROS2
-ros2 launch carla_ad_demo carla_ad_demo_with_scenario.launch.py
-</code></pre>
+<span class="c1"># ROS2</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>carla_ad_demo<span class="w"> </span>carla_ad_demo_with_scenario.launch.py
+</code></pre></div>
 <p>在 RVIZ Carla 插件中选择示例场景“FollowLeadingVehicle”，然后按“执行”。自我车辆重新定位并处理场景。</p>
 <p>您可以通过发布到 <code>/carla/available_scenarios</code> 来指定自己的场景。<a href="https://github.com/carla-simulator/ros-bridge/blob/ros2/carla_ad_demo/launch/carla_ad_demo_with_scenario.launch">启动文件</a> 显示了如何执行此操作的示例：</p>
-<pre><code class="language-launch">  &lt;node pkg=&quot;rostopic&quot; type=&quot;rostopic&quot; name=&quot;publish_scenarios&quot;
-    args=&quot;pub /carla/available_scenarios carla_ros_scenario_runner_types/CarlaScenarioList '{ 'scenarios':  
+<div class="highlight"><pre><span></span><code>  &lt;node pkg=&quot;rostopic&quot; type=&quot;rostopic&quot; name=&quot;publish_scenarios&quot;
+    args=&quot;pub /carla/available_scenarios carla_ros_scenario_runner_types/CarlaScenarioList &#39;{ &#39;scenarios&#39;:  
       [
         {
-          'name': 'FollowLeadingVehicle',
-          'scenario_file': '$(find carla_ad_demo)/config/FollowLeadingVehicle.xosc'
+          &#39;name&#39;: &#39;FollowLeadingVehicle&#39;,
+          &#39;scenario_file&#39;: &#39;$(find carla_ad_demo)/config/FollowLeadingVehicle.xosc&#39;
         }
       ]
-    }' -l&quot;/&gt;
-</code></pre>
+    }&#39; -l&quot;/&gt;
+</code></pre></div>
 <hr />
               
             </div>
@@ -155,8 +155,13 @@ ros2 launch carla_ad_demo carla_ad_demo_with_scenario.launch.py
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

@@ -88,8 +88,8 @@
 <p>您不能同时导入大地图和标准地图。</p>
 </div>
 <p>地图图块的命名约定非常重要。每个地图图块应根据以下约定命名：</p>
-<pre><code>&lt;mapName&gt;_Tile_&lt;x-coordinate&gt;_&lt;y-coordinate&gt;.fbx
-</code></pre>
+<div class="highlight"><pre><span></span><code>&lt;mapName&gt;_Tile_&lt;x-coordinate&gt;_&lt;y-coordinate&gt;.fbx
+</code></pre></div>
 <p>请注意，更正的 <strong>y 坐</strong> 标是指 y 轴上较低的图块。例如，<code>Map01_Tile_0_1</code>会坐在 <code>Map01_Tile_0_0</code> 的下面。</p>
 <blockquote>
 <blockquote>
@@ -109,17 +109,16 @@
 </blockquote>
 </blockquote>
 <p>生成的<code>Import</code>文件夹中包含一个包含由四个图块组成的大地图的包，其结构应类似于以下结构：</p>
-<pre><code class="language-sh">Import
+<div class="highlight"><pre><span></span><code>Import
 │
-└── Package01
-  ├── Package01.json
-  ├── Map01_Tile_0_0.fbx
-  ├── Map01_Tile_0_1.fbx
-  ├── Map01_Tile_1_0.fbx
-  ├── Map01_Tile_1_1.fbx
-  └── Map01.xodr
-
-</code></pre>
+└──<span class="w"> </span>Package01
+<span class="w">  </span>├──<span class="w"> </span>Package01.json
+<span class="w">  </span>├──<span class="w"> </span>Map01_Tile_0_0.fbx
+<span class="w">  </span>├──<span class="w"> </span>Map01_Tile_0_1.fbx
+<span class="w">  </span>├──<span class="w"> </span>Map01_Tile_1_0.fbx
+<span class="w">  </span>├──<span class="w"> </span>Map01_Tile_1_1.fbx
+<span class="w">  </span>└──<span class="w"> </span>Map01.xodr
+</code></pre></div>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>该<code>package.json</code>文件并不是绝对必要的。如果未创建<code>package.json</code>文件，自动导入过程将创建一个。在下一节中了解有关构建自己<code>package.json</code>的结构的更多信息。</p>
@@ -138,43 +137,43 @@
 </ul>
 <p><strong>Props</strong> 不属于<a href="../tuto_A_add_props/">本</a>教程的一部分。请参阅本教程了解如何添加新道具。</p>
 <p>生成的<code>.json</code>文件应类似于以下内容：</p>
-<pre><code class="language-json">{
-  &quot;maps&quot;: [
-      {
-        &quot;name&quot;: &quot;Map01&quot;,
-        &quot;xodr&quot;: &quot;./Map01.xodr&quot;,
-        &quot;use_carla_materials&quot;: true,
-        &quot;tile_size&quot;: 2000,
-        &quot;tiles&quot;: [ 
-        &quot;./Map01_Tile_0_0.fbx&quot;,
-        &quot;./Map01_Tile_0_1.fbx&quot;,
-        &quot;./Map01_Tile_1_0.fbx&quot;,
-        &quot;./Map01_Tile_1_1.fbx&quot;
-        ]
-      }
-  ],
-  &quot;props&quot;: []
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;maps&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Map01&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;xodr&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;./Map01.xodr&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;use_carla_materials&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;tile_size&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2000</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;tiles&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span>
+<span class="w">        </span><span class="s2">&quot;./Map01_Tile_0_0.fbx&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;./Map01_Tile_0_1.fbx&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;./Map01_Tile_1_0.fbx&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;./Map01_Tile_1_1.fbx&quot;</span>
+<span class="w">        </span><span class="p">]</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;props&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="p">}</span>
+</code></pre></div>
 <hr />
 <h2 id="_3">进行导入 <span id="making-the-import"></span></h2>
 <p>将所有文件放入<code>Import</code>文件夹后，在根 Carla 文件夹中运行以下命令：</p>
-<pre><code class="language-sh">make import
-</code></pre>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>import
+</code></pre></div>
 <p>根据您的系统，虚幻引擎可能会消耗太多内存而无法一次导入所有文件。您可以通过运行以下命令选择批量导入文件：</p>
-<pre><code class="language-sh">make import ARGS=&quot;--batch-size=200&quot;
-</code></pre>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>import<span class="w"> </span><span class="nv">ARGS</span><span class="o">=</span><span class="s2">&quot;--batch-size=200&quot;</span>
+</code></pre></div>
 <p>该<code>make import</code>命令还存在两个标志：</p>
 <ul>
 <li><code>--package=&lt;package_name&gt;</code> 指定包的名称。默认情况下，此项设置为<code>map_package</code>。两个包不能具有相同的名称，因此使用默认值将导致后续导入时出错。<strong>强烈建议更改包的名称</strong>。通过运行以下命令来使用此标志：</li>
 </ul>
-<pre><code class="language-sh">make import  ARGS=&quot;--package=&lt;package_name&gt;&quot;
-</code></pre>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>import<span class="w">  </span><span class="nv">ARGS</span><span class="o">=</span><span class="s2">&quot;--package=&lt;package_name&gt;&quot;</span>
+</code></pre></div>
 <ul>
 <li><code>--no-carla-materials</code> 指定您不想使用默认的 Carla 材质（道路纹理等）。您将改用 RoadRunner 材料。仅当您 <strong>不提供</strong> 自己的<a href="../tuto_M_manual_map_package/"><code>.json</code> 文件</a>时才需要此标志。<code>.json</code>文件中的任何值都将覆盖此标志。通过运行以下命令来使用此标志：</li>
 </ul>
-<pre><code class="language-sh">make import  ARGS=&quot;--no-carla-materials&quot;
-</code></pre>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>import<span class="w">  </span><span class="nv">ARGS</span><span class="o">=</span><span class="s2">&quot;--no-carla-materials&quot;</span>
+</code></pre></div>
 <p>所有文件都将被导入并准备在虚幻编辑器中使用。地图包将在<code>Unreal/CarlaUE4/Content</code> 中创建。将创建一个底图图块<code>&lt;mapName&gt;</code>，作为所有图块的流级别。基础图块将包含天空、天气和大地图参与者，可供参与者使用。</p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
@@ -183,8 +182,8 @@
 <hr />
 <h2 id="_4">打包一张大地图 <span id="package-a-large-map"></span></h2>
 <p>要打包大地图以便可以在 Carla 独立包中使用，请运行以下命令：</p>
-<pre><code class="language-sh">make package ARGS=&quot;--packages=&lt;mapPackage&gt;&quot;
-</code></pre>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>package<span class="w"> </span><span class="nv">ARGS</span><span class="o">=</span><span class="s2">&quot;--packages=&lt;mapPackage&gt;&quot;</span>
+</code></pre></div>
 <p>这将创建一个压缩在<code>.tar.gz</code>文件中的独立包。在 Linux 中文件将保存在<code>Dist</code>目录下，在 Windows 中文件保存在<code>/Build/UE4Carla/</code>。然后可以将它们分发和打包以在独立的 Carla 包中使用。</p>
 <hr />
 <p>如果您对大地图导入打包过程有任何疑问，那么您可以在 <a href="https://github.com/carla-simulator/carla/discussions">论坛</a> 中提问。</p>
@@ -229,8 +228,13 @@ Carla 论坛</a>
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

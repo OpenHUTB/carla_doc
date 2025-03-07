@@ -86,9 +86,8 @@
 <li>按照 Scenario Runner <a href="https://github.com/carla-simulator/scenario_runner/blob/master/Docs/getting_started.md">入门”教程</a> 安装 Scenario Runner。</li>
 <li>安装 Python 模块 <strong>Pexpect</strong>:</li>
 </ul>
-<pre><code class="language-shell">sudo apt install python-pexpect
-</code></pre>
-<hr />
+<h2 id="sudo-apt-install-python-pexpect"><div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>python-pexpect
+</code></pre></div></h2>
 <h2 id="ros-scenario-runner">使用 ROS Scenario Runner <span id="using_ros_scenario_runner"></span></h2>
 <p>ROS Scenario Runner 最好在 <a href="../rviz_plugin/"><code>rviz_carla_plugin</code></a> 中使用。</p>
 <div class="admonition 笔记">
@@ -96,32 +95,32 @@
 <p>目前不支持更改地图。每个场景都需要使用当前活动的地图。</p>
 </div>
 <p><a href="https://github.com/carla-simulator/ros-bridge/blob/master/carla_ad_demo/config/FollowLeadingVehicle.xosc">此处</a> 提供了一个示例场景。特别重要的是 <a href="https://github.com/carla-simulator/ros-bridge/blob/master/carla_ad_demo/config/FollowLeadingVehicle.xosc#L78">ROS 控制器</a> 的设置：</p>
-<pre><code class="language-xml">&lt;Controller name=&quot;EgoVehicleAgent&quot;&gt;
-    &lt;Properties&gt;
-        &lt;Property name=&quot;module&quot; value=&quot;carla_ros_scenario_runner.ros_vehicle_control&quot; /&gt;
-        &lt;Property name=&quot;launch&quot; value=&quot;carla_ad_agent.launch&quot;/&gt;
-        &lt;Property name=&quot;launch-package&quot; value=&quot;carla_ad_agent&quot;/&gt;
-        &lt;Property name=&quot;path_topic_name&quot; value=&quot;waypoints&quot;/&gt;
-    &lt;/Properties&gt;
-&lt;/Controller&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;Controller</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;EgoVehicleAgent&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Properties&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Property</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;module&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;carla_ros_scenario_runner.ros_vehicle_control&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Property</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;launch&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;carla_ad_agent.launch&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Property</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;launch-package&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;carla_ad_agent&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Property</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;path_topic_name&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;waypoints&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/Properties&gt;</span>
+<span class="nt">&lt;/Controller&gt;</span>
+</code></pre></div>
 <p>上面的代码示例显示了一个正在启动的 <a href="../carla_ad_agent/"><code>carla_ad_agent</code></a> 实例。任何附加内容<code>&lt;Property&gt;</code>都应作为 ROS 参数附加（名称:=值）。</p>
 <hr />
 <h2 id="ros-scenario-runner_1">运行 ROS Scenario Runner <span id="run_ros_scenario_runner"></span></h2>
 <p><strong>1.</strong> 运行 ROS Scenario Runner 包：</p>
-<pre><code class="language-sh"># ROS 1
-roslaunch carla_ros_scenario_runner carla_ros_scenario_runner.launch scenario_runner_path:=&lt;path_to_scenario_runner&gt;
+<div class="highlight"><pre><span></span><code><span class="c1"># ROS 1</span>
+roslaunch<span class="w"> </span>carla_ros_scenario_runner<span class="w"> </span>carla_ros_scenario_runner.launch<span class="w"> </span>scenario_runner_path:<span class="o">=</span>&lt;path_to_scenario_runner&gt;
 
-# ROS 2
-ros2 launch carla_ros_scenario_runner carla_ros_scenario_runner.launch.py scenario_runner_path:=&lt;path_to_scenario_runner&gt;
-</code></pre>
+<span class="c1"># ROS 2</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>carla_ros_scenario_runner<span class="w"> </span>carla_ros_scenario_runner.launch.py<span class="w"> </span>scenario_runner_path:<span class="o">=</span>&lt;path_to_scenario_runner&gt;
+</code></pre></div>
 <p><strong>2.</strong> 运行场景：</p>
-<pre><code class="language-sh"># ROS 1
-rosservice call /scenario_runner/execute_scenario &quot;{ 'scenario': { 'scenario_file': '&lt;full_path_to_openscenario_file&gt;' } }&quot;
+<div class="highlight"><pre><span></span><code><span class="c1"># ROS 1</span>
+rosservice<span class="w"> </span>call<span class="w"> </span>/scenario_runner/execute_scenario<span class="w"> </span><span class="s2">&quot;{ &#39;scenario&#39;: { &#39;scenario_file&#39;: &#39;&lt;full_path_to_openscenario_file&gt;&#39; } }&quot;</span>
 
-# ROS 2
-ros2 service call /scenario_runner/execute_scenario carla_ros_scenario_runner_types/srv/ExecuteScenario &quot;{ 'scenario': { 'scenario_file': '&lt;full_path_to_openscenario_file&gt;' } }&quot;
-</code></pre>
+<span class="c1"># ROS 2</span>
+ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/scenario_runner/execute_scenario<span class="w"> </span>carla_ros_scenario_runner_types/srv/ExecuteScenario<span class="w"> </span><span class="s2">&quot;{ &#39;scenario&#39;: { &#39;scenario_file&#39;: &#39;&lt;full_path_to_openscenario_file&gt;&#39; } }&quot;</span>
+</code></pre></div>
 <hr />
 <h2 id="ros">ROS 应用程序接口 <span id="ros_api"></span></h2>
 <h3 id="_2">服务 <span id="services"></span></h3>
@@ -217,8 +216,13 @@ ros2 service call /scenario_runner/execute_scenario carla_ros_scenario_runner_ty
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

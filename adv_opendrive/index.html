@@ -108,8 +108,8 @@
 </ul>
 <p>为了轻松测试此功能，<code>PythonAPI/util/</code> 中的<code>config.py</code> 脚本有一个新参数，<code>-x</code> 或<code>--xodr-path</code>。此参数需要一个带有 <code>.xodr</code> 文件路径的字符串，例如 <code>path/example.xodr</code>。如果使用此脚本生成网格，则使用的参数将始终为默认参数。</p>
 <p>此功能可以使用 Carla 提供的新 <strong>TownBig</strong> 进行测试。</p>
-<pre><code class="language-sh">python3 config.py -x opendrive/TownBig.xodr
-</code></pre>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>config.py<span class="w"> </span>-x<span class="w"> </span>opendrive/TownBig.xodr
+</code></pre></div>
 <div class="admonition 重要的">
 <p class="admonition-title">重要的</p>
 <p><strong><a href="../python_api/#carla.Client.generate_opendrive_world">client.generate_opendrive_world()</a></strong> 使用 <strong>OpenDRIVE 文件的内容解析为字符串</strong> 。相反，<strong><code>config.py</code></strong> 脚本需要 <strong><code>.xodr</code> 文件的路径</strong>。</p>
@@ -176,8 +176,13 @@ Carla 论坛</a>
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

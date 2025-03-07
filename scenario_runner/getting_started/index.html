@@ -81,69 +81,67 @@
 <li>用 Python 编写的一些示例场景。</li>
 </ul>
 <h2 id="_2">安装先决条件</h2>
-<p>当前版本设计用于 Ubuntu 18.04、Python 3.6。根据您的 Python 版本，执行：</p>
-<pre><code>
-
-#Python 2.x
+<p>当前版本设计用于 Ubuntu 18.04、Python 3.6。根据您的 Python 版本，执行：
+<div class="highlight"><pre><span></span><code>#Python 2.x
 sudo apt remove python-networkx #if installed, remove old version of networkx
 pip2 install --user -r requirements.txt
 #Python 3.x
 sudo apt remove python3-networkx #if installed, remove old version of networkx
 pip3 install --user -r requirements.txt
-</code></pre>
-<p>注意: <em>不</em> 支持高于 v0.8 的 py-tree 。</p>
+</code></pre></div>
+注意: <em>不</em> 支持高于 v0.8 的 py-tree 。</p>
 <h2 id="_3">运行以下车辆示例</h2>
-<p>首先，您需要从 Carla 获取最新的主分支。然后您必须将 Carla Python API 包含到 Python 路径中：</p>
-<pre><code class="language-Bash">export CARLA_ROOT=/path/to/your/carla/installation
-export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-&lt;VERSION&gt;.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla
-</code></pre>
-<p>笔记: ${CARLA_ROOT} 需要使用您的 Carla 安装路径替换，
+<p>首先，您需要从 Carla 获取最新的主分支。然后您必须将 Carla Python API 包含到 Python 路径中：
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">CARLA_ROOT</span><span class="o">=</span>/path/to/your/carla/installation
+<span class="nb">export</span><span class="w"> </span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="nv">$PYTHONPATH</span>:<span class="si">${</span><span class="nv">CARLA_ROOT</span><span class="si">}</span>/PythonAPI/carla/dist/carla-&lt;VERSION&gt;.egg:<span class="si">${</span><span class="nv">CARLA_ROOT</span><span class="si">}</span>/PythonAPI/carla/agents:<span class="si">${</span><span class="nv">CARLA_ROOT</span><span class="si">}</span>/PythonAPI/carla
+</code></pre></div>
+笔记: ${CARLA_ROOT} 需要使用您的 Carla 安装路径替换，
       <VERSION> 虚幻使用正确的字符串替换。
       如果您从源代码编译 Carla，egg 文件可能位于：
       ${CARLA_ROOT}/PythonAPI/dist/ 而不是 ${CARLA_ROOT}/PythonAPI。</p>
-<p>现在，您可以从 ${CARLA_ROOT} 启动 CARLA 服务器</p>
-<pre><code>./CarlaUE4.sh
-</code></pre>
-<p>在额外的终端中启动示例场景（跟随领先的车辆）：</p>
-<pre><code>python scenario_runner.py --scenario FollowLeadingVehicle_1 --reloadWorld
-</code></pre>
-<p>如果您需要帮助或想要探索其他命令行参数，请按如下方式启动场景运行程序：</p>
-<pre><code>python scenario_runner.py --help
-</code></pre>
-<p>要控制场景中的自我车辆，请打开另一个终端并运行：</p>
-<pre><code>python manual_control.py
-</code></pre>
+<p>现在，您可以从 ${CARLA_ROOT} 启动 CARLA 服务器
+<div class="highlight"><pre><span></span><code>./CarlaUE4.sh
+</code></pre></div></p>
+<p>在额外的终端中启动示例场景（跟随领先的车辆）：
+<div class="highlight"><pre><span></span><code>python scenario_runner.py --scenario FollowLeadingVehicle_1 --reloadWorld
+</code></pre></div></p>
+<p>如果您需要帮助或想要探索其他命令行参数，请按如下方式启动场景运行程序：
+<div class="highlight"><pre><span></span><code>python scenario_runner.py --help
+</code></pre></div></p>
+<p>要控制场景中的自我车辆，请打开另一个终端并运行：
+<div class="highlight"><pre><span></span><code>python manual_control.py
+</code></pre></div></p>
 <p>注意: 如果您不希望自动（重新）加载 Carla 世界，您可以跳过命令行选项 <em>--reloadWorld</em></p>
 <h2 id="_4">运行一个场景类的所有场景</h2>
 <p>与前面的示例类似，还可以执行属于同一类（例如“FollowLeadingVehicle”类）的一系列场景。</p>
-<p>唯一的区别是，您按如下方式启动 scene_runner：</p>
-<pre><code>python scenario_runner.py --scenario group:FollowLeadingVehicle
-</code></pre>
+<p>唯一的区别是，您按如下方式启动 scene_runner：
+<div class="highlight"><pre><span></span><code>python scenario_runner.py --scenario group:FollowLeadingVehicle
+</code></pre></div></p>
 <h2 id="_5">运行其他场景</h2>
 <p>支持的场景列表中提供了 <a href="../list_of_scenarios/">支持的场景列表</a> 。请注意，不同的 Carla 城镇可能会发生不同的场景。启动 Carla 服务器时必须遵守这一点。</p>
 <h2 id="openscenario">使用 OpenSCENARIO 格式运行场景</h2>
-<p>要运行基于 OpenSCENARIO 格式的场景，请运行 ScenarioRunner，如下所示：</p>
-<pre><code>python scenario_runner.py --openscenario &lt;path/to/xosc-file&gt;
-</code></pre>
-<p>请注意，OpenSCENARIO 支持和 OpenSCENARIO 格式本身仍在进行中。您可以在 <a href="../openscenario_support/">OpenSCENARIO 支持</a> 中找到更多信息。</p>
+<p>要运行基于 OpenSCENARIO 格式的场景，请运行 ScenarioRunner，如下所示：
+<div class="highlight"><pre><span></span><code>python scenario_runner.py --openscenario &lt;path/to/xosc-file&gt;
+</code></pre></div>
+请注意，OpenSCENARIO 支持和 OpenSCENARIO 格式本身仍在进行中。您可以在 <a href="../openscenario_support/">OpenSCENARIO 支持</a> 中找到更多信息。</p>
 <h2 id="openscenario-20">使用 OpenSCENARIO 2.0 格式运行场景</h2>
-<p>要运行基于 OpenSCENARIO 2.0 格式的场景，请运行 ScenarioRunner，如下所示：</p>
-<pre><code>python scenario_runner.py --openscenario2 &lt;path/to/osc-file&gt;
-</code></pre>
-<p>要控制场景中的自我车辆或观察它，请打开另一个终端并运行：</p>
-<pre><code>python manual_control.py -a --rolename=ego_vehicle
-</code></pre>
-<p>有关如何运行OpenSCENARIO 2.0场景的更多信息，请参阅 <a href="../README_OpenSCENARIO_2.0/">README_OpenSCENARIO_2.0</a>。</p>
-<p>使用具有 Global ParameterDeclaration 覆盖的 OpenSCENARIO 格式运行场景</p>
-<pre><code>python scenario_runner.py --openscenario &lt;path/to/xosc-file&gt; --openscenarioparams 'param1: value1, param2: value2'
-</code></pre>
+<p>要运行基于 OpenSCENARIO 2.0 格式的场景，请运行 ScenarioRunner，如下所示：
+<div class="highlight"><pre><span></span><code>python scenario_runner.py --openscenario2 &lt;path/to/osc-file&gt;
+</code></pre></div></p>
+<p>要控制场景中的自我车辆或观察它，请打开另一个终端并运行：
+<div class="highlight"><pre><span></span><code>python manual_control.py -a --rolename=ego_vehicle
+</code></pre></div>
+有关如何运行OpenSCENARIO 2.0场景的更多信息，请参阅 <a href="../README_OpenSCENARIO_2.0/">README_OpenSCENARIO_2.0</a>。</p>
+<p>使用具有 Global ParameterDeclaration 覆盖的 OpenSCENARIO 格式运行场景
+<div class="highlight"><pre><span></span><code>python scenario_runner.py --openscenario &lt;path/to/xosc-file&gt; --openscenarioparams &#39;param1: value1, param2: value2&#39;
+</code></pre></div></p>
 <h2 id="carla">运行基于路线的场景（类似于 Carla 自动驾驶挑战赛）</h2>
-<p>要运行基于路线的场景，请按如下方式运行 ScenarioRunner：</p>
-<pre><code>python scenario_runner.py --route &lt;path/to/route-file&gt; &lt;path/to/scenario_sample_file&gt; [route id] --agent &lt;path/to/agent_file&gt;
-</code></pre>
-<p>实例:</p>
-<pre><code>python scenario_runner.py --route D:/work/workspace/carla_doc/src/scenario_runner/srunner/data/routes_town10.xml  --agent srunner/autoagents/npc_agent.py
-</code></pre>
+<p>要运行基于路线的场景，请按如下方式运行 ScenarioRunner：
+<div class="highlight"><pre><span></span><code>python scenario_runner.py --route &lt;path/to/route-file&gt; &lt;path/to/scenario_sample_file&gt; [route id] --agent &lt;path/to/agent_file&gt;
+</code></pre></div>
+实例:
+<div class="highlight"><pre><span></span><code>python scenario_runner.py --route D:/work/workspace/carla_doc/src/scenario_runner/srunner/data/routes_town10.xml  --agent srunner/autoagents/npc_agent.py
+</code></pre></div></p>
 <p>如果未提供路由 ID，则将执行给定文件中的所有路线。</p>
 <p>通过这样做，ScenarioRunner 会将场景与路线相匹配，并且当自我车辆在附近时它们会激活。然而，路线需要一个自主代理来控制自我车辆。<code>srunner/autoagents/</code> 中提供了几个示例。有关代理的更多信息，请查看 <a href="../agent_evaluation/">代理文档</a> 。</p>
               
@@ -181,8 +179,13 @@ export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-&lt;VERSI
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="../../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

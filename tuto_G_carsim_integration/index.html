@@ -105,8 +105,8 @@
 <p>如果您从源代码构建 Carla，请在根文件夹中运行以下命令以使用<code>--carsim</code>标志编译服务器：</p>
 </li>
 </ol>
-<pre><code class="language-sh">make launch ARGS=&quot;--carsim&quot;
-</code></pre>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>launch<span class="w"> </span><span class="nv">ARGS</span><span class="o">=</span><span class="s2">&quot;--carsim&quot;</span>
+</code></pre></div>
 <h2 id="carsim_1">设置 CarSim <span id="set_up_carsim"></span></h2>
 <p>以下部分详细介绍了如何生成运行模拟所需的 <code>.sim</code> 文件。还有关于 Carla 和 CarSim 之间车辆尺寸关系的详细重要信息。</p>
 <h4 id="sim">生成.sim 文件 <span id="generate_the_sim_file"></span></h4>
@@ -115,7 +115,7 @@
 <p>在 CarSim 上配置完所有参数后，使用 GUI 生成 <code>.sim</code> 文件，如下所示：</p>
 <p><img alt="generate .sim file" src="../img/carsim_generate.jpg" /></p>
 <p>生成的<code>.sim</code>文件应如下所示：</p>
-<pre><code>SIMFILE
+<div class="highlight"><pre><span></span><code>SIMFILE
 
 SET_MACRO $(ROOT_FILE_NAME)$ Run_dd7a828d-4b14-4c77-9d09-1974401d6b25
 SET_MACRO $(OUTPUT_PATH)$ D:\carsim\Data\Results
@@ -143,7 +143,7 @@ PORTS_EXP 0
 
 DLLFILE D:\carsim\Programs\solvers\carsim_64.dll
 END
-</code></pre>
+</code></pre></div>
 <h5 id="ubuntu">在Ubuntu上 <span id="on_ubuntu"></span></h5>
 <p>无法在 Ubuntu 上通过 GUI 创建 <code>.sim</code> 文件。为了继续，您需要执行以下步骤：</p>
 <ol>
@@ -152,7 +152,7 @@ END
 <li>替换 <code>DLLFILE</code> 行以指向 CarSim 解算器，在默认安装中，该解算器将为 <code>SOFILE /opt/carsim_2020.0/lib64/libcarsim.so.2020.0</code>. </li>
 </ol>
 <p>生成的文件应与此类似：</p>
-<pre><code>SIMFILE
+<div class="highlight"><pre><span></span><code>SIMFILE
 
 FILEBASE /path/to/LastRun
 INPUT /path/to/Run_all.par
@@ -169,7 +169,7 @@ VEHICLE_CODE i_i
 
 SOFILE /opt/carsim_2020.0/lib64/libcarsim.so.2020.0
 END
-</code></pre>
+</code></pre></div>
 <h4 id="_2">车辆尺寸 <span id="vehicle_sizes"></span></h4>
 <p>尽管 CarSim 允许您指定在模拟中使用的车辆尺寸，但目前 CarSim 车辆和 Carla 车辆之间没有关联。这意味着两个项目中的车辆将具有不同的尺寸。Carla 车辆的作用只是在模拟过程中充当占位符。</p>
 <p><img alt="carsim vehicle sizes" src="../img/carsim_vehicle_sizes.jpg" /></p>
@@ -179,8 +179,8 @@ END
 </div>
 <h2 id="_3">运行模拟 <span id="run_the_simulation"></span></h2>
 <p>运行模拟时所需要做的就是在生成车辆时启用 CarSim。这可以通过将<code>.sim</code> 文件路径传递给Python API 的 <a href="https://carla.readthedocs.io/en/latest/python_api/#carla.Vehicle.enable_carsim">方法</a> 来完成：</p>
-<pre><code class="language-sh">vehicle.enable_carsim(&lt;path_to_ue4simfile.sim&gt;)
-</code></pre>
+<div class="highlight"><pre><span></span><code>vehicle.enable_carsim<span class="o">(</span>&lt;path_to_ue4simfile.sim&gt;<span class="o">)</span>
+</code></pre></div>
 <p>发送到车辆的所有输入控件都将转发到 CarSim。CarSim 将更新物理并将车辆状态（变换）发送回 Carla 车辆。</p>
 <p>模拟完成后，您可以像往常一样分析 CarSim 中的所有数据。</p>
 <p><img alt="carsim analysis" src="../img/carsim_analysis.jpg" /></p>
@@ -223,8 +223,13 @@ END
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

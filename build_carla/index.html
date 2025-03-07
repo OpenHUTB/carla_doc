@@ -101,21 +101,21 @@
 比如使用Clash，首先在<code>配置</code>页面下根据订阅链接进行下载，然后在<code>常规</code>页面开启<code>系统代理</code>，最后测试是否可以正常科学上网。</p>
 <h4 id="ubuntu">Ubuntu 下的配置</h4>
 <p>Linux 科学上网配置<a href="https://opclash.com/article/302.html">教程</a> 。下载<a href="https://github.com/zhongfly/Clash-premium-backup/releases/download/2023-09-05-gdcc8d87/clash-linux-amd64-n2023-09-05-gdcc8d87.gz">clash</a> 。</p>
-<p>首次启动<code>clash</code>，会新建文件<code>~/.config/clash/config.yaml</code>：</p>
-<pre><code class="language-shell">cd $HOME/.config/clash/
-</code></pre>
-<p><img alt="ImageDepth" src="../img/build/agent_config.jpg" />
+<p>首次启动<code>clash</code>，会新建文件<code>~/.config/clash/config.yaml</code>：
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="nv">$HOME</span>/.config/clash/
+</code></pre></div>
+<img alt="ImageDepth" src="../img/build/agent_config.jpg" />
 将Clash中的订阅地址写入<code>config.yaml</code>文件。</p>
-<p>打开 Ubuntu 的“设置”管理，在“网络”内将“网络代理”的“自动”改为“手动”，根据以下内容进行填写 HTTP、HTTPS 和 Socks 地址</p>
-<pre><code class="language-shell"># HTTP 代理
-127.0.0.1:7890
+<p>打开 Ubuntu 的“设置”管理，在“网络”内将“网络代理”的“自动”改为“手动”，根据以下内容进行填写 HTTP、HTTPS 和 Socks 地址
+<div class="highlight"><pre><span></span><code><span class="c1"># HTTP 代理</span>
+<span class="m">127</span>.0.0.1:7890
 
-# HTTPS 代理
-127.0.0.1:7890
+<span class="c1"># HTTPS 代理</span>
+<span class="m">127</span>.0.0.1:7890
 
-# Socks 主机
-127.0.0.1:7891
-</code></pre>
+<span class="c1"># Socks 主机</span>
+<span class="m">127</span>.0.0.1:7891
+</code></pre></div></p>
 <h4 id="tortoisegit">TortoiseGit 网络代理配置</h4>
 <p>如果使用TortoiseGit作为git的图形化界面软件，首页在文件资源管理器空白位置右键，选择<code>TortoiseGit-&gt;Setting</code>，然后在弹出的界面进行如下配置：
 <img alt="ImageDepth" src="../img/build/internet.jpg" /></p>
@@ -166,8 +166,13 @@
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

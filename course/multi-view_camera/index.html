@@ -87,11 +87,11 @@
 <p><a href="https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb"><strong>湖工商场景</strong></a><strong>(WindowsNoEditor)</strong></p>
 </li>
 </ul>
-<pre><code>pip install carla pygame numpy opencv-python
-</code></pre>
+<div class="highlight"><pre><span></span><code>pip install carla pygame numpy opencv-python
+</code></pre></div>
 <h4 id="_3"><strong>脚本结构</strong></h4>
 <h5 id="_4">初始化</h5>
-<pre><code>def __init__(self):
+<div class="highlight"><pre><span></span><code>def __init__(self):
     self.client = None
     self.world = None
     self.camera_left = None
@@ -100,40 +100,40 @@
     self.image_left = None
     self.image_right = None
     self.capture = True
-</code></pre>
+</code></pre></div>
 <p>初始化CARLA客户端、世界、车辆和相机变量。</p>
 <h5 id="_5">相机设置</h5>
-<pre><code class="language-python">def setup_camera(self):
-    #设置相机的变换位置并附加到车辆上
-    #左相机
-    left_camera_transform = carla.Transform(carla.Location(x=-1.6, y=-1.5, z=1.7))
-    self.camera_left = self.world.spawn_actor(self.camera_bp(), left_camera_transform, attach_to=self.car)
-    #右相机
-    right_camera_transform = carla.Transform(carla.Location(x=-1.6, y=1.5, z=1.7))
-    self.camera_right = self.world.spawn_actor(self.camera_bp(), right_camera_transform, attach_to=self.car)
-    #监听左右相机图像
-    weak_self = weakref.ref(self)
-    self.camera_left.listen(lambda image: weak_self().set_image(weak_self, 'left', image))
-    self.camera_right.listen(lambda image: weak_self().set_image(weak_self, 'right', image))
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">setup_camera</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c1">#设置相机的变换位置并附加到车辆上</span>
+    <span class="c1">#左相机</span>
+    <span class="n">left_camera_transform</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Transform</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">Location</span><span class="p">(</span><span class="n">x</span><span class="o">=-</span><span class="mf">1.6</span><span class="p">,</span> <span class="n">y</span><span class="o">=-</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">1.7</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">camera_left</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">camera_bp</span><span class="p">(),</span> <span class="n">left_camera_transform</span><span class="p">,</span> <span class="n">attach_to</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">car</span><span class="p">)</span>
+    <span class="c1">#右相机</span>
+    <span class="n">right_camera_transform</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Transform</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">Location</span><span class="p">(</span><span class="n">x</span><span class="o">=-</span><span class="mf">1.6</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">1.7</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">camera_right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">camera_bp</span><span class="p">(),</span> <span class="n">right_camera_transform</span><span class="p">,</span> <span class="n">attach_to</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">car</span><span class="p">)</span>
+    <span class="c1">#监听左右相机图像</span>
+    <span class="n">weak_self</span> <span class="o">=</span> <span class="n">weakref</span><span class="o">.</span><span class="n">ref</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">camera_left</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="k">lambda</span> <span class="n">image</span><span class="p">:</span> <span class="n">weak_self</span><span class="p">()</span><span class="o">.</span><span class="n">set_image</span><span class="p">(</span><span class="n">weak_self</span><span class="p">,</span> <span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">image</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">camera_right</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="k">lambda</span> <span class="n">image</span><span class="p">:</span> <span class="n">weak_self</span><span class="p">()</span><span class="o">.</span><span class="n">set_image</span><span class="p">(</span><span class="n">weak_self</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">image</span><span class="p">))</span>
+</code></pre></div>
 <p>在车辆的左右两侧生成相机，并设置监听器捕获相机图像。</p>
 <h5 id="_6">图像处理</h5>
-<pre><code>@staticmethod
+<div class="highlight"><pre><span></span><code>@staticmethod
 def set_image(weak_self, side, img):
     self = weak_self()
-    if side == 'left':
+    if side == &#39;left&#39;:
         self.image_left = img
-    elif side == 'right':
+    elif side == &#39;right&#39;:
         self.image_right = img
 
 def get_image_array(self, side):
-    if side == 'left' and self.image_left is not None:
+    if side == &#39;left&#39; and self.image_left is not None:
         array = np.frombuffer(self.image_left.raw_data, dtype=np.dtype(&quot;uint8&quot;))
         array = array.reshape((VIEW_HEIGHT, VIEW_WIDTH, 4))
         array = array[:, :, :3]  # Drop alpha channel
         array = array[:, :, ::-1]  # Convert from BGRA to RGB
         return array
-    elif side == 'right' and self.image_right is not None:
+    elif side == &#39;right&#39; and self.image_right is not None:
         array = np.frombuffer(self.image_right.raw_data, dtype=np.dtype(&quot;uint8&quot;))
         array = array.reshape((VIEW_HEIGHT, VIEW_WIDTH, 4))
         array = array[:, :, :3]  # Drop alpha channel
@@ -141,14 +141,14 @@ def get_image_array(self, side):
         return array
     else:
         return None
-</code></pre>
+</code></pre></div>
 <p>将相机捕获的图像从BGRA格式转换为RGB格式，并去除Alpha通道。</p>
 <h5 id="_7">渲染函数</h5>
-<pre><code>def render(queue, side, x, y):
+<div class="highlight"><pre><span></span><code>def render(queue, side, x, y):
     pygame.init()
-    os.environ['SDL_VIDEO_WINDOW_POS'] = f&quot;{x},{y}&quot;
+    os.environ[&#39;SDL_VIDEO_WINDOW_POS&#39;] = f&quot;{x},{y}&quot;
     display = pygame.display.set_mode((VIEW_WIDTH, VIEW_HEIGHT), pygame.HWSURFACE | pygame.DOUBLEBUF)
-    pygame.display.set_caption(f'{side.capitalize()} Camera')
+    pygame.display.set_caption(f&#39;{side.capitalize()} Camera&#39;)
     clock = pygame.time.Clock()
 
     try:
@@ -165,13 +165,13 @@ def get_image_array(self, side):
             clock.tick_busy_loop(30)
     finally:
         pygame.quit()
-</code></pre>
+</code></pre></div>
 <p>使用Pygame显示左右相机捕获的图像。</p>
 <h5 id="_8">多线程</h5>
 <p>为了在CARLA模拟环境中创建两个窗口来显示车辆的左右视角，我们需要利用Pygame和多进程来实现。</p>
-<pre><code> left_process = multiprocessing.Process(target=render, args=(left_queue, 'left', 0, 100))
- right_process = multiprocessing.Process(target=render, args=(right_queue, 'right', VIEW_WIDTH + 10, 100))
-</code></pre>
+<div class="highlight"><pre><span></span><code> left_process = multiprocessing.Process(target=render, args=(left_queue, &#39;left&#39;, 0, 100))
+ right_process = multiprocessing.Process(target=render, args=(right_queue, &#39;right&#39;, VIEW_WIDTH + 10, 100))
+</code></pre></div>
 <p><img alt="" src="../../img/traffic_course_img/2.gif" /></p>
               
             </div>
@@ -208,8 +208,13 @@ def get_image_array(self, side):
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="../../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

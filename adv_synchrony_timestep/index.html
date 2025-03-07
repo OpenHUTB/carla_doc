@@ -98,27 +98,27 @@
 <h3 id="_3">可变时间步长 <span id="variable-time-step"></span></h3>
 <p>Carla 中的默认模式。模拟时间步长是服务器计算这些步骤所需的时间。
 模拟尝试去跟上实时，每次更新都会稍微调整时间步长（模拟不可重复）。</p>
-<pre><code class="language-py">settings = world.get_settings()
-settings.fixed_delta_seconds = None # 设置为可变步长
-world.apply_settings(settings)
-</code></pre>
-<p><code>PythonAPI/util/config.py</code> 使用参数设置时间步长。0 表示可变时间步长。</p>
-<pre><code class="language-sh">cd PythonAPI/util &amp;&amp; python3 config.py --delta-seconds 0
-</code></pre>
+<p><div class="highlight"><pre><span></span><code><span class="n">settings</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_settings</span><span class="p">()</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">fixed_delta_seconds</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># 设置为可变步长</span>
+<span class="n">world</span><span class="o">.</span><span class="n">apply_settings</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
+</code></pre></div>
+<code>PythonAPI/util/config.py</code> 使用参数设置时间步长。0 表示可变时间步长。</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>PythonAPI/util<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>python3<span class="w"> </span>config.py<span class="w"> </span>--delta-seconds<span class="w"> </span><span class="m">0</span>
+</code></pre></div>
 <h3 id="_4">固定时间步长 <span id="fixed-time-step"></span></h3>
 <p>每个模拟步骤之间经过的时间保持恒定。如果设置为 0.5 秒，每秒将有 2 个模拟帧。使用相同的时间增量对于从模拟中获取数据是最好的方式。物理和传感器数据将对应于模拟中易于理解的时刻。此外，如果服务器速度足够快，可以在更少的实际时间内模拟更长的时间段。</p>
 <p>在模拟中，将模拟时间与实时分离，并使用固定的时间步长可以让模拟尽可能快地运行。这样做，我们不仅能够在更短的时间内模拟更长的周期，而且还可以通过减少可变时间步长引入的浮点算术误差来获得可重复性。</p>
 <p>可以在世界设置中设置固定的时间步长。要将模拟设置为固定时间步长为 0.05 秒，请应用以下设置。在这种情况下，模拟器将花费20 步（1/0.05）来重现模拟世界中的 1 秒。</p>
-<pre><code class="language-py">settings = world.get_settings()
-settings.fixed_delta_seconds = 0.05
-world.apply_settings(settings)
-</code></pre>
-<p>这也可以使用 <code>PythonAPI/util/config.py</code> 提供的脚本进行设置。 </p>
-<pre><code class="language-sh">cd PythonAPI/util &amp;&amp; python3 config.py --delta-seconds 0.05
-</code></pre>
-<p>另一种方式是指定模拟的FPS（即时间步长的倒数），例如，要以0.2秒的固定时间步长运行模拟，则执行：</p>
-<pre><code class="language-shell">cd PythonAPI/util &amp;&amp; python3 config.py -fps=5
-</code></pre>
+<p><div class="highlight"><pre><span></span><code><span class="n">settings</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_settings</span><span class="p">()</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">fixed_delta_seconds</span> <span class="o">=</span> <span class="mf">0.05</span>
+<span class="n">world</span><span class="o">.</span><span class="n">apply_settings</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
+</code></pre></div>
+这也可以使用 <code>PythonAPI/util/config.py</code> 提供的脚本进行设置。 </p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>PythonAPI/util<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>python3<span class="w"> </span>config.py<span class="w"> </span>--delta-seconds<span class="w"> </span><span class="m">0</span>.05
+</code></pre></div>
+<p>另一种方式是指定模拟的FPS（即时间步长的倒数），例如，要以0.2秒的固定时间步长运行模拟，则执行：
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>PythonAPI/util<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>python3<span class="w"> </span>config.py<span class="w"> </span>-fps<span class="o">=</span><span class="m">5</span>
+</code></pre></div></p>
 <div class="admonition 重要">
 <p class="admonition-title">重要</p>
 <p><strong>不要将帧速率降低到 10 FPS 以下</strong>。我们的设置已调整为将物理引擎限制在最低 10 FPS。如果游戏节拍低于此值，物理引擎仍将模拟 10 FPS。在这种情况下，依赖于游戏增量时间的事物不再与物理引擎同步，参考问题 <a href="https://github.com/carla-simulator/carla/issues/695">#695</a> 。目前已启用最多 6 个物理子步骤，每个子步骤的最大增量时间为 0.016667 秒（60FPS）。因此，帧率不能低于 10 FPS。</p>
@@ -142,15 +142,15 @@ world.apply_settings(settings)
 <p>加快仿真速度需要每一帧的时间更小（才能一秒钟跑更多的帧），减少物理子步数（物理效果）+减少每个物理子步时间(<code>max_substep_delta_time</code>)。</p>
 </div>
 <p>当然，我们可以通过API调整这些设定：</p>
-<pre><code class="language-py">settings = world.get_settings()
-settings.substepping = True
-settings.max_substep_delta_time = 0.01
-settings.max_substeps = 10
-world.apply_settings(settings)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">settings</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_settings</span><span class="p">()</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">substepping</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">max_substep_delta_time</span> <span class="o">=</span> <span class="mf">0.01</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">max_substeps</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">world</span><span class="o">.</span><span class="n">apply_settings</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
+</code></pre></div>
 <p><strong>注意，当设置了同步模式和固定步长时，则子步选项需要与固定增量秒<code>fixed_delta_seconds</code> 的值一致来保证物理模拟的准确性。（一帧所需要的时间）要满足的条件是：</strong></p>
-<pre><code class="language-py">fixed_delta_seconds &lt;= max_substep_delta_time * max_substeps
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">fixed_delta_seconds</span> <span class="o">&lt;=</span> <span class="n">max_substep_delta_time</span> <span class="o">*</span> <span class="n">max_substeps</span>
+</code></pre></div>
 <p><strong>注意，为了保证物理模拟的准确性，子步的时间间隔<code>max_substep_delta_time</code>应该至少低于 0.01666，理想情况下低于 0.01。</strong></p>
 <p>为了演示最佳物理子步的效果，请考虑下面的图。下面的第一个图表显示了在不同固定模拟时间步长的模拟中速度随时间的变化。物理增量时间<code>max_substep_delta_time</code>在所有模拟中都是恒定的，默认值为 0.01。我们可以看到，速度不受模拟时间步长差异的影响。</p>
 <blockquote>
@@ -199,44 +199,44 @@ world.apply_settings(settings)
 </div>
 <h3 id="_7">设置同步模式 <span id="setting-synchronous-mode"></span></h3>
 <p>同步模式和异步模式之间切换只需要改变 <code>settings.synchronous_mode</code>的值即可。</p>
-<pre><code class="language-py">settings = world.get_settings()
-settings.synchronous_mode = True # 启用同步模式
-world.apply_settings(settings)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">settings</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_settings</span><span class="p">()</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">synchronous_mode</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># 启用同步模式</span>
+<span class="n">world</span><span class="o">.</span><span class="n">apply_settings</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
+</code></pre></div>
 <div class="admonition 警告">
 <p class="admonition-title">警告</p>
 <p>如果启用了同步模式，并且正在运行交通管理器，则也必须将其设置为同步模式。阅读 <a href="../adv_traffic_manager/#synchronous-mode">这个</a> 以了解如何操作。</p>
 </div>
 <p>要禁用同步模式，只需将变量设置为 false 或使用<code>PythonAPI/util/config.py</code>脚本。</p>
-<pre><code class="language-sh">cd PythonAPI/util &amp;&amp; python3 config.py --no-sync # Disables synchronous mode
-</code></pre>
-<p>同步模式不能通过脚本启用，只能禁用。启用同步模式将使服务器等待客户机的响应。使用这个脚本，用户不能在需要的时候发送节拍信号。</p>
+<p><div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>PythonAPI/util<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>python3<span class="w"> </span>config.py<span class="w"> </span>--no-sync<span class="w"> </span><span class="c1"># Disables synchronous mode</span>
+</code></pre></div>
+同步模式不能通过脚本启用，只能禁用。启用同步模式将使服务器等待客户机的响应。使用这个脚本，用户不能在需要的时候发送节拍信号。</p>
 <h3 id="_8">使用同步模式 <span id="using-synchronous-mode"></span></h3>
 <p>同步模式在客户端应用程序较慢以及需要不同元素之间的同步，如传感器等情况下尤为重要。如果客户端速度太慢而服务器不等待，信息将会溢出。客户端将无法管理所有内容，信息会丢失或混淆。类似的情况是，如果有很多传感器和异步操作，将无法确定所有传感器是否在模拟中使用来自同一时刻的数据。</p>
 <p>以下代码片段扩展了前一段代码。客户端创建一个相机传感器，将当前步骤的图像数据存储在队列中，并在从队列中检索后勾选服务器。可以<a href="https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/synchronous_mode.py">在此处</a>找到有关多个传感器的更复杂示例。</p>
-<pre><code class="language-py">settings = world.get_settings()
-settings.synchronous_mode = True
-world.apply_settings(settings)
+<div class="highlight"><pre><span></span><code><span class="n">settings</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_settings</span><span class="p">()</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">synchronous_mode</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">world</span><span class="o">.</span><span class="n">apply_settings</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
 
-camera = world.spawn_actor(blueprint, transform)
-image_queue = queue.Queue()
-camera.listen(image_queue.put)
+<span class="n">camera</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">blueprint</span><span class="p">,</span> <span class="n">transform</span><span class="p">)</span>
+<span class="n">image_queue</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">Queue</span><span class="p">()</span>
+<span class="n">camera</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="n">image_queue</span><span class="o">.</span><span class="n">put</span><span class="p">)</span>
 
-while True:
-    world.tick()
-    image = image_queue.get()
-</code></pre>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">world</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">image_queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+</code></pre></div>
 <div class="admonition 重要">
 <p class="admonition-title">重要</p>
 <p>来自基于GPU的传感器（主要是摄像头）的重要数据通常会延迟几帧。在这里，同步是至关重要的。</p>
 </div>
 <p>世界具有异步方法，可以让客户端等待服务器的时间步进，或在收到时执行某些操作。</p>
-<pre><code class="language-py"># 等待下一个滴答信息并检索该节拍的快照。
-world_snapshot = world.wait_for_tick()
+<div class="highlight"><pre><span></span><code><span class="c1"># 等待下一个滴答信息并检索该节拍的快照。</span>
+<span class="n">world_snapshot</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">wait_for_tick</span><span class="p">()</span>
 
-# 注册一个回调函数，每次接收到新快照时调用它。
-world.on_tick(lambda world_snapshot: do_something(world_snapshot))
-</code></pre>
+<span class="c1"># 注册一个回调函数，每次接收到新快照时调用它。</span>
+<span class="n">world</span><span class="o">.</span><span class="n">on_tick</span><span class="p">(</span><span class="k">lambda</span> <span class="n">world_snapshot</span><span class="p">:</span> <span class="n">do_something</span><span class="p">(</span><span class="n">world_snapshot</span><span class="p">))</span>
+</code></pre></div>
 <hr />
 <h2 id="_9">可能的配置  <span id="possible-configurations"></span></h2>
 <p>时间步长和同步的配置，导致不同的设置。以下是对这些可能性的简要总结。</p>
@@ -282,57 +282,57 @@ world.on_tick(lambda world_snapshot: do_something(world_snapshot))
 <li>命令<strong>应该是批处理的，而不是一次发出一个命令：</strong>虽然很少见，但在繁忙的模拟或过载的服务器中，单个发出的命令可能会丢失。如果命令在<a href="../python_api/#carla.Client.apply_batch_sync"><code>apply_batch_sync</code></a>命令中批处理，则保证该命令被执行或返回失败响应。</li>
 </ul>
 <p>以下是上述步骤的示例：</p>
-<pre><code class="language-py">client = carla.Client(HOST, PORT) # 连接到服务器
-client.set_timeout(10.0)
-world = client.get_world()
+<div class="highlight"><pre><span></span><code><span class="n">client</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="n">HOST</span><span class="p">,</span> <span class="n">PORT</span><span class="p">)</span> <span class="c1"># 连接到服务器</span>
+<span class="n">client</span><span class="o">.</span><span class="n">set_timeout</span><span class="p">(</span><span class="mf">10.0</span><span class="p">)</span>
+<span class="n">world</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_world</span><span class="p">()</span>
 
-# 加载想要的地图
-client.load_world(&quot;Town10HD_Opt&quot;)
+<span class="c1"># 加载想要的地图</span>
+<span class="n">client</span><span class="o">.</span><span class="n">load_world</span><span class="p">(</span><span class="s2">&quot;Town10HD_Opt&quot;</span><span class="p">)</span>
 
-# 设置同步模式
-new_settings = world.get_settings()
-new_settings.synchronous_mode = True
-new_settings.fixed_delta_seconds = 0.05
-world.apply_settings(new_settings) 
+<span class="c1"># 设置同步模式</span>
+<span class="n">new_settings</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_settings</span><span class="p">()</span>
+<span class="n">new_settings</span><span class="o">.</span><span class="n">synchronous_mode</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">new_settings</span><span class="o">.</span><span class="n">fixed_delta_seconds</span> <span class="o">=</span> <span class="mf">0.05</span>
+<span class="n">world</span><span class="o">.</span><span class="n">apply_settings</span><span class="p">(</span><span class="n">new_settings</span><span class="p">)</span> 
 
-client.reload_world(False) # 重新加载地图并保留世界设置
+<span class="n">client</span><span class="o">.</span><span class="n">reload_world</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span> <span class="c1"># 重新加载地图并保留世界设置</span>
 
-# 设置交通管理器
-traffic_manager = client.get_trafficmanager(TM_PORT)
-traffic_manager.set_synchronous_mode(True)
-traffic_manager.set_random_device_seed(SEED) # 定义交通管理器以实现确定性
+<span class="c1"># 设置交通管理器</span>
+<span class="n">traffic_manager</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_trafficmanager</span><span class="p">(</span><span class="n">TM_PORT</span><span class="p">)</span>
+<span class="n">traffic_manager</span><span class="o">.</span><span class="n">set_synchronous_mode</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">traffic_manager</span><span class="o">.</span><span class="n">set_random_device_seed</span><span class="p">(</span><span class="n">SEED</span><span class="p">)</span> <span class="c1"># 定义交通管理器以实现确定性</span>
 
-# 生成车辆、行人等
+<span class="c1"># 生成车辆、行人等</span>
 
-# 模拟循环
-while True:
-    # 你的代码
-    world.tick()
-</code></pre>
+<span class="c1"># 模拟循环</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="c1"># 你的代码</span>
+    <span class="n">world</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
+</code></pre></div>
 <p>播放功能的一个具体示例：</p>
-<pre><code class="language-py">client = carla.Client(HOST, PORT) # 连接到服务器
-client.set_timeout(10.0)
-world = client.get_world()
+<div class="highlight"><pre><span></span><code><span class="n">client</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="n">HOST</span><span class="p">,</span> <span class="n">PORT</span><span class="p">)</span> <span class="c1"># 连接到服务器</span>
+<span class="n">client</span><span class="o">.</span><span class="n">set_timeout</span><span class="p">(</span><span class="mf">10.0</span><span class="p">)</span>
+<span class="n">world</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_world</span><span class="p">()</span>
 
-# 加载想要的地图
-client.load_world(&quot;Town10HD_Opt&quot;)
+<span class="c1"># 加载想要的地图</span>
+<span class="n">client</span><span class="o">.</span><span class="n">load_world</span><span class="p">(</span><span class="s2">&quot;Town10HD_Opt&quot;</span><span class="p">)</span>
 
-# 设置同步模式
-new_settings = world.get_settings()
-new_settings.synchronous_mode = True
-new_settings.fixed_delta_seconds = 0.05
-world.apply_settings(new_settings) 
+<span class="c1"># 设置同步模式</span>
+<span class="n">new_settings</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_settings</span><span class="p">()</span>
+<span class="n">new_settings</span><span class="o">.</span><span class="n">synchronous_mode</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">new_settings</span><span class="o">.</span><span class="n">fixed_delta_seconds</span> <span class="o">=</span> <span class="mf">0.05</span>
+<span class="n">world</span><span class="o">.</span><span class="n">apply_settings</span><span class="p">(</span><span class="n">new_settings</span><span class="p">)</span> 
 
-client.reload_world(False) # 重新加载地图并保留世界设置
+<span class="n">client</span><span class="o">.</span><span class="n">reload_world</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span> <span class="c1"># 重新加载地图并保留世界设置</span>
 
-client.replay_file(FILE_TO_PLAY, 0, 0, 0, False)
-world.tick() # 服务器需要一个节拍信号 tick 来处理 replay_file 命令
+<span class="n">client</span><span class="o">.</span><span class="n">replay_file</span><span class="p">(</span><span class="n">FILE_TO_PLAY</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">world</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span> <span class="c1"># 服务器需要一个节拍信号 tick 来处理 replay_file 命令</span>
 
-# 仿真循环
-while True:
-    # 你的代码
-    world.tick()
-</code></pre>
+<span class="c1"># 仿真循环</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="c1"># 你的代码</span>
+    <span class="n">world</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
+</code></pre></div>
 <p>运行这些步骤将确保每次模拟运行的结果相同。</p>
 <hr />
 <p>这就是关于模拟时间和客户端-服务器同步在 Carla 中的作用的全部信息。</p>
@@ -378,8 +378,13 @@ Carla forum</a>
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

@@ -92,10 +92,10 @@
 </div>
 <hr />
 <h2 id="_2">后台渲染 <span id="render_off_screen"></span></h2>
-<p>为了不弹出服务端的界面，可以运行以下命令使Carla在后台运行：</p>
-<pre><code class="language-shell">CarlaUE4.exe -RenderOffscreen # Windows
-CarlaUE4.sh -RenderOffscreen # Ubuntu
-</code></pre>
+<p>为了不弹出服务端的界面，可以运行以下命令使Carla在后台运行：
+<div class="highlight"><pre><span></span><code>CarlaUE4.exe<span class="w"> </span>-RenderOffscreen<span class="w"> </span><span class="c1"># Windows</span>
+CarlaUE4.sh<span class="w"> </span>-RenderOffscreen<span class="w"> </span><span class="c1"># Ubuntu</span>
+</code></pre></div></p>
 <h2 id="_3">图形质量 <span id="vulkan-graphics-api"></span></h2>
 <h3 id="vulkan-api">Vulkan 图形 API <span id="recording"></span></h3>
 <p>从版本 0.9.12 开始，Carla 在虚幻引擎 4.26上运行，仅支持 Vulkan 图形API。以前版本的 Carla 可以配置为使用 OpenGL。如果您使用的是 Carla 的早期版本，请在屏幕右下角选择相应的文档版本以获取更多信息。</p>
@@ -120,21 +120,21 @@ CarlaUE4.sh -RenderOffscreen # Ubuntu
 <h2 id="_7">无渲染模式 <span id="no-rendering-mode"></span></h2>
 <p>此模式禁用渲染。虚幻引擎将跳过有关图形的所有内容。此模式可防止渲染开销。它有利于大量交通模拟和非常高频率的道路行为。要启用或禁用无渲染模式，请更改世界设置，或使用<code>/PythonAPI/util/config.py</code>。</p>
 <p>以下是如何通过脚本启用和禁用它的示例：</p>
-<pre><code class="language-py">settings = world.get_settings()
-settings.no_rendering_mode = True
-world.apply_settings(settings)
-...
-settings.no_rendering_mode = False
-world.apply_settings(settings)
-</code></pre>
-<p>要通过命令行禁用和启用渲染，请运行以下命令：</p>
-<pre><code class="language-sh">cd PythonAPI/util &amp;&amp; python3 config.py --no-rendering
-</code></pre>
-<pre><code class="language-sh">cd PythonAPI/util &amp;&amp; python3 config.py --rendering
-</code></pre>
+<p><div class="highlight"><pre><span></span><code><span class="n">settings</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_settings</span><span class="p">()</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">no_rendering_mode</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">world</span><span class="o">.</span><span class="n">apply_settings</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">no_rendering_mode</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">world</span><span class="o">.</span><span class="n">apply_settings</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
+</code></pre></div>
+要通过命令行禁用和启用渲染，请运行以下命令：</p>
+<p><div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>PythonAPI/util<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>python3<span class="w"> </span>config.py<span class="w"> </span>--no-rendering
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>PythonAPI/util<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>python3<span class="w"> </span>config.py<span class="w"> </span>--rendering
+</code></pre></div></p>
 <p>脚本 <code>PythonAPI/examples/no_rendering_mode.py</code> 将启用无渲染模式，服务端窗口会进入黑屏，但是，客户端pygame依然会渲染。并使用简单图形利用 <strong>pygame</strong> 创建鸟瞰图：</p>
-<pre><code class="language-sh">cd PythonAPI/examples &amp;&amp; python3 no_rendering_mode.py
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>PythonAPI/examples<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>python3<span class="w"> </span>no_rendering_mode.py
+</code></pre></div>
 <ul>
 <li>
 <p>服务端不渲染，黑屏
@@ -160,36 +160,36 @@ world.apply_settings(settings)
 </ul>
 <h3 id="0912">设置离屏模式（版本0.9.12+） <span id="setting-off-screen-mode-version-0912"></span></h3>
 <p>要在离屏模式下启动 Carla，请运行以下命令：</p>
-<pre><code class="language-sh">./CarlaUE4.sh -RenderOffScreen
-</code></pre>
+<div class="highlight"><pre><span></span><code>./CarlaUE4.sh<span class="w"> </span>-RenderOffScreen
+</code></pre></div>
 <h3 id="0912_1">设置离屏模式（0.9.12之前的版本） <span id="setting-off-screen-mode-versions-prior-to-0912"></span></h3>
 <p>如果您使用 OpenGL 或 Vulkan，则使用离屏模式会有所不同。</p>
 <p><strong>使用 OpenGL</strong>，您可以通过运行以下命令在 Linux 中以离屏模式运行：</p>
-<pre><code class="language-sh"># Linux
-DISPLAY= ./CarlaUE4.sh -opengl
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1"># Linux</span>
+<span class="nv">DISPLAY</span><span class="o">=</span><span class="w"> </span>./CarlaUE4.sh<span class="w"> </span>-opengl
+</code></pre></div>
 <p><strong>Vulkan</strong> 需要额外的步骤，因为它需要使用 X11 网络协议与显示 X 服务器通信才能正常工作。以下步骤将指导您如何设置没有显示屏的 Ubuntu 18.04 计算机，以便 Carla 可以与 Vulkan 一起运行。</p>
 <p><strong>1. 获取最新的 NVIDIA 驱动程序：</strong></p>
-<pre><code class="language-sh">wget http://download.nvidia.com/XFree86/Linux-x86_64/450.57/NVIDIA-Linux-x86_64-450.57.run
-</code></pre>
+<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>http://download.nvidia.com/XFree86/Linux-x86_64/450.57/NVIDIA-Linux-x86_64-450.57.run
+</code></pre></div>
 <p><strong>2. 安装驱动：</strong></p>
-<pre><code class="language-sh">sudo /bin/bash NVIDIA-Linux-x86_64-450.57.run --accept-license --no-questions --ui=none
-</code></pre>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>/bin/bash<span class="w"> </span>NVIDIA-Linux-x86_64-450.57.run<span class="w"> </span>--accept-license<span class="w"> </span>--no-questions<span class="w"> </span>--ui<span class="o">=</span>none
+</code></pre></div>
 <p><strong>3. 安装 xserver 相关依赖：</strong></p>
-<pre><code class="language-sh">sudo apt-get install -y xserver-xorg mesa-utils libvulkan1
-</code></pre>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>xserver-xorg<span class="w"> </span>mesa-utils<span class="w"> </span>libvulkan1
+</code></pre></div>
 <p><strong>4. 配置 xserver：</strong></p>
-<pre><code class="language-sh">sudo nvidia-xconfig --preserve-busid -a --virtual=1280x1024
-</code></pre>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>nvidia-xconfig<span class="w"> </span>--preserve-busid<span class="w"> </span>-a<span class="w"> </span>--virtual<span class="o">=</span>1280x1024
+</code></pre></div>
 <p><strong>5. 设置 SDL_VIDEODRIVER 变量。</strong></p>
-<pre><code class="language-sh">ENV SDL_VIDEODRIVER=x11
-</code></pre>
+<div class="highlight"><pre><span></span><code>ENV<span class="w"> </span><span class="nv">SDL_VIDEODRIVER</span><span class="o">=</span>x11
+</code></pre></div>
 <p><strong>6. 运行 xserver：</strong></p>
-<pre><code class="language-sh">sudo X :0 &amp;
-</code></pre>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>X<span class="w"> </span>:0<span class="w"> </span><span class="p">&amp;</span>
+</code></pre></div>
 <p><strong>7. 运行 Carla：</strong></p>
-<pre><code class="language-sh">DISPLAY=:0.GPU ./CarlaUE4.sh -vulkan
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nv">DISPLAY</span><span class="o">=</span>:0.GPU<span class="w"> </span>./CarlaUE4.sh<span class="w"> </span>-vulkan
+</code></pre></div>
 <p>Carla 在 <a href="https://github.com/carla-simulator/carla/blob/0.9.12/Util/Docker/Release.Dockerfile">这里</a> 提供了一个执行上述所有步骤的 Dockerfile 。</p>
 <hr />
 <h2 id="_10">空渲染硬件接口 <span id="nullrhi"></span></h2>
@@ -239,8 +239,13 @@ Carla 论坛</a>
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

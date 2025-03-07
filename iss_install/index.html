@@ -79,25 +79,27 @@
 <ul>
 <li>安装 <a href="http://wiki.ros.org/noetic/Installation">ROS Noetic</a>, 以及下载相关依赖:</li>
 </ul>
-<p><code>sudo apt-get install ros-noetic-navigation ros-noetic-gmapping ros-noetic-teb-local-planner ros-noetic-ackermann-msgs ros-noetic-gazebo-ros-pkgs ros-noetic-gazebo-ros-control ros-noetic-joint-state-publisher-gui ros-noetic-ros-control ros-noetic-ros-controllers</code></p>
+<div class="highlight"><pre><span></span><code>sudo apt-get install ros-noetic-navigation ros-noetic-gmapping ros-noetic-teb-local-planner ros-noetic-ackermann-msgs ros-noetic-gazebo-ros-pkgs ros-noetic-gazebo-ros-control ros-noetic-joint-state-publisher-gui ros-noetic-ros-control ros-noetic-ros-controllers
+</code></pre></div>
 <ul>
 <li>安装 <a href="https://github.com/carla-simulator/carla/releases/tag/0.9.13/">Carla 0.9.13</a> 并设置环境变量:</li>
 </ul>
-<p>```
-  export CARLA_ROOT=</path/to/carla>
-  export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla</p>
-<p>注意
-  运行代码时需要 agents 模块， 在 conda 环境 ISS 目录下，还需要配置环境变量
-  export PYTHONPATH=$PYTHONPATH:/home/.../carla-0.9.13/carla:/home/.../carla-0.9.13/PythonAPI/carla/agents
-  ```</p>
+<div class="highlight"><pre><span></span><code>export CARLA_ROOT=&lt;/path/to/carla&gt;
+export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla
+
+注意
+运行代码时需要 agents 模块， 在 conda 环境 ISS 目录下，还需要配置环境变量
+export PYTHONPATH=$PYTHONPATH:/home/.../carla-0.9.13/carla:/home/.../carla-0.9.13/PythonAPI/carla/agents
+</code></pre></div>
 <ul>
 <li>创建虚拟环境</li>
 </ul>
-<p><code>conda create -n iss python=3.8
-  conda activate iss
-  注意
-  若要退出当前conda环境，执行
-  conda deactivate</code></p>
+<div class="highlight"><pre><span></span><code>conda create -n iss python=3.8
+conda activate iss
+注意
+若要退出当前conda环境，执行
+conda deactivate
+</code></pre></div>
 <ul>
 <li>
 <p>安装 <a href="https://git-lfs.github.com/">git-lfs</a></p>
@@ -106,16 +108,17 @@
 <p>递归克隆项目及其子模块:</p>
 </li>
 </ul>
-<p>```
-  git clone --recurse-submodules https://github.com/CAS-LRJ/ISS.git &amp;&amp; cd ISS
-  pip3 install -r Install/requirements.txt
-  python3 Install/setup.py develop</p>
-<p>注意：这里必须递归克隆，将子模块一并克隆下来，查看子模块内容是否克隆成功，否则运行报错。
-  ```</p>
+<div class="highlight"><pre><span></span><code>git clone --recurse-submodules https://github.com/CAS-LRJ/ISS.git &amp;&amp; cd ISS
+pip3 install -r Install/requirements.txt
+python3 Install/setup.py develop
+
+注意：这里必须递归克隆，将子模块一并克隆下来，查看子模块内容是否克隆成功，否则运行报错。
+</code></pre></div>
 <ul>
 <li>安装 PyTorch 和 torch-scatter:</li>
 </ul>
-<p><code>pip3 install torch==1.7.1+cu110 torchvision==0.8.2+cu110 torchaudio==0.7.2 -f https://download.pytorch.org/whl/torch_stable.htmlpip3 install Install/torch_scatter-2.0.7-cp38-cp38-linux_x86_64.whl</code></p>
+<div class="highlight"><pre><span></span><code>pip3 install torch==1.7.1+cu110 torchvision==0.8.2+cu110 torchaudio==0.7.2 -f https://download.pytorch.org/whl/torch_stable.htmlpip3 install Install/torch_scatter-2.0.7-cp38-cp38-linux_x86_64.whl
+</code></pre></div>
 <ul>
 <li>安装 <a href="https://developer.nvidia.com/cuda-11-8-0-download-archive">CUDA Toolkit 11.8</a></li>
 <li>安装 <a href="https://mmdetection.readthedocs.io/en/latest/get_started.html">MMDetection</a></li>
@@ -124,24 +127,26 @@
 <ul>
 <li>要使用 ROS-Noetic, 首先构建ROS工作空间。</li>
 </ul>
-<p>```
-  cd ros1_ws &amp;&amp; catkin build
-  source devel/setup.bash # or setup.zsh</p>
-<p>注意：会生成devel目录！
-  ```</p>
+<div class="highlight"><pre><span></span><code>cd ros1_ws &amp;&amp; catkin build
+source devel/setup.bash # or setup.zsh
+
+注意：会生成devel目录！
+</code></pre></div>
 <h2 id="_5">运行任务</h2>
 <ul>
 <li>打开 Carla 服务器</li>
 </ul>
-<p><code>cd carla-0.9.13
-  ./CarlaUE4.sh</code></p>
+<div class="highlight"><pre><span></span><code>cd carla-0.9.13
+./CarlaUE4.sh
+</code></pre></div>
 <ul>
 <li>启动 ros 节点，为智能驾驶车辆作全局路径规划</li>
 </ul>
-<p><code>roslaunch carla_bridge carla_demo.launch</code></p>
+<div class="highlight"><pre><span></span><code>roslaunch carla_bridge carla_demo.launch
+</code></pre></div>
 <p>注意：</p>
-<pre><code>运行过程中要求安装其他包，除CARLA client API 为0.9.13，其他不做要求
-</code></pre>
+<div class="highlight"><pre><span></span><code>运行过程中要求安装其他包，除CARLA client API 为0.9.13，其他不做要求
+</code></pre></div>
               
             </div>
           </div><footer>
@@ -177,8 +182,13 @@
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

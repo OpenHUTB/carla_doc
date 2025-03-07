@@ -71,14 +71,14 @@
                 <h2 id="_1">测试框架</h2>
 <p>Carla的测试框架目前只支持Ubuntu平台，执行命令<code>make smoke_tests</code>进行测试。</p>
 <h3 id="windows">Windows平台</h3>
-<p>脚本<code>src\test&gt;check.bat</code>用于启动windows平台下的测试，运行的第一个测试用例为：</p>
-<pre><code class="language-shell">python -m nose2 -v smoke.test_client
-</code></pre>
-<p>整个脚本会依次运行 <a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/test/smoke_test_list.txt">smoke_test_list.txt</a> 文件中的所有测试用例。</p>
-<p>测试失败：</p>
-<pre><code class="language-shell">smoke.test_spawnpoints.TestSpawnpoints
-</code></pre>
-<pre><code class="language-text">ERROR: test_spawn_points (smoke.test_spawnpoints.TestSpawnpoints)
+<p>脚本<code>src\test&gt;check.bat</code>用于启动windows平台下的测试，运行的第一个测试用例为：
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>nose2<span class="w"> </span>-v<span class="w"> </span>smoke.test_client
+</code></pre></div>
+整个脚本会依次运行 <a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/test/smoke_test_list.txt">smoke_test_list.txt</a> 文件中的所有测试用例。</p>
+<p>测试失败：
+<div class="highlight"><pre><span></span><code>smoke.test_spawnpoints.TestSpawnpoints
+</code></pre></div></p>
+<div class="highlight"><pre><span></span><code>ERROR: test_spawn_points (smoke.test_spawnpoints.TestSpawnpoints)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
   File &quot;D:\work\workspace\carla_doc\src\test\smoke\test_spawnpoints.py&quot;, line 48, in test_spawn_points
@@ -94,7 +94,7 @@ Traceback (most recent call last):
   File &quot;D:\work\workspace\carla_doc\src\test\smoke\test_map.py&quot;, line 37, in _check_map
     self.assertIsNotNone(waypoint)
 AssertionError: unexpectedly None
-</code></pre>
+</code></pre></div>
 <h2 id="cicd">CI/CD</h2>
 <p>参考 <a href="https://www.cnblogs.com/dotnet261010/p/11495762.html">链接</a> 进行软件的安装。</p>
               
@@ -132,8 +132,13 @@ AssertionError: unexpectedly None
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="../../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

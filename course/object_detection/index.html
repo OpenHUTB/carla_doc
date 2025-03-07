@@ -73,7 +73,7 @@
 <p><a href="https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb"><strong>湖工商场景</strong></a><strong>(WindowsNoEditor)</strong>，并运行<strong><a href="https://github.com/OpenHUTB/carla_doc/tree/master/src/examples/generate_traffic.py">generate_traffic.py</a></strong>      </p>
 <p><img alt="" src="../../img/traffic_course_img/3.gif" /></p>
 <p>导入必要的库及变量</p>
-<pre><code>import random
+<div class="highlight"><pre><span></span><code>import random
 import weakref
 import cv2
 import pygame
@@ -83,16 +83,16 @@ import carla
 VIEW_WIDTH = 1920 // 2
 VIEW_HEIGHT = 1080 // 2
 VIEW_FOV = 90
-</code></pre>
+</code></pre></div>
 <p>加载模型和配置文件</p>
-<pre><code>model = cv2.dnn.readNet(&quot;weights/yolov3.weights&quot;, &quot;cfg/yolov3.cfg&quot;)
+<div class="highlight"><pre><span></span><code>model = cv2.dnn.readNet(&quot;weights/yolov3.weights&quot;, &quot;cfg/yolov3.cfg&quot;)
 classes = [line.strip() for line in open(&quot;cfg/coco.names&quot;, &quot;r&quot;).readlines()]
 layers_names = model.getLayerNames()
 output_layers = [layers_names[i[0] - 1] for i in model.getUnconnectedOutLayers()]
 colors = np.random.uniform(0, 255, size=(len(classes), 3))
-</code></pre>
+</code></pre></div>
 <p>定义绘制标签的函数</p>
-<pre><code>def draw_labels(boxes, confs, colors, class_ids, classes, img):
+<div class="highlight"><pre><span></span><code>def draw_labels(boxes, confs, colors, class_ids, classes, img):
     indexes = cv2.dnn.NMSBoxes(boxes, confs, 0.5, 0.4)
     font = cv2.FONT_HERSHEY_PLAIN
     for i in range(len(boxes)):
@@ -103,9 +103,9 @@ colors = np.random.uniform(0, 255, size=(len(classes), 3))
             cv2.rectangle(img, (x, y), (x + w, y + h), color, 2)
             cv2.putText(img, label, (x, y - 5), font, 1, color, 1)
     return img
-</code></pre>
+</code></pre></div>
 <p>定义获取框维度的函数</p>
-<pre><code>def get_box_dimensions(outputs, height, width):
+<div class="highlight"><pre><span></span><code>def get_box_dimensions(outputs, height, width):
     boxes = []
     confs = []
     class_ids = []
@@ -125,9 +125,9 @@ colors = np.random.uniform(0, 255, size=(len(classes), 3))
                 confs.append(float(conf))
                 class_ids.append(class_id)
     return boxes, confs, class_ids
-</code></pre>
+</code></pre></div>
 <p>定义 <strong>Carla</strong> 客户端类</p>
-<pre><code>class CarlaClient():
+<div class="highlight"><pre><span></span><code>class CarlaClient():
     def __init__(self): #初始化实例变量
         self.client = None
         self.world = None
@@ -144,16 +144,16 @@ colors = np.random.uniform(0, 255, size=(len(classes), 3))
 
     def setup_car(self):  #从蓝图库中选中一个汽车对象
         blueprint_library = self.world.get_blueprint_library()
-        car_bp = blueprint_library.filter('vehicle.*')[0]
+        car_bp = blueprint_library.filter(&#39;vehicle.*&#39;)[0]
         spawn_point = random.choice(self.world.get_map().get_spawn_points())
         self.car = self.world.spawn_actor(car_bp, spawn_point)
 
     def setup_camera(self): #获取摄像头对象，并将其附加到汽车上
-        camera_bp = self.world.get_blueprint_library().find('sensor.camera.rgb')
+        camera_bp = self.world.get_blueprint_library().find(&#39;sensor.camera.rgb&#39;)
         camera_transform = carla.Transform(carla.Location(x=1.5, z=2.4))
-        camera_bp.set_attribute('image_size_x', f'{VIEW_WIDTH}')
-        camera_bp.set_attribute('image_size_y', f'{VIEW_HEIGHT}')
-        camera_bp.set_attribute('fov', f'{VIEW_FOV}')
+        camera_bp.set_attribute(&#39;image_size_x&#39;, f&#39;{VIEW_WIDTH}&#39;)
+        camera_bp.set_attribute(&#39;image_size_y&#39;, f&#39;{VIEW_HEIGHT}&#39;)
+        camera_bp.set_attribute(&#39;fov&#39;, f&#39;{VIEW_FOV}&#39;)
         self.camera = self.world.spawn_actor(camera_bp, camera_transform, attach_to=self.car)
         weak_self = weakref.ref(self)
         self.camera.listen(lambda image: weak_self().set_image(weak_self, image))
@@ -183,15 +183,14 @@ colors = np.random.uniform(0, 255, size=(len(classes), 3))
             array = array[:, :, ::-1]
             surface = pygame.surfarray.make_surface(array.swapaxes(0, 1))
             display.blit(surface, (0, 0))
-
-</code></pre>
+</code></pre></div>
 <p><strong>main</strong>  函数中主要是在Carla模拟器中运行自动驾驶，并通过摄像头捕获图像后采用YOLOv3模型进行车辆物体的检测，最后使用Pygame显示处理后的图像。</p>
-<pre><code>if __name__ == '__main__':
+<div class="highlight"><pre><span></span><code>if __name__ == &#39;__main__&#39;:
     cc = CarlaClient()
     try:
         pygame.init()
         clock = pygame.time.Clock()
-        cc.client = carla.Client('127.0.0.1', 2000)
+        cc.client = carla.Client(&#39;127.0.0.1&#39;, 2000)
         cc.client.set_timeout(5.0)
         cc.world = cc.client.get_world()
 
@@ -223,8 +222,7 @@ colors = np.random.uniform(0, 255, size=(len(classes), 3))
         cc.car.destroy()
         pygame.quit()
         cv2.destroyAllWindows()
-
-</code></pre>
+</code></pre></div>
               
             </div>
           </div><footer>
@@ -260,8 +258,13 @@ colors = np.random.uniform(0, 255, size=(len(classes), 3))
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="../../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

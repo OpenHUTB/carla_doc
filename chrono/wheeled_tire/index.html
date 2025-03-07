@@ -77,47 +77,47 @@
 <p>刚性轮胎是提供的三种轮胎类别中最简单的一种。这些模型的假设是轮胎完全刚性，并且它通过与 Chrono 中其他刚体相同的底层摩擦和接触算法与地面和任何其他刚性物体相互作用。这些轮胎的接触几何形状可以像圆柱体一样简单，也可以像 3D 三角网格一样复杂。这些模型不仅可用于调试整体车辆模型，而且还可用于运行时很重要、地形比轮胎软得多且不需要高度详细的轮胎模型的情况。事实上，半经验轮胎模型不适合越野车模拟，即使用可变形地形（SCM、粒状或基于 FEA；请参阅可用地形模型的描述）。对于此类场景，刚性或基于 FEA 的轮胎模型是目前在 Chrono::Vehicle 中实现的仅有的两个可用选项。</p>
 <p>参见 <a href="https://api.projectchrono.org/classchrono_1_1vehicle_1_1_ch_rigid_tire.html">ChRigidTire</a> 和 <a href="https://api.projectchrono.org/classchrono_1_1vehicle_1_1_rigid_tire.html">RigidTire</a> 。</p>
 <p>以下是通过 Wavefront OBJ 文件提供网格几何形状的刚性轮胎的示例：</p>
-<pre><code class="language-json">{
-  &quot;Name&quot;:                       &quot;HMMWV Rigid Mesh Tire&quot;,
-  &quot;Type&quot;:                       &quot;Tire&quot;,
-  &quot;Template&quot;:                   &quot;RigidTire&quot;,
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;Name&quot;</span><span class="p">:</span><span class="w">                       </span><span class="s2">&quot;HMMWV Rigid Mesh Tire&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;Type&quot;</span><span class="p">:</span><span class="w">                       </span><span class="s2">&quot;Tire&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;Template&quot;</span><span class="p">:</span><span class="w">                   </span><span class="s2">&quot;RigidTire&quot;</span><span class="p">,</span>
 
-  &quot;Radius&quot;:                     0.4699,
-  &quot;Width&quot;:                      0.254,
-  &quot;Mass&quot;:                       37.6,
-  &quot;Inertia&quot;:                    [3.84, 6.69, 3.84],
+<span class="w">  </span><span class="nt">&quot;Radius&quot;</span><span class="p">:</span><span class="w">                     </span><span class="mf">0.4699</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;Width&quot;</span><span class="p">:</span><span class="w">                      </span><span class="mf">0.254</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;Mass&quot;</span><span class="p">:</span><span class="w">                       </span><span class="mf">37.6</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;Inertia&quot;</span><span class="p">:</span><span class="w">                    </span><span class="p">[</span><span class="mf">3.84</span><span class="p">,</span><span class="w"> </span><span class="mf">6.69</span><span class="p">,</span><span class="w"> </span><span class="mf">3.84</span><span class="p">],</span>
 
-  &quot;Contact Material&quot;:
-  {
-      &quot;Coefficient of Friction&quot;:    0.9,
-      &quot;Coefficient of Restitution&quot;: 0.1,
+<span class="w">  </span><span class="nt">&quot;Contact Material&quot;</span><span class="p">:</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;Coefficient of Friction&quot;</span><span class="p">:</span><span class="w">    </span><span class="mf">0.9</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;Coefficient of Restitution&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span>
 
-      &quot;Properties&quot;: {
-          &quot;Young Modulus&quot;:          2e7,
-          &quot;Poisson Ratio&quot;:          0.3
-      },
+<span class="w">      </span><span class="nt">&quot;Properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;Young Modulus&quot;</span><span class="p">:</span><span class="w">          </span><span class="mf">2e7</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;Poisson Ratio&quot;</span><span class="p">:</span><span class="w">          </span><span class="mf">0.3</span>
+<span class="w">      </span><span class="p">},</span>
 
-      &quot;Coefficients&quot;: {
-          &quot;Normal Stiffness&quot;:       2e5,
-          &quot;Normal Damping&quot;:         40.0,
-          &quot;Tangential Stiffness&quot;:   2e5,
-          &quot;Tangential Damping&quot;:     20.0
-      }
-  },
+<span class="w">      </span><span class="nt">&quot;Coefficients&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;Normal Stiffness&quot;</span><span class="p">:</span><span class="w">       </span><span class="mf">2e5</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;Normal Damping&quot;</span><span class="p">:</span><span class="w">         </span><span class="mf">40.0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;Tangential Stiffness&quot;</span><span class="p">:</span><span class="w">   </span><span class="mf">2e5</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;Tangential Damping&quot;</span><span class="p">:</span><span class="w">     </span><span class="mf">20.0</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
 
-  &quot;Contact Mesh&quot;:
-  {
-    &quot;Mesh Filename&quot;:            &quot;hmmwv/hmmwv_tire_fine.obj&quot;,
-    &quot;Sweep Sphere Radius&quot;:      0.005
-  },
+<span class="w">  </span><span class="nt">&quot;Contact Mesh&quot;</span><span class="p">:</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;Mesh Filename&quot;</span><span class="p">:</span><span class="w">            </span><span class="s2">&quot;hmmwv/hmmwv_tire_fine.obj&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Sweep Sphere Radius&quot;</span><span class="p">:</span><span class="w">      </span><span class="mf">0.005</span>
+<span class="w">  </span><span class="p">},</span>
 
-  &quot;Visualization&quot;:
-  {
-    &quot;Mesh Filename Left&quot;:       &quot;hmmwv/hmmwv_tire_fine.obj&quot;,
-    &quot;Mesh Filename Right&quot;:      &quot;hmmwv/hmmwv_tire_fine.obj&quot;
-  }
-}
-</code></pre>
+<span class="w">  </span><span class="nt">&quot;Visualization&quot;</span><span class="p">:</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;Mesh Filename Left&quot;</span><span class="p">:</span><span class="w">       </span><span class="s2">&quot;hmmwv/hmmwv_tire_fine.obj&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Mesh Filename Right&quot;</span><span class="p">:</span><span class="w">      </span><span class="s2">&quot;hmmwv/hmmwv_tire_fine.obj&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 <h2 id="_2">处理（半经验）轮胎模型</h2>
 <p>提供的第二类轮胎模型是常用于车辆操控的半经验模型。<code>Chrono::Vehicle</code> 目前已实现 Pacejka（89 和 2002）、TMeasy 和 Fiala 轮胎模型。操控轮胎模型专为平坦路面而设计，通常使用单点接触或四点接触（TMeasy）。对于在起伏路面上进行行驶测试或越障，已实现了一种称为“包络”的特殊接触算法。它基于 Sui 和 Hershey 的论文，可用于 Chrono 中包含的所有操控轮胎模型。使用技术演示器进行的验证测试与测量的真实车辆测试数据相比，结果良好，而且数值工作量较少。如果需要更高的精度，用户应该考虑考虑基于 FEA 的轮胎模型进行非操控测试。</p>
 <p>有些用户可能希望根据轮胎测试数据构建自己的操控轮胎参数集。务必熟悉每个轮胎模型中的不同滑移定义和不同坐标系！</p>
@@ -131,110 +131,110 @@
 <p>TMeasy（轮胎模型简易版）由 Georg Rill 教授开发，可作为商业代码使用（有关更多信息，请参阅http://www.tmeasy.de/）。该模型的目的是允许轻松参数化。其复杂性大致与基于 Magic Formula 的模型相当。此外，基于卡车和乘用车的已知参数集，可以从少量输入数据中估计完整的参数集。TMeasy 考虑非线性效应并包括接触面滑移状态方程。与最新的商业 TMeasy 版本相比，Chrono 中使用的实现缺少一些功能。例如，没有皮带动力学，也无法计算动态停车扭矩。Chrono TMeasy 轮胎实现包含已在 <a href="https://www.routledge.com/Road-Vehicle-Dynamics-Fundamentals-and-Modeling-with-MATLAB/Rill-Castro/p/book/9780367199739">Road Vehicle Dynamics - Fundamentals and Modeling with MATLAB</a> 一书中发表的算法，Georg Rill 和 Abel Arrieta Castro，CRC Press，2020 年。</p>
 <p>参见 <a href="https://api.projectchrono.org/classchrono_1_1vehicle_1_1_ch_t_measy_tire.html">ChTMeasyTire</a> 和 <a href="https://api.projectchrono.org/classchrono_1_1vehicle_1_1_t_measy_tire.html">TMeasyTire</a> 。</p>
 <p>下面提供了一个具有 TMeasy 轮胎规范的示例 JSON 文件：</p>
-<pre><code class="language-json">{
-  &quot;Name&quot;: &quot;HMMWV TMeasy Tire&quot;,
-  &quot;Type&quot;: &quot;Tire&quot;,
-  &quot;Template&quot;: &quot;TMeasyTire&quot;,
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;Name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;HMMWV TMeasy Tire&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;Type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Tire&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;Template&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TMeasyTire&quot;</span><span class="p">,</span>
 
-  // ------------------------------------------------
-  // Tire design (REQUIRED)
+<span class="w">  </span><span class="c1">// ------------------------------------------------</span>
+<span class="w">  </span><span class="c1">// Tire design (REQUIRED)</span>
 
-  &quot;Design&quot;: {
-    &quot;Unloaded Radius [m]&quot;: 0.4699,
-    &quot;Mass [kg]&quot;: 37.6,
-    &quot;Inertia [kg.m2]&quot;: [ 3.84, 6.69, 3.84 ],
-    &quot;Width [m]&quot;: 0.3175,
-    &quot;Rim Radius [m]&quot;: 0.2095
-  },
+<span class="w">  </span><span class="nt">&quot;Design&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;Unloaded Radius [m]&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.4699</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Mass [kg]&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">37.6</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Inertia [kg.m2]&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="mf">3.84</span><span class="p">,</span><span class="w"> </span><span class="mf">6.69</span><span class="p">,</span><span class="w"> </span><span class="mf">3.84</span><span class="w"> </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;Width [m]&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.3175</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Rim Radius [m]&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.2095</span>
+<span class="w">  </span><span class="p">},</span>
 
-  &quot;Coefficient of Friction&quot;: 0.8,
+<span class="w">  </span><span class="nt">&quot;Coefficient of Friction&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.8</span><span class="p">,</span>
 
-  &quot;Rolling Resistance Coefficient&quot;: 0.015,
+<span class="w">  </span><span class="nt">&quot;Rolling Resistance Coefficient&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.015</span><span class="p">,</span>
 
-  // ------------------------------------------------
-  // Vehicle type.
-  // Required only if tire specified with &quot;load index&quot; or &quot;bearing capacity&quot;.
-  // Must be one of &quot;Truck&quot; or &quot;Passenger&quot;
+<span class="w">  </span><span class="c1">// ------------------------------------------------</span>
+<span class="w">  </span><span class="c1">// Vehicle type.</span>
+<span class="w">  </span><span class="c1">// Required only if tire specified with &quot;load index&quot; or &quot;bearing capacity&quot;.</span>
+<span class="w">  </span><span class="c1">// Must be one of &quot;Truck&quot; or &quot;Passenger&quot;</span>
 
-  &quot;Vehicle Type&quot;: &quot;Truck&quot;,
+<span class="w">  </span><span class="nt">&quot;Vehicle Type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Truck&quot;</span><span class="p">,</span>
 
-  // ------------------------------------------------
-  // Load index specification.
-  // Takes priority over &quot;bearing capacity&quot; (used only if a full parameterization not provided)
+<span class="w">  </span><span class="c1">// ------------------------------------------------</span>
+<span class="w">  </span><span class="c1">// Load index specification.</span>
+<span class="w">  </span><span class="c1">// Takes priority over &quot;bearing capacity&quot; (used only if a full parameterization not provided)</span>
 
-  &quot;Load Index&quot;: 108,
+<span class="w">  </span><span class="nt">&quot;Load Index&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">108</span><span class="p">,</span>
 
-  // ------------------------------------------------
-  // Bearing capacity specification.
-  // Lowest priority (used only if no other specification provided)
+<span class="w">  </span><span class="c1">// ------------------------------------------------</span>
+<span class="w">  </span><span class="c1">// Bearing capacity specification.</span>
+<span class="w">  </span><span class="c1">// Lowest priority (used only if no other specification provided)</span>
 
-  &quot;Maximum Bearing Capacity [N]&quot;: 17167.5,
+<span class="w">  </span><span class="nt">&quot;Maximum Bearing Capacity [N]&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">17167.5</span><span class="p">,</span>
 
-  // ------------------------------------------------
-  // Visualization mesh (OPTIONAL)
+<span class="w">  </span><span class="c1">// ------------------------------------------------</span>
+<span class="w">  </span><span class="c1">// Visualization mesh (OPTIONAL)</span>
 
-    &quot;Visualization&quot;: {
-        &quot;Mesh Filename Left&quot;: &quot;hmmwv/hmmwv_tire_left.obj&quot;,
-        &quot;Mesh Filename Right&quot;: &quot;hmmwv/hmmwv_tire_right.obj&quot;
-    }
+<span class="w">    </span><span class="nt">&quot;Visualization&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;Mesh Filename Left&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;hmmwv/hmmwv_tire_left.obj&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;Mesh Filename Right&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;hmmwv/hmmwv_tire_right.obj&quot;</span>
+<span class="w">    </span><span class="p">}</span>
 
-}
-</code></pre>
+<span class="p">}</span>
+</code></pre></div>
 <h3 id="fiala">Fiala 轮胎型号</h3>
 <p><code>Chrono::Vehicle</code> 中实现的 Fiala 轮胎模型主要基于 MSC ADAMS/轮胎帮助文档中介绍的瞬态 Fiala 轮胎模型，该模型使用轮胎滑移状态方程来改善模型在低速至零前进速度下的行为。Fiala 轮胎模型基于刷子模型假设，只需要少量系数。该轮胎模型假设轮胎相对于道路的外倾角为零，并且没有任何产生倾覆力矩的措施。但是，它在力和力矩计算中结合了轮胎的横向和纵向滑移状态，从而提供了更真实的组合滑移描述。Fiala 轮胎模型不应用于严肃的车辆操纵模拟，因为它没有考虑影响结果的重要影响。</p>
 <p>参见 <a href="https://api.projectchrono.org/classchrono_1_1vehicle_1_1_ch_fiala_tire.html">ChFialaTire</a> 和 <a href="https://api.projectchrono.org/classchrono_1_1vehicle_1_1_fiala_tire.html">FialaTire</a> 。</p>
 <p>下面提供了一个具有 TMeasy 轮胎规范的示例 JSON 文件：</p>
-<pre><code class="language-json">{
-    &quot;Name&quot;: &quot;HMMWV Fiala Tire&quot;,
-    &quot;Type&quot;: &quot;Tire&quot;,
-    &quot;Template&quot;: &quot;FialaTire&quot;,
-    &quot;Mass&quot;: 37.6,
-    &quot;Inertia&quot;: [
-        3.84,
-        6.69,
-        3.84
-    ],
-    &quot;Coefficient of Friction&quot;: 0.8,
-    &quot;Fiala Parameters&quot;: {
-        &quot;Unloaded Radius&quot;: 0.47,
-        &quot;Width&quot;: 0.318,
-        &quot;Vertical Damping&quot;: 7500,
-        &quot;Vertical Stiffness&quot;: 326332, // linear stiffness (if no curve table present)
-        &quot;Vertical Curve Data&quot;:        // nonlinear stifness (has precedence over linear model)
-        [
-            [ 0.000,     0 ],
-            [ 0.005,   585 ],
-            [ 0.010,  1286 ],
-            [ 0.015,  2352 ],
-            [ 0.020,  3477 ],
-            [ 0.025,  4798 ],
-            [ 0.030,  6190 ],
-            [ 0.035,  7540 ],
-            [ 0.040,  9027 ],
-            [ 0.045, 10570 ],
-            [ 0.050, 12139 ],
-            [ 0.055, 13654 ],
-            [ 0.060, 15368 ],
-            [ 0.065, 16904 ],
-            [ 0.070, 18469 ],
-            [ 0.075, 20089 ],
-            [ 0.080, 21699 ]
-        ],
-        &quot;Rolling Resistance&quot;: 0.015,
-        &quot;CSLIP&quot;: 193929.0,
-        &quot;CALPHA&quot;: 50000.0,
-        &quot;UMIN&quot;: 0.5568,
-        &quot;UMAX&quot;: 0.9835,
-        &quot;X Relaxation Length&quot;: 2.0,
-        &quot;Y Relaxation Length&quot;: 2.0
-    },
-    &quot;Visualization&quot;: {
-        &quot;Mesh Filename Left&quot;: &quot;hmmwv/hmmwv_tire_left.obj&quot;,
-        &quot;Mesh Filename Right&quot;: &quot;hmmwv/hmmwv_tire_right.obj&quot;,
-        &quot;Width&quot;: 0.318
-    }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;Name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;HMMWV Fiala Tire&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Tire&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Template&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;FialaTire&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Mass&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">37.6</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Inertia&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="mf">3.84</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">6.69</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">3.84</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;Coefficient of Friction&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.8</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Fiala Parameters&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;Unloaded Radius&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.47</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;Width&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.318</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;Vertical Damping&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">7500</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;Vertical Stiffness&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">326332</span><span class="p">,</span><span class="w"> </span><span class="c1">// linear stiffness (if no curve table present)</span>
+<span class="w">        </span><span class="nt">&quot;Vertical Curve Data&quot;</span><span class="p">:</span><span class="w">        </span><span class="c1">// nonlinear stifness (has precedence over linear model)</span>
+<span class="w">        </span><span class="p">[</span>
+<span class="w">            </span><span class="p">[</span><span class="w"> </span><span class="mf">0.000</span><span class="p">,</span><span class="w">     </span><span class="mi">0</span><span class="w"> </span><span class="p">],</span>
+<span class="w">            </span><span class="p">[</span><span class="w"> </span><span class="mf">0.005</span><span class="p">,</span><span class="w">   </span><span class="mi">585</span><span class="w"> </span><span class="p">],</span>
+<span class="w">            </span><span class="p">[</span><span class="w"> </span><span class="mf">0.010</span><span class="p">,</span><span class="w">  </span><span class="mi">1286</span><span class="w"> </span><span class="p">],</span>
+<span class="w">            </span><span class="p">[</span><span class="w"> </span><span class="mf">0.015</span><span class="p">,</span><span class="w">  </span><span class="mi">2352</span><span class="w"> </span><span class="p">],</span>
+<span class="w">            </span><span class="p">[</span><span class="w"> </span><span class="mf">0.020</span><span class="p">,</span><span class="w">  </span><span class="mi">3477</span><span class="w"> </span><span class="p">],</span>
+<span class="w">            </span><span class="p">[</span><span class="w"> </span><span class="mf">0.025</span><span class="p">,</span><span class="w">  </span><span class="mi">4798</span><span class="w"> </span><span class="p">],</span>
+<span class="w">            </span><span class="p">[</span><span class="w"> </span><span class="mf">0.030</span><span class="p">,</span><span class="w">  </span><span class="mi">6190</span><span class="w"> </span><span class="p">],</span>
+<span class="w">            </span><span class="p">[</span><span class="w"> </span><span class="mf">0.035</span><span class="p">,</span><span class="w">  </span><span class="mi">7540</span><span class="w"> </span><span class="p">],</span>
+<span class="w">            </span><span class="p">[</span><span class="w"> </span><span class="mf">0.040</span><span class="p">,</span><span class="w">  </span><span class="mi">9027</span><span class="w"> </span><span class="p">],</span>
+<span class="w">            </span><span class="p">[</span><span class="w"> </span><span class="mf">0.045</span><span class="p">,</span><span class="w"> </span><span class="mi">10570</span><span class="w"> </span><span class="p">],</span>
+<span class="w">            </span><span class="p">[</span><span class="w"> </span><span class="mf">0.050</span><span class="p">,</span><span class="w"> </span><span class="mi">12139</span><span class="w"> </span><span class="p">],</span>
+<span class="w">            </span><span class="p">[</span><span class="w"> </span><span class="mf">0.055</span><span class="p">,</span><span class="w"> </span><span class="mi">13654</span><span class="w"> </span><span class="p">],</span>
+<span class="w">            </span><span class="p">[</span><span class="w"> </span><span class="mf">0.060</span><span class="p">,</span><span class="w"> </span><span class="mi">15368</span><span class="w"> </span><span class="p">],</span>
+<span class="w">            </span><span class="p">[</span><span class="w"> </span><span class="mf">0.065</span><span class="p">,</span><span class="w"> </span><span class="mi">16904</span><span class="w"> </span><span class="p">],</span>
+<span class="w">            </span><span class="p">[</span><span class="w"> </span><span class="mf">0.070</span><span class="p">,</span><span class="w"> </span><span class="mi">18469</span><span class="w"> </span><span class="p">],</span>
+<span class="w">            </span><span class="p">[</span><span class="w"> </span><span class="mf">0.075</span><span class="p">,</span><span class="w"> </span><span class="mi">20089</span><span class="w"> </span><span class="p">],</span>
+<span class="w">            </span><span class="p">[</span><span class="w"> </span><span class="mf">0.080</span><span class="p">,</span><span class="w"> </span><span class="mi">21699</span><span class="w"> </span><span class="p">]</span>
+<span class="w">        </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;Rolling Resistance&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.015</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;CSLIP&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">193929.0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;CALPHA&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">50000.0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;UMIN&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5568</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;UMAX&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.9835</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;X Relaxation Length&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">2.0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;Y Relaxation Length&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">2.0</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;Visualization&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;Mesh Filename Left&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;hmmwv/hmmwv_tire_left.obj&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;Mesh Filename Right&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;hmmwv/hmmwv_tire_right.obj&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;Width&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.318</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 <p>上述 JSON 文件中嵌入的垂直负载曲线如下所示：
 <img alt="" src="../../img/chrono/FialaTire_vertical_load.png" /></p>
 <h2 id="_3">轮胎操作模型验证</h2>
@@ -251,170 +251,170 @@
 <h3 id="ancf">ANCF壳可变形轮胎</h3>
 <p>参见 <a href="https://api.projectchrono.org/classchrono_1_1vehicle_1_1_ch_a_n_c_f_tire.html">ChANCFTire</a> 和 <a href="https://api.projectchrono.org/classchrono_1_1vehicle_1_1_a_n_c_f_tire.html">ANCFTire</a> 。</p>
 <p>以下 JSON 文件包含 ANCFTire 的规范：</p>
-<pre><code class="language-json">{
-  &quot;Name&quot;:            &quot;HMMWV ANCF 4-Node Tire&quot;,
-  &quot;Type&quot;:            &quot;Tire&quot;,
-  &quot;Template&quot;:        &quot;ANCFTire&quot;,
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;Name&quot;</span><span class="p">:</span><span class="w">            </span><span class="s2">&quot;HMMWV ANCF 4-Node Tire&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;Type&quot;</span><span class="p">:</span><span class="w">            </span><span class="s2">&quot;Tire&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;Template&quot;</span><span class="p">:</span><span class="w">        </span><span class="s2">&quot;ANCFTire&quot;</span><span class="p">,</span>
 
-  &quot;Tire Radius&quot;:     0.4673,
-  &quot;Rim Radius&quot;:      0.2683,
-  &quot;Rim Width&quot;:       0.254,
+<span class="w">  </span><span class="nt">&quot;Tire Radius&quot;</span><span class="p">:</span><span class="w">     </span><span class="mf">0.4673</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;Rim Radius&quot;</span><span class="p">:</span><span class="w">      </span><span class="mf">0.2683</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;Rim Width&quot;</span><span class="p">:</span><span class="w">       </span><span class="mf">0.254</span><span class="p">,</span>
 
-  &quot;8-Node Elements&quot;:  false,
+<span class="w">  </span><span class="nt">&quot;8-Node Elements&quot;</span><span class="p">:</span><span class="w">  </span><span class="kc">false</span><span class="p">,</span>
 
-  &quot;Contact Material&quot;:
-  {
-      &quot;Coefficient of Friction&quot;:    0.9,
-      &quot;Coefficient of Restitution&quot;: 0.1,
+<span class="w">  </span><span class="nt">&quot;Contact Material&quot;</span><span class="p">:</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;Coefficient of Friction&quot;</span><span class="p">:</span><span class="w">    </span><span class="mf">0.9</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;Coefficient of Restitution&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span>
 
-      &quot;Properties&quot;:
-      {
-          &quot;Young Modulus&quot;:              2e6,
-          &quot;Poisson Ratio&quot;:              0.3
-      },
+<span class="w">      </span><span class="nt">&quot;Properties&quot;</span><span class="p">:</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;Young Modulus&quot;</span><span class="p">:</span><span class="w">              </span><span class="mf">2e6</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;Poisson Ratio&quot;</span><span class="p">:</span><span class="w">              </span><span class="mf">0.3</span>
+<span class="w">      </span><span class="p">},</span>
 
-      &quot;Coefficients&quot;:
-      {
-          &quot;Normal Stiffness&quot;:           2.0e6,
-          &quot;Normal Damping&quot;:             1.3e1,
-          &quot;Tangential Stiffness&quot;:       1.0e6,
-          &quot;Tangential Damping&quot;:         0
-      }
-  },
+<span class="w">      </span><span class="nt">&quot;Coefficients&quot;</span><span class="p">:</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;Normal Stiffness&quot;</span><span class="p">:</span><span class="w">           </span><span class="mf">2.0e6</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;Normal Damping&quot;</span><span class="p">:</span><span class="w">             </span><span class="mf">1.3e1</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;Tangential Stiffness&quot;</span><span class="p">:</span><span class="w">       </span><span class="mf">1.0e6</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;Tangential Damping&quot;</span><span class="p">:</span><span class="w">         </span><span class="mi">0</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
 
-  &quot;Materials&quot;:
-  [
-      {
-         &quot;Type&quot;:    &quot;Orthotropic&quot;,
-         &quot;Density&quot;: 0.1000000E+04,
-         &quot;E&quot;:       [0.7560000E+10 , 0.4740000E+08 , 0.4740000E+08],
-         &quot;nu&quot;:      [0.4500000E+00 , 0.4500000E+00 , 0.4500000E+00],
-         &quot;G&quot;:       [0.1634483E+08 , 0.1634483E+08 , 0.1634483E+08]
-      },
+<span class="w">  </span><span class="nt">&quot;Materials&quot;</span><span class="p">:</span>
+<span class="w">  </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;Type&quot;</span><span class="p">:</span><span class="w">    </span><span class="s2">&quot;Orthotropic&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;Density&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1000000E+04</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;E&quot;</span><span class="p">:</span><span class="w">       </span><span class="p">[</span><span class="mf">0.7560000E+10</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">0.4740000E+08</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">0.4740000E+08</span><span class="p">],</span>
+<span class="w">         </span><span class="nt">&quot;nu&quot;</span><span class="p">:</span><span class="w">      </span><span class="p">[</span><span class="mf">0.4500000E+00</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">0.4500000E+00</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">0.4500000E+00</span><span class="p">],</span>
+<span class="w">         </span><span class="nt">&quot;G&quot;</span><span class="p">:</span><span class="w">       </span><span class="p">[</span><span class="mf">0.1634483E+08</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">0.1634483E+08</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">0.1634483E+08</span><span class="p">]</span>
+<span class="w">      </span><span class="p">},</span>
 
-      {
-         &quot;Type&quot;:    &quot;Orthotropic&quot;,
-         &quot;Density&quot;: 0.2639000E+04,
-         &quot;E&quot;:       [0.1800000E+12 , 0.4740000E+08 , 0.4740000E+08],
-         &quot;nu&quot;:      [0.4500000E+00 , 0.4500000E+00 , 0.4500000E+00],
-         &quot;G&quot;:       [0.1634483E+08 , 0.1634483E+08 , 0.1634483E+08]
-      },
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;Type&quot;</span><span class="p">:</span><span class="w">    </span><span class="s2">&quot;Orthotropic&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;Density&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.2639000E+04</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;E&quot;</span><span class="p">:</span><span class="w">       </span><span class="p">[</span><span class="mf">0.1800000E+12</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">0.4740000E+08</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">0.4740000E+08</span><span class="p">],</span>
+<span class="w">         </span><span class="nt">&quot;nu&quot;</span><span class="p">:</span><span class="w">      </span><span class="p">[</span><span class="mf">0.4500000E+00</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">0.4500000E+00</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">0.4500000E+00</span><span class="p">],</span>
+<span class="w">         </span><span class="nt">&quot;G&quot;</span><span class="p">:</span><span class="w">       </span><span class="p">[</span><span class="mf">0.1634483E+08</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">0.1634483E+08</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">0.1634483E+08</span><span class="p">]</span>
+<span class="w">      </span><span class="p">},</span>
 
-      {
-         &quot;Type&quot;:    &quot;Orthotropic&quot;,
-         &quot;Density&quot;: 0.1100000E+04,
-         &quot;E&quot;:       [0.4740000E+08 , 0.4740000E+08 , 0.4740000E+08],
-         &quot;nu&quot;:      [0.4500000E+00 , 0.4500000E+00 , 0.4500000E+00],
-         &quot;G&quot;:       [0.1634483E+08 , 0.1634483E+08 , 0.1634483E+08]
-      }
-  ],
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;Type&quot;</span><span class="p">:</span><span class="w">    </span><span class="s2">&quot;Orthotropic&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;Density&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1100000E+04</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;E&quot;</span><span class="p">:</span><span class="w">       </span><span class="p">[</span><span class="mf">0.4740000E+08</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">0.4740000E+08</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">0.4740000E+08</span><span class="p">],</span>
+<span class="w">         </span><span class="nt">&quot;nu&quot;</span><span class="p">:</span><span class="w">      </span><span class="p">[</span><span class="mf">0.4500000E+00</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">0.4500000E+00</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">0.4500000E+00</span><span class="p">],</span>
+<span class="w">         </span><span class="nt">&quot;G&quot;</span><span class="p">:</span><span class="w">       </span><span class="p">[</span><span class="mf">0.1634483E+08</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">0.1634483E+08</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">0.1634483E+08</span><span class="p">]</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
 
-  &quot;Structural Damping Coefficient&quot;:  0.005,
+<span class="w">  </span><span class="nt">&quot;Structural Damping Coefficient&quot;</span><span class="p">:</span><span class="w">  </span><span class="mf">0.005</span><span class="p">,</span>
 
-  &quot;Default Pressure&quot;:                200.0e3,
+<span class="w">  </span><span class="nt">&quot;Default Pressure&quot;</span><span class="p">:</span><span class="w">                </span><span class="mf">200.0e3</span><span class="p">,</span>
 
-  &quot;Bead Section&quot;:
-  {
-      &quot;Layer Thickness&quot;:   [ 0.5e-03 , 0.5e-02 , 0.5e-03 ],
-      &quot;Ply Angle&quot;:         [ 90 , 0 , 90],
-      &quot;Material ID&quot;:       [ 0 , 2 , 0],
-      &quot;Number Elements&quot;:   2
-  },
+<span class="w">  </span><span class="nt">&quot;Bead Section&quot;</span><span class="p">:</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;Layer Thickness&quot;</span><span class="p">:</span><span class="w">   </span><span class="p">[</span><span class="w"> </span><span class="mf">0.5e-03</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">0.5e-02</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">0.5e-03</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;Ply Angle&quot;</span><span class="p">:</span><span class="w">         </span><span class="p">[</span><span class="w"> </span><span class="mi">90</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mi">90</span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;Material ID&quot;</span><span class="p">:</span><span class="w">       </span><span class="p">[</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;Number Elements&quot;</span><span class="p">:</span><span class="w">   </span><span class="mi">2</span>
+<span class="w">  </span><span class="p">},</span>
 
-  &quot;Sidewall Section&quot;:
-  {
-      &quot;Layer Thickness&quot;:   [ 0.5e-03 , 0.1e-03 , 0.5e-03 ],
-      &quot;Ply Angle&quot;:         [ 90 , 0 , 90 ],
-      &quot;Material ID&quot;:       [ 0 , 2 , 0 ],
-      &quot;Number Elements&quot;:   4
-  },
+<span class="w">  </span><span class="nt">&quot;Sidewall Section&quot;</span><span class="p">:</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;Layer Thickness&quot;</span><span class="p">:</span><span class="w">   </span><span class="p">[</span><span class="w"> </span><span class="mf">0.5e-03</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">0.1e-03</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">0.5e-03</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;Ply Angle&quot;</span><span class="p">:</span><span class="w">         </span><span class="p">[</span><span class="w"> </span><span class="mi">90</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mi">90</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;Material ID&quot;</span><span class="p">:</span><span class="w">       </span><span class="p">[</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;Number Elements&quot;</span><span class="p">:</span><span class="w">   </span><span class="mi">4</span>
+<span class="w">  </span><span class="p">},</span>
 
-  &quot;Tread Section&quot;:
-  {
-      &quot;Layer Thickness&quot;:   [ 0.1e-02 , 0.3e-03 , 0.3e-03 , 0.5e-03 ],
-      &quot;Ply Angle&quot;:         [ 0 , -20 , 20 , 90 ],
-      &quot;Material ID&quot;:       [ 2 , 1 , 1 , 0 ],
-      &quot;Number Elements&quot;:   6
- },
+<span class="w">  </span><span class="nt">&quot;Tread Section&quot;</span><span class="p">:</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;Layer Thickness&quot;</span><span class="p">:</span><span class="w">   </span><span class="p">[</span><span class="w"> </span><span class="mf">0.1e-02</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">0.3e-03</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">0.3e-03</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">0.5e-03</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;Ply Angle&quot;</span><span class="p">:</span><span class="w">         </span><span class="p">[</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mi">-20</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mi">90</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;Material ID&quot;</span><span class="p">:</span><span class="w">       </span><span class="p">[</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;Number Elements&quot;</span><span class="p">:</span><span class="w">   </span><span class="mi">6</span>
+<span class="w"> </span><span class="p">},</span>
 
-  &quot;Number Elements Circumference&quot;:  90,
+<span class="w">  </span><span class="nt">&quot;Number Elements Circumference&quot;</span><span class="p">:</span><span class="w">  </span><span class="mi">90</span><span class="p">,</span>
 
-  &quot;Profile&quot;: 
-  [
-      [ 0.000000E+00 , 0.000000E+00 , -1.150000E-01 ],
-      [ 1.428571E-02 , 1.166670E-02 , -1.164180E-01 ],
-      [ 2.857143E-02 , 2.333330E-02 , -1.192300E-01 ],
-      [ 4.285714E-02 , 3.500000E-02 , -1.230200E-01 ],
-      [ 5.714286E-02 , 4.666670E-02 , -1.273710E-01 ],
-      [ 7.142857E-02 , 5.833330E-02 , -1.318700E-01 ],
-      [ 8.571429E-02 , 7.000000E-02 , -1.361330E-01 ],
-      [ 1.000000E-01 , 8.166670E-02 , -1.399910E-01 ],
-      [ 1.142857E-01 , 9.333330E-02 , -1.433510E-01 ],
-      [ 1.285714E-01 , 1.050000E-01 , -1.461240E-01 ],
-      [ 1.428571E-01 , 1.166670E-01 , -1.482160E-01 ],
-      [ 1.571429E-01 , 1.283330E-01 , -1.495390E-01 ],
-      [ 1.714286E-01 , 1.400000E-01 , -1.500000E-01 ],
-      [ 1.857143E-01 , 1.475000E-01 , -1.486380E-01 ],
-      [ 2.000000E-01 , 1.550000E-01 , -1.457860E-01 ],
-      [ 2.142857E-01 , 1.625000E-01 , -1.419760E-01 ],
-      [ 2.285714E-01 , 1.700000E-01 , -1.360000E-01 ],
-      [ 2.428571E-01 , 1.768970E-01 , -1.288420E-01 ],
-      [ 2.571429E-01 , 1.831090E-01 , -1.216840E-01 ],
-      [ 2.714286E-01 , 1.883940E-01 , -1.145260E-01 ],
-      [ 2.857143E-01 , 1.925100E-01 , -1.073680E-01 ],
-      [ 3.000000E-01 , 1.953230E-01 , -1.002110E-01 ],
-      [ 3.142857E-01 , 1.970380E-01 , -9.305260E-02 ],
-      [ 3.285714E-01 , 1.979260E-01 , -8.589470E-02 ],
-      [ 3.428571E-01 , 1.982580E-01 , -7.873680E-02 ],
-      [ 3.571429E-01 , 1.983020E-01 , -7.157890E-02 ],
-      [ 3.714286E-01 , 1.983090E-01 , -6.442110E-02 ],
-      [ 3.857143E-01 , 1.983540E-01 , -5.726320E-02 ],
-      [ 4.000000E-01 , 1.984290E-01 , -5.010530E-02 ],
-      [ 4.142857E-01 , 1.985240E-01 , -4.294740E-02 ],
-      [ 4.285714E-01 , 1.986300E-01 , -3.578950E-02 ],
-      [ 4.428571E-01 , 1.987380E-01 , -2.863160E-02 ],
-      [ 4.571429E-01 , 1.988390E-01 , -2.147370E-02 ],
-      [ 4.714286E-01 , 1.989220E-01 , -1.431580E-02 ],
-      [ 4.857143E-01 , 1.989790E-01 , -7.157890E-03 ],
-      [ 5.000000E-01 , 1.990000E-01 ,  0.000000E+00 ],
-      [ 5.142857E-01 , 1.989790E-01 ,  7.157890E-03 ],
-      [ 5.285714E-01 , 1.989220E-01 ,  1.431580E-02 ],
-      [ 5.428571E-01 , 1.988390E-01 ,  2.147370E-02 ],
-      [ 5.571429E-01 , 1.987380E-01 ,  2.863160E-02 ],
-      [ 5.714286E-01 , 1.986300E-01 ,  3.578950E-02 ],
-      [ 5.857143E-01 , 1.985240E-01 ,  4.294740E-02 ],
-      [ 6.000000E-01 , 1.984290E-01 ,  5.010530E-02 ],
-      [ 6.142857E-01 , 1.983540E-01 ,  5.726320E-02 ],
-      [ 6.285714E-01 , 1.983090E-01 ,  6.442110E-02 ],
-      [ 6.428571E-01 , 1.983020E-01 ,  7.157890E-02 ],
-      [ 6.571429E-01 , 1.982580E-01 ,  7.873680E-02 ],
-      [ 6.714286E-01 , 1.979260E-01 ,  8.589470E-02 ],
-      [ 6.857143E-01 , 1.970380E-01 ,  9.305260E-02 ],
-      [ 7.000000E-01 , 1.953230E-01 ,  1.002110E-01 ],
-      [ 7.142857E-01 , 1.925100E-01 ,  1.073680E-01 ],
-      [ 7.285714E-01 , 1.883940E-01 ,  1.145260E-01 ],
-      [ 7.428571E-01 , 1.831090E-01 ,  1.216840E-01 ],
-      [ 7.571429E-01 , 1.768970E-01 ,  1.288420E-01 ],
-      [ 7.714286E-01 , 1.700000E-01 ,  1.360000E-01 ],
-      [ 7.857143E-01 , 1.625000E-01 ,  1.419760E-01 ],
-      [ 8.000000E-01 , 1.550000E-01 ,  1.457860E-01 ],
-      [ 8.142857E-01 , 1.475000E-01 ,  1.486380E-01 ],
-      [ 8.285714E-01 , 1.400000E-01 ,  1.500000E-01 ],
-      [ 8.428571E-01 , 1.283330E-01 ,  1.495390E-01 ],
-      [ 8.571429E-01 , 1.166670E-01 ,  1.482160E-01 ],
-      [ 8.714286E-01 , 1.050000E-01 ,  1.461240E-01 ],
-      [ 8.857143E-01 , 9.333330E-02 ,  1.433510E-01 ],
-      [ 9.000000E-01 , 8.166670E-02 ,  1.399910E-01 ],
-      [ 9.142857E-01 , 7.000000E-02 ,  1.361330E-01 ],
-      [ 9.285714E-01 , 5.833330E-02 ,  1.318700E-01 ],
-      [ 9.428571E-01 , 4.666670E-02 ,  1.273710E-01 ],
-      [ 9.571429E-01 , 3.500000E-02 ,  1.230200E-01 ],
-      [ 9.714286E-01 , 2.333330E-02 ,  1.192300E-01 ],
-      [ 9.857143E-01 , 1.166670E-02 ,  1.164180E-01 ],
-      [ 1.000000E+00 , 0.000000E+00 ,  1.150000E-01 ]
-  ]
-}
-</code></pre>
+<span class="w">  </span><span class="nt">&quot;Profile&quot;</span><span class="p">:</span><span class="w"> </span>
+<span class="w">  </span><span class="p">[</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">0.000000E+00</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">0.000000E+00</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">-1.150000E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">1.428571E-02</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.166670E-02</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">-1.164180E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">2.857143E-02</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">2.333330E-02</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">-1.192300E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">4.285714E-02</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">3.500000E-02</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">-1.230200E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">5.714286E-02</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">4.666670E-02</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">-1.273710E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">7.142857E-02</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">5.833330E-02</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">-1.318700E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">8.571429E-02</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">7.000000E-02</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">-1.361330E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">1.000000E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">8.166670E-02</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">-1.399910E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">1.142857E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">9.333330E-02</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">-1.433510E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">1.285714E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.050000E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">-1.461240E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">1.428571E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.166670E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">-1.482160E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">1.571429E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.283330E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">-1.495390E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">1.714286E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.400000E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">-1.500000E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">1.857143E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.475000E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">-1.486380E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">2.000000E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.550000E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">-1.457860E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">2.142857E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.625000E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">-1.419760E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">2.285714E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.700000E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">-1.360000E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">2.428571E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.768970E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">-1.288420E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">2.571429E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.831090E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">-1.216840E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">2.714286E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.883940E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">-1.145260E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">2.857143E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.925100E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">-1.073680E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">3.000000E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.953230E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">-1.002110E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">3.142857E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.970380E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">-9.305260E-02</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">3.285714E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.979260E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">-8.589470E-02</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">3.428571E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.982580E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">-7.873680E-02</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">3.571429E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.983020E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">-7.157890E-02</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">3.714286E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.983090E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">-6.442110E-02</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">3.857143E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.983540E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">-5.726320E-02</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">4.000000E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.984290E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">-5.010530E-02</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">4.142857E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.985240E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">-4.294740E-02</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">4.285714E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.986300E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">-3.578950E-02</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">4.428571E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.987380E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">-2.863160E-02</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">4.571429E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.988390E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">-2.147370E-02</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">4.714286E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.989220E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">-1.431580E-02</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">4.857143E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.989790E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">-7.157890E-03</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">5.000000E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.990000E-01</span><span class="w"> </span><span class="p">,</span><span class="w">  </span><span class="mf">0.000000E+00</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">5.142857E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.989790E-01</span><span class="w"> </span><span class="p">,</span><span class="w">  </span><span class="mf">7.157890E-03</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">5.285714E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.989220E-01</span><span class="w"> </span><span class="p">,</span><span class="w">  </span><span class="mf">1.431580E-02</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">5.428571E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.988390E-01</span><span class="w"> </span><span class="p">,</span><span class="w">  </span><span class="mf">2.147370E-02</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">5.571429E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.987380E-01</span><span class="w"> </span><span class="p">,</span><span class="w">  </span><span class="mf">2.863160E-02</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">5.714286E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.986300E-01</span><span class="w"> </span><span class="p">,</span><span class="w">  </span><span class="mf">3.578950E-02</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">5.857143E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.985240E-01</span><span class="w"> </span><span class="p">,</span><span class="w">  </span><span class="mf">4.294740E-02</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">6.000000E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.984290E-01</span><span class="w"> </span><span class="p">,</span><span class="w">  </span><span class="mf">5.010530E-02</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">6.142857E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.983540E-01</span><span class="w"> </span><span class="p">,</span><span class="w">  </span><span class="mf">5.726320E-02</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">6.285714E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.983090E-01</span><span class="w"> </span><span class="p">,</span><span class="w">  </span><span class="mf">6.442110E-02</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">6.428571E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.983020E-01</span><span class="w"> </span><span class="p">,</span><span class="w">  </span><span class="mf">7.157890E-02</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">6.571429E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.982580E-01</span><span class="w"> </span><span class="p">,</span><span class="w">  </span><span class="mf">7.873680E-02</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">6.714286E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.979260E-01</span><span class="w"> </span><span class="p">,</span><span class="w">  </span><span class="mf">8.589470E-02</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">6.857143E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.970380E-01</span><span class="w"> </span><span class="p">,</span><span class="w">  </span><span class="mf">9.305260E-02</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">7.000000E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.953230E-01</span><span class="w"> </span><span class="p">,</span><span class="w">  </span><span class="mf">1.002110E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">7.142857E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.925100E-01</span><span class="w"> </span><span class="p">,</span><span class="w">  </span><span class="mf">1.073680E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">7.285714E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.883940E-01</span><span class="w"> </span><span class="p">,</span><span class="w">  </span><span class="mf">1.145260E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">7.428571E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.831090E-01</span><span class="w"> </span><span class="p">,</span><span class="w">  </span><span class="mf">1.216840E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">7.571429E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.768970E-01</span><span class="w"> </span><span class="p">,</span><span class="w">  </span><span class="mf">1.288420E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">7.714286E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.700000E-01</span><span class="w"> </span><span class="p">,</span><span class="w">  </span><span class="mf">1.360000E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">7.857143E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.625000E-01</span><span class="w"> </span><span class="p">,</span><span class="w">  </span><span class="mf">1.419760E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">8.000000E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.550000E-01</span><span class="w"> </span><span class="p">,</span><span class="w">  </span><span class="mf">1.457860E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">8.142857E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.475000E-01</span><span class="w"> </span><span class="p">,</span><span class="w">  </span><span class="mf">1.486380E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">8.285714E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.400000E-01</span><span class="w"> </span><span class="p">,</span><span class="w">  </span><span class="mf">1.500000E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">8.428571E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.283330E-01</span><span class="w"> </span><span class="p">,</span><span class="w">  </span><span class="mf">1.495390E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">8.571429E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.166670E-01</span><span class="w"> </span><span class="p">,</span><span class="w">  </span><span class="mf">1.482160E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">8.714286E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.050000E-01</span><span class="w"> </span><span class="p">,</span><span class="w">  </span><span class="mf">1.461240E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">8.857143E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">9.333330E-02</span><span class="w"> </span><span class="p">,</span><span class="w">  </span><span class="mf">1.433510E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">9.000000E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">8.166670E-02</span><span class="w"> </span><span class="p">,</span><span class="w">  </span><span class="mf">1.399910E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">9.142857E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">7.000000E-02</span><span class="w"> </span><span class="p">,</span><span class="w">  </span><span class="mf">1.361330E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">9.285714E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">5.833330E-02</span><span class="w"> </span><span class="p">,</span><span class="w">  </span><span class="mf">1.318700E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">9.428571E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">4.666670E-02</span><span class="w"> </span><span class="p">,</span><span class="w">  </span><span class="mf">1.273710E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">9.571429E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">3.500000E-02</span><span class="w"> </span><span class="p">,</span><span class="w">  </span><span class="mf">1.230200E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">9.714286E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">2.333330E-02</span><span class="w"> </span><span class="p">,</span><span class="w">  </span><span class="mf">1.192300E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">9.857143E-01</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">1.166670E-02</span><span class="w"> </span><span class="p">,</span><span class="w">  </span><span class="mf">1.164180E-01</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="w"> </span><span class="mf">1.000000E+00</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">0.000000E+00</span><span class="w"> </span><span class="p">,</span><span class="w">  </span><span class="mf">1.150000E-01</span><span class="w"> </span><span class="p">]</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
 <h3 id="reissner">Reissner壳形变轮胎</h3>
 <p>参见 <a href="https://api.projectchrono.org/classchrono_1_1vehicle_1_1_ch_reissner_tire.html">ChReissnerTire</a> 和 <a href="https://api.projectchrono.org/classchrono_1_1vehicle_1_1_reissner_tire.html">ReissnerTire</a> 。</p>
               
@@ -452,8 +452,13 @@
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="../../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

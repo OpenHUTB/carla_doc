@@ -73,459 +73,450 @@
 <p>Carla 模拟中的对象都有一个边界框，并且 Carla Python API 提供了访问每个对象的边界框的函数。本教程展示如何访问边界框，然后将它们投影到相机平面中。</p>
 <h2 id="_2">设置模拟器</h2>
 <p>让我们编写标准 Carla 样板代码，设置客户端和世界对象，生成车辆并为其附加相机：</p>
-<pre><code class="language-py">import carla
-import math
-import random
-import time
-import queue
-import numpy as np
-import cv2
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">carla</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">queue</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
 
-client = carla.Client('localhost', 2000)
-world  = client.get_world()
-bp_lib = world.get_blueprint_library()
+<span class="n">client</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">2000</span><span class="p">)</span>
+<span class="n">world</span>  <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_world</span><span class="p">()</span>
+<span class="n">bp_lib</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span>
 
-# 获取地图的生成点
-spawn_points = world.get_map().get_spawn_points()
+<span class="c1"># 获取地图的生成点</span>
+<span class="n">spawn_points</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_map</span><span class="p">()</span><span class="o">.</span><span class="n">get_spawn_points</span><span class="p">()</span>
 
-# 生成车辆
-vehicle_bp =bp_lib.find('vehicle.lincoln.mkz_2020')
-vehicle = world.try_spawn_actor(vehicle_bp, random.choice(spawn_points))
+<span class="c1"># 生成车辆</span>
+<span class="n">vehicle_bp</span> <span class="o">=</span><span class="n">bp_lib</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;vehicle.lincoln.mkz_2020&#39;</span><span class="p">)</span>
+<span class="n">vehicle</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">try_spawn_actor</span><span class="p">(</span><span class="n">vehicle_bp</span><span class="p">,</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">spawn_points</span><span class="p">))</span>
 
-# 生成相机
-camera_bp = bp_lib.find('sensor.camera.rgb')
-camera_init_trans = carla.Transform(carla.Location(z=2))
-camera = world.spawn_actor(camera_bp, camera_init_trans, attach_to=vehicle)
-vehicle.set_autopilot(True)
+<span class="c1"># 生成相机</span>
+<span class="n">camera_bp</span> <span class="o">=</span> <span class="n">bp_lib</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;sensor.camera.rgb&#39;</span><span class="p">)</span>
+<span class="n">camera_init_trans</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Transform</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">Location</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">camera</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">camera_bp</span><span class="p">,</span> <span class="n">camera_init_trans</span><span class="p">,</span> <span class="n">attach_to</span><span class="o">=</span><span class="n">vehicle</span><span class="p">)</span>
+<span class="n">vehicle</span><span class="o">.</span><span class="n">set_autopilot</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
-# 以同步模式设置模拟器
-settings = world.get_settings()
-settings.synchronous_mode = True # 启用同步模式
-settings.fixed_delta_seconds = 0.05
-world.apply_settings(settings)
+<span class="c1"># 以同步模式设置模拟器</span>
+<span class="n">settings</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_settings</span><span class="p">()</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">synchronous_mode</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># 启用同步模式</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">fixed_delta_seconds</span> <span class="o">=</span> <span class="mf">0.05</span>
+<span class="n">world</span><span class="o">.</span><span class="n">apply_settings</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
 
-# 创建一个队列来存储和检索传感器数据
-image_queue = queue.Queue()
-camera.listen(image_queue.put)
-</code></pre>
+<span class="c1"># 创建一个队列来存储和检索传感器数据</span>
+<span class="n">image_queue</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">Queue</span><span class="p">()</span>
+<span class="n">camera</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="n">image_queue</span><span class="o">.</span><span class="n">put</span><span class="p">)</span>
+</code></pre></div>
 <h2 id="_3">几何变换</h2>
 <p>我们想要从模拟中获取三维点并将它们投影到相机的二维平面中。首先，我们需要构造相机投影矩阵：</p>
-<pre><code class="language-py">def build_projection_matrix(w, h, fov):
-    focal = w / (2.0 * np.tan(fov * np.pi / 360.0))
-    K = np.identity(3)
-    K[0, 0] = K[1, 1] = focal
-    K[0, 2] = w / 2.0
-    K[1, 2] = h / 2.0
-    return K
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">build_projection_matrix</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">fov</span><span class="p">):</span>
+    <span class="n">focal</span> <span class="o">=</span> <span class="n">w</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">fov</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mf">360.0</span><span class="p">))</span>
+    <span class="n">K</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">K</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">K</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">focal</span>
+    <span class="n">K</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">w</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">K</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">h</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="k">return</span> <span class="n">K</span>
+</code></pre></div>
 <p>我们想要使用相机投影矩阵将三维点投影到二维点。第一步是使用可通过 <code>camera.get_transform().get_inverse_matrix()</code> 检索的逆相机变换，将世界坐标中的三维坐标变换为相机坐标。接下来，我们使用相机投影矩阵将相机坐标中的三维点投影到二维相机平面中：</p>
-<pre><code class="language-py">def get_image_point(loc, K, w2c):
-        # 计算三维坐标的二维投影
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_image_point</span><span class="p">(</span><span class="n">loc</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">w2c</span><span class="p">):</span>
+        <span class="c1"># 计算三维坐标的二维投影</span>
 
-        # 设置输入坐标的格式（loc是一个carla.Position对象）
-        point = np.array([loc.x, loc.y, loc.z, 1])
-        # 变换到相机坐标
-        point_camera = np.dot(w2c, point)
+        <span class="c1"># 设置输入坐标的格式（loc是一个carla.Position对象）</span>
+        <span class="n">point</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">loc</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">loc</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">loc</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="c1"># 变换到相机坐标</span>
+        <span class="n">point_camera</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">w2c</span><span class="p">,</span> <span class="n">point</span><span class="p">)</span>
 
-        # 新的，我们必须从UE4的坐标系更改为“standard” 
-        # (x, y ,z) -&gt; (y, -z, x)
-        # 我们还去掉了第四个成分
-        point_camera = [point_camera[1], -point_camera[2], point_camera[0]]
+        <span class="c1"># 新的，我们必须从UE4的坐标系更改为“standard” </span>
+        <span class="c1"># (x, y ,z) -&gt; (y, -z, x)</span>
+        <span class="c1"># 我们还去掉了第四个成分</span>
+        <span class="n">point_camera</span> <span class="o">=</span> <span class="p">[</span><span class="n">point_camera</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">-</span><span class="n">point_camera</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">point_camera</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
 
-        # 现在使用相机矩阵投影3D-&gt;2D
-        point_img = np.dot(K, point_camera)
-        # 正则化
-        point_img[0] /= point_img[2]
-        point_img[1] /= point_img[2]
+        <span class="c1"># 现在使用相机矩阵投影3D-&gt;2D</span>
+        <span class="n">point_img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">point_camera</span><span class="p">)</span>
+        <span class="c1"># 正则化</span>
+        <span class="n">point_img</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/=</span> <span class="n">point_img</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">point_img</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/=</span> <span class="n">point_img</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
 
-        return point_img[0:2]
-</code></pre>
+        <span class="k">return</span> <span class="n">point_img</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+</code></pre></div>
 <p>现在我们有了投影 3D -&gt; 2D 的功能，我们可以检索相机规格：</p>
-<pre><code class="language-py">
-# 获取世界的相机矩阵
-world_2_camera = np.array(camera.get_transform().get_inverse_matrix())
+<div class="highlight"><pre><span></span><code><span class="c1"># 获取世界的相机矩阵</span>
+<span class="n">world_2_camera</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">camera</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">get_inverse_matrix</span><span class="p">())</span>
 
-# Get the attributes from the camera
-image_w = camera_bp.get_attribute(&quot;image_size_x&quot;).as_int()
-image_h = camera_bp.get_attribute(&quot;image_size_y&quot;).as_int()
-fov = camera_bp.get_attribute(&quot;fov&quot;).as_float()
+<span class="c1"># Get the attributes from the camera</span>
+<span class="n">image_w</span> <span class="o">=</span> <span class="n">camera_bp</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s2">&quot;image_size_x&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">as_int</span><span class="p">()</span>
+<span class="n">image_h</span> <span class="o">=</span> <span class="n">camera_bp</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s2">&quot;image_size_y&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">as_int</span><span class="p">()</span>
+<span class="n">fov</span> <span class="o">=</span> <span class="n">camera_bp</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s2">&quot;fov&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">as_float</span><span class="p">()</span>
 
-# Calculate the camera projection matrix to project from 3D -&gt; 2D
-K = build_projection_matrix(image_w, image_h, fov)
-</code></pre>
+<span class="c1"># Calculate the camera projection matrix to project from 3D -&gt; 2D</span>
+<span class="n">K</span> <span class="o">=</span> <span class="n">build_projection_matrix</span><span class="p">(</span><span class="n">image_w</span><span class="p">,</span> <span class="n">image_h</span><span class="p">,</span> <span class="n">fov</span><span class="p">)</span>
+</code></pre></div>
 <h2 id="_4">边界框</h2>
 <p>Carla 对象都有一个关联的边界框。Carla <a href="../python_api/#carla.Actor">参与者</a> 有一个 <code>bounding_box</code> 属性，该属性具有 <a href="../python_api/#carla.BoundingBox">carla.BoundingBox</a> 对象类型。边界框的顶点可以通过 getter 函数<code>.get_world_vertices()</code>或 <code>get_local_vertices()</code> 之一检索。</p>
 <p>需要注意的是，要获取世界坐标中边界框的三维坐标，您需要将参与者的变换(transform)作为该<code>get_world_vertices()</code>方法的参数，如下所示：</p>
-<pre><code class="language-py">bounding_box.get_world_vertices(actor.get_transform())
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">bounding_box</span><span class="o">.</span><span class="n">get_world_vertices</span><span class="p">(</span><span class="n">actor</span><span class="o">.</span><span class="n">get_transform</span><span class="p">())</span>
+</code></pre></div>
 <p>对于地图中的物体，如建筑物、交通灯和路标，可以通过<a href="(python_api.md#carla.World)">carla.World</a>方法 <code>get_level_bbs()</code> 检索边界框get_level_bbs()。<a href="(python_api.md#carla.CityObjectLabel)">carla.CityObjectLabel</a> 可以用作参数来将边界框列表过滤到相关对象：</p>
-<pre><code class="language-py"># 检索关卡内交通灯的所有边界框
-bounding_box_set = world.get_level_bbs(carla.CityObjectLabel.TrafficLight)
+<div class="highlight"><pre><span></span><code><span class="c1"># 检索关卡内交通灯的所有边界框</span>
+<span class="n">bounding_box_set</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_level_bbs</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">CityObjectLabel</span><span class="o">.</span><span class="n">TrafficLight</span><span class="p">)</span>
 
-# 过滤列表以提取半径50m以内的边界框
-nearby_bboxes = []
-for bbox in bounding_box_set:
-    if bbox.location.distance(actor.get_transform().location) &lt; 50:
-        nearby_bboxes.append()
-</code></pre>
+<span class="c1"># 过滤列表以提取半径50m以内的边界框</span>
+<span class="n">nearby_bboxes</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">bbox</span> <span class="ow">in</span> <span class="n">bounding_box_set</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">bbox</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">actor</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">location</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">50</span><span class="p">:</span>
+        <span class="n">nearby_bboxes</span><span class="o">.</span><span class="n">append</span><span class="p">()</span>
+</code></pre></div>
 <p>可以使用参与者位置来进一步过滤该列表，以识别附近的对象，因此可能位于连接到参与者的相机的视野内。</p>
 <p>为了在相机图像上绘制边界框，我们需要以适当的顺序连接顶点以创建边缘。为了实现这一点，我们需要以下边对列表：</p>
-<pre><code class="language-py">edges = [[0,1], [1,3], [3,2], [2,0], [0,4], [4,5], [5,1], [5,7], [7,6], [6,4], [6,2], [7,3]]
-
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">edges</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">3</span><span class="p">]]</span>
+</code></pre></div>
 <h2 id="_5">渲染边界框</h2>
 <p>现在我们已经设置了几何投影和模拟，我们可以继续创建游戏循环并将边界框渲染到场景中。</p>
-<pre><code class="language-py"># Set up the set of bounding boxes from the level
-# We filter for traffic lights and traffic signs
-bounding_box_set = world.get_level_bbs(carla.CityObjectLabel.TrafficLight)
-bounding_box_set.extend(world.get_level_bbs(carla.CityObjectLabel.TrafficSigns))
+<div class="highlight"><pre><span></span><code><span class="c1"># Set up the set of bounding boxes from the level</span>
+<span class="c1"># We filter for traffic lights and traffic signs</span>
+<span class="n">bounding_box_set</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_level_bbs</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">CityObjectLabel</span><span class="o">.</span><span class="n">TrafficLight</span><span class="p">)</span>
+<span class="n">bounding_box_set</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">world</span><span class="o">.</span><span class="n">get_level_bbs</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">CityObjectLabel</span><span class="o">.</span><span class="n">TrafficSigns</span><span class="p">))</span>
 
-# Remember the edge pairs
-edges = [[0,1], [1,3], [3,2], [2,0], [0,4], [4,5], [5,1], [5,7], [7,6], [6,4], [6,2], [7,3]]
-</code></pre>
+<span class="c1"># Remember the edge pairs</span>
+<span class="n">edges</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">3</span><span class="p">]]</span>
+</code></pre></div>
 <p>为了查看边界框，我们将使用 OpenCV 窗口来显示相机输出。</p>
-<pre><code class="language-py"># Retrieve the first image
-world.tick()
-image = image_queue.get()
+<div class="highlight"><pre><span></span><code><span class="c1"># Retrieve the first image</span>
+<span class="n">world</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">image_queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
 
-# Reshape the raw data into an RGB array
-img = np.reshape(np.copy(image.raw_data), (image.height, image.width, 4)) 
+<span class="c1"># Reshape the raw data into an RGB array</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">raw_data</span><span class="p">),</span> <span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="n">image</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span> 
 
-# Display the image in an OpenCV display window
-cv2.namedWindow('ImageWindowName', cv2.WINDOW_AUTOSIZE)
-cv2.imshow('ImageWindowName',img)
-cv2.waitKey(1)
-</code></pre>
+<span class="c1"># Display the image in an OpenCV display window</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">namedWindow</span><span class="p">(</span><span class="s1">&#39;ImageWindowName&#39;</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">WINDOW_AUTOSIZE</span><span class="p">)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;ImageWindowName&#39;</span><span class="p">,</span><span class="n">img</span><span class="p">)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
 <p>现在我们将开始游戏循环：</p>
-<pre><code class="language-py">while True:
-    # Retrieve and reshape the image
-    world.tick()
-    image = image_queue.get()
+<div class="highlight"><pre><span></span><code><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="c1"># Retrieve and reshape the image</span>
+    <span class="n">world</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">image_queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
 
-    img = np.reshape(np.copy(image.raw_data), (image.height, image.width, 4))
+    <span class="n">img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">raw_data</span><span class="p">),</span> <span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="n">image</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 
-    # Get the camera matrix 
-    world_2_camera = np.array(camera.get_transform().get_inverse_matrix())
+    <span class="c1"># Get the camera matrix </span>
+    <span class="n">world_2_camera</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">camera</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">get_inverse_matrix</span><span class="p">())</span>
 
-    for bb in bounding_box_set:
+    <span class="k">for</span> <span class="n">bb</span> <span class="ow">in</span> <span class="n">bounding_box_set</span><span class="p">:</span>
 
-        # Filter for distance from ego vehicle
-        if bb.location.distance(vehicle.get_transform().location) &lt; 50:
+        <span class="c1"># Filter for distance from ego vehicle</span>
+        <span class="k">if</span> <span class="n">bb</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">vehicle</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">location</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">50</span><span class="p">:</span>
 
-            # Calculate the dot product between the forward vector
-            # of the vehicle and the vector between the vehicle
-            # and the bounding box. We threshold this dot product
-            # to limit to drawing bounding boxes IN FRONT OF THE CAMERA
-            forward_vec = vehicle.get_transform().get_forward_vector()
-            ray = bb.location - vehicle.get_transform().location
+            <span class="c1"># Calculate the dot product between the forward vector</span>
+            <span class="c1"># of the vehicle and the vector between the vehicle</span>
+            <span class="c1"># and the bounding box. We threshold this dot product</span>
+            <span class="c1"># to limit to drawing bounding boxes IN FRONT OF THE CAMERA</span>
+            <span class="n">forward_vec</span> <span class="o">=</span> <span class="n">vehicle</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">get_forward_vector</span><span class="p">()</span>
+            <span class="n">ray</span> <span class="o">=</span> <span class="n">bb</span><span class="o">.</span><span class="n">location</span> <span class="o">-</span> <span class="n">vehicle</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">location</span>
 
-            if forward_vec.dot(ray) &gt; 1:
-                # Cycle through the vertices
-                verts = [v for v in bb.get_world_vertices(carla.Transform())]
-                for edge in edges:
-                    # Join the vertices into edges
-                    p1 = get_image_point(verts[edge[0]], K, world_2_camera)
-                    p2 = get_image_point(verts[edge[1]],  K, world_2_camera)
-                    # Draw the edges into the camera output
-                    cv2.line(img, (int(p1[0]),int(p1[1])), (int(p2[0]),int(p2[1])), (0,0,255, 255), 1)
+            <span class="k">if</span> <span class="n">forward_vec</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">ray</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="c1"># Cycle through the vertices</span>
+                <span class="n">verts</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">bb</span><span class="o">.</span><span class="n">get_world_vertices</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">Transform</span><span class="p">())]</span>
+                <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
+                    <span class="c1"># Join the vertices into edges</span>
+                    <span class="n">p1</span> <span class="o">=</span> <span class="n">get_image_point</span><span class="p">(</span><span class="n">verts</span><span class="p">[</span><span class="n">edge</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">K</span><span class="p">,</span> <span class="n">world_2_camera</span><span class="p">)</span>
+                    <span class="n">p2</span> <span class="o">=</span> <span class="n">get_image_point</span><span class="p">(</span><span class="n">verts</span><span class="p">[</span><span class="n">edge</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>  <span class="n">K</span><span class="p">,</span> <span class="n">world_2_camera</span><span class="p">)</span>
+                    <span class="c1"># Draw the edges into the camera output</span>
+                    <span class="n">cv2</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span><span class="nb">int</span><span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">])),</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">p2</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span><span class="nb">int</span><span class="p">(</span><span class="n">p2</span><span class="p">[</span><span class="mi">1</span><span class="p">])),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
 
-    # Now draw the image into the OpenCV display window
-    cv2.imshow('ImageWindowName',img)
-    # Break the loop if the user presses the Q key
-    if cv2.waitKey(1) == ord('q'):
-        break
+    <span class="c1"># Now draw the image into the OpenCV display window</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;ImageWindowName&#39;</span><span class="p">,</span><span class="n">img</span><span class="p">)</span>
+    <span class="c1"># Break the loop if the user presses the Q key</span>
+    <span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span>
+        <span class="k">break</span>
 
-# Close the OpenCV display window when the game loop stops
-cv2.destroyAllWindows()
-
-</code></pre>
+<span class="c1"># Close the OpenCV display window when the game loop stops</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+</code></pre></div>
 <p>现在我们将三维边界框渲染到图像中，以便我们可以在相机传感器输出中观察它们。</p>
 <p><img alt="3D_bbox_traffic_lights" src="../img/tuto_G_bounding_box/3d_bbox_traffic_lights.gif" /></p>
 <h2 id="_6">车辆边界框</h2>
 <p>我们可能还想渲染参与者的边界框，特别是车辆的边界框。</p>
 <p>首先，让我们在模拟中添加一些其他车辆：</p>
-<pre><code class="language-py">for i in range(50):
-    vehicle_bp = random.choice(bp_lib.filter('vehicle'))
-    npc = world.try_spawn_actor(vehicle_bp, random.choice(spawn_points))
-    if npc:
-        npc.set_autopilot(True)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">):</span>
+    <span class="n">vehicle_bp</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">bp_lib</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s1">&#39;vehicle&#39;</span><span class="p">))</span>
+    <span class="n">npc</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">try_spawn_actor</span><span class="p">(</span><span class="n">vehicle_bp</span><span class="p">,</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">spawn_points</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">npc</span><span class="p">:</span>
+        <span class="n">npc</span><span class="o">.</span><span class="n">set_autopilot</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
 <p>检索第一张图像并像以前一样设置 OpenCV 显示窗口：</p>
-<pre><code class="language-py"># Retrieve the first image
-world.tick()
-image = image_queue.get()
+<div class="highlight"><pre><span></span><code><span class="c1"># Retrieve the first image</span>
+<span class="n">world</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">image_queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
 
-# Reshape the raw data into an RGB array
-img = np.reshape(np.copy(image.raw_data), (image.height, image.width, 4)) 
+<span class="c1"># Reshape the raw data into an RGB array</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">raw_data</span><span class="p">),</span> <span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="n">image</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span> 
 
-# Display the image in an OpenCV display window
-cv2.namedWindow('ImageWindowName', cv2.WINDOW_AUTOSIZE)
-cv2.imshow('ImageWindowName',img)
-cv2.waitKey(1)
-</code></pre>
+<span class="c1"># Display the image in an OpenCV display window</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">namedWindow</span><span class="p">(</span><span class="s1">&#39;ImageWindowName&#39;</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">WINDOW_AUTOSIZE</span><span class="p">)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;ImageWindowName&#39;</span><span class="p">,</span><span class="n">img</span><span class="p">)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
 <p>现在我们使用修改后的游戏循环来绘制车辆边界框：</p>
-<pre><code class="language-py">
-while True:
-    # Retrieve and reshape the image
-    world.tick()
-    image = image_queue.get()
+<div class="highlight"><pre><span></span><code><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="c1"># Retrieve and reshape the image</span>
+    <span class="n">world</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">image_queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
 
-    img = np.reshape(np.copy(image.raw_data), (image.height, image.width, 4))
+    <span class="n">img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">raw_data</span><span class="p">),</span> <span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="n">image</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 
-    # Get the camera matrix 
-    world_2_camera = np.array(camera.get_transform().get_inverse_matrix())
+    <span class="c1"># Get the camera matrix </span>
+    <span class="n">world_2_camera</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">camera</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">get_inverse_matrix</span><span class="p">())</span>
 
 
-    for npc in world.get_actors().filter('*vehicle*'):
+    <span class="k">for</span> <span class="n">npc</span> <span class="ow">in</span> <span class="n">world</span><span class="o">.</span><span class="n">get_actors</span><span class="p">()</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s1">&#39;*vehicle*&#39;</span><span class="p">):</span>
 
-        # Filter out the ego vehicle
-        if npc.id != vehicle.id:
+        <span class="c1"># Filter out the ego vehicle</span>
+        <span class="k">if</span> <span class="n">npc</span><span class="o">.</span><span class="n">id</span> <span class="o">!=</span> <span class="n">vehicle</span><span class="o">.</span><span class="n">id</span><span class="p">:</span>
 
-            bb = npc.bounding_box
-            dist = npc.get_transform().location.distance(vehicle.get_transform().location)
+            <span class="n">bb</span> <span class="o">=</span> <span class="n">npc</span><span class="o">.</span><span class="n">bounding_box</span>
+            <span class="n">dist</span> <span class="o">=</span> <span class="n">npc</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">vehicle</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">location</span><span class="p">)</span>
 
-            # Filter for the vehicles within 50m
-            if dist &lt; 50:
+            <span class="c1"># Filter for the vehicles within 50m</span>
+            <span class="k">if</span> <span class="n">dist</span> <span class="o">&lt;</span> <span class="mi">50</span><span class="p">:</span>
 
-            # Calculate the dot product between the forward vector
-            # of the vehicle and the vector between the vehicle
-            # and the other vehicle. We threshold this dot product
-            # to limit to drawing bounding boxes IN FRONT OF THE CAMERA
-                forward_vec = vehicle.get_transform().get_forward_vector()
-                ray = npc.get_transform().location - vehicle.get_transform().location
+            <span class="c1"># Calculate the dot product between the forward vector</span>
+            <span class="c1"># of the vehicle and the vector between the vehicle</span>
+            <span class="c1"># and the other vehicle. We threshold this dot product</span>
+            <span class="c1"># to limit to drawing bounding boxes IN FRONT OF THE CAMERA</span>
+                <span class="n">forward_vec</span> <span class="o">=</span> <span class="n">vehicle</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">get_forward_vector</span><span class="p">()</span>
+                <span class="n">ray</span> <span class="o">=</span> <span class="n">npc</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">location</span> <span class="o">-</span> <span class="n">vehicle</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">location</span>
 
-                if forward_vec.dot(ray) &gt; 1:
-                    p1 = get_image_point(bb.location, K, world_2_camera)
-                    verts = [v for v in bb.get_world_vertices(npc.get_transform())]
-                    for edge in edges:
-                        p1 = get_image_point(verts[edge[0]], K, world_2_camera)
-                        p2 = get_image_point(verts[edge[1]],  K, world_2_camera)
-                        cv2.line(img, (int(p1[0]),int(p1[1])), (int(p2[0]),int(p2[1])), (255,0,0, 255), 1)        
+                <span class="k">if</span> <span class="n">forward_vec</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">ray</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">p1</span> <span class="o">=</span> <span class="n">get_image_point</span><span class="p">(</span><span class="n">bb</span><span class="o">.</span><span class="n">location</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">world_2_camera</span><span class="p">)</span>
+                    <span class="n">verts</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">bb</span><span class="o">.</span><span class="n">get_world_vertices</span><span class="p">(</span><span class="n">npc</span><span class="o">.</span><span class="n">get_transform</span><span class="p">())]</span>
+                    <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
+                        <span class="n">p1</span> <span class="o">=</span> <span class="n">get_image_point</span><span class="p">(</span><span class="n">verts</span><span class="p">[</span><span class="n">edge</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">K</span><span class="p">,</span> <span class="n">world_2_camera</span><span class="p">)</span>
+                        <span class="n">p2</span> <span class="o">=</span> <span class="n">get_image_point</span><span class="p">(</span><span class="n">verts</span><span class="p">[</span><span class="n">edge</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>  <span class="n">K</span><span class="p">,</span> <span class="n">world_2_camera</span><span class="p">)</span>
+                        <span class="n">cv2</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span><span class="nb">int</span><span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">])),</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">p2</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span><span class="nb">int</span><span class="p">(</span><span class="n">p2</span><span class="p">[</span><span class="mi">1</span><span class="p">])),</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>        
 
-    cv2.imshow('ImageWindowName',img)
-    if cv2.waitKey(1) == ord('q'):
-        break
-cv2.destroyAllWindows()
-</code></pre>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;ImageWindowName&#39;</span><span class="p">,</span><span class="n">img</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span>
+        <span class="k">break</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+</code></pre></div>
 <p><img alt="3D_bbox_vehicles" src="../img/tuto_G_bounding_box/3d_bbox_vehicle.gif" /></p>
 <h3 id="_7">二维边界框</h3>
 <p>训练神经网络来检测二维边界框而不是上面演示的三维边界框是很常见的。前面的脚本可以轻松扩展以生成二维边界框。我们只需要使用三维边界框的末端即可。对于渲染的每个边界框，我们找到图像坐标中最左边、最右边、最高和最低的投影顶点。</p>
-<pre><code class="language-py">
-while True:
+<div class="highlight"><pre><span></span><code><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
 
-    # Retrieve and reshape the image
-    world.tick()
-    image = image_queue.get()
+    <span class="c1"># Retrieve and reshape the image</span>
+    <span class="n">world</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">image_queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
 
-    img = np.reshape(np.copy(image.raw_data), (image.height, image.width, 4))
+    <span class="n">img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">raw_data</span><span class="p">),</span> <span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="n">image</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 
-    # Get the camera matrix 
-    world_2_camera = np.array(camera.get_transform().get_inverse_matrix())
+    <span class="c1"># Get the camera matrix </span>
+    <span class="n">world_2_camera</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">camera</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">get_inverse_matrix</span><span class="p">())</span>
 
-    for npc in world.get_actors().filter('*vehicle*'):
+    <span class="k">for</span> <span class="n">npc</span> <span class="ow">in</span> <span class="n">world</span><span class="o">.</span><span class="n">get_actors</span><span class="p">()</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s1">&#39;*vehicle*&#39;</span><span class="p">):</span>
 
-        # Filter out the ego vehicle
-        if npc.id != vehicle.id:
+        <span class="c1"># Filter out the ego vehicle</span>
+        <span class="k">if</span> <span class="n">npc</span><span class="o">.</span><span class="n">id</span> <span class="o">!=</span> <span class="n">vehicle</span><span class="o">.</span><span class="n">id</span><span class="p">:</span>
 
-            bb = npc.bounding_box
-            dist = npc.get_transform().location.distance(vehicle.get_transform().location)
+            <span class="n">bb</span> <span class="o">=</span> <span class="n">npc</span><span class="o">.</span><span class="n">bounding_box</span>
+            <span class="n">dist</span> <span class="o">=</span> <span class="n">npc</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">vehicle</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">location</span><span class="p">)</span>
 
-            # Filter for the vehicles within 50m
-            if dist &lt; 50:
+            <span class="c1"># Filter for the vehicles within 50m</span>
+            <span class="k">if</span> <span class="n">dist</span> <span class="o">&lt;</span> <span class="mi">50</span><span class="p">:</span>
 
-            # Calculate the dot product between the forward vector
-            # of the vehicle and the vector between the vehicle
-            # and the other vehicle. We threshold this dot product
-            # to limit to drawing bounding boxes IN FRONT OF THE CAMERA
-                forward_vec = vehicle.get_transform().get_forward_vector()
-                ray = npc.get_transform().location - vehicle.get_transform().location
+            <span class="c1"># Calculate the dot product between the forward vector</span>
+            <span class="c1"># of the vehicle and the vector between the vehicle</span>
+            <span class="c1"># and the other vehicle. We threshold this dot product</span>
+            <span class="c1"># to limit to drawing bounding boxes IN FRONT OF THE CAMERA</span>
+                <span class="n">forward_vec</span> <span class="o">=</span> <span class="n">vehicle</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">get_forward_vector</span><span class="p">()</span>
+                <span class="n">ray</span> <span class="o">=</span> <span class="n">npc</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">location</span> <span class="o">-</span> <span class="n">vehicle</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">location</span>
 
-                if forward_vec.dot(ray) &gt; 1:
-                    p1 = get_image_point(bb.location, K, world_2_camera)http://host.robots.ox.ac.uk/pascal/VOC/
-                    verts = [v for v in bb.get_world_vertices(npc.get_transform())]
-                    x_max = -10000
-                    x_min = 10000
-                    y_max = -10000
-                    y_min = 10000
+                <span class="k">if</span> <span class="n">forward_vec</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">ray</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">p1</span> <span class="o">=</span> <span class="n">get_image_point</span><span class="p">(</span><span class="n">bb</span><span class="o">.</span><span class="n">location</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">world_2_camera</span><span class="p">)</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">host</span><span class="o">.</span><span class="n">robots</span><span class="o">.</span><span class="n">ox</span><span class="o">.</span><span class="n">ac</span><span class="o">.</span><span class="n">uk</span><span class="o">/</span><span class="n">pascal</span><span class="o">/</span><span class="n">VOC</span><span class="o">/</span>
+                    <span class="n">verts</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">bb</span><span class="o">.</span><span class="n">get_world_vertices</span><span class="p">(</span><span class="n">npc</span><span class="o">.</span><span class="n">get_transform</span><span class="p">())]</span>
+                    <span class="n">x_max</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10000</span>
+                    <span class="n">x_min</span> <span class="o">=</span> <span class="mi">10000</span>
+                    <span class="n">y_max</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10000</span>
+                    <span class="n">y_min</span> <span class="o">=</span> <span class="mi">10000</span>
 
-                    for vert in verts:
-                        p = get_image_point(vert, K, world_2_camera)
-                        # Find the rightmost vertex
-                        if p[0] &gt; x_max:
-                            x_max = p[0]
-                        # Find the leftmost vertex
-                        if p[0] &lt; x_min:
-                            x_min = p[0]
-                        # Find the highest vertex
-                        if p[1] &gt; y_max:
-                            y_max = p[1]
-                        # Find the lowest  vertex
-                        if p[1] &lt; y_min:
-                            y_min = p[1]
+                    <span class="k">for</span> <span class="n">vert</span> <span class="ow">in</span> <span class="n">verts</span><span class="p">:</span>
+                        <span class="n">p</span> <span class="o">=</span> <span class="n">get_image_point</span><span class="p">(</span><span class="n">vert</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">world_2_camera</span><span class="p">)</span>
+                        <span class="c1"># Find the rightmost vertex</span>
+                        <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">x_max</span><span class="p">:</span>
+                            <span class="n">x_max</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                        <span class="c1"># Find the leftmost vertex</span>
+                        <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">x_min</span><span class="p">:</span>
+                            <span class="n">x_min</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                        <span class="c1"># Find the highest vertex</span>
+                        <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">y_max</span><span class="p">:</span>
+                            <span class="n">y_max</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                        <span class="c1"># Find the lowest  vertex</span>
+                        <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">y_min</span><span class="p">:</span>
+                            <span class="n">y_min</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
-                    cv2.line(img, (int(x_min),int(y_min)), (int(x_max),int(y_min)), (0,0,255, 255), 1)
-                    cv2.line(img, (int(x_min),int(y_max)), (int(x_max),int(y_max)), (0,0,255, 255), 1)
-                    cv2.line(img, (int(x_min),int(y_min)), (int(x_min),int(y_max)), (0,0,255, 255), 1)
-                    cv2.line(img, (int(x_max),int(y_min)), (int(x_max),int(y_max)), (0,0,255, 255), 1)
+                    <span class="n">cv2</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x_min</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">y_min</span><span class="p">)),</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x_max</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">y_min</span><span class="p">)),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="n">cv2</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x_min</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">y_max</span><span class="p">)),</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x_max</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">y_max</span><span class="p">)),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="n">cv2</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x_min</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">y_min</span><span class="p">)),</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x_min</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">y_max</span><span class="p">)),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="n">cv2</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x_max</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">y_min</span><span class="p">)),</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x_max</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">y_max</span><span class="p">)),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
 
 
-    cv2.imshow('ImageWindowName',img)
-    if cv2.waitKey(1) == ord('q'):
-        break
-cv2.destroyAllWindows()
-
-</code></pre>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;ImageWindowName&#39;</span><span class="p">,</span><span class="n">img</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span>
+        <span class="k">break</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+</code></pre></div>
 <p><img alt="2D_bbox_vehicles" src="../img/tuto_G_bounding_box/2d_bbox.gif" /></p>
 <h2 id="_8">导出边界框</h2>
 <p>渲染边界框对于我们确保边界框对于调试目的是正确的很有用。然而，如果我们想在训练神经网络时实际使用它们，我们将需要导出它们。用于自动驾驶和物体检测的常见数据存储库使用多种不同的格式，例如<a href="http://www.cvlibs.net/datasets/kitti/"><strong>KITTI</strong></a> 或 <a href="http://host.robots.ox.ac.uk/pascal/VOC/"><strong>PASCAL VOC</strong></a> 或 <a href="https://cocodataset.org/#home"><strong>MicroSoft COCO</strong></a> 。</p>
 <h3 id="pascal-voc">Pascal VOC 格式</h3>
 <p>这些数据集通常使用 JSON 或 XML 格式来存储注释。PASCAL VOC 格式有一个方便的 Python 库。</p>
-<pre><code class="language-py">from pascal_voc_writer import Writer
-...
-...
-...
-while True:
-    # Retrieve the image
-    world.tick()
-    image = image_queue.get()
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pascal_voc_writer</span> <span class="kn">import</span> <span class="n">Writer</span>
+<span class="o">...</span>
+<span class="o">...</span>
+<span class="o">...</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="c1"># Retrieve the image</span>
+    <span class="n">world</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">image_queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
 
-    # Get the camera matrix 
-    world_2_camera = np.array(camera.get_transform().get_inverse_matrix())
+    <span class="c1"># Get the camera matrix </span>
+    <span class="n">world_2_camera</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">camera</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">get_inverse_matrix</span><span class="p">())</span>
 
-    frame_path = 'output/%06d' % image.frame
+    <span class="n">frame_path</span> <span class="o">=</span> <span class="s1">&#39;output/</span><span class="si">%06d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">image</span><span class="o">.</span><span class="n">frame</span>
 
-    # Save the image
-    image.save_to_disk(frame_path + '.png')
+    <span class="c1"># Save the image</span>
+    <span class="n">image</span><span class="o">.</span><span class="n">save_to_disk</span><span class="p">(</span><span class="n">frame_path</span> <span class="o">+</span> <span class="s1">&#39;.png&#39;</span><span class="p">)</span>
 
-    # Initialize the exporter
-    writer = Writer(frame_path + '.png', image_w, image_h)
+    <span class="c1"># Initialize the exporter</span>
+    <span class="n">writer</span> <span class="o">=</span> <span class="n">Writer</span><span class="p">(</span><span class="n">frame_path</span> <span class="o">+</span> <span class="s1">&#39;.png&#39;</span><span class="p">,</span> <span class="n">image_w</span><span class="p">,</span> <span class="n">image_h</span><span class="p">)</span>
 
-    for npc in world.get_actors().filter('*vehicle*'):
-        if npc.id != vehicle.id:
-            bb = npc.bounding_box
-            dist = npc.get_transform().location.distance(vehicle.get_transform().location)
-            if dist &lt; 50:
-                forward_vec = vehicle.get_transform().get_forward_vector()
-                ray = npc.get_transform().location - vehicle.get_transform().location
-                if forward_vec.dot(ray) &gt; 1:
-                    p1 = get_image_point(bb.location, K, world_2_camera)
-                    verts = [v for v in bb.get_world_vertices(npc.get_transform())]
-                    x_max = -10000
-                    x_min = 10000
-                    y_max = -10000
-                    y_min = 10000
-                    for vert in verts:
-                        p = get_image_point(vert, K, world_2_camera)
-                        if p[0] &gt; x_max:
-                            x_max = p[0]
-                        if p[0] &lt; x_min:
-                            x_min = p[0]
-                        if p[1] &gt; y_max:
-                            y_max = p[1]
-                        if p[1] &lt; y_min:
-                            y_min = p[1]
+    <span class="k">for</span> <span class="n">npc</span> <span class="ow">in</span> <span class="n">world</span><span class="o">.</span><span class="n">get_actors</span><span class="p">()</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s1">&#39;*vehicle*&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">npc</span><span class="o">.</span><span class="n">id</span> <span class="o">!=</span> <span class="n">vehicle</span><span class="o">.</span><span class="n">id</span><span class="p">:</span>
+            <span class="n">bb</span> <span class="o">=</span> <span class="n">npc</span><span class="o">.</span><span class="n">bounding_box</span>
+            <span class="n">dist</span> <span class="o">=</span> <span class="n">npc</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">vehicle</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">location</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">dist</span> <span class="o">&lt;</span> <span class="mi">50</span><span class="p">:</span>
+                <span class="n">forward_vec</span> <span class="o">=</span> <span class="n">vehicle</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">get_forward_vector</span><span class="p">()</span>
+                <span class="n">ray</span> <span class="o">=</span> <span class="n">npc</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">location</span> <span class="o">-</span> <span class="n">vehicle</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">location</span>
+                <span class="k">if</span> <span class="n">forward_vec</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">ray</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">p1</span> <span class="o">=</span> <span class="n">get_image_point</span><span class="p">(</span><span class="n">bb</span><span class="o">.</span><span class="n">location</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">world_2_camera</span><span class="p">)</span>
+                    <span class="n">verts</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">bb</span><span class="o">.</span><span class="n">get_world_vertices</span><span class="p">(</span><span class="n">npc</span><span class="o">.</span><span class="n">get_transform</span><span class="p">())]</span>
+                    <span class="n">x_max</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10000</span>
+                    <span class="n">x_min</span> <span class="o">=</span> <span class="mi">10000</span>
+                    <span class="n">y_max</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10000</span>
+                    <span class="n">y_min</span> <span class="o">=</span> <span class="mi">10000</span>
+                    <span class="k">for</span> <span class="n">vert</span> <span class="ow">in</span> <span class="n">verts</span><span class="p">:</span>
+                        <span class="n">p</span> <span class="o">=</span> <span class="n">get_image_point</span><span class="p">(</span><span class="n">vert</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">world_2_camera</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">x_max</span><span class="p">:</span>
+                            <span class="n">x_max</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                        <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">x_min</span><span class="p">:</span>
+                            <span class="n">x_min</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                        <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">y_max</span><span class="p">:</span>
+                            <span class="n">y_max</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                        <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">y_min</span><span class="p">:</span>
+                            <span class="n">y_min</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
-                    # Add the object to the frame (ensure it is inside the image)
-                    if x_min &gt; 0 and x_max &lt; image_w and y_min &gt; 0 and y_max &lt; image_h: 
-                        writer.addObject('vehicle', x_min, y_min, x_max, y_max)
+                    <span class="c1"># Add the object to the frame (ensure it is inside the image)</span>
+                    <span class="k">if</span> <span class="n">x_min</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">x_max</span> <span class="o">&lt;</span> <span class="n">image_w</span> <span class="ow">and</span> <span class="n">y_min</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">y_max</span> <span class="o">&lt;</span> <span class="n">image_h</span><span class="p">:</span> 
+                        <span class="n">writer</span><span class="o">.</span><span class="n">addObject</span><span class="p">(</span><span class="s1">&#39;vehicle&#39;</span><span class="p">,</span> <span class="n">x_min</span><span class="p">,</span> <span class="n">y_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">,</span> <span class="n">y_max</span><span class="p">)</span>
 
-    # Save the bounding boxes in the scene
-    writer.save(frame_path + '.xml')
-
-
-</code></pre>
+    <span class="c1"># Save the bounding boxes in the scene</span>
+    <span class="n">writer</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">frame_path</span> <span class="o">+</span> <span class="s1">&#39;.xml&#39;</span><span class="p">)</span>
+</code></pre></div>
 <p>对于模拟的每个渲染帧，您现在将导出一个随附的 XML 文件，其中包含帧中边界框的详细信息。</p>
 <p><img alt="xml_bbox_files" src="../img/tuto_G_bounding_box/xml_bbox_files.png" /></p>
 <p>在 PASCAL VOC 格式中，XML 文件包含涉及随附图像文件、图像尺寸的信息，如果需要，还可以包括车辆类型等详细信息。</p>
-<pre><code class="language-xml">&lt;!-- Example PASCAL VOC format file--&gt;
-&lt;annotation&gt;
-    &lt;folder&gt;output&lt;/folder&gt;
-    &lt;filename&gt;023235.png&lt;/filename&gt;
-    &lt;path&gt;/home/matt/Documents/temp/output/023235.png&lt;/path&gt;
-    &lt;source&gt;
-        &lt;database&gt;Unknown&lt;/database&gt;
-    &lt;/source&gt;
-    &lt;size&gt;
-        &lt;width&gt;800&lt;/width&gt;
-        &lt;height&gt;600&lt;/height&gt;
-        &lt;depth&gt;3&lt;/depth&gt;
-    &lt;/size&gt;
-    &lt;segmented&gt;0&lt;/segmented&gt;
-    &lt;object&gt;
-        &lt;name&gt;vehicle&lt;/name&gt;
-        &lt;pose&gt;Unspecified&lt;/pose&gt;
-        &lt;truncated&gt;0&lt;/truncated&gt;
-        &lt;difficult&gt;0&lt;/difficult&gt;
-        &lt;bndbox&gt;
-            &lt;xmin&gt;503&lt;/xmin&gt;
-            &lt;ymin&gt;310&lt;/ymin&gt;
-            &lt;xmax&gt;511&lt;/xmax&gt;
-            &lt;ymax&gt;321&lt;/ymax&gt;
-        &lt;/bndbox&gt;
-    &lt;/object&gt;    &lt;object&gt;
-        &lt;name&gt;vehicle&lt;/name&gt;
-        &lt;pose&gt;Unspecified&lt;/pose&gt;
-        &lt;truncated&gt;0&lt;/truncated&gt;
-        &lt;difficult&gt;0&lt;/difficult&gt;
-        &lt;bndbox&gt;
-            &lt;xmin&gt;490&lt;/xmin&gt;
-            &lt;ymin&gt;310&lt;/ymin&gt;
-            &lt;xmax&gt;498&lt;/xmax&gt;
-            &lt;ymax&gt;321&lt;/ymax&gt;
-        &lt;/bndbox&gt;
-    &lt;/object&gt;
-&lt;/annotation&gt;
-
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- Example PASCAL VOC format file--&gt;</span>
+<span class="nt">&lt;annotation&gt;</span>
+<span class="w">    </span><span class="nt">&lt;folder&gt;</span>output<span class="nt">&lt;/folder&gt;</span>
+<span class="w">    </span><span class="nt">&lt;filename&gt;</span>023235.png<span class="nt">&lt;/filename&gt;</span>
+<span class="w">    </span><span class="nt">&lt;path&gt;</span>/home/matt/Documents/temp/output/023235.png<span class="nt">&lt;/path&gt;</span>
+<span class="w">    </span><span class="nt">&lt;source&gt;</span>
+<span class="w">        </span><span class="nt">&lt;database&gt;</span>Unknown<span class="nt">&lt;/database&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/source&gt;</span>
+<span class="w">    </span><span class="nt">&lt;size&gt;</span>
+<span class="w">        </span><span class="nt">&lt;width&gt;</span>800<span class="nt">&lt;/width&gt;</span>
+<span class="w">        </span><span class="nt">&lt;height&gt;</span>600<span class="nt">&lt;/height&gt;</span>
+<span class="w">        </span><span class="nt">&lt;depth&gt;</span>3<span class="nt">&lt;/depth&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/size&gt;</span>
+<span class="w">    </span><span class="nt">&lt;segmented&gt;</span>0<span class="nt">&lt;/segmented&gt;</span>
+<span class="w">    </span><span class="nt">&lt;object&gt;</span>
+<span class="w">        </span><span class="nt">&lt;name&gt;</span>vehicle<span class="nt">&lt;/name&gt;</span>
+<span class="w">        </span><span class="nt">&lt;pose&gt;</span>Unspecified<span class="nt">&lt;/pose&gt;</span>
+<span class="w">        </span><span class="nt">&lt;truncated&gt;</span>0<span class="nt">&lt;/truncated&gt;</span>
+<span class="w">        </span><span class="nt">&lt;difficult&gt;</span>0<span class="nt">&lt;/difficult&gt;</span>
+<span class="w">        </span><span class="nt">&lt;bndbox&gt;</span>
+<span class="w">            </span><span class="nt">&lt;xmin&gt;</span>503<span class="nt">&lt;/xmin&gt;</span>
+<span class="w">            </span><span class="nt">&lt;ymin&gt;</span>310<span class="nt">&lt;/ymin&gt;</span>
+<span class="w">            </span><span class="nt">&lt;xmax&gt;</span>511<span class="nt">&lt;/xmax&gt;</span>
+<span class="w">            </span><span class="nt">&lt;ymax&gt;</span>321<span class="nt">&lt;/ymax&gt;</span>
+<span class="w">        </span><span class="nt">&lt;/bndbox&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/object&gt;</span><span class="w">    </span><span class="nt">&lt;object&gt;</span>
+<span class="w">        </span><span class="nt">&lt;name&gt;</span>vehicle<span class="nt">&lt;/name&gt;</span>
+<span class="w">        </span><span class="nt">&lt;pose&gt;</span>Unspecified<span class="nt">&lt;/pose&gt;</span>
+<span class="w">        </span><span class="nt">&lt;truncated&gt;</span>0<span class="nt">&lt;/truncated&gt;</span>
+<span class="w">        </span><span class="nt">&lt;difficult&gt;</span>0<span class="nt">&lt;/difficult&gt;</span>
+<span class="w">        </span><span class="nt">&lt;bndbox&gt;</span>
+<span class="w">            </span><span class="nt">&lt;xmin&gt;</span>490<span class="nt">&lt;/xmin&gt;</span>
+<span class="w">            </span><span class="nt">&lt;ymin&gt;</span>310<span class="nt">&lt;/ymin&gt;</span>
+<span class="w">            </span><span class="nt">&lt;xmax&gt;</span>498<span class="nt">&lt;/xmax&gt;</span>
+<span class="w">            </span><span class="nt">&lt;ymax&gt;</span>321<span class="nt">&lt;/ymax&gt;</span>
+<span class="w">        </span><span class="nt">&lt;/bndbox&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/object&gt;</span>
+<span class="nt">&lt;/annotation&gt;</span>
+</code></pre></div>
 <h3 id="coco">微软 COCO 格式</h3>
 <p>另一种流行的导出格式是 <a href="https://cocodataset.org/#home"><strong>MicroSoft COCO</strong></a> 。COCO 格式使用 JSON 文件来保存对图像和注释的引用。该格式包括单个 JSON 文件字段中的图像和注释，以及有关数据集和许可证的信息。与某些其他格式相比，对所有收集的图像和所有相关注释的引用都位于同一文件中。</p>
 <p>您应该创建一个类似于以下示例的 JSON 字典：</p>
-<pre><code class="language-py">simulation_dataset = {
-    &quot;info&quot;: {},
+<div class="highlight"><pre><span></span><code><span class="n">simulation_dataset</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;info&quot;</span><span class="p">:</span> <span class="p">{},</span>
 
-    &quot;licenses&quot;: [
-    {
-        &quot;url&quot;: &quot;http://creativecommons.org/licenses/by-nc-sa/2.0/&quot;,
-        &quot;id&quot;: 1,
-        &quot;name&quot;: &quot;Attribution-NonCommercial-ShareAlike License&quot;
-    }],
+    <span class="s2">&quot;licenses&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://creativecommons.org/licenses/by-nc-sa/2.0/&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Attribution-NonCommercial-ShareAlike License&quot;</span>
+    <span class="p">}],</span>
 
-    &quot;images&quot;: [...,
-        {
-        &quot;license&quot;: 1,
-        &quot;file_name&quot;: &quot;023235.png&quot;,
-        &quot;height&quot;: 600,
-        &quot;width&quot;: 800,
-        &quot;date_captured&quot;: &quot;2022-04-14 17:02:52&quot;,
-        &quot;id&quot;: 23235
-    },
-        ...
-    ],
+    <span class="s2">&quot;images&quot;</span><span class="p">:</span> <span class="p">[</span><span class="o">...</span><span class="p">,</span>
+        <span class="p">{</span>
+        <span class="s2">&quot;license&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">&quot;file_name&quot;</span><span class="p">:</span> <span class="s2">&quot;023235.png&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="mi">600</span><span class="p">,</span>
+        <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="mi">800</span><span class="p">,</span>
+        <span class="s2">&quot;date_captured&quot;</span><span class="p">:</span> <span class="s2">&quot;2022-04-14 17:02:52&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">23235</span>
+    <span class="p">},</span>
+        <span class="o">...</span>
+    <span class="p">],</span>
 
-    &quot;categories&quot;: [...
-        {&quot;supercategory&quot;: &quot;vehicle&quot;, &quot;id&quot;: 10, &quot;name&quot;: &quot;vehicle&quot; },
-    ...],
+    <span class="s2">&quot;categories&quot;</span><span class="p">:</span> <span class="p">[</span><span class="o">...</span>
+        <span class="p">{</span><span class="s2">&quot;supercategory&quot;</span><span class="p">:</span> <span class="s2">&quot;vehicle&quot;</span><span class="p">,</span> <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;vehicle&quot;</span> <span class="p">},</span>
+    <span class="o">...</span><span class="p">],</span>
 
-    &quot;annotations&quot;: [
-        ...,
-        {
-            &quot;segmentation&quot;: [],
-            &quot;area&quot;: 9262.89,
-            &quot;iscrowd&quot;: 0,
-            &quot;image_id&quot;: 23235,
-            &quot;bbox&quot;: [503.3, 310.4, 118.3, 78.3]
-        },
-        ...
-    ]
-}
-</code></pre>
+    <span class="s2">&quot;annotations&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="o">...</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;segmentation&quot;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">&quot;area&quot;</span><span class="p">:</span> <span class="mf">9262.89</span><span class="p">,</span>
+            <span class="s2">&quot;iscrowd&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&quot;image_id&quot;</span><span class="p">:</span> <span class="mi">23235</span><span class="p">,</span>
+            <span class="s2">&quot;bbox&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">503.3</span><span class="p">,</span> <span class="mf">310.4</span><span class="p">,</span> <span class="mf">118.3</span><span class="p">,</span> <span class="mf">78.3</span><span class="p">]</span>
+        <span class="p">},</span>
+        <span class="o">...</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
 <p>信息和许可证部分应相应填写或留空。模拟中的图像应存储在<code>images</code>字典字段中的数组中。边界框应存储在具有匹配 <code>image_id</code> 的<code>annotations</code>字典字段中。边界框存储为<code>[x_min, y_min, width, height]</code>。</p>
 <p>然后可以使用 Python JSON 库将字典保存为 JSON 文件：</p>
-<pre><code class="language-py">import json
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">json</span>
 
-with open('simulation_data.json', 'w') as json_file:
-    json.dump(simulation_dataset, json_file)
-</code></pre>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;simulation_data.json&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">json_file</span><span class="p">:</span>
+    <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">simulation_dataset</span><span class="p">,</span> <span class="n">json_file</span><span class="p">)</span>
+</code></pre></div>
 <p>有关 COCO 数据格式的更多详细信息，请参见 <a href="https://www.immersivelimit.com/tutorials/create-coco-annotations-from-scratch/#create-custom-coco-dataset"><strong>此处</strong></a> 。</p>
 <p><em>应该注意的是，在本教程中我们没有考虑重叠的边界框。为了在重叠的情况下识别前景边界框，需要进行额外的工作。</em>  </p>
               
@@ -563,8 +554,13 @@ with open('simulation_data.json', 'w') as json_file:
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

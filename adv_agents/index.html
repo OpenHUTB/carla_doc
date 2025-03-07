@@ -102,43 +102,43 @@
 <h2 id="_4">实现一个代理 <span id="implement-an-agent"></span></h2>
 <p>本节将解释如何在您自己的脚本中使用示例 Carla 代理类。在本节的最后，您将了解如何运行一个示例脚本来显示不同代理的运行情况。</p>
 <p><strong>1.</strong> 导入要使用的代理类：</p>
-<pre><code class="language-py"># 导入基本代理
-from agent.navigation.basic_agent import BasicAgent
+<div class="highlight"><pre><span></span><code><span class="c1"># 导入基本代理</span>
+<span class="kn">from</span> <span class="nn">agent.navigation.basic_agent</span> <span class="kn">import</span> <span class="n">BasicAgent</span>
 
-# 导入行为代理
-from agent.navigation.behavior_agent import BehaviorAgent
-</code></pre>
+<span class="c1"># 导入行为代理</span>
+<span class="kn">from</span> <span class="nn">agent.navigation.behavior_agent</span> <span class="kn">import</span> <span class="n">BehaviorAgent</span>
+</code></pre></div>
 <p><strong>2 .</strong> 任何车辆都可以变成代理。 <a href="../core_actors/#spawning">生成车辆</a> 并将其作为参数传递给代理类以实例化它：</p>
-<pre><code class="language-py"># 启动一个基本代理
-agent = BasicAgent(vehicle)
+<div class="highlight"><pre><span></span><code><span class="c1"># 启动一个基本代理</span>
+<span class="n">agent</span> <span class="o">=</span> <span class="n">BasicAgent</span><span class="p">(</span><span class="n">vehicle</span><span class="p">)</span>
 
-# 启动具有攻击性配置文件的行为代理
-agent = BehaviorAgent(vehicle, behavior='aggressive')
-</code></pre>
+<span class="c1"># 启动具有攻击性配置文件的行为代理</span>
+<span class="n">agent</span> <span class="o">=</span> <span class="n">BehaviorAgent</span><span class="p">(</span><span class="n">vehicle</span><span class="p">,</span> <span class="n">behavior</span><span class="o">=</span><span class="s1">&#39;aggressive&#39;</span><span class="p">)</span>
+</code></pre></div>
 <p>在 <a href="#behavior-types"><strong>behavior types</strong></a> 部分中阅读有关行为类型以及如何配置您自己的更多信息。</p>
 <p><strong>3.</strong> 您可以设置代理前往的目的地。如果您不为代理设置目的地，它将在地图上无休止地漫游。要设置目的地，请为代理提供 <a href="../python_api/#carlalocation">位置</a>：</p>
-<pre><code class="language-py">destination = random.choice(spawn_points).location
-agent.set_destination(destination)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">destination</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">spawn_points</span><span class="p">)</span><span class="o">.</span><span class="n">location</span>
+<span class="n">agent</span><span class="o">.</span><span class="n">set_destination</span><span class="p">(</span><span class="n">destination</span><span class="p">)</span>
+</code></pre></div>
 <p><strong>5.</strong> 在导航步骤期间应用车辆控制和行为。在每个步骤中，<strong>Basic Agent</strong> 将应用车辆控制并通过执行紧急停止来对任何车辆或交通信号灯做出反应。 <strong>Behavior Agent</strong> 将根据您应用的行为类型对红绿灯做出反应、避开行人、跟随汽车并在十字路口导航：</p>
-<pre><code class="language-py">while True：
-    vehicle.apply_control(agent.run_step())
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">while</span> <span class="kc">True</span><span class="err">：</span>
+    <span class="n">vehicle</span><span class="o">.</span><span class="n">apply_control</span><span class="p">(</span><span class="n">agent</span><span class="o">.</span><span class="n">run_step</span><span class="p">())</span>
+</code></pre></div>
 <p><strong>6.</strong> 您可以检查代理是否已完成其轨迹并在发生这种情况时执行操作。一旦您的车辆到达目的地，以下代码段将结束模拟：</p>
-<pre><code class="language-py">while True：
-    if agent.done（）：
-        print(&quot;The taerget has been reached, stopping the simulation&quot;)
-        break
+<div class="highlight"><pre><span></span><code><span class="k">while</span> <span class="kc">True</span><span class="err">：</span>
+    <span class="k">if</span> <span class="n">agent</span><span class="o">.</span><span class="n">done</span><span class="err">（）：</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The taerget has been reached, stopping the simulation&quot;</span><span class="p">)</span>
+        <span class="k">break</span>
 
-    vehicle.apply_control(agent.run_step())
-</code></pre>
+    <span class="n">vehicle</span><span class="o">.</span><span class="n">apply_control</span><span class="p">(</span><span class="n">agent</span><span class="o">.</span><span class="n">run_step</span><span class="p">())</span>
+</code></pre></div>
 <p><strong>7.</strong> 不是在代理到达其目标目的地时完成模拟，而是可以生成一条新的随机路线供代理遵循：</p>
-<pre><code class="language-py">while True：
-    if agent.done():   
-        agent.set_destination(random.choice(spawn_points).location)
-        print(&quot;The target has been reached, searching for another target&quot;)
-    vehicle.apply_control(agent.run_step())
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">while</span> <span class="kc">True</span><span class="err">：</span>
+    <span class="k">if</span> <span class="n">agent</span><span class="o">.</span><span class="n">done</span><span class="p">():</span>   
+        <span class="n">agent</span><span class="o">.</span><span class="n">set_destination</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">spawn_points</span><span class="p">)</span><span class="o">.</span><span class="n">location</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The target has been reached, searching for another target&quot;</span><span class="p">)</span>
+    <span class="n">vehicle</span><span class="o">.</span><span class="n">apply_control</span><span class="p">(</span><span class="n">agent</span><span class="o">.</span><span class="n">run_step</span><span class="p">())</span>
+</code></pre></div>
 <p><strong>Basic Agent</strong> 提供了一些方法来操纵代理行为或遵循的程序路线：</p>
 <ul>
 <li><strong><code>set_target_speed(speed)</code>:</strong> 以公里/小时为单位设置目标速度</li>
@@ -151,12 +151,12 @@ agent.set_destination(destination)
 <li><strong><code>ignore_vehicles(active=True)</code>:</strong> 设置代理忽略或对其他车辆作出反应。</li>
 </ul>
 <p>在 <code>PythonAPI/examples</code> 中找到的 <code>automatic_control.py</code> 脚本是基本和行为代理的一个示例。要尝试该脚本，请导航到示例目录并运行以下命令：</p>
-<pre><code class="language-sh"># 使用基本代理运行
-python3 automatic_control.py --agent=Basic
+<div class="highlight"><pre><span></span><code><span class="c1"># 使用基本代理运行</span>
+python3<span class="w"> </span>automatic_control.py<span class="w"> </span>--agent<span class="o">=</span>Basic
 
-# 使用行为代理运行
-python3 automatic_control.py --agent=Behavior --behavior=aggressive
-</code></pre>
+<span class="c1"># 使用行为代理运行</span>
+python3<span class="w"> </span>automatic_control.py<span class="w"> </span>--agent<span class="o">=</span>Behavior<span class="w"> </span>--behavior<span class="o">=</span>aggressive
+</code></pre></div>
 <hr />
 <h2 id="_5">行为类型 <span id="behavior-types"></span></h2>
 <p>行为代理的行为类型在 <code>behavior_types.py</code> 中定义。三个预配置的配置文件是 <strong>'cautious'</strong>、<strong>'normal'</strong> 和 <strong>'aggressive'</strong>。您可以使用设置的配置文件、修改它们或创建您自己的配置文件。可以调整以下变量：</p>
@@ -172,48 +172,48 @@ python3 automatic_control.py --agent=Behavior --behavior=aggressive
 <h3 id="_6">创建自己的行为类型 <span id="create-your-own-behavior-type"></span></h3>
 <p>要创建自己的行为类型：</p>
 <p><strong>1.</strong> 在 <code>behavior_types.py</code> 中为您的行为类型创建类：</p>
-<pre><code class="language-py">class ProfileName(object)：
-    # 完整的值定义
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">ProfileName</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span><span class="err">：</span>
+    <span class="c1"># 完整的值定义</span>
+</code></pre></div>
 <p><strong>2.</strong> 在 <code>behavior_agent.py</code> 脚本中定义和实例化你的行为类型：</p>
-<pre><code class="language-py"># 代理行为参数
-if behavior == 'cautious':
-    self._behavior = Cautious()
+<div class="highlight"><pre><span></span><code><span class="c1"># 代理行为参数</span>
+<span class="k">if</span> <span class="n">behavior</span> <span class="o">==</span> <span class="s1">&#39;cautious&#39;</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_behavior</span> <span class="o">=</span> <span class="n">Cautious</span><span class="p">()</span>
 
-elif behavior == 'normal':
-    self._behavior = Normal()
+<span class="k">elif</span> <span class="n">behavior</span> <span class="o">==</span> <span class="s1">&#39;normal&#39;</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_behavior</span> <span class="o">=</span> <span class="n">Normal</span><span class="p">()</span>
 
-elif behavior == 'aggressive':
-    self._behavior = Aggressive()
+<span class="k">elif</span> <span class="n">behavior</span> <span class="o">==</span> <span class="s1">&#39;aggressive&#39;</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_behavior</span> <span class="o">=</span> <span class="n">Aggressive</span><span class="p">()</span>
 
-elif behavior == '&lt;type_name&gt;':
-    self._behavior = &lt;TypeName&gt;()
-</code></pre>
+<span class="k">elif</span> <span class="n">behavior</span> <span class="o">==</span> <span class="s1">&#39;&lt;type_name&gt;&#39;</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_behavior</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">TypeName</span><span class="o">&gt;</span><span class="p">()</span>
+</code></pre></div>
 <hr />
 <h2 id="_7">创建代理 <span id="creating-an-agent"></span></h2>
 <p>Carla 代理只是用户可以运行的代理类型的示例。用户可以在 <strong>Basic Agent</strong> 的基础上创建自己的代理。可能性是无穷的。每个代理只需要两个元素，<strong>初始化</strong> <code>__init__</code> 和 <strong>运行步</strong> <code>run_step</code>。</p>
 <p>在下面查找自定义代理的最小布局示例：</p>
-<pre><code class="language-py">import carla
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">carla</span>
 
-from agents.navigation.basic_agent import BasicAgent
+<span class="kn">from</span> <span class="nn">agents.navigation.basic_agent</span> <span class="kn">import</span> <span class="n">BasicAgent</span>
 
-class CustomAgent(BasicAgent):
-    def __init__(self, vehicle, target_speed=20, debug=False):
-        &quot;&quot;&quot;
-        :param vehicle: 应用到本地规划器逻辑的参与者
-        :param target_speed: 车辆移动的速度（Km/h）
-        &quot;&quot;&quot;
-        super().__init__(target_speed, 调试)
+<span class="k">class</span> <span class="nc">CustomAgent</span><span class="p">(</span><span class="n">BasicAgent</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vehicle</span><span class="p">,</span> <span class="n">target_speed</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param vehicle: 应用到本地规划器逻辑的参与者</span>
+<span class="sd">        :param target_speed: 车辆移动的速度（Km/h）</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">target_speed</span><span class="p">,</span> <span class="n">调试</span><span class="p">)</span>
 
-    def run_step(self, debug=False):
-        &quot;&quot;&quot;
-        执行一步导航
-        :return: carla.VehicleControl
-        &quot;&quot;&quot;
-        # 在每个模拟步骤中采取的行动
-        control = carla.VehicleControl()
-        return control
-</code></pre>
+    <span class="k">def</span> <span class="nf">run_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        执行一步导航</span>
+<span class="sd">        :return: carla.VehicleControl</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># 在每个模拟步骤中采取的行动</span>
+        <span class="n">control</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">VehicleControl</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">control</span>
+</code></pre></div>
 <p>查看 <code>basic_agent.py</code> 和 <code>behavior_agent.py</code> 脚本以探索它们的结构和功能，以获取有关如何创建自己的更多想法。</p>
 <hr />
 <p>您可以探索提供的代理脚本、扩展它们或将它们用作创建自己的基准。如果您对代理有任何疑问，请随时在 <a href="https://github.com/carla-simulator/carla/discussions/">论坛</a> 发帖。</p>
@@ -252,8 +252,13 @@ class CustomAgent(BasicAgent):
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

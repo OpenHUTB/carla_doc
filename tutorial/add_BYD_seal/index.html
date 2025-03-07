@@ -73,16 +73,16 @@
 将<code>Unreal/CarlaUE4/Content/Carla/Static/Car/4Wheeled/Tesla</code>复制到当前文件夹并重命名为<code>BYD</code>，
 将<code>Unreal/CarlaUE4/Content/Carla/Blueprints/Vehicles/Tesla</code>复制到当前文件夹并重命名为<code>BYD</code>。</p>
 <p>2.添加车辆到蓝图库并测试。</p>
-<p>测试代码：</p>
-<pre><code class="language-shell">python manual_control.py --filter vehicle.BYD.seal
-python manual_control.py --filter vehicle.tesla.model3
-</code></pre>
-<p>如果车辆配置不对，生成玩家的代码一致返回为空：</p>
-<pre><code class="language-python">self.player = self.world.try_spawn_actor(blueprint, spawn_point)
-</code></pre>
+<p>测试代码：
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>manual_control.py<span class="w"> </span>--filter<span class="w"> </span>vehicle.BYD.seal
+python<span class="w"> </span>manual_control.py<span class="w"> </span>--filter<span class="w"> </span>vehicle.tesla.model3
+</code></pre></div></p>
+<p>如果车辆配置不对，生成玩家的代码一致返回为空：
+<div class="highlight"><pre><span></span><code><span class="bp">self</span><span class="o">.</span><span class="n">player</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">try_spawn_actor</span><span class="p">(</span><span class="n">blueprint</span><span class="p">,</span> <span class="n">spawn_point</span><span class="p">)</span>
+</code></pre></div></p>
 <p>方法<code>try_spawn_actor()</code>是从<code>carla/PythonAPI/carla/source/libcarla/World.cpp</code> 的<code>.def("try_spawn_actor", SPAWN_ACTOR_WITHOUT_GIL(TrySpawnActor))</code> 传递给 C++ 端的。</p>
-<p>LibCarla的调用过程：</p>
-<pre><code class="language-text">LibCarla/source/carla/client/World.cpp
+<p>LibCarla的调用过程：
+<div class="highlight"><pre><span></span><code>LibCarla/source/carla/client/World.cpp
 SharedPtr&lt;Actor&gt; World::TrySpawnActor()
 SharedPtr&lt;Actor&gt; World::SpawnActor()
 
@@ -102,10 +102,9 @@ LibCarla/source/carla/rpc/Client.h
 auto call(const std::string &amp;function, Args &amp;&amp;... args)
 // 远程调用（_client里保存了IP地址和端口号）
 return _client.call(function, Metadata::MakeSync(), std::forward&lt;Args&gt;(args)...);
-
-</code></pre>
-<p>CarlaUE4的调用过程：</p>
-<pre><code class="language-text">Server/CarlaServer.cpp
+</code></pre></div></p>
+<p>CarlaUE4的调用过程：
+<div class="highlight"><pre><span></span><code>Server/CarlaServer.cpp
 auto Result = Episode-&gt;SpawnActorWithInfo(Transform, std::move(Description));
 
 Game/CarlaEpisode.cpp
@@ -125,7 +124,7 @@ void UActorDispatcher::Bind(ACarlaActorFactory &amp;ActorFactory)
     });
   }
 }
-</code></pre>
+</code></pre></div></p>
 <h2 id="_2">参考</h2>
 <p><a href="https://www.dongchedi.com/article/7119344427587813891">比亚迪海豹PK特斯拉Model 3</a></p>
 <p><a href="https://blog.csdn.net/csdncyn/article/details/136691547">跟踪和解决spawn_actor指令引发的问题：UnknownError while spawning the actor</a></p>
@@ -164,8 +163,13 @@ void UActorDispatcher::Bind(ACarlaActorFactory &amp;ActorFactory)
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="../../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

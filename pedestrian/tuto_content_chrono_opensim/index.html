@@ -70,19 +70,19 @@
               
                 <h1 id="_1">行人物理场模拟</h1>
 <h2 id="_2">强化学习</h2>
-<pre><code class="language-shell">conda create -n opensim-rl -c kidzik opensim python=3.6.1
-conda activate opensim-rl
-conda install -c conda-forge lapack git
-pip install git+https://github.com/stanfordnmbl/osim-rl.git
+<div class="highlight"><pre><span></span><code>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>opensim-rl<span class="w"> </span>-c<span class="w"> </span>kidzik<span class="w"> </span>opensim<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.6.1
+conda<span class="w"> </span>activate<span class="w"> </span>opensim-rl
+conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>lapack<span class="w"> </span>git
+pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/stanfordnmbl/osim-rl.git
 python
-</code></pre>
-<p>测试代码：</p>
-<pre><code class="language-python">from osim.env import ProstheticsEnv
-env = ProstheticsEnv(visualize=True)
-observation = env.reset()
-for i in range(200):
-    o, r, d, i = env.step(env.action_space.sample())
-</code></pre>
+</code></pre></div>
+<p>测试代码：
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">osim.env</span> <span class="kn">import</span> <span class="n">ProstheticsEnv</span>
+<span class="n">env</span> <span class="o">=</span> <span class="n">ProstheticsEnv</span><span class="p">(</span><span class="n">visualize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">observation</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">200</span><span class="p">):</span>
+    <span class="n">o</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">i</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">action_space</span><span class="o">.</span><span class="n">sample</span><span class="p">())</span>
+</code></pre></div></p>
 <h2 id="_3">参考</h2>
 <ul>
 <li>
@@ -130,8 +130,13 @@ for i in range(200):
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="../../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

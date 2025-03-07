@@ -77,52 +77,52 @@
 </ul>
 <hr />
 <h2 id="_2">车辆控制代码示例 <span id="vehicle-control-code-example"></span></h2>
-<pre><code class="language-py">import carla
-import random
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">carla</span>
+<span class="kn">import</span> <span class="nn">random</span>
 
-def main():
-    # 连接到客户端
-    client = carla.Client('127.0.0.1', 2000)
-    client.set_timeout(2.0)
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># 连接到客户端</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span> <span class="mi">2000</span><span class="p">)</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">set_timeout</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>
 
-    # 获得世界和参与者
-    world = client.get_world()
-    actors = world.get_actors()
+    <span class="c1"># 获得世界和参与者</span>
+    <span class="n">world</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_world</span><span class="p">()</span>
+    <span class="n">actors</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_actors</span><span class="p">()</span>
 
-    # 从世界获得一辆随机车辆（应该至少有一辆）
-    vehicle = random.choice([actor for actor in actors if 'vehicle' in actor.type_id])
+    <span class="c1"># 从世界获得一辆随机车辆（应该至少有一辆）</span>
+    <span class="n">vehicle</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="n">actor</span> <span class="k">for</span> <span class="n">actor</span> <span class="ow">in</span> <span class="n">actors</span> <span class="k">if</span> <span class="s1">&#39;vehicle&#39;</span> <span class="ow">in</span> <span class="n">actor</span><span class="o">.</span><span class="n">type_id</span><span class="p">])</span>
 
-    # 创建车轮物理控制
-    front_left_wheel  = carla.WheelPhysicsControl(tire_friction=2.0, damping_rate=1.5, max_steer_angle=70.0, long_stiff_value=1000)
-    front_right_wheel = carla.WheelPhysicsControl(tire_friction=2.0, damping_rate=1.5, max_steer_angle=70.0, long_stiff_value=1000)
-    rear_left_wheel   = carla.WheelPhysicsControl(tire_friction=3.0, damping_rate=1.5, max_steer_angle=0.0,  long_stiff_value=1000)
-    rear_right_wheel  = carla.WheelPhysicsControl(tire_friction=3.0, damping_rate=1.5, max_steer_angle=0.0,  long_stiff_value=1000)
+    <span class="c1"># 创建车轮物理控制</span>
+    <span class="n">front_left_wheel</span>  <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">WheelPhysicsControl</span><span class="p">(</span><span class="n">tire_friction</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">damping_rate</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">max_steer_angle</span><span class="o">=</span><span class="mf">70.0</span><span class="p">,</span> <span class="n">long_stiff_value</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+    <span class="n">front_right_wheel</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">WheelPhysicsControl</span><span class="p">(</span><span class="n">tire_friction</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">damping_rate</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">max_steer_angle</span><span class="o">=</span><span class="mf">70.0</span><span class="p">,</span> <span class="n">long_stiff_value</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+    <span class="n">rear_left_wheel</span>   <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">WheelPhysicsControl</span><span class="p">(</span><span class="n">tire_friction</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">damping_rate</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">max_steer_angle</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>  <span class="n">long_stiff_value</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+    <span class="n">rear_right_wheel</span>  <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">WheelPhysicsControl</span><span class="p">(</span><span class="n">tire_friction</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">damping_rate</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">max_steer_angle</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>  <span class="n">long_stiff_value</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
 
-    wheels = [front_left_wheel, front_right_wheel, rear_left_wheel, rear_right_wheel]
+    <span class="n">wheels</span> <span class="o">=</span> <span class="p">[</span><span class="n">front_left_wheel</span><span class="p">,</span> <span class="n">front_right_wheel</span><span class="p">,</span> <span class="n">rear_left_wheel</span><span class="p">,</span> <span class="n">rear_right_wheel</span><span class="p">]</span>
 
-    # 改变车辆的车辆物理控制参数
-    physics_control = vehicle.get_physics_control()
+    <span class="c1"># 改变车辆的车辆物理控制参数</span>
+    <span class="n">physics_control</span> <span class="o">=</span> <span class="n">vehicle</span><span class="o">.</span><span class="n">get_physics_control</span><span class="p">()</span>
 
-    physics_control.torque_curve = [carla.Vector2D(x=0, y=400), carla.Vector2D(x=1300, y=600)]
-    physics_control.max_rpm = 10000
-    physics_control.moi = 1.0
-    physics_control.damping_rate_full_throttle = 0.0
-    physics_control.use_gear_autobox = True
-    physics_control.gear_switch_time = 0.5
-    physics_control.clutch_strength = 10
-    physics_control.mass = 10000
-    physics_control.drag_coefficient = 0.25
-    physics_control.steering_curve = [carla.Vector2D(x=0, y=1), carla.Vector2D(x=100, y=1), carla.Vector2D(x=300, y=1)]
-    physics_control.use_sweep_wheel_collision = True
-    physics_control.wheels = wheels
+    <span class="n">physics_control</span><span class="o">.</span><span class="n">torque_curve</span> <span class="o">=</span> <span class="p">[</span><span class="n">carla</span><span class="o">.</span><span class="n">Vector2D</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">400</span><span class="p">),</span> <span class="n">carla</span><span class="o">.</span><span class="n">Vector2D</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">1300</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">600</span><span class="p">)]</span>
+    <span class="n">physics_control</span><span class="o">.</span><span class="n">max_rpm</span> <span class="o">=</span> <span class="mi">10000</span>
+    <span class="n">physics_control</span><span class="o">.</span><span class="n">moi</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="n">physics_control</span><span class="o">.</span><span class="n">damping_rate_full_throttle</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">physics_control</span><span class="o">.</span><span class="n">use_gear_autobox</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">physics_control</span><span class="o">.</span><span class="n">gear_switch_time</span> <span class="o">=</span> <span class="mf">0.5</span>
+    <span class="n">physics_control</span><span class="o">.</span><span class="n">clutch_strength</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">physics_control</span><span class="o">.</span><span class="n">mass</span> <span class="o">=</span> <span class="mi">10000</span>
+    <span class="n">physics_control</span><span class="o">.</span><span class="n">drag_coefficient</span> <span class="o">=</span> <span class="mf">0.25</span>
+    <span class="n">physics_control</span><span class="o">.</span><span class="n">steering_curve</span> <span class="o">=</span> <span class="p">[</span><span class="n">carla</span><span class="o">.</span><span class="n">Vector2D</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">carla</span><span class="o">.</span><span class="n">Vector2D</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">carla</span><span class="o">.</span><span class="n">Vector2D</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
+    <span class="n">physics_control</span><span class="o">.</span><span class="n">use_sweep_wheel_collision</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">physics_control</span><span class="o">.</span><span class="n">wheels</span> <span class="o">=</span> <span class="n">wheels</span>
 
-    # 对车辆应用车辆物理控制
-    vehicle.apply_physics_control(physics_control)
-    print(physics_control)
+    <span class="c1"># 对车辆应用车辆物理控制</span>
+    <span class="n">vehicle</span><span class="o">.</span><span class="n">apply_physics_control</span><span class="p">(</span><span class="n">physics_control</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">physics_control</span><span class="p">)</span>
 
-if __name__ == '__main__':
-    main()
-</code></pre>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
 <hr />
 <h2 id="_3">查看车辆遥测数据 <span id="viewing-vehicle-telemetry"></span></h2>
 <p>通过调用 <a href="../python_api/#carla.Actor.enable_debug_telemetry"><code>Actor.enable_debug_telemetry</code></a> 方法可以实现车辆遥测的可视化。这将在服务器窗口上提供多个指标的图形视图以及模拟窗口上的车辆参考点。</p>
@@ -163,8 +163,13 @@ if __name__ == '__main__':
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

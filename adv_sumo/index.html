@@ -84,20 +84,20 @@
 <hr />
 <h2 id="_1">必备条件 <span id="requisites"></span></h2>
 <p>首先，需要 <a href="https://sumo.dlr.de/docs/Installing.html"><strong>安装 SUMO</strong></a> 才能运行联合模拟。建议从源代码构建而不是简单安装，因为有新功能和修复可以改进协同模拟。</p>
-<p>完成后，设置 SUMO 环境变量。</p>
-<pre><code class="language-sh">echo &quot;export SUMO_HOME=/usr/share/sumo&quot; &gt;&gt; ~/.bashrc &amp;&amp; source ~/.bashrc
-</code></pre>
+<p>完成后，设置 SUMO 环境变量。
+<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;export SUMO_HOME=/usr/share/sumo&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">source</span><span class="w"> </span>~/.bashrc
+</code></pre></div></p>
 <p>SUMO 已准备好运行联合模拟。 <code>Co-Simulation/Sumo/examples</code> 中有一些 <strong>Town01</strong>, <strong>Town04</strong> 和 <strong>Town05</strong> 的示例。这些文件描述了模拟的配置（例如网络、路线、车辆类型...）。使用其中之一来测试联合模拟。该脚本有不同的选项，<a href="#run-the-synchronization">下面</a> 将详细介绍。现在，让我们为 <strong>Town04</strong> 运行一个简单的示例。</p>
-<p>使用 <strong>Town04</strong> 运行 Carla 模拟。  </p>
-<pre><code class="language-sh">cd ~/carla
+<p>使用 <strong>Town04</strong> 运行 Carla 模拟。<br />
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/carla
 ./CarlaUE4.sh
-cd PythonAPI/util
-python3 config.py --map Town04
-</code></pre>
-<p>然后，运行 SUMO 联合模拟示例。  </p>
-<pre><code class="language-sh">cd ~/carla/Co-Simulation/Sumo
-python3 run_synchronization.py examples/Town04.sumocfg  --sumo-gui
-</code></pre>
+<span class="nb">cd</span><span class="w"> </span>PythonAPI/util
+python3<span class="w"> </span>config.py<span class="w"> </span>--map<span class="w"> </span>Town04
+</code></pre></div></p>
+<p>然后，运行 SUMO 联合模拟示例。<br />
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/carla/Co-Simulation/Sumo
+python3<span class="w"> </span>run_synchronization.py<span class="w"> </span>examples/Town04.sumocfg<span class="w">  </span>--sumo-gui
+</code></pre></div></p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>运行时候可能报错：<code>module 'traci' has no attribute 'sumolib'</code>，是因为<code>sumolib</code>是独立的包，不在<code>traci</code>里面，需要把<code>carla/Co-Simulation/Sumo/sumo_integration/sumo_simulation.py</code>的304行的这一句代<code>sumo_net = traci.sumolib.net.readNet(net_file)</code>码改成<code>sumo_net = sumolib.net.readNet(net_file)</code>。</p>
@@ -140,8 +140,8 @@ python3 run_synchronization.py examples/Town04.sumocfg  --sumo-gui
 <li><strong><code>--sync-vehicle-all</code></strong> <em>(默认值：False)</em> — 同步所有车辆属性。 </li>
 <li><strong><code>--tls-manager</code></strong> <em>(默认值：none)</em> — 选择哪个模拟器应管理交通灯。另一个将相应地更新这些内容。选项有 <code>carla</code>, <code>sumo</code> 和 <code>none</code>。如果选择 <code>none</code> ，交通信号灯将不同步。每辆车只会遵守生成它的模拟器中的交通灯。</li>
 </ul>
-<pre><code class="language-sh">python3 run_synchronization.py &lt;SUMOCFG FILE&gt; --tls-manager carla --sumo-gui
-</code></pre>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>run_synchronization.py<span class="w"> </span>&lt;SUMOCFG<span class="w"> </span>FILE&gt;<span class="w"> </span>--tls-manager<span class="w"> </span>carla<span class="w"> </span>--sumo-gui
+</code></pre></div>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>要停止联合模拟，请在运行脚本的终端按 <code>Ctrl+C</code> 。</p>
@@ -164,9 +164,9 @@ python3 run_synchronization.py examples/Town04.sumocfg  --sumo-gui
 <li><strong><code>--sync-vehicle-all</code></strong> <em>(默认值： False)</em> — 同步所有车辆属性。 </li>
 <li><strong><code>--tls-manager</code></strong> <em>(默认值： none)</em> — 选择哪个模拟器来更改交通灯的状态。另一个将相应地更新它们。如果是<code>none</code>，交通信号灯将不同步。</li>
 </ul>
-<pre><code class="language-sh"># 生成 10 辆车，由 SUMO 管理，而不是交通管理器
-python3 spawn_sumo_npc.py -n 10 --tls-manager carla --sumo-gui
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1"># 生成 10 辆车，由 SUMO 管理，而不是交通管理器</span>
+python3<span class="w"> </span>spawn_sumo_npc.py<span class="w"> </span>-n<span class="w"> </span><span class="m">10</span><span class="w"> </span>--tls-manager<span class="w"> </span>carla<span class="w"> </span>--sumo-gui
+</code></pre></div>
 <h2 id="sumo-traci"><a href="https://sumo.dlr.de/docs/TraCI.html">SUMO TraCI接口文档</a>  <span id="sumo_traci_interface"></span></h2>
 <hr />
 <p>到目前为止，这就是与 Carla 进行 SUMO 联合模拟的全部内容。</p>
@@ -212,8 +212,13 @@ Carla 论坛</a>
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

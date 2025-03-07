@@ -89,12 +89,12 @@
 <p>需要 <a href="http://www.doxygen.nl/index.html">Doxygen</a> 来生成文档，需要 <a href="https://www.graphviz.org/">Graphviz</a> 作为图形绘制工具包。 </p>
 </div>
 <p>1- 使用以下命令安装 doxygen 和 graphviz：</p>
-<pre><code class="language-sh"># linux
-sudo apt-get install doxygen graphviz
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1"># linux</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>doxygen<span class="w"> </span>graphviz
+</code></pre></div>
 <p>2- 安装后，转到 <em>Doxyfile</em> 文件所在的项目根文件夹并运行以下命令：</p>
-<pre><code class="language-sh">doxygen
-</code></pre>
+<div class="highlight"><pre><span></span><code>doxygen
+</code></pre></div>
 <p>它将开始构建文档网页。
 生成的网页可以在 Doxygen/html/ 中找到</p>
 <p>3- 在浏览器中打开 <em>index.html</em> 。现在您已经有了本地 cpp 文档！</p>
@@ -108,16 +108,16 @@ sudo apt-get install doxygen graphviz
 <h2 id="_1">阅读</h2>
 <p><strong>HUD</strong>: Heads-up Displays, 头显。用户界面 （UI）和 头显 （HUD）是游戏向玩家提供游戏信息以及在某些情况下允许玩家与游戏互动的方式。HUD指的是游戏期间在屏幕上覆盖的状态和信息。HUD的目的是告知玩家当前游戏状态，即分数、生命值、游戏剩余时间等。 HUD通常是不可互动的，意味着玩家不能单击HUD的元素，因此 在HUD和用户界面难以分离的某些类型游戏中，这些元素会显示为灰色区域。</p>
 <ul>
-<li>统计代码的行数</li>
+<li>统计代码的行数
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>ls-files<span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>cat<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l
+</code></pre></div>
+指定文件后缀名：
+<div class="highlight"><pre><span></span><code><span class="c1"># 26103行</span>
+git<span class="w"> </span>ls-files<span class="w"> </span><span class="s1">&#39;*.cpp&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>wc<span class="w"> </span>-l
+<span class="c1"># 34872行</span>
+git<span class="w"> </span>ls-files<span class="w"> </span><span class="s1">&#39;*.h&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>wc<span class="w"> </span>-l
+</code></pre></div></li>
 </ul>
-<pre><code class="language-shell">git ls-files | xargs cat | wc -l
-</code></pre>
-<p>指定文件后缀名：</p>
-<pre><code class="language-shell"># 26103行
-git ls-files '*.cpp' | xargs wc -l
-# 34872行
-git ls-files '*.h' | xargs wc -l
-</code></pre>
 <h2 id="c_4">C++ 详细信息</h2>
 <ul>
 <li><a href="../cpp/">C++详细信息</a></li>
@@ -157,8 +157,13 @@ git ls-files '*.h' | xargs wc -l
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

@@ -114,18 +114,19 @@
 <img alt="" src="../../img/faq/instance_segmentation.jpg" />
 <a href="https://github.com/carla-simulator/carla/discussions/5253">相关Issue</a> 。</p>
 <p>实例分割颜色设置相关代码：
-```cpp
-FLinearColor ATagger::GetActorLabelColor(const AActor &amp;Actor, const crp::CityObjectLabel &amp;Label)
-{  uint32 id = Actor.GetUniqueID();<br />
-   // TODO: Warn if id &gt; 0xffff.
-   // Encode label and id like semantic segmentation does  </p>
-<p>// TODO: Steal bits from R channel and maybe A channel?<br />
-   FLinearColor Color(0.0f, 0.0f, 0.0f, 1.0f);<br />
-   Color.R = CastEnum(Label) / 255.0f;  Color.G = ((id &amp; 0x00ff) &gt;&gt; 0) / 255.0f;<br />
-   Color.B = ((id &amp; 0xff00) &gt;&gt; 8) / 255.0f;</p>
-<p>return Color;
-}
-```</p>
+<div class="highlight"><pre><span></span><code><span class="n">FLinearColor</span><span class="w"> </span><span class="nf">ATagger::GetActorLabelColor</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">AActor</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Actor</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">crp</span><span class="o">::</span><span class="n">CityObjectLabel</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Label</span><span class="p">)</span>
+<span class="p">{</span><span class="w">  </span><span class="n">uint32</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Actor</span><span class="p">.</span><span class="n">GetUniqueID</span><span class="p">();</span><span class="w">  </span>
+<span class="w">   </span><span class="c1">// TODO: Warn if id &gt; 0xffff.</span>
+<span class="w">   </span><span class="c1">// Encode label and id like semantic segmentation does  </span>
+
+<span class="w">   </span><span class="c1">// TODO: Steal bits from R channel and maybe A channel?  </span>
+<span class="w">   </span><span class="n">FLinearColor</span><span class="w"> </span><span class="n">Color</span><span class="p">(</span><span class="mf">0.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0f</span><span class="p">);</span><span class="w">  </span>
+<span class="w">   </span><span class="n">Color</span><span class="p">.</span><span class="n">R</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CastEnum</span><span class="p">(</span><span class="n">Label</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">255.0f</span><span class="p">;</span><span class="w">  </span><span class="n">Color</span><span class="p">.</span><span class="n">G</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">((</span><span class="n">id</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0x00ff</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">255.0f</span><span class="p">;</span><span class="w">  </span>
+<span class="w">   </span><span class="n">Color</span><span class="p">.</span><span class="n">B</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">((</span><span class="n">id</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0xff00</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">255.0f</span><span class="p">;</span>
+
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="n">Color</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></p>
 </blockquote>
               
             </div>
@@ -162,8 +163,13 @@ FLinearColor ATagger::GetActorLabelColor(const AActor &amp;Actor, const crp::Cit
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="../../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

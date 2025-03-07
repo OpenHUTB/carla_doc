@@ -71,56 +71,56 @@
                 <h1 id="_1">实例分割传感器</h1>
 <p><strong>实例分割(Instance segmentation)</strong> 相机是一种新型相机传感器，可为场景中的每个对象生成唯一的像素值。这与语义分割传感器形成对比，语义分割传感器对于相同对象类的实例（例如车辆）具有相同的 ID。</p>
 <p>要生成语义分割相机，我们需要<code>sensor.camera.instance_segmentation</code>蓝图：</p>
-<pre><code class="language-py">instance_camera_bp = world.get_blueprint_library().find('sensor.camera.instance_segmentation')
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">instance_camera_bp</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;sensor.camera.instance_segmentation&#39;</span><span class="p">)</span>
+</code></pre></div>
 <h1 id="_2">示例</h1>
 <p>我们将首先设置一个带有实例分割相机的世界，并在场景中生成大量车辆。</p>
 <p>连接到服务器并设置为同步模式。</p>
-<pre><code class="language-py">import carla
-import random
-import time
-import queue
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">carla</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">queue</span>
 
-# 连接到客户端并将Carla服务器设置为同步模式
-client = carla.Client('localhost', 2000)
-world = client.get_world()
-settings = world.get_settings()
-settings.synchronous_mode = True
-world.apply_settings(settings) 
-</code></pre>
+<span class="c1"># 连接到客户端并将Carla服务器设置为同步模式</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">2000</span><span class="p">)</span>
+<span class="n">world</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_world</span><span class="p">()</span>
+<span class="n">settings</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_settings</span><span class="p">()</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">synchronous_mode</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">world</span><span class="o">.</span><span class="n">apply_settings</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span> 
+</code></pre></div>
 <p>设置实例分割传感器并将其生成在所需的地图位置。</p>
-<pre><code class="language-py"># 获得地图的生成点和观察者
-spawn_points = world.get_map().get_spawn_points()
-spectator = world.get_spectator()
+<div class="highlight"><pre><span></span><code><span class="c1"># 获得地图的生成点和观察者</span>
+<span class="n">spawn_points</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_map</span><span class="p">()</span><span class="o">.</span><span class="n">get_spawn_points</span><span class="p">()</span>
+<span class="n">spectator</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_spectator</span><span class="p">()</span>
 
-# 在地图上某些位置设置相机
-cam_location = carla.Location(x=-46., y=152, z=18)
-cam_rotation = carla.Rotation(pitch=-21, yaw=-93.4, roll=0)
-camera_transform = carla.Transform(location=cam_location, rotation=cam_rotation)
-spectator.set_transform(camera_transform)
+<span class="c1"># 在地图上某些位置设置相机</span>
+<span class="n">cam_location</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Location</span><span class="p">(</span><span class="n">x</span><span class="o">=-</span><span class="mf">46.</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">152</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">cam_rotation</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Rotation</span><span class="p">(</span><span class="n">pitch</span><span class="o">=-</span><span class="mi">21</span><span class="p">,</span> <span class="n">yaw</span><span class="o">=-</span><span class="mf">93.4</span><span class="p">,</span> <span class="n">roll</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">camera_transform</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Transform</span><span class="p">(</span><span class="n">location</span><span class="o">=</span><span class="n">cam_location</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="n">cam_rotation</span><span class="p">)</span>
+<span class="n">spectator</span><span class="o">.</span><span class="n">set_transform</span><span class="p">(</span><span class="n">camera_transform</span><span class="p">)</span>
 
-# 获取语义相机蓝图和生成相机
-instance_camera_bp = world.get_blueprint_library().find('sensor.camera.instance_segmentation')
-instance_camera = world.try_spawn_actor(instance_camera_bp, camera_transform)
-</code></pre>
+<span class="c1"># 获取语义相机蓝图和生成相机</span>
+<span class="n">instance_camera_bp</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;sensor.camera.instance_segmentation&#39;</span><span class="p">)</span>
+<span class="n">instance_camera</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">try_spawn_actor</span><span class="p">(</span><span class="n">instance_camera_bp</span><span class="p">,</span> <span class="n">camera_transform</span><span class="p">)</span>
+</code></pre></div>
 <p>在摄像机周围生成车辆，用大量对象实例填充场景。</p>
-<pre><code class="language-py"># 在相机周围80米内生成车辆
-vehicle_bp_library = world.get_blueprint_library().filter('*vehicle*')
-radius = 80
-for spawn_point in spawn_points:
-    vec = [spawn_point.location.x - cam_location.x, spawn_point.location.y - cam_location.y]
-    if vec[0]*vec[0] + vec[1]*vec[1] &lt; radius*radius:
-        world.try_spawn_actor(random.choice(vehicle_bp_library), spawn_point)
-world.tick()
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1"># 在相机周围80米内生成车辆</span>
+<span class="n">vehicle_bp_library</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s1">&#39;*vehicle*&#39;</span><span class="p">)</span>
+<span class="n">radius</span> <span class="o">=</span> <span class="mi">80</span>
+<span class="k">for</span> <span class="n">spawn_point</span> <span class="ow">in</span> <span class="n">spawn_points</span><span class="p">:</span>
+    <span class="n">vec</span> <span class="o">=</span> <span class="p">[</span><span class="n">spawn_point</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">cam_location</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">spawn_point</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">cam_location</span><span class="o">.</span><span class="n">y</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">vec</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">vec</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">vec</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">vec</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">radius</span><span class="o">*</span><span class="n">radius</span><span class="p">:</span>
+        <span class="n">world</span><span class="o">.</span><span class="n">try_spawn_actor</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">vehicle_bp_library</span><span class="p">),</span> <span class="n">spawn_point</span><span class="p">)</span>
+<span class="n">world</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
+</code></pre></div>
 <p>现在生成图像。</p>
-<pre><code class="language-py"># 将图片保存到磁盘
-instance_image_queue = queue.Queue()
-instance_camera.listen(instance_image_queue.put)
-world.tick()
-instance_image=instance_image_queue.get()
-instance_image.save_to_disk('instance_segmentation.png')
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1"># 将图片保存到磁盘</span>
+<span class="n">instance_image_queue</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">Queue</span><span class="p">()</span>
+<span class="n">instance_camera</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="n">instance_image_queue</span><span class="o">.</span><span class="n">put</span><span class="p">)</span>
+<span class="n">world</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
+<span class="n">instance_image</span><span class="o">=</span><span class="n">instance_image_queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<span class="n">instance_image</span><span class="o">.</span><span class="n">save_to_disk</span><span class="p">(</span><span class="s1">&#39;instance_segmentation.png&#39;</span><span class="p">)</span>
+</code></pre></div>
 <h2 id="_3">图像输出</h2>
 <p>保存到磁盘的实例分割图像的实例 ID 编码在 RGB 图像文件的 G 和 B 通道中。R通道包含标准语义ID。</p>
 <p><img alt="instance_segmentation" src="../img/instance_segmentation.png" /></p>
@@ -159,8 +159,13 @@ instance_image.save_to_disk('instance_segmentation.png')
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

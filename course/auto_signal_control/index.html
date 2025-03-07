@@ -81,23 +81,23 @@
 </ul>
 <h4 id="_4">核心实现步骤</h4>
 <p><strong>1.初始化和连接Carla服务器</strong>：获取世界对象并设置模拟参数。</p>
-<pre><code>    client = carla.Client('localhost', 2000)
+<p><div class="highlight"><pre><span></span><code>    client = carla.Client(&#39;localhost&#39;, 2000)
     client.set_timeout(10.0)
     world = client.get_world()
-</code></pre>
-<p><strong>2.获取路口信息</strong>：通过中心位置获取指定路口的交通信号灯信息。</p>
+</code></pre></div>
+<strong>2.获取路口信息</strong>：通过中心位置获取指定路口的交通信号灯信息。</p>
 <p>为了保证每次请求不会往该路口的交通灯集合中新加重复的红绿灯，先用集合存储红绿灯的唯一ID</p>
-<pre><code>traffics_in_junction = set()
-</code></pre>
-<pre><code>def get_traffic_lights_in_junction(world, junction):
+<div class="highlight"><pre><span></span><code>traffics_in_junction = set()
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>def get_traffic_lights_in_junction(world, junction):
     &quot;&quot;&quot;获取路口的所有红绿灯&quot;&quot;&quot;
-    traffic_lights = world.get_actors().filter('traffic.traffic_light')
+    traffic_lights = world.get_actors().filter(&#39;traffic.traffic_light&#39;)
     for traffic_light in traffic_lights:
         if get_distance(traffic_light.get_location(), center_location[0]) &lt;= 50:
             id = traffic_light.get_opendrive_id()
             traffics_in_junction.add(id)
-</code></pre>
-<pre><code>def get_light(all_traffic_lights):
+</code></pre></div>
+<p><div class="highlight"><pre><span></span><code>def get_light(all_traffic_lights):
     &quot;&quot;&quot;根据红绿灯ID列表获取对应的红绿灯对象&quot;&quot;&quot;
     drive_list = list(traffics_in_junction)
     traffic_lights = []
@@ -105,11 +105,11 @@
         if traffic_light.get_opendrive_id() in drive_list:
             traffic_lights.append(traffic_light)
     return traffic_lights
-</code></pre>
-<p><strong>3.计算交通流量</strong>：检测指定范围内的车辆数量。</p>
-<pre><code>def get_vehicles_in_intersection(world, intersection_location, intersection_radius):
+</code></pre></div>
+<strong>3.计算交通流量</strong>：检测指定范围内的车辆数量。</p>
+<p><div class="highlight"><pre><span></span><code>def get_vehicles_in_intersection(world, intersection_location, intersection_radius):
     &quot;&quot;&quot;获取路口范围内的车辆数量&quot;&quot;&quot;
-    vehicles = world.get_actors().filter('vehicle.*')
+    vehicles = world.get_actors().filter(&#39;vehicle.*&#39;)
     vehicles_in_intersection = []
 
     for vehicle in vehicles:
@@ -118,9 +118,9 @@
             vehicles_in_intersection.append(vehicle)
 
     return len(vehicles_in_intersection)
-</code></pre>
-<p><strong>4.调整红绿灯时长</strong>：根据交通流量动态调整红绿灯的时长。</p>
-<pre><code> if junction_flow &gt; 15:
+</code></pre></div>
+<strong>4.调整红绿灯时长</strong>：根据交通流量动态调整红绿灯的时长。</p>
+<p><div class="highlight"><pre><span></span><code> if junction_flow &gt; 15:
         for traffic_light in get_light(all_traffic_lights):
             traffic_light.set_green_time(GREEN_TIME + 15)
             last_green_time = GREEN_TIME + 15
@@ -136,18 +136,16 @@
         for traffic_light in get_light(all_traffic_lights):
             traffic_light.set_green_time(GREEN_TIME)
             last_green_time = GREEN_TIME
-
-</code></pre>
-<p><strong>5.返回结果</strong>：返回当前红绿灯的状态和调整后的时长信息。</p>
-<pre><code>response_data = {
+</code></pre></div>
+<strong>5.返回结果</strong>：返回当前红绿灯的状态和调整后的时长信息。</p>
+<div class="highlight"><pre><span></span><code>response_data = {
         &quot;traffic_lights&quot;: [
             {&quot;id&quot;: traffic_ids},
             {&quot;init_green_time&quot;: traffic_init_green_time},
             {&quot;last_green_time&quot;: last_green_time}
         ]
     }
-
-</code></pre>
+</code></pre></div>
 <h4 id="_5">使用步骤</h4>
 <p>获取路口交通灯信息，可以发送一个GET请求到 <code>/set_traffic_light</code>路由,应用程序会自动根据路口的交通流量调整红绿灯的时长并返回结果。</p>
 <ol>
@@ -156,8 +154,8 @@
 <li>运行脚本auto_signal_control.py来开启服务端</li>
 <li>发送http请求:</li>
 </ol>
-<pre><code>http://127.0.0.1:5000/set_traffic_light
-</code></pre>
+<div class="highlight"><pre><span></span><code>http://127.0.0.1:5000/set_traffic_light
+</code></pre></div>
 <p>通过这些步骤和说明，用户可以使用该应用程序动态调整Carla模拟环境中的红绿灯时长，以优化交通通行效率。</p>
               
             </div>
@@ -194,8 +192,13 @@
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="../../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

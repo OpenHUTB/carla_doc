@@ -121,12 +121,12 @@
 <li><strong>其他需求。</strong>  Carla 需要一些 Python 依赖项。根据您的操作系统安装依赖项：</li>
 </ul>
 <h3 id="windows">Windows</h3>
-<pre><code class="language-sh">pip3 install --user pygame numpy
-</code></pre>
+<div class="highlight"><pre><span></span><code>pip3<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span>pygame<span class="w"> </span>numpy
+</code></pre></div>
 <h3 id="linux">Linux</h3>
-<pre><code class="language-sh">pip install --user pygame numpy &amp;&amp;
-pip3 install --user pygame numpy
-</code></pre>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span>pygame<span class="w"> </span>numpy<span class="w"> </span><span class="o">&amp;&amp;</span>
+pip3<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span>pygame<span class="w"> </span>numpy
+</code></pre></div>
 <hr />
 <h2 id="carla">Carla 安装 <span id="carla-installation"></span></h2>
 <p>有两种方法可以下载并安装 Carla 作为软件包：</p>
@@ -134,19 +134,19 @@ pip3 install --user pygame numpy
 <p><strong>B)</strong> <a href="#b-package-installation">从 GitHub 下载软件包。</a> </p>
 <h3 id="a-debian-carla">A. Debian Carla 安装 <span id="a-debian-carla-installation"></span></h3>
 <p>Debain 软件包适用于 Ubuntu 18.04 和 Ubuntu 20.04，但 <strong>官方支持的平台是 Ubuntu 18.04</strong> 。</p>
-<p><strong>1.</strong> 在系统中设置Debian存储库：</p>
-<pre><code class="language-sh">sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 1AF1527DE64CB8D9
-sudo add-apt-repository &quot;deb [arch=amd64] http://dist.carla.org/carla $(lsb_release -sc) main&quot;
-</code></pre>
-<p><strong>2.</strong> 安装 Carla 并检查 <code>/opt/</code> 文件夹中是否有安装：</p>
-<pre><code class="language-sh">sudo apt-get update # Update the Debian package index
-sudo apt-get install carla-simulator # Install the latest Carla version, or update the current installation
-cd /opt/carla-simulator # Open the folder where Carla is installed
-</code></pre>
-<p>该存储库包含 Carla 0.9.10 及更高版本。要安装特定版本，请将版本标签添加到安装命令中：</p>
-<pre><code class="language-sh">apt-cache madison carla-simulator # List the available versions of Carla
-sudo apt-get install carla-simulator=0.9.10-1 # In this case, &quot;0.9.10&quot; refers to a CARLA version, and &quot;1&quot; to the Debian revision
-</code></pre>
+<p><strong>1.</strong> 在系统中设置Debian存储库：
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt-key<span class="w"> </span>adv<span class="w"> </span>--keyserver<span class="w"> </span>keyserver.ubuntu.com<span class="w"> </span>--recv-keys<span class="w"> </span>1AF1527DE64CB8D9
+sudo<span class="w"> </span>add-apt-repository<span class="w"> </span><span class="s2">&quot;deb [arch=amd64] http://dist.carla.org/carla </span><span class="k">$(</span>lsb_release<span class="w"> </span>-sc<span class="k">)</span><span class="s2"> main&quot;</span>
+</code></pre></div></p>
+<p><strong>2.</strong> 安装 Carla 并检查 <code>/opt/</code> 文件夹中是否有安装：
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="c1"># Update the Debian package index</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>carla-simulator<span class="w"> </span><span class="c1"># Install the latest Carla version, or update the current installation</span>
+<span class="nb">cd</span><span class="w"> </span>/opt/carla-simulator<span class="w"> </span><span class="c1"># Open the folder where Carla is installed</span>
+</code></pre></div></p>
+<p>该存储库包含 Carla 0.9.10 及更高版本。要安装特定版本，请将版本标签添加到安装命令中：
+<div class="highlight"><pre><span></span><code>apt-cache<span class="w"> </span>madison<span class="w"> </span>carla-simulator<span class="w"> </span><span class="c1"># List the available versions of Carla</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>carla-simulator<span class="o">=</span><span class="m">0</span>.9.10-1<span class="w"> </span><span class="c1"># In this case, &quot;0.9.10&quot; refers to a CARLA version, and &quot;1&quot; to the Debian revision</span>
+</code></pre></div></p>
 <div class="admonition 重要">
 <p class="admonition-title">重要</p>
 <p>要安装 0.9.10 之前的 Carla 版本，请使用窗口右下角的面板更改为文档的早期版本，然后按照旧的说明进行操作。</p>
@@ -174,10 +174,10 @@ sudo apt-get install carla-simulator=0.9.10-1 # In this case, &quot;0.9.10&quot;
 </ul>
 </li>
 </ul>
-<pre><code class="language-sh">cd path/to/carla/root
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>path/to/carla/root
 
 ./ImportAssets.sh
-</code></pre>
+</code></pre></div>
 <ul>
 <li>
 <p><strong>在 Windows 上</strong>:</p>
@@ -237,42 +237,42 @@ sudo apt-get install carla-simulator=0.9.10-1 # In this case, &quot;0.9.10&quot;
 <ul>
 <li>Debian 安装:</li>
 </ul>
-<pre><code class="language-sh">cd /opt/carla-simulator/bin/
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/opt/carla-simulator/bin/
 
 ./CarlaUE4.sh
-</code></pre>
+</code></pre></div>
 <ul>
 <li>Linux 软件包安装：</li>
 </ul>
-<pre><code class="language-sh">cd path/to/carla/root
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>path/to/carla/root
 
 ./CarlaUE4.sh
-</code></pre>
+</code></pre></div>
 <ul>
 <li>Windows 包安装：</li>
 </ul>
-<pre><code class="language-sh">cd path/to/carla/root
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>path/to/carla/root
 
 CarlaUE4.exe
-</code></pre>
+</code></pre></div>
 <p>将弹出一个包含城市景观的窗口。这是 <strong>观察者</strong> 的看法。要在城市中飞行，请使用鼠标和WASD按键，按住鼠标右键控制方向。</p>
 <p>这是服务器模拟器，它现在正在运行并等待客户端连接并与世界交互。您可以尝试一些示例脚本来在城市中产生生命并驾驶汽车：</p>
-<pre><code class="language-sh"># 终端 A 
-cd PythonAPI\examples
+<div class="highlight"><pre><span></span><code><span class="c1"># 终端 A </span>
+<span class="nb">cd</span><span class="w"> </span>PythonAPI<span class="se">\e</span>xamples
 
-python3 -m pip install -r requirements.txt # Support for Python2 is provided in the CARLA release packages
+python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt<span class="w"> </span><span class="c1"># Support for Python2 is provided in the CARLA release packages</span>
 
-python3 generate_traffic.py  
+python3<span class="w"> </span>generate_traffic.py<span class="w">  </span>
 
-# Terminal B
-cd PythonAPI\examples
+<span class="c1"># Terminal B</span>
+<span class="nb">cd</span><span class="w"> </span>PythonAPI<span class="se">\e</span>xamples
 
-python3 manual_control.py 
-</code></pre>
+python3<span class="w"> </span>manual_control.py<span class="w"> </span>
+</code></pre></div>
 <h4 id="_5">命令行选项 <span id="command-line-options"></span></h4>
 <p>启动 Carla 时有一些可用的配置选项，可以按如下方式使用它们：</p>
-<pre><code class="language-sh">./CarlaUE4.sh -carla-rpc-port=3000
-</code></pre>
+<div class="highlight"><pre><span></span><code>./CarlaUE4.sh<span class="w"> </span>-carla-rpc-port<span class="o">=</span><span class="m">3000</span>
+</code></pre></div>
 <ul>
 <li><code>-carla-rpc-port=N</code> 监听端口 <code>N</code> 上的客户端连接。流媒体端口默认设置为 <code>N+1</code> 。</li>
 <li><code>-carla-streaming-port=N</code> 指定传感器数据流的端口。使用 0 获取随机未使用的端口。第二个端口将自动设置为<code>N+1</code>。</li>
@@ -280,30 +280,30 @@ python3 manual_control.py
 <li><strong><a href="https://docs.unrealengine.com/en-US/Programming/Basics/CommandLineArguments">虚幻引擎 4 命令行参数列表</a>。</strong> 。虚幻引擎提供了很多选项，但并非所有这些选项在 Carla 中都可用。</li>
 </ul>
 <p>该脚本 <a href="https://github.com/carla-simulator/carla/blob/master/PythonAPI/util/config.py"><code>PythonAPI/util/config.py</code></a> 提供了更多配置选项，应在服务器启动时运行：</p>
-<pre><code class="language-sh">./config.py --no-rendering      # 禁用渲染
-./config.py --map Town05        # 改变地图、
-./config.py --weather ClearNoon # 改变天气
+<div class="highlight"><pre><span></span><code>./config.py<span class="w"> </span>--no-rendering<span class="w">      </span><span class="c1"># 禁用渲染</span>
+./config.py<span class="w"> </span>--map<span class="w"> </span>Town05<span class="w">        </span><span class="c1"># 改变地图、</span>
+./config.py<span class="w"> </span>--weather<span class="w"> </span>ClearNoon<span class="w"> </span><span class="c1"># 改变天气</span>
 
-./config.py --help # 检查所有可获得的配置选项
-</code></pre>
+./config.py<span class="w"> </span>--help<span class="w"> </span><span class="c1"># 检查所有可获得的配置选项</span>
+</code></pre></div>
 <hr />
 <h2 id="carla_2">更新 Carla <span id="updating-carla"></span></h2>
 <p>无法更新 Carla 的打包版本。当新版本发布时，存储库会更新，您需要删除以前的版本并安装新版本。</p>
 <p>如果您使用 <strong>pip/pip3</strong> 安装了客户端库，则应通过运行以下命令将其卸载：</p>
-<pre><code class="language-sh"># Python 3
-pip3 uninstall carla
+<div class="highlight"><pre><span></span><code><span class="c1"># Python 3</span>
+pip3<span class="w"> </span>uninstall<span class="w"> </span>carla
 
-# Python 2
-pip uninstall carla
-</code></pre>
+<span class="c1"># Python 2</span>
+pip<span class="w"> </span>uninstall<span class="w"> </span>carla
+</code></pre></div>
 <hr />
 <h2 id="_6">湖工商内网访问资源 <span id="intranet"></span></h2>
 <p>如果能ping通IP 地址<code>172.21.108.56</code>，则可以访问以下资源。</p>
 <h3 id="_7">代理模拟器的服务器渲染资源</h3>
 <p>可使用<code>config.py</code>来连接远端的代理模拟环境：</p>
-<pre><code class="language-python">python config.py -l --host 172.21.108.56
-</code></pre>
-<p>控制台输出所包含的地图信息表示连接成功，然后可以运行其他示例。</p>
+<p><div class="highlight"><pre><span></span><code><span class="n">python</span> <span class="n">config</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">l</span> <span class="o">--</span><span class="n">host</span> <span class="mf">172.21.108.56</span>
+</code></pre></div>
+控制台输出所包含的地图信息表示连接成功，然后可以运行其他示例。</p>
 <h3 id="_8">大模型本地部署</h3>
 <p>可以通过部署好的 <a href="../software/llm/">大模型</a> 来辅助开发。</p>
 <hr />
@@ -351,8 +351,13 @@ pip uninstall carla
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

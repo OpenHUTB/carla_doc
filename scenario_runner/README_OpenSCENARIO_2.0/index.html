@@ -72,36 +72,36 @@
 <p>我们使用OpenScenario 2.0作为场景描述语言规范，设计并实现了相应的编译系统，可以自动将用OpenScenario 2.0描述的测试场景转换为基于scenario runner的测试场景，从而使用carla进行自动驾驶测试。</p>
 <h2 id="installation">Installation</h2>
 <p><strong>1. 安装JDK</strong></p>
-<pre><code>sudo apt install openjdk-17-jdk
-</code></pre>
-<p>确认安装：</p>
-<pre><code>$ java -version
-</code></pre>
-<p>输出：</p>
-<pre><code>openjdk version &quot;17.0.5&quot; 2022-10-18
+<p><div class="highlight"><pre><span></span><code>sudo apt install openjdk-17-jdk
+</code></pre></div>
+确认安装：
+<div class="highlight"><pre><span></span><code>$ java -version
+</code></pre></div>
+输出：
+<div class="highlight"><pre><span></span><code>openjdk version &quot;17.0.5&quot; 2022-10-18
 OpenJDK Runtime Environment (build 17.0.5+8-Ubuntu-2ubuntu120.04)
 OpenJDK 64-Bit Server VM (build 17.0.5+8-Ubuntu-2ubuntu120.04, mixed mode, sharing)
-</code></pre>
+</code></pre></div></p>
 <p><strong>3、安装 Antlr 4.10.1</strong></p>
-<pre><code>sudo apt install curl
+<div class="highlight"><pre><span></span><code>sudo apt install curl
 curl -O https://www.antlr.org/download/antlr-4.10.1-complete.jar
-</code></pre>
-<p>将.jar文件放入local/lib中</p>
-<pre><code>$ sudo cp antlr-4.10.1-complete.jar /usr/local/lib/
-</code></pre>
-<p>以下三个步骤用于配置环境变量并创建别名，以便可以轻松地从命令行使用antlr4。</p>
-<pre><code>$ sudo gedit ~/.bashrc
-</code></pre>
-<p>在末尾添加以下内容：</p>
-<pre><code>export CLASSPATH=&quot;.:/usr/local/lib/antlr-4.10.1-complete.jar:$CLASSPATH&quot;
-alias antlr4='java -jar /usr/local/lib/antlr-4.10.1-complete.jar'
-alias grun='java org.antlr.v4.gui.TestRig'
-</code></pre>
-<p>进而：</p>
-<pre><code>source ~/.bashrc
-</code></pre>
-<p>在终端输入antlr4进行验证：</p>
-<pre><code>$ antlr4
+</code></pre></div>
+<p>将.jar文件放入local/lib中
+<div class="highlight"><pre><span></span><code>$ sudo cp antlr-4.10.1-complete.jar /usr/local/lib/
+</code></pre></div></p>
+<p>以下三个步骤用于配置环境变量并创建别名，以便可以轻松地从命令行使用antlr4。
+<div class="highlight"><pre><span></span><code>$ sudo gedit ~/.bashrc
+</code></pre></div>
+在末尾添加以下内容：
+<div class="highlight"><pre><span></span><code>export CLASSPATH=&quot;.:/usr/local/lib/antlr-4.10.1-complete.jar:$CLASSPATH&quot;
+alias antlr4=&#39;java -jar /usr/local/lib/antlr-4.10.1-complete.jar&#39;
+alias grun=&#39;java org.antlr.v4.gui.TestRig&#39;
+</code></pre></div>
+进而：
+<div class="highlight"><pre><span></span><code>source ~/.bashrc
+</code></pre></div></p>
+<p>在终端输入antlr4进行验证：
+<div class="highlight"><pre><span></span><code>$ antlr4
 ANTLR Parser Generator  Version 4.10.1
  -o ___              specify output directory where all output is generated
  -lib ___            specify location of grammars, tokens files
@@ -110,9 +110,9 @@ ANTLR Parser Generator  Version 4.10.1
  -message-format ___ specify output style for messages in antlr, gnu, vs2005
  -long-messages      show exception details when available for errors and warnings
  -listener           generate parse tree listener (default)
- -no-listener        don't generate parse tree listener
+ -no-listener        don&#39;t generate parse tree listener
  -visitor            generate parse tree visitor
- -no-visitor         don't generate parse tree visitor (default)
+ -no-visitor         don&#39;t generate parse tree visitor (default)
  -package ___        specify a package/namespace for the generated code
  -depend             generate file dependencies
  -D&lt;option&gt;=value    set/override a grammar-level option
@@ -122,34 +122,34 @@ ANTLR Parser Generator  Version 4.10.1
  -Xforce-atn         use the ATN simulator for all predictions
  -Xlog               dump lots of logging info to antlr-timestamp.log
  -Xexact-output-dir  all output goes into -o dir regardless of paths/package
-</code></pre>
-<p><strong>4、安装antlr4运行时</strong></p>
-<pre><code>pip install antlr4-python3-runtime==4.10
-</code></pre>
-<p><strong>5、安装python依赖</strong></p>
-<pre><code>pip install -r requirements.txt
-</code></pre>
+</code></pre></div></p>
+<p><strong>4、安装antlr4运行时</strong>
+<div class="highlight"><pre><span></span><code>pip install antlr4-python3-runtime==4.10
+</code></pre></div></p>
+<p><strong>5、安装python依赖</strong>
+<div class="highlight"><pre><span></span><code>pip install -r requirements.txt
+</code></pre></div></p>
 <p><strong>6、安装 graphviz</strong></p>
-<pre><code>sudo apt-get install graphviz
-</code></pre>
+<div class="highlight"><pre><span></span><code>sudo apt-get install graphviz
+</code></pre></div>
 <p><strong>7、配置 carla</strong></p>
 <p>(1) 下载 <a href="https://carla-releases.s3.eu-west-3.amazonaws.com/Linux/CARLA_0.9.13.tar.gz">carla版本</a></p>
 <p>(2) 将carla安装包解压到某个目录。</p>
-<p>在Ubuntu系统上，Carla环境变量配置如下：</p>
-<pre><code class="language-bash">export CARLA_ROOT=/home/dut-aiid/CARLA_0.9.13
-export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.13-py3.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla/agents/navigation:${CARLA_ROOT}/PythonAPI/carla:${CARLA_ROOT}/PythonAPI/examples:${CARLA_ROOT}/PythonAPI
-</code></pre>
+<p>在Ubuntu系统上，Carla环境变量配置如下：
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">CARLA_ROOT</span><span class="o">=</span>/home/dut-aiid/CARLA_0.9.13
+<span class="nb">export</span><span class="w"> </span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="nv">$PYTHONPATH</span>:<span class="si">${</span><span class="nv">CARLA_ROOT</span><span class="si">}</span>/PythonAPI/carla/dist/carla-0.9.13-py3.7-linux-x86_64.egg:<span class="si">${</span><span class="nv">CARLA_ROOT</span><span class="si">}</span>/PythonAPI/carla/agents:<span class="si">${</span><span class="nv">CARLA_ROOT</span><span class="si">}</span>/PythonAPI/carla/agents/navigation:<span class="si">${</span><span class="nv">CARLA_ROOT</span><span class="si">}</span>/PythonAPI/carla:<span class="si">${</span><span class="nv">CARLA_ROOT</span><span class="si">}</span>/PythonAPI/examples:<span class="si">${</span><span class="nv">CARLA_ROOT</span><span class="si">}</span>/PythonAPI
+</code></pre></div></p>
 <h2 id="_1">快速开始</h2>
 <p><strong>1、运行 carla</strong></p>
-<pre><code class="language-bash">cd /home/xxx/CARLA_0.9.13
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/home/xxx/CARLA_0.9.13
 ./CarlaUE4.sh
-</code></pre>
+</code></pre></div>
 <p><strong>2、启动 manual_control</strong></p>
-<pre><code>python manual_control.py -a --rolename=ego_vehicle
-</code></pre>
-<p><strong>3、运行OpenSCENARIO 2.0场景</strong></p>
-<pre><code>python scenario_runner.py --sync  --openscenario2 srunner/examples/cut_in_and_slow_right.osc --reloadWorld 
-</code></pre>
+<div class="highlight"><pre><span></span><code>python manual_control.py -a --rolename=ego_vehicle
+</code></pre></div>
+<p><strong>3、运行OpenSCENARIO 2.0场景</strong>
+<div class="highlight"><pre><span></span><code>python scenario_runner.py --sync  --openscenario2 srunner/examples/cut_in_and_slow_right.osc --reloadWorld 
+</code></pre></div></p>
               
             </div>
           </div><footer>
@@ -185,8 +185,13 @@ export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.13-py
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="../../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

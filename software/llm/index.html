@@ -75,18 +75,18 @@
 </div>
 <h2 id="1deepseek-r1">1.DeepSeek R1 安装</h2>
 <p>下载并安装 <a href="https://ollama.com/download">Ollama</a> 后，打开链接 <a href="http://localhost:11434/">http://localhost:11434/</a> ，验证安装Ollama成功。</p>
-<p>运行以下命令安装7b模型（目前支持1.5b、7b、14b、32b、70b、671b）：</p>
-<pre><code class="language-shell">ollama run deepseek-r1:7b
-</code></pre>
-<p>下载完成即可通过命令行进行对话。</p>
+<p>运行以下命令安装7b模型（目前支持1.5b、7b、14b、32b、70b、671b）：
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>run<span class="w"> </span>deepseek-r1:7b
+</code></pre></div>
+下载完成即可通过命令行进行对话。</p>
 <h2 id="2-webui">2.安装 WebUI</h2>
-<p>2.1 以管理员身份运行 PowerShell，执行以下命令启动Hyper-V：</p>
-<pre><code class="language-shell">Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
-</code></pre>
+<p>2.1 以管理员身份运行 PowerShell，执行以下命令启动Hyper-V：
+<div class="highlight"><pre><span></span><code>Enable-WindowsOptionalFeature<span class="w"> </span>-Online<span class="w"> </span>-FeatureName<span class="w"> </span>Microsoft-Hyper-V<span class="w"> </span>-All
+</code></pre></div></p>
 <p>2.2 安装 <a href="https://www.docker.com/products/docker-desktop/">Docker for Desktop</a></p>
-<p>2.3 安装和启动 open-webui</p>
-<pre><code class="language-shell">docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main
-</code></pre>
+<p>2.3 安装和启动 open-webui
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">3000</span>:8080<span class="w"> </span>--add-host<span class="o">=</span>host.docker.internal:host-gateway<span class="w"> </span>-v<span class="w"> </span>open-webui:/app/backend/data<span class="w"> </span>--name<span class="w"> </span>open-webui<span class="w"> </span>--restart<span class="w"> </span>always<span class="w"> </span>ghcr.io/open-webui/open-webui:main
+</code></pre></div></p>
 <p>2.4 打开 <a href="http://127.0.0.1:3000">http://127.0.0.1:3000</a> 开始网页使用。</p>
 <h2 id="_1">参考</h2>
 <ul>
@@ -129,8 +129,13 @@
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="../../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

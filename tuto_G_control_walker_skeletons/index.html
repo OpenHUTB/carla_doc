@@ -88,7 +88,7 @@
 <hr />
 <h2 id="_2">行人骨骼结构  <span id="walker-skeleton-structure"></span></h2>
 <p>所有行人都具有相同的骨骼层次结构和骨骼名称。下面是骨架层次结构的图像。骨骼的层次结构图参考<a href="../tuto_content_authoring_pedestrians/">链接</a> 。</p>
-<pre><code>crl_root
+<div class="highlight"><pre><span></span><code>crl_root
 └── crl_hips__C
     ├── crl_spine__C
     │   └── crl_spine01__C
@@ -154,36 +154,36 @@
             └── crl_foot__R
                 └── crl_toe__R
                     └── crl_toeEnd__R
-</code></pre>
+</code></pre></div>
 <hr />
 <h2 id="_3">手动控制行人骨骼 <span id="manually-control-walker-bones"></span></h2>
 <p>以下是如何通过 Carla Python API 更改行人骨骼变换的详细分步示例。</p>
 <h3 id="_4">连接到模拟器 <span id="connect-to-the-simulator"></span></h3>
 <p>导入本例中使用的必要库</p>
-<pre><code class="language-py">import carla
-import random
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">carla</span>
+<span class="kn">import</span> <span class="nn">random</span>
+</code></pre></div>
 <p>初始化 Carla 客户端</p>
-<pre><code class="language-py">client = carla.Client('127.0.0.1', 2000)
-client.set_timeout(2.0)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">client</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span> <span class="mi">2000</span><span class="p">)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">set_timeout</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>
+</code></pre></div>
 <h3 id="_5">生成行人  <span id="spawn-a-walker"></span></h3>
 <p>在地图的一个生成点生成一个随机行人。</p>
-<pre><code class="language-py">world = client.get_world()
-blueprint = random.choice(self.world.get_blueprint_library().filter('walker.*'))
-spawn_points = world.get_map().get_spawn_points()
-spawn_point = random.choice(spawn_points) if spawn_points else carla.Transform()
-world.try_spawn_actor(blueprint, spawn_point)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">world</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_world</span><span class="p">()</span>
+<span class="n">blueprint</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s1">&#39;walker.*&#39;</span><span class="p">))</span>
+<span class="n">spawn_points</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_map</span><span class="p">()</span><span class="o">.</span><span class="n">get_spawn_points</span><span class="p">()</span>
+<span class="n">spawn_point</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">spawn_points</span><span class="p">)</span> <span class="k">if</span> <span class="n">spawn_points</span> <span class="k">else</span> <span class="n">carla</span><span class="o">.</span><span class="n">Transform</span><span class="p">()</span>
+<span class="n">world</span><span class="o">.</span><span class="n">try_spawn_actor</span><span class="p">(</span><span class="n">blueprint</span><span class="p">,</span> <span class="n">spawn_point</span><span class="p">)</span>
+</code></pre></div>
 <h3 id="_6">控制行人骨骼  <span id="control-walker-skeletons"></span></h3>
 <p>可以通过将 <code>WalkerBoneControl</code> 类的实例传递给行人的 <code>apply_control</code> 函数来修改行人的骨架。<code>WalkerBoneControl</code> 类包含要修改的骨骼的变换。它的 <code>bone_transforms</code> 成员是成对值元组的列表，其中第一个值是骨骼名称，第二个值是骨骼变换。可以在每个节拍信号上调用 <code>apply_control</code> 函数来为行人的骨骼设置动画。每个变换的位置和旋转都是相对于其父变换的。因此，当修改父骨骼的变换时，子骨骼在模型空间中的变换也会相对改变。</p>
 <p>在下面的示例中，行人的手设置为围绕前轴旋转 90 度，并且位置设置为原点。</p>
-<pre><code class="language-py">control = carla.WalkerBoneControl()
-first_tuple = ('crl_hand__R', carla.Transform(rotation=carla.Rotation(roll=90)))
-second_tuple = ('crl_hand__L', carla.Transform(rotation=carla.Rotation(roll=90)))
-control.bone_transforms = [first_tuple, second_tuple]
-world.player.apply_control(control)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">control</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">WalkerBoneControl</span><span class="p">()</span>
+<span class="n">first_tuple</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;crl_hand__R&#39;</span><span class="p">,</span> <span class="n">carla</span><span class="o">.</span><span class="n">Transform</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="n">carla</span><span class="o">.</span><span class="n">Rotation</span><span class="p">(</span><span class="n">roll</span><span class="o">=</span><span class="mi">90</span><span class="p">)))</span>
+<span class="n">second_tuple</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;crl_hand__L&#39;</span><span class="p">,</span> <span class="n">carla</span><span class="o">.</span><span class="n">Transform</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="n">carla</span><span class="o">.</span><span class="n">Rotation</span><span class="p">(</span><span class="n">roll</span><span class="o">=</span><span class="mi">90</span><span class="p">)))</span>
+<span class="n">control</span><span class="o">.</span><span class="n">bone_transforms</span> <span class="o">=</span> <span class="p">[</span><span class="n">first_tuple</span><span class="p">,</span> <span class="n">second_tuple</span><span class="p">]</span>
+<span class="n">world</span><span class="o">.</span><span class="n">player</span><span class="o">.</span><span class="n">apply_control</span><span class="p">(</span><span class="n">control</span><span class="p">)</span>
+</code></pre></div>
 <p>行人骨架控制代码 <a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/pedestrian/walker_control.py">链接</a> 。</p>
 <h2 id="_7">可视化行人骨架</h2>
 <p><img alt="" src="../img/pedestrian/draw_skeleton.png" /></p>
@@ -223,8 +223,13 @@ world.player.apply_control(control)
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

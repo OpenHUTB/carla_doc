@@ -101,18 +101,18 @@
 <li><strong>灯光</strong> — 来自建筑物、街道和车辆的灯光状态。</li>
 </ul>
 <p>要开始记录，只需要一个文件名。在文件名中使用 <code>\</code>、<code>/</code> 或 <code>:</code> 字符会将其定义为绝对路径。如果没有详细的路径，文件将保存在 <code>CarlaUE4/Saved</code> 中。</p>
-<pre><code class="language-py">client.start_recorder(&quot;/home/carla/recording01.log&quot;)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">client</span><span class="o">.</span><span class="n">start_recorder</span><span class="p">(</span><span class="s2">&quot;/home/carla/recording01.log&quot;</span><span class="p">)</span>
+</code></pre></div>
 <p>默认情况下，记录器设置为仅存储回放模拟所需的信息。为了保存前面提到的所有信息，必须在开始记录时配置参数<code>additional_data</code>。</p>
-<pre><code class="language-py">client.start_recorder(&quot;/home/carla/recording01.log&quot;, True)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">client</span><span class="o">.</span><span class="n">start_recorder</span><span class="p">(</span><span class="s2">&quot;/home/carla/recording01.log&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>其他数据包括：车辆和行人的线速度和角速度、红绿灯时间设置、执行时间、参与者的触发器和边界框，以及车辆的物理控制。</p>
 </div>
 <p>要停止记录，调用也很简单。</p>
-<pre><code class="language-py">client.stop_recorder()
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">client</span><span class="o">.</span><span class="n">stop_recorder</span><span class="p">()</span>
+</code></pre></div>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>据估计，50 个红绿灯和 100 辆车的 1 小时记录大约需要 200MB 大小。</p>
@@ -120,8 +120,8 @@
 <hr />
 <h2 id="_3">模拟播放 <span id="simulation_playback"></span></h2>
 <p>可以在模拟过程中的任何时候开始播放。除了日志文件的路径，这个方法还需要一些参数。</p>
-<pre><code class="language-py">client.replay_file(&quot;recording01.log&quot;, start, duration, camera)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">client</span><span class="o">.</span><span class="n">replay_file</span><span class="p">(</span><span class="s2">&quot;recording01.log&quot;</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">duration</span><span class="p">,</span> <span class="n">camera</span><span class="p">)</span>
+</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -151,8 +151,8 @@
 <p><br></p>
 <h3 id="_4">设置时间因子 <span id="setting-a-time-factor"></span></h3>
 <p>时间因素将决定播放速度。它可以随时更改而无需停止回放。</p>
-<pre><code class="language-py">client.set_replayer_time_factor(2.0)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">client</span><span class="o">.</span><span class="n">set_replayer_time_factor</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>
+</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -181,9 +181,9 @@
 <hr />
 <h2 id="_5">记录文件 <span id="recorded-file"></span></h2>
 <p>可以使用简单的 API 调用来检索记录的详细信息。默认情况下，它只检索注册事件的那些帧。设置参数 <code>show_all</code> 将返回每一帧的所有信息。关于如何存储数据的细节在 <a href="../ref_recorder_binary_file_format/">recorder's reference</a> 中有详细说明。</p>
-<pre><code class="language-py"># 显示相关帧的信息
-print (client.show_recorder_file_info (&quot;recording01.log&quot;))
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1"># 显示相关帧的信息</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">client</span><span class="o">.</span><span class="n">show_recorder_file_info</span> <span class="p">(</span><span class="s2">&quot;recording01.log&quot;</span><span class="p">))</span>
+</code></pre></div>
 <ul>
 <li>
 <p><strong>开放信息.</strong> 记录模拟的地图、日期和时间。</p>
@@ -195,7 +195,7 @@ print (client.show_recorder_file_info (&quot;recording01.log&quot;))
 <p><strong>关闭信息.</strong> 记录的帧数和总时间。</p>
 </li>
 </ul>
-<pre><code>Version: 1 
+<div class="highlight"><pre><span></span><code>Version: 1 
 Map: Town05 
 Date: 02/21/19 10:46:20 
 
@@ -221,7 +221,7 @@ Frame 2351 at 60.3057 seconds
 ... 
 Frames: 2354 
     Duration: 60.3753 seconds
-</code></pre>
+</code></pre></div>
 <hr />
 <h2 id="_6">查询 <span id="search"></span></h2>
 <h3 id="_7">碰撞 <span id="collisions"></span></h3>
@@ -239,10 +239,10 @@ Frames: 2354
 <p><code>manual_control.py</code> 脚本为 自我车辆分配 <code>role_name = hero</code>。</p>
 </div>
 <p>碰撞查询需要两个标志来过滤碰撞。以下示例将显示车辆与任何其他对象之间的碰撞。</p>
-<pre><code class="language-py">print(client.show_recorder_collisions(&quot;recording01.log&quot;,&quot;v&quot;, &quot;a&quot;))
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">client</span><span class="o">.</span><span class="n">show_recorder_collisions</span><span class="p">(</span><span class="s2">&quot;recording01.log&quot;</span><span class="p">,</span><span class="s2">&quot;v&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">))</span>
+</code></pre></div>
 <p>输出总结了碰撞的时间，以及所涉及的参与者的类型、ID 和描述。</p>
-<pre><code>Version: 1
+<div class="highlight"><pre><span></span><code>Version: 1
 Map: Town05
 Date: 02/19/19 15:36:08
 
@@ -252,20 +252,20 @@ Date: 02/19/19 15:36:08
 
 Frames: 790
 Duration: 46 seconds
-</code></pre>
+</code></pre></div>
 <div class="admonition 重要的">
 <p class="admonition-title">重要的</p>
 <p>因为记录碰撞的是<code>Hero</code>或<code>Ego</code>车辆，所以这将始终是<code>Actor 1</code>。</p>
 </div>
 <p>可以通过使用记录器并在事件发生前几秒设置它来重新制定碰撞。</p>
-<pre><code class="language-py">client.replay_file(&quot;col2.log&quot;, 13, 0, 122)
-</code></pre>
-<p>在这种情况下，回放显示了这一点。</p>
+<p><div class="highlight"><pre><span></span><code><span class="n">client</span><span class="o">.</span><span class="n">replay_file</span><span class="p">(</span><span class="s2">&quot;col2.log&quot;</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">122</span><span class="p">)</span>
+</code></pre></div>
+在这种情况下，回放显示了这一点。</p>
 <p><img alt="碰撞" src="../img/collision1.gif" /></p>
 <h3 id="_8">被堵塞的参与者 <span id="blocked-actors"></span></h3>
 <p>检测在记录过程中卡住的车辆。如果参与者在特定时间内没有移动最小距离，则认为它被阻塞。该定义由用户在查询期间进行。</p>
-<pre><code class="language-py">print(client.show_recorder_actors_blocked(&quot;recording01.log&quot;, min_time, min_distance))
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">client</span><span class="o">.</span><span class="n">show_recorder_actors_blocked</span><span class="p">(</span><span class="s2">&quot;recording01.log&quot;</span><span class="p">,</span> <span class="n">min_time</span><span class="p">,</span> <span class="n">min_distance</span><span class="p">))</span>
+</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -293,11 +293,11 @@ Duration: 46 seconds
 <p>有时车辆在红绿灯处停留的时间比预期的要长。</p>
 </div>
 <p>以下示例考虑车辆在 60 秒内移动不到 1 米时被卡住。</p>
-<pre><code class="language-py">client.show_recorder_actors_blocked(&quot;col3.log&quot;, 60, 100)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">client</span><span class="o">.</span><span class="n">show_recorder_actors_blocked</span><span class="p">(</span><span class="s2">&quot;col3.log&quot;</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</code></pre></div>
 <p>输出已排序
 由 <strong>duration</strong> 表示，它说明了停止被“阻塞”并移动 <code>min_distance</code> 需要多长时间。</p>
-<pre><code>Version: 1
+<div class="highlight"><pre><span></span><code>Version: 1
 Map: Town05
 Date: 02/19/19 15:45:01
 
@@ -308,10 +308,10 @@ Date: 02/19/19 15:45:01
 
 Frames: 6985
 Duration: 374 seconds
-</code></pre>
+</code></pre></div>
 <p>车辆<code>173</code>在<code>36</code>秒时停止<code>336</code>秒。在第二个<code>36</code>之前几秒钟重新模拟以检查它。</p>
-<pre><code class="language-py">client.replay_file(&quot;col3.log&quot;, 34, 0, 173)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">client</span><span class="o">.</span><span class="n">replay_file</span><span class="p">(</span><span class="s2">&quot;col3.log&quot;</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">173</span><span class="p">)</span>
+</code></pre></div>
 <p><img alt="事故" src="../img/accident.gif" /></p>
 <hr />
 <h2 id="python">示例 python 脚本 <span id="sample-python-scripts"></span></h2>
@@ -480,8 +480,13 @@ Carla 论坛</a>
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

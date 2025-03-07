@@ -70,42 +70,42 @@
               
                 <h2 id="_1"><a href="https://github.com/Morphlng/Carla-Interactive-Script/">交互式脚本</a></h2>
 <h3 id="_2"><a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/generate_traffic.py">生成交通流量</a></h3>
-<pre><code class="language-shell">python examples/generate_traffic.py --host localhost --port 2000 -n 50 -w 20 --safe
-</code></pre>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>examples/generate_traffic.py<span class="w"> </span>--host<span class="w"> </span>localhost<span class="w"> </span>--port<span class="w"> </span><span class="m">2000</span><span class="w"> </span>-n<span class="w"> </span><span class="m">50</span><span class="w"> </span>-w<span class="w"> </span><span class="m">20</span><span class="w"> </span>--safe
+</code></pre></div>
 <h3 id="_3"><a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/manual_control.py">手动控制车辆</a></h3>
-<pre><code class="language-shell">python examples/manual_control.py --host localhost --port 2000 --rolename hero --keep_ego_vehicle
-</code></pre>
-<p><img alt="" src="../img/interactive_script/manual_control.png" /></p>
-<p>手动控制行人：</p>
-<pre><code class="language-shell">python examples/manual_control.py --filter walker.pedestrian.*
-</code></pre>
+<p><div class="highlight"><pre><span></span><code>python<span class="w"> </span>examples/manual_control.py<span class="w"> </span>--host<span class="w"> </span>localhost<span class="w"> </span>--port<span class="w"> </span><span class="m">2000</span><span class="w"> </span>--rolename<span class="w"> </span>hero<span class="w"> </span>--keep_ego_vehicle
+</code></pre></div>
+<img alt="" src="../img/interactive_script/manual_control.png" /></p>
+<p>手动控制行人：
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>examples/manual_control.py<span class="w"> </span>--filter<span class="w"> </span>walker.pedestrian.*
+</code></pre></div></p>
 <h3 id="_4"><a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/sensor_bounding_box.py">绘制边界框</a></h3>
-<p>脚本将根据用户指定的视角 <code>view</code>（上方<code>above</code>、后面<code>behind</code>）附加一个 RGB 相机，并在距离<code>distance</code>之内绘制所有的参与者。</p>
-<pre><code class="language-shell">python examples/sensor_bounding_box.py --host localhost --port 2000 --rolename hero --view above --distance 100 --res 800x600 --fov 90
-</code></pre>
+<p>脚本将根据用户指定的视角 <code>view</code>（上方<code>above</code>、后面<code>behind</code>）附加一个 RGB 相机，并在距离<code>distance</code>之内绘制所有的参与者。
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>examples/sensor_bounding_box.py<span class="w"> </span>--host<span class="w"> </span>localhost<span class="w"> </span>--port<span class="w"> </span><span class="m">2000</span><span class="w"> </span>--rolename<span class="w"> </span>hero<span class="w"> </span>--view<span class="w"> </span>above<span class="w"> </span>--distance<span class="w"> </span><span class="m">100</span><span class="w"> </span>--res<span class="w"> </span>800x600<span class="w"> </span>--fov<span class="w"> </span><span class="m">90</span>
+</code></pre></div></p>
 <p><img alt="" src="../img/interactive_script/sensor_bounding_box.gif" /></p>
 <div class="admonition 注意">
 <p class="admonition-title">注意</p>
 <p>运行之前，需要先运行 <code>manual_control.py</code> 生成一辆英雄车辆，否则运动报错：<code>Actor hero not found</code>。 并且将原始脚本的环境路径<code>../src</code>改为<code>..</code>。</p>
 </div>
 <h3 id="_5"><a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/rgb_camera_example.py">可视化六种相机</a></h3>
-<p>该脚本为您提供了如何在 Carla 中可视化各种 RGB 相机传感器的示例。</p>
-<pre><code class="language-shell">python examples/rgb_camera_example.py --host localhost --port 2000 --rolename hero
-</code></pre>
+<p>该脚本为您提供了如何在 Carla 中可视化各种 RGB 相机传感器的示例。
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>examples/rgb_camera_example.py<span class="w"> </span>--host<span class="w"> </span>localhost<span class="w"> </span>--port<span class="w"> </span><span class="m">2000</span><span class="w"> </span>--rolename<span class="w"> </span>hero
+</code></pre></div></p>
 <p><img alt="" src="../img/interactive_script/rgb_camera.gif" /></p>
 <h3 id="_6"><a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/waypoint_follow.py">路径点跟踪</a></h3>
-<p>该脚本实现了一个简单的路径点跟踪方法。它将沿着地图上的路径点行驶，并在到达路径点终点时停止。</p>
-<pre><code class="language-shell">python examples/waypoint_follow.py --host localhost --port 2000 --rolename hero --map Town01 --json_file data/town01_waypoints.json --sync --fixed_delta_seconds=0.05 --spawn --visualize --camera_follow
-</code></pre>
+<p>该脚本实现了一个简单的路径点跟踪方法。它将沿着地图上的路径点行驶，并在到达路径点终点时停止。
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>examples/waypoint_follow.py<span class="w"> </span>--host<span class="w"> </span>localhost<span class="w"> </span>--port<span class="w"> </span><span class="m">2000</span><span class="w"> </span>--rolename<span class="w"> </span>hero<span class="w"> </span>--map<span class="w"> </span>Town01<span class="w"> </span>--json_file<span class="w"> </span>data/town01_waypoints.json<span class="w"> </span>--sync<span class="w"> </span>--fixed_delta_seconds<span class="o">=</span><span class="m">0</span>.05<span class="w"> </span>--spawn<span class="w"> </span>--visualize<span class="w"> </span>--camera_follow
+</code></pre></div></p>
 <div class="admonition 注意">
 <p class="admonition-title">注意</p>
 <p>运行之前需要先试用<code>python config.py -m Town01</code>将地图切换到 Town01 。</p>
 </div>
 <p><img alt="" src="../img/interactive_script/waypoint_follow.gif" /></p>
 <h3 id="_7"><a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/3d_lidar.py">可视化激光点云</a></h3>
-<p>此脚本提供了如何使用 Open3D 可视化激光雷达点云和雷达数据的示例。</p>
-<pre><code class="language-shell">python examples/3d_lidar.py --host localhost --port 2000 --rolename hero --keep_ego_vehicle
-</code></pre>
+<p>此脚本提供了如何使用 Open3D 可视化激光雷达点云和雷达数据的示例。
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>examples/3d_lidar.py<span class="w"> </span>--host<span class="w"> </span>localhost<span class="w"> </span>--port<span class="w"> </span><span class="m">2000</span><span class="w"> </span>--rolename<span class="w"> </span>hero<span class="w"> </span>--keep_ego_vehicle
+</code></pre></div></p>
 <p><img alt="" src="../img/interactive_script/3d_lidar.gif" /></p>
               
             </div>
@@ -142,8 +142,13 @@
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

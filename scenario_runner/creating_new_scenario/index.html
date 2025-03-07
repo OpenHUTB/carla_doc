@@ -73,47 +73,47 @@
 <p>我们将新场景称为 <em>NewScenario</em>。要创建它，只需要几个步骤。</p>
 <h2 id="python">创建一个空的 Python 类</h2>
 <p>转到 Scenarios 文件夹并使用新 Python 文件中的 <code>NewScenario</code> 名称创建一个新的 Python 类 <code>new_scenario.py</code>。类应该从 <code>BasicScenario</code> 类派生。结果，该类应如下所示：</p>
-<pre><code class="language-python">class NewScenario(BasicScenario):
-    &quot;&quot;&quot;
-    Some documentation on NewScenario
-    :param world is the CARLA world
-    :param ego_vehicles is a list of ego vehicles for this scenario
-    :param config is the scenario configuration (ScenarioConfiguration)
-    :param randomize can be used to select parameters randomly (optional, default=False)
-    :param debug_mode can be used to provide more comprehensive console output (optional, default=False)
-    :param criteria_enable can be used to disable/enable scenario evaluation based on test criteria (optional, default=True)
-    :param timeout is the overall scenario timeout (optional, default=60 seconds)
-    &quot;&quot;&quot;
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">NewScenario</span><span class="p">(</span><span class="n">BasicScenario</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Some documentation on NewScenario</span>
+<span class="sd">    :param world is the CARLA world</span>
+<span class="sd">    :param ego_vehicles is a list of ego vehicles for this scenario</span>
+<span class="sd">    :param config is the scenario configuration (ScenarioConfiguration)</span>
+<span class="sd">    :param randomize can be used to select parameters randomly (optional, default=False)</span>
+<span class="sd">    :param debug_mode can be used to provide more comprehensive console output (optional, default=False)</span>
+<span class="sd">    :param criteria_enable can be used to disable/enable scenario evaluation based on test criteria (optional, default=True)</span>
+<span class="sd">    :param timeout is the overall scenario timeout (optional, default=60 seconds)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-    # some ego vehicle parameters
-    # some parameters for the other vehicles
+    <span class="c1"># some ego vehicle parameters</span>
+    <span class="c1"># some parameters for the other vehicles</span>
 
-    def __init__(self, world, ego_vehicles, config, randomize=False, debug_mode=False, criteria_enable=True,
-                 timeout=60):
-        &quot;&quot;&quot;
-        Initialize all parameters required for NewScenario
-        &quot;&quot;&quot;
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">world</span><span class="p">,</span> <span class="n">ego_vehicles</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">randomize</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">debug_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">criteria_enable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                 <span class="n">timeout</span><span class="o">=</span><span class="mi">60</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize all parameters required for NewScenario</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
-        # Call constructor of BasicScenario
-        super(NewScenario, self).__init__(
-          &quot;NewScenario&quot;,
-          ego_vehicles,
-          config,
-          world,
-          debug_mode,
-          criteria_enable=criteria_enable)
+        <span class="c1"># Call constructor of BasicScenario</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">NewScenario</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+          <span class="s2">&quot;NewScenario&quot;</span><span class="p">,</span>
+          <span class="n">ego_vehicles</span><span class="p">,</span>
+          <span class="n">config</span><span class="p">,</span>
+          <span class="n">world</span><span class="p">,</span>
+          <span class="n">debug_mode</span><span class="p">,</span>
+          <span class="n">criteria_enable</span><span class="o">=</span><span class="n">criteria_enable</span><span class="p">)</span>
 
 
-    def _create_behavior(self):
-        &quot;&quot;&quot;
-        Setup the behavior for NewScenario
-        &quot;&quot;&quot;
+    <span class="k">def</span> <span class="nf">_create_behavior</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setup the behavior for NewScenario</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
-    def _create_test_criteria(self):
-        &quot;&quot;&quot;
-        Setup the evaluation criteria for NewScenario
-        &quot;&quot;&quot;
-</code></pre>
+    <span class="k">def</span> <span class="nf">_create_test_criteria</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setup the evaluation criteria for NewScenario</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+</code></pre></div>
 <h2 id="python_1">填充Python类</h2>
 <p>在 <code>NewScenario</code> 类中，您必须定义代码示例中提到的以下方法。</p>
 <h3 id="_2">初始化方法</h3>
@@ -126,11 +126,11 @@
 <h2 id="_3">添加场景配置</h2>
 <p>最后，场景配置应添加到该 <code>examples/</code> 文件夹中。如果扩展已经存在的场景模块，则只需扩展相应的 XML，否则添加新的 XML 文件。在这种情况下，您可以使用任何现有的 XML 文件作为蓝图。</p>
 <p>如果您想为一个场景添加多个自我车辆，请确保它们使用不同的参与者名称，例如</p>
-<pre><code class="language-xml">    &lt;scenario name=&quot;MultiEgoTown03&quot; type=&quot;FreeRide&quot; town=&quot;Town03&quot;&gt;
-        &lt;ego_vehicle x=&quot;207&quot; y=&quot;59&quot; z=&quot;0&quot; yaw=&quot;180&quot; model=&quot;vehicle.lincoln.mkz_2017&quot; rolename=&quot;hero&quot;/&gt;
-        &lt;ego_vehicle x=&quot;237&quot; y=&quot;-95.0754252474&quot; z=&quot;0&quot; yaw=&quot;90&quot; model=&quot;vehicle.tesla.model3&quot; rolename=&quot;hero2&quot;/&gt;
-    &lt;/scenario&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nt">&lt;scenario</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;MultiEgoTown03&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;FreeRide&quot;</span><span class="w"> </span><span class="na">town=</span><span class="s">&quot;Town03&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;ego_vehicle</span><span class="w"> </span><span class="na">x=</span><span class="s">&quot;207&quot;</span><span class="w"> </span><span class="na">y=</span><span class="s">&quot;59&quot;</span><span class="w"> </span><span class="na">z=</span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="na">yaw=</span><span class="s">&quot;180&quot;</span><span class="w"> </span><span class="na">model=</span><span class="s">&quot;vehicle.lincoln.mkz_2017&quot;</span><span class="w"> </span><span class="na">rolename=</span><span class="s">&quot;hero&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;ego_vehicle</span><span class="w"> </span><span class="na">x=</span><span class="s">&quot;237&quot;</span><span class="w"> </span><span class="na">y=</span><span class="s">&quot;-95.0754252474&quot;</span><span class="w"> </span><span class="na">z=</span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="na">yaw=</span><span class="s">&quot;90&quot;</span><span class="w"> </span><span class="na">model=</span><span class="s">&quot;vehicle.tesla.model3&quot;</span><span class="w"> </span><span class="na">rolename=</span><span class="s">&quot;hero2&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/scenario&gt;</span>
+</code></pre></div>
               
             </div>
           </div><footer>
@@ -166,8 +166,13 @@
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="../../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

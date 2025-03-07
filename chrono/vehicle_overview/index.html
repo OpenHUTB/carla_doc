@@ -90,60 +90,60 @@
 </ul>
 <p>作为中间件库，<code>Chrono::Vehicle</code> 要求用户提供 C++ 类来具体实例化特定模板。可选的 Chrono 库为一些地面车辆（包括轮式和履带式）提供了完整的此类具体 C++ 类集，可作为其他特定车辆模型的示例。虽然此类类通常非常轻量，但这需要一定的编程经验。为了解决这个问题，我们提供了一种替代机制来定义车辆系统和子系统模板的具体实例，该机制基于 JSON 格式的输入规范文件。</p>
 <p>根据给定类型（轮式或履带式）的子系统模板层次结构，可以通过指定具体模板参数的相应 JSON 文件层次结构来完整定义车辆，否则将推迟到子组件的进一步 JSON 规范文件。以下是轮式车辆的顶级 JSON 规范文件的示例。连同它引用的所有其他输入文件，此 JSON 文件完整描述了具有两个轴的具体轮式车辆，前后均使用双叉臂悬架，前轴上安装有转向臂转向机构，后轮传动系统。</p>
-<pre><code class="language-json">{
-  &quot;Name&quot;:      &quot;Test vehicle - Double Wishbone&quot;,
-  &quot;Type&quot;:      &quot;Vehicle&quot;,
-  &quot;Template&quot;:  &quot;WheeledVehicle&quot;,
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;Name&quot;</span><span class="p">:</span><span class="w">      </span><span class="s2">&quot;Test vehicle - Double Wishbone&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;Type&quot;</span><span class="p">:</span><span class="w">      </span><span class="s2">&quot;Vehicle&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;Template&quot;</span><span class="p">:</span><span class="w">  </span><span class="s2">&quot;WheeledVehicle&quot;</span><span class="p">,</span>
 
-  &quot;Chassis&quot;: {
-    &quot;Input File&quot;:  &quot;generic/chassis/Chassis.json&quot;
-  },
+<span class="w">  </span><span class="nt">&quot;Chassis&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;Input File&quot;</span><span class="p">:</span><span class="w">  </span><span class="s2">&quot;generic/chassis/Chassis.json&quot;</span>
+<span class="w">  </span><span class="p">},</span>
 
-  &quot;Axles&quot;: [
-  {
-    &quot;Suspension Input File&quot;:   &quot;generic/suspension/DoubleWishbone.json&quot;,
-    &quot;Suspension Location&quot;:     [1.25, 0, -0.21],
-    &quot;Steering Index&quot;:          0,
-    &quot;Left Wheel Input File&quot;:   &quot;generic/wheel/WheelSimple.json&quot;,
-    &quot;Right Wheel Input File&quot;:  &quot;generic/wheel/WheelSimple.json&quot;,
-    &quot;Left Brake Input File&quot;:   &quot;generic/brake/BrakeSimple.json&quot;,
-    &quot;Right Brake Input File&quot;:  &quot;generic/brake/BrakeSimple.json&quot;
-  },
-  {
-    &quot;Suspension Input File&quot;:   &quot;generic/suspension/DoubleWishbone.json&quot;,
-    &quot;Suspension Location&quot;:     [-1.25, 0, -0.21],
-    &quot;Left Wheel Input File&quot;:   &quot;generic/wheel/WheelSimple.json&quot;,
-    &quot;Right Wheel Input File&quot;:  &quot;generic/wheel/WheelSimple.json&quot;,
-    &quot;Left Brake Input File&quot;:   &quot;generic/brake/BrakeSimple.json&quot;,
-    &quot;Right Brake Input File&quot;:  &quot;generic/brake/BrakeSimple.json&quot;
-  }
-  ],
+<span class="w">  </span><span class="nt">&quot;Axles&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;Suspension Input File&quot;</span><span class="p">:</span><span class="w">   </span><span class="s2">&quot;generic/suspension/DoubleWishbone.json&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Suspension Location&quot;</span><span class="p">:</span><span class="w">     </span><span class="p">[</span><span class="mf">1.25</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mf">-0.21</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;Steering Index&quot;</span><span class="p">:</span><span class="w">          </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Left Wheel Input File&quot;</span><span class="p">:</span><span class="w">   </span><span class="s2">&quot;generic/wheel/WheelSimple.json&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Right Wheel Input File&quot;</span><span class="p">:</span><span class="w">  </span><span class="s2">&quot;generic/wheel/WheelSimple.json&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Left Brake Input File&quot;</span><span class="p">:</span><span class="w">   </span><span class="s2">&quot;generic/brake/BrakeSimple.json&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Right Brake Input File&quot;</span><span class="p">:</span><span class="w">  </span><span class="s2">&quot;generic/brake/BrakeSimple.json&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;Suspension Input File&quot;</span><span class="p">:</span><span class="w">   </span><span class="s2">&quot;generic/suspension/DoubleWishbone.json&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Suspension Location&quot;</span><span class="p">:</span><span class="w">     </span><span class="p">[</span><span class="mf">-1.25</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mf">-0.21</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;Left Wheel Input File&quot;</span><span class="p">:</span><span class="w">   </span><span class="s2">&quot;generic/wheel/WheelSimple.json&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Right Wheel Input File&quot;</span><span class="p">:</span><span class="w">  </span><span class="s2">&quot;generic/wheel/WheelSimple.json&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Left Brake Input File&quot;</span><span class="p">:</span><span class="w">   </span><span class="s2">&quot;generic/brake/BrakeSimple.json&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Right Brake Input File&quot;</span><span class="p">:</span><span class="w">  </span><span class="s2">&quot;generic/brake/BrakeSimple.json&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
 
-  &quot;Steering Subsystems&quot;: [
-  {
-    &quot;Input File&quot;:   &quot;generic/steering/PitmanArm.json&quot;,
-    &quot;Location&quot;:     [1.1, 0, -0.4],
-    &quot;Orientation&quot;:  [0.98699637, 0, 0.16074256, 0]
-  }
-  ],
+<span class="w">  </span><span class="nt">&quot;Steering Subsystems&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;Input File&quot;</span><span class="p">:</span><span class="w">   </span><span class="s2">&quot;generic/steering/PitmanArm.json&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Location&quot;</span><span class="p">:</span><span class="w">     </span><span class="p">[</span><span class="mf">1.1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mf">-0.4</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;Orientation&quot;</span><span class="p">:</span><span class="w">  </span><span class="p">[</span><span class="mf">0.98699637</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.16074256</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
 
-  &quot;Driveline&quot;: {
-    &quot;Input File&quot;:          &quot;generic/driveline/Driveline2WD.json&quot;,
-    &quot;Suspension Indexes&quot;:  [1]
-  }
-}
-</code></pre>
+<span class="w">  </span><span class="nt">&quot;Driveline&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;Input File&quot;</span><span class="p">:</span><span class="w">          </span><span class="s2">&quot;generic/driveline/Driveline2WD.json&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Suspension Indexes&quot;</span><span class="p">:</span><span class="w">  </span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 <h2 id="_2">参考框架 <span id="reference_frames"></span></h2>
 <p>每个车辆子系统都是根据其自己的参考系定义的；换句话说，车辆子系统模板中的所有受力点位置都必须根据子系统的参考系提供。然后，车辆系统（无论是轮式还是履带式）被构建为其组成部件的具体模板实例集合，方法是指定它们相对于车辆参考系的位置和方向，并根据需要提供连接信息（例如，将特定的转向机构连接到轮式车辆的特定车轴/悬架）。</p>
 <p>对于建模，<code>Chrono::Vehicle</code> 仅使用 ISO 车辆轴约定，即右侧框架，X 向前，Z 向上，Y 指向车辆左侧（参见 ISO 8855:2011）。下图说明了车辆参考系 <script type="math/tex"> O_1 </script>（按照惯例与底盘子系统的参考系对齐），以及子系统参考系（<script type="math/tex"> O_2^{'} </script> 和 <script type="math/tex"> O_2^{''} </script> 表示前后悬架，<script type="math/tex"> O_3 </script> 表示转向机构），适用于双轴轮式车辆。</p>
 <p><img alt="" src="../../img/chrono/ISO_frame.png" /></p>
 <h2 id="_3">模拟世界框架</h2>
-<p>虽然 <code>Chrono::Vehicle</code> 模拟的默认世界坐标系也是 ISO（Z 向上）坐标系，但支持模拟在不同参考坐标系（例如 Y 向上坐标系）中指定的场景中的车辆。世界坐标系通过旋转矩阵（将 ISO 坐标系与所需世界坐标系对齐所需的旋转）唯一定义。要从默认 ISO 约定更改世界坐标系定义，必须在任何 <code>Chrono::Vehicle</code> 库调用之前设置所需世界坐标系：</p>
-<pre><code class="language-json">ChWorldFrame::Set(world_rotation);
-</code></pre>
-<p>提供了一种快捷方式来指定 Y 向上（X 向前，Z 向右）的世界框架：</p>
-<pre><code class="language-json">ChWorldFrame::SetYUP();
-</code></pre>
+<p>虽然 <code>Chrono::Vehicle</code> 模拟的默认世界坐标系也是 ISO（Z 向上）坐标系，但支持模拟在不同参考坐标系（例如 Y 向上坐标系）中指定的场景中的车辆。世界坐标系通过旋转矩阵（将 ISO 坐标系与所需世界坐标系对齐所需的旋转）唯一定义。要从默认 ISO 约定更改世界坐标系定义，必须在任何 <code>Chrono::Vehicle</code> 库调用之前设置所需世界坐标系：
+<div class="highlight"><pre><span></span><code><span class="err">ChWorldFrame</span><span class="p">::</span><span class="err">Se</span><span class="kc">t</span><span class="err">(world_ro</span><span class="kc">tat</span><span class="err">io</span><span class="kc">n</span><span class="err">);</span>
+</code></pre></div></p>
+<p>提供了一种快捷方式来指定 Y 向上（X 向前，Z 向右）的世界框架：
+<div class="highlight"><pre><span></span><code><span class="err">ChWorldFrame</span><span class="p">::</span><span class="err">Se</span><span class="kc">t</span><span class="err">YUP();</span>
+</code></pre></div></p>
 <p><code>ChWorldFrame</code>类提供实用程序来查询世界法线、前向、给定 3D 点的高度（沿世界垂直方向的分量），将点投影到世界的水平面上，以及表达往返于基本 ISO 框架的 3D 向量。</p>
 <p>请参阅 <code>demo_VEH_HMMWV9_YUPY</code> 向上世界框架中的 <code>Chrono::Vehicle</code> 模拟的示例。</p>
 <h2 id="_4">模拟循环 <span id="simulation_loop"></span></h2>
@@ -186,8 +186,13 @@
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="../../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

@@ -105,166 +105,166 @@
 </div>
 <h3 id="_3">软件要求 <span id="software-requirements"></span></h3>
 <p>Carla 需要运行多种不同类型的软件。有些是在 Carla 构建过程本身期间构建的，例如<em>Boost.Python</em>。其他是应该在开始构建之前安装的二进制文件（<em>cmake</em>、<em>clang</em>、不同版本的<em>Python</em>等）。要安装这些要求，请运行以下命令：</p>
-<pre><code class="language-sh">sudo apt-get update &amp;&amp;
-sudo apt-get install wget software-properties-common &amp;&amp;
-sudo add-apt-repository ppa:ubuntu-toolchain-r/test &amp;&amp;
-wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add - &amp;&amp;
-sudo apt-add-repository &quot;deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-8 main&quot; &amp;&amp;
-sudo apt-get update
-</code></pre>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>wget<span class="w"> </span>software-properties-common<span class="w"> </span><span class="o">&amp;&amp;</span>
+sudo<span class="w"> </span>add-apt-repository<span class="w"> </span>ppa:ubuntu-toolchain-r/test<span class="w"> </span><span class="o">&amp;&amp;</span>
+wget<span class="w"> </span>-O<span class="w"> </span>-<span class="w"> </span>https://apt.llvm.org/llvm-snapshot.gpg.key<span class="p">|</span>sudo<span class="w"> </span>apt-key<span class="w"> </span>add<span class="w"> </span>-<span class="w"> </span><span class="o">&amp;&amp;</span>
+sudo<span class="w"> </span>apt-add-repository<span class="w"> </span><span class="s2">&quot;deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-8 main&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>update
+</code></pre></div>
 <div class="admonition 警告">
 <p class="admonition-title">警告</p>
 <p>以下命令取决于您的 Ubuntu 版本。请务必做出相应的选择。</p>
 </div>
-<p><strong>Ubuntu 24.04</strong></p>
-<pre><code class="language-shell"># 显卡驱动使用nvidia-driver-470-server（转有）
-# 已经安装了clang-14
-# sudo apt install g++-10
-# sudo apt-get install clang++-10
+<p><strong>Ubuntu 24.04</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># 显卡驱动使用nvidia-driver-470-server（转有）</span>
+<span class="c1"># 已经安装了clang-14</span>
+<span class="c1"># sudo apt install g++-10</span>
+<span class="c1"># sudo apt-get install clang++-10</span>
 
-# 源代码编译安装 llvm-10
-sudo apt install gcc-multilib
-git clone --branch release/10.x --recursive https://github.com/llvm/llvm-project
-cd llvm-project/llvm
-cmake -G &quot;Unix Makefiles&quot; -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_PROJECTS=lld -DCMAKE_INSTALL_PREFIX=/usr/local/llvm-10 ..
-make -j8
-sudo make install
-# /usr/local/llvm-10/bin
-# 编译clang-10（默认LLVM编译完没有clang）
-# 回到llvm-project目录
-cd llvm-project/clang/
-mkdir build
-cd build
-cmake -G &quot;Unix Makefiles&quot; -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local/clang-10 ..
-make -j8
-sudo make install
-# 创建软链接
-sudo ln -s /usr/local/clang-10/bin/clang++ /usr/bin/clang++
-sudo ln -s /usr/local/clang-10/bin/clang /usr/bin/clang
-# 检查版本
-clang --version
+<span class="c1"># 源代码编译安装 llvm-10</span>
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>gcc-multilib
+git<span class="w"> </span>clone<span class="w"> </span>--branch<span class="w"> </span>release/10.x<span class="w"> </span>--recursive<span class="w"> </span>https://github.com/llvm/llvm-project
+<span class="nb">cd</span><span class="w"> </span>llvm-project/llvm
+cmake<span class="w"> </span>-G<span class="w"> </span><span class="s2">&quot;Unix Makefiles&quot;</span><span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release<span class="w"> </span>-DLLVM_ENABLE_PROJECTS<span class="o">=</span>lld<span class="w"> </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span>/usr/local/llvm-10<span class="w"> </span>..
+make<span class="w"> </span>-j8
+sudo<span class="w"> </span>make<span class="w"> </span>install
+<span class="c1"># /usr/local/llvm-10/bin</span>
+<span class="c1"># 编译clang-10（默认LLVM编译完没有clang）</span>
+<span class="c1"># 回到llvm-project目录</span>
+<span class="nb">cd</span><span class="w"> </span>llvm-project/clang/
+mkdir<span class="w"> </span>build
+<span class="nb">cd</span><span class="w"> </span>build
+cmake<span class="w"> </span>-G<span class="w"> </span><span class="s2">&quot;Unix Makefiles&quot;</span><span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release<span class="w"> </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span>/usr/local/clang-10<span class="w"> </span>..
+make<span class="w"> </span>-j8
+sudo<span class="w"> </span>make<span class="w"> </span>install
+<span class="c1"># 创建软链接</span>
+sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/usr/local/clang-10/bin/clang++<span class="w"> </span>/usr/bin/clang++
+sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/usr/local/clang-10/bin/clang<span class="w"> </span>/usr/bin/clang
+<span class="c1"># 检查版本</span>
+clang<span class="w"> </span>--version
 
-# 源代码编译安装 gcc-7
-wget http://ftp.gnu.org/gnu/gcc/gcc-7.5.0/gcc-7.5.0.tar.gz
-tar -zxvf gcc-7.5.0.tar.gz
-cd gcc-7.5.0
-mkdir build
-cd build
-../configure --prefix=/usr/local/gcc-7  # 开始配置安装
-# 如果安装缺少的库，则运行下面这一条命令
-sudo apt-get install libgmp-dev libmpfr-dev libmpc-dev gcc-multilib g++-multilib
-# 再次使用下面命令构建安装环境
-../configure --enable-multilib
-# 构建完成后得到一个Makefile文件。开始编译
-make -j8  # -j选项后的数字取决于机器的逻辑处理器数量
-sudo make install
-# 创建软链接
-sudo ln -s /usr/local/clang-10/bin/clang++ /usr/bin/g++
+<span class="c1"># 源代码编译安装 gcc-7</span>
+wget<span class="w"> </span>http://ftp.gnu.org/gnu/gcc/gcc-7.5.0/gcc-7.5.0.tar.gz
+tar<span class="w"> </span>-zxvf<span class="w"> </span>gcc-7.5.0.tar.gz
+<span class="nb">cd</span><span class="w"> </span>gcc-7.5.0
+mkdir<span class="w"> </span>build
+<span class="nb">cd</span><span class="w"> </span>build
+../configure<span class="w"> </span>--prefix<span class="o">=</span>/usr/local/gcc-7<span class="w">  </span><span class="c1"># 开始配置安装</span>
+<span class="c1"># 如果安装缺少的库，则运行下面这一条命令</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>libgmp-dev<span class="w"> </span>libmpfr-dev<span class="w"> </span>libmpc-dev<span class="w"> </span>gcc-multilib<span class="w"> </span>g++-multilib
+<span class="c1"># 再次使用下面命令构建安装环境</span>
+../configure<span class="w"> </span>--enable-multilib
+<span class="c1"># 构建完成后得到一个Makefile文件。开始编译</span>
+make<span class="w"> </span>-j8<span class="w">  </span><span class="c1"># -j选项后的数字取决于机器的逻辑处理器数量</span>
+sudo<span class="w"> </span>make<span class="w"> </span>install
+<span class="c1"># 创建软链接</span>
+sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/usr/local/clang-10/bin/clang++<span class="w"> </span>/usr/bin/g++
 
 
-sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-14 180
-sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-14 180
-sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-12 180
-</code></pre>
+sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--install<span class="w"> </span>/usr/bin/clang++<span class="w"> </span>clang++<span class="w"> </span>/usr/bin/clang++-14<span class="w"> </span><span class="m">180</span>
+sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--install<span class="w"> </span>/usr/bin/clang<span class="w"> </span>clang<span class="w"> </span>/usr/bin/clang-14<span class="w"> </span><span class="m">180</span>
+sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--install<span class="w"> </span>/usr/bin/g++<span class="w"> </span>g++<span class="w"> </span>/usr/bin/g++-12<span class="w"> </span><span class="m">180</span>
+</code></pre></div></p>
 <div class="admonition 警告">
 <p class="admonition-title">警告</p>
 <p>构建时对<code>Util/BuildTools/Setup.sh</code>所做的修改：1. 构建boost时，执行<code>./bootstrap.sh</code>的命令中去除了<code>--with-toolset=clang</code>选项。2. 对rcplib执行cmake时，去除了<code>-stdlib=libc++</code>选项。</p>
 </div>
-<p><strong>Ubuntu 22.04</strong></p>
-<pre><code class="language-shell">sudo apt-add-repository &quot;deb http://archive.ubuntu.com/ubuntu focal main universe&quot;
-sudo apt-get update
-sudo apt-get install build-essential clang-10 lld-10 g++-7 cmake ninja-build libvulkan1 python python3 python3-dev python3-pip libpng-dev libtiff5-dev libjpeg-dev tzdata sed curl unzip autoconf libtool rsync libxml2-dev git git-lfs
-# update-alternatives的第一个参数--install表示向update-alternatives注册服务名。
-# 第二个参数是注册最终地址，成功后将会把命令在这个固定的目的地址做真实命令的软链，以后管理就是管理这个软链；
-# 第三个参数：服务名，以后管理时以它为关联依据。
-# 第四个参数，被管理的命令绝对路径。
-# 第五个参数，优先级，数字越大优先级越高。
-sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/lib/llvm-10/bin/clang++ 180 &amp;&amp;
-sudo update-alternatives --install /usr/bin/clang clang /usr/lib/llvm-10/bin/clang 180 &amp;&amp;
-sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-7 180
-</code></pre>
-<p><strong>Ubuntu 20.04</strong></p>
-<pre><code class="language-shell">sudo apt-add-repository &quot;deb http://apt.llvm.org/focal/ llvm-toolchain-focal main&quot;
-sudo apt-get update
-sudo apt-get install build-essential clang-10 lld-10 g++-7 cmake ninja-build libvulkan1 python python-dev python3-dev python3-pip libpng-dev libtiff5-dev libjpeg-dev tzdata sed curl unzip autoconf libtool rsync libxml2-dev git
-sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/lib/llvm-10/bin/clang++ 180 &amp;&amp;
-sudo update-alternatives --install /usr/bin/clang clang /usr/lib/llvm-10/bin/clang 180
-</code></pre>
+<p><strong>Ubuntu 22.04</strong>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt-add-repository<span class="w"> </span><span class="s2">&quot;deb http://archive.ubuntu.com/ubuntu focal main universe&quot;</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>update
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>build-essential<span class="w"> </span>clang-10<span class="w"> </span>lld-10<span class="w"> </span>g++-7<span class="w"> </span>cmake<span class="w"> </span>ninja-build<span class="w"> </span>libvulkan1<span class="w"> </span>python<span class="w"> </span>python3<span class="w"> </span>python3-dev<span class="w"> </span>python3-pip<span class="w"> </span>libpng-dev<span class="w"> </span>libtiff5-dev<span class="w"> </span>libjpeg-dev<span class="w"> </span>tzdata<span class="w"> </span>sed<span class="w"> </span>curl<span class="w"> </span>unzip<span class="w"> </span>autoconf<span class="w"> </span>libtool<span class="w"> </span>rsync<span class="w"> </span>libxml2-dev<span class="w"> </span>git<span class="w"> </span>git-lfs
+<span class="c1"># update-alternatives的第一个参数--install表示向update-alternatives注册服务名。</span>
+<span class="c1"># 第二个参数是注册最终地址，成功后将会把命令在这个固定的目的地址做真实命令的软链，以后管理就是管理这个软链；</span>
+<span class="c1"># 第三个参数：服务名，以后管理时以它为关联依据。</span>
+<span class="c1"># 第四个参数，被管理的命令绝对路径。</span>
+<span class="c1"># 第五个参数，优先级，数字越大优先级越高。</span>
+sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--install<span class="w"> </span>/usr/bin/clang++<span class="w"> </span>clang++<span class="w"> </span>/usr/lib/llvm-10/bin/clang++<span class="w"> </span><span class="m">180</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--install<span class="w"> </span>/usr/bin/clang<span class="w"> </span>clang<span class="w"> </span>/usr/lib/llvm-10/bin/clang<span class="w"> </span><span class="m">180</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--install<span class="w"> </span>/usr/bin/g++<span class="w"> </span>g++<span class="w"> </span>/usr/bin/g++-7<span class="w"> </span><span class="m">180</span>
+</code></pre></div></p>
+<p><strong>Ubuntu 20.04</strong>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt-add-repository<span class="w"> </span><span class="s2">&quot;deb http://apt.llvm.org/focal/ llvm-toolchain-focal main&quot;</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>update
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>build-essential<span class="w"> </span>clang-10<span class="w"> </span>lld-10<span class="w"> </span>g++-7<span class="w"> </span>cmake<span class="w"> </span>ninja-build<span class="w"> </span>libvulkan1<span class="w"> </span>python<span class="w"> </span>python-dev<span class="w"> </span>python3-dev<span class="w"> </span>python3-pip<span class="w"> </span>libpng-dev<span class="w"> </span>libtiff5-dev<span class="w"> </span>libjpeg-dev<span class="w"> </span>tzdata<span class="w"> </span>sed<span class="w"> </span>curl<span class="w"> </span>unzip<span class="w"> </span>autoconf<span class="w"> </span>libtool<span class="w"> </span>rsync<span class="w"> </span>libxml2-dev<span class="w"> </span>git
+sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--install<span class="w"> </span>/usr/bin/clang++<span class="w"> </span>clang++<span class="w"> </span>/usr/lib/llvm-10/bin/clang++<span class="w"> </span><span class="m">180</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--install<span class="w"> </span>/usr/bin/clang<span class="w"> </span>clang<span class="w"> </span>/usr/lib/llvm-10/bin/clang<span class="w"> </span><span class="m">180</span>
+</code></pre></div></p>
 <p><strong>Ubuntu 18.04</strong>.</p>
-<pre><code class="language-sh">sudo apt-add-repository &quot;deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic main&quot;
-sudo apt-get update
-sudo apt-get install build-essential clang-8 lld-8 g++-7 cmake ninja-build libvulkan1 python python-pip python-dev python3-dev python3-pip libpng-dev libtiff5-dev libjpeg-dev tzdata sed curl unzip autoconf libtool rsync libxml2-dev git
-sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/lib/llvm-8/bin/clang++ 180 &amp;&amp;
-sudo update-alternatives --install /usr/bin/clang clang /usr/lib/llvm-8/bin/clang 180
-</code></pre>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt-add-repository<span class="w"> </span><span class="s2">&quot;deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic main&quot;</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>update
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>build-essential<span class="w"> </span>clang-8<span class="w"> </span>lld-8<span class="w"> </span>g++-7<span class="w"> </span>cmake<span class="w"> </span>ninja-build<span class="w"> </span>libvulkan1<span class="w"> </span>python<span class="w"> </span>python-pip<span class="w"> </span>python-dev<span class="w"> </span>python3-dev<span class="w"> </span>python3-pip<span class="w"> </span>libpng-dev<span class="w"> </span>libtiff5-dev<span class="w"> </span>libjpeg-dev<span class="w"> </span>tzdata<span class="w"> </span>sed<span class="w"> </span>curl<span class="w"> </span>unzip<span class="w"> </span>autoconf<span class="w"> </span>libtool<span class="w"> </span>rsync<span class="w"> </span>libxml2-dev<span class="w"> </span>git
+sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--install<span class="w"> </span>/usr/bin/clang++<span class="w"> </span>clang++<span class="w"> </span>/usr/lib/llvm-8/bin/clang++<span class="w"> </span><span class="m">180</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--install<span class="w"> </span>/usr/bin/clang<span class="w"> </span>clang<span class="w"> </span>/usr/lib/llvm-8/bin/clang<span class="w"> </span><span class="m">180</span>
+</code></pre></div>
 <p><strong>Ubuntu 16.04</strong>.</p>
-<pre><code class="language-sh">sudo apt-add-repository &quot;deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-8 main&quot; &amp;&amp;
-sudo apt-get update
-sudo apt-get install build-essential clang-8 lld-8 g++-7 cmake ninja-build libvulkan1 python python-pip python-dev python3-dev python3-pip libpng16-dev libtiff5-dev libjpeg-dev tzdata sed curl unzip autoconf libtool rsync libxml2-dev git
-sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/lib/llvm-8/bin/clang++ 180 &amp;&amp;
-sudo update-alternatives --install /usr/bin/clang clang /usr/lib/llvm-8/bin/clang 180
-</code></pre>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt-add-repository<span class="w"> </span><span class="s2">&quot;deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-8 main&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>update
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>build-essential<span class="w"> </span>clang-8<span class="w"> </span>lld-8<span class="w"> </span>g++-7<span class="w"> </span>cmake<span class="w"> </span>ninja-build<span class="w"> </span>libvulkan1<span class="w"> </span>python<span class="w"> </span>python-pip<span class="w"> </span>python-dev<span class="w"> </span>python3-dev<span class="w"> </span>python3-pip<span class="w"> </span>libpng16-dev<span class="w"> </span>libtiff5-dev<span class="w"> </span>libjpeg-dev<span class="w"> </span>tzdata<span class="w"> </span>sed<span class="w"> </span>curl<span class="w"> </span>unzip<span class="w"> </span>autoconf<span class="w"> </span>libtool<span class="w"> </span>rsync<span class="w"> </span>libxml2-dev<span class="w"> </span>git
+sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--install<span class="w"> </span>/usr/bin/clang++<span class="w"> </span>clang++<span class="w"> </span>/usr/lib/llvm-8/bin/clang++<span class="w"> </span><span class="m">180</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--install<span class="w"> </span>/usr/bin/clang<span class="w"> </span>clang<span class="w"> </span>/usr/lib/llvm-8/bin/clang<span class="w"> </span><span class="m">180</span>
+</code></pre></div>
 <p><strong>以前的 Ubuntu</strong> 版本。</p>
-<pre><code class="language-sh">sudo apt-get install build-essential clang-8 lld-8 g++-7 cmake ninja-build libvulkan1 python python-pip python-dev python3-dev python3-pip libpng16-dev libtiff5-dev libjpeg-dev tzdata sed curl unzip autoconf libtool rsync libxml2-dev git
-</code></pre>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>build-essential<span class="w"> </span>clang-8<span class="w"> </span>lld-8<span class="w"> </span>g++-7<span class="w"> </span>cmake<span class="w"> </span>ninja-build<span class="w"> </span>libvulkan1<span class="w"> </span>python<span class="w"> </span>python-pip<span class="w"> </span>python-dev<span class="w"> </span>python3-dev<span class="w"> </span>python3-pip<span class="w"> </span>libpng16-dev<span class="w"> </span>libtiff5-dev<span class="w"> </span>libjpeg-dev<span class="w"> </span>tzdata<span class="w"> </span>sed<span class="w"> </span>curl<span class="w"> </span>unzip<span class="w"> </span>autoconf<span class="w"> </span>libtool<span class="w"> </span>rsync<span class="w"> </span>libxml2-dev<span class="w"> </span>git
+</code></pre></div>
 <p><strong>所有 Ubuntu 系统</strong>。</p>
 <p>为了避免虚幻引擎和 Carla 依赖项之间的兼容性问题，请使用相同的编译器版本和 C++ 运行时库来编译所有内容。Carla 团队使用 clang-8 和 LLVM 的 libc++。更改默认的 clang 版本以编译虚幻引擎和 Carla 依赖项。</p>
-<pre><code class="language-sh">sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/lib/llvm-8/bin/clang++ 180 &amp;&amp;
-sudo update-alternatives --install /usr/bin/clang clang /usr/lib/llvm-8/bin/clang 180
-</code></pre>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--install<span class="w"> </span>/usr/bin/clang++<span class="w"> </span>clang++<span class="w"> </span>/usr/lib/llvm-8/bin/clang++<span class="w"> </span><span class="m">180</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--install<span class="w"> </span>/usr/bin/clang<span class="w"> </span>clang<span class="w"> </span>/usr/lib/llvm-8/bin/clang<span class="w"> </span><span class="m">180</span>
+</code></pre></div>
 <p>从 Carla 0.9.12 开始，用户可以选择使用<code>pip</code>或<code>pip3</code>安装 Carla Python API。需要 20.3 或更高版本。要检查您是否有合适的版本，请运行以下命令：</p>
-<pre><code class="language-sh"># 对于 Python 3
-pip3 -V
+<div class="highlight"><pre><span></span><code><span class="c1"># 对于 Python 3</span>
+pip3<span class="w"> </span>-V
 
-# 对于 Python 2
-pip -V
-</code></pre>
+<span class="c1"># 对于 Python 2</span>
+pip<span class="w"> </span>-V
+</code></pre></div>
 <p>如果您需要升级：</p>
-<pre><code class="language-sh"># 对于 Python 3
-pip3 install --upgrade pip
+<div class="highlight"><pre><span></span><code><span class="c1"># 对于 Python 3</span>
+pip3<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
 
-# 对于 Python 2
-pip install --upgrade pip
-</code></pre>
+<span class="c1"># 对于 Python 2</span>
+pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
+</code></pre></div>
 <p>您必须安装以下 Python 依赖项：</p>
-<pre><code class="language-sh">pip install --user setuptools &amp;&amp;
-pip3 install --user -Iv setuptools==47.3.1 &amp;&amp;
-pip install --user distro &amp;&amp;
-pip3 install --user distro &amp;&amp;
-pip install --user wheel &amp;&amp;
-pip3 install --user wheel auditwheel
-</code></pre>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span>setuptools<span class="w"> </span><span class="o">&amp;&amp;</span>
+pip3<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span>-Iv<span class="w"> </span><span class="nv">setuptools</span><span class="o">==</span><span class="m">47</span>.3.1<span class="w"> </span><span class="o">&amp;&amp;</span>
+pip<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span>distro<span class="w"> </span><span class="o">&amp;&amp;</span>
+pip3<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span>distro<span class="w"> </span><span class="o">&amp;&amp;</span>
+pip<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span>wheel<span class="w"> </span><span class="o">&amp;&amp;</span>
+pip3<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span>wheel<span class="w"> </span>auditwheel
+</code></pre></div>
 <hr />
 <h4 id="_4">虚幻引擎 <span id="unreal-engine"></span></h4>
 <p>从版本 0.9.12 开始，Carla 使用虚幻引擎 4.26 的修改版。该分支包含 Carla 特有的补丁。</p>
 <p><strong>1.</strong> 将 Carla 的虚幻引擎 4.26 分支的内容克隆到本地计算机：</p>
-<pre><code class="language-sh">git clone https://github.com/OpenHUTB/UnrealEngine.git ~/UnrealEngine_4.26
-</code></pre>
-<p><strong>2.</strong> 导航到克隆存储库的目录：</p>
-<pre><code class="language-sh">cd ~/UnrealEngine_4.26
-</code></pre>
-<p><strong>3.</strong> 进行构建。这可能需要一两个小时，具体取决于您的系统。</p>
-<pre><code class="language-sh">./Setup.sh &amp;&amp; ./GenerateProjectFiles.sh &amp;&amp; make
-</code></pre>
-<p>如果出现</p>
-<pre><code class="language-text">bash: ./Setup.sh: Permission denied
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/OpenHUTB/UnrealEngine.git<span class="w"> </span>~/UnrealEngine_4.26
+</code></pre></div>
+<p><strong>2.</strong> 导航到克隆存储库的目录：
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/UnrealEngine_4.26
+</code></pre></div></p>
+<p><strong>3.</strong> 进行构建。这可能需要一两个小时，具体取决于您的系统。
+<div class="highlight"><pre><span></span><code>./Setup.sh<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>./GenerateProjectFiles.sh<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>make
+</code></pre></div>
+如果出现
+<div class="highlight"><pre><span></span><code>bash: ./Setup.sh: Permission denied
 ./Setup.sh: line 40: Engine/Build/BatchFiles/Linux/GitDependencies.sh: Permission denied
 Engine/Build/BatchFiles/Linux/GitDependencies.sh: line 25: mono: command not found
 
 Setting up Mono
 Corlib not in sync with this runtime: expected corlib version 149, found 1051600014.
-</code></pre>
-<pre><code class="language-shell">chmod +x Setup.sh
-chmod +x Engine/Build/BatchFiles/Linux/GitDependencies.sh
-sudo apt-get install mono-complete
-git clone https://github.com/OpenHUTB/UnrealEngine.git ~/UnrealEngine_4.26
-</code></pre>
-<p><strong>4.</strong> 打开编辑器检查虚幻引擎是否已正确安装。</p>
-<pre><code class="language-sh">cd ~/UnrealEngine_4.26/Engine/Binaries/Linux &amp;&amp; ./UE4Editor
-</code></pre>
-<p>电脑配置达不到Vulkan的标准会出现（OpenGL的API也废弃了）：</p>
-<pre><code class="language-text">Cannot find a compatible Yulkan driver (ICD)
-</code></pre>
+</code></pre></div></p>
+<div class="highlight"><pre><span></span><code>chmod<span class="w"> </span>+x<span class="w"> </span>Setup.sh
+chmod<span class="w"> </span>+x<span class="w"> </span>Engine/Build/BatchFiles/Linux/GitDependencies.sh
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>mono-complete
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/OpenHUTB/UnrealEngine.git<span class="w"> </span>~/UnrealEngine_4.26
+</code></pre></div>
+<p><strong>4.</strong> 打开编辑器检查虚幻引擎是否已正确安装。
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/UnrealEngine_4.26/Engine/Binaries/Linux<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>./UE4Editor
+</code></pre></div></p>
+<p>电脑配置达不到Vulkan的标准会出现（OpenGL的API也废弃了）：
+<div class="highlight"><pre><span></span><code>Cannot find a compatible Yulkan driver (ICD)
+</code></pre></div></p>
 <hr />
 <h2 id="carla">第二部分：构建 Carla <span id="part-two-build-carla"></span></h2>
 <div class="admonition 笔记">
@@ -279,16 +279,16 @@ git clone https://github.com/OpenHUTB/UnrealEngine.git ~/UnrealEngine_4.26
 </p>
 </div>
 <p>上面的按钮将带您进入该项目的官方存储库。从那里下载并在本地提取它或使用以下命令克隆它：</p>
-<pre><code class="language-shell">git clone https://github.com/carla-simulator/carla.git
-</code></pre>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/carla-simulator/carla.git
+</code></pre></div>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>The <code>master</code> 分支包含 Carla 的当前版本以及最新的修复和功能。以前的 Carla 版本标有版本名称。永远记住使用命令<code>git branch</code>检查 git 中的当前分支。 </p>
 </div>
 <h3 id="_5">获取资产 <span id="get-assets"></span></h3>
 <p>您需要下载 <strong>最新的</strong> 资源才能使用当前版本的 Carla。我们提供了一个脚本来自动执行此过程。要使用该脚本，请在 Carla 根文件夹中运行以下命令：</p>
-<pre><code class="language-sh">./Update.sh
-</code></pre>
+<div class="highlight"><pre><span></span><code>./Update.sh
+</code></pre></div>
 <p>资源将被下载并提取到适当的位置。</p>
 <div class="admonition 重要">
 <p class="admonition-title">重要</p>
@@ -300,22 +300,22 @@ git clone https://github.com/OpenHUTB/UnrealEngine.git ~/UnrealEngine_4.26
 <li>提取 <code>Unreal\CarlaUE4\Content\Carla</code> 中的资产。如果该路径不存在，请创建它。</li>
 <li>使用类似以下内容的命令提取文件：</li>
 </ol>
-<pre><code class="language-sh">tar -xvzf &lt;assets_file_name&gt;.tar.gz.tar -C C:\path\to\carla\Unreal\CarlaUE4\Content\Carla
-</code></pre>
+<div class="highlight"><pre><span></span><code>tar<span class="w"> </span>-xvzf<span class="w"> </span>&lt;assets_file_name&gt;.tar.gz.tar<span class="w"> </span>-C<span class="w"> </span>C:<span class="se">\p</span>ath<span class="se">\t</span>o<span class="se">\c</span>arla<span class="se">\U</span>nreal<span class="se">\C</span>arlaUE4<span class="se">\C</span>ontent<span class="se">\C</span>arla
+</code></pre></div>
 <h3 id="_6">设置虚幻引擎环境变量 <span id="set-unreal-engine-environment-variable"></span></h3>
 <p>为了让 Carla 找到虚幻引擎的正确安装，我们需要设置 Carla 环境变量。</p>
 <p>仅为此会话设置变量：</p>
-<pre><code class="language-sh">export UE4_ROOT=~/UnrealEngine_4.26
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">UE4_ROOT</span><span class="o">=</span>~/UnrealEngine_4.26
+</code></pre></div>
 <p>要设置变量以使其在会话中保持不变：</p>
-<p><strong>1.</strong> 打开 <code>~/.bashrc</code> 或 <code>./profile</code>。  </p>
-<pre><code class="language-sh">gedit ~/.bashrc
-# 或 
-gedit ~/.profile
-</code></pre>
+<p><strong>1.</strong> 打开 <code>~/.bashrc</code> 或 <code>./profile</code>。<br />
+<div class="highlight"><pre><span></span><code>gedit<span class="w"> </span>~/.bashrc
+<span class="c1"># 或 </span>
+gedit<span class="w"> </span>~/.profile
+</code></pre></div></p>
 <p><strong>2.</strong> 将以下行添加到文件底部：</p>
-<pre><code class="language-sh">export UE4_ROOT=~/UnrealEngine_4.26 
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">UE4_ROOT</span><span class="o">=</span>~/UnrealEngine_4.26<span class="w"> </span>
+</code></pre></div>
 <p><strong>3.</strong> 保存文件并重置终端。</p>
 <h3 id="carla_2">构建 Carla <span id="build-carla"></span></h3>
 <p>本节概述了构建 Carla 的命令。<strong>所有命令都应在根 Carla 文件夹中运行。</strong></p>
@@ -328,12 +328,12 @@ gedit ~/.profile
 <p><strong>1.</strong> <strong>编译 Python API 客户端：</strong>：</p>
 <p>Python API 客户端授予对模拟的控制权。第一次构建 Carla 时需要编译 Python API 客户端，并且在执行任何更新后需要再次编译。客户端编译完成后，您将能够运行脚本与模拟进行交互。</p>
 <p>以下命令编译 Python API 客户端：</p>
-<pre><code class="language-sh">make PythonAPI
-</code></pre>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>PythonAPI
+</code></pre></div>
 <p>或者，要为特定版本的 Python 编译 PythonAPI，请在根 Carla 目录中运行以下命令。</p>
-<pre><code class="language-sh"># Delete versions as required
-make PythonAPI ARGS=&quot;--python-version=2.7, 3.6, 3.7, 3.8&quot;
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1"># Delete versions as required</span>
+make<span class="w"> </span>PythonAPI<span class="w"> </span><span class="nv">ARGS</span><span class="o">=</span><span class="s2">&quot;--python-version=2.7, 3.6, 3.7, 3.8&quot;</span>
+</code></pre></div>
 <p>Carla 客户端库将以两种截然不同、互斥的形式构建。这使用户可以自由选择他们喜欢的形式来运行 Carla 客户端代码。两种形式包括<code>.egg</code>文件和<code>.whl</code>文件。选择以下选项之一来使用客户端库：</p>
 <p><strong>A. <code>.egg</code> 文件</strong></p>
 <blockquote>
@@ -344,12 +344,12 @@ make PythonAPI ARGS=&quot;--python-version=2.7, 3.6, 3.7, 3.8&quot;
 <blockquote>
 <p><code>.whl</code> 文件应使用 <code>pip</code> 或 <code>pip3</code> 安装：</p>
 </blockquote>
-<pre><code class="language-sh"># Python 3
-pip3 install &lt;path/to/wheel&gt;.whl
+<div class="highlight"><pre><span></span><code><span class="c1"># Python 3</span>
+pip3<span class="w"> </span>install<span class="w"> </span>&lt;path/to/wheel&gt;.whl
 
-# Python 2
-pip install &lt;path/to/wheel&gt;.whl
-</code></pre>
+<span class="c1"># Python 2</span>
+pip<span class="w"> </span>install<span class="w"> </span>&lt;path/to/wheel&gt;.whl
+</code></pre></div>
 <blockquote>
 <p><code>.whl</code> 文件无法分发，因为它是专门为您的操作系统构建的。</p>
 </blockquote>
@@ -359,21 +359,21 @@ pip install &lt;path/to/wheel&gt;.whl
 </div>
 <p><strong>2.</strong> <strong>编译服务器</strong>：</p>
 <p>以下命令编译并启动虚幻引擎。每次您想要启动服务器或使用虚幻引擎编辑器时运行此命令：</p>
-<pre><code class="language-sh">    make launch
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="w">    </span>make<span class="w"> </span>launch
+</code></pre></div>
 <p>该项目可能会要求构建其他实例，例如<code>UE4Editor-Carla.dll</code>第一次。同意才能打开项目。在首次启动期间，编辑器可能会显示有关着色器和网格距离场的警告。这些需要一些时间来加载，在此之前地图将无法正确显示。</p>
 <p><strong>3.</strong> <strong>开始模拟</strong>：</p>
 <p>按“运行”开始服务器模拟。可以使用<code>WASD</code>键移动相机，并通过在移动鼠标的同时单击场景来旋转相机。</p>
 <p>使用<code>PythonAPI\examples</code>里面的示例脚本测试模拟器。在模拟器运行的情况下，为每个脚本打开一个新终端并运行以下命令以在城镇中产生一些生命并创建天气循环：</p>
-<pre><code class="language-sh"># 终端 A 
-cd PythonAPI/examples
-python3 -m pip install -r requirements.txt
-python3 generate_traffic.py  
+<div class="highlight"><pre><span></span><code><span class="c1"># 终端 A </span>
+<span class="nb">cd</span><span class="w"> </span>PythonAPI/examples
+python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+python3<span class="w"> </span>generate_traffic.py<span class="w">  </span>
 
-# 终端 B
-cd PythonAPI/examples
-python3 dynamic_weather.py 
-</code></pre>
+<span class="c1"># 终端 B</span>
+<span class="nb">cd</span><span class="w"> </span>PythonAPI/examples
+python3<span class="w"> </span>dynamic_weather.py<span class="w"> </span>
+</code></pre></div>
 <div class="admonition 重要">
 <p class="admonition-title">重要</p>
 <p>如果模拟以非常低的 FPS 速率运行，请转至虚幻引擎编辑器中的<code>Edit -&gt; Editor preferences -&gt; Performance</code>并禁用 <code>Use less CPU when in background</code>。</p>
@@ -482,8 +482,13 @@ Toolset 'clang' does not appear to support C++11.</code></p>
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

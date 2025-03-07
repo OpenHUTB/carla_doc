@@ -73,246 +73,238 @@
 <p>在本教程中，我们将学习如何设置一个简单的 PyGame 界面，该界面使我们能够监控由交通管理器控制的地图周围的自动驾驶交通，然后使用键盘手动控制任何车辆。</p>
 <h2 id="_1">设置模拟器并初始化交通管理器</h2>
 <p>首先，我们将初始化交通管理器并创建一些随机分布在城市周围的流量。</p>
-<pre><code class="language-py">import carla
-import random
-import pygame
-import numpy as np
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">carla</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">pygame</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-# 连接到客户端并获取世界对象
-client = carla.Client('localhost', 2000)
-world = client.get_world()
+<span class="c1"># 连接到客户端并获取世界对象</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">2000</span><span class="p">)</span>
+<span class="n">world</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_world</span><span class="p">()</span>
 
-# 以同步模式启动模拟器
-settings = world.get_settings()
-settings.synchronous_mode = True # Enables synchronous mode
-settings.fixed_delta_seconds = 0.05
-world.apply_settings(settings)
+<span class="c1"># 以同步模式启动模拟器</span>
+<span class="n">settings</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_settings</span><span class="p">()</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">synchronous_mode</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># Enables synchronous mode</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">fixed_delta_seconds</span> <span class="o">=</span> <span class="mf">0.05</span>
+<span class="n">world</span><span class="o">.</span><span class="n">apply_settings</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
 
-# 以同步模式启动交通管理器
-traffic_manager = client.get_trafficmanager()
-traffic_manager.set_synchronous_mode(True)
+<span class="c1"># 以同步模式启动交通管理器</span>
+<span class="n">traffic_manager</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_trafficmanager</span><span class="p">()</span>
+<span class="n">traffic_manager</span><span class="o">.</span><span class="n">set_synchronous_mode</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
-# 如果有复现的必要，可以设置随机种子
-traffic_manager.set_random_device_seed(0)
-random.seed(0)
+<span class="c1"># 如果有复现的必要，可以设置随机种子</span>
+<span class="n">traffic_manager</span><span class="o">.</span><span class="n">set_random_device_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
-# 我们也会启动观察者以便能看到我们所做的
-spectator = world.get_spectator()
-</code></pre>
+<span class="c1"># 我们也会启动观察者以便能看到我们所做的</span>
+<span class="n">spectator</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_spectator</span><span class="p">()</span>
+</code></pre></div>
 <h2 id="_2">生成车辆</h2>
 <p>我们想要创建一个在整个城市中产生的车辆集合，并让交通管理器控制它们。</p>
-<pre><code class="language-py"># 获取地图的生成点
-spawn_points = world.get_map().get_spawn_points()
+<div class="highlight"><pre><span></span><code><span class="c1"># 获取地图的生成点</span>
+<span class="n">spawn_points</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_map</span><span class="p">()</span><span class="o">.</span><span class="n">get_spawn_points</span><span class="p">()</span>
 
-# 从蓝图库中选择一些模型
-models = ['dodge', 'audi', 'model3', 'mini', 'mustang', 'lincoln', 'prius', 'nissan', 'crown', 'impala']
-blueprints = []
-for vehicle in world.get_blueprint_library().filter('*vehicle*'):
-    if any(model in vehicle.id for model in models):
-        blueprints.append(vehicle)
+<span class="c1"># 从蓝图库中选择一些模型</span>
+<span class="n">models</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;dodge&#39;</span><span class="p">,</span> <span class="s1">&#39;audi&#39;</span><span class="p">,</span> <span class="s1">&#39;model3&#39;</span><span class="p">,</span> <span class="s1">&#39;mini&#39;</span><span class="p">,</span> <span class="s1">&#39;mustang&#39;</span><span class="p">,</span> <span class="s1">&#39;lincoln&#39;</span><span class="p">,</span> <span class="s1">&#39;prius&#39;</span><span class="p">,</span> <span class="s1">&#39;nissan&#39;</span><span class="p">,</span> <span class="s1">&#39;crown&#39;</span><span class="p">,</span> <span class="s1">&#39;impala&#39;</span><span class="p">]</span>
+<span class="n">blueprints</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">vehicle</span> <span class="ow">in</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s1">&#39;*vehicle*&#39;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">model</span> <span class="ow">in</span> <span class="n">vehicle</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">models</span><span class="p">):</span>
+        <span class="n">blueprints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vehicle</span><span class="p">)</span>
 
-# 设置车辆的最大数目，并准备我们生成的列表
-max_vehicles = 50
-max_vehicles = min([max_vehicles, len(spawn_points)])
-vehicles = []
+<span class="c1"># 设置车辆的最大数目，并准备我们生成的列表</span>
+<span class="n">max_vehicles</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">max_vehicles</span> <span class="o">=</span> <span class="nb">min</span><span class="p">([</span><span class="n">max_vehicles</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">spawn_points</span><span class="p">)])</span>
+<span class="n">vehicles</span> <span class="o">=</span> <span class="p">[]</span>
 
-# 随机选取生成点的样本并生成车辆
-for i, spawn_point in enumerate(random.sample(spawn_points, max_vehicles)):
-    temp = world.try_spawn_actor(random.choice(blueprints), spawn_point)
-    if temp is not None:
-        vehicles.append(temp)
+<span class="c1"># 随机选取生成点的样本并生成车辆</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">spawn_point</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">spawn_points</span><span class="p">,</span> <span class="n">max_vehicles</span><span class="p">)):</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">try_spawn_actor</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">blueprints</span><span class="p">),</span> <span class="n">spawn_point</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">temp</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">vehicles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
 
-# 解析生成车辆的列表，并通过 set_autopilot() 给予控制
-for vehicle in vehicles:
-    vehicle.set_autopilot(True)
-    # Randomly set the probability that a vehicle will ignore traffic lights
-    traffic_manager.ignore_lights_percentage(vehicle, random.randint(0,50))
-</code></pre>
+<span class="c1"># 解析生成车辆的列表，并通过 set_autopilot() 给予控制</span>
+<span class="k">for</span> <span class="n">vehicle</span> <span class="ow">in</span> <span class="n">vehicles</span><span class="p">:</span>
+    <span class="n">vehicle</span><span class="o">.</span><span class="n">set_autopilot</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># Randomly set the probability that a vehicle will ignore traffic lights</span>
+    <span class="n">traffic_manager</span><span class="o">.</span><span class="n">ignore_lights_percentage</span><span class="p">(</span><span class="n">vehicle</span><span class="p">,</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">50</span><span class="p">))</span>
+</code></pre></div>
 <h2 id="pygame_1">使用 PyGame 渲染相机输出并控制车辆</h2>
 <p>现在我们有一个交通拥挤的城市，我们可以设置一个摄像头来跟踪其中一辆车，并设置一个控制界面来通过键盘输入接管它。</p>
 <p>首先，我们需要为 <code>camera.listen(...)</code> 定义一个回调函数，用于将像素数据渲染到 PyGame 接口。PyGame 将数据渲染到表面，然后渲染到屏幕，因此在回调中，我们填充存储在传递给回调函数的对象中的表面。</p>
-<pre><code class="language-py"># 渲染对象以保持并传递 PyGame 表面
-class RenderObject(object):
-    def __init__(self, width, height):
-        init_image = np.random.randint(0,255,(height,width,3),dtype='uint8')
-        # 创建与阵列上的数据和格式最相似的新曲面
-        self.surface = pygame.surfarray.make_surface(init_image.swapaxes(0,1))
+<div class="highlight"><pre><span></span><code><span class="c1"># 渲染对象以保持并传递 PyGame 表面</span>
+<span class="k">class</span> <span class="nc">RenderObject</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span>
+        <span class="n">init_image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,(</span><span class="n">height</span><span class="p">,</span><span class="n">width</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;uint8&#39;</span><span class="p">)</span>
+        <span class="c1"># 创建与阵列上的数据和格式最相似的新曲面</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">surface</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">surfarray</span><span class="o">.</span><span class="n">make_surface</span><span class="p">(</span><span class="n">init_image</span><span class="o">.</span><span class="n">swapaxes</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
 
-# 摄像头传感器回调，将摄像头的原始数据重塑为二维 RGB，并应用于 PyGame曲面
-def pygame_callback(data, obj):
-    img = np.reshape(np.copy(data.raw_data), (data.height, data.width, 4))
-    img = img[:,:,:3]
-    img = img[:, :, ::-1]
-    obj.surface = pygame.surfarray.make_surface(img.swapaxes(0,1))
-</code></pre>
+<span class="c1"># 摄像头传感器回调，将摄像头的原始数据重塑为二维 RGB，并应用于 PyGame曲面</span>
+<span class="k">def</span> <span class="nf">pygame_callback</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">raw_data</span><span class="p">),</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">img</span><span class="p">[:,:,:</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">img</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">obj</span><span class="o">.</span><span class="n">surface</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">surfarray</span><span class="o">.</span><span class="n">make_surface</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">swapaxes</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+</code></pre></div>
 <p>现在我们将创建一个对象来处理控制逻辑。这通常需要进行一些调整才能满足特定需求，但这概述了一个基本界面。当控制车辆时，该控制界面允许通过任何标准键盘上的箭头键进行控制。向前箭头加速，向后箭头制动，左右箭头转动车辆。如果在车辆静止或停止时按住向下箭头，它将接合倒档并开始向后移动。</p>
-<pre><code class="language-py">
-# Control object to manage vehicle controls
-class ControlObject(object):
-    def __init__(self, veh):
+<div class="highlight"><pre><span></span><code><span class="c1"># Control object to manage vehicle controls</span>
+<span class="k">class</span> <span class="nc">ControlObject</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">veh</span><span class="p">):</span>
 
-        # Conrol parameters to store the control state
-        self._vehicle = veh
-        self._steer = 0
-        self._throttle = False
-        self._brake = False
-        self._steer = None
-        self._steer_cache = 0
-        # A carla.VehicleControl object is needed to alter the 
-        # vehicle's control state
-        self._control = carla.VehicleControl()
+        <span class="c1"># Conrol parameters to store the control state</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_vehicle</span> <span class="o">=</span> <span class="n">veh</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_steer</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_throttle</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_brake</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_steer</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_steer_cache</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># A carla.VehicleControl object is needed to alter the </span>
+        <span class="c1"># vehicle&#39;s control state</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_control</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">VehicleControl</span><span class="p">()</span>
 
-    # Check for key press events in the PyGame window
-    # and define the control state
-    def parse_control(self, event):
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_RETURN:
-                self._vehicle.set_autopilot(False)
-            if event.key == pygame.K_UP:
-                self._throttle = True
-            if event.key == pygame.K_DOWN:
-                self._brake = True
-            if event.key == pygame.K_RIGHT:
-                self._steer = 1
-            if event.key == pygame.K_LEFT:
-                self._steer = -1
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_UP:
-                self._throttle = False
-            if event.key == pygame.K_DOWN:
-                self._brake = False
-                self._control.reverse = False
-            if event.key == pygame.K_RIGHT:
-                self._steer = None
-            if event.key == pygame.K_LEFT:
-                self._steer = None
+    <span class="c1"># Check for key press events in the PyGame window</span>
+    <span class="c1"># and define the control state</span>
+    <span class="k">def</span> <span class="nf">parse_control</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">KEYDOWN</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_RETURN</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_vehicle</span><span class="o">.</span><span class="n">set_autopilot</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_UP</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_throttle</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_DOWN</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_brake</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_RIGHT</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_steer</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_LEFT</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_steer</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">KEYUP</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_UP</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_throttle</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_DOWN</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_brake</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_control</span><span class="o">.</span><span class="n">reverse</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_RIGHT</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_steer</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_LEFT</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_steer</span> <span class="o">=</span> <span class="kc">None</span>
 
-    # 处理当前控制状态，更改控制参数
-    # if the key remains pressed
-    def process_control(self):
+    <span class="c1"># 处理当前控制状态，更改控制参数</span>
+    <span class="c1"># if the key remains pressed</span>
+    <span class="k">def</span> <span class="nf">process_control</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-        if self._throttle: 
-            self._control.throttle = min(self._control.throttle + 0.01, 1)
-            self._control.gear = 1
-            self._control.brake = False
-        elif not self._brake:
-            self._control.throttle = 0.0
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_throttle</span><span class="p">:</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">_control</span><span class="o">.</span><span class="n">throttle</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_control</span><span class="o">.</span><span class="n">throttle</span> <span class="o">+</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_control</span><span class="o">.</span><span class="n">gear</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_control</span><span class="o">.</span><span class="n">brake</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_brake</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_control</span><span class="o">.</span><span class="n">throttle</span> <span class="o">=</span> <span class="mf">0.0</span>
 
-        if self._brake:
-            # If the down arrow is held down when the car is stationary, switch to reverse
-            if self._vehicle.get_velocity().length() &lt; 0.01 and not self._control.reverse:
-                self._control.brake = 0.0
-                self._control.gear = 1
-                self._control.reverse = True
-                self._control.throttle = min(self._control.throttle + 0.1, 1)
-            elif self._control.reverse:
-                self._control.throttle = min(self._control.throttle + 0.1, 1)
-            else:
-                self._control.throttle = 0.0
-                self._control.brake = min(self._control.brake + 0.3, 1)
-        else:
-            self._control.brake = 0.0
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_brake</span><span class="p">:</span>
+            <span class="c1"># If the down arrow is held down when the car is stationary, switch to reverse</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vehicle</span><span class="o">.</span><span class="n">get_velocity</span><span class="p">()</span><span class="o">.</span><span class="n">length</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.01</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_control</span><span class="o">.</span><span class="n">reverse</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_control</span><span class="o">.</span><span class="n">brake</span> <span class="o">=</span> <span class="mf">0.0</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_control</span><span class="o">.</span><span class="n">gear</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_control</span><span class="o">.</span><span class="n">reverse</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_control</span><span class="o">.</span><span class="n">throttle</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_control</span><span class="o">.</span><span class="n">throttle</span> <span class="o">+</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_control</span><span class="o">.</span><span class="n">reverse</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_control</span><span class="o">.</span><span class="n">throttle</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_control</span><span class="o">.</span><span class="n">throttle</span> <span class="o">+</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_control</span><span class="o">.</span><span class="n">throttle</span> <span class="o">=</span> <span class="mf">0.0</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_control</span><span class="o">.</span><span class="n">brake</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_control</span><span class="o">.</span><span class="n">brake</span> <span class="o">+</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_control</span><span class="o">.</span><span class="n">brake</span> <span class="o">=</span> <span class="mf">0.0</span>
 
-        if self._steer is not None:
-            if self._steer == 1:
-                self._steer_cache += 0.03
-            if self._steer == -1:
-                self._steer_cache -= 0.03
-            min(0.7, max(-0.7, self._steer_cache))
-            self._control.steer = round(self._steer_cache,1)
-        else:
-            if self._steer_cache &gt; 0.0:
-                self._steer_cache *= 0.2
-            if self._steer_cache &lt; 0.0:
-                self._steer_cache *= 0.2
-            if 0.01 &gt; self._steer_cache &gt; -0.01:
-                self._steer_cache = 0.0
-            self._control.steer = round(self._steer_cache,1)
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_steer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_steer</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_steer_cache</span> <span class="o">+=</span> <span class="mf">0.03</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_steer</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_steer_cache</span> <span class="o">-=</span> <span class="mf">0.03</span>
+            <span class="nb">min</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="o">-</span><span class="mf">0.7</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_steer_cache</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_control</span><span class="o">.</span><span class="n">steer</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_steer_cache</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_steer_cache</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_steer_cache</span> <span class="o">*=</span> <span class="mf">0.2</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_steer_cache</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_steer_cache</span> <span class="o">*=</span> <span class="mf">0.2</span>
+            <span class="k">if</span> <span class="mf">0.01</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_steer_cache</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mf">0.01</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_steer_cache</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_control</span><span class="o">.</span><span class="n">steer</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_steer_cache</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
 
-        # Ápply the control parameters to the ego vehicle
-        self._vehicle.apply_control(self._control)
-
-</code></pre>
+        <span class="c1"># Ápply the control parameters to the ego vehicle</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_vehicle</span><span class="o">.</span><span class="n">apply_control</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_control</span><span class="p">)</span>
+</code></pre></div>
 <p>现在我们将初始化车辆和相机。</p>
-<pre><code class="language-py">
-# Randomly select a vehicle to follow with the camera
-ego_vehicle = random.choice(vehicles)
+<div class="highlight"><pre><span></span><code><span class="c1"># Randomly select a vehicle to follow with the camera</span>
+<span class="n">ego_vehicle</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">vehicles</span><span class="p">)</span>
 
-# Initialise the camera floating behind the vehicle
-camera_init_trans = carla.Transform(carla.Location(x=-5, z=3), carla.Rotation(pitch=-20))
-camera_bp = world.get_blueprint_library().find('sensor.camera.rgb')
-camera = world.spawn_actor(camera_bp, camera_init_trans, attach_to=ego_vehicle)
+<span class="c1"># Initialise the camera floating behind the vehicle</span>
+<span class="n">camera_init_trans</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Transform</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">Location</span><span class="p">(</span><span class="n">x</span><span class="o">=-</span><span class="mi">5</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span> <span class="n">carla</span><span class="o">.</span><span class="n">Rotation</span><span class="p">(</span><span class="n">pitch</span><span class="o">=-</span><span class="mi">20</span><span class="p">))</span>
+<span class="n">camera_bp</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;sensor.camera.rgb&#39;</span><span class="p">)</span>
+<span class="n">camera</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">camera_bp</span><span class="p">,</span> <span class="n">camera_init_trans</span><span class="p">,</span> <span class="n">attach_to</span><span class="o">=</span><span class="n">ego_vehicle</span><span class="p">)</span>
 
-# Start camera with PyGame callback
-camera.listen(lambda image: pygame_callback(image, renderObject))
+<span class="c1"># Start camera with PyGame callback</span>
+<span class="n">camera</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="k">lambda</span> <span class="n">image</span><span class="p">:</span> <span class="n">pygame_callback</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">renderObject</span><span class="p">))</span>
 
-# Get camera dimensions
-image_w = camera_bp.get_attribute(&quot;image_size_x&quot;).as_int()
-image_h = camera_bp.get_attribute(&quot;image_size_y&quot;).as_int()
+<span class="c1"># Get camera dimensions</span>
+<span class="n">image_w</span> <span class="o">=</span> <span class="n">camera_bp</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s2">&quot;image_size_x&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">as_int</span><span class="p">()</span>
+<span class="n">image_h</span> <span class="o">=</span> <span class="n">camera_bp</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s2">&quot;image_size_y&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">as_int</span><span class="p">()</span>
 
-# Instantiate objects for rendering and vehicle control
-renderObject = RenderObject(image_w, image_h)
-controlObject = ControlObject(ego_vehicle)
-
-</code></pre>
+<span class="c1"># Instantiate objects for rendering and vehicle control</span>
+<span class="n">renderObject</span> <span class="o">=</span> <span class="n">RenderObject</span><span class="p">(</span><span class="n">image_w</span><span class="p">,</span> <span class="n">image_h</span><span class="p">)</span>
+<span class="n">controlObject</span> <span class="o">=</span> <span class="n">ControlObject</span><span class="p">(</span><span class="n">ego_vehicle</span><span class="p">)</span>
+</code></pre></div>
 <p>初始化 PyGame 接口。这将调用 PyGame 的新窗口。</p>
-<pre><code class="language-py">
-# Initialise the display
-pygame.init()
-gameDisplay = pygame.display.set_mode((image_w,image_h), pygame.HWSURFACE | pygame.DOUBLEBUF)
-# Draw black to the display
-gameDisplay.fill((0,0,0))
-gameDisplay.blit(renderObject.surface, (0,0))
-pygame.display.flip()
+<p><div class="highlight"><pre><span></span><code><span class="c1"># Initialise the display</span>
+<span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+<span class="n">gameDisplay</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">((</span><span class="n">image_w</span><span class="p">,</span><span class="n">image_h</span><span class="p">),</span> <span class="n">pygame</span><span class="o">.</span><span class="n">HWSURFACE</span> <span class="o">|</span> <span class="n">pygame</span><span class="o">.</span><span class="n">DOUBLEBUF</span><span class="p">)</span>
+<span class="c1"># Draw black to the display</span>
+<span class="n">gameDisplay</span><span class="o">.</span><span class="n">fill</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">gameDisplay</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">renderObject</span><span class="o">.</span><span class="n">surface</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">flip</span><span class="p">()</span>
+</code></pre></div>
+现在我们可以开始游戏循环了。该视图可以在地图中的不同车辆之间随机循环，并在交通管理器控制下可视化它们在交通中的旅程。按 TAB 键切换到随机选择的新车辆，按回车键可以通过键盘上的箭头键手动控制车辆。例如，如果需要挑战驾驶行为不稳定的代理，这种设置可能会很有用。可以调整选择逻辑以选择与代理驾驶的车辆接近的车辆。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Game loop</span>
+<span class="n">crashed</span> <span class="o">=</span> <span class="kc">False</span>
 
-</code></pre>
-<p>现在我们可以开始游戏循环了。该视图可以在地图中的不同车辆之间随机循环，并在交通管理器控制下可视化它们在交通中的旅程。按 TAB 键切换到随机选择的新车辆，按回车键可以通过键盘上的箭头键手动控制车辆。例如，如果需要挑战驾驶行为不稳定的代理，这种设置可能会很有用。可以调整选择逻辑以选择与代理驾驶的车辆接近的车辆。</p>
-<pre><code class="language-py">
-# Game loop
-crashed = False
+<span class="k">while</span> <span class="ow">not</span> <span class="n">crashed</span><span class="p">:</span>
+    <span class="c1"># Advance the simulation time</span>
+    <span class="n">world</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
+    <span class="c1"># Update the display</span>
+    <span class="n">gameDisplay</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">renderObject</span><span class="o">.</span><span class="n">surface</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">flip</span><span class="p">()</span>
+    <span class="c1"># Process the current control state</span>
+    <span class="n">controlObject</span><span class="o">.</span><span class="n">process_control</span><span class="p">()</span>
+    <span class="c1"># Collect key press events</span>
+    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+        <span class="c1"># If the window is closed, break the while loop</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>
+            <span class="n">crashed</span> <span class="o">=</span> <span class="kc">True</span>
 
-while not crashed:
-    # Advance the simulation time
-    world.tick()
-    # Update the display
-    gameDisplay.blit(renderObject.surface, (0,0))
-    pygame.display.flip()
-    # Process the current control state
-    controlObject.process_control()
-    # Collect key press events
-    for event in pygame.event.get():
-        # If the window is closed, break the while loop
-        if event.type == pygame.QUIT:
-            crashed = True
+        <span class="c1"># Parse effect of key press event on control state</span>
+        <span class="n">controlObject</span><span class="o">.</span><span class="n">parse_control</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">KEYUP</span><span class="p">:</span>
+            <span class="c1"># TAB key switches vehicle</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_TAB</span><span class="p">:</span>
+                <span class="n">ego_vehicle</span><span class="o">.</span><span class="n">set_autopilot</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">ego_vehicle</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">vehicles</span><span class="p">)</span>
+                <span class="c1"># Ensure vehicle is still alive (might have been destroyed)</span>
+                <span class="k">if</span> <span class="n">ego_vehicle</span><span class="o">.</span><span class="n">is_alive</span><span class="p">:</span>
+                    <span class="c1"># Stop and remove the camera</span>
+                    <span class="n">camera</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+                    <span class="n">camera</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
 
-        # Parse effect of key press event on control state
-        controlObject.parse_control(event)
-        if event.type == pygame.KEYUP:
-            # TAB key switches vehicle
-            if event.key == pygame.K_TAB:
-                ego_vehicle.set_autopilot(True)
-                ego_vehicle = random.choice(vehicles)
-                # Ensure vehicle is still alive (might have been destroyed)
-                if ego_vehicle.is_alive:
-                    # Stop and remove the camera
-                    camera.stop()
-                    camera.destroy()
+                    <span class="c1"># Spawn new camera and attach to new vehicle</span>
+                    <span class="n">controlObject</span> <span class="o">=</span> <span class="n">ControlObject</span><span class="p">(</span><span class="n">ego_vehicle</span><span class="p">)</span>
+                    <span class="n">camera</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">camera_bp</span><span class="p">,</span> <span class="n">camera_init_trans</span><span class="p">,</span> <span class="n">attach_to</span><span class="o">=</span><span class="n">ego_vehicle</span><span class="p">)</span>
+                    <span class="n">camera</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="k">lambda</span> <span class="n">image</span><span class="p">:</span> <span class="n">pygame_callback</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">renderObject</span><span class="p">))</span>
 
-                    # Spawn new camera and attach to new vehicle
-                    controlObject = ControlObject(ego_vehicle)
-                    camera = world.spawn_actor(camera_bp, camera_init_trans, attach_to=ego_vehicle)
-                    camera.listen(lambda image: pygame_callback(image, renderObject))
+                    <span class="c1"># Update PyGame window</span>
+                    <span class="n">gameDisplay</span><span class="o">.</span><span class="n">fill</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>               
+                    <span class="n">gameDisplay</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">renderObject</span><span class="o">.</span><span class="n">surface</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+                    <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">flip</span><span class="p">()</span>
 
-                    # Update PyGame window
-                    gameDisplay.fill((0,0,0))               
-                    gameDisplay.blit(renderObject.surface, (0,0))
-                    pygame.display.flip()
-
-# Stop camera and quit PyGame after exiting game loop
-camera.stop()
-pygame.quit()
-
-</code></pre>
+<span class="c1"># Stop camera and quit PyGame after exiting game loop</span>
+<span class="n">camera</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+<span class="n">pygame</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+</code></pre></div>
 <p><img alt="manual_control" src="../img/tuto_G_pygame/manual_control.gif" /></p>
               
             </div>
@@ -349,8 +341,13 @@ pygame.quit()
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

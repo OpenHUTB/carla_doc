@@ -85,23 +85,19 @@
 <hr />
 <h3 id="_2">测试控制消息 <span id="testing-control-messages"></span></h3>
 <p>通过主题 <code>/carla/&lt;ROLE NAME&gt;/ackermann_cmd</code> 向汽车发送命令来测试设置。例如，通过运行以下命令以 10 米/秒的速度移动参与者名称为<code>ego_vehicle</code>的自我车辆：</p>
-<pre><code class="language-bash">
-# ROS 1
-rostopic pub /carla/ego_vehicle/ackermann_cmd ackermann_msgs/AckermannDrive &quot;{steering_angle: 0.0, steering_angle_velocity: 0.0, speed: 10, acceleration: 0.0, jerk: 0.0}&quot; -r 10
+<div class="highlight"><pre><span></span><code><span class="c1"># ROS 1</span>
+rostopic<span class="w"> </span>pub<span class="w"> </span>/carla/ego_vehicle/ackermann_cmd<span class="w"> </span>ackermann_msgs/AckermannDrive<span class="w"> </span><span class="s2">&quot;{steering_angle: 0.0, steering_angle_velocity: 0.0, speed: 10, acceleration: 0.0, jerk: 0.0}&quot;</span><span class="w"> </span>-r<span class="w"> </span><span class="m">10</span>
 
-# ROS 2
-ros2 topic pub /carla/ego_vehicle/ackermann_cmd ackermann_msgs/AckermannDrive &quot;{steering_angle: 0.0, steering_angle_velocity: 0.0, speed: 10, acceleration: 0.0, jerk: 0.0}&quot; -r 10
-
-</code></pre>
+<span class="c1"># ROS 2</span>
+ros2<span class="w"> </span>topic<span class="w"> </span>pub<span class="w"> </span>/carla/ego_vehicle/ackermann_cmd<span class="w"> </span>ackermann_msgs/AckermannDrive<span class="w"> </span><span class="s2">&quot;{steering_angle: 0.0, steering_angle_velocity: 0.0, speed: 10, acceleration: 0.0, jerk: 0.0}&quot;</span><span class="w"> </span>-r<span class="w"> </span><span class="m">10</span>
+</code></pre></div>
 <p>或者让车辆向前移动，同时转弯 1.22 弧度的角度：</p>
-<pre><code class="language-bash">
-# ROS 1
-rostopic pub /carla/ego_vehicle/ackermann_cmd ackermann_msgs/AckermannDrive &quot;{steering_angle: 1.22, steering_angle_velocity: 0.0, speed: 10, acceleration: 0.0, jerk: 0.0}&quot; -r 10
+<div class="highlight"><pre><span></span><code><span class="c1"># ROS 1</span>
+rostopic<span class="w"> </span>pub<span class="w"> </span>/carla/ego_vehicle/ackermann_cmd<span class="w"> </span>ackermann_msgs/AckermannDrive<span class="w"> </span><span class="s2">&quot;{steering_angle: 1.22, steering_angle_velocity: 0.0, speed: 10, acceleration: 0.0, jerk: 0.0}&quot;</span><span class="w"> </span>-r<span class="w"> </span><span class="m">10</span>
 
-# ROS 2
-ros2 topic pub /carla/ego_vehicle/ackermann_cmd ackermann_msgs/AckermannDrive &quot;{steering_angle: 1.22, steering_angle_velocity: 0.0, speed: 10, acceleration: 0.0, jerk: 0.0}&quot; -r 10
-
-</code></pre>
+<span class="c1"># ROS 2</span>
+ros2<span class="w"> </span>topic<span class="w"> </span>pub<span class="w"> </span>/carla/ego_vehicle/ackermann_cmd<span class="w"> </span>ackermann_msgs/AckermannDrive<span class="w"> </span><span class="s2">&quot;{steering_angle: 1.22, steering_angle_velocity: 0.0, speed: 10, acceleration: 0.0, jerk: 0.0}&quot;</span><span class="w"> </span>-r<span class="w"> </span><span class="m">10</span>
+</code></pre></div>
 <hr />
 <h3 id="ros">ROS 应用程序接口 <span id="ros-api"></span></h3>
 <h4 id="_3">订阅 <span id="subscriptions"></span></h4>
@@ -175,8 +171,13 @@ ros2 topic pub /carla/ego_vehicle/ackermann_cmd ackermann_msgs/AckermannDrive &q
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

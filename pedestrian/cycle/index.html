@@ -78,26 +78,26 @@
 <p>目前，市场上唯一的智能转向板是 <a href="https://www.elite-it.com/en/products/home-trainers/ecosystem-accessories/sterzo-smart">Elite Sterzo</a> 。任何支持蓝牙 FTMS 的 Elite、JetBlack、Wahoo、Tacx 等智能训练器均可兼容。</p>
 <p>与任何制造商均无关联。</p>
 <h2 id="_3">安装</h2>
-<p>1.启动Carla</p>
-<pre><code class="language-shell">CarlaUE4.exe
-</code></pre>
-<p>2.安装UV</p>
-<pre><code class="language-shell"># Windows
-powershell -ExecutionPolicy ByPass -c &quot;irm https://astral.sh/uv/install.ps1 | iex&quot;
-# 验证安装：
-uv --version
-</code></pre>
-<p>3.下载安装所需要的python版本和metacycle应用：</p>
-<pre><code class="language-shell">uv python install 3.10
-uv tool install metacycle --python 3.10
-# 启动metacycle
+<p>1.启动Carla
+<div class="highlight"><pre><span></span><code>CarlaUE4.exe
+</code></pre></div></p>
+<p>2.安装UV
+<div class="highlight"><pre><span></span><code><span class="c1"># Windows</span>
+powershell<span class="w"> </span>-ExecutionPolicy<span class="w"> </span>ByPass<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;irm https://astral.sh/uv/install.ps1 | iex&quot;</span>
+<span class="c1"># 验证安装：</span>
+uv<span class="w"> </span>--version
+</code></pre></div>
+3.下载安装所需要的python版本和metacycle应用：
+<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>python<span class="w"> </span>install<span class="w"> </span><span class="m">3</span>.10
+uv<span class="w"> </span>tool<span class="w"> </span>install<span class="w"> </span>metacycle<span class="w"> </span>--python<span class="w"> </span><span class="m">3</span>.10
+<span class="c1"># 启动metacycle</span>
 metacycle
-# 可以通过传递参数 --map 来切换地图，比如：
-metacycle --map Town10HD
-</code></pre>
-<p>4.查看已安装和可安装的环境（可选）：</p>
-<pre><code class="language-shell">uv python list
-</code></pre>
+<span class="c1"># 可以通过传递参数 --map 来切换地图，比如：</span>
+metacycle<span class="w"> </span>--map<span class="w"> </span>Town10HD
+</code></pre></div>
+4.查看已安装和可安装的环境（可选）：
+<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>python<span class="w"> </span>list
+</code></pre></div></p>
 <h2 id="_4">效果</h2>
 <p>通过点击界面当中的<code>Toggle Control Mode()</code>来切换使用键盘进行控制。
 <img alt="" src="../../img/pedestrian/cycle.gif" /></p>
@@ -136,8 +136,13 @@ metacycle --map Town10HD
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="../../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

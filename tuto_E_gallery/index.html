@@ -72,12 +72,12 @@
 <p><a href="../tuto_G_traffic_prediction/">流量预测</a></p>
 <h2 id="carla-python-api"><a href="https://github.com/wuhanstudio/carla-tutorial">Carla 教程 (Python API)</a></h2>
 <p>请使用 0.9.14 版本或者其他兼容 API 的 Carla 版本。</p>
-<pre><code># 开始 Carla 模拟器
+<div class="highlight"><pre><span></span><code># 开始 Carla 模拟器
 ./CarlaUE4.sh -quality-level=epic -resx=800 -resy=600
 
 # 如果您没有强大的 GPU
 ./CarlaUE4.sh -quality-level=low -resx=800 -resy=600
-</code></pre>
+</code></pre></div>
 <h3 id="gallery">Gallery</h3>
 <p><a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/tutorial/01_get_started.py">示例 01</a> : 开始 (异步：车辆会有抖动感）</p>
 <p><img alt="" src="../img/tuto_E_gallery/01_get_started.gif" /></p>
@@ -103,9 +103,9 @@
 <p><img alt="" src="../img/tuto_E_gallery/11_sun_position.png" /></p>
 <p>示例 12 ：<a href="../src/examples/invertedai_traffic_ue5.py">反向AI控制</a></p>
 <p>报错：<code>{ProxyError}HTTPSConnectionPool(host='api.inverted.ai', port=443): Max retries exceeded with url: /v0/aws/m1 (Caused by ProxyError('Unable to connect to proxy', SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:1135)'))))</code></p>
-<p>解决：</p>
-<pre><code class="language-shell">pip install urllib3==1.25.11
-</code></pre>
+<p>解决：
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span><span class="nv">urllib3</span><span class="o">==</span><span class="m">1</span>.25.11
+</code></pre></div></p>
               
             </div>
           </div><footer>
@@ -141,8 +141,13 @@
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

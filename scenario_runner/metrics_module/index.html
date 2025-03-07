@@ -133,8 +133,8 @@
 <h3 id="1">1. 记录一个场景</h3>
 <p>指标模块需要记录模拟才能工作。否则，它没有数据来进行指标计算。</p>
 <p>使用<code>record</code> 参数。添加应该保存信息的路径。该路径必须相对于环境变量<code>SCENARIO_RUNNER_ROOT</code>。</p>
-<pre><code class="language-sh">python scenario_runner.py --scenario &lt;scenario_name&gt; --record &lt;path/to/save/the/recorder/file&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>scenario_runner.py<span class="w"> </span>--scenario<span class="w"> </span>&lt;scenario_name&gt;<span class="w"> </span>--record<span class="w"> </span>&lt;path/to/save/the/recorder/file&gt;
+</code></pre></div>
 <p>通过记录场景，将在所需路径中创建两个文件。这些<code>log</code>文件<code>criteria</code>稍后将用作<code>metrics_manager.py</code>的参数。
 <strong>1. CARLA 记录</strong> <em>(<code>.log</code>)</em> — 包含每帧的模拟数据。要了解更多信息，请阅读 <a href="https://carla.readthedocs.io/en/latest/adv_recorder/">记录器文档</a> 。 
 <strong>2. 指标文件</strong> <em>(.json)</em> — 场景标准解析为字典，并存储在 JSON 文件中。字典的键是条件的名称。这些值是每个条件的属性。</p>
@@ -193,67 +193,67 @@ def _create_metric(self, town_map, log, criteria):
     plt.show()
 </code></pre>
 <p><strong>2.1. 度量的名称</strong>. 首先，正如前面提到的，所有指标都是该<code>BasicMetric</code>类的子级。 </p>
-<pre><code class="language-py">    class DistanceBetweenVehicles(BasicMetric):
-</code></pre>
+<div class="highlight"><pre><span></span><code>    <span class="k">class</span> <span class="nc">DistanceBetweenVehicles</span><span class="p">(</span><span class="n">BasicMetric</span><span class="p">):</span>
+</code></pre></div>
 <p><strong>2.2. 主方法的名称</strong>. 指标只需要一种方法即可运行，<code>_create_metric()</code>方法具有三个参数。</p>
 <ul>
 <li><strong><code>town_map</code></strong> — 场景发生的<a href="https://carla.readthedocs.io/en/latest/python_api/#carlamap">carla.Map()</a>实例。</li>
 <li><strong><code>log</code></strong> — <code>MetricsLog</code>类的实例，具有访问记录器字典所需的所有函数。 </li>
 <li><strong><code>criteria</code></strong> — 带有标准字典的 JSOn。记录场景时提供的文件，稍后提供给<code>metrics_manager.py</code>。</li>
 </ul>
-<pre><code class="language-py">def _create_metric(self, town_map, log, criteria):
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">_create_metric</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">town_map</span><span class="p">,</span> <span class="n">log</span><span class="p">,</span> <span class="n">criteria</span><span class="p">):</span>
+</code></pre></div>
 <p><strong>2.3. 实现指标</strong>。 代码将根据指标本身而有所不同。</p>
 <p>示例指标<code>DistanceBetweenVehicles</code>计算本车与其跟随的汽车（对手）之间的距离。为此，需要<code>id</code>两辆车的配合。这些可以使用<code>get_ego_vehicle_id()</code>和<code>get_actor_ids_with_role_name("scenario")[0]</code>函数从日志中检索。</p>
-<pre><code class="language-py"># 获取两个车辆的 ID 
-ego_id = log.get_ego_vehicle_id()
-adv_id = log.get_actor_ids_with_role_name(&quot;scenario&quot;)[0]  # Could have also used its type_id
-</code></pre>
-<p>它们<code>id</code>用<code>get_actor_alive_frames(actor_id)</code>检索车辆处于活动状态的帧。</p>
-<pre><code class="language-py"># 获取活跃的两个参与者的帧
-start_ego, end_ego = log.get_actor_alive_frames(ego_id)
-start_adv, end_adv = log.get_actor_alive_frames(adv_id)
-start = max(start_ego, start_adv)
-end = min(end_ego, end_adv)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1"># 获取两个车辆的 ID </span>
+<span class="n">ego_id</span> <span class="o">=</span> <span class="n">log</span><span class="o">.</span><span class="n">get_ego_vehicle_id</span><span class="p">()</span>
+<span class="n">adv_id</span> <span class="o">=</span> <span class="n">log</span><span class="o">.</span><span class="n">get_actor_ids_with_role_name</span><span class="p">(</span><span class="s2">&quot;scenario&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Could have also used its type_id</span>
+</code></pre></div>
+<p>它们<code>id</code>用<code>get_actor_alive_frames(actor_id)</code>检索车辆处于活动状态的帧。
+<div class="highlight"><pre><span></span><code><span class="c1"># 获取活跃的两个参与者的帧</span>
+<span class="n">start_ego</span><span class="p">,</span> <span class="n">end_ego</span> <span class="o">=</span> <span class="n">log</span><span class="o">.</span><span class="n">get_actor_alive_frames</span><span class="p">(</span><span class="n">ego_id</span><span class="p">)</span>
+<span class="n">start_adv</span><span class="p">,</span> <span class="n">end_adv</span> <span class="o">=</span> <span class="n">log</span><span class="o">.</span><span class="n">get_actor_alive_frames</span><span class="p">(</span><span class="n">adv_id</span><span class="p">)</span>
+<span class="n">start</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">start_ego</span><span class="p">,</span> <span class="n">start_adv</span><span class="p">)</span>
+<span class="n">end</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">end_ego</span><span class="p">,</span> <span class="n">end_adv</span><span class="p">)</span>
+</code></pre></div></p>
 <p>现在一切准备就绪，可以循环这些帧，获取它们的变换并计算距离。使用<code>get_actor_transform(actor_id, frame)</code> 获得变换，</p>
-<pre><code class="language-py">dist_list = []
-frames_list = []
+<div class="highlight"><pre><span></span><code><span class="n">dist_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">frames_list</span> <span class="o">=</span> <span class="p">[]</span>
 
-...
+<span class="o">...</span>
 
-# 获得两者之间的距离
-for i in range(start, end):
+<span class="c1"># 获得两者之间的距离</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">):</span>
 
-    # 获取变换
-    ego_location = log.get_actor_transform(ego_id, i).location
-    adv_location = log.get_actor_transform(adv_id, i).location
+    <span class="c1"># 获取变换</span>
+    <span class="n">ego_location</span> <span class="o">=</span> <span class="n">log</span><span class="o">.</span><span class="n">get_actor_transform</span><span class="p">(</span><span class="n">ego_id</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">location</span>
+    <span class="n">adv_location</span> <span class="o">=</span> <span class="n">log</span><span class="o">.</span><span class="n">get_actor_transform</span><span class="p">(</span><span class="n">adv_id</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">location</span>
 
-    # 为了获得更好的图片过滤一些点
-    if adv_location.z &lt; -10:
-        continue
+    <span class="c1"># 为了获得更好的图片过滤一些点</span>
+    <span class="k">if</span> <span class="n">adv_location</span><span class="o">.</span><span class="n">z</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">10</span><span class="p">:</span>
+        <span class="k">continue</span>
 
-    dist_v = ego_location - adv_location
-    dist = math.sqrt(dist_v.x * dist_v.x + dist_v.y * dist_v.y + dist_v.z * dist_v.z)
+    <span class="n">dist_v</span> <span class="o">=</span> <span class="n">ego_location</span> <span class="o">-</span> <span class="n">adv_location</span>
+    <span class="n">dist</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dist_v</span><span class="o">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">dist_v</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">dist_v</span><span class="o">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">dist_v</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">dist_v</span><span class="o">.</span><span class="n">z</span> <span class="o">*</span> <span class="n">dist_v</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
 
-    dist_list.append(dist)
-</code></pre>
+    <span class="n">dist_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dist</span><span class="p">)</span>
+</code></pre></div>
 <div class="admonition 注意">
 <p class="admonition-title">注意</p>
 <p>对手的垂直情况仅考虑对手正常行驶时的情况。</p>
 </div>
 <p>最后，使用 <a href="https://matplotlib.org/">matplotlib</a> 定义运行 <code>metrics_manager.py</code> 时指标的输出。 </p>
-<pre><code class="language-py"># 使用 matplotlib 展示结果
-plt.plot(frames_list, dist_list)
-plt.ylabel('Distance [m]')
-plt.xlabel('Frame number')
-plt.title('Distance between the ego vehicle and the adversary over time')
-plt.show()
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1"># 使用 matplotlib 展示结果</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">frames_list</span><span class="p">,</span> <span class="n">dist_list</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Distance [m]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frame number&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Distance between the ego vehicle and the adversary over time&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
 <h3 id="3">3. 运行指标管理器</h3>
 <p>最后，是时候使用从场景中检索的信息以及已定义的指标来返回一些指标信息。让我们使用迄今为止使用的示例指标以及以其命名的示例日志来运行该模块。 </p>
-<pre><code class="language-sh">python metrics_manager.py --metric srunner/metrics/examples/distance_between_vehicles.py --log srunner/metrics/data/DistanceBetweenVehicles.log
-</code></pre>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>metrics_manager.py<span class="w"> </span>--metric<span class="w"> </span>srunner/metrics/examples/distance_between_vehicles.py<span class="w"> </span>--log<span class="w"> </span>srunner/metrics/data/DistanceBetweenVehicles.log
+</code></pre></div>
 <div class="admonition 警告">
 <p class="admonition-title">警告</p>
 <p>模拟必须正在运行。否则，模块将无法访问地图API。</p>
@@ -720,8 +720,13 @@ Returns the state of a scene light for a given frame. The light state group will
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="../../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {

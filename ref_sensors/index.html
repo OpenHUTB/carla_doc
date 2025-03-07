@@ -154,13 +154,13 @@
 </ul>
 <p>相机提供场景的原始数据，编码每个像素到相机的距离（也称为<strong>深度缓冲区</strong>或 <strong>z 缓冲区</strong>）以创建元素的深度图。</p>
 <p>该图像使用 RGB 颜色空间的 3 个通道（从低字节到高字节）对每个像素的深度值进行编码：<em>R -&gt; G -&gt; B</em>。以米为单位的实际距离可以通过以下方式解码：</p>
-<pre><code>normalized = (R + G * 256 + B * 256 * 256) / (256 * 256 * 256 - 1)
+<div class="highlight"><pre><span></span><code>normalized = (R + G * 256 + B * 256 * 256) / (256 * 256 * 256 - 1)
 in_meters = 1000 * normalized
-</code></pre>
+</code></pre></div>
 <p>然后，应使用<a href="../python_api/#carla.ColorConverter">carla.colorConverter</a>将输出<a href="../python_api/#carla.Image">carla.Image</a>保存到磁盘，该 <a href="../python_api/#carla.ColorConverter">carla.colorConverter</a> 会将存储在 RGB 通道中的距离转换为包含该距离的 <strong>[0,1]</strong> 浮点数，然后将其转换为灰度。<a href="../python_api/#carla.ColorConverter">carla.colorConverter</a> 中有两个选项可获取深度视图：<strong>Depth</strong> 和 <strong>Logaritmic depth</strong>。两者的精度都是毫米级的，但对数方法可以为更近的物体提供更好的结果。</p>
-<pre><code class="language-py">...
-raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.Depth)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="n">raw_image</span><span class="o">.</span><span class="n">save_to_disk</span><span class="p">(</span><span class="s2">&quot;path/to/save/converted/image&quot;</span><span class="p">,</span><span class="n">carla</span><span class="o">.</span><span class="n">Depth</span><span class="p">)</span>
+</code></pre></div>
 <p><img alt="ImageDepth" src="../img/ref_sensors_depth.jpg" /></p>
 <h4 id="_5">相机基本属性</h4>
 <table>
@@ -607,9 +607,9 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.Depth)
 <p>激光雷达测量包含一个包，其中包含在某个时间间隔内生成的所有点1/FPS。在此间隔期间，物理不会更新，因此测量中的所有点都反映场景的相同“静态图片”。
 <code>points_per_channel_each_step = points_per_second / (FPS * channels)</code></p>
 <p>此输出包含模拟点云，因此可以对其进行迭代以检索它们的列表 <a href="../python_api/#carla.Location"><code>carla.Location</code></a>：</p>
-<pre><code class="language-py">for location in lidar_measurement:
-    print(location)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">location</span> <span class="ow">in</span> <span class="n">lidar_measurement</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">location</span><span class="p">)</span>
+</code></pre></div>
 <p>激光雷达测量的信息被编码为 4D 点。前三个是 xyz 坐标中的空间点，最后一个是行进过程中的强度损失。该强度通过以下公式计算：
 <br>
 <script type="math/tex; mode=display">
@@ -863,11 +863,11 @@ raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.Depth)
 <li><strong>输出：</strong> 每一步 <a href="../python_api/#carla.RadarMeasurement">carla.RadarMeasurement</a> （除非<code>sensor_tick</code>另有说明）。</li>
 </ul>
 <p>传感器创建一个圆锥视图，该视图被转换为视野中的元素及其相对于传感器的速度的二维点图。这可用于塑造元素并评估它们的运动和方向。由于使用极坐标，这些点将集中在视图中心周围。</p>
-<p>测量的点作为<a href="../python_api/#carla.RadarDetection">carla.RadarDetection</a>数组包含在<a href="../python_api/#carla.RadarMeasurement">carla.RadarMeasurement</a>中，该数组指定它们的极坐标、距离和速度。雷达传感器提供的原始数据可以轻松转换为 <strong>numpy</strong> 可管理的格式：</p>
-<pre><code class="language-py"># 为了获得 numpy [[vel, azimuth, altitude, depth],...[,,,]]:
-points = np.frombuffer(radar_data.raw_data, dtype=np.dtype('f4'))
-points = np.reshape(points, (len(radar_data), 4))
-</code></pre>
+<p>测量的点作为<a href="../python_api/#carla.RadarDetection">carla.RadarDetection</a>数组包含在<a href="../python_api/#carla.RadarMeasurement">carla.RadarMeasurement</a>中，该数组指定它们的极坐标、距离和速度。雷达传感器提供的原始数据可以轻松转换为 <strong>numpy</strong> 可管理的格式：
+<div class="highlight"><pre><span></span><code><span class="c1"># 为了获得 numpy [[vel, azimuth, altitude, depth],...[,,,]]:</span>
+<span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">frombuffer</span><span class="p">(</span><span class="n">radar_data</span><span class="o">.</span><span class="n">raw_data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;f4&#39;</span><span class="p">))</span>
+<span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">radar_data</span><span class="p">),</span> <span class="mi">4</span><span class="p">))</span>
+</code></pre></div></p>
 <p>提供的脚本<code>manual_control.py</code>使用此传感器来显示正在检测的点，并在静态时将其绘制为白色，在向物体移动时将其绘制为红色，在远离物体时将其绘制为蓝色：</p>
 <p><img alt="ImageRadar" src="../img/ref_sensors_radar.jpg" /></p>
 <table>
@@ -1339,12 +1339,12 @@ points = np.reshape(points, (len(radar_data), 4))
 <strong>1.</strong> 检查 <strong>RssSensor</strong> 是否生成包含限制的有效响应。<br>
 <strong>2.</strong> 收集车辆的当前动态和车辆物理特性。<br>
 <strong>3.</strong> 使用 RssSensor 的响应以及车辆当前的动态和物理特性对车辆控制施加限制。</p>
-<pre><code class="language-py">rss_proper_response = self._world.rss_sensor.proper_response if self._world.rss_sensor and self._world.rss_sensor.response_valid else None
-if rss_proper_response:
-...
-        vehicle_control = self._restrictor.restrict_vehicle_control(
-            vehicle_control, rss_proper_response, self._world.rss_sensor.ego_dynamics_on_route, self._vehicle_physics)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">rss_proper_response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_world</span><span class="o">.</span><span class="n">rss_sensor</span><span class="o">.</span><span class="n">proper_response</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_world</span><span class="o">.</span><span class="n">rss_sensor</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_world</span><span class="o">.</span><span class="n">rss_sensor</span><span class="o">.</span><span class="n">response_valid</span> <span class="k">else</span> <span class="kc">None</span>
+<span class="k">if</span> <span class="n">rss_proper_response</span><span class="p">:</span>
+<span class="o">...</span>
+        <span class="n">vehicle_control</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_restrictor</span><span class="o">.</span><span class="n">restrict_vehicle_control</span><span class="p">(</span>
+            <span class="n">vehicle_control</span><span class="p">,</span> <span class="n">rss_proper_response</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_world</span><span class="o">.</span><span class="n">rss_sensor</span><span class="o">.</span><span class="n">ego_dynamics_on_route</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vehicle_physics</span><span class="p">)</span>
+</code></pre></div>
 <h4 id="carlarsssensor">carla.RssSensor 类</h4>
 <p>该传感器的蓝图没有可修改的属性。但是，它实例化的 <a href="../python_api/#carla.RssSensor">carla.RssSensor</a> 对象具有 Python API 参考中详细介绍的属性和方法。以下是它们的摘要。</p>
 <table>
@@ -1379,18 +1379,18 @@ if rss_proper_response:
 </tbody>
 </table>
 <p><br></p>
-<pre><code class="language-py"># rss_sensor.py 代码片段
-# 当监听到一个新的carla.RssResponse时，更新 carla.RssSensor
-def _on_rss_response(weak_self, response):
-...
-        self.timestamp = response.timestamp
-        self.response_valid = response.response_valid
-        self.proper_response = response.proper_response
-        self.ego_dynamics_on_route = response.ego_dynamics_on_route
-        self.rss_state_snapshot = response.rss_state_snapshot
-        self.situation_snapshot = response.situation_snapshot
-        self.world_model = response.world_model
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1"># rss_sensor.py 代码片段</span>
+<span class="c1"># 当监听到一个新的carla.RssResponse时，更新 carla.RssSensor</span>
+<span class="k">def</span> <span class="nf">_on_rss_response</span><span class="p">(</span><span class="n">weak_self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+<span class="o">...</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">timestamp</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">response_valid</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">response_valid</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">proper_response</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">proper_response</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ego_dynamics_on_route</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">ego_dynamics_on_route</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rss_state_snapshot</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">rss_state_snapshot</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">situation_snapshot</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">situation_snapshot</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">world_model</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">world_model</span>
+</code></pre></div>
 <div class="admonition 警告">
 <p class="admonition-title">警告</p>
 <p>该传感器在客户端完全工作。服务器中没有蓝图。对属性的更改将在调用<em>listen()</em> <strong>后</strong> 生效。</p>
@@ -1435,12 +1435,12 @@ def _on_rss_response(weak_self, response):
 </tr>
 </tbody>
 </table>
-<pre><code class="language-py"># 更新当前路线
-self.sensor.reset_routing_targets()
-if routing_targets:
-    for target in routing_targets:
-        self.sensor.append_routing_target(target)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1"># 更新当前路线</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">sensor</span><span class="o">.</span><span class="n">reset_routing_targets</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">routing_targets</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">target</span> <span class="ow">in</span> <span class="n">routing_targets</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sensor</span><span class="o">.</span><span class="n">append_routing_target</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+</code></pre></div>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>如果未定义路由目标，则会创建随机路由。</p>
@@ -1492,26 +1492,26 @@ if routing_targets:
 <li>默认计算 (<code>actor_constellation_data.other_actor=None</code>)</li>
 <li>每个参与者的计算</li>
 </ol>
-<pre><code class="language-py"># rss_sensor.py 代码片段
-# 注册该函数为 actor_constellation_callback
-def _on_actor_constellation_request(self, actor_constellation_data):
-    actor_constellation_result = carla.RssActorConstellationResult()
-    actor_constellation_result.rss_calculation_mode = ad.rss.map.RssMode.NotRelevant
-    actor_constellation_result.restrict_speed_limit_mode = ad.rss.map.RssSceneCreation.RestrictSpeedLimitMode.IncreasedSpeedLimit10
-    actor_constellation_result.ego_vehicle_dynamics = self.current_vehicle_parameters
-    actor_constellation_result.actor_object_type = ad.rss.world.ObjectType.Invalid
-    actor_constellation_result.actor_dynamics = self.current_vehicle_parameters
+<div class="highlight"><pre><span></span><code><span class="c1"># rss_sensor.py 代码片段</span>
+<span class="c1"># 注册该函数为 actor_constellation_callback</span>
+<span class="k">def</span> <span class="nf">_on_actor_constellation_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">actor_constellation_data</span><span class="p">):</span>
+    <span class="n">actor_constellation_result</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">RssActorConstellationResult</span><span class="p">()</span>
+    <span class="n">actor_constellation_result</span><span class="o">.</span><span class="n">rss_calculation_mode</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">rss</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">RssMode</span><span class="o">.</span><span class="n">NotRelevant</span>
+    <span class="n">actor_constellation_result</span><span class="o">.</span><span class="n">restrict_speed_limit_mode</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">rss</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">RssSceneCreation</span><span class="o">.</span><span class="n">RestrictSpeedLimitMode</span><span class="o">.</span><span class="n">IncreasedSpeedLimit10</span>
+    <span class="n">actor_constellation_result</span><span class="o">.</span><span class="n">ego_vehicle_dynamics</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_vehicle_parameters</span>
+    <span class="n">actor_constellation_result</span><span class="o">.</span><span class="n">actor_object_type</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">rss</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">ObjectType</span><span class="o">.</span><span class="n">Invalid</span>
+    <span class="n">actor_constellation_result</span><span class="o">.</span><span class="n">actor_dynamics</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_vehicle_parameters</span>
 
-    actor_id = -1
-    actor_type_id = &quot;none&quot;
-    if actor_constellation_data.other_actor != None:
-        # 为特定的参与者定制 actor_constellation_result
-        ...
-    else:
-        # 默认
-        ...
-    return actor_constellation_result
-</code></pre>
+    <span class="n">actor_id</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="n">actor_type_id</span> <span class="o">=</span> <span class="s2">&quot;none&quot;</span>
+    <span class="k">if</span> <span class="n">actor_constellation_data</span><span class="o">.</span><span class="n">other_actor</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># 为特定的参与者定制 actor_constellation_result</span>
+        <span class="o">...</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># 默认</span>
+        <span class="o">...</span>
+    <span class="k">return</span> <span class="n">actor_constellation_result</span>
+</code></pre></div>
 <hr />
 <h2 id="_29">语义激光雷达传感器 <span id="semantic-lidar-sensor"></span></h2>
 <ul>
@@ -1528,14 +1528,14 @@ def _on_actor_constellation_request(self, actor_constellation_data):
 </li>
 <li>语义激光雷达既不包含强度、衰减也不包含噪声模型属性。</li>
 </ul>
-<p>这些点是通过为垂直 FOV 中分布的每个通道添加激光来计算的。旋转是通过计算激光雷达在一帧中旋转的水平角度来模拟的。点云是通过在每个步骤中对每个激光进行光线投射来计算的。</p>
-<pre><code class="language-sh">points_per_channel_each_step = points_per_second / (FPS * channels)
-</code></pre>
+<p>这些点是通过为垂直 FOV 中分布的每个通道添加激光来计算的。旋转是通过计算激光雷达在一帧中旋转的水平角度来模拟的。点云是通过在每个步骤中对每个激光进行光线投射来计算的。
+<div class="highlight"><pre><span></span><code><span class="nv">points_per_channel_each_step</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>points_per_second<span class="w"> </span>/<span class="w"> </span><span class="o">(</span>FPS<span class="w"> </span>*<span class="w"> </span>channels<span class="o">)</span>
+</code></pre></div></p>
 <p>激光雷达测量包含一个包，其中包含在某个时间 <code>1/FPS</code> 间隔内生成的所有点。在此间隔期间，物理不会更新，因此测量中的所有点都反映场景的相同“静态图片”。</p>
 <p>此输出包含激光雷达语义检测云，因此，可以对其进行迭代以检索其列表 <a href="../python_api/#carla.SemanticLidarDetection"><code>carla.SemanticLidarDetection</code></a>：</p>
-<pre><code class="language-py">for detection in semantic_lidar_measurement:
-    print(detection)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">detection</span> <span class="ow">in</span> <span class="n">semantic_lidar_measurement</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">detection</span><span class="p">)</span>
+</code></pre></div>
 <p>可以调整激光雷达的旋转以覆盖每个模拟步骤的特定角度（使用 <a href="../adv_synchrony_timestep/">固定的时间步长</a> ）。例如，每步旋转一次（整圈输出，如下图），旋转频率和模拟的FPS应该相等。 <br>
 <strong>1.</strong> 设置传感器的频率 <code>sensors_bp['lidar'][0].set_attribute('rotation_frequency','10')</code>。 <br>
 <strong>2.</strong> 使用 <code>python3 config.py --fps=10</code> 运行模拟。</p>
@@ -1657,9 +1657,9 @@ def _on_actor_constellation_request(self, actor_constellation_data):
 <p>该摄像机根据其标签以不同的颜色显示它，从而对可见的每个物体进行分类（例如，行人与车辆的颜色不同）。当模拟开始时，场景中的每个元素都会使用标签创建。所以当参与者产生时就会发生这种情况。对象按其在项目中的相对文件路径进行分类。例如，存储在中的网格<code>Unreal/CarlaUE4/Content/Static/Pedestrians</code>被标记为<code>Pedestrian</code>。</p>
 <p><img alt="ImageSemanticSegmentation" src="../img/ref_sensors_semantic.jpg" /></p>
 <p>服务器提供的图像的标签信息 <strong>编码在红色通道中</strong>： 红色值为 的像素<code>x</code>属于带有标签的对象<code>x</code>。这个原始的<a href="../python_api/#carla.Image">carla.Image</a>可以在<a href="../python_api/#carla.ColorConverter">carla.ColorConverter</a> 中的 <strong>CityScapesPalette</strong> 的帮助下存储和转换，以应用标签信息并通过语义分割显示图片。</p>
-<pre><code class="language-py">...
-raw_image.save_to_disk(&quot;path/to/save/converted/image&quot;,carla.cityScapesPalette)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="n">raw_image</span><span class="o">.</span><span class="n">save_to_disk</span><span class="p">(</span><span class="s2">&quot;path/to/save/converted/image&quot;</span><span class="p">,</span><span class="n">carla</span><span class="o">.</span><span class="n">cityScapesPalette</span><span class="p">)</span>
+</code></pre></div>
 <p>目前可以使用以下标签（注意：从版本0.9.13到0.9.14数字所对应的标签发生了很大变化）：</p>
 <table>
 <thead>
@@ -2762,8 +2762,13 @@ sensor.send("Hello CARLA")
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

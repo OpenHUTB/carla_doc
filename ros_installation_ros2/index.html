@@ -98,45 +98,45 @@
 <p>Debian软件包安装还不能用于ROS 2。</p>
 </div>
 <p><strong>1.</strong> 设置项目目录并克隆ROS网桥存储库和子模块：</p>
-<pre><code class="language-sh">mkdir -p ~/carla-ros-bridge &amp;&amp; cd ~/carla-ros-bridge
-git clone --recurse-submodules https://github.com/carla-simulator/ros-bridge.git src/ros-bridge
-</code></pre>
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>~/carla-ros-bridge<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/carla-ros-bridge
+git<span class="w"> </span>clone<span class="w"> </span>--recurse-submodules<span class="w"> </span>https://github.com/carla-simulator/ros-bridge.git<span class="w"> </span>src/ros-bridge
+</code></pre></div>
 <p><strong>2.</strong> 设置 ROS 环境：</p>
-<pre><code class="language-sh">source /opt/ros/foxy/setup.bash
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>/opt/ros/foxy/setup.bash
+</code></pre></div>
 <p><strong>3.</strong> 安装 ROS 依赖：</p>
-<pre><code class="language-sh">rosdep update
-rosdep install --from-paths src --ignore-src -r
-</code></pre>
+<div class="highlight"><pre><span></span><code>rosdep<span class="w"> </span>update
+rosdep<span class="w"> </span>install<span class="w"> </span>--from-paths<span class="w"> </span>src<span class="w"> </span>--ignore-src<span class="w"> </span>-r
+</code></pre></div>
 <p><strong>4.</strong> 使用colcon构建ROS桥的工作空间：</p>
-<pre><code class="language-sh">colcon build
-</code></pre>
+<div class="highlight"><pre><span></span><code>colcon<span class="w"> </span>build
+</code></pre></div>
 <hr />
 <h2 id="ros_1">运行ROS桥</h2>
 <p><strong>1.</strong> 请根据安装 CARLA 时使用的安装方法启动 CARLA 服务器：</p>
-<pre><code class="language-sh"># 在 Carla的根目录中运行打包好的版本
+<div class="highlight"><pre><span></span><code><span class="c1"># 在 Carla的根目录中运行打包好的版本</span>
 ./CarlaUE4.sh
 
-# 在`opt/carla-simulator/`的 Debian 安装 
+<span class="c1"># 在`opt/carla-simulator/`的 Debian 安装 </span>
 ./CarlaUE4.sh
 
-# 在 Carla 的根目录中从源代码构建
-make launch
-</code></pre>
+<span class="c1"># 在 Carla 的根目录中从源代码构建</span>
+make<span class="w"> </span>launch
+</code></pre></div>
 <p><strong>2.</strong> Add the correct CARLA modules to your Python path:</p>
-<pre><code class="language-sh">    export CARLA_ROOT=&lt;path-to-carla&gt;
-    export PYTHONPATH=$PYTHONPATH:$CARLA_ROOT/PythonAPI/carla/dist/carla-&lt;carla_version_and_arch&gt;.egg:$CARLA_ROOT/PythonAPI/carla
-</code></pre>
-<p><strong>3.</strong> Add the source path for the ROS bridge workspace:</p>
-<pre><code class="language-sh">    source ./install/setup.bash
-</code></pre>
+<p><div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nb">export</span><span class="w"> </span><span class="nv">CARLA_ROOT</span><span class="o">=</span>&lt;path-to-carla&gt;
+<span class="w">    </span><span class="nb">export</span><span class="w"> </span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="nv">$PYTHONPATH</span>:<span class="nv">$CARLA_ROOT</span>/PythonAPI/carla/dist/carla-&lt;carla_version_and_arch&gt;.egg:<span class="nv">$CARLA_ROOT</span>/PythonAPI/carla
+</code></pre></div>
+<strong>3.</strong> Add the source path for the ROS bridge workspace:</p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nb">source</span><span class="w"> </span>./install/setup.bash
+</code></pre></div>
 <p><strong>4.</strong> In another terminal, start the ROS 2 bridge. You can run one of the two options below:</p>
-<pre><code class="language-sh">    # Option 1, start the basic ROS bridge package
-    ros2 launch carla_ros_bridge carla_ros_bridge.launch.py
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="c1"># Option 1, start the basic ROS bridge package</span>
+<span class="w">    </span>ros2<span class="w"> </span>launch<span class="w"> </span>carla_ros_bridge<span class="w"> </span>carla_ros_bridge.launch.py
 
-    # Option 2, start the ROS bridge with an example ego vehicle
-    ros2 launch carla_ros_bridge carla_ros_bridge_with_example_ego_vehicle.launch.py
-</code></pre>
+<span class="w">    </span><span class="c1"># Option 2, start the ROS bridge with an example ego vehicle</span>
+<span class="w">    </span>ros2<span class="w"> </span>launch<span class="w"> </span>carla_ros_bridge<span class="w"> </span>carla_ros_bridge_with_example_ego_vehicle.launch.py
+</code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If you receive the error: <code>ImportError: no module named CARLA</code> then the path to the CARLA Python API is missing. The apt installation sets the path automatically, but it may be missing for other installations.</p>
@@ -155,32 +155,32 @@ make launch
 <h2 id="_2">测试</h2>
 <p>To execute tests using colcon:</p>
 <p><strong>1.</strong> Build the package:</p>
-<pre><code class="language-sh">    colcon build --packages-up-to carla_ros_bridge
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="w">    </span>colcon<span class="w"> </span>build<span class="w"> </span>--packages-up-to<span class="w"> </span>carla_ros_bridge
+</code></pre></div>
 <p><strong>2.</strong> Run the tests:</p>
-<pre><code class="language-sh">    launch_test carla_ros_bridge/test/ros_bridge_client_ros2_test.py
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="w">    </span>launch_test<span class="w"> </span>carla_ros_bridge/test/ros_bridge_client_ros2_test.py
+</code></pre></div>
 <hr />
 <h2 id="windows">Windows下安装</h2>
 <p>根据<a href="../ros/windows-install_binary/">链接</a> 安装ROS2。</p>
 <p>1.安装Chocolatey</p>
-<p>以管理员权限打开命令提示符，运行：</p>
-<pre><code class="language-shell">@&quot;%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe&quot; -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command &quot;[System.Net.ServicePointManager]::SecurityProtocol = 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))&quot; &amp;&amp; SET &quot;PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin&quot;
-</code></pre>
-<p>如果报出警告：<code>WARNING: An existing Chocolatey installation was detected. Installation will not continue. This script will not         overwrite existing installations.                                                                                       If there is no Chocolatey installation at 'C:\ProgramData\chocolatey', delete the folder and attempt the installation   again.</code>
+<p>以管理员权限打开命令提示符，运行：
+<div class="highlight"><pre><span></span><code>@<span class="s2">&quot;%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe&quot;</span><span class="w"> </span>-NoProfile<span class="w"> </span>-InputFormat<span class="w"> </span>None<span class="w"> </span>-ExecutionPolicy<span class="w"> </span>Bypass<span class="w"> </span>-Command<span class="w"> </span><span class="s2">&quot;[System.Net.ServicePointManager]::SecurityProtocol = 3072; iex ((New-Object System.Net.WebClient).DownloadString(&#39;https://chocolatey.org/install.ps1&#39;))&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>SET<span class="w"> </span><span class="s2">&quot;PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin&quot;</span>
+</code></pre></div>
+如果报出警告：<code>WARNING: An existing Chocolatey installation was detected. Installation will not continue. This script will not         overwrite existing installations.                                                                                       If there is no Chocolatey installation at 'C:\ProgramData\chocolatey', delete the folder and attempt the installation   again.</code>
 则删除文件夹<code>C:\ProgramData\chocolatey</code>后继续执行以上命令。</p>
-<p>验证是否安装成功，运行（必须以管理员权限运行）</p>
-<pre><code class="language-shell">choco
-</code></pre>
-<p>2.利用choco安装ROS2</p>
-<pre><code class="language-shell">choco source add -n=ros-win -s=&quot;https://aka.ms/ros/public&quot; --priority=1
-choco upgrade ros-foxy-desktop -y --execution-timeout=0
-</code></pre>
-<p>报错：<code>Unable to connect to source 'https://aka.ms/ros/public':</code></p>
-<p>这一步需要设置代理：</p>
-<pre><code class="language-shell">set http_proxy=http://127.0.0.1:7890
-set https_proxy=http://127.0.0.1:7890
-</code></pre>
+<p>验证是否安装成功，运行（必须以管理员权限运行）
+<div class="highlight"><pre><span></span><code>choco
+</code></pre></div></p>
+<p>2.利用choco安装ROS2
+<div class="highlight"><pre><span></span><code>choco<span class="w"> </span><span class="nb">source</span><span class="w"> </span>add<span class="w"> </span>-n<span class="o">=</span>ros-win<span class="w"> </span>-s<span class="o">=</span><span class="s2">&quot;https://aka.ms/ros/public&quot;</span><span class="w"> </span>--priority<span class="o">=</span><span class="m">1</span>
+choco<span class="w"> </span>upgrade<span class="w"> </span>ros-foxy-desktop<span class="w"> </span>-y<span class="w"> </span>--execution-timeout<span class="o">=</span><span class="m">0</span>
+</code></pre></div>
+报错：<code>Unable to connect to source 'https://aka.ms/ros/public':</code></p>
+<p>这一步需要设置代理：
+<div class="highlight"><pre><span></span><code><span class="nb">set</span><span class="w"> </span><span class="nv">http_proxy</span><span class="o">=</span>http://127.0.0.1:7890
+<span class="nb">set</span><span class="w"> </span><span class="nv">https_proxy</span><span class="o">=</span>http://127.0.0.1:7890
+</code></pre></div></p>
 <h2 id="_3">参考</h2>
 <ul>
 <li><a href="https://bbs.carla.org.cn/info/5d3ee60a617a4db08bf9389e60ecaad2?csr=1">CARLA ROS2 Bridge 容器镜像</a> - 提供 Carla 和 ROS2 之间桥梁的容器</li>
@@ -220,8 +220,13 @@ set https_proxy=http://127.0.0.1:7890
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

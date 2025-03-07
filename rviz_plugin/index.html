@@ -85,33 +85,33 @@
 <p><img alt="ros_rviz" src="../img/ros_rviz.png" /></p>
 <p>RVIZ 插件需要一个名为 <code>ego_vehicle</code> 的自主车辆。要查看 ROS 桥与 RVIZ 配合使用的示例，请在运行的 Carla 服务器上执行以下命令：</p>
 <p><strong>1.</strong> 在启用 RVIZ 的情况下启动 ROS 桥：</p>
-<pre><code class="language-sh"># ROS 1
-roslaunch carla_ros_bridge carla_ros_bridge.launch
+<div class="highlight"><pre><span></span><code><span class="c1"># ROS 1</span>
+roslaunch<span class="w"> </span>carla_ros_bridge<span class="w"> </span>carla_ros_bridge.launch
 
-# ROS 2
-ros2 launch carla_ros_bridge carla_ros_bridge.launch.py
-</code></pre>
+<span class="c1"># ROS 2</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>carla_ros_bridge<span class="w"> </span>carla_ros_bridge.launch.py
+</code></pre></div>
 <p><strong>2.</strong> 启动 RVIZ：</p>
-<pre><code class="language-sh"># ROS 1
-rosrun rviz rviz
+<div class="highlight"><pre><span></span><code><span class="c1"># ROS 1</span>
+rosrun<span class="w"> </span>rviz<span class="w"> </span>rviz
 
-# ROS 2
-ros2 run rviz2 rviz2
-</code></pre>
+<span class="c1"># ROS 2</span>
+ros2<span class="w"> </span>run<span class="w"> </span>rviz2<span class="w"> </span>rviz2
+</code></pre></div>
 <p><strong>2.</strong> 使用<code>carla_spawn_objects</code>包生成一辆自我车辆：</p>
-<pre><code class="language-sh"># ROS 1
-roslaunch carla_spawn_objects carla_spawn_objects.launch
+<div class="highlight"><pre><span></span><code><span class="c1"># ROS 1</span>
+roslaunch<span class="w"> </span>carla_spawn_objects<span class="w"> </span>carla_spawn_objects.launch
 
-# ROS 2
-ros2 launch carla_spawn_objects carla_spawn_objects.launch.py
-</code></pre>
+<span class="c1"># ROS 2</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>carla_spawn_objects<span class="w"> </span>carla_spawn_objects.launch.py
+</code></pre></div>
 <p><strong>3.</strong> 使用 <code>carla_manual_control</code> 包控制自我车辆（按下B可启用手动转向）：</p>
-<pre><code class="language-sh"># ROS 1
-roslaunch carla_manual_control carla_manual_control.launch
+<div class="highlight"><pre><span></span><code><span class="c1"># ROS 1</span>
+roslaunch<span class="w"> </span>carla_manual_control<span class="w"> </span>carla_manual_control.launch
 
-# ROS 2
-ros2 launch carla_manual_control carla_manual_control.launch.py
-</code></pre>
+<span class="c1"># ROS 2</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>carla_manual_control<span class="w"> </span>carla_manual_control.launch.py
+</code></pre></div>
 <hr />
 <h2 id="rviz">RVIZ 插件的功能</h2>
 <ul>
@@ -248,8 +248,13 @@ ros2 launch carla_manual_control carla_manual_control.launch.py
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

@@ -92,23 +92,23 @@
 <p>ROS 桥接器使用具有通用接口的单独实现来支持 ROS 1 和 ROS 2。当您想要运行 ROS 桥接器时，您必须根据您使用的每个终端中的 ROS 版本设置 ROS 环境：</p>
 <h4 id="ros-1">准备 ROS 1 环境：</h4>
 <p>要运行的命令取决于您是通过 Debian 软件包还是通过源构建安装 ROS 桥。您还需要更改 Debian 选项路径中的 ROS 版本：</p>
-<pre><code class="language-sh"># 用于debian安装ROS桥。根据已安装的ROS版本更改命令。
-source /opt/carla-ros-bridge/&lt;melodic/noetic&gt;/setup.bash
+<div class="highlight"><pre><span></span><code><span class="c1"># 用于debian安装ROS桥。根据已安装的ROS版本更改命令。</span>
+<span class="nb">source</span><span class="w"> </span>/opt/carla-ros-bridge/&lt;melodic/noetic&gt;/setup.bash
 
-# 为 GitHub 库安装 ROS 桥
-source ~/carla-ros-bridge/catkin_ws/devel/setup.bash
-</code></pre>
+<span class="c1"># 为 GitHub 库安装 ROS 桥</span>
+<span class="nb">source</span><span class="w"> </span>~/carla-ros-bridge/catkin_ws/devel/setup.bash
+</code></pre></div>
 <h4 id="ros-2">准备 ROS 2 环境：</h4>
-<pre><code class="language-sh">source ./install/setup.bash
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>./install/setup.bash
+</code></pre></div>
 <h2 id="ros_2">运行 ROS 桥</h2>
 <p>设置 ROS 环境并运行 Carla 服务器后，您需要先启动<code>carla_ros_bridge</code>软件包，然后才能使用任何其他软件包。为此，请运行以下命令：</p>
-<pre><code class="language-sh"># ROS 1
-roslaunch carla_ros_bridge carla_ros_bridge.launch
+<div class="highlight"><pre><span></span><code><span class="c1"># ROS 1</span>
+roslaunch<span class="w"> </span>carla_ros_bridge<span class="w"> </span>carla_ros_bridge.launch
 
-# ROS 2
-ros2 launch carla_ros_bridge carla_ros_bridge.launch.py
-</code></pre>
+<span class="c1"># ROS 2</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>carla_ros_bridge<span class="w"> </span>carla_ros_bridge.launch.py
+</code></pre></div>
 <p>还有其他启动文件结合了上述功能，在启动其他包或插件的同时启动 ROS 桥接器：</p>
 <ul>
 <li><code>carla_ros_bridge_with_example_ego_vehicle.launch</code> (ROS 1) 和 <code>carla_ros_bridge_with_example_ego_vehicle.launch.py</code> (ROS 2) 沿着 <a href="../carla_spawn_objects/"><code>carla_spawn_objects</code></a> 和 <a href="../carla_manual_control/"><code>carla_manual_control</code></a> 包一起启动 ROS 桥。</li>
@@ -116,8 +116,8 @@ ros2 launch carla_ros_bridge carla_ros_bridge.launch.py
 <hr />
 <h2 id="carla">配置 Carla 设置</h2>
 <p>配置应该在启动文件中设置，或者在从命令行运行文件时作为参数传递，例如：</p>
-<pre><code class="language-sh">roslaunch carla_ros_bridge carla_ros_bridge.launch passive:=True
-</code></pre>
+<div class="highlight"><pre><span></span><code>roslaunch<span class="w"> </span>carla_ros_bridge<span class="w"> </span>carla_ros_bridge.launch<span class="w"> </span>passive:<span class="o">=</span>True
+</code></pre></div>
 <p>可以使用以下设置：</p>
 <ul>
 <li><strong>use_sim_time</strong>: 应设置为 <strong>True</strong> 以确保 ROS 使用模拟时间而不是系统时间。该参数将使 ROS <a href="https://wiki.ros.org/Clock"><code>/clock</code></a> 主题与 Carla 模拟时间同步。</li>
@@ -146,10 +146,10 @@ ros2 launch carla_ros_bridge carla_ros_bridge.launch.py
 <p>如果 ROS 桥接器不处于被动模式（ROS 桥接器是唯一的），则有两种方法将步进控制发送到服务器：</p>
 <ul>
 <li>用消息向主题 <code>/carla/control</code> 发送 <a href="../ros_msgs/#carlacontrolmsg"><code>carla_msgs.CarlaControl</code></a> 。</li>
-<li>使用 <a href="../rqt_plugin/">控制 rqt 插件</a> 。该插件启动一个具有简单界面的新窗口。然后它用于管理步骤并在<code>/carla/control</code>主题中发布。要使用它，请在同步模式下使用 Carla 运行以下命令：</li>
+<li>使用 <a href="../rqt_plugin/">控制 rqt 插件</a> 。该插件启动一个具有简单界面的新窗口。然后它用于管理步骤并在<code>/carla/control</code>主题中发布。要使用它，请在同步模式下使用 Carla 运行以下命令：
+<div class="highlight"><pre><span></span><code>rqt<span class="w"> </span>--standalone<span class="w"> </span>rqt_carla_control
+</code></pre></div></li>
 </ul>
-<pre><code class="language-sh">rqt --standalone rqt_carla_control
-</code></pre>
 <hr />
 <h2 id="_1">自我车辆控制</h2>
 <p>有两种控制自我车辆的模式：</p>
@@ -160,21 +160,21 @@ ros2 launch carla_ros_bridge carla_ros_bridge.launch.py
 <p>您可以通过发布到 <code>/carla/&lt;ROLE NAME&gt;/vehicle_control_manual_override</code>来在两种模式之间切换。有关使用的示例，请参阅 <a href="../carla_manual_control/">Carla 手动控制</a>。</p>
 <p>要从命令行测试转向：</p>
 <p><strong>1.</strong> 使用 ego 车辆启动 ROS 桥：</p>
-<pre><code class="language-sh"># ROS 1
-roslaunch carla_ros_bridge carla_ros_bridge_with_example_ego_vehicle.launch
+<div class="highlight"><pre><span></span><code><span class="c1"># ROS 1</span>
+roslaunch<span class="w"> </span>carla_ros_bridge<span class="w"> </span>carla_ros_bridge_with_example_ego_vehicle.launch
 
-# ROS 2
-ros2 launch carla_ros_bridge carla_ros_bridge_with_example_ego_vehicle.launch.py
-</code></pre>
+<span class="c1"># ROS 2</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>carla_ros_bridge<span class="w"> </span>carla_ros_bridge_with_example_ego_vehicle.launch.py
+</code></pre></div>
 <p><strong>2.</strong> 在另一个终端中，发布到主题 <code>/carla/&lt;ROLE NAME&gt;/vehicle_control_cmd</code></p>
-<pre><code class="language-sh"># 最大向前油门，最大向右转向
+<div class="highlight"><pre><span></span><code><span class="c1"># 最大向前油门，最大向右转向</span>
 
-# 对于 ros1
-rostopic pub /carla/ego_vehicle/vehicle_control_cmd carla_msgs/CarlaEgoVehicleControl &quot;{throttle: 1.0, steer: 1.0}&quot; -r 10
+<span class="c1"># 对于 ros1</span>
+rostopic<span class="w"> </span>pub<span class="w"> </span>/carla/ego_vehicle/vehicle_control_cmd<span class="w"> </span>carla_msgs/CarlaEgoVehicleControl<span class="w"> </span><span class="s2">&quot;{throttle: 1.0, steer: 1.0}&quot;</span><span class="w"> </span>-r<span class="w"> </span><span class="m">10</span>
 
-# 对于 ros2
-ros2 topic pub /carla/ego_vehicle/vehicle_control_cmd carla_msgs/CarlaEgoVehicleControl &quot;{throttle: 1.0, steer: 1.0}&quot; -r 10
-</code></pre>
+<span class="c1"># 对于 ros2</span>
+ros2<span class="w"> </span>topic<span class="w"> </span>pub<span class="w"> </span>/carla/ego_vehicle/vehicle_control_cmd<span class="w"> </span>carla_msgs/CarlaEgoVehicleControl<span class="w"> </span><span class="s2">&quot;{throttle: 1.0, steer: 1.0}&quot;</span><span class="w"> </span>-r<span class="w"> </span><span class="m">10</span>
+</code></pre></div>
 <p>当前车辆的状态可以通过主题 <code>/carla/&lt;ROLE NAME&gt;/vehicle_status</code> 获得。有关车辆的静态信息可以通过<code>/carla/&lt;ROLE NAME&gt;/vehicle_info</code>接收.</p>
 <p>可以使用 <a href="https://docs.ros.org/en/api/ackermann_msgs/html/msg/AckermannDrive.html">AckermannDrive</a> 消息来控制自我车辆。这可以通过使用 <a href="../carla_ackermann_control/">Carla 阿克曼控制</a> 包来实现。</p>
 <hr />
@@ -308,8 +308,13 @@ ros2 topic pub /carla/ego_vehicle/vehicle_control_cmd carla_msgs/CarlaEgoVehicle
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

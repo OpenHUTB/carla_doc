@@ -84,46 +84,42 @@
 <h2 id="api_1">通过API更新纹理</h2>
 <p>如果尚未启动，请从命令行启动 Carla 模拟，或在虚幻编辑器中启动模拟。我们将使用 <a href="https://pillow.readthedocs.io/en/stable/"><strong>Python 图像库 (PIL)</strong></a> 从图像处理软件导出的图像文件中读取纹理。</p>
 <h2 id="_3">连接到模拟器</h2>
-<pre><code class="language-py">
-import carla
-from PIL import Image
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">carla</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
 
-# Connect to client
-client = carla.Client('127.0.0.1', 2000)
-client.set_timeout(2.0)
-
-</code></pre>
+<span class="c1"># Connect to client</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span> <span class="mi">2000</span><span class="p">)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">set_timeout</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>
+</code></pre></div>
 <h2 id="_4">更新纹理</h2>
 <p>加载修改后的图像后，实例化<a href="../python_api/#carla.TextureColor">carla.TextureColor</a>对象并填充加载图像中的像素数据。</p>
 <p>使用 <a href="../python_api/#carla.World">carla.World</a> 对象的 <code>apply_color_texture_to_object(...)</code> 方法来更新纹理。您应该在 UE4 观察者视图中看到纹理更新。</p>
-<pre><code class="language-py">
-# Load the modified texture
-image = Image.open('BP_Apartment04_v05_modified.tga')
-height = image.size[1]
-width = image.size[0]
+<div class="highlight"><pre><span></span><code><span class="c1"># Load the modified texture</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;BP_Apartment04_v05_modified.tga&#39;</span><span class="p">)</span>
+<span class="n">height</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">width</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-# Instantiate a carla.TextureColor object and populate
-# the pixels with data from the modified image
-texture = carla.TextureColor(width ,height)
-for x in range(0,width):
-    for y in range(0,height):
-        color = image.getpixel((x,y))
-        r = int(color[0])
-        g = int(color[1])
-        b = int(color[2])
-        a = 255
-        texture.set(x, y, carla.Color(r,g,b,a))
+<span class="c1"># Instantiate a carla.TextureColor object and populate</span>
+<span class="c1"># the pixels with data from the modified image</span>
+<span class="n">texture</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">TextureColor</span><span class="p">(</span><span class="n">width</span> <span class="p">,</span><span class="n">height</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">width</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">height</span><span class="p">):</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">getpixel</span><span class="p">((</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">))</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">color</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">color</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">color</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="mi">255</span>
+        <span class="n">texture</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">carla</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="n">g</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">a</span><span class="p">))</span>
 
-# Now apply the texture to the building asset
-world.apply_color_texture_to_object('BP_Apartment04_v05_Opt_2', carla.MaterialParameter.Diffuse, texture)
-
-</code></pre>
+<span class="c1"># Now apply the texture to the building asset</span>
+<span class="n">world</span><span class="o">.</span><span class="n">apply_color_texture_to_object</span><span class="p">(</span><span class="s1">&#39;BP_Apartment04_v05_Opt_2&#39;</span><span class="p">,</span> <span class="n">carla</span><span class="o">.</span><span class="n">MaterialParameter</span><span class="o">.</span><span class="n">Diffuse</span><span class="p">,</span> <span class="n">texture</span><span class="p">)</span>
+</code></pre></div>
 <p><img alt="texture_change" src="../img/tuto_G_texture_streaming/texture_change.gif" /></p>
 <h2 id="api_2">通过 API 查找对象名称</h2>
 <p>要在不依赖虚幻编辑器的情况下查找对象，您还可以使用<code>world.get_names_of_all_objects()</code>查询对象名称。通过使用 Python 的内置<code>filter(...)</code>方法，您可以将目标对象归零。</p>
-<pre><code class="language-py"># Filter world objects for those with 'Apartment' in the name
-list(filter(lambda k: 'Apartment' in k, world.get_names_of_all_objects()))
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1"># Filter world objects for those with &#39;Apartment&#39; in the name</span>
+<span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">k</span><span class="p">:</span> <span class="s1">&#39;Apartment&#39;</span> <span class="ow">in</span> <span class="n">k</span><span class="p">,</span> <span class="n">world</span><span class="o">.</span><span class="n">get_names_of_all_objects</span><span class="p">()))</span>
+</code></pre></div>
               
             </div>
           </div><footer>
@@ -159,8 +155,13 @@ list(filter(lambda k: 'Apartment' in k, world.get_names_of_all_objects()))
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

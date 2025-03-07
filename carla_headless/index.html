@@ -90,9 +90,9 @@
 <h3 id="nvidia">NVIDIA 驱动程序</h3>
 <p>下载并安装 <a href="http://www.nvidia.es/Download/index.aspx">NVIDIA 驱动程序</a> 以及典型教程。</p>
 <h3 id="opengl">OpenGL</h3>
-<p>Openg GL 是 Virtual GL 所必需的。通常可以通过 apt 安装 OpenGL。</p>
-<pre><code class="language-shell">sudo apt-get install freeglut3-dev mesa-utils
-</code></pre>
+<p>Openg GL 是 Virtual GL 所必需的。通常可以通过 apt 安装 OpenGL。
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>freeglut3-dev<span class="w"> </span>mesa-utils
+</code></pre></div></p>
 <h3 id="vgl">VGL</h3>
 <p>按照本教程安装 vgl： <a href="https://virtualgl.org/vgldoc/2_2_1/#hd004001">安装 VGL</a> </p>
 <h3 id="turbovnc">TurboVNC</h3>
@@ -101,44 +101,39 @@
 <h3 id="_2">额外的包</h3>
 <p>这些额外的包对于虚幻引擎的运行是必需的。</p>
 <p>```shell script
-sudo apt install x11-xserver-utils libxrandr-dev</p>
-<pre><code>
-### 配置你的 X
+sudo apt install x11-xserver-utils libxrandr-dev
+<div class="highlight"><pre><span></span><code>### 配置你的 X
 您必须生成与您的 nvdia 兼容的 X，并且兼容在无显示的情况下运行。为此，以下命令有效：
 
 ```shell script
 sudo nvidia-xconfig -a --use-display-device=None --virtual=1280x1024
-</code></pre>
+</code></pre></div></p>
 <h2 id="_3">模拟虚拟显示</h2>
 <p>运行你自己的 Xorg。这里我使用数字 7，但它可以标记为任何自由数字
 ```shell script
-sudo nohup Xorg :7 &amp;</p>
-<pre><code>
-运行辅助远程 VNC-Xserver。这将创建虚拟显示器“8”。
+sudo nohup Xorg :7 &amp;
+<div class="highlight"><pre><span></span><code>运行辅助远程 VNC-Xserver。这将创建虚拟显示器“8”。
 
 ```shell script
 /opt/TurboVNC/bin/vncserver :8
-</code></pre>
+</code></pre></div></p>
 <p>如果一切正常，以下命令应该可以顺利运行。
 ```shell script
-DISPLAY=:8 vglrun -d :7.0 glxinfo</p>
-<pre><code>
-注意。这将在 Xserver 7、设备 0 上运行 glxinfo。这意味着您正在选择机器上的 GPU 0。要在其他 GPU（例如 GPU 1）上运行，请运行：
+DISPLAY=:8 vglrun -d :7.0 glxinfo
+<div class="highlight"><pre><span></span><code>注意。这将在 Xserver 7、设备 0 上运行 glxinfo。这意味着您正在选择机器上的 GPU 0。要在其他 GPU（例如 GPU 1）上运行，请运行：
 ```shell script
 DISPLAY=:8 vglrun -d :7.1 glxinfo
-</code></pre>
+</code></pre></div></p>
 <h3 id="_4">额外的</h3>
 <p>如果您希望在创建“nohup Xorg”时禁用 sudo，请转到“/etc/X11/Xwrapper.config”文件并将“allowed_users=console”更改为“allowed_users=anybody”</p>
 <p>在运行 nohup Xorg 之前可能需要停止所有 Xorg 服务器。该命令可能因您的系统而异。通常对于 Ubuntu 16.04，您应该使用：</p>
 <p>```shell script
-sudo service lightdm stop</p>
-<pre><code>
-
-## 运行 CARLA
+sudo service lightdm stop
+<div class="highlight"><pre><span></span><code>## 运行 CARLA
 现在，最后，要在某个 $CARLA_PATH 中的某个 gpu_number 上运行 CARLA，请运行。
 ```shell script
 DISPLAY=:8 vglrun -d :7.&lt;gpu_number&gt; $CARLA_PATH/CarlaUE4/Binaries/Linux/CarlaUE4
-</code></pre>
+</code></pre></div></p>
               
             </div>
           </div><footer>
@@ -174,8 +169,13 @@ DISPLAY=:8 vglrun -d :7.&lt;gpu_number&gt; $CARLA_PATH/CarlaUE4/Binaries/Linux/C
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

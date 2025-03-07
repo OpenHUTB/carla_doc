@@ -74,93 +74,93 @@
 <p>这个C++示例将连接到服务器，生成一辆车，并在销毁和终止车辆之前对其应用命令。</p>
 <h3 id="_1">包括相关的头文件</h3>
 <p>对于这个例子，我们将使用几个不同的 Carla 类，因此我们需要包含 Carla 库中的相关头文件，并包含我们将使用的任何标准库：</p>
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;random&gt;
-#include &lt;sstream&gt;
-#include &lt;stdexcept&gt;
-#include &lt;string&gt;
-#include &lt;thread&gt;
-#include &lt;tuple&gt;
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;random&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sstream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdexcept&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;thread&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;tuple&gt;</span>
 
-#include &lt;carla/client/ActorBlueprint.h&gt;
-#include &lt;carla/client/BlueprintLibrary.h&gt;
-#include &lt;carla/client/Client.h&gt;
-#include &lt;carla/client/Map.h&gt;
-#include &lt;carla/client/Sensor.h&gt;
-#include &lt;carla/client/TimeoutException.h&gt;
-#include &lt;carla/client/World.h&gt;
-#include &lt;carla/geom/Transform.h&gt;
-#include &lt;carla/image/ImageIO.h&gt;
-#include &lt;carla/image/ImageView.h&gt;
-#include &lt;carla/sensor/data/Image.h&gt;
-</code></pre>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;carla/client/ActorBlueprint.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;carla/client/BlueprintLibrary.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;carla/client/Client.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;carla/client/Map.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;carla/client/Sensor.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;carla/client/TimeoutException.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;carla/client/World.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;carla/geom/Transform.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;carla/image/ImageIO.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;carla/image/ImageView.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;carla/sensor/data/Image.h&gt;</span>
+</code></pre></div>
 <h3 id="c_1">将 C++ 客户端连接到服务器</h3>
 <p>包括 <code>carla/client/Client.h</code> ，然后连接客户端：</p>
-<pre><code class="language-cpp">...
-#include &lt;carla/client/Client.h&gt;
-...
-int main(int argc, const char *argv[]) {
+<div class="highlight"><pre><span></span><code><span class="p">...</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;carla/client/Client.h&gt;</span>
+<span class="p">...</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span>
 
-    std::string host;
-    uint16_t port;
-    std::tie(host, port) = ParseArguments(argc, argv);
-    ...
-    // 客户端连接到服务器上
-    auto client = cc::Client(host, port);
-    client.SetTimeout(40s);
-</code></pre>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">host</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">port</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">tie</span><span class="p">(</span><span class="n">host</span><span class="p">,</span><span class="w"> </span><span class="n">port</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ParseArguments</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">);</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="w">    </span><span class="c1">// 客户端连接到服务器上</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cc</span><span class="o">::</span><span class="n">Client</span><span class="p">(</span><span class="n">host</span><span class="p">,</span><span class="w"> </span><span class="n">port</span><span class="p">);</span>
+<span class="w">    </span><span class="n">client</span><span class="p">.</span><span class="n">SetTimeout</span><span class="p">(</span><span class="mi">40</span><span class="n">s</span><span class="p">);</span>
+</code></pre></div>
 <h3 id="_2">加载地图</h3>
 <p>现在让我们加载一个随机选择的地图：</p>
-<pre><code class="language-cpp">// 初始化随机数生成器
-std::mt19937_64 rng((std::random_device())());
-...
-auto town_name = RandomChoice(client.GetAvailableMaps(), rng);
-std::cout &lt;&lt; &quot;Loading world: &quot; &lt;&lt; town_name &lt;&lt; std::endl;
-auto world = client.LoadWorld(town_name);
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1">// 初始化随机数生成器</span>
+<span class="n">std</span><span class="o">::</span><span class="n">mt19937_64</span><span class="w"> </span><span class="nf">rng</span><span class="p">((</span><span class="n">std</span><span class="o">::</span><span class="n">random_device</span><span class="p">())());</span>
+<span class="p">...</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">town_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RandomChoice</span><span class="p">(</span><span class="n">client</span><span class="p">.</span><span class="n">GetAvailableMaps</span><span class="p">(),</span><span class="w"> </span><span class="n">rng</span><span class="p">);</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Loading world: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">town_name</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">world</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">client</span><span class="p">.</span><span class="n">LoadWorld</span><span class="p">(</span><span class="n">town_name</span><span class="p">);</span>
+</code></pre></div>
 <h3 id="_3">随机选择一辆车</h3>
 <p>接下来，我们将获取蓝图库，过滤车辆并选择一个随机的车辆蓝图：</p>
-<pre><code class="language-cpp">auto blueprint_library = world.GetBlueprintLibrary();
-auto vehicles = blueprint_library-&gt;Filter(&quot;vehicle&quot;);
-auto blueprint = RandomChoice(*vehicles, rng);
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="n">blueprint_library</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">world</span><span class="p">.</span><span class="n">GetBlueprintLibrary</span><span class="p">();</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">vehicles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">blueprint_library</span><span class="o">-&gt;</span><span class="n">Filter</span><span class="p">(</span><span class="s">&quot;vehicle&quot;</span><span class="p">);</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">blueprint</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RandomChoice</span><span class="p">(</span><span class="o">*</span><span class="n">vehicles</span><span class="p">,</span><span class="w"> </span><span class="n">rng</span><span class="p">);</span>
+</code></pre></div>
 <p>现在我们需要找到一个位置，从地图上的生成点生成车辆。我们将获得一个指向地图对象的指针引用，然后选择一个随机生成点（确保您已初始化随机数生成器）：</p>
-<pre><code class="language-cpp">auto map = world.GetMap();
-auto transform = RandomChoice(map-&gt;GetRecommendedSpawnPoints(), rng);
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="n">map</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">world</span><span class="p">.</span><span class="n">GetMap</span><span class="p">();</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">transform</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RandomChoice</span><span class="p">(</span><span class="n">map</span><span class="o">-&gt;</span><span class="n">GetRecommendedSpawnPoints</span><span class="p">(),</span><span class="w"> </span><span class="n">rng</span><span class="p">);</span>
+</code></pre></div>
 <p>现在我们有了蓝图和生成位置，我们现在可以使用 <code>world.SpawnActor(...)</code> 方法生成车辆。</p>
-<pre><code class="language-cpp">auto actor = world.SpawnActor(blueprint, transform);
-std::cout &lt;&lt; &quot;Spawned &quot; &lt;&lt; actor-&gt;GetDisplayId() &lt;&lt; '\n';
-// 检索指向车辆对象的指针
-auto vehicle = boost::static_pointer_cast&lt;cc::Vehicle&gt;(actor);
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="n">actor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">world</span><span class="p">.</span><span class="n">SpawnActor</span><span class="p">(</span><span class="n">blueprint</span><span class="p">,</span><span class="w"> </span><span class="n">transform</span><span class="p">);</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Spawned &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">actor</span><span class="o">-&gt;</span><span class="n">GetDisplayId</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+<span class="c1">// 检索指向车辆对象的指针</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">vehicle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">boost</span><span class="o">::</span><span class="n">static_pointer_cast</span><span class="o">&lt;</span><span class="n">cc</span><span class="o">::</span><span class="n">Vehicle</span><span class="o">&gt;</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
+</code></pre></div>
 <h3 id="_4">应用控制</h3>
 <p>现在，让我们使用 <code>ApplyControl(...)</code> 方法对车辆应用一些控制来移动它：</p>
-<pre><code class="language-cpp">cc::Vehicle::Control control;
-control.throttle = 1.0f;
-vehicle-&gt;ApplyControl(control);
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">cc</span><span class="o">::</span><span class="n">Vehicle</span><span class="o">::</span><span class="n">Control</span><span class="w"> </span><span class="n">control</span><span class="p">;</span>
+<span class="n">control</span><span class="p">.</span><span class="n">throttle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0f</span><span class="p">;</span>
+<span class="n">vehicle</span><span class="o">-&gt;</span><span class="n">ApplyControl</span><span class="p">(</span><span class="n">control</span><span class="p">);</span>
+</code></pre></div>
 <p>现在，我们将重新定位观察者，以便在地图上看到我们新生成的车辆：</p>
-<pre><code class="language-cpp">auto spectator = world.GetSpectator();
-// 调整变换来看
-transform.location += 32.0f * transform.GetForwardVector();
-transform.location.z += 2.0f;
-transform.rotation.yaw += 180.0f;
-transform.rotation.pitch = -15.0f;
-// 现在设置观察者变换
-spectator-&gt;SetTransform(transform);
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="n">spectator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">world</span><span class="p">.</span><span class="n">GetSpectator</span><span class="p">();</span>
+<span class="c1">// 调整变换来看</span>
+<span class="n">transform</span><span class="p">.</span><span class="n">location</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mf">32.0f</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">transform</span><span class="p">.</span><span class="n">GetForwardVector</span><span class="p">();</span>
+<span class="n">transform</span><span class="p">.</span><span class="n">location</span><span class="p">.</span><span class="n">z</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mf">2.0f</span><span class="p">;</span>
+<span class="n">transform</span><span class="p">.</span><span class="n">rotation</span><span class="p">.</span><span class="n">yaw</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mf">180.0f</span><span class="p">;</span>
+<span class="n">transform</span><span class="p">.</span><span class="n">rotation</span><span class="p">.</span><span class="n">pitch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">-15.0f</span><span class="p">;</span>
+<span class="c1">// 现在设置观察者变换</span>
+<span class="n">spectator</span><span class="o">-&gt;</span><span class="n">SetTransform</span><span class="p">(</span><span class="n">transform</span><span class="p">);</span>
+</code></pre></div>
 <p>我们还将在客户端关闭之前，让该过程休眠10秒，以观察模拟过程：</p>
-<pre><code class="language-cpp">std::this_thread::sleep_for(10s);
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="mi">10</span><span class="n">s</span><span class="p">);</span>
+</code></pre></div>
 <p>如果您希望在执行其他命令时保持客户端打开，请创建一个游戏循环。现在，您已经加载了一张地图并生成了一辆车。为了进一步探索C++API，<a href="../ref_cpp/#c-documentation">构建Doxygen文档</a> 并在浏览器中打开它。</p>
 <p>要在 Carla 存储库之外的另一个位置构建C++客户端，请编辑Makefile的前5行，以引用<code>/build</code>目录和 Carla 构建位置的正确位置：</p>
-<pre><code class="language-make">CARLADIR=$(CURDIR)/../..
-BUILDDIR=$(CURDIR)/build
-BINDIR=$(CURDIR)/bin
-INSTALLDIR=$(CURDIR)/libcarla-install
-TOOLCHAIN=$(CURDIR)/ToolChain.cmake
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nv">CARLADIR</span><span class="o">=</span><span class="k">$(</span>CURDIR<span class="k">)</span>/../..
+<span class="nv">BUILDDIR</span><span class="o">=</span><span class="k">$(</span>CURDIR<span class="k">)</span>/build
+<span class="nv">BINDIR</span><span class="o">=</span><span class="k">$(</span>CURDIR<span class="k">)</span>/bin
+<span class="nv">INSTALLDIR</span><span class="o">=</span><span class="k">$(</span>CURDIR<span class="k">)</span>/libcarla-install
+<span class="nv">TOOLCHAIN</span><span class="o">=</span><span class="k">$(</span>CURDIR<span class="k">)</span>/ToolChain.cmake
+</code></pre></div>
               
             </div>
           </div><footer>
@@ -196,8 +196,13 @@ TOOLCHAIN=$(CURDIR)/ToolChain.cmake
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
       <script src="../search/main.js"></script>
     <script>
         jQuery(function () {

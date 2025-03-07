@@ -82,9 +82,9 @@
 <li><code>scikit-learn</code>库</li>
 </ul>
 <p>安装所需库的命令：</p>
-<pre><code>pip install carla==0.9.15 
+<div class="highlight"><pre><span></span><code>pip install carla==0.9.15 
 pip install geopandas shapely scikit-learn
-</code></pre>
+</code></pre></div>
 <h4 id="_4"><strong>功能结构</strong></h4>
 <p>该功能包含以下主要部分：</p>
 <ol>
@@ -96,7 +96,7 @@ pip install geopandas shapely scikit-learn
 </ol>
 <h5 id="_5">计算路网覆盖率</h5>
 <p>将道路几何信息转换为GeoPandas数据框，并计算道路覆盖的总长度和感兴趣区域的总面积，最后计算覆盖率。</p>
-<pre><code>def road_coverage(world):
+<div class="highlight"><pre><span></span><code>def road_coverage(world):
     road_geometries = get_road_geometries(world)
     road_lines = [LineString(road_geometries)]
     road_gdf = gpd.GeoDataFrame(geometry=road_lines)
@@ -106,10 +106,10 @@ pip install geopandas shapely scikit-learn
     total_area = area_gdf.area.sum()
     coverage_ratio = total_road_length / total_area
     return coverage_ratio
-</code></pre>
+</code></pre></div>
 <h5 id="_6">计算路口数量</h5>
 <p>通过遍历所有路点，找到位于路口的路点并获取唯一的路口ID。</p>
-<pre><code>def intersection_num(world):
+<div class="highlight"><pre><span></span><code>def intersection_num(world):
     carla_map = world.get_map()
     waypoints = carla_map.generate_waypoints(distance=2.0)
     junction_ids = set()
@@ -118,16 +118,16 @@ pip install geopandas shapely scikit-learn
             junction = waypoint.get_junction()
             junction_ids.add(junction.id)
     return len(junction_ids)
-</code></pre>
+</code></pre></div>
 <h5 id="_7">计算交通灯数量</h5>
 <p>它通过获取所有交通灯的演员对象并计数来实现。</p>
-<pre><code>def traffic_num(world):
-    traffic_lights = world.get_actors().filter('traffic.traffic_light')
+<div class="highlight"><pre><span></span><code>def traffic_num(world):
+    traffic_lights = world.get_actors().filter(&#39;traffic.traffic_light&#39;)
     return len(traffic_lights)
-</code></pre>
+</code></pre></div>
 <h5 id="_8">计算道路平均宽度</h5>
 <p>它遍历所有路点，累计车道宽度并计算平均值。</p>
-<pre><code>def road_width(world):
+<div class="highlight"><pre><span></span><code>def road_width(world):
     carla_map = world.get_map()
     waypoints = carla_map.generate_waypoints(2.0)
     total_width = 0.0
@@ -140,13 +140,13 @@ pip install geopandas shapely scikit-learn
         return average_width
     else:
         return 0
-</code></pre>
+</code></pre></div>
 <h5 id="_9">模拟流量和真实流量相似性评估<span id=predict_flow ></span></h5>
 <p>给定10次真实交通流数据，与模拟获取得10次模拟交通流数据比较其相似性。</p>
 <h6 id="_10">获取模拟车流量</h6>
-<pre><code># 某个时刻西二环十字路口的车流量
+<div class="highlight"><pre><span></span><code># 某个时刻西二环十字路口的车流量
 def get_vehicles_in_intersection(world, intersection_location, intersection_radius):
-    vehicles = world.get_actors().filter('vehicle.*')
+    vehicles = world.get_actors().filter(&#39;vehicle.*&#39;)
     vehicles_in_intersection = []
 
     for vehicle in vehicles:
@@ -155,9 +155,9 @@ def get_vehicles_in_intersection(world, intersection_location, intersection_radi
             vehicles_in_intersection.append(vehicle)
 
     return len(vehicles_in_intersection)
-</code></pre>
+</code></pre></div>
 <h6 id="_11">计算相似性</h6>
-<pre><code>def anal_similarity(real_flow, sim_flow):
+<div class="highlight"><pre><span></span><code>def anal_similarity(real_flow, sim_flow):
     simulated_traffic = np.array(sim_flow)
     real_traffic = np.array(real_flow)
     # 数据标准化
@@ -168,7 +168,7 @@ def get_vehicles_in_intersection(world, intersection_location, intersection_radi
     real_traffic = real_traffic.reshape(1, -1)
     cosine_sim = cosine_similarity(simulated_traffic, real_traffic)
     return cosine_sim
-</code></pre>
+</code></pre></div>
               
             </div>
           </div><footer>
@@ -204,8 +204,13 @@ def get_vehicles_in_intersection(world, intersection_location, intersection_radi
     <script>var base_url = "../..";</script>
     <script src="../../js/theme_extra.js"></script>
     <script src="../../js/theme.js"></script>
-      <script src="../../extra.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
       <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {
