@@ -1,14 +1,18 @@
 # 天气
 
 ## 调用流程
-1.Python中的 [`World.set_weather()`](https://github.com/OpenHUTB/carla_doc/blob/87d6e1d34ea0f6df2a32525a164f6d657b6319fd/src/examples/dynamic_weather.py#L166) 调用 [`World.cpp`](https://github.com/OpenHUTB/carla_cpp/blob/cd67e7a09f047dc9b0826f94c10f3232fc37bda6/LibCarla/source/carla/client/World.cpp#L90) 中的`World::SetWeather()`。
 
-2.[Client.cpp](https://github.com/OpenHUTB/carla_cpp/blob/dev/LibCarla/source/carla/client/detail/Client.cpp) 的 `Client::SetWeatherParameters()`，调用 `_pimpl->AsyncCall("set_weather_parameters", weather)`。
-然后通过`class Client::Pimpl`类的`AsyncCall()`方法发起远程异步调用`rpc_client.async_call(function, std::forward<Args>(args) ...)`。
 
-3.通过[rpc/Client.h](https://github.com/OpenHUTB/carla_cpp/blob/cd67e7a09f047dc9b0826f94c10f3232fc37bda6/LibCarla/source/carla/rpc/Client.h#L69) 的 `async_call()` 进行远程调用服务端。
+1.Python中的 [`World.set_weather()`](https://github.com/OpenHUTB/carla_doc/blob/87d6e1d34ea0f6df2a32525a164f6d657b6319fd/src/examples/dynamic_weather.py#L166) 调用 [`client/World.cpp`](https://github.com/OpenHUTB/carla_cpp/blob/cd67e7a09f047dc9b0826f94c10f3232fc37bda6/LibCarla/source/carla/client/World.cpp#L90) 中的`World::SetWeather()`，PythonAPI具体天气参数定义在 [PythonAPI/carla/source/libcarla/Weather.cpp](https://github.com/OpenHUTB/carla_cpp/blob/dev/PythonAPI/carla/source/libcarla/Weather.cpp) 。
 
-4.服务端在 [Weather.cpp](https://github.com/OpenHUTB/carla_cpp/blob/cd67e7a09f047dc9b0826f94c10f3232fc37bda6/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Weather/Weather.cpp#L97C29-L98C1) 中的 [`void RefreshWeather(const FWeatherParameters &WeatherParameters)`](https://github.com/OpenHUTB/carla_cpp/blob/cd67e7a09f047dc9b0826f94c10f3232fc37bda6/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Weather/Weather.h#L59C3-L60C1) 调用真正改变天气的蓝图，方法实现位于`Weather.h`中的
+2.[client/detail/Client.cpp](https://github.com/OpenHUTB/carla_cpp/blob/dev/LibCarla/source/carla/client/detail/Client.cpp) 的 `Client::SetWeatherParameters()`，调用 `_pimpl->AsyncCall("set_weather_parameters", weather)`。
+然后通过`class Client::Pimpl`类的`AsyncCall()`方法发起远程异步调用`rpc::Client.async_call(function, std::forward<Args>(args) ...)`。
+
+3.通过[rpc/Client.h](https://github.com/OpenHUTB/carla_cpp/blob/cd67e7a09f047dc9b0826f94c10f3232fc37bda6/LibCarla/source/carla/rpc/Client.h#L69) 的 `async_call()`，最后使用`rpc::client`库中的`async_call()`进行远程调用服务端。具体天气类别位于 [rpc/WeatherParameter.cpp](https://github.com/OpenHUTB/carla_cpp/blob/dev/LibCarla/source/carla/rpc/WeatherParameters.cpp) 。
+
+4.在[`Server/CarlaServer.cpp`](https://github.com/OpenHUTB/carla_cpp/blob/dev/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Server/CarlaServer.cpp) 中的`BIND_SYNC(set_weather_parameters)`开始服务端调用。
+
+5.在 [Weather.cpp](https://github.com/OpenHUTB/carla_cpp/blob/cd67e7a09f047dc9b0826f94c10f3232fc37bda6/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Weather/Weather.cpp#L97C29-L98C1) 中的 `AWeather::ApplyWeather()` 调用 [`void RefreshWeather(const FWeatherParameters &WeatherParameters)`](https://github.com/OpenHUTB/carla_cpp/blob/cd67e7a09f047dc9b0826f94c10f3232fc37bda6/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Weather/Weather.h#L59C3-L60C1) 调用真正改变天气的蓝图，方法实现位于`Weather.h`中的
 ```shell
 UFUNCTION(BlueprintImplementableEvent)
 void RefreshWeather(const FWeatherParameters &WeatherParameters);
