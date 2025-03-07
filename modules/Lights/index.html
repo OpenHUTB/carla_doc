@@ -68,7 +68,170 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                
+                <hr />
+<h1 id="ucarlalight">UCarlaLight 说明文档</h1>
+<hr />
+<h2 id="_1">概述</h2>
+<p><code>UCarlaLight</code> 是 CARLA 仿真平台中用于管理动态灯光的 Unreal Engine 组件类，核心功能包括：</p>
+<ul>
+<li><strong>灯光属性控制</strong>：动态调整灯光强度、颜色、开关状态及类型。</li>
+<li><strong>子系统集成</strong>：与 <code>CarlaLightSubsystem</code> 交互实现全局灯光管理。</li>
+<li><strong>状态同步</strong>：支持与 RPC 协议兼容的灯光状态序列化（<code>carla::rpc::LightState</code>）。</li>
+<li><strong>事件记录</strong>：灯光状态变化时触发事件记录，支持仿真回放与调试。</li>
+</ul>
+<h2 id="_2">类成员函数说明</h2>
+<h3 id="1">1. 生命周期函数</h3>
+<h4 id="beginplay">BeginPlay()</h4>
+<ul>
+<li><strong>作用</strong>：组件初始化入口，触发灯光注册流程。</li>
+<li><strong>流程</strong>：</li>
+<li>调用父类 <code>Super::BeginPlay()</code>。</li>
+<li>执行 <code>RegisterLight()</code> 注册到灯光子系统。</li>
+</ul>
+<h4 id="endplay">EndPlay()</h4>
+<ul>
+<li><strong>作用</strong>：组件销毁时清理资源。</li>
+<li><strong>流程</strong>：</li>
+<li>从 <code>CarlaLightSubsystem</code> 注销当前灯光。</li>
+<li>调用父类 <code>Super::EndPlay()</code>。</li>
+</ul>
+<h3 id="2">2. 灯光注册与注销</h3>
+<h4 id="registerlight">RegisterLight()</h4>
+<ul>
+<li><strong>作用</strong>：将灯光注册到子系统和天气系统。</li>
+<li><strong>关键逻辑</strong>：</li>
+<li>通过 <code>GetWorld()-&gt;GetSubsystem&lt;UCarlaLightSubsystem&gt;()</code> 获取子系统实例。</li>
+<li>调用 <code>CarlaLightSubsystem-&gt;RegisterLight(this)</code> 完成注册。</li>
+<li>标记 <code>bRegistered = true</code> 防止重复注册。</li>
+<li><strong>注销逻辑</strong>：在 <code>EndPlay()</code> 中调用 <code>CarlaLightSubsystem-&gt;UnregisterLight(this)</code>。</li>
+</ul>
+<h3 id="3">3. 属性控制函数</h3>
+<table>
+<thead>
+<tr>
+<th>函数名</th>
+<th>参数</th>
+<th>功能描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SetLightIntensity()</td>
+<td><code>float Intensity</code></td>
+<td>设置灯光强度并更新渲染效果。</td>
+</tr>
+<tr>
+<td>SetLightColor()</td>
+<td><code>FLinearColor Color</code></td>
+<td>设置颜色并记录状态变化事件。</td>
+</tr>
+<tr>
+<td>SetLightOn()</td>
+<td><code>bool bOn</code></td>
+<td>切换灯光开关状态并触发更新。</td>
+</tr>
+<tr>
+<td>SetLightType()</td>
+<td><code>ELightType Type</code></td>
+<td>设置灯光类型（如车灯、路灯等）。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="getlightstate-setlightstate">GetLightState() 与 SetLightState()</h4>
+<ul>
+<li><strong>作用</strong>：实现与 RPC 协议的状态双向同步。</li>
+<li><strong>数据结构</strong>：
+  <div class="highlight"><pre><span></span><code><span class="n">carla</span><span class="o">::</span><span class="n">rpc</span><span class="o">::</span><span class="n">LightState</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">FVector</span><span class="w"> </span><span class="n">_location</span><span class="p">;</span><span class="w">      </span><span class="c1">// 世界坐标位置</span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">_intensity</span><span class="p">;</span><span class="w">       </span><span class="c1">// 强度</span>
+<span class="w">  </span><span class="n">LightGroup</span><span class="w"> </span><span class="n">_group</span><span class="p">;</span><span class="w">      </span><span class="c1">// 类型（枚举）</span>
+<span class="w">  </span><span class="n">FLinearColor</span><span class="w"> </span><span class="n">_color</span><span class="p">;</span><span class="w">    </span><span class="c1">// 颜色</span>
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">_active</span><span class="p">;</span><span class="w">           </span><span class="c1">// 是否开启</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">_id</span><span class="p">;</span><span class="w">                </span><span class="c1">// 唯一标识符</span>
+<span class="p">}</span>
+</code></pre></div></li>
+</ul>
+<h3 id="4">4. 辅助功能</h3>
+<h4 id="getlocation">GetLocation()</h4>
+<ul>
+<li><strong>作用</strong>：获取灯光全局坐标（支持大型地图场景）。</li>
+<li><strong>流程</strong>：</li>
+<li>获取组件所属 Actor 的本地坐标。</li>
+<li>通过 <code>ALargeMapManager</code> 将坐标转换为全局坐标系。</li>
+</ul>
+<h4 id="recordlightchange">RecordLightChange()</h4>
+<ul>
+<li><strong>作用</strong>：记录灯光状态变化事件（用于仿真回放）。</li>
+<li><strong>触发条件</strong>：调用 <code>SetLightColor()</code> 或 <code>SetLightOn()</code>。</li>
+<li><strong>依赖模块</strong>：通过 <code>UCarlaStatics::GetCurrentEpisode()</code> 获取记录器实例。</li>
+</ul>
+<h2 id="_3">关键成员变量</h2>
+<table>
+<thead>
+<tr>
+<th>变量名</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LightIntensity</td>
+<td><code>float</code></td>
+<td>当前灯光强度（默认值由引擎配置）</td>
+</tr>
+<tr>
+<td>LightColor</td>
+<td><code>FLinearColor</code></td>
+<td>RGB 颜色值（线性空间）</td>
+</tr>
+<tr>
+<td>bLightOn</td>
+<td><code>bool</code></td>
+<td>是否开启</td>
+</tr>
+<tr>
+<td>LightType</td>
+<td><code>ELightType</code></td>
+<td>灯光分类（如车辆、环境光源等）</td>
+</tr>
+<tr>
+<td>Id</td>
+<td><code>int</code></td>
+<td>唯一标识符（由子系统分配）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_4">使用场景</h2>
+<h3 id="_5">动态环境光照</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// 脚本控制路灯夜间自动开启</span>
+<span class="n">LightComponent</span><span class="o">-&gt;</span><span class="n">SetLightOn</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+<span class="n">LightComponent</span><span class="o">-&gt;</span><span class="n">SetLightIntensity</span><span class="p">(</span><span class="mf">5000.0f</span><span class="p">);</span>
+<span class="n">LightComponent</span><span class="o">-&gt;</span><span class="n">SetLightColor</span><span class="p">(</span><span class="n">FLinearColor</span><span class="p">(</span><span class="mf">0.9f</span><span class="p">,</span><span class="w"> </span><span class="mf">0.9f</span><span class="p">,</span><span class="w"> </span><span class="mf">0.8f</span><span class="p">));</span>
+</code></pre></div>
+<h3 id="_6">车辆信号灯同步</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// 同步刹车灯状态到 RPC 协议</span>
+<span class="n">carla</span><span class="o">::</span><span class="n">rpc</span><span class="o">::</span><span class="n">LightState</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LightComponent</span><span class="o">-&gt;</span><span class="n">GetLightState</span><span class="p">();</span>
+<span class="n">state</span><span class="p">.</span><span class="n">_color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FLinearColor</span><span class="o">::</span><span class="n">Red</span><span class="p">;</span>
+<span class="n">state</span><span class="p">.</span><span class="n">_active</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bIsBraking</span><span class="p">;</span>
+<span class="n">LightComponent</span><span class="o">-&gt;</span><span class="n">SetLightState</span><span class="p">(</span><span class="n">state</span><span class="p">);</span>
+</code></pre></div>
+<h3 id="_7">仿真事件回放</h3>
+<p>通过 <code>RecordLightChange()</code> 记录状态变化时间点。</p>
+<h2 id="_8">注意事项</h2>
+<ul>
+<li><strong>子系统依赖</strong>：Actor 必须存在于已启用 <code>CarlaLightSubsystem</code> 的场景中。</li>
+<li><strong>线程安全</strong>：避免在非游戏线程（如异步任务）中直接调用 <code>SetLightXxx</code> 函数。</li>
+<li><strong>大型地图支持</strong>：使用 <code>GetLocation()</code> 而非直接获取 Actor 坐标以确保跨地图兼容性。</li>
+</ul>
+<h2 id="_9">扩展建议</h2>
+<h3 id="_10">蓝图集成</h3>
+<p>将 <code>LightIntensity</code>、<code>LightColor</code> 等属性暴露为 <code>BlueprintReadWrite</code>，方便设计师调整。</p>
+<h3 id="_11">序列化优化</h3>
+<p>重写 <code>Serialize()</code> 实现灯光状态的持久化存储（如保存/加载场景）。</p>
+<h3 id="rpc">RPC 性能优化</h3>
+<p>对高频更新的灯光（如转向灯）实现差值同步，减少网络流量。</p>
+<hr />
               
             </div>
           </div><footer>
