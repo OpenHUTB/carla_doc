@@ -557,9 +557,7 @@
 
 ## 可解释 <span id="explainability"></span>
 
-[使用深度生成模型的反事实解释方法](https://github.com/darshandodamani/A-Counterfactual-Explanation-Approach-Using-Deep-Generative-Models)
-
-[反事实解释](https://github.com/darshandodamani/KontrafaktischeErkl-rungzurAD-Masterarbeit) ：确定输入中的哪些微小变化会改变模型的决策。
+[使用深度生成模型的反事实解释方法](https://github.com/darshandodamani/A-Counterfactual-Explanation-Approach-Using-Deep-Generative-Models) ：确定输入中的哪些微小变化会改变模型的决策。
 
 [通过对象级表示可解释的Transformers](https://github.com/autonomousvision/plant)
 
