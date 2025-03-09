@@ -131,3 +131,16 @@ Config value: 'markdown_extensions'. Error: Failed loading extension "mdx_gh_lin
 ```shell
 pip install mdx_gh_links
 ```
+
+克隆仓库时报错：
+```text
+fatal: early EOF
+fatal: fetch-pack: invalid index-pack output
+```
+解决：
+```shell
+# 设置下载缓存参数
+git config --global http.postBuffer 2G
+# 确认参数是否正确设置
+git config http.postBuffer
+```
