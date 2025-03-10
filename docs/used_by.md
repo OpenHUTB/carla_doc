@@ -1,6 +1,6 @@
 # [引用了Carla的相关仓库](https://github.com/carla-simulator/carla/network/dependents)
 
-<!-- 更新到最新的仓库： https://github.com/TechOctopus/carla_bc --> 
+<!-- 更新到最新的仓库： https://github.com/ast-fortiss-tum/MultiSim --> 
 
 
 - [__感知__](#perception)
@@ -168,6 +168,8 @@
 [训练深度强化学习代理，让车辆自主遵循路径](https://github.com/rohanNkhaire/RL_SB3_carla) - 使用语义分割传感器作为输入
 
 [使用模仿学习来训练驾驶代理](https://github.com/dagokl/naive_driving_agent)
+
+[置信感知模仿学习](https://github.com/ElaheDlv/Confidence_Aware_IL)
 
 [自动驾驶中的强化学习](https://github.com/AnshMittal1811/ReinforcementLearningInAutonomousDriving)
 
@@ -423,6 +425,8 @@
 
 ## 场景 <span id="scene"></span>
 
+[汽车场景生成和评估其安全级别工具包](https://github.com/Fizza129/ASIL-Gen)
+
 [针对自动驾驶系统的模糊测试方法](https://github.com/yagol2020/SimADFuzz) - 可生成各种驾驶场景来检测 ADS 中的潜在违规行为
 
 [一种场景描述 DSL 来描述从交通规则中衍生的功能测试场景](https://github.com/ITSEG-MQ/TARGET)
@@ -557,9 +561,7 @@
 
 ## 可解释 <span id="explainability"></span>
 
-[使用深度生成模型的反事实解释方法](https://github.com/darshandodamani/A-Counterfactual-Explanation-Approach-Using-Deep-Generative-Models)
-
-[反事实解释](https://github.com/darshandodamani/KontrafaktischeErkl-rungzurAD-Masterarbeit) ：确定输入中的哪些微小变化会改变模型的决策。
+[使用深度生成模型的反事实解释方法](https://github.com/darshandodamani/A-Counterfactual-Explanation-Approach-Using-Deep-Generative-Models) ：确定输入中的哪些微小变化会改变模型的决策。
 
 [通过对象级表示可解释的Transformers](https://github.com/autonomousvision/plant)
 

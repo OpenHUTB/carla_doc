@@ -45,7 +45,14 @@ pip install auto-py-to-exe
 然后运行`auto-py-to-exe`。
 
 ## 设计
-参考[BeamNG](https://baike.baidu.com/item/BeamNG%E8%B5%9B%E8%BD%A6/18880401) 
+参考[BeamNG](https://baike.baidu.com/item/BeamNG%E8%B5%9B%E8%BD%A6/18880401)
+
+## 发布到商城
+[讨论是否可以发布修改代码的插件](https://www.reddit.com/r/unrealengine/comments/w7ndj9/are_plugins_able_to_append_tooverwrite_engine/)
+
+Baidunet Disk Download Link: https://pan.baidu.com/s/1hFngmeAvyUulsiI-JlNHuA?pwd=hutb
+
+A simulator and scene editor for autonomous driving.
 
 ## 问题
 点击打包后的文件出现错误：

@@ -57,6 +57,8 @@ __3. 配置默认天气参数。__
 <i>包含每个 Carla 地图的默认天气参数的数组。打开 Town10HD_Opt。</i></div>
 <br>
 
+天气的具体实现请参考 [链接](modules/Weather.md) 。
+
 ---
 
 ## 添加序列化网格 <span id="add-serial-meshes"></span>

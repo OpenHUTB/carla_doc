@@ -458,3 +458,6 @@ void MySensor::Tick(float DeltaSeconds)
 
 考虑到客户端的“on tick”回调是并发执行的，即相同的方法可能由不同的线程同时执行，这一点非常重要。访问的任何数据都必须正确同步，可以使用互斥体、使用原子，或者更好地确保所有访问的成员保持不变。
 
+
+## 其他
+[操作步骤博客](https://blog.csdn.net/zataji/article/details/140858585)
