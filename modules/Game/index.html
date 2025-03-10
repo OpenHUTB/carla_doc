@@ -68,7 +68,83 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                
+                <p>CARLA 引擎模块说明
+简介
+    环境依赖
+    核心功能
+    主要函数
+    代码结构
+    贡献代码</p>
+<p>简介
+    CARLA（Car Learning to Act）是一个基于 Unreal Engine 的开源自动驾驶模拟器。本项目的 CarlaEngine.cpp 负责管理 CARLA 的核心引擎功能，如固定时间步长、RPC 服务器线程数等。</p>
+<p>环境依赖</p>
+<p>本模块依赖以下组件：</p>
+<p>Unreal Engine</p>
+<p>CARLA 源码</p>
+<p>ROS2（可选）</p>
+<p>多 GPU 支持库</p>
+<p>核心功能</p>
+<p>CarlaEngine.cpp 主要提供以下核心功能：</p>
+<p>时间步长控制：允许用户获取和设置固定的物理模拟时间步长。</p>
+<p>多线程支持：提供对 RPC 服务器线程数的管理。</p>
+<p>场景管理：管理 CARLA 场景生命周期，支持多 GPU 计算。</p>
+<p>与 ROS2 交互：通过 carla::ros2::ROS2 进行通信。</p>
+<p>主要函数</p>
+<ol>
+<li>FCarlaEngine_GetFixedDeltaSeconds()</li>
+</ol>
+<p>static TOptional<double> FCarlaEngine_GetFixedDeltaSeconds();</p>
+<p>功能：</p>
+<p>获取 CARLA 的固定时间步长。</p>
+<p>定义位置：CarlaEngine.cpp 第 50 行。</p>
+<p>调用位置：FCarlaEngine::NotifyBeginEpisode()。</p>
+<ol>
+<li>FCarlaEngine_GetNumberOfThreadsForRPCServer()</li>
+</ol>
+<p>static uint32 FCarlaEngine_GetNumberOfThreadsForRPCServer();</p>
+<p>功能：</p>
+<p>获取用于 RPC 服务器的线程数量。</p>
+<p>定义位置：CarlaEngine.cpp 第 43 行。</p>
+<p>调用位置：FCarlaEngine::NotifyInitGame()。</p>
+<ol>
+<li>FCarlaEngine_SetFixedDeltaSeconds(TOptional<double> FixedDeltaSeconds)</li>
+</ol>
+<p>static void FCarlaEngine_SetFixedDeltaSeconds(TOptional<double> FixedDeltaSeconds);</p>
+<p>功能：</p>
+<p>设置固定的物理模拟时间步长。</p>
+<p>定义位置：CarlaEngine.cpp 第 57 行。</p>
+<p>调用位置：FCarlaEngine::OnEpisodeSettingsChanged()。</p>
+<ol>
+<li>if (bIsRunning)</li>
+</ol>
+<p>if (bIsRunning)</p>
+<p>功能：</p>
+<p>确保引擎正在运行后再执行特定操作。</p>
+<p>定义位置：CarlaEngine.cpp 第 75 行。</p>
+<p>依赖组件：carla::ros2::ROS2::GetInstance()、FCarlaStaticDelegates::OnEpisodeSettingsChange()。</p>
+<p>代码结构</p>
+<p>本模块的代码结构如下：</p>
+<p>CARLA
+├── Unreal
+│   ├── CarlaUE4
+│   │   ├── Plugins
+│   │   │   ├── Carla
+│   │   │   │   ├── Source
+│   │   │   │   │   ├── Carla
+│   │   │   │   │   │   ├── Game
+│   │   │   │   │   │   │   ├── CarlaEngine.cpp  # 主要文件
+│   │   │   │   │   │   │   ├── CarlaEngine.h
+│   │   │   │   │   │   │   ├── CarlaEpisode.h
+│   │   │   │   │   │   │   ├── CarlaStatics.h</p>
+<p>贡献代码</p>
+<p>如果你希望为 CarlaEngine.cpp 贡献代码，请按照以下步骤：</p>
+<p>Fork 本项目。</p>
+<p>创建一个新分支并进行修改。</p>
+<p>提交 PR（Pull Request）。</p>
+<p>代码需要通过代码审查和 CI 测试。</p>
+<p>如有任何问题，请提交 Issue 或联系维护团队。</p>
+<p>维护团队：CARLA 官方团队</p>
+<p>许可证：MIT License</p>
               
             </div>
           </div><footer>
