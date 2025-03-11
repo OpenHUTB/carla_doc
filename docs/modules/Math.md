@@ -1,8 +1,3 @@
-```yaml
-markdown_extensions:
-  - mdx_math
-```
-
 # DVector.h 文档
 
 **Dvector.h 中定义了FDVector** 结构体，用于表示三维向量，其各分量为双精度浮点数。
