@@ -35,20 +35,31 @@ ISS 感知模块支持的不同任务使我们的车辆能够了解周围环境�
 
 ### 安装
 
-- `pip install -r requirements.txt`
+ 将git仓库克隆下来
 
-- 如果需要 GPU 计算, 安装 nvidia-cuda-toolkit。
+```
+git clone https://github.com/jiandaoshou-aidehua/self-driving-experiments-in-carla.git
+```
+
+- 进入**object_detection_with_yolov3**
 
 - 创建 conda 环境：
 
+  ```
   conda create -n yolo python=3.7
+  ```
 
+  ```
   conda activate yolo
+  ```
 
   注意：运行脚本的时候会提示安装包！除Carla Client API为0.9.12与Carla对应，其他安装最新的。
 
-- weights文件链接：https://pan.baidu.com/s/184hR_PQZttYeAz9QE4XOQg 
-  提取码：hyus 
+- 导入模块：`pip install -r requirements.txt`
+
+- 下载weights文件
+
+  weights文件链接：https://pan.baidu.com/s/184hR_PQZttYeAz9QE4XOQg  提取码：hyus 
 
   将weight文件放在weights目录下。
 
@@ -60,13 +71,19 @@ ISS 感知模块支持的不同任务使我们的车辆能够了解周围环境�
 
 2.运行脚本生成车辆和行人
 
-`python3 spawn_npc.py -n 80`
+```
+python3 spawn_npc.py -n 80
+```
 
 > 注意: spawn_npc.py 在 `PythonAPI/examples`，该测试是在Carla-0.9.12，最新版Carla没有spawn_npc.py,但是会出现行人倒着走的问题，不妨使用generate_trrafic.py。
 
-3.行`python3 object_detection.py` 
+3.执行`python3 object_detection.py` 
 
-**用gpu执行**
+**用GPU执行**
+
+```
+如果需要 GPU 计算, 安装 nvidia-cuda-toolkit。
+```
 
 1. `pip install yolo34py-gpu`
 2. `python3 object_detection_gpu.py`
