@@ -27,7 +27,7 @@ ISS 感知模块支持的不同任务使我们的车辆能够了解周围环境�
 
 我们还提供了有关 ISS 生成的物体检测的 [数据集](https://drive.google.com/drive/folders/1EUKrZdwPsxJ3pI6GrOdemPLJKHmy1xi3?usp=drive_link) 。仍在更新。
 
-[**git仓库**](https://github.com/jiandaoshou-aidehua/self-driving-experiments-in-carla/tree/master/object_detection_with_yolov3)
+[**git仓库**](https://github.com/woaishimoxi/self-driving-experiments-in-carla)
 
 ## 目标检测
 
