@@ -248,7 +248,7 @@ python3 manual_control.py --filter <model_name> # 步骤9中定义的品牌或�
 
 __5.__ __配置 N 轮车辆的动画蓝图__
 
-搜索 `BaseVehiclePawnNW` 并按 **_Select_**。
+搜索 `BaseVehiclePawnNW`(N Wheel) 并按 **_Select_**。
 
 ![n_wheel_base](./img/base_nw.png)
 

@@ -179,6 +179,17 @@ python setup.py build
 
 参考[链接](https://stackoverflow.com/questions/61692952/how-to-pass-debug-to-build-ext-when-invoking-setup-py-install) ，效果未知。
 
+## 调式蓝图
+
+这里以 [Spectator 蓝图](https://bitbucket.org/carla-simulator/carla-content/src/master/Blueprints/Game/Spectator.uasset) 为例进行蓝图调式的说明。
+
+1. 打开蓝图后，在所需要的模块上右键，添加断点；
+2. 在虚幻编辑器中运行场景；
+3. 会在蓝图断点处停止，可以在菜单栏中进行程序流程的控制和调试，比如进入、跳过、跳出等。
+![](img/tuto_D_windows_debug/BP_debug.jpg)
+
+从菜单`窗口->开发者工具`中的`蓝图调试器`，可以查看调用堆栈、变量值等信息，具体操作请查看[蓝图调试](https://dev.epicgames.com/documentation/zh-cn/unreal-engine/blueprint-debugging?application_version=4.27) 。
+
 
 ## 其他 <span id="other"></span>
 

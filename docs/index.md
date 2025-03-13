@@ -124,7 +124,7 @@ title: 主页
 
 [__渲染选项__](adv_rendering_options.md) — 从质量设置到不渲染或离屏模式
 
-[__纹理流__](tuto_G_texture_streaming.md) — 实时修改地图对象的纹理以添加变化
+[__通过 API 更改纹理__](tuto_G_texture_streaming.md) — 实时修改地图对象的纹理以添加变化
 
 [__责任敏感安全__](adv_rss.md) — Carla 客户端库中的责任敏感安全实现
 
