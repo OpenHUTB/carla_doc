@@ -15,8 +15,8 @@ out_file = os.path.join(location, "output.gif")  # 输出GIF文件名
 
 
 # 压缩版本，参考： https://developer.aliyun.com/article/1172904
-# 设置压缩尺寸，这里设置压缩尺寸为500
-rp = 1000
+# 设置压缩尺寸，值越大动图越清晰，文件也越大
+rp = 600
 
 img_list = []
 

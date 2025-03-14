@@ -2,7 +2,7 @@ title: 主页
 
 # [代理模拟器](https://carla.readthedocs.io/en/latest/)
 
-欢迎使用代理模拟器文档，该页面包含所有内容的索引。运行 [入门](#primary) 示例后可以按自己喜欢的顺序随意阅读（可使用已经部署的 [DeepSeek大模型](software/llm.md) 来辅助开发）。默认为打开 UE 4.26 的 Carla 文档，支持 UE 5.5 的 Carla 文档请查看 [链接](ue5/index.md) 。
+欢迎使用代理模拟器文档，该页面包含所有内容的索引。运行 [入门](#primary) 示例后可以按自己喜欢的顺序随意阅读（可使用 [DeepSeek大模型](software/llm.md) 来辅助开发）。默认为打开 UE 4.26 的 Carla 文档，支持 UE 5.5 的 Carla 文档请查看 [链接](ue5/index.md) 。
 
 * [__入门__](#primary)  
     * [简介](#introduction)
@@ -124,7 +124,7 @@ title: 主页
 
 [__渲染选项__](adv_rendering_options.md) — 从质量设置到不渲染或离屏模式
 
-[__纹理流__](tuto_G_texture_streaming.md) — 实时修改地图对象的纹理以添加变化
+[__通过 API 更改纹理__](tuto_G_texture_streaming.md) — 实时修改地图对象的纹理以添加变化
 
 [__责任敏感安全__](adv_rss.md) — Carla 客户端库中的责任敏感安全实现
 
