@@ -68,7 +68,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="carla"><a href="https://carla.readthedocs.io/en/latest/start_introduction/">Carla</a></h1>
+                <h1 id="_1"><a href="https://carla.readthedocs.io/en/latest/start_introduction/">代理模拟器</a></h1>
 <p><img alt="Welcome to CARLA" src="../img/welcome.png" /></p>
 <div class="admonition 重要">
 <p class="admonition-title">重要</p>
@@ -77,7 +77,7 @@
 <p>Carla 是一款开源自动驾驶模拟器。它是从头开始构建的，作为一个模块化且灵活的 API，可以解决自动驾驶问题中涉及的一系列任务。Carla 的主要目标之一是帮助自动驾驶研发民主化，成为用户可以轻松访问和定制的工具。为此，模拟器必须满足一般驾驶问题中不同用例的要求（例如学习驾驶策略、训练感知算法等）。Carla 基于虚幻引擎来运行模拟，并使用 OpenDRIVE 标准（目前为 1.4）来定义道路和城市设置。对模拟的控制是通过 Python 和 <a href="">C++</a> 处理的 API 授予的，该 API 随着项目的发展而不断增长。 </p>
 <p>为了顺利开发、训练和验证驾驶系统的过程，Carla 发展成为一个由社区围绕主平台构建的项目生态系统。在这种情况下，了解 Carla 的工作原理非常重要，这样才能充分理解其功能。</p>
 <hr />
-<h2 id="_1">模拟器</h2>
+<h2 id="_2">模拟器</h2>
 <p>Carla 模拟器由可扩展的客户端-服务器架构组成。
 服务器负责与模拟本身相关的所有事情：传感器渲染、物理计算、世界状态及其参与者的更新等。包括 <a href="../carla_plugin/">虚幻引擎插件</a> 、<a href="../ref_cpp/">Libcarla服务端</a>、远程过程调用服务。由于它的目标是实际结果，因此最合适的选择是使用专用 GPU 运行服务器，尤其是在处理机器学习时。</p>
 <p>客户端由一组客户端模块组成，控制场景中参与者的逻辑并设置世界条件。Carla架构的设计请参考<a href="../carla_design/">链接</a>。这是通过利用 Carla API（Python 或 C++ 语言）来实现的，Carla API 是服务器和客户端之间的中介层，不断发展以提供新功能。</p>
@@ -92,9 +92,11 @@
 <li><strong>Scenario runner.</strong> 为了简化车辆的学习过程，Carla 提供了一系列描述不同情况的迭代路线。这些也为 <a href="https://carlachallenge.org/">Carla 挑战</a> 奠定了基础，每个人都可以测试他们的解决方案并跻身排行榜。</li>
 </ul>
 <hr />
-<h2 id="_2">该项目</h2>
+<h2 id="_3">该项目</h2>
 <p>Carla 快速稳定地发展，扩大了提供的解决方案范围，并为不同的自动驾驶方法开辟了道路。它在这样做的同时永远不会忘记其开源性质。该项目是透明的，充当一个白盒，任何人都可以访问工具和开发社区。Carla 正是在民主化中找到了自己的价值。
 谈论 Carla 如何成长意味着谈论一个共同深入研究自动驾驶彻底问题的开发人员社区。每个人都可以自由地与 Carla 一起探索，找到自己的解决方案，然后与社区其他成员分享他们的成就。</p>
+<p>开源湖工商项目继承并同步自Carla社区，并增加许多自定义的特性，比如 <a href="../ref_sensors/#fisheye-camera">鱼眼相机</a> 等。下图为仓库和分支之间的继承关系：
+<img alt="" src="../img/dev/repository_inherit.jpg" /></p>
 <p>本文档将成为您一路上的伴侣。下一页包含 <strong><a href="../start_quickstart/">快速入门</a></strong> 说明，供那些渴望安装 Carla 版本的人使用。还有适用于 Linux 和 Windows 的构建指南。这将使 Carla 从存储库中出来，并允许深入了解其功能。</p>
 <p>欢迎来到 Carla。 </p>
 <div class="build-buttons">
