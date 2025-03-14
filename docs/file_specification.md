@@ -55,7 +55,7 @@
 * [测试](modules/Testing_BP.md) [Testing](https://bitbucket.org/carla-simulator/carla-content/src/master/Blueprints/Testing/)
 * [交通灯](modules/TrafficLight_BP.md) [TrafficLight](https://bitbucket.org/carla-simulator/carla-content/src/master/Blueprints/TrafficLight/)
 * [通用场景描述(USD) 资产导入模板](modules/USDImportTemplates_BP.md) [USDImportTemplates](https://bitbucket.org/carla-simulator/carla-content/src/master/Blueprints/USDImportTemplates/)
-* [车辆](modules) [Vehicles](https://bitbucket.org/carla-simulator/carla-content/src/master/Blueprints/Vehicles/)
+* [车辆](modules/Vehicles_BP.md) [Vehicles](https://bitbucket.org/carla-simulator/carla-content/src/master/Blueprints/Vehicles/)
 * [行人](modules/Walkers_BP.md) [Walkers](https://bitbucket.org/carla-simulator/carla-content/src/master/Blueprints/Walkers/)
 
 ### 3.2 [静态资产](modules/Static.md) [Static](https://bitbucket.org/carla-simulator/carla-content/src/master/Static/)

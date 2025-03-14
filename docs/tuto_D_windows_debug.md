@@ -6,6 +6,7 @@
     - [__Python 扩展模块__](#python_extension)
 - [__调试PythonAPI__](#debug_Python_API)
     - [__构建调试版本__](#build_debug_version)
+- [__调试蓝图__](#debug_blueprint)
 - [__其他__](#other)
     - [__检查所依赖dll库的符号是否加载__](#check_dll_loaded)
     - [__VS2019 打开 CarlaUE4 的 Cmake 工程__](#open_cmake_project)
@@ -179,7 +180,7 @@ python setup.py build
 
 参考[链接](https://stackoverflow.com/questions/61692952/how-to-pass-debug-to-build-ext-when-invoking-setup-py-install) ，效果未知。
 
-## 调式蓝图
+## 调式蓝图 <span id="debug_blueprint"></span>
 
 这里以 [Spectator 蓝图](https://bitbucket.org/carla-simulator/carla-content/src/master/Blueprints/Game/Spectator.uasset) 为例进行蓝图调式的说明。
 
