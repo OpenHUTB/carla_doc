@@ -74,6 +74,6 @@ if (bIsRunning)
 
 4. 代码需要通过代码审查和 CI 测试。
 
-5. 如有任何问题，请提交 Issue 或联系维护团队。
+5. 如有任何问题，请提交Issue或联系维护团队。
 
 许可证：MIT License
