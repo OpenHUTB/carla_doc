@@ -1,7 +1,3 @@
-```yaml
-markdown_extensions:
-  - mdx_math
-```
 
 # DVector.h 文档
 

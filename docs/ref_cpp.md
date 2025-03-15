@@ -71,3 +71,7 @@ git ls-files '*.h' | xargs wc -l
 ## C++ 详细信息
 
 * [C++详细信息](./cpp.md)
+
+## 其他
+
+* [doxygen 生成图的解释](https://openhutb.github.io/carla_cpp/graph_legend.html)
