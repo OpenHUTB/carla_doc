@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>tuto G unreal - 代理模拟器</title>
+    <title>虚幻引擎高级特性 - 代理模拟器</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "tuto G unreal";
+        var mkdocs_page_name = "\u865a\u5e7b\u5f15\u64ce\u9ad8\u7ea7\u7279\u6027";
         var mkdocs_page_input_path = "tuto_G_unreal.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,7 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">tuto G unreal</li>
+      <li class="breadcrumb-item active">虚幻引擎高级特性</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/tuto_G_unreal.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -68,11 +68,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h2 id="_1"><a href="https://blog.csdn.net/somnusand/article/details/115511383">控制台命令</a></h2>
+                <h1 id="_1">虚幻引擎高级特性</h1>
+<h2 id="_2"><a href="https://blog.csdn.net/somnusand/article/details/115511383">控制台命令</a></h2>
 <p>启动模拟后，输入<code>~</code>键调用控制台命令。</p>
 <p><code>stat rhi</code>: Rendering Hardware Interface，显示RHI内存和性能统计数据。</p>
 <p><code>HighResShot 3840x2160</code> —— 指定分辨率截图（分辨率），图片存储位置：<code>\Saved\Screenshots\</code>。</p>
-<h2 id="_2"><a href="https://zhuanlan.zhihu.com/p/373995698">渲染管线</a></h2>
+<h2 id="_3"><a href="https://zhuanlan.zhihu.com/p/373995698">渲染管线</a></h2>
 <ol>
 <li>动画模拟</li>
 <li>光线传播</li>
@@ -81,17 +82,37 @@
 </ol>
 <p>绘制调用（draw call）：在计算机图形学中，指向图形处理器发送指令以绘制图形的过程。</p>
 <p>光栅化：找出三角形所覆盖到的像素；</p>
+<h2 id="_4">内容</h2>
+<h3 id="_5">编译</h3>
+<p><a href="https://docs.unrealengine.com/4.26/zh-CN/ProductionPipelines/DevelopmentSetup/BuildConfigurations/">编译配置参考</a></p>
+<h3 id="_6">像素流插件</h3>
+<p>相关源码位于：<code>unreal\Engine\Plugins\Media\PixelStreaming\PixelStreaming.uplugin</code></p>
+<h3 id="_7">编辑器界面汉化</h3>
+<p>资源存储位置：<code>engine\Engine\Content\Localization\Editor\zh-Hans</code>，只需使用文本编辑器（例如 Notepad++）编辑<code>Editor.archive</code>。</p>
+<h3 id="_8">问题</h3>
+<ul>
+<li>
+<p>右键<code>.uproject</code>文件没有<code>Switch Unreal Engine version...</code>
+解决：双击<code>Engine\Binaries\Win64\UnrealVersionSelector-Win64-Shipping.exe</code>，出现<code>Register this directory as an Unreal Engine installation?</code>后点击<code>是(Y)</code>。</p>
+</li>
+<li>
+<p>增加<code>matlab</code>插件进行虚幻引擎编译，导致启动虚幻编辑器启动失败，原因不明。</p>
+</li>
+<li>
+<p>如果启动虚幻编辑器时出现选择<code>renderdocui.exe</code>的选项，则从 <a href="https://renderdoc.org/">RenderDoc</a> 中下载并安装软件，然后选择相应的exe文件即可启动。</p>
+</li>
+</ul>
 <h2 id="git"><a href="https://zhuanlan.zhihu.com/p/104197715">Git 版本管理</a></h2>
 <ol>
 <li>源码控制-&gt;连接到源代码管理-&gt;Git；</li>
 <li>Git路径选择Git安装后bin文件中的启动程序；选择<code>接收设置</code></li>
 </ol>
-<h2 id="_3"><a href="https://www.3dcat.live/share/ue4-vsualization-software/">法律风险</a></h2>
+<h2 id="_9"><a href="https://www.3dcat.live/share/ue4-vsualization-software/">法律风险</a></h2>
 <p>UE4虽然给了完整的源码，但并不意味着全部都能用于发布产品。</p>
 <p><a href="https://www.unrealengine.com/en-US/eula/publishing">条款</a> 阐述了许可授予的相关问题，其中明确规定了发布的产品中不能包含引擎内容和未经过打包的付费内容。</p>
 <p>引擎内容就是UE4编辑器相关的各种工具，小到移动旋转缩放轴，大到刷草刷树的地形编辑工具，这些代码都不能打进自己的项目里。</p>
 <p>付费内容是从市场花钱购买的插件或工具，如果未经打包就发布到产品中，就相当于你买了一个模型以后直接发到网上，别人可以免费拷走，侵犯了作者的利益，当然也是不允许的。</p>
-<h2 id="_4">其他</h2>
+<h2 id="_10">其他</h2>
 <ul>
 <li>
 <p><a href="https://bitbucket.org/openhutb/engine_doc/src/master/"><strong>虚幻引擎中文文档</strong></a></p>

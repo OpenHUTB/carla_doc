@@ -123,6 +123,41 @@
 </code></pre></div>
 然后运行<code>auto-py-to-exe</code>。</li>
 </ul>
+<h2 id="carla">发布带Carla插件的虚幻编辑器</h2>
+<p>1.参考 <a href="../build_windows/">Windows 下的构建</a> 进行带Carla插件的虚幻编辑器的构建；</p>
+<p>2.发布安装版本
+参考<a href="https://github.com/chiefGui/ue-from-source?tab=readme-ov-file#step-by-step-1">链接</a> 进行虚幻引擎的发布。</p>
+<p>3.使用 Visual Studio 打开 <code>UE4.shn</code> 。</p>
+<p>4.在右侧边栏，您应该会看到一个<code>解决方案资源管理器</code>面板。展开<code>Programs</code>文件夹并找到<code>AutomationTool</code>项目（<code>Engine\Source\Programs\AutomationTool</code>）：
+<img alt="Image" src="../img/ue/AutomationTool.png" /></p>
+<p>5.右键单击它并选择<code>生成(Build)</code>，应该很快。</p>
+<p>6.运行安装软件的构建脚本：（如果没有）安装 <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-10-sdk">Windows 10 SDK</a> ;</p>
+<p>将文件 <a href="https://github.com/OpenHUTB/carla_doc/tree/master/src/bat/GenerateInstalledBuild.bat"><code>GenerateInstalledBuild.bat</code></a> 拷贝到虚幻引擎源代码的根目录，然后点击运行。</p>
+<p>如果一切顺利，您应该会看到<code>LocalBuilds</code>与该文件夹处于同一级别的<code>Engine</code>文件夹，并且控制台中没有错误。(还包括一个 InstalledDDC 文件夹：DerivedDataCache)。</p>
+<p>或者到虚幻引擎源代码主目录中运行下面命令：
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>Engine<span class="se">\B</span>inaries<span class="se">\D</span>otNET
+AutomationTool.exe<span class="w"> </span>BuildGraph<span class="w"> </span>-target<span class="o">=</span><span class="s2">&quot;Make Installed Build Win64&quot;</span><span class="w"> </span>-script<span class="o">=</span>Engine/Build/InstalledEngineBuild.xml<span class="w"> </span>-set:HostPlatformOnly<span class="o">=</span><span class="nb">true</span>
+</code></pre></div></p>
+<ul>
+<li>
+<p>运行<code>`GenerateInstalledBuild.bat</code>时从报错日志中发现的错误：
+<div class="highlight"><pre><span></span><code>ERROR: Visual Studio 2017 must be installed in order to build this target.
+</code></pre></div>
+解决：下载 <a href="https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb">链接</a> 的<code>software/Build Binary</code>中的 <code>vs_Community_2017.exe</code> 或 <code>3d5_VisualStudio20171509.rar</code>进行安装。</p>
+</li>
+<li>
+<p>运行<code>`GenerateInstalledBuild.bat</code>时候报错：
+<div class="highlight"><pre><span></span><code>Unable to find installation of PDBCOPY.EXE
+</code></pre></div>
+解决：参考 <a href="https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb">链接</a> 的<code>software/Build Binary</code>目录 或者 <a href="https://arenas0.com/2018/12/03/UE4_Learn_Build_Binary/">链接</a> 从 <a href="https://pan.baidu.com/s/1Y0PQeHCMQh7Ln12d_p_Rzw">百度网盘</a> 下载<code>X64 Debuggers And Tools-x64_en-us.msi</code>安装。</p>
+</li>
+<li>
+<p>无法启动
+<div class="highlight"><pre><span></span><code>无法启动此程序，因为计算机中丢失XINPUT1_3.dll。尝试重新安装该程
+</code></pre></div>
+解决：参考 <a href="http://www.codefaq.cn/category/Windows/">链接</a> 安装 DirectX Redist (June 2010)。</p>
+</li>
+</ul>
 <h2 id="_4">设计</h2>
 <p>参考<a href="https://baike.baidu.com/item/BeamNG%E8%B5%9B%E8%BD%A6/18880401">BeamNG</a></p>
 <h2 id="_5">发布到商城</h2>
