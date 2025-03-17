@@ -2,6 +2,7 @@
 <h1><a href="#什么是-streaming">什么是 Streaming?</a></h1>
 
 - [结构化设计](#结构化设计)
+
 ## [架构](#架构)
 - [概述](#概述)
 - [数据流管理](#数据流管理)
@@ -36,8 +37,9 @@
 
 # [什么是 Streaming?](#什么是-streaming)
 
+**Streaming** 是 **CARLA 仿真环境中的流式数据传输模块**，负责 **服务器端创建数据流、客户端订阅流，并进行高效的数据传输**。  
+该模块适用于 **实时传感器数据传输、分布式仿真、远程数据处理** 等应用场景，并支持 **TCP/UDP、同步/异步模式、多客户端订阅** 等功能，确保仿真数据能够高效传输到多个订阅客户端。
 
-Streaming 是一种用于 **实时数据处理** 的计算模式，专门设计用于处理 **持续流入的数据**。它被广泛应用于 **日志分析、金融交易、自动驾驶、视频流处理** 等场景，提供 **低延迟的数据传输**，并可通过 **架构优化** 支持 **大规模并发处理**。
 
 
 ## [结构化设计](#结构化设计)
@@ -58,30 +60,31 @@ Streaming 组件采用 **结构化设计**，通过 **模块化拆分**，将数
 
 
 
+
+
 # [架构](#架构)
 
 ## [概述](#概述)
 
 
 ```mermaid
-graph TD
-    %% 定义外部系统
-    subgraph 外部系统
-        Network["Network<br>(网络层)"] -->|数据交换| EndPoint["EndPoint<br>(端点)"]
-        User["User<br>(用户)"] -->|连接客户端| Client["Client<br>(客户端)"]
-    end
+flowchart TD
+    Client["Client - 订阅流 - 取消订阅流"]
+    Server["Server - 创建流 - 关闭流"]
+    Stream["Stream - 服务器向客户端传输数据"]
+    Token["Token - 作为流的唯一标识"]
+    EndPoint["EndPoint - 处理网络连接"]
 
-    %% 定义 Streaming 组件
-    subgraph Streaming组件
-        EndPoint -->|数据输入输出| Server["Server<br>(服务器)"]
-        Server -->|分发流| Stream["Stream<br>(数据流)"]
-        Stream -->|流控制| Token["Token<br>(令牌机制)"]
-        Client -->|请求流| Token
-    end
+    Client -->|订阅流| Stream
+    Server -->|创建流| Stream
+    Stream -->|唯一标识| Token
+    Client -->|网络通信| EndPoint
+    Server -->|网络通信| EndPoint
+
 
 
 ```
-外部系统（用户、网络层）通过 **网络层（Network）** 将数据输入 **端点（EndPoint）**，EndPoint 解析地址并将连接请求转发给 **服务器（Server）**。Server 负责创建和管理 **数据流（Stream）**，并通过 **Token 机制** 控制访问权限。**客户端（Client）** 通过 Token 认证后，订阅 Stream 并接收服务器推送的数据，最终传输给用户（User）。整个架构确保数据流的高效管理、低延迟传输，并通过 Token 机制提供安全的访问控制。
+该架构图展示了 **Client（客户端）**、**Server（服务器）**、**Stream（数据流）**、**Token（令牌）** 和 **EndPoint（端点）** 之间的交互关系。**服务器创建数据流（Stream），客户端通过网络端点（EndPoint）连接服务器并订阅流（使用唯一标识 Token），服务器向订阅的客户端推送数据。**
 
 
 
@@ -113,19 +116,10 @@ Streaming 组件的 **数据流管理** 主要关注 **数据的高效传输**�
 - **异步并发机制** 使用 `Boost.Asio` 进行线程管理，提高系统吞吐能力，支持多个客户端同时订阅数据流。
 
 
-Streaming 组件的数据流管理适用于 **高并发服务器、实时数据处理** 和 **IoT 设备数据传输**，确保数据流在复杂网络环境下 **安全、稳定、高效运行**。
 
 ## [事件驱动](#事件驱动)
 
 `streaming` 模块采用了 **事件驱动模型** 来管理客户端与服务器之间的异步通信。该模块利用 `Boost.Asio` 提供的 **异步 I/O 机制** 来处理事件，确保数据传输的 **高效性** 和 **非阻塞特性**。
-
-### 核心组件
-
-- **Client（客户端）**：负责向服务器发送数据，并通过流令牌订阅数据流，在接收到推送数据后触发事件。
-- **Server（服务器）**：负责监听端口，接收并处理客户端请求，并管理数据流的推送和订阅。
-- **EndPoint（端点）**：负责管理网络连接的地址和端口信息，支持 TCP/UDP 传输。
-- **Stream（数据流）**：服务器通过 `Stream.h` 进行数据推送，客户端可以订阅流以接收数据。
-- **Token（令牌）**：`Token.h` 提供流的唯一标识，客户端使用该令牌进行订阅管理。
 
 ### 事件触发机制
 
@@ -142,6 +136,8 @@ Streaming 组件的数据流管理适用于 **高并发服务器、实时数据�
 
 4. **事件回调机制**  
    - `Boost.Asio` 的 `io_context.run()` 负责驱动整个事件循环，确保所有 I/O 事件（读、写、连接）都能 **异步执行**，不会阻塞主线程，提高系统吞吐量。
+
+
 ## [流式计算](#流式计算)
 
 `streaming` 模块中的 `Stream.h` 文件实现了 **流式计算** 模型，专注于高效处理大规模、连续的数据流。该模块支持 **多客户端订阅流**，并结合 **Boost.Asio** 进行 **异步数据传输**，使系统能够在不等待数据完全到达的情况下，按数据块处理数据流。
@@ -165,6 +161,8 @@ Streaming 组件的数据流管理适用于 **高并发服务器、实时数据�
 
 - **数据序列化**：
   - `Token.h` 结合 `MsgPack` 进行数据序列化，提升传输效率，支持跨平台数据交互。
+
+
 ## [异步处理](#异步处理)
 
 1. **服务器异步运行**
@@ -205,13 +203,13 @@ Streaming 组件的数据流管理适用于 **高并发服务器、实时数据�
 
 ## 关键概念
 - **数据缓冲（Buffering）**  
-  `Stream.h` 使用 **流状态（MultiStreamState）** 来管理数据的存储和传输，并采用缓存策略，减少直接访问网络或磁盘的开销。未被客户端订阅的数据流不会长时间存储，而是直接丢弃，以优化资源使用。
+  `Stream.h` 使用 **流状态（MultiStreamState）** 来管理数据的存储和传输，并采用缓存策略，减少直接访问网络或磁盘的开销。只有被客户端订阅的数据流才会被缓存，等待合适的时机发送。未被客户端订阅的数据流不会长时间存储，而是直接丢弃，以优化资源使用。
 
 - **流控制（Flow Control）**  
  服务器端 `Server.h` 通过 **低级 TCP 服务器（`low_level::Server<detail::tcp::Server>`）** 进行流控制，动态调整数据流速率，防止网络拥塞。令牌机制（Token）管理客户端订阅，影响数据传输策略。
 
 - **缓存清理（Buffer Cleanup）**  
-  `Server.h` 通过 **CloseStream()** 释放未使用的流，回收资源，避免内存占用。未被订阅的数据不会被缓存，而是直接丢弃，提高系统效率。
+  `Server.h` 通过 **CloseStream()** 释放未使用的流，回收资源，避免内存占用。
 
 ## 关键实现
 - **数据预存储**  
@@ -228,7 +226,7 @@ Streaming 组件的数据流管理适用于 **高并发服务器、实时数据�
 - **流控制** 通过 **令牌订阅机制**，保证数据传输稳定，防止网络拥堵。  
 - **缓存清理** 通过 **CloseStream() 释放未使用的流**，避免内存泄漏，保持系统长期稳定运行。  
 
-`streaming` 模块中的缓存管理在 **高并发服务器、流式数据处理** 等场景中至关重要，确保数据传输高效、稳定。
+
 
 
 
@@ -250,17 +248,16 @@ Streaming 组件的数据流管理适用于 **高并发服务器、实时数据�
 
 ### 总结
 
-- `streaming` 模块主要提供 **流的管理、订阅和并发处理**，但没有明显的流优化技术（如数据压缩、智能分块、低延迟调度等）。
+- `streaming` 模块主要提供 **流的管理、订阅和并发处理**。
 - **线程池和异步传输** 提高了流的并发能力，减少阻塞，提高吞吐量。
-- 需要进一步查看底层 `detail::Stream`、`tcp::Server` 等实现，确认是否有隐藏的流优化机制。
 
-`streaming` 模块在 **高并发场景、实时视频流、IoT 设备数据处理** 等应用中仍然至关重要，确保数据流畅且高效。
+
 
 ## [配置管理](#配置管理)
 
 ## **概述**
 
-`streaming` 模块用于在服务器和客户端之间建立高效的数据流通信，依赖 `boost::asio` 进行网络传输，并使用 `carla::ThreadPool` 进行线程管理。本文档介绍该模块的配置方式，包括网络端口设置、线程池管理和依赖项安装等。
+`streaming` 模块用于在服务器和客户端之间建立高效的数据流通信，依赖 `boost::asio` 进行网络传输，并使用 `carla::ThreadPool` 进行线程管理。现介绍该模块的配置方式，包括网络端口设置、线程池管理和依赖项安装等。
 
 
 
@@ -364,11 +361,18 @@ server.SetTimeout(time_duration);
 ### **服务器端配置示例**
 
 ```cpp
+// 包含Carla Streaming库中的Server头文件
 #include "carla/streaming/Server.h"
 
+// 主函数
 int main() {
+    // 创建一个Carla流媒体服务器实例，监听端口8080
     carla::streaming::Server server(8080);
+    
+    // 启动服务器，开始监听和处理客户端连接
     server.Run();
+    
+    // 序正常结束，返回0
     return 0;
 }
 ```
@@ -376,15 +380,27 @@ int main() {
 ### **客户端订阅示例**
 
 ```cpp
+// 包含Carla Streaming库中的Client头文件
 #include "carla/streaming/Client.h"
 
+// 主函数
 int main() {
+    // 创建一个Carla流媒体客户端实例，连接到本地IP地址127.0.0.1
     carla::streaming::Client client("127.0.0.1");
+
+    // 创建一个流媒体令牌（Token），用于订阅特定的数据流
     carla::streaming::Token token;
+
+    // 使用客户端订阅指定的数据流，并提供一个回调函数来处理接收到的消息
     client.Subscribe(token, [](auto msg) {
+        // 当接收到消息时，打印消息内容到控制台
         std::cout << "Received: " << msg << std::endl;
     });
+
+    // 启动客户端，开始接收和处理数据流
     client.Run();
+
+    // 程序正常结束，返回0
     return 0;
 }
 ```
@@ -513,8 +529,8 @@ client.apply_batch([carla::command::DestroyActor(x) for x in client_list]);
 ```
 
 
-**注意**
-> **关闭 Streaming 服务器后**，所有仍然订阅的客户端将无法接收数据。如果不主动销毁客户端连接，它们将在地图上保持静止。
+**注意：关闭 Streaming 服务器后，所有仍然订阅的客户端将无法接收新的数据。如果不主动销毁客户端，它们仍然存在，只是无法获取新的流数据。**
+
 
 **补充说明**
 > - 使用 `server.SetTimeout(x)` 设置超时参数，防止长时间挂起。
@@ -547,23 +563,34 @@ Streaming 模块采用客户端-服务器 (Client-Server) 架构，服务器端 
 ```cpp
 class Server {
 public:
+    // 构造函数，接受一个端口号并创建一个服务器实例
     explicit Server(uint16_t port)
       : _server(_pool.io_context(), make_endpoint<protocol_type>(port)) {}
 
+    // 构造函数，接受一个IP地址和端口号并创建一个服务器实例
     explicit Server(const std::string &address, uint16_t port)
       : _server(_pool.io_context(), make_endpoint<protocol_type>(address, port)) {}
 
+    // 创建一个新的数据流，并返回该流的实例
     Stream MakeStream() {
       return _server.MakeStream();
     }
 
+    // 关闭指定ID的数据流
     void CloseStream(stream_id id) {
       return _server.CloseStream(id);
     }
 
+    // 启动服务器，开始处理连接和数据流
     void Run() {
       _pool.Run();
     }
+
+private:
+    // 线程池，用于处理异步操作
+    ThreadPool _pool;
+    // 服务器实例，用于管理数据流和连接
+    ServerType _server;
 };
 ```
 
@@ -585,28 +612,51 @@ server.Run();  // 运行服务器
 ```cpp
 class Client {
 public:
+    // 订阅指定令牌（Token）对应的数据流，并提供一个回调函数来处理接收到的消息
     void Subscribe(const Token &token, Functor &&callback) {
+      // 使用客户端实例订阅数据流，并将回调函数与数据流关联
       _client.Subscribe(_service.io_context(), token, std::forward<Functor>(callback));
     }
 
+    // 取消订阅指定令牌（Token）对应的数据流
     void UnSubscribe(const Token &token) {
+      // 使用客户端实例取消订阅数据流
       _client.UnSubscribe(token);
     }
 
+    // 启动客户端，开始处理数据流和回调
     void Run() {
+      // 运行服务以处理异步操作
       _service.Run();
     }
+
+private:
+    // 服务实例，用于管理异步操作和事件循环
+    ServiceType _service;
+    // 客户端实例，用于管理数据流的订阅和取消订阅
+    ClientType _client;
 };
 ```
 
 #### 示例
 ```cpp
+// 创建Carla流媒体客户端
 carla::streaming::Client client;
-Token token = /* 从服务器获取 */;
+
+// 从服务器获取令牌
+Token token = server.GenerateToken();
+
+// 订阅数据流并设置回调
 client.Subscribe(token, [](auto data) {
     std::cout << "Received Data: " << data << std::endl;
 });
+
+// 启动客户端
 client.Run();
+
+// 如果需要非阻塞运行，可以使用多线程
+// std::thread clientThread([&client]() { client.Run(); });
+// clientThread.detach();
 ```
 
 
@@ -630,22 +680,25 @@ client3.Subscribe(token, callback);
 ```
 
 
-## [多 Streaming 任务](#多 Streaming 任务)
+## [多Streaming任务](#多Streaming任务)
 
 ### 概述
 服务器支持多个 `Stream` 并行运行，每个 `Stream` 由唯一 `Token` 识别，不同客户端可以订阅不同的流，互不干扰。
 
 #### 代码解析
 ```cpp
+// 定义一个函数 MakeStream，用于创建新的 Streaming 流
 Stream MakeStream() {
-  return _server.MakeStream();
+  return _server.MakeStream(); // 调用服务器对象的 MakeStream 方法，返回一个新的流
 }
 ```
 
 #### 示例
 ```cpp
-Stream stream1 = server.MakeStream();
-Stream stream2 = server.MakeStream();
+// 创建两个独立的 Streaming 流
+Stream stream1 = server.MakeStream(); // 通过服务器创建第一个流
+Stream stream2 = server.MakeStream(); // 通过服务器创建第二个流
+
 ```
 
 
@@ -656,16 +709,23 @@ Streaming 支持灵活的 **端点 (EndPoint)** 配置，可以使用 IP 地址�
 
 #### 代码解析
 ```cpp
+// 静态内联函数 make_endpoint，用于根据提供的 IP 地址和端口号创建一个完全定义的端点
 static inline auto make_endpoint(const std::string &address, uint16_t port) {
-    return detail::EndPoint<Protocol, detail::FullyDefinedEndPoint>({make_address(address), port});
+    return detail::EndPoint<Protocol, detail::FullyDefinedEndPoint>(
+        {make_address(address), port} // 将字符串地址转换为 boost::asio::ip::address 并与端口号组合，生成端点
+    );
 }
+
 ```
 
 #### 示例
 ```cpp
-// 监听本机 8080 端口
+// 创建一个 Streaming 服务器，监听本机 127.0.0.1（即 localhost）上的 8080 端口
 Server server("127.0.0.1", 8080);
+
+// 启动服务器，使其开始运行并接受客户端的连接
 server.Run();
+
 ```
 
 
