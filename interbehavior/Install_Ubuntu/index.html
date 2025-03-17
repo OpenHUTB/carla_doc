@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Installing Carla on Ubuntu 20.04 - 代理模拟器</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Installing Carla on Ubuntu 20.04";
+        var mkdocs_page_input_path = "interbehavior/Install_Ubuntu.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 代理模拟器
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">首页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">代理模拟器</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Installing Carla on Ubuntu 20.04</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/interbehavior/Install_Ubuntu.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="installing-carla-on-ubuntu-2004">Installing Carla on Ubuntu 20.04</h1>
+<p>This guide is for installing Carla 0.9.13 (along with Unreal Engine 4.26) build on Ubuntu 20.04.5 (Focal Fosca). It is largely based on <a href="https://carla.readthedocs.io/en/latest/build_linux/">this tutorial</a> by Carla, and can be thought of as a shorter updated of it specifically for Ubuntu 20.04 and DReyeVR. Check out the original tutorial tutorial for more detailed explanations of some the commands. Commands themselves, however, slightly differ from the original version.</p>
+<h2 id="part-one-prerequisites">Part One: Prerequisites</h2>
+<ul>
+<li><strong>Ubuntu 20.04</strong></li>
+<li><strong>130 GB disk space.</strong> Carla will take around 31 GB and Unreal Engine will take around 91 GB so have about 130 GB free to account for both of these plus additional minor software installations. </li>
+<li><strong>An adequate GPU</strong>. CARLA aims for realistic simulations, so the server needs at least a 6 GB GPU although 8 GB is recommended. A dedicated GPU is highly recommended for machine learning. </li>
+<li><strong>Two TCP ports and good internet connection.</strong> 2000 and 2001 by default. Make sure that these ports are not blocked by firewalls or any other applications. </li>
+<li><strong>IMPORTANT: Proprietary drivers installed.</strong> Please make sure that you are using the latest stable version of proprietary drivers (for instance, Nvidia). Check <a href="https://linuxconfig.org/how-to-install-the-nvidia-drivers-on-ubuntu-20-04-focal-fossa-linux">this guide</a> for installing and updating the Nvidia driver on Ubuntu 20.04.</li>
+</ul>
+<h2 id="installing-software-requirements">Installing software requirements</h2>
+<p>Please use the following set of commands to install the necessary software packages. 
+<strong>Note</strong>: you might want to go over each of the listed packages separately to ensure that each was installed correctly to avoid issues during the installation. Later on, the missing packages will be harder to track. 
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt-add-repository<span class="w"> </span><span class="s2">&quot;deb http://apt.llvm.org/focal/ llvm-toolchain-focal main&quot;</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>build-essential<span class="w"> </span>clang-8<span class="w"> </span>lld-8<span class="w"> </span>g++-7<span class="w"> </span>cmake<span class="w"> </span>ninja-build<span class="w"> </span>libvulkan1<span class="w"> </span>python-dev<span class="w"> </span>python3-dev<span class="w"> </span>python3-pip<span class="w"> </span>libpng-dev<span class="w"> </span>libtiff5-dev<span class="w"> </span>libjpeg-dev<span class="w"> </span>tzdata<span class="w"> </span>sed<span class="w"> </span>curl<span class="w"> </span>unzip<span class="w"> </span>autoconf<span class="w"> </span>libtool<span class="w"> </span>rsync<span class="w"> </span>libxml2-dev<span class="w"> </span>git
+sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--install<span class="w"> </span>/usr/bin/clang++<span class="w"> </span>clang++<span class="w"> </span>/usr/lib/llvm-8/bin/clang++<span class="w"> </span><span class="m">180</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--install<span class="w"> </span>/usr/bin/clang<span class="w"> </span>clang<span class="w"> </span>/usr/lib/llvm-8/bin/clang<span class="w"> </span><span class="m">180</span>
+</code></pre></div></p>
+<h4 id="clang-issue">Clang issue:</h4>
+<p>One of the issues specific to Ubuntu 20.04 installation is the <strong>clang</strong> compiler. The CARLA team uses clang-8 and LLVM's libc++. while clang-8 can be installed on Ubuntu 20.04, it is rather outdated and does not catch some of the existing bugs within carla. If you want to use a different version of clang and libc++, follow the instructions below:</p>
+<details>
+<summary>how to use a different clang version</summary>
+Uninstall clang-8 (installed if you executed the previous command):
+
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt-get<span class="w"> </span>remove<span class="w"> </span>clang-8<span class="w"> </span>lld-8
+sudo<span class="w"> </span>rm<span class="w"> </span>/usr/bin/clang<span class="w"> </span>/usr/bin/clang++
+</code></pre></div>
+
+Install version 10:
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>clang-10<span class="w"> </span>lld-10
+</code></pre></div>
+Set up clang and clang++ commands:
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--install<span class="w"> </span>/usr/bin/clang++<span class="w"> </span>clang++<span class="w"> </span>/usr/lib/llvm-10/bin/clang++<span class="w"> </span><span class="m">180</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--install<span class="w"> </span>/usr/bin/clang<span class="w"> </span>clang<span class="w"> </span>/usr/lib/llvm-10/bin/clang<span class="w"> </span><span class="m">180</span>
+</code></pre></div>
+Create a symbolic link that would tell the system to use version 10 whenever it encounters `usr/bin/clang-8` in one of the CARLA setup or installation scripts:
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/usr/bin/clang<span class="w"> </span>/usr/bin/clang-8
+sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/usr/bin/clang++<span class="w"> </span>/usr/bin/clang++-8
+</code></pre></div>
+</details>
+<p><br></p>
+<h3 id="python-dependencies">Python dependencies</h3>
+<p>Version 20.3 or higher of <strong>pip3</strong> is required. To check if you have a suitable version, run the following command:
+<div class="highlight"><pre><span></span><code>pip3<span class="w"> </span>-V
+</code></pre></div>
+If you need to upgrade:
+<div class="highlight"><pre><span></span><code>pip3<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
+</code></pre></div>
+You might be prompted to add the directory of the newer version to PATH. If yes, do so.</p>
+<p>You must install the following Python dependencies:
+<div class="highlight"><pre><span></span><code>pip3 install --user -Iv setuptools==47.3.1 &amp;&amp;
+pip3 install --user distro &amp;&amp;
+pip3 install --user wheel auditwheel &amp;&amp;
+pip3 install nose2
+</code></pre></div>
+Some of the installation and setup scripts use the deprecated <strong>python</strong> command. One way to avoid the issues caused by this is with a symbolic link:
+<div class="highlight"><pre><span></span><code>sudo ln -s /usr/bin/python3 /usr/bin/python
+</code></pre></div>
+If your file is named other than <strong>python3</strong>, substitute python 3 for your python version.
+<br></p>
+<h3 id="unreal-engine">Unreal Engine</h3>
+<p>This section does not require updates or modifications. Please follow the exact steps from the corresponding section of <a href="https://carla.readthedocs.io/en/latest/build_linux/">this tutorial</a>.
+<br> </p>
+<h2 id="part-two-build-carla">Part Two: Build CARLA</h2>
+<p><strong>Note</strong>: downloading aria2 with <code>sudo apt-get install aria2</code> will speed up the following commands.</p>
+<p>Clone the CARLA repository:
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/carla-simulator/carla<span class="w"> </span>-b<span class="w"> </span><span class="m">0</span>.9.13
+</code></pre></div>
+Once download is finished, from the new <strong>carla</strong> directory, run
+<div class="highlight"><pre><span></span><code>Update.sh
+</code></pre></div></p>
+<p>Navigate to the <strong>carla</strong> directory. Open <strong>./Util/BuildTools/Setup.sh</strong> and replace <code>XERCESC_VERSION=3.2.3</code> (line 428) with <code>XERCESC_VERSION=3.2.4</code>. Next, open <strong>./Util/BuildTools/BuildOSM2ODR.sh</strong>, and replace all instances of <code>xerces-c-3.2.3</code> with <code>xerces-c-3.2.4</code>.</p>
+<p>Follow the rest of the instructions from the <a href="https://carla.readthedocs.io/en/latest/build_linux/">tutorial</a>.</p>
+<p>Now that you have a working CARLA 0.9.13 build, go back to the <a href="https://github.com/HARPLab/DReyeVR/blob/main/Docs/Install.md">DReyeVR installation guide</a> and follow the rest of the steps to install DReyeVR on top of it.</p>
+<ul>
+<li>
+<p><strong>READ THIS FIRST (Linux)</strong>: You might run into a problem when compiling Boost 1.72.0 (required by <code>LibCarla</code>).
+    <details></p>
+<p><summary> Show instructions to get Anaconda working on Linux </summary></p>
+<ul>
+<li>```bash
+  # find anaconda install:
+  which python3
+  ... PATH/TO/ANACONDA/envs/carla/bin/python3 # example output</li>
+</ul>
+<p># go to carla/install dir from here
+  cd PATH/TO/ANACONDA/envs/carla/include</p>
+<p># create a symlink between python3.7 -&gt; python3.7m
+  ln -s python3.7m python3.7
+  <code>``
+  Install</code>boost_1_72_0.tar.gz<code>manually from https://github.com/jerry73204/carla/releases/tag/fix-boost and place file in</code>Build/boost_1_72_0.tar.gz<code>Open</code>Util/BuildTools/Setup.sh<code>(or</code>Util/BuildTools/Setup.bat<code>on Windows)
+  Find the section named</code>Get boost<code>includes and comment out the</code>wget<code>lines.
+  Now when you</code>make LibCarla<code>again, the</code>boost` errors should be resolved.
+  - For more information see the bottom of this <a href="https://stackoverflow.com/questions/42839382/failing-to-install-boost-in-python-pyconfig-h-not-found">SO post</a>
+</details></p>
+</li>
+</ul>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

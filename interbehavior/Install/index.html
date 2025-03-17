@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>在构建的Carla 0.9.13工作空间中安装 DReyeVR - 代理模拟器</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u5728\u6784\u5efa\u7684Carla 0.9.13\u5de5\u4f5c\u7a7a\u95f4\u4e2d\u5b89\u88c5 DReyeVR";
+        var mkdocs_page_input_path = "interbehavior/Install.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 代理模拟器
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">首页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">代理模拟器</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">在构建的Carla 0.9.13工作空间中安装 DReyeVR</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/interbehavior/Install.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="carla-0913-dreyevr">在构建的Carla 0.9.13工作空间中安装 <code>DReyeVR</code></h1>
+<h2 id="_1">要求</h2>
+<ul>
+<li>确保您的机器满足 Carla 要求的先决条件： <a href="https://carla.readthedocs.io/en/0.9.13/build_windows">Windows</a>, <a href="https://carla.readthedocs.io/en/0.9.13/build_linux">Linux</a>, <a href="https://github.com/GustavoSilvera/carla/blob/m1/Docs/build_mac.md">Mac*</a></li>
+<li><strong>重要</strong>：如果在 <strong>Windows</strong> 上，则 <strong>需要</strong> <a href="https://gnuwin32.sourceforge.net/packages/make.htm"><code>Make-3.81</code></a> ，如 <a href="https://carla.readthedocs.io/en/latest/build_windows/#system-requirements">Carla 文档</a> 所述</li>
+<li>如果你之前已经在 PYTHONPATH 中安装了 Carla，则需要删除所有之前的 PythonAPI 安装</li>
+<li>例如，如果您 <a href="https://pypi.org/project/carla/">通过 pip 安装了 carla</a> ，则 <strong>需要将其卸载</strong> 才能继续。
+    <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>uninstall<span class="w"> </span>carla
+</code></pre></div></li>
+</ul>
+<h2 id="getting-started">开始 Getting started</h2>
+<ul>
+<li>应该首先保证 DReyeVR 已经下载：
+  <div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/HARPLab/DReyeVR<span class="w"> </span>--depth<span class="w"> </span><span class="m">1</span>
+</code></pre></div></li>
+<li>首先需要从源代码安装虚 <a href="https://github.com/CarlaUnreal/UnrealEngine">幻引擎 4.26（CARLA fork）</a> 
+  <div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/CarlaUnreal/UnrealEngine
+<span class="c1"># 将此位置设置为您的 $UE4_ROOT 环境变量</span>
+</code></pre></div></li>
+</ul>
+<p><strong>重要</strong> 在 DReyeVR for Carla 0.9.13 上，您需要将 UE4 存储库恢复为受支持的版本（用于 DReyeVR）。这是为了优化 DX11 渲染性能，在我们的测试中，DX11 是 VR 的最佳渲染后端。
+  <div class="highlight"><pre><span></span><code><span class="c1"># in $UE4_ROOT</span>
+git<span class="w"> </span>checkout<span class="w"> </span>d40ec35474e8793b4eea60dba6c4f051186e458e
+<span class="c1"># or git reset --hard d40ec35474e8793b4eea60dba6c4f051186e458e</span>
+</code></pre></div></p>
+<ul>
+<li><strong>重要：</strong> 如果 <code>git clone</code> 链接对您不起作用，您可能需要 <a href="https://www.unrealengine.com/en-US/ue4-on-github">加入 Epic Games 组织</a> 才能访问 UnrealEngine 及其所有分支。</li>
+<li>
+<p>适用于您的系统的 UE4 构建说明可在此处找到：<a href="https://carla.readthedocs.io/en/0.9.13/build_windows/#unreal-engine">Windows</a> 、<a href="https://carla.readthedocs.io/en/0.9.13/build_linux/#unreal-engine">Linux</a> 、<a href="https://github.com/GustavoSilvera/carla/blob/m1/Docs/build_mac.md#unreal-engine-fork">Mac*</a> 
+  <!-- - 注意：我们只保留了 Carla 分支的我们自己的 HARPLab 分支，以保持版本兼容性并启用 Carla 不需要的次要功能（例如，注视点渲染）。  --></p>
+</li>
+<li>
+<p>为了成功运行 <code>Setup.sh</code>，您需要下载并替换 <code>/Engine/Build</code> 中的 Commit.gitdeps.xml 文件。请参阅 <a href="https://github.com/HARPLab/UnrealEngine/blob/DReyeVR-0.9.13/Engine/Build/Commit.gitdeps.xml">Commit.gitdeps.xml</a> 中更新的 XML 文件（注意：该链接已经失效，可以使用 <a href="https://github.com/EpicGames/UnrealEngine/blob/4.26/Engine/Build/Commit.gitdeps.xml">这个文件</a> ）</p>
+</li>
+</ul>
+<!-- vanilla 原意是指原味、香草，引申义就是原始的、最初的版本 -->
+<p>- 然后你需要克隆并构建一个 <a href="https://carla.readthedocs.io/en/0.9.13/#building-carla">vanilla Carla 0.9.13</a> 
+  <div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/carla-simulator/carla<span class="w"> </span>-b<span class="w"> </span><span class="m">0</span>.9.13<span class="w"> </span>--depth<span class="w"> </span><span class="m">1</span>
+</code></pre></div>
+  - 使用 <a href="https://carla.readthedocs.io/en/0.9.13/build_linux/">Building on Linux</a>（适用于 Ubuntu 18.04 及以下的所有版本）或 <a href="https://carla.readthedocs.io/en/0.9.13/build_windows/">Building on Windows</a> （按照其说明构建 CARLA 0.9.13）。使用我们的 Ubuntu 20.04 Carla 安装指南（适用于 Ubuntu 20.04）。
+- （可选）同样，您可以安装原始的 <a href="https://github.com/carla-simulator/scenario_runner/tree/v0.9.13">Carla Scenario Runner v0.9.13 </a> 项目，将 DReyeVR+Carla 与 Scenario Runner 集成。
+  <div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/carla-simulator/scenario-runner<span class="w"> </span>-b<span class="w"> </span>v0.9.13<span class="w"> </span>--depth<span class="w"> </span><span class="m">1</span>
+</code></pre></div></p>
+<p>(*=Carla 不再正式支持 Mac 操作系统，但我们的开发团队已能够在搭载 Apple Silicon（arm64）硬件的新 Mac 机器上构建 UE4、Carla 和 DReyeVR。 )</p>
+<p><br></p>
+<h1 id="dreyevr">DReyeVR 安装命令总结</h1>
+<details>
+
+**注意** 您需要在 Linux/Mac 上安装一个终端。在 Windows 上，您可以使用与构建 Carla 时相同的 x64 Native Tools CMD prompt。 
+<summary> 显示用于安装和构建 DReyeVR 的命令行 </summary>
+
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>CarlaDReyeVR<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>CarlaDReyeVR<span class="w"> </span><span class="c1"># 在这个 &quot;CarlaDReyeVR&quot; 目录中做所有事</span>
+
+<span class="c1">#####################################################</span>
+<span class="c1">########### 安装我们的 UnrealEngine fork ###########</span>
+<span class="c1">#####################################################</span>
+<span class="c1"># Rather than https://github.com/CarlaUnreal/UnrealEngine UE4, you SHOULD clone https://github.com/HARPLab/UnrealEngine</span>
+<span class="c1"># 但除此之外，所有的指令都是一样的。 </span>
+
+<span class="c1"># Linux: https://carla.readthedocs.io/en/0.9.13/build_linux/#unreal-engine</span>
+<span class="c1"># Windows: https://carla.readthedocs.io/en/0.9.13/build_windows/#unreal-engine</span>
+
+<span class="c1">#####################################################</span>
+<span class="c1">################### 安装 Carla ###################</span>
+<span class="c1">#####################################################</span>
+<span class="c1"># Linux: https://carla.readthedocs.io/en/0.9.13/build_linux/</span>
+<span class="c1"># Windows: https://carla.readthedocs.io/en/0.9.13/build_windows/</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/carla-simulator/carla<span class="w"> </span>-b<span class="w"> </span><span class="m">0</span>.9.13<span class="w"> </span>--depth<span class="w"> </span><span class="m">1</span>
+<span class="nb">cd</span><span class="w"> </span>carla
+./Update.sh<span class="w"> </span><span class="c1"># linux/mac</span>
+Update.bat<span class="w"> </span><span class="c1"># Windows（已经失效，需要克隆然后切换到tag 为0.9.13的提交记录）</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://bitbucket.org/carla-simulator/carla-content.git
+make<span class="w"> </span>PythonAPI<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>make<span class="w"> </span>launch<span class="w"> </span><span class="c1"># 构建最初的 Carla</span>
+
+<span class="c1">#####################################################</span>
+<span class="c1">############## 安装 DReyeVR 插件 ##############</span>
+<span class="c1">#####################################################</span>
+<span class="c1"># (可选) 安装 SRanipal (眼动跟踪) SRanipal plugin</span>
+mv<span class="w"> </span>/PATH/TO/SRANIPALPLUGIN/SDK/03_Unreal/Plugins/SRanipal<span class="w"> </span>Unreal/CarlaUE4/Plugins/<span class="w"> </span>
+
+<span class="c1"># (可选) 安装 LogitechWheelPlugin (steering wheel)</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/HARPLab/LogitechWheelPlugin
+mv<span class="w"> </span>LogitechWheelPlugin/LogitechWheelPlugin<span class="w"> </span>Unreal/CarlaUE4/Plugins/<span class="w"> </span><span class="c1"># install to carla</span>
+
+<span class="nb">cd</span><span class="w"> </span>..<span class="w"> </span><span class="c1"># 回到主目录</span>
+
+<span class="c1">#####################################################</span>
+<span class="c1">############## 安装 scenario_runner #################</span>
+<span class="c1">#####################################################</span>
+<span class="c1"># (可选) while you don&#39;t NEED scenario runner, it is certainly useful from a research</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/carla-simulator/scenario_runner<span class="w"> </span>-b<span class="w"> </span>v0.9.13
+
+<span class="c1">#####################################################</span>
+<span class="c1">################## 安装 DReyeVR ##################</span>
+<span class="c1">#####################################################</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/HARPLab/DReyeVR
+<span class="nb">cd</span><span class="w"> </span>DReyeVR
+<span class="c1"># CARLA= 和 SR= 变量是可选的</span>
+make<span class="w"> </span>install<span class="w"> </span><span class="nv">CARLA</span><span class="o">=</span>../carla<span class="w"> </span><span class="nv">SR</span><span class="o">=</span>../scenario_runner
+<span class="c1"># 或者</span>
+make<span class="w"> </span>install<span class="w"> </span><span class="nv">CARLA</span><span class="o">=</span>../carla
+make<span class="w"> </span>install<span class="w"> </span><span class="nv">SR</span><span class="o">=</span>../scenario_runner
+
+<span class="c1"># run filesystem checks after installing</span>
+make<span class="w"> </span>check<span class="w"> </span><span class="nv">CARLA</span><span class="o">=</span>../carla
+<span class="nb">cd</span><span class="w"> </span>..
+
+<span class="c1">#####################################################</span>
+<span class="c1">################## 构建所有 #########################</span>
+<span class="c1">#####################################################</span>
+<span class="nb">cd</span><span class="w"> </span>carla
+make<span class="w"> </span>PythonAPI<span class="w">  </span><span class="c1"># build the PythonAPI (and LibCarla) again</span>
+make<span class="w"> </span>launch<span class="w">     </span><span class="c1"># launch in editor</span>
+make<span class="w"> </span>package<span class="w">    </span><span class="c1"># create an optimized package</span>
+make<span class="w"> </span>check<span class="w">      </span><span class="c1"># run Carla unit tests</span>
+</code></pre></div>
+</details>
+
+<p><br></p>
+<h2 id="_2">简单安装</h2>
+<p>从技术上讲，上述先决条件就是您安装 DReyeVR 并获得<strong>没有眼动追踪</strong>和<strong>赛车方向盘集成</strong>的准系统 VR ego-vehicle 所需的全部条件。如果这适合您的需求，只需跳到本文档的 <a href="./#installing-dreyevr-core">安装 DReyeVR Core</a> 部分，并在以下位置设置以下变量：<code>Unreal/CarlaUE4/Source/CarlaUE4/CarlaUE4.Build.cs</code> 成 <code>false</code>：
+<div class="highlight"><pre><span></span><code><span class="c1">/////////////////////////////////////////////////////////////</span>
+<span class="c1">// 编辑这些变量以启用/禁用 DReyeVR 的功能</span>
+<span class="kt">bool</span><span class="w"> </span><span class="n">UseSRanipalPlugin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="p">;</span>
+<span class="kt">bool</span><span class="w"> </span><span class="n">UseLogitechPlugin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="p">;</span>
+<span class="p">...</span>
+<span class="c1">/////////////////////////////////////////////////////////////</span>
+</code></pre></div>
+- 注意：仅当启用了 <code>UseSRanipalPlugin</code> 时才需要安装 SRanipal 插件，同样，仅当启用了 <code>UseLogitechPlugin</code> 时才需要安装 Logitech 插件。</p>
+<h1 id="dreyevr_1">安装 DReyeVR 插件</h1>
+<p>Before installing <code>DReyeVR</code>, we'll also need to install the dependencies:
+- <strong>SteamVR</strong>: Required for VR
+- <strong>SRanipal</strong><em>: Required for eye tracking (with HTC Vive Pro Eye), optional otherwise
+- </em><em>LogitechWheelPlugin</em>**: Required for Logitech Steering Wheel, optional otherwise</p>
+<p>(* = optional, depends on the features you are looking for)</p>
+<h2 id="steamvr">SteamVR</h2>
+<h3 id="download-steam-and-steamvr"><strong>Download Steam and SteamVR</strong></h3>
+<ul>
+<li>You'll need to use <a href="https://store.steampowered.com/app/250820/SteamVR/">SteamVR</a> for the VR rendering environment, so you should first download the <a href="https://store.steampowered.com/about/">Steam client application</a>. <ul>
+<li>From within the steam client, you can browse in store-&gt;search "<a href="https://store.steampowered.com/app/250820/SteamVR/">SteamVR</a>" and download the free-to-install system utility. 
+  <!-- - In the Editor for Carla go to `Settings->Plugins->Virtual Reality->SteamVR` and enable the plugin --></li>
+</ul>
+</li>
+</ul>
+<!-- - Note that on Linux this you may need to install it through the [Valve GitHub repo](https://github.com/ValveSoftware/SteamVR-for-Linux) -->
+<!-- - <img src = "Figures/Install/steamvr-enabled.jpg" alt="UE4DropDown" width=50%> -->
+<ul>
+<li>You should be able to launch SteamVR from the client and in the small pop-up window reach both settings and "show VR view"<ul>
+<li>Make sure to calibrate the VR system to your setup and preferences!</li>
+</ul>
+</li>
+<li>Additionally we recommend disabling the "Motion Smoothing" effect within SteamVR Settings to avoid nasty distortion artifacts during rendering. <ul>
+<li><img src = "Figures/Install/steamvr-settings.jpg" alt="SteamVR-settings" width=50%></li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="htc-eye-tracker-plugin">HTC Eye Tracker Plugin</h2>
+<h3 id="download-sranipal"><strong>Download <code>SRanipal</code></strong></h3>
+<ol>
+<li><em>What is SRanipal?</em><ul>
+<li>We are using <a href="https://developer.vive.com/resources/vive-sense/sdk/vive-eye-tracking-sdk-sranipal/">HTC's SRanipal plugin</a> as the means to communicate between Unreal Engine 4 and the Vive's Eye Tracker. </li>
+<li>To learn more about SRanipal and for <strong>first-time-setup</strong>, see this <a href="https://forum.vive.com/topic/7434-getting-started-with-vrs-foveated-rendering-using-htc-vive-pro-eye-unreal-engine/">guide on foveated rendering using SRanipal</a> by HTC developer MariosBikos_HTC</li>
+</ul>
+</li>
+<li>You'll need a (free-to-create) <a href="https://hub.vive.com/sso/login">Vive developer account</a> to download the following:<ul>
+<li>a) <a href="https://hub.vive.com/en-US/download/VIVE_SRanipalInstaller_1.3.2.0.msi"><code>VIVE_SRanipalInstaller_1.3.2.0.msi</code></a> -- executable to install Tobii firmware</li>
+<li>b) <a href="https://hub.vive.com/en-US/download/SDK-v1.3.3.0.zip"><code>SDK_v1.3.3.0.zip</code></a> -- includes the Unreal plugin<ul>
+<li><strong>IMPORTANT</strong>: The SRanipal versions above 1.3.6.0 are NOT supported and cause wild crashes!</li>
+</ul>
+</li>
+<li><strong>If the download links above don't work for you, make sure you have a Vive Developer account! (Or <a href="mailto:gustavo@silvera.cloud">contact</a> us directly to help you)</strong></li>
+</ul>
+</li>
+<li>Install the Tobii firmware by double-clicking the <code>.msi</code> installer<ul>
+<li>Once installed, you should see the <code>SR_runtime.exe</code> program available from the Start Menu. Launch it as administrator and you should see the robot head icon in the Windows system tray as follows:</li>
+<li><img alt="SR_runtime" src="https://mariosbikos.com/wp-content/uploads/2020/02/image-30.png" /><ul>
+<li>Image Credit: <a href="https://forum.htc.com/topic/7434-getting-started-with-vrs-foveated-rendering-using-htc-vive-pro-eye-unreal-engine">MariosBikos</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="installing-sranipal-ue4-plugin"><strong>Installing SRanipal UE4 Plugin</strong></h3>
+<ul>
+<li>After downloading the <code>.zip</code> file, unzipping it should present a directory similar to this<ul>
+<li>```
+  SDK</li>
+<li>01_C/</li>
+<li>02_Unity/</li>
+<li>03_Unreal/</li>
+<li>Eye_SRanipal_SDK_Guide.pdf</li>
+<li>Lip_SRanipal_SDK_Guide.pdf
+  ```</li>
+<li>Then, unzip the SRanipal unreal plugin and copy over the <code>03_Unreal/Plugins/SRanipal/</code> directory to the Carla installation</li>
+<li><code>bash
+  # in SDK/
+  cd 03_Unreal
+  unzip Vive-SRanipal-Unreal-Plugin.zip # creates the PLugins/SRanipal folder
+  # assumes CARLA_ROOT is defined, else just use your Carla path
+  cp -r Plugins/SRanipal $CARLA_ROOT/Unreal/CarlaUE4/Plugins/</code></li>
+</ul>
+</li>
+<li>It is recommended to re-calibrate the SRanipal eye tracker plugin for every new participant in an experiment. You can do this by entering SteamVR home, and clicking the small icon in the bottom menu bar to calibrate eye tracker to the headset wearer. <ul>
+<li><img alt="Calibration" src="../Figures/Install/steamvr-home.jpg" /></li>
+<li>You can find more information by checking out this <a href="https://forum.vive.com/topic/7434-getting-started-with-vrs-foveated-rendering-using-htc-vive-pro-eye-unreal-engine/">guide on foveated rendering using SRanipal</a> by HTC developer MariosBikos_HTC</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="logitech-wheel-plugin">Logitech Wheel Plugin</h2>
+<h3 id="installing-logitech-wheel-plugin"><strong>Installing Logitech Wheel Plugin</strong></h3>
+<ul>
+<li>This is only for those who have a Logitech steering wheel/pedals driving setup. This hardware is not required to experience the VR experience (you can simply use keyboard/mouse) but greatly adds to the immersion and allows for granular analog controls. <ul>
+<li>For reference, we used this <a href="https://www.logitechg.com/en-us/products/driving/driving-force-racing-wheel.html">Logitech G923 Racing Wheel &amp; Pedals</a>.</li>
+</ul>
+</li>
+<li>We'll be using this <a href="https://github.com/HARPLab/LogitechWheelPlugin">LogitechWheelPlugin</a> to interact with UE4 and map hardware inputs to actions.<ul>
+<li>Clone the repo and move the requisite folder to the Carla plugins folder</li>
+<li><code>bash
+  git clone https://github.com/HARPLab/LogitechWheelPlugin
+  mv LogitechWheelPlugin/LogitechWheelPlugin $CARLA_ROOT/Unreal/CarlaUE4/Plugins</code></li>
+<li>You should then see a Logitech Plugin enabled when you boot up the editor again:</li>
+<li><img alt="LogitechPlugin" src="../Figures/Install/LogitechPlugin.jpg" /></li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="sanity-check">Sanity Check</h2>
+<ul>
+<li>After installing these plugins, you should see a <code>Unreal/CarlaUE4/Plugins</code> that looks like this:</li>
+<li><code>Plugins
+    ├── Carla                              # unchanged
+    │   └── ...
+    ├── CarlaExporter                      # unchanged
+    │   └── ...
+    ├── LogitechWheelPlugin                # if installed
+    │   ├── Binaries
+    │   ├── Doc
+    │   ├── Logitech
+    │   ├── LogitechWheelPlugin.uplugin
+    │   ├── Resources
+    │   └── Source
+    └── SRanipal                           # if installed
+        ├── Binaries
+        ├── Config
+        ├── Content
+        ├── Resources
+        ├── Source
+        └── SRanipal.uplugin</code></li>
+<li>If you still have questions or issues, feel free to post an issue on our <a href="https://github.com/HARPLab/DReyeVR/issues">Issues</a> page and we'll try our best to help you out. </li>
+</ul>
+<p><br>
+<br></p>
+<h1 id="dreyevr_2">安装 <code>DReyeVR</code> 核心</h1>
+<!-- (Once you are done with this step, you should have a carla repo that looks just like this [Carla fork](https://github.com/HARPLab/carla/tree/DReyeVR-0.9.13) we created with the installation (and other minor things) pre-applied.) -->
+
+<ul>
+<li><strong>IMPORTANT</strong> The installation requires that <code>make</code>, <code>python</code> and <code>git</code> are available on your shell.</li>
+<li>You only need to install to a <code>CARLA</code> directory, ScenarioRunner is optional. </li>
+<li>If you don't provide the <code>make</code> variables <code>CARLA=...</code> or <code>SR=...</code> the installation wizard will automatically detect your install destination by looking at the environment variables <code>CARLA_ROOT</code> and <code>SCENARIO_RUNNER_ROOT</code> required by Carla. </li>
+</ul>
+<p><div class="highlight"><pre><span></span><code><span class="c1"># the CARLA= and SR= variables are optional</span>
+make<span class="w"> </span>install<span class="w"> </span><span class="nv">CARLA</span><span class="o">=</span>../carla<span class="w"> </span><span class="nv">SR</span><span class="o">=</span>../scenario_runner
+<span class="c1"># or</span>
+make<span class="w"> </span>install<span class="w"> </span><span class="nv">CARLA</span><span class="o">=</span>../carla
+make<span class="w"> </span>install<span class="w"> </span><span class="nv">SR</span><span class="o">=</span>../scenario_runner
+
+<span class="c1"># run filesystem checks after installing</span>
+make<span class="w"> </span>check<span class="w"> </span><span class="nv">CARLA</span><span class="o">=</span>../carla
+</code></pre></div>
+<strong>NOTE:</strong> to learn more about how the DReyeVR <code>make</code> system works, see <a href="../Scripts/README.md"><code>Scripts/README.md</code></a></p>
+<h1 id="dreyevr-pythonapi">构建 <code>DReyeVR</code> PythonAPI</h1>
+<h2 id="using-conda-for-the-pythonapi">Using <a href="https://www.anaconda.com/products/distribution"><code>conda</code></a> for the PythonAPI</h2>
+<ul>
+<li>While not required for DReyeVR, we highly recommend compartmentalizing Python installations via isolated environments such as <a href="https://www.anaconda.com/products/distribution"><code>anaconda</code></a><ul>
+<li>First download and install Anaconda to your machine from <a href="https://www.anaconda.com/products/distribution">here</a>.
+  <div class="highlight"><pre><span></span><code><span class="c1"># in /PATH/TO/CARLA/</span>
+conda<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>carla13<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.7.2
+conda<span class="w"> </span>activate<span class="w"> </span>carla13<span class="w"> </span><span class="c1"># will need to run this ONCE before opening a new terminal!</span>
+conda<span class="w"> </span>install<span class="w"> </span>numpy
+</code></pre></div></li>
+</ul>
+</li>
+<li>
+<p><strong>READ THIS FIRST (Linux)</strong>: You might run into a problem when compiling Boost 1.72.0 (required by <code>LibCarla</code>).
+    <details></p>
+<p><summary> Show instructions to get Anaconda working on Linux </summary></p>
+<ul>
+<li>```bash
+  # find anaconda install:
+  which python3
+  ... PATH/TO/ANACONDA/envs/carla/bin/python3 # example output</li>
+</ul>
+<p># go to carla/install dir from here
+  cd PATH/TO/ANACONDA/envs/carla/include</p>
+<p># create a symlink between python3.7 -&gt; python3.7m
+  ln -s python3.7m python3.7
+  <code>``
+  Install</code>boost_1_72_0.tar.gz<code>manually from https://github.com/jerry73204/carla/releases/tag/fix-boost and place file in</code>Build/boost_1_72_0.tar.gz<code>Open</code>Util/BuildTools/Setup.sh<code>(or</code>Util/BuildTools/Setup.bat<code>on Windows)
+  Find the section named</code>Get boost<code>includes and comment out the</code>wget<code>lines.
+  Now when you</code>make LibCarla<code>again, the</code>boost` errors should be resolved.
+  - For more information see the bottom of this <a href="https://stackoverflow.com/questions/42839382/failing-to-install-boost-in-python-pyconfig-h-not-found">SO post</a>
+</details></p>
+</li>
+<li>
+<p><strong>READ THIS FIRST (Windows)</strong>: Windows anaconda is a bit more of a pain to deal with.
+    <details></p>
+<p><summary> Show instructions to get Anaconda working on Windows </summary></p>
+<ol>
+<li>Enable your environment
+      <div class="highlight"><pre><span></span><code>conda activate carla13
+</code></pre></div></li>
+<li>Add carla to "path" to locate the PythonAPI and ScenarioRunner. But since Anaconda <a href="https://stackoverflow.com/questions/37006114/anaconda-permanently-include-external-packages-like-in-pythonpath">does not use the traditional <code>PYTHONPATH</code></a> you'll need to:<ul>
+<li>3.1. Create a file <code>carla.pth</code> in <code>\PATH\TO\ANACONDA\envs\carla\Lib\site-packages\</code></li>
+<li>3.2. Insert the following content into <code>carla.pth</code>:
+    <div class="highlight"><pre><span></span><code>  C:\PATH\TO\CARLA\PythonAPI\carla\dist
+  C:\PATH\TO\CARLA\PythonAPI\carla\agents
+  C:\PATH\TO\CARLA\PythonAPI\carla
+  C:\PATH\TO\CARLA\PythonAPI
+  C:\PATH\TO\CARLA\PythonAPI\examples
+  C:\PATH\TO\SCENARIO_RUNNER\
+</code></pre></div></li>
+</ul>
+</li>
+<li>Install the specific carla wheel (<code>whl</code>) to Anaconda
+      <div class="highlight"><pre><span></span><code>conda<span class="w"> </span>activate<span class="w"> </span>carla13
+pip<span class="w"> </span>install<span class="w"> </span>--no-deps<span class="w"> </span>--force-reinstall<span class="w"> </span>PATH<span class="se">\T</span>O<span class="se">\C</span>ARLA<span class="se">\P</span>ythonAPI<span class="se">\c</span>arla<span class="se">\d</span>ist<span class="se">\c</span>arla-0.9.13-cp37-cp37m-win_amd64.whl
+
+<span class="c1"># if applicable (and you installed Scenario runner)</span>
+<span class="nb">cd</span><span class="w"> </span>%SCENARIO_RUNNER_ROOT%
+pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt<span class="w"> </span><span class="c1"># install all SR dependencies</span>
+</code></pre></div></li>
+<li>Finally, you might run into problems with <code>shapely</code> (scenario-runner dependency) and Conda. Luckily the solution is simple:<ul>
+<li>Copy the files:<ul>
+<li><code>PATH\TO\ANACONDA\envs\carla13\Lib\site-packages\shapely\DLLs\geos.dll</code></li>
+<li><code>PATH\TO\ANACONDA\envs\carla13\Lib\site-packages\shapely\DLLs\geos_c.dll</code></li>
+</ul>
+</li>
+<li>To destination:<ul>
+<li><code>PATH\TO\ANACONDA\envs\carla13\Library\bin\</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Now finally, you should be able to verify all PythonAPI actions work as expected via:
+      <div class="highlight"><pre><span></span><code>conda activate carla13
+python
+<span class="p">&gt;&gt;</span>&gt; Python 3.7.2 (default, Feb 21 2019, 17:35:59) [MSC v.1915 64 bit (AMD64)] :: Anaconda, Inc. on win32
+<span class="p">&gt;&gt;</span>&gt; <span class="k">Type</span> <span class="s2">&quot;help&quot;</span>, <span class="s2">&quot;copyright&quot;</span>, <span class="s2">&quot;credits&quot;</span> or <span class="s2">&quot;license&quot;</span> for more information.
+<span class="p">&gt;&gt;</span>&gt; import carla
+<span class="p">&gt;&gt;</span>&gt; from DReyeVR_utils import find_ego_vehicle
+<span class="p">&gt;&gt;</span>&gt; from scenario_runner import ScenarioRunner
+</code></pre></div>
+      With all these imports passing (no error/warning messages), you're good to go!</li>
+</ol>
+</li>
+</ul>
+</details>
+<p>Now you can finally build the PythonAPI to this isolated conda environment. 
+  <div class="highlight"><pre><span></span><code>conda<span class="w"> </span>activate<span class="w"> </span>carla13
+<span class="o">(</span>carla13<span class="o">)</span><span class="w"> </span>make<span class="w"> </span>PythonAPI<span class="w"> </span><span class="c1"># builds LibCarla and PythonAPI to your (conda) python environment</span>
+</code></pre></div>
+  - NOTE: You'll need to run <code>conda activate carla13</code> every time you open a new terminal if you want to build DReyeVR since the shell needs to know which python environment to use. Luckily this minor inconvenience saves us from the significant headaches that arise when dealing with multiple <code>python</code> projects, Carla installations, and versions, etc. </p>
+<h2 id="sanity-check_1">Sanity Check:</h2>
+<p>It is nice to verify that the Carla PythonAPI is correctly visible in conda, to do this you should see all the following attributes in the <code>carla</code> module once calling <code>dir</code> on it.</p>
+<details>
+<summary>Show instructions to verify Carla PythonAPI is installed </summary>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># in your terminal (linux) or cmd (Windows)</span>
+conda<span class="w"> </span>activate<span class="w"> </span>carla13<span class="w">   </span><span class="c1"># (if using conda)</span>
+<span class="o">(</span>carla13<span class="o">)</span><span class="w"> </span>python<span class="w">         </span><span class="c1"># should default to python3!!</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1">#in Python</span>
+<span class="o">...</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">carla</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">dir</span><span class="p">(</span><span class="n">carla</span><span class="p">)</span>
+<span class="c1"># the following output means carla is not correctly installed :(</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="s1">&#39;__doc__&#39;</span><span class="p">,</span> <span class="s1">&#39;__file__&#39;</span><span class="p">,</span> <span class="s1">&#39;__loader__&#39;</span><span class="p">,</span> <span class="s1">&#39;__name__&#39;</span><span class="p">,</span> <span class="s1">&#39;__package__&#39;</span><span class="p">,</span> <span class="s1">&#39;__path__&#39;</span><span class="p">,</span> <span class="s1">&#39;__spec__&#39;</span><span class="p">]</span>
+
+<span class="c1"># OR the following output means carla is installed :)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="s1">&#39;Actor&#39;</span><span class="p">,</span> <span class="s1">&#39;ActorAttribute&#39;</span><span class="p">,</span> <span class="s1">&#39;ActorAttributeType&#39;</span><span class="p">,</span> <span class="s1">&#39;ActorBlueprint&#39;</span><span class="p">,</span> <span class="s1">&#39;ActorList&#39;</span><span class="p">,</span> <span class="s1">&#39;ActorSnapshot&#39;</span><span class="p">,</span> <span class="s1">&#39;ActorState&#39;</span><span class="p">,</span> <span class="s1">&#39;AttachmentType&#39;</span><span class="p">,</span> <span class="s1">&#39;BlueprintLibrary&#39;</span><span class="p">,</span> <span class="s1">&#39;BoundingBox&#39;</span><span class="p">,</span> <span class="s1">&#39;CityObjectLabel&#39;</span><span class="p">,</span> <span class="s1">&#39;Client&#39;</span><span class="p">,</span> <span class="s1">&#39;ClientSideSensor&#39;</span><span class="p">,</span> <span class="s1">&#39;CollisionEvent&#39;</span><span class="p">,</span> <span class="s1">&#39;Color&#39;</span><span class="p">,</span> <span class="s1">&#39;ColorConverter&#39;</span><span class="p">,</span> <span class="s1">&#39;DReyeVREvent&#39;</span><span class="p">,</span> <span class="s1">&#39;DVSEvent&#39;</span><span class="p">,</span> <span class="s1">&#39;DVSEventArray&#39;</span><span class="p">,</span> <span class="s1">&#39;DebugHelper&#39;</span><span class="p">,</span> <span class="s1">&#39;EnvironmentObject&#39;</span><span class="p">,</span> <span class="s1">&#39;FakeImage&#39;</span><span class="p">,</span> <span class="s1">&#39;FloatColor&#39;</span><span class="p">,</span> <span class="s1">&#39;GearPhysicsControl&#39;</span><span class="p">,</span> <span class="s1">&#39;GeoLocation&#39;</span><span class="p">,</span> <span class="s1">&#39;GnssMeasurement&#39;</span><span class="p">,</span> <span class="s1">&#39;IMUMeasurement&#39;</span><span class="p">,</span> <span class="s1">&#39;Image&#39;</span><span class="p">,</span> <span class="s1">&#39;Junction&#39;</span><span class="p">,</span> <span class="s1">&#39;LabelledPoint&#39;</span><span class="p">,</span> <span class="s1">&#39;Landmark&#39;</span><span class="p">,</span> <span class="s1">&#39;LandmarkOrientation&#39;</span><span class="p">,</span> <span class="s1">&#39;LandmarkType&#39;</span><span class="p">,</span> <span class="s1">&#39;LaneChange&#39;</span><span class="p">,</span> <span class="s1">&#39;LaneInvasionEvent&#39;</span><span class="p">,</span> <span class="s1">&#39;LaneInvasionSensor&#39;</span><span class="p">,</span> <span class="s1">&#39;LaneMarking&#39;</span><span class="p">,</span> <span class="s1">&#39;LaneMarkingColor&#39;</span><span class="p">,</span> <span class="s1">&#39;LaneMarkingType&#39;</span><span class="p">,</span> <span class="s1">&#39;LaneType&#39;</span><span class="p">,</span> <span class="s1">&#39;LidarDetection&#39;</span><span class="p">,</span> <span class="s1">&#39;LidarMeasurement&#39;</span><span class="p">,</span> <span class="s1">&#39;Light&#39;</span><span class="p">,</span> <span class="s1">&#39;LightGroup&#39;</span><span class="p">,</span> <span class="s1">&#39;LightManager&#39;</span><span class="p">,</span> <span class="s1">&#39;LightState&#39;</span><span class="p">,</span> <span class="s1">&#39;Location&#39;</span><span class="p">,</span> <span class="s1">&#39;Map&#39;</span><span class="p">,</span> <span class="s1">&#39;MapLayer&#39;</span><span class="p">,</span> <span class="s1">&#39;MaterialParameter&#39;</span><span class="p">,</span> <span class="s1">&#39;ObstacleDetectionEvent&#39;</span><span class="p">,</span> <span class="s1">&#39;OpendriveGenerationParameters&#39;</span><span class="p">,</span> <span class="s1">&#39;OpticalFlowImage&#39;</span><span class="p">,</span> <span class="s1">&#39;OpticalFlowPixel&#39;</span><span class="p">,</span> <span class="s1">&#39;Osm2Odr&#39;</span><span class="p">,</span> <span class="s1">&#39;Osm2OdrSettings&#39;</span><span class="p">,</span> <span class="s1">&#39;RadarDetection&#39;</span><span class="p">,</span> <span class="s1">&#39;RadarMeasurement&#39;</span><span class="p">,</span> <span class="s1">&#39;Rotation&#39;</span><span class="p">,</span> <span class="s1">&#39;SemanticLidarDetection&#39;</span><span class="p">,</span> <span class="s1">&#39;SemanticLidarMeasurement&#39;</span><span class="p">,</span> <span class="s1">&#39;Sensor&#39;</span><span class="p">,</span> <span class="s1">&#39;SensorData&#39;</span><span class="p">,</span> <span class="s1">&#39;ServerSideSensor&#39;</span><span class="p">,</span> <span class="s1">&#39;TextureColor&#39;</span><span class="p">,</span> <span class="s1">&#39;TextureFloatColor&#39;</span><span class="p">,</span> <span class="s1">&#39;Timestamp&#39;</span><span class="p">,</span> <span class="s1">&#39;TrafficLight&#39;</span><span class="p">,</span> <span class="s1">&#39;TrafficLightState&#39;</span><span class="p">,</span> <span class="s1">&#39;TrafficManager&#39;</span><span class="p">,</span> <span class="s1">&#39;TrafficSign&#39;</span><span class="p">,</span> <span class="s1">&#39;Transform&#39;</span><span class="p">,</span> <span class="s1">&#39;Vector2D&#39;</span><span class="p">,</span> <span class="s1">&#39;Vector3D&#39;</span><span class="p">,</span> <span class="s1">&#39;Vehicle&#39;</span><span class="p">,</span> <span class="s1">&#39;VehicleControl&#39;</span><span class="p">,</span> <span class="s1">&#39;VehicleDoor&#39;</span><span class="p">,</span> <span class="s1">&#39;VehicleLightState&#39;</span><span class="p">,</span> <span class="s1">&#39;VehiclePhysicsControl&#39;</span><span class="p">,</span> <span class="s1">&#39;VehicleWheelLocation&#39;</span><span class="p">,</span> <span class="s1">&#39;Walker&#39;</span><span class="p">,</span> <span class="s1">&#39;WalkerAIController&#39;</span><span class="p">,</span> <span class="s1">&#39;WalkerBoneControlIn&#39;</span><span class="p">,</span> <span class="s1">&#39;WalkerBoneControlOut&#39;</span><span class="p">,</span> <span class="s1">&#39;WalkerControl&#39;</span><span class="p">,</span> <span class="s1">&#39;Waypoint&#39;</span><span class="p">,</span> <span class="s1">&#39;WeatherParameters&#39;</span><span class="p">,</span> <span class="s1">&#39;WheelPhysicsControl&#39;</span><span class="p">,</span> <span class="s1">&#39;World&#39;</span><span class="p">,</span> <span class="s1">&#39;WorldSettings&#39;</span><span class="p">,</span> <span class="s1">&#39;WorldSnapshot&#39;</span><span class="p">,</span> <span class="s1">&#39;__builtins__&#39;</span><span class="p">,</span> <span class="s1">&#39;__cached__&#39;</span><span class="p">,</span> <span class="s1">&#39;__doc__&#39;</span><span class="p">,</span> <span class="s1">&#39;__file__&#39;</span><span class="p">,</span> <span class="s1">&#39;__loader__&#39;</span><span class="p">,</span> <span class="s1">&#39;__name__&#39;</span><span class="p">,</span> <span class="s1">&#39;__package__&#39;</span><span class="p">,</span> <span class="s1">&#39;__path__&#39;</span><span class="p">,</span> <span class="s1">&#39;__spec__&#39;</span><span class="p">,</span> <span class="s1">&#39;bone_transform&#39;</span><span class="p">,</span> <span class="s1">&#39;bone_transform_out&#39;</span><span class="p">,</span> <span class="s1">&#39;command&#39;</span><span class="p">,</span> <span class="s1">&#39;libcarla&#39;</span><span class="p">,</span> <span class="s1">&#39;vector_of_bones&#39;</span><span class="p">,</span> <span class="s1">&#39;vector_of_bones_out&#39;</span><span class="p">,</span> <span class="s1">&#39;vector_of_gears&#39;</span><span class="p">,</span> <span class="s1">&#39;vector_of_ints&#39;</span><span class="p">,</span> <span class="s1">&#39;vector_of_transform&#39;</span><span class="p">,</span> <span class="s1">&#39;vector_of_vector2D&#39;</span><span class="p">,</span> <span class="s1">&#39;vector_of_wheels&#39;</span><span class="p">]</span>
+</code></pre></div>
+</details>
+
+<p><br></p>
+<h2 id="future-modifications">Future modifications</h2>
+<p>Additionally, if you make changes to the <code>PythonAPI</code> source and need to rebuild (<code>make PythonAPI</code> again) when using Conda you should reinstall the <code>.whl</code> file to ensure your changes will be reflected in the environment:
+  - ```bash
+    conda activate carla</p>
+<pre><code>pip install --no-deps --force-reinstall /PATH/TO/CARLA/PythonAPI/carla/dist/carla-YOUR_VERSION.whl
+```
+</code></pre>
+<h1 id="dreyevr_3">升级 <code>DReyeVR</code></h1>
+<p>If you currently have an older version of <code>DReyeVR</code> installed and want to upgrade to a newer version, it is best to re-install DReyeVR from a fresh Carla repository. You can manually delete the <code>carla</code> repository and re-clone it directly (carefully ensuring the versions match) or use our provided scripts which attempt to reset the repository for you:</p>
+<details>
+<summary> Show instructions to use DReyeVR scripts to reset CARLA repo</summary>
+
+**IMPORTANT:** the `DReyeVR` clean script will overwrite and reset the Carla repository you specify, so make your backups now if you have any unstaged code. (`git reset --hard HEAD` and `git clean -fd` will be invoked, so if you commit your local changes they will be safe)
+
+<div class="highlight"><pre><span></span><code><span class="c1"># first go to CARLA and clean it so no old DReyeVR builds linger</span>
+<span class="nb">cd</span><span class="w"> </span>/PATH/TO/Carla/
+make<span class="w"> </span>clean
+
+<span class="c1"># it is a good idea to clean the Content/ directory which is not tracked by Carla&#39;s git system</span>
+rm<span class="w"> </span>-rf<span class="w"> </span>Unreal/CarlaUE4/Content/
+
+<span class="c1"># re-install the Content fresh from Carla&#39;s servers</span>
+./Update.sh<span class="w"> </span><span class="c1"># Linux/Mac</span>
+Update.bat<span class="w">  </span><span class="c1"># Windows</span>
+
+<span class="c1"># next, go to DReyeVR and get the latest updates</span>
+<span class="nb">cd</span><span class="w"> </span>/PATH/TO/DReyeVR/
+git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>main<span class="w"> </span><span class="c1"># or dev, or whatever branch</span>
+
+<span class="c1"># next, run the DReyeVR-cleaner to automatically hard-reset the Carla repo</span>
+<span class="c1"># accept the prompt to hard-clean CARLA, note that this will reset tracked and remove untracked files</span>
+make<span class="w"> </span>clean<span class="w"> </span><span class="nv">CARLA</span><span class="o">=</span>/PATH/TO/CARLA<span class="w"> </span><span class="nv">SR</span><span class="o">=</span>/PATH/TO/SR<span class="w"> </span><span class="c1"># both args are optional</span>
+
+<span class="c1"># now, you can cleanly install DReyeVR over Carla again</span>
+make<span class="w"> </span>install<span class="w"> </span><span class="nv">CARLA</span><span class="o">=</span>/PATH/TO/CARLA<span class="w"> </span><span class="nv">SR</span><span class="o">=</span>/PATH/TO/SR<span class="w"> </span><span class="c1"># both args are optional</span>
+
+<span class="c1"># it&#39;s a good idea to check that the Carla repository has all the expected files</span>
+make<span class="w"> </span>check<span class="w"> </span><span class="nv">CARLA</span><span class="o">=</span>/PATH/TO/CARLA<span class="w"> </span><span class="nv">SR</span><span class="o">=</span>/PATH/TO/SR<span class="w"> </span><span class="c1"># both args are optional</span>
+
+<span class="c1"># finally, you can go back to Carla and rebuild</span>
+<span class="nb">cd</span><span class="w"> </span>/PATH/TO/Carla
+make<span class="w"> </span>PythonAPI
+make<span class="w"> </span>launch
+make<span class="w"> </span>package
+</code></pre></div>
+
+***
+
+As long as you have no errors in the previous sections, you should be able to just build the `Carla` project with our `DReyeVR` files as follows:
+
+</details>
+
+<p><br>
+<br></p>
+<h1 id="dreyevr-ue4">构建 <code>DReyeVR</code> UE4</h1>
+<p>If you are not interested in using SRanipal or the LogitechWheelPlugin, you can disable these at compile-time by changing the variables in <code>Unreal/CarlaUE4/Source/CarlaUE4/CarlaUE4.Build.cs</code> to <code>false</code>:
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="c1">/////////////////////////////////////////////////////////////</span>
+<span class="w">  </span><span class="c1">// Edit these variables to enable/disable features of DReyeVR</span>
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">UseSRanipalPlugin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">UseLogitechPlugin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="p">;</span>
+<span class="w">  </span><span class="p">...</span>
+<span class="w">  </span><span class="c1">/////////////////////////////////////////////////////////////</span>
+<span class="w">  </span><span class="err">```</span>
+
+<span class="n">Finally</span><span class="p">,</span><span class="w"> </span><span class="n">open</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">project</span><span class="w"> </span><span class="n">directory</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">any</span><span class="w"> </span><span class="n">terminal</span><span class="w"> </span><span class="p">(</span><span class="n">Linux</span><span class="o">/</span><span class="n">Mac</span><span class="p">)</span><span class="w"> </span><span class="n">or</span><span class="w"> </span><span class="err">`</span><span class="n">Windows</span><span class="w"> </span><span class="n">x64</span><span class="w"> </span><span class="n">Native</span><span class="w"> </span><span class="n">Tools</span><span class="w"> </span><span class="n">Command</span><span class="w"> </span><span class="n">Prompt</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">VS</span><span class="w"> </span><span class="m">2019</span><span class="err">`</span><span class="w"> </span><span class="p">(</span><span class="n">Windows</span><span class="p">)</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">run</span><span class="p">:</span>
+<span class="err">```</span><span class="n">bash</span>
+<span class="n">make</span><span class="w"> </span><span class="n">PythonAPI</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">PythonAPI</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">LibCarla</span>
+
+<span class="n">make</span><span class="w"> </span><span class="n">launch</span><span class="w">     </span><span class="err">#</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">development</span><span class="w"> </span><span class="n">UE4</span><span class="w"> </span><span class="n">game</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">editor</span>
+
+<span class="n">make</span><span class="w"> </span><span class="n">package</span><span class="w">    </span><span class="err">#</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">optimized</span><span class="w"> </span><span class="n">UE4</span><span class="w"> </span><span class="n">packaged</span><span class="w"> </span><span class="n">game</span><span class="w"> </span><span class="p">(</span><span class="n">shipping</span><span class="p">)</span>
+</code></pre></div></p>
+<h1 id="dreyevr_4">运行 <code>DReyeVR</code></h1>
+<p>构建运输 shipping 包后，在 VR 模式下运行 Carla（安装了 DReyeVR）可执行文件：
+<div class="highlight"><pre><span></span><code><span class="c1"># on Unix</span>
+<span class="nb">cd</span><span class="w"> </span>/PATH/TO/CARLA/Dist/CARLA_Shipping_0.9.13-dirty/LinuxNoEditor/<span class="w"> </span><span class="c1"># or MacNoEditor on MacOS</span>
+./CarlaUE4.sh<span class="w"> </span>-vr
+
+<span class="c1"># on Windows x64 Visual C++ Toolset</span>
+<span class="nb">cd</span><span class="w"> </span><span class="se">\P</span>ATH<span class="se">\T</span>O<span class="se">\C</span>ARLA<span class="se">\B</span>uild<span class="se">\U</span>E4Carla<span class="se">\0</span>.9.13-dirty<span class="se">\W</span>indowsNoEditor<span class="se">\</span>
+CarlaUE4.exe<span class="w"> </span>-vr
+
+<span class="c1"># Optional flag: -quality-level=Low</span>
+</code></pre></div>
+<strong>注意：</strong> 为了在不损失太多视觉保真度的情况下大幅提高帧速率，您可以使用附加参数 <code>-quality-level=Low</code> 运行，我们从 vanilla Carla 对其进行了修改，以保持相同的渲染距离。</p>
+<p><strong>注意 2</strong> 您也不一定需要在 VR 中运行 DReyeVR。如果您省略 <code>-vr</code> 标志，那么您将看到一款平板 Carla 游戏，该游戏具有 DReyeVR 的相同功能，只是不在 VR 中。</p>
+<p><br></p>
+<h1 id="now-what">Now what?</h1>
+<p>Now that you've successfully installed DReyeVR continue to <a href="../Usage/"><code>Usage.md</code></a> to learn how to use DReyeVR for your own VR driving research simulator.</p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>Adding custom signs in the Carla world - 代理模拟器</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Adding custom signs in the Carla world";
+        var mkdocs_page_input_path = "interbehavior/Tutorials/Signs.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> 代理模拟器
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">首页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">代理模拟器</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Adding custom signs in the Carla world</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/interbehavior/Tutorials/Signs.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="adding-custom-signs-in-the-carla-world">Adding custom signs in the Carla world</h1>
+<h2 id="what-is-this">What is this?</h2>
+<p>It is often useful to have participants in an experiment know what directions to take in a natural manner without manual intervention. In Carla this is not a problem since all the drivers are AI controllers, but for humans we can't simply ingest a text file denoting waypoints and directions. This is where in-environment directional signs can be of use. Unfortunately, Carla does not provide any (since this is not a problem for them) and there were enough steps to warrant a guide, so here you go. </p>
+<p>This guide will show you how to create your own custom signs and place them in any Carla level (<em>Technically, the guide can work to add any custom props in Carla, not just signs</em>)
+- The steps are as follows:
+  1. Create the sign textures (rgb/normals)
+  2. Create the sign mesh/material
+  3. Apply the materials onto a blueprint
+  4. Manually place the blueprint into the world
+  5. <strong>Optional:</strong> Register the new sign with the blueprint library</p>
+<h2 id="getting-started">Getting started</h2>
+<p>Sign textures can be found in Carla in the <code>carla/Unreal/CarlaUE4/Content/Carla/Static/TrafficSign/</code> directory. </p>
+<p>For example, you should see a directory that looks like this:</p>
+<p><img alt="SignDirectory" src="../../Figures/Signs/directory.jpg" /></p>
+<p>Notice how all the models have a corresponding directory (some are cut off in the screenshot). These are where the static meshes and textures are defined so they can be used on these sign-shaped blueprints. </p>
+<ul>
+<li>
+<p>For the rest of this guide, we'll focus on using the <code>NoTurn</code> directory that looks like this when opened in the content browser:
+<img alt="NoTurnDir" src="../../Figures/Signs/no_turn_dir.jpg" /></p>
+</li>
+<li>
+<p>From left to right these are the <strong>Material Instance</strong> (<code>M_</code> prefix), <strong>Static Mesh</strong> (<code>SM_</code> prefix), <strong>Texture RGB</strong> (<code>__0</code> suffix), and <strong>Texture Normals</strong> (<code>_n</code> suffix)</p>
+</li>
+</ul>
+<h2 id="step-1-creating-the-sign-textures">Step 1: Creating the sign textures</h2>
+<p>The "NO TURN" sign serves as a good baseline for creating our custom signs, though any signs can be used as a starting point. </p>
+<p>Now, you can screenshot the image (or find its source file in Details-&gt;File Path) to get a <code>.jpg</code> of the desired texture, then clear out the original text ("NO TURN") so it is a blank canvas. For your convenience we have a blank "NO TURN" sign already provided in <a href="../../Content/Static/DefaultSign.jpg"><code>Content/Static/DefaultSign.jpg</code></a>
+- Notice how the bottom right corner of these images has is a small gray-ish region. This is actually for the rear of the sign so that when it is applied on to the models, the rear has this metallic surface. 
+  - This means we want to do most of our sign content editing in the region within the black perimeter</p>
+<p>It is useful to have a powerful image editing tool for this, we used <a href="https://www.gimp.org/">GIMP</a> (free &amp; open source) and the rest of this section will reference it as the image editing tool.</p>
+<p>From within Gimp you should be able to add whatever static components you like (text, images, etc.) within the designated region. Once you are finished with your new sign image, export it as a <code>.jpg</code>.</p>
+<p>Next, you'll want GIMP to create the normals map for you. This can be done easily by going through <code>Filters -&gt; Generic -&gt; Normal Map</code> and applying the default normal generation to the newly created image. Export this file with the suffix <code>_n.jpg</code> to indicate that it is the normal map.</p>
+<p>For example, if we wanted our sign to say "RIGHT TO CITY A", then after this process you should see something that looks like this:</p>
+<p><img alt="SignTextures" src="../../Figures/Signs/textures_no_turn.jpg" /></p>
+<p>Now we are done with image manipulation and using GIMP. </p>
+<p>Now back in UE4, it'll be easiest if you duplicate the <code>TrafficSign/NoTurn/</code> directory into your custom directory (such as <code>DReyeVR_Signs/</code> with all the same 4 elements (material, static mesh, texture RGB, and texture normals)).
+- Note: there are some reports of users not being able to copy/paste/duplicate directly in the editor. In this case, just do so in your file manager and reopen the editor again.
+  - <code>bash
+    cd $CARLA_ROOT/Unreal/CarlaUE4/Content/Carla/Static/TrafficSign/
+    cp -r NoTurn/ RightCityA/</code>
+  - <code>bash
+    # now RightCityA contains the following
+    RightCityA
+    - M_NoTurns.uasset
+    - SM_noTurn.uasset
+    - SM_noTurn_n.uasset
+    - SM_noTurn_.uasset</code> </p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Now, in your new custom directory, you can easily reimport a new <code>.jpg</code> source file by clicking the <code>Reimport</code> button at the top. </br> </br> Locate your rgb <code>.jpg</code> image for the <code>SM_noTurn</code> reimport, and use the normals <code>.jpg</code> image for the <code>SM_noTurn_n</code> reimport.</td>
+<td><img src = "../Figures/Signs/reimport.jpg" alt="Reimport" width=150%></td>
+</tr>
+</tbody>
+</table>
+<p>Feel free to rename the <code>SM_noTurn_*</code> asset files <strong>within the editor</strong> (right click in content browser -&gt; rename) and keep the naming scheme. Something like <code>SM_RightCityA</code> and <code>SM_RightCityA_n</code>.</p>
+<h2 id="step-2-creating-the-sign-meshes-materials">Step 2: Creating the sign meshes &amp; materials</h2>
+<p>Now, you should make sure that the <strong>Material</strong> (<code>M_noTurns</code>) asset file is updated with the new textures. This may occur automatically, but just in case you should open it up in the editor and select the newly created <code>SM_RightCityA</code> and <code>SM_RightCityA_n</code> as the Texture parameter values for <code>SpeedSign_d</code> and <code>SpeedSign_n</code> respectively.
+- To do this, click the dropdown menu box which say <code>SM_noTurn</code> and <code>SM_noTurn_n</code> and search for the new <code>RightCityA</code> variants
+- The parameters should then look something like this
+    <img alt="Parameters" src="../../Figures/Signs/parameters.jpg" /></p>
+<p>Save it and rename it (<strong>in the editor</strong>) as well: <code>M_RightCityA</code> should suffice.</p>
+<p>Now, finally open up the <code>SM_noTurn_</code> (static mesh) asset file and ensure it uses our newly created <code>M_RightCityA</code> material by editing the Material element in the Material Slots:
+- Similarly to before, this is done in the Details pane by clicking the dropdown, searching for "RightCity", and selecting our new material
+    <img alt="SignMaterial" src="../../Figures/Signs/material.jpg" /></p>
+<p>Save it and rename it (always <strong>in the editor</strong>): <code>SM_RightCityA_</code> works.</p>
+<p>At this point you should have a <code>RightCityA</code> directory that looks like the following:</p>
+<p><img alt="RightCityDir" src="../../Figures/Signs/rightcity_directory.jpg" /></p>
+<h2 id="step-3-applying-the-new-materials-onto-a-blueprint">Step 3: Applying the new materials onto a blueprint</h2>
+<p>Once all the desired materials/static meshes are ready, duplicate a sign blueprint (from the parent <code>TrafficSign</code> directory) and place it in <code>RightCityA</code>
+- This should be doable from within the editor. Right click <code>BP_NoTurns</code> -&gt; Duplicate -&gt; Enter new name -&gt; Drag to <code>RightCityA/</code> -&gt; select move</p>
+<p>Open up the blueprint to the <code>Viewport</code> tab and select the sign component (not the pole)</p>
+<p>In the Details pane you should again see a <code>Static Mesh</code> component that is still the <code>SM_noTurn_</code>, replace that with out new <code>SM_RightCityA_</code> asset, Recompile &amp; Save, and you should be done. </p>
+<p>Now it should look like this: </p>
+<p><img alt="SignBP" src="../../Figures/Signs/bp.jpg" /></p>
+<h2 id="step-4-placing-the-new-sign-in-the-world">Step 4: Placing the new sign in the world</h2>
+<p>With our new sign blueprint, we can place it into the world fairly easily. Simply drag and drop it into the world, then edit its transform, rotation, and scale parameters to fine tune the result. </p>
+<p>The end result should look pretty decent, here's an example of our new sign in <code>Town03</code></p>
+<table>
+<thead>
+<tr>
+<th>Front of the sign</th>
+<th>Rear of the sign</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img alt="FrontSign" src="../../Figures/Signs/right_front.jpg" /></td>
+<td><img alt="RearSign" src="../../Figures/Signs/right_rear.jpg" /></td>
+</tr>
+</tbody>
+</table>
+<p>Notice how both the front and rear look good, this is because the rear is given the metallic region from the bottom-right of the texture. </p>
+<h2 id="step-5-optional-registering-with-the-bp-library">Step 5: (Optional) Registering with the BP library</h2>
+<p>Registering our new sign with Carla's blueprint library allows us to spawn the sign from the PythonAPI and hence allows for dynamic placement at runtime. </p>
+<p>This is slightly more in-depth than the existing Carla signs since they were not designed to be spawned dynamically, rather they were placed into the world statically at compile-time. This becomes frustrating if we'd like to place different signs around the map for various scenarios without recompiling everything again. </p>
+<p>As per <a href="https://github.com/carla-simulator/carla/issues/4363">this issue</a>, the usual way of using custom props on Carla 0.9.11 is currently broken and unreliable. We found a <a href="https://github.com/carla-simulator/carla/issues/4363#issuecomment-924140532">workaround</a> and included it in the issue. </p>
+<p>Essentially you'll need to edit the <code>carla/Unreal/CarlaUE4/Content/Carla/Config/Default.Package.json</code> file to include your new sign prop as follows:</p>
+<p><div class="highlight"><pre><span></span><code><span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;YOUR_SIGN_NAME&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/PATH/TO/YOUR/SM_SIGN.SM_SIGN&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;size&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Medium&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+</code></pre></div>
+Note that the <code>"path"</code> source is looking for a UE4 static mesh object, which will be stored as a <code>.uasset</code> file. Still denote it as <code>SM_name.SM_name</code> in the <code>json</code>. </p>
+<p>Importantly, if you want to include a custom prop directory in <code>Content/</code> (instead of using our <code>DReyeVR/DReyeVR_Signs/</code> content) you should add this to the list of cooked assets in <code>Config/DefaultGame.ini</code> such as:</p>
+<p><div class="highlight"><pre><span></span><code><span class="na">+DirectoriesToAlwaysCook</span><span class="o">=</span><span class="s">(Path=&quot;/Game/DReyeVR/DReyeVR_Signs&quot;)</span><span class="w"> </span><span class="c1"># what we include</span>
+<span class="na">+DirectoriesToAlwaysCook</span><span class="o">=</span><span class="s">(Path=&quot;/Game/YOUR_PROP_DIR/&quot;)</span><span class="w"> </span><span class="c1"># any desired prop directory</span>
+</code></pre></div>
+This ensures your custom props are properly cooked during shipping (<code>make package</code>). </p>
+<p>Once this change is imported in the map you will be able to spawn your sign as follows:
+<div class="highlight"><pre><span></span><code><span class="n">bp</span> <span class="o">=</span> <span class="n">blueprint_library</span><span class="o">.</span><span class="n">filter</span><span class="p">((</span><span class="s2">&quot;static.prop.YOUR_SIGN_NAME&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span> <span class="c1"># filter is lowercase!</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">bp</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="c1"># you should only have one prop of this name</span>
+<span class="n">transform</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_map</span><span class="p">()</span><span class="o">.</span><span class="n">get_spawn_points</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># or choose any other spawn point</span>
+<span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">bp</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">transform</span><span class="p">)</span> <span class="c1"># should succeed with no errors</span>
+</code></pre></div></p>
+<p><strong>NOTE</strong> In constructing our (and Carla's) signs, we unlink the sign itself from the pole it connects to. Therefore, if you want to spawn the sign <em>with</em> the pole you'll need to combine these static meshes. 
+- This is supported within the editor by placing both actors into the world, selecting both, then using the Window -&gt; Developer -&gt; MergeActors button as described in <a href="https://docs.unrealengine.com/4.27/en-US/Basics/Actors/Merging/">this guide</a>. 
+- We have already provided a baseline with the <a href="Content/DReyeVR_Signs/FullSign/"><code>Content/DReyeVR_Signs/FullSign/</code></a> directory where we combined the signs with the poles as a single static mesh. 
+    - With this baseline, assuming you have a compatible material (using the same sign template as ours) you can just update the material for the sign component without further modification. </p>
+<h1 id="automatic-sign-placement">Automatic Sign Placement</h1>
+<p>When using our <a href="https://github.com/HARPLab/scenario_runner/tree/DReyeVR-0.9.13">scenario-runner fork</a>, there is logic to enable spawning the corresponding directional signs automatically according to the route features (straight, turn left, turn right, and goal). The logic for this can be found in the <a href="https://github.com/HARPLab/scenario_runner/blob/3b5e60f15fd97de00332f80610051f9f39d7db8c/srunner/scenarios/route_scenario.py#L284-L355">route_scenario's nav sign code</a>. Since this is automatically applied to all routes, you can disable it manually by commenting the <code>self._setup_nav_signs(self.route)</code> method call.</p>
+<p>There is also a file method in case you want to manually place signs for specific routes (see <a href="https://github.com/HARPLab/scenario_runner/blob/DReyeVR-0.9.13/srunner/data/all_routes_signs.json">here</a>), but we found that the automatic sign placement works fine most of the time and is much more convenient. So the automatic method is recommended and you don't have to do anything to enable it.</p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../../js/umlconvert.js"></script>
+      <script src="../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

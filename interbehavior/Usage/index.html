@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>使用 DReyeVR - 代理模拟器</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u4f7f\u7528 DReyeVR";
+        var mkdocs_page_input_path = "interbehavior/Usage.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 代理模拟器
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">首页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">代理模拟器</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">使用 DReyeVR</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/interbehavior/Usage.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="dreyevr">使用 <code>DReyeVR</code></h1>
+<p>Now that you have DReyeVR up and running, this guide will highlight some useful features for researchers using DReyeVR:
+- <a href="./#maneuvering-the-ego-vehicle">操纵自我车辆</a>
+- <a href="./#using-the-pythonapi">使用 PythonAPI</a>
+- <a href="./#recordingreplaying-a-scenario">记录/重放一个场景</a>
+- <a href="./#control-handoff-to-ai">将控制从手动切换到 AI（切换）</a>
+- <a href="./#using-our-custom-config-file">Using our config file to modify DReyeVR params</a>
+- <a href="./#synchronized-replay-frame-capture">Synchronized replay with frame capture</a>
+- <a href="./#other-guides">Other guides</a></p>
+<p><img alt="UsageSchematic" src="../Figures/Usage/UsageSchematic.jpg" /></p>
+<h1 id="maneuvering-the-ego-vehicle">Maneuvering the Ego-vehicle</h1>
+<p>These control schemes work both in VR and non-VR. With the main difference being that in VR you can move the camera pose and orientation with your head tracking, but in flat-screen-mode (non-VR) you'll need to use a mouse like in a first-person game. 
+- Keyboard vehicle control scheme:
+  - <strong>Camera Gaze</strong> - When in the 2D (flat/non-VR) view, turn the camera by clicking and dragging
+  - <strong>Throttle</strong> - Is done by pressing and holding <code>W</code>
+  - <strong>Steering</strong> - Is done with <code>A</code> to steer left and <code>D</code> to steer right
+  - <strong>Brake</strong> - Is done by pressing and holding <code>S</code>
+  - <strong>Toggle Reverse</strong> - Is done by pressing <code>LAlt</code>
+  - <strong>Turn Signals</strong> - Are both done by pressing <code>Q</code> (left) or <code>E</code> (right)
+  - <strong>Camera Adjust</strong> - Is done in X and Y with the arrow keys (<code>up</code>, <code>down</code>, <code>left</code>, <code>right</code>) and in Z with the <code>pg-up</code>/<code>pg-down</code> buttons
+  - <strong>Change Camera View Position</strong> - Is done with <code>Tab</code> to switch to the next camera position defined in <code>DReyeVRParams.ini</code>. Press <code>Shift+Tab</code> to switch back to the previous camera position
+  - <strong>Change Camera Shader</strong> - Is done with <code>.</code> (period) to switch to the next shader and <code>,</code> (comma) to the previous shader
+- Logitech control scheme:
+  - <strong>Throttle</strong> - Is done by pushing down on the accelerator pedal
+  - <strong>Steering</strong> - Is done by turning the steering wheel 
+  - <strong>Brake</strong> - Is done by pushing down on the brake pedal
+  - <strong>Toggle Reverse</strong> - Is done by pressing any of the <code>ABXY</code> (7 in the image) buttons 
+  - <strong>Turn Signals</strong> - Are both done by the left (4) and right (6) bumpers 
+  - <strong>Camera Adjust</strong> - Is done in X and Y with the 4 d-pad buttons (2) on the face of the wheel, and in Z with the +/- buttons (5)
+- <img alt="LogiWheel" src="../Figures/Usage/g923.jpg" /> Image source: <a href="https://www.logitech.com/assets/65932/2/g923-racing-wheel-qsg.pdf">Logitech g923 manual</a></p>
+<p>Note that all the keyboard inputs are defined in <a href="../Configs/DefaultInput.ini"><code>DefaultInput.ini</code></a> where all DReyeVR-specific controls have been suffixed with "<code>_DReyeVR</code>". Feel free to change any of the controls if you'd like.</p>
+<p>However, the logitech wheel inputs are hardcoded into the source since they are checked for on every tick (instead of through the UE4 keyboard events). To see the values and modify them, see <a href="../DReyeVR/DReyeVRPawn.cpp"><code>DReyeVRPawn.cpp</code></a></p>
+<h1 id="using-the-pythonapi">Using the PythonAPI</h1>
+<p>With the main Carla server running you should now be able to run all Carla provided <code>PythonAPI</code> scripts.
+- Note that not all scripts in the original <a href="https://github.com/carla-simulator/carla/tree/0.9.13/PythonAPI"><code>Carla 0.9.13</code> PythonAPI</a> repo have been tested. We created some new scripts in place of others, such as <code>schematic_mode.py</code> which inherits from <code>no_rendering_mode.py</code> but adds support for our ego-vehicle and eye tracker. 
+- In some cases, we replace the old python scripts with newer ones, such as the <a href="https://github.com/carla-simulator/scenario_runner/blob/v0.9.13/no_rendering_mode.py"><code>no_rendering_mode.py</code></a> in <code>scenario-runner-v0.9.13</code> which is actually from release 0.9.5. </p>
+<h3 id="visualize-in-schematic-mode">Visualize in schematic mode</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="nv">$CARLA_ROOT</span>/PythonAPI/examples/<span class="w"> </span><span class="c1"># go to carla/</span>
+
+./schematic_mode.py<span class="w"> </span>
+</code></pre></div>
+<h3 id="logging-dreyevr-sensor-data-to-pythonapi">Logging DReyeVR sensor data to PythonAPI</h3>
+<p><div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="nv">$CARLA_ROOT</span>/PythonAPI/examples/
+
+<span class="c1"># see all the DReyeVR sensor data</span>
+./DReyeVR_logging.py<span class="w"> </span><span class="c1"># prints directly in stdout</span>
+
+<span class="c1"># or if you have a running roscore (with rospy)</span>
+./DReyeVR_logging.py<span class="w"> </span>--rh<span class="w"> </span><span class="s1">&#39;192.168.X.Y&#39;</span><span class="w"> </span>--rp<span class="w"> </span><span class="m">11311</span><span class="w"> </span><span class="c1"># pass in roscore host &amp; ports</span>
+</code></pre></div>
+- We support ROS data streaming using <code>rospy</code> on an Ubuntu 20.04 LTS host. If you are interested in using a VM for this purpose, we'd recommend checking out <a href="../Tools/VirtualMachine/README.md"><code>VirtualMachine/README.md</code></a> as the setup is fairly involved.</p>
+<h3 id="start-the-dreyevr-ai-controller">Start the DReyeVR AI controller</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="nv">$CARLA_ROOT</span>/PythonAPI/examples/
+
+<span class="c1"># DReyeVR AI controller requires this script to be running</span>
+./DReyeVR_AI.py<span class="w"> </span>-n<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="c1"># won&#39;t control vehicle unless control is handoff to AI (press 3)</span>
+</code></pre></div>
+<h3 id="start-recordingreplaying">Start recording/replaying</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="nv">$CARLA_ROOT</span>/PythonAPI/examples/
+
+<span class="c1"># start a recording with no other agents</span>
+./start_recording.py<span class="w"> </span>-n<span class="w"> </span><span class="m">0</span>
+...
+^C
+
+<span class="c1"># replay the file just recorded</span>
+./start_replaying.py
+
+<span class="c1"># dump the replay file in a human-readable manner to replay.txt</span>
+./show_recorder_file_info.py<span class="w"> </span>-a<span class="w"> </span>&gt;<span class="w"> </span>replay.txt
+</code></pre></div>
+<h3 id="run-a-scenariorunner-instance-and-record">Run a ScenarioRunner instance and record</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="nv">$SCENARIO_RUNNER_ROOT</span><span class="w"> </span><span class="c1"># go to scenario-runner/</span>
+
+./run_experiment.py<span class="w"> </span>--title<span class="w"> </span>name_of_experiment<span class="w"> </span>--route<span class="w"> </span>srunner/data/routes_debug.xml<span class="w"> </span>srunner/data/all_towns_traffic_scenarios1_3_4.json<span class="w"> </span><span class="m">0</span><span class="w"> </span>--output<span class="w"> </span>--reloadWorld
+...
+^C
+</code></pre></div>
+<h2 id="using-our-new-dreyevr-pythonapi">Using our new DReyeVR PythonAPI</h2>
+<p>For your own custom scripts, we recommend taking a look at the <a href="../PythonAPI/DReyeVR_utils.py"><code>DReyeVR_utils.py</code></a> file, specifically the two functions:
+- <code>find_ego_vehicle</code> which takes in the <code>carla.libcarla.World</code> instance and returns the DReyeVR ego-vehicle (<code>carla.libcarla.Vehicle</code>) present in the world or spawns one in if there is none. 
+- <code>find_ego_sensor</code> which takes in the <code>carla.libcarla.World</code> instance and returns the DReyeVR eye tracker (<code>carla.libcarla.Sensor</code>) present in the world, which should be attached to the spawned EgoVehicle (if the EgoVehicle is spawned)</p>
+<p>Then, in your script, you can follow the technique we used in <code>schematic_mode.py</code> such as:
+<div class="highlight"><pre><span></span><code>  <span class="n">world</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get_world</span><span class="p">()</span>
+
+  <span class="c1"># find ego vehicle</span>
+  <span class="bp">self</span><span class="o">.</span><span class="n">hero_actor</span> <span class="o">=</span> <span class="n">find_ego_vehicle</span><span class="p">(</span><span class="n">world</span><span class="p">)</span>
+  <span class="bp">self</span><span class="o">.</span><span class="n">hero_transform</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hero_actor</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span>
+
+  <span class="c1"># find ego sensor</span>
+  <span class="c1"># DReyeVRSensor implicitly calls find_ego_sensor, then wraps it with a custom class</span>
+  <span class="bp">self</span><span class="o">.</span><span class="n">sensor</span> <span class="o">=</span> <span class="n">DReyeVRSensor</span><span class="p">(</span><span class="n">world</span><span class="p">)</span> 
+  <span class="bp">self</span><span class="o">.</span><span class="n">sensor</span><span class="o">.</span><span class="n">ego_sensor</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sensor</span><span class="o">.</span><span class="n">update</span><span class="p">)</span>  <span class="c1"># subscribe to readout</span>
+</code></pre></div>
+Now you can proceed to use <code>self.sensor.ego_sensor</code> as a standard <a href="https://github.com/carla-simulator/carla/blob/master/Docs/python_api.md#carlasensor"><code>carla.libcarla.Sensor</code></a> object and <code>self.hero_actor</code> as a standard <a href="https://github.com/carla-simulator/carla/blob/master/Docs/python_api.md#carlavehicle"><code>carla.libcarla.Vehicle</code></a> object. </p>
+<h1 id="recordingreplaying-a-scenario">Recording/Replaying a scenario</h1>
+<h2 id="motivations">Motivations</h2>
+<p>It is often useful to record a scenario of an experiment in order to reenact it in post and perform further analysis. We had to slightly augment the recorder and replayer to respect our ego-vehicle being persistent in the world, but all other functionality is maintained. We additionally reenact the ego-sensor data (including HMD pose and orientation) so an experimenter could see what the participant was looking at on every tick. For the full explanation of the Carla recorder see their <a href="https://carla.readthedocs.io/en/0.9.13/adv_recorder/">documentation</a>. </p>
+<h2 id="recording">Recording</h2>
+<p>The easiest way to start recording is with the handy <code>PythonAPI</code> scripts. 
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="nv">$CARLA_ROOT</span>/PythonAPI/examples/
+<span class="c1"># this starts a recording session with 10 autonomous vehicles</span>
+./start_recording.py<span class="w"> </span>-n<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="c1"># change -n param to change number of vehicles (default 10)</span>
+...
+^C<span class="w"> </span><span class="c1"># stop recording with a SIGINT (interrupt)</span>
+</code></pre></div>
+- Note that the recording halts if a new world is loaded, so if you want to change the world make sure to restart the recording after the world has loaded.
+- The recording saves the default file as a <code>test1.log</code> file in the default saved directory of your project:
+    - If recording from editor: <code>carla/Unreal/CarlaUE4/Saved/test1.log</code>
+    - If recording from package: <code>${PACKAGE}/Unreal/Saved/test1.log</code> <!-- TODO: CHECK THIS -->
+- The recording should have relatively minimal impact on the performance of the simulator, but this likely varies by machine. The experience should be essentially the same. 
+- Note that the recorder saves everything in binary, so it the raw <code>test1.log</code> file is not human-readable. It is often nice to read it however, in that case use:
+    - <code>bash
+        # saves output (stdout) to recorder.txt
+        ./show_recorder_file_info.py -a -f /PATH/TO/RECORDER-FILE &gt; recorder.txt</code>
+  - With this <code>recorder.txt</code> file (which holds a human-readable dump of the entire recording log) you can parse this file into useful python data structures (numpy arrays/pandas dataframes) by using our <a href="https://github.com/harplab/dreyevr-parser">DReyeVR parser</a>.</p>
+<h2 id="replaying">Replaying</h2>
+<p>Begin a replay session through the PythonAPI as follows:
+<div class="highlight"><pre><span></span><code><span class="c1"># note this does not rely on being in VR mode or not. </span>
+./start_replaying.py<span class="w"> </span><span class="c1"># this starts the replaying session</span>
+</code></pre></div>
+- Note that in the replaying mode, all user inputs will be ignored in favour of the replay inputs. However, you may still use the following level controls:
+  1. <strong>Toggle Play/Pause</strong> - Is done by pressing <code>SpaceBar</code>
+  2. <strong>Advance</strong> - Is done by holding <code>Alt</code> and pressing <code>Left</code> arrow (backwards) or <code>Right</code> arrow (forwards)
+  3. <strong>Change Playback Speed</strong> - Is done by holding <code>Alt</code> and pressing <code>Up</code> arrow (increase) or <code>Down</code> arrow (decrease)
+  4. <strong>Restart</strong> - Is done by holding <code>Alt</code> and pressing <code>BackSpace</code>
+  6. <strong>Possess Spectator</strong> - Is done by pressing <code>1</code> (then use <code>WASDEQ+mouse</code> to fly around)
+  7. <strong>Re-possess Vehicle</strong> - Is done by pressing <code>2</code></p>
+<p>To get accurate screenshots for every frame of the recording, see below with <a href="#synchronized-replay-frame-capture">synchronized replay frame capture</a></p>
+<p><strong>NOTE</strong> We use custom config files for global and vehicle parameters in the simulator (see <a href="./#using-our-custom-config-file">below</a>) and we also store these parameters in the recording file so that we can verify they are the same as the replay. For instance, we will automatically compare the recording's parameters versus the live parameters when performing a replay. Then if we detect any differences, we will print these as warnings so you can be aware. For instance, if you recorded with a particular vehicle and replay the simulator with a different vehicle loaded, we will let you know that the replay may be inaccurate and you are in uncharted territory.</p>
+<h2 id="scenarios">Scenarios</h2>
+<p>It is usually ideal to have curated experiments in the form of scenarios parsed through <a href="https://carla-scenariorunner.readthedocs.io/en/latest/">ScenarioRunner</a>.</p>
+<p>For this purpose, we created a handy script that should be robust to some of the quirks of the existing implementation. This script (<a href="../ScenarioRunner/run_experiment.py"><code>run_experiment.py</code></a>) will automatically start recording for you AFTER the new map has been loaded, with a unique filename, all on a single client instance, so that you don't need to worry about a faulty recording or overwriting existing files. </p>
+<p>With <code>scenario_runner</code> v0.9.13, you should have already set these environment variables:
+<div class="highlight"><pre><span></span><code><span class="c1"># on bash (Linux)</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">CARLA_ROOT</span><span class="o">=</span>/PATH/TO/carla/
+<span class="nb">export</span><span class="w"> </span><span class="nv">SCENARIO_RUNNER_ROOT</span><span class="o">=</span>/PATH/TO/scenario_runner/
+<span class="nb">export</span><span class="w"> </span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="nv">$PYTHONPATH</span>:<span class="si">${</span><span class="nv">CARLA_ROOT</span><span class="si">}</span>/PythonAPI/carla/dist/carla-0.9.13-py3.7-linux-x86_64.egg<span class="w">                                           </span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="nv">$PYTHONPATH</span>:<span class="si">${</span><span class="nv">CARLA_ROOT</span><span class="si">}</span>/PythonAPI/carla/agents
+<span class="nb">export</span><span class="w"> </span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="nv">$PYTHONPATH</span>:<span class="si">${</span><span class="nv">CARLA_ROOT</span><span class="si">}</span>/PythonAPI/carla
+<span class="nb">export</span><span class="w"> </span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="nv">$PYTHONPATH</span>:<span class="si">${</span><span class="nv">CARLA_ROOT</span><span class="si">}</span>/PythonAPI
+
+<span class="c1"># on Windows x64 Visual C++ Toolset</span>
+<span class="nb">set</span><span class="w"> </span><span class="nv">CARLA_ROOT</span><span class="o">=</span>C:PATH<span class="se">\T</span>O<span class="se">\c</span>arla<span class="se">\</span>
+<span class="nb">set</span><span class="w"> </span><span class="nv">SCENARIO_RUNNER_ROOT</span><span class="o">=</span>C:PATH<span class="se">\T</span>O<span class="se">\s</span>cenario_runner<span class="se">\</span>
+<span class="nb">set</span><span class="w"> </span><span class="nv">PYTHONPATH</span><span class="o">=</span>%PYTHONPATH%<span class="p">;</span>%CARLA_ROOT%<span class="se">\P</span>ythonAPI<span class="se">\c</span>arla<span class="se">\d</span>ist<span class="se">\c</span>arla-0.9.13-py3.7-win-amd64.egg
+<span class="nb">set</span><span class="w"> </span><span class="nv">PYTHONPATH</span><span class="o">=</span>%PYTHONPATH%<span class="p">;</span>%CARLA_ROOT%<span class="se">\P</span>ythonAPI<span class="se">\c</span>arla<span class="se">\a</span>gents
+<span class="nb">set</span><span class="w"> </span><span class="nv">PYTHONPATH</span><span class="o">=</span>%PYTHONPATH%<span class="p">;</span>%CARLA_ROOT%<span class="se">\P</span>ythonAPI<span class="se">\c</span>arla
+<span class="nb">set</span><span class="w"> </span><span class="nv">PYTHONPATH</span><span class="o">=</span>%PYTHONPATH%<span class="p">;</span>%CARLA_ROOT%<span class="se">\P</span>ythonAPI
+</code></pre></div>
+Then to run our demo examples, use this command:
+<div class="highlight"><pre><span></span><code><span class="c1"># on bash (Linux)</span>
+<span class="nb">cd</span><span class="w"> </span><span class="nv">$SCENARIO_RUNNER_ROOT</span><span class="w"> </span><span class="c1"># go to scenario-runner</span>
+./run_experiment.py<span class="w"> </span>--title<span class="w"> </span><span class="s2">&quot;dreyevr_experiment&quot;</span><span class="w"> </span>--route<span class="w"> </span><span class="nv">$SCENARIO_RUNNER_ROOT</span>/srunner/data/routes_custom.xml<span class="w"> </span><span class="nv">$SCENARIO_RUNNER_ROOT</span>/srunner/data/town05_scenarios.json<span class="w"> </span><span class="m">0</span>
+
+<span class="c1"># on Windows x64 Visual C++ Toolset</span>
+<span class="nb">cd</span><span class="w"> </span>%SCENARIO_RUNNER_ROOT%<span class="w"> </span><span class="c1"># go to scenario-runner</span>
+python<span class="w"> </span>run_experiment.py<span class="w"> </span>--title<span class="w"> </span><span class="s2">&quot;dreyevr_experiment&quot;</span><span class="w"> </span>--route<span class="w"> </span>%SCENARIO_RUNNER_ROOT%<span class="se">\s</span>runner<span class="se">\d</span>ata<span class="se">\r</span>outes_custom.xml<span class="w"> </span>%SCENARIO_RUNNER_ROOT%<span class="se">\s</span>runner<span class="se">\d</span>ata<span class="se">\t</span>own05_scenarios.json<span class="w"> </span><span class="m">0</span>
+</code></pre></div>
+Note that you can rename the experiment to anything with <code>--title "your_experiment"</code>, and the resulting recording file will include this title in its filename. </p>
+<h1 id="control-handoff-to-ai">Control handoff to AI</h1>
+<p>Sometimes it is useful to have an AI takeover of the ego-vehicle during an experiment for research purposes. This becomes easy to do in our simulator with the help of Carla's existing <a href="https://carla.readthedocs.io/en/0.9.13/adv_traffic_manager/">TrafficManager-based autopilot</a> which can pilot our ego-vehicle just like any other carla Vehicle. </p>
+<p>However, in order to start the autopilot, we currently only support using the PythonAPI for this task, so we created <code>DReyeVR_AI.py</code> which will do the job:
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="nv">$CARLA_ROOT</span>/PythonAPI/examples<span class="w"> </span><span class="c1"># go to carla PythonAPI</span>
+./DReyeVR_AI.py<span class="w"> </span>-n<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="c1"># spawn no other vehicles, enable autopilot on EgoVehicle</span>
+</code></pre></div></p>
+<p>Internally, the AI system is using the Carla vehicle autopilot system, so this can be enabled in your custom PythonAPI scripts without the use of <code>DReyeVR_AI.py</code> by performing:
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">DReyeVR_utils</span> <span class="kn">import</span> <span class="n">find_ego_vehicle</span>
+<span class="o">...</span>
+
+<span class="n">world</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_world</span><span class="p">()</span>
+<span class="n">traffic_manager</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_trafficmanager</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">tm_port</span><span class="p">)</span>
+<span class="o">...</span>
+
+<span class="n">DReyeVR_vehicle</span> <span class="o">=</span> <span class="n">find_ego_vehicle</span><span class="p">(</span><span class="n">world</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">DReyeVR_vehicle</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">DReyeVR_vehicle</span><span class="o">.</span><span class="n">set_autopilot</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">traffic_manager</span><span class="o">.</span><span class="n">get_port</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Successfully set autopilot on ego vehicle&quot;</span><span class="p">)</span>
+</code></pre></div></p>
+<p>Currently we only support manual handoff by pressing <code>3</code> on the keyboard. This gives input priority to the Carla <a href="https://github.com/carla-simulator/carla/blob/0.9.13/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Vehicle/WheeledVehicleAIController.cpp">WheeledVehicleAIController</a> which will follow some route defined by Carla's TrafficManager.</p>
+<p>In order to re-possess the vehicle (handoff control back to the player), simply press <code>1</code>. Keyboard inputs are automatically higher priority than the autopilot.</p>
+<p>[OPTIONAL]Using this same approach, there is a third option where you can press <code>2</code> to possess a "spectator" that can no-clip and fly around the map using <code>WASDEQ+mouse</code> controls. </p>
+<p>You can press any of the control options: <code>1</code>(human driver), <code>2</code>(spectator), <code>3</code>(AI driver) at any time.
+Summary: </p>
+<table>
+<thead>
+<tr>
+<th>Press <code>1</code></th>
+<th>Press <code>2</code></th>
+<th>Press <code>3</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Human driving</td>
+<td>Spectator mode</td>
+<td>AI driving</td>
+</tr>
+</tbody>
+</table>
+<h1 id="using-our-custom-config-file">Using our custom config file</h1>
+<p>Throughout development, we found that modifying even small things in DReyeVR have a LONG cycle time for recompilation/re-linking/re-cooking/etc. so we wanted an approach that could greatly ease this burden while still providing flexibility.</p>
+<p>This is why we developed the <a href="../DReyeVR/ConfigFile.h"><code>ConfigFile</code></a> class and corresponding <a href="../Configs/DReyeVRConfig.ini"><code>DReyeVRConfig.ini</code></a> (and per-vehicle) "params" so we could read the file at runtime to set variables in the simulator without recompilation. </p>
+<p>The procedure to use our params API is simple:
+<div class="highlight"><pre><span></span><code><span class="c1">// in, any class, say EgoVehicle.h</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;DReyeVRUtils.h&quot;</span><span class="c1"> // make sure to include our local header file!</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">CARLAUE4_API</span><span class="w"> </span><span class="n">AEgoVehicle</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">ACarlaWheeledVehicle</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="p">...</span><span class="w"> </span><span class="c1">// existing code</span>
+
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">MyFavouriteNumber</span><span class="p">;</span><span class="w"> </span><span class="c1">// &lt;--Your new param</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>Then, choose which type of config file this variable falls into, currently we have two kinds of primary config files: simulator-wide <code>GeneralParams</code>, and per-vehicle <code>VehicleParams</code>. </p>
+<p>The <code>GeneralParams</code> can be thought of as a global simulator-wide configuration file that can be accessed from anywhere, while the <code>VehicleParams</code> are specifically for a particular EgoVehicle (such as locations/specifications) that can be found in <a href="../Config/EgoVehicles/"><code>Config/EgoVehicles/</code></a> that matches the available DReyeVR EgoVehicles. To learn more about these see <a href="EgoVehicles.md">EgoVehicle.md</a>.</p>
+<p>(For general params)
+<div class="highlight"><pre><span></span><code><span class="k">[MyFavourites]</span>
+<span class="na">Number</span><span class="o">=</span><span class="s">867.5309</span><span class="w"> </span><span class="c1"># You can also write comments!</span>
+</code></pre></div>
+Then, anywhere you want, you can get the parameter by specifying both the section and variable name: </p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">AEgoVehicle::SomeFunction</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="c1">// can use this format to assign directly into a variable</span>
+<span class="w">  </span><span class="n">MyFavouriteNumber</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GeneralParams</span><span class="p">.</span><span class="n">Get</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;MyFavourites&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Number&quot;</span><span class="p">);</span>
+
+<span class="w">  </span><span class="c1">// or pass the variable by reference and get whether or not the Get operation was successful</span>
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">bSuccess</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GeneralParams</span><span class="p">.</span><span class="n">Get</span><span class="p">(</span><span class="s">&quot;MyFavourites&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Number&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">MyFavouriteNumber</span><span class="p">);</span>
+
+<span class="p">}</span>
+</code></pre></div>
+<p>If you are using vehicle-specific params, then this needs to be in the context of some EgoVehicle
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">SomeClass::SomeOtherFunction</span><span class="p">(</span><span class="n">AEgoVehicle</span><span class="w"> </span><span class="o">*</span><span class="n">Vehicle</span><span class="p">){</span>
+<span class="w">  </span><span class="c1">// VehicleParams is a public member of </span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">ConfigFile</span><span class="w"> </span><span class="o">&amp;</span><span class="n">VehicleSpecificParams</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Vehicle</span><span class="o">-&gt;</span><span class="n">GetVehicleParams</span><span class="p">();</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">VehicleParam</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VehicleSpecificParams</span><span class="p">.</span><span class="n">Get</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;VehicleParamSection&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;VariableName&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>And, just like the other variables in the file, you can bunch and organize them together under the same section header.</p>
+<p>Another useful feature we built-in is to import, export, and compare the config files. This is useful because we can track the config file(s) that were used while a particular example was recorded, then if you are trying to replay this scenario with <em>different</em> configuration parameters (ex. using a different vehicle, or with mirrors enabled when they werent in the recording), some warnings will be presented when comparing (diff) the recorded config file (saved in the .log file) and the live one (what is currently running).</p>
+<h1 id="synchronized-replay-frame-capture">Synchronized replay frame capture</h1>
+<h2 id="motivations_1">Motivations</h2>
+<p>After performing (and recording) an <a href="../ScenarioRunner/run_experiment.py">experiment</a>, we are provided with a log of everything that happened in the simulator that we can use for live reenactment and post-hoc analysis. It is often the case that after some postprocessing on the data, we might be interested in overlaying something on the simulator view to match what a participant was seeing/doing and what the world looked like. Unfortunately, it is difficult to get the exact image frame corresponding to an exact recording event using an asynchronous screen recorder such as OBS, therefore we baked in this functionality within the engine itself, so it can directly go to any recorded event and take a high quality screenshot. The end result is the exact frame-by-frame views corresponding to the recorded world conditions without interpolation. </p>
+<h3 id="synchronized-replay">Synchronized replay</h3>
+<p>To have this functionality, disable the <code>ReplayInterpolation</code> flag in <a href="../Configs/DReyeVRConfig.ini"><code>DReyeVRConfig.ini</code></a> under the <code>[Replayer]</code> section. Disabling replay interpolation will allow for frame-by-frame reenactment of what was captured (otherwise the replay will respect wall-clock-time and introduce interpolation between frames).</p>
+<h3 id="frame-capture">Frame capture</h3>
+<p>While replaying (so, after the experiment was conducted) we can additionally perform frame capture during this replay. Since taking high-res screnshots is expensive, this is a slow process that is done during replays when real-time performance is less important. To enable this feature, enable the <code>RecordFrames</code> flag in the <code>[Replayer]</code> section as well. There are several other frame capture options below such as resolution and gamma parameters.</p>
+<p>The resulting frame capture images (<code>.png</code> or <code>.jpg</code> depending on the <code>FileFormatJPG</code> flag) will be found in <code>Unreal/CarlaUE4/{FrameDir}/{DateTimeNow}/{FrameName}*</code> where <code>{FrameDir}</code> and <code>{FrameName}</code> are both determined in the <a href="../Configs/DReyeVRConfig.ini"><code>DReyeVRConfig.ini</code></a>. The <code>{DateTimeNow}</code> string is uniquely based on your machine's local current time so you can run multiple recordings without overwriting old files.</p>
+<p><strong>NOTE</strong>: Depending on whether you are running the Editor mode or package mode of DReyeVR will place the FrameCapture directory in the following:
+- Editor (debug): <code>%CARLA_ROOT%\Unreal\CarlaUE4\FrameCap\</code>
+- Package (shipping): <code>%CARLA_ROOT%\Build\UE4Carla\0.9.13-dirty\WindowsNoEditor\CarlaUE4\FrameCap\</code></p>
+<p>(Showing Windows paths for convenience, but the desinations are similar for Linux/Mac)</p>
+<p>With these flags enabled, any time you initiate a replay such as:
+<div class="highlight"><pre><span></span><code><span class="c1"># in PythonAPI/examples</span>
+./start_replaying.py<span class="w"> </span>-f<span class="w"> </span>/PATH/TO/RECORDING/FILE<span class="w"> </span><span class="c1"># unix</span>
+
+python<span class="w"> </span>start_replaying.py<span class="w"> </span>-f<span class="w"> </span>/PATH/TO/RECORDING/FILE<span class="w"> </span><span class="c1"># windows</span>
+</code></pre></div></p>
+<h1 id="other-guides">Other guides</h1>
+<p>We have written other guides as well that serve more particular needs:
+- See <a href="https://github.com/HARPLab/DReyeVR/wiki/Frequently-Asked-Questions"><code>F.A.Q. wiki</code></a> for our Frequently Asked Questions wiki page.
+- See <a href="../Tutorials/SetupVR/"><code>SetupVR.md</code></a> to learn how to quickly and minimally set up VR with Carla
+- See <a href="../Tutorials/Sounds/"><code>Sounds.md</code></a> to see how we added custom sounds and how you can add your own custom sounds
+- See <a href="../Tutorials/Signs/"><code>Signs.md</code></a> to add custom in-world directional signs and dynamically spawn them into the world at runtime
+- See <a href="../Shaders/README.md"><code>Shaders/README.md</code></a> to view our post-processing shaders and learn how to use them
+- See <a href="../Tutorials/CustomActor/"><code>CustomActor.md</code></a> to use our CustomActor classes to use fully-recordable 3D dynamic elements in your scene
+- See <a href="../Tutorials/Model/"><code>Model.md</code></a> to see how we added a responsive steering wheel to the vehicle mesh
+- See <a href="../Tutorials/CustomEgo/"><code>CustomEgo.md</code></a> to add your own custom EgoVehicle model to DReyeVR
+- See <a href="../Tutorials/LODs/"><code>LODs.md</code></a> to learn how we tune the Level-Of-Detail modes for vehicles for a more enjoyable VR experience</p>
+<h1 id="quirks">Quirks:</h1>
+<ul>
+<li>On Windows you're going to want to use the <code>Windows x64 Visual C++ Toolset</code> and call all the python files with <code>python SCRIPT.py</code> rather than just <code>./SCRIPT.py</code><ul>
+<li>Additionally, environment variables are accessed <code>%LIKE_THIS%</code> instead of <code>$LIKE_THIS</code>.</li>
+<li>And remember that file paths use a backwards slash to <code>LOCATE\FILES\THIS\WAY\</code> instead of <code>THE/NORMAL/WAY/</code></li>
+</ul>
+</li>
+<li>There is a bug (we are not sure why, occurs in base carla too), where <code>Town06/07/10HD</code> are not present in the <code>package</code>d release. Some documentation <a href="https://carla.readthedocs.io/en/0.9.13/start_quickstart/#import-additional-assets">here</a>. </li>
+</ul>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

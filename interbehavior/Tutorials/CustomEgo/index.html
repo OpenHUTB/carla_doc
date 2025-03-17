@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>How to add your own EgoVehicle - 代理模拟器</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "How to add your own EgoVehicle";
+        var mkdocs_page_input_path = "interbehavior/Tutorials/CustomEgo.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> 代理模拟器
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">首页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">代理模拟器</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">How to add your own EgoVehicle</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/interbehavior/Tutorials/CustomEgo.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="how-to-add-your-own-egovehicle">How to add your own EgoVehicle</h1>
+<p>A guide from how to add your own custom EgoVehicle from an existing Carla vehicle that you can then use in DReyeVR. Showcasing the minimal required steps to add an <strong>ambulance</strong> to be the new DReyeVR EgoVehicle. </p>
+<h2 id="prerequisites">Prerequisites:</h2>
+<ul>
+<li>You should have DReyeVR installed and functioning correctly</li>
+<li>You should probably take a look at <a href="../Model/">Model.md</a> in case you want to modify the static mesh of your new vehicle:<ul>
+<li>Ex. creating high-poly mirror meshes</li>
+<li>Ex. detatching the steering wheel for use as a dynamic prop (moves with the animation)</li>
+</ul>
+</li>
+</ul>
+<h2 id="1-choose-which-vehicle-to-add">1. Choose which vehicle to add</h2>
+<ol>
+<li>Since the DReyeVR EgoVehicle is a child-instance of the <code>ACarlaWheeledVehicle</code>, you should use a Carla vehicle for the base class of your desired Vehicle. For this tutorial we will use the Ambulance as an example, but any Carla vehicle should do fine.<ul>
+<li>For Vehicle <code>XYZ</code></li>
+<li>The blueprint files are located in <code>Unreal/CarlaUE4/Content/Carla/Blueprints/Vehicles/XYZ/BP_XYZ.uasset</code></li>
+<li>The static mesh files are located in <code>Unreal/CarlaUE4/Content/Carla/Static/Vehicles/XWheeled/XYZ/</code></li>
+</ul>
+</li>
+<li>Once you have decided on a vehicle, create this structure by copying (in Unreal Editor) the blueprint file. <ul>
+<li>Do the same with any other mesh components that you'll want to add.</li>
+<li>You'll want the file structure to match the existing EgoVehicles:
+<div class="highlight"><pre><span></span><code>CarlaUE4/Content/DReyeVR/
+├── EgoVehicle
+│   ├── Extra
+│   ├── Jeep
+│   ├── Mustang66
+│   ├── Ambulance # &lt;-- your new EgoVehicle
+│   ├── TeslaM3   # &lt;-- default for DReyeVR
+│   └── Vespa
+...
+</code></pre></div></li>
+<li>Inside your <code>XYZ/</code> folder, you'll want to copy your new BP_XYZ asset (do this from the editor so that cached paths can be updated) and create any additional folders in here that you might want (ex. <code>Mesh</code>, <code>Mirrors</code>, <code>SteeringWheel</code>, <code>Tires</code>, are a few examples). </li>
+<li>
+<p>It is best to perform these asset file modifications within the Editor. You can copy the files from within the content browser to other folders by click+dragging to get this pop-up:</p>
+<p><img alt="CopyHere" src="../../Figures/EgoVehicle/CopyHere.jpg" /></p>
+</li>
+</ul>
+</li>
+</ol>
+<p><strong>NOTE</strong>: If you want to edit the vehicle mesh at all, this is where you'd want to do it. You will probably want to build off the existing static meshes in the <code>Static</code> directory. </p>
+<h2 id="2-reparent-the-vehicle-blueprint">2. Reparent the vehicle blueprint</h2>
+<p>(For the sake of this tutorial, we'll assume the <code>XYZ=Ambulance</code>)
+1. Open the <code>Content/DReyeVR/EgoVehicle/Ambulance/BP_Ambulance</code> asset you just copied from the content browser
+2. Select <code>Class Defaults</code> then in the top right (<code>Class Options</code>) select the <code>Parent Class</code> and search for <code>EgoVehicle</code> to reparent (as in the figure below). This effectively reorganizes the blueprint's base class from <code>BaseVehiclePawn</code> (the Carla default) to <code>EgoVehicle</code> (the DReyeVR C++ class, which still inherits from BaseVehiclePawn). 
+    - There will be a warning pop-up regarding data loss, you should proceed (it is purely additive). 
+    - <strong>NOTE</strong> if the blueprint ever gets corrupted, you should first try reparenting back to the <code>BaseVehiclePawn</code> (the original parent) and then back to the DReyeVR <code>EgoVehicle</code>. 
+    - <img alt="EditClass" src="../../Figures/EgoVehicle/EditClassSettings.jpg" />
+        - Demonstrating class setting button, used to edit this BP's class instance
+    - <img alt="Reparent" src="../../Figures/EgoVehicle/Reparent.jpg" />
+        - Demonstrating the reparenting button, select the dropdown and search for a compatible class to reparent with <code>BaseVehiclePawn</code> (Carla) or <code>EgoVehicle</code> (DReyeVR).
+3. Now this vehicle is technically a DReyeVR EgoVehicle!</p>
+<h2 id="3-add-the-new-config-file-and-code">3. Add the new config file and code</h2>
+<p>Now, to actually register this new blueprint with DReyeVR and have it available to spawn you'll need to add two bits to the code:</p>
+<ol>
+<li>Add the name of your new vehicle (for example <code>"Ambulance"</code> for the <code>BP_Ambulance</code> blueprint we inherited) to the list of available EgoVehicles in <a href="../../DReyeVR/DReyeVRFactory.h"><code>DReyeVRFactory.h</code></a>.
+    <div class="highlight"><pre><span></span><code><span class="c1">// place the names of all your new custom EgoVehicle types here:</span>
+<span class="c1">/// IMPORTANT: make sure these match the ConfigFile AND Blueprint!!</span>
+<span class="c1">// We expect Config/EgoVehicle/XYZ.ini and Content/DReyeVR/EgoVehicles/XYZ/BP_XYZ.uasset</span>
+<span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">VehicleTypes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="s">&quot;TeslaM3&quot;</span><span class="p">,</span><span class="w">   </span><span class="c1">// Tesla Model 3 (Default)</span>
+<span class="w">    </span><span class="s">&quot;Mustang66&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// Mustang66</span>
+<span class="w">    </span><span class="s">&quot;Jeep&quot;</span><span class="p">,</span><span class="w">      </span><span class="c1">// JeepWranglerRubicon</span>
+<span class="w">    </span><span class="s">&quot;Vespa&quot;</span><span class="w">      </span><span class="c1">// Vespa (2WheeledVehicles)</span>
+<span class="w">    </span><span class="s">&quot;Ambulance&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// &lt;-- the new vehicle! (for this tutorial)</span>
+<span class="w">    </span><span class="c1">// add more here</span>
+<span class="p">};</span>
+</code></pre></div></li>
+<li>Add a new config file (to <code>Unreal/CarlaUE4/Config/EgoVehicles/</code>) that is used to parameterize this vehicle. This allows DReyeVR to know where to place things such as the camera root location (driver's seat), mirrors, steering wheel, etc. and this <a href="../../DReyeVR/ConfigFile.h"><code>ConfigFile</code></a> can be extended to support many run-time combinations. <ul>
+<li>You'll need to make sure the config file has the EXACT same name as your new EgoVehicle (this is how they are read). We recommend copying an existing config file (default is <code>TeslaM3.ini</code> and renaming as follows):
+    <div class="highlight"><pre><span></span><code>CarlaUE4/Config/
+├── ...
+├── DReyeVRConfig.ini
+├── ...
+├── EgoVehicles/
+│   ├── Jeep.ini
+│   ├── Mustang66.ini
+│   ├── Ambulance.ini # &lt;-- your new file!
+│   ├── TeslaM3.ini
+│   └── Vespa.ini
+├── ...
+...
+</code></pre></div></li>
+<li>Then you'll probably want to edit some of the contents of this file to match the EgoVehicle specifications which you can get from the Editor. For instance, the following figure shows that we are going to want to move the VRCameraRoot (head position) to (<code>108, -40, 158</code>). <ul>
+<li><img alt="CameraRepos" src="../../Figures/EgoVehicle/CameraReposition.jpg" /></li>
+<li>You'll probably also want to move the dashboard elements around to whatever fits your preference.</li>
+</ul>
+</li>
+<li><strong>IMPORTANT</strong> You also need to enable the <code>Start with Tick Enabled</code> for the Blueprint (<code>BP_Ambulance</code> in the Components list) because by default they are disabled for Carla vehicles:<ul>
+<li><img alt="ActorTick" src="../../Figures/EgoVehicle/ActorTick.jpg" /></li>
+</ul>
+</li>
+<li>You should also notice that assets such as the SteeringWheel &amp; Mirrors don't have any assigned static mesh. You can access these by clicking the component (on the left hierarchy) and assigning a new static mesh (on the right details pane). This bakes the asset directly in the blueprint file, so this only needs to be done once.
+    | Example: Mirrors | Example: Steering wheel |
+    | --- | --- |
+    | <img alt="Mirrors" src="../../Figures/EgoVehicle/SM_Mirror.jpg" /> | <img alt="Wheel" src="../../Figures/EgoVehicle/SM_Wheel.jpg" /></li>
+<li>Now, open the <code>Ambulance.ini</code> file you just created and begin updating the fields (mostly transforms) to match the parameters you care about. Importantly, for the <code>[Blueprint]::Path</code> entry, you'll get this path by right-clicking on the Blueprint in the content viewer and selecting <code>Copy Reference</code>. <ul>
+<li><img alt="CopyRef" src="../../Figures/EgoVehicle/CopyRef.jpg" /></li>
+<li>Note that transforms are encoded as follows
+<div class="highlight"><pre><span></span><code><span class="c1"># Format: Location XYZ in CM | Rotation Roll/Pitch/Yaw in Degrees | Scale XYZ percent (1=100%)</span>
+<span class="na">ExampleTransform</span><span class="o">=</span><span class="s">(X=0.0, Y=0.0, Z=3.0 | R=-45, P=90.0, Y=0 | X=1, Y=1, Z=1)</span>
+</code></pre></div></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="4-set-the-new-vehicle-to-be-the-dreyevr-default">4. Set the new vehicle to be the DReyeVR default</h2>
+<p>In the <code>DReyeVRConfig.ini</code> general configuration file (for non-vehicle specific parameters) you should set what Vehicle to spawn in by default. This takes the name of the vehicles, which for this example is <code>Ambulance</code>. </p>
+<div class="highlight"><pre><span></span><code><span class="k">[EgoVehicle]</span>
+<span class="na">VehicleType</span><span class="o">=</span><span class="s">&quot;Ambulance&quot;</span>
+</code></pre></div>
+<p>And thats it! You should now be able to relaunch <code>make launch</code> and when you press Play you'll start in your new EgoVehicle. </p>
+<h2 id="4-optional-create-a-new-animation">4. [Optional] Create a new animation</h2>
+<p>Sometimes, especially when modifying the meshes in blender and exporting/importing them back into Unreal Engine, the vanilla animation asset can get somewhat mangled and not work properly. You will know if the animation is failing if the tires (and steering wheel, if you added one) are not turning while the EgoVehicle is moving.</p>
+<p>See Carla's corresponding documentation <a href="https://carla.readthedocs.io/en/latest/tuto_A_add_vehicle/#import-and-configure-the-vehicle">here</a>.</p>
+<p><strong>NOTE</strong> This only works for 4WheeledVehicles as of testing. 2WheeledVehicles are more complicated and not covered in this tutorial. </p>
+<h3 id="steps-to-create-a-new-animation-blueprint-for-carladreyevr">Steps to create a new animation blueprint for Carla/DReyeVR</h3>
+<ol>
+<li>Create a new Animation Blueprint in the Ambulance/Mesh directory (if you have one, else make a new folder <code>Mesh/</code> inside <code>Ambulance</code>). </li>
+<li><img alt="CreateAnim" src="../../Figures/EgoVehicle/CreateAnim.jpg" /></li>
+<li>Make sure the parent of the animation mesh is set to <code>VehicleAnimInstance</code> and the preview skeleton is set to the skeletal mesh of your new vehicle (ex. <code>SK_Ambulance_Skeleton</code>)</li>
+<li><img alt="CreateAnimBP" src="../../Figures/EgoVehicle/CreateAnimBP.jpg" /></li>
+<li>Name your new asset to something like <code>Anim_Ambulance</code> and open it up. Open the AnimationGraph in the bottom right as shown:</li>
+<li><img alt="AnimGraph" src="../../Figures/EgoVehicle/AnimGraph.jpg" /></li>
+<li>Open another nearby animation blueprint (ex. <code>Content/DReyeVR/EgoVehicle/TeslaM3/Mesh/Animation_model3</code>) and open its AnimationGraph to copy the first three blueprint nodes that connect to the Output Pose as follows:</li>
+<li><img alt="CopyAnim" src="../../Figures/EgoVehicle/CopyAnim.jpg" /></li>
+<li>Then, back in <code>Anim_Ambulance</code>, paste the three nodes you just copied and connect them to the Output Pose:</li>
+<li><img alt="PasteAnim" src="../../Figures/EgoVehicle/PasteAnim.jpg" /></li>
+<li>Finally, go back to the vehicle blueprint (BP_Ambulance) and in the components section select Mesh, then in the (right) details panel change the animation class to your new <code>Anim_Ambulance</code> like this:</li>
+<li><img alt="AssignAnim" src="../../Figures/EgoVehicle/AssignAnim.jpg" /></li>
+</ol>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../../js/umlconvert.js"></script>
+      <script src="../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

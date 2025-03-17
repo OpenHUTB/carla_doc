@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>DReyeVR Development - 代理模拟器</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "DReyeVR Development";
+        var mkdocs_page_input_path = "interbehavior/Development.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 代理模拟器
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">首页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">代理模拟器</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">DReyeVR Development</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/interbehavior/Development.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="dreyevr-development"><code>DReyeVR</code> Development</h1>
+<p>For users who want a deeper dive into the inner workings of DReyeVR and how they can get started with development and writing code, look no further!</p>
+<p>(This guide assumes you've read the <a href="../Usage.md"><code>Usage.md</code></a> documentation and have <code>DReyeVR</code> installed)</p>
+<h1 id="getting-started">Getting started</h1>
+<p>We recommend a development setup where your changes to DReyeVR can be quickly identified compared to our upstream changes. To do this we provide a fork of CARLA with DReyeVR pre-installed (and committed) so you should have a clean starting repository to work with:
+<div class="highlight"><pre><span></span><code><span class="c1"># clone our fork and replace your vanilla CARLA repository</span>
+
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/harplab/carla<span class="w"> </span>-b<span class="w"> </span>DReyeVR-0.9.13<span class="w"> </span>--depth<span class="w"> </span><span class="m">1</span>
+<span class="nb">cd</span><span class="w"> </span>carla
+./Update.sh<span class="w"> </span><span class="c1"># on Linux/Mac</span>
+Update.bat<span class="w"> </span><span class="c1"># on Windows</span>
+
+<span class="nb">cd</span><span class="w"> </span>../DReyeVR/<span class="w"> </span><span class="c1"># assumed DReyeVR repo is adjacent to carla repo</span>
+
+<span class="c1"># (in DReyeVR repo)</span>
+make<span class="w"> </span>install<span class="w"> </span><span class="nv">CARLA</span><span class="o">=</span>../carla<span class="w"> </span><span class="c1"># install things not tracked by git such as blueprint/binary files</span>
+
+<span class="nb">cd</span><span class="w"> </span>../carla<span class="w"> </span><span class="c1"># switch back to carla dir</span>
+git<span class="w"> </span>status
+<span class="c1"># now, git should show changes relative to our upstream DReyeVR branch rather than CARLA 0.9.13</span>
+</code></pre></div></p>
+<h2 id="reverse-install">Reverse install</h2>
+<p>Once you have made some changes in the Carla codebase that relate to DReyeVR, it is tedious to manually copy all these changes back into the DReyeVR repo (if you wanted to upstream them). As part of our <a href="../Scripts/README.md"><code>make</code></a> system, we provide a "reverse install" (<code>r-install</code>) procedure to mirror the <code>install</code> function and copy all the corresponding files that were installed by DReyeVR (from <code>make install</code>) back into DReyeVR:</p>
+<details>
+
+<summary> Click to open example make output</summary>
+
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>r-install<span class="w"> </span><span class="nv">CARLA</span><span class="o">=</span>../carla<span class="w"> </span><span class="c1"># equivalent to &quot;make rev&quot;</span>
+make<span class="w"> </span>rev<span class="w"> </span><span class="nv">CARLA</span><span class="o">=</span>../carla<span class="w">       </span><span class="c1"># alias for r-install</span>
+
+Proceeding<span class="w"> </span>on<span class="w"> </span>/PATH/TO/CARLA<span class="w"> </span><span class="o">(</span>git<span class="w"> </span>branch<span class="o">)</span>
+/PATH/TO/CARLA/Unreal/CarlaUE4/Source/CarlaUE4/DReyeVR/<span class="w"> </span>--<span class="w"> </span>found
+/PATH/TO/CARLA/Unreal/CarlaUE4/Source/CarlaUE4/DReyeVR/EgoVehicle.h<span class="w"> </span>--<span class="w"> </span>found
+/PATH/TO/CARLA/Unreal/CarlaUE4/Source/CarlaUE4/DReyeVR/EgoVehicle.h<span class="w"> </span>-&gt;<span class="w"> </span>/Users/gustavo/carla/DReyeVR-Dev/DReyeVR/EgoVehicle.h
+/PATH/TO/CARLA/Unreal/CarlaUE4/Source/CarlaUE4/DReyeVR/FlatHUD.cpp<span class="w"> </span>--<span class="w"> </span>found
+/PATH/TO/CARLA/Unreal/CarlaUE4/Source/CarlaUE4/DReyeVR/FlatHUD.cpp<span class="w"> </span>-&gt;<span class="w"> </span>/Users/gustavo/carla/DReyeVR-Dev/DReyeVR/FlatHUD.cpp
+...etc.
+...
+Done<span class="w"> </span>Reverse<span class="w"> </span>Install!
+</code></pre></div>
+</details>
+<p><br></p>
+<p>Note that the files that are copied back into DReyeVR follow those defined by the DReyeVR &lt;--&gt; Carla file correspondence defined in <a href="../Scripts/Paths/"><code>Paths/*.csv</code></a>, so if you have modified a completely new file (not tracked by DReyeVR) you'll need to manually add that file to the DReyeVR repo and update the correspondences file (.csv).</p>
+<h2 id="typical-workflow">Typical workflow</h2>
+<p>The workflow we have designed for our development process on DReyeVR includes using our fork of carla (<code>DReyeVR-0.9.13</code> branch) alongside a cloned <code>DReyeVR</code> repo that we can use to both push and pull from upstream.</p>
+<details>
+
+<summary>Click to open terminal example</summary>
+
+<div class="highlight"><pre><span></span><code>&gt;<span class="w"> </span>ls
+carla.harp/<span class="w">    </span><span class="c1"># our HarpLab fork for primary development</span>
+DReyeVR<span class="w">        </span><span class="c1"># our DReyeVR installation</span>
+
+<span class="nb">cd</span><span class="w"> </span>carla.harp
+...<span class="w"> </span><span class="c1"># make some changes in carla.harp</span>
+make<span class="w"> </span>launch<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>make<span class="w"> </span>package<span class="w"> </span><span class="c1"># ensure carla still works with these changes</span>
+
+<span class="nb">cd</span><span class="w"> </span>../DReyeVR
+make<span class="w"> </span>rev<span class="w"> </span><span class="nv">CARLA</span><span class="o">=</span>../carla.harp<span class="w"> </span><span class="c1"># &quot;reverse-install&quot; changes from carla.harp to DReyeVR</span>
+git<span class="w"> </span>stuff<span class="w"> </span><span class="c1"># do all sorts of upstreaming and whatnot.</span>
+
+-----------------<span class="w"> </span><span class="c1"># if changes have been made upstream for you to install</span>
+<span class="nb">cd</span><span class="w"> </span>DReyeVR/
+git<span class="w"> </span>pull<span class="w"> </span><span class="c1"># upstream changes</span>
+make<span class="w"> </span>clean<span class="w"> </span><span class="nv">CARLA</span><span class="o">=</span>../carla.harp<span class="w">   </span><span class="c1"># optional to reset carla.harp to a clean git state</span>
+make<span class="w"> </span>install<span class="w"> </span><span class="nv">CARLA</span><span class="o">=</span>../carla.harp<span class="w"> </span><span class="c1"># install new DReyeVR changes over it</span>
+<span class="nb">cd</span><span class="w"> </span>../carla.harp<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>make<span class="w"> </span>launch<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>make<span class="w"> </span>package<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>etc.
+
+<span class="c1"># optionally, you can keep a carla.vanilla around to test that a fresh install of your updated DReyeVR repo works on carla</span>
+make<span class="w"> </span>install<span class="w"> </span><span class="nv">CARLA</span><span class="o">=</span>../carla.vanilla
+</code></pre></div>
+
+</details>
+<p><br></p>
+<p><img alt="Directories" src="../Figures/Dev/Directories.jpg" /></p>
+<h1 id="understanding-the-carla-dreyevr-codebase-whereabouts">Understanding the Carla + DReyeVR codebase whereabouts</h1>
+<p>These are the main places you'll want to look at when developing atop Carla:</p>
+<ol>
+<li><code>Unreal/CarlaUE4/Source/CarlaUE4/DReyeVR/</code><ul>
+<li>This contains all our custom DReyeVR C++ code which typically builds off existing Carla code.</li>
+</ul>
+</li>
+<li><code>Unreal/CarlaUE4/Plugins/Carla/Source/Carla/</code><ul>
+<li>This is where the main UE4 C++ Carla logic is defined for everything from Sensors to Vehicles to the Recorder/Replayer to the Weather. </li>
+<li>We have some code here, such as for custom sensors and small feature patches.</li>
+</ul>
+</li>
+<li><code>LibCarla/source/carla/</code><ul>
+<li>This is where nearly all the <code>Python</code> interfacing Carla C++ code is housed. Much of this is reimplementation of the <code>CarlaUE4/Plugins</code> code, but without the Unreal C++ API and with a great emphasis on streaming logic to the PythonAPI</li>
+<li>We have a small amount of code here to ensure our sensor data gets properly transmitted to Python</li>
+</ul>
+</li>
+<li><code>PythonAPI/examples/</code><ul>
+<li>Here you can find most of the important Python scripts that interact with Carla.</li>
+<li>We have a few files here to improve the experience with DReyeVR and Carla's PythonAPI</li>
+</ul>
+</li>
+</ol>
+<h1 id="inner-workings">Inner workings</h1>
+<p>This section will discuss the inner workings of DReyeVR including design paradigms and corresponding handshakes with Carla. </p>
+<h2 id="egovehicle">EgoVehicle</h2>
+<ul>
+<li>Relevant files: <a href="../DReyeVR/EgoVehicle.h">EgoVehicle.h</a>, <a href="../DReyeVR/EgoVehicle.cpp">EgoVehicle.cpp</a>, <a href="../DReyeVR/EgoInputs.cpp">EgoInputs.cpp</a>, <a href="../Content/DReyeVR/EgoVehicle/">Content/DReyeVR/EgoVehicle/BP_*.uasset</a></li>
+</ul>
+<p>The EgoVehicle is the main vessel as our "hero vehicle". Following our goal to improve human driver immersion in Carla, the EgoVehicle contains many human-centric features that normal Carla vehicles do not carry. For example, the EgoVehicle defines the logic for the internal mirrors, dynamic steering wheel, dashboard, human inputs, audio, etc. These are all things that an AI-powered vehicle would not care about, so Carla omits them from all their other Vehicles. </p>
+<p>Still, the EgoVehicle is just a wrapper (child of) over a standard <a href="https://github.com/carla-simulator/carla/blob/master/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Vehicle/CarlaWheeledVehicle.h"><code>ACarlaWheeledVehicle</code></a>, so it automatically inherits all the Carla vehicle operations and is compatible with all CarlaVehicle features. Notably, the EgoVehicle is not possessed by the player, but by the default <a href="https://github.com/carla-simulator/carla/blob/master/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Vehicle/WheeledVehicleAIController.h"><code>AWheeledVehicleAIController</code></a>. This is to enable simultaneous input from the player and from the built-in Carla autopilot. We'll discuss this more in <code>DReyeVRPawn</code> below. </p>
+<p>Importantly, we base all our ticking synchronization logic off of the EgoVehicle, whose <code>Tick</code> method calls the <code>Tick</code> method for many other key components in DReyeVR. This ensures we have a deterministic and consistent sequence of updates in the simulator and can rely on this ordering in the future.</p>
+<p>Here we also manually manage the replay behavior for the EgoVehicle, who follows the values captured from the EgoSensor rather than the Carla default behavior, this is so we can more closely reenact the exact data that we collected from the EgoSensor such as eye gaze, camera orientation, vehicle inputs &amp; pose, etc. </p>
+<p>We also define the logic for spawning and managing the three mirrors in the vehicle, since these are not included by default in the blueprint mesh. It is a good idea to separate these since mirrors in UE4 implemented with planar reflections are a huge performance killer and should be used sparingly. We also can define per-mirror quality settings to dynamically adjust their resolution and corresponding performance impact.</p>
+<p>The EgoVehicle contains pointers to nearly all other major DReyeVR objects so they can communicate seamlessly. These pointers are set up on construction and persist for the lifetime of these objects. Importantly, the EgoVehicle spawns and attaches the EgoSensor, so they are intrinsically linked and one cannot exist without the other.</p>
+<p>Additionally, all the input logic for the EgoVehicle is held in the <code>EgoInputs.cpp</code> source file, it is purely to separate this logic from the rest of the EgoVehicle source. </p>
+<p>Finally, how we spawn our EgoVehicle in the Carla world is by creating a copy of an existing Carla vehicle blueprint and <a href="https://forums.unrealengine.com/t/how-to-change-parent-class-of-blueprint-asset/281843">reparenting</a> the base class to our EgoVehicle in the blueprint. This can be found in our <code>Content</code> folder for <code>EgoVehicle</code>. All the corresponding blueprints are organized here.</p>
+<h2 id="egosensor">EgoSensor</h2>
+<ul>
+<li>Relevant files: <a href="../DReyeVR/EgoSensor.h">EgoSensor.h</a>, <a href="../DReyeVR/EgoSensor.cpp">EgoSensor.cpp</a>, <a href="../Carla/Sensor/DReyeVRSensor.h">DReyeVRSensor.h|cpp</a>, <a href="../Carla/Sensor/DReyeVRData.h">DReyeVRData.h|cpp</a></li>
+</ul>
+<p>The EgoSensor is our virtual Carla sensor to track all kinds of human-centric data we might be interested in. It can be thought of as an <strong>invisible data collector that operates in the Carla world</strong>. Unlike most other Carla sensors which have some physical description and mounting to an actor, the EgoSensor is spawned and destroyed automatically with the EgoVehicle and bound to the EgoVehicle instance for its entire lifetime. </p>
+<p>The EgoSensor a child of a <code>DReyeVRSensor</code> which is a child of a generic <code>CarlaSensor</code> that comes from following Carla's <a href="https://carla.readthedocs.io/en/latest/tuto_D_create_sensor/">"add a sensor tutorial"</a>. The <code>DReyeVRSensor</code> parent class is located in the <code>CarlaUE4/Plugin/Source</code> region of the codebase as it follows a proper Carla implementation, importantly, this class is <code>virtual</code> (abstract) meaning it is supposed to be inherited by another class that provides implementation (enter <code>EgoSensor</code>). </p>
+<p>Since DReyeVR introduces several dependencies that Carla has nothing to do with (such as SRanipal for eye tracking and LogitechWheelPlugin for steering wheel hardware), we implement their interface with our Code in <code>EgoSensor</code> rather than within the <code>CarlaUE4/Plugin/Source</code> region (which is supposed to be just for Carla). The EgoSensor then implements the methods needed to get the data from SRanipal and Logitech and format it nicely into a <code>DReyeVRData</code> package for this simulator timestep </p>
+<p>The <code>DReyeVRData</code> class is a collection of structures defined in <code>CarlaUE4/Plugin/Source/Carla/DReyeVRData.h</code> which defines individual structures for data types that are being tracked by DReyeVR. For instance, we have structures for the eye gaze data, vehicle inputs, other ego-vehicle variables, and more. This is designed this way to encourage future data types to follow a similar struct design and interface with DReyeVR, so everything can be collected together into the <code>AggregateData</code> and then sent as a complete package to the PythonAPI for streaming or to the recorder for serialization. </p>
+<p>The EgoSensor also implements other nice features such as screen capture for the Camera and variable rate shading with foveated rendering if enabled. </p>
+<h3 id="inheritance-map">Inheritance map:</h3>
+<p>To clarify the structure of the inheritance at play here (Older generation to youngest):
+1. <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/GameFramework/AActor/"><code>AActor</code></a> (UE4): Low-level unreal class for any object that can be spawned into the world
+2. <a href="https://github.com/carla-simulator/carla/blob/0.9.13/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/Sensor.h"><code>ASensor</code></a> (Carla): Carla actor that templates the structure for Sensors acting in the Carla world
+3. <a href="../Carla/Sensor/DReyeVRSensor.h"><code>ADReyeVRSensor</code></a> (DReyeVR): Our sensor instance that contains logic for all Carla related tasks
+    - Streaming to the PythonAPI
+    - Receiving data from replayer to reenact
+    - Contains instance of <code>DReyeVR::AggregateData</code> containing ALL the data
+4. <a href="../DReyeVR/EgoSensor.h"><code>AEgoSensor</code></a> (DReyeVR): Our primary actor containing all DReyeVR related logic for custom data variables/functions
+    - Eye tracking logic (SRanipal), ego vehicle tracking, etc. </p>
+<h2 id="dreyevrpawn">DReyeVRPawn</h2>
+<ul>
+<li>Relevant files: <a href="../DReyeVR/DReyeVRPawn.h">DreyeVRPawn.h</a>, <a href="../DReyeVR/DReyeVRPawn.cpp">DreyeVRPawn.cpp</a></li>
+</ul>
+<p>Getting back to our discussion on the EgoVehicle simultaneous input with player &amp; AI, the DReyeVRPawn is the actual entity that the <em>human player</em> possesses during the duration of the level. Unlike EgoVehicle/EgoSensor, the DReyeVRPawn is not tied to any particular object and can be thought of as <strong>an invisible floating camera that defines the viewport of the player</strong>. </p>
+<p>The DReyeVRPawn therefore manages the in-game <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/Camera/UCameraComponent/"><code>UCameraComponent</code></a> as well as visual and input logic that the player needs. The <a href="https://docs.unrealengine.com/4.27/en-US/SharingAndReleasing/XRDevelopment/VR/VRPlatforms/SteamVR/QuickStart/">SteamVR</a> integration is managed here, as well as the LogiWheel controls scheme mapping, since this is the object that the player possesses and thus gets first input priority to. We also add some visual eye-candy logic such as a visualization indicator for the eye gaze as a reticle that is drawn on the <a href="https://docs.unrealengine.com/4.26/en-US/SharingAndReleasing/XRDevelopment/VR/DevelopVR/VRSpectatorScreen/">SpectatorScreen</a> (not visible to the VR player) or flat-screen HUD. </p>
+<p>The EgoVehicle <em>AI and player</em> dual-input logic comes from the implementation that the DReyeVRPawn simply forwards commands to the EgoVehicle without directly possessing it, so the Carla AI can still possess and control the EgoVehicle. This enables simultaneous "possession" by the player and the Carla AI controller, since all human player inputs still reach the EgoVehicle and take precedence over the AI. </p>
+<h2 id="dreyevrgamemode">DReyeVRGameMode</h2>
+<ul>
+<li>Relevant files: <a href="../DReyeVR/DReyeVRGameMode.h">DReyeVRGameMode.h</a>, <a href="../DReyeVR/DReyeVRGameMode.cpp">DReyeVRGameMode.cpp</a></li>
+</ul>
+<p>A <a href="https://docs.unrealengine.com/4.27/en-US/InteractiveExperiences/HowTo/SettingUpAGameMode/"><code>GameMode</code></a> in UE4 is used to define game logic across levels, and this can be easily done in code (unlike <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/Engine/ALevelScriptActor/"><code>LevelScripts</code></a>, which are tied to individual level blueprints). </p>
+<p>The gamemode class is useful because <strong>we can rely on it to always persist throughout any level instance</strong>, so we can define logic beyond the lifetime of a single EgoVehicle/EgoSensor and operate on a more global level. </p>
+<p>For instance, we have code to change the volume of the in-world sound effects, spawn the EgoVehicle in a particular location, transfer control to the default floating spectator (detatch from the EgoVehicle), and manage media controls for playback of a recording (play/pause/step/rewind/etc.). </p>
+<p>The most important thing that the DReyeVR gamemode does is spawn the DReyeVRPawn, so the human player can possess some actor and interact with the world at all.</p>
+<h2 id="dreyevrfactory">DReyeVRFactory</h2>
+<ul>
+<li>Relevant files: <a href="../DReyeVR/DReyeVRFactory.h">DReyeVRFactory.h</a>, <a href="../DReyeVR/DReyeVRFactory.cpp">DReyeVRFactory.cpp</a></li>
+</ul>
+<p>Carla uses Factories to spawn all their relevent actors (See <a href="https://github.com/carla-simulator/carla/blob/master/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Actor/CarlaActorFactory.h"><code>CarlaActorFactory</code></a>, <a href="https://github.com/carla-simulator/carla/blob/master/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Actor/CarlaActorFactoryBlueprint.h"><code>CarlaActorFactoryBlueprint</code></a>, <a href="https://github.com/carla-simulator/carla/blob/master/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/SensorFactory.h"><code>SensorFactory</code></a>, etc.) which spawn everything from vehicles to pedestrians to sensors and props. This design allows Carla to handle all the dirty work of registering the actors with LibCarla so that LibCarla knows about each actor and they can be interacted with in Python. </p>
+<p>We follow suit with a similar design in our <code>DReyeVRFactory</code> which defines the important characteristics for our DReyeVR actors and provides the logic necessary to spawn them. For instance, here we define our actors are labeled uniquely such as <code>"harplab.dreyevr_vehicle.model3"</code> to avoid conflict with existing Carla <code>"vehicle.*"</code> queries. </p>
+<p>This is class you'll want to modify if you're looking to create new DReyeVR actors (such as new vehicle models), walkers, sensors, etc. </p>
+<hr />
+<h1 id="adding-custom-data-to-the-ego-sensor">Adding custom data to the ego-sensor</h1>
+<p>While we provide a fairly comprehensive suite of data in our DReyeVRSensor, you may be interested in also tracking other data that we don't currently enable. </p>
+<p>The first file you'll want to look at is <code>Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/</code><a href="../Carla/Sensor/DReyeVRData.h"><code>DReyeVRData.h</code></a> which contains the data structures that compose the contents of the ego sensor. Here you'll define the variable and its serialization methods (read/write/print). </p>
+<div class="highlight"><pre><span></span><code><span class="c1">/// DReyeVRData.h</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">AggregateData</span><span class="w"> </span><span class="c1">// all DReyeVR sensor data is held here</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="p">...</span><span class="w"> </span><span class="c1">// existing code</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">GetNewVariable</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">////////////////////:SETTERS://////////////////////</span>
+
+<span class="w">    </span><span class="p">...</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">SetNewVariable</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">NewVariableIn</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">////////////////////:SERIALIZATION://////////////////////</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">Read</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ifstream</span><span class="w"> </span><span class="o">&amp;</span><span class="n">InFile</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">Write</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ofstream</span><span class="w"> </span><span class="o">&amp;</span><span class="n">OutFile</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">FString</span><span class="w"> </span><span class="nf">ToString</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"> </span><span class="c1">// this printing is used when showing recorder info</span>
+
+<span class="k">private</span><span class="o">:</span>
+<span class="p">...</span><span class="w"> </span><span class="c1">// existing code</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">NewVariable</span><span class="p">;</span><span class="w"> </span><span class="c1">// &lt;-- Your new variable</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>Then, you'll want to write the implementation in <code>Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/</code><a href="../Carla/Sensor/DReyeVRData.cpp"><code>DReyeVRData.cpp</code></a> as inline funcitons. 
+<div class="highlight"><pre><span></span><code><span class="c1">/// DReyeVRData.cpp</span>
+<span class="p">...</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">AggregateData</span><span class="o">::</span><span class="n">GetNewVariable</span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">NewVariable</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">...</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">AggregateData</span><span class="o">::</span><span class="n">SetNewVariable</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">NewVariableIn</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="n">NewVariable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NewVariableIn</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="n">AggregateData</span><span class="o">::</span><span class="n">Read</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ifstream</span><span class="w"> </span><span class="o">&amp;</span><span class="n">InFile</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">/// CAUTION: make sure the order of writes/reads is the same</span>
+<span class="w">    </span><span class="p">...</span><span class="w"> </span><span class="c1">// existing code</span>
+<span class="w">    </span><span class="n">ReadValue</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">InFile</span><span class="p">,</span><span class="w"> </span><span class="n">NewVariable</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="n">AggregateData</span><span class="o">::</span><span class="n">Write</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ofstream</span><span class="w"> </span><span class="o">&amp;</span><span class="n">OutFile</span><span class="p">)</span><span class="w"> </span><span class="k">const</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">/// CAUTION: make sure the order of writes/reads is the same</span>
+<span class="w">    </span><span class="p">...</span><span class="w"> </span><span class="c1">// existing code</span>
+<span class="w">    </span><span class="n">WriteValue</span><span class="o">&lt;</span><span class="kt">int64_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">OutFile</span><span class="p">,</span><span class="w"> </span><span class="n">GetNewVariable</span><span class="p">());</span>
+<span class="p">}</span>
+
+<span class="n">FString</span><span class="w"> </span><span class="n">AggregateData</span><span class="o">::</span><span class="n">ToString</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="c1">// this printing is used when showing recorder info</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">FString</span><span class="w"> </span><span class="n">print</span><span class="p">;</span>
+<span class="w">    </span><span class="p">...</span><span class="w"> </span><span class="c1">// existing code</span>
+<span class="w">    </span><span class="n">print</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">FString</span><span class="o">::</span><span class="n">Printf</span><span class="p">(</span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;[DReyeVR]NewVariable:%.3f,</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">GetNewVariable</span><span class="p">());</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">print</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">...</span>
+</code></pre></div>
+Notes:
+- It is nice to contain collections of relevant variables together in structures so they can be better organized. To facilitate this we designed our DReyeVRData to contain various <code>DReyeVR::DataSerializer</code> objects, which each implement their own serialization methods. Our  <code>AggregateData</code> instance contains all our structs and a lightweight API to access member variables. 
+- The above is an example of modifying/adding a new variable directly to a <code>DReyeVR::AggregateData</code>. But it would be better to either modify an existing <code>DReyeVR::DReyeVRSerializer</code> object or create a new one (inheriting from the virtual class) and define all the abstract methods yourself. This enables a more granular sub-class/struct abstraction like most of our variables.</p>
+<p>With this step complete, you are free to read/write to this variable by getting the single global (<code>static</code>) instance of the <code>DReyeVR::AggregateData</code> class using the <code>GetData()</code> function of the EgoSensor as follows:
+<div class="highlight"><pre><span></span><code><span class="c1">// In some other file, for example EgoVehicle.cpp:</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">NewVariable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EgoSensor</span><span class="o">-&gt;</span><span class="n">GetData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetNewVariable</span><span class="p">();</span>
+<span class="p">...</span><span class="w"> </span><span class="c1">// your code</span>
+<span class="n">EgoSensor</span><span class="o">-&gt;</span><span class="n">GetData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetNewVariable</span><span class="p">(</span><span class="n">NewVariable</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">5.f</span><span class="p">);</span><span class="w"> </span><span class="c1">// update the new variable</span>
+</code></pre></div></p>
+<h2 id="optional-streaming-data-to-a-pythonapi-client">[OPTIONAL] Streaming data to a PythonAPI client:</h2>
+<p>In order to see the new data from a PythonAPI client, you'll need to duplicate the code to the LibCarla serializer. This requires looking at <code>LibCarla/Sensor/s11n/</code><a href="../LibCarla/Sensor/s11n/DReyeVRSerializer.h"><code>DReyeVRSerializer.h</code></a> and following the same template as all the other variables:
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">DReyeVRSerializer</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">Data</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="p">...</span><span class="w"> </span><span class="c1">// existing code</span>
+<span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">NewVariable</span><span class="p">;</span>
+
+<span class="w">        </span><span class="n">MSGPACK_DEFINE_ARRAY</span><span class="p">(</span>
+<span class="w">        </span><span class="p">...</span><span class="w"> </span><span class="c1">// existing code</span>
+<span class="w">        </span><span class="n">NewVariable</span><span class="p">,</span><span class="w"> </span><span class="c1">// &lt;-- New variable</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="p">};</span>
+<span class="c1">///NOTE: you&#39;ll also need to interface with this updated struct:</span>
+</code></pre></div>
+Then, to actually interface with the DReyeVR sensor, you'll need to modify the call to the LibCarla stream to include your <code>NewVariable</code>.
+<div class="highlight"><pre><span></span><code><span class="c1">// in Carla/Sensor/DReyeVRSensor.cpp</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">ADReyeVRSensor::PostPhysTick</span><span class="p">(</span><span class="n">UWorld</span><span class="w"> </span><span class="o">*</span><span class="n">W</span><span class="p">,</span><span class="w"> </span><span class="n">ELevelTick</span><span class="w"> </span><span class="n">TickType</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">DeltaSeconds</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="p">...</span><span class="w"> </span><span class="c1">// existing code</span>
+<span class="w">    </span><span class="n">Stream</span><span class="p">.</span><span class="n">Send</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">,</span>
+<span class="w">                </span><span class="n">carla</span><span class="o">::</span><span class="n">sensor</span><span class="o">::</span><span class="n">s11n</span><span class="o">::</span><span class="n">DReyeVRSerializer</span><span class="o">::</span><span class="n">Data</span><span class="p">{</span>
+<span class="w">                    </span><span class="p">...</span><span class="w"> </span><span class="c1">// existing code</span>
+<span class="w">                    </span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">GetNewVariable</span><span class="p">(),</span><span class="w"> </span><span class="c1">// &lt;-- New variable</span>
+<span class="w">                </span><span class="p">});</span>
+<span class="p">}</span><span class="w"> </span>
+</code></pre></div>
+And finally, to actually get the data from a PythonAPI call, you'll need to modify the list of available attributes to the DReyeVR sensor object as follows:
+<div class="highlight"><pre><span></span><code><span class="c1">// in LibCarla/source/carla/sensor/data/DReyeVREvent.h</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DReyeVREvent</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">SensorData</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="p">...</span>
+
+<span class="w">    </span><span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="p">...</span><span class="w"> </span><span class="c1">// existing code</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">GetNewVariable</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="c1">// &lt;-- new code</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">InternalData</span><span class="p">.</span><span class="n">NewVariable</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">private</span><span class="o">:</span>
+<span class="w">    </span><span class="n">carla</span><span class="o">::</span><span class="n">sensor</span><span class="o">::</span><span class="n">s11n</span><span class="o">::</span><span class="n">DReyeVRSerializer</span><span class="o">::</span><span class="n">Data</span><span class="w"> </span><span class="n">InternalData</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+Then finally here you'll define what function to call (the variable getter) to get that data from a PythonAPI client. 
+<div class="highlight"><pre><span></span><code><span class="c1">// in PythonAPI/carla/source/libcarla/SensorData.cpp</span>
+<span class="n">class_</span><span class="o">&lt;</span><span class="n">csd</span><span class="o">::</span><span class="n">DReyeVREvent</span><span class="p">,</span><span class="w"> </span><span class="n">bases</span><span class="o">&lt;</span><span class="n">cs</span><span class="o">::</span><span class="n">SensorData</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">boost</span><span class="o">::</span><span class="n">noncopyable</span><span class="p">,</span><span class="w"> </span><span class="n">boost</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">csd</span><span class="o">::</span><span class="n">DReyeVREvent</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="s">&quot;DReyeVREvent&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">no_init</span><span class="p">)</span>
+<span class="w">    </span><span class="p">...</span><span class="w"> </span><span class="c1">// existing code</span>
+<span class="w">    </span><span class="p">.</span><span class="n">add_property</span><span class="p">(</span><span class="s">&quot;new_variable&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">CALL_RETURNING_COPY</span><span class="p">(</span><span class="n">csd</span><span class="o">::</span><span class="n">DReyeVREvent</span><span class="p">,</span><span class="w"> </span><span class="n">GetNewVariable</span><span class="p">))</span>
+<span class="w">    </span><span class="p">.</span><span class="n">def</span><span class="p">(</span><span class="n">self_ns</span><span class="o">::</span><span class="n">str</span><span class="p">(</span><span class="n">self_ns</span><span class="o">::</span><span class="n">self</span><span class="p">))</span>
+<span class="p">;</span>
+</code></pre></div>
+After you modify files in <code>PythonAPI</code> or <code>LibCarla</code> the PythonAPI will need to be rebuilt in order for your changes to take effect:
+<div class="highlight"><pre><span></span><code>conda<span class="w"> </span>activate<span class="w"> </span>carla13<span class="w"> </span><span class="c1"># if using conda</span>
+<span class="o">(</span>carla13<span class="o">)</span><span class="w"> </span>make<span class="w"> </span>PythonAPI
+<span class="c1"># make sure to fix any build errors that may occur!</span>
+</code></pre></div></p>
+<h1 id="todo-add-more-dev-notes">TODO: add more dev notes</h1>
+<h1 id="tips-tricks">Tips &amp; Tricks</h1>
+<h2 id="1-enable-logging-in-shipping-mode">1. Enable logging in shipping mode</h2>
+<p>It is super useful to see the CarlaUE4.log file in shipping mode and this is not the default in Carla (or Unreal) perhaps for performance reasons?</p>
+<p>If you want to enable these features then you'll need to add the flag for <code>bUseLoggingInShipping</code> in the <code>Carla/Unreal/CarlaUE4/Source/CarlaUE4.Target.cs</code> file.</p>
+<div class="highlight"><pre><span></span><code><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">CarlaUE4Target</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">TargetRules</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="nf">CarlaUE4Target</span><span class="p">(</span><span class="n">TargetInfo</span><span class="w"> </span><span class="n">Target</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="k">base</span><span class="p">(</span><span class="n">Target</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TargetType</span><span class="p">.</span><span class="n">Game</span><span class="p">;</span>
+<span class="w">        </span><span class="n">ExtraModuleNames</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;CarlaUE4&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">bUseLoggingInShipping</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="p">;</span><span class="c1">//  &lt;--- added here</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Then you should be able to find the CarlaUE4.log files (timestamped to avoid overwrite) at <code>C:\Users\%YOUR_USER_NAME%\AppData\Local\CarlaUE4\Saved\Logs\CarlaUE4.log</code> (on Windows). Also works for Mac/Linux. See <a href="https://forums.unrealengine.com/t/how-to-debug-shipping-build-exclusive-crash/411138">this</a> for more information.</p>
+<hr />
+<h2 id="2-how-to-log">2. How to <code>LOG</code></h2>
+<p>Logging is useful to track code logic and debug (especially since debugging UE4 code can be a bit rough). By default in Unreal C++ you can always use <code>UE_LOG(LogTemp, Log, TEXT("some text and %d here"), 55);</code> but we streamlined this for DReyeVR specific logging. You can use our <code>LOG</code> macros (defined in <a href="../CarlaUE4/CarlaUE4.h"><code>CarlaUE4.h</code></a>) when you are editing <code>CarlaUE4/DReyeVR/*.[cpp|h]</code> files.</p>
+<p>The main benefits include:
+- Less boilerplate code for the programmer (thats you!)
+- All logs have the prefix <code>DReyeVRLog</code> so they are easy to filter in the overall <code>CarlaUE4.log</code> file
+- We also attached neat compile-time prefixes to include <code>"[{INVOKED_FILE}::{INVOKED_FUNCTION}:{LINE_NUMBER}] {message}"</code> so you can quickly find where this log was invoked from and differentiate from others
+    - A typical DReyeVR log using our macros looks like this:
+        <div class="highlight"><pre><span></span><code>LogDReyeVR: [DReyeVRUtils.h::ReadConfigValue:141] &quot;your message here&quot;
+</code></pre></div></p>
+<div class="highlight"><pre><span></span><code><span class="p">...</span><span class="w"> </span><span class="c1">// in CarlaUE4/DReyeVR files</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">example</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">LOG</span><span class="p">(</span><span class="s">&quot;some text and %d (this text is grey)&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">55</span><span class="p">);</span>
+<span class="w">    </span><span class="n">FString</span><span class="w"> </span><span class="n">warning_str</span><span class="p">(</span><span class="s">&quot;warning&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">LOG_WARN</span><span class="p">(</span><span class="s">&quot;some %s here (this text is yellow!)&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">warning_str</span><span class="p">);</span>
+<span class="w">    </span><span class="n">LOG_ERROR</span><span class="p">(</span><span class="s">&quot;this text is red!&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="p">...</span>
+</code></pre></div>
+<p>If you are working instead in the <code>CarlaUE4/Plugins/Source/Carla</code> codebase then you'll be able to use similar macros but prefixed with <code>DReyeVR_</code>: <code>DReyeVR_LOG("blah blah")</code>, <code>DReyeVR_LOG_WARN("blah blah warning")</code>, etc. </p>
+<hr />
+<h2 id="3-managing-multiple-carladreyevr-versions">3. Managing multiple Carla/DReyeVR versions</h2>
+<ul>
+<li>Having separate <code>python</code> environments (such as <code>conda</code>) is extremely useful to have different <code>carla</code> Python packages on the same machine with different versions (such as <code>LibCarla</code>). To do this, you can simply create an individual conda environment for each Carla version as described in <a href="../Install/"><code>Install.md</code></a>. Remember to activate your new <code>conda</code> environment on a per-shell basis!</li>
+<li>If you plan on having multiple CARLA's installed, you'll need to keep them updated with the appropriate <code>Content</code>. Rather than calling the <code>Update</code> script every time to update this, you can save the <code>Content.tar.gz</code> file and copy it into new <code>Unreal/CarlaUE4/Content/Carla</code> directories whenever you have a new repo.</li>
+</ul>
+<hr />
+<h2 id="4-todo-add-more-tips-tricks">4. TODO add more tips &amp; tricks</h2>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

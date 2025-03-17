@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>Modifying the Vehicle Model - 代理模拟器</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Modifying the Vehicle Model";
+        var mkdocs_page_input_path = "interbehavior/Tutorials/Model.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> 代理模拟器
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">首页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">代理模拟器</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Modifying the Vehicle Model</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/interbehavior/Tutorials/Model.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="modifying-the-vehicle-model">Modifying the Vehicle Model</h1>
+<p>You may be interested in adding novel features to the vehicle mesh itself, outside of what we have provided with DReyeVR. In this guide, we'll help you get familiar with some of the tools and basic requirements to do so, along with an example of how we modified the vanilla CARLA Tesla static mesh to have a dynamic steering wheel. </p>
+<p>Note that to continue, we assume you have access to the following software:
+- Unreal Engine Editor
+- Carla (from source)
+- Blender (<a href="https://www.blender.org/download/">Download free</a>)</p>
+<h2 id="getting-started">Getting started</h2>
+<p>The first place to look would definitely be CARLA's own excellent guide on <a href="https://carla.readthedocs.io/en/latest/tuto_A_add_vehicle/">adding custom vehicles</a> if you already have one in mind. But it is still a good read to understand the underlying mechanisms at play to achieve a viable CARLA/UE4 vehicle:
+- <a href="https://docs.unrealengine.com/4.27/en-US/AnimatingObjects/SkeletalMeshAnimation/Persona/VirtualBones/">Bones</a>: A bone can be thought of as a rigging entity, allowing for attachments between entities to be rigid and constrained. 
+- <a href="https://docs.unrealengine.com/4.26/en-US/AnimatingObjects/SkeletalMeshAnimation/Skeleton/">Skeleton</a>: A skeleton contains the location and orientation of bones and their hierarchy. 
+- <a href="https://docs.unrealengine.com/4.26/en-US/InteractiveExperiences/Physics/PhysicsAssetEditor/">Physics Mesh</a>: Denotes the bounding boxes around important features of the mesh. Primarily used for collision detection. 
+- <a href="https://docs.unrealengine.com/4.27/en-US/AnimatingObjects/SkeletalMeshAnimation/AnimBlueprints/">Animation</a>: Animation blueprints control the animation of a skeletal mesh typically through some state-machine logic.
+- <a href="https://docs.unrealengine.com/4.27/en-US/ProgrammingAndScripting/Blueprints/UserGuide/Types/ClassBlueprint/">Blueprint</a>: Combines all of the above into a highly dynamic and flexible UObject that can serve as our Vehicle agent. </p>
+<p>With all this in mind, you are probably going to be interested in:
+- Blueprints: <code>$CARLA_ROOT/Unreal/CarlaUE4/Content/Carla/Blueprints/Vehicles/XYZ</code>
+- Other: <code>$CARLA_ROOT/Unreal/CarlaUE4/Content/Carla/Static/Vehicles/4Wheeled/XYZ</code></p>
+<h1 id="example-adding-a-dynamic-steering-wheel">Example: Adding a dynamic steering wheel</h1>
+<p>Problen: It is quite jarring to drive without a responsive steering wheel, and since the Carla vehicle meshes were not designed for human drivers, there is no need to separate the steering wheel from the overall vehicle shell. This is problematic since the wheel is now a part of the vehicle mesh and cannot be animated during runtime. </p>
+<p>In our case, we elected to use the TeslaM3 mesh for our base class, so we'll be working with that here too. </p>
+<p>Our plan of action will be:
+1. Extract the steering wheel mesh from the vehicle and create its own static mesh
+2. Update the vehicle mesh to remove the steering wheel 
+3. Re-attach the steering wheel back as a code-based dynamic object</p>
+<p>For steps 1 &amp; 2, we will be using the free &amp; open source Blender program for the 3D modeling work:</p>
+<h2 id="1-extract-the-steering-wheel">1. Extract the steering wheel</h2>
+<h3 id="exporting-to-fbx">Exporting to FBX</h3>
+<p>First, go to the static mesh file you wish to export, in our case we wanted to export <code>$CARLA_ROOT/Unreal/CarlaUE4/Content/Carla/Static/Vehicles/4Wheeled/Tesla/SM_TeslaM3_v2.uasset</code> (notice these files should have a pink underline to indicate they are the full static mesh files). </p>
+<h3 id="one-lod">One LOD</h3>
+<p>I recommend using the highest LOD (<a href="../../LODS.md">Level-Of-Detail</a>) setting for this export, since this vehicle will be so close to the camera all the time it is pointless to have multiple LOD's, and it makes it simpler for the import to blender. </p>
+<p>To do this, simply enter the static mesh by double clicking it, and on the left "Asset Details" pane, down in "LOD Settings" drag the "Number of LODs" slider down to 1, then click "Apply Changes" as follows. 
+- <img alt="LODs" src="../../Figures/Model/LOD1.jpg" /></p>
+<h3 id="export-to-blender">Export to blender</h3>
+<p>Now, back in the <code>Content Browser</code> you can right click the file then select <code>Asset Actions -&gt; Export</code> and designate a place for the resulting <code>.FBX</code> file to be exported. 
+- <img alt="Export" src="../../Figures/Model/Export.jpg" /></p>
+<h3 id="model-in-blender">Model in Blender</h3>
+<p>Now, open a fresh Blender window and delete the default spawned cube. Then go to <code>File -&gt; Import -&gt; FBX (.fbx)</code> and select the file you just created. </p>
+<p>You should now be presented with a simple Blender window with the vehicle like this:
+- <img alt="BlenderSolid" src="../../Figures/Model/BlenderSolid.jpg" /></p>
+<p>In order to toggle moving around using <code>WASD</code> controls, press <code>shift +</code> `. Move inside the vehicle where you can find the steering wheel. </p>
+<p>The easiest way (I've found) to efficiently extract the steering wheel it so use the wireframe-mode to select all vertices, even those that aren't visible in the solid render. To go to wireframe mode press <code>z</code> then select <code>wireframe</code> (should be the left-most option). Then you should see something like this:
+- <img alt="WireframeWheel" src="../../Figures/Model/WireframeWheel.jpg" /></p>
+<p>Then, to actually select the proper vertices, we're going to need to change from <code>Object Mode</code> to <code>Edit Mode</code> in the top left corner of the viewport. Then we'll need to position our camera in such a way to minimize unwanted vertices being selected, and use whatever selection technique we want (I like the lasso selection) to select the entire steering wheel like this:
+- <img alt="SelectedWheel" src="../../Figures/Model/SelectedWheel.jpg" />
+NOTE: if you have excess vertices selected, you can always undo those with <code>shift+click</code> on individual vertices.</p>
+<p>Then, you should be able to move the entire bunch out of the vehicle (or duplicate them all with <code>shift+d</code> and clean up the original) to have something like this:
+| Wireframe | Rendered |
+| --- | --- |
+| <img alt="WireFrameGotWheel" src="../../Figures/Model/WheelOut.jpg" /> | <img alt="SolidOut" src="../../Figures/Model/VehicleAndWheel.jpg" /> | </p>
+<p>Finally, you should then be able to export the individual selections (need to export both the just-wheel and the just-vehicle models) by selecting all the vertices the same way (in wireframe) and deleting them (then undo-ing the deletion of course). Then selecting <code>File -&gt; Export -&gt; FBX(.fbx)</code> for best compatibility. Do this for both the Vehicle mesh as well as the steering wheel (I moved the steering wheel to the origin when exporting but I'm not sure this is necessary). </p>
+<h2 id="2-update-the-vehicle-mesh">2. Update the vehicle mesh</h2>
+<h3 id="back-in-the-editor">Back in the Editor</h3>
+<p>Now, back in the editor, we'll create a new directory for both the Vehicle mesh as well as the steering wheel. Most of the content from this section is a modified version of the <a href="https://carla.readthedocs.io/en/latest/tuto_A_add_vehicle/">Carla-provided documentation</a>.</p>
+<p>Then, in the new <code>Mesh</code> directory, we can simply right-click in the content browser and select <code>Import Asset</code> then select our FBX model. Make sure to set <strong>Import Content Type</strong> to <code>Geometry and Skinning Weights</code>, <strong>Normal Import Method</strong> to <code>Import Normals</code>, and <strong>Material Import Method</strong> to <code>Do not create materials</code>,  and finally uncheck <strong>Import Textures</strong>.</p>
+<p>We should now have a (pink underlined) Skeletal mesh asset, (beige underlined) physics asset, and (baby blue underlined) skeleton asset. Then, right click on the new (pink underlined) skeletal mesh asset and select <code>Create -&gt; Anim Blueprint</code> to create a new animation blueprint. </p>
+<p>In this animation blueprint, ensure the following:
+- Go to <code>Class settings -&gt; Details -&gt; Class Options -&gt; Parent Class</code> and reparent the class to a <code>VehicleAnimInstance</code>. 
+- In the <code>My Blueprint</code> section, click on <code>AnimGraph</code> and copy over the same graph logic from the existing <code>TeslaM3</code> animation to look like this:</p>
+<table>
+<thead>
+<tr>
+<th>Reparent</th>
+<th>Animation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img alt="Reparent" src="../../Figures/Model/AnimClassOption.jpg" /></td>
+<td><img alt="AnimGraph" src="../../Figures/Model/AnimGraph.jpg" /></td>
+</tr>
+</tbody>
+</table>
+<p>Now you are done with the animation blueprint.</p>
+<p>In my experience I had to do some additional tweaking to use the right components for my overall mesh (pink underlined) as follows:
+- <code>Asset Details -&gt; Physics Asset</code>: Replace new with the existing <code>$CARLA_ROOT/Unreal/CarlaUE4/Content/Carla/Static/Vehicles/4Wheeled/Tesla/SM_TeslaM3_PhysicsAsset.uasset</code> physics asset (NOT the <code>_v2_</code> model!)
+- <code>Asset Details -&gt; Lighting</code>: Same as the Physics Asset
+- <code>Preview Scene Settings -&gt; Animation Blueprint</code>: The new animation blueprint you just created. </p>
+<p>Then finally, you can delete the newly imported PhysicsAsset file since it is no longer being used (I opted to use the vanilla TeslaM3 one instead)</p>
+<p>And in <code>BP_EgoVehicle_DReyeVR</code>, you can finally edit the <code>Mesh (Inherited) -&gt; Details -&gt; Mesh</code> field to use the new SM we just updated (pink underline). Since this clears the <code>Animation</code> section, you'll also need to update the <code>Mesh (Inherited) -&gt; Animation -&gt; Anim Class</code> field to use the new animation class we just made. </p>
+<p>Now the DReyeVR EgoVehicle should be fully drivable and operates just as it did before, but now with no steering wheel in the driver's seat!
+<img alt="NoWheel" src="../../Figures/Model/NoWheel.jpg" /></p>
+<h2 id="3-re-attach-the-steering-wheel-dynamically">3. Re-attach the steering wheel dynamically</h2>
+<h3 id="import-to-ue4">Import to UE4</h3>
+<p>Now we want to import the steering wheel back into the engine so we can dynamically spawn, place, and update it at runtime. </p>
+<p>The easiest way to do this is through importing the SteeringWheel <code>.fbx</code> just like with the Vehicle mesh, from there it should have all the original textures pre-applied and be slightly angled. </p>
+<p>To get rotations of the wheel to be in the Roll axis of the wheel itself (not its attachment), I recommend slightly tilting the static mesh wheel so that it is mostly vertical and select <code>Make Static Mesh</code>. </p>
+<p>This will allow you to create a plain simple static mesh (cyan underline) from the skeletal mesh (pink underline) as follows:
+| Rotated Skeletal Mesh | Resulting Directory | 
+| --- | --- |
+| <img alt="RotWheel" src="../../Figures/Model/WheelRot.jpg" /> | <img alt="SelectedWheel" src="../../Figures/Model/SelectSMWheel.jpg" /> |</p>
+<h3 id="import-in-code">Import in code</h3>
+<p>Now that we have a reasonable steering wheel model as a simple static mesh, it is easy to spawn it and attach it to the ego-vehicle (currently without a steering wheel) in code. Managing it in code is nice because it will allow us to <code>SetRelativeRotation</code> of the mesh dynamically on every tick, allowing it to be responsive to our inputs at runtime. </p>
+<p>The first step to Spawn the steering wheel in code is to find its mesh in the editor. Right click on the static mesh (cyan underline) and select <code>Copy Reference</code>. For me it looks like this:
+- <code>"StaticMesh'/Game/DReyeVR/EgoVehicle/TeslaM3/SteeringWheel/Wheel_StaticMeshl_model3.Wheel_StaticMeshl_model3'"</code></p>
+<p>(Note that we won't be needing any of the other steering wheel assets anymore, feel free to delete them)</p>
+<p>The general strategy for adding Unreal components in code is to spawn them in the constructor then use their reference alongside their C++ API. For our case we'll only need a constructor and a tick method (See <a href="../../DReyeVR/EgoVehicle.cpp">EgoVehicle::ConstructSteeringWheel &amp; EgoVehicle::TickSteeringWheel</a>)</p>
+<p>Now enjoy a responsive steering wheel asset attached to the EgoVehicle as you drive around!</p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../../js/umlconvert.js"></script>
+      <script src="../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
