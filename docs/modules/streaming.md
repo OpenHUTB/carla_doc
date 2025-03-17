@@ -2,7 +2,6 @@
 <h1><a href="#什么是-streaming">什么是 Streaming?</a></h1>
 
 - [结构化设计](#结构化设计)
-- [使用场景](#使用场景)
 ## [架构](#架构)
 - [概述](#概述)
 - [数据流管理](#数据流管理)
@@ -57,83 +56,7 @@ Streaming 组件采用 **结构化设计**，通过 **模块化拆分**，将数
 数据流组件 **独立于服务器和客户端运行**，避免强依赖关系，使得 Streaming 组件能够 **灵活适配多种实时数据场景**，如 **日志分析、视频流、金融交易和自动驾驶**。
 
 
-## [使用场景](#使用场景)
 
-### **1. 服务器向客户端推送数据流**
-服务器创建数据流（Stream），客户端可以**订阅该流**，用于**传输仿真数据**。
-
-#### **示例**
-**服务器端：创建数据流**
-```cpp
-// 引入 CARLA Streaming 服务器端头文件
-#include "carla/streaming/Server.h"
-
-carla::streaming::Server server(2000);  // 监听 2000 端口，创建服务器实例  // 监听 2000 端口
-carla::streaming::Stream stream = server.MakeStream();  // 创建一个新的数据流
-```
-
-**客户端：订阅数据流**
-```cpp
-// 引入 CARLA Streaming 客户端头文件
-#include "carla/streaming/Client.h"
-
-client.Subscribe(token, [](auto data) {  // 订阅数据流，接收数据并执行回调
-    std::cout << "Received data: " << data << std::endl;  // 打印接收到的数据
-});
-```
-
----
-
-### **2. 远程设备订阅数据流**
-多个客户端可以**同时订阅服务器的流**，适用于**远程监控、仿真数据共享**。
-
-#### **示例**
-**服务器端：监听特定端口**
-```cpp
-carla::streaming::Server server("192.168.1.10", 3000);  // 绑定特定 IP 地址和端口
-```
-
-**多个客户端订阅同一数据流**
-```cpp
-client1.Subscribe(token, [](auto data) { HandleData(data); });
-client2.Subscribe(token, [](auto data) { VisualizeData(data); });
-```
-
----
-
-### **3. 数据流的异步处理**
-服务器可以**异步运行**，允许多个客户端并行接收数据，提高吞吐量。
-
-#### **示例**
-**服务器端：开启异步模式**
-```cpp
-server.AsyncRun(4);  // 以 4 个工作线程启动异步模式  // 4 个线程并行运行
-```
-
-**客户端：异步订阅数据**
-```cpp
-client.Subscribe(token, [](auto data) {
-    ProcessDataAsync(data);
-});
-```
-
----
-
-### **4. 取消订阅数据流**
-客户端可以随时取消订阅数据流，以减少不必要的带宽占用。
-
-#### **示例**
-```cpp
-client.UnSubscribe(token);  // 取消订阅数据流
-```
-
----
-
-### **总结**
-- 服务器创建数据流，客户端订阅数据流  
-- 支持多个客户端同时订阅  
-- 支持异步处理，提高并发能力  
-- 支持动态取消订阅
 
 # [架构](#架构)
 
