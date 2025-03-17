@@ -95,6 +95,26 @@ WeatherActor->ApplyWeather(NewWeather);
 // 设置日夜循环状态
 WeatherActor->SetDayNightCycle(true);
 
+
+// 天气渐变过渡系统
+struct FWeatherTransition {
+    FWeatherParameters TargetParams;
+    float TransitionDuration;
+    //...其他过渡参数
+};
+
+void AWeather::StartWeatherTransition(const FWeatherTransition& Transition) {
+    // 实现渐变逻辑
+}
+
+// 天气事件触发器
+UCLASS()
+class UWeatherTrigger : public UObject {
+public:
+    UFUNCTION()
+    void OnPlayerEnterRegion(AActor* OverlappedActor);
+};
+
 注意事项
 确保在使用前正确初始化AWeather对象。
 后处理材质的路径需要根据实际情况进行调整。
