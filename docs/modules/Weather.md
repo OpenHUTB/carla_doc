@@ -115,6 +115,23 @@ public:
     void OnPlayerEnterRegion(AActor* OverlappedActor);
 };
 
+// 天气物理影响组件
+UCLASS()
+class UWeatherPhysicsHandler : public UWeatherComponent {
+public:
+    void OnWeatherChanged(const FWeatherParameters& Params) override {
+        // 调整地面摩擦力、车辆操控等
+    }
+};
+
+// 可视化影响系统
+UCLASS()
+class UWeatherDecalSystem : public UWeatherComponent {
+    void OnWeatherChanged(const FWeatherParameters& Params) override {
+        // 生成雨滴涟漪、积水效果等
+    }
+};
+
 注意事项
 确保在使用前正确初始化AWeather对象。
 后处理材质的路径需要根据实际情况进行调整。
