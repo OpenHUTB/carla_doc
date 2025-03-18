@@ -103,49 +103,13 @@ struct FWeatherTransition {
     //...其他过渡参数
 };
 
-void AWeather::StartWeatherTransition(const FWeatherTransition& Transition) {
-    // 实现渐变逻辑
-}
+功能：定义天气渐变过渡的相关参数，实现天气从当前状态平滑过渡到目标状态。
+成员变量：
+TargetParams：类型为 FWeatherParameters，表示过渡的目标天气参数。
+TransitionDuration：类型为 float，代表过渡所需的时长。
+//...其他过渡参数：表明结构体可能还存在其他用于控制过渡的参数
 
-// 天气事件触发器
-UCLASS()
-class UWeatherTrigger : public UObject {
-public:
-    UFUNCTION()
-    void OnPlayerEnterRegion(AActor* OverlappedActor);
-};
 
-// 天气物理影响组件
-UCLASS()
-class UWeatherPhysicsHandler : public UWeatherComponent {
-public:
-    void OnWeatherChanged(const FWeatherParameters& Params) override {
-        // 调整地面摩擦力、车辆操控等
-    }
-};
-
-// 可视化影响系统
-UCLASS()
-class UWeatherDecalSystem : public UWeatherComponent {
-    void OnWeatherChanged(const FWeatherParameters& Params) override {
-        // 生成雨滴涟漪、积水效果等
-    }
-};
-
-// 优化1：使用TSharedPtr智能指针管理材质
-TMap<FName, TSharedPtr<UMaterialInstanceDynamic>> CachedMaterials;
-
-// 优化2：异步加载材质资源
-void AWeather::AsyncLoadMaterials() {
-    StreamableManager.RequestAsyncLoad(...);
-}
-
-// 优化3：添加资源验证
-if (!PrecipitationPostProcessMaterial || 
-    PrecipitationPostProcessMaterial->IsPendingKill()) {
-    UE_LOG(LogCarla, Error, TEXT("Invalid precipitation material!"));
-    return;
-}
 
 注意事项
 确保在使用前正确初始化AWeather对象。
