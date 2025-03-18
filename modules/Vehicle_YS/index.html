@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Vehicle详细解释文档 - 代理模拟器</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Vehicle\u8be6\u7ec6\u89e3\u91ca\u6587\u6863";
+        var mkdocs_page_input_path = "modules/Vehicle_YS.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 代理模拟器
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">首页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">代理模拟器</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Vehicle详细解释文档</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/modules/Vehicle_YS.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="vehicle">Vehicle详细解释文档</h1>
+<h2 id="_1">一、概述</h2>
+<p><code>FAckermannController</code> 类是一个用于实现阿克曼转向控制的控制器类，主要用于控制轮式车辆的行驶，包括速度、加速度、转向等方面的控制。该类使用了 PID 控制器来对速度和加速度进行调节，以实现对车辆的精确控制。</p>
+<h2 id="_2">二、文件信息</h2>
+<h3 id="_3">版权信息</h3>
+<p>该代码版权归 2021 年巴塞罗那自治大学（UAB）的计算机视觉中心（CVC）所有，代码遵循 MIT 许可证。</p>
+<h3 id="_4">包含头文件</h3>
+<ul>
+<li><code>AckermannController.h</code>：定义了 <code>FAckermannController</code> 类和相关结构体。</li>
+<li><code>CarlaWheeledVehicle.h</code>：定义了 <code>ACarlaWheeledVehicle</code> 类，用于表示轮式车辆。</li>
+</ul>
+<h2 id="_5">三、类成员和方法</h2>
+<h3 id="31">3.1构造函数和析构函数</h3>
+<ul>
+<li><code>FAckermannController::~FAckermannController()</code>：析构函数，用于释放 <code>FAckermannController</code> 对象所占用的资源。</li>
+</ul>
+<h3 id="32">3.2获取和应用设置</h3>
+<ul>
+<li><code>FAckermannControllerSettings FAckermannController::GetSettings() const</code>：获取当前控制器的设置，包括速度和加速度 PID 控制器的参数。</li>
+<li><code>void FAckermannController::ApplySettings(const FAckermannControllerSettings&amp; Settings)</code>：应用传入的控制器设置，更新速度和加速度 PID 控制器的参数。</li>
+</ul>
+<h3 id="33">3.3设置目标点</h3>
+<ul>
+<li><code>void FAckermannController::SetTargetPoint(const FVehicleAckermannControl&amp; AckermannControl)</code>：设置目标控制参数，包括转向角、转向速度、速度、加速度和 jerk 等，并对这些参数进行裁剪。</li>
+</ul>
+<h3 id="34">3.4重置控制器</h3>
+<ul>
+<li><code>void FAckermannController::Reset()</code>：重置控制器的状态，包括速度和加速度 PID 控制器的状态，以及车辆的控制参数和状态。</li>
+</ul>
+<h3 id="35">3.5运行控制循环</h3>
+<ul>
+<li><code>void FAckermannController::RunLoop(FVehicleControl&amp; Control)</code>：运行控制循环，包括横向控制和纵向控制，最后更新车辆的控制命令。</li>
+</ul>
+<h3 id="36">3.6横向控制</h3>
+<ul>
+<li><code>void FAckermannController::RunControlSteering()</code>：根据目标转向角和转向速度，计算当前的转向角。</li>
+</ul>
+<h3 id="37">3.7纵向控制</h3>
+<ol>
+<li>完全停止控制</li>
+<li><code>bool FAckermannController::RunControlFullStop()</code>：判断车辆是否需要完全停止，如果需要则将刹车设置为最大值，油门设置为零。</li>
+<li>倒车控制</li>
+<li><code>void FAckermannController::RunControlReverse()</code>：根据车辆的当前速度和目标速度，判断是否可以切换到倒车模式。</li>
+<li>速度控制</li>
+<li><code>void FAckermannController::RunControlSpeed()</code>：使用速度 PID 控制器计算目标加速度，并对其进行裁剪。</li>
+<li>加速度控制</li>
+<li><code>void FAckermannController::RunControlAcceleration()</code>：使用加速度 PID 控制器计算目标油门或刹车值，并对其进行裁剪。</li>
+<li>更新车辆控制命令</li>
+<li><code>void FAckermannController::UpdateVehicleControlCommand()</code>：根据目标油门或刹车值，更新车辆的油门和刹车控制命令。</li>
+</ol>
+<h3 id="38">3.8更新车辆状态和物理参数</h3>
+<ol>
+<li>更新车辆状态</li>
+<li><code>void FAckermannController::UpdateVehicleState(const ACarlaWheeledVehicle* Vehicle)</code>：更新车辆的状态，包括转向角、速度和加速度等。</li>
+<li>更新车辆物理参数</li>
+<li><code>void FAckermannController::UpdateVehiclePhysics(const ACarlaWheeledVehicle* Vehicle)</code>：更新车辆的最大转向角。</li>
+</ol>
+<h2 id="_6">四、详细代码解释</h2>
+<h3 id="41">4.1获取和应用设置</h3>
+<div class="highlight"><pre><span></span><code><span class="n">FAckermannControllerSettings</span><span class="w"> </span><span class="nf">FAckermannController::GetSettings</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">FAckermannControllerSettings</span><span class="w"> </span><span class="n">Settings</span><span class="p">;</span>
+
+<span class="w">  </span><span class="n">Settings</span><span class="p">.</span><span class="n">SpeedKp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SpeedController</span><span class="p">.</span><span class="n">Kp</span><span class="p">;</span>
+<span class="w">  </span><span class="n">Settings</span><span class="p">.</span><span class="n">SpeedKi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SpeedController</span><span class="p">.</span><span class="n">Ki</span><span class="p">;</span>
+<span class="w">  </span><span class="n">Settings</span><span class="p">.</span><span class="n">SpeedKd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SpeedController</span><span class="p">.</span><span class="n">Kd</span><span class="p">;</span>
+
+<span class="w">  </span><span class="n">Settings</span><span class="p">.</span><span class="n">AccelKp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AccelerationController</span><span class="p">.</span><span class="n">Kp</span><span class="p">;</span>
+<span class="w">  </span><span class="n">Settings</span><span class="p">.</span><span class="n">AccelKi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AccelerationController</span><span class="p">.</span><span class="n">Ki</span><span class="p">;</span>
+<span class="w">  </span><span class="n">Settings</span><span class="p">.</span><span class="n">AccelKd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AccelerationController</span><span class="p">.</span><span class="n">Kd</span><span class="p">;</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">Settings</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">FAckermannController::ApplySettings</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FAckermannControllerSettings</span><span class="o">&amp;</span><span class="w"> </span><span class="n">Settings</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">SpeedController</span><span class="p">.</span><span class="n">Kp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Settings</span><span class="p">.</span><span class="n">SpeedKp</span><span class="p">;</span>
+<span class="w">  </span><span class="n">SpeedController</span><span class="p">.</span><span class="n">Ki</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Settings</span><span class="p">.</span><span class="n">SpeedKi</span><span class="p">;</span>
+<span class="w">  </span><span class="n">SpeedController</span><span class="p">.</span><span class="n">Kd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Settings</span><span class="p">.</span><span class="n">SpeedKd</span><span class="p">;</span>
+
+<span class="w">  </span><span class="n">AccelerationController</span><span class="p">.</span><span class="n">Kp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Settings</span><span class="p">.</span><span class="n">AccelKp</span><span class="p">;</span>
+<span class="w">  </span><span class="n">AccelerationController</span><span class="p">.</span><span class="n">Ki</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Settings</span><span class="p">.</span><span class="n">AccelKi</span><span class="p">;</span>
+<span class="w">  </span><span class="n">AccelerationController</span><span class="p">.</span><span class="n">Kd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Settings</span><span class="p">.</span><span class="n">AccelKd</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li><code>GetSettings</code> 方法将速度和加速度 PID 控制器的参数复制到 <code>FAckermannControllerSettings</code> 结构体中并返回。</li>
+<li><code>ApplySettings</code> 方法将传入的 <code>FAckermannControllerSettings</code> 结构体中的参数应用到速度和加速度 PID 控制器中。</li>
+</ul>
+<h3 id="42">4.2设置目标点</h3>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">FAckermannController::SetTargetPoint</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FVehicleAckermannControl</span><span class="o">&amp;</span><span class="w"> </span><span class="n">AckermannControl</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">UserTargetPoint</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AckermannControl</span><span class="p">;</span>
+
+<span class="w">  </span><span class="n">TargetSteer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FMath</span><span class="o">::</span><span class="n">Clamp</span><span class="p">(</span><span class="n">UserTargetPoint</span><span class="p">.</span><span class="n">Steer</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">VehicleMaxSteering</span><span class="p">,</span><span class="w"> </span><span class="n">VehicleMaxSteering</span><span class="p">);</span>
+<span class="w">  </span><span class="n">TargetSteerSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FMath</span><span class="o">::</span><span class="n">Abs</span><span class="p">(</span><span class="n">UserTargetPoint</span><span class="p">.</span><span class="n">SteerSpeed</span><span class="p">);</span>
+<span class="w">  </span><span class="n">TargetSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UserTargetPoint</span><span class="p">.</span><span class="n">Speed</span><span class="p">;</span>
+<span class="w">  </span><span class="n">TargetAcceleration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FMath</span><span class="o">::</span><span class="n">Abs</span><span class="p">(</span><span class="n">UserTargetPoint</span><span class="p">.</span><span class="n">Acceleration</span><span class="p">);</span>
+<span class="w">  </span><span class="n">TargetJerk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FMath</span><span class="o">::</span><span class="n">Abs</span><span class="p">(</span><span class="n">UserTargetPoint</span><span class="p">.</span><span class="n">Jerk</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>将传入的 <code>FVehicleAckermannControl</code> 结构体赋值给 <code>UserTargetPoint</code>。</li>
+<li>对转向角进行裁剪，确保其在最大转向角范围内。</li>
+<li>取转向速度、加速度和 jerk 的绝对值。</li>
+</ul>
+<h3 id="43">4.3重置控制器</h3>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">FAckermannController::Reset</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// 重置控制器</span>
+<span class="w">  </span><span class="n">SpeedController</span><span class="p">.</span><span class="n">Reset</span><span class="p">();</span>
+<span class="w">  </span><span class="n">AccelerationController</span><span class="p">.</span><span class="n">Reset</span><span class="p">();</span>
+
+<span class="w">  </span><span class="c1">// 重置控制器参数</span>
+<span class="w">  </span><span class="n">Steer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
+<span class="w">  </span><span class="n">Throttle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
+<span class="w">  </span><span class="n">Brake</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
+<span class="w">  </span><span class="n">bReverse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+
+<span class="w">  </span><span class="n">SpeedControlAccelDelta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
+<span class="w">  </span><span class="n">SpeedControlAccelTarget</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
+
+<span class="w">  </span><span class="n">AccelControlPedalDelta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
+<span class="w">  </span><span class="n">AccelControlPedalTarget</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
+
+<span class="w">  </span><span class="c1">// 重置车辆状态</span>
+<span class="w">  </span><span class="n">VehicleSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
+<span class="w">  </span><span class="n">VehicleAcceleration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
+
+<span class="w">  </span><span class="n">LastVehicleSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
+<span class="w">  </span><span class="n">LastVehicleAcceleration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>重置速度和加速度 PID 控制器的状态。</li>
+<li>将控制器的参数和车辆的状态重置为零。</li>
+</ul>
+<h3 id="44">4.4运行控制循环</h3>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">FAckermannController::RunLoop</span><span class="p">(</span><span class="n">FVehicleControl</span><span class="o">&amp;</span><span class="w"> </span><span class="n">Control</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">TRACE_CPUPROFILER_EVENT_SCOPE_STR</span><span class="p">(</span><span class="n">__FUNCTION__</span><span class="p">);</span>
+
+<span class="w">  </span><span class="c1">// 横向控制</span>
+<span class="w">  </span><span class="n">RunControlSteering</span><span class="p">();</span>
+
+<span class="w">  </span><span class="c1">// 纵向控制</span>
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">bStopped</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RunControlFullStop</span><span class="p">();</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">bStopped</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">RunControlReverse</span><span class="p">();</span>
+<span class="w">    </span><span class="n">RunControlSpeed</span><span class="p">();</span>
+<span class="w">    </span><span class="n">RunControlAcceleration</span><span class="p">();</span>
+<span class="w">    </span><span class="n">UpdateVehicleControlCommand</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="c1">// 更新控制命令</span>
+<span class="w">  </span><span class="n">Control</span><span class="p">.</span><span class="n">Steer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Steer</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">VehicleMaxSteering</span><span class="p">;</span>
+<span class="w">  </span><span class="n">Control</span><span class="p">.</span><span class="n">Throttle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FMath</span><span class="o">::</span><span class="n">Clamp</span><span class="p">(</span><span class="n">Throttle</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0f</span><span class="p">);</span>
+<span class="w">  </span><span class="n">Control</span><span class="p">.</span><span class="n">Brake</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FMath</span><span class="o">::</span><span class="n">Clamp</span><span class="p">(</span><span class="n">Brake</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0f</span><span class="p">);</span>
+<span class="w">  </span><span class="n">Control</span><span class="p">.</span><span class="n">bReverse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bReverse</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>首先进行横向控制，调用 <code>RunControlSteering</code> 方法。</li>
+<li>然后进行纵向控制，先判断是否需要完全停止，若不需要则依次进行倒车控制、速度控制、加速度控制和更新车辆控制命令。</li>
+<li>最后更新传入的 <code>FVehicleControl</code> 结构体中的控制命令。</li>
+</ul>
+<h3 id="45">4.5横向控制</h3>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">FAckermannController::RunControlSteering</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">FMath</span><span class="o">::</span><span class="n">Abs</span><span class="p">(</span><span class="n">TargetSteerSpeed</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">0.001</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Steer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TargetSteer</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">SteerDelta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TargetSteerSpeed</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">DeltaTime</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">FMath</span><span class="o">::</span><span class="n">Abs</span><span class="p">(</span><span class="n">TargetSteer</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">VehicleSteer</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">SteerDelta</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">Steer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TargetSteer</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="kt">float</span><span class="w"> </span><span class="n">SteerDirection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">TargetSteer</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">VehicleSteer</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mf">1.0f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mf">-1.0f</span><span class="p">;</span>
+<span class="w">      </span><span class="n">Steer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VehicleSteer</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">SteerDirection</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">TargetSteerSpeed</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">DeltaTime</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>如果目标转向速度小于 0.001，则直接将转向角设置为目标转向角。</li>
+<li>否则，根据目标转向速度和时间步长计算转向角的变化量，并根据当前转向角和目标转向角的差值进行更新。</li>
+</ul>
+<h3 id="46">4.6纵向控制</h3>
+<h4 id="461">4.6.1完全停止控制</h4>
+<div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="nf">FAckermannController::RunControlFullStop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// 从这个速度在全刹车打开</span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">FullStopEpsilon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.1</span><span class="p">;</span><span class="w"> </span><span class="c1">//[m/s]</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">FMath</span><span class="o">::</span><span class="n">Abs</span><span class="p">(</span><span class="n">VehicleSpeed</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">FullStopEpsilon</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">FMath</span><span class="o">::</span><span class="n">Abs</span><span class="p">(</span><span class="n">UserTargetPoint</span><span class="p">.</span><span class="n">Speed</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">FullStopEpsilon</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Brake</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">Throttle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>如果车辆的当前速度和目标速度都小于 0.1m/s，则将刹车设置为最大值，油门设置为零，并返回 <code>true</code>。</li>
+<li>否则返回 <code>false</code>。</li>
+</ul>
+<h4 id="462">4.6.2倒车控制</h4>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">FAckermannController::RunControlReverse</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// 从这个位置上可以切换到倒档</span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">StandingStillEpsilon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.1</span><span class="p">;</span><span class="w">  </span><span class="c1">// [m/s]</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">FMath</span><span class="o">::</span><span class="n">Abs</span><span class="p">(</span><span class="n">VehicleSpeed</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">StandingStillEpsilon</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 停车不动，允许改变行驶方向</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">UserTargetPoint</span><span class="p">.</span><span class="n">Speed</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">// 改变驾驶方向到倒车。</span>
+<span class="w">      </span><span class="n">bReverse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">UserTargetPoint</span><span class="p">.</span><span class="n">Speed</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">// 将驾驶方向改为前进。</span>
+<span class="w">      </span><span class="n">bReverse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">FMath</span><span class="o">::</span><span class="n">Sign</span><span class="p">(</span><span class="n">VehicleSpeed</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">FMath</span><span class="o">::</span><span class="n">Sign</span><span class="p">(</span><span class="n">UserTargetPoint</span><span class="p">.</span><span class="n">Speed</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">// 请求改变驾驶方向。</span>
+<span class="w">      </span><span class="c1">// 首先，我们必须完全停下来，然后才能改变行驶方向</span>
+<span class="w">      </span><span class="n">TargetSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>如果车辆的当前速度小于 0.1m/s，则可以根据目标速度的正负来切换行驶方向。</li>
+<li>如果车辆正在行驶且目标速度的方向与当前速度的方向相反，则将目标速度设置为零，需要先完全停止才能改变行驶方向。</li>
+</ul>
+<h4 id="463">4.6.3速度控制</h4>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">FAckermannController::RunControlSpeed</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">SpeedController</span><span class="p">.</span><span class="n">SetTargetPoint</span><span class="p">(</span><span class="n">TargetSpeed</span><span class="p">);</span>
+<span class="w">  </span><span class="n">SpeedControlAccelDelta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SpeedController</span><span class="p">.</span><span class="n">Run</span><span class="p">(</span><span class="n">VehicleSpeed</span><span class="p">,</span><span class="w"> </span><span class="n">DeltaTime</span><span class="p">);</span>
+
+<span class="w">  </span><span class="c1">// 剪裁边界</span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">ClippingLowerBorder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">FMath</span><span class="o">::</span><span class="n">Abs</span><span class="p">(</span><span class="n">TargetAcceleration</span><span class="p">);</span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">ClippingUpperBorder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FMath</span><span class="o">::</span><span class="n">Abs</span><span class="p">(</span><span class="n">TargetAcceleration</span><span class="p">);</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">FMath</span><span class="o">::</span><span class="n">Abs</span><span class="p">(</span><span class="n">TargetAcceleration</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">0.0001f</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 根据 AckermannDrive 的定义：如果为零，则使用最大值</span>
+<span class="w">    </span><span class="n">ClippingLowerBorder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">MaxDecel</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ClippingUpperBorder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MaxAccel</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="n">SpeedControlAccelTarget</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">SpeedControlAccelDelta</span><span class="p">;</span>
+<span class="w">  </span><span class="n">SpeedControlAccelTarget</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FMath</span><span class="o">::</span><span class="n">Clamp</span><span class="p">(</span><span class="n">SpeedControlAccelTarget</span><span class="p">,</span>
+<span class="w">      </span><span class="n">ClippingLowerBorder</span><span class="p">,</span><span class="w"> </span><span class="n">ClippingUpperBorder</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>设置速度 PID 控制器的目标速度。</li>
+<li>运行速度 PID 控制器，计算加速度的变化量。</li>
+<li>根据目标加速度对计算得到的加速度进行裁剪。</li>
+</ul>
+<h4 id="464">4.6.4.加速度控制</h4>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">FAckermannController::RunControlAcceleration</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">AccelerationController</span><span class="p">.</span><span class="n">SetTargetPoint</span><span class="p">(</span><span class="n">SpeedControlAccelTarget</span><span class="p">);</span>
+<span class="w">  </span><span class="n">AccelControlPedalDelta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AccelerationController</span><span class="p">.</span><span class="n">Run</span><span class="p">(</span><span class="n">VehicleAcceleration</span><span class="p">,</span><span class="w"> </span><span class="n">DeltaTime</span><span class="p">);</span>
+
+<span class="w">  </span><span class="c1">// 剪裁边界</span>
+<span class="w">  </span><span class="n">AccelControlPedalTarget</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">AccelControlPedalDelta</span><span class="p">;</span>
+<span class="w">  </span><span class="n">AccelControlPedalTarget</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FMath</span><span class="o">::</span><span class="n">Clamp</span><span class="p">(</span><span class="n">AccelControlPedalTarget</span><span class="p">,</span><span class="w"> </span><span class="mf">-1.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0f</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>设置加速度 PID 控制器的目标加速度。</li>
+<li>运行加速度 PID 控制器，计算油门或刹车值的变化量。</li>
+<li>对计算得到的油门或刹车值进行裁剪，确保其在 -1.0 到 1.0 之间。</li>
+</ul>
+<h4 id="465">4.6.5 更新车辆控制命令</h4>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">FAckermannController::UpdateVehicleControlCommand</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">AccelControlPedalTarget</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">bReverse</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">Throttle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FMath</span><span class="o">::</span><span class="n">Abs</span><span class="p">(</span><span class="n">AccelControlPedalTarget</span><span class="p">);</span>
+<span class="w">      </span><span class="n">Brake</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">Throttle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
+<span class="w">      </span><span class="n">Brake</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FMath</span><span class="o">::</span><span class="n">Abs</span><span class="p">(</span><span class="n">AccelControlPedalTarget</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">bReverse</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">Throttle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
+<span class="w">      </span><span class="n">Brake</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FMath</span><span class="o">::</span><span class="n">Abs</span><span class="p">(</span><span class="n">AccelControlPedalTarget</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">Throttle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FMath</span><span class="o">::</span><span class="n">Abs</span><span class="p">(</span><span class="n">AccelControlPedalTarget</span><span class="p">);</span>
+<span class="w">      </span><span class="n">Brake</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>根据目标油门或刹车值和倒车标志，更新车辆的油门和刹车控制命令。</p>
+<h3 id="_7">（七）更新车辆状态和物理参数</h3>
+<h4 id="71">7.1更新车辆状态</h4>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">FAckermannController::UpdateVehicleState</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">ACarlaWheeledVehicle</span><span class="o">*</span><span class="w"> </span><span class="n">Vehicle</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">TRACE_CPUPROFILER_EVENT_SCOPE_STR</span><span class="p">(</span><span class="n">__FUNCTION__</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">LastVehicleSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VehicleSpeed</span><span class="p">;</span>
+<span class="w">  </span><span class="n">LastVehicleAcceleration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VehicleAcceleration</span><span class="p">;</span>
+
+<span class="w">  </span><span class="c1">// 更新仿真状态</span>
+<span class="w">  </span><span class="n">DeltaTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Vehicle</span><span class="o">-&gt;</span><span class="n">GetWorld</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetDeltaSeconds</span><span class="p">();</span>
+
+<span class="w">  </span><span class="c1">// 更新车辆状态</span>
+<span class="w">  </span><span class="n">VehicleSteer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Vehicle</span><span class="o">-&gt;</span><span class="n">GetVehicleControl</span><span class="p">().</span><span class="n">Steer</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">VehicleMaxSteering</span><span class="p">;</span>
+<span class="w">  </span><span class="n">VehicleSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Vehicle</span><span class="o">-&gt;</span><span class="n">GetVehicleForwardSpeed</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">100.0f</span><span class="p">;</span><span class="w">  </span><span class="c1">// From cm/s to m/s</span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">CurrentAcceleration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">VehicleSpeed</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">LastVehicleSpeed</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">DeltaTime</span><span class="p">;</span>
+<span class="w">  </span><span class="c1">// 对加速度应用平均滤波器。</span>
+<span class="w">  </span><span class="n">VehicleAcceleration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mf">4.0f</span><span class="o">*</span><span class="n">LastVehicleAcceleration</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">CurrentAcceleration</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">5.0f</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="72">7.2更新车辆物理参数</h4>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">FAckermannController::UpdateVehiclePhysics</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">ACarlaWheeledVehicle</span><span class="o">*</span><span class="w"> </span><span class="n">Vehicle</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">VehicleMaxSteering</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FMath</span><span class="o">::</span><span class="n">DegreesToRadians</span><span class="p">(</span><span class="n">Vehicle</span><span class="o">-&gt;</span><span class="n">GetMaximumSteerAngle</span><span class="p">());</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="_8">五、总结</h2>
+<p><code>FAckermannController</code> 类通过 PID 控制器实现了对车辆的速度、加速度和转向的精确控制，同时考虑了车辆的倒车和完全停止等情况。该类可以根据车辆的当前状态和目标控制参数，实时计算并更新车辆的控制命令，以实现对车辆的稳定控制。</p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
