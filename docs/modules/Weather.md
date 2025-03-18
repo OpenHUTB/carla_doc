@@ -132,6 +132,20 @@ class UWeatherDecalSystem : public UWeatherComponent {
     }
 };
 
+// 优化1：使用TSharedPtr智能指针管理材质
+TMap<FName, TSharedPtr<UMaterialInstanceDynamic>> CachedMaterials;
+
+// 优化2：异步加载材质资源
+void AWeather::AsyncLoadMaterials() {
+    StreamableManager.RequestAsyncLoad(...);
+}
+
+// 优化3：添加资源验证
+if (!PrecipitationPostProcessMaterial || 
+    PrecipitationPostProcessMaterial->IsPendingKill()) {
+    UE_LOG(LogCarla, Error, TEXT("Invalid precipitation material!"));
+    return;
+}
 
 注意事项
 确保在使用前正确初始化AWeather对象。
