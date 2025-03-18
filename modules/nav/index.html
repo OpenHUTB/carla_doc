@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Nav - 代理模拟器</title>
+    <title>CARLA 导航模块技术文档 (Navigation.cpp) - 代理模拟器</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Nav";
+        var mkdocs_page_name = "CARLA \u5bfc\u822a\u6a21\u5757\u6280\u672f\u6587\u6863 (Navigation.cpp)";
         var mkdocs_page_input_path = "modules/nav.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,7 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Nav</li>
+      <li class="breadcrumb-item active">CARLA 导航模块技术文档 (Navigation.cpp)</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/modules/nav.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -68,7 +68,259 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                
+                <h1 id="carla-navigationcpp">CARLA 导航模块技术文档 (Navigation.cpp)</h1>
+<hr />
+<h2 id="_1">目录</h2>
+<ol>
+<li><a href="#模块概述">模块概述</a>  </li>
+<li><a href="#核心功能">核心功能</a>  </li>
+<li><a href="#类与方法详解">类与方法详解</a>  </li>
+<li><a href="#坐标系统与数据结构">坐标系统与数据结构</a>  </li>
+<li><a href="#关键流程">关键流程</a>  </li>
+<li><a href="#配置参数">配置参数</a>  </li>
+<li><a href="#注意事项">注意事项</a>  </li>
+<li><a href="#示例代码">示例代码</a>  </li>
+<li><a href="#附录">附录</a>  </li>
+</ol>
+<hr />
+<h2 id="_2">模块概述</h2>
+<p><code>Navigation</code> 是 CARLA 模拟器中实现智能体（行人、车辆）导航的核心模块，基于 <strong>Recast/Detour</strong> 库实现以下功能：<br />
+- <strong>导航网格加载</strong>：支持多瓦片（Tile）动态加载<br />
+- <strong>路径规划</strong>：基于区域类型（道路/草地）的路径搜索与优化<br />
+- <strong>人群模拟</strong>：支持500+代理的动态管理（避障、转向预测、分离行为）<br />
+- <strong>动态障碍物处理</strong>：车辆包围盒（OBB）的实时更新<br />
+- <strong>多线程安全</strong>：通过 <code>std::mutex</code> 保证关键操作原子性  </p>
+<hr />
+<h2 id="_3">核心功能</h2>
+<h3 id="1">1. 导航数据加载</h3>
+<ul>
+<li><strong>二进制文件解析</strong><br />
+  <div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="nf">Load</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="n">filename</span><span class="p">);</span><span class="w">  </span><span class="c1">// 从文件加载</span>
+<span class="kt">bool</span><span class="w"> </span><span class="nf">Load</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">uint8_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">content</span><span class="p">);</span><span class="w"> </span><span class="c1">// 从内存加载</span>
+</code></pre></div></li>
+<li>支持多瓦片动态加载（<code>NavMeshSetHeader</code> 结构体）  </li>
+<li>内存管理：使用 <code>dtAllocNavMesh</code> 和 <code>dtFreeNavMesh</code> 分配/释放资源  </li>
+</ul>
+<h3 id="2">2. 路径规划</h3>
+<ul>
+<li><strong>三步查询流程</strong>  </li>
+<li><strong>最近多边形查询</strong>：<code>findNearestPoly()</code>  </li>
+<li><strong>路径搜索</strong>：<code>findPath()</code> 获取多边形序列  </li>
+<li><strong>路径优化</strong>：<code>findStraightPath()</code> 转换为直线路径点<br />
+  <div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="nf">GetPath</span><span class="p">(</span><span class="n">Location</span><span class="w"> </span><span class="n">from</span><span class="p">,</span><span class="w"> </span><span class="n">Location</span><span class="w"> </span><span class="n">to</span><span class="p">,</span><span class="w"> </span><span class="n">dtQueryFilter</span><span class="o">*</span><span class="w"> </span><span class="n">filter</span><span class="p">,</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Location</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">path</span><span class="p">,</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">byte</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">area</span><span class="p">);</span>
+</code></pre></div></li>
+</ul>
+<h3 id="3">3. 人群管理</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>功能描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AddWalker()</code></td>
+<td>添加行人代理，配置半径/高度/最大速度</td>
+</tr>
+<tr>
+<td><code>AddOrUpdateVehicle()</code></td>
+<td>更新车辆OBB，标记为动态障碍物</td>
+</tr>
+<tr>
+<td><code>UpdateCrowd()</code></td>
+<td>每帧更新代理状态（位置/速度/避障）</td>
+</tr>
+<tr>
+<td><code>RemoveAgent()</code></td>
+<td>移除代理并清理映射关系</td>
+</tr>
+</tbody>
+</table>
+<h3 id="4">4. 动态避障</h3>
+<ul>
+<li><strong>车辆包围盒计算</strong><br />
+  <div class="highlight"><pre><span></span><code><span class="c1">// 计算旋转后的OBB角点</span>
+<span class="n">Vector3D</span><span class="w"> </span><span class="n">box_corner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RotatePointOnOrigin2D</span><span class="p">(</span><span class="n">corner</span><span class="p">,</span><span class="w"> </span><span class="n">yaw_angle</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">vehicle</span><span class="p">.</span><span class="n">location</span><span class="p">;</span>
+</code></pre></div></li>
+<li><strong>避障参数配置</strong><br />
+  <div class="highlight"><pre><span></span><code><span class="n">params</span><span class="p">.</span><span class="n">obstacleAvoidanceType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"> </span><span class="c1">// 避障品质（0-3对应低到高）</span>
+</code></pre></div></li>
+</ul>
+<hr />
+<h2 id="_4">类与方法详解</h2>
+<h3 id="navigation"><code>Navigation</code> 类</h3>
+<h4 id="_5">关键方法</h4>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>参数说明</th>
+<th>返回值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CreateCrowd()</code></td>
+<td>初始化人群管理器，配置过滤器和避障参数</td>
+<td>void</td>
+</tr>
+<tr>
+<td><code>GetRandomLocation()</code></td>
+<td>生成可行走区域的随机位置</td>
+<td>bool</td>
+</tr>
+<tr>
+<td><code>SetPedestriansCrossFactor()</code></td>
+<td>设置行人过马路概率（0.0-1.0）</td>
+<td>void</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_6">内部状态管理</h4>
+<ul>
+<li><strong>映射表</strong><br />
+  <div class="highlight"><pre><span></span><code><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">ActorId</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">_mapped_walkers_id</span><span class="p">;</span><span class="w">  </span><span class="c1">// 行人ID到索引</span>
+<span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">ActorId</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">_mapped_vehicles_id</span><span class="p">;</span><span class="w"> </span><span class="c1">// 车辆ID到索引</span>
+</code></pre></div></li>
+</ul>
+<hr />
+<h2 id="_7">坐标系统与数据结构</h2>
+<h3 id="_8">坐标系转换</h3>
+<table>
+<thead>
+<tr>
+<th>系统</th>
+<th>坐标顺序</th>
+<th>转换示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CARLA (UE)</td>
+<td>(X, Y, Z)</td>
+<td><code>from.x, from.y, from.z</code></td>
+</tr>
+<tr>
+<td>Recast</td>
+<td>(X, Z, Y)</td>
+<td><code>float pos[3] = {x, z, y};</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="_9">数据结构</h3>
+<ul>
+<li><strong>导航网格头</strong><br />
+  <div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">NavMeshSetHeader</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">magic</span><span class="p">;</span><span class="w">             </span><span class="c1">// 魔术字 &#39;MSET&#39;</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">version</span><span class="p">;</span><span class="w">           </span><span class="c1">// 版本号</span>
+<span class="w">  </span><span class="n">dtNavMeshParams</span><span class="w"> </span><span class="n">params</span><span class="p">;</span><span class="c1">// 网格参数（原点/瓦片尺寸）</span>
+<span class="p">};</span>
+</code></pre></div></li>
+</ul>
+<hr />
+<h2 id="_10">关键流程</h2>
+<h3 id="_11">路径规划流程</h3>
+<ol>
+<li><strong>输入</strong>：起点 <code>from</code> 和终点 <code>to</code>  </li>
+<li><strong>查询最近多边形</strong>：<br />
+   <div class="highlight"><pre><span></span><code><span class="n">findNearestPoly</span><span class="p">(</span><span class="n">start_pos</span><span class="p">,</span><span class="w"> </span><span class="n">filter</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">start_ref</span><span class="p">);</span>
+</code></pre></div></li>
+<li><strong>多边形路径搜索</strong>：<br />
+   <div class="highlight"><pre><span></span><code><span class="n">findPath</span><span class="p">(</span><span class="n">start_ref</span><span class="p">,</span><span class="w"> </span><span class="n">end_ref</span><span class="p">,</span><span class="w"> </span><span class="n">polys</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">num_polys</span><span class="p">);</span>
+</code></pre></div></li>
+<li><strong>直线路径优化</strong>：<br />
+   <div class="highlight"><pre><span></span><code><span class="n">findStraightPath</span><span class="p">(</span><span class="n">polys</span><span class="p">,</span><span class="w"> </span><span class="n">num_polys</span><span class="p">,</span><span class="w"> </span><span class="n">straight_path</span><span class="p">);</span>
+</code></pre></div></li>
+</ol>
+<hr />
+<h2 id="_12">配置参数</h2>
+<h3 id="_13">静态常量</h3>
+<div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">MAX_AGENTS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">500</span><span class="p">;</span><span class="w">     </span><span class="c1">// 最大代理数</span>
+<span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">AGENT_RADIUS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.3f</span><span class="p">;</span><span class="w"> </span><span class="c1">// 碰撞半径</span>
+<span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">AREA_ROAD_COST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">10.0f</span><span class="p">;</span><span class="w"> </span><span class="c1">// 道路区域路径成本</span>
+</code></pre></div>
+<h3 id="_14">避障参数</h3>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>adaptiveDivs</code></td>
+<td>7</td>
+<td>采样细分次数</td>
+</tr>
+<tr>
+<td><code>separationWeight</code></td>
+<td>0.5f</td>
+<td>分离行为权重</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_15">注意事项</h2>
+<ol>
+<li><strong>内存管理</strong>  </li>
+<li>显式调用 <code>dtFreeNavMesh()</code> 释放资源，避免内存泄漏  </li>
+<li><strong>线程安全</strong>  </li>
+<li>所有修改 <code>dtCrowd</code> 状态的操作需加锁：<br />
+     <div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">lock_guard</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">mutex</span><span class="o">&gt;</span><span class="w"> </span><span class="n">lock</span><span class="p">(</span><span class="n">_mutex</span><span class="p">);</span>
+</code></pre></div></li>
+<li><strong>性能限制</strong>  </li>
+<li><code>MAX_POLYS=256</code> 和 <code>MAX_AGENTS=500</code> 影响计算复杂度  </li>
+</ol>
+<hr />
+<h2 id="_16">示例代码</h2>
+<h3 id="_17">初始化导航系统</h3>
+<div class="highlight"><pre><span></span><code><span class="n">Navigation</span><span class="w"> </span><span class="n">nav</span><span class="p">;</span>
+<span class="n">nav</span><span class="p">.</span><span class="n">Load</span><span class="p">(</span><span class="s">&quot;city_navmesh.bin&quot;</span><span class="p">);</span>
+<span class="n">nav</span><span class="p">.</span><span class="n">CreateCrowd</span><span class="p">();</span>
+
+<span class="c1">// 添加行人</span>
+<span class="n">geom</span><span class="o">::</span><span class="n">Location</span><span class="w"> </span><span class="nf">spawn_point</span><span class="p">(</span><span class="mf">10.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">20.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">0.5f</span><span class="p">);</span>
+<span class="n">nav</span><span class="p">.</span><span class="n">AddWalker</span><span class="p">(</span><span class="mi">1001</span><span class="p">,</span><span class="w"> </span><span class="n">spawn_point</span><span class="p">);</span>
+
+<span class="c1">// 设置目标点</span>
+<span class="n">geom</span><span class="o">::</span><span class="n">Location</span><span class="w"> </span><span class="nf">target</span><span class="p">(</span><span class="mf">50.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">30.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">0.5f</span><span class="p">);</span>
+<span class="n">nav</span><span class="p">.</span><span class="n">SetWalkerTarget</span><span class="p">(</span><span class="mi">1001</span><span class="p">,</span><span class="w"> </span><span class="n">target</span><span class="p">);</span>
+</code></pre></div>
+<h3 id="_18">每帧更新</h3>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">OnSimulationTick</span><span class="p">(</span><span class="n">EpisodeState</span><span class="w"> </span><span class="n">state</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">nav</span><span class="p">.</span><span class="n">UpdateCrowd</span><span class="p">(</span><span class="n">state</span><span class="p">);</span><span class="w">  </span><span class="c1">// 更新代理状态</span>
+<span class="w">  </span><span class="n">nav</span><span class="p">.</span><span class="n">UpdateVehicles</span><span class="p">(</span><span class="n">vehicle_list</span><span class="p">);</span><span class="w"> </span><span class="c1">// 同步车辆位置</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="_19">附录</h2>
+<h3 id="_20">依赖项</h3>
+<ul>
+<li><strong>Recast/Detour</strong>：导航网格与路径规划  </li>
+<li><strong>CARLA 几何库</strong>：<code>geom::Location</code>, <code>geom::Math</code>  </li>
+</ul>
+<h3 id="_21">调试支持</h3>
+<ul>
+<li><strong>断言检查</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="n">DEBUG_ASSERT</span><span class="p">(</span><span class="n">_nav_query</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">);</span><span class="w"> </span><span class="c1">// 确保查询对象已初始化</span>
+</code></pre></div></li>
+<li><strong>日志输出</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="n">logging</span><span class="o">::</span><span class="n">log</span><span class="p">(</span><span class="s">&quot;Nav: failed to create crowd&quot;</span><span class="p">);</span>
+</code></pre></div></li>
+</ul>
+<h3 id="_22">版本兼容性</h3>
+<ul>
+<li>需与 CARLA 客户端版本匹配（推荐 0.9.12+）  </li>
+</ul>
+<hr />
+<blockquote>
+<p>文档版本：1.1<br />
+最后更新：2025年3月18日<br />
+作者：LancerZZ</p>
+</blockquote>
               
             </div>
           </div><footer>
