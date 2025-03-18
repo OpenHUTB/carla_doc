@@ -99,6 +99,20 @@ __7. 上传贡献。__ 进行相应的更改并将分支推送到 origin。
 __8. 等待美术组审核。__ 一旦贡献上传，团队将检查与 master 合并的一切是否准备好。
 
 
+### 大文件
+提交大文件的方法：
+```shell
+# 1.跟踪要上传的大文件
+git lfs track RoadRunner/*
+# 2.将大文件添加到git暂存区
+git add RoadRunner/*
+# 3.提交更改到git仓库
+git commit -m "init HUTB scene"
+# 4.将大文件推送到git仓库
+git push
+```
+
+
 ---
 ## 文档贡献 <span id="docs_contributions"></span>
 
