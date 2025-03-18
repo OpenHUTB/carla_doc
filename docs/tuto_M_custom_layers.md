@@ -70,7 +70,7 @@ __3. 保存关卡。__
 使用以下工具和指南继续自定义您的地图：
 
 - [添加和配置交通灯和标志。](tuto_M_custom_add_tl.md)
-- [A使用程序构建工具添加建筑物。](tuto_M_custom_buildings.md)
+- [使用程序构建工具添加建筑物。](tuto_M_custom_buildings.md)
 - [使用道路画家工具自定义道路。](tuto_M_custom_road_painter.md)
 - [自定义天气](tuto_M_custom_weather_landscape.md#weather-customization)
 - [使用连续网格自定义景观。](tuto_M_custom_weather_landscape.md#add-serial-meshes)

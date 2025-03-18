@@ -76,7 +76,7 @@ python -m pip install . -i http://mirrors.aliyun.com/pypi/simple --trusted-host 
 
 ### 颜色规范
 
-变量名 **<font color="#f8805a">variable</font>**：
+灰色底的变量名 **<font color="#f8805a">variable</font>**：
 ```shell
 **<font color="#f8805a">variable</font>**
 ```
