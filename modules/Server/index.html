@@ -81,12 +81,24 @@
 <p><strong>~FCarlaServer()</strong></p>
 </li>
 <li>析构函数，用于在对象销毁时进行资源清理、释放等相关操作，比如关闭网络连接、释放内存等。</li>
+<li>释放以下资源：  <ul>
+<li>关闭 RPC 服务器、流服务器及多 GPU 路由器。  </li>
+<li>清理当前 <code>UCarlaEpisode</code> 实例及关联的 Actor 数据。</li>
+</ul>
+</li>
 </ul>
 <h3 id="_3">服务器启动与停止</h3>
 <ul>
 <li><strong>FDataMultiStream Start(uint16_t RPCPort, uint16_t StreamingPort, uint16_t SecondaryPort)</strong></li>
+<li>启动服务器相关功能，传入 RPC 端口号（RPCPort）、流数据端口号（StreamingPort）以及备用端口号（SecondaryPort），返回一个多数据流对象（FDataMultiStream），可能用于后续的多种数据传输交互场景。</li>
+<li><strong>参数说明</strong>：  <ul>
+<li><code>RPCPort</code>: RPC 服务端口（默认范围 2000-3000）。  </li>
+<li><code>StreamingPort</code>: 流数据端口（需与客户端配置一致）。  </li>
+<li><code>SecondaryPort</code>: 多 GPU 路由器端口（仅多 GPU 环境需配置）。  </li>
+</ul>
+</li>
 <li>
-<p>启动服务器相关功能，传入 RPC 端口号（RPCPort）、流数据端口号（StreamingPort）以及备用端口号（SecondaryPort），返回一个多数据流对象（FDataMultiStream），可能用于后续的多种数据传输交互场景。</p>
+<p><strong>返回值</strong>：<code>FDataMultiStream</code> 对象，用于管理多路数据流（如传感器数据、控制指令）。</p>
 </li>
 <li>
 <p><strong>void Stop()</strong></p>
@@ -119,12 +131,15 @@
 <li>
 <p><strong>void Tick()</strong></p>
 </li>
-<li>
-<p>执行服务器的一次“滴答”操作，通常用于周期性地更新服务器状态、处理数据等，类似于游戏循环里的每一帧更新逻辑。</p>
+<li>执行服务器的一次“滴答”操作，通常用于周期性地更新服务器状态、处理数据等，类似于游戏循环里的每一帧更新逻辑。</li>
+<li><strong>功能</strong>：执行单次服务器状态更新，包括：  <ul>
+<li>处理客户端 RPC 请求。  </li>
+<li>更新 <code>UCarlaEpisode</code> 中的 Actor 状态。  </li>
+<li>推送传感器数据到流服务器。</li>
+<li></li>
+</ul>
 </li>
-<li>
-<p><strong>bool TickCueReceived()</strong></p>
-</li>
+<li><strong>bool TickCueReceived()</strong></li>
 <li>检查是否接收到了“滴答”提示（Tick Cue），返回布尔值表示是否收到，可用于判断是否需要进行下一步相关操作等。</li>
 </ul>
 <h3 id="_6">数据流管理</h3>
@@ -145,6 +160,12 @@
 </ul>
 <h2 id="fpimpl">内部类 FPimpl</h2>
 <p><code>FCarlaServer</code> 类内部定义了一个名为 <code>FPimpl</code> 的私有内部类，通常这种方式用于实现“编译防火墙”（Pimpl，即“Pointer to implementation”），将类的实现细节隐藏在内部类中，对外只暴露接口。</p>
+<ul>
+<li><strong>关键成员</strong>：  </li>
+<li><code>StreamingServer</code>: 管理传感器数据流（如摄像头、激光雷达）。  </li>
+<li><code>SecondaryServer</code>: 多 GPU 环境下的数据路由控制器。  </li>
+<li><code>BindActions()</code>: 绑定 RPC 操作到具体实现（如 <code>SpawnActor</code>、<code>DestroyActor</code>）。</li>
+</ul>
 <h3 id="fpimpl_1">FPimpl 类成员</h3>
 <ul>
 <li><strong>FPimpl(uint16_t RPCPort, uint16_t StreamingPort, uint16_t SecondaryPort)</strong></li>
@@ -195,13 +216,13 @@
 <ul>
 <li><strong>BIND_SYNC(name)</strong></li>
 <li>
-<p>用于同步绑定 RPC 函数。</p>
+<p>用于同步绑定 RPC 函数（阻塞式调用，适用于简单操作）。</p>
 </li>
 <li>
 <p><strong>BIND_ASYNC(name)</strong></p>
 </li>
 <li>
-<p>用于异步绑定 RPC 函数。</p>
+<p>用于异步绑定 RPC 函数（非阻塞式调用，适用于耗时操作）。</p>
 </li>
 <li>
 <p><strong>REQUIRE_CARLA_EPISODE()</strong></p>
@@ -297,16 +318,21 @@
 <td>不是交通信号灯</td>
 </tr>
 <tr>
-<td>FunctionNotAvailiableWhenDormant</td>
+<td>FunctionNotAvailableWhenDormant</td>
 <td>当处于休眠状态时函数不可用</td>
 </tr>
 </tbody>
 </table>
 <h2 id="carlagetstringerror">函数 CarlaGetStringError</h2>
-<p>该函数用于根据给定的 ECarlaServerResponse 枚举值返回对应的错误描述字符串。</p>
+<p>该函数用于根据给定的 ECarlaServerResponse 枚举值返回对应的错误描述字符串。
+- <strong>功能</strong>：将错误码转换为可读的错误消息（本地化支持）。
+- </p>
 <h3 id="_9">函数原型</h3>
-<p>```cpp
-FString CarlaGetStringError(ECarlaServerResponse Response);</p>
+<p><code>cpp
+FString CarlaGetStringError(ECarlaServerResponse Response);
+- **示例**：</code>cpp
+  ECarlaServerResponse ErrorCode = ECarlaServerResponse::ActorNotFound;
+  FString ErrorMsg = CarlaGetStringError(ErrorCode); // 返回 "Actor not found"</p>
               
             </div>
           </div><footer>
