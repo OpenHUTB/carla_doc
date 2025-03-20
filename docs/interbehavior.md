@@ -1,5 +1,5 @@
-# DReyeVR
-### 欢迎来到 DReyeVR, 这是一个针对行为和交互研究的虚拟现实驾驶仿真器。
+# 虚拟现实驾驶模拟器
+欢迎来到针对行为和交互研究的虚拟现实驾驶模拟器。
 
 <iframe width="100%" height="400px" src="https://www.youtube.com/embed/yGIPSDOMGpY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
@@ -78,10 +78,10 @@
 - 世界环境音频
   - 鸟鸣声、风声、烟雾声等（参见 [interbehavior/Tutorials/Sounds.md](interbehavior/Tutorials/Sounds.md) ） 
 - 非自我为中心的音频（非自我车辆的发动机转速）
-- 同步重放并逐帧捕获以进行事后分析（参见 [interbehavior/Usage.md](interbehavior//Usage.md) ） 
+- 同步重放并逐帧捕获以进行事后分析（参见 [interbehavior/Usage.md](interbehavior/Usage.md) ） 
 - 记录器/重放器媒体功能
   - 添加了游戏内键盘命令播放/暂停/前进/后退/等。
-- 用于自然导航的静态环境方向标志（参见 [`interbehavior/Signs.md`](interbehavior/Tutorials/Signs.md) ）
+- [用于自然导航的静态环境方向标志](interbehavior/Tutorials/Signs.md) 
 - 将天气信息添加到 Carla 记录器/重放器/查询中（参见此 [Carla PR](https://github.com/carla-simulator/carla/pull/5235) ）
 - 自定义动态 3D 参与者，具有全面录制支持（例如方向的头显指示器、AR 边界框、视觉目标等）。有关更多信息，请参阅 [CustomActor.md](interbehavior/Tutorials/CustomActor.md) 。 
 - （仅调试）注视点渲染可通过注视感知（或固定）可变速率着色来提高性能
