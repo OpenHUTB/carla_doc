@@ -101,7 +101,7 @@ git clone https://github.com/HARPLab/DReyeVR
 cd DReyeVR
 # CARLA= 和 SR= 变量是可选的
 make install CARLA=../carla SR=../scenario_runner
-# 或者
+# 或者（最重要）
 make install CARLA=../carla
 make install SR=../scenario_runner
 

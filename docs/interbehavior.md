@@ -108,6 +108,17 @@
   - 此外，我们使用的 [LogitechWheelPlugin](https://github.com/HARPLab/LogitechWheelPlugin) 目前仅支持 Windows。不过，根据 [Arch Wiki](https://wiki.archlinux.org/title/Logitech_Racing_Wheel) ，应该可以在 Linux 上使用 G923。
 - 此外，尽管 CARLA 并未正式支持 MacOS，但我们在 Apple Silicon 机器上进行了开发，并且拥有 CARLA + UE4.26 的活跃分支，支持 MacOS 12+。请注意，这主要用于开发，因为它是迄今为止最受限制的系统。
 
+## 在最新的版本上编译
+原来适配的虚幻引擎的提交记录只到 [Commit d40ec35](https://github.com/OpenHUTB/UnrealEngine/commit/d40ec35474e8793b4eea60dba6c4f051186e458e) 。
+
+1.运行`DReyeVR/Scripts/install.py`将必要的代码复制到carla目录中；
+
+2.调整代码，比较复杂的是：Unreal/CarlaUE4/Config/DefaultEngine.ini
+
+原始仓库拷贝到目的目录存在`Scripts/Paths/DReyeVR.csv`中，
+
+
+
 ## 文档 & 指南
 - 请参阅 [`F.A.Q. wiki`](https://github.com/HARPLab/DReyeVR/wiki/Frequently-Asked-Questions) ，了解我们的常见问题 wiki 页面。
 - 请参阅 [`Install.md`](interbehavior/Install.md) 来安装和构建 DReyeVR
