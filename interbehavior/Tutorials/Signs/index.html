@@ -189,31 +189,34 @@ RightCityA
 <p>这比现有的 Carla 标志更深入一些，因为它们不是设计为动态生成的，而是在编译时静态地放入世界中。如果我们想在地图周围放置不同的标志以适应各种场景，而无需重新编译所有内容，这会变得令人沮丧。</p>
 <p>根据 <a href="https://github.com/carla-simulator/carla/issues/4363">this issue</a> ，在 Carla 0.9.11 上使用自定义道具的常规方式目前已损坏且不可靠。我们找到了一种 <a href="https://github.com/carla-simulator/carla/issues/4363#issuecomment-924140532">解决方法</a> 并将其包含在问题中。</p>
 <p>本质上，您需要编辑 <code>carla/Unreal/CarlaUE4/Content/Carla/Config/Default.Package.json</code> 文件以包含您的新标志道具，如下所示：</p>
-<p><div class="highlight"><pre><span></span><code><span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;YOUR_SIGN_NAME&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/PATH/TO/YOUR/SM_SIGN.SM_SIGN&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;size&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Medium&quot;</span>
-<span class="w">    </span><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;你的标志名&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/PATH/TO/YOUR/SM_SIGN.SM_SIGN&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;size&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Medium&quot;</span>
+<span class="p">}</span>
 </code></pre></div>
-Note that the <code>"path"</code> source is looking for a UE4 static mesh object, which will be stored as a <code>.uasset</code> file. Still denote it as <code>SM_name.SM_name</code> in the <code>json</code>. </p>
-<p>Importantly, if you want to include a custom prop directory in <code>Content/</code> (instead of using our <code>DReyeVR/DReyeVR_Signs/</code> content) you should add this to the list of cooked assets in <code>Config/DefaultGame.ini</code> such as:</p>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p><code>"path"</code>源正在寻找 UE4 静态网格对象，该对象将存储为 <code>.uasset</code> 文件。在 <code>json</code> 中仍将其表示为 <code>SM_name.SM_name</code>。</p>
+</div>
+<p>重要的是，如果您想在 <code>Content/</code> 中包含自定义道具目录（而不是使用我们的 <code>DReyeVR/DReyeVR_Signs/</code> 内容），您应该将其添加到 <code>Config/DefaultGame.ini</code> 中的烘焙资产列表中，例如：</p>
 <p><div class="highlight"><pre><span></span><code><span class="na">+DirectoriesToAlwaysCook</span><span class="o">=</span><span class="s">(Path=&quot;/Game/DReyeVR/DReyeVR_Signs&quot;)</span><span class="w"> </span><span class="c1"># what we include</span>
 <span class="na">+DirectoriesToAlwaysCook</span><span class="o">=</span><span class="s">(Path=&quot;/Game/YOUR_PROP_DIR/&quot;)</span><span class="w"> </span><span class="c1"># any desired prop directory</span>
 </code></pre></div>
-This ensures your custom props are properly cooked during shipping (<code>make package</code>). </p>
-<p>Once this change is imported in the map you will be able to spawn your sign as follows:
-<div class="highlight"><pre><span></span><code><span class="n">bp</span> <span class="o">=</span> <span class="n">blueprint_library</span><span class="o">.</span><span class="n">filter</span><span class="p">((</span><span class="s2">&quot;static.prop.YOUR_SIGN_NAME&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span> <span class="c1"># filter is lowercase!</span>
-<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">bp</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="c1"># you should only have one prop of this name</span>
-<span class="n">transform</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_map</span><span class="p">()</span><span class="o">.</span><span class="n">get_spawn_points</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># or choose any other spawn point</span>
-<span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">bp</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">transform</span><span class="p">)</span> <span class="c1"># should succeed with no errors</span>
+这可确保您的定制道具在运输 (<code>make package</code>) 过程中得到适当的烹饪。</p>
+<p>一旦将此更改导入地图，您将能够按如下方式生成您的标志：
+<div class="highlight"><pre><span></span><code><span class="n">bp</span> <span class="o">=</span> <span class="n">blueprint_library</span><span class="o">.</span><span class="n">filter</span><span class="p">((</span><span class="s2">&quot;static.prop.YOUR_SIGN_NAME&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span> <span class="c1"># 过滤器是小写的！</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">bp</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="c1"># 你应该只有一个这个名字的道具</span>
+<span class="n">transform</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_map</span><span class="p">()</span><span class="o">.</span><span class="n">get_spawn_points</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># 或选择任何其他生成点</span>
+<span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">bp</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">transform</span><span class="p">)</span> <span class="c1"># 应该会成功并且没有错误</span>
 </code></pre></div></p>
-<p><strong>NOTE</strong> In constructing our (and Carla's) signs, we unlink the sign itself from the pole it connects to. Therefore, if you want to spawn the sign <em>with</em> the pole you'll need to combine these static meshes. 
-- This is supported within the editor by placing both actors into the world, selecting both, then using the Window -&gt; Developer -&gt; MergeActors button as described in <a href="https://docs.unrealengine.com/4.27/en-US/Basics/Actors/Merging/">this guide</a>. 
-- We have already provided a baseline with the <a href="Content/DReyeVR_Signs/FullSign/"><code>Content/DReyeVR_Signs/FullSign/</code></a> directory where we combined the signs with the poles as a single static mesh. 
-    - With this baseline, assuming you have a compatible material (using the same sign template as ours) you can just update the material for the sign component without further modification. </p>
-<h1 id="automatic-sign-placement">Automatic Sign Placement</h1>
-<p>When using our <a href="https://github.com/HARPLab/scenario_runner/tree/DReyeVR-0.9.13">scenario-runner fork</a>, there is logic to enable spawning the corresponding directional signs automatically according to the route features (straight, turn left, turn right, and goal). The logic for this can be found in the <a href="https://github.com/HARPLab/scenario_runner/blob/3b5e60f15fd97de00332f80610051f9f39d7db8c/srunner/scenarios/route_scenario.py#L284-L355">route_scenario's nav sign code</a>. Since this is automatically applied to all routes, you can disable it manually by commenting the <code>self._setup_nav_signs(self.route)</code> method call.</p>
-<p>There is also a file method in case you want to manually place signs for specific routes (see <a href="https://github.com/HARPLab/scenario_runner/blob/DReyeVR-0.9.13/srunner/data/all_routes_signs.json">here</a>), but we found that the automatic sign placement works fine most of the time and is much more convenient. So the automatic method is recommended and you don't have to do anything to enable it.</p>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>在构建我们（和 Carla）的标志时，将标志本身与其连接的杆子断开。因此，如果您想生成<em>带有</em>杆子的标志，则需要组合这些静态网格。- 编辑器支持此功能，方法是将两个参与者放入世界中，选择两者，然后使用 Window -&gt; Developer -&gt; MergeActors 按钮，如 <a href="https://docs.unrealengine.com/4.27/en-US/Basics/Actors/Merging/">本指南</a> 所述。- 我们已经提供了 <a href="Content/DReyeVR_Signs/FullSign/"><code>Content/DReyeVR_Signs/FullSign/</code></a> 目录的基准，我们将标志与杆子组合为单个静态网格。有了这个基准，假设您有一个兼容的材料（使用与我们相同的标志模板），您只需更新标志组件的材料而无需进一步修改。</p>
+</div>
+<h1 id="_4">自动放置标志</h1>
+<p>使用我们的 <a href="https://github.com/HARPLab/scenario_runner/tree/DReyeVR-0.9.13">scenario-runner 分支</a> 时，有逻辑可以根据路线特征（直行、左转、右转和目标）自动生成相应的方向标志。此逻辑可在 <a href="https://github.com/HARPLab/scenario_runner/blob/3b5e60f15fd97de00332f80610051f9f39d7db8c/srunner/scenarios/route_scenario.py#L284-L355">route_scenario 的导航标志代码</a> 中找到。由于这会自动应用于所有路线，因此您可以通过注释 <code>self._setup_nav_signs(self.route)</code> 方法调用来手动禁用它。</p>
+<p>如果您想要手动放置特定路线的标志，也可以使用文件方法（请参阅 <a href="https://github.com/HARPLab/scenario_runner/blob/DReyeVR-0.9.13/srunner/data/all_routes_signs.json">此处</a> ），但我们发现自动放置标志在大多数情况下都很好用，而且更方便。因此建议使用自动方法，您无需执行任何操作即可启用它。</p>
               
             </div>
           </div><footer>

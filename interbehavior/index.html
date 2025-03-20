@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>DReyeVR - 代理模拟器</title>
+    <title>虚拟现实驾驶模拟器 - 代理模拟器</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "DReyeVR";
+        var mkdocs_page_name = "\u865a\u62df\u73b0\u5b9e\u9a7e\u9a76\u6a21\u62df\u5668";
         var mkdocs_page_input_path = "interbehavior.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,7 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">DReyeVR</li>
+      <li class="breadcrumb-item active">虚拟现实驾驶模拟器</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/interbehavior.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -68,8 +68,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="dreyevr">DReyeVR</h1>
-<h3 id="dreyevr_1">欢迎来到 DReyeVR, 这是一个针对行为和交互研究的虚拟现实驾驶仿真器。</h3>
+                <h1 id="_1">虚拟现实驾驶模拟器</h1>
+<p>欢迎来到针对行为和交互研究的虚拟现实驾驶模拟器。</p>
 <iframe width="100%" height="400px" src="https://www.youtube.com/embed/yGIPSDOMGpY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 <!-- [![Main Figure](interbehavior/Figures/demo.gif)](https://www.youtube.com/watch?v=yGIPSDOMGpY) -->
@@ -80,8 +80,8 @@
 <p>该项目扩展了 <a href="https://github.com/carla-simulator/carla/tree/0.9.13"><code>Carla</code></a> 模拟器，增加了虚拟现实集成、第一人称可操纵的自我车辆、眼动追踪支持和多种沉浸感增强功能。</p>
 <p>如果您有任何疑问，希望我们的常见问题解答 <a href="https://github.com/HARPLab/DReyeVR/wiki/Frequently-Asked-Questions">F.A.Q. 维基页面</a> 和 <a href="https://github.com/HARPLab/DReyeVR/issues?q=is%3Aissue+is%3Aclosed">问题页面</a> 可以解答其中的一些问题。</p>
 <p><strong>重要提示：</strong> 目前 DReyeVR 仅支持 Carla 版本：<a href="https://github.com/carla-simulator/carla/tree/0.9.13">0.9.13</a> 和 Unreal Engine 4.26</p>
-<h2 id="_1">亮点</h2>
-<h3 id="_2">自我车辆</h3>
+<h2 id="_2">亮点</h2>
+<h3 id="_3">自我车辆</h3>
 <p><a href="https://github.com/ValveSoftware/steamvr_unreal_plugin/tree/4.23">集成 SteamVR</a> 的完全可驾驶<strong>虚拟现实自我车辆</strong>（参见 <a href="DReyeVR/EgoVehicle.h">EgoVehicle.h</a> ）
 - SteamVR HMD 头部跟踪 (朝向 &amp; 位置)
 - 我们已经使用以下设备进行了测试：</p>
@@ -140,7 +140,7 @@
 <li>能够将控制权移交给/接管 Carla 的 AI 轮式车辆控制器</li>
 <li>基于 Carla 的语义分割相机（参见 <a href="Shaders/README.md"><code>Shaders/README.md</code></a> ）</li>
 </ul>
-<h3 id="_3">自我传感器</h3>
+<h3 id="_4">自我传感器</h3>
 <p>与 Carla 兼容的<strong>自我车辆传感器</strong>（参见 <a href="DReyeVR/EgoSensor.h">EgoSensor.h</a> ）是一种“隐形传感器”，可跟踪以下信息：</p>
 <ul>
 <li>使用 <a href="https://enterprise.vive.com/us/product/vive-pro-eye-office/">HTC Vive Pro Eye</a> VR 耳机进行实时<strong>眼动跟踪</strong> </li>
@@ -161,7 +161,7 @@
 <li>与 LibCarla 数据序列化完全兼容，可流式传输到 PythonAPI 客户端（参见 <a href="LibCarla/Sensor">LibCarla/Sensor</a> ）</li>
 <li>我们还测试并验证了对（<code>rospy</code>）ROS 集成传感器数据流的支持</li>
 </ul>
-<h3 id="_4">其他补充：</h3>
+<h3 id="_5">其他补充：</h3>
 <ul>
 <li>用于一次性运行时参数的自定义 DReyeVR 配置文件。请参阅 <a href="Configs/DReyeVRConfig.ini">DReyeVRConfig.ini</a> </li>
 <li>特别适用于无需重新编译所有内容即可更改参数。</li>
@@ -172,19 +172,19 @@
 <li>同步重放并逐帧捕获以进行事后分析（参见 <a href="Usage/">interbehavior/Usage.md</a> ） </li>
 <li>记录器/重放器媒体功能</li>
 <li>添加了游戏内键盘命令播放/暂停/前进/后退/等。</li>
-<li>用于自然导航的静态环境方向标志（参见 <a href="Tutorials/Signs/"><code>interbehavior/Signs.md</code></a> ）</li>
+<li><a href="Tutorials/Signs/">用于自然导航的静态环境方向标志</a> </li>
 <li>将天气信息添加到 Carla 记录器/重放器/查询中（参见此 <a href="https://github.com/carla-simulator/carla/pull/5235">Carla PR</a> ）</li>
 <li>自定义动态 3D 参与者，具有全面录制支持（例如方向的头显指示器、AR 边界框、视觉目标等）。有关更多信息，请参阅 <a href="Tutorials/CustomActor/">CustomActor.md</a> 。 </li>
 <li>（仅调试）注视点渲染可通过注视感知（或固定）可变速率着色来提高性能</li>
 </ul>
-<h2 id="_5">安装/构建</h2>
+<h2 id="_6">安装/构建</h2>
 <p>查看 <a href="Install/"><code>interbehavior/Install.md</code></a> :
 - 在可运行的 <code>Carla</code> 存储库上安装并构建 <code>DReyeVR</code> 。
 - 下载 <code>DReyeVR</code> 所需的插件，以实现以下精彩功能：
   - 眼动跟踪 (SRanipal)
   - 方向盘/踏板 (Logitech)
 - 为 DReyeVR PythonAPI 设置 <code>conda</code> 环境</p>
-<h2 id="_6">操作系统兼容性</h2>
+<h2 id="_7">操作系统兼容性</h2>
 <table>
 <thead>
 <tr>
@@ -236,7 +236,7 @@
 <li>此外，我们使用的 <a href="https://github.com/HARPLab/LogitechWheelPlugin">LogitechWheelPlugin</a> 目前仅支持 Windows。不过，根据 <a href="https://wiki.archlinux.org/title/Logitech_Racing_Wheel">Arch Wiki</a> ，应该可以在 Linux 上使用 G923。</li>
 <li>此外，尽管 CARLA 并未正式支持 MacOS，但我们在 Apple Silicon 机器上进行了开发，并且拥有 CARLA + UE4.26 的活跃分支，支持 MacOS 12+。请注意，这主要用于开发，因为它是迄今为止最受限制的系统。</li>
 </ul>
-<h2 id="_7">文档 &amp; 指南</h2>
+<h2 id="_8">文档 &amp; 指南</h2>
 <ul>
 <li>请参阅 <a href="https://github.com/HARPLab/DReyeVR/wiki/Frequently-Asked-Questions"><code>F.A.Q. wiki</code></a> ，了解我们的常见问题 wiki 页面。</li>
 <li>请参阅 <a href="Install/"><code>Install.md</code></a> 来安装和构建 DReyeVR</li>
@@ -244,7 +244,7 @@
 <li>请参阅 <a href="Development/"><code>Development.md</code></a> 以开始 DReyeVR 开发并添加新功能</li>
 <li>请参阅 <a href="interbehavior/Tutorials/"><code>interbehavior/Tutorials/</code></a> 查看多个 DReyeVR 教程，例如自定义 EgoVehicle、添加自定义标志/道具等。</li>
 </ul>
-<h2 id="_8">引用</h2>
+<h2 id="_9">引用</h2>
 <p>如果你想使用该工作，请参考对应的 <a href="https://arxiv.org/abs/2201.01931">论文</a>:</p>
 <ul>
 <li>此 repo 包含来自 Hewlett-Packard Development Company, LP 的一些代码。请参阅 <a href="Tools/Diagnostics/collectl/nvidia.ph">nvidia.ph</a> 。</li>

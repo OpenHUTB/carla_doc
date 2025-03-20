@@ -69,139 +69,201 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="dreyevr">使用 <code>DReyeVR</code></h1>
-<p>Now that you have DReyeVR up and running, this guide will highlight some useful features for researchers using DReyeVR:
-- <a href="./#maneuvering-the-ego-vehicle">操纵自我车辆</a>
-- <a href="./#using-the-pythonapi">使用 PythonAPI</a>
-- <a href="./#recordingreplaying-a-scenario">记录/重放一个场景</a>
-- <a href="./#control-handoff-to-ai">将控制从手动切换到 AI（切换）</a>
-- <a href="./#using-our-custom-config-file">Using our config file to modify DReyeVR params</a>
-- <a href="./#synchronized-replay-frame-capture">Synchronized replay with frame capture</a>
-- <a href="./#other-guides">Other guides</a></p>
+<p>现在您已启动并运行 DReyeVR，本指南将重点介绍一些对使用 DReyeVR 的研究人员有用的功能：</p>
+<ul>
+<li><a href="./#maneuvering-the-ego-vehicle">操纵自我车辆</a></li>
+<li><a href="./#using-the-pythonapi">使用 PythonAPI</a></li>
+<li><a href="./#recordingreplaying-a-scenario">记录/重放一个场景</a></li>
+<li><a href="./#control-handoff-to-ai">将控制从手动切换到 AI（切换）</a></li>
+<li><a href="./#using-our-custom-config-file">使用我们的配置文件修改 DReyeVR 参数</a></li>
+<li><a href="./#synchronized-replay-frame-capture">带帧捕获的同步重放</a></li>
+<li><a href="./#other-guides">其他指南</a></li>
+</ul>
 <p><img alt="UsageSchematic" src="../Figures/Usage/UsageSchematic.jpg" /></p>
-<h1 id="maneuvering-the-ego-vehicle">Maneuvering the Ego-vehicle</h1>
-<p>These control schemes work both in VR and non-VR. With the main difference being that in VR you can move the camera pose and orientation with your head tracking, but in flat-screen-mode (non-VR) you'll need to use a mouse like in a first-person game. 
-- Keyboard vehicle control scheme:
-  - <strong>Camera Gaze</strong> - When in the 2D (flat/non-VR) view, turn the camera by clicking and dragging
-  - <strong>Throttle</strong> - Is done by pressing and holding <code>W</code>
-  - <strong>Steering</strong> - Is done with <code>A</code> to steer left and <code>D</code> to steer right
-  - <strong>Brake</strong> - Is done by pressing and holding <code>S</code>
-  - <strong>Toggle Reverse</strong> - Is done by pressing <code>LAlt</code>
-  - <strong>Turn Signals</strong> - Are both done by pressing <code>Q</code> (left) or <code>E</code> (right)
-  - <strong>Camera Adjust</strong> - Is done in X and Y with the arrow keys (<code>up</code>, <code>down</code>, <code>left</code>, <code>right</code>) and in Z with the <code>pg-up</code>/<code>pg-down</code> buttons
-  - <strong>Change Camera View Position</strong> - Is done with <code>Tab</code> to switch to the next camera position defined in <code>DReyeVRParams.ini</code>. Press <code>Shift+Tab</code> to switch back to the previous camera position
-  - <strong>Change Camera Shader</strong> - Is done with <code>.</code> (period) to switch to the next shader and <code>,</code> (comma) to the previous shader
-- Logitech control scheme:
-  - <strong>Throttle</strong> - Is done by pushing down on the accelerator pedal
-  - <strong>Steering</strong> - Is done by turning the steering wheel 
-  - <strong>Brake</strong> - Is done by pushing down on the brake pedal
-  - <strong>Toggle Reverse</strong> - Is done by pressing any of the <code>ABXY</code> (7 in the image) buttons 
-  - <strong>Turn Signals</strong> - Are both done by the left (4) and right (6) bumpers 
-  - <strong>Camera Adjust</strong> - Is done in X and Y with the 4 d-pad buttons (2) on the face of the wheel, and in Z with the +/- buttons (5)
-- <img alt="LogiWheel" src="../Figures/Usage/g923.jpg" /> Image source: <a href="https://www.logitech.com/assets/65932/2/g923-racing-wheel-qsg.pdf">Logitech g923 manual</a></p>
-<p>Note that all the keyboard inputs are defined in <a href="../Configs/DefaultInput.ini"><code>DefaultInput.ini</code></a> where all DReyeVR-specific controls have been suffixed with "<code>_DReyeVR</code>". Feel free to change any of the controls if you'd like.</p>
-<p>However, the logitech wheel inputs are hardcoded into the source since they are checked for on every tick (instead of through the UE4 keyboard events). To see the values and modify them, see <a href="../DReyeVR/DReyeVRPawn.cpp"><code>DReyeVRPawn.cpp</code></a></p>
-<h1 id="using-the-pythonapi">Using the PythonAPI</h1>
-<p>With the main Carla server running you should now be able to run all Carla provided <code>PythonAPI</code> scripts.
-- Note that not all scripts in the original <a href="https://github.com/carla-simulator/carla/tree/0.9.13/PythonAPI"><code>Carla 0.9.13</code> PythonAPI</a> repo have been tested. We created some new scripts in place of others, such as <code>schematic_mode.py</code> which inherits from <code>no_rendering_mode.py</code> but adds support for our ego-vehicle and eye tracker. 
-- In some cases, we replace the old python scripts with newer ones, such as the <a href="https://github.com/carla-simulator/scenario_runner/blob/v0.9.13/no_rendering_mode.py"><code>no_rendering_mode.py</code></a> in <code>scenario-runner-v0.9.13</code> which is actually from release 0.9.5. </p>
-<h3 id="visualize-in-schematic-mode">Visualize in schematic mode</h3>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="nv">$CARLA_ROOT</span>/PythonAPI/examples/<span class="w"> </span><span class="c1"># go to carla/</span>
+<h1 id="_1">操纵自我车辆</h1>
+<p>这些控制方案在 VR 和非 VR 中均有效。主要区别在于，在 VR 中，您可以通过头部跟踪来移动相机姿势和方向，但在平面模式（非 VR）中，您需要像在第一人称游戏中一样使用鼠标。</p>
+<ul>
+<li>
+<p>键盘车辆控制方案：</p>
+<ul>
+<li><strong>相机凝视</strong> - 在 2D（平面/非 VR）视图中，通过单击并拖动来转动相机</li>
+<li><strong>油门</strong> - 按住 <code>W</code> 即可</li>
+<li><strong>转向</strong> - <code>A</code> 表示左转，<code>D</code> 表示右转</li>
+<li><strong>刹车</strong> - 按住 <code>S</code> 即可</li>
+<li><strong>切换倒车</strong> - 通过按 <code>Alt</code> 进行倒车和前进（屏幕分别显示<code>R</code>和<code>D</code>）的切换</li>
+<li><strong>转向信号</strong> - 均可通过按 <code>Q</code>（左）或 <code>E</code>（右）来实现，在屏幕中显示红色的<code>&lt;&lt;&lt;</code>或<code>&gt;&gt;&gt;</code>，只报4声滴答</li>
+<li><strong>相机调整</strong> - 使用箭头键（上、下、左、右）在 X 和 Y 轴上进行调整，使用 <code>pg-up/pg-down</code> 按钮在 Z 轴上进行调整</li>
+<li><strong>更改摄像机视图位置</strong> - 使用 <code>Tab</code> 切换到 <code>DReyeVRParams.ini</code> 中定义的下一个摄像机位置。按 <code>Shift+Tab</code> 可切换回上一个摄像机位置</li>
+<li><strong>更改相机着色器</strong> - 使用 <code>.</code>（句点）切换到下一个着色器，使用 <code>,</code>（逗号）切换到上一个着色器</li>
+</ul>
+</li>
+<li>
+<p>罗技控制方案：</p>
+<ul>
+<li><strong>油门</strong> - 通过踩下油门踏板来实现</li>
+<li><strong>转向</strong> - 通过转动方向盘</li>
+<li><strong>刹车</strong> - 踩下刹车踏板即可</li>
+<li><strong>切换倒车</strong> - 通过按任意 <code>ABXY</code>（图中 7）按钮即可 </li>
+<li><strong>转向信号</strong> - 均由左（4）和右（6）保险杠发出 </li>
+<li><strong>相机调整</strong> - 使用方向盘表面的 4 个方向键 (2) 调整 X 和 Y 轴，使用 +/- 按钮 (5) 调整 Z 轴</li>
+</ul>
+</li>
+<li><img alt="LogiWheel" src="../Figures/Usage/g923.jpg" /> 图片来源：<a href="https://www.logitech.com/assets/65932/2/g923-racing-wheel-qsg.pdf">Logitech g923 manual</a></li>
+</ul>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>所有键盘输入均在 <a href="../Configs/DefaultInput.ini"><code>DefaultInput.ini</code></a> 中定义，其中所有 DReyeVR 特定控件均带有 "<code>_DReyeVR</code>" 后缀。如果您愿意，可以随意更改任何控件。</p>
+<p>但是，罗技方向盘输入是硬编码到源代码中的，因为它们在每个节拍信号上都会被检查（而不是通过 UE4 键盘事件）。要查看和修改这些值，请参阅 <a href="../DReyeVR/DReyeVRPawn.cpp"><code>DReyeVRPawn.cpp</code></a></p>
+</div>
+<h1 id="pythonapi">使用 PythonAPI</h1>
+<p>在主 Carla 服务器运行后，您现在应该能够运行所有 Carla 提供的 <code>PythonAPI</code> 脚本。</p>
+<ul>
+<li>请注意，原始 <a href="https://github.com/carla-simulator/carla/tree/0.9.13/PythonAPI"><code>Carla 0.9.13</code> PythonAPI</a> 存储库中的脚本并非全部经过测试。我们创建了一些新脚本来替代其他脚本，例如从 <code>no_rendering_mode.py</code> 继承的 <code>diagram_mode.py</code>，但增加了对我们的 ego-vehicle 和眼动仪的支持。</li>
+<li>在某些情况下，我们会用较新的脚本替换旧的 Python 脚本，例如 <code>scene-runner-v0.9.13</code> 中的 <a href="https://github.com/carla-simulator/scenario_runner/blob/v0.9.13/no_rendering_mode.py"><code>no_rendering_mode.py</code></a> 实际上来自版本 0.9.5。</li>
+</ul>
+<h3 id="_2">在示意图模式下可视化</h3>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>需要使用 <code>PythonAPI/carla\dist/carla-0.9.13-cp37-cp37m-win_amd64.whl</code> 安装 carla 包</p>
+</div>
+<p><div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="nv">$CARLA_ROOT</span>/PythonAPI/examples/<span class="w"> </span><span class="c1"># 进入 carla/ 目录</span>
 
-./schematic_mode.py<span class="w"> </span>
+./schematic_mode.py
 </code></pre></div>
-<h3 id="logging-dreyevr-sensor-data-to-pythonapi">Logging DReyeVR sensor data to PythonAPI</h3>
-<p><div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="nv">$CARLA_ROOT</span>/PythonAPI/examples/
-
-<span class="c1"># see all the DReyeVR sensor data</span>
-./DReyeVR_logging.py<span class="w"> </span><span class="c1"># prints directly in stdout</span>
-
-<span class="c1"># or if you have a running roscore (with rospy)</span>
-./DReyeVR_logging.py<span class="w"> </span>--rh<span class="w"> </span><span class="s1">&#39;192.168.X.Y&#39;</span><span class="w"> </span>--rp<span class="w"> </span><span class="m">11311</span><span class="w"> </span><span class="c1"># pass in roscore host &amp; ports</span>
-</code></pre></div>
-- We support ROS data streaming using <code>rospy</code> on an Ubuntu 20.04 LTS host. If you are interested in using a VM for this purpose, we'd recommend checking out <a href="../Tools/VirtualMachine/README.md"><code>VirtualMachine/README.md</code></a> as the setup is fairly involved.</p>
-<h3 id="start-the-dreyevr-ai-controller">Start the DReyeVR AI controller</h3>
+<img alt="" src="../Figures/Usage/schematic_mode.jpg" /></p>
+<h3 id="pythonapi-dreyevr">使用 PythonAPI 记录 DReyeVR 传感器数据</h3>
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="nv">$CARLA_ROOT</span>/PythonAPI/examples/
 
-<span class="c1"># DReyeVR AI controller requires this script to be running</span>
-./DReyeVR_AI.py<span class="w"> </span>-n<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="c1"># won&#39;t control vehicle unless control is handoff to AI (press 3)</span>
+<span class="c1"># 查看所有 DReyeVR 传感器数据</span>
+./DReyeVR_logging.py<span class="w"> </span><span class="c1"># 直接在标准输出stdout中打印</span>
+
+<span class="c1"># 或者如果已经在运行 roscore (带 rospy)</span>
+./DReyeVR_logging.py<span class="w"> </span>--rh<span class="w"> </span><span class="s1">&#39;192.168.X.Y&#39;</span><span class="w"> </span>--rp<span class="w"> </span><span class="m">11311</span><span class="w"> </span><span class="c1"># 传递 roscore 主机名和端口号</span>
 </code></pre></div>
-<h3 id="start-recordingreplaying">Start recording/replaying</h3>
+<ul>
+<li>我们支持在 Ubuntu 20.04 LTS 主机上使用 <code>rospy</code> 进行 ROS 数据流传输。如果您有兴趣为此目的使用虚拟机，我们建议您查看 <a href="../Tools/VirtualMachine/README.md"><code>VirtualMachine/README.md</code></a> ，因为设置相当复杂。</li>
+</ul>
+<h3 id="dreyevr-ai">启动 DReyeVR AI 控制器</h3>
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="nv">$CARLA_ROOT</span>/PythonAPI/examples/
 
-<span class="c1"># start a recording with no other agents</span>
+<span class="c1"># DReyeVR AI 控制器需要运行此脚本</span>
+./DReyeVR_AI.py<span class="w"> </span>-n<span class="w"> </span><span class="m">0</span><span class="w">  </span><span class="c1"># 除非控制权移交给 AI（按 3），否则无法控制车辆</span>
+</code></pre></div>
+<h3 id="_3">开始记录/重放</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="nv">$CARLA_ROOT</span>/PythonAPI/examples/
+
+<span class="c1"># 在没有其他代理的情况下开始记录（windows下默认保存在：C:\Users\Administrator\AppData\Local\CarlaUE4\Saved\test1.log）</span>
 ./start_recording.py<span class="w"> </span>-n<span class="w"> </span><span class="m">0</span>
 ...
-^C
 
-<span class="c1"># replay the file just recorded</span>
+<span class="c1"># 重放刚刚记录的文件</span>
 ./start_replaying.py
 
-<span class="c1"># dump the replay file in a human-readable manner to replay.txt</span>
+<span class="c1"># 以人类可读的方式将重放文件转储到 replay.txt</span>
 ./show_recorder_file_info.py<span class="w"> </span>-a<span class="w"> </span>&gt;<span class="w"> </span>replay.txt
 </code></pre></div>
-<h3 id="run-a-scenariorunner-instance-and-record">Run a ScenarioRunner instance and record</h3>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="nv">$SCENARIO_RUNNER_ROOT</span><span class="w"> </span><span class="c1"># go to scenario-runner/</span>
+<h3 id="scenariorunner">运行 ScenarioRunner 实例并记录</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="nv">$SCENARIO_RUNNER_ROOT</span><span class="w"> </span><span class="c1"># 进入目录 scenario-runner/</span>
 
 ./run_experiment.py<span class="w"> </span>--title<span class="w"> </span>name_of_experiment<span class="w"> </span>--route<span class="w"> </span>srunner/data/routes_debug.xml<span class="w"> </span>srunner/data/all_towns_traffic_scenarios1_3_4.json<span class="w"> </span><span class="m">0</span><span class="w"> </span>--output<span class="w"> </span>--reloadWorld
 ...
-^C
 </code></pre></div>
-<h2 id="using-our-new-dreyevr-pythonapi">Using our new DReyeVR PythonAPI</h2>
-<p>For your own custom scripts, we recommend taking a look at the <a href="../PythonAPI/DReyeVR_utils.py"><code>DReyeVR_utils.py</code></a> file, specifically the two functions:
-- <code>find_ego_vehicle</code> which takes in the <code>carla.libcarla.World</code> instance and returns the DReyeVR ego-vehicle (<code>carla.libcarla.Vehicle</code>) present in the world or spawns one in if there is none. 
-- <code>find_ego_sensor</code> which takes in the <code>carla.libcarla.World</code> instance and returns the DReyeVR eye tracker (<code>carla.libcarla.Sensor</code>) present in the world, which should be attached to the spawned EgoVehicle (if the EgoVehicle is spawned)</p>
-<p>Then, in your script, you can follow the technique we used in <code>schematic_mode.py</code> such as:
-<div class="highlight"><pre><span></span><code>  <span class="n">world</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get_world</span><span class="p">()</span>
+<h2 id="dreyevr-pythonapi">使用我们新的 DReyeVR PythonAPI</h2>
+<p>对于您自己的自定义脚本，我们建议您查看 <a href="../PythonAPI/DReyeVR_utils.py"><code>DReyeVR_utils.py</code></a> 文件，特别是这两个函数：</p>
+<ul>
+<li><code>find_ego_vehicle</code> 接收 <code>carla.libcarla.World</code> 实例并返回世界上存在的 DReyeVR 自我车辆 (<code>carla.libcarla.Vehicle</code>)，如果没有则生成一个。 </li>
+<li><code>find_ego_sensor</code> 接收 <code>carla.libcarla.World</code> 实例并返回世界上存在的 DReyeVR 眼动仪 (<code>carla.libcarla.Sensor</code>)，该眼动仪应附加到生成的 EgoVehicle（如果生成了 EgoVehicle）</li>
+</ul>
+<p>然后，在您的脚本中，您可以遵循我们在 <code>diagram_mode.py</code> 中使用的技术，例如：
+<div class="highlight"><pre><span></span><code><span class="n">world</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get_world</span><span class="p">()</span>
 
-  <span class="c1"># find ego vehicle</span>
-  <span class="bp">self</span><span class="o">.</span><span class="n">hero_actor</span> <span class="o">=</span> <span class="n">find_ego_vehicle</span><span class="p">(</span><span class="n">world</span><span class="p">)</span>
-  <span class="bp">self</span><span class="o">.</span><span class="n">hero_transform</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hero_actor</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span>
+<span class="c1"># 找到自我车辆</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">hero_actor</span> <span class="o">=</span> <span class="n">find_ego_vehicle</span><span class="p">(</span><span class="n">world</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">hero_transform</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hero_actor</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span>
 
-  <span class="c1"># find ego sensor</span>
-  <span class="c1"># DReyeVRSensor implicitly calls find_ego_sensor, then wraps it with a custom class</span>
-  <span class="bp">self</span><span class="o">.</span><span class="n">sensor</span> <span class="o">=</span> <span class="n">DReyeVRSensor</span><span class="p">(</span><span class="n">world</span><span class="p">)</span> 
-  <span class="bp">self</span><span class="o">.</span><span class="n">sensor</span><span class="o">.</span><span class="n">ego_sensor</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sensor</span><span class="o">.</span><span class="n">update</span><span class="p">)</span>  <span class="c1"># subscribe to readout</span>
+<span class="c1"># 找到 ego 传感器</span>
+<span class="c1"># DReyeVRSensor 隐式调用 find_ego_sensor，然后用自定义类包装它</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">sensor</span> <span class="o">=</span> <span class="n">DReyeVRSensor</span><span class="p">(</span><span class="n">world</span><span class="p">)</span> 
+<span class="bp">self</span><span class="o">.</span><span class="n">sensor</span><span class="o">.</span><span class="n">ego_sensor</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sensor</span><span class="o">.</span><span class="n">update</span><span class="p">)</span>  <span class="c1"># 订阅读出 readout</span>
 </code></pre></div>
-Now you can proceed to use <code>self.sensor.ego_sensor</code> as a standard <a href="https://github.com/carla-simulator/carla/blob/master/Docs/python_api.md#carlasensor"><code>carla.libcarla.Sensor</code></a> object and <code>self.hero_actor</code> as a standard <a href="https://github.com/carla-simulator/carla/blob/master/Docs/python_api.md#carlavehicle"><code>carla.libcarla.Vehicle</code></a> object. </p>
-<h1 id="recordingreplaying-a-scenario">Recording/Replaying a scenario</h1>
-<h2 id="motivations">Motivations</h2>
-<p>It is often useful to record a scenario of an experiment in order to reenact it in post and perform further analysis. We had to slightly augment the recorder and replayer to respect our ego-vehicle being persistent in the world, but all other functionality is maintained. We additionally reenact the ego-sensor data (including HMD pose and orientation) so an experimenter could see what the participant was looking at on every tick. For the full explanation of the Carla recorder see their <a href="https://carla.readthedocs.io/en/0.9.13/adv_recorder/">documentation</a>. </p>
-<h2 id="recording">Recording</h2>
-<p>The easiest way to start recording is with the handy <code>PythonAPI</code> scripts. 
+现在您可以继续使用 <code>self.sensor.ego_sensor</code> 作为标准 <a href="https://github.com/carla-simulator/carla/blob/master/Docs/python_api.md#carlasensor"><code>carla.libcarla.Sensor</code></a> 对象，并使用 <code>self.hero_actor</code> 作为标准 <a href="https://github.com/carla-simulator/carla/blob/master/Docs/python_api.md#carlavehicle"><code>carla.libcarla.Vehicle</code></a> 对象。</p>
+<h1 id="_4">记录/重放一个场景</h1>
+<h2 id="_5">动机</h2>
+<p>记录实验场景通常很有用，以便在后期重现并进行进一步分析。我们必须稍微增强记录器和重放器，以尊重我们的自我载体在世界中的持久性，但其他所有功能均保持不变。我们还重现了自我传感器数据（包括 HMD 姿势和方向），以便实验者可以看到参与者在每个节拍中都在看什么。有关 Carla 记录器的完整说明，请参阅其 <a href="../../adv_recorder/">文档</a> 。</p>
+<h2 id="_6">记录</h2>
+<p>开始录制的最简单方法是使用方便的 <code>PythonAPI</code> 脚本。
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="nv">$CARLA_ROOT</span>/PythonAPI/examples/
-<span class="c1"># this starts a recording session with 10 autonomous vehicles</span>
-./start_recording.py<span class="w"> </span>-n<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="c1"># change -n param to change number of vehicles (default 10)</span>
+<span class="c1"># 这开始了与 10 辆自动驾驶汽车的记录</span>
+./start_recording.py<span class="w"> </span>-n<span class="w"> </span><span class="m">10</span><span class="w">  </span><span class="c1"># 更改 -n 参数以更改车辆数量（默认为 10）</span>
 ...
-^C<span class="w"> </span><span class="c1"># stop recording with a SIGINT (interrupt)</span>
+<span class="c1"># 使用 SIGINT（中断）停止记录</span>
+</code></pre></div></p>
+<ul>
+<li>
+<p>请注意，如果加载了新的世界，记录将停止，因此如果您想改变世界，请确保在世界加载后重新启动记录。</p>
+</li>
+<li>
+<p>记录将默认文件保存为项目默认保存目录中的 <code>test1.log</code> 文件：</p>
+<ul>
+<li>
+<p>如果从编辑器记录： <code>carla/Unreal/CarlaUE4/Saved/test1.log</code></p>
+</li>
+<li>
+<p>如果从包中记录：<code>${PACKAGE}/Unreal/Saved/test1.log</code> <!-- TODO: CHECK THIS --></p>
+</li>
+</ul>
+</li>
+<li>
+<p>记录对模拟器性能的影响相对较小，但这可能因机器而异。体验应该基本相同。</p>
+</li>
+<li>
+<p>请注意，记录器以二进制形式保存所有内容，因此原始的 <code>test1.log</code> 文件不是人类可读的。不过，阅读它通常很好，在这种情况下使用：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 将输出 (stdout) 保存到 recorder.txt</span>
+./show_recorder_file_info.py<span class="w"> </span>-a<span class="w"> </span>-f<span class="w"> </span>/PATH/TO/RECORDER-FILE<span class="w"> </span>&gt;<span class="w"> </span>recorder.txt<span class="w"> </span>
 </code></pre></div>
-- Note that the recording halts if a new world is loaded, so if you want to change the world make sure to restart the recording after the world has loaded.
-- The recording saves the default file as a <code>test1.log</code> file in the default saved directory of your project:
-    - If recording from editor: <code>carla/Unreal/CarlaUE4/Saved/test1.log</code>
-    - If recording from package: <code>${PACKAGE}/Unreal/Saved/test1.log</code> <!-- TODO: CHECK THIS -->
-- The recording should have relatively minimal impact on the performance of the simulator, but this likely varies by machine. The experience should be essentially the same. 
-- Note that the recorder saves everything in binary, so it the raw <code>test1.log</code> file is not human-readable. It is often nice to read it however, in that case use:
-    - <code>bash
-        # saves output (stdout) to recorder.txt
-        ./show_recorder_file_info.py -a -f /PATH/TO/RECORDER-FILE &gt; recorder.txt</code>
-  - With this <code>recorder.txt</code> file (which holds a human-readable dump of the entire recording log) you can parse this file into useful python data structures (numpy arrays/pandas dataframes) by using our <a href="https://github.com/harplab/dreyevr-parser">DReyeVR parser</a>.</p>
-<h2 id="replaying">Replaying</h2>
-<p>Begin a replay session through the PythonAPI as follows:
-<div class="highlight"><pre><span></span><code><span class="c1"># note this does not rely on being in VR mode or not. </span>
-./start_replaying.py<span class="w"> </span><span class="c1"># this starts the replaying session</span>
-</code></pre></div>
-- Note that in the replaying mode, all user inputs will be ignored in favour of the replay inputs. However, you may still use the following level controls:
-  1. <strong>Toggle Play/Pause</strong> - Is done by pressing <code>SpaceBar</code>
-  2. <strong>Advance</strong> - Is done by holding <code>Alt</code> and pressing <code>Left</code> arrow (backwards) or <code>Right</code> arrow (forwards)
-  3. <strong>Change Playback Speed</strong> - Is done by holding <code>Alt</code> and pressing <code>Up</code> arrow (increase) or <code>Down</code> arrow (decrease)
-  4. <strong>Restart</strong> - Is done by holding <code>Alt</code> and pressing <code>BackSpace</code>
-  6. <strong>Possess Spectator</strong> - Is done by pressing <code>1</code> (then use <code>WASDEQ+mouse</code> to fly around)
-  7. <strong>Re-possess Vehicle</strong> - Is done by pressing <code>2</code></p>
-<p>To get accurate screenshots for every frame of the recording, see below with <a href="#synchronized-replay-frame-capture">synchronized replay frame capture</a></p>
-<p><strong>NOTE</strong> We use custom config files for global and vehicle parameters in the simulator (see <a href="./#using-our-custom-config-file">below</a>) and we also store these parameters in the recording file so that we can verify they are the same as the replay. For instance, we will automatically compare the recording's parameters versus the live parameters when performing a replay. Then if we detect any differences, we will print these as warnings so you can be aware. For instance, if you recorded with a particular vehicle and replay the simulator with a different vehicle loaded, we will let you know that the replay may be inaccurate and you are in uncharted territory.</p>
+<ul>
+<li>使用此 <code>recorder.txt</code> 文件（其中包含整个记录日志的可读转储），您可以使用我们的 <a href="https://github.com/harplab/dreyevr-parser">DReyeVR 解析器</a> 将此文件解析为有用的 python 数据结构（numpy 数组/pandas dataframes）。</li>
+</ul>
+</li>
+</ul>
+<h2 id="_7">重放</h2>
+<p>通过 PythonAPI 开始重放会话，如下所示：
+<div class="highlight"><pre><span></span><code><span class="c1"># 请注意，这并不依赖于是否处于 VR 模式。</span>
+./start_replaying.py<span class="w"> </span><span class="c1"># 这将启动重放会话</span>
+</code></pre></div></p>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>在重放模式下，所有用户输入都将被忽略，以支持重放输入。但是，您仍然可以使用以下级别控制：</p>
+</div>
+<ol>
+<li>
+<p><strong>切换播放/暂停</strong> - 按空格键 <code>SpaceBar</code> 即可</p>
+</li>
+<li>
+<p><strong>前进</strong> - 按住 <code>Alt</code> 并按左箭头（向后）或右箭头（向前）即可</p>
+</li>
+<li>
+<p><strong>更改播放速度</strong> - 按住 <code>Alt</code> 并按向上箭头（增加）或向下箭头（减少）即可</p>
+</li>
+<li>
+<p><strong>重新启动</strong> - 按住 <code>Alt</code> 并按 <code>BackSpace</code> 即可</p>
+</li>
+<li>
+<p><strong>持有观察者 Spectator</strong> - 按 <code>1</code> 即可（然后使用 <code>WASDEQ + 鼠标</code>飞行）</p>
+</li>
+<li>
+<p><strong>重新持有车辆</strong> - 按 <code>2</code></p>
+</li>
+</ol>
+<p>为了获得录制的每一帧的精确截图，请参见下文的 <a href="#synchronized-replay-frame-capture">同步重放帧捕获</a></p>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>我们在模拟器中使用自定义配置文件来设置全局和车辆参数（见 <a href="./#using-our-custom-config-file">下文</a> ），并且我们还将这些参数存储在记录文件中，以便我们可以验证它们是否与重放相同。例如，在执行重放时，我们将自动比较录制的参数与实时参数。然后，如果我们检测到任何差异，我们将打印这些差异作为警告，以便您注意。例如，如果您使用特定车辆录制，并使用装载了不同车辆的模拟器重放，我们会让您知道重放可能不准确，并且您处于未知领域。</p>
+</div>
 <h2 id="scenarios">Scenarios</h2>
-<p>It is usually ideal to have curated experiments in the form of scenarios parsed through <a href="https://carla-scenariorunner.readthedocs.io/en/latest/">ScenarioRunner</a>.</p>
-<p>For this purpose, we created a handy script that should be robust to some of the quirks of the existing implementation. This script (<a href="../ScenarioRunner/run_experiment.py"><code>run_experiment.py</code></a>) will automatically start recording for you AFTER the new map has been loaded, with a unique filename, all on a single client instance, so that you don't need to worry about a faulty recording or overwriting existing files. </p>
-<p>With <code>scenario_runner</code> v0.9.13, you should have already set these environment variables:
+<p>通常，理想的做法是通过 <a href="https://carla-scenariorunner.readthedocs.io/en/latest/">ScenarioRunner</a> 解析场景，从而策划实验。</p>
+<p>为此，我们创建了一个方便的脚本，该脚本应该能够应对现有实现的一些怪癖。此脚本 ( <a href="../ScenarioRunner/run_experiment.py"><code>run_experiment.py</code></a> ) 将在加载新地图后自动开始为您记录，并使用唯一的文件名，所有这些都在单个客户端实例上进行，因此您无需担心记录错误或覆盖现有文件。</p>
+<p>使用 <code>scene_runner</code> v0.9.13，您应该已经设置了这些环境变量：
 <div class="highlight"><pre><span></span><code><span class="c1"># on bash (Linux)</span>
 <span class="nb">export</span><span class="w"> </span><span class="nv">CARLA_ROOT</span><span class="o">=</span>/PATH/TO/carla/
 <span class="nb">export</span><span class="w"> </span><span class="nv">SCENARIO_RUNNER_ROOT</span><span class="o">=</span>/PATH/TO/scenario_runner/
@@ -218,7 +280,7 @@ Now you can proceed to use <code>self.sensor.ego_sensor</code> as a standard <a 
 <span class="nb">set</span><span class="w"> </span><span class="nv">PYTHONPATH</span><span class="o">=</span>%PYTHONPATH%<span class="p">;</span>%CARLA_ROOT%<span class="se">\P</span>ythonAPI<span class="se">\c</span>arla
 <span class="nb">set</span><span class="w"> </span><span class="nv">PYTHONPATH</span><span class="o">=</span>%PYTHONPATH%<span class="p">;</span>%CARLA_ROOT%<span class="se">\P</span>ythonAPI
 </code></pre></div>
-Then to run our demo examples, use this command:
+然后运行我们的演示示例，使用以下命令：
 <div class="highlight"><pre><span></span><code><span class="c1"># on bash (Linux)</span>
 <span class="nb">cd</span><span class="w"> </span><span class="nv">$SCENARIO_RUNNER_ROOT</span><span class="w"> </span><span class="c1"># go to scenario-runner</span>
 ./run_experiment.py<span class="w"> </span>--title<span class="w"> </span><span class="s2">&quot;dreyevr_experiment&quot;</span><span class="w"> </span>--route<span class="w"> </span><span class="nv">$SCENARIO_RUNNER_ROOT</span>/srunner/data/routes_custom.xml<span class="w"> </span><span class="nv">$SCENARIO_RUNNER_ROOT</span>/srunner/data/town05_scenarios.json<span class="w"> </span><span class="m">0</span>
@@ -227,14 +289,14 @@ Then to run our demo examples, use this command:
 <span class="nb">cd</span><span class="w"> </span>%SCENARIO_RUNNER_ROOT%<span class="w"> </span><span class="c1"># go to scenario-runner</span>
 python<span class="w"> </span>run_experiment.py<span class="w"> </span>--title<span class="w"> </span><span class="s2">&quot;dreyevr_experiment&quot;</span><span class="w"> </span>--route<span class="w"> </span>%SCENARIO_RUNNER_ROOT%<span class="se">\s</span>runner<span class="se">\d</span>ata<span class="se">\r</span>outes_custom.xml<span class="w"> </span>%SCENARIO_RUNNER_ROOT%<span class="se">\s</span>runner<span class="se">\d</span>ata<span class="se">\t</span>own05_scenarios.json<span class="w"> </span><span class="m">0</span>
 </code></pre></div>
-Note that you can rename the experiment to anything with <code>--title "your_experiment"</code>, and the resulting recording file will include this title in its filename. </p>
-<h1 id="control-handoff-to-ai">Control handoff to AI</h1>
-<p>Sometimes it is useful to have an AI takeover of the ego-vehicle during an experiment for research purposes. This becomes easy to do in our simulator with the help of Carla's existing <a href="https://carla.readthedocs.io/en/0.9.13/adv_traffic_manager/">TrafficManager-based autopilot</a> which can pilot our ego-vehicle just like any other carla Vehicle. </p>
-<p>However, in order to start the autopilot, we currently only support using the PythonAPI for this task, so we created <code>DReyeVR_AI.py</code> which will do the job:
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="nv">$CARLA_ROOT</span>/PythonAPI/examples<span class="w"> </span><span class="c1"># go to carla PythonAPI</span>
-./DReyeVR_AI.py<span class="w"> </span>-n<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="c1"># spawn no other vehicles, enable autopilot on EgoVehicle</span>
+请注意，您可以使用 <code>--title "your_experiment"</code> 将实验重命名为任何名称，并且生成的记录文件将在其文件名中包含此标题。</p>
+<h1 id="ai">将控制从手动切换到 AI（切换）</h1>
+<p>有时，在实验期间让 AI 接管自我车辆以用于研究目的很有用。借助 Carla 现有的 <a href="../adv_traffic_manager">基于 TrafficManager 的自动驾驶仪</a> ，在我们的模拟器中可以轻松做到这一点，它可以像驾驶任何其他 Carla 车辆一样驾驶我们的自我车辆。</p>
+<p>然而，为了启动自动驾驶仪，我们目前只支持使用 PythonAPI 执行此任务，因此我们创建了 <code>DReyeVR_AI.py</code> 来完成这项工作：
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="nv">$CARLA_ROOT</span>/PythonAPI/examples<span class="w"> </span><span class="c1"># 进入目录 carla PythonAPI</span>
+./DReyeVR_AI.py<span class="w"> </span>-n<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="c1"># 不产生其他车辆，在 EgoVehicle 上启用自动驾驶仪</span>
 </code></pre></div></p>
-<p>Internally, the AI system is using the Carla vehicle autopilot system, so this can be enabled in your custom PythonAPI scripts without the use of <code>DReyeVR_AI.py</code> by performing:
+<p>在内部，AI 系统使用 Carla 车辆自动驾驶系统，因此可以在自定义 PythonAPI 脚本中启用此功能，而无需使用 <code>DReyeVR_AI.py</code>，方法是执行以下操作：
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">DReyeVR_utils</span> <span class="kn">import</span> <span class="n">find_ego_vehicle</span>
 <span class="o">...</span>
 
@@ -247,104 +309,113 @@ Note that you can rename the experiment to anything with <code>--title "your_exp
     <span class="n">DReyeVR_vehicle</span><span class="o">.</span><span class="n">set_autopilot</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">traffic_manager</span><span class="o">.</span><span class="n">get_port</span><span class="p">())</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Successfully set autopilot on ego vehicle&quot;</span><span class="p">)</span>
 </code></pre></div></p>
-<p>Currently we only support manual handoff by pressing <code>3</code> on the keyboard. This gives input priority to the Carla <a href="https://github.com/carla-simulator/carla/blob/0.9.13/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Vehicle/WheeledVehicleAIController.cpp">WheeledVehicleAIController</a> which will follow some route defined by Carla's TrafficManager.</p>
-<p>In order to re-possess the vehicle (handoff control back to the player), simply press <code>1</code>. Keyboard inputs are automatically higher priority than the autopilot.</p>
-<p>[OPTIONAL]Using this same approach, there is a third option where you can press <code>2</code> to possess a "spectator" that can no-clip and fly around the map using <code>WASDEQ+mouse</code> controls. </p>
-<p>You can press any of the control options: <code>1</code>(human driver), <code>2</code>(spectator), <code>3</code>(AI driver) at any time.
-Summary: </p>
+<p>目前我们仅支持通过按键盘上的 <code>3</code> 键进行手动切换。这将为 Carla <a href="https://github.com/carla-simulator/carla/blob/0.9.13/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Vehicle/WheeledVehicleAIController.cpp">WheeledVehicleAIController</a> 提供输入优先级，它将遵循 Carla 的 TrafficManager 定义的某些路线。</p>
+<p>为了重新拥有车辆（将控制权交还给玩家），只需按 <code>1</code>。键盘输入的优先级自动高于自动驾驶仪。</p>
+<div class="admonition 可选">
+<p class="admonition-title">可选</p>
+<p>使用同样的方法，还有第三种选择，您可以按 <code>2</code> 来控制“观察者”，该观察者可以使用 <code>WASDEQ + 鼠标</code>控制在地图上无碰撞地飞行。</p>
+</div>
+<p>您可以随时按下任意控制选项：<code>1</code>（人类驾驶员）、<code>2</code>（观察者）、<code>3</code>（AI 驾驶员）。摘要：</p>
 <table>
 <thead>
 <tr>
-<th>Press <code>1</code></th>
-<th>Press <code>2</code></th>
-<th>Press <code>3</code></th>
+<th>按 <code>1</code></th>
+<th>按 <code>2</code></th>
+<th>按 <code>3</code></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Human driving</td>
-<td>Spectator mode</td>
-<td>AI driving</td>
+<td>人类驾驶</td>
+<td>观察者模式</td>
+<td>AI 驾驶</td>
 </tr>
 </tbody>
 </table>
-<h1 id="using-our-custom-config-file">Using our custom config file</h1>
-<p>Throughout development, we found that modifying even small things in DReyeVR have a LONG cycle time for recompilation/re-linking/re-cooking/etc. so we wanted an approach that could greatly ease this burden while still providing flexibility.</p>
-<p>This is why we developed the <a href="../DReyeVR/ConfigFile.h"><code>ConfigFile</code></a> class and corresponding <a href="../Configs/DReyeVRConfig.ini"><code>DReyeVRConfig.ini</code></a> (and per-vehicle) "params" so we could read the file at runtime to set variables in the simulator without recompilation. </p>
-<p>The procedure to use our params API is simple:
+<h1 id="_8">使用我们的自定义配置文件</h1>
+<p>在整个开发过程中，我们发现，即使是修改 DReyeVR 中的小东西，也需要很长的重新编译/重新链接/重新烘焙等周期，因此我们希望找到一种可以大大减轻这种负担同时仍提供灵活性的方法。</p>
+<p>这就是我们开发 <a href="../DReyeVR/ConfigFile.h"><code>ConfigFile</code></a> 类和相应的 <a href="../Configs/DReyeVRConfig.ini"><code>DReyeVRConfig.ini</code></a>（以及每个车辆）“params”的原因，这样我们就可以在运行时读取文件来在模拟器中设置变量，而无需重新编译。</p>
+<p>使用我们的 params API 的过程很简单：
 <div class="highlight"><pre><span></span><code><span class="c1">// in, any class, say EgoVehicle.h</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;DReyeVRUtils.h&quot;</span><span class="c1"> // make sure to include our local header file!</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;DReyeVRUtils.h&quot;</span><span class="c1"> // 确保包含了我们本地的头文件！</span>
 
 <span class="k">class</span><span class="w"> </span><span class="nc">CARLAUE4_API</span><span class="w"> </span><span class="n">AEgoVehicle</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">ACarlaWheeledVehicle</span>
 <span class="p">{</span>
 <span class="w">  </span><span class="p">...</span><span class="w"> </span><span class="c1">// existing code</span>
 
-<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">MyFavouriteNumber</span><span class="p">;</span><span class="w"> </span><span class="c1">// &lt;--Your new param</span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">MyFavouriteNumber</span><span class="p">;</span><span class="w"> </span><span class="c1">// &lt;--你的新参数</span>
 <span class="p">}</span>
 </code></pre></div></p>
-<p>Then, choose which type of config file this variable falls into, currently we have two kinds of primary config files: simulator-wide <code>GeneralParams</code>, and per-vehicle <code>VehicleParams</code>. </p>
-<p>The <code>GeneralParams</code> can be thought of as a global simulator-wide configuration file that can be accessed from anywhere, while the <code>VehicleParams</code> are specifically for a particular EgoVehicle (such as locations/specifications) that can be found in <a href="../Config/EgoVehicles/"><code>Config/EgoVehicles/</code></a> that matches the available DReyeVR EgoVehicles. To learn more about these see <a href="EgoVehicles.md">EgoVehicle.md</a>.</p>
-<p>(For general params)
+<p>然后，选择该变量属于哪种类型的配置文件，目前我们有两种主要配置文件：模拟器范围的 <code>GeneralParams</code> 和每辆车的 <code>VehicleParams</code>。</p>
+<p><code>GeneralParams</code> 可以被视为可以从任何地方访问的全局模拟器配置文件，而 <code>VehicleParams</code> 则专门用于特定的 EgoVehicle（例如locations/specifications ），可以在  <a href="../Config/EgoVehicles/"><code>Config/EgoVehicles/</code></a> 中找到与可用的 DReyeVR EgoVehicles 匹配的配置文件。要了解有关这些内容的更多信息，请参阅 <a href="EgoVehicles.md">EgoVehicle.md</a> 。</p>
+<p>(对于一般参数)
 <div class="highlight"><pre><span></span><code><span class="k">[MyFavourites]</span>
-<span class="na">Number</span><span class="o">=</span><span class="s">867.5309</span><span class="w"> </span><span class="c1"># You can also write comments!</span>
+<span class="na">Number</span><span class="o">=</span><span class="s">867.5309</span><span class="w"> </span><span class="c1"># 您也可以写注释！</span>
 </code></pre></div>
-Then, anywhere you want, you can get the parameter by specifying both the section and variable name: </p>
+然后，您可以在任何您想要的地方通过指定区域和变量名称来获取参数： </p>
 <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">AEgoVehicle::SomeFunction</span><span class="p">()</span>
 <span class="p">{</span>
-<span class="w">  </span><span class="c1">// can use this format to assign directly into a variable</span>
+<span class="w">  </span><span class="c1">// 可以使用这种格式直接分配给变量</span>
 <span class="w">  </span><span class="n">MyFavouriteNumber</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GeneralParams</span><span class="p">.</span><span class="n">Get</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;MyFavourites&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Number&quot;</span><span class="p">);</span>
 
-<span class="w">  </span><span class="c1">// or pass the variable by reference and get whether or not the Get operation was successful</span>
+<span class="w">  </span><span class="c1">// 或者通过引用传递变量并获取 Get 操作是否成功</span>
 <span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">bSuccess</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GeneralParams</span><span class="p">.</span><span class="n">Get</span><span class="p">(</span><span class="s">&quot;MyFavourites&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Number&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">MyFavouriteNumber</span><span class="p">);</span>
-
 <span class="p">}</span>
 </code></pre></div>
-<p>If you are using vehicle-specific params, then this needs to be in the context of some EgoVehicle
+<p>如果你使用特定于车辆的参数，那么这需要在某些 EgoVehicle 的上下文中
 <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">SomeClass::SomeOtherFunction</span><span class="p">(</span><span class="n">AEgoVehicle</span><span class="w"> </span><span class="o">*</span><span class="n">Vehicle</span><span class="p">){</span>
-<span class="w">  </span><span class="c1">// VehicleParams is a public member of </span>
+<span class="w">  </span><span class="c1">// VehicleParams 是一个公有成员 </span>
 <span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">ConfigFile</span><span class="w"> </span><span class="o">&amp;</span><span class="n">VehicleSpecificParams</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Vehicle</span><span class="o">-&gt;</span><span class="n">GetVehicleParams</span><span class="p">();</span>
 <span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">VehicleParam</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VehicleSpecificParams</span><span class="p">.</span><span class="n">Get</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;VehicleParamSection&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;VariableName&quot;</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div></p>
-<p>And, just like the other variables in the file, you can bunch and organize them together under the same section header.</p>
-<p>Another useful feature we built-in is to import, export, and compare the config files. This is useful because we can track the config file(s) that were used while a particular example was recorded, then if you are trying to replay this scenario with <em>different</em> configuration parameters (ex. using a different vehicle, or with mirrors enabled when they werent in the recording), some warnings will be presented when comparing (diff) the recorded config file (saved in the .log file) and the live one (what is currently running).</p>
-<h1 id="synchronized-replay-frame-capture">Synchronized replay frame capture</h1>
-<h2 id="motivations_1">Motivations</h2>
-<p>After performing (and recording) an <a href="../ScenarioRunner/run_experiment.py">experiment</a>, we are provided with a log of everything that happened in the simulator that we can use for live reenactment and post-hoc analysis. It is often the case that after some postprocessing on the data, we might be interested in overlaying something on the simulator view to match what a participant was seeing/doing and what the world looked like. Unfortunately, it is difficult to get the exact image frame corresponding to an exact recording event using an asynchronous screen recorder such as OBS, therefore we baked in this functionality within the engine itself, so it can directly go to any recorded event and take a high quality screenshot. The end result is the exact frame-by-frame views corresponding to the recorded world conditions without interpolation. </p>
-<h3 id="synchronized-replay">Synchronized replay</h3>
-<p>To have this functionality, disable the <code>ReplayInterpolation</code> flag in <a href="../Configs/DReyeVRConfig.ini"><code>DReyeVRConfig.ini</code></a> under the <code>[Replayer]</code> section. Disabling replay interpolation will allow for frame-by-frame reenactment of what was captured (otherwise the replay will respect wall-clock-time and introduce interpolation between frames).</p>
-<h3 id="frame-capture">Frame capture</h3>
-<p>While replaying (so, after the experiment was conducted) we can additionally perform frame capture during this replay. Since taking high-res screnshots is expensive, this is a slow process that is done during replays when real-time performance is less important. To enable this feature, enable the <code>RecordFrames</code> flag in the <code>[Replayer]</code> section as well. There are several other frame capture options below such as resolution and gamma parameters.</p>
-<p>The resulting frame capture images (<code>.png</code> or <code>.jpg</code> depending on the <code>FileFormatJPG</code> flag) will be found in <code>Unreal/CarlaUE4/{FrameDir}/{DateTimeNow}/{FrameName}*</code> where <code>{FrameDir}</code> and <code>{FrameName}</code> are both determined in the <a href="../Configs/DReyeVRConfig.ini"><code>DReyeVRConfig.ini</code></a>. The <code>{DateTimeNow}</code> string is uniquely based on your machine's local current time so you can run multiple recordings without overwriting old files.</p>
-<p><strong>NOTE</strong>: Depending on whether you are running the Editor mode or package mode of DReyeVR will place the FrameCapture directory in the following:
-- Editor (debug): <code>%CARLA_ROOT%\Unreal\CarlaUE4\FrameCap\</code>
-- Package (shipping): <code>%CARLA_ROOT%\Build\UE4Carla\0.9.13-dirty\WindowsNoEditor\CarlaUE4\FrameCap\</code></p>
-<p>(Showing Windows paths for convenience, but the desinations are similar for Linux/Mac)</p>
-<p>With these flags enabled, any time you initiate a replay such as:
-<div class="highlight"><pre><span></span><code><span class="c1"># in PythonAPI/examples</span>
+<p>而且，就像文件中的其他变量一样，您可以将它们捆绑并组织在同一个节标题下。</p>
+<p>我们内置的另一个有用功能是导入、导出和比较配置文件。这很有用，因为我们可以跟踪在记录特定示例时使用的配置文件，然后如果您尝试使用不同的<em>配置</em>参数重放此场景（例如，使用不同的车辆，或者在记录中没有后视镜的情况下启用后视镜），则在比较（差异）记录的配置文件（保存在 .log 文件中）和实时配置文件（当前正在运行的配置文件）时会出现一些警告。</p>
+<h1 id="_9">同步重放帧捕获</h1>
+<h2 id="_10">动机</h2>
+<p>在执行（并记录） <a href="../ScenarioRunner/run_experiment.py">实验</a> 后，我们会获得模拟器中发生的所有事情的日志，可用于实时重现和事后分析。通常情况下，在对数据进行一些后期处理后，我们可能有兴趣在模拟器视图上叠加一些东西，以匹配参与者所看到/做的事情以及世界的样子。不幸的是，使用 <a href="https://github.com/obsproject/obs-studio">OBS</a> 等异步屏幕记录器很难获得与精确记录事件相对应的精确图像帧，因此我们在引擎本身中嵌入了此功能，这样它就可以直接转到任何记录的事件并截取高质量的屏幕截图。最终结果是与记录的世界条件相对应的精确逐帧视图，无需插值。</p>
+<h3 id="_11">同步重放</h3>
+<p>要使用此功能，请在 <code>[Replayer]</code> 部分下禁用 <a href="../Configs/DReyeVRConfig.ini"><code>DReyeVRConfig.ini</code></a> 中的 <code>ReplayInterpolation</code> 标志。禁用重放插值将允许逐帧重现所捕获的内容（否则重放将遵循挂钟时间并在帧之间引入插值）。</p>
+<h3 id="_12">帧捕获</h3>
+<p>在重放期间（即实验结束后），我们还可以在此重放期间执行帧捕获。由于拍摄高分辨率屏幕截图的成本很高，因此这是一个缓慢的过程，在实时性能不太重要的重放期间完成。要启用此功能，请在 <code>[Replayer]</code> 部分中启用 <code>RecordFrames</code> 标志。下面还有其他几个帧捕获选项，例如分辨率和伽马参数。</p>
+<p>生成的帧捕获图像（<code>.png</code> 或 <code>.jpg</code>，取决于 <code>FileFormatJPG</code> 标志）将在 <code>Unreal/CarlaUE4/{FrameDir}/{DateTimeNow}/{FrameName}*</code> 中找到，其中 <code>{FrameDir}</code> 和<code>{FrameName}</code> 均在 <a href="../Configs/DReyeVRConfig.ini"><code>DReyeVRConfig.ini</code></a> 中确定。<code>{DateTimeNow}</code> 字符串唯一地基于您机器的本地当前时间，因此您可以运行多个记录而不会覆盖旧文件。</p>
+<p><strong>注意</strong>：根据您运行的是编辑器模式还是 DReyeVR 的包模式，FrameCapture 目录将放置在以下位置：</p>
+<ul>
+<li>编辑器 (调式): <code>%CARLA_ROOT%\Unreal\CarlaUE4\FrameCap\</code></li>
+<li>打包 (发布): <code>%CARLA_ROOT%\Build\UE4Carla\0.9.13-dirty\WindowsNoEditor\CarlaUE4\FrameCap\</code></li>
+</ul>
+<p>（为方便起见，显示 Windows 路径，但 Linux/Mac 的目标路径类似）</p>
+<p>启用这些标志后，任何时候您启动重放，例如：
+<div class="highlight"><pre><span></span><code><span class="c1"># 在目录 PythonAPI/examples</span>
 ./start_replaying.py<span class="w"> </span>-f<span class="w"> </span>/PATH/TO/RECORDING/FILE<span class="w"> </span><span class="c1"># unix</span>
 
 python<span class="w"> </span>start_replaying.py<span class="w"> </span>-f<span class="w"> </span>/PATH/TO/RECORDING/FILE<span class="w"> </span><span class="c1"># windows</span>
 </code></pre></div></p>
-<h1 id="other-guides">Other guides</h1>
-<p>We have written other guides as well that serve more particular needs:
-- See <a href="https://github.com/HARPLab/DReyeVR/wiki/Frequently-Asked-Questions"><code>F.A.Q. wiki</code></a> for our Frequently Asked Questions wiki page.
-- See <a href="../Tutorials/SetupVR/"><code>SetupVR.md</code></a> to learn how to quickly and minimally set up VR with Carla
-- See <a href="../Tutorials/Sounds/"><code>Sounds.md</code></a> to see how we added custom sounds and how you can add your own custom sounds
-- See <a href="../Tutorials/Signs/"><code>Signs.md</code></a> to add custom in-world directional signs and dynamically spawn them into the world at runtime
-- See <a href="../Shaders/README.md"><code>Shaders/README.md</code></a> to view our post-processing shaders and learn how to use them
-- See <a href="../Tutorials/CustomActor/"><code>CustomActor.md</code></a> to use our CustomActor classes to use fully-recordable 3D dynamic elements in your scene
-- See <a href="../Tutorials/Model/"><code>Model.md</code></a> to see how we added a responsive steering wheel to the vehicle mesh
-- See <a href="../Tutorials/CustomEgo/"><code>CustomEgo.md</code></a> to add your own custom EgoVehicle model to DReyeVR
-- See <a href="../Tutorials/LODs/"><code>LODs.md</code></a> to learn how we tune the Level-Of-Detail modes for vehicles for a more enjoyable VR experience</p>
+<h1 id="_13">其他指南</h1>
+<p>我们还编写了其他指南来满足更特殊的需求：
+- 请参阅 <a href="https://github.com/HARPLab/DReyeVR/wiki/Frequently-Asked-Questions"><code>F.A.Q. wiki</code></a> ，了解我们的常见问题 wiki 页面。
+- 请参阅 <a href="../Tutorials/SetupVR/"><code>SetupVR.md</code></a> 了解如何使用 Carla 快速、简便地设置 VR
+- 请参阅 <a href="../Tutorials/Sounds/"><code>Sounds.md</code></a> 了解我们如何添加自定义声音以及如何添加您自己的自定义声音
+- 请参阅 <a href="../Tutorials/Signs/"><code>Signs.md</code></a> 以添加自定义世界方向标志并在运行时动态地将它们生成到世界中
+- 请参阅 <a href="../Shaders/README.md"><code>Shaders/README.md</code></a> 以查看我们的后处理着色器并了解如何使用它们
+- 请参阅 <a href="../Tutorials/CustomActor/"><code>CustomActor.md</code></a> 以使用我们的 CustomActor 类在场景中使用完全可记录的 3D 动态元素
+- 请参阅 <a href="../Tutorials/Model/"><code>Model.md</code></a> ，了解我们如何向车辆网格添加响应式方向盘
+- 请参阅 <a href="../Tutorials/CustomEgo/"><code>CustomEgo.md</code></a>，将您自己的自定义 EgoVehicle 模型添加到 DReyeVR
+- 请参阅 <a href="../Tutorials/LODs/"><code>LODs.md</code></a> ，了解我们如何调整车辆的细节级别模式，以获得更愉快的 VR 体验</p>
 <h1 id="quirks">Quirks:</h1>
 <ul>
-<li>On Windows you're going to want to use the <code>Windows x64 Visual C++ Toolset</code> and call all the python files with <code>python SCRIPT.py</code> rather than just <code>./SCRIPT.py</code><ul>
-<li>Additionally, environment variables are accessed <code>%LIKE_THIS%</code> instead of <code>$LIKE_THIS</code>.</li>
-<li>And remember that file paths use a backwards slash to <code>LOCATE\FILES\THIS\WAY\</code> instead of <code>THE/NORMAL/WAY/</code></li>
+<li>
+<p>在 Windows 上，您将需要使用 <code>Windows x64 Visual C++ Toolset</code>，并使用 <code>python SCRIPT.py</code> 调用所有 python 文件，而不仅仅是 <code>./SCRIPT.py</code> </p>
+<ul>
+<li>
+<p>此外，环境变量的访问方式是 <code>%LIKE_THIS%</code> 而不是 <code>$LIKE_THIS</code>。</p>
+</li>
+<li>
+<p>请记住，文件路径使用反斜杠来表示 <code>LOCATE\FILES\THIS\WAY\</code>，而不是 <code>THE/NORMAL/WAY/</code>  </p>
+</li>
+<li>有一个错误（我们不确定原因，在基本 carla 中也会出现），其中 <code>Town06/07/10HD</code> 未出现在<code>打包</code>版本中。<a href="https://carla.readthedocs.io/en/0.9.13/start_quickstart/#import-additional-assets">此处</a> 有一些文档。</li>
 </ul>
 </li>
-<li>There is a bug (we are not sure why, occurs in base carla too), where <code>Town06/07/10HD</code> are not present in the <code>package</code>d release. Some documentation <a href="https://carla.readthedocs.io/en/0.9.13/start_quickstart/#import-additional-assets">here</a>. </li>
 </ul>
               
             </div>
