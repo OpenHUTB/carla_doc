@@ -236,7 +236,12 @@
 <li>此外，我们使用的 <a href="https://github.com/HARPLab/LogitechWheelPlugin">LogitechWheelPlugin</a> 目前仅支持 Windows。不过，根据 <a href="https://wiki.archlinux.org/title/Logitech_Racing_Wheel">Arch Wiki</a> ，应该可以在 Linux 上使用 G923。</li>
 <li>此外，尽管 CARLA 并未正式支持 MacOS，但我们在 Apple Silicon 机器上进行了开发，并且拥有 CARLA + UE4.26 的活跃分支，支持 MacOS 12+。请注意，这主要用于开发，因为它是迄今为止最受限制的系统。</li>
 </ul>
-<h2 id="_8">文档 &amp; 指南</h2>
+<h2 id="_8">在最新的版本上编译</h2>
+<p>原来适配的虚幻引擎的提交记录只到 <a href="https://github.com/OpenHUTB/UnrealEngine/commit/d40ec35474e8793b4eea60dba6c4f051186e458e">Commit d40ec35</a> 。</p>
+<p>1.运行<code>DReyeVR/Scripts/install.py</code>将必要的代码复制到carla目录中；</p>
+<p>2.调整代码，比较复杂的是：Unreal/CarlaUE4/Config/DefaultEngine.ini</p>
+<p>原始仓库拷贝到目的目录存在<code>Scripts/Paths/DReyeVR.csv</code>中，</p>
+<h2 id="_9">文档 &amp; 指南</h2>
 <ul>
 <li>请参阅 <a href="https://github.com/HARPLab/DReyeVR/wiki/Frequently-Asked-Questions"><code>F.A.Q. wiki</code></a> ，了解我们的常见问题 wiki 页面。</li>
 <li>请参阅 <a href="Install/"><code>Install.md</code></a> 来安装和构建 DReyeVR</li>
@@ -244,7 +249,7 @@
 <li>请参阅 <a href="Development/"><code>Development.md</code></a> 以开始 DReyeVR 开发并添加新功能</li>
 <li>请参阅 <a href="interbehavior/Tutorials/"><code>interbehavior/Tutorials/</code></a> 查看多个 DReyeVR 教程，例如自定义 EgoVehicle、添加自定义标志/道具等。</li>
 </ul>
-<h2 id="_9">引用</h2>
+<h2 id="_10">引用</h2>
 <p>如果你想使用该工作，请参考对应的 <a href="https://arxiv.org/abs/2201.01931">论文</a>:</p>
 <ul>
 <li>此 repo 包含来自 Hewlett-Packard Development Company, LP 的一些代码。请参阅 <a href="Tools/Diagnostics/collectl/nvidia.ph">nvidia.ph</a> 。</li>
