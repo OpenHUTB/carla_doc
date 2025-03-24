@@ -109,7 +109,36 @@ TargetParams：类型为 FWeatherParameters，表示过渡的目标天气参数�
 TransitionDuration：类型为 float，代表过渡所需的时长。
 //...其他过渡参数：表明结构体可能还存在其他用于控制过渡的参数
 
+后处理系统
+材质混合机制：
+通过ActiveBlendables管理不同天气特效的叠加强度（如雨和沙尘暴同时存在时的混合比例）
 
+自动检测：
+CheckWeatherPostProcessEffects()函数（需在子类实现）根据天气参数动态启用/禁用后处理材质
+
+传感器通知
+支持通过ASensor派生类（如摄像头/雷达）获取天气状态变化
+典型应用场景：雨雾天气对激光雷达点云的衰减模拟
+注意事项
+蓝图实现要求
+必须创建AWeather的蓝图子类并实现RefreshWeather事件，否则天气视觉变化不会生效
+
+材质配置
+需在项目Content Browser中指定：
+
+PrecipitationPostProcessMaterial（降水特效）
+DustStormPostProcessMaterial（沙尘特效）
+线程安全
+GetDayNightCycle()返回bool引用，跨线程访问时需自行处理同步
+
+扩展建议
+可重写CheckWeatherPostProcessEffects()实现自定义的天气特效混合逻辑（如台风天气的雨+风特效叠加）
+
+示例调用流程：
+通过ApplyWeather()更新暴雨参数
+蓝图接收RefreshWeather事件，启动雨滴粒子系统和乌云材质
+后处理系统自动启用降水特效材质
+所有摄像头传感器收到天气变更通知，调整画面亮度/对比度
 
 注意事项
 确保在使用前正确初始化AWeather对象。
