@@ -173,6 +173,7 @@ DEBUG_ASSERT_EQ(bytes, sizeof(message_size_type) + message->size());
 - 请参阅 [`Usage.md`](interbehavior/Usage.md) 了解如何使用我们提供的 DReyeVR 功能
 - 请参阅 [`Development.md`](interbehavior/Development.md) 以开始 DReyeVR 开发并添加新功能
 - 请参阅 [`interbehavior/Tutorials/`](interbehavior/Tutorials/) 查看多个 DReyeVR 教程，例如自定义 EgoVehicle、添加自定义标志/道具等。
+- 功能实现分析参阅 [链接](interbehavior/implementation.md) 。
 
 ## 引用
 如果你想使用该工作，请参考对应的 [论文](https://arxiv.org/abs/2201.01931):
