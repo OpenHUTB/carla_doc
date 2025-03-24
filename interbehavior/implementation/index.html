@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Llm - 代理模拟器</title>
+    <title>虚拟现实的实现 - 代理模拟器</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,8 +13,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Llm";
-        var mkdocs_page_input_path = "software/llm.md";
+        var mkdocs_page_name = "\u865a\u62df\u73b0\u5b9e\u7684\u5b9e\u73b0";
+        var mkdocs_page_input_path = "interbehavior/implementation.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -58,9 +58,9 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Llm</li>
+      <li class="breadcrumb-item active">虚拟现实的实现</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/software/llm.md" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/interbehavior/implementation.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -68,32 +68,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="deepseek-r1-ollamaopenwebui"><a href="https://blog.csdn.net/youcans/article/details/145414871">DeepSeek R1 本地部署（Ollama+OpenWebUI）</a></h1>
-<div class="admonition 注意">
-<p class="admonition-title">注意</p>
-<p>校园内网也可以直接访问链接 <a href="http://10.0.254.164:8080/auth">链接</a> 进行使用（用户名：2929@hutb.edu.cn，密码：hutb）。</p>
-</div>
-<h2 id="1deepseek-r1">1.DeepSeek R1 安装</h2>
-<p>下载并安装 <a href="https://ollama.com/download">Ollama</a> 后，打开链接 <a href="http://localhost:11434/">http://localhost:11434/</a> ，验证安装Ollama成功。</p>
-<p>运行以下命令安装7b模型（目前支持1.5b、7b、14b、32b、70b、671b）：
-<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>run<span class="w"> </span>deepseek-r1:7b
-</code></pre></div>
-下载完成即可通过命令行进行对话。</p>
-<h2 id="2-webui">2.安装 WebUI</h2>
-<p>2.1 以管理员身份运行 PowerShell，执行以下命令启动Hyper-V：
-<div class="highlight"><pre><span></span><code>Enable-WindowsOptionalFeature<span class="w"> </span>-Online<span class="w"> </span>-FeatureName<span class="w"> </span>Microsoft-Hyper-V<span class="w"> </span>-All
-</code></pre></div></p>
-<p>2.2 安装 <a href="https://www.docker.com/products/docker-desktop/">Docker for Desktop</a></p>
-<p>2.3 安装和启动 open-webui
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">3000</span>:8080<span class="w"> </span>--add-host<span class="o">=</span>host.docker.internal:host-gateway<span class="w"> </span>-v<span class="w"> </span>open-webui:/app/backend/data<span class="w"> </span>--name<span class="w"> </span>open-webui<span class="w"> </span>--restart<span class="w"> </span>always<span class="w"> </span>ghcr.io/open-webui/open-webui:main
-</code></pre></div></p>
-<p>2.4 打开 <a href="http://127.0.0.1:3000">http://127.0.0.1:3000</a> 开始网页使用。</p>
-<h2 id="_1">参考</h2>
-<ul>
-<li><a href="https://blog.csdn.net/AnNanDu/article/details/145462409">全流程安装DeepSeek开源模型</a></li>
-<li><a href="https://www.runoob.com/docker/windows-docker-install.html">Docker 安装</a></li>
-<li><a href="https://github.com/OpenHUTB/carla_doc">文档和代码</a></li>
-</ul>
+                <h1 id="_1">虚拟现实的实现</h1>
+<p>配置文件 <code>Unreal/CarlaUE4/Config/DReyeVRConfig.ini</code> 中的 <code>CameraPose</code>配置了相机的初始位置。</p>
               
             </div>
           </div><footer>
