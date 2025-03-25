@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Commandlet - 代理模拟器</title>
+    <title>CARLA 资产材质加载模块技术文档 (LoadAssetMaterialsCommandlet.cpp) - 代理模拟器</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Commandlet";
+        var mkdocs_page_name = "CARLA \u8d44\u4ea7\u6750\u8d28\u52a0\u8f7d\u6a21\u5757\u6280\u672f\u6587\u6863 (LoadAssetMaterialsCommandlet.cpp)";
         var mkdocs_page_input_path = "modules/Commandlet.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,7 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Commandlet</li>
+      <li class="breadcrumb-item active">CARLA 资产材质加载模块技术文档 (LoadAssetMaterialsCommandlet.cpp)</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/modules/Commandlet.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -68,7 +68,255 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                
+                <h1 id="carla-loadassetmaterialscommandletcpp">CARLA 资产材质加载模块技术文档 (LoadAssetMaterialsCommandlet.cpp)</h1>
+<hr />
+<h2 id="_1">目录</h2>
+<ol>
+<li><a href="#模块概述">模块概述</a>  </li>
+<li><a href="#核心功能">核心功能</a>  </li>
+<li><a href="#类与方法详解">类与方法详解</a>  </li>
+<li><a href="#数据结构与配置">数据结构与配置</a>  </li>
+<li><a href="#关键流程">关键流程</a>  </li>
+<li><a href="#配置参数">配置参数</a>  </li>
+<li><a href="#注意事项">注意事项</a>  </li>
+<li><a href="#示例配置">示例配置</a>  </li>
+<li><a href="#附录">附录</a>  </li>
+</ol>
+<hr />
+<h2 id="_2">模块概述</h2>
+<p><code>LoadAssetMaterialsCommandlet</code> 是 CARLA 模拟器中用于批量处理场景材质资源的命令行工具，主要功能包括：<br />
+- <strong>贴花材质动态加载</strong>：根据配置文件自动生成道路贴花（Decal）<br />
+- <strong>瓦片地图支持</strong>：支持分块地图的坐标转换与材质应用<br />
+- <strong>配置文件驱动</strong>：通过 JSON 文件定义贴花类型、密度、缩放等参数<br />
+- <strong>OpenDrive 集成</strong>：基于道路数据精准放置贴花<br />
+- <strong>编辑器集成</strong>：支持 Unreal Editor 的资产管理与保存  </p>
+<hr />
+<h2 id="_3">核心功能</h2>
+<h3 id="1">1. 材质配置解析</h3>
+<ul>
+<li><strong>JSON 配置文件解析</strong><br />
+  <div class="highlight"><pre><span></span><code><span class="n">FDecalsProperties</span><span class="w"> </span><span class="nf">ReadDecalsConfigurationFile</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FString</span><span class="w"> </span><span class="o">&amp;</span><span class="n">PackageName</span><span class="p">);</span>
+</code></pre></div></li>
+<li>解析 <code>roadpainter_decals.json</code> 文件  </li>
+<li>支持定义贴花类型、生成数量、缩放范围等参数  </li>
+</ul>
+<h3 id="2">2. 动态贴花生成</h3>
+<ul>
+<li><strong>基于瓦片的坐标计算</strong><br />
+  <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">ApplyRoadPainterMaterials</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FString</span><span class="w"> </span><span class="o">&amp;</span><span class="n">LoadedMapName</span><span class="p">,</span><span class="w"> </span><span class="p">...);</span>
+</code></pre></div></li>
+<li>根据瓦片索引计算世界坐标与局部坐标转换  </li>
+<li>
+<p>使用 <code>ADecalActor</code> 动态创建贴花实例  </p>
+</li>
+<li>
+<p><strong>随机化参数</strong>  </p>
+</li>
+<li>位置随机偏移（<code>RandomOffset</code>）  </li>
+<li>旋转随机偏航角（<code>DecalRandomYaw</code>）  </li>
+<li>缩放随机范围（<code>DecalMinScale</code> - <code>DecalMaxScale</code>）  </li>
+</ul>
+<h3 id="3">3. 资产批量处理</h3>
+<ul>
+<li><strong>地图包加载</strong><br />
+  <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">LoadAssetsMaterials</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FString</span><span class="w"> </span><span class="o">&amp;</span><span class="n">PackageName</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">TArray</span><span class="o">&lt;</span><span class="n">FMapData</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">MapsPaths</span><span class="p">);</span>
+</code></pre></div></li>
+<li>自动扫描指定包的 <code>/Maps/</code> 目录  </li>
+<li>支持分块地图（<code>_Tile_</code> 后缀识别）  </li>
+</ul>
+<hr />
+<h2 id="_4">类与方法详解</h2>
+<h3 id="uloadassetmaterialscommandlet"><code>ULoadAssetMaterialsCommandlet</code> 类</h3>
+<h4 id="_5">关键方法</h4>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>功能描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Main()</code></td>
+<td>Commandlet 入口点，解析命令行参数</td>
+</tr>
+<tr>
+<td><code>ApplyRoadPainterMaterials()</code></td>
+<td>核心贴花生成逻辑，处理坐标转换与实例化</td>
+</tr>
+<tr>
+<td><code>ReadDecalsConfigurationFile()</code></td>
+<td>读取并解析 JSON 配置文件</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_6">内部数据结构</h4>
+<ul>
+<li>
+<p><strong>瓦片信息</strong><br />
+  <div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">FirstTileCenterX</span><span class="p">,</span><span class="w"> </span><span class="n">FirstTileCenterY</span><span class="p">;</span><span class="w"> </span><span class="c1">// 起始瓦片中心坐标</span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">Size</span><span class="p">;</span><span class="w">                               </span><span class="c1">// 瓦片尺寸（米）</span>
+<span class="p">}</span><span class="w"> </span><span class="n">TileData</span><span class="p">;</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>贴花配置</strong><br />
+  <div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">FDecalsProperties</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">TArray</span><span class="o">&lt;</span><span class="n">UMaterialInstanceConstant</span><span class="o">*&gt;</span><span class="w"> </span><span class="n">DecalMaterials</span><span class="p">;</span><span class="w"> </span><span class="c1">// 材质实例</span>
+<span class="w">  </span><span class="n">TArray</span><span class="o">&lt;</span><span class="n">int32</span><span class="o">&gt;</span><span class="w"> </span><span class="n">DecalNumToSpawn</span><span class="p">;</span><span class="w">       </span><span class="c1">// 各类型贴花生成数量</span>
+<span class="w">  </span><span class="n">FVector</span><span class="w"> </span><span class="n">DecalScale</span><span class="p">;</span><span class="w">                  </span><span class="c1">// 基础缩放比例</span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">DecalMinScale</span><span class="p">,</span><span class="w"> </span><span class="n">DecalMaxScale</span><span class="p">;</span><span class="w">  </span><span class="c1">// 随机缩放范围</span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">DecalRandomYaw</span><span class="p">;</span><span class="w">                </span><span class="c1">// 最大随机偏航角</span>
+<span class="p">};</span>
+</code></pre></div></p>
+</li>
+</ul>
+<hr />
+<h2 id="_7">关键流程</h2>
+<h3 id="_8">贴花生成流程</h3>
+<ol>
+<li><strong>配置文件读取</strong>  </li>
+<li>解析 <code>roadpainter_decals.json</code> 获取材质路径与生成参数  </li>
+<li><strong>瓦片坐标计算</strong>  </li>
+<li>根据 <code>TilesInfo.txt</code> 计算当前瓦片的世界边界  </li>
+<li>转换 OpenDrive 坐标到 UE 坐标系  </li>
+<li><strong>实例化贴花</strong>  </li>
+<li>在道路表面随机生成位置  </li>
+<li>应用材质、随机旋转与缩放  </li>
+<li>命名规范：<code>RoadDecal</code>  </li>
+</ol>
+<h3 id="_9">命令行执行流程</h3>
+<pre class="mermaid"><code>graph TD
+  A[启动Commandlet] --&gt; B[解析Package参数]
+  B --&gt; C[加载JSON配置]
+  C --&gt; D[遍历地图资产]
+  D --&gt; E{是否瓦片地图?}
+  E --&gt;|是| F[计算瓦片边界]
+  E --&gt;|否| G[全局坐标处理]
+  F/G --&gt; H[生成贴花实例]
+  H --&gt; I[保存资产修改]</code></pre>
+<hr />
+<h2 id="_10">配置参数</h2>
+<h3 id="json-roadpainter_decalsjson">JSON 配置文件示例 (<code>roadpainter_decals.json</code>)</h3>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;decals&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;dirt1&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;cracksbig1&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;decal_scale&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;x_axis&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;y_axis&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;z_axis&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;decal_min_scale&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.8</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;decal_max_scale&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.2</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;decal_random_yaw&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">45.0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;random_offset&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">150.0</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="_11">参数说明</h3>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dirt1</code></td>
+<td>int</td>
+<td>"dirt1" 类型贴花生成数量</td>
+</tr>
+<tr>
+<td><code>decal_scale</code></td>
+<td>Vector3D</td>
+<td>基础缩放比例 (X/Y/Z)</td>
+</tr>
+<tr>
+<td><code>decal_random_yaw</code></td>
+<td>float</td>
+<td>最大随机旋转角度（度）</td>
+</tr>
+<tr>
+<td><code>random_offset</code></td>
+<td>float</td>
+<td>位置随机偏移范围（厘米）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_12">注意事项</h2>
+<ol>
+<li><strong>路径规范</strong>  </li>
+<li>材质路径必须包含完整 UE 资源路径（如 <code>MaterialInstanceConstant'/Game/...'</code>）  </li>
+<li>
+<p>地图包必须包含 <code>TilesInfo.txt</code> 以支持瓦片计算  </p>
+</li>
+<li>
+<p><strong>性能优化</strong>  </p>
+</li>
+<li>单瓦片建议贴花数量 ≤ 200  </li>
+<li>
+<p>高精度贴花（如 4K 材质）建议减少生成密度  </p>
+</li>
+<li>
+<p><strong>坐标系统</strong>  </p>
+</li>
+<li>CARLA 使用左手坐标系，Y 轴方向与 UE 相反  </li>
+<li>转换公式：<code>UE_Y = -OpenDrive_Y</code>  </li>
+</ol>
+<hr />
+<h2 id="_13">示例配置</h2>
+<h3 id="_14">命令行调用</h3>
+<div class="highlight"><pre><span></span><code>UE4Editor-Cmd.exe ProjectName -run=LoadAssetMaterials 
+  -PackageName=CityPack 
+  -MapFilter=Downtown
+</code></pre></div>
+<h3 id="_15">材质映射表</h3>
+<table>
+<thead>
+<tr>
+<th>贴花类型</th>
+<th>材质路径</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dirt1</td>
+<td><code>MaterialInstanceConstant'/Game/.../DI_Dirt1'</code></td>
+</tr>
+<tr>
+<td>cracksbig1</td>
+<td><code>MaterialInstanceConstant'/Game/.../DI_Crack1'</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_16">附录</h2>
+<h3 id="_17">依赖项</h3>
+<ul>
+<li><strong>Unreal Engine 4.26+</strong>：Commandlet 框架、材质系统  </li>
+<li><strong>CARLA OpenDrive 解析器</strong>：道路数据坐标转换  </li>
+</ul>
+<h3 id="_18">调试支持</h3>
+<ul>
+<li><strong>日志输出</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="n">UE_LOG</span><span class="p">(</span><span class="n">LogTemp</span><span class="p">,</span><span class="w"> </span><span class="n">Warning</span><span class="p">,</span><span class="w"> </span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;Could not read TilesInfo.txt file&quot;</span><span class="p">));</span>
+</code></pre></div></li>
+<li><strong>编辑器实时预览</strong>：在 <code>ADecalActor</code> 创建后立即可见  </li>
+</ul>
+<h3 id="_19">版本兼容性</h3>
+<ul>
+<li>适配 CARLA 0.9.12 及以上版本  </li>
+<li>需要同步更新 <code>DecalNamesMap</code> 中的材质路径  </li>
+</ul>
+<hr />
+<blockquote>
+<p>文档版本：1.0<br />
+最后更新：2025年3月25日<br />
+作者：HAPPY-LLLL</p>
+</blockquote>
               
             </div>
           </div><footer>
