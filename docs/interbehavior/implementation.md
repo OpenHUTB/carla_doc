@@ -3,8 +3,33 @@
 配置文件 `Unreal/CarlaUE4/Config/DReyeVRConfig.ini` 中的 `CameraPose`配置了相机的初始位置。
 
 
+## 配置
+默认的引擎配置在`carla\Unreal\CarlaUE4\Config/DefaultEngine.ini`文件中进行修改：
+```shell
+# 传统模式
+# GlobalDefaultServerGameMode=/Game/Carla/Blueprints/Game/CarlaGameMode.CarlaGameMode_C
+# 默认的游戏模式（VR模式）
+GlobalDefaultGameMode=/Script/CarlaUE4.DReyeVRGameMode
+GlobalDefaultServerGameMode=/Script/CarlaUE4.DReyeVRGameMode
+```
+
 
 ## 在最新的版本上编译
+
+InputComponent != nullptr是空
+
+崩溃是因为 InputComponent 是nullptr。如果没有 PlayerController 拥有 pawn，就会发生这种情况。您需要做的就是将使用输入组件的行换行if (IsValid(InputComponent)) { ... }。
+
+DReyeVRGame->GetPawn() 为空
+
+已经有车辆生成，而且有声音，但是没有持有棋子（车辆）。
+
+交通管理器生成的车不跑
+
+---
+
+
+
 原来适配的虚幻引擎的提交记录只到 [Commit d40ec35](https://github.com/OpenHUTB/UnrealEngine/commit/d40ec35474e8793b4eea60dba6c4f051186e458e) 。
 
 1.运行`DReyeVR/Scripts/install.py`将必要的代码复制到carla目录中；

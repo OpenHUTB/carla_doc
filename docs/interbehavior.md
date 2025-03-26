@@ -8,7 +8,7 @@
 <!-- [视频演示 (YouTube)](https://www.youtube.com/watch?v=yGIPSDOMGpY) -->
 <!-- Welcome to the DReyeVR wiki! -->
 
-该项目扩展了 [`Carla`](https://github.com/OpenHUTB/carla) 模拟器，增加了虚拟现实集成、第一人称可操纵的自我车辆、眼动追踪支持和多种沉浸感增强功能。
+该模块扩展了 [`Carla`](https://github.com/OpenHUTB/carla) 模拟器，增加了虚拟现实集成、第一人称可操纵的自我车辆、眼动追踪支持和多种沉浸感增强功能。
 
 如果您有任何疑问，希望我们的常见问题解答 [F.A.Q. 维基页面](https://github.com/HARPLab/DReyeVR/wiki/Frequently-Asked-Questions) 和 [问题页面](https://github.com/HARPLab/DReyeVR/issues?q=is%3Aissue+is%3Aclosed) 可以解答其中的一些问题。
 
@@ -72,7 +72,7 @@
 
 - 能够将控制权移交给/接管 Carla 的 AI 轮式车辆控制器
 
-- 基于 Carla 的语义分割相机（参见 [`Shaders/README.md`](interbehavior/Shaders.md) ）
+- 基于 Carla 的语义分割相机（参见 [`着色器`](interbehavior/Shaders.md) ）
 
 
 ### 自我传感器
