@@ -155,17 +155,34 @@
 <li><code>GetSettings</code> 方法将速度和加速度 PID 控制器的参数复制到 <code>FAckermannControllerSettings</code> 结构体中并返回。</li>
 <li><code>ApplySettings</code> 方法将传入的 <code>FAckermannControllerSettings</code> 结构体中的参数应用到速度和加速度 PID 控制器中。</li>
 </ul>
-<h3 id="42">4.2设置目标点</h3>
-<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">FAckermannController::SetTargetPoint</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FVehicleAckermannControl</span><span class="o">&amp;</span><span class="w"> </span><span class="n">AckermannControl</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="n">UserTargetPoint</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AckermannControl</span><span class="p">;</span>
+<h3 id="411">4.1.1 构造函数</h3>
+<p>```cpp
+  // 默认构造函数，初始化PID参数及车辆状态
+FAckermannController::FAckermannController() {
+    // 初始化PID参数（假设默认值）
+    SpeedController.Kp = 0.5f;
+    SpeedController.Ki = 0.1f;
+    SpeedController.Kd = 0.2f;</p>
+<pre><code>AccelerationController.Kp = 1.0f;
+AccelerationController.Ki = 0.5f;
+AccelerationController.Kd = 0.3f;
 
-<span class="w">  </span><span class="n">TargetSteer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FMath</span><span class="o">::</span><span class="n">Clamp</span><span class="p">(</span><span class="n">UserTargetPoint</span><span class="p">.</span><span class="n">Steer</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">VehicleMaxSteering</span><span class="p">,</span><span class="w"> </span><span class="n">VehicleMaxSteering</span><span class="p">);</span>
-<span class="w">  </span><span class="n">TargetSteerSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FMath</span><span class="o">::</span><span class="n">Abs</span><span class="p">(</span><span class="n">UserTargetPoint</span><span class="p">.</span><span class="n">SteerSpeed</span><span class="p">);</span>
-<span class="w">  </span><span class="n">TargetSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UserTargetPoint</span><span class="p">.</span><span class="n">Speed</span><span class="p">;</span>
-<span class="w">  </span><span class="n">TargetAcceleration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FMath</span><span class="o">::</span><span class="n">Abs</span><span class="p">(</span><span class="n">UserTargetPoint</span><span class="p">.</span><span class="n">Acceleration</span><span class="p">);</span>
-<span class="w">  </span><span class="n">TargetJerk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FMath</span><span class="o">::</span><span class="n">Abs</span><span class="p">(</span><span class="n">UserTargetPoint</span><span class="p">.</span><span class="n">Jerk</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
+// 其他状态初始化
+Reset();
+</code></pre>
+<p>}
+```</p>
+<h3 id="42">4.2设置目标点</h3>
+<p><code>cpp
+void FAckermannController::SetTargetPoint(const FVehicleAckermannControl&amp; AckermannControl) {
+  UserTargetPoint = AckermannControl;
+
+  TargetSteer = FMath::Clamp(UserTargetPoint.Steer, -VehicleMaxSteering, VehicleMaxSteering);
+  TargetSteerSpeed = UserTargetPoint.SteerSpeed;//保留符号以支持双向转向速度
+  TargetSpeed = UserTargetPoint.Speed;
+  TargetAcceleration = FMath::Abs(UserTargetPoint.Acceleration);
+  TargetJerk = FMath::Abs(UserTargetPoint.Jerk);
+}</code></p>
 <ul>
 <li>将传入的 <code>FVehicleAckermannControl</code> 结构体赋值给 <code>UserTargetPoint</code>。</li>
 <li>对转向角进行裁剪，确保其在最大转向角范围内。</li>
@@ -273,7 +290,7 @@
 
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">FMath</span><span class="o">::</span><span class="n">Abs</span><span class="p">(</span><span class="n">VehicleSpeed</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">StandingStillEpsilon</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">// 停车不动，允许改变行驶方向</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">UserTargetPoint</span><span class="p">.</span><span class="n">Speed</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">TargetPoint</span><span class="p">.</span><span class="n">Speed</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">//使用裁剪后的目标速度，防止出现可能导致逻辑混乱</span>
 <span class="w">      </span><span class="c1">// 改变驾驶方向到倒车。</span>
 <span class="w">      </span><span class="n">bReverse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">UserTargetPoint</span><span class="p">.</span><span class="n">Speed</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -294,6 +311,18 @@
 <li>如果车辆正在行驶且目标速度的方向与当前速度的方向相反，则将目标速度设置为零，需要先完全停止才能改变行驶方向。</li>
 </ul>
 <h4 id="463">4.6.3速度控制</h4>
+<p>在速度控制中，MaxAccel和MaxDecel代表车辆最大物理加速度/减速度。
+<div class="highlight"><pre><span></span><code><span class="c1">// 类成员变量（需在类定义中声明）</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">MaxAccel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.0f</span><span class="p">;</span><span class="w">   </span><span class="c1">// 默认最大加速度 3m/s²</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">MaxDecel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">8.0f</span><span class="p">;</span><span class="w">   </span><span class="c1">// 默认最大减速度 8m/s²（紧急制动）</span>
+
+<span class="c1">// 或通过车辆物理参数动态获取</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">FAckermannController::UpdateVehiclePhysics</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">ACarlaWheeledVehicle</span><span class="o">*</span><span class="w"> </span><span class="n">Vehicle</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">VehicleMaxSteering</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FMath</span><span class="o">::</span><span class="n">DegreesToRadians</span><span class="p">(</span><span class="n">Vehicle</span><span class="o">-&gt;</span><span class="n">GetMaximumSteerAngle</span><span class="p">());</span>
+<span class="w">    </span><span class="n">MaxAccel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Vehicle</span><span class="o">-&gt;</span><span class="n">GetMaxAcceleration</span><span class="p">();</span><span class="w"> </span><span class="c1">// 假设存在此方法</span>
+<span class="w">    </span><span class="n">MaxDecel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Vehicle</span><span class="o">-&gt;</span><span class="n">GetMaxBrakingDeceleration</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">FAckermannController::RunControlSpeed</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="n">SpeedController</span><span class="p">.</span><span class="n">SetTargetPoint</span><span class="p">(</span><span class="n">TargetSpeed</span><span class="p">);</span>
 <span class="w">  </span><span class="n">SpeedControlAccelDelta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SpeedController</span><span class="p">.</span><span class="n">Run</span><span class="p">(</span><span class="n">VehicleSpeed</span><span class="p">,</span><span class="w"> </span><span class="n">DeltaTime</span><span class="p">);</span>
@@ -310,7 +339,7 @@
 <span class="w">  </span><span class="n">SpeedControlAccelTarget</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FMath</span><span class="o">::</span><span class="n">Clamp</span><span class="p">(</span><span class="n">SpeedControlAccelTarget</span><span class="p">,</span>
 <span class="w">      </span><span class="n">ClippingLowerBorder</span><span class="p">,</span><span class="w"> </span><span class="n">ClippingUpperBorder</span><span class="p">);</span>
 <span class="p">}</span>
-</code></pre></div>
+</code></pre></div></p>
 <ul>
 <li>设置速度 PID 控制器的目标速度。</li>
 <li>运行速度 PID 控制器，计算加速度的变化量。</li>
@@ -333,19 +362,25 @@
 </ul>
 <h4 id="465">4.6.5 更新车辆控制命令</h4>
 <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">FAckermannController::UpdateVehicleControlCommand</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="c1">// 负值：减速请求，正值：加速请求</span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">AccelControlPedalTarget</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 减速请求</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">bReverse</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="n">Throttle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FMath</span><span class="o">::</span><span class="n">Abs</span><span class="p">(</span><span class="n">AccelControlPedalTarget</span><span class="p">);</span>
 <span class="w">      </span><span class="n">Brake</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">// 前进时：负加速度对应刹车</span>
 <span class="w">      </span><span class="n">Throttle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
 <span class="w">      </span><span class="n">Brake</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FMath</span><span class="o">::</span><span class="n">Abs</span><span class="p">(</span><span class="n">AccelControlPedalTarget</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 加速请求</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">bReverse</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="c1">// 倒车时：正加速度对应刹车（减速倒车）</span>
 <span class="w">      </span><span class="n">Throttle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
 <span class="w">      </span><span class="n">Brake</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FMath</span><span class="o">::</span><span class="n">Abs</span><span class="p">(</span><span class="n">AccelControlPedalTarget</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">// 前进时：正加速度对应油门</span>
 <span class="w">      </span><span class="n">Throttle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FMath</span><span class="o">::</span><span class="n">Abs</span><span class="p">(</span><span class="n">AccelControlPedalTarget</span><span class="p">);</span>
 <span class="w">      </span><span class="n">Brake</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
@@ -365,11 +400,12 @@
 <span class="w">  </span><span class="n">DeltaTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Vehicle</span><span class="o">-&gt;</span><span class="n">GetWorld</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetDeltaSeconds</span><span class="p">();</span>
 
 <span class="w">  </span><span class="c1">// 更新车辆状态</span>
-<span class="w">  </span><span class="n">VehicleSteer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Vehicle</span><span class="o">-&gt;</span><span class="n">GetVehicleControl</span><span class="p">().</span><span class="n">Steer</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">VehicleMaxSteering</span><span class="p">;</span>
+<span class="w">  </span><span class="n">VehicleSteer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Vehicle</span><span class="o">-&gt;</span><span class="n">GetWheelSteerAngle</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">VehicleMaxSteering</span><span class="p">;</span><span class="w"> </span>
+<span class="w">  </span><span class="c1">//VehicleSteer应从车辆物理状态获取实际转向角，</span>
 <span class="w">  </span><span class="n">VehicleSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Vehicle</span><span class="o">-&gt;</span><span class="n">GetVehicleForwardSpeed</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">100.0f</span><span class="p">;</span><span class="w">  </span><span class="c1">// From cm/s to m/s</span>
 <span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">CurrentAcceleration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">VehicleSpeed</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">LastVehicleSpeed</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">DeltaTime</span><span class="p">;</span>
 <span class="w">  </span><span class="c1">// 对加速度应用平均滤波器。</span>
-<span class="w">  </span><span class="n">VehicleAcceleration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mf">4.0f</span><span class="o">*</span><span class="n">LastVehicleAcceleration</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">CurrentAcceleration</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">5.0f</span><span class="p">;</span>
+<span class="w">  </span><span class="n">VehicleAcceleration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mf">4.0f</span><span class="o">*</span><span class="n">LastVehicleAcceleration</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">CurrentAcceleration</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">5.0f</span><span class="p">;</span><span class="c1">//在UpdateVehicleState中，加速度通过低通滤波平滑处理，减少噪声影响。</span>
 <span class="p">}</span>
 </code></pre></div>
 <h4 id="72">7.2更新车辆物理参数</h4>
