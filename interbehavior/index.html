@@ -77,14 +77,20 @@
 <!-- [视频演示 (YouTube)](https://www.youtube.com/watch?v=yGIPSDOMGpY) -->
 <!-- Welcome to the DReyeVR wiki! -->
 
-<p>该项目扩展了 <a href="https://github.com/carla-simulator/carla/tree/0.9.13"><code>Carla</code></a> 模拟器，增加了虚拟现实集成、第一人称可操纵的自我车辆、眼动追踪支持和多种沉浸感增强功能。</p>
+<p>该项目扩展了 <a href="https://github.com/OpenHUTB/carla"><code>Carla</code></a> 模拟器，增加了虚拟现实集成、第一人称可操纵的自我车辆、眼动追踪支持和多种沉浸感增强功能。</p>
 <p>如果您有任何疑问，希望我们的常见问题解答 <a href="https://github.com/HARPLab/DReyeVR/wiki/Frequently-Asked-Questions">F.A.Q. 维基页面</a> 和 <a href="https://github.com/HARPLab/DReyeVR/issues?q=is%3Aissue+is%3Aclosed">问题页面</a> 可以解答其中的一些问题。</p>
-<p><strong>重要提示：</strong> 目前 DReyeVR 仅支持 Carla 版本：<a href="https://github.com/carla-simulator/carla/tree/0.9.13">0.9.13</a> 和 Unreal Engine 4.26</p>
+<p><strong>重要提示：</strong> 目前 DReyeVR 仅支持 Carla 版本：<a href="https://github.com/carla-simulator/carla/tree/0.9.13">0.9.13</a> 、<a href="https://github.com/OpenHUTB/carla">OpenHUTB</a> 和 Unreal Engine 4.26。</p>
 <h2 id="_2">亮点</h2>
 <h3 id="_3">自我车辆</h3>
-<p><a href="https://github.com/ValveSoftware/steamvr_unreal_plugin/tree/4.23">集成 SteamVR</a> 的完全可驾驶<strong>虚拟现实自我车辆</strong>（参见 <a href="DReyeVR/EgoVehicle.h">EgoVehicle.h</a> ）
-- SteamVR HMD 头部跟踪 (朝向 &amp; 位置)
-- 我们已经使用以下设备进行了测试：</p>
+<p><a href="https://github.com/ValveSoftware/steamvr_unreal_plugin/tree/4.23">集成 SteamVR</a> 的完全可驾驶<strong>虚拟现实自我车辆</strong>（参见 <a href="https://github.com/OpenHUTB/carla/blob/OpenHUTB/Unreal/CarlaUE4/Source/CarlaUE4/DReyeVR/EgoVehicle.h">EgoVehicle.h</a> ）</p>
+<ul>
+<li>
+<p>SteamVR HMD 头部跟踪 (朝向 &amp; 位置)</p>
+</li>
+<li>
+<p>我们已经使用以下设备进行了测试：</p>
+</li>
+</ul>
 <table>
 <thead>
 <tr>
@@ -97,14 +103,14 @@
 <tbody>
 <tr>
 <td><a href="https://business.vive.com/us/product/vive-pro-eye-office/">HTC Vive Pro Eye</a></td>
-<td>:white_check_mark:</td>
-<td>:white_check_mark:</td>
+<td>✓</td>
+<td>✓</td>
 <td>Windows, Linux</td>
 </tr>
 <tr>
 <td><a href="https://www.oculus.com/quest-2/">Quest 2</a></td>
-<td>:white_check_mark:</td>
-<td>:x:</td>
+<td>✓</td>
+<td>×</td>
 <td>Windows</td>
 </tr>
 </tbody>
@@ -114,34 +120,80 @@
 <li>由于我们使用 <a href="https://forum.htc.com/topic/5641-sranipal-faq/">SRanipal</a> 作为眼动追踪器 SDK，因此眼动追踪目前<strong>仅</strong>支持 HTC Vive Pro Eye。我们很乐意通过贡献添加其他 SDK 来支持更多设备。</li>
 <li>车辆控制：</li>
 <li>通用键盘 WASD + 鼠标</li>
-<li>使用此开源 <a href="https://github.com/HARPLab/LogitechWheelPlugin">LogitechWheelPlugin</a> 支持 Logitech 方向盘<ul>
+<li>
+<p>使用此开源 <a href="https://github.com/HARPLab/LogitechWheelPlugin">LogitechWheelPlugin</a> 支持 Logitech 方向盘</p>
+<ul>
 <li>包括方向盘的力反馈。</li>
 <li>我们使用了 <a href="https://www.logitechg.com/en-us/products/driving/driving-force-racing-wheel.html">Logitech G923 赛车方向盘和踏板</a></li>
 <li>虽然我们可以在没有经过测试的情况下保证开箱即用的功能，但是可以在 <a href="https://github.com/HARPLab/LogitechWheelPlugin/blob/master/README.md">此处</a> 找到受支持设备的完整列表。</li>
 </ul>
 </li>
-<li>逼真的（可参数化的）后视镜和侧视镜 </li>
+<li>
+<p>逼真的（可参数化的）后视镜和侧视镜</p>
+<ul>
 <li>警告：非常耗性能</li>
-<li>车辆仪表板：</li>
-<li>速度计（默认单位为英里/小时）</li>
-<li>档位指示器</li>
-<li>转向信号</li>
-<li>动力学方向盘</li>
-<li>可调节参数，响应转向输入</li>
-<li>请在 <a href="Tutorials/Model/">此处</a> 查看我们的相关文档</li>
-<li>“以自我为中心”的音频</li>
-<li>响应式发动机转速（基于油门）</li>
-<li>转向灯咔嗒声</li>
-<li>档位切换</li>
-<li>碰撞</li>
-<li>与现有的 <a href="https://carla.readthedocs.io/en/0.9.13/python_api/">Carla PythonAPI</a> 和 <a href="https://github.com/carla-simulator/scenario_runner/tree/v0.9.13">ScenarioRunner</a> 完全兼容</li>
+</ul>
+</li>
+<li>
+<p>车辆仪表板：</p>
+<ul>
+<li>
+<p>速度计（默认单位为英里/小时）</p>
+</li>
+<li>
+<p>档位指示器</p>
+</li>
+<li>
+<p>转向信号</p>
+</li>
+</ul>
+</li>
+<li>
+<p>动力学方向盘</p>
+<ul>
+<li>
+<p>可调节参数，响应转向输入</p>
+</li>
+<li>
+<p>请在 <a href="Tutorials/Model/">此处</a> 查看我们的相关文档</p>
+</li>
+</ul>
+</li>
+<li>
+<p>“以自我为中心”的音频</p>
+<ul>
+<li>
+<p>响应式发动机转速（基于油门）</p>
+</li>
+<li>
+<p>转向灯咔嗒声</p>
+</li>
+<li>
+<p>档位切换</p>
+</li>
+<li>
+<p>碰撞</p>
+</li>
+</ul>
+</li>
+<li>
+<p>与现有的 <a href="https://carla.readthedocs.io/en/0.9.13/python_api/">Carla PythonAPI</a> 和 <a href="https://github.com/carla-simulator/scenario_runner/tree/v0.9.13">ScenarioRunner</a> 完全兼容</p>
+<ul>
 <li>进行了微小修改。请参阅 <a href="Usage/">Usage.md</a> 文档。</li>
-<li>与 <a href="https://carla.readthedocs.io/en/0.9.13/adv_recorder/">Carla Recorder 和 Replayer</a> 完全兼容</li>
-<li>能够将控制权移交给/接管 Carla 的 AI 轮式车辆控制器</li>
-<li>基于 Carla 的语义分割相机（参见 <a href="Shaders/README.md"><code>Shaders/README.md</code></a> ）</li>
+</ul>
+</li>
+<li>
+<p>与 <a href="https://carla.readthedocs.io/en/0.9.13/adv_recorder/">Carla Recorder 和 Replayer</a> 完全兼容</p>
+</li>
+<li>
+<p>能够将控制权移交给/接管 Carla 的 AI 轮式车辆控制器</p>
+</li>
+<li>
+<p>基于 Carla 的语义分割相机（参见 <a href="Shaders/"><code>Shaders/README.md</code></a> ）</p>
+</li>
 </ul>
 <h3 id="_4">自我传感器</h3>
-<p>与 Carla 兼容的<strong>自我车辆传感器</strong>（参见 <a href="DReyeVR/EgoSensor.h">EgoSensor.h</a> ）是一种“隐形传感器”，可跟踪以下信息：</p>
+<p>与 Carla 兼容的<strong>自我车辆传感器</strong>（参见 <a href="https://github.com/OpenHUTB/carla/blob/OpenHUTB/Unreal/CarlaUE4/Source/CarlaUE4/DReyeVR/EgoSensor.h">EgoSensor.h</a> ）是一种“隐形传感器”，可跟踪以下信息：</p>
 <ul>
 <li>使用 <a href="https://enterprise.vive.com/us/product/vive-pro-eye-office/">HTC Vive Pro Eye</a> VR 耳机进行实时<strong>眼动跟踪</strong> </li>
 <li>眼动仪数据包括：<ul>
@@ -151,39 +203,79 @@
 <li>瞳孔直径（左和右）</li>
 <li>眼睛睁开度（左和右）</li>
 <li>世界中的焦点及命中的参与者信息</li>
-<li>完整列表请参见 <a href="Carla/Sensor/DReyeVRData.h">DReyeVRData.h:EyeTracker</a></li>
+<li>完整列表请参见 <a href="https://github.com/OpenHUTB/carla/blob/a67930eb9bc3ce2a7f1ffb15efc5fad5efaa3e75/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/DReyeVRData.h#L110">DReyeVRData.h:EyeTracker</a></li>
 </ul>
 </li>
 <li>实时眼标线可视化</li>
 <li>实时用户输入（油门、转向、刹车、转向信号等）</li>
 <li>基于摄像头的图像（截图）帧捕获 </li>
 <li>由于性能密集程度高，通常用于重播而不是实时。</li>
-<li>与 LibCarla 数据序列化完全兼容，可流式传输到 PythonAPI 客户端（参见 <a href="LibCarla/Sensor">LibCarla/Sensor</a> ）</li>
+<li>与 LibCarla 数据序列化完全兼容，可流式传输到 PythonAPI 客户端（参见 <a href="https://github.com/OpenHUTB/carla/tree/OpenHUTB/LibCarla/source/carla/sensor">LibCarla/Sensor</a> ）</li>
 <li>我们还测试并验证了对（<code>rospy</code>）ROS 集成传感器数据流的支持</li>
 </ul>
 <h3 id="_5">其他补充：</h3>
 <ul>
-<li>用于一次性运行时参数的自定义 DReyeVR 配置文件。请参阅 <a href="Configs/DReyeVRConfig.ini">DReyeVRConfig.ini</a> </li>
-<li>特别适用于无需重新编译所有内容即可更改参数。</li>
-<li>使用标准 c++ io 管理来读取文件，对性能的影响最小。请参阅 <a href="DReyeVR/DReyeVRUtils.h">DReyeVRUtils.h</a> 。</li>
-<li>世界环境音频</li>
-<li>鸟鸣声、风声、烟雾声等（参见 <a href="Tutorials/Sounds/">interbehavior/Tutorials/Sounds.md</a> ） </li>
-<li>非自我为中心的音频（非自我车辆的发动机转速）</li>
-<li>同步重放并逐帧捕获以进行事后分析（参见 <a href="Usage/">interbehavior/Usage.md</a> ） </li>
-<li>记录器/重放器媒体功能</li>
+<li>
+<p>用于一次性运行时参数的自定义 DReyeVR 配置文件。请参阅 <a href="https://github.com/OpenHUTB/carla/blob/OpenHUTB/Unreal/CarlaUE4/Config/DReyeVRConfig.ini">DReyeVRConfig.ini</a> </p>
+<ul>
+<li>
+<p>特别适用于无需重新编译所有内容即可更改参数。</p>
+</li>
+<li>
+<p>使用标准 C++ IO 管理来读取文件，对性能的影响最小。请参阅 <a href="https://github.com/OpenHUTB/carla/blob/OpenHUTB/Unreal/CarlaUE4/Source/CarlaUE4/DReyeVR/DReyeVRUtils.h">DReyeVRUtils.h</a> 。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>世界环境音频</p>
+<ul>
+<li>鸟鸣声、风声、烟雾声等（参见 <a href="Tutorials/Sounds/">Sounds.md</a> ）</li>
+</ul>
+</li>
+<li>
+<p>非自我为中心的音频（非自我车辆的发动机转速）</p>
+</li>
+<li>
+<p>同步重放并逐帧捕获以进行事后分析（参见 <a href="Usage/">Usage.md</a> ）</p>
+</li>
+<li>
+<p>记录器/重放器媒体功能</p>
+<ul>
 <li>添加了游戏内键盘命令播放/暂停/前进/后退/等。</li>
-<li><a href="Tutorials/Signs/">用于自然导航的静态环境方向标志</a> </li>
-<li>将天气信息添加到 Carla 记录器/重放器/查询中（参见此 <a href="https://github.com/carla-simulator/carla/pull/5235">Carla PR</a> ）</li>
-<li>自定义动态 3D 参与者，具有全面录制支持（例如方向的头显指示器、AR 边界框、视觉目标等）。有关更多信息，请参阅 <a href="Tutorials/CustomActor/">CustomActor.md</a> 。 </li>
-<li>（仅调试）注视点渲染可通过注视感知（或固定）可变速率着色来提高性能</li>
+</ul>
+</li>
+<li>
+<p><a href="Tutorials/Signs/">用于自然导航的静态环境方向标志</a></p>
+</li>
+<li>
+<p>将天气信息添加到 Carla 记录器/重放器/查询中（参见此 <a href="https://github.com/carla-simulator/carla/pull/5235">Carla PR</a> ）</p>
+</li>
+<li>
+<p>自定义动态 3D 参与者，具有全面录制支持（例如方向的头显指示器、AR 边界框、视觉目标等）。有关更多信息，请参阅 <a href="Tutorials/CustomActor/">CustomActor.md</a> 。 </p>
+</li>
+<li>
+<p>（仅调试）注视点渲染可通过注视感知（或固定）可变速率着色来提高性能</p>
+</li>
 </ul>
 <h2 id="_6">安装/构建</h2>
-<p>查看 <a href="Install/"><code>interbehavior/Install.md</code></a> :
-- 在可运行的 <code>Carla</code> 存储库上安装并构建 <code>DReyeVR</code> 。
-- 下载 <code>DReyeVR</code> 所需的插件，以实现以下精彩功能：
-  - 眼动跟踪 (SRanipal)
-  - 方向盘/踏板 (Logitech)
-- 为 DReyeVR PythonAPI 设置 <code>conda</code> 环境</p>
+<p>查看 <a href="Install/"><code>Install.md</code></a> :</p>
+<ul>
+<li>
+<p>在可运行的 <code>Carla</code> 存储库上安装并构建 <code>DReyeVR</code> 。</p>
+</li>
+<li>
+<p>下载 <code>DReyeVR</code> 所需的插件，以实现以下精彩功能：</p>
+</li>
+<li>
+<p>眼动跟踪 (SRanipal)</p>
+</li>
+<li>
+<p>方向盘/踏板 (Logitech)</p>
+</li>
+<li>
+<p>为 DReyeVR PythonAPI 设置 <code>conda</code> 环境</p>
+</li>
+</ul>
 <h2 id="_7">操作系统兼容性</h2>
 <table>
 <thead>
@@ -200,30 +292,30 @@
 <tbody>
 <tr>
 <td>Windows</td>
-<td>:white_check_mark:</td>
-<td>:white_check_mark:</td>
-<td>:white_check_mark:</td>
-<td>:white_check_mark:</td>
-<td>:white_check_mark:</td>
-<td>:white_check_mark:</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
 </tr>
 <tr>
 <td>Linux</td>
-<td>:white_check_mark:</td>
-<td>:x:</td>
-<td>:white_check_mark:</td>
-<td>:white_check_mark:</td>
-<td>:x:</td>
-<td>:x:</td>
+<td>✓</td>
+<td>×</td>
+<td>✓</td>
+<td>✓</td>
+<td>×</td>
+<td>×</td>
 </tr>
 <tr>
 <td>MacOS</td>
-<td>:x:</td>
-<td>:x:</td>
-<td>:white_check_mark:</td>
-<td>:white_check_mark:</td>
-<td>:x:</td>
-<td>:x:</td>
+<td>×</td>
+<td>×</td>
+<td>✓</td>
+<td>✓</td>
+<td>×</td>
+<td>×</td>
 </tr>
 </tbody>
 </table>
@@ -236,43 +328,7 @@
 <li>此外，我们使用的 <a href="https://github.com/HARPLab/LogitechWheelPlugin">LogitechWheelPlugin</a> 目前仅支持 Windows。不过，根据 <a href="https://wiki.archlinux.org/title/Logitech_Racing_Wheel">Arch Wiki</a> ，应该可以在 Linux 上使用 G923。</li>
 <li>此外，尽管 CARLA 并未正式支持 MacOS，但我们在 Apple Silicon 机器上进行了开发，并且拥有 CARLA + UE4.26 的活跃分支，支持 MacOS 12+。请注意，这主要用于开发，因为它是迄今为止最受限制的系统。</li>
 </ul>
-<h2 id="_8">在最新的版本上编译</h2>
-<p>原来适配的虚幻引擎的提交记录只到 <a href="https://github.com/OpenHUTB/UnrealEngine/commit/d40ec35474e8793b4eea60dba6c4f051186e458e">Commit d40ec35</a> 。</p>
-<p>1.运行<code>DReyeVR/Scripts/install.py</code>将必要的代码复制到carla目录中；</p>
-<p>2.调整代码，比较复杂的是：Unreal/CarlaUE4/Config/DefaultEngine.ini</p>
-<p>原始仓库拷贝到目的目录存在<code>Scripts/Paths/DReyeVR.csv</code>中，</p>
-<p>carla\Unreal\CarlaUE4\Source\CarlaUE4\DReyeVR/FlatHUD.h 的结构体HUDLine 和 carla/rpc/DebugShape.h 中的 HUDLine 重命，将其改为 VRLine</p>
-<p>为什么不能在头文件定义static变量
-可以通过编译，但是使用static定义变量证明该变量的作用域范围仅在该源文件内，其他源文件不能访问。如果在头文件中定义static变量，证明包含了所有这个头文件的源文件都定义了该变量，会造成变量多次定义浪费内存，而且不是真正的全局变量。</p>
-<p>参考<a href="https://blog.csdn.net/qq_28258885/article/details/115769975">链接</a> 解决静态方法在其他文件中找不到的问题。
-Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/V2X/CaService.cpp 导入.cpp文件</p>
-<p>carla\LibCarla\source\carla\streaming\detail\tcp/ServerSession.h中的
-<div class="highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span><span class="w"> </span><span class="n">Buffers</span><span class="o">&gt;</span>
-<span class="k">static</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">MakeMessage</span><span class="p">(</span><span class="n">Buffers</span><span class="p">...</span><span class="w"> </span><span class="n">buffers</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="k">static_assert</span><span class="p">(</span>
-<span class="w">      </span><span class="n">are_same</span><span class="o">&lt;</span><span class="n">BufferView</span><span class="p">,</span><span class="w"> </span><span class="n">Buffers</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span>
-<span class="w">      </span><span class="s">&quot;This function only accepts arguments of type BufferView.&quot;</span><span class="p">);</span>
-<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="k">const</span><span class="w"> </span><span class="n">Message</span><span class="o">&gt;</span><span class="p">(</span><span class="n">buffers</span><span class="p">...);</span>
-<span class="p">}</span>
-</code></pre></div>
-SharedBufferView改为 BufferView。不然报错：只接受BufferView类型。</p>
-<p>注释掉 carla\Unreal\CarlaUE4\Source\CarlaUE4\DReyeVR中的：
-<div class="highlight"><pre><span></span><code><span class="n">Replayer</span><span class="o">-&gt;</span><span class="n">Restart</span><span class="p">();</span>
-<span class="n">Replayer</span><span class="o">-&gt;</span><span class="n">Advance</span><span class="p">(</span><span class="mf">1.0</span><span class="p">);</span>
-<span class="n">Replayer</span><span class="o">-&gt;</span><span class="n">Advance</span><span class="p">(</span><span class="mf">-1.0</span><span class="p">);</span>
-</code></pre></div>
-否则出现错误：
-<div class="highlight"><pre><span></span><code>DReyeVRGameMode.cpp.obj : error LNK2019: 无法解析的外部符号 &quot;public: void __cdecl CarlaReplayer::Restart(void)&quot;
-</code></pre></div></p>
-<p>执行生成交通报错：
-<div class="highlight"><pre><span></span><code>Assertion failed!
-Program:...4\Plugins\Carla\BinarieslWin64\UE4Editor-Carla.dllFile: D:\workworkspacelcarlalLibCarlalso...ServerS..ion.cppLine: 106
-Expression: (bytes)==(sizeof(message_size_type) +message-&gt;size())
-</code></pre></div>
-即<code>carla\LibCarla\source\carla\streaming\detail\tcp\ServerSession.cpp</code>中的这一行报错：
-<div class="highlight"><pre><span></span><code><span class="n">DEBUG_ASSERT_EQ</span><span class="p">(</span><span class="n">bytes</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">message_size_type</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">message</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">());</span>
-</code></pre></div></p>
-<h2 id="_9">文档 &amp; 指南</h2>
+<h2 id="_8">文档 &amp; 指南</h2>
 <p>使用方法：
 直接启动：车辆控制（带声音）、带参数启动原始模式</p>
 <ul>
@@ -283,7 +339,7 @@ Expression: (bytes)==(sizeof(message_size_type) +message-&gt;size())
 <li>请参阅 <a href="interbehavior/Tutorials/"><code>interbehavior/Tutorials/</code></a> 查看多个 DReyeVR 教程，例如自定义 EgoVehicle、添加自定义标志/道具等。</li>
 <li>功能实现分析参阅 <a href="implementation/">链接</a> 。</li>
 </ul>
-<h2 id="_10">引用</h2>
+<h2 id="_9">引用</h2>
 <p>如果你想使用该工作，请参考对应的 <a href="https://arxiv.org/abs/2201.01931">论文</a>:</p>
 <ul>
 <li>此 repo 包含来自 Hewlett-Packard Development Company, LP 的一些代码。请参阅 <a href="Tools/Diagnostics/collectl/nvidia.ph">nvidia.ph</a> 。</li>

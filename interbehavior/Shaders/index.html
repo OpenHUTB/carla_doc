@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Dynamics - 代理模拟器</title>
+    <title>UE4 场景捕获着色器 - 代理模拟器</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,8 +13,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Dynamics";
-        var mkdocs_page_input_path = "faq/dynamics.md";
+        var mkdocs_page_name = "UE4 \u573a\u666f\u6355\u83b7\u7740\u8272\u5668";
+        var mkdocs_page_input_path = "interbehavior/Shaders.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -58,9 +58,9 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Dynamics</li>
+      <li class="breadcrumb-item active">UE4 场景捕获着色器</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/faq/dynamics.md" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/interbehavior/Shaders.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -68,52 +68,30 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1"><a href="https://mp.weixin.qq.com/s/M4F_FsYqk-y8dv6JW-XZMg">动力学</a></h1>
-<p>1、Carla动力学到底可不可以用？</p>
-<blockquote>
-<p>答：需要区分场景，如果做规控测试，可能需要更加复杂和精确的商业动力学软件，例如 Carsim、CarMaker。如果是合成数据、强化学习等使用场景，用 Carla 默认的动力学 PhysX 即可。</p>
-</blockquote>
-<p>2、Carla的动力学是什么？</p>
-<blockquote>
-<p>PhysX3.4 开源项目<a href="https://github.com/NVIDIAGameWorks/PhysX-3.4">地址</a> 。由于UE5弃用了PhysX，所以Carla升级UE5之后，会用Chaos动力学。</p>
-</blockquote>
-<p>3、Carla动力学有电车模型吗？</p>
-<blockquote>
-<p>答：PhysX3.4和PhysX5都没有电车模型，二者都是基于引擎+离合器。Carla里的Tesla Model 3通过一个单独的档位模拟电车动力学，但也有空档（无法去掉）。</p>
-</blockquote>
-<p>4、Carla 怎么和其他动力学联合模拟？</p>
-<blockquote>
-<p>答：Carla官方已经实现了<a href="https://carla.readthedocs.io/en/latest/tuto_G_carsim_integration/">CarSim</a> 和 <a href="https://carla.readthedocs.io/en/latest/tuto_G_chrono/">Chrono</a> 的联合模拟，前者收费而后者开源。</p>
-</blockquote>
-<p>5、Carla 能不能和 Simulink 搭的动力学联合模拟？</p>
-<blockquote>
-<p>答：动力学联合模拟的整体流程：</p>
-<p>1.Carla 输出驾驶员操控（刹车、油门、离合、档位、转向）到动力学模型；</p>
-<p>2.动力学模型解算车辆的位姿信息（Position、Rotation）并且输出到Carla；</p>
-<p>3.Carla根据接收到的位姿信息进行更新。</p>
-<p>只要能做到上述事项，就可以进行联合模拟。如果联合模拟的效果不好，可能是因为没有对齐模拟时步。Carla 和 Simulink 通常不在一个时步和频率下运行，因此需要对齐时步。</p>
-</blockquote>
-<p>6、Carla的动力学能不能调试？</p>
-<blockquote>
-<p>答：可以。Carla 提供了一个 python 接口，可以在 HUD 上画出动力学参数信息：
-carla.Vehicle.show_debug_telemetry()</p>
-</blockquote>
-<p>7、Carla 动力学有 ABS、后轮转向等功能吗？</p>
-<blockquote>
-<p>答：都没有。目前已知的有：Anti-Roll，防侧倾功能。如果需要 ABS、后轮转向等功能，可以通过和带有这些功能的动力学联合模拟来实现。</p>
-</blockquote>
-<p>8、Carla能不能根据天气、路面改变摩擦力系数？</p>
-<blockquote>
-<p>答：可以。有两种方式：1. 设置物理材质；2. 使用FrictionTrigger（区域内改变轮胎的摩擦（tire friction）参数）。</p>
-</blockquote>
-<p>9、为什么Carla的加速度总是振荡？</p>
-<blockquote>
-<p>答：因为动力学输出的是速度，没有加速度。Carla里的加速度是通过前后两帧的速度差除以步长。模拟频率越高，步长越小，越会放大振荡。Carla已经实现了针对加速度的PID控制器，通过平均加权的方式平滑加速度。此外，也可以通过各种滤波手段解决加速度振荡问题。</p>
-</blockquote>
-<p>10、为什么没给方向，车却开歪了？</p>
-<blockquote>
-<p>答：因为会有侧向滑移。可能是轮胎侧向刚度太大、路面不平整，或者路本身是倾斜的。</p>
-</blockquote>
+                <h1 id="ue4">UE4 场景捕获着色器</h1>
+<p>For fancy sensors such as the <a href="https://carla.readthedocs.io/en/0.9.13/ref_sensors/#semantic-segmentation-camera">Semantic Segmentation camera</a>, Carla uses <a href="https://github.com/carla-simulator/carla/tree/master/Unreal/CarlaUE4/Plugins/Carla/Content/PostProcessingMaterials">post-processing materials</a> to act as shaders and produce high-quality results with minimal cost to performance. </p>
+<p>An excellent tutorial by UE4 on the subject can be found <a href="https://www.youtube.com/watch?v=PiQ_JLJKi0M">here (youtube)</a></p>
+<p>Without getting too much into the details, the post-processing effect materials held here serve as shaders that can take information such as custom stencil/depth buffers and produce pixel-wise computations very efficiently.</p>
+<table>
+<thead>
+<tr>
+<th>Description</th>
+<th>Demo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>For example, Carla's <code>GTMaterial.uasset</code> shader is used to encode custom stencil information into the <strong>red</strong> channel of the output images, producing an image such as this (colours exaggerated for viewing). Then in the PythonAPI client, the LibCarla definitions for <a href="https://github.com/carla-simulator/carla/blob/master/LibCarla/source/carla/image/CityScapesPalette.h">City Palettes</a> is applied to convert the image to user-desired colours by index.</td>
+<td><img alt="red_encode" src="../Figures/Shaders/red_encode.jpg" /></td>
+</tr>
+<tr>
+<td>By contrast, our <code>DReyeVR_SemanticSegmentation</code> shader builds on the fundamentals of the Carla GTMaterial but directly indexes the array of colours in the shader itself, so you can effortlessly obtain semantic colour information straight into the first-person-camera.</td>
+<td><img alt="rgb_encode" src="../Figures/Shaders/semantic_seg.jpg" /></td>
+</tr>
+</tbody>
+</table>
+<p>We are interested in including the various shader outputs in our replay functionality. </p>
+<p>To demo the shaders we include in DReyeVR in real time, press <code>.</code> (period) for the next and <code>,</code> (comma) for the previous shaders. </p>
               
             </div>
           </div><footer>
