@@ -101,7 +101,7 @@ git clone https://github.com/HARPLab/DReyeVR
 cd DReyeVR
 # CARLA= 和 SR= 变量是可选的
 make install CARLA=../carla SR=../scenario_runner
-# 或者
+# 或者（最重要）
 make install CARLA=../carla
 make install SR=../scenario_runner
 
@@ -137,109 +137,129 @@ bool UseLogitechPlugin = true;
 
 
 # 安装 DReyeVR 插件
-Before installing `DReyeVR`, we'll also need to install the dependencies:
-- **SteamVR**: Required for VR
-- **SRanipal***: Required for eye tracking (with HTC Vive Pro Eye), optional otherwise
-- **LogitechWheelPlugin***: Required for Logitech Steering Wheel, optional otherwise
+在安装 `DReyeVR` 之前，我们还需要安装依赖项：
 
-(* = optional, depends on the features you are looking for)
+- **SteamVR**: VR 所必需
+- **SRanipal***: 眼动追踪必需（使用 HTC Vive Pro Eye），其他情况可选
+- **LogitechWheelPlugin***: 罗技方向盘必需，其他可选
+
+(* = 可选，取决于您正在寻找的功能)
 
 ## SteamVR
-### **Download Steam and SteamVR**
-  - You'll need to use [SteamVR](https://store.steampowered.com/app/250820/SteamVR/) for the VR rendering environment, so you should first download the [Steam client application](https://store.steampowered.com/about/). 
-    - From within the steam client, you can browse in store->search "[SteamVR](https://store.steampowered.com/app/250820/SteamVR/)" and download the free-to-install system utility. 
-  <!-- - In the Editor for Carla go to `Settings->Plugins->Virtual Reality->SteamVR` and enable the plugin -->
+### **下载 Steam 和 SteamVR**
+
+  - 您需要使用 [SteamVR](https://store.steampowered.com/app/250820/SteamVR/) 作为 VR 渲染环境，因此您应该首先下载 [Steam 客户端应用程序](https://store.steampowered.com/about/) 。
+
+    - 在 Steam 客户端中，您可以在商店中浏览->搜索 "[SteamVR](https://store.steampowered.com/app/250820/SteamVR/)" 并下载免费安装的系统实用程序。
+
+  <!-- - 在 Carla 编辑器中，转到`Settings->Plugins->Virtual Reality->SteamVR`并启用插件 -->
   <!-- - Note that on Linux this you may need to install it through the [Valve GitHub repo](https://github.com/ValveSoftware/SteamVR-for-Linux) -->
   <!-- - <img src = "Figures/Install/steamvr-enabled.jpg" alt="UE4DropDown" width=50%> -->
-  - You should be able to launch SteamVR from the client and in the small pop-up window reach both settings and "show VR view"
-    - Make sure to calibrate the VR system to your setup and preferences!
-  - Additionally we recommend disabling the "Motion Smoothing" effect within SteamVR Settings to avoid nasty distortion artifacts during rendering. 
-    - <img src = "Figures/Install/steamvr-settings.jpg" alt="SteamVR-settings" width=50%>
+  - 您应该能够从客户端启动 SteamVR，并在小弹出窗口中访问设置并"show VR view" 
+    - 确保根据您的设置和偏好校准 VR 系统！
+  - 此外，我们建议在 SteamVR 设置中禁用“运动平滑”效果，以避免渲染过程中出现令人讨厌的失真伪影。
+
+[](Figures/Install/steamvr-settings.jpg)
+
 ***
-## HTC Eye Tracker Plugin
-### **Download `SRanipal`**
-  0. *What is SRanipal?*
-      - We are using [HTC's SRanipal plugin](https://developer.vive.com/resources/vive-sense/sdk/vive-eye-tracking-sdk-sranipal/) as the means to communicate between Unreal Engine 4 and the Vive's Eye Tracker. 
-      - To learn more about SRanipal and for **first-time-setup**, see this [guide on foveated rendering using SRanipal](https://forum.vive.com/topic/7434-getting-started-with-vrs-foveated-rendering-using-htc-vive-pro-eye-unreal-engine/) by HTC developer MariosBikos_HTC
-  1. You'll need a (free-to-create) [Vive developer account](https://hub.vive.com/sso/login) to download the following:
-      - a) [`VIVE_SRanipalInstaller_1.3.2.0.msi`](https://hub.vive.com/en-US/download/VIVE_SRanipalInstaller_1.3.2.0.msi) -- executable to install Tobii firmware
-      - b) [`SDK_v1.3.3.0.zip`](https://hub.vive.com/en-US/download/SDK-v1.3.3.0.zip) -- includes the Unreal plugin
-        - **IMPORTANT**: The SRanipal versions above 1.3.6.0 are NOT supported and cause wild crashes!
-      - **If the download links above don't work for you, make sure you have a Vive Developer account! (Or [contact](mailto:gustavo@silvera.cloud) us directly to help you)**
-  2. Install the Tobii firmware by double-clicking the `.msi` installer
-      - Once installed, you should see the `SR_runtime.exe` program available from the Start Menu. Launch it as administrator and you should see the robot head icon in the Windows system tray as follows:
+## HTC 眼动追踪插件
+### **下载 `SRanipal`**
+  0. *什么是 SRanipal?*
+      - 我们使用 [HTC 的 SRanipal 插件](https://developer.vive.com/resources/vive-sense/sdk/vive-eye-tracking-sdk-sranipal/) 作为虚幻引擎 4 和 Vive 的眼动仪之间通信的手段。
+      - 要了解有关 SRanipal 的更多信息以及**首次设置**，请参阅 HTC 开发人员 MariosBikos_HTC 撰写的 [使用 SRanipal 进行注视点渲染的指南](https://forum.vive.com/topic/7434-getting-started-with-vrs-foveated-rendering-using-htc-vive-pro-eye-unreal-engine/) 
+  1. 您需要一个（免费创建）[Vive 开发者帐户](https://hub.vive.com/sso/login) 才能下载以下内容：
+      - a) [`VIVE_SRanipalInstaller_1.3.2.0.msi`](https://hub.vive.com/en-US/download/VIVE_SRanipalInstaller_1.3.2.0.msi) -- 安装 Tobii 固件的可执行文件
+      - b) [`SDK_v1.3.3.0.zip`](https://hub.vive.com/en-US/download/SDK-v1.3.3.0.zip) -- 包含 Unreal 插件
+        - **重要**: 1.3.6.0 以上的 SRanipal 版本不受支持并会导致严重崩溃！
+      - **如果上面的下载链接对您不起作用，请确保您拥有 Vive 开发者帐户！（或直接 [联系](mailto:gustavo@silvera.cloud) 我们以帮助您）**
+  2. 双击 `.msi` 安装程序安装 Tobii 固件
+      - 安装完成后，您应该会在“开始”菜单中看到 `SR_runtime.exe` 程序。以管理员身份启动它，您应该会在 Windows 系统托盘中看到机器人头部图标，如下所示：
       - ![SR_runtime](https://mariosbikos.com/wp-content/uploads/2020/02/image-30.png)
-        - Image Credit: [MariosBikos](https://forum.htc.com/topic/7434-getting-started-with-vrs-foveated-rendering-using-htc-vive-pro-eye-unreal-engine)
+        - 图片来源：[MariosBikos](https://forum.htc.com/topic/7434-getting-started-with-vrs-foveated-rendering-using-htc-vive-pro-eye-unreal-engine)
 
-### **Installing SRanipal UE4 Plugin**
-  - After downloading the `.zip` file, unzipping it should present a directory similar to this
-    - ```
-      SDK
-      - 01_C/
-      - 02_Unity/
-      - 03_Unreal/
-      - Eye_SRanipal_SDK_Guide.pdf
-      - Lip_SRanipal_SDK_Guide.pdf
-      ```
-    - Then, unzip the SRanipal unreal plugin and copy over the `03_Unreal/Plugins/SRanipal/` directory to the Carla installation
-    - ```bash
-      # in SDK/
-      cd 03_Unreal
-      unzip Vive-SRanipal-Unreal-Plugin.zip # creates the PLugins/SRanipal folder
-      # assumes CARLA_ROOT is defined, else just use your Carla path
-      cp -r Plugins/SRanipal $CARLA_ROOT/Unreal/CarlaUE4/Plugins/
-      ```
-  - It is recommended to re-calibrate the SRanipal eye tracker plugin for every new participant in an experiment. You can do this by entering SteamVR home, and clicking the small icon in the bottom menu bar to calibrate eye tracker to the headset wearer. 
+### **安装 SRanipal UE4 插件**
+  - 下载 `.zip` 文件后，解压后应出现类似如下的目录
+
+ ```text
+ SDK
+ - 01_C/
+ - 02_Unity/
+ - 03_Unreal/
+ - Eye_SRanipal_SDK_Guide.pdf
+ - Lip_SRanipal_SDK_Guide.pdf
+ ```
+      
+   - 然后，解压 SRanipal 虚幻插件并将 `03_Unreal/Plugins/SRanipal/` 目录复制到 Carla 安装
+    
+ ```bash
+ # in SDK/
+ cd 03_Unreal
+ unzip Vive-SRanipal-Unreal-Plugin.zip # 创建 PLugins/SRanipal 目录
+ # 假设 CARLA_ROOT 已定义，否则只需使用您的 Carla 路径
+ cp -r Plugins/SRanipal $CARLA_ROOT/Unreal/CarlaUE4/Plugins/
+ ```
+      
+  - 建议为实验中的每个新参与者重新校准 SRanipal 眼动仪插件。您可以进入 SteamVR 主页，点击底部菜单栏中的小图标，将眼动仪校准到头戴式耳机佩戴者。
+
     - ![Calibration](Figures/Install/steamvr-home.jpg)
-    - You can find more information by checking out this [guide on foveated rendering using SRanipal](https://forum.vive.com/topic/7434-getting-started-with-vrs-foveated-rendering-using-htc-vive-pro-eye-unreal-engine/) by HTC developer MariosBikos_HTC
+    - 您可以查看 HTC 开发人员 MariosBikos_HTC 撰写的 [使用 SRanipal 进行注视点渲染的指南](https://forum.vive.com/topic/7434-getting-started-with-vrs-foveated-rendering-using-htc-vive-pro-eye-unreal-engine/) ，了解更多信息
 ***
-## Logitech Wheel Plugin
-### **Installing Logitech Wheel Plugin**
-  - This is only for those who have a Logitech steering wheel/pedals driving setup. This hardware is not required to experience the VR experience (you can simply use keyboard/mouse) but greatly adds to the immersion and allows for granular analog controls. 
-    - For reference, we used this [Logitech G923 Racing Wheel & Pedals](https://www.logitechg.com/en-us/products/driving/driving-force-racing-wheel.html).
-  - We'll be using this [LogitechWheelPlugin](https://github.com/HARPLab/LogitechWheelPlugin) to interact with UE4 and map hardware inputs to actions.
-    - Clone the repo and move the requisite folder to the Carla plugins folder
-    - ```bash
-      git clone https://github.com/HARPLab/LogitechWheelPlugin
-      mv LogitechWheelPlugin/LogitechWheelPlugin $CARLA_ROOT/Unreal/CarlaUE4/Plugins
-      ```
-    - You should then see a Logitech Plugin enabled when you boot up the editor again:
-    - ![LogitechPlugin](Figures/Install/LogitechPlugin.jpg)
-***
-## Sanity Check
-  - After installing these plugins, you should see a `Unreal/CarlaUE4/Plugins` that looks like this:
-  - ```
-    Plugins
-    ├── Carla                              # unchanged
-    │   └── ...
-    ├── CarlaExporter                      # unchanged
-    │   └── ...
-    ├── LogitechWheelPlugin                # if installed
-    │   ├── Binaries
-    │   ├── Doc
-    │   ├── Logitech
-    │   ├── LogitechWheelPlugin.uplugin
-    │   ├── Resources
-    │   └── Source
-    └── SRanipal                           # if installed
-        ├── Binaries
-        ├── Config
-        ├── Content
-        ├── Resources
-        ├── Source
-        └── SRanipal.uplugin  
-    ```
-  - If you still have questions or issues, feel free to post an issue on our [Issues](https://github.com/HARPLab/DReyeVR/issues) page and we'll try our best to help you out. 
+## 罗技方向盘插件
+### **安装罗技方向盘插件**
+  - 这仅适用于拥有罗技方向盘/踏板驾驶装置的人。体验 VR 体验不需要此硬件（您只需使用键盘/鼠标即可），但可以大大增强沉浸感并允许进行精细的模拟控制。
 
-<br>
+    - 作为参考，我们使用了这款 [罗技 G923 赛车方向盘和踏板](https://www.logitechg.com/en-us/products/driving/driving-force-racing-wheel.html) 。
+    
+  - 我们将使用这个 [LogitechWheelPlugin](https://github.com/HARPLab/LogitechWheelPlugin) 与 UE4 交互并将硬件输入映射到动作。
+
+  - 克隆 repo 并将所需文件夹移动到 Carla 插件文件夹
+    
+```bash
+git clone https://github.com/HARPLab/LogitechWheelPlugin
+mv LogitechWheelPlugin/LogitechWheelPlugin $CARLA_ROOT/Unreal/CarlaUE4/Plugins
+```
+      
+   - 当您再次启动编辑器时，您应该会看到已启用的 Logitech 插件：
+   - ![LogitechPlugin](Figures/Install/LogitechPlugin.jpg)
+
+
+## 完整性检查
+  - 安装这些插件后，您应该会看到如下所示的 `Unreal/CarlaUE4/Plugins`：
+
+```
+Plugins
+├── Carla                              # 未改变
+│   └── ...
+├── CarlaExporter                      # 未改变
+│   └── ...
+├── LogitechWheelPlugin                # 如果已安装
+│   ├── Binaries
+│   ├── Doc
+│   ├── Logitech
+│   ├── LogitechWheelPlugin.uplugin
+│   ├── Resources
+│   └── Source
+└── SRanipal                           # 如果已安装
+    ├── Binaries
+    ├── Config
+    ├── Content
+    ├── Resources
+    ├── Source
+    └── SRanipal.uplugin  
+```
+    
+  - 如果您还有疑问或问题，请随时在我们的 [问题](https://github.com/HARPLab/DReyeVR/issues) 页面上发布问题，我们将尽力帮助您。
+
 <br>
 
 # 安装 `DReyeVR` 核心
 <!-- (Once you are done with this step, you should have a carla repo that looks just like this [Carla fork](https://github.com/HARPLab/carla/tree/DReyeVR-0.9.13) we created with the installation (and other minor things) pre-applied.) -->
 
-- **IMPORTANT** The installation requires that `make`, `python` and `git` are available on your shell.
-- You only need to install to a `CARLA` directory, ScenarioRunner is optional. 
-  - If you don't provide the `make` variables `CARLA=...` or `SR=...` the installation wizard will automatically detect your install destination by looking at the environment variables `CARLA_ROOT` and `SCENARIO_RUNNER_ROOT` required by Carla. 
+- **重要** 安装要求你的 shell 上有 `make`、`python` 和 `git`。
+
+- 只需要安装到 `CARLA` 目录即可，ScenarioRunner是可选的。
+
+  - 如果您不提供 `make` 变量 `CARLA=...` 或 `SR=...`，安装向导将通过查看 Carla 所需的环境变量 `CARLA_ROOT` 和 `SCENARIO_RUNNER_ROOT` 自动检测您的安装目标。 
 
 ```bash
 # the CARLA= and SR= variables are optional
@@ -255,7 +275,7 @@ make check CARLA=../carla
 
 
 # 构建 `DReyeVR` PythonAPI
-## Using [`conda`](https://www.anaconda.com/products/distribution) for the PythonAPI
+## 对 PythonAPI 使用 [`conda`](https://www.anaconda.com/products/distribution) 
   - While not required for DReyeVR, we highly recommend compartmentalizing Python installations via isolated environments such as [`anaconda`](https://www.anaconda.com/products/distribution)
     - First download and install Anaconda to your machine from [here](https://www.anaconda.com/products/distribution).
   ```bash
@@ -432,23 +452,23 @@ As long as you have no errors in the previous sections, you should be able to ju
 <br>
 
 # 构建 `DReyeVR` UE4
-If you are not interested in using SRanipal or the LogitechWheelPlugin, you can disable these at compile-time by changing the variables in `Unreal/CarlaUE4/Source/CarlaUE4/CarlaUE4.Build.cs` to `false`:
+如果您不想使用 SRanipal 或 LogitechWheelPlugin，您可以在编译时通过将 `Unreal/CarlaUE4/Source/CarlaUE4/CarlaUE4.Build.cs` 中的变量更改为 `false` 来禁用它们：
 ```c#
   /////////////////////////////////////////////////////////////
-  // Edit these variables to enable/disable features of DReyeVR
+  // 编辑这些变量以启用/禁用 DReyeVR 的功能
   bool UseSRanipalPlugin = true;
   bool UseLogitechPlugin = true;
   ...
   /////////////////////////////////////////////////////////////
   ```
 
-Finally, open the project directory in any terminal (Linux/Mac) or `Windows x64 Native Tools Command Prompt for VS 2019` (Windows) and run:
+最后，在任何终端（Linux / Mac）或 VS 2019 的 `Windows x64 Native Tools Command Prompt for VS 2019`（Windows）中打开项目目录并运行：
 ```bash
-make PythonAPI  # build the PythonAPI & LibCarla
+make PythonAPI  # 构建 PythonAPI & LibCarla
 
-make launch     # build the development UE4 game in editor
+make launch     # 在编辑器中构建 development UE4 game
 
-make package    # build the optimized UE4 packaged game (shipping)
+make package    # 构建优化的 UE4 打包游戏（打包）
 ```
 
 # 运行 `DReyeVR`
@@ -471,6 +491,6 @@ CarlaUE4.exe -vr
 
 <br>
 
-# Now what?
+# 现在该怎么办？
 
-Now that you've successfully installed DReyeVR continue to [`Usage.md`](Usage.md) to learn how to use DReyeVR for your own VR driving research simulator.
+现在您已成功安装 DReyeVR，请继续访问 [`Usage.md`](Usage.md) 了解如何将 DReyeVR 用于您自己的 VR 驾驶研究模拟器。

@@ -126,7 +126,32 @@ WeatherActor->ApplyWeather(NewWeather);
 // 设置日夜循环状态
 WeatherActor->SetDayNightCycle(true);
 
-```
+核心功能
+1. 天气参数管理
+数据结构：使用 FWeatherParameters 结构体存储当前天气状态（如降水、湿度、风速等）。
+参数更新方法：
+ApplyWeather()：更新参数并触发蓝图事件 RefreshWeather，通知场景元素响应变化。
+SetWeather()：静默更新参数，适用于无需立即触发效果的场景。
+GetCurrentWeather()：获取当前天气参数副本，用于读取状态。
+2. 昼夜循环控制
+启用/禁用：通过 SetDayNightCycle(bool) 动态切换昼夜循环逻辑，影响光照和天空盒表现。
+状态查询：GetDayNightCycle() 返回当前昼夜循环是否激活。
+3. 后期处理效果
+材质管理：使用 PrecipitationPostProcessMaterial（降水）和 DustStormPostProcessMaterial（沙尘暴）实现天气视觉特效。
+动态混合：ActiveBlendables 映射表跟踪活动材质及其混合强度，通过 CheckWeatherPostProcessEffects() 调整效果的显示强度，实现平滑过渡。
+蓝图交互机制
+1. 事件驱动更新
+RefreshWeather 事件：在蓝图中实现该事件，响应天气变化（如调整粒子系统、修改光照参数）。当调用 ApplyWeather() 或 NotifyWeather() 时自动触发。
+传感器通知：NotifyWeather(ASensor*) 允许特定传感器（如摄像头）订阅天气变化，用于触发截图或数据收集。
+2. 参数暴露
+UPROPERTY 标记：DayNightCycle 和 Weather 参数在编辑器中可见，支持设计师直接调整默认值或进行实时调试。
+实现细节
+1. 后期处理逻辑
+材质混合：根据天气参数（如降水强度）计算材质的透明度，通过 ActiveBlendables 管理多个效果叠加。例如，大雨时增加降水材质的混合权重。
+性能优化：仅在参数变化时调用 CheckWeatherPostProcessEffects()，避免每帧计算。
+2. 抽象基类设计
+不可实例化：标记为 Abstract 强制子类化，确保平台特定的天气效果（如 Vulkan 的着色器差异）可通过派生类实现。
+扩展性：子类可覆盖 CheckWeatherPostProcessEffects() 实现自定义效果逻辑，同时复用基类的参数管理。
 
 !!! 注意
     确保在使用前正确初始化AWeather对象。

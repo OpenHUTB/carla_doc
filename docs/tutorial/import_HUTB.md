@@ -1,6 +1,6 @@
 # 导入湖工商地图
 
-将 Content 目录下的 CarPai、Matrials、OpenDrive、UltraDynamicSky、urbancity 文件夹拷贝到 `carla\Unreal\CarlaUE4\Content`。
+将 Content 目录下的 CarPai、Matrials、UltraDynamicSky、urbancity 文件夹拷贝到 `carla\Unreal\CarlaUE4\Content`。
 
 ![picture](../img/hutb/Content.jpg)
 

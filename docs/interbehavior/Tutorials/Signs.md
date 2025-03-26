@@ -129,37 +129,37 @@ RightCityA
 本质上，您需要编辑 `carla/Unreal/CarlaUE4/Content/Carla/Config/Default.Package.json` 文件以包含您的新标志道具，如下所示：
 
 ```json
-	{
-		"name": "YOUR_SIGN_NAME",
-		"path": "/PATH/TO/YOUR/SM_SIGN.SM_SIGN",
-		"size": "Medium"
-	}
+{
+	"name": "你的标志名",
+	"path": "/PATH/TO/YOUR/SM_SIGN.SM_SIGN",
+	"size": "Medium"
+}
 ```
-Note that the `"path"` source is looking for a UE4 static mesh object, which will be stored as a `.uasset` file. Still denote it as `SM_name.SM_name` in the `json`. 
+!!! 注意
+	`"path"`源正在寻找 UE4 静态网格对象，该对象将存储为 `.uasset` 文件。在 `json` 中仍将其表示为 `SM_name.SM_name`。
 
-Importantly, if you want to include a custom prop directory in `Content/` (instead of using our `DReyeVR/DReyeVR_Signs/` content) you should add this to the list of cooked assets in `Config/DefaultGame.ini` such as:
+重要的是，如果您想在 `Content/` 中包含自定义道具目录（而不是使用我们的 `DReyeVR/DReyeVR_Signs/` 内容），您应该将其添加到 `Config/DefaultGame.ini` 中的烘焙资产列表中，例如：
 
 ```ini
 +DirectoriesToAlwaysCook=(Path="/Game/DReyeVR/DReyeVR_Signs") # what we include
 +DirectoriesToAlwaysCook=(Path="/Game/YOUR_PROP_DIR/") # any desired prop directory
 ```
-This ensures your custom props are properly cooked during shipping (`make package`). 
+这可确保您的定制道具在运输 (`make package`) 过程中得到适当的烹饪。
 
-Once this change is imported in the map you will be able to spawn your sign as follows:
+一旦将此更改导入地图，您将能够按如下方式生成您的标志：
 ```python
-bp = blueprint_library.filter(("static.prop.YOUR_SIGN_NAME").lower()) # filter is lowercase!
-assert len(bp) == 1 # you should only have one prop of this name
-transform = world.get_map().get_spawn_points()[0] # or choose any other spawn point
-world.spawn_actor(bp[0], transform) # should succeed with no errors
+bp = blueprint_library.filter(("static.prop.YOUR_SIGN_NAME").lower()) # 过滤器是小写的！
+assert len(bp) == 1 # 你应该只有一个这个名字的道具
+transform = world.get_map().get_spawn_points()[0] # 或选择任何其他生成点
+world.spawn_actor(bp[0], transform) # 应该会成功并且没有错误
 ```
 
-**NOTE** In constructing our (and Carla's) signs, we unlink the sign itself from the pole it connects to. Therefore, if you want to spawn the sign *with* the pole you'll need to combine these static meshes. 
-- This is supported within the editor by placing both actors into the world, selecting both, then using the Window -> Developer -> MergeActors button as described in [this guide](https://docs.unrealengine.com/4.27/en-US/Basics/Actors/Merging/). 
-- We have already provided a baseline with the [`Content/DReyeVR_Signs/FullSign/`](Content/DReyeVR_Signs/FullSign/) directory where we combined the signs with the poles as a single static mesh. 
-	- With this baseline, assuming you have a compatible material (using the same sign template as ours) you can just update the material for the sign component without further modification. 
+!!! 注意
+	在构建我们（和 Carla）的标志时，将标志本身与其连接的杆子断开。因此，如果您想生成*带有*杆子的标志，则需要组合这些静态网格。- 编辑器支持此功能，方法是将两个参与者放入世界中，选择两者，然后使用 Window -> Developer -> MergeActors 按钮，如 [本指南](https://docs.unrealengine.com/4.27/en-US/Basics/Actors/Merging/) 所述。- 我们已经提供了 [`Content/DReyeVR_Signs/FullSign/`](Content/DReyeVR_Signs/FullSign/) 目录的基准，我们将标志与杆子组合为单个静态网格。有了这个基准，假设您有一个兼容的材料（使用与我们相同的标志模板），您只需更新标志组件的材料而无需进一步修改。
 
 
-# Automatic Sign Placement
-When using our [scenario-runner fork](https://github.com/HARPLab/scenario_runner/tree/DReyeVR-0.9.13), there is logic to enable spawning the corresponding directional signs automatically according to the route features (straight, turn left, turn right, and goal). The logic for this can be found in the [route_scenario's nav sign code](https://github.com/HARPLab/scenario_runner/blob/3b5e60f15fd97de00332f80610051f9f39d7db8c/srunner/scenarios/route_scenario.py#L284-L355). Since this is automatically applied to all routes, you can disable it manually by commenting the `self._setup_nav_signs(self.route)` method call.
 
-There is also a file method in case you want to manually place signs for specific routes (see [here](https://github.com/HARPLab/scenario_runner/blob/DReyeVR-0.9.13/srunner/data/all_routes_signs.json)), but we found that the automatic sign placement works fine most of the time and is much more convenient. So the automatic method is recommended and you don't have to do anything to enable it.
+# 自动放置标志
+使用我们的 [scenario-runner 分支](https://github.com/HARPLab/scenario_runner/tree/DReyeVR-0.9.13) 时，有逻辑可以根据路线特征（直行、左转、右转和目标）自动生成相应的方向标志。此逻辑可在 [route_scenario 的导航标志代码](https://github.com/HARPLab/scenario_runner/blob/3b5e60f15fd97de00332f80610051f9f39d7db8c/srunner/scenarios/route_scenario.py#L284-L355) 中找到。由于这会自动应用于所有路线，因此您可以通过注释 `self._setup_nav_signs(self.route)` 方法调用来手动禁用它。
+
+如果您想要手动放置特定路线的标志，也可以使用文件方法（请参阅 [此处](https://github.com/HARPLab/scenario_runner/blob/DReyeVR-0.9.13/srunner/data/all_routes_signs.json) ），但我们发现自动放置标志在大多数情况下都很好用，而且更方便。因此建议使用自动方法，您无需执行任何操作即可启用它。

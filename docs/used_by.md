@@ -1,6 +1,6 @@
 # [引用了Carla的相关仓库](https://github.com/carla-simulator/carla/network/dependents)
 
-<!-- 更新到最新的仓库： https://github.com/ast-fortiss-tum/MultiSim --> 
+<!-- 更新到最新的仓库： https://github.com/umnilab/METS-R_HPC --> 
 
 
 - [__感知__](#perception)
@@ -262,6 +262,8 @@
 
 [通过双值前向-后向表示进行无监督零样本强化学习](https://github.com/bofusun/DVFB)
 
+[使用基于 Transformer 的传感器融合进行自动驾驶行为克隆和强化学习](https://github.com/tonyroumi/BC-RL)
+
 ### 导航 <span id="navigation"></span>
 
 [基于 GNM、ViNT、NoMaD 的通用导航模型](https://github.com/AdityaNG/general-navigation)
@@ -397,6 +399,8 @@
 
 [通过谱归一化神经高斯过程实现 E2E 自动驾驶汽车控制](https://github.com/croth2305/domain_aware_via_sngp_for_e2e_ad)
 
+[端到端机器人导航系统](https://github.com/AIR-DISCOVER/FreeAD)
+
 
 ## 大模型 <span id="llm"></span>
 
@@ -417,6 +421,10 @@
 [端到端自动驾驶的 3D 视觉语言预训练生成规划](https://github.com/Tongji-MIC-Lab/GPVL)
 
 [协同驾驶](https://github.com/henryhcliu/CoDriveVis)
+
+[安全自主特技动作的代理控制](https://github.com/SHi-ON/ManeuverGPT)
+
+[语言协作驾驶](https://github.com/taco-group/LangCoop)
 
 
 ## 交通 <span id="traffic"></span>
@@ -471,6 +479,8 @@
 
 [使用 SUMO 和 CARLA 模拟 AR 挡风玻璃 HUD 对驾驶性能的影响](https://github.com/Pascal-Jansen/HUD-SUMO)
 
+[3种基准场景](https://github.com/revacholiere/rulebook_benchmark)
+
 ### 车辆 <span id="vehicle"></span>
 
 [半挂卡车队列框架](https://github.com/Gaochengzhi/Carla_Truck_Platoon/tree/main)
@@ -509,6 +519,8 @@
 [针对横穿马路者的实验](https://github.com/javtran/jaywalker)
 
 [带肌肉骨骼模型的强化学习环境](https://github.com/stanfordnmbl/osim-rl) - 基于opensim
+
+[基于凝视的正则化，用于减轻模仿学习中的因果混淆](https://github.com/aminbana/GABRIL-CARLA)
 
 
 ## 智能体 <span id="agent"></span>
@@ -587,6 +599,8 @@
 
 [端到端自动驾驶中整体一致的可解释性](https://github.com/Robot-K/Hint-AD)
 
+[负责任的AI](https://github.com/pjo7/ResponsibleAI)
+
 ## 安全 <span id="security"></span>
 
 [联网和自动驾驶汽车的攻击模拟框架](https://github.com/tum-esi/simutack) - 包含系统代码和视频
@@ -644,6 +658,8 @@
 [使用机器学习对图像分类器的安全监控器进行基准测试](https://github.com/raulsenaferreira/PRDC_2021_SUT_module)
 
 [自主信息物理系统运行时风险评估框架](https://github.com/scope-lab-vu/Resonate)
+
+[专为精确评估自动驾驶汽车安全性的交通模拟环境](https://github.com/michigan-traffic-lab/TeraSim)
 
 ## 测试 <span id="test"></span>
 
@@ -718,6 +734,8 @@
 
 [像 Kitti 一样合成](https://github.com/richardmarcus/synth-it-like-kitti)
 
+[无人机数据集](https://github.com/unclefish7/drone-dataset)
+
 ## 工具 <span id="tools"></span>
 
 [自动驾驶模拟及相关任务的综合框架](https://github.com/femw03/DAI_project) - 集成了车辆控制、计算机视觉、强化学习环境和通过 CARLA 进行模拟的模块。
@@ -761,6 +779,8 @@
 [运行端到端自动驾驶模拟的 Docker 容器](https://github.com/ruddyscent/adlab-e2e)
 
 [用于在 CARLA+SUMO 下原型设计全栈协同驾驶自动化应用程序的通用框架](https://github.com/ucla-mobility/OpenCDA)
+
+[基于开放联合仿真的研究/工程框架](https://github.com/miragecoa/OpenCDA)
 
 [基于开放联合仿真的研究/工程框架](https://github.com/shivamkumarpanda/OpenCDA-CEE298HW)
 
@@ -1092,6 +1112,10 @@
 [自动驾驶Carla代理](https://github.com/Teo03/self-driving-agent)
 
 [carla_project](https://github.com/bradyz/carla_project)
+
+[SANDWITH-ICSE](https://github.com/lfeng0722/SANDWITH-ICSE)
+
+[METS-R_HPC](https://github.com/umnilab/METS-R_HPC)
 
 [各种自动驾驶任务代码](https://github.com/KrishGupta25/SelfDrivingSTEM)
 
