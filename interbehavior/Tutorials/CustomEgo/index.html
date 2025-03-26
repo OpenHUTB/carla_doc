@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../../img/favicon.ico" />
-    <title>How to add your own EgoVehicle - 代理模拟器</title>
+    <title>如何添加您自己的 EgoVehicle - 代理模拟器</title>
     <link rel="stylesheet" href="../../../css/theme.css" />
     <link rel="stylesheet" href="../../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "How to add your own EgoVehicle";
+        var mkdocs_page_name = "\u5982\u4f55\u6dfb\u52a0\u60a8\u81ea\u5df1\u7684 EgoVehicle";
         var mkdocs_page_input_path = "interbehavior/Tutorials/CustomEgo.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,7 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">How to add your own EgoVehicle</li>
+      <li class="breadcrumb-item active">如何添加您自己的 EgoVehicle</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/interbehavior/Tutorials/CustomEgo.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -68,62 +68,87 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="how-to-add-your-own-egovehicle">How to add your own EgoVehicle</h1>
-<p>A guide from how to add your own custom EgoVehicle from an existing Carla vehicle that you can then use in DReyeVR. Showcasing the minimal required steps to add an <strong>ambulance</strong> to be the new DReyeVR EgoVehicle. </p>
-<h2 id="prerequisites">Prerequisites:</h2>
+                <h1 id="egovehicle">如何添加您自己的 EgoVehicle</h1>
+<p>本指南介绍如何从现有的 Carla 车辆添加您自己的自定义 EgoVehicle，然后您可以在 DReyeVR 中使用。展示将<strong>救护车</strong>添加为新的 DReyeVR EgoVehicle 所需的最少步骤。</p>
+<h2 id="_1">先决条件</h2>
 <ul>
-<li>You should have DReyeVR installed and functioning correctly</li>
-<li>You should probably take a look at <a href="../Model/">Model.md</a> in case you want to modify the static mesh of your new vehicle:<ul>
-<li>Ex. creating high-poly mirror meshes</li>
-<li>Ex. detatching the steering wheel for use as a dynamic prop (moves with the animation)</li>
+<li>您应该已经安装 DReyeVR 并正常运行</li>
+<li>如果您想修改新车辆的静态网格，您可能应该查看 <a href="../Model/">Model.md</a>：<ul>
+<li>例如，创建高多边形镜像网格</li>
+<li>例如，拆下方向盘用作动态道具（随动画移动）</li>
 </ul>
 </li>
 </ul>
-<h2 id="1-choose-which-vehicle-to-add">1. Choose which vehicle to add</h2>
+<h2 id="1">1. 选择要添加的车辆</h2>
 <ol>
-<li>Since the DReyeVR EgoVehicle is a child-instance of the <code>ACarlaWheeledVehicle</code>, you should use a Carla vehicle for the base class of your desired Vehicle. For this tutorial we will use the Ambulance as an example, but any Carla vehicle should do fine.<ul>
-<li>For Vehicle <code>XYZ</code></li>
-<li>The blueprint files are located in <code>Unreal/CarlaUE4/Content/Carla/Blueprints/Vehicles/XYZ/BP_XYZ.uasset</code></li>
-<li>The static mesh files are located in <code>Unreal/CarlaUE4/Content/Carla/Static/Vehicles/XWheeled/XYZ/</code></li>
+<li>由于 DReyeVR EgoVehicle 是 <code>ACarlaWheeledVehicle</code> 的子实例，因此您应该使用 Carla 车辆作为所需车辆的基类。在本教程中，我们将使用救护车作为示例，但任何 Carla 车辆都可以。<ul>
+<li>针对车辆 <code>XYZ</code></li>
+<li>蓝图文件位于 <code>Unreal/CarlaUE4/Content/Carla/Blueprints/Vehicles/XYZ/BP_XYZ.uasset</code></li>
+<li>静态网格文件位于 <code>Unreal/CarlaUE4/Content/Carla/Static/Vehicles/XWheeled/XYZ/</code></li>
 </ul>
 </li>
-<li>Once you have decided on a vehicle, create this structure by copying (in Unreal Editor) the blueprint file. <ul>
-<li>Do the same with any other mesh components that you'll want to add.</li>
-<li>You'll want the file structure to match the existing EgoVehicles:
+<li>一旦您决定了车辆，就通过复制（在虚幻编辑器中）蓝图文件来创建此结构。<ul>
+<li>对您想要添加的任何其他网格组件执行相同操作。</li>
+<li>您需要让文件结构与现有的 EgoVehicles 相匹配：
 <div class="highlight"><pre><span></span><code>CarlaUE4/Content/DReyeVR/
 ├── EgoVehicle
 │   ├── Extra
 │   ├── Jeep
 │   ├── Mustang66
-│   ├── Ambulance # &lt;-- your new EgoVehicle
-│   ├── TeslaM3   # &lt;-- default for DReyeVR
+│   ├── Ambulance # &lt;-- 你的新 EgoVehicle
+│   ├── TeslaM3   # &lt;-- DReyeVR 中默认的车
 │   └── Vespa
 ...
 </code></pre></div></li>
-<li>Inside your <code>XYZ/</code> folder, you'll want to copy your new BP_XYZ asset (do this from the editor so that cached paths can be updated) and create any additional folders in here that you might want (ex. <code>Mesh</code>, <code>Mirrors</code>, <code>SteeringWheel</code>, <code>Tires</code>, are a few examples). </li>
+<li>在您的 <code>XYZ/</code> 文件夹中，您需要复制新的 BP_XYZ 资源（从编辑器执行此操作以便可以更新缓存路径）并在此处创建您可能需要的任何其他文件夹（例如，<code>Mesh</code>、<code>Mirrors</code>、<code>SteeringWheel</code>、<code>Tires</code> 是几个示例）。 </li>
 <li>
-<p>It is best to perform these asset file modifications within the Editor. You can copy the files from within the content browser to other folders by click+dragging to get this pop-up:</p>
+<p>最好在编辑器中执行这些资产文件修改。您可以通过单击并拖动将文件从内容浏览器复制到其他文件夹，以获取此弹出窗口： </p>
 <p><img alt="CopyHere" src="../../Figures/EgoVehicle/CopyHere.jpg" /></p>
 </li>
 </ul>
 </li>
 </ol>
-<p><strong>NOTE</strong>: If you want to edit the vehicle mesh at all, this is where you'd want to do it. You will probably want to build off the existing static meshes in the <code>Static</code> directory. </p>
-<h2 id="2-reparent-the-vehicle-blueprint">2. Reparent the vehicle blueprint</h2>
-<p>(For the sake of this tutorial, we'll assume the <code>XYZ=Ambulance</code>)
-1. Open the <code>Content/DReyeVR/EgoVehicle/Ambulance/BP_Ambulance</code> asset you just copied from the content browser
-2. Select <code>Class Defaults</code> then in the top right (<code>Class Options</code>) select the <code>Parent Class</code> and search for <code>EgoVehicle</code> to reparent (as in the figure below). This effectively reorganizes the blueprint's base class from <code>BaseVehiclePawn</code> (the Carla default) to <code>EgoVehicle</code> (the DReyeVR C++ class, which still inherits from BaseVehiclePawn). 
-    - There will be a warning pop-up regarding data loss, you should proceed (it is purely additive). 
-    - <strong>NOTE</strong> if the blueprint ever gets corrupted, you should first try reparenting back to the <code>BaseVehiclePawn</code> (the original parent) and then back to the DReyeVR <code>EgoVehicle</code>. 
-    - <img alt="EditClass" src="../../Figures/EgoVehicle/EditClassSettings.jpg" />
-        - Demonstrating class setting button, used to edit this BP's class instance
-    - <img alt="Reparent" src="../../Figures/EgoVehicle/Reparent.jpg" />
-        - Demonstrating the reparenting button, select the dropdown and search for a compatible class to reparent with <code>BaseVehiclePawn</code> (Carla) or <code>EgoVehicle</code> (DReyeVR).
-3. Now this vehicle is technically a DReyeVR EgoVehicle!</p>
-<h2 id="3-add-the-new-config-file-and-code">3. Add the new config file and code</h2>
-<p>Now, to actually register this new blueprint with DReyeVR and have it available to spawn you'll need to add two bits to the code:</p>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+</div>
+<p>如果您想编辑车辆网格，这里就是您要进行的操作。您可能希望在 <code>Static</code> 目录中构建现有的静态网格。</p>
+<h2 id="2">2. 重新定义车辆蓝图</h2>
+<p>（为了本教程的目的，我们假设 <code>XYZ=Ambulance</code>）</p>
 <ol>
-<li>Add the name of your new vehicle (for example <code>"Ambulance"</code> for the <code>BP_Ambulance</code> blueprint we inherited) to the list of available EgoVehicles in <a href="../../DReyeVR/DReyeVRFactory.h"><code>DReyeVRFactory.h</code></a>.
+<li>
+<p>打开刚从内容浏览器复制的 <code>Content/DReyeVR/EgoVehicle/Ambulance/BP_Ambulance</code> 资源</p>
+</li>
+<li>
+<p>选择 <code>Class Defaults</code>，然后在右上角（<code>Class Options</code>）中选择<code>Parent Class</code>，并搜索 <code>EgoVehicle</code> 进行重新父级设置（如下图所示）。这有效地将蓝图的基类从 <code>BaseVehiclePawn</code>（Carla 默认）重新组织为 <code>EgoVehicle</code>（DReyeVR C++ 类，仍然继承自 BaseVehiclePawn）。</p>
+<ul>
+<li>
+<p>将会弹出有关数据丢失的警告，您应该继续（这纯粹是附加的）。</p>
+</li>
+<li>
+<p><strong>注意</strong> 如果蓝图损坏，您应该首先尝试重新回到 <code>BaseVehiclePawn</code>（原始父级），然后再回到 DReyeVR <code>EgoVehicle</code>。</p>
+</li>
+<li>
+<p><img alt="EditClass" src="../../Figures/EgoVehicle/EditClassSettings.jpg" /></p>
+<ul>
+<li>演示类设置按钮，用于编辑此BP的类实例</li>
+</ul>
+</li>
+<li>
+<p><img alt="Reparent" src="../../Figures/EgoVehicle/Reparent.jpg" /></p>
+<ul>
+<li>演示重新父级按钮，选择下拉菜单并搜索兼容的类以使用 <code>BaseVehiclePawn</code>s（Carla）或 <code>EgoVehicle</code>（DReyeVR）重新父级。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>现在，从技术上讲，这辆车是 DReyeVR EgoVehicle！</p>
+</li>
+</ol>
+<h2 id="3">3. 添加新的配置文件和代码</h2>
+<p>现在，要使用 DReyeVR 实际注册这个新蓝图并使其可供生成，您需要在代码中添加两位： </p>
+<ol>
+<li>将新车辆的名称（例如，我们继承的 BP_Ambulance 蓝图的<code>"Ambulance"</code>）添加到 <a href="https://github.com/OpenHUTB/carla/blob/OpenHUTB/Unreal/CarlaUE4/Source/CarlaUE4/DReyeVR/DReyeVRFactory.h"><code>DReyeVRFactory.h</code></a> 中的可用 EgoVehicles 列表中。
     <div class="highlight"><pre><span></span><code><span class="c1">// place the names of all your new custom EgoVehicle types here:</span>
 <span class="c1">/// IMPORTANT: make sure these match the ConfigFile AND Blueprint!!</span>
 <span class="c1">// We expect Config/EgoVehicle/XYZ.ini and Content/DReyeVR/EgoVehicles/XYZ/BP_XYZ.uasset</span>
@@ -136,8 +161,8 @@
 <span class="w">    </span><span class="c1">// add more here</span>
 <span class="p">};</span>
 </code></pre></div></li>
-<li>Add a new config file (to <code>Unreal/CarlaUE4/Config/EgoVehicles/</code>) that is used to parameterize this vehicle. This allows DReyeVR to know where to place things such as the camera root location (driver's seat), mirrors, steering wheel, etc. and this <a href="../../DReyeVR/ConfigFile.h"><code>ConfigFile</code></a> can be extended to support many run-time combinations. <ul>
-<li>You'll need to make sure the config file has the EXACT same name as your new EgoVehicle (this is how they are read). We recommend copying an existing config file (default is <code>TeslaM3.ini</code> and renaming as follows):
+<li>添加一个新的配置文件（到 <code>Unreal/CarlaUE4/Config/EgoVehicles/</code>），用于参数化此车辆。这允许 DReyeVR 知道将相机根位置（驾驶员座位）、镜子、方向盘等东西放在哪里，并且此 <a href="https://github.com/OpenHUTB/carla/blob/OpenHUTB/Unreal/CarlaUE4/Source/CarlaUE4/DReyeVR/ConfigFile.h"><code>ConfigFile</code></a> 可以扩展以支持许多运行时组合。<ul>
+<li>您需要确保配置文件的名称与您的新 EgoVehicle 完全相同（这是它们的读取方式）。我们建议复制现有配置文件（默认为 <code>TeslaM3.ini</code> 并重命名如下）：
     <div class="highlight"><pre><span></span><code>CarlaUE4/Config/
 ├── ...
 ├── DReyeVRConfig.ini
@@ -151,55 +176,76 @@
 ├── ...
 ...
 </code></pre></div></li>
-<li>Then you'll probably want to edit some of the contents of this file to match the EgoVehicle specifications which you can get from the Editor. For instance, the following figure shows that we are going to want to move the VRCameraRoot (head position) to (<code>108, -40, 158</code>). <ul>
+<li>然后，您可能需要编辑此文件的一些内容，以匹配可以从编辑器中获取的 EgoVehicle 规范。例如，下图显示我们要将 VRCameraRoot（头部位置）移动到 (<code>108, -40, 158</code>)。 <ul>
 <li><img alt="CameraRepos" src="../../Figures/EgoVehicle/CameraReposition.jpg" /></li>
-<li>You'll probably also want to move the dashboard elements around to whatever fits your preference.</li>
+<li>您可能还希望将仪表板元素移动到适合您喜好的位置。 </li>
 </ul>
 </li>
-<li><strong>IMPORTANT</strong> You also need to enable the <code>Start with Tick Enabled</code> for the Blueprint (<code>BP_Ambulance</code> in the Components list) because by default they are disabled for Carla vehicles:<ul>
+<li><strong>重要</strong> 您还需要为蓝图（组件列表中的 <code>BP_Ambulance</code>）启用<code>Start with Tick Enabled</code>，因为默认情况下，它们对于 Carla 车辆是禁用的：<ul>
 <li><img alt="ActorTick" src="../../Figures/EgoVehicle/ActorTick.jpg" /></li>
 </ul>
 </li>
-<li>You should also notice that assets such as the SteeringWheel &amp; Mirrors don't have any assigned static mesh. You can access these by clicking the component (on the left hierarchy) and assigning a new static mesh (on the right details pane). This bakes the asset directly in the blueprint file, so this only needs to be done once.
-    | Example: Mirrors | Example: Steering wheel |
-    | --- | --- |
-    | <img alt="Mirrors" src="../../Figures/EgoVehicle/SM_Mirror.jpg" /> | <img alt="Wheel" src="../../Figures/EgoVehicle/SM_Wheel.jpg" /></li>
-<li>Now, open the <code>Ambulance.ini</code> file you just created and begin updating the fields (mostly transforms) to match the parameters you care about. Importantly, for the <code>[Blueprint]::Path</code> entry, you'll get this path by right-clicking on the Blueprint in the content viewer and selecting <code>Copy Reference</code>. <ul>
-<li><img alt="CopyRef" src="../../Figures/EgoVehicle/CopyRef.jpg" /></li>
-<li>Note that transforms are encoded as follows
-<div class="highlight"><pre><span></span><code><span class="c1"># Format: Location XYZ in CM | Rotation Roll/Pitch/Yaw in Degrees | Scale XYZ percent (1=100%)</span>
+<li>
+<p>您还应该注意到，SteeringWheel 和 Mirrors 等资产没有分配任何静态网格。您可以通过单击组件（在左侧层次结构上）并分配新的静态网格（在右侧详细信息窗格上）来访问它们。这会直接在蓝图文件中烘焙资产，因此只需执行一次即可。</p>
+<table>
+<thead>
+<tr>
+<th>示例：Mirrors</th>
+<th>示例：Steering wheel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img alt="Mirrors" src="../../Figures/EgoVehicle/SM_Mirror.jpg" /></td>
+<td><img alt="Wheel" src="../../Figures/EgoVehicle/SM_Wheel.jpg" /></td>
+</tr>
+<tr>
+<td>- 现在，打开刚刚创建的 <code>Ambulance.ini</code> 文件，并开始更新字段（主要是转换）以匹配您关心的参数。重要的是，对于<code>[Blueprint]::Path</code> 条目，您可以通过右键单击内容查看器中的蓝图并选择<code>Copy Reference</code>来获取此路径。</td>
+<td></td>
+</tr>
+<tr>
+<td>- <img alt="CopyRef" src="../../Figures/EgoVehicle/CopyRef.jpg" /></td>
+<td></td>
+</tr>
+<tr>
+<td>- 请注意，变换的编码如下</td>
+<td></td>
+</tr>
+<tr>
+<td><div class="highlight"><pre><span></span><code><span class="c1"># Format: Location XYZ in CM | Rotation Roll/Pitch/Yaw in Degrees | Scale XYZ percent (1=100%)</span>
 <span class="na">ExampleTransform</span><span class="o">=</span><span class="s">(X=0.0, Y=0.0, Z=3.0 | R=-45, P=90.0, Y=0 | X=1, Y=1, Z=1)</span>
-</code></pre></div></li>
-</ul>
+</code></pre></div></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 </li>
 </ul>
 </li>
 </ol>
-<h2 id="4-set-the-new-vehicle-to-be-the-dreyevr-default">4. Set the new vehicle to be the DReyeVR default</h2>
-<p>In the <code>DReyeVRConfig.ini</code> general configuration file (for non-vehicle specific parameters) you should set what Vehicle to spawn in by default. This takes the name of the vehicles, which for this example is <code>Ambulance</code>. </p>
+<h2 id="4-dreyevr">4. 将新车辆设置为 DReyeVR 默认车辆</h2>
+<p>在 <code>DReyeVRConfig.ini</code> 通用配置文件（用于非车辆特定参数）中，您应该设置默认生成的车辆。这将采用车辆的名称，在本例中为救护车<code>Ambulance</code>。 </p>
 <div class="highlight"><pre><span></span><code><span class="k">[EgoVehicle]</span>
 <span class="na">VehicleType</span><span class="o">=</span><span class="s">&quot;Ambulance&quot;</span>
 </code></pre></div>
-<p>And thats it! You should now be able to relaunch <code>make launch</code> and when you press Play you'll start in your new EgoVehicle. </p>
-<h2 id="4-optional-create-a-new-animation">4. [Optional] Create a new animation</h2>
-<p>Sometimes, especially when modifying the meshes in blender and exporting/importing them back into Unreal Engine, the vanilla animation asset can get somewhat mangled and not work properly. You will know if the animation is failing if the tires (and steering wheel, if you added one) are not turning while the EgoVehicle is moving.</p>
-<p>See Carla's corresponding documentation <a href="https://carla.readthedocs.io/en/latest/tuto_A_add_vehicle/#import-and-configure-the-vehicle">here</a>.</p>
-<p><strong>NOTE</strong> This only works for 4WheeledVehicles as of testing. 2WheeledVehicles are more complicated and not covered in this tutorial. </p>
-<h3 id="steps-to-create-a-new-animation-blueprint-for-carladreyevr">Steps to create a new animation blueprint for Carla/DReyeVR</h3>
-<ol>
-<li>Create a new Animation Blueprint in the Ambulance/Mesh directory (if you have one, else make a new folder <code>Mesh/</code> inside <code>Ambulance</code>). </li>
-<li><img alt="CreateAnim" src="../../Figures/EgoVehicle/CreateAnim.jpg" /></li>
-<li>Make sure the parent of the animation mesh is set to <code>VehicleAnimInstance</code> and the preview skeleton is set to the skeletal mesh of your new vehicle (ex. <code>SK_Ambulance_Skeleton</code>)</li>
-<li><img alt="CreateAnimBP" src="../../Figures/EgoVehicle/CreateAnimBP.jpg" /></li>
-<li>Name your new asset to something like <code>Anim_Ambulance</code> and open it up. Open the AnimationGraph in the bottom right as shown:</li>
-<li><img alt="AnimGraph" src="../../Figures/EgoVehicle/AnimGraph.jpg" /></li>
-<li>Open another nearby animation blueprint (ex. <code>Content/DReyeVR/EgoVehicle/TeslaM3/Mesh/Animation_model3</code>) and open its AnimationGraph to copy the first three blueprint nodes that connect to the Output Pose as follows:</li>
-<li><img alt="CopyAnim" src="../../Figures/EgoVehicle/CopyAnim.jpg" /></li>
-<li>Then, back in <code>Anim_Ambulance</code>, paste the three nodes you just copied and connect them to the Output Pose:</li>
-<li><img alt="PasteAnim" src="../../Figures/EgoVehicle/PasteAnim.jpg" /></li>
-<li>Finally, go back to the vehicle blueprint (BP_Ambulance) and in the components section select Mesh, then in the (right) details panel change the animation class to your new <code>Anim_Ambulance</code> like this:</li>
-<li><img alt="AssignAnim" src="../../Figures/EgoVehicle/AssignAnim.jpg" /></li>
-</ol>
+<p>就这样！现在您应该能够重新启动 <code>make launch</code> 了，当您按下 Play 时，您将开始使用新的 EgoVehicle。</p>
+<h2 id="4">4. [可选] 创建新动画</h2>
+<p>有时，尤其是在修改 blender 中的网格并将其导出/导入回虚幻引擎时，原始动画资源可能会有些混乱，无法正常工作。如果轮胎（和方向盘，如果您添加了方向盘）在 EgoVehicle 移动时没有转动，您就会知道动画是否失败。</p>
+<p>请参阅 <a href="https://carla.readthedocs.io/en/latest/tuto_A_add_vehicle/#import-and-configure-the-vehicle">此处</a> 的 Carla 相应文档。</p>
+<p>!!! 注意 截至测试，这仅适用于 4WheeledVehicles。2WheeledVehicles 更为复杂，本教程未涉及。</p>
+<h3 id="carladreyevr">为 Carla/DReyeVR 创建新动画蓝图的步骤</h3>
+<p>1.在 Ambulance/Mesh 目录中创建一个新的动画蓝图（如果有的话，否则在 <code>Ambulance</code> 内创建一个新的文件夹 <code>Mesh/</code>）。
+<img alt="CreateAnim" src="../../Figures/EgoVehicle/CreateAnim.jpg" /></p>
+<p>2.确保动画网格的父级设置为 <code>VehicleAnimInstance</code>，并且预览骨架设置为新车辆的骨架网格（例如 <code>SK_Ambulance_Skeleton</code>） 
+<a href="../../Figures/EgoVehicle/CreateAnimBP.jpg">CreateAnimBP</a></p>
+<p>3.将新资产命名为 <code>Anim_Ambulance</code> 并打开它。打开右下角的 AnimationGraph，如下所示：
+<img alt="AnimGraph" src="../../Figures/EgoVehicle/AnimGraph.jpg" /></p>
+<p>4.打开另一个附近的动画蓝图（例如 <code>Content/DReyeVR/EgoVehicle/TeslaM3/Mesh/Animation_model3</code>）并打开其 AnimationGraph 以复制连接到 Output Pose 的前三个蓝图节点，如下所示：
+<img alt="CopyAnim" src="../../Figures/EgoVehicle/CopyAnim.jpg" /></p>
+<p>5.然后，返回 <code>Anim_Ambulance</code>，粘贴刚刚复制的三个节点并将它们连接到输出姿势(Output Pose)： 
+<img alt="PasteAnim" src="../../Figures/EgoVehicle/PasteAnim.jpg" /></p>
+<p>6.最后，返回车辆蓝图（BP_Ambulance）并在组件部分选择网格，然后在（右侧）详细信息面板中将动画类更改为新的 <code>Anim_Ambulance</code>，如下所示：
+<img alt="AssignAnim" src="../../Figures/EgoVehicle/AssignAnim.jpg" /></p>
               
             </div>
           </div><footer>
