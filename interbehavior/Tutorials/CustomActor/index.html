@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../../img/favicon.ico" />
-    <title>DReyeVR custom actors - 代理模拟器</title>
+    <title>DReyeVR 自定义参与者 - 代理模拟器</title>
     <link rel="stylesheet" href="../../../css/theme.css" />
     <link rel="stylesheet" href="../../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "DReyeVR custom actors";
+        var mkdocs_page_name = "DReyeVR \u81ea\u5b9a\u4e49\u53c2\u4e0e\u8005";
         var mkdocs_page_input_path = "interbehavior/Tutorials/CustomActor.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,7 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">DReyeVR custom actors</li>
+      <li class="breadcrumb-item active">DReyeVR 自定义参与者</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/interbehavior/Tutorials/CustomActor.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -68,64 +68,64 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="dreyevr-custom-actors">DReyeVR custom actors</h1>
-<h2 id="what">What?</h2>
-<p>We are often interested in spawning arbitrary "AR-like" (Augmented reality) elements in the simulator at runtime that can be completely recorded and reenacted without hassle. </p>
-<h3 id="example-3d-bounding-boxes">Example: 3D Bounding Boxes</h3>
+                <h1 id="dreyevr">DReyeVR 自定义参与者</h1>
+<h2 id="_1">什么？</h2>
+<p>我们经常对在模拟器中运行时生成任意“类似AR（增强现实）”的元素感兴趣，这些元素可以完全记录并轻松重现。 </p>
+<h3 id="3d">示例：3D边界框</h3>
 <ul>
-<li>With a translucent (Opacity &lt; 1) material we can simply create an elongated Cube actor and overlay it over any extent as a simple BBOX indicator.<ul>
-<li>We can have the actor track the extent, so it can follow a vehicle/pedestrian/anything and not interfere with physics at all (physics simulation is disabled).</li>
-<li>Psst! this is actually already mostly implemented (but disabled) in the code, check out the <a href="./#bounding-box-example">example at the bottom</a></li>
+<li>使用半透明（不透明度小于 1）材质，​​我们可以简单地创建一个细长的立方体演员，并将其覆盖在任何范围内，作为一个简单的 BBOX 指示器。<ul>
+<li>我们可以让参与者跟踪一定的范围，这样它就可以跟随车辆/行人/任何东西，而不会干扰物理（物理模拟被禁用）。</li>
+<li>嘘！这实际上已经在代码中基本实现（但被禁用），请查看 <a href="./#bounding-box-example">底部的示例</a> </li>
 </ul>
 </li>
 </ul>
-<h3 id="example-gaze-lines">Example: Gaze lines</h3>
+<h3 id="_2">示例：凝视线</h3>
 <ul>
-<li>If you want to draw the eye gaze rays in realtime (without using <code>DrawDebugLine</code>, which is editor-only), you can simply use an elongated cube as a "ray" from the user gaze origin to the world-space gaze target.</li>
+<li>如果您想实时绘制视线（不使用仅限编辑器的 DrawDebugLine），您可以简单地使用细长的立方体作为从用户凝视原点到世界空间凝视目标的“射线”。</li>
 </ul>
-<h3 id="example-debug-trails">Example: Debug trails</h3>
+<h3 id="_3">示例：调试轨迹</h3>
 <ul>
-<li>Similar to the debug path in Carla, spawning a trail of dynamic spheres can be useful to draw AR-like guidelines in the world and help direct drivers through the map.</li>
+<li>与 Carla 中的调试路径类似，生成动态球体轨迹有助于在世界中绘制类似 AR 的指导方针，并帮助引导驾驶员通过地图。</li>
 </ul>
-<h2 id="why">Why?</h2>
+<h2 id="_4">为什么？</h2>
 <ol>
-<li>Having each "CustomActor" be its own entity (not necessarily tied to the EgoVehicle/EgoSensor) allows it to be recorded with the CARLA recorder easily and without modifying the core DReyeVR data. This is important when we want to change the API of the recorder (which happens quite often) but don't want to lose data from previous experiments that have data recordings (in binary format) that we can't modify easily.</li>
-<li>Abstracting the "CustomActor"s gives us plenty of flexibility for manipulating the actors in the simulator at runtime and allows for new interesting scenarios to be performed easily without worry of recording/replay.</li>
+<li>让每个“自定义参与者CustomActor”成为其自己的实体（不一定与 EgoVehicle/EgoSensor 绑定），可以轻松使用 Carla 记录器进行记录，而无需修改核心 DReyeVR 数据。当我们想要更改记录器的 API（这种情况经常发生）但又不想丢失之前实验的数据（这些实验的数据记录（二进制格式）我们无法轻松修改）时，这一点很重要。</li>
+<li>抽象“自定义参与者CustomActor”为我们在运行时操纵模拟器中的参与者提供了足够的灵活性，并允许轻松地执行新的有趣场景，而不必担心记录/重放。</li>
 </ol>
-<h1 id="usage">Usage</h1>
-<p>Using these CustomActors is designed to be straightforward and cooperate with UE4/Carla's notion of <a href="https://docs.unrealengine.com/5.0/en-US/API/Runtime/Engine/GameFramework/AActor/">AActors</a>. You can see how we define all the core data for these actors (and what gets recorded/replayed) in <a href="../../Carla/Sensor/DReyeVRData.h"><code>DReyeVRData.h</code></a><code>::CustomActorData</code></p>
-<p>We have several basic 3D shapes ready for simple CustomActor usage. Theoretically you can use any static mesh. To access these types (or add your own) you should check out the references in <a href="../../Carla/Actor/DReyeVRCustomActor.h"><code>DReyeVRCustomActor.h</code></a>:
+<h1 id="_5">使用</h1>
+<p>使用这些 CustomActors 的设计非常简单，并与 UE4/Carla 的 <a href="https://docs.unrealengine.com/5.0/en-US/API/Runtime/Engine/GameFramework/AActor/">AActors</a> 概念相配合。您可以在 <a href="https://github.com/OpenHUTB/carla/blob/OpenHUTB/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/DReyeVRData.h"><code>DReyeVRData.h</code></a><code>::CustomActorData</code> 中看到我们如何定义这些参与者的所有核心数据（以及记录/重放的内容）</p>
+<p>我们已准备好几种基本的 3D 形状，供简单的 CustomActor 使用。理论上，您可以使用任何静态网格。要访问这些类型（或添加您自己的类型），您应该查看 <a href="https://github.com/OpenHUTB/carla/blob/OpenHUTB/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Actor/DReyeVRCustomActor.h"><code>DReyeVRCustomActor.h</code></a> 中的引用：
 <div class="highlight"><pre><span></span><code><span class="cp">#define MAT_OPAQUE &quot;Material&#39;/Game/DReyeVR/Custom/OpaqueParamMaterial.OpaqueParamMaterial&#39;&quot;</span>
 <span class="cp">#define MAT_TRANSLUCENT &quot;Material&#39;/Game/DReyeVR/Custom/TranslucentParamMaterial.TranslucentParamMaterial&#39;&quot;</span>
 <span class="cp">#define SM_SPHERE &quot;StaticMesh&#39;/Engine/BasicShapes/Sphere.Sphere&#39;&quot;</span>
 <span class="cp">#define SM_CUBE &quot;StaticMesh&#39;/Engine/BasicShapes/Cube.Cube&#39;&quot;</span>
 <span class="cp">#define SM_CONE &quot;StaticMesh&#39;/Engine/BasicShapes/Cone.Cone&#39;&quot;</span>
 
-<span class="c1">// add a new string literal here</span>
+<span class="c1">// 在此处添加新的字符串文字</span>
 <span class="cp">#define SM_CUSTOM_MESH &quot;StaticMesh&#39;/Path/To/Your/StaticMesh.StaticMesh&#39;&quot;</span>
 </code></pre></div></p>
-<h2 id="spawn-a-custom-actor">Spawn a custom actor</h2>
+<h2 id="_6">生成自定义参与者</h2>
 <div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;Carla/Actor/DReyeVRCustomActor.h&quot;</span>
 <span class="p">...</span>
-<span class="c1">// example parameters, you can change these to whavever you&#39;d like</span>
+<span class="c1">// 示例参数，你可以将其更改为你想要的任何值</span>
 <span class="n">FString</span><span class="w"> </span><span class="n">PathToSM</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SM_CUBE</span><span class="p">;</span>
 <span class="n">FString</span><span class="w"> </span><span class="n">PathToMat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MAT_TRANSLUCENT</span><span class="p">;</span>
-<span class="n">FString</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;NewActorName&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// every actor needs a unique name!</span>
+<span class="n">FString</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;NewActorName&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// 每个参与者需要一个唯一的名称！</span>
 <span class="n">UWorld</span><span class="w"> </span><span class="o">*</span><span class="n">World</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GetWorld</span><span class="p">();</span>
 <span class="n">ADReyeVRCustomActor</span><span class="w"> </span><span class="o">*</span><span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ADReyeVRCustomActor</span><span class="o">::</span><span class="n">CreateNew</span><span class="p">(</span><span class="n">PathToSM</span><span class="p">,</span><span class="w"> </span><span class="n">PathToMaterial</span><span class="p">,</span><span class="w"> </span><span class="n">World</span><span class="p">,</span><span class="w"> </span><span class="n">Name</span><span class="p">);</span>
 </code></pre></div>
-<p>Implementation wise, the custom actors are all managed by a "global" table (<code>static std::unordered_map&lt;std::string, class ADReyeVRCustomActor *&gt;</code>) that indexes the actors by their <code>Name</code> therefore it is critical that they all have unique names. This is often easy to do when spawning many since UE4 <code>AActor</code>s themselves have unique names enumerated by their spawn order. To further understand how we use the global table, check out <code>ADReyeVRCustomActor::ActiveCustomActors</code> in <a href="../../Carla/Actor/DReyeVRCustomActor.h"><code>DReyevRCustomActor.h</code></a></p>
-<h2 id="activatedeactivate-a-custom-actor">Activate/deactivate a custom actor</h2>
-<p>To activate (see in the world) simply run
+<p>从实现角度来看，自定义参与者全部由“全局”表 (<code>static std::unordered_map&lt;std::string, class ADReyeVRCustomActor *&gt;</code>) 管理，该表按参与者的名称对参与者进行索引，因此，所有参与者都必须具有唯一的名称。当生成许多参与者时，这通常很容易做到，因为 UE4 <code>AActor</code> 本身具有按其生成顺序枚举的唯一名称。要进一步了解我们如何使用全局表，请查看 <a href="https://github.com/OpenHUTB/carla/blob/OpenHUTB/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Actor/DReyeVRCustomActor.h"><code>DReyevRCustomActor.h</code></a> 中的 <code>ADReyeVRCustomActor::ActiveCustomActors</code></p>
+<h2 id="_7">激活/停用自定义参与者</h2>
+<p>要激活（在世界中查看），只需运行
 <div class="highlight"><pre><span></span><code><span class="n">A</span><span class="o">-&gt;</span><span class="n">Activate</span><span class="p">();</span>
 </code></pre></div>
-This will ensure every tick of this actor will be recorded with the Carla recorder. </p>
-<p>Similarly, to deactivate the actor (disable visibility, recording, and tick function) do:
+这将确保该参与者的每一次动作都会被 Carla 记录器记录下来。</p>
+<p>同样，要停用参与者（禁用可见性、录制和动作功能），请执行以下操作：
 <div class="highlight"><pre><span></span><code><span class="n">A</span><span class="o">-&gt;</span><span class="n">Deactivate</span><span class="p">();</span>
 </code></pre></div></p>
-<p>You can check whether or not an actor is "active" with <code>A-&gt;IsActive()</code>. While true (the actor is active) the actor will automatically be recorded in the CARLA recorder which will allow replaying without hassle. </p>
-<h2 id="update-a-custom-actor">Update a custom actor</h2>
-<p>These methods come from the UE4 <code>AActor</code> base class, which our class inherits from and extends. 
+<p>您可以使用 <code>A-&gt;IsActive()</code> 检查参与者是否“活跃”。如果为真（参与者活跃），则参与者将自动记录在 CArla 记录器中，从而可以轻松重放。</p>
+<h2 id="_8">更新自定义参与者</h2>
+<p>这些方法来自 UE4 <code>AActor</code> 基类，我们的类继承并扩展了该基类。
 <div class="highlight"><pre><span></span><code><span class="c1">// resize the actor</span>
 <span class="n">A</span><span class="o">-&gt;</span><span class="n">SetActorScale3D</span><span class="p">(</span><span class="n">FVector</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mf">0.5</span><span class="p">));</span>
 
@@ -135,7 +135,7 @@ This will ensure every tick of this actor will be recorded with the Carla record
 <span class="c1">// rotate the actor</span>
 <span class="n">A</span><span class="o">-&gt;</span><span class="n">SetActorRotation</span><span class="p">(</span><span class="n">FRotator</span><span class="p">(</span><span class="mi">90</span><span class="p">,</span><span class="w"> </span><span class="mi">45</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">));</span>
 </code></pre></div></p>
-<p>Assuming you are using one of the param-materials we provide for you, you can also modify the material parameters and have them take effect in realtime:
+<p>假设您正在使用我们为您提供的参数材料之一，您也可以修改材料参数并让其实时生效：
 <div class="highlight"><pre><span></span><code><span class="c1">// change vector properties</span>
 <span class="n">A</span><span class="o">-&gt;</span><span class="n">MaterialParams</span><span class="p">.</span><span class="n">BaseColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FLinearColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"> </span><span class="c1">// RGBA</span>
 <span class="n">A</span><span class="o">-&gt;</span><span class="n">MaterialParams</span><span class="p">.</span><span class="n">Emissive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">100.f</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">FLinearColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"> </span><span class="c1">// RGBA</span>
@@ -146,13 +146,24 @@ This will ensure every tick of this actor will be recorded with the Carla record
 <span class="n">A</span><span class="o">-&gt;</span><span class="n">MaterialParams</span><span class="p">.</span><span class="n">Roughness</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.f</span><span class="p">;</span>
 <span class="n">A</span><span class="o">-&gt;</span><span class="n">MaterialParams</span><span class="p">.</span><span class="n">Anisotropy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5f</span><span class="p">;</span>
 </code></pre></div></p>
-<p>Note that in order to use the <code>Opacity</code> property, the material needs to have a translucent blend mode. So far we only have two material types, opaque and translucent, each with their own set of available properties as follows:
-| OpaqueParamMaterial | TranslucentParamMaterial |
-| --- | --- |
-| <img alt="OpaqueMaterial" src="../../Figures/Actor/OpaqueParamMaterial.jpg" /> | <img alt="OpaqueMaterial" src="../../Figures/Actor/TranslucentParamMaterial.jpg" /> |</p>
-<h2 id="bounding-box-example">Bounding Box Example</h2>
-<p>As an example of the CustomActor bounding boxes in action, checkout <a href="../../DReyeVR/LevelScript.cpp"><code>LevelScript.cpp::DrawBBoxes</code></a> where some simple logic for drawing translucent bounding boxes is held (coloured based on distance to EgoVehicle). To enable this function, you'll need to manually enable it by removing the <code>#if 0</code> and corresponding <code>#endif</code> around the function body.</p>
-<p>Here is what it might look like in action:</p>
+<p>请注意，为了使用不透明度 <code>Opacity</code> 属性，材质需要具有半透明混合模式。到目前为止，我们只有两种材质类型：不透明和半透明，每种都有自己的一组可用属性，如下所示：</p>
+<table>
+<thead>
+<tr>
+<th>不透明参数材质 OpaqueParamMaterial</th>
+<th>半透明参数材质 TranslucentParamMaterial</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img alt="OpaqueMaterial" src="../../Figures/Actor/OpaqueParamMaterial.jpg" /></td>
+<td><img alt="OpaqueMaterial" src="../../Figures/Actor/TranslucentParamMaterial.jpg" /></td>
+</tr>
+</tbody>
+</table>
+<h2 id="_9">边界框示例</h2>
+<p>作为 CustomActor 边界框实际操作的示例，请查看 <a href="../../DReyeVR/LevelScript.cpp"><code>LevelScript.cpp::DrawBBoxes</code></a> ，其中包含一些用于绘制半透明边界框的简单逻辑（根据与 EgoVehicle 的距离着色）。要启用此功能，您需要通过删除函数主体周围的 <code>#if 0</code> 和相应的 <code>#endif</code> 来手动启用它。</p>
+<p>实际操作时可能如下所示：</p>
 <p><img alt="BboxExample" src="../../Figures/Actor/Bbox.jpg" /></p>
               
             </div>

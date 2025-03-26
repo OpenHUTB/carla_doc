@@ -70,7 +70,21 @@
               
                 <h1 id="_1">虚拟现实的实现</h1>
 <p>配置文件 <code>Unreal/CarlaUE4/Config/DReyeVRConfig.ini</code> 中的 <code>CameraPose</code>配置了相机的初始位置。</p>
-<h2 id="_2">在最新的版本上编译</h2>
+<h2 id="_2">配置</h2>
+<p>默认的引擎配置在<code>carla\Unreal\CarlaUE4\Config/DefaultEngine.ini</code>文件中进行修改：
+<div class="highlight"><pre><span></span><code><span class="c1"># 传统模式</span>
+<span class="c1"># GlobalDefaultServerGameMode=/Game/Carla/Blueprints/Game/CarlaGameMode.CarlaGameMode_C</span>
+<span class="c1"># 默认的游戏模式（VR模式）</span>
+<span class="nv">GlobalDefaultGameMode</span><span class="o">=</span>/Script/CarlaUE4.DReyeVRGameMode
+<span class="nv">GlobalDefaultServerGameMode</span><span class="o">=</span>/Script/CarlaUE4.DReyeVRGameMode
+</code></pre></div></p>
+<h2 id="_3">在最新的版本上编译</h2>
+<p>InputComponent != nullptr是空</p>
+<p>崩溃是因为 InputComponent 是nullptr。如果没有 PlayerController 拥有 pawn，就会发生这种情况。您需要做的就是将使用输入组件的行换行if (IsValid(InputComponent)) { ... }。</p>
+<p>DReyeVRGame-&gt;GetPawn() 为空</p>
+<p>已经有车辆生成，而且有声音，但是没有持有棋子（车辆）。</p>
+<p>交通管理器生成的车不跑</p>
+<hr />
 <p>原来适配的虚幻引擎的提交记录只到 <a href="https://github.com/OpenHUTB/UnrealEngine/commit/d40ec35474e8793b4eea60dba6c4f051186e458e">Commit d40ec35</a> 。</p>
 <p>1.运行<code>DReyeVR/Scripts/install.py</code>将必要的代码复制到carla目录中；</p>
 <p>2.调整代码，比较复杂的是：Unreal/CarlaUE4/Config/DefaultEngine.ini</p>
