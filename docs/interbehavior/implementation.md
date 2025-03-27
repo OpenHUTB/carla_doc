@@ -8,7 +8,7 @@
 ```shell
 # 传统模式
 # GlobalDefaultServerGameMode=/Game/Carla/Blueprints/Game/CarlaGameMode.CarlaGameMode_C
-# 默认的游戏模式（VR模式）
+# 默认的游戏模式（VR模式，区别于传统模式），运行的脚本位于：carla\Unreal\CarlaUE4\Source\CarlaUE4\DReyeVR\DReyeVRGameMode.cpp
 GlobalDefaultGameMode=/Script/CarlaUE4.DReyeVRGameMode
 GlobalDefaultServerGameMode=/Script/CarlaUE4.DReyeVRGameMode
 ```
@@ -22,7 +22,36 @@ InputComponent != nullptr是空
 
 DReyeVRGame->GetPawn() 为空
 
-已经有车辆生成，而且有声音，但是没有持有棋子（车辆）。
+已经有车辆生成，而且有声音，但是没有持有棋子（车辆），即 `InputComponent != nullptr` 不成立。 
+
+调用流程：
+D:\work\workspace\carla\Unreal\CarlaUE4\Source\CarlaUE4\DReyeVR\DReyeVRGameMode.cpp
+
+`ADReyeVRGameMode::SetupEgoVehicle()`
+
+`SpawnEgoVehicle(SpawnPt);`
+
+`void ADReyeVRGameMode::SpawnEgoVehicle(const FTransform &SpawnPt)`
+
+`EgoVehiclePtr = static_cast<AEgoVehicle *>(Episode->SpawnActor(SpawnPt, DReyeVRDescr));`
+
+Get Input Component 返回当前的 InputComponent，这会返回 NULL（除非bReceivesEditorInput设置为true）
+
+有一个自定义 Pawn，当在 GameMode 中将其设置为默认值时，它会自动生成，并且键绑定可以正常工作（即“InputComponent”不为 NULL），但是当我从关卡蓝图或游戏管理器蓝图生成实例时，[“InputComponent”为 NULL](https://forums.unrealengine.com/t/why-inputcomponent-is-null-when-spawn-from-bp/581079) 。
+
+必须在 BP 中启用自动占有并选择 Player 0。我猜这启用了 InputComponent！
+
+
+D:\work\workspace\carla\Unreal\CarlaUE4\Source\CarlaUE4\DReyeVR\EgoVehicle.cpp
+
+`SetGame(Cast<ADReyeVRGameMode>(UGameplayStatics::GetGameMode(World)));`
+
+`DReyeVRGame->GetPawn()->BeginEgoVehicle(this, World);`
+
+D:\work\workspace\carla\Unreal\CarlaUE4\Source\CarlaUE4\DReyeVR\DReyeVRPawn.cpp
+`ensure(InputComponent != nullptr);`
+
+
 
 交通管理器生成的车不跑
 

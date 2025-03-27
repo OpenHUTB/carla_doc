@@ -18,6 +18,7 @@
 ## 源代码分析
 
 * [USkeletalMeshComponent](https://zhuanlan.zhihu.com/p/637746453)
+* [Actor生命周期](https://dev.epicgames.com/documentation/zh-cn/unreal-engine/actor-lifecycle?application_version=4.27)
 
 ## 其他
 
