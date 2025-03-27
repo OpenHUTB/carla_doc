@@ -74,7 +74,7 @@
 <p>默认的引擎配置在<code>carla\Unreal\CarlaUE4\Config/DefaultEngine.ini</code>文件中进行修改：
 <div class="highlight"><pre><span></span><code><span class="c1"># 传统模式</span>
 <span class="c1"># GlobalDefaultServerGameMode=/Game/Carla/Blueprints/Game/CarlaGameMode.CarlaGameMode_C</span>
-<span class="c1"># 默认的游戏模式（VR模式）</span>
+<span class="c1"># 默认的游戏模式（VR模式，区别于传统模式），运行的脚本位于：carla\Unreal\CarlaUE4\Source\CarlaUE4\DReyeVR\DReyeVRGameMode.cpp</span>
 <span class="nv">GlobalDefaultGameMode</span><span class="o">=</span>/Script/CarlaUE4.DReyeVRGameMode
 <span class="nv">GlobalDefaultServerGameMode</span><span class="o">=</span>/Script/CarlaUE4.DReyeVRGameMode
 </code></pre></div></p>
@@ -82,7 +82,21 @@
 <p>InputComponent != nullptr是空</p>
 <p>崩溃是因为 InputComponent 是nullptr。如果没有 PlayerController 拥有 pawn，就会发生这种情况。您需要做的就是将使用输入组件的行换行if (IsValid(InputComponent)) { ... }。</p>
 <p>DReyeVRGame-&gt;GetPawn() 为空</p>
-<p>已经有车辆生成，而且有声音，但是没有持有棋子（车辆）。</p>
+<p>已经有车辆生成，而且有声音，但是没有持有棋子（车辆），即 <code>InputComponent != nullptr</code> 不成立。 </p>
+<p>调用流程：
+D:\work\workspace\carla\Unreal\CarlaUE4\Source\CarlaUE4\DReyeVR\DReyeVRGameMode.cpp</p>
+<p><code>ADReyeVRGameMode::SetupEgoVehicle()</code></p>
+<p><code>SpawnEgoVehicle(SpawnPt);</code></p>
+<p><code>void ADReyeVRGameMode::SpawnEgoVehicle(const FTransform &amp;SpawnPt)</code></p>
+<p><code>EgoVehiclePtr = static_cast&lt;AEgoVehicle *&gt;(Episode-&gt;SpawnActor(SpawnPt, DReyeVRDescr));</code></p>
+<p>Get Input Component 返回当前的 InputComponent，这会返回 NULL（除非bReceivesEditorInput设置为true）</p>
+<p>有一个自定义 Pawn，当在 GameMode 中将其设置为默认值时，它会自动生成，并且键绑定可以正常工作（即“InputComponent”不为 NULL），但是当我从关卡蓝图或游戏管理器蓝图生成实例时，<a href="https://forums.unrealengine.com/t/why-inputcomponent-is-null-when-spawn-from-bp/581079">“InputComponent”为 NULL</a> 。</p>
+<p>必须在 BP 中启用自动占有并选择 Player 0。我猜这启用了 InputComponent！</p>
+<p>D:\work\workspace\carla\Unreal\CarlaUE4\Source\CarlaUE4\DReyeVR\EgoVehicle.cpp</p>
+<p><code>SetGame(Cast&lt;ADReyeVRGameMode&gt;(UGameplayStatics::GetGameMode(World)));</code></p>
+<p><code>DReyeVRGame-&gt;GetPawn()-&gt;BeginEgoVehicle(this, World);</code></p>
+<p>D:\work\workspace\carla\Unreal\CarlaUE4\Source\CarlaUE4\DReyeVR\DReyeVRPawn.cpp
+<code>ensure(InputComponent != nullptr);</code></p>
 <p>交通管理器生成的车不跑</p>
 <hr />
 <p>原来适配的虚幻引擎的提交记录只到 <a href="https://github.com/OpenHUTB/UnrealEngine/commit/d40ec35474e8793b4eea60dba6c4f051186e458e">Commit d40ec35</a> 。</p>
