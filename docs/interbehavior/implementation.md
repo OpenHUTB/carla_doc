@@ -13,10 +13,44 @@ GlobalDefaultGameMode=/Script/CarlaUE4.DReyeVRGameMode
 GlobalDefaultServerGameMode=/Script/CarlaUE4.DReyeVRGameMode
 ```
 
+## 分析
+玩家控制器（PlayerController）负责指挥棋子（Pawn），而 Pawn 的占有需要指定 PlayerController。
+
+
+
+
 
 ## 在最新的版本上编译
 
 InputComponent != nullptr是空
+
+解决：`Unreal/CarlaUE4/Source/CarlaUE4/DReyeVR/DReyeVRPawn.cpp`
+
+
+```shell
+void ADReyeVRPawn::BeginEgoVehicle(AEgoVehicle *Vehicle, UWorld *World)
+{
+    /// NOTE: this should be run very early!
+    // before anything that needs the EgoVehicle pointer (since this initializes it!)
+
+    SetEgoVehicle(Vehicle);
+    ensure(EgoVehicle != nullptr);
+    EgoVehicle->SetPawn(this);
+
+    if (GetPlayer() == nullptr)
+        return;
+    InputComponent = NewObject<UInputComponent>(this);
+    InputComponent->RegisterComponent();
+
+    // register inputs that require EgoVehicle
+    // ensure(InputComponent != nullptr);
+    if (IsValid(InputComponent))
+    {
+        SetupEgoVehicleInputComponent(InputComponent, EgoVehicle);
+    }
+}
+```
+
 
 崩溃是因为 InputComponent 是nullptr。如果没有 PlayerController 拥有 pawn，就会发生这种情况。您需要做的就是将使用输入组件的行换行if (IsValid(InputComponent)) { ... }。
 
@@ -51,7 +85,8 @@ D:\work\workspace\carla\Unreal\CarlaUE4\Source\CarlaUE4\DReyeVR\EgoVehicle.cpp
 D:\work\workspace\carla\Unreal\CarlaUE4\Source\CarlaUE4\DReyeVR\DReyeVRPawn.cpp
 `ensure(InputComponent != nullptr);`
 
-
+---
+carla\Unreal\CarlaUE4\Plugins\Carla\Source\Carla\Vehicle\CarlaWheeledVehicle.cpp 和 CarlaWheeledVehicle.h 前后差别很大
 
 交通管理器生成的车不跑
 
