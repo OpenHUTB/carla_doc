@@ -78,8 +78,33 @@
 <span class="nv">GlobalDefaultGameMode</span><span class="o">=</span>/Script/CarlaUE4.DReyeVRGameMode
 <span class="nv">GlobalDefaultServerGameMode</span><span class="o">=</span>/Script/CarlaUE4.DReyeVRGameMode
 </code></pre></div></p>
-<h2 id="_3">在最新的版本上编译</h2>
+<h2 id="_3">分析</h2>
+<p>玩家控制器（PlayerController）负责指挥棋子（Pawn），而 Pawn 的占有需要指定 PlayerController。</p>
+<h2 id="_4">在最新的版本上编译</h2>
 <p>InputComponent != nullptr是空</p>
+<p>解决：<code>Unreal/CarlaUE4/Source/CarlaUE4/DReyeVR/DReyeVRPawn.cpp</code></p>
+<div class="highlight"><pre><span></span><code>void<span class="w"> </span>ADReyeVRPawn::BeginEgoVehicle<span class="o">(</span>AEgoVehicle<span class="w"> </span>*Vehicle,<span class="w"> </span>UWorld<span class="w"> </span>*World<span class="o">)</span>
+<span class="o">{</span>
+<span class="w">    </span>///<span class="w"> </span>NOTE:<span class="w"> </span>this<span class="w"> </span>should<span class="w"> </span>be<span class="w"> </span>run<span class="w"> </span>very<span class="w"> </span>early!
+<span class="w">    </span>//<span class="w"> </span>before<span class="w"> </span>anything<span class="w"> </span>that<span class="w"> </span>needs<span class="w"> </span>the<span class="w"> </span>EgoVehicle<span class="w"> </span>pointer<span class="w"> </span><span class="o">(</span>since<span class="w"> </span>this<span class="w"> </span>initializes<span class="w"> </span>it!<span class="o">)</span>
+
+<span class="w">    </span>SetEgoVehicle<span class="o">(</span>Vehicle<span class="o">)</span><span class="p">;</span>
+<span class="w">    </span>ensure<span class="o">(</span>EgoVehicle<span class="w"> </span>!<span class="o">=</span><span class="w"> </span>nullptr<span class="o">)</span><span class="p">;</span>
+<span class="w">    </span>EgoVehicle-&gt;SetPawn<span class="o">(</span>this<span class="o">)</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">(</span>GetPlayer<span class="o">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span>nullptr<span class="o">)</span>
+<span class="w">        </span><span class="k">return</span><span class="p">;</span>
+<span class="w">    </span><span class="nv">InputComponent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>NewObject&lt;UInputComponent&gt;<span class="o">(</span>this<span class="o">)</span><span class="p">;</span>
+<span class="w">    </span>InputComponent-&gt;RegisterComponent<span class="o">()</span><span class="p">;</span>
+
+<span class="w">    </span>//<span class="w"> </span>register<span class="w"> </span>inputs<span class="w"> </span>that<span class="w"> </span>require<span class="w"> </span>EgoVehicle
+<span class="w">    </span>//<span class="w"> </span>ensure<span class="o">(</span>InputComponent<span class="w"> </span>!<span class="o">=</span><span class="w"> </span>nullptr<span class="o">)</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">(</span>IsValid<span class="o">(</span>InputComponent<span class="o">))</span>
+<span class="w">    </span><span class="o">{</span>
+<span class="w">        </span>SetupEgoVehicleInputComponent<span class="o">(</span>InputComponent,<span class="w"> </span>EgoVehicle<span class="o">)</span><span class="p">;</span>
+<span class="w">    </span><span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
 <p>崩溃是因为 InputComponent 是nullptr。如果没有 PlayerController 拥有 pawn，就会发生这种情况。您需要做的就是将使用输入组件的行换行if (IsValid(InputComponent)) { ... }。</p>
 <p>DReyeVRGame-&gt;GetPawn() 为空</p>
 <p>已经有车辆生成，而且有声音，但是没有持有棋子（车辆），即 <code>InputComponent != nullptr</code> 不成立。 </p>
@@ -97,6 +122,8 @@ D:\work\workspace\carla\Unreal\CarlaUE4\Source\CarlaUE4\DReyeVR\DReyeVRGameMode.
 <p><code>DReyeVRGame-&gt;GetPawn()-&gt;BeginEgoVehicle(this, World);</code></p>
 <p>D:\work\workspace\carla\Unreal\CarlaUE4\Source\CarlaUE4\DReyeVR\DReyeVRPawn.cpp
 <code>ensure(InputComponent != nullptr);</code></p>
+<hr />
+<p>carla\Unreal\CarlaUE4\Plugins\Carla\Source\Carla\Vehicle\CarlaWheeledVehicle.cpp 和 CarlaWheeledVehicle.h 前后差别很大</p>
 <p>交通管理器生成的车不跑</p>
 <hr />
 <p>原来适配的虚幻引擎的提交记录只到 <a href="https://github.com/OpenHUTB/UnrealEngine/commit/d40ec35474e8793b4eea60dba6c4f051186e458e">Commit d40ec35</a> 。</p>
