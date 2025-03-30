@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>BlueprintLibary - 代理模拟器</title>
+    <title>BlueprintLibary模块说明文档 - 代理模拟器</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "BlueprintLibary";
+        var mkdocs_page_name = "BlueprintLibary\u6a21\u5757\u8bf4\u660e\u6587\u6863";
         var mkdocs_page_input_path = "modules/BlueprintLibary.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,7 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">BlueprintLibary</li>
+      <li class="breadcrumb-item active">BlueprintLibary模块说明文档</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/modules/BlueprintLibary.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -68,7 +68,175 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                
+                <h1 id="blueprintlibary">BlueprintLibary模块说明文档</h1>
+<p><code>UMapGenFunctionLibrary</code> 是 CARLA 中用于地图生成和网格操作的蓝图函数库，继承自 <code>UBlueprintFunctionLibrary</code>。该类提供静态方法支持自定义网格生成、地理坐标转换、渲染控制等核心功能。</p>
+<hr />
+<h2 id="_1">类成员函数</h2>
+<h3 id="_2"><strong>网格生成系统</strong></h3>
+<h4 id="createmesh"><code>CreateMesh</code></h4>
+<p><div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="n">UStaticMesh</span><span class="o">*</span><span class="w"> </span><span class="n">CreateMesh</span><span class="p">(</span><span class="w">  </span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">FProceduralCustomMesh</span><span class="o">&amp;</span><span class="w"> </span><span class="n">Data</span><span class="p">,</span><span class="w">  </span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">TArray</span><span class="o">&lt;</span><span class="n">FProcMeshTangent</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">ParamTangents</span><span class="p">,</span><span class="w">  </span>
+<span class="w">    </span><span class="n">UMaterialInstance</span><span class="o">*</span><span class="w"> </span><span class="n">MaterialInstance</span><span class="p">,</span><span class="w">  </span>
+<span class="w">    </span><span class="n">FString</span><span class="w"> </span><span class="n">MapName</span><span class="p">,</span><span class="w">  </span>
+<span class="w">    </span><span class="n">FString</span><span class="w"> </span><span class="n">FolderName</span><span class="p">,</span><span class="w">  </span>
+<span class="w">    </span><span class="n">FName</span><span class="w"> </span><span class="n">MeshName</span><span class="p">)</span><span class="w">  </span>
+</code></pre></div>
+- <strong>功能</strong>：根据自定义网格数据创建静态网格资源。<br />
+- <strong>参数</strong>：<br />
+  | 参数 | 类型 | 说明 |<br />
+  |------|------|------|<br />
+  | <code>Data</code> | <code>FProceduralCustomMesh</code> | 包含顶点、三角形等网格数据 |<br />
+  | <code>ParamTangents</code> | <code>TArray&lt;FProcMeshTangent&gt;</code> | 切线数据数组 |<br />
+  | <code>MaterialInstance</code> | <code>UMaterialInstance*</code> | 材质实例（可空） |<br />
+  | <code>MapName</code> | <code>FString</code> | 目标地图名称 |<br />
+  | <code>FolderName</code> | <code>FString</code> | 资源存储目录 |<br />
+  | <code>MeshName</code> | <code>FName</code> | 网格资源名称 |<br />
+- <strong>返回值</strong>：生成的 <code>UStaticMesh</code> 对象指针，失败返回 <code>nullptr</code>。  </p>
+<p><strong>核心流程</strong>：<br />
+1. 构建包路径 <code>/Game/CustomMaps/[MapName]/Static/[FolderName]/[MeshName]</code><br />
+2. 调用 <code>BuildMeshDescriptionFromData</code> 生成网格描述<br />
+3. 创建静态网格资源并配置物理碰撞  </p>
+<hr />
+<h4 id="buildmeshdescriptionfromdata"><code>BuildMeshDescriptionFromData</code></h4>
+<p><div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="n">FMeshDescription</span><span class="w"> </span><span class="n">BuildMeshDescriptionFromData</span><span class="p">(</span><span class="w">  </span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">FProceduralCustomMesh</span><span class="o">&amp;</span><span class="w"> </span><span class="n">Data</span><span class="p">,</span><span class="w">  </span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">TArray</span><span class="o">&lt;</span><span class="n">FProcMeshTangent</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">ParamTangents</span><span class="p">,</span><span class="w">  </span>
+<span class="w">    </span><span class="n">UMaterialInstance</span><span class="o">*</span><span class="w"> </span><span class="n">MaterialInstance</span><span class="p">)</span><span class="w">  </span>
+</code></pre></div>
+- <strong>功能</strong>：将自定义网格数据转换为 <code>FMeshDescription</code> 对象。<br />
+- <strong>关键步骤</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="c1">// 顶点处理  </span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">int32</span><span class="w"> </span><span class="n">VertexIndex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">VertexIndex</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">NumVertex</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">VertexIndex</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">  </span><span class="n">VertexPositions</span><span class="p">[</span><span class="n">VertexID</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Data</span><span class="p">.</span><span class="n">Vertices</span><span class="p">[</span><span class="n">VertexIndex</span><span class="p">];</span><span class="w">  </span>
+<span class="p">}</span><span class="w">  </span>
+<span class="c1">// 三角形构建  </span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">int32</span><span class="w"> </span><span class="n">TriIdx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">TriIdx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">NumTri</span><span class="p">;</span><span class="w"> </span><span class="n">TriIdx</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">  </span><span class="n">MeshDescription</span><span class="p">.</span><span class="n">CreatePolygon</span><span class="p">(</span><span class="n">NewPolygonGroup</span><span class="p">,</span><span class="w"> </span><span class="n">VertexInstanceIDs</span><span class="p">);</span><span class="w">  </span>
+<span class="p">}</span><span class="w">  </span>
+</code></pre></div>
+- <strong>错误处理</strong>：<br />
+  - 材质实例为空时记录错误日志<br />
+  - UV 数据不匹配时自动填充默认值 <code>(0,0)</code>  </p>
+<hr />
+<h3 id="_3"><strong>地理坐标转换</strong></h3>
+<h4 id="gettransversemercprojection"><code>GetTransversemercProjection</code></h4>
+<p><div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="n">FVector2D</span><span class="w"> </span><span class="n">GetTransversemercProjection</span><span class="p">(</span><span class="w">  </span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">lat</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">lon</span><span class="p">,</span><span class="w">  </span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">lat0</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">lon0</span><span class="p">)</span><span class="w">  </span>
+</code></pre></div>
+- <strong>功能</strong>：横向墨卡托投影转换（经纬度 → 平面坐标）。<br />
+- <strong>公式</strong>：<br />
+  <div class="highlight"><pre><span></span><code>x = R * asinh(sin(Δλ)/sqrt(tan²φ + cos²Δλ))  
+y = R * atan(tanφ / cosΔλ)  
+</code></pre></div>
+  - <code>R=6373000</code>（地球半径，米）<br />
+  - <code>Δλ = lon - lon0</code>（经度偏移）<br />
+- <strong>返回值</strong>：投影后坐标（厘米单位），应用 <code>OSMToCentimetersScaleFactor=100</code> 缩放因子  </p>
+<hr />
+<h3 id="_4"><strong>系统控制</strong></h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>功能</th>
+<th>参数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SetThreadToSleep</code></td>
+<td>线程休眠</td>
+<td><code>seconds</code>：休眠时长（秒）</td>
+</tr>
+<tr>
+<td><code>FlushRenderingCommandsInBlueprint</code></td>
+<td>强制刷新渲染管线</td>
+<td>无</td>
+</tr>
+<tr>
+<td><code>CleanupGEngine</code></td>
+<td>执行垃圾回收并清理编辑器事务</td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="c1">// 示例：资源清理逻辑  </span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">UMapGenFunctionLibrary::CleanupGEngine</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">  </span><span class="n">GEngine</span><span class="o">-&gt;</span><span class="n">PerformGarbageCollectionAndCleanupActors</span><span class="p">();</span><span class="w">  </span>
+<span class="cp">#if WITH_EDITOR  </span>
+<span class="w">  </span><span class="n">GEditor</span><span class="o">-&gt;</span><span class="n">Trans</span><span class="o">-&gt;</span><span class="n">Reset</span><span class="p">(...);</span><span class="w">  </span>
+<span class="cp">#endif  </span>
+<span class="p">}</span><span class="w">  </span>
+</code></pre></div>
+<hr />
+<h2 id="_5">数据结构说明</h2>
+<h3 id="fproceduralcustommesh"><code>FProceduralCustomMesh</code></h3>
+<p>自定义网格数据容器（需与代码实现匹配）：<br />
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">FProceduralCustomMesh</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">  </span><span class="n">TArray</span><span class="o">&lt;</span><span class="n">FVector</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Vertices</span><span class="p">;</span><span class="w">      </span><span class="c1">// 顶点坐标  </span>
+<span class="w">  </span><span class="n">TArray</span><span class="o">&lt;</span><span class="n">int32</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Triangles</span><span class="p">;</span><span class="w">       </span><span class="c1">// 三角形索引  </span>
+<span class="w">  </span><span class="n">TArray</span><span class="o">&lt;</span><span class="n">FVector</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Normals</span><span class="p">;</span><span class="w">       </span><span class="c1">// 法线向量  </span>
+<span class="w">  </span><span class="n">TArray</span><span class="o">&lt;</span><span class="n">FVector2D</span><span class="o">&gt;</span><span class="w"> </span><span class="n">UV0</span><span class="p">;</span><span class="w">         </span><span class="c1">// UV 通道0坐标  </span>
+<span class="w">  </span><span class="n">TArray</span><span class="o">&lt;</span><span class="n">FProcMeshTangent</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Tangents</span><span class="p">;</span><span class="w"> </span><span class="c1">// 切线数据  </span>
+<span class="p">};</span><span class="w">  </span>
+</code></pre></div></p>
+<hr />
+<h2 id="_6">错误代码与日志</h2>
+<h3 id="_7">日志类别</h3>
+<p><div class="highlight"><pre><span></span><code><span class="n">DECLARE_LOG_CATEGORY_EXTERN</span><span class="p">(</span><span class="n">LogCarlaMapGenFunctionLibrary</span><span class="p">,</span><span class="w"> </span><span class="n">Log</span><span class="p">,</span><span class="w"> </span><span class="n">All</span><span class="p">);</span><span class="w">  </span>
+</code></pre></div>
+- <strong>关键日志点</strong>：<br />
+  - <code>MaterialInstance is nullptr</code>：材质未指定警告<br />
+  - 网格顶点/UV 数据不匹配时静默处理  </p>
+<hr />
+<h2 id="_8">性能优化建议</h2>
+<ol>
+<li><strong>资源路径管理</strong>：  </li>
+<li>使用 <code>/Game/CustomMaps/</code> 固定路径规范资源存储  </li>
+<li>
+<p>创建前检查目录存在性 <code>PlatformFile.DirectoryExists</code>  </p>
+</li>
+<li>
+<p><strong>内存控制</strong>：  </p>
+</li>
+<li>调用 <code>MeshDescription.ReserveNewVertices()</code> 预分配内存  </li>
+<li>
+<p>完成构建后执行 <code>FlushRenderingCommandsInBlueprint()</code> 释放GPU资源  </p>
+</li>
+<li>
+<p><strong>多线程安全</strong>：  </p>
+</li>
+<li><code>SetThreadToSleep</code> 需避免在主线程调用  </li>
+<li>网格构建期间建议使用异步任务  </li>
+</ol>
+<hr />
+<h2 id="_9">扩展接口说明</h2>
+<table>
+<thead>
+<tr>
+<th>宏定义</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>WITH_EDITOR</code></td>
+<td>编辑器专用代码段隔离</td>
+</tr>
+<tr>
+<td><code>TRACE_CPUPROFILER_EVENT_SCOPE</code></td>
+<td>性能分析标记（示例未展示）</td>
+</tr>
+</tbody>
+</table>
+<pre class="mermaid"><code>graph TD  
+    A[CreateMesh调用] --&gt; B{数据校验}  
+    B --&gt;|有效| C[构建网格描述]  
+    B --&gt;|无效| D[返回nullptr]  
+    C --&gt; E[创建静态网格资源]  
+    E --&gt; F[配置材质与碰撞]  
+    F --&gt; G[资源注册]  </code></pre>
               
             </div>
           </div><footer>
