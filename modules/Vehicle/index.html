@@ -70,7 +70,63 @@
               
                 <h1 id="_1">载具</h1>
 <p>VehicleControl 结构中的值直接传递给 PhysX Vehicle 插件（请参阅 <a href="https://github.com/carla-simulator/carla/blob/422d0de1c4ba34238d960a5405ab227044199e13/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Vehicle/CarlaWheeledVehicle.cpp#L78-L102">CarlaWheeledVehicle.cpp</a> ）。</p>
-<h2 id="_2">参考</h2>
+<h2 id="fackermanncontroller">一、<code>FAckermannController</code> 类</h2>
+<p><code>FAckermannController</code> 类是一个用于实现阿克曼转向控制的控制器类，主要用于控制轮式车辆的行驶，包括速度、加速度、转向等方面的控制。该类使用了 PID 控制器来对速度和加速度进行调节，以实现对车辆的精确控制。</p>
+<h2 id="_2">二、文件信息</h2>
+<h3 id="_3">版权信息</h3>
+<p>该代码版权归 2021 年巴塞罗那自治大学（UAB）的计算机视觉中心（CVC）所有，代码遵循 MIT 许可证。</p>
+<h3 id="_4">包含头文件</h3>
+<ul>
+<li><code>AckermannController.h</code>：定义了 <code>FAckermannController</code> 类和相关结构体。</li>
+<li><code>CarlaWheeledVehicle.h</code>：定义了 <code>ACarlaWheeledVehicle</code> 类，用于表示轮式车辆。</li>
+</ul>
+<h2 id="_5">三、类成员和方法</h2>
+<h3 id="31">3.1构造函数和析构函数</h3>
+<ul>
+<li><code>FAckermannController::~FAckermannController()</code>：析构函数，用于释放 <code>FAckermannController</code> 对象所占用的资源。</li>
+</ul>
+<h3 id="32">3.2获取和应用设置</h3>
+<ul>
+<li><code>FAckermannControllerSettings FAckermannController::GetSettings() const</code>：获取当前控制器的设置，包括速度和加速度 PID 控制器的参数。</li>
+<li><code>void FAckermannController::ApplySettings(const FAckermannControllerSettings&amp; Settings)</code>：应用传入的控制器设置，更新速度和加速度 PID 控制器的参数。</li>
+</ul>
+<h3 id="33">3.3设置目标点</h3>
+<ul>
+<li><code>void FAckermannController::SetTargetPoint(const FVehicleAckermannControl&amp; AckermannControl)</code>：设置目标控制参数，包括转向角、转向速度、速度、加速度和 jerk 等，并对这些参数进行裁剪。</li>
+</ul>
+<h3 id="34">3.4重置控制器</h3>
+<ul>
+<li><code>void FAckermannController::Reset()</code>：重置控制器的状态，包括速度和加速度 PID 控制器的状态，以及车辆的控制参数和状态。</li>
+</ul>
+<h3 id="35">3.5运行控制循环</h3>
+<ul>
+<li><code>void FAckermannController::RunLoop(FVehicleControl&amp; Control)</code>：运行控制循环，包括横向控制和纵向控制，最后更新车辆的控制命令。</li>
+</ul>
+<h3 id="36">3.6横向控制</h3>
+<ul>
+<li><code>void FAckermannController::RunControlSteering()</code>：根据目标转向角和转向速度，计算当前的转向角。</li>
+</ul>
+<h3 id="37">3.7纵向控制</h3>
+<ol>
+<li>完全停止控制</li>
+<li><code>bool FAckermannController::RunControlFullStop()</code>：判断车辆是否需要完全停止，如果需要则将刹车设置为最大值，油门设置为零。</li>
+<li>倒车控制</li>
+<li><code>void FAckermannController::RunControlReverse()</code>：根据车辆的当前速度和目标速度，判断是否可以切换到倒车模式。</li>
+<li>速度控制</li>
+<li><code>void FAckermannController::RunControlSpeed()</code>：使用速度 PID 控制器计算目标加速度，并对其进行裁剪。</li>
+<li>加速度控制</li>
+<li><code>void FAckermannController::RunControlAcceleration()</code>：使用加速度 PID 控制器计算目标油门或刹车值，并对其进行裁剪。</li>
+<li>更新车辆控制命令</li>
+<li><code>void FAckermannController::UpdateVehicleControlCommand()</code>：根据目标油门或刹车值，更新车辆的油门和刹车控制命令。</li>
+</ol>
+<h3 id="38">3.8更新车辆状态和物理参数</h3>
+<ol>
+<li>更新车辆状态</li>
+<li><code>void FAckermannController::UpdateVehicleState(const ACarlaWheeledVehicle* Vehicle)</code>：更新车辆的状态，包括转向角、速度和加速度等。</li>
+<li>更新车辆物理参数</li>
+<li><code>void FAckermannController::UpdateVehiclePhysics(const ACarlaWheeledVehicle* Vehicle)</code>：更新车辆的最大转向角。</li>
+</ol>
+<h2 id="_6">参考</h2>
 <ul>
 <li><a href="https://github.com/carla-simulator/carla/issues/1427">函数vehile.apply_control实际上如何工作的？</a></li>
 </ul>
