@@ -68,7 +68,62 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                
+                <p>函数说明
+1. GetBaseMeshTag
+cpp
+复制
+ECityMapMeshTag CityMapMeshTag::GetBaseMeshTag()
+功能
+获取基础道路网格标签类型</p>
+<p>返回值
+ECityMapMeshTag::RoadTwoLanes_LaneLeft - 表示默认的双车道左车道道路类型</p>
+<p>典型用途
+初始化道路生成系统时作为默认道路配置</p>
+<p>道路网络生成的基准参考类型</p>
+<ol>
+<li>GetRoadIntersectionSize
+cpp
+复制
+uint32 CityMapMeshTag::GetRoadIntersectionSize()
+功能
+获取道路交叉口的基准尺寸</li>
+</ol>
+<p>返回值
+5u (uint32类型) - 表示交叉口的边长尺寸（单位需根据项目约定，通常为米）</p>
+<p>注意
+该值可能对应交叉路口地面网格的边长参数</p>
+<p>用于生成标准十字路口的尺寸计算</p>
+<ol>
+<li>ToString
+cpp
+复制
+FString CityMapMeshTag::ToString(ECityMapMeshTag Tag)
+功能
+将枚举标签转换为可读字符串</li>
+</ol>
+<p>参数
+Tag (ECityMapMeshTag) - 需要转换的道路网格枚举标签</p>
+<p>返回值
+对应枚举值的字符串名称</p>
+<p>若枚举类型未找到则返回 "Invalid"</p>
+<p>实现细节
+使用 FindObject 在内存中查找 ECityMapMeshTag 枚举类型</p>
+<p>通过虚幻引擎的反射系统获取枚举值的字符串表示</p>
+<p>包含错误处理机制，确保非法枚举值的容错性</p>
+<p>典型用途
+调试时输出可读的标签信息</p>
+<p>日志记录时保存枚举类型信息</p>
+<p>可视化界面显示标签类型</p>
+<p>使用示例
+cpp
+复制
+// 获取基础道路标签
+ECityMapMeshTag BaseTag = CityMapMeshTag::GetBaseMeshTag();</p>
+<p>// 获取交叉口尺寸参数
+uint32 IntersectionSize = CityMapMeshTag::GetRoadIntersectionSize();</p>
+<p>// 枚举值转字符串
+FString TagName = CityMapMeshTag::ToString(ECityMapMeshTag::RoadFourLanes_LaneLeft);
+// 输出结果："RoadFourLanes_LaneLeft"</p>
               
             </div>
           </div><footer>
