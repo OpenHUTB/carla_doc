@@ -62,9 +62,26 @@ VehicleControl 结构中的值直接传递给 PhysX Vehicle 插件（请参阅 [
 ### 3.8更新车辆状态和物理参数
 
 1. 更新车辆状态
+   
    - `void FAckermannController::UpdateVehicleState(const ACarlaWheeledVehicle* Vehicle)`：更新车辆的状态，包括转向角、速度和加速度等。
 2. 更新车辆物理参数
+
    - `void FAckermannController::UpdateVehiclePhysics(const ACarlaWheeledVehicle* Vehicle)`：更新车辆的最大转向角。
+
+
+### 3.9车辆灯光状态
+
+​	此结构体运用了 Unreal Engine 的反射系统，具备在蓝图里进行读写操作的能力。它的每个属性都代表着一种特定的灯光状态，并且默认情况下这些灯光都是关闭的。
+
+​	新添加的 `Hazard` 属性用于表示车辆危险警示灯的状态，默认值为 `false`，即初始状态下危险警示灯是关闭的。和其他属性一样，它也可以在编辑器中编辑，并且能在蓝图里进行读写操作。
+
+```
+// 新增的危险警示灯状态属性
+  UPROPERTY(Category = "Vehicle Lights", EditAnywhere, BlueprintReadWrite)
+  bool Hazard = false;
+```
+
+
 
 
 ## 参考
