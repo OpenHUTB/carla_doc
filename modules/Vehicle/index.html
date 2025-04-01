@@ -121,11 +121,26 @@
 </ol>
 <h3 id="38">3.8更新车辆状态和物理参数</h3>
 <ol>
-<li>更新车辆状态</li>
-<li><code>void FAckermannController::UpdateVehicleState(const ACarlaWheeledVehicle* Vehicle)</code>：更新车辆的状态，包括转向角、速度和加速度等。</li>
-<li>更新车辆物理参数</li>
-<li><code>void FAckermannController::UpdateVehiclePhysics(const ACarlaWheeledVehicle* Vehicle)</code>：更新车辆的最大转向角。</li>
+<li>
+<p>更新车辆状态</p>
+</li>
+<li>
+<p><code>void FAckermannController::UpdateVehicleState(const ACarlaWheeledVehicle* Vehicle)</code>：更新车辆的状态，包括转向角、速度和加速度等。</p>
+</li>
+<li>
+<p>更新车辆物理参数</p>
+</li>
+<li>
+<p><code>void FAckermannController::UpdateVehiclePhysics(const ACarlaWheeledVehicle* Vehicle)</code>：更新车辆的最大转向角。</p>
+</li>
 </ol>
+<h3 id="39">3.9车辆灯光状态</h3>
+<p>​   此结构体运用了 Unreal Engine 的反射系统，具备在蓝图里进行读写操作的能力。它的每个属性都代表着一种特定的灯光状态，并且默认情况下这些灯光都是关闭的。</p>
+<p>​   新添加的 <code>Hazard</code> 属性用于表示车辆危险警示灯的状态，默认值为 <code>false</code>，即初始状态下危险警示灯是关闭的。和其他属性一样，它也可以在编辑器中编辑，并且能在蓝图里进行读写操作。</p>
+<div class="highlight"><pre><span></span><code>// 新增的危险警示灯状态属性
+  UPROPERTY(Category = &quot;Vehicle Lights&quot;, EditAnywhere, BlueprintReadWrite)
+  bool Hazard = false;
+</code></pre></div>
 <h2 id="_6">参考</h2>
 <ul>
 <li><a href="https://github.com/carla-simulator/carla/issues/1427">函数vehile.apply_control实际上如何工作的？</a></li>
