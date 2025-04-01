@@ -1,72 +1,8 @@
 //1
-函数说明
-1. GetBaseMeshTag
-cpp
-复制
-ECityMapMeshTag CityMapMeshTag::GetBaseMeshTag()
-功能
-获取基础道路网格标签类型
+CityMapMeshHolder 模块说明文档
+概述
+本模块为虚幻引擎Carla项目提供城市道路网格实例化管理功能，主要负责道路网格的生成、更新和销毁操作。核心类ACityMapMeshHolder继承自AActor，包含网格实例化、坐标转换、资源管理等功能，支持编辑器环境下的实时更新。
 
-返回值
-ECityMapMeshTag::RoadTwoLanes_LaneLeft - 表示默认的双车道左车道道路类型
-
-典型用途
-初始化道路生成系统时作为默认道路配置
-
-道路网络生成的基准参考类型
-
-2. GetRoadIntersectionSize
-uint32 CityMapMeshTag::GetRoadIntersectionSize()
-功能
-获取道路交叉口的基准尺寸
-
-返回值
-5u (uint32类型) - 表示交叉口的边长尺寸（单位需根据项目约定，通常为米）
-
-注意
-该值可能对应交叉路口地面网格的边长参数
-
-用于生成标准十字路口的尺寸计算
-
-3. ToString
-FString CityMapMeshTag::ToString(ECityMapMeshTag Tag)
-功能
-将枚举标签转换为可读字符串
-
-参数
-Tag (ECityMapMeshTag) - 需要转换的道路网格枚举标签
-
-返回值
-对应枚举值的字符串名称
-
-若枚举类型未找到则返回 "Invalid"
-
-实现细节
-使用 FindObject 在内存中查找 ECityMapMeshTag 枚举类型
-
-通过虚幻引擎的反射系统获取枚举值的字符串表示
-
-包含错误处理机制，确保非法枚举值的容错性
-
-典型用途
-调试时输出可读的标签信息
-
-日志记录时保存枚举类型信息
-
-可视化界面显示标签类型
-
-使用示例
-// 获取基础道路标签
-ECityMapMeshTag BaseTag = CityMapMeshTag::GetBaseMeshTag();
-
-// 获取交叉口尺寸参数
-uint32 IntersectionSize = CityMapMeshTag::GetRoadIntersectionSize();
-
-// 枚举值转字符串
-FString TagName = CityMapMeshTag::ToString(ECityMapMeshTag::RoadFourLanes_LaneLeft);
-// 输出结果："RoadFourLanes_LaneLeft"
-
-//2
 CityMapMeshHolder 模块说明文档
 概述
 本模块为虚幻引擎Carla项目提供城市道路网格实例化管理功能，主要负责道路网格的生成、更新和销毁操作。核心类ACityMapMeshHolder继承自AActor，包含网格实例化、坐标转换、资源管理等功能，支持编辑器环境下的实时更新。
@@ -268,17 +204,9 @@ UE_LOG(LogCarla, Display, TEXT("MapScale: %.2f"), MapScale);
 
 // 可视化调试
 DrawDebugBox(GetWorld(), GetTileLocation(X,Y), FVector(MapScale/2), FColor::Green);
-版本兼容性
-引擎版本	适配状态	注意事项
-4.25+	✔️ 完全支持	
-4.23-4.24	⚠️ 部分支持	需修改Spawn参数
-4.22及以下	❌ 不兼容	Component API差异
-扩展接口
 自定义标签系统
 继承ECityMapMeshTag扩展新类型
-
 重写GetNumberOfTags()返回总数
-
 实现对应的SetStaticMesh配置
 
 坐标系统扩展
@@ -286,3 +214,74 @@ DrawDebugBox(GetWorld(), GetTileLocation(X,Y), FVector(MapScale/2), FColor::Gree
 FVector GetTileLocation3D(uint32 X, uint32 Y, float Z) {
     return {X*MapScale, Y*MapScale, Z};
 }
+
+
+//2
+CityMapMeshTag 模块说明文档
+概述
+本模块为虚幻引擎（Unreal Engine）的Carla项目提供城市道路网格标签处理功能，包含基础标签获取、交叉路口尺寸定义以及枚举标签转字符串功能。所有定义均在 CityMapMeshTag 命名空间下。
+
+函数说明
+1. GetBaseMeshTag
+ECityMapMeshTag CityMapMeshTag::GetBaseMeshTag()
+功能
+获取基础道路网格标签类型
+
+返回值
+ECityMapMeshTag::RoadTwoLanes_LaneLeft - 表示默认的双车道左车道道路类型
+
+典型用途
+初始化道路生成系统时作为默认道路配置
+
+道路网络生成的基准参考类型
+
+2. GetRoadIntersectionSize
+uint32 CityMapMeshTag::GetRoadIntersectionSize()
+功能
+获取道路交叉口的基准尺寸
+
+返回值
+5u (uint32类型) - 表示交叉口的边长尺寸（单位需根据项目约定，通常为米）
+
+注意
+该值可能对应交叉路口地面网格的边长参数
+
+用于生成标准十字路口的尺寸计算
+
+3. ToString
+FString CityMapMeshTag::ToString(ECityMapMeshTag Tag)
+功能
+将枚举标签转换为可读字符串
+
+参数
+Tag (ECityMapMeshTag) - 需要转换的道路网格枚举标签
+
+返回值
+对应枚举值的字符串名称
+
+若枚举类型未找到则返回 "Invalid"
+
+实现细节
+使用 FindObject 在内存中查找 ECityMapMeshTag 枚举类型
+
+通过虚幻引擎的反射系统获取枚举值的字符串表示
+
+包含错误处理机制，确保非法枚举值的容错性
+
+典型用途
+调试时输出可读的标签信息
+
+日志记录时保存枚举类型信息
+
+可视化界面显示标签类型
+
+使用示例
+// 获取基础道路标签
+ECityMapMeshTag BaseTag = CityMapMeshTag::GetBaseMeshTag();
+
+// 获取交叉口尺寸参数
+uint32 IntersectionSize = CityMapMeshTag::GetRoadIntersectionSize();
+
+// 枚举值转字符串
+FString TagName = CityMapMeshTag::ToString(ECityMapMeshTag::RoadFourLanes_LaneLeft);
+// 输出结果："RoadFourLanes_LaneLeft"
