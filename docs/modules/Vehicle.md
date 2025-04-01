@@ -66,6 +66,42 @@ VehicleControl 结构中的值直接传递给 PhysX Vehicle 插件（请参阅 [
 2. 更新车辆物理参数
    - `void FAckermannController::UpdateVehiclePhysics(const ACarlaWheeledVehicle* Vehicle)`：更新车辆的最大转向角。
 
+### 3.9PID类
+
+​	1.这是一个实现了经典 PID（比例 - 积分 - 微分）控制算法的类。
+
+​	2.PID成员变量
+
+- `Kp`：比例系数，默认值为 0.0f。
+
+- `Ki`：积分系数，默认值为 0.0f。
+
+- `Kd`：微分系数，默认值为 0.0f。
+
+- `SetPoint`：目标值。
+
+- `MinOutput`：输出下限，默认值为 -1.0f。
+
+- `MaxOutput`：输出上限，默认值为 1.0f。
+
+- `Proportional`：比例项，初始值为 0.0f。
+
+- `Integral`：积分项，初始值为 0.0f。
+
+- `Derivative`：微分项，初始值为 0.0f。
+
+- `LastError`：上一次的误差，初始值为 0.0f。
+
+- `LastInput`：上一次的输入值，初始值为 0.0f。
+
+  3.PID成员函数
+
+  - `PID()`：默认构造函数。
+  - `PID(float Kp, float Ki, float Kd)`：带参数的构造函数，用于初始化 PID 系数。
+  - `~PID()`：默认析构函数。
+  - `void SetTargetPoint(float Point)`：设置目标值。
+  - `float Run(float Input, float DeltaTime)`：运行 PID 控制算法，根据输入值和时间间隔计算输出。
+  - `void Reset()`：重置 PID 控制器的内部状态。
 
 ## 参考
 
