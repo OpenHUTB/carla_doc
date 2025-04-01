@@ -1,4 +1,4 @@
-# CARLA 资产材质加载模块技术文档 (LoadAssetMaterialsCommandlet.cpp)
+# CARLA 资产材质加载模块技术文档 (LoadAssetMaterialsCommandlet)
 
 ---
 
@@ -59,32 +59,56 @@
 
 ## 类与方法详解  
 ### `ULoadAssetMaterialsCommandlet` 类  
+继承自 `UCommandlet`，是 CARLA 中用于批量处理材质资产的核心命令行工具类。通过 Unreal Engine 的反射机制实现，支持在编辑器环境下执行资产处理操作。
+
 #### 关键方法  
-| 方法                          | 功能描述                                  |
-|------------------------------|------------------------------------------|
-| `Main()`                     | Commandlet 入口点，解析命令行参数         |
-| `ApplyRoadPainterMaterials()`| 核心贴花生成逻辑，处理坐标转换与实例化    |
-| `ReadDecalsConfigurationFile()` | 读取并解析 JSON 配置文件                |
+| 方法                          | 功能描述                                                                 |
+|-------------------------------|-------------------------------------------------------------------------|
+| `Main(const FString &Params)` | Commandlet 入口方法，解析命令行参数并触发材质加载流程。返回执行状态码。 |
+| `ApplyRoadPainterMaterials()` | 核心贴花生成逻辑，处理瓦片坐标转换、材质实例化及贴花参数随机化。       |
+| `ReadDecalsConfigurationFile()` | 读取并解析 `roadpainter_decals.json` 配置文件，返回材质参数结构体。    |
+| `GetAssetsPathFromPackage()`  | 扫描指定资产包，获取所有待处理地图的路径列表。                         |
+| `ParseParams()`               | 解析命令行输入的参数，提取包名、地图过滤条件等关键信息。               |
 
-#### 内部数据结构  
-- **瓦片信息**  
-  ```cpp
-  struct {
-    float FirstTileCenterX, FirstTileCenterY; // 起始瓦片中心坐标
-    float Size;                               // 瓦片尺寸（米）
-  } TileData;
-  ```
+#### 成员变量说明  
+| 变量                      | 类型                      | 描述                                                                 |
+|---------------------------|---------------------------|----------------------------------------------------------------------|
+| `AssetDatas`              | `TArray<FAssetData>`      | 存储从对象库加载的资产元数据，用于批量处理。                         |
+| `World`                   | `UWorld*`                 | 指向当前编辑器世界的指针，用于场景操作。                             |
+| `MapObjectLibrary`        | `UObjectLibrary*`         | 对象库实例，用于动态加载地图资产。                                   |
+| `RoadPainterSubclass`     | `TSubclassOf<ARoadPainterWrapper>` | 道路绘制器蓝图类的引用，用于生成道路贴花。                |
+| `DecalNamesMap`           | `TMap<FString, FString>`  | 贴花名称到材质路径的映射表，解析 JSON 时填充。                       |
+| `TileData`                | `FLargeMapTileData`       | 瓦片地图元数据，包含起始瓦片中心坐标及尺寸。                         |
+| `XODRMap`                 | `boost::optional<carla::road::Map>` | 存储解析后的 OpenDrive 地图数据，用于道路坐标转换。       |
 
-- **贴花配置**  
-  ```cpp
-  struct FDecalsProperties {
+### `FLargeMapTileData` 结构体  
+描述瓦片地图的布局信息，通过 `TilesInfo.txt` 文件初始化：
+
+| 字段                 | 类型    | 描述                          |
+|----------------------|---------|-------------------------------|
+| `FirstTileCenterX`   | float   | 起始瓦片中心 X 坐标（UE 单位） |
+| `FirstTileCenterY`   | float   | 起始瓦片中心 Y 坐标（UE 单位） |
+| `Size`               | float   | 单个瓦片边长（米）             |
+
+---
+
+## 数据结构与配置  
+### 1. 贴花配置结构体  
+```cpp
+struct FDecalsProperties {
     TArray<UMaterialInstanceConstant*> DecalMaterials; // 材质实例
     TArray<int32> DecalNumToSpawn;       // 各类型贴花生成数量
     FVector DecalScale;                  // 基础缩放比例
     float DecalMinScale, DecalMaxScale;  // 随机缩放范围
     float DecalRandomYaw;                // 最大随机偏航角
-  };
-  ```
+};
+```
+
+### 2. 材质映射表  
+| 贴花类型   | 材质路径                                      |
+|------------|----------------------------------------------|
+| dirt1      | `MaterialInstanceConstant'/Game/.../DI_Dirt1'` |
+| cracksbig1 | `MaterialInstanceConstant'/Game/.../DI_Crack1'` |
 
 ---
 
@@ -166,12 +190,6 @@ UE4Editor-Cmd.exe ProjectName -run=LoadAssetMaterials
   -MapFilter=Downtown
 ```
 
-### 材质映射表  
-| 贴花类型   | 材质路径                                      |
-|------------|----------------------------------------------|
-| dirt1      | `MaterialInstanceConstant'/Game/.../DI_Dirt1'` |
-| cracksbig1 | `MaterialInstanceConstant'/Game/.../DI_Crack1'` |
-
 ---
 
 ## 附录  
@@ -186,12 +204,15 @@ UE4Editor-Cmd.exe ProjectName -run=LoadAssetMaterials
   ```
 - **编辑器实时预览**：在 `ADecalActor` 创建后立即可见  
 
-### 版本兼容性  
-- 适配 CARLA 0.9.12 及以上版本  
-- 需要同步更新 `DecalNamesMap` 中的材质路径  
+### 已知问题与解决方案  
+| 问题现象                  | 可能原因                | 解决方案                          |
+|---------------------------|-------------------------|-----------------------------------|
+| 贴花漂浮在空中            | 碰撞检测未命中          | 增大 `BoxTrace` 的 Z 轴范围       |
+| 材质显示为粉色            | 材质路径错误            | 检查 `DecalNamesMap` 映射是否正确 |
+| 瓦片边界计算错误          | TilesInfo.txt 格式错误  | 确保每行为 `中心X,中心Y,尺寸`     |
 
 ---
 
-> 文档版本：1.0  
-> 最后更新：2025年3月25日  
-> 作者：HAPPY-LLLL
+> 文档版本：1.2  
+> 最后更新：2025年3月30日  
+> 作者：HAPPY-LL
