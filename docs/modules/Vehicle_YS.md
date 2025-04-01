@@ -95,6 +95,23 @@ void FAckermannController::ApplySettings(const FAckermannControllerSettings& Set
 - `GetSettings` 方法将速度和加速度 PID 控制器的参数复制到 `FAckermannControllerSettings` 结构体中并返回。
 - `ApplySettings` 方法将传入的 `FAckermannControllerSettings` 结构体中的参数应用到速度和加速度 PID 控制器中。
 
+### 4.1.1 构造函数
+  ```cpp
+  // 默认构造函数，初始化PID参数及车辆状态
+FAckermannController::FAckermannController() {
+    // 初始化PID参数（假设默认值）
+    SpeedController.Kp = 0.5f;
+    SpeedController.Ki = 0.1f;
+    SpeedController.Kd = 0.2f;
+    
+    AccelerationController.Kp = 1.0f;
+    AccelerationController.Ki = 0.5f;
+    AccelerationController.Kd = 0.3f;
+    
+    // 其他状态初始化
+    Reset();
+}
+```
 ### 4.2设置目标点
 
 ```cpp
@@ -102,7 +119,7 @@ void FAckermannController::SetTargetPoint(const FVehicleAckermannControl& Ackerm
   UserTargetPoint = AckermannControl;
  
   TargetSteer = FMath::Clamp(UserTargetPoint.Steer, -VehicleMaxSteering, VehicleMaxSteering);
-  TargetSteerSpeed = FMath::Abs(UserTargetPoint.SteerSpeed);
+  TargetSteerSpeed = UserTargetPoint.SteerSpeed;//保留符号以支持双向转向速度
   TargetSpeed = UserTargetPoint.Speed;
   TargetAcceleration = FMath::Abs(UserTargetPoint.Acceleration);
   TargetJerk = FMath::Abs(UserTargetPoint.Jerk);
@@ -232,7 +249,7 @@ void FAckermannController::RunControlReverse() {
  
   if (FMath::Abs(VehicleSpeed) < StandingStillEpsilon) {
     // 停车不动，允许改变行驶方向
-    if (UserTargetPoint.Speed < 0) {
+    if (TargetPoint.Speed < 0) { //使用裁剪后的目标速度，防止出现可能导致逻辑混乱
       // 改变驾驶方向到倒车。
       bReverse = true;
     } else if (UserTargetPoint.Speed >= 0) {
@@ -255,7 +272,19 @@ void FAckermannController::RunControlReverse() {
 - 如果车辆正在行驶且目标速度的方向与当前速度的方向相反，则将目标速度设置为零，需要先完全停止才能改变行驶方向。
 
 #### 4.6.3速度控制
+在速度控制中，MaxAccel和MaxDecel代表车辆最大物理加速度/减速度。
+```cpp
+// 类成员变量（需在类定义中声明）
+float MaxAccel = 3.0f;   // 默认最大加速度 3m/s²
+float MaxDecel = 8.0f;   // 默认最大减速度 8m/s²（紧急制动）
 
+// 或通过车辆物理参数动态获取
+void FAckermannController::UpdateVehiclePhysics(const ACarlaWheeledVehicle* Vehicle) {
+    VehicleMaxSteering = FMath::DegreesToRadians(Vehicle->GetMaximumSteerAngle());
+    MaxAccel = Vehicle->GetMaxAcceleration(); // 假设存在此方法
+    MaxDecel = Vehicle->GetMaxBrakingDeceleration();
+}
+```
 ```cpp
 void FAckermannController::RunControlSpeed() {
   SpeedController.SetTargetPoint(TargetSpeed);
@@ -304,19 +333,25 @@ void FAckermannController::RunControlAcceleration() {
 
 ```cpp
 void FAckermannController::UpdateVehicleControlCommand() {
+   // 负值：减速请求，正值：加速请求
   if (AccelControlPedalTarget < 0.0f) {
+    // 减速请求
     if (bReverse) {
       Throttle = FMath::Abs(AccelControlPedalTarget);
       Brake = 0.0f;
     } else {
+      // 前进时：负加速度对应刹车
       Throttle = 0.0f;
       Brake = FMath::Abs(AccelControlPedalTarget);
     }
   } else {
+    // 加速请求
     if (bReverse) {
+     // 倒车时：正加速度对应刹车（减速倒车）
       Throttle = 0.0f;
       Brake = FMath::Abs(AccelControlPedalTarget);
     } else {
+      // 前进时：正加速度对应油门
       Throttle = FMath::Abs(AccelControlPedalTarget);
       Brake = 0.0f;
     }
@@ -341,11 +376,12 @@ void FAckermannController::UpdateVehicleState(const ACarlaWheeledVehicle* Vehicl
   DeltaTime = Vehicle->GetWorld()->GetDeltaSeconds();
  
   // 更新车辆状态
-  VehicleSteer = Vehicle->GetVehicleControl().Steer * VehicleMaxSteering;
+  VehicleSteer = Vehicle->GetWheelSteerAngle() * VehicleMaxSteering; 
+  //VehicleSteer应从车辆物理状态获取实际转向角，
   VehicleSpeed = Vehicle->GetVehicleForwardSpeed() / 100.0f;  // From cm/s to m/s
   float CurrentAcceleration = (VehicleSpeed - LastVehicleSpeed) / DeltaTime;
   // 对加速度应用平均滤波器。
-  VehicleAcceleration = (4.0f*LastVehicleAcceleration + CurrentAcceleration) / 5.0f;
+  VehicleAcceleration = (4.0f*LastVehicleAcceleration + CurrentAcceleration) / 5.0f;//在UpdateVehicleState中，加速度通过低通滤波平滑处理，减少噪声影响。
 }
 ```
 

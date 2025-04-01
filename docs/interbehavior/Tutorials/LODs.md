@@ -1,88 +1,102 @@
-# Level Of Detail modes in UE4
+# UE4 中的细节级别（Level Of Detail）模式
 
-## What?
-LOD = "Level of Detail"
+## 什么？
+LOD = "Level of Detail"（层次细节模型）
 
-Ever noticed how in major video games/3d programs most of the models/textures decrease in quality (polygon count/resolution) when further away? This makes sense as an optimization, far away things can probably use less compute power. This is best explained in this [UE4 documentation](https://docs.unrealengine.com/4.26/en-US/WorkingWithContent/Types/StaticMeshes/HowTo/AutomaticLODGeneration/). 
+有没有注意到，在主流视频游戏/3D 程序中，大多数模型/纹理的质量（多边形数量/分辨率）在距离较远时会降低？这是一种优化，距离较远的物体可能使用较少的计算能力。[UE4 文档](https://docs.unrealengine.com/4.26/en-US/WorkingWithContent/Types/StaticMeshes/HowTo/AutomaticLODGeneration/) 对此进行了最好的解释。
 
-Here's an example of the `SM_Tesla` static mesh provided by Carla
-| LOD 0 (14,406 triangles)       | LOD 1 (3,601 triangles)        | LOD 2 (1,799 triangles)        | LOD 3 (864 triangles)          |
+以下是 Carla 提供的 `SM_Tesla` 静态网格的示例
+
+| LOD 0 (14,406 三角形)       | LOD 1 (3,601 三角形)        | LOD 2 (1,799 三角形)        | LOD 3 (864 三角形)          |
 | ------------------------------ | ------------------------------ | ------------------------------ | ------------------------------ |
 | ![LOD0](../Figures/LODs/lod0.jpg) | ![LOD0](../Figures/LODs/lod1.jpg) | ![LOD0](../Figures/LODs/lod2.jpg) | ![LOD0](../Figures/LODs/lod3.jpg) |
 
-## Okay so what?
-While the default LOD settings are pretty good in Carla, this works because **Carla was not designed for VR** and expects to be run on a flat screen. However, we are using Carla in a VR setting, and it quickly becomes much more pronounced when models transform into lower/higher quality forms. This can be very distracting and immersion-breaking for the person in the headset. 
+## 好吧那又怎么样？
+虽然 Carla 中的默认 LOD 设置相当不错，但这样做是可行的，因为 **Carla 不是为 VR 设计**的，需要在平面屏幕上运行。但是，我们在 VR 设置中使用 Carla，当模型转换为低质量/高质量形式时，这种现象很快就会变得更加明显。这可能会让佩戴头显的人分心，并破坏沉浸感。
 
-### Download pre-compiled meshes
-If you aren't interested in following the steps on creating your own LODSettings asset and bulk-applying it, skip everything until the **Download Everything Instead** step, else read on. 
+### 下载预编译的网格
+如果您对创建自己的 LODSettings 资源并批量应用它的步骤不感兴趣，请跳过所有内容直到**下载所有内容**步骤，否则请继续阅读。
 
-## How to fix?
-The best "fix" here would be to change the distance thresholds so that the transformations would be much more aggressive and stay in higher-quality for longer. This increase in quality comes at a cost of performance of course. 
+## 如何修复？
+最好的“修复”是改变距离阈值，这样转换就会更加积极，并能更长时间地保持高质量。当然，质量的提高是以牺牲性能为代价的。
 
-One possible workaround we found (which did not work for us unfortunately) was [this comment](https://github.com/carla-simulator/carla/issues/276#issuecomment-374541267) by a Carla contributor who elaborated that "the popping in the vegetation and other models is caused by the Level of Detail. We have various versions of the same model with different polygonal levels to replace the final model depending on the distance from the camera. Ideally, these changes would be imperceptible but more tweaking would be needed to reach that ideal point. You can force the highest LoD on everything by typing `r.forcelod 1` and `foliage.ForceLOD 1` in the Unreal Engine console". Similarly, there is further work to look into texture MipMapping (similar idea but for textures) which uses UE4's TextureStreaming. For this guide we'll mostly focus on changing just the LOD settings of the main vehicles. 
+我们发现了一种可能的解决方法（不幸的是，它对我们不起作用），这是 Carla 贡献者的评论，他详细阐述道：“植被和其他模型的弹出是由细节级别引起的。我们有相同模型的不同版本，具有不同的多边形级别，可根据与相机的距离替换最终模型。理想情况下，这些变化是不可察觉的，但需要进行更多调整才能达到理想状态。您可以通过在虚幻引擎控制台中输入 `r.forcelod 1` 和 `foliage.ForceLOD 1` 来强制将所有内容设置为最高 LoD”。同样，还有进一步的工作要研究纹理 MipMapping（类似的想法，但用于纹理），它使用 UE4 的 TextureStreaming。对于本指南，我们将主要关注更改主要车辆的 LOD 设置。
 
-### Important:
-Technically, the logic behind LOD picking is not based on "distances from the camera" as is commonly described, but rather by the "screen space" that is being taken up by the model. This is best explained in the [UE4 documentation on LOD Screen Size](https://docs.unrealengine.com/4.26/en-US/WorkingWithContent/Types/StaticMeshes/HowTo/PerPlatformLODScreenSize/) (ignore the per-platform overrides, everything we're doing is on the a desktop client) where they mention "to control when one Level Of Detail (LOD) Static Mesh transitions into another one, Unreal Engine 4 (UE4) uses the current size of the Static Meshes size in Screen Space".
+### 重要
+从技术上讲，LOD 选取背后的逻辑并非基于通常描述的“与相机的距离”，而是基于模型所占用的“屏幕空间”。[UE4 文档中关于 LOD 屏幕尺寸](https://docs.unrealengine.com/4.26/en-US/WorkingWithContent/Types/StaticMeshes/HowTo/PerPlatformLODScreenSize/) 的说明对此进行了最好的解释（忽略每个平台的覆盖，我们所做的一切都是在桌面客户端上进行的），其中提到“为了控制一个细节级别 (LOD) 静态网格何时过渡到另一个，虚幻引擎 4 (UE4) 使用屏幕空间中静态网格的当前大小”。
 
-## Deep dive into UE4
-In order to actually access the LOD's for every blueprint, we're actually going to need to take a step back and look towards the [`SkeletalMesh`](https://docs.unrealengine.com/4.26/en-US/WorkingWithContent/Types/SkeletalMeshes/) of the model rather than the blueprint itself. The skeletal mesh is in-between the `StaticMesh` and the final blueprint since it contains all the animations/rigging/physics/etc. that a static mesh does not, but does not contain any of the control logic for a usable actor. 
+## 深入探究 UE4
+为了真正访问每个蓝图的 LOD，我们实际上需要退后一步，查看模型的 [`SkeletalMesh`](https://docs.unrealengine.com/4.26/en-US/WorkingWithContent/Types/SkeletalMeshes/) ，而不是蓝图本身。骨架网格位于 `StaticMesh` 和最终蓝图之间，因为它包含静态网格不包含的所有 animations/rigging/physics/etc ，但不包含可用参与者的任何控制逻辑。
 
-For example, for the `SM_TeslaM3_v2` skeletal mesh (note there is also a `SM_Tesla` static mesh, the naming scheme is unfortunately not very consistent), head over to `Content/Carla/Static/Vehicles/4Wheeled/Tesla/` in the Content Browser to see the following folder layout: 
+例如，对于 `SM_TeslaM3_v2` 骨架网格（注意，还有一个 `SM_Tesla` 静态网格，遗憾的是命名方案不太一致），转到内容浏览器中的 `Content/Carla/Static/Vehicles/4Wheeled/Tesla/` 以查看以下文件夹布局：
 
 ![TeslaContent](../Figures/LODs/tesla_content.jpg)
 
-Notice how the model underlined in **pink** is the skeletal mesh we are interested in. Double click it to open it in the Editor. 
+请注意，**粉红色**下划线的模型是我们感兴趣的骨架网格。双击它即可在编辑器中打开它。
 
-Then, in the left, in the `Asset Details` pane (highlighted below in **red**) you can see the LOD Picker settings is currently set to Auto (LOD0) this will automatically compute and assign the LOD for this mesh based on your distance. You can see the current LOD settings in action in the top left of the preview window (highlighted below in **yellow**).
+然后，在左侧的 `Asset Details` 窗格（下面以**红色**突出显示）中，您可以看到 LOD Picker 设置当前设置为 Auto (LOD0)，这将根据您的距离自动计算并分配此网格的 LOD。您可以在预览窗口的左上角看到当前 LOD 设置的运行情况（下面以**黄色**突出显示）。
 
 ![TeslaSkeletal](../Figures/LODs/tesla_skeletal.jpg)
 
-From the LOD picker you could check the `"Custom"` box and edit the individual LOD settings manually, but this is a lot of tedious work that would need to be applied to **every** static mesh individually. In this guide we'll try to avoid tedious work. 
+您可以从 LOD 选择器中选中`"Custom"`框并手动编辑各个 LOD 设置，但这是一项繁琐的工作，需要单独应用于**每个**静态网格。在本指南中，我们将尝试避免繁琐的工作。
 
-## There has to be a better way?
-Yes, in fact, there is! ([More documentation](https://docs.unrealengine.com/4.26/en-US/AnimatingObjects/SkeletalMeshAnimation/Persona/MeshDetails/))
+## 有没有更好的方法？
+是的，确实有！（ [更多文档](https://docs.unrealengine.com/4.26/en-US/AnimatingObjects/SkeletalMeshAnimation/Persona/MeshDetails/) ）
 
-Under the LOD Picker in Asset Details you might notice the `LOD Settings` section. Open it up and focus on the LODSettings input (currently empty "None"). This means there exists a `.uasset` asset that we can create to generalize LOD settings for all vehicles. We just need to apply this LODSetting asset to each of them once beforehand. 
+在 `LOD Settings` 中的 LOD Picker 下，您可能会注意到 LOD Settings 部分。打开它并关注 LODSettings 输入（当前为空“无”）。这意味着存在一个 `.uasset` 资产，我们可以创建它来概括所有车辆的 LOD 设置。我们只需要事先将此 LODSetting 资产应用于每个车辆一次。
 
-If you don't have an existing LODSettings asset (we've provided one in [`Tools/LOD/SM_Vehicle_LODSettings.uasset`](Tools/LOD/SM_Vehicle_LODSettings.uasset)) you can create one with the `Generate Asset` button. We moved ours to a new `4Wheeled/DReyeVR/` directory. Then in LODSettings, select the drop-down menu and choose the newly created LODSetting. 
+
+如果您没有现有的 LODSettings 资源（我们在 [`Tools/LOD/SM_Vehicle_LODSettings.uasset`](Tools/LOD/SM_Vehicle_LODSettings.uasset) 中提供了一个），您可以使用`Generate Asset`按钮创建一个。我们将我们的资源移至新的 `4Wheeled/DReyeVR/` 目录。然后在 LODSettings 中，选择下拉菜单并选择新创建的 LODSetting。
+
+如果您没有现有的 LODSettings 资源（我们在 [`Tools/LOD/SM_Vehicle_LODSettings.uasset`](Tools/LOD/SM_Vehicle_LODSettings.uasset) 中提供了一个），您可以使用“生成资源”按钮创建一个。我们将我们的资源移至新的 `4Wheeled/DReyeVR/` 目录。然后在 LODSettings 中，选择下拉菜单并选择新创建的 LODSetting。
 
 | LODSettings pre application                    | LODSettings post application                    |
 | ---------------------------------------------- | ----------------------------------------------- |
 | ![LODSettings1](../Figures/LODs/lod_settings.jpg) | ![LODSettings1](../Figures/LODs/lod_settings2.jpg) |
 
-Now you should be able to open up the newly created `LODSettings` asset (`SM_Vehicle_LODSettings`) in the editor and edit all the important LOD parameters from there. Here is where the fine-tuning for screen-size takes place as you can manually tune when transitions happen. 
-### NOTE
-Something to keep in mind is that different vehicles even have different number of LOD's, some (like `SM_TeslaM3_v2` have 4) have more or less than others. So in order to have a singular LODSetting apply for everyone, we'll need to make sure its array is as large as the largest LOD for all requested meshes. Since there should not really be a limit to this, we used an array of size 7 (not all vehicles need to access all 7) for some leg-room (no array-OOB exceptions). 
+现在您应该能够在编辑器中打开新创建的 `LODSettings` 资源 (`SM_Vehicle_LODSettings`)，并从那里编辑所有重要的 LOD 参数。这里是对屏幕尺寸进行微调的地方，因为您可以在转换发生时手动进行调整。
 
-| LOD | Default (`SM_TeslaM3_v2`) Screen Size | New LODSettings Screen Size |
-| --- | ------------------------------------- | --------------------------- |
-| 0   | 2.0                                   | 1.0 (max)                   |
-| 1   | 0.4                                   | 0.2                         |
-| 2   | 0.21                                  | 0.05                        |
-| 3   | 0.12                                  | 0.03                        |
-| 4   | N/A                                   | 0.01                        |
-| 5   | N/A                                   | 0.005                       |
-| 6   | N/A                                   | 0.001                       |
 
-This should look something like the following (with LODGroups collapsed):
+### 注意
+
+需要注意的是，不同的车辆甚至具有不同的 LOD 数量，有些车辆（例如 `SM_TeslaM3_v2` 有 4 个）的 LOD 数量比其他车辆多或少。因此，为了让单个 LODSetting 适用于所有人，我们需要确保其数组与所有请求网格的最大 LOD 一样大。由于实际上不应该对此有限制，我们使用了一个大小为 7 的数组（并非所有车辆都需要访问所有 7 个）来留出一些腿部空间（无数组 OOB 例外）。
+
+| LOD | 默认 (`SM_TeslaM3_v2`) 屏幕大小 | New LODSettings 屏幕大小 |
+| --- |--------------------------------------|---------------------------------|
+| 0   | 2.0                                  | 1.0 (max)                       |
+| 1   | 0.4                                  | 0.2                             |
+| 2   | 0.21                                 | 0.05                            |
+| 3   | 0.12                                 | 0.03                            |
+| 4   | N/A                                  | 0.01                            |
+| 5   | N/A                                  | 0.005                           |
+| 6   | N/A                                  | 0.001                           |
+
+这看起来应该类似于以下内容（LODGroups 折叠）：
 
 <img src="../Figures/LODs/lod_settings_editor.jpg" width=50%>
 
-Theoretically we should be able to have this class completely in C++ since it is a [`USkeletalMeshLODSettings`](https://docs.unrealengine.com/4.26/en-US/API/Runtime/Engine/Engine/USkeletalMeshLODSettings/) class. But it is fairly low on the priority list. 
+理论上，我们应该能够完全用 C++ 实现这个类，因为它是一个 [`USkeletalMeshLODSettings`](https://docs.unrealengine.com/4.26/en-US/API/Runtime/Engine/Engine/USkeletalMeshLODSettings/) 类。但它在优先级列表中相当低。
 
-## Okay now what?
-Now we can edit our `SM_Vehicle_LODSettings.uasset` file and all the LOD settings for our `SM_TeslaM3_v2` should respect it. This is great! 
-- Note sometimes the mesh will use cached LOD's to force regeneration click the `Regenerate` button in the `SM_TeslaM3_v2` editor window in `LODSettings`. This shouldn't be a problem on the next `make launch` of the editor.
+## 好吧现在怎么办？
+现在我们可以编辑 `SM_Vehicle_LODSettings.uasset` 文件，并且 `SM_TeslaM3_v2` 的所有 LOD 设置都应遵循它。这太棒了！
 
-Now it would be great to apply this `SM_Vehicle_LODSettings.uasset` to all the static meshes at once right? Turns out we can do this with a [bulk-edit-via-property-matrix](https://docs.unrealengine.com/4.26/en-US/Basics/UI/PropertyMatrix/)
+- 请注意，有时网格会使用缓存的 LOD 来强制重新生成，单击 `LODSettings` 中 `SM_TeslaM3_v2` 编辑器窗口中的`Regenerate`按钮。下次启动编辑器`make launch`时，这应该不会成为问题。
 
-The steps we recommend are as follows:
-1. Go to the `4Wheeled/` directory in the content browser
-2. In the bottom right (View Options) uncheck the `Folders` option
-3. In the top left click the `Filters` and check the `SkeletalMesh` option
-   - Now you should see this (notice all pink underlined):
+现在，如果能将这个 `SM_Vehicle_LODSettings.uasset` 一次性应用于所有静态网格，那就太好了，对吧？事实证明，我们可以通过 [bulk-edit-via-property-matrix](https://docs.unrealengine.com/4.26/en-US/Basics/UI/PropertyMatrix/) 来实现这一点
+
+我们建议采取以下步骤：
+
+1. 进入内容浏览器中的 `4Wheeled/` 目录
+
+2. 在右下角（查看选项）取消选中 `Folders` 选项 
+
+3. 在左上角单击`Filters`，然后选中`SkeletalMesh`选项
+
+   - 现在你应该看到这个（注意所有带下划线的粉色）：
 	![AllSkeletalMeshes](../Figures/LODs/all_skeletal_meshes.jpg)
-4. Now select all the meshes **EXCEPT for the following** 
+
+4. 现在选择`除以下之外`的所有网格
+
 	- Windows:
        1. SM_Cybertruck_v2
        2. SM_ETron
@@ -92,10 +106,12 @@ The steps we recommend are as follows:
        3. SK_lincolnv5
        4. SK_MercedesCCC
 	![AllSkeletalMeshesSelected](../Figures/LODs/all_skeletal_meshes_selected.jpg)
-	- We are still unsure why, but these particular vehicles cause a segmentation fault (something to do with their vertex makeup) upon this application. You will need to manually set the LOD parameters for individual custom LOD's for each of them (ie. do NOT use the `SM_Vehicle_LODSettings.uasset` at all)
-5. Right click any of the highlighted vehicles -> `Asset Actions` -> `Bulk Edit via Property Matrix`
+	- 我们仍不确定原因，但这些特定车辆在此应用程序中会导致分段错误（与它们的顶点构成有关）。您需要手动设置每个车辆的单独自定义 LOD 的 LOD 参数（即，完全不要使用 `SM_Vehicle_LODSettings.uasset`） 
+
+5. 右键单击任意突出显示的车辆 -> `Asset Actions` -> `Bulk Edit via Property Matrix` 
 	![BulkEditMatrix](../Figures/LODs/bulk_edit_matrix.jpg)
-6. In the `Bulk Edit` window that opens up, verify all the correct skeletal meshes on the left, then in `LODSettings` on the right, click the 3x3 grid icon (Pick asset) and choose the newly created `SM_Vehicle_LODSettings.uasset` asset. 
+6. 在打开的`Bulk Edit`窗口中，验证左侧所有正确的骨架网格体，然后在右侧的 `LODSettings` 中，单击 3x3 网格图标（选择资产）并选择新创建的 `SM_Vehicle_LODSettings.uasset` 资产。
+
    1. To apply this to all the selected skeletal meshes, go to the top bar -> `File` -> `Save`
    2. The end result should look something like this:
 	![BulkEdit](../Figures/LODs/bulk_edit.jpg)
