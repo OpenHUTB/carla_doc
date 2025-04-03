@@ -81,7 +81,21 @@ VehicleControl 结构中的值直接传递给 PhysX Vehicle 插件（请参阅 [
   bool Hazard = false;
 ```
 
+### 3.10功能补充
 
+在Vehicle/VehiclePhysicsControl.h**文件中添加新的设置
+
+```
+// 刹车设置
+UPROPERTY(Category = "Vehicle Brake Physics Control", EditAnywhere, BlueprintReadWrite)
+ float BrakeForce = 0.0f;
+
+UPROPERTY(Category = "Vehicle Brake Physics Control", EditAnywhere, BlueprintReadWrite)
+ float HandbrakeForce = 0.0f;
+```
+
+- `BrakeForce`：代表车辆刹车时的制动力，默认值为 0.0f。
+- `HandbrakeForce`：表示手刹的制动力，默认值为 0.0f。
 
 
 ## 参考
