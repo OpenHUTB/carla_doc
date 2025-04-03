@@ -135,6 +135,8 @@ bool UseLogitechPlugin = true;
 ```
 - 注意：仅当启用了 `UseSRanipalPlugin` 时才需要安装 SRanipal 插件，同样，仅当启用了 `UseLogitechPlugin` 时才需要安装 Logitech 插件。
 
+!!! 注意
+    在虚幻编辑器中运行时，需要点击工具栏中的 [`控制`](https://dev.epicgames.com/documentation/zh-cn/unreal-engine/playing-and-simulating?application_version=4.27) （显示`弹出`）才有进入驾驶模式。每次点击`控制`都会调用 `carla\unreal\carlaue4\Source\CarlaUE4\DReyeVR\DReyeVRPawn.cpp` 文件中 `void ADReyeVRPawn::SetupPlayerInputComponent(UInputComponent *PlayerInputComponent)` 的 `Super::SetupPlayerInputComponent(PlayerInputComponent);`，每次持有棋子时都会调用一次，从而 InputComponent 不为空。 
 
 # 安装 DReyeVR 插件
 在安装 `DReyeVR` 之前，我们还需要安装依赖项：

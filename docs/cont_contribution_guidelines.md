@@ -62,11 +62,11 @@ __2. 阅读文档。__ 确保问题是一个错误，而不是对 Carla 应该�
 
 ### 提交 <span id="submission"></span>
 
-贡献和新功能不会直接合并到 `master` 分支，而是合并到名为 `dev` 的中间分支。这种 [Gitflow](https://nvie.com/posts/a-successful-git-branching-model/) 分支模型可以更轻松地维护稳定的主分支。该模型需要特定的贡献工作流程。
+贡献和新功能不会直接合并到 `master` 分支，而是合并到名为 `dev` 的中间分支。这种 [Gitflow](https://nvie.com/posts/a-successful-git-branching-model/) 分支模型可以更轻松地维护稳定的主分支。该模型需要特定的贡献 [工作流程](./dev/workflow.md) 。
 
-*   始终让您的 `dev` 分支更新最新的更改。
-*   从名为 `username/name_of_the_contribution` 的 `dev` 子分支中开发贡献。
-*   贡献准备就绪后，从您的分支向 `dev` 提交拉取请求（pull-request）。填写描述时尽量具有描述性。请注意，在合并之前，新代码需要通过一些检查。检查由持续集成系统自动运行。如果检查成功，将会出现绿色勾号。如果有红色标记，请相应更正代码。
+* 始终让您的 `dev` 分支更新最新的更改。
+* 从名为 `username/name_of_the_contribution` 的 `dev` 子分支中开发贡献。
+* 贡献准备就绪后，从您的分支向 `dev` 提交拉取请求（pull-request）。填写描述时尽量具有描述性。请注意，在合并之前，新代码需要通过一些检查。检查由持续集成系统自动运行。如果检查成功，将会出现绿色勾号。如果有红色标记，请相应更正代码。
 
 一旦贡献被合并到 `dev` 中，就可以与其余新功能一起进行测试。到下一个版本时，该 `dev` 分支将合并到 `master`，并且贡献将可用并公布。
 

@@ -125,8 +125,6 @@
 
 [面向高速特权代理的端到端强化学习](https://github.com/eson88866/hspa)
 
-[多模态机器人导航系统](https://github.com/CV4RA/MMAP-DRL-Nav)
-
 [编队控制系统巡航部分](https://github.com/ChienYuaaa/carla_platoon)
 
 [提前警告潜在的驾驶员脱离方向盘](https://github.com/bbhardin/DisengagementInterface)
@@ -264,17 +262,26 @@
 
 [使用基于 Transformer 的传感器融合进行自动驾驶行为克隆和强化学习](https://github.com/tonyroumi/BC-RL)
 
+
 ### 导航 <span id="navigation"></span>
+
+[多模态机器人导航系统](https://github.com/CV4RA/MMAP-DRL-Nav)
 
 [基于 GNM、ViNT、NoMaD 的通用导航模型](https://github.com/AdityaNG/general-navigation)
 
 [机器人学习与导航视觉](https://github.com/HiPatil/RobotLearning-Vision-for-Navigation)
 
-[无碰撞导航的量子深度强化学习](https://github.com/roboak/Nav-Q)
-
 [安全导航](https://github.com/Tejas-Deo/Safe-Navigation-Training-Autonomous-Vehicles-using-Deep-Reinforcement-Learning-in-CARLA)
 
 [测试导航模型对于路线完成任务的稳健性](https://github.com/proroklab/resilient-fusion)
+
+[使用 DQN 和 PPO 进行自动驾驶汽车导航](https://github.com/JakubPiascik/Self-Driving-BSC-Project)
+
+[端到端机器人导航系统](https://github.com/AIR-DISCOVER/FreeAD)
+
+[具有基于信任的 CBF 约束的 MPC，用于自主系统的安全机器人导航](https://github.com/saadejazz/mpc-trust-cbf)
+
+[无碰撞导航的量子深度强化学习](https://github.com/roboak/Nav-Q)
 
 
 ### 预测 <span id="prediction"></span>
@@ -313,8 +320,6 @@
 [噪音自适应驾驶辅助系统](https://github.com/kochlisGit/Noise-Adaptive-Driving-Assistance-System)
 
 [结合计算机化和强化学习来创建自适应巡航控制](https://github.com/MaartenVanLoo/AIonWheels)
-
-[使用 DQN 和 PPO 进行自动驾驶汽车导航](https://github.com/JakubPiascik/Self-Driving-BSC-Project)
 
 [行为克隆](https://github.com/berktepebag/carnd-term1-project3-behavioral-cloning)
 
@@ -398,8 +403,6 @@
 [端到端自动驾驶](https://github.com/fachrinnk4869/end-to-end-self-driving)
 
 [通过谱归一化神经高斯过程实现 E2E 自动驾驶汽车控制](https://github.com/croth2305/domain_aware_via_sngp_for_e2e_ad)
-
-[端到端机器人导航系统](https://github.com/AIR-DISCOVER/FreeAD)
 
 
 ## 大模型 <span id="llm"></span>
@@ -521,6 +524,10 @@
 [带肌肉骨骼模型的强化学习环境](https://github.com/stanfordnmbl/osim-rl) - 基于opensim
 
 [基于凝视的正则化，用于减轻模仿学习中的因果混淆](https://github.com/aminbana/GABRIL-CARLA)
+
+[估计行人注意力不集中](https://github.com/saadejazz/trusty)
+
+[基于图像的行人智能手机使用分类器](https://github.com/saadejazz/smato)
 
 
 ## 智能体 <span id="agent"></span>
