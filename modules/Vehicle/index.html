@@ -141,6 +141,19 @@
   UPROPERTY(Category = &quot;Vehicle Lights&quot;, EditAnywhere, BlueprintReadWrite)
   bool Hazard = false;
 </code></pre></div>
+<h3 id="310">3.10功能补充</h3>
+<p>在Vehicle/VehiclePhysicsControl.h**文件中添加新的设置</p>
+<div class="highlight"><pre><span></span><code>// 刹车设置
+UPROPERTY(Category = &quot;Vehicle Brake Physics Control&quot;, EditAnywhere, BlueprintReadWrite)
+ float BrakeForce = 0.0f;
+
+UPROPERTY(Category = &quot;Vehicle Brake Physics Control&quot;, EditAnywhere, BlueprintReadWrite)
+ float HandbrakeForce = 0.0f;
+</code></pre></div>
+<ul>
+<li><code>BrakeForce</code>：代表车辆刹车时的制动力，默认值为 0.0f。</li>
+<li><code>HandbrakeForce</code>：表示手刹的制动力，默认值为 0.0f。</li>
+</ul>
 <h2 id="_6">参考</h2>
 <ul>
 <li><a href="https://github.com/carla-simulator/carla/issues/1427">函数vehile.apply_control实际上如何工作的？</a></li>
