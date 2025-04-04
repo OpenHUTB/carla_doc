@@ -224,4 +224,3 @@ UE4Editor-Cmd.exe ProjectName -run=TriggerFactory -TriggerType=friction -Frictio
 | 摩擦力未正确恢复 | `OldFrictionValues` 未保存 | 验证 `OnTriggerBeginOverlap` 逻辑 |
 | 触发器生成失败 | 配置参数格式错误 | 确保 `Variations` 使用字符串值 |
 | 触发区域不可见 | 组件未正确初始化 | 检查 `TriggerVolume` 的配置 |
-```
