@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Trigger - 代理模拟器</title>
+    <title>CarlaUnreal Trigger 模块技术文档 - 代理模拟器</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Trigger";
+        var mkdocs_page_name = "CarlaUnreal Trigger \u6a21\u5757\u6280\u672f\u6587\u6863";
         var mkdocs_page_input_path = "modules/Trigger.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,7 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Trigger</li>
+      <li class="breadcrumb-item active">CarlaUnreal Trigger 模块技术文档</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/modules/Trigger.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -68,7 +68,357 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                
+                <h1 id="carlaunreal-trigger">CarlaUnreal Trigger 模块技术文档</h1>
+<h2 id="_1">目录</h2>
+<ul>
+<li><a href="#模块概述">模块概述</a></li>
+<li><a href="#核心功能">核心功能</a></li>
+<li><a href="#类与方法详解">类与方法详解</a></li>
+<li><a href="#数据结构与配置">数据结构与配置</a></li>
+<li><a href="#关键流程">关键流程</a></li>
+<li><a href="#注意事项">注意事项</a></li>
+<li><a href="#示例配置">示例配置</a></li>
+<li><a href="#附录">附录</a></li>
+</ul>
+<h2 id="_2">模块概述</h2>
+<p>Trigger 模块是 CarlaUnreal 插件中的核心组件，旨在为 CARLA 模拟器提供灵活的触发器机制。它允许用户在模拟环境中定义触发区域，并根据特定条件（如车辆重叠事件）执行预定义操作，从而增强场景交互性和真实性。目前，模块主要实现基于摩擦力的触发器功能（<code>AFrictionTrigger</code>），用于动态调整车辆在特定区域内的车轮摩擦力，模拟不同路面条件（如湿滑路面、砂石路面）对车辆物理行为的影响。</p>
+<p>模块通过工厂类 <code>ATriggerFactory</code> 提供触发器的创建和管理功能，与 CARLA 的核心类（如 <code>UCarlaEpisode</code> 和 <code>ACarlaWheeledVehicle</code>）深度集成，支持在 <strong>Unreal Engine 编辑器</strong>、<strong>蓝图</strong> 中动态配置。未来可扩展至其他触发器类型，如速度限制或信号触发。</p>
+<h2 id="_3">核心功能</h2>
+<h3 id="1">1. 触发器实例化与配置</h3>
+<ul>
+<li>
+<p><strong>工厂类生成触发器</strong>
+  <div class="highlight"><pre><span></span><code><span class="n">FActorSpawnResult</span><span class="w"> </span><span class="nf">SpawnActor</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FTransform</span><span class="w"> </span><span class="o">&amp;</span><span class="n">SpawnAtTransform</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">FActorDescription</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ActorDescription</span><span class="p">);</span>
+</code></pre></div>
+  根据变换信息（位置和旋转）及描述参数生成 <code>AFrictionTrigger</code> 实例。</p>
+</li>
+<li>
+<p><strong>配置方式</strong></p>
+</li>
+<li>通过代码动态配置</li>
+<li>在蓝图中可视化配置</li>
+</ul>
+<h3 id="2">2. 动态摩擦力调整</h3>
+<ul>
+<li>
+<p><strong>重叠事件检测与响应</strong>
+  <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">OnTriggerBeginOverlap</span><span class="p">(</span><span class="n">AActor</span><span class="o">*</span><span class="w"> </span><span class="n">OverlappedActor</span><span class="p">,</span><span class="w"> </span><span class="n">AActor</span><span class="o">*</span><span class="w"> </span><span class="n">OtherActor</span><span class="p">);</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">OnTriggerEndOverlap</span><span class="p">(</span><span class="n">AActor</span><span class="o">*</span><span class="w"> </span><span class="n">OverlappedActor</span><span class="p">,</span><span class="w"> </span><span class="n">AActor</span><span class="o">*</span><span class="w"> </span><span class="n">OtherActor</span><span class="p">);</span>
+</code></pre></div>
+  实时检测车辆进入和离开触发区域。</p>
+</li>
+<li>
+<p><strong>摩擦力管理</strong></p>
+</li>
+<li>车辆进入时保存原始摩擦力并应用预设值</li>
+<li>车辆离开时恢复原始摩擦力</li>
+</ul>
+<h3 id="3-carla">3. 与 CARLA 模拟器集成</h3>
+<ul>
+<li><strong>关卡与车辆交互</strong></li>
+<li>通过 <code>UCarlaEpisode</code> 获取当前场景所有信息，比如地图、车辆、天气等</li>
+<li>与 <code>ACarlaWheeledVehicle</code> 的物理组件交互，调整车轮摩擦属性</li>
+</ul>
+<h3 id="4">4. 蓝图支持</h3>
+<ul>
+<li><strong>事件绑定与属性调整</strong></li>
+<li>支持在蓝图中绑定触发事件</li>
+<li>实时修改触发器属性（如摩擦力、区域大小）</li>
+</ul>
+<h2 id="_4">类与方法详解</h2>
+<h3 id="africtiontrigger">AFrictionTrigger 类</h3>
+<p>继承自 <code>AActor</code>，是 Trigger 模块的核心实现类，用于定义基于摩擦力的触发区域。</p>
+<h4 id="_5">关键方法</h4>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>功能描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>OnTriggerBeginOverlap(...)</code></td>
+<td>当车辆进入触发区域时触发，保存原始摩擦力并设置为预定义值</td>
+</tr>
+<tr>
+<td><code>OnTriggerEndOverlap(...)</code></td>
+<td>当车辆离开触发区域时触发，恢复车辆的原始摩擦力</td>
+</tr>
+<tr>
+<td><code>UpdateWheelsFriction(...)</code></td>
+<td>更新指定车辆的车轮摩擦力系数</td>
+</tr>
+<tr>
+<td><code>SetEpisode(const UCarlaEpisode&amp;)</code></td>
+<td>设置当前关卡引用，以便访问关卡数据和车辆实例</td>
+</tr>
+<tr>
+<td><code>SetBoxExtent(const FVector&amp;)</code></td>
+<td>设置触发区域的盒体范围（X/Y/Z 轴）</td>
+</tr>
+<tr>
+<td><code>SetFriction(float)</code></td>
+<td>设置触发区域的目标摩擦力值，可在运行时或编辑器中调整</td>
+</tr>
+<tr>
+<td><code>BeginPlay()</code></td>
+<td>重写函数，在 Actor 开始运行时初始化事件绑定</td>
+</tr>
+<tr>
+<td><code>EndPlay(...)</code></td>
+<td>重写函数，在 Actor 结束时清理事件绑定</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_6">成员变量说明</h4>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Friction</code></td>
+<td><code>float</code></td>
+<td>触发区域的目标摩擦力值，默认 1.0，可在编辑器中编辑</td>
+</tr>
+<tr>
+<td><code>TriggerVolume</code></td>
+<td><code>UBoxComponent*</code></td>
+<td>定义触发区域的碰撞盒体组件，支持可视化调试</td>
+</tr>
+<tr>
+<td><code>Episode</code></td>
+<td><code>const UCarlaEpisode*</code></td>
+<td>指向当前关卡实例的指针，用于获取车辆和场景信息</td>
+</tr>
+<tr>
+<td><code>OldFrictionValues</code></td>
+<td><code>TArray&lt;float&gt;</code></td>
+<td>存储进入触发区域的车辆原始摩擦力值，用于后续恢复</td>
+</tr>
+</tbody>
+</table>
+<h3 id="atriggerfactory">ATriggerFactory 类</h3>
+<p>继承自 <code>ACarlaActorFactory</code>，负责触发器的创建和管理，提供工厂模式的实例化支持。</p>
+<h4 id="_7">关键方法</h4>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>功能描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GetDefinitions()</code></td>
+<td>返回支持的触发器类型定义列表（目前仅含 <code>AFrictionTrigger</code>）</td>
+</tr>
+<tr>
+<td><code>SpawnActor(const FTransform&amp;, const FActorDescription&amp;)</code></td>
+<td>根据变换和描述信息生成并配置触发器实例，返回生成结果</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_8">数据结构与配置</h2>
+<h3 id="1_1">1. 触发器描述结构体</h3>
+<p><div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">FActorDescription</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">UClass</span><span class="o">*</span><span class="w"> </span><span class="n">Class</span><span class="p">;</span><span class="w">                    </span><span class="c1">// 触发器类（如 AFrictionTrigger）</span>
+<span class="w">    </span><span class="n">TMap</span><span class="o">&lt;</span><span class="n">FString</span><span class="p">,</span><span class="w"> </span><span class="n">FString</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Variations</span><span class="p">;</span><span class="c1">// 配置参数键值对（如 friction、extent）</span>
+<span class="p">};</span>
+</code></pre></div>
+- <code>Class</code>：指定要生成的触发器类，目前固定为 <code>AFrictionTrigger</code>
+- <code>Variations</code>：存储触发器的配置参数，如摩擦力和区域范围</p>
+<h3 id="2_1">2. 配置参数映射表</h3>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>类型</th>
+<th>描述</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>friction</code></td>
+<td><code>float</code></td>
+<td>触发区域的摩擦力值</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td><code>extent_x</code></td>
+<td><code>float</code></td>
+<td>触发区域 X 轴范围（厘米）</td>
+<td>100.0</td>
+</tr>
+<tr>
+<td><code>extent_y</code></td>
+<td><code>float</code></td>
+<td>触发区域 Y 轴范围（厘米）</td>
+<td>100.0</td>
+</tr>
+<tr>
+<td><code>extent_z</code></td>
+<td><code>float</code></td>
+<td>触发区域 Z 轴范围（厘米）</td>
+<td>100.0</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_9">关键流程</h2>
+<h3 id="_10">触发器生成流程</h3>
+<ol>
+<li><strong>工厂类调用</strong></li>
+<li>通过 <code>ATriggerFactory::SpawnActor</code> 创建触发器实例</li>
+<li>
+<p><code>FActorDescription</code> 提供变换信息和描述参数</p>
+</li>
+<li>
+<p><strong>属性配置</strong></p>
+</li>
+<li>解析 <code>Variations</code> 中的 <code>friction</code> 和 <code>extent</code> 参数</li>
+<li>
+<p>调用 <code>SetFriction</code> 和 <code>SetBoxExtent</code> 设置属性</p>
+</li>
+<li>
+<p><strong>事件绑定</strong></p>
+</li>
+<li>在 <code>BeginPlay</code> 中为 <code>TriggerVolume</code> 绑定重叠事件回调</li>
+</ol>
+<h3 id="_11">摩擦力调整流程</h3>
+<pre class="mermaid"><code>sequenceDiagram
+    participant Factory
+    participant Trigger as FrictionTrigger
+    participant Vehicle as CarlaWheeledVehicle
+
+    %% 步骤 1：Factory 创建 Trigger
+    Factory-&gt;&gt;Trigger: SpawnActor(Transform, Description)
+    Note right of Trigger: 配置 Friction 和 BoxExtent
+
+    %% 步骤 2：Trigger 初始化并绑定事件
+    Trigger-&gt;&gt;Trigger: BeginPlay() 绑定 OnTriggerBeginOverlap 和 OnTriggerEndOverlap
+
+    %% 步骤 3：车辆进入触发区域
+    Vehicle-&gt;&gt;Trigger: 进入 TriggerVolume
+    Trigger-&gt;&gt;Trigger: OnTriggerBeginOverlap(Vehicle)
+    Trigger-&gt;&gt;Vehicle: 保存原始摩擦力到 OldFrictionValues
+    Trigger-&gt;&gt;Vehicle: UpdateWheelsFriction(NewFriction)
+
+    %% 步骤 4：车辆在触发区域内
+    Note over Vehicle,Trigger: 摩擦力保持为 NewFriction
+
+    %% 步骤 5：车辆离开触发区域
+    Vehicle-&gt;&gt;Trigger: 离开 TriggerVolume
+    Trigger-&gt;&gt;Trigger: OnTriggerEndOverlap(Vehicle)
+    Trigger-&gt;&gt;Vehicle: UpdateWheelsFriction(OldFrictionValues)</code></pre>
+<h2 id="_12">注意事项</h2>
+<ol>
+<li><strong>触发器类型限制</strong></li>
+<li>
+<p>当前仅支持 <code>AFrictionTrigger</code>，未来可扩展其他类型（如速度触发器）</p>
+</li>
+<li>
+<p><strong>车辆兼容性</strong></p>
+</li>
+<li>
+<p>仅对 <code>ACarlaWheeledVehicle</code> 类型车辆生效，其他 <code>Actor</code> 类型会被忽略</p>
+</li>
+<li>
+<p><strong>碰撞配置</strong></p>
+</li>
+<li>
+<p>确保 <code>TriggerVolume</code> 的碰撞类型为 <code>OverlapAll</code> 并启用 <code>GenerateOverlapEvents</code></p>
+</li>
+<li>
+<p><strong>参数格式</strong></p>
+</li>
+<li>配置参数在 <code>FActorDescription::Variations</code> 中需为 <strong>字符串形式</strong></li>
+</ol>
+<h2 id="_13">示例配置</h2>
+<h3 id="c">C++ 代码示例</h3>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;TriggerFactory.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;FrictionTrigger.h&quot;</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">AYourActor::SetupFrictionTrigger</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">ATriggerFactory</span><span class="o">*</span><span class="w"> </span><span class="n">TriggerFactory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GetWorld</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SpawnActor</span><span class="o">&lt;</span><span class="n">ATriggerFactory</span><span class="o">&gt;</span><span class="p">();</span><span class="w"> </span><span class="c1">// 生成触发器工厂</span>
+
+<span class="w">    </span><span class="n">FTransform</span><span class="w"> </span><span class="n">Transform</span><span class="p">(</span><span class="n">FVector</span><span class="p">(</span><span class="mf">0.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">50.0f</span><span class="p">));</span><span class="w"> </span><span class="c1">// 设置位置 (0, 0, 50)</span>
+
+<span class="w">    </span><span class="n">FActorDescription</span><span class="w"> </span><span class="n">Description</span><span class="p">;</span><span class="w"> </span><span class="c1">// 配置触发器描述</span>
+<span class="w">    </span><span class="n">Description</span><span class="p">.</span><span class="n">Class</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AFrictionTrigger</span><span class="o">::</span><span class="n">StaticClass</span><span class="p">();</span><span class="w"> </span><span class="c1">// 设置触发器类</span>
+<span class="w">    </span><span class="n">Description</span><span class="p">.</span><span class="n">Variations</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;friction&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;0.5&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// 摩擦力 0.5</span>
+<span class="w">    </span><span class="n">Description</span><span class="p">.</span><span class="n">Variations</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;extent_x&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;200.0&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// X 轴范围 200</span>
+<span class="w">    </span><span class="n">Description</span><span class="p">.</span><span class="n">Variations</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;extent_y&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;200.0&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// Y 轴范围 200</span>
+<span class="w">    </span><span class="n">Description</span><span class="p">.</span><span class="n">Variations</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;extent_z&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;50.0&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// Z 轴范围 50</span>
+
+<span class="w">    </span><span class="n">FActorSpawnResult</span><span class="w"> </span><span class="n">Result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TriggerFactory</span><span class="o">-&gt;</span><span class="n">SpawnActor</span><span class="p">(</span><span class="n">Transform</span><span class="p">,</span><span class="w"> </span><span class="n">Description</span><span class="p">);</span><span class="w"> </span><span class="c1">// 生成触发器</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">Result</span><span class="p">.</span><span class="n">Actor</span><span class="p">)</span><span class="w"> </span><span class="c1">// 记录生成结果</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">UE_LOG</span><span class="p">(</span><span class="n">LogTemp</span><span class="p">,</span><span class="w"> </span><span class="n">Log</span><span class="p">,</span><span class="w"> </span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;FrictionTrigger spawned at %s&quot;</span><span class="p">),</span><span class="w"> </span><span class="o">*</span><span class="n">Transform</span><span class="p">.</span><span class="n">GetLocation</span><span class="p">().</span><span class="n">ToString</span><span class="p">());</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="_14">命令行调用</h3>
+<div class="highlight"><pre><span></span><code>UE4Editor-Cmd.exe<span class="w"> </span>ProjectName<span class="w"> </span>-run<span class="o">=</span>TriggerFactory<span class="w"> </span>-TriggerType<span class="o">=</span>friction<span class="w"> </span>-Friction<span class="o">=</span><span class="m">0</span>.5<span class="w"> </span>-ExtentX<span class="o">=</span><span class="m">200</span>.0<span class="w"> </span>-ExtentY<span class="o">=</span><span class="m">200</span>.0<span class="w"> </span>-ExtentZ<span class="o">=</span><span class="m">50</span>.0
+</code></pre></div>
+<h2 id="_15">附录</h2>
+<h3 id="_16">依赖项</h3>
+<ul>
+<li><strong>Unreal Engine</strong></li>
+<li>Actor 系统</li>
+<li>碰撞检测</li>
+<li>物理引擎</li>
+<li><strong>CARLA 模拟器</strong></li>
+<li><code>UCarlaEpisode</code></li>
+<li><code>ACarlaWheeledVehicle</code> 类</li>
+</ul>
+<h3 id="_17">调试支持</h3>
+<ul>
+<li><strong>日志输出</strong>
+  <div class="highlight"><pre><span></span><code><span class="n">UE_LOG</span><span class="p">(</span><span class="n">LogCarla</span><span class="p">,</span><span class="w"> </span><span class="n">Warning</span><span class="p">,</span><span class="w"> </span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;FrictionTrigger: Vehicle entered with friction %f&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">Friction</span><span class="p">);</span>
+</code></pre></div></li>
+<li><strong>编辑器可视化</strong></li>
+<li>通过 <code>TriggerVolume-&gt;SetHiddenInGame(false)</code> 在编辑器中显示触发区域线框</li>
+</ul>
+<h3 id="_18">问题与解决方案</h3>
+<table>
+<thead>
+<tr>
+<th>问题现象</th>
+<th>可能原因</th>
+<th>解决方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>触发器未响应事件</td>
+<td>碰撞类型未设为 <code>OverlapAll</code></td>
+<td>检查 <code>TriggerVolume</code> 的碰撞设置</td>
+</tr>
+<tr>
+<td>摩擦力未正确恢复</td>
+<td><code>OldFrictionValues</code> 未保存</td>
+<td>验证 <code>OnTriggerBeginOverlap</code> 逻辑</td>
+</tr>
+<tr>
+<td>触发器生成失败</td>
+<td>配置参数格式错误</td>
+<td>确保 <code>Variations</code> 使用字符串值</td>
+</tr>
+<tr>
+<td>触发区域不可见</td>
+<td>组件未正确初始化</td>
+<td>检查 <code>TriggerVolume</code> 的配置</td>
+</tr>
+</tbody>
+</table>
               
             </div>
           </div><footer>
