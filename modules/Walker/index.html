@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>行人 - 代理模拟器</title>
+    <title>行人(Walker)模块说明文档 - 代理模拟器</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "\u884c\u4eba";
+        var mkdocs_page_name = "\u884c\u4eba(Walker)\u6a21\u5757\u8bf4\u660e\u6587\u6863";
         var mkdocs_page_input_path = "modules/Walker.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,7 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">行人</li>
+      <li class="breadcrumb-item active">行人(Walker)模块说明文档</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/modules/Walker.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -68,7 +68,488 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1">行人</h1>
+                <h1 id="walker">行人(Walker)模块说明文档</h1>
+<hr />
+<h2 id="_1">目录</h2>
+<ul>
+<li><a href="#1-模块概述">1. 模块概述</a></li>
+<li><a href="#2-核心类说明">2. 核心类说明</a></li>
+<li><a href="#21-动画系统">2.1 动画系统</a></li>
+<li><a href="#22-行人基类">2.2 行人基类</a></li>
+<li><a href="#23-骨骼控制系统">2.3 骨骼控制系统</a></li>
+<li><a href="#24-运动控制参数">2.4 运动控制参数</a></li>
+<li><a href="#25-行人控制器">2.5 行人控制器</a></li>
+<li><a href="#26-生成点系统">2.6 生成点系统</a></li>
+<li><a href="#3-使用指南">3. 使用指南</a></li>
+<li><a href="#31-基础控制流程">3.1 基础控制流程</a></li>
+<li><a href="#32-高级骨骼操作">3.2 高级骨骼操作</a></li>
+<li><a href="#4-注意事项">4. 注意事项</a></li>
+</ul>
+<hr />
+<h2 id="1">1. 模块概述</h2>
+<p>在CARLA中，<code>Walker</code>模块用于模拟行人行为。行人可以通过动画系统和控制器进行控制，支持自然的行走、停止、转向等动作。此模块为Carla仿真平台提供完整的行人仿真解决方案，包含以下核心功能：</p>
+<table>
+<thead>
+<tr>
+<th>功能模块</th>
+<th>关键组件</th>
+<th>主要能力</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>角色控制</td>
+<td>AWalkerBase</td>
+<td>基础属性管理、生命周期控制</td>
+</tr>
+<tr>
+<td>动画系统</td>
+<td>UWalkerAnim</td>
+<td>姿势快照、动态混合控制</td>
+</tr>
+<tr>
+<td>运动控制</td>
+<td>AWalkerController</td>
+<td>运动参数处理、物理模拟</td>
+</tr>
+<tr>
+<td>骨骼系统</td>
+<td>FWalkerBoneControl</td>
+<td>多空间骨骼变换控制</td>
+</tr>
+<tr>
+<td>生成系统</td>
+<td>AWalkerSpawnPoint</td>
+<td>生成点管理与路径规划</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="2">2. 核心类说明</h2>
+<h3 id="21">2.1 动画系统</h3>
+<h4 id="uwalkeranim-walkeranimh">UWalkerAnim (<code>WalkerAnim.h</code>)</h4>
+<div class="highlight"><pre><span></span><code><span class="n">UCLASS</span><span class="p">()</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CARLA_API</span><span class="w"> </span><span class="n">UWalkerAnim</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">UAnimInstance</span>
+</code></pre></div>
+<h5 id="_2">设计目的</h5>
+<ul>
+<li>实现动画混合与姿势捕捉的运行时控制</li>
+<li>支持动态调整骨骼姿态</li>
+</ul>
+<h5 id="_3">关键属性</h5>
+<table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Blend</td>
+<td>float</td>
+<td>0.0</td>
+<td>混合系数(0=完全动画，1=完全控制)</td>
+</tr>
+<tr>
+<td>Snap</td>
+<td>FPoseSnapshot</td>
+<td>-</td>
+<td>存储骨骼层级变换数据</td>
+</tr>
+</tbody>
+</table>
+<h5 id="_4">核心方法</h5>
+<div class="highlight"><pre><span></span><code><span class="c1">// 从动画系统捕获当前姿势</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">UpdatePoseFromAnimation</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">USkeletalMeshComponent</span><span class="o">*</span><span class="w"> </span><span class="n">Mesh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GetSkelMeshComponent</span><span class="p">())</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Mesh</span><span class="o">-&gt;</span><span class="n">SnapshotPose</span><span class="p">(</span><span class="n">Snap</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="211-uwalkeranim">2.1.1 UWalkerAnim</h4>
+<p><code>UWalkerAnim</code>类是行人动画实例，继承自<code>UAnimInstance</code>，用于处理行人的动画。</p>
+<h5 id="2111">2.1.1.1 构造函数</h5>
+<div class="highlight"><pre><span></span><code><span class="n">UWalkerAnim</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FObjectInitializer</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ObjectInitializer</span><span class="p">);</span>
+</code></pre></div>
+<ul>
+<li>初始化动画实例。</li>
+</ul>
+<h5 id="2112-blend">2.1.1.2 Blend</h5>
+<div class="highlight"><pre><span></span><code><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">Category</span><span class="o">=</span><span class="s">&quot;Walker Anim&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">BlueprintReadWrite</span><span class="p">,</span><span class="w"> </span><span class="n">EditAnywhere</span><span class="p">)</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">Blend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+</code></pre></div>
+<ul>
+<li>表示动画混合的比例。</li>
+</ul>
+<h5 id="2113-snap">2.1.1.3 Snap</h5>
+<div class="highlight"><pre><span></span><code><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">Category</span><span class="o">=</span><span class="s">&quot;Walker Anim&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">BlueprintReadWrite</span><span class="p">,</span><span class="w"> </span><span class="n">EditAnywhere</span><span class="p">)</span>
+<span class="n">FPoseSnapshot</span><span class="w"> </span><span class="n">Snap</span><span class="p">;</span>
+</code></pre></div>
+<h2 id="-">- 当前的动画快照。</h2>
+<h3 id="22">2.2 行人基类</h3>
+<h4 id="awalkerbase-walkerbaseh">AWalkerBase (<code>WalkerBase.h</code>)</h4>
+<div class="highlight"><pre><span></span><code><span class="n">UCLASS</span><span class="p">()</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CARLA_API</span><span class="w"> </span><span class="n">AWalkerBase</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">ACharacter</span>
+</code></pre></div>
+<h5 id="_5">状态管理</h5>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>类型</th>
+<th>默认</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bAlive</td>
+<td>bool</td>
+<td>true</td>
+<td>生存状态标志位</td>
+</tr>
+<tr>
+<td>AfterLifeSpan</td>
+<td>float</td>
+<td>10.0f</td>
+<td>死亡后存留时间(s)</td>
+</tr>
+<tr>
+<td>bUsesWheelChair</td>
+<td>bool</td>
+<td>false</td>
+<td>轮椅模式开关</td>
+</tr>
+</tbody>
+</table>
+<h5 id="_6">生命周期控制</h5>
+<div class="highlight"><pre><span></span><code><span class="n">UFUNCTION</span><span class="p">(</span><span class="n">BlueprintCallable</span><span class="p">)</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">TriggerDestruction</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">bAlive</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="p">;</span>
+<span class="w">    </span><span class="n">bAlive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">    </span><span class="n">StartDeathLifeSpan</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h3 id="23">2.3 骨骼控制系统</h3>
+<h4 id="_7">控制参数结构</h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// 输入结构（客户端-&gt;服务端）</span>
+<span class="n">USTRUCT</span><span class="p">()</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">FWalkerBoneControlIn</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">TMap</span><span class="o">&lt;</span><span class="n">FString</span><span class="p">,</span><span class="w"> </span><span class="n">FTransform</span><span class="o">&gt;</span><span class="w"> </span><span class="n">BoneTransforms</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="c1">// 输出结构（服务端-&gt;客户端） </span>
+<span class="n">USTRUCT</span><span class="p">()</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">FWalkerBoneControlOut</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">TMap</span><span class="o">&lt;</span><span class="n">FString</span><span class="p">,</span><span class="w"> </span><span class="n">FWalkerBoneControlOutData</span><span class="o">&gt;</span><span class="w"> </span><span class="n">BoneTransforms</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="c1">// 变换数据三元组</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">FWalkerBoneControlOutData</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">FTransform</span><span class="w"> </span><span class="n">World</span><span class="p">;</span><span class="w">    </span><span class="c1">// 世界坐标系</span>
+<span class="w">    </span><span class="n">FTransform</span><span class="w"> </span><span class="n">Component</span><span class="p">;</span><span class="c1">// 组件坐标系</span>
+<span class="w">    </span><span class="n">FTransform</span><span class="w"> </span><span class="n">Relative</span><span class="p">;</span><span class="w"> </span><span class="c1">// 骨骼相对坐标系</span>
+<span class="p">};</span>
+</code></pre></div>
+<h5 id="_8">坐标系对比</h5>
+<table>
+<thead>
+<tr>
+<th>坐标系类型</th>
+<th>计算基准</th>
+<th>典型应用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>World</td>
+<td>全局原点</td>
+<td>物理碰撞检测</td>
+</tr>
+<tr>
+<td>Component</td>
+<td>根骨骼原点</td>
+<td>动画混合计算</td>
+</tr>
+<tr>
+<td>Relative</td>
+<td>父骨骼原点</td>
+<td>骨骼链操作</td>
+</tr>
+</tbody>
+</table>
+<h4 id="231-fwalkerbonecontrolin">2.3.1 FWalkerBoneControlIn</h4>
+<p><code>FWalkerBoneControlIn</code>结构体用于表示行人的骨骼控制输入。</p>
+<h5 id="2311-bonetransforms">2.3.1.1 BoneTransforms</h5>
+<div class="highlight"><pre><span></span><code><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">Category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Walker Bone Control&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">EditAnywhere</span><span class="p">,</span><span class="w"> </span><span class="n">BlueprintReadWrite</span><span class="p">)</span>
+<span class="n">TMap</span><span class="o">&lt;</span><span class="n">FString</span><span class="p">,</span><span class="w"> </span><span class="n">FTransform</span><span class="o">&gt;</span><span class="w"> </span><span class="n">BoneTransforms</span><span class="p">;</span>
+</code></pre></div>
+<ul>
+<li>行人的骨骼变换信息。</li>
+</ul>
+<h4 id="232-fwalkerbonecontrolout">2.3.2 FWalkerBoneControlOut</h4>
+<p><code>FWalkerBoneControlOut</code>结构体用于表示行人的骨骼控制输出。</p>
+<h5 id="2321-bonetransforms">2.3.2.1 BoneTransforms</h5>
+<div class="highlight"><pre><span></span><code><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">Category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Walker Bone Control&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">EditAnywhere</span><span class="p">,</span><span class="w"> </span><span class="n">BlueprintReadWrite</span><span class="p">)</span>
+<span class="n">TMap</span><span class="o">&lt;</span><span class="n">FString</span><span class="p">,</span><span class="w"> </span><span class="n">FWalkerBoneControlOutData</span><span class="o">&gt;</span><span class="w"> </span><span class="n">BoneTransforms</span><span class="p">;</span>
+</code></pre></div>
+<h2 id="-_1">- 行人的骨骼变换信息。</h2>
+<h3 id="24">2.4 运动控制参数</h3>
+<h4 id="fwalkercontrol-walkercontrolh">FWalkerControl (<code>WalkerControl.h</code>)</h4>
+<div class="highlight"><pre><span></span><code><span class="n">USTRUCT</span><span class="p">(</span><span class="n">BlueprintType</span><span class="p">)</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">FWalkerControl</span>
+</code></pre></div>
+<h5 id="_9">运动参数详解</h5>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>单位</th>
+<th>有效范围</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Direction</td>
+<td>-</td>
+<td>归一化向量</td>
+<td>移动方向(XYZ分量)</td>
+</tr>
+<tr>
+<td>Speed</td>
+<td>cm/s</td>
+<td>0~4096</td>
+<td>实际速度=Speed * Direction</td>
+</tr>
+<tr>
+<td>Jump</td>
+<td>bool</td>
+<td>true/false</td>
+<td>跳跃触发信号</td>
+</tr>
+</tbody>
+</table>
+<h4 id="241-fwalkercontrol">2.4.1 FWalkerControl</h4>
+<p><code>FWalkerControl</code>结构体用于表示行人的控制输入。</p>
+<h5 id="2411-direction">2.4.1.1 Direction</h5>
+<div class="highlight"><pre><span></span><code><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">Category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Walker Control&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">EditAnywhere</span><span class="p">,</span><span class="w"> </span><span class="n">BlueprintReadWrite</span><span class="p">)</span>
+<span class="n">FVector</span><span class="w"> </span><span class="n">Direction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mf">1.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">};</span>
+</code></pre></div>
+<ul>
+<li>行人的移动方向。</li>
+</ul>
+<h5 id="2412-speed">2.4.1.2 Speed</h5>
+<div class="highlight"><pre><span></span><code><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">Category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Walker Control&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">EditAnywhere</span><span class="p">,</span><span class="w"> </span><span class="n">BlueprintReadWrite</span><span class="p">)</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">Speed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
+</code></pre></div>
+<ul>
+<li>行人的移动速度。</li>
+</ul>
+<h5 id="2413-jump">2.4.1.3 Jump</h5>
+<div class="highlight"><pre><span></span><code><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">Category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Walker Control&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">EditAnywhere</span><span class="p">,</span><span class="w"> </span><span class="n">BlueprintReadWrite</span><span class="p">)</span>
+<span class="kt">bool</span><span class="w"> </span><span class="n">Jump</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+</code></pre></div>
+<h2 id="-_2">- 是否跳跃。</h2>
+<h3 id="25">2.5 行人控制器</h3>
+<h4 id="awalkercontroller-walkercontrollerh">AWalkerController (<code>WalkerController.h</code>)</h4>
+<div class="highlight"><pre><span></span><code><span class="n">UCLASS</span><span class="p">()</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">AWalkerController</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">AController</span>
+</code></pre></div>
+<h5 id="_10">控制器生命周期</h5>
+<pre class="mermaid"><code>graph TD
+    A[OnPossess] --&gt; B[初始化角色]
+    B --&gt; C[配置运动组件]
+    C --&gt; D[设置最大速度]
+    D --&gt; E[启用Tick更新]</code></pre>
+<h5 id="_11">核心方法说明</h5>
+<div class="highlight"><pre><span></span><code><span class="c1">// 骨骼数据获取流程</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">GetBonesTransform</span><span class="p">(</span><span class="n">FWalkerBoneControlOut</span><span class="o">&amp;</span><span class="w"> </span><span class="n">OutData</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="mf">1.</span><span class="w"> </span><span class="n">获取骨架网格体</span>
+<span class="w">    </span><span class="mf">2.</span><span class="w"> </span><span class="n">遍历所有骨骼节点</span>
+<span class="w">    </span><span class="mf">3.</span><span class="w"> </span><span class="n">计算三种空间变换</span>
+<span class="w">    </span><span class="mf">4.</span><span class="w"> </span><span class="n">填充输出结构</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="251-awalkercontroller">2.5.1 AWalkerController</h4>
+<p><code>AWalkerController</code>类是行人控制器，继承自<code>AController</code>，用于控制行人的移动和动画。</p>
+<h5 id="2511">2.5.1.1 构造函数</h5>
+<div class="highlight"><pre><span></span><code><span class="n">AWalkerController</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FObjectInitializer</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ObjectInitializer</span><span class="p">);</span>
+</code></pre></div>
+<ul>
+<li>设置<code>PrimaryActorTick.bCanEverTick</code>为<code>true</code>，表示这个Actor可以在每一帧都被更新。</li>
+</ul>
+<h5 id="2512-onpossess">2.5.1.2 OnPossess</h5>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">OnPossess</span><span class="p">(</span><span class="n">APawn</span><span class="w"> </span><span class="o">*</span><span class="n">InPawn</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="p">;</span>
+</code></pre></div>
+<ul>
+<li>当<code>AWalkerController</code>“占有”一个<code>APawn</code>时调用此函数。</li>
+<li>设置角色的最大行走速度和跳跃速度。</li>
+</ul>
+<h5 id="2513-tick">2.5.1.3 Tick</h5>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">Tick</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">DeltaSeconds</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="p">;</span>
+</code></pre></div>
+<ul>
+<li>每帧调用，处理行人的移动和动画更新。</li>
+<li>根据控制输入（方向和速度）添加角色的移动输入。</li>
+</ul>
+<h5 id="2514-getmaximumwalkspeed">2.5.1.4 GetMaximumWalkSpeed</h5>
+<div class="highlight"><pre><span></span><code><span class="kt">float</span><span class="w"> </span><span class="nf">GetMaximumWalkSpeed</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div>
+<ul>
+<li>返回行人的最大行走速度（默认为4096.0f，约147 km/h）。</li>
+</ul>
+<h5 id="2515-applywalkercontrol">2.5.1.5 ApplyWalkerControl</h5>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">ApplyWalkerControl</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FWalkerControl</span><span class="w"> </span><span class="o">&amp;</span><span class="n">InControl</span><span class="p">);</span>
+</code></pre></div>
+<ul>
+<li>应用控制输入到行人。</li>
+</ul>
+<h5 id="2516-getwalkercontrol">2.5.1.6 GetWalkerControl</h5>
+<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="n">FWalkerControl</span><span class="w"> </span><span class="nf">GetWalkerControl</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div>
+<ul>
+<li>获取当前的行人控制状态。</li>
+</ul>
+<h5 id="2517-getbonestransform">2.5.1.7 GetBonesTransform</h5>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">GetBonesTransform</span><span class="p">(</span><span class="n">FWalkerBoneControlOut</span><span class="w"> </span><span class="o">&amp;</span><span class="n">WalkerBones</span><span class="p">);</span>
+</code></pre></div>
+<ul>
+<li>获取行人的骨骼变换信息。</li>
+</ul>
+<h5 id="2518-setbonestransform">2.5.1.8 SetBonesTransform</h5>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">SetBonesTransform</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FWalkerBoneControlIn</span><span class="w"> </span><span class="o">&amp;</span><span class="n">WalkerBones</span><span class="p">);</span>
+</code></pre></div>
+<ul>
+<li>设置行人的骨骼变换信息。</li>
+</ul>
+<h5 id="2519-blendpose">2.5.1.9 BlendPose</h5>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">BlendPose</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">Blend</span><span class="p">);</span>
+</code></pre></div>
+<ul>
+<li>混合当前的行人姿态与另一种姿态。</li>
+</ul>
+<h5 id="25110-getposefromanimation">2.5.1.10 GetPoseFromAnimation</h5>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">GetPoseFromAnimation</span><span class="p">();</span>
+</code></pre></div>
+<ul>
+<li>从动画中获取当前的行人姿态。</li>
+</ul>
+<hr />
+<h3 id="26">2.6 生成点系统</h3>
+<h4 id="_12">类继承结构</h4>
+<pre class="mermaid"><code>classDiagram
+    ATargetPoint &lt;|-- AWalkerSpawnPointBase
+    AWalkerSpawnPointBase &lt;|-- AWalkerStartSpawnPoint
+    AWalkerSpawnPointBase &lt;|-- AWalkerSpawnPoint</code></pre>
+<h5 id="_13">生成点类型对比</h5>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>生成时机</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>StartSpawnPoint</td>
+<td>场景加载时</td>
+<td>初始行人位置</td>
+</tr>
+<tr>
+<td>SpawnPoint</td>
+<td>运行时动态生成</td>
+<td>路径点/目标点</td>
+</tr>
+</tbody>
+</table>
+<h4 id="261-awalkerspawnpointbase">2.6.1 AWalkerSpawnPointBase</h4>
+<p><code>AWalkerSpawnPointBase</code>类是行人生成点的基类，继承自<code>ATargetPoint</code>。</p>
+<h4 id="262-awalkerstartspawnpoint">2.6.2 AWalkerStartSpawnPoint</h4>
+<p><code>AWalkerStartSpawnPoint</code>类用于设置关卡中行人的生成点位置。</p>
+<h4 id="263-awalkerspawnpoint">2.6.3 AWalkerSpawnPoint</h4>
+<p><code>AWalkerSpawnPoint</code>类用于设置关卡中行人的生成点位置。</p>
+<hr />
+<h2 id="3">3. 使用指南</h2>
+<h3 id="31">3.1 基础控制流程</h3>
+<h4 id="_14">初始化序列</h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// 创建行人实例</span>
+<span class="n">AWalkerBase</span><span class="o">*</span><span class="w"> </span><span class="n">Walker</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SpawnWalkerActor</span><span class="p">();</span>
+
+<span class="c1">// 绑定控制器</span>
+<span class="n">AWalkerController</span><span class="o">*</span><span class="w"> </span><span class="n">Controller</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AttachWalkerController</span><span class="p">(</span><span class="n">Walker</span><span class="p">);</span>
+
+<span class="c1">// 配置基础参数</span>
+<span class="n">FWalkerControl</span><span class="w"> </span><span class="n">Params</span><span class="p">;</span>
+<span class="n">Params</span><span class="p">.</span><span class="n">Direction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FVector</span><span class="p">(</span><span class="mf">0.8f</span><span class="p">,</span><span class="w"> </span><span class="mf">0.2f</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">);</span>
+<span class="n">Params</span><span class="p">.</span><span class="n">Speed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1500.0f</span><span class="p">;</span>
+<span class="n">Controller</span><span class="o">-&gt;</span><span class="n">ApplyWalkerControl</span><span class="p">(</span><span class="n">Params</span><span class="p">);</span>
+</code></pre></div>
+<hr />
+<h3 id="32">3.2 高级骨骼操作</h3>
+<h4 id="_15">逆向运动学示例</h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// 获取当前骨骼数据</span>
+<span class="n">FWalkerBoneControlOut</span><span class="w"> </span><span class="n">BoneData</span><span class="p">;</span>
+<span class="n">Controller</span><span class="o">-&gt;</span><span class="n">GetBonesTransform</span><span class="p">(</span><span class="n">BoneData</span><span class="p">);</span>
+
+<span class="c1">// 修改右手骨骼</span>
+<span class="n">FWalkerBoneControlIn</span><span class="w"> </span><span class="n">NewPose</span><span class="p">;</span>
+<span class="n">NewPose</span><span class="p">.</span><span class="n">BoneTransforms</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;hand_r&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="n">FTransform</span><span class="p">(</span>
+<span class="w">        </span><span class="n">FRotator</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">45</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="w"> </span>
+<span class="w">        </span><span class="n">FVector</span><span class="o">::</span><span class="n">ZeroVector</span><span class="p">,</span>
+<span class="w">        </span><span class="n">FVector</span><span class="p">(</span><span class="mf">1.0f</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="c1">// 应用新姿势</span>
+<span class="n">Controller</span><span class="o">-&gt;</span><span class="n">SetBonesTransform</span><span class="p">(</span><span class="n">NewPose</span><span class="p">);</span>
+<span class="n">Controller</span><span class="o">-&gt;</span><span class="n">BlendPose</span><span class="p">(</span><span class="mf">0.7f</span><span class="p">);</span><span class="w"> </span><span class="c1">// 70%控制权重</span>
+</code></pre></div>
+<hr />
+<h2 id="4">4. 注意事项</h2>
+<h3 id="_16">性能优化建议</h3>
+<ol>
+<li><strong>骨骼操作开销</strong>：单角色骨骼数建议&lt;150个</li>
+<li><strong>更新频率控制</strong>：骨骼数据更新建议间隔≥0.1s</li>
+<li><strong>混合系数管理</strong>：避免全控制状态(Blend=1)持续超过5秒</li>
+</ol>
+<h3 id="_17">常见问题排查</h3>
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>可能原因</th>
+<th>解决方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>角色不移动</td>
+<td>控制器未正确绑定</td>
+<td>检查OnPossess流程</td>
+</tr>
+<tr>
+<td>骨骼变形异常</td>
+<td>坐标系使用错误</td>
+<td>验证Component空间数据</td>
+</tr>
+<tr>
+<td>动画混合失效</td>
+<td>未调用BlendPose</td>
+<td>确保设置混合系数</td>
+</tr>
+</tbody>
+</table>
+<hr />
               
             </div>
           </div><footer>
