@@ -68,7 +68,295 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                
+                <h1 id="ai">AI</h1>
+<hr />
+<h2 id="1-aicontrollerfactory">1. <strong>AIControllerFactory 类</strong></h2>
+<h3 id="_1">概述</h3>
+<p><code>AIControllerFactory</code>是CARLA仿真平台中实现AI控制器动态生成的核心工厂类，继承自<code>ACarlaActorFactory</code>。其职责包括：<br />
+- 定义支持的AI控制器类型（如行人、车辆等）<br />
+- 通过Unreal Engine的反射系统实现类型注册<br />
+- 提供标准化的Actor生成接口与错误处理机制 </p>
+<h3 id="_2">成员函数</h3>
+<h4 id="getdefinitions"><code>GetDefinitions</code></h4>
+<ul>
+<li><strong>功能</strong>：返回工厂支持的AI控制器定义集合，用于引擎的类型发现与蓝图集成。</li>
+<li><strong>代码示例</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="n">TArray</span><span class="o">&lt;</span><span class="n">FactorDefinitions</span><span class="o">&gt;</span><span class="w"> </span><span class="n">AAIControllerFactory</span><span class="o">::</span><span class="n">GetDefinitions</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 使用工具类创建Walker控制器定义</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">WalkerController</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ABFL</span><span class="o">::</span><span class="n">MakeGenericDefinition</span><span class="p">(</span>
+<span class="w">        </span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;controller&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;ai&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;walker&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// 绑定具体类对象</span>
+<span class="w">    </span><span class="n">WalkerController</span><span class="p">.</span><span class="n">Class</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">WalkerAIController</span><span class="o">::</span><span class="n">StaticClass</span><span class="p">();</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">WalkerController</span><span class="w"> </span><span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div></li>
+<li><strong>参数说明</strong>：</li>
+<li><code>TEXT("controller")</code>：控制器类型ID，需全局唯一。</li>
+<li><code>TEXT("ai")</code>：用于编辑器分类的元数据。</li>
+<li><code>TEXT("walker")</code>：语义标签，支持场景语义查询。</li>
+</ul>
+<h4 id="spawnactor"><code>SpawnActor</code></h4>
+<ul>
+<li><strong>功能</strong>：根据描述和位置生成具体的AI控制器实例。  </li>
+<li><strong>关键参数</strong>：  </li>
+<li><code>FTransform</code>：指定生成位置和旋转。  </li>
+<li><code>FactorDescription</code>：Actor类型和配置。  </li>
+<li><strong>方法签名</strong>： 
+  <div class="highlight"><pre><span></span><code><span class="n">FActorSpawnResult</span><span class="w"> </span><span class="nf">SpawnActor</span><span class="p">(</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">FTransform</span><span class="o">&amp;</span><span class="w"> </span><span class="n">SpawnAtTransform</span><span class="p">,</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">FActorDescription</span><span class="o">&amp;</span><span class="w"> </span><span class="n">Description</span><span class="p">,</span>
+<span class="w">  </span><span class="n">FActorSpawnParameters</span><span class="w"> </span><span class="n">SpawnParameters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FActorSpawnParameters</span><span class="p">()</span>
+<span class="p">);</span>
+</code></pre></div></li>
+<li><strong>关键流程</strong>：</li>
+<li>世界上下文验证：
+  <div class="highlight"><pre><span></span><code><span class="n">UWorld</span><span class="o">*</span><span class="w"> </span><span class="n">World</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GetWorld</span><span class="p">();</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">World</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">!</span><span class="n">World</span><span class="o">-&gt;</span><span class="n">IsGameWorld</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">UE_LOG</span><span class="p">(</span><span class="n">LogCarla</span><span class="p">,</span><span class="w"> </span><span class="n">Fatal</span><span class="p">,</span><span class="w"> </span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;Invalid world context for AI controller spawning&quot;</span><span class="p">));</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">FActorSpawnResult</span><span class="p">(</span><span class="n">ENullPointerError</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></li>
+<li>碰撞处理：强制忽略碰撞生成Actor（<code>ESpawnActorCollisionHandleMethod::AlwaysSpawn</code>）。 
+  <div class="highlight"><pre><span></span><code><span class="n">SpawnParameters</span><span class="p">.</span><span class="n">SpawnCollisionHandlingMethod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">  </span><span class="n">ESpawnActorCollisionHandlingMethod</span><span class="o">::</span><span class="n">AlwaysSpawn</span><span class="p">;</span><span class="w">  </span><span class="c1">// 忽略物理碰撞</span>
+<span class="p">}</span>
+</code></pre></div></li>
+<li>实例化与错误捕获：
+   <code>cpp
+  AActor* SpawnedActor = World-&gt;SpawnActor&lt;AActor&gt;(
+    Description.Class, 
+    SpawnAtTransform, 
+    SpawnParameters
+  );
+  if (!SpawnedActor) {
+    UE_LOG(LogCarla, Error, TEXT("Failed to spawn AI controller of type %s"), 
+        *Description.Id);
+    return FActorSpawnResult(ESpawnActorErrorCode::UnknownError);
+  }</code></li>
+</ul>
+<h3 id="_3">错误处理体系</h3>
+<table>
+<thead>
+<tr>
+<th>错误类型</th>
+<th>触发条件</th>
+<th>处理策略</th>
+<th>错误码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ENullWorldContext</strong></td>
+<td>世界对象未初始化或无效</td>
+<td>终止生成流程，返回错误码</td>
+<td><code>0x8001</code></td>
+</tr>
+<tr>
+<td><strong>EClassNotRegistered</strong></td>
+<td>控制器类未注册到反射系统</td>
+<td>检查 <code>UCLASS()</code> 宏与编译依赖</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>ESpawnCollisionBlock</strong></td>
+<td>碰撞处理策略未覆盖物理阻挡</td>
+<td>强制设置为 <code>AlwaysSpawn</code> 模式</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_4">说明</h4>
+<ul>
+<li><strong>ENullWorldContext</strong>  </li>
+<li>触发时立即终止生成流程，避免无效操作占用资源。  </li>
+<li>
+<p>错误码 <code>0x8001</code> 用于快速定位问题场景。  </p>
+</li>
+<li>
+<p><strong>EClassNotRegistered</strong>  </p>
+</li>
+<li>需验证反射系统配置（如 <code>UCLASS()</code> 宏是否遗漏）。  </li>
+<li>
+<p>检查编译依赖链是否包含目标类的头文件。  </p>
+</li>
+<li>
+<p><strong>ESpawnCollisionBlock</strong>  </p>
+</li>
+<li>默认碰撞策略（如 <code>AdjustIfPossible</code>）可能无法覆盖复杂物理环境。  </li>
+<li>强制使用 <code>AlwaysSpawn</code> 模式可确保生成流程完成，但可能引发物理重叠。  </li>
+</ul>
+<h4 id="_5">代码实现</h4>
+<ul>
+<li>以空世界检查为例：<br />
+  <div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">World</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">nullptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="n">E_LOG</span><span class="p">(</span><span class="n">logCarla</span><span class="p">,</span><span class="w"> </span><span class="n">Error</span><span class="p">,</span><span class="w"> </span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;AAIControllerFactory: cannot spawn controller into an empty world.&quot;</span><span class="p">));</span>
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="p">{};</span>
+<span class="p">}</span>
+</code></pre></div></li>
+</ul>
+<h3 id="_6">继承关系</h3>
+<ul>
+<li><strong>父类</strong>  ：ACarlaActorFactory（CARLA仿真平台的Actor工厂基类）。</li>
+<li><strong>子类</strong>  ：通过重写 GetDefinitions 和 SpawnActor 实现定制化AI控制器生成。</li>
+</ul>
+<hr />
+<h2 id="2-walkeraicontroller">2. <strong>WalkerAIController 类</strong></h2>
+<h3 id="_7">定义与职责</h3>
+<ul>
+<li><strong>继承关系</strong>  ：继承自 AActor，作为行人AI控制器的轻量级句柄。
+  <div class="highlight"><pre><span></span><code><span class="n">classDiagram</span>
+<span class="w">  </span><span class="n">AActor</span><span class="w"> </span><span class="o">&lt;|--</span><span class="w"> </span><span class="n">AWalkerAIController</span>
+<span class="w">  </span><span class="k">class</span><span class="w"> </span><span class="nc">AActor</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="o">+</span><span class="n">RootComponent</span><span class="o">:</span><span class="w"> </span><span class="n">USceneComponent</span><span class="o">*</span>
+<span class="w">      </span><span class="o">+</span><span class="n">BeginPlay</span><span class="p">()</span>
+<span class="w">      </span><span class="o">+</span><span class="n">Tick</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">DeltaSeconds</span><span class="p">)</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">class</span><span class="w"> </span><span class="nc">AWalkerAIController</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="o">-</span><span class="n">bIsActive</span><span class="o">:</span><span class="w"> </span><span class="kt">bool</span>
+<span class="w">      </span><span class="o">+</span><span class="n">SetMovementTarget</span><span class="p">(</span><span class="n">FVector</span><span class="w"> </span><span class="n">Target</span><span class="p">)</span>
+<span class="w">      </span><span class="o">+</span><span class="n">OnNavigationComplete</span><span class="p">()</span>
+<span class="w">  </span><span class="p">}</span>
+</code></pre></div></li>
+<li><strong>核心作用</strong> </li>
+<li>轻量级代理：作为服务端与客户端控制逻辑的中介，避免直接操作物理实体。</li>
+<li>状态同步：通过RPC（Remote Procedure Call）实现跨网络的状态同步。</li>
+<li>生命周期管理：处理控制器的激活/休眠状态切换。</li>
+</ul>
+<h3 id="_8">构造函数</h3>
+<ul>
+<li><strong>初始化设置</strong>  </li>
+<li>禁止Actor的Tick功能：<code>PrimaryActorTick.bCanEverTick = false</code>。  </li>
+<li>
+<p>隐藏根组件：<code>RootComponent-&gt;bHiddenInGame = true</code>。  </p>
+</li>
+<li>
+<p><strong>代码实现</strong><br />
+  <div class="highlight"><pre><span></span><code><span class="n">AWalkerAIController</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FObjectInitializer</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ObjectInitializer</span><span class="p">)</span>
+<span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">Super</span><span class="p">(</span><span class="n">ObjectInitializer</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">PrimaryActorTick</span><span class="p">.</span><span class="n">bCanEverTick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">    </span><span class="n">RootComponent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CreateDefaultSubobject</span><span class="o">&lt;</span><span class="n">USceneComponent</span><span class="o">&gt;</span><span class="p">(</span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;RootComponent&quot;</span><span class="p">));</span>
+<span class="w">    </span><span class="n">RootComponent</span><span class="o">-&gt;</span><span class="n">bHiddenInGame</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></p>
+</li>
+</ul>
+<h3 id="_9">成员变量与属性</h3>
+<ul>
+<li><strong>PrimaryActorTick</strong>  ：设置为 false，禁止帧更新以优化性能。</li>
+<li><strong>RootComponent</strong>  ：默认场景组件，用于管理Actor的变换和渲染，游戏运行时不可见。</li>
+</ul>
+<h3 id="_10">使用场景</h3>
+<ul>
+<li><strong>行人模拟</strong>  ：在CARLA仿真中，通过此类控制行人的基础属性（如位置、状态）。</li>
+<li><strong>多客户端协作</strong>  ：作为服务端与客户端间的代理，传递控制指令。</li>
+</ul>
+<hr />
+<h2 id="3-unreal-engine">3. <strong>Unreal Engine 集成机制</strong></h2>
+<h3 id="_11">反射系统集成</h3>
+<ul>
+<li><strong>UCLASS宏扩展</strong>  ：UCLASS宏用于在Unreal Engine中注册C++类到反射系统，使得这些类可以被蓝图访问和继承，以及支持序列化、垃圾回收等功能。</li>
+<li>示例：
+    <div class="highlight"><pre><span></span><code><span class="n">UCLASS</span><span class="p">(</span>
+<span class="w">  </span><span class="n">Blueprintable</span><span class="p">,</span><span class="w">                     </span><span class="c1">// 允许蓝图继承</span>
+<span class="w">  </span><span class="n">ClassGroup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Custom</span><span class="p">),</span><span class="w">             </span><span class="c1">// 自定义编辑器分类</span>
+<span class="w">  </span><span class="n">meta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">DisplayName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;AI Controller Factory&quot;</span><span class="p">)</span><span class="w">  </span><span class="c1">// 编辑器显示名称</span>
+<span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CARLA_API</span><span class="w"> </span><span class="n">AAIControllerFactory</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">ACarlaActorFactory</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">GENERATED_BODY</span><span class="p">()</span>
+<span class="w">  </span><span class="c1">// ...</span>
+<span class="p">};</span>
+</code></pre></div></li>
+<li><strong>属性暴露到编辑器</strong>  </li>
+<li>示例：
+    <div class="highlight"><pre><span></span><code><span class="n">UPROPERTY</span><span class="p">(</span>
+<span class="w">  </span><span class="n">EditDefaultsOnly</span><span class="p">,</span><span class="w">                  </span><span class="c1">// 仅在默认值编辑器中可修改</span>
+<span class="w">  </span><span class="n">Category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;AI Controller&quot;</span><span class="p">,</span><span class="w">        </span><span class="c1">// 分类标签</span>
+<span class="w">  </span><span class="n">meta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Tooltip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Controller类型ID&quot;</span><span class="p">)</span><span class="w">  </span><span class="c1">// 悬浮提示</span>
+<span class="p">)</span>
+<span class="n">FString</span><span class="w"> </span><span class="n">ControllerTypeId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;default&quot;</span><span class="p">);</span><span class="w">      </span>
+</code></pre></div></li>
+</ul>
+<h3 id="actor">Actor生成机制</h3>
+<ul>
+<li><strong>生成流程</strong>  ：通过 World-&gt;SpawnActor，传入类名、变换参数和碰撞处理模式。</li>
+<li><strong>方法生成实例</strong>  ：
+  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="o">*</span><span class="n">Controller</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">World</span><span class="o">-&gt;</span><span class="n">SpawnActor</span><span class="o">&lt;</span><span class="n">AActor</span><span class="o">&gt;</span><span class="p">(</span><span class="n">Description</span><span class="p">.</span><span class="n">Class</span><span class="p">,</span><span class="w"> </span><span class="n">Transform</span><span class="p">,</span><span class="w"> </span><span class="n">SpawnParameters</span><span class="p">);</span>
+</code></pre></div></li>
+<li><strong>SpawnActor内部流程</strong>  </li>
+<li>内存分配：通过FMemory::Malloc在引擎内存池中分配对象空间。</li>
+<li>组件初始化：调用InitializeComponent()递归初始化子组件。</li>
+<li>注册到世界：将Actor添加到UWorld::PersistentLevel的Actor列表。</li>
+<li>事件触发：广播OnActorSpawned事件，通知监听系统。</li>
+<li><strong>碰撞检测</strong>  ：
+  <div class="highlight"><pre><span></span><code><span class="c1">// 使用Sweep检测避免穿模</span>
+<span class="n">FCollisionQueryParams</span><span class="w"> </span><span class="n">CollisionParams</span><span class="p">;</span>
+<span class="n">CollisionParams</span><span class="p">.</span><span class="n">bTraceComplex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w">  </span><span class="c1">// 使用复杂碰撞体</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">World</span><span class="o">-&gt;</span><span class="n">SweepTestByChannel</span><span class="p">(</span><span class="n">StartLoc</span><span class="p">,</span><span class="w"> </span><span class="n">EndLoc</span><span class="p">,</span><span class="w"> </span><span class="n">FQuat</span><span class="o">::</span><span class="n">Identity</span><span class="p">,</span><span class="w"> </span><span class="n">ECC_Visibility</span><span class="p">,</span><span class="w"> </span><span class="n">CollisionShape</span><span class="p">,</span><span class="w"> </span><span class="n">CollisionParams</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// 处理碰撞阻挡</span>
+<span class="p">}</span>
+</code></pre></div></li>
+<li><strong>碰撞处理</strong>  ：强制生成（ESpawnActorCollisionHandleMethod::AlwaysSpawn）。</li>
+</ul>
+<h3 id="_12">组件管理</h3>
+<ul>
+<li><strong>默认组件</strong>  ：创建 USceneComponent 作为根组件，用于坐标系管理。</li>
+<li><strong>示例</strong>  ：
+  <div class="highlight"><pre><span></span><code><span class="n">RootComponent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CreateDefaultSubobject</span><span class="o">&lt;</span><span class="n">USceneComponent</span><span class="o">&gt;</span><span class="p">(</span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;RootComponent&quot;</span><span class="p">));</span>
+</code></pre></div></li>
+<li><strong>可见性控制</strong>  ：通过 bHiddenInGame 属性隐藏非渲染组件。</li>
+</ul>
+<hr />
+<h2 id="4">4. 代码实例与用法</h2>
+<h3 id="ai_1">创建 AI 控制器</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// 定义Walker控制器类型</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">WalkerController</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ABFL</span><span class="o">::</span><span class="n">MakeGenericDefinition</span><span class="p">(</span>
+<span class="w">  </span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;controller&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;ai&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;walker&quot;</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="c1">// 生成实例</span>
+<span class="n">FTransform</span><span class="w"> </span><span class="n">SpawnTransform</span><span class="p">;</span><span class="w"> </span><span class="c1">// 设置生成位置</span>
+<span class="n">FactorSpawnResult</span><span class="w"> </span><span class="n">Result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Factory</span><span class="o">-&gt;</span><span class="n">SpawnActor</span><span class="p">(</span><span class="n">SpawnTransform</span><span class="p">,</span><span class="w"> </span><span class="n">WalkerController</span><span class="p">);</span>
+</code></pre></div>
+<h3 id="walker-ai">配置 Walker AI</h3>
+<ul>
+<li><strong>属性修改</strong>  ：通过客户端接口更新行人的目标位置或移动速度。</li>
+<li><strong>事件绑定</strong>  ：注册碰撞事件或状态变更回调。</li>
+</ul>
+<h3 id="_13">错误调试</h3>
+<ul>
+<li><strong>日志排查</strong>  ：
+  <div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">Controller</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">nullptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">UE_LOG</span><span class="p">(</span><span class="n">logCarla</span><span class="p">,</span><span class="w"> </span><span class="n">Error</span><span class="p">,</span><span class="w"> </span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;生成控制器失败&quot;</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div></li>
+<li><strong>断点调试</strong>  ：检查 World 对象有效性及 SpawnParameters 配置。</li>
+</ul>
+<hr />
+<h2 id="5">5. 相关文件与依赖</h2>
+<h3 id="_14">头文件依赖树</h3>
+<p><code>plaintext
+AI/
+    ├── AIControllerFactory.h  
+    ├── CarlaActorFactory.h  
+    ├── ActorBlueprintFunctionLibrary.h  
+    ├── WalkerAIController.h  
+    └── GameFramework/Actor.h</code></p>
+<h3 id="_15">依赖的引擎模块</h3>
+<ul>
+<li><strong>Actor系统</strong>  ：GameFramework/Actor.h（Actor基类）。</li>
+<li><strong>反射系统</strong>  ：UObject/UObjectGlobals.h（支持 UCLASS 和 GENERATED_BODY）。</li>
+<li><strong>工具库</strong>  ：ActorBlueprintFunctionLibrary.h（提供快速定义工具）。</li>
+</ul>
+<h3 id="buildcs">Build.cs配置示例</h3>
+<p><code>cpp
+  PublicDependencyModuleNames.AddRange(new string[] {
+    "Core",
+    "CoreUObject",
+    "Engine",
+    "Carla",  // CARLA插件模块
+    "NavigationSystem"  // 依赖导航系统
+  });</code></p>
               
             </div>
           </div><footer>
