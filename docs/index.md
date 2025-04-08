@@ -4,6 +4,8 @@ title: 主页
 
 欢迎使用代理模拟器文档，该页面包含所有内容的索引。运行 [入门](#primary) 示例后可以按自己喜欢的顺序随意阅读（可使用 [DeepSeek大模型](software/llm.md) 来辅助开发）。默认为打开 UE 4.26 的 Carla 文档，支持 UE 5.5 的 Carla 文档请查看 [链接](ue5/index.md) 。
 
+如果对文档中的任何问题可以在 [本文档的源码仓库](https://github.com/OpenHUTB/carla_doc) 中的 [Issues](https://github.com/OpenHUTB/carla_doc/issues) 页面进行提问或者提交 [Pull Request](https://zhuanlan.zhihu.com/p/153381521) 直接修改文档。
+
 * [__入门__](#primary)  
     * [简介](#introduction)
 * [__代理__](#agent)  
@@ -33,7 +35,7 @@ title: 主页
 
 
 !!! 注意
-    如果运行CarlaUE4.exe时候报错：缺少Microsoft Visual C++ Runtime、DirectX Runtime，则需要安装 [vs_community__2019.exe](https://visualstudio.microsoft.com/zh-hans/vs/older-downloads/) （勾选`.NET桌面开发`和`使用C++的桌面开发`）和 [directx_Jun2010_redist.zip](https://www.microsoft.com/zh-CN/download/details.aspx?id=8109)  （解压后运行`DXSETUP.bat`）。当机器性能一般或者调试时，可以降低画质来启动，以获得更流畅的效果：`CarlaUE4.exe -quality-level=Low`，甚至使用`CarlaUE4.exe -nullrhi`禁用所有渲染（无需 GPU）。如果对文档中的任何问题可以在 [本文档的源码仓库](https://github.com/OpenHUTB/carla_doc) 中的 [Issues](https://github.com/OpenHUTB/carla_doc/issues) 页面进行提问或者提交 [Pull Request](https://zhuanlan.zhihu.com/p/153381521) 直接修改文档。
+    当机器性能一般时启动报错：`Out of video memory...`，可以通过命令来降低画质启动：`CarlaUE4.exe -quality-level=Low`，以获得更流畅的效果；甚至使用`CarlaUE4.exe -nullrhi`禁用所有渲染（无需 GPU）。如果运行CarlaUE4.exe时候报错：缺少Microsoft Visual C++ Runtime、DirectX Runtime，则需要安装 [vs_community__2019.exe](https://visualstudio.microsoft.com/zh-hans/vs/older-downloads/) （勾选`.NET桌面开发`和`使用C++的桌面开发`）和 [directx_Jun2010_redist.zip](https://www.microsoft.com/zh-CN/download/details.aspx?id=8109)  （解压后运行`DXSETUP.bat`）。
 
 
 
@@ -158,8 +160,6 @@ title: 主页
 
 [__在 Docker 中构建虚幻引擎和 Carla__](build_docker_unreal.md) — 在 Docker 中构建虚幻引擎和 Carla
 
-[__文件说明__](file_specification.md) — 说明源代码中各个模块、文件的作用
-
 [__常见问题__](build_faq.md) — 一些最常见的安装问题
 
 [__调试程序__](tuto_D_windows_debug.md) — 进行C++程序的调试
@@ -167,13 +167,15 @@ title: 主页
 
 ### 模块 <span id="modules"></span>
 
+[__文件说明__](file_specification.md) — 说明源代码中各个模块、文件的作用
+
 [__行为交互__](interbehavior.md) — 针对行为和交互研究的虚拟现实驾驶仿真器
 
 [__罗技 G29 方向盘__](tuto_G_G29_windows.md) — 使用罗技方向盘进行车辆控制和模拟对方向盘的反向控制
 
 [__地理空间生态系统__](adv_cesium.md) — 将 3D 地理空间生态系统引入虚幻引擎
 
-[__Chrono 集成__](tuto_G_chrono.md) — 使用 Chrono 积分来模拟物理
+[__Chrono 集成__](tuto_G_chrono.md) — 整合 Chrono 来进行物理模拟
 
 ---
 
