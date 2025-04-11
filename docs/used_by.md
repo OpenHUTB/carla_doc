@@ -1,6 +1,6 @@
 # [引用了Carla的相关仓库](https://github.com/carla-simulator/carla/network/dependents)
 
-<!-- 更新到最新的仓库： https://github.com/umnilab/METS-R_HPC --> 
+<!-- 更新到最新的仓库： https://github.com/CodeJonesW/sensor_simulation_and_data_collection --> 
 
 
 - [__感知__](#perception)
@@ -143,6 +143,9 @@
 
 [基于 PPO（和 SAC）算法执行自动驾驶的端到端运动规划](https://github.com/Karthik-Ragunath/carla_sac)
 
+[基于运动规划的主动悬架](https://github.com/devprosvn/active-suspension-motion-planning-research)
+
+
 ### 强化学习 <span id="rl"></span>
 
 [利用强化学习开发基于人工智能的自动驾驶汽车](https://github.com/guruvenkateshmj/self-driving-car)
@@ -262,6 +265,8 @@
 
 [使用基于 Transformer 的传感器融合进行自动驾驶行为克隆和强化学习](https://github.com/tonyroumi/BC-RL)
 
+[基于强化学习的自动驾驶训练系统](https://github.com/2Allen/carla-rl-project)
+
 
 ### 导航 <span id="navigation"></span>
 
@@ -282,6 +287,8 @@
 [具有基于信任的 CBF 约束的 MPC，用于自主系统的安全机器人导航](https://github.com/saadejazz/mpc-trust-cbf)
 
 [无碰撞导航的量子深度强化学习](https://github.com/roboak/Nav-Q)
+
+[端到端自动驾驶的导航引导稀疏场景表示](https://github.com/PeidongLi/SSR)
 
 
 ### 预测 <span id="prediction"></span>
@@ -349,6 +356,8 @@
 
 [自动驾驶汽车控制系统文档](https://github.com/Wojtekpob/Autonomous-Driving-System)
 
+[使用模型预测控制 (MPC) 的自动驾驶汽车控制系统](https://github.com/yusaku-nakano/carla_mpc)
+
 
 ## 端到端 <span id="end_2_end"></span>
 
@@ -404,6 +413,7 @@
 
 [通过谱归一化神经高斯过程实现 E2E 自动驾驶汽车控制](https://github.com/croth2305/domain_aware_via_sngp_for_e2e_ad)
 
+[TransFuser](https://github.com/Kalpit-Vadnerkar/VATEAM) - 一个感知-预测-规划模型，它融合了摄像头和激光雷达传感器数据，以实现端到端自动驾驶，包含评估。
 
 ## 大模型 <span id="llm"></span>
 
@@ -483,6 +493,8 @@
 [使用 SUMO 和 CARLA 模拟 AR 挡风玻璃 HUD 对驾驶性能的影响](https://github.com/Pascal-Jansen/HUD-SUMO)
 
 [3种基准场景](https://github.com/revacholiere/rulebook_benchmark)
+
+[高效自动驾驶的矢量化场景表示](https://github.com/tier4/VAD)
 
 ### 车辆 <span id="vehicle"></span>
 
@@ -608,6 +620,9 @@
 
 [负责任的AI](https://github.com/pjo7/ResponsibleAI)
 
+[MOSAT：使用多目标遗传算法查找自动驾驶系统的安全违规行为](https://github.com/ADStesting-test/MOSAT)
+
+
 ## 安全 <span id="security"></span>
 
 [联网和自动驾驶汽车的攻击模拟框架](https://github.com/tum-esi/simutack) - 包含系统代码和视频
@@ -696,6 +711,8 @@
 
 [测试自主代理的框架](https://github.com/MasoudJTehrani/PCLA)
 
+[使用 CCTest 和 Carla 排行榜对四款端到端 AI 自动驾驶仪进行全面评估](https://github.com/LIIHWF/testing-end-to-end-ai-autopilots)
+
 
 ## 数据集 <span id="dataset"></span>
 
@@ -742,6 +759,11 @@
 [像 Kitti 一样合成](https://github.com/richardmarcus/synth-it-like-kitti)
 
 [无人机数据集](https://github.com/unclefish7/drone-dataset)
+
+[路侧数据集生成器](https://github.com/Gary-Yifan-Zhang/Carla-Simulation-Dataset-Generator) - 兼容KITTI格式，支持多传感器数据采集与自动标注。 
+
+[CARLA 传感器模拟到标记数据集的工作流程](https://github.com/CodeJonesW/sensor_simulation_and_data_collection)
+
 
 ## 工具 <span id="tools"></span>
 
@@ -821,9 +843,6 @@
 
 [CARLA 模拟的 GUI 管理器](https://github.com/angelomorgado/CARLA-GUI-Manager)
 
-[OpenCDA + 云端分布式/异步边缘计算](https://github.com/tlandle/eCloudSim)
-
-
 [ROAR Group 最新的 Python 接口可控制模拟和现实中的事物](https://github.com/augcog/ROAR_PY) - 支持远程训练和兼容gym
 
 [Carla ROS2 Bridge](https://github.com/JesusAnaya/tfm-carla-ros2-bridge)
@@ -836,7 +855,11 @@
 
 [开源库CARLANeT的 carla 端](https://github.com/carlanet/pycarlanet) - 用于 CARLA 与 OMNeT++ 之间的联合仿真
 
+[用于在 CARLA+SUMO 下原型化全栈协作驾驶自动化应用程序的通用框架](https://github.com/blue-soda/OpenCDA)
+
 [OpenCDA 是一个基于开放联合仿真的研究/工程框架，集成了原型协同驾驶自动化](https://github.com/lpwwpl/opencda_lpw?tab=readme-ov-file)
+
+[OpenCDA + 云端分布式/异步边缘计算](https://github.com/tlandle/eCloudSim)
 
 [将 ML 模型与 BDI 代理相结合](https://github.com/alshukairi/MLMAS-Framework-AAMAS23)
 
@@ -883,6 +906,15 @@
 [简化Carla和Autoware的安装](https://github.com/pradhanshrijal/pha_carlaware)
 
 [CARLA 0.9.15 上使用 ROS2 模拟](https://github.com/rohankhaire-work/carla-ros2-env)
+
+[Carla 和 Opencda 之间的 WebRtc 桥接器](https://github.com/cyKkk0/Carla-Opencda-with-webrtc)
+
+[在汽车中使用 openpilot](https://github.com/optoolfactory/id4)
+
+[WATonomous 自动驾驶汽车软件管道的 Docker 化 ROS2 设置](https://github.com/WATonomous/wato_monorepo)
+
+[CarlaMCP](https://github.com/shikharvashistha/carla-mcp) - Carla 模型上下文协议集成
+
 
 ## 杂项 <span id="misc"></span>
 
@@ -1126,3 +1158,8 @@
 
 [各种自动驾驶任务代码](https://github.com/KrishGupta25/SelfDrivingSTEM)
 
+[carla-simulation](https://github.com/Henrique-hpds/carla-simulation)
+
+[carla-agents](https://github.com/Henrique-hpds/carla-agents)
+
+[ConeRouteNet](https://github.com/cuiao66/ConeRouteNet)
