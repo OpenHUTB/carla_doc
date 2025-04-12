@@ -109,6 +109,8 @@ title: 主页
 
 [__行人建模__](tuto_content_authoring_pedestrians.md) — 在三维建模软件中对人进行建模
 
+[__行为交互__](interbehavior.md) — 针对行为和交互研究的虚拟现实驾驶仿真器
+
 [__行人物理场模拟__](pedestrian/tuto_content_chrono_opensim.md) — Chrono OpenSim 解析器
 
 ---
@@ -168,8 +170,6 @@ title: 主页
 ### 模块 <span id="modules"></span>
 
 [__文件说明__](file_specification.md) — 说明源代码中各个模块、文件的作用
-
-[__行为交互__](interbehavior.md) — 针对行为和交互研究的虚拟现实驾驶仿真器
 
 [__罗技 G29 方向盘__](tuto_G_G29_windows.md) — 使用罗技方向盘进行车辆控制和模拟对方向盘的反向控制
 
