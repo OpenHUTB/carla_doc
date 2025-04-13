@@ -1,4 +1,4 @@
-# 代理模拟器
+# 人车模拟器
 
 [文档主页](https://openhutb.github.io/carla_doc/) 。
 

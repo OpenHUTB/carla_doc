@@ -1,8 +1,8 @@
 title: 主页
 
-# [代理模拟器](https://carla.readthedocs.io/en/latest/)
+# [人车模拟器](https://carla.readthedocs.io/en/latest/)
 
-欢迎使用代理模拟器文档，该页面包含所有内容的索引。运行 [入门](#primary) 示例后可以按自己喜欢的顺序随意阅读（可使用 [DeepSeek大模型](software/llm.md) 来辅助开发）。默认为打开 UE 4.26 的 Carla 文档，支持 UE 5.5 的 Carla 文档请查看 [链接](ue5/index.md) 。
+欢迎使用人车模拟器文档，该页面包含所有内容的索引。运行 [入门](#primary) 示例后可以按自己喜欢的顺序随意阅读（可使用 [DeepSeek大模型](software/llm.md) 来辅助开发）。默认为打开 UE 4.26 的 Carla 文档，支持 UE 5.5 的 Carla 文档请查看 [链接](ue5/index.md) 。
 
 如果对文档中的任何问题可以在 [本文档的源码仓库](https://github.com/OpenHUTB/carla_doc) 中的 [Issues](https://github.com/OpenHUTB/carla_doc/issues) 页面进行提问或者提交 [Pull Request](https://zhuanlan.zhihu.com/p/153381521) 直接修改文档。
 
