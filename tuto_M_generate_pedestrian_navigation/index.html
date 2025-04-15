@@ -71,16 +71,16 @@
                 <h1 id="_1">生成行人导航</h1>
 <p>为了允许行人导航地图，您需要生成行人导航文件。本指南详细介绍了要使用的网格以及如何生成文件。</p>
 <ul>
-<li><a href="#before-you-begin"><strong>在你开始之前</strong></a></li>
-<li><a href="#pedestrian-navigable-meshes"><strong>行人导航网格</strong></a></li>
-<li><a href="#optional-pedestrian-navigation-options"><strong>可选的行人导航选项</strong></a></li>
-<li><a href="#generate-the-pedestrian-navigation"><strong>生成行人导航</strong></a></li>
+<li><a href="#before_you_begin"><strong>在你开始之前</strong></a></li>
+<li><a href="#pedestrian_navigable_meshes"><strong>行人导航网格</strong></a></li>
+<li><a href="#optional_pedestrian_navigation_options"><strong>可选的行人导航选项</strong></a></li>
+<li><a href="#generate_pedestrian_navigation"><strong>生成行人导航</strong></a></li>
 </ul>
 <hr />
-<h2 id="_2">在你开始之前</h2>
+<h2 id="_2">在你开始之前 <span id="before_you_begin"></span></h2>
 <p>地图定制（添加建筑物、绘制道路、添加景观特征等）应在生成行人导航之前完成，以避免两者之间发生干扰或碰撞，导致需要再次生成行人导航。</p>
 <hr />
-<h2 id="_3">行人导航网格</h2>
+<h2 id="_3">行人导航网格 <span id="pedestrian_navigable_meshes"></span></h2>
 <p>行人只能导航特定的网格。您需要根据下表中的术语命名要包含在行人导航中的网格：</p>
 <table>
 <thead>
@@ -115,7 +115,7 @@
 </table>
 <p><br></p>
 <hr />
-<h2 id="_4">可选的行人导航选项</h2>
+<h2 id="_4">可选的行人导航选项 <span id="optional_pedestrian_navigation_options"></span></h2>
 <p>以下步骤对于生成行人导航不是必需的，但允许您在一定程度上自定义行人活动。</p>
 <ul>
 <li><strong>生成新的人行横道</strong>。</li>
@@ -128,7 +128,7 @@
 </ol>
 <p><img alt="ue_crosswalks" src="../img/ue_crosswalks.jpg" />  </p>
 <hr />
-<h2 id="_5">生成行人导航</h2>
+<h2 id="_5">生成行人导航 <span id="generate_pedestrian_navigation"></span></h2>
 <p><strong>1.</strong> 要防止地图太大而无法导出，请选择 <strong>BP_Sky 对象</strong> 并添加一个 <code>NoExport</code> 标签。如果您有任何其他不参与行人导航的特别大的网格，也请向它们添加 <code>NoExport</code> 标记。 </p>
 <p><img alt="ue_skybox_no_export" src="../img/ue_noexport.png" /> </p>
 <p><strong>2.</strong> 仔细检查您的网格名称。网格名称应以下面列出的任何适当格式开头，以便被识别为行人可以行走的区域。默认情况下，行人将能够在人行道、人行横道和草地上行走（对其余部分影响较小）：</p>
@@ -156,11 +156,11 @@
 <p><strong>如果更新地图后需要重建行人导航</strong> ，请确保删除 Carla 缓存。这通常可以在 Ubuntu 的主目录（即<code>cd ~</code>）中找到，或者在Windows的用户目录（分配给环境变量<code>USERPROFILE</code>的目录）中，删除名为<code>carlaCache</code>的文件夹及其所有内容，它可能很大。 </p>
 </div>
 <hr />
-<p>如果关于流程有任何问题，您可以在 <a href="https://github.com/carla-simulator/carla/discussions">论坛</a> 中提问。</p>
+<p>如有任何问题，您可以在 <a href="https://github.com/orgs/OpenHUTB/discussions">讨论</a> 中提问。</p>
 <div class="build-buttons">
 <p>
-<a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the Carla forum">
-Carla 论坛</a>
+<a href="https://github.com/orgs/OpenHUTB/discussions" target="_blank" class="btn btn-neutral" title="Go to the Carla forum">
+社区讨论</a>
 </p>
 </div>
               
