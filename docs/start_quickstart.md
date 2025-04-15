@@ -281,7 +281,7 @@ pip uninstall carla
 ## 湖工商内网访问资源 <span id="intranet"></span>
 如果能ping通IP 地址`172.21.108.56`，则可以访问以下资源。
 
-### 代理模拟器的服务器渲染资源
+### 人车模拟器的服务器渲染资源
 可使用`config.py`来连接远端的代理模拟环境：
 
 ```python

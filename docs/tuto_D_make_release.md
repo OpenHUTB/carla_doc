@@ -44,8 +44,65 @@ pip install auto-py-to-exe
 ```
 然后运行`auto-py-to-exe`。
 
+## 发布带Carla插件的虚幻编辑器
+
+1.参考 [Windows 下的构建](build_windows.md) 进行带Carla插件的虚幻编辑器的构建；
+
+2.发布安装版本
+参考[链接](https://github.com/chiefGui/ue-from-source?tab=readme-ov-file#step-by-step-1) 进行虚幻引擎的发布。
+
+3.使用 Visual Studio 打开 `UE4.shn` 。
+
+4.在右侧边栏，您应该会看到一个`解决方案资源管理器`面板。展开`Programs`文件夹并找到`AutomationTool`项目（`Engine\Source\Programs\AutomationTool`）：
+![Image](img/ue/AutomationTool.png)
+
+5.右键单击它并选择`生成(Build)`，应该很快。
+
+6.运行安装软件的构建脚本：（如果没有）安装 [Windows 10 SDK](https://developer.microsoft.com/en-us/windows/downloads/windows-10-sdk) ;
+
+将文件 [`GenerateInstalledBuild.bat`](https://github.com/OpenHUTB/carla_doc/tree/master/src/bat/GenerateInstalledBuild.bat) 拷贝到虚幻引擎源代码的根目录，然后点击运行。
+
+如果一切顺利，您应该会看到`LocalBuilds`与该文件夹处于同一级别的`Engine`文件夹，并且控制台中没有错误。(还包括一个 InstalledDDC 文件夹：DerivedDataCache)。
+
+或者到虚幻引擎源代码主目录中运行下面命令：
+```shell
+cd Engine\Binaries\DotNET
+AutomationTool.exe BuildGraph -target="Make Installed Build Win64" -script=Engine/Build/InstalledEngineBuild.xml -set:HostPlatformOnly=true
+```
+
+
+* 运行``GenerateInstalledBuild.bat`时从报错日志中发现的错误：
+```text
+ERROR: Visual Studio 2017 must be installed in order to build this target.
+```
+解决：下载 [链接](https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb) 的`software/Build Binary`中的 `vs_Community_2017.exe` 或 `3d5_VisualStudio20171509.rar`进行安装。
+
+
+* 运行``GenerateInstalledBuild.bat`时候报错：
+```text
+Unable to find installation of PDBCOPY.EXE
+```
+解决：参考 [链接](https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb) 的`software/Build Binary`目录 或者 [链接](https://arenas0.com/2018/12/03/UE4_Learn_Build_Binary/) 从 [百度网盘](https://pan.baidu.com/s/1Y0PQeHCMQh7Ln12d_p_Rzw) 下载`X64 Debuggers And Tools-x64_en-us.msi`安装。
+
+
+* 无法启动
+```text
+无法启动此程序，因为计算机中丢失XINPUT1_3.dll。尝试重新安装该程
+```
+解决：参考 [链接](http://www.codefaq.cn/category/Windows/) 安装 DirectX Redist (June 2010)。
+
+
+
+
 ## 设计
-参考[BeamNG](https://baike.baidu.com/item/BeamNG%E8%B5%9B%E8%BD%A6/18880401) 
+参考[BeamNG](https://baike.baidu.com/item/BeamNG%E8%B5%9B%E8%BD%A6/18880401)
+
+## 发布到商城
+[讨论是否可以发布修改代码的插件](https://www.reddit.com/r/unrealengine/comments/w7ndj9/are_plugins_able_to_append_tooverwrite_engine/)
+
+Baidunet Disk Download Link: https://pan.baidu.com/s/1hFngmeAvyUulsiI-JlNHuA?pwd=hutb
+
+A simulator and scene editor for autonomous driving.
 
 ## 问题
 点击打包后的文件出现错误：

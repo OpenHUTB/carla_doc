@@ -979,7 +979,7 @@ Fisheye 相机充当常规鱼眼相机，从场景中捕捉图像。
 
 车联万物 (Vehicle-to-everything, V2X) 通信是未来协作智能交通系统应用的一个重要方面。在实际车辆中，这需要每辆车上都有一个专用的车载单元 (onboard unit, OBU)，能够通过无线信道发送和接收信息。根据地区（欧洲、中国、美国），使用不同的物理技术、协议和应用程序消息格式。
 
-Carla 目前支持模拟简单的广播无线信道和两条应用消息。尚不支持网络访问和转发协议。两条实现的消息分别是符合欧洲标准 ETSI 的 [*协作感知消息*](#cooperative-awareness-message) 和 [*自定义消息*](#custom-v2x-message) 类型，可用于传输任意字符串数据（例如 JSON）。V2X 通信有两种不同的传感器，可以单独使用，每种应用消息类型各一个。
+Carla 目前支持模拟简单的广播无线信道和两条应用消息。尚不支持网络访问和转发协议。两条实现的消息分别是符合欧洲标准 ETSI 的 [*协作感知消息*](#cooperative-awareness-message) 和 [*自定义消息*](#custom-v2x-message) 类型，可用于传输任意字符串数据（例如 JSON）。V2X 通信有两种不同的传感器，可以单独使用，每种应用消息类型各一个。实现原理请参考[论文](pdf/V2X_sensor.pdf) 。
 
 基本上，无线通道包含两个传感器的以下计算：
 
@@ -1074,4 +1074,5 @@ Carla 目前支持模拟简单的广播无线信道和两条应用消息。尚�
 | path\_loss\_model       | string | geometric | 使用的通用路径损耗模型。选项：[geometric, winor]                                                                                                                 |
 | use\_etsi\_fading       | bool   | true | 使用 ETSI 出版物中提到的衰落参数（true），或使用自定义衰落标准偏差                                                                                                            |
 | custom\_fading\_stddev  | float  | 0.0 | 衰减标准偏差的自定义值，仅当`use_etsi_fading`设置为 `false` 时才使用 |
+
 
