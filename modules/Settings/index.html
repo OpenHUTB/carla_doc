@@ -68,7 +68,788 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                
+                <h1 id="settings">Settings</h1>
+<hr />
+<h1 id="carlasettingscpp">一.CarlaSettings.CPP内容</h1>
+<h2 id="1-">1、核心架构 - 系统配置子系统</h2>
+<h3 id="11">1.1 初始化构建模块</h3>
+<ul>
+<li><strong>代码示例</strong>： 
+<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="n">FName</span><span class="w"> </span><span class="n">UCarlaSettings</span><span class="o">::</span><span class="n">CARLA_ROAD_TAG</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FName</span><span class="p">(</span><span class="s">&quot;CARLA_ROAD&quot;</span><span class="p">);</span>
+<span class="k">const</span><span class="w"> </span><span class="n">FName</span><span class="w"> </span><span class="n">UCarlaSettings</span><span class="o">::</span><span class="n">CARLA_SKY_TAG</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FName</span><span class="p">(</span><span class="s">&quot;CARLA_SKY&quot;</span><span class="p">);</span>
+</code></pre></div></li>
+</ul>
+<h3 id="12">1.2 质量登记转换器</h3>
+<ul>
+<li><strong>功能</strong>：实现将字符串转枚举函数和枚举转字符串函数的功能，以便支持用户定制化配置和系统状态反馈。</li>
+<li><strong>代码示例</strong>： 
+<div class="highlight"><pre><span></span><code><span class="c1">//字符串转枚举函数</span>
+<span class="c1">// 将配置字符串转换为质量等级枚举（对应用户定制能力）</span>
+<span class="k">static</span><span class="w"> </span><span class="n">EQualityLevel</span><span class="w"> </span><span class="nf">QualityLevelFromString</span><span class="p">(</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">FString</span><span class="o">&amp;</span><span class="w"> </span><span class="n">QualitySettingsLevel</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="n">EQualityLevel</span><span class="w"> </span><span class="n">Default</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EQualityLevel</span><span class="o">::</span><span class="n">Epic</span><span class="p">)</span><span class="w"> </span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">QualitySettingsLevel</span><span class="p">.</span><span class="n">Equals</span><span class="p">(</span><span class="s">&quot;Low&quot;</span><span class="p">))</span><span class="w"> </span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">EQualityLevel</span><span class="o">::</span><span class="n">Low</span><span class="p">;</span><span class="w">    </span><span class="c1">// 低画质模式</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">QualitySettingsLevel</span><span class="p">.</span><span class="n">Equals</span><span class="p">(</span><span class="s">&quot;Epic&quot;</span><span class="p">))</span><span class="w"> </span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">EQualityLevel</span><span class="o">::</span><span class="n">Epic</span><span class="p">;</span><span class="w">   </span><span class="c1">// 高画质模式</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">Default</span><span class="p">;</span><span class="w">                  </span><span class="c1">// 默认画质</span>
+<span class="p">}</span>
+
+<span class="c1">//②枚举转字符串函数</span>
+<span class="c1">// 将质量等级枚举转换为可读字符串（用于状态反馈）</span>
+<span class="n">FString</span><span class="w"> </span><span class="nf">QualityLevelToString</span><span class="p">(</span><span class="n">EQualityLevel</span><span class="w"> </span><span class="n">QualitySettingsLevel</span><span class="p">)</span><span class="w"> </span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">UEnum</span><span class="o">*</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FindObject</span><span class="o">&lt;</span><span class="n">UEnum</span><span class="o">&gt;</span><span class="p">(</span>
+<span class="w">        </span><span class="n">ANY_PACKAGE</span><span class="p">,</span><span class="w"> </span>
+<span class="w">        </span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;EQualityLevel&quot;</span><span class="p">),</span><span class="w"> </span>
+<span class="w">        </span><span class="nb">true</span>
+<span class="w">    </span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="o">?</span><span class="w"> </span>
+<span class="w">        </span><span class="n">ptr</span><span class="o">-&gt;</span><span class="n">GetNameStringByIndex</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">int32</span><span class="o">&gt;</span><span class="p">(</span><span class="n">QualitySettingsLevel</span><span class="p">))</span><span class="w"> </span><span class="o">:</span>
+<span class="w">        </span><span class="n">FString</span><span class="p">(</span><span class="s">&quot;Invalid&quot;</span><span class="p">);</span><span class="w">  </span><span class="c1">// 容错处理</span>
+<span class="p">}</span>
+</code></pre></div></li>
+</ul>
+<h2 id="2-">2、使用实践 - 配置管理</h2>
+<h3 id="21">2.1 文件配置加载流</h3>
+<ul>
+<li><strong>功能</strong>：文件配置加载流实现多级配置管理，它能够智能处理相对/绝对路径转换，通过内存映射高效加载INI配置文件至系统，并记录当前配置状态。支持命令行参数&gt;配置文件&gt;默认值的优先级覆盖策略，确保动态配置更新的同时维护运行可追溯性。</li>
+<li><strong>代码示例</strong>： 
+<div class="highlight"><pre><span></span><code><span class="c1">// INI文件加载路径处理</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="nf">GetSettingsFilePathFromCommandLine</span><span class="p">(</span><span class="n">FString</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">FParse</span><span class="o">::</span><span class="n">Value</span><span class="p">(</span><span class="n">FCommandLine</span><span class="o">::</span><span class="n">Get</span><span class="p">(),</span><span class="w"> </span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;-carla-settings=&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">Value</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">FPaths</span><span class="o">::</span><span class="n">IsRelative</span><span class="p">(</span><span class="n">Value</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// 路径转换核心逻辑</span>
+<span class="w">            </span><span class="n">Value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FPaths</span><span class="o">::</span><span class="n">ConvertRelativePathToFull</span><span class="p">(</span><span class="n">FPaths</span><span class="o">::</span><span class="n">LaunchDir</span><span class="p">(),</span><span class="w"> </span><span class="n">Value</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// 从文件加载配置</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">UCarlaSettings::LoadSettingsFromFile</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FString</span><span class="w"> </span><span class="o">&amp;</span><span class="n">FilePath</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">bLogOnFailure</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">UE_LOG</span><span class="p">(</span><span class="n">LogCarla</span><span class="p">,</span><span class="w"> </span><span class="n">Log</span><span class="p">,</span><span class="w"> </span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;Loading CARLA settings from </span><span class="se">\&quot;</span><span class="s">%s</span><span class="se">\&quot;</span><span class="s">&quot;</span><span class="p">),</span><span class="w"> </span><span class="o">*</span><span class="n">FilePath</span><span class="p">);</span>
+<span class="w">    </span><span class="n">FIniFile</span><span class="w"> </span><span class="n">ConfigFile</span><span class="p">(</span><span class="n">FilePath</span><span class="p">);</span><span class="w">  </span><span class="c1">// 内存地图实例化</span>
+<span class="w">    </span><span class="n">LoadSettingsFromConfig</span><span class="p">(</span><span class="n">ConfigFile</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span><span class="w">  </span><span class="c1">// 全量加载</span>
+<span class="w">    </span><span class="n">CurrentINIFileName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FilePath</span><span class="p">;</span><span class="w">  </span><span class="c1">// 状态维护</span>
+<span class="p">}</span>
+</code></pre></div></li>
+</ul>
+<h3 id="22">2.2 命令行覆盖机制</h3>
+<ul>
+<li><strong>功能</strong>：命令行覆盖机制实现最高优先级参数设置，动态分配端口链（RPC+1/2）并实时切换质量等级，确保用户定制化配置覆盖文件和默认值。</li>
+<li><strong>代码示例</strong>： 
+<div class="highlight"><pre><span></span><code><span class="c1">// 参数优先级控制（体现车辆注册机制）</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">UCarlaSettings::ApplyCommandLineSettings</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">uint32</span><span class="w"> </span><span class="n">Value</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// 端口动态计算（RPC+1/2策略）</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">FParse</span><span class="o">::</span><span class="n">Value</span><span class="p">(</span><span class="n">FCommandLine</span><span class="o">::</span><span class="n">Get</span><span class="p">(),</span><span class="w"> </span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;-world-port=&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">Value</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">RPCPort</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Value</span><span class="p">;</span><span class="w">          </span><span class="c1">// RPC端口绑定</span>
+<span class="w">        </span><span class="n">StreamingPort</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Value</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1u</span><span class="p">;</span><span class="w">  </span><span class="c1">// 流媒体端口</span>
+<span class="w">        </span><span class="n">SecondaryPort</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Value</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2u</span><span class="p">;</span><span class="w">  </span><span class="c1">// 辅助端口</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// 质量等级实时切换（用户定制能力）</span>
+<span class="w">    </span><span class="n">FString</span><span class="w"> </span><span class="n">StringQualityLevel</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">FParse</span><span class="o">::</span><span class="n">Value</span><span class="p">(</span><span class="n">FCommandLine</span><span class="o">::</span><span class="n">Get</span><span class="p">(),</span><span class="w"> </span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;-quality-level=&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">StringQualityLevel</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">QualityLevel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">QualityLevelFromString</span><span class="p">(</span><span class="n">StringQualityLevel</span><span class="p">,</span><span class="w"> </span><span class="n">EQualityLevel</span><span class="o">::</span><span class="n">Epic</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></li>
+<li><strong>核心功能流程图</strong>：
+ <code>mermaid
+    A[启动参数解析] --&gt; B{含-carla-settings参数?}
+    B --&gt;|是| C[路径转换处理]
+    B --&gt;|否| D[使用默认配置]
+    C --&gt; E[加载INI配置文件]
+    E --&gt; F[应用命令行覆盖]
+    F --&gt; G[生成最终配置]</code></li>
+<li><strong>流程图说明</strong>：
+<pre class="mermaid"><code>​​节点类型​​：
+矩形节点：[操作步骤]
+菱形节点：{条件判断}
+箭头方向：--&gt; 表示流程走向</code></pre>
+<pre class="mermaid"><code>​​逻辑分支​​：
+条件判断结果为"是"时走路径转换流程
+条件判断结果为"否"时直接使用默认配置</code></pre>
+<pre class="mermaid"><code>​​流程序列​​：
+启动参数 → 配置文件检测 → 路径处理/默认配置 → 文件加载 → 参数覆盖 → 最终配置生成</code></pre></li>
+</ul>
+<h2 id="3-">3.高级功能 - 运行模式</h2>
+<ul>
+<li><strong>功能</strong>：从配置文件读取同步模式开关和渲染引擎禁用状态，实现仿真步调协同控制与渲染资源动态管理，优化系统运行性能。</li>
+</ul>
+<h3 id="31">3.1同步模式设置</h3>
+<ul>
+<li><strong>功能</strong>：协调仿真步调控制，确保系统状态一致性</li>
+<li><strong>代码示例</strong>： 
+<div class="highlight"><pre><span></span><code><span class="c1">// 同步模式设置（协同机制实现）</span>
+<span class="n">ConfigFile</span><span class="p">.</span><span class="n">GetBool</span><span class="p">(</span><span class="n">S_CARLA_SERVER</span><span class="p">,</span><span class="w"> </span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;SynchronousMode&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">Settings</span><span class="p">.</span><span class="n">bSynchronousMode</span><span class="p">);</span>
+</code></pre></div></li>
+</ul>
+<h3 id="32">3.2渲染开关</h3>
+<ul>
+<li><strong>功能</strong>：禁用渲染引擎降负载，优化资源提升性能</li>
+<li><strong>代码示例</strong>： 
+<div class="highlight"><pre><span></span><code><span class="n">ConfigFile</span><span class="p">.</span><span class="n">GetBool</span><span class="p">(</span><span class="n">S_CARLA_SERVER</span><span class="p">,</span><span class="w"> </span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;DisableRendering&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">Settings</span><span class="p">.</span><span class="n">bDisableRendering</span><span class="p">);</span>
+</code></pre></div></li>
+</ul>
+<h2 id="4-">4.系统维护 - 诊断机制</h2>
+<ul>
+<li><strong>功能</strong>：实时记录配置文件名、网络端口、同步模式、渲染状态及质量等级等关键参数，提供运行时状态快照，支持系统诊断与异常监控。</li>
+<li><strong>核心参数</strong>： 
+<div class="highlight"><pre><span></span><code><span class="n">UE_LOG</span><span class="p">(</span><span class="n">LogCarla</span><span class="p">,</span><span class="w"> </span><span class="n">Log</span><span class="p">,</span><span class="w"> </span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;&gt;&gt; CARLA Settings @ %s&quot;</span><span class="p">),</span><span class="w"> </span><span class="o">*</span><span class="n">CurrentINIFileName</span><span class="p">);</span><span class="w">     </span><span class="c1">// 配置源追踪</span>
+<span class="n">UE_LOG</span><span class="p">(</span><span class="n">LogCarla</span><span class="p">,</span><span class="w"> </span><span class="n">Log</span><span class="p">,</span><span class="w"> </span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;[Network] RPCPort=%d&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">RPCPort</span><span class="p">);</span><span class="w">                  </span><span class="c1">// 网络端口监控</span>
+<span class="n">UE_LOG</span><span class="p">(</span><span class="n">LogCarla</span><span class="p">,</span><span class="w"> </span><span class="n">Log</span><span class="p">,</span><span class="w"> </span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;[Control] SynchronousMode=%s&quot;</span><span class="p">),</span><span class="w">                    </span><span class="c1">// 同步模式状态</span>
+<span class="n">EnabledDisabled</span><span class="p">(</span><span class="n">bSynchronousMode</span><span class="p">));</span>
+<span class="n">UE_LOG</span><span class="p">(</span><span class="n">LogCarla</span><span class="p">,</span><span class="w"> </span><span class="n">Log</span><span class="p">,</span><span class="w"> </span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;[Render] DisableRendering=%s&quot;</span><span class="p">),</span><span class="w">                    </span><span class="c1">// 渲染引擎状态</span>
+<span class="n">EnabledDisabled</span><span class="p">(</span><span class="n">bDisableRendering</span><span class="p">));</span>
+<span class="n">UE_LOG</span><span class="p">(</span><span class="n">LogCarla</span><span class="p">,</span><span class="w"> </span><span class="n">Log</span><span class="p">,</span><span class="w"> </span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;[Quality] Level=%s&quot;</span><span class="p">),</span><span class="w">                              </span><span class="c1">// 画质等级反馈</span>
+<span class="o">*</span><span class="n">QualityLevelToString</span><span class="p">(</span><span class="n">QualityLevel</span><span class="p">));</span>
+</code></pre></div></li>
+</ul>
+<h1 id="carlasettingsh">二.CarlaSettings.h内容</h1>
+<h2 id="1">1.关键依赖模块</h2>
+<ul>
+<li><strong>功能</strong>：实现质量等级动态调整机制，支持蓝图系统调用。</li>
+<li><strong>核心功能流程图</strong>：
+ <code>mermaid
+    A[CarlaSettings.h] --&gt; B[Engine/StaticMesh.h]
+    A --&gt; C[QualityLevelUE.h]
+    A --&gt; D[CarlaSettings.generated.h]
+    B --&gt; E[Engine/StaticMeshActor.h]
+    C --&gt; F[CoreUObject.h]</code></li>
+<li><strong>关键依赖关系说明</strong>：</li>
+<li><code>静态网格依赖链</code>：<ul>
+<li><code></code>：通过StaticMesh.h实现对场景物体的精细控制</li>
+<li><code></code>：CarlaSettings -&gt; StaticMesh -&gt; StaticMeshActor</li>
+</ul>
+</li>
+<li><code>质量等级系统</code>：<ul>
+<li><code></code>：QualityLevelUE.h提供标准化的质量等级定义</li>
+<li><code></code>：与CoreUObject的交互实现蓝图可调用接口</li>
+</ul>
+</li>
+<li><code>反射系统支持</code>：<ul>
+<li><code></code>：.generated.h文件确保所有UPROPERTY/UCLASS标记的属性</li>
+<li><code></code>：支持编辑器可见性和序列化功能</li>
+</ul>
+</li>
+</ul>
+<p>## 2.类定义架构
+ ### 2.1 类声明规范
+ - <strong>核心类定义</strong>： 
+<div class="highlight"><pre><span></span><code><span class="n">UCLASS</span><span class="p">(</span><span class="n">BlueprintType</span><span class="p">,</span><span class="w"> </span><span class="n">Blueprintable</span><span class="p">,</span><span class="w"> </span><span class="n">config</span><span class="o">=</span><span class="n">Game</span><span class="p">,</span><span class="w"> </span><span class="n">defaultconfig</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CARLA_API</span><span class="w"> </span><span class="n">UCarlaSettings</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">UObject</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">GENERATED_BODY</span><span class="p">()</span>
+<span class="w">    </span><span class="c1">// 类成员定义...</span>
+<span class="p">};</span>
+</code></pre></div>
+- <strong>关键元数据说明</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>元数据</th>
+<th>类型</th>
+<th>功能描述</th>
+<th>应用示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>BlueprintType</strong></td>
+<td>类标记</td>
+<td>将C++类暴露给蓝图系统，允许在蓝图中作为变量类型使用</td>
+<td><code>UCLASS(BlueprintType)</code><br>允许在蓝图中创建<code>UCarlaSettings</code>类型变量</td>
+</tr>
+<tr>
+<td><strong>Blueprintable</strong></td>
+<td>类标记</td>
+<td>允许基于该C++类创建蓝图子类</td>
+<td><code>UCLASS(Blueprintable)</code><br>可在编辑器右键创建基于<code>UCarlaSettings</code>的蓝图资产</td>
+</tr>
+<tr>
+<td><strong>config=Game</strong></td>
+<td>配置标记</td>
+<td>指定配置保存的目标INI文件</td>
+<td><code>UCLASS(config=Game)</code><br>配置将保存在<code>Config/Game.ini</code>文件中</td>
+</tr>
+<tr>
+<td><strong>defaultconfig</strong></td>
+<td>持久化标记</td>
+<td>保持编辑器中修改的默认值</td>
+<td><code>UCLASS(defaultconfig)</code><br>在编辑器中修改的默认值会持久化保存</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><code>作用</code>：<ul>
+<li><code></code>：可在蓝图中创建该类型的变量</li>
+<li><code></code>：支持创建蓝图子类进行扩展</li>
+</ul>
+</li>
+<li><strong>继承关系图示</strong>：
+ <code>mermaid
+    UObject &lt;|-- UCarlaSettings
+    UCarlaSettings : +GENERATED_BODY()
+    UCarlaSettings : +BlueprintType
+    UCarlaSettings : +config=Game</code></li>
+</ul>
+<h3 id="22_1">2.2 质量等级管理系统</h3>
+<ul>
+<li><strong>枚举与接口定义</strong>： </li>
+<li><strong>核心代码</strong>： 
+<div class="highlight"><pre><span></span><code><span class="n">UENUM</span><span class="p">(</span><span class="n">BlueprintType</span><span class="p">)</span>
+<span class="k">enum</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">EQualityLevel</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">uint8</span><span class="w"> </span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">Low</span><span class="w">    </span><span class="n">UMETA</span><span class="p">(</span><span class="n">DisplayName</span><span class="o">=</span><span class="s">&quot;Low Quality&quot;</span><span class="p">),</span>
+<span class="w">    </span><span class="n">Epic</span><span class="w">   </span><span class="n">UMETA</span><span class="p">(</span><span class="n">DisplayName</span><span class="o">=</span><span class="s">&quot;Epic Quality&quot;</span><span class="p">)</span>
+<span class="p">};</span>
+
+<span class="n">UFUNCTION</span><span class="p">(</span><span class="n">BlueprintCallable</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="o">=</span><span class="s">&quot;Rendering&quot;</span><span class="p">)</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">SetQualityLevel</span><span class="p">(</span><span class="n">EQualityLevel</span><span class="w"> </span><span class="n">InQualityLevel</span><span class="p">);</span>
+
+<span class="n">UFUNCTION</span><span class="p">(</span><span class="n">BlueprintCallable</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="o">=</span><span class="s">&quot;Rendering&quot;</span><span class="p">)</span>
+<span class="n">EQualityLevel</span><span class="w"> </span><span class="n">GetQualityLevel</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div></li>
+<li><strong>设计特性分析</strong>：</li>
+<li><code>1.类型安全系统</code>：<ul>
+<li><code></code>：使用enum class避免隐式转换</li>
+<li><code></code>：UE的UENUM宏提供反射支持</li>
+</ul>
+</li>
+<li><code>2.蓝图集成方案</code>：<ul>
+<li><code></code>：BlueprintCallable标记公开给蓝图</li>
+<li><code></code>：Category组织编辑器中的显示位置</li>
+</ul>
+</li>
+<li>
+<p><strong>质量等级控制流程</strong>：
+ ```mermaid
+    participant BP as 蓝图系统
+    participant CPP as UCarlaSettings
+    participant Render as 渲染系统</p>
+<p>BP-&gt;&gt;CPP: SetQualityLevel(Epic)
+CPP-&gt;&gt;Render: UpdateAllMaterials()
+Render--&gt;&gt;CPP: 确认完成
+CPP--&gt;&gt;BP: 执行回调
+```</p>
+<h2 id="3">3.核心配置参数</h2>
+<h3 id="31_1">3.1网络服务配置</h3>
+<ul>
+<li><strong>质量等级控制流程</strong>：</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认值</th>
+<th>取值范围</th>
+<th>动态修改</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>RPCPort</strong></td>
+<td>uint32</td>
+<td>2000</td>
+<td>1024-65535</td>
+<td>需重启</td>
+<td>远程过程调用主端口，用于核心通信</td>
+</tr>
+<tr>
+<td><strong>StreamingPort</strong></td>
+<td>uint32</td>
+<td>2001</td>
+<td>自动计算</td>
+<td>实时更新</td>
+<td>传感器数据流端口，固定为RPCPort+1</td>
+</tr>
+<tr>
+<td><strong>bSynchronousMode</strong></td>
+<td>bool</td>
+<td>false</td>
+<td>true/false</td>
+<td>实时切换</td>
+<td>启用时严格按帧同步，用于确定性测试</td>
+</tr>
+<tr>
+<td><strong>PrimaryIP</strong></td>
+<td>std::string</td>
+<td>""</td>
+<td>IPv4格式</td>
+<td>实时更新</td>
+<td>主服务器地址，空表示本地主机</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>** 端口计算逻辑**：
+<div class="highlight"><pre><span></span><code><span class="c1">// 自动派生端口计算</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">CalculateDerivedPorts</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">StreamingPort</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RPCPort</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">  </span><span class="c1">// 固定+1偏移</span>
+<span class="w">    </span><span class="n">SecondaryPort</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RPCPort</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w">  </span><span class="c1">// 固定+2偏移</span>
+
+<span class="w">    </span><span class="c1">// 有效性验证</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="n">uint32</span><span class="w"> </span><span class="n">MIN_PORT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1024</span><span class="p">;</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="n">uint32</span><span class="w"> </span><span class="n">MAX_PORT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">65535</span><span class="p">;</span>
+<span class="w">    </span><span class="n">RPCPort</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FMath</span><span class="o">::</span><span class="n">Clamp</span><span class="p">(</span><span class="n">RPCPort</span><span class="p">,</span><span class="w"> </span><span class="n">MIN_PORT</span><span class="p">,</span><span class="w"> </span><span class="n">MAX_PORT</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></li>
+</ul>
+<h3 id="32_1">3.2 画质控制参数</h3>
+<ul>
+<li><strong>材质系统配置</strong>：</li>
+<li><code>道路材质配置</code>：
+  <div class="highlight"><pre><span></span><code><span class="w"> </span><span class="c1">// 低画质道路材质数组</span>
+<span class="w"> </span><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">config</span><span class="p">,</span><span class="w"> </span><span class="n">EditFixedSize</span><span class="p">)</span>
+<span class="w"> </span><span class="n">TArray</span><span class="o">&lt;</span><span class="n">FStaticMaterial</span><span class="o">&gt;</span><span class="w"> </span><span class="n">LowRoadMaterials</span><span class="p">;</span>
+<span class="w">  </span><span class="c1">// 高画质道路材质数组  </span>
+<span class="w">  </span><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">config</span><span class="p">,</span><span class="w"> </span><span class="n">EditFixedSize</span><span class="p">)</span><span class="w"> </span>
+<span class="w">  </span><span class="n">TArray</span><span class="o">&lt;</span><span class="n">FStaticMaterial</span><span class="o">&gt;</span><span class="w"> </span><span class="n">EpicRoadMaterials</span><span class="p">;</span>
+</code></pre></div><ul>
+<li><code>材质切换流程</code>：
+  <pre class="mermaid"><code>  participant Settings as 设置系统
+  participant Render as 渲染器
+  Settings-&gt;&gt;Render: GetQualityLevel()
+  alt Low质量
+      Render-&gt;&gt;Render: ApplyMaterials(LowRoadMaterials)
+  else Epic质量
+      Render-&gt;&gt;Render: ApplyMaterials(EpicRoadMaterials)
+  end </code></pre></li>
+</ul>
+</li>
+<li>
+<p><code>渲染控制参数</code>：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认值</th>
+<th>元数据约束</th>
+<th>单位</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LowStaticMeshMaxDrawDistance</td>
+<td>float</td>
+<td>10000.0</td>
+<td>ClampMin=5000.0</td>
+<td>厘米</td>
+</tr>
+<tr>
+<td>LowLightFadeDistance</td>
+<td>float</td>
+<td>1000.0</td>
+<td>-</td>
+<td>厘米</td>
+</tr>
+<tr>
+<td>bDisableRendering</td>
+<td>bool</td>
+<td>false</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>- <code>典型配置示例</code>：</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><div class="highlight"><pre><span></span><code><span class="p">[</span><span class="n">CARLA</span><span class="o">/</span><span class="n">QualitySettings</span><span class="p">]</span>
+<span class="n">LowStaticMeshMaxDrawDistance</span><span class="o">=</span><span class="mf">15000.0</span>
+<span class="n">LowRoadMaterials</span><span class="o">=</span><span class="p">(</span><span class="n">MaterialSlotName</span><span class="o">=</span><span class="s">&quot;Road&quot;</span><span class="p">,</span><span class="n">MaterialInterface</span><span class="o">=</span><span class="p">...)</span>
+</code></pre></div></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>参数应用流程</code>：</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>```mermaid</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>participant Config as 配置文件</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>participant System as 设置系统</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>participant Render as 渲染引擎</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Config-&gt;&gt;System: 加载画质参数
+  System-&gt;&gt;Render: ApplyQualitySettings()
+  Render-&gt;&gt;Render: 更新材质(Low/Epic)
+  Render-&gt;&gt;Render: 调整绘制距离
+    ```</p>
+<h2 id="4">4.配置加载系统</h2>
+<h3 id="41">4.1 多源加载接口</h3>
+<ul>
+<li><strong>核心加载方法</strong>：</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>参数</th>
+<th>返回值</th>
+<th>功能描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>LoadSettings()</code></td>
+<td>无</td>
+<td>void</td>
+<td><strong>综合加载</strong><br>按优先级加载所有可用配置源</td>
+</tr>
+<tr>
+<td><code>LoadSettingsFromString(const FString&amp; INIContent)</code></td>
+<td>INI格式字符串</td>
+<td>void</td>
+<td><strong>内存配置加载</strong><br>从字符串直接解析配置</td>
+</tr>
+<tr>
+<td><code>LoadSettingsFromFile(const FString&amp; FilePath, bool bLogOnFailure)</code></td>
+<td>文件路径<br>失败是否记录日志</td>
+<td>void</td>
+<td><strong>文件配置加载</strong><br>从INI文件读取配置</td>
+</tr>
+</tbody>
+</table>
+<p><strong>加载优先级</strong>：
+1. 命令行参数 (<code>-carla-settings=</code>)
+2. 项目配置文件 (<code>Config/CarlaSettings.ini</code>)
+3. 代码默认值
+    <pre class="mermaid"><code>graph TD
+A[命令行参数] --&gt; C[生效配置]
+B[INI文件] --&gt; C
+D[默认值] --&gt; C</code></pre></p>
+<h3 id="42">4.2 调试支持功能</h3>
+<ul>
+<li><strong>调试相关属性</strong>：</li>
+<li><strong>核心代码</strong>： 
+    <div class="highlight"><pre><span></span><code><span class="c1">// 当前加载的配置源文件路径</span>
+<span class="n">UPROPERTY</span><span class="p">(</span><span class="n">Category</span><span class="o">=</span><span class="s">&quot;Debug&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">VisibleAnywhere</span><span class="p">)</span>
+<span class="n">FString</span><span class="w"> </span><span class="n">CurrentFileName</span><span class="p">;</span>
+
+<span class="c1">// 配置日志输出（示例格式）</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">LogSettings</span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">UE_LOG</span><span class="p">(</span><span class="n">LogCarla</span><span class="p">,</span><span class="w"> </span><span class="n">Log</span><span class="p">,</span><span class="w"> </span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;Current Config: %s&quot;</span><span class="p">),</span><span class="w"> </span><span class="o">*</span><span class="n">CurrentFileName</span><span class="p">);</span>
+<span class="w">    </span><span class="n">UE_LOG</span><span class="p">(</span><span class="n">LogCarla</span><span class="p">,</span><span class="w"> </span><span class="n">Log</span><span class="p">,</span><span class="w"> </span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;RPCPort = %d&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">RPCPort</span><span class="p">);</span><span class="w"> </span>
+<span class="p">}</span>
+</code></pre></div></li>
+<li><strong>日志输出示例</strong>： 
+    <div class="highlight"><pre><span></span><code><span class="nl">LogCarla</span><span class="p">:</span><span class="w"> </span><span class="n">Current</span><span class="w"> </span><span class="n">Config</span><span class="o">:</span><span class="w"> </span><span class="n">D</span><span class="o">:/</span><span class="n">Project</span><span class="o">/</span><span class="n">Config</span><span class="o">/</span><span class="n">Carla</span><span class="p">.</span><span class="n">ini</span>
+<span class="nl">LogCarla</span><span class="p">:</span><span class="w"> </span><span class="n">RPCPort</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4000</span>
+<span class="nl">LogCarla</span><span class="p">:</span><span class="w"> </span><span class="n">QualityLevel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Epic</span>
+</code></pre></div></li>
+<li>
+<p><strong>调试功能对比</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>实现方式</th>
+<th>使用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>配置源追踪</td>
+<td>CurrentFileName</td>
+<td>确认最终生效的配置文件</td>
+</tr>
+<tr>
+<td>参数检查</td>
+<td>LogSettings()</td>
+<td>运行时验证参数值</td>
+</tr>
+<tr>
+<td>加载失败处理</td>
+<td>bLogOnFailure</td>
+<td>配置文件缺失时记录错误</td>
+</tr>
+<tr>
+<td>## 5. 高级功能实现</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>### 5.1 ROS2集成</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>核心配置项</strong>：</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><div class="highlight"><pre><span></span><code><span class="c1">// ROS桥接功能开关</span>
+<span class="n">UPROPERTY</span><span class="p">(</span><span class="n">Category</span><span class="o">=</span><span class="s">&quot;ROS2&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">config</span><span class="p">,</span><span class="w"> </span><span class="n">EditAnywhere</span><span class="p">)</span>
+<span class="kt">bool</span><span class="w"> </span><span class="n">bEnableROS2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+</code></pre></div></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>设计架构</strong>：</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><pre class="mermaid"><code>graph LR
+A[CARLA核心] --&gt; B{ROS2启用?}
+B --&gt;|是| C[启动ROS桥接]
+B --&gt;|否| D[跳过初始化]
+C --&gt; E[建立Topic通信]</code></pre></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>关键特性</strong>：</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>独立于画质系统的专属配置节</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>配置持久化到CarlaSettings.ini</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>运行时动态开关ROS服务</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>### 5.2  场景标记系统</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>标签常量定义</strong>：</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>```cpp</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>// 道路对象标签</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>static const FName CARLA_ROAD_TAG = TEXT("CARLA_ROAD");</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<p>// 天空球体标签<br />
+  static const FName CARLA_SKY_TAG = TEXT("CARLA_SKY");
+    <code>``
+- **应用场景**：
+  -</code>场景对象分类检索<code>-</code>批量处理特定类型Actor<code>-</code>运避免硬编码字符串风险`</p>
+<h2 id="6">6. 属性元数据系统</h2>
+<h3 id="61">6.1 属性定义规范</h3>
+<ul>
+<li><strong>典型示例</strong>：
+    <code>cpp
+    UPROPERTY(
+    Category="QualitySettings/Low",
+    BlueprintReadOnly,
+    EditAnywhere,
+    config,
+    meta=(ClampMin="5000.0", UIMin="5000.0")
+   )
+   float LowRoadPieceMeshMaxDrawDistance = 10000.0f;</code></li>
+</ul>
+<h3 id="62">6.2 元数据功能矩阵</h3>
+<p>| 
+元数据 | 作用域 | 参数格式 | 功能说明 |
+|------|------|--------|----------|
+| config | Property | - | 保存到INI配置文件 |
+| BlueprintReadOnly  | Property  |  - |  蓝图可见但不可写 |
+| ClampMin| Meta | "5000.0" | 数值最小值约束 |
+| EditCondition| Meta | "bEnableFeature"| 属性编辑条件控制
+ |</p>
+<h2 id="7">7. 扩展设计接口</h2>
+<h3 id="71">7.1 材质配置系统</h3>
+<ul>
+<li><strong>数据结构</strong>：
+    <div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">FQualityMaterialPreset</span><span class="w"> </span><span class="p">{</span>
+<span class="n">TMap</span><span class="o">&lt;</span><span class="n">FName</span><span class="p">,</span><span class="w"> </span><span class="n">UMaterialInterface</span><span class="o">*&gt;</span><span class="w"> </span><span class="n">SlotMaterials</span><span class="p">;</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">MaxDrawDistance</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="n">TArray</span><span class="o">&lt;</span><span class="n">FQualityMaterialPreset</span><span class="o">&gt;</span><span class="w"> </span><span class="n">RoadMaterialPresets</span><span class="p">;</span>
+</code></pre></div></li>
+<li><strong>特性</strong>：</li>
+<li><code>支持按材质插槽名称匹配</code></li>
+<li><code>多质量等级预设配置</code></li>
+<li><code>自动材质切换机制</code></li>
+</ul>
+<h3 id="72">7.2 光照控制系统</h3>
+<ul>
+<li><strong>光照控制参数表</strong>：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>数据类型</th>
+<th>默认值</th>
+<th>单位/范围</th>
+<th>功能描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>LowLightFadeDistance</strong></td>
+<td><code>float</code></td>
+<td>1000.0</td>
+<td>厘米(cm)</td>
+<td>控制光照效果的渐隐距离，超过此距离的光照效果会逐渐减弱</td>
+</tr>
+<tr>
+<td><strong>bCastDynamicShadows</strong></td>
+<td><code>bool</code></td>
+<td><code>false</code></td>
+<td>true/false</td>
+<td>是否启用动态阴影投射功能，开启后动态物体会产生实时阴影</td>
+</tr>
+<tr>
+<td><strong>ShadowResolution</strong></td>
+<td><code>int32</code></td>
+<td>512</td>
+<td>像素(pixels)</td>
+<td>定义阴影贴图的分辨率，数值越大阴影质量越高但性能消耗越大</td>
+</tr>
+<tr>
+<td>3. ShadowResolution</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>1. LowLightFadeDistance</code></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <code>代码示例</code>：</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>```cpp</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>struct FQualityMaterialPreset {</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>TMap<FName, UMaterialInterface*> SlotMaterials;</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>float MaxDrawDistance;</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>};</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<pre><code>    TArray&lt;FQualityMaterialPreset&gt; RoadMaterialPresets;
+    ```
+- `2. bCastDynamicShadows`
+- `3. ShadowResolution`
+</code></pre>
+<ul>
+<li><strong>优化策略：</strong>：
+    <code>mermaid
+        A[质量等级] --&gt; B{Low?}
+        B --&gt;|是| C[减少阴影计算]
+        B --&gt;|否| D[全特效渲染]</code></li>
+</ul>
+<h1 id="carlasettingsdelegatecpp">三.CarlaSettingsDelegate.cpp内容</h1>
+<h2 id="1_1">1.核心架构</h2>
+<h3 id="11_1">1.1 类定义与初始化</h3>
+<h1 id="carlasettingsdelegateh">四.CarlaSettingsDelegate.h内容</h1>
               
             </div>
           </div><footer>
