@@ -20,7 +20,7 @@
 
 ### 方法
 - <a name="carla.AckermannControllerSettings.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**speed_kp**=0.15</font>, <font color="#00a6ed">**speed_ki**=0.0</font>, <font color="#00a6ed">**speed_kd**=0.25</font>, <font color="#00a6ed">**accel_kp**=0.01</font>, <font color="#00a6ed">**accel_ki**=0.0</font>, <font color="#00a6ed">**accel_kd**=0.01</font>)  
-    - **Parameters:**
+    - **参数：**
         - `speed_kp` (_float_)  
         - `speed_ki` (_float_)  
         - `speed_kd` (_float_)  
@@ -391,7 +391,7 @@ Carla 为 Actor 提供了一个蓝图库，可以通过 [carla.BlueprintLibrary]
         - `extent` (_[carla.Vector3D](#carla.Vector3D)<small> - 米</small>_) - 包含每个轴的长方体大小的一半的向量。 
 - <a name="carla.BoundingBox.contains"></a>**<font color="#7fb800">contains</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**world_point**</font>, <font color="#00a6ed">**transform**</font>)  
 如果在世界空间中传递的点在此边界框内，则返回**True**。
-    - **Parameters:**
+    - **参数：**
         - `world_point` (_[carla.Location](#carla.Location)<small> - 米</small>_) - 要检查的世界空间中的点。 
         - `transform` (_[carla.Transform](#carla.Transform)_) - 包含将此对象的局部空间转换为世界空间所需的位置和旋转。 
     - **返回：** _bool_  
@@ -792,7 +792,7 @@ Y 像素坐标。
         - `life_time` (_float<small> - seconds</small>_) - 形状的生命周期。默认情况下，它只持续一帧。对于永久形状，将其设置为<code>0</code>。  
 - <a name="carla.DebugHelper.draw_hud_box"></a>**<font color="#7fb800">draw_hud_box</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**box**</font>, <font color="#00a6ed">**rotation**</font>, <font color="#00a6ed">**thickness**=0.1</font>, <font color="#00a6ed">**color**=(255,0,0)</font>, <font color="#00a6ed">**life_time**=-1.0</font>)  
 在 HUD 上绘制一个框，通常用于对象碰撞体。该框只能在服务器端看到。
-    - **Parameters:**
+    - **参数：**
         - `box` (_[carla.BoundingBox](#carla.BoundingBox)_) - 包含每个轴的框的位置和长度的对象。 
         - `rotation` (_[carla.Rotation](#carla.Rotation)<small> - degrees (pitch,yaw,roll)</small>_) - 根据虚幻引擎的轴系统确定边界框的方向。  
         - `thickness` (_float<small> - 米</small>_) - 定义边界框线的密度。 
