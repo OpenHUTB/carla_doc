@@ -13,7 +13,6 @@
 
   - - 关闭 RPC 服务器、流服务器及多 GPU 路由器。  
     - 清理当前 `UCarlaEpisode` 实例及关联的 Actor 数据。
->>>>>>> upstream/master
 ### 服务器启动与停止
 
 - **参数说明**：  
@@ -22,7 +21,6 @@
     - `SecondaryPort`: 多 GPU 路由器端口（仅多 GPU 环境需配置）。  
   - **返回值**：`FDataMultiStream` 对象，用于管理多路数据流（如传感器数据、控制指令）。
   
->>>>>>> upstream/master
 - **void Stop()**
   - 停止服务器运行，释放相关资源，关闭各种连接等，将服务器置于停止状态。
 
@@ -40,8 +38,6 @@
     - 处理客户端 RPC 请求。  
     - 更新 `UCarlaEpisode` 中的 Actor 状态。  
     - 推送传感器数据到流服务器。
-    - 
->>>>>>> upstream/master
 - **bool TickCueReceived()**
   - 检查是否接收到了“滴答”提示（Tick Cue），返回布尔值表示是否收到，可用于判断是否需要进行下一步相关操作等。
 
@@ -65,7 +61,6 @@
   - `SecondaryServer`: 多 GPU 环境下的数据路由控制器。  
   - `BindActions()`: 绑定 RPC 操作到具体实现（如 `SpawnActor`、`DestroyActor`）。
   
->>>>>>> upstream/master
 ### FPimpl 类成员
 
 - **FPimpl(uint16_t RPCPort, uint16_t StreamingPort, uint16_t SecondaryPort)**
@@ -107,8 +102,6 @@
 
 - **BIND_ASYNC(name)**
   - 用于异步绑定 RPC 函数（非阻塞式调用，适用于耗时操作）。
->>>>>>> upstream/master
-
 - **REQUIRE_CARLA_EPISODE()**
   - 确保当前有一个有效的 CARLA Episode 正在运行。
 
@@ -146,8 +139,8 @@ Copyright (c) 2020 Computer Vision Center (CVC) at the Universitat Autonoma de B
 | AutoPilotNotSupported            | 自动驾驶不支持             |
 | CarSimPluginNotEnabled           | 车辆模拟插件未启用         |
 | NotATrafficLight                 | 不是交通信号灯             |
-<<<<<<< HEAD
-| FunctionNotAvailiableWhenDormant | 当处于休眠状态时函数不可用 |
+|FunctionNotAvailiableWhenDormant|当处于休眠状态时函数不可用|
+|                                  |                            |
 
 ## 函数 CarlaGetStringError
 该函数用于根据给定的 ECarlaServerResponse 枚举值返回对应的错误描述字符串。
