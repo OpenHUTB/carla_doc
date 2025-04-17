@@ -22,7 +22,7 @@
 
 ### 带Carla插件的虚幻编辑器可执行版本
 
-根据 [链接](https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb) ，CarlaUE4 下载 `software/car/carla_unreal_v1.1.zip`  CarlaUE5 下载 `software/car/CarlaUE5_v1.0.zip`，解压后运行 `launch_*.bat` 就可以启动带Carla插件的虚幻编辑器。
+根据 [链接](https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb) ，CarlaUE4 下载 `software/car/carla_unreal_v1.1.zip`，CarlaUE5 下载 `software/car/CarlaUE5_v1.0.zip`，解压后运行 `launch_*.bat` 就可以启动带Carla插件的虚幻编辑器。
 
 !!! 注意
     CarlaUE5编辑器正常运行至少需要 8GB 显存。

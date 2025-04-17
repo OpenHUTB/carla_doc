@@ -3330,7 +3330,7 @@ VehiclePhysicsControl 构造函数。
 
 ### 方法
 - <a name="carla.WalkerBoneControlIn.__init__"></a>**<font color="#7fb800">\__init__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**list(name,transform)**</font>)  
-初始化一个包含要在节拍信号上应用的移动的对象。这些与骨骼的名称和将应用于它的变换一起列出。
+初始化一个包含要在节拍信号上应用的移动对象。这些与骨骼的名称和将应用于它的变换一起列出。
     - **参数:**
         - `list(name,transform)` (_tuple_)  
 
