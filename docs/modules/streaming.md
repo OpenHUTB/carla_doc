@@ -1,710 +1,791 @@
-概述
-Client 类是 CARLA (Computer Vision Center) 框架中的一个流式数据客户端，用于订阅数据流并进行处理。它支持多流订阅，并提供同步和异步运行方式。
+<h1><a href="#streaming">Streaming</a></h1>
+<h1><a href="#什么是-streaming">什么是 Streaming?</a></h1>
 
-该类使用 Boost.Asio 进行异步 I/O 操作，并依赖 CARLA 提供的 ThreadPool 进行多线程处理。同时，它通过 low_level::Client<detail::tcp::Client> 作为底层通信实现，使用 TCP 进行数据传输。
+- [结构化设计](#结构化设计)
+## [架构](#架构)
+- [概述](#概述)
+- [数据流管理](#数据流管理)
+- [事件驱动](#事件驱动)
+- [流式计算](#流式计算)
+- [异步处理](#异步处理)
+- [缓存管理](#缓存管理)
+- [流优化](#流优化)
+- [配置管理](#配置管理)
 
-主要功能
-订阅流数据（Subscribe）：支持用户基于 Token 订阅特定的数据流。
-取消订阅流（UnSubscribe）：可取消某个数据流的订阅。
-同步运行（Run）：以同步方式启动 ThreadPool，处理数据流。
-异步运行（AsyncRun）：以异步方式启动 ThreadPool，支持指定工作线程数量。
-头文件依赖
-本类依赖 CARLA 及 Boost 库，涉及的主要头文件如下：
 
-carla/Logging.h：CARLA 的日志系统，可能用于调试或错误记录。
-carla/ThreadPool.h：CARLA 的线程池实现，用于管理数据流的异步处理。
-carla/streaming/Token.h：数据流的令牌（Token），用于标识不同的流。
-carla/streaming/detail/tcp/Client.h：TCP 客户端，作为数据流的通信基础。
-carla/streaming/low_level/Client.h：CARLA 低级流式处理客户端。
-boost/asio/io_context.hpp：Boost.Asio 提供的 I/O 上下文，用于异步操作。
-类定义
-cpp
-复制
-编辑
-class Client {
-    using underlying_client = low_level::Client<detail::tcp::Client>;
-Client 类内部封装了 underlying_client，其中 low_level::Client<detail::tcp::Client> 作为底层 TCP 通信实现。
+## [使用Streaming](#使用streaming)
+- [数据输入与输出](#数据输入与输出)
+- [创建Streaming实例](#创建streaming实例)
+- [配置流式任务](#配置流式任务)
+- [停止Streaming](#停止streaming)
 
-构造函数
-cpp
-复制
-编辑
-Client() = default;
-默认构造函数：不做任何初始化，依赖 underlying_client 默认状态。
-cpp
-复制
-编辑
-explicit Client(const std::string &fallback_address) : _client(fallback_address) {}
-带参数的构造函数：
-fallback_address：用于初始化 underlying_client，作为 TCP 连接的备用地址。
-析构函数
-cpp
-复制
-编辑
-~Client() {
-    _service.Stop();
+## [运行模式](#运行模式)
+- [Streaming服务端和客户端](#streaming服务端和客户端)
+- [多客户端并发](#多客户端并发)
+- [多Streaming任务](#多streaming任务)
+- [端点配置与多地址支持](#端点配置与多地址支持)
+
+## [其他模式](#其他模式)
+- [同步模式](#同步模式)
+- [多端点 Streaming](#多端点-streaming)
+
+
+# [Streaming](#streaming)
+
+
+
+# [什么是 Streaming?](#什么是-streaming)
+
+**Streaming** 是 **CARLA 仿真环境中的流式数据传输模块**，负责 **服务器端创建数据流、客户端订阅流，并进行高效的数据传输**。  
+该模块适用于 **实时传感器数据传输、分布式仿真、远程数据处理** 等应用场景，并支持 **TCP/UDP、同步/异步模式、多客户端订阅** 等功能，确保仿真数据能够高效传输到多个订阅客户端。
+
+
+
+## [结构化设计](#结构化设计)
+结构化设计是一种 **模块化的软件架构方法**，通过 **高内聚、低耦合的方式** 组织系统，使其更易维护和扩展。
+
+Streaming 组件采用 **结构化设计**，通过 **模块化拆分**，将数据流管理、客户端订阅和传输机制解耦，提高了系统的 **可扩展性** 和 **维护性**。
+
+在 Streaming 组件中，**结构化设计** 体现在 **服务器（Server）、客户端（Client）、数据流（Stream）、Token 机制（Token）和通信端点（EndPoint）** 的 **分层管理**，实现 **清晰的模块拆分**，确保数据流的 **高效传输** 和 **动态管理**。
+
+- **服务器（Server）** 负责 **数据流的创建和推送**，管理不同的数据流实例。  
+- **客户端（Client）** 通过 **Token 机制** 订阅流，接收服务器推送的数据。  
+- **数据流（Stream）** 作为 **数据传输通道**，确保服务器和客户端之间的流式通信。  
+- **Token 机制（Token）** 用于 **流的访问控制**，确保客户端只能订阅 **授权的流**。  
+- **通信端点（EndPoint）** 作为 **网络接口**，处理数据流的输入输出，确保流的高效传输和路由管理。
+
+数据流组件 **独立于服务器和客户端运行**，避免强依赖关系，使得 Streaming 组件能够 **灵活适配多种实时数据场景**，如 **日志分析、视频流、金融交易和自动驾驶**。
+
+
+
+
+
+
+# [架构](#架构)
+
+## [概述](#概述)
+
+
+```mermaid
+flowchart TD
+    Client["Client - 订阅流 - 取消订阅流"]
+    Server["Server - 创建流 - 关闭流"]
+    Stream["Stream - 服务器向客户端传输数据"]
+    Token["Token - 作为流的唯一标识"]
+    EndPoint["EndPoint - 处理网络连接"]
+
+    Client -->|订阅流| Stream
+    Server -->|创建流| Stream
+    Stream -->|唯一标识| Token
+    Client -->|网络通信| EndPoint
+    Server -->|网络通信| EndPoint
+
+
+
+```
+该架构图展示了 **Client（客户端）**、**Server（服务器）**、**Stream（数据流）**、**Token（令牌）** 和 **EndPoint（端点）** 之间的交互关系。**服务器创建数据流（Stream），客户端通过网络端点（EndPoint）连接服务器并订阅流（使用唯一标识 Token），服务器向订阅的客户端推送数据。**
+
+
+
+
+
+
+
+
+
+
+## [数据流管理](#数据流管理)
+
+
+Streaming 组件的 **数据流管理** 主要关注 **数据的高效传输**、**流量控制** 和 **访问权限管理**，确保数据流的稳定性和可靠性。
+
+### **关键概念**
+- **流控制（Flow Control）**：通过 **异步传输机制（async_read / async_write）**，调整数据传输速率，防止 **客户端处理不过来** 或 **网络拥塞**。  
+- **访问控制（Access Control）**：使用 `Token.h` 提供 **流访问权限管理**，确保 **只有授权的客户端才能订阅数据流**。  
+- **高并发处理（Concurrency Management）**：`Server.h` 结合 `Boost.Asio` 提供 **异步并发能力**，支持多个客户端同时订阅数据流。
+
+### **关键实现**
+- **流式数据传输**：在 `Stream.h` 设计中，服务器通过 **数据流（Stream）** 进行持续数据推送，客户端通过 **Token 订阅流** 并消费数据。  
+- **异步并发机制**：`Server.h` 使用 `Boost.Asio` 提供 **异步 I/O 处理**，通过 `AsyncRun()` 方法调度多个线程，提高系统吞吐量。  
+- **访问权限管理**：`Token.h` 通过 `Token` 机制控制 **流的访问权限**，防止未授权客户端订阅数据流。
+
+### **总结**
+- **流控制** 预防网络拥塞，动态调整数据传输速率，确保客户端稳定接收数据。
+- **访问控制** 通过 `Token` 机制限制数据流权限，防止未授权访问。
+- **异步并发机制** 使用 `Boost.Asio` 进行线程管理，提高系统吞吐能力，支持多个客户端同时订阅数据流。
+
+
+
+## [事件驱动](#事件驱动)
+
+`streaming` 模块采用了 **事件驱动模型** 来管理客户端与服务器之间的异步通信。该模块利用 `Boost.Asio` 提供的 **异步 I/O 机制** 来处理事件，确保数据传输的 **高效性** 和 **非阻塞特性**。
+
+### 事件触发机制
+
+1. **客户端发送请求**  
+   - 客户端调用 `Boost.Asio` 提供的 `async_write` 发送数据，写入完成后，系统触发 **写入完成事件**。
+
+2. **服务器接收数据**  
+   - 服务器调用 `async_read` 读取数据，并根据数据流管理机制触发 **数据接收事件**。
+   - 服务器将数据推送到 `Stream.h` 进行流式传输，确保数据的高效分发。
+
+3. **数据流与订阅机制**  
+   - `Stream.h` 负责管理数据流，多个客户端可以通过流令牌 (`Token.h`) 订阅流。
+   - 如果没有客户端订阅该流，服务器推送的数据会被丢弃，避免不必要的资源消耗。
+
+4. **事件回调机制**  
+   - `Boost.Asio` 的 `io_context.run()` 负责驱动整个事件循环，确保所有 I/O 事件（读、写、连接）都能 **异步执行**，不会阻塞主线程，提高系统吞吐量。
+
+
+## [流式计算](#流式计算)
+
+`streaming` 模块中的 `Stream.h` 文件实现了 **流式计算** 模型，专注于高效处理大规模、连续的数据流。该模块支持 **多客户端订阅流**，并结合 **Boost.Asio** 进行 **异步数据传输**，使系统能够在不等待数据完全到达的情况下，按数据块处理数据流。
+
+### 核心概念
+
+- **数据流（Data Stream）**：`Stream.h` 通过 `Stream` 类提供单向数据流，允许多个客户端订阅并接收数据。
+- **流标识（Token-based Access）**：`Token.h` 定义了流标识机制，使客户端能够基于唯一令牌订阅特定数据流。
+- **异步数据处理（Asynchronous Processing）**：`Server.h` 和 `EndPoint.h` 结合 `Boost.Asio`，采用 `async_read` 和 `async_write` 进行非阻塞的数据传输。
+
+### 关键实现
+
+- **数据传输**：
+  - `Stream.h` 负责 **数据流的核心管理**，确保高效的数据传输和订阅机制。
+  - `Client.h` 处理 **客户端连接**，通过 `Token.h` 订阅数据流。
+  - `EndPoint.h` 采用 **Boost.Asio** 提供 **TCP/UDP 端口管理**，实现高效的异步通信。
+
+- **流事件驱动**：
+  - `Server.h` 结合 `Stream.h`，在数据流输入时触发事件，使处理器能够高效响应流数据。
+  - 采用 **多线程（ThreadPool）** 机制，优化数据分发，提高吞吐量。
+
+- **数据序列化**：
+  - `Token.h` 结合 `MsgPack` 进行数据序列化，提升传输效率，支持跨平台数据交互。
+
+
+## [异步处理](#异步处理)
+
+1. **服务器异步运行**
+
+   - Server.h 采用 Boost.Asio 提供的 io\_context 进行事件管理，AsyncRun(size\_t worker\_threads) 启动 **异步处理线程池**。
+   - 服务器监听端口，并在 MakeStream() 时创建数据流，数据流可以被多个客户端订阅。
+
+2. **客户端异步订阅**
+
+   - Client.h 提供 Subscribe(const Token &token, Functor &&callback) 方法，允许客户端基于 **流令牌** 订阅流数据。
+   - 订阅后，服务器端的数据会通过 **异步回调** 传输至客户端。
+
+3. **数据流管理**
+
+   - Stream.h 负责 **管理和分发数据流**，通过 Stream 进行 **非阻塞式数据推送**，多个客户端可同时订阅。
+   - 如果没有客户端订阅，该流中的数据将被丢弃，防止无效数据传输。
+
+4. **事件驱动与回调机制**
+
+   - Boost.Asio 的 io\_context.run() 驱动 **事件循环**，确保服务器和客户端都能在高并发环境下 **异步** 处理数据流。
+   - 服务器和客户端之间的数据交互采用 **回调机制**，在数据到达时自动触发 **数据处理回调**，确保高效的数据传输和处理。
+
+5. **多线程优化**
+
+   - Server.h 和 Client.h 采用 **线程池 (ThreadPool)**，在 AsyncRun(worker\_threads) 中指定线程数，以 **优化异步处理性能**，避免单线程阻塞问题。
+   - 服务器端可以在多个线程上处理 **多个数据流请求**，提高吞吐量。
+
+6. **网络端点管理**
+
+   - EndPoint.h 负责 **动态创建 TCP/UDP 端点**，支持 make\_endpoint(address, port) 动态绑定端口，使服务器可以灵活监听多个地址。
+   - boost::asio::ip::tcp::resolver 解析域名，支持 **跨网段通信**。
+
+
+
+## [缓存管理](#缓存管理)
+
+`streaming` 模块中的 **缓存管理（Buffer Management）** 旨在优化数据的存储和传输，减少 I/O 操作，提高系统吞吐量。
+
+## 关键概念
+- **数据缓冲（Buffering）**  
+  `Stream.h` 使用 **流状态（MultiStreamState）** 来管理数据的存储和传输，并采用缓存策略，减少直接访问网络或磁盘的开销。只有被客户端订阅的数据流才会被缓存，等待合适的时机发送。未被客户端订阅的数据流不会长时间存储，而是直接丢弃，以优化资源使用。
+
+- **流控制（Flow Control）**  
+ 服务器端 `Server.h` 通过 **低级 TCP 服务器（`low_level::Server<detail::tcp::Server>`）** 进行流控制，动态调整数据流速率，防止网络拥塞。令牌机制（Token）管理客户端订阅，影响数据传输策略。
+
+- **缓存清理（Buffer Cleanup）**  
+  `Server.h` 通过 **CloseStream()** 释放未使用的流，回收资源，避免内存占用。
+
+## 关键实现
+- **数据预存储**  
+  `Client.h` 发送数据时，`Stream.h` 先将数据存入 **流状态管理器**，等待合适的时机发送，以减少网络开销。
+
+- **分块处理**  
+  缓存采用 **分块机制**（Chunking），一次处理固定大小的数据块，减少资源占用，提高吞吐率。
+
+- **动态分配**  
+  `Server.h` 结合 **低级 TCP 服务器** 进行动态内存管理，根据订阅情况调整缓冲区大小，提高资源利用率。
+
+## 总结
+- **缓存管理** 减少不必要的 I/O 操作，提高系统性能。  
+- **流控制** 通过 **令牌订阅机制**，保证数据传输稳定，防止网络拥堵。  
+- **缓存清理** 通过 **CloseStream() 释放未使用的流**，避免内存泄漏，保持系统长期稳定运行。  
+
+
+
+
+
+## [流优化](#流优化)
+
+`streaming` 模块中的 **流优化（Stream Optimization）** 主要关注数据流的管理和调度，以提升传输效率、减少延迟，并优化系统的整体吞吐量。
+
+### 关键概念
+
+- **数据流管理（Stream Management）**：`Stream.h` 主要提供 **单向数据流**，支持多个客户端订阅数据流，但如果没有客户端订阅，数据会被丢弃，以减少无效传输。
+- **连接管理（Connection Management）**：`Server.h` 负责创建流，并管理端口连接，支持多个流的创建和管理。
+- **超时机制（Timeout Mechanism）**：`Server.h` 允许设置超时时间，避免长时间无响应造成资源占用。
+
+### 关键实现
+
+- **流订阅机制（Stream Subscription Mechanism）**：客户端可以通过 **流令牌（Stream Token）** 订阅数据流，确保数据只发送给有订阅的客户端，减少带宽浪费。
+- **线程池优化（Thread Pool Optimization）**：`Server.h` 使用 `carla::ThreadPool` 进行并发处理，提高流的并发能力和数据传输效率。
+- **基于 `boost::asio` 的异步传输（Asynchronous Transmission with Boost.Asio）**：底层使用 `boost::asio` 进行非阻塞数据传输，优化网络吞吐。
+
+### 总结
+
+- `streaming` 模块主要提供 **流的管理、订阅和并发处理**。
+- **线程池和异步传输** 提高了流的并发能力，减少阻塞，提高吞吐量。
+
+
+
+## [配置管理](#配置管理)
+
+## **概述**
+
+`streaming` 模块用于在服务器和客户端之间建立高效的数据流通信，依赖 `boost::asio` 进行网络传输，并使用 `carla::ThreadPool` 进行线程管理。现介绍该模块的配置方式，包括网络端口设置、线程池管理和依赖项安装等。
+
+
+
+## **环境要求**
+
+`streaming` 模块依赖以下组件：
+
+- **Boost.Asio**（用于网络通信）
+- **MsgPack**（用于数据序列化）
+- **carla::ThreadPool**（用于线程管理）
+
+安装 Boost 和 MsgPack（Ubuntu 示例）：
+
+```bash
+sudo apt-get install libboost-all-dev
+sudo apt-get install libmsgpack-dev
+```
+
+如果使用 `vcpkg` 进行依赖管理：
+
+```bash
+vcpkg install boost-asio msgpack
+```
+
+
+
+## **配置项**
+
+### **1. 网络配置**
+
+- `Server.h` 和 `EndPoint.h` 负责端点管理。
+- 服务器支持多种方式配置端口：
+
+**默认端口（8080）**
+
+```cpp
+carla::streaming::Server server(8080);
+server.Run();
+```
+
+**指定 IP 地址和端口**
+
+```cpp
+carla::streaming::Server server("192.168.1.100", 8080);
+server.Run();
+```
+
+**使用动态端点解析**
+
+```cpp
+auto endpoint = carla::streaming::make_endpoint<boost::asio::ip::tcp>("127.0.0.1", 8080);
+```
+
+**服务器获取本地端点**
+
+```cpp
+server.GetLocalEndpoint();
+```
+
+**客户端订阅流**
+
+```cpp
+client.Subscribe(token, [](auto msg) { std::cout << msg << std::endl; });
+```
+
+
+### **2. 线程池管理**
+
+服务器和客户端使用 `carla::ThreadPool` 进行并发调度。
+
+**同步运行服务器**
+
+```cpp
+server.Run();
+```
+
+**多线程异步执行（4 线程）**
+
+```cpp
+server.AsyncRun(4);
+```
+
+**客户端使用异步模式**
+
+```cpp
+client.AsyncRun(4);
+```
+
+
+### **3. 超时设置**
+
+服务器支持超时机制，防止连接长时间无响应。
+
+```cpp
+server.SetTimeout(time_duration);
+```
+
+
+## **示例配置**
+
+### **服务器端配置示例**
+
+```cpp
+// 包含Carla Streaming库中的Server头文件
+#include "carla/streaming/Server.h"
+
+// 主函数
+int main() {
+    // 创建一个Carla流媒体服务器实例，监听端口8080
+    carla::streaming::Server server(8080);
+    
+    // 启动服务器，开始监听和处理客户端连接
+    server.Run();
+    
+    // 序正常结束，返回0
+    return 0;
 }
-在对象销毁时，调用 ThreadPool 的 Stop() 方法，确保线程池资源释放，避免程序崩溃。
-数据流订阅
-cpp
-复制
-编辑
-template <typename Functor>
-void Subscribe(const Token &token, Functor &&callback) {
-    _client.Subscribe(_service.io_context(), token, std::forward<Functor>(callback));
+```
+
+### **客户端订阅示例**
+
+```cpp
+// 包含Carla Streaming库中的Client头文件
+#include "carla/streaming/Client.h"
+
+// 主函数
+int main() {
+    // 创建一个Carla流媒体客户端实例，连接到本地IP地址127.0.0.1
+    carla::streaming::Client client("127.0.0.1");
+
+    // 创建一个流媒体令牌（Token），用于订阅特定的数据流
+    carla::streaming::Token token;
+
+    // 使用客户端订阅指定的数据流，并提供一个回调函数来处理接收到的消息
+    client.Subscribe(token, [](auto msg) {
+        // 当接收到消息时，打印消息内容到控制台
+        std::cout << "Received: " << msg << std::endl;
+    });
+
+    // 启动客户端，开始接收和处理数据流
+    client.Run();
+
+    // 程序正常结束，返回0
+    return 0;
 }
-参数：
+```
 
-token：数据流的唯一标识，用于订阅特定流。
-callback：回调函数，处理订阅到的数据。
-功能：
 
-通过 _client.Subscribe() 调用底层 TCP 客户端进行数据流订阅。
-使用 ThreadPool 的 io_context() 进行异步 I/O 事件处理。
-⚠️ 注意：不能对同一个数据流重复订阅，即使是多流（MultiStream）。
 
-取消数据流订阅
-cpp
-复制
-编辑
-void UnSubscribe(const Token &token) {
-    _client.UnSubscribe(token);
-}
-功能：
-取消对 token 代表的数据流的订阅。
-同步运行
-cpp
-复制
-编辑
-void Run() {
-    _service.Run();
-}
-功能：
-以同步方式运行 ThreadPool，处理数据流。
-异步运行
-cpp
-复制
-编辑
-void AsyncRun(size_t worker_threads) {
-    _service.AsyncRun(worker_threads);
-}
-参数：
+## **总结**
 
-worker_threads：工作线程数量。
-功能：
+- `streaming` 模块提供 **灵活的网络配置**，支持 **本地和远程端点**。
+- **线程池管理** 提供 **同步与异步执行模式**，支持高并发数据流处理。
+- 服务器支持 **超时机制**，防止无效连接长期占用资源。
+- 依赖 `Boost.Asio` 进行 **异步网络通信**，用户需确保 **正确安装依赖**。
 
-以异步方式运行 ThreadPool，适用于多线程高效处理数据流。
-成员变量
-cpp
-复制
-编辑
-ThreadPool _service;
-underlying_client _client;
-_service：CARLA 提供的线程池，用于管理异步 I/O 操作。
-_client：底层 TCP 客户端，负责流式数据传输。
-⚠️ 变量顺序重要：
-
-ThreadPool _service 需要先定义，确保 _client 能正确访问 io_context()。
-总结
-Client 作为 CARLA 流式数据的订阅客户端，提供：
-
-多流订阅，但不能重复订阅同一流。
-基于 TCP 进行数据通信，依赖 Boost.Asio 进行异步 I/O 操作。
-支持同步与异步模式，可根据需求选择 Run() 或 AsyncRun(size_t)。
-使用 ThreadPool 进行线程管理，确保高效运行。
-该类适用于 CARLA 仿真系统中需要流式传输数据的场景，例如传输传感器数据、图像或车辆状态信息。
+该模块适用于 **高吞吐量、低延迟** 的流式数据传输场景，例如 **自动驾驶仿真、远程传感器数据采集、实时流处理**。
 
 
 
 
+# [使用 Streaming](#使用-streaming)
+
+Streaming 组件用于在服务器和客户端之间进行高效的数据流传输。它依赖 `boost::asio` 进行网络通信，并使用 `carla::ThreadPool` 进行线程管理。
 
 
 
-概述
-本文件定义了 CARLA (Computer Vision Center) 中 Streaming 组件的端点 (EndPoint) 相关功能，基于 Boost.Asio 提供的网络库，用于管理 TCP/UDP 网络连接的端点（IP 地址 + 端口）。
+## [数据输入与输出](#数据输入与输出)
 
-该文件的主要功能：
+Streaming 主要用于 **服务器向客户端单向发送数据**，多个客户端可以通过流令牌（Token）订阅相同的流。如果没有客户端订阅，该流中的数据将被丢弃。
 
-提供 完全定义（FullyDefinedEndPoint）和 部分定义（PartiallyDefinedEndPoint）的端点类型。
-提供多种 EndPoint 创建方式，包括：
-通过 boost::asio::ip::basic_endpoint<Protocol> 直接创建完全定义的端点。
-通过 IP 地址 + 端口 创建完全定义的端点。
-通过 端口号 创建部分定义的端点（默认使用 IPv4）。
-提供工具函数：将字符串地址转换为 Boost.Asio IP 地址。
-头文件依赖
-cpp
-复制
-编辑
-#include <boost/asio/io_context.hpp>
-#include <boost/asio/ip/address.hpp>
-#include <boost/asio/ip/tcp.hpp>
-#include <boost/asio/ip/udp.hpp>
-boost/asio/io_context.hpp：提供 io_context，用于管理 I/O 事件循环。
-boost/asio/ip/address.hpp：用于处理 IPv4 和 IPv6 地址。
-boost/asio/ip/tcp.hpp 和 boost/asio/ip/udp.hpp：分别支持 TCP 和 UDP 网络通信。
-命名空间
-该文件的所有代码都在 carla::streaming::detail 和 carla::streaming 命名空间下，以便组织 CARLA 的 Streaming 组件。
+| **主题**           | **描述**                                                 |
+|-------------------|--------------------------------------------------------|
+| **流（Stream）**    | 服务器向客户端传输数据的通道。                                   |
+| **流令牌（Token）**   | 用于标识和订阅数据流的唯一标识符。                               |
+| **端点（EndPoint）** | 定义 TCP/UDP 通信地址，包括 IP+端口 或仅端口的形式。         |
 
-核心类型
-端点类型定义
-cpp
-复制
-编辑
-struct FullyDefinedEndPoint {};
-struct PartiallyDefinedEndPoint {};
-FullyDefinedEndPoint：完全定义的端点，包含 IP 地址 和 端口。
-PartiallyDefinedEndPoint：部分定义的端点，仅包含 端口，IP 地址默认使用 IPv4::v4()。
-模板类 EndPoint<Protocol, EndPointType>
-EndPoint 类是 boost::asio::ip::basic_endpoint<Protocol> 的封装，提供更清晰的端点管理。
-
-完全定义的端点
-cpp
-复制
-编辑
-template <typename Protocol>
-class EndPoint<Protocol, FullyDefinedEndPoint> {
-public:
-    explicit EndPoint(boost::asio::ip::basic_endpoint<Protocol> ep)
-      : _endpoint(std::move(ep)) {}
-
-    auto address() const { return _endpoint.address(); }
-    uint16_t port() const { return _endpoint.port(); }
-
-    operator boost::asio::ip::basic_endpoint<Protocol>() const {
-      return _endpoint;
-    }
-
-private:
-    boost::asio::ip::basic_endpoint<Protocol> _endpoint;
-};
-存储：
-
-_endpoint：boost::asio::ip::basic_endpoint<Protocol>，包含 IP 地址和端口。
-功能：
-
-address()：返回 IP 地址。
-port()：返回端口号。
-operator boost::asio::ip::basic_endpoint<Protocol>()：支持转换为 boost::asio 的 basic_endpoint。
-部分定义的端点
-cpp
-复制
-编辑
-template <typename Protocol>
-class EndPoint<Protocol, PartiallyDefinedEndPoint> {
-public:
-    explicit EndPoint(uint16_t port) : _port(port) {}
-
-    uint16_t port() const { return _port; }
-
-    operator boost::asio::ip::basic_endpoint<Protocol>() const {
-      return {Protocol::v4(), _port}; // 默认使用 IPv4
-    }
-
-private:
-    uint16_t _port;
-};
-存储：
-
-_port：端口号（没有 IP 地址）。
-功能：
-
-port()：返回端口号。
-operator boost::asio::ip::basic_endpoint<Protocol>()：
-仅使用端口，IP 地址默认为 IPv4::v4()。
-辅助函数
-创建本地主机地址
-cpp
-复制
-编辑
-static inline auto make_localhost_address() {
-    return boost::asio::ip::make_address("127.0.0.1");
-}
-返回 127.0.0.1 地址，适用于 本机通信。
-解析字符串地址
-cpp
-复制
-编辑
-static inline auto make_address(const std::string &address) {
-    boost::asio::io_context io_context;
-    boost::asio::ip::tcp::resolver resolver(io_context);
-    boost::asio::ip::tcp::resolver::query query(boost::asio::ip::tcp::v4(), address, "",
-                                                boost::asio::ip::tcp::resolver::query::canonical_name);
-    boost::asio::ip::tcp::resolver::iterator iter = resolver.resolve(query);
-    boost::asio::ip::tcp::resolver::iterator end;
-
-    while (iter != end) {
-        boost::asio::ip::tcp::endpoint endpoint = *iter++;
-        return endpoint.address();
-    }
-
-    return boost::asio::ip::make_address(address);
-}
-功能：
-解析 字符串 IP 地址 或 主机名。
-使用 boost::asio::ip::tcp::resolver 进行 DNS 解析（例如，将 localhost 解析为 127.0.0.1）。
-如果解析失败，则直接返回 boost::asio::ip::make_address(address)。
-创建端点的工具函数
-创建完全定义的端点
-cpp
-复制
-编辑
-template <typename Protocol>
-static inline auto make_endpoint(boost::asio::ip::basic_endpoint<Protocol> ep) {
-    return detail::EndPoint<Protocol, detail::FullyDefinedEndPoint>{std::move(ep)};
-}
-通过 boost::asio::ip::basic_endpoint 直接创建 EndPoint。
-cpp
-复制
-编辑
-template <typename Protocol>
-static inline auto make_endpoint(const char *address, uint16_t port) {
-    return make_endpoint<Protocol>({make_address(address), port});
-}
-通过 字符串地址 + 端口 创建 EndPoint。
-cpp
-复制
-编辑
-template <typename Protocol>
-static inline auto make_endpoint(const std::string &address, uint16_t port) {
-    return make_endpoint<Protocol>(address.c_str(), port);
-}
-通过 std::string 调用 const char* 版本，保持一致性。
-创建部分定义的端点
-cpp
-复制
-编辑
-template <typename Protocol>
-static inline auto make_endpoint(uint16_t port) {
-    return detail::EndPoint<Protocol, detail::PartiallyDefinedEndPoint>{port};
-}
-仅通过 端口 创建端点（IP 默认为 IPv4::v4()）。
-总结
-该文件为 CARLA Streaming 组件提供了端点管理：
-
-支持 TCP 和 UDP，封装 boost::asio::ip::basic_endpoint<Protocol>。
-支持完全定义和部分定义的端点，灵活处理 IP 地址和端口。
-提供辅助函数：
-make_address() 解析字符串 IP 地址。
-make_endpoint() 生成端点实例。
-适用于网络通信场景，例如 数据流订阅、传感器数据传输等。
-该实现充分利用 Boost.Asio 提供的网络功能，使 CARLA 的 Streaming 组件能够高效管理端点。
+### 示例代码
+```cpp
+Stream my_stream = server.MakeStream(); // 创建流
+Token my_token = server.GetToken(1); // 获取流的 Token
+client.Subscribe(my_token, [](auto msg) { 
+    std::cout << "收到数据: " << msg << std::endl; 
+});
+```
 
 
 
-概述
-Server 类是 CARLA (Computer Vision Center) 框架中的 流式传输服务器，用于管理数据流的创建、关闭、订阅和分发。每个流都有一个唯一的 Token，客户端可以使用该 Token 订阅流数据。
+## [创建 Streaming 实例](#创建-streaming-实例)
 
-该服务器基于 Boost.Asio 进行 异步 I/O 处理，并使用 ThreadPool 进行多线程调度。底层通信采用 low_level::Server<detail::tcp::Server> 进行 TCP 传输。
+Streaming 由 **服务器（Server）** 和 **客户端（Client）** 组成。
 
-主要功能
-创建和管理数据流：
-MakeStream() 创建新的数据流。
-CloseStream(id) 关闭指定 ID 的流。
-流式传输管理：
-GetToken(sensor_id) 获取流的 Token，供客户端订阅。
-SetSynchronousMode(is_synchro) 设定同步/异步模式。
-服务器配置：
-SetTimeout(timeout) 设置超时时间。
-GetLocalEndpoint() 获取本地端点（IP + 端口）。
-运行服务器：
-Run() 以同步模式运行服务器。
-AsyncRun(worker_threads) 以 异步模式 运行服务器，支持多线程。
-ROS（Robot Operating System）支持：
-EnableForROS(sensor_id)/DisableForROS(sensor_id) 启用或禁用流的 ROS 支持。
-IsEnabledForROS(sensor_id) 检查流是否启用了 ROS。
-头文件依赖
-cpp
-复制
-编辑
-#include "carla/ThreadPool.h"
-#include "carla/streaming/detail/tcp/Server.h"
-#include "carla/streaming/detail/Types.h"
-#include "carla/streaming/low_level/Server.h"
-#include <boost/asio/io_context.hpp>
-carla/ThreadPool.h：CARLA 的线程池管理，支持并发流处理。
-carla/streaming/detail/tcp/Server.h：TCP 服务器底层实现，提供数据传输能力。
-carla/streaming/detail/Types.h：定义 流 ID 和 Token 类型。
-carla/streaming/low_level/Server.h：CARLA 低级别服务器封装。
-boost/asio/io_context.hpp：Boost.Asio 异步 I/O 支持。
-类定义
-cpp
-复制
-编辑
+| **主题**      | **描述**                                           |
+|--------------|--------------------------------------------------|
+| **Server**  | 创建和管理流，负责数据流的生成与推送。                     |
+| **Client**  | 订阅流，接收服务器推送的数据，并进行数据处理。               |
+
+### 服务器端（Server）
+```cpp
+Server server(8000); // 创建监听 8000 端口的服务器
+server.Run(); // 启动服务器
+Stream stream = server.MakeStream(); // 创建新的流
+```
+
+### 客户端（Client）
+```cpp
+Client client("127.0.0.1"); // 连接到服务器
+client.Run(); // 启动客户端
+client.Subscribe(my_token, [](auto msg) {
+    std::cout << "收到消息：" << msg << std::endl;
+});
+```
+
+
+
+## [配置流式任务](#配置流式任务)
+
+Streaming 支持**同步模式**和**异步模式**，可调整服务器与客户端的运行方式。
+
+| **主题**      | **描述**                                       |
+|--------------|--------------------------------------------|
+| **同步模式**  | 服务器和客户端以阻塞方式运行，适用于严格时序同步的任务。 |
+| **异步模式**  | 服务器和客户端运行在独立的线程池中，提高并发能力。   |
+
+### 启动服务器（同步模式）
+```cpp
+server.Run(); // 以同步模式运行
+```
+
+### 启动服务器（异步模式）
+```cpp
+server.AsyncRun(4); // 以 4 个线程运行
+```
+
+### 启动客户端（异步模式）
+```cpp
+client.AsyncRun(4); // 以 4 个线程运行
+```
+
+### 配置服务器超时
+```cpp
+server.SetTimeout(boost::posix_time::seconds(10)); // 设置 10 秒超时
+```
+
+
+## [停止 Streaming](#停止-streaming)
+
+Streaming 组件在 **服务器关闭时会自动停止**，但手动管理资源可确保所有订阅的客户端和服务器任务都正常释放。
+
+| **主题**       | **描述**                        |
+|--------------|------------------------------|
+| **停止客户端** | 取消订阅流，避免继续接收数据。       |
+| **停止服务器** | 关闭流 ID，停止数据流传输。       |
+| **销毁连接**   | 释放所有客户端连接，避免资源泄漏。 |
+
+### 停止客户端
+```cpp
+client.UnSubscribe(my_token); // 取消订阅流
+```
+
+### 停止服务器
+```cpp
+server.CloseStream(1); // 关闭流 ID 为 1 的数据流
+```
+
+### 销毁所有客户端连接
+```cpp
+client.apply_batch([carla::command::DestroyActor(x) for x in client_list]);
+```
+
+
+**注意：关闭 Streaming 服务器后，所有仍然订阅的客户端将无法接收新的数据。如果不主动销毁客户端，它们仍然存在，只是无法获取新的流数据。**
+
+
+**补充说明**
+> - 使用 `server.SetTimeout(x)` 设置超时参数，防止长时间挂起。
+> - 服务器默认运行在 `8000` 端口，可根据需要调整。
+> - 异步模式适用于高吞吐量应用，确保 `worker_threads` 数量适配任务需求。
+
+
+
+
+
+# [运行模式](#运行模式)
+
+
+## [Streaming 服务器端和客户端](#streaming-服务器端和客户端)
+
+
+### 概述
+Streaming 模块采用客户端-服务器 (Client-Server) 架构，服务器端 `Server` 负责创建和管理数据流，客户端 `Client` 负责订阅流并接收数据。  
+该架构允许多个客户端同时连接到服务器并接收同一数据流，实现高效的数据共享。
+
+---
+
+### 服务器端（Server）
+`Server` 主要功能：
+- 管理数据流：创建、关闭数据流，并管理流的生命周期。
+- 支持多客户端订阅：不同客户端可以同时订阅同一流，数据仅发送给已订阅的客户端。
+- 控制运行模式：支持同步 (`Run()`) 和异步 (`AsyncRun(worker_threads)`) 运行。
+
+#### 代码解析
+```cpp
 class Server {
-    using underlying_server = low_level::Server<detail::tcp::Server>;
-    using protocol_type = low_level::Server<detail::tcp::Server>::protocol_type;
-    using token_type = carla::streaming::detail::token_type;
-    using stream_id = carla::streaming::detail::stream_id_type;
-underlying_server：底层 TCP 服务器 类型。
-protocol_type：服务器协议（TCP）。
-token_type：流订阅的 Token 类型。
-stream_id：数据流 ID 类型。
-构造函数
-基于端口的服务器
-cpp
-复制
-编辑
-explicit Server(uint16_t port)
-  : _server(_pool.io_context(), make_endpoint<protocol_type>(port)) {}
-参数：
+public:
+    // 构造函数，接受一个端口号并创建一个服务器实例
+    explicit Server(uint16_t port)
+      : _server(_pool.io_context(), make_endpoint<protocol_type>(port)) {}
 
-port：服务器监听的端口号。
-功能：
+    // 构造函数，接受一个IP地址和端口号并创建一个服务器实例
+    explicit Server(const std::string &address, uint16_t port)
+      : _server(_pool.io_context(), make_endpoint<protocol_type>(address, port)) {}
 
-绑定 本机 IP (IPv4::v4()) 和指定端口。
-服务器数据流的 IO 事件由 _pool.io_context() 处理。
-基于地址和端口的服务器
-cpp
-复制
-编辑
-explicit Server(const std::string &address, uint16_t port)
-  : _server(_pool.io_context(), make_endpoint<protocol_type>(address, port)) {}
-参数：
+    // 创建一个新的数据流，并返回该流的实例
+    Stream MakeStream() {
+      return _server.MakeStream();
+    }
 
-address：服务器绑定的 IP 地址。
-port：服务器监听的端口。
-功能：
+    // 关闭指定ID的数据流
+    void CloseStream(stream_id id) {
+      return _server.CloseStream(id);
+    }
 
-绑定 指定的 IP 地址 和 端口，适用于多网卡环境。
-支持内外网的服务器
-cpp
-复制
-编辑
-explicit Server(
-    const std::string &address, uint16_t port,
-    const std::string &external_address, uint16_t external_port)
-  : _server(
-      _pool.io_context(),
-      make_endpoint<protocol_type>(address, port),
-      make_endpoint<protocol_type>(external_address, external_port)) {}
-参数：
+    // 启动服务器，开始处理连接和数据流
+    void Run() {
+      _pool.Run();
+    }
 
-address/port：服务器的 内部地址和端口。
-external_address/external_port：服务器的 外部地址和端口（用于 NAT 转发）。
-功能：
+private:
+    // 线程池，用于处理异步操作
+    ThreadPool _pool;
+    // 服务器实例，用于管理数据流和连接
+    ServerType _server;
+};
+```
 
-允许 内外网地址不同，适用于 云服务器或 NAT 场景。
-析构函数
-cpp
-复制
-编辑
-~Server() {
-  _pool.Stop();
-}
-功能：
-停止 线程池，释放资源。
-服务器操作
-获取本地端点
-cpp
-复制
-编辑
-auto GetLocalEndpoint() const {
-  return _server.GetLocalEndpoint();
-}
-返回：服务器的本地 IP 和端口。
-设置超时时间
-cpp
-复制
-编辑
-void SetTimeout(time_duration timeout) {
-  _server.SetTimeout(timeout);
-}
-参数：
+#### 示例
+```cpp
+// 创建服务器并监听 8080 端口
+carla::streaming::Server server(8080);
+server.Run();  // 运行服务器
+```
 
-timeout：超时时间。
-功能：
 
-设置 数据流的超时时间，防止 长期未订阅的流占用资源。
-流操作
-创建流
-cpp
-复制
-编辑
+### 客户端（Client）
+`Client` 主要功能：
+- 订阅服务器流：通过 `Subscribe(token, callback)` 订阅流，并传入回调函数处理数据。
+- 取消订阅：调用 `UnSubscribe(token)` 停止接收流数据。
+- 控制运行模式：支持同步 (`Run()`) 和异步 (`AsyncRun(worker_threads)`) 运行。
+
+#### 代码解析
+```cpp
+class Client {
+public:
+    // 订阅指定令牌（Token）对应的数据流，并提供一个回调函数来处理接收到的消息
+    void Subscribe(const Token &token, Functor &&callback) {
+      // 使用客户端实例订阅数据流，并将回调函数与数据流关联
+      _client.Subscribe(_service.io_context(), token, std::forward<Functor>(callback));
+    }
+
+    // 取消订阅指定令牌（Token）对应的数据流
+    void UnSubscribe(const Token &token) {
+      // 使用客户端实例取消订阅数据流
+      _client.UnSubscribe(token);
+    }
+
+    // 启动客户端，开始处理数据流和回调
+    void Run() {
+      // 运行服务以处理异步操作
+      _service.Run();
+    }
+
+private:
+    // 服务实例，用于管理异步操作和事件循环
+    ServiceType _service;
+    // 客户端实例，用于管理数据流的订阅和取消订阅
+    ClientType _client;
+};
+```
+
+#### 示例
+```cpp
+// 创建Carla流媒体客户端
+carla::streaming::Client client;
+
+// 从服务器获取令牌
+Token token = server.GenerateToken();
+
+// 订阅数据流并设置回调
+client.Subscribe(token, [](auto data) {
+    std::cout << "Received Data: " << data << std::endl;
+});
+
+// 启动客户端
+client.Run();
+
+// 如果需要非阻塞运行，可以使用多线程
+// std::thread clientThread([&client]() { client.Run(); });
+// clientThread.detach();
+```
+
+
+## [多客户端并发](#多客户端并发)
+
+### 概述
+Streaming 模块支持多个客户端同时订阅同一个流，数据流可被多个客户端共享，不影响彼此。  
+在 `Stream.h` 中，`Stream` 采用 `MultiStreamState` 机制，允许多个客户端同时接收同一数据流。
+
+### 代码解析
+```cpp
+using Stream = detail::Stream<detail::MultiStreamState>;
+```
+
+#### 示例
+```cpp
+// 多个客户端订阅同一流
+client1.Subscribe(token, callback);
+client2.Subscribe(token, callback);
+client3.Subscribe(token, callback);
+```
+
+
+## [多Streaming任务](#多Streaming任务)
+
+### 概述
+服务器支持多个 `Stream` 并行运行，每个 `Stream` 由唯一 `Token` 识别，不同客户端可以订阅不同的流，互不干扰。
+
+#### 代码解析
+```cpp
+// 定义一个函数 MakeStream，用于创建新的 Streaming 流
 Stream MakeStream() {
-  return _server.MakeStream();
+  return _server.MakeStream(); // 调用服务器对象的 MakeStream 方法，返回一个新的流
 }
-功能：
-创建 新的数据流，供客户端订阅。
-关闭流
-cpp
-复制
-编辑
-void CloseStream(carla::streaming::detail::stream_id_type id) {
-  return _server.CloseStream(id);
+```
+
+#### 示例
+```cpp
+// 创建两个独立的 Streaming 流
+Stream stream1 = server.MakeStream(); // 通过服务器创建第一个流
+Stream stream2 = server.MakeStream(); // 通过服务器创建第二个流
+
+```
+
+
+## [端点配置与多地址支持](#端点配置与多地址支持)
+
+### 概述
+Streaming 支持灵活的 **端点 (EndPoint)** 配置，可以使用 IP 地址或端口定义服务器端和客户端的连接方式。
+
+#### 代码解析
+```cpp
+// 静态内联函数 make_endpoint，用于根据提供的 IP 地址和端口号创建一个完全定义的端点
+static inline auto make_endpoint(const std::string &address, uint16_t port) {
+    return detail::EndPoint<Protocol, detail::FullyDefinedEndPoint>(
+        {make_address(address), port} // 将字符串地址转换为 boost::asio::ip::address 并与端口号组合，生成端点
+    );
 }
-参数：
 
-id：要关闭的 流 ID。
-功能：
+```
 
-关闭 指定 ID 的数据流。
-服务器运行
-同步模式
-cpp
-复制
-编辑
-void Run() {
-  _pool.Run();
-}
-功能：
-同步模式 运行 服务器线程池。
-异步模式
-cpp
-复制
-编辑
-void AsyncRun(size_t worker_threads) {
-  _pool.AsyncRun(worker_threads);
-}
-参数：
+#### 示例
+```cpp
+// 创建一个 Streaming 服务器，监听本机 127.0.0.1（即 localhost）上的 8080 端口
+Server server("127.0.0.1", 8080);
 
-worker_threads：工作线程数量。
-功能：
+// 启动服务器，使其开始运行并接受客户端的连接
+server.Run();
 
-异步运行 服务器，适用于 高并发环境。
-同步模式配置
-cpp
-复制
-编辑
+```
+
+
+## 总结
+- Streaming 服务器和客户端实现高效的数据传输，支持同步/异步模式。
+- 服务器支持多客户端并发，多个客户端可订阅同一流，数据并行分发。
+- 服务器支持多个 Streaming 任务，每个任务由 `Token` 识别，客户端可分别订阅不同流。
+- 服务器和客户端支持灵活的端点配置，允许自定义 IP 地址、端口，适用于不同的网络环境。
+
+
+
+# [其他模式](#其他模式)
+## [同步模式](#同步模式)
+
+在同步模式下，服务器端的 `Server` 类可以通过 `SetSynchronousMode` 方法控制是否以同步方式运行。同步模式主要用于需要严格按照时序进行数据传输的场景，比如模拟器同步数据流。
+
+在 `Server.h` 文件中，可以看到 `SetSynchronousMode(bool is_synchro)` 方法，它用于控制服务器端的同步模式开关：
+```cpp
+// 设置服务器的同步模式
 void SetSynchronousMode(bool is_synchro) {
   _server.SetSynchronousMode(is_synchro);
 }
-参数：
+```
+此外，`Run()` 方法用于同步启动服务器，而 `AsyncRun(size_t worker_threads)` 则支持异步多线程运行。
 
-is_synchro：是否启用 同步模式。
-功能：
-
-设定 同步/异步 运行模式。
-ROS 支持
-获取流 Token
-cpp
-复制
-编辑
-token_type GetToken(stream_id sensor_id) {
-  return _server.GetToken(sensor_id);
+```cpp
+// 以同步方式运行服务器
+void Run() {
+  _pool.Run();
 }
-功能：
-获取 流的唯一 Token，用于客户端订阅。
-启用 ROS
-cpp
-复制
-编辑
-void EnableForROS(stream_id sensor_id) {
-  _server.EnableForROS(sensor_id);
+
+// 以异步方式运行服务器，指定工作线程数量
+void AsyncRun(size_t worker_threads) {
+  _pool.AsyncRun(worker_threads);
 }
-功能：
-允许 ROS 系统订阅该流。
-禁用 ROS
-cpp
-复制
-编辑
-void DisableForROS(stream_id sensor_id) {
-  _server.DisableForROS(sensor_id);
+```
+
+## [多端点 Streaming](#多端点-streaming)
+
+多端点 Streaming 主要依赖 `EndPoint.h` 中的 `EndPoint` 相关类，该类提供了 `FullyDefinedEndPoint` 和 `PartiallyDefinedEndPoint` 两种端点类型。
+
+在 `Server.h` 中，`Server` 类使用 `make_endpoint<protocol_type>(address, port)` 方法创建端点，并支持外部地址绑定：
+```cpp
+// 服务器构造函数，绑定到指定地址和端口
+explicit Server(const std::string &address, uint16_t port)
+  : _server(_pool.io_context(), make_endpoint<protocol_type>(address, port)) {}
+```
+
+对于客户端 `Client.h`，客户端通过 `Subscribe(const Token &token, Functor &&callback)` 订阅流，并在 `UnSubscribe(const Token &token)` 取消订阅。
+
+```cpp
+// 客户端订阅数据流
+template <typename Functor>
+void Subscribe(const Token &token, Functor &&callback) {
+  _client.Subscribe(_service.io_context(), token, std::forward<Functor>(callback));
 }
-检查 ROS 状态
-cpp
-复制
-编辑
-bool IsEnabledForROS(stream_id sensor_id) {
-  return _server.IsEnabledForROS(sensor_id);
+
+// 取消订阅数据流
+void UnSubscribe(const Token &token) {
+  _client.UnSubscribe(token);
 }
-总结
-支持 TCP 传输，用于 传感器数据流。
-管理多个数据流，支持 动态创建/关闭。
-异步/同步模式，支持 高并发。
-支持 ROS，可用于机器人应用。
-适用于 CARLA 仿真环境，管理 车辆、传感器等数据流。
-该 Server 适用于 自动驾驶仿真、数据流管理、实时通信 等场景。
+```
 
-
-
-
-
-
-
-CARLA Streaming Stream 说明文档
-概述
-本文件定义了 CARLA (Computer Vision Center) 框架中 Streaming 组件的 Stream 类型，用于在服务器和客户端之间建立单向的数据流通道。
-
-核心功能
-单向数据流：服务器向客户端 发送数据，客户端可通过 订阅流令牌 进行访问。
-多客户端支持：多个客户端可以同时订阅 同一个流，共享数据。
-无订阅丢弃机制：如果 没有客户端订阅 该流，推送的数据会被 自动丢弃，不会占用额外的资源。
-该 Stream 依赖 MultiStreamState 进行状态管理，确保流的正确操作和多客户端支持。
-
-头文件依赖
-cpp
-复制
-编辑
-#include "carla/streaming/detail/MultiStreamState.h"
-#include "carla/streaming/detail/Stream.h"
-carla/streaming/detail/MultiStreamState.h
-负责管理 多客户端订阅状态，即 Stream 支持多个客户端订阅的功能由其实现。
-carla/streaming/detail/Stream.h
-具体实现 数据流 的创建、管理和数据推送。
-命名空间
-该代码位于 carla::streaming 命名空间中：
-
-cpp
-复制
-编辑
-namespace carla {
-namespace streaming {
-carla：CARLA 项目的顶级命名空间。
-streaming：CARLA 流式传输 组件的子命名空间。
-类型定义
-cpp
-复制
-编辑
-using Stream = detail::Stream<detail::MultiStreamState>;
-Stream 是 detail::Stream 的 模板特化，基于 MultiStreamState 进行管理：
-detail::Stream：实现流的核心逻辑，如 数据传输、客户端订阅管理。
-detail::MultiStreamState：
-维护多个客户端的 订阅状态。
-负责 管理数据流的可见性（是否被订阅）。
-控制 数据推送（无订阅时丢弃数据）。
-特点
-服务器端向客户端推送数据。
-支持多客户端订阅，使用 stream token 进行访问。
-如果无客户端订阅，则数据会被丢弃，节省资源。
-工作机制
-1. 订阅与数据传输
-服务器创建 Stream 并分配 流令牌 (stream token)。
-客户端使用 流令牌 订阅 Stream。
-已订阅：数据推送到所有订阅客户端。
-未订阅：数据被 丢弃。
-2. Stream 生命周期
-Stream 创建 后，等待客户端 订阅。
-至少一个客户端订阅，数据正常推送。
-无客户端订阅，数据会 被丢弃，避免资源浪费。
-客户端
-cpp
-复制
-编辑
-#include "carla/streaming/Client.h"
-
-int main() {
-    carla::streaming::Client client("127.0.0.1");  // 连接服务器
-    auto token = ... // 服务器提供的 Token
-
-    // 订阅流并接收数据
-    client.Subscribe(token, [](auto data) {
-        std::cout << "Received: " << data << std::endl;
-    });
-
-    client.Run();  // 开始监听数据
-    return 0;
-}
-使用 Token 订阅 Stream。
-接收数据 并输出。
-CARLA Streaming Stream 的核心特性
-CARLA Stream 组件提供了一种单向数据流机制，允许服务器向客户端传输数据。多个客户端可以订阅同一个流，通过 流令牌（Token） 访问数据。如果没有客户端订阅，该流的数据将会被自动丢弃，避免浪费资源。
-
-Stream 依赖 MultiStreamState 进行状态管理，确保支持多客户端订阅，并根据订阅情况动态管理数据传输。
-
-适用场景
-Stream 组件适用于 自动驾驶仿真数据传输、多传感器数据流管理、实时监控、服务器-客户端式流媒体传输等应用场景。特别是在 CARLA 仿真系统 中，它被广泛用于 传感器数据流 的传输，确保多个客户端能够同时访问相同的数据源，而不会造成资源浪费。
-
-
-概述
-Token 是 CARLA (Computer Vision Center) 框架中 Streaming 组件的一部分，它用于 唯一标识 一个数据流，使客户端能够订阅和访问特定的流数据。
-
-Token 由一个 固定大小的 24 字节数组 (std::array<unsigned char, 24u>) 组成，保证了唯一性和高效性。此外，它使用 MsgPack 序列化，支持高效的数据传输和存储。
-
-头文件依赖
-cpp
-复制
-编辑
-#include "carla/MsgPack.h"
-#include <array>
-carla/MsgPack.h：
-提供 MsgPack 序列化支持，允许 Token 进行 二进制数据编码，方便在网络通信中传输。
-<array>：
-使用 std::array 存储 24 字节的数据，确保 Token 大小固定，性能稳定。
-命名空间
-代码位于 carla::streaming 命名空间：
-
-cpp
-复制
-编辑
-namespace carla {
-namespace streaming {
-carla：CARLA 仿真框架的顶级命名空间。
-streaming：用于管理 流式传输 相关功能的命名空间。
-类定义
-cpp
-复制
-编辑
-class Token {
-public:
-    std::array<unsigned char, 24u> data;
-
-    MSGPACK_DEFINE_ARRAY(data);
-};
-成员变量
-std::array<unsigned char, 24u> data;
-存储 24 字节的 Token 数据，用于唯一标识某个流。
-unsigned char 数组可用于存储 随机生成的唯一标识符。
-序列化支持
-cpp
-复制
-编辑
-MSGPACK_DEFINE_ARRAY(data);
-MsgPack 支持：
-允许 Token 自动序列化 和 反序列化，便于 网络传输和存储。
-该宏将 data 数组注册为 MsgPack 数据结构，可以用于 高效二进制编码。
-功能作用
-唯一标识流
-
-Token 作为流的 唯一 ID，用于客户端和服务器之间的数据订阅。
-客户端需要 Token 来 请求特定流的数据。
-支持多客户端
-
-服务器可以为不同的流 生成不同的 Token，多个客户端可以使用相同的 Token 订阅相同的流。
-高效序列化
-
-使用 MsgPack 进行高效编码，相比 JSON 更紧凑，占用更少的存储和带宽。
-工作机制
-1. 服务器端
-服务器 创建数据流 并生成 Token。
-Token 通过 网络传输 发送给 客户端。
-客户端使用 Token 订阅流，接收数据。
-2. 客户端端
-客户端获取 Token 后，向服务器 请求订阅流。
-服务器验证 Token，如果有效，允许订阅。
-订阅成功后，客户端可以 持续接收流数据。
-客户端端
-cpp
-复制
-编辑
-#include "carla/streaming/Client.h"
-
-int main() {
-    carla::streaming::Client client("127.0.0.1");  // 连接服务器
-    carla::streaming::Token token = ...;  // 服务器提供的 Token
-
-    // 订阅流
-    client.Subscribe(token, [](auto data) {
-        std::cout << "Received: " << data << std::endl;
-    });
-
-    client.Run();  // 开始监听流数据
-    return 0;
-}
-客户端 使用 Token 订阅流。
-服务器推送的数据 会自动传输到客户端。
-总结
-Token 作为 CARLA Streaming 组件 的核心元素，提供了一种 安全、高效的方式 来唯一标识数据流。它具有以下特点：
-
-用于唯一标识流
-
-Token 是 数据流的唯一 ID，客户端需要 Token 才能订阅流数据。
-支持多客户端订阅
-
-服务器可以为不同流生成 不同的 Token，实现多个客户端订阅 同一数据流。
-高效序列化
-
-通过 MsgPack 进行二进制编码，提高数据传输效率，减少存储和网络开销。
-与 Streaming 组件深度集成
-
-Token 由服务器 生成 并 分发 给客户端，客户端使用 Token 订阅流 并接收数据。
-Token 机制确保了 数据流传输的安全性和可控性，在 CARLA 仿真系统中，广泛用于传感器数据传输和远程数据监控。
+这些机制确保了服务器和多个客户端之间的高效数据传输，并允许多个客户端同时订阅同一个数据流，从而实现多端点 Streaming。

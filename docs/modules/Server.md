@@ -9,14 +9,20 @@
 - **FCarlaServer()**
   - 默认构造函数，用于创建 `FCarlaServer` 类的对象实例。
 
-- **~FCarlaServer()**
-  - 析构函数，用于在对象销毁时进行资源清理、释放等相关操作，比如关闭网络连接、释放内存等。
+- 释放以下资源：  
 
+  - - 关闭 RPC 服务器、流服务器及多 GPU 路由器。  
+    - 清理当前 `UCarlaEpisode` 实例及关联的 Actor 数据。
+>>>>>>> upstream/master
 ### 服务器启动与停止
 
-- **FDataMultiStream Start(uint16_t RPCPort, uint16_t StreamingPort, uint16_t SecondaryPort)**
-  - 启动服务器相关功能，传入 RPC 端口号（RPCPort）、流数据端口号（StreamingPort）以及备用端口号（SecondaryPort），返回一个多数据流对象（FDataMultiStream），可能用于后续的多种数据传输交互场景。
-
+- **参数说明**：  
+    - `RPCPort`: RPC 服务端口（默认范围 2000-3000）。  
+    - `StreamingPort`: 流数据端口（需与客户端配置一致）。  
+    - `SecondaryPort`: 多 GPU 路由器端口（仅多 GPU 环境需配置）。  
+  - **返回值**：`FDataMultiStream` 对象，用于管理多路数据流（如传感器数据、控制指令）。
+  
+>>>>>>> upstream/master
 - **void Stop()**
   - 停止服务器运行，释放相关资源，关闭各种连接等，将服务器置于停止状态。
 
@@ -30,15 +36,12 @@
 
 ### 服务器运行
 
-- **void AsyncRun(uint32 NumberOfWorkerThreads)**
-  - 以异步方式运行服务器，传入工作线程数量（NumberOfWorkerThreads）参数，可让服务器利用多线程来高效处理各种任务，比如数据接收、处理和发送等。
-
-- **void RunSome(uint32 Milliseconds)**
-  - 运行服务器一段时间，传入时间（以毫秒为单位，Milliseconds）参数，在指定时长内执行服务器相关的逻辑，比如处理数据、更新状态等。
-
-- **void Tick()**
-  - 执行服务器的一次“滴答”操作，通常用于周期性地更新服务器状态、处理数据等，类似于游戏循环里的每一帧更新逻辑。
-
+  - **功能**：执行单次服务器状态更新，包括：  
+    - 处理客户端 RPC 请求。  
+    - 更新 `UCarlaEpisode` 中的 Actor 状态。  
+    - 推送传感器数据到流服务器。
+    - 
+>>>>>>> upstream/master
 - **bool TickCueReceived()**
   - 检查是否接收到了“滴答”提示（Tick Cue），返回布尔值表示是否收到，可用于判断是否需要进行下一步相关操作等。
 
@@ -57,8 +60,12 @@
 
 ## 内部类 FPimpl
 
-`FCarlaServer` 类内部定义了一个名为 `FPimpl` 的私有内部类，通常这种方式用于实现“编译防火墙”（Pimpl，即“Pointer to implementation”），将类的实现细节隐藏在内部类中，对外只暴露接口。
-
+- **关键成员**：  
+  - `StreamingServer`: 管理传感器数据流（如摄像头、激光雷达）。  
+  - `SecondaryServer`: 多 GPU 环境下的数据路由控制器。  
+  - `BindActions()`: 绑定 RPC 操作到具体实现（如 `SpawnActor`、`DestroyActor`）。
+  
+>>>>>>> upstream/master
 ### FPimpl 类成员
 
 - **FPimpl(uint16_t RPCPort, uint16_t StreamingPort, uint16_t SecondaryPort)**
@@ -90,10 +97,17 @@
 ## 辅助宏
 
 - **BIND_SYNC(name)**
+<<<<<<< HEAD
   - 用于同步绑定 RPC 函数。
 
 - **BIND_ASYNC(name)**
   - 用于异步绑定 RPC 函数。
+  =======
+  - 用于同步绑定 RPC 函数（阻塞式调用，适用于简单操作）。
+
+- **BIND_ASYNC(name)**
+  - 用于异步绑定 RPC 函数（非阻塞式调用，适用于耗时操作）。
+>>>>>>> upstream/master
 
 - **REQUIRE_CARLA_EPISODE()**
   - 确保当前有一个有效的 CARLA Episode 正在运行。
@@ -132,6 +146,7 @@ Copyright (c) 2020 Computer Vision Center (CVC) at the Universitat Autonoma de B
 | AutoPilotNotSupported            | 自动驾驶不支持             |
 | CarSimPluginNotEnabled           | 车辆模拟插件未启用         |
 | NotATrafficLight                 | 不是交通信号灯             |
+<<<<<<< HEAD
 | FunctionNotAvailiableWhenDormant | 当处于休眠状态时函数不可用 |
 
 ## 函数 CarlaGetStringError
@@ -140,3 +155,18 @@ Copyright (c) 2020 Computer Vision Center (CVC) at the Universitat Autonoma de B
 ### 函数原型
 ```cpp
 FString CarlaGetStringError(ECarlaServerResponse Response);
+=======
+| FunctionNotAvailableWhenDormant | 当处于休眠状态时函数不可用 |
+
+## 函数 CarlaGetStringError
+该函数用于根据给定的 ECarlaServerResponse 枚举值返回对应的错误描述字符串。
+- **功能**：将错误码转换为可读的错误消息（本地化支持）。
+- 
+### 函数原型
+```cpp
+FString CarlaGetStringError(ECarlaServerResponse Response);
+- **示例**：
+  ```cpp
+  ECarlaServerResponse ErrorCode = ECarlaServerResponse::ActorNotFound;
+  FString ErrorMsg = CarlaGetStringError(ErrorCode); // 返回 "Actor not found"
+>>>>>>> upstream/master

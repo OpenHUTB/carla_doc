@@ -94,7 +94,7 @@ while True:
 # 解析所生成车辆的列表并通过set_autopilot()将控制权交给交通管理器
 for vehicle in vehicles:
     vehicle.set_autopilot(True)
-    # Randomly set the probability that a vehicle will ignore traffic lights
+    # 随机设置车辆无视交通灯的概率
     traffic_manager.ignore_lights_percentage(vehicle, random.randint(0,50))
 
 while True:

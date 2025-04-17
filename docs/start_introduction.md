@@ -1,4 +1,4 @@
-# [Carla](https://carla.readthedocs.io/en/latest/start_introduction/) 
+# [人车模拟器](https://carla.readthedocs.io/en/latest/start_introduction/) 
 
 ![Welcome to CARLA](img/welcome.png)
 
@@ -35,6 +35,10 @@ Carla 模拟器由可扩展的客户端-服务器架构组成。
 
 Carla 快速稳定地发展，扩大了提供的解决方案范围，并为不同的自动驾驶方法开辟了道路。它在这样做的同时永远不会忘记其开源性质。该项目是透明的，充当一个白盒，任何人都可以访问工具和开发社区。Carla 正是在民主化中找到了自己的价值。
 谈论 Carla 如何成长意味着谈论一个共同深入研究自动驾驶彻底问题的开发人员社区。每个人都可以自由地与 Carla 一起探索，找到自己的解决方案，然后与社区其他成员分享他们的成就。
+
+
+开源湖工商项目继承并同步自Carla社区，并增加许多自定义的特性，比如 [鱼眼相机](ref_sensors.md#fisheye-camera) 等。下图为仓库和分支之间的继承关系：
+![](img/dev/repository_inherit.jpg)
   
 
 本文档将成为您一路上的伴侣。下一页包含 __[快速入门](start_quickstart.md)__ 说明，供那些渴望安装 Carla 版本的人使用。还有适用于 Linux 和 Windows 的构建指南。这将使 Carla 从存储库中出来，并允许深入了解其功能。
