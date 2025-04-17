@@ -19,8 +19,6 @@
     - `RPCPort`: RPC 服务端口（默认范围 2000-3000）。  
     - `StreamingPort`: 流数据端口（需与客户端配置一致）。  
     - `SecondaryPort`: 多 GPU 路由器端口（仅多 GPU 环境需配置）。  
-  - **返回值**：`FDataMultiStream` 对象，用于管理多路数据流（如传感器数据、控制指令）。
-  
 - **void Stop()**
   - 停止服务器运行，释放相关资源，关闭各种连接等，将服务器置于停止状态。
 
@@ -38,8 +36,6 @@
     - 处理客户端 RPC 请求。  
     - 更新 `UCarlaEpisode` 中的 Actor 状态。  
     - 推送传感器数据到流服务器。
-- **bool TickCueReceived()**
-  - 检查是否接收到了“滴答”提示（Tick Cue），返回布尔值表示是否收到，可用于判断是否需要进行下一步相关操作等。
 
 ### 数据流管理
 
@@ -92,14 +88,12 @@
 ## 辅助宏
 
 - **BIND_SYNC(name)**
-<<<<<<< HEAD
   - 用于同步绑定 RPC 函数。
-
+  
 - **BIND_ASYNC(name)**
-  - 用于异步绑定 RPC 函数。
-  =======
+  - 用于异步绑定RPC函数
   - 用于同步绑定 RPC 函数（阻塞式调用，适用于简单操作）。
-
+  
 - **BIND_ASYNC(name)**
   - 用于异步绑定 RPC 函数（非阻塞式调用，适用于耗时操作）。
 - **REQUIRE_CARLA_EPISODE()**
@@ -140,7 +134,6 @@ Copyright (c) 2020 Computer Vision Center (CVC) at the Universitat Autonoma de B
 | CarSimPluginNotEnabled           | 车辆模拟插件未启用         |
 | NotATrafficLight                 | 不是交通信号灯             |
 |FunctionNotAvailiableWhenDormant|当处于休眠状态时函数不可用|
-|                                  |                            |
 
 ## 函数 CarlaGetStringError
 该函数用于根据给定的 ECarlaServerResponse 枚举值返回对应的错误描述字符串。
