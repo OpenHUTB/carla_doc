@@ -43,49 +43,45 @@
               <ul class="current">
                 <li class="toctree-l1 current"><a class="reference internal current" href=".">首页</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#_2">入门 </a>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">简介 </a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_3">简介 </a>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">入门 </a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">车辆 </a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">行人 </a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_4">代理 </a>
+    <li class="toctree-l2"><a class="reference internal" href="#_6">模拟器 </a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_5">车辆 </a>
+    <li class="toctree-l3"><a class="reference internal" href="#_7">概念 </a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_6">行人 </a>
+    <li class="toctree-l3"><a class="reference internal" href="#_8">开发 </a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_9">模块 </a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_7">模拟器 </a>
+    <li class="toctree-l2"><a class="reference internal" href="#_10">模拟场景  </a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_8">概念 </a>
+    <li class="toctree-l3"><a class="reference internal" href="#_11">虚幻场景 </a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_9">开发 </a>
+    <li class="toctree-l3"><a class="reference internal" href="#_12">地图孪生 </a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_10">模块 </a>
+    <li class="toctree-l3"><a class="reference internal" href="#_13">资产孪生 </a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_11">现实场景  </a>
+    <li class="toctree-l2"><a class="reference internal" href="#_14">其他 </a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_12">虚幻场景 </a>
+    <li class="toctree-l3"><a class="reference internal" href="#_15">参考目录 </a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_13">地图孪生 </a>
+    <li class="toctree-l3"><a class="reference internal" href="#_16">生态系统 </a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_14">资产孪生 </a>
+    <li class="toctree-l3"><a class="reference internal" href="#_17">基准测试 </a>
     </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_15">其他 </a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_16">参考目录 </a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_17">生态系统 </a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_18">基准测试 </a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_19">贡献指南 </a>
+    <li class="toctree-l3"><a class="reference internal" href="#_18">贡献指南 </a>
     </li>
         </ul>
     </li>
@@ -122,9 +118,6 @@
 <ul>
 <li><a href="#primary"><strong>入门</strong></a>  <ul>
 <li><a href="#introduction">简介</a></li>
-</ul>
-</li>
-<li><a href="#agent"><strong>代理</strong></a>  <ul>
 <li><a href="#vehicle">车辆</a>  </li>
 <li><a href="#pedestrian">行人</a>  </li>
 </ul>
@@ -150,7 +143,7 @@
 </li>
 </ul>
 <hr />
-<h2 id="_2">入门 <span id="primary"></span></h2>
+<h2 id="_2">简介 <span id="introduction"></span></h2>
 <ol>
 <li>下载 <a href="https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb">链接</a> 中的<code>software/carla_0.9.15</code>中的所有文件并解压；</li>
 <li>运行<code>WindowsNoEditor</code>文件夹下的<code>CarlaUE4.exe</code>启动场景，进入场景后按<code>W</code>、<code>S</code>、<code>A</code>、<code>D</code>移动场景视角；</li>
@@ -160,7 +153,7 @@
 <p class="admonition-title">注意</p>
 <p>当机器性能一般时启动<code>CarlaUE4.exe</code>报错：<code>Out of video memory...</code>，可以通过命令来降低画质启动：<code>CarlaUE4.exe -quality-level=Low</code>，以获得更流畅的效果；甚至使用<code>CarlaUE4.exe -nullrhi</code>禁用所有渲染（无需 GPU）。如果运行CarlaUE4.exe时候报错：缺少Microsoft Visual C++ Runtime、DirectX Runtime，则需要安装 <a href="https://visualstudio.microsoft.com/zh-hans/vs/older-downloads/">vs_community__2019.exe</a> （勾选<code>.NET桌面开发</code>和<code>使用C++的桌面开发</code>）和 <a href="https://www.microsoft.com/zh-CN/download/details.aspx?id=8109">directx_Jun2010_redist.zip</a>  （解压后运行<code>DXSETUP.bat</code>）。</p>
 </div>
-<h3 id="_3">简介 <span id="introduction"></span></h3>
+<h3 id="_3">入门 <span id="primary"></span></h3>
 <p><a href="start_introduction/"><strong>介绍</strong></a> — 对 Carla 的期望</p>
 <p><a href="start_quickstart/"><strong>快速启动</strong></a> — 获取 Carla 版本</p>
 <p><a href="tuto_first_steps/"><strong>第一步</strong></a> — 开始进行 Carla 操作，介绍最重要的概念</p>
@@ -175,9 +168,7 @@
 <p><a href="core_sensors/"><strong>第四、传感器和数据</strong></a> — 使用传感器检索模拟数据</p>
 <p><a href="tuto_G_retrieve_data/"><strong>检索模拟数据</strong></a> — 使用记录器正确收集数据的分步指南</p>
 <p><a href="tuto_G_bounding_boxes/"><strong>边界框</strong></a> — 将  Carla 对象的边界框投影到相机中</p>
-<hr />
-<h2 id="_4">代理 <span id="agent"></span></h2>
-<h3 id="_5">车辆 <span id="vehicle"></span></h3>
+<h3 id="_4">车辆 <span id="vehicle"></span></h3>
 <!-- 车辆代理：单个 -> 多个 -->
 
 <p><a href="tuto_G_pygame/"><strong>手动控制车辆</strong></a> — 使用 PyGame 显示相机传感器的输出</p>
@@ -189,7 +180,7 @@
 <p><a href="scenario_runner/"><strong>交通场景</strong></a> — 基于 Carla 交通场景定义和执行引擎</p>
 <p><a href="tuto_G_scenic/"><strong>交通场景定义</strong></a> — 遵循使用 Scenic 库定义不同场景的示例</p>
 <p><a href="adv_sumo/"><strong>和 SUMO 协同模拟</strong></a> — 在 Carla 和 SUMO 之间运行协同模拟</p>
-<h3 id="_6">行人 <span id="pedestrian"></span></h3>
+<h3 id="_5">行人 <span id="pedestrian"></span></h3>
 <!-- 行人代理 -->
 
 <p><a href="tuto_G_pedestrian_navigation/"><strong>行人导航</strong></a> — 使用骨骼为行人设置动画</p>
@@ -201,8 +192,8 @@
 <p><a href="interbehavior/"><strong>行为交互</strong></a> — 针对行为和交互研究的虚拟现实驾驶仿真器</p>
 <p><a href="pedestrian/tuto_content_chrono_opensim/"><strong>行人物理场模拟</strong></a> — Chrono OpenSim 解析器</p>
 <hr />
-<h2 id="_7">模拟器 <span id="simulator"></span></h2>
-<h3 id="_8">概念 <span id="concept"></span></h3>
+<h2 id="_6">模拟器 <span id="simulator"></span></h2>
+<h3 id="_7">概念 <span id="concept"></span></h3>
 <!-- Carla 原理 -->
 
 <p><a href="adv_opendrive/"><strong>OpenDRIVE 独立模式</strong></a> — 使用任何 OpenDRIVE 文件作为 Carla 地图</p>
@@ -216,7 +207,7 @@
 <p><a href="carla_settings/"><strong>Carla 配置</strong></a> — Carla 参数配置设置</p>
 <p><a href="simulator_keyboard_input/"><strong>Carla 模拟器键盘输入</strong></a> — 在模拟器窗口中玩游戏时使用的按键绑定</p>
 <p><a href="carla_headless/"><strong>无显示屏运行 Carla 并选择 GPU</strong></a> — 使用未插在屏幕上的GPU来渲染 Carla 的桌面</p>
-<h3 id="_9">开发 <span id="development"></span></h3>
+<h3 id="_8">开发 <span id="development"></span></h3>
 <!-- Carla 开发 -->
 
 <p><a href="build_carla/"><strong>编译 Carla</strong></a> — 进行 Carla 编译</p>
@@ -228,21 +219,21 @@
 <p><a href="build_docker_unreal/"><strong>在 Docker 中构建虚幻引擎和 Carla</strong></a> — 在 Docker 中构建虚幻引擎和 Carla</p>
 <p><a href="build_faq/"><strong>常见问题</strong></a> — 一些最常见的安装问题</p>
 <p><a href="tuto_D_windows_debug/"><strong>调试程序</strong></a> — 进行C++程序的调试</p>
-<h3 id="_10">模块 <span id="modules"></span></h3>
+<h3 id="_9">模块 <span id="modules"></span></h3>
 <p><a href="file_specification/"><strong>文件说明</strong></a> — 说明源代码中各个模块、文件的作用</p>
 <p><a href="tuto_G_G29_windows/"><strong>罗技 G29 方向盘</strong></a> — 使用罗技方向盘进行车辆控制和模拟对方向盘的反向控制</p>
 <p><a href="adv_cesium/"><strong>地理空间生态系统</strong></a> — 将 3D 地理空间生态系统引入虚幻引擎</p>
 <p><a href="tuto_G_chrono/"><strong>Chrono 集成</strong></a> — 整合 Chrono 来进行物理模拟</p>
 <hr />
-<h2 id="_11">现实场景  <span id="scene"></span></h2>
-<h3 id="_12">虚幻场景 <span id="unreal_scene"></span></h3>
+<h2 id="_10">模拟场景  <span id="scene"></span></h2>
+<h3 id="_11">虚幻场景 <span id="unreal_scene"></span></h3>
 <p><a href="ue/ue_faq/"><strong>虚幻引擎入门</strong></a> - 包括学习流程、概念说明、常见问题和回答等</p>
 <p><a href="core_map/#non-layered-maps"><strong>支持的虚幻场景</strong></a> - 目前支持的所有虚幻地图</p>
 <p><a href="ue/plugin/"><strong>Carla 插件</strong></a> - 虚幻引擎 Carla 插件的相关介绍</p>
 <p><a href="tuto_G_unreal/"><strong>虚幻引擎高级特性</strong></a> — 虚幻引擎相关内容</p>
 <p><a href="ue/scene_related/"><strong>第三方资产</strong></a> - 虚幻引擎相关的场景和资产</p>
 <p><a href="https://openhutb.github.io/engine_doc/"><strong>虚幻引擎文档</strong></a> — 与虚幻引擎相关的操作和说明</p>
-<h3 id="_13">地图孪生 <span id="map_twin"></span></h3>
+<h3 id="_12">地图孪生 <span id="map_twin"></span></h3>
 <!-- 地图、建筑等静态资产 -->
 
 <p><a href="adv_digital_twin/"><strong>数字孪生工具</strong></a> — 通过 OpenStreetMap 自动生成 Carla 中的道路和建筑</p>
@@ -263,7 +254,7 @@
 <p><a href="large_map_overview/"><strong>大地图概述</strong></a> — Carla 中大地图工作原理的说明</p>
 <p><a href="large_map_roadrunner/"><strong>在 RoadRunner 中创建大地图</strong></a> — 如何在 RoadRunner 中创建大地图</p>
 <p><a href="large_map_import/"><strong>导入/打包大地图</strong></a> — 如何导入大地图</p>
-<h3 id="_14">资产孪生 <span id="assert_twin"></span></h3>
+<h3 id="_13">资产孪生 <span id="assert_twin"></span></h3>
 <!-- 开发资产 -->
 
 <p><a href="development_tutorials/"><strong>开发</strong></a> — 创建自定义功能或内容</p>
@@ -282,10 +273,10 @@
 <p><a href="tuto_D_generate_colliders/"><strong>生成详细碰撞</strong></a> — 为车辆创建详细的对撞</p>
 <p><a href="epic_automotive_materials/"><strong>链接 Epic 的汽车材质</strong></a> — 下载材质并将其链接到我们的车辆，以获得更逼真的车漆。</p>
 <hr />
-<h2 id="_15">其他 <span id="other"></span></h2>
+<h2 id="_14">其他 <span id="other"></span></h2>
 <!-- 其他 -->
 
-<h3 id="_16">参考目录 <span id="ref"></span></h3>
+<h3 id="_15">参考目录 <span id="ref"></span></h3>
 <p><a href="python_api/"><strong>Python API 参考</strong></a> — Python API 中的类和方法</p>
 <p><a href="ref_cpp/"><strong>C++ 参考</strong></a> — Carla C++ 中的类和方法</p>
 <p><a href="catalogue/"><strong>资源目录</strong></a> — Carla 中资源的目录列表</p>
@@ -293,7 +284,7 @@
 <p><a href="bp_library/"><strong>蓝图库</strong></a> — 提供用于生成参与者的蓝图</p>
 <p><a href="ref_recorder_binary_file_format/"><strong>记录器二进制文件格式</strong></a> — 记录器文件格式的详细说明</p>
 <p><a href="measurements/"><strong>测量和数据包</strong></a> - 描述服务器每帧向客户端发送一个包含测量值和收集到图像数据包的详细信息</p>
-<h3 id="_17">生态系统 <span id="ecology"></span></h3>
+<h3 id="_16">生态系统 <span id="ecology"></span></h3>
 <p><a href="plugins_carlaviz/"><strong>Web 可视化器</strong></a> — 监听模拟并在网络浏览器中显示场景和一些模拟数据的插件</p>
 <p><a href="ros_documentation/"><strong>ROS</strong></a> — 机器人操作系统桥接器的简要概述和完整文档的链接</p>
 <p><a href="tuto_G_carsim_integration/"><strong>CarSim 集成</strong></a> — 关于如何使用 CarSim 车辆动力学引擎运行模拟的教程</p>
@@ -305,14 +296,14 @@
 <p><a href="third/"><strong>Carla 相关的第三方链接</strong></a> — 中文交流社区</p>
 <p><a href="todo/"><strong>待做列表</strong></a> — 待完成的功能</p>
 <p><a href="used_by/"><strong>应用Carla的仓库列表</strong></a> - 收集引用了Carla的相关库</p>
-<h3 id="_18">基准测试 <span id="test"></span></h3>
+<h3 id="_17">基准测试 <span id="test"></span></h3>
 <p><a href="leaderboard/"><strong>自动驾驶排行榜</strong></a> - 评估自动驾驶人员在现实交通场景中的驾驶熟练程度</p>
 <p><a href="benchmark_start/"><strong>驾驶基准</strong></a> — 用于评估驾驶控制器（代理）并获取有关其性能的指标</p>
 <p><a href="adv_benchmarking/"><strong>基准性能</strong></a> — 分析 Carla 在自己的环境中的性能</p>
 <p><a href="benchmark_structure/"><strong>驾驶基准结构</strong></a> — 驾驶基准模块的总体结构</p>
 <p><a href="benchmark_creating/"><strong>测试代理</strong></a> — 对你的代理进行基准测试</p>
 <p><a href="benchmark_metrics/"><strong>计算的基准性能指标</strong></a> — 用于根据代理在基准测试期间执行的操作计算结果摘要</p>
-<h3 id="_19">贡献指南 <span id="contribution"></span></h3>
+<h3 id="_18">贡献指南 <span id="contribution"></span></h3>
 <p><a href="cont_contribution_guidelines/"><strong>贡献方式</strong></a> — 为 Carla 做出贡献的不同方式</p>
 <p><a href="cont_code_of_conduct/"><strong>行为准则</strong></a> — 贡献者的标准权利和义务</p>
 <p><a href="cont_coding_standard/"><strong>编码标准</strong></a> — 编写正确代码的指南</p>
@@ -372,5 +363,5 @@
 
 <!--
 MkDocs version : 1.5.3
-Build Date UTC : 2025-04-17 00:07:55.024514+00:00
+Build Date UTC : 2025-04-17 00:41:09.710391+00:00
 -->
