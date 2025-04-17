@@ -74,35 +74,15 @@
 <h3 id="_2">构造函数与析构函数</h3>
 <ul>
 <li><strong>FCarlaServer()</strong></li>
-<li>
-<p>默认构造函数，用于创建 <code>FCarlaServer</code> 类的对象实例。</p>
-</li>
-<li>
-<p><strong>~FCarlaServer()</strong></p>
-</li>
-<li>析构函数，用于在对象销毁时进行资源清理、释放等相关操作，比如关闭网络连接、释放内存等。</li>
-<li>释放以下资源：  <ul>
-<li>关闭 RPC 服务器、流服务器及多 GPU 路由器。  </li>
-<li>清理当前 <code>UCarlaEpisode</code> 实例及关联的 Actor 数据。</li>
-</ul>
-</li>
+<li>默认构造函数，用于创建 <code>FCarlaServer</code> 类的对象实例。</li>
 </ul>
 <h3 id="_3">服务器启动与停止</h3>
 <ul>
-<li><strong>FDataMultiStream Start(uint16_t RPCPort, uint16_t StreamingPort, uint16_t SecondaryPort)</strong></li>
-<li>启动服务器相关功能，传入 RPC 端口号（RPCPort）、流数据端口号（StreamingPort）以及备用端口号（SecondaryPort），返回一个多数据流对象（FDataMultiStream），可能用于后续的多种数据传输交互场景。</li>
-<li><strong>参数说明</strong>：  <ul>
-<li><code>RPCPort</code>: RPC 服务端口（默认范围 2000-3000）。  </li>
-<li><code>StreamingPort</code>: 流数据端口（需与客户端配置一致）。  </li>
-<li><code>SecondaryPort</code>: 多 GPU 路由器端口（仅多 GPU 环境需配置）。  </li>
+<li><strong>FDataMultiStream Start(uint16_t RPCPort, uint16_t StreamingPort, uint16_t SecondaryPort)</strong><ul>
+<li>启动服务器相关功能，传入 RPC 端口号（RPCPort）、流数据端口号（StreamingPort）以及备用端口号（SecondaryPort），返回一个多数据流对象（FDataMultiStream），可能用于后续的多种数据传输交互场景</li>
 </ul>
 </li>
-<li>
-<p><strong>返回值</strong>：<code>FDataMultiStream</code> 对象，用于管理多路数据流（如传感器数据、控制指令）。</p>
-</li>
-<li>
-<p><strong>void Stop()</strong></p>
-</li>
+<li><strong>void Stop()</strong></li>
 <li>停止服务器运行，释放相关资源，关闭各种连接等，将服务器置于停止状态。</li>
 </ul>
 <h3 id="_4">场景管理</h3>
@@ -118,28 +98,19 @@
 </ul>
 <h3 id="_5">服务器运行</h3>
 <ul>
-<li><strong>void AsyncRun(uint32 NumberOfWorkerThreads)</strong></li>
-<li>
-<p>以异步方式运行服务器，传入工作线程数量（NumberOfWorkerThreads）参数，可让服务器利用多线程来高效处理各种任务，比如数据接收、处理和发送等。</p>
-</li>
-<li>
-<p><strong>void RunSome(uint32 Milliseconds)</strong></p>
-</li>
-<li>
-<p>运行服务器一段时间，传入时间（以毫秒为单位，Milliseconds）参数，在指定时长内执行服务器相关的逻辑，比如处理数据、更新状态等。</p>
-</li>
-<li>
-<p><strong>void Tick()</strong></p>
-</li>
-<li>执行服务器的一次“滴答”操作，通常用于周期性地更新服务器状态、处理数据等，类似于游戏循环里的每一帧更新逻辑。</li>
-<li><strong>功能</strong>：执行单次服务器状态更新，包括：  <ul>
-<li>处理客户端 RPC 请求。  </li>
-<li>更新 <code>UCarlaEpisode</code> 中的 Actor 状态。  </li>
-<li>推送传感器数据到流服务器。</li>
-<li></li>
+<li><strong>void AsyncRun(uint32 NumberOfWorkerThreads)</strong><ul>
+<li>以异步方式运行服务器，传入工作线程数量（NumberOfWorkerThreads）参数，可让服务器利用多线程来高效处理各种任务，比如数据接收、处理和发送等。</li>
 </ul>
 </li>
-<li><strong>bool TickCueReceived()</strong></li>
+<li><strong>void RunSome(uint32 Milliseconds)</strong></li>
+<li>运行服务器一段时间，传入时间（以毫秒为单位，Milliseconds）参数，在指定时长内执行服务器相关的逻辑，比如处理数据、更新状态等。</li>
+<li><strong>void Tick()</strong></li>
+<li>
+<p>执行服务器的一次“滴答”操作，通常用于周期性地更新服务器状态、处理数据等，类似于游戏循环里的每一帧更新逻辑。</p>
+</li>
+<li>
+<p><strong>bool TickCueReceived()</strong></p>
+</li>
 <li>检查是否接收到了“滴答”提示（Tick Cue），返回布尔值表示是否收到，可用于判断是否需要进行下一步相关操作等。</li>
 </ul>
 <h3 id="_6">数据流管理</h3>
@@ -197,7 +168,7 @@
 <p>多 GPU 路由器对象，用于在多 GPU 环境下进行数据路由。</p>
 </li>
 <li>
-<p><strong>UCarlaEpisode *Episode</strong></p>
+<p><strong>UCarlaEpisode Episode</strong></p>
 </li>
 <li>
 <p>当前 CARLA Episode 的指针，用于管理模拟场景。</p>
@@ -216,17 +187,20 @@
 <ul>
 <li><strong>BIND_SYNC(name)</strong></li>
 <li>
+<p>用于同步绑定 RPC 函数。</p>
+</li>
+<li>
+<p><strong>BIND_ASYNC(name)</strong></p>
+</li>
+<li>用于异步绑定RPC函数</li>
+<li>
 <p>用于同步绑定 RPC 函数（阻塞式调用，适用于简单操作）。</p>
 </li>
 <li>
 <p><strong>BIND_ASYNC(name)</strong></p>
 </li>
-<li>
-<p>用于异步绑定 RPC 函数（非阻塞式调用，适用于耗时操作）。</p>
-</li>
-<li>
-<p><strong>REQUIRE_CARLA_EPISODE()</strong></p>
-</li>
+<li>用于异步绑定 RPC 函数（非阻塞式调用，适用于耗时操作）。</li>
+<li><strong>REQUIRE_CARLA_EPISODE()</strong></li>
 <li>
 <p>确保当前有一个有效的 CARLA Episode 正在运行。</p>
 </li>
@@ -318,19 +292,16 @@
 <td>不是交通信号灯</td>
 </tr>
 <tr>
-<td>FunctionNotAvailableWhenDormant</td>
+<td>FunctionNotAvailiableWhenDormant</td>
 <td>当处于休眠状态时函数不可用</td>
 </tr>
 </tbody>
 </table>
 <h2 id="carlagetstringerror">函数 CarlaGetStringError</h2>
-<p>该函数用于根据给定的 ECarlaServerResponse 枚举值返回对应的错误描述字符串。
-- <strong>功能</strong>：将错误码转换为可读的错误消息（本地化支持）。
-- </p>
+<p>该函数用于根据给定的 ECarlaServerResponse 枚举值返回对应的错误描述字符串。</p>
 <h3 id="_9">函数原型</h3>
-<p><code>cpp
+<p>```cpp
 FString CarlaGetStringError(ECarlaServerResponse Response);
-- **示例**：</code>cpp
   ECarlaServerResponse ErrorCode = ECarlaServerResponse::ActorNotFound;
   FString ErrorMsg = CarlaGetStringError(ErrorCode); // 返回 "Actor not found"</p>
               
