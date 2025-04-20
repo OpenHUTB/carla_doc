@@ -147,11 +147,11 @@
 <ol>
 <li>下载 <a href="https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb">链接</a> 中的<code>software/carla_0.9.15</code>中的所有文件并解压；</li>
 <li>运行<code>WindowsNoEditor</code>文件夹下的<code>CarlaUE4.exe</code>启动场景，进入场景后按<code>W</code>、<code>S</code>、<code>A</code>、<code>D</code>移动场景视角；</li>
-<li>使用<code>Python37/python.exe</code>运行脚本 <a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/generate_traffic.py">generate_traffic.py</a> 在场景中生成交通流和运行 <a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/manual_control.py">python manual_control.py</a> 生成一辆键盘控制的车。</li>
+<li>使用<code>Python37/python.exe</code>（或者安装<code>WindowsNoEditor/PythonAPI/carla/dist/carla-0.9.15-cp37-cp37m-win_amd64.whl</code>目录下的Python包）运行脚本 <a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/generate_traffic.py">generate_traffic.py</a> 在场景中生成交通流和运行 <a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/manual_control.py">python manual_control.py</a> 生成一辆键盘控制的车。</li>
 </ol>
 <div class="admonition 注意">
 <p class="admonition-title">注意</p>
-<p>当机器性能一般时启动<code>CarlaUE4.exe</code>报错：<code>Out of video memory...</code>，可以通过命令来降低画质启动：<code>CarlaUE4.exe -quality-level=Low</code>，以获得更流畅的效果；甚至使用<code>CarlaUE4.exe -nullrhi</code>禁用所有渲染（无需 GPU）。如果运行CarlaUE4.exe时候报错：缺少Microsoft Visual C++ Runtime、DirectX Runtime，则需要安装 <a href="https://visualstudio.microsoft.com/zh-hans/vs/older-downloads/">vs_community__2019.exe</a> （勾选<code>.NET桌面开发</code>和<code>使用C++的桌面开发</code>）和 <a href="https://www.microsoft.com/zh-CN/download/details.aspx?id=8109">directx_Jun2010_redist.zip</a>  （解压后运行<code>DXSETUP.bat</code>）。</p>
+<p>当机器性能一般时启动<code>CarlaUE4.exe</code>报错：<code>Out of video memory...</code>，可以通过命令来降低画质启动：<code>CarlaUE4.exe -quality-level=Low</code>，以获得更流畅的效果；甚至使用<code>CarlaUE4.exe -nullrhi</code>禁用所有渲染（无需 GPU）。如果运行CarlaUE4.exe时候报错：缺少Microsoft Visual C++ Runtime、DirectX Runtime，则需要安装 <a href="https://visualstudio.microsoft.com/zh-hans/vs/older-downloads/">vs_community__2019.exe</a> （勾选<code>.NET桌面开发</code>和<code>使用C++的桌面开发</code>）和 <a href="https://www.microsoft.com/zh-CN/download/details.aspx?id=8109">directx_Jun2010_redist.zip</a>  （解压后运行<code>DXSETUP.bat</code>）。如果发现手动控制车按前进键不能移动，可能是输入法默认是中文，按<code>Shift</code>切换成英文输入法即可解决。</p>
 </div>
 <h3 id="_3">入门 <span id="primary"></span></h3>
 <p><a href="start_introduction/"><strong>介绍</strong></a> — 对 Carla 的期望</p>
@@ -363,5 +363,5 @@
 
 <!--
 MkDocs version : 1.5.3
-Build Date UTC : 2025-04-17 12:16:47.567245+00:00
+Build Date UTC : 2025-04-20 01:11:38.106250+00:00
 -->
