@@ -11,16 +11,17 @@
 
 ## 发动机转速 <span id="engine_revving"></span>
 对于用户使用油门来说，最好的反馈机制之一是发动机转速增加时发出的轰鸣声。
+
 - 是的，我们知道，我们为我们的自我车辆使用了特斯拉模型，但却给它配备了发动机/齿轮噪音......亵渎！
 
-!!! [**致谢**]
-   本节大部分内容来自 [YouTube 上这个非常有用的指南](https://www.youtube.com/watch?v=-c-f1aaIOnU) ，该指南也 [以文章的形式提供](https://continuebreak.com/articles/generating-setting-basic-engine-sounds-ue4-part-12/) 。我们强烈建议您查看它以获取以下步骤的分步说明和视觉效果。
+!!! 致谢
+    本节大部分内容来自 [YouTube 上这个非常有用的指南](https://www.youtube.com/watch?v=-c-f1aaIOnU) ，该指南也 [以文章的形式提供](https://continuebreak.com/articles/generating-setting-basic-engine-sounds-ue4-part-12/) 。我们强烈建议您查看它以获取以下步骤的分步说明和视觉效果。
 
 ### 创造声音
 （如果您已经有引擎所需的声音文件，请跳过此步骤）
 
 1. 下载所需软件：
-   - [LMMS](https://lmms.io/) （下载适用于 [Linux](https://lmms.io/download#linux) / [Windows](https://lmms.io/download#windows) / [Mac](https://lmms.io/download#mac ）用于创建音乐曲目
+   - [LMMS](https://lmms.io/) （下载适用于 [Linux](https://lmms.io/download#linux) / [Windows](https://lmms.io/download#windows) / [Mac](https://lmms.io/download#mac) 用于创建音乐曲目
 
 2. 创建 4 种声音，分别对应发动机怠速 (1)、缓慢运转 (2)、正常运转 (3) 和以最大转速运转 (4)
 
@@ -119,19 +120,20 @@
    2. 返回步骤 2 中的 **Sound Cue** 资产，在“详细信息” Details 窗格中向下滚动并使用新创建的声音衰减 **Sound Attenuation** 资产作为其衰减设置：
    
       ![SoundAttenuation](../Figures/Sounds/sound_attenuation.jpg)
+
          - 图片来源： [ContinueBreak](https://continuebreak.com/articles/generating-setting-basic-engine-sounds-ue4-part-12/)
 
 ## 其他车辆声音 <span id="other_vehicle_sounds"></span>
 
 一般来说，添加声音可能会像上面一样复杂，或者对于某些快速的事情来说它们可以非常简单。
 
-- 例如，添加 换档 **gear shifting** 声音就简单得多：
+- 例如，添加**换档**（**gear shifting**）声音就简单得多：
 
   - 我们只需要导入一个干净的（允许的） `.wav` 文件即可创建 **SoundWave** 实例
   
   - 然后我们可以直接从 Ego-Vehicle 中播放该 SoundWave 资产
   
-- 类似地，添加转向信号 **turn-signals** 的声音本质上是相同的：
+- 类似地，添加 **转向信号**（**turn-signals**）的声音本质上是相同的
 
   - 只需导入声音，在代码中找到它们，然后在我们想要的事件上播放它们
 
@@ -153,7 +155,7 @@
 
 我们针对世界上简单的环境噪声的一般策略遵循以下基本规则：
 
-1. 风是普遍存在的，所以总是有一个覆盖整个地图的大框，即 `Starter_Wind05` ，通常我们将其默认音量设置为70\%
+1. 风是普遍存在的，所以总是有一个覆盖整个地图的大框，即 `Starter_Wind05` ，通常我们将其默认音量设置为70 %
 
 2. 鸟类是绿地/树木/郊区的指示器，所以通常哪里有绿地，我们就添加一个 `Starter_Birds01` 区域
 
