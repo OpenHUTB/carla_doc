@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Multigpu - 人车模拟器</title>
+    <title>CARLA 多 GPU 模块技术文档（multigpu） - 人车模拟器</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Multigpu";
+        var mkdocs_page_name = "CARLA \u591a GPU \u6a21\u5757\u6280\u672f\u6587\u6863\uff08multigpu\uff09";
         var mkdocs_page_input_path = "modules/multigpu.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,7 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Multigpu</li>
+      <li class="breadcrumb-item active">CARLA 多 GPU 模块技术文档（multigpu）</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/modules/multigpu.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -68,7 +68,144 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                
+                <h1 id="carla-gpu-multigpu">CARLA 多 GPU 模块技术文档（multigpu）</h1>
+<h2 id="_1">目录</h2>
+<ol>
+<li>模块概述  </li>
+<li>核心功能  </li>
+<li>类与方法详解  </li>
+<li>通信机制  </li>
+<li>关键流程  </li>
+<li>配置参数  </li>
+<li>注意事项  </li>
+<li>示例代码  </li>
+</ol>
+<hr />
+<h2 id="1">1. 模块概述</h2>
+<p><code>multigpu</code> 模块用于支持 CARLA 模拟器在多 GPU 环境下进行分布式渲染和任务计算。模块采用主从架构：主节点负责调度与控制，从节点承担实际渲染任务，从而提升模拟器的可扩展性与运行效率。</p>
+<p>主要组件包括：</p>
+<ul>
+<li><strong>Primary</strong>：主节点，调度中心，分发任务与监控从节点状态  </li>
+<li><strong>Secondary</strong>：从节点，执行渲染与计算任务  </li>
+<li><strong>Router</strong>：路由器，管理消息转发和节点通信  </li>
+<li><strong>Listener</strong>：监听器，接收控制命令并分发  </li>
+</ul>
+<hr />
+<h2 id="2">2. 核心功能</h2>
+<ul>
+<li>多 GPU 分布式渲染任务协同执行  </li>
+<li>高效稳定的节点间通信机制  </li>
+<li>支持从节点的动态注册与任务重分配  </li>
+<li>灵活的任务协议与自定义消息结构  </li>
+</ul>
+<hr />
+<h2 id="3">3. 类与方法详解</h2>
+<h3 id="primary">Primary</h3>
+<p>主节点类，调度与管理核心。</p>
+<ul>
+<li><code>Initialize()</code>：初始化主节点资源  </li>
+<li><code>RegisterSecondary(SecondaryInfo info)</code>：注册从节点信息  </li>
+<li><code>DistributeTask(Task task)</code>：任务分发接口  </li>
+</ul>
+<h3 id="secondary">Secondary</h3>
+<p>从节点类，执行接收到的任务。</p>
+<ul>
+<li><code>ConnectToPrimary(string address)</code>：连接主节点  </li>
+<li><code>ReceiveTask()</code>：等待任务接收  </li>
+<li><code>ExecuteTask(Task task)</code>：执行并返回结果  </li>
+</ul>
+<h3 id="router">Router</h3>
+<ul>
+<li><code>RouteMessage(Message msg)</code>：解析并路由不同类型的消息  </li>
+</ul>
+<h3 id="listener">Listener</h3>
+<ul>
+<li><code>StartListening()</code>：开启监听端口  </li>
+<li><code>HandleIncomingMessage(Message msg)</code>：处理并响应外部指令  </li>
+</ul>
+<hr />
+<h2 id="4">4. 通信机制</h2>
+<p>模块通信使用 TCP 或 UDP（可配置），支持命令、状态与数据三类消息。消息格式包括：</p>
+<ul>
+<li><strong>MessageType</strong>：标识类型（命令 / 数据 / 心跳等）  </li>
+<li><strong>Payload</strong>：消息数据体  </li>
+<li><strong>Checksum</strong>：可选字段，校验完整性  </li>
+</ul>
+<p>所有消息通过 Router 进行解包、路由和转发。</p>
+<hr />
+<h2 id="5">5. 关键流程</h2>
+<h3 id="_2">从节点注册</h3>
+<ol>
+<li>从节点调用 <code>ConnectToPrimary()</code>  </li>
+<li>主节点执行 <code>RegisterSecondary()</code>  </li>
+<li>主节点更新从节点列表，准备任务分发  </li>
+</ol>
+<h3 id="_3">任务调度与处理</h3>
+<ol>
+<li>主节点调用 <code>DistributeTask()</code> 分配任务  </li>
+<li>从节点通过 <code>ReceiveTask()</code> 接收任务  </li>
+<li>从节点执行 <code>ExecuteTask()</code>，并返回结果  </li>
+</ol>
+<hr />
+<h2 id="6">6. 配置参数</h2>
+<h3 id="_4">主节点配置</h3>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ListenPort</td>
+<td>主节点监听端口</td>
+</tr>
+<tr>
+<td>MaxSecondaries</td>
+<td>支持的最大从节点数</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_5">从节点配置</h3>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PrimaryAddress</td>
+<td>主节点 IP 地址</td>
+</tr>
+<tr>
+<td>ReconnectInterval</td>
+<td>断线重连时间间隔（秒）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="7">7. 注意事项</h2>
+<ul>
+<li>网络通信必须具备稳定的端口与带宽保障  </li>
+<li>主节点内部数据结构需线程安全管理  </li>
+<li>多线程执行任务时，确保 GPU 不冲突访问  </li>
+<li>从节点应具备异常重连与任务重试机制  </li>
+</ul>
+<hr />
+<h2 id="8">8. 示例代码</h2>
+<p>```cpp
+// 主节点初始化
+Primary primary;
+primary.Initialize();</p>
+<p>// 从节点连接主节点
+Secondary secondary;
+secondary.ConnectToPrimary("127.0.0.1");</p>
+<p>// 主节点任务分发
+Task task = CreateRenderTask();
+primary.DistributeTask(task);</p>
               
             </div>
           </div><footer>
