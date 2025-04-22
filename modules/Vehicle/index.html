@@ -79,6 +79,7 @@
 <ul>
 <li><code>AckermannController.h</code>：定义了 <code>FAckermannController</code> 类和相关结构体。</li>
 <li><code>CarlaWheeledVehicle.h</code>：定义了 <code>ACarlaWheeledVehicle</code> 类，用于表示轮式车辆。</li>
+<li>使用 <code>#pragma once</code> 指令，确保头文件仅被编译一次，避免因重复包含导致的编译错误，提升编译效率。</li>
 </ul>
 <h2 id="_5">三、类成员和方法</h2>
 <h3 id="31">3.1构造函数和析构函数</h3>
@@ -134,6 +135,29 @@
 <p><code>void FAckermannController::UpdateVehiclePhysics(const ACarlaWheeledVehicle* Vehicle)</code>：更新车辆的最大转向角。</p>
 </li>
 </ol>
+<p>3.转向控制</p>
+<div class="highlight"><pre><span></span><code>USTRUCT(BlueprintType)
+struct CARLA_API FVehicleAckermannControl
+{
+  GENERATED_BODY()
+
+  UPROPERTY(Category = &quot;Vehicle Ackermann Control&quot;, EditAnywhere, BlueprintReadWrite)
+  float Steer = 0.0f;
+
+  UPROPERTY(Category = &quot;Vehicle Ackermann Control&quot;, EditAnywhere, BlueprintReadWrite)
+  float SteerSpeed = 0.0f;
+
+  UPROPERTY(Category = &quot;Vehicle Ackermann Control&quot;, EditAnywhere, BlueprintReadWrite)
+  float Speed = 0.0f;
+
+  UPROPERTY(Category = &quot;Vehicle Ackermann Control&quot;, EditAnywhere, BlueprintReadWrite)
+  float Acceleration = 0.0f;
+
+  UPROPERTY(Category = &quot;Vehicle Ackermann Control&quot;, EditAnywhere, BlueprintReadWrite)
+  float Jerk = 0.0f;
+};
+</code></pre></div>
+<p>该代码定义了一个用于车辆阿克曼转向控制的结构体，能够在虚幻引擎的蓝图系统中使用。通过这个结构体，开发者可以对车辆的转向角度、转向速度、行驶速度、加速度和加加速度等参数进行方便的管理和调整，进而实现车辆的阿克曼转向控制模拟。</p>
 <h3 id="39">3.9车辆灯光状态</h3>
 <p>​   此结构体运用了 Unreal Engine 的反射系统，具备在蓝图里进行读写操作的能力。它的每个属性都代表着一种特定的灯光状态，并且默认情况下这些灯光都是关闭的。</p>
 <p>​   新添加的 <code>Hazard</code> 属性用于表示车辆危险警示灯的状态，默认值为 <code>false</code>，即初始状态下危险警示灯是关闭的。和其他属性一样，它也可以在编辑器中编辑，并且能在蓝图里进行读写操作。</p>
@@ -141,7 +165,8 @@
   UPROPERTY(Category = &quot;Vehicle Lights&quot;, EditAnywhere, BlueprintReadWrite)
   bool Hazard = false;
 </code></pre></div>
-<h3 id="310">3.10功能补充</h3>
+<p>3.10车辆的阿克曼转向控制参数</p>
+<h3 id="311">3.11功能补充</h3>
 <p>在Vehicle/VehiclePhysicsControl.h**文件中添加新的设置</p>
 <div class="highlight"><pre><span></span><code>// 刹车设置
 UPROPERTY(Category = &quot;Vehicle Brake Physics Control&quot;, EditAnywhere, BlueprintReadWrite)
@@ -154,7 +179,31 @@ UPROPERTY(Category = &quot;Vehicle Brake Physics Control&quot;, EditAnywhere, Bl
 <li><code>BrakeForce</code>：代表车辆刹车时的制动力，默认值为 0.0f。</li>
 <li><code>HandbrakeForce</code>：表示手刹的制动力，默认值为 0.0f。</li>
 </ul>
-<h2 id="_6">参考</h2>
+<h2 id="_6">四、类型</h2>
+<h3 id="41">4.1枚举类型</h3>
+<p>1.定义：使用 <code>UENUM(BlueprintType)</code> 宏定义一个可在蓝图系统中使用的枚举类型 <code>ECarlaWheeledVehicleState</code>。其底层类型为 <code>uint8</code>，属于强类型枚举，可避免枚举值命名冲突。</p>
+<p>2.代码使用场景：</p>
+<ul>
+<li><strong>调试</strong>：开发人员在调试 CARLA 轮式车辆相关功能时，可借助该枚举类型清晰地表示车辆的不同状态，便于定位和解决问题。</li>
+<li><strong>可视化</strong>：在 Unreal Engine 编辑器中，可通过显示名称直观地查看车辆状态，方便开发和测试。</li>
+<li><strong>蓝图开发</strong>：该枚举类型可在蓝图系统中使用，方便非编程人员通过蓝图可视化编程的方式使用车辆状态信息。</li>
+</ul>
+<p>3.注意事项</p>
+<ul>
+<li>若对代码进行修改，需注意生成文件 <code>CarlaWheeledVehicleState.generated.h</code> 可能需要重新生成，以确保反射信息和蓝图绑定的正确性。</li>
+<li>由于枚举类型为强类型，在使用时需明确指定枚举类型，避免类型不匹配问题。</li>
+</ul>
+<p>4.功能补充</p>
+<p>新增枚举成员：
+Turning：表示车辆正在转弯的状态。
+Parking：表示车辆正在停车的状态。</p>
+<div class="highlight"><pre><span></span><code>case ECarlaWheeledVehicleState::Turning:
+   return TEXT(&quot;Turning&quot;);
+case ECarlaWheeledVehicleState::Parking:
+   return TEXT(&quot;Parking&quot;);
+</code></pre></div>
+<p>注：该代码补充对应文档<strong>CarlaWheeledVehicleState.h</strong></p>
+<h2 id="_7">参考</h2>
 <ul>
 <li><a href="https://github.com/carla-simulator/carla/issues/1427">函数vehile.apply_control实际上如何工作的？</a></li>
 </ul>
