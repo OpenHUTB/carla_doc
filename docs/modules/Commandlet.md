@@ -212,7 +212,3 @@ UE4Editor-Cmd.exe ProjectName -run=LoadAssetMaterials
 | 瓦片边界计算错误          | TilesInfo.txt 格式错误  | 确保每行为 `中心X,中心Y,尺寸`     |
 
 ---
-
-> 文档版本：1.2  
-> 最后更新：2025年3月30日  
-> 作者：HAPPY-LL

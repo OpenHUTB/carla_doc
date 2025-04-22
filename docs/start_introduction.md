@@ -1,4 +1,4 @@
-# [代理模拟器](https://carla.readthedocs.io/en/latest/start_introduction/) 
+# [人车模拟器](https://carla.readthedocs.io/en/latest/start_introduction/) 
 
 ![Welcome to CARLA](img/welcome.png)
 
