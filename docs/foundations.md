@@ -142,7 +142,7 @@ world.apply_settings(settings)
 !!! 警告
     如果启用了同步模式，并且正在运行交通管理器，则也必须将其设置为同步模式。阅读 [本文](adv_traffic_manager.md#synchronous-mode) 以了解如何操作。
 
-要禁用同步模式，只需将变量设置为 `False` 或使用脚本`PythonAPI/util/config.py`。
+要禁用同步模式，只需将变量设置为 `False` 或使用脚本 [`PythonAPI/util/config.py`](https://github.com/OpenHUTB/carla_doc/blob/master/src/util/config.py) 。
 ```sh
 cd PythonAPI/util && python3 config.py --no-sync # 禁用同步模式
 ``` 

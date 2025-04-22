@@ -233,13 +233,8 @@ make package ARGS="--packages=<mapPackage>"
 
 ---
 
-如果您对大地图导入和打包过程有任何疑问，那么您可以在 [论坛](https://github.com/carla-simulator/carla/discussions) 中提问。
+如果您对大地图导入和打包过程有任何疑问，那么您可以在 [讨论页面](https://github.com/OpenHUTB/carla_doc/issues) 中提问。
 
-<div class="build-buttons">
-<p>
-<a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-Carla 论坛</a>
-</p>
-</div>
+
 
 

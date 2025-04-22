@@ -93,7 +93,7 @@ __3. 定制图案。__
 - _Collision enabled_ — 设置为网格启用的碰撞类型。
 
 ![bp_repspline_pic](./img/map_customization/BP_Repspline.jpg)
-<div style="text-align: right"><i>BP_RepSpline 示例。</i></div>
+<div style="text-align: center"><i>BP_RepSpline 示例。</i></div>
 
 ### BP_Spline <span id="bp_spline"></span>
 
@@ -104,7 +104,7 @@ __3. 定制图案。__
 - _Gap distance_ — 在元素之间添加间隔。
 
 ![bp_spline_pic](./img/map_customization/BP_Spline.jpg)
-<div style="text-align: right"><i>BP_Spline example.</i></div>
+<div style="text-align: center"><i>BP_Spline example.</i></div>
 
 ### BP_Wall <span id="bp_wall"></span>
 
@@ -115,7 +115,7 @@ __3. 定制图案。__
 - _Scale offset_ — 缩放网格的长度以完善元素之间的连接。
 
 ![bp_wall_pic](./img/map_customization/BP_Wall.jpg)
-<div style="text-align: right"><i>BP_Wall 实例。</i></div>
+<div style="text-align: center"><i>BP_Wall 实例。</i></div>
 
 ### BP_SplinePoweLine <span id="bp_splinepoweline"></span>
 
@@ -129,7 +129,7 @@ __BP_SplinePoweLine__ 蓝图可在 `Carla/Static/Pole/PoweLine` 中找到。它�
 4. 点击 _Compile_ ，然后保存并关闭窗口。
 
 ![bp_splinepowerline_pic](./img/map_customization/BP_Splinepowerline.jpg)
-<div style="text-align: right"><i>BP_SplinePowerLine example.</i></div>
+<div style="text-align: center"><i>BP_SplinePowerLine example.</i></div>
 
 要改变电源线的线张力：
 
@@ -144,7 +144,7 @@ __BP_SplinePoweLine__ 蓝图可在 `Carla/Static/Pole/PoweLine` 中找到。它�
 3. 配置现有套接字或通过单击 _Create Socket_ 添加新套接字。插座是代表电源线连接点的空网格。在两极之间从插座到插座创建电线。
 
 ![bp_powerline_socket_pic](./img/map_customization/BP_Splinepowerline_Sockets.jpg)
-<div style="text-align: right"><i>BP_SplinePowerLine 套接字的可视化。</i></div>
+<div style="text-align: center"><i>BP_SplinePowerLine 套接字的可视化。</i></div>
 <br>
 
 !!! 重要
@@ -167,11 +167,4 @@ __BP_SplinePoweLine__ 蓝图可在 `Carla/Static/Pole/PoweLine` 中找到。它�
 
 ---
 
-如果您对流程有任何疑问，可以在 [论坛](https://github.com/carla-simulator/carla/discussions) 中提问。
-
-<div class="build-buttons">
-<p>
-<a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-Carla 论坛</a>
-</p>
-</div>
+如果您对文档有任何疑问，可以在 [讨论页面](https://github.com/OpenHUTB/carla_doc/issues) 中提问。

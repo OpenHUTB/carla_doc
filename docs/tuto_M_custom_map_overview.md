@@ -70,11 +70,4 @@ __[本指南](tuto_M_generate_map.md) 说明如何使用 RoadRunner 生成地图
 
 ---
 
-如果您对上述过程有任何疑问，请随时在 [论坛](https://github.com/carla-simulator/carla/discussions) 中发布。
-
-<div class="build-buttons">
-<p>
-<a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-Carla 论坛</a>
-</p>
-</div>
+如果您对上述过程有任何疑问，请随时在 [讨论页面](https://github.com/OpenHUTB/carla_doc/issues) 中发布。

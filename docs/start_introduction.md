@@ -37,7 +37,7 @@ Carla 快速稳定地发展，扩大了提供的解决方案范围，并为不�
 谈论 Carla 如何成长意味着谈论一个共同深入研究自动驾驶彻底问题的开发人员社区。每个人都可以自由地与 Carla 一起探索，找到自己的解决方案，然后与社区其他成员分享他们的成就。
 
 
-开源湖工商项目继承并同步自Carla社区，并增加许多自定义的特性，比如 [鱼眼相机](ref_sensors.md#fisheye-camera) 等。下图为仓库和分支之间的继承关系：
+开源湖工商项目继承并同步自Carla社区，并增加许多自定义的特性，比如 [虚拟现实](./interbehavior.md) [鱼眼相机](ref_sensors.md#fisheye-camera) 等。下图为仓库和分支之间的继承关系：
 ![](img/dev/repository_inherit.jpg)
   
 

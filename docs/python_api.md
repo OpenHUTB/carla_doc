@@ -729,7 +729,7 @@ Y 像素坐标。
 
 ### 实例变量
 - <a name="carla.DVSEventArray.fov"></a>**<font color="#f8805a">fov</font>** (_float<small> - 度</small>_)  
-图像的水平视野。 
+图像的水平视场角（FOV, Field of View）。
 - <a name="carla.DVSEventArray.height"></a>**<font color="#f8805a">height</font>** (_int_)  
 图像高度（以像素为单位）。
 - <a name="carla.DVSEventArray.width"></a>**<font color="#f8805a">width</font>** (_int_)  
@@ -1037,7 +1037,7 @@ Alpha 通道。
 
 ### 实例变量
 - <a name="carla.Image.fov"></a>**<font color="#f8805a">fov</font>** (_float<small> - 度</small>_)  
-图像的水平视野。
+图像的水平视场角（FOV, Field of View）。
 - <a name="carla.Image.height"></a>**<font color="#f8805a">height</font>** (_int_)  
 图像高度（以像素为单位）。
 - <a name="carla.Image.width"></a>**<font color="#f8805a">width</font>** (_int_)  
@@ -1814,7 +1814,7 @@ Z 轴上从原点到点的距离。
 
 ### 实例变量
 - <a name="carla.OpticalFlowImage.fov"></a>**<font color="#f8805a">fov</font>** (_float<small> - 度</small>_)  
-图像的水平视野。 
+图像的水平视场角（FOV, Field of View）。
 - <a name="carla.OpticalFlowImage.height"></a>**<font color="#f8805a">height</font>** (_int_)  
 图像高度（以像素为单位）。
 - <a name="carla.OpticalFlowImage.width"></a>**<font color="#f8805a">width</font>** (_int_)  

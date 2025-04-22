@@ -30,7 +30,7 @@
 对于每个模型，除了屋顶 __Roof__ 之外，都有一个网格体填充地板的中心，还有一个 __Corner__ 网格体将放置在地板的两侧。下图代表了全局结构。
 
 ![bp_procedural_building_visual](./img/map_customization/BP_Procedural_Building_Visual.jpg)
-<div style="text-align: right"><i>建筑结构的可视化。</i></div>
+<div style="text-align: center"><i>建筑结构的可视化。</i></div>
 
 基本参数 __Base parameters__ 设置尺寸。
 
@@ -38,7 +38,7 @@
 - __长度 X 和 长度 Y：__ 建筑物的长度和宽度。建筑物每一侧的中央网格重复。
 
 ![bp_procedural_building_full](./img/map_customization/BP_Procedural_Building_Full.jpg)
-<div style="text-align: right"><i>BP_Procedural_Building 示例。</i></div>
+<div style="text-align: center"><i>BP_Procedural_Building 示例。</i></div>
 
 ### 结构修改 <span id="structure-modifications"></span>
 
@@ -50,7 +50,7 @@
 - __Walls:__ 替代建筑物一侧或多侧的网格。例如，平面网格可用于绘制建筑物的一侧。
 
 ![bp_procedural_building_extras](./img/map_customization/BP_Procedural_Building_Extras.jpg)
-<div style="text-align: right"><i>左边是一座没有角、只有一扇门的建筑。 <br> 右侧是一座建筑物，其一侧应用了墙壁。墙壁是没有防火通道的纹理。</i></div>
+<div style="text-align: center"><i>左边是一座没有角、只有一扇门的建筑。 <br> 右侧是一座建筑物，其一侧应用了墙壁。墙壁是没有防火通道的纹理。</i></div>
 
 ---
 
@@ -68,11 +68,6 @@
 
 ---
 
-如果您对流程有任何疑问，可以在 [论坛](https://github.com/carla-simulator/carla/discussions) 中提问。
+如果您对文档有任何疑问，可以在 [讨论页面](https://github.com/OpenHUTB/carla_doc/issues) 中提问。
 
-<div class="build-buttons">
-<p>
-<a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-Carla 论坛</a>
-</p>
-</div>
+

@@ -17,7 +17,7 @@ Carla 团队准备每个资产在某些默认设置下运行。但是，从源�
 在 Carla 中，有一组主材料用作车辆不同部件的模板。为每个车辆模型创建一个实例，然后更改为所需的结果。主要材质可以在 `Content/Carla/Static/GenericMaterials/Vehicles` （位于源代码的`Unreal/CarlaUE4`目录中）中找到，如下所示。
 
 ![materials_master](img/material_customization/Materials_Master.jpg)
-<div style="text-align: right"><i>适用于汽车的主材料。</i></div>
+<div style="text-align: center"><i>适用于汽车的主材料。</i></div>
 
 *   __M_CarExterior_Master__ — 应用于车身的材质。  
 *   __M_CarInterior_Master__ — 应用于汽车内部的材质。 
@@ -33,7 +33,7 @@ Carla 团队准备每个资产在某些默认设置下运行。但是，从源�
 创建主材料的实例并将它们存储在新模型的相应文件夹中。以下是蓝图库中为警车创建的实例，*vehicle.dodge_charger.police*。
 
 ![materials_instances](img/material_customization/Materials_Instances.jpg)
-<div style="text-align: right"><i>警车蓝图的实例材料。</i></div>
+<div style="text-align: center"><i>警车蓝图的实例材料。</i></div>
 
 材料的通用文档以及如何使用它们可以在 [虚幻引擎文档](https://docs.unrealengine.com/en-US/Engine/Rendering/Materials/index.html) 中找到。所有材料都可以进行很大程度的修改，但只有外观材料的性能值得一提。其他材料具有某些可以更改的属性，例如玻璃材料的不透明度和颜色，但不建议这样做，除非有特定用途。
 
@@ -45,7 +45,7 @@ Carla 团队准备每个资产在某些默认设置下运行。但是，从源�
 *   __Tint shade__ — 色调的可见度根据可视角度而变化。
 
 ![materials_Tint](img/material_customization/Materials_Tint.jpg)
-<div style="text-align: right"><i>带有粉红色调的红色汽车。左侧，色调已禁用，右侧，色调已启用。</i></div>
+<div style="text-align: center"><i>带有粉红色调的红色汽车。左侧，色调已禁用，右侧，色调已启用。</i></div>
 
 *   __Global Dust__ — 涂在汽车上的污垢纹理。灰尘会堆积在几何体的顶部，而在底部几乎不会被注意到。如果旋转几何体，灰尘将出现在车辆顶部的部件上。
 	*   `Dust_Amount` — 纹理的不透明度。  
@@ -55,7 +55,7 @@ Carla 团队准备每个资产在某些默认设置下运行。但是，从源�
 	*   `Roughness` — 由于灰尘而减少汽车的金属反射。  
 
 ![materials_Dust](img/material_customization/Materials_Dust.jpg)
-<div style="text-align: right"><i>汽车材料中的灰尘特性。</i></div>
+<div style="text-align: center"><i>汽车材料中的灰尘特性。</i></div>
 
 *   __Global Flakes__ — 汽车金属漆上闪闪发光的薄片。  
 	*   `Flakes On/Off` — 启用或禁用该功能。  
@@ -64,7 +64,7 @@ Carla 团队准备每个资产在某些默认设置下运行。但是，从源�
 	*   `Flakes Color` — 粒子的基色。
 
 ![materials_Flakes](img/material_customization/Materials_Flakes.jpg)
-<div style="text-align: right"><i>汽车材料中的薄片特性。</i></div>
+<div style="text-align: center"><i>汽车材料中的薄片特性。</i></div>
 
 *   __Global Gain__ — 汽车底漆的噪音。
 	*   __Gain On/Off__ — 启用或禁用该功能。  
@@ -72,7 +72,7 @@ Carla 团队准备每个资产在某些默认设置下运行。但是，从源�
 	*   __Color__ — 增益的基色。  
 
 ![materials_Gain](img/material_customization/Materials_Gain.jpg)
-<div style="text-align: right"><i>汽车材质中的增益属性。</i></div>
+<div style="text-align: center"><i>汽车材质中的增益属性。</i></div>
 
 *   __Global Mud__ — 涂在汽车上的泥浆纹理。泥浆从车的底部到顶部出现。 
 	*   `Height` — 汽车出现泥浆的部分。 
@@ -81,14 +81,14 @@ Carla 团队准备每个资产在某些默认设置下运行。但是，从源�
 	*   `Mud_Thickness` — 泥浆的密度。 
 
 ![materials_mude](img/material_customization/Materials_Mud.jpg)
-<div style="text-align: right"><i>汽车材质中的泥浆特性。</i></div>
+<div style="text-align: center"><i>汽车材质中的泥浆特性。</i></div>
 
 *   __Global Noise__ — 应用于材质法线的噪声。打造橙皮效果。 
 	*   `Noise On/Off` — 启用或禁用该功能。
 	*   `Noise Scale` — 通过更改法线贴图创建的凹凸大小。
 
 ![materials_noise](img/material_customization/Materials_Noise_High.jpg)
-<div style="text-align: right"><i>汽车材质的噪声特性。</i></div>
+<div style="text-align: center"><i>汽车材质的噪声特性。</i></div>
 
 *   __Global Surface__ — 涂在车辆油漆上的光泽和透明涂层。这是 [汽车喷漆](https://en.wikipedia.org/wiki/Automotive_paint) 的最后一步。 
 	*   `Clear Coat` — 涂层的不透明度。
@@ -96,7 +96,7 @@ Carla 团队准备每个资产在某些默认设置下运行。但是，从源�
 	*   `Metallic` — 所得材质的反射。
 
 ![materials_Surface](img/material_customization/Materials_Surface.jpg)
-<div style="text-align: right"><i>应用于材质表面涂层的可视化。</i></div>
+<div style="text-align: center"><i>应用于材质表面涂层的可视化。</i></div>
 
 
 ---

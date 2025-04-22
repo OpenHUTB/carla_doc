@@ -13,8 +13,8 @@ Carla 论坛</a>
 
 ## 专业问题
 
-* [传感器](./QA/sensor.md)
-* [动力学](./QA/dynamics.md)
+* [传感器](./faq/sensor.md)
+* [动力学](./faq/dynamics.md)
 
 
 ## 系统要求
