@@ -268,6 +268,10 @@
 [基于强化学习的自动驾驶训练系统](https://github.com/2Allen/carla-rl-project)
 
 
+### 建图 <span id="mapping"></span>
+
+[使用 gnss 和 IMU 数据实现自动驾驶汽车的卡尔曼滤波器](https://github.com/Ashwin-Rajesh/Kalman_filter_carla)
+
 ### 导航 <span id="navigation"></span>
 
 [多模态机器人导航系统](https://github.com/CV4RA/MMAP-DRL-Nav)

@@ -302,10 +302,10 @@ __3. 设置画笔和模板参数。__
 - _Rotation_ — 应用于笔画的旋转。
 
 >>>>>>![materials_roadpaint_brushes](./img/material_customization/Materials_Brush.jpg)
-<div style="text-align: right"><i>刷子面板。</i></div>
+<div style="text-align: center"><i>刷子面板。</i></div>
 <br>
 ![materials_roadpaint_typesofbrushes](./img/material_customization/Materials_Road_Typesofbrushes.jpg)
-<div style="text-align: right"><i>不同类型的刷子。</i></div>
+<div style="text-align: center"><i>不同类型的刷子。</i></div>
 <br>
 
 __4. 将每种材质涂抹到道路的所需部分。__
@@ -324,7 +324,7 @@ __4. 将每种材质涂抹到道路的所需部分。__
 * _Clear material by actor_ — 删除最接近所选参与者的材质。
 
 >>>>>>![materials_roadpaint_brushes](./img/material_customization/Materials_RoadPainter_Default.jpg)
-<div style="text-align: right"><i>Different painting and erasing options.</i></div>
+<div style="text-align: center"><i>不同的绘画和擦除选项。</i></div>
 <br>
 
 __5.添加贴花和网格。__
@@ -340,7 +340,7 @@ __5.添加贴花和网格。__
 - _Decal/Mesh Max Scale_ — 应用于贴花/网格的最大随机比例。
 
 >>>>>>![materials_](./img/decals_meshes.png)
-<div style="text-align: right"><i>贴花和网格面板。</i></div>
+<div style="text-align: center"><i>贴花和网格面板。</i></div>
 <br>
 
 配置好网格和贴花后，通过按`Spawn decals`和生`Spawn meshes`。
@@ -353,27 +353,27 @@ __7. 尝试获得您想要的外观。__
 尝试不同的材质、纹理、设置、贴花和网格以获得您想要的外观。下面是一些示例图像，显示了在绘制每种材质的过程中道路外观如何变化。
 
 ![materials_roadpaint_mat00](./img/material_customization/Materials_Road_MaterialBase.jpg)
-<div style="text-align: right"><i>基础道路材料示例。</i></div>
+<div style="text-align: center"><i>基础道路材料示例。</i></div>
 <br>
 
 ![materials_roadpaint_mat01](./img/material_customization/Materials_Road_Material1.jpg)
-<div style="text-align: right"><i>应用材料 1 后的示例。</i></div>
+<div style="text-align: center"><i>应用材料 1 后的示例。</i></div>
 <br>
 
 ![materials_roadpaint_mat02](./img/material_customization/Materials_Road_Material2.jpg)
-<div style="text-align: right"><i>应用材料 2 后的示例。</i></div>
+<div style="text-align: center"><i>应用材料 2 后的示例。</i></div>
 <br>
 
 ![materials_roadpaint_mat03](./img/material_customization/Materials_Road_Material3.jpg)
-<div style="text-align: right"><i>应用材料 3 后的示例。</i></div>
+<div style="text-align: center"><i>应用材料 3 后的示例。</i></div>
 <br>
 
 ![materials_roadpaint_mat03](./img/material_customization/Materials_Road_Decals.jpg)
-<div style="text-align: right"><i>应用贴花后的示例。</i></div>
+<div style="text-align: center"><i>应用贴花后的示例。</i></div>
 <br>
 
 ![materials_roadpaint_mat03](./img/material_customization/Materials_Road_Meshes.jpg)
-<div style="text-align: right"><i>应用网格后的示例。</i></div>
+<div style="text-align: center"><i>应用网格后的示例。</i></div>
 <br>
 
 ---

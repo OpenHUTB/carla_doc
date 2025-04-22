@@ -48,19 +48,19 @@
 
 本教程为不同步骤提供了多种选项。一直以来，都会提到不同的脚本。并不是所有的都会被使用，这取决于具体的用例。其中大多数已在 Carla 中提供用于通用目的。
 
-* __config.py__ 更改模拟设置。地图、渲染选项、设置固定时间步长...  
-	* `carla/PythonAPI/util/config.py`
+* __config.py__ 更改模拟设置、地图、渲染选项、设置固定时间步长等
+	* [`carla/PythonAPI/util/config.py`](https://github.com/OpenHUTB/carla_doc/blob/master/src/util/config.py)
 * __dynamic_weather.py__ 创建有趣的天气条件。
-	* `carla/PythonAPI/examples/dynamic_weather.py`
-* __spawn_npc.py__ spawn_npc.py生成一些人工智能控制的车辆和行人。 
-	* `carla/PythonAPI/examples/spawn_npc.py`
+	* [`carla/PythonAPI/examples/dynamic_weather.py`](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/dynamic_weather.py)
+* __spawn_npc.py__ 生成一些人工智能控制的车辆和行人。
+	* [`carla/PythonAPI/examples/spawn_npc.py`](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/spawn_npc.py)
 * __manual_control.py__ 生成一个自我车辆，并提供对其的控制。
-	* `carla/PythonAPI/examples/manual_control.py`
+	* [`carla/PythonAPI/examples/manual_control.py`](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/manual_control.py)
 
 但是，教程中提到的两个脚本在 Carla 中找不到。它们包含引用的代码片段。这有双重目的。首先，鼓励用户构建自己的脚本。充分理解代码的作用非常重要。除此之外，本教程只是一个大纲，可能而且应该根据用户的喜好而有很大的不同。这两个脚本只是一个示例。
 
 * __tutorial_ego.py__ 生成带有一些基本传感器的自我车辆，并启用自动驾驶仪。观察者被放置在生成位置。记录器从一开始就启动，并在脚本完成时停止。
-* __tutorial_replay.py__ 重新执行 __tutorial_ego.py__ 记录的模拟。有不同的代码片段可以查询记录、生成一些高级传感器、改变天气条件以及重新执行记录片段。
+* [__tutorial_replay.py__](https://github.com/OpenHUTB/carla_doc/tree/master/src/tutorial/tutorial_replay.py) 重新执行 __tutorial_ego.py__ 记录的模拟。有不同的代码片段可以查询记录、生成一些高级传感器、改变天气条件以及重新执行记录片段。
 
 完整的代码可以在教程的最后部分找到。请记住，这些并不严格，而是可以定制的。在 Carla 中检索数据的功能正如用户所希望的那样强大。
 
@@ -137,7 +137,7 @@ cd /opt/carla/PythonAPI/examples
 python3 dynamic_weather.py --speed 1.0
 ```
 
-* __设置自定义条件__ 使用脚本 __environment.py__ 。有很多可能的设置。查看可选参数以及 [carla.WeatherParameters](python_api.md#carla.WeatherParameters) 的文档。
+* __设置自定义条件__ 使用脚本 [__environment.py__](https://github.com/OpenHUTB/carla_doc/blob/master/src/util/environment.py) 。有很多可能的设置。查看可选参数以及 [carla.WeatherParameters](python_api.md#carla.WeatherParameters) 的文档。
 
 ```sh
 cd /opt/carla/PythonAPI/util
@@ -239,7 +239,7 @@ python3 run_synchronization.py examples/Town01.sumocfg --sumo-gui
 该脚本生成的流量是 Carla 团队创建的示例。默认情况下，它会沿着相同的路线生成相同的车辆。用户可以在 SUMO 中更改这些内容。
 
 ![tuto_sumo](img/tuto_sumo.jpg)
-<div style="text-align: center"><i>SUMO 和 Carla 协同模拟交通。</i></div>
+<div style="text-align: center"><i>SUMO 和 Carla 协同模拟交通</i></div>
 
 !!! 警告
     目前，SUMO 联合模拟还是测试版功能。车辆没有物理特性，也不考虑 Carla 交通灯。
@@ -297,11 +297,15 @@ spectator.set_transform(ego_vehicle.get_transform())
 生成任何传感器的过程都非常相似。 
 
 __1.__ 使用库查找传感器蓝图。
+
 __2.__ 设置传感器的特定属性。这一点至关重要。属性将塑造检索到的数据。
-__3.__ 将传感器连接至自我车辆。该变换是相对于其父级的。[carla.AttachmentType](python_api.md#carlaattachmenttype) 将确定传感器位置的更新方式。 
+
+__3.__ 将传感器连接至自我车辆。该变换是相对于其父级的。[carla.AttachmentType](python_api.md#carlaattachmenttype) 将确定传感器位置的更新方式。
+
 __4.__ 添加`listen()`方法。这是关键要素。每次传感器监听数据时都会调用的 [__lambda__](https://www.w3schools.com/python/python_lambda.asp) 方法。参数是检索到的传感器数据。 
 
 牢记这一基本准则，让我们为自我车辆设置一些基本传感器。
+
 
 ### RGB 相机 <span id="rgb-camera"></span>
 
@@ -318,13 +322,13 @@ __4.__ 添加`listen()`方法。这是关键要素。每次传感器监听数据
 
 ```py
 # --------------
-# 生成附着的RGB相机
+# 生成附着的到车辆上的RGB相机
 # --------------
 cam_bp = None
 cam_bp = world.get_blueprint_library().find('sensor.camera.rgb')
 cam_bp.set_attribute("image_size_x",str(1920))
 cam_bp.set_attribute("image_size_y",str(1080))
-cam_bp.set_attribute("fov",str(105))
+cam_bp.set_attribute("fov",str(105))  # 图像的视场角(Field of View)
 cam_location = carla.Location(2,0,1)
 cam_rotation = carla.Rotation(0,180,0)
 cam_transform = carla.Transform(cam_location,cam_rotation)
@@ -332,7 +336,7 @@ ego_cam = world.spawn_actor(cam_bp,cam_transform,attach_to=ego_vehicle, attachme
 ego_cam.listen(lambda image: image.save_to_disk('tutorial/output/%.6d.jpg' % image.frame))
 ```
 ![tuto_rgb](img/tuto_rgb.jpg)
-<div style="text-align: right"><i>RGB camera output</i></div>
+<div style="text-align: center"><i>RGB 相机输出</i></div>
 
 ### 检测器 <span id="viewing"></span>
 
@@ -391,7 +395,7 @@ def obs_callback(obs):
 ego_obs.listen(lambda obs: obs_callback(obs))
 ```
 ![tuto_detectors](img/tuto_detectors.jpg)
-<div style="text-align: right"><i>Output for detector sensors</i></div>
+<div style="text-align: center"><i>检测传感器输出</i></div>
 
 ### 其他传感器 <span id="other-sensors"></span>
 
@@ -410,7 +414,6 @@ ego_obs.listen(lambda obs: obs_callback(obs))
 # --------------
 # 给自我车辆添加全球导航卫星系统传感器 
 # --------------
-
 gnss_bp = world.get_blueprint_library().find('sensor.other.gnss')
 gnss_location = carla.Location(0,0,0)
 gnss_rotation = carla.Rotation(0,0,0)
@@ -422,9 +425,8 @@ def gnss_callback(gnss):
 ego_gnss.listen(lambda gnss: gnss_callback(gnss))
 
 # --------------
-# Add IMU sensor to ego vehicle. 
+# 给自主车辆添加 IMU 传感器 
 # --------------
-
 imu_bp = world.get_blueprint_library().find('sensor.other.imu')
 imu_location = carla.Location(0,0,0)
 imu_rotation = carla.Rotation(0,0,0)
@@ -437,12 +439,12 @@ ego_imu.listen(lambda imu: imu_callback(imu))
 ```
 
 ![tuto_other](img/tuto_other.jpg)
-<div style="text-align: right"><i>全球导航卫星系统和惯性测量单元传感器输出</i></div>
+<div style="text-align: center"><i>全球导航卫星系统和惯性测量单元传感器输出</i></div>
 
 ---
 ## 设置高级传感器 <span id="set-advanced-sensors"></span>
 
-脚本 __tutorial_replay.py__ 除其他外还包含更多传感器的定义。它们的工作方式与基本的相同，但理解可能有点困难。
+脚本 [__tutorial_replay.py__](https://github.com/OpenHUTB/carla_doc/tree/master/src/tutorial/tutorial_replay.py) 除其他外还包含更多传感器的定义。它们的工作方式与基本的相同，但理解可能有点困难。
 
 ### 深度相机 <span id="深度相机"></span>
 
@@ -457,7 +459,7 @@ ego_imu.listen(lambda imu: imu_callback(imu))
 
 ```py
 # --------------
-# Add a Depth camera to ego vehicle. 
+# 给自主车添加深度相机 
 # --------------
 depth_cam = None
 depth_bp = world.get_blueprint_library().find('sensor.camera.depth')
@@ -470,7 +472,7 @@ depth_cam.listen(lambda image: image.save_to_disk('tutorial/new_depth_output/%.6
 ```
 
 ![tuto_depths](img/tuto_depths.jpg)
-<div style="text-align: right"><i>Depth camera output. Simple conversion on the left, logarithmic on the right.</i></div>
+<div style="text-align: center"><i>深度相机输出（左侧为简单转换，右侧为对数转换）</i></div>
 
 ### 语义分割相机 <span id="语义分割相机"></span>
 
@@ -482,7 +484,7 @@ depth_cam.listen(lambda image: image.save_to_disk('tutorial/new_depth_output/%.6
 
 ```py
 # --------------
-# Add a new semantic segmentation camera to my ego
+# 给自主车添加一个新的语义分割相机
 # --------------
 sem_cam = None
 sem_bp = world.get_blueprint_library().find('sensor.camera.semantic_segmentation')
@@ -493,12 +495,13 @@ sem_location = carla.Location(2,0,1)
 sem_rotation = carla.Rotation(0,180,0)
 sem_transform = carla.Transform(sem_location,sem_rotation)
 sem_cam = world.spawn_actor(sem_bp,sem_transform,attach_to=ego_vehicle, attachment_type=carla.AttachmentType.Rigid)
-# This time, a color converter is applied to the image, to get the semantic segmentation view
+# 这次，将颜色转换器应用于图像，以获得语义分割视图
 sem_cam.listen(lambda image: image.save_to_disk('tutorial/new_sem_output/%.6d.jpg' % image.frame,carla.ColorConverter.CityScapesPalette))
 ```
 
 ![tuto_sem](img/tuto_sem.jpg)
-<div style="text-align: right"><i>Semantic segmentation camera output</i></div>
+<div style="text-align: center"><i>语义分割相机输出</i></div>
+
 
 ### 激光雷达光线投射传感器 <span id="激光雷达光线投射传感器"></span>
 
@@ -548,7 +551,7 @@ meshlab
 __3.__ 打开其中一个 _.ply_ 文件。 `File > Import mesh...` 
 
 ![tuto_lidar](img/tuto_lidar.jpg)
-<div style="text-align: right"><i>经过Meshlab处理后的激光雷达输出。</i></div>
+<div style="text-align: center"><i>经过Meshlab处理后的激光雷达输出。</i></div>
 
 ### 雷达传感器 <span id="雷达传感器"></span>
 
@@ -571,7 +574,7 @@ __3.__ 打开其中一个 _.ply_ 文件。 `File > Import mesh...`
 
 ```py
 # --------------
-# Add a new radar sensor to my ego
+# 给自主车添加新的雷达传感器
 # --------------
 rad_cam = None
 rad_bp = world.get_blueprint_library().find('sensor.other.radar')
@@ -588,8 +591,7 @@ def rad_callback(radar_data):
     for detect in radar_data:
         azi = math.degrees(detect.azimuth)
         alt = math.degrees(detect.altitude)
-        # The 0.25 adjusts a bit the distance so the dots can
-        # be properly seen
+        # 0.25 稍微调整距离，以便可以正确看到点
         fw_vec = carla.Vector3D(x=detect.depth - 0.25)
         carla.Transform(
             carla.Location(),
@@ -601,7 +603,7 @@ def rad_callback(radar_data):
         def clamp(min_v, max_v, value):
             return max(min_v, min(value, max_v))
 
-        norm_velocity = detect.velocity / velocity_range # range [-1, 1]
+        norm_velocity = detect.velocity / velocity_range # [-1, 1] 范围
         r = int(clamp(0.0, 1.0, 1.0 - norm_velocity) * 255.0)
         g = int(clamp(0.0, 1.0, 1.0 - abs(norm_velocity)) * 255.0)
         b = int(abs(clamp(- 1.0, 0.0, - 1.0 - norm_velocity)) * 255.0)
@@ -615,7 +617,7 @@ rad_ego.listen(lambda radar_data: rad_callback(radar_data))
 ```
 
 ![tuto_radar](img/tuto_radar.jpg)
-<div style="text-align: right"><i>雷达输出。车辆停在红绿灯处，因此其前面的静态元素显示为白色。</i></div>
+<div style="text-align: center"><i>雷达输出。车辆停在红绿灯处，因此其前面的静态元素显示为白色。</i></div>
 
 ---
 ## 非渲染模式 <span id="no-rendering-mode"></span>
@@ -626,11 +628,11 @@ rad_ego.listen(lambda radar_data: rad_callback(radar_data))
 
 禁用渲染将为模拟节省大量工作。由于不使用 GPU，服务器可以全速工作。这对于快速模拟复杂的条件很有用。最好的方法是设置固定的时间步长。以固定时间步长运行异步服务器并且不进行渲染，模拟的唯一限制是服务器的内部逻辑。 
 
-相同的 `config.py` 用于 [设置地图](#map-setting) 可以禁用渲染，并设置固定的时间步长。
+相同的 [`config.py`](https://github.com/OpenHUTB/carla_doc/blob/master/src/util/config.py) 用于 [设置地图](#map-setting) 可以禁用渲染，并设置固定的时间步长。
 
 ```
 cd /opt/carla/PythonAPI/utils
-python3 config.py --no-rendering --delta-seconds 0.05 # Never greater than 0.1s
+python3 config.py --no-rendering --delta-seconds 0.05 # 绝不会大于 0.1 秒
 ```
 
 !!! 警告
@@ -638,7 +640,7 @@ python3 config.py --no-rendering --delta-seconds 0.05 # Never greater than 0.1s
 
 ### 无需渲染的手动控制 <span id="manual-control-without-rendering"></span>
 
-脚本`PythonAPI/examples/no_rendering_mode.py`提供了模拟的概述。它使用 Pygame 创建了一个简约的鸟瞰图，它将跟随自我车辆。这可以与 __manual_control.py__ 一起使用来生成一条几乎没有成本的路线，记录它，然后回放并利用它来收集数据。
+脚本 [`PythonAPI/examples/no_rendering_mode.py`](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/no_rendering_mode.py) 提供了模拟的概述。它使用 Pygame 创建了一个简约的鸟瞰图，它将跟随自我车辆。这可以与 __manual_control.py__ 一起使用来生成一条几乎没有成本的路线，记录它，然后回放并利用它来收集数据。
 
 ```
 cd /opt/carla/PythonAPI/examples
@@ -670,7 +672,7 @@ python3 no_rendering_mode.py --no-rendering
 <br>
 
 ![tuto_no_rendering](img/tuto_no_rendering.jpg)
-<div style="text-align: right"><i>no_rendering_mode.py working in Town07</i></div>
+<div style="text-align: center"><i>no_rendering_mode.py 在 Town07 中运行</i></div>
 
 !!! 笔记
     在此模式下，基于 GPU 的传感器将检索空数据。摄像头没用，但探测器等其他传感器可以正常工作。
@@ -706,7 +708,7 @@ while True:
     world_snapshot = world.wait_for_tick()
 ```
 
-* __手动控制。__ 在客户端中运行脚本 `PythonAPI/examples/manual_control.py`，在另一个客户端中运行记录器。驾驶自我车辆来创建所需的路线，并在完成后停止记录仪。__tutorial_ego.py__ 脚本可用于管理记录器，但请确保注释其他代码片段。
+* __手动控制。__ 在客户端中运行脚本 [`PythonAPI/examples/manual_control.py`](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/manual_control.py) ，在另一个客户端中运行记录器。驾驶自我车辆来创建所需的路线，并在完成后停止记录仪。[__tutorial_ego.py__](https://github.com/OpenHUTB/carla_doc/tree/master/src/tutorial/tutorial_ego.py) 脚本可用于管理记录器，但请确保注释其他代码片段。
 
 ```
 cd /opt/carla/PythonAPI/examples
@@ -714,7 +716,7 @@ python3 manual_control.py
 ```
 
 !!! 笔记
-    为了避免渲染并节省计算成本，请启用 [__无渲染模式__] 。该脚本`/PythonAPI/examples/no_rendering_mode.py`在创建简单的鸟瞰图时执行此操作。
+    为了避免渲染并节省计算成本，请启用 [__无渲染模式__](adv_rendering_options.md#no-rendering-mode) 。该脚本`/PythonAPI/examples/no_rendering_mode.py`在创建简单的鸟瞰图时执行此操作。
 
 ### 停止记录  <span id="stop-recording"></span>
 
@@ -730,7 +732,7 @@ client.stop_recorder()
 ---
 ## 利用记录 <span id="exploit-the-recording"></span>
 
-到目前为止，模拟已经被记录下来。现在，是时候检查记录，找到最引人注目的时刻，并利用它们。这些步骤集中在脚本 __tutorial_replay.py__ 中。该大纲由注释的不同代码段构成。
+到目前为止，模拟已经被记录下来。现在，是时候检查记录，找到最引人注目的时刻，并利用它们。这些步骤集中在脚本 [__tutorial_replay.py__](https://github.com/OpenHUTB/carla_doc/tree/master/src/tutorial/tutorial_replay.py) 中。该大纲由注释的不同代码段构成。
 
 现在是运行新模拟的时候了。
 
@@ -751,13 +753,13 @@ python3 tuto_replay.py
 
 ```py
 # --------------
-# Query the recording
+# 查询记录
 # --------------
-# Show only the most important events in the recording.  
-print(client.show_recorder_file_info("~/tutorial/recorder/recording01.log",False))
-# Show actors not moving 1 meter in 10 seconds.  
+# 仅显示记录中最重要的事件。
+print(client.show_recorder_file_info("~/tutorial/recorder/recording01.log", False))
+# 展示参与者在 10 秒内不动 1 米。
 print(client.show_recorder_actors_blocked("~/tutorial/recorder/recording01.log",10,1))
-# Filter collisions between vehicles 'v' and 'a' any other type of actor.  
+# 过滤车辆“v”和“a”以及任何其他类型的参与者之间的碰撞 
 print(client.show_recorder_collisions("~/tutorial/recorder/recording01.log",'v','a'))
 ```
 
@@ -765,13 +767,13 @@ print(client.show_recorder_collisions("~/tutorial/recorder/recording01.log",'v',
     记录器不需要打开即可进行查询。
 
 ![tuto_query_frames](img/tuto_query_frames.jpg)
-<div style="text-align: right"><i>显示重要事件的查询。这是自我车辆产生的框架。</i></div>
+<div style="text-align: center"><i>显示重要事件的查询。这是自我车辆产生的框架。</i></div>
 
 ![tuto_query_blocked](img/tuto_query_blocked.jpg)
-<div style="text-align: right"><i>查询显示参与者被阻止。在此模拟中，自我车辆保持阻塞状态 100 秒。</i></div>
+<div style="text-align: center"><i>查询显示参与者被阻止。在此模拟中，自我车辆保持阻塞状态 100 秒。</i></div>
 
 ![tuto_query_collisions](img/tuto_query_collisions.jpg)
-<div style="text-align: right"><i>显示自我车辆与“其他”类型的对象之间的碰撞的查询。</i></div>
+<div style="text-align: center"><i>显示自我车辆与“其他”类型的对象之间的碰撞的查询。</i></div>
 
 !!! 笔记
     获取每一帧的详细文件信息可能会让人不知所措。在其他查询之后使用它来了解要查看的位置。 
@@ -784,7 +786,7 @@ print(client.show_recorder_collisions("~/tutorial/recorder/recording01.log",'v',
 
 ```py
 # --------------
-# Reenact a fragment of the recording
+# 重播记录片段
 # --------------
 client.replay_file("~/tutorial/recorder/recording01.log",45,10,0)
 ```
@@ -802,7 +804,7 @@ client.replay_file("~/tutorial/recorder/recording01.log",45,10,0)
 
 记录器将在此模拟中重新创建与原始条件完全相同的条件。这确保了不同播放中的数据一致。
 
-收集重要时刻、参与者和事件的列表。需要时添加传感器并回放模拟。该过程与之前完全相同。脚本 __tutorial_replay.py__ 提供了不同的示例，这些示例已在 [__“设置高级传感器”__](#set-advanced-sensors) 部分中进行了彻底解释。其他已在 [__设置基本传感器__](#set-basic-sensors) 部分中进行了解释。 
+收集重要时刻、参与者和事件的列表。需要时添加传感器并回放模拟。该过程与之前完全相同。脚本 [__tutorial_replay.py__](https://github.com/OpenHUTB/carla_doc/tree/master/src/tutorial/tutorial_replay.py) 提供了不同的示例，这些示例已在 [__“设置高级传感器”__](#set-advanced-sensors) 部分中进行了彻底解释。其他已在 [__设置基本传感器__](#set-basic-sensors) 部分中进行了解释。 
 
 根据需要添加尽可能多的传感器。根据需要多次回放模拟并检索尽可能多的数据。
 
