@@ -424,7 +424,7 @@ Carla 内容库拥有一套全面的植被蓝图，供您为地图的越野区�
 
 使用以下工具和指南继续自定义您的地图：
 
-- [在地图中实施子关卡。.](tuto_M_custom_layers.md)
+- [在地图中实施子关卡。](tuto_M_custom_layers.md)
 - [使用程序化构建工具添加建筑物。](tuto_M_custom_buildings.md)
 - [自定义天气](tuto_M_custom_weather_landscape.md#weather-customization)
 - [使用序列化网格自定义景观。](tuto_M_custom_weather_landscape.md#add-serial-meshes)
@@ -432,11 +432,6 @@ Carla 内容库拥有一套全面的植被蓝图，供您为地图的越野区�
 
 ---
 
-如果您对流程有任何疑问，可以在 [论坛](https://github.com/carla-simulator/carla/discussions) 中提问。
+如果您对文档有任何疑问，可以在 [讨论页面](https://github.com/OpenHUTB/carla_doc/issues) 中提问。
 
-<div class="build-buttons">
-<p>
-<a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-Carla 论坛</a>
-</p>
-</div>
+

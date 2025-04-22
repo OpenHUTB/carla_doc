@@ -524,7 +524,7 @@ python3 generate_traffic.py -n 50
 
 - 在[多客户端](#multiclient)情况下，只有 __交通管理器服务端__ 应设置为同步模式。
 - 在[多交通管理器](#multitm)情况下，只需将一台 __交通管理器服务端__ 设置为同步模式。
-- [ScenarioRunner 模块](https://carla-scenariorunner.readthedocs.io/en/latest/)自动运行交通管理器。ScenarioRunner 内的交通管理器将自动设置为同步模式。
+- [ScenarioRunner 模块](https://carla-scenariorunner.readthedocs.io/en/latest/) 自动运行交通管理器。ScenarioRunner 内的交通管理器将自动设置为同步模式。
 
 !!! 警告
     在管理时钟的脚本完成之前禁用同步模式（对于世界和交通管理器），以防止服务器阻塞，永远等待时钟。
@@ -570,11 +570,6 @@ my_tm.set_boundaries_respawn_dormant_vehicles(25,700)
 
 ---
 
-如果你有任何关于交通管理器的问题，可以在 [论坛](https://github.com/carla-simulator/carla/discussions) 上提问。
+如果你有任何关于交通管理器的问题，可以在 [讨论页面](https://github.com/OpenHUTB/carla_doc/issues) 上提问。
 
-<div class="build-buttons">
-<p>
-<a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-Carla 论坛</a>
-</p>
-</div>
+

@@ -235,11 +235,6 @@ __3. 选择车道线网格。__
 
 ---
 
-如果您对流程有任何疑问，可以在 [论坛](https://github.com/carla-simulator/carla/discussions) 中提问。
+如果您对文档有任何疑问，可以在 [讨论页面](https://github.com/OpenHUTB/carla_doc/issues) 中提问。
 
-<div class="build-buttons">
-<p>
-<a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-Carla 论坛</a>
-</p>
-</div>
+
