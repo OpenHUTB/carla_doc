@@ -18,6 +18,7 @@ VehicleControl 结构中的值直接传递给 PhysX Vehicle 插件（请参阅 [
 
 - `AckermannController.h`：定义了 `FAckermannController` 类和相关结构体。
 - `CarlaWheeledVehicle.h`：定义了 `ACarlaWheeledVehicle` 类，用于表示轮式车辆。
+- 使用 `#pragma once` 指令，确保头文件仅被编译一次，避免因重复包含导致的编译错误，提升编译效率。
 
 ## 三、类成员和方法
 
@@ -68,6 +69,32 @@ VehicleControl 结构中的值直接传递给 PhysX Vehicle 插件（请参阅 [
 
    - `void FAckermannController::UpdateVehiclePhysics(const ACarlaWheeledVehicle* Vehicle)`：更新车辆的最大转向角。
 
+3.转向控制
+
+```
+USTRUCT(BlueprintType)
+struct CARLA_API FVehicleAckermannControl
+{
+  GENERATED_BODY()
+
+  UPROPERTY(Category = "Vehicle Ackermann Control", EditAnywhere, BlueprintReadWrite)
+  float Steer = 0.0f;
+
+  UPROPERTY(Category = "Vehicle Ackermann Control", EditAnywhere, BlueprintReadWrite)
+  float SteerSpeed = 0.0f;
+
+  UPROPERTY(Category = "Vehicle Ackermann Control", EditAnywhere, BlueprintReadWrite)
+  float Speed = 0.0f;
+
+  UPROPERTY(Category = "Vehicle Ackermann Control", EditAnywhere, BlueprintReadWrite)
+  float Acceleration = 0.0f;
+
+  UPROPERTY(Category = "Vehicle Ackermann Control", EditAnywhere, BlueprintReadWrite)
+  float Jerk = 0.0f;
+};
+```
+
+该代码定义了一个用于车辆阿克曼转向控制的结构体，能够在虚幻引擎的蓝图系统中使用。通过这个结构体，开发者可以对车辆的转向角度、转向速度、行驶速度、加速度和加加速度等参数进行方便的管理和调整，进而实现车辆的阿克曼转向控制模拟。
 
 ### 3.9车辆灯光状态
 
@@ -81,7 +108,11 @@ VehicleControl 结构中的值直接传递给 PhysX Vehicle 插件（请参阅 [
   bool Hazard = false;
 ```
 
-### 3.10功能补充
+3.10车辆的阿克曼转向控制参数
+
+
+
+### 3.11功能补充
 
 在Vehicle/VehiclePhysicsControl.h**文件中添加新的设置
 
@@ -97,6 +128,37 @@ UPROPERTY(Category = "Vehicle Brake Physics Control", EditAnywhere, BlueprintRea
 - `BrakeForce`：代表车辆刹车时的制动力，默认值为 0.0f。
 - `HandbrakeForce`：表示手刹的制动力，默认值为 0.0f。
 
+## 四、类型
+
+### 4.1枚举类型
+
+1.定义：使用 `UENUM(BlueprintType)` 宏定义一个可在蓝图系统中使用的枚举类型 `ECarlaWheeledVehicleState`。其底层类型为 `uint8`，属于强类型枚举，可避免枚举值命名冲突。
+
+ 2.代码使用场景：
+
+- **调试**：开发人员在调试 CARLA 轮式车辆相关功能时，可借助该枚举类型清晰地表示车辆的不同状态，便于定位和解决问题。
+- **可视化**：在 Unreal Engine 编辑器中，可通过显示名称直观地查看车辆状态，方便开发和测试。
+- **蓝图开发**：该枚举类型可在蓝图系统中使用，方便非编程人员通过蓝图可视化编程的方式使用车辆状态信息。
+
+3.注意事项
+
+- 若对代码进行修改，需注意生成文件 `CarlaWheeledVehicleState.generated.h` 可能需要重新生成，以确保反射信息和蓝图绑定的正确性。
+- 由于枚举类型为强类型，在使用时需明确指定枚举类型，避免类型不匹配问题。
+
+4.功能补充
+
+新增枚举成员：
+Turning：表示车辆正在转弯的状态。
+Parking：表示车辆正在停车的状态。
+
+```
+case ECarlaWheeledVehicleState::Turning:
+   return TEXT("Turning");
+case ECarlaWheeledVehicleState::Parking:
+   return TEXT("Parking");
+```
+
+注：该代码补充对应文档**CarlaWheeledVehicleState.h**
 
 ## 参考
 
