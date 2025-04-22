@@ -131,27 +131,27 @@
 </div>
 <p>本教程为不同步骤提供了多种选项。一直以来，都会提到不同的脚本。并不是所有的都会被使用，这取决于具体的用例。其中大多数已在 Carla 中提供用于通用目的。</p>
 <ul>
-<li><strong>config.py</strong> 更改模拟设置。地图、渲染选项、设置固定时间步长...  <ul>
-<li><code>carla/PythonAPI/util/config.py</code></li>
+<li><strong>config.py</strong> 更改模拟设置、地图、渲染选项、设置固定时间步长等<ul>
+<li><a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/util/config.py"><code>carla/PythonAPI/util/config.py</code></a></li>
 </ul>
 </li>
 <li><strong>dynamic_weather.py</strong> 创建有趣的天气条件。<ul>
-<li><code>carla/PythonAPI/examples/dynamic_weather.py</code></li>
+<li><a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/dynamic_weather.py"><code>carla/PythonAPI/examples/dynamic_weather.py</code></a></li>
 </ul>
 </li>
-<li><strong>spawn_npc.py</strong> spawn_npc.py生成一些人工智能控制的车辆和行人。 <ul>
-<li><code>carla/PythonAPI/examples/spawn_npc.py</code></li>
+<li><strong>spawn_npc.py</strong> 生成一些人工智能控制的车辆和行人。<ul>
+<li><a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/spawn_npc.py"><code>carla/PythonAPI/examples/spawn_npc.py</code></a></li>
 </ul>
 </li>
 <li><strong>manual_control.py</strong> 生成一个自我车辆，并提供对其的控制。<ul>
-<li><code>carla/PythonAPI/examples/manual_control.py</code></li>
+<li><a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/manual_control.py"><code>carla/PythonAPI/examples/manual_control.py</code></a></li>
 </ul>
 </li>
 </ul>
 <p>但是，教程中提到的两个脚本在 Carla 中找不到。它们包含引用的代码片段。这有双重目的。首先，鼓励用户构建自己的脚本。充分理解代码的作用非常重要。除此之外，本教程只是一个大纲，可能而且应该根据用户的喜好而有很大的不同。这两个脚本只是一个示例。</p>
 <ul>
 <li><strong>tutorial_ego.py</strong> 生成带有一些基本传感器的自我车辆，并启用自动驾驶仪。观察者被放置在生成位置。记录器从一开始就启动，并在脚本完成时停止。</li>
-<li><strong>tutorial_replay.py</strong> 重新执行 <strong>tutorial_ego.py</strong> 记录的模拟。有不同的代码片段可以查询记录、生成一些高级传感器、改变天气条件以及重新执行记录片段。</li>
+<li><a href="https://github.com/OpenHUTB/carla_doc/tree/master/src/tutorial/tutorial_replay.py"><strong>tutorial_replay.py</strong></a> 重新执行 <strong>tutorial_ego.py</strong> 记录的模拟。有不同的代码片段可以查询记录、生成一些高级传感器、改变天气条件以及重新执行记录片段。</li>
 </ul>
 <p>完整的代码可以在教程的最后部分找到。请记住，这些并不严格，而是可以定制的。在 Carla 中检索数据的功能正如用户所希望的那样强大。</p>
 <div class="admonition 重要">
@@ -213,7 +213,7 @@ python3 config.py --map Town01
 python3<span class="w"> </span>dynamic_weather.py<span class="w"> </span>--speed<span class="w"> </span><span class="m">1</span>.0
 </code></pre></div>
 <ul>
-<li><strong>设置自定义条件</strong> 使用脚本 <strong>environment.py</strong> 。有很多可能的设置。查看可选参数以及 <a href="../python_api/#carla.WeatherParameters">carla.WeatherParameters</a> 的文档。</li>
+<li><strong>设置自定义条件</strong> 使用脚本 <a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/util/environment.py"><strong>environment.py</strong></a> 。有很多可能的设置。查看可选参数以及 <a href="../python_api/#carla.WeatherParameters">carla.WeatherParameters</a> 的文档。</li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/opt/carla/PythonAPI/util
 python3<span class="w"> </span>environment.py<span class="w"> </span>--clouds<span class="w"> </span><span class="m">100</span><span class="w"> </span>--rain<span class="w"> </span><span class="m">80</span><span class="w"> </span>--wetness<span class="w"> </span><span class="m">100</span><span class="w"> </span>--puddles<span class="w"> </span><span class="m">60</span><span class="w"> </span>--wind<span class="w"> </span><span class="m">80</span><span class="w"> </span>--fog<span class="w"> </span><span class="m">50</span>
@@ -298,7 +298,7 @@ python3<span class="w"> </span>run_synchronization.py<span class="w"> </span>exa
 </ul>
 <p>该脚本生成的流量是 Carla 团队创建的示例。默认情况下，它会沿着相同的路线生成相同的车辆。用户可以在 SUMO 中更改这些内容。</p>
 <p><img alt="tuto_sumo" src="../img/tuto_sumo.jpg" /></p>
-<div style="text-align: center"><i>SUMO 和 Carla 协同模拟交通。</i></div>
+<div style="text-align: center"><i>SUMO 和 Carla 协同模拟交通</i></div>
 
 <div class="admonition 警告">
 <p class="admonition-title">警告</p>
@@ -343,10 +343,10 @@ python3<span class="w"> </span>run_synchronization.py<span class="w"> </span>exa
 <hr />
 <h2 id="_10">设置基本传感器 <span id="set-basic-sensors"></span></h2>
 <p>生成任何传感器的过程都非常相似。 </p>
-<p><strong>1.</strong> 使用库查找传感器蓝图。
-<strong>2.</strong> 设置传感器的特定属性。这一点至关重要。属性将塑造检索到的数据。
-<strong>3.</strong> 将传感器连接至自我车辆。该变换是相对于其父级的。<a href="../python_api/#carlaattachmenttype">carla.AttachmentType</a> 将确定传感器位置的更新方式。 
-<strong>4.</strong> 添加<code>listen()</code>方法。这是关键要素。每次传感器监听数据时都会调用的 <a href="https://www.w3schools.com/python/python_lambda.asp"><strong>lambda</strong></a> 方法。参数是检索到的传感器数据。 </p>
+<p><strong>1.</strong> 使用库查找传感器蓝图。</p>
+<p><strong>2.</strong> 设置传感器的特定属性。这一点至关重要。属性将塑造检索到的数据。</p>
+<p><strong>3.</strong> 将传感器连接至自我车辆。该变换是相对于其父级的。<a href="../python_api/#carlaattachmenttype">carla.AttachmentType</a> 将确定传感器位置的更新方式。</p>
+<p><strong>4.</strong> 添加<code>listen()</code>方法。这是关键要素。每次传感器监听数据时都会调用的 <a href="https://www.w3schools.com/python/python_lambda.asp"><strong>lambda</strong></a> 方法。参数是检索到的传感器数据。 </p>
 <p>牢记这一基本准则，让我们为自我车辆设置一些基本传感器。</p>
 <h3 id="rgb">RGB 相机 <span id="rgb-camera"></span></h3>
 <p><a href="../ref_sensors/#rgb-camera">RGB 相机</a> 生成逼真的场景图片。它是所有传感器中可设置属性较多的传感器，但它也是一个基本的传感器。它应该被理解为一个真正的相机，具有诸如<code>focal_distance</code>、<code>shutter_speed</code>或<code>gamma</code>确定其内部如何工作的属性。还有一组特定的属性来定义镜头畸变，以及许多高级属性。例如，<code>lens_circle_multiplier</code>可以用来实现类似于眼睛鱼镜头的效果。在文档中了解有关它们的更多信息。</p>
@@ -358,13 +358,13 @@ python3<span class="w"> </span>run_synchronization.py<span class="w"> </span>exa
 <p>设置属性后，就可以生成传感器了。脚本将摄像机放置在汽车引擎盖中，并指向前方。它将捕捉汽车的前视图。</p>
 <p>每一步都会以 <a href="../python_api/#carla.Image">carla.Image</a> 的形式检索数据。Listen 方法将它们保存到磁盘。路径可以随意改变。每张图像的名称均根据拍摄镜头的模拟帧进行编码。 </p>
 <p><div class="highlight"><pre><span></span><code><span class="c1"># --------------</span>
-<span class="c1"># 生成附着的RGB相机</span>
+<span class="c1"># 生成附着的到车辆上的RGB相机</span>
 <span class="c1"># --------------</span>
 <span class="n">cam_bp</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="n">cam_bp</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;sensor.camera.rgb&#39;</span><span class="p">)</span>
 <span class="n">cam_bp</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s2">&quot;image_size_x&quot;</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="mi">1920</span><span class="p">))</span>
 <span class="n">cam_bp</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s2">&quot;image_size_y&quot;</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="mi">1080</span><span class="p">))</span>
-<span class="n">cam_bp</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s2">&quot;fov&quot;</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="mi">105</span><span class="p">))</span>
+<span class="n">cam_bp</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s2">&quot;fov&quot;</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="mi">105</span><span class="p">))</span>  <span class="c1"># 图像的视场角(Field of View)</span>
 <span class="n">cam_location</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Location</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">cam_rotation</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Rotation</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">180</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">cam_transform</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Transform</span><span class="p">(</span><span class="n">cam_location</span><span class="p">,</span><span class="n">cam_rotation</span><span class="p">)</span>
@@ -372,7 +372,7 @@ python3<span class="w"> </span>run_synchronization.py<span class="w"> </span>exa
 <span class="n">ego_cam</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="k">lambda</span> <span class="n">image</span><span class="p">:</span> <span class="n">image</span><span class="o">.</span><span class="n">save_to_disk</span><span class="p">(</span><span class="s1">&#39;tutorial/output/</span><span class="si">%.6d</span><span class="s1">.jpg&#39;</span> <span class="o">%</span> <span class="n">image</span><span class="o">.</span><span class="n">frame</span><span class="p">))</span>
 </code></pre></div>
 <img alt="tuto_rgb" src="../img/tuto_rgb.jpg" /></p>
-<div style="text-align: right"><i>RGB camera output</i></div>
+<div style="text-align: center"><i>RGB 相机输出</i></div>
 
 <h3 id="_11">检测器 <span id="viewing"></span></h3>
 <p>当它们所附加的对象注册特定事件时，这些传感器会检索数据。检测器传感器分为三种类型，每种都描述一种类型的事件。</p>
@@ -427,7 +427,7 @@ python3<span class="w"> </span>run_synchronization.py<span class="w"> </span>exa
 <span class="n">ego_obs</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="k">lambda</span> <span class="n">obs</span><span class="p">:</span> <span class="n">obs_callback</span><span class="p">(</span><span class="n">obs</span><span class="p">))</span>
 </code></pre></div>
 <img alt="tuto_detectors" src="../img/tuto_detectors.jpg" /></p>
-<div style="text-align: right"><i>Output for detector sensors</i></div>
+<div style="text-align: center"><i>检测传感器输出</i></div>
 
 <h3 id="_12">其他传感器 <span id="other-sensors"></span></h3>
 <p>暂时只考虑该类别的两个传感器。</p>
@@ -443,7 +443,6 @@ python3<span class="w"> </span>run_synchronization.py<span class="w"> </span>exa
 <div class="highlight"><pre><span></span><code><span class="c1"># --------------</span>
 <span class="c1"># 给自我车辆添加全球导航卫星系统传感器 </span>
 <span class="c1"># --------------</span>
-
 <span class="n">gnss_bp</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;sensor.other.gnss&#39;</span><span class="p">)</span>
 <span class="n">gnss_location</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Location</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">gnss_rotation</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Rotation</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
@@ -455,9 +454,8 @@ python3<span class="w"> </span>run_synchronization.py<span class="w"> </span>exa
 <span class="n">ego_gnss</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="k">lambda</span> <span class="n">gnss</span><span class="p">:</span> <span class="n">gnss_callback</span><span class="p">(</span><span class="n">gnss</span><span class="p">))</span>
 
 <span class="c1"># --------------</span>
-<span class="c1"># Add IMU sensor to ego vehicle. </span>
+<span class="c1"># 给自主车辆添加 IMU 传感器 </span>
 <span class="c1"># --------------</span>
-
 <span class="n">imu_bp</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;sensor.other.imu&#39;</span><span class="p">)</span>
 <span class="n">imu_location</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Location</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">imu_rotation</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Rotation</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
@@ -469,11 +467,11 @@ python3<span class="w"> </span>run_synchronization.py<span class="w"> </span>exa
 <span class="n">ego_imu</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="k">lambda</span> <span class="n">imu</span><span class="p">:</span> <span class="n">imu_callback</span><span class="p">(</span><span class="n">imu</span><span class="p">))</span>
 </code></pre></div>
 <p><img alt="tuto_other" src="../img/tuto_other.jpg" /></p>
-<div style="text-align: right"><i>全球导航卫星系统和惯性测量单元传感器输出</i></div>
+<div style="text-align: center"><i>全球导航卫星系统和惯性测量单元传感器输出</i></div>
 
 <hr />
 <h2 id="_13">设置高级传感器 <span id="set-advanced-sensors"></span></h2>
-<p>脚本 <strong>tutorial_replay.py</strong> 除其他外还包含更多传感器的定义。它们的工作方式与基本的相同，但理解可能有点困难。</p>
+<p>脚本 <a href="https://github.com/OpenHUTB/carla_doc/tree/master/src/tutorial/tutorial_replay.py"><strong>tutorial_replay.py</strong></a> 除其他外还包含更多传感器的定义。它们的工作方式与基本的相同，但理解可能有点困难。</p>
 <h3 id="_14">深度相机 <span id="深度相机"></span></h3>
 <p><a href="../ref_sensors/#depth-camera">深度相机</a> 生成场景的图片，将每个像素映射到灰度深度图中。然而，输出并不简单。相机的深度缓冲区使用 RGB 颜色空间进行映射。必须将其转换为灰度才能理解。</p>
 <p>为此，只需将图像保存为 RGB 相机的图像，但对其应用<a href="../python_api/#carla.ColorConverter">carla.ColorConverter</a> 即可。深度相机有两种可用的转换。</p>
@@ -483,7 +481,7 @@ python3<span class="w"> </span>run_synchronization.py<span class="w"> </span>exa
 </ul>
 <p>深度相机的属性仅设置之前在 RGB 相机中所述的元素：<code>fov</code>、<code>image_size_x</code>、<code>image_size_y</code>和<code>sensor_tick</code>。该脚本将此传感器设置为与之前使用的 RGB 相机相匹配。</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># --------------</span>
-<span class="c1"># Add a Depth camera to ego vehicle. </span>
+<span class="c1"># 给自主车添加深度相机 </span>
 <span class="c1"># --------------</span>
 <span class="n">depth_cam</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="n">depth_bp</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;sensor.camera.depth&#39;</span><span class="p">)</span>
@@ -495,14 +493,14 @@ python3<span class="w"> </span>run_synchronization.py<span class="w"> </span>exa
 <span class="n">depth_cam</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="k">lambda</span> <span class="n">image</span><span class="p">:</span> <span class="n">image</span><span class="o">.</span><span class="n">save_to_disk</span><span class="p">(</span><span class="s1">&#39;tutorial/new_depth_output/</span><span class="si">%.6d</span><span class="s1">.jpg&#39;</span> <span class="o">%</span> <span class="n">image</span><span class="o">.</span><span class="n">frame</span><span class="p">,</span><span class="n">carla</span><span class="o">.</span><span class="n">ColorConverter</span><span class="o">.</span><span class="n">LogarithmicDepth</span><span class="p">))</span>
 </code></pre></div>
 <p><img alt="tuto_depths" src="../img/tuto_depths.jpg" /></p>
-<div style="text-align: right"><i>Depth camera output. Simple conversion on the left, logarithmic on the right.</i></div>
+<div style="text-align: center"><i>深度相机输出（左侧为简单转换，右侧为对数转换）</i></div>
 
 <h3 id="_15">语义分割相机 <span id="语义分割相机"></span></h3>
 <p><a href="../ref_sensors/#semantic-segmentation-camera">语义分割相机</a> 根据元素的标记方式将场景中的元素渲染为不同的颜色。标签由模拟器根据用于生成的资源的路径创建。例如，标记为 <code>Pedestrians</code> 的网格体是使用存储在 <code>Unreal/CarlaUE4/Content/Static/Pedestrians</code> 中的内容生成的。</p>
 <p>与任何相机一样，输出是图像，但每个像素都包含在红色通道中编码的标签。必须使用 <strong>ColorConverter.CityScapesPalette</strong> 转换此原始图像。可以创建新标签，请阅读 <a href="../ref_sensors/#semantic-segmentation-camera">文档</a> 了解更多信息。</p>
 <p>该相机可用的属性与深度相机完全相同。该脚本还将其设置为与原始 RGB 相机相匹配。</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># --------------</span>
-<span class="c1"># Add a new semantic segmentation camera to my ego</span>
+<span class="c1"># 给自主车添加一个新的语义分割相机</span>
 <span class="c1"># --------------</span>
 <span class="n">sem_cam</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="n">sem_bp</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;sensor.camera.semantic_segmentation&#39;</span><span class="p">)</span>
@@ -513,11 +511,11 @@ python3<span class="w"> </span>run_synchronization.py<span class="w"> </span>exa
 <span class="n">sem_rotation</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Rotation</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">180</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">sem_transform</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Transform</span><span class="p">(</span><span class="n">sem_location</span><span class="p">,</span><span class="n">sem_rotation</span><span class="p">)</span>
 <span class="n">sem_cam</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">sem_bp</span><span class="p">,</span><span class="n">sem_transform</span><span class="p">,</span><span class="n">attach_to</span><span class="o">=</span><span class="n">ego_vehicle</span><span class="p">,</span> <span class="n">attachment_type</span><span class="o">=</span><span class="n">carla</span><span class="o">.</span><span class="n">AttachmentType</span><span class="o">.</span><span class="n">Rigid</span><span class="p">)</span>
-<span class="c1"># This time, a color converter is applied to the image, to get the semantic segmentation view</span>
+<span class="c1"># 这次，将颜色转换器应用于图像，以获得语义分割视图</span>
 <span class="n">sem_cam</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="k">lambda</span> <span class="n">image</span><span class="p">:</span> <span class="n">image</span><span class="o">.</span><span class="n">save_to_disk</span><span class="p">(</span><span class="s1">&#39;tutorial/new_sem_output/</span><span class="si">%.6d</span><span class="s1">.jpg&#39;</span> <span class="o">%</span> <span class="n">image</span><span class="o">.</span><span class="n">frame</span><span class="p">,</span><span class="n">carla</span><span class="o">.</span><span class="n">ColorConverter</span><span class="o">.</span><span class="n">CityScapesPalette</span><span class="p">))</span>
 </code></pre></div>
 <p><img alt="tuto_sem" src="../img/tuto_sem.jpg" /></p>
-<div style="text-align: right"><i>Semantic segmentation camera output</i></div>
+<div style="text-align: center"><i>语义分割相机输出</i></div>
 
 <h3 id="_16">激光雷达光线投射传感器 <span id="激光雷达光线投射传感器"></span></h3>
 <p><a href="../ref_sensors/#lidar-raycast-sensor">激光雷达传感器</a> 模拟旋转激光雷达。它创建了一个以三维形式映射场景的点云。激光雷达包含一组以特定频率旋转的激光器。激光投射撞击距离，并将每次射击存储为一个点。</p>
@@ -558,7 +556,7 @@ sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w
 </code></pre></div>
 <strong>3.</strong> 打开其中一个 <em>.ply</em> 文件。 <code>File &gt; Import mesh...</code> </p>
 <p><img alt="tuto_lidar" src="../img/tuto_lidar.jpg" /></p>
-<div style="text-align: right"><i>经过Meshlab处理后的激光雷达输出。</i></div>
+<div style="text-align: center"><i>经过Meshlab处理后的激光雷达输出。</i></div>
 
 <h3 id="_17">雷达传感器 <span id="雷达传感器"></span></h3>
 <p><a href="../ref_sensors/#radar-sensor">雷达传感器</a> 与 激光雷达类似。它创建一个圆锥视图，并向内部发射激光以射线投射其影响。输出是<a href="../python_api/#carlaradarmeasurement">carla.RadarMeasurement</a>。它包含由激光器检索到的 <a href="../python_api/#carlaradardetection">carla.RadarDetection</a> 的列表。这些不是空间中的点，而是使用有关传感器的数据进行的检测：</p>
@@ -577,7 +575,7 @@ sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w
 <li><strong>White</strong> 代表关于自我车辆的静态点。</li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="c1"># --------------</span>
-<span class="c1"># Add a new radar sensor to my ego</span>
+<span class="c1"># 给自主车添加新的雷达传感器</span>
 <span class="c1"># --------------</span>
 <span class="n">rad_cam</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="n">rad_bp</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;sensor.other.radar&#39;</span><span class="p">)</span>
@@ -594,8 +592,7 @@ sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w
     <span class="k">for</span> <span class="n">detect</span> <span class="ow">in</span> <span class="n">radar_data</span><span class="p">:</span>
         <span class="n">azi</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">detect</span><span class="o">.</span><span class="n">azimuth</span><span class="p">)</span>
         <span class="n">alt</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">detect</span><span class="o">.</span><span class="n">altitude</span><span class="p">)</span>
-        <span class="c1"># The 0.25 adjusts a bit the distance so the dots can</span>
-        <span class="c1"># be properly seen</span>
+        <span class="c1"># 0.25 稍微调整距离，以便可以正确看到点</span>
         <span class="n">fw_vec</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Vector3D</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">detect</span><span class="o">.</span><span class="n">depth</span> <span class="o">-</span> <span class="mf">0.25</span><span class="p">)</span>
         <span class="n">carla</span><span class="o">.</span><span class="n">Transform</span><span class="p">(</span>
             <span class="n">carla</span><span class="o">.</span><span class="n">Location</span><span class="p">(),</span>
@@ -607,7 +604,7 @@ sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w
         <span class="k">def</span> <span class="nf">clamp</span><span class="p">(</span><span class="n">min_v</span><span class="p">,</span> <span class="n">max_v</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
             <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">min_v</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">max_v</span><span class="p">))</span>
 
-        <span class="n">norm_velocity</span> <span class="o">=</span> <span class="n">detect</span><span class="o">.</span><span class="n">velocity</span> <span class="o">/</span> <span class="n">velocity_range</span> <span class="c1"># range [-1, 1]</span>
+        <span class="n">norm_velocity</span> <span class="o">=</span> <span class="n">detect</span><span class="o">.</span><span class="n">velocity</span> <span class="o">/</span> <span class="n">velocity_range</span> <span class="c1"># [-1, 1] 范围</span>
         <span class="n">r</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">clamp</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">norm_velocity</span><span class="p">)</span> <span class="o">*</span> <span class="mf">255.0</span><span class="p">)</span>
         <span class="n">g</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">clamp</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="nb">abs</span><span class="p">(</span><span class="n">norm_velocity</span><span class="p">))</span> <span class="o">*</span> <span class="mf">255.0</span><span class="p">)</span>
         <span class="n">b</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">clamp</span><span class="p">(</span><span class="o">-</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">norm_velocity</span><span class="p">))</span> <span class="o">*</span> <span class="mf">255.0</span><span class="p">)</span>
@@ -620,23 +617,23 @@ sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w
 <span class="n">rad_ego</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="k">lambda</span> <span class="n">radar_data</span><span class="p">:</span> <span class="n">rad_callback</span><span class="p">(</span><span class="n">radar_data</span><span class="p">))</span>
 </code></pre></div>
 <p><img alt="tuto_radar" src="../img/tuto_radar.jpg" /></p>
-<div style="text-align: right"><i>雷达输出。车辆停在红绿灯处，因此其前面的静态元素显示为白色。</i></div>
+<div style="text-align: center"><i>雷达输出。车辆停在红绿灯处，因此其前面的静态元素显示为白色。</i></div>
 
 <hr />
 <h2 id="_18">非渲染模式 <span id="no-rendering-mode"></span></h2>
 <p><a href="../adv_rendering_options/">无渲染模式</a> 对于运行初始模拟非常有用，稍后将再次播放该模拟以检索数据。特别是如果该模拟存在一些极端条件，例如交通密集。 </p>
 <h3 id="_19">快速模拟 <span id="simulate-at-a-fast-pace"></span></h3>
 <p>禁用渲染将为模拟节省大量工作。由于不使用 GPU，服务器可以全速工作。这对于快速模拟复杂的条件很有用。最好的方法是设置固定的时间步长。以固定时间步长运行异步服务器并且不进行渲染，模拟的唯一限制是服务器的内部逻辑。 </p>
-<p>相同的 <code>config.py</code> 用于 <a href="#map-setting">设置地图</a> 可以禁用渲染，并设置固定的时间步长。</p>
+<p>相同的 <a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/util/config.py"><code>config.py</code></a> 用于 <a href="#map-setting">设置地图</a> 可以禁用渲染，并设置固定的时间步长。</p>
 <div class="highlight"><pre><span></span><code>cd /opt/carla/PythonAPI/utils
-python3 config.py --no-rendering --delta-seconds 0.05 # Never greater than 0.1s
+python3 config.py --no-rendering --delta-seconds 0.05 # 绝不会大于 0.1 秒
 </code></pre></div>
 <div class="admonition 警告">
 <p class="admonition-title">警告</p>
 <p>在使用同步和时间步之前，请先阅读 <a href="../adv_synchrony_timestep/">文档</a> 。</p>
 </div>
 <h3 id="_20">无需渲染的手动控制 <span id="manual-control-without-rendering"></span></h3>
-<p>脚本<code>PythonAPI/examples/no_rendering_mode.py</code>提供了模拟的概述。它使用 Pygame 创建了一个简约的鸟瞰图，它将跟随自我车辆。这可以与 <strong>manual_control.py</strong> 一起使用来生成一条几乎没有成本的路线，记录它，然后回放并利用它来收集数据。</p>
+<p>脚本 <a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/no_rendering_mode.py"><code>PythonAPI/examples/no_rendering_mode.py</code></a> 提供了模拟的概述。它使用 Pygame 创建了一个简约的鸟瞰图，它将跟随自我车辆。这可以与 <strong>manual_control.py</strong> 一起使用来生成一条几乎没有成本的路线，记录它，然后回放并利用它来收集数据。</p>
 <div class="highlight"><pre><span></span><code>cd /opt/carla/PythonAPI/examples
 python3 manual_control.py
 </code></pre></div>
@@ -661,7 +658,7 @@ python3 no_rendering_mode.py --no-rendering
 </details>
 <p><br></p>
 <p><img alt="tuto_no_rendering" src="../img/tuto_no_rendering.jpg" /></p>
-<div style="text-align: right"><i>no_rendering_mode.py working in Town07</i></div>
+<div style="text-align: center"><i>no_rendering_mode.py 在 Town07 中运行</i></div>
 
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
@@ -691,14 +688,14 @@ python3 no_rendering_mode.py --no-rendering
     <span class="n">world_snapshot</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">wait_for_tick</span><span class="p">()</span>
 </code></pre></div>
 <ul>
-<li><strong>手动控制。</strong> 在客户端中运行脚本 <code>PythonAPI/examples/manual_control.py</code>，在另一个客户端中运行记录器。驾驶自我车辆来创建所需的路线，并在完成后停止记录仪。<strong>tutorial_ego.py</strong> 脚本可用于管理记录器，但请确保注释其他代码片段。</li>
+<li><strong>手动控制。</strong> 在客户端中运行脚本 <a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/manual_control.py"><code>PythonAPI/examples/manual_control.py</code></a> ，在另一个客户端中运行记录器。驾驶自我车辆来创建所需的路线，并在完成后停止记录仪。<a href="https://github.com/OpenHUTB/carla_doc/tree/master/src/tutorial/tutorial_ego.py"><strong>tutorial_ego.py</strong></a> 脚本可用于管理记录器，但请确保注释其他代码片段。</li>
 </ul>
 <div class="highlight"><pre><span></span><code>cd /opt/carla/PythonAPI/examples
 python3 manual_control.py
 </code></pre></div>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
-<p>为了避免渲染并节省计算成本，请启用 [<strong>无渲染模式</strong>] 。该脚本<code>/PythonAPI/examples/no_rendering_mode.py</code>在创建简单的鸟瞰图时执行此操作。</p>
+<p>为了避免渲染并节省计算成本，请启用 <a href="../adv_rendering_options/#no-rendering-mode"><strong>无渲染模式</strong></a> 。该脚本<code>/PythonAPI/examples/no_rendering_mode.py</code>在创建简单的鸟瞰图时执行此操作。</p>
 </div>
 <h3 id="_24">停止记录  <span id="stop-recording"></span></h3>
 <p>停止调用甚至比开始调用更简单。记录完成后，记录将保存在前面指定的路径中。</p>
@@ -709,7 +706,7 @@ python3 manual_control.py
 </code></pre></div>
 <hr />
 <h2 id="_25">利用记录 <span id="exploit-the-recording"></span></h2>
-<p>到目前为止，模拟已经被记录下来。现在，是时候检查记录，找到最引人注目的时刻，并利用它们。这些步骤集中在脚本 <strong>tutorial_replay.py</strong> 中。该大纲由注释的不同代码段构成。</p>
+<p>到目前为止，模拟已经被记录下来。现在，是时候检查记录，找到最引人注目的时刻，并利用它们。这些步骤集中在脚本 <a href="https://github.com/OpenHUTB/carla_doc/tree/master/src/tutorial/tutorial_replay.py"><strong>tutorial_replay.py</strong></a> 中。该大纲由注释的不同代码段构成。</p>
 <p>现在是运行新模拟的时候了。</p>
 <div class="highlight"><pre><span></span><code>./CarlaUE4.sh
 </code></pre></div>
@@ -719,13 +716,13 @@ python3 manual_control.py
 <h3 id="_26">查询事件 <span id="query-the-events"></span></h3>
 <p><a href="../adv_recorder/"><strong>记录器文档</strong></a> 中详细介绍了不同的查询。总之，它们检索特定事件或帧的数据。使用查询来研究记录。找到聚光灯时刻，追踪感兴趣的内容。 </p>
 <div class="highlight"><pre><span></span><code><span class="c1"># --------------</span>
-<span class="c1"># Query the recording</span>
+<span class="c1"># 查询记录</span>
 <span class="c1"># --------------</span>
-<span class="c1"># Show only the most important events in the recording.  </span>
-<span class="nb">print</span><span class="p">(</span><span class="n">client</span><span class="o">.</span><span class="n">show_recorder_file_info</span><span class="p">(</span><span class="s2">&quot;~/tutorial/recorder/recording01.log&quot;</span><span class="p">,</span><span class="kc">False</span><span class="p">))</span>
-<span class="c1"># Show actors not moving 1 meter in 10 seconds.  </span>
+<span class="c1"># 仅显示记录中最重要的事件。</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">client</span><span class="o">.</span><span class="n">show_recorder_file_info</span><span class="p">(</span><span class="s2">&quot;~/tutorial/recorder/recording01.log&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
+<span class="c1"># 展示参与者在 10 秒内不动 1 米。</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">client</span><span class="o">.</span><span class="n">show_recorder_actors_blocked</span><span class="p">(</span><span class="s2">&quot;~/tutorial/recorder/recording01.log&quot;</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
-<span class="c1"># Filter collisions between vehicles &#39;v&#39; and &#39;a&#39; any other type of actor.  </span>
+<span class="c1"># 过滤车辆“v”和“a”以及任何其他类型的参与者之间的碰撞 </span>
 <span class="nb">print</span><span class="p">(</span><span class="n">client</span><span class="o">.</span><span class="n">show_recorder_collisions</span><span class="p">(</span><span class="s2">&quot;~/tutorial/recorder/recording01.log&quot;</span><span class="p">,</span><span class="s1">&#39;v&#39;</span><span class="p">,</span><span class="s1">&#39;a&#39;</span><span class="p">))</span>
 </code></pre></div>
 <div class="admonition 笔记">
@@ -733,13 +730,13 @@ python3 manual_control.py
 <p>记录器不需要打开即可进行查询。</p>
 </div>
 <p><img alt="tuto_query_frames" src="../img/tuto_query_frames.jpg" /></p>
-<div style="text-align: right"><i>显示重要事件的查询。这是自我车辆产生的框架。</i></div>
+<div style="text-align: center"><i>显示重要事件的查询。这是自我车辆产生的框架。</i></div>
 
 <p><img alt="tuto_query_blocked" src="../img/tuto_query_blocked.jpg" /></p>
-<div style="text-align: right"><i>查询显示参与者被阻止。在此模拟中，自我车辆保持阻塞状态 100 秒。</i></div>
+<div style="text-align: center"><i>查询显示参与者被阻止。在此模拟中，自我车辆保持阻塞状态 100 秒。</i></div>
 
 <p><img alt="tuto_query_collisions" src="../img/tuto_query_collisions.jpg" /></p>
-<div style="text-align: right"><i>显示自我车辆与“其他”类型的对象之间的碰撞的查询。</i></div>
+<div style="text-align: center"><i>显示自我车辆与“其他”类型的对象之间的碰撞的查询。</i></div>
 
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
@@ -749,7 +746,7 @@ python3 manual_control.py
 <p>查询之后，在乱搞之前回放一些模拟片段可能是个好主意。这样做非常简单，而且非常有帮助。了解有关模拟的更多信息。这是以后节省时间的最佳方法。</p>
 <p>该方法允许选择播放的开始点和结束点以及要跟随的参与者。</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># --------------</span>
-<span class="c1"># Reenact a fragment of the recording</span>
+<span class="c1"># 重播记录片段</span>
 <span class="c1"># --------------</span>
 <span class="n">client</span><span class="o">.</span><span class="n">replay_file</span><span class="p">(</span><span class="s2">&quot;~/tutorial/recorder/recording01.log&quot;</span><span class="p">,</span><span class="mi">45</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
 </code></pre></div>
@@ -765,7 +762,7 @@ python3 manual_control.py
 </div>
 <h3 id="_28">检索更多数据 <span id="retrieve-more-data"></span></h3>
 <p>记录器将在此模拟中重新创建与原始条件完全相同的条件。这确保了不同播放中的数据一致。</p>
-<p>收集重要时刻、参与者和事件的列表。需要时添加传感器并回放模拟。该过程与之前完全相同。脚本 <strong>tutorial_replay.py</strong> 提供了不同的示例，这些示例已在 <a href="#set-advanced-sensors"><strong>“设置高级传感器”</strong></a> 部分中进行了彻底解释。其他已在 <a href="#set-basic-sensors"><strong>设置基本传感器</strong></a> 部分中进行了解释。 </p>
+<p>收集重要时刻、参与者和事件的列表。需要时添加传感器并回放模拟。该过程与之前完全相同。脚本 <a href="https://github.com/OpenHUTB/carla_doc/tree/master/src/tutorial/tutorial_replay.py"><strong>tutorial_replay.py</strong></a> 提供了不同的示例，这些示例已在 <a href="#set-advanced-sensors"><strong>“设置高级传感器”</strong></a> 部分中进行了彻底解释。其他已在 <a href="#set-basic-sensors"><strong>设置基本传感器</strong></a> 部分中进行了解释。 </p>
 <p>根据需要添加尽可能多的传感器。根据需要多次回放模拟并检索尽可能多的数据。</p>
 <h3 id="_29">改变天气 <span id="change-the-weather"></span></h3>
 <p>记录将重现原始的天气状况。然而，这些可以随意改变。在保持其余事件相同的情况下，比较它如何影响传感器可能会很有趣。 </p>
