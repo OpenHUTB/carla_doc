@@ -98,14 +98,14 @@ rosrun<span class="w"> </span>rviz<span class="w"> </span>rviz
 <span class="c1"># ROS 2</span>
 ros2<span class="w"> </span>run<span class="w"> </span>rviz2<span class="w"> </span>rviz2
 </code></pre></div>
-<p><strong>2.</strong> 使用<code>carla_spawn_objects</code>包生成一辆自我车辆：</p>
+<p><strong>2.</strong> 使用<code>carla_spawn_objects</code>包生成一辆自主车辆：</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># ROS 1</span>
 roslaunch<span class="w"> </span>carla_spawn_objects<span class="w"> </span>carla_spawn_objects.launch
 
 <span class="c1"># ROS 2</span>
 ros2<span class="w"> </span>launch<span class="w"> </span>carla_spawn_objects<span class="w"> </span>carla_spawn_objects.launch.py
 </code></pre></div>
-<p><strong>3.</strong> 使用 <code>carla_manual_control</code> 包控制自我车辆（按下B可启用手动转向）：</p>
+<p><strong>3.</strong> 使用 <code>carla_manual_control</code> 包控制自主车辆（按下B可启用手动转向）：</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># ROS 1</span>
 roslaunch<span class="w"> </span>carla_manual_control<span class="w"> </span>carla_manual_control.launch
 
@@ -115,12 +115,12 @@ ros2<span class="w"> </span>launch<span class="w"> </span>carla_manual_control<s
 <hr />
 <h2 id="rviz">RVIZ 插件的功能</h2>
 <ul>
-<li><strong>自我车辆状态可视化</strong> - 可视化车辆位置和控制。</li>
+<li><strong>自主车辆状态可视化</strong> - 可视化车辆位置和控制。</li>
 <li><strong>向其他节点提供 RVIZ 视图姿势</strong> - 连接<code>actor.pseudo.control</code> 到相机后，通过发布姿势消息在 Carla 世界中移动相机。</li>
 <li><strong>传感器可视化</strong> - 可视化 RGB、LIDAR、深度、DVS 和语义分割相机信息。</li>
 <li><strong>执行场景</strong> - 使用 <a href="https://github.com/carla-simulator/ros-bridge/blob/master/carla_ros_scenario_runner">carla_ros_scenario_runner</a> 包触发场景。</li>
 <li><strong>播放/暂停模拟</strong> - 如果以同步模式启动，您可以播放和暂停模拟。</li>
-<li><strong>手动覆盖自我车辆控制</strong> - 使用 <a href="https://github.com/ros-visualization/visualization_tutorials">RVIZ Visualization Tutorials</a> 可视化教程中的驱动小部件和从扭曲转换为车辆控制的 <a href="https://github.com/carla-simulator/ros-bridge/blob/master/carla_twist_to_control">节点</a> ，通过鼠标驾驶车辆。 </li>
+<li><strong>手动覆盖自主车辆控制</strong> - 使用 <a href="https://github.com/ros-visualization/visualization_tutorials">RVIZ Visualization Tutorials</a> 可视化教程中的驱动小部件和从扭曲转换为车辆控制的 <a href="https://github.com/carla-simulator/ros-bridge/blob/master/carla_twist_to_control">节点</a> ，通过鼠标驾驶车辆。 </li>
 </ul>
 <hr />
 <h2 id="ros">ROS 应用程序接口</h2>
@@ -147,7 +147,7 @@ ros2<span class="w"> </span>launch<span class="w"> </span>carla_manual_control<s
 <tr>
 <td><code>/carla/ego_vehicle/odometry</code></td>
 <td><a href="https://docs.ros.org/en/api/nav_msgs/html/msg/Odometry.html">nav_msgs/Odometry</a></td>
-<td>显示自我车辆的当前姿态</td>
+<td>显示自主车辆的当前姿态</td>
 </tr>
 <tr>
 <td><code>/scenario_runner/status</code></td>

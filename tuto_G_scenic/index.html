@@ -118,7 +118,7 @@ param carla_map = &#39;Town01&#39;
 model scenic.simulators.carla.model
 </code></pre></div>
 <p><strong>2.</strong> 定义场景中要使用的常量：</p>
-<p>该场景涉及两辆车，领头车辆和自我车辆。我们将定义自我车辆模型、两辆车的速度、制动距离阈值以及制动量。</p>
+<p>该场景涉及两辆车，领头车辆和自主车辆。我们将定义自主车辆模型、两辆车的速度、制动距离阈值以及制动量。</p>
 <div class="highlight"><pre><span></span><code>## CONSTANTS
 EGO_MODEL = &quot;vehicle.lincoln.mkz_2017&quot;
 EGO_SPEED = 10
@@ -130,7 +130,7 @@ LEADCAR_BRAKING_THRESHOLD = 10
 BRAKE_ACTION = 1.0
 </code></pre></div>
 <p><strong>3</strong>. 定义场景行为：</p>
-<p>在这种情况下，我们将使用 Scenic <a href="https://scenic-lang.readthedocs.io/en/latest/modules/scenic.domains.driving.behaviors.html">行为库</a> 来指示自我车辆以预定义的速度沿着车道行驶，然后在与另一辆车相距一定距离时紧急制动。领先的车辆也会以预定的速度沿着车道行驶，并在距离任何物体一定距离内紧急制动：</p>
+<p>在这种情况下，我们将使用 Scenic <a href="https://scenic-lang.readthedocs.io/en/latest/modules/scenic.domains.driving.behaviors.html">行为库</a> 来指示自主车辆以预定义的速度沿着车道行驶，然后在与另一辆车相距一定距离时紧急制动。领先的车辆也会以预定的速度沿着车道行驶，并在距离任何物体一定距离内紧急制动：</p>
 <div class="highlight"><pre><span></span><code>## DEFINING BEHAVIORS
 # EGO BEHAVIOR: Follow lane, and brake after passing a threshold distance to the leading car
 behavior EgoBehavior(speed=10):
@@ -180,7 +180,7 @@ lane = Uniform(*network.lanes)
 <div class="highlight"><pre><span></span><code>require (distance to intersection) &gt; 80
 </code></pre></div>
 <p><strong>6.</strong> 设置结束点，以便脚本知道场景何时完成：</p>
-<p>当自我车辆的速度低于每秒 0.1 米并且距离障碍物不到 30 米时，该场景将结束。</p>
+<p>当自主车辆的速度低于每秒 0.1 米并且距离障碍物不到 30 米时，该场景将结束。</p>
 <div class="highlight"><pre><span></span><code>terminate when ego.speed &lt; 0.1 and (distance to obstacle) &lt; 30
 </code></pre></div>
 <hr />

@@ -131,7 +131,7 @@ ros2<span class="w"> </span>launch<span class="w"> </span>carla_ros_bridge<span 
 </li>
 <li><strong>synchronous_mode_wait_for_vehicle_control_command</strong>: 在同步模式下，暂停计时直到车辆控制完成。</li>
 <li><strong>fixed_delta_seconds</strong>: 模拟步骤之间的模拟时间（增量秒）。<strong>它必须低于 0.1</strong>。查看 <a href="https://carla.readthedocs.io/en/latest/adv_synchrony_timestep/">文档</a> 以了解更多相关信息。</li>
-<li><strong>ego_vehicle</strong>: 用于识别自我车辆的参与者名称。将创建相关主题，以便能够通过 ROS 控制这些车辆。</li>
+<li><strong>ego_vehicle</strong>: 用于识别自主车辆的参与者名称。将创建相关主题，以便能够通过 ROS 控制这些车辆。</li>
 <li><strong>town</strong>: 使用可用的 Carla 城镇（例如“town01”）或 OpenDRIVE 文件（以 <code>.xodr</code> 结尾）。</li>
 <li><strong>register_all_sensors</strong>:<ul>
 <li><strong>如果是 false</strong>: 仅注册桥生成的传感器。</li>
@@ -151,8 +151,8 @@ ros2<span class="w"> </span>launch<span class="w"> </span>carla_ros_bridge<span 
 </code></pre></div></li>
 </ul>
 <hr />
-<h2 id="_1">自我车辆控制</h2>
-<p>有两种控制自我车辆的模式：</p>
+<h2 id="_1">自主车辆控制</h2>
+<p>有两种控制自主车辆的模式：</p>
 <ol>
 <li>正常模式 - 从 <code>/carla/&lt;ROLE NAME&gt;/vehicle_control_cmd</code> 读取命令</li>
 <li>手动模式 - 从  <code>/carla/&lt;ROLE NAME&gt;/vehicle_control_cmd_manual</code> 读取命令。这允许手动覆盖软件堆栈发布的车辆控制命令。</li>
@@ -176,7 +176,7 @@ rostopic<span class="w"> </span>pub<span class="w"> </span>/carla/ego_vehicle/ve
 ros2<span class="w"> </span>topic<span class="w"> </span>pub<span class="w"> </span>/carla/ego_vehicle/vehicle_control_cmd<span class="w"> </span>carla_msgs/CarlaEgoVehicleControl<span class="w"> </span><span class="s2">&quot;{throttle: 1.0, steer: 1.0}&quot;</span><span class="w"> </span>-r<span class="w"> </span><span class="m">10</span>
 </code></pre></div>
 <p>当前车辆的状态可以通过主题 <code>/carla/&lt;ROLE NAME&gt;/vehicle_status</code> 获得。有关车辆的静态信息可以通过<code>/carla/&lt;ROLE NAME&gt;/vehicle_info</code>接收.</p>
-<p>可以使用 <a href="https://docs.ros.org/en/api/ackermann_msgs/html/msg/AckermannDrive.html">AckermannDrive</a> 消息来控制自我车辆。这可以通过使用 <a href="../carla_ackermann_control/">Carla 阿克曼控制</a> 包来实现。</p>
+<p>可以使用 <a href="https://docs.ros.org/en/api/ackermann_msgs/html/msg/AckermannDrive.html">AckermannDrive</a> 消息来控制自主车辆。这可以通过使用 <a href="../carla_ackermann_control/">Carla 阿克曼控制</a> 包来实现。</p>
 <hr />
 <h2 id="ros_4">ROS 应用程序接口</h2>
 <h4 id="_2">订阅</h4>

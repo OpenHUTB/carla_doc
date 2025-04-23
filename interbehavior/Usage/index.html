@@ -71,7 +71,7 @@
                 <h1 id="dreyevr">使用 <code>DReyeVR</code></h1>
 <p>现在您已启动并运行 DReyeVR，本指南将重点介绍一些对使用 DReyeVR 的研究人员有用的功能：</p>
 <ul>
-<li><a href="./#maneuvering-the-ego-vehicle">操纵自我车辆</a></li>
+<li><a href="./#maneuvering-the-ego-vehicle">操纵自主车辆</a></li>
 <li><a href="./#using-the-pythonapi">使用 PythonAPI</a></li>
 <li><a href="./#recordingreplaying-a-scenario">记录/重放一个场景</a></li>
 <li><a href="./#control-handoff-to-ai">将控制从手动切换到 AI（切换）</a></li>
@@ -80,7 +80,7 @@
 <li><a href="./#other-guides">其他指南</a></li>
 </ul>
 <p><img alt="UsageSchematic" src="../Figures/Usage/UsageSchematic.jpg" /></p>
-<h1 id="_1">操纵自我车辆</h1>
+<h1 id="_1">操纵自主车辆</h1>
 <p>这些控制方案在 VR 和非 VR 中均有效。主要区别在于，在 VR 中，您可以通过头部跟踪来移动相机姿势和方向，但在平面模式（非 VR）中，您需要像在第一人称游戏中一样使用鼠标。</p>
 <ul>
 <li>
@@ -171,13 +171,13 @@
 <h2 id="dreyevr-pythonapi">使用我们新的 DReyeVR PythonAPI</h2>
 <p>对于您自己的自定义脚本，我们建议您查看 <a href="../PythonAPI/DReyeVR_utils.py"><code>DReyeVR_utils.py</code></a> 文件，特别是这两个函数：</p>
 <ul>
-<li><code>find_ego_vehicle</code> 接收 <code>carla.libcarla.World</code> 实例并返回世界上存在的 DReyeVR 自我车辆 (<code>carla.libcarla.Vehicle</code>)，如果没有则生成一个。 </li>
+<li><code>find_ego_vehicle</code> 接收 <code>carla.libcarla.World</code> 实例并返回世界上存在的 DReyeVR 自主车辆 (<code>carla.libcarla.Vehicle</code>)，如果没有则生成一个。 </li>
 <li><code>find_ego_sensor</code> 接收 <code>carla.libcarla.World</code> 实例并返回世界上存在的 DReyeVR 眼动仪 (<code>carla.libcarla.Sensor</code>)，该眼动仪应附加到生成的 EgoVehicle（如果生成了 EgoVehicle）</li>
 </ul>
 <p>然后，在您的脚本中，您可以遵循我们在 <code>diagram_mode.py</code> 中使用的技术，例如：
 <div class="highlight"><pre><span></span><code><span class="n">world</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get_world</span><span class="p">()</span>
 
-<span class="c1"># 找到自我车辆</span>
+<span class="c1"># 找到自主车辆</span>
 <span class="bp">self</span><span class="o">.</span><span class="n">hero_actor</span> <span class="o">=</span> <span class="n">find_ego_vehicle</span><span class="p">(</span><span class="n">world</span><span class="p">)</span>
 <span class="bp">self</span><span class="o">.</span><span class="n">hero_transform</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hero_actor</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span>
 
@@ -291,7 +291,7 @@ python<span class="w"> </span>run_experiment.py<span class="w"> </span>--title<s
 </code></pre></div>
 请注意，您可以使用 <code>--title "your_experiment"</code> 将实验重命名为任何名称，并且生成的记录文件将在其文件名中包含此标题。</p>
 <h1 id="ai">将控制从手动切换到 AI（切换）</h1>
-<p>有时，在实验期间让 AI 接管自我车辆以用于研究目的很有用。借助 Carla 现有的 <a href="../adv_traffic_manager">基于 TrafficManager 的自动驾驶仪</a> ，在我们的模拟器中可以轻松做到这一点，它可以像驾驶任何其他 Carla 车辆一样驾驶我们的自我车辆。</p>
+<p>有时，在实验期间让 AI 接管自主车辆以用于研究目的很有用。借助 Carla 现有的 <a href="../adv_traffic_manager">基于 TrafficManager 的自动驾驶仪</a> ，在我们的模拟器中可以轻松做到这一点，它可以像驾驶任何其他 Carla 车辆一样驾驶我们的自主车辆。</p>
 <p>然而，为了启动自动驾驶仪，我们目前只支持使用 PythonAPI 执行此任务，因此我们创建了 <code>DReyeVR_AI.py</code> 来完成这项工作：
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="nv">$CARLA_ROOT</span>/PythonAPI/examples<span class="w"> </span><span class="c1"># 进入目录 carla PythonAPI</span>
 ./DReyeVR_AI.py<span class="w"> </span>-n<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="c1"># 不产生其他车辆，在 EgoVehicle 上启用自动驾驶仪</span>

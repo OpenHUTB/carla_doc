@@ -120,36 +120,36 @@
 </code></pre></div>
 <p>我们想要使用相机投影矩阵将三维点投影到二维点。第一步是使用可通过 <code>camera.get_transform().get_inverse_matrix()</code> 检索的逆相机变换，将世界坐标中的三维坐标变换为相机坐标。接下来，我们使用相机投影矩阵将相机坐标中的三维点投影到二维相机平面中：</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_image_point</span><span class="p">(</span><span class="n">loc</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">w2c</span><span class="p">):</span>
-        <span class="c1"># 计算三维坐标的二维投影</span>
+    <span class="c1"># 计算三维坐标的二维投影</span>
 
-        <span class="c1"># 设置输入坐标的格式（loc是一个carla.Position对象）</span>
-        <span class="n">point</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">loc</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">loc</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">loc</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-        <span class="c1"># 变换到相机坐标</span>
-        <span class="n">point_camera</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">w2c</span><span class="p">,</span> <span class="n">point</span><span class="p">)</span>
+    <span class="c1"># 设置输入坐标的格式（loc是一个carla.Position对象）</span>
+    <span class="n">point</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">loc</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">loc</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">loc</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="c1"># 变换到相机坐标</span>
+    <span class="n">point_camera</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">w2c</span><span class="p">,</span> <span class="n">point</span><span class="p">)</span>
 
-        <span class="c1"># 新的，我们必须从UE4的坐标系更改为“standard” </span>
-        <span class="c1"># (x, y ,z) -&gt; (y, -z, x)</span>
-        <span class="c1"># 我们还去掉了第四个成分</span>
-        <span class="n">point_camera</span> <span class="o">=</span> <span class="p">[</span><span class="n">point_camera</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">-</span><span class="n">point_camera</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">point_camera</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+    <span class="c1"># 新的，我们必须从UE4的坐标系更改为“standard” </span>
+    <span class="c1"># (x, y ,z) -&gt; (y, -z, x)</span>
+    <span class="c1"># 我们还去掉了第四个成分</span>
+    <span class="n">point_camera</span> <span class="o">=</span> <span class="p">[</span><span class="n">point_camera</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">-</span><span class="n">point_camera</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">point_camera</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
 
-        <span class="c1"># 现在使用相机矩阵投影3D-&gt;2D</span>
-        <span class="n">point_img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">point_camera</span><span class="p">)</span>
-        <span class="c1"># 正则化</span>
-        <span class="n">point_img</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/=</span> <span class="n">point_img</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-        <span class="n">point_img</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/=</span> <span class="n">point_img</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="c1"># 现在使用相机矩阵投影3D-&gt;2D</span>
+    <span class="n">point_img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">point_camera</span><span class="p">)</span>
+    <span class="c1"># 正则化</span>
+    <span class="n">point_img</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/=</span> <span class="n">point_img</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">point_img</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/=</span> <span class="n">point_img</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
 
-        <span class="k">return</span> <span class="n">point_img</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">point_img</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
 </code></pre></div>
 <p>现在我们有了投影 3D -&gt; 2D 的功能，我们可以检索相机规格：</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 获取世界的相机矩阵</span>
 <span class="n">world_2_camera</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">camera</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">get_inverse_matrix</span><span class="p">())</span>
 
-<span class="c1"># Get the attributes from the camera</span>
+<span class="c1"># 获取相机的属性</span>
 <span class="n">image_w</span> <span class="o">=</span> <span class="n">camera_bp</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s2">&quot;image_size_x&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">as_int</span><span class="p">()</span>
 <span class="n">image_h</span> <span class="o">=</span> <span class="n">camera_bp</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s2">&quot;image_size_y&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">as_int</span><span class="p">()</span>
 <span class="n">fov</span> <span class="o">=</span> <span class="n">camera_bp</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s2">&quot;fov&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">as_float</span><span class="p">()</span>
 
-<span class="c1"># Calculate the camera projection matrix to project from 3D -&gt; 2D</span>
+<span class="c1"># 计算相机投影矩阵，从 3D 投影到 2D</span>
 <span class="n">K</span> <span class="o">=</span> <span class="n">build_projection_matrix</span><span class="p">(</span><span class="n">image_w</span><span class="p">,</span> <span class="n">image_h</span><span class="p">,</span> <span class="n">fov</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="_4">边界框</h2>
@@ -182,58 +182,56 @@
 <span class="n">edges</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">3</span><span class="p">]]</span>
 </code></pre></div>
 <p>为了查看边界框，我们将使用 OpenCV 窗口来显示相机输出。</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Retrieve the first image</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># 检索第一张图片</span>
 <span class="n">world</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
 <span class="n">image</span> <span class="o">=</span> <span class="n">image_queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
 
-<span class="c1"># Reshape the raw data into an RGB array</span>
+<span class="c1"># 将原始数据重塑为 RGB 数组</span>
 <span class="n">img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">raw_data</span><span class="p">),</span> <span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="n">image</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span> 
 
-<span class="c1"># Display the image in an OpenCV display window</span>
+<span class="c1"># 在 OpenCV 显示窗口中显示图像</span>
 <span class="n">cv2</span><span class="o">.</span><span class="n">namedWindow</span><span class="p">(</span><span class="s1">&#39;ImageWindowName&#39;</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">WINDOW_AUTOSIZE</span><span class="p">)</span>
 <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;ImageWindowName&#39;</span><span class="p">,</span><span class="n">img</span><span class="p">)</span>
 <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </code></pre></div>
 <p>现在我们将开始游戏循环：</p>
 <div class="highlight"><pre><span></span><code><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-    <span class="c1"># Retrieve and reshape the image</span>
+    <span class="c1"># 检索并重塑图像</span>
     <span class="n">world</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
     <span class="n">image</span> <span class="o">=</span> <span class="n">image_queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
 
     <span class="n">img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">raw_data</span><span class="p">),</span> <span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="n">image</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 
-    <span class="c1"># Get the camera matrix </span>
+    <span class="c1"># 获取相机矩阵</span>
     <span class="n">world_2_camera</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">camera</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">get_inverse_matrix</span><span class="p">())</span>
 
     <span class="k">for</span> <span class="n">bb</span> <span class="ow">in</span> <span class="n">bounding_box_set</span><span class="p">:</span>
 
-        <span class="c1"># Filter for distance from ego vehicle</span>
+        <span class="c1"># 通过与自主车的距离进行过滤</span>
         <span class="k">if</span> <span class="n">bb</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">vehicle</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">location</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">50</span><span class="p">:</span>
 
-            <span class="c1"># Calculate the dot product between the forward vector</span>
-            <span class="c1"># of the vehicle and the vector between the vehicle</span>
-            <span class="c1"># and the bounding box. We threshold this dot product</span>
-            <span class="c1"># to limit to drawing bounding boxes IN FRONT OF THE CAMERA</span>
+            <span class="c1">#计算车辆前向向量与车辆和边界框之间向量的点积。</span>
+            <span class="c1"># 我们对该点积进行阈值处理，以限制在摄像头前方绘制边界框。</span>
             <span class="n">forward_vec</span> <span class="o">=</span> <span class="n">vehicle</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">get_forward_vector</span><span class="p">()</span>
             <span class="n">ray</span> <span class="o">=</span> <span class="n">bb</span><span class="o">.</span><span class="n">location</span> <span class="o">-</span> <span class="n">vehicle</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">location</span>
 
             <span class="k">if</span> <span class="n">forward_vec</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">ray</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="c1"># Cycle through the vertices</span>
+                <span class="c1"># 循环遍历顶点</span>
                 <span class="n">verts</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">bb</span><span class="o">.</span><span class="n">get_world_vertices</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">Transform</span><span class="p">())]</span>
                 <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
-                    <span class="c1"># Join the vertices into edges</span>
+                    <span class="c1"># 将顶点连接成边</span>
                     <span class="n">p1</span> <span class="o">=</span> <span class="n">get_image_point</span><span class="p">(</span><span class="n">verts</span><span class="p">[</span><span class="n">edge</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">K</span><span class="p">,</span> <span class="n">world_2_camera</span><span class="p">)</span>
                     <span class="n">p2</span> <span class="o">=</span> <span class="n">get_image_point</span><span class="p">(</span><span class="n">verts</span><span class="p">[</span><span class="n">edge</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>  <span class="n">K</span><span class="p">,</span> <span class="n">world_2_camera</span><span class="p">)</span>
-                    <span class="c1"># Draw the edges into the camera output</span>
+                    <span class="c1"># 将边缘绘制到相机输出中</span>
                     <span class="n">cv2</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span><span class="nb">int</span><span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">])),</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">p2</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span><span class="nb">int</span><span class="p">(</span><span class="n">p2</span><span class="p">[</span><span class="mi">1</span><span class="p">])),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
 
-    <span class="c1"># Now draw the image into the OpenCV display window</span>
+    <span class="c1"># 现在将图像绘制到 OpenCV 显示窗口中</span>
     <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;ImageWindowName&#39;</span><span class="p">,</span><span class="n">img</span><span class="p">)</span>
-    <span class="c1"># Break the loop if the user presses the Q key</span>
+    <span class="c1"># 如果用户按下 Q 键，则中断循环</span>
     <span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span>
         <span class="k">break</span>
 
-<span class="c1"># Close the OpenCV display window when the game loop stops</span>
+<span class="c1"># 游戏循环停止时关闭 OpenCV 显示窗口</span>
 <span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
 </code></pre></div>
 <p>现在我们将三维边界框渲染到图像中，以便我们可以在相机传感器输出中观察它们。</p>
@@ -248,55 +246,51 @@
         <span class="n">npc</span><span class="o">.</span><span class="n">set_autopilot</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 </code></pre></div>
 <p>检索第一张图像并像以前一样设置 OpenCV 显示窗口：</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Retrieve the first image</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># 检索第一张图片</span>
 <span class="n">world</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
 <span class="n">image</span> <span class="o">=</span> <span class="n">image_queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
 
-<span class="c1"># Reshape the raw data into an RGB array</span>
+<span class="c1"># 将原始数据重塑为 RGB 数组</span>
 <span class="n">img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">raw_data</span><span class="p">),</span> <span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="n">image</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span> 
 
-<span class="c1"># Display the image in an OpenCV display window</span>
+<span class="c1"># 在 OpenCV 显示窗口中显示图像</span>
 <span class="n">cv2</span><span class="o">.</span><span class="n">namedWindow</span><span class="p">(</span><span class="s1">&#39;ImageWindowName&#39;</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">WINDOW_AUTOSIZE</span><span class="p">)</span>
 <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;ImageWindowName&#39;</span><span class="p">,</span><span class="n">img</span><span class="p">)</span>
 <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </code></pre></div>
 <p>现在我们使用修改后的游戏循环来绘制车辆边界框：</p>
 <div class="highlight"><pre><span></span><code><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-    <span class="c1"># Retrieve and reshape the image</span>
+    <span class="c1"># 检索并重塑图像</span>
     <span class="n">world</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
     <span class="n">image</span> <span class="o">=</span> <span class="n">image_queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
 
     <span class="n">img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">raw_data</span><span class="p">),</span> <span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="n">image</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 
-    <span class="c1"># Get the camera matrix </span>
+    <span class="c1"># 获取相机矩阵</span>
     <span class="n">world_2_camera</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">camera</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">get_inverse_matrix</span><span class="p">())</span>
 
-
     <span class="k">for</span> <span class="n">npc</span> <span class="ow">in</span> <span class="n">world</span><span class="o">.</span><span class="n">get_actors</span><span class="p">()</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s1">&#39;*vehicle*&#39;</span><span class="p">):</span>
-
-        <span class="c1"># Filter out the ego vehicle</span>
+        <span class="c1"># 过滤掉自主车辆</span>
         <span class="k">if</span> <span class="n">npc</span><span class="o">.</span><span class="n">id</span> <span class="o">!=</span> <span class="n">vehicle</span><span class="o">.</span><span class="n">id</span><span class="p">:</span>
 
             <span class="n">bb</span> <span class="o">=</span> <span class="n">npc</span><span class="o">.</span><span class="n">bounding_box</span>
             <span class="n">dist</span> <span class="o">=</span> <span class="n">npc</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">vehicle</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">location</span><span class="p">)</span>
 
-            <span class="c1"># Filter for the vehicles within 50m</span>
+            <span class="c1"># 过滤 50 米范围内的车辆</span>
             <span class="k">if</span> <span class="n">dist</span> <span class="o">&lt;</span> <span class="mi">50</span><span class="p">:</span>
 
-            <span class="c1"># Calculate the dot product between the forward vector</span>
-            <span class="c1"># of the vehicle and the vector between the vehicle</span>
-            <span class="c1"># and the other vehicle. We threshold this dot product</span>
-            <span class="c1"># to limit to drawing bounding boxes IN FRONT OF THE CAMERA</span>
-                <span class="n">forward_vec</span> <span class="o">=</span> <span class="n">vehicle</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">get_forward_vector</span><span class="p">()</span>
-                <span class="n">ray</span> <span class="o">=</span> <span class="n">npc</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">location</span> <span class="o">-</span> <span class="n">vehicle</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">location</span>
+            <span class="c1"># 计算车辆前向向量与自车与其他车辆之间矢量的点积。</span>
+            <span class="c1"># 我们对该点积进行阈值处理，以限制在摄像头前方绘制边界框。</span>
+            <span class="n">forward_vec</span> <span class="o">=</span> <span class="n">vehicle</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">get_forward_vector</span><span class="p">()</span>
+            <span class="n">ray</span> <span class="o">=</span> <span class="n">npc</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">location</span> <span class="o">-</span> <span class="n">vehicle</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">location</span>
 
-                <span class="k">if</span> <span class="n">forward_vec</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">ray</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-                    <span class="n">p1</span> <span class="o">=</span> <span class="n">get_image_point</span><span class="p">(</span><span class="n">bb</span><span class="o">.</span><span class="n">location</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">world_2_camera</span><span class="p">)</span>
-                    <span class="n">verts</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">bb</span><span class="o">.</span><span class="n">get_world_vertices</span><span class="p">(</span><span class="n">npc</span><span class="o">.</span><span class="n">get_transform</span><span class="p">())]</span>
-                    <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
-                        <span class="n">p1</span> <span class="o">=</span> <span class="n">get_image_point</span><span class="p">(</span><span class="n">verts</span><span class="p">[</span><span class="n">edge</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">K</span><span class="p">,</span> <span class="n">world_2_camera</span><span class="p">)</span>
-                        <span class="n">p2</span> <span class="o">=</span> <span class="n">get_image_point</span><span class="p">(</span><span class="n">verts</span><span class="p">[</span><span class="n">edge</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>  <span class="n">K</span><span class="p">,</span> <span class="n">world_2_camera</span><span class="p">)</span>
-                        <span class="n">cv2</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span><span class="nb">int</span><span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">])),</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">p2</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span><span class="nb">int</span><span class="p">(</span><span class="n">p2</span><span class="p">[</span><span class="mi">1</span><span class="p">])),</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>        
+            <span class="k">if</span> <span class="n">forward_vec</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">ray</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">p1</span> <span class="o">=</span> <span class="n">get_image_point</span><span class="p">(</span><span class="n">bb</span><span class="o">.</span><span class="n">location</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">world_2_camera</span><span class="p">)</span>
+                <span class="n">verts</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">bb</span><span class="o">.</span><span class="n">get_world_vertices</span><span class="p">(</span><span class="n">npc</span><span class="o">.</span><span class="n">get_transform</span><span class="p">())]</span>
+                <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
+                    <span class="n">p1</span> <span class="o">=</span> <span class="n">get_image_point</span><span class="p">(</span><span class="n">verts</span><span class="p">[</span><span class="n">edge</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">K</span><span class="p">,</span> <span class="n">world_2_camera</span><span class="p">)</span>
+                    <span class="n">p2</span> <span class="o">=</span> <span class="n">get_image_point</span><span class="p">(</span><span class="n">verts</span><span class="p">[</span><span class="n">edge</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>  <span class="n">K</span><span class="p">,</span> <span class="n">world_2_camera</span><span class="p">)</span>
+                    <span class="n">cv2</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span><span class="nb">int</span><span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">])),</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">p2</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span><span class="nb">int</span><span class="p">(</span><span class="n">p2</span><span class="p">[</span><span class="mi">1</span><span class="p">])),</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>        
 
     <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;ImageWindowName&#39;</span><span class="p">,</span><span class="n">img</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span>
@@ -307,62 +301,58 @@
 <h3 id="_7">二维边界框</h3>
 <p>训练神经网络来检测二维边界框而不是上面演示的三维边界框是很常见的。前面的脚本可以轻松扩展以生成二维边界框。我们只需要使用三维边界框的末端即可。对于渲染的每个边界框，我们找到图像坐标中最左边、最右边、最高和最低的投影顶点。</p>
 <div class="highlight"><pre><span></span><code><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-
-    <span class="c1"># Retrieve and reshape the image</span>
+    <span class="c1"># 检索并重塑图像</span>
     <span class="n">world</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
     <span class="n">image</span> <span class="o">=</span> <span class="n">image_queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
 
     <span class="n">img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">raw_data</span><span class="p">),</span> <span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="n">image</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 
-    <span class="c1"># Get the camera matrix </span>
+    <span class="c1"># 获取相机矩阵</span>
     <span class="n">world_2_camera</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">camera</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">get_inverse_matrix</span><span class="p">())</span>
 
     <span class="k">for</span> <span class="n">npc</span> <span class="ow">in</span> <span class="n">world</span><span class="o">.</span><span class="n">get_actors</span><span class="p">()</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s1">&#39;*vehicle*&#39;</span><span class="p">):</span>
 
-        <span class="c1"># Filter out the ego vehicle</span>
+        <span class="c1"># 过滤掉自主车辆</span>
         <span class="k">if</span> <span class="n">npc</span><span class="o">.</span><span class="n">id</span> <span class="o">!=</span> <span class="n">vehicle</span><span class="o">.</span><span class="n">id</span><span class="p">:</span>
 
             <span class="n">bb</span> <span class="o">=</span> <span class="n">npc</span><span class="o">.</span><span class="n">bounding_box</span>
             <span class="n">dist</span> <span class="o">=</span> <span class="n">npc</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">vehicle</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">location</span><span class="p">)</span>
 
-            <span class="c1"># Filter for the vehicles within 50m</span>
+            <span class="c1"># 过滤 50 米范围内的车辆</span>
             <span class="k">if</span> <span class="n">dist</span> <span class="o">&lt;</span> <span class="mi">50</span><span class="p">:</span>
 
-            <span class="c1"># Calculate the dot product between the forward vector</span>
-            <span class="c1"># of the vehicle and the vector between the vehicle</span>
-            <span class="c1"># and the other vehicle. We threshold this dot product</span>
-            <span class="c1"># to limit to drawing bounding boxes IN FRONT OF THE CAMERA</span>
-                <span class="n">forward_vec</span> <span class="o">=</span> <span class="n">vehicle</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">get_forward_vector</span><span class="p">()</span>
-                <span class="n">ray</span> <span class="o">=</span> <span class="n">npc</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">location</span> <span class="o">-</span> <span class="n">vehicle</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">location</span>
+            <span class="c1"># 计算车辆前向向量与本车和另一辆车之间矢量的点积。</span>
+            <span class="c1"># 我们对该点积进行阈值处理，以限制在摄像头前方绘制边界框。</span>
+            <span class="n">forward_vec</span> <span class="o">=</span> <span class="n">vehicle</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">get_forward_vector</span><span class="p">()</span>
+            <span class="n">ray</span> <span class="o">=</span> <span class="n">npc</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">location</span> <span class="o">-</span> <span class="n">vehicle</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">location</span>
 
-                <span class="k">if</span> <span class="n">forward_vec</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">ray</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-                    <span class="n">p1</span> <span class="o">=</span> <span class="n">get_image_point</span><span class="p">(</span><span class="n">bb</span><span class="o">.</span><span class="n">location</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">world_2_camera</span><span class="p">)</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">host</span><span class="o">.</span><span class="n">robots</span><span class="o">.</span><span class="n">ox</span><span class="o">.</span><span class="n">ac</span><span class="o">.</span><span class="n">uk</span><span class="o">/</span><span class="n">pascal</span><span class="o">/</span><span class="n">VOC</span><span class="o">/</span>
-                    <span class="n">verts</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">bb</span><span class="o">.</span><span class="n">get_world_vertices</span><span class="p">(</span><span class="n">npc</span><span class="o">.</span><span class="n">get_transform</span><span class="p">())]</span>
-                    <span class="n">x_max</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10000</span>
-                    <span class="n">x_min</span> <span class="o">=</span> <span class="mi">10000</span>
-                    <span class="n">y_max</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10000</span>
-                    <span class="n">y_min</span> <span class="o">=</span> <span class="mi">10000</span>
+            <span class="k">if</span> <span class="n">forward_vec</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">ray</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">p1</span> <span class="o">=</span> <span class="n">get_image_point</span><span class="p">(</span><span class="n">bb</span><span class="o">.</span><span class="n">location</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">world_2_camera</span><span class="p">)</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">host</span><span class="o">.</span><span class="n">robots</span><span class="o">.</span><span class="n">ox</span><span class="o">.</span><span class="n">ac</span><span class="o">.</span><span class="n">uk</span><span class="o">/</span><span class="n">pascal</span><span class="o">/</span><span class="n">VOC</span><span class="o">/</span>
+                <span class="n">verts</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">bb</span><span class="o">.</span><span class="n">get_world_vertices</span><span class="p">(</span><span class="n">npc</span><span class="o">.</span><span class="n">get_transform</span><span class="p">())]</span>
+                <span class="n">x_max</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10000</span>
+                <span class="n">x_min</span> <span class="o">=</span> <span class="mi">10000</span>
+                <span class="n">y_max</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10000</span>
+                <span class="n">y_min</span> <span class="o">=</span> <span class="mi">10000</span>
 
-                    <span class="k">for</span> <span class="n">vert</span> <span class="ow">in</span> <span class="n">verts</span><span class="p">:</span>
-                        <span class="n">p</span> <span class="o">=</span> <span class="n">get_image_point</span><span class="p">(</span><span class="n">vert</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">world_2_camera</span><span class="p">)</span>
-                        <span class="c1"># Find the rightmost vertex</span>
-                        <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">x_max</span><span class="p">:</span>
-                            <span class="n">x_max</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-                        <span class="c1"># Find the leftmost vertex</span>
-                        <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">x_min</span><span class="p">:</span>
-                            <span class="n">x_min</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-                        <span class="c1"># Find the highest vertex</span>
-                        <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">y_max</span><span class="p">:</span>
-                            <span class="n">y_max</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-                        <span class="c1"># Find the lowest  vertex</span>
-                        <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">y_min</span><span class="p">:</span>
-                            <span class="n">y_min</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">vert</span> <span class="ow">in</span> <span class="n">verts</span><span class="p">:</span>
+                    <span class="n">p</span> <span class="o">=</span> <span class="n">get_image_point</span><span class="p">(</span><span class="n">vert</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">world_2_camera</span><span class="p">)</span>
+                    <span class="c1"># 找到最右边的顶点</span>
+                    <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">x_max</span><span class="p">:</span>
+                        <span class="n">x_max</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="c1"># 找到最左边的顶点</span>
+                    <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">x_min</span><span class="p">:</span>
+                        <span class="n">x_min</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="c1"># 找到最高顶点</span>
+                    <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">y_max</span><span class="p">:</span>
+                        <span class="n">y_max</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="c1"># 找到最低顶点</span>
+                    <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">y_min</span><span class="p">:</span>
+                        <span class="n">y_min</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
-                    <span class="n">cv2</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x_min</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">y_min</span><span class="p">)),</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x_max</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">y_min</span><span class="p">)),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
-                    <span class="n">cv2</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x_min</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">y_max</span><span class="p">)),</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x_max</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">y_max</span><span class="p">)),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
-                    <span class="n">cv2</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x_min</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">y_min</span><span class="p">)),</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x_min</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">y_max</span><span class="p">)),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
-                    <span class="n">cv2</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x_max</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">y_min</span><span class="p">)),</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x_max</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">y_max</span><span class="p">)),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
-
+                <span class="n">cv2</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x_min</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">y_min</span><span class="p">)),</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x_max</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">y_min</span><span class="p">)),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="n">cv2</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x_min</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">y_max</span><span class="p">)),</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x_max</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">y_max</span><span class="p">)),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="n">cv2</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x_min</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">y_min</span><span class="p">)),</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x_min</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">y_max</span><span class="p">)),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="n">cv2</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x_max</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">y_min</span><span class="p">)),</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x_max</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">y_max</span><span class="p">)),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
 
     <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;ImageWindowName&#39;</span><span class="p">,</span><span class="n">img</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span>
@@ -379,19 +369,19 @@
 <span class="o">...</span>
 <span class="o">...</span>
 <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-    <span class="c1"># Retrieve the image</span>
+    <span class="c1"># 检索图像</span>
     <span class="n">world</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
     <span class="n">image</span> <span class="o">=</span> <span class="n">image_queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
 
-    <span class="c1"># Get the camera matrix </span>
+    <span class="c1"># 获取相机矩阵</span>
     <span class="n">world_2_camera</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">camera</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span><span class="o">.</span><span class="n">get_inverse_matrix</span><span class="p">())</span>
 
     <span class="n">frame_path</span> <span class="o">=</span> <span class="s1">&#39;output/</span><span class="si">%06d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">image</span><span class="o">.</span><span class="n">frame</span>
 
-    <span class="c1"># Save the image</span>
+    <span class="c1"># 保存图像</span>
     <span class="n">image</span><span class="o">.</span><span class="n">save_to_disk</span><span class="p">(</span><span class="n">frame_path</span> <span class="o">+</span> <span class="s1">&#39;.png&#39;</span><span class="p">)</span>
 
-    <span class="c1"># Initialize the exporter</span>
+    <span class="c1"># 初始化导出器</span>
     <span class="n">writer</span> <span class="o">=</span> <span class="n">Writer</span><span class="p">(</span><span class="n">frame_path</span> <span class="o">+</span> <span class="s1">&#39;.png&#39;</span><span class="p">,</span> <span class="n">image_w</span><span class="p">,</span> <span class="n">image_h</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">npc</span> <span class="ow">in</span> <span class="n">world</span><span class="o">.</span><span class="n">get_actors</span><span class="p">()</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s1">&#39;*vehicle*&#39;</span><span class="p">):</span>
@@ -419,11 +409,11 @@
                         <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">y_min</span><span class="p">:</span>
                             <span class="n">y_min</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
-                    <span class="c1"># Add the object to the frame (ensure it is inside the image)</span>
+                    <span class="c1"># 将对象添加到框架（确保它在图像内）</span>
                     <span class="k">if</span> <span class="n">x_min</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">x_max</span> <span class="o">&lt;</span> <span class="n">image_w</span> <span class="ow">and</span> <span class="n">y_min</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">y_max</span> <span class="o">&lt;</span> <span class="n">image_h</span><span class="p">:</span> 
                         <span class="n">writer</span><span class="o">.</span><span class="n">addObject</span><span class="p">(</span><span class="s1">&#39;vehicle&#39;</span><span class="p">,</span> <span class="n">x_min</span><span class="p">,</span> <span class="n">y_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">,</span> <span class="n">y_max</span><span class="p">)</span>
 
-    <span class="c1"># Save the bounding boxes in the scene</span>
+    <span class="c1"># 保存场景中的边界框</span>
     <span class="n">writer</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">frame_path</span> <span class="o">+</span> <span class="s1">&#39;.xml&#39;</span><span class="p">)</span>
 </code></pre></div>
 <p>对于模拟的每个渲染帧，您现在将导出一个随附的 XML 文件，其中包含帧中边界框的详细信息。</p>

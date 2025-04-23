@@ -98,7 +98,7 @@
 <h2 id="_1">先决条件 <span id="prerequisites"></span></h2>
 <p>要遵循本指南，您需要从源代码构建 Carla，以便您可以使用虚幻编辑器。请遵循相关操作系统的 <a href="../build_carla/"><strong>构建说明</strong></a> 。您还需要 RoadRunner 的许可副本。您可能还需要 Maya、3DS Max 或 Blender 等三维建模应用程序来为自定义地图创建三维资产。您应该确保已完成构建 Carla 的所有步骤并确保虚幻编辑器正在运行，这可能需要一些时间来构建应用程序。如果您想为地图创建三维资产，则应使用适当的三维设计应用程序，例如 Blender、Maya、3DsMax 或 Modo。</p>
 <h2 id="_2">大地图 <span id="large-maps"></span></h2>
-<p>以下文本详细介绍了创建和装饰标准地图的过程。从版本 0.9.12 开始，Carla 具有大地图功能。大地图的比例比标准地图更大，最大可达 100 km<sup>2</sup>。由于硬件限制，大地图的工作方式与标准地图略有不同，即使在高端显卡中也是如此。大地图被分割成图块，并且在模拟过程中仅加载立即需要的图块（即最接近自我车辆的图块）。其他图块处于休眠状态，直到需要数据为止。这有助于实现 Carla 模拟的最高性能。接下来的大多数细节与构建大地图时类似，但还有一些额外的步骤。请按照 <a href="../content_authoring_large_maps/">本指南</a> 为 Carla 构建大地图。</p>
+<p>以下文本详细介绍了创建和装饰标准地图的过程。从版本 0.9.12 开始，Carla 具有大地图功能。大地图的比例比标准地图更大，最大可达 100 km<sup>2</sup>。由于硬件限制，大地图的工作方式与标准地图略有不同，即使在高端显卡中也是如此。大地图被分割成图块，并且在模拟过程中仅加载立即需要的图块（即最接近自主车辆的图块）。其他图块处于休眠状态，直到需要数据为止。这有助于实现 Carla 模拟的最高性能。接下来的大多数细节与构建大地图时类似，但还有一些额外的步骤。请按照 <a href="../content_authoring_large_maps/">本指南</a> 为 Carla 构建大地图。</p>
 <h2 id="_3">数字孪生工具 <span id="digital-twin-tool"></span></h2>
 <p>Carla 提供了一个程序化地图生成工具，它从 OpenStreetMap 获取道路网络数据，并用建筑物和植被程序化地装饰地图。请在 <a href="../adv_digital_twin/">此处</a> 阅读有关如何使用该工具的信息。</p>
 <h2 id="roadrunner">使用 RoadRunner 创建路网 <span id="create-a-road-network-using-roadrunner"></span></h2>

@@ -119,13 +119,13 @@
 <h3 id="_2">初始化方法</h3>
 <p>初始化方法旨在设置场景和所有车辆所需的所有参数。这包括选择正确的车辆、在正确的位置生成它们等。为了简化这一点，您可能需要使用<code>basic_scenario.py</code>中定义的 <code>setup_vehicle()</code> 方法。</p>
 <h3 id="createbehavior">CreateBehavior 方法</h3>
-<p>此方法应设置包含场景期间所有非自我车辆行为的行为树。行为树应该使用<code>atomic_scenario_behavior.py</code> 和 <code>atomic_scenario_behavior.py</code> 中定义的原子行为。</p>
+<p>此方法应设置包含场景期间所有非自主车辆行为的行为树。行为树应该使用<code>atomic_scenario_behavior.py</code> 和 <code>atomic_scenario_behavior.py</code> 中定义的原子行为。</p>
 <h3 id="createtestcriteria">CreateTestCriteria 方法</h3>
 <p>此方法应设置一个包含场景的所有评估标准的列表。该标准应基于 <code>atomic_scenario_criteria.py</code> 中定义的原子标准。</p>
 <p>注意: 从此列表<code>py_tree</code>中将自动创建并行！ </p>
 <h2 id="_3">添加场景配置</h2>
 <p>最后，场景配置应添加到该 <code>examples/</code> 文件夹中。如果扩展已经存在的场景模块，则只需扩展相应的 XML，否则添加新的 XML 文件。在这种情况下，您可以使用任何现有的 XML 文件作为蓝图。</p>
-<p>如果您想为一个场景添加多个自我车辆，请确保它们使用不同的参与者名称，例如</p>
+<p>如果您想为一个场景添加多个自主车辆，请确保它们使用不同的参与者名称，例如</p>
 <div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nt">&lt;scenario</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;MultiEgoTown03&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;FreeRide&quot;</span><span class="w"> </span><span class="na">town=</span><span class="s">&quot;Town03&quot;</span><span class="nt">&gt;</span>
 <span class="w">        </span><span class="nt">&lt;ego_vehicle</span><span class="w"> </span><span class="na">x=</span><span class="s">&quot;207&quot;</span><span class="w"> </span><span class="na">y=</span><span class="s">&quot;59&quot;</span><span class="w"> </span><span class="na">z=</span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="na">yaw=</span><span class="s">&quot;180&quot;</span><span class="w"> </span><span class="na">model=</span><span class="s">&quot;vehicle.lincoln.mkz_2017&quot;</span><span class="w"> </span><span class="na">rolename=</span><span class="s">&quot;hero&quot;</span><span class="nt">/&gt;</span>
 <span class="w">        </span><span class="nt">&lt;ego_vehicle</span><span class="w"> </span><span class="na">x=</span><span class="s">&quot;237&quot;</span><span class="w"> </span><span class="na">y=</span><span class="s">&quot;-95.0754252474&quot;</span><span class="w"> </span><span class="na">z=</span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="na">yaw=</span><span class="s">&quot;90&quot;</span><span class="w"> </span><span class="na">model=</span><span class="s">&quot;vehicle.tesla.model3&quot;</span><span class="w"> </span><span class="na">rolename=</span><span class="s">&quot;hero2&quot;</span><span class="nt">/&gt;</span>

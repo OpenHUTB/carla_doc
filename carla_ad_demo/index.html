@@ -87,7 +87,7 @@
 <hr />
 <h2 id="_2">运行演示 <span id="run_the_demo"></span></h2>
 <h4 id="_3">随机路线 <span id="random_route"></span></h4>
-<p>要启动自我车辆遵循随机生成的路线的演示，请在启动 Carla 服务器后运行以下命令：</p>
+<p>要启动自主车辆遵循随机生成的路线的演示，请在启动 Carla 服务器后运行以下命令：</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># ROS 1</span>
 roslaunch<span class="w"> </span>carla_ad_demo<span class="w"> </span>carla_ad_demo.launch
 
@@ -107,7 +107,7 @@ roslaunch<span class="w"> </span>carla_ad_demo<span class="w"> </span>carla_ad_d
 <span class="c1"># ROS2</span>
 ros2<span class="w"> </span>launch<span class="w"> </span>carla_ad_demo<span class="w"> </span>carla_ad_demo_with_scenario.launch.py
 </code></pre></div>
-<p>在 RVIZ Carla 插件中选择示例场景“FollowLeadingVehicle”，然后按“执行”。自我车辆重新定位并处理场景。</p>
+<p>在 RVIZ Carla 插件中选择示例场景“FollowLeadingVehicle”，然后按“执行”。自主车辆重新定位并处理场景。</p>
 <p>您可以通过发布到 <code>/carla/available_scenarios</code> 来指定自己的场景。<a href="https://github.com/carla-simulator/ros-bridge/blob/ros2/carla_ad_demo/launch/carla_ad_demo_with_scenario.launch">启动文件</a> 显示了如何执行此操作的示例：</p>
 <div class="highlight"><pre><span></span><code>  &lt;node pkg=&quot;rostopic&quot; type=&quot;rostopic&quot; name=&quot;publish_scenarios&quot;
     args=&quot;pub /carla/available_scenarios carla_ros_scenario_runner_types/CarlaScenarioList &#39;{ &#39;scenarios&#39;:  
