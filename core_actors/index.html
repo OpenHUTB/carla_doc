@@ -269,12 +269,24 @@
 <ul>
 <li><strong>自动驾驶模式</strong> 会将车辆订阅到 <a href="../adv_traffic_manager/">交通管理器</a> 以模拟真实的城市状况。该模块是硬编码的，不是基于机器学习的。</li>
 </ul>
-<p><div class="highlight"><pre><span></span><code><span class="n">vehicle</span><span class="o">.</span><span class="n">set_autopilot</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">vehicle</span><span class="o">.</span><span class="n">set_autopilot</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 </code></pre></div>
-* <strong>车灯</strong> 必须由用户打开和关闭。每辆车都有一组在<a href="../python_api/#carla.VehicleLightState"><strong>carla.VehicleLightState</strong></a> 中列出的灯。并非所有车辆都集成了车灯。截至撰写本文时，配备集成车灯的车辆如下：
-    *   <strong>自行车：</strong> 所有自行车都有前后位置灯。
-    *   <strong>摩托车：</strong> 雅马哈和哈雷戴维森型号。
-    *   <strong>汽车：</strong> 奥迪 TT、雪佛兰 Impala、道奇警车、道奇 Charger、奥迪 e-tron、林肯 2017 年和 2020 年、野马、特斯拉 Model 3、特斯拉 Cybertruck、大众 T2 和梅赛德斯 C 级。</p>
+<ul>
+<li>
+<p><strong>车灯</strong> 必须由用户打开和关闭。每辆车都有一组在<a href="../python_api/#carla.VehicleLightState"><strong>carla.VehicleLightState</strong></a> 中列出的灯。并非所有车辆都集成了车灯。截至撰写本文时，配备集成车灯的车辆如下：</p>
+<ul>
+<li>
+<p><strong>自行车：</strong> 所有自行车都有前后位置灯。</p>
+</li>
+<li>
+<p><strong>摩托车：</strong> 雅马哈和哈雷戴维森型号。</p>
+</li>
+<li>
+<p><strong>汽车：</strong> 奥迪 TT、雪佛兰 Impala、道奇警车、道奇 Charger、奥迪 e-tron、林肯 2017 年和 2020 年、野马、特斯拉 Model 3、特斯拉 Cybertruck、大众 T2 和梅赛德斯 C 级。</p>
+</li>
+</ul>
+</li>
+</ul>
 <p>可以使用 <a href="../python_api/#carla.Vehicle.get_light_state">carla.Vehicle.get_light_state</a> 和 <a href="#python_api.md#carla.Vehicle.set_light_state">carla.Vehicle.set_light_state</a> 方法随时检索和更新车辆的灯光。它们使用二进制运算来自定义灯光设置。</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 打开位置灯</span>
 <span class="n">current_lights</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">VehicleLightState</span><span class="o">.</span><span class="n">NONE</span>
@@ -314,14 +326,14 @@
 <div text-align: center>
 <div class="build-buttons">
 <p>
-<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="CARLA forum">
-Carla 论坛</a>
+<a href="https://github.com/OpenHUTB/carla_doc/issues" target="_blank" class="btn btn-neutral" title="CARLA forum">
+讨论页面</a>
 </p>
 </div>
 <div class="build-buttons">
 <p>
 <a href="../core_map" target="_blank" class="btn btn-neutral" title="3rd. Maps and navigation">
-3rd. 地图和导航</a>
+第三. 地图和导航</a>
 </p>
 </div>
 </div>
