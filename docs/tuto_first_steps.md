@@ -12,7 +12,7 @@ Carla 模拟器还可用作评估和测试环境。您可以部署在模拟中�
 * [__添加非玩家参与者__](#adding-npcs)  
 * [__添加传感器__](#add-sensors)  
 * [__使用交通管理器模拟车辆__](#animate-vehicles-with-traffic-manager)  
-* [__将车辆分配为自我车辆__](#assign-a-vehicle-as-the-ego-vehicle)
+* [__将车辆分配为自主车辆__](#assign-a-vehicle-as-the-ego-vehicle)
 * [__选择你的地图__](#choose-your-map) 
 * [__选择你的车辆__](#choose-your-vehicles) 
 
@@ -122,7 +122,7 @@ for i in range(0,50):
     world.try_spawn_actor(random.choice(vehicle_blueprints), random.choice(spawn_points))
 ```
 
-现在我们还应该添加一辆车作为模拟的中心点。为了训练自主代理，我们需要模拟自主代理将控制的车辆。用 Carla 的说法，我们经常将这种车辆称为“自我车辆”。
+现在我们还应该添加一辆车作为模拟的中心点。为了训练自主代理，我们需要模拟自主代理将控制的车辆。用 Carla 的说法，我们经常将这种车辆称为“自主车辆”。
 
 ```py
 ego_vehicle = world.spawn_actor(random.choice(vehicle_blueprints), random.choice(spawn_points))
@@ -135,7 +135,7 @@ ego_vehicle = world.spawn_actor(random.choice(vehicle_blueprints), random.choice
 
 现代自动驾驶汽车通过一系列附加传感器来理解和解释其环境。这些传感器包括光学摄像机、光流摄像机、激光雷达、雷达和加速度计等。Carla 内置了多种类型的传感器模型，用于创建机器学习的训练数据。传感器可以连接到车辆上，也可以连接到固定点来建模，例如闭路电视摄像机。
 
-在这里，我们将在自我车辆上安装一个标准摄像头传感器来记录一些视频数据：
+在这里，我们将在自主车辆上安装一个标准摄像头传感器来记录一些视频数据：
 
 ```py
 # 创建一个变换，将摄像机放置在车辆的顶部
@@ -144,7 +144,7 @@ camera_init_trans = carla.Transform(carla.Location(z=1.5))
 # 通过定义其属性的蓝图来创建相机
 camera_bp = world.get_blueprint_library().find('sensor.camera.rgb')
 
-# 生成相机并将其连接到我们的自我车辆上
+# 生成相机并将其连接到我们的自主车辆上
 camera = world.spawn_actor(camera_bp, camera_init_trans, attach_to=ego_vehicle)
 ```
 
@@ -164,7 +164,7 @@ camera.listen(lambda image: image.save_to_disk('out/%06d.png' % image.frame))
 
 ## 使用交通管理器模拟车辆 <span id="animate-vehicles-with-traffic-manager"></span>
 
-现在我们已经将交通和自我车辆添加到模拟中并开始记录摄像机数据，现在我们需要使用交通管理器将车辆设置为运动。[__交通管理器__](adv_traffic_manager.md) 是 Carla 的一个组件，它控制车辆在模拟内的地图道路上自动移动，遵循道路惯例并表现得像真正的道路使用者。
+现在我们已经将交通和自主车辆添加到模拟中并开始记录摄像机数据，现在我们需要使用交通管理器将车辆设置为运动。[__交通管理器__](adv_traffic_manager.md) 是 Carla 的一个组件，它控制车辆在模拟内的地图道路上自动移动，遵循道路惯例并表现得像真正的道路使用者。
 
 我们可以使用`world.get_actors()`方法找到模拟中的所有车辆，对所有车辆进行过滤。然后我们可以使用该`set_autopilot()`方法将车辆的控制权移交给交通管理器。
 
@@ -179,15 +179,15 @@ for vehicle in world.get_actors().filter('*vehicle*'):
 
 ---
 
-## 将车辆分配为自我车辆 <span id="assign-a-vehicle-as-the-ego-vehicle"></span>
+## 将车辆分配为自主车辆 <span id="assign-a-vehicle-as-the-ego-vehicle"></span>
 
-__自我车辆__ 是使用 Carla 时需要牢记的一个重要概念。自我车辆是指将成为模拟焦点的车辆。在大多数 CARLA 用例中，它可能是您将连接传感器的车辆和/或您的自动驾驶机器学习堆栈将控制的车辆。它很重要，因为它是一些有助于提高模拟效率的模拟操作的基础，例如：
+__自主车辆__ 是使用 Carla 时需要牢记的一个重要概念。自主车辆是指将成为模拟焦点的车辆。在大多数 CARLA 用例中，它可能是您将连接传感器的车辆和/或您的自动驾驶机器学习堆栈将控制的车辆。它很重要，因为它是一些有助于提高模拟效率的模拟操作的基础，例如：
 
-* __加载大型地图的地图图块__: 大型地图（如 Town 12）由图块组成，仅在需要提高 Carla 性能时才加载。自我车辆的位置决定了使用哪些图块。只有最靠近自我车辆的图块才会被加载。
+* __加载大型地图的地图图块__: 大型地图（如 Town 12）由图块组成，仅在需要提高 Carla 性能时才加载。自主车辆的位置决定了使用哪些图块。只有最靠近自主车辆的图块才会被加载。
 
-* __混合物理模式__: 如果您的模拟包含由交通管理器控制的大量车辆，则计算所有这些车辆的物理量在计算上非常昂贵。[混合物理模式](adv_traffic_manager.md#hybrid-physics-mode) 使物理计算仅限于自我车辆附近的车辆，从而节省计算资源。
+* __混合物理模式__: 如果您的模拟包含由交通管理器控制的大量车辆，则计算所有这些车辆的物理量在计算上非常昂贵。[混合物理模式](adv_traffic_manager.md#hybrid-physics-mode) 使物理计算仅限于自主车辆附近的车辆，从而节省计算资源。
 
-要定义自我车辆，您应该在生成自我车辆时设置`role_name`车辆[carla.Actor](python_api.md#carlaactor) 对象 [蓝图](python_api.md#carlaactorblueprint) 的属性：
+要定义自主车辆，您应该在生成自主车辆时设置`role_name`车辆[carla.Actor](python_api.md#carlaactor) 对象 [蓝图](python_api.md#carlaactorblueprint) 的属性：
 
 ```py
 ego_bp = world.get_blueprint_library().find('vehicle.lincoln.mkz_2020')

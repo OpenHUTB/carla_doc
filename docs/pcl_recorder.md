@@ -16,7 +16,7 @@ sudo apt install pcl-tools
 
 ## 使用 PCL 记录器
 
-PCL 记录器包将生成一辆自我车辆，可以通过键盘或 Carla PythonAPI 中的自动驾驶功能进行控制。
+PCL 记录器包将生成一辆自主车辆，可以通过键盘或 Carla PythonAPI 中的自动驾驶功能进行控制。
 
 __1.__ 启动 Carla 服务器后，在新终端中运行以下命令来启动 PCL 记录器包：
 

@@ -217,7 +217,7 @@ python metrics_manager.py --metric srunner/metrics/examples/distance_between_veh
 ### 通用参与者数据
 
 - <a name="get_ego_vehicle_id"></a>__<font color="#7fb800">get_ego_vehicle_id</font>__(<font color="#00a6ed">__self__</font>)  
-返回自我车辆的 `id`。
+返回自主车辆的 `id`。
     - __Return —__ int
 
 - <a name="get_actor_ids_with_role_name"></a>__<font color="#7fb800">get_actor_ids_with_role_name</font>__(<font color="#00a6ed">__self__</font>, <font color="#00a6ed">__role_name__</font>)  

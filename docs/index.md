@@ -265,9 +265,9 @@ title: 主页
 
 [__自定义车辆悬架__](tuto_D_customize_vehicle_suspension.md) — 修改车辆的悬架系统
 
-[__生成详细碰撞__](tuto_D_generate_colliders.md) — 为车辆创建详细的对撞
+[__生成详细碰撞__](tuto_D_generate_colliders.md) — 为车辆创建详细的碰撞
 
-[__链接 Epic 的汽车材质__](epic_automotive_materials.md) — 下载材质并将其链接到我们的车辆，以获得更逼真的车漆。
+[__链接 Epic 的汽车材质__](epic_automotive_materials.md) — 下载材质并将其链接到我们的车辆，以获得更逼真的车漆
 
 ---
 

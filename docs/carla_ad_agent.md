@@ -37,7 +37,7 @@ PID 参数通过 [Ziegler-Nichols方法](https://en.wikipedia.org/wiki/Ziegler%E
 
 | 参数           | 类型                          | 描述                                                                                              |
 |--------------|-----------------------------|-------------------------------------------------------------------------------------------------|
-| `role_name`  | string (默认：`ego_vehicle`) | 自我车辆的 Carla 参与者名称                                                                                |
+| `role_name`  | string (默认：`ego_vehicle`) | 自主车辆的 Carla 参与者名称                                                                                |
 | `avoid_risk` | bool (default: `true`)      | 如果为真，则避免与其他车辆相撞并尊重交通信号灯  |
 
 <br>
@@ -46,9 +46,9 @@ PID 参数通过 [Ziegler-Nichols方法](https://en.wikipedia.org/wiki/Ziegler%E
 
 | 主题                                | 类型                                                                                                                   | 描述                                          |
 |-----------------------------------|----------------------------------------------------------------------------------------------------------------------|---------------------------------------------|
-| `/carla/<ROLE NAME>/target_speed` | [std_msgs/Float64](https://docs.ros.org/en/api/std_msgs/html/msg/Float64.html)                                       | 自我车辆的目标速度                                   |
-| `/carla/<ROLE NAME>/odometry`     | [nav_msgs/Odometry](https://docs.ros.org/en/api/nav_msgs/html/msg/Odometry.html)                                     | 自我车辆的里程计                                    |
-| `/carla/<ROLE NAME>/vehicle_info` | [carla_msgs/CarlaEgoVehicleInfo](ros_msgs.md#carlaegovehicleinfomsg)                                                 | 识别自我车辆的 Carla 参与者 id                        |
+| `/carla/<ROLE NAME>/target_speed` | [std_msgs/Float64](https://docs.ros.org/en/api/std_msgs/html/msg/Float64.html)                                       | 自主车辆的目标速度                                   |
+| `/carla/<ROLE NAME>/odometry`     | [nav_msgs/Odometry](https://docs.ros.org/en/api/nav_msgs/html/msg/Odometry.html)                                     | 自主车辆的里程计                                    |
+| `/carla/<ROLE NAME>/vehicle_info` | [carla_msgs/CarlaEgoVehicleInfo](ros_msgs.md#carlaegovehicleinfomsg)                                                 | 识别自主车辆的 Carla 参与者 id                        |
 | `/carla/<ROLE NAME>/objects`      | [derived_object_msgs/ObjectArray](https://docs.ros.org/en/melodic/api/derived_object_msgs/html/msg/ObjectArray.html) | 其他参与者的信息   |
 | `/carla/traffic_lights/status`    | [carla_msgs/CarlaTrafficLightStatusList](ros_msgs.md#carlatrafficlightstatuslistmsg)                                 | 获取交通信号灯的当前状态 |
 | `/carla/traffic_lights/info`      | [carla_msgs/CarlaTrafficLightInfoList](ros_msgs.md#carlatrafficlightinfolistmsg)                                     | 获取有关交通信号灯的信息               |
@@ -69,7 +69,7 @@ PID 参数通过 [Ziegler-Nichols方法](https://en.wikipedia.org/wiki/Ziegler%E
 
 | 参数                  | 类型                          | 描述                                            |
 |---------------------|-----------------------------|-----------------------------------------------|
-| `role_name`         | string (默认值：`ego_vehicle`) | 自我车辆的 Carla 参与者名称                              |
+| `role_name`         | string (默认值：`ego_vehicle`) | 自主车辆的 Carla 参与者名称                              |
 | `control_time_step` | float (默认值：`0.05`)     | 控制循环速率                             |
 | `Kp_lateral`        | float (默认值： `0.9`)       | 比例项横向PID控制器      |
 | `Ki_lateral`        | float (默认值： `0.0`)       | 积分项横向PID控制器          |
@@ -85,7 +85,7 @@ PID 参数通过 [Ziegler-Nichols方法](https://en.wikipedia.org/wiki/Ziegler%E
 | 主题                                 | 类型                                                                               | 描述                          |
 |------------------------------------|----------------------------------------------------------------------------------|-----------------------------|
 | `/carla/<ROLE NAME>/waypoints`     | [nav_msgs/Path](https://docs.ros.org/en/api/nav_msgs/html/msg/Path.html)         | 遵循的路线             |
-| `/carla/<ROLE NAME>/odometry`      | [nav_msgs/Odometry](https://docs.ros.org/en/api/nav_msgs/html/msg/Odometry.html) | 自我车辆的里程计 |
+| `/carla/<ROLE NAME>/odometry`      | [nav_msgs/Odometry](https://docs.ros.org/en/api/nav_msgs/html/msg/Odometry.html) | 自主车辆的里程计 |
 | `/carla/<ROLE NAME>/speed_command` | [std_msgs/Float64](https://docs.ros.org/en/api/std_msgs/html/msg/Float64.html)   | 目标速度                |
 
 <br>

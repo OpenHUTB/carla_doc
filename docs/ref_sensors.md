@@ -529,7 +529,7 @@ if rss_proper_response:
 
 | [carla.RssSensor 变量](<../python_api#carlarsssensor>)     | 类型    | 描述                                                                                                                     |
 | ---------------------------------------- | ---------------------------------------- |------------------------------------------------------------------------------------------------------------------------|
-| `ego_vehicle_dynamics`    | [ad.rss.world.RssDynamics](<https://intel.github.io/ad-rss-lib/ad_rss/Appendix-ParameterDiscussion/>)  | 应用于自我车辆的责任敏感安全参数                                                                                                       |
+| `ego_vehicle_dynamics`    | [ad.rss.world.RssDynamics](<https://intel.github.io/ad-rss-lib/ad_rss/Appendix-ParameterDiscussion/>)  | 应用于自主车辆的责任敏感安全参数                                                                                                       |
 | `other_vehicle_dynamics`  | [ad.rss.world.RssDynamics](<https://intel.github.io/ad-rss-lib/ad_rss/Appendix-ParameterDiscussion/>)  | 适用于其他车辆的责任敏感安全参数                                                                                                       |
 | `pedestrian_dynamics`     | [ad.rss.world.RssDynamics](<https://intel.github.io/ad-rss-lib/ad_rss/Appendix-ParameterDiscussion/>)  | 适用于行人的责任敏感安全参数                                                                                                         |
 | `road_boundaries_mode`    | [carla.RssRoadBoundariesMode](<../python_api#carlarssroadboundariesmode>)      | 启用/禁用 [留在道路上](<https://intel.github.io/ad-rss-lib/ad_rss_map_integration/HandleRoadBoundaries>) 功能。默认为**关闭**。 |
@@ -590,7 +590,7 @@ if routing_targets:
 | `rss_state_snapshot`    | [ad.rss.state.RssStateSnapshot](<https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1state_1_1RssStateSnapshot.html>)           | 责任敏感安全状态为当前时间点。这是责任敏感安全计算的详细的单独输出。  |
 | `situation_snapshot`    | [ad.rss.situation.SituationSnapshot](<https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1situation_1_1SituationSnapshot.html>) | 当前时间点的责任敏感安全情况。这是用于 责任敏感安全 计算的经过处理的输入数据。    |
 | `world_model`     | [ad.rss.world.WorldModel](<https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1WorldModel.html>)           | 当前时间点的 责任敏感安全 世界模型。这是 责任敏感安全 计算的输入数据。       |
-| `ego_dynamics_on_route` | [carla.RssEgoDynamicsOnRoute](<../python_api#carlarssegodynamicsonroute>)    | 关于路线的当前自我车辆动态。 |
+| `ego_dynamics_on_route` | [carla.RssEgoDynamicsOnRoute](<../python_api#carlarssegodynamicsonroute>)    | 关于路线的当前自主车辆动态。 |
 
 
 如果注册了 actor_constellation_callback，则会触发以下调用：

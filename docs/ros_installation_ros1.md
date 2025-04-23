@@ -135,7 +135,7 @@ __4.__ 启动 ROS 桥。使用任何可用的不同启动文件来检查安装�
 # 选项1:启动 ros 桥 
 roslaunch carla_ros_bridge carla_ros_bridge.launch
 
-# 选项2:启动ros桥和一个示例自我车辆
+# 选项2:启动ros桥和一个示例自主车辆
 roslaunch carla_ros_bridge carla_ros_bridge_with_example_ego_vehicle.launch
 ```
 

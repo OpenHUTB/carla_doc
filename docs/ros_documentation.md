@@ -30,7 +30,7 @@ ROS 桥具有以下特点：
 ## 了解额外的 ROS 桥接包
 
 - [__Carla 生成对象__](carla_spawn_objects.md) - 提供生成参与者的通用方法
-- [__Carla 手动控制__](carla_manual_control.md)- 用于自我车辆的基于 ROS 的可视化和控制工具（类似于 Carla 提供的`carla_manual_control.py`）
+- [__Carla 手动控制__](carla_manual_control.md)- 用于自主车辆的基于 ROS 的可视化和控制工具（类似于 Carla 提供的`carla_manual_control.py`）
 - [__Carla 阿克曼控制__](carla_ackermann_control.md) - 一个将阿克曼命令转为转向/油门/刹车的控制器
 - [__Carla 路径点发布器__](carla_waypoint.md) - 发布和查询 Carla 路径点
 - [__Carla 自动驾驶代理__](carla_ad_agent.md) - 遵循路线、避免碰撞并遵守交通信号灯的示例代理

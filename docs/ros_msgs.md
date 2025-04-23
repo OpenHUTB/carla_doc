@@ -301,7 +301,7 @@ ScenarioRunner 的当前状态。它是使用常量来管理的。
 
 ## EgoVehicleControlStatus.msg
 
-自我车辆控制器的当前状态。它是`Carla_Ackermann_Control.EgoVehicleControlInfo.msg`消息的一部分。
+自主车辆控制器的当前状态。它是`Carla_Ackermann_Control.EgoVehicleControlInfo.msg`消息的一部分。
 
 | 字段                               | 类型      | 描述                      |
 |----------------------------------|---------| -------------------------------- |
@@ -318,7 +318,7 @@ ScenarioRunner 的当前状态。它是使用常量来管理的。
 
 ## EgoVehicleControlTarget.msg
 
-自我车辆控制器的目标值。它是`Carla_Ackermann_Control.EgoVehicleControlInfo.msg`消息的一部分。
+自主车辆控制器的目标值。它是`Carla_Ackermann_Control.EgoVehicleControlInfo.msg`消息的一部分。
 
 | 字段               | 类型                                      | 描述           |
 |------------------| ----------------------------------------- |--------------|

@@ -155,7 +155,7 @@ Frames: 2354
 * __a__ = Any
 
 !!! 笔记
-    `manual_control.py` 脚本为 自我车辆分配 `role_name = hero`。
+    `manual_control.py` 脚本为 自主车辆分配 `role_name = hero`。
 
 碰撞查询需要两个标志来过滤碰撞。以下示例将显示车辆与任何其他对象之间的碰撞。
 

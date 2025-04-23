@@ -145,7 +145,7 @@ python3 manual_control.py
 
 ![carlaviz_data](img/plugins_carlaviz_data.jpg)
 
-贡献者 ( [wx9698](https://github.com/wx9698) ) 创建了一个附加类 [CarlaPainter](https://github.com/wx9698/carlaviz/blob/master/examples/carla_painter.py) ，它允许用户绘制要在可视化窗口中显示的元素。其中包括文本、点和折线。按照 [此示例](https://github.com/carla-simulator/carlaviz/blob/master/examples/example.py) 生成带有 LIDAR 的自我车辆，并绘制 LIDAR 数据、车辆的轨迹和速度。
+贡献者 ( [wx9698](https://github.com/wx9698) ) 创建了一个附加类 [CarlaPainter](https://github.com/wx9698/carlaviz/blob/master/examples/carla_painter.py) ，它允许用户绘制要在可视化窗口中显示的元素。其中包括文本、点和折线。按照 [此示例](https://github.com/carla-simulator/carlaviz/blob/master/examples/example.py) 生成带有 LIDAR 的自主车辆，并绘制 LIDAR 数据、车辆的轨迹和速度。
 
 
 ![carlaviz_demo](img/plugins_carlaviz_demo.jpg)
@@ -169,7 +169,7 @@ python3 manual_control.py
 
 <div class="build-buttons">
 <p>
-<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-Carla 论坛</a>
+<a href="https://github.com/OpenHUTB/carla_doc/issues" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
+讨论页面</a>
 </p>
 </div>
