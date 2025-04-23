@@ -68,7 +68,7 @@
 
 [基于多传感器融合的自动驾驶汽车雨天条件下的 3D 物体检测模拟](https://github.com/CC-WU/Multisensor-fusion-based-3D-Object-Detecting-Simulation-Under-Rainy-Conditions-for-Autonomous-Vehicl)
 
-[使用 YoloV3 进行交通灯识别和分类](https://github.com/lorenz-lukas/YoloV3_traffic_light_Carla_simulator)
+[使用 YoloV3 进行交通信号灯识别和分类](https://github.com/lorenz-lukas/YoloV3_traffic_light_Carla_simulator)
 
 [高效车道和路径检测学习模型和架构](https://github.com/iXcess/driving_model)
 

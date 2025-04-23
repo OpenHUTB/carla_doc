@@ -10,7 +10,7 @@ Carla 提供了大量的资源，可用于创建开箱即用的驾驶模拟。�
 * __[使用 RoadRunner 创建路网](#create-a-road-network-using-roadrunner)__  
 * __[将路网导入 Carla](#importing-your-road-network-into-carla)__
 * __[导入资产并将它们添加到地图](#importing-assets-and-adding-them-to-the-map)__
-* __[交通灯](#traffic-lights)__
+* __[交通信号灯](#traffic-lights)__
 * __[交通标志](#traffic-signs)__ 
 * __[材质](#materials)__
 * __[道路画家](#road-painter)__
@@ -150,23 +150,23 @@ ORM 贴图利用标准 RGBA 编码图像的通道对金属区域、粗糙度和�
 
 地图作者指南到此结束。现在您知道如何创建道路网络并导入三维资产以在 Carla 中使用。您现在可以阅读如何 [__打包地图以在 Carla 独立版本中使用__](tuto_M_manual_map_package.md) 。
 
-## 交通灯 <span id="traffic-lights"></span>
+## 交通信号灯 <span id="traffic-lights"></span>
 
-要将红绿灯添加到新地图：
+要将交通信号灯添加到新地图：
 
-__1.__ 从 _内容浏览器_, 导航至 `Content > Carla > Static > TrafficLight > StreetLights_01`。您会发现几种不同的交通灯蓝图可供选择。
+__1.__ 从 _内容浏览器_, 导航至 `Content > Carla > Static > TrafficLight > StreetLights_01`。您会发现几种不同的交通信号灯蓝图可供选择。
 
-__2.__ 将交通灯拖到场景中并将其放置在所需位置。按键盘上的空格键可在定位、旋转和缩放工具之间切换。
+__2.__ 将交通信号灯拖到场景中并将其放置在所需位置。按键盘上的空格键可在定位、旋转和缩放工具之间切换。
 
-__3.__ 通过选择“详细(_Details_)” 面板中的 _BoxTrigger_ 组件并调整 _Transform_ 部分的值，为每个红绿灯调整 [`trigger volume`][triggerlink] 。这将确定红绿灯的影响范围。
+__3.__ 通过选择“详细(_Details_)” 面板中的 _BoxTrigger_ 组件并调整 _Transform_ 部分的值，为每个交通信号灯调整 [`trigger volume`][triggerlink] 。这将确定交通信号灯的影响范围。
 
 >>![ue_trafficlight](./img/ue_trafficlight.jpg)
 
-__4.__ 对于路口，将`BP_TrafficLightGroup`参与者拖入关卡中。通过将路口处的所有交通灯添加到“详细信息(_Details_)”面板中的“交通灯(_Traffic Lights_)”数组，将它们分配给交通灯组。
+__4.__ 对于路口，将`BP_TrafficLightGroup`参与者拖入关卡中。通过将路口处的所有交通信号灯添加到“详细信息(_Details_)”面板中的“交通信号灯(_Traffic Lights_)”数组，将它们分配给交通信号灯组。
 
 >>![ue_tl_group](./img/ue_tl_group.jpg)
 
-__5.__ 交通灯计时只能通过Python API 进行配置。请参阅 [此处](core_actors.md#traffic-signs-and-traffic-lights) 的文档以获取更多信息。
+__5.__ 交通信号灯计时只能通过Python API 进行配置。请参阅 [此处](core_actors.md#traffic-signs-and-traffic-lights) 的文档以获取更多信息。
 
 >>![ue_tlsigns_example](./img/ue_tlsigns_example.jpg)
 
@@ -178,11 +178,11 @@ __5.__ 交通灯计时只能通过Python API 进行配置。请参阅 [此处](c
 
 要将交通标志添加到新地图：
 
-__1.__ 从 _内容浏览器_，导航至 `Content > Carla > Static > TrafficSign`。您会发现几种不同的交通灯蓝图可供选择。
+__1.__ 从 _内容浏览器_，导航至 `Content > Carla > Static > TrafficSign`。您会发现几种不同的交通信号灯蓝图可供选择。
 
-__2.__ 将交通灯拖到场景中并将其放置在所需位置。按键盘上的空格键可在定位、旋转和缩放工具之间切换。
+__2.__ 将交通信号灯拖到场景中并将其放置在所需位置。按键盘上的空格键可在定位、旋转和缩放工具之间切换。
 
-__3.__ 通过在“详细信息( _Details_ )”面板中选择 _BoxTrigger_ 组件并调整“变换(_Transform_)”部分中的值，调整每个交通标志的[`trigger volume`][triggerlink]。这将确定交通灯的影响区域。并非所有交通标志都有触发音量。此类标志包括让行标志、停车标志和限速标志。
+__3.__ 通过在“详细信息( _Details_ )”面板中选择 _BoxTrigger_ 组件并调整“变换(_Transform_)”部分中的值，调整每个交通标志的[`trigger volume`][triggerlink]。这将确定交通信号灯的影响区域。并非所有交通标志都有触发音量。此类标志包括让行标志、停车标志和限速标志。
 
 ## 材质 <span id="materials"></span>
 

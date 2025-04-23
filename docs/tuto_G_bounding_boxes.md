@@ -110,10 +110,10 @@ Carla 对象都有一个关联的边界框。Carla [参与者](python_api.md#car
 bounding_box.get_world_vertices(actor.get_transform())
 ```
 
-对于地图中的物体，如建筑物、交通灯和路标，可以通过[carla.World]((python_api.md#carla.World))方法 `get_level_bbs()` 检索边界框get_level_bbs()。[carla.CityObjectLabel]((python_api.md#carla.CityObjectLabel)) 可以用作参数来将边界框列表过滤到相关对象：
+对于地图中的物体，如建筑物、交通信号灯和路标，可以通过[carla.World]((python_api.md#carla.World))方法 `get_level_bbs()` 检索边界框get_level_bbs()。[carla.CityObjectLabel]((python_api.md#carla.CityObjectLabel)) 可以用作参数来将边界框列表过滤到相关对象：
 
 ```py
-# 检索关卡内交通灯的所有边界框
+# 检索关卡内交通信号灯的所有边界框
 bounding_box_set = world.get_level_bbs(carla.CityObjectLabel.TrafficLight)
 
 # 过滤列表以提取半径50m以内的边界框

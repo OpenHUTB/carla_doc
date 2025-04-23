@@ -5,7 +5,7 @@
 动态产生交通
 
 # no_rendering_mode.py
-显示红绿灯的变化
+显示交通信号灯的变化
 
 # visualize_multiple_sensors.py 
 可视化多个传感器的内容

@@ -1,6 +1,6 @@
 # 第二、参与者和蓝图
 
-Carla 中的参与者是在模拟中执行动作的元素，他们可以影响其他参与者。Carla 的参与者包括车辆和行人，也包括传感器、交通标志、红绿灯和观看者。对如何操作它们有充分的了解是至关重要的。 
+Carla 中的参与者是在模拟中执行动作的元素，他们可以影响其他参与者。Carla 的参与者包括车辆和行人，也包括传感器、交通标志、交通信号灯和观看者。对如何操作它们有充分的了解是至关重要的。 
 
 本节将介绍生成、销毁、类型以及如何管理它们。然而，可能性几乎是无穷无尽的。实验、查看本文档中的 __教程__，并在 [Carla 论坛](https://github.com/carla-simulator/carla/discussions/) 中分享疑虑和想法。
 
@@ -13,7 +13,7 @@ Carla 中的参与者是在模拟中执行动作的元素，他们可以影响�
 - [__参与者类型__](#types-of-actors)  
 	- [传感器](#sensors)  
 	- [观察者](#spectator)  
-	- [交通标志和交通灯](#traffic-signs-and-traffic-lights)  
+	- [交通标志和交通信号灯](#traffic-signs-and-traffic-lights)  
 	- [车辆](#vehicles)  
 	- [行人](#walkers)  
 
@@ -182,36 +182,36 @@ spectator.set_transform(carla.Transform(transform.location + carla.Location(z=50
 carla.Rotation(pitch=-90)))
 ```
 
-### 交通标志和交通灯 <span id="traffic-signs-and-traffic-lights"></span>
+### 交通标志和交通信号灯 <span id="traffic-signs-and-traffic-lights"></span>
 
-到目前为止，Carela 中只有停靠点、让行、交通信号灯被视为参与者。其余的 OpenDRIVE 标志可通过 API 作为地标（[__carla.Landmark__](python_api.md#carla.Landmark)）进行访问。他们的信息可以使用这些实例访问，但他们在模拟中并不作为参与者存在。在接下来的 __[地图和导航](core_map.md)__ 部分中将更详细地解释地标。 
+到目前为止，Carla 中只有停靠点、让行、交通信号灯被视为参与者。其余的 OpenDRIVE 标志可通过 API 作为地标（[__carla.Landmark__](python_api.md#carla.Landmark)）进行访问，他们的信息可以使用这些实例访问，但他们在模拟中并不作为参与者存在，在接下来的 __[地图和导航](https://openhutb.github.io/carla_doc/core_map/#landmarks)__ 部分中将更详细地解释地标。 
 
 
-当模拟开始时，会使用 OpenDRIVE 文件中的信息自动生成停止、让行和交通灯。__这些都无法在蓝图库中找到__，因此无法生成。
+当模拟开始时，会使用 OpenDRIVE 文件中的信息自动生成停止、让行和交通信号灯。__这些都无法在蓝图库中找到__，因此无法生成。
 
 !!! 笔记
-    OpenDRIVE 文件中的 Carela 地图没有交通标志或信号灯。这些是由开发人员手动放置的。 
+    OpenDRIVE 文件中的 Carla 地图没有交通标志或灯，这些是由开发人员手动放置的。注意：交通信号灯可以不包含在 OpenDRIVE 文件中（即可以不通过RoadRunner建模交通信号灯），而是在虚幻编辑器中添加交通信号灯。交通信号灯是作为参与者被PythonAPI读取，在OpenDRIVE中的被当成地标而不是参与者。
 
 [__交通标志__](python_api.md#carla.TrafficSign) 未在路线图本身中定义，如下页所述。相反，他们有一个 [carla.BoundingBox](python_api.md#carla.BoundingBox) 来影响其中的车辆。 
 ```py
-# 获得影响车辆的交通灯
+# 获得影响车辆的交通信号灯
 if vehicle_actor.is_at_traffic_light():
     traffic_light = vehicle_actor.get_traffic_light()
 ``` 
-路口设有[__交通灯__](python_api.md#carla.TrafficLight)。与任何参与者一样，他们有自己独特的 ID，但对于岔路口也有一个组（`group`） ID 。
+路口设有[__交通信号灯__](python_api.md#carla.TrafficLight)。与任何参与者一样，他们有自己独特的 ID，但对于岔路口也有一个组（`group`） ID 。
 
-同一组中的交通灯遵循一个循环。第一个交通灯设置为绿色，而其余交通灯则保持红色。活动的信号灯会花费几秒钟时间变绿、变黄、变红，因此有一段时间所有灯都是红色的。然后，下一个交通灯开始循环，前一个红绿灯与其余红绿灯一起冻结。
+同一组中的交通信号灯遵循一个循环。第一个交通信号灯设置为绿色，而其余交通信号灯则保持红色。活动的信号灯会花费几秒钟时间变绿、变黄、变红，因此有一段时间所有灯都是红色的。然后，下一个交通信号灯开始循环，前一个交通信号灯与其余交通信号灯一起冻结。
 
-可以使用 API 设置交通灯的状态。每个状态花费的秒数也是如此。可能的状态用 [carla.TrafficLightState](python_api.md#carla.TrafficLightState) 描述为一系列枚举值。
+可以使用 API 设置交通信号灯的状态。每个状态花费的秒数也是如此。可能的状态用 [carla.TrafficLightState](python_api.md#carla.TrafficLightState) 描述为一系列枚举值。
 ```py
-# 交通灯从红变绿
+# 交通信号灯从红变绿
 if traffic_light.get_state() == carla.TrafficLightState.Red:
     traffic_light.set_state(carla.TrafficLightState.Green)
     traffic_light.set_set_green_time(4.0)
 ``` 
 
 !!! 笔记
-    只有当信号灯为红色时，车辆才会意识到交通灯。
+    只有当信号灯为红色时，车辆才会意识到交通信号灯。
 
 ### 车辆 <span id="vehicles"></span>
 

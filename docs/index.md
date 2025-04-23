@@ -6,8 +6,8 @@ title: 主页
 
 如果对文档中的任何问题可以在 [本文档的源码仓库](https://github.com/OpenHUTB/carla_doc) 中的 [Issues](https://github.com/OpenHUTB/carla_doc/issues) 页面进行提问或者提交 [Pull Request](https://zhuanlan.zhihu.com/p/153381521) 直接修改文档。
 
-* [__入门__](#primary)  
-    * [简介](#introduction)
+* [__简介__](#primary)  
+    * [入门](#introduction)
     * [车辆](#vehicle)  
     * [行人](#pedestrian)  
 * [__模拟器__](#simulator)
@@ -217,7 +217,7 @@ title: 主页
 
 [__自定义地图：分层地图__](tuto_M_custom_layers.md) — 如何在自定义地图中创建子图层
 
-[__自定义地图：交通灯和标志__](tuto_M_custom_add_tl.md) — 如何将交通灯和标志添加到您的自定义地图
+[__自定义地图：交通信号灯和标志__](tuto_M_custom_add_tl.md) — 如何将交通信号灯和标志添加到您的自定义地图
 
 [__自定义地图：道路画家__](tuto_M_custom_road_painter.md) — 如何使用道路画家工具改变道路的外观
 

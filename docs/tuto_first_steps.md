@@ -47,7 +47,7 @@ world = client.get_world()
 
 ## 加载地图  <span id="loading-a-map"></span>
 
-在 Carla API 中，[__世界__](python_api.md#carla.World) 对象提供对模拟的所有元素的访问，包括地图、地图内的对象，例如建筑物、交通灯、车辆和行人。Carla 服务器通常加载默认地图（通常为 Town10）。如果您想使用备用地图启动 Carla，请使用以下 `config.py`脚本：
+在 Carla API 中，[__世界__](python_api.md#carla.World) 对象提供对模拟的所有元素的访问，包括地图、地图内的对象，例如建筑物、交通信号灯、车辆和行人。Carla 服务器通常加载默认地图（通常为 Town10）。如果您想使用备用地图启动 Carla，请使用以下 `config.py`脚本：
 
 ```sh
 ./config.py --map Town05 
@@ -211,7 +211,7 @@ Carla 附带了几张预制地图，专注于提供多种功能。这些地图�
 | [__城镇04__](map_town04.md) | 一座镶嵌在群山之中的小镇，有一条特殊的“8字形”*无限*公路。                                                                                                                            |
 | [__城镇05__](map_town05.md) | 方形网格城镇，有十字路口和一座桥梁。每个方向有多个车道。对于执行变道很有用。                                                                                                                     |
 | [__城镇06__](map_town06.md) | 长的多车道高速公路，有许多高速公路入口和出口。它还有一个 [**密歇根左翼**](<https://en.wikipedia.org/wiki/Michigan_left>) 。                                                                  |
-| [__城镇07__](map_town07.md) | 乡村环境，道路狭窄，有玉米、谷仓，几乎没有红绿灯。                                                                                                                                  |
+| [__城镇07__](map_town07.md) | 乡村环境，道路狭窄，有玉米、谷仓，几乎没有交通信号灯。                                                                                                                                  |
 | **城镇08**                | 用于 [排行榜](https://leaderboard.carla.org/) 挑战的秘密“看不见”小镇                                                                                                      |
 | **城镇09**                | 用于 [排行榜](https://leaderboard.carla.org/) 挑战的秘密“看不见”小镇  |
 | [__城镇10__](map_town10.md) | 市中心的城市环境，拥有摩天大楼、住宅楼和海滨长廊。                                                               |

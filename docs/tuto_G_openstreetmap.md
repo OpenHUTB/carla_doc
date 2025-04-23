@@ -5,7 +5,7 @@
 - 如何从 OpenStreetMaps 导出地图。
 - Carla 中可以使用的不同格式的地图以及每种格式的限制。
 - 如何将本机`.osm`格式转换为`.xodr`。
-- 如何在`.xodr`文件中包含交通灯信息。
+- 如何在`.xodr`文件中包含交通信号灯信息。
 - 如何在 Carla 模拟中运行最终地图。
 
 [OpenStreetMap](https://www.openstreetmap.org) 是由数千名贡献者开发的开放数据世界地图，并根据[Open Data Commons Open Database License](https://opendatacommons.org/licenses/odbl/) 获得许可。地图的各个部分可以导出为 XML 格式的`.osm`文件。Carla 可以将此文件转换为 OpenDRIVE 格式并使用 [OpenDRIVE Standalone Mode](#adv_opendrive.md) 导入它。
@@ -15,7 +15,7 @@
 - [__将 OpenStreetMap 格式转换为 OpenDRIVE 格式__](#convert-openstreetmap-format-to-opendrive-format)
     - [Linux](#linux)
     - [Windows](#windows)
-    - [生成交通灯](#generate-traffic-lights)
+    - [生成交通信号灯](#generate-traffic-lights)
 - [__导入 Carla__](#ingest-into-carla)
 
 ---
@@ -64,7 +64,7 @@ __可用 `.osm` 格式选项：__
 
 本节演示如何使用 Python API 将我们在上一节中导出的 `.osm` 文件转换为`.xodr`格式，以便可以在 Carla 中使用。
 
-[carla.Osm2OdrSettings](python_api.md#carla.Osm2OdrSettings)类用于配置转换设置，例如偏移值、交通灯生成、原点坐标等。可配置参数的完整列表可以在 Python API [文档](python_api.md#carla.Osm2OdrSettings) 中找到。[carla.Osm2Odr](python_api.md#carla.Osm2Odr) 类使用这些设置来解析`.osm`数据并以 `.xodr` 格式输出。
+[carla.Osm2OdrSettings](python_api.md#carla.Osm2OdrSettings)类用于配置转换设置，例如偏移值、交通信号灯生成、原点坐标等。可配置参数的完整列表可以在 Python API [文档](python_api.md#carla.Osm2OdrSettings) 中找到。[carla.Osm2Odr](python_api.md#carla.Osm2Odr) 类使用这些设置来解析`.osm`数据并以 `.xodr` 格式输出。
 
 在 Windows 中，`.osm`文件必须编码为`UTF-8`. 这在 Linux 中是不必要的。以下是示例代码片段，显示如何根据您的操作系统执行文件转换：
 
@@ -115,20 +115,20 @@ f.close()
 <br>
 
 ---
-### 生成交通灯 <span id="generate-traffic-lights"></span>
+### 生成交通信号灯 <span id="generate-traffic-lights"></span>
 
-Open Street Map 数据可以定义哪些路口受交通灯控制。要在 Carla 中使用此交通灯数据，您需要在将`.osm`文件转换为`.xodr`格式之前通过 Python API 在 OSM 地图设置中启用它：
+Open Street Map 数据可以定义哪些路口受交通信号灯控制。要在 Carla 中使用此交通信号灯数据，您需要在将`.osm`文件转换为`.xodr`格式之前通过 Python API 在 OSM 地图设置中启用它：
 
 ```py
 # 定义想要的设置。在该案例中为默认值。
 settings = carla.Osm2OdrSettings()
-# 启用从 OSM 数据中生成交通灯
+# 启用从 OSM 数据中生成交通信号灯
 settings.generate_traffic_lights = True
 # 转为 .xodr
 xodr_data = carla.Osm2Odr.convert(osm_data, settings)
 ```
 
-交通灯数据质量可能因提取数据的区域而异。一些交通灯信息可能完全丢失。要克服这些限制，您可以使用 Python API 将所有路口配置为由交通灯控制：
+交通信号灯数据质量可能因提取数据的区域而异。一些交通信号灯信息可能完全丢失。要克服这些限制，您可以使用 Python API 将所有路口配置为由交通信号灯控制：
 
 ```py
 settings.all_junctions_with_traffic_lights = True

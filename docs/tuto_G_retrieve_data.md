@@ -59,7 +59,7 @@
 
 但是，教程中提到的两个脚本在 Carla 中找不到。它们包含引用的代码片段。这有双重目的。首先，鼓励用户构建自己的脚本。充分理解代码的作用非常重要。除此之外，本教程只是一个大纲，可能而且应该根据用户的喜好而有很大的不同。这两个脚本只是一个示例。
 
-* __tutorial_ego.py__ 生成带有一些基本传感器的自我车辆，并启用自动驾驶仪。观察者被放置在生成位置。记录器从一开始就启动，并在脚本完成时停止。
+* [__tutorial_ego.py__](https://github.com/OpenHUTB/carla_doc/tree/master/src/tutorial/tutorial_ego.py) 生成带有一些基本传感器的自我车辆，并启用自动驾驶仪。观察者被放置在生成位置。记录器从一开始就启动，并在脚本完成时停止。
 * [__tutorial_replay.py__](https://github.com/OpenHUTB/carla_doc/tree/master/src/tutorial/tutorial_replay.py) 重新执行 __tutorial_ego.py__ 记录的模拟。有不同的代码片段可以查询记录、生成一些高级传感器、改变天气条件以及重新执行记录片段。
 
 完整的代码可以在教程的最后部分找到。请记住，这些并不严格，而是可以定制的。在 Carla 中检索数据的功能正如用户所希望的那样强大。
@@ -242,12 +242,12 @@ python3 run_synchronization.py examples/Town01.sumocfg --sumo-gui
 <div style="text-align: center"><i>SUMO 和 Carla 协同模拟交通</i></div>
 
 !!! 警告
-    目前，SUMO 联合模拟还是测试版功能。车辆没有物理特性，也不考虑 Carla 交通灯。
+    目前，SUMO 联合模拟还是测试版功能。车辆没有物理特性，也不考虑 Carla 交通信号灯。
 
 ---
 ## 设置自我车辆 <span id="et-the-ego-vehicle"></span>
 
-从现在到记录器停止的那一刻，将会有一些属于 __tutorial_ego.py__ 的代码片段。该脚本生成自我车辆，可选一些传感器，并记录模拟，直到用户完成脚本。
+从现在到记录器停止的那一刻，将会有一些属于 [__tutorial_ego.py__](https://github.com/OpenHUTB/carla_doc/tree/master/src/tutorial/tutorial_ego.py) 的代码片段。该脚本生成自我车辆，可选一些传感器，并记录模拟，直到用户完成脚本。
 
 ### 生成自我车辆 <span id="spawn-the-ego-vehicle"></span>
 
@@ -406,7 +406,7 @@ ego_obs.listen(lambda obs: obs_callback(obs))
 
 为了获得车辆对象的一般测量值，这两个传感器以车辆对象为中心生成。
 
-这些传感器可用的属性主要设置测量噪声模型中的平均值或标准偏差参数。这对于获得更现实的措施很有用。然而，在 __tutorial_ego.py__ 中只设置了一个属性。
+这些传感器可用的属性主要设置测量噪声模型中的平均值或标准偏差参数。这对于获得更现实的措施很有用。然而，在 [__tutorial_ego.py__](https://github.com/OpenHUTB/carla_doc/tree/master/src/tutorial/tutorial_ego.py) 中只设置了一个属性。
 
 * __`sensor_tick`__. 由于此测量值在步骤之间不应有显着变化，因此可以经常检索数据。在本例中，设置为每三秒打印一次。 
 
@@ -518,7 +518,7 @@ sem_cam.listen(lambda image: image.save_to_disk('tutorial/new_sem_output/%.6d.jp
 * __`points_per_second`__ 是每秒获得的点数。该数量除以 `channels`的数量。
 * __`rotation_frequency`__ 是激光雷达每秒旋转的次数。
 
-点云输出被描述为 [carla.LidarMeasurement]。它可以作为 [carla.Location] 列表进行迭代或保存为 _.ply_ 标准文件格式。
+点云输出被描述为 [carla.LidarMeasurement](python_api.md#carla.LidarMeasurement) 。它可以作为 [carla.Location](python_api.md#carla.Location) 列表进行迭代或保存为 _.ply_ 标准文件格式。
 
 ```py
 # --------------
@@ -617,7 +617,7 @@ rad_ego.listen(lambda radar_data: rad_callback(radar_data))
 ```
 
 ![tuto_radar](img/tuto_radar.jpg)
-<div style="text-align: center"><i>雷达输出。车辆停在红绿灯处，因此其前面的静态元素显示为白色。</i></div>
+<div style="text-align: center"><i>雷达输出。车辆停在交通信号灯处，因此其前面的静态元素显示为白色。</i></div>
 
 ---
 ## 非渲染模式 <span id="no-rendering-mode"></span>
