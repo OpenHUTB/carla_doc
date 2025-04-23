@@ -256,10 +256,14 @@ vehicle.apply_physics_control(physics_control)
 ```py
 vehicle.set_autopilot(True)
 ```
+
 * __车灯__ 必须由用户打开和关闭。每辆车都有一组在[__carla.VehicleLightState__](python_api.md#carla.VehicleLightState) 中列出的灯。并非所有车辆都集成了车灯。截至撰写本文时，配备集成车灯的车辆如下：
-	*   __自行车：__ 所有自行车都有前后位置灯。
-	*   __摩托车：__ 雅马哈和哈雷戴维森型号。
-	*   __汽车：__ 奥迪 TT、雪佛兰 Impala、道奇警车、道奇 Charger、奥迪 e-tron、林肯 2017 年和 2020 年、野马、特斯拉 Model 3、特斯拉 Cybertruck、大众 T2 和梅赛德斯 C 级。
+
+    * __自行车：__ 所有自行车都有前后位置灯。
+  
+    * __摩托车：__ 雅马哈和哈雷戴维森型号。
+  
+    * __汽车：__ 奥迪 TT、雪佛兰 Impala、道奇警车、道奇 Charger、奥迪 e-tron、林肯 2017 年和 2020 年、野马、特斯拉 Model 3、特斯拉 Cybertruck、大众 T2 和梅赛德斯 C 级。
 
 可以使用 [carla.Vehicle.get_light_state](python_api.md#carla.Vehicle.get_light_state) 和 [carla.Vehicle.set_light_state](#python_api.md#carla.Vehicle.set_light_state) 方法随时检索和更新车辆的灯光。它们使用二进制运算来自定义灯光设置。
 
@@ -310,14 +314,14 @@ ai_controller.stop()
 <div text-align: center>
 <div class="build-buttons">
 <p>
-<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="CARLA forum">
-Carla 论坛</a>
+<a href="https://github.com/OpenHUTB/carla_doc/issues" target="_blank" class="btn btn-neutral" title="CARLA forum">
+讨论页面</a>
 </p>
 </div>
 <div class="build-buttons">
 <p>
 <a href="../core_map" target="_blank" class="btn btn-neutral" title="3rd. Maps and navigation">
-3rd. 地图和导航</a>
+第三. 地图和导航</a>
 </p>
 </div>
 </div>

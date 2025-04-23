@@ -264,8 +264,8 @@ actor_snapshot = world_snapshot.find(actual_actor.id) # 获得参与者快照
 <div text-align: center>
 <div class="build-buttons">
 <p>
-<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="CARLA forum">
-Carla 论坛</a>
+<a href="https://github.com/OpenHUTB/carla_doc/issues" target="_blank" class="btn btn-neutral" title="CARLA forum">
+讨论页面</a>
 </p>
 </div>
 <div class="build-buttons">

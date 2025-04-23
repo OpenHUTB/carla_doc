@@ -1342,8 +1342,8 @@ if __name__ == '__main__':
 <div text-align: center>
 <div class="build-buttons">
 <p>
-<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="CARLA forum">
-Carla 论坛</a>
+<a href="https://github.com/OpenHUTB/carla_doc/issues" target="_blank" class="btn btn-neutral" title="CARLA forum">
+讨论页面</a>
 </p>
 </div>
 </div>
