@@ -82,6 +82,10 @@
 <div class="highlight"><pre><span></span><code>make<span class="w"> </span>package<span class="w"> </span><span class="nv">ARGS</span><span class="o">=</span><span class="s2">&quot;--packages=Package1,Package2&quot;</span>
 </code></pre></div>
 <p>这将为列出的每个包创建一个压缩在 <code>.tar.gz</code> 文件中的独立包。在 Linux 上文件将保存在 <code>Dist</code>，在 Windows 上文件保存在 <code>/Build/UE4Carla/</code> 文件夹下。</p>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>在虚幻编辑器的菜单“编辑-&gt;项目设置-&gt;项目-&gt;打包-&gt;(点下三角打开折叠的选项)打包版本中要包含的地图列表”中可以删除不需要的地图，加入需要打包的自定义地图。</p>
+</div>
 <hr />
 <h2 id="docker">使用 Docker 导出包 <span id="export-a-package-using-docker"></span></h2>
 <p>虚幻引擎和 Carla 可以构建在 Docker 映像中，然后可以使用该映像创建包或导出资源以在包中使用。</p>

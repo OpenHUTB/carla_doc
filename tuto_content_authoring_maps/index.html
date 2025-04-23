@@ -78,7 +78,7 @@
 <li><strong><a href="#create-a-road-network-using-roadrunner">使用 RoadRunner 创建路网</a></strong>  </li>
 <li><strong><a href="#importing-your-road-network-into-carla">将路网导入 Carla</a></strong></li>
 <li><strong><a href="#importing-assets-and-adding-them-to-the-map">导入资产并将它们添加到地图</a></strong></li>
-<li><strong><a href="#traffic-lights">交通灯</a></strong></li>
+<li><strong><a href="#traffic-lights">交通信号灯</a></strong></li>
 <li><strong><a href="#traffic-signs">交通标志</a></strong> </li>
 <li><strong><a href="#materials">材质</a></strong></li>
 <li><strong><a href="#road-painter">道路画家</a></strong><ul>
@@ -188,23 +188,23 @@
 <p><img alt="asset_in_map" src="../img/tuto_content_authoring_maps/asset_in_map.png" /></p>
 <p>现在，您可以使用工作区左上角的“保存当前”选项保存地图，即可使用。开始模拟。</p>
 <p>地图作者指南到此结束。现在您知道如何创建道路网络并导入三维资产以在 Carla 中使用。您现在可以阅读如何 <a href="../tuto_M_manual_map_package/"><strong>打包地图以在 Carla 独立版本中使用</strong></a> 。</p>
-<h2 id="_5">交通灯 <span id="traffic-lights"></span></h2>
-<p>要将红绿灯添加到新地图：</p>
-<p><strong>1.</strong> 从 <em>内容浏览器</em>, 导航至 <code>Content &gt; Carla &gt; Static &gt; TrafficLight &gt; StreetLights_01</code>。您会发现几种不同的交通灯蓝图可供选择。</p>
-<p><strong>2.</strong> 将交通灯拖到场景中并将其放置在所需位置。按键盘上的空格键可在定位、旋转和缩放工具之间切换。</p>
-<p><strong>3.</strong> 通过选择“详细(<em>Details</em>)” 面板中的 <em>BoxTrigger</em> 组件并调整 <em>Transform</em> 部分的值，为每个红绿灯调整 <a href="../python_api/#carla.TrafficSign.trigger_volume"><code>trigger volume</code></a> 。这将确定红绿灯的影响范围。</p>
+<h2 id="_5">交通信号灯 <span id="traffic-lights"></span></h2>
+<p>要将交通信号灯添加到新地图：</p>
+<p><strong>1.</strong> 从 <em>内容浏览器</em>, 导航至 <code>Content &gt; Carla &gt; Static &gt; TrafficLight &gt; StreetLights_01</code>。您会发现几种不同的交通信号灯蓝图可供选择。</p>
+<p><strong>2.</strong> 将交通信号灯拖到场景中并将其放置在所需位置。按键盘上的空格键可在定位、旋转和缩放工具之间切换。</p>
+<p><strong>3.</strong> 通过选择“详细(<em>Details</em>)” 面板中的 <em>BoxTrigger</em> 组件并调整 <em>Transform</em> 部分的值，为每个交通信号灯调整 <a href="../python_api/#carla.TrafficSign.trigger_volume"><code>trigger volume</code></a> 。这将确定交通信号灯的影响范围。</p>
 <blockquote>
 <blockquote>
 <p><img alt="ue_trafficlight" src="../img/ue_trafficlight.jpg" /></p>
 </blockquote>
 </blockquote>
-<p><strong>4.</strong> 对于路口，将<code>BP_TrafficLightGroup</code>参与者拖入关卡中。通过将路口处的所有交通灯添加到“详细信息(<em>Details</em>)”面板中的“交通灯(<em>Traffic Lights</em>)”数组，将它们分配给交通灯组。</p>
+<p><strong>4.</strong> 对于路口，将<code>BP_TrafficLightGroup</code>参与者拖入关卡中。通过将路口处的所有交通信号灯添加到“详细信息(<em>Details</em>)”面板中的“交通信号灯(<em>Traffic Lights</em>)”数组，将它们分配给交通信号灯组。</p>
 <blockquote>
 <blockquote>
 <p><img alt="ue_tl_group" src="../img/ue_tl_group.jpg" /></p>
 </blockquote>
 </blockquote>
-<p><strong>5.</strong> 交通灯计时只能通过Python API 进行配置。请参阅 <a href="../core_actors/#traffic-signs-and-traffic-lights">此处</a> 的文档以获取更多信息。</p>
+<p><strong>5.</strong> 交通信号灯计时只能通过Python API 进行配置。请参阅 <a href="../core_actors/#traffic-signs-and-traffic-lights">此处</a> 的文档以获取更多信息。</p>
 <blockquote>
 <blockquote>
 <p><img alt="ue_tlsigns_example" src="../img/ue_tlsigns_example.jpg" /></p>
@@ -213,9 +213,9 @@
 </blockquote>
 <h2 id="_6">交通标志 <span id="traffic-signs"></span></h2>
 <p>要将交通标志添加到新地图：</p>
-<p><strong>1.</strong> 从 <em>内容浏览器</em>，导航至 <code>Content &gt; Carla &gt; Static &gt; TrafficSign</code>。您会发现几种不同的交通灯蓝图可供选择。</p>
-<p><strong>2.</strong> 将交通灯拖到场景中并将其放置在所需位置。按键盘上的空格键可在定位、旋转和缩放工具之间切换。</p>
-<p><strong>3.</strong> 通过在“详细信息( <em>Details</em> )”面板中选择 <em>BoxTrigger</em> 组件并调整“变换(<em>Transform</em>)”部分中的值，调整每个交通标志的<a href="../python_api/#carla.TrafficSign.trigger_volume"><code>trigger volume</code></a>。这将确定交通灯的影响区域。并非所有交通标志都有触发音量。此类标志包括让行标志、停车标志和限速标志。</p>
+<p><strong>1.</strong> 从 <em>内容浏览器</em>，导航至 <code>Content &gt; Carla &gt; Static &gt; TrafficSign</code>。您会发现几种不同的交通信号灯蓝图可供选择。</p>
+<p><strong>2.</strong> 将交通信号灯拖到场景中并将其放置在所需位置。按键盘上的空格键可在定位、旋转和缩放工具之间切换。</p>
+<p><strong>3.</strong> 通过在“详细信息( <em>Details</em> )”面板中选择 <em>BoxTrigger</em> 组件并调整“变换(<em>Transform</em>)”部分中的值，调整每个交通标志的<a href="../python_api/#carla.TrafficSign.trigger_volume"><code>trigger volume</code></a>。这将确定交通信号灯的影响区域。并非所有交通标志都有触发音量。此类标志包括让行标志、停车标志和限速标志。</p>
 <h2 id="_7">材质 <span id="materials"></span></h2>
 <p>Carla 内容库拥有大量有用的材料，可随时用于更改地图的外观。在内容浏览器中，导航至<code>Carla &gt; Static &gt; GenericMaterials</code>。在这里您会发现许多可用于改变地图外观的材料。</p>
 <p>您可以通过拖放到地图元素上来快速测试材质：</p>

@@ -132,8 +132,8 @@
 <p>路径是使用从<a href="#in-memory-map">内存地图</a>中收集的附近路径点列表动态创建的，内存地图是模拟地图作为路径点网格的简化。路口的方向是随机选择的。每辆车的路径均由<strong>路径缓存和车辆轨迹</strong>(Path Buffers &amp; Vehicle Tracking, <a href="#pbvt">PBVT</a>) 组件存储和维护，以便在未来阶段轻松访问和修改。</p>
 <p><strong>2.2 - <a href="#stage-2-collision-stage">碰撞阶段</a></strong></p>
 <p>边界框延伸到每辆车的路径上，以识别和导航潜在的碰撞危险。</p>
-<p><strong>2.3 - <a href="#stage-3-traffic-light-stage">交通灯阶段</a>.</strong></p>
-<p>与碰撞阶段类似，会识别由于交通灯影响、停车标志和路口优先级而影响每辆车路径的潜在危险。</p>
+<p><strong>2.3 - <a href="#stage-3-traffic-light-stage">交通信号灯阶段</a>.</strong></p>
+<p>与碰撞阶段类似，会识别由于交通信号灯影响、停车标志和路口优先级而影响每辆车路径的潜在危险。</p>
 <p><strong>2.4 - <a href="#stage-4-motion-planner-stage">运动规划阶段</a>.</strong></p>
 <p>车辆运动根据定义的路径计算。<a href="#pid-controller">PID 控制器</a>确定如何到达目标路径点。然后将其转换为 Carla 命令以供下一步应用。</p>
 <p><strong>2.5 - <a href="#stage-5-vehicle-lights-stage">车灯阶段</a>.</strong></p>
@@ -147,7 +147,7 @@
 <p>代理的生命周期和状态管理组件：</p>
 <ul>
 <li>扫描世界以跟踪所有车辆和行人的位置和速度。如果启用物理功能，则通过<a href="../python_api/#carla.Vehicle">Vehicle.get_velocity()</a>检索速度。否则，将使用位置随时间更新的历史记录来计算速度。</li>
-<li>存储<a href="#simulation-state">模拟状态</a>组件中每辆车和行人的位置、速度和附加信息（交通灯影响、边界框等）。</li>
+<li>存储<a href="#simulation-state">模拟状态</a>组件中每辆车和行人的位置、速度和附加信息（交通信号灯影响、边界框等）。</li>
 <li>更新<a href="#vehicle-registry">车辆注册表</a>中交通管理器控制的车辆列表。</li>
 <li>更新<a href="#control-loop">控制循环</a>和<a href="#pbvt">路径缓存和车辆轨迹</a>组件中的条目以匹配车辆注册表。</li>
 </ul>
@@ -164,12 +164,12 @@
 <p>模拟状态存储模拟中所有车辆的信息，以便在后期阶段轻松访问和修改。</p>
 <p>模拟状态：</p>
 <ul>
-<li>从<a href="#alsm">代理的生命周期和状态管理</a>接收数据，包括当前参与者 <a href="https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/SimulationState.h#L18">位置</a> 、<a href="https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/SimulationState.h#L20">速度</a> 、交通灯影响、<a href="https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/SimulationState.h#L28">交通灯状态</a> 等。</li>
+<li>从<a href="#alsm">代理的生命周期和状态管理</a>接收数据，包括当前参与者 <a href="https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/SimulationState.h#L18">位置</a> 、<a href="https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/SimulationState.h#L20">速度</a> 、交通信号灯影响、<a href="https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/SimulationState.h#L28">交通信号灯状态</a> 等。</li>
 <li>将所有信息存储在缓存中，避免在<a href="#control-loop">控制循环</a>期间对服务器的后续调用。</li>
 </ul>
 <p>相关的 C++ 文件： <a href="https://github.com/OpenHUTB/carla/blob/ue4-dev/LibCarla/source/carla/trafficmanager/SimulationState.h"><code>SimulationState.cpp</code></a> , <a href="https://github.com/OpenHUTB/carla/blob/ue4-dev/LibCarla/source/carla/trafficmanager/SimulationState.h"><code>SimulationState.h</code></a> 。</p>
 <h3 id="_10">控制循环 <span id="control-loop"></span></h3>
-<p>控制循环管理所有自动驾驶车辆的下一个命令的计算，以便它们同步执行。控制循环由五个不同的<a href="#stages-of-the-control-loop">阶段</a>组成：<a href="https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/TrafficManagerLocal.cpp#L37">定位</a> 、<a href="https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/TrafficManagerLocal.cpp#L47">碰撞</a> 、<a href="https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/TrafficManagerLocal.cpp#L55">交通灯</a> 、<a href="https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/TrafficManagerLocal.cpp#L63C39-L63C54">运动规划</a> 和 <a href="https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/TrafficManagerLocal.cpp#L80C5-L80C24">车辆灯</a> 。</p>
+<p>控制循环管理所有自动驾驶车辆的下一个命令的计算，以便它们同步执行。控制循环由五个不同的<a href="#stages-of-the-control-loop">阶段</a>组成：<a href="https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/TrafficManagerLocal.cpp#L37">定位</a> 、<a href="https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/TrafficManagerLocal.cpp#L47">碰撞</a> 、<a href="https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/TrafficManagerLocal.cpp#L55">交通信号灯</a> 、<a href="https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/TrafficManagerLocal.cpp#L63C39-L63C54">运动规划</a> 和 <a href="https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/TrafficManagerLocal.cpp#L80C5-L80C24">车辆灯</a> 。</p>
 <p>控制循环:</p>
 <ul>
 <li>从<a href="#vehicle-registry">车辆注册表</a>接收交通管理器控制的车辆数组。</li>
@@ -233,8 +233,8 @@
 <li>将所有可能碰撞的危险发送到 <a href="#stage-4-motion-planner-stage"><strong>运动规划阶段</strong></a>，以相应地修改路径。</li>
 </ul>
 <p>相关的 C++ 文件: <a href="https://github.com/OpenHUTB/carla/blob/ue4-dev/LibCarla/source/carla/trafficmanager/CollisionStage.cpp"><code>CollisionStage.cpp</code></a> 。</p>
-<h5 id="-">第三阶段 - 交通灯阶段</h5>
-<p><a href="https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/TrafficManagerLocal.cpp#L231C7-L231C26">交通灯阶段</a> 会触发<strong>交通规则</strong>造成的危险，例如交通信号灯、停车标志和<a href="https://baike.baidu.com/item/%E8%B7%AF%E5%8F%A3%E4%BC%98%E5%85%88%E9%80%9A%E8%A1%8C/22232880">路口优先通行</a> 。</p>
+<h5 id="-">第三阶段 - 交通信号灯阶段</h5>
+<p><a href="https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/TrafficManagerLocal.cpp#L231C7-L231C26">交通信号灯阶段</a> 会触发<strong>交通规则</strong>造成的危险，例如交通信号灯、停车标志和<a href="https://baike.baidu.com/item/%E8%B7%AF%E5%8F%A3%E4%BC%98%E5%85%88%E9%80%9A%E8%A1%8C/22232880">路口优先通行</a> 。</p>
 <ul>
 <li>如果车辆受到黄灯或红灯或停车标志的影响，则设置<a href="https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/TrafficLightStage.cpp#L58C7-L58C28">交通危险</a> 。</li>
 <li>如果边界框位于<a href="https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/TrafficLightStage.cpp#L68">没有信号灯的岔路口</a> ，则沿车辆路径延伸边界框。路径重叠的车辆遵循“先进先出”的顺序移动。<a href="https://github.com/OpenHUTB/carla/blob/8f7e40f3c82bd0b034fe581187b95030a20dd832/LibCarla/source/carla/trafficmanager/TrafficLightStage.cpp#L121">等待时间</a> 设置为固定值。</li>
@@ -289,7 +289,7 @@
 </tr>
 <tr>
 <td style="text-align: center;"><strong>碰撞管理:</strong></td>
-<td style="text-align: center;">- 启用/禁用车辆与特定参与者之间的碰撞。 <br> - 让车辆忽略所有其他车辆。<br> - 让车辆忽略所有行人<br> - 让车辆忽略所有交通灯。</td>
+<td style="text-align: center;">- 启用/禁用车辆与特定参与者之间的碰撞。 <br> - 让车辆忽略所有其他车辆。<br> - 让车辆忽略所有行人<br> - 让车辆忽略所有交通信号灯。</td>
 </tr>
 <tr>
 <td style="text-align: center;"><strong>变道:</strong></td>

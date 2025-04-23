@@ -68,44 +68,44 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1"><a href="https://carla.readthedocs.io/en/latest/tuto_M_custom_add_tl/">自定义地图：交通灯和标志</a></h1>
-<p>本指南介绍了如何将交通灯和标志添加到自定义地图、配置每个交通灯和标志的影响区域，以及如何在路口将交通灯配置为一组。此选项仅适用于有权访问虚幻引擎编辑器的用户。</p>
+                <h1 id="_1"><a href="https://carla.readthedocs.io/en/latest/tuto_M_custom_add_tl/">自定义地图：交通信号灯和交通标志</a></h1>
+<p>本指南介绍了如何将交通信号灯和交通标志添加到自定义地图、配置每个交通信号灯和交通标志的影响区域，以及如何在路口将交通信号灯配置为一组。此选项仅适用于有权访问虚幻引擎编辑器的用户。</p>
 <ul>
-<li><a href="#traffic-lights"><strong>红绿灯</strong></a></li>
+<li><a href="#traffic-lights"><strong>交通信号灯</strong></a></li>
 <li><a href="#traffic-signs"><strong>交通标志</strong></a></li>
 <li><a href="#next-steps"><strong>下一步</strong></a></li>
 </ul>
 <hr />
-<h2 id="_2">红绿灯 <span id="traffic-lights"></span></h2>
-<p>要将红绿灯添加到新地图：</p>
-<p><strong>1.</strong> 从 <em>内容浏览器</em>，导航至 <code>Content/Carla/Static/TrafficLight/StreetLights_01</code>，您会发现几种不同的交通灯蓝图可供选择。</p>
-<p><strong>2.</strong> 将交通灯拖到场景中并将其放置在所需位置。按键盘上的空格键可在放置、旋转和缩放工具之间切换。</p>
-<p><strong>3.</strong> 通过在 <em>细节(Details)</em> 面板中选择 <em>BoxTrigger</em> 组件并调整 <em>变换(Transform)</em> 部分中的值，调整每个交通灯的 <a href="../python_api/#carla.TrafficSign.trigger_volume"><code>trigger volume</code></a> （位于交通灯的对面、用于设置交通灯影响最大范围的触发体积）。这将确定交通灯的影响区域。</p>
+<h2 id="_2">交通信号灯 <span id="traffic-lights"></span></h2>
+<p>要将交通信号灯添加到新地图：</p>
+<p><strong>1.</strong> 从 <em>内容浏览器</em>，导航至 <code>Content/Carla/Static/TrafficLight/StreetLights_01</code>，您会发现几种不同的交通信号灯蓝图可供选择。</p>
+<p><strong>2.</strong> 将交通信号灯拖到场景中并将其放置在所需位置。按键盘上的空格键可在放置、旋转和缩放工具之间切换。</p>
+<p><strong>3.</strong> 通过在 <em>细节(Details)</em> 面板中选择 <em>BoxTrigger</em> 组件并调整 <em>变换(Transform)</em> 部分中的值，调整每个交通信号灯的 <a href="../python_api/#carla.TrafficSign.trigger_volume"><code>trigger volume</code></a> （位于交通信号灯的对面、用于设置交通信号灯影响最大范围的触发体积）。这将确定交通信号灯的影响区域。</p>
 <blockquote>
 <blockquote>
 <p><img alt="ue_trafficlight" src="../img/ue_trafficlight.jpg" /></p>
 </blockquote>
 </blockquote>
-<p><strong>4.</strong> 对于岔路口，将<code>BP_TrafficLightGroup</code>参与者拖入关卡中。通过将岔路口的所有交通灯添加到“细节(Details)”面板中的“Traffic Lights”数组，将它们分配给交通灯组。</p>
+<p><strong>4.</strong> 对于岔路口，将<code>BP_TrafficLightGroup</code>参与者拖入关卡中。通过将岔路口的所有交通信号灯添加到“细节(Details)”面板中的“Traffic Lights”数组，将它们分配给交通信号灯组。</p>
 <blockquote>
 <blockquote>
 <p><img alt="ue_tl_group" src="../img/ue_tl_group.jpg" /></p>
 </blockquote>
 </blockquote>
-<p><strong>5.</strong> 交通灯计时只能通过 Python API 进行配置。请参阅 <a href="../core_actors/#traffic-signs-and-traffic-lights">此处</a> 的文档以获取更多信息。 </p>
+<p><strong>5.</strong> 交通信号灯计时只能通过 Python API 进行配置。请参阅 <a href="../core_actors/#traffic-signs-and-traffic-lights">此处</a> 的文档以获取更多信息。 </p>
 <blockquote>
 <blockquote>
 <p><img alt="ue_tlsigns_example" src="../img/ue_tlsigns_example.jpg" /></p>
 </blockquote>
 <p><em>例如：交通标志、交通信号灯和转弯停车。</em></p>
 </blockquote>
-<p>示例：<a href="../tuto_G_traffic_light/">交通灯的配置和使用</a> 。</p>
+<p>示例：<a href="../tuto_G_traffic_light/">交通信号灯的配置和使用</a> 。</p>
 <hr />
 <h2 id="_3">红绿标志 <span id="traffic-signs"></span></h2>
-<p>要将红绿灯添加到新地图：</p>
+<p>要将交通信号灯添加到新地图：</p>
 <p><strong>1.</strong> 从 <em>内容浏览器(Content Browser)</em>，导航至 <code>Content/Carla/Static/TrafficSign</code>。您会发现几种不同的交通标志蓝图可供选择。</p>
 <p><strong>2.</strong> 将交通标志拖到场景中并将其放置在所需位置。按键盘上的空格键可在定位、旋转和缩放工具之间切换。</p>
-<p><strong>3.</strong> 通过在“细节”面板中选择 <em>BoxTrigger</em> 组件并调整 <em>Transform</em> 部分中的值，调整每个交通标志的<a href="../python_api/#carla.TrafficSign.trigger_volume"><code>trigger volume</code></a>。这将确定交通灯的影响区域。并非所有交通标志都有触发体积(volume)。此类标志包括让行标志、停车标志和限速标志。 </p>
+<p><strong>3.</strong> 通过在“细节”面板中选择 <em>BoxTrigger</em> 组件并调整 <em>Transform</em> 部分中的值，调整每个交通标志的<a href="../python_api/#carla.TrafficSign.trigger_volume"><code>trigger volume</code></a>。这将确定交通信号灯的影响区域。并非所有交通标志都有触发体积(volume)。此类标志包括让行标志、停车标志和限速标志。 </p>
 <hr />
 <h2 id="_4">下一步 <span id="next-steps"></span></h2>
 <p>使用以下工具和指南继续自定义您的地图：</p>

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>交通灯配置和使用（get_traffic_light） - 人车模拟器</title>
+    <title>交通信号灯配置和使用（get_traffic_light） - 人车模拟器</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "\u4ea4\u901a\u706f\u914d\u7f6e\u548c\u4f7f\u7528\uff08get_traffic_light\uff09";
+        var mkdocs_page_name = "\u4ea4\u901a\u4fe1\u53f7\u706f\u914d\u7f6e\u548c\u4f7f\u7528\uff08get_traffic_light\uff09";
         var mkdocs_page_input_path = "tuto_G_traffic_light.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,7 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">交通灯配置和使用（get_traffic_light）</li>
+      <li class="breadcrumb-item active">交通信号灯配置和使用（get_traffic_light）</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/tuto_G_traffic_light.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -68,17 +68,17 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="get_traffic_light">交通灯配置和使用（get_traffic_light）</h1>
-<h2 id="carla">交通灯在Carla中的简单配置</h2>
+                <h1 id="get_traffic_light">交通信号灯配置和使用（get_traffic_light）</h1>
+<h2 id="carla">交通信号灯在Carla中的简单配置</h2>
 <ol>
-<li>从内容浏览器中选择<strong>Carla &gt; Static &gt; TrafficLight &gt; StreetLights_01</strong>下的交通灯蓝图。</li>
-<li>将交通灯拖到场景中，进行位置调整。</li>
-<li>与交通灯相连接的有一个<strong>立方体组件</strong>，通过拖到这个立方体的位置和改变长度来决定对应红绿灯的影响范围。</li>
-<li>将交通灯分配给路口交通灯组：从内容浏览器中选择<strong>Carla &gt; Static &gt; TrafficLight &gt; StreetLights_01</strong>下选择<strong>BP_TrafficLightGroup</strong>拖动到路口，并在该对象的细节面板下找到<strong>Traffic Light</strong>，将需要添加到该路口组的交通灯设置。</li>
-<li><a href="../tuto_G_modify_trafficlight/">此处</a>可以将交通灯直行和左转分别配时，或者将每个路口的交通灯不在同一个分组中，互不影响。</li>
+<li>从内容浏览器中选择<strong>Carla &gt; Static &gt; TrafficLight &gt; StreetLights_01</strong>下的交通信号灯蓝图。</li>
+<li>将交通信号灯拖到场景中，进行位置调整。</li>
+<li>与交通信号灯相连接的有一个<strong>立方体组件</strong>，通过拖到这个立方体的位置和改变长度来决定对应交通信号灯的影响范围。</li>
+<li>将交通信号灯分配给路口交通信号灯组：从内容浏览器中选择<strong>Carla &gt; Static &gt; TrafficLight &gt; StreetLights_01</strong>下选择<strong>BP_TrafficLightGroup</strong>拖动到路口，并在该对象的细节面板下找到<strong>Traffic Light</strong>，将需要添加到该路口组的交通信号灯设置。</li>
+<li><a href="../tuto_G_modify_trafficlight/">此处</a>可以将交通信号灯直行和左转分别配时，或者将每个路口的交通信号灯不在同一个分组中，互不影响。</li>
 </ol>
-<p><strong>参考链接：</strong><a href="../tuto_content_authoring_maps/#traffic-lights">内容创作 - 地图 - 交通模拟器文档</a> 的交通灯部分。</p>
-<h2 id="python">使用python脚本简单使用交通灯</h2>
+<p><strong>参考链接：</strong><a href="../tuto_content_authoring_maps/#traffic-lights">内容创作 - 地图 - 交通模拟器文档</a> 的交通信号灯部分。</p>
+<h2 id="python">使用python脚本简单使用交通信号灯</h2>
 <h4 id="carla_1">创建与carla的连接</h4>
 <div class="highlight"><pre><span></span><code><span class="n">client</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>
 <span class="n">client</span><span class="o">.</span><span class="n">set_timeout</span><span class="p">(</span><span class="mf">10.0</span><span class="p">)</span>  <span class="c1"># 设置超时</span>
@@ -89,12 +89,12 @@
 <span class="n">settings</span><span class="o">.</span><span class="n">fixed_delta_seconds</span> <span class="o">=</span> <span class="mf">0.05</span>
 <span class="n">world</span><span class="o">.</span><span class="n">apply_settings</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
 </code></pre></div>
-<h4 id="_1">获取场景中的红绿灯对象</h4>
+<h4 id="_1">获取场景中的交通信号灯对象</h4>
 <div class="highlight"><pre><span></span><code><span class="n">traffic_lights</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_actors</span><span class="p">()</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s1">&#39;traffic.traffic_light&#39;</span><span class="p">)</span>
 </code></pre></div>
-<h4 id="1">1、获取红绿灯的位置信息</h4>
+<h4 id="1">1、获取交通信号灯的位置信息</h4>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_light_location</span><span class="p">(</span><span class="n">world</span><span class="p">,</span><span class="n">traffic_lights</span><span class="p">):</span>
-    <span class="c1"># 将交通灯的位置信息存储</span>
+    <span class="c1"># 将交通信号灯的位置信息存储</span>
     <span class="n">traffic_lights_location</span> <span class="o">=</span> <span class="p">{}</span>
 
     <span class="k">for</span> <span class="n">traffic_light</span> <span class="ow">in</span> <span class="n">traffic_lights</span><span class="p">:</span>
@@ -105,53 +105,53 @@
         <span class="c1"># traffic_lights_data[traffic_light.id] = {&#39;position&#39;: position, &#39;status&#39;: status_str}</span>
         <span class="n">traffic_lights_location</span><span class="p">[</span><span class="n">traffic_light</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;position&#39;</span><span class="p">:</span> <span class="n">position</span><span class="p">}</span>
 
-        <span class="c1"># 将交通灯在carla中标示出来，以traffic_light.id</span>
+        <span class="c1"># 将交通信号灯在carla中标示出来，以traffic_light.id</span>
         <span class="n">world</span><span class="o">.</span><span class="n">debug</span><span class="o">.</span><span class="n">draw_string</span><span class="p">(</span><span class="n">location</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">traffic_light</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
                                     <span class="p">,</span> <span class="n">life_time</span><span class="o">=</span><span class="mi">6000</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">carla</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
     <span class="k">return</span>  <span class="n">traffic_lights_location</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">traffic_lights_location</span><span class="p">)</span>
 </code></pre></div>
-<h4 id="2">2、获取红绿灯的当前配时方案</h4>
+<h4 id="2">2、获取交通信号灯的当前配时方案</h4>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_light_time</span><span class="p">(</span><span class="n">traffic_lights</span><span class="p">):</span>
-    <span class="c1">#获取交通灯的配时信息</span>
-    <span class="c1"># 创建一个空的字典，用于存储红绿灯信息</span>
+    <span class="c1">#获取交通信号灯的配时信息</span>
+    <span class="c1"># 创建一个空的字典，用于存储交通信号灯信息</span>
     <span class="n">traffic_lights_time</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="c1"># 遍历所有红绿灯</span>
+    <span class="c1"># 遍历所有交通信号灯</span>
     <span class="k">for</span> <span class="n">traffic_light</span> <span class="ow">in</span> <span class="n">traffic_lights</span><span class="p">:</span>
-        <span class="c1"># 获取红绿灯的ID</span>
+        <span class="c1"># 获取交通信号灯的ID</span>
         <span class="n">traffic_light_id</span> <span class="o">=</span> <span class="n">traffic_light</span><span class="o">.</span><span class="n">id</span>
-        <span class="c1"># 获取红绿灯的当前状态</span>
+        <span class="c1"># 获取交通信号灯的当前状态</span>
         <span class="n">status</span> <span class="o">=</span> <span class="n">traffic_light</span><span class="o">.</span><span class="n">get_state</span><span class="p">()</span>
         <span class="n">status_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">status</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="c1"># 获取红绿灯时间</span>
+        <span class="c1"># 获取交通信号灯时间</span>
         <span class="n">red_time</span> <span class="o">=</span> <span class="n">traffic_light</span><span class="o">.</span><span class="n">get_red_time</span><span class="p">()</span>
         <span class="n">green_time</span> <span class="o">=</span> <span class="n">traffic_light</span><span class="o">.</span><span class="n">get_green_time</span><span class="p">()</span>
         <span class="n">yellow_time</span> <span class="o">=</span> <span class="n">traffic_light</span><span class="o">.</span><span class="n">get_yellow_time</span><span class="p">()</span>
-        <span class="c1"># 将红绿灯信息添加到字典中</span>
+        <span class="c1"># 将交通信号灯信息添加到字典中</span>
         <span class="n">traffic_lights_time</span><span class="p">[</span><span class="n">traffic_light_id</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="n">status_str</span><span class="p">,</span> <span class="s1">&#39;red_time&#39;</span><span class="p">:</span> <span class="n">red_time</span><span class="p">,</span> <span class="s1">&#39;green_time&#39;</span><span class="p">:</span> <span class="n">green_time</span><span class="p">,</span>
                                                  <span class="s1">&#39;yellow_time&#39;</span><span class="p">:</span> <span class="n">yellow_time</span><span class="p">}</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">traffic_lights_time</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">traffic_lights_time</span>
 </code></pre></div>
-<h4 id="3">3、修改红绿灯的配时方案</h4>
+<h4 id="3">3、修改交通信号灯的配时方案</h4>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">change_light_time</span><span class="p">(</span><span class="n">traffic_lights</span><span class="p">,</span><span class="n">traffic_light_id</span><span class="p">,</span><span class="n">red_time</span><span class="p">,</span><span class="n">yellow_time</span><span class="p">,</span><span class="n">green_time</span><span class="p">,</span><span class="n">world</span><span class="p">):</span>
-    <span class="c1"># 遍历红绿灯找到对应路灯</span>
+    <span class="c1"># 遍历交通信号灯找到对应路灯</span>
     <span class="k">for</span> <span class="n">traffic_light</span> <span class="ow">in</span> <span class="n">traffic_lights</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">traffic_light</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">traffic_light_id</span><span class="p">:</span>
-                <span class="c1">#展示原始红绿灯配时方案</span>
+                <span class="c1">#展示原始交通信号灯配时方案</span>
                 <span class="n">redtime</span> <span class="o">=</span> <span class="n">traffic_light</span><span class="o">.</span><span class="n">get_red_time</span><span class="p">()</span>
                 <span class="n">greentime</span> <span class="o">=</span> <span class="n">traffic_light</span><span class="o">.</span><span class="n">get_green_time</span><span class="p">()</span>
                 <span class="n">yellowtime</span> <span class="o">=</span> <span class="n">traffic_light</span><span class="o">.</span><span class="n">get_yellow_time</span><span class="p">()</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;编号为</span><span class="si">{}</span><span class="s2">红绿灯的红灯时间为</span><span class="si">{}</span><span class="s2">，黄灯时间为</span><span class="si">{}</span><span class="s2">，绿灯时间为</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">traffic_light_id</span><span class="p">,</span> <span class="n">redtime</span><span class="p">,</span> <span class="n">yellowtime</span><span class="p">,</span> <span class="n">greentime</span><span class="p">))</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;编号为</span><span class="si">{}</span><span class="s2">交通信号灯的红灯时间为</span><span class="si">{}</span><span class="s2">，黄灯时间为</span><span class="si">{}</span><span class="s2">，绿灯时间为</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">traffic_light_id</span><span class="p">,</span> <span class="n">redtime</span><span class="p">,</span> <span class="n">yellowtime</span><span class="p">,</span> <span class="n">greentime</span><span class="p">))</span>
 
-                <span class="c1"># 修改红绿灯时长</span>
+                <span class="c1"># 修改交通信号灯时长</span>
                 <span class="n">traffic_light</span><span class="o">.</span><span class="n">set_red_time</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">red_time</span><span class="p">))</span>
                 <span class="n">traffic_light</span><span class="o">.</span><span class="n">set_yellow_time</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">yellow_time</span><span class="p">))</span>
                 <span class="n">traffic_light</span><span class="o">.</span><span class="n">set_green_time</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">green_time</span><span class="p">))</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;已修改编号为</span><span class="si">{}</span><span class="s2">红绿灯的红灯时间为</span><span class="si">{}</span><span class="s2">，黄灯时间为</span><span class="si">{}</span><span class="s2">，绿灯时间为</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">traffic_light_id</span><span class="p">,</span> <span class="n">red_time</span><span class="p">,</span> <span class="n">yellow_time</span><span class="p">,</span> <span class="n">green_time</span><span class="p">))</span>
-    <span class="n">world</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>  <span class="c1">#更新Carla世界的状态，使得修改的红绿灯方案立即生效。</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;已修改编号为</span><span class="si">{}</span><span class="s2">交通信号灯的红灯时间为</span><span class="si">{}</span><span class="s2">，黄灯时间为</span><span class="si">{}</span><span class="s2">，绿灯时间为</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">traffic_light_id</span><span class="p">,</span> <span class="n">red_time</span><span class="p">,</span> <span class="n">yellow_time</span><span class="p">,</span> <span class="n">green_time</span><span class="p">))</span>
+    <span class="n">world</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>  <span class="c1">#更新Carla世界的状态，使得修改的交通信号灯方案立即生效。</span>
 </code></pre></div>
-<h4 id="4">4、根据路口车流量调整交通灯的红绿灯配时方案</h4>
+<h4 id="4">4、根据路口车流量调整交通信号灯的交通信号灯配时方案</h4>
 <h5 id="41">4.1、获取指定路口的车流量</h5>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_traffic_flow</span><span class="p">(</span><span class="n">world</span><span class="p">):</span>
     <span class="c1"># 获取所有正在行驶的车辆列表</span>
@@ -186,28 +186,28 @@
 </code></pre></div>
 <h5 id="42">4.2、调整配时方案</h5>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">traffic_signal</span><span class="p">(</span><span class="n">traffic_lights</span><span class="p">,</span><span class="n">traffic_flow</span><span class="p">,</span><span class="n">world</span><span class="p">):</span>
-    <span class="c1">#根据路口的车流量去优化路口红绿灯的配时方案简单示例</span>
+    <span class="c1">#根据路口的车流量去优化路口交通信号灯的配时方案简单示例</span>
     <span class="c1">#该示例中设置的车辆总数为70辆，分为高流量：路口车流量&gt;7,中流量：路口车辆在4—7，低流量：路口车辆&lt;4</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;路口车流量为</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">traffic_flow</span><span class="p">))</span>
-    <span class="c1"># 遍历所有交通灯</span>
+    <span class="c1"># 遍历所有交通信号灯</span>
     <span class="k">for</span> <span class="n">traffic_light</span> <span class="ow">in</span> <span class="n">traffic_lights</span><span class="p">:</span>
 
-        <span class="c1">#获得交通灯的位置信息</span>
+        <span class="c1">#获得交通信号灯的位置信息</span>
         <span class="n">location</span> <span class="o">=</span> <span class="n">traffic_light</span><span class="o">.</span><span class="n">get_location</span><span class="p">()</span>
-        <span class="c1">#找到位于该路口范围的红绿灯</span>
+        <span class="c1">#找到位于该路口范围的交通信号灯</span>
         <span class="k">if</span> <span class="n">location</span><span class="o">.</span><span class="n">x</span><span class="o">&gt;=</span><span class="n">xmin</span> <span class="ow">and</span> <span class="n">location</span><span class="o">.</span><span class="n">x</span><span class="o">&lt;=</span><span class="n">xmax</span> <span class="ow">and</span> <span class="n">location</span><span class="o">.</span><span class="n">y</span><span class="o">&gt;=</span><span class="n">ymin</span> <span class="ow">and</span> <span class="n">location</span><span class="o">.</span><span class="n">y</span><span class="o">&lt;=</span><span class="n">ymax</span><span class="p">:</span>
-            <span class="c1"># 获取交通灯ID</span>
+            <span class="c1"># 获取交通信号灯ID</span>
             <span class="n">traffic_light_id</span> <span class="o">=</span> <span class="n">traffic_light</span><span class="o">.</span><span class="n">id</span>
-            <span class="c1"># 获取交通灯的红绿灯配时方案</span>
+            <span class="c1"># 获取交通信号灯的交通信号灯配时方案</span>
             <span class="n">red_time</span> <span class="o">=</span> <span class="n">traffic_light</span><span class="o">.</span><span class="n">get_red_time</span><span class="p">()</span>
             <span class="n">green_time</span> <span class="o">=</span> <span class="n">traffic_light</span><span class="o">.</span><span class="n">get_green_time</span><span class="p">()</span>
             <span class="n">yellow_time</span> <span class="o">=</span> <span class="n">traffic_light</span><span class="o">.</span><span class="n">get_yellow_time</span><span class="p">()</span>
-        <span class="c1"># 根据车流量调整红绿灯时长</span>
+        <span class="c1"># 根据车流量调整交通信号灯时长</span>
             <span class="k">if</span> <span class="n">traffic_flow</span> <span class="o">&lt;=</span> <span class="mi">4</span><span class="p">:</span>
             <span class="c1"># 低流量，增加红灯灯时间</span>
                 <span class="n">red_time</span> <span class="o">=</span> <span class="n">red_time</span><span class="o">+</span><span class="mi">5</span>
             <span class="k">elif</span> <span class="n">traffic_flow</span> <span class="o">&gt;</span><span class="mi">4</span> <span class="ow">and</span> <span class="n">traffic_flow</span> <span class="o">&lt;</span><span class="mi">7</span><span class="p">:</span>
-            <span class="c1"># 中等流量，平衡红绿灯时长</span>
+            <span class="c1"># 中等流量，平衡交通信号灯时长</span>
                 <span class="n">red_time</span> <span class="o">=</span><span class="n">red_time</span><span class="o">+</span><span class="mi">3</span>
                 <span class="n">yellow_time</span> <span class="o">=</span> <span class="n">yellow_time</span><span class="o">+</span><span class="mi">2</span>
                 <span class="n">green_time</span> <span class="o">=</span> <span class="n">green_time</span><span class="o">+</span><span class="mi">2</span>
@@ -217,7 +217,7 @@
                 <span class="n">yellow_time</span><span class="o">=</span><span class="n">yellow_time</span><span class="o">+</span><span class="mi">1</span>
                 <span class="n">green_time</span> <span class="o">=</span> <span class="n">green_time</span><span class="o">+</span><span class="mi">5</span>
 
-        <span class="c1">#修改红绿灯的配时方案</span>
+        <span class="c1">#修改交通信号灯的配时方案</span>
             <span class="n">change_light_time</span><span class="p">(</span><span class="n">traffic_lights</span><span class="p">,</span><span class="n">traffic_light_id</span><span class="p">,</span><span class="n">red_time</span><span class="p">,</span><span class="n">yellow_time</span><span class="p">,</span><span class="n">green_time</span><span class="p">,</span><span class="n">world</span><span class="p">)</span>
 </code></pre></div>
               

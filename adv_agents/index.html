@@ -120,7 +120,7 @@
 <div class="highlight"><pre><span></span><code><span class="n">destination</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">spawn_points</span><span class="p">)</span><span class="o">.</span><span class="n">location</span>
 <span class="n">agent</span><span class="o">.</span><span class="n">set_destination</span><span class="p">(</span><span class="n">destination</span><span class="p">)</span>
 </code></pre></div>
-<p><strong>5.</strong> 在导航步骤期间应用车辆控制和行为。在每个步骤中，<strong>Basic Agent</strong> 将应用车辆控制并通过执行紧急停止来对任何车辆或交通信号灯做出反应。 <strong>Behavior Agent</strong> 将根据您应用的行为类型对红绿灯做出反应、避开行人、跟随汽车并在十字路口导航：</p>
+<p><strong>5.</strong> 在导航步骤期间应用车辆控制和行为。在每个步骤中，<strong>Basic Agent</strong> 将应用车辆控制并通过执行紧急停止来对任何车辆或交通信号灯做出反应。 <strong>Behavior Agent</strong> 将根据您应用的行为类型对交通信号灯做出反应、避开行人、跟随汽车并在十字路口导航：</p>
 <div class="highlight"><pre><span></span><code><span class="k">while</span> <span class="kc">True</span><span class="err">：</span>
     <span class="n">vehicle</span><span class="o">.</span><span class="n">apply_control</span><span class="p">(</span><span class="n">agent</span><span class="o">.</span><span class="n">run_step</span><span class="p">())</span>
 </code></pre></div>

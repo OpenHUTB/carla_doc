@@ -194,7 +194,7 @@ def queue_lengths(world,junctions,counted_vehicles):
 <h3 id="ave_delay">车均延误函数ave_delay()<span id="aveDelay"></span></h3>
 <p>采用以下计算公式进行计算：<img alt="" src="../../img/traffic_course_img/4.png" /></p>
 <p>其中<strong>D</strong>为路口车均延误参数，<strong>C</strong>为路口交通信号灯配时总时间，<strong>y</strong>为路口饱和度，<strong>T</strong>为当前分析时段的时长。</p>
-<div class="highlight"><pre><span></span><code>#得到交通灯的配时信息
+<div class="highlight"><pre><span></span><code>#得到交通信号灯的配时信息
 def get_traffic_light(world, light_id):
     traffic_lights = world.get_actors().filter(&#39;traffic.traffic_light&#39;)
     total_time = 0

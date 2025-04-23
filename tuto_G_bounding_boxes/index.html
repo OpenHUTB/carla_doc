@@ -157,8 +157,8 @@
 <p>需要注意的是，要获取世界坐标中边界框的三维坐标，您需要将参与者的变换(transform)作为该<code>get_world_vertices()</code>方法的参数，如下所示：</p>
 <div class="highlight"><pre><span></span><code><span class="n">bounding_box</span><span class="o">.</span><span class="n">get_world_vertices</span><span class="p">(</span><span class="n">actor</span><span class="o">.</span><span class="n">get_transform</span><span class="p">())</span>
 </code></pre></div>
-<p>对于地图中的物体，如建筑物、交通灯和路标，可以通过<a href="(python_api.md#carla.World)">carla.World</a>方法 <code>get_level_bbs()</code> 检索边界框get_level_bbs()。<a href="(python_api.md#carla.CityObjectLabel)">carla.CityObjectLabel</a> 可以用作参数来将边界框列表过滤到相关对象：</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># 检索关卡内交通灯的所有边界框</span>
+<p>对于地图中的物体，如建筑物、交通信号灯和路标，可以通过<a href="(python_api.md#carla.World)">carla.World</a>方法 <code>get_level_bbs()</code> 检索边界框get_level_bbs()。<a href="(python_api.md#carla.CityObjectLabel)">carla.CityObjectLabel</a> 可以用作参数来将边界框列表过滤到相关对象：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 检索关卡内交通信号灯的所有边界框</span>
 <span class="n">bounding_box_set</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_level_bbs</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">CityObjectLabel</span><span class="o">.</span><span class="n">TrafficLight</span><span class="p">)</span>
 
 <span class="c1"># 过滤列表以提取半径50m以内的边界框</span>

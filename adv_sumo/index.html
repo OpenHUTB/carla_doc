@@ -121,7 +121,7 @@ python3<span class="w"> </span>run_synchronization.py<span class="w"> </span>exa
 <ul>
 <li><strong><code>xodr_file</code></strong> — OpenDRIVE 文件 <code>.xodr</code>。</li>
 <li><strong><code>--output'</code></strong> <em>(默认值：<code>net.net.xml</code>)</em> — 输出文件 <code>.net.xml</code>。</li>
-<li><strong><code>--guess-tls</code></strong> <em>(默认值：false)</em> — SUMO 只能为道路中的特定车道设置交通灯，但 Carla 不能。如果设置为 <strong>True</strong>，SUMO 将不会区分特定车道的交通信号灯，并且这些信号灯将与 Carla 同步。</li>
+<li><strong><code>--guess-tls</code></strong> <em>(默认值：false)</em> — SUMO 只能为道路中的特定车道设置交通信号灯，但 Carla 不能。如果设置为 <strong>True</strong>，SUMO 将不会区分特定车道的交通信号灯，并且这些信号灯将与 Carla 同步。</li>
 </ul>
 <p>该脚本的输出将是<code>.net.xml</code>可以使用 <strong><a href="https://sumo.dlr.de/docs/NETEDIT.html">NETEDIT</a></strong> 进行编辑的。使用它来编辑路线、添加需求，并最终准备一个可以保存为 <code>.sumocfg</code>。 </p>
 <p>在此过程中提供的示例可能会有所帮助。看一眼<code>Co-Simulation/Sumo/examples</code>。对于每个<code>example.sumocfg</code>文件，都有多个同名的相关文件。所有这些都包含一个联合模拟示例。</p>
@@ -138,7 +138,7 @@ python3<span class="w"> </span>run_synchronization.py<span class="w"> </span>exa
 <li><strong><code>--sync-vehicle-lights</code></strong> <em>(默认值：False)</em> — 同步车灯。 </li>
 <li><strong><code>--sync-vehicle-color</code></strong> <em>(默认值：False)</em> — 同步车辆颜色。</li>
 <li><strong><code>--sync-vehicle-all</code></strong> <em>(默认值：False)</em> — 同步所有车辆属性。 </li>
-<li><strong><code>--tls-manager</code></strong> <em>(默认值：none)</em> — 选择哪个模拟器应管理交通灯。另一个将相应地更新这些内容。选项有 <code>carla</code>, <code>sumo</code> 和 <code>none</code>。如果选择 <code>none</code> ，交通信号灯将不同步。每辆车只会遵守生成它的模拟器中的交通灯。</li>
+<li><strong><code>--tls-manager</code></strong> <em>(默认值：none)</em> — 选择哪个模拟器应管理交通信号灯。另一个将相应地更新这些内容。选项有 <code>carla</code>, <code>sumo</code> 和 <code>none</code>。如果选择 <code>none</code> ，交通信号灯将不同步。每辆车只会遵守生成它的模拟器中的交通信号灯。</li>
 </ul>
 <div class="highlight"><pre><span></span><code>python3<span class="w"> </span>run_synchronization.py<span class="w"> </span>&lt;SUMOCFG<span class="w"> </span>FILE&gt;<span class="w"> </span>--tls-manager<span class="w"> </span>carla<span class="w"> </span>--sumo-gui
 </code></pre></div>
@@ -162,7 +162,7 @@ python3<span class="w"> </span>run_synchronization.py<span class="w"> </span>exa
 <li><strong><code>--sync-vehicle-lights</code></strong> <em>(默认值：False)</em> — 同步车灯状态。 </li>
 <li><strong><code>--sync-vehicle-color</code></strong> <em>(默认值：False)</em> — 同步车辆颜色。</li>
 <li><strong><code>--sync-vehicle-all</code></strong> <em>(默认值： False)</em> — 同步所有车辆属性。 </li>
-<li><strong><code>--tls-manager</code></strong> <em>(默认值： none)</em> — 选择哪个模拟器来更改交通灯的状态。另一个将相应地更新它们。如果是<code>none</code>，交通信号灯将不同步。</li>
+<li><strong><code>--tls-manager</code></strong> <em>(默认值： none)</em> — 选择哪个模拟器来更改交通信号灯的状态。另一个将相应地更新它们。如果是<code>none</code>，交通信号灯将不同步。</li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="c1"># 生成 10 辆车，由 SUMO 管理，而不是交通管理器</span>
 python3<span class="w"> </span>spawn_sumo_npc.py<span class="w"> </span>-n<span class="w"> </span><span class="m">10</span><span class="w"> </span>--tls-manager<span class="w"> </span>carla<span class="w"> </span>--sumo-gui

@@ -110,7 +110,7 @@
 </ul>
 <hr />
 <h2 id="carlaactor">carla.Actor<a name="carla.Actor"></a></h2>
-<p>Carla 将参与者定义为在模拟中发挥作用或可以移动的任何物体。其中包括：行人、车辆、传感器和交通标志（将交通灯视为其中的一部分）。参与者在模拟中由 <a href="#carla.World">carla.World</a> 生成，并且需要创建 <a href="#carla.ActorBlueprint">carla.ActorBlueprint</a> 。这些蓝图属于 Carla 提供的库，请在 <a href="../bp_library/">此处</a> 找到有关它们的更多信息。</p>
+<p>Carla 将参与者定义为在模拟中发挥作用或可以移动的任何物体。其中包括：行人、车辆、传感器和交通标志（将交通信号灯视为其中的一部分）。参与者在模拟中由 <a href="#carla.World">carla.World</a> 生成，并且需要创建 <a href="#carla.ActorBlueprint">carla.ActorBlueprint</a> 。这些蓝图属于 Carla 提供的库，请在 <a href="../bp_library/">此处</a> 找到有关它们的更多信息。</p>
 <h3 id="_4">实例变量</h3>
 <ul>
 <li><a name="carla.Actor.attributes"></a><strong><font color="#f8805a">attributes</font></strong> (<em>dict</em>)<br />
@@ -128,7 +128,7 @@
 <li><a name="carla.Actor.parent"></a><strong><font color="#f8805a">parent</font></strong> (<em><a href="#carla.Actor">carla.Actor</a></em>)<br />
 参与者可以附加到他们将跟随的父参与者，这就是所说的参与者。  </li>
 <li><a name="carla.Actor.semantic_tags"></a><strong><font color="#f8805a">semantic_tags</font></strong> (<em>list(int)</em>)<br />
-蓝图列表组件为此参与者提供的语义标签列表。例如，交通灯可以用 <code>Pole</code> 和 <code>TrafficLight</code>。这些标签由语义分割传感器使用。在<a href="../ref_sensors/#semantic-segmentation-camera">此处</a> 查找有关此传感器和其他传感器的更多信息。  </li>
+蓝图列表组件为此参与者提供的语义标签列表。例如，交通信号灯可以用 <code>Pole</code> 和 <code>TrafficLight</code>。这些标签由语义分割传感器使用。在<a href="../ref_sensors/#semantic-segmentation-camera">此处</a> 查找有关此传感器和其他传感器的更多信息。  </li>
 <li><a name="carla.Actor.actor_state"></a><strong><font color="#f8805a">actor_state</font></strong> (<em><a href="#carla.ActorState">carla.ActorState</a></em>)<br />
 返回 <a href="#carla.ActorState">carla.ActorState</a>，它可以识别参与者是否处于活动、休眠或无效状态。  </li>
 <li><a name="carla.Actor.bounding_box"></a><strong><font color="#f8805a">bounding_box</font></strong> (<em><a href="#carla.BoundingBox">carla.BoundingBox</a></em>)<br />
@@ -573,7 +573,7 @@
 </ul>
 <hr />
 <h2 id="carlaboundingbox">carla.BoundingBox<a name="carla.BoundingBox"></a></h2>
-<p>边界框包含场景中参与者或元素的几何体。它们可以被<a href="#carla.DebugHelper">carla.DebugHelper</a> 或 <a href="#carla.Client">carla.Client</a> 用于绘制它们的形状以进行调试。看看 <a href="#carla.DebugHelper.draw_box">carla.DebugHelper.draw_box</a>，其中使用世界快照绘制红绿灯的边界框。</p>
+<p>边界框包含场景中参与者或元素的几何体。它们可以被<a href="#carla.DebugHelper">carla.DebugHelper</a> 或 <a href="#carla.Client">carla.Client</a> 用于绘制它们的形状以进行调试。看看 <a href="#carla.DebugHelper.draw_box">carla.DebugHelper.draw_box</a>，其中使用世界快照绘制交通信号灯的边界框。</p>
 <h3 id="_24">实例变量</h3>
 <ul>
 <li><a name="carla.BoundingBox.extent"></a><strong><font color="#f8805a">extent</font></strong> (<em><a href="#carla.Vector3D">carla.Vector3D</a><small> - 米</small></em>)<br />
@@ -790,7 +790,7 @@
 </ul>
 </li>
 <li><a name="carla.Client.show_recorder_collisions"></a><strong><font color="#7fb800">show_recorder_collisions</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>filename</strong></font>, <font color="#00a6ed"><strong>category1</strong></font>, <font color="#00a6ed"><strong>category2</strong></font>)<br />
-在终端中显示记录器记录的碰撞。可以通过指定所涉及参与者的类型来过滤这些内容。类别将在<code>category1</code>和<code>category1</code>中指定：<code>h</code>表示英雄参与者，一种可以手动控制或由用户管理的车辆。<code>v</code>表示车辆，<code>w</code>表示行人，<code>t</code>表示红绿灯，<code>o</code>表示其他，<code>a</code>表示所有。如果您只想看到车辆和行人之间的碰撞，请将<code>category1</code>设置为<code>v</code>，将<code>category2</code>设置为<code>w</code>，反之亦然。如果要查看所有碰撞（过滤掉），可以对两个参数都使用<code>a</code>。 <ul>
+在终端中显示记录器记录的碰撞。可以通过指定所涉及参与者的类型来过滤这些内容。类别将在<code>category1</code>和<code>category1</code>中指定：<code>h</code>表示英雄参与者，一种可以手动控制或由用户管理的车辆。<code>v</code>表示车辆，<code>w</code>表示行人，<code>t</code>表示交通信号灯，<code>o</code>表示其他，<code>a</code>表示所有。如果您只想看到车辆和行人之间的碰撞，请将<code>category1</code>设置为<code>v</code>，将<code>category2</code>设置为<code>w</code>，反之亦然。如果要查看所有碰撞（过滤掉），可以对两个参数都使用<code>a</code>。 <ul>
 <li><strong>参数：</strong><ul>
 <li><code>filename</code> (<em>str</em>) - 记录文件的名称或绝对路径，具体取决于您之前的选择。</li>
 <li><code>category1</code> (<em>single char</em>) - 指定冲突中涉及的第1类参与者的字符变量。</li>
@@ -804,7 +804,7 @@
 解析记录器保存的信息将并以文本形式显示在终端中（帧、时间、事件、状态、位置…）。可以使用<code>show_all</code>参数指定显示的信息。<a href="../ref_recorder_binary_file_format/">以下</a> 是有关如何读取记录器文件的更多信息。<ul>
 <li><strong>参数：</strong><ul>
 <li><code>filename</code> (<em>str</em>) - 记录的文件的名称或绝对路径，具体取决于您之前的选择。</li>
-<li><code>show_all</code> (<em>bool</em>) - 如果为 <strong>True</strong> ，则返回为每帧存储的所有信息（红绿灯状态、所有参与者的位置、方向和动画数据…）。如果为 <strong>False</strong> ，则返回关键事件和帧的摘要。 </li>
+<li><code>show_all</code> (<em>bool</em>) - 如果为 <strong>True</strong> ，则返回为每帧存储的所有信息（交通信号灯状态、所有参与者的位置、方向和动画数据…）。如果为 <strong>False</strong> ，则返回关键事件和帧的摘要。 </li>
 </ul>
 </li>
 <li><strong>返回：</strong> <em>string</em>  </li>
@@ -1478,7 +1478,7 @@ OpenDRIVE 文件中找到的标识符。</li>
 <h3 id="_74">实例变量</h3>
 <ul>
 <li><a name="carla.Landmark.road_id"></a><strong><font color="#f8805a">road_id</font></strong> (<em>int</em>)<br />
-定义此地标的道路的 OpenDRIVE ID。由于 OpenDRIVE 道路定义，该道路可能与地标当前影响的道路不同。这种情况主要发生在不同路线的道路分叉处。 <small>示例：在交叉路口的一条分叉道路中定义了一个红绿灯，但它会影响所有可能的路线</small>。</li>
+定义此地标的道路的 OpenDRIVE ID。由于 OpenDRIVE 道路定义，该道路可能与地标当前影响的道路不同。这种情况主要发生在不同路线的道路分叉处。 <small>示例：在交叉路口的一条分叉道路中定义了一个交通信号灯，但它会影响所有可能的路线</small>。</li>
 <li><a name="carla.Landmark.distance"></a><strong><font color="#f8805a">distance</font></strong> (<em>float<small> - 米</small></em>)<br />
 地标与创建对象的路径点之间的距离（查询<code>get_landmarks</code>或<code>get_landmarks_of_type</code>）。</li>
 <li><a name="carla.Landmark.s"></a><strong><font color="#f8805a">s</font></strong> (<em>float<small> - 米</small></em>)<br />
@@ -2449,9 +2449,9 @@ Y 轴偏移。默认值为 <strong>0.0</strong>。 </li>
 <li><a name="carla.Osm2OdrSettings.proj_string"></a><strong><font color="#f8805a">proj_string</font></strong> (<em>str</em>)<br />
 定义将用于计算从地理坐标到笛卡尔坐标的投影的 <a href="https://github.com/OSGeo/proj.4">proj4</a> 字符串。该字符串将写入生成的 OpenDRIVE 中，除非启用了 <code>use_offsets</code> 或 <code>center_map</code> 选项，因为这些选项会覆盖字符串中的某些定义。</li>
 <li><a name="carla.Osm2OdrSettings.generate_traffic_lights"></a><strong><font color="#f8805a">generate_traffic_lights</font></strong> (<em>bool</em>)<br />
-指出是否在OpenDRIVE中生成红绿灯数据。 <code>set_traffic_light_excluded_way_types(way_types)</code> 定义的道路类型不会生成交通信号灯。</li>
+指出是否在OpenDRIVE中生成交通信号灯数据。 <code>set_traffic_light_excluded_way_types(way_types)</code> 定义的道路类型不会生成交通信号灯。</li>
 <li><a name="carla.Osm2OdrSettings.all_junctions_with_traffic_lights"></a><strong><font color="#f8805a">all_junctions_with_traffic_lights</font></strong> (<em>bool</em>)<br />
-禁用时，转换器将仅从 OpenStreetMaps 数据生成交通灯数据。启用后，所有路口都会生成交通信号灯。</li>
+禁用时，转换器将仅从 OpenStreetMaps 数据生成交通信号灯数据。启用后，所有路口都会生成交通信号灯。</li>
 </ul>
 <h3 id="_125">方法</h3>
 <h5 id="_126">设置器</h5>
@@ -2465,7 +2465,7 @@ Y 轴偏移。默认值为 <strong>0.0</strong>。 </li>
 </ul>
 </li>
 <li><a name="carla.Osm2OdrSettings.set_traffic_light_excluded_way_types"></a><strong><font color="#7fb800">set_traffic_light_excluded_way_types</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>way_types</strong></font>)<br />
-定义即使启用<code>generate_traffic_lights</code>也不会生成交通灯的 OpenStreetMaps 道路类型。默认情况下，排除的道路类型为 <code>motorway_link, primary_link, secondary_link, tertiary_link</code>。 <ul>
+定义即使启用<code>generate_traffic_lights</code>也不会生成交通信号灯的 OpenStreetMaps 道路类型。默认情况下，排除的道路类型为 <code>motorway_link, primary_link, secondary_link, tertiary_link</code>。 <ul>
 <li><strong>参数：</strong><ul>
 <li><code>way_types</code> (<em>list(str)</em>) - 道路类型列表。</li>
 </ul>
@@ -3115,7 +3115,7 @@ X-轴旋转角度。  </li>
 <h2 id="carlatrafficlight">carla.TrafficLight<a name="carla.TrafficLight"></a></h2>
 <p><small style="display:block;margin-top:-20px;">从 <em><a href="#carla.TrafficSign">carla.TrafficSign</a></em> 继承</small></br>
 认为交通信号灯参与者是一种特定类型的交通标志。由于交通信号灯大多出现在路口，因此它们属于一个包含不同交通信号灯的组。在组内，交通信号灯通过其杆索引进行区分。</p>
-<p>在一个组内，交通灯的状态以循环模式变化：选择一个索引，它在绿色、黄色和最终红色中停留几秒钟。其余的交通灯在整个过程中都保持红色，这意味着在循环的最后几秒钟有一个间隙，所有的交通灯都是红色的。但是，交通灯状态可以手动改变。</p>
+<p>在一个组内，交通信号灯的状态以循环模式变化：选择一个索引，它在绿色、黄色和最终红色中停留几秒钟。其余的交通信号灯在整个过程中都保持红色，这意味着在循环的最后几秒钟有一个间隙，所有的交通信号灯都是红色的。但是，交通信号灯状态可以手动改变。</p>
 <h3 id="_178">实例变量</h3>
 <ul>
 <li><a name="carla.TrafficLight.state"></a><strong><font color="#f8805a">state</font></strong> (<em><a href="#carla.TrafficLightState">carla.TrafficLightState</a></em>)<br />
@@ -3124,7 +3124,7 @@ X-轴旋转角度。  </li>
 <h3 id="_179">方法</h3>
 <ul>
 <li><a name="carla.TrafficLight.freeze"></a><strong><font color="#7fb800">freeze</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>freeze</strong></font>)<br />
-在当前状态将场景中的所有交通灯停止。<ul>
+在当前状态将场景中的所有交通信号灯停止。<ul>
 <li><strong>参数：</strong><ul>
 <li><code>freeze</code> (<em>bool</em>)  </li>
 </ul>
@@ -3132,12 +3132,12 @@ X-轴旋转角度。  </li>
 </ul>
 </li>
 <li><a name="carla.TrafficLight.is_frozen"></a><strong><font color="#7fb800">is_frozen</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-如果交通灯根据上次勾选被冻结，客户端将返回 <b>True</b>。该方法不调用模拟器。<ul>
+如果交通信号灯根据上次勾选被冻结，客户端将返回 <b>True</b>。该方法不调用模拟器。<ul>
 <li><strong>返回:</strong> <em>bool</em>  </li>
 </ul>
 </li>
 <li><a name="carla.TrafficLight.reset_group"></a><strong><font color="#7fb800">reset_group</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-将组的交通灯状态重置为模拟开始时的初始状态。<ul>
+将组的交通信号灯状态重置为模拟开始时的初始状态。<ul>
 <li><strong>Note:</strong> <font color="#8E8E8E"><em>此方法调用模拟器。
 </em></font>  </li>
 </ul>
@@ -3146,7 +3146,7 @@ X-轴旋转角度。  </li>
 <h5 id="_180">设置器</h5>
 <ul>
 <li><a name="carla.TrafficLight.get_affected_lane_waypoints"></a><strong><font color="#7fb800">get_affected_lane_waypoints</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-返回一个路径点列表，指示交通灯产生影响的位置和车道。 <ul>
+返回一个路径点列表，指示交通信号灯产生影响的位置和车道。 <ul>
 <li><strong>返回:</strong> <em>list(<a href="#carla.Waypoint">carla.Waypoint</a>)</em>  </li>
 </ul>
 </li>
@@ -3162,46 +3162,46 @@ X-轴旋转角度。  </li>
 </ul>
 </li>
 <li><a name="carla.TrafficLight.get_group_traffic_lights"></a><strong><font color="#7fb800">get_group_traffic_lights</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-返回此交通灯所属组中的所有交通灯。  <ul>
+返回此交通信号灯所属组中的所有交通信号灯。  <ul>
 <li><strong>返回:</strong> <em>list(<a href="#carla.TrafficLight">carla.TrafficLight</a>)</em>  </li>
 <li><strong>Note:</strong> <font color="#8E8E8E"><em>此方法调用模拟器。
 </em></font>  </li>
 </ul>
 </li>
 <li><a name="carla.TrafficLight.get_light_boxes"></a><strong><font color="#7fb800">get_light_boxes</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-返回一个包含交通灯每个灯箱的边界框列表。<ul>
+返回一个包含交通信号灯每个灯箱的边界框列表。<ul>
 <li><strong>返回:</strong> <em>list(<a href="#carla.BoundingBox">carla.BoundingBox</a>)</em>  </li>
 </ul>
 </li>
 <li><a name="carla.TrafficLight.get_opendrive_id"></a><strong><font color="#7fb800">get_opendrive_id</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-返回此交通灯的OpenDRIVE id。  <ul>
+返回此交通信号灯的OpenDRIVE id。  <ul>
 <li><strong>返回:</strong> <em>str</em>  </li>
 </ul>
 </li>
 <li><a name="carla.TrafficLight.get_pole_index"></a><strong><font color="#7fb800">get_pole_index</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-返回将其标识为交叉口交通灯组一部分的杆的索引。  <ul>
+返回将其标识为交叉口交通信号灯组一部分的杆的索引。  <ul>
 <li><strong>返回:</strong> <em>int</em>  </li>
 </ul>
 </li>
 <li><a name="carla.TrafficLight.get_red_time"></a><strong><font color="#7fb800">get_red_time</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-客户端根据最后一个滴答信息返回交通灯变红的时间设置。该方法不调用模拟器。<ul>
+客户端根据最后一个滴答信息返回交通信号灯变红的时间设置。该方法不调用模拟器。<ul>
 <li><strong>返回:</strong> <em>float<small> - seconds</small></em>  </li>
 <li><strong>设置器：</strong> <em><a href="#carla.TrafficLight.set_red_time">carla.TrafficLight.set_red_time</a></em>  </li>
 </ul>
 </li>
 <li><a name="carla.TrafficLight.get_state"></a><strong><font color="#7fb800">get_state</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-客户端根据最后一个滴答信息返回交通灯的状态。该方法不调用模拟器。<ul>
+客户端根据最后一个滴答信息返回交通信号灯的状态。该方法不调用模拟器。<ul>
 <li><strong>返回:</strong> <em><a href="#carla.TrafficLightState">carla.TrafficLightState</a></em>  </li>
 <li><strong>设置起：</strong> <em><a href="#carla.TrafficLight.set_state">carla.TrafficLight.set_state</a></em>  </li>
 </ul>
 </li>
 <li><a name="carla.TrafficLight.get_stop_waypoints"></a><strong><font color="#7fb800">get_stop_waypoints</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-返回指示交通灯停止位置的路点列表。这些路点是根据交通灯的触发框计算出来的，这些触发框指示车辆应该停在哪里。<ul>
+返回指示交通信号灯停止位置的路点列表。这些路点是根据交通信号灯的触发框计算出来的，这些触发框指示车辆应该停在哪里。<ul>
 <li><strong>返回:</strong> <em>list(<a href="#carla.Waypoint">carla.Waypoint</a>)</em>  </li>
 </ul>
 </li>
 <li><a name="carla.TrafficLight.get_yellow_time"></a><strong><font color="#7fb800">get_yellow_time</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-客户端根据最后一个滴答信息返回为交通灯设置为黄色的时间。该方法不调用模拟器。<ul>
+客户端根据最后一个滴答信息返回为交通信号灯设置为黄色的时间。该方法不调用模拟器。<ul>
 <li><strong>返回:</strong> <em>float<small> - 秒</small></em>  </li>
 <li><strong>设置器：</strong> <em><a href="#carla.TrafficLight.set_yellow_time">carla.TrafficLight.set_yellow_time</a></em>  </li>
 </ul>
@@ -3227,7 +3227,7 @@ X-轴旋转角度。  </li>
 </ul>
 </li>
 <li><a name="carla.TrafficLight.set_state"></a><strong><font color="#7fb800">set_state</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>state</strong></font>)<button class="SnipetButton" id="carla.TrafficLight.set_state-snipet_button">snippet &rarr;</button><br />
-将给定状态设置为交通灯参与者。<ul>
+将给定状态设置为交通信号灯参与者。<ul>
 <li><strong>参数：</strong><ul>
 <li><code>state</code> (<em><a href="#carla.TrafficLightState">carla.TrafficLightState</a></em>)  </li>
 </ul>
@@ -3251,7 +3251,7 @@ X-轴旋转角度。  </li>
 </ul>
 <hr />
 <h2 id="carlatrafficlightstate">carla.TrafficLightState<a name="carla.TrafficLightState"></a></h2>
-<p>交通灯的所有可能状态。这些可以在特定时间步长更改或手动更改。<a href="#carla.TrafficLight.set_state">carla.TrafficLight.set_state</a> 中的片段会动态更改交通灯的状态。</p>
+<p>交通信号灯的所有可能状态。这些可以在特定时间步长更改或手动更改。<a href="#carla.TrafficLight.set_state">carla.TrafficLight.set_state</a> 中的片段会动态更改交通信号灯的状态。</p>
 <h3 id="_183">实例变量</h3>
 <ul>
 <li><a name="carla.TrafficLightState.Red"></a><strong><font color="#f8805a">Red</font></strong>  </li>
@@ -3319,16 +3319,16 @@ X-轴旋转角度。  </li>
 </ul>
 </li>
 <li><a name="carla.TrafficManager.ignore_lights_percentage"></a><strong><font color="#7fb800">ignore_lights_percentage</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor</strong></font>, <font color="#00a6ed"><strong>perc</strong></font>)<br />
-在每帧运行的交通灯阶段，此方法设置车辆忽略交通灯的百分比机会。 <ul>
+在每帧运行的交通信号灯阶段，此方法设置车辆忽略交通信号灯的百分比机会。 <ul>
 <li><strong>参数:</strong><ul>
-<li><code>actor</code> (<em><a href="#carla.Actor">carla.Actor</a></em>) -  将忽略交通灯的参与者。</li>
+<li><code>actor</code> (<em><a href="#carla.Actor">carla.Actor</a></em>) -  将忽略交通信号灯的参与者。</li>
 <li><code>perc</code> (<em>float</em>) - 0 到 100 之间。交通信号灯被忽略的次数。</li>
 </ul>
 </li>
 </ul>
 </li>
 <li><a name="carla.TrafficManager.ignore_signs_percentage"></a><strong><font color="#7fb800">ignore_signs_percentage</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor</strong></font>, <font color="#00a6ed"><strong>perc</strong></font>)<br />
-在每帧运行的交通灯阶段，此方法设置车辆忽略停车标志的百分比机会。 <ul>
+在每帧运行的交通信号灯阶段，此方法设置车辆忽略停车标志的百分比机会。 <ul>
 <li><strong>参数:</strong><ul>
 <li><code>actor</code> (<em><a href="#carla.Actor">carla.Actor</a></em>) - 将忽略停车标志的参与者。 </li>
 <li><code>perc</code> (<em>float</em>) - 0 到 100 之间。停车标志被忽略的次数。 </li>
@@ -3543,7 +3543,7 @@ X-轴旋转角度。  </li>
 <hr />
 <h2 id="carlatrafficsign">carla.TrafficSign<a name="carla.TrafficSign"></a></h2>
 <p><small style="display:block;margin-top:-20px;">从 <em><a href="#carla.Actor">carla.Actor</a></em> 继承</small></br>
-模拟中出现的交通标志（红绿灯除外）。这些标志在 <a href="#carla.TrafficLight">carla.TrafficLight</a> 中都有自己的类，从该类继承。目前，主要实现的交通标志是速度标志、停车标志和让行标志，但还有许多其他标志需要注意。</p>
+模拟中出现的交通标志（交通信号灯除外）。这些标志在 <a href="#carla.TrafficLight">carla.TrafficLight</a> 中都有自己的类，从该类继承。目前，主要实现的交通标志是速度标志、停车标志和让行标志，但还有许多其他标志需要注意。</p>
 <h3 id="_187">实例变量</h3>
 <ul>
 <li><a name="carla.TrafficSign.trigger_volume"></a><strong><font color="#f8805a">trigger_volume</font></strong><br />
@@ -3909,7 +3909,7 @@ CARLA 中最重要的参与者群体之一。其中包括从汽车到卡车、�
 </ul>
 </li>
 <li><a name="carla.Vehicle.is_at_traffic_light"></a><strong><font color="#7fb800">is_at_traffic_light</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-当交通灯为红色并且车辆位于其边界框内时，车辆将受到交通灯的影响。客户端根据最后一个节拍信号返回交通灯是否影响该车辆（它不调用模拟器）。<ul>
+当交通信号灯为红色并且车辆位于其边界框内时，车辆将受到交通信号灯的影响。客户端根据最后一个节拍信号返回交通信号灯是否影响该车辆（它不调用模拟器）。<ul>
 <li><strong>返回:</strong> <em>bool</em>  </li>
 </ul>
 </li>
@@ -3974,12 +3974,12 @@ CARLA 中最重要的参与者群体之一。其中包括从汽车到卡车、�
 </ul>
 </li>
 <li><a name="carla.Vehicle.get_traffic_light"></a><strong><font color="#7fb800">get_traffic_light</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-根据最后一个节拍信号检索影响此车辆的交通灯参与者（如果有）。该方法不调用模拟器。<ul>
+根据最后一个节拍信号检索影响此车辆的交通信号灯参与者（如果有）。该方法不调用模拟器。<ul>
 <li><strong>返回:</strong> <em><a href="#carla.TrafficLight">carla.TrafficLight</a></em>  </li>
 </ul>
 </li>
 <li><a name="carla.Vehicle.get_traffic_light_state"></a><strong><font color="#7fb800">get_traffic_light_state</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-客户端根据上一个tick返回影响该车辆的交通信号灯的状态。该方法不调用模拟器。如果当前没有交通灯影响车辆，则返回 <b>green</b>。<ul>
+客户端根据上一个tick返回影响该车辆的交通信号灯的状态。该方法不调用模拟器。如果当前没有交通信号灯影响车辆，则返回 <b>green</b>。<ul>
 <li><strong>返回:</strong> <em><a href="#carla.TrafficLightState">carla.TrafficLightState</a></em>  </li>
 </ul>
 </li>
@@ -4770,7 +4770,7 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 </ul>
 </li>
 <li><a name="carla.World.freeze_all_traffic_lights"></a><strong><font color="#7fb800">freeze_all_traffic_lights</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>frozen</strong></font>)<br />
-冻结或解冻场景中的所有交通灯。用户可以修改冻结的交通信号灯，但时间不会更新它们，直到解冻。<ul>
+冻结或解冻场景中的所有交通信号灯。用户可以修改冻结的交通信号灯，但时间不会更新它们，直到解冻。<ul>
 <li><strong>参数:</strong><ul>
 <li><code>frozen</code> (<em>bool</em>)  </li>
 </ul>
@@ -4793,7 +4793,7 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 <li><code>map_layers</code> (<em><a href="#carla.MapLayer">carla.MapLayer</a></em>) - 加载到指定层次的掩膜。 </li>
 </ul>
 </li>
-<li><strong>警告：</strong> <font color="#ED2F2F"><em>这仅仅影响分层（Opt）地图。最小布局包括道路、人行道、交通灯和交通标志。</em></font>  </li>
+<li><strong>警告：</strong> <font color="#ED2F2F"><em>这仅仅影响分层（Opt）地图。最小布局包括道路、人行道、交通信号灯和交通标志。</em></font>  </li>
 </ul>
 </li>
 <li><a name="carla.World.on_tick"></a><strong><font color="#7fb800">on_tick</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>callback</strong></font>)<br />
@@ -4825,7 +4825,7 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 </ul>
 </li>
 <li><a name="carla.World.reset_all_traffic_lights"></a><strong><font color="#7fb800">reset_all_traffic_lights</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-将地图中所有交通灯的周期重置为初始状态。 </li>
+将地图中所有交通信号灯的周期重置为初始状态。 </li>
 <li><a name="carla.World.spawn_actor"></a><strong><font color="#7fb800">spawn_actor</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>blueprint</strong></font>, <font color="#00a6ed"><strong>transform</strong></font>, <font color="#00a6ed"><strong>attach_to</strong>=None</font>, <font color="#00a6ed"><strong>attachment</strong>=Rigid</font>)<button class="SnipetButton" id="carla.World.spawn_actor-snipet_button">snippet &rarr;</button><br />
 该方法将创建、返回并生成一个参与者到世界中。参与者将需要创建可用的蓝图和变换（位置和旋转）。它还可以附加到具有特定附件类型的父级。<ul>
 <li><strong>参数:</strong><ul>
@@ -4867,7 +4867,7 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 <li><code>map_layers</code> (<em><a href="#carla.MapLayer">carla.MapLayer</a></em>) - 要卸载图层的掩膜。 </li>
 </ul>
 </li>
-<li><strong>警告:</strong> <font color="#ED2F2F"><em>这仅仅影响分层（Opt）地图。最小布局包括道路、人行道、交通灯和交通标志。</em></font>  </li>
+<li><strong>警告:</strong> <font color="#ED2F2F"><em>这仅仅影响分层（Opt）地图。最小布局包括道路、人行道、交通信号灯和交通标志。</em></font>  </li>
 </ul>
 </li>
 <li><a name="carla.World.wait_for_tick"></a><strong><font color="#7fb800">wait_for_tick</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>seconds</strong>=10.0</font>)<br />
@@ -4961,16 +4961,16 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 </ul>
 </li>
 <li><a name="carla.World.get_traffic_light"></a><strong><font color="#7fb800">get_traffic_light</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>landmark</strong></font>)<br />
-提供一个地标，返回它描述的交通灯对象。 <ul>
+提供一个地标，返回它描述的交通信号灯对象。 <ul>
 <li><strong>参数:</strong><ul>
-<li><code>landmark</code> (<em><a href="#carla.Landmark">carla.Landmark</a></em>) - 描述交通灯的地标对象。</li>
+<li><code>landmark</code> (<em><a href="#carla.Landmark">carla.Landmark</a></em>) - 描述交通信号灯的地标对象。</li>
 </ul>
 </li>
 <li><strong>返回:</strong> <em><a href="#carla.TrafficLight">carla.TrafficLight</a></em>  </li>
 </ul>
 </li>
 <li><a name="carla.World.get_traffic_light_from_opendrive_id"></a><strong><font color="#7fb800">get_traffic_light_from_opendrive_id</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>traffic_light_id</strong></font>)<br />
-返回与指示的 OpenDRIVE id 对应的交通灯参与者。 <ul>
+返回与指示的 OpenDRIVE id 对应的交通信号灯参与者。 <ul>
 <li><strong>参数:</strong><ul>
 <li><code>traffic_light_id</code> (<em>str</em>) - The OpenDRIVE id.  </li>
 </ul>
@@ -4979,7 +4979,7 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 </ul>
 </li>
 <li><a name="carla.World.get_traffic_lights_from_waypoint"></a><strong><font color="#7fb800">get_traffic_lights_from_waypoint</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>waypoint</strong></font>, <font color="#00a6ed"><strong>distance</strong></font>)<br />
-此函数沿着指定路点前面的道路执行搜索，并返回在指定搜索距离内找到的交通灯参与者列表。<ul>
+此函数沿着指定路点前面的道路执行搜索，并返回在指定搜索距离内找到的交通信号灯参与者列表。<ul>
 <li><strong>参数:</strong><ul>
 <li><code>waypoint</code> (<em><a href="#carla.Waypoint">carla.Waypoint</a></em>) - 输入路径点。 </li>
 <li><code>distance</code> (<em>float</em>) - 搜索距离。 </li>
@@ -4989,7 +4989,7 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 </ul>
 </li>
 <li><a name="carla.World.get_traffic_lights_in_junction"></a><strong><font color="#7fb800">get_traffic_lights_in_junction</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>junction_id</strong></font>)<br />
-返回影响<code>junction_id</code>中指示的路口的交通灯参与者列表。<ul>
+返回影响<code>junction_id</code>中指示的路口的交通信号灯参与者列表。<ul>
 <li><strong>参数:</strong><ul>
 <li><code>junction_id</code> (<em>int</em>) - 连接点的 id。</li>
 </ul>
@@ -5531,20 +5531,20 @@ Actor affected by the command.  </li>
 </ul>
 <hr />
 <h2 id="commandsetvehiclelightstate">command.SetVehicleLightState<a name="command.SetVehicleLightState"></a></h2>
-<p><a href="#carla.Vehicle">carla.Vehicle</a> 中 <strong><font color="#7fb800">set_light_state()</font></strong> 的命令适应。设置车辆的交通灯。</p>
+<p><a href="#carla.Vehicle">carla.Vehicle</a> 中 <strong><font color="#7fb800">set_light_state()</font></strong> 的命令适应。设置车辆的交通信号灯。</p>
 <h3 id="_288">实例变量</h3>
 <ul>
 <li><a name="command.SetVehicleLightState.actor_id"></a><strong><font color="#f8805a">actor_id</font></strong> (<em>int</em>)<br />
 命令影响的参与者。  </li>
 <li><a name="command.SetVehicleLightState.light_state"></a><strong><font color="#f8805a">light_state</font></strong> (<em><a href="#carla.VehicleLightState">carla.VehicleLightState</a></em>)<br />
-定义车辆的交通灯。  </li>
+定义车辆的交通信号灯。  </li>
 </ul>
 <h3 id="_289">方法</h3>
 <ul>
 <li><a name="command.SetVehicleLightState.__init__"></a><strong><font color="#7fb800">__init__</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>actor</strong></font>, <font color="#00a6ed"><strong>light_state</strong></font>)  <ul>
 <li><strong>参数：</strong><ul>
 <li><code>actor</code> (<em><a href="#carla.Actor">carla.Actor</a> or int</em>) - 命令应用到的参与者或者它的ID。</li>
-<li><code>light_state</code> (<em><a href="#carla.VehicleLightState">carla.VehicleLightState</a></em>) - Recaps 车辆的交通灯状态，这些能被用作一个标志。</li>
+<li><code>light_state</code> (<em><a href="#carla.VehicleLightState">carla.VehicleLightState</a></em>) - Recaps 车辆的交通信号灯状态，这些能被用作一个标志。</li>
 </ul>
 </li>
 </ul>
@@ -5700,7 +5700,7 @@ Snippet for carla.World.unload_map_layer
 
 <div class="highlight"><pre><span></span><code><span class="c1"># 该代码片段在分层地图&quot;_Opt&quot;上关闭几层</span>
 
-<span class="c1"># 以最小布局（道路、人行道、交通灯和交通标志）加载城镇，还包括建筑和停靠的车辆</span>
+<span class="c1"># 以最小布局（道路、人行道、交通信号灯和交通标志）加载城镇，还包括建筑和停靠的车辆</span>
 <span class="n">world</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">load_world</span><span class="p">(</span><span class="s1">&#39;Town01_Opt&#39;</span><span class="p">,</span> <span class="n">carla</span><span class="o">.</span><span class="n">MapLayer</span><span class="o">.</span><span class="n">Buildings</span> <span class="o">|</span> <span class="n">carla</span><span class="o">.</span><span class="n">MapLayer</span><span class="o">.</span><span class="n">ParkedVehicles</span><span class="p">)</span> 
 
 <span class="c1"># 隐藏建筑</span>

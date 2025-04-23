@@ -74,7 +74,7 @@
 <li>如何从 OpenStreetMaps 导出地图。</li>
 <li>Carla 中可以使用的不同格式的地图以及每种格式的限制。</li>
 <li>如何将本机<code>.osm</code>格式转换为<code>.xodr</code>。</li>
-<li>如何在<code>.xodr</code>文件中包含交通灯信息。</li>
+<li>如何在<code>.xodr</code>文件中包含交通信号灯信息。</li>
 <li>如何在 Carla 模拟中运行最终地图。</li>
 </ul>
 <p><a href="https://www.openstreetmap.org">OpenStreetMap</a> 是由数千名贡献者开发的开放数据世界地图，并根据<a href="https://opendatacommons.org/licenses/odbl/">Open Data Commons Open Database License</a> 获得许可。地图的各个部分可以导出为 XML 格式的<code>.osm</code>文件。Carla 可以将此文件转换为 OpenDRIVE 格式并使用 <a href="#adv_opendrive.md">OpenDRIVE Standalone Mode</a> 导入它。</p>
@@ -84,7 +84,7 @@
 <li><a href="#convert-openstreetmap-format-to-opendrive-format"><strong>将 OpenStreetMap 格式转换为 OpenDRIVE 格式</strong></a><ul>
 <li><a href="#linux">Linux</a></li>
 <li><a href="#windows">Windows</a></li>
-<li><a href="#generate-traffic-lights">生成交通灯</a></li>
+<li><a href="#generate-traffic-lights">生成交通信号灯</a></li>
 </ul>
 </li>
 <li><a href="#ingest-into-carla"><strong>导入 Carla</strong></a></li>
@@ -120,7 +120,7 @@
 <hr />
 <h2 id="openstreetmap-opendrive">将 OpenStreetMap 格式转换为 OpenDRIVE 格式 <span id="convert-openstreetmap-format-to-opendrive-format"></span></h2>
 <p>本节演示如何使用 Python API 将我们在上一节中导出的 <code>.osm</code> 文件转换为<code>.xodr</code>格式，以便可以在 Carla 中使用。</p>
-<p><a href="../python_api/#carla.Osm2OdrSettings">carla.Osm2OdrSettings</a>类用于配置转换设置，例如偏移值、交通灯生成、原点坐标等。可配置参数的完整列表可以在 Python API <a href="../python_api/#carla.Osm2OdrSettings">文档</a> 中找到。<a href="../python_api/#carla.Osm2Odr">carla.Osm2Odr</a> 类使用这些设置来解析<code>.osm</code>数据并以 <code>.xodr</code> 格式输出。</p>
+<p><a href="../python_api/#carla.Osm2OdrSettings">carla.Osm2OdrSettings</a>类用于配置转换设置，例如偏移值、交通信号灯生成、原点坐标等。可配置参数的完整列表可以在 Python API <a href="../python_api/#carla.Osm2OdrSettings">文档</a> 中找到。<a href="../python_api/#carla.Osm2Odr">carla.Osm2Odr</a> 类使用这些设置来解析<code>.osm</code>数据并以 <code>.xodr</code> 格式输出。</p>
 <p>在 Windows 中，<code>.osm</code>文件必须编码为<code>UTF-8</code>. 这在 Linux 中是不必要的。以下是示例代码片段，显示如何根据您的操作系统执行文件转换：</p>
 <h5 id="linux">Linux <span id="linux"></span></h5>
 <div class="highlight"><pre><span></span><code><span class="c1"># 读取 .osm 数据</span>
@@ -162,16 +162,16 @@
 </code></pre></div>
 <br></p>
 <hr />
-<h3 id="_1">生成交通灯 <span id="generate-traffic-lights"></span></h3>
-<p>Open Street Map 数据可以定义哪些路口受交通灯控制。要在 Carla 中使用此交通灯数据，您需要在将<code>.osm</code>文件转换为<code>.xodr</code>格式之前通过 Python API 在 OSM 地图设置中启用它：</p>
+<h3 id="_1">生成交通信号灯 <span id="generate-traffic-lights"></span></h3>
+<p>Open Street Map 数据可以定义哪些路口受交通信号灯控制。要在 Carla 中使用此交通信号灯数据，您需要在将<code>.osm</code>文件转换为<code>.xodr</code>格式之前通过 Python API 在 OSM 地图设置中启用它：</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 定义想要的设置。在该案例中为默认值。</span>
 <span class="n">settings</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Osm2OdrSettings</span><span class="p">()</span>
-<span class="c1"># 启用从 OSM 数据中生成交通灯</span>
+<span class="c1"># 启用从 OSM 数据中生成交通信号灯</span>
 <span class="n">settings</span><span class="o">.</span><span class="n">generate_traffic_lights</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="c1"># 转为 .xodr</span>
 <span class="n">xodr_data</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Osm2Odr</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">osm_data</span><span class="p">,</span> <span class="n">settings</span><span class="p">)</span>
 </code></pre></div>
-<p>交通灯数据质量可能因提取数据的区域而异。一些交通灯信息可能完全丢失。要克服这些限制，您可以使用 Python API 将所有路口配置为由交通灯控制：</p>
+<p>交通信号灯数据质量可能因提取数据的区域而异。一些交通信号灯信息可能完全丢失。要克服这些限制，您可以使用 Python API 将所有路口配置为由交通信号灯控制：</p>
 <div class="highlight"><pre><span></span><code><span class="n">settings</span><span class="o">.</span><span class="n">all_junctions_with_traffic_lights</span> <span class="o">=</span> <span class="kc">True</span>
 </code></pre></div>
 <p>您还可以排除某些道路（例如高速公路链接）生成交通信号灯：</p>

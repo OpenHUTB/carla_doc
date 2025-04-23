@@ -150,7 +150,7 @@
 </ul>
 <p>但是，教程中提到的两个脚本在 Carla 中找不到。它们包含引用的代码片段。这有双重目的。首先，鼓励用户构建自己的脚本。充分理解代码的作用非常重要。除此之外，本教程只是一个大纲，可能而且应该根据用户的喜好而有很大的不同。这两个脚本只是一个示例。</p>
 <ul>
-<li><strong>tutorial_ego.py</strong> 生成带有一些基本传感器的自我车辆，并启用自动驾驶仪。观察者被放置在生成位置。记录器从一开始就启动，并在脚本完成时停止。</li>
+<li><a href="https://github.com/OpenHUTB/carla_doc/tree/master/src/tutorial/tutorial_ego.py"><strong>tutorial_ego.py</strong></a> 生成带有一些基本传感器的自我车辆，并启用自动驾驶仪。观察者被放置在生成位置。记录器从一开始就启动，并在脚本完成时停止。</li>
 <li><a href="https://github.com/OpenHUTB/carla_doc/tree/master/src/tutorial/tutorial_replay.py"><strong>tutorial_replay.py</strong></a> 重新执行 <strong>tutorial_ego.py</strong> 记录的模拟。有不同的代码片段可以查询记录、生成一些高级传感器、改变天气条件以及重新执行记录片段。</li>
 </ul>
 <p>完整的代码可以在教程的最后部分找到。请记住，这些并不严格，而是可以定制的。在 Carla 中检索数据的功能正如用户所希望的那样强大。</p>
@@ -302,11 +302,11 @@ python3<span class="w"> </span>run_synchronization.py<span class="w"> </span>exa
 
 <div class="admonition 警告">
 <p class="admonition-title">警告</p>
-<p>目前，SUMO 联合模拟还是测试版功能。车辆没有物理特性，也不考虑 Carla 交通灯。</p>
+<p>目前，SUMO 联合模拟还是测试版功能。车辆没有物理特性，也不考虑 Carla 交通信号灯。</p>
 </div>
 <hr />
 <h2 id="_7">设置自我车辆 <span id="et-the-ego-vehicle"></span></h2>
-<p>从现在到记录器停止的那一刻，将会有一些属于 <strong>tutorial_ego.py</strong> 的代码片段。该脚本生成自我车辆，可选一些传感器，并记录模拟，直到用户完成脚本。</p>
+<p>从现在到记录器停止的那一刻，将会有一些属于 <a href="https://github.com/OpenHUTB/carla_doc/tree/master/src/tutorial/tutorial_ego.py"><strong>tutorial_ego.py</strong></a> 的代码片段。该脚本生成自我车辆，可选一些传感器，并记录模拟，直到用户完成脚本。</p>
 <h3 id="_8">生成自我车辆 <span id="spawn-the-ego-vehicle"></span></h3>
 <p>用户控制的车辆在 Carla 中通常通过将属性 <code>role_name</code> 设置为 <code>ego</code> 来区分。可以设置其他属性，其中一些具有推荐值。</p>
 <p>下面，从 <a href="../bp_library/">蓝图库</a> 中检索特斯拉模型，并使用随机推荐的颜色生成。选择地图推荐的生成点之一来放置自我车辆。</p>
@@ -436,7 +436,7 @@ python3<span class="w"> </span>run_synchronization.py<span class="w"> </span>exa
 <li><a href="../ref_sensors/#imu-sensor"><strong>IMU 传感器。</strong></a> 包括加速度计、陀螺仪和指南针。</li>
 </ul>
 <p>为了获得车辆对象的一般测量值，这两个传感器以车辆对象为中心生成。</p>
-<p>这些传感器可用的属性主要设置测量噪声模型中的平均值或标准偏差参数。这对于获得更现实的措施很有用。然而，在 <strong>tutorial_ego.py</strong> 中只设置了一个属性。</p>
+<p>这些传感器可用的属性主要设置测量噪声模型中的平均值或标准偏差参数。这对于获得更现实的措施很有用。然而，在 <a href="https://github.com/OpenHUTB/carla_doc/tree/master/src/tutorial/tutorial_ego.py"><strong>tutorial_ego.py</strong></a> 中只设置了一个属性。</p>
 <ul>
 <li><strong><code>sensor_tick</code></strong>. 由于此测量值在步骤之间不应有显着变化，因此可以经常检索数据。在本例中，设置为每三秒打印一次。 </li>
 </ul>
@@ -530,7 +530,7 @@ python3<span class="w"> </span>run_synchronization.py<span class="w"> </span>exa
 <li><strong><code>points_per_second</code></strong> 是每秒获得的点数。该数量除以 <code>channels</code>的数量。</li>
 <li><strong><code>rotation_frequency</code></strong> 是激光雷达每秒旋转的次数。</li>
 </ul>
-<p>点云输出被描述为 [carla.LidarMeasurement]。它可以作为 [carla.Location] 列表进行迭代或保存为 <em>.ply</em> 标准文件格式。</p>
+<p>点云输出被描述为 <a href="../python_api/#carla.LidarMeasurement">carla.LidarMeasurement</a> 。它可以作为 <a href="../python_api/#carla.Location">carla.Location</a> 列表进行迭代或保存为 <em>.ply</em> 标准文件格式。</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># --------------</span>
 <span class="c1"># 相自车添加新的激光雷达传感器</span>
 <span class="c1"># --------------</span>
@@ -617,7 +617,7 @@ sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w
 <span class="n">rad_ego</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="k">lambda</span> <span class="n">radar_data</span><span class="p">:</span> <span class="n">rad_callback</span><span class="p">(</span><span class="n">radar_data</span><span class="p">))</span>
 </code></pre></div>
 <p><img alt="tuto_radar" src="../img/tuto_radar.jpg" /></p>
-<div style="text-align: center"><i>雷达输出。车辆停在红绿灯处，因此其前面的静态元素显示为白色。</i></div>
+<div style="text-align: center"><i>雷达输出。车辆停在交通信号灯处，因此其前面的静态元素显示为白色。</i></div>
 
 <hr />
 <h2 id="_18">非渲染模式 <span id="no-rendering-mode"></span></h2>

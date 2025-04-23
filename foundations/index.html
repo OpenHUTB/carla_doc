@@ -121,7 +121,7 @@ pip3<span class="w"> </span>install<span class="w"> </span>carla-simulator<span 
 <p>使用客户端对象检索世界对象：</p>
 <div class="highlight"><pre><span></span><code><span class="n">world</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_world</span><span class="p">()</span>
 </code></pre></div>
-<p>世界对象可用于使用其多种方法访问模拟中的对象，例如天气、车辆、交通灯、建筑物和地图：</p>
+<p>世界对象可用于使用其多种方法访问模拟中的对象，例如天气、车辆、交通信号灯、建筑物和地图：</p>
 <div class="highlight"><pre><span></span><code><span class="n">level</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_map</span><span class="p">()</span>
 
 <span class="n">weather</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_weather</span><span class="p">()</span>
@@ -135,13 +135,13 @@ pip3<span class="w"> </span>install<span class="w"> </span>carla-simulator<span 
 <li>行人</li>
 <li>传感器</li>
 <li>观察者</li>
-<li>交通信号和交通灯</li>
+<li>交通信号和交通信号灯</li>
 </ul>
 <p><strong>蓝图</strong> 是生成参与者所必需的已经制作好的参与者布局。基本上，是带有动画和一组属性的模型。其中一些属性可以由用户自定义，而另一些则不能。有一个<strong><a href="../bp_library/">蓝图库</a></strong>，其中包含所有可用的蓝图以及有关它们的信息。</p>
 <h2 id="_6">地图和导航 <span id="map_navigation"></span></h2>
 <p><strong>地图</strong> 是代表模拟世界的对象，主要是城镇。有八张地图可供选择。它们都使用 opdrive 1.4 标准来描述道路。</p>
 <p><strong>道路、车道和路口</strong> 由 Python API 管理，以便从客户端访问。这些与 <strong>waypoint</strong> 类一起使用，为车辆提供导航路径。</p>
-<p><strong>交通标志</strong> 和 <strong>交通灯</strong> 是可访问的<a href="#python_api.md#carla.landmark"><strong>carla.Landmark</strong></a>。这些地标对象包含关于它们的 OpenDRIVE 定义的信息。此外，模拟器在运行时会自动生成停车标志、让行标志和交通信号灯对象，使用 OpenDRIVE 文件中的信息。这些对象会放置在道路上，有边界框包围。一旦车辆进入它们的边界框，它们就会意识到这些对象。</p>
+<p><strong>交通标志</strong> 和 <strong>交通信号灯</strong> 是可访问的<a href="#python_api.md#carla.landmark"><strong>carla.Landmark</strong></a>。这些地标对象包含关于它们的 OpenDRIVE 定义的信息。此外，模拟器在运行时会自动生成停车标志、让行标志和交通信号灯对象，使用 OpenDRIVE 文件中的信息。这些对象会放置在道路上，有边界框包围。一旦车辆进入它们的边界框，它们就会意识到这些对象。</p>
 <h2 id="_7">传感器和数据 <span id="sensor_data"></span></h2>
 <p><strong>传感器</strong> 等待一些事件发生，然后从模拟中收集数据。它们调用定义如何管理数据的函数。根据不同的情况，传感器会检索不同类型的传感器数据。</p>
 <p>传感器是附着在父车辆上的参与者。它跟随车辆，收集周围环境的信息。可用的传感器由<strong><a href="../bp_library/">Blueprint库</a></strong>中的蓝图定义。</p>
@@ -231,14 +231,14 @@ pip3<span class="w"> </span>install<span class="w"> </span>carla-simulator<span 
 </code></pre></div>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
-<p>其他数据包括：车辆和行人的线速度和角速度、交通灯时间设置、执行时间、参与者的触发器和边界框以及车辆的物理控制。</p>
+<p>其他数据包括：车辆和行人的线速度和角速度、交通信号灯时间设置、执行时间、参与者的触发器和边界框以及车辆的物理控制。</p>
 </div>
 <p>要停止记录，调用也很简单。</p>
 <div class="highlight"><pre><span></span><code><span class="n">client</span><span class="o">.</span><span class="n">stop_recorder</span><span class="p">()</span>
 </code></pre></div>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
-<p>据估计，50 个交通灯和 100 辆车的 1 小时记录大约需要 200MB 大小。</p>
+<p>据估计，50 个交通信号灯和 100 辆车的 1 小时记录大约需要 200MB 大小。</p>
 </div>
 <h3 id="_13">模拟回放 <span id="simulation-playback"></span></h3>
 <p>可以在模拟过程中的任何时刻开始播放。除了日志文件的路径之外，此方法还需要一些参数。</p>

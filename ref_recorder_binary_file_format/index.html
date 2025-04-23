@@ -81,7 +81,7 @@
 <li><a href="#packet_4_event_parent">数据包 4 - 事件父级</a>  </li>
 <li><a href="#packet_5_event_collision">数据包 5 - 事件碰撞</a>  </li>
 <li><a href="#packet_6_position">数据包 6 - 位置</a>  </li>
-<li><a href="#packet_7_trafficlight">数据包 7 - 交通灯</a>  </li>
+<li><a href="#packet_7_trafficlight">数据包 7 - 交通信号灯</a>  </li>
 <li><a href="#packet_8_vehicle_animation">数据包 8 - 车辆动画</a>  </li>
 <li><a href="#packet_9_walker_animation">数据包 9 - 行人动画</a>  </li>
 </ul>
@@ -132,7 +132,7 @@
 <li>0 = 其他</li>
 <li>1 = 车辆</li>
 <li>2 = 行人</li>
-<li>3 = 交通灯</li>
+<li>3 = 交通信号灯</li>
 <li>4 = 无效</li>
 </ul>
 <p>之后，继续我们想要创建参与者的<strong>位置</strong>和<strong>旋转</strong>。</p>
@@ -162,8 +162,8 @@
 <h3 id="6-">数据包 6 - 位置 <span id="packet_6_position"></span></h3>
 <p>该数据包记录场景中存在的<strong>车辆</strong>和<strong>行人</strong>类型的所有参与者的位置和方向。</p>
 <p><img alt="position" src="../img/RecorderPosition.jpg" /></p>
-<h3 id="7-">数据包 7 - 交通灯 <span id="packet_7_trafficlight"></span></h3>
-<p>该数据包记录了场景中所有<strong>交通灯</strong>的状态。这意味着它存储状态（红色、橙色或绿色）以及等待更改为新状态的时间。</p>
+<h3 id="7-">数据包 7 - 交通信号灯 <span id="packet_7_trafficlight"></span></h3>
+<p>该数据包记录了场景中所有<strong>交通信号灯</strong>的状态。这意味着它存储状态（红色、橙色或绿色）以及等待更改为新状态的时间。</p>
 <p><img alt="state" src="../img/RecorderTrafficLight.png" /></p>
 <h3 id="8-">数据包 8 - 车辆动画 <span id="packet_8_vehicle_animation"></span></h3>
 <p>该数据包记录了车辆、自行车和山地自行车的动画。该数据包存储了<strong>油门</strong>、<strong>方向盘</strong>、<strong>删车</strong>、<strong>手刹</strong>和<strong>排挡</strong>输入，然后在播放时设置它们。</p>
@@ -176,7 +176,7 @@
 <p>一个帧由多个数据包组成，其中所有数据包都是可选的，除了那些在该帧中具有<strong>开始</strong>和<strong>结束</strong>的数据包之外，它们必须始终存在。</p>
 <p><img alt="layout" src="../img/RecorderFrameLayout.jpg" /></p>
 <p><strong>事件</strong> 数据包仅存在于它们发生的帧中。</p>
-<p><strong>位置</strong> 和 <strong>交通灯</strong> 数据包应该存在于所有帧中，因为它们需要移动所有参与者并将交通灯设置为其状态。它们是可选的，但如果它们不存在，那么重放器将无法移动或设置交通灯的状态。</p>
+<p><strong>位置</strong> 和 <strong>交通信号灯</strong> 数据包应该存在于所有帧中，因为它们需要移动所有参与者并将交通信号灯设置为其状态。它们是可选的，但如果它们不存在，那么重放器将无法移动或设置交通信号灯的状态。</p>
 <p><strong>动画</strong>包也是可选的，但默认情况下它们会被记录。这样行人就会被动画化，并且车轮也会跟随车辆的方向。</p>
 <hr />
 <h2 id="5-_1">5- 文件布局 <span id="5_file_layout"></span></h2>

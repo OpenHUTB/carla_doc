@@ -135,12 +135,12 @@
 </code></pre></div>
 <p>如果您现在与观察者一起飞过地图，您应该会看到静止的车辆占据地图中的道路。</p>
 <h2 id="_4">使用交通管理器控制车辆</h2>
-<p>现在我们可以让交通管理器控制我们的车辆并让模拟运行。一旦交通管理器控制了车辆，它们就会在道路上自主移动，遵循道路网络的特征，如车道和红绿灯，并避免与其他车辆发生碰撞。</p>
-<p>交通管理器具有许多功能，允许修改每辆车的特定行为。在下面的例子中，我们为每辆车设置了忽略红绿灯的随机概率，因此有些车辆会倾向于忽略红绿灯，而另一些车辆则会遵守红绿灯。可以设置多种不同的行为，有关详细信息，请参阅 Python API 参考。</p>
+<p>现在我们可以让交通管理器控制我们的车辆并让模拟运行。一旦交通管理器控制了车辆，它们就会在道路上自主移动，遵循道路网络的特征，如车道和交通信号灯，并避免与其他车辆发生碰撞。</p>
+<p>交通管理器具有许多功能，允许修改每辆车的特定行为。在下面的例子中，我们为每辆车设置了忽略交通信号灯的随机概率，因此有些车辆会倾向于忽略交通信号灯，而另一些车辆则会遵守交通信号灯。可以设置多种不同的行为，有关详细信息，请参阅 Python API 参考。</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 解析所生成车辆的列表并通过set_autopilot()将控制权交给交通管理器</span>
 <span class="k">for</span> <span class="n">vehicle</span> <span class="ow">in</span> <span class="n">vehicles</span><span class="p">:</span>
     <span class="n">vehicle</span><span class="o">.</span><span class="n">set_autopilot</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-    <span class="c1"># 随机设置车辆无视交通灯的概率</span>
+    <span class="c1"># 随机设置车辆无视交通信号灯的概率</span>
     <span class="n">traffic_manager</span><span class="o">.</span><span class="n">ignore_lights_percentage</span><span class="p">(</span><span class="n">vehicle</span><span class="p">,</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">50</span><span class="p">))</span>
 
 <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>

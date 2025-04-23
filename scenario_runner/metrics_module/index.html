@@ -88,7 +88,7 @@
 <li><a href="#actor-transforms">参与者变换</a>  </li>
 <li><a href="#actor-velocities">参与者速度</a>  </li>
 <li><a href="#scene-lights">场景灯</a>  </li>
-<li><a href="#traffic-lights">红绿灯</a>  </li>
+<li><a href="#traffic-lights">交通信号灯</a>  </li>
 <li><a href="#vehicle-lights">车灯</a>  </li>
 </ul>
 </li>
@@ -318,11 +318,11 @@ def _create_metric(self, town_map, log, criteria):
 </li>
 <li>
 <p><a name="get_traffic_light_trigger_volume"></a><strong><font color="#7fb800">get_traffic_light_trigger_volume</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>traffic_light_id</strong></font>)<br />
-返回指定交通灯的 trigger volume。</p>
+返回指定交通信号灯的 trigger volume。</p>
 <ul>
 <li><strong>Return —</strong> <a href="https://carla.readthedocs.io/en/latest/python_api/#carlaboundingbox">carla.BoundingBox</a></li>
 <li><strong>Parameters</strong><ul>
-<li><code>traffic_light_id</code> (<em>int</em>) — 红绿灯的<code>id</code>。</li>
+<li><code>traffic_light_id</code> (<em>int</em>) — 交通信号灯的<code>id</code>。</li>
 </ul>
 </li>
 </ul>
@@ -605,15 +605,15 @@ Returns the state of a scene light for a given frame. The light state group will
 </ul>
 </li>
 </ul>
-<h3 id="_13">红绿灯</h3>
+<h3 id="_13">交通信号灯</h3>
 <ul>
 <li>
 <p><a name="get_traffic_light_state"></a><strong><font color="#7fb800">get_traffic_light_state</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>traffic_light_id</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>)<br />
-返回给定帧的红绿灯状态。</p>
+返回给定帧的交通信号灯状态。</p>
 <ul>
 <li><strong>Return —</strong> <a href="https://carla.readthedocs.io/en/latest/python_api/#carlatrafficlightstate">carla.TrafficLightState</a>.</li>
 <li><strong>Parameters</strong><ul>
-<li><code>traffic_light_id</code> (<em>int</em>) — 红绿灯的<code>id</code>。</li>
+<li><code>traffic_light_id</code> (<em>int</em>) — 交通信号灯的<code>id</code>。</li>
 <li><code>frame</code> (<em>int</em>) — 帧号。</li>
 </ul>
 </li>
@@ -625,7 +625,7 @@ Returns the state of a scene light for a given frame. The light state group will
 <ul>
 <li><strong>Return —</strong> bool</li>
 <li><strong>Parameters</strong><ul>
-<li><code>traffic_light_id</code> (<em>int</em>) — 交通灯的<code>id</code>。</li>
+<li><code>traffic_light_id</code> (<em>int</em>) — 交通信号灯的<code>id</code>。</li>
 <li><code>frame</code> (<em>int</em>) — 帧号。</li>
 </ul>
 </li>
@@ -633,11 +633,11 @@ Returns the state of a scene light for a given frame. The light state group will
 </li>
 <li>
 <p><a name="get_traffic_light_elapsed_time"></a><strong><font color="#7fb800">get_traffic_light_elapsed_time</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>traffic_light_id</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>)<br />
-返回给定帧处交通灯的经过时间。</p>
+返回给定帧处交通信号灯的经过时间。</p>
 <ul>
 <li><strong>Return —</strong> float</li>
 <li><strong>Parameters</strong><ul>
-<li><code>traffic_light_id</code> (<em>int</em>) — 交通灯的<code>id</code>。</li>
+<li><code>traffic_light_id</code> (<em>int</em>) — 交通信号灯的<code>id</code>。</li>
 <li><code>frame</code> (<em>int</em>) — 帧号。</li>
 </ul>
 </li>
@@ -645,7 +645,7 @@ Returns the state of a scene light for a given frame. The light state group will
 </li>
 <li>
 <p><a name="get_traffic_light_state_time"></a><strong><font color="#7fb800">get_traffic_light_state_time</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>traffic_light_id</strong></font>, <font color="#00a6ed"><strong>state</strong></font>, <font color="#00a6ed"><strong>frame</strong></font>)<br />
-返回给定帧处交通灯特定状态的最长时间。</p>
+返回给定帧处交通信号灯特定状态的最长时间。</p>
 <ul>
 <li><strong>Return —</strong> float</li>
 <li><strong>Parameters</strong><ul>

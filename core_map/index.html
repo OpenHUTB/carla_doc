@@ -119,7 +119,7 @@
 <h3 id="_4">地标 <span id="landmarks"></span></h3>
 <p>OpenDRIVE 文件中定义的交通标志将转换为 Carla，作为可从 API 查询的地标对象。以下方法和类可用于操作和使用地标对象：</p>
 <ul>
-<li><strong><a href="https://carla.readthedocs.io/en/latest/python_api/#carla.Landmark"><code>carla.Landmark</code></a></strong> 对象代表 OpenDRIVE 信号。该类的属性和方法描述了地标及其影响区域。<ul>
+<li><strong><a href="../python_api/#carla.Landmark"><code>carla.Landmark</code></a></strong> 对象代表 OpenDRIVE 信号。该类的属性和方法描述了地标及其影响区域。<ul>
 <li><a href="https://carla.readthedocs.io/en/latest/python_api/#carla.LandmarkOrientation"><code>carla.LandmarkOrientation</code></a> 说明地标相对于道路几何定义的方向。</li>
 <li><a href="https://carla.readthedocs.io/en/latest/python_api/#carla.LandmarkType"><code>carla.LandmarkType</code></a> 包含常见的地标类型，以便于转换为 OpenDRIVE 类型。</li>
 </ul>
@@ -283,7 +283,7 @@ world.enable_environment_objects(objects_to_toggle, True)
 </tr>
 <tr>
 <td><strong><a href="../img/Town07.jpg">Town07</a></strong></td>
-<td>乡村环境，道路狭窄，谷仓，几乎没有红绿灯。</td>
+<td>乡村环境，道路狭窄，谷仓，几乎没有交通信号灯。</td>
 </tr>
 <tr>
 <td><strong><a href="../img/Town10.jpg">Town10</a></strong></td>
@@ -316,7 +316,7 @@ world.enable_environment_objects(objects_to_toggle, True)
 </tbody>
 </table>
 <h3 id="_12">分层地图 <span id="layered-maps"></span></h3>
-<p>分层地图的布局与非分层地图相同，但可以关闭和打开地图的图层。有一个无法关闭的最小布局，由道路、人行道、交通灯和交通标志组成。分层地图可以通过后缀 <code>_Opt</code> 来标识，例如<code>Town01_Opt</code>。使用这些地图，可以通过 Python API <a href="https://carla.readthedocs.io/en/latest/python_api/#carla.World.load_map_layer">加载</a>和<a href="https://carla.readthedocs.io/en/latest/python_api/#carla.World.unload_map_layer">卸载</a>图层：</p>
+<p>分层地图的布局与非分层地图相同，但可以关闭和打开地图的图层。有一个无法关闭的最小布局，由道路、人行道、交通信号灯和交通标志组成。分层地图可以通过后缀 <code>_Opt</code> 来标识，例如<code>Town01_Opt</code>。使用这些地图，可以通过 Python API <a href="https://carla.readthedocs.io/en/latest/python_api/#carla.World.load_map_layer">加载</a>和<a href="https://carla.readthedocs.io/en/latest/python_api/#carla.World.unload_map_layer">卸载</a>图层：</p>
 <pre><code># 加载 城镇01 的分层地图，带有最小布局加上建筑物和停放的车辆
 world = client.load_world('Town01_Opt', carla.MapLayer.Buildings | carla.MapLayer.ParkedVehicles)
 
