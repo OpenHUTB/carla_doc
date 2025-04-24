@@ -63,7 +63,7 @@ class NewScenario(BasicScenario):
 
 ### CreateBehavior 方法
 
-此方法应设置包含场景期间所有非自我车辆行为的行为树。行为树应该使用`atomic_scenario_behavior.py` 和 `atomic_scenario_behavior.py` 中定义的原子行为。
+此方法应设置包含场景期间所有非自主车辆行为的行为树。行为树应该使用`atomic_scenario_behavior.py` 和 `atomic_scenario_behavior.py` 中定义的原子行为。
 
 
 ### CreateTestCriteria 方法
@@ -76,7 +76,7 @@ class NewScenario(BasicScenario):
 ## 添加场景配置
 最后，场景配置应添加到该 `examples/` 文件夹中。如果扩展已经存在的场景模块，则只需扩展相应的 XML，否则添加新的 XML 文件。在这种情况下，您可以使用任何现有的 XML 文件作为蓝图。
 
-如果您想为一个场景添加多个自我车辆，请确保它们使用不同的参与者名称，例如
+如果您想为一个场景添加多个自主车辆，请确保它们使用不同的参与者名称，例如
 
 ```xml
     <scenario name="MultiEgoTown03" type="FreeRide" town="Town03">
