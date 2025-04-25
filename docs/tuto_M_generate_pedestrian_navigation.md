@@ -79,7 +79,7 @@ __6.__ 将创建一个 `<mapName>.bin` 文件。此文件包含地图上的行�
 __7.__ 通过启动模拟并运行 `PythonAPI/examples` 中的示例脚本 `generate_traffic.py` 来测试行人导航。
 
 !!! 笔记
-    **如果更新地图后需要重建行人导航** ，请确保删除 Carla 缓存。这通常可以在 Ubuntu 的主目录（即`cd ~`）中找到，或者在Windows的用户目录（分配给环境变量`USERPROFILE`的目录）中，删除名为`carlaCache`的文件夹及其所有内容，它可能很大。 
+    **如果更新地图后需要重建行人导航** ，请确保删除 [Carla 缓存](https://github.com/OpenHUTB/carla/blob/9d52060b7d79b374764f147087f18ffa95c8b476/LibCarla/source/carla/client/FIleTransfer.cpp#L13) 。这通常可以在 Ubuntu 的主目录（即`cd ~`）中找到，或者在Windows的用户目录（分配给环境变量`USERPROFILE`的目录）中，删除名为`carlaCache`的文件夹及其所有内容，它可能很大。 
 
 ---
 
