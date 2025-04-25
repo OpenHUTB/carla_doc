@@ -70,7 +70,7 @@
               
                 <h1 id="3d-spectatorpy">路口微观3D 动画演示运动场景spectator.py</h1>
 <h4 id="_1"><strong>介绍</strong></h4>
-<p>此脚本连接到Carla模拟环境，并定期切换湖工商附近的四个预设路口视角。通过不断改变观众（Spectator）的视角，用户可以观察到不同路口的交通状况。</p>
+<p>此脚本连接到Carla模拟环境，并定期切换湖工商附近的四个预设路口视角。通过不断改变观察者（Spectator）的视角，用户可以观察到不同路口的交通状况。</p>
 <ul>
 <li>
 <h4 id="_2"><strong>环境要求</strong></h4>
@@ -112,7 +112,7 @@ spectator = world.get_spectator()
 spectator.set_transform(spectator_transform[0])
 </code></pre></div>
 <h5 id="_4">定期切换视角</h5>
-<p>脚本将连接到CARLA服务器，并每5秒切换一次预设的观众视角。</p>
+<p>脚本将连接到CARLA服务器，并每5秒切换一次预设的观察者视角。</p>
 <div class="highlight"><pre><span></span><code>start_time = time.time()
 state = 0
 while True:
