@@ -374,6 +374,52 @@ carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Vehicle/CustomTerrainPhysicsCom
 </Configuration>
 ```
 
+
+---
+
+## 打包
+
+### make package 时报错
+出错信息：
+```shell
+LogWindows: Error: begin: stack for UAT
+  LogWindows: Error: === Critical error: ===
+  LogWindows: Error:
+  LogWindows: Error: Fatal error!
+  LogWindows: Error:
+  LogWindows: Error: Unhandled Exception: EXCEPTION_ACCESS_VIOLATION reading address 0x0000000000000038
+  LogWindows: Error:
+  LogWindows: Error: [Callstack] 0x00007ffdfaf366c4 UE4Editor-RenderCore.dll!FShaderMapContent::GetOutdatedTypes() [D:\work\workspace\UnrealEngine\Engine\Source\Runtime\RenderCore\Private\ShaderMap.cpp:581]
+  LogWindows: Error: [Callstack] 0x00007ffd2b4fb28a UE4Editor-Engine.dll!FMaterialShaderMap::GetAllOutdatedTypes() [D:\work\workspace\UnrealEngine\Engine\Source\Runtime\Engine\Private\Materials\MaterialShader.cpp:1043]
+  LogWindows: Error: [Callstack] 0x00007ffd2b983b67 UE4Editor-Engine.dll!GetOutdatedShaderTypes() [D:\work\workspace\UnrealEngine\Engine\Source\Runtime\Engine\Private\ShaderCompiler\ShaderCompiler.cpp:4216]
+  LogWindows: Error: [Callstack] 0x00007ffd2b9a3d03 UE4Editor-Engine.dll!RecompileShadersForRemote() [D:\work\workspace\UnrealEngine\Engine\Source\Runtime\Engine\Private\ShaderCompiler\ShaderCompiler.cpp:5129]
+  LogWindows: Error: [Callstack] 0x00007ffd93651c5d UE4Editor-UnrealEd.dll!UCookOnTheFlyServer::SaveGlobalShaderMapFiles() [D:\work\workspace\UnrealEngine\Engine\Source\Editor\UnrealEd\Private\CookOnTheFlyServer.cpp:5511]
+  LogWindows: Error: [Callstack] 0x00007ffd936559dc UE4Editor-UnrealEd.dll!UCookOnTheFlyServer::StartCookByTheBook() [D:\work\workspace\UnrealEngine\Engine\Source\Editor\UnrealEd\Private\CookOnTheFlyServer.cpp:6865]
+  LogWindows: Error: [Callstack] 0x00007ffd934943b9 UE4Editor-UnrealEd.dll!UCookCommandlet::CookByTheBook() [D:\work\workspace\UnrealEngine\Engine\Source\Editor\UnrealEd\Private\Commandlets\CookCommandlet.cpp:919]
+  LogWindows: Error: [Callstack] 0x00007ffd934be428 UE4Editor-UnrealEd.dll!UCookCommandlet::Main() [D:\work\workspace\UnrealEngine\Engine\Source\Editor\UnrealEd\Private\Commandlets\CookCommandlet.cpp:624]
+  LogWindows: Error: [Callstack] 0x00007ff7177896da UE4Editor-Cmd.exe!FEngineLoop::PreInitPostStartupScreen() [D:\work\workspace\UnrealEngine\Engine\Source\Runtime\Launch\Private\LaunchEngineLoop.cpp:3369]
+  LogWindows: Error: [Callstack] 0x00007ff717780e6d UE4Editor-Cmd.exe!GuardedMain() [D:\work\workspace\UnrealEngine\Engine\Source\Runtime\Launch\Private\Launch.cpp:127]
+  LogWindows: Error: [Callstack] 0x00007ff7177811ca UE4Editor-Cmd.exe!GuardedMainWrapper() [D:\work\workspace\UnrealEngine\Engine\Source\Runtime\Launch\Private\Windows\LaunchWindows.cpp:137]
+  LogWindows: Error: [Callstack] 0x00007ff717794e5d UE4Editor-Cmd.exe!WinMain() [D:\work\workspace\UnrealEngine\Engine\Source\Runtime\Launch\Private\Windows\LaunchWindows.cpp:268]
+  LogWindows: Error: [Callstack] 0x00007ff717796f02 UE4Editor-Cmd.exe!__scrt_common_main_seh() [D:\a\_work\1\s\src\vctools\crt\vcstartup\src\startup\exe_common.inl:288]
+  LogWindows: Error: [Callstack] 0x00007ffe53647374 KERNEL32.DLL!UnknownFunction []
+  LogWindows: Error: [Callstack] 0x00007ffe5417cc91 ntdll.dll!UnknownFunction []
+  LogWindows: Error:
+  LogWindows: Error: end: stack for UAT
+Took 232.8404432s to run UE4Editor-Cmd.exe, ExitCode=3
+ERROR: Cook failed.
+       (see D:\work\workspace\UnrealEngine\Engine\Programs\AutomationTool\Saved\Logs\Log.txt for full exception trace)
+AutomationTool exiting with ExitCode=25 (Error_UnknownCookFailure)
+卸载 Appdomain 时出错。 (异常来自 HRESULT:0x80131015)
+   在 System.AppDomain.Unload(AppDomain domain)
+   在 AutomationToolLauncher.Launcher.RunInAppDomain(String[] Arguments) 位置 D:\work\workspace\UnrealEngine\Engine\Source\Programs\AutomationToolLauncher\Launcher.cs:行号 42
+BUILD FAILED
+
+-[Package]: [ERROR] There was a problem while packaging Unreal project.
+          [ERROR] Please read the screen log for more information.
+make: *** [package] 错误 1
+```
+
 ---
 
 ## 运行 Carla
