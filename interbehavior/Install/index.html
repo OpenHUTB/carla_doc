@@ -566,6 +566,30 @@ CarlaUE4.exe<span class="w"> </span>-vr
 <p><br></p>
 <h1 id="_6">现在该怎么办？</h1>
 <p>现在您已成功安装 DReyeVR，请继续访问 <a href="../Usage/"><code>Usage.md</code></a> 了解如何将 DReyeVR 用于您自己的 VR 驾驶研究模拟器。</p>
+<p>VR模式和传统模型进行切换需要修改<code>Unreal/CarlaUE4/Config/DefaultEngine.ini</code>文件中的<code>GlobalDefaultGameMode</code>配置。传统模式：
+<div class="highlight"><pre><span></span><code><span class="o">[</span>/Script/EngineSettings.GameMapsSettings<span class="o">]</span>
+<span class="nv">EditorStartupMap</span><span class="o">=</span>/Game/Carla/Maps/Town10HD_Opt.Town10HD_Opt
+<span class="nv">GameDefaultMap</span><span class="o">=</span>/Game/Carla/Maps/Town10HD_Opt.Town10HD_Opt
+<span class="nv">ServerDefaultMap</span><span class="o">=</span>/Game/Carla/Maps/Town10HD_Opt.Town10HD_Opt
+<span class="nv">GlobalDefaultGameMode</span><span class="o">=</span>/Game/Carla/Blueprints/Game/CarlaGameMode.CarlaGameMode_C
+<span class="nv">GameInstanceClass</span><span class="o">=</span>/Script/Carla.CarlaGameInstance
+<span class="nv">TransitionMap</span><span class="o">=</span>/Game/Carla/Maps/Town10HD_Opt.Town10HD_Opt
+<span class="nv">GlobalDefaultServerGameMode</span><span class="o">=</span>/Game/Carla/Blueprints/Game/CarlaGameMode.CarlaGameMode_C
+</code></pre></div>
+VR模式（默认启动的地图是Town03，）：
+<div class="highlight"><pre><span></span><code><span class="o">[</span>/Script/EngineSettings.GameMapsSettings<span class="o">]</span>
+<span class="nv">EditorStartupMap</span><span class="o">=</span>/Game/Carla/Maps/Town03.Town03
+<span class="nv">LocalMapOptions</span><span class="o">=</span>
+<span class="nv">TransitionMap</span><span class="o">=</span>/Game/Carla/Maps/Town03.Town03
+<span class="nv">bUseSplitscreen</span><span class="o">=</span>True
+<span class="nv">TwoPlayerSplitscreenLayout</span><span class="o">=</span>Horizontal
+<span class="nv">ThreePlayerSplitscreenLayout</span><span class="o">=</span>FavorTop
+<span class="nv">FourPlayerSplitscreenLayout</span><span class="o">=</span>Grid
+<span class="nv">bOffsetPlayerGamepadIds</span><span class="o">=</span>False
+<span class="nv">GameInstanceClass</span><span class="o">=</span>/Script/Carla.CarlaGameInstance
+<span class="nv">GlobalDefaultGameMode</span><span class="o">=</span>/Script/CarlaUE4.DReyeVRGameMode
+<span class="nv">GlobalDefaultServerGameMode</span><span class="o">=</span>/Script/CarlaUE4.DReyeVRGameMode
+</code></pre></div></p>
               
             </div>
           </div><footer>
