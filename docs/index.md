@@ -6,11 +6,10 @@ title: 主页
 
 如果对文档中的任何问题可以在 [本文档的源码仓库](https://github.com/OpenHUTB/carla_doc) 中的 [Issues](https://github.com/OpenHUTB/carla_doc/issues) 页面进行提问或者提交 [Pull Request](https://zhuanlan.zhihu.com/p/153381521) 直接修改文档。
 
-* [__入门__](#primary)  
-    * [简介](#introduction)
-* [__代理__](#agent)  
-    *   [车辆](#vehicle)  
-    *   [行人](#pedestrian)  
+* [__简介__](#primary)  
+    * [入门](#introduction)
+    * [车辆](#vehicle)  
+    * [行人](#pedestrian)  
 * [__模拟器__](#simulator)
     *   [概念](#concept)
     *   [开发](#development) 
@@ -28,18 +27,18 @@ title: 主页
 
 ---
 
-## 入门 <span id="primary"></span>
+## 简介 <span id="introduction"></span>
 1. 下载 [链接](https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb) 中的`software/carla_0.9.15`中的所有文件并解压；
 2. 运行`WindowsNoEditor`文件夹下的`CarlaUE4.exe`启动场景，进入场景后按`W`、`S`、`A`、`D`移动场景视角；
-3. 使用`Python37/python.exe`运行脚本 [generate_traffic.py](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/generate_traffic.py) 在场景中生成交通流和运行 [python manual_control.py](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/manual_control.py) 生成一辆键盘控制的车。
+3. 使用`Python37/python.exe`（或者安装`WindowsNoEditor/PythonAPI/carla/dist/carla-0.9.15-cp37-cp37m-win_amd64.whl`目录下的Python包）运行脚本 [generate_traffic.py](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/generate_traffic.py) 在场景中生成交通流和运行 [python manual_control.py](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/manual_control.py) 生成一辆键盘控制的车。
 
 
 !!! 注意
-    当机器性能一般时启动`CarlaUE4.exe`报错：`Out of video memory...`，可以通过命令来降低画质启动：`CarlaUE4.exe -quality-level=Low`，以获得更流畅的效果；甚至使用`CarlaUE4.exe -nullrhi`禁用所有渲染（无需 GPU）。如果运行CarlaUE4.exe时候报错：缺少Microsoft Visual C++ Runtime、DirectX Runtime，则需要安装 [vs_community__2019.exe](https://visualstudio.microsoft.com/zh-hans/vs/older-downloads/) （勾选`.NET桌面开发`和`使用C++的桌面开发`）和 [directx_Jun2010_redist.zip](https://www.microsoft.com/zh-CN/download/details.aspx?id=8109)  （解压后运行`DXSETUP.bat`）。
+    当机器性能一般时启动`CarlaUE4.exe`报错：`Out of video memory...`，可以通过命令来降低画质启动：`CarlaUE4.exe -quality-level=Low`，以获得更流畅的效果；甚至使用`CarlaUE4.exe -nullrhi`禁用所有渲染（无需 GPU）。如果运行CarlaUE4.exe时候报错：缺少Microsoft Visual C++ Runtime、DirectX Runtime，则需要安装 [vs_community__2019.exe](https://visualstudio.microsoft.com/zh-hans/vs/older-downloads/) （勾选`.NET桌面开发`和`使用C++的桌面开发`）和 [directx_Jun2010_redist.zip](https://www.microsoft.com/zh-CN/download/details.aspx?id=8109)  （解压后运行`DXSETUP.bat`）。如果发现手动控制车按前进键不能移动，可能是输入法默认是中文，按`Shift`切换成英文输入法即可解决。
 
 
 
-### 简介 <span id="introduction"></span>
+### 入门 <span id="primary"></span>
 
 [__介绍__](start_introduction.md) — 对 Carla 的期望
 
@@ -68,8 +67,8 @@ title: 主页
 
 [__边界框__](tuto_G_bounding_boxes.md) — 将  Carla 对象的边界框投影到相机中
 
----
-## 代理 <span id="agent"></span>
+[__使用常见问题__](faq/use_faq.md) — 一些最常见的使用问题
+
 
 ### 车辆 <span id="vehicle"></span>
 <!-- 车辆代理：单个 -> 多个 -->
@@ -164,6 +163,8 @@ title: 主页
 
 [__常见问题__](build_faq.md) — 一些最常见的安装问题
 
+[__自定义开发__](dev/custom_dev.md) - 开发湖工商分支
+
 [__调试程序__](tuto_D_windows_debug.md) — 进行C++程序的调试
 
 
@@ -180,7 +181,7 @@ title: 主页
 ---
 
 
-## 现实场景  <span id="scene"></span>
+## 模拟场景  <span id="scene"></span>
 
 ### 虚幻场景 <span id="unreal_scene"></span>
 
@@ -218,7 +219,7 @@ title: 主页
 
 [__自定义地图：分层地图__](tuto_M_custom_layers.md) — 如何在自定义地图中创建子图层
 
-[__自定义地图：交通灯和标志__](tuto_M_custom_add_tl.md) — 如何将交通灯和标志添加到您的自定义地图
+[__自定义地图：交通信号灯和标志__](tuto_M_custom_add_tl.md) — 如何将交通信号灯和标志添加到您的自定义地图
 
 [__自定义地图：道路画家__](tuto_M_custom_road_painter.md) — 如何使用道路画家工具改变道路的外观
 
@@ -266,9 +267,9 @@ title: 主页
 
 [__自定义车辆悬架__](tuto_D_customize_vehicle_suspension.md) — 修改车辆的悬架系统
 
-[__生成详细碰撞__](tuto_D_generate_colliders.md) — 为车辆创建详细的对撞
+[__生成详细碰撞__](tuto_D_generate_colliders.md) — 为车辆创建详细的碰撞
 
-[__链接 Epic 的汽车材质__](epic_automotive_materials.md) — 下载材质并将其链接到我们的车辆，以获得更逼真的车漆。
+[__链接 Epic 的汽车材质__](epic_automotive_materials.md) — 下载材质并将其链接到我们的车辆，以获得更逼真的车漆
 
 ---
 

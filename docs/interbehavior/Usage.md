@@ -2,7 +2,7 @@
 
 现在您已启动并运行 DReyeVR，本指南将重点介绍一些对使用 DReyeVR 的研究人员有用的功能：
 
-- [操纵自我车辆](Usage.md#maneuvering-the-ego-vehicle)
+- [操纵自主车辆](Usage.md#maneuvering-the-ego-vehicle)
 - [使用 PythonAPI](Usage.md#using-the-pythonapi)
 - [记录/重放一个场景](Usage.md#recordingreplaying-a-scenario)
 - [将控制从手动切换到 AI（切换）](Usage.md#control-handoff-to-ai)
@@ -12,7 +12,7 @@
 
 ![UsageSchematic](Figures/Usage/UsageSchematic.jpg)
 
-# 操纵自我车辆
+# 操纵自主车辆
 这些控制方案在 VR 和非 VR 中均有效。主要区别在于，在 VR 中，您可以通过头部跟踪来移动相机姿势和方向，但在平面模式（非 VR）中，您需要像在第一人称游戏中一样使用鼠标。
 
 - 键盘车辆控制方案：
@@ -106,14 +106,14 @@ cd $SCENARIO_RUNNER_ROOT # 进入目录 scenario-runner/
 ## 使用我们新的 DReyeVR PythonAPI
 对于您自己的自定义脚本，我们建议您查看 [`DReyeVR_utils.py`](../PythonAPI/DReyeVR_utils.py) 文件，特别是这两个函数：
 
-- `find_ego_vehicle` 接收 `carla.libcarla.World` 实例并返回世界上存在的 DReyeVR 自我车辆 (`carla.libcarla.Vehicle`)，如果没有则生成一个。 
+- `find_ego_vehicle` 接收 `carla.libcarla.World` 实例并返回世界上存在的 DReyeVR 自主车辆 (`carla.libcarla.Vehicle`)，如果没有则生成一个。 
 - `find_ego_sensor` 接收 `carla.libcarla.World` 实例并返回世界上存在的 DReyeVR 眼动仪 (`carla.libcarla.Sensor`)，该眼动仪应附加到生成的 EgoVehicle（如果生成了 EgoVehicle）
 
 然后，在您的脚本中，您可以遵循我们在 `diagram_mode.py` 中使用的技术，例如：
 ```python
 world = self.client.get_world()
 
-# 找到自我车辆
+# 找到自主车辆
 self.hero_actor = find_ego_vehicle(world)
 self.hero_transform = self.hero_actor.get_transform()
 
@@ -221,7 +221,7 @@ python run_experiment.py --title "dreyevr_experiment" --route %SCENARIO_RUNNER_R
 请注意，您可以使用 `--title "your_experiment"` 将实验重命名为任何名称，并且生成的记录文件将在其文件名中包含此标题。
 
 # 将控制从手动切换到 AI（切换）
-有时，在实验期间让 AI 接管自我车辆以用于研究目的很有用。借助 Carla 现有的 [基于 TrafficManager 的自动驾驶仪](../adv_traffic_manager) ，在我们的模拟器中可以轻松做到这一点，它可以像驾驶任何其他 Carla 车辆一样驾驶我们的自我车辆。
+有时，在实验期间让 AI 接管自主车辆以用于研究目的很有用。借助 Carla 现有的 [基于 TrafficManager 的自动驾驶仪](../adv_traffic_manager) ，在我们的模拟器中可以轻松做到这一点，它可以像驾驶任何其他 Carla 车辆一样驾驶我们的自主车辆。
 
 然而，为了启动自动驾驶仪，我们目前只支持使用 PythonAPI 执行此任务，因此我们创建了 `DReyeVR_AI.py` 来完成这项工作：
 ```bash

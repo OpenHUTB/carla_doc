@@ -496,3 +496,33 @@ CarlaUE4.exe -vr
 # 现在该怎么办？
 
 现在您已成功安装 DReyeVR，请继续访问 [`Usage.md`](Usage.md) 了解如何将 DReyeVR 用于您自己的 VR 驾驶研究模拟器。
+
+VR模式和传统模型进行切换需要修改`Unreal/CarlaUE4/Config/DefaultEngine.ini`文件中的`GlobalDefaultGameMode`配置。传统模式：
+```shell
+[/Script/EngineSettings.GameMapsSettings]
+EditorStartupMap=/Game/Carla/Maps/Town10HD_Opt.Town10HD_Opt
+GameDefaultMap=/Game/Carla/Maps/Town10HD_Opt.Town10HD_Opt
+ServerDefaultMap=/Game/Carla/Maps/Town10HD_Opt.Town10HD_Opt
+GlobalDefaultGameMode=/Game/Carla/Blueprints/Game/CarlaGameMode.CarlaGameMode_C
+GameInstanceClass=/Script/Carla.CarlaGameInstance
+TransitionMap=/Game/Carla/Maps/Town10HD_Opt.Town10HD_Opt
+GlobalDefaultServerGameMode=/Game/Carla/Blueprints/Game/CarlaGameMode.CarlaGameMode_C
+```
+VR模式（默认启动的地图是Town03，）：
+```shell
+[/Script/EngineSettings.GameMapsSettings]
+EditorStartupMap=/Game/Carla/Maps/Town03.Town03
+LocalMapOptions=
+TransitionMap=/Game/Carla/Maps/Town03.Town03
+bUseSplitscreen=True
+TwoPlayerSplitscreenLayout=Horizontal
+ThreePlayerSplitscreenLayout=FavorTop
+FourPlayerSplitscreenLayout=Grid
+bOffsetPlayerGamepadIds=False
+GameInstanceClass=/Script/Carla.CarlaGameInstance
+GlobalDefaultGameMode=/Script/CarlaUE4.DReyeVRGameMode
+GlobalDefaultServerGameMode=/Script/CarlaUE4.DReyeVRGameMode
+```
+
+
+
