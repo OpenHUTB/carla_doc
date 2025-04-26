@@ -1,16 +1,249 @@
 
+# Math 类说明文档
+
+## 概述
+`carla::geom::Math` 提供了一系列数学常量与常用数学运算函数，主要用于三维/二维向量运算、角度转换、距离计算、线性插值等。
+
+---
+
+## 模板常量
+
+### **<font color="#7fb800">Pi</font>**
+```cpp
+template <typename T>
+static constexpr T Pi();
+```
+- **模板参数**  
+  - <font color="#f8805a">T</font>：必须为浮点类型  
+- **返回值**：π（3.141592653589793…），类型为 <font color="#f8805a">T</font>
+
+### **<font color="#7fb800">Pi2</font>**
+```cpp
+template <typename T>
+static constexpr T Pi2();
+```
+- **模板参数**  
+  - <font color="#f8805a">T</font>：必须为浮点类型  
+- **返回值**：2π，即 2 × **<font color="#7fb800">Pi</font>**，类型为 <font color="#f8805a">T</font>
+
+---
+
+## 角度转换
+
+### **<font color="#7fb800">ToDegrees</font>**
+```cpp
+template <typename T>
+static constexpr T ToDegrees(T rad);
+```
+- **参数**  
+  - <font color="#f8805a">rad</font>：弧度值  
+- **返回值**：度数，等于 <font color="#f8805a">rad</font> × (180 / π)
+
+### **<font color="#7fb800">ToRadians</font>**
+```cpp
+template <typename T>
+static constexpr T ToRadians(T deg);
+```
+- **参数**  
+  - <font color="#f8805a">deg</font>：度数值  
+- **返回值**：弧度，等于 <font color="#f8805a">deg</font> × (π / 180)
+
+---
+
+## 范围与平方
+
+### **<font color="#7fb800">Clamp</font>**
+```cpp
+template <typename T>
+static T Clamp(T a, T min = T(0), T max = T(1));
+```
+- **参数**  
+  - <font color="#f8805a">a</font>：待限制的值  
+  - <font color="#f8805a">min</font>：下界，默认 0  
+  - <font color="#f8805a">max</font>：上界，默认 1  
+- **返回值**：将 <font color="#f8805a">a</font> 限制在 [<font color="#f8805a">min</font>,<font color="#f8805a">max</font>] 范围内的结果
+
+### **<font color="#7fb800">Square</font>**
+```cpp
+template <typename T>
+static T Square(const T &a);
+```
+- **参数**  
+  - <font color="#f8805a">a</font>：输入值  
+- **返回值**：<font color="#f8805a">a</font>²
+
+---
+
+## 向量运算
+
+### **<font color="#7fb800">Cross</font>**
+```cpp
+static auto Cross(const Vector3D &a, const Vector3D &b);
+```
+- **参数**  
+  - <font color="#f8805a">a</font>, <font color="#f8805a">b</font>：三维向量  
+- **返回值**：叉积向量
+
+### **<font color="#7fb800">Dot</font>**
+```cpp
+static auto Dot(const Vector3D &a, const Vector3D &b);
+```
+- **参数**  
+  - <font color="#f8805a">a</font>, <font color="#f8805a">b</font>：三维向量  
+- **返回值**：点积（标量）
+
+### **<font color="#7fb800">Dot2D</font>**
+```cpp
+static auto Dot2D(const Vector3D &a, const Vector3D &b);
+```
+- **参数**  
+  - <font color="#f8805a">a</font>, <font color="#f8805a">b</font>：仅取 x,y 分量  
+- **返回值**：二维点积
+
+---
+
+## 距离计算
+
+### **<font color="#7fb800">DistanceSquared</font>**
+```cpp
+static auto DistanceSquared(const Vector3D &a, const Vector3D &b);
+```
+- **参数**  
+  - <font color="#f8805a">a</font>：起点向量  
+  - <font color="#f8805a">b</font>：终点向量  
+- **返回值**：两点间三维距离的平方
+
+### **<font color="#7fb800">DistanceSquared2D</font>**
+```cpp
+static auto DistanceSquared2D(const Vector3D &a, const Vector3D &b);
+```
+- **参数**  
+  - <font color="#f8805a">a</font>：起点向量  
+  - <font color="#f8805a">b</font>：终点向量  
+- **返回值**：两点间二维距离的平方
+
+### **<font color="#7fb800">Distance</font>**
+```cpp
+static auto Distance(const Vector3D &a, const Vector3D &b);
+```
+- **参数**  
+  - <font color="#f8805a">a</font>：起点向量  
+  - <font color="#f8805a">b</font>：终点向量  
+- **返回值**：两点间三维距离
+
+### **<font color="#7fb800">Distance2D</font>**
+```cpp
+static auto Distance2D(const Vector3D &a, const Vector3D &b);
+```
+- **参数**  
+  - <font color="#f8805a">a</font>：起点向量  
+  - <font color="#f8805a">b</font>：终点向量  
+- **返回值**：两点间二维距离
+
+---
+
+## 插值
+
+### **<font color="#7fb800">LinearLerp</font>**
+```cpp
+static float LinearLerp(float a, float b, float f);
+```
+- **参数**  
+  - <font color="#f8805a">a</font>, <font color="#f8805a">b</font>：端点值  
+  - <font color="#f8805a">f</font>：插值因子 (0…1)  
+- **返回值**：线性插值结果
+
+---
+
+## 复杂几何运算
+
+### **<font color="#7fb800">GetVectorAngle</font>**
+```cpp
+static double GetVectorAngle(const Vector3D &a, const Vector3D &b);
+```
+- **参数**  
+  - <font color="#f8805a">a</font>, <font color="#f8805a">b</font>：三维向量  
+- **返回值**：向量 <font color="#f8805a">a</font> 与 <font color="#f8805a">b</font> 之间的夹角（弧度）
+
+### **<font color="#7fb800">DistanceSegmentToPoint</font>**
+```cpp
+static std::pair<float, float> DistanceSegmentToPoint(
+    const Vector3D &p,
+    const Vector3D &v,
+    const Vector3D &w);
+```
+- **参数**  
+  - <font color="#f8805a">p</font>：要计算距离的点  
+  - <font color="#f8805a">v</font>：线段起点  
+  - <font color="#f8805a">w</font>：线段终点  
+- **返回值**：`(沿线段的弧长距离, 点到线段的欧氏距离)`
+
+### **<font color="#7fb800">DistanceArcToPoint</font>**
+```cpp
+static std::pair<float, float> DistanceArcToPoint(
+    Vector3D p,
+    Vector3D start_pos,
+    float length,
+    float heading,
+    float curvature);
+```
+- **参数**  
+  - <font color="#f8805a">p</font>：要计算距离的点  
+  - <font color="#f8805a">start_pos</font>：圆弧起始位置  
+  - <font color="#f8805a">length</font>：圆弧长度  
+  - <font color="#f8805a">heading</font>：起始航向（弧度）  
+  - <font color="#f8805a">curvature</font>：曲率  
+- **返回值**：`(沿圆弧的弧长距离, 点到圆弧的最近距离)`
+
+### **<font color="#7fb800">RotatePointOnOrigin2D</font>**
+```cpp
+static Vector3D RotatePointOnOrigin2D(Vector3D p, float angle);
+```
+- **参数**  
+  - <font color="#f8805a">p</font>：二维点  
+  - <font color="#f8805a">angle</font>：旋转角度（弧度）  
+- **返回值**：绕原点旋转后的二维点
+
+### **<font color="#7fb800">GetForwardVector</font>**
+```cpp
+static Vector3D GetForwardVector(const Rotation &rotation);
+```
+- **参数**  
+  - <font color="#f8805a">rotation</font>：旋转信息  
+- **返回值**：前向单位向量
+
+### **<font color="#7fb800">GetRightVector</font>**
+```cpp
+static Vector3D GetRightVector(const Rotation &rotation);
+```
+- **参数**  
+  - <font color="#f8805a">rotation</font>：旋转信息  
+- **返回值**：右向单位向量
+
+### **<font color="#7fb800">GetUpVector</font>**
+```cpp
+static Vector3D GetUpVector(const Rotation &rotation);
+```
+- **参数**  
+  - <font color="#f8805a">rotation</font>：旋转信息  
+- **返回值**：上向单位向量
+
+---
+
+## 范围生成
+
+### **<font color="#7fb800">GenerateRange</font>**
+```cpp
+static std::vector<int> GenerateRange(int a, int b);
+```
+- **参数**  
+  - <font color="#f8805a">a</font>：起始整数  
+  - <font color="#f8805a">b</font>：结束整数  
+- **返回值**：包含从 <font color="#f8805a">a</font> 到 <font color="#f8805a">b</font>（含）的所有整数的向量
+
 # FDVector 头文件文档
 
 该文档详细介绍 **<font color="#f8805a">FDVector</font>** 头文件中所有变量、构造函数、方法以及操作符重载。该结构在 [Carla Simulator](https://github.com/carla-simulator/carla) 项目中主要用于高效执行向量运算及类型转换，避免直接使用 Unreal Engine 的向量类型带来的性能损耗。
-
-## 目录结构
-
-- [概述](#概述)
-- [构造函数](#构造函数)
-- [成员变量](#成员变量)
-- [主要方法](#主要方法)
-- [操作符重载](#操作符重载)
-- [在 Carla 项目中的应用](#在-Carla-项目中的应用)
 
 ## 概述
 
@@ -226,5 +459,5 @@ a *= 2.0;
 在  [Carla Simulator](https://github.com/carla-simulator/carla) 项目中，<font color="#f8805a">FDVector</font> 的主要应用包括：
 
 - 高效计算：用于执行频繁的向量运算（如位置计算、距离判定、碰撞检测等），减少直接使用 Unreal Engine 内置向量类可能带来的性能损耗。
-- 类型转换：便于与 Unreal Engine 的** FVector** 和 **FIntVector** 类型之间的互转，保持各模块间数据传递的一致性和高效性。
+- 类型转换：便于与 Unreal Engine 的 **FVector** 和 **FIntVector** 类型之间的互转，保持各模块间数据传递的一致性和高效性。
 
