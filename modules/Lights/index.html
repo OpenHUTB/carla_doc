@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Lights - 人车模拟器</title>
+    <title>灯光(UCarlaLight)模块说明文档 - 人车模拟器</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Lights";
+        var mkdocs_page_name = "\u706f\u5149(UCarlaLight)\u6a21\u5757\u8bf4\u660e\u6587\u6863";
         var mkdocs_page_input_path = "modules/Lights.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,7 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Lights</li>
+      <li class="breadcrumb-item active">灯光(UCarlaLight)模块说明文档</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/modules/Lights.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -68,19 +68,37 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <hr />
-<h1 id="ucarlalight">UCarlaLight 说明文档</h1>
-<hr />
-<h2 id="_1">概述</h2>
-<p><code>UCarlaLight</code> 是 CARLA 仿真平台中用于管理动态灯光的 Unreal Engine 组件类，核心功能包括：</p>
+                <h1 id="ucarlalight">灯光(UCarlaLight)模块说明文档</h1>
+<h2 id="_1">目录</h2>
 <ul>
-<li><strong>灯光属性控制</strong>：动态调整灯光强度、颜色、开关状态及类型。</li>
-<li><strong>子系统集成</strong>：与 <code>CarlaLightSubsystem</code> 交互实现全局灯光管理。</li>
-<li><strong>状态同步</strong>：支持与 RPC 协议兼容的灯光状态序列化（<code>carla::rpc::LightState</code>）。</li>
-<li><strong>事件记录</strong>：灯光状态变化时触发事件记录，支持仿真回放与调试。</li>
+<li><a href="#1-模块概述">1. 模块概述</a></li>
+<li><a href="#11-ucarlalight介绍">1.1 UCarlaLight介绍</a></li>
+<li><a href="#12-组件核心功能">1.2 组件核心功能</a></li>
+<li><a href="#2-核心类说明">2. 核心类说明</a></li>
+<li><a href="#21-生命周期函数">2.1 生命周期函数</a></li>
+<li><a href="#22-灯光注册与注销">2.2 灯光注册与注销</a></li>
+<li><a href="#23-属性控制函数">2.3 属性控制函数</a></li>
+<li><a href="#24-辅助功能">2.4 辅助功能</a></li>
+<li><a href="#3-关键成员变量">3. 关键成员变量</a></li>
+<li><a href="#4-使用场景">4. 使用场景</a></li>
+<li><a href="#41-动态环境光照">4.1 动态环境光照</a></li>
+<li><a href="#42-车辆信号灯同步">4.2 车辆信号灯同步</a></li>
+<li><a href="#43-仿真事件回放">4.3 仿真事件回放</a></li>
+<li><a href="#5-注意事项">5. 注意事项</a></li>
+<li><a href="#6-扩展建议">6. 扩展建议</a></li>
 </ul>
-<h2 id="_2">类成员函数说明</h2>
-<h3 id="1">1. 生命周期函数</h3>
+<hr />
+<h2 id="1">1 模块概述 <a id="1-模块概述"></a></h2>
+<h3 id="11-ucarlalight">1.1 UCarlaLight介绍 <a id="11-ucarlalight介绍"></a></h3>
+<p><code>UCarlaLight</code> 是 CARLA 仿真平台中用于管理动态灯光的 Unreal Engine 组件类。</p>
+<h3 id="12">1.2 组件核心功能 <a id="12-组件核心功能"></a></h3>
+<p>组件的核心功能包括：灯光属性控制、子系统集成、状态同步、事件记录。
+- <strong>灯光属性控制</strong>：动态调整灯光强度、颜色、开关状态及类型。
+- <strong>子系统集成</strong>：与 <code>CarlaLightSubsystem</code> 交互实现全局灯光管理。
+- <strong>状态同步</strong>：支持与 RPC 协议兼容的灯光状态序列化（<code>carla::rpc::LightState</code>）。
+- <strong>事件记录</strong>：灯光状态变化时触发事件记录，支持仿真回放与调试。</p>
+<h2 id="2">2 类成员函数说明<a id="2-核心类说明"></a></h2>
+<h3 id="21">2.1 生命周期函数<a id="21-生命周期函数"></a></h3>
 <h4 id="beginplay">BeginPlay()</h4>
 <ul>
 <li><strong>作用</strong>：组件初始化入口，触发灯光注册流程。</li>
@@ -95,7 +113,7 @@
 <li>从 <code>CarlaLightSubsystem</code> 注销当前灯光。</li>
 <li>调用父类 <code>Super::EndPlay()</code>。</li>
 </ul>
-<h3 id="2">2. 灯光注册与注销</h3>
+<h3 id="22">2.2 灯光注册与注销<a id="22-灯光注册与注销"></a></h3>
 <h4 id="registerlight">RegisterLight()</h4>
 <ul>
 <li><strong>作用</strong>：将灯光注册到子系统和天气系统。</li>
@@ -105,7 +123,7 @@
 <li>标记 <code>bRegistered = true</code> 防止重复注册。</li>
 <li><strong>注销逻辑</strong>：在 <code>EndPlay()</code> 中调用 <code>CarlaLightSubsystem-&gt;UnregisterLight(this)</code>。</li>
 </ul>
-<h3 id="3">3. 属性控制函数</h3>
+<h3 id="23">2.3 属性控制函数<a id="23-属性控制函数"></a></h3>
 <table>
 <thead>
 <tr>
@@ -151,7 +169,7 @@
 <span class="p">}</span>
 </code></pre></div></li>
 </ul>
-<h3 id="4">4. 辅助功能</h3>
+<h3 id="24">2.4 辅助功能<a id="24-辅助功能"></a></h3>
 <h4 id="getlocation">GetLocation()</h4>
 <ul>
 <li><strong>作用</strong>：获取灯光全局坐标（支持大型地图场景）。</li>
@@ -165,7 +183,7 @@
 <li><strong>触发条件</strong>：调用 <code>SetLightColor()</code> 或 <code>SetLightOn()</code>。</li>
 <li><strong>依赖模块</strong>：通过 <code>UCarlaStatics::GetCurrentEpisode()</code> 获取记录器实例。</li>
 </ul>
-<h2 id="_3">关键成员变量</h2>
+<h2 id="3">3 关键成员变量<a id="3-关键成员变量"></a></h2>
 <table>
 <thead>
 <tr>
@@ -202,35 +220,30 @@
 </tr>
 </tbody>
 </table>
-<h2 id="_4">使用场景</h2>
-<h3 id="_5">动态环境光照</h3>
+<h2 id="4">4 使用场景<a id="4-使用场景"></a></h2>
+<h3 id="41">4.1 动态环境光照<a id="41-动态环境光照"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1">// 脚本控制路灯夜间自动开启</span>
 <span class="n">LightComponent</span><span class="o">-&gt;</span><span class="n">SetLightOn</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
 <span class="n">LightComponent</span><span class="o">-&gt;</span><span class="n">SetLightIntensity</span><span class="p">(</span><span class="mf">5000.0f</span><span class="p">);</span>
 <span class="n">LightComponent</span><span class="o">-&gt;</span><span class="n">SetLightColor</span><span class="p">(</span><span class="n">FLinearColor</span><span class="p">(</span><span class="mf">0.9f</span><span class="p">,</span><span class="w"> </span><span class="mf">0.9f</span><span class="p">,</span><span class="w"> </span><span class="mf">0.8f</span><span class="p">));</span>
 </code></pre></div>
-<h3 id="_6">车辆信号灯同步</h3>
+<h3 id="42">4.2 车辆信号灯同步<a id="42-车辆信号灯同步"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1">// 同步刹车灯状态到 RPC 协议</span>
 <span class="n">carla</span><span class="o">::</span><span class="n">rpc</span><span class="o">::</span><span class="n">LightState</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LightComponent</span><span class="o">-&gt;</span><span class="n">GetLightState</span><span class="p">();</span>
 <span class="n">state</span><span class="p">.</span><span class="n">_color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FLinearColor</span><span class="o">::</span><span class="n">Red</span><span class="p">;</span>
 <span class="n">state</span><span class="p">.</span><span class="n">_active</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bIsBraking</span><span class="p">;</span>
 <span class="n">LightComponent</span><span class="o">-&gt;</span><span class="n">SetLightState</span><span class="p">(</span><span class="n">state</span><span class="p">);</span>
 </code></pre></div>
-<h3 id="_7">仿真事件回放</h3>
-<p>通过 <code>RecordLightChange()</code> 记录状态变化时间点。</p>
-<h2 id="_8">注意事项</h2>
+<h3 id="43">4.3 仿真事件回放<a id="43-仿真事件回放"></a></h3>
+<p>在事件回放上通过调用 <code>RecordLightChange()</code> 记录状态变化时间点。</p>
+<h2 id="5">5 注意事项<a id="5-注意事项"></a></h2>
 <ul>
 <li><strong>子系统依赖</strong>：Actor 必须存在于已启用 <code>CarlaLightSubsystem</code> 的场景中。</li>
 <li><strong>线程安全</strong>：避免在非游戏线程（如异步任务）中直接调用 <code>SetLightXxx</code> 函数。</li>
 <li><strong>大型地图支持</strong>：使用 <code>GetLocation()</code> 而非直接获取 Actor 坐标以确保跨地图兼容性。</li>
 </ul>
-<h2 id="_9">扩展建议</h2>
-<h3 id="_10">蓝图集成</h3>
-<p>将 <code>LightIntensity</code>、<code>LightColor</code> 等属性暴露为 <code>BlueprintReadWrite</code>，方便设计师调整。</p>
-<h3 id="_11">序列化优化</h3>
-<p>重写 <code>Serialize()</code> 实现灯光状态的持久化存储（如保存/加载场景）。</p>
-<h3 id="rpc">RPC 性能优化</h3>
-<p>对高频更新的灯光（如转向灯）实现差值同步，减少网络流量。</p>
+<h2 id="6">6 扩展建议<a id="6-扩展建议"></a></h2>
+<p>使用序列化优化重写 <code>Serialize()</code> 实现灯光状态的持久化存储（如保存/加载场景）。RPC性能优化上对高频更新的灯光（如转向灯）实现差值同步，减少网络流量。</p>
 <hr />
               
             </div>
