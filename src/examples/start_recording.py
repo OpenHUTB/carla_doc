@@ -73,7 +73,6 @@ def main():
     logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.INFO)
 
     try:
-
         client = carla.Client(args.host, args.port)
         client.set_timeout(2.0)
         world = client.get_world()
@@ -138,7 +137,6 @@ def main():
             while True:
                 world.wait_for_tick()
                 # time.sleep(0.1)
-
     finally:
 
         print('\ndestroying %d actors' % len(actor_list))

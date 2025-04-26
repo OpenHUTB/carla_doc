@@ -64,9 +64,9 @@ client.replay_file("recording01.log", start, duration, camera)
 
 | 参数     | 说明              | 笔记                                     |
 |--------|-----------------|----------------------------------------|
-| `开始`   | 以秒为单位记录开始模拟的时间。 | 如果是肯定的，时间将从记录开始计算。 <br> 如果是否定的，将从最后考虑。 |
-| `持续时间` | 播放秒数。 0 是所有的记录。 | 播放结束时，车辆将设置为自动驾驶，行人将停止。                |
-| `相机`   | 相机将聚焦的参与者的 ID。   | 将其设置为“0”以让观众自由移动。                      |
+| `start`   | 以秒为单位记录开始模拟的时间。 | 如果是肯定的，时间将从记录开始计算。 <br> 如果是否定的，将从最后考虑。 |
+| `duration` | 播放秒数。 0 是所有的记录。 | 播放结束时，车辆将设置为自动驾驶，行人将停止。                |
+| `camera`   | 相机将聚焦的参与者的 ID。   | 将其设置为“0”以让观察者自由移动。                   |
 
 <br>
 
@@ -74,7 +74,7 @@ client.replay_file("recording01.log", start, duration, camera)
 
 ### 设置时间因子 <span id="setting-a-time-factor"></span>
 
-时间因素将决定播放速度。它可以随时更改而无需停止回放。
+时间因子将决定播放速度。它可以随时更改而无需停止回放。
 
 ```py
 client.set_replayer_time_factor(2.0)
@@ -89,9 +89,9 @@ client.set_replayer_time_factor(2.0)
 
 
 !!! 重要的
-    如果 `time_factor>2.0`，actors 的位置插值被禁用并且只是更新。行人的动画不受时间因素的影响。
+    如果 `time_factor>2.0`，参与者的位置插值被禁用并且只是更新。行人的动画不受时间因子的影响。
 
-当时间因素在 __20x__ 左右时，很容易理解流量。
+当时间因子 `time_factor` 在 __20x__ 左右时，很容易理解流量。
 
 ![流](img/RecorderFlow2.gif)
 
@@ -249,17 +249,17 @@ client.replay_file("col3.log", 34, 0, 173)
 
 
 
-* __start_recording.py__ 开始记录。可以设置记录的持续时间，并且可以在开始时生成参与者。
+* 使用 [__start_recording.py__](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/start_recording.py) 开始记录。可以设置记录的持续时间，并且可以在开始时生成参与者。
 
 |参数 |说明 |
 | -------------------------------------------------- ------------ | -------------------------------------------------- ------------ |
-| `-f` |文件名。 |
-| `-n`<small>（可选）</small> |产生的车辆。默认值为 10。
+| `-f` |文件名（编译版本默认保存在：`carla/Unreal/CarlaUE4/Saved/test1.log`）。 |
+| `-n`<small>（可选）</small> |产生的车辆（默认值为 10）。
 | `-t`<small>（可选）</small> |记录的持续时间。 |
 
 
 
-* __start_replaying.py__ 开始播放记录。可以设置开始时间、持续时间和要跟随的参与者。
+* 使用 [__start_replaying.py__](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/start_replaying.py) 开始播放记录。可以设置开始时间、持续时间和要跟随的参与者。
 
 
 |参数 |说明 |
@@ -272,7 +272,7 @@ client.replay_file("col3.log", 34, 0, 173)
 
 
 
-* __show_recorder_file_info.py__ 显示记录文件中的所有信息。默认情况下，它仅显示记录事件的帧。但是，所有这些都可以显示。
+* 使用 [__show_recorder_file_info.py__](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/show_recorder_file_info.py) 显示记录文件中的所有信息。默认情况下，它仅显示记录事件的帧。但是，所有这些都可以显示。
 
 
 |参数 |说明 |
@@ -282,7 +282,7 @@ client.replay_file("col3.log", 34, 0, 173)
 
 
 
-* __show_recorder_collisions.py__ 显示类型为 __A__ 和 __B__ 的参与者的两个标志之间记录的碰撞。 `-t = vv` 将显示车辆之间的所有碰撞。
+* [__show_recorder_collisions.py__](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/show_recorder_collisions.py) 显示类型为 __A__ 和 __B__ 的参与者的两个标志之间记录的碰撞。 `-t = vv` 将显示车辆之间的所有碰撞。
 
 
 | 参数   | 说明                                                                                         |
@@ -292,7 +292,7 @@ client.replay_file("col3.log", 34, 0, 173)
 
 
 
-* __show_recorder_actors_blocked.py__ 列出被认为被堵塞的车辆。如果在特定时间内没有移动最小距离，则认为参与者被堵塞。
+* 使用 [__show_recorder_actors_blocked.py__](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/show_recorder_actors_blocked.py) 中的 [carla.Client.show_recorder_actors_blocked](#python_api.md#carla.Client.show_recorder_actors_blocked) 方法列出被认为被堵塞的车辆。如果在特定时间内没有移动最小距离，则认为参与者被堵塞。
 
 
 |参数 |说明 |

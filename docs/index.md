@@ -163,6 +163,8 @@ title: 主页
 
 [__常见问题__](build_faq.md) — 一些最常见的安装问题
 
+[__自定义开发__](dev/custom_dev.md) - 开发湖工商分支
+
 [__调试程序__](tuto_D_windows_debug.md) — 进行C++程序的调试
 
 

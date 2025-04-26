@@ -3856,7 +3856,7 @@ _</font>
         - `deterministic_ragdolls` (_bool_) - 对于行人死亡使用确定的物理或布娃娃模拟定义wether。  
         - `tile_stream_distance` (_float<small> - 米</small>_) - 仅用于大地图。从英雄车辆到流瓦片地图配置最大距离。 
         - `actor_active_distance` (_float<small> - 米</small>_) - 仅用于大地图。配置与英雄车辆的距离以将参与者转换为休眠状态。
-        - `spectator_as_ego` (_bool_) - 仅用于大地图。在大型贴图中定义观众对平铺加载的影响。
+        - `spectator_as_ego` (_bool_) - 仅用于大地图。在大型贴图中定义观察者对平铺加载的影响。
 
 ##### 魔术方法
 - <a name="carla.WorldSettings.__eq__"></a>**<font color="#7fb800">\__eq__</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**other**=[carla.WorldSettings](#carla.WorldSettings)</font>)  
