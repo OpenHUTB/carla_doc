@@ -18,7 +18,7 @@
 	* [参与者变换](#actor-transforms)  
 	* [参与者速度](#actor-velocities)  
 	* [场景灯](#scene-lights)  
-	* [红绿灯](#traffic-lights)  
+	* [交通信号灯](#traffic-lights)  
 	* [车灯](#vehicle-lights)  
 
 ---
@@ -217,7 +217,7 @@ python metrics_manager.py --metric srunner/metrics/examples/distance_between_veh
 ### 通用参与者数据
 
 - <a name="get_ego_vehicle_id"></a>__<font color="#7fb800">get_ego_vehicle_id</font>__(<font color="#00a6ed">__self__</font>)  
-返回自我车辆的 `id`。
+返回自主车辆的 `id`。
     - __Return —__ int
 
 - <a name="get_actor_ids_with_role_name"></a>__<font color="#7fb800">get_actor_ids_with_role_name</font>__(<font color="#00a6ed">__self__</font>, <font color="#00a6ed">__role_name__</font>)  
@@ -245,10 +245,10 @@ python metrics_manager.py --metric srunner/metrics/examples/distance_between_veh
         - `actor_id` (_int_) — 参与者的`id`。
 
 - <a name="get_traffic_light_trigger_volume"></a>__<font color="#7fb800">get_traffic_light_trigger_volume</font>__(<font color="#00a6ed">__self__</font>, <font color="#00a6ed">__traffic_light_id__</font>)  
-返回指定交通灯的 trigger volume。
+返回指定交通信号灯的 trigger volume。
     - __Return —__ [carla.BoundingBox](https://carla.readthedocs.io/en/latest/python_api/#carlaboundingbox)
     - __Parameters__
-        - `traffic_light_id` (_int_) — 红绿灯的`id`。
+        - `traffic_light_id` (_int_) — 交通信号灯的`id`。
 
 - <a name="get_actor_alive_frames"></a>__<font color="#7fb800">get_actor_alive_frames</font>__(<font color="#00a6ed">__self__</font>, <font color="#00a6ed">__actor_id__</font>)  
 返回一个元组，其中包含参与者活跃的第一帧和最后一帧。请注意，帧从 1 开始，而不是从 0 开始。
@@ -417,31 +417,31 @@ Returns the state of a scene light for a given frame. The light state group will
         - `frame` (_int_) — 帧号。
 
 
-### 红绿灯
+### 交通信号灯
 
 - <a name="get_traffic_light_state"></a>__<font color="#7fb800">get_traffic_light_state</font>__(<font color="#00a6ed">__self__</font>, <font color="#00a6ed">__traffic_light_id__</font>, <font color="#00a6ed">__frame__</font>)  
-返回给定帧的红绿灯状态。
+返回给定帧的交通信号灯状态。
     - __Return —__ [carla.TrafficLightState](https://carla.readthedocs.io/en/latest/python_api/#carlatrafficlightstate).
     - __Parameters__
-        - `traffic_light_id` (_int_) — 红绿灯的`id`。
+        - `traffic_light_id` (_int_) — 交通信号灯的`id`。
         - `frame` (_int_) — 帧号。
 
 - <a name="is_traffic_light_frozen"></a>__<font color="#7fb800">is_traffic_light_frozen</font>__(<font color="#00a6ed">__self__</font>, <font color="#00a6ed">__traffic_light_id__</font>, <font color="#00a6ed">__frame__</font>)  
 返回交通信号灯是否冻结在给定帧。
     - __Return —__ bool
     - __Parameters__
-        - `traffic_light_id` (_int_) — 交通灯的`id`。
+        - `traffic_light_id` (_int_) — 交通信号灯的`id`。
         - `frame` (_int_) — 帧号。
 
 - <a name="get_traffic_light_elapsed_time"></a>__<font color="#7fb800">get_traffic_light_elapsed_time</font>__(<font color="#00a6ed">__self__</font>, <font color="#00a6ed">__traffic_light_id__</font>, <font color="#00a6ed">__frame__</font>)  
-返回给定帧处交通灯的经过时间。
+返回给定帧处交通信号灯的经过时间。
     - __Return —__ float
     - __Parameters__
-        - `traffic_light_id` (_int_) — 交通灯的`id`。
+        - `traffic_light_id` (_int_) — 交通信号灯的`id`。
         - `frame` (_int_) — 帧号。
 
 - <a name="get_traffic_light_state_time"></a>__<font color="#7fb800">get_traffic_light_state_time</font>__(<font color="#00a6ed">__self__</font>, <font color="#00a6ed">__traffic_light_id__</font>, <font color="#00a6ed">__state__</font>, <font color="#00a6ed">__frame__</font>)  
-返回给定帧处交通灯特定状态的最长时间。
+返回给定帧处交通信号灯特定状态的最长时间。
     - __Return —__ float
     - __Parameters__
         - `traffic_light_id` (_int_) — `id` of the traffic light.

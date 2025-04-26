@@ -1,19 +1,19 @@
 # 手动信号控制
 
-这是一个用于控制红绿灯的Flask应用程序，通过 [Carla模拟环境](https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb) 实现。用户可以通过指定红绿灯的OpenDRIVE ID、颜色ID以及设置时长来控制红绿灯的状态。红绿灯的颜色设置包括绿灯、黄灯和红灯，分别对应颜色ID [1, 2, 3]。颜色持续时间以秒为单位。
+这是一个用于控制交通信号灯的Flask应用程序，通过 [Carla模拟环境](https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb) 实现。用户可以通过指定交通信号灯的OpenDRIVE ID、颜色ID以及设置时长来控制交通信号灯的状态。交通信号灯的颜色设置包括绿灯、黄灯和红灯，分别对应颜色ID [1, 2, 3]。颜色持续时间以秒为单位。
 
 #### 参数说明
 
 [脚本](https://github.com/OpenHUTB/carla_doc/blob/master/src/course/signal_control.py) 接收以下参数：
-1. `--traffic_id` (`-I`): 目标红绿灯的OpenDrive ID。
-2. `--color_id` (`-C`): 红绿灯颜色ID，对应绿灯、黄灯和红灯，分别为1、2和3。
-3. `--color_time` (`-T`): 红绿灯颜色的持续时间，单位为秒。
+1. `--traffic_id` (`-I`): 目标交通信号灯的OpenDrive ID。
+2. `--color_id` (`-C`): 交通信号灯颜色ID，对应绿灯、黄灯和红灯，分别为1、2和3。
+3. `--color_time` (`-T`): 交通信号灯颜色的持续时间，单位为秒。
 
 #### 参数格式
 
-红绿灯颜色设置参数的格式为【红绿灯OpenDrive ID，颜色ID，设置时长】。
+交通信号灯颜色设置参数的格式为【交通信号灯OpenDrive ID，颜色ID，设置时长】。
 
-红绿灯颜色ID说明：
+交通信号灯颜色ID说明：
 
 - 绿灯：`1`
 - 黄灯：`2`
@@ -21,7 +21,7 @@
 
 #### 使用步骤
 
-要设置红绿灯，可以发送一个GET请求到 `/set_traffic_light`：
+要设置交通信号灯，可以发送一个GET请求到 `/set_traffic_light`：
 
 1. 打开Carla模拟环境
 2. 运行脚本signal_control.py来开启服务端
@@ -31,11 +31,11 @@
 http://127.0.0.1:5000/set_traffic_light?traffic_id=-5&color_id=3&color_time=30
 ```
 
-以上请求表示设置OpenDrive ID为`-5`的红绿灯的红灯的持续时间为`30`秒。
+以上请求表示设置OpenDrive ID为`-5`的交通信号灯的红灯的持续时间为`30`秒。
 
 #### 脚本工作流程
 
-应用程序的主要功能是根据用户提供的参数设置指定红绿灯的颜色和持续时间。具体实现步骤如下：
+应用程序的主要功能是根据用户提供的参数设置指定交通信号灯的颜色和持续时间。具体实现步骤如下：
 
 1.接收用户请求，并解析传入的参数。
 
@@ -46,7 +46,7 @@ client = carla.Client('localhost', 2000)
 client.set_timeout(10.0)  # 设置超时
 world = client.get_world()  # 获取世界对象
 ```
-3.查找指定的红绿灯对象,输出修改前的灯光时间。
+3.查找指定的交通信号灯对象,输出修改前的灯光时间。
 
 ```
 for traffic_light in traffic_lights:
@@ -58,7 +58,7 @@ for traffic_light in traffic_lights:
         elif color_id == 3:
             init_time = traffic_light.get_red_time()
 ```
-4.跳转视角到该红绿灯合适的位置。
+4.跳转视角到该交通信号灯合适的位置。
 
 ```
 lights_setting = [
@@ -74,7 +74,7 @@ for setting in lights_setting:
         spectator.set_transform(setting[1])
         break
 ```
-5.根据颜色ID设置红绿灯的持续时间。
+5.根据颜色ID设置交通信号灯的持续时间。
 
 ```
 for traffic_light in traffic_lights:
@@ -103,7 +103,7 @@ response_data = {
 
 - 在执行脚本前，请确保CARLA服务器已启动。
 - 发送请求时，需要传入对应的参数值。
-- settings.no_rendering_mode = False 不能重复设置，否则即使修改红绿灯时长也不会有效果。
+- settings.no_rendering_mode = False 不能重复设置，否则即使修改交通信号灯时长也不会有效果。
 
 #### 运行结果
 

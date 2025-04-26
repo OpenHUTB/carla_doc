@@ -88,7 +88,7 @@ Ray 所需的信息取决于您的具体实验，因此所有实验都应继承�
 配置文件有三个主要用途：
 
 1. 设置大部分 Carla 服务器和客户端设置，例如超时或地图质量。请参阅 [此处][defaultCarlaSettings] 的默认值。 
-2. 设置特定于您的实验的变量，以及指定城镇条件以及自我车辆及其传感器的生成。默认设置可在 [此处][defaultExperimentSettings] 找到，并提供如何设置传感器的示例。
+2. 设置特定于您的实验的变量，以及指定城镇条件以及自主车辆及其传感器的生成。默认设置可在 [此处][defaultExperimentSettings] 找到，并提供如何设置传感器的示例。
 3. 配置特定于 [Ray 的训练][raySettings] 设置。这些设置与所使用的特定训练器相关。如果您使用的是内置模型，则可以在此处应用其设置。 
 
 [defaultCarlaSettings]: https://github.com/carla-simulator/rllib-integration/blob/main/rllib_integration/carla_core.py#L23

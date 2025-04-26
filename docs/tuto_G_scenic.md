@@ -64,7 +64,7 @@ model scenic.simulators.carla.model
 
 __2.__ 定义场景中要使用的常量：
 
-该场景涉及两辆车，领头车辆和自我车辆。我们将定义自我车辆模型、两辆车的速度、制动距离阈值以及制动量。
+该场景涉及两辆车，领头车辆和自主车辆。我们将定义自主车辆模型、两辆车的速度、制动距离阈值以及制动量。
 
 ```scenic
 ## CONSTANTS
@@ -80,7 +80,7 @@ BRAKE_ACTION = 1.0
 
 __3__. 定义场景行为：
 
-在这种情况下，我们将使用 Scenic [行为库](https://scenic-lang.readthedocs.io/en/latest/modules/scenic.domains.driving.behaviors.html) 来指示自我车辆以预定义的速度沿着车道行驶，然后在与另一辆车相距一定距离时紧急制动。领先的车辆也会以预定的速度沿着车道行驶，并在距离任何物体一定距离内紧急制动：
+在这种情况下，我们将使用 Scenic [行为库](https://scenic-lang.readthedocs.io/en/latest/modules/scenic.domains.driving.behaviors.html) 来指示自主车辆以预定义的速度沿着车道行驶，然后在与另一辆车相距一定距离时紧急制动。领先的车辆也会以预定的速度沿着车道行驶，并在距离任何物体一定距离内紧急制动：
 
 ```scenic
 ## DEFINING BEHAVIORS
@@ -144,7 +144,7 @@ require (distance to intersection) > 80
 
 __6.__ 设置结束点，以便脚本知道场景何时完成：
 
-当自我车辆的速度低于每秒 0.1 米并且距离障碍物不到 30 米时，该场景将结束。
+当自主车辆的速度低于每秒 0.1 米并且距离障碍物不到 30 米时，该场景将结束。
 
 ```scenic
 terminate when ego.speed < 0.1 and (distance to obstacle) < 30

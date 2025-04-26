@@ -47,7 +47,7 @@ python3 run_synchronization.py examples/Town03/Town03.inpx
 * __将网络导出为`.inpx`__。创建网络，将其导出，然后使用`run_synchronization.py`运行协同模拟
 
 ![ptv_types](img/ptv_types.jpg)
-<div style="text-align: right"><i>在 Carla 中生成的任何车辆都将使用这些类型在 PTV-Vissim 中生成。</i></div>
+<div style="text-align: center"><i>在 Carla 中生成的任何车辆都将使用这些类型在 PTV-Vissim 中生成。</i></div>
 
 !!! 笔记
     如果行人和车辆类型为空，PTV-Vissim 将崩溃。

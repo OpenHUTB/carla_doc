@@ -97,11 +97,4 @@ __3.__ 导出 `.xodr`文件:
 
 ---
 
-如果你对这个过程有任何疑问，那么你可以在 [论坛](https://github.com/carla-simulator/carla/discussions) 上提问。
-
-<div class="build-buttons">
-<p>
-<a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-Carla 论坛</a>
-</p>
-</div>
+如果你对这个过程有任何疑问，那么你可以在 [讨论页面](https://github.com/OpenHUTB/carla_doc/issues) 上提问。

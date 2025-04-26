@@ -1,3 +1,5 @@
+# 虚幻引擎高级特性
+
 ## [控制台命令](https://blog.csdn.net/somnusand/article/details/115511383) 
 
 启动模拟后，输入`~`键调用控制台命令。
@@ -18,10 +20,30 @@
 
 光栅化：找出三角形所覆盖到的像素；
 
+## 内容
+
+### 编译
+[编译配置参考](https://docs.unrealengine.com/4.26/zh-CN/ProductionPipelines/DevelopmentSetup/BuildConfigurations/)
+
+### 像素流插件
+相关源码位于：`unreal\Engine\Plugins\Media\PixelStreaming\PixelStreaming.uplugin`
+
+### 编辑器界面汉化
+资源存储位置：`engine\Engine\Content\Localization\Editor\zh-Hans`，只需使用文本编辑器（例如 Notepad++）编辑`Editor.archive`。
+
+### 问题
+* 右键`.uproject`文件没有`Switch Unreal Engine version...`
+解决：双击`Engine\Binaries\Win64\UnrealVersionSelector-Win64-Shipping.exe`，出现`Register this directory as an Unreal Engine installation?`后点击`是(Y)`。
+
+* 增加`matlab`插件进行虚幻引擎编译，导致启动虚幻编辑器启动失败，原因不明。
+
+* 如果启动虚幻编辑器时出现选择`renderdocui.exe`的选项，则从 [RenderDoc](https://renderdoc.org/) 中下载并安装软件，然后选择相应的exe文件即可启动。
+
 ## [Git 版本管理](https://zhuanlan.zhihu.com/p/104197715)
 
 1. 源码控制->连接到源代码管理->Git；
 2. Git路径选择Git安装后bin文件中的启动程序；选择`接收设置`
+
 
 
 ## [法律风险](https://www.3dcat.live/share/ue4-vsualization-software/) 

@@ -10,7 +10,7 @@ Carla 提供了大量的资源，可用于创建开箱即用的驾驶模拟。�
 * __[使用 RoadRunner 创建路网](#create-a-road-network-using-roadrunner)__  
 * __[将路网导入 Carla](#importing-your-road-network-into-carla)__
 * __[导入资产并将它们添加到地图](#importing-assets-and-adding-them-to-the-map)__
-* __[交通灯](#traffic-lights)__
+* __[交通信号灯](#traffic-lights)__
 * __[交通标志](#traffic-signs)__ 
 * __[材质](#materials)__
 * __[道路画家](#road-painter)__
@@ -31,7 +31,7 @@ Carla 提供了大量的资源，可用于创建开箱即用的驾驶模拟。�
 
 ## 大地图 <span id="large-maps"></span>
 
-以下文本详细介绍了创建和装饰标准地图的过程。从版本 0.9.12 开始，Carla 具有大地图功能。大地图的比例比标准地图更大，最大可达 100 km<sup>2</sup>。由于硬件限制，大地图的工作方式与标准地图略有不同，即使在高端显卡中也是如此。大地图被分割成图块，并且在模拟过程中仅加载立即需要的图块（即最接近自我车辆的图块）。其他图块处于休眠状态，直到需要数据为止。这有助于实现 Carla 模拟的最高性能。接下来的大多数细节与构建大地图时类似，但还有一些额外的步骤。请按照 [本指南](content_authoring_large_maps.md) 为 Carla 构建大地图。
+以下文本详细介绍了创建和装饰标准地图的过程。从版本 0.9.12 开始，Carla 具有大地图功能。大地图的比例比标准地图更大，最大可达 100 km<sup>2</sup>。由于硬件限制，大地图的工作方式与标准地图略有不同，即使在高端显卡中也是如此。大地图被分割成图块，并且在模拟过程中仅加载立即需要的图块（即最接近自主车辆的图块）。其他图块处于休眠状态，直到需要数据为止。这有助于实现 Carla 模拟的最高性能。接下来的大多数细节与构建大地图时类似，但还有一些额外的步骤。请按照 [本指南](content_authoring_large_maps.md) 为 Carla 构建大地图。
 
 ## 数字孪生工具 <span id="digital-twin-tool"></span>
 
@@ -150,23 +150,23 @@ ORM 贴图利用标准 RGBA 编码图像的通道对金属区域、粗糙度和�
 
 地图作者指南到此结束。现在您知道如何创建道路网络并导入三维资产以在 Carla 中使用。您现在可以阅读如何 [__打包地图以在 Carla 独立版本中使用__](tuto_M_manual_map_package.md) 。
 
-## 交通灯 <span id="traffic-lights"></span>
+## 交通信号灯 <span id="traffic-lights"></span>
 
-要将红绿灯添加到新地图：
+要将交通信号灯添加到新地图：
 
-__1.__ 从 _内容浏览器_, 导航至 `Content > Carla > Static > TrafficLight > StreetLights_01`。您会发现几种不同的交通灯蓝图可供选择。
+__1.__ 从 _内容浏览器_, 导航至 `Content > Carla > Static > TrafficLight > StreetLights_01`。您会发现几种不同的交通信号灯蓝图可供选择。
 
-__2.__ 将交通灯拖到场景中并将其放置在所需位置。按键盘上的空格键可在定位、旋转和缩放工具之间切换。
+__2.__ 将交通信号灯拖到场景中并将其放置在所需位置。按键盘上的空格键可在定位、旋转和缩放工具之间切换。
 
-__3.__ 通过选择“详细(_Details_)” 面板中的 _BoxTrigger_ 组件并调整 _Transform_ 部分的值，为每个红绿灯调整 [`trigger volume`][triggerlink] 。这将确定红绿灯的影响范围。
+__3.__ 通过选择“详细(_Details_)” 面板中的 _BoxTrigger_ 组件并调整 _Transform_ 部分的值，为每个交通信号灯调整 [`trigger volume`][triggerlink] 。这将确定交通信号灯的影响范围。
 
 >>![ue_trafficlight](./img/ue_trafficlight.jpg)
 
-__4.__ 对于路口，将`BP_TrafficLightGroup`参与者拖入关卡中。通过将路口处的所有交通灯添加到“详细信息(_Details_)”面板中的“交通灯(_Traffic Lights_)”数组，将它们分配给交通灯组。
+__4.__ 对于路口，将`BP_TrafficLightGroup`参与者拖入关卡中。通过将路口处的所有交通信号灯添加到“详细信息(_Details_)”面板中的“交通信号灯(_Traffic Lights_)”数组，将它们分配给交通信号灯组。
 
 >>![ue_tl_group](./img/ue_tl_group.jpg)
 
-__5.__ 交通灯计时只能通过Python API 进行配置。请参阅 [此处](core_actors.md#traffic-signs-and-traffic-lights) 的文档以获取更多信息。
+__5.__ 交通信号灯计时只能通过Python API 进行配置。请参阅 [此处](core_actors.md#traffic-signs-and-traffic-lights) 的文档以获取更多信息。
 
 >>![ue_tlsigns_example](./img/ue_tlsigns_example.jpg)
 
@@ -178,11 +178,11 @@ __5.__ 交通灯计时只能通过Python API 进行配置。请参阅 [此处](c
 
 要将交通标志添加到新地图：
 
-__1.__ 从 _内容浏览器_，导航至 `Content > Carla > Static > TrafficSign`。您会发现几种不同的交通灯蓝图可供选择。
+__1.__ 从 _内容浏览器_，导航至 `Content > Carla > Static > TrafficSign`。您会发现几种不同的交通信号灯蓝图可供选择。
 
-__2.__ 将交通灯拖到场景中并将其放置在所需位置。按键盘上的空格键可在定位、旋转和缩放工具之间切换。
+__2.__ 将交通信号灯拖到场景中并将其放置在所需位置。按键盘上的空格键可在定位、旋转和缩放工具之间切换。
 
-__3.__ 通过在“详细信息( _Details_ )”面板中选择 _BoxTrigger_ 组件并调整“变换(_Transform_)”部分中的值，调整每个交通标志的[`trigger volume`][triggerlink]。这将确定交通灯的影响区域。并非所有交通标志都有触发音量。此类标志包括让行标志、停车标志和限速标志。
+__3.__ 通过在“详细信息( _Details_ )”面板中选择 _BoxTrigger_ 组件并调整“变换(_Transform_)”部分中的值，调整每个交通标志的[`trigger volume`][triggerlink]。这将确定交通信号灯的影响区域。并非所有交通标志都有触发音量。此类标志包括让行标志、停车标志和限速标志。
 
 ## 材质 <span id="materials"></span>
 
@@ -302,10 +302,10 @@ __3. 设置画笔和模板参数。__
 - _Rotation_ — 应用于笔画的旋转。
 
 >>>>>>![materials_roadpaint_brushes](./img/material_customization/Materials_Brush.jpg)
-<div style="text-align: right"><i>刷子面板。</i></div>
+<div style="text-align: center"><i>刷子面板。</i></div>
 <br>
 ![materials_roadpaint_typesofbrushes](./img/material_customization/Materials_Road_Typesofbrushes.jpg)
-<div style="text-align: right"><i>不同类型的刷子。</i></div>
+<div style="text-align: center"><i>不同类型的刷子。</i></div>
 <br>
 
 __4. 将每种材质涂抹到道路的所需部分。__
@@ -324,7 +324,7 @@ __4. 将每种材质涂抹到道路的所需部分。__
 * _Clear material by actor_ — 删除最接近所选参与者的材质。
 
 >>>>>>![materials_roadpaint_brushes](./img/material_customization/Materials_RoadPainter_Default.jpg)
-<div style="text-align: right"><i>Different painting and erasing options.</i></div>
+<div style="text-align: center"><i>不同的绘画和擦除选项。</i></div>
 <br>
 
 __5.添加贴花和网格。__
@@ -340,7 +340,7 @@ __5.添加贴花和网格。__
 - _Decal/Mesh Max Scale_ — 应用于贴花/网格的最大随机比例。
 
 >>>>>>![materials_](./img/decals_meshes.png)
-<div style="text-align: right"><i>贴花和网格面板。</i></div>
+<div style="text-align: center"><i>贴花和网格面板。</i></div>
 <br>
 
 配置好网格和贴花后，通过按`Spawn decals`和生`Spawn meshes`。
@@ -353,27 +353,27 @@ __7. 尝试获得您想要的外观。__
 尝试不同的材质、纹理、设置、贴花和网格以获得您想要的外观。下面是一些示例图像，显示了在绘制每种材质的过程中道路外观如何变化。
 
 ![materials_roadpaint_mat00](./img/material_customization/Materials_Road_MaterialBase.jpg)
-<div style="text-align: right"><i>基础道路材料示例。</i></div>
+<div style="text-align: center"><i>基础道路材料示例。</i></div>
 <br>
 
 ![materials_roadpaint_mat01](./img/material_customization/Materials_Road_Material1.jpg)
-<div style="text-align: right"><i>应用材料 1 后的示例。</i></div>
+<div style="text-align: center"><i>应用材料 1 后的示例。</i></div>
 <br>
 
 ![materials_roadpaint_mat02](./img/material_customization/Materials_Road_Material2.jpg)
-<div style="text-align: right"><i>应用材料 2 后的示例。</i></div>
+<div style="text-align: center"><i>应用材料 2 后的示例。</i></div>
 <br>
 
 ![materials_roadpaint_mat03](./img/material_customization/Materials_Road_Material3.jpg)
-<div style="text-align: right"><i>应用材料 3 后的示例。</i></div>
+<div style="text-align: center"><i>应用材料 3 后的示例。</i></div>
 <br>
 
 ![materials_roadpaint_mat03](./img/material_customization/Materials_Road_Decals.jpg)
-<div style="text-align: right"><i>应用贴花后的示例。</i></div>
+<div style="text-align: center"><i>应用贴花后的示例。</i></div>
 <br>
 
 ![materials_roadpaint_mat03](./img/material_customization/Materials_Road_Meshes.jpg)
-<div style="text-align: right"><i>应用网格后的示例。</i></div>
+<div style="text-align: center"><i>应用网格后的示例。</i></div>
 <br>
 
 ---
@@ -424,7 +424,7 @@ Carla 内容库拥有一套全面的植被蓝图，供您为地图的越野区�
 
 使用以下工具和指南继续自定义您的地图：
 
-- [在地图中实施子关卡。.](tuto_M_custom_layers.md)
+- [在地图中实施子关卡。](tuto_M_custom_layers.md)
 - [使用程序化构建工具添加建筑物。](tuto_M_custom_buildings.md)
 - [自定义天气](tuto_M_custom_weather_landscape.md#weather-customization)
 - [使用序列化网格自定义景观。](tuto_M_custom_weather_landscape.md#add-serial-meshes)
@@ -432,11 +432,6 @@ Carla 内容库拥有一套全面的植被蓝图，供您为地图的越野区�
 
 ---
 
-如果您对流程有任何疑问，可以在 [论坛](https://github.com/carla-simulator/carla/discussions) 中提问。
+如果您对文档有任何疑问，可以在 [讨论页面](https://github.com/OpenHUTB/carla_doc/issues) 中提问。
 
-<div class="build-buttons">
-<p>
-<a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-Carla 论坛</a>
-</p>
-</div>
+
