@@ -157,7 +157,7 @@ __BP_SplinePoweLine__ 蓝图可在 `Carla/Static/Pole/PoweLine` 中找到。它�
 使用以下工具和指南继续自定义您的地图：
 
 - [在地图中实现子关卡。](tuto_M_custom_layers.md)
-- [添加和配置交通灯和标志。](tuto_M_custom_add_tl.md)
+- [添加和配置交通信号灯和交通标志。](tuto_M_custom_add_tl.md)
 - [使用程序化构建工具添加建筑物。](tuto_M_custom_buildings.md)
 - [使用道路画家工具自定义道路。](tuto_M_custom_road_painter.md)
 - [使用序列化网格自定义景观。](tuto_M_custom_weather_landscape.md#add-serial-meshes)

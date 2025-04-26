@@ -1,6 +1,6 @@
 # [引用了Carla的相关仓库](https://github.com/carla-simulator/carla/network/dependents)
 
-<!-- 更新到最新的仓库： https://github.com/CodeJonesW/sensor_simulation_and_data_collection --> 
+<!-- 更新到最新的仓库： https://github.com/kap2403/carla-facial-gesture-control --> 
 
 
 - [__感知__](#perception)
@@ -68,7 +68,7 @@
 
 [基于多传感器融合的自动驾驶汽车雨天条件下的 3D 物体检测模拟](https://github.com/CC-WU/Multisensor-fusion-based-3D-Object-Detecting-Simulation-Under-Rainy-Conditions-for-Autonomous-Vehicl)
 
-[使用 YoloV3 进行交通灯识别和分类](https://github.com/lorenz-lukas/YoloV3_traffic_light_Carla_simulator)
+[使用 YoloV3 进行交通信号灯识别和分类](https://github.com/lorenz-lukas/YoloV3_traffic_light_Carla_simulator)
 
 [高效车道和路径检测学习模型和架构](https://github.com/iXcess/driving_model)
 
@@ -362,6 +362,7 @@
 
 [使用模型预测控制 (MPC) 的自动驾驶汽车控制系统](https://github.com/yusaku-nakano/carla_mpc)
 
+[CARLA 控制和可视化示例](https://github.com/andrey7mel/carla-python-examples)
 
 ## 端到端 <span id="end_2_end"></span>
 
@@ -442,6 +443,10 @@
 [安全自主特技动作的代理控制](https://github.com/SHi-ON/ManeuverGPT)
 
 [语言协作驾驶](https://github.com/taco-group/LangCoop)
+
+[利用未标记的 LLM 生成进行幻觉检测](https://github.com/deeplearning-wisc/haloscope)
+
+[TLDR：使用大型视觉模型作为 AV 的驱动代理](https://github.com/akodama428/drivellava)
 
 
 ## 交通 <span id="traffic"></span>
@@ -545,6 +550,10 @@
 
 [基于图像的行人智能手机使用分类器](https://github.com/saadejazz/smato)
 
+[基于 ResNet50 的深度神经网络用于手势分类，从而实现直观、解放双手的车辆控制](https://github.com/kap2403/carla-facial-gesture-control)
+
+[通过手势控制车辆](https://github.com/Shree7676/carla-gesture-control)
+
 
 ## 智能体 <span id="agent"></span>
 
@@ -626,6 +635,7 @@
 
 [MOSAT：使用多目标遗传算法查找自动驾驶系统的安全违规行为](https://github.com/ADStesting-test/MOSAT)
 
+[自动驾驶汽车仿真与道德决策](https://github.com/RobinKhiv/carla)
 
 ## 安全 <span id="security"></span>
 
@@ -686,6 +696,8 @@
 [自主信息物理系统运行时风险评估框架](https://github.com/scope-lab-vu/Resonate)
 
 [专为精确评估自动驾驶汽车安全性的交通模拟环境](https://github.com/michigan-traffic-lab/TeraSim)
+
+[通过量化逃生路线的变化来表征和减轻风险](https://github.com/zihengjackchen/iPrism)
 
 ## 测试 <span id="test"></span>
 
@@ -768,6 +780,7 @@
 
 [CARLA 传感器模拟到标记数据集的工作流程](https://github.com/CodeJonesW/sensor_simulation_and_data_collection)
 
+[使用 ROS2-CARLA 将 LiDar 集成到 Carla](https://github.com/invimirage/CSC791Project)
 
 ## 工具 <span id="tools"></span>
 
@@ -837,7 +850,7 @@
 
 [各种以模块化方式构建的功能](https://github.com/angelomorgado/CARLA-Ultimate-Template)
 
-[使用 PyGame 可视化自我车辆的传感器](https://github.com/angelomorgado/CARLA-Sensor-Visualization)
+[使用 PyGame 可视化自主车辆的传感器](https://github.com/angelomorgado/CARLA-Sensor-Visualization)
 
 [FHWA CARMA 实用程序脚本](https://github.com/davidgayman/fhwa-carma-utility-scripts)
 
@@ -1161,6 +1174,8 @@
 [METS-R_HPC](https://github.com/umnilab/METS-R_HPC)
 
 [各种自动驾驶任务代码](https://github.com/KrishGupta25/SelfDrivingSTEM)
+
+[CARLA 模拟器安装脚本的快速入门指南](https://github.com/JonaSchwei01/carla-quick-start-guide)
 
 [carla-simulation](https://github.com/Henrique-hpds/carla-simulation)
 

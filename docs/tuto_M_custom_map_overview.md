@@ -12,7 +12,7 @@ Carla 的用户可以创建自定义地图并使用它们来运行模拟。在 C
 
 ## 概述 <span id="overview"></span>
 
-在 Carla 中使用自定义地图涉及四个主要过程：
+在 Carla 中使用自定义地图涉及 4 个主要过程：
 
 1. 生成
 2. 导入
@@ -37,11 +37,11 @@ __[本指南](tuto_M_generate_map.md) 说明如何使用 RoadRunner 生成地图
 
 如果您使用的是 Carla __软件包版本__ ，您将使用 Docker 导入地图。此选项仅在 Linux 中可用，并且您将无法使用虚幻编辑器自定义地图。 __您可以在 [此处](tuto_M_add_map_package.md)找到指南。__
 
-如果您使用的是 Carla __源代码构建__ 版本，可以使用三种方法导入地图：
+如果您使用的是 Carla __源代码构建__ 版本，可以使用 3 种方法导入地图：
 
-1. 使用自动 `make import` 流程（推荐）。  __您可以在 [此处](tuto_M_add_map_source.md)找到指南。__
-2. 使用 RoadRunner 插件。 __您可以在 [此处](tuto_M_add_map_alternative.md#roadrunner-plugin-import)找到指南。__
-3. 手动将地图导入到虚幻引擎中。 __您可以在 [此处](tuto_M_add_map_alternative.md#manual-import)找到指南。__
+1. 使用自动 `make import` 流程（推荐）。  __您可以在 [此处](tuto_M_add_map_source.md) 找到指南。__
+2. 使用 RoadRunner 插件。 __您可以在 [此处](tuto_M_add_map_alternative.md#roadrunner-plugin-import) 找到指南。__
+3. 手动将地图导入到虚幻引擎中。 __您可以在 [此处](tuto_M_add_map_alternative.md#manual-import) 找到指南。__
 
 以下视频介绍了将地图导入 Carla 的一些可用方法：
 
@@ -59,14 +59,14 @@ __[本指南](tuto_M_generate_map.md) 说明如何使用 RoadRunner 生成地图
 - __设置默认天气：__ 尝试不同的天气预设，找到正确的组合后，为您的地图设置默认天气。 __您可以在 [此处](tuto_M_custom_weather_landscape.md#weather-customization)找到指南。__
 - __填充景观：__ 使用蓝图通过重复网格（例如路灯、电线和墙壁）填充景观。 __您可以在 [此处](tuto_M_custom_weather_landscape.md#add-serial-meshes)找到指南。__
 - __绘制道路：__ 使用混合不同纹理的主材质绘制道路。添加贴花和网格，例如落叶、裂缝或沙井。 __您可以在 [此处](tuto_M_custom_road_painter.md)找到指南。__
-- __添加程序化建筑物：__ 使用程序化建筑蓝图添加具有自定义尺寸、楼层数量和可变网格组合的建筑物。  __您可以在 [此处](tuto_M_custom_buildings.md)找到指南。__
-- __添加交通灯和交通标志：__ 添加交通灯和标志并配置其影响区域。路口的红绿灯组。 __您可以在 [此处](tuto_M_custom_add_tl.md)找到指南。__
+- __添加程序化建筑物：__ 使用程序化建筑蓝图添加具有自定义尺寸、楼层数量和可变网格组合的建筑物。 __您可以在 [此处](tuto_M_custom_buildings.md)找到指南。__
+- __添加交通信号灯和交通标志：__ 添加交通信号灯和标志并配置其影响区域。路口的交通信号灯组。 __您可以在 [此处](tuto_M_custom_add_tl.md)找到指南。__
 
 ---
 
 ## 生成行人导航 <span id="generate-pedestrian-navigation"></span>
 
-为了生成行人并在地图上导航，您需要使用 Carla 提供的工具生成行人导航信息。行人导航应在完成地图自定义后生成，以便不会在导航路径上方创建障碍物。 __您可以在 [此处](tuto_M_generate_pedestrian_navigation.md)找到指南。__
+为了生成行人并在地图上导航，您需要使用 Carla 提供的工具生成行人导航信息。行人导航应在完成地图自定义后生成，以便不会在导航路径上方创建障碍物。 __您可以在 [此处](tuto_M_generate_pedestrian_navigation.md) 找到指南。__
 
 ---
 

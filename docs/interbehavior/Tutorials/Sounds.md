@@ -12,7 +12,7 @@
 ## 发动机转速 <span id="engine_revving"></span>
 对于用户使用油门来说，最好的反馈机制之一是发动机转速增加时发出的轰鸣声。
 
-- 是的，我们知道，我们为我们的自我车辆使用了特斯拉模型，但却给它配备了发动机/齿轮噪音......亵渎！
+- 是的，我们知道，我们为我们的自主车辆使用了特斯拉模型，但却给它配备了发动机/齿轮噪音......亵渎！
 
 !!! 致谢
     本节大部分内容来自 [YouTube 上这个非常有用的指南](https://www.youtube.com/watch?v=-c-f1aaIOnU) ，该指南也 [以文章的形式提供](https://continuebreak.com/articles/generating-setting-basic-engine-sounds-ue4-part-12/) 。我们强烈建议您查看它以获取以下步骤的分步说明和视觉效果。
@@ -137,7 +137,7 @@
 
   - 只需导入声音，在代码中找到它们，然后在我们想要的事件上播放它们
 
-要了解我们如何在 DReyeVR 中实现音频组件（针对自我车辆以及基准 CarlaWheeledVehicle），请查看 [`EgoVehicle.h`](../../DReyeVR/EgoVehicle.h) 和 [`CarlaWheeledVehicle.h`](../../Carla/Vehicle/CarlaWheeledVehicle.h)
+要了解我们如何在 DReyeVR 中实现音频组件（针对自主车辆以及基准 CarlaWheeledVehicle），请查看 [`EgoVehicle.h`](../../DReyeVR/EgoVehicle.h) 和 [`CarlaWheeledVehicle.h`](../../Carla/Vehicle/CarlaWheeledVehicle.h)
 
 
 ## 世界中的环境噪声 <span id="ambient_world_noise"></span>

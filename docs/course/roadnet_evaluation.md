@@ -2,7 +2,7 @@
 
 #### **介绍**
 
-[该代码](https://github.com/OpenHUTB/carla_doc/blob/master/src/course/roadnet_evaluation.py) 用于评估 Carla 模拟环境中的路网质量。评估的指标包括路网覆盖率、路口数量、交通灯数量和道路平均宽度。评估结果可以帮助了解模拟环境中的道路网络结构和配置。
+[该代码](https://github.com/OpenHUTB/carla_doc/blob/master/src/course/roadnet_evaluation.py) 用于评估 Carla 模拟环境中的路网质量。评估的指标包括路网覆盖率、路口数量、交通信号灯数量和道路平均宽度。评估结果可以帮助了解模拟环境中的道路网络结构和配置。
 #### **环境配置**
 
 要运行该代码，需要以下软件和库：
@@ -27,7 +27,7 @@ pip install geopandas shapely scikit-learn
 
 1. **计算路网覆盖率**
 2. **计算路口数量**
-3. **计算交通灯数量**
+3. **计算交通信号灯数量**
 4. **计算道路平均宽度**
 5. **模拟流量和真实流量相似性评估**
 
@@ -64,9 +64,9 @@ def intersection_num(world):
     return len(junction_ids)
 ```
 
-##### 计算交通灯数量
+##### 计算交通信号灯数量
 
-它通过获取所有交通灯的演员对象并计数来实现。
+它通过获取所有交通信号灯的参与者对象并计数来实现。
 
 ```
 def traffic_num(world):
