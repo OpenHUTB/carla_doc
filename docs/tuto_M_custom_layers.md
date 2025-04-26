@@ -34,7 +34,7 @@ __2. 创建新关卡。__
 
 __1. 选择您要将资产添加到的关卡__。
 
-在“关卡”面板中，双击要添加资源的“关卡”。通过切换锁图标确保关卡已解锁。 
+在“关卡”面板中，双击要添加资源的“关卡”。通过切换锁图标确保关卡已解锁。
 
 __2. 选择要添加的资产。__
 
@@ -69,8 +69,8 @@ __3. 保存关卡。__
 
 使用以下工具和指南继续自定义您的地图：
 
-- [添加和配置交通灯和标志。](tuto_M_custom_add_tl.md)
-- [A使用程序构建工具添加建筑物。](tuto_M_custom_buildings.md)
+- [添加和配置交通信号灯和交通标志。](tuto_M_custom_add_tl.md)
+- [使用程序构建工具添加建筑物。](tuto_M_custom_buildings.md)
 - [使用道路画家工具自定义道路。](tuto_M_custom_road_painter.md)
 - [自定义天气](tuto_M_custom_weather_landscape.md#weather-customization)
 - [使用连续网格自定义景观。](tuto_M_custom_weather_landscape.md#add-serial-meshes)
@@ -79,11 +79,5 @@ __3. 保存关卡。__
 
 ---
 
-如果您对流程有任何疑问，可以在 [论坛](https://github.com/carla-simulator/carla/discussions) 中提问。
+如果您对文档有任何疑问，可以在 [讨论页面](https://github.com/OpenHUTB/carla_doc/issues) 中提问。
 
-<div class="build-buttons">
-<p>
-<a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-Carla 论坛</a>
-</p>
-</div>

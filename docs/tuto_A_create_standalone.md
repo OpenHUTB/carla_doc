@@ -19,6 +19,9 @@ make package ARGS="--packages=Package1,Package2"
 
 这将为列出的每个包创建一个压缩在 `.tar.gz` 文件中的独立包。在 Linux 上文件将保存在 `Dist`，在 Windows 上文件保存在 `/Build/UE4Carla/` 文件夹下。
 
+!!! 笔记
+    在虚幻编辑器的菜单“编辑->项目设置->项目->打包->(点下三角打开折叠的选项)打包版本中要包含的地图列表”中可以删除不需要的地图，加入需要打包的自定义地图。
+
 ---
 
 ## 使用 Docker 导出包 <span id="export-a-package-using-docker"></span>
@@ -62,7 +65,7 @@ cd Import
 
 <div class="build-buttons">
 <p>
-<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-Carla 论坛</a>
+<a href="https://github.com/OpenHUTB/carla_doc/issues" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
+讨论页面</a>
 </p>
 </div>

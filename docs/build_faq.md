@@ -13,8 +13,8 @@ Carla 论坛</a>
 
 ## 专业问题
 
-* [传感器](./QA/sensor.md)
-* [动力学](./QA/dynamics.md)
+* [传感器](./faq/sensor.md)
+* [动力学](./faq/dynamics.md)
 
 
 ## 系统要求
@@ -48,6 +48,31 @@ Carla 论坛</a>
 * [类型转换不对](#type_conversion_error)
 * [链接不到osm2odr.lib](#link_osm2odr_failed)
 * [编译器的堆空间不足](#heap_lack)
+
+
+---
+
+## 编译 OpenHUTB 分支
+### make lanunch ARGS="--chrono"报错
+```text
+D:/work/workspace/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/FisheyeSensor.cpp(219): error C2653: “CubemapHelpersFisheye”: 不是类或命名空间名称
+D:/work/workspace/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/FisheyeSensor.cpp(279): note: 查看对正在编译的函数 模板 实例化“void AFisheyeSensor::SendPixelsInRenderThread<AFisheyeSensor>(TSensor &,float,float,float,float,float,float,float,float,float,float,float)”的引用
+      with
+      [
+          TSensor=AFisheyeSensor
+      ]
+D:/work/workspace/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/FisheyeSensor.cpp(219): error C2065: “FFisheyeParams”: 未声明的标识符
+D:/work/workspace/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/FisheyeSensor.cpp(219): error C2146: 语法错误: 缺少“;”(在标识符“FisheyeParams”的前面)
+D:/work/workspace/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/FisheyeSensor.cpp(219): error C2065: “FisheyeParams”: 未声明的标识符
+D:/work/workspace/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/FisheyeSensor.cpp(221): error C2065: “FisheyeParams”: 未声明的标识符
+D:/work/workspace/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/FisheyeSensor.cpp(223): error C2065: “FisheyeParams”: 未声明的标识符
+D:/work/workspace/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/FisheyeSensor.cpp(225): error C2065: “FisheyeParams”: 未声明的标识符
+D:/work/workspace/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/FisheyeSensor.cpp(227): error C2065: “FisheyeParams”: 未声明的标识符
+D:/work/workspace/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/FisheyeSensor.cpp(229): error C2653: “CubemapHelpersFisheye”: 不是类或命名空间名称
+D:/work/workspace/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/FisheyeSensor.cpp(229): error C2065: “FisheyeParams”: 未声明的标识符
+D:/work/workspace/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/FisheyeSensor.cpp(229): error C3861: “GenerateLongLatUnwrapFisheye”: 找不到标识符
+```
+> 因为鱼眼相机需要修改虚幻引擎中的代码，需要同步更新 [UnrealEngine](https://github.com/OpenHUTB/UnrealEngine) 分支中的代码。
 
 ---
 
@@ -347,6 +372,52 @@ carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Vehicle/CustomTerrainPhysicsCom
     <bStopCompilationAfterErrors>true</bStopCompilationAfterErrors>
   </ParallelExecutor>
 </Configuration>
+```
+
+
+---
+
+## 打包
+
+### make package 时报错
+出错信息：
+```shell
+LogWindows: Error: begin: stack for UAT
+  LogWindows: Error: === Critical error: ===
+  LogWindows: Error:
+  LogWindows: Error: Fatal error!
+  LogWindows: Error:
+  LogWindows: Error: Unhandled Exception: EXCEPTION_ACCESS_VIOLATION reading address 0x0000000000000038
+  LogWindows: Error:
+  LogWindows: Error: [Callstack] 0x00007ffdfaf366c4 UE4Editor-RenderCore.dll!FShaderMapContent::GetOutdatedTypes() [D:\work\workspace\UnrealEngine\Engine\Source\Runtime\RenderCore\Private\ShaderMap.cpp:581]
+  LogWindows: Error: [Callstack] 0x00007ffd2b4fb28a UE4Editor-Engine.dll!FMaterialShaderMap::GetAllOutdatedTypes() [D:\work\workspace\UnrealEngine\Engine\Source\Runtime\Engine\Private\Materials\MaterialShader.cpp:1043]
+  LogWindows: Error: [Callstack] 0x00007ffd2b983b67 UE4Editor-Engine.dll!GetOutdatedShaderTypes() [D:\work\workspace\UnrealEngine\Engine\Source\Runtime\Engine\Private\ShaderCompiler\ShaderCompiler.cpp:4216]
+  LogWindows: Error: [Callstack] 0x00007ffd2b9a3d03 UE4Editor-Engine.dll!RecompileShadersForRemote() [D:\work\workspace\UnrealEngine\Engine\Source\Runtime\Engine\Private\ShaderCompiler\ShaderCompiler.cpp:5129]
+  LogWindows: Error: [Callstack] 0x00007ffd93651c5d UE4Editor-UnrealEd.dll!UCookOnTheFlyServer::SaveGlobalShaderMapFiles() [D:\work\workspace\UnrealEngine\Engine\Source\Editor\UnrealEd\Private\CookOnTheFlyServer.cpp:5511]
+  LogWindows: Error: [Callstack] 0x00007ffd936559dc UE4Editor-UnrealEd.dll!UCookOnTheFlyServer::StartCookByTheBook() [D:\work\workspace\UnrealEngine\Engine\Source\Editor\UnrealEd\Private\CookOnTheFlyServer.cpp:6865]
+  LogWindows: Error: [Callstack] 0x00007ffd934943b9 UE4Editor-UnrealEd.dll!UCookCommandlet::CookByTheBook() [D:\work\workspace\UnrealEngine\Engine\Source\Editor\UnrealEd\Private\Commandlets\CookCommandlet.cpp:919]
+  LogWindows: Error: [Callstack] 0x00007ffd934be428 UE4Editor-UnrealEd.dll!UCookCommandlet::Main() [D:\work\workspace\UnrealEngine\Engine\Source\Editor\UnrealEd\Private\Commandlets\CookCommandlet.cpp:624]
+  LogWindows: Error: [Callstack] 0x00007ff7177896da UE4Editor-Cmd.exe!FEngineLoop::PreInitPostStartupScreen() [D:\work\workspace\UnrealEngine\Engine\Source\Runtime\Launch\Private\LaunchEngineLoop.cpp:3369]
+  LogWindows: Error: [Callstack] 0x00007ff717780e6d UE4Editor-Cmd.exe!GuardedMain() [D:\work\workspace\UnrealEngine\Engine\Source\Runtime\Launch\Private\Launch.cpp:127]
+  LogWindows: Error: [Callstack] 0x00007ff7177811ca UE4Editor-Cmd.exe!GuardedMainWrapper() [D:\work\workspace\UnrealEngine\Engine\Source\Runtime\Launch\Private\Windows\LaunchWindows.cpp:137]
+  LogWindows: Error: [Callstack] 0x00007ff717794e5d UE4Editor-Cmd.exe!WinMain() [D:\work\workspace\UnrealEngine\Engine\Source\Runtime\Launch\Private\Windows\LaunchWindows.cpp:268]
+  LogWindows: Error: [Callstack] 0x00007ff717796f02 UE4Editor-Cmd.exe!__scrt_common_main_seh() [D:\a\_work\1\s\src\vctools\crt\vcstartup\src\startup\exe_common.inl:288]
+  LogWindows: Error: [Callstack] 0x00007ffe53647374 KERNEL32.DLL!UnknownFunction []
+  LogWindows: Error: [Callstack] 0x00007ffe5417cc91 ntdll.dll!UnknownFunction []
+  LogWindows: Error:
+  LogWindows: Error: end: stack for UAT
+Took 232.8404432s to run UE4Editor-Cmd.exe, ExitCode=3
+ERROR: Cook failed.
+       (see D:\work\workspace\UnrealEngine\Engine\Programs\AutomationTool\Saved\Logs\Log.txt for full exception trace)
+AutomationTool exiting with ExitCode=25 (Error_UnknownCookFailure)
+卸载 Appdomain 时出错。 (异常来自 HRESULT:0x80131015)
+   在 System.AppDomain.Unload(AppDomain domain)
+   在 AutomationToolLauncher.Launcher.RunInAppDomain(String[] Arguments) 位置 D:\work\workspace\UnrealEngine\Engine\Source\Programs\AutomationToolLauncher\Launcher.cs:行号 42
+BUILD FAILED
+
+-[Package]: [ERROR] There was a problem while packaging Unreal project.
+          [ERROR] Please read the screen log for more information.
+make: *** [package] 错误 1
 ```
 
 ---

@@ -157,7 +157,7 @@ def queue_lengths(world,junctions,counted_vehicles):
 其中**D**为路口车均延误参数，**C**为路口交通信号灯配时总时间，**y**为路口饱和度，**T**为当前分析时段的时长。
 
 ```
-#得到交通灯的配时信息
+#得到交通信号灯的配时信息
 def get_traffic_light(world, light_id):
     traffic_lights = world.get_actors().filter('traffic.traffic_light')
     total_time = 0

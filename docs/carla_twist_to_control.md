@@ -9,7 +9,7 @@
 
 | 主题                                | 类型                                                                                     | 描述 |
 |-----------------------------------|----------------------------------------------------------------------------------------|-----------|
-| `/carla/<ROLE NAME>/vehicle_info` | [`carla_msgs.CarlaEgoVehicleInfo`](ros_msgs.md#carlaegovehicleinfomsg)                 | 自我车辆信息，接收最大转向角度。 |
+| `/carla/<ROLE NAME>/vehicle_info` | [`carla_msgs.CarlaEgoVehicleInfo`](ros_msgs.md#carlaegovehicleinfomsg)                 | 自主车辆信息，接收最大转向角度。 |
 | `/carla/<ROLE NAME>/twist`        | [`geometry_msgs.Twist`](https://docs.ros.org/en/api/geometry_msgs/html/msg/Twist.html) |扭转转换。 |
 
 <br>

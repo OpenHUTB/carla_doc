@@ -1,4 +1,4 @@
-site_name: 代理模拟器
+site_name: 人车模拟器
 # 参考链接：https://blog.csdn.net/m0_63203517/article/details/129765689
 
 #repo_url: https://github.com/carla-simulator/carla
@@ -24,8 +24,14 @@ extra_css: [extra.css]
 
 # mathjax用于单独公式展示
 extra_javascript:
-  - extra.js
+  # - extra.js
   - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML
+  - https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js
+  - https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js
+  - https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js
+  - https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js
+  - https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js
+  - js/umlconvert.js
 
 plugins:
 #  - mkdocs-video
@@ -57,3 +63,9 @@ nav:
 markdown_extensions:
   - admonition
   - mdx_math
+  - pymdownx.superfences:
+      custom_fences: [
+         { name: flow, class: uml-flowchart }
+        ,{ name: sequence, class: uml-sequence-diagram }
+        ,{ name: mermaid, class: mermaid }
+      ]

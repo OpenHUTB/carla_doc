@@ -529,7 +529,7 @@ if rss_proper_response:
 
 | [carla.RssSensor 变量](<../python_api#carlarsssensor>)     | 类型    | 描述                                                                                                                     |
 | ---------------------------------------- | ---------------------------------------- |------------------------------------------------------------------------------------------------------------------------|
-| `ego_vehicle_dynamics`    | [ad.rss.world.RssDynamics](<https://intel.github.io/ad-rss-lib/ad_rss/Appendix-ParameterDiscussion/>)  | 应用于自我车辆的责任敏感安全参数                                                                                                       |
+| `ego_vehicle_dynamics`    | [ad.rss.world.RssDynamics](<https://intel.github.io/ad-rss-lib/ad_rss/Appendix-ParameterDiscussion/>)  | 应用于自主车辆的责任敏感安全参数                                                                                                       |
 | `other_vehicle_dynamics`  | [ad.rss.world.RssDynamics](<https://intel.github.io/ad-rss-lib/ad_rss/Appendix-ParameterDiscussion/>)  | 适用于其他车辆的责任敏感安全参数                                                                                                       |
 | `pedestrian_dynamics`     | [ad.rss.world.RssDynamics](<https://intel.github.io/ad-rss-lib/ad_rss/Appendix-ParameterDiscussion/>)  | 适用于行人的责任敏感安全参数                                                                                                         |
 | `road_boundaries_mode`    | [carla.RssRoadBoundariesMode](<../python_api#carlarssroadboundariesmode>)      | 启用/禁用 [留在道路上](<https://intel.github.io/ad-rss-lib/ad_rss_map_integration/HandleRoadBoundaries>) 功能。默认为**关闭**。 |
@@ -590,7 +590,7 @@ if routing_targets:
 | `rss_state_snapshot`    | [ad.rss.state.RssStateSnapshot](<https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1state_1_1RssStateSnapshot.html>)           | 责任敏感安全状态为当前时间点。这是责任敏感安全计算的详细的单独输出。  |
 | `situation_snapshot`    | [ad.rss.situation.SituationSnapshot](<https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1situation_1_1SituationSnapshot.html>) | 当前时间点的责任敏感安全情况。这是用于 责任敏感安全 计算的经过处理的输入数据。    |
 | `world_model`     | [ad.rss.world.WorldModel](<https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1WorldModel.html>)           | 当前时间点的 责任敏感安全 世界模型。这是 责任敏感安全 计算的输入数据。       |
-| `ego_dynamics_on_route` | [carla.RssEgoDynamicsOnRoute](<../python_api#carlarssegodynamicsonroute>)    | 关于路线的当前自我车辆动态。 |
+| `ego_dynamics_on_route` | [carla.RssEgoDynamicsOnRoute](<../python_api#carlarssegodynamicsonroute>)    | 关于路线的当前自主车辆动态。 |
 
 
 如果注册了 actor_constellation_callback，则会触发以下调用：
@@ -716,8 +716,8 @@ raw_image.save_to_disk("path/to/save/converted/image",carla.cityScapesPalette)
 | `3`  | Building     | `(70, 70, 70)`    | 房屋、摩天大楼等建筑物以及附着在其上的元素。 <br> 例如空调、脚手架、遮阳篷或梯子等。                                       |
 | `4`  | Wall         | `(102, 102, 156)` | 独立的立墙。不是建筑物的一部分。                                                                    |
 | `5`  | Fence        | `(100, 40, 40)`   | 障碍物、栏杆或其他直立结构。基本上是包围地面区域的木材或电线组件。                                                   |
-| `6`  | Pole         | `(153, 153, 153)` | 主要为垂直方向的小型杆。如果杆有水平部分（通常用于交通灯杆），则也被视为杆。 <br> 例如标志杆、交通灯杆。                             |
-| `7`  | TrafficLight | `(250, 170, 30)`  | 没有灯杆的交通灯箱。                                                                          |
+| `6`  | Pole         | `(153, 153, 153)` | 主要为垂直方向的小型杆。如果杆有水平部分（通常用于交通信号灯杆），则也被视为杆。 <br> 例如标志杆、交通信号灯杆。                             |
+| `7`  | TrafficLight | `(250, 170, 30)`  | 没有灯杆的交通信号灯箱。                                                                          |
 | `8`  | TrafficSign  | `(220, 220, 0)`   | 由州/市当局安装的标志，通常用于交通管制。此类别不包括附有标志的杆。 <br> 例如交通标志、停车标志、方向标志...                         |
 | `9`  | Vegetation   | `(107, 142, 35)`  | 树木、树篱、各种垂直植被。考虑地面植被`Terrain`。                                                       |
 | `10` | Terrain      | `(145, 170, 100)` | 草、地面植被、土壤或沙子。这些区域不适合行驶。该标签包括可能的限制性路缘石。                                              |
@@ -979,7 +979,7 @@ Fisheye 相机充当常规鱼眼相机，从场景中捕捉图像。
 
 车联万物 (Vehicle-to-everything, V2X) 通信是未来协作智能交通系统应用的一个重要方面。在实际车辆中，这需要每辆车上都有一个专用的车载单元 (onboard unit, OBU)，能够通过无线信道发送和接收信息。根据地区（欧洲、中国、美国），使用不同的物理技术、协议和应用程序消息格式。
 
-Carla 目前支持模拟简单的广播无线信道和两条应用消息。尚不支持网络访问和转发协议。两条实现的消息分别是符合欧洲标准 ETSI 的 [*协作感知消息*](#cooperative-awareness-message) 和 [*自定义消息*](#custom-v2x-message) 类型，可用于传输任意字符串数据（例如 JSON）。V2X 通信有两种不同的传感器，可以单独使用，每种应用消息类型各一个。
+Carla 目前支持模拟简单的广播无线信道和两条应用消息。尚不支持网络访问和转发协议。两条实现的消息分别是符合欧洲标准 ETSI 的 [*协作感知消息*](#cooperative-awareness-message) 和 [*自定义消息*](#custom-v2x-message) 类型，可用于传输任意字符串数据（例如 JSON）。V2X 通信有两种不同的传感器，可以单独使用，每种应用消息类型各一个。实现原理请参考[论文](pdf/V2X_sensor.pdf) 。
 
 基本上，无线通道包含两个传感器的以下计算：
 
@@ -1074,4 +1074,5 @@ Carla 目前支持模拟简单的广播无线信道和两条应用消息。尚�
 | path\_loss\_model       | string | geometric | 使用的通用路径损耗模型。选项：[geometric, winor]                                                                                                                 |
 | use\_etsi\_fading       | bool   | true | 使用 ETSI 出版物中提到的衰落参数（true），或使用自定义衰落标准偏差                                                                                                            |
 | custom\_fading\_stddev  | float  | 0.0 | 衰减标准偏差的自定义值，仅当`use_etsi_fading`设置为 `false` 时才使用 |
+
 

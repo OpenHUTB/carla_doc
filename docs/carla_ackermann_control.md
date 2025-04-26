@@ -24,7 +24,7 @@
 
 ### 测试控制消息 <span id="testing-control-messages"></span>
 
-通过主题 `/carla/<ROLE NAME>/ackermann_cmd` 向汽车发送命令来测试设置。例如，通过运行以下命令以 10 米/秒的速度移动参与者名称为`ego_vehicle`的自我车辆：
+通过主题 `/carla/<ROLE NAME>/ackermann_cmd` 向汽车发送命令来测试设置。例如，通过运行以下命令以 10 米/秒的速度移动参与者名称为`ego_vehicle`的自主车辆：
 
 ```bash
 

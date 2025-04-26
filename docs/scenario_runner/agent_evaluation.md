@@ -51,7 +51,7 @@ def sensors(self):
 
 该输入数据是一个字典，其中包含 `sensor` 函数中指定的所有传感器。
 
-此函数应返回要应用于自我车辆的 [控制](https://carla.readthedocs.io/en/latest/python_api_tutorial/#vehicles) 。
+此函数应返回要应用于自主车辆的 [控制](https://carla.readthedocs.io/en/latest/python_api_tutorial/#vehicles) 。
 
 
 
