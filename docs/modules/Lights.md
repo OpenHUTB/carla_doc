@@ -11,19 +11,26 @@
   - 2.3 属性控制函数  
   - 2.4 辅助功能  
 - 3. 关键成员变量  
-- 4. 使用场景  
+- 4. 使用场景 
+  - 4.1 动态环境光照  
+  - 4.2 车辆信号灯同步  
+  - 4.3 仿真时间回放 
 - 5. 注意事项  
+- 6. 扩展建议
 
-## 1.概述
-`UCarlaLight` 是 CARLA 仿真平台中用于管理动态灯光的 Unreal Engine 组件类，核心功能包括：
+## 1 模块概述
+### 1.1 UCarlaLight介绍
+`UCarlaLight` 是 CARLA 仿真平台中用于管理动态灯光的 Unreal Engine 组件类。
+### 1.2 组件核心功能
+组件的核心功能包括：灯光属性控制、子系统集成、状态同步、事件记录。
 - **灯光属性控制**：动态调整灯光强度、颜色、开关状态及类型。
 - **子系统集成**：与 `CarlaLightSubsystem` 交互实现全局灯光管理。
 - **状态同步**：支持与 RPC 协议兼容的灯光状态序列化（`carla::rpc::LightState`）。
 - **事件记录**：灯光状态变化时触发事件记录，支持仿真回放与调试。
 
-## 2.类成员函数说明
+## 2 类成员函数说明
 
-### 生命周期函数
+### 2.1 生命周期函数
 
 #### BeginPlay()
 - **作用**：组件初始化入口，触发灯光注册流程。
@@ -37,7 +44,7 @@
   1. 从 `CarlaLightSubsystem` 注销当前灯光。
   2. 调用父类 `Super::EndPlay()`。
 
-### 2. 灯光注册与注销
+### 2.2 灯光注册与注销
 
 #### RegisterLight()
 - **作用**：将灯光注册到子系统和天气系统。
@@ -47,7 +54,7 @@
   - 标记 `bRegistered = true` 防止重复注册。
 - **注销逻辑**：在 `EndPlay()` 中调用 `CarlaLightSubsystem->UnregisterLight(this)`。
 
-### 3. 属性控制函数
+### 2.3 属性控制函数
 
 | 函数名 | 参数 | 功能描述 |
 | --- | --- | --- |
@@ -70,7 +77,7 @@
   }
   ```
 
-### 4. 辅助功能
+### 2.4 辅助功能
 
 #### GetLocation()
 - **作用**：获取灯光全局坐标（支持大型地图场景）。
@@ -83,7 +90,7 @@
 - **触发条件**：调用 `SetLightColor()` 或 `SetLightOn()`。
 - **依赖模块**：通过 `UCarlaStatics::GetCurrentEpisode()` 获取记录器实例。
 
-## 关键成员变量
+## 3 关键成员变量
 
 | 变量名 | 类型 | 描述 |
 | --- | --- | --- |
@@ -93,9 +100,9 @@
 | LightType | `ELightType` | 灯光分类（如车辆、环境光源等） |
 | Id | `int` | 唯一标识符（由子系统分配） |
 
-## 使用场景
+## 4 使用场景
 
-### 动态环境光照
+### 4.1 动态环境光照
 ```cpp
 // 脚本控制路灯夜间自动开启
 LightComponent->SetLightOn(true);
@@ -103,7 +110,7 @@ LightComponent->SetLightIntensity(5000.0f);
 LightComponent->SetLightColor(FLinearColor(0.9f, 0.9f, 0.8f));
 ```
 
-### 车辆信号灯同步
+### 4.2 车辆信号灯同步
 ```cpp
 // 同步刹车灯状态到 RPC 协议
 carla::rpc::LightState state = LightComponent->GetLightState();
@@ -112,16 +119,16 @@ state._active = bIsBraking;
 LightComponent->SetLightState(state);
 ```
 
-### 仿真事件回放
+### 4.3 仿真事件回放
 通过 `RecordLightChange()` 记录状态变化时间点。
 
-## 注意事项
+## 5 注意事项
 
 - **子系统依赖**：Actor 必须存在于已启用 `CarlaLightSubsystem` 的场景中。
 - **线程安全**：避免在非游戏线程（如异步任务）中直接调用 `SetLightXxx` 函数。
 - **大型地图支持**：使用 `GetLocation()` 而非直接获取 Actor 坐标以确保跨地图兼容性。
 
-## 扩展建议
+## 6 扩展建议
 
 ### 蓝图集成
 将 `LightIntensity`、`LightColor` 等属性暴露为 `BlueprintReadWrite`，方便设计师调整。
