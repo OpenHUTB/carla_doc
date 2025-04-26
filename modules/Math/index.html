@@ -70,18 +70,9 @@
               
                 <h1 id="fdvector">FDVector 头文件文档</h1>
 <p>该文档详细介绍 <strong><font color="#f8805a">FDVector</font></strong> 头文件中所有变量、构造函数、方法以及操作符重载。该结构在 <a href="https://github.com/carla-simulator/carla">Carla Simulator</a> 项目中主要用于高效执行向量运算及类型转换，避免直接使用 Unreal Engine 的向量类型带来的性能损耗。</p>
-<h2 id="_1">目录结构</h2>
-<ul>
-<li><a href="#概述">概述</a></li>
-<li><a href="#构造函数">构造函数</a></li>
-<li><a href="#成员变量">成员变量</a></li>
-<li><a href="#主要方法">主要方法</a></li>
-<li><a href="#操作符重载">操作符重载</a></li>
-<li><a href="#在-Carla-项目中的应用">在 Carla 项目中的应用</a></li>
-</ul>
-<h2 id="_2">概述</h2>
+<h2 id="_1">概述</h2>
 <p><strong><font color="#f8805a">FDVector</font></strong> 是一个轻量级的三维向量结构，提供了向量的基本数学运算、类型转换以及便于调试的字符串输出功能。</p>
-<h2 id="_3">构造函数</h2>
+<h2 id="_2">构造函数</h2>
 <ul>
 <li><strong><font color="#7fb800">FDVector()</font></strong><br />
   默认构造函数，将 <strong><font color="#f8805a">X</font></strong>、<strong><font color="#f8805a">Y</font></strong>、<strong><font color="#f8805a">Z</font></strong> 均初始化为 0.0.<br />
@@ -109,7 +100,7 @@
 <span class="c1">// vec5.X = 7.0, vec5.Y = 8.0, vec5.Z = 9.0</span>
 </code></pre></div></li>
 </ul>
-<h2 id="_4">成员变量</h2>
+<h2 id="_3">成员变量</h2>
 <ul>
 <li><strong><font color="#f8805a">X</font></strong>：表示向量在 X 轴的坐标。</li>
 <li><strong><font color="#f8805a">Y</font></strong>：表示向量在 Y 轴的坐标。</li>
@@ -121,7 +112,7 @@
 <span class="n">vec</span><span class="p">.</span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">20.0</span><span class="p">;</span>
 <span class="n">vec</span><span class="p">.</span><span class="n">Z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">30.0</span><span class="p">;</span>
 </code></pre></div></p>
-<h2 id="_5">主要方法</h2>
+<h2 id="_4">主要方法</h2>
 <ul>
 <li><strong><font color="#7fb800">Size()</font></strong>
 返回向量的长度（欧几里得范数）。
@@ -181,7 +172,7 @@ d(\mathbf{v_1},\mathbf{v_2})=\sqrt{(x_2-x_1)^2+(y_2-y_1)^2+(z_2-z_1)^2}
 <span class="c1">// intVec.X = 1, intVec.Y = 2, intVec.Z = 3</span>
 </code></pre></div></li>
 </ul>
-<h2 id="_6">操作符重载</h2>
+<h2 id="_5">操作符重载</h2>
 <p>为了支持直观的向量运算，<strong><font color="#f8805a">FDVector</font></strong> 重载了以下操作符：
 - <strong><font color="#7fb800">operator=</font></strong>
 赋值操作符，将另一个 <font color="#f8805a">FDVector</font> 的值复制给当前对象。
@@ -268,7 +259,7 @@ d(\mathbf{v_1},\mathbf{v_2})=\sqrt{(x_2-x_1)^2+(y_2-y_1)^2+(z_2-z_1)^2}
 <p>在  <a href="https://github.com/carla-simulator/carla">Carla Simulator</a> 项目中，<font color="#f8805a">FDVector</font> 的主要应用包括：</p>
 <ul>
 <li>高效计算：用于执行频繁的向量运算（如位置计算、距离判定、碰撞检测等），减少直接使用 Unreal Engine 内置向量类可能带来的性能损耗。</li>
-<li>类型转换：便于与 Unreal Engine 的<strong> FVector</strong> 和 <strong>FIntVector</strong> 类型之间的互转，保持各模块间数据传递的一致性和高效性。</li>
+<li>类型转换：便于与 Unreal Engine 的 <strong>FVector</strong> 和 <strong>FIntVector</strong> 类型之间的互转，保持各模块间数据传递的一致性和高效性。</li>
 </ul>
               
             </div>
