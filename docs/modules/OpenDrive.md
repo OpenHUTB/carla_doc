@@ -1,7 +1,7 @@
-# OpenDrive 项目说明文档
+# OpenDrive 模块说明文档
 
 ## 项目概述
-`OpenDrive` 项目主要涉及车辆模拟中的地图数据处理和路径规划，依赖于 Carla 引擎提供的 OpenDrive 格式（XODR）。该项目的核心是处理模拟世界中的道路网络数据，使用 OpenDrive 文件格式（.xodr）来表示道路的拓扑结构、车道、交叉路口以及其他与交通相关的信息。通过这个模块，用户可以方便地加载、管理和操作 OpenDrive 文件，从而为自动驾驶和路径规划提供支持。
+`OpenDrive` 模块主要涉及车辆模拟中的地图数据处理和路径规划，依赖于 Carla 引擎提供的 OpenDrive 格式（XODR）。该项目的核心是处理模拟世界中的道路网络数据，使用 OpenDrive 文件格式（.xodr）来表示道路的拓扑结构、车道、交叉路口以及其他与交通相关的信息。通过这个模块，用户可以方便地加载、管理和操作 OpenDrive 文件，从而为自动驾驶和路径规划提供支持。
 
 ## 结构化设计
 
@@ -15,7 +15,7 @@
 4. **生成与清理**：支持在地图上生成和清理道路网格、交通灯、生成器等对象。
 
 ## 架构
-`OpenDrive` 模块的架构基于 Carla 游戏引擎和 OpenDrive 格式，分为多个功能组件。每个组件独立执行特定任务，这有助于提高计算效率并支持后续扩展。
+`OpenDrive` 模块的架构基于 Carla 引擎和 OpenDrive 格式，分为多个功能组件。每个组件独立执行特定任务，这有助于提高计算效率并支持后续扩展。
 
 ```mermaid
 graph LR
@@ -107,6 +107,8 @@ GenerateSpawnPoints：生成车辆生成点。
 
 GeneratePoles：生成路上的杆子（例如交通标志杆）。
 
+RemoveSpawners：清理生成点。
+
 ```cpp
 void AOpenDriveGenerator::GenerateRoadMesh()
 // 生成道路网格
@@ -118,6 +120,16 @@ void AOpenDriveGenerator::GenerateRoadMesh() {
 void AOpenDriveGenerator::GenerateSpawnPoints() {
     for (auto &Wp : CarlaMap->GenerateWaypointsOnRoadEntries()) {
         GetWorld()->SpawnActor<AVehicleSpawnPoint>(); // 创建生成点
+    }
+}
+// 生成交通标志杆
+void AOpenDriveGenerator::GeneratePoles() {
+    for (auto &Wp : CarlaMap->GenerateWaypointsOnRoadEntries()) {
+        ATrafficSignPost* Pole = GetWorld()->SpawnActor<ATrafficSignPost>(); // 创建交通标志杆
+        if (Pole) {
+            Pole->SetActorLocation(CarlaMap->ComputeTransform(Wp).GetLocation() + FVector(0.f, 0.f, 10.f)); // 设置位置
+            Pole->SetActorRotation(CarlaMap->ComputeTransform(Wp).GetRotation()); // 设置旋转
+        }
     }
 }
 // 清理生成点
