@@ -39,6 +39,7 @@
 
 ## 参考
 - [谷歌代码风格指南中文版PDF](https://github.com/zh-google-styleguide/zh-google-styleguide/releases)
+- [Google Python风格规范](https://zh-google-styleguide.readthedocs.io/en/latest/google-python-styleguide/python_style_rules.html) 
 - [一张图总结谷歌 C++ 编程规范](https://blog.csdn.net/voidccc/article/details/37599203)
 
 ![](img/dev/google_cpp_style_guide.jpg)

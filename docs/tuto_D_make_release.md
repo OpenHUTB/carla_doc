@@ -97,7 +97,14 @@ Unable to find installation of PDBCOPY.EXE
 ## 设计
 参考[BeamNG](https://baike.baidu.com/item/BeamNG%E8%B5%9B%E8%BD%A6/18880401)
 
-## 发布到商城
+## 自定义发布
+
+### 发布镜像
+
+* [利用GitHub Actions自动构建项目的docker镜像并发布到DockerHub](https://wiki.eryajf.net/pages/5baf0a/#%E5%89%8D%E8%A8%80)
+
+
+### 发布到商城
 [讨论是否可以发布修改代码的插件](https://www.reddit.com/r/unrealengine/comments/w7ndj9/are_plugins_able_to_append_tooverwrite_engine/)
 
 Baidunet Disk Download Link: https://pan.baidu.com/s/1hFngmeAvyUulsiI-JlNHuA?pwd=hutb

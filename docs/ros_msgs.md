@@ -200,22 +200,22 @@ ScenarioRunner 的当前状态。它是使用常量来管理的。
 
 ## CarlaTrafficLightStatus.msg
 
-关于交通灯状态的恒定定义。
+关于交通信号灯状态的恒定定义。
 
 | 字段      | 类型     | 描述                                                                         |
 |---------|--------|----------------------------------------------------------------------------|
-| `id`    | uint32 | 交通灯参与者的 ID。                                                              |
+| `id`    | uint32 | 交通信号灯参与者的 ID。                                                              |
 | `state` | uint8  | **RED**=0 <br>**YELLOW**=1 <br>**GREEN**=2 <br>**OFF**=3 <br>**UNKNOWN**=4 |
 
 ---
 
 ## CarlaTrafficLightStatusList.msg
 
-交通灯列表及其状态。
+交通信号灯列表及其状态。
 
 | 字段          | 类型                                                       | 描述                                                                |
 |-------------| ---------------------------------------------------------- |-------------------------------------------------------------------|
-| `scenarios` | [CarlaTrafficLightStatus[]](<#carlatrafficlightstatusmsg>) | 汇总的交通灯状态消息列表。 |
+| `scenarios` | [CarlaTrafficLightStatus[]](<#carlatrafficlightstatusmsg>) | 汇总的交通信号灯状态消息列表。 |
 
 ---
 
@@ -301,7 +301,7 @@ ScenarioRunner 的当前状态。它是使用常量来管理的。
 
 ## EgoVehicleControlStatus.msg
 
-自我车辆控制器的当前状态。它是`Carla_Ackermann_Control.EgoVehicleControlInfo.msg`消息的一部分。
+自主车辆控制器的当前状态。它是`Carla_Ackermann_Control.EgoVehicleControlInfo.msg`消息的一部分。
 
 | 字段                               | 类型      | 描述                      |
 |----------------------------------|---------| -------------------------------- |
@@ -318,7 +318,7 @@ ScenarioRunner 的当前状态。它是使用常量来管理的。
 
 ## EgoVehicleControlTarget.msg
 
-自我车辆控制器的目标值。它是`Carla_Ackermann_Control.EgoVehicleControlInfo.msg`消息的一部分。
+自主车辆控制器的目标值。它是`Carla_Ackermann_Control.EgoVehicleControlInfo.msg`消息的一部分。
 
 | 字段               | 类型                                      | 描述           |
 |------------------| ----------------------------------------- |--------------|

@@ -37,7 +37,7 @@ rosrun rviz rviz
 ros2 run rviz2 rviz2
 ```
 
-__2.__ 使用`carla_spawn_objects`包生成一辆自我车辆：
+__2.__ 使用`carla_spawn_objects`包生成一辆自主车辆：
 
 ```sh
 # ROS 1
@@ -47,7 +47,7 @@ roslaunch carla_spawn_objects carla_spawn_objects.launch
 ros2 launch carla_spawn_objects carla_spawn_objects.launch.py
 ```
 
-__3.__ 使用 `carla_manual_control` 包控制自我车辆（按下B可启用手动转向）：
+__3.__ 使用 `carla_manual_control` 包控制自主车辆（按下B可启用手动转向）：
 
 ```sh
 # ROS 1
@@ -61,12 +61,12 @@ ros2 launch carla_manual_control carla_manual_control.launch.py
 
 ## RVIZ 插件的功能
 
-- __自我车辆状态可视化__ - 可视化车辆位置和控制。
+- __自主车辆状态可视化__ - 可视化车辆位置和控制。
 - __向其他节点提供 RVIZ 视图姿势__ - 连接`actor.pseudo.control` 到相机后，通过发布姿势消息在 Carla 世界中移动相机。
 - __传感器可视化__ - 可视化 RGB、LIDAR、深度、DVS 和语义分割相机信息。
 - __执行场景__ - 使用 [carla_ros_scenario_runner](https://github.com/carla-simulator/ros-bridge/blob/master/carla_ros_scenario_runner) 包触发场景。
 - __播放/暂停模拟__ - 如果以同步模式启动，您可以播放和暂停模拟。
-- __手动覆盖自我车辆控制__ - 使用 [RVIZ Visualization Tutorials](https://github.com/ros-visualization/visualization_tutorials) 可视化教程中的驱动小部件和从扭曲转换为车辆控制的 [节点](https://github.com/carla-simulator/ros-bridge/blob/master/carla_twist_to_control) ，通过鼠标驾驶车辆。 
+- __手动覆盖自主车辆控制__ - 使用 [RVIZ Visualization Tutorials](https://github.com/ros-visualization/visualization_tutorials) 可视化教程中的驱动小部件和从扭曲转换为车辆控制的 [节点](https://github.com/carla-simulator/ros-bridge/blob/master/carla_twist_to_control) ，通过鼠标驾驶车辆。 
 
 ---
 
@@ -78,7 +78,7 @@ ros2 launch carla_manual_control carla_manual_control.launch.py
 |-------|------|-----------------------------------------------------------------|
 | `/carla/status` | [carla_msgs/CarlaStatus](ros_msgs.md#carlastatusmsg) | 读取 Carla 的当前状态                                                  |
 | `/carla/ego_vehicle/vehicle_status` | [carla_msgs/CarlaEgoVehicleStatus](ros_msgs.md#carlaegovehiclestatusmsg) | 显示本车当前状态                    |
-| `/carla/ego_vehicle/odometry` | [nav_msgs/Odometry](https://docs.ros.org/en/api/nav_msgs/html/msg/Odometry.html) | 显示自我车辆的当前姿态                     |
+| `/carla/ego_vehicle/odometry` | [nav_msgs/Odometry](https://docs.ros.org/en/api/nav_msgs/html/msg/Odometry.html) | 显示自主车辆的当前姿态                     |
 | `/scenario_runner/status` | [carla_ros_scenario_runner_types/CarlaScenarioRunnerStatus](ros_msgs.md#carlascenariorunnerstatusmsg) | 可视化场景运行状态                            |
 | `/carla/available_scenarios` | [carla_ros_scenario_runner_types/CarlaScenarioList](ros_msgs.md#carlascenariolistmsg) | 提供要执行的场景列表（在组合框中禁用） |
 

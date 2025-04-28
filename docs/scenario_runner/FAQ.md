@@ -16,7 +16,7 @@ Resetting ego-vehicle!
 ERROR: failed to destroy actor 527 : unable to destroy actor: not found
 No more scenarios .... Exiting
 ```
-如果您没有看到任何事情发生，很可能是因为您没有启动控制自我车辆的程序。运行例如manual_control.py，您现在应该看到发生了一些事情。 
+如果您没有看到任何事情发生，很可能是因为您没有启动控制自主车辆的程序。运行例如manual_control.py，您现在应该看到发生了一些事情。 
 
 
 ## 使用 --debug 命令行参数时，Scenario Runner 退出并出现错误
