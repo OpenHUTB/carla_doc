@@ -73,21 +73,16 @@
 <ul>
 <li><a href="#1-模块概述"><strong>1. 模块概述</strong></a></li>
 <li><a href="#11-ucarlalight介绍">1.1 UCarlaLight介绍</a></li>
-<li>
-<p><a href="#12-组件核心功能">1.2 组件核心功能</a></p>
-</li>
-<li>
-<p><a href="#2-核心类说明"><strong>2. 类成员函数说明</strong></a></p>
-</li>
-<li><a href="#21-生命周期函数">2.1 生命周期函数</a></li>
+<li><a href="#12-主要功能">1.2 主要功能</a></li>
+<li><a href="#13-组件核心功能">1.3 组件核心功能</a></li>
+<li><a href="#2-技术实现"><strong>2. 技术实现</strong></a><ul>
+<li><a href="#21-核心类函数">2.1 核心类函数</a></li>
 <li><a href="#22-灯光注册与注销">2.2 灯光注册与注销</a></li>
 <li><a href="#23-属性控制函数">2.3 属性控制函数</a></li>
-<li>
-<p><a href="#24-辅助功能">2.4 辅助功能</a></p>
+<li><a href="#24-辅助功能">2.4 辅助功能</a></li>
+</ul>
 </li>
-<li>
-<p><a href="#3-关键成员变量"><strong>3. 关键成员变量</strong></a></p>
-</li>
+<li><a href="#3-关键成员变量"><strong>3. 关键成员变量</strong></a></li>
 <li><a href="#4-使用场景"><strong>4. 使用场景</strong></a><ul>
 <li><a href="#41-动态环境光照">4.1 动态环境光照</a></li>
 <li><a href="#42-车辆信号灯同步">4.2 车辆信号灯同步</a></li>
@@ -100,29 +95,33 @@
 <hr />
 <h2 id="1">1. 模块概述 <a id="1-模块概述"></a></h2>
 <h3 id="11-ucarlalight">1.1 UCarlaLight介绍 <a id="11-ucarlalight介绍"></a></h3>
-<p><code>UCarlaLight</code> 是 CARLA 仿真平台中用于管理动态灯光的 Unreal Engine 组件类。</p>
-<h3 id="12">1.2 组件核心功能 <a id="12-组件核心功能"></a></h3>
-<p>组件的核心功能包括：灯光属性控制、子系统集成、状态同步、事件记录。</p>
+<p><code>UCarlaLight</code>是 carla 仿真平台中用于管理动态灯光的核心组件类，属于 carla 的虚幻引擎插件(CarlaUnreal)的一部分。它为 carla 提供了高度可配置的、逼真的动态照明系统，是创建逼真昼夜循环和天气效果的关键组件。</p>
+<h3 id="12">1.2 主要功能 <a id="12-主要功能"></a></h3>
 <ul>
-<li>
-<p><strong>灯光属性控制</strong>：动态调整灯光强度、颜色、开关状态及类型。</p>
-</li>
-<li>
-<p><strong>子系统集成</strong>：与 <code>CarlaLightSubsystem</code> 交互实现全局灯光管理。</p>
-</li>
+<li><strong>动态光照控制</strong>：实时调整光源强度、颜色和方向；支持昼夜循环的光照变化；天气相关光照效果（雨、雾、云等）。</li>
+<li><strong>光源类型支持</strong>：定向光（模拟太阳/月亮）；点光源；聚光灯；天光（Skylight）。</li>
+<li><strong>车辆专用灯光</strong>：车头灯、尾灯、刹车灯、转向灯；应急灯；车内照明。</li>
+<li><strong>街道照明系统</strong>：路灯控制；交通信号灯；建筑外部照明。</li>
+</ul>
+<h3 id="13">1.3 组件核心功能 <a id="13-组件核心功能"></a></h3>
+<p>在动态灯光组件中，核心功能包括：灯光属性控制、子系统集成、状态同步、事件记录。</p>
+<ul>
+<li><strong>灯光属性控制</strong>：动态调整灯光强度、颜色、开关状态及类型。</li>
+<li><strong>子系统集成</strong>：与 <code>CarlaLightSubsystem</code> 交互实现全局灯光管理。</li>
 <li><strong>状态同步</strong>：支持与 RPC 协议兼容的灯光状态序列化（<code>carla::rpc::LightState</code>）。</li>
 <li><strong>事件记录</strong>：灯光状态变化时触发事件记录，支持仿真回放与调试。</li>
 </ul>
-<h2 id="2">2. 类成员函数说明<a id="2-核心类说明"></a></h2>
-<h3 id="21">2.1 生命周期函数<a id="21-生命周期函数"></a></h3>
-<h4 id="beginplay">BeginPlay()</h4>
+<h2 id="2">2. 技术实现<a id="2-技术实现"></a></h2>
+<p><code>UCarlaLight</code>继承自虚幻引擎的 <code>ULightComponent</code> 类，并扩展了 carla 特有的功能。</p>
+<h3 id="21">2.1 核心类函数<a id="21-核心类函数"></a></h3>
+<h4 id="beginplay">生命周期函数 BeginPlay()</h4>
 <ul>
 <li><strong>作用</strong>：组件初始化入口，触发灯光注册流程。</li>
 <li><strong>流程</strong>：</li>
 <li>调用父类 <code>Super::BeginPlay()</code>。</li>
 <li>执行 <code>RegisterLight()</code> 注册到灯光子系统。</li>
 </ul>
-<h4 id="endplay">EndPlay()</h4>
+<h4 id="endplay">生命周期函数 EndPlay()</h4>
 <ul>
 <li><strong>作用</strong>：组件销毁时清理资源。</li>
 <li><strong>流程</strong>：</li>
