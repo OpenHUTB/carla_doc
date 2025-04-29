@@ -155,3 +155,138 @@ WorldContext → LoadCurrentOpenDriveMap
 | 蓝图可用 | `UOpenDriveMap` 为 Blueprint 提供接口 |
 
 该模块是 CARLA 地图系统与 OpenDrive 标准接轨的关键桥梁，允许开发者在运行时或工具链中灵活访问地图结构。
+
+---
+
+# 📄 `OpenDrive.h` 文件详细说明（CARLA 项目）
+
+该头文件定义了 CARLA 仿真平台中处理 OpenDRIVE 地图文件的接口类 `UOpenDrive`。它继承自 `UBlueprintFunctionLibrary`，支持在 C++ 和蓝图中调用，用于加载、读取并封装 `.xodr` 格式的地图数据。
+
+---
+
+## 🗂️ 文件路径
+
+```
+Unreal/CarlaUE4/Plugins/Carla/Source/Carla/OpenDrive/OpenDrive.h
+```
+
+---
+
+## 🧱 类定义
+
+```cpp
+class UOpenDrive : public UBlueprintFunctionLibrary
+```
+
+- **基类**：`UBlueprintFunctionLibrary`（Unreal 引擎中用于提供蓝图可访问的静态函数）
+- **用途**：作为 CARLA 地图模块的功能类，为 `.xodr` 文件加载和地图对象提供蓝图调用接口。
+
+---
+
+## 📌 包含的头文件
+
+```cpp
+#include "Carla/OpenDrive/OpenDriveMap.h"
+#include "Kismet/BlueprintFunctionLibrary.h"
+#include "OpenDrive.generated.h"
+```
+
+---
+
+## 📚 公有静态方法接口
+
+每个方法均使用 `UFUNCTION(BlueprintCallable)` 或 `BlueprintPure` 装饰，支持在蓝图中调用。
+
+### 1. `static FString GetXODR(const UWorld *World);`
+
+- **作用**：根据当前 `UWorld` 上下文自动识别地图名称并加载对应的 `.xodr` 文件内容。
+- **返回**：OpenDRIVE XML 字符串内容。
+- **适用场景**：在运行时从当前关卡加载地图。
+
+---
+
+### 2. `static FString GetXODRByPath(FString XODRPath, FString MapName);`
+
+- **作用**：通过明确指定 `.xodr` 文件路径及地图名，加载其 XML 内容。
+- **参数说明**：
+  - `XODRPath`: 目录路径
+  - `MapName`: 地图名称（文件名不带扩展名）
+- **适用场景**：用于非默认路径下的文件加载，如自定义地图管理器。
+
+---
+
+### 3. `static FString FindPathToXODRFile(const FString &InMapName);`
+
+- **作用**：返回给定地图名称对应的 `.xodr` 文件完整路径。
+- **特点**：
+  - 支持 PIE 模式下前缀清除（如 `UEDPIE_0_`）。
+  - 先查找默认路径，再递归搜索所有内容文件夹。
+- **返回**：路径字符串，如果未找到则返回空字符串。
+
+---
+
+### 4. `static FString LoadXODR(const FString &MapName);`
+
+- **作用**：直接通过地图名加载 `.xodr` 文件内容。
+- **内部调用**：依赖 `FindPathToXODRFile` 查找路径并加载内容。
+- **返回**：成功时返回 XML 字符串，否则为空。
+
+---
+
+### 5. `static UOpenDriveMap* LoadOpenDriveMap(const FString &MapName);`
+
+- **作用**：将指定地图名的 `.xodr` 文件加载为 `UOpenDriveMap` 对象。
+- **返回**：成功则返回指针，否则返回 `nullptr`。
+- **适用场景**：用于进一步构建导航网络、解析道路结构等。
+
+---
+
+### 6. `static UOpenDriveMap* LoadCurrentOpenDriveMap(const UObject *WorldContextObject);`
+
+- **作用**：基于运行时的上下文（如游戏实例或世界）加载当前地图的 `UOpenDriveMap`。
+- **备注**：
+  - 使用 `BlueprintPure`，适合无副作用的纯函数调用。
+  - 通过 `WorldContextObject` 提供多种蓝图对象作为入口。
+
+---
+
+## 🗺️ 使用示例（蓝图或C++）
+
+```cpp
+FString MapData = UOpenDrive::GetXODR(GetWorld());
+UOpenDriveMap* MapObj = UOpenDrive::LoadOpenDriveMap("Town01");
+```
+
+或在蓝图中：
+
+- 调用 `LoadCurrentOpenDriveMap` 直接获取当前地图结构。
+
+---
+
+## 🔁 函数调用关系简图
+
+```plaintext
+[WorldContext] ─▶ LoadCurrentOpenDriveMap
+                          │
+                          ▼
+                   LoadOpenDriveMap
+                          │
+                          ▼
+                       LoadXODR
+                          │
+                          ▼
+               FindPathToXODRFile
+```
+
+---
+
+## ✅ 总结
+
+| 特性 | 说明 |
+|------|------|
+| Blueprint 友好 | 所有函数都可在蓝图中调用 |
+| 支持编辑器运行 | 自动处理 PIE 模式地图前缀 |
+| 灵活性强 | 支持自定义路径查找与地图名调用 |
+| 数据封装 | 使用 `UOpenDriveMap` 对象管理地图数据 |
+
+---
