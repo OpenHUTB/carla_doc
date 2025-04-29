@@ -6,6 +6,7 @@
     - [__Python 扩展模块__](#python_extension)
 - [__调试PythonAPI__](#debug_Python_API)
     - [__构建调试版本__](#build_debug_version)
+- [__调试蓝图__](#debug_blueprint)
 - [__其他__](#other)
     - [__检查所依赖dll库的符号是否加载__](#check_dll_loaded)
     - [__VS2019 打开 CarlaUE4 的 Cmake 工程__](#open_cmake_project)
@@ -23,7 +24,7 @@
 ![](img/tuto_D_windows_debug/generate_vs_project_files.png)
 
 !!! 笔记
-    如果右键菜单中未出现`Generate Visual Studio project files`选项，则到虚幻引擎的目录中运双击执行`engine\Engine\Binaries\Win64\UnrealVersionSelector.exe`，将虚幻引擎软件注册到系统中。如果报错：
+    如果右键菜单中未出现`Generate Visual Studio project files`选项，则到虚幻引擎的目录中运双击执行`engine\Engine\Binaries\Win64\UnrealVersionSelector.exe`，将虚幻引擎软件注册到系统中。如果报错：`The current folder does not contain an engine installation`，则检查是不是在Epic Games公司发布的引擎中执行，需要确保在带Carla插件中的虚幻引擎中进行执行。
 
 2. （调试数字孪生工具）在`解决方案`中展开`Games->CarlaUE4`，在想要查看的源代码行的最左侧单击增加断点（比如：`CarlaUE4->Plugins->CarlaTools->Source->CarlaTools->Private`的`OpenDriveToMap.cpp`的`GenerateTileStandalone()`），在菜单运行`调试(D)->开始调试(S)`，程序将在断点出暂停。通过`调式(D)->窗口(W)->监视(W)->监视 1`打开变量监视窗口，查看变量值是否异常。
 
@@ -178,6 +179,17 @@ python setup.py build
 6. 在第4步弹出的命令行界面中敲回车；
 
 参考[链接](https://stackoverflow.com/questions/61692952/how-to-pass-debug-to-build-ext-when-invoking-setup-py-install) ，效果未知。
+
+## 调式蓝图 <span id="debug_blueprint"></span>
+
+这里以 [Spectator 蓝图](https://bitbucket.org/carla-simulator/carla-content/src/master/Blueprints/Game/Spectator.uasset) 为例进行蓝图调式的说明。
+
+1. 打开蓝图后，在所需要的模块上右键，添加断点；
+2. 在虚幻编辑器中运行场景；
+3. 会在蓝图断点处停止，可以在菜单栏中进行程序流程的控制和调试，比如进入、跳过、跳出等。
+![](img/tuto_D_windows_debug/BP_debug.jpg)
+
+从菜单`窗口->开发者工具`中的`蓝图调试器`，可以查看调用堆栈、变量值等信息，具体操作请查看[蓝图调试](https://dev.epicgames.com/documentation/zh-cn/unreal-engine/blueprint-debugging?application_version=4.27) 。
 
 
 ## 其他 <span id="other"></span>

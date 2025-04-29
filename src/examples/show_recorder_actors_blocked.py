@@ -41,8 +41,8 @@ def main():
     argparser.add_argument(
         '-f', '--recorder_filename',
         metavar='F',
-        default="test1.rec",
-        help='recorder filename (test1.rec)')
+        default="test1.log",
+        help='recorder filename (test1.log)')
     argparser.add_argument(
         '-t', '--time',
         metavar='T',
@@ -58,7 +58,6 @@ def main():
     args = argparser.parse_args()
 
     try:
-
         client = carla.Client(args.host, args.port)
         client.set_timeout(60.0)
 

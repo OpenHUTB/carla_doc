@@ -1,4 +1,4 @@
-# 代理模拟器
+# 人车模拟器
 
 [文档主页](https://openhutb.github.io/carla_doc/) 。
 
@@ -76,7 +76,7 @@ python -m pip install . -i http://mirrors.aliyun.com/pypi/simple --trusted-host 
 
 ### 颜色规范
 
-变量名 **<font color="#f8805a">variable</font>**：
+灰色底的变量名 **<font color="#f8805a">variable</font>**：
 ```shell
 **<font color="#f8805a">variable</font>**
 ```
@@ -130,4 +130,17 @@ Config value: 'markdown_extensions'. Error: Failed loading extension "mdx_gh_lin
 [手动安装库](https://github.com/mkdocs/mkdocs/issues/1587) ：
 ```shell
 pip install mdx_gh_links
+```
+
+克隆仓库时报错：
+```text
+fatal: early EOF
+fatal: fetch-pack: invalid index-pack output
+```
+解决：
+```shell
+# 设置下载缓存参数
+git config --global http.postBuffer 2G
+# 确认参数是否正确设置
+git config http.postBuffer
 ```

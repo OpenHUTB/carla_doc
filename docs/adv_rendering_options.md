@@ -61,7 +61,7 @@ Carla 有两个不同的图形质量级别。__Epic__ 是默认的并且是最�
 ---
 ## 无渲染模式 <span id="no-rendering-mode"></span>
 
-此模式禁用渲染。虚幻引擎将跳过有关图形的所有内容。此模式可防止渲染开销。它有利于大量交通模拟和非常高频率的道路行为。要启用或禁用无渲染模式，请更改世界设置，或使用`/PythonAPI/util/config.py`。
+此模式禁用渲染。虚幻引擎将跳过有关图形的所有内容。此模式可防止渲染开销。它有利于大量交通模拟和非常高频率的道路行为。要启用或禁用无渲染模式，请更改世界设置，或使用 [`PythonAPI/util/config.py`](https://github.com/OpenHUTB/carla_doc/blob/master/src/util/config.py) 。
 
 以下是如何通过脚本启用和禁用它的示例：
 
@@ -188,13 +188,11 @@ Carla 在 [这里](https://github.com/carla-simulator/carla/blob/0.9.12/Util/Doc
 ![](img/rendering/nullrhi.png)
 
 
-与此主题相关的任何问题或疑问都可以在 Carla 论坛中发布。
-
-
+如有任何问题，您可以在 [讨论](https://github.com/orgs/OpenHUTB/discussions) 中提问。
 
 <div class="build-buttons">
 <p>
-<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the Carla forum">
-Carla 论坛</a>
+<a href="https://github.com/orgs/OpenHUTB/discussions" target="_blank" class="btn btn-neutral" title="Go to the Carla forum">
+社区讨论</a>
 </p>
 </div>

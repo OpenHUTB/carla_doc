@@ -62,11 +62,11 @@ __2. 阅读文档。__ 确保问题是一个错误，而不是对 Carla 应该�
 
 ### 提交 <span id="submission"></span>
 
-贡献和新功能不会直接合并到 `master` 分支，而是合并到名为 `dev` 的中间分支。这种 [Gitflow](https://nvie.com/posts/a-successful-git-branching-model/) 分支模型可以更轻松地维护稳定的主分支。该模型需要特定的贡献工作流程。
+贡献和新功能不会直接合并到 `master` 分支，而是合并到名为 `dev` 的中间分支。这种 [Gitflow](https://nvie.com/posts/a-successful-git-branching-model/) 分支模型可以更轻松地维护稳定的主分支。该模型需要特定的贡献 [工作流程](./dev/workflow.md) 。
 
-*   始终让您的 `dev` 分支更新最新的更改。
-*   从名为 `username/name_of_the_contribution` 的 `dev` 子分支中开发贡献。
-*   贡献准备就绪后，从您的分支向 `dev` 提交拉取请求（pull-request）。填写描述时尽量具有描述性。请注意，在合并之前，新代码需要通过一些检查。检查由持续集成系统自动运行。如果检查成功，将会出现绿色勾号。如果有红色标记，请相应更正代码。
+* 始终让您的 `dev` 分支更新最新的更改。
+* 从名为 `username/name_of_the_contribution` 的 `dev` 子分支中开发贡献。
+* 贡献准备就绪后，从您的分支向 `dev` 提交拉取请求（pull-request）。填写描述时尽量具有描述性。请注意，在合并之前，新代码需要通过一些检查。检查由持续集成系统自动运行。如果检查成功，将会出现绿色勾号。如果有红色标记，请相应更正代码。
 
 一旦贡献被合并到 `dev` 中，就可以与其余新功能一起进行测试。到下一个版本时，该 `dev` 分支将合并到 `master`，并且贡献将可用并公布。
 
@@ -97,6 +97,20 @@ __6. 更新分支以与 master 同步。__ 分支应始终使用 master 中的�
 __7. 上传贡献。__ 进行相应的更改并将分支推送到 origin。  
 
 __8. 等待美术组审核。__ 一旦贡献上传，团队将检查与 master 合并的一切是否准备好。
+
+
+### 大文件
+提交大文件的方法：
+```shell
+# 1.跟踪要上传的大文件
+git lfs track RoadRunner/*
+# 2.将大文件添加到git暂存区
+git add RoadRunner/*
+# 3.提交更改到git仓库
+git commit -m "init HUTB scene"
+# 4.将大文件推送到git仓库
+git push
+```
 
 
 ---
