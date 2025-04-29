@@ -7,7 +7,7 @@
 # For a copy, see <https://opensource.org/licenses/MIT>.
 
 """
-Tester for vehicle physics utility for CARLA
+Carla 车辆物理工具测试器
 Uses:
     Basics scenearios (acceleration, brake, u-turn):
         python vehicle_physics_tester.py --filter vehicle_id --basics
@@ -31,6 +31,7 @@ except IndexError:
     pass
 
 import carla
+
 
 class VehicleControlStop:
     def __init__(self, x_min = -100000, x_max = +100000, y_min = -100000, y_max = +100000,
@@ -132,6 +133,7 @@ def change_physics_control(vehicle, tire_friction = None, drag = None, wheel_swe
 
     return physics_control
 
+
 def print_step_info(world, vehicle):
     snapshot = world.get_snapshot()
     print("%d %06.03f %+8.03f %+8.03f %+8.03f %+8.03f %+8.03f %+8.03f %+8.03f %+8.03f %+8.03f" %
@@ -140,12 +142,15 @@ def print_step_info(world, vehicle):
             vehicle.get_velocity().x, vehicle.get_velocity().y, vehicle.get_velocity().z, \
             vehicle.get_location().x, vehicle.get_location().y, vehicle.get_location().z))
 
+
 def wait(world, frames=100):
     for _i in range(0, frames):
         world.tick()
 
+
 def norm(vec):
     return np.sqrt(vec.x*vec.x + vec.y*vec.y + vec.z*vec.z)
+
 
 class TelemetryPoint:
     def __init__(self, curr_time=None, location=None, rotation=None, velocity=None):
@@ -163,6 +168,7 @@ class TelemetryPoint:
         r = carla.Rotation()
         v = self.velocity - other.velocity
         return TelemetryPoint(t, l, r, v)
+
 
 class TelemetryData:
     def __init__(self, curr_time, vehicle):
@@ -212,6 +218,7 @@ class TelemetryData:
 def run_scenario(world, bp_veh, init_loc, init_speed = 0.0, init_frames=10,
         controls=[(150, carla.VehicleControl(), VehicleControlStop())],
         apply_phys_control = None):
+    """运行测试场景"""
 
     veh_transf = init_loc
 
@@ -220,7 +227,7 @@ def run_scenario(world, bp_veh, init_loc, init_speed = 0.0, init_frames=10,
 
     data = TelemetryData(world.get_snapshot().elapsed_seconds, vehicle)
 
-    # Initialization at init_speed
+    # 以 init_speed 的速度进行初始化
     vehicle.enable_constant_velocity(carla.Vector3D(init_speed, 0, 0))
     wait(world, init_frames)
     vehicle.disable_constant_velocity()
@@ -233,7 +240,7 @@ def run_scenario(world, bp_veh, init_loc, init_speed = 0.0, init_frames=10,
 
         data.add_telemetry(world.get_snapshot().elapsed_seconds, vehicle)
 
-        # Apply control
+        # 应用控制
         vehicle.apply_control(control)
         for _i in range(0, control_frames):
             world.tick()
@@ -248,7 +255,9 @@ def run_scenario(world, bp_veh, init_loc, init_speed = 0.0, init_frames=10,
 
     return data
 
+
 def brake_scenario(world, bp_veh, speed):
+    """运行刹车场景"""
 
     spectator_transform = carla.Transform(carla.Location(20, -190, 10), carla.Rotation(yaw=67, pitch=-13))
     try:
@@ -268,7 +277,9 @@ def brake_scenario(world, bp_veh, speed):
     end_vel = 3.6*norm(data.get_telemetry(2).velocity)
     print("  %.0f -> 0 km/h: (%.1f s, %.1f m)" % (speed, delta[0], delta[1]), end="")
 
+
 def accel_scenario(world, bp_veh, max_vel):
+    """运行加速场景测试"""
 
     spectator_transform = carla.Transform(carla.Location(20, -190, 10), carla.Rotation(yaw=67, pitch=-13))
     try:
@@ -288,7 +299,9 @@ def accel_scenario(world, bp_veh, max_vel):
     end_vel = 3.6*norm(data.get_telemetry(2).velocity)
     print("  0 -> %.0f km/h: (%.1f s, %.1f m)" % (max_vel, delta[0], delta[1]), end="")
 
+
 def uturn_scenario(world, bp_veh):
+    """运行调头场景测试"""
 
     spectator_transform = carla.Transform(carla.Location(30, -180, 20), carla.Rotation(yaw=-140, pitch=-36))
     try:
@@ -307,7 +320,9 @@ def uturn_scenario(world, bp_veh):
     data = run_scenario(world, bp_veh, init_loc=init_pos, controls=controls)
     end_vel = 3.6*norm(data.get_telemetry(3).velocity)
 
+
 def highspeed_turn_scenario(world, bp_veh, steer):
+    """运行高速调头场景测试"""
     spectator_transform = carla.Transform(carla.Location(70, -200, 15), carla.Rotation(yaw=0, pitch=-12))
 
     try:
@@ -327,14 +342,15 @@ def highspeed_turn_scenario(world, bp_veh, steer):
 
     time.sleep(1)
 
+
 def main(arg):
-    """Main function of the script"""
+    """脚本的主函数"""
     client = carla.Client(arg.host, arg.port)
     client.set_timeout(30.0)
     world = client.get_world()
 
     try:
-        # Setting the world and the spawn properties
+        # 设置世界和生成属性
         original_settings = world.get_settings()
         settings = world.get_settings()
 
@@ -382,10 +398,8 @@ def main(arg):
 
         print("-------------------------------------------")
 
-
     finally:
         world.apply_settings(original_settings)
-
 
 
 if __name__ == "__main__":

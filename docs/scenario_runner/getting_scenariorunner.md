@@ -237,7 +237,7 @@ python scenario_runner.py --list
 !!! 注意
     如果使用 Python 3.x 版本，请运行带有 `python3`. 
 
-__3. 通过手动控制测试场景。__ 打开一个新终端并运行 `manual_control.py`。应该会弹出一个新窗口，街道中央有一辆自我车辆。向前移动，领头车辆就会出现。
+__3. 通过手动控制测试场景。__ 打开一个新终端并运行 `manual_control.py`。应该会弹出一个新窗口，街道中央有一辆自主车辆。向前移动，领头车辆就会出现。
 
 ```sh
 # Inside the ScenarioRunner root directory

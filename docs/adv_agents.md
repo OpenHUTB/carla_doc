@@ -63,7 +63,7 @@ destination = random.choice(spawn_points).location
 agent.set_destination(destination)
 ```
 
-__5.__ 在导航步骤期间应用车辆控制和行为。在每个步骤中，__Basic Agent__ 将应用车辆控制并通过执行紧急停止来对任何车辆或交通信号灯做出反应。 __Behavior Agent__ 将根据您应用的行为类型对红绿灯做出反应、避开行人、跟随汽车并在十字路口导航：
+__5.__ 在导航步骤期间应用车辆控制和行为。在每个步骤中，__Basic Agent__ 将应用车辆控制并通过执行紧急停止来对任何车辆或交通信号灯做出反应。 __Behavior Agent__ 将根据您应用的行为类型对交通信号灯做出反应、避开行人、跟随汽车并在十字路口导航：
 
 ```py
 while True：

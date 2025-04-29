@@ -1,17 +1,17 @@
 # 自动信号控制
 
-这是一个基于Flask的应用程序，用于控制 [Carla模拟环境](https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb) 中的红绿灯。该应用程序通过检测路口的交通流量动态调整红绿灯的时长，以优化交通通行效率。
+这是一个基于Flask的应用程序，用于控制 [Carla模拟环境](https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb) 中的交通信号灯。该应用程序通过检测路口的交通流量动态调整交通信号灯的时长，以优化交通通行效率。
 
 #### 主要功能
 
 [应用程序](https://github.com/OpenHUTB/carla_doc/blob/master/src/course/auto_signal_control.py) 主要功能包括：
 1. 获取指定路口的交通流量。
-2. 根据交通流量动态调整红绿灯（绿灯）的时长。
-3. 返回指定路口当前全部红绿灯的状态和时长信息。
+2. 根据交通流量动态调整交通信号灯（绿灯）的时长。
+3. 返回指定路口当前全部交通信号灯的状态和时长信息。
 
 #### 传入参数
 
-- 无需传入参数，该应用程序自动检测指定路口的交通流量并调整红绿灯的时长。
+- 无需传入参数，该应用程序自动检测指定路口的交通流量并调整交通信号灯的时长。
 
 #### 核心实现步骤
 
@@ -24,7 +24,7 @@
 ```
 **2.获取路口信息**：通过中心位置获取指定路口的交通信号灯信息。
 
-为了保证每次请求不会往该路口的交通灯集合中新加重复的红绿灯，先用集合存储红绿灯的唯一ID
+为了保证每次请求不会往该路口的交通信号灯集合中新加重复的交通信号灯，先用集合存储交通信号灯的唯一ID
 
 ```
 traffics_in_junction = set()
@@ -32,7 +32,7 @@ traffics_in_junction = set()
 
 ```
 def get_traffic_lights_in_junction(world, junction):
-    """获取路口的所有红绿灯"""
+    """获取路口的所有交通信号灯"""
     traffic_lights = world.get_actors().filter('traffic.traffic_light')
     for traffic_light in traffic_lights:
         if get_distance(traffic_light.get_location(), center_location[0]) <= 50:
@@ -42,7 +42,7 @@ def get_traffic_lights_in_junction(world, junction):
 
 ```
 def get_light(all_traffic_lights):
-    """根据红绿灯ID列表获取对应的红绿灯对象"""
+    """根据交通信号灯ID列表获取对应的交通信号灯对象"""
     drive_list = list(traffics_in_junction)
     traffic_lights = []
     for traffic_light in all_traffic_lights:
@@ -65,7 +65,7 @@ def get_vehicles_in_intersection(world, intersection_location, intersection_radi
 
     return len(vehicles_in_intersection)
 ```
-**4.调整红绿灯时长**：根据交通流量动态调整红绿灯的时长。
+**4.调整交通信号灯时长**：根据交通流量动态调整交通信号灯的时长。
 
 ```
  if junction_flow > 15:
@@ -86,7 +86,7 @@ def get_vehicles_in_intersection(world, intersection_location, intersection_radi
             last_green_time = GREEN_TIME
 
 ```
-**5.返回结果**：返回当前红绿灯的状态和调整后的时长信息。
+**5.返回结果**：返回当前交通信号灯的状态和调整后的时长信息。
 
 ```
 response_data = {
@@ -100,7 +100,7 @@ response_data = {
 ```
 #### 使用步骤
 
-获取路口交通灯信息，可以发送一个GET请求到 `/set_traffic_light`路由,应用程序会自动根据路口的交通流量调整红绿灯的时长并返回结果。
+获取路口交通信号灯信息，可以发送一个GET请求到 `/set_traffic_light`路由,应用程序会自动根据路口的交通流量调整交通信号灯的时长并返回结果。
 
 1. 打开Carla模拟环境
 2. 先运行[generate_traffic.py](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/generate_traffic.py) 来生成交通
@@ -111,4 +111,4 @@ response_data = {
 http://127.0.0.1:5000/set_traffic_light
 ```
 
-通过这些步骤和说明，用户可以使用该应用程序动态调整Carla模拟环境中的红绿灯时长，以优化交通通行效率。
+通过这些步骤和说明，用户可以使用该应用程序动态调整Carla模拟环境中的交通信号灯时长，以优化交通通行效率。
