@@ -4,7 +4,7 @@
     运行该脚本之前，应先运行generate_traffic.py并确保在town10中成功放置车辆。
 
 
-main函数中首先定义了argparser和carla模块，其中，argparse模块用于解析命令行参数，包括host（主机IP地址）、port（TCP端口号）、traffic_id（交通灯ID）、color_id（交通灯颜色ID）和color_time（交通灯时间）。
+main函数中首先定义了argparser和carla模块，其中，argparse模块用于解析命令行参数，包括host（主机IP地址）、port（TCP端口号）、traffic_id（交通信号灯ID）、color_id（交通信号灯颜色ID）和color_time（交通信号灯时间）。
 
     args= argparser.parse_arg()
     argparser = argparse.ArgumentParser(description=__doc__)
@@ -15,7 +15,7 @@ main函数中首先定义了argparser和carla模块，其中，argparse模块用
     argparser.add_argument('--color_time', metavar='T', default=20, type=int, help='set traffic light time') 
 
     
-使用指定的主机IP地址和端口号连接到Carla模拟器。同时，设置与模拟器通信的超时时间。最后，代码通过获取Carla模拟器的世界对象，可以在模拟环境中进行交通灯的操作和控制。
+使用指定的主机IP地址和端口号连接到Carla模拟器。同时，设置与模拟器通信的超时时间。最后，代码通过获取Carla模拟器的世界对象，可以在模拟环境中进行交通信号灯的操作和控制。
 
     client = carla.Client(args.host, args.port)
     client.set_timeout(10.0)  

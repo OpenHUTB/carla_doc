@@ -1,16 +1,16 @@
 # UE4 场景捕获着色器
 
-For fancy sensors such as the [Semantic Segmentation camera](https://carla.readthedocs.io/en/0.9.13/ref_sensors/#semantic-segmentation-camera), Carla uses [post-processing materials](https://github.com/carla-simulator/carla/tree/master/Unreal/CarlaUE4/Plugins/Carla/Content/PostProcessingMaterials) to act as shaders and produce high-quality results with minimal cost to performance. 
+对于 [语义分割相机](https://carla.readthedocs.io/en/0.9.13/ref_sensors/#semantic-segmentation-camera) 等高级传感器，Carla 使用 [后处理材质](https://github.com/carla-simulator/carla/tree/master/Unreal/CarlaUE4/Plugins/Carla/Content/PostProcessingMaterials) 充当着色器，以最小的性能成本产生高质量的结果。
 
-An excellent tutorial by UE4 on the subject can be found [here (youtube)](https://www.youtube.com/watch?v=PiQ_JLJKi0M)
+您可以在 [此处 (youtube)](https://www.youtube.com/watch?v=PiQ_JLJKi0M)  找到有关此主题的 UE4 精彩教程。
 
-Without getting too much into the details, the post-processing effect materials held here serve as shaders that can take information such as custom stencil/depth buffers and produce pixel-wise computations very efficiently.
+无需过多介绍细节，这里保存的后期处理效果材料可作为着色器，获取自定义模板/深度缓冲区等信息并非常有效地进行逐像素计算。
 
-| Description | Demo |
-| --- | --- |
-| For example, Carla's `GTMaterial.uasset` shader is used to encode custom stencil information into the **red** channel of the output images, producing an image such as this (colours exaggerated for viewing). Then in the PythonAPI client, the LibCarla definitions for [City Palettes](https://github.com/carla-simulator/carla/blob/master/LibCarla/source/carla/image/CityScapesPalette.h) is applied to convert the image to user-desired colours by index. | ![red_encode](Figures/Shaders/red_encode.jpg) |
-| By contrast, our `DReyeVR_SemanticSegmentation` shader builds on the fundamentals of the Carla GTMaterial but directly indexes the array of colours in the shader itself, so you can effortlessly obtain semantic colour information straight into the first-person-camera. | ![rgb_encode](Figures/Shaders/semantic_seg.jpg) |
+| 描述                                                                                                                                                                                                                                                                           | 示例                                              |
+|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------|
+| 例如，Carla 的 `GTMaterial.uasset` 着色器用于将自定义模板信息编码到输出图像的**红色**通道中，从而生成如下图像（颜色夸张以方便查看）。然后在 PythonAPI 客户端中，应用 [City Palettes](https://github.com/OpenHUTB/carla/blob/OpenHUTB/LibCarla/source/carla/image/CityScapesPalette.h) 的 LibCarla 定义，按索引将图像转换为用户所需的颜色。                | ![red_encode](Figures/Shaders/red_encode.jpg)   |
+| 相比之下，我们的 `DReyeVR_SemanticSegmentation` 着色器建立在 Carla GTMaterial 的基础上，但直接在着色器本身中索引颜色数组，因此您可以毫不费力地直接在第一人称摄像机中获取语义颜色信息。 | ![rgb_encode](Figures/Shaders/semantic_seg.jpg) |
 
-We are interested in including the various shader outputs in our replay functionality. 
+我们有兴趣在我们的重放功能中包含各种着色器输出。
 
-To demo the shaders we include in DReyeVR in real time, press `.` (period) for the next and `,` (comma) for the previous shaders. 
+为了实时演示我们在 DReyeVR 中包含的着色器，请按 `.`（句点）显示下一个着色器，按 `,`（逗号）显示上一个着色器。

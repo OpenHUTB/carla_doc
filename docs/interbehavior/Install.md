@@ -135,6 +135,8 @@ bool UseLogitechPlugin = true;
 ```
 - 注意：仅当启用了 `UseSRanipalPlugin` 时才需要安装 SRanipal 插件，同样，仅当启用了 `UseLogitechPlugin` 时才需要安装 Logitech 插件。
 
+!!! 注意
+    在虚幻编辑器中运行时，需要点击工具栏中的 [`控制`](https://dev.epicgames.com/documentation/zh-cn/unreal-engine/playing-and-simulating?application_version=4.27) （显示`弹出`）才有进入驾驶模式。每次点击`控制`都会调用 `carla\unreal\carlaue4\Source\CarlaUE4\DReyeVR\DReyeVRPawn.cpp` 文件中 `void ADReyeVRPawn::SetupPlayerInputComponent(UInputComponent *PlayerInputComponent)` 的 `Super::SetupPlayerInputComponent(PlayerInputComponent);`，每次持有棋子时都会调用一次，从而 InputComponent 不为空。 
 
 # 安装 DReyeVR 插件
 在安装 `DReyeVR` 之前，我们还需要安装依赖项：
@@ -494,3 +496,33 @@ CarlaUE4.exe -vr
 # 现在该怎么办？
 
 现在您已成功安装 DReyeVR，请继续访问 [`Usage.md`](Usage.md) 了解如何将 DReyeVR 用于您自己的 VR 驾驶研究模拟器。
+
+VR模式和传统模型进行切换需要修改`Unreal/CarlaUE4/Config/DefaultEngine.ini`文件中的`GlobalDefaultGameMode`配置。传统模式：
+```shell
+[/Script/EngineSettings.GameMapsSettings]
+EditorStartupMap=/Game/Carla/Maps/Town10HD_Opt.Town10HD_Opt
+GameDefaultMap=/Game/Carla/Maps/Town10HD_Opt.Town10HD_Opt
+ServerDefaultMap=/Game/Carla/Maps/Town10HD_Opt.Town10HD_Opt
+GlobalDefaultGameMode=/Game/Carla/Blueprints/Game/CarlaGameMode.CarlaGameMode_C
+GameInstanceClass=/Script/Carla.CarlaGameInstance
+TransitionMap=/Game/Carla/Maps/Town10HD_Opt.Town10HD_Opt
+GlobalDefaultServerGameMode=/Game/Carla/Blueprints/Game/CarlaGameMode.CarlaGameMode_C
+```
+VR模式（默认启动的地图是Town03，）：
+```shell
+[/Script/EngineSettings.GameMapsSettings]
+EditorStartupMap=/Game/Carla/Maps/Town03.Town03
+LocalMapOptions=
+TransitionMap=/Game/Carla/Maps/Town03.Town03
+bUseSplitscreen=True
+TwoPlayerSplitscreenLayout=Horizontal
+ThreePlayerSplitscreenLayout=FavorTop
+FourPlayerSplitscreenLayout=Grid
+bOffsetPlayerGamepadIds=False
+GameInstanceClass=/Script/Carla.CarlaGameInstance
+GlobalDefaultGameMode=/Script/CarlaUE4.DReyeVRGameMode
+GlobalDefaultServerGameMode=/Script/CarlaUE4.DReyeVRGameMode
+```
+
+
+

@@ -8,15 +8,15 @@
 <!-- [视频演示 (YouTube)](https://www.youtube.com/watch?v=yGIPSDOMGpY) -->
 <!-- Welcome to the DReyeVR wiki! -->
 
-该项目扩展了 [`Carla`](https://github.com/OpenHUTB/carla) 模拟器，增加了虚拟现实集成、第一人称可操纵的自我车辆、眼动追踪支持和多种沉浸感增强功能。
+该模块扩展了 [`Carla`](https://github.com/OpenHUTB/carla) 模拟器，增加了虚拟现实集成、第一人称可操纵的自主车辆、眼动追踪支持和多种沉浸感增强功能。
 
 如果您有任何疑问，希望我们的常见问题解答 [F.A.Q. 维基页面](https://github.com/HARPLab/DReyeVR/wiki/Frequently-Asked-Questions) 和 [问题页面](https://github.com/HARPLab/DReyeVR/issues?q=is%3Aissue+is%3Aclosed) 可以解答其中的一些问题。
 
 **重要提示：** 目前 DReyeVR 仅支持 Carla 版本：[0.9.13](https://github.com/carla-simulator/carla/tree/0.9.13) 、[OpenHUTB](https://github.com/OpenHUTB/carla) 和 Unreal Engine 4.26。
 
 ## 亮点
-### 自我车辆
-[集成 SteamVR](https://github.com/ValveSoftware/steamvr_unreal_plugin/tree/4.23) 的完全可驾驶**虚拟现实自我车辆**（参见 [EgoVehicle.h](https://github.com/OpenHUTB/carla/blob/OpenHUTB/Unreal/CarlaUE4/Source/CarlaUE4/DReyeVR/EgoVehicle.h) ）
+### 自主车辆
+[集成 SteamVR](https://github.com/ValveSoftware/steamvr_unreal_plugin/tree/4.23) 的完全可驾驶**虚拟现实自主车辆**（参见 [EgoVehicle.h](https://github.com/OpenHUTB/carla/blob/OpenHUTB/Unreal/CarlaUE4/Source/CarlaUE4/DReyeVR/EgoVehicle.h) ）
 
 - SteamVR HMD 头部跟踪 (朝向 & 位置)
 
@@ -72,11 +72,11 @@
 
 - 能够将控制权移交给/接管 Carla 的 AI 轮式车辆控制器
 
-- 基于 Carla 的语义分割相机（参见 [`Shaders/README.md`](interbehavior/Shaders.md) ）
+- 基于 Carla 的语义分割相机（参见 [`着色器`](interbehavior/Shaders.md) ）
 
 
 ### 自我传感器
-与 Carla 兼容的**自我车辆传感器**（参见 [EgoSensor.h](https://github.com/OpenHUTB/carla/blob/OpenHUTB/Unreal/CarlaUE4/Source/CarlaUE4/DReyeVR/EgoSensor.h) ）是一种“隐形传感器”，可跟踪以下信息：
+与 Carla 兼容的**自主车辆传感器**（参见 [EgoSensor.h](https://github.com/OpenHUTB/carla/blob/OpenHUTB/Unreal/CarlaUE4/Source/CarlaUE4/DReyeVR/EgoSensor.h) ）是一种“隐形传感器”，可跟踪以下信息：
 
 - 使用 [HTC Vive Pro Eye](https://enterprise.vive.com/us/product/vive-pro-eye-office/) VR 耳机进行实时**眼动跟踪** 
   - 眼动仪数据包括：
@@ -105,7 +105,7 @@
 
     - 鸟鸣声、风声、烟雾声等（参见 [Sounds.md](interbehavior/Tutorials/Sounds.md) ）
 
-- 非自我为中心的音频（非自我车辆的发动机转速）
+- 非自我为中心的音频（非自主车辆的发动机转速）
 
 - 同步重放并逐帧捕获以进行事后分析（参见 [Usage.md](interbehavior/Usage.md) ）
 
@@ -162,6 +162,7 @@
 - 请参阅 [`Usage.md`](interbehavior/Usage.md) 了解如何使用我们提供的 DReyeVR 功能
 - 请参阅 [`Development.md`](interbehavior/Development.md) 以开始 DReyeVR 开发并添加新功能
 - 请参阅 [`interbehavior/Tutorials/`](interbehavior/Tutorials/) 查看多个 DReyeVR 教程，例如自定义 EgoVehicle、添加自定义标志/道具等。
+- [自定义自主车辆](interbehavior/Tutorials/CustomEgo.md)
 - 功能实现分析参阅 [链接](interbehavior/implementation.md) 。
 
 ## 引用

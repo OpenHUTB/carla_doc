@@ -95,23 +95,21 @@ def pygame_callback(data, obj):
 
 ```py
 
-# Control object to manage vehicle controls
+# 控制对象来管理车辆控制
 class ControlObject(object):
     def __init__(self, veh):
         
-        # Conrol parameters to store the control state
+        # 控制参数存储控制状态
         self._vehicle = veh
         self._steer = 0
         self._throttle = False
         self._brake = False
         self._steer = None
         self._steer_cache = 0
-        # A carla.VehicleControl object is needed to alter the 
-        # vehicle's control state
+        # 需要一个 carla.VehicleControl 对象来改变车辆的控制状态
         self._control = carla.VehicleControl()
     
-    # Check for key press events in the PyGame window
-    # and define the control state
+    # 检查 PyGame 窗口中的按键事件并定义控制状态
     def parse_control(self, event):
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RETURN:
@@ -147,7 +145,7 @@ class ControlObject(object):
             self._control.throttle = 0.0
         
         if self._brake:
-            # If the down arrow is held down when the car is stationary, switch to reverse
+            # 如果在车辆静止时按住向下箭头，则切换到倒车
             if self._vehicle.get_velocity().length() < 0.01 and not self._control.reverse:
                 self._control.brake = 0.0
                 self._control.gear = 1
@@ -177,7 +175,7 @@ class ControlObject(object):
                 self._steer_cache = 0.0
             self._control.steer = round(self._steer_cache,1)
             
-        # Ápply the control parameters to the ego vehicle
+        # 将控制参数应用于自我车辆
         self._vehicle.apply_control(self._control)
   
 ```
@@ -186,22 +184,22 @@ class ControlObject(object):
 
 ```py
 
-# Randomly select a vehicle to follow with the camera
+# 随机选择一辆车用摄像头跟踪
 ego_vehicle = random.choice(vehicles)
 
-# Initialise the camera floating behind the vehicle
+# 初始化漂浮在车辆后面的摄像机
 camera_init_trans = carla.Transform(carla.Location(x=-5, z=3), carla.Rotation(pitch=-20))
 camera_bp = world.get_blueprint_library().find('sensor.camera.rgb')
 camera = world.spawn_actor(camera_bp, camera_init_trans, attach_to=ego_vehicle)
 
-# Start camera with PyGame callback
+# 使用 PyGame 回调启动相机
 camera.listen(lambda image: pygame_callback(image, renderObject))
 
-# Get camera dimensions
+# 获取相机尺寸
 image_w = camera_bp.get_attribute("image_size_x").as_int()
 image_h = camera_bp.get_attribute("image_size_y").as_int()
 
-# Instantiate objects for rendering and vehicle control
+# 实例化渲染和车辆控制的对象
 renderObject = RenderObject(image_w, image_h)
 controlObject = ControlObject(ego_vehicle)
 
@@ -211,10 +209,10 @@ controlObject = ControlObject(ego_vehicle)
 
 ```py
 
-# Initialise the display
+# 初始化显示
 pygame.init()
 gameDisplay = pygame.display.set_mode((image_w,image_h), pygame.HWSURFACE | pygame.DOUBLEBUF)
-# Draw black to the display
+# 在显示屏上绘制黑色
 gameDisplay.fill((0,0,0))
 gameDisplay.blit(renderObject.surface, (0,0))
 pygame.display.flip()
@@ -225,47 +223,47 @@ pygame.display.flip()
 
 ```py
 
-# Game loop
+# 游戏循环
 crashed = False
 
 while not crashed:
-    # Advance the simulation time
+    # 提前模拟时间
     world.tick()
-    # Update the display
+    # 更新显示
     gameDisplay.blit(renderObject.surface, (0,0))
     pygame.display.flip()
-    # Process the current control state
+    # 处理当前控制状态
     controlObject.process_control()
-    # Collect key press events
+    # 收集按键事件
     for event in pygame.event.get():
-        # If the window is closed, break the while loop
+        # 如果窗口关闭，则中断 while 循环
         if event.type == pygame.QUIT:
             crashed = True
         
-        # Parse effect of key press event on control state
+        # 解析按键事件对控制状态的影响
         controlObject.parse_control(event)
         if event.type == pygame.KEYUP:
-            # TAB key switches vehicle
+            # TAB键切换车辆
             if event.key == pygame.K_TAB:
                 ego_vehicle.set_autopilot(True)
                 ego_vehicle = random.choice(vehicles)
-                # Ensure vehicle is still alive (might have been destroyed)
+                # 确保车辆仍然有效（可能已被摧毁）
                 if ego_vehicle.is_alive:
-                    # Stop and remove the camera
+                    # 停止并移除相机
                     camera.stop()
                     camera.destroy()
 
-                    # Spawn new camera and attach to new vehicle
+                    # 生成新相机并附加到新车辆
                     controlObject = ControlObject(ego_vehicle)
                     camera = world.spawn_actor(camera_bp, camera_init_trans, attach_to=ego_vehicle)
                     camera.listen(lambda image: pygame_callback(image, renderObject))
 
-                    # Update PyGame window
+                    # 更新 PyGame 窗口
                     gameDisplay.fill((0,0,0))               
                     gameDisplay.blit(renderObject.surface, (0,0))
                     pygame.display.flip()
 
-# Stop camera and quit PyGame after exiting game loop
+# 退出游戏循环后停止相机并退出 PyGame
 camera.stop()
 pygame.quit()
 
