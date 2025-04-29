@@ -78,10 +78,12 @@
 <li><a href="#versions_prior_to_0912">0.9.12 之前的版本</a></li>
 </ul>
 </li>
-</ul>
-<blockquote>
+<li><a href="#faq"><strong>常见问题与解决方案</strong></a></li>
+<li><a href="#quickstart"><strong>快速开始</strong></a> <blockquote>
 <p><em>本文档是一个正在进行的工作，这里仅考虑 Linux 构建系统。</em></p>
 </blockquote>
+</li>
+</ul>
 <p>设置中最具挑战性的部分是编译所有依赖项和模块，使其与 a) 服务器端的虚幻引擎 和 b) 客户端的 Python 兼容。</p>
 <p>目标是能够从单独的 Python 进程调用虚幻引擎的函数。</p>
 <p><img alt="modules" src="../img/build_modules.jpg" /></p>
@@ -99,6 +101,17 @@
 <li>googletest-1.8.1 (with libc++)</li>
 </ul>
 <hr />
+<h2 id="_3">依赖检查</h2>
+<p>建议在构建前运行依赖检查脚本，确保环境无误</p>
+<div class="highlight"><pre><span></span><code>./Util/CheckDependencies.sh
+</code></pre></div>
+<p>该脚本会检测：</p>
+<ul>
+<li>clang 和 clang++ 版本</li>
+<li>Python 和 pip 版本</li>
+<li>boost, llvm, rpclib 是否存在</li>
+<li>Unreal Engine 路径是否配置正确 (UE4_ROOT 环境变量)</li>
+</ul>
 <h2 id="libcarla">LibCarla <span id="libcarla"></span></h2>
 <p>使用 CMake 编译（最低版本需要 CMake 3.9）。</p>
 <p>命令</p>
@@ -151,7 +164,7 @@
 <div class="highlight"><pre><span></span><code>make<span class="w"> </span>launch
 </code></pre></div>
 <p>编译 0.9.15 时候出现<code>carla/Unreal/CarlaUE4/Plugins/CarlaTools/Source/CarlaTools/Private/Online/CustomFileDownloader.cpp(11): fatal rror C1083: 无法打开包括文件: “OSM2ODR.h”: No such file or directory</code></p>
-<p>解决：将0.9.14<code>build</code>中的<code>carla\Build\osm2odr-visualstudio</code>复制过来。</p>
+<p>解决：将 Carla 0.9.14 版本中的 Build/osm2odr-visualstudio 文件夹复制到 0.9.15 版本中对应的 carla/Build/ 目录下。</p>
 <hr />
 <h2 id="pythonapi">PythonAPI <span id="pythonapi"></span></h2>
 <h3 id="0912">0.9.12+ 版本 <span id="versions-0912"></span></h3>
@@ -202,6 +215,66 @@ libboost-python-dev。</p>
 <div class="highlight"><pre><span></span><code>easy_install2<span class="w"> </span>--user<span class="w"> </span>--no-deps<span class="w"> </span>PythonAPI/dist/carla-X.X.X-py2.7-linux-x86_64.egg
 easy_install3<span class="w"> </span>--user<span class="w"> </span>--no-deps<span class="w"> </span>PythonAPI/dist/carla-X.X.X-py3.7-linux-x86_64.egg
 </code></pre></div>
+<h3 id="_4">常见问题与解决方案  <span id="faq"></span></h3>
+<table>
+<thead>
+<tr>
+<th>问题描述</th>
+<th>解决方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>找不到clang-8</strong></td>
+<td>手动安装：<code>sudo apt install clang-8</code></td>
+</tr>
+<tr>
+<td><strong>Unreal Engine</strong></td>
+<td>确保设置正确的UE4_ROOT，并确认UE4已正确编译</td>
+</tr>
+<tr>
+<td><strong><code>ImportError: No module named carla</code></strong></td>
+<td>检查 PythonAPI 是否正确编译并安装，检查 Python 版本对应关系</td>
+</tr>
+<tr>
+<td><strong>C++ 编译找不到 libc++ 相关头文件</strong></td>
+<td>确保 llvm-8 安装完整（特别是 libc++-dev，libc++abi-dev）</td>
+</tr>
+<tr>
+<td><strong>PythonAPI make 失败（auditwheel 错误）</strong></td>
+<td>升级 pip: <code>pip install --upgrade pip</code> 并重新安装 auditwheel</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_5">快速开始  <span id="quickstart"></span></h3>
+<p>快速构建系统跑通Carla，简化步骤</p>
+<p>1.<strong>克隆仓库并初始化子模块</strong><br />
+<code>bash
+   git clone https://your.repo.url/carla.git
+   cd carla
+   git submodule update --init --recursive</code></p>
+<p>2.<strong>安装系统依赖</strong><br />
+<div class="highlight"><pre><span></span><code><span class="w">  </span>sudo<span class="w"> </span>apt<span class="w"> </span>update
+<span class="w">  </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>clang-8<span class="w"> </span>cmake<span class="w"> </span>python3-dev<span class="w"> </span>python3-pip<span class="w"> </span><span class="se">\</span>
+<span class="w">                    </span>libboost-python-dev<span class="w"> </span>llvm-8-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">                    </span>libpython3-dev
+<span class="w">  </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip<span class="w"> </span>wheel<span class="w"> </span>auditwheel
+</code></pre></div>
+3.<strong>下载组件</strong> 
+<div class="highlight"><pre><span></span><code><span class="w">  </span>make<span class="w"> </span>setup<span class="w">            </span><span class="c1"># 下载并编译 llvm, rpclib, boost, gtest</span>
+<span class="w">  </span>make<span class="w"> </span>LibCarla<span class="w">         </span><span class="c1"># 编译核心库</span>
+<span class="w">  </span><span class="nb">export</span><span class="w"> </span><span class="nv">UE4_ROOT</span><span class="o">=</span>/path/to/UnrealEngine
+<span class="w">  </span>make<span class="w"> </span>CarlaUE4Editor<span class="w">   </span><span class="c1"># 编译 UE4 项目与插件</span>
+<span class="w">  </span>make<span class="w"> </span>PythonAPI<span class="w">        </span><span class="c1"># 构建并打包 Python 客户端</span>
+</code></pre></div>
+4.<strong>验证结果</strong> 
+<div class="highlight"><pre><span></span><code><span class="w"> </span>python3<span class="w"> </span>-<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
+<span class="s"> import carla</span>
+<span class="s"> client = carla.Client(&#39;localhost&#39;, 2000)</span>
+<span class="s"> world = client.get_world()</span>
+<span class="s"> print(&quot;World map:&quot;, world.get_map().name)</span>
+<span class="s">EOF</span>
+</code></pre></div></p>
               
             </div>
           </div><footer>

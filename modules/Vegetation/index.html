@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Vegetation - 人车模拟器</title>
+    <title>Vegetation(植被)模块说明文档 - 人车模拟器</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Vegetation";
+        var mkdocs_page_name = "Vegetation(\u690d\u88ab)\u6a21\u5757\u8bf4\u660e\u6587\u6863";
         var mkdocs_page_input_path = "modules/Vegetation.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,7 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Vegetation</li>
+      <li class="breadcrumb-item active">Vegetation(植被)模块说明文档</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/modules/Vegetation.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -68,170 +68,190 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h2 id="1">1. 组件概述</h2>
-<p><code>SpringBasedVegetationComponent</code> 组件负责模拟植被的弹性运动行为，以提升仿真环境的真实感。</p>
-<h2 id="2">2. 代码结构</h2>
-<p><div class="highlight"><pre><span></span><code>CARLA
-│── Unreal
-│   └── CarlaUE4
-│       └── Plugins
-│           └── Carla
-│               └── Source
-│                   └── Carla
-│                       └── Vegetation
+                <h1 id="vegetation">Vegetation(植被)模块说明文档</h1>
+<h1 id="basevegetationactor">BaseVegetationActor 植被物理模拟模块说明文档</h1>
+<ul>
+<li><a href="#1-模块概述">1. 模块概述</a></li>
+<li><a href="#2-详细设计说明">2. 详细设计说明</a></li>
+<li><a href="#21-植被物理参数系统fspringbasedvegetationparameters">2.1 植被物理参数系统（FSpringBasedVegetationParameters）</a></li>
+<li><a href="#22-骨骼物理建模fskeletonbone-fskeletonjoint">2.2 骨骼物理建模（FSkeletonBone, FSkeletonJoint）</a></li>
+<li><a href="#23-植被基类abasevegetationactor">2.3 植被基类（ABaseVegetationActor）</a></li>
+<li><a href="#24-弹簧模拟组件uspringbasedvegetationcomponent">2.4 弹簧模拟组件（USpringBasedVegetationComponent）</a></li>
+<li><a href="#3-使用方法详解">3. 使用方法详解</a></li>
+<li><a href="#4-技术机制与注意事项">4. 技术机制与注意事项</a></li>
+</ul>
+<hr />
+<h2 id="1">1. 模块概述</h2>
+<p>本模块用于 CARLA 模拟器中的植物物理动画控制，结合弹簧力学与骨骼动力学建模，实现植物对象（如草、树枝）的自然运动模拟。</p>
+<p>该模块主要由以下四个核心文件组成：</p>
+<ul>
+<li><code>BaseVegetationActor.h</code> / <code>.cpp</code></li>
+<li><code>SpringBasedVegetationComponent.h</code> / <code>.cpp</code></li>
+</ul>
+<p>其功能包括植被弹簧参数建模、骨架结构描述、动力学求解、碰撞反馈与编辑器交互支持。</p>
+<hr />
+<h2 id="2">2. 详细设计说明</h2>
+<h3 id="21-fspringbasedvegetationparameters">2.1 植被物理参数系统（FSpringBasedVegetationParameters）</h3>
+<p>该结构体描述了植被动画模拟中核心的弹簧参数，定义于 <code>BaseVegetationActor.h</code>。主要字段包括：</p>
+<ul>
+<li><code>BaseSpringStrength</code>：基础弹簧强度。</li>
+<li><code>MinSpringStrength</code>：最小弹簧强度，用于限制。</li>
+<li><code>Alpha</code> / <code>Beta</code>：角速度积分参数，控制阻尼效果。</li>
+<li><code>Gravity</code>：植被受力方向。</li>
+<li><code>HorizontalFalloff</code> / <code>VerticalFalloff</code>：弹簧力随距离的衰减。</li>
+<li><code>CollisionForceParameter</code> / <code>CollisionForceMinVel</code>：碰撞触发机制参数。</li>
+<li><code>Skeleton</code>：包含骨骼结构的数组，用于建立物理模拟结构。</li>
+</ul>
+<p>参数可以通过编辑器或运行时蓝图接口设置。</p>
+<h3 id="22-fskeletonbone-fskeletonjoint">2.2 骨骼物理建模（FSkeletonBone, FSkeletonJoint）</h3>
+<p>定义于 <code>SpringBasedVegetationComponent.h</code>，构成物理弹簧网络的基础单位。</p>
+<ul>
+<li><code>FSkeletonBone</code>：表示每节骨骼的物理属性（质量、长度、质心位置）。</li>
+<li><code>FSkeletonJoint</code>：描述骨骼连接关系（JointId、ParentId、位置、旋转等）。</li>
+</ul>
+<p>这些结构在组件初始化时用于构建拓扑结构与刚体质量矩阵。</p>
+<h3 id="23-abasevegetationactor">2.3 植被基类（ABaseVegetationActor）</h3>
+<p>该类继承自 UE 的 <code>AActor</code>，主要职责：</p>
+<ul>
+<li>维护并提供 <code>FSpringBasedVegetationParameters</code> 的管理接口。</li>
+<li>支持蓝图接口，如 <code>SetParametersToComponent()</code>、<code>GetParametersFromComponent()</code>。</li>
+<li>在 <code>BeginPlay()</code> 时自动初始化组件与参数同步。</li>
+<li>通过绑定的 <code>USpringBasedVegetationComponent</code> 实现动态控制。</li>
+</ul>
+<h3 id="24-uspringbasedvegetationcomponent">2.4 弹簧模拟组件（USpringBasedVegetationComponent）</h3>
+<p>该组件定义了完整的物理动画系统，核心职责包括：</p>
+<ul>
+<li>通过旋转矩阵与惯性张量推进骨骼角动量与姿态。</li>
+<li>实现角速度更新、姿态积分（如角动量守恒、阻尼恢复力等）。</li>
+<li>处理外部碰撞信息（Capsule、车辆等），并添加外力反应。</li>
+<li>通过 Tick 每帧推进物理求解，处理多个骨骼点联动。</li>
+<li>使用 Eigen 实现矩阵变换、力矩求解、高效模拟。</li>
+</ul>
+<hr />
+<h2 id="3">3. 使用方法详解</h2>
+<ol>
+<li>在场景中放置继承自 <code>ABaseVegetationActor</code> 的蓝图或 C++ 对象。</li>
+<li>通过编辑器或代码设置 <code>SpringParameters</code>。</li>
+<li>保证其包含 <code>USpringBasedVegetationComponent</code>，用于弹簧求解。</li>
+<li>可在运行时动态设置参数并实时刷新模拟效果：</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="n">SpringActor</span><span class="o">-&gt;</span><span class="n">GetParametersFromComponent</span><span class="p">();</span>
+<span class="n">SpringActor</span><span class="o">-&gt;</span><span class="n">SpringParameters</span><span class="p">.</span><span class="n">BaseSpringStrength</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1200.0f</span><span class="p">;</span>
+<span class="n">SpringActor</span><span class="o">-&gt;</span><span class="n">SetParametersToComponent</span><span class="p">();</span>
 </code></pre></div>
-该组件的主要实现位于 <code>SpringBasedVegetationComponent.cpp</code>。</p>
-<h2 id="3">3. 依赖项</h2>
-<h3 id="31">3.1 头文件依赖</h3>
-<p><code>SpringBasedVegetationComponent.cpp</code> 依赖以下头文件：
-- <code>SpringBasedVegetationComponent.h</code>
-- <code>Carla/Walker/WalkerAnim.h</code>
-- <code>Math/Matrix.h</code>
-- <code>Components/CapsuleComponent.h</code>
-- <code>DrawDebugHelpers.h</code>
-- <code>Kismet/KismetMathLibrary.h</code>
-- <code>BaseVegetationActor.h</code>
-- <code>Vehicle/CarlaWheeledVehicle.h</code>
-- <code>&lt;unordered_set&gt;</code> <code>&lt;vector&gt;</code> <code>&lt;cmath&gt;</code> <code>&lt;sstream&gt;</code>
-- <code>compiler/disable-ue4-macros.h</code>
-- <code>carla/rpc/String.h</code>
-- <code>compiler/enable-ue4-macros.h</code></p>
-<h2 id="4">4. 宏定义</h2>
-<p>组件内定义了多个用于日志控制的宏：</p>
+<hr />
+<h2 id="4">4. 技术机制与注意事项</h2>
+<ul>
+<li>所有力学运算基于 Eigen 三维向量矩阵库完成。</li>
+<li>姿态更新采用角速度积分方式，避免欧拉角爆炸。</li>
+<li>植被组件默认每帧自动调用 <code>UpdateSkeleton()</code>。</li>
+<li>模拟粒度可控：可通过调整骨骼数量、质量矩阵降低性能开销。</li>
+<li>建议限制 <code>ForceMaxDistance</code> 以避免远程对象影响植被模拟。</li>
+</ul>
+<hr />
+<h2 id="1fspringbasedvegetationparameters">1.植被物理参数系统（FSpringBasedVegetationParameters）</h2>
+<p>该结构体定义在 <code>BaseVegetationActor.h</code>，其作用是统一存储所有控制植被物理行为的可调参数，便于在运行时从组件同步参数、在编辑器中配置或蓝图控制中调整。</p>
+<h3 id="_1">参数说明：</h3>
 <table>
 <thead>
 <tr>
-<th>宏定义</th>
-<th>说明</th>
-<th>所在行</th>
+<th>参数名</th>
+<th>类型</th>
+<th>描述</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>ACC_LOG(...)</code></td>
-<td>累积日志</td>
-<td>44</td>
+<td><code>BaseSpringStrength</code></td>
+<td>float</td>
+<td>弹簧的基础恢复力强度，控制弹性摆动的主力度。</td>
 </tr>
 <tr>
-<td><code>ACCUMULATIONLOGS</code></td>
-<td>控制 <code>ACC_LOG</code> 是否启用（0 关闭）</td>
-<td>27</td>
+<td><code>MinSpringStrength</code></td>
+<td>float</td>
+<td>弹簧恢复力的最小阈值，用于避免数值过小导致的抖动或零弹性。</td>
 </tr>
 <tr>
-<td><code>COLLISION_LOG(...)</code></td>
-<td>碰撞日志</td>
-<td>39</td>
+<td><code>SpringStrengthMulFactor</code></td>
+<td>float</td>
+<td>基于骨骼长度的缩放因子。</td>
 </tr>
 <tr>
-<td><code>COLLISIONLOGS</code></td>
-<td>控制 <code>COLLISION_LOG</code> 是否启用</td>
-<td>26</td>
+<td><code>Gravity</code></td>
+<td>FVector</td>
+<td>指定的重力方向（默认为向下）。</td>
 </tr>
 <tr>
-<td><code>FICT_LOG(...)</code></td>
-<td>虚拟力日志</td>
-<td>49</td>
+<td><code>HorizontalFalloff</code> / <code>VerticalFalloff</code></td>
+<td>float</td>
+<td>水平与垂直方向的衰减参数，用于控制弹力作用范围。</td>
 </tr>
 <tr>
-<td><code>FICTITIOUSFORCELOGS</code></td>
-<td>控制 <code>FICT_LOG</code> 是否启用</td>
-<td>28</td>
+<td><code>CollisionForceParameter</code></td>
+<td>float</td>
+<td>与动态物体碰撞后，附加外力的计算因子。</td>
 </tr>
 <tr>
-<td><code>OTHER_LOG(...)</code></td>
-<td>其他日志</td>
-<td>54</td>
+<td><code>CollisionForceMinVel</code></td>
+<td>float</td>
+<td>达到该速度后才会触发碰撞外力反应。</td>
 </tr>
 <tr>
-<td><code>OTHERLOGS</code></td>
-<td>控制 <code>OTHER_LOG</code> 是否启用</td>
-<td>29</td>
+<td><code>ForceMaxDistance</code></td>
+<td>float</td>
+<td>最大力作用距离，避免远距离对象干扰。</td>
 </tr>
 <tr>
-<td><code>SOLVER_LOG(...)</code></td>
-<td>计算求解日志</td>
-<td>34</td>
+<td><code>DeltaTimeOverride</code></td>
+<td>float</td>
+<td>可用于替代 Tick 中的 DeltaTime。</td>
 </tr>
 <tr>
-<td><code>SOLVERLOGS</code></td>
-<td>控制 <code>SOLVER_LOG</code> 是否启用</td>
-<td>25</td>
-</tr>
-<tr>
-<td><code>SPRINGVEGETATIONLOGS</code></td>
-<td>控制植被弹簧系统日志</td>
-<td>24</td>
+<td><code>Skeleton</code></td>
+<td>TArray<FSkeletonJoint></td>
+<td>包含所有骨骼节点的定义。</td>
 </tr>
 </tbody>
 </table>
-<h2 id="5">5. 主要函数</h2>
-<h3 id="51">5.1 数值计算与转换</h3>
-<table>
-<thead>
-<tr>
-<th>函数</th>
-<th>说明</th>
-<th>所在行</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>EigenToFString&lt;T&gt;(T &amp;t)</code></td>
-<td>将 Eigen 矩阵转换为 FString</td>
-<td>89</td>
-</tr>
-<tr>
-<td><code>EigenVectorToRotator(const Eigen::Vector3d &amp;Vector)</code></td>
-<td>将 Eigen 3D 向量转换为 FRotator</td>
-<td>134</td>
-</tr>
-<tr>
-<td><code>GetDeltaRotator(const FRotator &amp;Rotator1, const FRotator &amp;Rotator2)</code></td>
-<td>计算两个旋转器的角度差</td>
-<td>58</td>
-</tr>
-<tr>
-<td><code>GetSign&lt;T&gt;(T n)</code></td>
-<td>获取数值的符号</td>
-<td>84</td>
-</tr>
-<tr>
-<td><code>OuterProduct(const Eigen::Vector3d &amp;V1)</code></td>
-<td>计算向量外积（单输入版本）</td>
-<td>99</td>
-</tr>
-<tr>
-<td><code>OuterProduct(const Eigen::Vector3d &amp;V1, const Eigen::Vector3d &amp;V2)</code></td>
-<td>计算向量外积（双输入版本）</td>
-<td>95</td>
-</tr>
-<tr>
-<td><code>RotatorToEigenVector(const FRotator &amp;Rotator)</code></td>
-<td>将 FRotator 转换为 Eigen 3D 向量</td>
-<td>127</td>
-</tr>
-<tr>
-<td><code>ToEigenMatrix(const FMatrix &amp;Matrix)</code></td>
-<td>将 Unreal FMatrix 转换为 Eigen 矩阵</td>
-<td>112</td>
-</tr>
-<tr>
-<td><code>ToEigenMatrix(const FTransform &amp;Transform)</code></td>
-<td>将 Unreal FTransform 转换为 Eigen 矩阵</td>
-<td>121</td>
-</tr>
-<tr>
-<td><code>ToEigenVector(const FVector &amp;V1)</code></td>
-<td>将 FVector 转换为 Eigen 3D 向量</td>
-<td>104</td>
-</tr>
-<tr>
-<td><code>ToUnrealVector(const Eigen::Vector3d &amp;V1)</code></td>
-<td>将 Eigen 3D 向量转换为 FVector</td>
-<td>108</td>
-</tr>
-</tbody>
-</table>
+<p>这些参数通过组件接口与 Actor 接口双向同步，确保模拟中数值一致。</p>
+<hr />
+<h2 id="2uspringbasedvegetationcomponent">2.弹簧模拟组件（USpringBasedVegetationComponent）</h2>
+<p>定义于 <code>SpringBasedVegetationComponent.h</code> 与 <code>.cpp</code> 中。是实现动态物理模拟的核心模块。继承自 <code>UActorComponent</code>。</p>
+<h3 id="_2">核心成员：</h3>
+<ul>
+<li><code>std::vector&lt;SkeletonNode&gt;</code>：封装每个骨骼点当前的姿态、角速度、力状态。</li>
+<li><code>std::vector&lt;FSkeletonJoint&gt;</code> / <code>FSkeletonBone</code>：构建实际的骨架数据。</li>
+<li><code>std::vector&lt;Eigen::Vector3d&gt;</code>：模拟每一节点的惯性行为。</li>
+<li><code>std::unordered_map</code>：用于管理关节之间的父子拓扑索引。</li>
+</ul>
+<h3 id="tick">Tick 中主要物理流程：</h3>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="n">each</span><span class="w"> </span><span class="n">SkeletonNode</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">ComputeExternalForces</span><span class="p">();</span>
+<span class="w">  </span><span class="n">IntegrateAngularVelocity</span><span class="p">();</span><span class="w">     </span><span class="c1">// 欧拉法积分旋转</span>
+<span class="w">  </span><span class="n">UpdateRotationMatrix</span><span class="p">();</span><span class="w">         </span><span class="c1">// 使用 Eigen 计算旋转矩阵</span>
+<span class="w">  </span><span class="n">ApplyDampingAndElasticity</span><span class="p">();</span><span class="w">    </span><span class="c1">// 弹性恢复+阻尼力</span>
+<span class="w">  </span><span class="n">HandleCollisionIfNeeded</span><span class="p">();</span><span class="w">      </span><span class="c1">// 与车辆等碰撞体交互</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="_3">关键算法逻辑：</h3>
+<ul>
+<li><strong>角速度积分</strong>：利用公式 <code>ω += I⁻¹ * τ * Δt</code> 更新角速度（<code>I</code> 为惯性张量，<code>τ</code> 为力矩）。</li>
+<li><strong>旋转更新</strong>：采用矩阵指数或四元数近似实现角度更新，避免万向锁问题。</li>
+<li><strong>碰撞检测</strong>：使用 Unreal 的 Capsule 组件与 Actor 距离判断是否交互，若触发则添加附加力矩。</li>
+</ul>
+<hr />
+<h2 id="3_1">3.使用方法详解</h2>
+<h3 id="_4">蓝图接口说明</h3>
+<ul>
+<li><code>GetParametersFromComponent()</code>：将组件中当前参数拉取至 Actor 的 SpringParameters 属性。</li>
+<li><code>SetParametersToComponent()</code>：将 Actor 中编辑的 SpringParameters 推送至组件，刷新模拟参数。</li>
+</ul>
+<p>在蓝图中可直接调用如下流程：</p>
+<div class="highlight"><pre><span></span><code>事件 BeginPlay
+→ 调用 SetParametersToComponent
+→ 修改 BaseSpringStrength / Gravity 等参数
+→ 调用 GetParametersFromComponent 查看反馈结果
+</code></pre></div>
               
             </div>
           </div><footer>
