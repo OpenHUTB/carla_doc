@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Recorder - 人车模拟器</title>
+    <title>CARLA Recorder 模块说明文档 - 人车模拟器</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Recorder";
+        var mkdocs_page_name = "CARLA Recorder \u6a21\u5757\u8bf4\u660e\u6587\u6863";
         var mkdocs_page_input_path = "modules/Recorder.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,7 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Recorder</li>
+      <li class="breadcrumb-item active">CARLA Recorder 模块说明文档</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/modules/Recorder.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -68,7 +68,127 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                
+                <h1 id="carla-recorder">CARLA Recorder 模块说明文档</h1>
+<hr />
+<h2 id="_1">📑 目录</h2>
+<ol>
+<li><a href="#模块概述">模块概述</a>  </li>
+<li><a href="#主要类与职责">主要类与职责</a>  </li>
+<li><a href="#功能说明">功能说明</a>  </li>
+<li><a href="#初始化">初始化</a>  </li>
+<li><a href="#录像控制">录像控制</a>  </li>
+<li><a href="#回放控制">回放控制</a>  </li>
+<li><a href="#查询功能">查询功能</a>  </li>
+<li><a href="#关键数据结构">关键数据结构</a>  </li>
+<li><a href="#依赖模块">依赖模块</a>  </li>
+<li><a href="#附录包结构">附录：包结构</a></li>
+</ol>
+<hr />
+<h2 id="_2">模块概述</h2>
+<p>CarlaRecorder 模块主要负责 CARLA 中仿真数据的录制与回放操作。包括对车辆、行人、光照、碰撞等实体状态的记录、存储与回放控制。其实现涉及数据包编码、查询分析、时间控制等多个子模块。</p>
+<hr />
+<h2 id="_3">主要类与职责</h2>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>文件</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ACarlaRecorder</code></td>
+<td><code>CarlaRecorder.h / CarlaRecorder.cpp</code></td>
+<td>主要控制类，继承自 Unreal 的 <code>AActor</code>，提供录像/回放接口。</td>
+</tr>
+<tr>
+<td><code>CarlaReplayer</code></td>
+<td><code>CarlaReplayer.h</code></td>
+<td>实现回放控制，包括时间倍率、忽略特定角色等设置。</td>
+</tr>
+<tr>
+<td><code>CarlaRecorderQuery</code></td>
+<td><code>CarlaRecorderQuery.h</code></td>
+<td>用于分析已录制文件的数据，如碰撞信息、阻塞信息等。</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_4">功能说明</h2>
+<h3 id="_5">初始化</h3>
+<p><div class="highlight"><pre><span></span><code><span class="n">ACarlaRecorder</span><span class="o">::</span><span class="n">ACarlaRecorder</span><span class="p">()</span>
+</code></pre></div>
+- 设置 TickGroup 为 <code>TG_PrePhysics</code>
+- 默认禁用录像功能</p>
+<h3 id="_6">录像控制</h3>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="n">Enable</span><span class="p">()</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">Disable</span><span class="p">()</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">Ticking</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">DeltaSeconds</span><span class="p">)</span>
+</code></pre></div>
+<ul>
+<li><code>Ticking()</code> 方法被定期调用以采集仿真状态</li>
+<li>使用 <code>PlatformTime</code> 与 <code>VisualTime</code> 跟踪物理时间与视觉时间</li>
+<li>与 <code>CarlaEpisode</code> 和 <code>FActorRegistry</code> 联动获取仿真环境信息</li>
+</ul>
+<h3 id="_7">回放控制</h3>
+<div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">ReplayFile</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">TimeStart</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">Duration</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">FollowId</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">ReplaySensors</span><span class="p">)</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">SetReplayerTimeFactor</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">TimeFactor</span><span class="p">)</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">SetReplayerIgnoreHero</span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="n">IgnoreHero</span><span class="p">)</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">SetReplayerIgnoreSpectator</span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="n">IgnoreSpectator</span><span class="p">)</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">StopReplayer</span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="n">KeepActors</span><span class="p">)</span>
+</code></pre></div>
+<ul>
+<li>通过 <code>ReplayFile()</code> 加载文件并控制回放参数</li>
+<li>支持设置时间倍率与忽略特定角色</li>
+<li><code>StopReplayer()</code> 控制是否保留回放后生成的角色对象</li>
+</ul>
+<h3 id="_8">查询功能</h3>
+<div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">ShowFileInfo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">bShowAll</span><span class="p">)</span>
+<span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">ShowFileCollisions</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">Type1</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">Type2</span><span class="p">)</span>
+<span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">ShowFileActorsBlocked</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">MinTime</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">MinDistance</span><span class="p">)</span>
+</code></pre></div>
+<ul>
+<li><code>QueryInfo()</code>：查看录制文件的基础信息  </li>
+<li><code>QueryCollisions()</code>：查询特定对象类型之间的碰撞事件  </li>
+<li><code>QueryBlocked()</code>：查找因距离/时间被阻挡的实体</li>
+</ul>
+<hr />
+<h2 id="_9">关键数据结构</h2>
+<table>
+<thead>
+<tr>
+<th>结构体</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CarlaRecorderPlatformTime</code></td>
+<td>记录平台物理时间信息，用于时间对齐</td>
+</tr>
+<tr>
+<td><code>CarlaRecorderVisualTime</code></td>
+<td>存储视觉时间戳，与画面帧同步</td>
+</tr>
+<tr>
+<td><code>CarlaRecorderPacketId</code></td>
+<td>枚举各类数据包标识，如 FrameStart、Collision、EventAdd 等</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_10">依赖模块</h2>
+<ul>
+<li><code>Carla/Actor/ActorDescription.h</code></li>
+<li><code>Carla/Vehicle/CarlaWheeledVehicle.h</code></li>
+<li><code>Carla/Lights/CarlaLight.h</code></li>
+<li><code>Carla/Traffic/TrafficLightBase.h</code></li>
+<li><code>Carla/Walker/WalkerControl.h</code></li>
+<li><code>Carla/Game/CarlaEpisode.h</code></li>
+<li><code>CarlaRecorderAnimVehicle</code>、<code>CarlaRecorderCollision</code> 等子模块（用于细粒度记录）</li>
+</ul>
+<hr />
               
             </div>
           </div><footer>
