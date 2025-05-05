@@ -129,12 +129,23 @@
 - <strong>参数</strong><br />
   - <font color="#f8805a">a</font>, <font color="#f8805a">b</font>：三维向量<br />
 - <strong>返回值</strong>：叉积向量</p>
+<p>设$a=[x_1,y_1,z_1]$,$b=[x_2,y_2,z_2]$那么它们的叉积$a\times b$为：
+<script type="math/tex; mode=display">
+a\times b=\begin{pmatrix}y_1z_2-z_1y_2\\z_1x_2-x_1z_2\\x_1y_2-y_1x_2\end{pmatrix}
+</script>
+</p>
 <h3 id="dot"><strong><font color="#7fb800">Dot</font></strong></h3>
 <p><div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">Dot</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Vector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Vector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="n">b</span><span class="p">);</span>
 </code></pre></div>
 - <strong>参数</strong><br />
   - <font color="#f8805a">a</font>, <font color="#f8805a">b</font>：三维向量<br />
 - <strong>返回值</strong>：点积（标量）</p>
+<p>向量的点积计算公式为:
+<script type="math/tex; mode=display">
+a\cdot b=\sum_i^n a_ib_i
+</script>
+</p>
+<p>其中$n$是向量的维度。</p>
 <h3 id="dot2d"><strong><font color="#7fb800">Dot2D</font></strong></h3>
 <p><div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">Dot2D</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Vector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Vector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="n">b</span><span class="p">);</span>
 </code></pre></div>
@@ -199,6 +210,47 @@
   - <font color="#f8805a">v</font>：线段起点<br />
   - <font color="#f8805a">w</font>：线段终点<br />
 - <strong>返回值</strong>：<code>(沿线段的弧长距离, 点到线段的欧氏距离)</code></p>
+<p>设：</p>
+<ul>
+<li>点 $p$</li>
+<li>线段起点 $v$</li>
+<li>线段终点 $w$</li>
+</ul>
+<p>线段向量为：$\vec{d} = \vec{w} - \vec{v}$<br />
+向量 $\vec{vp} = \vec{p} - \vec{v}$</p>
+<p><strong>1. 计算投影参数 $t$</strong></p>
+<p>该参数 $t$ 表示点 $p$ 在 $\vec{d}$ 上的投影比例位置：</p>
+<p>
+<script type="math/tex; mode=display">
+t = \frac{(\vec{p} - \vec{v}) \cdot (\vec{w} - \vec{v})}{\|\vec{w} - \vec{v}\|^2}
+</script>
+</p>
+<p>然后将 $t$ 限制在 $[0,1]$ 范围内（因为只在线段上）：</p>
+<div class="highlight"><pre><span></span><code><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Clamp</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0f</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>2. 计算投影点坐标</strong></p>
+<p>
+<script type="math/tex; mode=display">
+\vec{proj} = \vec{v} + t \cdot (\vec{w} - \vec{v})
+</script>
+</p>
+<p><strong>3. 返回结果</strong></p>
+<ul>
+<li>第一项：投影点到线段起点的距离（线段弧长）</li>
+</ul>
+<p>
+<script type="math/tex; mode=display">
+  \text{distance\_along\_segment} = t \cdot \|\vec{w} - \vec{v}\|
+  </script>
+</p>
+<ul>
+<li>第二项：点 $p$ 到投影点的欧氏距离</li>
+</ul>
+<p>
+<script type="math/tex; mode=display">
+  \text{distance\_to\_segment} = \|\vec{p} - \vec{proj}\|
+  </script>
+</p>
 <h3 id="distancearctopoint"><strong><font color="#7fb800">DistanceArcToPoint</font></strong></h3>
 <p><div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">DistanceArcToPoint</span><span class="p">(</span>
 <span class="w">    </span><span class="n">Vector3D</span><span class="w"> </span><span class="n">p</span><span class="p">,</span>
@@ -214,6 +266,78 @@
   - <font color="#f8805a">heading</font>：起始航向（弧度）<br />
   - <font color="#f8805a">curvature</font>：曲率<br />
 - <strong>返回值</strong>：<code>(沿圆弧的弧长距离, 点到圆弧的最近距离)</code></p>
+<p><strong>1. 处理特殊情况</strong></p>
+<p>若曲率为 0，圆弧退化为直线段，调用 <code>DistanceSegmentToPoint</code> 即可：
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">abs</span><span class="p">(</span><span class="n">curvature</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">1e-6</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">DistanceSegmentToPoint</span><span class="p">(...);</span>
+</code></pre></div></p>
+<p><strong>2. 圆心计算</strong></p>
+<p>设圆弧是逆时针方向（曲率为正），那么：</p>
+<ul>
+<li>曲率半径 $R = \frac{1}{|curvature|}$</li>
+<li>圆心在起点的垂直方向上：</li>
+</ul>
+<p>
+<script type="math/tex; mode=display">
+center = start\_pos + R \cdot \begin{bmatrix} -\sin(heading) \\ \cos(heading) \end{bmatrix}
+\quad \text{（当 curvature > 0）}
+</script>
+</p>
+<p><strong>3. 将点 $p$ 映射到极坐标下</strong></p>
+<ul>
+<li>向量 $\vec{v} = p - center$</li>
+<li>距离为 $r = |\vec{v}|$</li>
+<li>角度 $\theta_p = \arctan2(p_y - c_y, p_x - c_x)$</li>
+</ul>
+<p><strong>4. 计算圆弧起始角度 $\theta_0$</strong></p>
+<p>由于起始点位于弧上的起点，其角度为：</p>
+<p>
+<script type="math/tex; mode=display">
+\theta_0 = \arctan2(start\_pos_y - c_y, start\_pos_x - c_x)
+</script>
+</p>
+<p><strong>5. 弧长范围映射（0 到 total_arc_angle）</strong></p>
+<p>总的圆心角：</p>
+<p>
+<script type="math/tex; mode=display">
+\Delta \theta = \frac{length}{R}
+</script>
+</p>
+<p>点到起点的圆心角（根据方向判断）：</p>
+<p>
+<script type="math/tex; mode=display">
+\Delta \theta_p = \text{WrapAngle}(\theta_p - \theta_0)
+</script>
+</p>
+<ul>
+<li>如果 $curvature &gt; 0$，逆时针方向；否则顺时针。</li>
+</ul>
+<p>投影点是否在圆弧范围内需判断 $0 \leq \Delta \theta_p \leq \Delta \theta$</p>
+<p><strong>6. 计算投影点坐标</strong>
+<script type="math/tex; mode=display">
+proj = center + R \cdot \begin{bmatrix} \cos(\theta_p) \\ \sin(\theta_p) \end{bmatrix}
+</script>
+</p>
+<p><strong>7. 计算结果</strong></p>
+<ul>
+<li>沿弧长距离：</li>
+</ul>
+<p>
+<script type="math/tex; mode=display">
+  s = R \cdot \Delta \theta_p
+  </script>
+</p>
+<ul>
+<li>欧氏距离：</li>
+</ul>
+<p>
+<script type="math/tex; mode=display">
+  d = \|\vec{p} - \vec{proj}\|
+  </script>
+</p>
+<p>若超出圆弧范围，则与端点距离更近，返回：</p>
+<div class="highlight"><pre><span></span><code><span class="n">Distance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">start_pos</span><span class="p">)</span><span class="w"> </span><span class="n">或</span><span class="w"> </span><span class="n">Distance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">arc_end</span><span class="p">)</span>
+</code></pre></div>
+<hr />
 <h3 id="rotatepointonorigin2d"><strong><font color="#7fb800">RotatePointOnOrigin2D</font></strong></h3>
 <p><div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="n">Vector3D</span><span class="w"> </span><span class="nf">RotatePointOnOrigin2D</span><span class="p">(</span><span class="n">Vector3D</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">angle</span><span class="p">);</span>
 </code></pre></div>
@@ -248,9 +372,9 @@
   - <font color="#f8805a">a</font>：起始整数<br />
   - <font color="#f8805a">b</font>：结束整数<br />
 - <strong>返回值</strong>：包含从 <font color="#f8805a">a</font> 到 <font color="#f8805a">b</font>（含）的所有整数的向量</p>
-<h1 id="vector3dh">Vector3D.h</h1>
+<h1 id="vector3d">Vector3D</h1>
 <h2 id="_10">概述</h2>
-<p><code>Vector3D</code> 类用于表示三维空间中的向量，包含坐标分量与丰富的向量运算接口，也支持与 UE4 的类型互转及 MsgPack 序列化。</p>
+<p><code>carla::geom::Vector3D</code> 类用于表示三维空间中的向量，包含坐标分量与丰富的向量运算接口，也支持与 UE4 的类型互转及 MsgPack 序列化。</p>
 <hr />
 <h2 id="_11">公开数据成员</h2>
 <ul>
@@ -307,10 +431,10 @@
 <p><div class="highlight"><pre><span></span><code><span class="kt">float</span><span class="w"> </span><span class="nf">Length2D</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
 </code></pre></div>
 - <strong>返回值</strong>：仅 x,y 分量的二维长度。<br />
-- <strong>示例</strong>：<br />
-  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="nf">v</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span>
+- <strong>示例</strong>：  </p>
+<div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="nf">v</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span>
 <span class="kt">float</span><span class="w"> </span><span class="n">len2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">Length2D</span><span class="p">();</span><span class="w"> </span><span class="c1">// len2 == 5.0f</span>
-</code></pre></div></p>
+</code></pre></div>
 <h3 id="abs"><strong><font color="#7fb800">Abs</font></strong></h3>
 <p><div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="nf">Abs</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
 </code></pre></div>
@@ -322,7 +446,7 @@
 <h3 id="makeunitvector"><strong><font color="#7fb800">MakeUnitVector</font></strong></h3>
 <p><div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="nf">MakeUnitVector</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
 </code></pre></div>
-- <strong>说明</strong>：将向量标准化为单位向量，长度必须大于机器 epsilon。<br />
+- <strong>说明</strong>：将向量标准化为单位向量。<br />
 - <strong>示例</strong>：<br />
   <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="nf">v</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">);</span>
 <span class="n">Vector3D</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">MakeUnitVector</span><span class="p">();</span><span class="w"> </span><span class="c1">// u ≈ (0,0.6,0.8)</span>
@@ -417,6 +541,331 @@
 <span class="n">Vector3D</span><span class="w"> </span><span class="n">v</span><span class="p">;</span>
 <span class="n">v</span><span class="p">.</span><span class="n">msgpack_unpack</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
 </code></pre></div></p>
+<hr />
+<h1 id="mesh">Mesh</h1>
+<h2 id="_18">概述</h2>
+<p><code>carla::geom::Mesh</code> 类是一个网格数据容器，提供验证、构建、导出以及与 UE4 类型互转的功能。支持顶点、法线、索引、UV 和材质分组的管理。</p>
+<hr />
+<h2 id="_19">类型别名</h2>
+<ul>
+<li><strong>vertex_type</strong>：顶点类型，<code>Vector3D</code>  </li>
+<li><strong>normal_type</strong>：法线类型，<code>Vector3D</code>  </li>
+<li><strong>index_type</strong>：索引类型，<code>size_t</code>  </li>
+<li><strong>uv_type</strong>：纹理坐标类型，<code>Vector2D</code>  </li>
+<li><strong>material_type</strong>：材质类型，<code>MeshMaterial</code></li>
+</ul>
+<hr />
+<h2 id="_20">构造函数</h2>
+<h3 id="mesh_1"><strong>Mesh(...)</strong></h3>
+<p><div class="highlight"><pre><span></span><code><span class="n">Mesh</span><span class="p">(</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vertex_type</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">vertices</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">normal_type</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">normals</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">index_type</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">indexes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">uv_type</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">uvs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{}</span>
+<span class="p">);</span>
+</code></pre></div>
+- <strong>说明</strong>：可选传入初始顶点、法线、索引和 UV 列表。<br />
+- <strong>示例</strong>：
+  <div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Vector3D</span><span class="o">&gt;</span><span class="w"> </span><span class="n">verts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">}</span><span class="w"> </span><span class="p">};</span>
+<span class="n">Mesh</span><span class="w"> </span><span class="nf">mesh</span><span class="p">(</span><span class="n">verts</span><span class="p">);</span>
+</code></pre></div></p>
+<hr />
+<h2 id="_21">验证方法</h2>
+<h3 id="isvalid"><strong>IsValid</strong></h3>
+<p><div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="nf">IsValid</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div>
+- <strong>说明</strong>：<br />
+  1. 顶点列表非空；<br />
+  2. 索引数若非零必须为 3 的倍数；<br />
+  3. 所有开启的材质必须正确关闭。<br />
+- <strong>示例</strong>：
+  <div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">mesh</span><span class="p">.</span><span class="n">IsValid</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Invalid mesh!&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<hr />
+<h2 id="_22">网格构建方法</h2>
+<h3 id="addtrianglestrip"><strong>AddTriangleStrip</strong></h3>
+<p><div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">AddTriangleStrip</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vertex_type</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">vertices</span><span class="p">);</span>
+</code></pre></div>
+- <strong>说明</strong>：按三角带（Triangle Strip）方式添加顶点，依次生成面。<br />
+- <strong>示例</strong>：
+  <div class="highlight"><pre><span></span><code><span class="n">mesh</span><span class="p">.</span><span class="n">AddTriangleStrip</span><span class="p">({{</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">},{</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">},{</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">},{</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">}});</span>
+</code></pre></div></p>
+<h3 id="addtrianglefan"><strong>AddTriangleFan</strong></h3>
+<p><div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">AddTriangleFan</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vertex_type</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">vertices</span><span class="p">);</span>
+</code></pre></div>
+- <strong>说明</strong>：按三角扇（Triangle Fan）方式添加顶点，第一个顶点为中心。<br />
+- <strong>示例</strong>：
+  <div class="highlight"><pre><span></span><code><span class="n">mesh</span><span class="p">.</span><span class="n">AddTriangleFan</span><span class="p">({{</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">},{</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">},{</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">},{</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">}});</span>
+</code></pre></div></p>
+<h3 id="addvertex-addvertices"><strong>AddVertex / AddVertices</strong></h3>
+<p><div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">AddVertex</span><span class="p">(</span><span class="n">vertex_type</span><span class="w"> </span><span class="n">vertex</span><span class="p">);</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">AddVertices</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vertex_type</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">vertices</span><span class="p">);</span>
+</code></pre></div>
+- <strong>说明</strong>：将顶点附加到内部列表。<br />
+- <strong>示例</strong>：
+  <div class="highlight"><pre><span></span><code><span class="n">mesh</span><span class="p">.</span><span class="n">AddVertex</span><span class="p">({</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">});</span>
+<span class="n">mesh</span><span class="p">.</span><span class="n">AddVertices</span><span class="p">({{</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">},{</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">}});</span>
+</code></pre></div></p>
+<h3 id="addnormal"><strong>AddNormal</strong></h3>
+<p><div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">AddNormal</span><span class="p">(</span><span class="n">normal_type</span><span class="w"> </span><span class="n">normal</span><span class="p">);</span>
+</code></pre></div>
+- <strong>说明</strong>：将法线附加到内部列表。  </p>
+<h3 id="addindex"><strong>AddIndex</strong></h3>
+<p><div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">AddIndex</span><span class="p">(</span><span class="n">index_type</span><span class="w"> </span><span class="n">index</span><span class="p">);</span>
+</code></pre></div>
+- <strong>说明</strong>：将单个面索引附加到内部列表。  </p>
+<h3 id="adduv-adduvs"><strong>AddUV / AddUVs</strong></h3>
+<p><div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">AddUV</span><span class="p">(</span><span class="n">uv_type</span><span class="w"> </span><span class="n">uv</span><span class="p">);</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">AddUVs</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">uv_type</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">uvs</span><span class="p">);</span>
+</code></pre></div>
+- <strong>说明</strong>：添加纹理坐标 (u,v)。  </p>
+<h3 id="addmaterial-endmaterial"><strong>AddMaterial / EndMaterial</strong></h3>
+<p><div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">AddMaterial</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="n">material_name</span><span class="p">);</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">EndMaterial</span><span class="p">();</span>
+</code></pre></div>
+- <strong>说明</strong>：开始／结束一个材质区间，记录当前索引范围。<br />
+- <strong>示例</strong>：
+  <div class="highlight"><pre><span></span><code><span class="n">mesh</span><span class="p">.</span><span class="n">AddMaterial</span><span class="p">(</span><span class="s">&quot;matA&quot;</span><span class="p">);</span>
+<span class="c1">// ... 添加三角面 ...</span>
+<span class="n">mesh</span><span class="p">.</span><span class="n">EndMaterial</span><span class="p">();</span>
+</code></pre></div></p>
+<hr />
+<h2 id="_23">导出方法</h2>
+<h3 id="generateobj"><strong>GenerateOBJ</strong></h3>
+<p><div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="nf">GenerateOBJ</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div>
+- <strong>说明</strong>：导出为标准 OBJ 格式：<br />
+  - 顶点行：<code>v x y z</code><br />
+  - UV 行：<code>vt u v</code><br />
+  - 法线行：<code>vn x y z</code><br />
+  - 面行：<code>f i j k</code>  </p>
+<h3 id="generateobjforrecast"><strong>GenerateOBJForRecast</strong></h3>
+<p><div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="nf">GenerateOBJForRecast</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div>
+- <strong>说明</strong>：为 Recast 库导出 OBJ，交换 y/z 并反转面顶点顺序。</p>
+<h3 id="generateply"><strong>GeneratePLY</strong></h3>
+<p><div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="nf">GeneratePLY</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div>
+- <strong>说明</strong>：导出为 PLY 格式（部分实现）。</p>
+<hr />
+<h2 id="_24">访问方法</h2>
+<h3 id="getvertices-getverticesnum"><strong>GetVertices / GetVerticesNum</strong></h3>
+<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vertex_type</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">GetVertices</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="kt">size_t</span><span class="w"> </span><span class="nf">GetVerticesNum</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="getnormals"><strong>GetNormals</strong></h3>
+<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">normal_type</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">GetNormals</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="getindexes-getindexesnum"><strong>GetIndexes / GetIndexesNum</strong></h3>
+<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">index_type</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">GetIndexes</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="kt">size_t</span><span class="w"> </span><span class="nf">GetIndexesNum</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="getuvs"><strong>GetUVs</strong></h3>
+<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">uv_type</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">GetUVs</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="getmaterials"><strong>GetMaterials</strong></h3>
+<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">material_type</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">GetMaterials</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="getlastvertexindex"><strong>GetLastVertexIndex</strong></h3>
+<p><div class="highlight"><pre><span></span><code><span class="kt">size_t</span><span class="w"> </span><span class="nf">GetLastVertexIndex</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div>
+- <strong>说明</strong>：返回当前顶点总数。</p>
+<hr />
+<h2 id="_25">合并网格</h2>
+<h3 id="concatmesh"><strong>ConcatMesh</strong></h3>
+<p><div class="highlight"><pre><span></span><code><span class="n">Mesh</span><span class="o">&amp;</span><span class="w"> </span><span class="nf">ConcatMesh</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Mesh</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">num_vertices_to_link</span><span class="p">);</span>
+</code></pre></div>
+- <strong>说明</strong>：将 <code>rhs</code> 网格合并到当前网格，并在相交处生成桥接三角面。  </p>
+<h3 id="operator-operator_4"><strong>operator+= / operator+</strong></h3>
+<p><div class="highlight"><pre><span></span><code><span class="n">Mesh</span><span class="o">&amp;</span><span class="w"> </span><span class="k">operator</span><span class="o">+=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Mesh</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">);</span>
+<span class="k">friend</span><span class="w"> </span><span class="n">Mesh</span><span class="w"> </span><span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Mesh</span><span class="w"> </span><span class="o">&amp;</span><span class="n">lhs</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Mesh</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">);</span>
+</code></pre></div>
+- <strong>说明</strong>：无桥接直接拼接顶点、法线、索引、UV 和材质区间。</p>
+<hr />
+<h2 id="ue4-libcarla_included_from_ue4">UE4 类型转换（仅在 LIBCARLA_INCLUDED_FROM_UE4 定义时）</h2>
+<h3 id="operator-fproceduralcustommesh-const"><strong>operator FProceduralCustomMesh() const</strong></h3>
+<p><div class="highlight"><pre><span></span><code><span class="k">operator</span><span class="w"> </span><span class="n">FProceduralCustomMesh</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div>
+- <strong>说明</strong>：<br />
+  - 顶点从米转换到厘米；<br />
+  - 法线重新计算：<br />
+<script type="math/tex; mode=display">
+      \mathbf{N} = \mathrm{normalize}\bigl((\mathbf{V}_1-\mathbf{V}_0)\times(\mathbf{V}_2-\mathbf{V}_0)\bigr)
+    </script>
+  - UV 坐标保留 (x,y)。<br />
+- <strong>示例</strong>：
+  <div class="highlight"><pre><span></span><code><span class="n">FProceduralCustomMesh</span><span class="w"> </span><span class="n">ue_mesh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mesh</span><span class="p">;</span>
+</code></pre></div></p>
+<hr />
+<h1 id="simplification">Simplification</h1>
+<h2 id="_26">概述</h2>
+<p><code>carla::geom::Simplification</code> 类用于对 <code>carla::geom::Mesh</code> 网格模型执行简化操作，通过指定简化比率，将三角形数减少到原始数量的若干百分比，从而降低模型复杂度。</p>
+<hr />
+<h2 id="_27">构造函数</h2>
+<h3 id="simplification_1"><strong><font color="#7fb800">Simplification()</font></strong></h3>
+<p><div class="highlight"><pre><span></span><code><span class="n">Simplification</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+</code></pre></div>
+- <strong>说明</strong>：默认构造，无需初始化即可使用<br />
+- <strong>示例</strong>：
+  <div class="highlight"><pre><span></span><code><span class="n">carla</span><span class="o">::</span><span class="n">geom</span><span class="o">::</span><span class="n">Simplification</span><span class="w"> </span><span class="n">sim</span><span class="p">;</span><span class="w"> </span><span class="c1">// 使用默认简化率（未指定）</span>
+</code></pre></div></p>
+<h3 id="simplificationfloat-simplificationrate"><strong><font color="#7fb800">Simplification(float simplificationrate)</font></strong></h3>
+<p><div class="highlight"><pre><span></span><code><span class="n">Simplification</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">simplificationrate</span><span class="p">);</span>
+</code></pre></div>
+- <strong>参数</strong><br />
+  - <strong><font color="#f8805a">simplificationrate</font></strong>：目标简化比率（0.0–1.0），如 0.5 表示保留 50% 三角形<br />
+- <strong>示例</strong>：
+  <div class="highlight"><pre><span></span><code><span class="n">carla</span><span class="o">::</span><span class="n">geom</span><span class="o">::</span><span class="n">Simplification</span><span class="w"> </span><span class="nf">sim</span><span class="p">(</span><span class="mf">0.25f</span><span class="p">);</span><span class="w"> </span><span class="c1">// 保留 25% 的三角形</span>
+</code></pre></div></p>
+<hr />
+<h2 id="_28">公开数据成员</h2>
+<ul>
+<li>
+<p><strong><font color="#f8805a">simplification_percentage</font></strong>  </p>
+</li>
+<li>
+<p>存储简化比率（0–1 之间的浮点数）  </p>
+</li>
+<li>
+<p><strong>示例</strong>：</p>
+<div class="highlight"><pre><span></span><code><span class="kt">float</span><span class="w"> </span><span class="n">rate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sim</span><span class="p">.</span><span class="n">simplification_percentage</span><span class="p">;</span><span class="w"> </span><span class="c1">// 获取当前简化比率</span>
+</code></pre></div>
+</li>
+</ul>
+<hr />
+<h2 id="_29">方法</h2>
+<h3 id="simplificate"><strong><font color="#7fb800">Simplificate</font></strong></h3>
+<p><div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">Simplificate</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">geom</span><span class="o">::</span><span class="n">Mesh</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">pmesh</span><span class="p">);</span>
+</code></pre></div>
+- <strong>说明</strong>：对传入的 <code>Mesh</code> 对象执行网格简化，简化后会修改其顶点与索引数据。<br />
+- <strong>参数</strong>  </p>
+<ul>
+<li><strong><font color="#f8805a">pmesh</font></strong>：指向待简化网格的智能指针引用  </li>
+<li><strong>示例</strong>：
+  <div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;carla/geom/Simplification.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;carla/geom/Mesh.h&quot;</span>
+
+<span class="c1">// 假设已创建或加载了一个 Mesh 对象</span>
+<span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">carla</span><span class="o">::</span><span class="n">geom</span><span class="o">::</span><span class="n">Mesh</span><span class="o">&gt;</span><span class="w"> </span><span class="n">mesh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LoadYourMesh</span><span class="p">();</span>
+<span class="n">carla</span><span class="o">::</span><span class="n">geom</span><span class="o">::</span><span class="n">Simplification</span><span class="w"> </span><span class="nf">sim</span><span class="p">(</span><span class="mf">0.5f</span><span class="p">);</span><span class="w">    </span><span class="c1">// 保留 50% 三角形</span>
+<span class="n">sim</span><span class="p">.</span><span class="n">Simplificate</span><span class="p">(</span><span class="n">mesh</span><span class="p">);</span><span class="w">                   </span><span class="c1">// 执行简化</span>
+<span class="c1">// 之后 mesh-&gt;GetVertices() 和 mesh-&gt;GetIndexes() 已被更新为简化后的数据</span>
+</code></pre></div></li>
+</ul>
+<hr />
+<h1 id="rtree">RTree</h1>
+<h2 id="_30">简介</h2>
+<p>R-树（R-Tree）是一种用于空间索引的树形结构，通过将空间中相近对象聚合成最小外接矩形（MBR）构建索引，广泛应用于点云、线段云等三维几何对象的快速邻近查询与碰撞检测。</p>
+<p>RTree包含两个模板类：
+- <code>PointCloudRtree&lt;T&gt;</code>：支持对点云的插入、k-NN 查询、带过滤器查询；
+- <code>SegmentCloudRtree&lt;T&gt;</code>：支持对线段云的插入、k-NN 查询、交集查询。</p>
+<hr />
+<h2 id="_31">欧几里得距离公式</h2>
+<p>对任意两个 $n$ 维点 $\mathbf{p}=(p_1,p_2,\dots,p_n)$ 和 $\mathbf{q}=(q_1,q_2,\dots,q_n)$，欧几里得距离定义如下：</p>
+<p>
+<script type="math/tex; mode=display">
+d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
+</script>
+</p>
+<hr />
+<h2 id="pointcloudrtree">类定义：PointCloudRtree</h2>
+<div class="highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">Dimension</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="o">&gt;</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PointCloudRtree</span><span class="p">;</span>
+</code></pre></div>
+<ul>
+<li><code>T</code>：元素类型；</li>
+<li><code>Dimension</code>：空间维度，默认值为 <code>3</code>。</li>
+</ul>
+<h3 id="_32">成员类型</h3>
+<div class="highlight"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="n">BPoint</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">boost</span><span class="o">::</span><span class="n">geometry</span><span class="o">::</span><span class="n">model</span><span class="o">::</span><span class="n">point</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="n">Dimension</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="k">using</span><span class="w"> </span><span class="n">TreeElement</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">BPoint</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="_33">方法说明</h3>
+<h4 id="insertelement">InsertElement</h4>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">InsertElement</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">BPoint</span><span class="w"> </span><span class="o">&amp;</span><span class="n">point</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&amp;</span><span class="n">element</span><span class="p">);</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">InsertElement</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">TreeElement</span><span class="w"> </span><span class="o">&amp;</span><span class="n">element</span><span class="p">);</span>
+</code></pre></div>
+<ul>
+<li>插入一个点或点-元素对到 R 树中。</li>
+</ul>
+<h4 id="insertelements">InsertElements</h4>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">InsertElements</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">TreeElement</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">elements</span><span class="p">);</span>
+</code></pre></div>
+<ul>
+<li>批量插入元素。</li>
+</ul>
+<h4 id="getnearestneighbours">GetNearestNeighbours</h4>
+<div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">TreeElement</span><span class="o">&gt;</span><span class="w"> </span><span class="n">GetNearestNeighbours</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">BPoint</span><span class="w"> </span><span class="o">&amp;</span><span class="n">point</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">number_neighbours</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div>
+<ul>
+<li>返回距离给定点最近的 $k$ 个邻居（默认 $k=1$）。</li>
+</ul>
+<h4 id="getnearestneighbourswithfilter">GetNearestNeighboursWithFilter</h4>
+<div class="highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Filter</span><span class="o">&gt;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">TreeElement</span><span class="o">&gt;</span><span class="w"> </span><span class="n">GetNearestNeighboursWithFilter</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">BPoint</span><span class="w"> </span><span class="o">&amp;</span><span class="n">point</span><span class="p">,</span><span class="w"> </span><span class="n">Filter</span><span class="w"> </span><span class="n">filter</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">number_neighbours</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div>
+<ul>
+<li>在返回最近邻的基础上，添加用户自定义过滤条件。</li>
+</ul>
+<h4 id="gettreesize">GetTreeSize</h4>
+<div class="highlight"><pre><span></span><code><span class="kt">size_t</span><span class="w"> </span><span class="nf">GetTreeSize</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div>
+<ul>
+<li>返回当前树中包含的元素数量。</li>
+</ul>
+<hr />
+<h2 id="segmentcloudrtree">类定义：<code>SegmentCloudRtree</code></h2>
+<div class="highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">Dimension</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="o">&gt;</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SegmentCloudRtree</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="_34">成员类型</h3>
+<div class="highlight"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="n">BPoint</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">boost</span><span class="o">::</span><span class="n">geometry</span><span class="o">::</span><span class="n">model</span><span class="o">::</span><span class="n">point</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="n">Dimension</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="k">using</span><span class="w"> </span><span class="n">BSegment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">boost</span><span class="o">::</span><span class="n">geometry</span><span class="o">::</span><span class="n">model</span><span class="o">::</span><span class="n">segment</span><span class="o">&lt;</span><span class="n">BPoint</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="k">using</span><span class="w"> </span><span class="n">TreeElement</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">BSegment</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;&gt;</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="_35">方法说明</h3>
+<h4 id="insertelement_1">InsertElement</h4>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">InsertElement</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">BSegment</span><span class="w"> </span><span class="o">&amp;</span><span class="n">segment</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&amp;</span><span class="n">element_start</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&amp;</span><span class="n">element_end</span><span class="p">);</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">InsertElement</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">TreeElement</span><span class="w"> </span><span class="o">&amp;</span><span class="n">element</span><span class="p">);</span>
+</code></pre></div>
+<ul>
+<li>插入一条线段以及其两端关联的数据。</li>
+</ul>
+<h4 id="insertelements_1">InsertElements</h4>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">InsertElements</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">TreeElement</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">elements</span><span class="p">);</span>
+</code></pre></div>
+<ul>
+<li>批量插入线段。</li>
+</ul>
+<h4 id="getnearestneighbours_1">GetNearestNeighbours</h4>
+<div class="highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Geometry</span><span class="o">&gt;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">TreeElement</span><span class="o">&gt;</span><span class="w"> </span><span class="n">GetNearestNeighbours</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Geometry</span><span class="w"> </span><span class="o">&amp;</span><span class="n">geometry</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">number_neighbours</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div>
+<ul>
+<li>返回与几何体最邻近的线段。</li>
+</ul>
+<h4 id="getnearestneighbourswithfilter_1">GetNearestNeighboursWithFilter</h4>
+<div class="highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Geometry</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">Filter</span><span class="o">&gt;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">TreeElement</span><span class="o">&gt;</span><span class="w"> </span><span class="n">GetNearestNeighboursWithFilter</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Geometry</span><span class="w"> </span><span class="o">&amp;</span><span class="n">geometry</span><span class="p">,</span><span class="w"> </span><span class="n">Filter</span><span class="w"> </span><span class="n">filter</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">number_neighbours</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div>
+<ul>
+<li>返回最邻近的线段，且满足过滤条件。</li>
+</ul>
+<h4 id="getintersections">GetIntersections</h4>
+<div class="highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Geometry</span><span class="o">&gt;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">TreeElement</span><span class="o">&gt;</span><span class="w"> </span><span class="n">GetIntersections</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Geometry</span><span class="w"> </span><span class="o">&amp;</span><span class="n">geometry</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div>
+<ul>
+<li>查询与几何体相交的线段集合。注意：Boost Geometry 暂不支持 3D 线段与线段精确交集判断，结果可能不完全准确。</li>
+</ul>
+<h4 id="gettreesize_1">GetTreeSize</h4>
+<div class="highlight"><pre><span></span><code><span class="kt">size_t</span><span class="w"> </span><span class="nf">GetTreeSize</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div>
+<ul>
+<li>返回线段树的大小。</li>
+</ul>
 <hr />
               
             </div>
