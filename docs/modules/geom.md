@@ -1,3 +1,36 @@
+# geom模块概述
+
+`carla::geom` 是 CARLA 引擎中专门负责几何计算和坐标变换的模块。它提供了常用的几何基本类型（如二维/三维向量、整数向量）、位置（Location）、旋转（Rotation）和变换（Transform）等数据结构，以及相关的数学工具函数。该模块还实现了经纬度与世界坐标的转换（GeoLocation 和 Mercator 投影函数）、有向边界框（BoundingBox）计算、样条曲线（CubicPolynomial）等功能。此外，它包含网格（Mesh）和网格生成（MeshFactory）类用于道路和场景几何的构造，以及网格简化（Simplification）和基于 R 树的空间索引（PointCloudRtree、SegmentCloudRtree）等高级功能。总体而言，`geom` 模块负责车辆、自行车、路网等对象的几何表示及其间的空间运算与变换。
+
+## 主要类与功能说明
+
+- **[Vector2D/Vector3D/Vector3DInt](#Vector3D/Vector2D/Vector3DInt)**：分别表示二维浮点向量、三维浮点向量和三维整型向量，支持算术运算（加减、点乘、叉乘等）、长度计算、归一化等常见操作。
+- **Location**：三维位置类，继承自 `Vector3D`，并提供了位置之间的欧氏距离等额外功能。
+- **Rotation**：旋转类（俯仰、偏航、横滚），可转换为对应的方向向量和旋转矩阵等。
+- **Transform**：变换类，由位置（Location）和旋转（Rotation）构成，支持将点从本地坐标系转换到世界坐标系（以及逆变换）。
+- **[Math](#Math)**：静态数学工具类，提供夹取、距离（3D/2D）、点到线段距离、向量夹角、线性插值、坐标旋转、经纬度转换（`LatLonToMercator`、`MercatorToLatLon` 等）等功能函数。
+- **GeoLocation**：地理位置类，用于表示纬度、经度、高度，并可将世界坐标位置（Location）转换为对应的地理坐标。
+- **CubicPolynomial**：三次多项式类，可表示形式为 `a + b*x + c*x^2 + d*x^3` 的函数，用于道路曲线拟合与计算。
+- **BoundingBox**：有向边界框类，由中心位置、尺度和旋转构成，提供判断点是否在框内、计算八个顶点坐标（局部或世界空间）等方法。
+- **[Mesh](#Mesh)**：网格容器类及其生成器。`Mesh` 用于存储顶点、法线、纹理坐标、索引和材质信息，可导出为 OBJ/PLY 等格式；
+- **[Simplification](#Simplification)**：网格简化类，根据指定简化率对给定网格进行简化操作（使用第三方简化库）。
+- **[RTree](#RTree)**:是一种用于空间索引的树形结构,提供检索方法用于点云和线段云的快速空间查询（最近邻、相交判定等），主要使用在物体的碰撞使用。
+
+## 其他模块的引用
+
+- **Carla 客户端（`client`）模块：**  该模块大量使用几何类型来描述场景中对象的位置和姿态。例如，`carla::client::World::SpawnActor` 方法的接口中使用了 `geom::Transform` 作为参数[carla.org](https://carla.org/Doxygen/html/dd/d5b/World_8h_source.html#:~:text=111 SharedPtr)；`carla::client::TrafficLight` 类中使用 `geom::BoundingBox` 表示灯组的遮挡盒（如 `GetLightBoxes` 返回多个 BoundingBox）[carla.org](https://carla.org/Doxygen/html/df/def/classcarla_1_1client_1_1TrafficLight.html#:~:text=std%3A%3Avector,const)，以及继承自 `Actor` 的 `AddAngularImpulse(const Vector3D&)` 方法使用了三维向量[carla.org](https://carla.org/Doxygen/html/df/def/classcarla_1_1client_1_1TrafficLight.html#:~:text=const geom%3A%3ABoundingBox  %26 33,const)。这些用法说明客户端模块在创建和控制 actor（车辆、交通灯等）时依赖 `geom` 提供的几何表示与变换工具。
+
+- **Carla 路网（`road`）模块：** 路网模块对道路、交叉口等结构建模时使用了边界框和几何计算。比如 `carla::road::Map` 在计算路口冲突、获取交叉口的 BoundingBox 列表时会用到 `geom::BoundingBox`[carla.org](https://carla.org/Doxygen/html/d8/d68/classcarla_1_1geom_1_1BoundingBox.html#:~:text=Referenced by carla%3A%3Anav%3A%3ANavigation%3A%3AAddOrUpdateVehicle,operator)；构建道路网格时也会涉及多边形与向量运算。此外，`MapBuilder::SDFToMesh` 等功能也参考了 BoundingBox 的顶点计算[carla.org](https://carla.org/Doxygen/html/d8/d68/classcarla_1_1geom_1_1BoundingBox.html#:~:text=Referenced by carla%3A%3Anav%3A%3ANavigation%3A%3AAddOrUpdateVehicle,operator)。
+
+- **Carla 导航（`nav`）模块：** 该模块（包括 `Navigation` 和 `WalkerManager`）使用 `geom::Vector3D` 和 `geom::BoundingBox` 来管理交通参与者的路径和位置。例如 `Navigation::AddOrUpdateVehicle`、`Navigation::AddWalker` 等方法中频繁操作三维位置向量[carla.org](https://carla.org/Doxygen/html/d9/dfe/classcarla_1_1geom_1_1Vector3D.html#:~:text=Referenced by carla%3A%3Aroad%3A%3AMap%3A%3AAddElementToRtree,carla%3A%3Arss%3A%3ARssCheck%3A%3AAppendRoutingTarget)；同时，导航中的安全检查也会用到边界盒计算（如附近路段障碍物的边界框）。
+
+- **Carla RSS 模块：** 路网安全（RSS）检查模块使用三维向量来存储车辆位置，并计算规划路线目标，比如 `RssCheck::AppendRoutingTarget` 中会使用 `geom::Vector3D`[carla.org](https://carla.org/Doxygen/html/d9/dfe/classcarla_1_1geom_1_1Vector3D.html#:~:text=Referenced by carla%3A%3Aroad%3A%3AMap%3A%3AAddElementToRtree,carla%3A%3Arss%3A%3ARssCheck%3A%3AAppendRoutingTarget)。
+
+- **Carla 交通管理（Traffic Manager）模块：** 交通管理使用 `geom` 中的几何类型进行轨迹规划和位置更新。在多个阶段（如 `MotionPlanStage::SafeAfterJunction`、`LocalizationStage::Update`）中可见对 `Vector3D` 的调用[carla.org](https://carla.org/Doxygen/html/d9/dfe/classcarla_1_1geom_1_1Vector3D.html#:~:text=Referenced by Length,and)，用于计算车辆运动和加速度等。
+
+- **其他依赖：** 还有一些功能模块也使用了 `geom`。例如，`client::TrafficLight::GetStopWaypoints()` 返回的是与交通灯相关的停车点（Waypoints），这些 Waypoint 本身也封装了 `Location/Transform` 等；`client::TrafficLight` 的触发体积（TriggerVolume）也是 `geom::BoundingBox` 类型[carla.org](https://carla.org/Doxygen/html/df/def/classcarla_1_1client_1_1TrafficLight.html#:~:text=const geom%3A%3ABoundingBox  %26 33,const)。此外，路网构建和传感器处理等环节也可能间接使用几何变换方法。
+
+下面是其主要类的代码说明文档。
 # Math 
 
 ## 概述
@@ -378,198 +411,122 @@ static std::vector<int> GenerateRange(int a, int b);
   - <font color="#f8805a">b</font>：结束整数  
 - **返回值**：包含从 <font color="#f8805a">a</font> 到 <font color="#f8805a">b</font>（含）的所有整数的向量
 
-# Vector3D
+# Vector3D/Vector2D/Vector3DInt
 
 ## 概述
-`carla::geom::Vector3D` 类用于表示三维空间中的向量，包含坐标分量与丰富的向量运算接口，也支持与 UE4 的类型互转及 MsgPack 序列化。
+它们用于表示向量，包含坐标分量与丰富的向量运算接口，也支持与 UE4 的类型互转及 MsgPack 序列化。
 
 ---
 
-## 公开数据成员
+## Vector2D
 
-- <font color="#f8805a">x</font>：x 轴分量，默认为 0.0f  
-- <font color="#f8805a">y</font>：y 轴分量，默认为 0.0f  
-- <font color="#f8805a">z</font>：z 轴分量，默认为 0.0f  
-
----
-
-## 构造函数
-
-### **默认构造**  
-```cpp
-Vector3D();
-```
-- **说明**：将 <font color="#f8805a">x</font>, <font color="#f8805a">y</font>, <font color="#f8805a">z</font> 初始化为 0.0f。  
+### **<font color="#7fb800">SquaredLength</font>**
+- **原型**：`float SquaredLength() const;`  
+- **说明**：返回向量长度的平方：$$x^2 + y^2$$  
 - **示例**：  
   ```cpp
-  Vector3D v; // v = (0,0,0)
+  Vector2D **<font color="#f8805a">v</font>**(3.0f,4.0f);
+  float **<font color="#f8805a">sq</font>** = **<font color="#f8805a">v</font>**.SquaredLength(); // sq == 25
   ```
 
-### **带参数构造**  
-```cpp
-Vector3D(float ix, float iy, float iz);
-```
-- **参数**  
-  - <font color="#f8805a">ix</font>：x 分量  
-  - <font color="#f8805a">iy</font>：y 分量  
-  - <font color="#f8805a">iz</font>：z 分量  
+### **<font color="#7fb800">Length</font>**
+- **原型**：`float Length() const;`  
+- **说明**：返回向量长度：$$\sqrt{x^2 + y^2}$$  
 - **示例**：  
   ```cpp
-  Vector3D v(1.0f, 2.0f, -3.0f); // v = (1,2,-3)
+  Vector2D **<font color="#f8805a">v</font>**(3.0f,4.0f);
+  float **<font color="#f8805a">len</font>** = **<font color="#f8805a">v</font>**.Length(); // len == 5
+  ```
+
+### **<font color="#7fb800">MakeUnitVector</font>**
+- **原型**：`Vector2D MakeUnitVector() const;`  
+- **说明**：返回归一化后的单位向量：$$\frac{1}{\|v\|}(x,y)$$  
+- **示例**：  
+  ```cpp
+  Vector2D **<font color="#f8805a">v</font>**(0.0f,5.0f);
+  Vector2D **<font color="#f8805a">u</font>** = **<font color="#f8805a">v</font>**.MakeUnitVector(); // u ≈ (0,1)
   ```
 
 ---
 
-## 基本方法
+## Vector3D
 
-### **<font color="#7fb800">SquaredLength</font>font**  
-```cpp
-float SquaredLength() const;
-```
-- **返回值**：向量长度的平方，即 x² + y² + z²。  
+### **<font color="#7fb800">SquaredLength</font>**
+- **原型**：`float SquaredLength() const;`  
+- **说明**：返回：$$x^2 + y^2 + z^2$$  
 - **示例**：  
   ```cpp
-  Vector3D v(1,2,2);
-  float sq = v.SquaredLength(); // sq == 9.0f
+  Vector3D **<font color="#f8805a">v3</font>**(1.0f,2.0f,2.0f);
+  float **<font color="#f8805a">sq3</font>** = **<font color="#f8805a">v3</font>**.SquaredLength(); // sq3 == 9
   ```
 
-### **<font color="#7fb800">Length</font>**  
-```cpp
-float Length() const;
-```
-- **返回值**：向量的欧氏长度，等于 sqrt(SquaredLength())。  
+### **<font color="#7fb800">Length</font>**
+- **原型**：`float Length() const;`  
+- **说明**：返回：$$\sqrt{x^2 + y^2 + z^2}$$  
 - **示例**：  
   ```cpp
-  Vector3D v(1,2,2);
-  float len = v.Length(); // len == 3.0f
+  float **<font color="#f8805a">len3</font>** = **<font color="#f8805a">v3</font>**.Length(); // len3 == 3
   ```
 
-### **<font color="#7fb800">SquaredLength2D</font>**  
-```cpp
-float SquaredLength2D() const;
-```
-- **返回值**：仅 x,y 分量的长度平方。  
-- **示例**：  
-  ```cpp
-  Vector3D v(3,4,5);
-  float sq2 = v.SquaredLength2D(); // sq2 == 25.0f
-  ```
-
-### **<font color="#7fb800">Length2D</font>**  
-```cpp
-float Length2D() const;
-```
-- **返回值**：仅 x,y 分量的二维长度。  
-- **示例**：  
+### **<font color="#7fb800">SquaredLength2D</font>** / **<font color="#7fb800">Length2D</font>**
+- **原型**：  
   
-  ```cpp
-  Vector3D v(3,4,5);
-  float len2 = v.Length2D(); // len2 == 5.0f
-  ```
-
-### **<font color="#7fb800">Abs</font>**  
-```cpp
-Vector3D Abs() const;
-```
-- **返回值**：各分量取绝对值后的新向量。  
+  - `float SquaredLength2D() const;` 返回 $$x^2 + y^2$$  
+  - `float Length2D() const;` 返回 $$\sqrt{x^2 + y^2}$$  
 - **示例**：  
   ```cpp
-  Vector3D v(-1,-2,3);
-  Vector3D a = v.Abs(); // a = (1,2,3)
+  Vector3D **<font color="#f8805a">vxy</font>**(3.0f,4.0f,7.0f);
+  float **<font color="#f8805a">sq2d</font>** = **<font color="#f8805a">vxy</font>**.SquaredLength2D(); // 25
+  float **<font color="#f8805a">len2d</font>** = **<font color="#f8805a">vxy</font>**.Length2D();        // 5
   ```
 
-### **<font color="#7fb800">MakeUnitVector</font>**  
-```cpp
-Vector3D MakeUnitVector() const;
-```
-- **说明**：将向量标准化为单位向量。  
+### **<font color="#7fb800">Abs</font>**
+- **原型**：`Vector3D Abs() const;`  
+- **说明**：返回 $$(|x|,|y|,|z|)$$  
 - **示例**：  
   ```cpp
-  Vector3D v(0,3,4);
-  Vector3D u = v.MakeUnitVector(); // u ≈ (0,0.6,0.8)
+  Vector3D **<font color="#f8805a">vneg</font>**(-1.0f,-2.0f,3.0f);
+  Vector3D **<font color="#f8805a">apos</font>** = **<font color="#f8805a">vneg</font>**.Abs(); // (1,2,3)
   ```
 
-### **<font color="#7fb800">MakeSafeUnitVector</font>**  
-```cpp
-Vector3D MakeSafeUnitVector(const float epsilon) const;
-```
-- **说明**：当长度小于 epsilon 时不归一化，否则归一化。  
+### **<font color="#7fb800">MakeUnitVector</font>**
+- **原型**：`Vector3D MakeUnitVector() const;`  
+- **说明**：返回标准归一化单位向量  
 - **示例**：  
   ```cpp
-  Vector3D v(0.0001f,0,0);
-  Vector3D s = v.MakeSafeUnitVector(1e-3f); // s == v （不变）
+  Vector3D **<font color="#f8805a">vnorm</font>**(0.0f,0.0f,5.0f);
+  Vector3D **<font color="#f8805a">unorm</font>** = **<font color="#f8805a">vnorm</font>**.MakeUnitVector(); // (0,0,1)
+  ```
+
+### **<font color="#7fb800">MakeSafeUnitVector</font>**
+- **原型**：`Vector3D MakeSafeUnitVector(float epsilon) const;`  
+- **说明**：长度小于 $$\epsilon$$ 时返回原向量，否则归一化  
+- **示例**：  
+  ```cpp
+  Vector3D **<font color="#f8805a">vsafe</font>**(1e-4f,0,0);
+  Vector3D **<font color="#f8805a">svec</font>** = **<font color="#f8805a">vsafe</font>**.MakeSafeUnitVector(1e-3f); // unchanged
   ```
 
 ---
 
-## 算术运算符
+## Vector3DInt
 
-### **operator+= / operator+**  
-```cpp
-Vector3D &operator+=(const Vector3D &rhs);
-friend Vector3D operator+(Vector3D lhs, const Vector3D &rhs);
-```
+### **<font color="#7fb800">SquaredLength</font>**
+- **原型**：`int64_t SquaredLength() const;`  
+- **说明**：返回整数平方和：$$x^2 + y^2 + z^2$$  
 - **示例**：  
   ```cpp
-  Vector3D a(1,2,3), b(4,5,6);
-  Vector3D c = a + b; // c = (5,7,9)
-  a += b;             // a = (5,7,9)
+  Vector3DInt **<font color="#f8805a">vi</font>**(2,3,6);
+  int64_t **<font color="#f8805a">sqint</font>** = **<font color="#f8805a">vi</font>**.SquaredLength(); // 49
   ```
 
-### **operator-= / operator-**  
-```cpp
-Vector3D &operator-=(const Vector3D &rhs);
-friend Vector3D operator-(Vector3D lhs, const Vector3D &rhs);
-```
+### **<font color="#7fb800">Length</font>**
+- **原型**：`double Length() const;`  
+- **说明**：返回：$$\sqrt{x^2 + y^2 + z^2}$$  
 - **示例**：  
   ```cpp
-  Vector3D a(5,5,5), b(1,2,3);
-  Vector3D c = a - b; // c = (4,3,2)
-  a -= b;             // a = (4,3,2)
+  double **<font color="#f8805a">lint</font>** = **<font color="#f8805a">vi</font>**.Length(); // 7.0
   ```
-
-### **operator*= / operator***  
-```cpp
-Vector3D &operator*=(float rhs);
-friend Vector3D operator*(Vector3D lhs, float rhs);
-friend Vector3D operator*(float lhs, Vector3D rhs);
-```
-- **示例**：  
-  ```cpp
-  Vector3D v(1,2,3);
-  Vector3D w = v * 2.0f; // w = (2,4,6)
-  v *= 3.0f;             // v = (3,6,9)
-  ```
-
-### **operator/= / operator/**  
-```cpp
-Vector3D &operator/=(float rhs);
-friend Vector3D operator/(Vector3D lhs, float rhs);
-friend Vector3D operator/(float lhs, Vector3D rhs);
-```
-- **示例**：  
-  ```cpp
-  Vector3D v(4,6,8);
-  Vector3D u = v / 2.0f; // u = (2,3,4)
-  ```
-
----
-
-## 比较运算符
-
-### **operator== / operator!=**  
-```cpp
-bool operator==(const Vector3D &rhs) const;
-bool operator!=(const Vector3D &rhs) const;
-```
-- **示例**：  
-  ```cpp
-  Vector3D a(1,1,1), b(1,1,1), c(2,2,2);
-  bool eq = (a == b); // true
-  bool ne = (a != c); // true
-  ```
-
----
 
 ## UE4 互转（仅在 UE4 模式开启时）
 
@@ -817,7 +774,7 @@ friend Mesh operator+(const Mesh &lhs, const Mesh &rhs);
 
 ---
 
-## UE4 类型转换（仅在 LIBCARLA_INCLUDED_FROM_UE4 定义时）
+## UE4 类型转换
 
 ### **operator FProceduralCustomMesh() const**
 ```cpp
@@ -826,9 +783,9 @@ operator FProceduralCustomMesh() const;
 - **说明**：  
   - 顶点从米转换到厘米；  
   - 法线重新计算：  
-    \[
-      \mathbf{N} = \mathrm{normalize}\bigl((\mathbf{V}_1-\mathbf{V}_0)\times(\mathbf{V}_2-\mathbf{V}_0)\bigr)
-    \]
+$$
+\mathbf{N} = \mathrm{normalize}\bigl((\mathbf{V}_1-\mathbf{V}_0)\times(\mathbf{V}_2-\mathbf{V}_0)\bigr)
+$$
   - UV 坐标保留 (x,y)。  
 - **示例**：
   ```cpp
