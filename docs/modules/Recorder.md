@@ -100,7 +100,7 @@ std::string ShowFileActorsBlocked(std::string Name, double MinTime, double MinDi
 ### 模块依赖流程图
 
 ```
-![模块依赖关系图](docs/img/Recorder_dependency.svg)
+![模块依赖关系图](../img/Recorder_dependency.svg)
 
 ```
 
