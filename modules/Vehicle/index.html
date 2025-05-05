@@ -70,18 +70,17 @@
               
                 <h1 id="_1">载具</h1>
 <p>VehicleControl 结构中的值直接传递给 PhysX Vehicle 插件（请参阅 <a href="https://github.com/carla-simulator/carla/blob/422d0de1c4ba34238d960a5405ab227044199e13/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Vehicle/CarlaWheeledVehicle.cpp#L78-L102">CarlaWheeledVehicle.cpp</a> ）。</p>
-<h2 id="fackermanncontroller">一、<code>FAckermannController</code> 类</h2>
+<h1 id="fackermanncontroller">&lt;一&gt;、FAckermannController</h1>
+<h2 id="fackermanncontroller_1">一、<code>FAckermannController</code> 类</h2>
 <p><code>FAckermannController</code> 类是一个用于实现阿克曼转向控制的控制器类，主要用于控制轮式车辆的行驶，包括速度、加速度、转向等方面的控制。该类使用了 PID 控制器来对速度和加速度进行调节，以实现对车辆的精确控制。</p>
 <h2 id="_2">二、文件信息</h2>
-<h3 id="_3">版权信息</h3>
-<p>该代码版权归 2021 年巴塞罗那自治大学（UAB）的计算机视觉中心（CVC）所有，代码遵循 MIT 许可证。</p>
-<h3 id="_4">包含头文件</h3>
+<h3 id="_3">包含头文件</h3>
 <ul>
 <li><code>AckermannController.h</code>：定义了 <code>FAckermannController</code> 类和相关结构体。</li>
 <li><code>CarlaWheeledVehicle.h</code>：定义了 <code>ACarlaWheeledVehicle</code> 类，用于表示轮式车辆。</li>
 <li>使用 <code>#pragma once</code> 指令，确保头文件仅被编译一次，避免因重复包含导致的编译错误，提升编译效率。</li>
 </ul>
-<h2 id="_5">三、类成员和方法</h2>
+<h2 id="_4">三、功能</h2>
 <h3 id="31">3.1构造函数和析构函数</h3>
 <ul>
 <li><code>FAckermannController::~FAckermannController()</code>：析构函数，用于释放 <code>FAckermannController</code> 对象所占用的资源。</li>
@@ -179,7 +178,7 @@ UPROPERTY(Category = &quot;Vehicle Brake Physics Control&quot;, EditAnywhere, Bl
 <li><code>BrakeForce</code>：代表车辆刹车时的制动力，默认值为 0.0f。</li>
 <li><code>HandbrakeForce</code>：表示手刹的制动力，默认值为 0.0f。</li>
 </ul>
-<h2 id="_6">四、类型</h2>
+<h2 id="_5">四、类型</h2>
 <h3 id="41">4.1枚举类型</h3>
 <p>1.定义：使用 <code>UENUM(BlueprintType)</code> 宏定义一个可在蓝图系统中使用的枚举类型 <code>ECarlaWheeledVehicleState</code>。其底层类型为 <code>uint8</code>，属于强类型枚举，可避免枚举值命名冲突。</p>
 <p>2.代码使用场景：</p>
@@ -203,7 +202,121 @@ case ECarlaWheeledVehicleState::Parking:
    return TEXT(&quot;Parking&quot;);
 </code></pre></div>
 <p>注：该代码补充对应文档<strong>CarlaWheeledVehicleState.h</strong></p>
-<h2 id="_7">参考</h2>
+<h1 id="wheeledvehicleaicontroller">&lt;二&gt;WheeledVehicleAIController 类代码文档</h1>
+<h2 id="_6">一、概述</h2>
+<p><code>WheeledVehicleAIController</code>类是用于控制轮式车辆的人工智能控制器，主要服务于车辆模拟场景。该类通过实现自动驾驶、障碍物检测、路线规划等功能，管理车辆在虚拟环境中的行为。它依赖<code>ACarlaWheeledVehicle</code>、<code>ARoutePlanner</code>等多个类，协同完成车辆控制逻辑。</p>
+<h2 id="_7">二、代码结构与功能模块</h2>
+<h3 id="21">2.1 静态局部方法</h3>
+<ol>
+<li>RayCast 方法</li>
+<li><strong>功能</strong>：通过光线投射，判断从起点<code>Start</code>到终点<code>End</code>之间是否存在阻挡物。该方法使用<code>LineTraceSingleByObjectType</code>执行光线投射，忽略发起投射的<code>Actor</code>本身，并依据投射结果判断是否击中阻挡物。</li>
+<li>参数<ul>
+<li><code>Actor</code>：发起光线投射的<code>AActor</code>对象。</li>
+<li><code>Start</code>：光线投射起始位置向量。</li>
+<li><code>End</code>：光线投射结束位置向量。</li>
+</ul>
+</li>
+<li><strong>返回值</strong>：若光线投射击中阻挡物，返回<code>true</code>；否则返回<code>false</code>。</li>
+<li>IsThereAnObstacleAhead 方法</li>
+<li><strong>功能</strong>：判断车辆前方是否存在障碍物。通过获取车辆前向向量、边界框大小等信息，结合速度计算光线投射距离，分别在车辆中心、右侧、左侧三个方向执行光线投射，只要有一个方向检测到障碍物即返回<code>true</code>。</li>
+<li>参数<ul>
+<li><code>Vehicle</code>：被检测的<code>ACarlaWheeledVehicle</code>对象。</li>
+<li><code>Speed</code>：车辆当前速度。</li>
+<li><code>Direction</code>：车辆行驶方向向量。</li>
+</ul>
+</li>
+<li><strong>返回值</strong>：若车辆前方存在障碍物，返回<code>true</code>；否则返回<code>false</code>。</li>
+<li>ClearQueue 方法</li>
+<li><strong>功能</strong>：清空指定类型的队列<code>Queue</code>。通过创建一个空队列并与原队列交换，实现清空操作。</li>
+<li>参数<ul>
+<li><code>Queue</code>：待清空的<code>std::queue&lt;T&gt;</code>类型队列。</li>
+</ul>
+</li>
+<li><strong>返回值</strong>：无。</li>
+</ol>
+<h3 id="22">2.2 构造函数与析构函数</h3>
+<ol>
+<li>构造函数 AWheeledVehicleAIController</li>
+<li><strong>功能</strong>：初始化<code>AWheeledVehicleAIController</code>对象，创建随机数引擎<code>RandomEngine</code>并设置随机种子，同时配置该控制器可参与<code>Tick</code>更新，且<code>Tick</code>优先级设定在物理计算之前。</li>
+<li>参数<ul>
+<li><code>ObjectInitializer</code>：用于初始化对象的参数。</li>
+</ul>
+</li>
+<li>析构函数～AWheeledVehicleAIController</li>
+<li><strong>功能</strong>：释放<code>AWheeledVehicleAIController</code>对象占用的资源，当前为空实现，后续若有资源分配需补充释放逻辑。</li>
+</ol>
+<h3 id="23-acontroller">2.3 AController 相关方法</h3>
+<ol>
+<li>OnPossess 方法</li>
+<li><strong>功能</strong>：当控制器接管<code>pawn</code>时触发，首先调用父类<code>OnPossess</code>方法，接着判断是否已控制车辆，若已控制则输出错误日志并返回；然后将传入的<code>pawn</code>转换为<code>ACarlaWheeledVehicle</code>类型，获取车辆最大转向角度，配置自动驾驶参数，并在未设置路线图时尝试从世界中获取。</li>
+<li>参数<ul>
+<li><code>aPawn</code>：被接管的<code>APawn</code>对象。</li>
+</ul>
+</li>
+<li>OnUnPossess 方法</li>
+<li><strong>功能</strong>：当控制器失去对<code>pawn</code>的控制时调用，调用父类对应方法，并将车辆指针<code>Vehicle</code>置空。</li>
+<li><strong>参数</strong>：无。</li>
+<li>Tick 方法</li>
+<li><strong>功能</strong>：每帧调用，先标记性能分析事件范围，调用父类<code>Tick</code>方法；若未控制车辆则直接返回；若未启用自动驾驶且控制不具粘性，放松车辆控制；最后刷新车辆控制。</li>
+<li>参数<ul>
+<li><code>DeltaTime</code>：距上一帧的时间间隔。</li>
+</ul>
+</li>
+</ol>
+<h3 id="24">2.4 自动驾驶相关方法</h3>
+<ol>
+<li>ConfigureAutopilot 方法</li>
+<li><strong>功能</strong>：根据传入参数配置自动驾驶状态。设置自动驾驶启用标志<code>bAutopilotEnabled</code>，若不保留当前状态，则重置车辆转向、油门、刹车等控制输入，清空目标位置队列，设置车辆自动驾驶状态，并将交通灯状态设为绿灯。</li>
+<li>参数<ul>
+<li><code>Enable</code>：是否启用自动驾驶。</li>
+<li><code>KeepState</code>：是否保留当前状态。</li>
+</ul>
+</li>
+</ol>
+<h3 id="25">2.5 交通相关方法</h3>
+<ol>
+<li>SetFixedRoute 方法</li>
+<li><strong>功能</strong>：设置车辆固定行驶路线。若<code>bOverwriteCurrent</code>为<code>true</code>，清空当前目标位置队列，再将新的位置依次添加到队列中。</li>
+<li>参数<ul>
+<li><code>Locations</code>：包含目标位置的<code>TArray&lt;FVector&gt;</code>数组。</li>
+<li><code>bOverwriteCurrent</code>：是否覆盖当前路线。</li>
+</ul>
+</li>
+</ol>
+<h2 id="_8">三、流程图展示</h2>
+<div class="highlight"><pre><span></span><code>初始化流程（蓝色）：
+
+OnPossess：控制器接管车辆时的初始化过程
+
+ConfigureAutopilot：自动驾驶配置过程
+
+SetFixedRoute：设置固定路线流程
+
+持续运行流程（橙色）：
+
+Tick：每帧执行的主逻辑流程
+
+决策节点（红色）：
+
+各种条件判断（是否控制车辆、自动驾驶是否启用等）
+
+执行动作（绿色）：
+
+车辆控制相关操作
+
+数据清理操作
+
+状态更新操作
+
+特殊节点：
+
+绿色开始节点
+
+橙色时钟样式的Tick循环节点
+
+流程展示了从控制器初始化、持续运行到车辆控制的全过程，包括异常处理、自动驾驶逻辑、障碍物检测、路线跟随等重要功能模块的交互关系。
+</code></pre></div>
+<h2 id="_9">参考</h2>
 <ul>
 <li><a href="https://github.com/carla-simulator/carla/issues/1427">函数vehile.apply_control实际上如何工作的？</a></li>
 </ul>
