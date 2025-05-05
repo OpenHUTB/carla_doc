@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Math - 人车模拟器</title>
+    <title>geom模块概述 - 人车模拟器</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Math";
+        var mkdocs_page_name = "geom\u6a21\u5757\u6982\u8ff0";
         var mkdocs_page_input_path = "modules/geom.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,7 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Math</li>
+      <li class="breadcrumb-item active">geom模块概述</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/modules/geom.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -68,11 +68,49 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="math">Math</h1>
-<h2 id="_1">概述</h2>
+                <h1 id="geom">geom模块概述</h1>
+<p><code>carla::geom</code> 是 CARLA 引擎中专门负责几何计算和坐标变换的模块。它提供了常用的几何基本类型（如二维/三维向量、整数向量）、位置（Location）、旋转（Rotation）和变换（Transform）等数据结构，以及相关的数学工具函数。该模块还实现了经纬度与世界坐标的转换（GeoLocation 和 Mercator 投影函数）、有向边界框（BoundingBox）计算、样条曲线（CubicPolynomial）等功能。此外，它包含网格（Mesh）和网格生成（MeshFactory）类用于道路和场景几何的构造，以及网格简化（Simplification）和基于 R 树的空间索引（PointCloudRtree、SegmentCloudRtree）等高级功能。总体而言，<code>geom</code> 模块负责车辆、自行车、路网等对象的几何表示及其间的空间运算与变换。</p>
+<h2 id="_1">主要类与功能说明</h2>
+<ul>
+<li><strong><a href="#Vector3D/Vector2D/Vector3DInt">Vector2D/Vector3D/Vector3DInt</a></strong>：分别表示二维浮点向量、三维浮点向量和三维整型向量，支持算术运算（加减、点乘、叉乘等）、长度计算、归一化等常见操作。</li>
+<li><strong>Location</strong>：三维位置类，继承自 <code>Vector3D</code>，并提供了位置之间的欧氏距离等额外功能。</li>
+<li><strong>Rotation</strong>：旋转类（俯仰、偏航、横滚），可转换为对应的方向向量和旋转矩阵等。</li>
+<li><strong>Transform</strong>：变换类，由位置（Location）和旋转（Rotation）构成，支持将点从本地坐标系转换到世界坐标系（以及逆变换）。</li>
+<li><strong><a href="#Math">Math</a></strong>：静态数学工具类，提供夹取、距离（3D/2D）、点到线段距离、向量夹角、线性插值、坐标旋转、经纬度转换（<code>LatLonToMercator</code>、<code>MercatorToLatLon</code> 等）等功能函数。</li>
+<li><strong>GeoLocation</strong>：地理位置类，用于表示纬度、经度、高度，并可将世界坐标位置（Location）转换为对应的地理坐标。</li>
+<li><strong>CubicPolynomial</strong>：三次多项式类，可表示形式为 <code>a + b*x + c*x^2 + d*x^3</code> 的函数，用于道路曲线拟合与计算。</li>
+<li><strong>BoundingBox</strong>：有向边界框类，由中心位置、尺度和旋转构成，提供判断点是否在框内、计算八个顶点坐标（局部或世界空间）等方法。</li>
+<li><strong><a href="#Mesh">Mesh</a></strong>：网格容器类及其生成器。<code>Mesh</code> 用于存储顶点、法线、纹理坐标、索引和材质信息，可导出为 OBJ/PLY 等格式；</li>
+<li><strong><a href="#Simplification">Simplification</a></strong>：网格简化类，根据指定简化率对给定网格进行简化操作（使用第三方简化库）。</li>
+<li><strong><a href="#RTree">RTree</a></strong>:是一种用于空间索引的树形结构,提供检索方法用于点云和线段云的快速空间查询（最近邻、相交判定等），主要使用在物体的碰撞使用。</li>
+</ul>
+<h2 id="_2">其他模块的引用</h2>
+<ul>
+<li>
+<p><strong>Carla 客户端（<code>client</code>）模块：</strong>  该模块大量使用几何类型来描述场景中对象的位置和姿态。例如，<code>carla::client::World::SpawnActor</code> 方法的接口中使用了 <code>geom::Transform</code> 作为参数<a href="https://carla.org/Doxygen/html/dd/d5b/World_8h_source.html#:~:text=111 SharedPtr">carla.org</a>；<code>carla::client::TrafficLight</code> 类中使用 <code>geom::BoundingBox</code> 表示灯组的遮挡盒（如 <code>GetLightBoxes</code> 返回多个 BoundingBox）<a href="https://carla.org/Doxygen/html/df/def/classcarla_1_1client_1_1TrafficLight.html#:~:text=std%3A%3Avector,const">carla.org</a>，以及继承自 <code>Actor</code> 的 <code>AddAngularImpulse(const Vector3D&amp;)</code> 方法使用了三维向量<a href="https://carla.org/Doxygen/html/df/def/classcarla_1_1client_1_1TrafficLight.html#:~:text=const geom%3A%3ABoundingBox  %26 33,const">carla.org</a>。这些用法说明客户端模块在创建和控制 actor（车辆、交通灯等）时依赖 <code>geom</code> 提供的几何表示与变换工具。</p>
+</li>
+<li>
+<p><strong>Carla 路网（<code>road</code>）模块：</strong> 路网模块对道路、交叉口等结构建模时使用了边界框和几何计算。比如 <code>carla::road::Map</code> 在计算路口冲突、获取交叉口的 BoundingBox 列表时会用到 <code>geom::BoundingBox</code><a href="https://carla.org/Doxygen/html/d8/d68/classcarla_1_1geom_1_1BoundingBox.html#:~:text=Referenced by carla%3A%3Anav%3A%3ANavigation%3A%3AAddOrUpdateVehicle,operator">carla.org</a>；构建道路网格时也会涉及多边形与向量运算。此外，<code>MapBuilder::SDFToMesh</code> 等功能也参考了 BoundingBox 的顶点计算<a href="https://carla.org/Doxygen/html/d8/d68/classcarla_1_1geom_1_1BoundingBox.html#:~:text=Referenced by carla%3A%3Anav%3A%3ANavigation%3A%3AAddOrUpdateVehicle,operator">carla.org</a>。</p>
+</li>
+<li>
+<p><strong>Carla 导航（<code>nav</code>）模块：</strong> 该模块（包括 <code>Navigation</code> 和 <code>WalkerManager</code>）使用 <code>geom::Vector3D</code> 和 <code>geom::BoundingBox</code> 来管理交通参与者的路径和位置。例如 <code>Navigation::AddOrUpdateVehicle</code>、<code>Navigation::AddWalker</code> 等方法中频繁操作三维位置向量<a href="https://carla.org/Doxygen/html/d9/dfe/classcarla_1_1geom_1_1Vector3D.html#:~:text=Referenced by carla%3A%3Aroad%3A%3AMap%3A%3AAddElementToRtree,carla%3A%3Arss%3A%3ARssCheck%3A%3AAppendRoutingTarget">carla.org</a>；同时，导航中的安全检查也会用到边界盒计算（如附近路段障碍物的边界框）。</p>
+</li>
+<li>
+<p><strong>Carla RSS 模块：</strong> 路网安全（RSS）检查模块使用三维向量来存储车辆位置，并计算规划路线目标，比如 <code>RssCheck::AppendRoutingTarget</code> 中会使用 <code>geom::Vector3D</code><a href="https://carla.org/Doxygen/html/d9/dfe/classcarla_1_1geom_1_1Vector3D.html#:~:text=Referenced by carla%3A%3Aroad%3A%3AMap%3A%3AAddElementToRtree,carla%3A%3Arss%3A%3ARssCheck%3A%3AAppendRoutingTarget">carla.org</a>。</p>
+</li>
+<li>
+<p><strong>Carla 交通管理（Traffic Manager）模块：</strong> 交通管理使用 <code>geom</code> 中的几何类型进行轨迹规划和位置更新。在多个阶段（如 <code>MotionPlanStage::SafeAfterJunction</code>、<code>LocalizationStage::Update</code>）中可见对 <code>Vector3D</code> 的调用<a href="https://carla.org/Doxygen/html/d9/dfe/classcarla_1_1geom_1_1Vector3D.html#:~:text=Referenced by Length,and">carla.org</a>，用于计算车辆运动和加速度等。</p>
+</li>
+<li>
+<p><strong>其他依赖：</strong> 还有一些功能模块也使用了 <code>geom</code>。例如，<code>client::TrafficLight::GetStopWaypoints()</code> 返回的是与交通灯相关的停车点（Waypoints），这些 Waypoint 本身也封装了 <code>Location/Transform</code> 等；<code>client::TrafficLight</code> 的触发体积（TriggerVolume）也是 <code>geom::BoundingBox</code> 类型<a href="https://carla.org/Doxygen/html/df/def/classcarla_1_1client_1_1TrafficLight.html#:~:text=const geom%3A%3ABoundingBox  %26 33,const">carla.org</a>。此外，路网构建和传感器处理等环节也可能间接使用几何变换方法。</p>
+</li>
+</ul>
+<p>下面是其主要类的代码说明文档。</p>
+<h1 id="math">Math</h1>
+<h2 id="_3">概述</h2>
 <p><code>carla::geom::Math</code> 提供了一系列数学常量与常用数学运算函数，主要用于三维/二维向量运算、角度转换、距离计算、线性插值等。</p>
 <hr />
-<h2 id="_2">模板常量</h2>
+<h2 id="_4">模板常量</h2>
 <h3 id="pi"><strong><font color="#7fb800">Pi</font></strong></h3>
 <p><div class="highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
 <span class="k">static</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">Pi</span><span class="p">();</span>
@@ -88,7 +126,7 @@
   - <font color="#f8805a">T</font>：必须为浮点类型<br />
 - <strong>返回值</strong>：2π，即 2 × <strong><font color="#7fb800">Pi</font></strong>，类型为 <font color="#f8805a">T</font></p>
 <hr />
-<h2 id="_3">角度转换</h2>
+<h2 id="_5">角度转换</h2>
 <h3 id="todegrees"><strong><font color="#7fb800">ToDegrees</font></strong></h3>
 <p><div class="highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
 <span class="k">static</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">ToDegrees</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">rad</span><span class="p">);</span>
@@ -104,7 +142,7 @@
   - <font color="#f8805a">deg</font>：度数值<br />
 - <strong>返回值</strong>：弧度，等于 <font color="#f8805a">deg</font> × (π / 180)</p>
 <hr />
-<h2 id="_4">范围与平方</h2>
+<h2 id="_6">范围与平方</h2>
 <h3 id="clamp"><strong><font color="#7fb800">Clamp</font></strong></h3>
 <p><div class="highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
 <span class="k">static</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">Clamp</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">min</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">T</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">max</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">T</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
@@ -122,7 +160,7 @@
   - <font color="#f8805a">a</font>：输入值<br />
 - <strong>返回值</strong>：<font color="#f8805a">a</font>²</p>
 <hr />
-<h2 id="_5">向量运算</h2>
+<h2 id="_7">向量运算</h2>
 <h3 id="cross"><strong><font color="#7fb800">Cross</font></strong></h3>
 <p><div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">Cross</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Vector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Vector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="n">b</span><span class="p">);</span>
 </code></pre></div>
@@ -153,7 +191,7 @@ a\cdot b=\sum_i^n a_ib_i
   - <font color="#f8805a">a</font>, <font color="#f8805a">b</font>：仅取 x,y 分量<br />
 - <strong>返回值</strong>：二维点积</p>
 <hr />
-<h2 id="_6">距离计算</h2>
+<h2 id="_8">距离计算</h2>
 <h3 id="distancesquared"><strong><font color="#7fb800">DistanceSquared</font></strong></h3>
 <p><div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">DistanceSquared</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Vector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Vector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="n">b</span><span class="p">);</span>
 </code></pre></div>
@@ -183,7 +221,7 @@ a\cdot b=\sum_i^n a_ib_i
   - <font color="#f8805a">b</font>：终点向量<br />
 - <strong>返回值</strong>：两点间二维距离</p>
 <hr />
-<h2 id="_7">插值</h2>
+<h2 id="_9">插值</h2>
 <h3 id="linearlerp"><strong><font color="#7fb800">LinearLerp</font></strong></h3>
 <p><div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="nf">LinearLerp</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">f</span><span class="p">);</span>
 </code></pre></div>
@@ -192,7 +230,7 @@ a\cdot b=\sum_i^n a_ib_i
   - <font color="#f8805a">f</font>：插值因子 (0…1)<br />
 - <strong>返回值</strong>：线性插值结果</p>
 <hr />
-<h2 id="_8">复杂几何运算</h2>
+<h2 id="_10">复杂几何运算</h2>
 <h3 id="getvectorangle"><strong><font color="#7fb800">GetVectorAngle</font></strong></h3>
 <p><div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">GetVectorAngle</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Vector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Vector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="n">b</span><span class="p">);</span>
 </code></pre></div>
@@ -364,7 +402,7 @@ proj = center + R \cdot \begin{bmatrix} \cos(\theta_p) \\ \sin(\theta_p) \end{bm
   - <font color="#f8805a">rotation</font>：旋转信息<br />
 - <strong>返回值</strong>：上向单位向量</p>
 <hr />
-<h2 id="_9">范围生成</h2>
+<h2 id="_11">范围生成</h2>
 <h3 id="generaterange"><strong><font color="#7fb800">GenerateRange</font></strong></h3>
 <p><div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">GenerateRange</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">);</span>
 </code></pre></div>
@@ -372,144 +410,128 @@ proj = center + R \cdot \begin{bmatrix} \cos(\theta_p) \\ \sin(\theta_p) \end{bm
   - <font color="#f8805a">a</font>：起始整数<br />
   - <font color="#f8805a">b</font>：结束整数<br />
 - <strong>返回值</strong>：包含从 <font color="#f8805a">a</font> 到 <font color="#f8805a">b</font>（含）的所有整数的向量</p>
-<h1 id="vector3d">Vector3D</h1>
-<h2 id="_10">概述</h2>
-<p><code>carla::geom::Vector3D</code> 类用于表示三维空间中的向量，包含坐标分量与丰富的向量运算接口，也支持与 UE4 的类型互转及 MsgPack 序列化。</p>
+<h1 id="vector3dvector2dvector3dint">Vector3D/Vector2D/Vector3DInt</h1>
+<h2 id="_12">概述</h2>
+<p>它们用于表示向量，包含坐标分量与丰富的向量运算接口，也支持与 UE4 的类型互转及 MsgPack 序列化。</p>
 <hr />
-<h2 id="_11">公开数据成员</h2>
+<h2 id="vector2d">Vector2D</h2>
+<h3 id="squaredlength"><strong><font color="#7fb800">SquaredLength</font></strong></h3>
 <ul>
-<li><font color="#f8805a">x</font>：x 轴分量，默认为 0.0f  </li>
-<li><font color="#f8805a">y</font>：y 轴分量，默认为 0.0f  </li>
-<li><font color="#f8805a">z</font>：z 轴分量，默认为 0.0f  </li>
+<li><strong>原型</strong>：<code>float SquaredLength() const;</code>  </li>
+<li><strong>说明</strong>：返回向量长度的平方：<script type="math/tex; mode=display">x^2 + y^2</script>
+</li>
+<li><strong>示例</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Vector2D</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">v</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mf">3.0f</span><span class="p">,</span><span class="mf">4.0f</span><span class="p">);</span>
+<span class="kt">float</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">sq</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">v</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">.</span><span class="n">SquaredLength</span><span class="p">();</span><span class="w"> </span><span class="c1">// sq == 25</span>
+</code></pre></div></li>
+</ul>
+<h3 id="length"><strong><font color="#7fb800">Length</font></strong></h3>
+<ul>
+<li><strong>原型</strong>：<code>float Length() const;</code>  </li>
+<li><strong>说明</strong>：返回向量长度：<script type="math/tex; mode=display">\sqrt{x^2 + y^2}</script>
+</li>
+<li><strong>示例</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Vector2D</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">v</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mf">3.0f</span><span class="p">,</span><span class="mf">4.0f</span><span class="p">);</span>
+<span class="kt">float</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">len</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">v</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">.</span><span class="n">Length</span><span class="p">();</span><span class="w"> </span><span class="c1">// len == 5</span>
+</code></pre></div></li>
+</ul>
+<h3 id="makeunitvector"><strong><font color="#7fb800">MakeUnitVector</font></strong></h3>
+<ul>
+<li><strong>原型</strong>：<code>Vector2D MakeUnitVector() const;</code>  </li>
+<li><strong>说明</strong>：返回归一化后的单位向量：<script type="math/tex; mode=display">\frac{1}{\|v\|}(x,y)</script>
+</li>
+<li><strong>示例</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Vector2D</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">v</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mf">0.0f</span><span class="p">,</span><span class="mf">5.0f</span><span class="p">);</span>
+<span class="n">Vector2D</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">u</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">v</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">.</span><span class="n">MakeUnitVector</span><span class="p">();</span><span class="w"> </span><span class="c1">// u ≈ (0,1)</span>
+</code></pre></div></li>
 </ul>
 <hr />
-<h2 id="_12">构造函数</h2>
-<h3 id="_13"><strong>默认构造</strong></h3>
-<p><div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="p">();</span>
-</code></pre></div>
-- <strong>说明</strong>：将 <font color="#f8805a">x</font>, <font color="#f8805a">y</font>, <font color="#f8805a">z</font> 初始化为 0.0f。<br />
-- <strong>示例</strong>：<br />
-  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="n">v</span><span class="p">;</span><span class="w"> </span><span class="c1">// v = (0,0,0)</span>
-</code></pre></div></p>
-<h3 id="_14"><strong>带参数构造</strong></h3>
-<p><div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">ix</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">iy</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">iz</span><span class="p">);</span>
-</code></pre></div>
-- <strong>参数</strong><br />
-  - <font color="#f8805a">ix</font>：x 分量<br />
-  - <font color="#f8805a">iy</font>：y 分量<br />
-  - <font color="#f8805a">iz</font>：z 分量<br />
-- <strong>示例</strong>：<br />
-  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="nf">v</span><span class="p">(</span><span class="mf">1.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">-3.0f</span><span class="p">);</span><span class="w"> </span><span class="c1">// v = (1,2,-3)</span>
-</code></pre></div></p>
-<hr />
-<h2 id="_15">基本方法</h2>
-<h3 id="squaredlengthfont"><strong><font color="#7fb800">SquaredLength</font>font</strong></h3>
-<p><div class="highlight"><pre><span></span><code><span class="kt">float</span><span class="w"> </span><span class="nf">SquaredLength</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
-</code></pre></div>
-- <strong>返回值</strong>：向量长度的平方，即 x² + y² + z²。<br />
-- <strong>示例</strong>：<br />
-  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="nf">v</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
-<span class="kt">float</span><span class="w"> </span><span class="n">sq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">SquaredLength</span><span class="p">();</span><span class="w"> </span><span class="c1">// sq == 9.0f</span>
-</code></pre></div></p>
-<h3 id="length"><strong><font color="#7fb800">Length</font></strong></h3>
-<p><div class="highlight"><pre><span></span><code><span class="kt">float</span><span class="w"> </span><span class="nf">Length</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
-</code></pre></div>
-- <strong>返回值</strong>：向量的欧氏长度，等于 sqrt(SquaredLength())。<br />
-- <strong>示例</strong>：<br />
-  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="nf">v</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
-<span class="kt">float</span><span class="w"> </span><span class="n">len</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">Length</span><span class="p">();</span><span class="w"> </span><span class="c1">// len == 3.0f</span>
-</code></pre></div></p>
-<h3 id="squaredlength2d"><strong><font color="#7fb800">SquaredLength2D</font></strong></h3>
-<p><div class="highlight"><pre><span></span><code><span class="kt">float</span><span class="w"> </span><span class="nf">SquaredLength2D</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
-</code></pre></div>
-- <strong>返回值</strong>：仅 x,y 分量的长度平方。<br />
-- <strong>示例</strong>：<br />
-  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="nf">v</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span>
-<span class="kt">float</span><span class="w"> </span><span class="n">sq2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">SquaredLength2D</span><span class="p">();</span><span class="w"> </span><span class="c1">// sq2 == 25.0f</span>
-</code></pre></div></p>
-<h3 id="length2d"><strong><font color="#7fb800">Length2D</font></strong></h3>
-<p><div class="highlight"><pre><span></span><code><span class="kt">float</span><span class="w"> </span><span class="nf">Length2D</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
-</code></pre></div>
-- <strong>返回值</strong>：仅 x,y 分量的二维长度。<br />
-- <strong>示例</strong>：  </p>
-<div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="nf">v</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span>
-<span class="kt">float</span><span class="w"> </span><span class="n">len2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">Length2D</span><span class="p">();</span><span class="w"> </span><span class="c1">// len2 == 5.0f</span>
-</code></pre></div>
+<h2 id="vector3d">Vector3D</h2>
+<h3 id="squaredlength_1"><strong><font color="#7fb800">SquaredLength</font></strong></h3>
+<ul>
+<li><strong>原型</strong>：<code>float SquaredLength() const;</code>  </li>
+<li><strong>说明</strong>：返回：<script type="math/tex; mode=display">x^2 + y^2 + z^2</script>
+</li>
+<li><strong>示例</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">v3</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mf">1.0f</span><span class="p">,</span><span class="mf">2.0f</span><span class="p">,</span><span class="mf">2.0f</span><span class="p">);</span>
+<span class="kt">float</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">sq3</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">v3</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">.</span><span class="n">SquaredLength</span><span class="p">();</span><span class="w"> </span><span class="c1">// sq3 == 9</span>
+</code></pre></div></li>
+</ul>
+<h3 id="length_1"><strong><font color="#7fb800">Length</font></strong></h3>
+<ul>
+<li><strong>原型</strong>：<code>float Length() const;</code>  </li>
+<li><strong>说明</strong>：返回：<script type="math/tex; mode=display">\sqrt{x^2 + y^2 + z^2}</script>
+</li>
+<li><strong>示例</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="kt">float</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">len3</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">v3</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">.</span><span class="n">Length</span><span class="p">();</span><span class="w"> </span><span class="c1">// len3 == 3</span>
+</code></pre></div></li>
+</ul>
+<h3 id="squaredlength2d-length2d"><strong><font color="#7fb800">SquaredLength2D</font></strong> / <strong><font color="#7fb800">Length2D</font></strong></h3>
+<ul>
+<li>
+<p><strong>原型</strong>：  </p>
+</li>
+<li>
+<p><code>float SquaredLength2D() const;</code> 返回 <script type="math/tex; mode=display">x^2 + y^2</script>
+</p>
+</li>
+<li><code>float Length2D() const;</code> 返回 <script type="math/tex; mode=display">\sqrt{x^2 + y^2}</script>
+</li>
+<li><strong>示例</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">vxy</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mf">3.0f</span><span class="p">,</span><span class="mf">4.0f</span><span class="p">,</span><span class="mf">7.0f</span><span class="p">);</span>
+<span class="kt">float</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">sq2d</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">vxy</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">.</span><span class="n">SquaredLength2D</span><span class="p">();</span><span class="w"> </span><span class="c1">// 25</span>
+<span class="kt">float</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">len2d</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">vxy</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">.</span><span class="n">Length2D</span><span class="p">();</span><span class="w">        </span><span class="c1">// 5</span>
+</code></pre></div></li>
+</ul>
 <h3 id="abs"><strong><font color="#7fb800">Abs</font></strong></h3>
-<p><div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="nf">Abs</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
-</code></pre></div>
-- <strong>返回值</strong>：各分量取绝对值后的新向量。<br />
-- <strong>示例</strong>：<br />
-  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="nf">v</span><span class="p">(</span><span class="mi">-1</span><span class="p">,</span><span class="mi">-2</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span>
-<span class="n">Vector3D</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">Abs</span><span class="p">();</span><span class="w"> </span><span class="c1">// a = (1,2,3)</span>
-</code></pre></div></p>
-<h3 id="makeunitvector"><strong><font color="#7fb800">MakeUnitVector</font></strong></h3>
-<p><div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="nf">MakeUnitVector</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
-</code></pre></div>
-- <strong>说明</strong>：将向量标准化为单位向量。<br />
-- <strong>示例</strong>：<br />
-  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="nf">v</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">);</span>
-<span class="n">Vector3D</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">MakeUnitVector</span><span class="p">();</span><span class="w"> </span><span class="c1">// u ≈ (0,0.6,0.8)</span>
-</code></pre></div></p>
+<ul>
+<li><strong>原型</strong>：<code>Vector3D Abs() const;</code>  </li>
+<li><strong>说明</strong>：返回 <script type="math/tex; mode=display">(|x|,|y|,|z|)</script>
+</li>
+<li><strong>示例</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">vneg</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mf">-1.0f</span><span class="p">,</span><span class="mf">-2.0f</span><span class="p">,</span><span class="mf">3.0f</span><span class="p">);</span>
+<span class="n">Vector3D</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">apos</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">vneg</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">.</span><span class="n">Abs</span><span class="p">();</span><span class="w"> </span><span class="c1">// (1,2,3)</span>
+</code></pre></div></li>
+</ul>
+<h3 id="makeunitvector_1"><strong><font color="#7fb800">MakeUnitVector</font></strong></h3>
+<ul>
+<li><strong>原型</strong>：<code>Vector3D MakeUnitVector() const;</code>  </li>
+<li><strong>说明</strong>：返回标准归一化单位向量  </li>
+<li><strong>示例</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">vnorm</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mf">0.0f</span><span class="p">,</span><span class="mf">0.0f</span><span class="p">,</span><span class="mf">5.0f</span><span class="p">);</span>
+<span class="n">Vector3D</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">unorm</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">vnorm</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">.</span><span class="n">MakeUnitVector</span><span class="p">();</span><span class="w"> </span><span class="c1">// (0,0,1)</span>
+</code></pre></div></li>
+</ul>
 <h3 id="makesafeunitvector"><strong><font color="#7fb800">MakeSafeUnitVector</font></strong></h3>
-<p><div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="nf">MakeSafeUnitVector</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">epsilon</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
-</code></pre></div>
-- <strong>说明</strong>：当长度小于 epsilon 时不归一化，否则归一化。<br />
-- <strong>示例</strong>：<br />
-  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="nf">v</span><span class="p">(</span><span class="mf">0.0001f</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
-<span class="n">Vector3D</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">MakeSafeUnitVector</span><span class="p">(</span><span class="mf">1e-3f</span><span class="p">);</span><span class="w"> </span><span class="c1">// s == v （不变）</span>
-</code></pre></div></p>
+<ul>
+<li><strong>原型</strong>：<code>Vector3D MakeSafeUnitVector(float epsilon) const;</code>  </li>
+<li><strong>说明</strong>：长度小于 <script type="math/tex; mode=display">\epsilon</script> 时返回原向量，否则归一化  </li>
+<li><strong>示例</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">vsafe</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mf">1e-4f</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+<span class="n">Vector3D</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">svec</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">vsafe</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">.</span><span class="n">MakeSafeUnitVector</span><span class="p">(</span><span class="mf">1e-3f</span><span class="p">);</span><span class="w"> </span><span class="c1">// unchanged</span>
+</code></pre></div></li>
+</ul>
 <hr />
-<h2 id="_16">算术运算符</h2>
-<h3 id="operator-operator"><strong>operator+= / operator+</strong></h3>
-<p><div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="k">operator</span><span class="o">+=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Vector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">);</span>
-<span class="k">friend</span><span class="w"> </span><span class="n">Vector3D</span><span class="w"> </span><span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">Vector3D</span><span class="w"> </span><span class="n">lhs</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Vector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">);</span>
-</code></pre></div>
-- <strong>示例</strong>：<br />
-  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="nf">a</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="w"> </span><span class="n">b</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">);</span>
-<span class="n">Vector3D</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="c1">// c = (5,7,9)</span>
-<span class="n">a</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w">             </span><span class="c1">// a = (5,7,9)</span>
-</code></pre></div></p>
-<h3 id="operator-operator-"><strong>operator-= / operator-</strong></h3>
-<p><div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="k">operator</span><span class="o">-=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Vector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">);</span>
-<span class="k">friend</span><span class="w"> </span><span class="n">Vector3D</span><span class="w"> </span><span class="k">operator</span><span class="o">-</span><span class="p">(</span><span class="n">Vector3D</span><span class="w"> </span><span class="n">lhs</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Vector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">);</span>
-</code></pre></div>
-- <strong>示例</strong>：<br />
-  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="nf">a</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span><span class="w"> </span><span class="n">b</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span>
-<span class="n">Vector3D</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="c1">// c = (4,3,2)</span>
-<span class="n">a</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w">             </span><span class="c1">// a = (4,3,2)</span>
-</code></pre></div></p>
-<h3 id="operator-operator_1"><strong>operator<em>= / operator</em></strong></h3>
-<p><div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="k">operator</span><span class="o">*=</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">rhs</span><span class="p">);</span>
-<span class="k">friend</span><span class="w"> </span><span class="n">Vector3D</span><span class="w"> </span><span class="k">operator</span><span class="o">*</span><span class="p">(</span><span class="n">Vector3D</span><span class="w"> </span><span class="n">lhs</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">rhs</span><span class="p">);</span>
-<span class="k">friend</span><span class="w"> </span><span class="n">Vector3D</span><span class="w"> </span><span class="k">operator</span><span class="o">*</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">lhs</span><span class="p">,</span><span class="w"> </span><span class="n">Vector3D</span><span class="w"> </span><span class="n">rhs</span><span class="p">);</span>
-</code></pre></div>
-- <strong>示例</strong>：<br />
-  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="nf">v</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span>
-<span class="n">Vector3D</span><span class="w"> </span><span class="n">w</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">2.0f</span><span class="p">;</span><span class="w"> </span><span class="c1">// w = (2,4,6)</span>
-<span class="n">v</span><span class="w"> </span><span class="o">*=</span><span class="w"> </span><span class="mf">3.0f</span><span class="p">;</span><span class="w">             </span><span class="c1">// v = (3,6,9)</span>
-</code></pre></div></p>
-<h3 id="operator-operator_2"><strong>operator/= / operator/</strong></h3>
-<p><div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="k">operator</span><span class="o">/=</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">rhs</span><span class="p">);</span>
-<span class="k">friend</span><span class="w"> </span><span class="n">Vector3D</span><span class="w"> </span><span class="k">operator</span><span class="o">/</span><span class="p">(</span><span class="n">Vector3D</span><span class="w"> </span><span class="n">lhs</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">rhs</span><span class="p">);</span>
-<span class="k">friend</span><span class="w"> </span><span class="n">Vector3D</span><span class="w"> </span><span class="k">operator</span><span class="o">/</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">lhs</span><span class="p">,</span><span class="w"> </span><span class="n">Vector3D</span><span class="w"> </span><span class="n">rhs</span><span class="p">);</span>
-</code></pre></div>
-- <strong>示例</strong>：<br />
-  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="nf">v</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">8</span><span class="p">);</span>
-<span class="n">Vector3D</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">2.0f</span><span class="p">;</span><span class="w"> </span><span class="c1">// u = (2,3,4)</span>
-</code></pre></div></p>
-<hr />
-<h2 id="_17">比较运算符</h2>
-<h3 id="operator-operator_3"><strong>operator== / operator!=</strong></h3>
-<p><div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Vector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
-<span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">!=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Vector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
-</code></pre></div>
-- <strong>示例</strong>：<br />
-  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="nf">a</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="n">b</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="n">c</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
-<span class="kt">bool</span><span class="w"> </span><span class="n">eq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">b</span><span class="p">);</span><span class="w"> </span><span class="c1">// true</span>
-<span class="kt">bool</span><span class="w"> </span><span class="n">ne</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">c</span><span class="p">);</span><span class="w"> </span><span class="c1">// true</span>
-</code></pre></div></p>
-<hr />
+<h2 id="vector3dint">Vector3DInt</h2>
+<h3 id="squaredlength_2"><strong><font color="#7fb800">SquaredLength</font></strong></h3>
+<ul>
+<li><strong>原型</strong>：<code>int64_t SquaredLength() const;</code>  </li>
+<li><strong>说明</strong>：返回整数平方和：<script type="math/tex; mode=display">x^2 + y^2 + z^2</script>
+</li>
+<li><strong>示例</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Vector3DInt</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">vi</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">6</span><span class="p">);</span>
+<span class="kt">int64_t</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">sqint</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">vi</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">.</span><span class="n">SquaredLength</span><span class="p">();</span><span class="w"> </span><span class="c1">// 49</span>
+</code></pre></div></li>
+</ul>
+<h3 id="length_2"><strong><font color="#7fb800">Length</font></strong></h3>
+<ul>
+<li><strong>原型</strong>：<code>double Length() const;</code>  </li>
+<li><strong>说明</strong>：返回：<script type="math/tex; mode=display">\sqrt{x^2 + y^2 + z^2}</script>
+</li>
+<li><strong>示例</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="kt">double</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">lint</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">vi</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">.</span><span class="n">Length</span><span class="p">();</span><span class="w"> </span><span class="c1">// 7.0</span>
+</code></pre></div></li>
+</ul>
 <h2 id="ue4-ue4">UE4 互转（仅在 UE4 模式开启时）</h2>
 <p><div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="nf">ToMeters</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
 <span class="n">Vector3D</span><span class="w"> </span><span class="nf">ToCentimeters</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
@@ -543,10 +565,10 @@ proj = center + R \cdot \begin{bmatrix} \cos(\theta_p) \\ \sin(\theta_p) \end{bm
 </code></pre></div></p>
 <hr />
 <h1 id="mesh">Mesh</h1>
-<h2 id="_18">概述</h2>
+<h2 id="_13">概述</h2>
 <p><code>carla::geom::Mesh</code> 类是一个网格数据容器，提供验证、构建、导出以及与 UE4 类型互转的功能。支持顶点、法线、索引、UV 和材质分组的管理。</p>
 <hr />
-<h2 id="_19">类型别名</h2>
+<h2 id="_14">类型别名</h2>
 <ul>
 <li><strong>vertex_type</strong>：顶点类型，<code>Vector3D</code>  </li>
 <li><strong>normal_type</strong>：法线类型，<code>Vector3D</code>  </li>
@@ -555,7 +577,7 @@ proj = center + R \cdot \begin{bmatrix} \cos(\theta_p) \\ \sin(\theta_p) \end{bm
 <li><strong>material_type</strong>：材质类型，<code>MeshMaterial</code></li>
 </ul>
 <hr />
-<h2 id="_20">构造函数</h2>
+<h2 id="_15">构造函数</h2>
 <h3 id="mesh_1"><strong>Mesh(...)</strong></h3>
 <p><div class="highlight"><pre><span></span><code><span class="n">Mesh</span><span class="p">(</span>
 <span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vertex_type</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">vertices</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{},</span>
@@ -570,7 +592,7 @@ proj = center + R \cdot \begin{bmatrix} \cos(\theta_p) \\ \sin(\theta_p) \end{bm
 <span class="n">Mesh</span><span class="w"> </span><span class="nf">mesh</span><span class="p">(</span><span class="n">verts</span><span class="p">);</span>
 </code></pre></div></p>
 <hr />
-<h2 id="_21">验证方法</h2>
+<h2 id="_16">验证方法</h2>
 <h3 id="isvalid"><strong>IsValid</strong></h3>
 <p><div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="nf">IsValid</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
 </code></pre></div>
@@ -584,7 +606,7 @@ proj = center + R \cdot \begin{bmatrix} \cos(\theta_p) \\ \sin(\theta_p) \end{bm
 <span class="p">}</span>
 </code></pre></div></p>
 <hr />
-<h2 id="_22">网格构建方法</h2>
+<h2 id="_17">网格构建方法</h2>
 <h3 id="addtrianglestrip"><strong>AddTriangleStrip</strong></h3>
 <p><div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">AddTriangleStrip</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vertex_type</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">vertices</span><span class="p">);</span>
 </code></pre></div>
@@ -632,7 +654,7 @@ proj = center + R \cdot \begin{bmatrix} \cos(\theta_p) \\ \sin(\theta_p) \end{bm
 <span class="n">mesh</span><span class="p">.</span><span class="n">EndMaterial</span><span class="p">();</span>
 </code></pre></div></p>
 <hr />
-<h2 id="_23">导出方法</h2>
+<h2 id="_18">导出方法</h2>
 <h3 id="generateobj"><strong>GenerateOBJ</strong></h3>
 <p><div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="nf">GenerateOBJ</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
 </code></pre></div>
@@ -650,7 +672,7 @@ proj = center + R \cdot \begin{bmatrix} \cos(\theta_p) \\ \sin(\theta_p) \end{bm
 </code></pre></div>
 - <strong>说明</strong>：导出为 PLY 格式（部分实现）。</p>
 <hr />
-<h2 id="_24">访问方法</h2>
+<h2 id="_19">访问方法</h2>
 <h3 id="getvertices-getverticesnum"><strong>GetVertices / GetVerticesNum</strong></h3>
 <div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vertex_type</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">GetVertices</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
 <span class="kt">size_t</span><span class="w"> </span><span class="nf">GetVerticesNum</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
@@ -673,18 +695,18 @@ proj = center + R \cdot \begin{bmatrix} \cos(\theta_p) \\ \sin(\theta_p) \end{bm
 </code></pre></div>
 - <strong>说明</strong>：返回当前顶点总数。</p>
 <hr />
-<h2 id="_25">合并网格</h2>
+<h2 id="_20">合并网格</h2>
 <h3 id="concatmesh"><strong>ConcatMesh</strong></h3>
 <p><div class="highlight"><pre><span></span><code><span class="n">Mesh</span><span class="o">&amp;</span><span class="w"> </span><span class="nf">ConcatMesh</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Mesh</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">num_vertices_to_link</span><span class="p">);</span>
 </code></pre></div>
 - <strong>说明</strong>：将 <code>rhs</code> 网格合并到当前网格，并在相交处生成桥接三角面。  </p>
-<h3 id="operator-operator_4"><strong>operator+= / operator+</strong></h3>
+<h3 id="operator-operator"><strong>operator+= / operator+</strong></h3>
 <p><div class="highlight"><pre><span></span><code><span class="n">Mesh</span><span class="o">&amp;</span><span class="w"> </span><span class="k">operator</span><span class="o">+=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Mesh</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">);</span>
 <span class="k">friend</span><span class="w"> </span><span class="n">Mesh</span><span class="w"> </span><span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Mesh</span><span class="w"> </span><span class="o">&amp;</span><span class="n">lhs</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Mesh</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">);</span>
 </code></pre></div>
 - <strong>说明</strong>：无桥接直接拼接顶点、法线、索引、UV 和材质区间。</p>
 <hr />
-<h2 id="ue4-libcarla_included_from_ue4">UE4 类型转换（仅在 LIBCARLA_INCLUDED_FROM_UE4 定义时）</h2>
+<h2 id="ue4">UE4 类型转换</h2>
 <h3 id="operator-fproceduralcustommesh-const"><strong>operator FProceduralCustomMesh() const</strong></h3>
 <p><div class="highlight"><pre><span></span><code><span class="k">operator</span><span class="w"> </span><span class="n">FProceduralCustomMesh</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
 </code></pre></div>
@@ -692,18 +714,18 @@ proj = center + R \cdot \begin{bmatrix} \cos(\theta_p) \\ \sin(\theta_p) \end{bm
   - 顶点从米转换到厘米；<br />
   - 法线重新计算：<br />
 <script type="math/tex; mode=display">
-      \mathbf{N} = \mathrm{normalize}\bigl((\mathbf{V}_1-\mathbf{V}_0)\times(\mathbf{V}_2-\mathbf{V}_0)\bigr)
-    </script>
+\mathbf{N} = \mathrm{normalize}\bigl((\mathbf{V}_1-\mathbf{V}_0)\times(\mathbf{V}_2-\mathbf{V}_0)\bigr)
+</script>
   - UV 坐标保留 (x,y)。<br />
 - <strong>示例</strong>：
   <div class="highlight"><pre><span></span><code><span class="n">FProceduralCustomMesh</span><span class="w"> </span><span class="n">ue_mesh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mesh</span><span class="p">;</span>
 </code></pre></div></p>
 <hr />
 <h1 id="simplification">Simplification</h1>
-<h2 id="_26">概述</h2>
+<h2 id="_21">概述</h2>
 <p><code>carla::geom::Simplification</code> 类用于对 <code>carla::geom::Mesh</code> 网格模型执行简化操作，通过指定简化比率，将三角形数减少到原始数量的若干百分比，从而降低模型复杂度。</p>
 <hr />
-<h2 id="_27">构造函数</h2>
+<h2 id="_22">构造函数</h2>
 <h3 id="simplification_1"><strong><font color="#7fb800">Simplification()</font></strong></h3>
 <p><div class="highlight"><pre><span></span><code><span class="n">Simplification</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
 </code></pre></div>
@@ -720,7 +742,7 @@ proj = center + R \cdot \begin{bmatrix} \cos(\theta_p) \\ \sin(\theta_p) \end{bm
   <div class="highlight"><pre><span></span><code><span class="n">carla</span><span class="o">::</span><span class="n">geom</span><span class="o">::</span><span class="n">Simplification</span><span class="w"> </span><span class="nf">sim</span><span class="p">(</span><span class="mf">0.25f</span><span class="p">);</span><span class="w"> </span><span class="c1">// 保留 25% 的三角形</span>
 </code></pre></div></p>
 <hr />
-<h2 id="_28">公开数据成员</h2>
+<h2 id="_23">公开数据成员</h2>
 <ul>
 <li>
 <p><strong><font color="#f8805a">simplification_percentage</font></strong>  </p>
@@ -735,7 +757,7 @@ proj = center + R \cdot \begin{bmatrix} \cos(\theta_p) \\ \sin(\theta_p) \end{bm
 </li>
 </ul>
 <hr />
-<h2 id="_29">方法</h2>
+<h2 id="_24">方法</h2>
 <h3 id="simplificate"><strong><font color="#7fb800">Simplificate</font></strong></h3>
 <p><div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">Simplificate</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">geom</span><span class="o">::</span><span class="n">Mesh</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">pmesh</span><span class="p">);</span>
 </code></pre></div>
@@ -756,13 +778,13 @@ proj = center + R \cdot \begin{bmatrix} \cos(\theta_p) \\ \sin(\theta_p) \end{bm
 </ul>
 <hr />
 <h1 id="rtree">RTree</h1>
-<h2 id="_30">简介</h2>
+<h2 id="_25">简介</h2>
 <p>R-树（R-Tree）是一种用于空间索引的树形结构，通过将空间中相近对象聚合成最小外接矩形（MBR）构建索引，广泛应用于点云、线段云等三维几何对象的快速邻近查询与碰撞检测。</p>
 <p>RTree包含两个模板类：
 - <code>PointCloudRtree&lt;T&gt;</code>：支持对点云的插入、k-NN 查询、带过滤器查询；
 - <code>SegmentCloudRtree&lt;T&gt;</code>：支持对线段云的插入、k-NN 查询、交集查询。</p>
 <hr />
-<h2 id="_31">欧几里得距离公式</h2>
+<h2 id="_26">欧几里得距离公式</h2>
 <p>对任意两个 $n$ 维点 $\mathbf{p}=(p_1,p_2,\dots,p_n)$ 和 $\mathbf{q}=(q_1,q_2,\dots,q_n)$，欧几里得距离定义如下：</p>
 <p>
 <script type="math/tex; mode=display">
@@ -778,11 +800,11 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 <li><code>T</code>：元素类型；</li>
 <li><code>Dimension</code>：空间维度，默认值为 <code>3</code>。</li>
 </ul>
-<h3 id="_32">成员类型</h3>
+<h3 id="_27">成员类型</h3>
 <div class="highlight"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="n">BPoint</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">boost</span><span class="o">::</span><span class="n">geometry</span><span class="o">::</span><span class="n">model</span><span class="o">::</span><span class="n">point</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="n">Dimension</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="k">using</span><span class="w"> </span><span class="n">TreeElement</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">BPoint</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span><span class="p">;</span>
 </code></pre></div>
-<h3 id="_33">方法说明</h3>
+<h3 id="_28">方法说明</h3>
 <h4 id="insertelement">InsertElement</h4>
 <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">InsertElement</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">BPoint</span><span class="w"> </span><span class="o">&amp;</span><span class="n">point</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&amp;</span><span class="n">element</span><span class="p">);</span>
 <span class="kt">void</span><span class="w"> </span><span class="nf">InsertElement</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">TreeElement</span><span class="w"> </span><span class="o">&amp;</span><span class="n">element</span><span class="p">);</span>
@@ -820,12 +842,12 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 <div class="highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">Dimension</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="o">&gt;</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">SegmentCloudRtree</span><span class="p">;</span>
 </code></pre></div>
-<h3 id="_34">成员类型</h3>
+<h3 id="_29">成员类型</h3>
 <div class="highlight"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="n">BPoint</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">boost</span><span class="o">::</span><span class="n">geometry</span><span class="o">::</span><span class="n">model</span><span class="o">::</span><span class="n">point</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="n">Dimension</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="k">using</span><span class="w"> </span><span class="n">BSegment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">boost</span><span class="o">::</span><span class="n">geometry</span><span class="o">::</span><span class="n">model</span><span class="o">::</span><span class="n">segment</span><span class="o">&lt;</span><span class="n">BPoint</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="k">using</span><span class="w"> </span><span class="n">TreeElement</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">BSegment</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;&gt;</span><span class="p">;</span>
 </code></pre></div>
-<h3 id="_35">方法说明</h3>
+<h3 id="_30">方法说明</h3>
 <h4 id="insertelement_1">InsertElement</h4>
 <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">InsertElement</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">BSegment</span><span class="w"> </span><span class="o">&amp;</span><span class="n">segment</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&amp;</span><span class="n">element_start</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&amp;</span><span class="n">element_end</span><span class="p">);</span>
 <span class="kt">void</span><span class="w"> </span><span class="nf">InsertElement</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">TreeElement</span><span class="w"> </span><span class="o">&amp;</span><span class="n">element</span><span class="p">);</span>
