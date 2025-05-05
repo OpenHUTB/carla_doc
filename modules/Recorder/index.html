@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>CARLA Recorder 模块说明文档 - 人车模拟器</title>
+    <title>Recorder - 人车模拟器</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "CARLA Recorder \u6a21\u5757\u8bf4\u660e\u6587\u6863";
+        var mkdocs_page_name = "Recorder";
         var mkdocs_page_input_path = "modules/Recorder.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,7 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">CARLA Recorder 模块说明文档</li>
+      <li class="breadcrumb-item active">Recorder</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/modules/Recorder.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -68,20 +68,19 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="carla-recorder">CARLA Recorder 模块说明文档</h1>
+                <hr />
+<h1 id="carla-recorder">CARLA Recorder 模块说明文档</h1>
+<p>本文档详细介绍了 CARLA 模拟器中 CarlaRecorder 模块的主要功能、核心类与方法定义及其模块间依赖关系，旨在帮助开发者理解其录像与回放机制，并把握模块层次结构。</p>
 <hr />
 <h2 id="_1">📑 目录</h2>
 <ol>
-<li><a href="#模块概述">模块概述</a>  </li>
-<li><a href="#主要类与职责">主要类与职责</a>  </li>
-<li><a href="#功能说明">功能说明</a>  </li>
-<li><a href="#初始化">初始化</a>  </li>
-<li><a href="#录像控制">录像控制</a>  </li>
-<li><a href="#回放控制">回放控制</a>  </li>
-<li><a href="#查询功能">查询功能</a>  </li>
-<li><a href="#关键数据结构">关键数据结构</a>  </li>
-<li><a href="#依赖模块">依赖模块</a>  </li>
+<li><a href="#模块概述">模块概述</a></li>
+<li><a href="#主要类与职责">主要类与职责</a></li>
+<li><a href="#功能说明">功能说明</a></li>
+<li><a href="#关键数据结构">关键数据结构</a></li>
+<li><a href="#依赖模块与层级流程">依赖模块与层级流程</a></li>
 <li><a href="#附录包结构">附录：包结构</a></li>
+<li><a href="#附加模块carlarecorderanimbiker">附加模块：CarlaRecorderAnimBiker</a></li>
 </ol>
 <hr />
 <h2 id="_2">模块概述</h2>
@@ -117,10 +116,12 @@
 <hr />
 <h2 id="_4">功能说明</h2>
 <h3 id="_5">初始化</h3>
-<p><div class="highlight"><pre><span></span><code><span class="n">ACarlaRecorder</span><span class="o">::</span><span class="n">ACarlaRecorder</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><span class="n">ACarlaRecorder</span><span class="o">::</span><span class="n">ACarlaRecorder</span><span class="p">()</span>
 </code></pre></div>
-- 设置 TickGroup 为 <code>TG_PrePhysics</code>
-- 默认禁用录像功能</p>
+<ul>
+<li>设置 TickGroup 为 <code>TG_PrePhysics</code></li>
+<li>默认禁用录像功能</li>
+</ul>
 <h3 id="_6">录像控制</h3>
 <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="n">Enable</span><span class="p">()</span>
 <span class="kt">void</span><span class="w"> </span><span class="n">Disable</span><span class="p">()</span>
@@ -149,8 +150,8 @@
 <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">ShowFileActorsBlocked</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">MinTime</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">MinDistance</span><span class="p">)</span>
 </code></pre></div>
 <ul>
-<li><code>QueryInfo()</code>：查看录制文件的基础信息  </li>
-<li><code>QueryCollisions()</code>：查询特定对象类型之间的碰撞事件  </li>
+<li><code>QueryInfo()</code>：查看录制文件的基础信息</li>
+<li><code>QueryCollisions()</code>：查询特定对象类型之间的碰撞事件</li>
 <li><code>QueryBlocked()</code>：查找因距离/时间被阻挡的实体</li>
 </ul>
 <hr />
@@ -178,16 +179,126 @@
 </tbody>
 </table>
 <hr />
-<h2 id="_10">依赖模块</h2>
+<h2 id="_10">依赖模块与层级流程</h2>
+<h3 id="_11">模块依赖流程图</h3>
+<div class="highlight"><pre><span></span><code>![模块依赖关系图](docs/img/Recorder_dependency.svg)
+</code></pre></div>
+<h3 id="_12">各级说明</h3>
 <ul>
-<li><code>Carla/Actor/ActorDescription.h</code></li>
-<li><code>Carla/Vehicle/CarlaWheeledVehicle.h</code></li>
-<li><code>Carla/Lights/CarlaLight.h</code></li>
-<li><code>Carla/Traffic/TrafficLightBase.h</code></li>
-<li><code>Carla/Walker/WalkerControl.h</code></li>
-<li><code>Carla/Game/CarlaEpisode.h</code></li>
-<li><code>CarlaRecorderAnimVehicle</code>、<code>CarlaRecorderCollision</code> 等子模块（用于细粒度记录）</li>
+<li>
+<p><strong>ACarlaRecorder（顶层控制器）</strong>
+  提供录像和回放的主要接口，是模块的入口类。它控制 Replayer 和 Query 子模块的使用。</p>
+</li>
+<li>
+<p><strong>CarlaReplayer（回放控制器）</strong>
+  管理回放过程，控制时间倍率、跟踪 ID、忽略设置等，依赖多个状态与动画模块：</p>
+</li>
+<li>
+<p><strong>CarlaRecorderState</strong>：保存每一帧的对象状态信息</p>
+</li>
+<li><strong>CarlaRecorderAnimVehicle</strong>：记录车辆动画数据（速度、油门、转向等）</li>
+<li>
+<p><strong>CarlaRecorderAnimBiker</strong>：记录骑行者动画数据</p>
+</li>
+<li>
+<p><strong>CarlaRecorderQuery（数据查询器）</strong>
+  用于从录制文件中分析碰撞、阻塞等行为，依赖：</p>
+</li>
+<li>
+<p><strong>CarlaRecorderCollision</strong>：存储碰撞事件</p>
+</li>
+<li><strong>CarlaRecorderWalkerBones</strong>：记录行人骨骼信息</li>
+<li>
+<p><strong>CarlaRecorderAnimBiker</strong>：查询骑行者动画行为</p>
+</li>
+<li>
+<p><strong>CarlaRecorderInfo / Event 系列</strong></p>
+</li>
+<li>
+<p><code>CarlaRecorderInfo</code>：包含帧开始、结束、平台时间等全局信息</p>
+</li>
+<li>
+<p><code>EventAdd</code> / <code>EventDel</code> / <code>EventParent</code>：记录实体的创建、销毁与父子关系</p>
+</li>
+<li>
+<p><strong>CarlaRecorderHelper</strong>
+  提供通用辅助函数，如读取头信息、数据解码、ID 映射等</p>
+</li>
 </ul>
+<hr />
+<h2 id="_13">附录：包结构</h2>
+<div class="highlight"><pre><span></span><code>Carla/
+ ├── Source/
+ │   └── Carla/
+ │       └── Recorder/
+ │            ├── CarlaRecorder.cpp
+ │            ├── CarlaRecorder.h
+ │            ├── CarlaRecorderQuery.h
+ │            ├── CarlaRecorder[模块].h (多个)
+ │            └── CarlaReplayer.h
+</code></pre></div>
+<hr />
+<h2 id="carlarecorderanimbiker">🔄 附加模块：CarlaRecorderAnimBiker</h2>
+<p>该模块用于记录骑行者（骑车人）的动画数据，是 <code>Recorder</code> 系统中专门处理骑行者运动状态的子模块。</p>
+<h3 id="_14">主要结构体与类</h3>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CarlaRecorderAnimBiker</code></td>
+<td><code>struct</code></td>
+<td>表示单个骑行者的动画状态记录，包含速度、引擎转速等属性</td>
+</tr>
+<tr>
+<td><code>CarlaRecorderAnimBikers</code></td>
+<td><code>class</code></td>
+<td>管理多个骑行者动画记录集合，支持批量读写与清空操作</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_15">核心方法说明</h3>
+<h4 id="carlarecorderanimbiker_1"><code>CarlaRecorderAnimBiker</code></h4>
+<ul>
+<li>
+<p><code>void Write(std::ostream &amp;OutFile) const</code>
+  将 <code>DatabaseId</code>、<code>ForwardSpeed</code>、<code>EngineRotation</code> 写入输出流</p>
+</li>
+<li>
+<p><code>void Read(std::istream &amp;InFile)</code>
+  从输入流读取上述属性以恢复对象状态</p>
+</li>
+</ul>
+<h4 id="carlarecorderanimbikers"><code>CarlaRecorderAnimBikers</code></h4>
+<ul>
+<li>
+<p><code>void Add(const CarlaRecorderAnimBiker &amp;Biker)</code>
+  添加单个动画记录项到内部容器</p>
+</li>
+<li>
+<p><code>void Clear()</code>
+  清空所有骑行者记录</p>
+</li>
+<li>
+<p><code>void Write(std::ostream &amp;OutFile) const</code>
+  写入数据包头、记录数量及所有骑行者对象数据到输出流</p>
+</li>
+<li>
+<p><code>void Read(std::istream &amp;InFile)</code>
+  从输入流批量读取骑行者记录数据</p>
+</li>
+<li>
+<p><code>const std::vector&lt;CarlaRecorderAnimBiker&gt;&amp; GetBikers()</code>
+  提供访问骑行者记录集合的只读引用</p>
+</li>
+</ul>
+<h3 id="_16">数据格式规范</h3>
+<p>该模块使用的数据包类型标识为 <code>CarlaRecorderPacketId::AnimBiker</code>，在录制/回放过程中可通过该标识对包类型进行分类处理。</p>
 <hr />
               
             </div>
