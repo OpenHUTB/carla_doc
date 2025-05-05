@@ -72,20 +72,25 @@
 <h1 id="carla-recorder">CARLA Recorder 模块说明文档</h1>
 <p>本文档详细介绍了 CARLA 模拟器中 CarlaRecorder 模块的主要功能、核心类与方法定义及其模块间依赖关系，旨在帮助开发者理解其录像与回放机制，并把握模块层次结构。</p>
 <hr />
-<h2 id="_1">📑 目录</h2>
+<h2 id="_1">目录</h2>
 <ol>
 <li><a href="#模块概述">模块概述</a></li>
 <li><a href="#主要类与职责">主要类与职责</a></li>
 <li><a href="#功能说明">功能说明</a></li>
+<li><a href="#初始化">初始化</a></li>
+<li><a href="#录像控制">录像控制</a></li>
+<li><a href="#回放控制">回放控制</a></li>
+<li><a href="#查询功能">查询功能</a></li>
 <li><a href="#关键数据结构">关键数据结构</a></li>
 <li><a href="#依赖模块与层级流程">依赖模块与层级流程</a></li>
 <li><a href="#附录包结构">附录：包结构</a></li>
 <li><a href="#附加模块carlarecorderanimbiker">附加模块：CarlaRecorderAnimBiker</a></li>
 <li><a href="#附加模块CarlaRecorderAnimVehicles">附加模块：CarlaRecorderAnimVehicles</a></li>
+<li><a href="#常见问题与调试建议">常见问题与调试建议</a></li>
 </ol>
 <hr />
 <h2 id="_2">模块概述</h2>
-<p>CarlaRecorder 模块主要负责 CARLA 中仿真数据的录制与回放操作。包括对车辆、行人、光照、碰撞等实体状态的记录、存储与回放控制。其实现涉及数据包编码、查询分析、时间控制等多个子模块。</p>
+<p>CarlaRecorder 模块是 CARLA 模拟器中实现仿真状态完整复现的关键组件。它负责在仿真运行时对车辆、行人、光照条件、碰撞等状态数据进行高效记录，并支持后续的精准回放。其核心功能包括数据采集、压缩编码、文件读写、时间控制及信息查询等。该模块特别适用于实验复现、调试定位及行为重构等应用场景。</p>
 <hr />
 <h2 id="_3">主要类与职责</h2>
 <table>
@@ -94,23 +99,27 @@
 <th>类名</th>
 <th>文件</th>
 <th>说明</th>
+<th>调用位置</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>ACarlaRecorder</code></td>
 <td><code>CarlaRecorder.h / CarlaRecorder.cpp</code></td>
-<td>主要控制类，继承自 Unreal 的 <code>AActor</code>，提供录像/回放接口。</td>
+<td>主要控制类，继承自 Unreal <code>AActor</code>，提供录像/回放接口。</td>
+<td>在主控制器（如 GameMode）中启动</td>
 </tr>
 <tr>
 <td><code>CarlaReplayer</code></td>
 <td><code>CarlaReplayer.h</code></td>
 <td>实现回放控制，包括时间倍率、忽略特定角色等设置。</td>
+<td>由 ACarlaRecorder::ReplayFile() 触发</td>
 </tr>
 <tr>
 <td><code>CarlaRecorderQuery</code></td>
 <td><code>CarlaRecorderQuery.h</code></td>
 <td>用于分析已录制文件的数据，如碰撞信息、阻塞信息等。</td>
+<td>用于脚本分析或命令行查询工具</td>
 </tr>
 </tbody>
 </table>
@@ -126,10 +135,22 @@
 <span class="kt">void</span><span class="w"> </span><span class="n">Disable</span><span class="p">()</span>
 <span class="kt">void</span><span class="w"> </span><span class="n">Ticking</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">DeltaSeconds</span><span class="p">)</span>
 </code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1">// 录像流程</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">Recorder</span><span class="p">.</span><span class="n">IsEnabled</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Recorder</span><span class="p">.</span><span class="n">Ticking</span><span class="p">(</span><span class="n">DeltaSeconds</span><span class="p">);</span>
+<span class="w">        </span><span class="err">└──</span><span class="o">&gt;</span><span class="w"> </span><span class="n">调用</span><span class="w"> </span><span class="n">Snapshot</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">记录实体状态</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">写入数据包</span>
+<span class="p">}</span>
+</code></pre></div>
 <p><code>Ticking()</code> 方法被定期调用以采集仿真状态</p>
 <p>使用 <code>PlatformTime</code> 与 <code>VisualTime</code> 跟踪物理时间与视觉时间</p>
 <p>与 <code>CarlaEpisode</code> 和 <code>FActorRegistry</code> 联动获取仿真环境信息</p>
-<h3 id="_7">回放控制</h3>
+<h3 id="_7">示例：如何开始一次录像</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// 开启录像</span>
+<span class="n">CarlaRecorder</span><span class="p">.</span><span class="n">Enable</span><span class="p">();</span>
+<span class="c1">// 运行一段时间后关闭</span>
+<span class="n">CarlaRecorder</span><span class="p">.</span><span class="n">Disable</span><span class="p">();</span>
+</code></pre></div>
+<h3 id="_8">回放控制</h3>
 <div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">ReplayFile</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">TimeStart</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">Duration</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">FollowId</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">ReplaySensors</span><span class="p">)</span>
 <span class="kt">void</span><span class="w"> </span><span class="n">SetReplayerTimeFactor</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">TimeFactor</span><span class="p">)</span>
 <span class="kt">void</span><span class="w"> </span><span class="n">SetReplayerIgnoreHero</span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="n">IgnoreHero</span><span class="p">)</span>
@@ -137,18 +158,19 @@
 <span class="kt">void</span><span class="w"> </span><span class="n">StopReplayer</span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="n">KeepActors</span><span class="p">)</span>
 </code></pre></div>
 <p>通过 <code>ReplayFile()</code> 加载文件并控制回放参数</p>
-<p>支持设置时间倍率与忽略特定角色</p>
-<p><code>StopReplayer()</code> 控制是否保留回放后生成的角色对象</p>
-<h3 id="_8">查询功能</h3>
+<p>支持设置时间倍率与忽略特定角色
+<code>SetReplayerTimeFactor()</code>：设置播放倍速
+<code>StopReplayer()</code> 控制是否保留回放后生成的角色对象</p>
+<h3 id="_9">查询功能</h3>
 <div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">ShowFileInfo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">bShowAll</span><span class="p">)</span>
 <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">ShowFileCollisions</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">Type1</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">Type2</span><span class="p">)</span>
 <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">ShowFileActorsBlocked</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">MinTime</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">MinDistance</span><span class="p">)</span>
 </code></pre></div>
-<p><code>QueryInfo()</code>：查看录制文件的基础信息</p>
-<p><code>QueryCollisions()</code>：查询特定对象类型之间的碰撞事件</p>
-<p><code>QueryBlocked()</code>：查找因距离/时间被阻挡的实体</p>
+<p><code>ShowFileInfo()</code>：查看录制文件的基础信息</p>
+<p><code>ShowFileCollisions()</code>：查询特定对象类型之间的碰撞事件</p>
+<p><code>ShowFileActorsBlocked()</code>：查找因距离/时间被阻挡的实体</p>
 <hr />
-<h2 id="_9">关键数据结构</h2>
+<h2 id="_10">关键数据结构</h2>
 <table>
 <thead>
 <tr>
@@ -172,10 +194,10 @@
 </tbody>
 </table>
 <hr />
-<h2 id="_10">依赖模块与层级流程</h2>
-<h3 id="_11">模块依赖流程图</h3>
+<h2 id="_11">依赖模块与层级流程</h2>
+<h3 id="_12">模块依赖流程图</h3>
 <p><img alt="模块依赖关系图" src="../../img/Recorder_dependency.svg" /></p>
-<h3 id="_12">各级说明</h3>
+<h3 id="_13">各级说明</h3>
 <p><strong>ACarlaRecorder（顶层控制器）</strong>
   提供录像和回放的主要接口，是模块的入口类。它控制 Replayer 和 Query 子模块的使用。</p>
 <p><strong>CarlaReplayer（回放控制器）</strong>
@@ -194,7 +216,7 @@
 <p><strong>CarlaRecorderHelper</strong>
   提供通用辅助函数，如读取头信息、数据解码、ID 映射等</p>
 <hr />
-<h2 id="_13">附录：包结构</h2>
+<h2 id="_14">附录：包结构</h2>
 <div class="highlight"><pre><span></span><code>Carla/
  ├── Source/
  │   └── Carla/
@@ -208,7 +230,7 @@
 <hr />
 <h2 id="carlarecorderanimbiker">附加模块：CarlaRecorderAnimBiker</h2>
 <p>该模块用于记录骑行者（骑车人）的动画数据，是 <code>Recorder</code> 系统中专门处理骑行者运动状态的子模块。</p>
-<h3 id="_14">主要结构体与类</h3>
+<h3 id="_15">主要结构体与类</h3>
 <table>
 <thead>
 <tr>
@@ -230,7 +252,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="_15">核心方法说明</h3>
+<h3 id="_16">核心方法说明</h3>
 <h4 id="carlarecorderanimbiker_1"><code>CarlaRecorderAnimBiker</code></h4>
 <p><code>void Write(std::ostream &amp;OutFile) const</code>
   将 <code>DatabaseId</code>、<code>ForwardSpeed</code>、<code>EngineRotation</code> 写入输出流</p>
@@ -247,17 +269,17 @@
   从输入流批量读取骑行者记录数据</p>
 <p><code>const std::vector&lt;CarlaRecorderAnimBiker&gt;&amp; GetBikers()</code>
   提供访问骑行者记录集合的只读引用</p>
-<h3 id="_16">数据格式规范</h3>
+<h3 id="_17">数据格式规范</h3>
 <p>该模块使用的数据包类型标识为 <code>CarlaRecorderPacketId::AnimBiker</code>，在录制/回放过程中可通过该标识对包类型进行分类处理。</p>
 <hr />
 <h1 id="carlarecorderanimvehicles">附加模块：CarlaRecorderAnimVehicles</h1>
 <hr />
-<h2 id="_17">模块概览</h2>
+<h2 id="_18">模块概览</h2>
 <p>该模块用于记录和管理多个车辆的动画信息，支持序列化读写操作，主要用于仿真环境中的数据回放、状态还原等功能场景。</p>
 <hr />
 <h2 id="carlarecorderanimvehicle">CarlaRecorderAnimVehicle 结构体</h2>
 <p>用于表示单个车辆在某一时刻的动画状态信息。</p>
-<h3 id="_18">成员变量说明</h3>
+<h3 id="_19">成员变量说明</h3>
 <table>
 <thead>
 <tr>
@@ -299,7 +321,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="_19">成员函数说明</h3>
+<h3 id="_20">成员函数说明</h3>
 <table>
 <thead>
 <tr>
@@ -327,7 +349,7 @@
 <hr />
 <h2 id="carlarecorderanimvehicles_1">CarlaRecorderAnimVehicles 类</h2>
 <p>用于管理多个车辆动画信息对象，并提供读写与集合操作功能。</p>
-<h3 id="_20">成员函数说明</h3>
+<h3 id="_21">成员函数说明</h3>
 <table>
 <thead>
 <tr>
@@ -370,7 +392,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="_21">成员变量说明（私有）</h3>
+<h3 id="_22">成员变量说明（私有）</h3>
 <table>
 <thead>
 <tr>
@@ -388,11 +410,11 @@
 </tbody>
 </table>
 <hr />
-<h2 id="_22">内存与对齐优化</h2>
+<h2 id="_23">内存与对齐优化</h2>
 <p>使用 <code>#pragma pack(push, 1)</code> 和 <code>#pragma pack(pop)</code> 精确控制结构体的字节对齐方式（1 字节对齐），以确保与二进制数据一致，便于持久化与传输。
 使用 <code>#pragma once</code> 避免头文件重复包含，保证编译效率与正确性。</p>
 <hr />
-<h2 id="_23">模块功能总结</h2>
+<h2 id="_24">模块功能总结</h2>
 <table>
 <thead>
 <tr>
@@ -425,7 +447,7 @@
 <hr />
 <h2 id="1-struct-wheelinfo">1. <code>struct WheelInfo</code></h2>
 <p>表示单个车轮的动画状态。该结构体通过 <code>#pragma pack(push, 1)</code> 控制内存对齐为 1 字节，以便高效序列化。</p>
-<h3 id="_24">成员变量</h3>
+<h3 id="_25">成员变量</h3>
 <table>
 <thead>
 <tr>
@@ -452,7 +474,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="_25">方法</h3>
+<h3 id="_26">方法</h3>
 <h4 id="void-writestdostream-outfile-const"><code>void Write(std::ostream &amp;OutFile) const</code></h4>
 <p>将 <code>WheelInfo</code> 写入二进制输出流。</p>
 <h4 id="void-readstdistream-infile"><code>void Read(std::istream &amp;InFile)</code></h4>
@@ -460,7 +482,7 @@
 <hr />
 <h2 id="2-struct-carlarecorderanimwheels">2. <code>struct CarlaRecorderAnimWheels</code></h2>
 <p>表示单辆车的所有车轮动画状态集合。</p>
-<h3 id="_26">成员变量</h3>
+<h3 id="_27">成员变量</h3>
 <table>
 <thead>
 <tr>
@@ -482,7 +504,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="_27">方法</h3>
+<h3 id="_28">方法</h3>
 <h4 id="void-writestdostream-outfile"><code>void Write(std::ostream &amp;OutFile)</code></h4>
 <p>写入车辆 ID 和所有轮胎信息到输出流。</p>
 <h4 id="void-readstdistream-infile_1"><code>void Read(std::istream &amp;InFile)</code></h4>
@@ -490,7 +512,7 @@
 <hr />
 <h2 id="3-class-carlarecorderanimvehiclewheels">3. <code>class CarlaRecorderAnimVehicleWheels</code></h2>
 <p>负责管理 <strong>多辆车的轮胎动画信息</strong>，可用于录制与回放。</p>
-<h3 id="_28">成员变量</h3>
+<h3 id="_29">成员变量</h3>
 <table>
 <thead>
 <tr>
@@ -507,7 +529,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="_29">方法</h3>
+<h3 id="_30">方法</h3>
 <h4 id="void-addconst-carlarecorderanimwheels-inobj"><code>void Add(const CarlaRecorderAnimWheels &amp;InObj)</code></h4>
 <p>添加一辆车的轮胎动画数据。</p>
 <h4 id="void-clearvoid"><code>void Clear(void)</code></h4>
@@ -525,6 +547,25 @@
 <p>读取车辆数量与每辆车的轮胎信息。</p>
 <h4 id="const-stdvectorcarlarecorderanimwheels-getvehiclewheels"><code>const std::vector&lt;CarlaRecorderAnimWheels&gt;&amp; GetVehicleWheels()</code></h4>
 <p>返回所有车辆轮胎数据的引用。</p>
+<h2 id="_31">常见问题与调试建议</h2>
+<ul>
+<li><strong>问题：录像文件无法加载</strong></li>
+<li>请检查路径是否正确，录制时是否成功写入磁盘。</li>
+<li>
+<p>使用 <code>ShowFileInfo()</code> 方法检查文件结构是否完整。</p>
+</li>
+<li>
+<p><strong>问题：回放时某些角色未出现</strong></p>
+</li>
+<li>检查是否设置了 <code>IgnoreHero</code> 或 <code>IgnoreSpectator</code> 为 true。</li>
+<li>
+<p>确认相关角色在录制期间已生成并被记录。</p>
+</li>
+<li>
+<p><strong>调试建议：</strong></p>
+</li>
+<li>使用 <code>QueryCollisions()</code> 对回放数据进行验证，分析实体是否按预期交互。</li>
+</ul>
 <hr />
               
             </div>
