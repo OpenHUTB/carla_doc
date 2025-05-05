@@ -13,7 +13,6 @@
 - [5. NeuralModelImpl 结构体](#5-NeuralModelImpl-结构体)
 - [6. NeuralModel 类接口](#6-NeuralModel-类接口)
 - [7. 整体调用流程](#7-整体调用流程)
-<<<<<<< HEAD
 
 
 ## 1. 项目概述
