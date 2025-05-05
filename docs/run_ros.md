@@ -75,7 +75,7 @@ roslaunch carla_ros_bridge carla_ros_bridge.launch passive:=True
 	*  __如果是 true （默认）__: ROS 桥在下一个节拍之前等待所有预期的传感器消息。这可能会减慢整个模拟的速度，但可以确保结果的可重复性。
 *  __synchronous_mode_wait_for_vehicle_control_command__: 在同步模式下，暂停计时直到车辆控制完成。
 *  __fixed_delta_seconds__: 模拟步骤之间的模拟时间（增量秒）。__它必须低于 0.1__。查看 [文档](https://carla.readthedocs.io/en/latest/adv_synchrony_timestep/) 以了解更多相关信息。
-*  __ego_vehicle__: 用于识别自我车辆的参与者名称。将创建相关主题，以便能够通过 ROS 控制这些车辆。
+*  __ego_vehicle__: 用于识别自主车辆的参与者名称。将创建相关主题，以便能够通过 ROS 控制这些车辆。
 * __town__: 使用可用的 Carla 城镇（例如“town01”）或 OpenDRIVE 文件（以 `.xodr` 结尾）。
 *  __register_all_sensors__:
 	*  __如果是 false__: 仅注册桥生成的传感器。
@@ -102,9 +102,9 @@ rqt --standalone rqt_carla_control
 
 ---
 
-## 自我车辆控制
+## 自主车辆控制
 
-有两种控制自我车辆的模式：
+有两种控制自主车辆的模式：
 
 1. 正常模式 - 从 `/carla/<ROLE NAME>/vehicle_control_cmd` 读取命令
 2. 手动模式 - 从  `/carla/<ROLE NAME>/vehicle_control_cmd_manual` 读取命令。这允许手动覆盖软件堆栈发布的车辆控制命令。
@@ -137,7 +137,7 @@ ros2 topic pub /carla/ego_vehicle/vehicle_control_cmd carla_msgs/CarlaEgoVehicle
 
 当前车辆的状态可以通过主题 `/carla/<ROLE NAME>/vehicle_status` 获得。有关车辆的静态信息可以通过`/carla/<ROLE NAME>/vehicle_info`接收.
 
-可以使用 [AckermannDrive](https://docs.ros.org/en/api/ackermann_msgs/html/msg/AckermannDrive.html) 消息来控制自我车辆。这可以通过使用 [Carla 阿克曼控制](carla_ackermann_control.md) 包来实现。
+可以使用 [AckermannDrive](https://docs.ros.org/en/api/ackermann_msgs/html/msg/AckermannDrive.html) 消息来控制自主车辆。这可以通过使用 [Carla 阿克曼控制](carla_ackermann_control.md) 包来实现。
 
 ---
 

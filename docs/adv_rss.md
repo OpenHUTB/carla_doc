@@ -49,7 +49,7 @@ __4. RssRestrictor__
 - 如果客户端请求，则将响应应用于 [carla.VehicleControl](python_api.md#carla.VehicleControl)，并返回结果。
 
 [![RSS sensor in Carla](img/rss_carla_integration.png)](https://www.youtube.com/watch?v=UxKPXPT2T8Q)
-<div style="text-align: right"><i>结果的可视化。</i></div>
+<div style="text-align: center"><i>结果的可视化。</i></div>
 
 ---
 ## 编译 <span id="compilation"></span>

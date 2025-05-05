@@ -22,8 +22,10 @@ except ImportError:
     from Queue import Queue as Queue
     from Queue import Empty
 
+
 class DeterminismError(Exception):
     pass
+
 
 class Scenario(object):
     def __init__(self, client, world, save_snapshots_mode=False):
@@ -50,7 +52,7 @@ class Scenario(object):
         # workaround: give time to UE4 to clean memory after loading (old assets)
         time.sleep(5)
 
-        # Init timestamp
+        # 初始化时间戳
         snapshot = self.world.get_snapshot()
         self.init_timestamp = {'frame0' : snapshot.frame, 'time0' : snapshot.timestamp.elapsed_seconds}
 
@@ -87,7 +89,7 @@ class Scenario(object):
             self.reset_spectator(spectator_tr)
 
         self.client.reload_world(False)
-        # workaround: give time to UE4 to clean memory after loading (old assets)
+        # 变通方法：给时间让UE4在加载后清理内存（旧资产） workaround: give time to UE4 to clean memory after loading (old assets)
         time.sleep(5)
 
     def reset_spectator(self, spectator_tr):
@@ -191,7 +193,7 @@ class Scenario(object):
         self.sensor_queue.put((radar_data.frame, name))
 
     def sensor_syncronization(self):
-        # Sensor Syncronization
+        # 传感器同步
         w_frame = self.world.get_snapshot().frame
         for sensor in self.sensor_list:
             s_frame = self.sensor_queue.get(True, 15.0)[0]
@@ -202,6 +204,7 @@ class Scenario(object):
             if w_frame != s_frame:
                 raise DeterminismError("FrameSyncError: Frames are not equal for sensor %s: %d %d"
                                        % (sensor[0], w_frame, s_frame))
+
 
 class SpawnAllRaycastSensors(Scenario):
     def init_scene(self, prefix, settings = None, spectator_tr = None):
@@ -245,6 +248,7 @@ class SpawnAllRaycastSensors(Scenario):
 
         self.wait(1)
 
+
 class SensorScenarioTester():
     def __init__(self, scene, output_path):
         self.scene = scene
@@ -254,8 +258,7 @@ class SensorScenarioTester():
         self.output_path = output_path
 
     def compare_files(self, file_i, file_j):
-        # First, we check if the files are exactly equal,
-        # if they are the simulations are equivalent
+        # 首先，我们检查文件是否完全相等，如果相等，则模拟是否等效
         check_ij = filecmp.cmp(file_i, file_j)
         if check_ij:
             return True

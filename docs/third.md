@@ -15,3 +15,7 @@
 [__RoadRunner__](https://ww2.mathworks.cn/help/roadrunner/index.html) — 用于构建静态场景
 
 [__RoadRunner Scenario__](https://ww2.mathworks.cn/help/roadrunner-scenario/index.html) — 用于构建动态交通场景
+
+[TRL驾驶模拟](https://www.trl.co.uk/solutions/driving-simulator) - 包括实车的人类驾驶操作仿真（公司），包含演示的视频 [链接](https://www.nvidia.com/en-us/on-demand/session/gtc24-s62468/) 。 
+
+[使用 CARLA 进行开源自动驾驶汽车仿真](https://www.nvidia.com/en-us/on-demand/session/gtc24-s62468/) - Carla领导者German Ros的报告，包括和Omniverse Cloud集成。

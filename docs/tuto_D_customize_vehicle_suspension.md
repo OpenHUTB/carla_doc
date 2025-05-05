@@ -21,7 +21,7 @@
 *   `R` 或 `L` 应地用于右轮或左轮。 
 
 ![tuto_suspension_blueprints](img/tuto_suspension_blueprints.jpg)
-<div style="text-align: right"><i>在本例中，奥迪A2左前轮的蓝图命名为 <code>BP_AudiA2_FLW</code>.</i></div>
+<div style="text-align: center"><i>在本例中，奥迪A2左前轮的蓝图命名为 <code>BP_AudiA2_FLW</code>.</i></div>
 
 `shape_radius` 让车轮停在路面上，既不悬停也不在路面内部。
 
@@ -35,7 +35,7 @@
 *   `Sweep Type` — 车轮悬架是否考虑简单、复杂或两者兼而有之。
 
 ![tuto_suspension_parameterization](img/tuto_suspension_parameterization.jpg)
-<div style="text-align: right"><i>车轮蓝图中的悬架面板。</i></div>
+<div style="text-align: center"><i>车轮蓝图中的悬架面板。</i></div>
 
 !!! 笔记
     默认情况下，车辆的所有车轮在 Carla 中具有相同的参数化。以下解释将按车辆而不是按车轮进行介绍。 
@@ -120,8 +120,8 @@
 
 <div class="build-buttons">
 <p>
-<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-Carla 论坛</a>
+<a href="https://github.com/OpenHUTB/carla_doc/issues" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
+讨论页面</a>
 </p>
 </div>
 
