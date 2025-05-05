@@ -70,16 +70,53 @@
               
                 <h1 id="_1">游戏蓝图</h1>
 <h2 id="spectator">观察者 <a href="https://bitbucket.org/carla-simulator/carla-content/src/master/Blueprints/Game/Spectator.uasset">Spectator</a></h2>
+<p>CARLA 的 Spectator（观察者）是一个用于自由视角浏览模拟世界的角色。该蓝图控制了相机的移动、旋转、视场角（FOV）调整及相关输入响应行为，适用于调试、观察交通场景或记录图像等任务。</p>
+<h2 id="_2">核心事件和输入响应</h2>
+<h3 id="tick">事件Tick：</h3>
+<p><strong>功能</strong>：在每一帧中持续调用，用于处理视角更新和速度调整。</p>
+<p><strong>具体行为</strong>： 
+* 检测输入按键状态，决定相机的移动方向（前/后、左/右、上/下）；
+* 根据按下的加速键（如Shift）动态调整移动速度；
+* 处理鼠标输入用于控制相机俯仰与偏航，实现视角旋转；
+* 动态调节相机的视场角（FOV），通常配合鼠标滚轮。</p>
+<h3 id="shiftleft-shift">左Shift（Left Shift） ：</h3>
+<p><strong>按下时</strong>
+* 增加相机移动速度，实现快速位移；
+* 设置加速度状态标志，用于 Tick 事件中提升移动速率。</p>
+<p><strong>松开时</strong>
+* 恢复默认移动速度
+* 重复加速标志</p>
+<h3 id="z">鼠标右键（Z键）</h3>
+<p><strong>按下时</strong>
+* 启用自由视角旋转模式；
+* 鼠标移动将控制相机的方向（pitch 和 yaw）。</p>
+<p><strong>松开时</strong>
+* 禁用自由视角旋转；
+* 保持当前视角方向。</p>
+<h3 id="_3">鼠标中键</h3>
+<p><strong>按下时</strong>
+* 通常用于切换某些辅助功能，例如启用 HUD（若与 HUD 系统挂钩）；
+* 可用于重置 FOV / 镜头状态</p>
+<p><strong>松开时</strong>
+* 执行收尾或复原操作。</p>
+<h3 id="f12">F12</h3>
+<p><strong>功能</strong>：截图当前画面并保存至本地。
+<strong>行为描述</strong>
+* 捕获当前游戏窗口图像；
+* 将图像保存到路径（保存当前界面的截图到<code>Unreal\CarlaUE4\Saved\Screenshots\Windows</code>目录中）；
+* 默认分辨率为 1920 x 1080，可以通过控制台命令覆盖设置；
+<strong>应用场景</strong>
+  * 数据采集：记录场景图像用于训练或验证；
+  * 调试场景：生成高分辨率图像排查可视化问题；
+  * 演示素材：生成文档或展示用截图。</p>
+<h3 id="_4">其他可扩展功能</h3>
 <ul>
-<li><strong>事件Tick</strong>：Tick 后每帧调用的事件，依次更新相机移动、相机旋转、速度、视场角（FOV）；</li>
-<li><strong>左Shift</strong>：按下或松开Shift键时所对应的事件；</li>
-<li><strong>Z</strong>：按下或松开Z键时所对应的事件 -&gt; 按下或松开鼠标右键时所对应的事件，</li>
-<li><strong>鼠标中键</strong>：按下或松开鼠标中键时所对应的事件；</li>
-<li></li>
+<li><strong>滚轮缩放 FOV</strong>：允许用户通过滚轮缩放视角，模仿“望远镜”功能；</li>
+<li><strong>Tab 切换不同摄像头视角</strong>：在预设观测点或多个车辆间快速切换；</li>
+<li><strong>可配置快捷键</strong>：将按键映射集中到数据表或配置文件中，便于重定义；</li>
+<li><strong>位置记录/回放</strong>：允许记录当前摄像机轨迹并进行回放操作（适用于自动巡航场景演示）；</li>
+<li><strong>头部跟踪集成</strong>：接入 VR 设备或头戴追踪器，实现更自然的观察体验。</li>
 </ul>
-<h3 id="f12"><strong>F12</strong></h3>
-<p>按下或松开F12键时所对应的事件（保存当前界面的截图到<code>Unreal\CarlaUE4\Saved\Screenshots\Windows</code>目录中）；</p>
-<p>执行控制台命令，默认分辨率为1920×1080。</p>
               
             </div>
           </div><footer>
