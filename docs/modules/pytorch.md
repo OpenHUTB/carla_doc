@@ -41,7 +41,7 @@
 ### 3.1 add_mark
 - **作用**：空壳函数，用于在代码中插入标记，便于日志或调试
 - **参数**：`text` — 标记文本，不作实际处理
-- **源码链接**：更多细节请参 [pytorch.cpp 源码](https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L20)
+- **源码链接**：更多细节请参 [pytorch.cpp 源码第20行](https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L20)
 
 ------
 
@@ -50,19 +50,21 @@
 该命名空间封装了与轮子动力学及模型推理相关的核心函数。
 
 ### 4.1 test_learning
-- **源码参考**: [pytorch.cpp 源码](https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L27)
+- **源码参考**: [pytorch.cpp 源码第27行](https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L27)
 - **功能**：打印 torchcluster 和 torchscatter 的 CUDA 版本，验证环境
 
 - **示例输出**：
 
   ```
-  pgsql复制编辑cuda version X.Y
+  pgsql
+  
+  cuda version X.Y
   cuda version X.Y
   ```
 
 ### 4.2 GetWheelTensorInputs 
 
-- **源码参考**: [pytorch.cpp 源码](https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L37)
+- **源码参考**: [pytorch.cpp 源码第37行](https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L37)
 - **输入**：WheelInput 结构体，包含：
   - particles_positions (float*)
   - particles_velocities (float*)
@@ -78,7 +80,7 @@
 
 ### 4.3 GetWheelTensorOutput  
 
-- **源码参考**:[pytorch.cpp 源码](https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L74)
+- **源码参考**:[pytorch.cpp 源码第74行](https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L74)
 - **输入**：
   - particle_forces：形状 [num_particles, 3] 张量
   - wheel_forces：长度 6 张量（力 xyz + 扭矩 xyz）
@@ -89,14 +91,14 @@
 
 ### 4.4 GetWheelTensorOutputDynamic 
 
-- **源码参考**: [pytorch.cpp 源码](https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L107)
+- **源码参考**: [pytorch.cpp 源码第107行](https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L107)
 - **功能**：与 GetWheelTensorOutput 相同，用于“动态”推理后的后处理
 
 ------
 
 ## 5. NeuralModelImpl 结构体
 
-- **源码参考**: [pytorch.cpp 源码](https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L133)
+- **源码参考**: [pytorch.cpp 源码第133行](https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L133)
 - **成员变量**：
   - module：已加载的 TorchScript 模型
   - particles_*_tensors：可选的缓存张量队列（当前未深入使用）
@@ -105,7 +107,7 @@
 
 ### 5.1 GetWheelTensorInputsCUDA
 
-- **源码参考**: [pytorch.cpp 源码](https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L150)
+- **源码参考**: [pytorch.cpp 源码第150行](https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L150)
 - **功能**：与 GetWheelTensorInputs 相同，但创建后立即 `.cuda()` 并附加 wheel_idx 信息
 - **用途**：并行推理时区分不同车轮
 
@@ -115,12 +117,14 @@
 
 该类对外暴露模型加载、输入设置、推理和结果获取接口。
 
-**源码参考**: [pytorch.cpp 源码](https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L187)
+**源码参考**: [pytorch.cpp 源码第187行](https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L187)
 
 ### 6.1 构造与析构
 
 ```
-cpp复制编辑NeuralModel::NeuralModel()
+cpp
+
+NeuralModel::NeuralModel()
 NeuralModel::~NeuralModel()
 ```
 
@@ -131,8 +135,6 @@ NeuralModel::~NeuralModel()
 ```
 cpp
 
-
-复制编辑
 void NeuralModel::LoadModel(char* filename, int device)
 ```
 
@@ -147,8 +149,6 @@ void NeuralModel::LoadModel(char* filename, int device)
 ```
 cpp
 
-
-复制编辑
 void NeuralModel::SetInputs(Inputs input)
 ```
 
@@ -156,7 +156,7 @@ void NeuralModel::SetInputs(Inputs input)
 
 ### 6.4 推理：Forward
 
-- **源码参考**: [pytorch.cpp 源码](https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L219)
+- **源码参考**: [pytorch.cpp 源码第219行](https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L219)
 - **流程**：
   1. 调用 GetWheelTensorInputs 构建四组车轮张量
   2. 驾驶命令（steering, throttle, braking）及 optional terrain_type、verbose
@@ -176,7 +176,7 @@ void NeuralModel::SetInputs(Inputs input)
 
 ### 6.7 结果获取：GetOutputs
 
-- **源码参考**: [pytorch.cpp 源码](https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L246)
+- **源码参考**: [pytorch.cpp 源码第246行](https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L246)
 - **功能**：返回内部 _output，包含四个 WheelOutput
 
 ------
@@ -187,6 +187,7 @@ void NeuralModel::SetInputs(Inputs input)
 
    ```
    cpp
+   
    NeuralModel model;
    model.LoadModel("mymodel.pt", /*device=*/0);
    ```
@@ -195,6 +196,7 @@ void NeuralModel::SetInputs(Inputs input)
 
    ```
    cpp
+   
    Inputs inp = /* 构造 WheelInput + 操作指令 */;
    model.SetInputs(inp);
    ```
