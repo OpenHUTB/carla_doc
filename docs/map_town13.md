@@ -39,7 +39,7 @@ __Carla 坐标__:
 * __Y__:  <span id="carlacoord_y" style="animation: fadeMe 2s;">--</span>
 
 
-双击兴趣点后，导航器将显示相应的 Carla 坐标并在以下代码块中更新它们。将代码复制并粘贴到笔记本或 Python 终端中，将观众移动到所需的位置。您首先需要 [连接客户端并设置世界对象](tuto_first_steps.md#launching-carla-and-connecting-the-client) ：
+双击兴趣点后，导航器将显示相应的 Carla 坐标并在以下代码块中更新它们。将代码复制并粘贴到笔记本或 Python 终端中，将观察者移动到所需的位置。您首先需要 [连接客户端并设置世界对象](tuto_first_steps.md#launching-carla-and-connecting-the-client) ：
 
 ```py
 # Carla 坐标: X 0.0, Y 0.0

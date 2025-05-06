@@ -61,7 +61,7 @@ python3 config.py -x opendrive/TownBig.xodr
 发生，尤其是在不平坦的车道连接处。
 
 ![opendrive_meshissue](img/opendrive_meshissue.jpg)
-<div style="text-align: right"><i>在生成交汇点网格时，较高的车道往往会阻挡下方的车道。 <br><code>smooth_junctions</code> 参数可防止此类问题。</i></div>
+<div style="text-align: center"><i>在生成交汇点网格时，较高的车道往往会阻挡下方的车道。 <br><code>smooth_junctions</code> 参数可防止此类问题。</i></div>
 
 除此之外，不是将整个地图创建为一个独特的网格，而是创建不同的部分。通过划分网格，模拟器可以避免渲染不可见的部分，并节省成本。工作更小还允许生成巨大的地图并包含可能出现在网格的一小部分上的问题。
 

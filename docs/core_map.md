@@ -54,7 +54,7 @@ print(client.get_available_maps())
 
 OpenDRIVE 文件中定义的交通标志将转换为 Carla，作为可从 API 查询的地标对象。以下方法和类可用于操作和使用地标对象：
 
-- __[`carla.Landmark`](https://carla.readthedocs.io/en/latest/python_api/#carla.Landmark)__ 对象代表 OpenDRIVE 信号。该类的属性和方法描述了地标及其影响区域。
+- __[`carla.Landmark`](python_api.md#carla.Landmark)__ 对象代表 OpenDRIVE 信号。该类的属性和方法描述了地标及其影响区域。
 	- [`carla.LandmarkOrientation`](https://carla.readthedocs.io/en/latest/python_api/#carla.LandmarkOrientation) 说明地标相对于道路几何定义的方向。
 	- [`carla.LandmarkType`](https://carla.readthedocs.io/en/latest/python_api/#carla.LandmarkType) 包含常见的地标类型，以便于转换为 OpenDRIVE 类型。
 - __[`carla.Waypoint`](https://carla.readthedocs.io/en/latest/python_api/#carla.Waypoint)__ 可以获得位于其前方一定距离的地标。可以指定要获取的地标类型。
@@ -256,19 +256,19 @@ Carla 生态系统中有八个城镇，每个城镇都有两种地图，非分�
 | **[Town04](img/Town04.jpg)**                                          | 有高速公路和小镇的无限循环。                                                                                                                                |
 | **[Town05](img/Town05.jpg)**                                          | 方形网格城镇，有十字路口和一座桥梁。每个方向有多个车道。对于执行变道很有用。                                                                                                        |
 | **[Town06](img/Town06.jpg)**                                          | 高速公路长，有许多高速公路入口和出口。它还有一个 [**密歇根左转**](<https://en.wikipedia.org/wiki/Michigan_left>)。                                                          |
-| **[Town07](img/Town07.jpg)**                                          | 乡村环境，道路狭窄，谷仓，几乎没有红绿灯。                                                                                                                         |
+| **[Town07](img/Town07.jpg)**                                          | 乡村环境，道路狭窄，谷仓，几乎没有交通信号灯。                                                                                                                         |
 | **[Town10](img/Town10.jpg)**                                          | 具有大道或长廊等不同环境的城市环境，以及更真实的纹理（[UE5 Town10](https://pan.baidu.com/s/1q96tyOIMJjpCw5KwL0qnsQ?pwd=hutb) `car/Carla_UE5/Carla_UE5_Windows.exe.zip`）。 |
 | **[Town11](map_town11.md)**                                           | 具有大道或长廊等不同环境的城市环境，以及更真实的纹理。                                                                                                                   |
 | **[Town12](map_town12.md)**                                           | 一张包含许多不同区域的大地图，包括高层建筑、住宅区和乡村环境。                                                                                                               |
 | [__Town13__](map_town13.md)                                           | 一张与 12 号镇规模相似的大地图，但具有鲜明的特色。                                                                                                                   |
 | [__Town15__](map_town15.md)                                           | 基于巴塞罗那自治大学道路布局的地图。                                                                                                                            |
-| [__湖南工商大学__](https://pan.baidu.com/s/1q96tyOIMJjpCw5KwL0qnsQ?pwd=hutb)  | 基于湖南工商大学道路布局的地图（位于`car/湖南工商大学.zip`，其资产位于 [链接](https://bitbucket.org/openhutb/carla-content/src/OpenHUTB/) ，[导入方法](tutorial/import_HUTB.md) ）。     |
+| [__湖南工商大学__](https://pan.baidu.com/s/1q96tyOIMJjpCw5KwL0qnsQ?pwd=hutb)  | 基于湖南工商大学道路布局的地图（位于`car/湖南工商大学.zip`，其资产位于 [链接](https://bitbucket.org/hutbcity/openhutbcarla/src/main/) ，[导入方法](tutorial/import_HUTB.md) ）。     |
 | [__中电软件园__](https://pan.baidu.com/s/1q96tyOIMJjpCw5KwL0qnsQ?pwd=hutb) | 基于长沙市中电软件园道路布局的地图（位于`car/中电软件园/WindowsNoEditor.zip`）。                                                                                         |
 
 
 ### 分层地图 <span id="layered-maps"></span>
 
-分层地图的布局与非分层地图相同，但可以关闭和打开地图的图层。有一个无法关闭的最小布局，由道路、人行道、交通灯和交通标志组成。分层地图可以通过后缀 `_Opt` 来标识，例如`Town01_Opt`。使用这些地图，可以通过 Python API [加载][load_layer]和[卸载][unload_layer]图层：
+分层地图的布局与非分层地图相同，但可以关闭和打开地图的图层。有一个无法关闭的最小布局，由道路、人行道、交通信号灯和交通标志组成。分层地图可以通过后缀 `_Opt` 来标识，例如`Town01_Opt`。使用这些地图，可以通过 Python API [加载][load_layer]和[卸载][unload_layer]图层：
 
 	# 加载 城镇01 的分层地图，带有最小布局加上建筑物和停放的车辆
 	world = client.load_world('Town01_Opt', carla.MapLayer.Buildings | carla.MapLayer.ParkedVehicles)
