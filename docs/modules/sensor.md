@@ -40,7 +40,7 @@ CARLA 所有传感器，包括 `sensor.other.collision`，均基于统一的 Act
 
 该结构体用于封装一次碰撞事件中涉及的核心物理信息，包含了事件发生时涉及的两个 Actor 以及碰撞时的冲击力矢量。该信息可用于事后分析、行为回放、异常检测或损伤评估等场景。
 
-```cpp
+```
 struct CollisionEvent {
   rpc::Actor self_actor;           // 当前传感器绑定的主对象（通常为车辆）
   rpc::Actor other_actor;          // 与主对象发生碰撞的对方对象
@@ -64,7 +64,7 @@ struct CollisionEvent {
 
 ### 4.1 数据托运结构定义
 
-```cpp
+```
 struct Data {
   rpc::Actor self_actor;
   rpc::Actor other_actor;
@@ -78,7 +78,7 @@ struct Data {
 
 ### 4.2 序列化函数（服务端）
 
-```cpp
+```
 template <typename SensorT>
 static Buffer Serialize(
     const SensorT &,
@@ -94,7 +94,7 @@ static Buffer Serialize(
 
 ### 4.3 反序列化函数（客户端）
 
-```cpp
+```
 static SharedPtr<SensorData> Deserialize(RawData &&data) {
   return SharedPtr<SensorData>(new data::CollisionEvent(std::move(data)));
 }
@@ -111,7 +111,7 @@ static SharedPtr<SensorData> Deserialize(RawData &&data) {
 
 CARLA 模拟器中，所有传感器数据的底层表示均基于 `RawData` 对象，它是传输层统一的字节容器。而结构化信息则通过继承自 `SensorData` 的子类表示。
 
-```cpp
+```
 // 底层传输容器
 class RawData {
 public:
@@ -255,7 +255,7 @@ sensor.listen(on_collision)
 
 ### 3.1 接口定义（NoopSerializer.h）
 
-```cpp
+```
 /// Dummy serializer that blocks all the data.
 /// Use it as serializer for client-side sensors that do not send any data.
 class NoopSerializer {
@@ -271,7 +271,7 @@ public:
 
 ### 3.2 函数实现（NoopSerializer.cpp）
 
-```cpp
+```
 SharedPtr<SensorData> NoopSerializer::Deserialize(RawData &&) {
   // 无条件抛出异常，标明此序列化器不接受任何输入
   throw_exception(std::runtime_error("NoopSerializer: Invalid data received."));
