@@ -73,7 +73,7 @@ _为了简单起见，我们不会考虑所有的边缘情况，也不会以最�
   * `Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/SafeDistanceSensor.h`
   * `Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/SafeDistanceSensor.cpp`
 
-最起码，传感器需要继承`ASensor`，并提供获取传感器属性定义的静态方法`GetSensorDefinition`；但我们还将重写`Set`、 `SetOwner`、`Tick`方法。该传感器还需要一个触发盒来检测我们周围的其他参与者。有了这个和一些必需的虚幻引擎4 样板代码，头文件看起来像
+最起码，传感器需要继承`ASensor`，并提供获取传感器属性定义的静态方法`GetSensorDefinition`；但我们还将重写`Set`、`SetOwner`、`Tick`方法。该传感器还需要一个触发盒来检测我们周围的其他参与者。有了这个和一些必需的虚幻引擎 4 样板代码，头文件看起来像
 
 ```cpp
 #pragma once

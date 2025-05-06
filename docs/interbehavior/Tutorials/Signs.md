@@ -1,155 +1,165 @@
-# Adding custom signs in the Carla world
+# 在 Carla 世界中添加定制的标志
 
-## What is this?
-It is often useful to have participants in an experiment know what directions to take in a natural manner without manual intervention. In Carla this is not a problem since all the drivers are AI controllers, but for humans we can't simply ingest a text file denoting waypoints and directions. This is where in-environment directional signs can be of use. Unfortunately, Carla does not provide any (since this is not a problem for them) and there were enough steps to warrant a guide, so here you go. 
+## 简介
+让实验参与者自然地知道要采取什么方向，而无需人工干预，这通常很有用。在 Carla 中这不是问题，因为所有驾驶员都是 AI 控制器，但对于人类来说，我们不能简单地获取表示路点和方向的文本文件。这就是环境中的方向标志可以发挥作用的地方。不幸的是，Carla 没有提供任何方向标志（因为这对他们来说不是问题），而且有足够多的步骤需要指南，所以请看这里。
 
-This guide will show you how to create your own custom signs and place them in any Carla level (*Technically, the guide can work to add any custom props in Carla, not just signs*)
-- The steps are as follows:
-  1. Create the sign textures (rgb/normals)
-  2. Create the sign mesh/material
-  3. Apply the materials onto a blueprint
-  4. Manually place the blueprint into the world
-  5. **Optional:** Register the new sign with the blueprint library
+本指南将向您展示如何创建自己的自定义标志并将其放置在任何 Carla 关卡中（*从技术上讲，该指南可以在 Carla 中添加任何自定义道具，而不仅仅是标志*）
 
-## Getting started
-Sign textures can be found in Carla in the `carla/Unreal/CarlaUE4/Content/Carla/Static/TrafficSign/` directory. 
+- 步骤如下：
 
-For example, you should see a directory that looks like this:
+1. 创建标志纹理（RGB/法线）
+2. 创建标志网格/材质
+3. 将材质应用到蓝图上
+4. 手动将蓝图放入世界中
+5. **可选：** 使用蓝图库注册新标志
+
+## 入门
+可以在 Carla 中的 `carla/Unreal/CarlaUE4/Content/Carla/Static/TrafficSign/` 目录中找到标志纹理。
+
+例如，您应该看到如下所示的目录：
 
 ![SignDirectory](../Figures/Signs/directory.jpg)
 
-Notice how all the models have a corresponding directory (some are cut off in the screenshot). These are where the static meshes and textures are defined so they can be used on these sign-shaped blueprints. 
+请注意，所有模型都有相应的目录（屏幕截图中有些被截断了）。这些是定义静态网格和纹理的地方，因此它们可以在这些标志形蓝图上使用。
 
-- For the rest of this guide, we'll focus on using the `NoTurn` directory that looks like this when opened in the content browser:
+- 对于本指南的其余部分，我们将重点介绍使用 `NoTurn` 目录，该目录在内容浏览器中打开时如下所示：
 ![NoTurnDir](../Figures/Signs/no_turn_dir.jpg)
 
-- From left to right these are the **Material Instance** (`M_` prefix), **Static Mesh** (`SM_` prefix), **Texture RGB** (`__0` suffix), and **Texture Normals** (`_n` suffix)
+- 从左到右依次为 **Material Instance** (`M_` 前缀), **Static Mesh** (`SM_` 前缀), **Texture RGB** (`__0` 后缀), 和 **Texture Normals** (`_n` 后缀)
 
-## Step 1: Creating the sign textures
-The "NO TURN" sign serves as a good baseline for creating our custom signs, though any signs can be used as a starting point. 
+## 步骤 1：创建标志纹理
+“禁止转弯(NO TURN)”标志是创建自定义标志的良好基础，尽管任何标志都可以作为起点。
 
-Now, you can screenshot the image (or find its source file in Details->File Path) to get a `.jpg` of the desired texture, then clear out the original text ("NO TURN") so it is a blank canvas. For your convenience we have a blank "NO TURN" sign already provided in [`Content/Static/DefaultSign.jpg`](../../Content/Static/DefaultSign.jpg)
-- Notice how the bottom right corner of these images has is a small gray-ish region. This is actually for the rear of the sign so that when it is applied on to the models, the rear has this metallic surface. 
-  - This means we want to do most of our sign content editing in the region within the black perimeter
+现在，您可以截取图像的屏幕截图（或在“Details->File Path”中找到其源文件）以获取所需纹理的 `.jpg`，然后清除原始文本（“禁止转弯（NO TURN）”），使其成为空白画布。为了方便起见，我们在 [`Content/Static/DefaultSign.jpg`](../../Content/Static/DefaultSign.jpg) 中提供了一个空白的“禁止转弯(NO TURN)”标志
 
-It is useful to have a powerful image editing tool for this, we used [GIMP](https://www.gimp.org/) (free & open source) and the rest of this section will reference it as the image editing tool.
+- 请注意，这些图片的右下角有一小块灰色区域。这实际上是标牌的背面，因此当它贴到模型上时，背面就有了金属表面。
+  - 这意味着我们希望在黑色边界内的区域内完成大部分标志内容的编辑
 
-From within Gimp you should be able to add whatever static components you like (text, images, etc.) within the designated region. Once you are finished with your new sign image, export it as a `.jpg`.
+为此，拥有一个强大的图像编辑工具很有用，我们使用了 [GIMP](https://www.gimp.org/) （免费和开源），本节的其余部分将其作为图像编辑工具。
 
-Next, you'll want GIMP to create the normals map for you. This can be done easily by going through `Filters -> Generic -> Normal Map` and applying the default normal generation to the newly created image. Export this file with the suffix `_n.jpg` to indicate that it is the normal map.
+在 Gimp 中，您应该能够在指定区域内添加任何您喜欢的静态组件（文本、图像等）。完成新标志图像后，将其导出为 `.jpg`。
 
-For example, if we wanted our sign to say "RIGHT TO CITY A", then after this process you should see something that looks like this:
+接下来，您需要 GIMP 为您创建法线贴图。这可以通过依次选择`Filters -> Generic -> Normal Map`，并将默认法线生成应用于新创建的图像来轻松完成。导出此文件并使用后缀 `_n.jpg` 来表明它是法线贴图。
+
+例如，如果我们希望标志上写着 "RIGHT TO CITY A(右转至 A 市)"，那么经过这个过程后，你应该会看到如下内容：
 
 ![SignTextures](../Figures/Signs/textures_no_turn.jpg)
 
-Now we are done with image manipulation and using GIMP. 
+现在我们已经完成了图像处理和 GIMP 的使用。
 
-Now back in UE4, it'll be easiest if you duplicate the `TrafficSign/NoTurn/` directory into your custom directory (such as `DReyeVR_Signs/` with all the same 4 elements (material, static mesh, texture RGB, and texture normals)).
-- Note: there are some reports of users not being able to copy/paste/duplicate directly in the editor. In this case, just do so in your file manager and reopen the editor again.
-  - ```bash
-	cd $CARLA_ROOT/Unreal/CarlaUE4/Content/Carla/Static/TrafficSign/
-	cp -r NoTurn/ RightCityA/
-    ```
-  - ```bash
-	# now RightCityA contains the following
-	RightCityA
-	- M_NoTurns.uasset
-	- SM_noTurn.uasset
-	- SM_noTurn_n.uasset
-	- SM_noTurn_.uasset
-    ``` 
+现在回到 UE4，如果将 `TrafficSign/NoTurn/` 目录复制到自定义目录（例如具有所有相同的 4 个元素（材质、静态网格、纹理 RGB 和纹理法线）的 `DReyeVR_Signs/`），那会最容易。
 
-|                                                                                                                                                                                                                                                                              |                                                                    |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
-| Now, in your new custom directory, you can easily reimport a new `.jpg` source file by clicking the `Reimport` button at the top. </br> </br> Locate your rgb `.jpg` image for the `SM_noTurn` reimport, and use the normals `.jpg` image for the `SM_noTurn_n` reimport. | <img src = "../Figures/Signs/reimport.jpg" alt="Reimport" width=150%> |
+!!! 注意
+    有些用户报告无法直接在编辑器中复制/粘贴/复制。在这种情况下，只需在文件管理器中执行这些操作，然后重新打开编辑器即可。
 
-Feel free to rename the `SM_noTurn_*` asset files **within the editor** (right click in content browser -> rename) and keep the naming scheme. Something like `SM_RightCityA` and `SM_RightCityA_n`.
+```shell
+cd $CARLA_ROOT/Unreal/CarlaUE4/Content/Carla/Static/TrafficSign/
+    cp -r NoTurn/ RightCityA/
+```
+```shell
+# now RightCityA contains the following
+RightCityA
+- M_NoTurns.uasset
+- SM_noTurn.uasset
+- SM_noTurn_n.uasset
+- SM_noTurn_.uasset
+```
 
-## Step 2: Creating the sign meshes & materials
-Now, you should make sure that the **Material** (`M_noTurns`) asset file is updated with the new textures. This may occur automatically, but just in case you should open it up in the editor and select the newly created `SM_RightCityA` and `SM_RightCityA_n` as the Texture parameter values for `SpeedSign_d` and `SpeedSign_n` respectively.
-- To do this, click the dropdown menu box which say `SM_noTurn` and `SM_noTurn_n` and search for the new `RightCityA` variants
-- The parameters should then look something like this
+
+|                                                                                                                                                                                                                                                                      |                                                                    |
+|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| ------------------------------------------------------------------ |
+| 现在，在您的新自定义目录中，您可以通过单击顶部的`Reimport`按钮轻松地重新导入新的 `.jpg` 源文件。 </br> </br> 找到用于 `SM_noTurn` 重新导入的 rgb `.jpg` 图像，并使用法线 `.jpg` 图像进行 `SM_noTurn_n` 重新导入。 | <img src = "../Figures/Signs/reimport.jpg" alt="Reimport" width=150%> |
+
+您可以**在编辑器中**随意重命名 `SM_noTurn_*` 资产文件（在内容浏览器中单击右键 -> 重命名）并保留命名方案。例如 `SM_RightCityA` 和 `SM_RightCityA_n`。
+
+## 第 2 步：创建标志网格和材质
+现在，您应该确保 **Material** (`M_noTurns`) 资源文件已使用新纹理更新。这可能会自动发生，但为了以防万一，您应该在编辑器中打开它，并分别选择新创建的 `SM_RightCityA` 和 `SM_RightCityA_n` 作为 `SpeedSign_d` 和 `SpeedSign_n` 的纹理参数值。
+
+- 为此，请点击显示 `SM_noTurn` 和 `SM_noTurn_n` 的下拉菜单框，然后搜索新的 `RightCityA` 变体
+- 参数看起来应该是这样的
 	![Parameters](../Figures/Signs/parameters.jpg)
 
-Save it and rename it (**in the editor**) as well: `M_RightCityA` should suffice.
+保存它并重命名（**在编辑器中**）：`M_RightCityA` 就足够了。
 
-Now, finally open up the `SM_noTurn_` (static mesh) asset file and ensure it uses our newly created `M_RightCityA` material by editing the Material element in the Material Slots:
-- Similarly to before, this is done in the Details pane by clicking the dropdown, searching for "RightCity", and selecting our new material
+现在，最后打开 `SM_noTurn`_（静态网格）资产文件，并通过编辑材质槽中的材质元素确保它使用我们新创建的 `M_RightCityA` 材质：
+
+- 与之前类似，在详细信息窗格中，单击下拉菜单，搜索“RightCity”，然后选择我们的新材料即可完成此操作
 	![SignMaterial](../Figures/Signs/material.jpg)
 
-Save it and rename it (always **in the editor**): `SM_RightCityA_` works.
+保存并重命名（始终**在编辑器中**）：`SM_RightCityA` 生效了。
 
-At this point you should have a `RightCityA` directory that looks like the following:
+此时您应该有一个如下所示的 `RightCityA` 目录：
 
 ![RightCityDir](../Figures/Signs/rightcity_directory.jpg)
 
-## Step 3: Applying the new materials onto a blueprint
+## 步骤 3：将新材料应用到蓝图上
 
-Once all the desired materials/static meshes are ready, duplicate a sign blueprint (from the parent `TrafficSign` directory) and place it in `RightCityA`
-- This should be doable from within the editor. Right click `BP_NoTurns` -> Duplicate -> Enter new name -> Drag to `RightCityA/` -> select move
+一旦所有所需的材料/静态网格准备就绪，复制一个标志蓝图（来自父 `TrafficSign` 目录）并将其放置在 `RightCityA`
 
-Open up the blueprint to the `Viewport` tab and select the sign component (not the pole)
+- 这应该可以在编辑器中完成。右键单击 `BP_NoTurns` -> 复制 -> 输入新名称 -> 拖动到 `RightCityA`/ -> 选择移动
 
-In the Details pane you should again see a `Static Mesh` component that is still the `SM_noTurn_`, replace that with out new `SM_RightCityA_` asset, Recompile & Save, and you should be done. 
+打开蓝图到`视口(Viewport)`选项卡并选择标志组件（不是杆）
 
-Now it should look like this: 
+在“细节(Details)”窗格中，您应该再次看到仍然是 `SM_noTurn_` 的静态网格组件，将其替换为新的 `SM_RightCityA_` 资源，重新编译并保存，然后就完成了。
+
+现在它看起来应该是这样的：
 
 ![SignBP](../Figures/Signs/bp.jpg)
 
-## Step 4: Placing the new sign in the world
+## 第四步：将新标志放在世界上
 
-With our new sign blueprint, we can place it into the world fairly easily. Simply drag and drop it into the world, then edit its transform, rotation, and scale parameters to fine tune the result. 
+有了新的标志蓝图，我们可以相当轻松地将其放入世界中。只需将其拖放到世界中，然后编辑其变换、旋转和缩放参数即可微调结果。
 
-The end result should look pretty decent, here's an example of our new sign in `Town03`
+最终结果看起来应该相当不错，这是我们在 `Town03` 中的新标志的一个例子
 
-| Front of the sign                           | Rear of the sign                          |
-| ------------------------------------------- | ----------------------------------------- |
+| 标志牌正面                           | 标志牌背面                        |
+| ------------------------------------------- |----------------------------------------------|
 | ![FrontSign](../Figures/Signs/right_front.jpg) | ![RearSign](../Figures/Signs/right_rear.jpg) |
 
-Notice how both the front and rear look good, this is because the rear is given the metallic region from the bottom-right of the texture. 
+请注意前部和后部看起来都很好，这是因为后部从纹理的右下方获得了金属区域。
 
-## Step 5: (Optional) Registering with the BP library
+## 步骤 5：（可选）向蓝图库注册
 
-Registering our new sign with Carla's blueprint library allows us to spawn the sign from the PythonAPI and hence allows for dynamic placement at runtime. 
+使用 Carla 的蓝图库注册我们的新标志使我们能够从 PythonAPI 生成标志，从而允许在运行时动态放置。
 
-This is slightly more in-depth than the existing Carla signs since they were not designed to be spawned dynamically, rather they were placed into the world statically at compile-time. This becomes frustrating if we'd like to place different signs around the map for various scenarios without recompiling everything again. 
+这比现有的 Carla 标志更深入一些，因为它们不是设计为动态生成的，而是在编译时静态地放入世界中。如果我们想在地图周围放置不同的标志以适应各种场景，而无需重新编译所有内容，这会变得令人沮丧。
 
-As per [this issue](https://github.com/carla-simulator/carla/issues/4363), the usual way of using custom props on Carla 0.9.11 is currently broken and unreliable. We found a [workaround](https://github.com/carla-simulator/carla/issues/4363#issuecomment-924140532) and included it in the issue. 
+根据 [this issue](https://github.com/carla-simulator/carla/issues/4363) ，在 Carla 0.9.11 上使用自定义道具的常规方式目前已损坏且不可靠。我们找到了一种 [解决方法](https://github.com/carla-simulator/carla/issues/4363#issuecomment-924140532) 并将其包含在问题中。
 
-Essentially you'll need to edit the `carla/Unreal/CarlaUE4/Content/Carla/Config/Default.Package.json` file to include your new sign prop as follows:
+本质上，您需要编辑 `carla/Unreal/CarlaUE4/Content/Carla/Config/Default.Package.json` 文件以包含您的新标志道具，如下所示：
 
 ```json
-	{
-		"name": "YOUR_SIGN_NAME",
-		"path": "/PATH/TO/YOUR/SM_SIGN.SM_SIGN",
-		"size": "Medium"
-	}
+{
+	"name": "你的标志名",
+	"path": "/PATH/TO/YOUR/SM_SIGN.SM_SIGN",
+	"size": "Medium"
+}
 ```
-Note that the `"path"` source is looking for a UE4 static mesh object, which will be stored as a `.uasset` file. Still denote it as `SM_name.SM_name` in the `json`. 
+!!! 注意
+	`"path"`源正在寻找 UE4 静态网格对象，该对象将存储为 `.uasset` 文件。在 `json` 中仍将其表示为 `SM_name.SM_name`。
 
-Importantly, if you want to include a custom prop directory in `Content/` (instead of using our `DReyeVR/DReyeVR_Signs/` content) you should add this to the list of cooked assets in `Config/DefaultGame.ini` such as:
+重要的是，如果您想在 `Content/` 中包含自定义道具目录（而不是使用我们的 `DReyeVR/DReyeVR_Signs/` 内容），您应该将其添加到 `Config/DefaultGame.ini` 中的烘焙资产列表中，例如：
 
 ```ini
 +DirectoriesToAlwaysCook=(Path="/Game/DReyeVR/DReyeVR_Signs") # what we include
 +DirectoriesToAlwaysCook=(Path="/Game/YOUR_PROP_DIR/") # any desired prop directory
 ```
-This ensures your custom props are properly cooked during shipping (`make package`). 
+这可确保您的定制道具在运输 (`make package`) 过程中得到适当的烹饪。
 
-Once this change is imported in the map you will be able to spawn your sign as follows:
+一旦将此更改导入地图，您将能够按如下方式生成您的标志：
 ```python
-bp = blueprint_library.filter(("static.prop.YOUR_SIGN_NAME").lower()) # filter is lowercase!
-assert len(bp) == 1 # you should only have one prop of this name
-transform = world.get_map().get_spawn_points()[0] # or choose any other spawn point
-world.spawn_actor(bp[0], transform) # should succeed with no errors
+bp = blueprint_library.filter(("static.prop.YOUR_SIGN_NAME").lower()) # 过滤器是小写的！
+assert len(bp) == 1 # 你应该只有一个这个名字的道具
+transform = world.get_map().get_spawn_points()[0] # 或选择任何其他生成点
+world.spawn_actor(bp[0], transform) # 应该会成功并且没有错误
 ```
 
-**NOTE** In constructing our (and Carla's) signs, we unlink the sign itself from the pole it connects to. Therefore, if you want to spawn the sign *with* the pole you'll need to combine these static meshes. 
-- This is supported within the editor by placing both actors into the world, selecting both, then using the Window -> Developer -> MergeActors button as described in [this guide](https://docs.unrealengine.com/4.27/en-US/Basics/Actors/Merging/). 
-- We have already provided a baseline with the [`Content/DReyeVR_Signs/FullSign/`](Content/DReyeVR_Signs/FullSign/) directory where we combined the signs with the poles as a single static mesh. 
-	- With this baseline, assuming you have a compatible material (using the same sign template as ours) you can just update the material for the sign component without further modification. 
+!!! 注意
+	在构建我们（和 Carla）的标志时，将标志本身与其连接的杆子断开。因此，如果您想生成*带有*杆子的标志，则需要组合这些静态网格。- 编辑器支持此功能，方法是将两个参与者放入世界中，选择两者，然后使用 Window -> Developer -> MergeActors 按钮，如 [本指南](https://docs.unrealengine.com/4.27/en-US/Basics/Actors/Merging/) 所述。- 我们已经提供了 [`Content/DReyeVR_Signs/FullSign/`](Content/DReyeVR_Signs/FullSign/) 目录的基准，我们将标志与杆子组合为单个静态网格。有了这个基准，假设您有一个兼容的材料（使用与我们相同的标志模板），您只需更新标志组件的材料而无需进一步修改。
 
 
-# Automatic Sign Placement
-When using our [scenario-runner fork](https://github.com/HARPLab/scenario_runner/tree/DReyeVR-0.9.13), there is logic to enable spawning the corresponding directional signs automatically according to the route features (straight, turn left, turn right, and goal). The logic for this can be found in the [route_scenario's nav sign code](https://github.com/HARPLab/scenario_runner/blob/3b5e60f15fd97de00332f80610051f9f39d7db8c/srunner/scenarios/route_scenario.py#L284-L355). Since this is automatically applied to all routes, you can disable it manually by commenting the `self._setup_nav_signs(self.route)` method call.
 
-There is also a file method in case you want to manually place signs for specific routes (see [here](https://github.com/HARPLab/scenario_runner/blob/DReyeVR-0.9.13/srunner/data/all_routes_signs.json)), but we found that the automatic sign placement works fine most of the time and is much more convenient. So the automatic method is recommended and you don't have to do anything to enable it.
+# 自动放置标志
+使用我们的 [scenario-runner 分支](https://github.com/HARPLab/scenario_runner/tree/DReyeVR-0.9.13) 时，有逻辑可以根据路线特征（直行、左转、右转和目标）自动生成相应的方向标志。此逻辑可在 [route_scenario 的导航标志代码](https://github.com/HARPLab/scenario_runner/blob/3b5e60f15fd97de00332f80610051f9f39d7db8c/srunner/scenarios/route_scenario.py#L284-L355) 中找到。由于这会自动应用于所有路线，因此您可以通过注释 `self._setup_nav_signs(self.route)` 方法调用来手动禁用它。
+
+如果您想要手动放置特定路线的标志，也可以使用文件方法（请参阅 [此处](https://github.com/HARPLab/scenario_runner/blob/DReyeVR-0.9.13/srunner/data/all_routes_signs.json) ），但我们发现自动放置标志在大多数情况下都很好用，而且更方便。因此建议使用自动方法，您无需执行任何操作即可启用它。

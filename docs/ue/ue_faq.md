@@ -2,6 +2,7 @@
 
 ## 蓝图
 * [蓝图快速入门指南](https://dev.epicgames.com/documentation/zh-cn/unreal-engine/blueprints-quick-start-guide?application_version=4.27)
+* [持有棋子](https://dev.epicgames.com/documentation/en-us/unreal-engine/possessing-pawns?application_version=4.27)
 
 ## 编程
 [`class ENGINE_API`](https://github.com/CarlaUnreal/UnrealEngine/pull/38/files) 是一个宏，用于控制类的导出行为，确保类在不同模块（DLL或共享库）之间正确使用。
@@ -18,6 +19,7 @@
 ## 源代码分析
 
 * [USkeletalMeshComponent](https://zhuanlan.zhihu.com/p/637746453)
+* [Actor生命周期](https://dev.epicgames.com/documentation/zh-cn/unreal-engine/actor-lifecycle?application_version=4.27)
 
 ## 其他
 
