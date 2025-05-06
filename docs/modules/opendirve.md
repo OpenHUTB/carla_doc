@@ -1,4 +1,73 @@
+CARLA OpenDriveParser 说明文档
+本文件定义了 CARLA 模拟器中用于解析 OpenDRIVE 地图数据的 OpenDriveParser 类。该类位于 carla::opendrive 命名空间中，主要职责是从 OpenDRIVE XML 文件中读取道路网络数据，并将其转换为 CARLA 内部表示形式。
 
+📦 命名空间
+cpp
+namespace carla {
+  namespace opendrive {
+    ...
+  }
+}
+该类位于 carla::opendrive 命名空间下。
+
+🏗️ 类定义
+cpp
+class OpenDriveParser
+该类是一个静态工具类，包含多个用于处理和解析 OpenDRIVE 地图的静态函数。
+
+🔧 主要静态方法
+1. Map Load(std::string opendrive_file)
+功能：从 OpenDRIVE XML 字符串加载地图。
+
+参数：
+
+opendrive_file: OpenDRIVE 文件内容字符串（不是文件路径）。
+
+返回值：一个构造完成的 Map 对象。
+
+异常：可能会抛出 std::runtime_error。
+
+2. std::string GetXodrHeader(const std::string &opendrive_file)
+功能：提取 OpenDRIVE 文件头部信息。
+
+参数：完整的 OpenDRIVE XML 文件内容。
+
+返回值：文件头内容的字符串。
+
+🗺️ 数据结构说明
+Map
+虽然在当前头文件中未展开 Map 的定义，但 Map 是解析后的结果，包含所有道路、车道、交叉口等信息。它是整个 CARLA 路网系统的核心数据结构之一。
+
+🧩 实现细节（由注释推测）
+使用 pugixml 库处理 XML 解析。
+
+内部可能涉及到诸如：
+
+将坐标从 OpenDRIVE 的参考线转换为 CARLA 世界坐标；
+
+将道路元素（如车道、交叉口）转换为 CARLA 的可用形式；
+
+构建车道之间的连接逻辑；
+
+计算几何信息、样条插值等。
+
+⚠️ 注意事项
+输入是字符串格式的完整 OpenDRIVE 文件内容，不是文件路径。
+
+使用前请确认该字符串已正确读取整个 XML 文件。
+
+若输入格式有误或内容缺失，解析可能会失败。
+
+📚 示例代码
+cpp
+#include "carla/opendrive/OpenDriveParser.h"
+
+std::string xodr_contents = ReadFile("Town01.xodr");
+carla::opendrive::Map map = carla::opendrive::OpenDriveParser::Load(xodr_contents);
+📄 依赖库
+pugixml: 用于解析 XML。
+
+carla::opendrive::Map: 解析结果的数据结构（应在其他头文件中定义）。
 ---
 
 # 📄 OpenDriveParser.cpp 源文件说明（CARLA）
