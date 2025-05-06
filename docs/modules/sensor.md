@@ -1,6 +1,6 @@
 ---
 
-# 第一章:CARLA 碰撞事件传感器系统（sensor.other.collision）
+# 第一章: CARLA 碰撞事件传感器系统（sensor.other.collision）
 
 ---
 
