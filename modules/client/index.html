@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Client - 人车模拟器</title>
+    <title>CARLA 客户端部分文档 - 人车模拟器</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Client";
+        var mkdocs_page_name = "CARLA \u5ba2\u6237\u7aef\u90e8\u5206\u6587\u6863";
         var mkdocs_page_input_path = "modules/client.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,7 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Client</li>
+      <li class="breadcrumb-item active">CARLA 客户端部分文档</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/modules/client.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -68,7 +68,202 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                
+                <h1 id="carla"><strong>CARLA 客户端部分文档</strong></h1>
+<h2 id="_1">概述</h2>
+<p>CARLA 是一个开源的自动驾驶模拟平台，提供了丰富的 API 以支持仿真环境的控制、车辆的管理以及自动驾驶算法的验证。客户端部分的 API 主要通过 <code>Client</code> 类与模拟器进行交互，执行仿真控制、传感器管理、交通流管理等功能。该文档主要介绍 CARLA 客户端相关类的功能和使用方式。</p>
+<h2 id="_2">主要类与功能</h2>
+<h3 id="1-client">1. <strong>Client 类</strong></h3>
+<p><code>Client</code> 类是与 CARLA 模拟器交互的核心类，提供了连接仿真器、加载世界、设置物理参数、控制传感器等功能。</p>
+<h4 id="_3">构造函数</h4>
+<ul>
+<li><code>Client(const std::string &amp;host, uint16_t port, size_t worker_threads = 0u)</code></li>
+<li>构建一个与 CARLA 仿真器的客户端连接。</li>
+<li><code>host</code>：模拟器所在主机的 IP 地址。</li>
+<li><code>port</code>：与模拟器的连接端口。</li>
+<li><code>worker_threads</code>：使用的异步工作线程数，默认为 0（使用所有可用线程）。</li>
+</ul>
+<h4 id="_4">核心方法</h4>
+<ul>
+<li>
+<p><code>std::string GetClientVersion() const</code></p>
+</li>
+<li>
+<p>获取当前客户端的版本。</p>
+</li>
+<li>
+<p><code>std::string GetServerVersion() const</code></p>
+</li>
+<li>
+<p>获取当前连接的模拟器的版本。</p>
+</li>
+<li>
+<p><code>std::vector&lt;std::string&gt; GetAvailableMaps() const</code></p>
+</li>
+<li>
+<p>获取所有可用的地图名称。</p>
+</li>
+<li>
+<p><code>World LoadWorld(std::string map_name, bool reset_settings = true, rpc::MapLayer map_layers = rpc::MapLayer::All) const</code></p>
+</li>
+<li>
+<p>加载指定的仿真地图。</p>
+</li>
+<li>
+<p><code>World ReloadWorld(bool reset_settings = true) const</code></p>
+</li>
+<li>
+<p>重新加载当前仿真世界。</p>
+</li>
+<li>
+<p><code>void SetTimeout(time_duration timeout)</code></p>
+</li>
+<li>
+<p>设置与模拟器的网络超时时间。</p>
+</li>
+<li>
+<p><code>TrafficManager GetInstanceTM(uint16_t port = TM_DEFAULT_PORT) const</code></p>
+</li>
+<li>
+<p>获取当前模拟器中的交通管理实例（TrafficManager）。</p>
+</li>
+<li>
+<p><code>void StartRecorder(std::string name, bool additional_data = false)</code></p>
+</li>
+<li>
+<p>启动仿真数据记录器。</p>
+</li>
+<li>
+<p><code>void StopRecorder()</code></p>
+</li>
+<li>
+<p>停止仿真数据记录器。</p>
+</li>
+<li>
+<p><code>World GenerateOpenDriveWorld(std::string opendrive, const rpc::OpendriveGenerationParameters &amp;params, bool reset_settings = true) const</code></p>
+</li>
+<li>使用 OpenDrive 文件生成仿真世界。</li>
+</ul>
+<h3 id="2-actor">2. <code>Actor</code> 类</h3>
+<p><code>Actor</code> 类代表仿真中的任何实体（例如：车辆、行人等）。通过该类，用户可以控制行为体的位置、速度、碰撞、物理状态等。</p>
+<h4 id="_5">核心方法</h4>
+<ul>
+<li>
+<p><code>geom::Location GetLocation() const</code></p>
+</li>
+<li>
+<p>获取行为体的当前位置。</p>
+</li>
+<li>
+<p><code>geom::Transform GetTransform() const</code></p>
+</li>
+<li>
+<p>获取行为体的变换（位置与方向）。</p>
+</li>
+<li>
+<p><code>void SetLocation(const geom::Location&amp; location)</code></p>
+</li>
+<li>
+<p>设置行为体的位置。</p>
+</li>
+<li>
+<p><code>void SetTransform(const geom::Transform&amp; transform)</code></p>
+</li>
+<li>
+<p>设置行为体的变换（位置与方向）。</p>
+</li>
+<li>
+<p><code>void AddImpulse(const geom::Vector3D&amp; impulse)</code></p>
+</li>
+<li>
+<p>向行为体添加冲量。</p>
+</li>
+<li>
+<p><code>void AddForce(const geom::Vector3D&amp; force)</code></p>
+</li>
+<li>
+<p>向行为体施加力。</p>
+</li>
+<li>
+<p><code>void SetSimulatePhysics(bool enabled = true)</code></p>
+</li>
+<li>
+<p>启用或禁用行为体的物理模拟。</p>
+</li>
+<li>
+<p><code>bool Destroy()</code></p>
+</li>
+<li>销毁行为体。</li>
+</ul>
+<h3 id="3-clientsidesensor">3. <code>ClientSideSensor</code> 类</h3>
+<p><code>ClientSideSensor</code> 类继承自 <code>Sensor</code> 类，代表 CARLA 中的客户端传感器（如摄像头、激光雷达等）。</p>
+<h4 id="_6">核心方法</h4>
+<ul>
+<li>
+<p><code>void Enable()</code></p>
+</li>
+<li>
+<p>启用传感器。</p>
+</li>
+<li>
+<p><code>void Disable()</code></p>
+</li>
+<li>
+<p>禁用传感器。</p>
+</li>
+<li>
+<p><code>bool IsEnabled() const</code></p>
+</li>
+<li>检查传感器是否启用。</li>
+</ul>
+<h3 id="4-trafficmanager">4. 交通管理器（<code>TrafficManager</code>）</h3>
+<p><code>TrafficManager</code> 类用于管理仿真中的交通流，控制交通行为，包括交通灯的状态、车辆的行驶路线、交通规则等。</p>
+<h4 id="_7">核心方法</h4>
+<ul>
+<li>
+<p><code>void SetGlobalDistanceToLeadingVehicle(float distance)</code></p>
+</li>
+<li>
+<p>设置车辆与前车的最小安全距离。</p>
+</li>
+<li>
+<p><code>void SetVehicleDistanceToLeadingVehicle(float distance)</code></p>
+</li>
+<li>
+<p>设置单个车辆与前车的最小安全距离。</p>
+</li>
+<li>
+<p><code>void SetSynchronousMode(bool enabled)</code></p>
+</li>
+<li>启用或禁用同步模式，在同步模式下仿真步进是由用户控制的。</li>
+</ul>
+<hr />
+<h2 id="_8">类之间的调用关系</h2>
+<h3 id="carla_1">以下是 CARLA 客户端部分类之间的调用关系图，展示了各个类如何交互以及它们之间的依赖关系。</h3>
+<p><img alt="类关系" src="https://github.com/LangJing23/nuanxin_volunteer/blob/master/lei.png" /></p>
+<h5 id="_9">调用关系说明</h5>
+<p>Client 类与其他类的交互：</p>
+<blockquote>
+<p>Client 类是与模拟器交互的主要接口，它通过方法如 LoadWorld()、GetAvailableMaps()、StartRecorder() 等来控制仿真世界。</p>
+<p>Client 类使用 World 对象来表示仿真世界并操作其中的行为体（Actor 类）。</p>
+<p>Actor 类与 Client 类的关系：</p>
+<p>Actor 类表示仿真中的个体实体（如车辆、行人等），Client 类通过 Actor 对象控制仿真中的行为体（例如获取位置、速度，设置物理属性等）。</p>
+<p>Actor 类也与传感器和交通管理相关联，可以通过 ClientSideSensor 和 TrafficManager 与交通流和传感器交互。</p>
+<p>TrafficManager 类与 Client 类的关系：</p>
+<p>TrafficManager 管理仿真中的交通流，Client 类通过 TrafficManager 提供的接口（如 SetSynchronousMode()）来控制仿真中的交通规则、车辆行为等。</p>
+</blockquote>
+<p>ClientSideSensor 类与 Actor 类的关系：</p>
+<blockquote>
+<p>ClientSideSensor 类用于模拟仿真中的传感器，能够附加到 Actor 上，例如摄像头、激光雷达等。</p>
+<p>传感器可以用来获取 Actor 周围的环境数据（例如图像、点云等），以支持自动驾驶算法的训练与验证。</p>
+</blockquote>
+<p>World 类与其他类的关系：</p>
+<blockquote>
+<p>World 类表示仿真中的一个世界，它与 Client 和 Actor 类紧密关联。World 提供对仿真环境的访问，可以控制仿真世界中的所有行为体和传感器。</p>
+<p>World 还负责管理交通流、物理环境、天气等仿真环境因素。</p>
+</blockquote>
+<h2 id="_10">总结</h2>
+<p>CARLA 客户端部分提供了与仿真环境交互的丰富 API，支持开发者控制仿真世界中的各种元素，包括行为体（Actor）、传感器（ClientSideSensor）和交通流（TrafficManager）等。通过 Client 类，开发者能够加载地图、获取世界状态、管理传感器、操作物理环境等。类之间的交互使得开发者能够在仿真环境中进行精确的控制和验证。</p>
+<p>参考文档：<a href="https://openhutb.github.io/carla_cpp/dir_64d7bb605f27024d49af86070bd3f0b6.html">点击此处跳转</a></p>
               
             </div>
           </div><footer>
