@@ -26,7 +26,7 @@
 
 ## 1. 模块概述 <a id="1-模块概述"></a>
 ### 1.1 UCarlaLightSubsystem介绍 <a id="11-UCarlaLightSubsystem介绍"></a>
-`UCarlaLightSubsystem`是 carla 仿真平台中用于管理动态灯光的核心组件类，属于 carla 的虚幻引擎插件(CarlaUnreal)的一部分。这个子系统主要负责管理 carla 世界中的灯光（如交通灯、路灯等），并处理客户端与灯光状态的同步。
+`UCarlaLightSubsystem`是 carla 仿真平台中用于管理动态灯光的核心组件类，属于 carla 的虚幻引擎插件(CarlaUnreal)的一部分。这个子系统主要负责管理 carla 世界中的灯光（如交通灯、路灯等），并处理客户端与灯光状态的同步。[UCarlaLightSubsystem源代码](https://openhutb.github.io/carla_cpp/d3/d13/CarlaLightSubsystem_8cpp_source.html)
 
 #### 1.1.1 主要功能 <a id="121-主要功能"></a>
 - **灯光注册与注销**：在模拟环境中，灯光（如交通灯、路灯等）是动态的资源。通过注册和注销机制，`UCarlaLightSubsystem`可以动态地管理这些灯光资源。当灯光被创建时，注册到子系统中，这样子系统就可以跟踪和管理它们；当灯光被销毁时，从子系统中注销，避免资源泄漏或无效引用。
@@ -35,7 +35,7 @@
 - **脏标记机制**：在多客户端的仿真环境中，频繁的同步操作可能会导致性能问题。通过脏标记机制，子系统可以记录哪些客户端需要更新，避免对所有客户端进行不必要的同步操作。
 
 ### 1.2 UCarlaLight介绍 <a id="12-ucarlalight介绍"></a>
-`UCarlaLight`定义了一个 灯光组件，用于管理 carla 中的各类灯光（如交通灯、路灯等）。负责单个灯光的状态管理，并与 carla 的天气系统、RPC 通信、大型地图管理等模块交互。属于 carla 的虚幻引擎插件(CarlaUnreal)的一部分，为 carla 提供了高度可配置的、逼真的动态照明系统，是创建逼真昼夜循环和天气效果的关键组件。
+`UCarlaLight`定义了一个 灯光组件，用于管理 carla 中的各类灯光（如交通灯、路灯等）。负责单个灯光的状态管理，并与 carla 的天气系统、RPC 通信、大型地图管理等模块交互。属于 carla 的虚幻引擎插件(CarlaUnreal)的一部分，为 carla 提供了高度可配置的、逼真的动态照明系统，是创建逼真昼夜循环和天气效果的关键组件。[UCarlaLight源代码](https://openhutb.github.io/carla_cpp/d9/d95/CarlaLight_8cpp_source.html)
 #### 1.2.1 主要功能 <a id="121-主要功能"></a>
 - **动态光照控制**：实时调整光源强度、颜色和方向；支持昼夜循环的光照变化；天气相关光照效果（雨、雾、云等）。
 - **光源类型支持**：定向光（模拟太阳/月亮）；点光源；聚光灯；天光（Skylight）。
