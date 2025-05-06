@@ -269,6 +269,6 @@ Tick：每帧执行的主逻辑流程
 流程展示了从控制器初始化、持续运行到车辆控制的全过程，包括异常处理、自动驾驶逻辑、障碍物检测、路线跟随等重要功能模块的交互关系。
 ```
 
-## 参考
+## ![deepseek_mermaid_20250505_dbbe3d](D:\浏览器下载\deepseek_mermaid_20250505_dbbe3d.png)参考
 
 * [函数vehile.apply_control实际上如何工作的？](https://github.com/carla-simulator/carla/issues/1427)
