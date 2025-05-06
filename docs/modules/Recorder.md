@@ -20,7 +20,7 @@
 6. [附录：包结构](#附录包结构)
 7. [附加模块：CarlaRecorderAnimBiker](#附加模块carlarecorderanimbiker)
 8. [附加模块：CarlaRecorderAnimVehicles](#附加模块CarlaRecorderAnimVehicles)
-9. [常见问题与调试建议](#常见问题与调试建议)
+9. [附加模块：CarlaRecorderAnimVehiclesWheels](#附加模块CarlaRecorderAnimVehiclesWheels)
 ---
 
 ## 模块概述
@@ -157,9 +157,9 @@ std::string ShowFileActorsBlocked(std::string Name, double MinTime, double MinDi
 
 **CarlaRecorderInfo / Event 系列**
 
-`CarlaRecorderInfo`：包含帧开始、结束、平台时间等全局信息
+CarlaRecorderInfo：包含帧开始、结束、平台时间等全局信息
 
-`EventAdd` / `EventDel` / `EventParent`：记录实体的创建、销毁与父子关系
+EventAdd/EventDel/EventParent：记录实体的创建、销毁与父子关系
 
 **CarlaRecorderHelper**
   提供通用辅助函数，如读取头信息、数据解码、ID 映射等
@@ -299,7 +299,7 @@ Carla/
 
 ---
 
-# `CarlaRecorderAnimVehicleWheels` 模块说明文档
+# 附加模块CarlaRecorderAnimVehiclesWheels
 
 该模块属于 **CARLA 模拟器** 车辆动画记录系统的一部分，主要用于序列化和反序列化车辆 **车轮动画信息**（如方向盘角度、轮胎转速等），支持多车辆场景下的录制与回放。
 
