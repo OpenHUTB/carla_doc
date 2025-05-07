@@ -51,7 +51,7 @@
  | `AddWalker()`       | 添加行人代理，配置半径/高度/最大速度  |
  | `AddOrUpdateVehicle()` | 更新车辆OBB，标记为动态障碍物        |
  | `UpdateCrowd()`     | 每帧更新代理状态（位置/速度/避障）     |
- | `RemoveAgent()`     | 移除代理并清理映射关系                |
+ | `RemoveAgent()`     | 移除代理并清理映射关系               |
  
  ### 4. 动态避障  
  - **车辆包围盒计算**  
