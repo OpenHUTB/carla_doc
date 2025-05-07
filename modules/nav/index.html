@@ -111,7 +111,7 @@
  | <code>AddWalker()</code>       | 添加行人代理，配置半径/高度/最大速度  |
  | <code>AddOrUpdateVehicle()</code> | 更新车辆OBB，标记为动态障碍物        |
  | <code>UpdateCrowd()</code>     | 每帧更新代理状态（位置/速度/避障）     |
- | <code>RemoveAgent()</code>     | 移除代理并清理映射关系                |</p>
+ | <code>RemoveAgent()</code>     | 移除代理并清理映射关系               |</p>
 <p>### 4. 动态避障<br />
  - <strong>车辆包围盒计算</strong><br />
    <div class="highlight"><pre><span></span><code><span class="c1">// 计算旋转后的OBB角点</span>
@@ -175,15 +175,39 @@
  | <code>adaptiveDivs</code>        | 7     | 采样细分次数        |
  | <code>separationWeight</code>   | 0.5f  | 分离行为权重        |</p>
 <hr />
-<p>## 注意事项<br />
- 1. <strong>内存管理</strong><br />
-    - 显式调用 <code>dtFreeNavMesh()</code> 释放资源，避免内存泄漏<br />
- 2. <strong>线程安全</strong><br />
-    - 所有修改 <code>dtCrowd</code> 状态的操作需加锁：<br />
-      <div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">lock_guard</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">mutex</span><span class="o">&gt;</span><span class="w"> </span><span class="n">lock</span><span class="p">(</span><span class="n">_mutex</span><span class="p">);</span>
+<p>在 CARLA 的导航模块中，使用 <code>std::mutex</code> 对关键操作加锁的主要目的是确保多线程环境下的数据一致性和线程安全性。以下是对加锁必要性的详细说明，可补充至“注意事项”部分：</p>
+<hr />
+<h2 id="_1">注意事项</h2>
+<ol>
+<li>
+<p><strong>内存管理</strong></p>
+</li>
+<li>
+<p>显式调用 <code>dtFreeNavMesh()</code> 释放资源，避免内存泄漏。</p>
+</li>
+<li>
+<p><strong>线程安全</strong></p>
+</li>
+<li>
+<p>所有修改 <code>dtCrowd</code> 状态的操作需加锁：</p>
+<p><div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">lock_guard</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">mutex</span><span class="o">&gt;</span><span class="w"> </span><span class="n">lock</span><span class="p">(</span><span class="n">_mutex</span><span class="p">);</span>
 </code></pre></div>
- 3. <strong>性能限制</strong><br />
-    - <code>MAX_POLYS=256</code> 和 <code>MAX_AGENTS=500</code> 影响计算复杂度  </p>
+   * <strong>加锁的必要性</strong>：</p>
+<ul>
+<li><strong>避免数据竞争</strong>：在多线程环境中，多个线程可能同时访问和修改共享资源（如导航网格、代理状态等）。如果不加锁，可能导致数据竞争，产生不可预测的行为。</li>
+<li><strong>确保操作的原子性</strong>：加锁可以确保对共享资源的操作是原子的，即操作在执行过程中不会被其他线程打断，从而保持数据的一致性。</li>
+<li><strong>防止死锁和资源泄漏</strong>：通过合理使用锁机制，可以避免死锁的发生，并确保资源在使用完毕后被正确释放。</li>
+<li><strong>提高程序的稳定性和可靠性</strong>：加锁可以防止由于并发访问导致的程序崩溃或异常，提高系统的稳定性。</li>
+<li><strong>参考资料</strong>：关于多线程加锁的详细解释，请参阅 <a href="https://blog.csdn.net/ke1ying/article/details/109531062">CSDN博客</a>。</li>
+</ul>
+</li>
+<li>
+<p><strong>性能限制</strong></p>
+</li>
+<li>
+<p><code>MAX_POLYS=256</code> 和 <code>MAX_AGENTS=500</code> 影响计算复杂度。</p>
+</li>
+</ol>
 <hr />
 <p>## 示例代码<br />
  ### 初始化导航系统<br />
@@ -217,13 +241,13 @@
  - <strong>日志输出</strong>：<br />
    <div class="highlight"><pre><span></span><code><span class="n">logging</span><span class="o">::</span><span class="n">log</span><span class="p">(</span><span class="s">&quot;Nav: failed to create crowd&quot;</span><span class="p">);</span>
 </code></pre></div></p>
-<h2 id="_1">附录</h2>
-<h3 id="_2">依赖项</h3>
+<h2 id="_2">附录</h2>
+<h3 id="_3">依赖项</h3>
 <ul>
 <li><strong>Recast/Detour</strong>：导航网格与路径规划</li>
 <li><strong>CARLA 几何库</strong>：<code>geom::Location</code>, <code>geom::Math</code></li>
 </ul>
-<h3 id="_3">调试支持</h3>
+<h3 id="_4">调试支持</h3>
 <ul>
 <li><strong>断言检查</strong>：</li>
 </ul>
@@ -234,7 +258,7 @@
 </code></pre></div>
 <p><strong>补充说明</strong>：增加调试支持说明，帮助定位运行时错误和状态异常。</p>
 <hr />
-<h2 id="_4">扩展功能</h2>
+<h2 id="_5">扩展功能</h2>
 <h3 id="1-tilecache">1. 运行时导航网格切割与TileCache</h3>
 <ul>
 <li><strong>动态障碍物切割</strong>：基于 <code>dtTileCache</code> 实现对动态物体的局部切割，无需重建整个网格，可显著提升性能。</li>
@@ -257,8 +281,8 @@
 <li><strong>代理批量更新</strong>：对相邻或相似路径的代理进行合并查询，利用局部空间相似性降低调用次数。</li>
 </ul>
 <hr />
-<h2 id="_5">典型应用案例</h2>
-<h3 id="_6">异步获取路径</h3>
+<h2 id="_6">典型应用案例</h2>
+<h3 id="_7">异步获取路径</h3>
 <div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">future</span><span class="o">&lt;</span><span class="n">PathResult</span><span class="o">&gt;</span><span class="w"> </span><span class="n">async_get_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">async</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">launch</span><span class="o">::</span><span class="n">async</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="n">nav</span><span class="p">,</span><span class="n">from</span><span class="p">,</span><span class="n">to</span><span class="p">,</span><span class="n">filter</span><span class="p">](){</span>
 <span class="w">    </span><span class="n">PathResult</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
 <span class="w">    </span><span class="n">nav</span><span class="p">.</span><span class="n">GetPath</span><span class="p">(</span><span class="n">from</span><span class="p">,</span><span class="n">to</span><span class="p">,</span><span class="n">filter</span><span class="p">,</span><span class="n">result</span><span class="p">.</span><span class="n">path</span><span class="p">,</span><span class="n">result</span><span class="p">.</span><span class="n">area</span><span class="p">);</span>
@@ -268,7 +292,7 @@
 <ul>
 <li><strong>补充说明</strong>：使用异步接口可避免主线程阻塞，适用于高并发路径请求场景。</li>
 </ul>
-<h3 id="_7">自定义区域成本示例</h3>
+<h3 id="_8">自定义区域成本示例</h3>
 <div class="highlight"><pre><span></span><code><span class="n">filter</span><span class="o">-&gt;</span><span class="n">setAreaCost</span><span class="p">(</span><span class="n">AREA_ROAD</span><span class="p">,</span><span class="w"> </span><span class="mf">5.0f</span><span class="p">);</span>
 <span class="n">filter</span><span class="o">-&gt;</span><span class="n">setAreaCost</span><span class="p">(</span><span class="n">AREA_GRASS</span><span class="p">,</span><span class="w"> </span><span class="mf">20.0f</span><span class="p">);</span>
 </code></pre></div>

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Util - 人车模拟器</title>
+    <title>Util模块技术文档 - 人车模拟器</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Util";
+        var mkdocs_page_name = "Util\u6a21\u5757\u6280\u672f\u6587\u6863";
         var mkdocs_page_input_path = "modules/Util.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,7 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Util</li>
+      <li class="breadcrumb-item active">Util模块技术文档</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/modules/Util.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -68,7 +68,115 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                
+                <h1 id="util">Util模块技术文档</h1>
+<h2 id="1">1. 概述</h2>
+<p>CARLA的Util模块提供了一系列底层的C++工具类，用于简化对Unreal世界中各种对象、集合体、导航、随机数以及调试绘制等功能的操作。Util模块位于源码路径<code>Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Util</code>下，包含29个源文件和头文件，涵盖从附件管理、随机引擎到导航网络、文件解析、调试绘制等多方面工具。</p>
+<h3 id="11-util">1.1 Util模块与其它模块的调用关系图</h3>
+<p><pre class="mermaid"><code>flowchart LR
+  subgraph Util 模块
+    A[UActorAttacher] --&gt;|Attach| B[Game/Vehicle]
+    C[UBoundingBoxCalculator] --&gt;|Calc BB| D[RPC Server]
+    E[FDebugShapeDrawer] --&gt;|Draw| F[UWorld]
+    G[ProceduralCustomMesh] --&gt;|Mesh| H[OpenDriveGenerator]
+    I[FIniFile] --&gt;|Config| J[Plugin Settings]
+  end
+  subgraph 其他模块
+    B --&gt;|Spawn Sensor| K[Sensor Module]
+    D --&gt;|Serialize| L[Client Python]
+    H --&gt;|Render Road| M[Traffic Module]
+  end</code></pre>
+- <code>UActorAttacher</code> 为 Game 与 Vehicle 模块提供动态附加接口；
+- <code>UBoundingBoxCalculator</code> 在 RPC Server 中被调用，用于生成网络序列化的包围盒数据；
+- <code>FDebugShapeDrawer</code> 直接作用于 UWorld，渲染调试原语；
+- <code>ProceduralCustomMesh</code> 与 OpenDriveGenerator、RoadPainterWrapper 协作，呈现场景几何；
+- <code>FIniFile</code> 在插件启动时读取外部配置，并在各模块初始化时注入参数。</p>
+<h3 id="12-util">1.2 Util模块关键流程图</h3>
+<pre class="mermaid"><code>flowchart TD
+  subgraph 模块初始化
+    A1[FIniFile: 读取 .ini 配置]
+    A2[ObjectRegister: 注册全局管理对象]
+    A1 --&gt; A2
+    A3[RandomEngine: 初始化随机数引擎]
+    A2 --&gt; A3
+    A4[NoWorldOffsetSceneComponent: 设置世界坐标稳定]
+    A3 --&gt; A4
+  end
+
+  subgraph 仿真执行循环
+    B1[FCarlaEngine Tick]
+    B1 --&gt; B2[UActorAttacher: 附加传感器至车辆]
+    B2 --&gt; B3[RandomEngine: 生成随机参数]
+    B3 --&gt; B4[UBoundingBoxCalculator: 计算各 Actor 包围盒]
+    B4 --&gt; B5[FDebugShapeDrawer: 绘制调试形状]
+    B5 --&gt; B6[ProceduralCustomMesh: 动态生成自定义网格]
+    B6 --&gt; B7[NavigationMesh: 更新/重构导航网格]
+    B7 --&gt; B8[RayTracer: 执行射线检测]
+    B8 --&gt; B9[FCarlaServer: 聚合 &amp; RPC 序列化]
+  end</code></pre>
+<h2 id="2-util">2. Util核心功能类</h2>
+<h3 id="21-uactorattacheractor">2.1 UActorAttacher：Actor 附加器</h3>
+<h4 id="211">2.1.1 概要</h4>
+<p><code>UActorAttacher</code>是 CARLA Unreal 插件中用于在运行时将“子” Actor（如传感器、摄像头等）附加到“父” Actor（如车辆、建筑物等）上的静态工具类，支持三种常用的附加模式：
+- 刚性附加（Rigid）：调用 <code>Child-&gt;AttachToActor(Parent, FAttachmentTransformRules::KeepRelativeTransform)</code>；
+- 弹簧臂附加（SpringArm）：调用<code>UActorAttacher_AttachActorsWithSpringArm(Child, Parent)</code>；
+- “幽灵”弹簧臂附加（SpringArmGhost）：调用<code>UActorAttacher_AttachActorsWithSpringArmGhost(Child, Parent)</code>。</p>
+<p>在内部，<code>AttachActors</code> 会根据传入的 <code>EAttachmentType</code> 枚举选择不同的实现分支，或调用 <code>Unreal</code> 原生的 <code>AttachToActor</code>，或动态创建并配置 <code>USpringArmComponent</code> 和 <code>UChildActorComponent</code>，实现带碰撞测试或不带碰撞测试的带臂附加效果。
+最后将子 Actor 的所有者（Owner）设置为父 Actor，以便后续的生命周期和 RPC 权限管理</p>
+<h4 id="212">2.1.2 关键方法详解</h4>
+<ol>
+<li><code>AttachActors</code>
+<div class="highlight"><pre><span></span><code><span class="n">UFUNCTION</span><span class="p">(</span><span class="n">BlueprintCallable</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="o">=</span><span class="s">&quot;CARLA|Actor Attacher&quot;</span><span class="p">)</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">AttachActors</span><span class="p">(</span><span class="n">AActor</span><span class="w"> </span><span class="o">*</span><span class="n">Child</span><span class="p">,</span><span class="w"> </span><span class="n">AActor</span><span class="w"> </span><span class="o">*</span><span class="n">Parent</span><span class="p">,</span><span class="w"> </span><span class="n">EAttachmentType</span><span class="w"> </span><span class="n">AttachmentType</span><span class="p">);</span>
+</code></pre></div></li>
+<li>作用：根据传入的AttachmentType分发到三种附加实现方式，最后执行<code>Child-&gt;SetOwner(Parent)</code>，将子 Actor 的所有者设为父 Actor</li>
+<li>关键变量：</li>
+<li><code>Child</code>、<code>Parent</code>：要附加的子/父 Actor 指针：</li>
+<li><code>AttachmentType</code>：枚举值决定调用哪种附加方式。</li>
+<li>
+<p>使用场景：在仿真初始化或 <code>BeginPlay</code> 阶段将传感器、摄像头等以不同跟随模式挂载到车辆或其他移动 Actor 上。</p>
+</li>
+<li>
+<p><code>UActorAttacher_AttachActorsWithSpringArm</code>
+<div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">UActorAttacher_AttachActorsWithSpringArm</span><span class="p">(</span><span class="n">AActor</span><span class="w"> </span><span class="o">*</span><span class="n">Child</span><span class="p">,</span><span class="w"> </span><span class="n">AActor</span><span class="w"> </span><span class="o">*</span><span class="n">Parent</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="c1">// 1. 动态创建 SpringArmComponent</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">SpringArm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NewObject</span><span class="o">&lt;</span><span class="n">USpringArmComponent</span><span class="o">&gt;</span><span class="p">(</span><span class="n">Parent</span><span class="p">);</span>
+<span class="w">  </span><span class="c1">// 2. 计算子 Actor 相对位置并重置位置</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">ChildLocation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">Child</span><span class="o">-&gt;</span><span class="n">GetActorLocation</span><span class="p">();</span>
+<span class="w">  </span><span class="n">Child</span><span class="o">-&gt;</span><span class="n">SetActorLocation</span><span class="p">(</span><span class="n">FVector</span><span class="o">::</span><span class="n">ZeroVector</span><span class="p">);</span>
+<span class="w">  </span><span class="c1">// 3. 配置弹簧臂属性</span>
+<span class="w">  </span><span class="n">SpringArm</span><span class="o">-&gt;</span><span class="n">TargetOffset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FVector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">30.0f</span><span class="p">);</span>
+<span class="w">  </span><span class="n">SpringArm</span><span class="o">-&gt;</span><span class="n">bDoCollisionTest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">  </span><span class="n">SpringArm</span><span class="o">-&gt;</span><span class="n">SetRelativeRotation</span><span class="p">(</span><span class="n">FRotationMatrix</span><span class="o">::</span><span class="n">MakeFromX</span><span class="p">(</span><span class="n">ChildLocation</span><span class="p">).</span><span class="n">Rotator</span><span class="p">());</span>
+<span class="w">  </span><span class="n">SpringArm</span><span class="o">-&gt;</span><span class="n">SetupAttachment</span><span class="p">(</span><span class="n">Parent</span><span class="o">-&gt;</span><span class="n">GetRootComponent</span><span class="p">());</span>
+<span class="w">  </span><span class="n">SpringArm</span><span class="o">-&gt;</span><span class="n">TargetArmLength</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ChildLocation</span><span class="p">.</span><span class="n">Size</span><span class="p">();</span>
+<span class="w">  </span><span class="n">SpringArm</span><span class="o">-&gt;</span><span class="n">bEnableCameraRotationLag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">  </span><span class="n">SpringArm</span><span class="o">-&gt;</span><span class="n">CameraRotationLagSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">8.0f</span><span class="p">;</span>
+<span class="w">  </span><span class="n">SpringArm</span><span class="o">-&gt;</span><span class="n">bInheritPitch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">  </span><span class="n">SpringArm</span><span class="o">-&gt;</span><span class="n">bInheritRoll</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">  </span><span class="n">SpringArm</span><span class="o">-&gt;</span><span class="n">bInheritYaw</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">  </span><span class="n">SpringArm</span><span class="o">-&gt;</span><span class="n">AttachToComponent</span><span class="p">(</span>
+<span class="w">      </span><span class="n">Parent</span><span class="o">-&gt;</span><span class="n">GetRootComponent</span><span class="p">(),</span>
+<span class="w">      </span><span class="n">FAttachmentTransformRules</span><span class="o">::</span><span class="n">KeepRelativeTransform</span><span class="p">);</span>
+<span class="w">  </span><span class="n">SpringArm</span><span class="o">-&gt;</span><span class="n">RegisterComponent</span><span class="p">();</span>
+<span class="w">  </span><span class="c1">// 4. 创建并附加 ChildActorComponent</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">ChildComp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NewObject</span><span class="o">&lt;</span><span class="n">UChildActorComponent</span><span class="o">&gt;</span><span class="p">(</span><span class="n">Parent</span><span class="p">);</span>
+<span class="w">  </span><span class="n">ChildComp</span><span class="o">-&gt;</span><span class="n">SetupAttachment</span><span class="p">(</span>
+<span class="w">      </span><span class="n">SpringArm</span><span class="p">,</span>
+<span class="w">      </span><span class="n">USpringArmComponent</span><span class="o">::</span><span class="n">SocketName</span><span class="p">);</span>
+<span class="w">  </span><span class="n">Child</span><span class="o">-&gt;</span><span class="n">AttachToComponent</span><span class="p">(</span>
+<span class="w">      </span><span class="n">ChildComp</span><span class="p">,</span>
+<span class="w">      </span><span class="n">FAttachmentTransformRules</span><span class="o">::</span><span class="n">KeepRelativeTransform</span><span class="p">);</span>
+<span class="w">  </span><span class="n">ChildComp</span><span class="o">-&gt;</span><span class="n">RegisterComponent</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></p>
+</li>
+<li>作用：利用 <code>USpringArmComponent</code> 自动实现带碰撞测试的“弹簧臂”跟随，使子 Actor 始终保持与父 Actor 之间的指定距离和方向</li>
+<li>关键变量：</li>
+<li><code>ChildLocation</code>：用于计算臂长和设置旋转方向；</li>
+<li><code>TargetOffset</code>、<code>bDoCollisionTest</code>、<code>TargetArmLength</code>、<code>CameraRotationLagSpeed</code>：分别决定臂的偏移、高度、碰撞行为及旋转滞后。</li>
+<li>使用场景：驾驶视角摄像头或第三人称摄像机跟随，需保持一定距离并对地形碰撞自动校正。</li>
+</ol>
               
             </div>
           </div><footer>
