@@ -84,44 +84,56 @@
 </ol>
 <hr />
 <h2 id="_2">模块概述</h2>
-<p>本模块包含 CARLA 模拟器中两大核心资产处理工具：<br />
+<p>本模块包含 CARLA 模拟器三大核心资产处理工具：<br />
 1. <strong>LoadAssetMaterialsCommandlet</strong><br />
    - 动态贴花生成与材质应用<br />
    - 基于 OpenDrive 的精准贴花布局<br />
 2. <strong>MoveAssetsCommandlet</strong><br />
    - 资产批量分类与迁移<br />
    - 基于语义标签的智能路径管理<br />
-   - 大规模地图资产管理  </p>
+3. <strong>PrepareAssetsForCookingCommandlet</strong><br />
+   - 资产预处理与烹饪准备<br />
+   - 分块地图动态生成<br />
+   - 大规模场景材质优化  </p>
 <hr />
 <h2 id="_3">核心功能</h2>
 <h3 id="1">1. 材质处理模块</h3>
 <p>（原有内容保持不变）</p>
 <h3 id="2">2. 资产迁移模块</h3>
+<p>（原有内容保持不变）</p>
+<h3 id="3">3. 资产预处理模块</h3>
 <ul>
-<li><strong>语义分类系统</strong>  </li>
-<li>内置 7 种语义标签：道路、标线、地形等  </li>
+<li><strong>智能材质替换</strong>  </li>
+<li>基于语义标签的自动材质分配（道路/标线/路缘石等）<br />
+  <div class="highlight"><pre><span></span><code><span class="n">MeshActor</span><span class="o">-&gt;</span><span class="n">GetStaticMeshComponent</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetMaterial</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">RoadNodeMaterial</span><span class="p">);</span>
+</code></pre></div></li>
 <li>
-<p>基于资产名称的自动分类（<code>R_ROAD1</code>, <code>R_SIDEWALK2</code> 等）  </p>
+<p>复杂碰撞简化处理（CTF_UseComplexAsSimple）</p>
 </li>
 <li>
-<p><strong>智能路径管理</strong><br />
-  <div class="highlight"><pre><span></span><code><span class="n">FString</span><span class="w"> </span><span class="n">DestPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;/Game/&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">PackageName</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;/Static/&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Elem</span><span class="p">.</span><span class="n">Key</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;/&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">MapName</span><span class="p">;</span>
-</code></pre></div></p>
+<p><strong>分块地图系统</strong>  </p>
 </li>
-<li>自动构建目标路径层级  </li>
+<li>支持 _Tile_X_Y 命名规范的自动识别  </li>
 <li>
-<p>支持多地图并行处理  </p>
+<p>动态生成瓦片空间布局（基于 TilesInfo.txt 配置）</p>
 </li>
 <li>
-<p><strong>资产批量操作</strong>  </p>
+<p><strong>OpenDrive 集成</strong>  </p>
 </li>
-<li>对象库管理（<code>UObjectLibrary</code>）  </li>
-<li>原子化重命名迁移（<code>RenameAssets</code>）  </li>
+<li>自动生成道路生成器（AOpenDriveActor）  </li>
+<li>
+<p>基于 XODR 的导航点批量生成</p>
+</li>
+<li>
+<p><strong>资产批处理</strong>  </p>
+</li>
+<li>对象库动态加载（UObjectLibrary）  </li>
+<li>跨地图资产引用管理  </li>
 </ul>
 <hr />
 <h2 id="_4">类与方法详解</h2>
-<h3 id="umoveassetscommandlet"><code>UMoveAssetsCommandlet</code> 类</h3>
-<p>继承自 <code>UCommandlet</code>，实现资产分类迁移的核心逻辑。</p>
+<h3 id="uprepareassetsforcookingcommandlet"><code>UPrepareAssetsForCookingCommandlet</code> 类</h3>
+<p>继承自 <code>UCommandlet</code>，实现资产烹饪预处理的核心逻辑。</p>
 <h4 id="_5">关键方法</h4>
 <table>
 <thead>
@@ -140,12 +152,16 @@
 <td>解析命令行参数，提取包名、地图列表</td>
 </tr>
 <tr>
-<td><code>MoveAssets()</code></td>
-<td>资产迁移主流程控制器</td>
+<td><code>PrepareMapsForCooking()</code></td>
+<td>地图预处理主控制器</td>
 </tr>
 <tr>
-<td><code>MoveAssetsFromMapForSemanticSegmentation()</code></td>
-<td>语义分类与路径生成实现</td>
+<td><code>SpawnMeshesToWorld()</code></td>
+<td>资产实例化与材质替换实现</td>
+</tr>
+<tr>
+<td><code>GenerateMapPathsFile()</code></td>
+<td>生成跨平台地图路径配置文件</td>
 </tr>
 </tbody>
 </table>
@@ -160,19 +176,24 @@
 </thead>
 <tbody>
 <tr>
-<td><code>AssetsObjectLibrary</code></td>
-<td><code>UObjectLibrary*</code></td>
-<td>资产对象库实例</td>
+<td><code>MarkingNodeYellow</code></td>
+<td><code>UMaterialInstance*</code></td>
+<td>黄色道路标线材质实例</td>
 </tr>
 <tr>
-<td><code>MapContents</code></td>
-<td><code>TArray&lt;FAssetData&gt;</code></td>
-<td>当前处理的地图资产数据集</td>
+<td><code>RoadNodeMaterial</code></td>
+<td><code>UMaterialInstance*</code></td>
+<td>基础道路材质实例</td>
+</tr>
+<tr>
+<td><code>TerrainNodeMaterialInstance</code></td>
+<td><code>UMaterialInstance*</code></td>
+<td>地形材质实例</td>
 </tr>
 </tbody>
 </table>
-<h3 id="fmovepackageparams"><code>FMovePackageParams</code> 结构体</h3>
-<p>迁移任务参数容器：</p>
+<h3 id="fassetspaths"><code>FAssetsPaths</code> 结构体</h3>
+<p>资产路径配置容器：</p>
 <table>
 <thead>
 <tr>
@@ -183,20 +204,20 @@
 </thead>
 <tbody>
 <tr>
-<td><code>Name</code></td>
-<td><code>FString</code></td>
-<td>目标资产包名称</td>
+<td><code>MapsPaths</code></td>
+<td><code>TArray&lt;FMapData&gt;</code></td>
+<td>地图配置数据集</td>
 </tr>
 <tr>
-<td><code>MapNames</code></td>
+<td><code>PropsPaths</code></td>
 <td><code>TArray&lt;FString&gt;</code></td>
-<td>待处理地图列表</td>
+<td>道具资产路径列表</td>
 </tr>
 </tbody>
 </table>
 <hr />
 <h2 id="_7">数据结构与配置</h2>
-<h3 id="_8">语义标签定义</h3>
+<h3 id="_8">扩展语义标签定义</h3>
 <table>
 <thead>
 <tr>
@@ -207,72 +228,81 @@
 </thead>
 <tbody>
 <tr>
-<td><code>R_ROAD1</code></td>
-<td>ROAD/</td>
-<td>名称包含"Road"</td>
+<td><code>R_CURB1</code></td>
+<td>CURB/</td>
+<td>名称包含"Curb"</td>
 </tr>
 <tr>
-<td><code>R_MARKING1</code></td>
-<td>ROADLINE/</td>
-<td>名称包含"Marking"</td>
+<td><code>R_GUTTER1</code></td>
+<td>GUTTER/</td>
+<td>名称包含"Gutter"</td>
 </tr>
 <tr>
-<td><code>R_TERRAIN</code></td>
-<td>TERRAIN/</td>
-<td>默认分类</td>
+<td><code>R_SIDEWALK1</code></td>
+<td>SIDEWALK/</td>
+<td>名称包含"Sidewalk"</td>
 </tr>
 </tbody>
 </table>
+<h3 id="_9">分块地图配置</h3>
+<p><code>TilesInfo.txt</code> 格式规范：<br />
+<div class="highlight"><pre><span></span><code>[原点X坐标],[原点Y坐标],[瓦片尺寸(米)]
+</code></pre></div>
+示例：<br />
+<div class="highlight"><pre><span></span><code>-2500.0,1500.0,2000.0
+</code></pre></div></p>
 <hr />
-<h2 id="_9">关键流程</h2>
-<h3 id="_10">资产迁移流程</h3>
+<h2 id="_10">关键流程</h2>
+<h3 id="_11">资产预处理流程</h3>
 <pre class="mermaid"><code>graph TD
-  A[启动Commandlet] --&gt; B[解析Package参数]
-  B --&gt; C[初始化对象库]
-  C --&gt; D[遍历指定地图]
-  D --&gt; E[加载资产元数据]
-  E --&gt; F{语义分类}
-  F --&gt;|匹配标签| G[添加到对应分类]
-  F --&gt;|未匹配| H[归类到TERRAIN]
-  G/H --&gt; I[批量重命名迁移]
-  I --&gt; J[保存资产引用]</code></pre>
+  A[解析Package参数] --&gt; B[加载基础地图模板]
+  B --&gt; C{是否分块地图?}
+  C --&gt;|是| D[遍历瓦片坐标]
+  C --&gt;|否| E[整体地图处理]
+  D --&gt; F[动态生成瓦片实例]
+  E --&gt; G[应用语义材质]
+  F/G --&gt; H[生成OpenDrive导航]
+  H --&gt; I[保存分块配置]
+  I --&gt; J[生成路径清单]</code></pre>
 <hr />
-<h2 id="_11">配置参数</h2>
-<h3 id="_12">命令行参数规范</h3>
-<div class="highlight"><pre><span></span><code>-PackageName<span class="o">=</span>CityPack<span class="w">       </span><span class="c1"># 目标资产包名称</span>
--Maps<span class="o">=</span>Downtown<span class="w"> </span>Suburbs<span class="w">     </span><span class="c1"># 待处理地图列表（空格分隔）</span>
+<h2 id="_12">配置参数</h2>
+<h3 id="_13">扩展命令行参数</h3>
+<div class="highlight"><pre><span></span><code>-OnlyPrepareMaps<span class="o">=</span><span class="nb">true</span><span class="w">      </span><span class="c1"># 仅预处理地图资产</span>
+-TileSize<span class="o">=</span><span class="m">2000</span><span class="w">             </span><span class="c1"># 分块地图尺寸（单位：米） </span>
 </code></pre></div>
 <hr />
-<h2 id="_13">注意事项</h2>
-<h3 id="_14">迁移模块专项</h3>
+<h2 id="_14">注意事项</h2>
+<h3 id="_15">预处理模块专项</h3>
 <ol>
-<li><strong>命名规范</strong>  </li>
-<li>资产名称必须包含语义标签关键词（如<code>Road1</code>, <code>Curb2</code>）  </li>
+<li><strong>材质依赖</strong>  </li>
+<li>必须预加载 Carla/Static/GenericMaterials 材质库  </li>
 <li>
-<p>标签常量定义在 <code>SSTags.h</code> 头文件  </p>
+<p>缺失材质实例将导致静默失败</p>
 </li>
 <li>
-<p><strong>路径深度</strong>  </p>
+<p><strong>分块规范</strong>  </p>
+</li>
+<li>瓦片命名必须遵循 <code>MapName_Tile_X_Y</code> 格式  </li>
+<li>
+<p>原点坐标需与 OpenDrive 数据对齐</p>
 </li>
 <li>
-<p>目标路径遵循 <code>/Game/[Package]/Static/[Category]/[Map]/</code> 结构  </p>
+<p><strong>文件依赖</strong>  </p>
 </li>
-<li>
-<p><strong>事务安全</strong>  </p>
-</li>
-<li>建议在版本控制系统下操作  </li>
-<li>支持增量迁移（已存在资产自动跳过）  </li>
+<li>必须提供有效的 TilesInfo.txt 进行分块布局  </li>
+<li>缺失 XODR 文件将跳过导航点生成</li>
 </ol>
 <hr />
-<h2 id="_15">示例配置</h2>
-<h3 id="_16">完整命令行调用</h3>
-<div class="highlight"><pre><span></span><code>UE4Editor-Cmd.exe Carla -run=MoveAssets 
-  -PackageName=EuroPack 
-  -Maps=Berlin Hamburg
+<h2 id="_16">示例配置</h2>
+<h3 id="_17">分块地图预处理命令</h3>
+<div class="highlight"><pre><span></span><code>UE4Editor-Cmd.exe Carla -run=PrepareAssetsForCooking  
+  -PackageName=EuroPack  
+  -Maps=Berlin  
+  -TileSize=2000
 </code></pre></div>
 <hr />
-<h2 id="_17">附录</h2>
-<h3 id="_18">错误代码表</h3>
+<h2 id="_18">附录</h2>
+<h3 id="_19">增强错误代码表</h3>
 <table>
 <thead>
 <tr>
@@ -283,19 +313,19 @@
 </thead>
 <tbody>
 <tr>
-<td>0x21</td>
-<td>对象库初始化失败</td>
-<td>检查引擎资源加载状态</td>
+<td>0x31</td>
+<td>分块布局文件缺失</td>
+<td>检查 Maps/[Map]/TilesInfo.txt</td>
 </tr>
 <tr>
-<td>0x22</td>
-<td>语义标签未识别</td>
-<td>验证资产名称符合规范</td>
+<td>0x32</td>
+<td>材质实例加载失败</td>
+<td>验证材质路径正确性</td>
 </tr>
 <tr>
-<td>0x23</td>
-<td>路径权限不足</td>
-<td>关闭资源管理器后重试</td>
+<td>0x33</td>
+<td>OpenDrive 数据异常</td>
+<td>重新导出 XODR 文件</td>
 </tr>
 </tbody>
 </table>
