@@ -176,3 +176,6 @@ public:
 // 创建一个继承自 AActorWithRandomEngine 的自定义 Actor
 ```
 - 说明：此示例展示了如何在自定义的 `AMyRandomActor` 中复用 `AActorWithRandomEngine` 提供的随机引擎功能，并在游戏开始时生成一个 0–100 范围内的随机整数并输出日志。
+
+
+### 2.3 BoundingBox相关类
