@@ -177,6 +177,67 @@
 <li><code>TargetOffset</code>、<code>bDoCollisionTest</code>、<code>TargetArmLength</code>、<code>CameraRotationLagSpeed</code>：分别决定臂的偏移、高度、碰撞行为及旋转滞后。</li>
 <li>使用场景：驾驶视角摄像头或第三人称摄像机跟随，需保持一定距离并对地形碰撞自动校正。</li>
 </ol>
+<h3 id="22-aactorwithrandomengine">2.2 AActorWithRandomEngine：随机引擎注入器</h3>
+<h4 id="221">2.2.1 概要</h4>
+<p><code>AActorWithRandomEngine</code> 是 CARLA 插件中用于支持确定性随机行为的抽象 Actor 基类， 位于 <code>CarlaUE4/Plugins/Carla/Source/Carla/Util/ActorWithRandomEngine.*</code>。该类内置了一个 <code>URandomEngine</code> 实例，并通过固定或可配置的种子（Seed）初始化，从而实现可重现的随机数序列。并在 <code>Blueprint/C++</code> 中通过<code>GetRandomEngine</code>、<code>GetSeed</code>、<code>SetSeed</code> 提供访问与修改接口。</p>
+<p>该类支持在编辑器中配置种子值，或启用自动生成随机种子。在构造阶段（Construction）或属性变更时，内部的随机引擎会根据当前种子重新初始化，确保每次仿真运行的随机行为可控且可复现。</p>
+<h4 id="222">2.2.2 关键方法详解</h4>
+<ol>
+<li><code>OnConstruction</code>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">AActorWithRandomEngine::OnConstruction</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FTransform</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Transform</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">Super</span><span class="o">::</span><span class="n">OnConstruction</span><span class="p">(</span><span class="n">Transform</span><span class="p">);</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">bGenerateRandomSeed</span><span class="p">)</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Seed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FMath</span><span class="o">::</span><span class="n">Rand</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">RandomEngine</span><span class="p">)</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="n">RandomEngine</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">(</span><span class="n">Seed</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></li>
+<li>作用：在 Actor 被放置或属性变更后调用，用于根据当前配置的种子值初始化随机引擎，确保每次 Actor 构建时，随机引擎的状态与当前种子一致，从而实现可控的随机行为。</li>
+<li>关键变量：</li>
+<li>
+<p><code>Transform</code>：Actor 在编辑器或运行时“放置”时的世界变换信息，包含位置、旋转、缩放，通常用于根据初始位置执行额外逻辑。</p>
+</li>
+<li>
+<p><code>SetSeed</code>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">AActorWithRandomEngine::SetSeed</span><span class="p">(</span><span class="n">int32</span><span class="w"> </span><span class="n">InSeed</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">Seed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">InSeed</span><span class="p">;</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">RandomEngine</span><span class="p">)</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="n">RandomEngine</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">(</span><span class="n">Seed</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+</li>
+<li>作用：设置新的种子值，并重新初始化随机引擎，以改变随机行为的序列。</li>
+<li>关键变量：</li>
+<li><code>InSeed</code>：从外部传入的新种子值，用于替换当前的 Seed;</li>
+<li>`RandomEngine：内部使用的随机引擎实例，调用随机引擎的初始化方法，将其内部状态重置为基于新 Seed 的起始状态。</li>
+<li><code>seed</code>：当前使用的种子值，默认值为 123456789。</li>
+</ol>
+<p>#### 2.2.3 使用示例
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">AMyRandomActor</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">AActorWithRandomEngine</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">GENERATED_BODY</span><span class="p">()</span>
+
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">BeginPlay</span><span class="p">()</span><span class="w"> </span><span class="k">override</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Super</span><span class="o">::</span><span class="n">BeginPlay</span><span class="p">();</span>
+
+<span class="w">        </span><span class="c1">// 使用随机引擎生成一个 0 到 100 之间的整数</span>
+<span class="w">        </span><span class="n">int32</span><span class="w"> </span><span class="n">RandomValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GetRandomEngine</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetUniformIntInRange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">);</span>
+<span class="w">        </span><span class="n">UE_LOG</span><span class="p">(</span><span class="n">LogTemp</span><span class="p">,</span><span class="w"> </span><span class="n">Log</span><span class="p">,</span><span class="w"> </span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;Generated Random Value: %d&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">RandomValue</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+<span class="c1">// 创建一个继承自 AActorWithRandomEngine 的自定义 Actor</span>
+</code></pre></div>
+- 说明：此示例展示了如何在自定义的 <code>AMyRandomActor</code> 中复用 <code>AActorWithRandomEngine</code> 提供的随机引擎功能，并在游戏开始时生成一个 0–100 范围内的随机整数并输出日志。</p>
               
             </div>
           </div><footer>
