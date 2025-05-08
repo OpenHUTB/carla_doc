@@ -10,24 +10,24 @@
 
 1. [项目概述](#1项目概述)
 2. [核心组件与蓝图结构](#2核心组件与蓝图结构)
-    1. [BP_BaseLight](#21bp_baselight)
-    2. [BP_SpecificLight_Type](#22bp_specificlight_type)
-    3. [BP_MultipleLights](#23bp_multiplelights)
-    4. [LightIdSetter](#24lightidsetter)
-    5. [SceneLightingParameters 数据资产](#25scenelightingparameters-数据资产)
+    i. [BP_BaseLight](#21bp_baselight)
+    ii. [BP_SpecificLight_Type](#22bp_specificlight_type)
+    iii. [BP_MultipleLights](#23bp_multiplelights)
+    iv. [LightIdSetter](#24lightidsetter)
+    v. [SceneLightingParameters 数据资产](#25scenelightingparameters-数据资产)
 3. [关键功能实现](#3关键功能实现)
-    1. [灯光实例化与初始化](#31灯光实例化与初始化)
-    2. [灯光控制接口](#32灯光控制接口)
-    3. [ID 分配机制](#33id-分配机制)
-    4. [与动态系统的集成](#34与动态系统的集成)
-    5. [性能优化考虑](#35性能优化考虑)
+    i. [灯光实例化与初始化](#31灯光实例化与初始化)
+    ii. [灯光控制接口](#32灯光控制接口)
+    iii. [ID 分配机制](#33id-分配机制)
+    iv. [与动态系统的集成](#34与动态系统的集成)
+    v. [性能优化考虑](#35性能优化考虑)
 4. [工作流程](#4工作流程)
 5. [优化与扩展建议](#5优化与扩展建议)
-    1. [文件格式支持扩展（不适用）](#51文件格式支持扩展不适用)
-    2. [异常处理与日志记录](#52异常处理与日志记录)
-    3. [性能优化](#53性能优化)
-    4. [单元测试](#54单元测试)
-    5. [更多灯光特性](#55更多灯光特性)
+    i. [文件格式支持扩展（不适用）](#51文件格式支持扩展不适用)
+    ii. [异常处理与日志记录](#52异常处理与日志记录)
+    iii. [性能优化](#53性能优化)
+    iv. [单元测试](#54单元测试)
+    v. [更多灯光特性](#55更多灯光特性)
 6. [总结](#6总结)
 
 ---
@@ -47,7 +47,8 @@
 *   **模拟器控制接口 (例如 Python API)**: 外部系统可能需要通过 ID 等方式控制特定灯光的开关或属性。
 *   **动态环境系统 (昼夜循环/天气)**: 灯光系统需要接收来自这些系统的指令，根据时间和天气自动调整状态。
 
-![灯光系统依赖草图](../img/light.png)
+
+![灯光系统依赖草图](../img/light_BP.png)
 该图展示了灯光系统模块如何与虚幻引擎渲染、场景管理以及模拟器的动态系统交互，提供受控的人工照明。
 
 ---
