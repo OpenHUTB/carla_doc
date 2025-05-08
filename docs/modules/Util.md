@@ -2,7 +2,7 @@
 
 ## 1. 概述
 
-CARLA的Util模块提供了一系列底层的C++工具类，用于简化对Unreal世界中各种对象、集合体、导航、随机数以及调试绘制等功能的操作。Util模块位于源码路径`Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Util`下，包含29个源文件和头文件，涵盖从附件管理、随机引擎到导航网络、文件解析、调试绘制等多方面工具。
+  CARLA的Util模块提供了一系列底层的C++工具类，用于简化对Unreal世界中各种对象、集合体、导航、随机数以及调试绘制等功能的操作。Util模块位于源码路径`Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Util`下，包含29个源文件和头文件，涵盖从附件管理、随机引擎到导航网络、文件解析、调试绘制等多方面工具。
 
 ### 1.1 Util模块与其它模块的调用关系图
 ```mermaid
@@ -114,3 +114,65 @@ static void UActorAttacher_AttachActorsWithSpringArm(AActor *Child, AActor *Pare
   - `ChildLocation`：用于计算臂长和设置旋转方向；
   - `TargetOffset`、`bDoCollisionTest`、`TargetArmLength`、`CameraRotationLagSpeed`：分别决定臂的偏移、高度、碰撞行为及旋转滞后。
 - 使用场景：驾驶视角摄像头或第三人称摄像机跟随，需保持一定距离并对地形碰撞自动校正。
+
+### 2.2 AActorWithRandomEngine：随机引擎注入器
+#### 2.2.1 概要
+`AActorWithRandomEngine` 是 CARLA 插件中用于支持确定性随机行为的抽象 Actor 基类， 位于 `CarlaUE4/Plugins/Carla/Source/Carla/Util/ActorWithRandomEngine.*`。该类内置了一个 `URandomEngine` 实例，并通过固定或可配置的种子（Seed）初始化，从而实现可重现的随机数序列。并在 `Blueprint/C++` 中通过`GetRandomEngine`、`GetSeed`、`SetSeed` 提供访问与修改接口。
+
+该类支持在编辑器中配置种子值，或启用自动生成随机种子。在构造阶段（Construction）或属性变更时，内部的随机引擎会根据当前种子重新初始化，确保每次仿真运行的随机行为可控且可复现。
+#### 2.2.2 关键方法详解
+1. `OnConstruction`
+```cpp
+void AActorWithRandomEngine::OnConstruction(const FTransform &Transform)
+{
+  Super::OnConstruction(Transform);
+  if (bGenerateRandomSeed)
+  {
+    Seed = FMath::Rand();
+  }
+  if (RandomEngine)
+  {
+    RandomEngine->Initialize(Seed);
+  }
+}
+```
+- 作用：在 Actor 被放置或属性变更后调用，用于根据当前配置的种子值初始化随机引擎，确保每次 Actor 构建时，随机引擎的状态与当前种子一致，从而实现可控的随机行为。
+- 关键变量：
+  - `Transform`：Actor 在编辑器或运行时“放置”时的世界变换信息，包含位置、旋转、缩放，通常用于根据初始位置执行额外逻辑。
+
+2. `SetSeed`
+```cpp
+void AActorWithRandomEngine::SetSeed(int32 InSeed)
+{
+  Seed = InSeed;
+  if (RandomEngine)
+  {
+    RandomEngine->Initialize(Seed);
+  }
+}
+```
+- 作用：设置新的种子值，并重新初始化随机引擎，以改变随机行为的序列。
+- 关键变量：
+  - `InSeed`：从外部传入的新种子值，用于替换当前的 Seed;
+  - `RandomEngine：内部使用的随机引擎实例，调用随机引擎的初始化方法，将其内部状态重置为基于新 Seed 的起始状态。
+  - `seed`：当前使用的种子值，默认值为 123456789。
+
+ #### 2.2.3 使用示例
+```cpp
+class AMyRandomActor : public AActorWithRandomEngine
+{
+    GENERATED_BODY()
+
+public:
+    virtual void BeginPlay() override
+    {
+        Super::BeginPlay();
+
+        // 使用随机引擎生成一个 0 到 100 之间的整数
+        int32 RandomValue = GetRandomEngine()->GetUniformIntInRange(0, 100);
+        UE_LOG(LogTemp, Log, TEXT("Generated Random Value: %d"), RandomValue);
+    }
+};
+// 创建一个继承自 AActorWithRandomEngine 的自定义 Actor
+```
+- 说明：此示例展示了如何在自定义的 `AMyRandomActor` 中复用 `AActorWithRandomEngine` 提供的随机引擎功能，并在游戏开始时生成一个 0–100 范围内的随机整数并输出日志。
