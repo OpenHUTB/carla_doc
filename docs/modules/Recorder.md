@@ -21,6 +21,7 @@
 7. [附加模块：CarlaRecorderAnimBiker](#附加模块carlarecorderanimbiker)
 8. [附加模块：CarlaRecorderAnimVehicles](#附加模块CarlaRecorderAnimVehicles)
 9. [附加模块：CarlaRecorderAnimVehiclesWheels](#附加模块CarlaRecorderAnimVehiclesWheels)
+10. [常见问题与调试建议](#常见问题与调试建议)
 ---
 
 ## 模块概述
