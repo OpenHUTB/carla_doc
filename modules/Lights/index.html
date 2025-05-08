@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>灯光模块(Light)说明文档 - 人车模拟器</title>
+    <title>灯光模块(Lights)说明文档 - 人车模拟器</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "\u706f\u5149\u6a21\u5757(Light)\u8bf4\u660e\u6587\u6863";
+        var mkdocs_page_name = "\u706f\u5149\u6a21\u5757(Lights)\u8bf4\u660e\u6587\u6863";
         var mkdocs_page_input_path = "modules/Lights.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,7 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">灯光模块(Light)说明文档</li>
+      <li class="breadcrumb-item active">灯光模块(Lights)说明文档</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/modules/Lights.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -68,7 +68,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="light">灯光模块(Light)说明文档</h1>
+                <h1 id="lights">灯光模块(Lights)说明文档</h1>
 <h2 id="_1">目录</h2>
 <ul>
 <li><a href="#1-模块概述"><strong>1. 模块概述</strong></a><ul>
@@ -91,9 +91,9 @@
 <li><a href="#222-天气影响灯光">2.2.2 天气影响灯光</a></li>
 </ul>
 </li>
+<li><a href="#33-场景示例图">2.3 场景示例图</a></li>
 </ul>
 </li>
-<li><a href="#33-场景示例图">2.3 场景示例图</a></li>
 <li><a href="#3-技术实现"><strong>3. 技术实现</strong></a><ul>
 <li><a href="#31-核心类函数">3.1 核心类函数</a></li>
 <li><a href="#32-灯光注册与注销">3.2 灯光注册与注销</a></li>
@@ -146,7 +146,7 @@
 <ul>
 <li>展示灯光模块与其他核心模块的全局依赖关系，帮助 lights 在 carla 系统中的定位。快速了解模块间上下游关系，设计新功能时避免遗漏依赖。</li>
 <li>核心枢纽：灯光模块直接控制交通信号，间接影响车辆、行人、传感器等模块。<blockquote>
-<p><img alt="light model relationship" src="./img/lights/light_model_relationship.png" /></p>
+<p><img alt="light model relationship" src="./img/Lights/light_model_relationship.png" /></p>
 </blockquote>
 </li>
 </ul>
@@ -155,7 +155,7 @@
 <ul>
 <li>描述信号灯状态变化时，系统如何协调车辆和行人的行为。例如，在测试场景中交通管理器强制设置红灯，灯光子系统通知所有车辆和行人，车辆触发刹车逻辑，行人停止移动。</li>
 <li>应用场景：调试交通灯同步问题；验证自动驾驶算法对红灯的响应等。<blockquote>
-<p><img alt="light model relationship" src="./img/lights/light_model_relationship.png" /></p>
+<p><img alt="light model relationship" src="./img/Lights/light_model_relationship.png" /></p>
 </blockquote>
 </li>
 <li>流程顺序：交通管理器 → 灯光模块 → 车辆/行人响应。</li>
@@ -166,25 +166,25 @@
 <li>应用场景：模拟极端天气下的传感器性能；测试车辆在低能见度下的行为。</li>
 </ul>
 <blockquote>
-<p><img alt="light change" src="./img/lights/light_change.png" />
- - 数据流：天气事件 → 灯光强度调整 → 传感器数据 → 车辆控制。</p>
+<p><img alt="light change" src="./img/lights/Light_change.png" /></p>
 </blockquote>
+<ul>
+<li>数据流：天气事件 → 灯光强度调整 → 传感器数据 → 车辆控制。</li>
+</ul>
 <h3 id="23">2.3 场景示例图<a id="23-场景示例图"></a></h3>
 <ul>
 <li>场景：模拟暴雨天气下的交通系统响应。</li>
 <li>天气系统触发能见度下降；交通管理器延长绿灯时间以缓解拥堵；传感器数据用于算法性能分析。<blockquote>
-<p><img alt="data flow" src="./img/lights/data_flow.png" /></p>
+<p><img alt="data flow" src="./img/Lights/data_flow.png" /></p>
 </blockquote>
 </li>
 </ul>
 <h2 id="3">3. 技术实现<a id="3-技术实现"></a></h2>
 <p><code>UCarlaLight</code>继承自虚幻引擎的 <code>ULightComponent</code> 类，并扩展了 carla 特有的功能。</p>
 <h3 id="31">3.1 核心类函数<a id="31-核心类函数"></a></h3>
-<p>继承自 <code>ULightComponent</code> 的类都必须通过这两个函数管理生命周期。批量处理入口 <code>BeginPlay()</code> 时合并提交所有灯光参数到渲染线程（减少每帧开销）。资源回收枢纽 <code>EndPlay()</code> 集中释放GPU资源（避免帧间卡顿）。</p>
-<ul>
-<li><strong><code>BeginPlay()</code></strong>：替代构造函数（因UE禁止直接使用构造函数初始化游戏逻辑）。</li>
-<li><strong><code>EndPlay()</code></strong>：替代析构函数（保证资源安全释放）。组件销毁时的资源清理函数，确保灯光从系统中安全移除。</li>
-</ul>
+<p>继承自 <code>ULightComponent</code> 的类都必须通过这两个函数管理生命周期。批量处理入口 <code>BeginPlay()</code> 时合并提交所有灯光参数到渲染线程（减少每帧开销）。资源回收枢纽 <code>EndPlay()</code> 集中释放GPU资源（避免帧间卡顿）。
+- <strong><code>BeginPlay()</code></strong>：替代构造函数（因UE禁止直接使用构造函数初始化游戏逻辑）。
+- <strong><code>EndPlay()</code></strong>：替代析构函数（保证资源安全释放）。组件销毁时的资源清理函数，确保灯光从系统中安全移除。</p>
 <h3 id="32">3.2 灯光注册与注销<a id="32-灯光注册与注销"></a></h3>
 <h4 id="registerlight">RegisterLight()</h4>
 <ul>
