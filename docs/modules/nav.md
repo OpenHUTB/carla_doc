@@ -167,7 +167,81 @@
    * `MAX_POLYS=256` 和 `MAX_AGENTS=500` 影响计算复杂度。
 
  ---
- 
+| 注意事项 | 对应资源类型           | 具体对象/结构                                               |
+| ---- | ---------------- | ----------------------------------------------------- |
+| 内存管理 | 导航网格与查询对象        | `dtNavMesh*`、`dtNavMeshQuery*`                        |
+| 线程安全 | 路径查询与人群管理        | `dtNavMesh`、`dtNavMeshQuery`、`dtCrowd`、`dtCrowdAgent` |
+| 性能限制 | 网格查询多边形数、人群代理数限制 | `DT_MAX_POLYS`、`dtCrowd(maxAgents=…)`                 |
+
+---
+
+## 内存管理
+
+Recast/Detour 在 CARLA 中负责导航网格的加载、切割与查询，需手动释放相应资源以防泄漏。
+
+* **导航网格对象 (`dtNavMesh*`)**
+
+  * CARLA 在 `Navigation::Load(...)` 中调用 `dtAllocNavMesh()` 分配网格实例，结束后必须调用 `dtFreeNavMesh(navmesh)` 释放所有瓦片数据（仅释放标记 `DT_TILE_FREE_DATA` 的瓦片）([recastnav.com][1])。
+* **查询对象 (`dtNavMeshQuery*`)**
+
+  * 用于执行 `findNearestPoly()`、`findPath()`、`findStraightPath()` 等操作，分配方式同 `dtAllocNavMeshQuery()`，完成后应调用 `dtFreeNavMeshQuery(query)` 以回收节点池和开放列表内存([recastnav.com][1])。
+* **节点池与开放列表**
+
+
+上述资源均在 CARLA 源码的 `LibCarla/Navigation` 模块中通过 Recast/Detour API 管理，必须成对使用 `dtAlloc…` 与 `dtFree…`。
+
+---
+
+## 线程安全
+
+CARLA 支持同时更新数百个行人和车辆，底层依赖 Detour 的并发模型，但自身并未对 Detour 做线程封装，需在应用层自行加锁。
+
+* **Detour 本身非线程安全**
+
+  * Detour 将数据分为“导航数据”与“查询数据”两部分。导航数据（`dtNavMesh`）可多线程只读；查询数据（包含节点池、开放列表）在执行过程中会被修改，存在并发访问冲突([Google 群组][2])。
+* **CARLA 的 `dtCrowd` 管理**
+
+  * `dtCrowd` 维护一组 `dtCrowdAgent`，负责避障与本地寻路。多线程更新时，若多个线程同时调用 `update()`、`addAgent()`、`removeAgent()`，会竞态修改内部容器与过滤器参数，导致未定义行为([rwindegger.github.io][3], [GitHub][4])。
+* **`std::mutex` 加锁示例**
+
+  ```cpp
+  void Navigation::UpdateCrowd(const EpisodeState& state) {
+      std::lock_guard<std::mutex> guard(_mutex);
+      _crowd->update(dt, agents, agentCount);
+  }
+  ```
+
+  * 该锁确保在一次 `update()` 调用中，无其他线程能同时修改 `_crowd` 或映射表 `_mapped_walkers_id`/`_mapped_vehicles_id`([Google 群组][2])。
+* **加锁**
+
+  1. **避免数据竞争**：并发读写会导致节点池或代理容器处于不一致状态，触发崩溃或路径错误([Google 群组][5])。
+  2. **保证原子性**：一系列操作（如先移除旧代理再添加新代理）要么全部完成，要么全部不生效，防止中间状态被其他线程观察到而出错([Google 群组][2])。
+  3. **防止资源泄漏**：锁可确保在异常抛出时，析构保护会释放 `_mutex` 并允许后续清理逻辑正确执行。
+  4. **提升可靠性**：虽有性能开销，但对关键操作加锁能极大降低生产环境下的随机崩溃风险([Google 群组][2])。
+
+---
+
+## 性能限制
+
+CARLA 在导航模块中对路径搜索与人群模拟规模做了上限，以控制查询与避障计算复杂度。
+
+* **最大多边形数 (`DT_MAX_POLYS`)**
+
+  * Detour 查询时会遍历多边形网格，`DT_MAX_POLYS=256`（默认值）限定 `findPath()` 等函数的多边形序列最大长度，超限将提前退出；过大可支持长路径但压力激增([recastnav.com][1])。
+* **最大代理数 (`dtAllocCrowd(maxAgents)`)**
+
+  * 在 `Navigation::CreateCrowd()` 中，`dtAllocCrowd(MAX_AGENTS)` 分配代理数组，CARLA 默认 `MAX_AGENTS=500`，即一次性只能管理 500 个行人/车辆避障；超出后 `addAgent()` 返回失败([GitHub][4])。
+* **避障质量 (`obstacleAvoidanceType`)**
+
+  * 可在 0–3 间切换采样分辨率与代价计算复杂度，较高质量下 CPU 采样更密集，影响单帧性能；CARLA 默认 `3`，可针对性能需求下调✱。
+* **多线程并行限度**
+
+  * 虽可为每线程创建独立 `dtNavMeshQuery` 实例并发运行查询，但若导航网格需动态更新（`addTile()`/`removeTile()`），更新时仍需全局锁定以防查询中断([Google 群组][5])。
+
+---
+
+
+
  ## 示例代码  
  ### 初始化导航系统  
  ```cpp
