@@ -251,3 +251,5 @@ End Function
 本灯光系统技术文档描述了车载模拟器虚幻场景中人工光源蓝图的设计、核心组件、关键功能实现以及工作流程。通过采用基于继承的蓝图结构、集中式的数据资产、以及基于 ID 的控制接口，该系统提供了灵活、可控且易于扩展的灯光管理解决方案。它能够支持场景中各种类型人工光源的表现，并能与模拟器的动态环境系统集成，为构建逼真且功能丰富的仿真场景提供了坚实基础。未来的工作可以进一步提升系统的真实感、性能和复杂功能支持。
 
 
+test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test
+
