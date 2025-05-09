@@ -72,6 +72,206 @@
 <ul>
 <li>道具工厂 <a href="https://bitbucket.org/carla-simulator/carla-content/src/master/Blueprints/Props/PropFactory.uasset">PropFactory</a></li>
 </ul>
+<h1 id="props">道具/Props说明文档</h1>
+<h2 id="_2">目录</h2>
+<ol>
+<li><a href="#1项目概述">项目概述</a></li>
+<li><a href="#2核心组件与蓝图结构">核心组件与蓝图结构</a><ul>
+<li><a href="#21bp_baseprop">BP_BaseProp</a></li>
+<li><a href="#22bp_specificprop_type">BP_SpecificProp_Type</a></li>
+<li><a href="#23bp_multipleprops">BP_MultipleProps</a></li>
+<li><a href="#24propidsetter">PropIdSetter</a></li>
+<li><a href="#25scenepropsparameters-数据资产">ScenePropsParameters 数据资产</a></li>
+</ul>
+</li>
+<li><a href="#3关键功能实现">关键功能实现</a><ul>
+<li><a href="#31道具实例化与初始化">道具实例化与初始化</a></li>
+<li><a href="#32道具控制接口">道具控制接口</a></li>
+<li><a href="#33id-分配机制">ID 分配机制</a></li>
+<li><a href="#34与动态系统的集成">与动态系统的集成</a></li>
+<li><a href="#35性能优化考虑">性能优化考虑</a></li>
+</ul>
+</li>
+<li><a href="#4工作流程">工作流程</a></li>
+<li><a href="#5优化与扩展建议">优化与扩展建议</a><ul>
+<li><a href="#51文件格式支持扩展不适用">文件格式支持扩展（不适用）</a></li>
+<li><a href="#52异常处理与日志记录">异常处理与日志记录</a></li>
+<li><a href="#53性能优化">性能优化</a></li>
+<li><a href="#54单元测试">单元测试</a></li>
+<li><a href="#55更多道具特性">更多道具特性</a></li>
+</ul>
+</li>
+<li><a href="#6总结">总结</a></li>
+</ol>
+<hr />
+<h2 id="1">1. 项目概述</h2>
+<p>道具系统在虚拟环境中扮演着重要角色，不仅能够丰富场景的细节，还能为仿真环境带来更多的交互性和沉浸感。本模块专注于为场景中的各种道具（如家具、交通标识、街头设备等）设计并实现蓝图系统。通过结构化的蓝图和统一的控制接口，使得道具的配置、管理与控制更加灵活且高效，并能与模拟器的其他动态系统（如环境变化、角色互动）实现无缝集成。</p>
+<p>本道具系统模块参考了类似 CARLA 模拟器在物体蓝图组织上的实践，旨在提供一个高效、易扩展且高度可定制的解决方案，既能满足仿真需求，又具有较强的可维护性。</p>
+<h3 id="_3">模块依赖与集成</h3>
+<p>道具系统模块作为场景的核心组成部分，与模拟器的多个系统存在紧密交互：</p>
+<ul>
+<li><strong>虚幻引擎渲染管线</strong>: 利用UE4的物理和渲染特性，确保道具的表现效果符合预期。</li>
+<li><strong>场景管理系统</strong>: 通过道具蓝图实例的放置，关卡设计师能够创建场景中的各种道具。</li>
+<li><strong>模拟器控制接口 (例如 Python API)</strong>: 允许外部系统通过 ID 等方式控制特定道具的属性或状态。</li>
+<li><strong>动态环境系统</strong>: 道具系统需要与时间、天气等动态系统进行联动，确保道具与环境变化的同步性。</li>
+</ul>
+<hr />
+<h2 id="2">2. 核心组件与蓝图结构</h2>
+<p>道具系统由多个核心蓝图组件组成，以下是主要的构成部分：</p>
+<h3 id="i-bp_baseprop">i. BP_BaseProp</h3>
+<ul>
+<li><strong>功能</strong>: 作为所有具体道具类型蓝图的基类，封装了道具的基本属性和通用功能。</li>
+<li><strong>设计</strong>:</li>
+<li>包含一个或多个 <code>StaticMeshComponent</code>，表示道具的物理外观。</li>
+<li>定义了通用的变量，如 <code>PropName</code>, <code>PropType</code>, <code>IsInteractive</code>（是否可互动）等，这些变量可以在编辑器中修改或通过函数设置。</li>
+<li>提供基础的控制函数，如 <code>SetState(bool NewState)</code>, <code>Interact()</code>等。</li>
+<li>可以包含一个用于存储唯一 ID 的变量（如 <code>PropID</code>，类型为 String 或 Integer）。</li>
+<li><strong>作用</strong>: 提供道具蓝图的复用基础，确保各类型道具能够共享基础逻辑。</li>
+</ul>
+<h3 id="ii-bp_specificprop_type">ii. BP_SpecificProp_Type</h3>
+<ul>
+<li><strong>功能</strong>: 从 <code>BP_BaseProp</code> 继承，用于表示特定类型的道具，如 <strong><code>BP_Table</code></strong>, <strong><code>BP_TrafficSign</code></strong>, <strong><code>BP_StreetLamp</code></strong> 等。</li>
+<li><strong>设计</strong>:</li>
+<li>继承 <code>BP_BaseProp</code> 的组件和函数。</li>
+<li>在 <code>Construction Script</code> 中配置道具的模型 (<code>StaticMeshComponent</code>) 和可变属性。</li>
+<li>可以设置道具的交互属性，如点击时是否播放动画、改变状态等。</li>
+<li>如果需要，可以为该道具类型添加独有的变量或函数（例如，交通标志可能有表示当前状态的变量以及用于切换状态的函数）。</li>
+<li>在 <code>BeginPlay</code> 中通过读取 <code>ScenePropsParameters</code> 数据资产来初始化自身属性。</li>
+<li><strong>作用</strong>: 为不同外观和功能的道具提供具体的蓝图资产，便于关卡设计师在场景中使用和配置。</li>
+</ul>
+<h4 id="beginplay">蓝图实现示例（BeginPlay 初始化）</h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// 伪代码示例</span>
+<span class="n">Event</span><span class="w"> </span><span class="n">BeginPlay</span>
+<span class="w">    </span><span class="c1">// 加载场景道具参数数据资产</span>
+<span class="w">    </span><span class="n">LocalVariable</span><span class="w"> </span><span class="n">PropsParams</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LoadDataAsset</span><span class="p">(</span><span class="s">&quot;ScenePropsParametersAssetReference&quot;</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// 根据道具类型查找对应的配置</span>
+<span class="w">    </span><span class="n">LocalVariable</span><span class="w"> </span><span class="n">MyConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PropsParams</span><span class="p">.</span><span class="n">FindConfigForPropType</span><span class="p">(</span><span class="n">Self</span><span class="p">.</span><span class="n">PropTypeIdentifier</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">If</span><span class="w"> </span><span class="n">MyConfig</span><span class="w"> </span><span class="n">Is</span><span class="w"> </span><span class="n">Valid</span>
+<span class="w">        </span><span class="c1">// 设置道具的初始状态和属性</span>
+<span class="w">        </span><span class="n">StaticMeshComponent</span><span class="p">.</span><span class="n">SetStaticMesh</span><span class="p">(</span><span class="n">MyConfig</span><span class="p">.</span><span class="n">PropMesh</span><span class="p">);</span>
+<span class="w">        </span><span class="n">SetState</span><span class="p">(</span><span class="n">MyConfig</span><span class="p">.</span><span class="n">DefaultState</span><span class="p">);</span>
+<span class="w">    </span><span class="n">End</span><span class="w"> </span><span class="n">If</span>
+<span class="n">End</span><span class="w"> </span><span class="n">Event</span>
+<span class="err">````</span>
+
+<span class="cp">### iii. BP\_MultipleProps</span>
+
+<span class="o">*</span><span class="w"> </span><span class="o">**</span><span class="n">功能</span><span class="o">**:</span><span class="w"> </span><span class="n">一个控制器蓝图</span><span class="err">，</span><span class="n">用于管理场景中的一组相关道具实例</span><span class="err">。</span>
+<span class="o">*</span><span class="w"> </span><span class="o">**</span><span class="n">设计</span><span class="o">**:</span>
+
+<span class="w">  </span><span class="o">*</span><span class="w"> </span><span class="n">包含一个</span><span class="w"> </span><span class="err">`</span><span class="n">Array</span><span class="err">`</span><span class="w"> </span><span class="n">变量</span><span class="err">，</span><span class="n">存储</span><span class="w"> </span><span class="err">`</span><span class="n">BP_BaseProp</span><span class="err">`</span><span class="w"> </span><span class="n">或其子类道具的引用</span><span class="err">。</span><span class="n">这些引用可以在编辑器中手动指定</span><span class="err">，</span><span class="n">或在运行时动态获取</span><span class="err">。</span>
+<span class="w">  </span><span class="o">*</span><span class="w"> </span><span class="n">提供对该组道具进行批量操作的函数</span><span class="err">，</span><span class="n">如</span><span class="w"> </span><span class="err">`</span><span class="n">SetGroupState</span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="n">NewState</span><span class="p">)</span><span class="err">`、`</span><span class="n">InteractWithGroup</span><span class="p">()</span><span class="err">`</span><span class="w"> </span><span class="n">等</span><span class="err">，</span><span class="n">允许同时修改一组道具的状态</span><span class="err">。</span>
+<span class="o">*</span><span class="w"> </span><span class="o">**</span><span class="n">作用</span><span class="o">**:</span><span class="w"> </span><span class="n">便于对一组道具进行统一管理和控制</span><span class="err">（</span><span class="n">例如</span><span class="err">，</span><span class="n">同步开启一组互动道具</span><span class="err">）。</span>
+
+<span class="cp">### iv. PropIdSetter</span>
+
+<span class="o">*</span><span class="w"> </span><span class="o">**</span><span class="n">功能</span><span class="o">**:</span><span class="w"> </span><span class="n">用于为场景中的道具分配唯一标识符</span><span class="w"> </span><span class="p">(</span><span class="n">ID</span><span class="p">)</span><span class="w"> </span><span class="n">的蓝图</span><span class="err">。</span>
+<span class="o">*</span><span class="w"> </span><span class="o">**</span><span class="n">设计</span><span class="o">**:</span>
+
+<span class="w">  </span><span class="o">*</span><span class="w"> </span><span class="n">可以在游戏开始时执行</span><span class="w"> </span><span class="err">`</span><span class="n">AssignUniquePropIDs</span><span class="p">()</span><span class="err">`</span><span class="w"> </span><span class="n">函数</span><span class="err">。</span>
+<span class="w">  </span><span class="o">*</span><span class="w"> </span><span class="n">该函数通过</span><span class="w"> </span><span class="err">`</span><span class="n">GetAllActorsOfClass</span><span class="err">`</span><span class="w"> </span><span class="n">获取所有需要分配</span><span class="w"> </span><span class="n">ID</span><span class="w"> </span><span class="n">的道具实例</span><span class="err">。</span>
+<span class="w">  </span><span class="o">*</span><span class="w"> </span><span class="n">为每个道具生成唯一</span><span class="w"> </span><span class="n">ID</span><span class="err">，</span><span class="n">并将其存储在道具的</span><span class="w"> </span><span class="err">`</span><span class="n">Tags</span><span class="err">`</span><span class="w"> </span><span class="n">数组或自定义的</span><span class="w"> </span><span class="err">`</span><span class="n">PropID</span><span class="err">`</span><span class="w"> </span><span class="n">变量中</span><span class="err">。</span>
+<span class="o">*</span><span class="w"> </span><span class="o">**</span><span class="n">作用</span><span class="o">**:</span><span class="w"> </span><span class="n">使外部系统能够通过唯一</span><span class="w"> </span><span class="n">ID</span><span class="w"> </span><span class="n">引用并控制场景中的道具</span><span class="err">，</span><span class="n">尤其适用于自动化测试和外部系统集成</span><span class="err">。</span>
+
+<span class="o">**</span><span class="n">蓝图示例</span><span class="w"> </span><span class="p">(</span><span class="n">AssignUniquePropIDs</span><span class="w"> </span><span class="n">函数</span><span class="p">)</span><span class="o">**</span>
+
+<span class="err">```</span><span class="n">cpp</span>
+<span class="c1">// 伪代码示例</span>
+<span class="n">Function</span><span class="w"> </span><span class="n">AssignUniquePropIDs</span>
+
+<span class="n">LocalVariable</span><span class="w"> </span><span class="n">PropActors</span><span class="w"> </span><span class="n">Array</span><span class="o">&lt;</span><span class="n">Actor</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GetAllActorsOfClass</span><span class="p">(</span><span class="n">BP_BaseProp</span><span class="p">);</span>
+<span class="n">LocalVariable</span><span class="w"> </span><span class="n">CurrentID</span><span class="w"> </span><span class="n">Integer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="n">For</span><span class="w"> </span><span class="n">Each</span><span class="w"> </span><span class="n">Actor</span><span class="w"> </span><span class="n">In</span><span class="w"> </span><span class="n">PropActors</span>
+<span class="w">    </span><span class="c1">// 生成唯一ID</span>
+<span class="w">    </span><span class="n">LocalVariable</span><span class="w"> </span><span class="n">NewIDString</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;PropID_&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ToString</span><span class="p">(</span><span class="n">CurrentID</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// 将ID作为标签添加到Actor</span>
+<span class="w">    </span><span class="n">Actor</span><span class="p">.</span><span class="n">AddTag</span><span class="p">(</span><span class="n">FName</span><span class="p">(</span><span class="n">NewIDString</span><span class="p">));</span>
+
+<span class="w">    </span><span class="c1">// 如果 BP_BaseProp 有 PropID 变量，也可以设置它</span>
+<span class="w">    </span><span class="c1">// Cast Actor To BP_BaseProp</span>
+<span class="w">    </span><span class="c1">// If Cast Successful</span>
+<span class="w">    </span><span class="c1">//     BP_BaseProp_Ref.PropID = NewIDString;</span>
+<span class="w">    </span><span class="c1">// End If</span>
+
+<span class="w">    </span><span class="n">CurrentID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CurrentID</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="n">End</span><span class="w"> </span><span class="n">For</span><span class="w"> </span><span class="n">Each</span>
+<span class="n">End</span><span class="w"> </span><span class="n">Function</span>
+</code></pre></div>
+<h3 id="v-scenepropsparameters">v. ScenePropsParameters 数据资产</h3>
+<ul>
+<li><strong>功能</strong>: 存储场景中不同道具类型的配置参数。</li>
+<li>
+<p><strong>设计</strong>:</p>
+</li>
+<li>
+<p>包含多个结构体，每个结构体代表一种道具类型（例如，<code>ST_TableConfig</code>, <code>ST_TrafficSignConfig</code>）。</p>
+</li>
+<li>每个结构体包含该类型道具的默认属性（如模型、交互状态、默认材质等）。</li>
+<li>蓝图（如 <code>BP_SpecificProp_Type</code>）可以在初始化时读取该数据资产，根据自身类型选择相应的配置。</li>
+<li><strong>作用</strong>: 将道具的配置数据与蓝图代码分离，方便美术和策划人员调整道具属性。</li>
+</ul>
+<hr />
+<h2 id="3">3. 关键功能实现</h2>
+<h3 id="i">i. 道具实例化与初始化</h3>
+<ol>
+<li>关卡设计师将 <code>BP_SpecificProp_Type</code>（如 <code>BP_Table</code>）拖拽到场景中。</li>
+<li>在蓝图实例的详情面</li>
+</ol>
+<p>板中，关卡设计师可以调整道具的基本属性（如模型、材质、交互功能等）。
+3. 运行时，<code>BeginPlay</code> 会触发道具的初始化，蓝图从 <code>ScenePropsParameters</code> 数据资产中读取相关配置信息，确保道具的属性正确设置。</p>
+<h3 id="ii">ii. 道具控制接口</h3>
+<ul>
+<li>外部系统（如模拟器控制系统、自动化测试工具）可以通过道具的 <code>PropID</code> 唯一标识符来控制道具的行为。</li>
+<li>
+<p>常见操作包括：</p>
+</li>
+<li>
+<p>通过 <code>SetState()</code> 函数修改道具状态（如从“关闭”到“开启”）。</p>
+</li>
+<li>调用 <code>Interact()</code> 函数模拟玩家与道具的交互。</li>
+</ul>
+<h3 id="iii-id">iii. ID 分配机制</h3>
+<ul>
+<li>使用 <code>PropIdSetter</code> 蓝图为每个道具分配唯一 ID，并在蓝图中存储该 ID。</li>
+<li>该 ID 可以通过标签、变量或其他方式存储，以供外部系统查询和操作。</li>
+</ul>
+<h3 id="iv">iv. 与动态系统的集成</h3>
+<p>道具系统能够与模拟器的动态环境系统（如天气、时间）进行联动。例如，某些道具（如灯具）可能需要根据时间或天气自动开关。</p>
+<h3 id="v">v. 性能优化考虑</h3>
+<ul>
+<li>对于大量道具的管理，使用 <code>BP_MultipleProps</code> 控制一组道具的行为，避免对每个道具单独进行操作。</li>
+<li>道具的物理和视觉效果尽量采用低成本的优化方法（如简化碰撞体积、减少不必要的实时计算）。</li>
+</ul>
+<hr />
+<h2 id="4">4. 工作流程</h2>
+<ol>
+<li>关卡设计师在虚幻引擎中使用 <code>BP_SpecificProp_Type</code> 将道具拖入场景，并根据需要配置其属性。</li>
+<li>当游戏启动时，道具会在 <code>BeginPlay</code> 中进行初始化。</li>
+<li>外部系统或玩家通过控制接口与道具交互，改变其状态或属性。</li>
+<li>每个道具都会有一个唯一的 <code>PropID</code>，用于在模拟器中进行唯一标识。</li>
+</ol>
+<hr />
+<h2 id="5">5. 优化与扩展建议</h2>
+<h3 id="i_1">i. 文件格式支持扩展（不适用）</h3>
+<p>当前方案已足够灵活，暂不考虑支持额外的文件格式。</p>
+<h3 id="ii_1">ii. 异常处理与日志记录</h3>
+<p>可以在每个蓝图中添加异常处理逻辑，确保在发生错误时进行日志记录，方便后期排查和调试。</p>
+<h3 id="iii">iii. 性能优化</h3>
+<ul>
+<li>使用对象池机制来管理频繁创建和销毁的道具，减少内存的分配和释放。</li>
+<li>对于非互动道具，尽量避免不必要的物理计算和渲染更新。</li>
+</ul>
+<h3 id="iv_1">iv. 单元测试</h3>
+<p>建议为核心功能编写单元测试，确保道具实例化、属性设置和ID分配等功能的准确性。</p>
+<h3 id="v_1">v. 更多道具特性</h3>
+<p>可进一步扩展道具的类型和功能，例如支持更多的动画、状态切换、或与玩家互动的方式。</p>
+<hr />
+<h2 id="6">6. 总结</h2>
+<p>道具系统为虚拟场景中的物体提供了灵活的管理方式，允许关卡设计师和开发人员轻松地配置、控制和优化场景中的各类道具。通过高效的蓝图结构和统一的接口，系统不仅能够支持多种道具类型，还能与模拟器的动态环境无缝集成，为仿真场景提供了丰富的交互性。</p>
               
             </div>
           </div><footer>
