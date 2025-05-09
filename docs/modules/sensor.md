@@ -267,7 +267,7 @@ noop_sensor.listen(on_noop_event)
 
 ---
 
-# 第二章：CARLA惯性测量单元传感器系统（sensor.other.imu）
+# 第三章：CARLA惯性测量单元传感器系统（sensor.other.imu）
 
 ---
 
