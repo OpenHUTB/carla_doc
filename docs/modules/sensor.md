@@ -263,3 +263,147 @@ noop_sensor.listen(on_noop_event)
 - 可组合图像、IMU 等实际传感器测试是否发生调用竞争或系统冲突。
 
 ---
+以下是整合优化后的 `CARLA IMU 惯性测量单元传感器（sensor.other.imu）` 的完整文档内容，已合并相近内容，简化结构但保留技术深度，便于复制粘贴使用：
+
+---
+
+# 第二章：CARLA惯性测量单元传感器系统（sensor.other.imu）
+
+---
+
+## 1 模块概览
+
+`sensor.other.imu` 是 CARLA 提供的惯性测量单元（IMU）传感器，用于捕捉车辆的三维加速度、角速度及方向信息，广泛应用于轨迹估计、姿态解算、导航融合等自动驾驶仿真任务中。
+
+该传感器会周期性发送事件，传递以下数据：
+
+* **加速度计**：三轴加速度 `Vector3D(x, y, z)`，单位 m/s²
+* **陀螺仪**：三轴角速度 `Vector3D(x, y, z)`，单位 rad/s
+* **罗盘**：航向角（方向朝向），单位弧度
+
+默认以 20Hz 更新频率输出，支持在蓝图中调整采样速率。
+
+---
+
+## 2 工作流程与序列化机制
+
+IMU 传感器的数据流程如下：
+
+1. **事件捕获**：模拟器服务端采集当前帧的 IMU 数据
+2. **数据序列化**：使用 `IMUSerializer` 将加速度、角速度与罗盘值打包为 MsgPack 编码字节流（参见 `IMUSerializer.h/.cpp`）
+3. **网络传输**：打包后的 `RawData` 通过 RPC 系统传输至客户端
+4. **数据还原**：客户端通过 `IMUMeasurement` 类将字节流还原为结构化对象
+5. **回调触发**：Python 层注册的 `.listen()` 回调函数获得该事件并执行处理逻辑
+
+流程图如下所示：
+
+![flowchart_3.png](..%2Fimg%2Fmodules%2Fflowchart_3.png)
+
+---
+
+## 3 数据结构详解
+
+IMU 数据通过 `IMUMeasurement` 类对外暴露，定义位置：
+
+📄 [`carla/sensor/data/IMUMeasurement.h`](https://github.com/carla-simulator/carla/blob/dev/LibCarla/source/carla/sensor/data/IMUMeasurement.h)
+
+该类封装如下：
+
+```
+class IMUMeasurement : public SensorData {
+public:
+  geom::Vector3D GetAccelerometer() const;
+  geom::Vector3D GetGyroscope() const;
+  float GetCompass() const;
+};
+```
+
+* **加速度**：IMU 加速度计测得的三轴值
+* **角速度**：陀螺仪角速度
+* **罗盘值**：航向角（通常为 0\~2π 的弧度）
+
+所有字段通过 `IMUSerializer::Deserialize()` 方法从 `RawData` 还原，序列化结构如下：
+
+```
+struct IMUData {
+  Vector3D accelerometer;
+  Vector3D gyroscope;
+  float compass;
+};
+```
+
+通过 `MSGPACK_DEFINE_ARRAY(acc, gyro, compass)` 支持 MsgPack 自动编码。
+
+---
+
+## 4 Python API 调用示例
+
+以下代码展示如何部署 IMU 传感器、注册监听器，并处理接收到的数据：
+
+```
+def on_imu(event):
+    acc = event.accelerometer
+    gyro = event.gyroscope
+    compass = event.compass
+    print(f"[IMU] 加速度: {acc} | 角速度: {gyro} | 罗盘: {compass}")
+
+# 创建传感器
+bp = world.get_blueprint_library().find('sensor.other.imu')
+transform = carla.Transform(carla.Location(x=0, y=0, z=1.0))
+imu_sensor = world.spawn_actor(bp, transform, attach_to=vehicle)
+imu_sensor.listen(on_imu)
+```
+
+---
+
+## 5 拓展用例与集成应用
+
+IMU 常与 GNSS、相机、雷达等传感器联用，实现高级状态估计：
+
+**与 GNSS 融合：**
+
+```
+def on_gnss(gnss):
+    print(f"[GNSS] 纬度: {gnss.latitude}, 经度: {gnss.longitude}")
+
+imu_sensor.listen(on_imu)
+gnss_sensor.listen(on_gnss)
+```
+
+**估算车辆速度（积分法，简化示例）：**
+
+```
+velocity = carla.Vector3D()
+
+def on_imu_integration(imu):
+    global velocity
+    dt = 0.05  # 默认 20Hz
+    a = imu.accelerometer
+    velocity.x += a.x * dt
+    velocity.y += a.y * dt
+    velocity.z += a.z * dt
+    print(f"估算速度: {velocity}")
+```
+
+---
+
+## 6 限制与对比分析
+
+| 属性   | CARLA IMU  | 真实 IMU（如 Xsens） |
+| ---- | ---------- | --------------- |
+| 更新频率 | 默认 20Hz，可调 | 最高 > 1000Hz     |
+| 噪声建模 | 默认无噪声      | 含偏置、漂移等随机扰动     |
+| 时间同步 | 自动与仿真对齐    | 需硬件级时间戳         |
+| 数据输出 | 无 CSV 导出   | 支持标准格式          |
+
+---
+
+## 7 总结与建议
+
+* `sensor.other.imu` 提供结构清晰、易用的姿态/运动状态反馈能力；
+* 可拓展为带噪模型、加权滤波、数据融合平台；
+* 建议与 `sensor.other.gnss`、`sensor.camera.rgb` 联合使用，支持轨迹分析、三维重建等研究任务；
+* 后续可引入 IMU 噪声模拟模块、数据导出功能。
+
+---
+
