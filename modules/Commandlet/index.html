@@ -267,16 +267,70 @@
 </table>
 <hr />
 <h2 id="_7">数据结构与配置</h2>
-<h3 id="_8">扩展语义标签定义</h3>
+<h4 id="fpackageparams"><code>FPackageParams</code> 结构体</h4>
+<p>命令行参数解析容器：  </p>
 <table>
 <thead>
 <tr>
-<th>标签常量</th>
-<th>对应路径</th>
-<th>匹配规则</th>
+<th>字段</th>
+<th>类型</th>
+<th>描述</th>
 </tr>
 </thead>
 <tbody>
+<tr>
+<td><code>Name</code></td>
+<td><code>FString</code></td>
+<td>资源包名称</td>
+</tr>
+<tr>
+<td><code>bOnlyPrepareMaps</code></td>
+<td><code>bool</code></td>
+<td>是否仅预处理地图资产</td>
+</tr>
+</tbody>
+</table>
+<h4 id="fmapdata"><code>FMapData</code> 结构体</h4>
+<p>地图配置元数据：  </p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Name</code></td>
+<td><code>FString</code></td>
+<td>地图名称</td>
+</tr>
+<tr>
+<td><code>Path</code></td>
+<td><code>FString</code></td>
+<td>资产路径</td>
+</tr>
+<tr>
+<td><code>bUseCarlaMapMaterials</code></td>
+<td><code>bool</code></td>
+<td>是否强制使用 Carla 原生材质</td>
+</tr>
+<tr>
+<td>### 扩展语义标签定义</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>标签常量</td>
+<td>对应路径</td>
+<td>匹配规则</td>
+</tr>
+<tr>
+<td>-------------------</td>
+<td>-----------------</td>
+<td>---------------------------</td>
+</tr>
 <tr>
 <td><code>R_CURB1</code></td>
 <td>CURB/</td>
@@ -294,7 +348,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="_9">分块地图配置</h3>
+<h3 id="_8">分块地图配置</h3>
 <p><code>TilesInfo.txt</code> 格式规范：<br />
 <div class="highlight"><pre><span></span><code>[原点X坐标],[原点Y坐标],[瓦片尺寸(米)]
 </code></pre></div>
@@ -302,8 +356,8 @@
 <div class="highlight"><pre><span></span><code>-2500.0,1500.0,2000.0
 </code></pre></div></p>
 <hr />
-<h2 id="_10">关键流程</h2>
-<h3 id="_11">资产预处理流程</h3>
+<h2 id="_9">关键流程</h2>
+<h3 id="_10">资产预处理流程</h3>
 <pre class="mermaid"><code>graph TD
   A[解析Package参数] --&gt; B[加载基础地图模板]
   B --&gt; C{是否分块地图?}
@@ -315,14 +369,14 @@
   H --&gt; I[保存分块配置]
   I --&gt; J[生成路径清单]</code></pre>
 <hr />
-<h2 id="_12">配置参数</h2>
-<h3 id="_13">扩展命令行参数</h3>
+<h2 id="_11">配置参数</h2>
+<h3 id="_12">扩展命令行参数</h3>
 <div class="highlight"><pre><span></span><code>-OnlyPrepareMaps<span class="o">=</span><span class="nb">true</span><span class="w">      </span><span class="c1"># 仅预处理地图资产</span>
 -TileSize<span class="o">=</span><span class="m">2000</span><span class="w">             </span><span class="c1"># 分块地图尺寸（单位：米） </span>
 </code></pre></div>
 <hr />
-<h2 id="_14">注意事项</h2>
-<h3 id="_15">预处理模块专项</h3>
+<h2 id="_13">注意事项</h2>
+<h3 id="_14">预处理模块专项</h3>
 <ol>
 <li><strong>材质依赖</strong>  </li>
 <li>必须预加载 Carla/Static/GenericMaterials 材质库  </li>
@@ -343,16 +397,16 @@
 <li>缺失 XODR 文件将跳过导航点生成</li>
 </ol>
 <hr />
-<h2 id="_16">示例配置</h2>
-<h3 id="_17">分块地图预处理命令</h3>
+<h2 id="_15">示例配置</h2>
+<h3 id="_16">分块地图预处理命令</h3>
 <div class="highlight"><pre><span></span><code>UE4Editor-Cmd.exe Carla -run=PrepareAssetsForCooking  
   -PackageName=EuroPack  
   -Maps=Berlin  
   -TileSize=2000
 </code></pre></div>
 <hr />
-<h2 id="_18">附录</h2>
-<h3 id="_19">增强错误代码表</h3>
+<h2 id="_17">附录</h2>
+<h3 id="_18">增强错误代码表</h3>
 <table>
 <thead>
 <tr>
