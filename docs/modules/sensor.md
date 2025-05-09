@@ -141,15 +141,17 @@ class CollisionEvent : public SensorData {
 
 ## 6 Python API 使用示例
 
-> 以下代码片段展示如何在客户端中部署碰撞传感器、注册回调函数，并在事件触发时获取相关信息。
+> 以下代码展示如何在 Python 客户端中部署碰撞传感器、注册回调函数，并获取碰撞信息。
 
-# 定义回调函数：每当碰撞发生时，将自动调用该函数
+```
+# 定义回调函数
 def on_collision(event):
-    actor = event.other_actor              # 获取碰撞对方 Actor（carla.Actor）
-    impulse = event.normal_impulse        # 冲击力向量对象（carla.Vector3D）
+    actor = event.other_actor
+    impulse = event.normal_impulse
     print(f"发生碰撞！对象类型：{actor.type_id}，冲击向量：{impulse}")
+```
 
-
+```
 # 初始化流程（前提是已有 client、world、vehicle 实例）
 
 # 获取蓝图库
@@ -158,17 +160,17 @@ blueprint_library = world.get_blueprint_library()
 # 检索并实例化碰撞传感器蓝图
 bp = blueprint_library.find('sensor.other.collision')
 
-# 设置传感器安装位置（相对于车体）
+# 设置传感器安装位置（相对于车辆）
 transform = carla.Transform(carla.Location(x=0, y=0, z=2.0))
 
 # 创建传感器实例并附着到车辆上
 sensor = world.spawn_actor(bp, transform, attach_to=vehicle)
 
-# 注册回调函数，开始监听碰撞事件
+# 注册回调函数
 sensor.listen(on_collision)
+```
 
-
-该机制具备极高的实用性和拓展性，常用于自动驾驶测试与仿真安全评估中。
+该机制具备极高的可用性与拓展性，常用于仿真安全评估、行为分析、避障策略等任务。
 
 ---
 
