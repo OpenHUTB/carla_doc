@@ -23,7 +23,7 @@ CARLA 所有传感器，包括 `sensor.other.collision`，均基于统一的 Act
   3. 通过 RPC 网络发送
   4. 客户端使用 `Deserialize()` 解码为 `SensorData`
   5. 注入回调函数中进行处理
-     ![flowchart.jpg](docs/img/flowchart.jpg)
+     ![flowchart.jpg](..%2Fimg%2Fmodules%2Fflowchart.jpg)
 该流程构成事件捕捉 → 数据序列化 → 网络传输 → 解码还原 → 客户端处理的完整通路。
 
 ---
