@@ -72,6 +72,30 @@
 <ul>
 <li>点光源旋转 <a href="https://bitbucket.org/carla-simulator/carla-content/src/master/Blueprints/Testing/PointLightRotator.uasset">PointLightRotator</a> ：点光源是从单一位置向各个方向发射光线的光源</li>
 </ul>
+<h1 id="carla">CARLA 测试说明文档</h1>
+<h2 id="_2">一、项目概述</h2>
+<p><strong>CARLA 测试</strong> 基于开源自动驾驶仿真平台，旨在通过可重复的仿真环境验证自动驾驶算法、传感器性能及交通场景逻辑。</p>
+<ul>
+<li><strong>核心目标</strong> ：</li>
+<li>验证车辆在复杂场景（如避障、路口交互、恶劣天气）中的决策能力。</li>
+<li>评估传感器（LiDAR、摄像头、雷达）数据质量与实时性。</li>
+<li>
+<p>测试交通管理器（Traffic Manager）的车辆行为控制效果。</p>
+</li>
+<li>
+<p><strong>支持测试类型</strong> ：功能测试、性能测试、回归测试、压力测试。</p>
+</li>
+</ul>
+<h2 id="_3">二、模块依赖与集成</h2>
+<p>Testing 模块与 CARLA 的众多模块紧密相关：</p>
+<h3 id="_4">（一）依赖模块</h3>
+<ul>
+<li><strong>核心模拟引擎</strong> ：提供物理引擎、场景渲染等基本功能，为测试场景的创建和运行提供了基础。</li>
+<li><strong>传感器模块（sensor）</strong> ：获取车辆、行人等物体的各种传感器数据，如摄像头图像、激光雷达点云等，用于测试传感器的准确性和性能。</li>
+<li><strong>交通管理器（trafficmanager）</strong> ：控制交通流量和交通规则的执行，模拟不同的交通场景。</li>
+</ul>
+<h3 id="_5">（二）集成方式</h3>
+<p>通过调用和组合这些依赖模块的功能，构建出复杂的测试流程和场景，实现对 CARLA 各个方面的全面测试。</p>
               
             </div>
           </div><footer>
