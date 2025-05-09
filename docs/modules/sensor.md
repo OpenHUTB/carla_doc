@@ -281,33 +281,34 @@ sensor.other.noop 并不绑定任何结构化数据类型：
 
 ## 5 Python API 使用示例
 
-尽管 sensor.other.noop 不会触发任何事件，用户仍可以在 Python 客户端中进行正常的创建与监听操作。
+虽然该传感器不传输数据，仍可正常在 Python 中创建与注册监听。
 
+```
 # 定义回调函数（注意：不会被调用）
 def on_noop_event(event):
     print("此处不应出现任何输出")
 
-# 从蓝图库中获取 Noop 蓝图
+# 获取蓝图库并查找蓝图
 bp = world.get_blueprint_library().find('sensor.other.noop')
 
-# 设置传感器安装位置（相对于车辆）
+# 设置传感器相对位置
 transform = carla.Transform(carla.Location(x=0, y=0, z=2.0))
 
-# 创建传感器实例并附着至目标对象
+# 创建传感器并附着至车辆
 noop_sensor = world.spawn_actor(bp, transform, attach_to=vehicle)
 
-# 注册回调函数，尽管它永远不会触发
+# 注册监听函数（将不会触发）
 noop_sensor.listen(on_noop_event)
-
+```
 
 **可选调试建议**：
 
-* 可用日志输出验证传感器挂载成功；
-* 可使用 .destroy() 手动销毁并观察系统回收状态；
-* 可组合多个传感器观察 .listen() 注册链行为。
-
+- 可用日志验证传感器挂载成功；
+- 可调用 `.destroy()` 观察销毁逻辑；
+- 可组合多个传感器观察 `.listen()` 机制行为。
 
 ---
+
 
 ## 6 小结与拓展
 
