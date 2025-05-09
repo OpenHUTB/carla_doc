@@ -86,7 +86,7 @@
 <p><strong>支持测试类型</strong> ：功能测试、性能测试、回归测试、压力测试。</p>
 </li>
 </ul>
-<h2 id="_3">二、模块依赖与集成</h2>
+<h2 id="_3">二、模块依赖</h2>
 <p>Testing 模块与 CARLA 的众多模块紧密相关：</p>
 <h3 id="_4">（一）依赖模块</h3>
 <ul>
@@ -94,8 +94,70 @@
 <li><strong>传感器模块（sensor）</strong> ：获取车辆、行人等物体的各种传感器数据，如摄像头图像、激光雷达点云等，用于测试传感器的准确性和性能。</li>
 <li><strong>交通管理器（trafficmanager）</strong> ：控制交通流量和交通规则的执行，模拟不同的交通场景。</li>
 </ul>
-<h3 id="_5">（二）集成方式</h3>
-<p>通过调用和组合这些依赖模块的功能，构建出复杂的测试流程和场景，实现对 CARLA 各个方面的全面测试。</p>
+<h2 id="_5">三、核心组件</h2>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>功能描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>场景管理器</strong></td>
+<td>加载 / 卸载场景，控制天气、光照、NPC 行为等参数。</td>
+</tr>
+<tr>
+<td><strong>传感器系统</strong></td>
+<td>管理摄像头、LiDAR、IMU 等传感器数据采集与同步。</td>
+</tr>
+<tr>
+<td><strong>交通管理器</strong></td>
+<td>控制 NPC 车辆的路径规划、速度调整、避障逻辑。</td>
+</tr>
+<tr>
+<td><strong>数据记录器</strong></td>
+<td>将仿真数据（传感器输出、车辆状态）保存为 <code>.log</code> 或 <code>.csv</code> 格式。</td>
+</tr>
+<tr>
+<td><strong>测试评估模块</strong></td>
+<td>根据预设规则（如碰撞次数、路径偏差）自动判定测试结果。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_6">四、关键功能实现</h2>
+<h3 id="_7">（一）场景测试（避障验证）</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 生成障碍物与测试车辆</span>
+<span class="n">obstacle</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">barrier_bp</span><span class="p">,</span> <span class="n">carla</span><span class="o">.</span><span class="n">Transform</span><span class="p">(</span><span class="n">location</span><span class="p">))</span>
+<span class="n">vehicle</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">vehicle_bp</span><span class="p">,</span> <span class="n">spawn_point</span><span class="p">)</span>
+<span class="n">vehicle</span><span class="o">.</span><span class="n">set_autopilot</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># 检测碰撞事件</span>
+<span class="k">def</span> <span class="nf">on_collision</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">actor</span> <span class="o">==</span> <span class="n">vehicle</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;避障失败！碰撞发生。&quot;</span><span class="p">)</span>
+<span class="n">world</span><span class="o">.</span><span class="n">on_tick</span><span class="p">(</span><span class="n">on_collision</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="lidar">（二）传感器数据验证（LiDAR 点云）</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 绑定 LiDAR 并检查点云密度</span>
+<span class="n">lidar_bp</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;sensor.lidar.ray_cast&#39;</span><span class="p">)</span>
+<span class="n">lidar_bp</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s1">&#39;points_per_second&#39;</span><span class="p">,</span> <span class="s1">&#39;100000&#39;</span><span class="p">)</span>
+<span class="n">lidar</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="k">lambda</span> <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;pointcloud.npy&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">frombuffer</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">raw_data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
+
+<span class="c1"># 分析点云</span>
+<span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;pointcloud.npy&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;有效点数：</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">points</span><span class="p">)</span><span class="si">}</span><span class="s2">，范围：</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">points</span><span class="p">[:,</span><span class="w"> </span><span class="p">:</span><span class="mi">3</span><span class="p">])</span><span class="si">}</span><span class="s2"> 米&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="_8">（三）交通流压力测试</h3>
+<div class="highlight"><pre><span></span><code><span class="n">tm</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_trafficmanager</span><span class="p">()</span>
+<span class="n">tm</span><span class="o">.</span><span class="n">set_global_speed_limit</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>  <span class="c1"># 全局限速 30km/h</span>
+<span class="n">tm</span><span class="o">.</span><span class="n">set_hybrid_physics_mode</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># 混合物理模式（远距离车辆低精度模拟）</span>
+
+<span class="c1"># 生成 100 辆 NPC 车辆</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">vehicle</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">bp</span><span class="p">,</span> <span class="n">spawn_points</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">tm</span><span class="o">.</span><span class="n">ignore_lights_percentage</span><span class="p">(</span><span class="n">vehicle</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>  <span class="c1"># 所有车辆忽略红灯</span>
+</code></pre></div>
               
             </div>
           </div><footer>
