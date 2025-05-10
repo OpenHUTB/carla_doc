@@ -237,11 +237,25 @@ case ECarlaWheeledVehicleState::Parking:
 俩个调用功能展示图
 ```
 
-![image-20250510105242142](C:\Users\86157\AppData\Roaming\Typora\typora-user-images\image-20250510105242142.png
+# <三>`UWheeledVehicleMovementComponentNW` 类文档
 
-![image-20250510105713146](C:\Users\86157\AppData\Roaming\Typora\typora-user-images\image-20250510105713146.png)
+## 一、类的概述
 
-![image-20250510105807055](C:\Users\86157\AppData\Roaming\Typora\typora-user-images\image-20250510105807055.png)
+`UWheeledVehicleMovementComponentNW` 类继承自某个基类（`Super`），主要用于处理轮式车辆的运动相关设置和操作，包括车辆的发动机设置、变速器设置、车轮设置等，同时负责与物理引擎（PhysX）进行交互，以实现车辆的模拟和运动更新。
+
+## 二、成员变量
+
+1. **`EngineSetup`**：存储车辆发动机相关的数据，包括转动惯量（`MOI`）、最大转速（`MaxRPM`）、不同工况下的阻尼率等，这些数据用于配置发动机的行为。
+2. **`TransmissionSetup`**：包含车辆变速器的设置信息，如离合器强度（`ClutchStrength`）、换挡时间（`GearSwitchTime`）、倒档齿轮比（`ReverseGearRatio`）、最终传动比（`FinalRatio`）以及前进档的相关数据（`ForwardGears`）等，用于控制车辆的换挡逻辑和传动系统。
+3. **`WheelSetups`**：一个数组，用于存储车轮的设置信息，每个元素对应一个车轮的设置，包括车轮的骨骼名称等。
+4. **`DifferentialSetup`**：存储车辆差速器的设置数据，用于配置差速器的行为。
+5. **`IdleBrakeInput`**：表示车辆的闲置刹车输入值。
+6. **`SteeringCurve`**：一个富曲线（`FRichCurve`），用于描述车辆转向速度与转向角度之间的关系，通过添加不同速度下的转向比例关键帧来定义。
+
+## 三、构造函数 `UWheeledVehicleMovementComponentNW(const FObjectInitializer& ObjectInitializer)`
+
+1. **功能**：初始化车辆运动组件的默认设置，从 PhysX 获取默认的发动机数据，并设置发动机的相关参数，如转动惯量、最大转速、阻尼率等。同时初始化变速器的一些默认值，以及设置转向速度曲线的初始关键帧，并初始化车轮设置数组和差速器设置数组。
+2. **参数**：`ObjectInitializer` 用于初始化对象的参数。
 
 ## 参考
 
