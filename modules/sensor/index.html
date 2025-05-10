@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>第一章：CARLA 碰撞事件传感器系统（sensor.other.collision） - 人车模拟器</title>
+    <title>📘 CARLA 传感器文档总览 - 人车模拟器</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "\u7b2c\u4e00\u7ae0\uff1aCARLA \u78b0\u649e\u4e8b\u4ef6\u4f20\u611f\u5668\u7cfb\u7edf\uff08sensor.other.collision\uff09";
+        var mkdocs_page_name = "\ud83d\udcd8 CARLA \u4f20\u611f\u5668\u6587\u6863\u603b\u89c8";
         var mkdocs_page_input_path = "modules/sensor.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,7 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">第一章：CARLA 碰撞事件传感器系统（sensor.other.collision）</li>
+      <li class="breadcrumb-item active">📘 CARLA 传感器文档总览</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/modules/sensor.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -68,7 +68,40 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="carla-sensorothercollision">第一章：CARLA 碰撞事件传感器系统（sensor.other.collision）</h1>
+                <h1 id="carla">📘 CARLA 传感器文档总览</h1>
+<hr />
+<h2 id="table-of-contents">📑 目录（Table of Contents）</h2>
+<h3 id="sensorothercollision">第一章：碰撞事件传感器（sensor.other.collision）</h3>
+<ul>
+<li><a href="#1-模块概览">1 模块概览</a></li>
+<li><a href="#2-传感器注册与调用原理">2 传感器注册与调用原理</a></li>
+<li><a href="#3-数据结构collisionevent">3 数据结构：CollisionEvent</a></li>
+<li><a href="#4-序列化器分析collisioneventserializer">4 序列化器分析</a></li>
+<li><a href="#5-rawdata-与-sensordata-概述">5 RawData 与 SensorData 概述</a></li>
+<li><a href="#6-python-api-使用示例">6 Python API 使用示例</a></li>
+<li><a href="#7-小结与拓展">7 小结与拓展</a></li>
+</ul>
+<h3 id="sensorothernoop">第二章：空传感器（sensor.other.noop）</h3>
+<ul>
+<li><a href="#1-模块概览-1">1 模块概览</a></li>
+<li><a href="#2-传感器注册与调用原理-1">2 传感器注册与调用原理</a></li>
+<li><a href="#3-序列化器分析noopserializer">3 序列化器分析</a></li>
+<li><a href="#4-数据结构与传输机制">4 数据结构与传输机制</a></li>
+<li><a href="#5-python-api-使用示例-1">5 Python API 使用示例</a></li>
+<li><a href="#6-小结与拓展-1">6 小结与拓展</a></li>
+</ul>
+<h3 id="imu-sensorotherimu">第三章：IMU 传感器（sensor.other.imu）</h3>
+<ul>
+<li><a href="#1-模块概览-2">1 模块概览</a></li>
+<li><a href="#2-工作流程与序列化机制">2 工作流程与序列化机制</a></li>
+<li><a href="#3-数据结构详解">3 数据结构详解</a></li>
+<li><a href="#4-python-api-调用示例">4 Python API 调用示例</a></li>
+<li><a href="#5-拓展用例与集成应用">5 拓展用例与集成应用</a></li>
+<li><a href="#6-限制与对比分析">6 限制与对比分析</a></li>
+<li><a href="#7-总结与建议">7 总结与建议</a></li>
+</ul>
+<hr />
+<h1 id="carla-sensorothercollision">第一章：CARLA 碰撞事件传感器系统（sensor.other.collision）</h1>
 <hr />
 <h2 id="1">1 模块概览</h2>
 <p>本章详细讲解 CARLA 模拟器中的一类简单传感器：<code>sensor.other.collision</code>，即碰撞事件传感器。该传感器不输出连续的数据流信息，而是在检测到实体碰撞时以事件形式即时触发。其设计初衷是为用户提供车辆与环境中其他对象之间物理交互的监控能力。</p>
