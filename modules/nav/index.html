@@ -150,18 +150,155 @@
 <span class="p">};</span>
 </code></pre></div></p>
 <hr />
-<p>## 关键流程<br />
- ### 路径规划流程<br />
- 1. <strong>输入</strong>：起点 <code>from</code> 和终点 <code>to</code><br />
- 2. <strong>查询最近多边形</strong>：<br />
-    <div class="highlight"><pre><span></span><code><span class="n">findNearestPoly</span><span class="p">(</span><span class="n">start_pos</span><span class="p">,</span><span class="w"> </span><span class="n">filter</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">start_ref</span><span class="p">);</span>
+<p>## 关键流程  </p>
+<h3 id="1">1. 路径规划流程</h3>
+<ol>
+<li><strong>初始化查询环境</strong></li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="c1">// 创建并初始化 NavMeshQuery 实例</span>
+<span class="n">dtNavMeshQuery</span><span class="o">*</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dtAllocNavMeshQuery</span><span class="p">();</span>
+<span class="n">query</span><span class="o">-&gt;</span><span class="n">init</span><span class="p">(</span><span class="n">navmesh</span><span class="p">,</span><span class="w"> </span><span class="n">MAX_POLYS</span><span class="p">);</span>
+<span class="c1">// 配置过滤器：设置区域成本、禁行区域等</span>
+<span class="n">dtQueryFilter</span><span class="w"> </span><span class="n">filter</span><span class="p">;</span>
+<span class="n">filter</span><span class="p">.</span><span class="n">setIncludeFlags</span><span class="p">(</span><span class="n">SAMPLE_POLYFLAGS_ALL</span><span class="p">);</span>
+<span class="n">filter</span><span class="p">.</span><span class="n">setExcludeFlags</span><span class="p">(</span><span class="n">SAMPLE_POLYFLAGS_DISABLED</span><span class="p">);</span>
+<span class="n">filter</span><span class="p">.</span><span class="n">setAreaCost</span><span class="p">(</span><span class="n">AREA_ROAD</span><span class="p">,</span><span class="w"> </span><span class="n">AREA_ROAD_COST</span><span class="p">);</span>
+<span class="n">filter</span><span class="p">.</span><span class="n">setAreaCost</span><span class="p">(</span><span class="n">AREA_GRASS</span><span class="p">,</span><span class="w"> </span><span class="n">AREA_GRASS_COST</span><span class="p">);</span>
 </code></pre></div>
- 3. <strong>多边形路径搜索</strong>：<br />
-    <div class="highlight"><pre><span></span><code><span class="n">findPath</span><span class="p">(</span><span class="n">start_ref</span><span class="p">,</span><span class="w"> </span><span class="n">end_ref</span><span class="p">,</span><span class="w"> </span><span class="n">polys</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">num_polys</span><span class="p">);</span>
+<ol>
+<li><strong>最近多边形查询</strong></li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="n">dtPolyRef</span><span class="w"> </span><span class="n">start_ref</span><span class="p">,</span><span class="w"> </span><span class="n">end_ref</span><span class="p">;</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">start_pos</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">from</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">from</span><span class="p">.</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">from</span><span class="p">.</span><span class="n">z</span><span class="p">};</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">end_pos</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">to</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w">   </span><span class="n">to</span><span class="p">.</span><span class="n">y</span><span class="p">,</span><span class="w">   </span><span class="n">to</span><span class="p">.</span><span class="n">z</span><span class="p">};</span>
+
+<span class="c1">// 在 navmesh 中找到距离起点和终点最近的多边形</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">dtStatusFailed</span><span class="p">(</span><span class="n">query</span><span class="o">-&gt;</span><span class="n">findNearestPoly</span><span class="p">(</span><span class="n">start_pos</span><span class="p">,</span><span class="w"> </span><span class="n">extents</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">filter</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">start_ref</span><span class="p">)))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 处理找不到起点多边形的情况</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">dtStatusFailed</span><span class="p">(</span><span class="n">query</span><span class="o">-&gt;</span><span class="n">findNearestPoly</span><span class="p">(</span><span class="n">end_pos</span><span class="p">,</span><span class="w"> </span><span class="n">extents</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">filter</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">end_ref</span><span class="p">)))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 处理找不到终点多边形的情况</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></div>
- 4. <strong>直线路径优化</strong>：<br />
-    <div class="highlight"><pre><span></span><code><span class="n">findStraightPath</span><span class="p">(</span><span class="n">polys</span><span class="p">,</span><span class="w"> </span><span class="n">num_polys</span><span class="p">,</span><span class="w"> </span><span class="n">straight_path</span><span class="p">);</span>
-</code></pre></div></p>
+<ul>
+<li>
+<p><code>extents</code> 为搜索半径，一般设置为 <code>{2,2,2}</code>。</p>
+</li>
+<li>
+<p><strong>多边形路径搜索</strong></p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">dtPolyRef</span><span class="w"> </span><span class="n">polys</span><span class="p">[</span><span class="n">MAX_POLYS</span><span class="p">];</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">poly_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">dtStatusFailed</span><span class="p">(</span><span class="n">query</span><span class="o">-&gt;</span><span class="n">findPath</span><span class="p">(</span><span class="n">start_ref</span><span class="p">,</span><span class="w"> </span><span class="n">end_ref</span><span class="p">,</span><span class="w"> </span><span class="n">start_pos</span><span class="p">,</span><span class="w"> </span><span class="n">end_pos</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">filter</span><span class="p">,</span><span class="w"> </span><span class="n">polys</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">poly_count</span><span class="p">,</span><span class="w"> </span><span class="n">MAX_POLYS</span><span class="p">)))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 记录日志：路径搜索失败或超过最大多边形数</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>
+<p>返回的 <code>polys</code> 数组包含从起始到目标的多边形序列，长度为 <code>poly_count</code>。</p>
+</li>
+<li>
+<p><strong>路径点优化转换</strong></p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kt">float</span><span class="w"> </span><span class="n">straight_path</span><span class="p">[</span><span class="n">MAX_POLYS</span><span class="o">*</span><span class="mi">3</span><span class="p">];</span>
+<span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">straight_flags</span><span class="p">[</span><span class="n">MAX_POLYS</span><span class="p">];</span>
+<span class="n">dtPolyRef</span><span class="w"> </span><span class="n">straight_polys</span><span class="p">[</span><span class="n">MAX_POLYS</span><span class="p">];</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">path_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="n">query</span><span class="o">-&gt;</span><span class="n">findStraightPath</span><span class="p">(</span>
+<span class="w">    </span><span class="n">start_pos</span><span class="p">,</span><span class="w"> </span><span class="n">end_pos</span><span class="p">,</span>
+<span class="w">    </span><span class="n">polys</span><span class="p">,</span><span class="w"> </span><span class="n">poly_count</span><span class="p">,</span>
+<span class="w">    </span><span class="n">straight_path</span><span class="p">,</span><span class="w"> </span><span class="n">straight_flags</span><span class="p">,</span><span class="w"> </span><span class="n">straight_polys</span><span class="p">,</span>
+<span class="w">    </span><span class="o">&amp;</span><span class="n">path_count</span><span class="p">,</span><span class="w"> </span><span class="n">MAX_POLYS</span><span class="p">,</span>
+<span class="w">    </span><span class="n">DT_STRAIGHTPATH_ALL_CROSSINGS</span>
+<span class="p">);</span>
+
+<span class="c1">// 将转换后的路径点填充到 vector&lt;Location&gt;</span>
+<span class="n">path</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">path_count</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Location</span><span class="w"> </span><span class="n">pt</span><span class="p">{</span><span class="n">straight_path</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="mi">3</span><span class="p">],</span><span class="w"> </span><span class="n">straight_path</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="mi">3</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="n">straight_path</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="mi">3</span><span class="o">+</span><span class="mi">2</span><span class="p">]};</span>
+<span class="w">    </span><span class="n">path</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">pt</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>
+<p><code>path_count</code> 为最终路径点数量。</p>
+</li>
+<li>
+<p><strong>清理与返回</strong></p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">dtFreeNavMeshQuery</span><span class="p">(</span><span class="n">query</span><span class="p">);</span>
+<span class="k">return</span><span class="w"> </span><span class="o">!</span><span class="n">path</span><span class="p">.</span><span class="n">empty</span><span class="p">();</span>
+</code></pre></div>
+<hr />
+<h3 id="2">2. 动态障碍物处理流程</h3>
+<ol>
+<li><strong>更新车辆包围盒</strong></li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">Navigation::AddOrUpdateVehicle</span><span class="p">(</span><span class="n">ActorId</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Location</span><span class="o">&amp;</span><span class="w"> </span><span class="n">loc</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Rotator</span><span class="o">&amp;</span><span class="w"> </span><span class="n">rot</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">lock_guard</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">mutex</span><span class="o">&gt;</span><span class="w"> </span><span class="n">guard</span><span class="p">(</span><span class="n">_mutex</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// 计算旋转后的 OBB 八个角</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">Vector3D</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="o">&gt;</span><span class="w"> </span><span class="n">corners</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ComputeOBBCorners</span><span class="p">(</span><span class="n">loc</span><span class="p">,</span><span class="w"> </span><span class="n">rot</span><span class="p">.</span><span class="n">yaw</span><span class="p">,</span><span class="w"> </span><span class="n">vehicle_extent</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// 更新 dtTileCache 或 crowdObstacles</span>
+<span class="w">    </span><span class="n">_crowd</span><span class="o">-&gt;</span><span class="n">removeObstacle</span><span class="p">(</span><span class="n">_vehicle_obstacles</span><span class="p">[</span><span class="n">id</span><span class="p">]);</span>
+<span class="w">    </span><span class="n">_vehicle_obstacles</span><span class="p">[</span><span class="n">id</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_crowd</span><span class="o">-&gt;</span><span class="n">addObstacle</span><span class="p">(</span><span class="n">corners</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="mi">8</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<ol>
+<li><strong>动态切割（TileCache）</strong></li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="c1">// 若启用 TileCache，则调用以下接口实现局部切割</span>
+<span class="n">dtTileCacheUpdate</span><span class="o">*</span><span class="w"> </span><span class="n">tc_update</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dtAllocTileCacheUpdate</span><span class="p">(...);</span>
+<span class="n">tc_update</span><span class="o">-&gt;</span><span class="n">opcode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OPCODE_CUT_OUT</span><span class="p">;</span>
+<span class="n">tc_update</span><span class="o">-&gt;</span><span class="n">poly</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">new_poly</span><span class="p">;</span>
+<span class="n">tile_cache</span><span class="o">-&gt;</span><span class="n">addTileCacheUpdate</span><span class="p">(</span><span class="n">tc_update</span><span class="p">);</span>
+</code></pre></div>
+<ol>
+<li><strong>重建切片</strong></li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="n">dtStatus</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tile_cache</span><span class="o">-&gt;</span><span class="n">buildTile</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">);</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">dtStatusFailed</span><span class="p">(</span><span class="n">status</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 记录错误并重试</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h3 id="3">3. 人群模拟与避障更新流程</h3>
+<ol>
+<li><strong>批量添加/移除代理</strong></li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">walker</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">new_walkers</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">_crowd</span><span class="o">-&gt;</span><span class="n">addAgent</span><span class="p">(</span><span class="n">walker</span><span class="p">.</span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="n">params</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">removed_walkers</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">_crowd</span><span class="o">-&gt;</span><span class="n">removeAgent</span><span class="p">(</span><span class="n">_mapped_walkers_id</span><span class="p">[</span><span class="n">id</span><span class="p">]);</span>
+<span class="p">}</span>
+</code></pre></div>
+<ol>
+<li><strong>每帧避障与位置更新</strong></li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">Navigation::UpdateCrowd</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">delta_time</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">lock_guard</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">mutex</span><span class="o">&gt;</span><span class="w"> </span><span class="n">guard</span><span class="p">(</span><span class="n">_mutex</span><span class="p">);</span>
+<span class="w">    </span><span class="n">_crowd</span><span class="o">-&gt;</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">,</span><span class="w"> </span><span class="k">nullptr</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// 同步位置到 CARLA 代理</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">_crowd</span><span class="o">-&gt;</span><span class="n">getAgentCount</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">dtCrowdAgent</span><span class="o">*</span><span class="w"> </span><span class="n">ag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_crowd</span><span class="o">-&gt;</span><span class="n">getAgent</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+<span class="w">        </span><span class="n">Location</span><span class="w"> </span><span class="n">pos</span><span class="p">{</span><span class="n">ag</span><span class="o">-&gt;</span><span class="n">npos</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">ag</span><span class="o">-&gt;</span><span class="n">npos</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="n">ag</span><span class="o">-&gt;</span><span class="n">npos</span><span class="p">[</span><span class="mi">2</span><span class="p">]};</span>
+<span class="w">        </span><span class="n">UpdateCARLAAgent</span><span class="p">(</span><span class="n">_agent_ids</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">pos</span><span class="p">,</span><span class="w"> </span><span class="n">ag</span><span class="o">-&gt;</span><span class="n">vel</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<ol>
+<li><strong>分离与预测</strong></li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="c1">// 设置分离权重和预测时间</span>
+<span class="n">params</span><span class="p">.</span><span class="n">separationWeight</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5f</span><span class="p">;</span>
+<span class="n">params</span><span class="p">.</span><span class="n">predictTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0f</span><span class="p">;</span>
+</code></pre></div>
 <hr />
 <p>## 配置参数<br />
  ### 静态常量<br />
@@ -379,7 +516,7 @@
 <li><strong>跳跃与爬升链接</strong>：允许通过手动或算法方式在 NavMesh 上添加“跳跃”、“梯子”等自定义连接，增强导航灵活性(<a href="https://digestingduck.blogspot.com/2009/07/recast-and-detour-roadmap.html?utm_source=chatgpt.com">digestingduck.blogspot.com</a>)。</li>
 <li><strong>运行时增删链接</strong>：可通过 <code>dtMeshTile</code> 动态管理 Off-Mesh 连接，无需重建瓦片；推荐使用哈希表存储链接索引以加速查询。</li>
 </ul>
-<h3 id="3">3. 可视化与调试</h3>
+<h3 id="3_1">3. 可视化与调试</h3>
 <ul>
 <li><strong>NavMesh调试渲染</strong>：CARLA 提供的 No-Rendering 工具可在 2D 地图上可视化导航网格、交通信号和行人路径(<a href="https://carla.org/2019/01/31/release-0.9.3/?utm_source=chatgpt.com">carla.org</a>)。</li>
 <li><strong>调试UI插件</strong>：在 UE4 编辑器中使用 Carla Exporter 导出 OBJ，并在场景中加载调试材质查看不同区域成本；可通过过滤器调节 <code>AREA_ROAD_COST</code> 实时预览路径变化。</li>
