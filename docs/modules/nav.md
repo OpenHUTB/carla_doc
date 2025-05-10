@@ -383,31 +383,106 @@ CARLA 在导航模块中对路径搜索与人群模拟规模做了上限，以�
 ---
 
 
-
  ## 示例代码  
- ### 初始化导航系统  
- ```cpp
- Navigation nav;
- nav.Load("city_navmesh.bin");
- nav.CreateCrowd();
- 
- // 添加行人
- geom::Location spawn_point(10.0f, 20.0f, 0.5f);
- nav.AddWalker(1001, spawn_point);
- 
- // 设置目标点
- geom::Location target(50.0f, 30.0f, 0.5f);
- nav.SetWalkerTarget(1001, target);
- ```
- 
- ### 每帧更新  
- ```cpp
- void OnSimulationTick(EpisodeState state) {
-   nav.UpdateCrowd(state);  // 更新代理状态
-   nav.UpdateVehicles(vehicle_list); // 同步车辆位置
- }
- ```
- 
+
+```cpp
+// ===== NavigationExample.cpp =====
+#include "Navigation.h"        // 包含 Navigation 类声明
+#include "geom/Location.h"     // CARLA 几何库
+#include "geom/Rotator.h"
+#include "Logging.h"           // 假设有统一的日志接口
+
+int main(int argc, char** argv)
+{
+    // 1. 创建导航实例并加载 NavMesh
+    Navigation nav;
+    const std::string navmesh_file = "city_navmesh.bin";
+    if (!nav.Load(navmesh_file)) {
+        logging::error("导航数据加载失败: %s", navmesh_file.c_str());
+        return -1;
+    }
+    logging::info("成功加载导航网格：%s", navmesh_file.c_str());
+
+    // 2. 创建人群管理器，配置避障和路径过滤参数
+    nav.CreateCrowd();
+    // 设置行人越过道路的概率
+    nav.SetPedestriansCrossFactor(0.2f);
+    logging::info("人群管理器初始化完成");
+
+    // 3. 添加行人代理
+    const uint64_t walker_id = 1001;
+    geom::Location walker_spawn{10.0f, 20.0f, 0.5f}; 
+    if (!nav.AddWalker(walker_id, walker_spawn)) {
+        logging::warn("添加行人 %llu 失败", walker_id);
+    } else {
+        logging::info("行人 %llu 已添加，初始位置 (%.2f, %.2f, %.2f)",
+                      walker_id,
+                      walker_spawn.x, walker_spawn.y, walker_spawn.z);
+    }
+
+    // 4. 设置行人目标点
+    geom::Location walker_target{50.0f, 30.0f, 0.5f};
+    if (!nav.SetWalkerTarget(walker_id, walker_target)) {
+        logging::warn("设置行人 %llu 目标失败", walker_id);
+    } else {
+        logging::info("行人 %llu 目标设置为 (%.2f, %.2f, %.2f)",
+                      walker_id,
+                      walker_target.x, walker_target.y, walker_target.z);
+    }
+
+    // 5. 添加一辆动态障碍物（车辆）
+    const uint64_t vehicle_id = 2001;
+    geom::Location vehicle_loc{15.0f, 25.0f, 0.0f};
+    geom::Rotator vehicle_rot{0.0f, 90.0f, 0.0f};  // 车辆朝向 90°
+    if (!nav.AddOrUpdateVehicle(vehicle_id, vehicle_loc, vehicle_rot)) {
+        logging::warn("添加/更新车辆 %llu 失败", vehicle_id);
+    } else {
+        logging::info("车辆 %llu 已注册为动态障碍物，位置 (%.2f, %.2f, %.2f), 偏航角 %.2f°",
+                      vehicle_id,
+                      vehicle_loc.x, vehicle_loc.y, vehicle_loc.z,
+                      vehicle_rot.yaw);
+    }
+
+    // 6. 主循环：在每个模拟帧调用更新函数
+    const float fixedDeltaTime = 1.0f / 30.0f;  // 30 FPS
+    for (int frame = 0; frame < 1000; ++frame) {
+        // 假设获取当前车辆列表和行人列表的逻辑已在外部实现
+        std::vector<VehicleState> vehicle_list = GetCurrentVehicleStates();
+        EpisodeState sim_state = GetCurrentEpisodeState();
+
+        // 更新人群（行人）避障和路径跟踪
+        nav.UpdateCrowd(fixedDeltaTime);
+
+        // 更新所有车辆动态障碍物（位置与旋转）
+        nav.UpdateVehicles(vehicle_list);
+
+        // 可以在此处插入渲染或其他逻辑
+    }
+
+    // 7. 退出前清理资源（析构时自动释放 NavMesh、Crowd 等）
+    logging::info("导航模拟结束，开始清理资源");
+    return 0;
+}
+```
+
+**要点说明：**
+
+1. **错误检查与日志**
+   每一步操作后都进行了返回值判断，并通过 `logging` 模块输出信息或警告，便于调试与排查问题。
+2. **配置细节**
+
+   * 调用 `SetPedestriansCrossFactor()` 演示了如何动态调整行人过马路的概率。
+   * `fixedDeltaTime` 固定为 30 帧每秒，仅供示例，可根据实际仿真引擎时间步长调整。
+3. **车辆动态障碍**
+
+   * 使用 `AddOrUpdateVehicle()` 注册车辆包围盒，示例中展示了位置和朝向的设置。
+   * 在主循环中，每帧都调用 `UpdateVehicles()` 同步车辆状态。
+4. **主循环结构**
+
+   * 假设外部提供 `GetCurrentVehicleStates()` 与 `GetCurrentEpisodeState()`，实际可根据用户项目自行实现。
+   * 将行人更新和车辆更新放在同一循环中，保证多代理场景下一致性。
+
+
  ---
  
  ## 附录  
