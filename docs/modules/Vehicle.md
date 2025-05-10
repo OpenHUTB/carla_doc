@@ -233,42 +233,16 @@ case ECarlaWheeledVehicleState::Parking:
 
 ## 三、流程图展示
 
-
-
 ```
-初始化流程（蓝色）：
-
-OnPossess：控制器接管车辆时的初始化过程
-
-ConfigureAutopilot：自动驾驶配置过程
-
-SetFixedRoute：设置固定路线流程
-
-持续运行流程（橙色）：
-
-Tick：每帧执行的主逻辑流程
-
-决策节点（红色）：
-
-各种条件判断（是否控制车辆、自动驾驶是否启用等）
-
-执行动作（绿色）：
-
-车辆控制相关操作
-
-数据清理操作
-
-状态更新操作
-
-特殊节点：
-
-绿色开始节点
-
-橙色时钟样式的Tick循环节点
-
-流程展示了从控制器初始化、持续运行到车辆控制的全过程，包括异常处理、自动驾驶逻辑、障碍物检测、路线跟随等重要功能模块的交互关系。
+俩个调用功能展示图
 ```
 
-## ![deepseek_mermaid_20250506_be0aba](D:\浏览器下载\deepseek_mermaid_20250506_be0aba.png)参考
+![image-20250510105242142](C:\Users\86157\AppData\Roaming\Typora\typora-user-images\image-20250510105242142.png
+
+![image-20250510105713146](C:\Users\86157\AppData\Roaming\Typora\typora-user-images\image-20250510105713146.png)
+
+![image-20250510105807055](C:\Users\86157\AppData\Roaming\Typora\typora-user-images\image-20250510105807055.png)
+
+## 参考
 
 * [函数vehile.apply_control实际上如何工作的？](https://github.com/carla-simulator/carla/issues/1427)
