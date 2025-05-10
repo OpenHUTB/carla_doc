@@ -63,7 +63,7 @@
    ```cpp
    params.obstacleAvoidanceType = 3; // 避障品质（0-3对应低到高）
    ```
- 
+
  ---
  
  ## 类与方法详解  
