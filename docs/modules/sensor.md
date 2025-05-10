@@ -480,7 +480,7 @@ GNSS 的数据传输流程如下：
 
 🧭 流程图如下所示：
 
-![GNSS流程图](../img/modules/flowchart_gnss.png)
+![GNSS流程图](../img/modules/flowchart_4.png)
 
 ---
 
