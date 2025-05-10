@@ -1,63 +1,65 @@
-UCarlaStatics::GetAllMapNames 函数说明文档
-函数功能
-UCarlaStatics::GetAllMapNames 函数用于获取项目中所有符合条件的地图资源名称列表。该函数通过递归扫描项目内容目录下的 .umap 文件，经过路径处理和过滤后，返回符合 Unreal 引擎资源引用规范的标准化地图名称列表。
+CARLA 引擎模块说明
+简介
+环境依赖
+核心功能
+主要函数
+代码结构
+贡献代码
+简介
+CARLA（Car Learning to Act）是一个基于 Unreal Engine 的开源自动驾驶模拟器。本项目的 CarlaEngine.cpp 负责管理 CARLA 的核心引擎功能，如固定时间步长、RPC 服务器线程数等。
 
-函数原型
-cpp
-static TArray<FString> UCarlaStatics::GetAllMapNames();
-返回值
+环境依赖
+本模块依赖以下组件： Unreal Engine 、CARLA 源码 、ROS2（可选） 、多 GPU 支持库
 
-TArray<FString>：处理后的地图名称列表，格式为 /Game/Path/To/MapName。
+核心功能
+CarlaEngine.cpp 主要提供以下核心功能：
 
-实现流程
-1. 文件查找
-目标文件类型：.umap 文件（Unreal 地图文件）。
+时间步长控制：允许用户获取和设置固定的物理模拟时间步长。
+多线程支持：提供对 RPC 服务器线程数的管理。
+场景管理：管理 CARLA 场景生命周期，支持多 GPU 计算。
+与 ROS2 交互：通过 carla::ros2::ROS2 进行通信。
+主要函数
+FCarlaEngine_GetFixedDeltaSeconds()
+static TOptional<double> FCarlaEngine_GetFixedDeltaSeconds();
+功能： 获取 CARLA 的固定时间步长。 2. FCarlaEngine_GetNumberOfThreadsForRPCServer()
 
-查找目录：项目内容目录（FPaths::ProjectContentDir()）。
+static uint32 FCarlaEngine_GetNumberOfThreadsForRPCServer();
+功能： 获取用于 RPC 服务器的线程数量。
 
-递归查找：启用递归搜索，包含子目录。
+FCarlaEngine_SetFixedDeltaSeconds(TOptional FixedDeltaSeconds)
+static void FCarlaEngine_SetFixedDeltaSeconds(TOptional<double> FixedDeltaSeconds);
+功能：设置固定的物理模拟时间步长。
 
-过滤条件：排除隐藏文件及目录。
+if (bIsRunning)
+if (bIsRunning)
+功能：确保引擎正在运行后再执行特定操作。
 
-cpp
-IFileManager::Get().FindFilesRecursive(
-    MapNameList, 
-    *FPaths::ProjectContentDir(), 
-    TEXT("*.umap"), 
-    true,   // 递归查找
-    false,  // 不包含目录
-    false); // 不包含隐藏文件
-2. 过滤规则
-移除路径中包含 TestMaps 的条目（测试地图）。
+代码结构
+本模块的代码结构如下：
 
-移除路径中包含 OpenDriveMap 的条目（OpenDrive 相关地图）。
+CARLA
+├── Unreal
+│   ├── CarlaUE4
+│   │   ├── Plugins
+│   │   │   ├── Carla
+│   │   │   │   ├── Source
+│   │   │   │   │   ├── Carla
+│   │   │   │   │   │   ├── Game
+│   │   │   │   │   │   │   ├── CarlaEngine.cpp  # 主要文件
+│   │   │   │   │   │   │   ├── CarlaEngine.h
+│   │   │   │   │   │   │   ├── CarlaEpisode.h
+│   │   │   │   │   │   │   ├── CarlaStatics.h
+贡献代码
+如果你希望为 CarlaEngine.cpp 贡献代码，请按照以下步骤：
 
-cpp
-MapNameList.RemoveAll([](const FString &Name) { 
-    return Name.Contains("TestMaps"); 
-});
-MapNameList.RemoveAll([](const FString &Name) { 
-    return Name.Contains("OpenDriveMap"); 
-});
-3. 路径处理
-对每个文件路径进行以下处理：
+Fork 本项目。
 
-分割路径：以 Content/ 为分隔符，提取后半部分。
+创建一个新分支并进行修改。
 
-示例输入：C:/Project/Content/Maps/Town01.umap
+提交 PR（Pull Request）。
 
-分割结果：TmpStrList[1] = "Maps/Town01.umap"
+代码需要通过代码审查和 CI 测试。
 
-移除扩展名：替换 .umap 后缀为空字符串。
+如有任何问题，请提交Issue或联系维护团队。
 
-标准化路径：添加 /Game/ 前缀，生成 Unreal 资源路径。
-
-cpp
-// 示例处理流程
-MapNameList[i] = "C:/Project/Content/Maps/Town01.umap";
-MapNameList[i].ParseIntoArray(TmpStrList, TEXT("Content/"), true);
-// TmpStrList[1] = "Maps/Town01.umap"
-MapNameList[i] = TmpStrList[1].Replace(TEXT(".umap"), TEXT(""));
-// 结果: "Maps/Town01"
-MapNameList[i] = "/Game/" + MapNameList[i];
-// 最终结果: "/Game/Maps/Town03"
+许可证：MIT License
