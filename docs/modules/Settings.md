@@ -23,9 +23,9 @@
     ```
 - **涉及文件**：
 - `CarlaSettings.h`：   
-  - ``：声明配置参数和加载接口
+  - ：声明配置参数和加载接口
 - `CarlaSettings.cpp`：   
-  - ``：实现动态配置加载逻辑
+  - ：实现动态配置加载逻辑
 
 ### 1.2 参数配置矩阵
 
@@ -38,14 +38,14 @@
 
 - **参数说明**：
     - `RPCPort`：   
-        - ``：由于其具有静态性，所以需在服务启动前配置，并且再端口冲突时，启动时自动检测并增量尝试。
+        - ：由于其具有静态性，所以需在服务启动前配置，并且再端口冲突时，启动时自动检测并增量尝试。
     - `StreamingPort`：   
-        - ``：支持多路视频流并行分发。
+        - ：支持多路视频流并行分发。
     - `bSynchronousMode`：   
-        - ``：可运行时修改
-        - ``：需要配合FixedDeltaSeconds参数使用
+        - ：可运行时修改
+        - ：需要配合FixedDeltaSeconds参数使用
     - `TextureStreamingPool`：   
-        - ``：限制同时加载的高清纹理资源量，防止显存过载。建议根据场景材质复杂度动态调整，平衡渲染质量与性能。
+        - ：限制同时加载的高清纹理资源量，防止显存过载。建议根据场景材质复杂度动态调整，平衡渲染质量与性能。
 ## 2.运行模式管理系统
 ### 2.1 单次模拟剧集配置
 - **代码示例**：
@@ -66,9 +66,9 @@
         };
     ```
 - **功能说明** ：为物理仿真提供精准的时序控制与稳定性保障，实现以下目标：
-  - ``：确定性仿真环境
-  - ``：动态稳定性控制
-  - ``：资源适配规则
+  - ：确定性仿真环境
+  - ：动态稳定性控制
+  - ：资源适配规则
 ### 2.2 运行时控制接口
 - **代码示例**：
     ```cpp
@@ -483,9 +483,9 @@ Source/
     };
     ```
 - **扩展机制特性**：
-  - ``：参数反射系统注册新配置项
-  - ``：策略工厂自动扫描新策略类
-  - ``：动态属性系统对蓝图编辑器可见
+  - ：参数反射系统注册新配置项
+  - ：策略工厂自动扫描新策略类
+  - ：动态属性系统对蓝图编辑器可见
 
 ## 6.3 跨模式支持
 - **代码示例**：
@@ -507,28 +507,28 @@ Source/
     ```
 # 七 总结
 ## 7.1  文件关联图
-    ```mermaid
-     graph TD
-        A[CarlaSettings.h/cpp] -->|配置管理| B[CarlaSettingsDelegate.h/cpp]
-        A -->|定义| C[QualityLevelUE.h]
-        B -->|应用策略| D[EpisodeSettings.h]
-        C -->|枚举支持| B
-        C -->|数据绑定| A
-        B -->|运行时操作| E[Unreal引擎接口]
-        A -->|存储配置| F[INI/命令行]
-    ```
+```mermaid
+graph TD
+    A[CarlaSettings.h/cpp] -->|配置管理| B[CarlaSettingsDelegate.h/cpp]
+    A -->|定义| C[QualityLevelUE.h]
+    B -->|应用策略| D[EpisodeSettings.h]
+    C -->|枚举支持| B
+    C -->|数据绑定| A
+    B -->|运行时操作| E[Unreal引擎接口]
+    A -->|存储配置| F[INI/命令行]
+```
 - **关联说明**：
 - **配置管理层 → 策略执行层**：
-  - ``：CarlaSettings 读取配置后，将参数传递给 CarlaSettingsDelegate 执行具体策略。
-  - ``：包含端口配置（RPCPort、StreamingPort）与画质等级（EQualityLevel）。
+  - ：CarlaSettings 读取配置后，将参数传递给 CarlaSettingsDelegate 执行具体策略。
+  - ：包含端口配置（RPCPort、StreamingPort）与画质等级（EQualityLevel）。
 - **策略执行层 → 运行时参数容器**：
-  - ``：CarlaSettingsDelegate 根据配置动态调整 EpisodeSettings 的运行时参数（如同步模式 bSynchronousMode）。
+  - ：CarlaSettingsDelegate 根据配置动态调整 EpisodeSettings 的运行时参数（如同步模式 bSynchronousMode）。
 - **画质等级枚举 → 配置管理**：
-  - ``：QualityLevelUE 定义 EQualityLevel 枚举，供 CarlaSettings 管理画质级别。
-  - ``：保证与 RPC 层（carla::rpc::QualityLevel）的枚举值同步。
+  - ：QualityLevelUE 定义 EQualityLevel 枚举，供 CarlaSettings 管理画质级别。
+  - ：保证与 RPC 层（carla::rpc::QualityLevel）的枚举值同步。
 - **策略执行层 → Unreal 引擎**：
-  - ``：通过 AsyncTask 批量修改 Actor 属性（如 SetAllActorsDrawDistance）
-  - ``：执行引擎命令（GEngine->Exec）调整渲染管线参数。
+  - ：通过 AsyncTask 批量修改 Actor 属性（如 SetAllActorsDrawDistance）
+  - ：执行引擎命令（GEngine->Exec）调整渲染管线参数。
 
 ## 7.2 核心功能解析
 
