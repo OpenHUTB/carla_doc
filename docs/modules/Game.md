@@ -60,4 +60,4 @@ MapNameList[i].ParseIntoArray(TmpStrList, TEXT("Content/"), true);
 MapNameList[i] = TmpStrList[1].Replace(TEXT(".umap"), TEXT(""));
 // 结果: "Maps/Town01"
 MapNameList[i] = "/Game/" + MapNameList[i];
-// 最终结果: "/Game/Maps/Town01"
+// 最终结果: "/Game/Maps/Town02"
