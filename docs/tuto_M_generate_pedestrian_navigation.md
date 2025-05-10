@@ -2,20 +2,20 @@
 
 为了允许行人导航地图，您需要生成行人导航文件。本指南详细介绍了要使用的网格以及如何生成文件。
 
-- [__在你开始之前__](#before-you-begin)
-- [__行人导航网格__](#pedestrian-navigable-meshes)
-- [__可选的行人导航选项__](#optional-pedestrian-navigation-options)
-- [__生成行人导航__](#generate-the-pedestrian-navigation)
+- [__在你开始之前__](#before_you_begin)
+- [__行人导航网格__](#pedestrian_navigable_meshes)
+- [__可选的行人导航选项__](#optional_pedestrian_navigation_options)
+- [__生成行人导航__](#generate_pedestrian_navigation)
 
 ---
 
-## 在你开始之前
+## 在你开始之前 <span id="before_you_begin"></span>
 
 地图定制（添加建筑物、绘制道路、添加景观特征等）应在生成行人导航之前完成，以避免两者之间发生干扰或碰撞，导致需要再次生成行人导航。
 
 ---
 
-## 行人导航网格
+## 行人导航网格 <span id="pedestrian_navigable_meshes"></span>
 
 行人只能导航特定的网格。您需要根据下表中的术语命名要包含在行人导航中的网格：
 
@@ -30,7 +30,7 @@
 
 ---
 
-## 可选的行人导航选项
+## 可选的行人导航选项 <span id="optional_pedestrian_navigation_options"></span>
 
 以下步骤对于生成行人导航不是必需的，但允许您在一定程度上自定义行人活动。
 
@@ -45,7 +45,7 @@
 ![ue_crosswalks](img/ue_crosswalks.jpg)  
 
 ---
-## 生成行人导航
+## 生成行人导航 <span id="generate_pedestrian_navigation"></span>
 
 __1.__ 要防止地图太大而无法导出，请选择 __BP_Sky 对象__ 并添加一个 `NoExport` 标签。如果您有任何其他不参与行人导航的特别大的网格，也请向它们添加 `NoExport` 标记。 
 
@@ -79,15 +79,15 @@ __6.__ 将创建一个 `<mapName>.bin` 文件。此文件包含地图上的行�
 __7.__ 通过启动模拟并运行 `PythonAPI/examples` 中的示例脚本 `generate_traffic.py` 来测试行人导航。
 
 !!! 笔记
-    **如果更新地图后需要重建行人导航** ，请确保删除 Carla 缓存。这通常可以在 Ubuntu 的主目录（即`cd ~`）中找到，或者在Windows的用户目录（分配给环境变量`USERPROFILE`的目录）中，删除名为`carlaCache`的文件夹及其所有内容，它可能很大。 
+    **如果更新地图后需要重建行人导航** ，请确保删除 [Carla 缓存](https://github.com/OpenHUTB/carla/blob/9d52060b7d79b374764f147087f18ffa95c8b476/LibCarla/source/carla/client/FIleTransfer.cpp#L13) 。这通常可以在 Ubuntu 的主目录（即`cd ~`）中找到，或者在Windows的用户目录（分配给环境变量`USERPROFILE`的目录）中，删除名为`carlaCache`的文件夹及其所有内容，它可能很大。 
 
 ---
 
-如果关于流程有任何问题，您可以在 [论坛](https://github.com/carla-simulator/carla/discussions) 中提问。
+如有任何问题，您可以在 [讨论](https://github.com/orgs/OpenHUTB/discussions) 中提问。
 
 <div class="build-buttons">
 <p>
-<a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the Carla forum">
-Carla 论坛</a>
+<a href="https://github.com/orgs/OpenHUTB/discussions" target="_blank" class="btn btn-neutral" title="Go to the Carla forum">
+社区讨论</a>
 </p>
 </div>

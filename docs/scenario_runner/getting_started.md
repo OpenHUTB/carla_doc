@@ -54,7 +54,7 @@ python scenario_runner.py --scenario FollowLeadingVehicle_1 --reloadWorld
 python scenario_runner.py --help
 ```
 
-要控制场景中的自我车辆，请打开另一个终端并运行：
+要控制场景中的自主车辆，请打开另一个终端并运行：
 ```
 python manual_control.py
 ```
@@ -86,7 +86,7 @@ python scenario_runner.py --openscenario <path/to/xosc-file>
 python scenario_runner.py --openscenario2 <path/to/osc-file>
 ```
 
-要控制场景中的自我车辆或观察它，请打开另一个终端并运行：
+要控制场景中的自主车辆或观察它，请打开另一个终端并运行：
 ```
 python manual_control.py -a --rolename=ego_vehicle
 ```
@@ -110,5 +110,5 @@ python scenario_runner.py --route D:/work/workspace/carla_doc/src/scenario_runne
 如果未提供路由 ID，则将执行给定文件中的所有路线。
 
 
-通过这样做，ScenarioRunner 会将场景与路线相匹配，并且当自我车辆在附近时它们会激活。然而，路线需要一个自主代理来控制自我车辆。`srunner/autoagents/` 中提供了几个示例。有关代理的更多信息，请查看 [代理文档](agent_evaluation.md) 。
+通过这样做，ScenarioRunner 会将场景与路线相匹配，并且当自主车辆在附近时它们会激活。然而，路线需要一个自主代理来控制自主车辆。`srunner/autoagents/` 中提供了几个示例。有关代理的更多信息，请查看 [代理文档](agent_evaluation.md) 。
 

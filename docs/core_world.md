@@ -224,7 +224,7 @@ debug = world.debug
 debug.draw_box(carla.BoundingBox(actor_snapshot.get_transform().location,carla.Vector3D(0.5,0.5,2)),actor_snapshot.get_transform().rotation, 0.05, carla.Color(255,0,0,0),0)
 ```
 
-此示例在 [carla.DebugHelper](python_api.md#carla.DebugHelper.draw_box) 的片段中进行了扩展，展示了如何为世界快照中的每个参与者绘制方框。
+此示例在 [carla.DebugHelper](python_api.md#carla.DebugHelper.draw_box) 的片段中进行了扩展，展示了如何为世界快照中的每个参与者绘制方框。可运行完整 [代码](https://github.com/OpenHUTB/carla_doc/tree/master/debug/draw_box_demo.py) 。 
 
 ### 世界快照 <span id="world-snapshots"></span>
 
@@ -264,8 +264,8 @@ actor_snapshot = world_snapshot.find(actual_actor.id) # 获得参与者快照
 <div text-align: center>
 <div class="build-buttons">
 <p>
-<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="CARLA forum">
-Carla 论坛</a>
+<a href="https://github.com/OpenHUTB/carla_doc/issues" target="_blank" class="btn btn-neutral" title="CARLA forum">
+讨论页面</a>
 </p>
 </div>
 <div class="build-buttons">

@@ -44,18 +44,29 @@
 * [行人](modules/Walker.md) [Walker](https://openhutb.github.io/carla_cpp/dir_7a44753a182d2dd0cd15cfa7be7c0c89.html)
 * [天气](modules/Weather.md) [Weather](https://openhutb.github.io/carla_cpp/dir_b3a8bd261fb98563f858806beb7e2741.html)
 
-## 三、虚幻资产：[carla-content](https://bitbucket.org/carla-simulator/carla-content/src/master/)
+## 三、虚幻场景：[carla-content](https://bitbucket.org/carla-simulator/carla-content/src/master/)
 
 ### 3.1 [蓝图](modules/Blueprints.md)  [Blueprints](https://bitbucket.org/carla-simulator/carla-content/src/master/Blueprints/)
+
+* [游戏](modules/Game_BP.md) [Game](https://bitbucket.org/carla-simulator/carla-content/src/master/Blueprints/Game/)
+* [关卡设计](modules/LevelDesign_BP.md) [LevelDesign](https://bitbucket.org/carla-simulator/carla-content/src/master/Blueprints/LevelDesign/)
+* [灯光](modules/Lights_BP.md) [Lights](https://bitbucket.org/carla-simulator/carla-content/src/master/Blueprints/Lights/)
+* [道具](modules/Props_BP.md) [Props](https://bitbucket.org/carla-simulator/carla-content/src/master/Blueprints/Props/)
+* [测试](modules/Testing_BP.md) [Testing](https://bitbucket.org/carla-simulator/carla-content/src/master/Blueprints/Testing/)
+* [交通信号灯](modules/TrafficLight_BP.md) [TrafficLight](https://bitbucket.org/carla-simulator/carla-content/src/master/Blueprints/TrafficLight/)
+* [通用场景描述(USD) 资产导入模板](modules/USDImportTemplates_BP.md) [USDImportTemplates](https://bitbucket.org/carla-simulator/carla-content/src/master/Blueprints/USDImportTemplates/)
+* [车辆](modules/Vehicles_BP.md) [Vehicles](https://bitbucket.org/carla-simulator/carla-content/src/master/Blueprints/Vehicles/)
+* [行人](modules/Walkers_BP.md) [Walkers](https://bitbucket.org/carla-simulator/carla-content/src/master/Blueprints/Walkers/)
 
 ### 3.2 [静态资产](modules/Static.md) [Static](https://bitbucket.org/carla-simulator/carla-content/src/master/Static/)
 
 
-通用C++相关文档请参考 [链接](ref_cpp.md) 。
 
 
 ## 附加
 [绘图指南](demo/figure.md)
+
+通用C++相关文档请参考 [链接](ref_cpp.md) 。
 
 
 ## 构建步骤分析

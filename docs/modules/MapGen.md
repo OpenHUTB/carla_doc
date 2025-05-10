@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 //1
 CityMapMeshHolder 模块说明文档
 概述
@@ -249,6 +250,7 @@ uint32 CityMapMeshTag::GetRoadIntersectionSize()
 用于生成标准十字路口的尺寸计算
 
 3. ToString
+
 FString CityMapMeshTag::ToString(ECityMapMeshTag Tag)
 功能
 将枚举标签转换为可读字符串
@@ -276,6 +278,7 @@ Tag (ECityMapMeshTag) - 需要转换的道路网格枚举标签
 可视化界面显示标签类型
 
 使用示例
+
 // 获取基础道路标签
 ECityMapMeshTag BaseTag = CityMapMeshTag::GetBaseMeshTag();
 
