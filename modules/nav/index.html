@@ -456,26 +456,111 @@
 </li>
 </ul>
 <hr />
-<p>## 示例代码<br />
- ### 初始化导航系统<br />
- <div class="highlight"><pre><span></span><code><span class="n">Navigation</span><span class="w"> </span><span class="n">nav</span><span class="p">;</span>
-<span class="n">nav</span><span class="p">.</span><span class="n">Load</span><span class="p">(</span><span class="s">&quot;city_navmesh.bin&quot;</span><span class="p">);</span>
-<span class="n">nav</span><span class="p">.</span><span class="n">CreateCrowd</span><span class="p">();</span>
+<p>## 示例代码  </p>
+<div class="highlight"><pre><span></span><code><span class="c1">// ===== NavigationExample.cpp =====</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;Navigation.h&quot;</span><span class="c1">        // 包含 Navigation 类声明</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;geom/Location.h&quot;</span><span class="c1">     // CARLA 几何库</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;geom/Rotator.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;Logging.h&quot;</span><span class="c1">           // 假设有统一的日志接口</span>
 
-<span class="c1">// 添加行人</span>
-<span class="n">geom</span><span class="o">::</span><span class="n">Location</span><span class="w"> </span><span class="nf">spawn_point</span><span class="p">(</span><span class="mf">10.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">20.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">0.5f</span><span class="p">);</span>
-<span class="n">nav</span><span class="p">.</span><span class="n">AddWalker</span><span class="p">(</span><span class="mi">1001</span><span class="p">,</span><span class="w"> </span><span class="n">spawn_point</span><span class="p">);</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">**</span><span class="w"> </span><span class="n">argv</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// 1. 创建导航实例并加载 NavMesh</span>
+<span class="w">    </span><span class="n">Navigation</span><span class="w"> </span><span class="n">nav</span><span class="p">;</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">navmesh_file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;city_navmesh.bin&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">nav</span><span class="p">.</span><span class="n">Load</span><span class="p">(</span><span class="n">navmesh_file</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">logging</span><span class="o">::</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;导航数据加载失败: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">navmesh_file</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">logging</span><span class="o">::</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;成功加载导航网格：%s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">navmesh_file</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
 
-<span class="c1">// 设置目标点</span>
-<span class="n">geom</span><span class="o">::</span><span class="n">Location</span><span class="w"> </span><span class="nf">target</span><span class="p">(</span><span class="mf">50.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">30.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">0.5f</span><span class="p">);</span>
-<span class="n">nav</span><span class="p">.</span><span class="n">SetWalkerTarget</span><span class="p">(</span><span class="mi">1001</span><span class="p">,</span><span class="w"> </span><span class="n">target</span><span class="p">);</span>
-</code></pre></div></p>
-<p>### 每帧更新<br />
- <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">OnSimulationTick</span><span class="p">(</span><span class="n">EpisodeState</span><span class="w"> </span><span class="n">state</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="n">nav</span><span class="p">.</span><span class="n">UpdateCrowd</span><span class="p">(</span><span class="n">state</span><span class="p">);</span><span class="w">  </span><span class="c1">// 更新代理状态</span>
-<span class="w">  </span><span class="n">nav</span><span class="p">.</span><span class="n">UpdateVehicles</span><span class="p">(</span><span class="n">vehicle_list</span><span class="p">);</span><span class="w"> </span><span class="c1">// 同步车辆位置</span>
+<span class="w">    </span><span class="c1">// 2. 创建人群管理器，配置避障和路径过滤参数</span>
+<span class="w">    </span><span class="n">nav</span><span class="p">.</span><span class="n">CreateCrowd</span><span class="p">();</span>
+<span class="w">    </span><span class="c1">// 设置行人越过道路的概率</span>
+<span class="w">    </span><span class="n">nav</span><span class="p">.</span><span class="n">SetPedestriansCrossFactor</span><span class="p">(</span><span class="mf">0.2f</span><span class="p">);</span>
+<span class="w">    </span><span class="n">logging</span><span class="o">::</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;人群管理器初始化完成&quot;</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// 3. 添加行人代理</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">walker_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1001</span><span class="p">;</span>
+<span class="w">    </span><span class="n">geom</span><span class="o">::</span><span class="n">Location</span><span class="w"> </span><span class="n">walker_spawn</span><span class="p">{</span><span class="mf">10.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">20.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">0.5f</span><span class="p">};</span><span class="w"> </span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">nav</span><span class="p">.</span><span class="n">AddWalker</span><span class="p">(</span><span class="n">walker_id</span><span class="p">,</span><span class="w"> </span><span class="n">walker_spawn</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">logging</span><span class="o">::</span><span class="n">warn</span><span class="p">(</span><span class="s">&quot;添加行人 %llu 失败&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">walker_id</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">logging</span><span class="o">::</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;行人 %llu 已添加，初始位置 (%.2f, %.2f, %.2f)&quot;</span><span class="p">,</span>
+<span class="w">                      </span><span class="n">walker_id</span><span class="p">,</span>
+<span class="w">                      </span><span class="n">walker_spawn</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">walker_spawn</span><span class="p">.</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">walker_spawn</span><span class="p">.</span><span class="n">z</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// 4. 设置行人目标点</span>
+<span class="w">    </span><span class="n">geom</span><span class="o">::</span><span class="n">Location</span><span class="w"> </span><span class="n">walker_target</span><span class="p">{</span><span class="mf">50.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">30.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">0.5f</span><span class="p">};</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">nav</span><span class="p">.</span><span class="n">SetWalkerTarget</span><span class="p">(</span><span class="n">walker_id</span><span class="p">,</span><span class="w"> </span><span class="n">walker_target</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">logging</span><span class="o">::</span><span class="n">warn</span><span class="p">(</span><span class="s">&quot;设置行人 %llu 目标失败&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">walker_id</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">logging</span><span class="o">::</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;行人 %llu 目标设置为 (%.2f, %.2f, %.2f)&quot;</span><span class="p">,</span>
+<span class="w">                      </span><span class="n">walker_id</span><span class="p">,</span>
+<span class="w">                      </span><span class="n">walker_target</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">walker_target</span><span class="p">.</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">walker_target</span><span class="p">.</span><span class="n">z</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// 5. 添加一辆动态障碍物（车辆）</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">vehicle_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2001</span><span class="p">;</span>
+<span class="w">    </span><span class="n">geom</span><span class="o">::</span><span class="n">Location</span><span class="w"> </span><span class="n">vehicle_loc</span><span class="p">{</span><span class="mf">15.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">25.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">};</span>
+<span class="w">    </span><span class="n">geom</span><span class="o">::</span><span class="n">Rotator</span><span class="w"> </span><span class="n">vehicle_rot</span><span class="p">{</span><span class="mf">0.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">90.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">};</span><span class="w">  </span><span class="c1">// 车辆朝向 90°</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">nav</span><span class="p">.</span><span class="n">AddOrUpdateVehicle</span><span class="p">(</span><span class="n">vehicle_id</span><span class="p">,</span><span class="w"> </span><span class="n">vehicle_loc</span><span class="p">,</span><span class="w"> </span><span class="n">vehicle_rot</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">logging</span><span class="o">::</span><span class="n">warn</span><span class="p">(</span><span class="s">&quot;添加/更新车辆 %llu 失败&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">vehicle_id</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">logging</span><span class="o">::</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;车辆 %llu 已注册为动态障碍物，位置 (%.2f, %.2f, %.2f), 偏航角 %.2f°&quot;</span><span class="p">,</span>
+<span class="w">                      </span><span class="n">vehicle_id</span><span class="p">,</span>
+<span class="w">                      </span><span class="n">vehicle_loc</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">vehicle_loc</span><span class="p">.</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">vehicle_loc</span><span class="p">.</span><span class="n">z</span><span class="p">,</span>
+<span class="w">                      </span><span class="n">vehicle_rot</span><span class="p">.</span><span class="n">yaw</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// 6. 主循环：在每个模拟帧调用更新函数</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">fixedDeltaTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0f</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">30.0f</span><span class="p">;</span><span class="w">  </span><span class="c1">// 30 FPS</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">frame</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">frame</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">1000</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">frame</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// 假设获取当前车辆列表和行人列表的逻辑已在外部实现</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">VehicleState</span><span class="o">&gt;</span><span class="w"> </span><span class="n">vehicle_list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GetCurrentVehicleStates</span><span class="p">();</span>
+<span class="w">        </span><span class="n">EpisodeState</span><span class="w"> </span><span class="n">sim_state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GetCurrentEpisodeState</span><span class="p">();</span>
+
+<span class="w">        </span><span class="c1">// 更新人群（行人）避障和路径跟踪</span>
+<span class="w">        </span><span class="n">nav</span><span class="p">.</span><span class="n">UpdateCrowd</span><span class="p">(</span><span class="n">fixedDeltaTime</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// 更新所有车辆动态障碍物（位置与旋转）</span>
+<span class="w">        </span><span class="n">nav</span><span class="p">.</span><span class="n">UpdateVehicles</span><span class="p">(</span><span class="n">vehicle_list</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// 可以在此处插入渲染或其他逻辑</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// 7. 退出前清理资源（析构时自动释放 NavMesh、Crowd 等）</span>
+<span class="w">    </span><span class="n">logging</span><span class="o">::</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;导航模拟结束，开始清理资源&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre></div></p>
+</code></pre></div>
+<p><strong>要点说明：</strong></p>
+<ol>
+<li><strong>错误检查与日志</strong>
+   每一步操作后都进行了返回值判断，并通过 <code>logging</code> 模块输出信息或警告，便于调试与排查问题。</li>
+<li>
+<p><strong>配置细节</strong></p>
+</li>
+<li>
+<p>调用 <code>SetPedestriansCrossFactor()</code> 演示了如何动态调整行人过马路的概率。</p>
+</li>
+<li><code>fixedDeltaTime</code> 固定为 30 帧每秒，仅供示例，可根据实际仿真引擎时间步长调整。</li>
+<li>
+<p><strong>车辆动态障碍</strong></p>
+</li>
+<li>
+<p>使用 <code>AddOrUpdateVehicle()</code> 注册车辆包围盒，示例中展示了位置和朝向的设置。</p>
+</li>
+<li>在主循环中，每帧都调用 <code>UpdateVehicles()</code> 同步车辆状态。</li>
+<li>
+<p><strong>主循环结构</strong></p>
+</li>
+<li>
+<p>假设外部提供 <code>GetCurrentVehicleStates()</code> 与 <code>GetCurrentEpisodeState()</code>，实际可根据用户项目自行实现。</p>
+</li>
+<li>将行人更新和车辆更新放在同一循环中，保证多代理场景下一致性。</li>
+</ol>
 <hr />
 <p>## 附录<br />
  ### 依赖项<br />
