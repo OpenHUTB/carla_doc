@@ -71,6 +71,68 @@ UStaticMesh*: 生成的静态网格资源指针，失败返回 nullptr。
 功能：将经纬度坐标转换为引擎内的平面墨卡托投影坐标（单位：厘米）。
 公式：
 
+x
+=
+R
+⋅
+asinh
+(
+sin
+⁡
+(
+Δ
+λ
+)
+tan
+⁡
+2
+(
+ϕ
+)
++
+cos
+⁡
+2
+(
+Δ
+λ
+)
+)
+x=R⋅asinh( 
+tan 
+2
+ (ϕ)+cos 
+2
+ (Δλ)
+​
+ 
+sin(Δλ)
+​
+ )
+y
+=
+R
+⋅
+arctan
+⁡
+(
+tan
+⁡
+(
+ϕ
+)
+cos
+⁡
+(
+Δ
+λ
+)
+)
+y=R⋅arctan( 
+cos(Δλ)
+tan(ϕ)
+​
+ )
 参数：
 
 lat / lon (float): 目标点经纬度（度）。
@@ -80,3 +142,73 @@ lat0 / lon0 (float): 参考原点经纬度（度）。
 返回值：
 
 FVector2D: 投影后的平面坐标（X: 横向，Y: 纵向，已转换为厘米）。
+
+示例：
+
+cpp
+FVector2D Position = UMapGenFunctionLibrary::GetTransversemercProjection(39.9, 116.4, 39.9, 116.4);  
+// 输出: (0, 0)（原点坐标）
+2.4 辅助函数
+SetThreadToSleep
+功能：使当前线程休眠指定秒数（需取消注释 FGenericPlatformProcess::Sleep）。
+
+FlushRenderingCommandsInBlueprint
+功能：强制刷新渲染命令队列，确保图形操作完成。
+
+CleanupGEngine
+功能：执行垃圾回收并清理编辑器事务（仅编辑器模式下生效）。
+
+3. 关键数据结构
+FProceduralCustomMesh
+成员：
+
+Vertices (TArray<FVector>): 顶点坐标数组。
+
+Triangles (TArray<int32>): 三角形索引数组。
+
+Normals / UV0 (TArray<FVector>): 法线与UV数据。
+
+4. 使用示例
+生成静态网格
+cpp
+// 1. 准备数据  
+FProceduralCustomMesh Data;  
+Data.Vertices = { FVector(0,0,0), FVector(100,0,0), FVector(0,100,0) };  
+Data.Triangles = { 0, 1, 2 };  
+Data.Normals = { FVector(0,0,1), FVector(0,0,1), FVector(0,0,1) };  
+
+// 2. 创建材质实例  
+UMaterialInstance* Material = LoadObject<UMaterialInstance>(...);  
+
+// 3. 生成网格  
+UStaticMesh* Mesh = UMapGenFunctionLibrary::CreateMesh(  
+    Data,  
+    TArray<FProcMeshTangent>(),  
+    Material,  
+    "TestMap",  
+    "Roads",  
+    "RoadMesh"  
+);  
+5. 注意事项
+性能优化：
+
+避免频繁调用 CreateMesh，建议批量生成后统一保存。
+
+启用异步加载（AsyncLoading）减少主线程卡顿。
+
+错误处理：
+
+检查 MaterialInstance 是否有效，否则触发 UE_LOG 错误。
+
+确保输入数据（如顶点数、三角形索引）合法。
+
+坐标系统：
+
+引擎使用左手坐标系，Y 轴反向（投影函数中 -(y - y0) 处理）。
+
+6. 扩展建议
+动态LOD：根据视距动态调整网格细节。
+
+异步生成：将 CreateMesh 移至后台线程，避免阻塞游戏逻辑。
+
+错误恢复：添加资源创建失败时的回滚机制。
