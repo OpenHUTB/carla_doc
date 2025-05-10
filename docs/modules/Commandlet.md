@@ -67,17 +67,28 @@
 | 方法                                  | 功能描述                                                                 |
 |---------------------------------------|-------------------------------------------------------------------------|
 | `Main(const FString &Params)`         | 入口方法，返回执行状态码                                               |
-| `ParseParams(const FString &InParams)`| 解析命令行参数，提取包名、地图列表                                      |
-| `PrepareMapsForCooking()`             | 地图预处理主控制器                                                    |
-| `SpawnMeshesToWorld()`                | 资产实例化与材质替换实现                                              |
-| `GenerateMapPathsFile()`              | 生成跨平台地图路径配置文件                                            |
+| `ParseParams(const FString &InParams)`| 解析命令行参数，提取包名、地图列表等参数，返回 `FPackageParams` 结构体 |
+| `LoadWorld(FAssetData &AssetData)`    | 加载 Carla 基础地图模板到内存                                          |
+| `LoadWorldTile(FAssetData &AssetData)`| 加载分块地图模板                                                       |
+| `LoadLargeMapWorld(FAssetData &AssetData)` | 加载大规模地图资产                                               |
+| `SpawnMeshesToWorld(...)`             | 实例化静态网格资产到场景，执行材质替换逻辑                            |
+| `SaveWorld(...)`                      | 保存处理后的世界资产到指定路径，支持生成导航点                        |
+| `PrepareMapsForCooking(...)`          | 主地图预处理流程控制器，处理分块逻辑                                  |
+| `PreparePropsForCooking(...)`         | 道具资产批量处理入口                                                  |
+| `GenerateMapPathsFile(...)`           | 生成跨平台地图路径配置文件                                            |
 
 #### 成员变量  
-| 变量                 | 类型                | 描述                          |
-|----------------------|---------------------|-------------------------------|
-| `MarkingNodeYellow`  | `UMaterialInstance*`| 黄色道路标线材质实例          |
-| `RoadNodeMaterial`   | `UMaterialInstance*`| 基础道路材质实例              |
-| `TerrainNodeMaterialInstance` | `UMaterialInstance*` | 地形材质实例          |
+| 变量                              | 类型                | 描述                          |
+|-----------------------------------|---------------------|-------------------------------|
+| `RoadNodeMaterial`                | `UMaterialInstance*`| 基础道路材质实例              |
+| `CurbNodeMaterialInstance`        | `UMaterialInstance*`| 路缘石材质实例                |
+| `GutterNodeMaterialInstance`      | `UMaterialInstance*`| 排水沟材质实例                |
+| `MarkingNodeYellow`               | `UMaterialInstance*`| 黄色道路标线材质实例          |
+| `MarkingNodeWhite`                | `UMaterialInstance*`| 白色道路标线材质实例          |
+| `TerrainNodeMaterialInstance`     | `UMaterialInstance*`| 地形材质实例                  |
+| `SidewalkNodeMaterialInstance`    | `UMaterialInstance*`| 人行道材质实例                |
+| `MapObjectLibrary`                | `UObjectLibrary*`   | 地图资产对象库                |
+| `AssetsObjectLibrary`             | `UObjectLibrary*`   | 通用资产对象库                |
 
 ### `FAssetsPaths` 结构体  
 资产路径配置容器：
@@ -90,6 +101,22 @@
 ---
 
 ## 数据结构与配置  
+#### `FPackageParams` 结构体  
+命令行参数解析容器：  
+
+| 字段              | 类型     | 描述                    |
+|-------------------|----------|-------------------------|
+| `Name`            | `FString`| 资源包名称              |
+| `bOnlyPrepareMaps`| `bool`   | 是否仅预处理地图资产    |
+
+#### `FMapData` 结构体  
+地图配置元数据：  
+
+| 字段                     | 类型     | 描述                          |
+|--------------------------|----------|-------------------------------|
+| `Name`                   | `FString`| 地图名称                      |
+| `Path`                   | `FString`| 资产路径                      |
+| `bUseCarlaMapMaterials`  | `bool`   | 是否强制使用 Carla 原生材质    |
 ### 扩展语义标签定义  
 | 标签常量          | 对应路径        | 匹配规则                  |
 |-------------------|-----------------|---------------------------|
@@ -110,18 +137,19 @@
 ---
 
 ## 关键流程  
-### 资产预处理流程  
+### 资产预处理增强流程  
 ```mermaid
 graph TD
-  A[解析Package参数] --> B[加载基础地图模板]
+  A[命令行参数解析] --> B[加载对象库资源]
   B --> C{是否分块地图?}
-  C -->|是| D[遍历瓦片坐标]
-  C -->|否| E[整体地图处理]
-  D --> F[动态生成瓦片实例]
-  E --> G[应用语义材质]
-  F/G --> H[生成OpenDrive导航]
-  H --> I[保存分块配置]
-  I --> J[生成路径清单]
+  C -->|是| D[按瓦片坐标迭代加载]
+  C -->|否| E[整体地图加载]
+  D --> F[动态实例化分块网格]
+  E --> G[应用语义材质系统]
+  F/G --> H[生成OpenDrive导航网络]
+  H --> I[碰撞体优化设置]
+  I --> J[序列化保存世界资产]
+  J --> K[生成路径清单文件]
 ```
 
 ---
