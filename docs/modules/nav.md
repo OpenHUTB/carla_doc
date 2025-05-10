@@ -63,7 +63,7 @@
    ```cpp
    params.obstacleAvoidanceType = 3; // 避障品质（0-3对应低到高）
    ```
- 
+
  ---
  
  ## 类与方法详解  
@@ -104,21 +104,163 @@
  ---
  
  ## 关键流程  
- ### 路径规划流程  
- 1. **输入**：起点 `from` 和终点 `to`  
- 2. **查询最近多边形**：  
-    ```cpp
-    findNearestPoly(start_pos, filter, &start_ref);
-    ```  
- 3. **多边形路径搜索**：  
-    ```cpp
-    findPath(start_ref, end_ref, polys, &num_polys);
-    ```  
- 4. **直线路径优化**：  
-    ```cpp
-    findStraightPath(polys, num_polys, straight_path);
-    ```  
- 
+
+### 1. 路径规划流程
+
+1. **初始化查询环境**
+
+   ```cpp
+   // 创建并初始化 NavMeshQuery 实例
+   dtNavMeshQuery* query = dtAllocNavMeshQuery();
+   query->init(navmesh, MAX_POLYS);
+   // 配置过滤器：设置区域成本、禁行区域等
+   dtQueryFilter filter;
+   filter.setIncludeFlags(SAMPLE_POLYFLAGS_ALL);
+   filter.setExcludeFlags(SAMPLE_POLYFLAGS_DISABLED);
+   filter.setAreaCost(AREA_ROAD, AREA_ROAD_COST);
+   filter.setAreaCost(AREA_GRASS, AREA_GRASS_COST);
+   ```
+
+2. **最近多边形查询**
+
+   ```cpp
+   dtPolyRef start_ref, end_ref;
+   float start_pos[3] = {from.x, from.y, from.z};
+   float end_pos[3]   = {to.x,   to.y,   to.z};
+
+   // 在 navmesh 中找到距离起点和终点最近的多边形
+   if (dtStatusFailed(query->findNearestPoly(start_pos, extents, &filter, &start_ref))) {
+       // 处理找不到起点多边形的情况
+       return false;
+   }
+   if (dtStatusFailed(query->findNearestPoly(end_pos, extents, &filter, &end_ref))) {
+       // 处理找不到终点多边形的情况
+       return false;
+   }
+   ```
+
+   * `extents` 为搜索半径，一般设置为 `{2,2,2}`。
+
+3. **多边形路径搜索**
+
+   ```cpp
+   dtPolyRef polys[MAX_POLYS];
+   int poly_count = 0;
+   if (dtStatusFailed(query->findPath(start_ref, end_ref, start_pos, end_pos, &filter, polys, &poly_count, MAX_POLYS))) {
+       // 记录日志：路径搜索失败或超过最大多边形数
+   }
+   ```
+
+   * 返回的 `polys` 数组包含从起始到目标的多边形序列，长度为 `poly_count`。
+
+4. **路径点优化转换**
+
+   ```cpp
+   float straight_path[MAX_POLYS*3];
+   unsigned char straight_flags[MAX_POLYS];
+   dtPolyRef straight_polys[MAX_POLYS];
+   int path_count = 0;
+
+   query->findStraightPath(
+       start_pos, end_pos,
+       polys, poly_count,
+       straight_path, straight_flags, straight_polys,
+       &path_count, MAX_POLYS,
+       DT_STRAIGHTPATH_ALL_CROSSINGS
+   );
+
+   // 将转换后的路径点填充到 vector<Location>
+   path.clear();
+   for (int i = 0; i < path_count; ++i) {
+       Location pt{straight_path[i*3], straight_path[i*3+1], straight_path[i*3+2]};
+       path.push_back(pt);
+   }
+   ```
+
+   * `path_count` 为最终路径点数量。
+
+5. **清理与返回**
+
+   ```cpp
+   dtFreeNavMeshQuery(query);
+   return !path.empty();
+   ```
+
+---
+
+### 2. 动态障碍物处理流程
+
+1. **更新车辆包围盒**
+
+   ```cpp
+   void Navigation::AddOrUpdateVehicle(ActorId id, const Location& loc, const Rotator& rot) {
+       std::lock_guard<std::mutex> guard(_mutex);
+       // 计算旋转后的 OBB 八个角
+       std::array<Vector3D, 8> corners = ComputeOBBCorners(loc, rot.yaw, vehicle_extent);
+       // 更新 dtTileCache 或 crowdObstacles
+       _crowd->removeObstacle(_vehicle_obstacles[id]);
+       _vehicle_obstacles[id] = _crowd->addObstacle(corners.data(), 8);
+   }
+   ```
+
+2. **动态切割（TileCache）**
+
+   ```cpp
+   // 若启用 TileCache，则调用以下接口实现局部切割
+   dtTileCacheUpdate* tc_update = dtAllocTileCacheUpdate(...);
+   tc_update->opcode = OPCODE_CUT_OUT;
+   tc_update->poly = new_poly;
+   tile_cache->addTileCacheUpdate(tc_update);
+   ```
+
+3. **重建切片**
+
+   ```cpp
+   dtStatus status = tile_cache->buildTile(x, y);
+   if (dtStatusFailed(status)) {
+       // 记录错误并重试
+   }
+   ```
+
+---
+
+### 3. 人群模拟与避障更新流程
+
+1. **批量添加/移除代理**
+
+   ```cpp
+   for (auto& walker : new_walkers) {
+       _crowd->addAgent(walker.start, params);
+   }
+   for (auto& id : removed_walkers) {
+       _crowd->removeAgent(_mapped_walkers_id[id]);
+   }
+   ```
+
+2. **每帧避障与位置更新**
+
+   ```cpp
+   void Navigation::UpdateCrowd(float delta_time) {
+       std::lock_guard<std::mutex> guard(_mutex);
+       _crowd->update(delta_time, nullptr);
+       // 同步位置到 CARLA 代理
+       for (int i = 0; i < _crowd->getAgentCount(); ++i) {
+           dtCrowdAgent* ag = _crowd->getAgent(i);
+           Location pos{ag->npos[0], ag->npos[1], ag->npos[2]};
+           UpdateCARLAAgent(_agent_ids[i], pos, ag->vel);
+       }
+   }
+   ```
+
+3. **分离与预测**
+
+   ```cpp
+   // 设置分离权重和预测时间
+   params.separationWeight = 0.5f;
+   params.predictTime = 1.0f;
+   ```
+
+
  ---
  
  ## 配置参数  
