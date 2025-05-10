@@ -1,226 +1,144 @@
-# CarlaUnreal Trigger 模块技术文档
+# Trigger 文档
 
-## 目录
-- [模块概述](#模块概述)
-- [核心功能](#核心功能)
-- [类与方法详解](#类与方法详解)
-- [数据结构与配置](#数据结构与配置)
-- [关键流程](#关键流程)
-- [注意事项](#注意事项)
-- [示例配置](#示例配置)
-- [附录](#附录)
+## 概述
 
-## 模块概述
-Trigger 模块是 CarlaUnreal 插件中的核心组件，旨在为 CARLA 模拟器提供灵活的触发器机制。它允许用户在模拟环境中定义触发区域，并根据特定条件（如车辆重叠事件）执行预定义操作，从而增强场景交互性和真实性。目前，模块主要实现基于摩擦力的触发器功能（`AFrictionTrigger`），用于动态调整车辆在特定区域内的车轮摩擦力，模拟不同路面条件（如湿滑路面、砂石路面）对车辆物理行为的影响。
+**Trigger** 是 CARLA 仿真环境中的物理规则触发模块，用于根据轮轴与场景的重叠情况，动态调整车辆轮轴的摩擦系数，以实现场景的动态效果。
 
-模块通过工厂类 `ATriggerFactory` 提供触发器的创建和管理功能，与 CARLA 的核心类（如 `UCarlaEpisode` 和 `ACarlaWheeledVehicle`）深度集成，支持在 **Unreal Engine 编辑器**、**蓝图** 中动态配置。未来可扩展至其他触发器类型，如速度限制或信号触发。
+该触发器适用于多种场景，例如小路、波浪、雨水、冰面，以及根据路段动态选择和更换摩擦系数。它支持动态变化摩擦系数和多种触发距离样式，能够显著增强仿真环境的真实性和复杂度。
 
-## 核心功能
+**Trigger** 具有良好的模块化特性，便于开发者进行二次开发和自定义扩展。
 
-### 1. 触发器实例化与配置
-- **工厂类生成触发器**
-  ```cpp
-  FActorSpawnResult SpawnActor(const FTransform &SpawnAtTransform, const FActorDescription &ActorDescription);
-  ```
-  根据变换信息（位置和旋转）及描述参数生成 `AFrictionTrigger` 实例。
+---
 
-- **配置方式**
-  - 通过代码动态配置
-  - 在蓝图中可视化配置
+## 结构化设计
 
-### 2. 动态摩擦力调整
-- **重叠事件检测与响应**
-  ```cpp
-  void OnTriggerBeginOverlap(AActor* OverlappedActor, AActor* OtherActor);
-  void OnTriggerEndOverlap(AActor* OverlappedActor, AActor* OtherActor);
-  ```
-  实时检测车辆进入和离开触发区域。
+**Trigger** 采用结构化设计，将物理操作、生成方法和应用场景分层，通过触发器工厂 (TriggerFactory) 和触发器 (Trigger) 维持低耦合、高内聚的设计原则，确保模块易于维护和扩展。
 
-- **摩擦力管理**
-  - 车辆进入时保存原始摩擦力并应用预设值
-  - 车辆离开时恢复原始摩擦力
+- **Trigger**: 负责触发区域检测和轮轴摩擦系数调整。
+- **TriggerFactory**: 提供触发器模板定义和动态生成。
+- **ActorBlueprintFunctionLibrary**: 辅助函数，用于触发器属性配置。
+- **CarlaStatics/CarlaGameInstance**: 对接 CARLA 游戏环境，获取相关单元和世界信息。
 
-### 3. 与 CARLA 模拟器集成
-- **关卡与车辆交互**
-  - 通过 `UCarlaEpisode` 获取当前场景所有信息，比如地图、车辆、天气等
-  - 与 `ACarlaWheeledVehicle` 的物理组件交互，调整车轮摩擦属性
+这种架构支持快速添加更多类型的触发器（如雨天打滑、冰面等）以及自定义摩擦逻辑。
 
-### 4. 蓝图支持
-- **事件绑定与属性调整**
-  - 支持在蓝图中绑定触发事件
-  - 实时修改触发器属性（如摩擦力、区域大小）
+---
 
-## 类与方法详解
+## 架构
 
-### AFrictionTrigger 类
-继承自 `AActor`，是 Trigger 模块的核心实现类，用于定义基于摩擦力的触发区域。
+### 概述
 
-#### 关键方法
-| 方法 | 功能描述 |
-|------|----------|
-| `OnTriggerBeginOverlap(...)` | 当车辆进入触发区域时触发，保存原始摩擦力并设置为预定义值 |
-| `OnTriggerEndOverlap(...)` | 当车辆离开触发区域时触发，恢复车辆的原始摩擦力 |
-| `UpdateWheelsFriction(...)` | 更新指定车辆的车轮摩擦力系数 |
-| `SetEpisode(const UCarlaEpisode&)` | 设置当前关卡引用，以便访问关卡数据和车辆实例 |
-| `SetBoxExtent(const FVector&)` | 设置触发区域的盒体范围（X/Y/Z 轴） |
-| `SetFriction(float)` | 设置触发区域的目标摩擦力值，可在运行时或编辑器中调整 |
-| `BeginPlay()` | 重写函数，在 Actor 开始运行时初始化事件绑定 |
-| `EndPlay(...)` | 重写函数，在 Actor 结束时清理事件绑定 |
+- **World**: 场景检测的起点。
+- **TriggerFactory**: 根据配置生成触发器。
+- **Trigger**: 实现触发区域和摩擦系数维护。
 
-#### 成员变量说明
-| 变量 | 类型 | 描述 |
-|------|------|------|
-| `Friction` | `float` | 触发区域的目标摩擦力值，默认 1.0，可在编辑器中编辑 |
-| `TriggerVolume` | `UBoxComponent*` | 定义触发区域的碰撞盒体组件，支持可视化调试 |
-| `Episode` | `const UCarlaEpisode*` | 指向当前关卡实例的指针，用于获取车辆和场景信息 |
-| `OldFrictionValues` | `TArray<float>` | 存储进入触发区域的车辆原始摩擦力值，用于后续恢复 |
+这种责任划分使得系统能够灵活应对大规模、复杂场景的仿真需求。
 
-### ATriggerFactory 类
-继承自 `ACarlaActorFactory`，负责触发器的创建和管理，提供工厂模式的实例化支持。
+---
 
-#### 关键方法
-| 方法 | 功能描述 |
-|------|----------|
-| `GetDefinitions()` | 返回支持的触发器类型定义列表（目前仅含 `AFrictionTrigger`） |
-| `SpawnActor(const FTransform&, const FActorDescription&)` | 根据变换和描述信息生成并配置触发器实例，返回生成结果 |
+## 使用 Trigger
 
-## 数据结构与配置
+### 数据输入与输出
 
-### 1. 触发器描述结构体
+| 概念            | 描述                                   |
+|-----------------|----------------------------------------|
+| TriggerVolume   | 给定触发区域，检测车辆进入或离开。      |
+| Friction        | 设置新的摩擦系数，改变车辆在不同表面的驾驶行为。 |
+| OldFriction     | 记录车辆进入前的原有摩擦系数，方便离开后恢复。 |
+
+### 创建 Trigger
+
+触发器通过触发器工厂动态生成，并注入关卡中：
+
 ```cpp
-struct FActorDescription {
-    UClass* Class;                    // 触发器类（如 AFrictionTrigger）
-    TMap<FString, FString> Variations;// 配置参数键值对（如 friction、extent）
-};
-```
-- `Class`：指定要生成的触发器类，目前固定为 `AFrictionTrigger`
-- `Variations`：存储触发器的配置参数，如摩擦力和区域范围
+auto *Trigger = World->SpawnActorDeferred<ATrigger>(
+    Description.Class,
+    Transform,
+    this,
+    nullptr,
+    ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
 
-### 2. 配置参数映射表
-| 参数名称 | 类型 | 描述 | 默认值 |
-|----------|------|------|--------|
-| `friction` | `float` | 触发区域的摩擦力值 | 1.0 |
-| `extent_x` | `float` | 触发区域 X 轴范围（厘米） | 100.0 |
-| `extent_y` | `float` | 触发区域 Y 轴范围（厘米） | 100.0 |
-| `extent_z` | `float` | 触发区域 Z 轴范围（厘米） | 100.0 |
-
-
-
-## 关键流程
-
-### 触发器生成流程
-1. **工厂类调用**
-   - 通过 `ATriggerFactory::SpawnActor` 创建触发器实例
-   - `FActorDescription` 提供变换信息和描述参数
-
-2. **属性配置**
-   - 解析 `Variations` 中的 `friction` 和 `extent` 参数
-   - 调用 `SetFriction` 和 `SetBoxExtent` 设置属性
-
-3. **事件绑定**
-   - 在 `BeginPlay` 中为 `TriggerVolume` 绑定重叠事件回调
-
-### 摩擦力调整流程
-```mermaid
-sequenceDiagram
-    participant Factory
-    participant Trigger as FrictionTrigger
-    participant Vehicle as CarlaWheeledVehicle
-
-    %% 步骤 1：Factory 创建 Trigger
-    Factory->>Trigger: SpawnActor(Transform, Description)
-    Note right of Trigger: 配置 Friction 和 BoxExtent
-
-    %% 步骤 2：Trigger 初始化并绑定事件
-    Trigger->>Trigger: BeginPlay() 绑定 OnTriggerBeginOverlap 和 OnTriggerEndOverlap
-
-    %% 步骤 3：车辆进入触发区域
-    Vehicle->>Trigger: 进入 TriggerVolume
-    Trigger->>Trigger: OnTriggerBeginOverlap(Vehicle)
-    Trigger->>Vehicle: 保存原始摩擦力到 OldFrictionValues
-    Trigger->>Vehicle: UpdateWheelsFriction(NewFriction)
-
-    %% 步骤 4：车辆在触发区域内
-    Note over Vehicle,Trigger: 摩擦力保持为 NewFriction
-
-    %% 步骤 5：车辆离开触发区域
-    Vehicle->>Trigger: 离开 TriggerVolume
-    Trigger->>Trigger: OnTriggerEndOverlap(Vehicle)
-    Trigger->>Vehicle: UpdateWheelsFriction(OldFrictionValues)
+Trigger->SetFriction(3.5f);
+Trigger->SetBoxExtent(FVector(100.0f, 100.0f, 100.0f));
+UGameplayStatics::FinishSpawningActor(Trigger, Transform);
 ```
 
-## 注意事项
+可以在蓝图或 C++ 中动态调整摩擦力大小与触发体积范围，以适配不同场景。
 
-1. **触发器类型限制**
-   - 当前仅支持 `AFrictionTrigger`，未来可扩展其他类型（如速度触发器）
+### 触发操作
 
-2. **车辆兼容性**
-   - 仅对 `ACarlaWheeledVehicle` 类型车辆生效，其他 `Actor` 类型会被忽略
+- **OnTriggerBeginOverlap**: 将轮轴摩擦系数调整到特定值。
+- **OnTriggerEndOverlap**: 恢复轮轴的原有摩擦系数。
 
-3. **碰撞配置**
-   - 确保 `TriggerVolume` 的碰撞类型为 `OverlapAll` 并启用 `GenerateOverlapEvents`
-
-
-4. **参数格式**
-   - 配置参数在 `FActorDescription::Variations` 中需为 **字符串形式**
-
-## 示例配置
-
-### C++ 代码示例
 ```cpp
-#include "TriggerFactory.h"
-#include "FrictionTrigger.h"
-
-void AYourActor::SetupFrictionTrigger()
+void OnTriggerBeginOverlap(...)
 {
-    ATriggerFactory* TriggerFactory = GetWorld()->SpawnActor<ATriggerFactory>(); // 生成触发器工厂
+    OldFrictionValues = Vehicle->GetWheelsFrictionScale();
+    UpdateWheelsFriction(Vehicle, {Friction, Friction, Friction, Friction});
+}
 
-    FTransform Transform(FVector(0.0f, 0.0f, 50.0f)); // 设置位置 (0, 0, 50)
-
-    FActorDescription Description; // 配置触发器描述
-    Description.Class = AFrictionTrigger::StaticClass(); // 设置触发器类
-    Description.Variations.Add("friction", "0.5"); // 摩擦力 0.5
-    Description.Variations.Add("extent_x", "200.0"); // X 轴范围 200
-    Description.Variations.Add("extent_y", "200.0"); // Y 轴范围 200
-    Description.Variations.Add("extent_z", "50.0"); // Z 轴范围 50
-
-    FActorSpawnResult Result = TriggerFactory->SpawnActor(Transform, Description); // 生成触发器
-
-    if (Result.Actor) // 记录生成结果
-    {
-        UE_LOG(LogTemp, Log, TEXT("FrictionTrigger spawned at %s"), *Transform.GetLocation().ToString());
-    }
+void OnTriggerEndOverlap(...)
+{
+    UpdateWheelsFriction(Vehicle, OldFrictionValues);
 }
 ```
 
-### 命令行调用
-```bash
-UE4Editor-Cmd.exe ProjectName -run=TriggerFactory -TriggerType=friction -Friction=0.5 -ExtentX=200.0 -ExtentY=200.0 -ExtentZ=50.0
+通过这种机制，车辆在不同地形表面（如湿滑地面、结冰路段、起伏道路）能够自动改变驾驶特性。
+
+### 管理触发区
+
+- **Init()**: 绑定开始/结束重叠事件。
+- **EndPlay()**: 卸载触发器时进行清理，避免内存泄漏。
+
+```cpp
+void Init()
+{
+    TriggerVolume->OnComponentBeginOverlap.AddDynamic(this, &ATrigger::OnTriggerBeginOverlap);
+    TriggerVolume->OnComponentEndOverlap.AddDynamic(this, &ATrigger::OnTriggerEndOverlap);
+}
+
+void EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+    TriggerVolume->OnComponentBeginOverlap.RemoveDynamic(this, &ATrigger::OnTriggerBeginOverlap);
+    TriggerVolume->OnComponentEndOverlap.RemoveDynamic(this, &ATrigger::OnTriggerEndOverlap);
+}
 ```
 
-## 附录
+---
 
-### 依赖项
-- **Unreal Engine**
-  - Actor 系统
-  - 碰撞检测
-  - 物理引擎
-- **CARLA 模拟器**
-  - `UCarlaEpisode`
-  - `ACarlaWheeledVehicle` 类
+## 运行模式
 
-### 调试支持
-- **日志输出**
-  ```cpp
-  UE_LOG(LogCarla, Warning, TEXT("FrictionTrigger: Vehicle entered with friction %f"), Friction);
-  ```
-- **编辑器可视化**
-  - 通过 `TriggerVolume->SetHiddenInGame(false)` 在编辑器中显示触发区域线框
+### Trigger 模块功能
 
-### 问题与解决方案
-| 问题现象 | 可能原因 | 解决方案 |
-|----------|----------|----------|
-| 触发器未响应事件 | 碰撞类型未设为 `OverlapAll` | 检查 `TriggerVolume` 的碰撞设置 |
-| 摩擦力未正确恢复 | `OldFrictionValues` 未保存 | 验证 `OnTriggerBeginOverlap` 逻辑 |
-| 触发器生成失败 | 配置参数格式错误 | 确保 `Variations` 使用字符串值 |
-| 触发区域不可见 | 组件未正确初始化 | 检查 `TriggerVolume` 的配置 |
+| 功能            | 描述                                   |
+|-----------------|----------------------------------------|
+| 自动缓存/恢复   | 记录并恢复车辆原有轮轴摩擦系数，确保仿真连贯。 |
+| 触发场景选择    | 检测车辆是否进入触发区域，根据场景需求动态调整摩擦力。 |
+| 摩擦系数调整    | 在触发区域内自动改变车辆行驶性能，模拟不同地表特性。 |
+| 高效清理机制    | 组件卸载时自动解绑事件，避免资源泄漏。     |
+
+### TriggerFactory 工厂功能
+
+| 功能        | 描述                                           |
+|-------------|-----------------------------------------------|
+| 触发器定义  | 通过 MakeTriggerDefinition 生成 "friction" 类型定义。 |
+| 动态创建    | 读取摩擦系数与区域范围参数，动态生成配置触发器。 |
+
+---
+
+## 示例场景应用
+
+| 场景            | 效果描述                               |
+|-----------------|---------------------------------------|
+| 湿滑路段        | 进入时减小摩擦系数，增加打滑概率，测试控制算法稳定性。 |
+| 冰面行驶        | 摩擦系数极低，考验自动驾驶在极端条件下的决策能力。 |
+| 泥泞路段        | 中等降低摩擦，考察驱动与避障能力。         |
+| 干燥路面（默认摩擦） | 离开特殊区域后恢复正常摩擦系数，确保驾驶逻辑连贯。 |
+
+---
+
+## 总结
+
+- **Trigger** 通过检测车辆与触发区域的重叠状态，在进入时更改轮轴摩擦系数，离开时恢复，实现动态场景效果。
+- **TriggerFactory** 提供模块定义与动态生成，便于配置和扩展，与环境添加机制无缝对接。
+- **适用场景**: 波浪路面、滑路行驶、道路故障和触发监测等仿真场景。
+- **未来拓展**: 可基于此架构快速扩展更多类型触发器，如湿度感知、温度变化、轮胎磨损模拟等。
