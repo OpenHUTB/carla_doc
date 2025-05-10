@@ -33,6 +33,15 @@
 - [6 限制与对比分析](#6-限制与对比分析)
 - [7 总结与建议](#7-总结与建议)
 
+### 第四章：GNSS 传感器（sensor.other.gnss）
+
+- [1 模块概览](#1-模块概览-3)
+- [2 数据结构与序列化机制](#2-数据结构与序列化机制)
+- [3 Python API 使用示例](#3-python-api-使用示例-2)
+- [4 拓展应用与组合场景](#4-拓展应用与组合场景)
+- [5 限制与建议](#5-限制与建议)
+- [6 流程图](#6-流程图)
+- [7 源码参考链接](#7-源码参考链接)
 ---
 
 # 第一章：CARLA 碰撞事件传感器系统（sensor.other.collision）
@@ -440,4 +449,153 @@ def on_imu_integration(imu):
 * 建议与 `sensor.other.gnss`、`sensor.camera.rgb` 联合使用，支持轨迹分析、三维重建等研究任务；
 * 后续可引入 IMU 噪声模拟模块、数据导出功能。
 
+
 ---
+
+# 第四章：CARLA 全球导航卫星系统传感器（sensor.other.gnss）
+
+---
+
+## 1 模块概览
+
+`sensor.other.gnss` 是 CARLA 中用于获取地理位置信息的传感器，模拟真实世界中的全球导航卫星系统（GNSS）设备，如 GPS、北斗等。传感器输出包括：
+
+* **经度（longitude）**：单位°，范围 $-180°, 180°$
+* **纬度（latitude）**：单位°，范围 $-90°, 90°$
+* **海拔（altitude）**：单位 m，代表相对于海平面的高度
+
+该传感器可用于场景定位、路径重建、轨迹分析等仿真任务中，常与 IMU、地图匹配模块联合使用。
+
+---
+
+## 2 工作流程与传输机制
+
+GNSS 的数据传输流程如下：
+
+1. **事件生成**：服务端在当前仿真帧中生成地理位置信息
+2. **数据打包**：通过 `GnssSerializer` 将 `GeoLocation` 序列化为 MsgPack 格式的 `RawData`
+3. **网络传输**：打包后的字节流通过 CARLA 的 RPC 系统发送给客户端
+4. **数据还原**：客户端使用 `GnssMeasurement` 类解码 `RawData`，得到结构化数据
+5. **Python 层监听**：`.listen()` 接口注册的函数在每次更新中触发回调
+
+🧭 流程图如下所示：
+
+![GNSS流程图](../img/modules/flowchart_gnss.png)
+
+---
+
+## 3 数据结构解析
+
+定义位置：[`GnssMeasurement.h`](https://github.com/OpenHUTB/carla_cpp/blob/dev/LibCarla/source/carla/sensor/data/GnssMeasurement.h)
+
+```cpp
+class GnssMeasurement : public SensorData {
+public:
+  geom::GeoLocation GetGeoLocation() const;
+  double GetLongitude() const;
+  double GetLatitude() const;
+  double GetAltitude() const;
+};
+```
+
+其中：
+
+* `GeoLocation` 结构体封装了 `{ longitude, latitude, altitude }`
+* 每帧更新一次，数据来源为服务端环境模拟的车辆真实位置信息
+
+默认输出单位为：
+
+| 字段        | 类型     | 单位   |
+| --------- | ------ | ---- |
+| Longitude | double | 度（°） |
+| Latitude  | double | 度（°） |
+| Altitude  | double | 米（m） |
+
+---
+
+## 4 序列化机制分析
+
+定义文件：
+[`GnssSerializer.h`](https://github.com/OpenHUTB/carla_cpp/blob/dev/LibCarla/source/carla/sensor/s11n/GnssSerializer.h)
+[`GnssSerializer.cpp`](https://github.com/OpenHUTB/carla_cpp/blob/dev/LibCarla/source/carla/sensor/s11n/GnssSerializer.cpp)
+
+```cpp
+// 客户端解码逻辑
+SharedPtr<SensorData> GnssSerializer::Deserialize(RawData &&data) {
+  return SharedPtr<SensorData>(new data::GnssMeasurement(std::move(data)));
+}
+```
+
+序列化结构体使用 `MSGPACK_DEFINE_ARRAY` 自动完成：
+
+```cpp
+struct GeoLocation {
+  double latitude;
+  double longitude;
+  double altitude;
+  MSGPACK_DEFINE_ARRAY(latitude, longitude, altitude)
+};
+```
+
+该机制保证 GNSS 数据体积小、解码快，适合高频传输与跨语言兼容。
+
+---
+
+## 5 Python API 使用示例
+
+```python
+# 定义回调函数
+def on_gnss(event):
+    lat = event.latitude
+    lon = event.longitude
+    alt = event.altitude
+    print(f"[GNSS] 纬度: {lat:.6f}, 经度: {lon:.6f}, 海拔: {alt:.2f}m")
+```
+
+```python
+# 创建并绑定传感器
+bp = world.get_blueprint_library().find('sensor.other.gnss')
+transform = carla.Transform(carla.Location(x=0.7, y=0.0, z=1.6))
+gnss_sensor = world.spawn_actor(bp, transform, attach_to=vehicle)
+gnss_sensor.listen(on_gnss)
+```
+
+可选蓝图参数（`bp.set_attribute(...)`）包括：
+
+| 属性            | 描述         | 默认值    |
+| ------------- | ---------- | ------ |
+| `sensor_tick` | 传感器更新时间（秒） | `0.05` |
+
+---
+
+## 6 应用拓展与组合使用
+
+GNSS 传感器常用于以下场景：
+
+* **路径重建**：记录车辆运行轨迹用于回放
+* **定位精度验证**：与地图匹配算法结合测试鲁棒性
+* **IMU + GNSS 融合**：实现基于扩展卡尔曼滤波（EKF）的定位
+
+### 示例：GNSS 与 IMU 联合使用
+
+```python
+def on_fused_data(gnss, imu):
+    location = (gnss.latitude, gnss.longitude)
+    acceleration = imu.accelerometer
+    print(f"[FUSION] 坐标: {location}, 加速度: {acceleration}")
+```
+
+该模式可用于轨迹重建、地理围栏检测、自动驾驶行为控制等任务。
+
+---
+
+## 7 总结与建议
+
+* `sensor.other.gnss` 提供高精度地理位置信息，是自动驾驶仿真系统中的关键模块；
+* 与 IMU、摄像头、地图等配合可实现高级 SLAM 与定位算法验证；
+* 若需实现更真实的模型，可拓展添加噪声模型、地形遮挡、信号丢失模拟等功能。
+
+---
+
+
+
