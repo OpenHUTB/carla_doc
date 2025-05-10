@@ -274,6 +274,133 @@ noop_sensor.listen(on_noop_event)
 <li>可组合图像、IMU 等实际传感器测试是否发生调用竞争或系统冲突。</li>
 </ul>
 <hr />
+<h1 id="carlasensorotherimu">第三章：CARLA惯性测量单元传感器系统（sensor.other.imu）</h1>
+<hr />
+<h2 id="1_2">1 模块概览</h2>
+<p><code>sensor.other.imu</code> 是 CARLA 提供的惯性测量单元（IMU）传感器，用于捕捉车辆的三维加速度、角速度及方向信息，广泛应用于轨迹估计、姿态解算、导航融合等自动驾驶仿真任务中。</p>
+<p>该传感器会周期性发送事件，传递以下数据：</p>
+<ul>
+<li><strong>加速度计</strong>：三轴加速度 <code>Vector3D(x, y, z)</code>，单位 m/s²</li>
+<li><strong>陀螺仪</strong>：三轴角速度 <code>Vector3D(x, y, z)</code>，单位 rad/s</li>
+<li><strong>罗盘</strong>：航向角（方向朝向），单位弧度</li>
+</ul>
+<p>默认以 20Hz 更新频率输出，支持在蓝图中调整采样速率。</p>
+<hr />
+<h2 id="2_2">2 工作流程与序列化机制</h2>
+<p>IMU 传感器的数据流程如下：</p>
+<ol>
+<li><strong>事件捕获</strong>：模拟器服务端采集当前帧的 IMU 数据</li>
+<li><strong>数据序列化</strong>：使用 <code>IMUSerializer</code> 将加速度、角速度与罗盘值打包为 MsgPack 编码字节流（参见 <code>IMUSerializer.h/.cpp</code>）</li>
+<li><strong>网络传输</strong>：打包后的 <code>RawData</code> 通过 RPC 系统传输至客户端</li>
+<li><strong>数据还原</strong>：客户端通过 <code>IMUMeasurement</code> 类将字节流还原为结构化对象</li>
+<li><strong>回调触发</strong>：Python 层注册的 <code>.listen()</code> 回调函数获得该事件并执行处理逻辑</li>
+</ol>
+<p>流程图如下所示：</p>
+<p><img alt="flowchart_3.png" src="../../img/modules/flowchart_3.png" /></p>
+<hr />
+<h2 id="3">3 数据结构详解</h2>
+<p>IMU 数据通过 <code>IMUMeasurement</code> 类对外暴露，定义位置：</p>
+<p>📄 <a href="https://github.com/carla-simulator/carla/blob/dev/LibCarla/source/carla/sensor/data/IMUMeasurement.h"><code>carla/sensor/data/IMUMeasurement.h</code></a></p>
+<p>该类封装如下：</p>
+<div class="highlight"><pre><span></span><code>class IMUMeasurement : public SensorData {
+public:
+  geom::Vector3D GetAccelerometer() const;
+  geom::Vector3D GetGyroscope() const;
+  float GetCompass() const;
+};
+</code></pre></div>
+<ul>
+<li><strong>加速度</strong>：IMU 加速度计测得的三轴值</li>
+<li><strong>角速度</strong>：陀螺仪角速度</li>
+<li><strong>罗盘值</strong>：航向角（通常为 0\~2π 的弧度）</li>
+</ul>
+<p>所有字段通过 <code>IMUSerializer::Deserialize()</code> 方法从 <code>RawData</code> 还原，序列化结构如下：</p>
+<div class="highlight"><pre><span></span><code>struct IMUData {
+  Vector3D accelerometer;
+  Vector3D gyroscope;
+  float compass;
+};
+</code></pre></div>
+<p>通过 <code>MSGPACK_DEFINE_ARRAY(acc, gyro, compass)</code> 支持 MsgPack 自动编码。</p>
+<hr />
+<h2 id="4-python-api">4 Python API 调用示例</h2>
+<p>以下代码展示如何部署 IMU 传感器、注册监听器，并处理接收到的数据：</p>
+<div class="highlight"><pre><span></span><code>def on_imu(event):
+    acc = event.accelerometer
+    gyro = event.gyroscope
+    compass = event.compass
+    print(f&quot;[IMU] 加速度: {acc} | 角速度: {gyro} | 罗盘: {compass}&quot;)
+
+# 创建传感器
+bp = world.get_blueprint_library().find(&#39;sensor.other.imu&#39;)
+transform = carla.Transform(carla.Location(x=0, y=0, z=1.0))
+imu_sensor = world.spawn_actor(bp, transform, attach_to=vehicle)
+imu_sensor.listen(on_imu)
+</code></pre></div>
+<hr />
+<h2 id="5">5 拓展用例与集成应用</h2>
+<p>IMU 常与 GNSS、相机、雷达等传感器联用，实现高级状态估计：</p>
+<p><strong>与 GNSS 融合：</strong></p>
+<div class="highlight"><pre><span></span><code>def on_gnss(gnss):
+    print(f&quot;[GNSS] 纬度: {gnss.latitude}, 经度: {gnss.longitude}&quot;)
+
+imu_sensor.listen(on_imu)
+gnss_sensor.listen(on_gnss)
+</code></pre></div>
+<p><strong>估算车辆速度（积分法，简化示例）：</strong></p>
+<div class="highlight"><pre><span></span><code>velocity = carla.Vector3D()
+
+def on_imu_integration(imu):
+    global velocity
+    dt = 0.05  # 默认 20Hz
+    a = imu.accelerometer
+    velocity.x += a.x * dt
+    velocity.y += a.y * dt
+    velocity.z += a.z * dt
+    print(f&quot;估算速度: {velocity}&quot;)
+</code></pre></div>
+<hr />
+<h2 id="6_1">6 限制与对比分析</h2>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>CARLA IMU</th>
+<th>真实 IMU（如 Xsens）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>更新频率</td>
+<td>默认 20Hz，可调</td>
+<td>最高 &gt; 1000Hz</td>
+</tr>
+<tr>
+<td>噪声建模</td>
+<td>默认无噪声</td>
+<td>含偏置、漂移等随机扰动</td>
+</tr>
+<tr>
+<td>时间同步</td>
+<td>自动与仿真对齐</td>
+<td>需硬件级时间戳</td>
+</tr>
+<tr>
+<td>数据输出</td>
+<td>无 CSV 导出</td>
+<td>支持标准格式</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="7_1">7 总结与建议</h2>
+<ul>
+<li><code>sensor.other.imu</code> 提供结构清晰、易用的姿态/运动状态反馈能力；</li>
+<li>可拓展为带噪模型、加权滤波、数据融合平台；</li>
+<li>建议与 <code>sensor.other.gnss</code>、<code>sensor.camera.rgb</code> 联合使用，支持轨迹分析、三维重建等研究任务；</li>
+<li>后续可引入 IMU 噪声模拟模块、数据导出功能。</li>
+</ul>
+<hr />
               
             </div>
           </div><footer>
