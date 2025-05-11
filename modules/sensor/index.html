@@ -100,6 +100,16 @@
 <li><a href="#6-限制与对比分析">6 限制与对比分析</a></li>
 <li><a href="#7-总结与建议">7 总结与建议</a></li>
 </ul>
+<h3 id="gnss-sensorothergnss">第四章：GNSS 传感器（sensor.other.gnss）</h3>
+<ul>
+<li><a href="#1-模块概览-3">1 模块概览</a></li>
+<li><a href="#2-数据结构与序列化机制">2 数据结构与序列化机制</a></li>
+<li><a href="#3-python-api-使用示例-2">3 Python API 使用示例</a></li>
+<li><a href="#4-拓展应用与组合场景">4 拓展应用与组合场景</a></li>
+<li><a href="#5-限制与建议">5 限制与建议</a></li>
+<li><a href="#6-流程图">6 流程图</a></li>
+<li><a href="#7-源码参考链接">7 源码参考链接</a></li>
+</ul>
 <hr />
 <h1 id="carla-sensorothercollision">第一章：CARLA 碰撞事件传感器系统（sensor.other.collision）</h1>
 <hr />
@@ -119,7 +129,7 @@
 <li>通过 RPC 网络发送</li>
 <li>客户端使用 <code>Deserialize()</code> 解码为 <code>SensorData</code></li>
 <li>注入回调函数中进行处理
-     <img alt="flowchart.jpg" src="../../img/modules/flowchart.jpg" />
+     <img alt="flowchart.jpg" src="..%2Fimg%2Fmodules%2Fflowchart.jpg" />
 该流程构成事件捕捉 → 数据序列化 → 网络传输 → 解码还原 → 客户端处理的完整通路。</li>
 </ul>
 <hr />
@@ -432,6 +442,145 @@ def on_imu_integration(imu):
 <li>可拓展为带噪模型、加权滤波、数据融合平台；</li>
 <li>建议与 <code>sensor.other.gnss</code>、<code>sensor.camera.rgb</code> 联合使用，支持轨迹分析、三维重建等研究任务；</li>
 <li>后续可引入 IMU 噪声模拟模块、数据导出功能。</li>
+</ul>
+<hr />
+<h1 id="carla-sensorothergnss">第四章：CARLA 全球导航卫星系统传感器（sensor.other.gnss）</h1>
+<hr />
+<h2 id="1_3">1 模块概览</h2>
+<p><code>sensor.other.gnss</code> 是 CARLA 中用于获取地理位置信息的传感器，模拟真实世界中的全球导航卫星系统（GNSS）设备，如 GPS、北斗等。传感器输出包括：</p>
+<ul>
+<li><strong>经度（longitude）</strong>：单位°，范围 $-180°, 180°$</li>
+<li><strong>纬度（latitude）</strong>：单位°，范围 $-90°, 90°$</li>
+<li><strong>海拔（altitude）</strong>：单位 m，代表相对于海平面的高度</li>
+</ul>
+<p>该传感器可用于场景定位、路径重建、轨迹分析等仿真任务中，常与 IMU、地图匹配模块联合使用。</p>
+<hr />
+<h2 id="2_3">2 工作流程与传输机制</h2>
+<p>GNSS 的数据传输流程如下：</p>
+<ol>
+<li><strong>事件生成</strong>：服务端在当前仿真帧中生成地理位置信息</li>
+<li><strong>数据打包</strong>：通过 <code>GnssSerializer</code> 将 <code>GeoLocation</code> 序列化为 MsgPack 格式的 <code>RawData</code></li>
+<li><strong>网络传输</strong>：打包后的字节流通过 CARLA 的 RPC 系统发送给客户端</li>
+<li><strong>数据还原</strong>：客户端使用 <code>GnssMeasurement</code> 类解码 <code>RawData</code>，得到结构化数据</li>
+<li><strong>Python 层监听</strong>：<code>.listen()</code> 接口注册的函数在每次更新中触发回调</li>
+</ol>
+<p>🧭 流程图如下所示：</p>
+<p><img alt="GNSS流程图" src="../../img/modules/flowchart_4.png" /></p>
+<hr />
+<h2 id="3_1">3 数据结构解析</h2>
+<p>定义位置：<a href="https://github.com/OpenHUTB/carla_cpp/blob/dev/LibCarla/source/carla/sensor/data/GnssMeasurement.h"><code>GnssMeasurement.h</code></a></p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">GnssMeasurement</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">SensorData</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="n">geom</span><span class="o">::</span><span class="n">GeoLocation</span><span class="w"> </span><span class="n">GetGeoLocation</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="nf">GetLongitude</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="nf">GetLatitude</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="nf">GetAltitude</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>其中：</p>
+<ul>
+<li><code>GeoLocation</code> 结构体封装了 <code>{ longitude, latitude, altitude }</code></li>
+<li>每帧更新一次，数据来源为服务端环境模拟的车辆真实位置信息</li>
+</ul>
+<p>默认输出单位为：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>类型</th>
+<th>单位</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Longitude</td>
+<td>double</td>
+<td>度（°）</td>
+</tr>
+<tr>
+<td>Latitude</td>
+<td>double</td>
+<td>度（°）</td>
+</tr>
+<tr>
+<td>Altitude</td>
+<td>double</td>
+<td>米（m）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4_1">4 序列化机制分析</h2>
+<p>定义文件：
+<a href="https://github.com/OpenHUTB/carla_cpp/blob/dev/LibCarla/source/carla/sensor/s11n/GnssSerializer.h"><code>GnssSerializer.h</code></a>
+<a href="https://github.com/OpenHUTB/carla_cpp/blob/dev/LibCarla/source/carla/sensor/s11n/GnssSerializer.cpp"><code>GnssSerializer.cpp</code></a></p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 客户端解码逻辑</span>
+<span class="n">SharedPtr</span><span class="o">&lt;</span><span class="n">SensorData</span><span class="o">&gt;</span><span class="w"> </span><span class="n">GnssSerializer</span><span class="o">::</span><span class="n">Deserialize</span><span class="p">(</span><span class="n">RawData</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="n">data</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">SharedPtr</span><span class="o">&lt;</span><span class="n">SensorData</span><span class="o">&gt;</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">data</span><span class="o">::</span><span class="n">GnssMeasurement</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">data</span><span class="p">)));</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>序列化结构体使用 <code>MSGPACK_DEFINE_ARRAY</code> 自动完成：</p>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">GeoLocation</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">latitude</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">longitude</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">altitude</span><span class="p">;</span>
+<span class="w">  </span><span class="n">MSGPACK_DEFINE_ARRAY</span><span class="p">(</span><span class="n">latitude</span><span class="p">,</span><span class="w"> </span><span class="n">longitude</span><span class="p">,</span><span class="w"> </span><span class="n">altitude</span><span class="p">)</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>该机制保证 GNSS 数据体积小、解码快，适合高频传输与跨语言兼容。</p>
+<hr />
+<h2 id="5-python-api_1">5 Python API 使用示例</h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># 定义回调函数</span>
+<span class="k">def</span> <span class="nf">on_gnss</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+    <span class="n">lat</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">latitude</span>
+    <span class="n">lon</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">longitude</span>
+    <span class="n">alt</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">altitude</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[GNSS] 纬度: </span><span class="si">{</span><span class="n">lat</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">, 经度: </span><span class="si">{</span><span class="n">lon</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">, 海拔: </span><span class="si">{</span><span class="n">alt</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">m&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># 创建并绑定传感器</span>
+<span class="n">bp</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;sensor.other.gnss&#39;</span><span class="p">)</span>
+<span class="n">transform</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Transform</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">Location</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">1.6</span><span class="p">))</span>
+<span class="n">gnss_sensor</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">bp</span><span class="p">,</span> <span class="n">transform</span><span class="p">,</span> <span class="n">attach_to</span><span class="o">=</span><span class="n">vehicle</span><span class="p">)</span>
+<span class="n">gnss_sensor</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="n">on_gnss</span><span class="p">)</span>
+</code></pre></div>
+<p>可选蓝图参数（<code>bp.set_attribute(...)</code>）包括：</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sensor_tick</code></td>
+<td>传感器更新时间（秒）</td>
+<td><code>0.05</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="6_2">6 应用拓展与组合使用</h2>
+<p>GNSS 传感器常用于以下场景：</p>
+<ul>
+<li><strong>路径重建</strong>：记录车辆运行轨迹用于回放</li>
+<li><strong>定位精度验证</strong>：与地图匹配算法结合测试鲁棒性</li>
+<li><strong>IMU + GNSS 融合</strong>：实现基于扩展卡尔曼滤波（EKF）的定位</li>
+</ul>
+<h3 id="gnss-imu">示例：GNSS 与 IMU 联合使用</h3>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">on_fused_data</span><span class="p">(</span><span class="n">gnss</span><span class="p">,</span> <span class="n">imu</span><span class="p">):</span>
+    <span class="n">location</span> <span class="o">=</span> <span class="p">(</span><span class="n">gnss</span><span class="o">.</span><span class="n">latitude</span><span class="p">,</span> <span class="n">gnss</span><span class="o">.</span><span class="n">longitude</span><span class="p">)</span>
+    <span class="n">acceleration</span> <span class="o">=</span> <span class="n">imu</span><span class="o">.</span><span class="n">accelerometer</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[FUSION] 坐标: </span><span class="si">{</span><span class="n">location</span><span class="si">}</span><span class="s2">, 加速度: </span><span class="si">{</span><span class="n">acceleration</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>该模式可用于轨迹重建、地理围栏检测、自动驾驶行为控制等任务。</p>
+<hr />
+<h2 id="7_2">7 总结与建议</h2>
+<ul>
+<li><code>sensor.other.gnss</code> 提供高精度地理位置信息，是自动驾驶仿真系统中的关键模块；</li>
+<li>与 IMU、摄像头、地图等配合可实现高级 SLAM 与定位算法验证；</li>
+<li>若需实现更真实的模型，可拓展添加噪声模型、地形遮挡、信号丢失模拟等功能。</li>
 </ul>
 <hr />
               
