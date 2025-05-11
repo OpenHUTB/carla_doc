@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>📘 CARLA 传感器文档总览 - 人车模拟器</title>
+    <title>Sensor - 人车模拟器</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "\ud83d\udcd8 CARLA \u4f20\u611f\u5668\u6587\u6863\u603b\u89c8";
+        var mkdocs_page_name = "Sensor";
         var mkdocs_page_input_path = "modules/sensor.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,7 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">📘 CARLA 传感器文档总览</li>
+      <li class="breadcrumb-item active">Sensor</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/modules/sensor.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -68,11 +68,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="carla">📘 CARLA 传感器文档总览</h1>
-<hr />
-<h2 id="table-of-contents">📑 目录（Table of Contents）</h2>
+                <h2 id="table-of-contents">📑 目录（Table of Contents）</h2>
 <h3 id="sensorothercollision">第一章：碰撞事件传感器（sensor.other.collision）</h3>
 <ul>
+<li><a href="#第一章carla-碰撞事件传感器系统sensorothercollision">第一章：CARLA 碰撞事件传感器系统（sensor.other.collision）</a></li>
 <li><a href="#1-模块概览">1 模块概览</a></li>
 <li><a href="#2-传感器注册与调用原理">2 传感器注册与调用原理</a></li>
 <li><a href="#3-数据结构collisionevent">3 数据结构：CollisionEvent</a></li>
@@ -83,6 +82,7 @@
 </ul>
 <h3 id="sensorothernoop">第二章：空传感器（sensor.other.noop）</h3>
 <ul>
+<li><a href="#第二章carla-空传感器系统sensorothernoop">第二章：CARLA 空传感器系统（sensor.other.noop）</a></li>
 <li><a href="#1-模块概览-1">1 模块概览</a></li>
 <li><a href="#2-传感器注册与调用原理-1">2 传感器注册与调用原理</a></li>
 <li><a href="#3-序列化器分析noopserializer">3 序列化器分析</a></li>
@@ -92,28 +92,31 @@
 </ul>
 <h3 id="imu-sensorotherimu">第三章：IMU 传感器（sensor.other.imu）</h3>
 <ul>
+<li><a href="#第三章carla惯性测量单元传感器系统sensorotherimu">第三章：CARLA惯性测量单元传感器系统（sensor.other.imu）</a></li>
 <li><a href="#1-模块概览-2">1 模块概览</a></li>
 <li><a href="#2-工作流程与序列化机制">2 工作流程与序列化机制</a></li>
 <li><a href="#3-数据结构详解">3 数据结构详解</a></li>
 <li><a href="#4-python-api-调用示例">4 Python API 调用示例</a></li>
 <li><a href="#5-拓展用例与集成应用">5 拓展用例与集成应用</a></li>
 <li><a href="#6-限制与对比分析">6 限制与对比分析</a></li>
-<li><a href="#7-总结与建议">7 总结与建议</a></li>
+<li><a href="#7-总结与建议-1">7 总结与建议</a></li>
 </ul>
 <h3 id="gnss-sensorothergnss">第四章：GNSS 传感器（sensor.other.gnss）</h3>
 <ul>
+<li><a href="#第四章carla-全球导航卫星系统传感器sensorothergnss">第四章：CARLA 全球导航卫星系统传感器（sensor.other.gnss）</a></li>
 <li><a href="#1-模块概览-3">1 模块概览</a></li>
-<li><a href="#2-数据结构与序列化机制">2 数据结构与序列化机制</a></li>
-<li><a href="#3-python-api-使用示例-2">3 Python API 使用示例</a></li>
-<li><a href="#4-拓展应用与组合场景">4 拓展应用与组合场景</a></li>
-<li><a href="#5-限制与建议">5 限制与建议</a></li>
-<li><a href="#6-流程图">6 流程图</a></li>
-<li><a href="#7-源码参考链接">7 源码参考链接</a></li>
+<li><a href="#2-工作流程与传输机制">2 工作流程与传输机制</a></li>
+<li><a href="#3-数据结构解析">3 数据结构解析</a></li>
+<li><a href="#4-序列化机制分析">4 序列化机制分析</a></li>
+<li><a href="#5-python-api-使用示例-2">5 Python API 使用示例</a></li>
+<li><a href="#6-应用拓展与组合使用">6 应用拓展与组合使用</a></li>
+<li><a href="#7-总结与建议-2">7 总结与建议</a></li>
 </ul>
 <hr />
 <h1 id="carla-sensorothercollision">第一章：CARLA 碰撞事件传感器系统（sensor.other.collision）</h1>
 <hr />
 <h2 id="1">1 模块概览</h2>
+<p><img alt="flowchart_1.png" src="../../img/modules/flowchart_1.png" /></p>
 <p>本章详细讲解 CARLA 模拟器中的一类简单传感器：<code>sensor.other.collision</code>，即碰撞事件传感器。该传感器不输出连续的数据流信息，而是在检测到实体碰撞时以事件形式即时触发。其设计初衷是为用户提供车辆与环境中其他对象之间物理交互的监控能力。</p>
 <p>在自动驾驶仿真、强化学习安全评估或碰撞规避算法验证中，<code>sensor.other.collision</code> 提供了关键的反馈信号。通过对其数据结构、序列化机制与客户端回调触发流程的深入解析，可全面理解该传感器在 CARLA 感知系统中的运行机制及其工程实现。</p>
 <hr />
@@ -129,7 +132,6 @@
 <li>通过 RPC 网络发送</li>
 <li>客户端使用 <code>Deserialize()</code> 解码为 <code>SensorData</code></li>
 <li>注入回调函数中进行处理
-     <img alt="flowchart.jpg" src="..%2Fimg%2Fmodules%2Fflowchart.jpg" />
 该流程构成事件捕捉 → 数据序列化 → 网络传输 → 解码还原 → 客户端处理的完整通路。</li>
 </ul>
 <hr />
@@ -221,6 +223,7 @@ sensor.listen(on_collision)
 <h1 id="carla-sensorothernoop">第二章：CARLA 空传感器系统（sensor.other.noop）</h1>
 <hr />
 <h2 id="1_1">1 模块概览</h2>
+<p><img alt="flowchart_2.png" src="../../img/modules/flowchart_2.png" /></p>
 <p>本章介绍 CARLA 模拟器中最为简化的一类传感器：<code>sensor.other.noop</code>，即“无操作传感器”（No-Operation Sensor）。顾名思义，该传感器不会向客户端发送任何数据，其存在的意义更多是作为客户端挂载传感器的占位符、功能测试器或新传感器开发的最小模板。</p>
 <p><code>sensor.other.noop</code> 适用于以下场景：</p>
 <ul>
@@ -320,6 +323,7 @@ noop_sensor.listen(on_noop_event)
 <h1 id="carlasensorotherimu">第三章：CARLA惯性测量单元传感器系统（sensor.other.imu）</h1>
 <hr />
 <h2 id="1_2">1 模块概览</h2>
+<p><img alt="flowchart_3.png" src="../../img/modules/flowchart_3.png" /></p>
 <p><code>sensor.other.imu</code> 是 CARLA 提供的惯性测量单元（IMU）传感器，用于捕捉车辆的三维加速度、角速度及方向信息，广泛应用于轨迹估计、姿态解算、导航融合等自动驾驶仿真任务中。</p>
 <p>该传感器会周期性发送事件，传递以下数据：</p>
 <ul>
@@ -338,8 +342,6 @@ noop_sensor.listen(on_noop_event)
 <li><strong>数据还原</strong>：客户端通过 <code>IMUMeasurement</code> 类将字节流还原为结构化对象</li>
 <li><strong>回调触发</strong>：Python 层注册的 <code>.listen()</code> 回调函数获得该事件并执行处理逻辑</li>
 </ol>
-<p>流程图如下所示：</p>
-<p><img alt="flowchart_3.png" src="../../img/modules/flowchart_3.png" /></p>
 <hr />
 <h2 id="3">3 数据结构详解</h2>
 <p>IMU 数据通过 <code>IMUMeasurement</code> 类对外暴露，定义位置：</p>
@@ -447,6 +449,7 @@ def on_imu_integration(imu):
 <h1 id="carla-sensorothergnss">第四章：CARLA 全球导航卫星系统传感器（sensor.other.gnss）</h1>
 <hr />
 <h2 id="1_3">1 模块概览</h2>
+<p><img alt="flowchart_4.png" src="../../img/modules/flowchart_4.png" /></p>
 <p><code>sensor.other.gnss</code> 是 CARLA 中用于获取地理位置信息的传感器，模拟真实世界中的全球导航卫星系统（GNSS）设备，如 GPS、北斗等。传感器输出包括：</p>
 <ul>
 <li><strong>经度（longitude）</strong>：单位°，范围 $-180°, 180°$</li>
@@ -464,8 +467,6 @@ def on_imu_integration(imu):
 <li><strong>数据还原</strong>：客户端使用 <code>GnssMeasurement</code> 类解码 <code>RawData</code>，得到结构化数据</li>
 <li><strong>Python 层监听</strong>：<code>.listen()</code> 接口注册的函数在每次更新中触发回调</li>
 </ol>
-<p>🧭 流程图如下所示：</p>
-<p><img alt="GNSS流程图" src="../../img/modules/flowchart_4.png" /></p>
 <hr />
 <h2 id="3_1">3 数据结构解析</h2>
 <p>定义位置：<a href="https://github.com/OpenHUTB/carla_cpp/blob/dev/LibCarla/source/carla/sensor/data/GnssMeasurement.h"><code>GnssMeasurement.h</code></a></p>
