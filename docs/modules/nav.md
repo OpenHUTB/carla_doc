@@ -63,7 +63,7 @@
    ```cpp
    params.obstacleAvoidanceType = 3; // 避障品质（0-3对应低到高）
    ```
- 
+
  ---
  
  ## 类与方法详解  
@@ -104,21 +104,187 @@
  ---
  
  ## 关键流程  
- ### 路径规划流程  
- 1. **输入**：起点 `from` 和终点 `to`  
- 2. **查询最近多边形**：  
-    ```cpp
-    findNearestPoly(start_pos, filter, &start_ref);
-    ```  
- 3. **多边形路径搜索**：  
-    ```cpp
-    findPath(start_ref, end_ref, polys, &num_polys);
-    ```  
- 4. **直线路径优化**：  
-    ```cpp
-    findStraightPath(polys, num_polys, straight_path);
-    ```  
- 
+
+### 1. 路径规划流程
+
+1. **初始化查询环境**
+
+   ```cpp
+   // 创建并初始化 NavMeshQuery 实例
+   dtNavMeshQuery* query = dtAllocNavMeshQuery();
+   query->init(navmesh, MAX_POLYS);
+   // 配置过滤器：设置区域成本、禁行区域等
+   dtQueryFilter filter;
+   filter.setIncludeFlags(SAMPLE_POLYFLAGS_ALL);
+   filter.setExcludeFlags(SAMPLE_POLYFLAGS_DISABLED);
+   filter.setAreaCost(AREA_ROAD, AREA_ROAD_COST);
+   filter.setAreaCost(AREA_GRASS, AREA_GRASS_COST);
+   ```
+
+2. **最近多边形查询**
+
+   ```cpp
+   dtPolyRef start_ref, end_ref;
+   float start_pos[3] = {from.x, from.y, from.z};
+   float end_pos[3]   = {to.x,   to.y,   to.z};
+
+   // 在 navmesh 中找到距离起点和终点最近的多边形
+   if (dtStatusFailed(query->findNearestPoly(start_pos, extents, &filter, &start_ref))) {
+       // 处理找不到起点多边形的情况
+       return false;
+   }
+   if (dtStatusFailed(query->findNearestPoly(end_pos, extents, &filter, &end_ref))) {
+       // 处理找不到终点多边形的情况
+       return false;
+   }
+   ```
+
+   * `extents` 为搜索半径，一般设置为 `{2,2,2}`。
+
+3. **多边形路径搜索**
+
+   ```cpp
+   dtPolyRef polys[MAX_POLYS];
+   int poly_count = 0;
+   if (dtStatusFailed(query->findPath(start_ref, end_ref, start_pos, end_pos, &filter, polys, &poly_count, MAX_POLYS))) {
+       // 记录日志：路径搜索失败或超过最大多边形数
+   }
+   ```
+
+   * 返回的 `polys` 数组包含从起始到目标的多边形序列，长度为 `poly_count`。
+
+4. **路径点优化转换**
+
+   ```cpp
+   float straight_path[MAX_POLYS*3];
+   unsigned char straight_flags[MAX_POLYS];
+   dtPolyRef straight_polys[MAX_POLYS];
+   int path_count = 0;
+
+   query->findStraightPath(
+       start_pos, end_pos,
+       polys, poly_count,
+       straight_path, straight_flags, straight_polys,
+       &path_count, MAX_POLYS,
+       DT_STRAIGHTPATH_ALL_CROSSINGS
+   );
+
+   // 将转换后的路径点填充到 vector<Location>
+   path.clear();
+   for (int i = 0; i < path_count; ++i) {
+       Location pt{straight_path[i*3], straight_path[i*3+1], straight_path[i*3+2]};
+       path.push_back(pt);
+   }
+   ```
+
+   * `path_count` 为最终路径点数量。
+
+5. **清理与返回**
+
+   ```cpp
+   dtFreeNavMeshQuery(query);
+   return !path.empty();
+   ```
+
+---
+
+### 2. 动态障碍物处理流程
+
+1. **更新车辆包围盒**
+
+   ```cpp
+   void Navigation::AddOrUpdateVehicle(ActorId id, const Location& loc, const Rotator& rot) {
+       std::lock_guard<std::mutex> guard(_mutex);
+       // 计算旋转后的 OBB 八个角
+       std::array<Vector3D, 8> corners = ComputeOBBCorners(loc, rot.yaw, vehicle_extent);
+       // 更新 dtTileCache 或 crowdObstacles
+       _crowd->removeObstacle(_vehicle_obstacles[id]);
+       _vehicle_obstacles[id] = _crowd->addObstacle(corners.data(), 8);
+   }
+   ```
+
+2. **动态切割（TileCache）**
+
+   ```cpp
+   // 若启用 TileCache，则调用以下接口实现局部切割
+   dtTileCacheUpdate* tc_update = dtAllocTileCacheUpdate(...);
+   tc_update->opcode = OPCODE_CUT_OUT;
+   tc_update->poly = new_poly;
+   tile_cache->addTileCacheUpdate(tc_update);
+   ```
+
+3. **重建切片**
+
+   ```cpp
+   dtStatus status = tile_cache->buildTile(x, y);
+   if (dtStatusFailed(status)) {
+       // 记录错误并重试
+   }
+   ```
+
+---
+
+### 3. 人群模拟与避障更新流程
+
+1. **批量添加/移除代理**
+
+   ```cpp
+   for (auto& walker : new_walkers) {
+       _crowd->addAgent(walker.start, params);
+   }
+   for (auto& id : removed_walkers) {
+       _crowd->removeAgent(_mapped_walkers_id[id]);
+   }
+   ```
+
+2. **每帧避障与位置更新**
+
+   ```cpp
+   void Navigation::UpdateCrowd(float delta_time) {
+       std::lock_guard<std::mutex> guard(_mutex);
+       _crowd->update(delta_time, nullptr);
+       // 同步位置到 CARLA 代理
+       for (int i = 0; i < _crowd->getAgentCount(); ++i) {
+           dtCrowdAgent* ag = _crowd->getAgent(i);
+           Location pos{ag->npos[0], ag->npos[1], ag->npos[2]};
+           UpdateCARLAAgent(_agent_ids[i], pos, ag->vel);
+       }
+   }
+   ```
+
+3. **分离与预测**
+
+   ```cpp
+   // 设置分离权重和预测时间
+   params.separationWeight = 0.5f;
+   params.predictTime = 1.0f;
+   ```
+## 高级定制
+
+### 1. 自定义查询过滤器
+
+在默认过滤器基础上，通过设置不同的区域标志和成本，实现对特定地形的偏好或避让：
+
+```cpp
+struct CustomFilter : public dtQueryFilter {
+    CustomFilter() {
+        // 排除水体区域
+        setExcludeFlags(SAMPLE_POLYFLAGS_WATER);
+        // 道路成本最低，草地成本略高
+        setAreaCost(AREA_ROAD, 1.0f);
+        setAreaCost(AREA_GRASS, 5.0f);
+        // 增加人行道优先级
+        setAreaCost(AREA_SIDEWALK, 0.5f);
+    }
+};
+
+// 使用示例
+CustomFilter filter;
+query->findPath(startRef, endRef, startPos, endPos, &filter, polys, &polyCount, MAX_POLYS);
+```
+
+**说明**：可以继承 `dtQueryFilter` 并在构造函数中修改 flag 和 cost，以便针对不同场景进行优化。
+
  ---
  
  ## 配置参数  
@@ -241,31 +407,106 @@ CARLA 在导航模块中对路径搜索与人群模拟规模做了上限，以�
 ---
 
 
-
  ## 示例代码  
- ### 初始化导航系统  
- ```cpp
- Navigation nav;
- nav.Load("city_navmesh.bin");
- nav.CreateCrowd();
- 
- // 添加行人
- geom::Location spawn_point(10.0f, 20.0f, 0.5f);
- nav.AddWalker(1001, spawn_point);
- 
- // 设置目标点
- geom::Location target(50.0f, 30.0f, 0.5f);
- nav.SetWalkerTarget(1001, target);
- ```
- 
- ### 每帧更新  
- ```cpp
- void OnSimulationTick(EpisodeState state) {
-   nav.UpdateCrowd(state);  // 更新代理状态
-   nav.UpdateVehicles(vehicle_list); // 同步车辆位置
- }
- ```
- 
+
+```cpp
+// ===== NavigationExample.cpp =====
+#include "Navigation.h"        // 包含 Navigation 类声明
+#include "geom/Location.h"     // CARLA 几何库
+#include "geom/Rotator.h"
+#include "Logging.h"           // 假设有统一的日志接口
+
+int main(int argc, char** argv)
+{
+    // 1. 创建导航实例并加载 NavMesh
+    Navigation nav;
+    const std::string navmesh_file = "city_navmesh.bin";
+    if (!nav.Load(navmesh_file)) {
+        logging::error("导航数据加载失败: %s", navmesh_file.c_str());
+        return -1;
+    }
+    logging::info("成功加载导航网格：%s", navmesh_file.c_str());
+
+    // 2. 创建人群管理器，配置避障和路径过滤参数
+    nav.CreateCrowd();
+    // 设置行人越过道路的概率
+    nav.SetPedestriansCrossFactor(0.2f);
+    logging::info("人群管理器初始化完成");
+
+    // 3. 添加行人代理
+    const uint64_t walker_id = 1001;
+    geom::Location walker_spawn{10.0f, 20.0f, 0.5f}; 
+    if (!nav.AddWalker(walker_id, walker_spawn)) {
+        logging::warn("添加行人 %llu 失败", walker_id);
+    } else {
+        logging::info("行人 %llu 已添加，初始位置 (%.2f, %.2f, %.2f)",
+                      walker_id,
+                      walker_spawn.x, walker_spawn.y, walker_spawn.z);
+    }
+
+    // 4. 设置行人目标点
+    geom::Location walker_target{50.0f, 30.0f, 0.5f};
+    if (!nav.SetWalkerTarget(walker_id, walker_target)) {
+        logging::warn("设置行人 %llu 目标失败", walker_id);
+    } else {
+        logging::info("行人 %llu 目标设置为 (%.2f, %.2f, %.2f)",
+                      walker_id,
+                      walker_target.x, walker_target.y, walker_target.z);
+    }
+
+    // 5. 添加一辆动态障碍物（车辆）
+    const uint64_t vehicle_id = 2001;
+    geom::Location vehicle_loc{15.0f, 25.0f, 0.0f};
+    geom::Rotator vehicle_rot{0.0f, 90.0f, 0.0f};  // 车辆朝向 90°
+    if (!nav.AddOrUpdateVehicle(vehicle_id, vehicle_loc, vehicle_rot)) {
+        logging::warn("添加/更新车辆 %llu 失败", vehicle_id);
+    } else {
+        logging::info("车辆 %llu 已注册为动态障碍物，位置 (%.2f, %.2f, %.2f), 偏航角 %.2f°",
+                      vehicle_id,
+                      vehicle_loc.x, vehicle_loc.y, vehicle_loc.z,
+                      vehicle_rot.yaw);
+    }
+
+    // 6. 主循环：在每个模拟帧调用更新函数
+    const float fixedDeltaTime = 1.0f / 30.0f;  // 30 FPS
+    for (int frame = 0; frame < 1000; ++frame) {
+        // 假设获取当前车辆列表和行人列表的逻辑已在外部实现
+        std::vector<VehicleState> vehicle_list = GetCurrentVehicleStates();
+        EpisodeState sim_state = GetCurrentEpisodeState();
+
+        // 更新人群（行人）避障和路径跟踪
+        nav.UpdateCrowd(fixedDeltaTime);
+
+        // 更新所有车辆动态障碍物（位置与旋转）
+        nav.UpdateVehicles(vehicle_list);
+
+        // 可以在此处插入渲染或其他逻辑
+    }
+
+    // 7. 退出前清理资源（析构时自动释放 NavMesh、Crowd 等）
+    logging::info("导航模拟结束，开始清理资源");
+    return 0;
+}
+```
+
+**要点说明：**
+
+1. **错误检查与日志**
+   每一步操作后都进行了返回值判断，并通过 `logging` 模块输出信息或警告，便于调试与排查问题。
+2. **配置细节**
+
+   * 调用 `SetPedestriansCrossFactor()` 演示了如何动态调整行人过马路的概率。
+   * `fixedDeltaTime` 固定为 30 帧每秒，仅供示例，可根据实际仿真引擎时间步长调整。
+3. **车辆动态障碍**
+
+   * 使用 `AddOrUpdateVehicle()` 注册车辆包围盒，示例中展示了位置和朝向的设置。
+   * 在主循环中，每帧都调用 `UpdateVehicles()` 同步车辆状态。
+4. **主循环结构**
+
+   * 假设外部提供 `GetCurrentVehicleStates()` 与 `GetCurrentEpisodeState()`，实际可根据用户项目自行实现。
+   * 将行人更新和车辆更新放在同一循环中，保证多代理场景下一致性。
+
+
  ---
  
  ## 附录  
