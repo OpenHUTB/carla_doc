@@ -600,4 +600,3 @@ def on_fused_data(gnss, imu):
 
 ---
 
-
