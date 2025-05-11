@@ -371,11 +371,13 @@
   J --&gt; K[生成路径清单文件]</code></pre>
 <hr />
 <h2 id="_11">配置参数</h2>
-<h3 id="_12">扩展命令行参数</h3>
-<div class="highlight"><pre><span></span><code>-OnlyPrepareMaps<span class="o">=</span><span class="nb">true</span><span class="w">      </span><span class="c1"># 仅预处理地图资产</span>
--TileSize<span class="o">=</span><span class="m">2000</span><span class="w">             </span><span class="c1"># 分块地图尺寸（单位：米） </span>
-</code></pre></div>
-<hr />
+<h3 id="_12">扩展命令行参数说明</h3>
+<h2 id="-packagenameeuropack-mapsberlintokyo-onlypreparemapstrue-tilesize2000-forcecarlamaterialstrue-carla"><div class="highlight"><pre><span></span><code>-PackageName<span class="o">=</span>EuroPack<span class="w">        </span><span class="c1"># 指定资源包名称</span>
+-Maps<span class="o">=</span>Berlin,Tokyo<span class="w">          </span><span class="c1"># 指定待处理地图列表  </span>
+-OnlyPrepareMaps<span class="o">=</span><span class="nb">true</span><span class="w">       </span><span class="c1"># 仅预处理地图资产</span>
+-TileSize<span class="o">=</span><span class="m">2000</span><span class="w">              </span><span class="c1"># 分块地图尺寸（单位：米）</span>
+-ForceCarlaMaterials<span class="o">=</span><span class="nb">true</span><span class="w">   </span><span class="c1"># 强制使用Carla材质系统</span>
+</code></pre></div></h2>
 <h2 id="_13">注意事项</h2>
 <h3 id="_14">预处理模块专项</h3>
 <ol>
@@ -405,7 +407,19 @@
   -Maps=Berlin  
   -TileSize=2000
 </code></pre></div>
-<hr />
+<h3 id="windows">分块地图预处理命令（Windows）</h3>
+<div class="highlight"><pre><span></span><code>UE4Editor-Cmd.exe Carla -run=PrepareAssetsForCooking  
+  -PackageName=EuroPack  
+  -Maps=Berlin  
+  -TileSize=2000  
+  -ForceCarlaMaterials
+</code></pre></div>
+<h3 id="linux">道具资产预处理命令（Linux）</h3>
+<h2 id="ue4editor-cmd-carla-runprepareassetsforcooking-packagenamevehiclepack-onlypreparemapsfalse-propscarsigntruck"><div class="highlight"><pre><span></span><code>./UE4Editor-Cmd<span class="w"> </span>Carla<span class="w"> </span>-run<span class="o">=</span>PrepareAssetsForCooking<span class="w">  </span>
+<span class="w">  </span>-PackageName<span class="o">=</span>VehiclePack<span class="w">  </span>
+<span class="w">  </span>-OnlyPrepareMaps<span class="o">=</span><span class="nb">false</span><span class="w">  </span>
+<span class="w">  </span>-Props<span class="o">=</span>Car,Sign,Truck
+</code></pre></div></h2>
 <h2 id="_17">附录</h2>
 <h3 id="_18">增强错误代码表</h3>
 <table>
