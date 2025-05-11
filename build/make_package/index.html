@@ -69,6 +69,8 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="_1">分析场景打包过程</h1>
+<p><a href="https://github.com/OpenHUTB/carla/blob/3a71d4782a31b747968216e10f7993d0a0d7f453/Util/BuildTools/Windows.mk#L30">Windows.mk</a> ：依赖PythonAPI，执行<code>Package.bat --ue-version 4.26 --all</code>
+-&gt; Package.bat</p>
 <p>1.参数解析</p>
 <p>2.获取虚幻引擎根路径</p>
 <p>3.设置打包的路径（包括生成压缩包的完整路径 <a href="https://github.com/OpenHUTB/carla/blob/3a71d4782a31b747968216e10f7993d0a0d7f453/Util/BuildTools/Package.bat#L112">carla/Build/UE4Carla/CARLA_0.9.15-262-g8f7e40f3c-dirty.zip</a> ），它根据<code>git describe --tags --dirty --always</code>命令生成压缩包的名称，
@@ -84,10 +86,17 @@
 <p>6.压缩项目</p>
 <p>7.移除临时的中间文件</p>
 <p>8.烘焙其他包</p>
-<h2 id="_2">参考</h2>
+<h2 id="_2">运行报错</h2>
+<div class="highlight"><pre><span></span><code>&quot;C:\workspace\UnrealEngine\Engine\Build\BatchFiles\RunUAT.bat&quot;        BuildCookRun        -nocompileeditor        -TargetPlatform=Win64        -Platform=Win64        -installed        -nop4        -project=&quot;C:/workspace/carla/Unreal/CarlaUE4/CarlaUE4.uproject&quot;        -cook        -stage        -build        -archive        -archivedirectory=&quot;C:/workspace/carla/Build/UE4Carla/1.0-5-g3a71d4782-dirty/&quot;        -package        -clientconfig=Shipping
+</code></pre></div>
+<p>实际运行命令：
+<div class="highlight"><pre><span></span><code>Running: C:\workspace\UnrealEngine\Engine\Binaries\DotNET\UnrealBuildTool.exe UnrealPak Win64 Development -Project=C:\workspace\carla\Unreal\CarlaUE4\CarlaUE4.uproject  C:\workspace\carla\Unreal\CarlaUE4\CarlaUE4.uproject -NoUBTMakefiles  -Manifest=C:\workspace\UnrealEngine\Engine\Intermediate\Build\Manifest.xml -NoHotReload -log=&quot;C:\workspace\UnrealEngine\Engine\Programs\AutomationTool\Saved\Logs\UBT-UnrealPak-Win64-Development.txt&quot;
+</code></pre></div></p>
+<h2 id="_3">参考</h2>
 <ul>
 <li>打包脚本 <a href="https://github.com/OpenHUTB/carla/blob/OpenHUTB/Util/BuildTools/Package.bat">Package.bat</a></li>
 <li><a href="https://blog.csdn.net/sinat_23135151/article/details/140663928">UE4如何调试BuildCookRun</a></li>
+<li><a href="https://blog.csdn.net/charon8778/article/details/141339988">编辑器内正常运行但打包出错</a></li>
 </ul>
               
             </div>

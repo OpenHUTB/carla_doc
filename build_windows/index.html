@@ -352,7 +352,11 @@ python3<span class="w"> </span>dynamic_weather.py<span class="w"> </span>
 </tr>
 <tr>
 <td><code>make launch</code></td>
-<td>在编辑器窗口中启动 Carla 服务器。</td>
+<td>在编辑器窗口中启动 Carla 服务器（会编译LibCarla和osm2odr）。</td>
+</tr>
+<tr>
+<td><code>make launch-only</code></td>
+<td>在编辑器窗口中启动 Carla 服务器（不编译LibCarla和osm2odr）。</td>
 </tr>
 <tr>
 <td><code>make PythonAPI</code></td>
@@ -521,6 +525,13 @@ Error: could not load cache
 <div class="highlight"><pre><span></span><code>install_proj.bat<span class="w"> </span>--build-dir<span class="w"> </span>D:<span class="se">\w</span>ork<span class="se">\D</span>ReyeVR<span class="se">\c</span>arla<span class="se">\B</span>uild
 </code></pre></div>
 如果还报错sqlite的错误，需要把<code>sqlite3-install</code>和<code>sqlite3-src</code>删除后重新编译。</p>
+<ul>
+<li>执行<code>make launch-only</code>报错：<code>The following modules are missing or built with a different version</code><blockquote>
+<p>右键 .uproject 文件生成vs 工程，然后使用vs打开，构建项目（点击菜单中的<code>生成</code>-&gt;<code>生成解决方案</code>）。
+注：执行<code>make clean</code>后然后执行<code>make launch-only</code>后会出现这种情况。</p>
+</blockquote>
+</li>
+</ul>
 <hr />
 <h2 id="_11">参考</h2>
 <p><a href="../dev/cicd/">持续集成</a></p>
