@@ -75,6 +75,126 @@
 <li>行人选择器 <a href="https://bitbucket.org/carla-simulator/carla-content/src/master/Blueprints/Walkers/WalkerSelector.uasset">WalkerSelector</a></li>
 </ul>
 <p>会更好</p>
+<h1 id="carlawalkers">Carla虚幻场景中行人（Walkers）技术说明文档</h1>
+<h2 id="1">1. 概述</h2>
+<p>在Carla虚幻场景中，<strong>行人（Walkers）</strong>是场景的关键参与者之一，用于模拟城市环境中的人类行为。行人不仅丰富了模拟场景的多样性，还对自动驾驶系统的感知、决策与规划提出更高要求。本技术说明文档旨在介绍Walker的创建、管理、属性配置以及与环境的交互，为开发者提供详细的操作指南。</p>
+<h2 id="2-walkers">2. 行人（Walkers）简介</h2>
+<ul>
+<li><strong>定义</strong>：在Carla中，Walker代表模拟环境中的人类实体，具有自主运动能力，可设定行为路径、速度和状态。</li>
+<li><strong>用途</strong>：</li>
+<li>模拟城市中复杂的交通场景。</li>
+<li>训练感知算法识别和理解行人行为。</li>
+<li>测试自动驾驶车辆在不同人流状态下的表现。</li>
+<li><strong>特点</strong>：</li>
+<li>可以动态生成、控制与销毁。</li>
+<li>支持各种行为模式（随机、预定义路径等）。</li>
+<li>可与传感器、交通规则等模块互动。</li>
+</ul>
+<h2 id="3-walker">3. Walker的基本操作流程</h2>
+<h3 id="31">3.1 获取蓝图库</h3>
+<ul>
+<li><strong>作用</strong>：提供所有可用的Walker资产（蓝图）集合。</li>
+<li><strong>操作</strong>：
+<div class="highlight"><pre><span></span><code><span class="n">blueprint_library</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span>
+<span class="n">walkers_blueprints</span> <span class="o">=</span> <span class="n">blueprint_library</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s1">&#39;walker.*&#39;</span><span class="p">)</span>
+</code></pre></div></li>
+</ul>
+<h3 id="32-walker">3.2 生成Walker</h3>
+<ul>
+<li><strong>步骤一</strong>：选择合适的Walker蓝图
+<div class="highlight"><pre><span></span><code><span class="n">walker_bp</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">walkers_blueprints</span><span class="p">)</span>
+</code></pre></div></li>
+<li><strong>步骤二</strong>：定义起始位置和朝向
+<div class="highlight"><pre><span></span><code><span class="n">spawn_point</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_random_location_from_navigation</span><span class="p">()</span>
+<span class="n">transform</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Transform</span><span class="p">(</span><span class="n">spawn_point</span><span class="p">,</span> <span class="n">carla</span><span class="o">.</span><span class="n">Rotation</span><span class="p">(</span><span class="n">yaw</span><span class="o">=</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">360</span><span class="p">)))</span>
+</code></pre></div></li>
+<li><strong>步骤三</strong>：调用<code>spawn_actor()</code>生成Walker实例
+<div class="highlight"><pre><span></span><code><span class="n">walker_actor</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">walker_bp</span><span class="p">,</span> <span class="n">transform</span><span class="p">)</span>
+</code></pre></div></li>
+<li><strong>异常处理</strong>：使用<code>try_spawn_actor()</code>避免异常
+<div class="highlight"><pre><span></span><code><span class="n">walker_actor</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">try_spawn_actor</span><span class="p">(</span><span class="n">walker_bp</span><span class="p">,</span> <span class="n">transform</span><span class="p">)</span>
+</code></pre></div></li>
+</ul>
+<h3 id="33-walker">3.3 控制Walker行为</h3>
+<ul>
+<li>可以通过设置Walker的行为参数（如行走速度、路径等）实现复杂行为。</li>
+<li><strong>示例：设定步行速度</strong>
+<div class="highlight"><pre><span></span><code><span class="n">walker_actor</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s1">&#39;speed&#39;</span><span class="p">,</span> <span class="s1">&#39;1.0&#39;</span><span class="p">)</span>  <span class="c1"># 速度单位为m/s</span>
+</code></pre></div></li>
+<li><strong>控制行走路径（路径点）</strong>：</li>
+<li>使用导航点（waypoints）或预定义路径控制Walker的运动。</li>
+</ul>
+<h3 id="34">3.4 监听与数据交互</h3>
+<ul>
+<li><strong>监听Walker状态</strong>：
+  <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">walker_callback</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="c1"># 处理Walker状态信息</span>
+    <span class="k">pass</span>
+
+<span class="n">walker_sensor</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="n">walker_callback</span><span class="p">)</span>
+</code></pre></div></li>
+<li><strong>行为模拟</strong>：根据监听的数据调整Walker状态或触发场景事件。</li>
+</ul>
+<h3 id="35-walker">3.5 销毁Walker</h3>
+<ul>
+<li><strong>调用销毁方法</strong>：
+<div class="highlight"><pre><span></span><code><span class="n">walker_actor</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+</code></pre></div></li>
+<li><strong>批量销毁示例</strong>：
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">actor</span> <span class="ow">in</span> <span class="n">walkers_list</span><span class="p">:</span>
+    <span class="n">actor</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+</code></pre></div></li>
+</ul>
+<h2 id="4-walker">4. Walker属性配置</h2>
+<ul>
+<li><strong>属性访问</strong>：
+<div class="highlight"><pre><span></span><code><span class="n">speed_attr</span> <span class="o">=</span> <span class="n">walker_bp</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s1">&#39;speed&#39;</span><span class="p">)</span>
+<span class="n">walker_bp</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s1">&#39;speed&#39;</span><span class="p">,</span> <span class="s1">&#39;1.5&#39;</span><span class="p">)</span>  <span class="c1"># 设置速度</span>
+</code></pre></div></li>
+<li><strong>常用属性</strong>：</li>
+<li><strong>speed</strong>：行走速度（m/s）</li>
+<li><strong>gender</strong>：性别（一般非必须）</li>
+<li><strong>pose</strong>：姿态信息</li>
+<li>
+<p><strong>behavior</strong>：行为类型（静止、随机走动、特定路线）</p>
+</li>
+<li>
+<p><strong>自定义行为</strong>：</p>
+</li>
+<li>可以结合路径点、行为脚本控制Walker模拟更真实的动作。</li>
+</ul>
+<h2 id="5">5. 复杂行为与路径规划</h2>
+<ul>
+<li>支持通过路径点或导航网格引导Walker</li>
+<li>可结合交通信号、障碍物等动态环境调整Walker路径</li>
+<li>使用OpenDRIVE地图数据进行更复杂的导航定义</li>
+</ul>
+<h2 id="6">6. 与传感器和环境的交互</h2>
+<ul>
+<li><strong>传感器检测</strong>：如相机、激光雷达检测Walker</li>
+<li><strong>行人行为响应</strong>：可编写逻辑（如避让、等待）应对算法训练</li>
+<li><strong>行为模拟</strong>：配合交通管理器调节Walker在不同交通场景中的表现</li>
+</ul>
+<h2 id="7">7. 资源管理</h2>
+<ul>
+<li><strong>蓝图库</strong>：通过<code>world.get_blueprint_library()</code>获取</li>
+<li><strong>多Walker场景优化</strong>：批量生成与销毁以节省资源</li>
+<li><strong>自定义资产添加</strong>：贡献者可制定自定义Walker资产，加入蓝图库</li>
+</ul>
+<h2 id="8">8. 发展与定制</h2>
+<ul>
+<li>支持自定义行为脚本编写（Python、蓝图）</li>
+<li>可集成复杂的AI行为模型</li>
+<li>支持与交通信号等场景元素的协调动作</li>
+</ul>
+<h2 id="9">9. 总结</h2>
+<p>Carla中的Walker为模拟环境提供了高度灵活与可定制的人类行为模型。通过合理配置蓝图、路径和行为参数，开发者可以构建多样化且逼真的人流场景，强化自动驾驶系统的训练和验证效果。</p>
+<hr />
+<p><strong>注意事项</strong>：
+- 在生成Walker时，注意位置避免冲突。
+- 结合交通规则和场景需求调整Walker行为，使模拟更贴近现实。
+- 详细参数和属性请参考官方文档及Python API帮助。</p>
+<hr />
               
             </div>
           </div><footer>

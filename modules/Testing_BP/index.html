@@ -68,33 +68,20 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h2 id="_1">测试蓝图</h2>
-<ul>
-<li>点光源旋转 <a href="https://bitbucket.org/carla-simulator/carla-content/src/master/Blueprints/Testing/PointLightRotator.uasset">PointLightRotator</a> ：点光源是从单一位置向各个方向发射光线的光源</li>
-</ul>
-<h1 id="carla">CARLA 测试说明文档</h1>
-<h2 id="_2">一、项目概述</h2>
-<p><strong>CARLA 测试</strong> 基于开源自动驾驶仿真平台，旨在通过可重复的仿真环境验证自动驾驶算法、传感器性能及交通场景逻辑。</p>
-<ul>
-<li><strong>核心目标</strong> ：</li>
-<li>验证车辆在复杂场景（如避障、路口交互、恶劣天气）中的决策能力。</li>
-<li>评估传感器（LiDAR、摄像头、雷达）数据质量与实时性。</li>
-<li>
-<p>测试交通管理器（Traffic Manager）的车辆行为控制效果。</p>
-</li>
-<li>
-<p><strong>支持测试类型</strong> ：功能测试、性能测试、回归测试、压力测试。</p>
-</li>
-</ul>
-<h2 id="_3">二、模块依赖</h2>
-<p>Testing 模块与 CARLA 的众多模块紧密相关：</p>
-<h3 id="_4">（一）依赖模块</h3>
-<ul>
-<li><strong>核心模拟引擎</strong> ：提供物理引擎、场景渲染等基本功能，为测试场景的创建和运行提供了基础。</li>
-<li><strong>传感器模块（sensor）</strong> ：获取车辆、行人等物体的各种传感器数据，如摄像头图像、激光雷达点云等，用于测试传感器的准确性和性能。</li>
-<li><strong>交通管理器（trafficmanager）</strong> ：控制交通流量和交通规则的执行，模拟不同的交通场景。</li>
-</ul>
-<h2 id="_5">三、核心组件</h2>
+                <hr />
+<h1 id="carla">CARLA 仿真测试框架说明文档</h1>
+<hr />
+<h2 id="1">1. 项目概述</h2>
+<p><strong>CARLA 测试框架</strong> 是一个基于开源自动驾驶仿真平台的多层次验证系统，旨在通过可重复的仿真环境验证自动驾驶算法、传感器性能及交通场景逻辑。<br />
+- <strong>核心目标</strong>：<br />
+  - 验证车辆在复杂场景（如避障、路口交互、恶劣天气）中的决策能力。<br />
+  - 评估传感器（LiDAR、摄像头、雷达）数据质量与实时性。<br />
+  - 测试交通管理器（Traffic Manager）的车辆行为控制效果。<br />
+- <strong>支持测试类型</strong>：<br />
+  - 功能测试 | 性能测试 | 回归测试 | 压力测试  </p>
+<hr />
+<h2 id="2">2. 核心组件与蓝图结构</h2>
+<h3 id="21">2.1 核心组件</h3>
 <table>
 <thead>
 <tr>
@@ -105,15 +92,15 @@
 <tbody>
 <tr>
 <td><strong>场景管理器</strong></td>
-<td>加载 / 卸载场景，控制天气、光照、NPC 行为等参数。</td>
+<td>加载/卸载场景，控制天气、光照、NPC行为等参数。</td>
 </tr>
 <tr>
 <td><strong>传感器系统</strong></td>
-<td>管理摄像头、LiDAR、IMU 等传感器数据采集与同步。</td>
+<td>管理摄像头、LiDAR、IMU等传感器数据采集与同步。</td>
 </tr>
 <tr>
 <td><strong>交通管理器</strong></td>
-<td>控制 NPC 车辆的路径规划、速度调整、避障逻辑。</td>
+<td>控制NPC车辆的路径规划、速度调整、避障逻辑。</td>
 </tr>
 <tr>
 <td><strong>数据记录器</strong></td>
@@ -125,8 +112,21 @@
 </tr>
 </tbody>
 </table>
-<h2 id="_6">四、关键功能实现</h2>
-<h3 id="_7">（一）场景测试（避障验证）</h3>
+<h3 id="22">2.2 蓝图结构</h3>
+<pre class="mermaid"><code>graph TD
+  A[测试蓝图] --&gt; B[场景初始化]
+  A --&gt; C[事件触发器]
+  A --&gt; D[数据收集]
+  B --&gt; B1[生成车辆/行人]
+  B --&gt; B2[设置天气/光照]
+  C --&gt; C1[时间触发]
+  C --&gt; C2[碰撞触发]
+  C --&gt; C3[距离触发]
+  D --&gt; D1[传感器数据]
+  D --&gt; D2[物理状态]</code></pre>
+<hr />
+<h2 id="3">3. 关键功能实现</h2>
+<h3 id="31">3.1 场景测试（避障验证）</h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># 生成障碍物与测试车辆</span>
 <span class="n">obstacle</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">barrier_bp</span><span class="p">,</span> <span class="n">carla</span><span class="o">.</span><span class="n">Transform</span><span class="p">(</span><span class="n">location</span><span class="p">))</span>
 <span class="n">vehicle</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">vehicle_bp</span><span class="p">,</span> <span class="n">spawn_point</span><span class="p">)</span>
@@ -138,26 +138,89 @@
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;避障失败！碰撞发生。&quot;</span><span class="p">)</span>
 <span class="n">world</span><span class="o">.</span><span class="n">on_tick</span><span class="p">(</span><span class="n">on_collision</span><span class="p">)</span>
 </code></pre></div>
-<h3 id="lidar">（二）传感器数据验证（LiDAR 点云）</h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># 绑定 LiDAR 并检查点云密度</span>
+<h3 id="32-lidar">3.2 传感器数据验证（LiDAR点云）</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 绑定LiDAR并检查点云密度</span>
 <span class="n">lidar_bp</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;sensor.lidar.ray_cast&#39;</span><span class="p">)</span>
 <span class="n">lidar_bp</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s1">&#39;points_per_second&#39;</span><span class="p">,</span> <span class="s1">&#39;100000&#39;</span><span class="p">)</span>
 <span class="n">lidar</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="k">lambda</span> <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;pointcloud.npy&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">frombuffer</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">raw_data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
 
 <span class="c1"># 分析点云</span>
 <span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;pointcloud.npy&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;有效点数：</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">points</span><span class="p">)</span><span class="si">}</span><span class="s2">，范围：</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">points</span><span class="p">[:,</span><span class="w"> </span><span class="p">:</span><span class="mi">3</span><span class="p">])</span><span class="si">}</span><span class="s2"> 米&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;有效点数：</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">points</span><span class="p">)</span><span class="si">}</span><span class="s2">，范围：</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">points</span><span class="p">[:,</span><span class="w"> </span><span class="p">:</span><span class="mi">3</span><span class="p">])</span><span class="si">}</span><span class="s2">米&quot;</span><span class="p">)</span>
 </code></pre></div>
-<h3 id="_8">（三）交通流压力测试</h3>
+<h3 id="33">3.3 交通流压力测试</h3>
 <div class="highlight"><pre><span></span><code><span class="n">tm</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_trafficmanager</span><span class="p">()</span>
-<span class="n">tm</span><span class="o">.</span><span class="n">set_global_speed_limit</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>  <span class="c1"># 全局限速 30km/h</span>
+<span class="n">tm</span><span class="o">.</span><span class="n">set_global_speed_limit</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>  <span class="c1"># 全局限速30km/h</span>
 <span class="n">tm</span><span class="o">.</span><span class="n">set_hybrid_physics_mode</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># 混合物理模式（远距离车辆低精度模拟）</span>
 
-<span class="c1"># 生成 100 辆 NPC 车辆</span>
+<span class="c1"># 生成100辆NPC车辆</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
     <span class="n">vehicle</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">bp</span><span class="p">,</span> <span class="n">spawn_points</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
     <span class="n">tm</span><span class="o">.</span><span class="n">ignore_lights_percentage</span><span class="p">(</span><span class="n">vehicle</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>  <span class="c1"># 所有车辆忽略红灯</span>
 </code></pre></div>
+<hr />
+<h2 id="4">4. 工作流程</h2>
+<pre class="mermaid"><code>sequenceDiagram
+    participant 用户
+    participant 测试框架
+    participant CARLA Server
+    用户 -&gt;&gt; 测试框架: 配置测试参数（场景、传感器、车辆）
+    测试框架 -&gt;&gt; CARLA Server: 启动仿真并初始化场景
+    loop 每帧循环
+        CARLA Server -&gt;&gt; 测试框架: 发送车辆/传感器数据
+        测试框架 -&gt;&gt; 测试框架: 实时验证逻辑（碰撞检测、路径偏差）
+        测试框架 -&gt;&gt; 数据记录器: 保存日志
+    end
+    测试框架 -&gt;&gt; 用户: 生成测试报告（通过/失败，性能指标）</code></pre>
+<hr />
+<h2 id="5">5. 优化与扩展建议</h2>
+<h3 id="51">5.1 性能优化</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>效果</th>
+<th>实现示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>并行测试</strong></td>
+<td>同时运行多个轻量级场景</td>
+<td>使用Docker容器部署多CARLA实例</td>
+</tr>
+<tr>
+<td><strong>LOD优化</strong></td>
+<td>减少远距离模型细节</td>
+<td>配置静态网格体LOD参数</td>
+</tr>
+<tr>
+<td><strong>异步数据记录</strong></td>
+<td>避免I/O阻塞主线程</td>
+<td>使用多线程队列保存数据</td>
+</tr>
+</tbody>
+</table>
+<h3 id="52">5.2 扩展建议</h3>
+<ul>
+<li><strong>集成第三方工具</strong>：  </li>
+<li>连接ROS2节点实现硬件在环（HIL）测试。  </li>
+<li>使用TensorFlow/PyTorch实时验证感知模型输出。  </li>
+<li><strong>自定义测试协议</strong>：  </li>
+<li>支持OpenSCENARIO 2.0标准场景描述。  </li>
+<li>开发Web界面远程管理测试任务。  </li>
+</ul>
+<hr />
+<h2 id="6">6. 总结</h2>
+<p>CARLA测试框架通过灵活的Python API与蓝图系统，提供了从单车辆功能验证到大规模交通流压力测试的全套解决方案。<br />
+- <strong>优势</strong>：<br />
+  - 高可扩展性：支持自定义传感器、场景、评估规则。<br />
+  - 开源生态：可集成ROS、Autoware等自动驾驶工具链。<br />
+- <strong>挑战</strong>：<br />
+  - 硬件资源需求较高（GPU显存、CPU多核并行）。<br />
+  - 复杂场景调试需深入理解虚幻引擎与物理引擎交互机制。  </p>
+<p><strong>未来方向</strong>：结合AI强化学习实现自动化探索极端测试场景。  </p>
+<hr />
               
             </div>
           </div><footer>
