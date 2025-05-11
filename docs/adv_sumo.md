@@ -119,6 +119,7 @@ python3 spawn_sumo_npc.py -n 10 --tls-manager carla --sumo-gui
 
 ## [SUMO TraCI接口文档](https://sumo.dlr.de/docs/TraCI.html)  <span id="sumo_traci_interface"></span>
 
+SUMO支持 [无限的网络规模、无限的模拟车辆数量和无限的模拟时间](https://eclipse.dev/sumo/) 来增强模拟，在 [笔记本电脑（8GB RAM）上处理 10 万辆汽车](https://www.eclipse.org/lists/sumo-user/msg03905.html) 运行良好。
 
 ---
 

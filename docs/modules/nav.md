@@ -259,7 +259,31 @@
    params.separationWeight = 0.5f;
    params.predictTime = 1.0f;
    ```
+## 高级定制
 
+### 1. 自定义查询过滤器
+
+在默认过滤器基础上，通过设置不同的区域标志和成本，实现对特定地形的偏好或避让：
+
+```cpp
+struct CustomFilter : public dtQueryFilter {
+    CustomFilter() {
+        // 排除水体区域
+        setExcludeFlags(SAMPLE_POLYFLAGS_WATER);
+        // 道路成本最低，草地成本略高
+        setAreaCost(AREA_ROAD, 1.0f);
+        setAreaCost(AREA_GRASS, 5.0f);
+        // 增加人行道优先级
+        setAreaCost(AREA_SIDEWALK, 0.5f);
+    }
+};
+
+// 使用示例
+CustomFilter filter;
+query->findPath(startRef, endRef, startPos, endPos, &filter, polys, &polyCount, MAX_POLYS);
+```
+
+**说明**：可以继承 `dtQueryFilter` 并在构造函数中修改 flag 和 cost，以便针对不同场景进行优化。
 
  ---
  
