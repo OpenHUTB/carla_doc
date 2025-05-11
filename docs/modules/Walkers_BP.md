@@ -4,6 +4,8 @@
 * 行人功能 [WalkerFunctions](https://bitbucket.org/carla-simulator/carla-content/src/master/Blueprints/Walkers/WalkerFunctions.uasset)
 * 行人选择器 [WalkerSelector](https://bitbucket.org/carla-simulator/carla-content/src/master/Blueprints/Walkers/WalkerSelector.uasset)
 
+会更好
+
 # Carla虚幻场景中行人（Walkers）技术说明文档
 
 ## 1. 概述
@@ -78,4 +80,51 @@ walker_actor.destroy()
 for actor in walkers_list:
     actor.destroy()
 ```
+
+## 4. Walker属性配置
+- **属性访问**：
+```python
+speed_attr = walker_bp.get_attribute('speed')
+walker_bp.set_attribute('speed', '1.5')  # 设置速度
+```
+- **常用属性**：
+  - **speed**：行走速度（m/s）
+  - **gender**：性别（一般非必须）
+  - **pose**：姿态信息
+  - **behavior**：行为类型（静止、随机走动、特定路线）
+  
+- **自定义行为**：
+  - 可以结合路径点、行为脚本控制Walker模拟更真实的动作。
+
+## 5. 复杂行为与路径规划
+- 支持通过路径点或导航网格引导Walker
+- 可结合交通信号、障碍物等动态环境调整Walker路径
+- 使用OpenDRIVE地图数据进行更复杂的导航定义
+
+## 6. 与传感器和环境的交互
+- **传感器检测**：如相机、激光雷达检测Walker
+- **行人行为响应**：可编写逻辑（如避让、等待）应对算法训练
+- **行为模拟**：配合交通管理器调节Walker在不同交通场景中的表现
+
+## 7. 资源管理
+- **蓝图库**：通过`world.get_blueprint_library()`获取
+- **多Walker场景优化**：批量生成与销毁以节省资源
+- **自定义资产添加**：贡献者可制定自定义Walker资产，加入蓝图库
+
+## 8. 发展与定制
+- 支持自定义行为脚本编写（Python、蓝图）
+- 可集成复杂的AI行为模型
+- 支持与交通信号等场景元素的协调动作
+
+## 9. 总结
+Carla中的Walker为模拟环境提供了高度灵活与可定制的人类行为模型。通过合理配置蓝图、路径和行为参数，开发者可以构建多样化且逼真的人流场景，强化自动驾驶系统的训练和验证效果。
+
+---
+
+**注意事项**：
+- 在生成Walker时，注意位置避免冲突。
+- 结合交通规则和场景需求调整Walker行为，使模拟更贴近现实。
+- 详细参数和属性请参考官方文档及Python API帮助。
+
+---
 
