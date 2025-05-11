@@ -155,12 +155,14 @@ graph TD
 ---
 
 ## 配置参数  
-### 扩展命令行参数  
+### 扩展命令行参数说明  
 ```bash
--OnlyPrepareMaps=true      # 仅预处理地图资产
--TileSize=2000             # 分块地图尺寸（单位：米） 
+-PackageName=EuroPack        # 指定资源包名称
+-Maps=Berlin,Tokyo          # 指定待处理地图列表  
+-OnlyPrepareMaps=true       # 仅预处理地图资产
+-TileSize=2000              # 分块地图尺寸（单位：米）
+-ForceCarlaMaterials=true   # 强制使用Carla材质系统
 ```
-
 ---
 
 ## 注意事项  
@@ -188,6 +190,22 @@ UE4Editor-Cmd.exe Carla -run=PrepareAssetsForCooking
   -TileSize=2000
 ```
 
+### 分块地图预处理命令（Windows）  
+```bat
+UE4Editor-Cmd.exe Carla -run=PrepareAssetsForCooking  
+  -PackageName=EuroPack  
+  -Maps=Berlin  
+  -TileSize=2000  
+  -ForceCarlaMaterials
+```
+
+### 道具资产预处理命令（Linux）  
+```bash
+./UE4Editor-Cmd Carla -run=PrepareAssetsForCooking  
+  -PackageName=VehiclePack  
+  -OnlyPrepareMaps=false  
+  -Props=Car,Sign,Truck
+```
 ---
 
 ## 附录  
