@@ -1,4 +1,4 @@
-#1. 概述
+# 1. 概述
 UMapGenFunctionLibrary 是用于 Carla 地图生成的核心工具类，提供网格构建、资源管理、坐标投影等功能。
 主要功能：
 
@@ -10,8 +10,8 @@ UMapGenFunctionLibrary 是用于 Carla 地图生成的核心工具类，提供�
 
 辅助渲染命令与资源清理。
 
-#2. 核心函数说明
-##2.1 BuildMeshDescriptionFromData
+# 2. 核心函数说明
+## 2.1 BuildMeshDescriptionFromData
 功能：将自定义网格数据转换为 FMeshDescription，包含顶点、三角形、法线、UV 等信息。
 参数：
 
@@ -31,7 +31,7 @@ FMeshDescription: 构建的网格描述对象，用于后续生成静态网格�
 
 UV 通道默认填充为 (0,0)，需确保输入 UV 数据正确。
 
-##2.2 CreateMesh
+## 2.2 CreateMesh
 功能：基于 FMeshDescription 创建并保存静态网格资源（.uasset）。
 参数：
 
@@ -67,13 +67,13 @@ UStaticMesh*: 生成的静态网格资源指针，失败返回 nullptr。
 
 需确保材质实例有效，否则记录错误日志。
 
-##2.3 GetTransversemercProjection
+## 2.3 GetTransversemercProjection
 功能：将经纬度坐标转换为引擎内的平面墨卡托投影坐标（单位：厘米）。
 示例：
 cpp
 FVector2D Position = UMapGenFunctionLibrary::GetTransversemercProjection(39.9, 116.4, 39.9, 116.4);  
 // 输出: (0, 0)（原点坐标）
-##2.4 辅助函数
+## 2.4 辅助函数
 SetThreadToSleep
 功能：使当前线程休眠指定秒数（需取消注释 FGenericPlatformProcess::Sleep）。
 
@@ -83,7 +83,7 @@ FlushRenderingCommandsInBlueprint
 CleanupGEngine
 功能：执行垃圾回收并清理编辑器事务（仅编辑器模式下生效）。
 
-#3. 关键数据结构
+# 3. 关键数据结构
 FProceduralCustomMesh
 成员：
 
@@ -93,7 +93,7 @@ Triangles (TArray<int32>): 三角形索引数组。
 
 Normals / UV0 (TArray<FVector>): 法线与UV数据。
 
-#4. 使用示例
+# 4. 使用示例
 生成静态网格
 cpp
  1. 准备数据   
@@ -114,7 +114,7 @@ UStaticMesh* Mesh = UMapGenFunctionLibrary::CreateMesh(
     "Roads",  
     "RoadMesh"  
 );  
-#5. 注意事项
+# 5. 注意事项
 性能优化：
 
 避免频繁调用 CreateMesh，建议批量生成后统一保存。
@@ -131,7 +131,7 @@ UStaticMesh* Mesh = UMapGenFunctionLibrary::CreateMesh(
 
 引擎使用左手坐标系，Y 轴反向（投影函数中 -(y - y0) 处理）。
 
-#6. 扩展建议
+# 6. 扩展建议
 动态LOD：根据视距动态调整网格细节。
 
 异步生成：将 CreateMesh 移至后台线程，避免阻塞游戏逻辑。 
