@@ -449,6 +449,13 @@ Result = (x, y_ref - y) * OSMToCentimetersScaleFactor
 <li><strong>实时预览</strong>  </li>
 <li>在编辑器中运行 <code>CleanupGEngine()</code> 可刷新资产状态  </li>
 </ul>
+<h3 id="_19">坐标转换公式图示</h3>
+<pre><code>   ┌───────────────────────┐
+   │ 横向墨卡托投影公式     │
+   │ x = R・asinh(sinΔλ/√(tan²φ + cos²Δλ)) │
+   │ y = R・atan(tanφ/cosΔλ)               │
+   └───────────────────────┘
+</code></pre>
 <hr />
               
             </div>

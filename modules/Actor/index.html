@@ -190,33 +190,17 @@
 <h2 id="_13">使用场景</h2>
 <ol>
 <li><strong>仿真场景初始化</strong>：</li>
-<li>使用 <code>UActorDispatcher::SpawnActor</code> 生成车辆、行人等 Actor，设置初始位置和状态。</li>
-<li>
-<p>通过 <code>FActorRegistry::Register</code> 注册 Actor，分配唯一 ID。</p>
-</li>
-<li>
-<p><strong>状态保存与恢复</strong>：</p>
-</li>
+<li>使用 <code>UActorDispatcher::SpawnActor</code> 生成车辆、行人等 Actor，设置初始位置和状态，进行场景初始化。</li>
+<li>通过 <code>FActorRegistry::Register</code> 注册 Actor，分配唯一 ID。</li>
+<li><strong>状态保存与恢复</strong>：</li>
 <li>使用 <code>FActorData::RecordActorData</code> 保存 Actor 状态。</li>
-<li>
-<p>使用 <code>FActorData::RestoreActorData</code> 恢复 Actor 状态，用于场景重置或回放。</p>
-</li>
-<li>
-<p><strong>动态管理</strong>：</p>
-</li>
+<li>使用 <code>FActorData::RestoreActorData</code> 恢复 Actor 状态，用于场景重置或回放。</li>
+<li><strong>动态管理</strong>：</li>
 <li>使用 <code>UActorDispatcher::PutActorToSleep</code> 和 <code>WakeActorUp</code> 动态管理 Actor 的活跃状态，优化性能。</li>
-<li>
-<p>使用 <code>UActorDispatcher::DestroyActor</code> 清理不再需要的 Actor。</p>
-</li>
-<li>
-<p><strong>传感器与数据流</strong>：</p>
-</li>
-<li>
-<p>使用 <code>FActorSensorData</code> 管理传感器数据流，支持实时数据传输和处理。</p>
-</li>
-<li>
-<p><strong>交通模拟</strong>：</p>
-</li>
+<li>使用 <code>UActorDispatcher::DestroyActor</code> 清理不再需要的 Actor。</li>
+<li><strong>传感器与数据流</strong>：</li>
+<li>使用 <code>FActorSensorData</code> 管理传感器数据流，支持实时数据传输和处理。</li>
+<li><strong>交通模拟</strong>：</li>
 <li>使用 <code>FTrafficLightData</code> 和 <code>FTrafficSignData</code> 管理交通信号灯和标志的状态，模拟真实交通规则。</li>
 </ol>
 <hr />
@@ -224,32 +208,16 @@
 <ol>
 <li><strong>物理模拟</strong>：</li>
 <li>车辆和行人的物理模拟状态通过 <code>bSimulatePhysics</code> 控制，需确保正确设置以避免仿真异常。</li>
-<li>
-<p>恢复物理状态时，需针对不同 Actor 类型（如车辆、行人）应用特定逻辑。</p>
-</li>
-<li>
-<p><strong>ID 管理</strong>：</p>
-</li>
+<li>恢复物理状态时，需针对不同 Actor 类型（如车辆、行人）应用特定逻辑。</li>
+<li><strong>ID 管理</strong>：</li>
 <li>确保 Actor ID 的唯一性，避免重复注册或冲突。</li>
-<li>
-<p>使用 <code>DesiredId</code> 时，需验证其未被占用。</p>
-</li>
-<li>
-<p><strong>ROS2 集成</strong>：</p>
-</li>
-<li>
-<p>启用 ROS2 时，需确保正确配置名称映射和回调，避免命名冲突或数据丢失。</p>
-</li>
-<li>
-<p><strong>边界框与标签</strong>：</p>
-</li>
+<li>使用 <code>DesiredId</code> 时，需验证其未被占用。</li>
+<li><strong>ROS2 集成</strong>：</li>
+<li>启用 ROS2 时，需确保正确配置名称映射和回调，避免命名冲突或数据丢失。</li>
+<li><strong>边界框与标签</strong>：</li>
 <li>边界框通过 <code>UBoundingBoxCalculator</code> 计算，需确保 Actor 的几何信息正确。</li>
-<li>
-<p>语义标签通过 <code>ATagger</code> 获取，需避免无效标签（如 <code>None</code> 或 <code>Other</code>）。</p>
-</li>
-<li>
-<p><strong>未实现功能</strong>：</p>
-</li>
+<li>语义标签通过 <code>ATagger</code> 获取，需避免无效标签（如 <code>None</code> 或 <code>Other</code>）。</li>
+<li><strong>未实现功能</strong>：</li>
 <li>部分代码（如行人死亡计时器）标记为 <code>TODO</code>，需后续完善。</li>
 <li>子 Actor 的休眠逻辑可能需要进一步优化。</li>
 </ol>
