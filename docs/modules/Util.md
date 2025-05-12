@@ -51,6 +51,26 @@ flowchart TD
     B8 --> B9[FCarlaServer: 聚合 & RPC 序列化]
   end
 ```
+### 1.3 Util模块关键类表
+| 子模块                                      | 功能简介                                                                                       | 源码位置                                                                                                       |
+|-------------------------------------------|----------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
+| ActorAttacher                             | 将任意 `USceneComponent`（相机、传感器等）动态附加到 `AActor` 上                                  | `Util/ActorAttacher.h`<br>`Util/ActorAttacher.cpp`                                                            |
+| EmptyActor                                | 提供一个空的 `AActor` 占位类，用于测试或性能基准                                                 | `Util/EmptyActor.h`<br>`Util/EmptyActor.cpp`                                                                  |
+| NoWorldOffsetSceneComponent               | 定义不随世界坐标偏移的场景组件，用于 UI 或调试可视化                                              | `Util/NoWorldOffsetSceneComponent.h`<br>`Util/NoWorldOffsetSceneComponent.cpp`                                |
+| ActorWithRandomEngine & RandomEngine      | 封装 C++ 标准随机数引擎，支持可复现随机行为                                                       | `Util/ActorWithRandomEngine.h`<br>`Util/ActorWithRandomEngine.cpp`<br>`Util/RandomEngine.h`<br>`Util/RandomEngine.cpp` |
+| ScopedStack                               | 基于 RAII 的作用域栈管理工具，可跟踪嵌套调用或状态                                               | `Util/ScopedStack.h`                                                                                         |
+| BoundingBox & BoundingBoxCalculator       | 定义 `FBoundingBox` 结构，并提供包围盒到世界/屏幕坐标的转换计算                                     | `Util/BoundingBox.h`<br>`Util/BoundingBox.cpp`<br>`Util/BoundingBoxCalculator.h`<br>`Util/BoundingBoxCalculator.cpp` |
+| DebugShapeDrawer                          | 在场景中绘制线框、点、面等调试几何体                                                            | `Util/DebugShapeDrawer.h`<br>`Util/DebugShapeDrawer.cpp`                                                      |
+| ProceduralCustomMesh                      | 运行时生成或修改 `UProceduralMeshComponent` 的自定义网格                                          | `Util/ProceduralCustomMesh.h`                                                                                 |
+| RayTracer                                 | 封装射线检测接口，用于碰撞检测和视线跟踪                                                          | `Util/RayTracer.h`<br>`Util/RayTracer.cpp`                                                                    |
+| NavigationMesh                            | 与 Unreal 导航网格系统交互，支持路径查询                                                         | `Util/NavigationMesh.h`<br>`Util/NavigationMesh.cpp`                                                          |
+| RoadPainterWrapper                        | 动态调用 Unreal 道路绘制接口，在关卡中绘制道路或车道线                                             | `Util/RoadPainterWrapper.h`<br>`Util/RoadPainterWrapper.cpp`                                                  |
+| EnvironmentObject                         | 封装地图中静态物体（建筑、路牌、信号灯等）的通用接口                                                | `Util/EnvironmentObject.h`                                                                                   |
+| IniFile                                   | 读取/写入 Unreal 风格的 `.ini` 配置文件                                                          | `Util/IniFile.h`                                                                                              |
+| ObjectRegister                            | 全局对象注册器，管理插件内部可被索引的对象                                                         | `Util/ObjectRegister.h`<br>`Util/ObjectRegister.cpp`                                                          |
+| NonCopyable                               | 禁止拷贝、仅允许移动的基类模板，用于防止资源误拷贝                                                 | `Util/NonCopyable.h`                                                                                          |
+| ListView                                  | 封装 Unreal Slate/UMG 列表视图控件的常用操作                                                       | `Util/ListView.h`                                                                                             |
+
 ## 2. Util核心功能类
 ### 2.1 UActorAttacher：Actor 附加器
 #### 2.1.1 概要
@@ -178,4 +198,57 @@ public:
 - 说明：此示例展示了如何在自定义的 `AMyRandomActor` 中复用 `AActorWithRandomEngine` 提供的随机引擎功能，并在游戏开始时生成一个 0–100 范围内的随机整数并输出日志。
 
 
-### 2.3 BoundingBox相关类
+## 2.3 BoundingBox相关类
+### 2.3.1 FBoundingBox：边界框结构
+#### 概要
+`FBoundingBox`是一个BlueprintType的USTRUCT，用于在C++与BluePrint间传递和操作三维边界框信息。CARLA 中所有 Actor（车辆、行人、交通标志、静态网格等）均可通过该结构表示其局部边界框，方便后续在世界或摄像机坐标下进行投影、碰撞检测或可视化渲染。
+#### 成员详解
+```cpp
+USTRUCT(BlueprintType)
+struct CARLA_API FBoundingBox
+{
+  GENERATED_BODY()
+
+  /// 边界框相对于其所有者的原点
+  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  FVector Origin = {0.0f, 0.0f, 0.0f};
+
+  /// 边界框的半径范围（沿 X/Y/Z 方向的一半长度）
+  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  FVector Extent = {0.0f, 0.0f, 0.0f};
+
+  /// 边界框的旋转（相对于父 Actor 的局部旋转）
+  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  FRotator Rotation = {0.0f, 0.0f, 0.0f};
+};
+```
+- Origin：包围盒中心点在父 Actor 局部坐标系下的位置；
+- Extent：包围盒在三个轴上的半尺寸，用于计算 Min/Max 边界；
+- Rotation：包围盒相对于父 Actor 局部坐标系的欧拉旋转。该设计借鉴自 Unreal 引擎中 UBoxComponent 的中心/Extent/Rotation 表示。
+
+### 2.3.2 UBoundingBoxCalculator：边界框计算器
+#### 概要
+`UBoundingBoxCalculator` 是一个派生自 `UBlueprintFunctionLibrary` 的静态函数集，负责根据不同 Actor 或网格类型，提取或合成对应的 FBoundingBox 信息。
+#### 关键方法详解
+| 方法名                                     | 功能简介                                                                                                                     | 参数说明                                                                                                                     | 返回值 / 输出                                                                                              |
+|------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|
+| **GetActorBoundingBox**                  | 根据传入的 `AActor*` 类型动态分支：<br>– 车辆 → 调用 `GetVehicleBoundingBox`<br>– 行人 → 调用 `GetCharacterBoundingBox`<br>– 交通标志 → 合并触发体包围盒<br>– 其他 → 收集并合并所有网格组件包围盒。 | `const AActor* Actor` — 待计算边界的 Actor 指针<br>`uint8 InTagQueried` — 按标签筛选（默认 `0xFF`，不过滤） | `FBoundingBox` — Actor 局部空间包围盒                                                           |
+| **GetVehicleBoundingBox**                | 提取车辆内部包围变换与半宽度，额外检测可能挂载的骨骼或子模型，通过 Socket 扩展范围后，应用组件到世界变换。                                     | `const ACarlaWheeledVehicle* Vehicle`<br>`uint8 InTagQueried`                                                               | `FBoundingBox` — 世界空间包围盒                                                                     |
+| **GetCharacterBoundingBox**              | 基于 `UCapsuleComponent` 从半径与半高生成行人包围盒，并应用组件到世界空间的变换。                                                 | `const ACharacter* Character`<br>`uint8 InTagQueried`                                                                       | `FBoundingBox` — 世界空间包围盒                                                                     |
+| **GetTrafficLightBoundingBox**           | 针对 `ATrafficLightBase` 中各灯体或触发体调用 `CombineBBsOfActor` 进行按距离与标签合并，按标签筛选后输出多段包围盒。                     | `const ATrafficLightBase* TrafficLight`<br>`TArray<FBoundingBox>& OutBB`<br>`TArray<uint8>& OutTag`<br>`uint8 InTagQueried` | —（通过 `OutBB`/`OutTag` 返回多个包围盒及对应标签）                                               |
+| **GetStaticMeshBoundingBox**             | 直接使用 `UStaticMesh::GetBoundingBox()` 获得包围框，再封装为 `FBoundingBox`。                                                   | `const UStaticMesh* StaticMesh`                                                                                             | `FBoundingBox`                                                                                       |
+| **GetSkeletalMeshBoundingBox**           | 遍历 LOD 0 顶点缓冲计算 Min/Max，进而求中心与半幅，返回精确顶点包围盒（当前动画姿势未考虑）。                                       | `const USkeletalMesh* SkeletalMesh`                                                                                         | `FBoundingBox`                                                                                       |
+| **GetISMBoundingBox**                    | 对 `UInstancedStaticMeshComponent` 每个实例 (PerInstanceSMData) 应用父组件变换，逐个生成并返回 `FBoundingBox`。                | `UInstancedStaticMeshComponent* ISMComp`<br>`TArray<FBoundingBox>& OutBoundingBox`                                          | —（通过 `OutBoundingBox` 返回实例包围盒列表）                                                     |
+| **GetBBsOfStaticMeshComponents**         | 遍历给定静态网格组件数组，按可见性与标签过滤后，提取并应用组件变换，累积输出包围盒与标签。                                          | `const TArray<UStaticMeshComponent*>& StaticMeshComps`<br>`TArray<FBoundingBox>& OutBB`<br>`TArray<uint8>& OutTag`<br>`uint8 InTagQueried` | —（通过 `OutBB`/`OutTag` 返回）                                                                     |
+| **GetBBsOfSkeletalMeshComponents**       | 与上同，针对骨骼网格组件数组；对每个可见且符合标签的组件，调用 `GetSkeletalMeshBoundingBox` 并应用变换后输出。              | `const TArray<USkeletalMeshComponent*>& SkeletalMeshComps`<br>`TArray<FBoundingBox>& OutBB`<br>`TArray<uint8>& OutTag`<br>`uint8 InTagQueried` | —（通过 `OutBB`/`OutTag` 返回）                                                                     |
+| **GetBoundingBoxOfActors**               | 对一组 `AActor*`，批量调用 `GetBBsOfActor` 并合并所有返回的包围盒列表，直接返回结果数组。                                       | `const TArray<AActor*>& Actors`<br>`uint8 InTagQueried`                                                                      | `TArray<FBoundingBox>`                                                                                |
+| **GetBBsOfActor**                        | 对单个 `AActor*`：排除特殊蓝图或不可见组件，分类调用各 `Get*BoundingBox` 系列和 `Get*Components` 系列方法，返回所有包围盒。 | `const AActor* Actor`<br>`uint8 InTagQueried`                                                                                | `TArray<FBoundingBox>`                                                                                |
+| **CombineBBs**                           | 通用合并 `TArray<FBoundingBox>` 中所有包围盒为最小包围；基于旋转/Extent 计算全局 Min/Max 再取中心与半幅。                       | `const TArray<FBoundingBox>& BBsToCombine`                                                                                  | `FBoundingBox`                                                                                       |
+| **CombineBoxes**                         | 通用合并 `TArray<UBoxComponent*>`，先转换为 `FBoundingBox` 再调用通用合并逻辑，输出最小包围盒。                                 | `const TArray<UBoxComponent *>& BBsToCombine`                                                                                | `FBoundingBox`                                                                                       |
+| **CombineBBsOfActor**                    | 针对单 Actor 静态网格组件的包围列表，按距离阈值与标签合并同类型近邻包围盒，不合并的单个也保留；统计后输出新包围盒与标签。          | `const AActor* Actor`<br>`TArray<FBoundingBox>& OutBB`<br>`TArray<uint8>& OutTag`<br>`float DistanceThreshold`<br>`uint8 TagToCombine` | —（通过 `OutBB`/`OutTag` 返回新组合结果）                                                         |
+| **GetMeshCompsFromActorBoundingBox**     | 在指定距离阈值内（默认 10000）从 Actor 所有 `UStaticMeshComponent` 中筛选出位于给定 `FBoundingBox` 附近的组件列表。            | `const AActor* Actor`<br>`const FBoundingBox& InBB`<br>`TArray<UStaticMeshComponent*>& OutStaticMeshComps`                 | —（通过 `OutStaticMeshComps` 返回匹配组件）                                                        |
+
+### 小结
+- `FBoundingBox` 提供了统一的包围盒数据结构；
+- `UBoundingBoxCalculator` 则围绕不同 Actor/组件类型提供了从局部到世界空间的包围盒提取、批量和合并能力；
+- 组合该工具链，可支持 CARLA 中传感器感知、HUD 渲染、碰撞检测及数据采集等多种场景。
