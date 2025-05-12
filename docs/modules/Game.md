@@ -157,7 +157,7 @@
 ### **3.1 调用关系图**
 
 <p align="center">
- <img src="https://raw.githubusercontent.com/Elotkowski/KD-LoRA/refs/heads/main/00.png?token=GHSAT0AAAAAADCITNBNRCKN5E4U2VJ3HKIQ2A3GUJQ"  style="max-width: 100%; height: auto;"/>
+ <img src="https://github.com/Elotkowski/carla_doc/blob/master/docs/img/game.png?raw=true"  style="max-width: 100%; height: auto;"/>
 </p>
 
 ### **3.2 模块依赖**
@@ -304,22 +304,22 @@
 
 本模块的代码结构如下：
 
-	Game
-    ├── LibCarla (51)                # 核心交互
-    │   ├── LoadMap()                # 地图加载
-    │   ├── SetWeather()             # 天气设置
-    │   └── VehicleControl()         # 车辆控制
-    ├── Recorder (25)                # 录制与回放
-    │   ├── StartRecording()         # 开始录制
-    │   └── PlayBack()               # 回放
-    ├── Sensor (6)                   # 传感器
-    │   ├── CaptureData()            # 数据采集
-    │   └── SendToServer()           # 数据传输
-    ├── Settings (9)                 # 配置管理
-    ├── Traffic (5)                  # 交通规则
-    │   ├── Lights (4)               # 信号灯控制
-    ├── Util (6)                     # 工具函数
-    └── Weather (2)                  # 动态天气
+	  Game
+      ├── LibCarla (51)                # 核心交互
+      │   ├── LoadMap()                # 地图加载
+      │   ├── SetWeather()             # 天气设置
+      │   └── VehicleControl()         # 车辆控制
+      ├── Recorder (25)                # 录制与回放
+      │   ├── StartRecording()         # 开始录制
+      │   └── PlayBack()               # 回放
+      ├── Sensor (6)                   # 传感器
+      │   ├── CaptureData()            # 数据采集
+      │   └── SendToServer()           # 数据传输
+      ├── Settings (9)                 # 配置管理
+      ├── Traffic (5)                  # 交通规则
+      │   ├── Lights (4)               # 信号灯控制
+      ├── Util (6)                     # 工具函数
+      └── Weather (2)                  # 动态天气
 
 ## ❗注意事项
 ### **6.1 性能优化**
