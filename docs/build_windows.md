@@ -320,20 +320,21 @@ python3 dynamic_weather.py
 
 您可能会发现还有更多有用的`make`命令。在下表中找到它们：
 
-| 命令 | 描述                                                                                                                                 |
-| ------- |------------------------------------------------------------------------------------------------------------------------------------|
-| `make help`                                                           | 打印所有可用的命令。                                                                                                                         |
-| `make launch`                                                         | 在编辑器窗口中启动 Carla 服务器。                                                                                                               |
-| `make PythonAPI`                                                      | 构建 Carla 客户端（需要重新安装Carla的Python包`pip install --force-reinstall carla/PythonAPI/carla/dist/carla-0.9.15-cp37-cp37m-win_amd64.whl`）。 |
-| `make LibCarla`                                                       | 准备将 Carla 库导入到任何地方。                                                                                                                |
-| `make package`                                                        | 构建 Carla 并创建用于分发的打包版本。                                                                                                             |
-| `make clean`                                                          | 删除构建系统生成的所有二进制文件和临时文件。                                                                                                             |
-| `make rebuild`                                                        | `make clean` 和 `make launch` 两者都在一个命令中。                                                                                            |
-| `make downloadplugin`                                                        | 构建虚幻引擎插件 StreetMap 。                                                                                                               |
-| `make setup`                                                        | 构下载并生成依赖库                                                                                                                          |
-| `make LibCarla`                                                        | 创建LibCarla的客户端和服务端（`make server`+`make client`）                                                                                    |
-| `make osm2odr`                                                        | 创建OSM转OpenDRIVE的库                                                                                                                  |
-| `make import`                                                        | 导入资产                                                                                                                               |
+| 命令                                        | 描述                                                                                                                                 |
+|-------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| `make help`                               | 打印所有可用的命令。                                                                                                                         |
+| `make launch`                             | 在编辑器窗口中启动 Carla 服务器（会编译LibCarla和osm2odr）。                                                                                          |
+| `make launch-only`                        | 在编辑器窗口中启动 Carla 服务器（不编译LibCarla和osm2odr）。                                                                                                          |
+| `make PythonAPI`                          | 构建 Carla 客户端（需要重新安装Carla的Python包`pip install --force-reinstall carla/PythonAPI/carla/dist/carla-0.9.15-cp37-cp37m-win_amd64.whl`）。 |
+| `make LibCarla`                           | 准备将 Carla 库导入到任何地方。                                                                                                                |
+| [`make package`](./build/make_package.md) | 构建 Carla 并创建用于分发的打包版本                                                                                                              |
+| `make clean`                              | 删除构建系统生成的所有二进制文件和临时文件。                                                                                                             |
+| `make rebuild`                            | `make clean` 和 `make launch` 两者都在一个命令中。                                                                                            |
+| `make downloadplugin`                     | 构建虚幻引擎插件 StreetMap 。                                                                                                               |
+| `make setup`                              | 构下载并生成依赖库                                                                                                                          |
+| `make LibCarla`                           | 创建LibCarla的客户端和服务端（`make server`+`make client`）                                                                                    |
+| `make osm2odr`                            | 创建OSM转OpenDRIVE的库                                                                                                                  |
+| `make import`                             | 导入资产                                                                                                                               |
 
 
 构建一个 egg 分发包（binary distribution），会在当前目录下的“dist”目录内创建一个“egg”文件，文件名格式就是”项目名-版本号-Python版本.egg”：
@@ -501,6 +502,9 @@ install_proj.bat --build-dir D:\work\DReyeVR\carla\Build
 如果还报错sqlite的错误，需要把`sqlite3-install`和`sqlite3-src`删除后重新编译。
 
 
+* 执行`make launch-only`报错：`The following modules are missing or built with a different version`
+> 右键 .uproject 文件生成vs 工程，然后使用vs打开，构建项目（点击菜单中的`生成`->`生成解决方案`）。
+> 注：执行`make clean`后然后执行`make launch-only`后会出现这种情况。
 
 
 ---
