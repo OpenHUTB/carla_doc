@@ -149,9 +149,9 @@ title: 主页
 
 [__编译 Carla__](build_carla.md) — 进行 Carla 编译
 
-[__Linux 上编译__](build_linux.md) — 在 Linux 上进行编译
-
 [__Windows 上编译__](build_windows.md) — 在 Windows 上进行构建
+
+[__Linux 上编译__](build_linux.md) — 在 Linux 上进行编译
 
 [__Carla 更新__](build_update.md) — 了解最新内容
 
