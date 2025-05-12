@@ -415,13 +415,28 @@
   -ForceCarlaMaterials
 </code></pre></div>
 <h3 id="linux">道具资产预处理命令（Linux）</h3>
-<h2 id="ue4editor-cmd-carla-runprepareassetsforcooking-packagenamevehiclepack-onlypreparemapsfalse-propscarsigntruck"><div class="highlight"><pre><span></span><code>./UE4Editor-Cmd<span class="w"> </span>Carla<span class="w"> </span>-run<span class="o">=</span>PrepareAssetsForCooking<span class="w">  </span>
+<div class="highlight"><pre><span></span><code>./UE4Editor-Cmd<span class="w"> </span>Carla<span class="w"> </span>-run<span class="o">=</span>PrepareAssetsForCooking<span class="w">  </span>
 <span class="w">  </span>-PackageName<span class="o">=</span>VehiclePack<span class="w">  </span>
 <span class="w">  </span>-OnlyPrepareMaps<span class="o">=</span><span class="nb">false</span><span class="w">  </span>
 <span class="w">  </span>-Props<span class="o">=</span>Car,Sign,Truck
-</code></pre></div></h2>
-<h2 id="_17">附录</h2>
-<h3 id="_18">增强错误代码表</h3>
+</code></pre></div>
+<h3 id="_17">跨平台预处理命令</h3>
+<p><strong>Windows：</strong>
+<div class="highlight"><pre><span></span><code>UE4Editor-Cmd.exe Carla -run=PrepareAssetsForCooking  
+  -PackageName=AsiaPack  
+  -Maps=Tokyo  
+  -TileSize=1000  
+  -LODDistance=3000
+</code></pre></div></p>
+<p><strong>Linux：</strong>
+<div class="highlight"><pre><span></span><code>./UE4Editor-Cmd<span class="w"> </span>Carla<span class="w"> </span>-run<span class="o">=</span>PrepareAssetsForCooking<span class="w">  </span>
+<span class="w">  </span>-PackageName<span class="o">=</span>UrbanPack<span class="w">  </span>
+<span class="w">  </span>-EnablePhysicsCollision<span class="w">  </span>
+<span class="w">  </span>-ForceCarlaMaterials
+</code></pre></div></p>
+<hr />
+<h2 id="_18">附录</h2>
+<h3 id="_19">增强错误代码表</h3>
 <table>
 <thead>
 <tr>
@@ -446,9 +461,39 @@
 <td>OpenDrive 数据异常</td>
 <td>重新导出 XODR 文件</td>
 </tr>
+<tr>
+<td>### 新增错误代码映射</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>代码</td>
+<td>场景</td>
+<td>调试建议</td>
+</tr>
+<tr>
+<td>-------</td>
+<td>-------------------------------</td>
+<td>---------------------------</td>
+</tr>
+<tr>
+<td>0x40</td>
+<td>对象库路径未注册</td>
+<td>检查DefaultEngine.ini配置</td>
+</tr>
+<tr>
+<td>0x41</td>
+<td>瓦片尺寸非整数倍</td>
+<td>调整TileSize为100的整数倍</td>
+</tr>
+<tr>
+<td>0x42</td>
+<td>第三方材质冲突</td>
+<td>启用-ForceCarlaMaterials参数</td>
+</tr>
 </tbody>
 </table>
-<h3 id="_19">对象库加载白名单配置</h3>
+<h3 id="_20">对象库加载白名单配置</h3>
 <p>在 <code>DefaultEngine.ini</code> 中添加：<br />
 <div class="highlight"><pre><span></span><code><span class="k">[/Script/Engine.ObjectLibrary]</span>
 <span class="na">+AssetPaths</span><span class="o">=</span><span class="s">(Path=&quot;/Game/Carla/Static/Props&quot;)</span><span class="w">  </span>

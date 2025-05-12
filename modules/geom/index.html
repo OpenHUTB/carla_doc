@@ -73,13 +73,13 @@
 <h2 id="_1">主要类与功能说明</h2>
 <ul>
 <li><strong><a href="#Vector3D/Vector2D/Vector3DInt">Vector2D/Vector3D/Vector3DInt</a></strong>：分别表示二维浮点向量、三维浮点向量和三维整型向量，支持算术运算（加减、点乘、叉乘等）、长度计算、归一化等常见操作。</li>
-<li><strong>Location</strong>：三维位置类，继承自 <code>Vector3D</code>，并提供了位置之间的欧氏距离等额外功能。</li>
-<li><strong>Rotation</strong>：旋转类（俯仰、偏航、横滚），可转换为对应的方向向量和旋转矩阵等。</li>
-<li><strong>Transform</strong>：变换类，由位置（Location）和旋转（Rotation）构成，支持将点从本地坐标系转换到世界坐标系（以及逆变换）。</li>
+<li><strong><a href="#Location">Location</a></strong>：三维位置类，继承自 <code>Vector3D</code>，并提供了位置之间的欧氏距离等额外功能。</li>
+<li><strong><a href="#Rotation">Rotation</a></strong>：旋转类（俯仰、偏航、横滚），可转换为对应的方向向量和旋转矩阵等。</li>
+<li><strong><a href="#Transform">Transform</a></strong>：变换类，由位置（Location）和旋转（Rotation）构成，支持将点从本地坐标系转换到世界坐标系（以及逆变换）。</li>
 <li><strong><a href="#Math">Math</a></strong>：静态数学工具类，提供夹取、距离（3D/2D）、点到线段距离、向量夹角、线性插值、坐标旋转、经纬度转换（<code>LatLonToMercator</code>、<code>MercatorToLatLon</code> 等）等功能函数。</li>
-<li><strong>GeoLocation</strong>：地理位置类，用于表示纬度、经度、高度，并可将世界坐标位置（Location）转换为对应的地理坐标。</li>
-<li><strong>CubicPolynomial</strong>：三次多项式类，可表示形式为 <code>a + b*x + c*x^2 + d*x^3</code> 的函数，用于道路曲线拟合与计算。</li>
-<li><strong>BoundingBox</strong>：有向边界框类，由中心位置、尺度和旋转构成，提供判断点是否在框内、计算八个顶点坐标（局部或世界空间）等方法。</li>
+<li><strong><a href="#GeoLocation">GeoLocation</a></strong>：地理位置类，用于表示纬度、经度、高度，并可将世界坐标位置（Location）转换为对应的地理坐标。</li>
+<li><strong><a href="#CubicPolynomial">CubicPolynomial</a></strong>：三次多项式类，可表示形式为 <code>a + b*x + c*x^2 + d*x^3</code> 的函数，用于道路曲线拟合与计算。</li>
+<li><strong><a href="#BoundingBox">BoundingBox</a></strong>：有向边界框类，由中心位置、尺度和旋转构成，提供判断点是否在框内、计算八个顶点坐标（局部或世界空间）等方法。</li>
 <li><strong><a href="#Mesh">Mesh</a></strong>：网格容器类及其生成器。<code>Mesh</code> 用于存储顶点、法线、纹理坐标、索引和材质信息，可导出为 OBJ/PLY 等格式；</li>
 <li><strong><a href="#Simplification">Simplification</a></strong>：网格简化类，根据指定简化率对给定网格进行简化操作（使用第三方简化库）。</li>
 <li><strong><a href="#RTree">RTree</a></strong>:是一种用于空间索引的树形结构,提供检索方法用于点云和线段云的快速空间查询（最近邻、相交判定等），主要使用在物体的碰撞使用。</li>
@@ -106,7 +106,7 @@
 </li>
 </ul>
 <p>下面是其主要类的代码说明文档。</p>
-<h1 id="math">Math</h1>
+<h1 id="math"><a href="#Math">Math</a></h1>
 <h2 id="_3">概述</h2>
 <p><code>carla::geom::Math</code> 提供了一系列数学常量与常用数学运算函数，主要用于三维/二维向量运算、角度转换、距离计算、线性插值等。</p>
 <hr />
@@ -167,7 +167,7 @@
 - <strong>参数</strong><br />
   - <font color="#f8805a">a</font>, <font color="#f8805a">b</font>：三维向量<br />
 - <strong>返回值</strong>：叉积向量</p>
-<p>设$a=[x_1,y_1,z_1]$,$b=[x_2,y_2,z_2]$那么它们的叉积$a\times b$为：
+<p>设<script type="math/tex">a=[x_1,y_1,z_1]$,$b=[x_2,y_2,z_2]</script>那么它们的叉积<script type="math/tex">a\times b</script>为：
 <script type="math/tex; mode=display">
 a\times b=\begin{pmatrix}y_1z_2-z_1y_2\\z_1x_2-x_1z_2\\x_1y_2-y_1x_2\end{pmatrix}
 </script>
@@ -250,20 +250,24 @@ a\cdot b=\sum_i^n a_ib_i
 - <strong>返回值</strong>：<code>(沿线段的弧长距离, 点到线段的欧氏距离)</code></p>
 <p>设：</p>
 <ul>
-<li>点 $p$</li>
-<li>线段起点 $v$</li>
-<li>线段终点 $w$</li>
+<li>点 <script type="math/tex">p</script>
+</li>
+<li>线段起点 <script type="math/tex">v</script>
+</li>
+<li>线段终点 <script type="math/tex">w</script>
+</li>
 </ul>
-<p>线段向量为：$\vec{d} = \vec{w} - \vec{v}$<br />
-向量 $\vec{vp} = \vec{p} - \vec{v}$</p>
+<p>线段向量为：<script type="math/tex">\vec{d} = \vec{w} - \vec{v}</script>
+向量 <script type="math/tex">\vec{vp} = \vec{p} - \vec{v}</script>
+</p>
 <p><strong>1. 计算投影参数 $t$</strong></p>
-<p>该参数 $t$ 表示点 $p$ 在 $\vec{d}$ 上的投影比例位置：</p>
+<p>该参数t 表示点 p 在 <script type="math/tex">\vec{d}</script>上的投影比例位置：</p>
 <p>
 <script type="math/tex; mode=display">
 t = \frac{(\vec{p} - \vec{v}) \cdot (\vec{w} - \vec{v})}{\|\vec{w} - \vec{v}\|^2}
 </script>
 </p>
-<p>然后将 $t$ 限制在 $[0,1]$ 范围内（因为只在线段上）：</p>
+<p>然后将 t限制在 [0,1] 范围内（因为只在线段上）：</p>
 <div class="highlight"><pre><span></span><code><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Clamp</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0f</span><span class="p">);</span>
 </code></pre></div>
 <p><strong>2. 计算投影点坐标</strong></p>
@@ -282,7 +286,7 @@ t = \frac{(\vec{p} - \vec{v}) \cdot (\vec{w} - \vec{v})}{\|\vec{w} - \vec{v}\|^2
   </script>
 </p>
 <ul>
-<li>第二项：点 $p$ 到投影点的欧氏距离</li>
+<li>第二项：点 p 到投影点的欧氏距离</li>
 </ul>
 <p>
 <script type="math/tex; mode=display">
@@ -311,7 +315,8 @@ t = \frac{(\vec{p} - \vec{v}) \cdot (\vec{w} - \vec{v})}{\|\vec{w} - \vec{v}\|^2
 <p><strong>2. 圆心计算</strong></p>
 <p>设圆弧是逆时针方向（曲率为正），那么：</p>
 <ul>
-<li>曲率半径 $R = \frac{1}{|curvature|}$</li>
+<li>曲率半径 <script type="math/tex">R = \frac{1}{|curvature|}</script>
+</li>
 <li>圆心在起点的垂直方向上：</li>
 </ul>
 <p>
@@ -320,13 +325,16 @@ center = start\_pos + R \cdot \begin{bmatrix} -\sin(heading) \\ \cos(heading) \e
 \quad \text{（当 curvature > 0）}
 </script>
 </p>
-<p><strong>3. 将点 $p$ 映射到极坐标下</strong></p>
+<p><strong>3. 将点 p映射到极坐标下</strong></p>
 <ul>
-<li>向量 $\vec{v} = p - center$</li>
-<li>距离为 $r = |\vec{v}|$</li>
-<li>角度 $\theta_p = \arctan2(p_y - c_y, p_x - c_x)$</li>
+<li>向量 <script type="math/tex">\vec{v} = p - center</script>
+</li>
+<li>距离为 <script type="math/tex">r = \|\vec{v}\|</script>
+</li>
+<li>角度 <script type="math/tex">\theta_p = \arctan2(p_y - c_y, p_x - c_x)</script>
+</li>
 </ul>
-<p><strong>4. 计算圆弧起始角度 $\theta_0$</strong></p>
+<p><strong>4. 计算圆弧起始角度 <script type="math/tex">\theta_0</script></strong></p>
 <p>由于起始点位于弧上的起点，其角度为：</p>
 <p>
 <script type="math/tex; mode=display">
@@ -347,9 +355,10 @@ center = start\_pos + R \cdot \begin{bmatrix} -\sin(heading) \\ \cos(heading) \e
 </script>
 </p>
 <ul>
-<li>如果 $curvature &gt; 0$，逆时针方向；否则顺时针。</li>
+<li>如果 curvature &gt; 0，逆时针方向；否则顺时针。</li>
 </ul>
-<p>投影点是否在圆弧范围内需判断 $0 \leq \Delta \theta_p \leq \Delta \theta$</p>
+<p>投影点是否在圆弧范围内需判断 <script type="math/tex">0 \leq \Delta \theta_p \leq \Delta \theta</script>
+</p>
 <p><strong>6. 计算投影点坐标</strong>
 <script type="math/tex; mode=display">
 proj = center + R \cdot \begin{bmatrix} \cos(\theta_p) \\ \sin(\theta_p) \end{bmatrix}
@@ -410,7 +419,7 @@ proj = center + R \cdot \begin{bmatrix} \cos(\theta_p) \\ \sin(\theta_p) \end{bm
   - <font color="#f8805a">a</font>：起始整数<br />
   - <font color="#f8805a">b</font>：结束整数<br />
 - <strong>返回值</strong>：包含从 <font color="#f8805a">a</font> 到 <font color="#f8805a">b</font>（含）的所有整数的向量</p>
-<h1 id="vector3dvector2dvector3dint">Vector3D/Vector2D/Vector3DInt</h1>
+<h1 id="vector3dvector2dvector3dint"><a href="#Vector3D/Vector2D/Vector3DInt">Vector3D/Vector2D/Vector3DInt</a></h1>
 <h2 id="_12">概述</h2>
 <p>它们用于表示向量，包含坐标分量与丰富的向量运算接口，也支持与 UE4 的类型互转及 MsgPack 序列化。</p>
 <hr />
@@ -564,7 +573,7 @@ proj = center + R \cdot \begin{bmatrix} \cos(\theta_p) \\ \sin(\theta_p) \end{bm
 <span class="n">v</span><span class="p">.</span><span class="n">msgpack_unpack</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
 </code></pre></div></p>
 <hr />
-<h1 id="mesh">Mesh</h1>
+<h1 id="mesh"><a href="#Mesh">Mesh</a></h1>
 <h2 id="_13">概述</h2>
 <p><code>carla::geom::Mesh</code> 类是一个网格数据容器，提供验证、构建、导出以及与 UE4 类型互转的功能。支持顶点、法线、索引、UV 和材质分组的管理。</p>
 <hr />
@@ -721,7 +730,7 @@ proj = center + R \cdot \begin{bmatrix} \cos(\theta_p) \\ \sin(\theta_p) \end{bm
   <div class="highlight"><pre><span></span><code><span class="n">FProceduralCustomMesh</span><span class="w"> </span><span class="n">ue_mesh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mesh</span><span class="p">;</span>
 </code></pre></div></p>
 <hr />
-<h1 id="simplification">Simplification</h1>
+<h1 id="simplification"><a href="#Simplification">Simplification</a></h1>
 <h2 id="_21">概述</h2>
 <p><code>carla::geom::Simplification</code> 类用于对 <code>carla::geom::Mesh</code> 网格模型执行简化操作，通过指定简化比率，将三角形数减少到原始数量的若干百分比，从而降低模型复杂度。</p>
 <hr />
@@ -777,7 +786,7 @@ proj = center + R \cdot \begin{bmatrix} \cos(\theta_p) \\ \sin(\theta_p) \end{bm
 </code></pre></div></li>
 </ul>
 <hr />
-<h1 id="rtree">RTree</h1>
+<h1 id="rtree"><a href="#RTree">RTree</a></h1>
 <h2 id="_25">简介</h2>
 <p>R-树（R-Tree）是一种用于空间索引的树形结构，通过将空间中相近对象聚合成最小外接矩形（MBR）构建索引，广泛应用于点云、线段云等三维几何对象的快速邻近查询与碰撞检测。</p>
 <p>RTree包含两个模板类：
@@ -889,6 +898,877 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 <li>返回线段树的大小。</li>
 </ul>
 <hr />
+<h1 id="location"><a href="#Location">Location</a></h1>
+<h2 id="_31">概述</h2>
+<p><code>carla::geom::Location</code> 类继承自 <code>Vector3D</code>，表示三维空间中的位置点，提供与 <code>Vector3DInt</code> 间的互转、距离计算、算术与比较运算符重载，以及与 UE4 <code>FVector</code> 类型的互转。</p>
+<hr />
+<p><strong>主要成员属性</strong></p>
+<table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>类型</th>
+<th>说明</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>x</code></td>
+<td><code>double</code></td>
+<td>X 坐标（前向）</td>
+<td><code>0.0</code></td>
+</tr>
+<tr>
+<td><code>y</code></td>
+<td><code>double</code></td>
+<td>Y 坐标（右向）</td>
+<td><code>0.0</code></td>
+</tr>
+<tr>
+<td><code>z</code></td>
+<td><code>double</code></td>
+<td>Z 坐标（上向）</td>
+<td><code>0.0</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="_32">构造函数</h2>
+<h3 id="location_1"><strong><font color="#7fb800">Location()</font></strong></h3>
+<ul>
+<li><strong>原型</strong>：<code>Location() = default;</code>  </li>
+<li><strong>说明</strong>：默认构造，坐标初始化为 (0, 0, 0)。  </li>
+<li><strong>示例</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Location</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">loc_default</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">;</span><span class="w"> </span><span class="c1">// (0,0,0)</span>
+</code></pre></div></li>
+</ul>
+<h3 id="locationfloat-x-float-y-float-z"><strong><font color="#7fb800">Location(float x, float y, float z)</font></strong></h3>
+<p><em>(继承自 <code>Vector3D</code>)</em><br />
+- <strong>说明</strong>：使用基类 <code>Vector3D</code> 构造函数，初始化三维坐标。<br />
+- <strong>示例</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Location</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">loc_xyz</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mf">1.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">3.0f</span><span class="p">);</span><span class="w"> </span><span class="c1">// (1,2,3)</span>
+</code></pre></div></p>
+<h3 id="locationconst-vector3d-rhs"><strong><font color="#7fb800">Location(const Vector3D &amp;rhs)</font></strong></h3>
+<ul>
+<li><strong>原型</strong>：<code>Location(const Vector3D &amp;rhs);</code>  </li>
+<li><strong>说明</strong>：从 <code>Vector3D</code> 对象转换而来，拷贝坐标。  </li>
+<li><strong>示例</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">v</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mf">4.0f</span><span class="p">,</span><span class="mf">5.0f</span><span class="p">,</span><span class="mf">6.0f</span><span class="p">);</span>
+<span class="n">Location</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">loc_from_v</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">v</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">);</span><span class="w"> </span><span class="c1">// (4,5,6)</span>
+</code></pre></div></li>
+</ul>
+<h3 id="locationconst-vector3dint-rhs"><strong><font color="#7fb800">Location(const Vector3DInt &amp;rhs)</font></strong></h3>
+<ul>
+<li><strong>原型</strong>：<code>Location(const Vector3DInt &amp;rhs);</code>  </li>
+<li><strong>说明</strong>：从整数坐标 <code>Vector3DInt</code> 转换而来，按比例（int→float）赋值。  </li>
+<li><strong>示例</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Vector3DInt</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">vi</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">);</span>
+<span class="n">Location</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">loc_from_vi</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">vi</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">);</span><span class="w"> </span><span class="c1">// (7,8,9)</span>
+</code></pre></div></li>
+</ul>
+<hr />
+<h2 id="_33">距离计算方法</h2>
+<h3 id="distancesquared_1"><strong><font color="#7fb800">DistanceSquared</font></strong></h3>
+<ul>
+<li><strong>原型</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="n">DistanceSquared</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Location</span><span class="w"> </span><span class="o">&amp;</span><span class="n">loc</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div></li>
+<li><strong>说明</strong>：返回当前对象到 <code>loc</code> 的三维距离平方，计算公式：<br />
+<script type="math/tex; mode=display">d^2 = (x - x')^2 + (y - y')^2 + (z - z')^2</script>
+</li>
+<li><strong>示例</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Location</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">a</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">b</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
+<span class="k">auto</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">d2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">a</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">.</span><span class="n">DistanceSquared</span><span class="p">(</span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">b</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">);</span><span class="w"> </span><span class="c1">// d2 == 9</span>
+</code></pre></div></li>
+</ul>
+<h3 id="distance_1"><strong><font color="#7fb800">Distance</font></strong></h3>
+<ul>
+<li><strong>原型</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="n">Distance</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Location</span><span class="w"> </span><span class="o">&amp;</span><span class="n">loc</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div></li>
+<li><strong>说明</strong>：返回当前对象到 <code>loc</code> 的欧氏距离，等于 <script type="math/tex; mode=display">\sqrt{DistanceSquared(loc)}</script>。  </li>
+<li><strong>示例</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">d</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">a</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">.</span><span class="n">Distance</span><span class="p">(</span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">b</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">);</span><span class="w"> </span><span class="c1">// d == 3</span>
+</code></pre></div></li>
+</ul>
+<hr />
+<h2 id="_34">算术运算符</h2>
+<h3 id="operator"><strong><font color="#7fb800">operator+=</font></strong></h3>
+<ul>
+<li><strong>原型</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Location</span><span class="w"> </span><span class="o">&amp;</span><span class="k">operator</span><span class="o">+=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Location</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">);</span>
+</code></pre></div></li>
+<li><strong>说明</strong>：将 <code>rhs</code> 坐标加到当前对象。  </li>
+<li><strong>示例</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Location</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p1</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">);</span>
+<span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p1</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">;</span><span class="w"> </span><span class="c1">// p1 = (3,4,5)</span>
+</code></pre></div></li>
+</ul>
+<h3 id="operator_1"><strong><font color="#7fb800">operator+</font></strong></h3>
+<ul>
+<li><strong>原型</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="k">friend</span><span class="w"> </span><span class="n">Location</span><span class="w"> </span><span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">Location</span><span class="w"> </span><span class="n">lhs</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Location</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">);</span>
+</code></pre></div></li>
+<li><strong>说明</strong>：返回两坐标相加的新 <code>Location</code>。  </li>
+<li><strong>示例</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">sum</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p1</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">;</span><span class="w"> </span><span class="c1">// sum = (3,4,5)</span>
+</code></pre></div></li>
+</ul>
+<h3 id="operator-operator-"><strong><font color="#7fb800">operator-=</font></strong> / <strong><font color="#7fb800">operator-</font></strong></h3>
+<ul>
+<li><strong>原型</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Location</span><span class="w"> </span><span class="o">&amp;</span><span class="k">operator</span><span class="o">-=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Location</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">);</span>
+<span class="k">friend</span><span class="w"> </span><span class="n">Location</span><span class="w"> </span><span class="k">operator</span><span class="o">-</span><span class="p">(</span><span class="n">Location</span><span class="w"> </span><span class="n">lhs</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Location</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">);</span>
+</code></pre></div></li>
+<li><strong>说明</strong>：坐标差运算。  </li>
+<li><strong>示例</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Location</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">diff</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p1</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">;</span><span class="w"> </span><span class="c1">// ( -1, -2, -3 )</span>
+</code></pre></div></li>
+</ul>
+<hr />
+<h2 id="_35">比较运算符</h2>
+<h3 id="operator-operator_1"><strong><font color="#7fb800">operator==</font></strong> / <strong><font color="#7fb800">operator!=</font></strong></h3>
+<ul>
+<li><strong>原型</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Location</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">!=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Location</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div></li>
+<li><strong>说明</strong>：逐分量比较相等或不等。  </li>
+<li><strong>示例</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">eq</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p1</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="p">);</span>
+<span class="kt">bool</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">ne</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p1</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="p">);</span>
+</code></pre></div></li>
+</ul>
+<hr />
+<h2 id="ue4-libcarla_included_from_ue4">UE4 类型互转 (仅在 <code>LIBCARLA_INCLUDED_FROM_UE4</code> 定义时)</h2>
+<h3 id="locationconst-fvector-vector"><strong><font color="#7fb800">Location(const FVector &amp;vector)</font></strong></h3>
+<ul>
+<li><strong>说明</strong>：从 UE4 <code>FVector</code>（厘米）转换到米坐标。  </li>
+<li><strong>示例</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">FVector</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">fv</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">{</span><span class="mi">100</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">300</span><span class="p">};</span>
+<span class="n">Location</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">loc_ue</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">fv</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">);</span><span class="w"> </span><span class="c1">// (1,2,3)</span>
+</code></pre></div></li>
+</ul>
+<h3 id="operator-fvector"><strong><font color="#7fb800">operator FVector()</font></strong></h3>
+<ul>
+<li><strong>说明</strong>：将 <code>Location</code>（米）转换到 UE4 <code>FVector</code>（厘米）。  </li>
+<li><strong>示例</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">FVector</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">fv2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">loc_xyz</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">;</span><span class="w"> </span><span class="c1">// (100,200,300)</span>
+</code></pre></div></li>
+</ul>
+<h1 id="rotation"><a href="#Rotation">Rotation</a></h1>
+<h2 id="_36">概述</h2>
+<p><code>carla::geom::Rotation</code> 用于表示三维空间中的旋转状态，包含俯仰（pitch）、偏航（yaw）、翻滚（roll）三个角度。提供方向向量计算、向量旋转/逆旋转，以及与 UE4 <code>FRotator</code> 的互转。</p>
+<hr />
+<h2 id="_37">公开数据成员</h2>
+<ul>
+<li><strong><font color="#f8805a">pitch</font></strong>：绕 X 轴的旋转角度，默认 0.0f  </li>
+<li><strong><font color="#f8805a">yaw</font></strong>：绕 Y 轴的旋转角度，默认 0.0f  </li>
+<li><strong><font color="#f8805a">roll</font></strong>：绕 Z 轴的旋转角度，默认 0.0f  </li>
+</ul>
+<hr />
+<h2 id="_38">构造函数</h2>
+<h3 id="rotation_1"><strong><font color="#7fb800">Rotation()</font></strong></h3>
+<ul>
+<li><strong>原型</strong>：<code>Rotation() = default;</code>  </li>
+<li><strong>说明</strong>：默认构造，三角度均为 0。  </li>
+<li><strong>示例</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Rotation</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">r0</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">;</span><span class="w"> </span><span class="c1">// pitch=0,yaw=0,roll=0</span>
+</code></pre></div></li>
+</ul>
+<h3 id="rotationfloat-p-float-y-float-r"><strong><font color="#7fb800">Rotation(float p, float y, float r)</font></strong></h3>
+<ul>
+<li><strong>原型</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Rotation</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">r</span><span class="p">);</span>
+</code></pre></div></li>
+<li><strong>参数</strong>  </li>
+<li><strong><font color="#f8805a">p</font></strong>：俯仰角（pitch）  </li>
+<li><strong><font color="#f8805a">y</font></strong>：偏航角（yaw）  </li>
+<li><strong><font color="#f8805a">r</font></strong>：翻滚角（roll）  </li>
+<li><strong>示例</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Rotation</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">r1</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mf">10.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">20.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">30.0f</span><span class="p">);</span>
+</code></pre></div></li>
+</ul>
+<hr />
+<h2 id="_39">方向向量方法</h2>
+<h3 id="getforwardvector_1"><strong><font color="#7fb800">GetForwardVector</font></strong></h3>
+<ul>
+<li><strong>原型</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="nf">GetForwardVector</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div></li>
+<li><strong>说明</strong>：返回物体前方单位向量，计算公式：<br />
+<script type="math/tex; mode=display">\begin{aligned}
+    x &= \cos(\mathrm{yaw})\cos(\mathrm{pitch}),\\
+    y &= \sin(\mathrm{yaw})\cos(\mathrm{pitch}),\\
+    z &= \sin(\mathrm{pitch}).
+  \end{aligned}</script>
+</li>
+<li><strong>示例</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Rotation</span><span class="w"> </span><span class="nf">r</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">90</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+<span class="n">Vector3D</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">fwd</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">GetForwardVector</span><span class="p">();</span><span class="w"> </span><span class="c1">// ≈ (0,1,0)</span>
+</code></pre></div></li>
+</ul>
+<h3 id="getrightvector_1"><strong><font color="#7fb800">GetRightVector</font></strong></h3>
+<ul>
+<li><strong>原型</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="nf">GetRightVector</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div></li>
+<li><strong>说明</strong>：返回物体右侧单位向量，具体计算见 <code>Math::GetRightVector</code>。  </li>
+<li><strong>示例</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">right</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">GetRightVector</span><span class="p">();</span>
+</code></pre></div></li>
+</ul>
+<h3 id="getupvector_1"><strong><font color="#7fb800">GetUpVector</font></strong></h3>
+<ul>
+<li><strong>原型</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="nf">GetUpVector</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div></li>
+<li><strong>说明</strong>：返回物体上方单位向量，具体计算见 <code>Math::GetUpVector</code>。  </li>
+<li><strong>示例</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">up</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">GetUpVector</span><span class="p">();</span>
+</code></pre></div></li>
+</ul>
+<hr />
+<h2 id="_40">向量旋转方法</h2>
+<h3 id="rotatevector"><strong><font color="#7fb800">RotateVector</font></strong></h3>
+<ul>
+<li><strong>原型</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">RotateVector</span><span class="p">(</span><span class="n">Vector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="n">in_point</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="n">Vector3D</span><span class="w"> </span><span class="nf">RotateVector</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Vector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="n">in_point</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div></li>
+<li><strong>说明</strong>：<br />
+  按顺序绕 Z（roll）、X（pitch）、Y（yaw）轴旋转：<br />
+<script type="math/tex; mode=display">\mathbf{v}' = R_{\text{yaw}} R_{\text{roll}} R_{\text{pitch}}\,\mathbf{v}.</script>
+</li>
+<li><strong>示例</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">pt</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+<span class="n">r</span><span class="p">.</span><span class="n">RotateVector</span><span class="p">(</span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">pt</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">);</span><span class="w">           </span><span class="c1">// 原地旋转</span>
+<span class="k">auto</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">pt2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">RotateVector</span><span class="p">(</span><span class="n">pt</span><span class="p">);</span><span class="w"> </span><span class="c1">// 返回旋转后拷贝</span>
+</code></pre></div></li>
+</ul>
+<h3 id="inverserotatevector"><strong><font color="#7fb800">InverseRotateVector</font></strong></h3>
+<ul>
+<li><strong>原型</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">InverseRotateVector</span><span class="p">(</span><span class="n">Vector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="n">in_point</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div></li>
+<li><strong>说明</strong>：按上述顺序的逆矩阵（转置）对向量做逆旋转。  </li>
+<li><strong>示例</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p3</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pt2</span><span class="p">;</span>
+<span class="n">r</span><span class="p">.</span><span class="n">InverseRotateVector</span><span class="p">(</span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p3</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">);</span><span class="w"> </span><span class="c1">// 恢复原向量 (1,0,0)</span>
+</code></pre></div></li>
+</ul>
+<hr />
+<h2 id="_41">比较运算符</h2>
+<h3 id="operator-operator_2"><strong><font color="#7fb800">operator==</font></strong> / <strong><font color="#7fb800">operator!=</font></strong></h3>
+<ul>
+<li><strong>原型</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Rotation</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">!=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Rotation</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div></li>
+<li><strong>说明</strong>：逐分量比较相等或不等。  </li>
+<li><strong>示例</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">same</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">r</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">Rotation</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">));</span>
+</code></pre></div></li>
+</ul>
+<hr />
+<h2 id="ue4-libcarla_included_from_ue4_1">UE4 类型互转（<code>LIBCARLA_INCLUDED_FROM_UE4</code>）</h2>
+<h3 id="rotationconst-frotator-rotator"><strong><font color="#7fb800">Rotation(const FRotator &amp;rotator)</font></strong></h3>
+<ul>
+<li><strong>说明</strong>：从 <code>FRotator</code> 构造。  </li>
+<li><strong>示例</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">FRotator</span><span class="w"> </span><span class="n">fr</span><span class="p">{</span><span class="mi">15</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="mi">35</span><span class="p">};</span>
+<span class="n">Rotation</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">rue</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="n">fr</span><span class="p">);</span>
+</code></pre></div></li>
+</ul>
+<h3 id="operator-frotator"><strong><font color="#7fb800">operator FRotator()</font></strong></h3>
+<ul>
+<li><strong>说明</strong>：转换为 UE4 <code>FRotator</code>。  </li>
+<li><strong>示例</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">FRotator</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">outFR</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">;</span>
+</code></pre></div></li>
+</ul>
+<h1 id="transform"><a href="#Transform">Transform</a></h1>
+<h2 id="_42">概述</h2>
+<p><code>carla::geom::Transform</code> 表示在三维空间中的位置与旋转变换，封装了 <code>Location</code> 和 <code>Rotation</code> 两部分。提供向量变换、点变换、逆变换及 4×4 矩阵生成，并支持与 UE4 <code>FTransform</code> 类型互转。</p>
+<hr />
+<h2 id="_43">公开数据成员</h2>
+<ul>
+<li><strong><font color="#f8805a">location</font></strong>：类型 <code>Location</code>，表示平移分量  </li>
+<li><strong><font color="#f8805a">rotation</font></strong>：类型 <code>Rotation</code>，表示旋转分量  </li>
+</ul>
+<hr />
+<h2 id="_44">构造函数</h2>
+<h3 id="transform_1"><strong><font color="#7fb800">Transform()</font></strong></h3>
+<ul>
+<li><strong>原型</strong>：<code>Transform() = default;</code>  </li>
+<li><strong>说明</strong>：默认构造，<code>location</code> 和 <code>rotation</code> 均为默认值。  </li>
+<li><strong>示例</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Transform</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">t0</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">;</span><span class="w"> </span><span class="c1">// location=(0,0,0)、rotation=(0,0,0)</span>
+</code></pre></div></li>
+</ul>
+<h3 id="transformconst-location-in_location"><strong><font color="#7fb800">Transform(const Location &amp;in_location)</font></strong></h3>
+<ul>
+<li><strong>原型</strong>：<code>Transform(const Location &amp;in_location);</code>  </li>
+<li><strong>说明</strong>：只设置平移，旋转保持默认。  </li>
+<li><strong>示例</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Location</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">loc</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span>
+<span class="n">Transform</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">t1</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">loc</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">);</span><span class="w"> </span><span class="c1">// rotation=(0,0,0)</span>
+</code></pre></div></li>
+</ul>
+<h3 id="transformconst-location-in_location-const-rotation-in_rotation"><strong><font color="#7fb800">Transform(const Location &amp;in_location, const Rotation &amp;in_rotation)</font></strong></h3>
+<ul>
+<li><strong>原型</strong>：<code>Transform(const Location &amp;in_location, const Rotation &amp;in_rotation);</code>  </li>
+<li><strong>说明</strong>：同时设置平移与旋转。  </li>
+<li><strong>示例</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Rotation</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">r</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">);</span>
+<span class="n">Transform</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">t2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">loc</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">,</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">r</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">);</span>
+</code></pre></div></li>
+</ul>
+<hr />
+<h2 id="_45">方向向量方法</h2>
+<h3 id="getforwardvector_2"><strong><font color="#7fb800">GetForwardVector</font></strong></h3>
+<ul>
+<li><strong>原型</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="nf">GetForwardVector</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div></li>
+<li><strong>说明</strong>：基于 <code>rotation</code> 计算单位“前向”向量。  </li>
+<li><strong>示例</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">fwd</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">t2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">.</span><span class="n">GetForwardVector</span><span class="p">();</span>
+</code></pre></div></li>
+</ul>
+<h3 id="getrightvector_2"><strong><font color="#7fb800">GetRightVector</font></strong></h3>
+<ul>
+<li><strong>原型</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="nf">GetRightVector</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div></li>
+<li><strong>说明</strong>：基于 <code>rotation</code> 计算单位“右向”向量。  </li>
+<li><strong>示例</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">right</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">t2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">.</span><span class="n">GetRightVector</span><span class="p">();</span>
+</code></pre></div></li>
+</ul>
+<h3 id="getupvector_2"><strong><font color="#7fb800">GetUpVector</font></strong></h3>
+<ul>
+<li><strong>原型</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="nf">GetUpVector</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div></li>
+<li><strong>说明</strong>：基于 <code>rotation</code> 计算单位“上向”向量.  </li>
+<li><strong>示例</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">up</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">t2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">.</span><span class="n">GetUpVector</span><span class="p">();</span>
+</code></pre></div></li>
+</ul>
+<hr />
+<h2 id="_46">点/向量变换方法</h2>
+<h3 id="transformpoint"><strong><font color="#7fb800">TransformPoint</font></strong></h3>
+<ul>
+<li><strong>原型</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">TransformPoint</span><span class="p">(</span><span class="n">Vector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="n">in_point</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div></li>
+<li><strong>说明</strong>：先绕原点旋转，再平移。  </li>
+<li><strong>示例</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+<span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">t2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">.</span><span class="n">TransformPoint</span><span class="p">(</span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">);</span>
+</code></pre></div></li>
+</ul>
+<h3 id="transformvector"><strong><font color="#7fb800">TransformVector</font></strong></h3>
+<ul>
+<li><strong>原型</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">TransformVector</span><span class="p">(</span><span class="n">Vector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="n">in_vector</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div></li>
+<li><strong>说明</strong>：仅旋转向量，不平移。  </li>
+<li><strong>示例</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">v</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+<span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">t2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">.</span><span class="n">TransformVector</span><span class="p">(</span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">v</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">);</span>
+</code></pre></div></li>
+</ul>
+<h3 id="inversetransformpoint"><strong><font color="#7fb800">InverseTransformPoint</font></strong></h3>
+<ul>
+<li><strong>原型</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">InverseTransformPoint</span><span class="p">(</span><span class="n">Vector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="n">in_point</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div></li>
+<li><strong>说明</strong>：先平移逆变换，再旋转逆变换。  </li>
+<li><strong>示例</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">;</span>
+<span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">t2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">.</span><span class="n">InverseTransformPoint</span><span class="p">(</span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">);</span>
+</code></pre></div></li>
+</ul>
+<hr />
+<h2 id="_47">矩阵生成方法</h2>
+<h3 id="getmatrix"><strong><font color="#7fb800">GetMatrix</font></strong></h3>
+<ul>
+<li><strong>原型</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span><span class="mi">16</span><span class="o">&gt;</span><span class="w"> </span><span class="n">GetMatrix</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div></li>
+<li><strong>说明</strong>：生成变换的 4×4 齐次矩阵，结合旋转与平移：<br />
+<script type="math/tex; mode=display">
+  M = \begin{pmatrix}
+    R & t\\
+    0 & 1
+  \end{pmatrix}
+  </script>
+</li>
+<li><strong>示例</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">m</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">t2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">.</span><span class="n">GetMatrix</span><span class="p">();</span>
+</code></pre></div></li>
+</ul>
+<h3 id="getinversematrix"><strong><font color="#7fb800">GetInverseMatrix</font></strong></h3>
+<ul>
+<li><strong>原型</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span><span class="mi">16</span><span class="o">&gt;</span><span class="w"> </span><span class="n">GetInverseMatrix</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div></li>
+<li><strong>说明</strong>：生成逆变换矩阵 <script type="math/tex">M^{-1}</script>。  </li>
+<li><strong>示例</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">mi</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">t2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">.</span><span class="n">GetInverseMatrix</span><span class="p">();</span>
+</code></pre></div></li>
+</ul>
+<hr />
+<h2 id="_48">比较运算符</h2>
+<h3 id="operator-operator_3"><strong><font color="#7fb800">operator==</font></strong> / <strong><font color="#7fb800">operator!=</font></strong></h3>
+<ul>
+<li><strong>原型</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Transform</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">!=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Transform</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div></li>
+<li><strong>说明</strong>：位置与旋转均相等时才返回 <code>true</code>。  </li>
+<li><strong>示例</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">eq</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">t1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">t2</span><span class="p">);</span>
+</code></pre></div></li>
+</ul>
+<hr />
+<h2 id="ue4-libcarla_included_from_ue4_2">UE4 类型互转（<code>LIBCARLA_INCLUDED_FROM_UE4</code>）</h2>
+<h3 id="transformconst-ftransform-transform"><strong><font color="#7fb800">Transform(const FTransform &amp;transform)</font></strong></h3>
+<ul>
+<li><strong>说明</strong>：从 UE4 <code>FTransform</code> 构造。  </li>
+<li><strong>示例</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">FTransform</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">ut</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">;</span>
+<span class="n">Transform</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">tue</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">ut</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">);</span>
+</code></pre></div></li>
+</ul>
+<h3 id="operator-ftransform"><strong><font color="#7fb800">operator FTransform()</font></strong></h3>
+<ul>
+<li><strong>说明</strong>：转换为 UE4 <code>FTransform</code>。  </li>
+<li><strong>示例</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">FTransform</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">ut2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t2</span><span class="p">;</span>
+</code></pre></div></li>
+</ul>
+<h1 id="cubicpolynomial"><a href="#CubicPolynomial">CubicPolynomial</a></h1>
+<h2 id="_49">概述</h2>
+<p><code>carla::geom::CubicPolynomial</code> 用于描述和操作三次多项式<br />
+<script type="math/tex; mode=display">f(x)=a + b\,x + c\,x^2 + d\,x^3</script>
+<br />
+支持偏移量修正、求值、求切线、以及多项式加法和数乘。</p>
+<hr />
+<h2 id="_50">构造函数</h2>
+<h3 id="cubicpolynomial_1"><strong><font color="#7fb800">CubicPolynomial()</font></strong></h3>
+<ul>
+<li><strong>原型</strong>：<code>CubicPolynomial() = default;</code>  </li>
+<li><strong>说明</strong>：默认构造，所有系数和偏移量初始化为 0。  </li>
+<li><strong>示例</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">CubicPolynomial</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p0</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">;</span><span class="w"> </span><span class="c1">// a=b=c=d=s=0</span>
+</code></pre></div></li>
+</ul>
+<h3 id="cubicpolynomialconst-value_type-a-const-value_type-b-const-value_type-c-const-value_type-d"><strong><font color="#7fb800">CubicPolynomial(const value_type &amp;a, const value_type &amp;b, const value_type &amp;c, const value_type &amp;d)</font></strong></h3>
+<ul>
+<li><strong>原型</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">CubicPolynomial</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">value_type</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span>
+<span class="w">                </span><span class="k">const</span><span class="w"> </span><span class="n">value_type</span><span class="w"> </span><span class="o">&amp;</span><span class="n">b</span><span class="p">,</span>
+<span class="w">                </span><span class="k">const</span><span class="w"> </span><span class="n">value_type</span><span class="w"> </span><span class="o">&amp;</span><span class="n">c</span><span class="p">,</span>
+<span class="w">                </span><span class="k">const</span><span class="w"> </span><span class="n">value_type</span><span class="w"> </span><span class="o">&amp;</span><span class="n">d</span><span class="p">);</span>
+</code></pre></div></li>
+<li><strong>说明</strong>：按系数 $(a,b,c,d)$ 构造，无偏移量。  </li>
+<li><strong>示例</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">CubicPolynomial</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p1</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0</span><span class="p">,</span><span class="w"> </span><span class="mf">3.0</span><span class="p">,</span><span class="w"> </span><span class="mf">4.0</span><span class="p">);</span>
+</code></pre></div></li>
+</ul>
+<h3 id="cubicpolynomialconst-value_type-a-const-value_type-b-const-value_type-c-const-value_type-d-const-value_type-s"><strong><font color="#7fb800">CubicPolynomial(const value_type &amp;a, const value_type &amp;b, const value_type &amp;c, const value_type &amp;d, const value_type &amp;s)</font></strong></h3>
+<ul>
+<li><strong>原型</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">CubicPolynomial</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">value_type</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span>
+<span class="w">                </span><span class="k">const</span><span class="w"> </span><span class="n">value_type</span><span class="w"> </span><span class="o">&amp;</span><span class="n">b</span><span class="p">,</span>
+<span class="w">                </span><span class="k">const</span><span class="w"> </span><span class="n">value_type</span><span class="w"> </span><span class="o">&amp;</span><span class="n">c</span><span class="p">,</span>
+<span class="w">                </span><span class="k">const</span><span class="w"> </span><span class="n">value_type</span><span class="w"> </span><span class="o">&amp;</span><span class="n">d</span><span class="p">,</span>
+<span class="w">                </span><span class="k">const</span><span class="w"> </span><span class="n">value_type</span><span class="w"> </span><span class="o">&amp;</span><span class="n">s</span><span class="p">);</span>
+</code></pre></div></li>
+<li><strong>说明</strong>：按系数与偏移量 $s$ 构造，实际存储系数已做偏移校正：<br />
+<script type="math/tex; mode=display">\tilde a = a - b s + c s^2 - d s^3,\quad \tilde b = b -2c s +3d s^2,\quad \tilde c = c-3d s,\quad \tilde d = d</script>
+</li>
+<li><strong>示例</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">CubicPolynomial</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mf">0.5</span><span class="p">);</span>
+</code></pre></div></li>
+</ul>
+<hr />
+<h2 id="_51">访问与修改</h2>
+<h3 id="getabcd"><strong><font color="#7fb800">GetA/B/C/D</font></strong></h3>
+<ul>
+<li><strong>原型</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">value_type</span><span class="w"> </span><span class="nf">GetA</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="n">value_type</span><span class="w"> </span><span class="nf">GetB</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="n">value_type</span><span class="w"> </span><span class="nf">GetC</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="n">value_type</span><span class="w"> </span><span class="nf">GetD</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div></li>
+<li><strong>说明</strong>：分别返回当前存储的系数 $\tilde a,\tilde b,\tilde c,\tilde d$。  </li>
+<li><strong>示例</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">a</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p2</span><span class="p">.</span><span class="n">GetA</span><span class="p">();</span>
+</code></pre></div></li>
+</ul>
+<h3 id="gets"><strong><font color="#7fb800">GetS</font></strong></h3>
+<ul>
+<li><strong>原型</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">value_type</span><span class="w"> </span><span class="nf">GetS</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div></li>
+<li><strong>说明</strong>：返回偏移量 $s$。  </li>
+<li><strong>示例</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">s</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p2</span><span class="p">.</span><span class="n">GetS</span><span class="p">();</span><span class="w"> </span><span class="c1">// 0.5</span>
+</code></pre></div></li>
+</ul>
+<h3 id="setabcds"><strong><font color="#7fb800">Set(a,b,c,d[,s])</font></strong></h3>
+<ul>
+<li><strong>原型</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">Set</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">value_type</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span>
+<span class="w">         </span><span class="k">const</span><span class="w"> </span><span class="n">value_type</span><span class="w"> </span><span class="o">&amp;</span><span class="n">b</span><span class="p">,</span>
+<span class="w">         </span><span class="k">const</span><span class="w"> </span><span class="n">value_type</span><span class="w"> </span><span class="o">&amp;</span><span class="n">c</span><span class="p">,</span>
+<span class="w">         </span><span class="k">const</span><span class="w"> </span><span class="n">value_type</span><span class="w"> </span><span class="o">&amp;</span><span class="n">d</span><span class="p">);</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">Set</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">value_type</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span>
+<span class="w">         </span><span class="k">const</span><span class="w"> </span><span class="n">value_type</span><span class="w"> </span><span class="o">&amp;</span><span class="n">b</span><span class="p">,</span>
+<span class="w">         </span><span class="k">const</span><span class="w"> </span><span class="n">value_type</span><span class="w"> </span><span class="o">&amp;</span><span class="n">c</span><span class="p">,</span>
+<span class="w">         </span><span class="k">const</span><span class="w"> </span><span class="n">value_type</span><span class="w"> </span><span class="o">&amp;</span><span class="n">d</span><span class="p">,</span>
+<span class="w">         </span><span class="k">const</span><span class="w"> </span><span class="n">value_type</span><span class="w"> </span><span class="o">&amp;</span><span class="n">s</span><span class="p">);</span>
+</code></pre></div></li>
+<li><strong>说明</strong>：重置系数（和可选偏移量），与构造逻辑一致。  </li>
+<li><strong>示例</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">p2</span><span class="p">.</span><span class="n">Set</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span><span class="w">      </span><span class="c1">// f(x)=x</span>
+<span class="n">p2</span><span class="p">.</span><span class="n">Set</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mf">0.2</span><span class="p">);</span><span class="w"> </span><span class="c1">// 带偏移修正</span>
+</code></pre></div></li>
+</ul>
+<hr />
+<h2 id="_52">多项式运算</h2>
+<h3 id="evaluate"><strong><font color="#7fb800">Evaluate</font></strong></h3>
+<ul>
+<li><strong>原型</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">value_type</span><span class="w"> </span><span class="nf">Evaluate</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">value_type</span><span class="w"> </span><span class="o">&amp;</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div></li>
+<li><strong>说明</strong>：计算 <script type="math/tex; mode=display">f(x)=\tilde a + \tilde b\,x + \tilde c\,x^2 + \tilde d\,x^3</script>
+</li>
+<li><strong>示例</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">y</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p1</span><span class="p">.</span><span class="n">Evaluate</span><span class="p">(</span><span class="mf">2.0</span><span class="p">);</span><span class="w"> </span><span class="c1">// 1+2*2+3*4+4*8</span>
+</code></pre></div></li>
+</ul>
+<h3 id="tangent"><strong><font color="#7fb800">Tangent</font></strong></h3>
+<ul>
+<li><strong>原型</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">value_type</span><span class="w"> </span><span class="nf">Tangent</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">value_type</span><span class="w"> </span><span class="o">&amp;</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div></li>
+<li><strong>说明</strong>：计算导数 <script type="math/tex; mode=display">f'(x)=\tilde b + 2\tilde c\,x + 3\tilde d\,x^2</script>。  </li>
+<li><strong>示例</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">m</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p1</span><span class="p">.</span><span class="n">Tangent</span><span class="p">(</span><span class="mf">2.0</span><span class="p">);</span><span class="w"> </span><span class="c1">// 2 + 2*3*2 + 3*4*4</span>
+</code></pre></div></li>
+</ul>
+<hr />
+<h2 id="_53">复合运算符</h2>
+<h3 id="operator_2"><strong><font color="#7fb800">operator+=</font></strong></h3>
+<ul>
+<li><strong>原型</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">CubicPolynomial</span><span class="w"> </span><span class="o">&amp;</span><span class="k">operator</span><span class="o">+=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">CubicPolynomial</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">);</span>
+</code></pre></div></li>
+<li><strong>说明</strong>：系数逐项相加。  </li>
+<li><strong>示例</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">p1</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">p2</span><span class="p">;</span>
+</code></pre></div></li>
+</ul>
+<h3 id="operator_3"><strong><font color="#7fb800">operator+</font></strong></h3>
+<ul>
+<li><strong>原型</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="k">friend</span><span class="w"> </span><span class="n">CubicPolynomial</span><span class="w"> </span><span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">CubicPolynomial</span><span class="w"> </span><span class="n">lhs</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">CubicPolynomial</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">);</span>
+</code></pre></div></li>
+<li><strong>说明</strong>：返回相加结果。  </li>
+<li><strong>示例</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">sum</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">p2</span><span class="p">;</span>
+</code></pre></div></li>
+</ul>
+<h3 id="operator_4"><strong><font color="#7fb800">operator*=</font></strong></h3>
+<ul>
+<li><strong>原型</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">CubicPolynomial</span><span class="w"> </span><span class="o">&amp;</span><span class="k">operator</span><span class="o">*=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">value_type</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">);</span>
+</code></pre></div></li>
+<li><strong>说明</strong>：系数逐项乘以标量。  </li>
+<li><strong>示例</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="n">p1</span><span class="w"> </span><span class="o">*=</span><span class="w"> </span><span class="mf">2.0</span><span class="p">;</span>
+</code></pre></div></li>
+</ul>
+<h3 id="operator_5"><strong><font color="#7fb800">operator*</font></strong></h3>
+<ul>
+<li><strong>原型</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="k">friend</span><span class="w"> </span><span class="n">CubicPolynomial</span><span class="w"> </span><span class="k">operator</span><span class="o">*</span><span class="p">(</span><span class="n">CubicPolynomial</span><span class="w"> </span><span class="n">lhs</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">value_type</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">);</span>
+<span class="k">friend</span><span class="w"> </span><span class="n">CubicPolynomial</span><span class="w"> </span><span class="k">operator</span><span class="o">*</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">value_type</span><span class="w"> </span><span class="o">&amp;</span><span class="n">lhs</span><span class="p">,</span><span class="w"> </span><span class="n">CubicPolynomial</span><span class="w"> </span><span class="n">rhs</span><span class="p">);</span>
+</code></pre></div></li>
+<li><strong>说明</strong>：返回乘标量结果，支持标量在左或右。  </li>
+<li><strong>示例</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">scaled</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">p1</span><span class="p">;</span>
+</code></pre></div></li>
+</ul>
+<hr />
+<h1 id="boundingbox"><a href="#BoundingBox">BoundingBox</a></h1>
+<h2 id="_54">概述</h2>
+<p><code>carla::geom::BoundingBox</code> 表示三维空间中的轴对齐或旋转后的边界盒，包含中心位置、半尺寸（extent）和旋转信息。提供判断点包含、获取局部/世界顶点数组，以及与 UE4 类型互转。</p>
+<hr />
+<h2 id="_55">构造函数</h2>
+<h3 id="boundingbox_1"><strong><font color="#7fb800">BoundingBox()</font></strong></h3>
+<ul>
+<li><strong>原型</strong>：<code>BoundingBox() = default;</code>  </li>
+<li><strong>说明</strong>：默认构造，<code>location=(0,0,0)</code>，<code>extent=(0,0,0)</code>，<code>rotation=(0,0,0)</code>。  </li>
+<li>
+<p><strong>示例</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="n">BoundingBox</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">bb0</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">;</span><span class="w"> </span><span class="c1">// 默认空盒</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>带参构造</strong>：  </p>
+</li>
+</ul>
+<p><div class="highlight"><pre><span></span><code><span class="k">explicit</span><span class="w"> </span><span class="n">BoundingBox</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Location</span><span class="w"> </span><span class="o">&amp;</span><span class="n">in_location</span><span class="p">,</span>
+<span class="w">                     </span><span class="k">const</span><span class="w"> </span><span class="n">Vector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="n">in_extent</span><span class="p">,</span>
+<span class="w">                     </span><span class="k">const</span><span class="w"> </span><span class="n">Rotation</span><span class="w"> </span><span class="o">&amp;</span><span class="n">in_rotation</span><span class="p">);</span>
+</code></pre></div>
+- <strong>说明</strong>：指定中心、半尺寸和旋转。<br />
+- <strong>示例</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Location</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">loc</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span>
+<span class="n">Vector3D</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">ext</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mf">0.5f</span><span class="p">,</span><span class="mf">0.5f</span><span class="p">,</span><span class="mf">1.0f</span><span class="p">);</span>
+<span class="n">Rotation</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">rot</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">45</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+<span class="n">BoundingBox</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">bb1</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">loc</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">,</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">ext</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">,</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">rot</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">);</span>
+</code></pre></div></p>
+<ul>
+<li><strong>带参构造</strong>：  </li>
+</ul>
+<p><div class="highlight"><pre><span></span><code><span class="k">explicit</span><span class="w"> </span><span class="n">BoundingBox</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Location</span><span class="w"> </span><span class="o">&amp;</span><span class="n">in_location</span><span class="p">,</span>
+<span class="w">                     </span><span class="k">const</span><span class="w"> </span><span class="n">Vector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="n">in_extent</span><span class="p">);</span>
+</code></pre></div>
+- <strong>说明</strong>：指定中心和半尺寸，旋转为默认 <code>(0,0,0)</code>。<br />
+- <strong>示例</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="n">BoundingBox</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">bb2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">loc</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">,</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">ext</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">);</span>
+</code></pre></div></p>
+<ul>
+<li><strong>带参构造</strong>：  </li>
+</ul>
+<p><div class="highlight"><pre><span></span><code><span class="k">explicit</span><span class="w"> </span><span class="n">BoundingBox</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Vector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="n">in_extent</span><span class="p">);</span>
+</code></pre></div>
+- <strong>说明</strong>：指定半尺寸，中心和旋转使用默认值。<br />
+- <strong>示例</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="n">BoundingBox</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">bb3</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">ext</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">);</span>
+</code></pre></div></p>
+<hr />
+<h2 id="_56">核心方法</h2>
+<h3 id="contains"><strong><font color="#7fb800">Contains</font></strong></h3>
+<ul>
+<li><strong>原型</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="nf">Contains</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Location</span><span class="w"> </span><span class="o">&amp;</span><span class="n">in_world_point</span><span class="p">,</span>
+<span class="w">              </span><span class="k">const</span><span class="w"> </span><span class="n">Transform</span><span class="w"> </span><span class="o">&amp;</span><span class="n">in_bbox_to_world_transform</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div></li>
+<li><strong>说明</strong>：判断世界空间点是否在边界盒内。  </li>
+<li>使用 <code>inverseTransform</code> 将世界点变换到盒子局部空间；  </li>
+<li>相对于 <strong><font color="#f8805a">location</font></strong> 归一化；  </li>
+<li>判断坐标是否在 ±<strong><font color="#f8805a">extent</font></strong> 范围内。  </li>
+<li><strong>示例</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="n">Location</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">pt</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mf">1.1f</span><span class="p">,</span><span class="mf">2.0f</span><span class="p">,</span><span class="mf">3.0f</span><span class="p">);</span>
+<span class="n">Transform</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">tr</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(...);</span>
+<span class="kt">bool</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">inside</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bb1</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">pt</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">,</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">tr</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">);</span>
+</code></pre></div></li>
+</ul>
+<h3 id="getlocalvertices"><strong><font color="#7fb800">GetLocalVertices</font></strong></h3>
+<ul>
+<li><strong>原型</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">Location</span><span class="p">,</span><span class="mi">8</span><span class="o">&gt;</span><span class="w"> </span><span class="n">GetLocalVertices</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div></li>
+<li><strong>说明</strong>：返回考虑旋转后的 8 个顶点在局部空间的位置：<br />
+<script type="math/tex; mode=display">\displaystyle \text{vertex}_i = \text{location} + \text{rotation.RotateVector}(\pm extent.x,\pm extent.y,\pm extent.z).</script>
+</li>
+<li><strong>示例</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">verts</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bb1</span><span class="p">.</span><span class="n">GetLocalVertices</span><span class="p">();</span>
+</code></pre></div></li>
+</ul>
+<h3 id="getlocalverticesnorotation"><strong><font color="#7fb800">GetLocalVerticesNoRotation</font></strong></h3>
+<ul>
+<li><strong>原型</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">Location</span><span class="p">,</span><span class="mi">8</span><span class="o">&gt;</span><span class="w"> </span><span class="n">GetLocalVerticesNoRotation</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div></li>
+<li><strong>说明</strong>：返回不考虑旋转，仅基于 <strong><font color="#f8805a">location</font></strong> 与 <strong><font color="#f8805a">extent</font></strong> 的 8 个顶点。  </li>
+<li><strong>示例</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">vertsNR</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bb1</span><span class="p">.</span><span class="n">GetLocalVerticesNoRotation</span><span class="p">();</span>
+</code></pre></div></li>
+</ul>
+<h3 id="getworldvertices"><strong><font color="#7fb800">GetWorldVertices</font></strong></h3>
+<ul>
+<li><strong>原型</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">Location</span><span class="p">,</span><span class="mi">8</span><span class="o">&gt;</span><span class="w"> </span><span class="n">GetWorldVertices</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Transform</span><span class="w"> </span><span class="o">&amp;</span><span class="n">in_bbox_to_world_tr</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div></li>
+<li><strong>说明</strong>：先调用 <strong><font color="#7fb800">GetLocalVertices</font></strong>，再对每个顶点应用 <code>TransformPoint</code>，得到世界坐标顶点数组。  </li>
+<li><strong>示例</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">worldVerts</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bb1</span><span class="p">.</span><span class="n">GetWorldVertices</span><span class="p">(</span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">tr</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">);</span>
+</code></pre></div></li>
+</ul>
+<hr />
+<h2 id="_57">比较运算符</h2>
+<h3 id="operator-operator_4"><strong><font color="#7fb800">operator==</font></strong> / <strong><font color="#7fb800">operator!=</font></strong></h3>
+<ul>
+<li><strong>原型</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">BoundingBox</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">!=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">BoundingBox</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div></li>
+<li><strong>说明</strong>：当且仅当 <strong><font color="#f8805a">location</font></strong>, <strong><font color="#f8805a">extent</font></strong>, <strong><font color="#f8805a">rotation</font></strong> 全部相等时才判定相等。  </li>
+<li><strong>示例</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">eq</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">bb1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">bb2</span><span class="p">);</span>
+</code></pre></div></li>
+</ul>
+<hr />
+<h2 id="ue4-libcarla_included_from_ue4_3">UE4 类型互转（<code>LIBCARLA_INCLUDED_FROM_UE4</code>）</h2>
+<h3 id="boundingboxconst-fboundingbox-box"><strong><font color="#7fb800">BoundingBox(const FBoundingBox &amp;Box)</font></strong></h3>
+<ul>
+<li><strong>说明</strong>：将 UE4 <code>FBoundingBox</code> 转换为本地类型，单位从厘米转米：<br />
+<script type="math/tex; mode=display">\text{location}=Box.Origin,\quad \text{extent}=(Box.Extent/100).</script>
+</li>
+<li><strong>示例</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="n">FBoundingBox</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">ubox</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">;</span>
+<span class="n">BoundingBox</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">bbU</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">ubox</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">);</span>
+</code></pre></div></li>
+</ul>
+<hr />
+<h1 id="geolocation"><a href="#GeoLocation">GeoLocation</a></h1>
+<h2 id="_58">概述</h2>
+<p><code>carla::geom::GeoLocation</code> 用于在真实地理坐标系（WGS84，经纬度+海拔）与仿真局部坐标系<code>carla::geom::Location</code>（CARLA 自定义坐标）之间进行转换。当 CARLA 场景与 <strong>OpenDRIVE 地图</strong>或<strong>真实地理数据（如地图对齐或高精地图）</strong>结合时，<code>GeoLocation</code> 能实现：设定仿真地图的锚点（anchor）；映射仿真场景中物体的位置到全球坐标；实现与外部设备或真实车辆的数据融合（如 GPS 传感器仿真）。</p>
+<hr />
+<table>
+<thead>
+<tr>
+<th>使用情景</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>GPS 传感器仿真</strong></td>
+<td>通过 <code>GeoLocation</code>，GPS 传感器组件可以返回真实世界的纬度、经度、海拔值。</td>
+</tr>
+<tr>
+<td><strong>地理信息对齐</strong></td>
+<td>将 CARLA 场景对齐到某一个真实地图（例如：以某个真实位置为原点）。</td>
+</tr>
+<tr>
+<td><strong>与高精地图接口</strong></td>
+<td>将车辆位置转换为 HD-Map 参考坐标，支持自动驾驶算法中的路径规划与定位模块。</td>
+</tr>
+<tr>
+<td><strong>坐标系统转换</strong></td>
+<td>与外部系统（如 ROS、Apollo、Autoware）通信时，经常需要将局部坐标转换为 WGS84。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_59">公共数据成员</h2>
+<ul>
+<li><strong><font color="#f8805a">latitude</font></strong> (double)：纬度，单位度 (°)，初始值 <code>0.0</code>  </li>
+<li><strong><font color="#f8805a">longitude</font></strong> (double)：经度，单位度 (°)，初始值 <code>0.0</code>  </li>
+<li><strong><font color="#f8805a">altitude</font></strong> (double)：海拔，单位米 (m)，初始值 <code>0.0</code>  </li>
+</ul>
+<hr />
+<h2 id="_60">构造函数</h2>
+<h3 id="geolocation_1"><strong><font color="#7fb800">GeoLocation()</font></strong></h3>
+<ul>
+<li><strong>原型</strong>：<code>GeoLocation() = default;</code>  </li>
+<li><strong>说明</strong>：使用默认值构造。  </li>
+<li><strong>示例</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="n">GeoLocation</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">g0</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">;</span><span class="w"> </span><span class="c1">// (0,0,0)</span>
+</code></pre></div></li>
+</ul>
+<h3 id="geolocationdouble-latitude-double-longitude-double-altitude"><strong><font color="#7fb800">GeoLocation(double latitude, double longitude, double altitude)</font></strong></h3>
+<ul>
+<li><strong>原型</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="n">GeoLocation</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">latitude</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">longitude</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">altitude</span><span class="p">);</span>
+</code></pre></div></li>
+<li><strong>说明</strong>：按指定经纬度及海拔初始化。  </li>
+<li><strong>示例</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="n">GeoLocation</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">g1</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mf">37.7749</span><span class="p">,</span><span class="w"> </span><span class="mf">-122.4194</span><span class="p">,</span><span class="w"> </span><span class="mf">30.0</span><span class="p">);</span>
+</code></pre></div></li>
+</ul>
+<hr />
+<h2 id="_61">核心方法</h2>
+<h3 id="transform_2"><strong><font color="#7fb800">Transform</font></strong></h3>
+<ul>
+<li><strong>原型</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="n">GeoLocation</span><span class="w"> </span><span class="nf">Transform</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Location</span><span class="w"> </span><span class="o">&amp;</span><span class="n">location</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div></li>
+<li><strong>说明</strong>：  </li>
+<li>将当前经纬度和平面位移（<strong><font color="#f8805a">location.x</font></strong>, <strong><font color="#f8805a">location.y</font></strong>）转换为新的经纬度；  </li>
+<li><strong><font color="#f8805a">altitude</font></strong> 累加 <strong><font color="#f8805a">location.z</font></strong>。  </li>
+<li><strong>示例</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="n">GeoLocation</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">geo</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">100.0</span><span class="p">);</span>
+<span class="n">Location</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">loc</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mf">10.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">20.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">5.0f</span><span class="p">);</span>
+<span class="n">GeoLocation</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">res</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">geo</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">.</span><span class="n">Transform</span><span class="p">(</span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">loc</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">);</span>
+<span class="c1">// 计算后 res.latitude, res.longitude 变化，res.altitude == 105.0</span>
+</code></pre></div></li>
+</ul>
+<p><strong>转换原理</strong><br />
+- 利用墨卡托投影将 <code>(latitude, longitude)</code> 映射为 <code>(mx, my)</code>；<br />
+- 在投影平面上加上 <code>dx = location.x</code>、<code>dy = -location.y</code>（北向为正）；<br />
+- 反变换回经纬度；<br />
+- 海拔相加。</p>
+<hr />
+<h2 id="_62">静态辅助函数</h2>
+<ul>
+<li><strong><font color="#7fb800">LatToScale</font></strong><br />
+  <div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">LatToScale</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">lat</span><span class="p">);</span>
+</code></pre></div></li>
+<li>
+<p>说明：比例因子 $=\cos(\mathrm{toRadians}(lat))$。  </p>
+</li>
+<li>
+<p><strong><font color="#7fb800">LatLonToMercator</font></strong> <em>(模板)</em><br />
+  <div class="highlight"><pre><span></span><code><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">LatLonToMercator</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">lat</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">lon</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">scale</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&amp;</span><span class="n">mx</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&amp;</span><span class="n">my</span><span class="p">);</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>说明：<br />
+<script type="math/tex; mode=display">mx = scale \times R \times \mathrm{toRadians}(lon),</script>
+<br />
+<script type="math/tex; mode=display">my = scale \times R \times \ln\!\tan\Bigl(\tfrac{90+lat}{360}\pi\Bigr).</script>
+</p>
+</li>
+<li>
+<p><strong><font color="#7fb800">MercatorToLatLon</font></strong><br />
+  <div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">MercatorToLatLon</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">mx</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">my</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">scale</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">lat</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">lon</span><span class="p">);</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>说明：<br />
+<script type="math/tex; mode=display">lon = mx\tfrac{180}{\pi R\,scale},\quad
+      lat = 360\arctan\exp\bigl(\tfrac{my}{R\,scale}\bigr)/\pi -90.</script>
+</p>
+</li>
+<li>
+<p><strong><font color="#7fb800">LatLonAddMeters</font></strong><br />
+  <div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">LatLonAddMeters</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">lat_start</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">lon_start</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">dx</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">dy</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">lat_end</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">lon_end</span><span class="p">);</span>
+</code></pre></div></p>
+</li>
+<li>说明：在起始经纬度处，沿东(dx)/北(dy)方向（米）偏移后计算新的经纬度。</li>
+</ul>
+<hr />
+<h2 id="_63">比较运算符</h2>
+<h3 id="operator-operator_5"><strong><font color="#7fb800">operator==</font></strong> / <strong><font color="#7fb800">operator!=</font></strong></h3>
+<ul>
+<li><strong>原型</strong>：<br />
+  <div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">GeoLocation</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">!=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">GeoLocation</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div></li>
+<li><strong>说明</strong>：当且仅当经度、纬度、海拔全相等时返回 <code>true</code>。  </li>
+<li><strong>示例</strong>:<br />
+  <div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">same</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">g1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">GeoLocation</span><span class="p">(</span><span class="mf">37.7749</span><span class="p">,</span><span class="mf">-122.4194</span><span class="p">,</span><span class="mf">30.0</span><span class="p">));</span>
+</code></pre></div></li>
+</ul>
+<hr />
+<h2 id="_64">序列化</h2>
+<ul>
+<li>使用 <code>MSGPACK_DEFINE_ARRAY(latitude, longitude, altitude)</code> 支持 MsgPack 序列化/反序列化。</li>
+</ul>
               
             </div>
           </div><footer>
