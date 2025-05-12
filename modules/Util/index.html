@@ -113,6 +113,98 @@
     B7 --&gt; B8[RayTracer: 执行射线检测]
     B8 --&gt; B9[FCarlaServer: 聚合 &amp; RPC 序列化]
   end</code></pre>
+<h3 id="13-util">1.3 Util模块关键类表</h3>
+<table>
+<thead>
+<tr>
+<th>子模块</th>
+<th>功能简介</th>
+<th>源码位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ActorAttacher</td>
+<td>将任意 <code>USceneComponent</code>（相机、传感器等）动态附加到 <code>AActor</code> 上</td>
+<td><code>Util/ActorAttacher.h</code><br><code>Util/ActorAttacher.cpp</code></td>
+</tr>
+<tr>
+<td>EmptyActor</td>
+<td>提供一个空的 <code>AActor</code> 占位类，用于测试或性能基准</td>
+<td><code>Util/EmptyActor.h</code><br><code>Util/EmptyActor.cpp</code></td>
+</tr>
+<tr>
+<td>NoWorldOffsetSceneComponent</td>
+<td>定义不随世界坐标偏移的场景组件，用于 UI 或调试可视化</td>
+<td><code>Util/NoWorldOffsetSceneComponent.h</code><br><code>Util/NoWorldOffsetSceneComponent.cpp</code></td>
+</tr>
+<tr>
+<td>ActorWithRandomEngine &amp; RandomEngine</td>
+<td>封装 C++ 标准随机数引擎，支持可复现随机行为</td>
+<td><code>Util/ActorWithRandomEngine.h</code><br><code>Util/ActorWithRandomEngine.cpp</code><br><code>Util/RandomEngine.h</code><br><code>Util/RandomEngine.cpp</code></td>
+</tr>
+<tr>
+<td>ScopedStack</td>
+<td>基于 RAII 的作用域栈管理工具，可跟踪嵌套调用或状态</td>
+<td><code>Util/ScopedStack.h</code></td>
+</tr>
+<tr>
+<td>BoundingBox &amp; BoundingBoxCalculator</td>
+<td>定义 <code>FBoundingBox</code> 结构，并提供包围盒到世界/屏幕坐标的转换计算</td>
+<td><code>Util/BoundingBox.h</code><br><code>Util/BoundingBox.cpp</code><br><code>Util/BoundingBoxCalculator.h</code><br><code>Util/BoundingBoxCalculator.cpp</code></td>
+</tr>
+<tr>
+<td>DebugShapeDrawer</td>
+<td>在场景中绘制线框、点、面等调试几何体</td>
+<td><code>Util/DebugShapeDrawer.h</code><br><code>Util/DebugShapeDrawer.cpp</code></td>
+</tr>
+<tr>
+<td>ProceduralCustomMesh</td>
+<td>运行时生成或修改 <code>UProceduralMeshComponent</code> 的自定义网格</td>
+<td><code>Util/ProceduralCustomMesh.h</code></td>
+</tr>
+<tr>
+<td>RayTracer</td>
+<td>封装射线检测接口，用于碰撞检测和视线跟踪</td>
+<td><code>Util/RayTracer.h</code><br><code>Util/RayTracer.cpp</code></td>
+</tr>
+<tr>
+<td>NavigationMesh</td>
+<td>与 Unreal 导航网格系统交互，支持路径查询</td>
+<td><code>Util/NavigationMesh.h</code><br><code>Util/NavigationMesh.cpp</code></td>
+</tr>
+<tr>
+<td>RoadPainterWrapper</td>
+<td>动态调用 Unreal 道路绘制接口，在关卡中绘制道路或车道线</td>
+<td><code>Util/RoadPainterWrapper.h</code><br><code>Util/RoadPainterWrapper.cpp</code></td>
+</tr>
+<tr>
+<td>EnvironmentObject</td>
+<td>封装地图中静态物体（建筑、路牌、信号灯等）的通用接口</td>
+<td><code>Util/EnvironmentObject.h</code></td>
+</tr>
+<tr>
+<td>IniFile</td>
+<td>读取/写入 Unreal 风格的 <code>.ini</code> 配置文件</td>
+<td><code>Util/IniFile.h</code></td>
+</tr>
+<tr>
+<td>ObjectRegister</td>
+<td>全局对象注册器，管理插件内部可被索引的对象</td>
+<td><code>Util/ObjectRegister.h</code><br><code>Util/ObjectRegister.cpp</code></td>
+</tr>
+<tr>
+<td>NonCopyable</td>
+<td>禁止拷贝、仅允许移动的基类模板，用于防止资源误拷贝</td>
+<td><code>Util/NonCopyable.h</code></td>
+</tr>
+<tr>
+<td>ListView</td>
+<td>封装 Unreal Slate/UMG 列表视图控件的常用操作</td>
+<td><code>Util/ListView.h</code></td>
+</tr>
+</tbody>
+</table>
 <h2 id="2-util">2. Util核心功能类</h2>
 <h3 id="21-uactorattacheractor">2.1 UActorAttacher：Actor 附加器</h3>
 <h4 id="211">2.1.1 概要</h4>
@@ -238,6 +330,144 @@
 <span class="c1">// 创建一个继承自 AActorWithRandomEngine 的自定义 Actor</span>
 </code></pre></div>
 - 说明：此示例展示了如何在自定义的 <code>AMyRandomActor</code> 中复用 <code>AActorWithRandomEngine</code> 提供的随机引擎功能，并在游戏开始时生成一个 0–100 范围内的随机整数并输出日志。</p>
+<h2 id="23-boundingbox">2.3 BoundingBox相关类</h2>
+<h3 id="231-fboundingbox">2.3.1 FBoundingBox：边界框结构</h3>
+<h4 id="_1">概要</h4>
+<p><code>FBoundingBox</code>是一个BlueprintType的USTRUCT，用于在C++与BluePrint间传递和操作三维边界框信息。CARLA 中所有 Actor（车辆、行人、交通标志、静态网格等）均可通过该结构表示其局部边界框，方便后续在世界或摄像机坐标下进行投影、碰撞检测或可视化渲染。</p>
+<h4 id="_2">成员详解</h4>
+<p><div class="highlight"><pre><span></span><code><span class="n">USTRUCT</span><span class="p">(</span><span class="n">BlueprintType</span><span class="p">)</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">CARLA_API</span><span class="w"> </span><span class="n">FBoundingBox</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">GENERATED_BODY</span><span class="p">()</span>
+
+<span class="w">  </span><span class="c1">/// 边界框相对于其所有者的原点</span>
+<span class="w">  </span><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">EditAnywhere</span><span class="p">,</span><span class="w"> </span><span class="n">BlueprintReadWrite</span><span class="p">)</span>
+<span class="w">  </span><span class="n">FVector</span><span class="w"> </span><span class="n">Origin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mf">0.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">};</span>
+
+<span class="w">  </span><span class="c1">/// 边界框的半径范围（沿 X/Y/Z 方向的一半长度）</span>
+<span class="w">  </span><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">EditAnywhere</span><span class="p">,</span><span class="w"> </span><span class="n">BlueprintReadWrite</span><span class="p">)</span>
+<span class="w">  </span><span class="n">FVector</span><span class="w"> </span><span class="n">Extent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mf">0.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">};</span>
+
+<span class="w">  </span><span class="c1">/// 边界框的旋转（相对于父 Actor 的局部旋转）</span>
+<span class="w">  </span><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">EditAnywhere</span><span class="p">,</span><span class="w"> </span><span class="n">BlueprintReadWrite</span><span class="p">)</span>
+<span class="w">  </span><span class="n">FRotator</span><span class="w"> </span><span class="n">Rotation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mf">0.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">};</span>
+<span class="p">};</span>
+</code></pre></div>
+- Origin：包围盒中心点在父 Actor 局部坐标系下的位置；
+- Extent：包围盒在三个轴上的半尺寸，用于计算 Min/Max 边界；
+- Rotation：包围盒相对于父 Actor 局部坐标系的欧拉旋转。该设计借鉴自 Unreal 引擎中 UBoxComponent 的中心/Extent/Rotation 表示。</p>
+<h3 id="232-uboundingboxcalculator">2.3.2 UBoundingBoxCalculator：边界框计算器</h3>
+<h4 id="_3">概要</h4>
+<p><code>UBoundingBoxCalculator</code> 是一个派生自 <code>UBlueprintFunctionLibrary</code> 的静态函数集，负责根据不同 Actor 或网格类型，提取或合成对应的 FBoundingBox 信息。</p>
+<h4 id="_4">关键方法详解</h4>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>功能简介</th>
+<th>参数说明</th>
+<th>返回值 / 输出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>GetActorBoundingBox</strong></td>
+<td>根据传入的 <code>AActor*</code> 类型动态分支：<br>– 车辆 → 调用 <code>GetVehicleBoundingBox</code><br>– 行人 → 调用 <code>GetCharacterBoundingBox</code><br>– 交通标志 → 合并触发体包围盒<br>– 其他 → 收集并合并所有网格组件包围盒。</td>
+<td><code>const AActor* Actor</code> — 待计算边界的 Actor 指针<br><code>uint8 InTagQueried</code> — 按标签筛选（默认 <code>0xFF</code>，不过滤）</td>
+<td><code>FBoundingBox</code> — Actor 局部空间包围盒</td>
+</tr>
+<tr>
+<td><strong>GetVehicleBoundingBox</strong></td>
+<td>提取车辆内部包围变换与半宽度，额外检测可能挂载的骨骼或子模型，通过 Socket 扩展范围后，应用组件到世界变换。</td>
+<td><code>const ACarlaWheeledVehicle* Vehicle</code><br><code>uint8 InTagQueried</code></td>
+<td><code>FBoundingBox</code> — 世界空间包围盒</td>
+</tr>
+<tr>
+<td><strong>GetCharacterBoundingBox</strong></td>
+<td>基于 <code>UCapsuleComponent</code> 从半径与半高生成行人包围盒，并应用组件到世界空间的变换。</td>
+<td><code>const ACharacter* Character</code><br><code>uint8 InTagQueried</code></td>
+<td><code>FBoundingBox</code> — 世界空间包围盒</td>
+</tr>
+<tr>
+<td><strong>GetTrafficLightBoundingBox</strong></td>
+<td>针对 <code>ATrafficLightBase</code> 中各灯体或触发体调用 <code>CombineBBsOfActor</code> 进行按距离与标签合并，按标签筛选后输出多段包围盒。</td>
+<td><code>const ATrafficLightBase* TrafficLight</code><br><code>TArray&lt;FBoundingBox&gt;&amp; OutBB</code><br><code>TArray&lt;uint8&gt;&amp; OutTag</code><br><code>uint8 InTagQueried</code></td>
+<td>—（通过 <code>OutBB</code>/<code>OutTag</code> 返回多个包围盒及对应标签）</td>
+</tr>
+<tr>
+<td><strong>GetStaticMeshBoundingBox</strong></td>
+<td>直接使用 <code>UStaticMesh::GetBoundingBox()</code> 获得包围框，再封装为 <code>FBoundingBox</code>。</td>
+<td><code>const UStaticMesh* StaticMesh</code></td>
+<td><code>FBoundingBox</code></td>
+</tr>
+<tr>
+<td><strong>GetSkeletalMeshBoundingBox</strong></td>
+<td>遍历 LOD 0 顶点缓冲计算 Min/Max，进而求中心与半幅，返回精确顶点包围盒（当前动画姿势未考虑）。</td>
+<td><code>const USkeletalMesh* SkeletalMesh</code></td>
+<td><code>FBoundingBox</code></td>
+</tr>
+<tr>
+<td><strong>GetISMBoundingBox</strong></td>
+<td>对 <code>UInstancedStaticMeshComponent</code> 每个实例 (PerInstanceSMData) 应用父组件变换，逐个生成并返回 <code>FBoundingBox</code>。</td>
+<td><code>UInstancedStaticMeshComponent* ISMComp</code><br><code>TArray&lt;FBoundingBox&gt;&amp; OutBoundingBox</code></td>
+<td>—（通过 <code>OutBoundingBox</code> 返回实例包围盒列表）</td>
+</tr>
+<tr>
+<td><strong>GetBBsOfStaticMeshComponents</strong></td>
+<td>遍历给定静态网格组件数组，按可见性与标签过滤后，提取并应用组件变换，累积输出包围盒与标签。</td>
+<td><code>const TArray&lt;UStaticMeshComponent*&gt;&amp; StaticMeshComps</code><br><code>TArray&lt;FBoundingBox&gt;&amp; OutBB</code><br><code>TArray&lt;uint8&gt;&amp; OutTag</code><br><code>uint8 InTagQueried</code></td>
+<td>—（通过 <code>OutBB</code>/<code>OutTag</code> 返回）</td>
+</tr>
+<tr>
+<td><strong>GetBBsOfSkeletalMeshComponents</strong></td>
+<td>与上同，针对骨骼网格组件数组；对每个可见且符合标签的组件，调用 <code>GetSkeletalMeshBoundingBox</code> 并应用变换后输出。</td>
+<td><code>const TArray&lt;USkeletalMeshComponent*&gt;&amp; SkeletalMeshComps</code><br><code>TArray&lt;FBoundingBox&gt;&amp; OutBB</code><br><code>TArray&lt;uint8&gt;&amp; OutTag</code><br><code>uint8 InTagQueried</code></td>
+<td>—（通过 <code>OutBB</code>/<code>OutTag</code> 返回）</td>
+</tr>
+<tr>
+<td><strong>GetBoundingBoxOfActors</strong></td>
+<td>对一组 <code>AActor*</code>，批量调用 <code>GetBBsOfActor</code> 并合并所有返回的包围盒列表，直接返回结果数组。</td>
+<td><code>const TArray&lt;AActor*&gt;&amp; Actors</code><br><code>uint8 InTagQueried</code></td>
+<td><code>TArray&lt;FBoundingBox&gt;</code></td>
+</tr>
+<tr>
+<td><strong>GetBBsOfActor</strong></td>
+<td>对单个 <code>AActor*</code>：排除特殊蓝图或不可见组件，分类调用各 <code>Get*BoundingBox</code> 系列和 <code>Get*Components</code> 系列方法，返回所有包围盒。</td>
+<td><code>const AActor* Actor</code><br><code>uint8 InTagQueried</code></td>
+<td><code>TArray&lt;FBoundingBox&gt;</code></td>
+</tr>
+<tr>
+<td><strong>CombineBBs</strong></td>
+<td>通用合并 <code>TArray&lt;FBoundingBox&gt;</code> 中所有包围盒为最小包围；基于旋转/Extent 计算全局 Min/Max 再取中心与半幅。</td>
+<td><code>const TArray&lt;FBoundingBox&gt;&amp; BBsToCombine</code></td>
+<td><code>FBoundingBox</code></td>
+</tr>
+<tr>
+<td><strong>CombineBoxes</strong></td>
+<td>通用合并 <code>TArray&lt;UBoxComponent*&gt;</code>，先转换为 <code>FBoundingBox</code> 再调用通用合并逻辑，输出最小包围盒。</td>
+<td><code>const TArray&lt;UBoxComponent *&gt;&amp; BBsToCombine</code></td>
+<td><code>FBoundingBox</code></td>
+</tr>
+<tr>
+<td><strong>CombineBBsOfActor</strong></td>
+<td>针对单 Actor 静态网格组件的包围列表，按距离阈值与标签合并同类型近邻包围盒，不合并的单个也保留；统计后输出新包围盒与标签。</td>
+<td><code>const AActor* Actor</code><br><code>TArray&lt;FBoundingBox&gt;&amp; OutBB</code><br><code>TArray&lt;uint8&gt;&amp; OutTag</code><br><code>float DistanceThreshold</code><br><code>uint8 TagToCombine</code></td>
+<td>—（通过 <code>OutBB</code>/<code>OutTag</code> 返回新组合结果）</td>
+</tr>
+<tr>
+<td><strong>GetMeshCompsFromActorBoundingBox</strong></td>
+<td>在指定距离阈值内（默认 10000）从 Actor 所有 <code>UStaticMeshComponent</code> 中筛选出位于给定 <code>FBoundingBox</code> 附近的组件列表。</td>
+<td><code>const AActor* Actor</code><br><code>const FBoundingBox&amp; InBB</code><br><code>TArray&lt;UStaticMeshComponent*&gt;&amp; OutStaticMeshComps</code></td>
+<td>—（通过 <code>OutStaticMeshComps</code> 返回匹配组件）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_5">小结</h3>
+<ul>
+<li><code>FBoundingBox</code> 提供了统一的包围盒数据结构；</li>
+<li><code>UBoundingBoxCalculator</code> 则围绕不同 Actor/组件类型提供了从局部到世界空间的包围盒提取、批量和合并能力；</li>
+<li>组合该工具链，可支持 CARLA 中传感器感知、HUD 渲染、碰撞检测及数据采集等多种场景。</li>
+</ul>
               
             </div>
           </div><footer>
