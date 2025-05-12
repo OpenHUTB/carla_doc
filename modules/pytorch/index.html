@@ -84,13 +84,17 @@
 <li><a href="#7-整体调用流程">7. 整体调用流程</a></li>
 </ul>
 <h2 id="1">1. 项目概述</h2>
-<p>本模块为 CARLA 仿真中 <strong>轮子动力学计算</strong> 与 <strong>PyTorch JIT 模型推理</strong> 搭建了桥梁。
- 主要功能：</p>
+<p>本模块在 <strong>CARLA 仿真环境</strong> 中实现了 <strong>轮子动力学计算</strong> 与 <strong>PyTorch JIT 模型推理</strong> 之间的无缝桥接。通过这一模块，开发者可以在真实感强的仿真环境中使用深度学习模型对轮子的物理行为进行推理，并对其进行动态调整。这一桥梁的搭建为复杂的自动驾驶仿真提供了更高效的计算与推理能力。</p>
+<p>该模块功能如下：</p>
 <ol>
-<li>将 C++ 原始数据（WheelInput）封装成 PyTorch 张量</li>
-<li>调用已加载的 TorchScript 模型执行前向推理</li>
-<li>从输出张量中读取粒子力和轮子力，填写 WheelOutput</li>
-<li>支持多种推理模式（CPU、动态、CUDA）</li>
+<li>
+<p><strong>将 C++ 原始数据封装成 PyTorch 张量</strong>：将 CARLA 仿真中的轮子动力学数据转化为 PyTorch 张量，方便模型处理。</p>
+</li>
+<li>
+<p><strong>调用 TorchScript 模型进行推理</strong>：加载并使用已训练的 TorchScript 模型执行前向推理，计算轮子物理行为。</p>
+</li>
+<li><strong>从输出张量中提取结果</strong>：从推理结果中获取粒子力和轮子力，并填充到 WheelOutput 中。</li>
+<li><strong>支持多种推理模式</strong>：提供 CPU、动态推理及 CUDA 加速模式，适应不同硬件环境和计算需求。</li>
 </ol>
 <hr />
 <h2 id="2">2. 依赖与头文件</h2>
@@ -107,7 +111,6 @@
 <ul>
 <li><strong>作用</strong>：空壳函数，用于在代码中插入标记，便于日志或调试</li>
 <li><strong>参数</strong>：<code>text</code> — 标记文本，不作实际处理</li>
-<li><strong>源码链接</strong>：更多细节请参 <a href="https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L20">pytorch.cpp 源码第20行</a></li>
 </ul>
 <hr />
 <h2 id="4-carlalearning">4. carla::learning 命名空间</h2>
