@@ -318,26 +318,10 @@
     Trigger-&gt;&gt;Vehicle: UpdateWheelsFriction(OldFrictionValues)</code></pre>
 <h2 id="_12">注意事项</h2>
 <ol>
-<li><strong>触发器类型限制</strong></li>
-<li>
-<p>当前仅支持 <code>AFrictionTrigger</code>，未来可扩展其他类型（如速度触发器）</p>
-</li>
-<li>
-<p><strong>车辆兼容性</strong></p>
-</li>
-<li>
-<p>仅对 <code>ACarlaWheeledVehicle</code> 类型车辆生效，其他 <code>Actor</code> 类型会被忽略</p>
-</li>
-<li>
-<p><strong>碰撞配置</strong></p>
-</li>
-<li>
-<p>确保 <code>TriggerVolume</code> 的碰撞类型为 <code>OverlapAll</code> 并启用 <code>GenerateOverlapEvents</code></p>
-</li>
-<li>
-<p><strong>参数格式</strong></p>
-</li>
-<li>配置参数在 <code>FActorDescription::Variations</code> 中需为 <strong>字符串形式</strong></li>
+<li>当前仅支持 <code>AFrictionTrigger</code> 作为触发器类型，未来可扩展其他类型（如速度触发器）。</li>
+<li>仅对 <code>ACarlaWheeledVehicle</code> 类型车辆生效，其他 <code>Actor</code> 类型会被忽略。</li>
+<li>确保 <code>TriggerVolume</code> 的碰撞类型为 <code>OverlapAll</code> 并启用 <code>GenerateOverlapEvents</code>。</li>
+<li>配置参数在 <code>FActorDescription::Variations</code> 中需为字符串形式。</li>
 </ol>
 <h2 id="_13">示例配置</h2>
 <h3 id="c">C++ 代码示例</h3>
