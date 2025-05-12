@@ -227,5 +227,10 @@ UStaticMesh* RoadMesh = UMapGenFunctionLibrary::CreateMesh(
   ```
 - **实时预览**  
   - 在编辑器中运行 `CleanupGEngine()` 可刷新资产状态  
-
+### 坐标转换公式图示
+       ┌───────────────────────┐
+       │ 横向墨卡托投影公式     │
+       │ x = R・asinh(sinΔλ/√(tan²φ + cos²Δλ)) │
+       │ y = R・atan(tanφ/cosΔλ)               │
+       └───────────────────────┘   
 ---
