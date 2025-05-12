@@ -5,8 +5,8 @@
 * [__准备包__](#prepare-the-package)  
 	*   [创建文件夹结构](#create-the-folder-structure)  
 	*   [创建 JSON 描述](#create-the-json-description)  
-*   [__导入到 Carla 包中__](#ingestion-in-a-carla-package)  
-*   [__在源代码构建中导入__](#ingestion-in-a-build-from-source)  
+*   [__导入到 Carla 包中__](#ingestion-in-a-carla-package) 
+*   [__在源代码构建中导入__](#ingestion-in-a-build-from-source) 
 
 ---
 ## 准备包 <span id="prepare-the-package"></span>
@@ -162,8 +162,8 @@ make import
 
 <div class="build-buttons">
 <p>
-<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-Carla 论坛</a>
+<a href="https://github.com/OpenHUTB/carla_doc/issues" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
+讨论页面</a>
 </p>
 </div>
 
