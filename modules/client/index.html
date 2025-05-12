@@ -236,11 +236,47 @@
 </li>
 <li>启用或禁用同步模式，在同步模式下仿真步进是由用户控制的。</li>
 </ul>
+<h3 id="5-blueprintlibrary-actorblueprint">5. <code>BlueprintLibrary</code> 与 <code>ActorBlueprint</code> 类</h3>
+<p>在 CARLA 客户端中，<code>BlueprintLibrary</code> 类用于提供创建行为体（Actor）的模板集合，而 <code>ActorBlueprint</code> 则描述具体实体的构造配置参数。</p>
+<h4 id="_8">主要功能</h4>
+<ul>
+<li>
+<p><code>BlueprintLibrary</code></p>
+</li>
+<li>
+<p>获取可创建的实体蓝图列表（如车辆、传感器等）</p>
+</li>
+<li>
+<p>支持通过关键词过滤蓝图</p>
+</li>
+<li>
+<p><code>ActorBlueprint</code></p>
+</li>
+<li>表示单个实体的构造参数（如车辆类型、颜色，传感器分辨率等）</li>
+<li>可设置和查询各类属性值</li>
+</ul>
+<h4 id="_9">示例</h4>
+<div class="highlight"><pre><span></span><code>auto blueprint_library = world.GetBlueprintLibrary();
+
+// 选择一辆特斯拉车型的 blueprint
+auto vehicle_blueprint = (*blueprint_library)-&gt;Find(&quot;vehicle.tesla.model3&quot;);
+
+// 设置车辆颜色
+vehicle_blueprint-&gt;SetAttribute(&quot;color&quot;, &quot;255,0,0&quot;);
+
+// 从地图上获取一个出生点
+auto spawn_points = world.GetMap()-&gt;GetRecommendedSpawnPoints();
+auto transform = spawn_points[0];
+
+// 生成车辆 Actor
+auto vehicle_actor = world.SpawnActor(*vehicle_blueprint, transform);
+</code></pre></div>
+<h3 id="_10"></h3>
 <hr />
-<h2 id="_8">类之间的调用关系</h2>
+<h2 id="_11">类之间的调用关系</h2>
 <h3 id="carla_1">以下是 CARLA 客户端部分类之间的调用关系图，展示了各个类如何交互以及它们之间的依赖关系。</h3>
 <p><img alt="类关系" src="https://github.com/LangJing23/nuanxin_volunteer/blob/master/lei.png" /></p>
-<h5 id="_9">调用关系说明</h5>
+<h5 id="_12">调用关系说明</h5>
 <p>Client 类与其他类的交互：</p>
 <blockquote>
 <p>Client 类是与模拟器交互的主要接口，它通过方法如 LoadWorld()、GetAvailableMaps()、StartRecorder() 等来控制仿真世界。</p>
@@ -261,7 +297,7 @@
 <p>World 类表示仿真中的一个世界，它与 Client 和 Actor 类紧密关联。World 提供对仿真环境的访问，可以控制仿真世界中的所有行为体和传感器。</p>
 <p>World 还负责管理交通流、物理环境、天气等仿真环境因素。</p>
 </blockquote>
-<h2 id="_10">总结</h2>
+<h2 id="_13">总结</h2>
 <p>CARLA 客户端部分提供了与仿真环境交互的丰富 API，支持开发者控制仿真世界中的各种元素，包括行为体（Actor）、传感器（ClientSideSensor）和交通流（TrafficManager）等。通过 Client 类，开发者能够加载地图、获取世界状态、管理传感器、操作物理环境等。类之间的交互使得开发者能够在仿真环境中进行精确的控制和验证。</p>
 <p>参考文档：<a href="https://openhutb.github.io/carla_cpp/dir_64d7bb605f27024d49af86070bd3f0b6.html">点击此处跳转</a></p>
               
