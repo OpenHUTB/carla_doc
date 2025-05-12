@@ -155,12 +155,14 @@ graph TD
 ---
 
 ## 配置参数  
-### 扩展命令行参数  
+### 扩展命令行参数说明  
 ```bash
--OnlyPrepareMaps=true      # 仅预处理地图资产
--TileSize=2000             # 分块地图尺寸（单位：米） 
+-PackageName=EuroPack        # 指定资源包名称
+-Maps=Berlin,Tokyo          # 指定待处理地图列表  
+-OnlyPrepareMaps=true       # 仅预处理地图资产
+-TileSize=2000              # 分块地图尺寸（单位：米）
+-ForceCarlaMaterials=true   # 强制使用Carla材质系统
 ```
-
 ---
 
 ## 注意事项  
@@ -188,6 +190,22 @@ UE4Editor-Cmd.exe Carla -run=PrepareAssetsForCooking
   -TileSize=2000
 ```
 
+### 分块地图预处理命令（Windows）  
+```bat
+UE4Editor-Cmd.exe Carla -run=PrepareAssetsForCooking  
+  -PackageName=EuroPack  
+  -Maps=Berlin  
+  -TileSize=2000  
+  -ForceCarlaMaterials
+```
+
+### 道具资产预处理命令（Linux）  
+```bash
+./UE4Editor-Cmd Carla -run=PrepareAssetsForCooking  
+  -PackageName=VehiclePack  
+  -OnlyPrepareMaps=false  
+  -Props=Car,Sign,Truck
+```
 ---
 
 ## 附录  
@@ -197,5 +215,11 @@ UE4Editor-Cmd.exe Carla -run=PrepareAssetsForCooking
 | 0x31 | 分块布局文件缺失         | 检查 Maps/[Map]/TilesInfo.txt |
 | 0x32 | 材质实例加载失败         | 验证材质路径正确性        |
 | 0x33 | OpenDrive 数据异常       | 重新导出 XODR 文件        |
-
----
+ 
+### 对象库加载白名单配置  
+在 `DefaultEngine.ini` 中添加：  
+```ini
+[/Script/Engine.ObjectLibrary]
++AssetPaths=(Path="/Game/Carla/Static/Props")  
++AssetPaths=(Path="/Game/Carla/Static/Road")  
+```
