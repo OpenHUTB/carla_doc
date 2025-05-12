@@ -43,7 +43,7 @@
 ### 3.1 add_mark
 - **作用**：空壳函数，用于在代码中插入标记，便于日志或调试
 - **参数**：`text` — 标记文本，不作实际处理
-- **源码链接**：更多细节请参 [pytorch.cpp ](https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L20)
+- **源码链接**：更多细节请参考 [pytorch.cpp ](https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L20)
 
 ------
 
