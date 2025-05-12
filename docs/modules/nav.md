@@ -285,6 +285,30 @@ query->findPath(startRef, endRef, startPos, endPos, &filter, polys, &polyCount, 
 
 **说明**：可以继承 `dtQueryFilter` 并在构造函数中修改 flag 和 cost，以便针对不同场景进行优化。
 
+### 2. Off-Mesh Links 处理
+
+支持跳跃、攀爬等场景，通过 Off-Mesh Links 定义特殊连接：
+
+```cpp
+// 添加 Off-Mesh Link
+dtMeshTile* tile = navmesh->getTile(0);
+const int verts[2] = {startVertexId, endVertexId};
+const float linkRadius = 0.2f;
+const dtPolyRef ref = tile->header->polyCount;
+dtOffMeshConnection conn = {};
+conn.radius = linkRadius;
+conn.poly = ref;
+conn.flags = SAMPLE_POLYFLAGS_JUMP;
+conn.userId = 1234;
+conn.startPosition[0] = sx; conn.startPosition[1] = sy; conn.startPosition[2] = sz;
+conn.endPosition[0]   = ex; conn.endPosition[1]   = ey; conn.endPosition[2]   = ez;
+
+// 将连接写入网格
+navmesh->addOffMeshConnection(&conn);
+```
+
+调用 `findStraightPath` 时，返回的 `straight_flags` 数组中含 `DT_STRAIGHTPATH_OFFMESH_CONNECTION`，可据此在行走逻辑中处理跳跃或爬升。
+
  ---
  
  ## 配置参数  
