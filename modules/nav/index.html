@@ -319,6 +319,25 @@
 <span class="n">query</span><span class="o">-&gt;</span><span class="n">findPath</span><span class="p">(</span><span class="n">startRef</span><span class="p">,</span><span class="w"> </span><span class="n">endRef</span><span class="p">,</span><span class="w"> </span><span class="n">startPos</span><span class="p">,</span><span class="w"> </span><span class="n">endPos</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">filter</span><span class="p">,</span><span class="w"> </span><span class="n">polys</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">polyCount</span><span class="p">,</span><span class="w"> </span><span class="n">MAX_POLYS</span><span class="p">);</span>
 </code></pre></div>
 <p><strong>说明</strong>：可以继承 <code>dtQueryFilter</code> 并在构造函数中修改 flag 和 cost，以便针对不同场景进行优化。</p>
+<h3 id="2-off-mesh-links">2. Off-Mesh Links 处理</h3>
+<p>支持跳跃、攀爬等场景，通过 Off-Mesh Links 定义特殊连接：</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 添加 Off-Mesh Link</span>
+<span class="n">dtMeshTile</span><span class="o">*</span><span class="w"> </span><span class="n">tile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">navmesh</span><span class="o">-&gt;</span><span class="n">getTile</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">verts</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">startVertexId</span><span class="p">,</span><span class="w"> </span><span class="n">endVertexId</span><span class="p">};</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">linkRadius</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.2f</span><span class="p">;</span>
+<span class="k">const</span><span class="w"> </span><span class="n">dtPolyRef</span><span class="w"> </span><span class="n">ref</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tile</span><span class="o">-&gt;</span><span class="n">header</span><span class="o">-&gt;</span><span class="n">polyCount</span><span class="p">;</span>
+<span class="n">dtOffMeshConnection</span><span class="w"> </span><span class="n">conn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span>
+<span class="n">conn</span><span class="p">.</span><span class="n">radius</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">linkRadius</span><span class="p">;</span>
+<span class="n">conn</span><span class="p">.</span><span class="n">poly</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ref</span><span class="p">;</span>
+<span class="n">conn</span><span class="p">.</span><span class="n">flags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SAMPLE_POLYFLAGS_JUMP</span><span class="p">;</span>
+<span class="n">conn</span><span class="p">.</span><span class="n">userId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1234</span><span class="p">;</span>
+<span class="n">conn</span><span class="p">.</span><span class="n">startPosition</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sx</span><span class="p">;</span><span class="w"> </span><span class="n">conn</span><span class="p">.</span><span class="n">startPosition</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sy</span><span class="p">;</span><span class="w"> </span><span class="n">conn</span><span class="p">.</span><span class="n">startPosition</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sz</span><span class="p">;</span>
+<span class="n">conn</span><span class="p">.</span><span class="n">endPosition</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="n">ex</span><span class="p">;</span><span class="w"> </span><span class="n">conn</span><span class="p">.</span><span class="n">endPosition</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="n">ey</span><span class="p">;</span><span class="w"> </span><span class="n">conn</span><span class="p">.</span><span class="n">endPosition</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="n">ez</span><span class="p">;</span>
+
+<span class="c1">// 将连接写入网格</span>
+<span class="n">navmesh</span><span class="o">-&gt;</span><span class="n">addOffMeshConnection</span><span class="p">(</span><span class="o">&amp;</span><span class="n">conn</span><span class="p">);</span>
+</code></pre></div>
+<p>调用 <code>findStraightPath</code> 时，返回的 <code>straight_flags</code> 数组中含 <code>DT_STRAIGHTPATH_OFFMESH_CONNECTION</code>，可据此在行走逻辑中处理跳跃或爬升。</p>
 <hr />
 <p>## 配置参数<br />
  ### 静态常量<br />
@@ -349,14 +368,12 @@
 <p>所有修改 <code>dtCrowd</code> 状态的操作需加锁：</p>
 <p><div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">lock_guard</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">mutex</span><span class="o">&gt;</span><span class="w"> </span><span class="n">lock</span><span class="p">(</span><span class="n">_mutex</span><span class="p">);</span>
 </code></pre></div>
-   * <strong>加锁的必要性</strong>：</p>
-<ul>
-<li><strong>避免数据竞争</strong>：在多线程环境中，多个线程可能同时访问和修改共享资源（如导航网格、代理状态等）。如果不加锁，可能导致数据竞争，产生不可预测的行为。</li>
-<li><strong>确保操作的原子性</strong>：加锁可以确保对共享资源的操作是原子的，即操作在执行过程中不会被其他线程打断，从而保持数据的一致性。</li>
-<li><strong>防止死锁和资源泄漏</strong>：通过合理使用锁机制，可以避免死锁的发生，并确保资源在使用完毕后被正确释放。</li>
-<li><strong>提高程序的稳定性和可靠性</strong>：加锁可以防止由于并发访问导致的程序崩溃或异常，提高系统的稳定性。</li>
-<li><strong>参考资料</strong>：关于多线程加锁的详细解释，请参阅 <a href="https://blog.csdn.net/ke1ying/article/details/109531062">CSDN博客</a>。</li>
-</ul>
+   * <strong>加锁的必要性</strong>：
+ * <strong>避免数据竞争</strong>：在多线程环境中，多个线程可能同时访问和修改共享资源（如导航网格、代理状态等）。如果不加锁，可能导致数据竞争，产生不可预测的行为。
+ * <strong>确保操作的原子性</strong>：加锁可以确保对共享资源的操作是原子的，即操作在执行过程中不会被其他线程打断，从而保持数据的一致性。
+ * <strong>防止死锁和资源泄漏</strong>：通过合理使用锁机制，可以避免死锁的发生，并确保资源在使用完毕后被正确释放。
+ * <strong>提高程序的稳定性和可靠性</strong>：加锁可以防止由于并发访问导致的程序崩溃或异常，提高系统的稳定性。
+ * <strong>参考资料</strong>：关于多线程加锁的详细解释，请参阅 <a href="https://blog.csdn.net/ke1ying/article/details/109531062">CSDN博客</a>。</p>
 </li>
 <li>
 <p><strong>性能限制</strong></p>
@@ -616,7 +633,7 @@
 <li><strong>动态障碍物切割</strong>：基于 <code>dtTileCache</code> 实现对动态物体的局部切割，无需重建整个网格，可显著提升性能。</li>
 <li><strong>离线编辑支持</strong>：使用 CARLA UE4 导出器生成 <code>.OBJ</code> 并调用 RecastBuilder 生成 <code>.BIN</code>，支持自定义参数（如瓦片大小、层高度）(<a href="https://carla.readthedocs.io/en/0.9.7/how_to_generate_pedestrians_navigation/?utm_source=chatgpt.com">carla.readthedocs.io</a>)。</li>
 </ul>
-<h3 id="2-off-mesh-links">2. 离散导航链接（Off-Mesh Links）</h3>
+<h3 id="2-off-mesh-links_1">2. 离散导航链接（Off-Mesh Links）</h3>
 <ul>
 <li><strong>跳跃与爬升链接</strong>：允许通过手动或算法方式在 NavMesh 上添加“跳跃”、“梯子”等自定义连接，增强导航灵活性(<a href="https://digestingduck.blogspot.com/2009/07/recast-and-detour-roadmap.html?utm_source=chatgpt.com">digestingduck.blogspot.com</a>)。</li>
 <li><strong>运行时增删链接</strong>：可通过 <code>dtMeshTile</code> 动态管理 Off-Mesh 连接，无需重建瓦片；推荐使用哈希表存储链接索引以加速查询。</li>

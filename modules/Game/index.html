@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>CARLA 引擎模块说明 - 人车模拟器</title>
+    <title>🚀Game模块技术文档 - 人车模拟器</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "CARLA \u5f15\u64ce\u6a21\u5757\u8bf4\u660e";
+        var mkdocs_page_name = "\ud83d\ude80Game\u6a21\u5757\u6280\u672f\u6587\u6863";
         var mkdocs_page_input_path = "modules/Game.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,7 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">CARLA 引擎模块说明</li>
+      <li class="breadcrumb-item active">🚀Game模块技术文档</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/modules/Game.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -68,82 +68,476 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="carla">CARLA 引擎模块说明</h1>
-<h2 id="_1">简介</h2>
-<pre><code>环境依赖
-核心功能
-主要函数
-代码结构
-贡献代码
-</code></pre>
-<h3 id="_2">简介</h3>
-<p>CARLA（Car Learning to Act）是一个基于 Unreal Engine 的开源自动驾驶模拟器。本项目的 CarlaEngine.cpp 负责管理 CARLA 的核心引擎功能，如固定时间步长、RPC 服务器线程数等。</p>
-<h3 id="_3">环境依赖</h3>
-<p>本模块依赖以下组件： Unreal Engine 、CARLA 源码 、ROS2（可选） 、多 GPU 支持库</p>
-<h3 id="_4">核心功能</h3>
-<p>CarlaEngine.cpp 主要提供以下核心功能：
-1. 时间步长控制：允许用户获取和设置固定的物理模拟时间步长。
-2. 多线程支持：提供对 RPC 服务器线程数的管理。
-3. 场景管理：管理 CARLA 场景生命周期，支持多 GPU 计算。
-4. 与 ROS2 交互：通过 carla::ros2::ROS2 进行通信。</p>
-<h3 id="_5">主要函数</h3>
+                <h1 id="game">🚀Game模块技术文档</h1>
+<hr />
+<h2 id="_1">目录</h2>
 <ol>
-<li>FCarlaEngine_GetFixedDeltaSeconds()
-<div class="highlight"><pre><span></span><code>static<span class="w"> </span>TOptional&lt;double&gt;<span class="w"> </span>FCarlaEngine_GetFixedDeltaSeconds<span class="o">()</span><span class="p">;</span>
-</code></pre></div>
-功能： 获取 CARLA 的固定时间步长。</li>
-<li>
-<p>FCarlaEngine_GetNumberOfThreadsForRPCServer()
-<div class="highlight"><pre><span></span><code>static<span class="w"> </span>uint32<span class="w"> </span>FCarlaEngine_GetNumberOfThreadsForRPCServer<span class="o">()</span><span class="p">;</span>
-</code></pre></div>
-功能： 获取用于 RPC 服务器的线程数量。</p>
-</li>
-<li>
-<p>FCarlaEngine_SetFixedDeltaSeconds(TOptional<double> FixedDeltaSeconds)
-<div class="highlight"><pre><span></span><code>static<span class="w"> </span>void<span class="w"> </span>FCarlaEngine_SetFixedDeltaSeconds<span class="o">(</span>TOptional&lt;double&gt;<span class="w"> </span>FixedDeltaSeconds<span class="o">)</span><span class="p">;</span>
-</code></pre></div>
-功能：设置固定的物理模拟时间步长。</p>
-</li>
-<li>
-<p>if (bIsRunning)
-<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="o">(</span>bIsRunning<span class="o">)</span>
-</code></pre></div>
-功能：确保引擎正在运行后再执行特定操作。</p>
-</li>
+<li><a href="#📝模块概述">模块概述</a>  </li>
+<li><a href="#📚核心功能详解">核心功能详解</a>  </li>
+<li><a href="#📑模块间关系">模块间关系</a>  </li>
+<li><a href="#📜类与方法详解">类与方法详解</a>  </li>
+<li><a href="#📝模块调用逻辑">模块调用逻辑</a>  </li>
+<li><a href="#❗注意事项">注意事项</a> </li>
 </ol>
-<h3 id="_6">代码结构</h3>
+<hr />
+<h2 id="_2">📝模块概述</h2>
+<p><code>Game</code>模块是 CARLA 项目在虚幻引擎（UE4/UE5）中的核心逻辑模块，负责管理自动驾驶仿真场景的完整生命周期。其核心功能包括：
+- <strong>场景管理</strong>：加载 OpenDRIVE 地图、动态设置天气及交通规则；
+- <strong>角色控制</strong>：生成车辆、行人、传感器等实体，并绑定物理行为（如车辆移动组件）；
+- <strong>传感器交互</strong>：通过摄像头、雷达、激光雷达等传感器实时采集数据，并支持异步传输到服务端或 ROS2；
+- <strong>录制与回放</strong>：记录车辆位置、传感器数据，并支持按帧回放；
+- <strong>ROS2 集成</strong>：通过帧同步机制与 ROS2 通信，发布传感器消息（需启用<code>WITH_ROS2</code>宏）；
+- <strong>语义分割</strong>：为生成的角色分配语义标签（如<code>CustomDepthStencilValue</code>），支持自动驾驶算法训练与可视化。</p>
+<p>该模块通过 <code>CarlaGameModeBase</code>、<code>CarlaEpisode</code> 等核心类协调虚幻引擎与 CARLA 服务端的交互，是连接游戏逻辑与自动驾驶仿真的关键桥梁。</p>
+<hr />
+<h2 id="_3">📚核心功能详解</h2>
+<h3 id="21">2.1 场景管理</h3>
+<h4 id="_4"><strong>地图加载</strong></h4>
+<ul>
+<li><strong>OpenDRIVE 解析</strong>：通过 <code>carla::opendrive::OpenDriveParser</code> 解析 <code>.xodr</code> 文件生成道路网络。
+  <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">CarlaEpisode::LoadMap</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FString</span><span class="o">&amp;</span><span class="w"> </span><span class="n">MapName</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">carla</span><span class="o">::</span><span class="n">opendrive</span><span class="o">::</span><span class="n">OpenDriveParser</span><span class="w"> </span><span class="n">parser</span><span class="p">(</span><span class="n">MapName</span><span class="p">);</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">road</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">parser</span><span class="p">.</span><span class="n">GetRoads</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">CreateRoadActor</span><span class="p">(</span><span class="n">road</span><span class="p">);</span><span class="w"> </span><span class="c1">// 生成道路Actor</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></li>
+<li><strong>动态天气设置</strong>：通过<code>carla::rpc::WeatherParameters</code>动态调整雾、雨、云等天气参数。
+  <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">CarlaEpisode::SetWeather</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FWeatherParameters</span><span class="o">&amp;</span><span class="w"> </span><span class="n">Weather</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">carla</span><span class="o">::</span><span class="n">rpc</span><span class="o">::</span><span class="n">WeatherParameters</span><span class="w"> </span><span class="n">carlaWeather</span><span class="p">;</span>
+<span class="w">  </span><span class="n">carlaWeather</span><span class="p">.</span><span class="n">cloudiness</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Weather</span><span class="p">.</span><span class="n">Cloudiness</span><span class="p">;</span>
+<span class="w">  </span><span class="n">carlaWeather</span><span class="p">.</span><span class="n">wetness</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Weather</span><span class="p">.</span><span class="n">Wetness</span><span class="p">;</span>
+<span class="w">  </span><span class="c1">// 设置虚幻引擎天气系统</span>
+<span class="w">  </span><span class="n">World</span><span class="o">-&gt;</span><span class="n">SetWeather</span><span class="p">(</span><span class="n">carlaWeather</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></li>
+</ul>
+<h4 id="_5"><strong>交通规则初始化</strong></h4>
+<ul>
+<li><strong>信号灯管理</strong>：加载交通信号灯、道路标志等实体。
+  <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">CarlaEpisode::InitializeTrafficLights</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="o">*</span><span class="w"> </span><span class="n">Light</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">TrafficLightList</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Light</span><span class="o">-&gt;</span><span class="n">SetState</span><span class="p">(</span><span class="n">carla</span><span class="o">::</span><span class="n">rpc</span><span class="o">::</span><span class="n">TrafficLightState</span><span class="o">::</span><span class="n">Green</span><span class="p">);</span><span class="w"> </span><span class="c1">// 初始化为绿灯</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></li>
+</ul>
+<h3 id="22">2.2 角色控制</h3>
+<h4 id="_6"><strong>实体生成</strong></h4>
+<ul>
+<li><strong>Actor 生成逻辑</strong>：通过<code>CarlaGameModeBase</code>的<code>SpawnActor</code>方法生成车辆、行人、传感器。
+  <div class="highlight"><pre><span></span><code><span class="n">AActor</span><span class="o">*</span><span class="w"> </span><span class="nf">CarlaGameModeBase::SpawnActor</span><span class="p">(</span><span class="n">TSubclassOf</span><span class="o">&lt;</span><span class="n">AActor</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Class</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">GetWorld</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SpawnActor</span><span class="p">(</span><span class="n">Class</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Transform</span><span class="p">);</span><span class="w"> </span><span class="c1">// 在指定位置生成Actor</span>
+<span class="p">}</span>
+</code></pre></div></li>
+</ul>
+<h4 id="_7"><strong>行为管理</strong></h4>
+<ul>
+<li><strong>车辆物理模拟</strong>：绑定车辆移动组件（<code>UWheeledVehicleMovementComponent</code>）实现物理模拟。
+  <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">ACarlaVehicle::InitializePhysics</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">UWheeledVehicleMovementComponent</span><span class="o">*</span><span class="w"> </span><span class="n">MovementComponent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FindComponentByClass</span><span class="o">&lt;</span><span class="n">UWheeledVehicleMovementComponent</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="w">  </span><span class="n">MovementComponent</span><span class="o">-&gt;</span><span class="n">SetMaxSpeed</span><span class="p">(</span><span class="mf">100.0f</span><span class="p">);</span><span class="w"> </span><span class="c1">// 设置最大速度</span>
+<span class="p">}</span>
+</code></pre></div></li>
+</ul>
+<h3 id="23">2.3 传感器交互</h3>
+<h4 id="_8"><strong>数据采集</strong></h4>
+<ul>
+<li><strong>摄像头传感器</strong>：实时采集图像数据。
+  <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">ACarlaCamera::Tick</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">DeltaTime</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">bIsActive</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">RenderImage</span><span class="p">();</span><span class="w"> </span><span class="c1">// 渲染当前帧图像</span>
+<span class="w">    </span><span class="n">SendDataToServer</span><span class="p">();</span><span class="w"> </span><span class="c1">// 发送数据到服务端</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></li>
+<li><strong>激光雷达传感器</strong>：采集点云数据。
+  <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">ACarlaLidar::UpdateLidarData</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">TArray</span><span class="o">&lt;</span><span class="n">FVector</span><span class="o">&gt;</span><span class="w"> </span><span class="n">PointCloud</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GetPointCloud</span><span class="p">();</span><span class="w"> </span><span class="c1">// 获取点云数据</span>
+<span class="w">  </span><span class="n">SendPointCloud</span><span class="p">(</span><span class="n">PointCloud</span><span class="p">);</span><span class="w"> </span><span class="c1">// 发送点云到服务端</span>
+<span class="p">}</span>
+</code></pre></div></li>
+</ul>
+<h4 id="_9"><strong>数据处理</strong></h4>
+<ul>
+<li><strong>异步数据传输</strong>：通过<code>AsyncDataStreamImpl</code>异步传输传感器数据到服务端。
+  <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">AsyncDataStreamImpl::SendSensorData</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">TArray</span><span class="o">&lt;</span><span class="n">uint8</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">Data</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">Async</span><span class="p">(</span><span class="n">EAsyncExecution</span><span class="o">::</span><span class="n">Thread</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="n">Data</span><span class="p">]()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 处理数据并发送到服务端</span>
+<span class="w">    </span><span class="n">SendToServer</span><span class="p">(</span><span class="n">Data</span><span class="p">);</span>
+<span class="w">  </span><span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div></li>
+</ul>
+<h3 id="24">2.4 录制与回放</h3>
+<h4 id="_10"><strong>录制功能</strong></h4>
+<ul>
+<li><strong>录制逻辑</strong>：通过<code>ACarlaRecorder::StartRecording()</code>记录车辆位置、传感器数据。
+  <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">ACarlaRecorder::StartRecording</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">FileWriter</span><span class="p">.</span><span class="n">Open</span><span class="p">(</span><span class="s">&quot;recording.log&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="n">FileWriter</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&quot;Frame,VehiclePosition,X,Y,Z</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></li>
+</ul>
+<h4 id="_11"><strong>回放功能</strong></h4>
+<ul>
+<li><strong>回放逻辑</strong>：通过<code>CarlaReplayer::PlayBack()</code>按帧回放录制数据。
+  <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">CarlaReplayer::PlayBack</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">HasMoreFrames</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ReadNextFrame</span><span class="p">();</span><span class="w"> </span><span class="c1">// 读取下一帧数据</span>
+<span class="w">    </span><span class="n">ApplyFrameData</span><span class="p">();</span><span class="w"> </span><span class="c1">// 应用到车辆和传感器</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></li>
+</ul>
+<h3 id="25-ros2">2.5 ROS2 集成</h3>
+<h4 id="_12"><strong>帧同步</strong></h4>
+<ul>
+<li><strong>帧号同步</strong>：通过<code>FCarlaEngine::FrameCounter</code>同步仿真帧与 ROS2 话题时间戳。
+  <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">FCarlaEngine::OnTick</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">FrameCounter</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">  </span><span class="cp">#if defined(WITH_ROS2)</span>
+<span class="w">  </span><span class="n">carla</span><span class="o">::</span><span class="n">ros2</span><span class="o">::</span><span class="n">ROS2</span><span class="o">::</span><span class="n">GetInstance</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetFrame</span><span class="p">(</span><span class="n">FrameCounter</span><span class="p">);</span>
+<span class="w">  </span><span class="cp">#endif</span>
+<span class="p">}</span>
+</code></pre></div></li>
+</ul>
+<h4 id="_13"><strong>消息发布</strong></h4>
+<ul>
+<li><strong>传感器数据转换</strong>：将传感器数据转换为 ROS2 消息（如<code>sensor_msgs::Image</code>）。
+  <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">ACarlaCamera::PublishToROS2</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">sensor_msgs</span><span class="o">::</span><span class="n">Image</span><span class="w"> </span><span class="n">msg</span><span class="p">;</span>
+<span class="w">  </span><span class="n">ConvertToROSImage</span><span class="p">(</span><span class="n">ImageData</span><span class="p">,</span><span class="w"> </span><span class="n">msg</span><span class="p">);</span><span class="w"> </span><span class="c1">// 转换为ROS2图像消息</span>
+<span class="w">  </span><span class="n">Publisher</span><span class="o">-&gt;</span><span class="n">Publish</span><span class="p">(</span><span class="n">msg</span><span class="p">);</span><span class="w"> </span><span class="c1">// 发布到ROS2话题</span>
+<span class="p">}</span>
+</code></pre></div></li>
+</ul>
+<h3 id="26">2.6 语义分割</h3>
+<h4 id="_14"><strong>标签系统</strong></h4>
+<ul>
+<li><strong>语义标签分配</strong>：通过<code>UTaggerDelegate</code>为生成的角色分配语义标签（如<code>CustomDepthStencilValue</code>）。
+  <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">UTaggerDelegate::OnActorSpawned</span><span class="p">(</span><span class="n">AActor</span><span class="o">*</span><span class="w"> </span><span class="n">Actor</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">Actor</span><span class="o">-&gt;</span><span class="n">SetCustomDepthStencilValue</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="w"> </span><span class="c1">// 分配语义标签</span>
+<span class="p">}</span>
+</code></pre></div></li>
+</ul>
+<h4 id="_15"><strong>颜色映射</strong></h4>
+<ul>
+<li><strong>HUD 可视化</strong>：在<code>ACarlaHUD</code>中绘制语义分割颜色映射图。
+  <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">ACarlaHUD::DrawSemanticSegmentation</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="o">*</span><span class="w"> </span><span class="n">Actor</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">SemanticActors</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">DrawColoredBox</span><span class="p">(</span><span class="n">Actor</span><span class="o">-&gt;</span><span class="n">GetActorLocation</span><span class="p">(),</span><span class="w"> </span><span class="n">Actor</span><span class="o">-&gt;</span><span class="n">GetSemanticColor</span><span class="p">());</span><span class="w"> </span><span class="c1">// 绘制语义颜色框</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></li>
+</ul>
+<h2 id="_16">📑模块间关系</h2>
+<h3 id="31"><strong>3.1 调用关系图</strong></h3>
+<p align="center">
+ <img src="https://raw.githubusercontent.com/Elotkowski/KD-LoRA/refs/heads/main/00.png?token=GHSAT0AAAAAADCITNBNRCKN5E4U2VJ3HKIQ2A3GUJQ"  style="max-width: 100%; height: auto;"/>
+</p>
+
+<h3 id="32"><strong>3.2 模块依赖</strong></h3>
+<p>以下为 <code>Game</code> 模块与其他模块的完整依赖关系（数字表示依赖强度）：</p>
+<table>
+<thead>
+<tr>
+<th>模块名称</th>
+<th>与 Game 模块的关系数</th>
+<th>主要功能说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>LibCarla</strong></td>
+<td>51</td>
+<td>核心逻辑交互，包含 RPC、地图加载等</td>
+</tr>
+<tr>
+<td><strong>Recorder</strong></td>
+<td>25</td>
+<td>录制与回放功能</td>
+</tr>
+<tr>
+<td><strong>Settings</strong></td>
+<td>9</td>
+<td>配置加载与参数管理</td>
+</tr>
+<tr>
+<td><strong>Sensor</strong></td>
+<td>6</td>
+<td>传感器数据采集与处理</td>
+</tr>
+<tr>
+<td><strong>Util</strong></td>
+<td>6</td>
+<td>工具函数（异步传输、数据处理）</td>
+</tr>
+<tr>
+<td><strong>Traffic</strong></td>
+<td>5</td>
+<td>交通规则与信号灯控制</td>
+</tr>
+<tr>
+<td><strong>Lights</strong></td>
+<td>4</td>
+<td>交通信号灯管理</td>
+</tr>
+<tr>
+<td><strong>Actor</strong></td>
+<td>4</td>
+<td>角色生成与交互</td>
+</tr>
+<tr>
+<td><strong>MapGen</strong></td>
+<td>4</td>
+<td>地图生成与 OpenDRIVE 解析</td>
+</tr>
+<tr>
+<td><strong>Server</strong></td>
+<td>3</td>
+<td>服务端通信接口</td>
+</tr>
+<tr>
+<td><strong>Vehicle</strong></td>
+<td>3</td>
+<td>车辆物理模拟与控制</td>
+</tr>
+<tr>
+<td><strong>Weather</strong></td>
+<td>2</td>
+<td>动态天气参数设置</td>
+</tr>
+<tr>
+<td><strong>OpenDrive</strong></td>
+<td>1</td>
+<td>OpenDRIVE 地图文件解析</td>
+</tr>
+</tbody>
+</table>
+<p>详细模块关系参考：<a href="https://openhutb.github.io/carla_cpp/dir_b708e75f0564cefaa95a07ef1c60fa1d.html"> :octocat: </a></p>
+<h2 id="_17">📜类与方法详解</h2>
+<h3 id="41-acarlagamemodebase"><strong>4.1 ACarlaGameModeBase</strong></h3>
+<ul>
+<li><strong>功能</strong>：游戏模式基类，负责场景初始化和全局逻辑控制。</li>
+<li><strong>关键方法</strong>：</li>
+<li>
+<p><strong><code>InitGame(...)</code></strong><br />
+    初始化核心模块（<code>CarlaEpisode</code>、<code>CarlaRecorder</code>）并加载地图。
+    <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">ACarlaGameModeBase::InitGame</span><span class="p">(...)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">Episode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CreateDefaultSubobject</span><span class="o">&lt;</span><span class="n">UCarlaEpisode</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;Episode&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="n">Recorder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CreateDefaultSubobject</span><span class="o">&lt;</span><span class="n">ACarlaRecorder</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;Recorder&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="n">Episode</span><span class="o">-&gt;</span><span class="n">LoadMap</span><span class="p">(</span><span class="n">SelectedMap</span><span class="p">);</span><span class="w"> </span><span class="c1">// 加载指定地图</span>
+<span class="p">}</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong><code>Tick(float DeltaTime)</code></strong><br />
+    每帧调用，更新场景状态和传感器数据。
+    <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">ACarlaGameModeBase::Tick</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">DeltaTime</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">Episode</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span><span class="w"> </span><span class="c1">// 更新车辆/传感器状态</span>
+<span class="w">  </span><span class="n">Recorder</span><span class="o">-&gt;</span><span class="n">CheckRecord</span><span class="p">();</span><span class="w"> </span><span class="c1">// 检查是否需要录制</span>
+<span class="p">}</span>
+</code></pre></div></p>
+</li>
+</ul>
+<h3 id="42-carlaepisode"><strong>4.2 CarlaEpisode</strong></h3>
+<ul>
+<li><strong>功能</strong>：管理场景生命周期（地图、天气、交通规则）。</li>
+<li><strong>关键方法</strong>：</li>
+<li>
+<p><strong><code>LoadMap(const FString&amp; MapName)</code></strong><br />
+    解析 OpenDRIVE 文件并生成道路网络。
+    <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">CarlaEpisode::LoadMap</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FString</span><span class="o">&amp;</span><span class="w"> </span><span class="n">MapName</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">carla</span><span class="o">::</span><span class="n">opendrive</span><span class="o">::</span><span class="n">OpenDriveParser</span><span class="w"> </span><span class="n">parser</span><span class="p">(</span><span class="n">MapName</span><span class="p">);</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">road</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">parser</span><span class="p">.</span><span class="n">GetRoads</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">CreateRoadActor</span><span class="p">(</span><span class="n">road</span><span class="p">);</span><span class="w"> </span><span class="c1">// 生成道路Actor</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong><code>SetWeather(const FWeatherParameters&amp; Weather)</code></strong><br />
+    应用动态天气参数（云量、湿度等）。
+    <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">CarlaEpisode::SetWeather</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FWeatherParameters</span><span class="o">&amp;</span><span class="w"> </span><span class="n">Weather</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">carla</span><span class="o">::</span><span class="n">rpc</span><span class="o">::</span><span class="n">WeatherParameters</span><span class="w"> </span><span class="n">carlaWeather</span><span class="p">;</span>
+<span class="w">  </span><span class="n">carlaWeather</span><span class="p">.</span><span class="n">cloudiness</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Weather</span><span class="p">.</span><span class="n">Cloudiness</span><span class="p">;</span>
+<span class="w">  </span><span class="n">World</span><span class="o">-&gt;</span><span class="n">SetWeather</span><span class="p">(</span><span class="n">carlaWeather</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></p>
+</li>
+</ul>
+<h3 id="43-acarlarecorder"><strong>4.3 ACarlaRecorder</strong></h3>
+<ul>
+<li><strong>功能</strong>：记录和回放模拟过程数据。</li>
+<li><strong>关键方法</strong>：</li>
+<li>
+<p><strong><code>StartRecording()</code></strong><br />
+    开始记录车辆位置、传感器数据到文件。
+    <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">ACarlaRecorder::StartRecording</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">FileWriter</span><span class="p">.</span><span class="n">Open</span><span class="p">(</span><span class="s">&quot;recording.log&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="n">FileWriter</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&quot;Frame,VehiclePosition,X,Y,Z</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong><code>PlayBack()</code></strong><br />
+    按帧回放录制数据。
+    <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">ACarlaRecorder::PlayBack</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">HasMoreFrames</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ReadNextFrame</span><span class="p">();</span><span class="w"> </span><span class="c1">// 读取下一帧数据</span>
+<span class="w">    </span><span class="n">ApplyFrameData</span><span class="p">();</span><span class="w"> </span><span class="c1">// 应用到车辆和传感器</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+</li>
+</ul>
+<h3 id="44-utaggerdelegate"><strong>4.4 UTaggerDelegate</strong></h3>
+<ul>
+<li><strong>功能</strong>：语义分割标签管理器，为角色分配语义ID。</li>
+<li><strong>关键方法</strong>：</li>
+<li><strong><code>OnActorSpawned(AActor* Actor)</code></strong><br />
+    为生成的角色分配 <code>CustomDepthStencilValue</code>。
+    <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">UTaggerDelegate::OnActorSpawned</span><span class="p">(</span><span class="n">AActor</span><span class="o">*</span><span class="w"> </span><span class="n">Actor</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">Actor</span><span class="o">-&gt;</span><span class="n">SetCustomDepthStencilValue</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="w"> </span><span class="c1">// 分配语义标签</span>
+<span class="p">}</span>
+</code></pre></div></li>
+</ul>
+<h3 id="45-fcarlaengine"><strong>4.5 FCarlaEngine</strong></h3>
+<ul>
+<li><strong>功能</strong>：引擎核心逻辑，提供帧计数器和ROS2集成。</li>
+<li><strong>关键方法</strong>：</li>
+<li><strong><code>OnTick()</code></strong><br />
+    递增帧计数器并同步到ROS2。
+    <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">FCarlaEngine::OnTick</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">FrameCounter</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">  </span><span class="cp">#if defined(WITH_ROS2)</span>
+<span class="w">  </span><span class="n">carla</span><span class="o">::</span><span class="n">ros2</span><span class="o">::</span><span class="n">ROS2</span><span class="o">::</span><span class="n">GetInstance</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetFrame</span><span class="p">(</span><span class="n">FrameCounter</span><span class="p">);</span>
+<span class="w">  </span><span class="cp">#endif</span>
+<span class="p">}</span>
+</code></pre></div></li>
+</ul>
+<h3 id="46-carlasensor"><strong>4.6 CarlaSensor</strong></h3>
+<ul>
+<li><strong>功能</strong>：传感器基类，定义数据采集与传输接口。</li>
+<li><strong>关键方法</strong>：</li>
+<li>
+<p><strong><code>Update(float DeltaTime)</code></strong><br />
+    采集传感器数据并异步发送到服务端。
+    <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">CarlaSensor::Update</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">DeltaTime</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">TArray</span><span class="o">&lt;</span><span class="n">uint8</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Capture</span><span class="p">();</span><span class="w"> </span><span class="c1">// 采集数据</span>
+<span class="w">  </span><span class="n">AsyncDataStreamImpl</span><span class="o">::</span><span class="n">Send</span><span class="p">(</span><span class="n">Data</span><span class="p">);</span><span class="w"> </span><span class="c1">// 异步传输</span>
+<span class="p">}</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong><code>PublishToROS2()</code></strong><br />
+    将数据转换为ROS2消息并发布。
+    <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">CarlaSensor::PublishToROS2</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">sensor_msgs</span><span class="o">::</span><span class="n">Image</span><span class="w"> </span><span class="n">msg</span><span class="p">;</span>
+<span class="w">  </span><span class="n">ConvertToROSImage</span><span class="p">(</span><span class="n">Data</span><span class="p">,</span><span class="w"> </span><span class="n">msg</span><span class="p">);</span><span class="w"> </span><span class="c1">// 转换为ROS2图像消息</span>
+<span class="w">  </span><span class="n">Publisher</span><span class="o">-&gt;</span><span class="n">Publish</span><span class="p">(</span><span class="n">msg</span><span class="p">);</span><span class="w"> </span><span class="c1">// 发布到ROS2话题</span>
+<span class="p">}</span>
+</code></pre></div></p>
+</li>
+</ul>
+<hr />
+<h2 id="_18">📝模块调用逻辑</h2>
 <p>本模块的代码结构如下：</p>
-<pre><code>CARLA
-├── Unreal
-│   ├── CarlaUE4
-│   │   ├── Plugins
-│   │   │   ├── Carla
-│   │   │   │   ├── Source
-│   │   │   │   │   ├── Carla
-│   │   │   │   │   │   ├── Game
-│   │   │   │   │   │   │   ├── CarlaEngine.cpp  # 主要文件
-│   │   │   │   │   │   │   ├── CarlaEngine.h
-│   │   │   │   │   │   │   ├── CarlaEpisode.h
-│   │   │   │   │   │   │   ├── CarlaStatics.h
+<pre><code>Game
+├── LibCarla (51)                # 核心交互
+│   ├── LoadMap()                # 地图加载
+│   ├── SetWeather()             # 天气设置
+│   └── VehicleControl()         # 车辆控制
+├── Recorder (25)                # 录制与回放
+│   ├── StartRecording()         # 开始录制
+│   └── PlayBack()               # 回放
+├── Sensor (6)                   # 传感器
+│   ├── CaptureData()            # 数据采集
+│   └── SendToServer()           # 数据传输
+├── Settings (9)                 # 配置管理
+├── Traffic (5)                  # 交通规则
+│   ├── Lights (4)               # 信号灯控制
+├── Util (6)                     # 工具函数
+└── Weather (2)                  # 动态天气
 </code></pre>
-<h3 id="_7">贡献代码</h3>
-<p>如果你希望为 CarlaEngine.cpp 贡献代码，请按照以下步骤：
-1. Fork 本项目。</p>
-<ol>
+<h2 id="_19">❗注意事项</h2>
+<h3 id="61"><strong>6.1 性能优化</strong></h3>
+<ul>
+<li><strong>高频调用函数</strong>：  </li>
+<li><code>FCarlaEngine::OnTick()</code> 和 <code>CarlaGameModeBase::Tick()</code> 需避免阻塞操作，建议将传感器数据处理移至多线程（如 <code>AsyncDataStreamImpl</code>）。  </li>
 <li>
-<p>创建一个新分支并进行修改。</p>
+<p>高权重模块（如 <code>LibCarla</code>、<code>Recorder</code>）的调用需控制频率，防止帧率下降。</p>
 </li>
 <li>
-<p>提交 PR（Pull Request）。</p>
+<p><strong>内存管理</strong>：  </p>
+</li>
+<li>复用 <code>HUDString</code> 和 <code>HUDLine</code> 结构体实例，减少动态内存分配。  </li>
+<li>避免频繁创建/销毁 <code>AsyncDataStreamImpl</code> 实例，建议复用连接。</li>
+</ul>
+<hr />
+<h3 id="62"><strong>6.2 资源释放</strong></h3>
+<ul>
+<li><strong>文件句柄</strong>：  </li>
+<li><code>CarlaRecorder::StopRecording()</code> 必须手动调用 <code>FileWriter.Close()</code> 释放文件资源。  </li>
+<li>
+<p>回放结束后需清理 <code>CarlaReplayer</code> 缓存的帧数据。</p>
 </li>
 <li>
-<p>代码需要通过代码审查和 CI 测试。</p>
+<p><strong>线程安全</strong>：  </p>
+</li>
+<li>多线程访问 <code>FrameCounter</code> 时需加锁（<code>std::mutex</code>），防止竞态条件。  </li>
+<li><code>AsyncDataStreamImpl::Send()</code> 需确保线程间数据同步。</li>
+</ul>
+<hr />
+<h3 id="63"><strong>6.3 版本兼容性</strong></h3>
+<ul>
+<li><strong>ROS2 宏启用</strong>：  </li>
+<li>使用 ROS2 功能前需确认 <code>WITH_ROS2</code> 宏已启用，否则编译会报错。  </li>
+<li>
+<p>依赖的 ROS2 消息类型需与 CARLA 服务端版本匹配。</p>
 </li>
 <li>
-<p>如有任何问题，请提交Issue或联系维护团队。</p>
+<p><strong>UE4/UE5 差异</strong>：  </p>
 </li>
-</ol>
-<p>许可证：MIT License</p>
+<li><code>UWorld</code> 和 <code>AActor</code> 在 UE5 中的接口可能变化，需适配 <code>CarlaEpisode</code> 和 <code>Sensor</code> 的调用逻辑。  </li>
+<li><code>AsyncDataStreamImpl</code> 在 UE5 中需替换为 <code>FAsyncTask</code> 实现。</li>
+</ul>
+<hr />
+<h3 id="64"><strong>6.4 常见问题</strong></h3>
+<ul>
+<li><strong>传感器未响应</strong>：  </li>
+<li>检查 <code>CarlaEpisode</code> 是否初始化成功。  </li>
+<li>
+<p>确认 <code>CarlaGameInstance</code> 已绑定到 <code>PlayerVehicle</code> 并激活传感器。</p>
+</li>
+<li>
+<p><strong>语义分割失败</strong>：  </p>
+</li>
+<li>确保 <code>UTaggerDelegate::SetSemanticSegmentationEnabled(true)</code> 已调用。  </li>
+<li>
+<p>验证 <code>CustomDepthStencilValue</code> 是否在渲染管线中正确配置。</p>
+</li>
+<li>
+<p><strong>录制文件损坏</strong>：  </p>
+</li>
+<li>回放前检查 <code>recording.log</code> 文件格式是否完整。  </li>
+<li>确保录制时 <code>CarlaRecorder::StartRecording()</code> 已正确调用。</li>
+</ul>
+<hr />
+<h3 id="65"><strong>6.5 开发建议</strong></h3>
+<ul>
+<li><strong>模块依赖控制</strong>：  </li>
+<li>避免直接依赖高权重模块（如 <code>LibCarla</code>），优先通过接口抽象解耦。  </li>
+<li>
+<p>使用 <code>Settings</code> 模块动态配置模块启用状态，提升灵活性。</p>
+</li>
+<li>
+<p><strong>调试工具</strong>：  </p>
+</li>
+<li>启用 <code>CarlaHUD</code> 的调试模式，实时显示帧率、内存占用等关键指标。  </li>
+<li>利用 <code>AsyncDataStreamImpl</code> 的日志功能追踪传感器数据传输异常。</li>
+</ul>
               
             </div>
           </div><footer>
