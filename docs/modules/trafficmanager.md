@@ -83,7 +83,7 @@ traffic_manager.set_desired_speed(vehicle, 20.0)         # 设置期望速度为
 CARLA包括世界模型（World）、蓝图库（Blueprint Library）、传感器（Sensors）、参与者（Actactors）、交通管理器（Traffic Manager）、天气和时间控制（Weather & Time）、记录与回放（Recorder）、ROS桥接（ROS Bridge）等。 
 Traffic Manager的主要功能是控制车辆和行人的行为，比如路径规划、避免碰撞、交通规则遵守等，让模拟环境中的交通更真实。而其他模块比如传感器负责数据收集，蓝图库提供模型资源，天气控制环境变量，记录回放用于保存和重现模拟过程，ROS桥接用于与ROS系统集成。Traffic Manager 是 CARLA 模拟器中强大的工具，提供了对自动驾驶车辆行为的全面控制。通过合理配置 TM，可以模拟各种复杂的交通场景，满足自动驾驶系统的训练和测试需求。
 ***
-##1. Traffic Manager vs. 蓝图库（Blueprint Library）
+## 1. Traffic Manager vs. 蓝图库（Blueprint Library）
 Traffic Manager
 
 动态控制：实时调整车辆/行人的行为（如速度、路径、避障、闯红灯等）。
@@ -96,7 +96,7 @@ Traffic Manager
 
 无行为控制：仅定义对象属性，不涉及动态交互。
 
-##2. Traffic Manager vs. 传感器（Sensors）
+## 2. Traffic Manager vs. 传感器（Sensors）
 Traffic Manager
 
 主动控制：直接向车辆发送控制指令（如转向、油门）。
@@ -109,7 +109,7 @@ Traffic Manager
 
 局部视角：数据绑定到单个车辆，无全局交通协调功能。
 
-##3. Traffic Manager vs. 天气/时间系统（Weather & Time）
+## 3. Traffic Manager vs. 天气/时间系统（Weather & Time）
 Traffic Manager
 
 行为模拟：影响交通参与者的决策逻辑（如雨天减速）。
@@ -122,7 +122,7 @@ Traffic Manager
 
 被动影响：需通过传感器数据间接影响自动驾驶算法。
 
-##4. Traffic Manager vs. 记录与回放（Recorder）
+## 4. Traffic Manager vs. 记录与回放（Recorder）
 Traffic Manager
 
 实时干预：动态调整交通流（如插入突发事件）。
@@ -135,7 +135,7 @@ Traffic Manager
 
 无动态交互：仅回放静态轨迹，无法响应环境变化。
 
-##5. Traffic Manager vs. 自动驾驶代理（Autopilot）
+## 5. Traffic Manager vs. 自动驾驶代理（Autopilot）
 Traffic Manager
 
 背景车辆控制：为非玩家车辆（NPC）提供基础行为逻辑（如跟车、变道）。
@@ -165,7 +165,7 @@ Traffic Manager：生成复杂交通流测试自动驾驶系统的鲁棒性（�
 
 天气系统：验证算法在不同光照/天气条件下的表现。
 ***
-#Traffic Manager与其他板块的联系
+# Traffic Manager与其他板块的联系
 
 在 CARLA 中，Traffic Manager（交通管理器） 虽然功能独立，但与其他模块紧密协作，共同构建动态、逼真的自动驾驶仿真环境。以下是它与关键模块的联系及协同工作方式：
 ***
