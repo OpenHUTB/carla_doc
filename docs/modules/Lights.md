@@ -68,20 +68,20 @@
 #### 2.2.1 交通信号控制流程 <a id="221-交通信号控制流程"></a>
  - 描述信号灯状态变化时，系统如何协调车辆和行人的行为。例如，在测试场景中交通管理器强制设置红灯，灯光子系统通知所有车辆和行人，车辆触发刹车逻辑，行人停止移动。
  - 应用场景：调试交通灯同步问题；验证自动驾驶算法对红灯的响应等。
-> ![traffic impact](./img/Lights/traffic_impact.png)
+> ![traffic impact](../img/Lights/traffic_impact.png)
  - 流程顺序：交通管理器 → 灯光模块 → 车辆/行人响应。
 #### 2.2.2 天气影响灯光 <a id="222-天气影响灯光"></a>
  - 展示天气变化如何通过灯光模块传递到自动驾驶系统。例如，天气系统发送暴雨事件；灯光模块降低路灯强度；传感器捕获低光照数据；自动驾驶 AI 决策降速。
  - 应用场景：模拟极端天气下的传感器性能；测试车辆在低能见度下的行为。
 
-> ![light change](./img/Lights/light_change.png)
+> ![light change](../img/Lights/light_change.png)
 
  - 数据流：天气事件 → 灯光强度调整 → 传感器数据 → 车辆控制。
 
 ### 2.3 场景示例图<a id="23-场景示例图"></a>
  - 场景：模拟暴雨天气下的交通系统响应。
  - 天气系统触发能见度下降；交通管理器延长绿灯时间以缓解拥堵；传感器数据用于算法性能分析。
-> ![data flow](./img/Lights/data_flow.png)
+> ![data flow](../img/Lights/data_flow.png)
 
 ## 3. 技术实现<a id="3-技术实现"></a>
 `UCarlaLight`继承自虚幻引擎的 `ULightComponent` 类，并扩展了 carla 特有的功能。
