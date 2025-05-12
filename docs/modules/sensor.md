@@ -1,37 +1,48 @@
-# 📘 CARLA 传感器文档总览
-
----
-
 ## 📑 目录（Table of Contents）
 
 ### 第一章：碰撞事件传感器（sensor.other.collision）
 
-- [1 模块概览](#1-模块概览)
-- [2 传感器注册与调用原理](#2-传感器注册与调用原理)
-- [3 数据结构：CollisionEvent](#3-数据结构collisionevent)
-- [4 序列化器分析](#4-序列化器分析collisioneventserializer)
-- [5 RawData 与 SensorData 概述](#5-rawdata-与-sensordata-概述)
-- [6 Python API 使用示例](#6-python-api-使用示例)
-- [7 小结与拓展](#7-小结与拓展)
+- [第一章：CARLA 碰撞事件传感器系统（sensor.other.collision）](#第一章carla-碰撞事件传感器系统sensorothercollision)
+  - [1 模块概览](#1-模块概览)
+  - [2 传感器注册与调用原理](#2-传感器注册与调用原理)
+  - [3 数据结构：CollisionEvent](#3-数据结构collisionevent)
+  - [4 序列化器分析](#4-序列化器分析collisioneventserializer)
+  - [5 RawData 与 SensorData 概述](#5-rawdata-与-sensordata-概述)
+  - [6 Python API 使用示例](#6-python-api-使用示例)
+  - [7 小结与拓展](#7-小结与拓展)
 
 ### 第二章：空传感器（sensor.other.noop）
 
-- [1 模块概览](#1-模块概览-1)
-- [2 传感器注册与调用原理](#2-传感器注册与调用原理-1)
-- [3 序列化器分析](#3-序列化器分析noopserializer)
-- [4 数据结构与传输机制](#4-数据结构与传输机制)
-- [5 Python API 使用示例](#5-python-api-使用示例-1)
-- [6 小结与拓展](#6-小结与拓展-1)
+- [第二章：CARLA 空传感器系统（sensor.other.noop）](#第二章carla-空传感器系统sensorothernoop)
+  - [1 模块概览](#1-模块概览-1)
+  - [2 传感器注册与调用原理](#2-传感器注册与调用原理-1)
+  - [3 序列化器分析](#3-序列化器分析noopserializer)
+  - [4 数据结构与传输机制](#4-数据结构与传输机制)
+  - [5 Python API 使用示例](#5-python-api-使用示例-1)
+  - [6 小结与拓展](#6-小结与拓展-1)
 
 ### 第三章：IMU 传感器（sensor.other.imu）
 
-- [1 模块概览](#1-模块概览-2)
-- [2 工作流程与序列化机制](#2-工作流程与序列化机制)
-- [3 数据结构详解](#3-数据结构详解)
-- [4 Python API 调用示例](#4-python-api-调用示例)
-- [5 拓展用例与集成应用](#5-拓展用例与集成应用)
-- [6 限制与对比分析](#6-限制与对比分析)
-- [7 总结与建议](#7-总结与建议)
+- [第三章：CARLA惯性测量单元传感器系统（sensor.other.imu）](#第三章carla惯性测量单元传感器系统sensorotherimu)
+  - [1 模块概览](#1-模块概览-2)
+  - [2 工作流程与序列化机制](#2-工作流程与序列化机制)
+  - [3 数据结构详解](#3-数据结构详解)
+  - [4 Python API 调用示例](#4-python-api-调用示例)
+  - [5 拓展用例与集成应用](#5-拓展用例与集成应用)
+  - [6 限制与对比分析](#6-限制与对比分析)
+  - [7 总结与建议](#7-总结与建议-1)
+
+### 第四章：GNSS 传感器（sensor.other.gnss）
+
+- [第四章：CARLA 全球导航卫星系统传感器（sensor.other.gnss）](#第四章carla-全球导航卫星系统传感器sensorothergnss)
+  - [1 模块概览](#1-模块概览-3)
+  - [2 工作流程与传输机制](#2-工作流程与传输机制)
+  - [3 数据结构解析](#3-数据结构解析)
+  - [4 序列化机制分析](#4-序列化机制分析)
+  - [5 Python API 使用示例](#5-python-api-使用示例-2)
+  - [6 应用拓展与组合使用](#6-应用拓展与组合使用)
+  - [7 总结与建议](#7-总结与建议-2)
+
 
 ---
 
@@ -41,10 +52,12 @@
 
 ## 1 模块概览
 
+ ![flowchart_1.png](..%2Fimg%2Fmodules%2Fflowchart_1.png)
+
 本章详细讲解 CARLA 模拟器中的一类简单传感器：`sensor.other.collision`，即碰撞事件传感器。该传感器不输出连续的数据流信息，而是在检测到实体碰撞时以事件形式即时触发。其设计初衷是为用户提供车辆与环境中其他对象之间物理交互的监控能力。
 
 在自动驾驶仿真、强化学习安全评估或碰撞规避算法验证中，`sensor.other.collision` 提供了关键的反馈信号。通过对其数据结构、序列化机制与客户端回调触发流程的深入解析，可全面理解该传感器在 CARLA 感知系统中的运行机制及其工程实现。
-
+    
 ---
 
 ## 2 传感器注册与调用原理
@@ -60,7 +73,6 @@ CARLA 所有传感器，包括 `sensor.other.collision`，均基于统一的 Act
   3. 通过 RPC 网络发送
   4. 客户端使用 `Deserialize()` 解码为 `SensorData`
   5. 注入回调函数中进行处理
-     ![flowchart.jpg](..%2Fimg%2Fmodules%2Fflowchart.jpg)
 该流程构成事件捕捉 → 数据序列化 → 网络传输 → 解码还原 → 客户端处理的完整通路。
 
 ---
@@ -181,6 +193,8 @@ sensor.listen(on_collision)
 ---
 
 ## 1 模块概览
+
+ ![flowchart_2.png](..%2Fimg%2Fmodules%2Fflowchart_2.png)
 
 本章介绍 CARLA 模拟器中最为简化的一类传感器：`sensor.other.noop`，即“无操作传感器”（No-Operation Sensor）。顾名思义，该传感器不会向客户端发送任何数据，其存在的意义更多是作为客户端挂载传感器的占位符、功能测试器或新传感器开发的最小模板。
 
@@ -308,6 +322,8 @@ noop_sensor.listen(on_noop_event)
 
 ## 1 模块概览
 
+ ![flowchart_3.png](..%2Fimg%2Fmodules%2Fflowchart_3.png)
+
 `sensor.other.imu` 是 CARLA 提供的惯性测量单元（IMU）传感器，用于捕捉车辆的三维加速度、角速度及方向信息，广泛应用于轨迹估计、姿态解算、导航融合等自动驾驶仿真任务中。
 
 该传感器会周期性发送事件，传递以下数据：
@@ -330,9 +346,6 @@ IMU 传感器的数据流程如下：
 4. **数据还原**：客户端通过 `IMUMeasurement` 类将字节流还原为结构化对象
 5. **回调触发**：Python 层注册的 `.listen()` 回调函数获得该事件并执行处理逻辑
 
-流程图如下所示：
-
-![flowchart_3.png](..%2Fimg%2Fmodules%2Fflowchart_3.png)
 
 ---
 
@@ -440,4 +453,150 @@ def on_imu_integration(imu):
 * 建议与 `sensor.other.gnss`、`sensor.camera.rgb` 联合使用，支持轨迹分析、三维重建等研究任务；
 * 后续可引入 IMU 噪声模拟模块、数据导出功能。
 
+
 ---
+
+# 第四章：CARLA 全球导航卫星系统传感器（sensor.other.gnss）
+
+---
+
+## 1 模块概览
+
+ ![flowchart_4.png](..%2Fimg%2Fmodules%2Fflowchart_4.png)
+
+`sensor.other.gnss` 是 CARLA 中用于获取地理位置信息的传感器，模拟真实世界中的全球导航卫星系统（GNSS）设备，如 GPS、北斗等。传感器输出包括：
+
+* **经度（longitude）**：单位°，范围 $-180°, 180°$
+* **纬度（latitude）**：单位°，范围 $-90°, 90°$
+* **海拔（altitude）**：单位 m，代表相对于海平面的高度
+
+该传感器可用于场景定位、路径重建、轨迹分析等仿真任务中，常与 IMU、地图匹配模块联合使用。
+
+---
+
+## 2 工作流程与传输机制
+
+GNSS 的数据传输流程如下：
+
+1. **事件生成**：服务端在当前仿真帧中生成地理位置信息
+2. **数据打包**：通过 `GnssSerializer` 将 `GeoLocation` 序列化为 MsgPack 格式的 `RawData`
+3. **网络传输**：打包后的字节流通过 CARLA 的 RPC 系统发送给客户端
+4. **数据还原**：客户端使用 `GnssMeasurement` 类解码 `RawData`，得到结构化数据
+5. **Python 层监听**：`.listen()` 接口注册的函数在每次更新中触发回调
+
+
+---
+
+## 3 数据结构解析
+
+定义位置：[`GnssMeasurement.h`](https://github.com/OpenHUTB/carla_cpp/blob/dev/LibCarla/source/carla/sensor/data/GnssMeasurement.h)
+
+```cpp
+class GnssMeasurement : public SensorData {
+public:
+  geom::GeoLocation GetGeoLocation() const;
+  double GetLongitude() const;
+  double GetLatitude() const;
+  double GetAltitude() const;
+};
+```
+
+其中：
+
+* `GeoLocation` 结构体封装了 `{ longitude, latitude, altitude }`
+* 每帧更新一次，数据来源为服务端环境模拟的车辆真实位置信息
+
+默认输出单位为：
+
+| 字段        | 类型     | 单位   |
+| --------- | ------ | ---- |
+| Longitude | double | 度（°） |
+| Latitude  | double | 度（°） |
+| Altitude  | double | 米（m） |
+
+---
+
+## 4 序列化机制分析
+
+定义文件：
+[`GnssSerializer.h`](https://github.com/OpenHUTB/carla_cpp/blob/dev/LibCarla/source/carla/sensor/s11n/GnssSerializer.h)
+[`GnssSerializer.cpp`](https://github.com/OpenHUTB/carla_cpp/blob/dev/LibCarla/source/carla/sensor/s11n/GnssSerializer.cpp)
+
+```cpp
+// 客户端解码逻辑
+SharedPtr<SensorData> GnssSerializer::Deserialize(RawData &&data) {
+  return SharedPtr<SensorData>(new data::GnssMeasurement(std::move(data)));
+}
+```
+
+序列化结构体使用 `MSGPACK_DEFINE_ARRAY` 自动完成：
+
+```cpp
+struct GeoLocation {
+  double latitude;
+  double longitude;
+  double altitude;
+  MSGPACK_DEFINE_ARRAY(latitude, longitude, altitude)
+};
+```
+
+该机制保证 GNSS 数据体积小、解码快，适合高频传输与跨语言兼容。
+
+---
+
+## 5 Python API 使用示例
+
+```python
+# 定义回调函数
+def on_gnss(event):
+    lat = event.latitude
+    lon = event.longitude
+    alt = event.altitude
+    print(f"[GNSS] 纬度: {lat:.6f}, 经度: {lon:.6f}, 海拔: {alt:.2f}m")
+```
+
+```python
+# 创建并绑定传感器
+bp = world.get_blueprint_library().find('sensor.other.gnss')
+transform = carla.Transform(carla.Location(x=0.7, y=0.0, z=1.6))
+gnss_sensor = world.spawn_actor(bp, transform, attach_to=vehicle)
+gnss_sensor.listen(on_gnss)
+```
+
+可选蓝图参数（`bp.set_attribute(...)`）包括：
+
+| 属性            | 描述         | 默认值    |
+| ------------- | ---------- | ------ |
+| `sensor_tick` | 传感器更新时间（秒） | `0.05` |
+
+---
+
+## 6 应用拓展与组合使用
+
+GNSS 传感器常用于以下场景：
+
+* **路径重建**：记录车辆运行轨迹用于回放
+* **定位精度验证**：与地图匹配算法结合测试鲁棒性
+* **IMU + GNSS 融合**：实现基于扩展卡尔曼滤波（EKF）的定位
+
+### 示例：GNSS 与 IMU 联合使用
+
+```python
+def on_fused_data(gnss, imu):
+    location = (gnss.latitude, gnss.longitude)
+    acceleration = imu.accelerometer
+    print(f"[FUSION] 坐标: {location}, 加速度: {acceleration}")
+```
+
+该模式可用于轨迹重建、地理围栏检测、自动驾驶行为控制等任务。
+
+---
+
+## 7 总结与建议
+
+* `sensor.other.gnss` 提供高精度地理位置信息，是自动驾驶仿真系统中的关键模块；
+* 与 IMU、摄像头、地图等配合可实现高级 SLAM 与定位算法验证；
+* 若需实现更真实的模型，可拓展添加噪声模型、地形遮挡、信号丢失模拟等功能。
+
+---
+
