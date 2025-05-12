@@ -215,5 +215,11 @@ UE4Editor-Cmd.exe Carla -run=PrepareAssetsForCooking
 | 0x31 | 分块布局文件缺失         | 检查 Maps/[Map]/TilesInfo.txt |
 | 0x32 | 材质实例加载失败         | 验证材质路径正确性        |
 | 0x33 | OpenDrive 数据异常       | 重新导出 XODR 文件        |
-
----
+ 
+### 对象库加载白名单配置  
+在 `DefaultEngine.ini` 中添加：  
+```ini
+[/Script/Engine.ObjectLibrary]
++AssetPaths=(Path="/Game/Carla/Static/Props")  
++AssetPaths=(Path="/Game/Carla/Static/Road")  
+```
