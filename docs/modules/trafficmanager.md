@@ -250,7 +250,7 @@ Scenario Runner 可通过 Traffic Manager 的 API 实时调整交通密度、车
 
 回放与调试
 
-回放时通过 Traffic Manager 修改特定 NPC 行为，测试主车应对异常情况的能力。
+回放时是通过 Traffic Manager 修改特定 NPC 行为，来测试主车应对异常情况的能力。
 
 核心联系总结
 模块	与 Traffic Manager 的协作方式
