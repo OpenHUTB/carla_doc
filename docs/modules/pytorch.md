@@ -19,7 +19,7 @@
 
 本模块在 **CARLA 仿真环境** 中实现了 **轮子动力学计算** 与 **PyTorch JIT 模型推理** 之间的无缝桥接。通过这一模块，开发者可以在真实感强的仿真环境中使用深度学习模型对轮子的物理行为进行推理，并对其进行动态调整。这一桥梁的搭建为复杂的自动驾驶仿真提供了更高效的计算与推理能力。
 
-该模块的主要功能如下：
+该模块功能如下：
 
 1. **将 C++ 原始数据封装成 PyTorch 张量**：将 CARLA 仿真中的轮子动力学数据转化为 PyTorch 张量，方便模型处理。
    
@@ -93,7 +93,7 @@
 
 ### 4.4 GetWheelTensorOutputDynamic 
 
-- **源码参考**: [pytorch.cpp 源码107行](https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L107)
+- **源码参考**: [pytorch.cpp 源码](https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L107)
 - **功能**：与 GetWheelTensorOutput 相同，用于“动态”推理后的后处理
 
 ------
@@ -158,7 +158,7 @@ void NeuralModel::SetInputs(Inputs input)
 
 ### 6.4 推理：Forward
 
-- **源码参考**: [pytorch.cpp 源码第](https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L219)
+- **源码参考**: [pytorch.cpp 源码](https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L219)
 - **流程**：
   1. 调用 GetWheelTensorInputs 构建四组车轮张量
   2. 驾驶命令（steering, throttle, braking）及 optional terrain_type、verbose
