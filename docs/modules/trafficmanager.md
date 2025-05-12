@@ -81,6 +81,7 @@ traffic_manager.set_desired_speed(vehicle, 20.0)         # 设置期望速度为
 ##Traffic Manager与其他板块的区别
 CARLA包括世界模型（World）、蓝图库（Blueprint Library）、传感器（Sensors）、参与者（Actactors）、交通管理器（Traffic Manager）、天气和时间控制（Weather & Time）、记录与回放（Recorder）、ROS桥接（ROS Bridge）等。
 Traffic Manager的主要功能是控制车辆和行人的行为，比如路径规划、避免碰撞、交通规则遵守等，让模拟环境中的交通更真实。而其他模块比如传感器负责数据收集，蓝图库提供模型资源，天气控制环境变量，记录回放用于保存和重现模拟过程，ROS桥接用于与ROS系统集成。Traffic Manager 是 CARLA 模拟器中强大的工具，提供了对自动驾驶车辆行为的全面控制。通过合理配置 TM，可以模拟各种复杂的交通场景，满足自动驾驶系统的训练和测试需求。
+
 1. Traffic Manager vs. 蓝图库（Blueprint Library）
 Traffic Manager
 
