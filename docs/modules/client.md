@@ -130,6 +130,42 @@ CARLA 是一个开源的自动驾驶模拟平台，提供了丰富的 API 以支
 
 - `void SetSynchronousMode(bool enabled)`
   - 启用或禁用同步模式，在同步模式下仿真步进是由用户控制的。
+  
+### 5. `BlueprintLibrary` 与 `ActorBlueprint` 类
+在 CARLA 客户端中，`BlueprintLibrary` 类用于提供创建行为体（Actor）的模板集合，而 `ActorBlueprint` 则描述具体实体的构造配置参数。
+#### 主要功能
+
+- `BlueprintLibrary`
+
+  - 获取可创建的实体蓝图列表（如车辆、传感器等）
+  - 支持通过关键词过滤蓝图
+  
+- `ActorBlueprint`
+  - 表示单个实体的构造参数（如车辆类型、颜色，传感器分辨率等）
+  - 可设置和查询各类属性值
+
+#### 示例
+
+```
+auto blueprint_library = world.GetBlueprintLibrary();
+
+// 选择一辆特斯拉车型的 blueprint
+auto vehicle_blueprint = (*blueprint_library)->Find("vehicle.tesla.model3");
+
+// 设置车辆颜色
+vehicle_blueprint->SetAttribute("color", "255,0,0");
+
+// 从地图上获取一个出生点
+auto spawn_points = world.GetMap()->GetRecommendedSpawnPoints();
+auto transform = spawn_points[0];
+
+// 生成车辆 Actor
+auto vehicle_actor = world.SpawnActor(*vehicle_blueprint, transform);
+
+```
+
+### 
+  
 
 ---
 
