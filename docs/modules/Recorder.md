@@ -21,6 +21,7 @@
 7. [附加模块：CarlaRecorderAnimBiker](#附加模块carlarecorderanimbiker)
 8. [附加模块：CarlaRecorderAnimVehicles](#附加模块CarlaRecorderAnimVehicles)
 9. [附加模块：CarlaRecorderAnimVehiclesWheels](#附加模块CarlaRecorderAnimVehiclesWheels)
+10. [常见问题与调试建议](#常见问题与调试建议)
 ---
 
 ## 模块概述
@@ -129,7 +130,7 @@ std::string ShowFileActorsBlocked(std::string Name, double MinTime, double MinDi
 ### 模块依赖流程图
 
 
-![模块依赖关系图](../img/Recorder_dependency.svg)
+![模块依赖关系图](../img/Recorder_dependency.png)
 
 
 ### 各级说明
