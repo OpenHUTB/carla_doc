@@ -269,6 +269,67 @@ Tick：每帧执行的主逻辑流程
 流程展示了从控制器初始化、持续运行到车辆控制的全过程，包括异常处理、自动驾驶逻辑、障碍物检测、路线跟随等重要功能模块的交互关系。
 ```
 
+# <三>`UWheeledVehicleMovementComponentNW` 类文档
+
+## 一、类的概述
+
+`UWheeledVehicleMovementComponentNW` 类继承自某个基类（`Super`），主要用于处理轮式车辆的运动相关设置和操作，包括车辆的发动机设置、变速器设置、车轮设置等，同时负责与物理引擎（PhysX）进行交互，以实现车辆的模拟和运动更新。
+
+## 二、成员变量
+
+1. **`EngineSetup`**：存储车辆发动机相关的数据，包括转动惯量（`MOI`）、最大转速（`MaxRPM`）、不同工况下的阻尼率等，这些数据用于配置发动机的行为。
+2. **`TransmissionSetup`**：包含车辆变速器的设置信息，如离合器强度（`ClutchStrength`）、换挡时间（`GearSwitchTime`）、倒档齿轮比（`ReverseGearRatio`）、最终传动比（`FinalRatio`）以及前进档的相关数据（`ForwardGears`）等，用于控制车辆的换挡逻辑和传动系统。
+3. **`WheelSetups`**：一个数组，用于存储车轮的设置信息，每个元素对应一个车轮的设置，包括车轮的骨骼名称等。
+4. **`DifferentialSetup`**：存储车辆差速器的设置数据，用于配置差速器的行为。
+5. **`IdleBrakeInput`**：表示车辆的闲置刹车输入值。
+6. **`SteeringCurve`**：一个富曲线（`FRichCurve`），用于描述车辆转向速度与转向角度之间的关系，通过添加不同速度下的转向比例关键帧来定义。
+
+## 三、构造函数 `UWheeledVehicleMovementComponentNW(const FObjectInitializer& ObjectInitializer)`
+
+1. **功能**：初始化车辆运动组件的默认设置，从 PhysX 获取默认的发动机数据，并设置发动机的相关参数，如转动惯量、最大转速、阻尼率等。同时初始化变速器的一些默认值，以及设置转向速度曲线的初始关键帧，并初始化车轮设置数组和差速器设置数组。
+2. **参数**：`ObjectInitializer` 用于初始化对象的参数。
+
+## 四、编辑器相关函数 `PostEditChangeProperty(struct FPropertyChangedEvent& PropertyChangedEvent)`
+
+1. **功能**：当在编辑器中修改组件的属性时被调用，根据修改的属性（`DownRatio`、`UpRatio`、`SteeringCurve`）对相关设置进行调整。例如，当修改 `DownRatio` 时，确保每个前进档的 `DownRatio` 不大于 `UpRatio`；当修改 `UpRatio` 时，确保 `UpRatio` 不小于 `DownRatio`；当修改 `SteeringCurve` 时，确保曲线上的值在 0 到 1 之间。
+
+2. **参数**：`PropertyChangedEvent` 包含了属性变化的相关信息，如修改的属性名称等。
+
+   ## 五、静态函数
+
+   5. 1`GetVehicleDifferentialNWSetup(const TArray<FVehicleNWWheelDifferentialData>& Setup, PxVehicleDifferentialNWData& PxSetup)`
+
+   1. **功能**：根据给定的车轮差速器设置数组，设置 PhysX 车辆差速器的数据，将每个车轮的驱动状态设置到 `PxSetup` 中。
+   2. 参数：
+      - `Setup`：一个包含车辆车轮差速器数据的数组。
+      - `PxSetup`：PhysX 车辆差速器数据对象，用于存储设置后的差速器数据。
+
+   5.2、静态函数 `GetVehicleEngineSetup(const FVehicleNWEngineData& Setup, PxVehicleEngineData& PxSetup)`
+
+   1. **功能**：根据给定的车辆发动机数据，设置 PhysX 车辆发动机的数据。包括将发动机的转动惯量、最大转速、阻尼率等从自定义单位转换为 PhysX 所需的单位，并设置扭矩曲线数据，将自定义的扭矩曲线转换为 PhysX 格式的扭矩曲线。
+   2. 参数：
+      - `Setup`：包含车辆发动机数据的对象。
+      - `PxSetup`：PhysX 车辆发动机数据对象，用于存储设置后的发动机数据。
+
+   5.3、静态函数 `GetVehicleGearSetup(const FVehicleNWTransmissionData& Setup, PxVehicleGearsData& PxSetup)`
+
+   1. **功能**：根据给定的车辆变速器数据，设置 PhysX 车辆齿轮的数据。包括设置换挡时间、倒档齿轮比、前进档齿轮比以及最终传动比等。
+   2. 参数：
+      - `Setup`：包含车辆变速器数据的对象。
+      - `PxSetup`：PhysX 车辆齿轮数据对象，用于存储设置后的齿轮数据。
+
+   5.4、静态函数 `GetVehicleAutoBoxSetup(const FVehicleNWTransmissionData& Setup, PxVehicleAutoBoxData& PxSetup)`
+
+   1. **功能**：根据给定的车辆变速器数据，设置 PhysX 车辆自动变速器的数据。包括设置每个前进档的升档比和降档比，以及空档的升档比和自动变速器的延迟时间。
+   2. 参数：
+      - `Setup`：包含车辆变速器数据的对象。
+      - `PxSetup`：PhysX 车辆自动变速器数据对象，用于存储设置后的自动变速器数据。
+
+## 五、成员函数 `FindPeakTorque()`
+
+1. **功能**：在发动机扭矩曲线中查找最大扭矩值，通过遍历扭矩曲线的关键帧，找出扭矩值的最大值。
+2. **返回值**：返回找到的最大扭矩值。
+
 ## 参考
 
 * [函数vehile.apply_control实际上如何工作的？](https://github.com/carla-simulator/carla/issues/1427)

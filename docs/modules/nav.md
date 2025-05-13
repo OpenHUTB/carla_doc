@@ -285,6 +285,50 @@ query->findPath(startRef, endRef, startPos, endPos, &filter, polys, &polyCount, 
 
 **说明**：可以继承 `dtQueryFilter` 并在构造函数中修改 flag 和 cost，以便针对不同场景进行优化。
 
+### 2. Off-Mesh Links 处理
+
+支持跳跃、攀爬等场景，通过 Off-Mesh Links 定义特殊连接：
+
+```cpp
+// 添加 Off-Mesh Link
+dtMeshTile* tile = navmesh->getTile(0);
+const int verts[2] = {startVertexId, endVertexId};
+const float linkRadius = 0.2f;
+const dtPolyRef ref = tile->header->polyCount;
+dtOffMeshConnection conn = {};
+conn.radius = linkRadius;
+conn.poly = ref;
+conn.flags = SAMPLE_POLYFLAGS_JUMP;
+conn.userId = 1234;
+conn.startPosition[0] = sx; conn.startPosition[1] = sy; conn.startPosition[2] = sz;
+conn.endPosition[0]   = ex; conn.endPosition[1]   = ey; conn.endPosition[2]   = ez;
+
+// 将连接写入网格
+navmesh->addOffMeshConnection(&conn);
+```
+
+调用 `findStraightPath` 时，返回的 `straight_flags` 数组中含 `DT_STRAIGHTPATH_OFFMESH_CONNECTION`，可据此在行走逻辑中处理跳跃或爬升。
+
+### 3. 异步加载与多线程优化
+
+当场景较大时，可在后台线程逐瓦片加载/卸载导航数据，同时主线程运行路径查询：
+
+```cpp
+// 后台加载任务
+std::future<void> loadTask = std::async(std::launch::async, [&](){
+    Navigation::LoadTileAsync(x, y);
+});
+
+// 在主线程检查完成并合并
+if (loadTask.wait_for(std::chrono::milliseconds(0)) == std::future_status::ready) {
+    std::lock_guard<std::mutex> guard(_mutex);
+    navmesh->mergeTile(pendingTile);
+}
+```
+
+**注意**：所有对 `navmesh` 和 `dtCrowd` 的修改需在同一锁保护下完成，避免并发冲突。
+
+
  ---
  
  ## 配置参数  
@@ -321,7 +365,6 @@ query->findPath(startRef, endRef, startPos, endPos, &filter, polys, &polyCount, 
      std::lock_guard<std::mutex> lock(_mutex);
      ```
    * **加锁的必要性**：
-
      * **避免数据竞争**：在多线程环境中，多个线程可能同时访问和修改共享资源（如导航网格、代理状态等）。如果不加锁，可能导致数据竞争，产生不可预测的行为。
      * **确保操作的原子性**：加锁可以确保对共享资源的操作是原子的，即操作在执行过程中不会被其他线程打断，从而保持数据的一致性。
      * **防止死锁和资源泄漏**：通过合理使用锁机制，可以避免死锁的发生，并确保资源在使用完毕后被正确释放。
