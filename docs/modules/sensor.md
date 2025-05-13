@@ -54,6 +54,18 @@
   * [5 Python API 使用示例](#5-python-api-使用示例-3)
   * [6 应用案例与拓展建议](#6-应用案例与拓展建议)
   * [7 小结](#7-小结)
+ 
+### 第六章：激光雷达传感器（sensor.lidar.ray\_cast）
+
+* [第六章：CARLA 激光雷达传感器系统（sensor.lidar.ray\_cast）](#第六章carla-激光雷达传感器系统sensorlidarray_cast)
+
+  * [1 模块概览](#1-模块概览-5)
+  * [2 工作机制与原理](#2-工作机制与原理)
+  * [3 数据结构与点云格式](#3-数据结构与点云格式)
+  * [4 序列化与反序列化流程](#4-序列化与反序列化流程)
+  * [5 Python API 示例与配置参数](#5-python-api-示例与配置参数)
+  * [6 应用场景与可拓展方向](#6-应用场景与可拓展方向)
+  * [7 总结](#7-总结-1)
 ---
 
 # 第一章：CARLA 碰撞事件传感器系统（sensor.other.collision）
@@ -727,7 +739,147 @@ sensor.listen(on_lane_invasion)
 * `sensor.other.lane_invasion` 是 CARLA 中重要的语义事件传感器；
 * 它以低带宽方式提供关键路径偏离信息，适用于控制反馈与安全分析；
 * 未来可与地图标注、规划模块更深度融合，支持高精轨迹约束与驾驶决策研究。
-* ---
+
+
+---
+
+# 第六章：CARLA 激光雷达传感器系统（sensor.lidar.ray\_cast）
+
+---
+
+# 第六章：CARLA 激光雷达传感器系统（sensor.lidar.ray\_cast）
+
+---
+
+## 1 模块概览
+
+![flowchart\_6.png](..%2Fimg%2Fmodules%2Fflowchart_6.png)
+
+`sensor.lidar.ray_cast` 是 CARLA 模拟器中最常用的激光雷达传感器，基于光线投射（ray casting）机制模拟真实 LiDAR 装置的点云采集过程。它可高效模拟不同线数、角度、旋转频率和噪声模型的激光扫描设备（如 Velodyne HDL-64、Ouster OS1 等）。
+
+激光雷达传感器在 3D 感知、环境建图、障碍物检测与路径规划等任务中具有核心地位，其输出为连续的三维点云流数据。
+
+---
+
+## 2 工作机制与原理
+
+`sensor.lidar.ray_cast` 基于服务端的射线仿真实现：
+
+1. **光线发射**：每帧从传感器原点按设定参数发射 N 条激光束（扫描线）；
+2. **碰撞检测**：光线与场景中可交物体进行交点检测（基于 GPU 加速）；
+3. **数据采样**：记录每条光线的命中距离、角度、强度等；
+4. **点云生成**：生成形如 `[x, y, z, intensity]` 的 3D 点云；
+5. **数据打包**：打包为 `RawData`，通过 RPC 网络传输至客户端；
+6. **解码还原**：客户端使用 `LidarMeasurement` 解码并提供访问接口。
+
+该传感器支持设定旋转频率、扫描范围、垂直角分布、点密度、噪声模型等，是极为灵活的仿真组件。
+
+---
+
+## 3 数据结构与点云格式
+
+定义文件：[`carla/sensor/data/LidarMeasurement.h`](https://github.com/carla-simulator/carla/blob/dev/LibCarla/source/carla/sensor/data/LidarMeasurement.h)
+
+```cpp
+struct LidarDetection {
+  float x;         // 点的 X 坐标
+  float y;         // 点的 Y 坐标
+  float z;         // 点的 Z 坐标
+  float intensity; // 回波强度
+};
+```
+
+一个完整的扫描周期包含多个 `LidarDetection` 点，构成一个 `LidarMeasurement` 实例：
+
+```cpp
+class LidarMeasurement : public SensorData {
+public:
+  size_t size() const;
+  const LidarDetection &at(size_t index) const;
+  const LidarDetection *begin() const;
+};
+```
+
+每个点均包含空间坐标和强度，单位均为米（`m`），强度为 0\~1 之间的浮点数。
+
+---
+
+## 4 序列化与反序列化流程
+
+定义文件：
+[`LidarSerializer.h`](https://github.com/carla-simulator/carla/blob/dev/LibCarla/source/carla/sensor/s11n/LidarSerializer.h)
+[`LidarSerializer.cpp`](https://github.com/carla-simulator/carla/blob/dev/LibCarla/source/carla/sensor/s11n/LidarSerializer.cpp)
+
+* 服务端使用 `LidarSerializer::Serialize()` 将所有 `LidarDetection` 数据打包成连续内存块；
+* 客户端通过 `LidarMeasurement` 构造函数解码：
+
+```cpp
+SharedPtr<SensorData> LidarSerializer::Deserialize(RawData &&data) {
+  return SharedPtr<SensorData>(new data::LidarMeasurement(std::move(data)));
+}
+```
+
+点云被连续存储为 `[float x, y, z, intensity] * N` 形式，传输高效，占用带宽较低，适合高频实时仿真。
+
+---
+
+## 5 Python API 示例与配置参数
+
+以下代码展示如何部署 LiDAR 传感器，并处理点云数据：
+
+```python
+def on_lidar(data):
+    points = np.frombuffer(data.raw_data, dtype=np.float32).reshape(-1, 4)
+    print(f"[LIDAR] 点数: {len(points)}, 第一个点: {points[0]}")
+
+bp = world.get_blueprint_library().find('sensor.lidar.ray_cast')
+bp.set_attribute('range', '100.0')
+bp.set_attribute('rotation_frequency', '10.0')
+bp.set_attribute('channels', '32')
+bp.set_attribute('points_per_second', '56000')
+
+transform = carla.Transform(carla.Location(x=0, y=0, z=2.5))
+lidar_sensor = world.spawn_actor(bp, transform, attach_to=vehicle)
+lidar_sensor.listen(on_lidar)
+```
+
+### 常用参数表：
+
+| 属性名                      | 描述         | 默认值     |
+| ------------------------ | ---------- | ------- |
+| `range`                  | 最大检测距离（m）  | 50.0    |
+| `rotation_frequency`     | 每秒转速（Hz）   | 10.0    |
+| `channels`               | 激光线数（垂直）   | 32      |
+| `points_per_second`      | 点数密度       | 56000   |
+| `upper_fov`, `lower_fov` | 垂直视角上下限（°） | 10, -30 |
+| `sensor_tick`            | 更新时间（s）    | 0.05    |
+
+---
+
+## 6 应用场景与可拓展方向
+
+### 应用场景：
+
+* 3D 点云生成与可视化；
+* 障碍物检测与跟踪（Obstacle Avoidance）；
+* SLAM/地图构建（建图+定位）；
+* 与摄像头图像对齐进行深度估计；
+* 自动驾驶决策路径验证。
+
+### 拓展方向：
+
+* 引入激光噪声建模（如距离抖动、散射）；
+* 增加反射材质模拟（如玻璃表面不回波）；
+* 与相机坐标联合投影，实现点云图像融合；
+* 点云导出为 PCD 格式供后处理工具使用（如 Open3D、PCL）。
+
+---
+
+## 7 总结
+
+`sensor.lidar.ray_cast` 是 CARLA 中仿真精度最高、功能最丰富的连续型传感器。其基于 GPU 加速射线投射，提供高频、高密度、可配置的点云数据输出。
+
+该模块适用于感知、规划、重建、避障等任务，是自动驾驶研究不可或缺的重要组件。
 
 
 ---
