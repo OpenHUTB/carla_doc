@@ -66,6 +66,32 @@
   * [5 Python API 示例与配置参数](#5-python-api-示例与配置参数)
   * [6 应用场景与可拓展方向](#6-应用场景与可拓展方向)
   * [7 总结](#7-总结-1)
+
+### 第七章：障碍物检测传感器（sensor.other.obstacle）
+
+* [第七章：CARLA 障碍物检测传感器系统（sensor.other.obstacle）](#第七章carla-障碍物检测传感器系统sensorotherobstacle)
+
+  * [1 模块概览](#1-模块概览-6)
+  * [2 触发机制与事件流程](#2-触发机制与事件流程)
+  * [3 数据结构解析：ObstacleDetectionEvent](#3-数据结构解析obstacledetectionevent)
+  * [4 序列化机制说明](#4-序列化机制说明)
+  * [5 Python API 使用示例](#5-python-api-使用示例-4)
+  * [6 应用场景与扩展建议](#6-应用场景与扩展建议)
+  * [7 小结](#7-小结-1)
+
+
+### 第八章：RGB 摄像头传感器（sensor.camera.rgb）
+
+* [第八章：CARLA RGB 摄像头传感器系统（sensor.camera.rgb）](#第八章carla-rgb-摄像头传感器系统sensorcamerargb)
+
+  * [1 模块概览](#1-模块概览-7)
+  * [2 图像采集与传输机制](#2-图像采集与传输机制)
+  * [3 数据结构说明：Image](#3-数据结构说明image)
+  * [4 序列化与编码流程](#4-序列化与编码流程)
+  * [5 Python API 使用示例](#5-python-api-使用示例-5)
+  * [6 应用方向与参数优化](#6-应用方向与参数优化)
+  * [7 小结](#7-小结-2)
+
 ---
 
 # 第一章：CARLA 碰撞事件传感器系统（sensor.other.collision）
@@ -877,6 +903,278 @@ lidar_sensor.listen(on_lidar)
 
 该模块适用于感知、规划、重建、避障等任务，是自动驾驶研究不可或缺的重要组件。
 
+---
+
+
+# 第七章：CARLA 障碍物检测传感器系统（sensor.other.obstacle）
 
 ---
+
+## 1 模块概览
+
+![flowchart\_7.png](..%2Fimg%2Fmodules%2Fflowchart_7.png)
+
+`sensor.other.obstacle` 是 CARLA 提供的一类事件触发型传感器，用于在仿真环境中检测车辆或行人前方的潜在障碍物。与 `collision` 传感器不同，它在实际碰撞发生**之前**触发，为自动驾驶决策提供提前预警。
+
+该传感器通常被附着于主控实体（如车辆），当检测到其前方存在障碍物进入指定感知半径时，触发 `ObstacleDetectionEvent`，并返回障碍物的相对位置、速度、Actor ID 等信息。
+
+---
+
+## 2 触发机制与事件流程
+
+该传感器通过连续评估障碍物与传感器附着体（通常为车辆）的相对几何关系触发事件：
+
+1. **服务端检测**：在每帧仿真中，根据感知参数计算是否存在障碍物进入视野范围；
+2. **事件生成**：若满足触发条件，生成 `ObstacleDetectionEvent`；
+3. **数据编码**：使用 `ObstacleDetectionEventSerializer` 将障碍物 Actor ID、距离、速度等打包为 `RawData`；
+4. **网络传输**：通过 CARLA 的 RPC 系统将数据推送至客户端；
+5. **回调触发**：客户端通过 `.listen()` 注册的 Python 回调函数接收该事件。
+
+该机制支持近实时检测与事件压缩传输，适用于高频控制反馈与行为建模。
+
+---
+
+## 3 数据结构解析：ObstacleDetectionEvent
+
+定义文件：[`carla/sensor/data/ObstacleDetectionEvent.h`](https://github.com/carla-simulator/carla/blob/dev/LibCarla/source/carla/sensor/data/ObstacleDetectionEvent.h)
+
+```cpp
+struct ObstacleDetectionEvent {
+  rpc::Actor self_actor;       // 传感器附着体（通常为主车）
+  rpc::Actor other_actor;      // 检测到的障碍物
+  float distance;              // 当前距离（单位：米）
+  geom::Vector3D normal;       // 接触法线方向（用于避障判断）
+};
+```
+
+说明：
+
+* `self_actor`：发出检测的实体，通常为车辆本体；
+* `other_actor`：障碍物 Actor（动态物体，如其他车辆、行人）；
+* `distance`：两者之间的欧式距离；
+* `normal`：从障碍物指向车辆的法向向量，用于判断障碍方向与应对策略。
+
+---
+
+## 4 序列化机制说明
+
+定义文件：
+[`ObstacleDetectionEventSerializer.h`](https://github.com/carla-simulator/carla/blob/dev/LibCarla/source/carla/sensor/s11n/ObstacleDetectionEventSerializer.h)
+[`ObstacleDetectionEventSerializer.cpp`](https://github.com/carla-simulator/carla/blob/dev/LibCarla/source/carla/sensor/s11n/ObstacleDetectionEventSerializer.cpp)
+
+序列化结构体如下：
+
+```cpp
+struct Data {
+  rpc::Actor self_actor;
+  rpc::Actor other_actor;
+  float distance;
+  geom::Vector3D normal;
+  MSGPACK_DEFINE_ARRAY(self_actor, other_actor, distance, normal)
+};
+```
+
+序列化函数：
+
+```cpp
+template <typename SensorT>
+static Buffer Serialize(
+  const SensorT &,
+  rpc::Actor self_actor,
+  rpc::Actor other_actor,
+  float distance,
+  geom::Vector3D normal) {
+    return MsgPack::Pack(Data{self_actor, other_actor, distance, normal});
+}
+```
+
+反序列化函数：
+
+```cpp
+static SharedPtr<SensorData> Deserialize(RawData &&data) {
+  return SharedPtr<SensorData>(new data::ObstacleDetectionEvent(std::move(data)));
+}
+```
+
+---
+
+## 5 Python API 使用示例
+
+```python
+def on_obstacle(event):
+    obstacle = event.other_actor
+    distance = event.distance
+    print(f"[OBSTACLE] 检测到障碍物 ID={obstacle.id} 距离={distance:.2f} m")
+
+bp = world.get_blueprint_library().find('sensor.other.obstacle')
+transform = carla.Transform(carla.Location(x=1.5, y=0.0, z=1.2))
+sensor = world.spawn_actor(bp, transform, attach_to=vehicle)
+sensor.listen(on_obstacle)
+```
+
+你也可以设置可选属性：
+
+| 参数名             | 描述        | 默认值  |
+| --------------- | --------- | ---- |
+| `distance`      | 检测范围（米）   | 5.0  |
+| `only_dynamics` | 是否仅检测动态物体 | True |
+
+---
+
+## 6 应用场景与扩展建议
+
+### 应用场景：
+
+* **行为预测**：检测交通密度与动态交互（如并线、跟车）；
+* **路径修正**：用于控制模块触发制动或绕行；
+* **防碰撞规划**：可作为 Collision Sensor 的前置预警；
+* **人机共驾**：识别动态障碍并介入人类驾驶行为；
+* **强化学习训练**：将“接近障碍物”事件作为负反馈。
+
+### 拓展建议：
+
+* 加入障碍物速度/加速度字段；
+* 支持多障碍物并发检测结果；
+* 支持障碍物类别过滤（如忽略行人、静态桩）；
+* 联合摄像头进行视觉语义增强。
+
+---
+
+## 7 小结
+
+* `sensor.other.obstacle` 提供动态障碍预警机制，是事件驱动型传感器；
+* 可提前于碰撞生成预警信号，在路径规划与行为建模中广泛使用；
+* 推荐与 Collision、IMU、Radar 等模块联合使用，实现更完整的行为感知。
+
+---
+
+# 第八章：CARLA RGB 摄像头传感器系统（sensor.camera.rgb）
+
+---
+
+## 1 模块概览
+
+![flowchart\_8.png](..%2Fimg%2Fmodules%2Fflowchart_8.png)
+
+`sensor.camera.rgb` 是 CARLA 中最基础且最常用的图像传感器，模拟真实世界中的 RGB 相机输出，生成三通道图像（Red, Green, Blue），支持用户自定义分辨率、视场角、帧率等参数。
+
+该传感器广泛应用于以下任务：
+
+* 自动驾驶中的目标检测、语义分割等视觉感知任务；
+* 数据集构建（如 nuScenes、KITTI 格式）；
+* 多传感器融合（如与 LiDAR、IMU 联合使用）；
+* 场景渲染与仿真回放。
+
+---
+
+## 2 图像采集与传输机制
+
+RGB 相机传感器的数据处理流程如下：
+
+1. **渲染采样**：服务端使用 Unreal Engine 渲染模块生成当前视角图像帧；
+2. **图像打包**：图像帧由 `ImageSerializer` 编码为二进制 `RawData`；
+3. **网络传输**：通过 RPC 系统将图像流传输至客户端；
+4. **数据还原**：客户端自动解码为 `sensor.data.Image` 实例；
+5. **Python 处理**：注册的 `.listen()` 回调函数处理图像帧，通常用于保存或神经网络推理。
+
+---
+
+## 3 数据结构说明：Image
+
+定义文件：[`carla/sensor/data/Image.h`](https://github.com/carla-simulator/carla/blob/dev/LibCarla/source/carla/sensor/data/Image.h)
+
+图像结构定义如下：
+
+```cpp
+class Image : public SensorData {
+public:
+  uint32_t width;       // 图像宽度
+  uint32_t height;      // 图像高度
+  std::vector<uint8_t> data; // 图像数据，每像素占4字节（RGBA）
+};
+```
+
+说明：
+
+* 图像以 `uint8_t` 字节序存储，每像素 4 通道（Red, Green, Blue, Alpha）；
+* 可以在 Python 中转为 `np.array` 或保存为 `PIL.Image`。
+
+---
+
+## 4 序列化与编码流程
+
+定义文件：
+[`ImageSerializer.h`](https://github.com/carla-simulator/carla/blob/dev/LibCarla/source/carla/sensor/s11n/ImageSerializer.h)
+
+* `ImageSerializer::Serialize()` 将渲染帧打包为连续 RGBA 字节流；
+* `ImageSerializer::Deserialize()` 直接返回 `data::Image` 实例：
+
+```cpp
+SharedPtr<SensorData> ImageSerializer::Deserialize(RawData &&data) {
+  return SharedPtr<SensorData>(new data::Image(std::move(data)));
+}
+```
+
+整个流程无需额外结构化数据编码，依赖图像本体作为主数据内容，适合大吞吐图像序列传输。
+
+---
+
+## 5 Python API 使用示例
+
+以下示例展示如何部署 RGB 相机，并保存或处理帧图像：
+
+```python
+def save_rgb_image(image):
+    image.save_to_disk('output/rgb_%06d.png' % image.frame)
+
+bp = world.get_blueprint_library().find('sensor.camera.rgb')
+bp.set_attribute('image_size_x', '800')
+bp.set_attribute('image_size_y', '600')
+bp.set_attribute('fov', '90')
+
+transform = carla.Transform(carla.Location(x=1.5, z=2.4))
+camera = world.spawn_actor(bp, transform, attach_to=vehicle)
+camera.listen(save_rgb_image)
+```
+
+你也可以用 `numpy` 解码图像：
+
+```python
+import numpy as np
+def decode_np(image):
+    array = np.frombuffer(image.raw_data, dtype=np.uint8)
+    array = array.reshape((image.height, image.width, 4))[:, :, :3]  # RGB
+    return array
+```
+
+---
+
+## 6 应用方向与参数优化
+
+| 参数名            | 描述       | 默认值  |
+| -------------- | -------- | ---- |
+| `image_size_x` | 水平方向像素数  | 800  |
+| `image_size_y` | 垂直方向像素数  | 600  |
+| `fov`          | 水平视角（°）  | 90   |
+| `sensor_tick`  | 更新时间（秒）  | 0.05 |
+| `gamma`        | 图像色调校正系数 | 2.2  |
+
+### 应用方向：
+
+* 多视角图像采集（前视、侧视、鸟瞰）；
+* 与 LiDAR/IMU 融合用于深度估计与定位；
+* 用于训练视觉模型（检测、分割、跟踪）；
+* 与语义图（`sensor.camera.semantic_segmentation`）联合生成 GT 标注图像；
+* 将图像与 GNSS/IMU 时间对齐生成时空标注序列。
+
+---
+
+## 7 小结
+
+`sensor.camera.rgb` 是 CARLA 感知系统中的基础视觉模块，提供稳定、高质量、可配置的图像输出能力。其在自动驾驶系统开发、视觉模型训练与多模态感知实验中具有不可替代的作用。
+
+推荐配合其他传感器（IMU、GNSS、Depth、LiDAR）使用，构建完整的数据生成与处理流水线。
+
+---
+
 
