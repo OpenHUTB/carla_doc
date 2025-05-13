@@ -164,7 +164,41 @@ auto vehicle_actor = world.SpawnActor(*vehicle_blueprint, transform);
 
 ```
 
-### 
+### 6. `Sensor` 类与传感器使用（以摄像头为例）
+CARLA 支持多种传感器类型，例如摄像头、激光雷达、碰撞传感器等，传感器均继承自 `ClientSideSensor` 类。
+
+#### 创建与附加传感器的步骤
+
+ - 从 BlueprintLibrary 获取传感器蓝图
+
+ - 设置传感器参数（如图像分辨率、视场角等）
+
+ - 附加到目标 Actor（如车辆）
+
+ - 注册数据回调处理函数
+ 
+### 示例（以摄像头为例）
+
+```
+auto camera_bp = blueprint_library->Find("sensor.camera.rgb");
+camera_bp->SetAttribute("image_size_x", "800");
+camera_bp->SetAttribute("image_size_y", "600");
+camera_bp->SetAttribute("fov", "90");
+
+// 定义相对于车辆的位置（车顶前部）
+Transform camera_transform(Location(1.5f, 0.0f, 2.4f));
+
+// 创建摄像头并附加到车辆
+auto camera = world.SpawnActor(*camera_bp, camera_transform, vehicle_actor);
+
+// 注册数据处理回调
+std::static_pointer_cast<ClientSideSensor>(camera)->Listen([](auto data) {
+    auto image = std::static_pointer_cast<sensor::data::Image>(data);
+    image->SaveToDisk("output/%06d.png", image->GetFrame());
+});
+
+```
+
   
 
 ---
