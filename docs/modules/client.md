@@ -10,7 +10,15 @@ CARLA 是一个开源的自动驾驶模拟平台，提供了丰富的 API 以支
 ### 1. **Client 类**
 
 `Client` 类是与 CARLA 模拟器交互的核心类，提供了连接仿真器、加载世界、设置物理参数、控制传感器等功能。
-
+在 Carla 自动驾驶仿真平台中，Client 类是开发者与 Carla 服务器（服务端）交互的核心接口。它负责建立客户端与服务器之间的连接，并通过网络通信管理仿真世界中的实体（如车辆、传感器、行人等）。
+通过 Client 类，开发者可以灵活控制 Carla 仿真环境，实现从简单的车辆控制到复杂的多智能体协同仿真。
+1. 核心作用
+功能	说明
+连接管理	建立/断开与 Carla 服务器的 TCP/IP 连接，指定 IP 和端口（默认 localhost:2000）。
+世界（World）管理	获取当前仿真世界的引用（World 对象），用于操作场景中的实体。
+Actor 生命周期控制	创建（Spawn）、销毁（Destroy）车辆、传感器、行人等 Actor。
+同步/异步模式控制	设置仿真步长（Timestep）、控制仿真运行模式（同步或异步）。
+数据获取与订阅	接收传感器数据（如摄像头图像、激光雷达点云）、交通信息、地图数据等。
 #### 构造函数
 
 - `Client(const std::string &host, uint16_t port, size_t worker_threads = 0u)`
@@ -130,6 +138,42 @@ CARLA 是一个开源的自动驾驶模拟平台，提供了丰富的 API 以支
 
 - `void SetSynchronousMode(bool enabled)`
   - 启用或禁用同步模式，在同步模式下仿真步进是由用户控制的。
+  
+### 5. `BlueprintLibrary` 与 `ActorBlueprint` 类
+在 CARLA 客户端中，`BlueprintLibrary` 类用于提供创建行为体（Actor）的模板集合，而 `ActorBlueprint` 则描述具体实体的构造配置参数。
+#### 主要功能
+
+- `BlueprintLibrary`
+
+  - 获取可创建的实体蓝图列表（如车辆、传感器等）
+  - 支持通过关键词过滤蓝图
+  
+- `ActorBlueprint`
+  - 表示单个实体的构造参数（如车辆类型、颜色，传感器分辨率等）
+  - 可设置和查询各类属性值
+
+#### 示例
+
+```
+auto blueprint_library = world.GetBlueprintLibrary();
+
+// 选择一辆特斯拉车型的 blueprint
+auto vehicle_blueprint = (*blueprint_library)->Find("vehicle.tesla.model3");
+
+// 设置车辆颜色
+vehicle_blueprint->SetAttribute("color", "255,0,0");
+
+// 从地图上获取一个出生点
+auto spawn_points = world.GetMap()->GetRecommendedSpawnPoints();
+auto transform = spawn_points[0];
+
+// 生成车辆 Actor
+auto vehicle_actor = world.SpawnActor(*vehicle_blueprint, transform);
+
+```
+
+### 
+  
 
 ---
 
