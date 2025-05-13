@@ -306,3 +306,79 @@ void FShapeVisitor::operator()(const Shape::Arrow &Arrow) const {
   - 通过 `LargeMapManager` 将全局坐标转换为本地坐标，保证在大地图下的位置准确性。
   - 计算箭头方向向量 `Diff` 并生成变换 `Transform`，用于定位箭头头部。
   - 使用 `DrawLines` 绘制箭头的主干及四个箭头分支，提高可视化效果。
+
+## 2.5 FNavigationMesh：导航网格管理器
+
+### 2.5.1 概要
+
+`FNavigationMesh` 是 CARLA 中用于与 Unreal 导航网格系统交互的工具类，位于 `CarlaUE4/Plugins/Carla/Source/Carla/Util/NavigationMesh.*`。其主要功能是加载与指定地图名称相关联的导航网格数据，支持路径查询和导航功能。该类通过读取存储为 `.bin` 文件的导航网格数据，为仿真中的路径规划和智能体导航提供支持。
+
+### 2.5.2 关键方法详解
+
+#### Load 方法
+
+```cpp
+static TArray<uint8> Load(FString MapName);
+```
+
+- **作用**：根据传入的地图名称加载对应的导航网格二进制数据文件。
+- **参数**：
+  - `MapName`：指定地图的名称，用于定位对应的导航网格文件。
+- **返回值**：返回一个 `TArray<uint8>` 类型的数组，包含导航网格文件的二进制内容。如果加载失败，则返回空数组。
+- **实现逻辑**：
+  1. **编辑器模式处理**：
+     - 如果在编辑器中运行，地图名称可能会有一个额外的前缀（如 `UEDPIE_0_`）。代码会移除这个前缀，以确保文件查找的正确性。
+     - 例如，原始地图名称为 `UEDPIE_0_Town01`，校正后变为 `Town01`。
+  2. **构建文件名**：
+     - 根据地图名称构建导航网格文件的完整名称，假设文件后缀为 `.bin`。例如，地图名称为 `Town01`，则文件名为 `Town01.bin`。
+  3. **查找文件**：
+     - 使用 `IFileManager::Get().FindFilesRecursive` 方法在项目内容目录（`FPaths::ProjectContentDir()`）中递归查找与导航网格文件名匹配的文件。
+  4. **加载文件内容**：
+     - 如果找到文件，尝试使用 `FFileHelper::LoadFileToArray` 方法将文件内容加载到 `Content` 数组中。
+     - 如果加载成功，输出日志信息，提示正在加载的文件名。
+     - 如果加载失败，输出错误信息，提示加载失败的文件名。
+  5. **返回结果**：
+     - 返回加载到的导航网格文件内容（可能为空，如果加载失败）。
+
+### 2.5.3 使用示例
+
+```cpp
+#include "Carla/Util/NavigationMesh.h"
+
+void LoadNavigationMeshData(FString MapName)
+{
+    // 调用 FNavigationMesh::Load 方法加载导航网格数据
+    TArray<uint8> MeshData = FNavigationMesh::Load(MapName);
+
+    // 检查加载结果
+    if (MeshData.Num() > 0)
+    {
+        UE_LOG(LogTemp, Log, TEXT("Navigation Mesh data loaded successfully for map '%s'"), *MapName);
+        // 进一步处理加载的导航网格数据
+    }
+    else
+    {
+        UE_LOG(LogTemp, Error, TEXT("Failed to load Navigation Mesh data for map '%s'"), *MapName);
+    }
+}
+```
+
+- **说明**：此示例展示了如何在 CARLA 仿真中加载指定地图的导航网格数据。通过调用 `FNavigationMesh::Load` 方法，可以获取导航网格的二进制数据，用于后续的路径规划和导航功能。
+
+### 2.5.4 注意事项
+
+1. **文件路径**：
+   - 确保导航网格文件存储在项目的 `Content` 目录下，并且文件名与地图名称匹配。
+2. **编辑器模式**：
+   - 如果在编辑器中运行，需要处理地图名称的前缀问题，以确保文件查找的正确性。
+3. **错误处理**：
+   - 在实际使用中，应添加适当的错误处理逻辑，以应对文件未找到或加载失败的情况。
+
+### 2.5.5 扩展功能
+
+- **路径查询**：
+  - `FNavigationMesh` 类可以进一步扩展，提供路径查询功能，例如通过调用 Unreal 的导航系统接口，实现从起点到终点的路径规划。
+- **动态更新**：
+  - 支持在运行时动态更新导航网格，以适应场景中动态变化的障碍物或路径。
+
+通过 `FNavigationMesh` 类，CARLA 仿真系统能够高效地加载和管理导航网格数据，为智能体的路径规划和导航功能提供坚实的基础。
