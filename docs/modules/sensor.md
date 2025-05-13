@@ -79,6 +79,19 @@
   * [6 应用场景与扩展建议](#6-应用场景与扩展建议)
   * [7 小结](#7-小结-1)
 
+
+### 第八章：RGB 摄像头传感器（sensor.camera.rgb）
+
+* [第八章：CARLA RGB 摄像头传感器系统（sensor.camera.rgb）](#第八章carla-rgb-摄像头传感器系统sensorcamerargb)
+
+  * [1 模块概览](#1-模块概览-7)
+  * [2 图像采集与传输机制](#2-图像采集与传输机制)
+  * [3 数据结构说明：Image](#3-数据结构说明image)
+  * [4 序列化与编码流程](#4-序列化与编码流程)
+  * [5 Python API 使用示例](#5-python-api-使用示例-5)
+  * [6 应用方向与参数优化](#6-应用方向与参数优化)
+  * [7 小结](#7-小结-2)
+
 ---
 
 # 第一章：CARLA 碰撞事件传感器系统（sensor.other.collision）
@@ -1034,4 +1047,134 @@ sensor.listen(on_obstacle)
 * 推荐与 Collision、IMU、Radar 等模块联合使用，实现更完整的行为感知。
 
 ---
+
+# 第八章：CARLA RGB 摄像头传感器系统（sensor.camera.rgb）
+
+---
+
+## 1 模块概览
+
+![flowchart\_8.png](..%2Fimg%2Fmodules%2Fflowchart_8.png)
+
+`sensor.camera.rgb` 是 CARLA 中最基础且最常用的图像传感器，模拟真实世界中的 RGB 相机输出，生成三通道图像（Red, Green, Blue），支持用户自定义分辨率、视场角、帧率等参数。
+
+该传感器广泛应用于以下任务：
+
+* 自动驾驶中的目标检测、语义分割等视觉感知任务；
+* 数据集构建（如 nuScenes、KITTI 格式）；
+* 多传感器融合（如与 LiDAR、IMU 联合使用）；
+* 场景渲染与仿真回放。
+
+---
+
+## 2 图像采集与传输机制
+
+RGB 相机传感器的数据处理流程如下：
+
+1. **渲染采样**：服务端使用 Unreal Engine 渲染模块生成当前视角图像帧；
+2. **图像打包**：图像帧由 `ImageSerializer` 编码为二进制 `RawData`；
+3. **网络传输**：通过 RPC 系统将图像流传输至客户端；
+4. **数据还原**：客户端自动解码为 `sensor.data.Image` 实例；
+5. **Python 处理**：注册的 `.listen()` 回调函数处理图像帧，通常用于保存或神经网络推理。
+
+---
+
+## 3 数据结构说明：Image
+
+定义文件：[`carla/sensor/data/Image.h`](https://github.com/carla-simulator/carla/blob/dev/LibCarla/source/carla/sensor/data/Image.h)
+
+图像结构定义如下：
+
+```cpp
+class Image : public SensorData {
+public:
+  uint32_t width;       // 图像宽度
+  uint32_t height;      // 图像高度
+  std::vector<uint8_t> data; // 图像数据，每像素占4字节（RGBA）
+};
+```
+
+说明：
+
+* 图像以 `uint8_t` 字节序存储，每像素 4 通道（Red, Green, Blue, Alpha）；
+* 可以在 Python 中转为 `np.array` 或保存为 `PIL.Image`。
+
+---
+
+## 4 序列化与编码流程
+
+定义文件：
+[`ImageSerializer.h`](https://github.com/carla-simulator/carla/blob/dev/LibCarla/source/carla/sensor/s11n/ImageSerializer.h)
+
+* `ImageSerializer::Serialize()` 将渲染帧打包为连续 RGBA 字节流；
+* `ImageSerializer::Deserialize()` 直接返回 `data::Image` 实例：
+
+```cpp
+SharedPtr<SensorData> ImageSerializer::Deserialize(RawData &&data) {
+  return SharedPtr<SensorData>(new data::Image(std::move(data)));
+}
+```
+
+整个流程无需额外结构化数据编码，依赖图像本体作为主数据内容，适合大吞吐图像序列传输。
+
+---
+
+## 5 Python API 使用示例
+
+以下示例展示如何部署 RGB 相机，并保存或处理帧图像：
+
+```python
+def save_rgb_image(image):
+    image.save_to_disk('output/rgb_%06d.png' % image.frame)
+
+bp = world.get_blueprint_library().find('sensor.camera.rgb')
+bp.set_attribute('image_size_x', '800')
+bp.set_attribute('image_size_y', '600')
+bp.set_attribute('fov', '90')
+
+transform = carla.Transform(carla.Location(x=1.5, z=2.4))
+camera = world.spawn_actor(bp, transform, attach_to=vehicle)
+camera.listen(save_rgb_image)
+```
+
+你也可以用 `numpy` 解码图像：
+
+```python
+import numpy as np
+def decode_np(image):
+    array = np.frombuffer(image.raw_data, dtype=np.uint8)
+    array = array.reshape((image.height, image.width, 4))[:, :, :3]  # RGB
+    return array
+```
+
+---
+
+## 6 应用方向与参数优化
+
+| 参数名            | 描述       | 默认值  |
+| -------------- | -------- | ---- |
+| `image_size_x` | 水平方向像素数  | 800  |
+| `image_size_y` | 垂直方向像素数  | 600  |
+| `fov`          | 水平视角（°）  | 90   |
+| `sensor_tick`  | 更新时间（秒）  | 0.05 |
+| `gamma`        | 图像色调校正系数 | 2.2  |
+
+### 应用方向：
+
+* 多视角图像采集（前视、侧视、鸟瞰）；
+* 与 LiDAR/IMU 融合用于深度估计与定位；
+* 用于训练视觉模型（检测、分割、跟踪）；
+* 与语义图（`sensor.camera.semantic_segmentation`）联合生成 GT 标注图像；
+* 将图像与 GNSS/IMU 时间对齐生成时空标注序列。
+
+---
+
+## 7 小结
+
+`sensor.camera.rgb` 是 CARLA 感知系统中的基础视觉模块，提供稳定、高质量、可配置的图像输出能力。其在自动驾驶系统开发、视觉模型训练与多模态感知实验中具有不可替代的作用。
+
+推荐配合其他传感器（IMU、GNSS、Depth、LiDAR）使用，构建完整的数据生成与处理流水线。
+
+---
+
 
