@@ -21,7 +21,6 @@
 
 ![该模块的各个函数关系图](../img/carla_learning_pytorch_structure.svg)
 
-
 该模块功能如下：
 
 1. **将 C++ 原始数据封装成 PyTorch 张量**：将 CARLA 仿真中的轮子动力学数据转化为 PyTorch 张量，方便模型处理。
@@ -46,9 +45,8 @@
 ### 3.1 add_mark
 - **作用**：空壳函数，用于在代码中插入标记，便于日志或调试
 - **参数**：`text` — 标记文本，不作实际处理
-- **源码链接**：更多细节请参考 [pytorch.cpp ](https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L20)
 
-------
+- **源码链接**：更多细节请参考 [pytorch.cpp ](https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L20)
 
 ## 4. carla::learning 命名空间
 
