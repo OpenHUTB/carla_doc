@@ -233,4 +233,12 @@ UStaticMesh* RoadMesh = UMapGenFunctionLibrary::CreateMesh(
        │ x = R・asinh(sinΔλ/√(tan²φ + cos²Δλ)) │
        │ y = R・atan(tanφ/cosΔλ)               │
        └───────────────────────┘   
+### 性能优化建议图表
+ ```mermaid
+   graph LR
+  A[高顶点数] --> B(分块处理)
+  B --> C{每块≤65535顶点}
+  C -->|是| D[并行生成]
+  C -->|否| B
+   ```
 ---
