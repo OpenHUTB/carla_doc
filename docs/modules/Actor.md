@@ -124,44 +124,34 @@ CarlaUnreal 插件中的 Actor 模块是 CARLA 模拟器中用于管理和操作
 ---
 
 ## 使用场景
-
 1. **仿真场景初始化**：
-   - 使用 `UActorDispatcher::SpawnActor` 生成车辆、行人等 Actor，设置初始位置和状态。
+   - 使用 `UActorDispatcher::SpawnActor` 生成车辆、行人等 Actor，设置初始位置和状态，进行场景初始化。
    - 通过 `FActorRegistry::Register` 注册 Actor，分配唯一 ID。
-
 2. **状态保存与恢复**：
    - 使用 `FActorData::RecordActorData` 保存 Actor 状态。
    - 使用 `FActorData::RestoreActorData` 恢复 Actor 状态，用于场景重置或回放。
-
 3. **动态管理**：
    - 使用 `UActorDispatcher::PutActorToSleep` 和 `WakeActorUp` 动态管理 Actor 的活跃状态，优化性能。
    - 使用 `UActorDispatcher::DestroyActor` 清理不再需要的 Actor。
-
 4. **传感器与数据流**：
    - 使用 `FActorSensorData` 管理传感器数据流，支持实时数据传输和处理。
-
 5. **交通模拟**：
    - 使用 `FTrafficLightData` 和 `FTrafficSignData` 管理交通信号灯和标志的状态，模拟真实交通规则。
 
 ---
 
 ## 注意事项
-
 1. **物理模拟**：
    - 车辆和行人的物理模拟状态通过 `bSimulatePhysics` 控制，需确保正确设置以避免仿真异常。
    - 恢复物理状态时，需针对不同 Actor 类型（如车辆、行人）应用特定逻辑。
-
 2. **ID 管理**：
    - 确保 Actor ID 的唯一性，避免重复注册或冲突。
    - 使用 `DesiredId` 时，需验证其未被占用。
-
 3. **ROS2 集成**：
    - 启用 ROS2 时，需确保正确配置名称映射和回调，避免命名冲突或数据丢失。
-
 4. **边界框与标签**：
    - 边界框通过 `UBoundingBoxCalculator` 计算，需确保 Actor 的几何信息正确。
    - 语义标签通过 `ATagger` 获取，需避免无效标签（如 `None` 或 `Other`）。
-
 5. **未实现功能**：
    - 部分代码（如行人死亡计时器）标记为 `TODO`，需后续完善。
    - 子 Actor 的休眠逻辑可能需要进一步优化。
