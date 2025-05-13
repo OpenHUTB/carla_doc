@@ -292,7 +292,43 @@ Tick：每帧执行的主逻辑流程
 ## 四、编辑器相关函数 `PostEditChangeProperty(struct FPropertyChangedEvent& PropertyChangedEvent)`
 
 1. **功能**：当在编辑器中修改组件的属性时被调用，根据修改的属性（`DownRatio`、`UpRatio`、`SteeringCurve`）对相关设置进行调整。例如，当修改 `DownRatio` 时，确保每个前进档的 `DownRatio` 不大于 `UpRatio`；当修改 `UpRatio` 时，确保 `UpRatio` 不小于 `DownRatio`；当修改 `SteeringCurve` 时，确保曲线上的值在 0 到 1 之间。
+
 2. **参数**：`PropertyChangedEvent` 包含了属性变化的相关信息，如修改的属性名称等。
+
+   ## 五、静态函数
+
+   5. 1`GetVehicleDifferentialNWSetup(const TArray<FVehicleNWWheelDifferentialData>& Setup, PxVehicleDifferentialNWData& PxSetup)`
+
+   1. **功能**：根据给定的车轮差速器设置数组，设置 PhysX 车辆差速器的数据，将每个车轮的驱动状态设置到 `PxSetup` 中。
+   2. 参数：
+      - `Setup`：一个包含车辆车轮差速器数据的数组。
+      - `PxSetup`：PhysX 车辆差速器数据对象，用于存储设置后的差速器数据。
+
+   5.2、静态函数 `GetVehicleEngineSetup(const FVehicleNWEngineData& Setup, PxVehicleEngineData& PxSetup)`
+
+   1. **功能**：根据给定的车辆发动机数据，设置 PhysX 车辆发动机的数据。包括将发动机的转动惯量、最大转速、阻尼率等从自定义单位转换为 PhysX 所需的单位，并设置扭矩曲线数据，将自定义的扭矩曲线转换为 PhysX 格式的扭矩曲线。
+   2. 参数：
+      - `Setup`：包含车辆发动机数据的对象。
+      - `PxSetup`：PhysX 车辆发动机数据对象，用于存储设置后的发动机数据。
+
+   5.3、静态函数 `GetVehicleGearSetup(const FVehicleNWTransmissionData& Setup, PxVehicleGearsData& PxSetup)`
+
+   1. **功能**：根据给定的车辆变速器数据，设置 PhysX 车辆齿轮的数据。包括设置换挡时间、倒档齿轮比、前进档齿轮比以及最终传动比等。
+   2. 参数：
+      - `Setup`：包含车辆变速器数据的对象。
+      - `PxSetup`：PhysX 车辆齿轮数据对象，用于存储设置后的齿轮数据。
+
+   5.4、静态函数 `GetVehicleAutoBoxSetup(const FVehicleNWTransmissionData& Setup, PxVehicleAutoBoxData& PxSetup)`
+
+   1. **功能**：根据给定的车辆变速器数据，设置 PhysX 车辆自动变速器的数据。包括设置每个前进档的升档比和降档比，以及空档的升档比和自动变速器的延迟时间。
+   2. 参数：
+      - `Setup`：包含车辆变速器数据的对象。
+      - `PxSetup`：PhysX 车辆自动变速器数据对象，用于存储设置后的自动变速器数据。
+
+## 五、成员函数 `FindPeakTorque()`
+
+1. **功能**：在发动机扭矩曲线中查找最大扭矩值，通过遍历扭矩曲线的关键帧，找出扭矩值的最大值。
+2. **返回值**：返回找到的最大扭矩值。
 
 ## 参考
 

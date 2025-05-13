@@ -309,6 +309,26 @@ navmesh->addOffMeshConnection(&conn);
 
 调用 `findStraightPath` 时，返回的 `straight_flags` 数组中含 `DT_STRAIGHTPATH_OFFMESH_CONNECTION`，可据此在行走逻辑中处理跳跃或爬升。
 
+### 3. 异步加载与多线程优化
+
+当场景较大时，可在后台线程逐瓦片加载/卸载导航数据，同时主线程运行路径查询：
+
+```cpp
+// 后台加载任务
+std::future<void> loadTask = std::async(std::launch::async, [&](){
+    Navigation::LoadTileAsync(x, y);
+});
+
+// 在主线程检查完成并合并
+if (loadTask.wait_for(std::chrono::milliseconds(0)) == std::future_status::ready) {
+    std::lock_guard<std::mutex> guard(_mutex);
+    navmesh->mergeTile(pendingTile);
+}
+```
+
+**注意**：所有对 `navmesh` 和 `dtCrowd` 的修改需在同一锁保护下完成，避免并发冲突。
+
+
  ---
  
  ## 配置参数  
