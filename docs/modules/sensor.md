@@ -617,6 +617,7 @@ def on_fused_data(gnss, imu):
 
 ## 1 模块概览
 
+ ![flowchart_5.png](..%2Fimg%2Fmodules%2Fflowchart_5.png)
 `sensor.other.lane_invasion` 是 CARLA 提供的一类事件型传感器，用于监测车辆是否跨越车道线。该传感器在每次检测到入侵车道标线时触发事件，并将跨越的车道线类型（如实线、虚线）以枚举列表形式返回。
 
 在自动驾驶安全策略、强化学习训练以及车道保持辅助系统（LKA）中，`lane_invasion` 传感器常用于实现惩罚反馈、路径修正与轨迹约束。
