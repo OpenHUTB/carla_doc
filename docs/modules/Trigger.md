@@ -151,18 +151,10 @@ sequenceDiagram
 
 ## 注意事项
 
-1. **触发器类型限制**
-   - 当前仅支持 `AFrictionTrigger`，未来可扩展其他类型（如速度触发器）
-
-2. **车辆兼容性**
-   - 仅对 `ACarlaWheeledVehicle` 类型车辆生效，其他 `Actor` 类型会被忽略
-
-3. **碰撞配置**
-   - 确保 `TriggerVolume` 的碰撞类型为 `OverlapAll` 并启用 `GenerateOverlapEvents`
-
-
-4. **参数格式**
-   - 配置参数在 `FActorDescription::Variations` 中需为 **字符串形式**
+1. 当前仅支持 `AFrictionTrigger` 作为触发器类型，未来可扩展其他类型（如速度触发器）。
+2. 仅对 `ACarlaWheeledVehicle` 类型车辆生效，其他 `Actor` 类型会被忽略。
+3. 确保 `TriggerVolume` 的碰撞类型为 `OverlapAll` 并启用 `GenerateOverlapEvents`。
+4. 配置参数在 `FActorDescription::Variations` 中需为字符串形式。
 
 ## 示例配置
 

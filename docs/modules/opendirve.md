@@ -131,7 +131,6 @@ public:
 4. header
 
 存储 OpenDRIVE <header> 元素的信息，如：
-
 地图名称与版本号，
 创建时间，
 原始坐标系统（可用于坐标投影）。
@@ -199,7 +198,11 @@ LibCarla/source/carla/opendrive/OpenDriveParser.cpp
 boost::optional<road::Map> OpenDriveParser::Load(const std::string &opendrive);
 ~~~
  
-函数说明：OpenDriveParser::Load
+### 函数说明
+
+```cpp
+OpenDriveParser::Load
+```
 
 ### 函数原型
 
@@ -213,8 +216,7 @@ boost::optional<road::Map> OpenDriveParser::Load(const std::string &opendrive);
 |------|------|------|
 | opendrive | const std::string & | 包含 OpenDRIVE 地图完整 XML 内容的字符串。可以是从 .xodr 文件读取的文本内容 |
 
- 返回值
-返回类型为 boost::optional<road::Map>：
+ 返回值: 返回类型为 boost::optional<road::Map>：
 
 如果解析成功：返回一个包含完整地图结构的 road::Map 对象；
 
@@ -324,7 +326,7 @@ boost::optional<road::Map> OpenDriveParser::Load(const std::string &opendrive)
    pugi::xml_document xml;
    pugi::xml_parse_result result = xml.load_string(opendrive.c_str());
    ```
-   - 利用 pugixml 从字符串中读取 XML 文档
+   利用 pugixml 从字符串中读取 XML 文档
 
 2. **错误处理**
    ```cpp
@@ -340,43 +342,43 @@ boost::optional<road::Map> OpenDriveParser::Load(const std::string &opendrive)
    ```
 
 4. **解析各个部分（按顺序）**
-   - 地理参考（坐标系）
+     地理参考（坐标系）
      ```cpp
      parser::GeoReferenceParser::Parse(xml, map_builder);
      ```
-   - 道路（road）
+     道路（road）
      ```cpp
      parser::RoadParser::Parse(xml, map_builder);
      ```
-   - 路口（junction）
+     路口（junction）
      ```cpp
      parser::JunctionParser::Parse(xml, map_builder);
      ```
-   - 几何数据（geometry）
+     几何数据（geometry）
      ```cpp
      parser::GeometryParser::Parse(xml, map_builder);
      ```
-   - 车道（lane）
+     车道（lane）
      ```cpp
      parser::LaneParser::Parse(xml, map_builder);
      ```
-   - 属性配置（profile：如坡度/曲率）
+     属性配置（profile：如坡度/曲率）
      ```cpp
      parser::ProfilesParser::Parse(xml, map_builder);
      ```
-   - 交通分组（公交/非机动车等）
+     交通分组（公交/非机动车等）
      ```cpp
      parser::TrafficGroupParser::Parse(xml, map_builder);
      ```
-   - 信号（交通灯、标志等）
+     信号（交通灯、标志等）
      ```cpp
      parser::SignalParser::Parse(xml, map_builder);
      ```
-   - 静态对象（建筑、栏杆等）
+     静态对象（建筑、栏杆等）
      ```cpp
      parser::ObjectParser::Parse(xml, map_builder);
      ```
-   - 控制器（如红绿灯控制逻辑）
+     控制器（如红绿灯控制逻辑）
      ```cpp
      parser::ControllerParser::Parse(xml, map_builder);
      ```
@@ -432,9 +434,7 @@ OpenDriveParser
 ---
 
 ## 💡 使用场景
-
 - 加载 `.xodr` 地图字符串到 CARLA 引擎中
 - 在地图工具链中进行道路、交叉口、交通信号等解析
 - 用于运行时生成或验证地图网络结构
-
 ---

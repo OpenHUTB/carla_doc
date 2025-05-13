@@ -206,6 +206,24 @@ UE4Editor-Cmd.exe Carla -run=PrepareAssetsForCooking
   -OnlyPrepareMaps=false  
   -Props=Car,Sign,Truck
 ```
+
+### 跨平台预处理命令
+**Windows：**
+```bat
+UE4Editor-Cmd.exe Carla -run=PrepareAssetsForCooking  
+  -PackageName=AsiaPack  
+  -Maps=Tokyo  
+  -TileSize=1000  
+  -LODDistance=3000
+```
+
+**Linux：**
+```bash
+./UE4Editor-Cmd Carla -run=PrepareAssetsForCooking  
+  -PackageName=UrbanPack  
+  -EnablePhysicsCollision  
+  -ForceCarlaMaterials
+```
 ---
 
 ## 附录  
@@ -215,5 +233,17 @@ UE4Editor-Cmd.exe Carla -run=PrepareAssetsForCooking
 | 0x31 | 分块布局文件缺失         | 检查 Maps/[Map]/TilesInfo.txt |
 | 0x32 | 材质实例加载失败         | 验证材质路径正确性        |
 | 0x33 | OpenDrive 数据异常       | 重新导出 XODR 文件        |
-
----
+### 新增错误代码映射
+| 代码  | 场景                          | 调试建议                  |
+|-------|-------------------------------|---------------------------|
+| 0x40  | 对象库路径未注册              | 检查DefaultEngine.ini配置 |
+| 0x41  | 瓦片尺寸非整数倍              | 调整TileSize为100的整数倍 |
+| 0x42  | 第三方材质冲突                | 启用-ForceCarlaMaterials参数 |
+ 
+### 对象库加载白名单配置  
+在 `DefaultEngine.ini` 中添加：  
+```ini
+[/Script/Engine.ObjectLibrary]
++AssetPaths=(Path="/Game/Carla/Static/Props")  
++AssetPaths=(Path="/Game/Carla/Static/Road")  
+```
