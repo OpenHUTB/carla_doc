@@ -599,4 +599,134 @@ def on_fused_data(gnss, imu):
 * 若需实现更真实的模型，可拓展添加噪声模型、地形遮挡、信号丢失模拟等功能。
 
 ---
+好的，第五章我们将继续延续现有风格，选用一个**结构中等复杂、功能清晰的事件型传感器**。我建议我们选择：
+
+---
+
+## ✅ 第五章：车道入侵传感器（sensor.other.lane\_invasion）
+
+该传感器用于检测车辆是否偏离其当前车道，常用于自动驾驶行为规划中的安全评估与惩罚建模。相比碰撞传感器，它更加频繁但轻量，属于低延迟事件型传感器。
+
+---
+
+# 第五章：CARLA 车道入侵传感器系统（sensor.other.lane\_invasion）
+
+---
+
+## 1 模块概览
+
+![flowchart\_5.png](..%2Fimg%2Fmodules%2Fflowchart_5.png)
+
+`sensor.other.lane_invasion` 是 CARLA 提供的一类事件型传感器，用于监测车辆是否跨越车道线。该传感器在每次检测到入侵车道标线时触发事件，并将跨越的车道线类型（如实线、虚线）以枚举列表形式返回。
+
+在自动驾驶安全策略、强化学习训练以及车道保持辅助系统（LKA）中，`lane_invasion` 传感器常用于实现惩罚反馈、路径修正与轨迹约束。
+
+---
+
+## 2 检测流程与回调机制
+
+其工作流程为：
+
+1. **服务端**：由地图模块检测当前车辆是否偏离其预定车道；
+2. **事件触发**：若检测到跨越车道线，则生成 `LaneInvasionEvent` 实例；
+3. **数据打包**：使用 `LaneInvasionEventSerializer` 将入侵线类型序列化为 `RawData`；
+4. **网络传输**：通过 RPC 系统发送至客户端；
+5. **Python 接收**：回调函数被 `.listen()` 注册监听，获取并解析车道入侵信息。
+
+---
+
+## 3 数据结构：LaneInvasionEvent
+
+定义文件：[`carla/sensor/data/LaneInvasionEvent.h`](https://github.com/carla-simulator/carla/blob/dev/LibCarla/source/carla/sensor/data/LaneInvasionEvent.h)
+
+```cpp
+struct LaneInvasionEvent {
+  rpc::Actor actor;
+  std::vector<rpc::LaneMarking> crossed_lane_markings;
+};
+```
+
+* `actor`：车辆自身 Actor 实例；
+* `crossed_lane_markings`：当前帧中车辆所跨越的所有车道线类型（可为多个），类型为枚举，如 `Broken`, `Solid`, `DoubleSolid` 等。
+
+该结构紧凑、频次高，适合用于连续动态监测。
+
+---
+
+## 4 序列化机制分析
+
+定义文件：
+[`LaneInvasionEventSerializer.h`](https://github.com/carla-simulator/carla/blob/dev/LibCarla/source/carla/sensor/s11n/LaneInvasionEventSerializer.h)
+[`LaneInvasionEventSerializer.cpp`](https://github.com/carla-simulator/carla/blob/dev/LibCarla/source/carla/sensor/s11n/LaneInvasionEventSerializer.cpp)
+
+```cpp
+struct Data {
+  rpc::Actor actor;
+  std::vector<rpc::LaneMarking> markings;
+  MSGPACK_DEFINE_ARRAY(actor, markings)
+};
+```
+
+```cpp
+template <typename SensorT>
+static Buffer Serialize(const SensorT &, rpc::Actor actor, std::vector<rpc::LaneMarking> markings) {
+  return MsgPack::Pack(Data{actor, markings});
+}
+```
+
+```cpp
+static SharedPtr<SensorData> Deserialize(RawData &&data) {
+  return SharedPtr<SensorData>(new data::LaneInvasionEvent(std::move(data)));
+}
+```
+
+说明：
+
+* 序列化结构以 Actor + 多个 LaneMarking 构成，采用 MsgPack 自动打包；
+* `RawData` 解码后重建 `LaneInvasionEvent` 对象并回调处理。
+
+---
+
+## 5 Python API 使用示例
+
+```python
+def on_lane_invasion(event):
+    markings = event.crossed_lane_markings
+    types = [m.type for m in markings]
+    print(f"[LANE INVASION] 跨越线型: {types}")
+
+# 注册传感器
+bp = world.get_blueprint_library().find('sensor.other.lane_invasion')
+transform = carla.Transform(carla.Location(x=0, y=0, z=1.0))
+sensor = world.spawn_actor(bp, transform, attach_to=vehicle)
+sensor.listen(on_lane_invasion)
+```
+
+---
+
+## 6 应用案例与拓展建议
+
+该传感器在以下任务中具有实用价值：
+
+* **行为评估**：在强化学习中作为负反馈信号（lane penalty）；
+* **轨迹控制**：实时检测偏离车道行为，启用修正或报警；
+* **回放分析**：结合 IMU、摄像头数据，回溯偏航过程；
+* **车道建模验证**：辅助验证 HD Map 与车辆车道感知的精度一致性。
+
+拓展建议：
+
+* 与 IMU、GNSS 联合，用于重建入侵轨迹与偏离角度；
+* 支持配置忽略特定线型（如仅监控实线跨越）；
+* 将入侵事件导出为 CSV/JSON 用于行为可视化分析。
+
+---
+
+## 7 小结
+
+* `sensor.other.lane_invasion` 是 CARLA 中重要的语义事件传感器；
+* 它以低带宽方式提供关键路径偏离信息，适用于控制反馈与安全分析；
+* 未来可与地图标注、规划模块更深度融合，支持高精轨迹约束与驾驶决策研究。
+
+---
+
 
