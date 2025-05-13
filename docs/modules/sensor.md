@@ -43,7 +43,17 @@
   - [6 应用拓展与组合使用](#6-应用拓展与组合使用)
   - [7 总结与建议](#7-总结与建议-2)
 
+### 第五章：车道入侵传感器（sensor.other.lane\_invasion）
 
+* [第五章：CARLA 车道入侵传感器系统（sensor.other.lane\_invasion）](#第五章carla-车道入侵传感器系统sensorotherlane_invasion)
+
+  * [1 模块概览](#1-模块概览-4)
+  * [2 检测流程与回调机制](#2-检测流程与回调机制)
+  * [3 数据结构：LaneInvasionEvent](#3-数据结构laneinvasionevent)
+  * [4 序列化机制分析](#4-序列化机制分析-1)
+  * [5 Python API 使用示例](#5-python-api-使用示例-3)
+  * [6 应用案例与拓展建议](#6-应用案例与拓展建议)
+  * [7 小结](#7-小结)
 ---
 
 # 第一章：CARLA 碰撞事件传感器系统（sensor.other.collision）
