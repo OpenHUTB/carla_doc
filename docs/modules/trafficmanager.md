@@ -254,16 +254,14 @@ Scenario Runner 可通过 Traffic Manager 的 API 实时调整交通密度、车
 回放时是通过 Traffic Manager 修改特定 NPC 行为，来测试主车应对异常情况的能力。
 
 核心联系总结
-模块	与 Traffic Manager 的协作方式
-蓝图库	提供 Traffic Manager 控制的实体模型（车辆/行人），定义其物理属性。
-传感器	捕获 Traffic Manager 生成的交通行为数据，用于主车感知与决策。
-天气/时间系统	同步环境状态与 NPC 行为逻辑（如雨天减速），增强仿真真实性。
-记录与回放	保存/重现 Traffic Manager 的交通流，支持动态干预以生成新测试场景。
-自动驾驶代理	在 Traffic Manager 构建的动态环境中训练或测试，实现主车与 NPC 的交互。
-Scenario Runner	定义场景框架，Traffic Manager 填充细节行为，二者配合生成复杂测试用例。
-协同价值
-提升仿真效率：通过 Traffic Manager 快速生成多样化交通流，避免手动设计每一辆 NPC 的行为。
-
-增强真实性：多模块协作实现“视觉-物理-行为”的统一（如雨天同时影响渲染、轮胎打滑和驾驶策略）。
-
-灵活测试：通过 API 动态调整 Traffic Manager 参数，适应不同测试需求（如极端场景、边缘案例）。
+模块	与 Traffic Manager 的协作方式   
+蓝图库	提供 Traffic Manager 控制的实体模型（车辆/行人），定义其物理属性。  
+传感器	捕获 Traffic Manager 生成的交通行为数据，用于主车感知与决策。  
+天气/时间系统	同步环境状态与 NPC 行为逻辑（如雨天减速），增强仿真真实性。  
+记录与回放	保存/重现 Traffic Manager 的交通流，支持动态干预以生成新测试场景。  
+自动驾驶代理	在 Traffic Manager 构建的动态环境中训练或测试，实现主车与 NPC 的交互。  
+Scenario Runner	定义场景框架，Traffic Manager 填充细节行为，二者配合生成复杂测试用例。  
+协同价值  
+提升仿真效率：通过 Traffic Manager 快速生成多样化交通流，避免手动设计每一辆 NPC 的行为。  
+增强真实性：多模块协作实现“视觉-物理-行为”的统一（如雨天同时影响渲染、轮胎打滑和驾驶策略）。  
+灵活测试：通过 API 动态调整 Traffic Manager 参数，适应不同测试需求（如极端场景、边缘案例）。  
