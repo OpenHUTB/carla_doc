@@ -728,24 +728,6 @@ sensor.listen(on_lane_invasion)
 * 它以低带宽方式提供关键路径偏离信息，适用于控制反馈与安全分析；
 * 未来可与地图标注、规划模块更深度融合，支持高精轨迹约束与驾驶决策研究。
 * ---
-config:
-  layout: fixed
----
-
-flowchart TD
-    A["模块概览"] --> B["工作机制"]
-    B --> C["点云数据结构"]
-    C --> D["序列化与反序列化"]
-    D --> E["Python API"]
-    E --> F["应用与拓展"]
-    F --> G["总结"] & M["3D感知"] & N["障碍检测"] & O["建图SLAM"] & P["多传感器融合"]
-    
-    B -- 每帧射线模拟 --> H["光线投射"]
-    H -- 生成命中点 --> I["LidarDetection构造"]
-    I -- 序列化为float数组 --> J["MsgPack打包为RawData"]
-    J -- RPC传输 --> K["客户端接收"]
-    K -- 转为SensorData --> L["LidarMeasurement结构"]
-    L -- 传入 --> E
 
 
 ---
