@@ -747,10 +747,6 @@ sensor.listen(on_lane_invasion)
 
 ---
 
-# 第六章：CARLA 激光雷达传感器系统（sensor.lidar.ray\_cast）
-
----
-
 ## 1 模块概览
 
 ![flowchart\_6.png](..%2Fimg%2Fmodules%2Fflowchart_6.png)
