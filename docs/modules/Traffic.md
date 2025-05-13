@@ -62,19 +62,6 @@ graph TD
 - 启用bEnableDynamicLOD
 
 ---
-以下是为CarlaUnreal插件的Traffic模块编写技术文档的建议框架和关键内容，您可按Markdown格式整合到`Traffic.md`中：
-
-```markdown
-# CarlaUnreal Traffic Module Documentation
-
-## 概述
-CarlaUnreal的Traffic模块用于在虚幻引擎中模拟动态城市交通系统，支持：
-- 自动驾驶仿真中的复杂交通流生成
-- 车辆、行人、交通信号等元素的自动化行为控制
-- 基于规则的交通行为模型配置
-
----
-
 
 ## 配置与依赖
 
@@ -112,6 +99,24 @@ CarlaUnreal的Traffic模块用于在虚幻引擎中模拟动态城市交通系�
    path_radius: 500m  # 生成半径
    ```
 3. 连接路径网络节点
+### 车辆生成流程图
+
+```mermaid
+sequenceDiagram
+  participant Spawner as 生成器
+  participant Graph as 路径网络
+  participant AI as 车辆AI
+  participant World as 世界场景
+
+  Spawner->>Graph: 请求可用路径
+  Graph-->>Spawner: 返回路径节点
+  Spawner->>World: 生成车辆实例
+  World->>AI: 挂载控制组件
+  AI->>Graph: 实时路径查询
+  AI->>World: 执行移动指令
+```
+
+---
 
 ### 交通信号配置
 ```blueprint
@@ -125,6 +130,22 @@ End Object
 ```
 
 ---
+### 交通信号控制流程图
+
+```mermaid
+stateDiagram-v2
+  [*] --> 信号检测
+  信号检测 --> 相位决策
+  相位决策 --> 绿灯: 车流>阈值
+  相位决策 --> 黄灯: 倒计时结束
+  黄灯 --> 红灯: 3秒过渡
+  红灯 --> 相位决策: 周期循环
+  绿灯 --> 紧急优先检测
+  紧急优先检测 --> 强制黄灯: 检测到应急车辆
+```
+
+---
+
 
 ## 高级配置
 
@@ -149,7 +170,19 @@ End Object
    ```
 
 ---
+### 路径网络验证流程
 
+```mermaid
+graph LR
+  A[原始路径数据] --> B[拓扑分析]
+  B --> C{闭合验证}
+  C -- 通过 --> D[生成导航网格]
+  C -- 失败 --> E[标记断点]
+  E --> F[人工修复]
+  F --> B
+  D --> G[发布可用网络]
+```
+---
 ## 注意事项
 1. 路径网络需形成闭合回路
 2. 高密度交通时建议启用LOD优化

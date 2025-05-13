@@ -252,3 +252,57 @@ struct CARLA_API FBoundingBox
 - `FBoundingBox` 提供了统一的包围盒数据结构；
 - `UBoundingBoxCalculator` 则围绕不同 Actor/组件类型提供了从局部到世界空间的包围盒提取、批量和合并能力；
 - 组合该工具链，可支持 CARLA 中传感器感知、HUD 渲染、碰撞检测及数据采集等多种场景。
+
+## 2.4 FDebugShapeDrawer：调试形状绘制器
+### 2.4.1 概要
+`FDebugShapeDrawer` 是 CARLA 中用于在 `Unreal Engine` 世界 (`UWorld`) 中绘制调试形状的工具类。它通过访问 `carla::rpc::DebugShape` 对象，根据其定义的形状类型（如点、线、箭头、盒子、字符串等）在世界或 HUD 上进行可视化展示。该类内部使用了 `FShapeVisitor` 结构体，通过访问者模式处理不同的形状类型，实现了灵活且可扩展的调试绘制机制。
+### 2.4.2 使用场景
+- 在仿真过程中实时可视化调试信息，如传感器检测结果、路径规划轨迹等。
+- 在 HUD 上展示关键调试信息，辅助开发和测试。
+- 在大型地图中，通过 `ALargeMapManager` 进行坐标转换，确保绘制位置的准确性。
+### 2.4.3 关键方法详解
+1.`FDebugShapeDrawer::Draw`
+```cpp
+void FDebugShapeDrawer::Draw(const carla::rpc::DebugShape &Shape) {
+  auto Visitor = FShapeVisitor(World, Shape.color, Shape.life_time, Shape.persistent_lines);
+  boost::variant2::visit(Visitor, Shape.primitive);
+}
+```
+- 作用：根据传入的`DebugShape`对象，调用相应的绘制方法在世界或 HUD 上渲染调试形状。
+- 实现细节：
+  - 构造`FShapeVisitor`对象，传入当前世界引用、颜色、生命周期和持久化标志。
+  - 使用`boost::variant2::visit`访问`Shape.primitive`，根据实际的形状类型调用对应的绘制方法。
+
+2.`FShapeVisitor::operator() (Arrow)`
+```cpp
+void FShapeVisitor::operator()(const Shape::Arrow &Arrow) const {
+  FVector Begin = FVector(Arrow.line.begin);
+  FVector End   = FVector(Arrow.line.end);
+  // 坐标转换
+  ALargeMapManager* LargeMap = UCarlaStatics::GetLargeMapManager(World);
+  if (LargeMap) {
+    Begin = LargeMap->GlobalToLocalLocation(Begin);
+    End   = LargeMap->GlobalToLocalLocation(End);
+  }
+  // 箭头向量与变换
+  const auto Diff = End - Begin;
+  const FRotator LookAt = FRotationMatrix::MakeFromX(Diff).Rotator();
+  const FTransform Transform{LookAt, Begin};
+  
+  // 绘制主干与箭头头部
+  const float ArrowSize     = 1e2f * Arrow.arrow_size;
+  const float ArrowTipDist  = Diff.Size() - ArrowSize;
+  const float Thickness     = 1e2f * Arrow.line.thickness;
+  World->PersistentLineBatcher->DrawLines({
+    FBatchedLine(Begin, End, Color, LifeTime, Thickness, DepthPriority),
+    FBatchedLine(
+      Transform.TransformPosition(FVector(ArrowTipDist, +ArrowSize, +ArrowSize)),
+      End, Color, LifeTime, Thickness, DepthPriority),
+    // ... 其他箭头分支
+  });
+}
+```
+- 解析：
+  - 通过 `LargeMapManager` 将全局坐标转换为本地坐标，保证在大地图下的位置准确性。
+  - 计算箭头方向向量 `Diff` 并生成变换 `Transform`，用于定位箭头头部。
+  - 使用 `DrawLines` 绘制箭头的主干及四个箭头分支，提高可视化效果。
