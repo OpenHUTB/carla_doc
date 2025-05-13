@@ -83,6 +83,7 @@ python3 manual_control.py --filter walker.pedestrian.0052 # --filter 后的参�
 - [行人蓝图实现原理](./pedestrian/blueprint.md)
 - [UE5+iphone+MetaHuman数字人流程](https://zhuanlan.zhihu.com/p/717064519)
 - [动作捕捉和面部捕捉解决方案调研](https://blog.csdn.net/u012863565/article/details/122228501)
+- [中国人的模型（位于map>chinese目录下）](https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb)
 
 
 
