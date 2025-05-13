@@ -73,7 +73,7 @@ _为了简单起见，我们不会考虑所有的边缘情况，也不会以最�
   * `Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/SafeDistanceSensor.h`
   * `Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/SafeDistanceSensor.cpp`
 
-最起码，传感器需要继承`ASensor`，并提供获取传感器属性定义的静态方法`GetSensorDefinition`；但我们还将重写`Set`、 `SetOwner`、`Tick`方法。该传感器还需要一个触发盒来检测我们周围的其他参与者。有了这个和一些必需的虚幻引擎4 样板代码，头文件看起来像
+最起码，传感器需要继承`ASensor`，并提供获取传感器属性定义的静态方法`GetSensorDefinition`；但我们还将重写`Set`、`SetOwner`、`Tick`方法。该传感器还需要一个触发盒来检测我们周围的其他参与者。有了这个和一些必需的虚幻引擎 4 样板代码，头文件看起来像
 
 ```cpp
 #pragma once
@@ -458,3 +458,6 @@ void MySensor::Tick(float DeltaSeconds)
 
 考虑到客户端的“on tick”回调是并发执行的，即相同的方法可能由不同的线程同时执行，这一点非常重要。访问的任何数据都必须正确同步，可以使用互斥体、使用原子，或者更好地确保所有访问的成员保持不变。
 
+
+## 其他
+[操作步骤博客](https://blog.csdn.net/zataji/article/details/140858585)

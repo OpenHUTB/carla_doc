@@ -1,17 +1,19 @@
 title: 主页
 
-# [代理模拟器](https://carla.readthedocs.io/en/latest/)
+# [人车模拟器](https://carla.readthedocs.io/en/latest/)
 
-欢迎使用代理模拟器文档，该页面包含所有内容的索引。运行 [入门](#primary) 示例后可以按自己喜欢的顺序随意阅读（可使用已经部署的 [DeepSeek大模型](software/llm.md) 来辅助开发）。默认为打开 UE 4.26 的 Carla 文档，支持 UE 5.5 的 Carla 文档请查看 [链接](ue5/index.md) 。
+欢迎使用人车模拟器文档，该页面包含所有内容的索引。运行 [入门](#primary) 示例后可以按自己喜欢的顺序随意阅读（可使用 [DeepSeek大模型](software/llm.md) 来辅助开发）。默认为打开 UE 4.26 的 Carla 文档，支持 UE 5.5 的 Carla 文档请查看 [链接](ue5/index.md) 。
 
-* [__入门__](#primary)  
-    * [简介](#introduction)
-* [__代理__](#agent)  
-    *   [车辆](#vehicle)  
-    *   [行人](#pedestrian)  
+如果对文档中的任何问题可以在 [本文档的源码仓库](https://github.com/OpenHUTB/carla_doc) 中的 [Issues](https://github.com/OpenHUTB/carla_doc/issues) 页面进行提问或者提交 [Pull Request](https://zhuanlan.zhihu.com/p/153381521) 直接修改文档。
+
+* [__简介__](#primary)  
+    * [入门](#introduction)
+    * [车辆](#vehicle)  
+    * [行人](#pedestrian)  
 * [__模拟器__](#simulator)
     *   [概念](#concept)
     *   [开发](#development) 
+    *   [模块](#modules) 
 * [__现实场景__](#scene)
     * [虚幻场景](#unreal_scene)
     * [地图孪生](#map_twin)
@@ -25,18 +27,18 @@ title: 主页
 
 ---
 
-## 入门 <span id="primary"></span>
+## 简介 <span id="introduction"></span>
 1. 下载 [链接](https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb) 中的`software/carla_0.9.15`中的所有文件并解压；
 2. 运行`WindowsNoEditor`文件夹下的`CarlaUE4.exe`启动场景，进入场景后按`W`、`S`、`A`、`D`移动场景视角；
-3. 使用`Python37/python.exe`运行脚本 [generate_traffic.py](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/generate_traffic.py) 在场景中生成交通流和运行 [python manual_control.py](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/manual_control.py) 生成一辆键盘控制的车。
+3. 使用`Python37/python.exe`（或者安装`WindowsNoEditor/PythonAPI/carla/dist/carla-0.9.15-cp37-cp37m-win_amd64.whl`目录下的Python包）运行脚本 [generate_traffic.py](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/generate_traffic.py) 在场景中生成交通流和运行 [python manual_control.py](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/manual_control.py) 生成一辆键盘控制的车。
 
 
 !!! 注意
-    如果运行CarlaUE4.exe时候报错：缺少Microsoft Visual C++ Runtime、DirectX Runtime，则需要安装 [vs_community__2019.exe](https://visualstudio.microsoft.com/zh-hans/vs/older-downloads/) （勾选`.NET桌面开发`和`使用C++的桌面开发`）和 [directx_Jun2010_redist.zip](https://www.microsoft.com/zh-CN/download/details.aspx?id=8109)  （解压后运行`DXSETUP.bat`）。当机器性能一般或者调试时，可以降低画质来启动，以获得更流畅的效果：`CarlaUE4.exe -quality-level=Low`，甚至使用`CarlaUE4.exe -nullrhi`禁用所有渲染（无需 GPU）。如果对文档中的任何问题可以在 [本文档的源码仓库](https://github.com/OpenHUTB/carla_doc) 中的 [Issues](https://github.com/OpenHUTB/carla_doc/issues) 页面进行提问或者提交 [Pull Request](https://zhuanlan.zhihu.com/p/153381521) 直接修改文档。
+    当机器性能一般时启动`CarlaUE4.exe`报错：`Out of video memory...`，可以通过命令来降低画质启动：`CarlaUE4.exe -quality-level=Low`，以获得更流畅的效果；甚至使用`CarlaUE4.exe -nullrhi`禁用所有渲染（无需 GPU）。如果运行CarlaUE4.exe时候报错：缺少Microsoft Visual C++ Runtime、DirectX Runtime，则需要安装 [vs_community__2019.exe](https://visualstudio.microsoft.com/zh-hans/vs/older-downloads/) （勾选`.NET桌面开发`和`使用C++的桌面开发`）和 [directx_Jun2010_redist.zip](https://www.microsoft.com/zh-CN/download/details.aspx?id=8109)  （解压后运行`DXSETUP.bat`）。如果发现手动控制车按前进键不能移动，可能是输入法默认是中文，按`Shift`切换成英文输入法即可解决。
 
 
 
-### 简介 <span id="introduction"></span>
+### 入门 <span id="primary"></span>
 
 [__介绍__](start_introduction.md) — 对 Carla 的期望
 
@@ -65,8 +67,8 @@ title: 主页
 
 [__边界框__](tuto_G_bounding_boxes.md) — 将  Carla 对象的边界框投影到相机中
 
----
-## 代理 <span id="agent"></span>
+[__使用常见问题__](faq/use_faq.md) — 一些最常见的使用问题
+
 
 ### 车辆 <span id="vehicle"></span>
 <!-- 车辆代理：单个 -> 多个 -->
@@ -106,6 +108,8 @@ title: 主页
 
 [__行人建模__](tuto_content_authoring_pedestrians.md) — 在三维建模软件中对人进行建模
 
+[__行为交互__](interbehavior.md) — 针对行为和交互研究的虚拟现实驾驶仿真器
+
 [__行人物理场模拟__](pedestrian/tuto_content_chrono_opensim.md) — Chrono OpenSim 解析器
 
 ---
@@ -124,7 +128,7 @@ title: 主页
 
 [__渲染选项__](adv_rendering_options.md) — 从质量设置到不渲染或离屏模式
 
-[__纹理流__](tuto_G_texture_streaming.md) — 实时修改地图对象的纹理以添加变化
+[__通过 API 更改纹理__](tuto_G_texture_streaming.md) — 实时修改地图对象的纹理以添加变化
 
 [__责任敏感安全__](adv_rss.md) — Carla 客户端库中的责任敏感安全实现
 
@@ -145,9 +149,9 @@ title: 主页
 
 [__编译 Carla__](build_carla.md) — 进行 Carla 编译
 
-[__Linux 上编译__](build_linux.md) — 在 Linux 上进行编译
-
 [__Windows 上编译__](build_windows.md) — 在 Windows 上进行构建
+
+[__Linux 上编译__](build_linux.md) — 在 Linux 上进行编译
 
 [__Carla 更新__](build_update.md) — 了解最新内容
 
@@ -157,28 +161,41 @@ title: 主页
 
 [__在 Docker 中构建虚幻引擎和 Carla__](build_docker_unreal.md) — 在 Docker 中构建虚幻引擎和 Carla
 
-[__文件说明__](file_specification.md) — 说明源代码中各个模块、文件的作用
-
 [__常见问题__](build_faq.md) — 一些最常见的安装问题
 
+[__自定义开发__](dev/custom_dev.md) - 开发湖工商分支
+
 [__调试程序__](tuto_D_windows_debug.md) — 进行C++程序的调试
+
+
+### 模块 <span id="modules"></span>
+
+[__文件说明__](file_specification.md) — 说明源代码中各个模块、文件的作用
+
+[__罗技 G29 方向盘__](tuto_G_G29_windows.md) — 使用罗技方向盘进行车辆控制和模拟对方向盘的反向控制
+
+[__地理空间生态系统__](adv_cesium.md) — 将 3D 地理空间生态系统引入虚幻引擎
+
+[__Chrono 集成__](tuto_G_chrono.md) — 整合 Chrono 来进行物理模拟
 
 ---
 
 
-## 现实场景  <span id="scene"></span>
+## 模拟场景  <span id="scene"></span>
 
 ### 虚幻场景 <span id="unreal_scene"></span>
+
+[__虚幻引擎入门__](ue/ue_faq.md) - 包括学习流程、概念说明、常见问题和回答等
 
 [__支持的虚幻场景__](core_map.md#non-layered-maps) - 目前支持的所有虚幻地图
 
 [__Carla 插件__](ue/plugin.md) - 虚幻引擎 Carla 插件的相关介绍
 
-[__虚幻引擎__](tuto_G_unreal.md) — 虚幻引擎相关内容
-
-[__虚幻引擎常见问题__](ue/ue_faq.md) - 包括学习流程、概念说明、常见问题和回答等
+[__虚幻引擎高级特性__](tuto_G_unreal.md) — 虚幻引擎相关内容
 
 [__第三方资产__](ue/scene_related.md) - 虚幻引擎相关的场景和资产
+
+[__虚幻引擎文档__](https://openhutb.github.io/engine_doc/) — 与虚幻引擎相关的操作和说明
 
 
 ### 地图孪生 <span id="map_twin"></span>
@@ -202,7 +219,7 @@ title: 主页
 
 [__自定义地图：分层地图__](tuto_M_custom_layers.md) — 如何在自定义地图中创建子图层
 
-[__自定义地图：交通灯和标志__](tuto_M_custom_add_tl.md) — 如何将交通灯和标志添加到您的自定义地图
+[__自定义地图：交通信号灯和标志__](tuto_M_custom_add_tl.md) — 如何将交通信号灯和标志添加到您的自定义地图
 
 [__自定义地图：道路画家__](tuto_M_custom_road_painter.md) — 如何使用道路画家工具改变道路的外观
 
@@ -250,9 +267,9 @@ title: 主页
 
 [__自定义车辆悬架__](tuto_D_customize_vehicle_suspension.md) — 修改车辆的悬架系统
 
-[__生成详细碰撞__](tuto_D_generate_colliders.md) — 为车辆创建详细的对撞
+[__生成详细碰撞__](tuto_D_generate_colliders.md) — 为车辆创建详细的碰撞
 
-[__链接 Epic 的汽车材质__](epic_automotive_materials.md) — 下载材质并将其链接到我们的车辆，以获得更逼真的车漆。
+[__链接 Epic 的汽车材质__](epic_automotive_materials.md) — 下载材质并将其链接到我们的车辆，以获得更逼真的车漆
 
 ---
 
@@ -287,17 +304,11 @@ title: 主页
 
 [__RLlib 集成__](tuto_G_rllib_integration.md) — 了解如何使用 RLlib 库运行您自己的实验
 
-[__Chrono 集成__](tuto_G_chrono.md) — 使用 Chrono 积分来模拟物理
-
 [__PTV-Vissim 联合模拟__](adv_ptv.md) — 在 Carla 和 PTV-Vissim 之间运行协同模拟
 
 [__Ansys 实时雷达模型__](ecosys_ansys.md) — 有关 Ansys RTR 网络研讨会的详细信息
 
 [__NVIDIA Omniverse 的 SimReady__](ecosys_simready.md) - 为模拟而构建的三维内容，简化模拟三维虚拟环境的内容创建管道
-
-[__罗技 G29 方向盘__](tuto_G_G29_windows.md) — 使用罗技方向盘进行车辆控制和模拟对方向盘的反向控制
-
-[__地理空间生态系统__](adv_cesium.md) — 将 3D 地理空间生态系统引入虚幻引擎
 
 [__Blender 手册__](https://docs.blender.org/manual/zh-hans/latest/) — 三维建模软件
 

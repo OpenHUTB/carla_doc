@@ -1,12 +1,13 @@
-# 代理模拟文档
+# 人车模拟器
 
 [文档主页](https://openhutb.github.io/carla_doc/) 。
 
-## 本地部署并测试
+## 文档部署并测试
 在Windows 10 和Windows 11上进行了测试。
 1. 安装python 3.11.11（或3.11.7），使用`pip`安装`mkdocs`
 ```shell
 pip install mkdocs -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+pip install pymdown-extensions  # pymdownx
 pip install -r requirements.txt
 ```
 （可选）安装完成后使用`mkdocs --version`查看是否安装成功。
@@ -46,7 +47,13 @@ python -m pip install . -i http://mirrors.aliyun.com/pypi/simple --trusted-host 
 5. 文档页面显示支持 [Latex 公式](https://gist.github.com/josemazo/36af7bb9c58b92c684bbd431f6c68ce9) 、[视频播放](https://pypi.org/project/mkdocs-video/)  。
 
 
-## 命名规则
+## 软件发布
+将源代码、文档、软件等进行发布，具体步骤参考 [链接](publish.md) 。
+
+
+## 规范
+
+### 命名规则
 
 `adv_*.md (advise_*.md)` : 建议
 
@@ -67,9 +74,9 @@ python -m pip install . -i http://mirrors.aliyun.com/pypi/simple --trusted-host 
 2. 使用markdown语法：`[点击跳转](#jump)`
 
 
-## 颜色规范
+### 颜色规范
 
-变量名 **<font color="#f8805a">variable</font>**：
+灰色底的变量名 **<font color="#f8805a">variable</font>**：
 ```shell
 **<font color="#f8805a">variable</font>**
 ```
@@ -82,7 +89,7 @@ python -m pip install . -i http://mirrors.aliyun.com/pypi/simple --trusted-host 
 <font color="#00a6ed">**self**</font>
 ```
 
-## 公式
+### 公式
 
 注意：`markdown_extensions:`标签内需要加上`- mdx_math`（python环境需要安装依赖`python-markdown-math`）。
 
@@ -98,6 +105,10 @@ $$
 a + b = c
 $$
 ```
+
+### 绘图
+常见图的绘制请参考[绘图指南](docs/demo/figure.md) 。
+
 
 
 
@@ -119,4 +130,17 @@ Config value: 'markdown_extensions'. Error: Failed loading extension "mdx_gh_lin
 [手动安装库](https://github.com/mkdocs/mkdocs/issues/1587) ：
 ```shell
 pip install mdx_gh_links
+```
+
+克隆仓库时报错：
+```text
+fatal: early EOF
+fatal: fetch-pack: invalid index-pack output
+```
+解决：
+```shell
+# 设置下载缓存参数
+git config --global http.postBuffer 2G
+# 确认参数是否正确设置
+git config http.postBuffer
 ```

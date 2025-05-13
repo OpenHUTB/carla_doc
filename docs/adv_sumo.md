@@ -62,7 +62,7 @@ python3 run_synchronization.py examples/Town04.sumocfg  --sumo-gui
 
 *   __`xodr_file`__ — OpenDRIVE 文件 `.xodr`。
 *   __`--output'`__ *(默认值：`net.net.xml`)* — 输出文件 `.net.xml`。
-*   __`--guess-tls`__ *(默认值：false)* — SUMO 只能为道路中的特定车道设置交通灯，但 Carla 不能。如果设置为 __True__，SUMO 将不会区分特定车道的交通信号灯，并且这些信号灯将与 Carla 同步。
+*   __`--guess-tls`__ *(默认值：false)* — SUMO 只能为道路中的特定车道设置交通信号灯，但 Carla 不能。如果设置为 __True__，SUMO 将不会区分特定车道的交通信号灯，并且这些信号灯将与 Carla 同步。
 
 该脚本的输出将是`.net.xml`可以使用 __[NETEDIT](https://sumo.dlr.de/docs/NETEDIT.html)__ 进行编辑的。使用它来编辑路线、添加需求，并最终准备一个可以保存为 `.sumocfg`。 
 
@@ -82,7 +82,7 @@ python3 run_synchronization.py examples/Town04.sumocfg  --sumo-gui
 *   __`--sync-vehicle-lights`__ *(默认值：False)* — 同步车灯。 
 *   __`--sync-vehicle-color`__ *(默认值：False)* — 同步车辆颜色。
 *   __`--sync-vehicle-all`__ *(默认值：False)* — 同步所有车辆属性。 
-*   __`--tls-manager`__ *(默认值：none)* — 选择哪个模拟器应管理交通灯。另一个将相应地更新这些内容。选项有 `carla`, `sumo` 和 `none`。如果选择 `none` ，交通信号灯将不同步。每辆车只会遵守生成它的模拟器中的交通灯。
+*   __`--tls-manager`__ *(默认值：none)* — 选择哪个模拟器应管理交通信号灯。另一个将相应地更新这些内容。选项有 `carla`, `sumo` 和 `none`。如果选择 `none` ，交通信号灯将不同步。每辆车只会遵守生成它的模拟器中的交通信号灯。
 
 ```sh
 python3 run_synchronization.py <SUMOCFG FILE> --tls-manager carla --sumo-gui
@@ -110,7 +110,7 @@ python3 run_synchronization.py <SUMOCFG FILE> --tls-manager carla --sumo-gui
 *   __`--sync-vehicle-lights`__ *(默认值：False)* — 同步车灯状态。 
 *   __`--sync-vehicle-color`__ *(默认值：False)* — 同步车辆颜色。
 *   __`--sync-vehicle-all`__ *(默认值： False)* — 同步所有车辆属性。 
-*   __`--tls-manager`__ *(默认值： none)* — 选择哪个模拟器来更改交通灯的状态。另一个将相应地更新它们。如果是`none`，交通信号灯将不同步。
+*   __`--tls-manager`__ *(默认值： none)* — 选择哪个模拟器来更改交通信号灯的状态。另一个将相应地更新它们。如果是`none`，交通信号灯将不同步。
 
 ```sh
 # 生成 10 辆车，由 SUMO 管理，而不是交通管理器
@@ -119,6 +119,7 @@ python3 spawn_sumo_npc.py -n 10 --tls-manager carla --sumo-gui
 
 ## [SUMO TraCI接口文档](https://sumo.dlr.de/docs/TraCI.html)  <span id="sumo_traci_interface"></span>
 
+SUMO支持 [无限的网络规模、无限的模拟车辆数量和无限的模拟时间](https://eclipse.dev/sumo/) 来增强模拟，在 [笔记本电脑（8GB RAM）上处理 10 万辆汽车](https://www.eclipse.org/lists/sumo-user/msg03905.html) 运行良好。
 
 ---
 
