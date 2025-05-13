@@ -23,7 +23,7 @@ OpenDriveParser 是 CARLA 模拟器中 carla::opendrive 命名空间下的一个
 
 这个类是 CARLA 将现实交通规则与地形数据导入其仿真环境的桥梁。其目标是将 OpenDRIVE 文件转换为 CARLA 使用的 Map 数据结构，并保留道路几何、车道属性、连接关系等关键信息。
 
- ### 类特点
+### 类特点
 
 🔹 纯静态类：不允许实例化，所有方法为 static。
 
@@ -60,7 +60,7 @@ OpenDriveParser 是 CARLA 模拟器中 carla::opendrive 命名空间下的一个
 外部库依赖：使用 pugixml 处理 XML 文件内容
 
 ## 🔧 主要静态方法
-1. Map Load(std::string opendrive_file)
+1.Map Load(std::string opendrive_file)
 
 功能：从 OpenDRIVE XML 字符串加载地图。
 
@@ -70,7 +70,7 @@ OpenDriveParser 是 CARLA 模拟器中 carla::opendrive 命名空间下的一个
 
 异常：可能会抛出 std::runtime_error。
 
-2. std::string GetXodrHeader(const std::string &opendrive_file)
+2.std::string GetXodrHeader(const std::string &opendrive_file)
 
 功能：提取 OpenDRIVE 文件头部信息。
 
@@ -110,25 +110,25 @@ public:
 };
 ```
 
-1. roads
+1.roads
 
 包含所有 OpenDRIVE <road> 节点的信息，每一条道路包含以下内容：
 
 道路ID与名称, 道路长度. 几何段（直线、圆弧、样条线）, 车道信息（分布、宽度、类型）
 
-2. junctions
+2.junctions
 
 包含 <junction> 节点，描述多个道路交汇处的连接方式：
 
 哪些车道互通? 如何在交叉口内转弯? 交通优先权。
 
-3. signals
+3.signals
 
 表示地图中定义的交通灯、限速标志、停车标志等信息：
 
 类型（如红绿灯、限速牌），安装位置，控制关系（与道路或车道绑定）
 
-4. header
+4.header
 
 存储 OpenDRIVE <header> 元素的信息，如：
 地图名称与版本号，
@@ -171,7 +171,7 @@ std::cout << "Road ID: " << road.id << std::endl;
 
 ## 📚 示例代码
 ```cpp
-#include "carla/opendrive/OpenDriveParser.h"
+#include"carla/opendrive/OpenDriveParser.h"
 std::string xodr_contents = ReadFile("Town01.xodr");
 carla::opendrive::Map map = carla::opendrive::OpenDriveParser::Load(xodr_contents);
 ```
@@ -193,19 +193,16 @@ LibCarla/source/carla/opendrive/OpenDriveParser.cpp
 
 ## 🧱 主要功能详解
 该文件（OpenDriveParser.cpp）的核心职责是：解析 OpenDRIVE 地图数据。其中最重要的函数是：
-
 ~~~cpp
 boost::optional<road::Map> OpenDriveParser::Load(const std::string &opendrive);
 ~~~
  
 ### 函数说明
-
 ```cpp
 OpenDriveParser::Load
 ```
 
 ### 函数原型
-
 ~~~cpp 
 boost::optional<road::Map> OpenDriveParser::Load(const std::string &opendrive);
 ~~~
@@ -289,11 +286,11 @@ if (result) {
 
 ### 与其他模块协作
 
-| 模块 | 用途 |
+|模块|用途|
 |------|------|
-| pugixml | XML DOM 解析 |
-| road::Map | 存储解析后的地图数据 |
-| 各种 *Parser 子模块 | 解析不同级别的 OpenDRIVE 结构 |
+|pugixml |XML DOM 解析|
+|road::Map |存储解析后的地图数据|
+|各种 *Parser 子模块|解析不同级别的 OpenDRIVE 结构|
 
 ---
 
@@ -342,6 +339,7 @@ boost::optional<road::Map> OpenDriveParser::Load(const std::string &opendrive)
    ```
 
 4. **解析各个部分（按顺序）**
+	
      地理参考（坐标系）
      ```cpp
      parser::GeoReferenceParser::Parse(xml, map_builder);
