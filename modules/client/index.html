@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>CARLA 客户端部分文档 - 人车模拟器</title>
+    <title>Client - 人车模拟器</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "CARLA \u5ba2\u6237\u7aef\u90e8\u5206\u6587\u6863";
+        var mkdocs_page_name = "Client";
         var mkdocs_page_input_path = "modules/client.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,7 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">CARLA 客户端部分文档</li>
+      <li class="breadcrumb-item active">Client</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/modules/client.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -68,8 +68,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="carla"><strong>CARLA 客户端部分文档</strong></h1>
-<h2 id="_1">概述</h2>
+                <h2 id="_1">概述</h2>
 <p>CARLA 是一个开源的自动驾驶模拟平台，提供了丰富的 API 以支持仿真环境的控制、车辆的管理以及自动驾驶算法的验证。客户端部分的 API 主要通过 <code>Client</code> 类与模拟器进行交互，执行仿真控制、传感器管理、交通流管理等功能。该文档主要介绍 CARLA 客户端相关类的功能和使用方式。</p>
 <h2 id="_2">主要类与功能</h2>
 <h3 id="1-client">1. <strong>Client 类</strong></h3>
@@ -306,11 +305,41 @@ std::static_pointer_cast&lt;ClientSideSensor&gt;(camera)-&gt;Listen([](auto data
     image-&gt;SaveToDisk(&quot;output/%06d.png&quot;, image-&gt;GetFrame());
 });
 </code></pre></div>
+<h3 id="7-world">7. <code>World</code> 类</h3>
+<p>World 类表示一个仿真世界实例，它封装了场景中的地图、实体、天气、环境参数等。通过 <code>Client::LoadWorld()</code> 可获得 <code>World</code> 对象。</p>
+<h4 id="_12">常用方法</h4>
+<ul>
+<li>
+<p><code>GetActors()</code>：获取当前世界中所有实体</p>
+</li>
+<li>
+<p><code>GetBlueprintLibrary()</code>：获取实体蓝图列表</p>
+</li>
+<li>
+<p><code>SpawnActor()</code>：创建新实体</p>
+</li>
+<li>
+<p><code>Tick()</code>：推进世界一帧（同步模式）</p>
+</li>
+<li>
+<p><code>SetWeather()</code>：设置天气（如雨、雾、阳光）</p>
+</li>
+<li>
+<p><code>GetMap()</code>：获取当前地图信息</p>
+</li>
+</ul>
+<h4 id="_13">示例（以设置天气为例）</h4>
+<div class="highlight"><pre><span></span><code>carla::rpc::WeatherParameters weather;
+weather.cloudiness = 80.0f;
+weather.precipitation = 30.0f;
+weather.sun_altitude_angle = 45.0f;
+world.SetWeather(weather);
+</code></pre></div>
 <hr />
-<h2 id="_12">类之间的调用关系</h2>
-<h3 id="carla_1">以下是 CARLA 客户端部分类之间的调用关系图，展示了各个类如何交互以及它们之间的依赖关系。</h3>
+<h2 id="_14">类之间的调用关系</h2>
+<h3 id="carla">以下是 CARLA 客户端部分类之间的调用关系图，展示了各个类如何交互以及它们之间的依赖关系。</h3>
 <p><img alt="类关系" src="https://github.com/LangJing23/nuanxin_volunteer/blob/master/lei.png" /></p>
-<h5 id="_13">调用关系说明</h5>
+<h5 id="_15">调用关系说明</h5>
 <p>Client 类与其他类的交互：</p>
 <blockquote>
 <p>Client 类是与模拟器交互的主要接口，它通过方法如 LoadWorld()、GetAvailableMaps()、StartRecorder() 等来控制仿真世界。</p>
@@ -331,7 +360,7 @@ std::static_pointer_cast&lt;ClientSideSensor&gt;(camera)-&gt;Listen([](auto data
 <p>World 类表示仿真中的一个世界，它与 Client 和 Actor 类紧密关联。World 提供对仿真环境的访问，可以控制仿真世界中的所有行为体和传感器。</p>
 <p>World 还负责管理交通流、物理环境、天气等仿真环境因素。</p>
 </blockquote>
-<h2 id="_14">总结</h2>
+<h2 id="_16">总结</h2>
 <p>CARLA 客户端部分提供了与仿真环境交互的丰富 API，支持开发者控制仿真世界中的各种元素，包括行为体（Actor）、传感器（ClientSideSensor）和交通流（TrafficManager）等。通过 Client 类，开发者能够加载地图、获取世界状态、管理传感器、操作物理环境等。类之间的交互使得开发者能够在仿真环境中进行精确的控制和验证。</p>
 <p>参考文档：<a href="https://openhutb.github.io/carla_cpp/dir_64d7bb605f27024d49af86070bd3f0b6.html">点击此处跳转</a></p>
               
