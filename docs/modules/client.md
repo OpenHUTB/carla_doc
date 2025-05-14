@@ -1,6 +1,3 @@
-# **CARLA 客户端部分文档**
-
-
 ## 概述
 
 CARLA 是一个开源的自动驾驶模拟平台，提供了丰富的 API 以支持仿真环境的控制、车辆的管理以及自动驾驶算法的验证。客户端部分的 API 主要通过 `Client` 类与模拟器进行交互，执行仿真控制、传感器管理、交通流管理等功能。该文档主要介绍 CARLA 客户端相关类的功能和使用方式。
@@ -199,7 +196,32 @@ std::static_pointer_cast<ClientSideSensor>(camera)->Listen([](auto data) {
 
 ```
 
-  
+### 7. `World` 类
+
+World 类表示一个仿真世界实例，它封装了场景中的地图、实体、天气、环境参数等。通过 `Client::LoadWorld()` 可获得 `World` 对象。
+
+#### 常用方法
+
+ - `GetActors()`：获取当前世界中所有实体
+
+ - `GetBlueprintLibrary()`：获取实体蓝图列表
+
+ - `SpawnActor()`：创建新实体
+
+ - `Tick()`：推进世界一帧（同步模式）
+
+ - `SetWeather()`：设置天气（如雨、雾、阳光）
+
+ - `GetMap()`：获取当前地图信息
+
+#### 示例（以设置天气为例）
+```
+carla::rpc::WeatherParameters weather;
+weather.cloudiness = 80.0f;
+weather.precipitation = 30.0f;
+weather.sun_altitude_angle = 45.0f;
+world.SetWeather(weather);
+```
 
 ---
 
