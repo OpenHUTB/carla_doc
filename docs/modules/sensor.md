@@ -92,6 +92,19 @@
   * [6 应用方向与参数优化](#6-应用方向与参数优化)
   * [7 小结](#7-小结-2)
 
+
+### 第九章：深度图摄像头传感器（sensor.camera.depth）
+
+* [第九章：CARLA 深度图摄像头传感器系统（sensor.camera.depth）](#第九章carla-深度图摄像头传感器系统sensorcameradepth)
+
+  * [1 模块概览](#1-模块概览-8)
+  * [2 成像原理与深度编码](#2-成像原理与深度编码)
+  * [3 数据结构说明](#3-数据结构说明)
+  * [4 序列化与解码流程](#4-序列化与解码流程)
+  * [5 Python API 使用示例](#5-python-api-使用示例-6)
+  * [6 深度图应用场景](#6-深度图应用场景)
+  * [7 小结](#7-小结-3)
+
 ---
 
 # 第一章：CARLA 碰撞事件传感器系统（sensor.other.collision）
@@ -1176,5 +1189,125 @@ def decode_np(image):
 推荐配合其他传感器（IMU、GNSS、Depth、LiDAR）使用，构建完整的数据生成与处理流水线。
 
 ---
+
+# 第九章：CARLA 深度图摄像头传感器系统（sensor.camera.depth）
+
+---
+
+## 1 模块概览
+
+![flowchart\_9.png](..%2Fimg%2Fmodules%2Fflowchart_9.png)
+
+`sensor.camera.depth` 是 CARLA 提供的专用深度图相机传感器，用于模拟相机视角下的每像素距离场景物体的真实物理距离（单位为米）。其输出为 4 通道图像（RGBA），其中 RGB 通道编码深度信息，Alpha 通道通常为 255。
+
+该传感器常用于：
+
+* 点云生成（结合内参投影）；
+* 训练单目深度估计模型；
+* RGB-D 感知任务；
+* 三维重建与视觉 SLAM；
+* 自动驾驶下游任务中的几何感知。
+
+---
+
+## 2 成像原理与深度编码
+
+CARLA 中的深度相机使用如下逻辑将真实距离值编码为图像格式：
+
+### ✅ 编码方式（在渲染端）：
+
+CARLA 默认使用 3 通道（R, G, B）编码浮点深度（单位：米）：
+
+```python
+depth = (R + G * 256 + B * 256 * 256) / (256^3 - 1) * 1000.0
+```
+
+* 可解码为每像素 0–1000 米内的精度深度图；
+* 图像格式为 8-bit 无符号整数，每像素 4 字节（RGBA）。
+
+---
+
+## 3 数据结构说明
+
+深度图使用与 RGB 图像相同的数据结构：
+
+定义位置：[`carla/sensor/data/Image.h`](https://github.com/carla-simulator/carla/blob/dev/LibCarla/source/carla/sensor/data/Image.h)
+
+```cpp
+class Image : public SensorData {
+public:
+  uint32_t width;
+  uint32_t height;
+  std::vector<uint8_t> data; // RGBA 图像流
+};
+```
+
+* 图像以 `uint8_t` 存储，布局为 RGBA；
+* 深度编码在 RGB 通道，Alpha 通道可忽略。
+
+---
+
+## 4 序列化与解码流程
+
+该传感器复用了 `ImageSerializer`：
+
+定义文件：[`ImageSerializer.h`](https://github.com/carla-simulator/carla/blob/dev/LibCarla/source/carla/sensor/s11n/ImageSerializer.h)
+
+* 图像渲染 → 原始字节流打包为 `RawData`；
+* 客户端 `ImageSerializer::Deserialize()` 解包为 `Image` 对象；
+* Python 层通过 `.raw_data` 解码深度。
+
+无 MsgPack 序列化，采用原始流传输，更高效适配图像数据密度。
+
+---
+
+## 5 Python API 使用示例
+
+以下代码展示如何部署深度相机并转换为实际深度图：
+
+```python
+import numpy as np
+
+def decode_depth(image):
+    array = np.frombuffer(image.raw_data, dtype=np.uint8)
+    array = array.reshape((image.height, image.width, 4))[:, :, :3].astype(np.uint32)
+    # 深度解码
+    depth = (array[:, :, 0] + array[:, :, 1] * 256 + array[:, :, 2] * 256 * 256) / (256**3 - 1) * 1000.0
+    return depth
+
+# 创建传感器
+bp = world.get_blueprint_library().find('sensor.camera.depth')
+bp.set_attribute('image_size_x', '800')
+bp.set_attribute('image_size_y', '600')
+
+transform = carla.Transform(carla.Location(x=1.5, z=2.4))
+camera = world.spawn_actor(bp, transform, attach_to=vehicle)
+camera.listen(lambda image: decode_depth(image))
+```
+
+也可保存为深度图图像（伪彩）或导出为 PFM 格式。
+
+---
+
+## 6 深度图应用场景
+
+### 🌐 常见用途：
+
+* **点云投影**：结合内参可将深度图转换为相机系 3D 点云；
+* **RGB-D 感知训练**：用于单目深度估计、3D 目标检测、深度分割；
+* **立体匹配数据集**：与 `sensor.camera.rgb` 同步输出，可形成训练样本对；
+* **三维重建**：将连续帧深度图拼接成稠密点云；
+* **视觉 SLAM**：与 ORB-SLAM2、ElasticFusion 等框架结合使用。
+
+---
+
+## 7 小结
+
+`sensor.camera.depth` 提供高精度、连续、结构一致的深度图像输出，在自动驾驶视觉研究中是不可替代的重要组件。
+
+推荐与 RGB、语义分割、IMU/GNSS 联合使用，用于高质量数据生成、深度估计模型训练与三维结构重建。
+
+---
+
 
 
