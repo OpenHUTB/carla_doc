@@ -1,6 +1,3 @@
-
-
-
 ## **概述**
 
 CARLA 是一个开源的自动驾驶模拟平台，提供了丰富的 API 以支持仿真环境的控制、车辆的管理以及自动驾驶算法的验证。客户端部分的 API 主要通过 `Client` 类与模拟器进行交互，执行仿真控制、传感器管理、交通流管理等功能。该文档主要介绍 CARLA 客户端相关类的功能和使用方式。
@@ -228,7 +225,7 @@ world.SetWeather(weather);
 
 ---
 ## **扩展板块**
-### DebugHelper 模块：CARLA 客户端调试可视化工具
+### 1、DebugHelper 模块：CARLA 客户端调试可视化工具
 
 `DebugHelper` 是 CARLA `client` 部分的重要组件之一，主要用于**在仿真世界中可视化各种调试信息**，帮助开发者直观地了解仿真环境中各类实体和交互的运行状态。
 
@@ -281,6 +278,73 @@ static void DrawShape(detail::EpisodeProxy &episode,
 
 #### 小结
 DebugHelper 是 CARLA 提供的轻量级可视化调试接口，极大提升了开发效率。它通过统一封装和生命周期控制，使用户可以灵活地向仿真场景中添加临时的可视图形，方便排查问题、验证逻辑或演示系统能力。
+
+
+### 2、FileTransfer 模块：CARLA 客户端的文件读写与缓存机制
+
+`FileTransfer` 是 CARLA 客户端中的静态类模块，专用于**文件的本地读写、缓存管理以及路径设置**等操作。其设计初衷是为了在客户端环境中缓存或传输所需的文件数据，如地图片段、传感器结果或其他模拟资源，减少不必要的重复下载或传输。
+
+该模块主要由两个文件组成：
+
+- `FileTransfer.h`：定义了该类的接口及核心成员变量。
+- `FileTransfer.cpp`：实现了各个接口的具体功能。
+
+---
+
+#### 核心功能接口
+
+| 接口名 | 功能描述 |
+|--------|----------|
+| `SetFilesBaseFolder(path)` | 设置本地文件缓存基础目录（必须是非空路径），自动添加尾部斜杠 |
+| `GetFilesBaseFolder()` | 获取当前设置的基础路径 |
+| `FileExists(file)` | 检查指定文件是否存在于当前版本的缓存目录中 |
+| `WriteFile(path, content)` | 将二进制内容写入指定路径文件中，并自动创建所需目录结构 |
+| `ReadFile(path)` | 从指定路径读取二进制文件，返回字节向量 |
+
+---
+
+#### 文件路径结构与平台兼容性
+
+模块中根据操作系统自动设置默认的缓存根目录 `_filesBaseFolder`：
+
+- Windows 系统：`%USERPROFILE%/carlaCache/`
+- Linux / macOS：`$HOME/carlaCache/`
+
+所有操作文件的路径会被扩展为如下格式：
+<基础路径>/<CARLA版本>/<目标文件>
+
+其中 `<CARLA版本>` 通过调用 `carla::version()` 获取。
+
+#### 路径验证与创建逻辑
+
+在 `WriteFile` 函数中，使用了 CARLA 内部的 `FileSystem::ValidateFilePath()` 方法来确保路径存在并合法，如不存在会自动创建相应目录。这一机制增强了程序的健壮性与用户的易用性。
+
+
+#### 示例：写入与读取缓存文件
+
+```
+std::vector<uint8_t> data = {0x01, 0x02, 0x03};
+FileTransfer::WriteFile("sensor/lidar.bin", data);
+
+std::vector<uint8_t> result = FileTransfer::ReadFile("sensor/lidar.bin");
+
+```
+该段代码将一个小型字节向量写入缓存路径，并随后读取回来，展示了 FileTransfer 简洁易用的接口风格。
+
+#### 设计特点
+ - 所有函数为静态方法（类不能被实例化）
+
+ - 内部缓存路径根据系统平台自动设定
+
+ - 所有路径操作均以当前 CARLA 版本为中间层级，便于区分不同版本的数据
+
+ - 支持二进制文件的高效读写
+
+ - 利用 std::vector<uint8_t> 管理数据，兼容性好
+
+#### 总结
+`FileTransfer `模块提供了 CARLA 客户端中重要的本地文件操作机制，适合用于缓存地图、传感器数据、AI模型结果等静态资源。通过该模块可以显著提高数据复用效率、降低文件操作出错率，并为系统性能和用户体验带来明显提升。
+
 
 ---
 
