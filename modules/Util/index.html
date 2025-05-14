@@ -468,6 +468,135 @@
 <li><code>UBoundingBoxCalculator</code> 则围绕不同 Actor/组件类型提供了从局部到世界空间的包围盒提取、批量和合并能力；</li>
 <li>组合该工具链，可支持 CARLA 中传感器感知、HUD 渲染、碰撞检测及数据采集等多种场景。</li>
 </ul>
+<h2 id="24-fdebugshapedrawer">2.4 FDebugShapeDrawer：调试形状绘制器</h2>
+<h3 id="241">2.4.1 概要</h3>
+<p><code>FDebugShapeDrawer</code> 是 CARLA 中用于在 <code>Unreal Engine</code> 世界 (<code>UWorld</code>) 中绘制调试形状的工具类。它通过访问 <code>carla::rpc::DebugShape</code> 对象，根据其定义的形状类型（如点、线、箭头、盒子、字符串等）在世界或 HUD 上进行可视化展示。该类内部使用了 <code>FShapeVisitor</code> 结构体，通过访问者模式处理不同的形状类型，实现了灵活且可扩展的调试绘制机制。</p>
+<h3 id="242">2.4.2 使用场景</h3>
+<ul>
+<li>在仿真过程中实时可视化调试信息，如传感器检测结果、路径规划轨迹等。</li>
+<li>在 HUD 上展示关键调试信息，辅助开发和测试。</li>
+<li>在大型地图中，通过 <code>ALargeMapManager</code> 进行坐标转换，确保绘制位置的准确性。</li>
+</ul>
+<h3 id="243">2.4.3 关键方法详解</h3>
+<p>1.<code>FDebugShapeDrawer::Draw</code>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">FDebugShapeDrawer::Draw</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">carla</span><span class="o">::</span><span class="n">rpc</span><span class="o">::</span><span class="n">DebugShape</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Shape</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">Visitor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FShapeVisitor</span><span class="p">(</span><span class="n">World</span><span class="p">,</span><span class="w"> </span><span class="n">Shape</span><span class="p">.</span><span class="n">color</span><span class="p">,</span><span class="w"> </span><span class="n">Shape</span><span class="p">.</span><span class="n">life_time</span><span class="p">,</span><span class="w"> </span><span class="n">Shape</span><span class="p">.</span><span class="n">persistent_lines</span><span class="p">);</span>
+<span class="w">  </span><span class="n">boost</span><span class="o">::</span><span class="n">variant2</span><span class="o">::</span><span class="n">visit</span><span class="p">(</span><span class="n">Visitor</span><span class="p">,</span><span class="w"> </span><span class="n">Shape</span><span class="p">.</span><span class="n">primitive</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+- 作用：根据传入的<code>DebugShape</code>对象，调用相应的绘制方法在世界或 HUD 上渲染调试形状。
+- 实现细节：
+  - 构造<code>FShapeVisitor</code>对象，传入当前世界引用、颜色、生命周期和持久化标志。
+  - 使用<code>boost::variant2::visit</code>访问<code>Shape.primitive</code>，根据实际的形状类型调用对应的绘制方法。</p>
+<p>2.<code>FShapeVisitor::operator() (Arrow)</code>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">FShapeVisitor::operator</span><span class="p">()(</span><span class="k">const</span><span class="w"> </span><span class="n">Shape</span><span class="o">::</span><span class="n">Arrow</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Arrow</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">FVector</span><span class="w"> </span><span class="n">Begin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FVector</span><span class="p">(</span><span class="n">Arrow</span><span class="p">.</span><span class="n">line</span><span class="p">.</span><span class="n">begin</span><span class="p">);</span>
+<span class="w">  </span><span class="n">FVector</span><span class="w"> </span><span class="n">End</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="n">FVector</span><span class="p">(</span><span class="n">Arrow</span><span class="p">.</span><span class="n">line</span><span class="p">.</span><span class="n">end</span><span class="p">);</span>
+<span class="w">  </span><span class="c1">// 坐标转换</span>
+<span class="w">  </span><span class="n">ALargeMapManager</span><span class="o">*</span><span class="w"> </span><span class="n">LargeMap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UCarlaStatics</span><span class="o">::</span><span class="n">GetLargeMapManager</span><span class="p">(</span><span class="n">World</span><span class="p">);</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">LargeMap</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Begin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LargeMap</span><span class="o">-&gt;</span><span class="n">GlobalToLocalLocation</span><span class="p">(</span><span class="n">Begin</span><span class="p">);</span>
+<span class="w">    </span><span class="n">End</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="n">LargeMap</span><span class="o">-&gt;</span><span class="n">GlobalToLocalLocation</span><span class="p">(</span><span class="n">End</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="c1">// 箭头向量与变换</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">Diff</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">End</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Begin</span><span class="p">;</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">FRotator</span><span class="w"> </span><span class="n">LookAt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FRotationMatrix</span><span class="o">::</span><span class="n">MakeFromX</span><span class="p">(</span><span class="n">Diff</span><span class="p">).</span><span class="n">Rotator</span><span class="p">();</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">FTransform</span><span class="w"> </span><span class="n">Transform</span><span class="p">{</span><span class="n">LookAt</span><span class="p">,</span><span class="w"> </span><span class="n">Begin</span><span class="p">};</span>
+
+<span class="w">  </span><span class="c1">// 绘制主干与箭头头部</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">ArrowSize</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="mf">1e2f</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Arrow</span><span class="p">.</span><span class="n">arrow_size</span><span class="p">;</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">ArrowTipDist</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">Diff</span><span class="p">.</span><span class="n">Size</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">ArrowSize</span><span class="p">;</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">Thickness</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="mf">1e2f</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Arrow</span><span class="p">.</span><span class="n">line</span><span class="p">.</span><span class="n">thickness</span><span class="p">;</span>
+<span class="w">  </span><span class="n">World</span><span class="o">-&gt;</span><span class="n">PersistentLineBatcher</span><span class="o">-&gt;</span><span class="n">DrawLines</span><span class="p">({</span>
+<span class="w">    </span><span class="n">FBatchedLine</span><span class="p">(</span><span class="n">Begin</span><span class="p">,</span><span class="w"> </span><span class="n">End</span><span class="p">,</span><span class="w"> </span><span class="n">Color</span><span class="p">,</span><span class="w"> </span><span class="n">LifeTime</span><span class="p">,</span><span class="w"> </span><span class="n">Thickness</span><span class="p">,</span><span class="w"> </span><span class="n">DepthPriority</span><span class="p">),</span>
+<span class="w">    </span><span class="n">FBatchedLine</span><span class="p">(</span>
+<span class="w">      </span><span class="n">Transform</span><span class="p">.</span><span class="n">TransformPosition</span><span class="p">(</span><span class="n">FVector</span><span class="p">(</span><span class="n">ArrowTipDist</span><span class="p">,</span><span class="w"> </span><span class="o">+</span><span class="n">ArrowSize</span><span class="p">,</span><span class="w"> </span><span class="o">+</span><span class="n">ArrowSize</span><span class="p">)),</span>
+<span class="w">      </span><span class="n">End</span><span class="p">,</span><span class="w"> </span><span class="n">Color</span><span class="p">,</span><span class="w"> </span><span class="n">LifeTime</span><span class="p">,</span><span class="w"> </span><span class="n">Thickness</span><span class="p">,</span><span class="w"> </span><span class="n">DepthPriority</span><span class="p">),</span>
+<span class="w">    </span><span class="c1">// ... 其他箭头分支</span>
+<span class="w">  </span><span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div>
+- 解析：
+  - 通过 <code>LargeMapManager</code> 将全局坐标转换为本地坐标，保证在大地图下的位置准确性。
+  - 计算箭头方向向量 <code>Diff</code> 并生成变换 <code>Transform</code>，用于定位箭头头部。
+  - 使用 <code>DrawLines</code> 绘制箭头的主干及四个箭头分支，提高可视化效果。</p>
+<h2 id="25-fnavigationmesh">2.5 FNavigationMesh：导航网格管理器</h2>
+<h3 id="251">2.5.1 概要</h3>
+<p><code>FNavigationMesh</code> 是 CARLA 中用于与 Unreal 导航网格系统交互的工具类，位于 <code>CarlaUE4/Plugins/Carla/Source/Carla/Util/NavigationMesh.*</code>。其主要功能是加载与指定地图名称相关联的导航网格数据，支持路径查询和导航功能。该类通过读取存储为 <code>.bin</code> 文件的导航网格数据，为仿真中的路径规划和智能体导航提供支持。</p>
+<h3 id="252">2.5.2 关键方法详解</h3>
+<h4 id="load">Load 方法</h4>
+<div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="n">TArray</span><span class="o">&lt;</span><span class="n">uint8</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Load</span><span class="p">(</span><span class="n">FString</span><span class="w"> </span><span class="n">MapName</span><span class="p">);</span>
+</code></pre></div>
+<ul>
+<li><strong>作用</strong>：根据传入的地图名称加载对应的导航网格二进制数据文件。</li>
+<li><strong>参数</strong>：</li>
+<li><code>MapName</code>：指定地图的名称，用于定位对应的导航网格文件。</li>
+<li><strong>返回值</strong>：返回一个 <code>TArray&lt;uint8&gt;</code> 类型的数组，包含导航网格文件的二进制内容。如果加载失败，则返回空数组。</li>
+<li><strong>实现逻辑</strong>：</li>
+<li><strong>编辑器模式处理</strong>：<ul>
+<li>如果在编辑器中运行，地图名称可能会有一个额外的前缀（如 <code>UEDPIE_0_</code>）。代码会移除这个前缀，以确保文件查找的正确性。</li>
+<li>例如，原始地图名称为 <code>UEDPIE_0_Town01</code>，校正后变为 <code>Town01</code>。</li>
+</ul>
+</li>
+<li><strong>构建文件名</strong>：<ul>
+<li>根据地图名称构建导航网格文件的完整名称，假设文件后缀为 <code>.bin</code>。例如，地图名称为 <code>Town01</code>，则文件名为 <code>Town01.bin</code>。</li>
+</ul>
+</li>
+<li><strong>查找文件</strong>：<ul>
+<li>使用 <code>IFileManager::Get().FindFilesRecursive</code> 方法在项目内容目录（<code>FPaths::ProjectContentDir()</code>）中递归查找与导航网格文件名匹配的文件。</li>
+</ul>
+</li>
+<li><strong>加载文件内容</strong>：<ul>
+<li>如果找到文件，尝试使用 <code>FFileHelper::LoadFileToArray</code> 方法将文件内容加载到 <code>Content</code> 数组中。</li>
+<li>如果加载成功，输出日志信息，提示正在加载的文件名。</li>
+<li>如果加载失败，输出错误信息，提示加载失败的文件名。</li>
+</ul>
+</li>
+<li><strong>返回结果</strong>：<ul>
+<li>返回加载到的导航网格文件内容（可能为空，如果加载失败）。</li>
+</ul>
+</li>
+</ul>
+<h3 id="253">2.5.3 使用示例</h3>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;Carla/Util/NavigationMesh.h&quot;</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">LoadNavigationMeshData</span><span class="p">(</span><span class="n">FString</span><span class="w"> </span><span class="n">MapName</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// 调用 FNavigationMesh::Load 方法加载导航网格数据</span>
+<span class="w">    </span><span class="n">TArray</span><span class="o">&lt;</span><span class="n">uint8</span><span class="o">&gt;</span><span class="w"> </span><span class="n">MeshData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FNavigationMesh</span><span class="o">::</span><span class="n">Load</span><span class="p">(</span><span class="n">MapName</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// 检查加载结果</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">MeshData</span><span class="p">.</span><span class="n">Num</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">UE_LOG</span><span class="p">(</span><span class="n">LogTemp</span><span class="p">,</span><span class="w"> </span><span class="n">Log</span><span class="p">,</span><span class="w"> </span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;Navigation Mesh data loaded successfully for map &#39;%s&#39;&quot;</span><span class="p">),</span><span class="w"> </span><span class="o">*</span><span class="n">MapName</span><span class="p">);</span>
+<span class="w">        </span><span class="c1">// 进一步处理加载的导航网格数据</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">UE_LOG</span><span class="p">(</span><span class="n">LogTemp</span><span class="p">,</span><span class="w"> </span><span class="n">Error</span><span class="p">,</span><span class="w"> </span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;Failed to load Navigation Mesh data for map &#39;%s&#39;&quot;</span><span class="p">),</span><span class="w"> </span><span class="o">*</span><span class="n">MapName</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li><strong>说明</strong>：此示例展示了如何在 CARLA 仿真中加载指定地图的导航网格数据。通过调用 <code>FNavigationMesh::Load</code> 方法，可以获取导航网格的二进制数据，用于后续的路径规划和导航功能。</li>
+</ul>
+<h3 id="254">2.5.4 注意事项</h3>
+<ol>
+<li><strong>文件路径</strong>：</li>
+<li>确保导航网格文件存储在项目的 <code>Content</code> 目录下，并且文件名与地图名称匹配。</li>
+<li><strong>编辑器模式</strong>：</li>
+<li>如果在编辑器中运行，需要处理地图名称的前缀问题，以确保文件查找的正确性。</li>
+<li><strong>错误处理</strong>：</li>
+<li>在实际使用中，应添加适当的错误处理逻辑，以应对文件未找到或加载失败的情况。</li>
+</ol>
+<h3 id="255">2.5.5 扩展功能</h3>
+<ul>
+<li><strong>路径查询</strong>：</li>
+<li><code>FNavigationMesh</code> 类可以进一步扩展，提供路径查询功能，例如通过调用 Unreal 的导航系统接口，实现从起点到终点的路径规划。</li>
+<li><strong>动态更新</strong>：</li>
+<li>支持在运行时动态更新导航网格，以适应场景中动态变化的障碍物或路径。</li>
+</ul>
+<p>通过 <code>FNavigationMesh</code> 类，CARLA 仿真系统能够高效地加载和管理导航网格数据，为智能体的路径规划和导航功能提供坚实的基础。</p>
               
             </div>
           </div><footer>

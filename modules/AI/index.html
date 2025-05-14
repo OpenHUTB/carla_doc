@@ -69,14 +69,43 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="ai">AI</h1>
+<h1 id="_1">目录</h1>
+<ul>
+<li><a href="#1-aicontrollerfactory-类">1. <strong>AIControllerFactory 类</strong></a>  </li>
+<li><a href="#概述">概述</a>  </li>
+<li><a href="#成员函数">成员函数</a>  <ul>
+<li><a href="#getdefinitions">GetDefinitions</a>  </li>
+<li><a href="#spawnactor">SpawnActor</a>  </li>
+</ul>
+</li>
+<li><a href="#错误处理体系">错误处理体系</a>  </li>
+<li><a href="#继承关系">继承关系</a>  </li>
+<li><a href="#2-walkeraicontroller-类">2. <strong>WalkerAIController 类</strong></a>  </li>
+<li><a href="#定义与职责">定义与职责</a>  </li>
+<li><a href="#构造函数">构造函数</a>  </li>
+<li><a href="#成员变量与属性">成员变量与属性</a>  </li>
+<li><a href="#使用场景">使用场景</a>  </li>
+<li><a href="#3-unreal-engine-集成机制">3. <strong>Unreal Engine 集成机制</strong></a>  </li>
+<li><a href="#反射系统集成">反射系统集成</a>  </li>
+<li><a href="#actor生成机制">Actor生成机制</a>  </li>
+<li><a href="#组件管理">组件管理</a>  </li>
+<li><a href="#4-代码实例与用法">4. 代码实例与用法</a>  </li>
+<li><a href="#创建-ai-控制器">创建 AI 控制器</a>  </li>
+<li><a href="#配置-walker-ai">配置 Walker AI</a>  </li>
+<li><a href="#错误调试">错误调试</a>  </li>
+<li><a href="#5-相关文件与依赖">5. 相关文件与依赖</a>  </li>
+<li><a href="#头文件依赖树">头文件依赖树</a>  </li>
+<li><a href="#依赖的引擎模块">依赖的引擎模块</a>  </li>
+<li><a href="#buildcs配置示例">Buildcs配置示例</a>  </li>
+</ul>
 <hr />
 <h2 id="1-aicontrollerfactory">1. <strong>AIControllerFactory 类</strong></h2>
-<h3 id="_1">概述</h3>
+<h3 id="_2">概述</h3>
 <p><code>AIControllerFactory</code>是CARLA仿真平台中实现AI控制器动态生成的核心工厂类，继承自<code>ACarlaActorFactory</code>。其职责包括：<br />
 - 定义支持的AI控制器类型（如行人、车辆等）<br />
 - 通过Unreal Engine的反射系统实现类型注册<br />
 - 提供标准化的Actor生成接口与错误处理机制 </p>
-<h3 id="_2">成员函数</h3>
+<h3 id="_3">成员函数</h3>
 <h4 id="getdefinitions"><code>GetDefinitions</code></h4>
 <ul>
 <li><strong>功能</strong>：返回工厂支持的AI控制器定义集合，用于引擎的类型发现与蓝图集成。</li>
@@ -135,7 +164,7 @@
     return FActorSpawnResult(ESpawnActorErrorCode::UnknownError);
   }</code></li>
 </ul>
-<h3 id="_3">错误处理体系</h3>
+<h3 id="_4">错误处理体系</h3>
 <table>
 <thead>
 <tr>
@@ -166,7 +195,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="_4">说明</h4>
+<h4 id="_5">说明</h4>
 <ul>
 <li><strong>ENullWorldContext</strong>  </li>
 <li>触发时立即终止生成流程，避免无效操作占用资源。  </li>
@@ -186,7 +215,7 @@
 <li>默认碰撞策略（如 <code>AdjustIfPossible</code>）可能无法覆盖复杂物理环境。  </li>
 <li>强制使用 <code>AlwaysSpawn</code> 模式可确保生成流程完成，但可能引发物理重叠。  </li>
 </ul>
-<h4 id="_5">代码实现</h4>
+<h4 id="_6">代码实现</h4>
 <ul>
 <li>以空世界检查为例：<br />
   <div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">World</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">nullptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -195,14 +224,14 @@
 <span class="p">}</span>
 </code></pre></div></li>
 </ul>
-<h3 id="_6">继承关系</h3>
+<h3 id="_7">继承关系</h3>
 <ul>
 <li><strong>父类</strong>  ：ACarlaActorFactory（CARLA仿真平台的Actor工厂基类）。</li>
 <li><strong>子类</strong>  ：通过重写 GetDefinitions 和 SpawnActor 实现定制化AI控制器生成。</li>
 </ul>
 <hr />
 <h2 id="2-walkeraicontroller">2. <strong>WalkerAIController 类</strong></h2>
-<h3 id="_7">定义与职责</h3>
+<h3 id="_8">定义与职责</h3>
 <ul>
 <li><strong>继承关系</strong>  ：继承自 AActor，作为行人AI控制器的轻量级句柄。
   <div class="highlight"><pre><span></span><code><span class="n">classDiagram</span>
@@ -223,7 +252,7 @@
 <li>状态同步：通过RPC（Remote Procedure Call）实现跨网络的状态同步。</li>
 <li>生命周期管理：处理控制器的激活/休眠状态切换。</li>
 </ul>
-<h3 id="_8">构造函数</h3>
+<h3 id="_9">构造函数</h3>
 <ul>
 <li><strong>初始化设置</strong>  </li>
 <li>禁止Actor的Tick功能：<code>PrimaryActorTick.bCanEverTick = false</code>。  </li>
@@ -241,19 +270,19 @@
 </code></pre></div></p>
 </li>
 </ul>
-<h3 id="_9">成员变量与属性</h3>
+<h3 id="_10">成员变量与属性</h3>
 <ul>
 <li><strong>PrimaryActorTick</strong>  ：设置为 false，禁止帧更新以优化性能。</li>
 <li><strong>RootComponent</strong>  ：默认场景组件，用于管理Actor的变换和渲染，游戏运行时不可见。</li>
 </ul>
-<h3 id="_10">使用场景</h3>
+<h3 id="_11">使用场景</h3>
 <ul>
 <li><strong>行人模拟</strong>  ：在CARLA仿真中，通过此类控制行人的基础属性（如位置、状态）。</li>
 <li><strong>多客户端协作</strong>  ：作为服务端与客户端间的代理，传递控制指令。</li>
 </ul>
 <hr />
 <h2 id="3-unreal-engine">3. <strong>Unreal Engine 集成机制</strong></h2>
-<h3 id="_11">反射系统集成</h3>
+<h3 id="_12">反射系统集成</h3>
 <ul>
 <li><strong>UCLASS宏扩展</strong>  ：UCLASS宏用于在Unreal Engine中注册C++类到反射系统，使得这些类可以被蓝图访问和继承，以及支持序列化、垃圾回收等功能。</li>
 <li>示例：
@@ -298,7 +327,7 @@
 </code></pre></div></li>
 <li><strong>碰撞处理</strong>  ：强制生成（ESpawnActorCollisionHandleMethod::AlwaysSpawn）。</li>
 </ul>
-<h3 id="_12">组件管理</h3>
+<h3 id="_13">组件管理</h3>
 <ul>
 <li><strong>默认组件</strong>  ：创建 USceneComponent 作为根组件，用于坐标系管理。</li>
 <li><strong>示例</strong>  ：
@@ -323,7 +352,7 @@
 <li><strong>属性修改</strong>  ：通过客户端接口更新行人的目标位置或移动速度。</li>
 <li><strong>事件绑定</strong>  ：注册碰撞事件或状态变更回调。</li>
 </ul>
-<h3 id="_13">错误调试</h3>
+<h3 id="_14">错误调试</h3>
 <ul>
 <li><strong>日志排查</strong>  ：
   <div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">Controller</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">nullptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -334,7 +363,7 @@
 </ul>
 <hr />
 <h2 id="5">5. 相关文件与依赖</h2>
-<h3 id="_14">头文件依赖树</h3>
+<h3 id="_15">头文件依赖树</h3>
 <p><code>plaintext
 AI/
     ├── AIControllerFactory.h  
@@ -342,7 +371,7 @@ AI/
     ├── ActorBlueprintFunctionLibrary.h  
     ├── WalkerAIController.h  
     └── GameFramework/Actor.h</code></p>
-<h3 id="_15">依赖的引擎模块</h3>
+<h3 id="_16">依赖的引擎模块</h3>
 <ul>
 <li><strong>Actor系统</strong>  ：GameFramework/Actor.h（Actor基类）。</li>
 <li><strong>反射系统</strong>  ：UObject/UObjectGlobals.h（支持 UCLASS 和 GENERATED_BODY）。</li>

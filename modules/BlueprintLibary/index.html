@@ -123,149 +123,70 @@
   <div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">FlushRenderingCommandsInBlueprint</span><span class="p">();</span>
 </code></pre></div></li>
 <li>强制刷新渲染线程命令队列  </li>
-<li>
-<p>确保资源修改实时生效  </p>
-</li>
-<li>
-<p><strong>内存管理</strong><br />
-  <div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">CleanupGEngine</span><span class="p">();</span>
-</code></pre></div></p>
-</li>
-<li>执行全量垃圾回收  </li>
-<li>清理未引用资产及 Actor 实例  </li>
+<li>确保资源修改实时生效<br />
+<pre class="mermaid"><code>   sequenceDiagram
+  participant GameThread
+  participant RenderThread
+  GameThread-&gt;&gt;RenderThread: 发送渲染命令
+  RenderThread-&gt;&gt;GameThread: 确认命令接收
+  GameThread-&gt;&gt;RenderThread: 执行Flush操作
+  RenderThread-&gt;&gt;GameThread: 返回完成状态
+   ```
+- **内存管理**  
+  ```cpp
+  static void CleanupGEngine();
+  ```
+  - 执行全量垃圾回收  
+  - 清理未引用资产及 Actor 实例  
+
+---
+
+## 类与方法详解  
+### `UMapGenFunctionLibrary` 类  
+继承自 `UBlueprintFunctionLibrary`，提供地图生成相关的静态工具方法，所有方法均支持蓝图调用。
+
+#### 关键方法  
+| 方法                          | 功能描述                                                                 |
+|-------------------------------|-------------------------------------------------------------------------|
+| `CreateMesh()`                | 入口方法，创建并保存静态网格资产，返回 UStaticMesh 指针                |
+| `BuildMeshDescriptionFromData()` | 核心几何处理，将程序化网格数据转换为 UE 网格描述结构                   |
+| `GetTransversemercProjection()` | 地理坐标转换，返回投影后的 2D 坐标（单位：厘米）                       |
+| `FlushRenderingCommandsInBlueprint()` | 强制同步渲染线程，确保图形资源更新                                   |
+| `CleanupGEngine()`            | 执行全局资源清理，释放内存                                           |
+
+#### 参数详解（CreateMesh）  
+| 参数              | 类型                      | 必填 | 描述                                                                 |
+|-------------------|---------------------------|------|----------------------------------------------------------------------|
+| Data              | FProceduralCustomMesh     | 是   | 包含顶点、三角形等几何数据的结构体                                   |
+| ParamTangents     | TArray&lt;FProcMeshTangent&gt;  | 否   | 顶点切线数组，为空时使用默认计算                                     |
+| MaterialInstance  | UMaterialInstance*        | 否   | 主材质实例，应用于生成网格的所有表面                                 |
+| MapName           | FString                   | 是   | 目标地图名称，用于构建资产存储路径                                   |
+| FolderName        | FString                   | 是   | 存储目录名称，通常表示资产分类（如 Roads、Buildings）               |
+| MeshName          | FName                     | 是   | 生成的静态网格资产名称，需符合 UE 命名规范                           |
+
+---
+
+## 数据结构与配置  
+### 1. FProceduralCustomMesh 结构体  
+定义程序化生成的网格数据：
+
+| 字段          | 类型                  | 描述                             |
+|---------------|-----------------------|----------------------------------|
+| Vertices      | TArray&lt;FVector&gt;       | 顶点坐标数组（UE 坐标系，单位：厘米） |
+| Triangles     | TArray&lt;int32&gt;         | 三角形索引数组（按顺时针顺序）     |
+| Normals       | TArray&lt;FVector&gt;       | 顶点法线向量数组                  |
+| UV0           | TArray&lt;FVector2D&gt;     | 基础 UV 通道坐标                  |
+| VertexInstances| TArray&lt;FVector&gt;       | 顶点实例数据（预留扩展）          |
+
+### 2. 全局常量  
+```cpp
+static const float OSMToCentimetersScaleFactor = 100.0f;</code></pre></li>
+<li>OSM 单位到厘米的转换系数（1 OSM单位 = 100厘米）  </li>
+<li>应用于 <code>GetTransversemercProjection()</code> 输出坐标  </li>
 </ul>
 <hr />
-<h2 id="_4">类与方法详解</h2>
-<h3 id="umapgenfunctionlibrary"><code>UMapGenFunctionLibrary</code> 类</h3>
-<p>继承自 <code>UBlueprintFunctionLibrary</code>，提供地图生成相关的静态工具方法，所有方法均支持蓝图调用。</p>
-<h4 id="_5">关键方法</h4>
-<table>
-<thead>
-<tr>
-<th>方法</th>
-<th>功能描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>CreateMesh()</code></td>
-<td>入口方法，创建并保存静态网格资产，返回 UStaticMesh 指针</td>
-</tr>
-<tr>
-<td><code>BuildMeshDescriptionFromData()</code></td>
-<td>核心几何处理，将程序化网格数据转换为 UE 网格描述结构</td>
-</tr>
-<tr>
-<td><code>GetTransversemercProjection()</code></td>
-<td>地理坐标转换，返回投影后的 2D 坐标（单位：厘米）</td>
-</tr>
-<tr>
-<td><code>FlushRenderingCommandsInBlueprint()</code></td>
-<td>强制同步渲染线程，确保图形资源更新</td>
-</tr>
-<tr>
-<td><code>CleanupGEngine()</code></td>
-<td>执行全局资源清理，释放内存</td>
-</tr>
-</tbody>
-</table>
-<h4 id="createmesh">参数详解（CreateMesh）</h4>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>类型</th>
-<th>必填</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Data</td>
-<td>FProceduralCustomMesh</td>
-<td>是</td>
-<td>包含顶点、三角形等几何数据的结构体</td>
-</tr>
-<tr>
-<td>ParamTangents</td>
-<td>TArray<FProcMeshTangent></td>
-<td>否</td>
-<td>顶点切线数组，为空时使用默认计算</td>
-</tr>
-<tr>
-<td>MaterialInstance</td>
-<td>UMaterialInstance*</td>
-<td>否</td>
-<td>主材质实例，应用于生成网格的所有表面</td>
-</tr>
-<tr>
-<td>MapName</td>
-<td>FString</td>
-<td>是</td>
-<td>目标地图名称，用于构建资产存储路径</td>
-</tr>
-<tr>
-<td>FolderName</td>
-<td>FString</td>
-<td>是</td>
-<td>存储目录名称，通常表示资产分类（如 Roads、Buildings）</td>
-</tr>
-<tr>
-<td>MeshName</td>
-<td>FName</td>
-<td>是</td>
-<td>生成的静态网格资产名称，需符合 UE 命名规范</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="_6">数据结构与配置</h2>
-<h3 id="1-fproceduralcustommesh">1. FProceduralCustomMesh 结构体</h3>
-<p>定义程序化生成的网格数据：</p>
-<table>
-<thead>
-<tr>
-<th>字段</th>
-<th>类型</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Vertices</td>
-<td>TArray<FVector></td>
-<td>顶点坐标数组（UE 坐标系，单位：厘米）</td>
-</tr>
-<tr>
-<td>Triangles</td>
-<td>TArray<int32></td>
-<td>三角形索引数组（按顺时针顺序）</td>
-</tr>
-<tr>
-<td>Normals</td>
-<td>TArray<FVector></td>
-<td>顶点法线向量数组</td>
-</tr>
-<tr>
-<td>UV0</td>
-<td>TArray<FVector2D></td>
-<td>基础 UV 通道坐标</td>
-</tr>
-<tr>
-<td>VertexInstances</td>
-<td>TArray<FVector></td>
-<td>顶点实例数据（预留扩展）</td>
-</tr>
-</tbody>
-</table>
-<h3 id="2_1">2. 全局常量</h3>
-<p><div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">OSMToCentimetersScaleFactor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">100.0f</span><span class="p">;</span>
-</code></pre></div>
-- OSM 单位到厘米的转换系数（1 OSM单位 = 100厘米）<br />
-- 应用于 <code>GetTransversemercProjection()</code> 输出坐标  </p>
-<hr />
-<h2 id="_7">关键流程</h2>
-<h3 id="_8">静态网格生成流程</h3>
+<h2 id="_4">关键流程</h2>
+<h3 id="_5">静态网格生成流程</h3>
 <ol>
 <li><strong>数据准备</strong>  </li>
 <li>填充 FProceduralCustomMesh 结构体  </li>
@@ -287,7 +208,7 @@
 <li>自动创建 UPackage 并保存至 <code>/Game/CustomMaps/[MapName]/Static/[FolderName]/</code>  </li>
 <li>资产命名规范：<code>MeshName</code> 参数指定  </li>
 </ol>
-<h3 id="_9">坐标转换算法</h3>
+<h3 id="_6">坐标转换算法</h3>
 <p>横向墨卡托投影公式：<br />
 <div class="highlight"><pre><span></span><code>x = R * asinh(sin(Δλ) / sqrt(tan²φ + cos²Δλ))  
 y = R * atan(tanφ / cosΔλ)  
@@ -298,8 +219,8 @@ Result = (x, y_ref - y) * OSMToCentimetersScaleFactor
 - φ0, λ0：参考原点纬度/经度（弧度）<br />
 - R：地球半径（6373000 米）  </p>
 <hr />
-<h2 id="_10">配置参数</h2>
-<h3 id="createmesh_1">CreateMesh 参数约束</h3>
+<h2 id="_7">配置参数</h2>
+<h3 id="createmesh">CreateMesh 参数约束</h3>
 <table>
 <thead>
 <tr>
@@ -331,7 +252,7 @@ Result = (x, y_ref - y) * OSMToCentimetersScaleFactor
 </tr>
 </tbody>
 </table>
-<h3 id="_11">投影参数预设</h3>
+<h3 id="_8">投影参数预设</h3>
 <table>
 <thead>
 <tr>
@@ -354,7 +275,7 @@ Result = (x, y_ref - y) * OSMToCentimetersScaleFactor
 </tbody>
 </table>
 <hr />
-<h2 id="_12">注意事项</h2>
+<h2 id="_9">注意事项</h2>
 <ol>
 <li><strong>线程安全</strong>  </li>
 <li><code>SetThreadToSleep</code> 会阻塞当前线程，避免在游戏线程长时间休眠  </li>
@@ -380,8 +301,8 @@ Result = (x, y_ref - y) * OSMToCentimetersScaleFactor
 <li>如未指定 MaterialInstance，网格将使用默认材质（粉色警告）  </li>
 </ol>
 <hr />
-<h2 id="_13">示例配置</h2>
-<h3 id="_14">创建道路网格</h3>
+<h2 id="_10">示例配置</h2>
+<h3 id="_11">创建道路网格</h3>
 <div class="highlight"><pre><span></span><code><span class="c1">// 准备几何数据</span>
 <span class="n">FProceduralCustomMesh</span><span class="w"> </span><span class="n">RoadData</span><span class="p">;</span>
 <span class="n">RoadData</span><span class="p">.</span><span class="n">Vertices</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">FVector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="n">FVector</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="n">FVector</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">};</span>
@@ -399,8 +320,8 @@ Result = (x, y_ref - y) * OSMToCentimetersScaleFactor
 <span class="p">);</span>
 </code></pre></div>
 <hr />
-<h2 id="_15">附录</h2>
-<h3 id="_16">依赖项</h3>
+<h2 id="_12">附录</h2>
+<h3 id="_13">依赖项</h3>
 <ul>
 <li><strong>Unreal Engine 模块</strong>  </li>
 <li>StaticMeshDescription（网格数据处理）  </li>
@@ -414,7 +335,7 @@ Result = (x, y_ref - y) * OSMToCentimetersScaleFactor
 <li>ProceduralCustomMesh 数据结构  </li>
 <li>CarlaMapGenerator 坐标系规范  </li>
 </ul>
-<h3 id="_17">已知问题与解决方案</h3>
+<h3 id="_14">已知问题与解决方案</h3>
 <table>
 <thead>
 <tr>
@@ -441,7 +362,7 @@ Result = (x, y_ref - y) * OSMToCentimetersScaleFactor
 </tr>
 </tbody>
 </table>
-<h3 id="_18">调试支持</h3>
+<h3 id="_15">调试支持</h3>
 <ul>
 <li><strong>日志追踪</strong><br />
   <div class="highlight"><pre><span></span><code><span class="n">UE_LOG</span><span class="p">(</span><span class="n">LogCarlaMapGenFunctionLibrary</span><span class="p">,</span><span class="w"> </span><span class="n">Warning</span><span class="p">,</span><span class="w"> </span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;MaterialInstance is nullptr&quot;</span><span class="p">));</span>
@@ -449,13 +370,20 @@ Result = (x, y_ref - y) * OSMToCentimetersScaleFactor
 <li><strong>实时预览</strong>  </li>
 <li>在编辑器中运行 <code>CleanupGEngine()</code> 可刷新资产状态  </li>
 </ul>
-<h3 id="_19">坐标转换公式图示</h3>
+<h3 id="_16">坐标转换公式图示</h3>
 <pre><code>   ┌───────────────────────┐
    │ 横向墨卡托投影公式     │
    │ x = R・asinh(sinΔλ/√(tan²φ + cos²Δλ)) │
    │ y = R・atan(tanφ/cosΔλ)               │
    └───────────────────────┘
 </code></pre>
+<h3 id="_17">性能优化建议图表</h3>
+<p><code>mermaid
+   graph LR
+  A[高顶点数] --&gt; B(分块处理)
+  B --&gt; C{每块≤65535顶点}
+  C --&gt;|是| D[并行生成]
+  C --&gt;|否| B</code></p>
 <hr />
               
             </div>

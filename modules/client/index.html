@@ -73,16 +73,7 @@
 <p>CARLA 是一个开源的自动驾驶模拟平台，提供了丰富的 API 以支持仿真环境的控制、车辆的管理以及自动驾驶算法的验证。客户端部分的 API 主要通过 <code>Client</code> 类与模拟器进行交互，执行仿真控制、传感器管理、交通流管理等功能。该文档主要介绍 CARLA 客户端相关类的功能和使用方式。</p>
 <h2 id="_2">主要类与功能</h2>
 <h3 id="1-client">1. <strong>Client 类</strong></h3>
-<p><code>Client</code> 类是与 CARLA 模拟器交互的核心类，提供了连接仿真器、加载世界、设置物理参数、控制传感器等功能。
-在 Carla 自动驾驶仿真平台中，Client 类是开发者与 Carla 服务器（服务端）交互的核心接口。它负责建立客户端与服务器之间的连接，并通过网络通信管理仿真世界中的实体（如车辆、传感器、行人等）。
-通过 Client 类，开发者可以灵活控制 Carla 仿真环境，实现从简单的车辆控制到复杂的多智能体协同仿真。
-1. 核心作用
-功能  说明
-连接管理    建立/断开与 Carla 服务器的 TCP/IP 连接，指定 IP 和端口（默认 localhost:2000）。
-世界（World）管理 获取当前仿真世界的引用（World 对象），用于操作场景中的实体。
-Actor 生命周期控制    创建（Spawn）、销毁（Destroy）车辆、传感器、行人等 Actor。
-同步/异步模式控制   设置仿真步长（Timestep）、控制仿真运行模式（同步或异步）。
-数据获取与订阅 接收传感器数据（如摄像头图像、激光雷达点云）、交通信息、地图数据等。</p>
+<p><code>Client</code> 类是与 CARLA 模拟器交互的核心类，提供了连接仿真器、加载世界、设置物理参数、控制传感器等功能。</p>
 <h4 id="_3">构造函数</h4>
 <ul>
 <li><code>Client(const std::string &amp;host, uint16_t port, size_t worker_threads = 0u)</code></li>
@@ -280,12 +271,46 @@ auto transform = spawn_points[0];
 // 生成车辆 Actor
 auto vehicle_actor = world.SpawnActor(*vehicle_blueprint, transform);
 </code></pre></div>
-<h3 id="_10"></h3>
+<h3 id="6-sensor">6. <code>Sensor</code> 类与传感器使用（以摄像头为例）</h3>
+<p>CARLA 支持多种传感器类型，例如摄像头、激光雷达、碰撞传感器等，传感器均继承自 <code>ClientSideSensor</code> 类。</p>
+<h4 id="_10">创建与附加传感器的步骤</h4>
+<ul>
+<li>
+<p>从 BlueprintLibrary 获取传感器蓝图</p>
+</li>
+<li>
+<p>设置传感器参数（如图像分辨率、视场角等）</p>
+</li>
+<li>
+<p>附加到目标 Actor（如车辆）</p>
+</li>
+<li>
+<p>注册数据回调处理函数</p>
+</li>
+</ul>
+<h3 id="_11">示例（以摄像头为例）</h3>
+<div class="highlight"><pre><span></span><code>auto camera_bp = blueprint_library-&gt;Find(&quot;sensor.camera.rgb&quot;);
+camera_bp-&gt;SetAttribute(&quot;image_size_x&quot;, &quot;800&quot;);
+camera_bp-&gt;SetAttribute(&quot;image_size_y&quot;, &quot;600&quot;);
+camera_bp-&gt;SetAttribute(&quot;fov&quot;, &quot;90&quot;);
+
+// 定义相对于车辆的位置（车顶前部）
+Transform camera_transform(Location(1.5f, 0.0f, 2.4f));
+
+// 创建摄像头并附加到车辆
+auto camera = world.SpawnActor(*camera_bp, camera_transform, vehicle_actor);
+
+// 注册数据处理回调
+std::static_pointer_cast&lt;ClientSideSensor&gt;(camera)-&gt;Listen([](auto data) {
+    auto image = std::static_pointer_cast&lt;sensor::data::Image&gt;(data);
+    image-&gt;SaveToDisk(&quot;output/%06d.png&quot;, image-&gt;GetFrame());
+});
+</code></pre></div>
 <hr />
-<h2 id="_11">类之间的调用关系</h2>
+<h2 id="_12">类之间的调用关系</h2>
 <h3 id="carla_1">以下是 CARLA 客户端部分类之间的调用关系图，展示了各个类如何交互以及它们之间的依赖关系。</h3>
 <p><img alt="类关系" src="https://github.com/LangJing23/nuanxin_volunteer/blob/master/lei.png" /></p>
-<h5 id="_12">调用关系说明</h5>
+<h5 id="_13">调用关系说明</h5>
 <p>Client 类与其他类的交互：</p>
 <blockquote>
 <p>Client 类是与模拟器交互的主要接口，它通过方法如 LoadWorld()、GetAvailableMaps()、StartRecorder() 等来控制仿真世界。</p>
@@ -306,7 +331,7 @@ auto vehicle_actor = world.SpawnActor(*vehicle_blueprint, transform);
 <p>World 类表示仿真中的一个世界，它与 Client 和 Actor 类紧密关联。World 提供对仿真环境的访问，可以控制仿真世界中的所有行为体和传感器。</p>
 <p>World 还负责管理交通流、物理环境、天气等仿真环境因素。</p>
 </blockquote>
-<h2 id="_13">总结</h2>
+<h2 id="_14">总结</h2>
 <p>CARLA 客户端部分提供了与仿真环境交互的丰富 API，支持开发者控制仿真世界中的各种元素，包括行为体（Actor）、传感器（ClientSideSensor）和交通流（TrafficManager）等。通过 Client 类，开发者能够加载地图、获取世界状态、管理传感器、操作物理环境等。类之间的交互使得开发者能够在仿真环境中进行精确的控制和验证。</p>
 <p>参考文档：<a href="https://openhutb.github.io/carla_cpp/dir_64d7bb605f27024d49af86070bd3f0b6.html">点击此处跳转</a></p>
               

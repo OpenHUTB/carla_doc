@@ -173,13 +173,22 @@ UPROPERTY 标记：DayNightCycle 和 Weather 参数在编辑器中可见，支�
 2. 抽象基类设计
 不可实例化：标记为 Abstract 强制子类化，确保平台特定的天气效果（如 Vulkan 的着色器差异）可通过派生类实现。
 扩展性：子类可覆盖 CheckWeatherPostProcessEffects() 实现自定义效果逻辑，同时复用基类的参数管理。</p>
+<h1 id="_6">资源管理优化建议：</h1>
+<p>1.改为配置文件驱动（如INI文件或JSON）</p>
+<p>2.使用UPROPERTY(EditAnywhere)暴露给编辑器</p>
+<p>3.增加资源加载失败的安全检查</p>
+<h1 id="_7">线程安全建议</h1>
+<p>对于多线程环境：
+1.使用FThreadSafeBool保护天气参数</p>
+<p>2.使用异步加载资源时添加锁机制
+FCriticalSection WeatherCriticalSection;</p>
 <div class="admonition 注意">
 <p class="admonition-title">注意</p>
 <p>确保在使用前正确初始化AWeather对象。
 后处理材质的路径需要根据实际情况进行调整。
 如果需要详细的日志信息，请定义CARLA_WEATHER_EXTRA_LOG宏。</p>
 </div>
-<h2 id="_6">参考</h2>
+<h2 id="_8">参考</h2>
 <ul>
 <li><a href="../../tuto_M_custom_weather_landscape/">自定义地图：天气和景观</a></li>
 </ul>

@@ -70,7 +70,10 @@
               
                 <h1 id="carlaunreal-traffic-module">CarlaUnreal Traffic Module 技术文档</h1>
 <h2 id="_1">概述</h2>
-<p>CarlaUnreal交通模块负责模拟城市环境中动态车辆行为，通过AI控制NPC车辆实现自动驾驶、交通信号响应、路径规划等功能。与Carla仿真核心深度集成，支持可配置的交通流参数。</p>
+<p>CarlaUnreal的Traffic模块用于在虚幻引擎中模拟动态城市交通系统，支持：
+- 自动驾驶仿真中的复杂交通流生成
+- 车辆、行人、交通信号等元素的自动化行为控制
+- 基于规则的交通行为模型配置</p>
 <hr />
 <h2 id="_2">系统架构流程图</h2>
 <pre class="mermaid"><code>graph TD
@@ -83,46 +86,153 @@
   E --&gt; F((仿真环境))</code></pre>
 <hr />
 <h2 id="_3">核心功能</h2>
-<ol>
-<li><strong>动态交通流生成</strong></li>
-<li>基于路网拓扑自动生成车辆流</li>
-<li>支持密度/速度/生成半径配置</li>
-<li>
-<p>车辆类型随机化（轿车/卡车/摩托等）</p>
-</li>
-<li>
-<p><strong>车辆行为控制</strong></p>
-</li>
-<li>基础避障与变道逻辑</li>
-<li>交通信号灯响应系统</li>
-<li>
-<p>紧急制动与跟车模型</p>
-</li>
-<li>
-<p><strong>路径规划系统</strong></p>
-</li>
+<h3 id="1">1. 车辆生成系统</h3>
+<h4 id="_4">功能描述</h4>
+<ul>
+<li><strong>Spawner Actors</strong>：通过路径点网络自动生成车辆</li>
+<li><strong>流量控制</strong>：</li>
+<li>密度调节（车辆/分钟）</li>
+<li>车型比例配置</li>
+<li>区域限定生成</li>
+<li><strong>行为模式</strong>：</li>
+<li>遵守交通规则</li>
+<li>自适应巡航</li>
+<li>变道逻辑</li>
+</ul>
+<h4 id="_5">参数配置表</h4>
+<table>
+<thead>
+<tr>
+<th>参数项</th>
+<th>类型</th>
+<th>默认值</th>
+<th>范围</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SpawnDensity</td>
+<td>float</td>
+<td>30.0</td>
+<td>0-200</td>
+<td>每分钟生成车辆数</td>
+</tr>
+<tr>
+<td>MaxVehicles</td>
+<td>int</td>
+<td>100</td>
+<td>0-500</td>
+<td>场景内最大同时存在车辆数</td>
+</tr>
+<tr>
+<td>SpawnRadius</td>
+<td>meters</td>
+<td>1500</td>
+<td>100-5000</td>
+<td>以玩家为中心的生成半径</td>
+</tr>
+<tr>
+<td>LaneChangeFrequency</td>
+<td>float</td>
+<td>0.3</td>
+<td>0.0-1.0</td>
+<td>变道概率（0=从不，1=频繁）</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_6">车辆类型配置示例</h4>
+<div class="highlight"><pre><span></span><code><span class="nt">VehicleMix</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Blueprint</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/Game/Carla/Blueprints/Vehicles/Sedan&quot;</span>
+<span class="w">    </span><span class="nt">Weight</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.6</span>
+<span class="w">    </span><span class="nt">Attributes</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">MaxSpeed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">160</span><span class="w">   </span><span class="c1"># km/h</span>
+<span class="w">      </span><span class="nt">ColorVariants</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+</code></pre></div>
+<hr />
+<h3 id="2-ai">2. 行人AI系统</h3>
+<h4 id="_7">功能特性</h4>
+<ul>
+<li>基于导航网格的路径规划</li>
+<li>群体行为模拟：</li>
+<li>行人分组</li>
+<li>避障逻辑</li>
+<li>路口等待行为</li>
+</ul>
+<h4 id="_8">行人行为状态机</h4>
+<pre class="mermaid"><code>stateDiagram-v2
+    [*] --&gt; Idle
+    Idle --&gt; Walking: 路径有效
+    Walking --&gt; Avoiding: 检测障碍
+    Avoiding --&gt; Walking: 障碍清除</code></pre>
+<h4 id="_9">人群密度配置表</h4>
+<table>
+<thead>
+<tr>
+<th>区域类型</th>
+<th>基础密度</th>
+<th>时段波动系数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>商业区</td>
+<td>0.8</td>
+<td>+0.3 (白天)</td>
+</tr>
+<tr>
+<td>住宅区</td>
+<td>0.5</td>
+<td>-0.2 (夜间)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="3">3. 交通信号控制</h3>
+<h4 id="_10">功能组件</h4>
+<ul>
+<li>可编程信号灯系统：</li>
+<li>相位时间配置</li>
+<li>感应式信号触发</li>
+<li>紧急车辆优先通道</li>
+</ul>
+<h4 id="_11">信号相位时序表</h4>
+<table>
+<thead>
+<tr>
+<th>相位阶段</th>
+<th>持续时间</th>
+<th>触发条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Green</td>
+<td>25s</td>
+<td>车辆队列&gt;3辆</td>
+</tr>
+<tr>
+<td>Yellow</td>
+<td>4s</td>
+<td>倒计时结束</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="4">4. 路径规划系统</h3>
+<ul>
 <li>基于Waypoint的路由网络</li>
 <li>动态路径重计算</li>
-<li>
-<p>交叉路口优先级管理</p>
-</li>
-<li>
-<p><strong>交通信号系统</strong></p>
-</li>
-<li>红绿灯状态同步</li>
-<li>基于时间的相位控制</li>
-<li>
-<p>车辆感应触发式信号</p>
-</li>
-<li>
-<p><strong>性能优化</strong></p>
-</li>
+<li>交叉路口优先级管理</li>
+</ul>
+<h3 id="5">5. 性能优化</h3>
+<ul>
 <li>动态加载/卸载远端车辆</li>
 <li>LOD控制机制</li>
 <li>多线程路径计算</li>
-</ol>
+</ul>
 <hr />
-<h2 id="_4">常见问题</h2>
+<h2 id="_12">常见问题</h2>
 <p><strong>Q: 车辆无法生成</strong>
 - 检查Waypoint文件路径有效性
 - 验证SpawnRadius是否大于最小阈值（200米）</p>
@@ -133,68 +243,77 @@
 - 降低GlobalDensity参数
 - 启用bEnableDynamicLOD</p>
 <hr />
-<p>以下是为CarlaUnreal插件的Traffic模块编写技术文档的建议框架和关键内容，您可按Markdown格式整合到<code>Traffic.md</code>中：</p>
-<div class="highlight"><pre><span></span><code><span class="gh"># CarlaUnreal Traffic Module Documentation</span>
+<h2 id="_13">配置与依赖</h2>
+<h3 id="_14">必要组件</h3>
+<ol>
+<li>CarlaUnreal插件（0.9.12+）</li>
+<li>路径网络资源包</li>
+<li>交通信号蓝图库</li>
+</ol>
+<h3 id="_15">安装步骤</h3>
+<ol>
+<li>启用插件：
+   <div class="highlight"><pre><span></span><code><span class="na">[ProjectName].uproject &gt; Plugins &gt; CarlaUnreal</span>
+</code></pre></div></li>
+<li>导入基础资源：</li>
+<li><code>/Content/Carla/Static/TrafficSigns</code></li>
+<li><code>/Content/Carla/Maps/HDMaps</code></li>
+<li>创建TrafficManager实例：
+   <div class="highlight"><pre><span></span><code><span class="n">UTrafficManager</span><span class="o">::</span><span class="n">CreateTrafficSystem</span><span class="p">(</span><span class="n">World</span><span class="p">);</span>
+</code></pre></div></li>
+</ol>
+<hr />
+<h2 id="_16">使用示例</h2>
+<h3 id="_17">基础车辆生成</h3>
+<ol>
+<li>放置<code>VehicleSpawner</code> Actor</li>
+<li>配置参数：
+   <div class="highlight"><pre><span></span><code><span class="nt">spawn_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30</span><span class="w">      </span><span class="c1"># 车辆/分钟</span>
+<span class="nt">vehicle_mix</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">sedan</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60%</span>
+<span class="w">  </span><span class="nt">truck</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20%</span>
+<span class="w">  </span><span class="nt">motorcycle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20%</span>
+<span class="nt">path_radius</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500m</span><span class="w">  </span><span class="c1"># 生成半径</span>
+</code></pre></div></li>
+<li>连接路径网络节点</li>
+</ol>
+<h3 id="_18">车辆生成流程图</h3>
+<pre class="mermaid"><code>sequenceDiagram
+  participant Spawner as 生成器
+  participant Graph as 路径网络
+  participant AI as 车辆AI
+  participant World as 世界场景
 
-<span class="gu">## 概述</span>
-CarlaUnreal的Traffic模块用于在虚幻引擎中模拟动态城市交通系统，支持：
-<span class="k">-</span><span class="w"> </span>自动驾驶仿真中的复杂交通流生成
-<span class="k">-</span><span class="w"> </span>车辆、行人、交通信号等元素的自动化行为控制
-<span class="k">-</span><span class="w"> </span>基于规则的交通行为模型配置
-
----
-
-
-<span class="gu">## 配置与依赖</span>
-
-<span class="gu">### 必要组件</span>
-<span class="k">1.</span> CarlaUnreal插件（0.9.12+）
-<span class="k">2.</span> 路径网络资源包
-<span class="k">3.</span> 交通信号蓝图库
-
-<span class="gu">### 安装步骤</span>
-<span class="k">1.</span> 启用插件：
-<span class="sb">   ```ini</span>
-<span class="w">   </span><span class="na">[ProjectName].uproject &gt; Plugins &gt; CarlaUnreal</span>
-<span class="sb">   ```</span>
-<span class="k">2.</span> 导入基础资源：
-<span class="w">   </span><span class="k">-</span><span class="w"> </span><span class="sb">`/Content/Carla/Static/TrafficSigns`</span>
-<span class="w">   </span><span class="k">-</span><span class="w"> </span><span class="sb">`/Content/Carla/Maps/HDMaps`</span>
-<span class="k">3.</span> 创建TrafficManager实例：
-<span class="sb">   ```cpp</span>
-<span class="w">   </span><span class="n">UTrafficManager</span><span class="o">::</span><span class="n">CreateTrafficSystem</span><span class="p">(</span><span class="n">World</span><span class="p">);</span>
-<span class="sb">   ```</span>
-
----
-
-<span class="gu">## 使用示例</span>
-
-<span class="gu">### 基础车辆生成</span>
-<span class="k">1.</span> 放置`VehicleSpawner` Actor
-<span class="k">2.</span> 配置参数：
-<span class="sb">   ```yaml</span>
-<span class="w">   </span><span class="nt">spawn_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30</span><span class="w">      </span><span class="c1"># 车辆/分钟</span>
-<span class="w">   </span><span class="nt">vehicle_mix</span><span class="p">:</span>
-<span class="w">     </span><span class="nt">sedan</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60%</span>
-<span class="w">     </span><span class="nt">truck</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20%</span>
-<span class="w">     </span><span class="nt">motorcycle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20%</span>
-<span class="w">   </span><span class="nt">path_radius</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500m</span><span class="w">  </span><span class="c1"># 生成半径</span>
-<span class="sb">   ```</span>
-<span class="k">3.</span> 连接路径网络节点
-
-<span class="gu">### 交通信号配置</span>
-```blueprint
-Begin Object Class=/Script/Carla.TrafficLightController
-   PhaseTiming:
-     Green -&gt; 30s
-     Yellow -&gt; 5s 
-     Red -&gt; 40s
-   bEmergencyPriority = True
-End Object
+  Spawner-&gt;&gt;Graph: 请求可用路径
+  Graph--&gt;&gt;Spawner: 返回路径节点
+  Spawner-&gt;&gt;World: 生成车辆实例
+  World-&gt;&gt;AI: 挂载控制组件
+  AI-&gt;&gt;Graph: 实时路径查询
+  AI-&gt;&gt;World: 执行移动指令</code></pre>
+<hr />
+<h3 id="_19">交通信号配置</h3>
+<div class="highlight"><pre><span></span><code><span class="nv">Begin</span><span class="w"> </span><span class="nv">Object</span><span class="w"> </span><span class="nv">Class</span><span class="err">=/</span><span class="nv">Script</span><span class="err">/</span><span class="nv">Carla</span><span class="p">.</span><span class="nv">TrafficLightController</span>
+<span class="w">   </span><span class="py">PhaseTiming</span><span class="p">:</span>
+<span class="w">     </span><span class="nv">Green</span><span class="w"> </span><span class="err">-&gt;</span><span class="w"> </span><span class="mi">30</span><span class="nv">s</span>
+<span class="w">     </span><span class="nv">Yellow</span><span class="w"> </span><span class="err">-&gt;</span><span class="w"> </span><span class="mi">5</span><span class="nv">s</span><span class="w"> </span>
+<span class="w">     </span><span class="nv">Red</span><span class="w"> </span><span class="err">-&gt;</span><span class="w"> </span><span class="mi">40</span><span class="nv">s</span>
+<span class="w">   </span><span class="nv">bEmergencyPriority</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="kc">True</span>
+<span class="nv">End</span><span class="w"> </span><span class="nv">Object</span>
 </code></pre></div>
 <hr />
-<h2 id="_5">高级配置</h2>
-<h3 id="_6">自定义行为模型</h3>
+<h3 id="_20">交通信号控制流程图</h3>
+<pre class="mermaid"><code>stateDiagram-v2
+  [*] --&gt; 信号检测
+  信号检测 --&gt; 相位决策
+  相位决策 --&gt; 绿灯: 车流&gt;阈值
+  相位决策 --&gt; 黄灯: 倒计时结束
+  黄灯 --&gt; 红灯: 3秒过渡
+  红灯 --&gt; 相位决策: 周期循环
+  绿灯 --&gt; 紧急优先检测
+  紧急优先检测 --&gt; 强制黄灯: 检测到应急车辆</code></pre>
+<hr />
+<h2 id="_21">高级配置</h2>
+<h3 id="_22">自定义行为模型</h3>
 <ol>
 <li>修改<code>BehaviorTree/CarlaTrafficBT</code></li>
 <li>调整决策参数：
@@ -204,7 +323,7 @@ End Object
 <span class="p">)</span>
 </code></pre></div></li>
 </ol>
-<h3 id="_7">路径网络调试</h3>
+<h3 id="_23">路径网络调试</h3>
 <ol>
 <li>启用调试视图：
    <div class="highlight"><pre><span></span><code><span class="go">console command: show TrafficPaths</span>
@@ -214,7 +333,67 @@ End Object
 </code></pre></div></li>
 </ol>
 <hr />
-<h2 id="_8">注意事项</h2>
+<h3 id="_24">路径网络验证流程</h3>
+<h2 id="graph-lr-a-b-b-c-c-d-c-e-e-f-f-b-d-g"><pre class="mermaid"><code>graph LR
+  A[原始路径数据] --&gt; B[拓扑分析]
+  B --&gt; C{闭合验证}
+  C -- 通过 --&gt; D[生成导航网格]
+  C -- 失败 --&gt; E[标记断点]
+  E --&gt; F[人工修复]
+  F --&gt; B
+  D --&gt; G[发布可用网络]</code></pre></h2>
+<h3 id="_25">性能优化</h3>
+<h4 id="_26">硬件配置推荐</h4>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>最低要求</th>
+<th>推荐配置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CPU</td>
+<td>i5-8600K 3.6GHz</td>
+<td>i7-10700K 3.8GHz</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_27">渲染参数</h4>
+<div class="highlight"><pre><span></span><code><span class="na">bEnableLOD</span><span class="o">=</span><span class="s">True</span>
+<span class="na">LODThresholds</span><span class="o">=</span><span class="s">(Distance=5000, ActorCount=50)</span>
+</code></pre></div>
+<hr />
+<h2 id="_28">调试诊断</h2>
+<h3 id="_29">错误代码表</h3>
+<table>
+<thead>
+<tr>
+<th>错误码</th>
+<th>严重等级</th>
+<th>解决方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T001</td>
+<td>Critical</td>
+<td>检查路径网络闭合性</td>
+</tr>
+<tr>
+<td>T004</td>
+<td>Warning</td>
+<td>重新连接蓝图信号线</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_30">性能监控</h3>
+<div class="highlight"><pre><span></span><code><span class="n">TrafficMonitor</span><span class="o">.</span><span class="n">GetMetrics</span><span class="p">(</span>
+    <span class="n">Metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Vehicles.Alive&quot;</span><span class="p">,</span> <span class="s2">&quot;FPS.Main&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+</code></pre></div>
+<h2 id="_31">注意事项</h2>
 <ol>
 <li>路径网络需形成闭合回路</li>
 <li>高密度交通时建议启用LOD优化</li>
