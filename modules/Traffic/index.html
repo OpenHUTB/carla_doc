@@ -139,6 +139,55 @@
 <td>0.0-1.0</td>
 <td>变道概率（0=从不，1=频繁）</td>
 </tr>
+<tr>
+<td>#### 模块逻辑</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><pre class="mermaid"><code>graph LR
+  A[路径网络加载] --&gt; B[生成策略计算]
+  B --&gt; C{密度控制}
+  C --&gt;|达标| D[车型选择]
+  C --&gt;|超限| E[进入休眠]
+  D --&gt; F[行为树注入]
+  F --&gt; G[物理实体生成]
+  G --&gt; H[生命周期监控]</code></pre></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>工程应用场景</strong>：</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>自动驾驶压力测试</strong>：通过调节<code>SpawnDensity=200</code>模拟高峰流量，验证感知系统对密集车流的处理能力</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>特殊车辆调度</strong>：设置<code>EmergencyVehicleRatio=0.2</code>模拟紧急救援通道，测试优先通行算法</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>区域限流测试</strong>：配置<code>SpawnRadius=300</code>聚焦特定路段的交通流建模</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
 <h4 id="_6">车辆类型配置示例</h4>
