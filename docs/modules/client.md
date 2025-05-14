@@ -1,6 +1,3 @@
-# **CARLA 客户端部分文档**
-
-
 ## 概述
 
 CARLA 是一个开源的自动驾驶模拟平台，提供了丰富的 API 以支持仿真环境的控制、车辆的管理以及自动驾驶算法的验证。客户端部分的 API 主要通过 `Client` 类与模拟器进行交互，执行仿真控制、传感器管理、交通流管理等功能。该文档主要介绍 CARLA 客户端相关类的功能和使用方式。
@@ -10,15 +7,7 @@ CARLA 是一个开源的自动驾驶模拟平台，提供了丰富的 API 以支
 ### 1. **Client 类**
 
 `Client` 类是与 CARLA 模拟器交互的核心类，提供了连接仿真器、加载世界、设置物理参数、控制传感器等功能。
-在 Carla 自动驾驶仿真平台中，Client 类是开发者与 Carla 服务器（服务端）交互的核心接口。它负责建立客户端与服务器之间的连接，并通过网络通信管理仿真世界中的实体（如车辆、传感器、行人等）。
-通过 Client 类，开发者可以灵活控制 Carla 仿真环境，实现从简单的车辆控制到复杂的多智能体协同仿真。
-1. 核心作用
-功能	说明
-连接管理	建立/断开与 Carla 服务器的 TCP/IP 连接，指定 IP 和端口（默认 localhost:2000）。
-世界（World）管理	获取当前仿真世界的引用（World 对象），用于操作场景中的实体。
-Actor 生命周期控制	创建（Spawn）、销毁（Destroy）车辆、传感器、行人等 Actor。
-同步/异步模式控制	设置仿真步长（Timestep）、控制仿真运行模式（同步或异步）。
-数据获取与订阅	接收传感器数据（如摄像头图像、激光雷达点云）、交通信息、地图数据等。
+
 #### 构造函数
 
 - `Client(const std::string &host, uint16_t port, size_t worker_threads = 0u)`
@@ -172,8 +161,67 @@ auto vehicle_actor = world.SpawnActor(*vehicle_blueprint, transform);
 
 ```
 
-### 
-  
+### 6. `Sensor` 类与传感器使用（以摄像头为例）
+CARLA 支持多种传感器类型，例如摄像头、激光雷达、碰撞传感器等，传感器均继承自 `ClientSideSensor` 类。
+
+#### 创建与附加传感器的步骤
+
+ - 从 BlueprintLibrary 获取传感器蓝图
+
+ - 设置传感器参数（如图像分辨率、视场角等）
+
+ - 附加到目标 Actor（如车辆）
+
+ - 注册数据回调处理函数
+ 
+### 示例（以摄像头为例）
+
+```
+auto camera_bp = blueprint_library->Find("sensor.camera.rgb");
+camera_bp->SetAttribute("image_size_x", "800");
+camera_bp->SetAttribute("image_size_y", "600");
+camera_bp->SetAttribute("fov", "90");
+
+// 定义相对于车辆的位置（车顶前部）
+Transform camera_transform(Location(1.5f, 0.0f, 2.4f));
+
+// 创建摄像头并附加到车辆
+auto camera = world.SpawnActor(*camera_bp, camera_transform, vehicle_actor);
+
+// 注册数据处理回调
+std::static_pointer_cast<ClientSideSensor>(camera)->Listen([](auto data) {
+    auto image = std::static_pointer_cast<sensor::data::Image>(data);
+    image->SaveToDisk("output/%06d.png", image->GetFrame());
+});
+
+```
+
+### 7. `World` 类
+
+World 类表示一个仿真世界实例，它封装了场景中的地图、实体、天气、环境参数等。通过 `Client::LoadWorld()` 可获得 `World` 对象。
+
+#### 常用方法
+
+ - `GetActors()`：获取当前世界中所有实体
+
+ - `GetBlueprintLibrary()`：获取实体蓝图列表
+
+ - `SpawnActor()`：创建新实体
+
+ - `Tick()`：推进世界一帧（同步模式）
+
+ - `SetWeather()`：设置天气（如雨、雾、阳光）
+
+ - `GetMap()`：获取当前地图信息
+
+#### 示例（以设置天气为例）
+```
+carla::rpc::WeatherParameters weather;
+weather.cloudiness = 80.0f;
+weather.precipitation = 30.0f;
+weather.sun_altitude_angle = 45.0f;
+world.SetWeather(weather);
+```
 
 ---
 
