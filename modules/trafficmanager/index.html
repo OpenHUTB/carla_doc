@@ -162,7 +162,7 @@
 <li><strong>效率与线程安全设计</strong>：路点以索引方式管理，支持高效空间查找（基于坐标 KD-Tree 或哈希表），同时接口可在多线程中并发调用，支持定位、轨迹生成和控制模块同时访问。</li>
 </ul>
 <p>示例调用逻辑（伪代码）：</p>
-<p><div class="highlight"><pre><span></span><code><span class="n">SimpleWaypointPtr</span><span class="w"> </span><span class="n">current_wp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">local_map</span><span class="o">-&gt;</span><span class="n">GetWaypoint</span><span class="p">(</span><span class="n">vehicle_location</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="n">SimpleWaypointPtr</span><span class="w"> </span><span class="n">current_wp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">local_map</span><span class="o">-&gt;</span><span class="n">GetWaypoint</span><span class="p">(</span><span class="n">vehicle_location</span><span class="p">);</span>
 <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">SimpleWaypointPtr</span><span class="o">&gt;</span><span class="w"> </span><span class="n">forward_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">current_wp</span><span class="o">-&gt;</span><span class="n">GetNextWaypointN</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
 <span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">wp</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">forward_path</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">wp</span><span class="o">-&gt;</span><span class="n">HasTrafficLight</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
@@ -173,11 +173,32 @@
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-内存地图与网格路径模块将原始仿真地图信息组织为可快速导航、可语义查询、可拓扑遍历的结构，是自动驾驶系统理解交通空间结构、执行高效决策的重要基础。
-- 
-- <strong>路径缓存与车辆轨迹（PBVT）</strong>：为每辆车维护一个未来若干秒的路径轨迹队列（Trajectory Buffer），其中的每个点都是基于当前位置规划出的可达路径，用于预测、避障和控制计算。
-- <strong>PID 控制器</strong>：每辆车都通过其 PID 控制器根据期望路径点计算出实际控制命令（油门、刹车和方向盘），以最小化当前运动状态与路径目标之间的误差。
-- <strong>命令数组控制器</strong>：在控制阶段结束后，所有车辆的控制指令被批量组织为一个控制命令数组，通过高效通道（如 client.apply_batch()）发送到 CARLA 服务器，实现高帧率控制。</p>
+<p><strong>路径缓存与车辆轨迹（PBVT, Path Buffer &amp; Vehicle Trajectory）</strong>：PBVT 是 Traffic Manager 中用于记录与更新每辆车未来运动轨迹的关键模块。它通过对局部路径的持续预测与缓存，为运动规划和避障模块提供决策支撑，确保系统在复杂场景中具备前瞻性和响应性。其主要功能包括：</p>
+<ul>
+<li><strong>轨迹缓冲区构建</strong>：为每辆车维护一个轨迹缓冲队列（Trajectory Buffer），该队列包含从当前位置出发、沿参考路径前向若干米或若干秒的路径点，通常为 2-4 秒时域。</li>
+<li><strong>基于路点的路径预测</strong>：轨迹点通常来源于内存地图生成的稀疏网格路点（Waypoints），并结合当前速度和加速度动态裁剪路径长度。</li>
+<li><strong>缓冲更新策略</strong>：</li>
+<li>在车辆进入新位置或帧推进后，检测是否需要重建轨迹缓冲区。</li>
+<li>如果路径偏差或交通规则变化（如交通灯、障碍物出现）导致路径失效，则触发轨迹重规划。</li>
+<li><strong>轨迹点结构</strong>：每个轨迹点不仅包含位置坐标，还记录目标速度、限速信息、变道指令、是否避障等高阶信息，供运动控制模块直接使用。</li>
+<li><strong>状态预判与多阶段使用</strong>：</li>
+<li>碰撞检测阶段使用路径中的前向点进行障碍预测。</li>
+<li>运动控制阶段基于轨迹点生成 PID 控制输入。</li>
+<li>车灯控制模块判断是否需转向灯激活。</li>
+<li><strong>线程安全实现</strong>：PBVT 模块支持并发访问，不同阶段可读取对应车辆的路径缓冲，同时支持局部重建。</li>
+</ul>
+<p>示例调用逻辑（伪代码）：</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">trajectory_buffer</span><span class="p">.</span><span class="n">HasEnoughWaypoints</span><span class="p">(</span><span class="n">vehicle_id</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">new_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">planner</span><span class="p">.</span><span class="n">GeneratePathFromWaypoint</span><span class="p">(</span><span class="n">current_wp</span><span class="p">);</span>
+<span class="w">    </span><span class="n">trajectory_buffer</span><span class="p">.</span><span class="n">Update</span><span class="p">(</span><span class="n">vehicle_id</span><span class="p">,</span><span class="w"> </span><span class="n">new_path</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">next_target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">trajectory_buffer</span><span class="p">.</span><span class="n">GetNextTarget</span><span class="p">(</span><span class="n">vehicle_id</span><span class="p">);</span>
+<span class="n">motion_controller</span><span class="p">.</span><span class="n">Track</span><span class="p">(</span><span class="n">next_target</span><span class="p">);</span>
+</code></pre></div>
+<ul>
+<li><strong>PID 控制器</strong>：每辆车都通过其 PID 控制器根据期望路径点计算出实际控制命令（油门、刹车和方向盘），以最小化当前运动状态与路径目标之间的误差。</li>
+<li><strong>命令数组控制器</strong>：在控制阶段结束后，所有车辆的控制指令被批量组织为一个控制命令数组，通过高效通道（如 client.apply_batch()）发送到 CARLA 服务器，实现高帧率控制。</li>
+</ul>
 <h2 id="_2">控制循环的阶段</h2>
 <ol>
 <li>
