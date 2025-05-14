@@ -1310,4 +1310,3 @@ camera.listen(lambda image: decode_depth(image))
 ---
 
 
-
