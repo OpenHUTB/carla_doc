@@ -56,14 +56,22 @@
   ```
   - 强制刷新渲染线程命令队列  
   - 确保资源修改实时生效  
-
+```mermaid
+   sequenceDiagram
+  participant GameThread
+  participant RenderThread
+  GameThread->>RenderThread: 发送渲染命令
+  RenderThread->>GameThread: 确认命令接收
+  GameThread->>RenderThread: 执行Flush操作
+  RenderThread->>GameThread: 返回完成状态
+   ```
 - **内存管理**  
   ```cpp
   static void CleanupGEngine();
   ```
   - 执行全量垃圾回收  
   - 清理未引用资产及 Actor 实例  
-
+ 
 ---
 
 ## 类与方法详解  
