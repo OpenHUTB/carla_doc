@@ -92,6 +92,32 @@
   * [6 应用方向与参数优化](#6-应用方向与参数优化)
   * [7 小结](#7-小结-2)
 
+
+### 第九章：深度图摄像头传感器（sensor.camera.depth）
+
+* [第九章：CARLA 深度图摄像头传感器系统（sensor.camera.depth）](#第九章carla-深度图摄像头传感器系统sensorcameradepth)
+
+  * [1 模块概览](#1-模块概览-8)
+  * [2 成像原理与深度编码](#2-成像原理与深度编码)
+  * [3 数据结构说明](#3-数据结构说明)
+  * [4 序列化与解码流程](#4-序列化与解码流程)
+  * [5 Python API 使用示例](#5-python-api-使用示例-6)
+  * [6 深度图应用场景](#6-深度图应用场景)
+  * [7 小结](#7-小结-3)
+
+
+### 第十章：语义分割相机传感器（sensor.camera.semantic\_segmentation）
+
+* [第十章：CARLA 语义分割摄像头传感器系统（sensor.camera.semantic\_segmentation）](#第十章carla-语义分割摄像头传感器系统sensorcamerasemantic_segmentation)
+
+  * [1 模块概览](#1-模块概览-9)
+  * [2 输出内容与标签定义](#2-输出内容与标签定义)
+  * [3 数据结构与格式说明](#3-数据结构与格式说明)
+  * [4 序列化机制说明](#4-序列化机制说明-1)
+  * [5 Python API 使用示例](#5-python-api-使用示例-7)
+  * [6 应用与扩展方向](#6-应用与扩展方向)
+  * [7 小结](#7-小结-4)
+
 ---
 
 # 第一章：CARLA 碰撞事件传感器系统（sensor.other.collision）
@@ -1176,5 +1202,263 @@ def decode_np(image):
 推荐配合其他传感器（IMU、GNSS、Depth、LiDAR）使用，构建完整的数据生成与处理流水线。
 
 ---
+
+# 第九章：CARLA 深度图摄像头传感器系统（sensor.camera.depth）
+
+---
+
+## 1 模块概览
+
+![flowchart\_9.png](..%2Fimg%2Fmodules%2Fflowchart_9.png)
+
+`sensor.camera.depth` 是 CARLA 提供的专用深度图相机传感器，用于模拟相机视角下的每像素距离场景物体的真实物理距离（单位为米）。其输出为 4 通道图像（RGBA），其中 RGB 通道编码深度信息，Alpha 通道通常为 255。
+
+该传感器常用于：
+
+* 点云生成（结合内参投影）；
+* 训练单目深度估计模型；
+* RGB-D 感知任务；
+* 三维重建与视觉 SLAM；
+* 自动驾驶下游任务中的几何感知。
+
+---
+
+## 2 成像原理与深度编码
+
+CARLA 中的深度相机使用如下逻辑将真实距离值编码为图像格式：
+
+###  编码方式（在渲染端）：
+
+CARLA 默认使用 3 通道（R, G, B）编码浮点深度（单位：米）：
+
+```python
+depth = (R + G * 256 + B * 256 * 256) / (256^3 - 1) * 1000.0
+```
+
+* 可解码为每像素 0–1000 米内的精度深度图；
+* 图像格式为 8-bit 无符号整数，每像素 4 字节（RGBA）。
+
+---
+
+## 3 数据结构说明
+
+深度图使用与 RGB 图像相同的数据结构：
+
+定义位置：[`carla/sensor/data/Image.h`](https://github.com/carla-simulator/carla/blob/dev/LibCarla/source/carla/sensor/data/Image.h)
+
+```cpp
+class Image : public SensorData {
+public:
+  uint32_t width;
+  uint32_t height;
+  std::vector<uint8_t> data; // RGBA 图像流
+};
+```
+
+* 图像以 `uint8_t` 存储，布局为 RGBA；
+* 深度编码在 RGB 通道，Alpha 通道可忽略。
+
+---
+
+## 4 序列化与解码流程
+
+该传感器复用了 `ImageSerializer`：
+
+定义文件：[`ImageSerializer.h`](https://github.com/carla-simulator/carla/blob/dev/LibCarla/source/carla/sensor/s11n/ImageSerializer.h)
+
+* 图像渲染 → 原始字节流打包为 `RawData`；
+* 客户端 `ImageSerializer::Deserialize()` 解包为 `Image` 对象；
+* Python 层通过 `.raw_data` 解码深度。
+
+无 MsgPack 序列化，采用原始流传输，更高效适配图像数据密度。
+
+---
+
+## 5 Python API 使用示例
+
+以下代码展示如何部署深度相机并转换为实际深度图：
+
+```python
+import numpy as np
+
+def decode_depth(image):
+    array = np.frombuffer(image.raw_data, dtype=np.uint8)
+    array = array.reshape((image.height, image.width, 4))[:, :, :3].astype(np.uint32)
+    # 深度解码
+    depth = (array[:, :, 0] + array[:, :, 1] * 256 + array[:, :, 2] * 256 * 256) / (256**3 - 1) * 1000.0
+    return depth
+
+# 创建传感器
+bp = world.get_blueprint_library().find('sensor.camera.depth')
+bp.set_attribute('image_size_x', '800')
+bp.set_attribute('image_size_y', '600')
+
+transform = carla.Transform(carla.Location(x=1.5, z=2.4))
+camera = world.spawn_actor(bp, transform, attach_to=vehicle)
+camera.listen(lambda image: decode_depth(image))
+```
+
+也可保存为深度图图像（伪彩）或导出为 PFM 格式。
+
+---
+
+## 6 深度图应用场景
+
+###  常见用途：
+
+* **点云投影**：结合内参可将深度图转换为相机系 3D 点云；
+* **RGB-D 感知训练**：用于单目深度估计、3D 目标检测、深度分割；
+* **立体匹配数据集**：与 `sensor.camera.rgb` 同步输出，可形成训练样本对；
+* **三维重建**：将连续帧深度图拼接成稠密点云；
+* **视觉 SLAM**：与 ORB-SLAM2、ElasticFusion 等框架结合使用。
+
+---
+
+## 7 小结
+
+`sensor.camera.depth` 提供高精度、连续、结构一致的深度图像输出，在自动驾驶视觉研究中是不可替代的重要组件。
+
+推荐与 RGB、语义分割、IMU/GNSS 联合使用，用于高质量数据生成、深度估计模型训练与三维结构重建。
+
+---
+
+# 第十章：CARLA 语义分割摄像头传感器系统（sensor.camera.semantic\_segmentation）
+
+---
+
+## 1 模块概览
+
+![flowchart\_10.png](..%2Fimg%2Fmodules%2Fflowchart_10.png)
+
+`sensor.camera.semantic_segmentation` 是 CARLA 提供的语义感知型图像传感器。它将模拟环境中可见物体（如车辆、行人、道路等）按照类别进行像素级别的标注，每帧输出一张语义分割图像，用于训练自动驾驶模型中的感知网络或环境理解模块。
+
+该传感器在数据采集、分割模型训练、语义地图构建、端到端学习等任务中具有广泛应用价值。
+
+---
+
+## 2 输出内容与标签定义
+
+该传感器输出为**单通道图像**，每个像素为一个整数值，表示该像素所属的语义类别。默认图像格式为：
+
+* `RGBA` 字节流，实际仅使用 `R` 通道（值范围：0–255）；
+* 每个 ID 对应一种语义类别，CARLA 提供默认映射关系（可自定义）。
+
+###  示例标签对照表：
+
+| 类别名称        | 类别 ID |
+| ----------- | ----- |
+| None        | 0     |
+| Buildings   | 1     |
+| Fences      | 2     |
+| Other       | 3     |
+| Pedestrians | 4     |
+| Poles       | 5     |
+| Roads       | 6     |
+| RoadLines   | 7     |
+| Sidewalks   | 8     |
+| Vegetation  | 9     |
+| Vehicles    | 10    |
+| Wall        | 11    |
+| TrafficSign | 12    |
+
+---
+
+## 3 数据结构与格式说明
+
+语义分割图像复用图像类结构：
+
+定义位置：[`carla/sensor/data/Image.h`](https://github.com/carla-simulator/carla/blob/dev/LibCarla/source/carla/sensor/data/Image.h)
+
+```cpp
+class Image : public SensorData {
+public:
+  uint32_t width;
+  uint32_t height;
+  std::vector<uint8_t> data; // 每像素RGBA，语义ID编码在R通道
+};
+```
+
+说明：
+
+* 虽然为 RGBA 图像，但只有红色通道包含有效的语义类别；
+* 可直接用 `image.raw_data` → `np.uint8` → `reshape` 转换为二维语义图。
+
+---
+
+## 4 序列化机制说明
+
+`sensor.camera.semantic_segmentation` 复用 `ImageSerializer`：
+
+定义文件：[`ImageSerializer.h`](https://github.com/carla-simulator/carla/blob/dev/LibCarla/source/carla/sensor/s11n/ImageSerializer.h)
+
+```cpp
+SharedPtr<SensorData> ImageSerializer::Deserialize(RawData &&data) {
+  return SharedPtr<SensorData>(new data::Image(std::move(data)));
+}
+```
+
+* 无额外结构字段，仅传输原始图像数据；
+* 每帧语义图由服务端生成（Unreal Engine 渲染）后通过 RPC 系统推送；
+* 客户端将数据解码为 `Image` 实例并触发回调。
+
+---
+
+## 5 Python API 使用示例
+
+以下示例展示如何创建语义分割传感器，并将图像保存或解析为标签矩阵：
+
+```python
+def save_semantic(image):
+    image.save_to_disk('output/seg_%06d.png' % image.frame, carla.ColorConverter.CityScapesPalette)
+
+bp = world.get_blueprint_library().find('sensor.camera.semantic_segmentation')
+bp.set_attribute('image_size_x', '800')
+bp.set_attribute('image_size_y', '600')
+transform = carla.Transform(carla.Location(x=1.5, z=2.4))
+
+seg_sensor = world.spawn_actor(bp, transform, attach_to=vehicle)
+seg_sensor.listen(save_semantic)
+```
+
+### 自定义解析标签矩阵：
+
+```python
+import numpy as np
+
+def parse_semantic(image):
+    array = np.frombuffer(image.raw_data, dtype=np.uint8)
+    seg_labels = array.reshape((image.height, image.width, 4))[:, :, 0]  # R通道为语义标签
+    return seg_labels
+```
+
+---
+
+## 6 应用与扩展方向
+
+###  应用场景：
+
+* 训练语义分割模型（如 DeepLab、PSPNet）；
+* 联合 RGB/Depth 生成多模态数据集；
+* 构建语义 HD 地图（自动车道标注）；
+* 强化学习场景中的语义感知输入；
+* 与 GNSS/IMU 时间对齐，构建时空标注序列。
+
+###  拓展建议：
+
+* 替换默认 CityScapes 标签体系，构建自定义语义类别；
+* 增加边缘高亮、透明度渲染参数；
+* 配合 `ColorConverter` 自定义彩色编码方案；
+* 输出压缩格式（如 JPEG8）以节省带宽。
+
+---
+
+## 7 小结
+
+`sensor.camera.semantic_segmentation` 是 CARLA 中唯一原生支持像素级语义标注的传感器。它提供标准化标签图，适合用于多种感知任务，尤其在构建多视图、多模态、高频率自动驾驶数据集方面扮演关键角色。
+
+推荐与 `RGB/Depth/LiDAR` 联合使用，支持多任务模型训练与语义地图制作。
+
+---
+
 
 
