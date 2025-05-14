@@ -337,7 +337,7 @@ world.SetWeather(weather);
 </code></pre></div>
 <hr />
 <h2 id="_14"><strong>扩展板块</strong></h2>
-<h3 id="debughelper-carla">DebugHelper 模块：CARLA 客户端调试可视化工具</h3>
+<h3 id="1debughelper-carla">1、DebugHelper 模块：CARLA 客户端调试可视化工具</h3>
 <p><code>DebugHelper</code> 是 CARLA <code>client</code> 部分的重要组件之一，主要用于<strong>在仿真世界中可视化各种调试信息</strong>，帮助开发者直观地了解仿真环境中各类实体和交互的运行状态。</p>
 <p>该模块基于 <code>rpc::DebugShape</code> 实现了多个图形绘制方法，包括点、线、箭头、边界框和文本等。所有形状通过调用统一的模板函数 <code>DrawShape</code> 实现绘制，绘图内容会被添加到当前模拟剧集中（<code>EpisodeProxy</code>）。</p>
 <h4 id="_15">功能概览</h4>
@@ -389,11 +389,89 @@ static void DrawShape(detail::EpisodeProxy &amp;episode,
 </ul>
 <h4 id="_18">小结</h4>
 <p>DebugHelper 是 CARLA 提供的轻量级可视化调试接口，极大提升了开发效率。它通过统一封装和生命周期控制，使用户可以灵活地向仿真场景中添加临时的可视图形，方便排查问题、验证逻辑或演示系统能力。</p>
+<h3 id="2filetransfer-carla">2、FileTransfer 模块：CARLA 客户端的文件读写与缓存机制</h3>
+<p><code>FileTransfer</code> 是 CARLA 客户端中的静态类模块，专用于<strong>文件的本地读写、缓存管理以及路径设置</strong>等操作。其设计初衷是为了在客户端环境中缓存或传输所需的文件数据，如地图片段、传感器结果或其他模拟资源，减少不必要的重复下载或传输。</p>
+<p>该模块主要由两个文件组成：</p>
+<ul>
+<li><code>FileTransfer.h</code>：定义了该类的接口及核心成员变量。</li>
+<li><code>FileTransfer.cpp</code>：实现了各个接口的具体功能。</li>
+</ul>
 <hr />
-<h2 id="_19"><strong>类之间的调用关系</strong></h2>
+<h4 id="_19">核心功能接口</h4>
+<table>
+<thead>
+<tr>
+<th>接口名</th>
+<th>功能描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SetFilesBaseFolder(path)</code></td>
+<td>设置本地文件缓存基础目录（必须是非空路径），自动添加尾部斜杠</td>
+</tr>
+<tr>
+<td><code>GetFilesBaseFolder()</code></td>
+<td>获取当前设置的基础路径</td>
+</tr>
+<tr>
+<td><code>FileExists(file)</code></td>
+<td>检查指定文件是否存在于当前版本的缓存目录中</td>
+</tr>
+<tr>
+<td><code>WriteFile(path, content)</code></td>
+<td>将二进制内容写入指定路径文件中，并自动创建所需目录结构</td>
+</tr>
+<tr>
+<td><code>ReadFile(path)</code></td>
+<td>从指定路径读取二进制文件，返回字节向量</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="_20">文件路径结构与平台兼容性</h4>
+<p>模块中根据操作系统自动设置默认的缓存根目录 <code>_filesBaseFolder</code>：</p>
+<ul>
+<li>Windows 系统：<code>%USERPROFILE%/carlaCache/</code></li>
+<li>Linux / macOS：<code>$HOME/carlaCache/</code></li>
+</ul>
+<p>所有操作文件的路径会被扩展为如下格式：
+&lt;基础路径&gt;/<CARLA版本>/&lt;目标文件&gt;</p>
+<p>其中 <code>&lt;CARLA版本&gt;</code> 通过调用 <code>carla::version()</code> 获取。</p>
+<h4 id="_21">路径验证与创建逻辑</h4>
+<p>在 <code>WriteFile</code> 函数中，使用了 CARLA 内部的 <code>FileSystem::ValidateFilePath()</code> 方法来确保路径存在并合法，如不存在会自动创建相应目录。这一机制增强了程序的健壮性与用户的易用性。</p>
+<h4 id="_22">示例：写入与读取缓存文件</h4>
+<p><div class="highlight"><pre><span></span><code>std::vector&lt;uint8_t&gt; data = {0x01, 0x02, 0x03};
+FileTransfer::WriteFile(&quot;sensor/lidar.bin&quot;, data);
+
+std::vector&lt;uint8_t&gt; result = FileTransfer::ReadFile(&quot;sensor/lidar.bin&quot;);
+</code></pre></div>
+该段代码将一个小型字节向量写入缓存路径，并随后读取回来，展示了 FileTransfer 简洁易用的接口风格。</p>
+<h4 id="_23">设计特点</h4>
+<ul>
+<li>
+<p>所有函数为静态方法（类不能被实例化）</p>
+</li>
+<li>
+<p>内部缓存路径根据系统平台自动设定</p>
+</li>
+<li>
+<p>所有路径操作均以当前 CARLA 版本为中间层级，便于区分不同版本的数据</p>
+</li>
+<li>
+<p>支持二进制文件的高效读写</p>
+</li>
+<li>
+<p>利用 std::vector<uint8_t> 管理数据，兼容性好</p>
+</li>
+</ul>
+<h4 id="_24">总结</h4>
+<p><code>FileTransfer</code>模块提供了 CARLA 客户端中重要的本地文件操作机制，适合用于缓存地图、传感器数据、AI模型结果等静态资源。通过该模块可以显著提高数据复用效率、降低文件操作出错率，并为系统性能和用户体验带来明显提升。</p>
+<hr />
+<h2 id="_25"><strong>类之间的调用关系</strong></h2>
 <h3 id="carla">以下是 CARLA 客户端部分类之间的调用关系图，展示了各个类如何交互以及它们之间的依赖关系。</h3>
 <p><img alt="类关系" src="https://github.com/LangJing23/nuanxin_volunteer/blob/master/lei.png" /></p>
-<h5 id="_20">调用关系说明</h5>
+<h5 id="_26">调用关系说明</h5>
 <p>Client 类与其他类的交互：</p>
 <blockquote>
 <p>Client 类是与模拟器交互的主要接口，它通过方法如 LoadWorld()、GetAvailableMaps()、StartRecorder() 等来控制仿真世界。</p>
@@ -414,7 +492,7 @@ static void DrawShape(detail::EpisodeProxy &amp;episode,
 <p>World 类表示仿真中的一个世界，它与 Client 和 Actor 类紧密关联。World 提供对仿真环境的访问，可以控制仿真世界中的所有行为体和传感器。</p>
 <p>World 还负责管理交通流、物理环境、天气等仿真环境因素。</p>
 </blockquote>
-<h2 id="_21">总结</h2>
+<h2 id="_27">总结</h2>
 <p>CARLA 客户端部分提供了与仿真环境交互的丰富 API，支持开发者控制仿真世界中的各种元素，包括行为体（Actor）、传感器（ClientSideSensor）和交通流（TrafficManager）等。通过 Client 类，开发者能够加载地图、获取世界状态、管理传感器、操作物理环境等。类之间的交互使得开发者能够在仿真环境中进行精确的控制和验证。</p>
 <p>参考文档：<a href="https://openhutb.github.io/carla_cpp/dir_64d7bb605f27024d49af86070bd3f0b6.html">点击此处跳转</a></p>
               
