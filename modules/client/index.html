@@ -68,10 +68,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h2 id="_1">概述</h2>
+                <h2 id="_1"><strong>概述</strong></h2>
 <p>CARLA 是一个开源的自动驾驶模拟平台，提供了丰富的 API 以支持仿真环境的控制、车辆的管理以及自动驾驶算法的验证。客户端部分的 API 主要通过 <code>Client</code> 类与模拟器进行交互，执行仿真控制、传感器管理、交通流管理等功能。该文档主要介绍 CARLA 客户端相关类的功能和使用方式。</p>
-<h2 id="_2">主要类与功能</h2>
-<h3 id="1-client">1. <strong>Client 类</strong></h3>
+<h2 id="_2"><strong>主要类与功能</strong></h2>
+<h3 id="1-client">1. <code>Client</code> 类</h3>
 <p><code>Client</code> 类是与 CARLA 模拟器交互的核心类，提供了连接仿真器、加载世界、设置物理参数、控制传感器等功能。</p>
 <h4 id="_3">构造函数</h4>
 <ul>
@@ -336,10 +336,64 @@ weather.sun_altitude_angle = 45.0f;
 world.SetWeather(weather);
 </code></pre></div>
 <hr />
-<h2 id="_14">类之间的调用关系</h2>
+<h2 id="_14"><strong>扩展板块</strong></h2>
+<h3 id="debughelper-carla">DebugHelper 模块：CARLA 客户端调试可视化工具</h3>
+<p><code>DebugHelper</code> 是 CARLA <code>client</code> 部分的重要组件之一，主要用于<strong>在仿真世界中可视化各种调试信息</strong>，帮助开发者直观地了解仿真环境中各类实体和交互的运行状态。</p>
+<p>该模块基于 <code>rpc::DebugShape</code> 实现了多个图形绘制方法，包括点、线、箭头、边界框和文本等。所有形状通过调用统一的模板函数 <code>DrawShape</code> 实现绘制，绘图内容会被添加到当前模拟剧集中（<code>EpisodeProxy</code>）。</p>
+<h4 id="_15">功能概览</h4>
+<p><code>DebugHelper</code> 提供以下绘图接口，每个函数内部都调用 <code>DrawShape</code> 模板函数生成具体的 <code>rpc::DebugShape</code>：</p>
+<ul>
+<li><code>DrawPoint</code>：绘制普通点</li>
+<li><code>DrawHUDPoint</code>：绘制 HUD 点（投影到 HUD 层的点）</li>
+<li><code>DrawLine</code>：绘制线段</li>
+<li><code>DrawHUDLine</code>：绘制 HUD 线段</li>
+<li><code>DrawArrow</code>：绘制带箭头的线</li>
+<li><code>DrawHUDArrow</code>：绘制 HUD 箭头</li>
+<li><code>DrawBox</code>：绘制三维边界框</li>
+<li><code>DrawHUDBox</code>：绘制 HUD 边界框</li>
+<li><code>DrawString</code>：在空间中绘制文字信息</li>
+</ul>
+<p>所有方法均支持设置：</p>
+<ul>
+<li><strong>颜色（Color）</strong></li>
+<li><strong>生命周期（life_time）</strong></li>
+<li><strong>是否为持久绘图（persistent_lines）</strong></li>
+</ul>
+<h3 id="_16">内部实现结构</h3>
+<p>所有绘图方法都通过调用如下统一模板函数实现绘制：</p>
+<p><div class="highlight"><pre><span></span><code>template &lt;typename T&gt;
+static void DrawShape(detail::EpisodeProxy &amp;episode,
+                      const T &amp;primitive,
+                      rpc::Color color,
+                      float life_time,
+                      bool persistent_lines) {
+  const Shape shape{primitive, color, life_time, persistent_lines};
+  episode.Lock()-&gt;DrawDebugShape(shape);
+}
+</code></pre></div>
+该函数接收一个图形 primitive（如点、线、框等），并封装为 DebugShape 后添加到当前仿真剧集中。</p>
+<h4 id="_17">使用场景</h4>
+<ul>
+<li>
+<p>在开发过程中验证 AI 行为（例如绘制导航路线）</p>
+</li>
+<li>
+<p>调试地图元素（如车道线、交通标志检测）</p>
+</li>
+<li>
+<p>实时可视化传感器数据结果</p>
+</li>
+<li>
+<p>在科研或演示过程中进行辅助说明</p>
+</li>
+</ul>
+<h4 id="_18">小结</h4>
+<p>DebugHelper 是 CARLA 提供的轻量级可视化调试接口，极大提升了开发效率。它通过统一封装和生命周期控制，使用户可以灵活地向仿真场景中添加临时的可视图形，方便排查问题、验证逻辑或演示系统能力。</p>
+<hr />
+<h2 id="_19"><strong>类之间的调用关系</strong></h2>
 <h3 id="carla">以下是 CARLA 客户端部分类之间的调用关系图，展示了各个类如何交互以及它们之间的依赖关系。</h3>
 <p><img alt="类关系" src="https://github.com/LangJing23/nuanxin_volunteer/blob/master/lei.png" /></p>
-<h5 id="_15">调用关系说明</h5>
+<h5 id="_20">调用关系说明</h5>
 <p>Client 类与其他类的交互：</p>
 <blockquote>
 <p>Client 类是与模拟器交互的主要接口，它通过方法如 LoadWorld()、GetAvailableMaps()、StartRecorder() 等来控制仿真世界。</p>
@@ -360,7 +414,7 @@ world.SetWeather(weather);
 <p>World 类表示仿真中的一个世界，它与 Client 和 Actor 类紧密关联。World 提供对仿真环境的访问，可以控制仿真世界中的所有行为体和传感器。</p>
 <p>World 还负责管理交通流、物理环境、天气等仿真环境因素。</p>
 </blockquote>
-<h2 id="_16">总结</h2>
+<h2 id="_21">总结</h2>
 <p>CARLA 客户端部分提供了与仿真环境交互的丰富 API，支持开发者控制仿真世界中的各种元素，包括行为体（Actor）、传感器（ClientSideSensor）和交通流（TrafficManager）等。通过 Client 类，开发者能够加载地图、获取世界状态、管理传感器、操作物理环境等。类之间的交互使得开发者能够在仿真环境中进行精确的控制和验证。</p>
 <p>参考文档：<a href="https://openhutb.github.io/carla_cpp/dir_64d7bb605f27024d49af86070bd3f0b6.html">点击此处跳转</a></p>
               
