@@ -91,9 +91,108 @@ for (each simulation frame) {
 ```
 控制循环作为 Traffic Manager 的主心骨，串联起整个行为决策链条，其效率与鲁棒性直接决定了多车自动驾驶仿真的实时性与稳定性。
  
-- **内存地图与网格路径**：将仿真地图转换为更高效的拓扑结构，包括道路连接关系、车道几何等，并在该结构上生成稀疏网格路径（waypoints）供车辆导航。
-- **路径缓存与车辆轨迹（PBVT）**：为每辆车维护一个未来若干秒的路径轨迹队列（Trajectory Buffer），其中的每个点都是基于当前位置规划出的可达路径，用于预测、避障和控制计算。
-- **PID 控制器**：每辆车都通过其 PID 控制器根据期望路径点计算出实际控制命令（油门、刹车和方向盘），以最小化当前运动状态与路径目标之间的误差。
+**内存地图与网格路径（Local Map & Waypoint Grid）**：该模块负责将 CARLA 原始地图数据转化为高效结构化的拓扑图与稀疏导航路径点（Waypoints），用于支持定位、路径规划与避障等模块的快速查询与插值计算。它是构建交通规则感知与路径跟踪基础的核心组件之一，主要功能包括：
+
+- **地图解析与拓扑构建**：读取 CARLA 世界地图并转换为图结构，节点表示车道中的关键位置，边表示车道的连接关系，形成有向图用于路径搜索与行为建模。
+- **路点稀疏采样与数据封装**：使用固定间隔（例如 1 米）采样方式在道路中心线生成稀疏路点（SimpleWaypoint），每个路点对象包含：
+  - 三维位置与朝向（Transform）
+  - 所属车道与道路 ID
+  - 限速、车道宽度、导航标签（如是否为交叉口、是否可变道）
+  - 前向/后向邻接路点、相邻车道路点（左右变道）
+- **导航路径构建与裁剪**：支持基于全局导航目标生成主路径（Global Route Plan）与局部路径（Local Trajectory），并根据车辆实时状态动态裁剪前向 N 秒或 N 米的路径段用于控制模块跟踪。
+- **交通语义融合**：为路点附加交通灯、停车线、优先级等规则信息，在进行红灯判定、停车控制时使用，提升交通规则遵从性。
+- **变道与交叉口支持**：
+  - 查询当前路点是否为交叉口 `CheckJunction()`
+  - 判断左右车道是否存在 `GetLeftLane()`, `GetRightLane()`
+  - 检查是否允许变道 `IsLaneChangeAllowed()`
+- **效率与线程安全设计**：路点以索引方式管理，支持高效空间查找（基于坐标 KD-Tree 或哈希表），同时接口可在多线程中并发调用，支持定位、轨迹生成和控制模块同时访问。
+
+示例调用逻辑（伪代码）：
+
+```cpp
+SimpleWaypointPtr current_wp = local_map->GetWaypoint(vehicle_location);
+std::vector<SimpleWaypointPtr> forward_path = current_wp->GetNextWaypointN(20);
+for (auto wp : forward_path) {
+    if (wp->HasTrafficLight()) {
+        auto light_state = wp->GetBoundTrafficLight()->GetState();
+        if (light_state == Red) {
+            // 触发停车或减速逻辑
+        }
+    }
+}
+```
+
+**路径缓存与车辆轨迹（PBVT, Path Buffer & Vehicle Trajectory）**：PBVT 是 Traffic Manager 中用于记录与更新每辆车未来运动轨迹的关键模块。它通过对局部路径的持续预测与缓存，为运动规划和避障模块提供决策支撑，确保系统在复杂场景中具备前瞻性和响应性。其主要功能包括：
+
+- **轨迹缓冲区构建**：为每辆车维护一个轨迹缓冲队列（Trajectory Buffer），该队列包含从当前位置出发、沿参考路径前向若干米或若干秒的路径点，通常为 2-4 秒时域。
+- **基于路点的路径预测**：轨迹点通常来源于内存地图生成的稀疏网格路点（Waypoints），并结合当前速度和加速度动态裁剪路径长度。
+- **缓冲更新策略**：
+  - 在车辆进入新位置或帧推进后，检测是否需要重建轨迹缓冲区。
+  - 如果路径偏差或交通规则变化（如交通灯、障碍物出现）导致路径失效，则触发轨迹重规划。
+- **轨迹点结构**：每个轨迹点不仅包含位置坐标，还记录目标速度、限速信息、变道指令、是否避障等高阶信息，供运动控制模块直接使用。
+- **状态预判与多阶段使用**：
+  - 碰撞检测阶段使用路径中的前向点进行障碍预测。
+  - 运动控制阶段基于轨迹点生成 PID 控制输入。
+  - 车灯控制模块判断是否需转向灯激活。
+- **线程安全实现**：PBVT 模块支持并发访问，不同阶段可读取对应车辆的路径缓冲，同时支持局部重建。
+
+示例调用逻辑（伪代码）：
+
+```cpp
+if (!trajectory_buffer.HasEnoughWaypoints(vehicle_id)) {
+    auto new_path = planner.GeneratePathFromWaypoint(current_wp);
+    trajectory_buffer.Update(vehicle_id, new_path);
+}
+auto next_target = trajectory_buffer.GetNextTarget(vehicle_id);
+motion_controller.Track(next_target);
+```
+
+
+
+**PID 控制器（PID Controller）**：PID 控制器是 Traffic Manager 中将高层路径点转换为底层控制指令（油门、刹车、方向盘）的关键模块。每辆被控制的车辆都关联一个 PID 控制器实例，用于以闭环方式将目标轨迹点转化为精确的速度与方向控制，从而实现平滑、稳定的轨迹跟踪。其主要功能包括：
+
+- **控制目标设定**：根据路径缓存模块提供的下一个期望轨迹点，设定车辆目标位置与速度作为控制目标。
+
+- **误差计算**：
+
+  - **纵向误差**：期望速度与当前速度之差，用于调节油门和刹车。
+  - **横向误差**：车辆当前位置与期望轨迹中心线之间的横向偏移，用于调节方向盘角度。
+
+- **PID 运算公式**：
+
+  - 控制器使用标准 PID 结构（比例 P、积分 I、微分 D）进行误差反馈控制，避免控制抖动与震荡，同时可适配不同车辆模型参数。
+
+  - 示例纵向控制：
+
+    ```math
+    a = Kp_v * e_v + Ki_v * ∫e_v dt + Kd_v * de_v/dt
+    ```
+
+  - 示例横向控制：
+
+    ```math
+    δ = Kp_d * e_d + Ki_d * ∫e_d dt + Kd_d * de_d/dt
+    ```
+
+- **输出控制命令**：将纵向输出映射为 throttle/brake，将横向输出映射为 steering，封装为控制指令发送至 CARLA 服务端。
+
+- **特殊情况处理**：
+
+  - 当路径点突然消失或预测点不连续时，控制器会平滑制动至停止。
+  - 当限速调整或交通灯状态影响目标速度时，控制器根据反馈动态更新目标值。
+
+- **自适应参数机制**（可选）：部分实现支持根据车速自动调整 PID 参数（如增益缩放），提升在高速或低速工况下的控制精度与响应性。
+
+示例控制过程（伪代码）：
+
+```cpp
+auto target = trajectory_buffer.GetNextTarget(vehicle_id);
+float throttle, brake, steer;
+pid_controller.RunStep(target.location, target.speed, current_state, &throttle, &brake, &steer);
+ControlCommand cmd{throttle, brake, steer};
+```
+
+PID 控制器通过对运动误差的持续反馈修正，为 Traffic Manager 提供了平稳、可调的控制机制，是连接路径规划与车辆执行的核心桥梁模块。
 - **命令数组控制器**：在控制阶段结束后，所有车辆的控制指令被批量组织为一个控制命令数组，通过高效通道（如 client.apply_batch()）发送到 CARLA 服务器，实现高帧率控制。
 
 ## 控制循环的阶段
