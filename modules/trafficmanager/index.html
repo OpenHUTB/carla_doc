@@ -124,12 +124,33 @@
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>总体而言，模拟状态缓存作为 TM 的“感知中枢”，为系统提供高一致性、高并发的状态访问支持，是实现高性能并行仿真的关键基础模块。
-- <strong>控制循环（主调度器）</strong>：驱动 TM 的主循环机制，协调定位、碰撞检测、交通规则判断、运动控制等阶段，并在每一步完成后统一调度进入下一阶段，保证各线程的时序一致性。
-- <strong>内存地图与网格路径</strong>：将仿真地图转换为更高效的拓扑结构，包括道路连接关系、车道几何等，并在该结构上生成稀疏网格路径（waypoints）供车辆导航。
-- <strong>路径缓存与车辆轨迹（PBVT）</strong>：为每辆车维护一个未来若干秒的路径轨迹队列（Trajectory Buffer），其中的每个点都是基于当前位置规划出的可达路径，用于预测、避障和控制计算。
-- <strong>PID 控制器</strong>：每辆车都通过其 PID 控制器根据期望路径点计算出实际控制命令（油门、刹车和方向盘），以最小化当前运动状态与路径目标之间的误差。
-- <strong>命令数组控制器</strong>：在控制阶段结束后，所有车辆的控制指令被批量组织为一个控制命令数组，通过高效通道（如 client.apply_batch()）发送到 CARLA 服务器，实现高帧率控制。</p>
+<p>总体而言，模拟状态缓存作为 TM 的“感知中枢”，为系统提供高一致性、高并发的状态访问支持，是实现高性能并行仿真的关键基础模块。</p>
+<p><strong>控制循环（主调度器）</strong>：主调度器是 Traffic Manager 的核心执行引擎，它以固定频率驱动各阶段模块协同工作，完成每一帧的交通逻辑处理流程。调度器以流水线方式组织模块调用，确保数据流与控制流的时序一致性，并协调多线程处理过程，提升整体仿真效率。其主要职责包括：</p>
+<ul>
+<li><strong>阶段调度机制</strong>：主调度器以帧为单位执行控制流程，每帧包含一系列固定顺序的阶段模块（如定位、碰撞检测、交通灯判断、运动控制、车灯控制等）。每个阶段均在独立线程运行，通过 barrier 或任务队列机制统一调度。</li>
+<li><strong>模块执行顺序保障</strong>：确保每个阶段开始前，其依赖的上游阶段已经完成。例如必须先完成定位模块，后续阶段才能获取车辆的路径信息。</li>
+<li><strong>状态同步与传递</strong>：调度器负责在阶段之间传递必要的车辆状态与路径缓存数据，如 TrajectoryBuffer、KinematicState 等，保证数据流的完整性。</li>
+<li><strong>异常处理与故障恢复</strong>：在任意阶段出现异常（如车辆数据缺失、路径断裂等）时，主调度器会根据设定策略降级处理或跳过当前帧，以保证仿真连续性与稳定性。</li>
+<li><strong>性能统计与帧控制</strong>：记录每阶段的执行耗时用于性能监控，并根据同步模式（sync mode）或固定步长设定统一推进仿真时间步长（delta time）。</li>
+</ul>
+<p>示例调度流程（伪代码）：</p>
+<p><div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">each</span><span class="w"> </span><span class="n">simulation</span><span class="w"> </span><span class="n">frame</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ALSM</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span><span class="w">                 </span><span class="c1">// 更新参与者生命周期与状态缓存</span>
+<span class="w">    </span><span class="n">LocalizationStage</span><span class="p">.</span><span class="n">Run</span><span class="p">();</span><span class="w">      </span><span class="c1">// 定位模块执行</span>
+<span class="w">    </span><span class="n">CollisionStage</span><span class="p">.</span><span class="n">Run</span><span class="p">();</span><span class="w">         </span><span class="c1">// 碰撞检测</span>
+<span class="w">    </span><span class="n">TrafficLightStage</span><span class="p">.</span><span class="n">Run</span><span class="p">();</span><span class="w">      </span><span class="c1">// 交通灯判断</span>
+<span class="w">    </span><span class="n">MotionPlannerStage</span><span class="p">.</span><span class="n">Run</span><span class="p">();</span><span class="w">     </span><span class="c1">// 路径跟踪与运动规划</span>
+<span class="w">    </span><span class="n">VehicleLightStage</span><span class="p">.</span><span class="n">Run</span><span class="p">();</span><span class="w">      </span><span class="c1">// 根据规划设置灯光</span>
+<span class="w">    </span><span class="n">ApplyControlCommands</span><span class="p">();</span><span class="w">       </span><span class="c1">// 汇总控制命令，应用至服务器</span>
+<span class="p">}</span>
+</code></pre></div>
+控制循环作为 Traffic Manager 的主心骨，串联起整个行为决策链条，其效率与鲁棒性直接决定了多车自动驾驶仿真的实时性与稳定性。</p>
+<ul>
+<li><strong>内存地图与网格路径</strong>：将仿真地图转换为更高效的拓扑结构，包括道路连接关系、车道几何等，并在该结构上生成稀疏网格路径（waypoints）供车辆导航。</li>
+<li><strong>路径缓存与车辆轨迹（PBVT）</strong>：为每辆车维护一个未来若干秒的路径轨迹队列（Trajectory Buffer），其中的每个点都是基于当前位置规划出的可达路径，用于预测、避障和控制计算。</li>
+<li><strong>PID 控制器</strong>：每辆车都通过其 PID 控制器根据期望路径点计算出实际控制命令（油门、刹车和方向盘），以最小化当前运动状态与路径目标之间的误差。</li>
+<li><strong>命令数组控制器</strong>：在控制阶段结束后，所有车辆的控制指令被批量组织为一个控制命令数组，通过高效通道（如 client.apply_batch()）发送到 CARLA 服务器，实现高帧率控制。</li>
+</ul>
 <h2 id="_2">控制循环的阶段</h2>
 <ol>
 <li>
