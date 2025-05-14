@@ -252,3 +252,133 @@ struct CARLA_API FBoundingBox
 - `FBoundingBox` 提供了统一的包围盒数据结构；
 - `UBoundingBoxCalculator` 则围绕不同 Actor/组件类型提供了从局部到世界空间的包围盒提取、批量和合并能力；
 - 组合该工具链，可支持 CARLA 中传感器感知、HUD 渲染、碰撞检测及数据采集等多种场景。
+
+## 2.4 FDebugShapeDrawer：调试形状绘制器
+### 2.4.1 概要
+`FDebugShapeDrawer` 是 CARLA 中用于在 `Unreal Engine` 世界 (`UWorld`) 中绘制调试形状的工具类。它通过访问 `carla::rpc::DebugShape` 对象，根据其定义的形状类型（如点、线、箭头、盒子、字符串等）在世界或 HUD 上进行可视化展示。该类内部使用了 `FShapeVisitor` 结构体，通过访问者模式处理不同的形状类型，实现了灵活且可扩展的调试绘制机制。
+### 2.4.2 使用场景
+- 在仿真过程中实时可视化调试信息，如传感器检测结果、路径规划轨迹等。
+- 在 HUD 上展示关键调试信息，辅助开发和测试。
+- 在大型地图中，通过 `ALargeMapManager` 进行坐标转换，确保绘制位置的准确性。
+### 2.4.3 关键方法详解
+1.`FDebugShapeDrawer::Draw`
+```cpp
+void FDebugShapeDrawer::Draw(const carla::rpc::DebugShape &Shape) {
+  auto Visitor = FShapeVisitor(World, Shape.color, Shape.life_time, Shape.persistent_lines);
+  boost::variant2::visit(Visitor, Shape.primitive);
+}
+```
+- 作用：根据传入的`DebugShape`对象，调用相应的绘制方法在世界或 HUD 上渲染调试形状。
+- 实现细节：
+  - 构造`FShapeVisitor`对象，传入当前世界引用、颜色、生命周期和持久化标志。
+  - 使用`boost::variant2::visit`访问`Shape.primitive`，根据实际的形状类型调用对应的绘制方法。
+
+2.`FShapeVisitor::operator() (Arrow)`
+```cpp
+void FShapeVisitor::operator()(const Shape::Arrow &Arrow) const {
+  FVector Begin = FVector(Arrow.line.begin);
+  FVector End   = FVector(Arrow.line.end);
+  // 坐标转换
+  ALargeMapManager* LargeMap = UCarlaStatics::GetLargeMapManager(World);
+  if (LargeMap) {
+    Begin = LargeMap->GlobalToLocalLocation(Begin);
+    End   = LargeMap->GlobalToLocalLocation(End);
+  }
+  // 箭头向量与变换
+  const auto Diff = End - Begin;
+  const FRotator LookAt = FRotationMatrix::MakeFromX(Diff).Rotator();
+  const FTransform Transform{LookAt, Begin};
+  
+  // 绘制主干与箭头头部
+  const float ArrowSize     = 1e2f * Arrow.arrow_size;
+  const float ArrowTipDist  = Diff.Size() - ArrowSize;
+  const float Thickness     = 1e2f * Arrow.line.thickness;
+  World->PersistentLineBatcher->DrawLines({
+    FBatchedLine(Begin, End, Color, LifeTime, Thickness, DepthPriority),
+    FBatchedLine(
+      Transform.TransformPosition(FVector(ArrowTipDist, +ArrowSize, +ArrowSize)),
+      End, Color, LifeTime, Thickness, DepthPriority),
+    // ... 其他箭头分支
+  });
+}
+```
+- 解析：
+  - 通过 `LargeMapManager` 将全局坐标转换为本地坐标，保证在大地图下的位置准确性。
+  - 计算箭头方向向量 `Diff` 并生成变换 `Transform`，用于定位箭头头部。
+  - 使用 `DrawLines` 绘制箭头的主干及四个箭头分支，提高可视化效果。
+
+## 2.5 FNavigationMesh：导航网格管理器
+
+### 2.5.1 概要
+
+`FNavigationMesh` 是 CARLA 中用于与 Unreal 导航网格系统交互的工具类，位于 `CarlaUE4/Plugins/Carla/Source/Carla/Util/NavigationMesh.*`。其主要功能是加载与指定地图名称相关联的导航网格数据，支持路径查询和导航功能。该类通过读取存储为 `.bin` 文件的导航网格数据，为仿真中的路径规划和智能体导航提供支持。
+
+### 2.5.2 关键方法详解
+
+#### Load 方法
+
+```cpp
+static TArray<uint8> Load(FString MapName);
+```
+
+- **作用**：根据传入的地图名称加载对应的导航网格二进制数据文件。
+- **参数**：
+  - `MapName`：指定地图的名称，用于定位对应的导航网格文件。
+- **返回值**：返回一个 `TArray<uint8>` 类型的数组，包含导航网格文件的二进制内容。如果加载失败，则返回空数组。
+- **实现逻辑**：
+  1. **编辑器模式处理**：
+     - 如果在编辑器中运行，地图名称可能会有一个额外的前缀（如 `UEDPIE_0_`）。代码会移除这个前缀，以确保文件查找的正确性。
+     - 例如，原始地图名称为 `UEDPIE_0_Town01`，校正后变为 `Town01`。
+  2. **构建文件名**：
+     - 根据地图名称构建导航网格文件的完整名称，假设文件后缀为 `.bin`。例如，地图名称为 `Town01`，则文件名为 `Town01.bin`。
+  3. **查找文件**：
+     - 使用 `IFileManager::Get().FindFilesRecursive` 方法在项目内容目录（`FPaths::ProjectContentDir()`）中递归查找与导航网格文件名匹配的文件。
+  4. **加载文件内容**：
+     - 如果找到文件，尝试使用 `FFileHelper::LoadFileToArray` 方法将文件内容加载到 `Content` 数组中。
+     - 如果加载成功，输出日志信息，提示正在加载的文件名。
+     - 如果加载失败，输出错误信息，提示加载失败的文件名。
+  5. **返回结果**：
+     - 返回加载到的导航网格文件内容（可能为空，如果加载失败）。
+
+### 2.5.3 使用示例
+
+```cpp
+#include "Carla/Util/NavigationMesh.h"
+
+void LoadNavigationMeshData(FString MapName)
+{
+    // 调用 FNavigationMesh::Load 方法加载导航网格数据
+    TArray<uint8> MeshData = FNavigationMesh::Load(MapName);
+
+    // 检查加载结果
+    if (MeshData.Num() > 0)
+    {
+        UE_LOG(LogTemp, Log, TEXT("Navigation Mesh data loaded successfully for map '%s'"), *MapName);
+        // 进一步处理加载的导航网格数据
+    }
+    else
+    {
+        UE_LOG(LogTemp, Error, TEXT("Failed to load Navigation Mesh data for map '%s'"), *MapName);
+    }
+}
+```
+
+- **说明**：此示例展示了如何在 CARLA 仿真中加载指定地图的导航网格数据。通过调用 `FNavigationMesh::Load` 方法，可以获取导航网格的二进制数据，用于后续的路径规划和导航功能。
+
+### 2.5.4 注意事项
+
+1. **文件路径**：
+   - 确保导航网格文件存储在项目的 `Content` 目录下，并且文件名与地图名称匹配。
+2. **编辑器模式**：
+   - 如果在编辑器中运行，需要处理地图名称的前缀问题，以确保文件查找的正确性。
+3. **错误处理**：
+   - 在实际使用中，应添加适当的错误处理逻辑，以应对文件未找到或加载失败的情况。
+
+### 2.5.5 扩展功能
+
+- **路径查询**：
+  - `FNavigationMesh` 类可以进一步扩展，提供路径查询功能，例如通过调用 Unreal 的导航系统接口，实现从起点到终点的路径规划。
+- **动态更新**：
+  - 支持在运行时动态更新导航网格，以适应场景中动态变化的障碍物或路径。
+
+通过 `FNavigationMesh` 类，CARLA 仿真系统能够高效地加载和管理导航网格数据，为智能体的路径规划和导航功能提供坚实的基础。
