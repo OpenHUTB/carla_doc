@@ -148,7 +148,51 @@ motion_controller.Track(next_target);
 ```
 
 
-- **PID 控制器**：每辆车都通过其 PID 控制器根据期望路径点计算出实际控制命令（油门、刹车和方向盘），以最小化当前运动状态与路径目标之间的误差。
+
+**PID 控制器（PID Controller）**：PID 控制器是 Traffic Manager 中将高层路径点转换为底层控制指令（油门、刹车、方向盘）的关键模块。每辆被控制的车辆都关联一个 PID 控制器实例，用于以闭环方式将目标轨迹点转化为精确的速度与方向控制，从而实现平滑、稳定的轨迹跟踪。其主要功能包括：
+
+- **控制目标设定**：根据路径缓存模块提供的下一个期望轨迹点，设定车辆目标位置与速度作为控制目标。
+
+- **误差计算**：
+
+  - **纵向误差**：期望速度与当前速度之差，用于调节油门和刹车。
+  - **横向误差**：车辆当前位置与期望轨迹中心线之间的横向偏移，用于调节方向盘角度。
+
+- **PID 运算公式**：
+
+  - 控制器使用标准 PID 结构（比例 P、积分 I、微分 D）进行误差反馈控制，避免控制抖动与震荡，同时可适配不同车辆模型参数。
+
+  - 示例纵向控制：
+
+    ```math
+    a = Kp_v * e_v + Ki_v * ∫e_v dt + Kd_v * de_v/dt
+    ```
+
+  - 示例横向控制：
+
+    ```math
+    δ = Kp_d * e_d + Ki_d * ∫e_d dt + Kd_d * de_d/dt
+    ```
+
+- **输出控制命令**：将纵向输出映射为 throttle/brake，将横向输出映射为 steering，封装为控制指令发送至 CARLA 服务端。
+
+- **特殊情况处理**：
+
+  - 当路径点突然消失或预测点不连续时，控制器会平滑制动至停止。
+  - 当限速调整或交通灯状态影响目标速度时，控制器根据反馈动态更新目标值。
+
+- **自适应参数机制**（可选）：部分实现支持根据车速自动调整 PID 参数（如增益缩放），提升在高速或低速工况下的控制精度与响应性。
+
+示例控制过程（伪代码）：
+
+```cpp
+auto target = trajectory_buffer.GetNextTarget(vehicle_id);
+float throttle, brake, steer;
+pid_controller.RunStep(target.location, target.speed, current_state, &throttle, &brake, &steer);
+ControlCommand cmd{throttle, brake, steer};
+```
+
+PID 控制器通过对运动误差的持续反馈修正，为 Traffic Manager 提供了平稳、可调的控制机制，是连接路径规划与车辆执行的核心桥梁模块。
 - **命令数组控制器**：在控制阶段结束后，所有车辆的控制指令被批量组织为一个控制命令数组，通过高效通道（如 client.apply_batch()）发送到 CARLA 服务器，实现高帧率控制。
 
 ## 控制循环的阶段
