@@ -1,10 +1,13 @@
-## 概述
+
+
+
+## **概述**
 
 CARLA 是一个开源的自动驾驶模拟平台，提供了丰富的 API 以支持仿真环境的控制、车辆的管理以及自动驾驶算法的验证。客户端部分的 API 主要通过 `Client` 类与模拟器进行交互，执行仿真控制、传感器管理、交通流管理等功能。该文档主要介绍 CARLA 客户端相关类的功能和使用方式。
 
-## 主要类与功能
+## **主要类与功能**
 
-### 1. **Client 类**
+### 1. `Client` 类
 
 `Client` 类是与 CARLA 模拟器交互的核心类，提供了连接仿真器、加载世界、设置物理参数、控制传感器等功能。
 
@@ -224,8 +227,64 @@ world.SetWeather(weather);
 ```
 
 ---
+## **扩展板块**
+### DebugHelper 模块：CARLA 客户端调试可视化工具
 
-## 类之间的调用关系
+`DebugHelper` 是 CARLA `client` 部分的重要组件之一，主要用于**在仿真世界中可视化各种调试信息**，帮助开发者直观地了解仿真环境中各类实体和交互的运行状态。
+
+该模块基于 `rpc::DebugShape` 实现了多个图形绘制方法，包括点、线、箭头、边界框和文本等。所有形状通过调用统一的模板函数 `DrawShape` 实现绘制，绘图内容会被添加到当前模拟剧集中（`EpisodeProxy`）。
+
+#### 功能概览
+
+`DebugHelper` 提供以下绘图接口，每个函数内部都调用 `DrawShape` 模板函数生成具体的 `rpc::DebugShape`：
+
+- `DrawPoint`：绘制普通点
+- `DrawHUDPoint`：绘制 HUD 点（投影到 HUD 层的点）
+- `DrawLine`：绘制线段
+- `DrawHUDLine`：绘制 HUD 线段
+- `DrawArrow`：绘制带箭头的线
+- `DrawHUDArrow`：绘制 HUD 箭头
+- `DrawBox`：绘制三维边界框
+- `DrawHUDBox`：绘制 HUD 边界框
+- `DrawString`：在空间中绘制文字信息
+
+所有方法均支持设置：
+
+- **颜色（Color）**
+- **生命周期（life_time）**
+- **是否为持久绘图（persistent_lines）**
+
+### 内部实现结构
+
+所有绘图方法都通过调用如下统一模板函数实现绘制：
+
+```
+template <typename T>
+static void DrawShape(detail::EpisodeProxy &episode,
+                      const T &primitive,
+                      rpc::Color color,
+                      float life_time,
+                      bool persistent_lines) {
+  const Shape shape{primitive, color, life_time, persistent_lines};
+  episode.Lock()->DrawDebugShape(shape);
+}
+```
+该函数接收一个图形 primitive（如点、线、框等），并封装为 DebugShape 后添加到当前仿真剧集中。
+#### 使用场景
+ - 在开发过程中验证 AI 行为（例如绘制导航路线）
+
+ - 调试地图元素（如车道线、交通标志检测）
+
+ - 实时可视化传感器数据结果
+
+ - 在科研或演示过程中进行辅助说明
+
+#### 小结
+DebugHelper 是 CARLA 提供的轻量级可视化调试接口，极大提升了开发效率。它通过统一封装和生命周期控制，使用户可以灵活地向仿真场景中添加临时的可视图形，方便排查问题、验证逻辑或演示系统能力。
+
+---
+
+## **类之间的调用关系**
 
 ### 以下是 CARLA 客户端部分类之间的调用关系图，展示了各个类如何交互以及它们之间的依赖关系。
 ![类关系](https://github.com/LangJing23/nuanxin_volunteer/blob/master/lei.png)
