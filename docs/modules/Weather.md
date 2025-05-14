@@ -153,6 +153,20 @@ UPROPERTY 标记：DayNightCycle 和 Weather 参数在编辑器中可见，支�
 不可实例化：标记为 Abstract 强制子类化，确保平台特定的天气效果（如 Vulkan 的着色器差异）可通过派生类实现。
 扩展性：子类可覆盖 CheckWeatherPostProcessEffects() 实现自定义效果逻辑，同时复用基类的参数管理。
 
+#资源管理优化建议：
+1.改为配置文件驱动（如INI文件或JSON）
+
+2.使用UPROPERTY(EditAnywhere)暴露给编辑器
+
+3.增加资源加载失败的安全检查
+
+#线程安全建议
+对于多线程环境：
+1.使用FThreadSafeBool保护天气参数
+
+2.使用异步加载资源时添加锁机制
+FCriticalSection WeatherCriticalSection;
+
 !!! 注意
     确保在使用前正确初始化AWeather对象。
     后处理材质的路径需要根据实际情况进行调整。
