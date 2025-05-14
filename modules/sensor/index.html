@@ -187,6 +187,21 @@
 <li><a href="#6-深度图应用场景">6 深度图应用场景</a></li>
 <li><a href="#7-小结-3">7 小结</a></li>
 </ul>
+<h3 id="sensorcamerasemantic_segmentation">第十章：语义分割相机传感器（sensor.camera.semantic_segmentation）</h3>
+<ul>
+<li>
+<p><a href="#第十章carla-语义分割摄像头传感器系统sensorcamerasemantic_segmentation">第十章：CARLA 语义分割摄像头传感器系统（sensor.camera.semantic_segmentation）</a></p>
+</li>
+<li>
+<p><a href="#1-模块概览-9">1 模块概览</a></p>
+</li>
+<li><a href="#2-输出内容与标签定义">2 输出内容与标签定义</a></li>
+<li><a href="#3-数据结构与格式说明">3 数据结构与格式说明</a></li>
+<li><a href="#4-序列化机制说明-1">4 序列化机制说明</a></li>
+<li><a href="#5-python-api-使用示例-7">5 Python API 使用示例</a></li>
+<li><a href="#6-应用与扩展方向">6 应用与扩展方向</a></li>
+<li><a href="#7-小结-4">7 小结</a></li>
+</ul>
 <hr />
 <h1 id="carla-sensorothercollision">第一章：CARLA 碰撞事件传感器系统（sensor.other.collision）</h1>
 <hr />
@@ -1144,7 +1159,7 @@ def on_imu_integration(imu):
 <hr />
 <h2 id="2_8">2 成像原理与深度编码</h2>
 <p>CARLA 中的深度相机使用如下逻辑将真实距离值编码为图像格式：</p>
-<h3 id="_9">✅ 编码方式（在渲染端）：</h3>
+<h3 id="_9">编码方式（在渲染端）：</h3>
 <p>CARLA 默认使用 3 通道（R, G, B）编码浮点深度（单位：米）：</p>
 <div class="highlight"><pre><span></span><code><span class="n">depth</span> <span class="o">=</span> <span class="p">(</span><span class="n">R</span> <span class="o">+</span> <span class="n">G</span> <span class="o">*</span> <span class="mi">256</span> <span class="o">+</span> <span class="n">B</span> <span class="o">*</span> <span class="mi">256</span> <span class="o">*</span> <span class="mi">256</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">256</span><span class="o">^</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1000.0</span>
 </code></pre></div>
@@ -1201,7 +1216,7 @@ def on_imu_integration(imu):
 <p>也可保存为深度图图像（伪彩）或导出为 PFM 格式。</p>
 <hr />
 <h2 id="6_7">6 深度图应用场景</h2>
-<h3 id="_10">🌐 常见用途：</h3>
+<h3 id="_10">常见用途：</h3>
 <ul>
 <li><strong>点云投影</strong>：结合内参可将深度图转换为相机系 3D 点云；</li>
 <li><strong>RGB-D 感知训练</strong>：用于单目深度估计、3D 目标检测、深度分割；</li>
@@ -1213,6 +1228,155 @@ def on_imu_integration(imu):
 <h2 id="7_7">7 小结</h2>
 <p><code>sensor.camera.depth</code> 提供高精度、连续、结构一致的深度图像输出，在自动驾驶视觉研究中是不可替代的重要组件。</p>
 <p>推荐与 RGB、语义分割、IMU/GNSS 联合使用，用于高质量数据生成、深度估计模型训练与三维结构重建。</p>
+<hr />
+<h1 id="carla-sensorcamerasemantic_segmentation">第十章：CARLA 语义分割摄像头传感器系统（sensor.camera.semantic_segmentation）</h1>
+<hr />
+<h2 id="1_9">1 模块概览</h2>
+<p><img alt="flowchart_10.png" src="..%2Fimg%2Fmodules%2Fflowchart_10.png" /></p>
+<p><code>sensor.camera.semantic_segmentation</code> 是 CARLA 提供的语义感知型图像传感器。它将模拟环境中可见物体（如车辆、行人、道路等）按照类别进行像素级别的标注，每帧输出一张语义分割图像，用于训练自动驾驶模型中的感知网络或环境理解模块。</p>
+<p>该传感器在数据采集、分割模型训练、语义地图构建、端到端学习等任务中具有广泛应用价值。</p>
+<hr />
+<h2 id="2_9">2 输出内容与标签定义</h2>
+<p>该传感器输出为<strong>单通道图像</strong>，每个像素为一个整数值，表示该像素所属的语义类别。默认图像格式为：</p>
+<ul>
+<li><code>RGBA</code> 字节流，实际仅使用 <code>R</code> 通道（值范围：0–255）；</li>
+<li>每个 ID 对应一种语义类别，CARLA 提供默认映射关系（可自定义）。</li>
+</ul>
+<h3 id="_11">示例标签对照表：</h3>
+<table>
+<thead>
+<tr>
+<th>类别名称</th>
+<th>类别 ID</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>None</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Buildings</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Fences</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Other</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Pedestrians</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Poles</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Roads</td>
+<td>6</td>
+</tr>
+<tr>
+<td>RoadLines</td>
+<td>7</td>
+</tr>
+<tr>
+<td>Sidewalks</td>
+<td>8</td>
+</tr>
+<tr>
+<td>Vegetation</td>
+<td>9</td>
+</tr>
+<tr>
+<td>Vehicles</td>
+<td>10</td>
+</tr>
+<tr>
+<td>Wall</td>
+<td>11</td>
+</tr>
+<tr>
+<td>TrafficSign</td>
+<td>12</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3_4">3 数据结构与格式说明</h2>
+<p>语义分割图像复用图像类结构：</p>
+<p>定义位置：<a href="https://github.com/carla-simulator/carla/blob/dev/LibCarla/source/carla/sensor/data/Image.h"><code>carla/sensor/data/Image.h</code></a></p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Image</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">SensorData</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">width</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">height</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">uint8_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">data</span><span class="p">;</span><span class="w"> </span><span class="c1">// 每像素RGBA，语义ID编码在R通道</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>说明：</p>
+<ul>
+<li>虽然为 RGBA 图像，但只有红色通道包含有效的语义类别；</li>
+<li>可直接用 <code>image.raw_data</code> → <code>np.uint8</code> → <code>reshape</code> 转换为二维语义图。</li>
+</ul>
+<hr />
+<h2 id="4_7">4 序列化机制说明</h2>
+<p><code>sensor.camera.semantic_segmentation</code> 复用 <code>ImageSerializer</code>：</p>
+<p>定义文件：<a href="https://github.com/carla-simulator/carla/blob/dev/LibCarla/source/carla/sensor/s11n/ImageSerializer.h"><code>ImageSerializer.h</code></a></p>
+<div class="highlight"><pre><span></span><code><span class="n">SharedPtr</span><span class="o">&lt;</span><span class="n">SensorData</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ImageSerializer</span><span class="o">::</span><span class="n">Deserialize</span><span class="p">(</span><span class="n">RawData</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="n">data</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">SharedPtr</span><span class="o">&lt;</span><span class="n">SensorData</span><span class="o">&gt;</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">data</span><span class="o">::</span><span class="n">Image</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">data</span><span class="p">)));</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>无额外结构字段，仅传输原始图像数据；</li>
+<li>每帧语义图由服务端生成（Unreal Engine 渲染）后通过 RPC 系统推送；</li>
+<li>客户端将数据解码为 <code>Image</code> 实例并触发回调。</li>
+</ul>
+<hr />
+<h2 id="5-python-api_7">5 Python API 使用示例</h2>
+<p>以下示例展示如何创建语义分割传感器，并将图像保存或解析为标签矩阵：</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">save_semantic</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
+    <span class="n">image</span><span class="o">.</span><span class="n">save_to_disk</span><span class="p">(</span><span class="s1">&#39;output/seg_</span><span class="si">%06d</span><span class="s1">.png&#39;</span> <span class="o">%</span> <span class="n">image</span><span class="o">.</span><span class="n">frame</span><span class="p">,</span> <span class="n">carla</span><span class="o">.</span><span class="n">ColorConverter</span><span class="o">.</span><span class="n">CityScapesPalette</span><span class="p">)</span>
+
+<span class="n">bp</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;sensor.camera.semantic_segmentation&#39;</span><span class="p">)</span>
+<span class="n">bp</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s1">&#39;image_size_x&#39;</span><span class="p">,</span> <span class="s1">&#39;800&#39;</span><span class="p">)</span>
+<span class="n">bp</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s1">&#39;image_size_y&#39;</span><span class="p">,</span> <span class="s1">&#39;600&#39;</span><span class="p">)</span>
+<span class="n">transform</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Transform</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">Location</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">2.4</span><span class="p">))</span>
+
+<span class="n">seg_sensor</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">bp</span><span class="p">,</span> <span class="n">transform</span><span class="p">,</span> <span class="n">attach_to</span><span class="o">=</span><span class="n">vehicle</span><span class="p">)</span>
+<span class="n">seg_sensor</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="n">save_semantic</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="_12">自定义解析标签矩阵：</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">parse_semantic</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
+    <span class="n">array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">frombuffer</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">raw_data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+    <span class="n">seg_labels</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">image</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="n">image</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="mi">4</span><span class="p">))[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span>  <span class="c1"># R通道为语义标签</span>
+    <span class="k">return</span> <span class="n">seg_labels</span>
+</code></pre></div>
+<hr />
+<h2 id="6_8">6 应用与扩展方向</h2>
+<h3 id="_13">应用场景：</h3>
+<ul>
+<li>训练语义分割模型（如 DeepLab、PSPNet）；</li>
+<li>联合 RGB/Depth 生成多模态数据集；</li>
+<li>构建语义 HD 地图（自动车道标注）；</li>
+<li>强化学习场景中的语义感知输入；</li>
+<li>与 GNSS/IMU 时间对齐，构建时空标注序列。</li>
+</ul>
+<h3 id="_14">拓展建议：</h3>
+<ul>
+<li>替换默认 CityScapes 标签体系，构建自定义语义类别；</li>
+<li>增加边缘高亮、透明度渲染参数；</li>
+<li>配合 <code>ColorConverter</code> 自定义彩色编码方案；</li>
+<li>输出压缩格式（如 JPEG8）以节省带宽。</li>
+</ul>
+<hr />
+<h2 id="7_8">7 小结</h2>
+<p><code>sensor.camera.semantic_segmentation</code> 是 CARLA 中唯一原生支持像素级语义标注的传感器。它提供标准化标签图，适合用于多种感知任务，尤其在构建多视图、多模态、高频率自动驾驶数据集方面扮演关键角色。</p>
+<p>推荐与 <code>RGB/Depth/LiDAR</code> 联合使用，支持多任务模型训练与语义地图制作。</p>
 <hr />
               
             </div>
