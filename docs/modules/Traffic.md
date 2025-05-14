@@ -106,7 +106,23 @@ stateDiagram-v2
 
 ---
 
+## 接口定义
 
+### Python API
+```python
+class TrafficManager:
+    def set_global_speed_limit(self, speed: float) -> bool
+```
+
+### 控制协议
+```json
+{
+  "command": "spawn_vehicle",
+  "params": {"type": "sedan"}
+}
+```
+
+---
 ## 常见问题
 **Q: 车辆无法生成**
 - 检查Waypoint文件路径有效性
