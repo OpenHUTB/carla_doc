@@ -327,6 +327,33 @@ if (loadTask.wait_for(std::chrono::milliseconds(0)) == std::future_status::ready
 ```
 
 **注意**：所有对 `navmesh` 和 `dtCrowd` 的修改需在同一锁保护下完成，避免并发冲突。
+### 4. 日志与可视化支持
+
+内置可将导航网格和路径可视化输出到 CARLA 的调试渲染：
+
+```cpp
+// 绘制网格边界
+for (int t = 0; t < tileCount; ++t) {
+    auto* verts = navmesh->getTile(t)->verts;
+    auto* polys = navmesh->getTile(t)->polys;
+    for (int i = 0; i < navmesh->getTile(t)->header->polyCount; ++i) {
+        RenderDebug::DrawPolygon(verts, polys[i].verts, polys[i].vertCount);
+    }
+}
+// 高亮当前路径
+for (size_t i = 1; i < path.size(); ++i) {
+    RenderDebug::DrawLine(path[i-1], path[i], Color::Green);
+}
+```
+
+日志接口集成 `spdlog`：
+
+```cpp
+SPDLOG_INFO("Loaded NavMesh tile {} at ({}, {})", tileId, x, y);
+SPDLOG_DEBUG("Computed path with {} points", path.size());
+```
+
+通过在 CI 中捕获渲染输出和日志，可对路径正确性和性能进行可视化回归测试。
 
 
  ---
