@@ -1,3 +1,6 @@
+
+
+
 ## **概述**
 
 CARLA 是一个开源的自动驾驶模拟平台，提供了丰富的 API 以支持仿真环境的控制、车辆的管理以及自动驾驶算法的验证。客户端部分的 API 主要通过 `Client` 类与模拟器进行交互，执行仿真控制、传感器管理、交通流管理等功能。该文档主要介绍 CARLA 客户端相关类的功能和使用方式。
@@ -344,6 +347,73 @@ std::vector<uint8_t> result = FileTransfer::ReadFile("sensor/lidar.bin");
 
 #### 总结
 `FileTransfer `模块提供了 CARLA 客户端中重要的本地文件操作机制，适合用于缓存地图、传感器数据、AI模型结果等静态资源。通过该模块可以显著提高数据复用效率、降低文件操作出错率，并为系统性能和用户体验带来明显提升。
+
+### 3、Junction 模块：CARLA 道路交叉口（Junction）建模与访问
+
+`Junction` 是 CARLA 客户端地图模块中的一个关键类，用于**表示道路网络中的交叉口区域**。该类提供对交叉口 ID、边界范围和交叉区域内道路点（Waypoint）信息的访问能力，通常被用于路径规划、交通规则模拟与可视化渲染等功能中。
+
+该模块由以下两个文件组成：
+
+- `Junction.h`：定义了类的结构与接口。
+- `Junction.cpp`：实现了其功能逻辑。
+
+
+#### 类结构与设计
+
+| 成员变量 | 说明 |
+|----------|------|
+| `_id` | 交叉口在道路拓扑中的唯一标识 |
+| `_bounding_box` | 表示交叉口在世界坐标中的空间范围 |
+| `_parent` | 指向所属 `Map` 的共享指针，便于访问地图全局信息 |
+
+此外，`Junction` 类继承了 `EnableSharedFromThis`，并被标记为 `NonCopyable`，以确保对象管理的正确性与唯一性。
+
+
+#### 构造函数与访问控制
+
+构造函数 `Junction(SharedPtr<const Map>, const road::Junction *)` 被设为 `private`，仅允许 `Map` 类作为友元进行构造。这种设计符合“只允许地图构建交叉口对象”的意图，防止外部模块随意构造非法交叉口。
+
+---
+
+### 提供的接口函数
+
+| 函数名 | 功能 |
+|--------|------|
+| `GetId()` | 返回当前交叉口的 ID |
+| `GetBoundingBox()` | 返回交叉口所覆盖的三维边界框（`geom::BoundingBox`） |
+| `GetWaypoints(type)` | 返回与该交叉口相关的所有 `Waypoint` 对，支持根据车道类型过滤，如 `Driving`、`Shoulder` 等 |
+
+其中 `GetWaypoints` 默认仅返回行驶车道（`Driving`）的相关路径点对，调用时可按需调整车道类型参数。
+
+
+#### 示例：获取交叉口路径点对
+
+```
+auto junction_list = map->GetJunctions();
+for (auto& junction : junction_list) {
+    auto wp_pairs = junction->GetWaypoints(road::Lane::LaneType::Driving);
+    for (auto& pair : wp_pairs) {
+        auto entry = pair.first;
+        auto exit = pair.second;
+        // 可用于路径规划或交通仿真
+    }
+}
+```
+#### 应用场景
+ - 获取交叉口覆盖区域，用于渲染、碰撞检测或自动驾驶决策；
+
+ - 获取进入与离开交叉口的路径点对，实现行为规划（如左转、右转、直行）；
+
+ - 通过 Junction::GetId() 与道路拓扑结构联动，解析交通节点关系。
+
+#### 总结
+`Junction` 类为 CARLA 中交叉口建模提供了清晰、面向对象的封装方式。它作为 Map 类的组成部分，隐藏了底层拓扑数据的复杂性，同时提供了丰富的 API 支持，是交通仿真与路径分析不可或缺的模块。
+
+
+
+
+
+
 
 
 ---
