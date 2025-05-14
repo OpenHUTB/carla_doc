@@ -467,11 +467,94 @@ std::vector&lt;uint8_t&gt; result = FileTransfer::ReadFile(&quot;sensor/lidar.bi
 </ul>
 <h4 id="_24">总结</h4>
 <p><code>FileTransfer</code>模块提供了 CARLA 客户端中重要的本地文件操作机制，适合用于缓存地图、传感器数据、AI模型结果等静态资源。通过该模块可以显著提高数据复用效率、降低文件操作出错率，并为系统性能和用户体验带来明显提升。</p>
+<h3 id="3junction-carla-junction">3、Junction 模块：CARLA 道路交叉口（Junction）建模与访问</h3>
+<p><code>Junction</code> 是 CARLA 客户端地图模块中的一个关键类，用于<strong>表示道路网络中的交叉口区域</strong>。该类提供对交叉口 ID、边界范围和交叉区域内道路点（Waypoint）信息的访问能力，通常被用于路径规划、交通规则模拟与可视化渲染等功能中。</p>
+<p>该模块由以下两个文件组成：</p>
+<ul>
+<li><code>Junction.h</code>：定义了类的结构与接口。</li>
+<li><code>Junction.cpp</code>：实现了其功能逻辑。</li>
+</ul>
+<h4 id="_25">类结构与设计</h4>
+<table>
+<thead>
+<tr>
+<th>成员变量</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>_id</code></td>
+<td>交叉口在道路拓扑中的唯一标识</td>
+</tr>
+<tr>
+<td><code>_bounding_box</code></td>
+<td>表示交叉口在世界坐标中的空间范围</td>
+</tr>
+<tr>
+<td><code>_parent</code></td>
+<td>指向所属 <code>Map</code> 的共享指针，便于访问地图全局信息</td>
+</tr>
+</tbody>
+</table>
+<p>此外，<code>Junction</code> 类继承了 <code>EnableSharedFromThis</code>，并被标记为 <code>NonCopyable</code>，以确保对象管理的正确性与唯一性。</p>
+<h4 id="_26">构造函数与访问控制</h4>
+<p>构造函数 <code>Junction(SharedPtr&lt;const Map&gt;, const road::Junction *)</code> 被设为 <code>private</code>，仅允许 <code>Map</code> 类作为友元进行构造。这种设计符合“只允许地图构建交叉口对象”的意图，防止外部模块随意构造非法交叉口。</p>
 <hr />
-<h2 id="_25"><strong>类之间的调用关系</strong></h2>
+<h3 id="_27">提供的接口函数</h3>
+<table>
+<thead>
+<tr>
+<th>函数名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GetId()</code></td>
+<td>返回当前交叉口的 ID</td>
+</tr>
+<tr>
+<td><code>GetBoundingBox()</code></td>
+<td>返回交叉口所覆盖的三维边界框（<code>geom::BoundingBox</code>）</td>
+</tr>
+<tr>
+<td><code>GetWaypoints(type)</code></td>
+<td>返回与该交叉口相关的所有 <code>Waypoint</code> 对，支持根据车道类型过滤，如 <code>Driving</code>、<code>Shoulder</code> 等</td>
+</tr>
+</tbody>
+</table>
+<p>其中 <code>GetWaypoints</code> 默认仅返回行驶车道（<code>Driving</code>）的相关路径点对，调用时可按需调整车道类型参数。</p>
+<h4 id="_28">示例：获取交叉口路径点对</h4>
+<div class="highlight"><pre><span></span><code>auto junction_list = map-&gt;GetJunctions();
+for (auto&amp; junction : junction_list) {
+    auto wp_pairs = junction-&gt;GetWaypoints(road::Lane::LaneType::Driving);
+    for (auto&amp; pair : wp_pairs) {
+        auto entry = pair.first;
+        auto exit = pair.second;
+        // 可用于路径规划或交通仿真
+    }
+}
+</code></pre></div>
+<h4 id="_29">应用场景</h4>
+<ul>
+<li>
+<p>获取交叉口覆盖区域，用于渲染、碰撞检测或自动驾驶决策；</p>
+</li>
+<li>
+<p>获取进入与离开交叉口的路径点对，实现行为规划（如左转、右转、直行）；</p>
+</li>
+<li>
+<p>通过 Junction::GetId() 与道路拓扑结构联动，解析交通节点关系。</p>
+</li>
+</ul>
+<h4 id="_30">总结</h4>
+<p><code>Junction</code> 类为 CARLA 中交叉口建模提供了清晰、面向对象的封装方式。它作为 Map 类的组成部分，隐藏了底层拓扑数据的复杂性，同时提供了丰富的 API 支持，是交通仿真与路径分析不可或缺的模块。</p>
+<hr />
+<h2 id="_31"><strong>类之间的调用关系</strong></h2>
 <h3 id="carla">以下是 CARLA 客户端部分类之间的调用关系图，展示了各个类如何交互以及它们之间的依赖关系。</h3>
 <p><img alt="类关系" src="https://github.com/LangJing23/nuanxin_volunteer/blob/master/lei.png" /></p>
-<h5 id="_26">调用关系说明</h5>
+<h5 id="_32">调用关系说明</h5>
 <p>Client 类与其他类的交互：</p>
 <blockquote>
 <p>Client 类是与模拟器交互的主要接口，它通过方法如 LoadWorld()、GetAvailableMaps()、StartRecorder() 等来控制仿真世界。</p>
@@ -492,7 +575,7 @@ std::vector&lt;uint8_t&gt; result = FileTransfer::ReadFile(&quot;sensor/lidar.bi
 <p>World 类表示仿真中的一个世界，它与 Client 和 Actor 类紧密关联。World 提供对仿真环境的访问，可以控制仿真世界中的所有行为体和传感器。</p>
 <p>World 还负责管理交通流、物理环境、天气等仿真环境因素。</p>
 </blockquote>
-<h2 id="_27">总结</h2>
+<h2 id="_33">总结</h2>
 <p>CARLA 客户端部分提供了与仿真环境交互的丰富 API，支持开发者控制仿真世界中的各种元素，包括行为体（Actor）、传感器（ClientSideSensor）和交通流（TrafficManager）等。通过 Client 类，开发者能够加载地图、获取世界状态、管理传感器、操作物理环境等。类之间的交互使得开发者能够在仿真环境中进行精确的控制和验证。</p>
 <p>参考文档：<a href="https://openhutb.github.io/carla_cpp/dir_64d7bb605f27024d49af86070bd3f0b6.html">点击此处跳转</a></p>
               
