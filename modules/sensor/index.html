@@ -172,6 +172,21 @@
 <li><a href="#6-应用方向与参数优化">6 应用方向与参数优化</a></li>
 <li><a href="#7-小结-2">7 小结</a></li>
 </ul>
+<h3 id="sensorcameradepth">第九章：深度图摄像头传感器（sensor.camera.depth）</h3>
+<ul>
+<li>
+<p><a href="#第九章carla-深度图摄像头传感器系统sensorcameradepth">第九章：CARLA 深度图摄像头传感器系统（sensor.camera.depth）</a></p>
+</li>
+<li>
+<p><a href="#1-模块概览-8">1 模块概览</a></p>
+</li>
+<li><a href="#2-成像原理与深度编码">2 成像原理与深度编码</a></li>
+<li><a href="#3-数据结构说明">3 数据结构说明</a></li>
+<li><a href="#4-序列化与解码流程">4 序列化与解码流程</a></li>
+<li><a href="#5-python-api-使用示例-6">5 Python API 使用示例</a></li>
+<li><a href="#6-深度图应用场景">6 深度图应用场景</a></li>
+<li><a href="#7-小结-3">7 小结</a></li>
+</ul>
 <hr />
 <h1 id="carla-sensorothercollision">第一章：CARLA 碰撞事件传感器系统（sensor.other.collision）</h1>
 <hr />
@@ -1112,6 +1127,92 @@ def on_imu_integration(imu):
 <h2 id="7_6">7 小结</h2>
 <p><code>sensor.camera.rgb</code> 是 CARLA 感知系统中的基础视觉模块，提供稳定、高质量、可配置的图像输出能力。其在自动驾驶系统开发、视觉模型训练与多模态感知实验中具有不可替代的作用。</p>
 <p>推荐配合其他传感器（IMU、GNSS、Depth、LiDAR）使用，构建完整的数据生成与处理流水线。</p>
+<hr />
+<h1 id="carla-sensorcameradepth">第九章：CARLA 深度图摄像头传感器系统（sensor.camera.depth）</h1>
+<hr />
+<h2 id="1_8">1 模块概览</h2>
+<p><img alt="flowchart_9.png" src="../../img/modules/flowchart_9.png" /></p>
+<p><code>sensor.camera.depth</code> 是 CARLA 提供的专用深度图相机传感器，用于模拟相机视角下的每像素距离场景物体的真实物理距离（单位为米）。其输出为 4 通道图像（RGBA），其中 RGB 通道编码深度信息，Alpha 通道通常为 255。</p>
+<p>该传感器常用于：</p>
+<ul>
+<li>点云生成（结合内参投影）；</li>
+<li>训练单目深度估计模型；</li>
+<li>RGB-D 感知任务；</li>
+<li>三维重建与视觉 SLAM；</li>
+<li>自动驾驶下游任务中的几何感知。</li>
+</ul>
+<hr />
+<h2 id="2_8">2 成像原理与深度编码</h2>
+<p>CARLA 中的深度相机使用如下逻辑将真实距离值编码为图像格式：</p>
+<h3 id="_9">✅ 编码方式（在渲染端）：</h3>
+<p>CARLA 默认使用 3 通道（R, G, B）编码浮点深度（单位：米）：</p>
+<div class="highlight"><pre><span></span><code><span class="n">depth</span> <span class="o">=</span> <span class="p">(</span><span class="n">R</span> <span class="o">+</span> <span class="n">G</span> <span class="o">*</span> <span class="mi">256</span> <span class="o">+</span> <span class="n">B</span> <span class="o">*</span> <span class="mi">256</span> <span class="o">*</span> <span class="mi">256</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">256</span><span class="o">^</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1000.0</span>
+</code></pre></div>
+<ul>
+<li>可解码为每像素 0–1000 米内的精度深度图；</li>
+<li>图像格式为 8-bit 无符号整数，每像素 4 字节（RGBA）。</li>
+</ul>
+<hr />
+<h2 id="3_3">3 数据结构说明</h2>
+<p>深度图使用与 RGB 图像相同的数据结构：</p>
+<p>定义位置：<a href="https://github.com/carla-simulator/carla/blob/dev/LibCarla/source/carla/sensor/data/Image.h"><code>carla/sensor/data/Image.h</code></a></p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Image</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">SensorData</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">width</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">height</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">uint8_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">data</span><span class="p">;</span><span class="w"> </span><span class="c1">// RGBA 图像流</span>
+<span class="p">};</span>
+</code></pre></div>
+<ul>
+<li>图像以 <code>uint8_t</code> 存储，布局为 RGBA；</li>
+<li>深度编码在 RGB 通道，Alpha 通道可忽略。</li>
+</ul>
+<hr />
+<h2 id="4_6">4 序列化与解码流程</h2>
+<p>该传感器复用了 <code>ImageSerializer</code>：</p>
+<p>定义文件：<a href="https://github.com/carla-simulator/carla/blob/dev/LibCarla/source/carla/sensor/s11n/ImageSerializer.h"><code>ImageSerializer.h</code></a></p>
+<ul>
+<li>图像渲染 → 原始字节流打包为 <code>RawData</code>；</li>
+<li>客户端 <code>ImageSerializer::Deserialize()</code> 解包为 <code>Image</code> 对象；</li>
+<li>Python 层通过 <code>.raw_data</code> 解码深度。</li>
+</ul>
+<p>无 MsgPack 序列化，采用原始流传输，更高效适配图像数据密度。</p>
+<hr />
+<h2 id="5-python-api_6">5 Python API 使用示例</h2>
+<p>以下代码展示如何部署深度相机并转换为实际深度图：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">decode_depth</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
+    <span class="n">array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">frombuffer</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">raw_data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+    <span class="n">array</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">image</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="n">image</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="mi">4</span><span class="p">))[:,</span> <span class="p">:,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">)</span>
+    <span class="c1"># 深度解码</span>
+    <span class="n">depth</span> <span class="o">=</span> <span class="p">(</span><span class="n">array</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">array</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">256</span> <span class="o">+</span> <span class="n">array</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="mi">256</span> <span class="o">*</span> <span class="mi">256</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">256</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1000.0</span>
+    <span class="k">return</span> <span class="n">depth</span>
+
+<span class="c1"># 创建传感器</span>
+<span class="n">bp</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;sensor.camera.depth&#39;</span><span class="p">)</span>
+<span class="n">bp</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s1">&#39;image_size_x&#39;</span><span class="p">,</span> <span class="s1">&#39;800&#39;</span><span class="p">)</span>
+<span class="n">bp</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s1">&#39;image_size_y&#39;</span><span class="p">,</span> <span class="s1">&#39;600&#39;</span><span class="p">)</span>
+
+<span class="n">transform</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Transform</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">Location</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">2.4</span><span class="p">))</span>
+<span class="n">camera</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">bp</span><span class="p">,</span> <span class="n">transform</span><span class="p">,</span> <span class="n">attach_to</span><span class="o">=</span><span class="n">vehicle</span><span class="p">)</span>
+<span class="n">camera</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="k">lambda</span> <span class="n">image</span><span class="p">:</span> <span class="n">decode_depth</span><span class="p">(</span><span class="n">image</span><span class="p">))</span>
+</code></pre></div>
+<p>也可保存为深度图图像（伪彩）或导出为 PFM 格式。</p>
+<hr />
+<h2 id="6_7">6 深度图应用场景</h2>
+<h3 id="_10">🌐 常见用途：</h3>
+<ul>
+<li><strong>点云投影</strong>：结合内参可将深度图转换为相机系 3D 点云；</li>
+<li><strong>RGB-D 感知训练</strong>：用于单目深度估计、3D 目标检测、深度分割；</li>
+<li><strong>立体匹配数据集</strong>：与 <code>sensor.camera.rgb</code> 同步输出，可形成训练样本对；</li>
+<li><strong>三维重建</strong>：将连续帧深度图拼接成稠密点云；</li>
+<li><strong>视觉 SLAM</strong>：与 ORB-SLAM2、ElasticFusion 等框架结合使用。</li>
+</ul>
+<hr />
+<h2 id="7_7">7 小结</h2>
+<p><code>sensor.camera.depth</code> 提供高精度、连续、结构一致的深度图像输出，在自动驾驶视觉研究中是不可替代的重要组件。</p>
+<p>推荐与 RGB、语义分割、IMU/GNSS 联合使用，用于高质量数据生成、深度估计模型训练与三维结构重建。</p>
 <hr />
               
             </div>
