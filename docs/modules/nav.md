@@ -354,7 +354,100 @@ SPDLOG_DEBUG("Computed path with {} points", path.size());
 ```
 
 通过在 CI 中捕获渲染输出和日志，可对路径正确性和性能进行可视化回归测试。
+以下是“社交驾驶行为建模”功能的详细介绍及示例伪代码，供文档中直接引用或改写。
 
+---
+
+###5. 社交驾驶行为建模（Social Driving Behavior Modeling）
+
+社交驾驶行为建模旨在让自动驾驶主体（车辆或行人）在多-agent环境中展现更加“自然”“人性化”的行为，例如礼让行人、智能变道、遵守交通礼仪等。核心思路可以基于以下两种方法之一或结合：
+
+1. **社会力模型（Social Force Model）**
+
+   * 将周围每个交通参与者视作“力源”——吸引力（desire force）驱动车辆沿目标前进，斥力（social force）促使车辆与他人保持安全距离。
+   * 在每个仿真步，计算合力并更新速度与方向。
+
+2. **深度强化学习（Deep Reinforcement Learning）**
+
+   * 将车辆状态（位置、速度、周边环境）作为观测，动作空间包括加减速、转向和变道；
+   * 通过奖励函数（如“安全”“效率”“礼让”）训练政策网络，实现多样化行为。
+
+以上两者可混合使用：先用社会力模型快速逼近安全、礼让行为，再用RL微调细节。
+
+### 算法流程
+
+1. **初始化**
+
+   * 为每个Agent设置目标点、最大速度、舒适距离等参数。
+2. **感知与状态构建**
+
+   * 获取自己及周边 Agents 的位置、速度、意图（如目标车道）。
+3. **社交力计算**
+
+   * 对每个周边 Agent 计算斥力：
+
+     ```math
+     F_{rep}^{ij} = A \exp\Bigl(\tfrac{d_{ij} - D}{B}\Bigr)\,n_{ij}
+     ```
+   * 计算吸引力：
+
+     ```math
+     F_{att} = k \bigl(v_{0} \,n_{goal} - v\bigr)
+     ```
+4. **合力与动作决策**
+
+   * 合力
+
+     ```math
+     F_{total} = F_{att} + \sum_{j} F_{rep}^{ij} + F_{road\_constraints}
+     ```
+   * 更新加速度与转向，并执行。
+
+### 伪代码示例
+
+```python
+# 每个仿真步调用
+def update_agent_behavior(agent, neighbors, dt):
+    # 参数
+    A = 5.0        # 斥力强度
+    B = 1.0        # 斥力衰减系数
+    k = 2.0        # 吸引力比例
+    D_safe = 2.0   # 舒适距离
+    
+    # 1. 计算吸引力 toward goal
+    dir_to_goal = normalize(agent.goal_pos - agent.position)
+    F_att = k * (agent.desired_speed * dir_to_goal - agent.velocity)
+    
+    # 2. 计算斥力 against each neighbor
+    F_rep_total = Vector2(0, 0)
+    for other in neighbors:
+        d_vec = agent.position - other.position
+        dist = max(d_vec.length(), 1e-3)
+        n_ij = d_vec / dist
+        F_rep_ij = A * exp((D_safe - dist) / B) * n_ij
+        F_rep_total += F_rep_ij
+    
+    # 3. 考虑道路和交通规则约束
+    F_road = compute_road_constraints(agent)
+    
+    # 4. 合力与动力学更新
+    F_total = F_att + F_rep_total + F_road
+    acceleration = F_total / agent.mass
+    agent.velocity += acceleration * dt
+    agent.position += agent.velocity * dt
+    
+    # 5. 变道或减速决策（可选 RL 微调）
+    if need_lane_change(agent, neighbors):
+        agent.lane = select_best_lane(agent, neighbors)
+    if potential_conflict(agent, neighbors):
+        agent.velocity *= 0.5  # 紧急减速
+```
+
+**要点说明：**
+
+* `compute_road_constraints` 中加入车道边界、交通信号等强约束力。
+* `need_lane_change`、`select_best_lane`、`potential_conflict` 等函数可基于规则或训练好的策略网络实现。
+* 可将上述模型与 RL 训练流程结合：用社交力模型生成初始安全样本，再用深度网络做精细控制。
 
  ---
  
