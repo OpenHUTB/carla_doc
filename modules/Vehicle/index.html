@@ -377,18 +377,43 @@ Tick：每帧执行的主逻辑流程
 <p>5.4、静态函数 <code>GetVehicleAutoBoxSetup(const FVehicleNWTransmissionData&amp; Setup, PxVehicleAutoBoxData&amp; PxSetup)</code></p>
 <ol>
 <li><strong>功能</strong>：根据给定的车辆变速器数据，设置 PhysX 车辆自动变速器的数据。包括设置每个前进档的升档比和降档比，以及空档的升档比和自动变速器的延迟时间。</li>
-<li>参数：<ul>
+<li>
+<p>参数：</p>
+<ul>
 <li><code>Setup</code>：包含车辆变速器数据的对象。</li>
 <li><code>PxSetup</code>：PhysX 车辆自动变速器数据对象，用于存储设置后的自动变速器数据。</li>
 </ul>
 </li>
+<li>
+<h2 id="_11">五、成员函数</h2>
+</li>
 </ol>
-<h2 id="findpeaktorque">五、成员函数 <code>FindPeakTorque()</code></h2>
+<p><code>（1）FindPeakTorque()</code></p>
 <ol>
 <li><strong>功能</strong>：在发动机扭矩曲线中查找最大扭矩值，通过遍历扭矩曲线的关键帧，找出扭矩值的最大值。</li>
 <li><strong>返回值</strong>：返回找到的最大扭矩值。</li>
 </ol>
-<h2 id="_11">参考</h2>
+<p>（2）<code>GetCustomGearBoxNumForwardGears() const</code></p>
+<ol>
+<li><strong>功能</strong>：获取自定义变速箱的前进档数量，返回存储前进档数据的数组的数量。</li>
+<li><strong>返回值</strong>：返回前进档的数量。</li>
+</ol>
+<p>（3）、成员函数 <code>SetupVehicle()</code></p>
+<ol>
+<li><strong>功能</strong>：设置车辆的相关属性和物理模拟数据。首先检查更新的基元（<code>UpdatedPrimitive</code>），如果车轮设置数量小于 2 则不进行设置。然后设置车辆的形状、质量属性，分配并设置车轮数据，根据车辆数据和车轮模拟数据设置驱动数据，创建车辆驱动对象，将驱动数据应用到物理引擎中的车辆对象上，并缓存车辆和车辆驱动对象。</li>
+<li><strong>注意事项</strong>：在设置过程中，对物理引擎的操作是通过 <code>FPhysicsCommand::ExecuteWrite</code> 进行的，确保在正确的上下文中调用。</li>
+</ol>
+<p>（4）成员函数 <code>UpdateSimulation(float DeltaTime)</code></p>
+<ol>
+<li><strong>功能</strong>：更新车辆的模拟数据。如果车辆驱动对象为空则不进行更新。设置原始输入数据，包括油门、转向、刹车和手刹的输入值。根据自动变速器的使用情况设置升档和降档的输入。将转向曲线转换为 PhysX 格式的固定大小查找表，设置平滑数据，并使用这些数据更新车辆的驱动模拟数据。</li>
+<li><strong>参数</strong>：<code>DeltaTime</code> 表示时间间隔，用于模拟的时间步长。</li>
+</ol>
+<p>（5）成员函数 <code>UpdateEngineSetup(const FVehicleNWEngineData&amp; NewEngineSetup)</code></p>
+<ol>
+<li><strong>功能</strong>：更新车辆的发动机设置。如果车辆驱动对象不为空，根据新的发动机设置数据，设置 PhysX 车辆发动机的数据。</li>
+<li><strong>参数</strong>：<code>NewEngineSetup</code> 包含新的发动机设置数据的对象。</li>
+</ol>
+<h2 id="_12">参考</h2>
 <ul>
 <li><a href="https://github.com/carla-simulator/carla/issues/1427">函数vehile.apply_control实际上如何工作的？</a></li>
 </ul>
