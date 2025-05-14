@@ -84,6 +84,8 @@ Trigger 模块是 CarlaUnreal 插件中的核心组件，旨在为 CARLA 模拟�
 | `GetDefinitions()` | 返回支持的触发器类型定义列表（目前仅含 `AFrictionTrigger`） |
 | `SpawnActor(const FTransform&, const FActorDescription&)` | 根据变换和描述信息生成并配置触发器实例，返回生成结果 |
 
+[点击查看详细代码文件](https://openhutb.github.io/carla_cpp/dir_6c62abedd72e3007bc03a7fda3037637.html)
+
 ## 数据结构与配置
 
 ### 1. 触发器描述结构体
@@ -109,15 +111,15 @@ struct FActorDescription {
 ## 关键流程
 
 ### 触发器生成流程
-1. **工厂类调用**
-   - 通过 `ATriggerFactory::SpawnActor` 创建触发器实例
+1. **工厂类调用**  
+   - 通过 `ATriggerFactory::SpawnActor` 创建触发器实例  
    - `FActorDescription` 提供变换信息和描述参数
 
-2. **属性配置**
-   - 解析 `Variations` 中的 `friction` 和 `extent` 参数
+2. **属性配置**  
+   - 解析 `Variations` 中的 `friction` 和 `extent` 参数  
    - 调用 `SetFriction` 和 `SetBoxExtent` 设置属性
 
-3. **事件绑定**
+3. **事件绑定**  
    - 在 `BeginPlay` 中为 `TriggerVolume` 绑定重叠事件回调
 
 ### 摩擦力调整流程
