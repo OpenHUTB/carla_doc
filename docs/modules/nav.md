@@ -375,79 +375,127 @@ SPDLOG_DEBUG("Computed path with {} points", path.size());
 以上两者可混合使用：先用社会力模型快速逼近安全、礼让行为，再用RL微调细节。
 
 ### 算法流程
+```cpp
+#include <vector>
+#include <cmath>
 
-1. **初始化**
+// 简单的二维向量类
+struct Vector2 {
+    double x;
+    double y;
 
-   * 为每个Agent设置目标点、最大速度、舒适距离等参数。
-2. **感知与状态构建**
+    Vector2(double _x = 0, double _y = 0) : x(_x), y(_y) {}
 
-   * 获取自己及周边 Agents 的位置、速度、意图（如目标车道）。
-3. **社交力计算**
+    Vector2 operator+(const Vector2& other) const {
+        return Vector2(x + other.x, y + other.y);
+    }
+    Vector2 operator-(const Vector2& other) const {
+        return Vector2(x - other.x, y - other.y);
+    }
+    Vector2 operator*(double scalar) const {
+        return Vector2(x * scalar, y * scalar);
+    }
+    Vector2& operator+=(const Vector2& other) {
+        x += other.x; y += other.y; return *this;
+    }
 
-   * 对每个周边 Agent 计算斥力：
+    double length() const {
+        return std::sqrt(x*x + y*y);
+    }
+    Vector2 normalized() const {
+        double len = length();
+        if (len > 1e-6) return *this * (1.0 / len);
+        return Vector2(0, 0);
+    }
+};
 
-     ```math
-     F_{rep}^{ij} = A \exp\Bigl(\tfrac{d_{ij} - D}{B}\Bigr)\,n_{ij}
-     ```
-   * 计算吸引力：
+// Agent 类
+struct Agent {
+    Vector2 position;
+    Vector2 velocity;
+    Vector2 goal_pos;
+    double desired_speed;
+    double mass;
+    int lane;
 
-     ```math
-     F_{att} = k \bigl(v_{0} \,n_{goal} - v\bigr)
-     ```
-4. **合力与动作决策**
+    Agent(const Vector2& pos, const Vector2& vel, const Vector2& goal,
+          double speed, double m)
+        : position(pos), velocity(vel),
+          goal_pos(goal), desired_speed(speed), mass(m), lane(0) {}
+};
 
-   * 合力
+// 计算道路约束力（示例 stub，可根据实际情况补充）
+Vector2 computeRoadConstraints(const Agent& agent) {
+    // 例如车道边界、交通信号灯等影响，这里先返回零向量
+    return Vector2(0, 0);
+}
 
-     ```math
-     F_{total} = F_{att} + \sum_{j} F_{rep}^{ij} + F_{road\_constraints}
-     ```
-   * 更新加速度与转向，并执行。
+// 是否需要变道（规则或RL策略 stub）
+bool needLaneChange(const Agent& agent, const std::vector<Agent>& neighbors) {
+    // 简单示例：速度低于某阈值则考虑变道
+    return agent.velocity.length() < agent.desired_speed * 0.8;
+}
 
-### 伪代码示例
+// 选取最佳车道（规则或RL策略 stub）
+int selectBestLane(const Agent& agent, const std::vector<Agent>& neighbors) {
+    // 简单示例：切换到下一车道
+    return agent.lane + 1;
+}
 
-```python
-# 每个仿真步调用
-def update_agent_behavior(agent, neighbors, dt):
-    # 参数
-    A = 5.0        # 斥力强度
-    B = 1.0        # 斥力衰减系数
-    k = 2.0        # 吸引力比例
-    D_safe = 2.0   # 舒适距离
-    
-    # 1. 计算吸引力 toward goal
-    dir_to_goal = normalize(agent.goal_pos - agent.position)
-    F_att = k * (agent.desired_speed * dir_to_goal - agent.velocity)
-    
-    # 2. 计算斥力 against each neighbor
-    F_rep_total = Vector2(0, 0)
-    for other in neighbors:
-        d_vec = agent.position - other.position
-        dist = max(d_vec.length(), 1e-3)
-        n_ij = d_vec / dist
-        F_rep_ij = A * exp((D_safe - dist) / B) * n_ij
-        F_rep_total += F_rep_ij
-    
-    # 3. 考虑道路和交通规则约束
-    F_road = compute_road_constraints(agent)
-    
-    # 4. 合力与动力学更新
-    F_total = F_att + F_rep_total + F_road
-    acceleration = F_total / agent.mass
-    agent.velocity += acceleration * dt
-    agent.position += agent.velocity * dt
-    
-    # 5. 变道或减速决策（可选 RL 微调）
-    if need_lane_change(agent, neighbors):
-        agent.lane = select_best_lane(agent, neighbors)
-    if potential_conflict(agent, neighbors):
-        agent.velocity *= 0.5  # 紧急减速
+// 是否存在潜在冲突（规则或RL策略 stub）
+bool potentialConflict(const Agent& agent, const std::vector<Agent>& neighbors) {
+    for (const auto& other : neighbors) {
+        double dist = (agent.position - other.position).length();
+        if (dist < 1.0) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// 每个仿真步更新函数
+void updateAgentBehavior(Agent& agent,
+                         const std::vector<Agent>& neighbors,
+                         double dt) {
+    // 参数
+    const double A = 5.0;       // 斥力强度
+    const double B = 1.0;       // 斥力衰减系数
+    const double k = 2.0;       // 吸引力比例
+    const double D_safe = 2.0;  // 舒适距离
+
+    // 1. 计算吸引力 toward goal
+    Vector2 dir_to_goal = (agent.goal_pos - agent.position).normalized();
+    Vector2 F_att = (dir_to_goal * agent.desired_speed - agent.velocity) * k;
+
+    // 2. 计算斥力 against each neighbor
+    Vector2 F_rep_total(0, 0);
+    for (const auto& other : neighbors) {
+        Vector2 d_vec = agent.position - other.position;
+        double dist = std::max(d_vec.length(), 1e-3);
+        Vector2 n_ij = d_vec * (1.0 / dist);
+        double exp_term = std::exp((D_safe - dist) / B);
+        Vector2 F_rep_ij = n_ij * (A * exp_term);
+        F_rep_total += F_rep_ij;
+    }
+
+    // 3. 考虑道路和交通规则约束
+    Vector2 F_road = computeRoadConstraints(agent);
+
+    // 4. 合力与动力学更新
+    Vector2 F_total = F_att + F_rep_total + F_road;
+    Vector2 acceleration = F_total * (1.0 / agent.mass);
+    agent.velocity += acceleration * dt;
+    agent.position += agent.velocity * dt;
+
+    // 5. 变道或减速决策（可选 RL 微调）
+    if (needLaneChange(agent, neighbors)) {
+        agent.lane = selectBestLane(agent, neighbors);
+    }
+    if (potentialConflict(agent, neighbors)) {
+        agent.velocity = agent.velocity * 0.5;  // 紧急减速
+    }
+}
 ```
-
-**要点说明：**
-
-* `compute_road_constraints` 中加入车道边界、交通信号等强约束力。
-* `need_lane_change`、`select_best_lane`、`potential_conflict` 等函数可基于规则或训练好的策略网络实现。
-* 可将上述模型与 RL 训练流程结合：用社交力模型生成初始安全样本，再用深度网络做精细控制。
 
  ---
  
