@@ -69,21 +69,59 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="carlaunreal-actor">CarlaUnreal 插件 Actor 模块说明文档</h1>
-<h2 id="_1">概述</h2>
+<h1 id="_1">目录</h1>
+<ul>
+<li><a href="#概述">概述</a></li>
+<li><a href="#核心类与功能">核心类与功能</a></li>
+<li><a href="#1-factordata">1. FActorData</a><ul>
+<li><a href="#主要功能">主要功能</a></li>
+<li><a href="#关键方法">关键方法</a></li>
+<li><a href="#派生类">派生类</a></li>
+</ul>
+</li>
+<li><a href="#2-uactordispatcher">2. UActorDispatcher</a><ul>
+<li><a href="#主要功能-1">主要功能</a></li>
+<li><a href="#关键方法-1">关键方法</a></li>
+</ul>
+</li>
+<li><a href="#3-factorregistry">3. FActorRegistry</a><ul>
+<li><a href="#主要功能-2">主要功能</a></li>
+<li><a href="#关键方法-2">关键方法</a></li>
+</ul>
+</li>
+<li><a href="#代码结构与实现细节">代码结构与实现细节</a></li>
+<li><a href="#数据记录与恢复">数据记录与恢复</a></li>
+<li><a href="#actor-生成与管理">Actor 生成与管理</a></li>
+<li><a href="#ros2-集成">ROS2 集成</a></li>
+<li><a href="#错误处理">错误处理</a></li>
+<li><a href="#使用场景">使用场景</a></li>
+<li><a href="#仿真场景初始化">仿真场景初始化</a></li>
+<li><a href="#状态保存与恢复">状态保存与恢复</a></li>
+<li><a href="#动态管理">动态管理</a></li>
+<li><a href="#传感器与数据流">传感器与数据流</a></li>
+<li><a href="#交通模拟">交通模拟</a></li>
+<li><a href="#注意事项">注意事项</a></li>
+<li><a href="#物理模拟">物理模拟</a></li>
+<li><a href="#id-管理">ID 管理</a></li>
+<li><a href="#ros2-集成-1">ROS2 集成</a></li>
+<li><a href="#边界框与标签">边界框与标签</a></li>
+<li><a href="#未实现功能">未实现功能</a></li>
+</ul>
+<h2 id="_2">概述</h2>
 <p>CarlaUnreal 插件中的 Actor 模块是 CARLA 模拟器中用于管理和操作参与者（Actor）的重要组件。参与者包括车辆、行人、交通信号灯、交通标志和传感器等，用于模拟真实的交通场景和环境交互。该模块提供了 Actor 的生成、注册、数据记录与恢复、状态管理（如休眠与唤醒）以及销毁等功能，广泛应用于 CARLA 的仿真逻辑中。</p>
 <p>本模块基于 Unreal Engine 的 Actor 系统，结合 CARLA 的自定义逻辑，实现了对不同类型参与者的统一管理和高效操作。以下文档详细介绍了模块中的核心类、功能以及代码实现的关键点。</p>
 <hr />
-<h2 id="_2">核心类与功能</h2>
+<h2 id="_3">核心类与功能</h2>
 <h3 id="1-factordata">1. FActorData</h3>
 <p><code>FActorData</code> 是 Actor 模块的基础数据类，用于记录 <strong>记录</strong>和<strong>恢复</strong>通用 Actor 的状态数据（如位置、旋转、速度等）。它是其他特定类型数据类的基类（如车辆、行人等）。</p>
-<h4 id="_3">主要功能</h4>
+<h4 id="_4">主要功能</h4>
 <ul>
 <li><strong>记录数据</strong>：记录 Actor 的位置、旋转、缩放、速度、角速度和物理模拟状态。</li>
 <li><strong>恢复数据</strong>：根据记录的数据恢复 Actor 的状态。</li>
 <li><strong>重生 Actor</strong>：根据存储的变换信息重新生成 Actor。</li>
 <li><strong>获取局部变换</strong>：计算相对于当前地图原点的变换。</li>
 </ul>
-<h4 id="_4">关键方法</h4>
+<h4 id="_5">关键方法</h4>
 <ul>
 <li><code>AActor* RespawnActor(UCarlaEpisode* CarlaEpisode, const FActorInfo&amp; Info)</code><br />
   重生一个 Actor，使用存储的变换信息并向上偏移 15 个单位以避免碰撞。</li>
@@ -94,7 +132,7 @@
 <li><code>FTransform GetLocalTransform(UCarlaEpisode* CarlaEpisode) const</code><br />
   计算相对于当前地图原点的局部变换。</li>
 </ul>
-<h4 id="_5">派生类</h4>
+<h4 id="_6">派生类</h4>
 <ul>
 <li><strong>FVehicleData</strong>：扩展了 <code>FActorData</code>，用于记录和恢复车辆特定的数据，如物理控制、灯光状态和速度限制。</li>
 <li><strong>FWalkerData</strong>：扩展了 <code>FActorData</code>，用于记录和恢复行人特定的控制数据和存活状态。</li>
@@ -105,7 +143,7 @@
 <hr />
 <h3 id="2-uactordispatcher">2. UActorDispatcher</h3>
 <p><code>UActorDispatcher</code> 是 Actor 模块的核心调度类，负责 <strong>生成</strong>、<strong>注册</strong>、<strong>销毁</strong>和<strong>状态管理</strong>（休眠/唤醒）Actor。它通过绑定 Actor 定义和生成函数，管理 Actor 的生命周期。</p>
-<h4 id="_6">主要功能</h4>
+<h4 id="_7">主要功能</h4>
 <ul>
 <li><strong>绑定 Actor 定义</strong>：将 Actor 定义与生成函数关联，分配唯一 ID。</li>
 <li><strong>生成 Actor</strong>：根据描述和变换生成 Actor，并注册到系统中。</li>
@@ -113,7 +151,7 @@
 <li><strong>状态管理</strong>：将 Actor 设置为休眠或唤醒状态。</li>
 <li><strong>ROS2 集成</strong>：支持将 Actor 注册到 ROS2 系统中，处理名称映射和回调。</li>
 </ul>
-<h4 id="_7">关键方法</h4>
+<h4 id="_8">关键方法</h4>
 <ul>
 <li><code>void Bind(FActorDefinition Definition, SpawnFunctionType Functor)</code><br />
   绑定 Actor 定义和生成函数，分配唯一 ID。</li>
@@ -137,7 +175,7 @@
 <hr />
 <h3 id="3-factorregistry">3. FActorRegistry</h3>
 <p><code>FActorRegistry</code> 是 Actor 模块的注册管理类，负责 <strong>注册</strong>、<strong>注销</strong>和<strong>查找</strong> Actor。它维护 Actor 的唯一 ID 和状态信息，确保数据一致性。</p>
-<h4 id="_8">主要功能</h4>
+<h4 id="_9">主要功能</h4>
 <ul>
 <li><strong>注册 Actor</strong>：为 Actor 分配唯一 ID，存储其信息并关联到系统中。</li>
 <li><strong>注销 Actor</strong>：移除 Actor 的注册信息，清理映射。</li>
@@ -145,7 +183,7 @@
 <li><strong>状态管理</strong>：支持 Actor 的休眠和唤醒操作。</li>
 <li><strong>类型判断</strong>：根据 Actor 类型返回对应的枚举值（车辆、行人、传感器等）。</li>
 </ul>
-<h4 id="_9">关键方法</h4>
+<h4 id="_10">关键方法</h4>
 <ul>
 <li><code>FCarlaActor* Register(AActor &amp;Actor, FActorDescription Description, IdType DesiredId)</code><br />
   注册 Actor，分配或复用 ID，存储描述和状态信息。</li>
@@ -163,8 +201,8 @@
   判断 Actor 类型（车辆、行人、交通信号灯等）。</li>
 </ul>
 <hr />
-<h2 id="_10">代码结构与实现细节</h2>
-<h3 id="_11">数据记录与恢复</h3>
+<h2 id="_11">代码结构与实现细节</h2>
+<h3 id="_12">数据记录与恢复</h3>
 <ul>
 <li><strong>通用数据</strong>：<code>FActorData</code> 及其派生类记录 Actor 的位置、旋转、速度等基本信息，确保状态一致性。</li>
 <li><strong>特定数据</strong>：针对车辆（<code>FVehicleData</code>）、行人（<code>FWalkerData</code>）等类型，记录特定控制数据（如车辆灯光、行人控制）。</li>
@@ -181,13 +219,13 @@
 <li><strong>名称映射</strong>：Actor 注册时支持 ROS2 名称映射，处理车辆和非车辆的命名规则。</li>
 <li><strong>回调支持</strong>：为特定角色（如 <code>hero</code> 或 <code>ego</code>）添加 ROS2 回调，处理实时数据交互。</li>
 </ul>
-<h3 id="_12">错误处理</h3>
+<h3 id="_13">错误处理</h3>
 <ul>
 <li><strong>日志记录</strong>：使用 Unreal Engine 的日志系统（<code>UE_LOG</code>）记录生成、销毁和注册中的错误。</li>
 <li><strong>状态检查</strong>：生成和注册过程中对 Actor 描述和 ID 进行验证，确保数据有效性。</li>
 </ul>
 <hr />
-<h2 id="_13">使用场景</h2>
+<h2 id="_14">使用场景</h2>
 <ol>
 <li><strong>仿真场景初始化</strong>：</li>
 <li>使用 <code>UActorDispatcher::SpawnActor</code> 生成车辆、行人等 Actor，设置初始位置和状态，进行场景初始化。</li>
@@ -204,7 +242,7 @@
 <li>使用 <code>FTrafficLightData</code> 和 <code>FTrafficSignData</code> 管理交通信号灯和标志的状态，模拟真实交通规则。</li>
 </ol>
 <hr />
-<h2 id="_14">注意事项</h2>
+<h2 id="_15">注意事项</h2>
 <ol>
 <li><strong>物理模拟</strong>：</li>
 <li>车辆和行人的物理模拟状态通过 <code>bSimulatePhysics</code> 控制，需确保正确设置以避免仿真异常。</li>
