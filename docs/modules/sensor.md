@@ -1705,4 +1705,3 @@ rss_sensor.listen(rss_callback)
 `sensor.other.rss` 提供了对 Mobileye-RSS 安全规则的结构化支持，是自动驾驶系统安全性评估与回退逻辑验证的重要传感器。其输出直观、数据小、结构清晰，适合嵌入任意仿真任务中。
 
 ---
-

@@ -2,6 +2,7 @@
 本文件定义了 CARLA 模拟器中用于解析 OpenDRIVE 地图数据的 OpenDriveParser 类。该类位于 carla::opendrive 命名空间中，主要职责是从 OpenDRIVE XML 文件中读取道路网络数据，并将其转换为 CARLA 内部表示形式。
 
 ##  什么是 OpenDRIVE？
+[点击这里访问ASAM OpenDRIVE](https://www.asam.net/standards/detail/opendrive/)
 
 **OpenDRIVE** 是由 **VIRES Simulationstechnologie GmbH** 提出的开放标准，用于描述道路网络的结构化信息，广泛用于驾驶仿真系统（如 CARLA、SUMO、VTD 等）。
 
@@ -62,7 +63,7 @@ OpenDriveParser 是 CARLA 模拟器中 carla::opendrive 命名空间下的一个
 
 🔹 工具类设计：提供“加载”和“解析”两个核心能力。
 
-🔹 封装解析细节：使用 XML 解析库（如 pugixml）来处理底层文件格式。
+🔹 封装解析细节：使用 XML 解析库（如 [pugixml](https://pugixml.org/) ）来处理底层文件格式。
 
 🔹 模块化输出：返回标准化 Map 对象，供 CARLA 路网系统使用。
 

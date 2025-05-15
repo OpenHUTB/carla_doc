@@ -303,9 +303,118 @@ world.apply_settings(world_settings)
 ```
 
 确定性模式为 Traffic Manager 提供了行为一致性与可复现性保障，是科学评估自动驾驶算法鲁棒性与一致性的基础配置选项。
-- **混合物理模式**：在车辆远离 Ego 车辆时，使用简化的物理模型，提高模拟效率。
-- **多 Traffic Manager 实例**：支持在同一模拟中运行多个 TM 实例，分别控制不同的车辆组。
-- **同步模式**：确保所有车辆在每个模拟步长中同步更新，适用于需要严格时间控制的场景。
+**混合物理模式（Hybrid Physics Mode）**：混合物理模式是 Traffic Manager 为提升仿真效率与可扩展性而引入的一种优化机制。通过在车辆远离观察重点（如 Ego 车）时自动降低物理模拟精度，仅保留必要的运动逻辑，大幅减少物理计算开销，使得大规模多车仿真成为可能。其核心设计思想是在保证视觉和行为一致性的前提下动态切换物理模拟状态。其主要功能包括：
+
+- **物理模拟范围限定**：
+  - 系统定义一个以 Ego 车或主要观测车辆为中心的物理仿真半径（例如 50 米），该范围内的车辆启用完整物理模拟。
+  - 超出范围的车辆关闭物理属性，仅依赖 TM 逻辑控制其速度与轨迹。
+
+- **动态切换机制**：
+  - 每帧通过 ALSM 模块判断每辆车是否处于“混合模式半径”内，调用 `vehicle->SetSimulatePhysics()` 启用或关闭物理属性。
+  - 切换操作具有惰性与稳定性设计，避免频繁开关引起状态震荡。
+
+- **速度近似与轨迹推演**：
+  - 对于未启用物理的车辆，其速度和位置通过 Hybrid 状态缓存模块推算得出，使用前帧位置增量近似计算当前速度。
+  - 该方式在感知范围外保持车辆行为逼真但计算开销极小。
+
+- **行为一致性保障**：
+  - 混合模式下仍保留对交通规则（如红灯停车）、轨迹规划与 PID 控制的响应。
+  - 仅在碰撞检测与动力学细节（如轮胎摩擦）上不参与物理仿真。
+
+- **参数配置与接口**：
+  - 用户可通过 `traffic_manager.set_hybrid_physics_mode(True)` 启用该功能。
+  - 使用 `set_hybrid_physics_radius(distance)` 设置物理控制范围。
+  - 可结合 `get_physics_status(vehicle_id)` 查询当前车辆物理状态。
+
+示例配置接口：
+
+```python
+traffic_manager.set_hybrid_physics_mode(True)
+traffic_manager.set_hybrid_physics_radius(60.0)
+```
+
+混合物理模式通过区域化调度与近似动力建模，在保证行为合理性的基础上显著提升系统性能，是支持城市级大规模多车仿真中的核心优化机制之一。
+**多 Traffic Manager 实例（Multi-Instance Traffic Manager）**：多 TM 实例功能允许用户在同一 CARLA 仿真环境中同时运行多个 Traffic Manager 模块，以实现对不同车辆组的分组管理、策略隔离和并行控制。这一机制特别适用于多策略对比实验、区域划分控制、异构行为建模等高级仿真需求。其核心设计在于端口绑定、车辆分配与调度解耦。主要功能包括：
+
+- **实例化机制**：
+
+  - 每个 Traffic Manager 实例通过独立端口初始化，如 `client.get_trafficmanager(port=8001)`。
+  - 支持多个 TM 并存运行，每个实例拥有自己的参数空间和控制逻辑。
+
+- **车辆分组与绑定**：
+
+  - 车辆可显式分配给某个 TM 实例控制，方法为：
+
+    ```python
+    vehicle.set_autopilot(True, tm_port)
+    ```
+
+  - 不同实例互不干扰，可为不同车辆组设置不同速度策略、变道规则、红灯概率等行为配置。
+
+- **行为策略隔离**：
+
+  - 支持为不同实例配置独立的行为参数、交通规则遵从性和控制频率。
+  - 可实现一组车辆激进驾驶，另一组谨慎驾驶的对比测试。
+
+- **区域性控制支持**：
+
+  - 可结合车辆初始位置或道路标签，将不同 TM 实例与城市不同区域绑定，模拟多区域信控系统。
+
+- **并行执行与性能隔离**：
+
+  - 各 TM 实例在服务端调度中拥有独立线程，不存在全局锁，适合大规模仿真下的并行扩展。
+
+示例使用方式：
+
+```python
+tm1 = client.get_trafficmanager(port=8000)
+tm2 = client.get_trafficmanager(port=8001)
+
+vehicle1.set_autopilot(True, 8000)  # 由 TM1 控制
+vehicle2.set_autopilot(True, 8001)  # 由 TM2 控制
+
+tm1.set_desired_speed(vehicle1, 20.0)
+tm2.set_desired_speed(vehicle2, 10.0)
+```
+
+多 TM 实例机制为场景控制带来了更高的灵活性与可扩展性，适合进行策略级、多样化、区域化的交通仿真设计，是高复杂度任务的重要支持工具。
+**同步模式（Synchronous Mode）**：同步模式是 Traffic Manager 在与 CARLA 仿真核心交互时用于实现确定性和严格时序控制的重要机制。它确保仿真步长、传感器更新与控制命令在每一帧之间严格对齐，适用于自动驾驶训练、精密测试与仿真回放等高可靠性任务场景。其主要功能包括：
+
+- **统一时间推进机制**：
+  - 启用同步模式后，CARLA 世界仿真步长由外部 `tick()` 调用控制，仿真时间不会自动前进，确保每一帧执行完所有控制与传感器更新后再推进。
+  - 使用 `world.tick()` 或 `client.tick()` 显式推进一步仿真，支持一致帧率运行。
+
+- **固定步长配置**：
+  - 配合 `fixed_delta_seconds` 设定每帧仿真时长（如 0.05 秒），确保运动学和控制更新具有时间一致性。
+  - 提升路径规划、控制器输出等模块的物理精度与重复性。
+
+- **传感器与控制同步**：
+  - 所有传感器数据（如摄像头、LiDAR）与车辆控制命令将绑定于同一仿真帧，避免异步模式下出现时间抖动或延迟控制。
+  - 确保 perception → planning → control 过程在单帧内完成，适用于闭环系统部署。
+
+- **Traffic Manager 协同控制**：
+  - Traffic Manager 需显式调用 `set_synchronous_mode(True)` 与世界同步，保证控制命令在仿真帧内生效。
+  - 命令数组控制器会将控制指令打包后于每一帧 `tick()` 前统一发送至服务端。
+
+- **仿真稳定性与调试优势**：
+  - 支持逐帧调试与状态捕捉，适合算法回放与行为可视化。
+  - 可通过慢速 tick 控制、条件断点等方式深入分析系统每一步执行逻辑。
+
+示例配置接口：
+
+```python
+settings = world.get_settings()
+settings.synchronous_mode = True
+settings.fixed_delta_seconds = 0.05
+world.apply_settings(settings)
+
+traffic_manager.set_synchronous_mode(True)
+
+for _ in range(100):
+    world.tick()
+```
+
+同步模式为 Traffic Manager 提供了可控、稳定、帧精度一致的运行时环境，是自动驾驶系统高精度控制、评估与数据一致性采集的基础运行模式。
 
 ## 总结
 
