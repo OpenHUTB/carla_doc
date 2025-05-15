@@ -130,10 +130,7 @@
 <p><strong>示例输出</strong>：</p>
 </li>
 </ul>
-<div class="highlight"><pre><span></span><code>pgsql
-
-cuda version X.Y
-cuda version X.Y
+<div class="highlight"><pre><span></span><code>cuda version X.Y
 </code></pre></div>
 <h3 id="42-getwheeltensorinputs">4.2 GetWheelTensorInputs</h3>
 <ul>
@@ -188,18 +185,14 @@ cuda version X.Y
 <p>该类对外暴露模型加载、输入设置、推理和结果获取接口。</p>
 <p><strong>源码参考</strong>: <a href="https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L187">pytorch.cpp 源码</a></p>
 <h3 id="61">6.1 构造与析构</h3>
-<div class="highlight"><pre><span></span><code>cpp
-
-NeuralModel::NeuralModel()
+<div class="highlight"><pre><span></span><code>NeuralModel::NeuralModel()
 NeuralModel::~NeuralModel()
 </code></pre></div>
 <ul>
 <li><strong>功能</strong>：使用 <code>std::make_unique&lt;NeuralModelImpl&gt;()</code> 初始化内部实现；自动释放</li>
 </ul>
 <h3 id="62-loadmodel">6.2 LoadModel</h3>
-<div class="highlight"><pre><span></span><code>cpp
-
-void NeuralModel::LoadModel(char* filename, int device)
+<div class="highlight"><pre><span></span><code>void NeuralModel::LoadModel(char* filename, int device)
 </code></pre></div>
 <ul>
 <li><strong>功能</strong>：</li>
@@ -209,9 +202,7 @@ void NeuralModel::LoadModel(char* filename, int device)
 <li><strong>异常处理</strong>：捕获并打印 c10::Error</li>
 </ul>
 <h3 id="63-setinputs">6.3 SetInputs</h3>
-<div class="highlight"><pre><span></span><code>cpp
-
-void NeuralModel::SetInputs(Inputs input)
+<div class="highlight"><pre><span></span><code>void NeuralModel::SetInputs(Inputs input)
 </code></pre></div>
 <ul>
 <li><strong>功能</strong>：保存传入的 Inputs（包含四个 WheelInput、操作指令、地形类型、verbose 标志）</li>
@@ -245,24 +236,19 @@ void NeuralModel::SetInputs(Inputs input)
 <ol>
 <li><strong>初始化与加载</strong></li>
 </ol>
-<div class="highlight"><pre><span></span><code>cpp
-
-NeuralModel model;
+<div class="highlight"><pre><span></span><code>NeuralModel model;
 model.LoadModel(&quot;mymodel.pt&quot;, /*device=*/0);
 </code></pre></div>
 <ol>
 <li><strong>设置输入</strong></li>
 </ol>
-<div class="highlight"><pre><span></span><code>cpp
-
-Inputs inp = /* 构造 WheelInput + 操作指令 */;
+<div class="highlight"><pre><span></span><code>Inputs inp = /* 构造 WheelInput + 操作指令 */;
 model.SetInputs(inp);
 </code></pre></div>
 <ol>
 <li><strong>选择推理模式</strong></li>
 </ol>
-<div class="highlight"><pre><span></span><code>cpp
-model.Forward();                // CPU 模式
+<div class="highlight"><pre><span></span><code>model.Forward();                // CPU 模式
 // 或
 model.ForwardDynamic();         // 动态 + 缓存清理
 // 或
@@ -271,8 +257,7 @@ model.ForwardCUDATensors();     // 全 CUDA 模式
 <ol>
 <li><strong>获取输出</strong></li>
 </ol>
-<div class="highlight"><pre><span></span><code>cpp
-auto &amp;outs = model.GetOutputs();
+<div class="highlight"><pre><span></span><code>auto &amp;outs = model.GetOutputs();
 // outs.wheel0 ... outs.wheel3
 </code></pre></div>
               
