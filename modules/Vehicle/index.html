@@ -410,8 +410,40 @@ Tick：每帧执行的主逻辑流程
 </ol>
 <p>（5）成员函数 <code>UpdateEngineSetup(const FVehicleNWEngineData&amp; NewEngineSetup)</code></p>
 <ol>
-<li><strong>功能</strong>：更新车辆的发动机设置。如果车辆驱动对象不为空，根据新的发动机设置数据，设置 PhysX 车辆发动机的数据。</li>
-<li><strong>参数</strong>：<code>NewEngineSetup</code> 包含新的发动机设置数据的对象。</li>
+<li>
+<p><strong>功能</strong>：更新车辆的发动机设置。如果车辆驱动对象不为空，根据新的发动机设置数据，设置 PhysX 车辆发动机的数据。</p>
+</li>
+<li>
+<p><strong>参数</strong>：<code>NewEngineSetup</code> 包含新的发动机设置数据的对象。</p>
+<p>（6）、成员函数 <code>UpdateDifferentialSetup(const TArray&lt;FVehicleNWWheelDifferentialData&gt;&amp; NewDifferentialSetup)</code></p>
+<ol>
+<li><strong>功能</strong>：更新车辆的差速器设置。如果车辆驱动对象不为空，根据新的差速器设置数组，设置 PhysX 车辆差速器的数据。</li>
+<li><strong>参数</strong>：<code>NewDifferentialSetup</code> 包含新的差速器设置数据的数组。</li>
+</ol>
+<p>（7）、成员函数 <code>UpdateTransmissionSetup(const FVehicleNWTransmissionData&amp; NewTransmissionSetup)</code></p>
+<ol>
+<li><strong>功能</strong>：更新车辆的变速器设置。如果车辆驱动对象不为空，根据新的变速器设置数据，设置 PhysX 车辆的齿轮数据和自动变速器数据。</li>
+<li><strong>参数</strong>：<code>NewTransmissionSetup</code> 包含新的变速器设置数据的对象。</li>
+</ol>
+<p>（8）、成员函数 <code>BackwardsConvertCm2ToM2NW(float&amp; val, float defaultValue)</code></p>
+<ol>
+<li><strong>功能</strong>：将从厘米平方到米平方的单位进行转换，如果 <code>val</code> 的值不等于默认值，则进行转换。</li>
+<li>参数：<ul>
+<li><code>val</code>：需要转换的数值。</li>
+<li><code>defaultValue</code>：默认值，用于判断是否进行转换。</li>
+</ul>
+</li>
+</ol>
+<p>（9）、成员函数 <code>Serialize(FArchive&amp; Ar)</code></p>
+<ol>
+<li><strong>功能</strong>：对组件进行序列化和反序列化操作。在反序列化时（加载时），根据不同的 UE4 版本进行单位转换，将发动机和变速器的一些设置从旧单位转换为新单位，确保兼容性。</li>
+<li><strong>参数</strong>：<code>Ar</code> 用于进行序列化和反序列化的存档对象。</li>
+</ol>
+<p>（10）、成员函数 <code>ComputeConstants()</code></p>
+<ol>
+<li><strong>功能</strong>：计算一些常量，调用基类的 <code>ComputeConstants</code> 函数，并将发动机的最大转速（<code>MaxEngineRPM</code>）设置为发动机设置中的最大转速（<code>EngineSetup.MaxRPM</code>）。</li>
+</ol>
+</li>
 </ol>
 <h2 id="_12">参考</h2>
 <ul>
