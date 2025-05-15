@@ -322,12 +322,44 @@
 <span class="n">traffic_manager</span><span class="o">.</span><span class="n">set_desired_speed</span><span class="p">(</span><span class="n">vehicle</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">)</span>         <span class="c1"># 设置期望速度为 20 m/s</span>
 </code></pre></div>
 <h2 id="_5">高级功能</h2>
+<p><strong>确定性模式（Deterministic Mode）</strong>：确定性模式是 Traffic Manager 中用于控制仿真可重复性的关键机制，确保在相同输入、相同配置下，仿真每次执行结果一致。这一模式在算法验证、回归测试、行为对比等应用场景中具有重要意义。其主要功能包括：</p>
 <ul>
-<li><strong>确定性模式</strong>：通过设置随机种子，确保每次模拟结果一致，便于测试和验证。</li>
-<li><strong>混合物理模式</strong>：在车辆远离 Ego 车辆时，使用简化的物理模型，提高模拟效率。</li>
-<li><strong>多 Traffic Manager 实例</strong>：支持在同一模拟中运行多个 TM 实例，分别控制不同的车辆组。</li>
-<li><strong>同步模式</strong>：确保所有车辆在每个模拟步长中同步更新，适用于需要严格时间控制的场景。</li>
+<li><strong>随机数控制</strong>：</li>
+<li>系统中涉及概率行为的模块（如忽略红灯概率、变道概率）统一使用内部伪随机数生成器（PRNG），而非依赖外部时间种子。</li>
+<li>
+<p>用户可通过 <code>traffic_manager.set_random_device_seed(seed)</code> 明确设置随机种子，使得所有涉及随机行为的决策结果固定。</p>
+</li>
+<li>
+<p><strong>时间步长一致性</strong>：</p>
+</li>
+<li>配合仿真同步模式（synchronous mode）和固定时间步长（fixed_delta_seconds）运行，确保每帧的物理计算与控制执行一致。</li>
+<li>
+<p>所有决策逻辑依赖于帧序号或内置状态，而非墙钟时间（real-time）。</p>
+</li>
+<li>
+<p><strong>控制行为可复现</strong>：</p>
+</li>
+<li>确保相同行为参数（如初始速度、目标点）下，控制器（如 PID）在每一帧产生相同的控制命令输出。</li>
+<li>
+<p>路径规划、变道逻辑、避障响应等依赖于地图与状态快照，均在相同初始条件下生成确定性输出。</p>
+</li>
+<li>
+<p><strong>日志与复现支持</strong>：</p>
+</li>
+<li>可结合车辆状态、控制命令与仿真帧日志文件，实现回放与行为再现。</li>
+<li>支持在自动化测试框架中进行批量仿真比对，验证不同算法策略下的微观行为差异。</li>
 </ul>
+<p>示例配置接口：</p>
+<div class="highlight"><pre><span></span><code><span class="n">traffic_manager</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_trafficmanager</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="mi">8000</span><span class="p">)</span>
+<span class="n">traffic_manager</span><span class="o">.</span><span class="n">set_random_device_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>  <span class="c1"># 设置全局随机种子</span>
+<span class="n">world_settings</span><span class="o">.</span><span class="n">fixed_delta_seconds</span> <span class="o">=</span> <span class="mf">0.05</span>   <span class="c1"># 设置固定步长</span>
+<span class="n">world_settings</span><span class="o">.</span><span class="n">synchronous_mode</span> <span class="o">=</span> <span class="kc">True</span>      <span class="c1"># 启用同步模式</span>
+<span class="n">world</span><span class="o">.</span><span class="n">apply_settings</span><span class="p">(</span><span class="n">world_settings</span><span class="p">)</span>
+</code></pre></div>
+<p>确定性模式为 Traffic Manager 提供了行为一致性与可复现性保障，是科学评估自动驾驶算法鲁棒性与一致性的基础配置选项。
+- <strong>混合物理模式</strong>：在车辆远离 Ego 车辆时，使用简化的物理模型，提高模拟效率。
+- <strong>多 Traffic Manager 实例</strong>：支持在同一模拟中运行多个 TM 实例，分别控制不同的车辆组。
+- <strong>同步模式</strong>：确保所有车辆在每个模拟步长中同步更新，适用于需要严格时间控制的场景。</p>
 <h2 id="_6">总结</h2>
 <p>Traffic Manager 是 CARLA 模拟器中强大的工具，提供了对自动驾驶车辆行为的全面控制。通过合理配置 TM，可以模拟各种复杂的交通场景，满足自动驾驶系统的训练和测试需求。</p>
               
