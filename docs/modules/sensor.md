@@ -130,9 +130,9 @@
   * [6 应用与对比分析](#6-应用与对比分析)
   * [7 小结](#7-小结-5)
 
-### 第十二章：RSS 安全规则传感器（sensor.other.rss）
+### 第十二章：RSS 责任敏感安全传感器（sensor.other.rss）
 
-* [第十二章：CARLA RSS 安全规则传感器系统（sensor.other.rss）](#第十二章carla-rss-安全规则传感器系统sensorotherrss)
+* [第十二章：CARLA RSS 责任敏感安全传感器系统（sensor.other.rss）](#第十二章carla-rss-责任敏感安全传感器系统sensorotherrss)
 
   * [1 模块概览](#1-模块概览-11)
   * [2 RSS 模型简介与传感器原理](#2-rss-模型简介与传感器原理)
@@ -1590,7 +1590,7 @@ radar.listen(lambda data: radar_callback(data))
 
 ---
 
-# 第十二章：CARLA RSS 安全规则传感器系统（sensor.other.rss）
+# 第十二章：CARLA RSS 责任敏感安全传感器系统（sensor.other.rss）
 
 ---
 
@@ -1674,9 +1674,9 @@ struct Data {
 ```python
 def rss_callback(event):
     if not event.is_safe:
-        print(f"[RSS] ⚠️ 安全违规：状态={event.response_status}")
+        print(f"[RSS] 安全违规：状态={event.response_status}")
     else:
-        print("[RSS] ✅ 安全状态良好")
+        print("[RSS] 安全状态良好")
 
 bp = world.get_blueprint_library().find('sensor.other.rss')
 rss_sensor = world.spawn_actor(bp, carla.Transform(), attach_to=vehicle)
