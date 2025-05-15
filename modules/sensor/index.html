@@ -202,6 +202,21 @@
 <li><a href="#6-应用与扩展方向">6 应用与扩展方向</a></li>
 <li><a href="#7-小结-4">7 小结</a></li>
 </ul>
+<h3 id="sensorradarray_cast">第十一章：雷达传感器（sensor.radar.ray_cast）</h3>
+<ul>
+<li>
+<p><a href="#第十一章carla-雷达传感器系统sensorradarray_cast">第十一章：CARLA 雷达传感器系统（sensor.radar.ray_cast）</a></p>
+</li>
+<li>
+<p><a href="#1-模块概览-10">1 模块概览</a></p>
+</li>
+<li><a href="#2-扫描原理与数据描述">2 扫描原理与数据描述</a></li>
+<li><a href="#3-数据结构解析radardetection">3 数据结构解析：RadarDetection</a></li>
+<li><a href="#4-序列化与传输机制">4 序列化与传输机制</a></li>
+<li><a href="#5-python-api-使用示例-8">5 Python API 使用示例</a></li>
+<li><a href="#6-应用与对比分析">6 应用与对比分析</a></li>
+<li><a href="#7-小结-5">7 小结</a></li>
+</ul>
 <hr />
 <h1 id="carla-sensorothercollision">第一章：CARLA 碰撞事件传感器系统（sensor.other.collision）</h1>
 <hr />
@@ -1377,6 +1392,144 @@ def on_imu_integration(imu):
 <h2 id="7_8">7 小结</h2>
 <p><code>sensor.camera.semantic_segmentation</code> 是 CARLA 中唯一原生支持像素级语义标注的传感器。它提供标准化标签图，适合用于多种感知任务，尤其在构建多视图、多模态、高频率自动驾驶数据集方面扮演关键角色。</p>
 <p>推荐与 <code>RGB/Depth/LiDAR</code> 联合使用，支持多任务模型训练与语义地图制作。</p>
+<hr />
+<h2 id="carla-sensorradarray_cast">第十一章：CARLA 雷达传感器系统（sensor.radar.ray_cast）</h2>
+<h3 id="1_10">1 模块概览</h3>
+<p>CARLA 中的 <code>sensor.radar.ray_cast</code> 模拟车载雷达的基本特性，通过射线投射模拟雷达波束在三维空间中遇到物体后的反射点。该模块适用于低分辨率目标检测、运动分析、障碍识别等任务。</p>
+<table>
+<thead>
+<tr>
+<th>特征</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>数据频率</td>
+<td>可配置（推荐 10\~20Hz）</td>
+</tr>
+<tr>
+<td>回调格式</td>
+<td><code>carla.RadarMeasurement</code></td>
+</tr>
+<tr>
+<td>单点数据结构</td>
+<td><code>carla.RadarDetection</code></td>
+</tr>
+<tr>
+<td>模拟特性</td>
+<td>包含相对速度、距离、方位角和俯仰角</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="2_10">2 扫描原理与数据描述</h3>
+<p>该传感器通过以下参数定义雷达扫描区域：</p>
+<ul>
+<li><code>horizontal_fov</code>: 水平视场（默认 30 度）</li>
+<li><code>vertical_fov</code>: 垂直视场（默认 10 度）</li>
+<li><code>range</code>: 有效距离（默认 100 米）</li>
+</ul>
+<p>传感器会从车体坐标系出发，发射若干射线，每条射线检测到的目标构成一个 <code>RadarDetection</code> 点。每个点包含：</p>
+<ul>
+<li><code>depth</code>: 到目标的距离（米）</li>
+<li><code>azimuth</code>: 方位角（rad）</li>
+<li><code>altitude</code>: 俯仰角（rad）</li>
+<li><code>velocity</code>: 相对于车辆的径向速度（m/s）</li>
+</ul>
+<hr />
+<h3 id="3-radardetection">3 数据结构解析：<code>RadarDetection</code></h3>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">carla</span><span class="o">.</span><span class="n">RadarDetection</span><span class="p">:</span>
+    <span class="n">depth</span><span class="p">:</span> <span class="nb">float</span>       <span class="c1"># 目标距离（m）</span>
+    <span class="n">velocity</span><span class="p">:</span> <span class="nb">float</span>    <span class="c1"># 径向速度（m/s）</span>
+    <span class="n">azimuth</span><span class="p">:</span> <span class="nb">float</span>     <span class="c1"># 方位角（rad）</span>
+    <span class="n">altitude</span><span class="p">:</span> <span class="nb">float</span>    <span class="c1"># 俯仰角（rad）</span>
+</code></pre></div>
+<ul>
+<li>点云顺序无规律排序，需按角度聚类分析；</li>
+<li><code>velocity</code> 可用于区分静止物体与移动目标；</li>
+<li>无 ID，需自行跟踪识别。</li>
+</ul>
+<hr />
+<h3 id="4_8">4 序列化与传输机制</h3>
+<p>CARLA 将 <code>RadarMeasurement</code> 数据序列化为 <code>RawData</code>，通过 RPC 管道传输至客户端。与其他传感器不同，雷达数据较小，传输效率高。</p>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>① 触发帧回调</td>
+<td>服务端检测帧时更新射线投射结果</td>
+</tr>
+<tr>
+<td>② 序列化</td>
+<td>每个 <code>RadarDetection</code> 被编码为字节流结构</td>
+</tr>
+<tr>
+<td>③ 客户端接收</td>
+<td>Python 客户端接收 <code>RadarMeasurement</code> 并解码为点集</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="5-python-api_8">5 Python API 使用示例</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">carla</span>
+
+<span class="k">def</span> <span class="nf">radar_callback</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">detection</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Distance: </span><span class="si">{</span><span class="n">detection</span><span class="o">.</span><span class="n">depth</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> m, Speed: </span><span class="si">{</span><span class="n">detection</span><span class="o">.</span><span class="n">velocity</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> m/s&quot;</span><span class="p">)</span>
+
+<span class="n">world</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_world</span><span class="p">()</span>
+<span class="n">bp_lib</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span>
+<span class="n">radar_bp</span> <span class="o">=</span> <span class="n">bp_lib</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;sensor.radar.ray_cast&#39;</span><span class="p">)</span>
+
+<span class="n">radar_bp</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s1">&#39;horizontal_fov&#39;</span><span class="p">,</span> <span class="s1">&#39;35&#39;</span><span class="p">)</span>
+<span class="n">radar_bp</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s1">&#39;vertical_fov&#39;</span><span class="p">,</span> <span class="s1">&#39;10&#39;</span><span class="p">)</span>
+<span class="n">radar_bp</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s1">&#39;range&#39;</span><span class="p">,</span> <span class="s1">&#39;50&#39;</span><span class="p">)</span>
+
+<span class="n">spawn_point</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Transform</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">Location</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">1.0</span><span class="p">))</span>
+<span class="n">radar</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">radar_bp</span><span class="p">,</span> <span class="n">spawn_point</span><span class="p">,</span> <span class="n">attach_to</span><span class="o">=</span><span class="n">vehicle</span><span class="p">)</span>
+
+<span class="n">radar</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="k">lambda</span> <span class="n">data</span><span class="p">:</span> <span class="n">radar_callback</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+</code></pre></div>
+<hr />
+<h3 id="6_9">6 应用与对比分析</h3>
+<table>
+<thead>
+<tr>
+<th>应用领域</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>自动驾驶感知</td>
+<td>用于检测移动目标（如对向车辆、自行车）</td>
+</tr>
+<tr>
+<td>模拟预警系统</td>
+<td>可用于构建碰撞预警、AEB 仿真</td>
+</tr>
+<tr>
+<td>天气鲁棒性</td>
+<td>雾、雨等极端天气下性能优于 LiDAR</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>需注意：雷达检测精度有限，不能替代 LiDAR 或相机的精确识别能力，适合作为冗余传感器或动态监测模块。</p>
+</blockquote>
+<hr />
+<h3 id="7_9">7 小结</h3>
+<ul>
+<li><code>sensor.radar.ray_cast</code> 是 CARLA 提供的轻量级雷达仿真模块；</li>
+<li>支持实时回调并提供速度信息；</li>
+<li>易于部署和组合，但需注意精度限制。</li>
+</ul>
 <hr />
               
             </div>
