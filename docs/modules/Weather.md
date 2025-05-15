@@ -153,6 +153,43 @@ UPROPERTY 标记：DayNightCycle 和 Weather 参数在编辑器中可见，支�
 不可实例化：标记为 Abstract 强制子类化，确保平台特定的天气效果（如 Vulkan 的着色器差异）可通过派生类实现。
 扩展性：子类可覆盖 CheckWeatherPostProcessEffects() 实现自定义效果逻辑，同时复用基类的参数管理。
 
+#资源管理优化建议：
+1.改为配置文件驱动（如INI文件或JSON）
+
+2.使用UPROPERTY(EditAnywhere)暴露给编辑器
+
+3.增加资源加载失败的安全检查
+
+#线程安全建议
+对于多线程环境：
+1.使用FThreadSafeBool保护天气参数
+
+2.使用异步加载资源时添加锁机制
+FCriticalSection WeatherCriticalSection;
+
+1. 避免硬编码材质路径，提升可维护性
+问题：
+AWeather 类在构造函数中直接硬编码了两个后处理材质的路径（如 M_screenDrops 和 M_screenDust_wind）。这种硬编码方式存在以下缺陷：
+
+路径依赖性强：若材质资源被移动、重命名或模块化拆分，需手动修改代码并重新编译。
+扩展性差：新增天气效果时需修改源码，不符合开放-封闭原则。
+解决方案：
+通过 配置文件或动态资源加载 替代硬编码。例如：
+
+在配置文件中定义材质路径（如 DefaultWeather.ini），运行时读取并加载资源。
+使用 TSubclassOf<UMaterial> 类型的公开变量，允许在蓝图或编辑器中指定材质资源。
+
+2. 优化传感器后处理更新逻辑，减少冗余操作
+#问题：
+1.CheckWeatherPostProcessEffects 函数在每次调用时会：
+重复获取所有传感器：通过 UGameplayStatics::GetAllActorsOfClass 每次遍历场景查找 2.ASceneCaptureCamera，可能造成性能开销。
+全量更新后处理材质：即使天气参数未变化，也会遍历所有传感器并重新添加/移除材质。
+
+#解决方案：
+
+1. 缓存传感器列表：在初始化时获取传感器并缓存，避免重复查找。
+2. 增量更新材质：记录当前生效的后处理材质，仅在天气参数变化时更新差异部分。
+
 !!! 注意
     确保在使用前正确初始化AWeather对象。
     后处理材质的路径需要根据实际情况进行调整。
