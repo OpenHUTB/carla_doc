@@ -193,7 +193,30 @@ ControlCommand cmd{throttle, brake, steer};
 ```
 
 PID 控制器通过对运动误差的持续反馈修正，为 Traffic Manager 提供了平稳、可调的控制机制，是连接路径规划与车辆执行的核心桥梁模块。
-- **命令数组控制器**：在控制阶段结束后，所有车辆的控制指令被批量组织为一个控制命令数组，通过高效通道（如 client.apply_batch()）发送到 CARLA 服务器，实现高帧率控制。
+
+**命令数组控制器（Command Batch Controller）**：命令数组控制器是 Traffic Manager 中用于批量组织和发送车辆控制命令的执行模块，确保每帧所有车辆控制指令高效、同步地传输至 CARLA 服务器，从而实现高帧率的并发控制。其主要功能包括：
+
+- **控制命令封装**：将 PID 控制器或其他行为模块生成的单车控制指令（油门、刹车、方向盘、车灯等）转换为 CARLA 支持的 `carla.command.ApplyVehicleControl` 命令对象。
+- **批处理结构构建**：所有车辆的控制命令在当前仿真帧内被收集并打包成一个命令数组（Command Batch），提升通信与处理效率。
+- **高效同步提交**：
+  - 在同步模式下（Synchronous Mode），命令数组与仿真帧步长（tick）严格对齐，确保所有车辆在同一时间步内执行控制。
+  - 在异步模式下也可支持控制指令快速推送，适配实时性测试。
+- **批量接口调用**：使用 `client.apply_batch()` 或 `client.apply_batch_sync()` 接口向 CARLA 服务端提交控制指令，可配置是否等待确认回执。
+- **故障容错机制**：对因网络延迟或目标车辆状态异常（如被销毁）无法应用的命令，提供跳过或重发机制，避免中断主控制循环。
+- **命令扩展支持**：除常规车辆控制外，还支持批量设置车辆属性（如车灯状态）、动态障碍物添加、传感器启动与同步等操作。
+
+示例调用逻辑（伪代码）：
+
+```python
+batch = []
+for vehicle_id in controlled_vehicles:
+    control = controller[vehicle_id].run_step()
+    cmd = carla.command.ApplyVehicleControl(vehicle_id, control)
+    batch.append(cmd)
+client.apply_batch(batch)
+```
+
+命令数组控制器作为 Traffic Manager 的输出终端，是实现实时仿真控制、高效车辆管理与多车并行调度的关键执行模块，直接关系到系统帧率与指令响应时效。
 
 ## 控制循环的阶段
 
