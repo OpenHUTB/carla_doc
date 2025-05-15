@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>一.核心配置管理模块 - 人车模拟器</title>
+    <title>目录 - 人车模拟器</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "\u4e00.\u6838\u5fc3\u914d\u7f6e\u7ba1\u7406\u6a21\u5757";
+        var mkdocs_page_name = "\u76ee\u5f55";
         var mkdocs_page_input_path = "modules/Settings.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,7 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">一.核心配置管理模块</li>
+      <li class="breadcrumb-item active">目录</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/modules/Settings.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -68,10 +68,67 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1">一.核心配置管理模块</h1>
+                <h1 id="_1">目录</h1>
+<ul>
+<li><a href="#一核心配置管理模块">一.核心配置管理模块</a></li>
+<li><a href="#1全局配置框架">1.全局配置框架</a><ul>
+<li><a href="#11-核心配置类-ucarlasettings">1.1 核心配置类 UCarlaSettings</a></li>
+<li><a href="#类定义">类定义</a></li>
+<li><a href="#12-参数配置矩阵">1.2 参数配置矩阵</a></li>
+</ul>
+</li>
+<li><a href="#2运行模式管理系统">2.运行模式管理系统</a><ul>
+<li><a href="#21-单次模拟剧集配置">2.1 单次模拟剧集配置</a></li>
+<li><a href="#22-运行时控制接口">2.2 运行时控制接口</a></li>
+<li><a href="#23-动态参数更新机制">2.3 动态参数更新机制</a></li>
+</ul>
+</li>
+<li><a href="#3配置加载策略">3.配置加载策略</a><ul>
+<li><a href="#31-多级覆盖机制">3.1 多级覆盖机制</a></li>
+<li><a href="#32-优先级实现逻辑">3.2 优先级实现逻辑</a></li>
+</ul>
+</li>
+<li><a href="#4高级配置特性">4.高级配置特性</a><ul>
+<li><a href="#41-热重载支持">4.1 热重载支持</a></li>
+<li><a href="#42-混合配置模式">4.2 混合配置模式</a></li>
+</ul>
+</li>
+<li><a href="#二画质管理模块">二.画质管理模块</a></li>
+<li><a href="#21-画质等级定义">2.1 画质等级定义</a></li>
+<li><a href="#22-画质策略应用">2.2 画质策略应用</a></li>
+<li><a href="#23-动态调参系统">2.3 动态调参系统</a><ul>
+<li><a href="#231-自动降级机制">2.3.1 自动降级机制</a></li>
+<li><a href="#232-画质参数混合">2.3.2 画质参数混合</a></li>
+</ul>
+</li>
+<li><a href="#三服务端-客户端通信模块">三.服务端-客户端通信模块</a></li>
+<li><a href="#31-配置管理结构">3.1 配置管理结构</a></li>
+<li><a href="#32-模块架构设计">3.2 模块架构设计</a></li>
+<li><a href="#33-安全策略">3.3 安全策略</a><ul>
+<li><a href="#331-端口保护机制">3.3.1 端口保护机制</a></li>
+</ul>
+</li>
+<li><a href="#四调试与日志模块">四.调试与日志模块</a></li>
+<li><a href="#41-接口定义">4.1 接口定义</a></li>
+<li><a href="#42-模块特性说明">4.2 模块特性说明</a></li>
+<li><a href="#五结构树">五.结构树</a></li>
+<li><a href="#六关键设计原则">六.关键设计原则</a></li>
+<li><a href="#61-分层解耦">6.1 分层解耦</a></li>
+<li><a href="#62-可扩展性">6.2 可扩展性</a></li>
+<li><a href="#63-跨模式支持">6.3 跨模式支持</a></li>
+<li><a href="#七-总结">七 总结</a></li>
+<li><a href="#71-文件关联图">7.1  文件关联图</a></li>
+<li><a href="#72-核心功能解析">7.2 核心功能解析</a></li>
+<li><a href="#73-关键交互流程">7.3 关键交互流程</a></li>
+<li><a href="#74-设计模式应用">7.4 设计模式应用</a></li>
+<li><a href="#75-跨模块协作">7.5 跨模块协作</a></li>
+<li><a href="#76-关键架构优势">7.6 关键架构优势</a></li>
+<li><a href="#77-典型数据流示例">7.7 典型数据流示例</a></li>
+</ul>
+<h1 id="_2">一.核心配置管理模块</h1>
 <h2 id="1">1.全局配置框架</h2>
 <h3 id="11-ucarlasettings">1.1 核心配置类 UCarlaSettings</h3>
-<h4 id="_2">类定义</h4>
+<h4 id="_3">类定义</h4>
 <ul>
 <li><strong>代码示例</strong>：
     <div class="highlight"><pre><span></span><code><span class="w">    </span><span class="n">UCLASS</span><span class="p">(</span><span class="n">Config</span><span class="o">=</span><span class="n">Game</span><span class="p">,</span><span class="w"> </span><span class="n">DefaultConfig</span><span class="p">)</span>
@@ -289,7 +346,7 @@ I --&gt; K[自适应调整引擎]</code></pre></li>
 <span class="n">WeatherSeverity</span><span class="o">=</span><span class="mf">0.7</span><span class="w"> </span><span class="p">;</span><span class="w"> </span>
 </code></pre></div></li>
 </ul>
-<h1 id="_3">二.画质管理模块</h1>
+<h1 id="_4">二.画质管理模块</h1>
 <h2 id="21_1">2.1 画质等级定义</h2>
 <ul>
 <li>
@@ -604,7 +661,7 @@ I --&gt; K[自适应调整引擎]</code></pre></li>
 </li>
 </ul>
 <h2 id="32_1">3.2 模块架构设计</h2>
-<h3 id="_4">通信链路拓扑</h3>
+<h3 id="_5">通信链路拓扑</h3>
 <pre class="mermaid"><code>graph TD
     A[Client Application] --&gt;|Protobuf RPC| B(Control Channel)
     A --&gt;|QUIC Stream| C(Data Pipeline)
@@ -612,7 +669,7 @@ I --&gt; K[自适应调整引擎]</code></pre></li>
     C --&gt; E[Stream Processor]
     D --&gt; F[System Controller]
     E --&gt; G[Data Aggregator]</code></pre>
-<h3 id="_5">端口职能说明</h3>
+<h3 id="_6">端口职能说明</h3>
 <ul>
 <li>
 <p><strong>RPC主端口(2000)</strong>
@@ -644,7 +701,7 @@ I --&gt; K[自适应调整引擎]</code></pre></li>
    | 应用层防火墙   | 基于白名单的流量过滤     | &lt;5ms      |
    | TLS双向认证    | X.509证书链校验          | 握手阶段  |
    | 频率限制       | Token Bucket限流算法     | 实时生效  |</p>
-<h1 id="_6">四.调试与日志模块</h1>
+<h1 id="_7">四.调试与日志模块</h1>
 <h2 id="41_1">4.1 接口定义</h2>
 <ul>
 <li><strong>代码示例</strong>：
@@ -700,7 +757,7 @@ I --&gt; K[自适应调整引擎]</code></pre></li>
 </tr>
 </tbody>
 </table>
-<h1 id="_7">五.结构树</h1>
+<h1 id="_8">五.结构树</h1>
 <p><div class="highlight"><pre><span></span><code>Source/
 ├── Carla/
 │   ├── Settings/
@@ -739,7 +796,7 @@ I --&gt; K[自适应调整引擎]</code></pre></li>
   - <code>动态配置流</code>：CarlaSettings.cpp → EpisodeSettings.h → QualityPresetFactory.h，实现从静态配置到运行时参数的完整传递链路
   - <code>调试工具链</code>：SettingsLogger.h ←[数据注入]→ ConfigWatcher.h，提供从日志记录到实时监控的闭环调试支持
   - <code>网络架构</code>：ServerConfig.h ↔ SettingsProto.h (跨进程配置同步)，支持分布式场景下的配置一致性管理</p>
-<h1 id="_8">六.关键设计原则</h1>
+<h1 id="_9">六.关键设计原则</h1>
 <h2 id="61">6.1 分层解耦</h2>
 <table>
 <thead>
@@ -811,7 +868,7 @@ I --&gt; K[自适应调整引擎]</code></pre></li>
 <span class="p">};</span>
 </code></pre></div></li>
 </ul>
-<h1 id="_9">七 总结</h1>
+<h1 id="_10">七 总结</h1>
 <h2 id="71">7.1  文件关联图</h2>
 <p><pre class="mermaid"><code>graph TD
     A[CarlaSettings.h/cpp] --&gt;|配置管理| B[CarlaSettingsDelegate.h/cpp]
