@@ -452,7 +452,52 @@
 <span class="n">tm2</span><span class="o">.</span><span class="n">set_desired_speed</span><span class="p">(</span><span class="n">vehicle2</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">)</span>
 </code></pre></div>
 <p>多 TM 实例机制为场景控制带来了更高的灵活性与可扩展性，适合进行策略级、多样化、区域化的交通仿真设计，是高复杂度任务的重要支持工具。
-- <strong>同步模式</strong>：确保所有车辆在每个模拟步长中同步更新，适用于需要严格时间控制的场景。</p>
+<strong>同步模式（Synchronous Mode）</strong>：同步模式是 Traffic Manager 在与 CARLA 仿真核心交互时用于实现确定性和严格时序控制的重要机制。它确保仿真步长、传感器更新与控制命令在每一帧之间严格对齐，适用于自动驾驶训练、精密测试与仿真回放等高可靠性任务场景。其主要功能包括：</p>
+<ul>
+<li><strong>统一时间推进机制</strong>：</li>
+<li>启用同步模式后，CARLA 世界仿真步长由外部 <code>tick()</code> 调用控制，仿真时间不会自动前进，确保每一帧执行完所有控制与传感器更新后再推进。</li>
+<li>
+<p>使用 <code>world.tick()</code> 或 <code>client.tick()</code> 显式推进一步仿真，支持一致帧率运行。</p>
+</li>
+<li>
+<p><strong>固定步长配置</strong>：</p>
+</li>
+<li>配合 <code>fixed_delta_seconds</code> 设定每帧仿真时长（如 0.05 秒），确保运动学和控制更新具有时间一致性。</li>
+<li>
+<p>提升路径规划、控制器输出等模块的物理精度与重复性。</p>
+</li>
+<li>
+<p><strong>传感器与控制同步</strong>：</p>
+</li>
+<li>所有传感器数据（如摄像头、LiDAR）与车辆控制命令将绑定于同一仿真帧，避免异步模式下出现时间抖动或延迟控制。</li>
+<li>
+<p>确保 perception → planning → control 过程在单帧内完成，适用于闭环系统部署。</p>
+</li>
+<li>
+<p><strong>Traffic Manager 协同控制</strong>：</p>
+</li>
+<li>Traffic Manager 需显式调用 <code>set_synchronous_mode(True)</code> 与世界同步，保证控制命令在仿真帧内生效。</li>
+<li>
+<p>命令数组控制器会将控制指令打包后于每一帧 <code>tick()</code> 前统一发送至服务端。</p>
+</li>
+<li>
+<p><strong>仿真稳定性与调试优势</strong>：</p>
+</li>
+<li>支持逐帧调试与状态捕捉，适合算法回放与行为可视化。</li>
+<li>可通过慢速 tick 控制、条件断点等方式深入分析系统每一步执行逻辑。</li>
+</ul>
+<p>示例配置接口：</p>
+<div class="highlight"><pre><span></span><code><span class="n">settings</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_settings</span><span class="p">()</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">synchronous_mode</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">fixed_delta_seconds</span> <span class="o">=</span> <span class="mf">0.05</span>
+<span class="n">world</span><span class="o">.</span><span class="n">apply_settings</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
+
+<span class="n">traffic_manager</span><span class="o">.</span><span class="n">set_synchronous_mode</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">world</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
+</code></pre></div>
+<p>同步模式为 Traffic Manager 提供了可控、稳定、帧精度一致的运行时环境，是自动驾驶系统高精度控制、评估与数据一致性采集的基础运行模式。</p>
 <h2 id="_6">总结</h2>
 <p>Traffic Manager 是 CARLA 模拟器中强大的工具，提供了对自动驾驶车辆行为的全面控制。通过合理配置 TM，可以模拟各种复杂的交通场景，满足自动驾驶系统的训练和测试需求。</p>
               
