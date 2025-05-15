@@ -217,6 +217,21 @@
 <li><a href="#6-应用与对比分析">6 应用与对比分析</a></li>
 <li><a href="#7-小结-5">7 小结</a></li>
 </ul>
+<h3 id="rss-sensorotherrss">第十二章：RSS 责任敏感安全传感器（sensor.other.rss）</h3>
+<ul>
+<li>
+<p><a href="#第十二章carla-rss-责任敏感安全传感器系统sensorotherrss">第十二章：CARLA RSS 责任敏感安全传感器系统（sensor.other.rss）</a></p>
+</li>
+<li>
+<p><a href="#1-模块概览-11">1 模块概览</a></p>
+</li>
+<li><a href="#2-rss-模型简介与传感器原理">2 RSS 模型简介与传感器原理</a></li>
+<li><a href="#3-数据结构说明rssresponse">3 数据结构说明：RssResponse</a></li>
+<li><a href="#4-序列化与触发机制">4 序列化与触发机制</a></li>
+<li><a href="#5-python-api-使用示例-9">5 Python API 使用示例</a></li>
+<li><a href="#6-应用案例与扩展分析">6 应用案例与扩展分析</a></li>
+<li><a href="#7-小结-6">7 小结</a></li>
+</ul>
 <hr />
 <h1 id="carla-sensorothercollision">第一章：CARLA 碰撞事件传感器系统（sensor.other.collision）</h1>
 <hr />
@@ -1530,6 +1545,130 @@ def on_imu_integration(imu):
 <li>支持实时回调并提供速度信息；</li>
 <li>易于部署和组合，但需注意精度限制。</li>
 </ul>
+<hr />
+<h1 id="carla-rss-sensorotherrss">第十二章：CARLA RSS 责任敏感安全传感器系统（sensor.other.rss）</h1>
+<hr />
+<h2 id="1_11">1 模块概览</h2>
+<p>CARLA 中的 <code>sensor.other.rss</code> 是对 <a href="https://www.mobileye.com/responsibility-sensitive-safety/">Mobileye 提出的 RSS（Responsibility-Sensitive Safety）模型</a> 的仿真实现。它评估当前车辆是否在纵向和横向方向上满足合理安全距离，若违反安全规则，则通过事件输出提供结构化响应。</p>
+<p>该传感器广泛应用于以下领域：</p>
+<ul>
+<li>自动驾驶系统的<strong>安全性评估</strong></li>
+<li>安全冗余感知与<strong>控制系统回退逻辑验证</strong></li>
+<li>车辆规划/控制模块中的<strong>AEB 与干预触发检测</strong></li>
+</ul>
+<hr />
+<h2 id="2-rss">2 RSS 模型简介与传感器原理</h2>
+<p>RSS 模型基于一套形式化定义的安全距离计算规则。CARLA 内置实现使用以下核心规则：</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>最小纵向距离</td>
+<td>基于当前速度差、最大加速度计算</td>
+</tr>
+<tr>
+<td>最小横向距离</td>
+<td>允许目标在紧急变道情况下仍能避免碰撞</td>
+</tr>
+<tr>
+<td>响应等级</td>
+<td>安全、警告、紧急干预（可自定义响应策略）</td>
+</tr>
+</tbody>
+</table>
+<p>传感器工作流程：</p>
+<ol>
+<li><strong>每帧检查当前主车与其他车辆间的 RSS 状态</strong></li>
+<li><strong>生成 RSS 响应结构体</strong>（包含：距离状态、是否违反、安全响应等级）</li>
+<li><strong>通过 RPC 通道传递给客户端</strong></li>
+<li><strong>Python 层接收结构化安全状态信息</strong></li>
+</ol>
+<hr />
+<h2 id="3-rssresponse">3 数据结构说明：<code>RssResponse</code></h2>
+<p>定义位置：<code>carla/sensor/data/RssResponse.h</code></p>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">RssResponse</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">is_safe</span><span class="p">;</span><span class="w">                 </span><span class="c1">// 是否符合安全规则</span>
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">longitudinal_safe</span><span class="p">;</span><span class="w">       </span><span class="c1">// 纵向是否安全</span>
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">lateral_safe</span><span class="p">;</span><span class="w">            </span><span class="c1">// 横向是否安全</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">response_status</span><span class="p">;</span><span class="w">  </span><span class="c1">// 可为 &quot;Safe&quot;, &quot;Brake&quot;, &quot;Warning&quot;</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>说明：</p>
+<ul>
+<li><code>is_safe = longitudinal_safe &amp;&amp; lateral_safe</code></li>
+<li>若任一方向违反规则，<code>response_status</code> 将标识对应响应等级</li>
+<li>可拓展为枚举式响应策略触发器</li>
+</ul>
+<hr />
+<h2 id="4_9">4 序列化与触发机制</h2>
+<p>CARLA 使用专属的 <code>RssResponseSerializer</code> 对结构体进行 MsgPack 编码：</p>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">Data</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">is_safe</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">longitudinal_safe</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">lateral_safe</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">response_status</span><span class="p">;</span>
+<span class="w">  </span><span class="n">MSGPACK_DEFINE_ARRAY</span><span class="p">(</span><span class="n">is_safe</span><span class="p">,</span><span class="w"> </span><span class="n">longitudinal_safe</span><span class="p">,</span><span class="w"> </span><span class="n">lateral_safe</span><span class="p">,</span><span class="w"> </span><span class="n">response_status</span><span class="p">)</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>序列化过程：</p>
+<ol>
+<li>服务端检测每帧 RSS 状态并生成 <code>RssResponse</code></li>
+<li>使用 <code>RssResponseSerializer::Serialize()</code> 打包为 <code>RawData</code></li>
+<li>客户端使用 <code>Deserialize()</code> 恢复为 <code>SensorData</code> 实例</li>
+<li><code>.listen()</code> 回调函数进行实时判断/记录/控制触发</li>
+</ol>
+<hr />
+<h2 id="5-python-api_9">5 Python API 使用示例</h2>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">rss_callback</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">event</span><span class="o">.</span><span class="n">is_safe</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[RSS] 安全违规：状态=</span><span class="si">{</span><span class="n">event</span><span class="o">.</span><span class="n">response_status</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[RSS] 安全状态良好&quot;</span><span class="p">)</span>
+
+<span class="n">bp</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;sensor.other.rss&#39;</span><span class="p">)</span>
+<span class="n">rss_sensor</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">bp</span><span class="p">,</span> <span class="n">carla</span><span class="o">.</span><span class="n">Transform</span><span class="p">(),</span> <span class="n">attach_to</span><span class="o">=</span><span class="n">vehicle</span><span class="p">)</span>
+<span class="n">rss_sensor</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="n">rss_callback</span><span class="p">)</span>
+</code></pre></div>
+<p>该传感器无空间坐标要求，直接附着于车辆即可。内部逻辑自动检测与其他交通参与者的 RSS 状态。</p>
+<hr />
+<h2 id="6_10">6 应用案例与扩展分析</h2>
+<table>
+<thead>
+<tr>
+<th>场景用途</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>控制回退系统</td>
+<td>AEB（自动紧急制动）干预触发、最小安全距离报警</td>
+</tr>
+<tr>
+<td>路测仿真回放分析</td>
+<td>重放轨迹时重建“是否违规”记录序列，用于模型责任分析</td>
+</tr>
+<tr>
+<td>安全规划调优</td>
+<td>与行为规划器集成时提供实时限制反馈，避免非法动作规划</td>
+</tr>
+<tr>
+<td>模拟工况生成</td>
+<td>快速生成车道偏离、跟车过近、急加速等 RSS 违规场景</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>可将 <code>response_status</code> 输出为 CSV、图像覆盖等形式进行对比标注。</p>
+</blockquote>
+<hr />
+<h2 id="7_10">7 小结</h2>
+<p><code>sensor.other.rss</code> 提供了对 Mobileye-RSS 安全规则的结构化支持，是自动驾驶系统安全性评估与回退逻辑验证的重要传感器。其输出直观、数据小、结构清晰，适合嵌入任意仿真任务中。</p>
 <hr />
               
             </div>
