@@ -1,7 +1,4 @@
-
-
-
-## **概述**
+# **概述**
 
 CARLA 是一个开源的自动驾驶模拟平台，提供了丰富的 API 以支持仿真环境的控制、车辆的管理以及自动驾驶算法的验证。客户端部分的 API 主要通过 `Client` 类与模拟器进行交互，执行仿真控制、传感器管理、交通流管理等功能。该文档主要介绍 CARLA 客户端相关类的功能和使用方式。
 
@@ -409,11 +406,76 @@ for (auto& junction : junction_list) {
 #### 总结
 `Junction` 类为 CARLA 中交叉口建模提供了清晰、面向对象的封装方式。它作为 Map 类的组成部分，隐藏了底层拓扑数据的复杂性，同时提供了丰富的 API 支持，是交通仿真与路径分析不可或缺的模块。
 
+### 4、LaneInvasion 模块：CARLA 车道入侵（Lane Invasion）检测与处理
+
+`LaneInvasion` 是 CARLA 传感器系统中的一个事件检测模块，用于**监测车辆是否越过车道线**。该模块广泛用于驾驶策略评估、车辆行为监控以及安全规则验证，是自动驾驶测试中的重要工具之一。
+
+#### 该模块的主要组成包括：
+
+- `LaneInvasionSensor.h`：定义了传感器的基本结构与回调接口；
+- `LaneInvasionSensor.cpp`：实现了车道线检测的逻辑；
+- `LaneInvasionEvent.h / .cpp`：封装了每次触发的事件信息。
+
+---
+
+#### 类结构与设计
+
+| 成员变量 | 说明 |
+|----------|------|
+| `_parent_actor` | 被绑定的车辆 Actor，用于检测其车道状态 |
+| `_callback` | 用户注册的回调函数，在触发车道入侵时调用 |
+| `_lane_markings` | 当前被侵入的车道线类型（如实线、虚线等） |
+
+传感器作为 `Sensor` 的派生类，通过 CARLA 的 Actor 系统被附着到车辆上。每当车辆穿越车道标线时，该传感器便会生成一次事件，并触发回调。
 
 
+#### 提供的接口函数
 
+| 函数名 | 功能 |
+|--------|------|
+| `Listen(callback)` | 注册回调函数以处理车道入侵事件 |
+| `Stop()` | 停止传感器监听 |
+| `GetActor()` | 返回绑定的车辆 Actor |
+| `GetLaneMarkings()` | 获取当前入侵事件中涉及的车道线类型列表 |
 
+其中，`Listen` 是最关键的接口，用户可通过传入 Lambda 函数或回调对象，自定义入侵响应逻辑。
 
+---
+
+#### 示例：注册车道入侵事件监听器
+
+```
+auto sensor = world.SpawnActor(sensor_bp, transform, vehicle);
+auto lane_invasion_sensor = boost::static_pointer_cast<carla::sensor::data::LaneInvasionEvent>(sensor);
+
+sensor->Listen([](auto data) {
+    auto event = boost::static_pointer_cast<carla::sensor::data::LaneInvasionEvent>(data);
+    for (auto mark : event->GetCrossedLaneMarkings()) {
+        std::cout << "Lane invasion detected: " << mark.TypeToString() << std::endl;
+    }
+});
+```
+#### 应用场景
+ - 驾驶员违规行为监控：识别是否压线行驶，评估驾驶行为合规性；
+
+ - 路径偏移检测：在路径规划中判断车辆是否偏离既定路线；
+
+ - 规则执行引擎支持：结合交通规则仿真，在违反道路线规则时进行惩罚或报警；
+
+ - 系统调试与可视化：在自动驾驶开发中用于调试控制策略，结合可视化界面标注压线轨迹。
+
+#### 事件结构（LaneInvasionEvent）
+
+每次入侵会生成一个 `LaneInvasionEvent` 对象，包含以下信息：
+
+| 字段名                 | 类型                         | 说明                 |
+|------------------------|------------------------------|----------------------|
+| `crossed_lane_markings` | `std::vector<LaneMarking>`   | 被穿越的车道线集合   |
+| `actor`                | `Actor`                      | 触发事件的车辆       |
+| `timestamp`            | `Time`                       | 事件发生时间戳       |
+
+#### 总结
+`LaneInvasion` 模块为 CARLA 中提供了高效、可扩展的车道线检测机制，是自动驾驶测试流程中的重要一环。通过该模块，开发者可方便地监控车辆是否遵循车道规范，并可将入侵事件集成至评估、报警或控制逻辑中，显著提升仿真测试的准确性与现实性。
 
 
 ---
