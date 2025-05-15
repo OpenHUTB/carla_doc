@@ -118,6 +118,19 @@
   * [6 应用与扩展方向](#6-应用与扩展方向)
   * [7 小结](#7-小结-4)
 
+### 第十一章：雷达传感器（sensor.radar.ray\_cast）
+
+* [第十一章：CARLA 雷达传感器系统（sensor.radar.ray\_cast）](#第十一章carla-雷达传感器系统sensorradarray_cast)
+
+  * [1 模块概览](#1-模块概览-10)
+  * [2 扫描原理与数据描述](#2-扫描原理与数据描述)
+  * [3 数据结构解析：RadarDetection](#3-数据结构解析radardetection)
+  * [4 序列化与传输机制](#4-序列化与传输机制)
+  * [5 Python API 使用示例](#5-python-api-使用示例-8)
+  * [6 应用与对比分析](#6-应用与对比分析)
+  * [7 小结](#7-小结-5)
+
+
 ---
 
 # 第一章：CARLA 碰撞事件传感器系统（sensor.other.collision）
@@ -1460,5 +1473,109 @@ def parse_semantic(image):
 
 ---
 
+## 第十一章：CARLA 雷达传感器系统（sensor.radar.ray\_cast）
+
+### 1 模块概览
+
+CARLA 中的 `sensor.radar.ray_cast` 模拟车载雷达的基本特性，通过射线投射模拟雷达波束在三维空间中遇到物体后的反射点。该模块适用于低分辨率目标检测、运动分析、障碍识别等任务。
+
+| 特征     | 描述                       |
+| ------ | ------------------------ |
+| 数据频率   | 可配置（推荐 10\~20Hz）         |
+| 回调格式   | `carla.RadarMeasurement` |
+| 单点数据结构 | `carla.RadarDetection`   |
+| 模拟特性   | 包含相对速度、距离、方位角和俯仰角        |
+
+---
+
+### 2 扫描原理与数据描述
+
+该传感器通过以下参数定义雷达扫描区域：
+
+* `horizontal_fov`: 水平视场（默认 30 度）
+* `vertical_fov`: 垂直视场（默认 10 度）
+* `range`: 有效距离（默认 100 米）
+
+传感器会从车体坐标系出发，发射若干射线，每条射线检测到的目标构成一个 `RadarDetection` 点。每个点包含：
+
+* `depth`: 到目标的距离（米）
+* `azimuth`: 方位角（rad）
+* `altitude`: 俯仰角（rad）
+* `velocity`: 相对于车辆的径向速度（m/s）
+
+---
+
+### 3 数据结构解析：`RadarDetection`
+
+```python
+class carla.RadarDetection:
+    depth: float       # 目标距离（m）
+    velocity: float    # 径向速度（m/s）
+    azimuth: float     # 方位角（rad）
+    altitude: float    # 俯仰角（rad）
+```
+
+* 点云顺序无规律排序，需按角度聚类分析；
+* `velocity` 可用于区分静止物体与移动目标；
+* 无 ID，需自行跟踪识别。
+
+---
+
+### 4 序列化与传输机制
+
+CARLA 将 `RadarMeasurement` 数据序列化为 `RawData`，通过 RPC 管道传输至客户端。与其他传感器不同，雷达数据较小，传输效率高。
+
+| 步骤      | 描述                                     |
+| ------- | -------------------------------------- |
+| ① 触发帧回调 | 服务端检测帧时更新射线投射结果                        |
+| ② 序列化   | 每个 `RadarDetection` 被编码为字节流结构          |
+| ③ 客户端接收 | Python 客户端接收 `RadarMeasurement` 并解码为点集 |
+
+---
+
+### 5 Python API 使用示例
+
+```python
+import carla
+
+def radar_callback(data):
+    for detection in data:
+        print(f"Distance: {detection.depth:.2f} m, Speed: {detection.velocity:.2f} m/s")
+
+world = client.get_world()
+bp_lib = world.get_blueprint_library()
+radar_bp = bp_lib.find('sensor.radar.ray_cast')
+
+radar_bp.set_attribute('horizontal_fov', '35')
+radar_bp.set_attribute('vertical_fov', '10')
+radar_bp.set_attribute('range', '50')
+
+spawn_point = carla.Transform(carla.Location(x=2.0, z=1.0))
+radar = world.spawn_actor(radar_bp, spawn_point, attach_to=vehicle)
+
+radar.listen(lambda data: radar_callback(data))
+```
+
+---
+
+### 6 应用与对比分析
+
+| 应用领域   | 描述                  |
+| ------ | ------------------- |
+| 自动驾驶感知 | 用于检测移动目标（如对向车辆、自行车） |
+| 模拟预警系统 | 可用于构建碰撞预警、AEB 仿真    |
+| 天气鲁棒性  | 雾、雨等极端天气下性能优于 LiDAR |
+
+> 需注意：雷达检测精度有限，不能替代 LiDAR 或相机的精确识别能力，适合作为冗余传感器或动态监测模块。
+
+---
+
+### 7 小结
+
+* `sensor.radar.ray_cast` 是 CARLA 提供的轻量级雷达仿真模块；
+* 支持实时回调并提供速度信息；
+* 易于部署和组合，但需注意精度限制。
+
+---
 
 
