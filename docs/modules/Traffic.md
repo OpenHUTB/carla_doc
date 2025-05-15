@@ -42,6 +42,22 @@ graph TD
 | MaxVehicles         | int     | 100    | 0-500      | 场景内最大同时存在车辆数       |
 | SpawnRadius         | meters  | 1500   | 100-5000   | 以玩家为中心的生成半径         |
 | LaneChangeFrequency | float   | 0.3    | 0.0-1.0    | 变道概率（0=从不，1=频繁）     |
+#### 模块逻辑
+```mermaid
+graph LR
+  A[路径网络加载] --> B[生成策略计算]
+  B --> C{密度控制}
+  C -->|达标| D[车型选择]
+  C -->|超限| E[进入休眠]
+  D --> F[行为树注入]
+  F --> G[物理实体生成]
+  G --> H[生命周期监控]
+```
+**工程应用场景**：  
+- **自动驾驶压力测试**：通过调节`SpawnDensity=200`模拟高峰流量，验证感知系统对密集车流的处理能力  
+- **特殊车辆调度**：设置`EmergencyVehicleRatio=0.2`模拟紧急救援通道，测试优先通行算法  
+- **区域限流测试**：配置`SpawnRadius=300`聚焦特定路段的交通流建模
+
 
 #### 车辆类型配置示例
 ```yaml
@@ -63,14 +79,27 @@ VehicleMix:
   - 避障逻辑
   - 路口等待行为
 
-#### 行人行为状态机
+#### 模块逻辑
 ```mermaid
-stateDiagram-v2
-    [*] --> Idle
-    Idle --> Walking: 路径有效
-    Walking --> Avoiding: 检测障碍
-    Avoiding --> Walking: 障碍清除
+flowchart TB
+  Start[导航请求] --> PathCheck{路径有效性}
+  PathCheck -- 有效 --> BehaviorSelect[行为模式选择]
+  PathCheck -- 无效 --> Replan[重新规划]
+  
+  BehaviorSelect -->|常规| Normal[沿路径移动]
+  BehaviorSelect -->|群体| Group[跟随领队]
+  
+  Normal --> ObstacleCheck{障碍检测}
+  ObstacleCheck -- 有 --> Avoidance[动态避让]
+  ObstacleCheck -- 无 --> Continue[保持移动]
+  
+  Group --> Formation[保持队形]
 ```
+**工程应用场景**：  
+- **十字路口仿真**：配置`路口等待概率=0.8`模拟行人遵守信号灯行为  
+- **紧急疏散模拟**：设置`群体跟随系数=0.95`测试密集人流下的路径规划性能  
+- **商业区建模**：应用`时段波动系数+0.3`实现白天高峰人流自动调节
+---
 
 #### 人群密度配置表
 | 区域类型       | 基础密度 | 时段波动系数 |
