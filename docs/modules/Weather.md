@@ -231,6 +231,7 @@ AWeather 类在构造函数中直接硬编码了两个后处理材质的路径�
 头文件优化：
 1. 使用#pragma once替代#include guards。
 2. 移除未使用的头文件（如Kismet/GameplayStatics.h仅用于传感器查找，可替换为更轻量的查询方式）。
+3. API注释：补充UFUNCTION和UCLASS元数据，说明蓝图可调用性和网络同步行为。
 
 !!! 注意
     确保在使用前正确初始化AWeather对象。
