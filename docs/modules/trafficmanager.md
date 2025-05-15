@@ -121,11 +121,102 @@ for (auto wp : forward_path) {
     }
 }
 ```
-内存地图与网格路径模块将原始仿真地图信息组织为可快速导航、可语义查询、可拓扑遍历的结构，是自动驾驶系统理解交通空间结构、执行高效决策的重要基础。
-- 
-- **路径缓存与车辆轨迹（PBVT）**：为每辆车维护一个未来若干秒的路径轨迹队列（Trajectory Buffer），其中的每个点都是基于当前位置规划出的可达路径，用于预测、避障和控制计算。
-- **PID 控制器**：每辆车都通过其 PID 控制器根据期望路径点计算出实际控制命令（油门、刹车和方向盘），以最小化当前运动状态与路径目标之间的误差。
-- **命令数组控制器**：在控制阶段结束后，所有车辆的控制指令被批量组织为一个控制命令数组，通过高效通道（如 client.apply_batch()）发送到 CARLA 服务器，实现高帧率控制。
+
+**路径缓存与车辆轨迹（PBVT, Path Buffer & Vehicle Trajectory）**：PBVT 是 Traffic Manager 中用于记录与更新每辆车未来运动轨迹的关键模块。它通过对局部路径的持续预测与缓存，为运动规划和避障模块提供决策支撑，确保系统在复杂场景中具备前瞻性和响应性。其主要功能包括：
+
+- **轨迹缓冲区构建**：为每辆车维护一个轨迹缓冲队列（Trajectory Buffer），该队列包含从当前位置出发、沿参考路径前向若干米或若干秒的路径点，通常为 2-4 秒时域。
+- **基于路点的路径预测**：轨迹点通常来源于内存地图生成的稀疏网格路点（Waypoints），并结合当前速度和加速度动态裁剪路径长度。
+- **缓冲更新策略**：
+  - 在车辆进入新位置或帧推进后，检测是否需要重建轨迹缓冲区。
+  - 如果路径偏差或交通规则变化（如交通灯、障碍物出现）导致路径失效，则触发轨迹重规划。
+- **轨迹点结构**：每个轨迹点不仅包含位置坐标，还记录目标速度、限速信息、变道指令、是否避障等高阶信息，供运动控制模块直接使用。
+- **状态预判与多阶段使用**：
+  - 碰撞检测阶段使用路径中的前向点进行障碍预测。
+  - 运动控制阶段基于轨迹点生成 PID 控制输入。
+  - 车灯控制模块判断是否需转向灯激活。
+- **线程安全实现**：PBVT 模块支持并发访问，不同阶段可读取对应车辆的路径缓冲，同时支持局部重建。
+
+示例调用逻辑（伪代码）：
+
+```cpp
+if (!trajectory_buffer.HasEnoughWaypoints(vehicle_id)) {
+    auto new_path = planner.GeneratePathFromWaypoint(current_wp);
+    trajectory_buffer.Update(vehicle_id, new_path);
+}
+auto next_target = trajectory_buffer.GetNextTarget(vehicle_id);
+motion_controller.Track(next_target);
+```
+
+
+
+**PID 控制器（PID Controller）**：PID 控制器是 Traffic Manager 中将高层路径点转换为底层控制指令（油门、刹车、方向盘）的关键模块。每辆被控制的车辆都关联一个 PID 控制器实例，用于以闭环方式将目标轨迹点转化为精确的速度与方向控制，从而实现平滑、稳定的轨迹跟踪。其主要功能包括：
+
+- **控制目标设定**：根据路径缓存模块提供的下一个期望轨迹点，设定车辆目标位置与速度作为控制目标。
+
+- **误差计算**：
+
+  - **纵向误差**：期望速度与当前速度之差，用于调节油门和刹车。
+  - **横向误差**：车辆当前位置与期望轨迹中心线之间的横向偏移，用于调节方向盘角度。
+
+- **PID 运算公式**：
+
+  - 控制器使用标准 PID 结构（比例 P、积分 I、微分 D）进行误差反馈控制，避免控制抖动与震荡，同时可适配不同车辆模型参数。
+
+  - 示例纵向控制：
+
+    ```math
+    a = Kp_v * e_v + Ki_v * ∫e_v dt + Kd_v * de_v/dt
+    ```
+
+  - 示例横向控制：
+
+    ```math
+    δ = Kp_d * e_d + Ki_d * ∫e_d dt + Kd_d * de_d/dt
+    ```
+
+- **输出控制命令**：将纵向输出映射为 throttle/brake，将横向输出映射为 steering，封装为控制指令发送至 CARLA 服务端。
+
+- **特殊情况处理**：
+
+  - 当路径点突然消失或预测点不连续时，控制器会平滑制动至停止。
+  - 当限速调整或交通灯状态影响目标速度时，控制器根据反馈动态更新目标值。
+
+- **自适应参数机制**（可选）：部分实现支持根据车速自动调整 PID 参数（如增益缩放），提升在高速或低速工况下的控制精度与响应性。
+
+示例控制过程（伪代码）：
+
+```cpp
+auto target = trajectory_buffer.GetNextTarget(vehicle_id);
+float throttle, brake, steer;
+pid_controller.RunStep(target.location, target.speed, current_state, &throttle, &brake, &steer);
+ControlCommand cmd{throttle, brake, steer};
+```
+
+PID 控制器通过对运动误差的持续反馈修正，为 Traffic Manager 提供了平稳、可调的控制机制，是连接路径规划与车辆执行的核心桥梁模块。
+
+**命令数组控制器（Command Batch Controller）**：命令数组控制器是 Traffic Manager 中用于批量组织和发送车辆控制命令的执行模块，确保每帧所有车辆控制指令高效、同步地传输至 CARLA 服务器，从而实现高帧率的并发控制。其主要功能包括：
+
+- **控制命令封装**：将 PID 控制器或其他行为模块生成的单车控制指令（油门、刹车、方向盘、车灯等）转换为 CARLA 支持的 `carla.command.ApplyVehicleControl` 命令对象。
+- **批处理结构构建**：所有车辆的控制命令在当前仿真帧内被收集并打包成一个命令数组（Command Batch），提升通信与处理效率。
+- **高效同步提交**：
+  - 在同步模式下（Synchronous Mode），命令数组与仿真帧步长（tick）严格对齐，确保所有车辆在同一时间步内执行控制。
+  - 在异步模式下也可支持控制指令快速推送，适配实时性测试。
+- **批量接口调用**：使用 `client.apply_batch()` 或 `client.apply_batch_sync()` 接口向 CARLA 服务端提交控制指令，可配置是否等待确认回执。
+- **故障容错机制**：对因网络延迟或目标车辆状态异常（如被销毁）无法应用的命令，提供跳过或重发机制，避免中断主控制循环。
+- **命令扩展支持**：除常规车辆控制外，还支持批量设置车辆属性（如车灯状态）、动态障碍物添加、传感器启动与同步等操作。
+
+示例调用逻辑（伪代码）：
+
+```python
+batch = []
+for vehicle_id in controlled_vehicles:
+    control = controller[vehicle_id].run_step()
+    cmd = carla.command.ApplyVehicleControl(vehicle_id, control)
+    batch.append(cmd)
+client.apply_batch(batch)
+```
+
+命令数组控制器作为 Traffic Manager 的输出终端，是实现实时仿真控制、高效车辆管理与多车并行调度的关键执行模块，直接关系到系统帧率与指令响应时效。
 
 ## 控制循环的阶段
 
@@ -183,7 +274,35 @@ traffic_manager.set_desired_speed(vehicle, 20.0)         # 设置期望速度为
 
 ## 高级功能
 
-- **确定性模式**：通过设置随机种子，确保每次模拟结果一致，便于测试和验证。
+**确定性模式（Deterministic Mode）**：确定性模式是 Traffic Manager 中用于控制仿真可重复性的关键机制，确保在相同输入、相同配置下，仿真每次执行结果一致。这一模式在算法验证、回归测试、行为对比等应用场景中具有重要意义。其主要功能包括：
+
+- **随机数控制**：
+  - 系统中涉及概率行为的模块（如忽略红灯概率、变道概率）统一使用内部伪随机数生成器（PRNG），而非依赖外部时间种子。
+  - 用户可通过 `traffic_manager.set_random_device_seed(seed)` 明确设置随机种子，使得所有涉及随机行为的决策结果固定。
+
+- **时间步长一致性**：
+  - 配合仿真同步模式（synchronous mode）和固定时间步长（fixed_delta_seconds）运行，确保每帧的物理计算与控制执行一致。
+  - 所有决策逻辑依赖于帧序号或内置状态，而非墙钟时间（real-time）。
+
+- **控制行为可复现**：
+  - 确保相同行为参数（如初始速度、目标点）下，控制器（如 PID）在每一帧产生相同的控制命令输出。
+  - 路径规划、变道逻辑、避障响应等依赖于地图与状态快照，均在相同初始条件下生成确定性输出。
+
+- **日志与复现支持**：
+  - 可结合车辆状态、控制命令与仿真帧日志文件，实现回放与行为再现。
+  - 支持在自动化测试框架中进行批量仿真比对，验证不同算法策略下的微观行为差异。
+
+示例配置接口：
+
+```python
+traffic_manager = client.get_trafficmanager(port=8000)
+traffic_manager.set_random_device_seed(42)  # 设置全局随机种子
+world_settings.fixed_delta_seconds = 0.05   # 设置固定步长
+world_settings.synchronous_mode = True      # 启用同步模式
+world.apply_settings(world_settings)
+```
+
+确定性模式为 Traffic Manager 提供了行为一致性与可复现性保障，是科学评估自动驾驶算法鲁棒性与一致性的基础配置选项。
 - **混合物理模式**：在车辆远离 Ego 车辆时，使用简化的物理模型，提高模拟效率。
 - **多 Traffic Manager 实例**：支持在同一模拟中运行多个 TM 实例，分别控制不同的车辆组。
 - **同步模式**：确保所有车辆在每个模拟步长中同步更新，适用于需要严格时间控制的场景。
