@@ -357,7 +357,46 @@
 <span class="n">world</span><span class="o">.</span><span class="n">apply_settings</span><span class="p">(</span><span class="n">world_settings</span><span class="p">)</span>
 </code></pre></div>
 <p>确定性模式为 Traffic Manager 提供了行为一致性与可复现性保障，是科学评估自动驾驶算法鲁棒性与一致性的基础配置选项。
-- <strong>混合物理模式</strong>：在车辆远离 Ego 车辆时，使用简化的物理模型，提高模拟效率。
+<strong>混合物理模式（Hybrid Physics Mode）</strong>：混合物理模式是 Traffic Manager 为提升仿真效率与可扩展性而引入的一种优化机制。通过在车辆远离观察重点（如 Ego 车）时自动降低物理模拟精度，仅保留必要的运动逻辑，大幅减少物理计算开销，使得大规模多车仿真成为可能。其核心设计思想是在保证视觉和行为一致性的前提下动态切换物理模拟状态。其主要功能包括：</p>
+<ul>
+<li><strong>物理模拟范围限定</strong>：</li>
+<li>系统定义一个以 Ego 车或主要观测车辆为中心的物理仿真半径（例如 50 米），该范围内的车辆启用完整物理模拟。</li>
+<li>
+<p>超出范围的车辆关闭物理属性，仅依赖 TM 逻辑控制其速度与轨迹。</p>
+</li>
+<li>
+<p><strong>动态切换机制</strong>：</p>
+</li>
+<li>每帧通过 ALSM 模块判断每辆车是否处于“混合模式半径”内，调用 <code>vehicle-&gt;SetSimulatePhysics()</code> 启用或关闭物理属性。</li>
+<li>
+<p>切换操作具有惰性与稳定性设计，避免频繁开关引起状态震荡。</p>
+</li>
+<li>
+<p><strong>速度近似与轨迹推演</strong>：</p>
+</li>
+<li>对于未启用物理的车辆，其速度和位置通过 Hybrid 状态缓存模块推算得出，使用前帧位置增量近似计算当前速度。</li>
+<li>
+<p>该方式在感知范围外保持车辆行为逼真但计算开销极小。</p>
+</li>
+<li>
+<p><strong>行为一致性保障</strong>：</p>
+</li>
+<li>混合模式下仍保留对交通规则（如红灯停车）、轨迹规划与 PID 控制的响应。</li>
+<li>
+<p>仅在碰撞检测与动力学细节（如轮胎摩擦）上不参与物理仿真。</p>
+</li>
+<li>
+<p><strong>参数配置与接口</strong>：</p>
+</li>
+<li>用户可通过 <code>traffic_manager.set_hybrid_physics_mode(True)</code> 启用该功能。</li>
+<li>使用 <code>set_hybrid_physics_radius(distance)</code> 设置物理控制范围。</li>
+<li>可结合 <code>get_physics_status(vehicle_id)</code> 查询当前车辆物理状态。</li>
+</ul>
+<p>示例配置接口：</p>
+<div class="highlight"><pre><span></span><code><span class="n">traffic_manager</span><span class="o">.</span><span class="n">set_hybrid_physics_mode</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">traffic_manager</span><span class="o">.</span><span class="n">set_hybrid_physics_radius</span><span class="p">(</span><span class="mf">60.0</span><span class="p">)</span>
+</code></pre></div>
+<p>混合物理模式通过区域化调度与近似动力建模，在保证行为合理性的基础上显著提升系统性能，是支持城市级大规模多车仿真中的核心优化机制之一。
 - <strong>多 Traffic Manager 实例</strong>：支持在同一模拟中运行多个 TM 实例，分别控制不同的车辆组。
 - <strong>同步模式</strong>：确保所有车辆在每个模拟步长中同步更新，适用于需要严格时间控制的场景。</p>
 <h2 id="_6">总结</h2>

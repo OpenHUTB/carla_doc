@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>1. 概述 - 人车模拟器</title>
+    <title>目录 - 人车模拟器</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "1. \u6982\u8ff0";
+        var mkdocs_page_name = "\u76ee\u5f55";
         var mkdocs_page_input_path = "modules/Blueprints.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,7 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">1. 概述</li>
+      <li class="breadcrumb-item active">目录</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/modules/Blueprints.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -68,7 +68,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="1">1. 概述</h1>
+                <h1 id="_1">目录</h1>
+<ul>
+<li><a href="#1-概述">1. 概述</a></li>
+<li><a href="#2-核心函数说明">2. 核心函数说明</a></li>
+<li><a href="#21-buildmeshdescriptionfromdata">2.1 BuildMeshDescriptionFromData</a></li>
+<li><a href="#22-createmesh">2.2 CreateMesh</a></li>
+<li><a href="#23-gettransversemercprojection">2.3 GetTransversemercProjection</a></li>
+<li><a href="#24-辅助函数">2.4 辅助函数</a></li>
+<li><a href="#3-关键数据结构">3. 关键数据结构</a></li>
+<li><a href="#fproceduralcustommesh">FProceduralCustomMesh</a></li>
+<li><a href="#4-使用示例">4. 使用示例</a></li>
+<li><a href="#5-注意事项">5. 注意事项</a></li>
+<li><a href="#性能优化">性能优化</a></li>
+<li><a href="#错误处理">错误处理</a></li>
+<li><a href="#坐标系统">坐标系统</a></li>
+<li><a href="#6-扩展建议">6. 扩展建议</a></li>
+</ul>
+<h1 id="1">1. 概述</h1>
 <p>UMapGenFunctionLibrary 是用于 Carla 地图生成的核心工具类，提供网格构建、资源管理、坐标投影等功能。
 主要功能：</p>
 <p>将自定义网格数据转换为 Unreal Engine 的 FMeshDescription。</p>
