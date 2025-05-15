@@ -273,24 +273,24 @@
 </table>
 <h2 id="_9">关键流程</h2>
 <h3 id="_10">触发器生成流程</h3>
-<ol>
-<li><strong>工厂类调用</strong>  </li>
+<ul>
+<li><strong>工厂类调用：</strong>  </li>
 <li>通过 <code>ATriggerFactory::SpawnActor</code> 创建触发器实例  </li>
 <li>
 <p><code>FActorDescription</code> 提供变换信息和描述参数</p>
 </li>
 <li>
-<p><strong>属性配置</strong>  </p>
+<p><strong>属性配置：</strong>  </p>
 </li>
 <li>解析 <code>Variations</code> 中的 <code>friction</code> 和 <code>extent</code> 参数  </li>
 <li>
 <p>调用 <code>SetFriction</code> 和 <code>SetBoxExtent</code> 设置属性</p>
 </li>
 <li>
-<p><strong>事件绑定</strong>  </p>
+<p><strong>事件绑定：</strong>  </p>
 </li>
 <li>在 <code>BeginPlay</code> 中为 <code>TriggerVolume</code> 绑定重叠事件回调</li>
-</ol>
+</ul>
 <h3 id="_11">摩擦力调整流程</h3>
 <pre class="mermaid"><code>sequenceDiagram
     participant Factory
