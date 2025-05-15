@@ -69,6 +69,42 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="libcarla-rpc">LibCarla 远程过程调用（RPC）详细说明文档</h1>
+<h1 id="_1">目录</h1>
+<ul>
+<li><a href="#引言">1.引言</a></li>
+<li><a href="#11-文档目的">1.1 文档目的</a></li>
+<li><a href="#12-libcarla与rpc背景">1.2 LibCarla与RPC背景</a></li>
+<li><a href="#13-文档结构">1.3 文档结构</a></li>
+<li><a href="#文件一maplayercpp">2.文件一：MapLayer.cpp</a></li>
+<li><a href="#21-文件概述">2.1 文件概述</a></li>
+<li><a href="#22-功能详解">2.2 功能详解</a></li>
+<li><a href="#23-枚举值与映射">2.3 枚举值与映射</a></li>
+<li><a href="#24-代码解析">2.4 代码解析</a></li>
+<li><a href="#25-使用场景">2.5 使用场景</a></li>
+<li><a href="#26-扩展建议">2.6 扩展建议</a></li>
+<li><a href="#文件二materialparametercpp">3.文件二：MaterialParameter.cpp</a></li>
+<li><a href="#31-文件概述">3.1 文件概述</a></li>
+<li><a href="#32-功能详解">3.2 功能详解</a></li>
+<li><a href="#33-枚举值与映射">3.3 枚举值与映射</a></li>
+<li><a href="#34-代码解析">3.4 代码解析</a></li>
+<li><a href="#35-使用场景">3.5 使用场景</a></li>
+<li><a href="#36-扩展建议">3.6 扩展建议</a></li>
+<li><a href="#文件三weatherparameterscpp">4.文件三：WeatherParameters.cpp</a></li>
+<li><a href="#41-文件概述">4.1 文件概述</a></li>
+<li><a href="#42-功能详解">4.2 功能详解</a></li>
+<li><a href="#43-天气参数说明">4.3 天气参数说明</a></li>
+<li><a href="#44-预定义天气场景">4.4 预定义天气场景</a></li>
+<li><a href="#45-代码解析">4.5 代码解析</a></li>
+<li><a href="#46-使用场景">4.6 使用场景</a></li>
+<li><a href="#47-扩展建议">4.7 扩展建议</a></li>
+<li><a href="#集成与使用场景">5.集成与使用场景</a></li>
+<li><a href="#51-与carla仿真器的集成">5.1 与Carla仿真器的集成</a></li>
+<li><a href="#52-实际应用场景">5.2 实际应用场景</a></li>
+<li><a href="#53-性能优化">5.3 性能优化</a></li>
+<li><a href="#总结与扩展建议">6.总结与扩展建议</a></li>
+<li><a href="#61-总结">6.1 总结</a></li>
+<li><a href="#62-扩展建议">6.2 扩展建议</a></li>
+</ul>
 <h2 id="1">1. 引言</h2>
 <h3 id="11">1.1 文档目的</h3>
 <p>本说明文档旨在详细介绍Carla仿真器中LibCarla库的远程过程调用（RPC）相关功能，基于以下三个核心文件：
