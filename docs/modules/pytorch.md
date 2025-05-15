@@ -59,9 +59,6 @@
 - **示例输出**：
 
   ```
-  pgsql
-  
-  cuda version X.Y
   cuda version X.Y
   ```
 
@@ -125,8 +122,6 @@
 ### 6.1 构造与析构
 
 ```
-cpp
-
 NeuralModel::NeuralModel()
 NeuralModel::~NeuralModel()
 ```
@@ -136,8 +131,6 @@ NeuralModel::~NeuralModel()
 ### 6.2 LoadModel
 
 ```
-cpp
-
 void NeuralModel::LoadModel(char* filename, int device)
 ```
 
@@ -150,8 +143,6 @@ void NeuralModel::LoadModel(char* filename, int device)
 ### 6.3 SetInputs
 
 ```
-cpp
-
 void NeuralModel::SetInputs(Inputs input)
 ```
 
@@ -187,36 +178,30 @@ void NeuralModel::SetInputs(Inputs input)
 1. **初始化与加载**
 
    ```
-   cpp
-   
    NeuralModel model;
    model.LoadModel("mymodel.pt", /*device=*/0);
    ```
-
+   
 2. **设置输入**
 
    ```
-   cpp
-   
    Inputs inp = /* 构造 WheelInput + 操作指令 */;
    model.SetInputs(inp);
    ```
-
+   
 3. **选择推理模式**
 
    ```
-   cpp
    model.Forward();                // CPU 模式
    // 或
    model.ForwardDynamic();         // 动态 + 缓存清理
    // 或
    model.ForwardCUDATensors();     // 全 CUDA 模式
    ```
-
+   
 4. **获取输出**
 
    ```
-   cpp
    auto &outs = model.GetOutputs();
    // outs.wheel0 ... outs.wheel3
    ```
