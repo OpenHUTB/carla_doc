@@ -69,6 +69,44 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="util">Util模块技术文档</h1>
+<h1 id="_1">目录</h1>
+<ul>
+<li><a href="#1-概述">1. 概述</a></li>
+<li><a href="#11-util模块与其它模块的调用关系图">1.1 Util模块与其它模块的调用关系图</a></li>
+<li><a href="#12-util模块关键流程图">1.2 Util模块关键流程图</a></li>
+<li><a href="#13-util模块关键类表">1.3 Util模块关键类表</a></li>
+<li><a href="#2-util核心功能类">2. Util核心功能类</a></li>
+<li><a href="#21-uactorattacheractor-附加器">2.1 UActorAttacher：Actor 附加器</a><ul>
+<li><a href="#211-概要">2.1.1 概要</a></li>
+<li><a href="#212-关键方法详解">2.1.2 关键方法详解</a></li>
+</ul>
+</li>
+<li><a href="#22-aactorwithrandomengine随机引擎注入器">2.2 AActorWithRandomEngine：随机引擎注入器</a><ul>
+<li><a href="#221-概要">2.2.1 概要</a></li>
+<li><a href="#222-关键方法详解">2.2.2 关键方法详解</a></li>
+<li><a href="#223-使用示例">2.2.3 使用示例</a></li>
+</ul>
+</li>
+<li><a href="#23-boundingbox相关类">2.3 BoundingBox相关类</a><ul>
+<li><a href="#231-fboundingbox边界框结构">2.3.1 FBoundingBox：边界框结构</a></li>
+<li><a href="#232-uboundingboxcalculator边界框计算器">2.3.2 UBoundingBoxCalculator：边界框计算器</a></li>
+</ul>
+</li>
+<li><a href="#24-fdebugshapedrawer调试形状绘制器">2.4 FDebugShapeDrawer：调试形状绘制器</a><ul>
+<li><a href="#241-概要">2.4.1 概要</a></li>
+<li><a href="#242-使用场景">2.4.2 使用场景</a></li>
+<li><a href="#243-关键方法详解">2.4.3 关键方法详解</a></li>
+</ul>
+</li>
+<li><a href="#25-fnavigationmesh导航网格管理器">2.5 FNavigationMesh：导航网格管理器</a><ul>
+<li><a href="#251-概要">2.5.1 概要</a></li>
+<li><a href="#252-关键方法详解">2.5.2 关键方法详解</a></li>
+<li><a href="#253-使用示例">2.5.3 使用示例</a></li>
+<li><a href="#254-注意事项">2.5.4 注意事项</a></li>
+<li><a href="#255-扩展功能">2.5.5 扩展功能</a></li>
+</ul>
+</li>
+</ul>
 <h2 id="1">1. 概述</h2>
 <p>CARLA的Util模块提供了一系列底层的C++工具类，用于简化对Unreal世界中各种对象、集合体、导航、随机数以及调试绘制等功能的操作。Util模块位于源码路径<code>Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Util</code>下，包含29个源文件和头文件，涵盖从附件管理、随机引擎到导航网络、文件解析、调试绘制等多方面工具。</p>
 <h3 id="11-util">1.1 Util模块与其它模块的调用关系图</h3>
@@ -332,9 +370,9 @@
 - 说明：此示例展示了如何在自定义的 <code>AMyRandomActor</code> 中复用 <code>AActorWithRandomEngine</code> 提供的随机引擎功能，并在游戏开始时生成一个 0–100 范围内的随机整数并输出日志。</p>
 <h2 id="23-boundingbox">2.3 BoundingBox相关类</h2>
 <h3 id="231-fboundingbox">2.3.1 FBoundingBox：边界框结构</h3>
-<h4 id="_1">概要</h4>
+<h4 id="_2">概要</h4>
 <p><code>FBoundingBox</code>是一个BlueprintType的USTRUCT，用于在C++与BluePrint间传递和操作三维边界框信息。CARLA 中所有 Actor（车辆、行人、交通标志、静态网格等）均可通过该结构表示其局部边界框，方便后续在世界或摄像机坐标下进行投影、碰撞检测或可视化渲染。</p>
-<h4 id="_2">成员详解</h4>
+<h4 id="_3">成员详解</h4>
 <p><div class="highlight"><pre><span></span><code><span class="n">USTRUCT</span><span class="p">(</span><span class="n">BlueprintType</span><span class="p">)</span>
 <span class="k">struct</span><span class="w"> </span><span class="nc">CARLA_API</span><span class="w"> </span><span class="n">FBoundingBox</span>
 <span class="p">{</span>
@@ -357,9 +395,9 @@
 - Extent：包围盒在三个轴上的半尺寸，用于计算 Min/Max 边界；
 - Rotation：包围盒相对于父 Actor 局部坐标系的欧拉旋转。该设计借鉴自 Unreal 引擎中 UBoxComponent 的中心/Extent/Rotation 表示。</p>
 <h3 id="232-uboundingboxcalculator">2.3.2 UBoundingBoxCalculator：边界框计算器</h3>
-<h4 id="_3">概要</h4>
+<h4 id="_4">概要</h4>
 <p><code>UBoundingBoxCalculator</code> 是一个派生自 <code>UBlueprintFunctionLibrary</code> 的静态函数集，负责根据不同 Actor 或网格类型，提取或合成对应的 FBoundingBox 信息。</p>
-<h4 id="_4">关键方法详解</h4>
+<h4 id="_5">关键方法详解</h4>
 <table>
 <thead>
 <tr>
@@ -462,7 +500,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="_5">小结</h3>
+<h3 id="_6">小结</h3>
 <ul>
 <li><code>FBoundingBox</code> 提供了统一的包围盒数据结构；</li>
 <li><code>UBoundingBoxCalculator</code> 则围绕不同 Actor/组件类型提供了从局部到世界空间的包围盒提取、批量和合并能力；</li>
