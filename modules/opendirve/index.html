@@ -71,6 +71,7 @@
                 <h1 id="carla-opendriveparser">CARLA OpenDriveParser 说明文档</h1>
 <p>本文件定义了 CARLA 模拟器中用于解析 OpenDRIVE 地图数据的 OpenDriveParser 类。该类位于 carla::opendrive 命名空间中，主要职责是从 OpenDRIVE XML 文件中读取道路网络数据，并将其转换为 CARLA 内部表示形式。</p>
 <h2 id="opendrive">什么是 OpenDRIVE？</h2>
+<p><a href="https://www.asam.net/standards/detail/opendrive/">点击这里访问ASAM OpenDRIVE</a></p>
 <p><strong>OpenDRIVE</strong> 是由 <strong>VIRES Simulationstechnologie GmbH</strong> 提出的开放标准，用于描述道路网络的结构化信息，广泛用于驾驶仿真系统（如 CARLA、SUMO、VTD 等）。</p>
 <p>该标准使用 XML 格式，详细描述以下内容：
 - <strong>道路几何形状</strong>：包括直线、弧线、样条曲线等，用于定义道路的空间布局；
@@ -111,7 +112,7 @@
 <h3 id="_4">类特点</h3>
 <p>🔹 纯静态类：不允许实例化，所有方法为 static。</p>
 <p>🔹 工具类设计：提供“加载”和“解析”两个核心能力。</p>
-<p>🔹 封装解析细节：使用 XML 解析库（如 pugixml）来处理底层文件格式。</p>
+<p>🔹 封装解析细节：使用 XML 解析库（如 <a href="https://pugixml.org/">pugixml</a> ）来处理底层文件格式。</p>
 <p>🔹 模块化输出：返回标准化 Map 对象，供 CARLA 路网系统使用。</p>
 <h3 id="_5">为什么使用静态类？</h3>
 <p>将其设计为静态类的好处：</p>
