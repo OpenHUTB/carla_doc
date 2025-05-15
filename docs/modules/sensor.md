@@ -1487,7 +1487,7 @@ def parse_semantic(image):
 ## 第十一章：CARLA 雷达传感器系统（sensor.radar.ray\_cast）
 
 ### 1 模块概览
-
+![flowchart\_11.png](..%2Fimg%2Fmodules%2Fflowchart_11.png)
 CARLA 中的 `sensor.radar.ray_cast` 模拟车载雷达的基本特性，通过射线投射模拟雷达波束在三维空间中遇到物体后的反射点。该模块适用于低分辨率目标检测、运动分析、障碍识别等任务。
 
 | 特征     | 描述                       |
@@ -1595,7 +1595,7 @@ radar.listen(lambda data: radar_callback(data))
 ---
 
 ## 1 模块概览
-
+![flowchart\_12.png](..%2Fimg%2Fmodules%2Fflowchart_12.png)
 CARLA 中的 `sensor.other.rss` 是对 [Mobileye 提出的 RSS（Responsibility-Sensitive Safety）模型](https://www.mobileye.com/responsibility-sensitive-safety/) 的仿真实现。它评估当前车辆是否在纵向和横向方向上满足合理安全距离，若违反安全规则，则通过事件输出提供结构化响应。
 
 该传感器广泛应用于以下领域：
