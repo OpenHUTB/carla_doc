@@ -206,6 +206,20 @@ AWeather 类在构造函数中直接硬编码了两个后处理材质的路径�
 2. 动态日志级别：通过UE_LOG分类（如LogTemp、LogCarla）和Verbosity级别控制输出量。
 3. 蓝图调试：暴露DebugWeatherParameters函数，允许在编辑器中实时查看天气状态。
 
+5. 线程安全与蓝图交互
+问题：RefreshWeather()直接调用蓝图逻辑，未处理多线程场景下的竞态条件。
+
+#优化建议：
+1. 线程安全调用：对蓝图调用使用AsyncTask(ENamedThreads::GameThread)确保在主线程执行。
+2. 事件驱动通知：通过DECLARE_DYNAMIC_MULTICAST_DELEGATE定义天气变化事件，减少直接依赖。
+
+6. 性能敏感参数优化
+#问题：ActiveBlendables的频繁添加/移除可能引发内存碎片化。
+
+优化建议：
+1. 预分配内存：使用TArray::Reserve()预分配足够容量。
+2. 对象池模式：对后处理材质对象池化，减少运行时动态分配。
+
 !!! 注意
     确保在使用前正确初始化AWeather对象。
     后处理材质的路径需要根据实际情况进行调整。
