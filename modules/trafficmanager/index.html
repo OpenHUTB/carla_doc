@@ -397,7 +397,61 @@
 <span class="n">traffic_manager</span><span class="o">.</span><span class="n">set_hybrid_physics_radius</span><span class="p">(</span><span class="mf">60.0</span><span class="p">)</span>
 </code></pre></div>
 <p>混合物理模式通过区域化调度与近似动力建模，在保证行为合理性的基础上显著提升系统性能，是支持城市级大规模多车仿真中的核心优化机制之一。
-- <strong>多 Traffic Manager 实例</strong>：支持在同一模拟中运行多个 TM 实例，分别控制不同的车辆组。
+<strong>多 Traffic Manager 实例（Multi-Instance Traffic Manager）</strong>：多 TM 实例功能允许用户在同一 CARLA 仿真环境中同时运行多个 Traffic Manager 模块，以实现对不同车辆组的分组管理、策略隔离和并行控制。这一机制特别适用于多策略对比实验、区域划分控制、异构行为建模等高级仿真需求。其核心设计在于端口绑定、车辆分配与调度解耦。主要功能包括：</p>
+<ul>
+<li>
+<p><strong>实例化机制</strong>：</p>
+</li>
+<li>
+<p>每个 Traffic Manager 实例通过独立端口初始化，如 <code>client.get_trafficmanager(port=8001)</code>。</p>
+</li>
+<li>
+<p>支持多个 TM 并存运行，每个实例拥有自己的参数空间和控制逻辑。</p>
+</li>
+<li>
+<p><strong>车辆分组与绑定</strong>：</p>
+</li>
+<li>
+<p>车辆可显式分配给某个 TM 实例控制，方法为：</p>
+<div class="highlight"><pre><span></span><code><span class="n">vehicle</span><span class="o">.</span><span class="n">set_autopilot</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">tm_port</span><span class="p">)</span>
+</code></pre></div>
+</li>
+<li>
+<p>不同实例互不干扰，可为不同车辆组设置不同速度策略、变道规则、红灯概率等行为配置。</p>
+</li>
+<li>
+<p><strong>行为策略隔离</strong>：</p>
+</li>
+<li>
+<p>支持为不同实例配置独立的行为参数、交通规则遵从性和控制频率。</p>
+</li>
+<li>
+<p>可实现一组车辆激进驾驶，另一组谨慎驾驶的对比测试。</p>
+</li>
+<li>
+<p><strong>区域性控制支持</strong>：</p>
+</li>
+<li>
+<p>可结合车辆初始位置或道路标签，将不同 TM 实例与城市不同区域绑定，模拟多区域信控系统。</p>
+</li>
+<li>
+<p><strong>并行执行与性能隔离</strong>：</p>
+</li>
+<li>
+<p>各 TM 实例在服务端调度中拥有独立线程，不存在全局锁，适合大规模仿真下的并行扩展。</p>
+</li>
+</ul>
+<p>示例使用方式：</p>
+<div class="highlight"><pre><span></span><code><span class="n">tm1</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_trafficmanager</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="mi">8000</span><span class="p">)</span>
+<span class="n">tm2</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_trafficmanager</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="mi">8001</span><span class="p">)</span>
+
+<span class="n">vehicle1</span><span class="o">.</span><span class="n">set_autopilot</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="mi">8000</span><span class="p">)</span>  <span class="c1"># 由 TM1 控制</span>
+<span class="n">vehicle2</span><span class="o">.</span><span class="n">set_autopilot</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="mi">8001</span><span class="p">)</span>  <span class="c1"># 由 TM2 控制</span>
+
+<span class="n">tm1</span><span class="o">.</span><span class="n">set_desired_speed</span><span class="p">(</span><span class="n">vehicle1</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">)</span>
+<span class="n">tm2</span><span class="o">.</span><span class="n">set_desired_speed</span><span class="p">(</span><span class="n">vehicle2</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">)</span>
+</code></pre></div>
+<p>多 TM 实例机制为场景控制带来了更高的灵活性与可扩展性，适合进行策略级、多样化、区域化的交通仿真设计，是高复杂度任务的重要支持工具。
 - <strong>同步模式</strong>：确保所有车辆在每个模拟步长中同步更新，适用于需要严格时间控制的场景。</p>
 <h2 id="_6">总结</h2>
 <p>Traffic Manager 是 CARLA 模拟器中强大的工具，提供了对自动驾驶车辆行为的全面控制。通过合理配置 TM，可以模拟各种复杂的交通场景，满足自动驾驶系统的训练和测试需求。</p>
