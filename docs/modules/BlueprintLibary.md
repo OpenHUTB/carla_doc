@@ -77,7 +77,17 @@
 ## 类与方法详解  
 ### `UMapGenFunctionLibrary` 类  
 继承自 `UBlueprintFunctionLibrary`，提供地图生成相关的静态工具方法，所有方法均支持蓝图调用。
-
+### 类结构图
+ ```mermaid
+classDiagram
+  class UMapGenFunctionLibrary{
+    +CreateMesh() UStaticMesh*
+    +BuildMeshDescriptionFromData() FMeshDescription
+    +GetTransversemercProjection() FVector2D
+    +FlushRenderingCommandsInBlueprint()
+    +CleanupGEngine()
+  }
+   ```
 #### 关键方法  
 | 方法                          | 功能描述                                                                 |
 |-------------------------------|-------------------------------------------------------------------------|
