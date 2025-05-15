@@ -193,7 +193,30 @@ ControlCommand cmd{throttle, brake, steer};
 ```
 
 PID 控制器通过对运动误差的持续反馈修正，为 Traffic Manager 提供了平稳、可调的控制机制，是连接路径规划与车辆执行的核心桥梁模块。
-- **命令数组控制器**：在控制阶段结束后，所有车辆的控制指令被批量组织为一个控制命令数组，通过高效通道（如 client.apply_batch()）发送到 CARLA 服务器，实现高帧率控制。
+
+**命令数组控制器（Command Batch Controller）**：命令数组控制器是 Traffic Manager 中用于批量组织和发送车辆控制命令的执行模块，确保每帧所有车辆控制指令高效、同步地传输至 CARLA 服务器，从而实现高帧率的并发控制。其主要功能包括：
+
+- **控制命令封装**：将 PID 控制器或其他行为模块生成的单车控制指令（油门、刹车、方向盘、车灯等）转换为 CARLA 支持的 `carla.command.ApplyVehicleControl` 命令对象。
+- **批处理结构构建**：所有车辆的控制命令在当前仿真帧内被收集并打包成一个命令数组（Command Batch），提升通信与处理效率。
+- **高效同步提交**：
+  - 在同步模式下（Synchronous Mode），命令数组与仿真帧步长（tick）严格对齐，确保所有车辆在同一时间步内执行控制。
+  - 在异步模式下也可支持控制指令快速推送，适配实时性测试。
+- **批量接口调用**：使用 `client.apply_batch()` 或 `client.apply_batch_sync()` 接口向 CARLA 服务端提交控制指令，可配置是否等待确认回执。
+- **故障容错机制**：对因网络延迟或目标车辆状态异常（如被销毁）无法应用的命令，提供跳过或重发机制，避免中断主控制循环。
+- **命令扩展支持**：除常规车辆控制外，还支持批量设置车辆属性（如车灯状态）、动态障碍物添加、传感器启动与同步等操作。
+
+示例调用逻辑（伪代码）：
+
+```python
+batch = []
+for vehicle_id in controlled_vehicles:
+    control = controller[vehicle_id].run_step()
+    cmd = carla.command.ApplyVehicleControl(vehicle_id, control)
+    batch.append(cmd)
+client.apply_batch(batch)
+```
+
+命令数组控制器作为 Traffic Manager 的输出终端，是实现实时仿真控制、高效车辆管理与多车并行调度的关键执行模块，直接关系到系统帧率与指令响应时效。
 
 ## 控制循环的阶段
 
@@ -251,7 +274,35 @@ traffic_manager.set_desired_speed(vehicle, 20.0)         # 设置期望速度为
 
 ## 高级功能
 
-- **确定性模式**：通过设置随机种子，确保每次模拟结果一致，便于测试和验证。
+**确定性模式（Deterministic Mode）**：确定性模式是 Traffic Manager 中用于控制仿真可重复性的关键机制，确保在相同输入、相同配置下，仿真每次执行结果一致。这一模式在算法验证、回归测试、行为对比等应用场景中具有重要意义。其主要功能包括：
+
+- **随机数控制**：
+  - 系统中涉及概率行为的模块（如忽略红灯概率、变道概率）统一使用内部伪随机数生成器（PRNG），而非依赖外部时间种子。
+  - 用户可通过 `traffic_manager.set_random_device_seed(seed)` 明确设置随机种子，使得所有涉及随机行为的决策结果固定。
+
+- **时间步长一致性**：
+  - 配合仿真同步模式（synchronous mode）和固定时间步长（fixed_delta_seconds）运行，确保每帧的物理计算与控制执行一致。
+  - 所有决策逻辑依赖于帧序号或内置状态，而非墙钟时间（real-time）。
+
+- **控制行为可复现**：
+  - 确保相同行为参数（如初始速度、目标点）下，控制器（如 PID）在每一帧产生相同的控制命令输出。
+  - 路径规划、变道逻辑、避障响应等依赖于地图与状态快照，均在相同初始条件下生成确定性输出。
+
+- **日志与复现支持**：
+  - 可结合车辆状态、控制命令与仿真帧日志文件，实现回放与行为再现。
+  - 支持在自动化测试框架中进行批量仿真比对，验证不同算法策略下的微观行为差异。
+
+示例配置接口：
+
+```python
+traffic_manager = client.get_trafficmanager(port=8000)
+traffic_manager.set_random_device_seed(42)  # 设置全局随机种子
+world_settings.fixed_delta_seconds = 0.05   # 设置固定步长
+world_settings.synchronous_mode = True      # 启用同步模式
+world.apply_settings(world_settings)
+```
+
+确定性模式为 Traffic Manager 提供了行为一致性与可复现性保障，是科学评估自动驾驶算法鲁棒性与一致性的基础配置选项。
 - **混合物理模式**：在车辆远离 Ego 车辆时，使用简化的物理模型，提高模拟效率。
 - **多 Traffic Manager 实例**：支持在同一模拟中运行多个 TM 实例，分别控制不同的车辆组。
 - **同步模式**：确保所有车辆在每个模拟步长中同步更新，适用于需要严格时间控制的场景。
