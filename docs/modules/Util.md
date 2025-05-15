@@ -1,5 +1,32 @@
 # Util模块技术文档
 
+# 目录
+- [1. 概述](#1-概述)
+  - [1.1 Util模块与其它模块的调用关系图](#11-util模块与其它模块的调用关系图)
+  - [1.2 Util模块关键流程图](#12-util模块关键流程图)
+  - [1.3 Util模块关键类表](#13-util模块关键类表)
+- [2. Util核心功能类](#2-util核心功能类)
+  - [2.1 UActorAttacher：Actor 附加器](#21-uactorattacheractor-附加器)
+    - [2.1.1 概要](#211-概要)
+    - [2.1.2 关键方法详解](#212-关键方法详解)
+  - [2.2 AActorWithRandomEngine：随机引擎注入器](#22-aactorwithrandomengine随机引擎注入器)
+    - [2.2.1 概要](#221-概要)
+    - [2.2.2 关键方法详解](#222-关键方法详解)
+    - [2.2.3 使用示例](#223-使用示例)
+  - [2.3 BoundingBox相关类](#23-boundingbox相关类)
+    - [2.3.1 FBoundingBox：边界框结构](#231-fboundingbox边界框结构)
+    - [2.3.2 UBoundingBoxCalculator：边界框计算器](#232-uboundingboxcalculator边界框计算器)
+  - [2.4 FDebugShapeDrawer：调试形状绘制器](#24-fdebugshapedrawer调试形状绘制器)
+    - [2.4.1 概要](#241-概要)
+    - [2.4.2 使用场景](#242-使用场景)
+    - [2.4.3 关键方法详解](#243-关键方法详解)
+  - [2.5 FNavigationMesh：导航网格管理器](#25-fnavigationmesh导航网格管理器)
+    - [2.5.1 概要](#251-概要)
+    - [2.5.2 关键方法详解](#252-关键方法详解)
+    - [2.5.3 使用示例](#253-使用示例)
+    - [2.5.4 注意事项](#254-注意事项)
+    - [2.5.5 扩展功能](#255-扩展功能)
+
 ## 1. 概述
 
   CARLA的Util模块提供了一系列底层的C++工具类，用于简化对Unreal世界中各种对象、集合体、导航、随机数以及调试绘制等功能的操作。Util模块位于源码路径`Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Util`下，包含29个源文件和头文件，涵盖从附件管理、随机引擎到导航网络、文件解析、调试绘制等多方面工具。
