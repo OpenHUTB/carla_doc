@@ -180,14 +180,15 @@ AWeather 类在构造函数中直接硬编码了两个后处理材质的路径�
 使用 TSubclassOf<UMaterial> 类型的公开变量，允许在蓝图或编辑器中指定材质资源。
 
 2. 优化传感器后处理更新逻辑，减少冗余操作
-问题：
-CheckWeatherPostProcessEffects 函数在每次调用时会：
-
-重复获取所有传感器：通过 UGameplayStatics::GetAllActorsOfClass 每次遍历场景查找 ASceneCaptureCamera，可能造成性能开销。
+#问题：
+1.CheckWeatherPostProcessEffects 函数在每次调用时会：
+重复获取所有传感器：通过 UGameplayStatics::GetAllActorsOfClass 每次遍历场景查找 2.ASceneCaptureCamera，可能造成性能开销。
 全量更新后处理材质：即使天气参数未变化，也会遍历所有传感器并重新添加/移除材质。
-解决方案：
 
-缓存传感器列表：在初始化时获取传感器并缓存，避免重复查找。
+#解决方案：
+
+1. 缓存传感器列表：在初始化时获取传感器并缓存，避免重复查找。
+2. 增量更新材质：记录当前生效的后处理材质，仅在天气参数变化时更新差异部分
 
 !!! 注意
     确保在使用前正确初始化AWeather对象。
