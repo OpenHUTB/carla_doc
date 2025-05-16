@@ -6,31 +6,36 @@
 
 ---
 
-## 📑 目录
+## 目录
 
 1. [模块概述](#模块概述)
 2. [主要类与职责](#主要类与职责)
 3. [功能说明](#功能说明)
+   - [初始化](#初始化)
+   - [录像控制](#录像控制)
+   - [回放控制](#回放控制)
+   - [查询功能](#查询功能)
 4. [关键数据结构](#关键数据结构)
 5. [依赖模块与层级流程](#依赖模块与层级流程)
 6. [附录：包结构](#附录包结构)
 7. [附加模块：CarlaRecorderAnimBiker](#附加模块carlarecorderanimbiker)
 8. [附加模块：CarlaRecorderAnimVehicles](#附加模块CarlaRecorderAnimVehicles)
+9. [常见问题与调试建议](#常见问题与调试建议)
 ---
 
 ## 模块概述
 
-CarlaRecorder 模块主要负责 CARLA 中仿真数据的录制与回放操作。包括对车辆、行人、光照、碰撞等实体状态的记录、存储与回放控制。其实现涉及数据包编码、查询分析、时间控制等多个子模块。
+CarlaRecorder 模块是 CARLA 模拟器中实现仿真状态完整复现的关键组件。它负责在仿真运行时对车辆、行人、光照条件、碰撞等状态数据进行高效记录，并支持后续的精准回放。其核心功能包括数据采集、压缩编码、文件读写、时间控制及信息查询等。该模块特别适用于实验复现、调试定位及行为重构等应用场景。
 
 ---
 
-## 主要类与职责
+## 主要类与职责 
 
-| 类名                   | 文件                                    | 说明                                     |
-| -------------------- | ------------------------------------- | -------------------------------------- |
-| `ACarlaRecorder`     | `CarlaRecorder.h / CarlaRecorder.cpp` | 主要控制类，继承自 Unreal 的 `AActor`，提供录像/回放接口。 |
-| `CarlaReplayer`      | `CarlaReplayer.h`                     | 实现回放控制，包括时间倍率、忽略特定角色等设置。               |
-| `CarlaRecorderQuery` | `CarlaRecorderQuery.h`                | 用于分析已录制文件的数据，如碰撞信息、阻塞信息等。              |
+| 类名                   | 文件                                    | 说明               | 调用位置   |
+| -------------------- | ------------------------------------- | -------------------------------------- |-------------------- | 
+| `ACarlaRecorder`     | `CarlaRecorder.h / CarlaRecorder.cpp` | 主要控制类，继承自 Unreal `AActor`，提供录像/回放接口。 | 在主控制器（如 GameMode）中启动      |
+| `CarlaReplayer`      | `CarlaReplayer.h`                     | 实现回放控制，包括时间倍率、忽略特定角色等设置。               |由 ACarlaRecorder::ReplayFile() 触发      |
+| `CarlaRecorderQuery` | `CarlaRecorderQuery.h`                | 用于分析已录制文件的数据，如碰撞信息、阻塞信息等。              | 用于脚本分析或命令行查询工具 |
 
 ---
 
@@ -54,11 +59,28 @@ void Disable()
 void Ticking(float DeltaSeconds)
 ```
 
+```cpp
+// 录像流程
+if (Recorder.IsEnabled()) {
+    Recorder.Ticking(DeltaSeconds);
+        └──> 调用 Snapshot -> 记录实体状态 -> 写入数据包
+}
+```
+
+
 `Ticking()` 方法被定期调用以采集仿真状态
 
 使用 `PlatformTime` 与 `VisualTime` 跟踪物理时间与视觉时间
 
 与 `CarlaEpisode` 和 `FActorRegistry` 联动获取仿真环境信息
+
+### 示例：如何开始一次录像
+```cpp
+// 开启录像
+CarlaRecorder.Enable();
+// 运行一段时间后关闭
+CarlaRecorder.Disable();
+```
 
 ### 回放控制
 
@@ -73,7 +95,7 @@ void StopReplayer(bool KeepActors)
 通过 `ReplayFile()` 加载文件并控制回放参数
 
 支持设置时间倍率与忽略特定角色
-
+`SetReplayerTimeFactor()`：设置播放倍速
 `StopReplayer()` 控制是否保留回放后生成的角色对象
 
 ### 查询功能
@@ -84,11 +106,11 @@ std::string ShowFileCollisions(std::string Name, char Type1, char Type2)
 std::string ShowFileActorsBlocked(std::string Name, double MinTime, double MinDistance)
 ```
 
-`QueryInfo()`：查看录制文件的基础信息
+` ShowFileInfo()`：查看录制文件的基础信息
 
-`QueryCollisions()`：查询特定对象类型之间的碰撞事件
+` ShowFileCollisions()`：查询特定对象类型之间的碰撞事件
 
-`QueryBlocked()`：查找因距离/时间被阻挡的实体
+`ShowFileActorsBlocked()`：查找因距离/时间被阻挡的实体
 
 ---
 
@@ -375,5 +397,18 @@ Carla/
 #### `const std::vector<CarlaRecorderAnimWheels>& GetVehicleWheels()`
 
 返回所有车辆轮胎数据的引用。
+
+## 常见问题与调试建议
+
+- **问题：录像文件无法加载**
+  - 请检查路径是否正确，录制时是否成功写入磁盘。
+  - 使用 `ShowFileInfo()` 方法检查文件结构是否完整。
+
+- **问题：回放时某些角色未出现**
+  - 检查是否设置了 `IgnoreHero` 或 `IgnoreSpectator` 为 true。
+  - 确认相关角色在录制期间已生成并被记录。
+
+- **调试建议：**
+  - 使用 `QueryCollisions()` 对回放数据进行验证，分析实体是否按预期交互。
 
 ---
