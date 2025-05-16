@@ -487,8 +487,6 @@ sensor->Listen([](auto data) {
 - `Light.cpp`：实现灯光状态的读取和设置功能；
 - 依赖 `LightManager` 实现实际的灯光控制。
 
----
-
 #### 类结构与设计
 
 | 成员变量         | 说明 |
@@ -497,8 +495,6 @@ sensor->Listen([](auto data) {
 | `_light_manager` | 指向 `LightManager` 的弱引用指针，确保灯光操作的上下文一致性 |
 
 所有灯光状态操作均通过 `_light_manager` 执行，确保集中管理和同步执行。
-
----
 
 #### 提供的接口函数
 
@@ -514,8 +510,6 @@ sensor->Listen([](auto data) {
 | `SetLightGroup(group)` | 设置灯光所属分组 |
 | `SetLightState(state)` | 设置完整灯光状态 |
 | `TurnOn()` / `TurnOff()` | 控制灯光开关 |
-
----
 
 #### 示例：设置灯光颜色与状态
 
@@ -552,6 +546,62 @@ light.SetLightState(state);
 #### 总结
 `Light `模块为 CARLA 中所有可控灯光对象提供了统一、灵活的控制接口。它结合 `LightManager `实现了强大的灯光仿真能力，
 为真实感可视化和智能交通仿真提供关键支持。该模块对提升自动驾驶仿真环境的真实性和交互性具有重要意义。
+
+### 6、Vehicle 模块：CARLA 车辆实体控制与状态管理
+
+`Vehicle` 是 CARLA 模拟器中用于**表示和操作模拟场景中的车辆 Actor** 的基本类。该类接口完善，支持车辆的控制操作、自动驾驶切换、物理参数调用以及交通灯交互，是自动驾驶仿真中的核心组件之一。
+
+该模块包括两部分文件：
+
+- `Vehicle.h`：定义车辆类的基本结构和操作接口。
+- `Vehicle.cpp`：实现了车辆控制逻辑和状态查询功能。
+
+#### 类设计与主要成员
+
+| 成员变量 | 功能说明 |
+|--------------|----------------|
+| `_control` | 存储最后一次应用的车辆控制指令 |
+| `_is_control_sticky` | 表示是否使用“粘性控制”（即无需重复上传一样的指令） |
+
+`Vehicle` 类继承自 `Actor`，并使用多类型符合 CARLA 控制器标准。
+
+#### 公共接口函数
+
+| 函数名 | 功能说明 |
+|-----------|----------------------------|
+| `SetAutopilot(bool, tm_port)` | 设置是否使用自动驾驶 (与 TrafficManager 联动) |
+| `ApplyControl()` | 应用基础车辆控制指令 (加速、转向、刹车) |
+| `ApplyAckermannControl()` | 应用 Ackermann 转向控制 |
+| `GetControl()` | 获取当前车辆控制指令 |
+| `ApplyPhysicsControl()` | 设置车辆物理参数 (重量、碳体积等) |
+| `GetTelemetryData()` | 获取车辆遥测数据 (位置、速度等) |
+| `OpenDoor()` / `CloseDoor()` | 操作车门打开或关闭 |
+| `SetLightState()` / `GetLightState()` | 设置和查询车灯状态 |
+| `SetWheelSteerDirection()` / `GetWheelSteerAngle()` | 设置/获取车轮转向角 |
+| `EnableCarSim()` / `UseCarSimRoad()` | 使用 CarSim 车辆模型和道路 |
+| `EnableChronoPhysics()` / `RestorePhysXPhysics()` | 切换车辆物理引擎 (Chrono 或 PhysX) |
+| `IsAtTrafficLight()` / `GetTrafficLight()` | 判断是否被交通灯影响，并获取当前交通灯对象 |
+| `GetSpeedLimit()` | 获取当前车辆速度限制 |
+| `GetFailureState()` | 获取车辆故障状态 |
+
+
+#### 示例：启用自动驾驶
+```
+// 车辆初始化
+carla::client::Vehicle vehicle = ...;
+
+// 启用自动驾驶
+vehicle.SetAutopilot(true);
+```
+#### 应用场景
+ - 自动驾驶模拟控制：接入 TrafficManager 实现汽车流量自动控制
+ - 车辆系统调用分析：通过接口获取操作、物理和状态数据
+ - 高级路径控制实验：配合 Ackermann 控制器进行路径跳转与车轮方向控制
+
+#### 总结
+`Vehicle` 模块是 CARLA 中表示和操作车辆的核心类。它包括了驾驶、控制、物理反应和交通环境交互等方面，
+是完成实时交通模拟与自动驾驶系统组装的基石。
+
 
 ---
 
