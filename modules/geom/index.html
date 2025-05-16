@@ -167,7 +167,7 @@
 - <strong>参数</strong><br />
   - <font color="#f8805a">a</font>, <font color="#f8805a">b</font>：三维向量<br />
 - <strong>返回值</strong>：叉积向量</p>
-<p>设<script type="math/tex">a=[x_1,y_1,z_1]$,$b=[x_2,y_2,z_2]</script>那么它们的叉积<script type="math/tex">a\times b</script>为：
+<p>设<script type="math/tex">a=[x_1,y_1,z_1],b=[x_2,y_2,z_2]</script>那么它们的叉积<script type="math/tex">a\times b</script>为：
 <script type="math/tex; mode=display">
 a\times b=\begin{pmatrix}y_1z_2-z_1y_2\\z_1x_2-x_1z_2\\x_1y_2-y_1x_2\end{pmatrix}
 </script>
@@ -183,7 +183,7 @@ a\times b=\begin{pmatrix}y_1z_2-z_1y_2\\z_1x_2-x_1z_2\\x_1y_2-y_1x_2\end{pmatrix
 a\cdot b=\sum_i^n a_ib_i
 </script>
 </p>
-<p>其中$n$是向量的维度。</p>
+<p>其中<script type="math/tex">n</script>是向量的维度。</p>
 <h3 id="dot2d"><strong><font color="#7fb800">Dot2D</font></strong></h3>
 <p><div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">Dot2D</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Vector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Vector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="n">b</span><span class="p">);</span>
 </code></pre></div>
@@ -260,7 +260,7 @@ a\cdot b=\sum_i^n a_ib_i
 <p>线段向量为：<script type="math/tex">\vec{d} = \vec{w} - \vec{v}</script>
 向量 <script type="math/tex">\vec{vp} = \vec{p} - \vec{v}</script>
 </p>
-<p><strong>1. 计算投影参数 $t$</strong></p>
+<p><strong>1. 计算投影参数 t</strong></p>
 <p>该参数t 表示点 p 在 <script type="math/tex">\vec{d}</script>上的投影比例位置：</p>
 <p>
 <script type="math/tex; mode=display">
@@ -461,18 +461,18 @@ proj = center + R \cdot \begin{bmatrix} \cos(\theta_p) \\ \sin(\theta_p) \end{bm
 <li><strong>原型</strong>：<code>float SquaredLength() const;</code>  </li>
 <li><strong>说明</strong>：返回：<script type="math/tex; mode=display">x^2 + y^2 + z^2</script>
 </li>
-<li><strong>示例</strong>：<br />
-  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">v3</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mf">1.0f</span><span class="p">,</span><span class="mf">2.0f</span><span class="p">,</span><span class="mf">2.0f</span><span class="p">);</span>
-<span class="kt">float</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">sq3</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">v3</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">.</span><span class="n">SquaredLength</span><span class="p">();</span><span class="w"> </span><span class="c1">// sq3 == 9</span>
-</code></pre></div></li>
+<li><strong>示例</strong>：  </li>
 </ul>
+<div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w">  </span><span class="nf">v3</span><span class="p">(</span><span class="mf">1.0f</span><span class="p">,</span><span class="mf">2.0f</span><span class="p">,</span><span class="mf">2.0f</span><span class="p">);</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">sq3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v3</span><span class="p">.</span><span class="n">SquaredLength</span><span class="p">();</span><span class="w"> </span><span class="c1">// sq3 == 9</span>
+</code></pre></div>
 <h3 id="length_1"><strong><font color="#7fb800">Length</font></strong></h3>
 <ul>
 <li><strong>原型</strong>：<code>float Length() const;</code>  </li>
 <li><strong>说明</strong>：返回：<script type="math/tex; mode=display">\sqrt{x^2 + y^2 + z^2}</script>
 </li>
 <li><strong>示例</strong>：<br />
-  <div class="highlight"><pre><span></span><code><span class="kt">float</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">len3</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">v3</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">.</span><span class="n">Length</span><span class="p">();</span><span class="w"> </span><span class="c1">// len3 == 3</span>
+  <div class="highlight"><pre><span></span><code><span class="kt">float</span><span class="w"> </span><span class="n">len3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v3</span><span class="p">.</span><span class="n">Length</span><span class="p">();</span><span class="w"> </span><span class="c1">// len3 == 3</span>
 </code></pre></div></li>
 </ul>
 <h3 id="squaredlength2d-length2d"><strong><font color="#7fb800">SquaredLength2D</font></strong> / <strong><font color="#7fb800">Length2D</font></strong></h3>
@@ -487,9 +487,9 @@ proj = center + R \cdot \begin{bmatrix} \cos(\theta_p) \\ \sin(\theta_p) \end{bm
 <li><code>float Length2D() const;</code> 返回 <script type="math/tex; mode=display">\sqrt{x^2 + y^2}</script>
 </li>
 <li><strong>示例</strong>：<br />
-  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">vxy</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mf">3.0f</span><span class="p">,</span><span class="mf">4.0f</span><span class="p">,</span><span class="mf">7.0f</span><span class="p">);</span>
-<span class="kt">float</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">sq2d</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">vxy</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">.</span><span class="n">SquaredLength2D</span><span class="p">();</span><span class="w"> </span><span class="c1">// 25</span>
-<span class="kt">float</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">len2d</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">vxy</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">.</span><span class="n">Length2D</span><span class="p">();</span><span class="w">        </span><span class="c1">// 5</span>
+  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="nf">vxy</span><span class="p">(</span><span class="mf">3.0f</span><span class="p">,</span><span class="mf">4.0f</span><span class="p">,</span><span class="mf">7.0f</span><span class="p">);</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">sq2d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vxy</span><span class="p">.</span><span class="n">SquaredLength2D</span><span class="p">();</span><span class="w"> </span><span class="c1">// 25</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">len2d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&gt;</span><span class="n">vxy</span><span class="p">.</span><span class="n">Length2D</span><span class="p">();</span><span class="w">        </span><span class="c1">// 5</span>
 </code></pre></div></li>
 </ul>
 <h3 id="abs"><strong><font color="#7fb800">Abs</font></strong></h3>
