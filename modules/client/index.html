@@ -676,7 +676,6 @@ sensor-&gt;Listen([](auto data) {
 <li><code>Light.cpp</code>：实现灯光状态的读取和设置功能；</li>
 <li>依赖 <code>LightManager</code> 实现实际的灯光控制。</li>
 </ul>
-<hr />
 <h4 id="_37">类结构与设计</h4>
 <table>
 <thead>
@@ -697,7 +696,6 @@ sensor-&gt;Listen([](auto data) {
 </tbody>
 </table>
 <p>所有灯光状态操作均通过 <code>_light_manager</code> 执行，确保集中管理和同步执行。</p>
-<hr />
 <h4 id="_38">提供的接口函数</h4>
 <table>
 <thead>
@@ -749,7 +747,6 @@ sensor-&gt;Listen([](auto data) {
 </tr>
 </tbody>
 </table>
-<hr />
 <h4 id="_39">示例：设置灯光颜色与状态</h4>
 <div class="highlight"><pre><span></span><code>auto light = some_actor.GetLight();
 
@@ -785,11 +782,121 @@ light.SetLightState(state);
 <h4 id="_42">总结</h4>
 <p><code>Light</code>模块为 CARLA 中所有可控灯光对象提供了统一、灵活的控制接口。它结合 <code>LightManager</code>实现了强大的灯光仿真能力，
 为真实感可视化和智能交通仿真提供关键支持。该模块对提升自动驾驶仿真环境的真实性和交互性具有重要意义。</p>
+<h3 id="6vehicle-carla">6、Vehicle 模块：CARLA 车辆实体控制与状态管理</h3>
+<p><code>Vehicle</code> 是 CARLA 模拟器中用于<strong>表示和操作模拟场景中的车辆 Actor</strong> 的基本类。该类接口完善，支持车辆的控制操作、自动驾驶切换、物理参数调用以及交通灯交互，是自动驾驶仿真中的核心组件之一。</p>
+<p>该模块包括两部分文件：</p>
+<ul>
+<li><code>Vehicle.h</code>：定义车辆类的基本结构和操作接口。</li>
+<li><code>Vehicle.cpp</code>：实现了车辆控制逻辑和状态查询功能。</li>
+</ul>
+<h4 id="_43">类设计与主要成员</h4>
+<table>
+<thead>
+<tr>
+<th>成员变量</th>
+<th>功能说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>_control</code></td>
+<td>存储最后一次应用的车辆控制指令</td>
+</tr>
+<tr>
+<td><code>_is_control_sticky</code></td>
+<td>表示是否使用“粘性控制”（即无需重复上传一样的指令）</td>
+</tr>
+</tbody>
+</table>
+<p><code>Vehicle</code> 类继承自 <code>Actor</code>，并使用多类型符合 CARLA 控制器标准。</p>
+<h4 id="_44">公共接口函数</h4>
+<table>
+<thead>
+<tr>
+<th>函数名</th>
+<th>功能说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SetAutopilot(bool, tm_port)</code></td>
+<td>设置是否使用自动驾驶 (与 TrafficManager 联动)</td>
+</tr>
+<tr>
+<td><code>ApplyControl()</code></td>
+<td>应用基础车辆控制指令 (加速、转向、刹车)</td>
+</tr>
+<tr>
+<td><code>ApplyAckermannControl()</code></td>
+<td>应用 Ackermann 转向控制</td>
+</tr>
+<tr>
+<td><code>GetControl()</code></td>
+<td>获取当前车辆控制指令</td>
+</tr>
+<tr>
+<td><code>ApplyPhysicsControl()</code></td>
+<td>设置车辆物理参数 (重量、碳体积等)</td>
+</tr>
+<tr>
+<td><code>GetTelemetryData()</code></td>
+<td>获取车辆遥测数据 (位置、速度等)</td>
+</tr>
+<tr>
+<td><code>OpenDoor()</code> / <code>CloseDoor()</code></td>
+<td>操作车门打开或关闭</td>
+</tr>
+<tr>
+<td><code>SetLightState()</code> / <code>GetLightState()</code></td>
+<td>设置和查询车灯状态</td>
+</tr>
+<tr>
+<td><code>SetWheelSteerDirection()</code> / <code>GetWheelSteerAngle()</code></td>
+<td>设置/获取车轮转向角</td>
+</tr>
+<tr>
+<td><code>EnableCarSim()</code> / <code>UseCarSimRoad()</code></td>
+<td>使用 CarSim 车辆模型和道路</td>
+</tr>
+<tr>
+<td><code>EnableChronoPhysics()</code> / <code>RestorePhysXPhysics()</code></td>
+<td>切换车辆物理引擎 (Chrono 或 PhysX)</td>
+</tr>
+<tr>
+<td><code>IsAtTrafficLight()</code> / <code>GetTrafficLight()</code></td>
+<td>判断是否被交通灯影响，并获取当前交通灯对象</td>
+</tr>
+<tr>
+<td><code>GetSpeedLimit()</code></td>
+<td>获取当前车辆速度限制</td>
+</tr>
+<tr>
+<td><code>GetFailureState()</code></td>
+<td>获取车辆故障状态</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_45">示例：启用自动驾驶</h4>
+<div class="highlight"><pre><span></span><code>// 车辆初始化
+carla::client::Vehicle vehicle = ...;
+
+// 启用自动驾驶
+vehicle.SetAutopilot(true);
+</code></pre></div>
+<h4 id="_46">应用场景</h4>
+<ul>
+<li>自动驾驶模拟控制：接入 TrafficManager 实现汽车流量自动控制</li>
+<li>车辆系统调用分析：通过接口获取操作、物理和状态数据</li>
+<li>高级路径控制实验：配合 Ackermann 控制器进行路径跳转与车轮方向控制</li>
+</ul>
+<h4 id="_47">总结</h4>
+<p><code>Vehicle</code> 模块是 CARLA 中表示和操作车辆的核心类。它包括了驾驶、控制、物理反应和交通环境交互等方面，
+是完成实时交通模拟与自动驾驶系统组装的基石。</p>
 <hr />
-<h2 id="_43"><strong>类之间的调用关系</strong></h2>
+<h2 id="_48"><strong>类之间的调用关系</strong></h2>
 <h3 id="carla">以下是 CARLA 客户端部分类之间的调用关系图，展示了各个类如何交互以及它们之间的依赖关系。</h3>
 <p><img alt="类关系" src="https://github.com/LangJing23/nuanxin_volunteer/blob/master/lei.png" /></p>
-<h5 id="_44">调用关系说明</h5>
+<h5 id="_49">调用关系说明</h5>
 <p>Client 类与其他类的交互：</p>
 <blockquote>
 <p>Client 类是与模拟器交互的主要接口，它通过方法如 LoadWorld()、GetAvailableMaps()、StartRecorder() 等来控制仿真世界。</p>
@@ -810,7 +917,7 @@ light.SetLightState(state);
 <p>World 类表示仿真中的一个世界，它与 Client 和 Actor 类紧密关联。World 提供对仿真环境的访问，可以控制仿真世界中的所有行为体和传感器。</p>
 <p>World 还负责管理交通流、物理环境、天气等仿真环境因素。</p>
 </blockquote>
-<h2 id="_45">总结</h2>
+<h2 id="_50">总结</h2>
 <p>CARLA 客户端部分提供了与仿真环境交互的丰富 API，支持开发者控制仿真世界中的各种元素，包括行为体（Actor）、传感器（ClientSideSensor）和交通流（TrafficManager）等。通过 Client 类，开发者能够加载地图、获取世界状态、管理传感器、操作物理环境等。类之间的交互使得开发者能够在仿真环境中进行精确的控制和验证。</p>
 <p>参考文档：<a href="https://openhutb.github.io/carla_cpp/dir_64d7bb605f27024d49af86070bd3f0b6.html">点击此处跳转</a></p>
               
