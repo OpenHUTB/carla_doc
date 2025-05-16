@@ -668,11 +668,128 @@ sensor-&gt;Listen([](auto data) {
 </table>
 <h4 id="_36">总结</h4>
 <p><code>LaneInvasion</code> 模块为 CARLA 中提供了高效、可扩展的车道线检测机制，是自动驾驶测试流程中的重要一环。通过该模块，开发者可方便地监控车辆是否遵循车道规范，并可将入侵事件集成至评估、报警或控制逻辑中，显著提升仿真测试的准确性与现实性。</p>
+<h3 id="5light-carla">5、Light 模块：CARLA 中的交通灯与照明灯控制接口</h3>
+<p><code>Light</code> 模块是 CARLA 客户端中用于操作和管理灯光对象（包括交通灯、街道灯、车灯等）的类。它通过封装 <code>LightManager</code> 的控制接口，允许用户<strong>读取和设置灯光属性、状态、分组以及开关控制</strong>，在交通仿真与可视化系统中扮演关键角色。</p>
+<p>该模块主要由以下文件组成：</p>
+<ul>
+<li><code>Light.h</code>：声明 <code>Light</code> 类的接口；</li>
+<li><code>Light.cpp</code>：实现灯光状态的读取和设置功能；</li>
+<li>依赖 <code>LightManager</code> 实现实际的灯光控制。</li>
+</ul>
 <hr />
-<h2 id="_37"><strong>类之间的调用关系</strong></h2>
+<h4 id="_37">类结构与设计</h4>
+<table>
+<thead>
+<tr>
+<th>成员变量</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>_id</code></td>
+<td>当前灯光的唯一标识符</td>
+</tr>
+<tr>
+<td><code>_light_manager</code></td>
+<td>指向 <code>LightManager</code> 的弱引用指针，确保灯光操作的上下文一致性</td>
+</tr>
+</tbody>
+</table>
+<p>所有灯光状态操作均通过 <code>_light_manager</code> 执行，确保集中管理和同步执行。</p>
+<hr />
+<h4 id="_38">提供的接口函数</h4>
+<table>
+<thead>
+<tr>
+<th>函数名</th>
+<th>功能说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GetColor()</code></td>
+<td>获取当前灯光颜色</td>
+</tr>
+<tr>
+<td><code>GetIntensity()</code></td>
+<td>获取当前灯光亮度（强度）</td>
+</tr>
+<tr>
+<td><code>GetLightGroup()</code></td>
+<td>获取灯光所属分组</td>
+</tr>
+<tr>
+<td><code>GetLightState()</code></td>
+<td>获取灯光完整状态（如颜色、开关、组别等）</td>
+</tr>
+<tr>
+<td><code>IsOn()</code> / <code>IsOff()</code></td>
+<td>判断灯光是否已开启或关闭</td>
+</tr>
+<tr>
+<td><code>SetColor(Color)</code></td>
+<td>设置灯光颜色</td>
+</tr>
+<tr>
+<td><code>SetIntensity(float)</code></td>
+<td>设置灯光亮度</td>
+</tr>
+<tr>
+<td><code>SetLightGroup(group)</code></td>
+<td>设置灯光所属分组</td>
+</tr>
+<tr>
+<td><code>SetLightState(state)</code></td>
+<td>设置完整灯光状态</td>
+</tr>
+<tr>
+<td><code>TurnOn()</code> / <code>TurnOff()</code></td>
+<td>控制灯光开关</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="_39">示例：设置灯光颜色与状态</h4>
+<div class="highlight"><pre><span></span><code>auto light = some_actor.GetLight();
+
+// 设置灯光颜色为红色
+light.SetColor(carla::Color(255, 0, 0));
+
+// 设置强度为5.0
+light.SetIntensity(5.0f);
+
+// 设置状态为开启状态并指定组别
+carla::rpc::LightState state;
+state.active = true;
+state.intensity = 5.0f;
+state.color = carla::Color(255, 255, 0);
+state.group = carla::rpc::LightState::LightGroup::Street;
+
+light.SetLightState(state);
+</code></pre></div>
+<h4 id="_40">应用场景</h4>
+<ul>
+<li>交通灯仿真控制：控制红绿灯的开关状态与颜色变换；</li>
+<li>街道照明模拟：控制夜间场景下街灯的亮度与颜色；</li>
+<li>视觉感知测试：模拟不同灯光环境用于测试自动驾驶感知算法；</li>
+<li>动态灯光效果渲染：在交互式仿真场景中创建逼真的灯光效果变化。</li>
+</ul>
+<h4 id="_41">模块特性与设计优势</h4>
+<ul>
+<li>所有接口均通过 LightManager 管理，集中控制所有灯光对象；</li>
+<li>利用 weak_ptr 提高资源管理效率，避免循环引用；</li>
+<li>支持细粒度的灯光操作，如单独控制颜色、强度、分组等；</li>
+<li>可作为传感器、视觉系统或控制模块的辅助工具。</li>
+</ul>
+<h4 id="_42">总结</h4>
+<p><code>Light</code>模块为 CARLA 中所有可控灯光对象提供了统一、灵活的控制接口。它结合 <code>LightManager</code>实现了强大的灯光仿真能力，
+为真实感可视化和智能交通仿真提供关键支持。该模块对提升自动驾驶仿真环境的真实性和交互性具有重要意义。</p>
+<hr />
+<h2 id="_43"><strong>类之间的调用关系</strong></h2>
 <h3 id="carla">以下是 CARLA 客户端部分类之间的调用关系图，展示了各个类如何交互以及它们之间的依赖关系。</h3>
 <p><img alt="类关系" src="https://github.com/LangJing23/nuanxin_volunteer/blob/master/lei.png" /></p>
-<h5 id="_38">调用关系说明</h5>
+<h5 id="_44">调用关系说明</h5>
 <p>Client 类与其他类的交互：</p>
 <blockquote>
 <p>Client 类是与模拟器交互的主要接口，它通过方法如 LoadWorld()、GetAvailableMaps()、StartRecorder() 等来控制仿真世界。</p>
@@ -693,7 +810,7 @@ sensor-&gt;Listen([](auto data) {
 <p>World 类表示仿真中的一个世界，它与 Client 和 Actor 类紧密关联。World 提供对仿真环境的访问，可以控制仿真世界中的所有行为体和传感器。</p>
 <p>World 还负责管理交通流、物理环境、天气等仿真环境因素。</p>
 </blockquote>
-<h2 id="_39">总结</h2>
+<h2 id="_45">总结</h2>
 <p>CARLA 客户端部分提供了与仿真环境交互的丰富 API，支持开发者控制仿真世界中的各种元素，包括行为体（Actor）、传感器（ClientSideSensor）和交通流（TrafficManager）等。通过 Client 类，开发者能够加载地图、获取世界状态、管理传感器、操作物理环境等。类之间的交互使得开发者能够在仿真环境中进行精确的控制和验证。</p>
 <p>参考文档：<a href="https://openhutb.github.io/carla_cpp/dir_64d7bb605f27024d49af86070bd3f0b6.html">点击此处跳转</a></p>
               
