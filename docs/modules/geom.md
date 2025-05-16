@@ -116,7 +116,7 @@ static auto Cross(const Vector3D &a, const Vector3D &b);
   - <font color="#f8805a">a</font>, <font color="#f8805a">b</font>：三维向量  
 - **返回值**：叉积向量
 
-设\(a=[x_1,y_1,z_1]$,$b=[x_2,y_2,z_2]\)那么它们的叉积\(a\times b\)为：
+设\(a=[x_1,y_1,z_1],b=[x_2,y_2,z_2]\)那么它们的叉积\(a\times b\)为：
 $$
 a\times b=\begin{pmatrix}y_1z_2-z_1y_2\\z_1x_2-x_1z_2\\x_1y_2-y_1x_2\end{pmatrix}
 $$
@@ -136,7 +136,7 @@ a\cdot b=\sum_i^n a_ib_i
 $$
 
 
-其中$n$是向量的维度。
+其中\(n\)是向量的维度。
 
 ### **<font color="#7fb800">Dot2D</font>**
 
@@ -234,7 +234,7 @@ static std::pair<float, float> DistanceSegmentToPoint(
 线段向量为：\(\vec{d} = \vec{w} - \vec{v}\)
 向量 \(\vec{vp} = \vec{p} - \vec{v}\)
 
-**1. 计算投影参数 $t$**
+**1. 计算投影参数 t**
 
 该参数t 表示点 p 在 \(\vec{d}\)上的投影比例位置：
 
@@ -455,9 +455,10 @@ static std::vector<int> GenerateRange(int a, int b);
 - **原型**：`float SquaredLength() const;`  
 - **说明**：返回：$$x^2 + y^2 + z^2$$  
 - **示例**：  
+  
   ```cpp
-  Vector3D **<font color="#f8805a">v3</font>**(1.0f,2.0f,2.0f);
-  float **<font color="#f8805a">sq3</font>** = **<font color="#f8805a">v3</font>**.SquaredLength(); // sq3 == 9
+  Vector3D  v3(1.0f,2.0f,2.0f);
+  float sq3 = v3.SquaredLength(); // sq3 == 9
   ```
 
 ### **<font color="#7fb800">Length</font>**
@@ -465,7 +466,7 @@ static std::vector<int> GenerateRange(int a, int b);
 - **说明**：返回：$$\sqrt{x^2 + y^2 + z^2}$$  
 - **示例**：  
   ```cpp
-  float **<font color="#f8805a">len3</font>** = **<font color="#f8805a">v3</font>**.Length(); // len3 == 3
+  float len3 = v3.Length(); // len3 == 3
   ```
 
 ### **<font color="#7fb800">SquaredLength2D</font>** / **<font color="#7fb800">Length2D</font>**
@@ -475,9 +476,9 @@ static std::vector<int> GenerateRange(int a, int b);
   - `float Length2D() const;` 返回 $$\sqrt{x^2 + y^2}$$  
 - **示例**：  
   ```cpp
-  Vector3D **<font color="#f8805a">vxy</font>**(3.0f,4.0f,7.0f);
-  float **<font color="#f8805a">sq2d</font>** = **<font color="#f8805a">vxy</font>**.SquaredLength2D(); // 25
-  float **<font color="#f8805a">len2d</font>** = **<font color="#f8805a">vxy</font>**.Length2D();        // 5
+  Vector3D vxy(3.0f,4.0f,7.0f);
+  float sq2d = vxy.SquaredLength2D(); // 25
+  float len2d = >vxy.Length2D();        // 5
   ```
 
 ### **<font color="#7fb800">Abs</font>**
