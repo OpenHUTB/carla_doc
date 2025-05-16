@@ -63,7 +63,7 @@
   * **实现过程** ：
     1. 调用`WriteHeader`函数写入PLY文件的头部信息，这些信息包括文件格式、点云数据的顶点数等。
     2. 遍历从`begin`到`end`的点云数据，通过每个点对象的`WriteDetection`方法将点的信息写入到输出流`out`中，并在每个点的数据后添加换行符。
-#### 代码示例：
+* **代码示例** ：
 ```cpp
 template <typename PointIt>
 static void Dump(std::ostream &out, PointIt begin, PointIt end) {
@@ -74,7 +74,8 @@ static void Dump(std::ostream &out, PointIt begin, PointIt end) {
   }
 }
 ```
-
+* **dump函数流程图** ：
+![dump函数流程图](../img/pointcloud_dump.png)
 ### ii. 模板函数 `SaveToDisk`
 
 #### 功能
