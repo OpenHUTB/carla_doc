@@ -255,13 +255,57 @@ AWeather 类在构造函数中直接硬编码了两个后处理材质的路径�
 1. 使用#pragma once替代#include guards。
 2. 移除未使用的头文件（如Kismet/GameplayStatics.h仅用于传感器查找，可替换为更轻量的查询方式）。
 3. API注释：补充UFUNCTION和UCLASS元数据，说明蓝图可调用性和网络同步行为。</p>
+<ol>
+<li>场景捕获相机优化
+问题分析：</li>
+</ol>
+<p>每次调用CheckWeatherPostProcessEffects()都会遍历所有场景捕获相机并重新添加后处理效果 </p>
+<p>没有考虑相机与天气效果的相关性(如距离、视角等)</p>
+<h1 id="_14">优化建议：</h1>
+<ol>
+<li>
+<p>缓存场景捕获相机列表：避免频繁调用GetAllActorsOfClass</p>
+</li>
+<li>
+<p>按需更新：只更新真正需要天气效果的相机 </p>
+</li>
+<li>
+<p>使用正交投影：对于小地图等用途的相机，使用正交投影(Projection Type设为Orthographic)减少计算量 </p>
+</li>
+<li>
+<p>LOD控制：根据相机距离调整天气效果的强度或完全禁用远处相机的天气效果  </p>
+</li>
+<li>
+<p>天气参数优化
+问题分析：</p>
+</li>
+<li>
+<p>天气参数更新可能导致频繁的材质参数更新和场景更新 </p>
+</li>
+<li>没有考虑不同天气参数之间的依赖关系(如下雨后地面湿润效果)</li>
+</ol>
+<h1 id="_15">优化建议：</h1>
+<ol>
+<li>
+<p>参数插值过渡：在天气变化时使用插值平滑过渡，避免突然变化</p>
+</li>
+<li>
+<p>参数分组更新：将相关参数分组，减少不必要的更新 </p>
+</li>
+<li>
+<p>验证参数范围：确保天气参数在合理范围内(如0-100) </p>
+</li>
+<li>
+<p>使用蓝图控制：将部分天气逻辑移到蓝图中，便于美术调整 </p>
+</li>
+</ol>
 <div class="admonition 注意">
 <p class="admonition-title">注意</p>
 <p>确保在使用前正确初始化AWeather对象。
 后处理材质的路径需要根据实际情况进行调整。
 如果需要详细的日志信息，请定义CARLA_WEATHER_EXTRA_LOG宏。</p>
 </div>
-<h2 id="_14">参考</h2>
+<h2 id="_16">参考</h2>
 <ul>
 <li><a href="../../tuto_M_custom_weather_landscape/">自定义地图：天气和景观</a></li>
 </ul>
