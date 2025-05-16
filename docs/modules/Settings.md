@@ -289,23 +289,47 @@ graph TD
     PhysScene->SetPhysXSceneRunning(bWasPhysicsRunning);
     }
     ```
-- **性能优化技术**：
-    ```cpp
-    // 渐进式加载
-    void UEpicQualityStrategy::ApplyVirtualTexture()
-    {
-    // 分批次加载VT资源
-    FVTEnableSettings Settings;
-    Settings.MaxMemoryUsage = 2048; // MB
-    Settings.bEnableCompressZlib = true;
-    
-    GetRendererModule().EnableVirtualTextureTracking(
+- **关键技术实现解析**：
+    - **分块加载算法**：
+       - ： 基于视锥体裁剪确定优先加载区块
+       - ： 根据摄像机运动速度预测加载区域
+    - **多级缓存策略**：
+        ```cpp
+        // 渐进式加载
+        void UEpicQualityStrategy::ApplyVirtualTexture()
+        {
+        // 分批次加载VT资源
+        FVTEnableSettings Settings;
+        Settings.MaxMemoryUsage = 2048; // MB
+        Settings.bEnableCompressZlib = true;
+        GetRendererModule().EnableVirtualTextureTracking(
         EVirtualTextureType::Color, 
         Settings, 
         0.5f // 每帧加载权重
-    );
-    }
-
+        );
+        }
+        ```
+    - **动态降级机制**：
+        - `实时监测显存压力`： FVirtualTexturingFeedback::AnalyzeMemoryUsage() 
+        - `自动触发Mipmap降级`： 当使用率>85%时，逐层降低非可见区域纹理分辨率
+        - `异步压缩传输`： 使用Zlib库压缩纹理数据，降低PCIe带宽占用
+- **核心优化总结**：
+    - `零卡顿切换体验`： 通过物理冻结+异步加载实现无缝过渡
+    - `显存精细控制`： VT分级加载策略避免内存峰值波动
+    - `多级降级预案`： 自动应对硬件性能不足场景
+    - `数据驱动配置`： 所有阈值参数可由DataTable动态调整
+ - **流程图**： 
+    ```mermaid
+    graph TD
+        A[画质切换请求] --> B{是否正在加载}
+        B -- 是 --> C[加入等待队列]
+        B -- 否 --> D[冻结物理场景]
+        D --> E[创建加载任务]
+        E --> F[启动异步加载]
+        F --> G[渐进资源加载]
+        G --> H[触发完成回调]
+        H --> I[重建渲染状态]
+        I --> J[恢复物理模拟]
     ```
 ## 2.3 动态调参系统
 ### 2.3.1 自动降级机制

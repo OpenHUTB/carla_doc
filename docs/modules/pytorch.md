@@ -175,6 +175,10 @@ void NeuralModel::SetInputs(Inputs input)
 
 ## 7. 整体流程
 
+该模块调用流程图如下：
+
+![该模块的各个函数关系图](../img/neural_model_flow.svg)
+
 1. **初始化与加载**
 
    ```
