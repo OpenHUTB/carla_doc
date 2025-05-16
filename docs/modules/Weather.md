@@ -179,6 +179,60 @@ AWeather 类在构造函数中直接硬编码了两个后处理材质的路径�
 在配置文件中定义材质路径（如 DefaultWeather.ini），运行时读取并加载资源。
 使用 TSubclassOf<UMaterial> 类型的公开变量，允许在蓝图或编辑器中指定材质资源。
 
+2. 优化传感器后处理更新逻辑，减少冗余操作
+#问题：
+1.CheckWeatherPostProcessEffects 函数在每次调用时会：
+重复获取所有传感器：通过 UGameplayStatics::GetAllActorsOfClass 每次遍历场景查找 2.ASceneCaptureCamera，可能造成性能开销。
+全量更新后处理材质：即使天气参数未变化，也会遍历所有传感器并重新添加/移除材质。
+
+#解决方案：
+
+1. 缓存传感器列表：在初始化时获取传感器并缓存，避免重复查找。
+2. 增量更新材质：记录当前生效的后处理材质，仅在天气参数变化时更新差异部分。
+
+3. 后处理材质管理优化
+#问题：后处理材质的添加/移除逻辑分散，且未考虑材质生命周期管理（如动态实例化）。
+
+优化建议：
+1. 材质实例化：使用CreateDynamicMaterialInstance()创建动态材质实例，独立控制不同传感器的参数。
+2. 强度归一化封装：将/100.0f的归一化操作封装为函数（如GetNormalizedIntensity()），避免重复计算。
+3. 错误处理：添加对材质加载失败的检查（如IsValid()），防止空指针访问。
+
+4. 日志与调试信息优化
+#问题：CARLA_WEATHER_EXTRA_LOG宏的日志输出格式固定，缺乏灵活性。
+
+优化建议：
+1. 结构化日志：使用FString::Printf生成带时间戳和上下文的日志，便于分析。
+2. 动态日志级别：通过UE_LOG分类（如LogTemp、LogCarla）和Verbosity级别控制输出量。
+3. 蓝图调试：暴露DebugWeatherParameters函数，允许在编辑器中实时查看天气状态。
+
+5. 线程安全与蓝图交互
+问题：RefreshWeather()直接调用蓝图逻辑，未处理多线程场景下的竞态条件。
+
+#优化建议：
+1. 线程安全调用：对蓝图调用使用AsyncTask(ENamedThreads::GameThread)确保在主线程执行。
+2. 事件驱动通知：通过DECLARE_DYNAMIC_MULTICAST_DELEGATE定义天气变化事件，减少直接依赖。
+
+6. 性能敏感参数优化
+#问题：ActiveBlendables的频繁添加/移除可能引发内存碎片化。
+
+优化建议：
+1. 预分配内存：使用TArray::Reserve()预分配足够容量。
+2. 对象池模式：对后处理材质对象池化，减少运行时动态分配。
+
+7. 扩展性改进
+问题：天气类型（如降水、沙尘暴）硬编码，新增效果需修改源码。
+
+#优化建议：
+1. 数据驱动设计：定义FWeatherEffect结构体，通过数据表（如UDataTable）配置不同天气的材质和参数。                            
+2. 插件化架构：将天气效果拆分为独立插件（如WeatherEffectsModule），支持动态加载。
+
+#代码规范建议
+头文件优化：
+1. 使用#pragma once替代#include guards。
+2. 移除未使用的头文件（如Kismet/GameplayStatics.h仅用于传感器查找，可替换为更轻量的查询方式）。
+3. API注释：补充UFUNCTION和UCLASS元数据，说明蓝图可调用性和网络同步行为。
+
 !!! 注意
     确保在使用前正确初始化AWeather对象。
     后处理材质的路径需要根据实际情况进行调整。
