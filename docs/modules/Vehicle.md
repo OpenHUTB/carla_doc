@@ -357,29 +357,57 @@ Tick：每帧执行的主逻辑流程
    
       1. **功能**：更新车辆的差速器设置。如果车辆驱动对象不为空，根据新的差速器设置数组，设置 PhysX 车辆差速器的数据。
       2. **参数**：`NewDifferentialSetup` 包含新的差速器设置数据的数组。
-   
-      （7）、成员函数 `UpdateTransmissionSetup(const FVehicleNWTransmissionData& NewTransmissionSetup)`
-   
+      
+      
+   （7）、成员函数 `UpdateTransmissionSetup(const FVehicleNWTransmissionData& NewTransmissionSetup)`
+      
       1. **功能**：更新车辆的变速器设置。如果车辆驱动对象不为空，根据新的变速器设置数据，设置 PhysX 车辆的齿轮数据和自动变速器数据。
-      2. **参数**：`NewTransmissionSetup` 包含新的变速器设置数据的对象。
+   2. **参数**：`NewTransmissionSetup` 包含新的变速器设置数据的对象。
+         
    
       （8）、成员函数 `BackwardsConvertCm2ToM2NW(float& val, float defaultValue)`
-   
+      
       1. **功能**：将从厘米平方到米平方的单位进行转换，如果 `val` 的值不等于默认值，则进行转换。
       2. 参数：
-         - `val`：需要转换的数值。
+      - `val`：需要转换的数值。
          - `defaultValue`：默认值，用于判断是否进行转换。
-   
+      
+      
       （9）、成员函数 `Serialize(FArchive& Ar)`
    
       1. **功能**：对组件进行序列化和反序列化操作。在反序列化时（加载时），根据不同的 UE4 版本进行单位转换，将发动机和变速器的一些设置从旧单位转换为新单位，确保兼容性。
-      2. **参数**：`Ar` 用于进行序列化和反序列化的存档对象。
-   
+   2. **参数**：`Ar` 用于进行序列化和反序列化的存档对象。
+         
+      
       （10）、成员函数 `ComputeConstants()`
-   
+      
       1. **功能**：计算一些常量，调用基类的 `ComputeConstants` 函数，并将发动机的最大转速（`MaxEngineRPM`）设置为发动机设置中的最大转速（`EngineSetup.MaxRPM`）。
-   
-   
+
+   （11）、成员函数 `GetTireData(physx::PxVehicleWheels* InWheels, UVehicleWheel* InWheel)`
+
+1. **功能**：获取轮胎数据，根据给定的 PhysX 车辆车轮对象和车辆车轮对象，返回对应的轮胎数据指针。
+2. 参数：
+   - `InWheels`：PhysX 车辆车轮对象。
+   - `InWheel`：车辆车轮对象。
+   - **返回值**：返回轮胎数据的指针。
+
+（12）、成员函数 `GetWheelShapeMapping(physx::PxVehicleWheels* InWheels, uint32 InWheel)`
+
+1. **功能**：获取车轮形状映射，根据给定的 PhysX 车辆车轮对象和车轮索引，返回对应的车轮形状索引。
+2. 参数：
+   - `InWheels`：PhysX 车辆车轮对象。
+   - `InWheel`：车轮索引。
+   - **返回值**：返回车轮形状索引。
+
+（13）、成员函数 `GetWheelData(physx::PxVehicleWheels* InWheels, uint32 InWheel)`
+
+1. **功能**：获取车轮数据，根据给定的 PhysX 车辆车轮对象和车轮索引，返回对应的车轮数据。
+2. 参数：
+   - `InWheels`：PhysX 车辆车轮对象。
+   - `InWheel`：车轮索引。
+   - **返回值**：返回车轮数据对象。
+
+
 
 
 
