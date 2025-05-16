@@ -91,13 +91,13 @@
 <p>点云数据是自动驾驶系统中重要的传感器数据之一，尤其是在仿真环境下，CARLA通过提供高度逼真的虚拟世界使得研究人员能够模拟传感器数据，从而进行算法开发、测试与验证。本模块的主要功能是提供点云数据的输入输出接口，主要聚焦于数据存储格式PLY（Polygon File Format），并确保数据可以高效、准确地读写。</p>
 <p>该模块作为CARLA仿真系统的一部分，通过与其他系统（如导航、传感器和交通管理模块）紧密集成，能为后续感知、决策等模块提供清晰、准确的环境感知数据。</p>
 <h3 id="_2">点云模块依赖图</h3>
-<p><img alt="点云模块依赖图" src="../../img/mermaid.png" />
+<p><img alt="点云模块依赖图" src="../../img/pointcloud_module_dependency_graph.png" />
 该图展示了点云模块如何与其他核心模块交互：
 - <strong>传感器模块（Sensor）</strong>：通过采集点云数据，为仿真系统提供实时环境感知。
 - <strong>导航模块（Navigation）</strong>：借助点云数据，进行路径规划、障碍物检测等操作。
 - <strong>交通管理模块（Traffic Manager）</strong>：通过点云数据优化交通流量与车辆行为控制。</p>
 <h3 id="_3">点云数据的重要性</h3>
-<p>在自动驾驶系统中，点云数据能够提供详细的三维环境模型，它对于精准的物体检测、障碍物避让以及路径规划至关重要。通过优化点云的输入输出（I/O）流程，能够大幅提升系统的实时性与稳定性。</p>
+<p>在自动驾驶系统中，点云数据能够提供详细的三维环境模型，它对于精准的物体检测、障碍物避让以及路径规划至关重要，通过优化点云的输入输出（I/O）流程，能够大幅提升系统的实时性与稳定性。</p>
 <hr />
 <h2 id="2">2 头文件与命名空间</h2>
 <h3 id="i">i 包含的头文件</h3>
@@ -114,7 +114,7 @@
 </ul>
 <h2 id="3-pointcloudio">3 pointcloudio类</h2>
 <p>该类提供了处理点云数据输入输出的功能，包括将点云数据写入输出流和保存到磁盘文件。<code>PointCloudIO</code>类是点云数据处理的核心，提供了点云数据的写入、保存和头部信息编写功能。下面是该类的各个功能细节。</p>
-<h3 id="i-dump">i 模板函数-dump</h3>
+<h3 id="i-dump">i 模板函数<code>dump</code></h3>
 <ul>
 <li><strong>功能</strong> ：该模板函数将点云数据写入到输出流中。模板参数<code>PointIt</code>表示点云数据的迭代器类型，<code>out</code>是输出流对象，<code>begin</code>和<code>end</code>分别表示点云数据的起始和结束迭代器。</li>
 <li>
@@ -132,8 +132,7 @@
 <li>遍历从<code>begin</code>到<code>end</code>的点云数据，通过每个点对象的<code>WriteDetection</code>方法将点的信息写入到输出流<code>out</code>中，并在每个点的数据后添加换行符。</li>
 </ol>
 </li>
-</ul>
-<h4 id="_4">代码示例：</h4>
+<li><strong>代码示例</strong> ：
 <div class="highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">PointIt</span><span class="o">&gt;</span>
 <span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">Dump</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="w"> </span><span class="o">&amp;</span><span class="n">out</span><span class="p">,</span><span class="w"> </span><span class="n">PointIt</span><span class="w"> </span><span class="n">begin</span><span class="p">,</span><span class="w"> </span><span class="n">PointIt</span><span class="w"> </span><span class="n">end</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="n">WriteHeader</span><span class="p">(</span><span class="n">out</span><span class="p">,</span><span class="w"> </span><span class="n">begin</span><span class="p">,</span><span class="w"> </span><span class="n">end</span><span class="p">);</span><span class="w">  </span><span class="c1">// 写入头部信息</span>
@@ -142,19 +141,24 @@
 <span class="w">    </span><span class="n">out</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span><span class="w">  </span><span class="c1">// 每个点的信息后换行</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div>
+</code></pre></div></li>
+<li><strong>dump函数流程图</strong> ：
+<img alt="dump函数流程图" src="../../img/pointcloud_dump.png" /></li>
+<li><strong>文字说明</strong> ：
+此流程图展示了 Dump 函数的流程。首先调用 WriteHeader 函数写入 PLY 文件的头部信息。头部信息写入完成后，函数遍历从 begin 到 end 的点云数据，依次调用每个点对象的 WriteDetection 方法将点信息写入输出流，并在每个点的数据后添加换行符。遍历完成后，函数标志结束。</li>
+</ul>
 <h3 id="ii-savetodisk">ii. 模板函数 <code>SaveToDisk</code></h3>
-<h4 id="_5">功能</h4>
+<h4 id="_4">功能</h4>
 <p>将点云数据保存到磁盘上的PLY文件中。此函数接受一个文件路径，和点云数据的迭代器。</p>
-<h4 id="_6">过程</h4>
+<h4 id="_5">过程</h4>
 <ol>
 <li><strong>验证文件路径</strong>：调用<code>FileSystem::ValidateFilePath</code>函数，确保路径以<code>.ply</code>结尾。</li>
 <li><strong>创建文件流</strong>：使用<code>std::ofstream</code>创建一个文件输出流，打开指定路径的文件。</li>
 <li><strong>调用<code>Dump</code></strong>：将点云数据通过<code>Dump</code>函数写入文件。</li>
 <li><strong>返回路径</strong>：返回保存的文件路径，方便后续操作。</li>
 </ol>
-<h4 id="_7">代码示例：</h4>
-<div class="highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">PointIt</span><span class="o">&gt;</span>
+<h4 id="_6">代码示例：</h4>
+<p><div class="highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">PointIt</span><span class="o">&gt;</span>
 <span class="k">static</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">SaveToDisk</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">path</span><span class="p">,</span><span class="w"> </span><span class="n">PointIt</span><span class="w"> </span><span class="n">begin</span><span class="p">,</span><span class="w"> </span><span class="n">PointIt</span><span class="w"> </span><span class="n">end</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="n">FileSystem</span><span class="o">::</span><span class="n">ValidateFilePath</span><span class="p">(</span><span class="n">path</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;.ply&quot;</span><span class="p">);</span><span class="w">  </span><span class="c1">// 验证路径</span>
 <span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">ofstream</span><span class="w"> </span><span class="nf">out</span><span class="p">(</span><span class="n">path</span><span class="p">);</span><span class="w">  </span><span class="c1">// 打开输出流</span>
@@ -162,10 +166,13 @@
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">path</span><span class="p">;</span><span class="w">  </span><span class="c1">// 返回文件路径</span>
 <span class="p">}</span>
 </code></pre></div>
+* <strong><code>SaveToDisk</code>函数流程图</strong> ：
+<img alt="savedisk函数流程图" src="../../img/pointcloud_savedisk.png" />
+* 此流程图展示了 SaveToDisk 函数的工作流程。首先验证文件路径是否以 .ply 结尾，确保文件类型正确。然后创建输出文件流对象并打开指定路径的文件。接着调用 Dump 函数将点云数据写入文件。最后返回保存的文件路径，以便后续操作使用。</p>
 <h3 id="iii-writeheader">iii. 私有静态函数 <code>WriteHeader</code></h3>
-<h4 id="_8">功能</h4>
+<h4 id="_7">功能</h4>
 <p>该私有函数负责将PLY文件的头部信息写入到输出流。头部信息包括文件格式、点云数据的顶点数，以及每个点的数据格式。</p>
-<h4 id="_9">过程</h4>
+<h4 id="_8">过程</h4>
 <ol>
 <li><strong>断言检查</strong>：使用<code>DEBUG_ASSERT</code>确保点云数据的数量非负。通过<code>std::distance(begin, end)</code>计算点云的总数量。</li>
 <li><strong>写入基本头部信息</strong>：包括文件格式和顶点数量。</li>
@@ -173,7 +180,7 @@
 <li><strong>结束头部</strong>：最后写入<code>end_header</code>，标记头部的结束。</li>
 <li><strong>精度设置</strong>：设置输出流的精度，固定为4位小数，确保数据格式一致。</li>
 </ol>
-<h4 id="_10">代码示例：</h4>
+<h4 id="_9">代码示例：</h4>
 <div class="highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">PointIt</span><span class="o">&gt;</span><span class="w"> </span>
 <span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">WriteHeader</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="w"> </span><span class="o">&amp;</span><span class="n">out</span><span class="p">,</span><span class="w"> </span><span class="n">PointIt</span><span class="w"> </span><span class="n">begin</span><span class="p">,</span><span class="w"> </span><span class="n">PointIt</span><span class="w"> </span><span class="n">end</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="n">DEBUG_ASSERT</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">distance</span><span class="p">(</span><span class="n">begin</span><span class="p">,</span><span class="w"> </span><span class="n">end</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w">  </span><span class="c1">// 检查数据有效性</span>
