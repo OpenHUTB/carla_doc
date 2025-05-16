@@ -76,6 +76,8 @@ static void Dump(std::ostream &out, PointIt begin, PointIt end) {
 ```
 * **dump函数流程图** ：
 ![dump函数流程图](../img/pointcloud_dump.png)
+* **文字说明** ：
+此流程图展示了 Dump 函数的工作流程。首先调用 WriteHeader 函数写入 PLY 文件的头部信息。头部信息写入完成后，函数遍历从 begin 到 end 的点云数据，依次调用每个点对象的 WriteDetection 方法将点信息写入输出流，并在每个点的数据后添加换行符。遍历完成后，函数结束。
 ### ii. 模板函数 `SaveToDisk`
 
 #### 功能
