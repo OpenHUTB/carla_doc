@@ -52,7 +52,7 @@
 该类提供了处理点云数据输入输出的功能，包括将点云数据写入输出流和保存到磁盘文件。`PointCloudIO`类是点云数据处理的核心，提供了点云数据的写入、保存和头部信息编写功能。下面是该类的各个功能细节。
 
 
-### i 模板函数-dump
+### i 模板函数`dump`
 
   * **功能** ：该模板函数将点云数据写入到输出流中。模板参数`PointIt`表示点云数据的迭代器类型，`out`是输出流对象，`begin`和`end`分别表示点云数据的起始和结束迭代器。
   * **参数** ：
@@ -99,7 +99,9 @@ static std::string SaveToDisk(std::string path, PointIt begin, PointIt end) {
   return path;  // 返回文件路径
 }
 ```
-
+* **`SaveToDisk`函数流程图** ：
+![savedisk函数流程图](../img/pointcloud_savedisk.png)
+* 此流程图展示了 SaveToDisk 函数的工作流程。首先验证文件路径是否以 .ply 结尾，确保文件类型正确。然后创建输出文件流对象并打开指定路径的文件。接着调用 Dump 函数将点云数据写入文件。最后返回保存的文件路径，以便后续操作使用。
 ### iii. 私有静态函数 `WriteHeader`
 
 #### 功能
