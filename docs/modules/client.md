@@ -1,7 +1,4 @@
-
-
-
-## **概述**
+# **概述**
 
 CARLA 是一个开源的自动驾驶模拟平台，提供了丰富的 API 以支持仿真环境的控制、车辆的管理以及自动驾驶算法的验证。客户端部分的 API 主要通过 `Client` 类与模拟器进行交互，执行仿真控制、传感器管理、交通流管理等功能。该文档主要介绍 CARLA 客户端相关类的功能和使用方式。
 
@@ -417,11 +414,201 @@ for (auto& junction : junction_list) {
 #### 总结
 `Junction` 类为 CARLA 中交叉口建模提供了清晰、面向对象的封装方式。它作为 Map 类的组成部分，隐藏了底层拓扑数据的复杂性，同时提供了丰富的 API 支持，是交通仿真与路径分析不可或缺的模块。
 
+### 4、LaneInvasion 模块：CARLA 车道入侵（Lane Invasion）检测与处理
+
+`LaneInvasion` 是 CARLA 传感器系统中的一个事件检测模块，用于**监测车辆是否越过车道线**。该模块广泛用于驾驶策略评估、车辆行为监控以及安全规则验证，是自动驾驶测试中的重要工具之一。
+
+#### 该模块的主要组成包括：
+
+- `LaneInvasionSensor.h`：定义了传感器的基本结构与回调接口；
+- `LaneInvasionSensor.cpp`：实现了车道线检测的逻辑；
+- `LaneInvasionEvent.h / .cpp`：封装了每次触发的事件信息。
+
+---
+
+#### 类结构与设计
+
+| 成员变量 | 说明 |
+|----------|------|
+| `_parent_actor` | 被绑定的车辆 Actor，用于检测其车道状态 |
+| `_callback` | 用户注册的回调函数，在触发车道入侵时调用 |
+| `_lane_markings` | 当前被侵入的车道线类型（如实线、虚线等） |
+
+传感器作为 `Sensor` 的派生类，通过 CARLA 的 Actor 系统被附着到车辆上。每当车辆穿越车道标线时，该传感器便会生成一次事件，并触发回调。
 
 
+#### 提供的接口函数
+
+| 函数名 | 功能 |
+|--------|------|
+| `Listen(callback)` | 注册回调函数以处理车道入侵事件 |
+| `Stop()` | 停止传感器监听 |
+| `GetActor()` | 返回绑定的车辆 Actor |
+| `GetLaneMarkings()` | 获取当前入侵事件中涉及的车道线类型列表 |
+
+其中，`Listen` 是最关键的接口，用户可通过传入 Lambda 函数或回调对象，自定义入侵响应逻辑。
+
+---
+
+#### 示例：注册车道入侵事件监听器
+
+```
+auto sensor = world.SpawnActor(sensor_bp, transform, vehicle);
+auto lane_invasion_sensor = boost::static_pointer_cast<carla::sensor::data::LaneInvasionEvent>(sensor);
+
+sensor->Listen([](auto data) {
+    auto event = boost::static_pointer_cast<carla::sensor::data::LaneInvasionEvent>(data);
+    for (auto mark : event->GetCrossedLaneMarkings()) {
+        std::cout << "Lane invasion detected: " << mark.TypeToString() << std::endl;
+    }
+});
+```
+#### 应用场景
+ - 驾驶员违规行为监控：识别是否压线行驶，评估驾驶行为合规性；
+
+ - 路径偏移检测：在路径规划中判断车辆是否偏离既定路线；
+
+ - 规则执行引擎支持：结合交通规则仿真，在违反道路线规则时进行惩罚或报警；
+
+ - 系统调试与可视化：在自动驾驶开发中用于调试控制策略，结合可视化界面标注压线轨迹。
+
+#### 事件结构（LaneInvasionEvent）
+
+每次入侵会生成一个 `LaneInvasionEvent` 对象，包含以下信息：
+
+| 字段名                 | 类型                         | 说明                 |
+|------------------------|------------------------------|----------------------|
+| `crossed_lane_markings` | `std::vector<LaneMarking>`   | 被穿越的车道线集合   |
+| `actor`                | `Actor`                      | 触发事件的车辆       |
+| `timestamp`            | `Time`                       | 事件发生时间戳       |
+
+#### 总结
+`LaneInvasion` 模块为 CARLA 中提供了高效、可扩展的车道线检测机制，是自动驾驶测试流程中的重要一环。通过该模块，开发者可方便地监控车辆是否遵循车道规范，并可将入侵事件集成至评估、报警或控制逻辑中，显著提升仿真测试的准确性与现实性。
+
+### 5、Light 模块：CARLA 中的交通灯与照明灯控制接口
+
+`Light` 模块是 CARLA 客户端中用于操作和管理灯光对象（包括交通灯、街道灯、车灯等）的类。它通过封装 `LightManager` 的控制接口，允许用户**读取和设置灯光属性、状态、分组以及开关控制**，在交通仿真与可视化系统中扮演关键角色。
+
+该模块主要由以下文件组成：
+
+- `Light.h`：声明 `Light` 类的接口；
+- `Light.cpp`：实现灯光状态的读取和设置功能；
+- 依赖 `LightManager` 实现实际的灯光控制。
+
+#### 类结构与设计
+
+| 成员变量         | 说明 |
+|------------------|------|
+| `_id`            | 当前灯光的唯一标识符 |
+| `_light_manager` | 指向 `LightManager` 的弱引用指针，确保灯光操作的上下文一致性 |
+
+所有灯光状态操作均通过 `_light_manager` 执行，确保集中管理和同步执行。
+
+#### 提供的接口函数
+
+| 函数名                | 功能说明 |
+|------------------------|-----------------------------|
+| `GetColor()`           | 获取当前灯光颜色 |
+| `GetIntensity()`       | 获取当前灯光亮度（强度） |
+| `GetLightGroup()`      | 获取灯光所属分组 |
+| `GetLightState()`      | 获取灯光完整状态（如颜色、开关、组别等） |
+| `IsOn()` / `IsOff()`   | 判断灯光是否已开启或关闭 |
+| `SetColor(Color)`      | 设置灯光颜色 |
+| `SetIntensity(float)`  | 设置灯光亮度 |
+| `SetLightGroup(group)` | 设置灯光所属分组 |
+| `SetLightState(state)` | 设置完整灯光状态 |
+| `TurnOn()` / `TurnOff()` | 控制灯光开关 |
+
+#### 示例：设置灯光颜色与状态
+
+```
+auto light = some_actor.GetLight();
+
+// 设置灯光颜色为红色
+light.SetColor(carla::Color(255, 0, 0));
+
+// 设置强度为5.0
+light.SetIntensity(5.0f);
+
+// 设置状态为开启状态并指定组别
+carla::rpc::LightState state;
+state.active = true;
+state.intensity = 5.0f;
+state.color = carla::Color(255, 255, 0);
+state.group = carla::rpc::LightState::LightGroup::Street;
+
+light.SetLightState(state);
+```
+#### 应用场景
+ - 交通灯仿真控制：控制红绿灯的开关状态与颜色变换；
+ - 街道照明模拟：控制夜间场景下街灯的亮度与颜色；
+ - 视觉感知测试：模拟不同灯光环境用于测试自动驾驶感知算法；
+ - 动态灯光效果渲染：在交互式仿真场景中创建逼真的灯光效果变化。
+
+#### 模块特性与设计优势
+ - 所有接口均通过 LightManager 管理，集中控制所有灯光对象；
+ - 利用 weak_ptr 提高资源管理效率，避免循环引用；
+ - 支持细粒度的灯光操作，如单独控制颜色、强度、分组等；
+ - 可作为传感器、视觉系统或控制模块的辅助工具。
+
+#### 总结
+`Light `模块为 CARLA 中所有可控灯光对象提供了统一、灵活的控制接口。它结合 `LightManager `实现了强大的灯光仿真能力，
+为真实感可视化和智能交通仿真提供关键支持。该模块对提升自动驾驶仿真环境的真实性和交互性具有重要意义。
+
+### 6、Vehicle 模块：CARLA 车辆实体控制与状态管理
+
+`Vehicle` 是 CARLA 模拟器中用于**表示和操作模拟场景中的车辆 Actor** 的基本类。该类接口完善，支持车辆的控制操作、自动驾驶切换、物理参数调用以及交通灯交互，是自动驾驶仿真中的核心组件之一。
+
+该模块包括两部分文件：
+
+- `Vehicle.h`：定义车辆类的基本结构和操作接口。
+- `Vehicle.cpp`：实现了车辆控制逻辑和状态查询功能。
+
+#### 类设计与主要成员
+
+| 成员变量 | 功能说明 |
+|--------------|----------------|
+| `_control` | 存储最后一次应用的车辆控制指令 |
+| `_is_control_sticky` | 表示是否使用“粘性控制”（即无需重复上传一样的指令） |
+
+`Vehicle` 类继承自 `Actor`，并使用多类型符合 CARLA 控制器标准。
+
+#### 公共接口函数
+
+| 函数名 | 功能说明 |
+|-----------|----------------------------|
+| `SetAutopilot(bool, tm_port)` | 设置是否使用自动驾驶 (与 TrafficManager 联动) |
+| `ApplyControl()` | 应用基础车辆控制指令 (加速、转向、刹车) |
+| `ApplyAckermannControl()` | 应用 Ackermann 转向控制 |
+| `GetControl()` | 获取当前车辆控制指令 |
+| `ApplyPhysicsControl()` | 设置车辆物理参数 (重量、碳体积等) |
+| `GetTelemetryData()` | 获取车辆遥测数据 (位置、速度等) |
+| `OpenDoor()` / `CloseDoor()` | 操作车门打开或关闭 |
+| `SetLightState()` / `GetLightState()` | 设置和查询车灯状态 |
+| `SetWheelSteerDirection()` / `GetWheelSteerAngle()` | 设置/获取车轮转向角 |
+| `EnableCarSim()` / `UseCarSimRoad()` | 使用 CarSim 车辆模型和道路 |
+| `EnableChronoPhysics()` / `RestorePhysXPhysics()` | 切换车辆物理引擎 (Chrono 或 PhysX) |
+| `IsAtTrafficLight()` / `GetTrafficLight()` | 判断是否被交通灯影响，并获取当前交通灯对象 |
+| `GetSpeedLimit()` | 获取当前车辆速度限制 |
+| `GetFailureState()` | 获取车辆故障状态 |
 
 
+#### 示例：启用自动驾驶
+```
+// 车辆初始化
+carla::client::Vehicle vehicle = ...;
 
+// 启用自动驾驶
+vehicle.SetAutopilot(true);
+```
+#### 应用场景
+ - 自动驾驶模拟控制：接入 TrafficManager 实现汽车流量自动控制
+ - 车辆系统调用分析：通过接口获取操作、物理和状态数据
+ - 高级路径控制实验：配合 Ackermann 控制器进行路径跳转与车轮方向控制
+
+#### 总结
+`Vehicle` 模块是 CARLA 中表示和操作车辆的核心类。它包括了驾驶、控制、物理反应和交通环境交互等方面，
+是完成实时交通模拟与自动驾驶系统组装的基石。
 
 
 ---

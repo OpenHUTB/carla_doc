@@ -118,6 +118,30 @@
   * [6 应用与扩展方向](#6-应用与扩展方向)
   * [7 小结](#7-小结-4)
 
+### 第十一章：雷达传感器（sensor.radar.ray\_cast）
+
+* [第十一章：CARLA 雷达传感器系统（sensor.radar.ray\_cast）](#第十一章carla-雷达传感器系统sensorradarray_cast)
+
+  * [1 模块概览](#1-模块概览-10)
+  * [2 扫描原理与数据描述](#2-扫描原理与数据描述)
+  * [3 数据结构解析：RadarDetection](#3-数据结构解析radardetection)
+  * [4 序列化与传输机制](#4-序列化与传输机制)
+  * [5 Python API 使用示例](#5-python-api-使用示例-8)
+  * [6 应用与对比分析](#6-应用与对比分析)
+  * [7 小结](#7-小结-5)
+
+### 第十二章：RSS 责任敏感安全传感器（sensor.other.rss）
+
+* [第十二章：CARLA RSS 责任敏感安全传感器系统（sensor.other.rss）](#第十二章carla-rss-责任敏感安全传感器系统sensorotherrss)
+
+  * [1 模块概览](#1-模块概览-11)
+  * [2 RSS 模型简介与传感器原理](#2-rss-模型简介与传感器原理)
+  * [3 数据结构说明：RssResponse](#3-数据结构说明rssresponse)
+  * [4 序列化与触发机制](#4-序列化与触发机制)
+  * [5 Python API 使用示例](#5-python-api-使用示例-9)
+  * [6 应用案例与扩展分析](#6-应用案例与扩展分析)
+  * [7 小结](#7-小结-6)
+
 ---
 
 # 第一章：CARLA 碰撞事件传感器系统（sensor.other.collision）
@@ -1460,5 +1484,224 @@ def parse_semantic(image):
 
 ---
 
+## 第十一章：CARLA 雷达传感器系统（sensor.radar.ray\_cast）
+
+### 1 模块概览
+![flowchart\_11.png](..%2Fimg%2Fmodules%2Fflowchart_11.png)
+CARLA 中的 `sensor.radar.ray_cast` 模拟车载雷达的基本特性，通过射线投射模拟雷达波束在三维空间中遇到物体后的反射点。该模块适用于低分辨率目标检测、运动分析、障碍识别等任务。
+
+| 特征     | 描述                       |
+| ------ | ------------------------ |
+| 数据频率   | 可配置（推荐 10\~20Hz）         |
+| 回调格式   | `carla.RadarMeasurement` |
+| 单点数据结构 | `carla.RadarDetection`   |
+| 模拟特性   | 包含相对速度、距离、方位角和俯仰角        |
+
+---
+
+### 2 扫描原理与数据描述
+
+该传感器通过以下参数定义雷达扫描区域：
+
+* `horizontal_fov`: 水平视场（默认 30 度）
+* `vertical_fov`: 垂直视场（默认 10 度）
+* `range`: 有效距离（默认 100 米）
+
+传感器会从车体坐标系出发，发射若干射线，每条射线检测到的目标构成一个 `RadarDetection` 点。每个点包含：
+
+* `depth`: 到目标的距离（米）
+* `azimuth`: 方位角（rad）
+* `altitude`: 俯仰角（rad）
+* `velocity`: 相对于车辆的径向速度（m/s）
+
+---
+
+### 3 数据结构解析：`RadarDetection`
+
+```python
+class carla.RadarDetection:
+    depth: float       # 目标距离（m）
+    velocity: float    # 径向速度（m/s）
+    azimuth: float     # 方位角（rad）
+    altitude: float    # 俯仰角（rad）
+```
+
+* 点云顺序无规律排序，需按角度聚类分析；
+* `velocity` 可用于区分静止物体与移动目标；
+* 无 ID，需自行跟踪识别。
+
+---
+
+### 4 序列化与传输机制
+
+CARLA 将 `RadarMeasurement` 数据序列化为 `RawData`，通过 RPC 管道传输至客户端。与其他传感器不同，雷达数据较小，传输效率高。
+
+| 步骤      | 描述                                     |
+| ------- | -------------------------------------- |
+| ① 触发帧回调 | 服务端检测帧时更新射线投射结果                        |
+| ② 序列化   | 每个 `RadarDetection` 被编码为字节流结构          |
+| ③ 客户端接收 | Python 客户端接收 `RadarMeasurement` 并解码为点集 |
+
+---
+
+### 5 Python API 使用示例
+
+```python
+import carla
+
+def radar_callback(data):
+    for detection in data:
+        print(f"Distance: {detection.depth:.2f} m, Speed: {detection.velocity:.2f} m/s")
+
+world = client.get_world()
+bp_lib = world.get_blueprint_library()
+radar_bp = bp_lib.find('sensor.radar.ray_cast')
+
+radar_bp.set_attribute('horizontal_fov', '35')
+radar_bp.set_attribute('vertical_fov', '10')
+radar_bp.set_attribute('range', '50')
+
+spawn_point = carla.Transform(carla.Location(x=2.0, z=1.0))
+radar = world.spawn_actor(radar_bp, spawn_point, attach_to=vehicle)
+
+radar.listen(lambda data: radar_callback(data))
+```
+
+---
+
+### 6 应用与对比分析
+
+| 应用领域   | 描述                  |
+| ------ | ------------------- |
+| 自动驾驶感知 | 用于检测移动目标（如对向车辆、自行车） |
+| 模拟预警系统 | 可用于构建碰撞预警、AEB 仿真    |
+| 天气鲁棒性  | 雾、雨等极端天气下性能优于 LiDAR |
+
+> 需注意：雷达检测精度有限，不能替代 LiDAR 或相机的精确识别能力，适合作为冗余传感器或动态监测模块。
+
+---
+
+### 7 小结
+
+* `sensor.radar.ray_cast` 是 CARLA 提供的轻量级雷达仿真模块；
+* 支持实时回调并提供速度信息；
+* 易于部署和组合，但需注意精度限制。
 
 
+---
+
+# 第十二章：CARLA RSS 责任敏感安全传感器系统（sensor.other.rss）
+
+---
+
+## 1 模块概览
+![flowchart\_12.png](..%2Fimg%2Fmodules%2Fflowchart_12.png)
+CARLA 中的 `sensor.other.rss` 是对 [Mobileye 提出的 RSS（Responsibility-Sensitive Safety）模型](https://www.mobileye.com/responsibility-sensitive-safety/) 的仿真实现。它评估当前车辆是否在纵向和横向方向上满足合理安全距离，若违反安全规则，则通过事件输出提供结构化响应。
+
+该传感器广泛应用于以下领域：
+
+* 自动驾驶系统的**安全性评估**
+* 安全冗余感知与**控制系统回退逻辑验证**
+* 车辆规划/控制模块中的**AEB 与干预触发检测**
+
+---
+
+## 2 RSS 模型简介与传感器原理
+
+RSS 模型基于一套形式化定义的安全距离计算规则。CARLA 内置实现使用以下核心规则：
+
+| 项目     | 含义                   |
+| ------ | -------------------- |
+| 最小纵向距离 | 基于当前速度差、最大加速度计算      |
+| 最小横向距离 | 允许目标在紧急变道情况下仍能避免碰撞   |
+| 响应等级   | 安全、警告、紧急干预（可自定义响应策略） |
+
+传感器工作流程：
+
+1. **每帧检查当前主车与其他车辆间的 RSS 状态**
+2. **生成 RSS 响应结构体**（包含：距离状态、是否违反、安全响应等级）
+3. **通过 RPC 通道传递给客户端**
+4. **Python 层接收结构化安全状态信息**
+
+---
+
+## 3 数据结构说明：`RssResponse`
+
+定义位置：`carla/sensor/data/RssResponse.h`
+
+```cpp
+struct RssResponse {
+  bool is_safe;                 // 是否符合安全规则
+  bool longitudinal_safe;       // 纵向是否安全
+  bool lateral_safe;            // 横向是否安全
+  std::string response_status;  // 可为 "Safe", "Brake", "Warning"
+};
+```
+
+说明：
+
+* `is_safe = longitudinal_safe && lateral_safe`
+* 若任一方向违反规则，`response_status` 将标识对应响应等级
+* 可拓展为枚举式响应策略触发器
+
+---
+
+## 4 序列化与触发机制
+
+CARLA 使用专属的 `RssResponseSerializer` 对结构体进行 MsgPack 编码：
+
+```cpp
+struct Data {
+  bool is_safe;
+  bool longitudinal_safe;
+  bool lateral_safe;
+  std::string response_status;
+  MSGPACK_DEFINE_ARRAY(is_safe, longitudinal_safe, lateral_safe, response_status)
+};
+```
+
+序列化过程：
+
+1. 服务端检测每帧 RSS 状态并生成 `RssResponse`
+2. 使用 `RssResponseSerializer::Serialize()` 打包为 `RawData`
+3. 客户端使用 `Deserialize()` 恢复为 `SensorData` 实例
+4. `.listen()` 回调函数进行实时判断/记录/控制触发
+
+---
+
+## 5 Python API 使用示例
+
+```python
+def rss_callback(event):
+    if not event.is_safe:
+        print(f"[RSS] 安全违规：状态={event.response_status}")
+    else:
+        print("[RSS] 安全状态良好")
+
+bp = world.get_blueprint_library().find('sensor.other.rss')
+rss_sensor = world.spawn_actor(bp, carla.Transform(), attach_to=vehicle)
+rss_sensor.listen(rss_callback)
+```
+
+该传感器无空间坐标要求，直接附着于车辆即可。内部逻辑自动检测与其他交通参与者的 RSS 状态。
+
+---
+
+## 6 应用案例与扩展分析
+
+| 场景用途     | 描述                          |
+| -------- | --------------------------- |
+| 控制回退系统   | AEB（自动紧急制动）干预触发、最小安全距离报警    |
+| 路测仿真回放分析 | 重放轨迹时重建“是否违规”记录序列，用于模型责任分析  |
+| 安全规划调优   | 与行为规划器集成时提供实时限制反馈，避免非法动作规划  |
+| 模拟工况生成   | 快速生成车道偏离、跟车过近、急加速等 RSS 违规场景 |
+
+> 可将 `response_status` 输出为 CSV、图像覆盖等形式进行对比标注。
+
+---
+
+## 7 小结
+
+`sensor.other.rss` 提供了对 Mobileye-RSS 安全规则的结构化支持，是自动驾驶系统安全性评估与回退逻辑验证的重要传感器。其输出直观、数据小、结构清晰，适合嵌入任意仿真任务中。
+
+---
