@@ -219,9 +219,7 @@ carla::opendrive::Map map = carla::opendrive::OpenDriveParser::Load(xodr_content
 
 ## 文件位置
 
-```
-LibCarla/source/carla/opendrive/OpenDriveParser.cpp
-```
+[点击这里访问opendirve]（https://openhutb.github.io/carla_doc/modules/opendirve/）
 
 ---
 
@@ -329,6 +327,8 @@ if (result) {
 ---
 
 ## 依赖模块
+
+[依赖模块图]（https://openhutb.github.io/carla_cpp/dir_a02f1db122f1bf0661014bee93740912.html）
 
 ```cpp
 #include "carla/opendrive/OpenDriveParser.h"
