@@ -425,8 +425,8 @@ static std::vector<int> GenerateRange(int a, int b);
 - **说明**：返回向量长度的平方：$$x^2 + y^2$$  
 - **示例**：  
   ```cpp
-  Vector2D **<font color="#f8805a">v</font>**(3.0f,4.0f);
-  float **<font color="#f8805a">sq</font>** = **<font color="#f8805a">v</font>**.SquaredLength(); // sq == 25
+  Vector2D v(3.0f,4.0f);
+  float sq = v.SquaredLength(); // sq == 25
   ```
 
 ### **<font color="#7fb800">Length</font>**
@@ -434,8 +434,8 @@ static std::vector<int> GenerateRange(int a, int b);
 - **说明**：返回向量长度：$$\sqrt{x^2 + y^2}$$  
 - **示例**：  
   ```cpp
-  Vector2D **<font color="#f8805a">v</font>**(3.0f,4.0f);
-  float **<font color="#f8805a">len</font>** = **<font color="#f8805a">v</font>**.Length(); // len == 5
+  Vector2D v(3.0f,4.0f);
+  float len = v.Length(); // len == 5
   ```
 
 ### **<font color="#7fb800">MakeUnitVector</font>**
@@ -443,8 +443,8 @@ static std::vector<int> GenerateRange(int a, int b);
 - **说明**：返回归一化后的单位向量：$$\frac{1}{\|v\|}(x,y)$$  
 - **示例**：  
   ```cpp
-  Vector2D **<font color="#f8805a">v</font>**(0.0f,5.0f);
-  Vector2D **<font color="#f8805a">u</font>** = **<font color="#f8805a">v</font>**.MakeUnitVector(); // u ≈ (0,1)
+  Vector2D v(0.0f,5.0f);
+  Vector2D u = v.MakeUnitVector(); // u ≈ (0,1)
   ```
 
 ---
@@ -486,8 +486,8 @@ static std::vector<int> GenerateRange(int a, int b);
 - **说明**：返回 $$(|x|,|y|,|z|)$$  
 - **示例**：  
   ```cpp
-  Vector3D **<font color="#f8805a">vneg</font>**(-1.0f,-2.0f,3.0f);
-  Vector3D **<font color="#f8805a">apos</font>** = **<font color="#f8805a">vneg</font>**.Abs(); // (1,2,3)
+  Vector3D vneg(-1.0f,-2.0f,3.0f);
+  Vector3D apos = vneg.Abs(); // (1,2,3)
   ```
 
 ### **<font color="#7fb800">MakeUnitVector</font>**
@@ -495,8 +495,8 @@ static std::vector<int> GenerateRange(int a, int b);
 - **说明**：返回标准归一化单位向量  
 - **示例**：  
   ```cpp
-  Vector3D **<font color="#f8805a">vnorm</font>**(0.0f,0.0f,5.0f);
-  Vector3D **<font color="#f8805a">unorm</font>** = **<font color="#f8805a">vnorm</font>**.MakeUnitVector(); // (0,0,1)
+  Vector3D vnorm(0.0f,0.0f,5.0f);
+  Vector3D unorm = vnorm.MakeUnitVector(); // (0,0,1)
   ```
 
 ### **<font color="#7fb800">MakeSafeUnitVector</font>**
@@ -504,8 +504,8 @@ static std::vector<int> GenerateRange(int a, int b);
 - **说明**：长度小于 $$\epsilon$$ 时返回原向量，否则归一化  
 - **示例**：  
   ```cpp
-  Vector3D **<font color="#f8805a">vsafe</font>**(1e-4f,0,0);
-  Vector3D **<font color="#f8805a">svec</font>** = **<font color="#f8805a">vsafe</font>**.MakeSafeUnitVector(1e-3f); // unchanged
+  Vector3D vsafe(1e-4f,0,0);
+  Vector3D svec = vsafe.MakeSafeUnitVector(1e-3f); // unchanged
   ```
 
 ---
@@ -517,8 +517,8 @@ static std::vector<int> GenerateRange(int a, int b);
 - **说明**：返回整数平方和：$$x^2 + y^2 + z^2$$  
 - **示例**：  
   ```cpp
-  Vector3DInt **<font color="#f8805a">vi</font>**(2,3,6);
-  int64_t **<font color="#f8805a">sqint</font>** = **<font color="#f8805a">vi</font>**.SquaredLength(); // 49
+  Vector3DInt vi(2,3,6);
+  int64_t sqint = vi.SquaredLength(); // 49
   ```
 
 ### **<font color="#7fb800">Length</font>**
@@ -526,7 +526,7 @@ static std::vector<int> GenerateRange(int a, int b);
 - **说明**：返回：$$\sqrt{x^2 + y^2 + z^2}$$  
 - **示例**：  
   ```cpp
-  double **<font color="#f8805a">lint</font>** = **<font color="#f8805a">vi</font>**.Length(); // 7.0
+  double lint = vi.Length(); // 7.0
   ```
 
 ## UE4 互转（仅在 UE4 模式开启时）
