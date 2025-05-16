@@ -309,7 +309,7 @@ graph TD
         );
         }
         ```
-    - **多级缓存策略**：
+    - **动态降级机制**：
         - `实时监测显存压力`： FVirtualTexturingFeedback::AnalyzeMemoryUsage() 
         - `自动触发Mipmap降级`： 当使用率>85%时，逐层降低非可见区域纹理分辨率
         - `异步压缩传输`： 使用Zlib库压缩纹理数据，降低PCIe带宽占用
