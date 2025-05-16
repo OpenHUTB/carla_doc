@@ -512,7 +512,11 @@ I --&gt; K[自适应调整引擎]</code></pre></li>
 <span class="n">PhysScene</span><span class="o">-&gt;</span><span class="n">SetPhysXSceneRunning</span><span class="p">(</span><span class="n">bWasPhysicsRunning</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div></li>
-<li><strong>性能优化技术</strong>：
+<li><strong>关键技术实现解析</strong>：<ul>
+<li><strong>分块加载算法</strong>：</li>
+<li>： 基于视锥体裁剪确定优先加载区块</li>
+<li>： 根据摄像机运动速度预测加载区域</li>
+<li><strong>多级缓存策略</strong>：
     <div class="highlight"><pre><span></span><code><span class="c1">// 渐进式加载</span>
 <span class="kt">void</span><span class="w"> </span><span class="nf">UEpicQualityStrategy::ApplyVirtualTexture</span><span class="p">()</span>
 <span class="p">{</span>
@@ -520,14 +524,39 @@ I --&gt; K[自适应调整引擎]</code></pre></li>
 <span class="n">FVTEnableSettings</span><span class="w"> </span><span class="n">Settings</span><span class="p">;</span>
 <span class="n">Settings</span><span class="p">.</span><span class="n">MaxMemoryUsage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2048</span><span class="p">;</span><span class="w"> </span><span class="c1">// MB</span>
 <span class="n">Settings</span><span class="p">.</span><span class="n">bEnableCompressZlib</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
-
 <span class="n">GetRendererModule</span><span class="p">().</span><span class="n">EnableVirtualTextureTracking</span><span class="p">(</span>
-<span class="w">    </span><span class="n">EVirtualTextureType</span><span class="o">::</span><span class="n">Color</span><span class="p">,</span><span class="w"> </span>
-<span class="w">    </span><span class="n">Settings</span><span class="p">,</span><span class="w"> </span>
-<span class="w">    </span><span class="mf">0.5f</span><span class="w"> </span><span class="c1">// 每帧加载权重</span>
+<span class="n">EVirtualTextureType</span><span class="o">::</span><span class="n">Color</span><span class="p">,</span><span class="w"> </span>
+<span class="n">Settings</span><span class="p">,</span><span class="w"> </span>
+<span class="mf">0.5f</span><span class="w"> </span><span class="c1">// 每帧加载权重</span>
 <span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div></li>
+<li><strong>动态降级机制</strong>：<ul>
+<li><code>实时监测显存压力</code>： FVirtualTexturingFeedback::AnalyzeMemoryUsage() </li>
+<li><code>自动触发Mipmap降级</code>： 当使用率&gt;85%时，逐层降低非可见区域纹理分辨率</li>
+<li><code>异步压缩传输</code>： 使用Zlib库压缩纹理数据，降低PCIe带宽占用</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>核心优化总结</strong>：<ul>
+<li><code>零卡顿切换体验</code>： 通过物理冻结+异步加载实现无缝过渡</li>
+<li><code>显存精细控制</code>： VT分级加载策略避免内存峰值波动</li>
+<li><code>多级降级预案</code>： 自动应对硬件性能不足场景</li>
+<li><code>数据驱动配置</code>： 所有阈值参数可由DataTable动态调整</li>
+</ul>
+</li>
+<li><strong>流程图</strong>： 
+    <pre class="mermaid"><code>graph TD
+    A[画质切换请求] --&gt; B{是否正在加载}
+    B -- 是 --&gt; C[加入等待队列]
+    B -- 否 --&gt; D[冻结物理场景]
+    D --&gt; E[创建加载任务]
+    E --&gt; F[启动异步加载]
+    F --&gt; G[渐进资源加载]
+    G --&gt; H[触发完成回调]
+    H --&gt; I[重建渲染状态]
+    I --&gt; J[恢复物理模拟]</code></pre></li>
 </ul>
 <h2 id="23_1">2.3 动态调参系统</h2>
 <h3 id="231">2.3.1 自动降级机制</h3>
