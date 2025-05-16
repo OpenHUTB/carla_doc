@@ -378,7 +378,43 @@ tm2.set_desired_speed(vehicle2, 10.0)
 ```
 
 多 TM 实例机制为场景控制带来了更高的灵活性与可扩展性，适合进行策略级、多样化、区域化的交通仿真设计，是高复杂度任务的重要支持工具。
-- **同步模式**：确保所有车辆在每个模拟步长中同步更新，适用于需要严格时间控制的场景。
+**同步模式（Synchronous Mode）**：同步模式是 Traffic Manager 在与 CARLA 仿真核心交互时用于实现确定性和严格时序控制的重要机制。它确保仿真步长、传感器更新与控制命令在每一帧之间严格对齐，适用于自动驾驶训练、精密测试与仿真回放等高可靠性任务场景。其主要功能包括：
+
+- **统一时间推进机制**：
+  - 启用同步模式后，CARLA 世界仿真步长由外部 `tick()` 调用控制，仿真时间不会自动前进，确保每一帧执行完所有控制与传感器更新后再推进。
+  - 使用 `world.tick()` 或 `client.tick()` 显式推进一步仿真，支持一致帧率运行。
+
+- **固定步长配置**：
+  - 配合 `fixed_delta_seconds` 设定每帧仿真时长（如 0.05 秒），确保运动学和控制更新具有时间一致性。
+  - 提升路径规划、控制器输出等模块的物理精度与重复性。
+
+- **传感器与控制同步**：
+  - 所有传感器数据（如摄像头、LiDAR）与车辆控制命令将绑定于同一仿真帧，避免异步模式下出现时间抖动或延迟控制。
+  - 确保 perception → planning → control 过程在单帧内完成，适用于闭环系统部署。
+
+- **Traffic Manager 协同控制**：
+  - Traffic Manager 需显式调用 `set_synchronous_mode(True)` 与世界同步，保证控制命令在仿真帧内生效。
+  - 命令数组控制器会将控制指令打包后于每一帧 `tick()` 前统一发送至服务端。
+
+- **仿真稳定性与调试优势**：
+  - 支持逐帧调试与状态捕捉，适合算法回放与行为可视化。
+  - 可通过慢速 tick 控制、条件断点等方式深入分析系统每一步执行逻辑。
+
+示例配置接口：
+
+```python
+settings = world.get_settings()
+settings.synchronous_mode = True
+settings.fixed_delta_seconds = 0.05
+world.apply_settings(settings)
+
+traffic_manager.set_synchronous_mode(True)
+
+for _ in range(100):
+    world.tick()
+```
+
+同步模式为 Traffic Manager 提供了可控、稳定、帧精度一致的运行时环境，是自动驾驶系统高精度控制、评估与数据一致性采集的基础运行模式。
 
 ## 总结
 
