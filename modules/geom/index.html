@@ -794,7 +794,7 @@ proj = center + R \cdot \begin{bmatrix} \cos(\theta_p) \\ \sin(\theta_p) \end{bm
 - <code>SegmentCloudRtree&lt;T&gt;</code>：支持对线段云的插入、k-NN 查询、交集查询。</p>
 <hr />
 <h2 id="_26">欧几里得距离公式</h2>
-<p>对任意两个 $n$ 维点 $\mathbf{p}=(p_1,p_2,\dots,p_n)$ 和 $\mathbf{q}=(q_1,q_2,\dots,q_n)$，欧几里得距离定义如下：</p>
+<p>对任意两个 <em>n</em> 维点 <strong>p</strong> = (<em>p</em><sub>1</sub>, <em>p</em><sub>2</sub>, …, <em>p</em><sub>n</sub>) 和 <strong>q</strong> = (<em>q</em><sub>1</sub>, <em>q</em><sub>2</sub>, …, <em>q</em><sub>n</sub>)，欧几里得距离定义如下：</p>
 <p>
 <script type="math/tex; mode=display">
 d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
@@ -831,7 +831,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 <div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">TreeElement</span><span class="o">&gt;</span><span class="w"> </span><span class="n">GetNearestNeighbours</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">BPoint</span><span class="w"> </span><span class="o">&amp;</span><span class="n">point</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">number_neighbours</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
 </code></pre></div>
 <ul>
-<li>返回距离给定点最近的 $k$ 个邻居（默认 $k=1$）。</li>
+<li>返回距离给定点最近的 <em>k</em> 个邻居（默认 <em>k</em>=1）。</li>
 </ul>
 <h4 id="getnearestneighbourswithfilter">GetNearestNeighboursWithFilter</h4>
 <div class="highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Filter</span><span class="o">&gt;</span>
@@ -1374,7 +1374,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 <span class="w">                </span><span class="k">const</span><span class="w"> </span><span class="n">value_type</span><span class="w"> </span><span class="o">&amp;</span><span class="n">c</span><span class="p">,</span>
 <span class="w">                </span><span class="k">const</span><span class="w"> </span><span class="n">value_type</span><span class="w"> </span><span class="o">&amp;</span><span class="n">d</span><span class="p">);</span>
 </code></pre></div></li>
-<li><strong>说明</strong>：按系数 $(a,b,c,d)$ 构造，无偏移量。  </li>
+<li><strong>说明</strong>：按系数 (<em>a</em>,<em>b</em>,<em>c</em>,<em>d</em>)构造，无偏移量。  </li>
 <li><strong>示例</strong>:  </li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="n">CubicPolynomial</span><span class="w"> </span><span class="nf">p1</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0</span><span class="p">,</span><span class="w"> </span><span class="mf">3.0</span><span class="p">,</span><span class="w"> </span><span class="mf">4.0</span><span class="p">);</span>
@@ -1399,31 +1399,32 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 <h2 id="_51">访问与修改</h2>
 <h3 id="getabcd"><strong><font color="#7fb800">GetA/B/C/D</font></strong></h3>
 <ul>
-<li><strong>原型</strong>:<br />
-  <div class="highlight"><pre><span></span><code><span class="n">value_type</span><span class="w"> </span><span class="nf">GetA</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<li><strong>原型</strong>:  </li>
+</ul>
+<p><div class="highlight"><pre><span></span><code><span class="n">value_type</span><span class="w"> </span><span class="nf">GetA</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
 <span class="n">value_type</span><span class="w"> </span><span class="nf">GetB</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
 <span class="n">value_type</span><span class="w"> </span><span class="nf">GetC</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
 <span class="n">value_type</span><span class="w"> </span><span class="nf">GetD</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
-</code></pre></div></li>
-<li><strong>说明</strong>：分别返回当前存储的系数 $\tilde a,\tilde b,\tilde c,\tilde d$。  </li>
-<li><strong>示例</strong>:<br />
-  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p2</span><span class="p">.</span><span class="n">GetA</span><span class="p">();</span>
-</code></pre></div></li>
-</ul>
+</code></pre></div>
+- <strong>说明</strong>：分别返回当前存储的系数 <em>a</em>,<em>b</em>,<em>c</em>,<em>d</em>。。<br />
+- <strong>示例</strong>:  </p>
+<div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p2</span><span class="p">.</span><span class="n">GetA</span><span class="p">();</span>
+</code></pre></div>
 <h3 id="gets"><strong><font color="#7fb800">GetS</font></strong></h3>
 <ul>
-<li><strong>原型</strong>:<br />
-  <div class="highlight"><pre><span></span><code><span class="n">value_type</span><span class="w"> </span><span class="nf">GetS</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
-</code></pre></div></li>
-<li><strong>说明</strong>：返回偏移量 $s$。  </li>
-<li><strong>示例</strong>:<br />
-  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p2</span><span class="p">.</span><span class="n">GetS</span><span class="p">();</span><span class="w"> </span><span class="c1">// 0.5</span>
-</code></pre></div></li>
+<li><strong>原型</strong>:  </li>
 </ul>
+<p><div class="highlight"><pre><span></span><code><span class="n">value_type</span><span class="w"> </span><span class="nf">GetS</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div>
+- <strong>说明</strong>：返回偏移量 <em>s</em>。<br />
+- <strong>示例</strong>:  </p>
+<div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p2</span><span class="p">.</span><span class="n">GetS</span><span class="p">();</span><span class="w"> </span><span class="c1">// 0.5</span>
+</code></pre></div>
 <h3 id="setabcds"><strong><font color="#7fb800">Set(a,b,c,d[,s])</font></strong></h3>
 <ul>
-<li><strong>原型</strong>:<br />
-  <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">Set</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">value_type</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span>
+<li><strong>原型</strong>:  </li>
+</ul>
+<p><div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">Set</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">value_type</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span>
 <span class="w">         </span><span class="k">const</span><span class="w"> </span><span class="n">value_type</span><span class="w"> </span><span class="o">&amp;</span><span class="n">b</span><span class="p">,</span>
 <span class="w">         </span><span class="k">const</span><span class="w"> </span><span class="n">value_type</span><span class="w"> </span><span class="o">&amp;</span><span class="n">c</span><span class="p">,</span>
 <span class="w">         </span><span class="k">const</span><span class="w"> </span><span class="n">value_type</span><span class="w"> </span><span class="o">&amp;</span><span class="n">d</span><span class="p">);</span>
@@ -1432,13 +1433,12 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 <span class="w">         </span><span class="k">const</span><span class="w"> </span><span class="n">value_type</span><span class="w"> </span><span class="o">&amp;</span><span class="n">c</span><span class="p">,</span>
 <span class="w">         </span><span class="k">const</span><span class="w"> </span><span class="n">value_type</span><span class="w"> </span><span class="o">&amp;</span><span class="n">d</span><span class="p">,</span>
 <span class="w">         </span><span class="k">const</span><span class="w"> </span><span class="n">value_type</span><span class="w"> </span><span class="o">&amp;</span><span class="n">s</span><span class="p">);</span>
-</code></pre></div></li>
-<li><strong>说明</strong>：重置系数（和可选偏移量），与构造逻辑一致。  </li>
-<li><strong>示例</strong>:<br />
+</code></pre></div>
+- <strong>说明</strong>：重置系数（和可选偏移量），与构造逻辑一致。<br />
+- <strong>示例</strong>:<br />
   <div class="highlight"><pre><span></span><code><span class="n">p2</span><span class="p">.</span><span class="n">Set</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span><span class="w">      </span><span class="c1">// f(x)=x</span>
 <span class="n">p2</span><span class="p">.</span><span class="n">Set</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mf">0.2</span><span class="p">);</span><span class="w"> </span><span class="c1">// 带偏移修正</span>
-</code></pre></div></li>
-</ul>
+</code></pre></div></p>
 <hr />
 <h2 id="_52">多项式运算</h2>
 <h3 id="evaluate"><strong><font color="#7fb800">Evaluate</font></strong></h3>
