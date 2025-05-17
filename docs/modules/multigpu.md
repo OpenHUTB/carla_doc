@@ -42,26 +42,40 @@
 主节点类，调度与管理核心。
 
 - `Initialize()`：初始化主节点资源  
+实例：系统启动时，主节点调用 Initialize() 加载配置文件、启动内部服务（如任务队列和心跳检测），并绑定到 TCP 端口 8000。 
+场景：主节点启动后完成资源准备，等待从节点连接。
 - `RegisterSecondary(SecondaryInfo info)`：注册从节点信息  
+实例：当从节点 Secondary-01 上线时，调用此方法将其 IP 192.168.1.101 和可用 GPU 资源信息注册到主节点的节点池中。 
+场景：主节点维护可用从节点列表，后续任务将基于此列表分发。
 - `DistributeTask(Task task)`：任务分发接口  
-
+实例：收到一个图像渲染任务 Task-123 后，主节点通过负载均衡策略选择空闲的从节点 Secondary-02，调用此方法将任务发送到该节点。 
+场景：任务分发的核心逻辑，确保任务高效执行。
 ### Secondary
 
 从节点类，执行接收到的任务。
 
 - `ConnectToPrimary(string address)`：连接主节点  
+实例：从节点启动后，调用 `ConnectToPrimary("tcp://master-node:8000")`，与主节点建立长连接并发送注册请求。  
+场景：从节点加入集群的第一步。
 - `ReceiveTask()`：等待任务接收  
+实例：从节点在后台运行 `ReceiveTask()`，阻塞等待主节点推送任务，收到任务后触发`ExecuteTask`。 
+场景：持续监听任务的核心循环。
 - `ExecuteTask(Task task)`：执行并返回结果  
-
+实例：接收到数据处理任务 Task-456 后，从节点调用此方法运行 Python 脚本，完成后将结果文件路径返回给主节点。  
+场景：实际执行任务的入口，支持自定义业务逻辑。
 ### Router
 
 - `RouteMessage(Message msg)`：解析并路由不同类型的消息  
-
+实例：收到一条类型为 TaskResult 的消息，路由解析后将其转发到主节点的 TaskManager 模块；若为 Heartbeat 类型，则转交给 HealthMonitor。  
+场景：消息分类处理，确保系统模块解耦。
 ### Listener
 
 - `StartListening()`：开启监听端口  
+实例：监听器启动时调用此方法，在端口 8080 上监听 HTTP 请求，接收外部用户提交的任务或管理指令。   
+场景：系统对外服务的入口。
 - `HandleIncomingMessage(Message msg)`：处理并响应外部指令  
-
+实例：收到一条 RestartNode 指令后，验证权限并触发主节点重启流程，最终返回 {"status": "success"} 的 JSON 响应。  
+场景：处理用户或管理员的操作请求
 ---
 
 ## 4. 通信机制
