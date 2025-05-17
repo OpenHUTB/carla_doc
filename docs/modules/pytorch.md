@@ -33,7 +33,7 @@
 
 ## 2. 依赖与头文件
 
-- **源码参考**：[pytorch.h 源码](https://openhutb.github.io/carla_cpp/db/dd0/pytorch_8h_source.html)
+- **源码参考**：[pytorch.h 源码](https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html)
 - **torch/torch.h 与 torch/script.h**：核心PyTorch C++ API及JIT模型接口
 - **torchscatter & torchcluster**：用于CUDA扩展功能验证
 - **tensorexpr_fuser**：JIT优化控制，平衡性能与兼容性
@@ -47,13 +47,13 @@
 
 - **用途**：代码执行位置标记，便于调试
 - **参数说明**：`text`（标记文本，无实际功能）
-- **源码参考**：[pytorch.cpp](https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L20)
+- **源码参考**：[pytorch.cpp](https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.htmll#L20)
 
 ------
 
 ## 4. carla::learning 命名空间
 
-封装轮子动力学与深度模型推理相关函数。
+封装轮子动力学与深度模型推理相关函数。- 源码参考：[pytorch.cpp](https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.htmll#L25)
 
 ### 4.1 test_learning
 
@@ -80,7 +80,7 @@
 
 ## 5. NeuralModelImpl 结构体
 
-- **内部实现核心结构体**
+- **内部实现核心结构体**- 源码参考：[pytorch.cpp](https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.htmll#L135)
 - **成员变量**：
   - module：TorchScript模型对象
   - 缓存张量队列（用于高效推理，后续可扩展）
@@ -94,7 +94,7 @@
 
 ## 6. NeuralModel 类接口
 
-对外提供完整模型加载、设置输入、执行推理、获取输出的流程控制。
+对外提供完整模型加载、设置输入、执行推理、获取输出的流程控制。- 源码参考：[pytorch.cpp](https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.htmll#L187)
 
 ### 6.1 构造与析构
 
