@@ -21,7 +21,7 @@
 
 该模块作为CARLA仿真系统的一部分，通过与其他系统（如导航、传感器和交通管理模块）紧密集成，能为后续感知、决策等模块提供清晰、准确的环境感知数据。
 ### 点云模块依赖图
-![点云模块依赖图](../img/mermaid.png)
+![点云模块依赖图](../img/pointcloud_module_dependency_graph.png)
 该图展示了点云模块如何与其他核心模块交互：
 - **传感器模块（Sensor）**：通过采集点云数据，为仿真系统提供实时环境感知。
 - **导航模块（Navigation）**：借助点云数据，进行路径规划、障碍物检测等操作。
@@ -29,7 +29,7 @@
 
 ### 点云数据的重要性
 
-在自动驾驶系统中，点云数据能够提供详细的三维环境模型，它对于精准的物体检测、障碍物避让以及路径规划至关重要。通过优化点云的输入输出（I/O）流程，能够大幅提升系统的实时性与稳定性。
+在自动驾驶系统中，点云数据能够提供详细的三维环境模型，它对于精准的物体检测、障碍物避让以及路径规划至关重要，通过优化点云的输入输出（I/O）流程，能够大幅提升系统的实时性与稳定性。
 
 ---
 
@@ -49,10 +49,14 @@
 
 ## 3 pointcloudio类
 
-该类提供了处理点云数据输入输出的功能，包括将点云数据写入输出流和保存到磁盘文件。`PointCloudIO`类是点云数据处理的核心，提供了点云数据的写入、保存和头部信息编写功能。下面是该类的各个功能细节。
+该类提供了处理点云数据输入输出的功能，包括将点云数据写入输出流和保存到磁盘文件。`PointCloudIO`类是点云数据处理的核心，提供了点云数据的写入、保存和头部信息编写功能。
+![点云模块架构图](../img/pointcloud_Architecture.png)
+
+* **文字说明** ：
+此结构图展示了 `PointCloudIO` 类的主要组成和依赖关系。`PointCloudIO` 类包含两个公开的模板函数 `Dump` 和 `SaveToDisk`，以及一个私有的静态模板函数 `WriteHeader`。`Dump` 函数用于将点云数据写入输出流，`SaveToDisk` 函数用于将点云数据保存到磁盘文件，而 `WriteHeader` 函数则负责写入 PLY 文件的头部信息。类依赖于 `FileSystem` 进行文件路径验证，依赖于 `std::ostream` 和 `std::ofstream` 进行文件流操作。
 
 
-### i 模板函数-dump
+### i 模板函数`dump`
 
   * **功能** ：该模板函数将点云数据写入到输出流中。模板参数`PointIt`表示点云数据的迭代器类型，`out`是输出流对象，`begin`和`end`分别表示点云数据的起始和结束迭代器。
   * **参数** ：
@@ -63,7 +67,7 @@
   * **实现过程** ：
     1. 调用`WriteHeader`函数写入PLY文件的头部信息，这些信息包括文件格式、点云数据的顶点数等。
     2. 遍历从`begin`到`end`的点云数据，通过每个点对象的`WriteDetection`方法将点的信息写入到输出流`out`中，并在每个点的数据后添加换行符。
-#### 代码示例：
+* **代码示例** ：
 ```cpp
 template <typename PointIt>
 static void Dump(std::ostream &out, PointIt begin, PointIt end) {
@@ -74,7 +78,10 @@ static void Dump(std::ostream &out, PointIt begin, PointIt end) {
   }
 }
 ```
-
+* **dump函数流程图** ：
+![dump函数流程图](../img/pointclouddump.png)
+* **文字说明** ：
+此流程图展示了 Dump 函数的流程。首先调用 WriteHeader 函数写入 PLY 文件的头部信息。头部信息写入完成后，函数遍历从 begin 到 end 的点云数据，依次调用每个点对象的 WriteDetection 方法将点信息写入输出流，并在每个点的数据后添加换行符。遍历完成后，函数标志结束。
 ### ii. 模板函数 `SaveToDisk`
 
 #### 功能
@@ -96,7 +103,9 @@ static std::string SaveToDisk(std::string path, PointIt begin, PointIt end) {
   return path;  // 返回文件路径
 }
 ```
-
+* **`SaveToDisk`函数流程图** ：
+![savedisk函数流程图](../img/pointcloud_savedisk.png)
+* 此流程图展示了 SaveToDisk 函数的工作流程。首先验证文件路径是否以 .ply 结尾，确保文件类型正确。然后创建输出文件流对象并打开指定路径的文件。接着调用 Dump 函数将点云数据写入文件。最后返回保存的文件路径，以便后续操作使用。
 ### iii. 私有静态函数 `WriteHeader`
 
 #### 功能

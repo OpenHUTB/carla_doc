@@ -221,7 +221,6 @@
        // 记录错误并重试
    }
    ```
-
 ---
 
 ### 3. 人群模拟与避障更新流程
@@ -327,7 +326,175 @@ if (loadTask.wait_for(std::chrono::milliseconds(0)) == std::future_status::ready
 ```
 
 **注意**：所有对 `navmesh` 和 `dtCrowd` 的修改需在同一锁保护下完成，避免并发冲突。
+### 4. 日志与可视化支持
 
+内置可将导航网格和路径可视化输出到 CARLA 的调试渲染：
+
+```cpp
+// 绘制网格边界
+for (int t = 0; t < tileCount; ++t) {
+    auto* verts = navmesh->getTile(t)->verts;
+    auto* polys = navmesh->getTile(t)->polys;
+    for (int i = 0; i < navmesh->getTile(t)->header->polyCount; ++i) {
+        RenderDebug::DrawPolygon(verts, polys[i].verts, polys[i].vertCount);
+    }
+}
+// 高亮当前路径
+for (size_t i = 1; i < path.size(); ++i) {
+    RenderDebug::DrawLine(path[i-1], path[i], Color::Green);
+}
+```
+
+日志接口集成 `spdlog`：
+
+```cpp
+SPDLOG_INFO("Loaded NavMesh tile {} at ({}, {})", tileId, x, y);
+SPDLOG_DEBUG("Computed path with {} points", path.size());
+```
+
+通过在 CI 中捕获渲染输出和日志，可对路径正确性和性能进行可视化回归测试。
+以下是“社交驾驶行为建模”功能的详细介绍及示例伪代码，供文档中直接引用或改写。
+
+---
+
+###5. 社交驾驶行为建模（Social Driving Behavior Modeling）
+
+社交驾驶行为建模旨在让自动驾驶主体（车辆或行人）在多-agent环境中展现更加“自然”“人性化”的行为，例如礼让行人、智能变道、遵守交通礼仪等。核心思路可以基于以下两种方法之一或结合：
+
+1. **社会力模型（Social Force Model）**
+
+   * 将周围每个交通参与者视作“力源”——吸引力（desire force）驱动车辆沿目标前进，斥力（social force）促使车辆与他人保持安全距离。
+   * 在每个仿真步，计算合力并更新速度与方向。
+
+2. **深度强化学习（Deep Reinforcement Learning）**
+
+   * 将车辆状态（位置、速度、周边环境）作为观测，动作空间包括加减速、转向和变道；
+   * 通过奖励函数（如“安全”“效率”“礼让”）训练政策网络，实现多样化行为。
+
+以上两者可混合使用：先用社会力模型快速逼近安全、礼让行为，再用RL微调细节。
+
+### 算法流程
+```cpp
+#include <vector>
+#include <cmath>
+
+// 简单的二维向量类
+struct Vector2 {
+    double x;
+    double y;
+
+    Vector2(double _x = 0, double _y = 0) : x(_x), y(_y) {}
+
+    Vector2 operator+(const Vector2& other) const {
+        return Vector2(x + other.x, y + other.y);
+    }
+    Vector2 operator-(const Vector2& other) const {
+        return Vector2(x - other.x, y - other.y);
+    }
+    Vector2 operator*(double scalar) const {
+        return Vector2(x * scalar, y * scalar);
+    }
+    Vector2& operator+=(const Vector2& other) {
+        x += other.x; y += other.y; return *this;
+    }
+
+    double length() const {
+        return std::sqrt(x*x + y*y);
+    }
+    Vector2 normalized() const {
+        double len = length();
+        if (len > 1e-6) return *this * (1.0 / len);
+        return Vector2(0, 0);
+    }
+};
+
+// Agent 类
+struct Agent {
+    Vector2 position;
+    Vector2 velocity;
+    Vector2 goal_pos;
+    double desired_speed;
+    double mass;
+    int lane;
+
+    Agent(const Vector2& pos, const Vector2& vel, const Vector2& goal,
+          double speed, double m)
+        : position(pos), velocity(vel),
+          goal_pos(goal), desired_speed(speed), mass(m), lane(0) {}
+};
+
+// 计算道路约束力（示例 stub，可根据实际情况补充）
+Vector2 computeRoadConstraints(const Agent& agent) {
+    // 例如车道边界、交通信号灯等影响，这里先返回零向量
+    return Vector2(0, 0);
+}
+
+// 是否需要变道（规则或RL策略 stub）
+bool needLaneChange(const Agent& agent, const std::vector<Agent>& neighbors) {
+    // 简单示例：速度低于某阈值则考虑变道
+    return agent.velocity.length() < agent.desired_speed * 0.8;
+}
+
+// 选取最佳车道（规则或RL策略 stub）
+int selectBestLane(const Agent& agent, const std::vector<Agent>& neighbors) {
+    // 简单示例：切换到下一车道
+    return agent.lane + 1;
+}
+
+// 是否存在潜在冲突（规则或RL策略 stub）
+bool potentialConflict(const Agent& agent, const std::vector<Agent>& neighbors) {
+    for (const auto& other : neighbors) {
+        double dist = (agent.position - other.position).length();
+        if (dist < 1.0) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// 每个仿真步更新函数
+void updateAgentBehavior(Agent& agent,
+                         const std::vector<Agent>& neighbors,
+                         double dt) {
+    // 参数
+    const double A = 5.0;       // 斥力强度
+    const double B = 1.0;       // 斥力衰减系数
+    const double k = 2.0;       // 吸引力比例
+    const double D_safe = 2.0;  // 舒适距离
+
+    // 1. 计算吸引力 toward goal
+    Vector2 dir_to_goal = (agent.goal_pos - agent.position).normalized();
+    Vector2 F_att = (dir_to_goal * agent.desired_speed - agent.velocity) * k;
+
+    // 2. 计算斥力 against each neighbor
+    Vector2 F_rep_total(0, 0);
+    for (const auto& other : neighbors) {
+        Vector2 d_vec = agent.position - other.position;
+        double dist = std::max(d_vec.length(), 1e-3);
+        Vector2 n_ij = d_vec * (1.0 / dist);
+        double exp_term = std::exp((D_safe - dist) / B);
+        Vector2 F_rep_ij = n_ij * (A * exp_term);
+        F_rep_total += F_rep_ij;
+    }
+
+    // 3. 考虑道路和交通规则约束
+    Vector2 F_road = computeRoadConstraints(agent);
+
+    // 4. 合力与动力学更新
+    Vector2 F_total = F_att + F_rep_total + F_road;
+    Vector2 acceleration = F_total * (1.0 / agent.mass);
+    agent.velocity += acceleration * dt;
+    agent.position += agent.velocity * dt;
+
+    // 5. 变道或减速决策（可选 RL 微调）
+    if (needLaneChange(agent, neighbors)) {
+        agent.lane = selectBestLane(agent, neighbors);
+    }
+    if (potentialConflict(agent, neighbors)) {
+        agent.velocity = agent.velocity * 0.5;  // 紧急减速
+    }
+}
+```
 
  ---
  
