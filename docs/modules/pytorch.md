@@ -6,19 +6,19 @@
 
 ## 目录
 
-- [1. 项目概述](https://chat.rawchat.cn/c/682837b1-9934-8013-a149-2a64d4d712f3#1-项目概述)
-- [2. 依赖与头文件](https://chat.rawchat.cn/c/682837b1-9934-8013-a149-2a64d4d712f3#2-依赖与头文件)
-- [3. 全局辅助函数](https://chat.rawchat.cn/c/682837b1-9934-8013-a149-2a64d4d712f3#3-全局辅助函数)
-- [4. carla::learning 命名空间](https://chat.rawchat.cn/c/682837b1-9934-8013-a149-2a64d4d712f3#4-carlalearning-命名空间)
-- [5. NeuralModelImpl 结构体](https://chat.rawchat.cn/c/682837b1-9934-8013-a149-2a64d4d712f3#5-NeuralModelImpl-结构体)
-- [6. NeuralModel 类接口](https://chat.rawchat.cn/c/682837b1-9934-8013-a149-2a64d4d712f3#6-NeuralModel-类接口)
-- [7. 整体调用流程](https://chat.rawchat.cn/c/682837b1-9934-8013-a149-2a64d4d712f3#7-整体调用流程)
+- [1. 项目概述](#1-项目概述)
+- [2. 依赖与头文件](#2-依赖与头文件)
+- [3. 全局辅助函数](#3-全局辅助函数)
+- [4. carla::learning 命名空间](#4-carlalearning-命名空间)
+- [5. NeuralModelImpl 结构体](#5-NeuralModelImpl-结构体)
+- [6. NeuralModel 类接口](f3#6-NeuralModel-类接口)
+- [7. 整体调用流程](#7-整体调用流程)
 
 ------
 
 ## 1. 项目概述
 
-本模块在 **CARLA 仿真环境** 中实现了 **轮子动力学计算** 与 **PyTorch JIT 模型推理** 之间的无缝桥接。开发者可通过该模块将 CARLA 中的轮子动力学数据转换为适合深度学习模型处理的 PyTorch 张量，并通过 TorchScript 模型执行高效推理。该技术集成帮助开发者快速实现仿真数据驱动的自动驾驶算法测试与优化。
+本模块在 **CARLA 仿真环境** 中实现了 **轮子动力学计算** 与 **PyTorch JIT 模型推理** 之间的链接。开发者可通过该模块将 CARLA 中的轮子动力学数据转换为适合深度学习模型处理的 PyTorch 张量，并通过加载的模型执行高效推理。该技术集成帮助开发者快速实现仿真数据驱动的自动驾驶算法测试与优化。
 
 ![该模块的各个函数关系图](../img/carla_learning_pytorch_structure.svg)
 
