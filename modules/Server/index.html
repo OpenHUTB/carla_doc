@@ -69,7 +69,12 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="fcarlaserver">FCarlaServer 类说明文档</h1>
-<p><code>FCarlaServer</code> 是 CARLA 模拟器中用于处理服务器相关功能的类。它负责管理 RPC 服务器、流服务器以及多 GPU 路由器的启动、运行和停止。该类还提供了与 CARLA 模拟场景（Episode）的交互功能，包括场景的加载、卸载、Actor 的生成与销毁、传感器数据的传输等。</p>
+<p><code>FCarlaServer</code> 是 CARLA 模拟器中用于管理服务器通信与模拟控制的核心类。该类主要负责：
+   - 启动和停止RPC和数据流服务器；
+   - 管理 CARLA Episode 的生命周期；
+   - 控制 Actor 的创建与销毁；
+   - 传感器数据的流式传输；
+   - 多 GPU 支持下的数据路由。</p>
 <h2 id="_1">类成员函数</h2>
 <h3 id="_2">构造函数与析构函数</h3>
 <ul>
@@ -78,8 +83,12 @@
 </ul>
 <h3 id="_3">服务器启动与停止</h3>
 <ul>
-<li><strong>FDataMultiStream Start(uint16_t RPCPort, uint16_t StreamingPort, uint16_t SecondaryPort)</strong><ul>
-<li>启动服务器相关功能，传入 RPC 端口号（RPCPort）、流数据端口号（StreamingPort）以及备用端口号（SecondaryPort），返回一个多数据流对象（FDataMultiStream），可能用于后续的多种数据传输交互场景</li>
+<li><strong>FDataMultiStream Start(uint16_t RPCPort, uint16_t StreamingPort, uint16_t SecondaryPort)</strong>
+  启动服务器相关功能，<ul>
+<li>传入 RPC 端口号（RPCPort）；</li>
+<li>流数据端口号（StreamingPort）；</li>
+<li>备用端口号（SecondaryPort）；
+   返回一个多数据流对象（FDataMultiStream），用于多通道数据流处理。</li>
 </ul>
 </li>
 <li><strong>void Stop()</strong></li>
@@ -130,7 +139,7 @@
 <li>获取流服务器（streaming::Server）的引用，以便能直接操作流服务器对象，比如配置服务器参数、获取服务器状态信息等。</li>
 </ul>
 <h2 id="fpimpl">内部类 FPimpl</h2>
-<p><code>FCarlaServer</code> 类内部定义了一个名为 <code>FPimpl</code> 的私有内部类，通常这种方式用于实现“编译防火墙”（Pimpl，即“Pointer to implementation”），将类的实现细节隐藏在内部类中，对外只暴露接口。</p>
+<p><code>FCarlaServer</code> 类内部定义了一个名为 FPimpl 的私有内部类，通常这种方式用于实现“编译防火墙”（Pimpl，即“Pointer to implementation”），将类的实现细节隐藏在内部类中，对外只暴露接口。</p>
 <ul>
 <li><strong>关键成员</strong>：  </li>
 <li><code>StreamingServer</code>: 管理传感器数据流（如摄像头、激光雷达）。  </li>
@@ -138,6 +147,36 @@
 <li><code>BindActions()</code>: 绑定 RPC 操作到具体实现（如 <code>SpawnActor</code>、<code>DestroyActor</code>）。</li>
 </ul>
 <h3 id="fpimpl_1">FPimpl 类成员</h3>
+<table>
+<thead>
+<tr>
+<th>成员</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>StreamingServer</code></td>
+<td>传感器数据流服务器</td>
+</tr>
+<tr>
+<td><code>SecondaryServer</code></td>
+<td>多CPU路由器</td>
+</tr>
+<tr>
+<td><code>BroadcastStream</code></td>
+<td>广播数据流</td>
+</tr>
+<tr>
+<td><code>Episode</code></td>
+<td>当前模拟场景对象</td>
+</tr>
+<tr>
+<td><code>TickCuesReceived</code></td>
+<td>已接收 Tick 信号数量</td>
+</tr>
+</tbody>
+</table>
 <ul>
 <li><strong>FPimpl(uint16_t RPCPort, uint16_t StreamingPort, uint16_t SecondaryPort)</strong></li>
 <li>
@@ -184,6 +223,15 @@
 <li>绑定 RPC 服务器的各种操作，包括场景加载、Actor 生成与销毁、传感器数据管理等。</li>
 </ul>
 <h2 id="_7">辅助宏</h2>
+<p>这些宏用统一接口绑定和错误处理：
+| 宏名                           | 说明                   |
+| -------------------------------- | -------------------------- |
+| <code>BIND_SYNC(name)</code>                     | 同步绑定 RPC 函数                   |
+| <code>BIND_ASYNC(name)</code>                    | 异步绑定 RPC 函数                   |
+| <code>REQUIRE_CARLA_EPISODE()</code>             | 确保 Episode 存在                   |
+| <code>RESPOND_ERROR(str)</code>                  | 返回错误响应（字符串）               |
+| <code>RESPOND_ERROR_FSTRING(fstr)</code>         | 返回错误响应（FString）             |
+| <code>CARLA_ENSURE_GAME_THREAD()</code>          | 确保运行在游戏线程                  |</p>
 <ul>
 <li><strong>BIND_SYNC(name)</strong></li>
 <li>
