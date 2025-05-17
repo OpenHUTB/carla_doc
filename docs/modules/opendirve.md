@@ -2,15 +2,21 @@
 本文件定义了 CARLA 模拟器中用于解析 OpenDRIVE 地图数据的 OpenDriveParser 类。该类位于 carla::opendrive 命名空间中，主要职责是从 OpenDRIVE XML 文件中读取道路网络数据，并将其转换为 CARLA 内部表示形式。
 
 ##  什么是 OpenDRIVE？
+[点击这里访问ASAM OpenDRIVE](https://www.asam.net/standards/detail/opendrive/)
 
 **OpenDRIVE** 是由 **VIRES Simulationstechnologie GmbH** 提出的开放标准，用于描述道路网络的结构化信息，广泛用于驾驶仿真系统（如 CARLA、SUMO、VTD 等）。
 
 该标准使用 XML 格式，详细描述以下内容：
-- **道路几何形状**：包括直线、弧线、样条曲线等，用于定义道路的空间布局；
-- **车道信息**：如车道数量、宽度、类型（普通车道、路缘、应急车道等）；
-- **拓扑结构**：包括道路之间的连接、交叉口定义、优先级等；
-- **交通元素**：如交通灯、路标、限速牌、信号控制器等；
-- **参考坐标系**：地理定位支持（支持 UTM、WGS84 投影）。
+
+🔹  **道路几何形状**：包括直线、弧线、样条曲线等，用于定义道路的空间布局；
+
+🔹  **车道信息**：如车道数量、宽度、类型（普通车道、路缘、应急车道等）；
+
+🔹  **拓扑结构**：包括道路之间的连接、交叉口定义、优先级等；
+
+🔹  **交通元素**：如交通灯、路标、限速牌、信号控制器等；
+
+🔹  **参考坐标系**：地理定位支持（支持 UTM、WGS84 投影）。
 
 ### 文件扩展名：`.xodr`
 OpenDRIVE 文件通常以 `.xodr` 为扩展名，是一个标准的 XML 文件，主要结构包括：
@@ -62,7 +68,7 @@ OpenDriveParser 是 CARLA 模拟器中 carla::opendrive 命名空间下的一个
 
 🔹 工具类设计：提供“加载”和“解析”两个核心能力。
 
-🔹 封装解析细节：使用 XML 解析库（如 pugixml）来处理底层文件格式。
+🔹 封装解析细节：使用 XML 解析库（如 [pugixml](https://pugixml.org/) ）来处理底层文件格式。
 
 🔹 模块化输出：返回标准化 Map 对象，供 CARLA 路网系统使用。
 
@@ -217,10 +223,10 @@ carla::opendrive::Map map = carla::opendrive::OpenDriveParser::Load(xodr_content
 ---
 
 ## 文件位置
-
-```
-LibCarla/source/carla/opendrive/OpenDriveParser.cpp
-```
+~~~
+carla/opendrive/OpenDriveParser.cpp
+~~~
+[点击这里访问opendirve](https://openhutb.github.io/carla_doc/modules/opendirve/)
 
 ---
 
@@ -328,6 +334,7 @@ if (result) {
 ---
 
 ## 依赖模块
+[依赖模块图](https://openhutb.github.io/carla_cpp/dir_a02f1db122f1bf0661014bee93740912.html)
 
 ```cpp
 #include "carla/opendrive/OpenDriveParser.h"
@@ -422,7 +429,7 @@ boost::optional<road::Map> OpenDriveParser::Load(const std::string &opendrive)
 ---
 
 ## 模块调用关系
-
+[OpenDriveParser.cpp的引用（include）关系图](https://openhutb.github.io/carla_cpp/da/d5a/OpenDriveParser_8cpp.html)
 ```plaintext
 OpenDriveParser::Load(string)
   ├── XML 加载（pugixml）
@@ -440,7 +447,6 @@ OpenDriveParser::Load(string)
 ```
 
 ---
-
 ## 类图概念（简化）
 
 ```cpp
@@ -469,3 +475,4 @@ OpenDriveParser
 - 在地图工具链中进行道路、交叉口、交通信号等解析
 - 用于运行时生成或验证地图网络结构
 ---
+### [点击此处访问CARLA OpenDrive模块说明文档](https://openhutb.github.io/carla_doc/modules/OpenDrive/)
