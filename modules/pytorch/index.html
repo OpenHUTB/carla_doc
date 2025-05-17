@@ -80,188 +80,140 @@
 <li><a href="#3-全局辅助函数">3. 全局辅助函数</a></li>
 <li><a href="#4-carlalearning-命名空间">4. carla::learning 命名空间</a></li>
 <li><a href="#5-NeuralModelImpl-结构体">5. NeuralModelImpl 结构体</a></li>
-<li><a href="#6-NeuralModel-类接口">6. NeuralModel 类接口</a></li>
+<li><a href="f3#6-NeuralModel-类接口">6. NeuralModel 类接口</a></li>
 <li><a href="#7-整体调用流程">7. 整体调用流程</a></li>
 </ul>
+<hr />
 <h2 id="1">1. 项目概述</h2>
-<p>本模块在 <strong>CARLA 仿真环境</strong> 中实现了 <strong>轮子动力学计算</strong> 与 <strong>PyTorch JIT 模型推理</strong> 之间的无缝桥接。通过这一模块，开发者可以在真实感强的仿真环境中使用深度学习模型对轮子的物理行为进行推理，并对其进行动态调整。这一桥梁的搭建为复杂的自动驾驶仿真提供了更高效的计算与推理能力。</p>
+<p>本模块在 <strong>CARLA 仿真环境</strong> 中实现了 <strong>轮子动力学计算</strong> 与 <strong>PyTorch JIT 模型推理</strong> 之间的链接。开发者可通过该模块将 CARLA 中的轮子动力学数据转换为适合深度学习模型处理的 PyTorch 张量，并通过加载的模型执行高效推理。该技术集成帮助开发者快速实现仿真数据驱动的自动驾驶算法测试与优化。</p>
 <p><img alt="该模块的各个函数关系图" src="../../img/carla_learning_pytorch_structure.svg" /></p>
-<p>该模块功能如下：</p>
+<p>本模块提供以下功能特性：</p>
 <ol>
-<li>
-<p><strong>将 C++ 原始数据封装成 PyTorch 张量</strong>：将 CARLA 仿真中的轮子动力学数据转化为 PyTorch 张量，方便模型处理。</p>
-</li>
-<li>
-<p><strong>调用 TorchScript 模型进行推理</strong>：加载并使用已训练的 TorchScript 模型执行前向推理，计算轮子物理行为。</p>
-</li>
-<li><strong>从输出张量中提取结果</strong>：从推理结果中获取粒子力和轮子力，并填充到 WheelOutput 中。</li>
-<li><strong>支持多种推理模式</strong>：提供 CPU、动态推理及 CUDA 加速模式，适应不同硬件环境和计算需求。</li>
+<li><strong>数据高效转换</strong>：原地转换仿真数据为PyTorch张量，无额外内存开销。</li>
+<li><strong>灵活推理方式</strong>：支持CPU、动态推理和CUDA硬件加速多种模式。</li>
+<li><strong>结果精确提取</strong>：快速从推理输出提取轮子力、扭矩等动力学数据。</li>
+<li><strong>扩展性良好</strong>：方便开发者自定义扩展功能。</li>
 </ol>
 <hr />
 <h2 id="2">2. 依赖与头文件</h2>
 <ul>
-<li><strong>源码参考</strong> <a href="https://openhutb.github.io/carla_cpp/db/dd0/pytorch_8h_source.html">pytorch.h 源码</a></li>
-<li><strong>torch/torch.h / torch/script.h</strong>：PyTorch C++ API 与 JIT 接口</li>
-<li><strong>torchscatter &amp; torchcluster</strong>：验证扩展库的 CUDA 支持</li>
-<li><strong>tensorexpr_fuser</strong>：控制 JIT Fuse 优化</li>
-<li><strong>CUDACachingAllocator</strong>：用于显式清理 CUDA 缓存</li>
+<li><strong>源码参考</strong>：<a href="https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html">pytorch.h 源码</a></li>
+<li><strong>torch/torch.h 与 torch/script.h</strong>：核心PyTorch C++ API及JIT模型接口</li>
+<li><strong>torchscatter &amp; torchcluster</strong>：用于CUDA扩展功能验证</li>
+<li><strong>tensorexpr_fuser</strong>：JIT优化控制，平衡性能与兼容性</li>
+<li><strong>CUDACachingAllocator</strong>：手动控制CUDA缓存，优化内存使用</li>
 </ul>
 <hr />
 <h2 id="3">3. 全局辅助函数</h2>
 <h3 id="31-add_mark">3.1 add_mark</h3>
 <ul>
-<li><strong>作用</strong>：空壳函数，用于在代码中插入标记，便于日志或调试</li>
-<li>
-<p><strong>参数</strong>：<code>text</code> — 标记文本，不作实际处理</p>
-</li>
-<li>
-<p><strong>源码链接</strong>：更多细节请参考 <a href="https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L20">pytorch.cpp </a></p>
-</li>
+<li><strong>用途</strong>：代码执行位置标记，便于调试</li>
+<li><strong>参数说明</strong>：<code>text</code>（标记文本，无实际功能）</li>
+<li><strong>源码参考</strong>：<a href="https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.htmll#L20">pytorch.cpp</a></li>
 </ul>
+<hr />
 <h2 id="4-carlalearning">4. carla::learning 命名空间</h2>
-<p>该命名空间封装了与轮子动力学及模型推理相关的核心函数。</p>
+<p>封装轮子动力学与深度模型推理相关函数。- 源码参考：<a href="https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.htmll#L25">pytorch.cpp</a></p>
 <h3 id="41-test_learning">4.1 test_learning</h3>
 <ul>
-<li><strong>源码参考</strong>: <a href="https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L27">pytorch.cpp 源码</a></li>
-<li>
-<p><strong>功能</strong>：打印 torchcluster 和 torchscatter 的 CUDA 版本，验证环境</p>
-</li>
-<li>
-<p><strong>示例输出</strong>：</p>
-</li>
+<li><strong>作用</strong>：打印CUDA环境信息，验证torchscatter和torchcluster。</li>
+<li><strong>示例输出</strong>：<code>cuda version X.Y</code></li>
 </ul>
-<div class="highlight"><pre><span></span><code>cuda version X.Y
-</code></pre></div>
 <h3 id="42-getwheeltensorinputs">4.2 GetWheelTensorInputs</h3>
 <ul>
-<li><strong>源码参考</strong>: <a href="https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L37">pytorch.cpp 源码</a></li>
-<li><strong>输入</strong>：WheelInput 结构体，包含：</li>
-<li>particles_positions (float*)</li>
-<li>particles_velocities (float*)</li>
-<li>wheel_positions (float[3])</li>
-<li>wheel_orientation (float[4])</li>
-<li>wheel_linear_velocity (float[3])</li>
-<li>wheel_angular_velocity (float[3])</li>
-<li>num_particles (int)</li>
-<li><strong>处理</strong>：</li>
-<li>使用 <code>torch::from_blob</code> 将原始指针包装成 at::Tensor（不复制数据）</li>
-<li>构造 std::vector<a href="">torch::jit::IValue</a>，按顺序存放所有张量</li>
-<li><strong>输出</strong>：Value 元组，用于 Module::forward()</li>
+<li><strong>作用</strong>：转换轮子动力学输入为张量</li>
+<li><strong>输入数据</strong>：WheelInput结构，包含粒子位置、速度、轮子位姿与速度等</li>
+<li><strong>输出</strong>：适用于模型推理的张量组</li>
 </ul>
 <h3 id="43-getwheeltensoroutput">4.3 GetWheelTensorOutput</h3>
 <ul>
-<li><strong>源码参考</strong>:<a href="https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L74">pytorch.cpp 源码</a></li>
-<li><strong>输入</strong>：</li>
-<li>particle_forces：形状 [num_particles, 3] 张量</li>
-<li>wheel_forces：长度 6 张量（力 xyz + 扭矩 xyz）</li>
-<li><strong>处理</strong>：</li>
-<li>从 <code>wheel_forces.data_ptr&lt;float&gt;()</code> 读取 6 个值，赋给 WheelOutput 对应字段</li>
-<li>遍历 <code>particle_forces.data_ptr&lt;float&gt;()</code>，按 xyz 顺序填充 WheelOutput::_particle_forces 向量</li>
-<li><strong>输出</strong>：填充后的 WheelOutput 结构体</li>
+<li><strong>作用</strong>：解析模型输出到WheelOutput</li>
+<li><strong>输入</strong>：粒子与轮子的输出力、扭矩张量</li>
+<li><strong>输出</strong>：填充WheelOutput结构</li>
 </ul>
 <h3 id="44-getwheeltensoroutputdynamic">4.4 GetWheelTensorOutputDynamic</h3>
 <ul>
-<li><strong>源码参考</strong>: <a href="https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L107">pytorch.cpp 源码</a></li>
-<li><strong>功能</strong>：与 GetWheelTensorOutput 相同，用于“动态”推理后的后处理</li>
+<li><strong>作用</strong>：动态推理专用输出解析，与GetWheelTensorOutput逻辑一致</li>
 </ul>
 <hr />
 <h2 id="5-neuralmodelimpl">5. NeuralModelImpl 结构体</h2>
 <ul>
-<li><strong>源码参考</strong>: <a href="https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L133">pytorch.cpp 源码</a></li>
+<li><strong>内部实现核心结构体</strong>- 源码参考：<a href="https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.htmll#L135">pytorch.cpp</a></li>
 <li><strong>成员变量</strong>：</li>
-<li>module：已加载的 TorchScript 模型</li>
-<li>particles_*_tensors：可选的缓存张量队列（当前未深入使用）</li>
-<li><strong>成员函数</strong>：</li>
-<li>GetWheelTensorInputsCUDA：CUDA 版本的 GetWheelTensorInputs</li>
+<li>module：TorchScript模型对象</li>
+<li>缓存张量队列（用于高效推理，后续可扩展）</li>
 </ul>
 <h3 id="51-getwheeltensorinputscuda">5.1 GetWheelTensorInputsCUDA</h3>
 <ul>
-<li><strong>源码参考</strong>: <a href="https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L150">pytorch.cpp 源码</a></li>
-<li><strong>功能</strong>：与 GetWheelTensorInputs 相同，但创建后立即 <code>.cuda()</code> 并附加 wheel_idx 信息</li>
-<li><strong>用途</strong>：并行推理时区分不同车轮</li>
+<li><strong>作用</strong>：CUDA模式下的数据转换，附加设备标识</li>
+<li><strong>用途</strong>：并行多轮子推理</li>
 </ul>
 <hr />
 <h2 id="6-neuralmodel">6. NeuralModel 类接口</h2>
-<p>该类对外暴露模型加载、输入设置、推理和结果获取接口。</p>
-<p><strong>源码参考</strong>: <a href="https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L187">pytorch.cpp 源码</a></p>
+<p>对外提供完整模型加载、设置输入、执行推理、获取输出的流程控制。- 源码参考：<a href="https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.htmll#L187">pytorch.cpp</a></p>
 <h3 id="61">6.1 构造与析构</h3>
-<div class="highlight"><pre><span></span><code>NeuralModel::NeuralModel()
-NeuralModel::~NeuralModel()
-</code></pre></div>
 <ul>
-<li><strong>功能</strong>：使用 <code>std::make_unique&lt;NeuralModelImpl&gt;()</code> 初始化内部实现；自动释放</li>
+<li>自动管理模型生命周期</li>
 </ul>
 <h3 id="62-loadmodel">6.2 LoadModel</h3>
-<div class="highlight"><pre><span></span><code>void NeuralModel::LoadModel(char* filename, int device)
-</code></pre></div>
 <ul>
-<li><strong>功能</strong>：</li>
-<li><code>torch::jit::setTensorExprFuserEnabled(false)</code> 关闭 TensorExpr Fuse</li>
-<li><code>Model-&gt;module = torch::jit::load(filename)</code> 加载模型</li>
-<li>（可选）将模型转移到 <code>cuda:device</code></li>
-<li><strong>异常处理</strong>：捕获并打印 c10::Error</li>
+<li>加载TorchScript模型，支持GPU设备指定</li>
+<li>异常安全，捕获并报告模型加载问题</li>
 </ul>
 <h3 id="63-setinputs">6.3 SetInputs</h3>
-<div class="highlight"><pre><span></span><code>void NeuralModel::SetInputs(Inputs input)
-</code></pre></div>
 <ul>
-<li><strong>功能</strong>：保存传入的 Inputs（包含四个 WheelInput、操作指令、地形类型、verbose 标志）</li>
+<li>存储完整输入数据（四轮状态、驾驶指令、地形等）</li>
 </ul>
-<h3 id="64-forward">6.4 推理：Forward</h3>
+<h3 id="64-forward">6.4 Forward (标准推理)</h3>
 <ul>
-<li><strong>源码参考</strong>: <a href="https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L219">pytorch.cpp 源码</a></li>
-<li><strong>流程</strong>：</li>
-<li>调用 GetWheelTensorInputs 构建四组车轮张量</li>
-<li>驾驶命令（steering, throttle, braking）及 optional terrain_type、verbose</li>
-<li>执行 <code>module.forward(TorchInputs)</code></li>
-<li>拆解输出元组为 8 个张量，调用 GetWheelTensorOutput 填充 _output</li>
+<li>执行模型推理，CPU环境适用</li>
 </ul>
-<h3 id="65-forwarddynamic">6.5 动态推理：ForwardDynamic</h3>
+<h3 id="65-forwarddynamic">6.5 ForwardDynamic (动态推理)</h3>
 <ul>
-<li><strong>区别</strong>：使用 GetWheelTensorOutputDynamic，并在末尾调用 <code>CUDACachingAllocator::emptyCache()</code> 清理 CUDA 缓存</li>
+<li>执行动态推理，推理后清理CUDA缓存</li>
 </ul>
-<h3 id="66-cuda-forwardcudatensors">6.6 CUDA 推理：ForwardCUDATensors</h3>
+<h3 id="66-forwardcudatensors-cuda">6.6 ForwardCUDATensors (CUDA推理)</h3>
 <ul>
-<li><strong>区别</strong>：</li>
-<li>使用 GetWheelTensorInputsCUDA 将所有张量 <code>.cuda()</code></li>
-<li>驾驶指令等也 <code>.cuda()</code></li>
-<li>其余逻辑同 Forward</li>
+<li>全GPU模式，加速高效</li>
 </ul>
-<h3 id="67-getoutputs">6.7 结果获取：GetOutputs</h3>
+<h3 id="67-getoutputs">6.7 GetOutputs</h3>
 <ul>
-<li><strong>源码参考</strong>: <a href="https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L246">pytorch.cpp 源码</a></li>
-<li><strong>功能</strong>：返回内部 _output，包含四个 WheelOutput</li>
+<li>获取推理结果，包含所有轮子状态信息</li>
 </ul>
-<h2 id="7">7. 整体流程</h2>
-<p>该模块调用流程图如下：</p>
+<hr />
+<h2 id="7">7. 整体调用流程</h2>
+<p>模块典型使用流程：</p>
 <p><img alt="该模块的各个函数关系图" src="../../img/neural_model_flow.svg" /></p>
+<p><strong>Step-by-Step示例：</strong></p>
 <ol>
-<li><strong>初始化与加载</strong></li>
+<li><strong>模型加载</strong></li>
 </ol>
-<div class="highlight"><pre><span></span><code>NeuralModel model;
-model.LoadModel(&quot;mymodel.pt&quot;, /*device=*/0);
+<div class="highlight"><pre><span></span><code><span class="n">NeuralModel</span><span class="w"> </span><span class="n">model</span><span class="p">;</span>
+<span class="n">model</span><span class="p">.</span><span class="n">LoadModel</span><span class="p">(</span><span class="s">&quot;mymodel.pt&quot;</span><span class="p">,</span><span class="w"> </span><span class="cm">/*device=*/</span><span class="mi">0</span><span class="p">);</span>
 </code></pre></div>
 <ol>
-<li><strong>设置输入</strong></li>
+<li><strong>准备并设置输入</strong></li>
 </ol>
-<div class="highlight"><pre><span></span><code>Inputs inp = /* 构造 WheelInput + 操作指令 */;
-model.SetInputs(inp);
+<div class="highlight"><pre><span></span><code><span class="n">Inputs</span><span class="w"> </span><span class="n">inp</span><span class="p">;</span>
+<span class="c1">// 构建 WheelInput 和驾驶指令</span>
+<span class="n">model</span><span class="p">.</span><span class="n">SetInputs</span><span class="p">(</span><span class="n">inp</span><span class="p">);</span>
 </code></pre></div>
 <ol>
-<li><strong>选择推理模式</strong></li>
+<li><strong>执行推理</strong></li>
 </ol>
-<div class="highlight"><pre><span></span><code>model.Forward();                // CPU 模式
-// 或
-model.ForwardDynamic();         // 动态 + 缓存清理
-// 或
-model.ForwardCUDATensors();     // 全 CUDA 模式
+<div class="highlight"><pre><span></span><code><span class="n">model</span><span class="p">.</span><span class="n">Forward</span><span class="p">();</span><span class="w">            </span><span class="c1">// CPU模式</span>
+<span class="c1">// 或</span>
+<span class="n">model</span><span class="p">.</span><span class="n">ForwardDynamic</span><span class="p">();</span><span class="w">     </span><span class="c1">// 动态推理，适用于频繁模型切换</span>
+<span class="c1">// 或</span>
+<span class="n">model</span><span class="p">.</span><span class="n">ForwardCUDATensors</span><span class="p">();</span><span class="w"> </span><span class="c1">// GPU模式，加速推理</span>
 </code></pre></div>
 <ol>
-<li><strong>获取输出</strong></li>
+<li><strong>提取结果</strong></li>
 </ol>
-<div class="highlight"><pre><span></span><code>auto &amp;outs = model.GetOutputs();
-// outs.wheel0 ... outs.wheel3
+<div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="o">&amp;</span><span class="n">outs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">model</span><span class="p">.</span><span class="n">GetOutputs</span><span class="p">();</span>
+<span class="c1">// 使用 outs.wheel0 至 outs.wheel3 的结果</span>
 </code></pre></div>
+<p>通过以上流程，开发者可高效地在CARLA仿真中集成深度学习推理，提升自动驾驶仿真效果与性能。</p>
               
             </div>
           </div><footer>
