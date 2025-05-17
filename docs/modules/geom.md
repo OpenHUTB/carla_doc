@@ -877,7 +877,7 @@ RTree包含两个模板类：
 
 ## 欧几里得距离公式
 
-对任意两个 $n$ 维点 $\mathbf{p}=(p_1,p_2,\dots,p_n)$ 和 $\mathbf{q}=(q_1,q_2,\dots,q_n)$，欧几里得距离定义如下：
+对任意两个 *n* 维点 **p** = (*p*<sub>1</sub>, *p*<sub>2</sub>, …, *p*<sub>n</sub>) 和 **q** = (*q*<sub>1</sub>, *q*<sub>2</sub>, …, *q*<sub>n</sub>)，欧几里得距离定义如下：
 
 $$
 d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
@@ -927,7 +927,7 @@ void InsertElements(const std::vector<TreeElement> &elements);
 std::vector<TreeElement> GetNearestNeighbours(const BPoint &point, size_t number_neighbours = 1) const;
 ```
 
-- 返回距离给定点最近的 $k$ 个邻居（默认 $k=1$）。
+- 返回距离给定点最近的 *k* 个邻居（默认 *k*=1）。
 
 #### GetNearestNeighboursWithFilter
 
@@ -1533,7 +1533,7 @@ $$f(x)=a + b\,x + c\,x^2 + d\,x^3$$
                   const value_type &c,
                   const value_type &d);
   ```
-- **说明**：按系数 $(a,b,c,d)$ 构造，无偏移量。  
+- **说明**：按系数 (*a*,*b*,*c*,*d*)构造，无偏移量。  
 - **示例**:  
   
   ```cpp
@@ -1562,31 +1562,36 @@ $$f(x)=a + b\,x + c\,x^2 + d\,x^3$$
 
 ### **<font color="#7fb800">GetA/B/C/D</font>**
 - **原型**:  
+  
   ```cpp
   value_type GetA() const;
   value_type GetB() const;
   value_type GetC() const;
   value_type GetD() const;
   ```
-- **说明**：分别返回当前存储的系数 $\tilde a,\tilde b,\tilde c,\tilde d$。  
+- **说明**：分别返回当前存储的系数 *a*,*b*,*c*,*d*。。  
 - **示例**:  
+  
   ```cpp
   auto a = p2.GetA();
   ```
 
 ### **<font color="#7fb800">GetS</font>**
 - **原型**:  
+  
   ```cpp
   value_type GetS() const;
   ```
-- **说明**：返回偏移量 $s$。  
+- **说明**：返回偏移量 *s*。  
 - **示例**:  
+  
   ```cpp
   auto s = p2.GetS(); // 0.5
   ```
 
 ### **<font color="#7fb800">Set(a,b,c,d[,s])</font>**
 - **原型**:  
+  
   ```cpp
   void Set(const value_type &a,
            const value_type &b,
