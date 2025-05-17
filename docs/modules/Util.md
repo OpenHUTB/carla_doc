@@ -3,7 +3,7 @@
 # 目录
 - [1. 概述](#1-概述)
   - [1.1 Util模块与其它模块的调用关系图](#11-util模块与其它模块的调用关系图)
-  - [1.2 Util模块关键流程图](#12-util模块关键流程图)
+  - [1.2 Util模块中类的关系图](#12-util模块中类的关系图)
   - [1.3 Util模块关键类表](#13-util模块关键类表)
 - [2. Util核心功能类](#2-util核心功能类)
   - [2.1 UActorAttacher：Actor 附加器](#21-uactorattacheractor-附加器)
@@ -53,30 +53,66 @@ flowchart LR
 - `ProceduralCustomMesh` 与 OpenDriveGenerator、RoadPainterWrapper 协作，呈现场景几何；
 - `FIniFile` 在插件启动时读取外部配置，并在各模块初始化时注入参数。
 
-### 1.2 Util模块关键流程图
+### 1.2 Util模块中类的关系图
 ```mermaid
 flowchart TD
-  subgraph 模块初始化
-    A1[FIniFile: 读取 .ini 配置]
-    A2[ObjectRegister: 注册全局管理对象]
-    A1 --> A2
-    A3[RandomEngine: 初始化随机数引擎]
-    A2 --> A3
-    A4[NoWorldOffsetSceneComponent: 设置世界坐标稳定]
-    A3 --> A4
+  subgraph Util模块
+    AA[UActorAttacher]
+    RE[URandomEngine]
+    BC[UBoundingBoxCalculator]
+    RS[URayTracer]
+    DF[FDebugShapeDrawer]
+    IM[FIniFile]
+    PM[FProceduralCustomMesh]
+    LV["ListView<T> 提供 begin()/end()、empty()"]
+    NC[NonCopyable]
   end
 
-  subgraph 仿真执行循环
-    B1[FCarlaEngine Tick]
-    B1 --> B2[UActorAttacher: 附加传感器至车辆]
-    B2 --> B3[RandomEngine: 生成随机参数]
-    B3 --> B4[UBoundingBoxCalculator: 计算各 Actor 包围盒]
-    B4 --> B5[FDebugShapeDrawer: 绘制调试形状]
-    B5 --> B6[ProceduralCustomMesh: 动态生成自定义网格]
-    B6 --> B7[NavigationMesh: 更新/重构导航网格]
-    B7 --> B8[RayTracer: 执行射线检测]
-    B8 --> B9[FCarlaServer: 聚合 & RPC 序列化]
-  end
+  %% UActorAttacher 内部调用
+  AA -->|调用 UE4 附着接口| UE4Attach[(AActor::AttachToActor)]
+  AA -->|创建并配置 SpringArm| SpringArmComp[(USpringArmComponent)]
+  SpringArmComp -->|将子 Actor 附着到弹簧臂上| UE4Attach
+
+  %% URandomEngine 内部调用
+  RE -->|使用 std::minstd_rand 作为底层引擎| MinstdRand[(std::minstd_rand)]
+  RE -->|uniform 分布采样| UniformDist[(std::uniform_*_distribution)]
+  RE -->|normal/泊松/伯努利 分布采样| OtherDist[(std::normal_* / std::poisson_distribution)]
+  RE -->|Shuffle 实现| ShuffleImpl[(std::shuffle)]
+
+  %% UBoundingBoxCalculator 内部调用
+  BC -->|获取静态网格组件包围盒| StaticMeshBB[(GetBBsOfStaticMeshComponents)]
+  BC -->|获取骨骼网格组件包围盒| SkeletalMeshBB[(GetBBsOfSkeletalMeshComponents)]
+  StaticMeshBB -->|合并包围盒| CombinedBB[(CombineBBs)]
+  SkeletalMeshBB -->|合并包围盒| CombinedBB
+
+  %% URayTracer 内部调用
+  RS -->|射线检测| UE4Trace[(World->LineTraceSingleByChannel)]
+  RS -->|点投影| UE4Trace
+
+  %% FDebugShapeDrawer 内部调用
+  DF -->|绘制调试线| UE4Debug[(DrawDebugLine)]
+  DF -->|绘制调试球| UE4Debug[(DrawDebugSphere)]
+  DF -->|绘制调试文本| UE4Debug[(DrawDebugString)]
+
+  %% FIniFile 内部调用
+  IM -->|读取/写入 Section/Key| UE4Config[(GConfig / FConfigFile API)]
+
+  %% FProceduralCustomMesh 与 ListView 协作
+  PM -->|存储网格顶点/索引/法线等| MeshData
+  PM -->|转换为 MeshDescription| UE4MeshDesc[(FMeshDescription)]
+  PM -->|遍历数组（顶点/面数据）| LV
+
+  %% ListView 基础功能
+  LV -->|迭代功能| RangeAPI[(Range API)]
+
+  %% NonCopyable 限制
+  NC -.->|删除拷贝构造/赋值| CopyOps
+
+  %% 辅助连接示意
+  MinstdRand --- OtherDist
+  CombinedBB --- StaticMeshBB
+  CombinedBB --- SkeletalMeshBB
+
 ```
 ### 1.3 Util模块关键类表
 | 子模块                                      | 功能简介                                                                                       | 源码位置                                                                                                       |
