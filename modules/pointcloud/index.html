@@ -113,7 +113,12 @@
 <li><code>namespace pointcloud</code> ：在carla命名空间下进一步定义pointcloud命名空间，专门组织与点云处理相关的代码，提高代码的可读性和可维护性。</li>
 </ul>
 <h2 id="3-pointcloudio">3 pointcloudio类</h2>
-<p>该类提供了处理点云数据输入输出的功能，包括将点云数据写入输出流和保存到磁盘文件。<code>PointCloudIO</code>类是点云数据处理的核心，提供了点云数据的写入、保存和头部信息编写功能。下面是该类的各个功能细节。</p>
+<p>该类提供了处理点云数据输入输出的功能，包括将点云数据写入输出流和保存到磁盘文件。<code>PointCloudIO</code>类是点云数据处理的核心，提供了点云数据的写入、保存和头部信息编写功能。
+<img alt="点云模块架构图" src="../../img/pointcloud_Architecture.png" /></p>
+<ul>
+<li><strong>文字说明</strong> ：
+此结构图展示了 <code>PointCloudIO</code> 类的主要组成和依赖关系。<code>PointCloudIO</code> 类包含两个公开的模板函数 <code>Dump</code> 和 <code>SaveToDisk</code>，以及一个私有的静态模板函数 <code>WriteHeader</code>。<code>Dump</code> 函数用于将点云数据写入输出流，<code>SaveToDisk</code> 函数用于将点云数据保存到磁盘文件，而 <code>WriteHeader</code> 函数则负责写入 PLY 文件的头部信息。类依赖于 <code>FileSystem</code> 进行文件路径验证，依赖于 <code>std::ostream</code> 和 <code>std::ofstream</code> 进行文件流操作。</li>
+</ul>
 <h3 id="i-dump">i 模板函数<code>dump</code></h3>
 <ul>
 <li><strong>功能</strong> ：该模板函数将点云数据写入到输出流中。模板参数<code>PointIt</code>表示点云数据的迭代器类型，<code>out</code>是输出流对象，<code>begin</code>和<code>end</code>分别表示点云数据的起始和结束迭代器。</li>
@@ -143,7 +148,7 @@
 <span class="p">}</span>
 </code></pre></div></li>
 <li><strong>dump函数流程图</strong> ：
-<img alt="dump函数流程图" src="../img/pointclouddump.png" /></li>
+<img alt="dump函数流程图" src="../../img/pointclouddump.png" /></li>
 <li><strong>文字说明</strong> ：
 此流程图展示了 Dump 函数的流程。首先调用 WriteHeader 函数写入 PLY 文件的头部信息。头部信息写入完成后，函数遍历从 begin 到 end 的点云数据，依次调用每个点对象的 WriteDetection 方法将点信息写入输出流，并在每个点的数据后添加换行符。遍历完成后，函数标志结束。</li>
 </ul>

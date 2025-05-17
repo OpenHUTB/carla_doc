@@ -939,22 +939,22 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 <li><strong>原型</strong>：<code>Location() = default;</code>  </li>
 <li><strong>说明</strong>：默认构造，坐标初始化为 (0, 0, 0)。  </li>
 <li><strong>示例</strong>：<br />
-  <div class="highlight"><pre><span></span><code><span class="n">Location</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">loc_default</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">;</span><span class="w"> </span><span class="c1">// (0,0,0)</span>
+  <div class="highlight"><pre><span></span><code><span class="n">Location</span><span class="w"> </span><span class="n">loc_default</span><span class="p">;</span><span class="w"> </span><span class="c1">// (0,0,0)</span>
 </code></pre></div></li>
 </ul>
 <h3 id="locationfloat-x-float-y-float-z"><strong><font color="#7fb800">Location(float x, float y, float z)</font></strong></h3>
 <p><em>(继承自 <code>Vector3D</code>)</em><br />
 - <strong>说明</strong>：使用基类 <code>Vector3D</code> 构造函数，初始化三维坐标。<br />
 - <strong>示例</strong>：<br />
-  <div class="highlight"><pre><span></span><code><span class="n">Location</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">loc_xyz</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mf">1.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">3.0f</span><span class="p">);</span><span class="w"> </span><span class="c1">// (1,2,3)</span>
+  <div class="highlight"><pre><span></span><code><span class="n">Location</span><span class="w"> </span><span class="nf">loc_xyz</span><span class="p">(</span><span class="mf">1.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">3.0f</span><span class="p">);</span><span class="w"> </span><span class="c1">// (1,2,3)</span>
 </code></pre></div></p>
 <h3 id="locationconst-vector3d-rhs"><strong><font color="#7fb800">Location(const Vector3D &amp;rhs)</font></strong></h3>
 <ul>
 <li><strong>原型</strong>：<code>Location(const Vector3D &amp;rhs);</code>  </li>
 <li><strong>说明</strong>：从 <code>Vector3D</code> 对象转换而来，拷贝坐标。  </li>
 <li><strong>示例</strong>：<br />
-  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">v</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mf">4.0f</span><span class="p">,</span><span class="mf">5.0f</span><span class="p">,</span><span class="mf">6.0f</span><span class="p">);</span>
-<span class="n">Location</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">loc_from_v</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">v</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">);</span><span class="w"> </span><span class="c1">// (4,5,6)</span>
+  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="nf">v</span><span class="p">(</span><span class="mf">4.0f</span><span class="p">,</span><span class="mf">5.0f</span><span class="p">,</span><span class="mf">6.0f</span><span class="p">);</span>
+<span class="n">Location</span><span class="w"> </span><span class="nf">loc_from_v</span><span class="p">(</span><span class="n">v</span><span class="p">);</span><span class="w"> </span><span class="c1">// (4,5,6)</span>
 </code></pre></div></li>
 </ul>
 <h3 id="locationconst-vector3dint-rhs"><strong><font color="#7fb800">Location(const Vector3DInt &amp;rhs)</font></strong></h3>
@@ -962,8 +962,8 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 <li><strong>原型</strong>：<code>Location(const Vector3DInt &amp;rhs);</code>  </li>
 <li><strong>说明</strong>：从整数坐标 <code>Vector3DInt</code> 转换而来，按比例（int→float）赋值。  </li>
 <li><strong>示例</strong>：<br />
-  <div class="highlight"><pre><span></span><code><span class="n">Vector3DInt</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">vi</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">);</span>
-<span class="n">Location</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">loc_from_vi</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">vi</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">);</span><span class="w"> </span><span class="c1">// (7,8,9)</span>
+  <div class="highlight"><pre><span></span><code><span class="n">Vector3DInt</span><span class="w"> </span><span class="nf">vi</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">);</span>
+<span class="n">Location</span><span class="w"> </span><span class="nf">loc_from_vi</span><span class="p">(</span><span class="n">vi</span><span class="p">);</span><span class="w"> </span><span class="c1">// (7,8,9)</span>
 </code></pre></div></li>
 </ul>
 <hr />
@@ -977,8 +977,8 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 <script type="math/tex; mode=display">d^2 = (x - x')^2 + (y - y')^2 + (z - z')^2</script>
 </li>
 <li><strong>示例</strong>：<br />
-  <div class="highlight"><pre><span></span><code><span class="n">Location</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">a</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">b</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
-<span class="k">auto</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">d2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">a</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">.</span><span class="n">DistanceSquared</span><span class="p">(</span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">b</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">);</span><span class="w"> </span><span class="c1">// d2 == 9</span>
+  <div class="highlight"><pre><span></span><code><span class="n">Location</span><span class="w"> </span><span class="nf">a</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="n">b</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">d2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">DistanceSquared</span><span class="p">(</span><span class="n">b</span><span class="p">);</span><span class="w"> </span><span class="c1">// d2 == 9</span>
 </code></pre></div></li>
 </ul>
 <h3 id="distance_1"><strong><font color="#7fb800">Distance</font></strong></h3>
@@ -988,7 +988,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div></li>
 <li><strong>说明</strong>：返回当前对象到 <code>loc</code> 的欧氏距离，等于 <script type="math/tex; mode=display">\sqrt{DistanceSquared(loc)}</script>。  </li>
 <li><strong>示例</strong>：<br />
-  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">d</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">a</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">.</span><span class="n">Distance</span><span class="p">(</span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">b</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">);</span><span class="w"> </span><span class="c1">// d == 3</span>
+  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">Distance</span><span class="p">(</span><span class="n">b</span><span class="p">);</span><span class="w"> </span><span class="c1">// d == 3</span>
 </code></pre></div></li>
 </ul>
 <hr />
@@ -1000,8 +1000,8 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div></li>
 <li><strong>说明</strong>：将 <code>rhs</code> 坐标加到当前对象。  </li>
 <li><strong>示例</strong>:<br />
-  <div class="highlight"><pre><span></span><code><span class="n">Location</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p1</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">);</span>
-<span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p1</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">;</span><span class="w"> </span><span class="c1">// p1 = (3,4,5)</span>
+  <div class="highlight"><pre><span></span><code><span class="n">Location</span><span class="w"> </span><span class="nf">p1</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">p2</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">);</span>
+<span class="n">p1</span><span class="o">+=</span><span class="w"> </span><span class="n">p2</span><span class="p">;</span><span class="w"> </span><span class="c1">// p1 = (3,4,5)</span>
 </code></pre></div></li>
 </ul>
 <h3 id="operator_1"><strong><font color="#7fb800">operator+</font></strong></h3>
@@ -1011,7 +1011,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div></li>
 <li><strong>说明</strong>：返回两坐标相加的新 <code>Location</code>。  </li>
 <li><strong>示例</strong>:<br />
-  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">sum</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p1</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">;</span><span class="w"> </span><span class="c1">// sum = (3,4,5)</span>
+  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">p2</span><span class="p">;</span><span class="w"> </span><span class="c1">// sum = (3,4,5)</span>
 </code></pre></div></li>
 </ul>
 <h3 id="operator-operator-"><strong><font color="#7fb800">operator-=</font></strong> / <strong><font color="#7fb800">operator-</font></strong></h3>
@@ -1022,7 +1022,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div></li>
 <li><strong>说明</strong>：坐标差运算。  </li>
 <li><strong>示例</strong>:<br />
-  <div class="highlight"><pre><span></span><code><span class="n">Location</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">diff</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p1</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">;</span><span class="w"> </span><span class="c1">// ( -1, -2, -3 )</span>
+  <div class="highlight"><pre><span></span><code><span class="n">Location</span><span class="w"> </span><span class="n">diff</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">p1</span><span class="p">;</span><span class="w"> </span><span class="c1">// ( -1, -2, -3 )</span>
 </code></pre></div></li>
 </ul>
 <hr />
@@ -1035,8 +1035,8 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div></li>
 <li><strong>说明</strong>：逐分量比较相等或不等。  </li>
 <li><strong>示例</strong>:<br />
-  <div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">eq</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p1</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="p">);</span>
-<span class="kt">bool</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">ne</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p1</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="p">);</span>
+  <div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="n">eq</span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">p1</span><span class="w"> </span><span class="o">==</span><span class="n">p2</span><span class="w"> </span><span class="p">);</span>
+<span class="kt">bool</span><span class="w"> </span><span class="n">ne</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">p1</span><span class="o">!=</span><span class="w"> </span><span class="n">p2</span><span class="w"> </span><span class="p">);</span>
 </code></pre></div></li>
 </ul>
 <hr />
@@ -1045,15 +1045,15 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 <ul>
 <li><strong>说明</strong>：从 UE4 <code>FVector</code>（厘米）转换到米坐标。  </li>
 <li><strong>示例</strong>:<br />
-  <div class="highlight"><pre><span></span><code><span class="n">FVector</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">fv</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">{</span><span class="mi">100</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">300</span><span class="p">};</span>
-<span class="n">Location</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">loc_ue</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">fv</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">);</span><span class="w"> </span><span class="c1">// (1,2,3)</span>
+  <div class="highlight"><pre><span></span><code><span class="n">FVector</span><span class="w"> </span><span class="n">fv</span><span class="p">{</span><span class="mi">100</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">300</span><span class="p">};</span>
+<span class="n">Location</span><span class="w"> </span><span class="nf">loc_ue</span><span class="p">(</span><span class="n">fv</span><span class="p">);</span><span class="w"> </span><span class="c1">// (1,2,3)</span>
 </code></pre></div></li>
 </ul>
 <h3 id="operator-fvector"><strong><font color="#7fb800">operator FVector()</font></strong></h3>
 <ul>
 <li><strong>说明</strong>：将 <code>Location</code>（米）转换到 UE4 <code>FVector</code>（厘米）。  </li>
 <li><strong>示例</strong>:<br />
-  <div class="highlight"><pre><span></span><code><span class="n">FVector</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">fv2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">loc_xyz</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">;</span><span class="w"> </span><span class="c1">// (100,200,300)</span>
+  <div class="highlight"><pre><span></span><code><span class="n">FVector</span><span class="w"> </span><span class="n">fv2</span><span class="o">=</span><span class="w"> </span><span class="n">loc_xyz</span><span class="p">;</span><span class="w"> </span><span class="c1">// (100,200,300)</span>
 </code></pre></div></li>
 </ul>
 <h1 id="rotation"><a href="#Rotation">Rotation</a></h1>
@@ -1073,7 +1073,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 <li><strong>原型</strong>：<code>Rotation() = default;</code>  </li>
 <li><strong>说明</strong>：默认构造，三角度均为 0。  </li>
 <li><strong>示例</strong>：<br />
-  <div class="highlight"><pre><span></span><code><span class="n">Rotation</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">r0</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">;</span><span class="w"> </span><span class="c1">// pitch=0,yaw=0,roll=0</span>
+  <div class="highlight"><pre><span></span><code><span class="n">Rotation</span><span class="w"> </span><span class="n">r0</span><span class="p">;</span><span class="w"> </span><span class="c1">// pitch=0,yaw=0,roll=0</span>
 </code></pre></div></li>
 </ul>
 <h3 id="rotationfloat-p-float-y-float-r"><strong><font color="#7fb800">Rotation(float p, float y, float r)</font></strong></h3>
@@ -1086,7 +1086,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 <li><strong><font color="#f8805a">y</font></strong>：偏航角（yaw）  </li>
 <li><strong><font color="#f8805a">r</font></strong>：翻滚角（roll）  </li>
 <li><strong>示例</strong>:<br />
-  <div class="highlight"><pre><span></span><code><span class="n">Rotation</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">r1</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mf">10.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">20.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">30.0f</span><span class="p">);</span>
+  <div class="highlight"><pre><span></span><code><span class="n">Rotation</span><span class="w"> </span><span class="nf">r1</span><span class="p">(</span><span class="mf">10.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">20.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">30.0f</span><span class="p">);</span>
 </code></pre></div></li>
 </ul>
 <hr />
@@ -1105,7 +1105,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </li>
 <li><strong>示例</strong>:<br />
   <div class="highlight"><pre><span></span><code><span class="n">Rotation</span><span class="w"> </span><span class="nf">r</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">90</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
-<span class="n">Vector3D</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">fwd</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">GetForwardVector</span><span class="p">();</span><span class="w"> </span><span class="c1">// ≈ (0,1,0)</span>
+<span class="n">Vector3D</span><span class="w"> </span><span class="n">fwd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">GetForwardVector</span><span class="p">();</span><span class="w"> </span><span class="c1">// ≈ (0,1,0)</span>
 </code></pre></div></li>
 </ul>
 <h3 id="getrightvector_1"><strong><font color="#7fb800">GetRightVector</font></strong></h3>
@@ -1115,7 +1115,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div></li>
 <li><strong>说明</strong>：返回物体右侧单位向量，具体计算见 <code>Math::GetRightVector</code>。  </li>
 <li><strong>示例</strong>:<br />
-  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">right</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">GetRightVector</span><span class="p">();</span>
+  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">GetRightVector</span><span class="p">();</span>
 </code></pre></div></li>
 </ul>
 <h3 id="getupvector_1"><strong><font color="#7fb800">GetUpVector</font></strong></h3>
@@ -1125,7 +1125,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div></li>
 <li><strong>说明</strong>：返回物体上方单位向量，具体计算见 <code>Math::GetUpVector</code>。  </li>
 <li><strong>示例</strong>:<br />
-  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">up</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">GetUpVector</span><span class="p">();</span>
+  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="n">up</span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">GetUpVector</span><span class="p">();</span>
 </code></pre></div></li>
 </ul>
 <hr />
@@ -1141,9 +1141,9 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 <script type="math/tex; mode=display">\mathbf{v}' = R_{\text{yaw}} R_{\text{roll}} R_{\text{pitch}}\,\mathbf{v}.</script>
 </li>
 <li><strong>示例</strong>:<br />
-  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">pt</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
-<span class="n">r</span><span class="p">.</span><span class="n">RotateVector</span><span class="p">(</span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">pt</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">);</span><span class="w">           </span><span class="c1">// 原地旋转</span>
-<span class="k">auto</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">pt2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">RotateVector</span><span class="p">(</span><span class="n">pt</span><span class="p">);</span><span class="w"> </span><span class="c1">// 返回旋转后拷贝</span>
+  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="nf">pt</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+<span class="n">r</span><span class="p">.</span><span class="n">RotateVector</span><span class="p">(</span><span class="n">pt</span><span class="p">);</span><span class="w">           </span><span class="c1">// 原地旋转</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">pt2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">RotateVector</span><span class="p">(</span><span class="n">pt</span><span class="p">);</span><span class="w"> </span><span class="c1">// 返回旋转后拷贝</span>
 </code></pre></div></li>
 </ul>
 <h3 id="inverserotatevector"><strong><font color="#7fb800">InverseRotateVector</font></strong></h3>
@@ -1153,8 +1153,8 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div></li>
 <li><strong>说明</strong>：按上述顺序的逆矩阵（转置）对向量做逆旋转。  </li>
 <li><strong>示例</strong>:<br />
-  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p3</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pt2</span><span class="p">;</span>
-<span class="n">r</span><span class="p">.</span><span class="n">InverseRotateVector</span><span class="p">(</span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p3</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">);</span><span class="w"> </span><span class="c1">// 恢复原向量 (1,0,0)</span>
+  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="n">p3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pt2</span><span class="p">;</span>
+<span class="n">r</span><span class="p">.</span><span class="n">InverseRotateVector</span><span class="p">(</span><span class="n">p3</span><span class="p">);</span><span class="w"> </span><span class="c1">// 恢复原向量 (1,0,0)</span>
 </code></pre></div></li>
 </ul>
 <hr />
@@ -1167,7 +1167,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div></li>
 <li><strong>说明</strong>：逐分量比较相等或不等。  </li>
 <li><strong>示例</strong>:<br />
-  <div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">same</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">r</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">Rotation</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">));</span>
+  <div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="n">same</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">r</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">Rotation</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">));</span>
 </code></pre></div></li>
 </ul>
 <hr />
@@ -1184,7 +1184,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 <ul>
 <li><strong>说明</strong>：转换为 UE4 <code>FRotator</code>。  </li>
 <li><strong>示例</strong>:<br />
-  <div class="highlight"><pre><span></span><code><span class="n">FRotator</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">outFR</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">;</span>
+  <div class="highlight"><pre><span></span><code><span class="n">FRotator</span><span class="w"> </span><span class="n">outFR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">;</span>
 </code></pre></div></li>
 </ul>
 <h1 id="transform"><a href="#Transform">Transform</a></h1>
@@ -1203,7 +1203,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 <li><strong>原型</strong>：<code>Transform() = default;</code>  </li>
 <li><strong>说明</strong>：默认构造，<code>location</code> 和 <code>rotation</code> 均为默认值。  </li>
 <li><strong>示例</strong>：<br />
-  <div class="highlight"><pre><span></span><code><span class="n">Transform</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">t0</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">;</span><span class="w"> </span><span class="c1">// location=(0,0,0)、rotation=(0,0,0)</span>
+  <div class="highlight"><pre><span></span><code><span class="n">Transform</span><span class="w"> </span><span class="n">t0</span><span class="p">;</span><span class="w"> </span><span class="c1">// location=(0,0,0)、rotation=(0,0,0)</span>
 </code></pre></div></li>
 </ul>
 <h3 id="transformconst-location-in_location"><strong><font color="#7fb800">Transform(const Location &amp;in_location)</font></strong></h3>
@@ -1211,8 +1211,8 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 <li><strong>原型</strong>：<code>Transform(const Location &amp;in_location);</code>  </li>
 <li><strong>说明</strong>：只设置平移，旋转保持默认。  </li>
 <li><strong>示例</strong>：<br />
-  <div class="highlight"><pre><span></span><code><span class="n">Location</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">loc</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span>
-<span class="n">Transform</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">t1</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">loc</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">);</span><span class="w"> </span><span class="c1">// rotation=(0,0,0)</span>
+  <div class="highlight"><pre><span></span><code><span class="n">Location</span><span class="w"> </span><span class="nf">loc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span>
+<span class="n">Transform</span><span class="w"> </span><span class="nf">t1</span><span class="p">(</span><span class="n">loc</span><span class="p">);</span><span class="w"> </span><span class="c1">// rotation=(0,0,0)</span>
 </code></pre></div></li>
 </ul>
 <h3 id="transformconst-location-in_location-const-rotation-in_rotation"><strong><font color="#7fb800">Transform(const Location &amp;in_location, const Rotation &amp;in_rotation)</font></strong></h3>
@@ -1220,8 +1220,8 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 <li><strong>原型</strong>：<code>Transform(const Location &amp;in_location, const Rotation &amp;in_rotation);</code>  </li>
 <li><strong>说明</strong>：同时设置平移与旋转。  </li>
 <li><strong>示例</strong>：<br />
-  <div class="highlight"><pre><span></span><code><span class="n">Rotation</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">r</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">);</span>
-<span class="n">Transform</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">t2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">loc</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">,</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">r</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">);</span>
+  <div class="highlight"><pre><span></span><code><span class="n">Rotation</span><span class="w"> </span><span class="nf">r</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">);</span>
+<span class="n">Transform</span><span class="w"> </span><span class="nf">t2</span><span class="p">(</span><span class="n">loc</span><span class="p">,</span><span class="n">r</span><span class="p">);</span>
 </code></pre></div></li>
 </ul>
 <hr />
@@ -1233,7 +1233,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div></li>
 <li><strong>说明</strong>：基于 <code>rotation</code> 计算单位“前向”向量。  </li>
 <li><strong>示例</strong>:<br />
-  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">fwd</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">t2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">.</span><span class="n">GetForwardVector</span><span class="p">();</span>
+  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="n">fwd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t2</span><span class="p">.</span><span class="n">GetForwardVector</span><span class="p">();</span>
 </code></pre></div></li>
 </ul>
 <h3 id="getrightvector_2"><strong><font color="#7fb800">GetRightVector</font></strong></h3>
@@ -1243,7 +1243,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div></li>
 <li><strong>说明</strong>：基于 <code>rotation</code> 计算单位“右向”向量。  </li>
 <li><strong>示例</strong>:<br />
-  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">right</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">t2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">.</span><span class="n">GetRightVector</span><span class="p">();</span>
+  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t2</span><span class="p">.</span><span class="n">GetRightVector</span><span class="p">();</span>
 </code></pre></div></li>
 </ul>
 <h3 id="getupvector_2"><strong><font color="#7fb800">GetUpVector</font></strong></h3>
@@ -1253,7 +1253,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div></li>
 <li><strong>说明</strong>：基于 <code>rotation</code> 计算单位“上向”向量.  </li>
 <li><strong>示例</strong>:<br />
-  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">up</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">t2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">.</span><span class="n">GetUpVector</span><span class="p">();</span>
+  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="n">up</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t2</span><span class="p">.</span><span class="n">GetUpVector</span><span class="p">();</span>
 </code></pre></div></li>
 </ul>
 <hr />
@@ -1265,8 +1265,8 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div></li>
 <li><strong>说明</strong>：先绕原点旋转，再平移。  </li>
 <li><strong>示例</strong>:<br />
-  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
-<span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">t2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">.</span><span class="n">TransformPoint</span><span class="p">(</span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">);</span>
+  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="nf">p</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+<span class="n">t2</span><span class="p">.</span><span class="n">TransformPoint</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
 </code></pre></div></li>
 </ul>
 <h3 id="transformvector"><strong><font color="#7fb800">TransformVector</font></strong></h3>
@@ -1276,8 +1276,8 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div></li>
 <li><strong>说明</strong>：仅旋转向量，不平移。  </li>
 <li><strong>示例</strong>:<br />
-  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">v</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
-<span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">t2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">.</span><span class="n">TransformVector</span><span class="p">(</span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">v</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">);</span>
+  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="nf">v</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+<span class="n">t2</span><span class="p">.</span><span class="n">TransformVector</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
 </code></pre></div></li>
 </ul>
 <h3 id="inversetransformpoint"><strong><font color="#7fb800">InverseTransformPoint</font></strong></h3>
@@ -1287,8 +1287,8 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div></li>
 <li><strong>说明</strong>：先平移逆变换，再旋转逆变换。  </li>
 <li><strong>示例</strong>:<br />
-  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">;</span>
-<span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">t2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">.</span><span class="n">InverseTransformPoint</span><span class="p">(</span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">);</span>
+  <div class="highlight"><pre><span></span><code><span class="n">Vector3D</span><span class="w"> </span><span class="n">p2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">;</span>
+<span class="n">t2</span><span class="p">.</span><span class="n">InverseTransformPoint</span><span class="p">(</span><span class="n">p2</span><span class="p">);</span>
 </code></pre></div></li>
 </ul>
 <hr />
@@ -1307,7 +1307,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
   </script>
 </li>
 <li><strong>示例</strong>:<br />
-  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">m</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">t2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">.</span><span class="n">GetMatrix</span><span class="p">();</span>
+  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t2</span><span class="p">.</span><span class="n">GetMatrix</span><span class="p">();</span>
 </code></pre></div></li>
 </ul>
 <h3 id="getinversematrix"><strong><font color="#7fb800">GetInverseMatrix</font></strong></h3>
@@ -1317,7 +1317,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div></li>
 <li><strong>说明</strong>：生成逆变换矩阵 <script type="math/tex">M^{-1}</script>。  </li>
 <li><strong>示例</strong>:<br />
-  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">mi</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">t2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">.</span><span class="n">GetInverseMatrix</span><span class="p">();</span>
+  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="n">mi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t2</span><span class="p">.</span><span class="n">GetInverseMatrix</span><span class="p">();</span>
 </code></pre></div></li>
 </ul>
 <hr />
@@ -1330,7 +1330,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div></li>
 <li><strong>说明</strong>：位置与旋转均相等时才返回 <code>true</code>。  </li>
 <li><strong>示例</strong>:<br />
-  <div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">eq</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">t1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">t2</span><span class="p">);</span>
+  <div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="n">eq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">t1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">t2</span><span class="p">);</span>
 </code></pre></div></li>
 </ul>
 <hr />
@@ -1339,15 +1339,15 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 <ul>
 <li><strong>说明</strong>：从 UE4 <code>FTransform</code> 构造。  </li>
 <li><strong>示例</strong>:<br />
-  <div class="highlight"><pre><span></span><code><span class="n">FTransform</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">ut</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">;</span>
-<span class="n">Transform</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">tue</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">ut</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">);</span>
+  <div class="highlight"><pre><span></span><code><span class="n">FTransform</span><span class="w"> </span><span class="n">ut</span><span class="p">;</span>
+<span class="n">Transform</span><span class="w"> </span><span class="nf">tue</span><span class="p">(</span><span class="n">ut</span><span class="p">);</span>
 </code></pre></div></li>
 </ul>
 <h3 id="operator-ftransform"><strong><font color="#7fb800">operator FTransform()</font></strong></h3>
 <ul>
 <li><strong>说明</strong>：转换为 UE4 <code>FTransform</code>。  </li>
 <li><strong>示例</strong>:<br />
-  <div class="highlight"><pre><span></span><code><span class="n">FTransform</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">ut2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t2</span><span class="p">;</span>
+  <div class="highlight"><pre><span></span><code><span class="n">FTransform</span><span class="w"> </span><span class="n">ut2</span><span class="o">=</span><span class="w"> </span><span class="n">t2</span><span class="p">;</span>
 </code></pre></div></li>
 </ul>
 <h1 id="cubicpolynomial"><a href="#CubicPolynomial">CubicPolynomial</a></h1>
@@ -1363,7 +1363,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 <li><strong>原型</strong>：<code>CubicPolynomial() = default;</code>  </li>
 <li><strong>说明</strong>：默认构造，所有系数和偏移量初始化为 0。  </li>
 <li><strong>示例</strong>:<br />
-  <div class="highlight"><pre><span></span><code><span class="n">CubicPolynomial</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p0</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">;</span><span class="w"> </span><span class="c1">// a=b=c=d=s=0</span>
+  <div class="highlight"><pre><span></span><code><span class="n">CubicPolynomial</span><span class="w"> </span><span class="n">p0</span><span class="p">;</span><span class="w"> </span><span class="c1">// a=b=c=d=s=0</span>
 </code></pre></div></li>
 </ul>
 <h3 id="cubicpolynomialconst-value_type-a-const-value_type-b-const-value_type-c-const-value_type-d"><strong><font color="#7fb800">CubicPolynomial(const value_type &amp;a, const value_type &amp;b, const value_type &amp;c, const value_type &amp;d)</font></strong></h3>
@@ -1375,10 +1375,10 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 <span class="w">                </span><span class="k">const</span><span class="w"> </span><span class="n">value_type</span><span class="w"> </span><span class="o">&amp;</span><span class="n">d</span><span class="p">);</span>
 </code></pre></div></li>
 <li><strong>说明</strong>：按系数 $(a,b,c,d)$ 构造，无偏移量。  </li>
-<li><strong>示例</strong>:<br />
-  <div class="highlight"><pre><span></span><code><span class="n">CubicPolynomial</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p1</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0</span><span class="p">,</span><span class="w"> </span><span class="mf">3.0</span><span class="p">,</span><span class="w"> </span><span class="mf">4.0</span><span class="p">);</span>
-</code></pre></div></li>
+<li><strong>示例</strong>:  </li>
 </ul>
+<div class="highlight"><pre><span></span><code><span class="n">CubicPolynomial</span><span class="w"> </span><span class="nf">p1</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0</span><span class="p">,</span><span class="w"> </span><span class="mf">3.0</span><span class="p">,</span><span class="w"> </span><span class="mf">4.0</span><span class="p">);</span>
+</code></pre></div>
 <h3 id="cubicpolynomialconst-value_type-a-const-value_type-b-const-value_type-c-const-value_type-d-const-value_type-s"><strong><font color="#7fb800">CubicPolynomial(const value_type &amp;a, const value_type &amp;b, const value_type &amp;c, const value_type &amp;d, const value_type &amp;s)</font></strong></h3>
 <ul>
 <li><strong>原型</strong>:<br />
@@ -1392,7 +1392,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 <script type="math/tex; mode=display">\tilde a = a - b s + c s^2 - d s^3,\quad \tilde b = b -2c s +3d s^2,\quad \tilde c = c-3d s,\quad \tilde d = d</script>
 </li>
 <li><strong>示例</strong>:<br />
-  <div class="highlight"><pre><span></span><code><span class="n">CubicPolynomial</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">p2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mf">0.5</span><span class="p">);</span>
+  <div class="highlight"><pre><span></span><code><span class="n">CubicPolynomial</span><span class="w"> </span><span class="nf">p2</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mf">0.5</span><span class="p">);</span>
 </code></pre></div></li>
 </ul>
 <hr />
@@ -1407,7 +1407,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div></li>
 <li><strong>说明</strong>：分别返回当前存储的系数 $\tilde a,\tilde b,\tilde c,\tilde d$。  </li>
 <li><strong>示例</strong>:<br />
-  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">a</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p2</span><span class="p">.</span><span class="n">GetA</span><span class="p">();</span>
+  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p2</span><span class="p">.</span><span class="n">GetA</span><span class="p">();</span>
 </code></pre></div></li>
 </ul>
 <h3 id="gets"><strong><font color="#7fb800">GetS</font></strong></h3>
@@ -1417,7 +1417,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div></li>
 <li><strong>说明</strong>：返回偏移量 $s$。  </li>
 <li><strong>示例</strong>:<br />
-  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">s</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p2</span><span class="p">.</span><span class="n">GetS</span><span class="p">();</span><span class="w"> </span><span class="c1">// 0.5</span>
+  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p2</span><span class="p">.</span><span class="n">GetS</span><span class="p">();</span><span class="w"> </span><span class="c1">// 0.5</span>
 </code></pre></div></li>
 </ul>
 <h3 id="setabcds"><strong><font color="#7fb800">Set(a,b,c,d[,s])</font></strong></h3>
@@ -1449,7 +1449,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 <li><strong>说明</strong>：计算 <script type="math/tex; mode=display">f(x)=\tilde a + \tilde b\,x + \tilde c\,x^2 + \tilde d\,x^3</script>
 </li>
 <li><strong>示例</strong>:<br />
-  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">y</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p1</span><span class="p">.</span><span class="n">Evaluate</span><span class="p">(</span><span class="mf">2.0</span><span class="p">);</span><span class="w"> </span><span class="c1">// 1+2*2+3*4+4*8</span>
+  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p1</span><span class="p">.</span><span class="n">Evaluate</span><span class="p">(</span><span class="mf">2.0</span><span class="p">);</span><span class="w"> </span><span class="c1">// 1+2*2+3*4+4*8</span>
 </code></pre></div></li>
 </ul>
 <h3 id="tangent"><strong><font color="#7fb800">Tangent</font></strong></h3>
@@ -1459,7 +1459,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div></li>
 <li><strong>说明</strong>：计算导数 <script type="math/tex; mode=display">f'(x)=\tilde b + 2\tilde c\,x + 3\tilde d\,x^2</script>。  </li>
 <li><strong>示例</strong>:<br />
-  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">m</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p1</span><span class="p">.</span><span class="n">Tangent</span><span class="p">(</span><span class="mf">2.0</span><span class="p">);</span><span class="w"> </span><span class="c1">// 2 + 2*3*2 + 3*4*4</span>
+  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p1</span><span class="p">.</span><span class="n">Tangent</span><span class="p">(</span><span class="mf">2.0</span><span class="p">);</span><span class="w"> </span><span class="c1">// 2 + 2*3*2 + 3*4*4</span>
 </code></pre></div></li>
 </ul>
 <hr />
@@ -1481,7 +1481,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div></li>
 <li><strong>说明</strong>：返回相加结果。  </li>
 <li><strong>示例</strong>:<br />
-  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">sum</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">p2</span><span class="p">;</span>
+  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="n">sum</span><span class="o">=</span><span class="w"> </span><span class="n">p1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">p2</span><span class="p">;</span>
 </code></pre></div></li>
 </ul>
 <h3 id="operator_4"><strong><font color="#7fb800">operator*=</font></strong></h3>
@@ -1502,7 +1502,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div></li>
 <li><strong>说明</strong>：返回乘标量结果，支持标量在左或右。  </li>
 <li><strong>示例</strong>:<br />
-  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">scaled</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">p1</span><span class="p">;</span>
+  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="n">scaled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">p1</span><span class="p">;</span>
 </code></pre></div></li>
 </ul>
 <hr />
@@ -1517,7 +1517,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 <li><strong>说明</strong>：默认构造，<code>location=(0,0,0)</code>，<code>extent=(0,0,0)</code>，<code>rotation=(0,0,0)</code>。  </li>
 <li>
 <p><strong>示例</strong>：<br />
-  <div class="highlight"><pre><span></span><code><span class="n">BoundingBox</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">bb0</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">;</span><span class="w"> </span><span class="c1">// 默认空盒</span>
+  <div class="highlight"><pre><span></span><code><span class="n">BoundingBox</span><span class="w"> </span><span class="n">bb0</span><span class="p">;</span><span class="w"> </span><span class="c1">// 默认空盒</span>
 </code></pre></div></p>
 </li>
 <li>
@@ -1530,10 +1530,10 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div>
 - <strong>说明</strong>：指定中心、半尺寸和旋转。<br />
 - <strong>示例</strong>：<br />
-  <div class="highlight"><pre><span></span><code><span class="n">Location</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">loc</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span>
-<span class="n">Vector3D</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">ext</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mf">0.5f</span><span class="p">,</span><span class="mf">0.5f</span><span class="p">,</span><span class="mf">1.0f</span><span class="p">);</span>
-<span class="n">Rotation</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">rot</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">45</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
-<span class="n">BoundingBox</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">bb1</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">loc</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">,</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">ext</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">,</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">rot</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">);</span>
+  <div class="highlight"><pre><span></span><code><span class="n">Location</span><span class="w"> </span><span class="nf">loc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span>
+<span class="n">Vector3D</span><span class="w"> </span><span class="nf">ext</span><span class="p">(</span><span class="mf">0.5f</span><span class="p">,</span><span class="mf">0.5f</span><span class="p">,</span><span class="mf">1.0f</span><span class="p">);</span>
+<span class="n">Rotation</span><span class="w"> </span><span class="nf">rot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">45</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+<span class="n">BoundingBox</span><span class="w"> </span><span class="nf">bb1</span><span class="p">(</span><span class="n">loc</span><span class="p">,</span><span class="w"> </span><span class="n">ext</span><span class="p">,</span><span class="w"> </span><span class="n">rot</span><span class="p">);</span>
 </code></pre></div></p>
 <ul>
 <li><strong>带参构造</strong>：  </li>
@@ -1543,7 +1543,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div>
 - <strong>说明</strong>：指定中心和半尺寸，旋转为默认 <code>(0,0,0)</code>。<br />
 - <strong>示例</strong>：<br />
-  <div class="highlight"><pre><span></span><code><span class="n">BoundingBox</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">bb2</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">loc</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">,</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">ext</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">);</span>
+  <div class="highlight"><pre><span></span><code><span class="n">BoundingBox</span><span class="w"> </span><span class="nf">bb2</span><span class="p">(</span><span class="n">loc</span><span class="p">,</span><span class="w"> </span><span class="n">ext</span><span class="p">);</span>
 </code></pre></div></p>
 <ul>
 <li><strong>带参构造</strong>：  </li>
@@ -1552,7 +1552,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div>
 - <strong>说明</strong>：指定半尺寸，中心和旋转使用默认值。<br />
 - <strong>示例</strong>：<br />
-  <div class="highlight"><pre><span></span><code><span class="n">BoundingBox</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">bb3</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">ext</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">);</span>
+  <div class="highlight"><pre><span></span><code><span class="n">BoundingBox</span><span class="w"> </span><span class="nf">bb3</span><span class="p">(</span><span class="n">ext</span><span class="p">);</span>
 </code></pre></div></p>
 <hr />
 <h2 id="_56">核心方法</h2>
@@ -1567,9 +1567,9 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 <li>相对于 <strong><font color="#f8805a">location</font></strong> 归一化；  </li>
 <li>判断坐标是否在 ±<strong><font color="#f8805a">extent</font></strong> 范围内。  </li>
 <li><strong>示例</strong>：<br />
-  <div class="highlight"><pre><span></span><code><span class="n">Location</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">pt</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mf">1.1f</span><span class="p">,</span><span class="mf">2.0f</span><span class="p">,</span><span class="mf">3.0f</span><span class="p">);</span>
-<span class="n">Transform</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">tr</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(...);</span>
-<span class="kt">bool</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">inside</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bb1</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">pt</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">,</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">tr</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">);</span>
+  <div class="highlight"><pre><span></span><code><span class="n">Location</span><span class="w"> </span><span class="nf">pt</span><span class="p">(</span><span class="mf">1.1f</span><span class="p">,</span><span class="mf">2.0f</span><span class="p">,</span><span class="mf">3.0f</span><span class="p">);</span>
+<span class="n">Transform</span><span class="w"> </span><span class="nf">tr</span><span class="p">(...);</span>
+<span class="kt">bool</span><span class="w"> </span><span class="n">inside</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bb1</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="n">pt</span><span class="p">,</span><span class="w"> </span><span class="n">tr</span><span class="p">);</span>
 </code></pre></div></li>
 </ul>
 <h3 id="getlocalvertices"><strong><font color="#7fb800">GetLocalVertices</font></strong></h3>
@@ -1581,7 +1581,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 <script type="math/tex; mode=display">\displaystyle \text{vertex}_i = \text{location} + \text{rotation.RotateVector}(\pm extent.x,\pm extent.y,\pm extent.z).</script>
 </li>
 <li><strong>示例</strong>：<br />
-  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">verts</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bb1</span><span class="p">.</span><span class="n">GetLocalVertices</span><span class="p">();</span>
+  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="n">verts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bb1</span><span class="p">.</span><span class="n">GetLocalVertices</span><span class="p">();</span>
 </code></pre></div></li>
 </ul>
 <h3 id="getlocalverticesnorotation"><strong><font color="#7fb800">GetLocalVerticesNoRotation</font></strong></h3>
@@ -1591,7 +1591,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div></li>
 <li><strong>说明</strong>：返回不考虑旋转，仅基于 <strong><font color="#f8805a">location</font></strong> 与 <strong><font color="#f8805a">extent</font></strong> 的 8 个顶点。  </li>
 <li><strong>示例</strong>：<br />
-  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">vertsNR</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bb1</span><span class="p">.</span><span class="n">GetLocalVerticesNoRotation</span><span class="p">();</span>
+  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="n">vertsNR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bb1</span><span class="p">.</span><span class="n">GetLocalVerticesNoRotation</span><span class="p">();</span>
 </code></pre></div></li>
 </ul>
 <h3 id="getworldvertices"><strong><font color="#7fb800">GetWorldVertices</font></strong></h3>
@@ -1601,7 +1601,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div></li>
 <li><strong>说明</strong>：先调用 <strong><font color="#7fb800">GetLocalVertices</font></strong>，再对每个顶点应用 <code>TransformPoint</code>，得到世界坐标顶点数组。  </li>
 <li><strong>示例</strong>：<br />
-  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">worldVerts</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bb1</span><span class="p">.</span><span class="n">GetWorldVertices</span><span class="p">(</span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">tr</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">);</span>
+  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="n">worldVerts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bb1</span><span class="p">.</span><span class="n">GetWorldVertices</span><span class="p">(</span><span class="n">tr</span><span class="p">);</span>
 </code></pre></div></li>
 </ul>
 <hr />
@@ -1614,7 +1614,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div></li>
 <li><strong>说明</strong>：当且仅当 <strong><font color="#f8805a">location</font></strong>, <strong><font color="#f8805a">extent</font></strong>, <strong><font color="#f8805a">rotation</font></strong> 全部相等时才判定相等。  </li>
 <li><strong>示例</strong>：<br />
-  <div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">eq</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">bb1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">bb2</span><span class="p">);</span>
+  <div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="n">eq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">bb1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">bb2</span><span class="p">);</span>
 </code></pre></div></li>
 </ul>
 <hr />
@@ -1625,8 +1625,8 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 <script type="math/tex; mode=display">\text{location}=Box.Origin,\quad \text{extent}=(Box.Extent/100).</script>
 </li>
 <li><strong>示例</strong>：<br />
-  <div class="highlight"><pre><span></span><code><span class="n">FBoundingBox</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">ubox</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">;</span>
-<span class="n">BoundingBox</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">bbU</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">ubox</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">);</span>
+  <div class="highlight"><pre><span></span><code><span class="n">FBoundingBox</span><span class="w"> </span><span class="n">ubox</span><span class="p">;</span>
+<span class="n">BoundingBox</span><span class="w"> </span><span class="nf">bbU</span><span class="p">(</span><span class="n">ubox</span><span class="p">);</span>
 </code></pre></div></li>
 </ul>
 <hr />
@@ -1673,7 +1673,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 <li><strong>原型</strong>：<code>GeoLocation() = default;</code>  </li>
 <li><strong>说明</strong>：使用默认值构造。  </li>
 <li><strong>示例</strong>：<br />
-  <div class="highlight"><pre><span></span><code><span class="n">GeoLocation</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">g0</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">;</span><span class="w"> </span><span class="c1">// (0,0,0)</span>
+  <div class="highlight"><pre><span></span><code><span class="n">GeoLocation</span><span class="w"> </span><span class="n">g0</span><span class="p">;</span><span class="w"> </span><span class="c1">// (0,0,0)</span>
 </code></pre></div></li>
 </ul>
 <h3 id="geolocationdouble-latitude-double-longitude-double-altitude"><strong><font color="#7fb800">GeoLocation(double latitude, double longitude, double altitude)</font></strong></h3>
@@ -1683,7 +1683,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div></li>
 <li><strong>说明</strong>：按指定经纬度及海拔初始化。  </li>
 <li><strong>示例</strong>：<br />
-  <div class="highlight"><pre><span></span><code><span class="n">GeoLocation</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">g1</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mf">37.7749</span><span class="p">,</span><span class="w"> </span><span class="mf">-122.4194</span><span class="p">,</span><span class="w"> </span><span class="mf">30.0</span><span class="p">);</span>
+  <div class="highlight"><pre><span></span><code><span class="n">GeoLocation</span><span class="w"> </span><span class="nf">g1</span><span class="p">(</span><span class="mf">37.7749</span><span class="p">,</span><span class="w"> </span><span class="mf">-122.4194</span><span class="p">,</span><span class="w"> </span><span class="mf">30.0</span><span class="p">);</span>
 </code></pre></div></li>
 </ul>
 <hr />
@@ -1696,18 +1696,20 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 <li><strong>说明</strong>：  </li>
 <li>将当前经纬度和平面位移（<strong><font color="#f8805a">location.x</font></strong>, <strong><font color="#f8805a">location.y</font></strong>）转换为新的经纬度；  </li>
 <li><strong><font color="#f8805a">altitude</font></strong> 累加 <strong><font color="#f8805a">location.z</font></strong>。  </li>
-<li><strong>示例</strong>：<br />
-  <div class="highlight"><pre><span></span><code><span class="n">GeoLocation</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">geo</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">100.0</span><span class="p">);</span>
-<span class="n">Location</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">loc</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">(</span><span class="mf">10.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">20.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">5.0f</span><span class="p">);</span>
-<span class="n">GeoLocation</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">res</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">geo</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">.</span><span class="n">Transform</span><span class="p">(</span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">loc</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="p">);</span>
-<span class="c1">// 计算后 res.latitude, res.longitude 变化，res.altitude == 105.0</span>
-</code></pre></div></li>
+<li><strong>示例</strong>：  </li>
 </ul>
-<p><strong>转换原理</strong><br />
-- 利用墨卡托投影将 <code>(latitude, longitude)</code> 映射为 <code>(mx, my)</code>；<br />
-- 在投影平面上加上 <code>dx = location.x</code>、<code>dy = -location.y</code>（北向为正）；<br />
-- 反变换回经纬度；<br />
-- 海拔相加。</p>
+<div class="highlight"><pre><span></span><code><span class="n">GeoLocation</span><span class="w"> </span><span class="nf">geo</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">100.0</span><span class="p">);</span>
+<span class="n">Location</span><span class="w"> </span><span class="nf">loc</span><span class="p">(</span><span class="mf">10.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">20.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">5.0f</span><span class="p">);</span>
+<span class="n">GeoLocation</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">geo</span><span class="p">.</span><span class="n">Transform</span><span class="p">(</span><span class="n">loc</span><span class="p">);</span>
+<span class="c1">// 计算后 res.latitude, res.longitude 变化，res.altitude == 105.0</span>
+</code></pre></div>
+<p><strong>转换原理</strong>  </p>
+<ul>
+<li>利用墨卡托投影将 <code>(latitude, longitude)</code> 映射为 <code>(mx, my)</code>；  </li>
+<li>在投影平面上加上 <code>dx = location.x</code>、<code>dy = -location.y</code>（北向为正）；  </li>
+<li>反变换回经纬度；  </li>
+<li>海拔相加。</li>
+</ul>
 <hr />
 <h2 id="_62">静态辅助函数</h2>
 <ul>
@@ -1715,26 +1717,24 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
   <div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">LatToScale</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">lat</span><span class="p">);</span>
 </code></pre></div></li>
 <li>
-<p>说明：比例因子 $=\cos(\mathrm{toRadians}(lat))$。  </p>
+<p>说明：比例因子 <script type="math/tex">=\cos(\mathrm{toRadians}(lat))</script>。  </p>
 </li>
 <li>
-<p><strong><font color="#7fb800">LatLonToMercator</font></strong> <em>(模板)</em><br />
-  <div class="highlight"><pre><span></span><code><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<p><strong><font color="#7fb800">LatLonToMercator</font></strong> <em>(模板)</em>  </p>
+</li>
+</ul>
+<p><div class="highlight"><pre><span></span><code><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
 <span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">LatLonToMercator</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">lat</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">lon</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">scale</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&amp;</span><span class="n">mx</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&amp;</span><span class="n">my</span><span class="p">);</span>
-</code></pre></div></p>
-</li>
-<li>
-<p>说明：<br />
+</code></pre></div>
+  - 说明：<br />
 <script type="math/tex; mode=display">mx = scale \times R \times \mathrm{toRadians}(lon),</script>
 <br />
 <script type="math/tex; mode=display">my = scale \times R \times \ln\!\tan\Bigl(\tfrac{90+lat}{360}\pi\Bigr).</script>
 </p>
-</li>
-<li>
-<p><strong><font color="#7fb800">MercatorToLatLon</font></strong><br />
+<ul>
+<li><strong><font color="#7fb800">MercatorToLatLon</font></strong><br />
   <div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">MercatorToLatLon</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">mx</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">my</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">scale</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">lat</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">lon</span><span class="p">);</span>
-</code></pre></div></p>
-</li>
+</code></pre></div></li>
 <li>
 <p>说明：<br />
 <script type="math/tex; mode=display">lon = mx\tfrac{180}{\pi R\,scale},\quad
@@ -1755,15 +1755,15 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 <h2 id="_63">比较运算符</h2>
 <h3 id="operator-operator_5"><strong><font color="#7fb800">operator==</font></strong> / <strong><font color="#7fb800">operator!=</font></strong></h3>
 <ul>
-<li><strong>原型</strong>：<br />
-  <div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">GeoLocation</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
-<span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">!=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">GeoLocation</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
-</code></pre></div></li>
-<li><strong>说明</strong>：当且仅当经度、纬度、海拔全相等时返回 <code>true</code>。  </li>
-<li><strong>示例</strong>:<br />
-  <div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="o">**&lt;</span><span class="n">font</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#f8805a&quot;</span><span class="o">&gt;</span><span class="n">same</span><span class="o">&lt;/</span><span class="n">font</span><span class="o">&gt;**</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">g1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">GeoLocation</span><span class="p">(</span><span class="mf">37.7749</span><span class="p">,</span><span class="mf">-122.4194</span><span class="p">,</span><span class="mf">30.0</span><span class="p">));</span>
-</code></pre></div></li>
+<li><strong>原型</strong>：  </li>
 </ul>
+<p><div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">GeoLocation</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">!=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">GeoLocation</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div>
+- <strong>说明</strong>：当且仅当经度、纬度、海拔全相等时返回 <code>true</code>。<br />
+- <strong>示例</strong>:  </p>
+<div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="n">same</span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">g1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">GeoLocation</span><span class="p">(</span><span class="mf">37.7749</span><span class="p">,</span><span class="mf">-122.4194</span><span class="p">,</span><span class="mf">30.0</span><span class="p">));</span>
+</code></pre></div>
 <hr />
 <h2 id="_64">序列化</h2>
 <ul>
