@@ -49,7 +49,11 @@
 
 ## 3 pointcloudio类
 
-该类提供了处理点云数据输入输出的功能，包括将点云数据写入输出流和保存到磁盘文件。`PointCloudIO`类是点云数据处理的核心，提供了点云数据的写入、保存和头部信息编写功能。下面是该类的各个功能细节。
+该类提供了处理点云数据输入输出的功能，包括将点云数据写入输出流和保存到磁盘文件。`PointCloudIO`类是点云数据处理的核心，提供了点云数据的写入、保存和头部信息编写功能。
+![点云模块架构图](../img/pointcloud_Architecture.png)
+
+* **文字说明** ：
+此结构图展示了 `PointCloudIO` 类的主要组成和依赖关系。`PointCloudIO` 类包含两个公开的模板函数 `Dump` 和 `SaveToDisk`，以及一个私有的静态模板函数 `WriteHeader`。`Dump` 函数用于将点云数据写入输出流，`SaveToDisk` 函数用于将点云数据保存到磁盘文件，而 `WriteHeader` 函数则负责写入 PLY 文件的头部信息。类依赖于 `FileSystem` 进行文件路径验证，依赖于 `std::ostream` 和 `std::ofstream` 进行文件流操作。
 
 
 ### i 模板函数`dump`
@@ -75,7 +79,7 @@ static void Dump(std::ostream &out, PointIt begin, PointIt end) {
 }
 ```
 * **dump函数流程图** ：
-![dump函数流程图](../img/pointcloud_dump.png)
+![dump函数流程图](../img/pointclouddump.png)
 * **文字说明** ：
 此流程图展示了 Dump 函数的流程。首先调用 WriteHeader 函数写入 PLY 文件的头部信息。头部信息写入完成后，函数遍历从 begin 到 end 的点云数据，依次调用每个点对象的 WriteDetection 方法将点信息写入输出流，并在每个点的数据后添加换行符。遍历完成后，函数标志结束。
 ### ii. 模板函数 `SaveToDisk`
