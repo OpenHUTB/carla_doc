@@ -34,24 +34,62 @@
 ### 1.1 Util模块与其它模块的调用关系图
 ```mermaid
 flowchart LR
-  subgraph Util 模块
-    A[UActorAttacher] -->|Attach| B[Game/Vehicle]
-    C[UBoundingBoxCalculator] -->|Calc BB| D[RPC Server]
-    E[FDebugShapeDrawer] -->|Draw| F[UWorld]
-    G[ProceduralCustomMesh] -->|Mesh| H[OpenDriveGenerator]
-    I[FIniFile] -->|Config| J[Plugin Settings]
+  subgraph CarlaGame[CarlaGame 模块]
+    Episode[UCarlaEpisode]
+    HUD[CarlaHUD / CarlaGameMode]
+    MapMgr[LargeMapManager]
+    ObjReg[UObjectRegister]
   end
-  subgraph 其他模块
-    B -->|Spawn Sensor| K[Sensor Module]
-    D -->|Serialize| L[Client Python]
-    H -->|Render Road| M[Traffic Module]
+
+  subgraph CarlaMapGen[CarlaMapGen 模块]
+    RoadGen[AOpenDriveGenerator / UMapGenFunctionLibrary]
+    RoadPainter[ARoadPainterWrapper]
   end
+
+  subgraph CarlaTraffic[CarlaTraffic & Sensors]
+    RayTracerClient[URayTracer 使用方]
+  end
+
+  subgraph Util[Util 模块]
+    Attach[UActorAttacher]
+    RandEng[URandomEngine / AActorWithRandomEngine]
+    BBoxCalc[UBoundingBoxCalculator]
+    RayTracer[URayTracer]
+    IniFile[FIniFile]
+    DebugDraw[FDebugShapeDrawer]
+    ProcMesh[FProceduralCustomMesh]
+    ListView["ListView<T>"]
+    NoOffset[UNoWorldOffsetSceneComponent]
+    ScopedStack[ScopedStack]
+  end
+
+  %% CarlaGame 调用 Util
+  Episode-->|"AttachActors()"|Attach
+  HUD-->|"Draw(shape)"|DebugDraw
+  ObjReg-->|"GetVehicleBoundingBox()"|BBoxCalc
+  ObjReg-->|"GetActorBoundingBox()"|BBoxCalc
+  MapMgr-->|"组件无偏移"|NoOffset
+  Episode-->|"读取/写入配置"|IniFile
+
+  %% CarlaMapGen 调用 Util
+  RoadGen-->|"生成网格描述"|ProcMesh
+  RoadGen-->|"BuildMeshDescriptionFromData()"|ListView
+  RoadPainter-->|"贴花参数"|ScopedStack
+
+  %% CarlaTraffic 调用 Util
+  RayTracerClient-->|"CastRay() / ProjectPoint()"|RayTracer
+
+  %% Util 内部调用（示意）
+  Attach-->|"SpringArm / Rigid"|Attach
+  RandEng-->|"GenerateUniform(), GenerateNormal()…"|RandEng
+  BBoxCalc-->|"CombineBBs(), GetBBsOf…"|BBoxCalc
+  DebugDraw-->|"DrawDebugLine(), DrawDebugSphere()…"|DebugDraw
+
+  %% 辅助组件
+  RandEng---ScopedStack
+  ProcMesh---ListView
+
 ```
-- `UActorAttacher` 为 Game 与 Vehicle 模块提供动态附加接口；
-- `UBoundingBoxCalculator` 在 RPC Server 中被调用，用于生成网络序列化的包围盒数据；
-- `FDebugShapeDrawer` 直接作用于 UWorld，渲染调试原语；
-- `ProceduralCustomMesh` 与 OpenDriveGenerator、RoadPainterWrapper 协作，呈现场景几何；
-- `FIniFile` 在插件启动时读取外部配置，并在各模块初始化时注入参数。
 
 ### 1.2 Util模块中类的关系图
 ```mermaid
