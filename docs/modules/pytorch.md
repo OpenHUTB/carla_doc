@@ -57,6 +57,7 @@
 
 ### 4.1 test_learning
 
+
 - **作用**：打印CUDA环境信息，验证torchscatter和torchcluster。
 - **示例输出**：`cuda version X.Y`
 
@@ -75,6 +76,47 @@
 ### 4.4 GetWheelTensorOutputDynamic
 
 - **作用**：动态推理专用输出解析，与GetWheelTensorOutput逻辑一致
+=======
+- **源码参考**: [pytorch.cpp 源码](https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L27)
+- **功能**：打印 torchcluster 和 torchscatter 的 CUDA 版本，验证环境
+
+- **示例输出**：
+
+  ```
+  cuda version X.Y
+  ```
+
+### 4.2 GetWheelTensorInputs 
+
+- **源码参考**: [pytorch.cpp 源码](https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L37)
+- **输入**：WheelInput 结构体，包含：
+  - particles_positions (float*)
+  - particles_velocities (float*)
+  - wheel_positions (float[3])
+  - wheel_orientation (float[4])
+  - wheel_linear_velocity (float[3])
+  - wheel_angular_velocity (float[3])
+  - num_particles (int)
+- **处理**：
+  1. 使用 `torch::from_blob` 将原始指针包装成 at::Tensor（不复制数据）
+  2. 构造 std::vector[torch::jit::IValue]()，按顺序存放所有张量
+- **输出**：Value 元组，用于 Module::forward()
+
+### 4.3 GetWheelTensorOutput  
+
+- **源码参考**:[pytorch.cpp 源码](https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L74)
+- **输入**：
+  - particle_forces：形状 [num_particles, 3] 张量
+  - wheel_forces：长度 6 张量（力 xyz + 扭矩 xyz）
+- **处理**：
+  1. 从 `wheel_forces.data_ptr<float>()` 读取 6 个值，赋给 WheelOutput 对应字段
+  2. 遍历 `particle_forces.data_ptr<float>()`，按 xyz 顺序填充 WheelOutput::_particle_forces 向量
+- **输出**：填充后的 WheelOutput 结构体
+
+### 4.4 GetWheelTensorOutputDynamic 
+
+- **源码参考**: [pytorch.cpp 源码](https://openhutb.github.io/carla_cpp/dd/d8c/pytorch_8cpp_source.html#L107)
+- **功能**：与 GetWheelTensorOutput 相同，用于“动态”推理后的后处理
 
 ------
 
@@ -98,6 +140,7 @@
 
 ### 6.1 构造与析构
 
+
 - 自动管理模型生命周期
 
 ### 6.2 LoadModel
@@ -106,6 +149,19 @@
 - 异常安全，捕获并报告模型加载问题
 
 ### 6.3 SetInputs
+=======
+```
+NeuralModel::NeuralModel()
+NeuralModel::~NeuralModel()
+```
+
+- **功能**：使用 `std::make_unique<NeuralModelImpl>()` 初始化内部实现；自动释放
+
+### 6.2 LoadModel
+
+```
+void NeuralModel::LoadModel(char* filename, int device)
+```
 
 - 存储完整输入数据（四轮状态、驾驶指令、地形等）
 
@@ -114,7 +170,10 @@
 - 执行模型推理，CPU环境适用
 
 ### 6.5 ForwardDynamic (动态推理)
-
+=======
+```
+void NeuralModel::SetInputs(Inputs input)
+```
 - 执行动态推理，推理后清理CUDA缓存
 
 ### 6.6 ForwardCUDATensors (CUDA推理)
@@ -168,3 +227,38 @@ auto &outs = model.GetOutputs();
 ```
 
 通过以上流程，开发者可高效地在CARLA仿真中集成深度学习推理，提升自动驾驶仿真效果与性能。
+=======
+该模块调用流程图如下：
+
+![该模块的各个函数关系图](../img/neural_model_flow.svg)
+
+1. **初始化与加载**
+
+   ```
+   NeuralModel model;
+   model.LoadModel("mymodel.pt", /*device=*/0);
+   ```
+   
+2. **设置输入**
+
+   ```
+   Inputs inp = /* 构造 WheelInput + 操作指令 */;
+   model.SetInputs(inp);
+   ```
+   
+3. **选择推理模式**
+
+   ```
+   model.Forward();                // CPU 模式
+   // 或
+   model.ForwardDynamic();         // 动态 + 缓存清理
+   // 或
+   model.ForwardCUDATensors();     // 全 CUDA 模式
+   ```
+   
+4. **获取输出**
+
+   ```
+   auto &outs = model.GetOutputs();
+   // outs.wheel0 ... outs.wheel3
+   ```
