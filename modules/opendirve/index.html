@@ -73,12 +73,12 @@
 <h2 id="opendrive">什么是 OpenDRIVE？</h2>
 <p><a href="https://www.asam.net/standards/detail/opendrive/">点击这里访问ASAM OpenDRIVE</a></p>
 <p><strong>OpenDRIVE</strong> 是由 <strong>VIRES Simulationstechnologie GmbH</strong> 提出的开放标准，用于描述道路网络的结构化信息，广泛用于驾驶仿真系统（如 CARLA、SUMO、VTD 等）。</p>
-<p>该标准使用 XML 格式，详细描述以下内容：
-- <strong>道路几何形状</strong>：包括直线、弧线、样条曲线等，用于定义道路的空间布局；
-- <strong>车道信息</strong>：如车道数量、宽度、类型（普通车道、路缘、应急车道等）；
-- <strong>拓扑结构</strong>：包括道路之间的连接、交叉口定义、优先级等；
-- <strong>交通元素</strong>：如交通灯、路标、限速牌、信号控制器等；
-- <strong>参考坐标系</strong>：地理定位支持（支持 UTM、WGS84 投影）。</p>
+<p>该标准使用 XML 格式，详细描述以下内容：</p>
+<p>🔹  <strong>道路几何形状</strong>：包括直线、弧线、样条曲线等，用于定义道路的空间布局；</p>
+<p>🔹  <strong>车道信息</strong>：如车道数量、宽度、类型（普通车道、路缘、应急车道等）；</p>
+<p>🔹  <strong>拓扑结构</strong>：包括道路之间的连接、交叉口定义、优先级等；</p>
+<p>🔹  <strong>交通元素</strong>：如交通灯、路标、限速牌、信号控制器等；</p>
+<p>🔹  <strong>参考坐标系</strong>：地理定位支持（支持 UTM、WGS84 投影）。</p>
 <h3 id="xodr">文件扩展名：<code>.xodr</code></h3>
 <p>OpenDRIVE 文件通常以 <code>.xodr</code> 为扩展名，是一个标准的 XML 文件，主要结构包括：
 <div class="highlight"><pre><span></span><code><span class="nt">&lt;OpenDRIVE&gt;</span>
@@ -242,7 +242,9 @@
 <p>该文件实现了 CARLA 项目中 OpenDRIVE 格式地图解析的核心模块：<code>OpenDriveParser</code>。它负责从 OpenDRIVE XML 字符串中解析并构建 CARLA 中的道路网络地图对象（<code>road::Map</code>）。</p>
 <hr />
 <h2 id="_14">文件位置</h2>
-<p>[点击这里访问opendirve]（https://openhutb.github.io/carla_doc/modules/opendirve/）</p>
+<p><div class="highlight"><pre><span></span><code>carla/opendrive/OpenDriveParser.cpp
+</code></pre></div>
+<a href="https://openhutb.github.io/carla_doc/modules/opendirve/">点击这里访问opendirve</a></p>
 <hr />
 <h2 id="_15">主要功能详解</h2>
 <p>该文件（OpenDriveParser.cpp）的核心职责是：解析 OpenDRIVE 地图数据。其中最重要的函数是：
@@ -525,6 +527,7 @@
 <li>用于运行时生成或验证地图网络结构</li>
 </ul>
 <hr />
+<h3 id="carla-opendrive"><a href="https://openhutb.github.io/carla_doc/modules/OpenDrive/">点击此处访问CARLA OpenDrive模块说明文档</a></h3>
               
             </div>
           </div><footer>
