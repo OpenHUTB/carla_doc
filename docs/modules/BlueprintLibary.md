@@ -56,20 +56,38 @@
   ```
   - 强制刷新渲染线程命令队列  
   - 确保资源修改实时生效  
-
+```mermaid
+   sequenceDiagram
+  participant GameThread
+  participant RenderThread
+  GameThread->>RenderThread: 发送渲染命令
+  RenderThread->>GameThread: 确认命令接收
+  GameThread->>RenderThread: 执行Flush操作
+  RenderThread->>GameThread: 返回完成状态
+   ```
 - **内存管理**  
   ```cpp
   static void CleanupGEngine();
   ```
   - 执行全量垃圾回收  
   - 清理未引用资产及 Actor 实例  
-
+ 
 ---
 
 ## 类与方法详解  
 ### `UMapGenFunctionLibrary` 类  
 继承自 `UBlueprintFunctionLibrary`，提供地图生成相关的静态工具方法，所有方法均支持蓝图调用。
-
+### 类结构图
+ ```mermaid
+classDiagram
+  class UMapGenFunctionLibrary{
+    +CreateMesh() UStaticMesh*
+    +BuildMeshDescriptionFromData() FMeshDescription
+    +GetTransversemercProjection() FVector2D
+    +FlushRenderingCommandsInBlueprint()
+    +CleanupGEngine()
+  }
+   ```
 #### 关键方法  
 | 方法                          | 功能描述                                                                 |
 |-------------------------------|-------------------------------------------------------------------------|
@@ -227,5 +245,18 @@ UStaticMesh* RoadMesh = UMapGenFunctionLibrary::CreateMesh(
   ```
 - **实时预览**  
   - 在编辑器中运行 `CleanupGEngine()` 可刷新资产状态  
-
+### 坐标转换公式图示
+       ┌───────────────────────┐
+       │ 横向墨卡托投影公式     │
+       │ x = R・asinh(sinΔλ/√(tan²φ + cos²Δλ)) │
+       │ y = R・atan(tanφ/cosΔλ)               │
+       └───────────────────────┘   
+### 性能优化建议图表
+ ```mermaid
+   graph LR
+  A[高顶点数] --> B(分块处理)
+  B --> C{每块≤65535顶点}
+  C -->|是| D[并行生成]
+  C -->|否| B
+   ```
 ---

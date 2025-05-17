@@ -84,6 +84,8 @@ Trigger 模块是 CarlaUnreal 插件中的核心组件，旨在为 CARLA 模拟�
 | `GetDefinitions()` | 返回支持的触发器类型定义列表（目前仅含 `AFrictionTrigger`） |
 | `SpawnActor(const FTransform&, const FActorDescription&)` | 根据变换和描述信息生成并配置触发器实例，返回生成结果 |
 
+[点击查看详细代码文件](https://openhutb.github.io/carla_cpp/dir_6c62abedd72e3007bc03a7fda3037637.html)
+
 ## 数据结构与配置
 
 ### 1. 触发器描述结构体
@@ -109,16 +111,16 @@ struct FActorDescription {
 ## 关键流程
 
 ### 触发器生成流程
-1. **工厂类调用**
-   - 通过 `ATriggerFactory::SpawnActor` 创建触发器实例
-   - `FActorDescription` 提供变换信息和描述参数
+- **工厂类调用：**  
+  - 通过 `ATriggerFactory::SpawnActor` 创建触发器实例  
+  - `FActorDescription` 提供变换信息和描述参数
 
-2. **属性配置**
-   - 解析 `Variations` 中的 `friction` 和 `extent` 参数
-   - 调用 `SetFriction` 和 `SetBoxExtent` 设置属性
+- **属性配置：**  
+  - 解析 `Variations` 中的 `friction` 和 `extent` 参数  
+  - 调用 `SetFriction` 和 `SetBoxExtent` 设置属性
 
-3. **事件绑定**
-   - 在 `BeginPlay` 中为 `TriggerVolume` 绑定重叠事件回调
+- **事件绑定：**  
+  - 在 `BeginPlay` 中为 `TriggerVolume` 绑定重叠事件回调
 
 ### 摩擦力调整流程
 ```mermaid
@@ -151,18 +153,10 @@ sequenceDiagram
 
 ## 注意事项
 
-1. **触发器类型限制**
-   - 当前仅支持 `AFrictionTrigger`，未来可扩展其他类型（如速度触发器）
-
-2. **车辆兼容性**
-   - 仅对 `ACarlaWheeledVehicle` 类型车辆生效，其他 `Actor` 类型会被忽略
-
-3. **碰撞配置**
-   - 确保 `TriggerVolume` 的碰撞类型为 `OverlapAll` 并启用 `GenerateOverlapEvents`
-
-
-4. **参数格式**
-   - 配置参数在 `FActorDescription::Variations` 中需为 **字符串形式**
+1. 当前仅支持 `AFrictionTrigger` 作为触发器类型，未来可扩展其他类型（如速度触发器）。
+2. 仅对 `ACarlaWheeledVehicle` 类型车辆生效，其他 `Actor` 类型会被忽略。
+3. 确保 `TriggerVolume` 的碰撞类型为 `OverlapAll` 并启用 `GenerateOverlapEvents`。
+4. 配置参数在 `FActorDescription::Variations` 中需为字符串形式。
 
 ## 示例配置
 
