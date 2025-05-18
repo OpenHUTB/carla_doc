@@ -310,10 +310,47 @@ Result = (x, y_ref - y) * OSMToCentimetersScaleFactor
 </li>
 <li>如未指定 MaterialInstance，网格将使用默认材质（粉色警告）  </li>
 </ol>
-<hr />
-<h2 id="_10">示例配置</h2>
-<h3 id="_11">创建道路网格</h3>
-<div class="highlight"><pre><span></span><code><span class="c1">// 准备几何数据</span>
+<h2 id="_10">错误处理</h2>
+<h3 id="_11">错误代码表</h3>
+<table>
+<thead>
+<tr>
+<th>错误代码</th>
+<th>触发场景</th>
+<th>解决方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E1001</td>
+<td>顶点数不足3个</td>
+<td>检查Data.Vertices数组长度</td>
+</tr>
+<tr>
+<td>E1002</td>
+<td>三角形索引数非3的倍数</td>
+<td>验证Data.Triangles数组正确性</td>
+</tr>
+<tr>
+<td>E1003</td>
+<td>材质实例加载失败</td>
+<td>检查材质路径是否存在拼写错误</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_12">异常捕获示例</h3>
+<div class="highlight"><pre><span></span><code><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">UStaticMesh</span><span class="o">*</span><span class="w"> </span><span class="n">Mesh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UMapGenFunctionLibrary</span><span class="o">::</span><span class="n">CreateMesh</span><span class="p">(...);</span>
+<span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FMapGenException</span><span class="o">&amp;</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">UE_LOG</span><span class="p">(</span><span class="n">LogCarlaMapGen</span><span class="p">,</span><span class="w"> </span><span class="n">Error</span><span class="p">,</span><span class="w"> </span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;错误代码 %d: %s&quot;</span><span class="p">),</span><span class="w"> </span>
+<span class="w">        </span><span class="n">e</span><span class="p">.</span><span class="n">GetErrorCode</span><span class="p">(),</span><span class="w"> </span><span class="o">*</span><span class="n">e</span><span class="p">.</span><span class="n">GetMessage</span><span class="p">());</span>
+<span class="p">}</span>
+<span class="o">---</span>
+
+<span class="cp">## 示例配置  </span>
+<span class="cp">### 创建道路网格  </span>
+<span class="err">```</span><span class="n">cpp</span>
+<span class="c1">// 准备几何数据</span>
 <span class="n">FProceduralCustomMesh</span><span class="w"> </span><span class="n">RoadData</span><span class="p">;</span>
 <span class="n">RoadData</span><span class="p">.</span><span class="n">Vertices</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">FVector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="n">FVector</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="n">FVector</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">};</span>
 <span class="n">RoadData</span><span class="p">.</span><span class="n">Triangles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="p">};</span>
@@ -330,8 +367,8 @@ Result = (x, y_ref - y) * OSMToCentimetersScaleFactor
 <span class="p">);</span>
 </code></pre></div>
 <hr />
-<h2 id="_12">附录</h2>
-<h3 id="_13">依赖项</h3>
+<h2 id="_13">附录</h2>
+<h3 id="_14">依赖项</h3>
 <ul>
 <li><strong>Unreal Engine 模块</strong>  </li>
 <li>StaticMeshDescription（网格数据处理）  </li>
@@ -345,7 +382,7 @@ Result = (x, y_ref - y) * OSMToCentimetersScaleFactor
 <li>ProceduralCustomMesh 数据结构  </li>
 <li>CarlaMapGenerator 坐标系规范  </li>
 </ul>
-<h3 id="_14">已知问题与解决方案</h3>
+<h3 id="_15">已知问题与解决方案</h3>
 <table>
 <thead>
 <tr>
@@ -372,7 +409,7 @@ Result = (x, y_ref - y) * OSMToCentimetersScaleFactor
 </tr>
 </tbody>
 </table>
-<h3 id="_15">调试支持</h3>
+<h3 id="_16">调试支持</h3>
 <ul>
 <li><strong>日志追踪</strong><br />
   <div class="highlight"><pre><span></span><code><span class="n">UE_LOG</span><span class="p">(</span><span class="n">LogCarlaMapGenFunctionLibrary</span><span class="p">,</span><span class="w"> </span><span class="n">Warning</span><span class="p">,</span><span class="w"> </span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;MaterialInstance is nullptr&quot;</span><span class="p">));</span>
@@ -380,14 +417,14 @@ Result = (x, y_ref - y) * OSMToCentimetersScaleFactor
 <li><strong>实时预览</strong>  </li>
 <li>在编辑器中运行 <code>CleanupGEngine()</code> 可刷新资产状态  </li>
 </ul>
-<h3 id="_16">坐标转换公式图示</h3>
+<h3 id="_17">坐标转换公式图示</h3>
 <pre><code>   ┌───────────────────────┐
    │ 横向墨卡托投影公式     │
    │ x = R・asinh(sinΔλ/√(tan²φ + cos²Δλ)) │
    │ y = R・atan(tanφ/cosΔλ)               │
    └───────────────────────┘
 </code></pre>
-<h3 id="_17">性能优化建议图表</h3>
+<h3 id="_18">性能优化建议图表</h3>
 <p><code>mermaid
    graph LR
   A[高顶点数] --&gt; B(分块处理)
