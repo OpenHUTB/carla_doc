@@ -12,18 +12,19 @@
 - [2.7 World 类](#27-world-类)
 
 ## 三、[扩展模块](#扩展模块)
-- [3.1 DebugHelper 模块](#31-debughelper-模块)
-- [3.2 FileTransfer 模块](#32-filetransfer-模块)
-- [3.3 Junction 模块](#33-junction-模块)
-- [3.4 LaneInvasion 模块](#34-laneinvasion-模块)
-- [3.5 Light 模块](#35-light-模块)
-- [3.6 Vehicle 模块](#36-vehicle-模块)
+- [3.1 DebugHelper 模块](#31-debughelper-模块carla-客户端调试可视化工具)
+- [3.2 FileTransfer 模块](#32-filetransfer-模块carla-客户端的文件读写与缓存机制)
+- [3.3 Junction 模块](#33-junction-模块carla-道路交叉口junction建模与访问)
+- [3.4 LaneInvasion 模块](#34-laneinvasion-模块carla-车道入侵lane-invasion检测与处理)
+- [3.5 Light 模块](#35-light-模块carla-中的交通灯与照明灯控制接口)
+- [3.6 Vehicle 模块](#36-vehicle-模块carla-车辆实体控制与状态管理)
 
 ## 四、[类之间的调用关系](#类之间的调用关系)
 
 ## 五、[总结](#总结)
 
 ## 六、[参考链接](#参考链接)
+
 
 
 # **概述**
@@ -668,9 +669,9 @@ World 类与其他类的关系：
 > World 类表示仿真中的一个世界，它与 Client 和 Actor 类紧密关联。World 提供对仿真环境的访问，可以控制仿真世界中的所有行为体和传感器。
 > 
 > World 还负责管理交通流、物理环境、天气等仿真环境因素。
+
 ## 总结
 
 CARLA 客户端部分提供了与仿真环境交互的丰富 API，支持开发者控制仿真世界中的各种元素，包括行为体（Actor）、传感器（ClientSideSensor）和交通流（TrafficManager）等。通过 Client 类，开发者能够加载地图、获取世界状态、管理传感器、操作物理环境等。类之间的交互使得开发者能够在仿真环境中进行精确的控制和验证。
 
-[参考文档](https://carla.readthedocs.io/en/latest/python_api/)
-    
+参考文档：[点击此处跳转](https://openhutb.github.io/carla_cpp/dir_64d7bb605f27024d49af86070bd3f0b6.html)
