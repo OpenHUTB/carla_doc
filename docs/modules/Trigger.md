@@ -187,6 +187,9 @@ void AYourActor::SetupFrictionTrigger()
 }
 ```
 
+### Python代码示例
+[点击查看Python代码配置摩擦触发器](https://openhutb.github.io/carla_doc/tuto_G_add_friction_triggers/)
+
 ### 命令行调用
 ```bash
 UE4Editor-Cmd.exe ProjectName -run=TriggerFactory -TriggerType=friction -Friction=0.5 -ExtentX=200.0 -ExtentY=200.0 -ExtentZ=50.0
