@@ -71,32 +71,90 @@
                 <h1 id="carla">CARLA 资产材质加载与迁移模块技术文档</h1>
 <hr />
 <h2 id="_1">目录</h2>
+<h3 id="_2"><a href="#模块概述">模块概述</a></h3>
+<h3 id="_3"><a href="#核心功能">核心功能</a></h3>
 <ol>
-<li><a href="#模块概述">模块概述</a>  </li>
-<li><a href="#核心功能">核心功能</a>  </li>
-<li><a href="#类与方法详解">类与方法详解</a>  </li>
-<li><a href="#数据结构与配置">数据结构与配置</a>  </li>
-<li><a href="#关键流程">关键流程</a>  </li>
-<li><a href="#配置参数">配置参数</a>  </li>
-<li><a href="#注意事项">注意事项</a>  </li>
-<li><a href="#示例配置">示例配置</a>  </li>
-<li><a href="#附录">附录</a>  </li>
+<li><a href="#1-材质处理模块">材质处理模块</a></li>
+<li><a href="#2-资产迁移模块">资产迁移模块</a></li>
+<li><a href="#3-资产预处理模块">资产预处理模块</a></li>
 </ol>
+<h3 id="_4"><a href="#类与方法详解">类与方法详解</a></h3>
+<ul>
+<li><a href="#关键方法">关键方法</a></li>
+<li><a href="#成员变量">成员变量</a></li>
+<li><a href="#fassetspaths-结构体"><code>FAssetsPaths</code> 结构体</a></li>
+</ul>
+<h3 id="_5"><a href="#数据结构与配置">数据结构与配置</a></h3>
+<ul>
+<li><a href="#fpackagparams-结构体"><code>FPackageParams</code> 结构体</a></li>
+<li><a href="#fmapdata-结构体"><code>FMapData</code> 结构体</a></li>
+<li><a href="#扩展语义标签定义">扩展语义标签定义</a></li>
+<li><a href="#分块地图配置">分块地图配置</a></li>
+</ul>
+<h3 id="_6"><a href="#关键流程">关键流程</a></h3>
+<ul>
+<li><a href="#资产预处理增强流程">资产预处理增强流程</a></li>
+</ul>
+<h3 id="_7"><a href="#配置参数">配置参数</a></h3>
+<ul>
+<li><a href="#扩展命令行参数说明">扩展命令行参数说明</a></li>
+</ul>
+<h3 id="_8"><a href="#注意事项">注意事项</a></h3>
+<ul>
+<li><a href="#预处理模块专项">预处理模块专项</a></li>
+</ul>
+<h3 id="_9"><a href="#示例配置">示例配置</a></h3>
+<ul>
+<li><a href="#分块地图预处理命令">分块地图预处理命令</a></li>
+<li><a href="#分块地图预处理命令windows">分块地图预处理命令（Windows）</a></li>
+<li><a href="#道具资产预处理命令linux">道具资产预处理命令（Linux）</a></li>
+<li><a href="#跨平台预处理命令">跨平台预处理命令</a></li>
+</ul>
+<h3 id="_10"><a href="#附录">附录</a></h3>
+<ul>
+<li><a href="#增强错误代码表">增强错误代码表</a></li>
+<li><a href="#对象库加载白名单配置">对象库加载白名单配置</a></li>
+</ul>
 <hr />
-<h2 id="_2">模块概述</h2>
+<!-- 请在正文章节添加以下锚点声明 -->
+<!--
+## 模块概述
+<span id="模块概述"></span>
+
+## 核心功能
+<span id="核心功能"></span>
+
+### 1. 材质处理模块
+<span id="1-材质处理模块"></span>
+
+### 2. 资产迁移模块
+<span id="2-资产迁移模块"></span>
+
+### 3. 资产预处理模块
+<span id="3-资产预处理模块"></span>
+
+（其他章节同理添加对应锚点）
+-->
+
+<hr />
+<h2 id="_11">模块概述</h2>
 <p>本模块包含 CARLA 模拟器三大核心资产处理工具：<br />
 1. <strong>LoadAssetMaterialsCommandlet</strong><br />
    - 动态贴花生成与材质应用<br />
    - 基于 OpenDrive 的精准贴花布局<br />
+   核心价值：实现道路场景的物理级真实感
 2. <strong>MoveAssetsCommandlet</strong><br />
    - 资产批量分类与迁移<br />
-   - 基于语义标签的智能路径管理<br />
+   - 基于语义标签的智能路径管理 <br />
+   核心价值：构建可扩展的资产管理体系
 3. <strong>PrepareAssetsForCookingCommandlet</strong><br />
    - 资产预处理与烹饪准备<br />
    - 分块地图动态生成<br />
-   - 大规模场景材质优化  </p>
+   - 大规模场景材质优化<br />
+   核心价值：保障大规模场景的运行时性能  </p>
+<p>斜同效应：三大模块通过资产加工→组织管理→性能优化的闭环流程，使 CARLA 场景构建效率提升，支持复杂城市场景的构建耗时从周级压缩到小时级。</p>
 <hr />
-<h2 id="_3">核心功能</h2>
+<h2 id="_12">核心功能</h2>
 <h3 id="1">1. 材质处理模块</h3>
 <p>（原有内容保持不变）</p>
 <h3 id="2">2. 资产迁移模块</h3>
@@ -131,10 +189,10 @@
 <li>跨地图资产引用管理  </li>
 </ul>
 <hr />
-<h2 id="_4">类与方法详解</h2>
+<h2 id="_13">类与方法详解</h2>
 <h3 id="uprepareassetsforcookingcommandlet"><code>UPrepareAssetsForCookingCommandlet</code> 类</h3>
 <p>继承自 <code>UCommandlet</code>，实现资产烹饪预处理的核心逻辑。</p>
-<h4 id="_5">关键方法</h4>
+<h4 id="_14">关键方法</h4>
 <table>
 <thead>
 <tr>
@@ -185,7 +243,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="_6">成员变量</h4>
+<h4 id="_15">成员变量</h4>
 <table>
 <thead>
 <tr>
@@ -266,7 +324,7 @@
 </tbody>
 </table>
 <hr />
-<h2 id="_7">数据结构与配置</h2>
+<h2 id="_16">数据结构与配置</h2>
 <h4 id="fpackageparams"><code>FPackageParams</code> 结构体</h4>
 <p>命令行参数解析容器：  </p>
 <table>
@@ -348,7 +406,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="_8">分块地图配置</h3>
+<h3 id="_17">分块地图配置</h3>
 <p><code>TilesInfo.txt</code> 格式规范：<br />
 <div class="highlight"><pre><span></span><code>[原点X坐标],[原点Y坐标],[瓦片尺寸(米)]
 </code></pre></div>
@@ -356,8 +414,8 @@
 <div class="highlight"><pre><span></span><code>-2500.0,1500.0,2000.0
 </code></pre></div></p>
 <hr />
-<h2 id="_9">关键流程</h2>
-<h3 id="_10">资产预处理增强流程</h3>
+<h2 id="_18">关键流程</h2>
+<h3 id="_19">资产预处理增强流程</h3>
 <pre class="mermaid"><code>graph TD
   A[命令行参数解析] --&gt; B[加载对象库资源]
   B --&gt; C{是否分块地图?}
@@ -370,38 +428,38 @@
   I --&gt; J[序列化保存世界资产]
   J --&gt; K[生成路径清单文件]</code></pre>
 <hr />
-<h2 id="_11">配置参数</h2>
-<h3 id="_12">扩展命令行参数说明</h3>
+<h2 id="_20">配置参数</h2>
+<h3 id="_21">扩展命令行参数说明</h3>
 <h2 id="-packagenameeuropack-mapsberlintokyo-onlypreparemapstrue-tilesize2000-forcecarlamaterialstrue-carla"><div class="highlight"><pre><span></span><code>-PackageName<span class="o">=</span>EuroPack<span class="w">        </span><span class="c1"># 指定资源包名称</span>
 -Maps<span class="o">=</span>Berlin,Tokyo<span class="w">          </span><span class="c1"># 指定待处理地图列表  </span>
 -OnlyPrepareMaps<span class="o">=</span><span class="nb">true</span><span class="w">       </span><span class="c1"># 仅预处理地图资产</span>
 -TileSize<span class="o">=</span><span class="m">2000</span><span class="w">              </span><span class="c1"># 分块地图尺寸（单位：米）</span>
 -ForceCarlaMaterials<span class="o">=</span><span class="nb">true</span><span class="w">   </span><span class="c1"># 强制使用Carla材质系统</span>
 </code></pre></div></h2>
-<h2 id="_13">注意事项</h2>
-<h3 id="_14">预处理模块专项</h3>
+<h2 id="_22">注意事项</h2>
+<h3 id="_23">预处理模块专项</h3>
 <ol>
-<li><strong>材质依赖</strong>  </li>
+<li><strong>材质依赖</strong></li>
 <li>必须预加载 Carla/Static/GenericMaterials 材质库  </li>
 <li>
 <p>缺失材质实例将导致静默失败</p>
 </li>
 <li>
-<p><strong>分块规范</strong>  </p>
+<p><strong>分块规范</strong></p>
 </li>
 <li>瓦片命名必须遵循 <code>MapName_Tile_X_Y</code> 格式  </li>
 <li>
 <p>原点坐标需与 OpenDrive 数据对齐</p>
 </li>
 <li>
-<p><strong>文件依赖</strong>  </p>
+<p><strong>文件依赖</strong></p>
 </li>
 <li>必须提供有效的 TilesInfo.txt 进行分块布局  </li>
 <li>缺失 XODR 文件将跳过导航点生成</li>
 </ol>
 <hr />
-<h2 id="_15">示例配置</h2>
-<h3 id="_16">分块地图预处理命令</h3>
+<h2 id="_24">示例配置</h2>
+<h3 id="_25">分块地图预处理命令</h3>
 <div class="highlight"><pre><span></span><code>UE4Editor-Cmd.exe Carla -run=PrepareAssetsForCooking  
   -PackageName=EuroPack  
   -Maps=Berlin  
@@ -420,7 +478,7 @@
 <span class="w">  </span>-OnlyPrepareMaps<span class="o">=</span><span class="nb">false</span><span class="w">  </span>
 <span class="w">  </span>-Props<span class="o">=</span>Car,Sign,Truck
 </code></pre></div>
-<h3 id="_17">跨平台预处理命令</h3>
+<h3 id="_26">跨平台预处理命令</h3>
 <p><strong>Windows：</strong>
 <div class="highlight"><pre><span></span><code>UE4Editor-Cmd.exe Carla -run=PrepareAssetsForCooking  
   -PackageName=AsiaPack  
@@ -435,8 +493,8 @@
 <span class="w">  </span>-ForceCarlaMaterials
 </code></pre></div></p>
 <hr />
-<h2 id="_18">附录</h2>
-<h3 id="_19">增强错误代码表</h3>
+<h2 id="_27">附录</h2>
+<h3 id="_28">增强错误代码表</h3>
 <table>
 <thead>
 <tr>
@@ -493,7 +551,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="_20">对象库加载白名单配置</h3>
+<h3 id="_29">对象库加载白名单配置</h3>
 <p>在 <code>DefaultEngine.ini</code> 中添加：<br />
 <div class="highlight"><pre><span></span><code><span class="k">[/Script/Engine.ObjectLibrary]</span>
 <span class="na">+AssetPaths</span><span class="o">=</span><span class="s">(Path=&quot;/Game/Carla/Static/Props&quot;)</span><span class="w">  </span>
