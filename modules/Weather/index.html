@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>天气 - 人车模拟器</title>
+    <title>目录 - 人车模拟器</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "\u5929\u6c14";
+        var mkdocs_page_name = "\u76ee\u5f55";
         var mkdocs_page_input_path = "modules/Weather.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,7 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">天气</li>
+      <li class="breadcrumb-item active">目录</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/modules/Weather.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -68,8 +68,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1">天气</h1>
-<h2 id="_2">调用流程</h2>
+                <h1 id="_1">目录</h1>
+<ul>
+<li>
+<h1 id="_2"><a href="#天气">天气</a></h1>
+</li>
+<li>
+<h2 id="_3"><a href="#调用流程">调用流程</a></h2>
+</li>
+<li>
+<h2 id="_4"><a href="#蓝图">蓝图</a></h2>
+</li>
+<li>
+<h2 id="_5"><a href="#代码概述">代码概述</a></h2>
+</li>
+<li><a href="#类定义与成员变量">类定义与成员变量</a></li>
+</ul>
+<h1 id="_6">天气</h1>
+<h2 id="_7">调用流程</h2>
 <p>1.Python中的 <a href="https://github.com/OpenHUTB/carla_doc/blob/87d6e1d34ea0f6df2a32525a164f6d657b6319fd/src/examples/dynamic_weather.py#L166"><code>World.set_weather()</code></a> 调用 <a href="https://github.com/OpenHUTB/carla_cpp/blob/cd67e7a09f047dc9b0826f94c10f3232fc37bda6/LibCarla/source/carla/client/World.cpp#L90"><code>client/World.cpp</code></a> 中的<code>World::SetWeather()</code>，PythonAPI具体天气参数定义在 <a href="https://github.com/OpenHUTB/carla_cpp/blob/dev/PythonAPI/carla/source/libcarla/Weather.cpp">PythonAPI/carla/source/libcarla/Weather.cpp</a> 。</p>
 <p>2.<a href="https://github.com/OpenHUTB/carla_cpp/blob/dev/LibCarla/source/carla/client/detail/Client.cpp">client/detail/Client.cpp</a> 的 <code>Client::SetWeatherParameters()</code>，调用 <code>_pimpl-&gt;AsyncCall("set_weather_parameters", weather)</code>。
 然后通过<code>class Client::Pimpl</code>类的<code>AsyncCall()</code>方法发起远程异步调用<code>rpc::Client.async_call(function, std::forward&lt;Args&gt;(args) ...)</code>。</p>
@@ -81,7 +97,7 @@ void<span class="w"> </span>RefreshWeather<span class="o">(</span>const<span cla
 </code></pre></div>
 它是一个在蓝图中实现的事件<code>UFUNCTION(BlueprintImplementableEvent)</code>。</p>
 <p><img alt="" src="../../img/modules/RefreshWeather.jpg" /></p>
-<h2 id="_3">蓝图</h2>
+<h2 id="_8">蓝图</h2>
 <p>BlueprintImplementableEvent 是 Unreal Engine 中的一种特殊的修饰符，用于在 C++ 代码中声明一个可以在 Blueprint 中实现的事件。这意味着你可以在 C++ 类中定义一个事件，并允许开发者在 Blueprint 中提供该事件的具体实现，而不需要编写 C++ 代码来实现该逻辑。这样就能够将游戏逻辑的实现与 C++ 代码解耦，使得逻辑的实现更加灵活，特别是在面向设计师的开发流程中非常有用。</p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
@@ -90,9 +106,9 @@ void<span class="w"> </span>RefreshWeather<span class="o">(</span>const<span cla
 <p>BlueprintNativeEvent和BlueprintImplementableEvent区别在于：
 BlueprintNativeEvent多了个c++实现，可以同时调用c++和蓝图的函数；
 BlueprintImplementableEvent不能c++实现，只能调用蓝图函数。</p>
-<h2 id="_4">代码概述</h2>
+<h2 id="_9">代码概述</h2>
 <p>这段 C++ 代码定义了一个名为 AWeather 的类，它主要用于管理和应用天气效果。这个类提供了天气参数设置、后处理效果检查和应用、天气变化通知等功能，并且支持日夜循环状态的设置。以下是详细的说明文档。</p>
-<h3 id="_5">类定义与成员变量</h3>
+<h3 id="_10">类定义与成员变量</h3>
 <p>AWeather类</p>
 <p>功能：管理和应用天气效果，包括后处理效果的检查和应用，以及天气参数的设置和通知。</p>
 <p>构造函数：AWeather(const FObjectInitializer&amp; ObjectInitializer)</p>
@@ -173,11 +189,11 @@ UPROPERTY 标记：DayNightCycle 和 Weather 参数在编辑器中可见，支�
 2. 抽象基类设计
 不可实例化：标记为 Abstract 强制子类化，确保平台特定的天气效果（如 Vulkan 的着色器差异）可通过派生类实现。
 扩展性：子类可覆盖 CheckWeatherPostProcessEffects() 实现自定义效果逻辑，同时复用基类的参数管理。</p>
-<h1 id="_6">资源管理优化建议：</h1>
+<h1 id="_11">资源管理优化建议：</h1>
 <p>1.改为配置文件驱动（如INI文件或JSON）</p>
 <p>2.使用UPROPERTY(EditAnywhere)暴露给编辑器</p>
 <p>3.增加资源加载失败的安全检查</p>
-<h1 id="_7">线程安全建议</h1>
+<h1 id="_12">线程安全建议</h1>
 <p>对于多线程环境：
 1.使用FThreadSafeBool保护天气参数</p>
 <p>2.使用异步加载资源时添加锁机制
@@ -196,11 +212,11 @@ AWeather 类在构造函数中直接硬编码了两个后处理材质的路径�
 <ol>
 <li>优化传感器后处理更新逻辑，减少冗余操作</li>
 </ol>
-<h1 id="_8">问题：</h1>
+<h1 id="_13">问题：</h1>
 <p>1.CheckWeatherPostProcessEffects 函数在每次调用时会：
 重复获取所有传感器：通过 UGameplayStatics::GetAllActorsOfClass 每次遍历场景查找 2.ASceneCaptureCamera，可能造成性能开销。
 全量更新后处理材质：即使天气参数未变化，也会遍历所有传感器并重新添加/移除材质。</p>
-<h1 id="_9">解决方案：</h1>
+<h1 id="_14">解决方案：</h1>
 <ol>
 <li>缓存传感器列表：在初始化时获取传感器并缓存，避免重复查找。</li>
 <li>
@@ -210,7 +226,7 @@ AWeather 类在构造函数中直接硬编码了两个后处理材质的路径�
 <p>后处理材质管理优化</p>
 </li>
 </ol>
-<h1 id="_10">问题：后处理材质的添加/移除逻辑分散，且未考虑材质生命周期管理（如动态实例化）。</h1>
+<h1 id="_15">问题：后处理材质的添加/移除逻辑分散，且未考虑材质生命周期管理（如动态实例化）。</h1>
 <p>优化建议：
 1. 材质实例化：使用CreateDynamicMaterialInstance()创建动态材质实例，独立控制不同传感器的参数。
 2. 强度归一化封装：将/100.0f的归一化操作封装为函数（如GetNormalizedIntensity()），避免重复计算。
@@ -227,7 +243,7 @@ AWeather 类在构造函数中直接硬编码了两个后处理材质的路径�
 <li>线程安全与蓝图交互
 问题：RefreshWeather()直接调用蓝图逻辑，未处理多线程场景下的竞态条件。</li>
 </ol>
-<h1 id="_11">优化建议：</h1>
+<h1 id="_16">优化建议：</h1>
 <ol>
 <li>线程安全调用：对蓝图调用使用AsyncTask(ENamedThreads::GameThread)确保在主线程执行。</li>
 <li>
@@ -245,12 +261,12 @@ AWeather 类在构造函数中直接硬编码了两个后处理材质的路径�
 <li>扩展性改进
 问题：天气类型（如降水、沙尘暴）硬编码，新增效果需修改源码。</li>
 </ol>
-<h1 id="_12">优化建议：</h1>
+<h1 id="_17">优化建议：</h1>
 <ol>
 <li>数据驱动设计：定义FWeatherEffect结构体，通过数据表（如UDataTable）配置不同天气的材质和参数。                            </li>
 <li>插件化架构：将天气效果拆分为独立插件（如WeatherEffectsModule），支持动态加载。</li>
 </ol>
-<h1 id="_13">代码规范建议</h1>
+<h1 id="_18">代码规范建议</h1>
 <p>头文件优化：
 1. 使用#pragma once替代#include guards。
 2. 移除未使用的头文件（如Kismet/GameplayStatics.h仅用于传感器查找，可替换为更轻量的查询方式）。
@@ -261,7 +277,7 @@ AWeather 类在构造函数中直接硬编码了两个后处理材质的路径�
 </ol>
 <p>每次调用CheckWeatherPostProcessEffects()都会遍历所有场景捕获相机并重新添加后处理效果 </p>
 <p>没有考虑相机与天气效果的相关性(如距离、视角等)</p>
-<h1 id="_14">优化建议：</h1>
+<h1 id="_19">优化建议：</h1>
 <ol>
 <li>
 <p>缓存场景捕获相机列表：避免频繁调用GetAllActorsOfClass</p>
@@ -284,7 +300,7 @@ AWeather 类在构造函数中直接硬编码了两个后处理材质的路径�
 </li>
 <li>没有考虑不同天气参数之间的依赖关系(如下雨后地面湿润效果)</li>
 </ol>
-<h1 id="_15">优化建议：</h1>
+<h1 id="_20">优化建议：</h1>
 <ol>
 <li>
 <p>参数插值过渡：在天气变化时使用插值平滑过渡，避免突然变化</p>
@@ -309,7 +325,7 @@ AWeather 类在构造函数中直接硬编码了两个后处理材质的路径�
 <p>没有考虑不同时间段的性能优化(如夜晚需要更多灯光计算)</p>
 </li>
 </ol>
-<h1 id="_16">优化建议：</h1>
+<h1 id="_21">优化建议：</h1>
 <ol>
 <li>
 <p>使用材质函数控制：通过材质函数模拟昼夜变化，减少光源旋转 </p>
@@ -334,7 +350,7 @@ AWeather 类在构造函数中直接硬编码了两个后处理材质的路径�
 <p>调试信息依赖于宏定义，不够灵活</p>
 </li>
 </ol>
-<h1 id="_17">优化建议：</h1>
+<h1 id="_22">优化建议：</h1>
 <ol>
 <li>
 <p>添加统计命令：集成UE4的stat命令系统监控天气系统性能 </p>
@@ -359,7 +375,7 @@ AWeather 类在构造函数中直接硬编码了两个后处理材质的路径�
 <p>移动平台可能需要简化效果</p>
 </li>
 </ol>
-<h1 id="_18">优化建议：</h1>
+<h1 id="_23">优化建议：</h1>
 <ol>
 <li>
 <p>平台特定设置：根据目标平台调整天气效果质量 </p>
@@ -374,7 +390,7 @@ AWeather 类在构造函数中直接硬编码了两个后处理材质的路径�
 <p>动态功能降级：根据帧率自动调整天气效果复杂度</p>
 </li>
 </ol>
-<h1 id="_19">这些优化主要基于以下原则：</h1>
+<h1 id="_24">这些优化主要基于以下原则：</h1>
 <ol>
 <li>
 <p>减少GPU开销：通过合并材质、优化后处理、控制分辨率等方式</p>
@@ -398,7 +414,7 @@ AWeather 类在构造函数中直接硬编码了两个后处理材质的路径�
 后处理材质的路径需要根据实际情况进行调整。
 如果需要详细的日志信息，请定义CARLA_WEATHER_EXTRA_LOG宏。</p>
 </div>
-<h2 id="_20">参考</h2>
+<h2 id="_25">参考</h2>
 <ul>
 <li><a href="../../tuto_M_custom_weather_landscape/">自定义地图：天气和景观</a></li>
 </ul>
