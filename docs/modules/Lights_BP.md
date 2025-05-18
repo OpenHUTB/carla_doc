@@ -82,19 +82,38 @@
 
 ```cpp
 // 这是一个概念性的蓝图伪代码示例
+// Blueprint Pseudo-Code: 高级灯光配置加载
 Event BeginPlay
-    // 查找 SceneLightingParameters 数据资产
-    LocalVariable SceneParams = LoadDataAsset("SceneLightingParametersAssetReference");
+    // 1. 加载场景光照参数数据资产
+    Const UDataAsset* SceneLightingDA = Cast<UDataAsset>(LoadAsset("/Game/Configs/SceneLighting/SceneLightingParams"));
+    If Not IsValid(SceneLightingDA)
+        LogError("SceneLightingParams 加载失败，检查资产路径或引用")
+        Return
+    End If
 
-    // 根据自身类型（例如，蓝图标签或变量）查找对应的配置
-    LocalVariable MyConfig = SceneParams.FindConfigForLightType(Self.LightTypeIdentifier);
+    // 2. 按 LightTypeIdentifier 查找对应的配置，失败时使用默认
+    FLightConfig LightCfg
+    If Not SceneLightingDA.GetConfigByType(LightTypeIdentifier, Out LightCfg)
+        LogWarning("未找到 LightType '%s' 的配置，采用 DefaultConfig", LightTypeIdentifier.ToString())
+        LightCfg = SceneLightingDA.DefaultConfig
+    End If
 
-    If MyConfig Is Valid
-        // 应用配置到灯光组件
-        LightComponent.SetIntensity(MyConfig.DefaultIntensity);
-        LightComponent.SetLightColor(MyConfig.DefaultColor);
-        LightComponent.SetAttenuationRadius(MyConfig.DefaultAttenuationRadius);
-        StaticMeshComponent.SetStaticMesh(MyConfig.LampMesh);
+    // 3. 将配置应用到 LightComponent
+    If IsValid(LightComponent)
+        LightComponent.SetIntensity(LightCfg.Intensity)
+        LightComponent.SetLightColor(LightCfg.Color)
+        LightComponent.SetAttenuationRadius(LightCfg.AttenuationRadius)
+        If LightCfg.IESProfileAsset IsValid
+            LightComponent.SetIESProfile(LightCfg.IESProfileAsset)
+        End If
+    End If
+
+    // 4. 更新灯具外观
+    If IsValid(StaticMeshComponent) And LightCfg.MeshAsset IsValid
+        StaticMeshComponent.SetStaticMesh(LightCfg.MeshAsset)
+        If LightCfg.LampMaterial IsValid
+            StaticMeshComponent.SetMaterial(0, LightCfg.LampMaterial)
+        End If
     End If
 End Event
 ```
