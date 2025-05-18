@@ -74,8 +74,69 @@
 <li>行人功能 <a href="https://bitbucket.org/carla-simulator/carla-content/src/master/Blueprints/Walkers/WalkerFunctions.uasset">WalkerFunctions</a></li>
 <li>行人选择器 <a href="https://bitbucket.org/carla-simulator/carla-content/src/master/Blueprints/Walkers/WalkerSelector.uasset">WalkerSelector</a></li>
 </ul>
-<p>会更好</p>
 <h1 id="carlawalkers">Carla虚幻场景中行人（Walkers）技术说明文档</h1>
+<h2 id="_2">目录</h2>
+<ol>
+<li><a href="#1-概述">概述</a></li>
+<li><a href="#2-行人walkers简介">行人（Walkers）简介</a></li>
+<li><a href="#3-walker的基本操作流程">Walker的基本操作流程</a></li>
+<li><a href="#31-获取蓝图库">3.1 获取蓝图库</a></li>
+<li><a href="#32-生成walker">3.2 生成Walker</a></li>
+<li><a href="#33-控制walker行为">3.3 控制Walker行为</a></li>
+<li><a href="#34-监听与数据交互">3.4 监听与数据交互</a></li>
+<li><a href="#35-销毁walker">3.5 销毁Walker</a></li>
+<li><a href="#4-walker属性配置">Walker属性配置</a></li>
+<li><a href="#5-复杂行为与路径规划">复杂行为与路径规划</a></li>
+<li><a href="#6-与传感器和环境的交互">与传感器和环境的交互</a></li>
+<li><a href="#7-资源管理">资源管理</a></li>
+<li><a href="#8-发展与定制">发展与定制</a></li>
+<li><a href="#9-总结">总结</a></li>
+</ol>
+<hr />
+<!-- 请在正文对应位置添加以下锚点声明 -->
+<!--
+## 1. 概述
+<span id="1-概述"></span>
+
+## 2. 行人（Walkers）简介
+<span id="2-行人walkers简介"></span>
+
+## 3. Walker的基本操作流程
+<span id="3-walker的基本操作流程"></span>
+
+### 3.1 获取蓝图库
+<span id="31-获取蓝图库"></span>
+
+### 3.2 生成Walker
+<span id="32-生成walker"></span>
+
+### 3.3 控制Walker行为
+<span id="33-控制walker行为"></span>
+
+### 3.4 监听与数据交互
+<span id="34-监听与数据交互"></span>
+
+### 3.5 销毁Walker
+<span id="35-销毁walker"></span>
+
+## 4. Walker属性配置
+<span id="4-walker属性配置"></span>
+
+## 5. 复杂行为与路径规划
+<span id="5-复杂行为与路径规划"></span>
+
+## 6. 与传感器和环境的交互
+<span id="6-与传感器和环境的交互"></span>
+
+## 7. 资源管理
+<span id="7-资源管理"></span>
+
+## 8. 发展与定制
+<span id="8-发展与定制"></span>
+
+## 9. 总结
+<span id="9-总结"></span>
+-->
 <h2 id="1">1. 概述</h2>
 <p>在Carla虚幻场景中，<strong>行人（Walkers）</strong>是场景的关键参与者之一，用于模拟城市环境中的人类行为。行人不仅丰富了模拟场景的多样性，还对自动驾驶系统的感知、决策与规划提出更高要求。本技术说明文档旨在介绍Walker的创建、管理、属性配置以及与环境的交互，为开发者提供详细的操作指南。</p>
 <h2 id="2-walkers">2. 行人（Walkers）简介</h2>

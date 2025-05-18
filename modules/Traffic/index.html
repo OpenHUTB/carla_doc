@@ -356,6 +356,20 @@
 </tr>
 </tbody>
 </table>
+<h4 id="_14">交通信号控制流程图</h4>
+<p><pre class="mermaid"><code>stateDiagram-v2
+  [*] --&gt; 信号检测
+  信号检测 --&gt; 相位决策
+  相位决策 --&gt; 绿灯: 车流&gt;阈值
+  相位决策 --&gt; 黄灯: 倒计时结束
+  黄灯 --&gt; 红灯: 3秒过渡
+  红灯 --&gt; 相位决策: 周期循环
+  绿灯 --&gt; 紧急优先检测
+  紧急优先检测 --&gt; 强制黄灯: 检测到应急车辆</code></pre>
+<strong>工程应用场景</strong>：<br />
+- <strong>智能信号优化</strong>：部署感应式控制策略，使路口通行效率提升40%<br />
+- <strong>公交优先系统</strong>：通过<code>priority_vehicle_types</code>定义公交车辆，实现绿灯延长<br />
+- <strong>夜间模式</strong>：配置<code>Flashing</code>相位降低能耗，同时保证基本通行安全  </p>
 <hr />
 <h3 id="4">4. 路径规划系统</h3>
 <ul>
@@ -370,19 +384,19 @@
 <li>多线程路径计算</li>
 </ul>
 <hr />
-<h2 id="_14">接口定义</h2>
+<h2 id="_15">接口定义</h2>
 <h3 id="python-api">Python API</h3>
 <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">TrafficManager</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">set_global_speed_limit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">speed</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
 </code></pre></div>
-<h3 id="_15">控制协议</h3>
+<h3 id="_16">控制协议</h3>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;spawn_vehicle&quot;</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;params&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sedan&quot;</span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 <hr />
-<h2 id="_16">常见问题</h2>
+<h2 id="_17">常见问题</h2>
 <p><strong>Q: 车辆无法生成</strong>
 - 检查Waypoint文件路径有效性
 - 验证SpawnRadius是否大于最小阈值（200米）</p>
@@ -393,14 +407,14 @@
 - 降低GlobalDensity参数
 - 启用bEnableDynamicLOD</p>
 <hr />
-<h2 id="_17">配置与依赖</h2>
-<h3 id="_18">必要组件</h3>
+<h2 id="_18">配置与依赖</h2>
+<h3 id="_19">必要组件</h3>
 <ol>
 <li>CarlaUnreal插件（0.9.12+）</li>
 <li>路径网络资源包</li>
 <li>交通信号蓝图库</li>
 </ol>
-<h3 id="_19">安装步骤</h3>
+<h3 id="_20">安装步骤</h3>
 <ol>
 <li>启用插件：
    <div class="highlight"><pre><span></span><code><span class="na">[ProjectName].uproject &gt; Plugins &gt; CarlaUnreal</span>
@@ -413,8 +427,8 @@
 </code></pre></div></li>
 </ol>
 <hr />
-<h2 id="_20">使用示例</h2>
-<h3 id="_21">基础车辆生成</h3>
+<h2 id="_21">使用示例</h2>
+<h3 id="_22">基础车辆生成</h3>
 <ol>
 <li>放置<code>VehicleSpawner</code> Actor</li>
 <li>配置参数：
@@ -427,7 +441,7 @@
 </code></pre></div></li>
 <li>连接路径网络节点</li>
 </ol>
-<h3 id="_22">车辆生成流程图</h3>
+<h3 id="_23">车辆生成流程图</h3>
 <pre class="mermaid"><code>sequenceDiagram
   participant Spawner as 生成器
   participant Graph as 路径网络
@@ -441,29 +455,8 @@
   AI-&gt;&gt;Graph: 实时路径查询
   AI-&gt;&gt;World: 执行移动指令</code></pre>
 <hr />
-<h3 id="_23">交通信号配置</h3>
-<div class="highlight"><pre><span></span><code><span class="nv">Begin</span><span class="w"> </span><span class="nv">Object</span><span class="w"> </span><span class="nv">Class</span><span class="err">=/</span><span class="nv">Script</span><span class="err">/</span><span class="nv">Carla</span><span class="p">.</span><span class="nv">TrafficLightController</span>
-<span class="w">   </span><span class="py">PhaseTiming</span><span class="p">:</span>
-<span class="w">     </span><span class="nv">Green</span><span class="w"> </span><span class="err">-&gt;</span><span class="w"> </span><span class="mi">30</span><span class="nv">s</span>
-<span class="w">     </span><span class="nv">Yellow</span><span class="w"> </span><span class="err">-&gt;</span><span class="w"> </span><span class="mi">5</span><span class="nv">s</span><span class="w"> </span>
-<span class="w">     </span><span class="nv">Red</span><span class="w"> </span><span class="err">-&gt;</span><span class="w"> </span><span class="mi">40</span><span class="nv">s</span>
-<span class="w">   </span><span class="nv">bEmergencyPriority</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="kc">True</span>
-<span class="nv">End</span><span class="w"> </span><span class="nv">Object</span>
-</code></pre></div>
-<hr />
-<h3 id="_24">交通信号控制流程图</h3>
-<pre class="mermaid"><code>stateDiagram-v2
-  [*] --&gt; 信号检测
-  信号检测 --&gt; 相位决策
-  相位决策 --&gt; 绿灯: 车流&gt;阈值
-  相位决策 --&gt; 黄灯: 倒计时结束
-  黄灯 --&gt; 红灯: 3秒过渡
-  红灯 --&gt; 相位决策: 周期循环
-  绿灯 --&gt; 紧急优先检测
-  紧急优先检测 --&gt; 强制黄灯: 检测到应急车辆</code></pre>
-<hr />
-<h2 id="_25">高级配置</h2>
-<h3 id="_26">自定义行为模型</h3>
+<h2 id="_24">高级配置</h2>
+<h3 id="_25">自定义行为模型</h3>
 <ol>
 <li>修改<code>BehaviorTree/CarlaTrafficBT</code></li>
 <li>调整决策参数：
@@ -473,7 +466,7 @@
 <span class="p">)</span>
 </code></pre></div></li>
 </ol>
-<h3 id="_27">路径网络调试</h3>
+<h3 id="_26">路径网络调试</h3>
 <ol>
 <li>启用调试视图：
    <div class="highlight"><pre><span></span><code><span class="go">console command: show TrafficPaths</span>
@@ -483,7 +476,7 @@
 </code></pre></div></li>
 </ol>
 <hr />
-<h3 id="_28">路径网络验证流程</h3>
+<h3 id="_27">路径网络验证流程</h3>
 <h2 id="graph-lr-a-b-b-c-c-d-c-e-e-f-f-b-d-g"><pre class="mermaid"><code>graph LR
   A[原始路径数据] --&gt; B[拓扑分析]
   B --&gt; C{闭合验证}
@@ -492,8 +485,8 @@
   E --&gt; F[人工修复]
   F --&gt; B
   D --&gt; G[发布可用网络]</code></pre></h2>
-<h3 id="_29">性能优化</h3>
-<h4 id="_30">硬件配置推荐</h4>
+<h3 id="_28">性能优化</h3>
+<h4 id="_29">硬件配置推荐</h4>
 <table>
 <thead>
 <tr>
@@ -510,13 +503,13 @@
 </tr>
 </tbody>
 </table>
-<h4 id="_31">渲染参数</h4>
+<h4 id="_30">渲染参数</h4>
 <div class="highlight"><pre><span></span><code><span class="na">bEnableLOD</span><span class="o">=</span><span class="s">True</span>
 <span class="na">LODThresholds</span><span class="o">=</span><span class="s">(Distance=5000, ActorCount=50)</span>
 </code></pre></div>
 <hr />
-<h2 id="_32">调试诊断</h2>
-<h3 id="_33">错误代码表</h3>
+<h2 id="_31">调试诊断</h2>
+<h3 id="_32">错误代码表</h3>
 <table>
 <thead>
 <tr>
@@ -538,12 +531,12 @@
 </tr>
 </tbody>
 </table>
-<h3 id="_34">性能监控</h3>
+<h3 id="_33">性能监控</h3>
 <div class="highlight"><pre><span></span><code><span class="n">TrafficMonitor</span><span class="o">.</span><span class="n">GetMetrics</span><span class="p">(</span>
     <span class="n">Metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Vehicles.Alive&quot;</span><span class="p">,</span> <span class="s2">&quot;FPS.Main&quot;</span><span class="p">]</span>
 <span class="p">)</span>
 </code></pre></div>
-<h2 id="_35">注意事项</h2>
+<h2 id="_34">注意事项</h2>
 <ol>
 <li>路径网络需形成闭合回路</li>
 <li>高密度交通时建议启用LOD优化</li>
