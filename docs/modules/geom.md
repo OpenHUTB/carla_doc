@@ -2,6 +2,21 @@
 
 `carla::geom` 是 CARLA 引擎中专门负责几何计算和坐标变换的模块。它提供了常用的几何基本类型（如二维/三维向量、整数向量）、位置（Location）、旋转（Rotation）和变换（Transform）等数据结构，以及相关的数学工具函数。该模块还实现了经纬度与世界坐标的转换（GeoLocation 和 Mercator 投影函数）、有向边界框（BoundingBox）计算、样条曲线（CubicPolynomial）等功能。此外，它包含网格（Mesh）和网格生成（MeshFactory）类用于道路和场景几何的构造，以及网格简化（Simplification）和基于 R 树的空间索引（PointCloudRtree、SegmentCloudRtree）等高级功能。总体而言，`geom` 模块负责车辆、自行车、路网等对象的几何表示及其间的空间运算与变换。
 
+- ## 目录
+  1. [主要类与功能说明](#主要类与功能说明)
+  2. [其他模块的引用](#其他模块的引用)
+  3. [Math](#Math)
+  4. [Vector3D/Vector2D/Vector3DInt](#Vector3D/Vector2D/Vector3DInt)
+  5. [Mesh](#Mesh)
+  6. [Simplification](#Simplification)
+  7. [RTree](#RTree)
+  8. [Location](#Location)
+  9. [Rotation](#Rotation)
+  10. [Transform](#Transform)
+  11. [CubicPolynomial](#CubicPolynomial)
+  12. [BoundingBox](#BoundingBox)
+  13. [GeoLocation](#GeoLocation)
+  <span id="主要类与功能说明"></span>
 ## 主要类与功能说明
 
 - **[Vector2D/Vector3D/Vector3DInt](#Vector3D/Vector2D/Vector3DInt)**：分别表示二维浮点向量、三维浮点向量和三维整型向量，支持算术运算（加减、点乘、叉乘等）、长度计算、归一化等常见操作。
@@ -15,7 +30,7 @@
 - **[Mesh](#Mesh)**：网格容器类及其生成器。`Mesh` 用于存储顶点、法线、纹理坐标、索引和材质信息，可导出为 OBJ/PLY 等格式；
 - **[Simplification](#Simplification)**：网格简化类，根据指定简化率对给定网格进行简化操作（使用第三方简化库）。
 - **[RTree](#RTree)**:是一种用于空间索引的树形结构,提供检索方法用于点云和线段云的快速空间查询（最近邻、相交判定等），主要使用在物体的碰撞使用。
-
+<span id="其他模块的引用"></span>
 ## 其他模块的引用
 
 - **Carla 客户端（`client`）模块：**  该模块大量使用几何类型来描述场景中对象的位置和姿态。例如，`carla::client::World::SpawnActor` 方法的接口中使用了 `geom::Transform` 作为参数[carla.org](https://carla.org/Doxygen/html/dd/d5b/World_8h_source.html#:~:text=111 SharedPtr)；`carla::client::TrafficLight` 类中使用 `geom::BoundingBox` 表示灯组的遮挡盒（如 `GetLightBoxes` 返回多个 BoundingBox）[carla.org](https://carla.org/Doxygen/html/df/def/classcarla_1_1client_1_1TrafficLight.html#:~:text=std%3A%3Avector,const)，以及继承自 `Actor` 的 `AddAngularImpulse(const Vector3D&)` 方法使用了三维向量[carla.org](https://carla.org/Doxygen/html/df/def/classcarla_1_1client_1_1TrafficLight.html#:~:text=const geom%3A%3ABoundingBox  %26 33,const)。这些用法说明客户端模块在创建和控制 actor（车辆、交通灯等）时依赖 `geom` 提供的几何表示与变换工具。
@@ -31,6 +46,9 @@
 - **其他依赖：** 还有一些功能模块也使用了 `geom`。例如，`client::TrafficLight::GetStopWaypoints()` 返回的是与交通灯相关的停车点（Waypoints），这些 Waypoint 本身也封装了 `Location/Transform` 等；`client::TrafficLight` 的触发体积（TriggerVolume）也是 `geom::BoundingBox` 类型[carla.org](https://carla.org/Doxygen/html/df/def/classcarla_1_1client_1_1TrafficLight.html#:~:text=const geom%3A%3ABoundingBox  %26 33,const)。此外，路网构建和传感器处理等环节也可能间接使用几何变换方法。
 
 下面是其主要类的代码说明文档。
+
+<span id="Math"></span>
+
 # [Math](#Math)
 
 ## 概述
@@ -411,6 +429,8 @@ static std::vector<int> GenerateRange(int a, int b);
   - <font color="#f8805a">b</font>：结束整数  
 - **返回值**：包含从 <font color="#f8805a">a</font> 到 <font color="#f8805a">b</font>（含）的所有整数的向量
 
+<span id="Vector3D/Vector2D/Vector3DInt"></span>
+
 # [Vector3D/Vector2D/Vector3DInt](#Vector3D/Vector2D/Vector3DInt)
 
 ## 概述
@@ -570,6 +590,8 @@ void msgpack_object(MSGPACK_OBJECT* o, clmdep_msgpack::zone& sneaky_variable_tha
   ```
 
 ---
+
+<span id="Mesh"></span>
 
 # [Mesh](#Mesh)
 
@@ -795,6 +817,8 @@ $$
 
 ---
 
+<span id="Simplification"></span>
+
 # [Simplification](#Simplification)
 
 ## 概述
@@ -863,6 +887,8 @@ void Simplificate(const std::unique_ptr<geom::Mesh>& pmesh);
   ```
 
 ---
+
+<span id="RTree"></span>
 
 # [RTree](#RTree)
 
@@ -1019,6 +1045,8 @@ size_t GetTreeSize() const;
 
 ---
 
+<span id="Location"></span>
+
 # [Location](#Location)
 
 ## 概述
@@ -1171,6 +1199,9 @@ size_t GetTreeSize() const;
   ```cpp
   FVector fv2= loc_xyz; // (100,200,300)
   ```
+
+<span id="Rotation"></span>
+
 # [Rotation](#Rotation)
 
 ## 概述
@@ -1319,6 +1350,8 @@ size_t GetTreeSize() const;
   ```cpp
   FRotator outFR = r;
   ```
+
+<span id="Transform"></span>
 
 # [Transform](#Transform)
 
@@ -1506,6 +1539,8 @@ size_t GetTreeSize() const;
   FTransform ut2= t2;
   ```
 
+<span id="CubicPolynomial"></span>
+
 # [CubicPolynomial](#CubicPolynomial)
 
 ## 概述
@@ -1687,6 +1722,8 @@ $$f(x)=a + b\,x + c\,x^2 + d\,x^3$$
 
 ---
 
+<span id="BoundingBox"></span>
+
 # [BoundingBox](#BoundingBox)
 
 ## 概述
@@ -1828,6 +1865,8 @@ $$f(x)=a + b\,x + c\,x^2 + d\,x^3$$
   ```
 
 ---
+
+<span id="GeoLocation"></span>
 
 # [GeoLocation](#GeoLocation)
 
