@@ -111,16 +111,16 @@ struct FActorDescription {
 ## 关键流程
 
 ### 触发器生成流程
-1. **工厂类调用**  
-   - 通过 `ATriggerFactory::SpawnActor` 创建触发器实例  
-   - `FActorDescription` 提供变换信息和描述参数
+- **工厂类调用：**  
+  - 通过 `ATriggerFactory::SpawnActor` 创建触发器实例  
+  - `FActorDescription` 提供变换信息和描述参数
 
-2. **属性配置**  
-   - 解析 `Variations` 中的 `friction` 和 `extent` 参数  
-   - 调用 `SetFriction` 和 `SetBoxExtent` 设置属性
+- **属性配置：**  
+  - 解析 `Variations` 中的 `friction` 和 `extent` 参数  
+  - 调用 `SetFriction` 和 `SetBoxExtent` 设置属性
 
-3. **事件绑定**  
-   - 在 `BeginPlay` 中为 `TriggerVolume` 绑定重叠事件回调
+- **事件绑定：**  
+  - 在 `BeginPlay` 中为 `TriggerVolume` 绑定重叠事件回调
 
 ### 摩擦力调整流程
 ```mermaid
@@ -186,6 +186,9 @@ void AYourActor::SetupFrictionTrigger()
     }
 }
 ```
+
+### Python代码示例
+[点击查看Python代码配置摩擦触发器](https://openhutb.github.io/carla_doc/tuto_G_add_friction_triggers/)
 
 ### 命令行调用
 ```bash
