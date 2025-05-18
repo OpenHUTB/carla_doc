@@ -258,8 +258,7 @@ Level designers 只需将如 BP_Streetlight_Modern 等 BP_SpecificLight_Type 实
 
 #### 2. 异常处理与日志记录
 
-*   在蓝图函数中添加更健壮的错误检查，例如检查引用的 Actor 是否有效。
-*   使用虚幻引擎的 Log 系统在系统发生重要事件 (如 ID 分配错误、引用失效) 时输出警告或错误信息，便于调试。
+建议在蓝图与底层 C++ 混合实现中统一引入严谨的校验与日志机制：对所有外部引用（Actor、Component、DataAsset 等）均调用 IsValid() 或 ensure()，一旦发现无效引用立即提前返回或触发断言，避免后续执行空指针操作导致崩溃；同时为灯光子系统定义专属日志分类（例如 DECLARE_LOG_CATEGORY_EXTERN(LogLightSystem, Log, All)），并在关键路径（如 ID 分配失败、数据资产加载异常、引用失效等）使用 UE_LOG(LogLightSystem, Warning, TEXT(“LightID 分配失败：%s 无法转换为 BP_LightBase”), *ActorName) 或 UE_LOG(…, Error, TEXT(“加载 SceneLightingParameters 失败，请检查资产路径”)) 输出带有上下文信息的日志，以便快速定位与追踪问题。
 
 #### 3. 性能优化
 
