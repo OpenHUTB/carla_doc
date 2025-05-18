@@ -1,37 +1,13 @@
 # AI
-# 目录
-- [1. **AIControllerFactory 类**](#1-aicontrollerfactory-类)  
-  - [概述](#概述)  
-  - [成员函数](#成员函数)  
-    - [GetDefinitions](#getdefinitions)  
-    - [SpawnActor](#spawnactor)  
-  - [错误处理体系](#错误处理体系)  
-  - [继承关系](#继承关系)  
-- [2. **WalkerAIController 类**](#2-walkeraicontroller-类)  
-  - [定义与职责](#定义与职责)  
-  - [构造函数](#构造函数)  
-  - [成员变量与属性](#成员变量与属性)  
-  - [使用场景](#使用场景)  
-- [3. **Unreal Engine 集成机制**](#3-unreal-engine-集成机制)  
-  - [反射系统集成](#反射系统集成)  
-  - [Actor生成机制](#actor生成机制)  
-  - [组件管理](#组件管理)  
-- [4. 代码实例与用法](#4-代码实例与用法)  
-  - [创建 AI 控制器](#创建-ai-控制器)  
-  - [配置 Walker AI](#配置-walker-ai)  
-  - [错误调试](#错误调试)  
-- [5. 相关文件与依赖](#5-相关文件与依赖)  
-  - [头文件依赖树](#头文件依赖树)  
-  - [依赖的引擎模块](#依赖的引擎模块)  
-  - [Buildcs配置示例](#buildcs配置示例)  
+
 ---
 
 ## 1. **AIControllerFactory 类**  
 ### 概述  
 `AIControllerFactory`是CARLA仿真平台中实现AI控制器动态生成的核心工厂类，继承自`ACarlaActorFactory`。其职责包括：  
-- 定义支持的AI控制器类型（如行人、车辆等）  
-- 通过Unreal Engine的反射系统实现类型注册  
-- 提供标准化的Actor生成接口与错误处理机制 
+- **支持类型定义：** 通过注册反射信息，定义可生成的 AI 控制器类型。  
+- **统一生成接口：** 提供 SpawnActor 方法，封装生成参数与碰撞处理逻辑。
+- **错误管理：** 通过日志和错误码，保证不合规场景可被及时定位。
 
 ### 成员函数  
 #### `GetDefinitions`  
@@ -54,7 +30,7 @@
   - `TEXT("walker")`：语义标签，支持场景语义查询。
 
 #### `SpawnActor`
-- **功能**：根据描述和位置生成具体的AI控制器实例。  
+- **功能**：在世界中实例化 AI 控制器，并执行生成前后的校验与日志记录。 
 - **关键参数**：  
   - `FTransform`：指定生成位置和旋转。  
   - `FactorDescription`：Actor类型和配置。  
@@ -132,7 +108,7 @@
 
 ## 2. **WalkerAIController 类**  
 ### 定义与职责  
-- **继承关系**  ：继承自 AActor，作为行人AI控制器的轻量级句柄。
+- **继承关系**  ：继承自 AActor，是行人 AI 控制器的具体实现，负责行人运动目标设置与状态同步。
   ```cpp
   classDiagram
     AActor <|-- AWalkerAIController
@@ -148,27 +124,43 @@
     }
   ``` 
 - **核心作用** 
-  - 轻量级代理：作为服务端与客户端控制逻辑的中介，避免直接操作物理实体。
-  - 状态同步：通过RPC（Remote Procedure Call）实现跨网络的状态同步。
-  - 生命周期管理：处理控制器的激活/休眠状态切换。
+  - **运动目标：** 通过 SetMovementTarget(FVector) 接收目标点。
+  - **导航回调：** OnNavigationComplete() 完成路径规划后回调。
+  - **状态同步：** 通过 RPC 与客户端同步角色状态。
+  - **性能优化：** 默认禁用Tick，减少每帧开销。 
 
 ### 构造函数  
-- **初始化设置**  
-  - 禁止Actor的Tick功能：`PrimaryActorTick.bCanEverTick = false`。  
-  - 隐藏根组件：`RootComponent->bHiddenInGame = true`。  
-
-- **代码实现**  
+- **初始化设置**
   ```cpp
-  AWalkerAIController(const FObjectInitializer &ObjectInitializer)
-      : Super(ObjectInitializer) {
-      PrimaryActorTick.bCanEverTick = false;
-      RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
-      RootComponent->bHiddenInGame = true;
+  AWalkerAIController::AWalkerAIController(const FObjectInitializer& ObjInit)
+  : Super(ObjInit) {
+  PrimaryActorTick.bCanEverTick = false;
+  RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
+  RootComponent->bHiddenInGame = true;
   }
-  ``` 
-### 成员变量与属性
-- **PrimaryActorTick**  ：设置为 false，禁止帧更新以优化性能。
-- **RootComponent**  ：默认场景组件，用于管理Actor的变换和渲染，游戏运行时不可见。
+  ```
+  
+  - **PrimaryActorTick**  ：设置为 false，禁止帧更新以优化性能。
+  - **RootComponent**  ：默认场景组件，用于管理Actor的变换和渲染，游戏运行时不可见。
+### 关键接口
+```cpp
+/** 设置行人目标位置 */
+UFUNCTION(BlueprintCallable, Category="AI|Walker")
+void SetMovementTarget(const FVector& Target);
+
+/** 导航完成回调 */
+UFUNCTION()
+void OnNavigationComplete();
+```
+### 通常使用示例
+```cpp
+auto* Controller = Cast<AWalkerAIController>(
+  Factory->SpawnActor(SpawnTransform, WalkerDef).GetActor()
+);
+if (Controller) {
+  Controller->SetMovementTarget(FVector(100, 200, 0));
+}
+```
 
 ### 使用场景
 - **行人模拟**  ：在CARLA仿真中，通过此类控制行人的基础属性（如位置、状态）。
