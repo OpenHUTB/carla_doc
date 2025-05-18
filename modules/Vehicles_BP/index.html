@@ -78,6 +78,58 @@
 <h2 id="n-basevehiclepawnnw"><a href="../../tuto_A_add_vehicle/#add-a-n-wheeled-vehicle">N轮车辆棋子基座</a> <a href="https://bitbucket.org/carla-simulator/carla-content/src/master/Blueprints/Vehicles/BaseVehiclePawnNW.uasset">BaseVehiclePawnNW</a></h2>
 <h2 id="vehiclefactory">车辆工厂 <a href="https://bitbucket.org/carla-simulator/carla-content/src/master/Blueprints/Vehicles/VehicleFactory.uasset">VehicleFactory</a></h2>
 <h2 id="2wheeled">两轮载具 <a href="https://bitbucket.org/carla-simulator/carla-content/src/master/Blueprints/Vehicles/2Wheeled/">2Wheeled</a></h2>
+<h1 id="carlavehicle-blueprints">Carla虚幻场景中的载具蓝图（Vehicle Blueprints）技术说明</h1>
+<h2 id="1">1. 概述</h2>
+<p>在Carla的虚幻引擎场景中，车辆蓝图（Vehicle Blueprints）是定义和管理各种汽车模型及其属性的核心元素。它们不仅包含车辆的几何模型和动画信息，还包括车辆的物理特性、行为控制参数以及附属传感器等，是实现主动交互和自动驾驶仿真的基础。</p>
+<h2 id="2">2. 车辆蓝图的结构与组成</h2>
+<h3 id="21-blueprint-library">2.1 蓝图库（Blueprint Library）</h3>
+<ul>
+<li><strong>定义：</strong> 车辆蓝图存放在蓝图库中，通过<code>carla.BlueprintLibrary</code>类提供访问。</li>
+<li><strong>内容：</strong> 包含一系列可用的车辆类型ID（如<code>vehicle.tesla.model3</code>、<code>vehicle.audi.tt</code>等），同时支持过滤和自定义属性设定。</li>
+<li><strong>操作：</strong> 可以随机抽取、精准查找，也支持根据特定属性筛选。</li>
+</ul>
+<h3 id="22-actorblueprint">2.2 车辆蓝图（ActorBlueprint）</h3>
+<ul>
+<li><strong>定义：</strong> 代表具体车辆模型的蓝图对象，类似于虚幻引擎的Actor蓝图。</li>
+<li><strong>属性：</strong></li>
+<li><strong>ID:</strong> 标识模型类型，关联至具体的3D模型和动画资源。</li>
+<li><strong>可修改属性：</strong> 包括颜色、轮子类型、动力参数、灯光状态等。</li>
+<li><strong>自定义属性：</strong> 允许用户根据实验需求调节车辆性能和外观。</li>
+</ul>
+<h3 id="23-attributes">2.3 车辆属性（Attributes）</h3>
+<ul>
+<li><strong>可修改属性：</strong> 如<code>color</code>、<code>engine_power</code>、<code>vehicle_physics</code>等。</li>
+<li><strong>限制：</strong> 一些属性可能由模型预设、不允许修改。</li>
+<li><strong>推荐值：</strong> 属性通常配有建议范围或默认值，便于快速配置。</li>
+</ul>
+<h2 id="3">3. 车辆蓝图的操作流程</h2>
+<h3 id="31">3.1 获取蓝图库</h3>
+<div class="highlight"><pre><span></span><code><span class="n">blueprint_library</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="32">3.2 查询和筛选</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 查找特定车辆模型</span>
+<span class="n">vehicle_bp</span> <span class="o">=</span> <span class="n">blueprint_library</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;vehicle.tesla.model3&#39;</span><span class="p">)</span>
+
+<span class="c1"># 选择所有车辆蓝图并随机选择</span>
+<span class="n">vehicle_blueprints</span> <span class="o">=</span> <span class="n">blueprint_library</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s1">&#39;vehicle.*&#39;</span><span class="p">)</span>
+<span class="n">chosen_bp</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">vehicle_blueprints</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="33">3.3 修改属性</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 设置车辆颜色为红色</span>
+<span class="n">vehicle_bp</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s1">&#39;color&#39;</span><span class="p">,</span> <span class="s1">&#39;255,0,0&#39;</span><span class="p">)</span>
+
+<span class="c1"># 调整发动机功率</span>
+<span class="n">vehicle_bp</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s1">&#39;engine_power&#39;</span><span class="p">,</span> <span class="s1">&#39;300&#39;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="34">3.4 生成车辆实例</h3>
+<div class="highlight"><pre><span></span><code><span class="n">transform</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Transform</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">Location</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">230</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">195</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mi">40</span><span class="p">),</span> <span class="n">carla</span><span class="o">.</span><span class="n">Rotation</span><span class="p">(</span><span class="n">yaw</span><span class="o">=</span><span class="mi">180</span><span class="p">))</span>
+<span class="n">vehicle_actor</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">chosen_bp</span><span class="p">,</span> <span class="n">transform</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="35">3.5 自定义功能</h3>
+<ul>
+<li>用户可以扩展车辆蓝图（如添加特殊传感器、动画或自定义参数）。</li>
+<li>支持导入用户自制的车辆资产。</li>
+</ul>
               
             </div>
           </div><footer>

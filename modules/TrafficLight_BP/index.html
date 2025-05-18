@@ -114,6 +114,50 @@
 <li><strong>Red（红灯）</strong>：禁止车辆和行人通行。</li>
 </ul>
 <hr />
+<h2 id="4">4. 交通信号灯的管理与控制</h2>
+<h3 id="41">4.1 获取场景中的交通信号灯</h3>
+<p>通过场景中的地图接口可以检索所有已存在的信号灯实例：
+<div class="highlight"><pre><span></span><code><span class="n">traffic_lights</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_actors</span><span class="p">()</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s1">&#39;traffic.traffic_light&#39;</span><span class="p">)</span>
+</code></pre></div></p>
+<h3 id="42">4.2 改变信号灯状态</h3>
+<p>可以通过API设置单个或多个信号灯的状态：
+<div class="highlight"><pre><span></span><code><span class="c1"># 设置第一个信号灯为绿色</span>
+<span class="n">traffic_lights</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_state</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">TrafficLightState</span><span class="o">.</span><span class="n">Green</span><span class="p">)</span>
+</code></pre></div></p>
+<h3 id="43">4.3 定时控制与自动切换</h3>
+<ul>
+<li>利用时间参数或仿真流程，设定自动切换逻辑。</li>
+<li>也可结合交通管理器TrafficManager实现智能调度。</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># 例：连续切换某个信号灯状态</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">light</span> <span class="o">=</span> <span class="n">traffic_lights</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">light</span><span class="o">.</span><span class="n">set_state</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">TrafficLightState</span><span class="o">.</span><span class="n">Red</span><span class="p">)</span>
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">light</span><span class="o">.</span><span class="n">set_state</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">TrafficLightState</span><span class="o">.</span><span class="n">Green</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="44">4.4 交通信号灯的事件检测</h3>
+<p>监控交通信号灯状态变化，结合自动驾驶场景的决策调整。</p>
+<hr />
+<h2 id="5">5. 交通信号灯的场景应用</h2>
+<ul>
+<li><strong>交叉口管理</strong>：实现不同方向的车辆按交通规则流动。</li>
+<li><strong>交通流控制</strong>：模拟高峰、低谷或交通管制场景。</li>
+<li><strong>自主驾驶训练</strong>：测试车辆对红绿灯的识别和响应能力。</li>
+<li><strong>复杂场景构建</strong>：结合动态信号灯变化，模拟交通堵塞、突发事件。</li>
+</ul>
+<hr />
+<h2 id="6">6. 其他相关功能</h2>
+<ul>
+<li><strong>信号灯状态的动画与显示</strong>：通过信号灯模型（Actor）自带灯光效果表现变化。</li>
+<li><strong>配合交通管理器</strong>：自动调度信号灯状态，实现场景智能交通控制。</li>
+<li><strong>自定义信号灯</strong>：可根据场景需要，制作特殊交通灯（如指示灯、箭头灯等）。</li>
+</ul>
+<hr />
+<h2 id="7">7. 小结</h2>
+<p>交通信号灯（TrafficLight）在Carla中扮演着调控交通流的重要角色。通过API可以灵活控制信号灯的状态和位置，为创建逼真的交通环境和自动驾驶测试场景提供基础保障。深入了解和掌控交通信号灯的操作，有助于实现高度仿真化、动态化的交通场景，为自动驾驶研发提供更可靠的仿真平台。</p>
+<hr />
               
             </div>
           </div><footer>
