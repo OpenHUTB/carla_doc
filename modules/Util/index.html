@@ -73,7 +73,7 @@
 <ul>
 <li><a href="#1-概述">1. 概述</a></li>
 <li><a href="#11-util模块与其它模块的调用关系图">1.1 Util模块与其它模块的调用关系图</a></li>
-<li><a href="#12-util模块关键流程图">1.2 Util模块关键流程图</a></li>
+<li><a href="#12-util模块中类的关系图">1.2 Util模块中类的关系图</a></li>
 <li><a href="#13-util模块关键类表">1.3 Util模块关键类表</a></li>
 <li><a href="#2-util核心功能类">2. Util核心功能类</a></li>
 <li><a href="#21-uactorattacheractor-附加器">2.1 UActorAttacher：Actor 附加器</a><ul>
@@ -110,47 +110,121 @@
 <h2 id="1">1. 概述</h2>
 <p>CARLA的Util模块提供了一系列底层的C++工具类，用于简化对Unreal世界中各种对象、集合体、导航、随机数以及调试绘制等功能的操作。Util模块位于源码路径<code>Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Util</code>下，包含29个源文件和头文件，涵盖从附件管理、随机引擎到导航网络、文件解析、调试绘制等多方面工具。</p>
 <h3 id="11-util">1.1 Util模块与其它模块的调用关系图</h3>
-<p><pre class="mermaid"><code>flowchart LR
-  subgraph Util 模块
-    A[UActorAttacher] --&gt;|Attach| B[Game/Vehicle]
-    C[UBoundingBoxCalculator] --&gt;|Calc BB| D[RPC Server]
-    E[FDebugShapeDrawer] --&gt;|Draw| F[UWorld]
-    G[ProceduralCustomMesh] --&gt;|Mesh| H[OpenDriveGenerator]
-    I[FIniFile] --&gt;|Config| J[Plugin Settings]
-  end
-  subgraph 其他模块
-    B --&gt;|Spawn Sensor| K[Sensor Module]
-    D --&gt;|Serialize| L[Client Python]
-    H --&gt;|Render Road| M[Traffic Module]
-  end</code></pre>
-- <code>UActorAttacher</code> 为 Game 与 Vehicle 模块提供动态附加接口；
-- <code>UBoundingBoxCalculator</code> 在 RPC Server 中被调用，用于生成网络序列化的包围盒数据；
-- <code>FDebugShapeDrawer</code> 直接作用于 UWorld，渲染调试原语；
-- <code>ProceduralCustomMesh</code> 与 OpenDriveGenerator、RoadPainterWrapper 协作，呈现场景几何；
-- <code>FIniFile</code> 在插件启动时读取外部配置，并在各模块初始化时注入参数。</p>
-<h3 id="12-util">1.2 Util模块关键流程图</h3>
-<pre class="mermaid"><code>flowchart TD
-  subgraph 模块初始化
-    A1[FIniFile: 读取 .ini 配置]
-    A2[ObjectRegister: 注册全局管理对象]
-    A1 --&gt; A2
-    A3[RandomEngine: 初始化随机数引擎]
-    A2 --&gt; A3
-    A4[NoWorldOffsetSceneComponent: 设置世界坐标稳定]
-    A3 --&gt; A4
+<pre class="mermaid"><code>flowchart LR
+  subgraph CarlaGame[CarlaGame 模块]
+    Episode[UCarlaEpisode]
+    HUD[CarlaHUD / CarlaGameMode]
+    MapMgr[LargeMapManager]
+    ObjReg[UObjectRegister]
   end
 
-  subgraph 仿真执行循环
-    B1[FCarlaEngine Tick]
-    B1 --&gt; B2[UActorAttacher: 附加传感器至车辆]
-    B2 --&gt; B3[RandomEngine: 生成随机参数]
-    B3 --&gt; B4[UBoundingBoxCalculator: 计算各 Actor 包围盒]
-    B4 --&gt; B5[FDebugShapeDrawer: 绘制调试形状]
-    B5 --&gt; B6[ProceduralCustomMesh: 动态生成自定义网格]
-    B6 --&gt; B7[NavigationMesh: 更新/重构导航网格]
-    B7 --&gt; B8[RayTracer: 执行射线检测]
-    B8 --&gt; B9[FCarlaServer: 聚合 &amp; RPC 序列化]
-  end</code></pre>
+  subgraph CarlaMapGen[CarlaMapGen 模块]
+    RoadGen[AOpenDriveGenerator / UMapGenFunctionLibrary]
+    RoadPainter[ARoadPainterWrapper]
+  end
+
+  subgraph CarlaTraffic[CarlaTraffic &amp; Sensors]
+    RayTracerClient[URayTracer 使用方]
+  end
+
+  subgraph Util[Util 模块]
+    Attach[UActorAttacher]
+    RandEng[URandomEngine / AActorWithRandomEngine]
+    BBoxCalc[UBoundingBoxCalculator]
+    RayTracer[URayTracer]
+    IniFile[FIniFile]
+    DebugDraw[FDebugShapeDrawer]
+    ProcMesh[FProceduralCustomMesh]
+    ListView["ListView&lt;T&gt;"]
+    NoOffset[UNoWorldOffsetSceneComponent]
+    ScopedStack[ScopedStack]
+  end
+
+  %% CarlaGame 调用 Util
+  Episode--&gt;|"AttachActors()"|Attach
+  HUD--&gt;|"Draw(shape)"|DebugDraw
+  ObjReg--&gt;|"GetVehicleBoundingBox()"|BBoxCalc
+  ObjReg--&gt;|"GetActorBoundingBox()"|BBoxCalc
+  MapMgr--&gt;|"组件无偏移"|NoOffset
+  Episode--&gt;|"读取/写入配置"|IniFile
+
+  %% CarlaMapGen 调用 Util
+  RoadGen--&gt;|"生成网格描述"|ProcMesh
+  RoadGen--&gt;|"BuildMeshDescriptionFromData()"|ListView
+  RoadPainter--&gt;|"贴花参数"|ScopedStack
+
+  %% CarlaTraffic 调用 Util
+  RayTracerClient--&gt;|"CastRay() / ProjectPoint()"|RayTracer
+
+  %% Util 内部调用（示意）
+  Attach--&gt;|"SpringArm / Rigid"|Attach
+  RandEng--&gt;|"GenerateUniform(), GenerateNormal()…"|RandEng
+  BBoxCalc--&gt;|"CombineBBs(), GetBBsOf…"|BBoxCalc
+  DebugDraw--&gt;|"DrawDebugLine(), DrawDebugSphere()…"|DebugDraw
+
+  %% 辅助组件
+  RandEng---ScopedStack
+  ProcMesh---ListView
+</code></pre>
+<h3 id="12-util">1.2 Util模块中类的关系图</h3>
+<pre class="mermaid"><code>flowchart TD
+  subgraph Util模块
+    AA[UActorAttacher]
+    RE[URandomEngine]
+    BC[UBoundingBoxCalculator]
+    RS[URayTracer]
+    DF[FDebugShapeDrawer]
+    IM[FIniFile]
+    PM[FProceduralCustomMesh]
+    LV["ListView&lt;T&gt; 提供 begin()/end()、empty()"]
+    NC[NonCopyable]
+  end
+
+  %% UActorAttacher 内部调用
+  AA --&gt;|调用 UE4 附着接口| UE4Attach[(AActor::AttachToActor)]
+  AA --&gt;|创建并配置 SpringArm| SpringArmComp[(USpringArmComponent)]
+  SpringArmComp --&gt;|将子 Actor 附着到弹簧臂上| UE4Attach
+
+  %% URandomEngine 内部调用
+  RE --&gt;|使用 std::minstd_rand 作为底层引擎| MinstdRand[(std::minstd_rand)]
+  RE --&gt;|uniform 分布采样| UniformDist[(std::uniform_*_distribution)]
+  RE --&gt;|normal/泊松/伯努利 分布采样| OtherDist[(std::normal_* / std::poisson_distribution)]
+  RE --&gt;|Shuffle 实现| ShuffleImpl[(std::shuffle)]
+
+  %% UBoundingBoxCalculator 内部调用
+  BC --&gt;|获取静态网格组件包围盒| StaticMeshBB[(GetBBsOfStaticMeshComponents)]
+  BC --&gt;|获取骨骼网格组件包围盒| SkeletalMeshBB[(GetBBsOfSkeletalMeshComponents)]
+  StaticMeshBB --&gt;|合并包围盒| CombinedBB[(CombineBBs)]
+  SkeletalMeshBB --&gt;|合并包围盒| CombinedBB
+
+  %% URayTracer 内部调用
+  RS --&gt;|射线检测| UE4Trace[(World-&gt;LineTraceSingleByChannel)]
+  RS --&gt;|点投影| UE4Trace
+
+  %% FDebugShapeDrawer 内部调用
+  DF --&gt;|绘制调试线| UE4Debug[(DrawDebugLine)]
+  DF --&gt;|绘制调试球| UE4Debug[(DrawDebugSphere)]
+  DF --&gt;|绘制调试文本| UE4Debug[(DrawDebugString)]
+
+  %% FIniFile 内部调用
+  IM --&gt;|读取/写入 Section/Key| UE4Config[(GConfig / FConfigFile API)]
+
+  %% FProceduralCustomMesh 与 ListView 协作
+  PM --&gt;|存储网格顶点/索引/法线等| MeshData
+  PM --&gt;|转换为 MeshDescription| UE4MeshDesc[(FMeshDescription)]
+  PM --&gt;|遍历数组（顶点/面数据）| LV
+
+  %% ListView 基础功能
+  LV --&gt;|迭代功能| RangeAPI[(Range API)]
+
+  %% NonCopyable 限制
+  NC -.-&gt;|删除拷贝构造/赋值| CopyOps
+
+  %% 辅助连接示意
+  MinstdRand --- OtherDist
+  CombinedBB --- StaticMeshBB
+  CombinedBB --- SkeletalMeshBB
+</code></pre>
 <h3 id="13-util">1.3 Util模块关键类表</h3>
 <table>
 <thead>
