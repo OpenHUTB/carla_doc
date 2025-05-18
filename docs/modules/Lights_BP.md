@@ -197,10 +197,7 @@ End Function
 
 **实现过程**:
 
-1.  关卡设计师将 `BP_SpecificLight_Type` (如 `BP_Streetlight_Modern`) 的实例直接拖拽到场景中。
-2.  在蓝图实例的详情面板中，关卡设计师可以直接调整该实例的公共变量 (如强度、颜色)，覆盖掉默认值。
-3.  在 `BP_SpecificLight_Type` 的 `Construction Script` 中，代码会设置灯具模型 (`StaticMeshComponent`)。
-4.  在 `BP_SpecificLight_Type` 的 `BeginPlay` 事件中，蓝图可以读取 `SceneLightingParameters` 数据资产，并根据该蓝图自身的类型 (可以通过标签、类名或蓝图中的特定变量标识) 查找对应的配置参数，然后根据这些参数设置灯光组件的初始属性。
+Level designers 只需将如 BP_Streetlight_Modern 等 BP_SpecificLight_Type 实例拖入关卡，然后在 Details 面板中通过公开的变量（强度、色温、衰减半径等）覆盖蓝图默认值；在 Construction Script 中会根据配置自动设置 StaticMeshComponent 以渲染正确的灯具模型；运行时，BeginPlay 事件首先加载 SceneLightingParameters 数据资产，再通过类名、标签或蓝图专用标识查询出对应的 FLightConfig 条目；最后，脚本将该配置中的光强、颜色、IES 曲线等参数应用到 LightComponent，确保全局数据驱动与关卡设计师的个性化调整协同生效。
 
 #### 2. 灯光控制接口
 
