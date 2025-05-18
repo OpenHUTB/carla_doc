@@ -69,17 +69,17 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="carla-gpu-multigpu">CARLA 多 GPU 模块技术文档（multigpu）</h1>
-<h2 id="_1">目录</h2>
-<ol>
-<li>模块概述  </li>
-<li>核心功能  </li>
-<li>类与方法详解  </li>
-<li>通信机制  </li>
-<li>关键流程  </li>
-<li>配置参数  </li>
-<li>注意事项  </li>
-<li>示例代码  </li>
-</ol>
+<h1 id="_1">目录</h1>
+<ul>
+<li><a href="#1-模块概述">1. 模块概述</a></li>
+<li><a href="#2-核心功能">2. 核心功能</a></li>
+<li><a href="#3-类与方法详解">3. 类与方法详解</a></li>
+<li><a href="#4-通信机制">4. 通信机制</a></li>
+<li><a href="#5-关键流程">5. 关键流程</a></li>
+<li><a href="#6-配置参数">6. 配置参数</a></li>
+<li><a href="#7-注意事项">7. 注意事项 </a></li>
+<li><a href="#8-示例代码">8. 示例代码 </a></li>
+</ul>
 <hr />
 <h2 id="1">1. 模块概述</h2>
 <p><code>multigpu</code> 模块用于支持 CARLA 模拟器在多 GPU 环境下进行分布式渲染和任务计算。模块采用主从架构：主节点负责调度与控制，从节点承担实际渲染任务，从而提升模拟器的可扩展性与运行效率。</p>

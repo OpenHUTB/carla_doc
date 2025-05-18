@@ -71,6 +71,50 @@
                 <h1 id="_1">游戏蓝图</h1>
 <h2 id="spectator">观察者 <a href="https://bitbucket.org/carla-simulator/carla-content/src/master/Blueprints/Game/Spectator.uasset">Spectator</a></h2>
 <p>CARLA 的 Spectator（观察者）是一个用于自由视角浏览模拟世界的角色。该蓝图控制了相机的移动、旋转、视场角（FOV）调整及相关输入响应行为，适用于调试、观察交通场景或记录图像等任务。</p>
+<h2 id="camera-controller">实现步骤（Camera Controller）</h2>
+<ol>
+<li>
+<p><strong>初始化输入绑定</strong><br />
+在蓝图中，为“前后左右上下”、<code>Shift</code>、鼠标右键、滚轮等操作设置事件监听。</p>
+</li>
+<li>
+<p><strong>定义移动逻辑</strong>  </p>
+</li>
+<li>在每个 <code>Tick</code> 事件中，检测按键状态（例如“W”、“A”、“S”、“D”、<code>Shift</code>）；</li>
+<li>根据输入方向，计算相机当前位置的偏移量；</li>
+<li>
+<p>调整速度，支持按加速键提升移动速率。</p>
+</li>
+<li>
+<p><strong>处理鼠标控制</strong>  </p>
+</li>
+<li>鼠标按下右键开启自由视角旋转模式；</li>
+<li>捕获鼠标移动事件，按比例调整相机的 <code>Pitch</code>（仰角）和 <code>Yaw</code>（偏航）角度；</li>
+<li>
+<p>鼠标滚轮事件调整视场角（FOV），实现缩放。</p>
+</li>
+<li>
+<p><strong>截图功能实现</strong>  </p>
+</li>
+<li>在按下<code>F12</code>时，调用图库或截图函数；</li>
+<li>捕获当前画面，将图像保存到预定义路径；</li>
+<li>
+<p>可配置分辨率参数。</p>
+</li>
+<li>
+<p><strong>辅助功能扩展</strong>  </p>
+</li>
+<li>实现快捷键切换不同摄像头视角（如驾驶模拟中的主视角、鸟瞰视角）；</li>
+<li>设计位置记录和回放功能，用于自动巡航和演示；</li>
+<li>
+<p>结合VR设备，支持头部追踪实现沉浸式观察。</p>
+</li>
+<li>
+<p><strong>调试及优化</strong>  </p>
+</li>
+<li>在蓝图中逐步测试每个输入响应逻辑；</li>
+<li>调节数值参数（如移动速度、旋转敏感度、FOV变化速率）达到理想体验。</li>
+</ol>
 <h2 id="_2">核心事件和输入响应</h2>
 <h3 id="tick">事件Tick：</h3>
 <p><strong>功能</strong>：在每一帧中持续调用，用于处理视角更新和速度调整。</p>
