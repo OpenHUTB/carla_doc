@@ -10,24 +10,24 @@
 
 1. [项目概述](#1项目概述)
 2. [核心组件与蓝图结构](#2核心组件与蓝图结构)
-    i. [BP_BaseLight](#2i bp_baselight)
-    ii. [BP_SpecificLight_Type](#2ii bp_specificlight_type)
-    iii. [BP_MultipleLights](#2ii ibp_multiplelights)
-    iv. [LightIdSetter](#2iv lightidsetter)
-    v. [SceneLightingParameters 数据资产](#2v scenelightingparameters-数据资产)
+    1. [BP_BaseLight](#21bp_baselight)
+    2. [BP_SpecificLight_Type](#22bp_specificlight_type)
+    3.[BP_MultipleLights](#23bp_multiplelights)
+    4.[LightIdSetter](#24lightidsetter)
+    5.[SceneLightingParameters 数据资产](#25scenelightingparameters-数据资产)
 3. [关键功能实现](#3关键功能实现)
-    i. [灯光实例化与初始化](#3i灯光实例化与初始化)
-    ii. [灯光控制接口](#3ii灯光控制接口)
-    iii. [ID 分配机制](#3iiiid-分配机制)
-    iv. [与动态系统的集成](#3iv与动态系统的集成)
-    v. [性能优化考虑](#3v性能优化考虑)
+    1.[灯光实例化与初始化](#31灯光实例化与初始化)
+    2.[灯光控制接口](#32灯光控制接口)
+    3. [ID 分配机制](#33id-分配机制)
+    4. [与动态系统的集成](#34与动态系统的集成)
+    5. [性能优化考虑](#35性能优化考虑)
 4. [工作流程](#4工作流程)
 5. [优化与扩展建议](#5优化与扩展建议)
-    i. [文件格式支持扩展（不适用）](#5i文件格式支持扩展不适用)
-    ii. [异常处理与日志记录](#5ii异常处理与日志记录)
-    iii. [性能优化](#5iii性能优化)
-    iv. [单元测试](#5iv单元测试)
-    v. [更多灯光特性](#5v更多灯光特性)
+    1. [文件格式支持扩展（不适用）](#51文件格式支持扩展不适用)
+    2. [异常处理与日志记录](#52异常处理与日志记录)
+    3. [性能优化](#53性能优化)
+    4. [单元测试](#54单元测试)
+    5. [更多灯光特性](#55更多灯光特性)
 6. [总结](#6总结)
 
 ---
@@ -57,7 +57,7 @@
 
 本灯光系统由以下核心蓝图资产构成，它们组织在虚幻引擎的内容浏览器中，例如位于 `/Game/Blueprints/Scene/Lights/` 目录下：
 
-### i. BP_BaseLight
+### 1. BP_BaseLight
 
 *   **功能**: 作为所有具体人工光源蓝图的基类。封装了标准人工光源所需的基本组件和通用逻辑。
 *   **设计**:
@@ -68,7 +68,7 @@
     *   可以包含一个用于存储唯一 ID 的变量 (如 `LightID`，类型为 String 或 Integer)。
 *   **作用**: 提供了灯光蓝图代码的复用基础和统一的控制接口。
 
-### ii. BP_SpecificLight_Type
+### 2. BP_SpecificLight_Type
 
 *   **功能**: 从 `BP_BaseLight` 继承，用于表示特定类型的灯光实例，如 **`BP_Streetlight_Modern`**, **`BP_BuildingLight_Window`**, **`BP_TrafficLight_Simple`** 等。
 *   **设计**:
@@ -100,7 +100,7 @@ Event BeginPlay
 End Event
 ```
 
-### iii. BP_MultipleLights
+### 3. BP_MultipleLights
 
 *   **功能：** 一个控制器蓝图，用于管理场景中的一组相关的 `BP_BaseLight` 实例。
 *   **设计：**
@@ -108,7 +108,7 @@ End Event
     *   提供对该组灯光进行批量操作的函数，如 `TurnGroupOn()`、`TurnGroupOff()`、`SetGroupIntensity(float NewIntensity)`。这些函数内部会遍历数组，并对每个灯光 Actor 调用其相应的控制函数。
 *   **作用：** 便于对场景中的一组灯光进行统一管理和控制（例如，同时开启或关闭一条街上的所有路灯），减少外部系统需要直接操作大量单个 Actor 的需求。
 
-### iv. LightIdSetter
+### 4. LightIdSetter
 
 *   **功能：** 一个放置在场景中的蓝图 Actor 或一个可添加到 Actor 上的 Actor Component，负责在运行时扫描场景并为特定的灯光 Actor 分配唯一的标识符 (ID)。
 *   **设计：**
@@ -146,7 +146,7 @@ End For Each
 End Function
 ```
 
-### v. SceneLightingParameters 数据资产
+### 5. SceneLightingParameters 数据资产
 
 *   **功能**: 这是一个 Data Asset 类型的资产，用于集中存储场景中不同类型灯光的配置参数。
 *   **设计**:
@@ -159,7 +159,7 @@ End Function
 
 本节描述灯光蓝图系统的主要功能及其实现方式。
 
-#### i. 灯光实例化与初始化
+#### 1. 灯光实例化与初始化
 
 **实现过程**:
 
@@ -168,7 +168,7 @@ End Function
 3.  在 `BP_SpecificLight_Type` 的 `Construction Script` 中，代码会设置灯具模型 (`StaticMeshComponent`)。
 4.  在 `BP_SpecificLight_Type` 的 `BeginPlay` 事件中，蓝图可以读取 `SceneLightingParameters` 数据资产，并根据该蓝图自身的类型 (可以通过标签、类名或蓝图中的特定变量标识) 查找对应的配置参数，然后根据这些参数设置灯光组件的初始属性。
 
-#### ii. 灯光控制接口
+#### 2. 灯光控制接口
 
 *   **功能**: 提供蓝图内部和外部系统控制灯光状态和属性的能力。
 *   **实现过程**:
@@ -179,7 +179,7 @@ End Function
         *   使用 `GetActorsWithTag` 或自定义查找函数，根据 `LightIdSetter` 分配的唯一 ID 找到目标灯光 Actor，然后调用其公共函数。
         *   查找 `BP_MultipleLights` 实例，并调用其批量控制函数。
 
-#### iii. ID 分配机制
+#### 3. ID 分配机制
 
 *   **功能**: 为场景中的灯光 Actor 分配唯一的运行时 ID，便于外部系统引用。
 *   **实现过程**:
@@ -190,7 +190,7 @@ End Function
     v. 将生成的 ID 存储在当前灯光 Actor 的 `Tags` 数组中 (使用 `AddTag(FName)`)。例如，将 ID 格式化为 `"LightID_123"` 这样的标签。
     vi. 外部系统可以通过 `GetAllActorsWithTag(FName("LightID_123"))` 查找具有特定 ID 的灯光。
 
-#### iv. 与动态系统的集成
+#### 4. 与动态系统的集成
 
 *   **功能**: 使灯光系统能够响应昼夜循环和天气变化。
 *   **实现过程**:
@@ -199,7 +199,7 @@ End Function
     iii. 例如，当时间到达黄昏时，Manager 调用所有路灯组 (如由一个 `BP_MultipleLights` 管理的组，或者通过遍历所有带有 `"Streetlight"` 标签的 Actor) 的 `TurnGroupOn()` 函数。
     iv. Manager 也可以根据天气强度 (如雨量、雾密度) 调整灯光的强度，调用 `SetGroupIntensity()` 或单个灯光的 `SetIntensity()` 函数。
 
-### v. 性能优化考虑
+### 5. 性能优化考虑
 
 *   **功能**: 确保场景中大量灯光不会导致性能下降。
 *   **实现过程**:
@@ -221,26 +221,26 @@ End Function
 
 基于当前的设计，可以考虑以下优化和未来扩展方向:
 
-#### i. 文件格式支持扩展 (不适用)
+#### 1. 文件格式支持扩展 (不适用)
 
 *   本模块主要处理虚幻引擎内的蓝图资产和运行时 Actor，不涉及外部文件格式的读写，因此此项不适用。
 
-#### ii. 异常处理与日志记录
+#### 2. 异常处理与日志记录
 
 *   在蓝图函数中添加更健壮的错误检查，例如检查引用的 Actor 是否有效。
 *   使用虚幻引擎的 Log 系统在系统发生重要事件 (如 ID 分配错误、引用失效) 时输出警告或错误信息，便于调试。
 
-#### iii. 性能优化
+#### 3. 性能优化
 
 *   对复杂场景进行 Lightmap Baking (烘焙静态灯光)，只保留动态灯光 (如交通信号灯) 为动态。
 *   进一步优化灯光参数，例如减少不必要的阴影投射、调整光源的移动性和更新频率。
 *   对于非常远距离的灯光，考虑使用简单的发光材质平面来代替实际光源，节省渲染开销。
 
-### iv. 单元测试
+#### 4. 单元测试
 
 *   虽然蓝图的单元测试框架不如 C++ 成熟，但可以创建专门的测试场景，编写测试蓝图来实例化灯光、调用其函数，并检查属性是否按预期改变。例如，测试 `TurnOn()` 后灯光是否可见、`SetIntensity()` 是否生效。
 
-### v. 更多灯光特性
+#### 5. 更多灯光特性
 
 *   **IES Profiles**: 支持使用 IES 文件来定义光源的光强分布，提升灯光效果的真实感。
 *   **体积光 (Volumetric Lighting)**: 在有雾或灰尘的场景中，通过体积光效果增加光束的可见性。
