@@ -71,22 +71,23 @@
                 <h1 id="carla">CARLA 点云数据处理模块说明文档</h1>
 <h2 id="_1">目录</h2>
 <ol>
-<li><a href="#1项目概述">项目概述</a></li>
-<li><a href="#2头文件与命名空间">头文件与命名空间</a><ol>
-<li><a href="#21包含的头文件">包含的头文件</a></li>
-<li><a href="#22命名空间定义">命名空间定义</a></li>
+<li><a href="#项目概述">项目概述</a></li>
+<li><a href="#头文件与命名空间">头文件与命名空间</a><ol>
+<li><a href="#包含的头文件">包含的头文件</a></li>
+<li><a href="#命名空间定义">命名空间定义</a></li>
 </ol>
 </li>
-<li><a href="#3pointcloudio类">PointCloudIO 类</a><ol>
-<li><a href="#31模板函数-dump">模板函数 Dump</a></li>
-<li><a href="#32模板函数-savetodisk">模板函数 SaveToDisk</a></li>
-<li><a href="#33私有静态函数-writeheader">私有静态函数 WriteHeader</a></li>
+<li><a href="#pointcloudio类">PointCloudIO 类</a><ol>
+<li><a href="#模板函数dump">模板函数 Dump</a></li>
+<li><a href="#模板函数 SaveToDisk">模板函数 SaveToDisk</a></li>
+<li><a href="#私有静态函数 WriteHeader">私有静态函数 WriteHeader</a></li>
 </ol>
 </li>
-<li><a href="#4优化与扩展建议">优化与扩展建议</a></li>
-<li><a href="#5总结">总结</a></li>
+<li><a href="#优化与扩展建议">优化与扩展建议</a></li>
+<li><a href="#总结">总结</a></li>
 </ol>
 <hr />
+<p><span id="项目概述"></span></p>
 <h2 id="1">1 项目概述</h2>
 <p>点云数据是自动驾驶系统中重要的传感器数据之一，尤其是在仿真环境下，CARLA通过提供高度逼真的虚拟世界使得研究人员能够模拟传感器数据，从而进行算法开发、测试与验证。本模块的主要功能是提供点云数据的输入输出接口，主要聚焦于数据存储格式PLY（Polygon File Format），并确保数据可以高效、准确地读写。</p>
 <p>该模块作为CARLA仿真系统的一部分，通过与其他系统（如导航、传感器和交通管理模块）紧密集成，能为后续感知、决策等模块提供清晰、准确的环境感知数据。</p>
@@ -99,18 +100,22 @@
 <h3 id="_3">点云数据的重要性</h3>
 <p>在自动驾驶系统中，点云数据能够提供详细的三维环境模型，它对于精准的物体检测、障碍物避让以及路径规划至关重要，通过优化点云的输入输出（I/O）流程，能够大幅提升系统的实时性与稳定性。</p>
 <hr />
+<p><span id="头文件与命名空间"></span></p>
 <h2 id="2">2 头文件与命名空间</h2>
+<p><span id="包含的头文件"></span></p>
 <h3 id="i">i 包含的头文件</h3>
 <ul>
 <li><code>#include "carla/FileSystem.h"</code> ：包含CARLA文件系统头文件，用于文件路径验证等文件操作功能。</li>
 <li><code>#include &lt;fstream&gt;</code> ：用于文件流操作，实现点云数据保存到磁盘文件的功能。</li>
 <li><code>#include &lt;iterator&gt;</code> ：用于迭代器操作，在遍历点云数据时提供支持。</li>
-<li><code>#include &lt;iomanip&gt;</code> ：用于输入输出操作中的格式控制，如设置输出精度等。</li>
+<li><code>#include &lt;iomanip&gt;</code> ：用于输入输出操作中的格式控制，如设置输出精度等。
+<span id="命名空间定义"></span></li>
 </ul>
 <h3 id="ii">ii 命名空间定义</h3>
 <ul>
 <li><code>namespace carla</code> ：定义命名空间carla，用于组织与CARLA仿真相关的代码和数据。</li>
-<li><code>namespace pointcloud</code> ：在carla命名空间下进一步定义pointcloud命名空间，专门组织与点云处理相关的代码，提高代码的可读性和可维护性。</li>
+<li><code>namespace pointcloud</code> ：在carla命名空间下进一步定义pointcloud命名空间，专门组织与点云处理相关的代码，提高代码的可读性和可维护性。
+<span id="pointcloudio类"></span></li>
 </ul>
 <h2 id="3-pointcloudio">3 pointcloudio类</h2>
 <p>该类提供了处理点云数据输入输出的功能，包括将点云数据写入输出流和保存到磁盘文件。<code>PointCloudIO</code>类是点云数据处理的核心，提供了点云数据的写入、保存和头部信息编写功能。
@@ -119,6 +124,7 @@
 <li><strong>文字说明</strong> ：
 此结构图展示了 <code>PointCloudIO</code> 类的主要组成和依赖关系。<code>PointCloudIO</code> 类包含两个公开的模板函数 <code>Dump</code> 和 <code>SaveToDisk</code>，以及一个私有的静态模板函数 <code>WriteHeader</code>。<code>Dump</code> 函数用于将点云数据写入输出流，<code>SaveToDisk</code> 函数用于将点云数据保存到磁盘文件，而 <code>WriteHeader</code> 函数则负责写入 PLY 文件的头部信息。类依赖于 <code>FileSystem</code> 进行文件路径验证，依赖于 <code>std::ostream</code> 和 <code>std::ofstream</code> 进行文件流操作。</li>
 </ul>
+<p><span id="模板函数<code>dump</code>"></span></p>
 <h3 id="i-dump">i 模板函数<code>dump</code></h3>
 <ul>
 <li><strong>功能</strong> ：该模板函数将点云数据写入到输出流中。模板参数<code>PointIt</code>表示点云数据的迭代器类型，<code>out</code>是输出流对象，<code>begin</code>和<code>end</code>分别表示点云数据的起始和结束迭代器。</li>
@@ -150,7 +156,8 @@
 <li><strong>dump函数流程图</strong> ：
 <img alt="dump函数流程图" src="../../img/pointclouddump.png" /></li>
 <li><strong>文字说明</strong> ：
-此流程图展示了 Dump 函数的流程。首先调用 WriteHeader 函数写入 PLY 文件的头部信息。头部信息写入完成后，函数遍历从 begin 到 end 的点云数据，依次调用每个点对象的 WriteDetection 方法将点信息写入输出流，并在每个点的数据后添加换行符。遍历完成后，函数标志结束。</li>
+此流程图展示了 Dump 函数的流程。首先调用 WriteHeader 函数写入 PLY 文件的头部信息。头部信息写入完成后，函数遍历从 begin 到 end 的点云数据，依次调用每个点对象的 WriteDetection 方法将点信息写入输出流，并在每个点的数据后添加换行符。遍历完成后，函数标志结束。
+<span id="模板函数 <code>SaveToDisk</code>"></span></li>
 </ul>
 <h3 id="ii-savetodisk">ii. 模板函数 <code>SaveToDisk</code></h3>
 <h4 id="_4">功能</h4>
@@ -173,7 +180,8 @@
 </code></pre></div>
 * <strong><code>SaveToDisk</code>函数流程图</strong> ：
 <img alt="savedisk函数流程图" src="../../img/pointcloud_savedisk.png" />
-* 此流程图展示了 SaveToDisk 函数的工作流程。首先验证文件路径是否以 .ply 结尾，确保文件类型正确。然后创建输出文件流对象并打开指定路径的文件。接着调用 Dump 函数将点云数据写入文件。最后返回保存的文件路径，以便后续操作使用。</p>
+* 此流程图展示了 SaveToDisk 函数的工作流程。首先验证文件路径是否以 .ply 结尾，确保文件类型正确。然后创建输出文件流对象并打开指定路径的文件。接着调用 Dump 函数将点云数据写入文件。最后返回保存的文件路径，以便后续操作使用。
+<span id="私有静态函数 <code>WriteHeader</code>"></span></p>
 <h3 id="iii-writeheader">iii. 私有静态函数 <code>WriteHeader</code></h3>
 <h4 id="_7">功能</h4>
 <p>该私有函数负责将PLY文件的头部信息写入到输出流。头部信息包括文件格式、点云数据的顶点数，以及每个点的数据格式。</p>
@@ -198,6 +206,7 @@
 <span class="p">}</span>
 </code></pre></div>
 <hr />
+<p><span id="优化与扩展建议"></span></p>
 <h2 id="4">4 优化与扩展建议</h2>
 <h3 id="41">4.1 文件格式支持扩展</h3>
 <p>目前，模块仅支持将点云数据保存为PLY格式。如果需要支持其他格式（如PCD、XYZ等），可以扩展 <code>PointCloudIO</code> 类，添加新的方法以处理不同的文件格式。这可以通过在 <code>WriteHeader</code> 和 <code>Dump</code> 方法中增加不同格式的支持来实现。</p>
@@ -212,6 +221,7 @@
 <h3 id="44">4.4 单元测试</h3>
 <p>为了确保代码的正确性和稳定性，建议为 <code>PointCloudIO</code> 类编写单元测试，特别是针对点云数据的写入与读取功能，确保其在不同情况下都能正常工作。</p>
 <hr />
+<p><span id="总结"></span></p>
 <h2 id="5">5. 总结</h2>
 <p>该模块提供了一整套点云数据的输入输出接口，主要针对PLY文件格式的处理，能够高效地将点云数据保存到磁盘，并确保数据格式的正确性和一致性。通过组织良好的函数与类结构，能够轻松扩展和修改代码，以满足不同的需求。</p>
 <p>此外，模块内部的文件操作、头部信息写入、数据精度控制等细节都经过精心设计，保证了点云数据在保存时的准确性和可读取性。这对于自动驾驶仿真系统中的数据存储和后续算法的调试与验证具有重要的意义。</p>
