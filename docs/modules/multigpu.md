@@ -157,3 +157,12 @@ primary.DistributeTask(task);
 | carla::rendering       | GPU 渲染任务执行的核心模块     |
 | carla::sensor          | 渲染输出对接传感器系统         |
 | carla::traffic_manager | 多 GPU 加速城市交通模拟流程    |
+
+## 9.3 构建要求
+
+| 项目         | 要求                          |
+|--------------|-------------------------------|
+| C++ 标准     | C++17 或更高版本              |
+| 编译器       | GCC 9+ / Clang 10+ / MSVC 2019+ |
+| 构建工具     | CMake 3.14+                   |
+| 支持平台     | Linux / Windows，具备 TCP/IP 栈 |
