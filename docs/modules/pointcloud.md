@@ -2,19 +2,19 @@
 
 ## 目录
 
-1. [项目概述](#1项目概述)
-2. [头文件与命名空间](#2头文件与命名空间)
-    1. [包含的头文件](#21包含的头文件)
-    2. [命名空间定义](#22命名空间定义)
-3. [PointCloudIO 类](#3pointcloudio类)
-    1. [模板函数 Dump](#31模板函数-dump)
-    2. [模板函数 SaveToDisk](#32模板函数-savetodisk)
-    3. [私有静态函数 WriteHeader](#33私有静态函数-writeheader)
-4. [优化与扩展建议](#4优化与扩展建议)
-5. [总结](#5总结)
+1. [项目概述](#项目概述)
+2. [头文件与命名空间](#头文件与命名空间)
+    1. [包含的头文件](#包含的头文件)
+    2. [命名空间定义](#命名空间定义)
+3. [PointCloudIO 类](#pointcloudio类)
+    1. [模板函数 Dump](#模板函数`dump`)
+    2. [模板函数 SaveToDisk](#模板函数 `SaveToDisk`)
+    3. [私有静态函数 WriteHeader](#私有静态函数 `WriteHeader`)
+4. [优化与扩展建议](#优化与扩展建议)
+5. [总结](#总结)
 
 ---
-
+<span id="项目概述"></span>
 ## 1 项目概述
 
 点云数据是自动驾驶系统中重要的传感器数据之一，尤其是在仿真环境下，CARLA通过提供高度逼真的虚拟世界使得研究人员能够模拟传感器数据，从而进行算法开发、测试与验证。本模块的主要功能是提供点云数据的输入输出接口，主要聚焦于数据存储格式PLY（Polygon File Format），并确保数据可以高效、准确地读写。
@@ -27,26 +27,39 @@
 - **导航模块（Navigation）**：借助点云数据，进行路径规划、障碍物检测等操作。
 - **交通管理模块（Traffic Manager）**：通过点云数据优化交通流量与车辆行为控制。
 
-### 点云数据的重要性
+### 点云数据重要性
 
-在自动驾驶系统中，点云数据能够提供详细的三维环境模型，它对于精准的物体检测、障碍物避让以及路径规划至关重要，通过优化点云的输入输出（I/O）流程，能够大幅提升系统的实时性与稳定性。
+在自动驾驶系统中，点云数据能够提供详细的三维环境模型，它对于精准的物体检测、障碍物避让以及路径规划至关重要，通过优化点云的输入输出（I/O）流程，能够大幅提升系统的实时性与稳定性
 
+### 点云实现原理 
+点云数据中的每个点代表了从传感器到被测物体的距离信息。这些距离是通过测量传感器发射信号（如激光）往返的时间（Time of Flight, ToF）来计算的。具体计算公式如下:
+$$
+\text{距离} = \frac{c \times t}{2}
+$$
+
+其中：
+
+- c 是光速。
+
+- t 是信号往返的时间。
+
+  通过这种方法，传感器可以获取环境中的三维点云数据。这些数据随后会被处理和分析，以支持自动驾驶系统中的各种功能，如路径规划和障碍物检测。
 ---
-
+<span id="头文件与命名空间"></span>
 ## 2 头文件与命名空间
-
+<span id="包含的头文件"></span>
 ### i 包含的头文件
 
   * `#include "carla/FileSystem.h"` ：包含CARLA文件系统头文件，用于文件路径验证等文件操作功能。
   * `#include <fstream>` ：用于文件流操作，实现点云数据保存到磁盘文件的功能。
   * `#include <iterator>` ：用于迭代器操作，在遍历点云数据时提供支持。
   * `#include <iomanip>` ：用于输入输出操作中的格式控制，如设置输出精度等。
-
+<span id="命名空间定义"></span>
 ### ii 命名空间定义
 
   * `namespace carla` ：定义命名空间carla，用于组织与CARLA仿真相关的代码和数据。
   * `namespace pointcloud` ：在carla命名空间下进一步定义pointcloud命名空间，专门组织与点云处理相关的代码，提高代码的可读性和可维护性。
-
+<span id="pointcloudio类"></span>
 ## 3 pointcloudio类
 
 该类提供了处理点云数据输入输出的功能，包括将点云数据写入输出流和保存到磁盘文件。`PointCloudIO`类是点云数据处理的核心，提供了点云数据的写入、保存和头部信息编写功能。
@@ -55,7 +68,7 @@
 * **文字说明** ：
 此结构图展示了 `PointCloudIO` 类的主要组成和依赖关系。`PointCloudIO` 类包含两个公开的模板函数 `Dump` 和 `SaveToDisk`，以及一个私有的静态模板函数 `WriteHeader`。`Dump` 函数用于将点云数据写入输出流，`SaveToDisk` 函数用于将点云数据保存到磁盘文件，而 `WriteHeader` 函数则负责写入 PLY 文件的头部信息。类依赖于 `FileSystem` 进行文件路径验证，依赖于 `std::ostream` 和 `std::ofstream` 进行文件流操作。
 
-
+<span id="模板函数`dump`"></span>
 ### i 模板函数`dump`
 
   * **功能** ：该模板函数将点云数据写入到输出流中。模板参数`PointIt`表示点云数据的迭代器类型，`out`是输出流对象，`begin`和`end`分别表示点云数据的起始和结束迭代器。
@@ -82,6 +95,7 @@ static void Dump(std::ostream &out, PointIt begin, PointIt end) {
 ![dump函数流程图](../img/pointclouddump.png)
 * **文字说明** ：
 此流程图展示了 Dump 函数的流程。首先调用 WriteHeader 函数写入 PLY 文件的头部信息。头部信息写入完成后，函数遍历从 begin 到 end 的点云数据，依次调用每个点对象的 WriteDetection 方法将点信息写入输出流，并在每个点的数据后添加换行符。遍历完成后，函数标志结束。
+<span id="模板函数 `SaveToDisk`"></span>
 ### ii. 模板函数 `SaveToDisk`
 
 #### 功能
@@ -106,6 +120,7 @@ static std::string SaveToDisk(std::string path, PointIt begin, PointIt end) {
 * **`SaveToDisk`函数流程图** ：
 ![savedisk函数流程图](../img/pointcloud_savedisk.png)
 * 此流程图展示了 SaveToDisk 函数的工作流程。首先验证文件路径是否以 .ply 结尾，确保文件类型正确。然后创建输出文件流对象并打开指定路径的文件。接着调用 Dump 函数将点云数据写入文件。最后返回保存的文件路径，以便后续操作使用。
+<span id="私有静态函数 `WriteHeader`"></span>
 ### iii. 私有静态函数 `WriteHeader`
 
 #### 功能
@@ -133,6 +148,7 @@ static void WriteHeader(std::ostream &out, PointIt begin, PointIt end) {
 ```
 
 ---
+<span id="优化与扩展建议"></span>
 ## 4 优化与扩展建议
 
 ### 4.1 文件格式支持扩展
@@ -155,6 +171,7 @@ static void WriteHeader(std::ostream &out, PointIt begin, PointIt end) {
 为了确保代码的正确性和稳定性，建议为 `PointCloudIO` 类编写单元测试，特别是针对点云数据的写入与读取功能，确保其在不同情况下都能正常工作。
 
 ---
+<span id="总结"></span>
 ## 5. 总结
 
 
