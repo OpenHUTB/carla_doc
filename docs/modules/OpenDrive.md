@@ -1,5 +1,19 @@
 # OpenDrive 模块说明文档
-
+# 目录
+- [项目概述](#项目概述)
+- [结构化设计](#结构化设计)
+- [主要功能模块](#主要功能模块)
+  - [1. 地图加载与解析](#1-地图加载与解析)
+  - [2. 路点生成](#2-路点生成)
+  - [3. 道路拓扑分析](#3-道路拓扑分析)
+  - [4. 生成与清理](#4-生成与清理)
+- [模块架构图](#模块架构图)
+- [关键类与接口说明](#关键类与接口说明)
+  - [1. UOpenDrive 类](#1-UOpenDrive类)
+  - [2. UOpenDriveMap类](#2-UOpenDriveMap类)
+  - [3. AOpenDriveActor类](#3-AOpenDriveActor类)
+  - [4. AOpenDriveGenerator类](#4-AOpenDriveGenerator类)
+- [用户定制](#用户定制)
 ## 项目概述
 `OpenDrive` 模块主要涉及车辆模拟中的地图数据处理和路径规划，依赖于 Carla 引擎提供的 OpenDrive 格式（XODR）。该项目的核心是处理模拟世界中的道路网络数据，使用 OpenDrive 文件格式（.xodr）来表示道路的拓扑结构、车道、交叉路口以及其他与交通相关的信息。通过这个模块，用户可以方便地加载、管理和操作 OpenDrive 文件，从而为自动驾驶和路径规划提供支持。
 
@@ -9,45 +23,7 @@
 该设计模式使得不同的操作（如路径生成、地图解析和路径计算）可以独立进行，同时也简化了后续的功能扩展。
 
 ## 主要功能模块
-1. **地图加载与解析**：提供加载 OpenDrive 文件（XODR）的功能，并解析其中的地图信息。
-2. **路点生成**：基于 OpenDrive 数据，生成地图中的路点（waypoints）。
-3. **道路拓扑分析**：通过解析 OpenDrive 数据，生成道路拓扑结构，提供对道路连接、交叉口等的分析。
-4. **生成与清理**：支持在地图上生成和清理道路网格、交通灯、生成器等对象。
-
-## 架构
-`OpenDrive` 模块的架构基于 Carla 引擎和 OpenDrive 格式，分为多个功能组件。每个组件独立执行特定任务，这有助于提高计算效率并支持后续扩展。
-
-```mermaid
-graph LR
-    A[地图加载与解析] --> B[LoadXODR]
-    A --> C[GetXODR]
-    A --> D[FindPathToXODRFile]
-    
-    B --> E[路点生成]
-    C --> E
-    D --> E
-
-    E --> F[GenerateWaypoints]
-    E --> G[GenerateWaypointsOnRoadEntries]
-    
-    F --> H[道路拓扑分析]
-    G --> H
-    
-    H --> I[GenerateTopology]
-    
-    I --> J[生成与清理]
-    
-    J --> K[GenerateRoadMesh]
-    J --> L[GenerateSpawnPoints]
-    J --> M[GeneratePoles]
-    J --> N[RemoveSpawners]
-    
-    class A,E,H,J fill:#bbf,stroke:#333,stroke-width:2px;
-    class B,C,D fill:#f9f,stroke:#333,stroke-width:4px;
-    class F,G fill:#cfc,stroke:#333,stroke-width:2px;
-    class I,K,L,M,N fill:#fcf,stroke:#333,stroke-width:2px;
-
-```
+ 
 ### 1. 地图加载与解析
 UOpenDrive 类提供了用于加载和解析 OpenDrive 文件（XODR）的方法：
 
@@ -138,8 +114,45 @@ void AOpenDriveGenerator::RemoveSpawners() {
     VehicleSpawners.Empty();
 }
 ```
-## 组件详细说明
-### 1. UOpenDrive 类
+## 模块架构图
+`OpenDrive` 模块的架构基于 Carla 引擎和 OpenDrive 格式，分为多个功能组件。每个组件独立执行特定任务，这有助于提高计算效率并支持后续扩展。
+
+```mermaid
+graph LR
+    A[地图加载与解析] --> B[LoadXODR]
+    A --> C[GetXODR]
+    A --> D[FindPathToXODRFile]
+    
+    B --> E[路点生成]
+    C --> E
+    D --> E
+
+    E --> F[GenerateWaypoints]
+    E --> G[GenerateWaypointsOnRoadEntries]
+    
+    F --> H[道路拓扑分析]
+    G --> H
+    
+    H --> I[GenerateTopology]
+    
+    I --> J[生成与清理]
+    
+    J --> K[GenerateRoadMesh]
+    J --> L[GenerateSpawnPoints]
+    J --> M[GeneratePoles]
+    J --> N[RemoveSpawners]
+    
+    class A,E,H,J fill:#bbf,stroke:#333,stroke-width:2px;
+    class B,C,D fill:#f9f,stroke:#333,stroke-width:4px;
+    class F,G fill:#cfc,stroke:#333,stroke-width:2px;
+    class I,K,L,M,N fill:#fcf,stroke:#333,stroke-width:2px;
+
+```
+
+
+## 关键类与接口说明
+
+### 1. UOpenDrive类
 UOpenDrive 类是加载和处理 OpenDrive 数据的核心类，提供了对 OpenDrive 文件的加载和解析操作，能够将 XODR 文件转换为 Carla 可使用的地图数据。
 
 ```cpp
@@ -153,7 +166,7 @@ public:
     static FString GetXODR(const UWorld *World);
 }
 ```
-### 2. UOpenDriveMap 类
+### 2. UOpenDriveMap类
 UOpenDriveMap 类用于存储和操作 OpenDrive 数据。它提供了生成路点、计算路点位置、计算路点变换等功能。
 
 ```cpp
@@ -170,7 +183,7 @@ public:
     TArray<FWaypoint> GenerateWaypoints(float ApproxDistance = 100.0f) const;
 }
 ```
-### 3. AOpenDriveActor 类
+### 3. AOpenDriveActor类
 AOpenDriveActor 类用于将 OpenDrive 数据可视化，生成道路网格，并在场景中添加相应的对象（如生成器、路标等）。
 
 ```cpp
@@ -185,7 +198,7 @@ public:
     void RemoveRoutes();
 }
 ```
-### 4. AOpenDriveGenerator 类
+### 4. AOpenDriveGenerator类
 AOpenDriveGenerator 类负责生成与 OpenDrive 数据相关的场景内容，包括道路网格、生成点、杆子等。它从 OpenDrive 文件中提取数据并将其转化为 Unreal Engine 中的可视化对象。
 
 ```cpp
