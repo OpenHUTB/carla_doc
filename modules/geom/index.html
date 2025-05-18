@@ -70,7 +70,26 @@
               
                 <h1 id="geom">geom模块概述</h1>
 <p><code>carla::geom</code> 是 CARLA 引擎中专门负责几何计算和坐标变换的模块。它提供了常用的几何基本类型（如二维/三维向量、整数向量）、位置（Location）、旋转（Rotation）和变换（Transform）等数据结构，以及相关的数学工具函数。该模块还实现了经纬度与世界坐标的转换（GeoLocation 和 Mercator 投影函数）、有向边界框（BoundingBox）计算、样条曲线（CubicPolynomial）等功能。此外，它包含网格（Mesh）和网格生成（MeshFactory）类用于道路和场景几何的构造，以及网格简化（Simplification）和基于 R 树的空间索引（PointCloudRtree、SegmentCloudRtree）等高级功能。总体而言，<code>geom</code> 模块负责车辆、自行车、路网等对象的几何表示及其间的空间运算与变换。</p>
-<h2 id="_1">主要类与功能说明</h2>
+<ul>
+<li>
+<h2 id="_1">目录</h2>
+</li>
+<li><a href="#主要类与功能说明">主要类与功能说明</a></li>
+<li><a href="#其他模块的引用">其他模块的引用</a></li>
+<li><a href="#Math">Math</a></li>
+<li><a href="#Vector3D/Vector2D/Vector3DInt">Vector3D/Vector2D/Vector3DInt</a></li>
+<li><a href="#Mesh">Mesh</a></li>
+<li><a href="#Simplification">Simplification</a></li>
+<li><a href="#RTree">RTree</a></li>
+<li><a href="#Location">Location</a></li>
+<li><a href="#Rotation">Rotation</a></li>
+<li><a href="#Transform">Transform</a></li>
+<li><a href="#CubicPolynomial">CubicPolynomial</a></li>
+<li><a href="#BoundingBox">BoundingBox</a></li>
+<li><a href="#GeoLocation">GeoLocation</a>
+  <span id="主要类与功能说明"></span></li>
+</ul>
+<h2 id="_2">主要类与功能说明</h2>
 <ul>
 <li><strong><a href="#Vector3D/Vector2D/Vector3DInt">Vector2D/Vector3D/Vector3DInt</a></strong>：分别表示二维浮点向量、三维浮点向量和三维整型向量，支持算术运算（加减、点乘、叉乘等）、长度计算、归一化等常见操作。</li>
 <li><strong><a href="#Location">Location</a></strong>：三维位置类，继承自 <code>Vector3D</code>，并提供了位置之间的欧氏距离等额外功能。</li>
@@ -82,9 +101,10 @@
 <li><strong><a href="#BoundingBox">BoundingBox</a></strong>：有向边界框类，由中心位置、尺度和旋转构成，提供判断点是否在框内、计算八个顶点坐标（局部或世界空间）等方法。</li>
 <li><strong><a href="#Mesh">Mesh</a></strong>：网格容器类及其生成器。<code>Mesh</code> 用于存储顶点、法线、纹理坐标、索引和材质信息，可导出为 OBJ/PLY 等格式；</li>
 <li><strong><a href="#Simplification">Simplification</a></strong>：网格简化类，根据指定简化率对给定网格进行简化操作（使用第三方简化库）。</li>
-<li><strong><a href="#RTree">RTree</a></strong>:是一种用于空间索引的树形结构,提供检索方法用于点云和线段云的快速空间查询（最近邻、相交判定等），主要使用在物体的碰撞使用。</li>
+<li><strong><a href="#RTree">RTree</a></strong>:是一种用于空间索引的树形结构,提供检索方法用于点云和线段云的快速空间查询（最近邻、相交判定等），主要使用在物体的碰撞使用。
+<span id="其他模块的引用"></span></li>
 </ul>
-<h2 id="_2">其他模块的引用</h2>
+<h2 id="_3">其他模块的引用</h2>
 <ul>
 <li>
 <p><strong>Carla 客户端（<code>client</code>）模块：</strong>  该模块大量使用几何类型来描述场景中对象的位置和姿态。例如，<code>carla::client::World::SpawnActor</code> 方法的接口中使用了 <code>geom::Transform</code> 作为参数<a href="https://carla.org/Doxygen/html/dd/d5b/World_8h_source.html#:~:text=111 SharedPtr">carla.org</a>；<code>carla::client::TrafficLight</code> 类中使用 <code>geom::BoundingBox</code> 表示灯组的遮挡盒（如 <code>GetLightBoxes</code> 返回多个 BoundingBox）<a href="https://carla.org/Doxygen/html/df/def/classcarla_1_1client_1_1TrafficLight.html#:~:text=std%3A%3Avector,const">carla.org</a>，以及继承自 <code>Actor</code> 的 <code>AddAngularImpulse(const Vector3D&amp;)</code> 方法使用了三维向量<a href="https://carla.org/Doxygen/html/df/def/classcarla_1_1client_1_1TrafficLight.html#:~:text=const geom%3A%3ABoundingBox  %26 33,const">carla.org</a>。这些用法说明客户端模块在创建和控制 actor（车辆、交通灯等）时依赖 <code>geom</code> 提供的几何表示与变换工具。</p>
@@ -106,11 +126,12 @@
 </li>
 </ul>
 <p>下面是其主要类的代码说明文档。</p>
+<p><span id="Math"></span></p>
 <h1 id="math"><a href="#Math">Math</a></h1>
-<h2 id="_3">概述</h2>
+<h2 id="_4">概述</h2>
 <p><code>carla::geom::Math</code> 提供了一系列数学常量与常用数学运算函数，主要用于三维/二维向量运算、角度转换、距离计算、线性插值等。</p>
 <hr />
-<h2 id="_4">模板常量</h2>
+<h2 id="_5">模板常量</h2>
 <h3 id="pi"><strong><font color="#7fb800">Pi</font></strong></h3>
 <p><div class="highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
 <span class="k">static</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">Pi</span><span class="p">();</span>
@@ -126,7 +147,7 @@
   - <font color="#f8805a">T</font>：必须为浮点类型<br />
 - <strong>返回值</strong>：2π，即 2 × <strong><font color="#7fb800">Pi</font></strong>，类型为 <font color="#f8805a">T</font></p>
 <hr />
-<h2 id="_5">角度转换</h2>
+<h2 id="_6">角度转换</h2>
 <h3 id="todegrees"><strong><font color="#7fb800">ToDegrees</font></strong></h3>
 <p><div class="highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
 <span class="k">static</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">ToDegrees</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">rad</span><span class="p">);</span>
@@ -142,7 +163,7 @@
   - <font color="#f8805a">deg</font>：度数值<br />
 - <strong>返回值</strong>：弧度，等于 <font color="#f8805a">deg</font> × (π / 180)</p>
 <hr />
-<h2 id="_6">范围与平方</h2>
+<h2 id="_7">范围与平方</h2>
 <h3 id="clamp"><strong><font color="#7fb800">Clamp</font></strong></h3>
 <p><div class="highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
 <span class="k">static</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">Clamp</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">min</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">T</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">max</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">T</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
@@ -160,7 +181,7 @@
   - <font color="#f8805a">a</font>：输入值<br />
 - <strong>返回值</strong>：<font color="#f8805a">a</font>²</p>
 <hr />
-<h2 id="_7">向量运算</h2>
+<h2 id="_8">向量运算</h2>
 <h3 id="cross"><strong><font color="#7fb800">Cross</font></strong></h3>
 <p><div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">Cross</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Vector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Vector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="n">b</span><span class="p">);</span>
 </code></pre></div>
@@ -191,7 +212,7 @@ a\cdot b=\sum_i^n a_ib_i
   - <font color="#f8805a">a</font>, <font color="#f8805a">b</font>：仅取 x,y 分量<br />
 - <strong>返回值</strong>：二维点积</p>
 <hr />
-<h2 id="_8">距离计算</h2>
+<h2 id="_9">距离计算</h2>
 <h3 id="distancesquared"><strong><font color="#7fb800">DistanceSquared</font></strong></h3>
 <p><div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">DistanceSquared</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Vector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Vector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="n">b</span><span class="p">);</span>
 </code></pre></div>
@@ -221,7 +242,7 @@ a\cdot b=\sum_i^n a_ib_i
   - <font color="#f8805a">b</font>：终点向量<br />
 - <strong>返回值</strong>：两点间二维距离</p>
 <hr />
-<h2 id="_9">插值</h2>
+<h2 id="_10">插值</h2>
 <h3 id="linearlerp"><strong><font color="#7fb800">LinearLerp</font></strong></h3>
 <p><div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="nf">LinearLerp</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">f</span><span class="p">);</span>
 </code></pre></div>
@@ -230,7 +251,7 @@ a\cdot b=\sum_i^n a_ib_i
   - <font color="#f8805a">f</font>：插值因子 (0…1)<br />
 - <strong>返回值</strong>：线性插值结果</p>
 <hr />
-<h2 id="_10">复杂几何运算</h2>
+<h2 id="_11">复杂几何运算</h2>
 <h3 id="getvectorangle"><strong><font color="#7fb800">GetVectorAngle</font></strong></h3>
 <p><div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">GetVectorAngle</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Vector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Vector3D</span><span class="w"> </span><span class="o">&amp;</span><span class="n">b</span><span class="p">);</span>
 </code></pre></div>
@@ -411,7 +432,7 @@ proj = center + R \cdot \begin{bmatrix} \cos(\theta_p) \\ \sin(\theta_p) \end{bm
   - <font color="#f8805a">rotation</font>：旋转信息<br />
 - <strong>返回值</strong>：上向单位向量</p>
 <hr />
-<h2 id="_11">范围生成</h2>
+<h2 id="_12">范围生成</h2>
 <h3 id="generaterange"><strong><font color="#7fb800">GenerateRange</font></strong></h3>
 <p><div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">GenerateRange</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">);</span>
 </code></pre></div>
@@ -419,8 +440,9 @@ proj = center + R \cdot \begin{bmatrix} \cos(\theta_p) \\ \sin(\theta_p) \end{bm
   - <font color="#f8805a">a</font>：起始整数<br />
   - <font color="#f8805a">b</font>：结束整数<br />
 - <strong>返回值</strong>：包含从 <font color="#f8805a">a</font> 到 <font color="#f8805a">b</font>（含）的所有整数的向量</p>
+<p><span id="Vector3D/Vector2D/Vector3DInt"></span></p>
 <h1 id="vector3dvector2dvector3dint"><a href="#Vector3D/Vector2D/Vector3DInt">Vector3D/Vector2D/Vector3DInt</a></h1>
-<h2 id="_12">概述</h2>
+<h2 id="_13">概述</h2>
 <p>它们用于表示向量，包含坐标分量与丰富的向量运算接口，也支持与 UE4 的类型互转及 MsgPack 序列化。</p>
 <hr />
 <h2 id="vector2d">Vector2D</h2>
@@ -573,11 +595,12 @@ proj = center + R \cdot \begin{bmatrix} \cos(\theta_p) \\ \sin(\theta_p) \end{bm
 <span class="n">v</span><span class="p">.</span><span class="n">msgpack_unpack</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
 </code></pre></div></p>
 <hr />
+<p><span id="Mesh"></span></p>
 <h1 id="mesh"><a href="#Mesh">Mesh</a></h1>
-<h2 id="_13">概述</h2>
+<h2 id="_14">概述</h2>
 <p><code>carla::geom::Mesh</code> 类是一个网格数据容器，提供验证、构建、导出以及与 UE4 类型互转的功能。支持顶点、法线、索引、UV 和材质分组的管理。</p>
 <hr />
-<h2 id="_14">类型别名</h2>
+<h2 id="_15">类型别名</h2>
 <ul>
 <li><strong>vertex_type</strong>：顶点类型，<code>Vector3D</code>  </li>
 <li><strong>normal_type</strong>：法线类型，<code>Vector3D</code>  </li>
@@ -586,7 +609,7 @@ proj = center + R \cdot \begin{bmatrix} \cos(\theta_p) \\ \sin(\theta_p) \end{bm
 <li><strong>material_type</strong>：材质类型，<code>MeshMaterial</code></li>
 </ul>
 <hr />
-<h2 id="_15">构造函数</h2>
+<h2 id="_16">构造函数</h2>
 <h3 id="mesh_1"><strong>Mesh(...)</strong></h3>
 <p><div class="highlight"><pre><span></span><code><span class="n">Mesh</span><span class="p">(</span>
 <span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vertex_type</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">vertices</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{},</span>
@@ -601,7 +624,7 @@ proj = center + R \cdot \begin{bmatrix} \cos(\theta_p) \\ \sin(\theta_p) \end{bm
 <span class="n">Mesh</span><span class="w"> </span><span class="nf">mesh</span><span class="p">(</span><span class="n">verts</span><span class="p">);</span>
 </code></pre></div></p>
 <hr />
-<h2 id="_16">验证方法</h2>
+<h2 id="_17">验证方法</h2>
 <h3 id="isvalid"><strong>IsValid</strong></h3>
 <p><div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="nf">IsValid</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
 </code></pre></div>
@@ -615,7 +638,7 @@ proj = center + R \cdot \begin{bmatrix} \cos(\theta_p) \\ \sin(\theta_p) \end{bm
 <span class="p">}</span>
 </code></pre></div></p>
 <hr />
-<h2 id="_17">网格构建方法</h2>
+<h2 id="_18">网格构建方法</h2>
 <h3 id="addtrianglestrip"><strong>AddTriangleStrip</strong></h3>
 <p><div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">AddTriangleStrip</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vertex_type</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">vertices</span><span class="p">);</span>
 </code></pre></div>
@@ -663,7 +686,7 @@ proj = center + R \cdot \begin{bmatrix} \cos(\theta_p) \\ \sin(\theta_p) \end{bm
 <span class="n">mesh</span><span class="p">.</span><span class="n">EndMaterial</span><span class="p">();</span>
 </code></pre></div></p>
 <hr />
-<h2 id="_18">导出方法</h2>
+<h2 id="_19">导出方法</h2>
 <h3 id="generateobj"><strong>GenerateOBJ</strong></h3>
 <p><div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="nf">GenerateOBJ</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
 </code></pre></div>
@@ -681,7 +704,7 @@ proj = center + R \cdot \begin{bmatrix} \cos(\theta_p) \\ \sin(\theta_p) \end{bm
 </code></pre></div>
 - <strong>说明</strong>：导出为 PLY 格式（部分实现）。</p>
 <hr />
-<h2 id="_19">访问方法</h2>
+<h2 id="_20">访问方法</h2>
 <h3 id="getvertices-getverticesnum"><strong>GetVertices / GetVerticesNum</strong></h3>
 <div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vertex_type</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">GetVertices</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
 <span class="kt">size_t</span><span class="w"> </span><span class="nf">GetVerticesNum</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
@@ -704,7 +727,7 @@ proj = center + R \cdot \begin{bmatrix} \cos(\theta_p) \\ \sin(\theta_p) \end{bm
 </code></pre></div>
 - <strong>说明</strong>：返回当前顶点总数。</p>
 <hr />
-<h2 id="_20">合并网格</h2>
+<h2 id="_21">合并网格</h2>
 <h3 id="concatmesh"><strong>ConcatMesh</strong></h3>
 <p><div class="highlight"><pre><span></span><code><span class="n">Mesh</span><span class="o">&amp;</span><span class="w"> </span><span class="nf">ConcatMesh</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Mesh</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">num_vertices_to_link</span><span class="p">);</span>
 </code></pre></div>
@@ -730,11 +753,12 @@ proj = center + R \cdot \begin{bmatrix} \cos(\theta_p) \\ \sin(\theta_p) \end{bm
   <div class="highlight"><pre><span></span><code><span class="n">FProceduralCustomMesh</span><span class="w"> </span><span class="n">ue_mesh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mesh</span><span class="p">;</span>
 </code></pre></div></p>
 <hr />
+<p><span id="Simplification"></span></p>
 <h1 id="simplification"><a href="#Simplification">Simplification</a></h1>
-<h2 id="_21">概述</h2>
+<h2 id="_22">概述</h2>
 <p><code>carla::geom::Simplification</code> 类用于对 <code>carla::geom::Mesh</code> 网格模型执行简化操作，通过指定简化比率，将三角形数减少到原始数量的若干百分比，从而降低模型复杂度。</p>
 <hr />
-<h2 id="_22">构造函数</h2>
+<h2 id="_23">构造函数</h2>
 <h3 id="simplification_1"><strong><font color="#7fb800">Simplification()</font></strong></h3>
 <p><div class="highlight"><pre><span></span><code><span class="n">Simplification</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
 </code></pre></div>
@@ -751,7 +775,7 @@ proj = center + R \cdot \begin{bmatrix} \cos(\theta_p) \\ \sin(\theta_p) \end{bm
   <div class="highlight"><pre><span></span><code><span class="n">carla</span><span class="o">::</span><span class="n">geom</span><span class="o">::</span><span class="n">Simplification</span><span class="w"> </span><span class="nf">sim</span><span class="p">(</span><span class="mf">0.25f</span><span class="p">);</span><span class="w"> </span><span class="c1">// 保留 25% 的三角形</span>
 </code></pre></div></p>
 <hr />
-<h2 id="_23">公开数据成员</h2>
+<h2 id="_24">公开数据成员</h2>
 <ul>
 <li>
 <p><strong><font color="#f8805a">simplification_percentage</font></strong>  </p>
@@ -766,7 +790,7 @@ proj = center + R \cdot \begin{bmatrix} \cos(\theta_p) \\ \sin(\theta_p) \end{bm
 </li>
 </ul>
 <hr />
-<h2 id="_24">方法</h2>
+<h2 id="_25">方法</h2>
 <h3 id="simplificate"><strong><font color="#7fb800">Simplificate</font></strong></h3>
 <p><div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">Simplificate</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">geom</span><span class="o">::</span><span class="n">Mesh</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">pmesh</span><span class="p">);</span>
 </code></pre></div>
@@ -786,14 +810,15 @@ proj = center + R \cdot \begin{bmatrix} \cos(\theta_p) \\ \sin(\theta_p) \end{bm
 </code></pre></div></li>
 </ul>
 <hr />
+<p><span id="RTree"></span></p>
 <h1 id="rtree"><a href="#RTree">RTree</a></h1>
-<h2 id="_25">简介</h2>
+<h2 id="_26">简介</h2>
 <p>R-树（R-Tree）是一种用于空间索引的树形结构，通过将空间中相近对象聚合成最小外接矩形（MBR）构建索引，广泛应用于点云、线段云等三维几何对象的快速邻近查询与碰撞检测。</p>
 <p>RTree包含两个模板类：
 - <code>PointCloudRtree&lt;T&gt;</code>：支持对点云的插入、k-NN 查询、带过滤器查询；
 - <code>SegmentCloudRtree&lt;T&gt;</code>：支持对线段云的插入、k-NN 查询、交集查询。</p>
 <hr />
-<h2 id="_26">欧几里得距离公式</h2>
+<h2 id="_27">欧几里得距离公式</h2>
 <p>对任意两个 <em>n</em> 维点 <strong>p</strong> = (<em>p</em><sub>1</sub>, <em>p</em><sub>2</sub>, …, <em>p</em><sub>n</sub>) 和 <strong>q</strong> = (<em>q</em><sub>1</sub>, <em>q</em><sub>2</sub>, …, <em>q</em><sub>n</sub>)，欧几里得距离定义如下：</p>
 <p>
 <script type="math/tex; mode=display">
@@ -809,11 +834,11 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 <li><code>T</code>：元素类型；</li>
 <li><code>Dimension</code>：空间维度，默认值为 <code>3</code>。</li>
 </ul>
-<h3 id="_27">成员类型</h3>
+<h3 id="_28">成员类型</h3>
 <div class="highlight"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="n">BPoint</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">boost</span><span class="o">::</span><span class="n">geometry</span><span class="o">::</span><span class="n">model</span><span class="o">::</span><span class="n">point</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="n">Dimension</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="k">using</span><span class="w"> </span><span class="n">TreeElement</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">BPoint</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span><span class="p">;</span>
 </code></pre></div>
-<h3 id="_28">方法说明</h3>
+<h3 id="_29">方法说明</h3>
 <h4 id="insertelement">InsertElement</h4>
 <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">InsertElement</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">BPoint</span><span class="w"> </span><span class="o">&amp;</span><span class="n">point</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&amp;</span><span class="n">element</span><span class="p">);</span>
 <span class="kt">void</span><span class="w"> </span><span class="nf">InsertElement</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">TreeElement</span><span class="w"> </span><span class="o">&amp;</span><span class="n">element</span><span class="p">);</span>
@@ -851,12 +876,12 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 <div class="highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">Dimension</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="o">&gt;</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">SegmentCloudRtree</span><span class="p">;</span>
 </code></pre></div>
-<h3 id="_29">成员类型</h3>
+<h3 id="_30">成员类型</h3>
 <div class="highlight"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="n">BPoint</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">boost</span><span class="o">::</span><span class="n">geometry</span><span class="o">::</span><span class="n">model</span><span class="o">::</span><span class="n">point</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="n">Dimension</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="k">using</span><span class="w"> </span><span class="n">BSegment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">boost</span><span class="o">::</span><span class="n">geometry</span><span class="o">::</span><span class="n">model</span><span class="o">::</span><span class="n">segment</span><span class="o">&lt;</span><span class="n">BPoint</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="k">using</span><span class="w"> </span><span class="n">TreeElement</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">BSegment</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;&gt;</span><span class="p">;</span>
 </code></pre></div>
-<h3 id="_30">方法说明</h3>
+<h3 id="_31">方法说明</h3>
 <h4 id="insertelement_1">InsertElement</h4>
 <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">InsertElement</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">BSegment</span><span class="w"> </span><span class="o">&amp;</span><span class="n">segment</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&amp;</span><span class="n">element_start</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&amp;</span><span class="n">element_end</span><span class="p">);</span>
 <span class="kt">void</span><span class="w"> </span><span class="nf">InsertElement</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">TreeElement</span><span class="w"> </span><span class="o">&amp;</span><span class="n">element</span><span class="p">);</span>
@@ -898,8 +923,9 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 <li>返回线段树的大小。</li>
 </ul>
 <hr />
+<p><span id="Location"></span></p>
 <h1 id="location"><a href="#Location">Location</a></h1>
-<h2 id="_31">概述</h2>
+<h2 id="_32">概述</h2>
 <p><code>carla::geom::Location</code> 类继承自 <code>Vector3D</code>，表示三维空间中的位置点，提供与 <code>Vector3DInt</code> 间的互转、距离计算、算术与比较运算符重载，以及与 UE4 <code>FVector</code> 类型的互转。</p>
 <hr />
 <p><strong>主要成员属性</strong></p>
@@ -933,7 +959,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </tr>
 </tbody>
 </table>
-<h2 id="_32">构造函数</h2>
+<h2 id="_33">构造函数</h2>
 <h3 id="location_1"><strong><font color="#7fb800">Location()</font></strong></h3>
 <ul>
 <li><strong>原型</strong>：<code>Location() = default;</code>  </li>
@@ -967,7 +993,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div></li>
 </ul>
 <hr />
-<h2 id="_33">距离计算方法</h2>
+<h2 id="_34">距离计算方法</h2>
 <h3 id="distancesquared_1"><strong><font color="#7fb800">DistanceSquared</font></strong></h3>
 <ul>
 <li><strong>原型</strong>:<br />
@@ -992,7 +1018,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div></li>
 </ul>
 <hr />
-<h2 id="_34">算术运算符</h2>
+<h2 id="_35">算术运算符</h2>
 <h3 id="operator"><strong><font color="#7fb800">operator+=</font></strong></h3>
 <ul>
 <li><strong>原型</strong>:<br />
@@ -1026,7 +1052,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div></li>
 </ul>
 <hr />
-<h2 id="_35">比较运算符</h2>
+<h2 id="_36">比较运算符</h2>
 <h3 id="operator-operator_1"><strong><font color="#7fb800">operator==</font></strong> / <strong><font color="#7fb800">operator!=</font></strong></h3>
 <ul>
 <li><strong>原型</strong>:<br />
@@ -1056,18 +1082,19 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
   <div class="highlight"><pre><span></span><code><span class="n">FVector</span><span class="w"> </span><span class="n">fv2</span><span class="o">=</span><span class="w"> </span><span class="n">loc_xyz</span><span class="p">;</span><span class="w"> </span><span class="c1">// (100,200,300)</span>
 </code></pre></div></li>
 </ul>
+<p><span id="Rotation"></span></p>
 <h1 id="rotation"><a href="#Rotation">Rotation</a></h1>
-<h2 id="_36">概述</h2>
+<h2 id="_37">概述</h2>
 <p><code>carla::geom::Rotation</code> 用于表示三维空间中的旋转状态，包含俯仰（pitch）、偏航（yaw）、翻滚（roll）三个角度。提供方向向量计算、向量旋转/逆旋转，以及与 UE4 <code>FRotator</code> 的互转。</p>
 <hr />
-<h2 id="_37">公开数据成员</h2>
+<h2 id="_38">公开数据成员</h2>
 <ul>
 <li><strong><font color="#f8805a">pitch</font></strong>：绕 X 轴的旋转角度，默认 0.0f  </li>
 <li><strong><font color="#f8805a">yaw</font></strong>：绕 Y 轴的旋转角度，默认 0.0f  </li>
 <li><strong><font color="#f8805a">roll</font></strong>：绕 Z 轴的旋转角度，默认 0.0f  </li>
 </ul>
 <hr />
-<h2 id="_38">构造函数</h2>
+<h2 id="_39">构造函数</h2>
 <h3 id="rotation_1"><strong><font color="#7fb800">Rotation()</font></strong></h3>
 <ul>
 <li><strong>原型</strong>：<code>Rotation() = default;</code>  </li>
@@ -1090,7 +1117,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div></li>
 </ul>
 <hr />
-<h2 id="_39">方向向量方法</h2>
+<h2 id="_40">方向向量方法</h2>
 <h3 id="getforwardvector_1"><strong><font color="#7fb800">GetForwardVector</font></strong></h3>
 <ul>
 <li><strong>原型</strong>:<br />
@@ -1129,7 +1156,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div></li>
 </ul>
 <hr />
-<h2 id="_40">向量旋转方法</h2>
+<h2 id="_41">向量旋转方法</h2>
 <h3 id="rotatevector"><strong><font color="#7fb800">RotateVector</font></strong></h3>
 <ul>
 <li><strong>原型</strong>:<br />
@@ -1158,7 +1185,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div></li>
 </ul>
 <hr />
-<h2 id="_41">比较运算符</h2>
+<h2 id="_42">比较运算符</h2>
 <h3 id="operator-operator_2"><strong><font color="#7fb800">operator==</font></strong> / <strong><font color="#7fb800">operator!=</font></strong></h3>
 <ul>
 <li><strong>原型</strong>:<br />
@@ -1187,17 +1214,18 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
   <div class="highlight"><pre><span></span><code><span class="n">FRotator</span><span class="w"> </span><span class="n">outFR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">;</span>
 </code></pre></div></li>
 </ul>
+<p><span id="Transform"></span></p>
 <h1 id="transform"><a href="#Transform">Transform</a></h1>
-<h2 id="_42">概述</h2>
+<h2 id="_43">概述</h2>
 <p><code>carla::geom::Transform</code> 表示在三维空间中的位置与旋转变换，封装了 <code>Location</code> 和 <code>Rotation</code> 两部分。提供向量变换、点变换、逆变换及 4×4 矩阵生成，并支持与 UE4 <code>FTransform</code> 类型互转。</p>
 <hr />
-<h2 id="_43">公开数据成员</h2>
+<h2 id="_44">公开数据成员</h2>
 <ul>
 <li><strong><font color="#f8805a">location</font></strong>：类型 <code>Location</code>，表示平移分量  </li>
 <li><strong><font color="#f8805a">rotation</font></strong>：类型 <code>Rotation</code>，表示旋转分量  </li>
 </ul>
 <hr />
-<h2 id="_44">构造函数</h2>
+<h2 id="_45">构造函数</h2>
 <h3 id="transform_1"><strong><font color="#7fb800">Transform()</font></strong></h3>
 <ul>
 <li><strong>原型</strong>：<code>Transform() = default;</code>  </li>
@@ -1225,7 +1253,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div></li>
 </ul>
 <hr />
-<h2 id="_45">方向向量方法</h2>
+<h2 id="_46">方向向量方法</h2>
 <h3 id="getforwardvector_2"><strong><font color="#7fb800">GetForwardVector</font></strong></h3>
 <ul>
 <li><strong>原型</strong>:<br />
@@ -1257,7 +1285,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div></li>
 </ul>
 <hr />
-<h2 id="_46">点/向量变换方法</h2>
+<h2 id="_47">点/向量变换方法</h2>
 <h3 id="transformpoint"><strong><font color="#7fb800">TransformPoint</font></strong></h3>
 <ul>
 <li><strong>原型</strong>:<br />
@@ -1292,7 +1320,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div></li>
 </ul>
 <hr />
-<h2 id="_47">矩阵生成方法</h2>
+<h2 id="_48">矩阵生成方法</h2>
 <h3 id="getmatrix"><strong><font color="#7fb800">GetMatrix</font></strong></h3>
 <ul>
 <li><strong>原型</strong>:<br />
@@ -1321,7 +1349,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div></li>
 </ul>
 <hr />
-<h2 id="_48">比较运算符</h2>
+<h2 id="_49">比较运算符</h2>
 <h3 id="operator-operator_3"><strong><font color="#7fb800">operator==</font></strong> / <strong><font color="#7fb800">operator!=</font></strong></h3>
 <ul>
 <li><strong>原型</strong>:<br />
@@ -1350,14 +1378,15 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
   <div class="highlight"><pre><span></span><code><span class="n">FTransform</span><span class="w"> </span><span class="n">ut2</span><span class="o">=</span><span class="w"> </span><span class="n">t2</span><span class="p">;</span>
 </code></pre></div></li>
 </ul>
+<p><span id="CubicPolynomial"></span></p>
 <h1 id="cubicpolynomial"><a href="#CubicPolynomial">CubicPolynomial</a></h1>
-<h2 id="_49">概述</h2>
+<h2 id="_50">概述</h2>
 <p><code>carla::geom::CubicPolynomial</code> 用于描述和操作三次多项式<br />
 <script type="math/tex; mode=display">f(x)=a + b\,x + c\,x^2 + d\,x^3</script>
 <br />
 支持偏移量修正、求值、求切线、以及多项式加法和数乘。</p>
 <hr />
-<h2 id="_50">构造函数</h2>
+<h2 id="_51">构造函数</h2>
 <h3 id="cubicpolynomial_1"><strong><font color="#7fb800">CubicPolynomial()</font></strong></h3>
 <ul>
 <li><strong>原型</strong>：<code>CubicPolynomial() = default;</code>  </li>
@@ -1396,7 +1425,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div></li>
 </ul>
 <hr />
-<h2 id="_51">访问与修改</h2>
+<h2 id="_52">访问与修改</h2>
 <h3 id="getabcd"><strong><font color="#7fb800">GetA/B/C/D</font></strong></h3>
 <ul>
 <li><strong>原型</strong>:  </li>
@@ -1440,7 +1469,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 <span class="n">p2</span><span class="p">.</span><span class="n">Set</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mf">0.2</span><span class="p">);</span><span class="w"> </span><span class="c1">// 带偏移修正</span>
 </code></pre></div></p>
 <hr />
-<h2 id="_52">多项式运算</h2>
+<h2 id="_53">多项式运算</h2>
 <h3 id="evaluate"><strong><font color="#7fb800">Evaluate</font></strong></h3>
 <ul>
 <li><strong>原型</strong>:<br />
@@ -1463,7 +1492,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div></li>
 </ul>
 <hr />
-<h2 id="_53">复合运算符</h2>
+<h2 id="_54">复合运算符</h2>
 <h3 id="operator_2"><strong><font color="#7fb800">operator+=</font></strong></h3>
 <ul>
 <li><strong>原型</strong>:<br />
@@ -1506,11 +1535,12 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div></li>
 </ul>
 <hr />
+<p><span id="BoundingBox"></span></p>
 <h1 id="boundingbox"><a href="#BoundingBox">BoundingBox</a></h1>
-<h2 id="_54">概述</h2>
+<h2 id="_55">概述</h2>
 <p><code>carla::geom::BoundingBox</code> 表示三维空间中的轴对齐或旋转后的边界盒，包含中心位置、半尺寸（extent）和旋转信息。提供判断点包含、获取局部/世界顶点数组，以及与 UE4 类型互转。</p>
 <hr />
-<h2 id="_55">构造函数</h2>
+<h2 id="_56">构造函数</h2>
 <h3 id="boundingbox_1"><strong><font color="#7fb800">BoundingBox()</font></strong></h3>
 <ul>
 <li><strong>原型</strong>：<code>BoundingBox() = default;</code>  </li>
@@ -1555,7 +1585,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
   <div class="highlight"><pre><span></span><code><span class="n">BoundingBox</span><span class="w"> </span><span class="nf">bb3</span><span class="p">(</span><span class="n">ext</span><span class="p">);</span>
 </code></pre></div></p>
 <hr />
-<h2 id="_56">核心方法</h2>
+<h2 id="_57">核心方法</h2>
 <h3 id="contains"><strong><font color="#7fb800">Contains</font></strong></h3>
 <ul>
 <li><strong>原型</strong>：<br />
@@ -1605,7 +1635,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div></li>
 </ul>
 <hr />
-<h2 id="_57">比较运算符</h2>
+<h2 id="_58">比较运算符</h2>
 <h3 id="operator-operator_4"><strong><font color="#7fb800">operator==</font></strong> / <strong><font color="#7fb800">operator!=</font></strong></h3>
 <ul>
 <li><strong>原型</strong>：<br />
@@ -1630,8 +1660,9 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div></li>
 </ul>
 <hr />
+<p><span id="GeoLocation"></span></p>
 <h1 id="geolocation"><a href="#GeoLocation">GeoLocation</a></h1>
-<h2 id="_58">概述</h2>
+<h2 id="_59">概述</h2>
 <p><code>carla::geom::GeoLocation</code> 用于在真实地理坐标系（WGS84，经纬度+海拔）与仿真局部坐标系<code>carla::geom::Location</code>（CARLA 自定义坐标）之间进行转换。当 CARLA 场景与 <strong>OpenDRIVE 地图</strong>或<strong>真实地理数据（如地图对齐或高精地图）</strong>结合时，<code>GeoLocation</code> 能实现：设定仿真地图的锚点（anchor）；映射仿真场景中物体的位置到全球坐标；实现与外部设备或真实车辆的数据融合（如 GPS 传感器仿真）。</p>
 <hr />
 <table>
@@ -1660,14 +1691,14 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </tr>
 </tbody>
 </table>
-<h2 id="_59">公共数据成员</h2>
+<h2 id="_60">公共数据成员</h2>
 <ul>
 <li><strong><font color="#f8805a">latitude</font></strong> (double)：纬度，单位度 (°)，初始值 <code>0.0</code>  </li>
 <li><strong><font color="#f8805a">longitude</font></strong> (double)：经度，单位度 (°)，初始值 <code>0.0</code>  </li>
 <li><strong><font color="#f8805a">altitude</font></strong> (double)：海拔，单位米 (m)，初始值 <code>0.0</code>  </li>
 </ul>
 <hr />
-<h2 id="_60">构造函数</h2>
+<h2 id="_61">构造函数</h2>
 <h3 id="geolocation_1"><strong><font color="#7fb800">GeoLocation()</font></strong></h3>
 <ul>
 <li><strong>原型</strong>：<code>GeoLocation() = default;</code>  </li>
@@ -1687,7 +1718,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 </code></pre></div></li>
 </ul>
 <hr />
-<h2 id="_61">核心方法</h2>
+<h2 id="_62">核心方法</h2>
 <h3 id="transform_2"><strong><font color="#7fb800">Transform</font></strong></h3>
 <ul>
 <li><strong>原型</strong>：<br />
@@ -1711,7 +1742,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 <li>海拔相加。</li>
 </ul>
 <hr />
-<h2 id="_62">静态辅助函数</h2>
+<h2 id="_63">静态辅助函数</h2>
 <ul>
 <li><strong><font color="#7fb800">LatToScale</font></strong><br />
   <div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">LatToScale</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">lat</span><span class="p">);</span>
@@ -1752,7 +1783,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 <li>说明：在起始经纬度处，沿东(dx)/北(dy)方向（米）偏移后计算新的经纬度。</li>
 </ul>
 <hr />
-<h2 id="_63">比较运算符</h2>
+<h2 id="_64">比较运算符</h2>
 <h3 id="operator-operator_5"><strong><font color="#7fb800">operator==</font></strong> / <strong><font color="#7fb800">operator!=</font></strong></h3>
 <ul>
 <li><strong>原型</strong>：  </li>
@@ -1765,7 +1796,7 @@ d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
 <div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="n">same</span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">g1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">GeoLocation</span><span class="p">(</span><span class="mf">37.7749</span><span class="p">,</span><span class="mf">-122.4194</span><span class="p">,</span><span class="mf">30.0</span><span class="p">));</span>
 </code></pre></div>
 <hr />
-<h2 id="_64">序列化</h2>
+<h2 id="_65">序列化</h2>
 <ul>
 <li>使用 <code>MSGPACK_DEFINE_ARRAY(latitude, longitude, altitude)</code> 支持 MsgPack 序列化/反序列化。</li>
 </ul>
