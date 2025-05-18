@@ -195,7 +195,22 @@ Result = (x, y_ref - y) * OSMToCentimetersScaleFactor
 
 4. **材质应用**  
    - 如未指定 MaterialInstance，网格将使用默认材质（粉色警告）  
+## 错误处理  
+### 错误代码表  
+| 错误代码 | 触发场景                      | 解决方案                      |
+|----------|-----------------------------|-------------------------------|
+| E1001    | 顶点数不足3个                | 检查Data.Vertices数组长度      |
+| E1002    | 三角形索引数非3的倍数        | 验证Data.Triangles数组正确性   |
+| E1003    | 材质实例加载失败             | 检查材质路径是否存在拼写错误   |
 
+### 异常捕获示例
+```cpp
+try {
+    UStaticMesh* Mesh = UMapGenFunctionLibrary::CreateMesh(...);
+} catch (const FMapGenException& e) {
+    UE_LOG(LogCarlaMapGen, Error, TEXT("错误代码 %d: %s"), 
+        e.GetErrorCode(), *e.GetMessage());
+}
 ---
 
 ## 示例配置  
