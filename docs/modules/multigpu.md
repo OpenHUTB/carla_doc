@@ -133,3 +133,18 @@ secondary.ConnectToPrimary("127.0.0.1");
 // 主节点任务分发
 Task task = CreateRenderTask();
 primary.DistributeTask(task);
+```
+
+---
+
+# 9. 附录
+
+## 9.1 依赖库
+
+| 库名称            | 功能       | 说明                          |
+|-------------------|------------|-------------------------------|
+| Boost.Asio        | 网络通信   | 提供异步 TCP/UDP 支持          |
+| spdlog            | 日志记录   | 轻量级、高性能日志库            |
+| protobuf (可选)    | 数据序列化 | 高效结构化消息传输，用于自定义协议 |
+| nlohmann/json     | JSON 支持  | 现代 C++ 风格 JSON 序列化与解析  |
+| STL 线程组件      | 并发支持   | 用于多线程与线程同步控制         |
