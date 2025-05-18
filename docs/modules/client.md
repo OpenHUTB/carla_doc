@@ -11,7 +11,7 @@
 - [2.6 Sensor 类与传感器使用（以摄像头为例）](#26-sensor-类与传感器使用以摄像头为例)
 - [2.7 World 类](#27-world-类)
 
-## 三、[扩展模块](#扩展模块)
+## 三、[扩展模块](#三扩展模块)
 - [3.1 DebugHelper 模块](#31-debughelper-模块carla-客户端调试可视化工具)
 - [3.2 FileTransfer 模块](#32-filetransfer-模块carla-客户端的文件读写与缓存机制)
 - [3.3 Junction 模块](#33-junction-模块carla-道路交叉口junction建模与访问)
