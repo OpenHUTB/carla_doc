@@ -148,3 +148,12 @@ primary.DistributeTask(task);
 | protobuf (可选)    | 数据序列化 | 高效结构化消息传输，用于自定义协议 |
 | nlohmann/json     | JSON 支持  | 现代 C++ 风格 JSON 序列化与解析  |
 | STL 线程组件      | 并发支持   | 用于多线程与线程同步控制         |
+
+## 9.2 相关模块引用
+
+| 模块名称               | 功能协作关系                   |
+|------------------------|------------------------------|
+| carla::rpc             | 使用 RPC 技术进行任务分发      |
+| carla::rendering       | GPU 渲染任务执行的核心模块     |
+| carla::sensor          | 渲染输出对接传感器系统         |
+| carla::traffic_manager | 多 GPU 加速城市交通模拟流程    |
