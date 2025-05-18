@@ -97,9 +97,24 @@
 - <strong>传感器模块（Sensor）</strong>：通过采集点云数据，为仿真系统提供实时环境感知。
 - <strong>导航模块（Navigation）</strong>：借助点云数据，进行路径规划、障碍物检测等操作。
 - <strong>交通管理模块（Traffic Manager）</strong>：通过点云数据优化交通流量与车辆行为控制。</p>
-<h3 id="_3">点云数据的重要性</h3>
-<p>在自动驾驶系统中，点云数据能够提供详细的三维环境模型，它对于精准的物体检测、障碍物避让以及路径规划至关重要，通过优化点云的输入输出（I/O）流程，能够大幅提升系统的实时性与稳定性。</p>
-<hr />
+<h3 id="_3">点云数据重要性</h3>
+<p>在自动驾驶系统中，点云数据能够提供详细的三维环境模型，它对于精准的物体检测、障碍物避让以及路径规划至关重要，通过优化点云的输入输出（I/O）流程，能够大幅提升系统的实时性与稳定性</p>
+<h3 id="_4">点云实现原理</h3>
+<p>点云数据中的每个点代表了从传感器到被测物体的距离信息。这些距离是通过测量传感器发射信号（如激光）往返的时间（Time of Flight, ToF）来计算的。具体计算公式如下:
+<script type="math/tex; mode=display">
+\text{距离} = \frac{c \times t}{2}
+</script>
+</p>
+<p>其中：</p>
+<ul>
+<li>
+<p>c 是光速。</p>
+</li>
+<li>
+<p>t 是信号往返的时间。</p>
+</li>
+</ul>
+<h2 id="_5">通过这种方法，传感器可以获取环境中的三维点云数据。这些数据随后会被处理和分析，以支持自动驾驶系统中的各种功能，如路径规划和障碍物检测。</h2>
 <p><span id="头文件与命名空间"></span></p>
 <h2 id="2">2 头文件与命名空间</h2>
 <p><span id="包含的头文件"></span></p>
@@ -160,16 +175,16 @@
 <span id="模板函数 <code>SaveToDisk</code>"></span></li>
 </ul>
 <h3 id="ii-savetodisk">ii. 模板函数 <code>SaveToDisk</code></h3>
-<h4 id="_4">功能</h4>
+<h4 id="_6">功能</h4>
 <p>将点云数据保存到磁盘上的PLY文件中。此函数接受一个文件路径，和点云数据的迭代器。</p>
-<h4 id="_5">过程</h4>
+<h4 id="_7">过程</h4>
 <ol>
 <li><strong>验证文件路径</strong>：调用<code>FileSystem::ValidateFilePath</code>函数，确保路径以<code>.ply</code>结尾。</li>
 <li><strong>创建文件流</strong>：使用<code>std::ofstream</code>创建一个文件输出流，打开指定路径的文件。</li>
 <li><strong>调用<code>Dump</code></strong>：将点云数据通过<code>Dump</code>函数写入文件。</li>
 <li><strong>返回路径</strong>：返回保存的文件路径，方便后续操作。</li>
 </ol>
-<h4 id="_6">代码示例：</h4>
+<h4 id="_8">代码示例：</h4>
 <p><div class="highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">PointIt</span><span class="o">&gt;</span>
 <span class="k">static</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">SaveToDisk</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">path</span><span class="p">,</span><span class="w"> </span><span class="n">PointIt</span><span class="w"> </span><span class="n">begin</span><span class="p">,</span><span class="w"> </span><span class="n">PointIt</span><span class="w"> </span><span class="n">end</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="n">FileSystem</span><span class="o">::</span><span class="n">ValidateFilePath</span><span class="p">(</span><span class="n">path</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;.ply&quot;</span><span class="p">);</span><span class="w">  </span><span class="c1">// 验证路径</span>
@@ -183,9 +198,9 @@
 * 此流程图展示了 SaveToDisk 函数的工作流程。首先验证文件路径是否以 .ply 结尾，确保文件类型正确。然后创建输出文件流对象并打开指定路径的文件。接着调用 Dump 函数将点云数据写入文件。最后返回保存的文件路径，以便后续操作使用。
 <span id="私有静态函数 <code>WriteHeader</code>"></span></p>
 <h3 id="iii-writeheader">iii. 私有静态函数 <code>WriteHeader</code></h3>
-<h4 id="_7">功能</h4>
+<h4 id="_9">功能</h4>
 <p>该私有函数负责将PLY文件的头部信息写入到输出流。头部信息包括文件格式、点云数据的顶点数，以及每个点的数据格式。</p>
-<h4 id="_8">过程</h4>
+<h4 id="_10">过程</h4>
 <ol>
 <li><strong>断言检查</strong>：使用<code>DEBUG_ASSERT</code>确保点云数据的数量非负。通过<code>std::distance(begin, end)</code>计算点云的总数量。</li>
 <li><strong>写入基本头部信息</strong>：包括文件格式和顶点数量。</li>
@@ -193,7 +208,7 @@
 <li><strong>结束头部</strong>：最后写入<code>end_header</code>，标记头部的结束。</li>
 <li><strong>精度设置</strong>：设置输出流的精度，固定为4位小数，确保数据格式一致。</li>
 </ol>
-<h4 id="_9">代码示例：</h4>
+<h4 id="_11">代码示例：</h4>
 <div class="highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">PointIt</span><span class="o">&gt;</span><span class="w"> </span>
 <span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">WriteHeader</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="w"> </span><span class="o">&amp;</span><span class="n">out</span><span class="p">,</span><span class="w"> </span><span class="n">PointIt</span><span class="w"> </span><span class="n">begin</span><span class="p">,</span><span class="w"> </span><span class="n">PointIt</span><span class="w"> </span><span class="n">end</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="n">DEBUG_ASSERT</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">distance</span><span class="p">(</span><span class="n">begin</span><span class="p">,</span><span class="w"> </span><span class="n">end</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w">  </span><span class="c1">// 检查数据有效性</span>
