@@ -201,6 +201,7 @@ Result = (x, y_ref - y) * OSMToCentimetersScaleFactor
 | 1,000 顶点     | 12ms        | 8MB      |
 | 50,000 顶点    | 380ms       | 62MB     |
 | 100,000 顶点   | 720ms       | 118MB    |
+
 5. **并发处理**  
    - 使用 `AsyncTask` 封装耗时操作  
    - 避免在渲染线程操作顶点数据  
@@ -212,6 +213,8 @@ Result = (x, y_ref - y) * OSMToCentimetersScaleFactor
        B -->|否| D[直接生成]
        C --> E[分块处理]
      ```
+=======
+
 
 ## 错误处理  
 ### 错误代码表  
