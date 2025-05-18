@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Testing BP - 人车模拟器</title>
+    <title>CARLA 仿真测试框架说明文档 - 人车模拟器</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Testing BP";
+        var mkdocs_page_name = "CARLA \u4eff\u771f\u6d4b\u8bd5\u6846\u67b6\u8bf4\u660e\u6587\u6863";
         var mkdocs_page_input_path = "modules/Testing_BP.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,7 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Testing BP</li>
+      <li class="breadcrumb-item active">CARLA 仿真测试框架说明文档</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/modules/Testing_BP.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -68,9 +68,52 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <hr />
-<h1 id="carla">CARLA 仿真测试框架说明文档</h1>
+                <h1 id="carla">CARLA 仿真测试框架说明文档</h1>
+<h2 id="_1">目录</h2>
+<ol>
+<li><a href="#1-项目概述">项目概述</a></li>
+<li><a href="#2-核心组件与蓝图结构">核心组件与蓝图结构</a></li>
+<li><a href="#21-核心组件">2.1 核心组件</a></li>
+<li><a href="#22-蓝图结构">2.2 蓝图结构</a></li>
+<li><a href="#3-关键功能实现">关键功能实现</a></li>
+<li><a href="#31-场景测试避障验证">3.1 场景测试（避障验证）</a></li>
+<li><a href="#32-传感器数据验证lidar点云">3.2 传感器数据验证（LiDAR点云）</a></li>
+<li><a href="#33-交通流压力测试">3.3 交通流压力测试</a></li>
+<li><a href="#4-工作流程">工作流程</a></li>
+<li><a href="#5-优化与扩展建议">优化与扩展建议</a></li>
+<li><a href="#51-性能优化">5.1 性能优化</a></li>
+<li><a href="#52-扩展建议">5.2 扩展建议</a></li>
+<li><a href="#6-总结">总结</a></li>
+</ol>
 <hr />
+<!-- 请在正文对应位置添加以下锚点声明 -->
+<!--
+## 1. 项目概述
+<span id="1-项目概述"></span>
+
+## 2. 核心组件与蓝图结构
+<span id="2-核心组件与蓝图结构"></span>
+
+### 2.1 核心组件
+<span id="21-核心组件"></span>
+
+### 2.2 蓝图结构
+<span id="22-蓝图结构"></span>
+
+## 3. 关键功能实现
+<span id="3-关键功能实现"></span>
+
+### 3.1 场景测试（避障验证）
+<span id="31-场景测试避障验证"></span>
+
+### 3.2 传感器数据验证（LiDAR点云）
+<span id="32-传感器数据验证lidar点云"></span>
+
+### 3.3 交通流压力测试
+<span id="33-交通流压力测试"></span>
+
+（后续章节同理添加锚点）
+-->
 <h2 id="1">1. 项目概述</h2>
 <p><strong>CARLA 测试框架</strong> 是一个基于开源自动驾驶仿真平台的多层次验证系统，旨在通过可重复的仿真环境验证自动驾驶算法、传感器性能及交通场景逻辑。<br />
 - <strong>核心目标</strong>：<br />
