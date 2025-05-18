@@ -308,10 +308,37 @@ Result = (x, y_ref - y) * OSMToCentimetersScaleFactor
 <li>
 <p><strong>材质应用</strong>  </p>
 </li>
-<li>如未指定 MaterialInstance，网格将使用默认材质（粉色警告）  </li>
+<li>如未指定 MaterialInstance，网格将使用默认材质（粉色警告）</li>
 </ol>
-<h2 id="_10">错误处理</h2>
-<h3 id="_11">错误代码表</h3>
+<h3 id="_10">数据规模表</h3>
+<table>
+<thead>
+<tr>
+<th>数据规模</th>
+<th>平均处理时间</th>
+<th>内存消耗</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1,000 顶点</td>
+<td>12ms</td>
+<td>8MB</td>
+</tr>
+<tr>
+<td>50,000 顶点</td>
+<td>380ms</td>
+<td>62MB</td>
+</tr>
+<tr>
+<td>100,000 顶点</td>
+<td>720ms</td>
+<td>118MB</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_11">错误处理</h2>
+<h3 id="_12">错误代码表</h3>
 <table>
 <thead>
 <tr>
@@ -338,7 +365,7 @@ Result = (x, y_ref - y) * OSMToCentimetersScaleFactor
 </tr>
 </tbody>
 </table>
-<h3 id="_12">异常捕获示例</h3>
+<h3 id="_13">异常捕获示例</h3>
 <div class="highlight"><pre><span></span><code><span class="k">try</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">UStaticMesh</span><span class="o">*</span><span class="w"> </span><span class="n">Mesh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UMapGenFunctionLibrary</span><span class="o">::</span><span class="n">CreateMesh</span><span class="p">(...);</span>
 <span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FMapGenException</span><span class="o">&amp;</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -367,8 +394,8 @@ Result = (x, y_ref - y) * OSMToCentimetersScaleFactor
 <span class="p">);</span>
 </code></pre></div>
 <hr />
-<h2 id="_13">附录</h2>
-<h3 id="_14">依赖项</h3>
+<h2 id="_14">附录</h2>
+<h3 id="_15">依赖项</h3>
 <ul>
 <li><strong>Unreal Engine 模块</strong>  </li>
 <li>StaticMeshDescription（网格数据处理）  </li>
@@ -382,7 +409,7 @@ Result = (x, y_ref - y) * OSMToCentimetersScaleFactor
 <li>ProceduralCustomMesh 数据结构  </li>
 <li>CarlaMapGenerator 坐标系规范  </li>
 </ul>
-<h3 id="_15">已知问题与解决方案</h3>
+<h3 id="_16">已知问题与解决方案</h3>
 <table>
 <thead>
 <tr>
@@ -409,7 +436,7 @@ Result = (x, y_ref - y) * OSMToCentimetersScaleFactor
 </tr>
 </tbody>
 </table>
-<h3 id="_16">调试支持</h3>
+<h3 id="_17">调试支持</h3>
 <ul>
 <li><strong>日志追踪</strong><br />
   <div class="highlight"><pre><span></span><code><span class="n">UE_LOG</span><span class="p">(</span><span class="n">LogCarlaMapGenFunctionLibrary</span><span class="p">,</span><span class="w"> </span><span class="n">Warning</span><span class="p">,</span><span class="w"> </span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;MaterialInstance is nullptr&quot;</span><span class="p">));</span>
@@ -417,21 +444,21 @@ Result = (x, y_ref - y) * OSMToCentimetersScaleFactor
 <li><strong>实时预览</strong>  </li>
 <li>在编辑器中运行 <code>CleanupGEngine()</code> 可刷新资产状态  </li>
 </ul>
-<h3 id="_17">坐标转换公式图示</h3>
+<h3 id="_18">坐标转换公式图示</h3>
 <pre><code>   ┌───────────────────────┐
    │ 横向墨卡托投影公式     │
    │ x = R・asinh(sinΔλ/√(tan²φ + cos²Δλ)) │
    │ y = R・atan(tanφ/cosΔλ)               │
    └───────────────────────┘
 </code></pre>
-<h3 id="_18">性能优化建议图表</h3>
+<h3 id="_19">性能优化建议图表</h3>
 <p><code>mermaid
    graph LR
   A[高顶点数] --&gt; B(分块处理)
   B --&gt; C{每块≤65535顶点}
   C --&gt;|是| D[并行生成]
   C --&gt;|否| B</code></p>
-<h3 id="_19">版本支持</h3>
+<h3 id="_20">版本支持</h3>
 <table>
 <thead>
 <tr>
@@ -450,6 +477,51 @@ Result = (x, y_ref - y) * OSMToCentimetersScaleFactor
 <td>0.9.0-0.9.11</td>
 <td>4.24-4.25</td>
 <td>部分功能受限</td>
+</tr>
+<tr>
+<td>### 单元测试用例</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>示例</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>```cpp</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>TEST_F(MapGenTest, BasicMeshCreation) {</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>FProceduralCustomMesh TestData;</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>// 构建测试数据</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>UStaticMesh* Result = CreateMesh(...);</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>EXPECT_NE(Result, nullptr);</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>}</td>
+<td></td>
+<td></td>
 </tr>
 <tr>
 <td>---</td>
