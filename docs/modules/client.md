@@ -1,3 +1,32 @@
+# CARLA 客户端文档目录
+
+## 一、[概述](#概述)
+
+## 二、[主要类与功能](#主要类与功能)
+- [2.1 Client 类](#21-client-类)
+- [2.2 Actor 类](#22-actor-类)
+- [2.3 ClientSideSensor 类](#23-clientsidesensor-类)
+- [2.4 TrafficManager 类](#24-trafficmanager-类)
+- [2.5 BlueprintLibrary 与 ActorBlueprint 类](#25-blueprintlibrary-与-actorblueprint-类)
+- [2.6 Sensor 类与传感器使用（以摄像头为例）](#26-sensor-类与传感器使用以摄像头为例)
+- [2.7 World 类](#27-world-类)
+
+## 三、[扩展模块](#扩展模块)
+- [3.1 DebugHelper 模块](#31-debughelper-模块carla-客户端调试可视化工具)
+- [3.2 FileTransfer 模块](#32-filetransfer-模块carla-客户端的文件读写与缓存机制)
+- [3.3 Junction 模块](#33-junction-模块carla-道路交叉口junction建模与访问)
+- [3.4 LaneInvasion 模块](#34-laneinvasion-模块carla-车道入侵lane-invasion检测与处理)
+- [3.5 Light 模块](#35-light-模块carla-中的交通灯与照明灯控制接口)
+- [3.6 Vehicle 模块](#36-vehicle-模块carla-车辆实体控制与状态管理)
+
+## 四、[类之间的调用关系](#类之间的调用关系)
+
+## 五、[总结](#总结)
+
+## 六、[参考链接](#参考链接)
+
+
+
 # **概述**
 
 CARLA 是一个开源的自动驾驶模拟平台，提供了丰富的 API 以支持仿真环境的控制、车辆的管理以及自动驾驶算法的验证。客户端部分的 API 主要通过 `Client` 类与模拟器进行交互，执行仿真控制、传感器管理、交通流管理等功能。该文档主要介绍 CARLA 客户端相关类的功能和使用方式。
