@@ -141,26 +141,42 @@ End Event
 
 ```cpp
 // 这是一个概念性的蓝图伪代码示例
-Function AssignUniqueIDs
+// Blueprint Pseudo-Code: 为所有基灯 Actor 分配全局唯一 ID
+Function AssignUniqueLightActorIDs()
+    // 1. 获取场景中所有继承自 BP_LightBase 的 Actor
+    Local Variable LightActors = GetAllActorsOfClass(BP_LightBase)
+    If LightActors.IsEmpty()
+        LogWarning("AssignUniqueLightActorIDs：未发现任何 BP_LightBase 实例，跳过 ID 分配")
+        Return
+    End If
 
-LocalVariable LightActors Array<Actor> = GetAllActorsOfClass(BP_BaseLight);
-LocalVariable CurrentID Integer = 0;
+    // 2. 遍历并为每个灯光 Actor 生成并赋予唯一 ID
+    For Index = 0 To LightActors.Num() - 1
+        Local Variable Actor = LightActors[Index]
+        If Not IsValid(Actor)
+            Continue
+        End If
 
-For Each Actor In LightActors
-    // 生成唯一ID，例如 "LightID_" + 当前计数
-    LocalVariable NewIDString = "LightID_" + ToString(CurrentID);
+        // 2.1 生成全局唯一 GUID
+        Local Variable NewGUID = FGuid.NewGuid()
+        Local Variable IDString = "LightID_" + NewGUID.ToString(EGuidFormats.DigitsWithHyphens)
 
-    // 将ID作为标签添加到Actor
-    Actor.AddTag(FName(NewIDString));
+        // 2.2 移除旧的 LightID_ 标签（如有）并添加新标签
+        For Each Tag In Actor.Tags
+            If Tag.ToString().StartsWith("LightID_")
+                Actor.RemoveTag(Tag)
+            End If
+        End For
+        Actor.AddTag(FName(*IDString))
 
-    // 如果 BP_BaseLight 有 LightID 变量，也可以设置它
-    // Cast Actor To BP_Baselight
-    // If Cast Successful
-    //     BP_Baselight_Ref.LightID = NewIDString;
-    // End If
-
-    CurrentID = CurrentID + 1;
-End For Each
+        // 2.3 如果 Actor 包含 LightID 字段，则同步更新
+        Local Variable LightBaseRef = Cast<BP_LightBase>(Actor)
+        If IsValid(LightBaseRef)
+            LightBaseRef.LightID = IDString
+        Else
+            LogError("AssignUniqueLightActorIDs：Actor {0} 无法转换为 BP_LightBase", Actor.GetName())
+        End If
+    End For
 End Function
 ```
 
