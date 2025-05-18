@@ -2,6 +2,21 @@
 
 `carla::geom` 是 CARLA 引擎中专门负责几何计算和坐标变换的模块。它提供了常用的几何基本类型（如二维/三维向量、整数向量）、位置（Location）、旋转（Rotation）和变换（Transform）等数据结构，以及相关的数学工具函数。该模块还实现了经纬度与世界坐标的转换（GeoLocation 和 Mercator 投影函数）、有向边界框（BoundingBox）计算、样条曲线（CubicPolynomial）等功能。此外，它包含网格（Mesh）和网格生成（MeshFactory）类用于道路和场景几何的构造，以及网格简化（Simplification）和基于 R 树的空间索引（PointCloudRtree、SegmentCloudRtree）等高级功能。总体而言，`geom` 模块负责车辆、自行车、路网等对象的几何表示及其间的空间运算与变换。
 
+- ## 目录
+  1. [主要类与功能说明](#主要类与功能说明)
+  2. [其他模块的引用](#其他模块的引用)
+  3. [Math](#Math)
+  4. [Vector3D/Vector2D/Vector3DInt](#Vector3D/Vector2D/Vector3DInt)
+  5. [Mesh](#Mesh)
+  6. [Simplification](#Simplification)
+  7. [RTree](#RTree)
+  8. [Location](#Location)
+  9. [Rotation](#Rotation)
+  10. [Transform](#Transform)
+  11. [CubicPolynomial](#CubicPolynomial)
+  12. [BoundingBox](#BoundingBox)
+  13. [GeoLocation](#GeoLocation)
+  <span id="主要类与功能说明"></span>
 ## 主要类与功能说明
 
 - **[Vector2D/Vector3D/Vector3DInt](#Vector3D/Vector2D/Vector3DInt)**：分别表示二维浮点向量、三维浮点向量和三维整型向量，支持算术运算（加减、点乘、叉乘等）、长度计算、归一化等常见操作。
@@ -15,7 +30,7 @@
 - **[Mesh](#Mesh)**：网格容器类及其生成器。`Mesh` 用于存储顶点、法线、纹理坐标、索引和材质信息，可导出为 OBJ/PLY 等格式；
 - **[Simplification](#Simplification)**：网格简化类，根据指定简化率对给定网格进行简化操作（使用第三方简化库）。
 - **[RTree](#RTree)**:是一种用于空间索引的树形结构,提供检索方法用于点云和线段云的快速空间查询（最近邻、相交判定等），主要使用在物体的碰撞使用。
-
+<span id="其他模块的引用"></span>
 ## 其他模块的引用
 
 - **Carla 客户端（`client`）模块：**  该模块大量使用几何类型来描述场景中对象的位置和姿态。例如，`carla::client::World::SpawnActor` 方法的接口中使用了 `geom::Transform` 作为参数[carla.org](https://carla.org/Doxygen/html/dd/d5b/World_8h_source.html#:~:text=111 SharedPtr)；`carla::client::TrafficLight` 类中使用 `geom::BoundingBox` 表示灯组的遮挡盒（如 `GetLightBoxes` 返回多个 BoundingBox）[carla.org](https://carla.org/Doxygen/html/df/def/classcarla_1_1client_1_1TrafficLight.html#:~:text=std%3A%3Avector,const)，以及继承自 `Actor` 的 `AddAngularImpulse(const Vector3D&)` 方法使用了三维向量[carla.org](https://carla.org/Doxygen/html/df/def/classcarla_1_1client_1_1TrafficLight.html#:~:text=const geom%3A%3ABoundingBox  %26 33,const)。这些用法说明客户端模块在创建和控制 actor（车辆、交通灯等）时依赖 `geom` 提供的几何表示与变换工具。
@@ -31,6 +46,9 @@
 - **其他依赖：** 还有一些功能模块也使用了 `geom`。例如，`client::TrafficLight::GetStopWaypoints()` 返回的是与交通灯相关的停车点（Waypoints），这些 Waypoint 本身也封装了 `Location/Transform` 等；`client::TrafficLight` 的触发体积（TriggerVolume）也是 `geom::BoundingBox` 类型[carla.org](https://carla.org/Doxygen/html/df/def/classcarla_1_1client_1_1TrafficLight.html#:~:text=const geom%3A%3ABoundingBox  %26 33,const)。此外，路网构建和传感器处理等环节也可能间接使用几何变换方法。
 
 下面是其主要类的代码说明文档。
+
+<span id="Math"></span>
+
 # [Math](#Math)
 
 ## 概述
@@ -411,6 +429,8 @@ static std::vector<int> GenerateRange(int a, int b);
   - <font color="#f8805a">b</font>：结束整数  
 - **返回值**：包含从 <font color="#f8805a">a</font> 到 <font color="#f8805a">b</font>（含）的所有整数的向量
 
+<span id="Vector3D/Vector2D/Vector3DInt"></span>
+
 # [Vector3D/Vector2D/Vector3DInt](#Vector3D/Vector2D/Vector3DInt)
 
 ## 概述
@@ -570,6 +590,8 @@ void msgpack_object(MSGPACK_OBJECT* o, clmdep_msgpack::zone& sneaky_variable_tha
   ```
 
 ---
+
+<span id="Mesh"></span>
 
 # [Mesh](#Mesh)
 
@@ -795,6 +817,8 @@ $$
 
 ---
 
+<span id="Simplification"></span>
+
 # [Simplification](#Simplification)
 
 ## 概述
@@ -864,6 +888,8 @@ void Simplificate(const std::unique_ptr<geom::Mesh>& pmesh);
 
 ---
 
+<span id="RTree"></span>
+
 # [RTree](#RTree)
 
 ## 简介
@@ -877,7 +903,7 @@ RTree包含两个模板类：
 
 ## 欧几里得距离公式
 
-对任意两个 $n$ 维点 $\mathbf{p}=(p_1,p_2,\dots,p_n)$ 和 $\mathbf{q}=(q_1,q_2,\dots,q_n)$，欧几里得距离定义如下：
+对任意两个 *n* 维点 **p** = (*p*<sub>1</sub>, *p*<sub>2</sub>, …, *p*<sub>n</sub>) 和 **q** = (*q*<sub>1</sub>, *q*<sub>2</sub>, …, *q*<sub>n</sub>)，欧几里得距离定义如下：
 
 $$
 d(\mathbf{p}, \mathbf{q}) = \sqrt{ \sum_{i=1}^n (p_i - q_i)^2 }
@@ -927,7 +953,7 @@ void InsertElements(const std::vector<TreeElement> &elements);
 std::vector<TreeElement> GetNearestNeighbours(const BPoint &point, size_t number_neighbours = 1) const;
 ```
 
-- 返回距离给定点最近的 $k$ 个邻居（默认 $k=1$）。
+- 返回距离给定点最近的 *k* 个邻居（默认 *k*=1）。
 
 #### GetNearestNeighboursWithFilter
 
@@ -1019,6 +1045,8 @@ size_t GetTreeSize() const;
 
 ---
 
+<span id="Location"></span>
+
 # [Location](#Location)
 
 ## 概述
@@ -1040,7 +1068,7 @@ size_t GetTreeSize() const;
 - **说明**：默认构造，坐标初始化为 (0, 0, 0)。  
 - **示例**：  
   ```cpp
-  Location **<font color="#f8805a">loc_default</font>**; // (0,0,0)
+  Location loc_default; // (0,0,0)
   ```
 
 ### **<font color="#7fb800">Location(float x, float y, float z)</font>**  
@@ -1048,7 +1076,7 @@ size_t GetTreeSize() const;
 - **说明**：使用基类 `Vector3D` 构造函数，初始化三维坐标。  
 - **示例**：  
   ```cpp
-  Location **<font color="#f8805a">loc_xyz</font>**(1.0f, 2.0f, 3.0f); // (1,2,3)
+  Location loc_xyz(1.0f, 2.0f, 3.0f); // (1,2,3)
   ```
 
 ### **<font color="#7fb800">Location(const Vector3D &rhs)</font>**
@@ -1056,8 +1084,8 @@ size_t GetTreeSize() const;
 - **说明**：从 `Vector3D` 对象转换而来，拷贝坐标。  
 - **示例**：  
   ```cpp
-  Vector3D **<font color="#f8805a">v</font>**(4.0f,5.0f,6.0f);
-  Location **<font color="#f8805a">loc_from_v</font>**(**<font color="#f8805a">v</font>**); // (4,5,6)
+  Vector3D v(4.0f,5.0f,6.0f);
+  Location loc_from_v(v); // (4,5,6)
   ```
 
 ### **<font color="#7fb800">Location(const Vector3DInt &rhs)</font>**
@@ -1065,8 +1093,8 @@ size_t GetTreeSize() const;
 - **说明**：从整数坐标 `Vector3DInt` 转换而来，按比例（int→float）赋值。  
 - **示例**：  
   ```cpp
-  Vector3DInt **<font color="#f8805a">vi</font>**(7,8,9);
-  Location **<font color="#f8805a">loc_from_vi</font>**(**<font color="#f8805a">vi</font>**); // (7,8,9)
+  Vector3DInt vi(7,8,9);
+  Location loc_from_vi(vi); // (7,8,9)
   ```
 
 ---
@@ -1082,8 +1110,8 @@ size_t GetTreeSize() const;
   $$d^2 = (x - x')^2 + (y - y')^2 + (z - z')^2$$  
 - **示例**：  
   ```cpp
-  Location **<font color="#f8805a">a</font>**(0,0,0), **<font color="#f8805a">b</font>**(1,2,2);
-  auto **<font color="#f8805a">d2</font>** = **<font color="#f8805a">a</font>**.DistanceSquared(**<font color="#f8805a">b</font>**); // d2 == 9
+  Location a(0,0,0), b(1,2,2);
+  auto d2 = a.DistanceSquared(b); // d2 == 9
   ```
 
 ### **<font color="#7fb800">Distance</font>**
@@ -1094,7 +1122,7 @@ size_t GetTreeSize() const;
 - **说明**：返回当前对象到 `loc` 的欧氏距离，等于 $$\sqrt{DistanceSquared(loc)}$$。  
 - **示例**：  
   ```cpp
-  auto **<font color="#f8805a">d</font>** = **<font color="#f8805a">a</font>**.Distance(**<font color="#f8805a">b</font>**); // d == 3
+  auto d = a.Distance(b); // d == 3
   ```
 
 ---
@@ -1109,8 +1137,8 @@ size_t GetTreeSize() const;
 - **说明**：将 `rhs` 坐标加到当前对象。  
 - **示例**:  
   ```cpp
-  Location **<font color="#f8805a">p1</font>**(1,1,1), **<font color="#f8805a">p2</font>**(2,3,4);
-  **<font color="#f8805a">p1</font>** += **<font color="#f8805a">p2</font>**; // p1 = (3,4,5)
+  Location p1(1,1,1),p2(2,3,4);
+  p1+= p2; // p1 = (3,4,5)
   ```
 
 ### **<font color="#7fb800">operator+</font>**
@@ -1121,7 +1149,7 @@ size_t GetTreeSize() const;
 - **说明**：返回两坐标相加的新 `Location`。  
 - **示例**:  
   ```cpp
-  auto **<font color="#f8805a">sum</font>** = **<font color="#f8805a">p1</font>** + **<font color="#f8805a">p2</font>**; // sum = (3,4,5)
+  auto sum = p1 + p2; // sum = (3,4,5)
   ```
 
 ### **<font color="#7fb800">operator-=</font>** / **<font color="#7fb800">operator-</font>**
@@ -1133,7 +1161,7 @@ size_t GetTreeSize() const;
 - **说明**：坐标差运算。  
 - **示例**:  
   ```cpp
-  Location **<font color="#f8805a">diff</font>** = **<font color="#f8805a">p2</font>** - **<font color="#f8805a">p1</font>**; // ( -1, -2, -3 )
+  Location diff = p2 - p1; // ( -1, -2, -3 )
   ```
 
 ---
@@ -1149,8 +1177,8 @@ size_t GetTreeSize() const;
 - **说明**：逐分量比较相等或不等。  
 - **示例**:  
   ```cpp
-  bool **<font color="#f8805a">eq</font>** = ( **<font color="#f8805a">p1</font>** == **<font color="#f8805a">p2</font>** );
-  bool **<font color="#f8805a">ne</font>** = ( **<font color="#f8805a">p1</font>** != **<font color="#f8805a">p2</font>** );
+  bool eq= ( p1 ==p2 );
+  bool ne = ( p1!= p2 );
   ```
 
 ---
@@ -1161,16 +1189,19 @@ size_t GetTreeSize() const;
 - **说明**：从 UE4 `FVector`（厘米）转换到米坐标。  
 - **示例**:  
   ```cpp
-  FVector **<font color="#f8805a">fv</font>**{100,200,300};
-  Location **<font color="#f8805a">loc_ue</font>**(**<font color="#f8805a">fv</font>**); // (1,2,3)
+  FVector fv{100,200,300};
+  Location loc_ue(fv); // (1,2,3)
   ```
 
 ### **<font color="#7fb800">operator FVector()</font>**
 - **说明**：将 `Location`（米）转换到 UE4 `FVector`（厘米）。  
 - **示例**:  
   ```cpp
-  FVector **<font color="#f8805a">fv2</font>** = **<font color="#f8805a">loc_xyz</font>**; // (100,200,300)
+  FVector fv2= loc_xyz; // (100,200,300)
   ```
+
+<span id="Rotation"></span>
+
 # [Rotation](#Rotation)
 
 ## 概述
@@ -1193,7 +1224,7 @@ size_t GetTreeSize() const;
 - **说明**：默认构造，三角度均为 0。  
 - **示例**：  
   ```cpp
-  Rotation **<font color="#f8805a">r0</font>**; // pitch=0,yaw=0,roll=0
+  Rotation r0; // pitch=0,yaw=0,roll=0
   ```
 
 ### **<font color="#7fb800">Rotation(float p, float y, float r)</font>**  
@@ -1207,7 +1238,7 @@ size_t GetTreeSize() const;
   - **<font color="#f8805a">r</font>**：翻滚角（roll）  
 - **示例**:  
   ```cpp
-  Rotation **<font color="#f8805a">r1</font>**(10.0f, 20.0f, 30.0f);
+  Rotation r1(10.0f, 20.0f, 30.0f);
   ```
 
 ---
@@ -1228,7 +1259,7 @@ size_t GetTreeSize() const;
 - **示例**:  
   ```cpp
   Rotation r(0,90,0);
-  Vector3D **<font color="#f8805a">fwd</font>** = r.GetForwardVector(); // ≈ (0,1,0)
+  Vector3D fwd = r.GetForwardVector(); // ≈ (0,1,0)
   ```
 
 ### **<font color="#7fb800">GetRightVector</font>**  
@@ -1239,7 +1270,7 @@ size_t GetTreeSize() const;
 - **说明**：返回物体右侧单位向量，具体计算见 `Math::GetRightVector`。  
 - **示例**:  
   ```cpp
-  Vector3D **<font color="#f8805a">right</font>** = r.GetRightVector();
+  Vector3D right = r.GetRightVector();
   ```
 
 ### **<font color="#7fb800">GetUpVector</font>**  
@@ -1250,7 +1281,7 @@ size_t GetTreeSize() const;
 - **说明**：返回物体上方单位向量，具体计算见 `Math::GetUpVector`。  
 - **示例**:  
   ```cpp
-  Vector3D **<font color="#f8805a">up</font>** = r.GetUpVector();
+  Vector3D up= r.GetUpVector();
   ```
 
 ---
@@ -1268,9 +1299,9 @@ size_t GetTreeSize() const;
   $$\mathbf{v}' = R_{\text{yaw}} R_{\text{roll}} R_{\text{pitch}}\,\mathbf{v}.$$  
 - **示例**:  
   ```cpp
-  Vector3D **<font color="#f8805a">pt</font>**(1,0,0);
-  r.RotateVector(**<font color="#f8805a">pt</font>**);           // 原地旋转
-  auto **<font color="#f8805a">pt2</font>** = r.RotateVector(pt); // 返回旋转后拷贝
+  Vector3D pt(1,0,0);
+  r.RotateVector(pt);           // 原地旋转
+  auto pt2 = r.RotateVector(pt); // 返回旋转后拷贝
   ```
 
 ### **<font color="#7fb800">InverseRotateVector</font>**  
@@ -1281,8 +1312,8 @@ size_t GetTreeSize() const;
 - **说明**：按上述顺序的逆矩阵（转置）对向量做逆旋转。  
 - **示例**:  
   ```cpp
-  Vector3D **<font color="#f8805a">p3</font>** = pt2;
-  r.InverseRotateVector(**<font color="#f8805a">p3</font>**); // 恢复原向量 (1,0,0)
+  Vector3D p3 = pt2;
+  r.InverseRotateVector(p3); // 恢复原向量 (1,0,0)
   ```
 
 ---
@@ -1298,7 +1329,7 @@ size_t GetTreeSize() const;
 - **说明**：逐分量比较相等或不等。  
 - **示例**:  
   ```cpp
-  bool **<font color="#f8805a">same</font>** = (r == Rotation(10,20,30));
+  bool same = (r == Rotation(10,20,30));
   ```
 
 ---
@@ -1317,8 +1348,10 @@ size_t GetTreeSize() const;
 - **说明**：转换为 UE4 `FRotator`。  
 - **示例**:  
   ```cpp
-  FRotator **<font color="#f8805a">outFR</font>** = r;
+  FRotator outFR = r;
   ```
+
+<span id="Transform"></span>
 
 # [Transform](#Transform)
 
@@ -1341,7 +1374,7 @@ size_t GetTreeSize() const;
 - **说明**：默认构造，`location` 和 `rotation` 均为默认值。  
 - **示例**：  
   ```cpp
-  Transform **<font color="#f8805a">t0</font>**; // location=(0,0,0)、rotation=(0,0,0)
+  Transform t0; // location=(0,0,0)、rotation=(0,0,0)
   ```
 
 ### **<font color="#7fb800">Transform(const Location &in_location)</font>**
@@ -1349,8 +1382,8 @@ size_t GetTreeSize() const;
 - **说明**：只设置平移，旋转保持默认。  
 - **示例**：  
   ```cpp
-  Location **<font color="#f8805a">loc</font>**(1,2,3);
-  Transform **<font color="#f8805a">t1</font>**(**<font color="#f8805a">loc</font>**); // rotation=(0,0,0)
+  Location loc(1,2,3);
+  Transform t1(loc); // rotation=(0,0,0)
   ```
 
 ### **<font color="#7fb800">Transform(const Location &in_location, const Rotation &in_rotation)</font>**
@@ -1358,8 +1391,8 @@ size_t GetTreeSize() const;
 - **说明**：同时设置平移与旋转。  
 - **示例**：  
   ```cpp
-  Rotation **<font color="#f8805a">r</font>**(10,20,30);
-  Transform **<font color="#f8805a">t2</font>**(**<font color="#f8805a">loc</font>**, **<font color="#f8805a">r</font>**);
+  Rotation r(10,20,30);
+  Transform t2(loc,r);
   ```
 
 ---
@@ -1374,7 +1407,7 @@ size_t GetTreeSize() const;
 - **说明**：基于 `rotation` 计算单位“前向”向量。  
 - **示例**:  
   ```cpp
-  Vector3D **<font color="#f8805a">fwd</font>** = **<font color="#f8805a">t2</font>**.GetForwardVector();
+  Vector3D fwd = t2.GetForwardVector();
   ```
 
 ### **<font color="#7fb800">GetRightVector</font>**
@@ -1385,7 +1418,7 @@ size_t GetTreeSize() const;
 - **说明**：基于 `rotation` 计算单位“右向”向量。  
 - **示例**:  
   ```cpp
-  Vector3D **<font color="#f8805a">right</font>** = **<font color="#f8805a">t2</font>**.GetRightVector();
+  Vector3D right = t2.GetRightVector();
   ```
 
 ### **<font color="#7fb800">GetUpVector</font>**
@@ -1396,7 +1429,7 @@ size_t GetTreeSize() const;
 - **说明**：基于 `rotation` 计算单位“上向”向量.  
 - **示例**:  
   ```cpp
-  Vector3D **<font color="#f8805a">up</font>** = **<font color="#f8805a">t2</font>**.GetUpVector();
+  Vector3D up = t2.GetUpVector();
   ```
 
 ---
@@ -1411,8 +1444,8 @@ size_t GetTreeSize() const;
 - **说明**：先绕原点旋转，再平移。  
 - **示例**:  
   ```cpp
-  Vector3D **<font color="#f8805a">p</font>**(1,0,0);
-  **<font color="#f8805a">t2</font>**.TransformPoint(**<font color="#f8805a">p</font>**);
+  Vector3D p(1,0,0);
+  t2.TransformPoint(p);
   ```
 
 ### **<font color="#7fb800">TransformVector</font>**
@@ -1423,8 +1456,8 @@ size_t GetTreeSize() const;
 - **说明**：仅旋转向量，不平移。  
 - **示例**:  
   ```cpp
-  Vector3D **<font color="#f8805a">v</font>**(0,1,0);
-  **<font color="#f8805a">t2</font>**.TransformVector(**<font color="#f8805a">v</font>**);
+  Vector3D v(0,1,0);
+  t2.TransformVector(v);
   ```
 
 ### **<font color="#7fb800">InverseTransformPoint</font>**
@@ -1435,8 +1468,8 @@ size_t GetTreeSize() const;
 - **说明**：先平移逆变换，再旋转逆变换。  
 - **示例**:  
   ```cpp
-  Vector3D **<font color="#f8805a">p2</font>** = **<font color="#f8805a">p</font>**;
-  **<font color="#f8805a">t2</font>**.InverseTransformPoint(**<font color="#f8805a">p2</font>**);
+  Vector3D p2 = p;
+  t2.InverseTransformPoint(p2);
   ```
 
 ---
@@ -1457,7 +1490,7 @@ size_t GetTreeSize() const;
   $$
 - **示例**:  
   ```cpp
-  auto **<font color="#f8805a">m</font>** = **<font color="#f8805a">t2</font>**.GetMatrix();
+  auto m = t2.GetMatrix();
   ```
 
 ### **<font color="#7fb800">GetInverseMatrix</font>**
@@ -1468,7 +1501,7 @@ size_t GetTreeSize() const;
 - **说明**：生成逆变换矩阵 \(M^{-1}\)。  
 - **示例**:  
   ```cpp
-  auto **<font color="#f8805a">mi</font>** = **<font color="#f8805a">t2</font>**.GetInverseMatrix();
+  auto mi = t2.GetInverseMatrix();
   ```
 
 ---
@@ -1484,7 +1517,7 @@ size_t GetTreeSize() const;
 - **说明**：位置与旋转均相等时才返回 `true`。  
 - **示例**:  
   ```cpp
-  bool **<font color="#f8805a">eq</font>** = (t1 == t2);
+  bool eq = (t1 == t2);
   ```
 
 ---
@@ -1495,16 +1528,18 @@ size_t GetTreeSize() const;
 - **说明**：从 UE4 `FTransform` 构造。  
 - **示例**:  
   ```cpp
-  FTransform **<font color="#f8805a">ut</font>**;
-  Transform **<font color="#f8805a">tue</font>**(**<font color="#f8805a">ut</font>**);
+  FTransform ut;
+  Transform tue(ut);
   ```
 
 ### **<font color="#7fb800">operator FTransform()</font>**
 - **说明**：转换为 UE4 `FTransform`。  
 - **示例**:  
   ```cpp
-  FTransform **<font color="#f8805a">ut2</font>** = t2;
+  FTransform ut2= t2;
   ```
+
+<span id="CubicPolynomial"></span>
 
 # [CubicPolynomial](#CubicPolynomial)
 
@@ -1522,7 +1557,7 @@ $$f(x)=a + b\,x + c\,x^2 + d\,x^3$$
 - **说明**：默认构造，所有系数和偏移量初始化为 0。  
 - **示例**:  
   ```cpp
-  CubicPolynomial **<font color="#f8805a">p0</font>**; // a=b=c=d=s=0
+  CubicPolynomial p0; // a=b=c=d=s=0
   ```
 
 ### **<font color="#7fb800">CubicPolynomial(const value_type &a, const value_type &b, const value_type &c, const value_type &d)</font>**
@@ -1533,10 +1568,11 @@ $$f(x)=a + b\,x + c\,x^2 + d\,x^3$$
                   const value_type &c,
                   const value_type &d);
   ```
-- **说明**：按系数 $(a,b,c,d)$ 构造，无偏移量。  
+- **说明**：按系数 (*a*,*b*,*c*,*d*)构造，无偏移量。  
 - **示例**:  
+  
   ```cpp
-  CubicPolynomial **<font color="#f8805a">p1</font>**(1.0, 2.0, 3.0, 4.0);
+  CubicPolynomial p1(1.0, 2.0, 3.0, 4.0);
   ```
 
 ### **<font color="#7fb800">CubicPolynomial(const value_type &a, const value_type &b, const value_type &c, const value_type &d, const value_type &s)</font>**
@@ -1552,7 +1588,7 @@ $$f(x)=a + b\,x + c\,x^2 + d\,x^3$$
   $$\tilde a = a - b s + c s^2 - d s^3,\quad \tilde b = b -2c s +3d s^2,\quad \tilde c = c-3d s,\quad \tilde d = d$$  
 - **示例**:  
   ```cpp
-  CubicPolynomial **<font color="#f8805a">p2</font>**(1,2,3,4,0.5);
+  CubicPolynomial p2(1,2,3,4,0.5);
   ```
 
 ---
@@ -1561,31 +1597,36 @@ $$f(x)=a + b\,x + c\,x^2 + d\,x^3$$
 
 ### **<font color="#7fb800">GetA/B/C/D</font>**
 - **原型**:  
+  
   ```cpp
   value_type GetA() const;
   value_type GetB() const;
   value_type GetC() const;
   value_type GetD() const;
   ```
-- **说明**：分别返回当前存储的系数 $\tilde a,\tilde b,\tilde c,\tilde d$。  
+- **说明**：分别返回当前存储的系数 *a*,*b*,*c*,*d*。。  
 - **示例**:  
+  
   ```cpp
-  auto **<font color="#f8805a">a</font>** = p2.GetA();
+  auto a = p2.GetA();
   ```
 
 ### **<font color="#7fb800">GetS</font>**
 - **原型**:  
+  
   ```cpp
   value_type GetS() const;
   ```
-- **说明**：返回偏移量 $s$。  
+- **说明**：返回偏移量 *s*。  
 - **示例**:  
+  
   ```cpp
-  auto **<font color="#f8805a">s</font>** = p2.GetS(); // 0.5
+  auto s = p2.GetS(); // 0.5
   ```
 
 ### **<font color="#7fb800">Set(a,b,c,d[,s])</font>**
 - **原型**:  
+  
   ```cpp
   void Set(const value_type &a,
            const value_type &b,
@@ -1616,7 +1657,7 @@ $$f(x)=a + b\,x + c\,x^2 + d\,x^3$$
 - **说明**：计算 $$f(x)=\tilde a + \tilde b\,x + \tilde c\,x^2 + \tilde d\,x^3$$
 - **示例**:  
   ```cpp
-  auto **<font color="#f8805a">y</font>** = p1.Evaluate(2.0); // 1+2*2+3*4+4*8
+  auto y = p1.Evaluate(2.0); // 1+2*2+3*4+4*8
   ```
 
 ### **<font color="#7fb800">Tangent</font>**
@@ -1627,7 +1668,7 @@ $$f(x)=a + b\,x + c\,x^2 + d\,x^3$$
 - **说明**：计算导数 $$f'(x)=\tilde b + 2\tilde c\,x + 3\tilde d\,x^2$$。  
 - **示例**:  
   ```cpp
-  auto **<font color="#f8805a">m</font>** = p1.Tangent(2.0); // 2 + 2*3*2 + 3*4*4
+  auto m = p1.Tangent(2.0); // 2 + 2*3*2 + 3*4*4
   ```
 
 ---
@@ -1653,7 +1694,7 @@ $$f(x)=a + b\,x + c\,x^2 + d\,x^3$$
 - **说明**：返回相加结果。  
 - **示例**:  
   ```cpp
-  auto **<font color="#f8805a">sum</font>** = p1 + p2;
+  auto sum= p1 + p2;
   ```
 
 ### **<font color="#7fb800">operator*=</font>**
@@ -1676,10 +1717,12 @@ $$f(x)=a + b\,x + c\,x^2 + d\,x^3$$
 - **说明**：返回乘标量结果，支持标量在左或右。  
 - **示例**:  
   ```cpp
-  auto **<font color="#f8805a">scaled</font>** = 0.5 * p1;
+  auto scaled = 0.5 * p1;
   ```
 
 ---
+
+<span id="BoundingBox"></span>
 
 # [BoundingBox](#BoundingBox)
 
@@ -1695,7 +1738,7 @@ $$f(x)=a + b\,x + c\,x^2 + d\,x^3$$
 - **说明**：默认构造，`location=(0,0,0)`，`extent=(0,0,0)`，`rotation=(0,0,0)`。  
 - **示例**：  
   ```cpp
-  BoundingBox **<font color="#f8805a">bb0</font>**; // 默认空盒
+  BoundingBox bb0; // 默认空盒
   ```
 
 - **带参构造**：  
@@ -1708,10 +1751,10 @@ $$f(x)=a + b\,x + c\,x^2 + d\,x^3$$
 - **说明**：指定中心、半尺寸和旋转。  
 - **示例**：  
   ```cpp
-  Location **<font color="#f8805a">loc</font>**(1,2,3);
-  Vector3D **<font color="#f8805a">ext</font>**(0.5f,0.5f,1.0f);
-  Rotation **<font color="#f8805a">rot</font>**(0,45,0);
-  BoundingBox **<font color="#f8805a">bb1</font>**(**<font color="#f8805a">loc</font>**, **<font color="#f8805a">ext</font>**, **<font color="#f8805a">rot</font>**);
+  Location loc(1,2,3);
+  Vector3D ext(0.5f,0.5f,1.0f);
+  Rotation rot(0,45,0);
+  BoundingBox bb1(loc, ext, rot);
   ```
 
 - **带参构造**：  
@@ -1723,7 +1766,7 @@ $$f(x)=a + b\,x + c\,x^2 + d\,x^3$$
 - **说明**：指定中心和半尺寸，旋转为默认 `(0,0,0)`。  
 - **示例**：  
   ```cpp
-  BoundingBox **<font color="#f8805a">bb2</font>**(**<font color="#f8805a">loc</font>**, **<font color="#f8805a">ext</font>**);
+  BoundingBox bb2(loc, ext);
   ```
 
 - **带参构造**：  
@@ -1734,7 +1777,7 @@ $$f(x)=a + b\,x + c\,x^2 + d\,x^3$$
 - **说明**：指定半尺寸，中心和旋转使用默认值。  
 - **示例**：  
   ```cpp
-  BoundingBox **<font color="#f8805a">bb3</font>**(**<font color="#f8805a">ext</font>**);
+  BoundingBox bb3(ext);
   ```
 
 ---
@@ -1753,9 +1796,9 @@ $$f(x)=a + b\,x + c\,x^2 + d\,x^3$$
   3. 判断坐标是否在 ±**<font color="#f8805a">extent</font>** 范围内。  
 - **示例**：  
   ```cpp
-  Location **<font color="#f8805a">pt</font>**(1.1f,2.0f,3.0f);
-  Transform **<font color="#f8805a">tr</font>**(...);
-  bool **<font color="#f8805a">inside</font>** = bb1.Contains(**<font color="#f8805a">pt</font>**, **<font color="#f8805a">tr</font>**);
+  Location pt(1.1f,2.0f,3.0f);
+  Transform tr(...);
+  bool inside = bb1.Contains(pt, tr);
   ```
 
 ### **<font color="#7fb800">GetLocalVertices</font>**
@@ -1767,7 +1810,7 @@ $$f(x)=a + b\,x + c\,x^2 + d\,x^3$$
   $$\displaystyle \text{vertex}_i = \text{location} + \text{rotation.RotateVector}(\pm extent.x,\pm extent.y,\pm extent.z).$$  
 - **示例**：  
   ```cpp
-  auto **<font color="#f8805a">verts</font>** = bb1.GetLocalVertices();
+  auto verts = bb1.GetLocalVertices();
   ```
 
 ### **<font color="#7fb800">GetLocalVerticesNoRotation</font>**
@@ -1778,7 +1821,7 @@ $$f(x)=a + b\,x + c\,x^2 + d\,x^3$$
 - **说明**：返回不考虑旋转，仅基于 **<font color="#f8805a">location</font>** 与 **<font color="#f8805a">extent</font>** 的 8 个顶点。  
 - **示例**：  
   ```cpp
-  auto **<font color="#f8805a">vertsNR</font>** = bb1.GetLocalVerticesNoRotation();
+  auto vertsNR = bb1.GetLocalVerticesNoRotation();
   ```
 
 ### **<font color="#7fb800">GetWorldVertices</font>**
@@ -1789,7 +1832,7 @@ $$f(x)=a + b\,x + c\,x^2 + d\,x^3$$
 - **说明**：先调用 **<font color="#7fb800">GetLocalVertices</font>**，再对每个顶点应用 `TransformPoint`，得到世界坐标顶点数组。  
 - **示例**：  
   ```cpp
-  auto **<font color="#f8805a">worldVerts</font>** = bb1.GetWorldVertices(**<font color="#f8805a">tr</font>**);
+  auto worldVerts = bb1.GetWorldVertices(tr);
   ```
 
 ---
@@ -1805,7 +1848,7 @@ $$f(x)=a + b\,x + c\,x^2 + d\,x^3$$
 - **说明**：当且仅当 **<font color="#f8805a">location</font>**, **<font color="#f8805a">extent</font>**, **<font color="#f8805a">rotation</font>** 全部相等时才判定相等。  
 - **示例**：  
   ```cpp
-  bool **<font color="#f8805a">eq</font>** = (bb1 == bb2);
+  bool eq = (bb1 == bb2);
   ```
 
 ---
@@ -1817,11 +1860,13 @@ $$f(x)=a + b\,x + c\,x^2 + d\,x^3$$
   $$\text{location}=Box.Origin,\quad \text{extent}=(Box.Extent/100).$$  
 - **示例**：  
   ```cpp
-  FBoundingBox **<font color="#f8805a">ubox</font>**;
-  BoundingBox **<font color="#f8805a">bbU</font>**(**<font color="#f8805a">ubox</font>**);
+  FBoundingBox ubox;
+  BoundingBox bbU(ubox);
   ```
 
 ---
+
+<span id="GeoLocation"></span>
 
 # [GeoLocation](#GeoLocation)
 
@@ -1852,7 +1897,7 @@ $$f(x)=a + b\,x + c\,x^2 + d\,x^3$$
 - **说明**：使用默认值构造。  
 - **示例**：  
   ```cpp
-  GeoLocation **<font color="#f8805a">g0</font>**; // (0,0,0)
+  GeoLocation g0; // (0,0,0)
   ```
 
 ### **<font color="#7fb800">GeoLocation(double latitude, double longitude, double altitude)</font>**
@@ -1863,7 +1908,7 @@ $$f(x)=a + b\,x + c\,x^2 + d\,x^3$$
 - **说明**：按指定经纬度及海拔初始化。  
 - **示例**：  
   ```cpp
-  GeoLocation **<font color="#f8805a">g1</font>**(37.7749, -122.4194, 30.0);
+  GeoLocation g1(37.7749, -122.4194, 30.0);
   ```
 
 ---
@@ -1879,14 +1924,16 @@ $$f(x)=a + b\,x + c\,x^2 + d\,x^3$$
   1. 将当前经纬度和平面位移（**<font color="#f8805a">location.x</font>**, **<font color="#f8805a">location.y</font>**）转换为新的经纬度；  
   2. **<font color="#f8805a">altitude</font>** 累加 **<font color="#f8805a">location.z</font>**。  
 - **示例**：  
+  
   ```cpp
-  GeoLocation **<font color="#f8805a">geo</font>**(0.0, 0.0, 100.0);
-  Location **<font color="#f8805a">loc</font>**(10.0f, 20.0f, 5.0f);
-  GeoLocation **<font color="#f8805a">res</font>** = **<font color="#f8805a">geo</font>**.Transform(**<font color="#f8805a">loc</font>**);
+  GeoLocation geo(0.0, 0.0, 100.0);
+  Location loc(10.0f, 20.0f, 5.0f);
+  GeoLocation res = geo.Transform(loc);
   // 计算后 res.latitude, res.longitude 变化，res.altitude == 105.0
   ```
 
 **转换原理**  
+
 - 利用墨卡托投影将 `(latitude, longitude)` 映射为 `(mx, my)`；  
 - 在投影平面上加上 `dx = location.x`、`dy = -location.y`（北向为正）；  
 - 反变换回经纬度；  
@@ -1900,9 +1947,10 @@ $$f(x)=a + b\,x + c\,x^2 + d\,x^3$$
   ```cpp
   static double LatToScale(double lat);
   ```
-  - 说明：比例因子 $=\cos(\mathrm{toRadians}(lat))$。  
+  - 说明：比例因子 \(=\cos(\mathrm{toRadians}(lat))\)。  
 
 - **<font color="#7fb800">LatLonToMercator</font>** *(模板)*  
+  
   ```cpp
   template<class T>
   static void LatLonToMercator(double lat, double lon, double scale, T &mx, T &my);
@@ -1910,7 +1958,7 @@ $$f(x)=a + b\,x + c\,x^2 + d\,x^3$$
   - 说明：  
     $$mx = scale \times R \times \mathrm{toRadians}(lon),$$  
     $$my = scale \times R \times \ln\!\tan\Bigl(\tfrac{90+lat}{360}\pi\Bigr).$$  
-
+  
 - **<font color="#7fb800">MercatorToLatLon</font>**  
   ```cpp
   static void MercatorToLatLon(double mx, double my, double scale, double &lat, double &lon);
@@ -1934,14 +1982,16 @@ $$f(x)=a + b\,x + c\,x^2 + d\,x^3$$
 
 ### **<font color="#7fb800">operator==</font>** / **<font color="#7fb800">operator!=</font>**
 - **原型**：  
+  
   ```cpp
   bool operator==(const GeoLocation &rhs) const;
   bool operator!=(const GeoLocation &rhs) const;
   ```
 - **说明**：当且仅当经度、纬度、海拔全相等时返回 `true`。  
 - **示例**:  
+  
   ```cpp
-  bool **<font color="#f8805a">same</font>** = (g1 == GeoLocation(37.7749,-122.4194,30.0));
+  bool same= (g1 == GeoLocation(37.7749,-122.4194,30.0));
   ```
 
 ---
