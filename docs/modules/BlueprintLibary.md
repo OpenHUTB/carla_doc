@@ -286,4 +286,13 @@ UStaticMesh* RoadMesh = UMapGenFunctionLibrary::CreateMesh(
 |------------|--------------------|--------------|
 | 0.9.12+    | 4.26+              | 完全兼容     |
 | 0.9.0-0.9.11 | 4.24-4.25        | 部分功能受限 |
+### 单元测试用例
+- **示例**  
+```cpp
+TEST_F(MapGenTest, BasicMeshCreation) {
+    FProceduralCustomMesh TestData;
+    // 构建测试数据
+    UStaticMesh* Result = CreateMesh(...);
+    EXPECT_NE(Result, nullptr);
+}
 ---
