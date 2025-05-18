@@ -69,17 +69,40 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="vehicle">Vehicle详细解释文档</h1>
-<h2 id="_1">一、概述</h2>
+<h2 id="_1">目录</h2>
+<p><a href="#一概述">一、概述</a><br />
+<a href="#二文件信息">二、文件信息</a><br />
+- <a href="#版权信息">版权信息</a><br />
+- <a href="#包含头文件">包含头文件</a>  </p>
+<p><a href="#三类成员和方法">三、类成员和方法</a><br />
+- <a href="#31-构造函数和析构函数">3.1构造函数和析构函数</a><br />
+- <a href="#32-获取和应用设置">3.2获取和应用设置</a><br />
+- <a href="#33-设置目标点">3.3设置目标点</a><br />
+- <a href="#34-重置控制器">3.4重置控制器</a><br />
+- <a href="#35-运行控制循环">3.5运行控制循环</a><br />
+- <a href="#36-横向控制">3.6横向控制</a><br />
+- <a href="#37-纵向控制">3.7纵向控制</a><br />
+- <a href="#38-更新车辆状态和物理参数">3.8更新车辆状态和物理参数</a>  </p>
+<p><a href="#四详细代码解释">四、详细代码解释</a><br />
+- <a href="#41-获取和应用设置">4.1获取和应用设置</a><br />
+- <a href="#42-设置目标点">4.2设置目标点</a><br />
+- <a href="#43-重置控制器">4.3重置控制器</a><br />
+- <a href="#44-运行控制循环">4.4运行控制循环</a><br />
+- <a href="#45-横向控制">4.5横向控制</a><br />
+- <a href="#46-纵向控制">4.6纵向控制</a>  </p>
+<p><a href="#五应用场景">五、应用场景</a>  </p>
+<hr />
+<h2 id="_2">一、概述</h2>
 <p><code>FAckermannController</code> 类是一个用于实现阿克曼转向控制的控制器类，主要用于控制轮式车辆的行驶，包括速度、加速度、转向等方面的控制。该类使用了 PID 控制器来对速度和加速度进行调节，以实现对车辆的精确控制。</p>
-<h2 id="_2">二、文件信息</h2>
-<h3 id="_3">版权信息</h3>
+<h2 id="_3">二、文件信息</h2>
+<h3 id="_4">版权信息</h3>
 <p>该代码版权归 2021 年巴塞罗那自治大学（UAB）的计算机视觉中心（CVC）所有，代码遵循 MIT 许可证。</p>
-<h3 id="_4">包含头文件</h3>
+<h3 id="_5">包含头文件</h3>
 <ul>
 <li><code>AckermannController.h</code>：定义了 <code>FAckermannController</code> 类和相关结构体。</li>
 <li><code>CarlaWheeledVehicle.h</code>：定义了 <code>ACarlaWheeledVehicle</code> 类，用于表示轮式车辆。</li>
 </ul>
-<h2 id="_5">三、类成员和方法</h2>
+<h2 id="_6">三、类成员和方法</h2>
 <h3 id="31">3.1构造函数和析构函数</h3>
 <ul>
 <li><code>FAckermannController::~FAckermannController()</code>：析构函数，用于释放 <code>FAckermannController</code> 对象所占用的资源。</li>
@@ -125,7 +148,7 @@
 <li>更新车辆物理参数</li>
 <li><code>void FAckermannController::UpdateVehiclePhysics(const ACarlaWheeledVehicle* Vehicle)</code>：更新车辆的最大转向角。</li>
 </ol>
-<h2 id="_6">四、详细代码解释</h2>
+<h2 id="_7">四、详细代码解释</h2>
 <h3 id="41">4.1获取和应用设置</h3>
 <div class="highlight"><pre><span></span><code><span class="n">FAckermannControllerSettings</span><span class="w"> </span><span class="nf">FAckermannController::GetSettings</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="n">FAckermannControllerSettings</span><span class="w"> </span><span class="n">Settings</span><span class="p">;</span>
@@ -388,7 +411,7 @@ void FAckermannController::SetTargetPoint(const FVehicleAckermannControl&amp; Ac
 <span class="p">}</span>
 </code></pre></div>
 <p>根据目标油门或刹车值和倒车标志，更新车辆的油门和刹车控制命令。</p>
-<h3 id="_7">（七）更新车辆状态和物理参数</h3>
+<h3 id="_8">（七）更新车辆状态和物理参数</h3>
 <h4 id="71">7.1更新车辆状态</h4>
 <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">FAckermannController::UpdateVehicleState</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">ACarlaWheeledVehicle</span><span class="o">*</span><span class="w"> </span><span class="n">Vehicle</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="n">TRACE_CPUPROFILER_EVENT_SCOPE_STR</span><span class="p">(</span><span class="n">__FUNCTION__</span><span class="p">);</span>
@@ -413,7 +436,7 @@ void FAckermannController::SetTargetPoint(const FVehicleAckermannControl&amp; Ac
 <span class="w">  </span><span class="n">VehicleMaxSteering</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FMath</span><span class="o">::</span><span class="n">DegreesToRadians</span><span class="p">(</span><span class="n">Vehicle</span><span class="o">-&gt;</span><span class="n">GetMaximumSteerAngle</span><span class="p">());</span>
 <span class="p">}</span>
 </code></pre></div>
-<h2 id="_8">五、应用场景</h2>
+<h2 id="_9">五、应用场景</h2>
 <ul>
 <li><strong>自动驾驶测试</strong>：构建多样化车辆场景，检验算法的鲁棒性。</li>
 <li><strong>交通仿真模拟</strong>：模拟真实交通流，优化交通策略。</li>
