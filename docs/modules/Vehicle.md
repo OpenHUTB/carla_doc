@@ -292,7 +292,124 @@ Tick：每帧执行的主逻辑流程
 ## 四、编辑器相关函数 `PostEditChangeProperty(struct FPropertyChangedEvent& PropertyChangedEvent)`
 
 1. **功能**：当在编辑器中修改组件的属性时被调用，根据修改的属性（`DownRatio`、`UpRatio`、`SteeringCurve`）对相关设置进行调整。例如，当修改 `DownRatio` 时，确保每个前进档的 `DownRatio` 不大于 `UpRatio`；当修改 `UpRatio` 时，确保 `UpRatio` 不小于 `DownRatio`；当修改 `SteeringCurve` 时，确保曲线上的值在 0 到 1 之间。
+
 2. **参数**：`PropertyChangedEvent` 包含了属性变化的相关信息，如修改的属性名称等。
+
+   ## 五、静态函数
+
+   5. 1`GetVehicleDifferentialNWSetup(const TArray<FVehicleNWWheelDifferentialData>& Setup, PxVehicleDifferentialNWData& PxSetup)`
+
+   1. **功能**：根据给定的车轮差速器设置数组，设置 PhysX 车辆差速器的数据，将每个车轮的驱动状态设置到 `PxSetup` 中。
+   2. 参数：
+      - `Setup`：一个包含车辆车轮差速器数据的数组。
+      - `PxSetup`：PhysX 车辆差速器数据对象，用于存储设置后的差速器数据。
+
+   5.2、静态函数 `GetVehicleEngineSetup(const FVehicleNWEngineData& Setup, PxVehicleEngineData& PxSetup)`
+
+   1. **功能**：根据给定的车辆发动机数据，设置 PhysX 车辆发动机的数据。包括将发动机的转动惯量、最大转速、阻尼率等从自定义单位转换为 PhysX 所需的单位，并设置扭矩曲线数据，将自定义的扭矩曲线转换为 PhysX 格式的扭矩曲线。
+   2. 参数：
+      - `Setup`：包含车辆发动机数据的对象。
+      - `PxSetup`：PhysX 车辆发动机数据对象，用于存储设置后的发动机数据。
+
+   5.3、静态函数 `GetVehicleGearSetup(const FVehicleNWTransmissionData& Setup, PxVehicleGearsData& PxSetup)`
+
+   1. **功能**：根据给定的车辆变速器数据，设置 PhysX 车辆齿轮的数据。包括设置换挡时间、倒档齿轮比、前进档齿轮比以及最终传动比等。
+   2. 参数：
+      - `Setup`：包含车辆变速器数据的对象。
+      - `PxSetup`：PhysX 车辆齿轮数据对象，用于存储设置后的齿轮数据。
+
+   5.4、静态函数 `GetVehicleAutoBoxSetup(const FVehicleNWTransmissionData& Setup, PxVehicleAutoBoxData& PxSetup)`
+
+   1. **功能**：根据给定的车辆变速器数据，设置 PhysX 车辆自动变速器的数据。包括设置每个前进档的升档比和降档比，以及空档的升档比和自动变速器的延迟时间。
+   2. 参数：
+      - `Setup`：包含车辆变速器数据的对象。
+      - `PxSetup`：PhysX 车辆自动变速器数据对象，用于存储设置后的自动变速器数据。
+
+1. ## 五、成员函数 
+
+   `（1）FindPeakTorque()`
+
+   1. **功能**：在发动机扭矩曲线中查找最大扭矩值，通过遍历扭矩曲线的关键帧，找出扭矩值的最大值。
+   2. **返回值**：返回找到的最大扭矩值。
+
+   （2）`GetCustomGearBoxNumForwardGears() const`
+
+   1. **功能**：获取自定义变速箱的前进档数量，返回存储前进档数据的数组的数量。
+   2. **返回值**：返回前进档的数量。
+
+   （3）、成员函数 `SetupVehicle()`
+
+   1. **功能**：设置车辆的相关属性和物理模拟数据。首先检查更新的基元（`UpdatedPrimitive`），如果车轮设置数量小于 2 则不进行设置。然后设置车辆的形状、质量属性，分配并设置车轮数据，根据车辆数据和车轮模拟数据设置驱动数据，创建车辆驱动对象，将驱动数据应用到物理引擎中的车辆对象上，并缓存车辆和车辆驱动对象。
+   2. **注意事项**：在设置过程中，对物理引擎的操作是通过 `FPhysicsCommand::ExecuteWrite` 进行的，确保在正确的上下文中调用。
+
+   （4）成员函数 `UpdateSimulation(float DeltaTime)`
+
+   1. **功能**：更新车辆的模拟数据。如果车辆驱动对象为空则不进行更新。设置原始输入数据，包括油门、转向、刹车和手刹的输入值。根据自动变速器的使用情况设置升档和降档的输入。将转向曲线转换为 PhysX 格式的固定大小查找表，设置平滑数据，并使用这些数据更新车辆的驱动模拟数据。
+   2. **参数**：`DeltaTime` 表示时间间隔，用于模拟的时间步长。
+
+   （5）成员函数 `UpdateEngineSetup(const FVehicleNWEngineData& NewEngineSetup)`
+
+   1. **功能**：更新车辆的发动机设置。如果车辆驱动对象不为空，根据新的发动机设置数据，设置 PhysX 车辆发动机的数据。
+   
+2. **参数**：`NewEngineSetup` 包含新的发动机设置数据的对象。
+   
+      （6）、成员函数 `UpdateDifferentialSetup(const TArray<FVehicleNWWheelDifferentialData>& NewDifferentialSetup)`
+   
+      1. **功能**：更新车辆的差速器设置。如果车辆驱动对象不为空，根据新的差速器设置数组，设置 PhysX 车辆差速器的数据。
+      2. **参数**：`NewDifferentialSetup` 包含新的差速器设置数据的数组。
+      
+      
+   （7）、成员函数 `UpdateTransmissionSetup(const FVehicleNWTransmissionData& NewTransmissionSetup)`
+      
+      1. **功能**：更新车辆的变速器设置。如果车辆驱动对象不为空，根据新的变速器设置数据，设置 PhysX 车辆的齿轮数据和自动变速器数据。
+   2. **参数**：`NewTransmissionSetup` 包含新的变速器设置数据的对象。
+         
+   
+      （8）、成员函数 `BackwardsConvertCm2ToM2NW(float& val, float defaultValue)`
+      
+      1. **功能**：将从厘米平方到米平方的单位进行转换，如果 `val` 的值不等于默认值，则进行转换。
+      2. 参数：
+      - `val`：需要转换的数值。
+         - `defaultValue`：默认值，用于判断是否进行转换。
+      
+      
+      （9）、成员函数 `Serialize(FArchive& Ar)`
+   
+      1. **功能**：对组件进行序列化和反序列化操作。在反序列化时（加载时），根据不同的 UE4 版本进行单位转换，将发动机和变速器的一些设置从旧单位转换为新单位，确保兼容性。
+   2. **参数**：`Ar` 用于进行序列化和反序列化的存档对象。
+         
+      
+      （10）、成员函数 `ComputeConstants()`
+      
+      1. **功能**：计算一些常量，调用基类的 `ComputeConstants` 函数，并将发动机的最大转速（`MaxEngineRPM`）设置为发动机设置中的最大转速（`EngineSetup.MaxRPM`）。
+
+   （11）、成员函数 `GetTireData(physx::PxVehicleWheels* InWheels, UVehicleWheel* InWheel)`
+
+1. **功能**：获取轮胎数据，根据给定的 PhysX 车辆车轮对象和车辆车轮对象，返回对应的轮胎数据指针。
+2. 参数：
+   - `InWheels`：PhysX 车辆车轮对象。
+   - `InWheel`：车辆车轮对象。
+   - **返回值**：返回轮胎数据的指针。
+
+（12）、成员函数 `GetWheelShapeMapping(physx::PxVehicleWheels* InWheels, uint32 InWheel)`
+
+1. **功能**：获取车轮形状映射，根据给定的 PhysX 车辆车轮对象和车轮索引，返回对应的车轮形状索引。
+2. 参数：
+   - `InWheels`：PhysX 车辆车轮对象。
+   - `InWheel`：车轮索引。
+   - **返回值**：返回车轮形状索引。
+
+（13）、成员函数 `GetWheelData(physx::PxVehicleWheels* InWheels, uint32 InWheel)`
+
+1. **功能**：获取车轮数据，根据给定的 PhysX 车辆车轮对象和车轮索引，返回对应的车轮数据。
+2. 参数：
+   - `InWheels`：PhysX 车辆车轮对象。
+   - `InWheel`：车轮索引。
+   - **返回值**：返回车轮数据对象。
+
+
+
+
 
 ## 参考
 

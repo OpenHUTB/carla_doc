@@ -10,33 +10,17 @@
 
 1. [项目概述](#1项目概述)
 2. [核心组件与蓝图结构](#2核心组件与蓝图结构)
-    i. [BP_BaseLight](#2i bp_baselight)
-    ii. [BP_SpecificLight_Type](#2ii bp_specificlight_type)
-    iii. [BP_MultipleLights](#2ii ibp_multiplelights)
-    iv. [LightIdSetter](#2iv lightidsetter)
-    v. [SceneLightingParameters 数据资产](#2v scenelightingparameters-数据资产)
 3. [关键功能实现](#3关键功能实现)
-    i. [灯光实例化与初始化](#3i灯光实例化与初始化)
-    ii. [灯光控制接口](#3ii灯光控制接口)
-    iii. [ID 分配机制](#3iiiid-分配机制)
-    iv. [与动态系统的集成](#3iv与动态系统的集成)
-    v. [性能优化考虑](#3v性能优化考虑)
 4. [工作流程](#4工作流程)
 5. [优化与扩展建议](#5优化与扩展建议)
-    i. [文件格式支持扩展（不适用）](#5i文件格式支持扩展不适用)
-    ii. [异常处理与日志记录](#5ii异常处理与日志记录)
-    iii. [性能优化](#5iii性能优化)
-    iv. [单元测试](#5iv单元测试)
-    v. [更多灯光特性](#5v更多灯光特性)
 6. [总结](#6总结)
 
 ---
 
 ## 1. 项目概述
 
-虚幻引擎作为人车模拟器的渲染核心，场景中的灯光是构建逼真仿真环境的关键要素之一。本模块专注于设计和实现场景中的人工光源（如路灯、建筑灯、交通信号灯等）的蓝图系统。通过提供结构化的蓝图资产和统一的控制接口，使得场景中的灯光能够灵活配置、易于管理，并能与模拟器的其他动态系统（如昼夜循环、天气变化）进行联动。
+本模块以 Unreal Engine 作为渲染核心，通过蓝图化体系对场景中的人工光源（路灯、建筑投光、交通信号灯等）进行结构化管理。所有灯具参数（光强、色温、衰减曲线、IES 曲线等）均以 Data Asset 形式数据化保存，并通过统一的 Blueprint 接口实现对光强、色彩与闪烁效果的编程控制，实时响应昼夜循环、气象系统和交通信号相位等全局事件。借鉴 CARLA 在蓝图组织和资产管理方面的最佳实践，本系统采用 C++ 与蓝图混合开发，兼顾高性能渲染与后续扩展维护的灵活性。在夜间、黄昏、黎明及雨雾等特殊场景下，高精度的人工灯光渲染不仅提升了视觉真实感，也显著增强了车载摄像头和深度传感器的环境感知准确性，为自动驾驶仿真提供了可靠的数据支撑。
 
-本灯光系统模块参考了类似 CARLA 模拟器在灯光蓝图组织上的实践，旨在提供一个既能满足仿真需求，又具有良好扩展性和维护性的解决方案。一个高质量的人工灯光系统对于提升夜间、黄昏、黎明或特殊天气（如雨雾）下的模拟真实感至关重要，直接影响车辆传感器（尤其是摄像头）对环境的感知效果。
 
 ### 模块依赖与集成
 
@@ -57,7 +41,7 @@
 
 本灯光系统由以下核心蓝图资产构成，它们组织在虚幻引擎的内容浏览器中，例如位于 `/Game/Blueprints/Scene/Lights/` 目录下：
 
-### i. BP_BaseLight
+### 2.1. BP_BaseLight
 
 *   **功能**: 作为所有具体人工光源蓝图的基类。封装了标准人工光源所需的基本组件和通用逻辑。
 *   **设计**:
@@ -68,7 +52,7 @@
     *   可以包含一个用于存储唯一 ID 的变量 (如 `LightID`，类型为 String 或 Integer)。
 *   **作用**: 提供了灯光蓝图代码的复用基础和统一的控制接口。
 
-### ii. BP_SpecificLight_Type
+### 2.2. BP_SpecificLight_Type
 
 *   **功能**: 从 `BP_BaseLight` 继承，用于表示特定类型的灯光实例，如 **`BP_Streetlight_Modern`**, **`BP_BuildingLight_Window`**, **`BP_TrafficLight_Simple`** 等。
 *   **设计**:
@@ -83,24 +67,44 @@
 
 ```cpp
 // 这是一个概念性的蓝图伪代码示例
+// Blueprint Pseudo-Code: 高级灯光配置加载
 Event BeginPlay
-    // 查找 SceneLightingParameters 数据资产
-    LocalVariable SceneParams = LoadDataAsset("SceneLightingParametersAssetReference");
+    // 1. 加载场景光照参数数据资产
+    Const UDataAsset* SceneLightingDA = Cast<UDataAsset>(LoadAsset("/Game/Configs/SceneLighting/SceneLightingParams"));
+    If Not IsValid(SceneLightingDA)
+        LogError("SceneLightingParams 加载失败，检查资产路径或引用")
+        Return
+    End If
 
-    // 根据自身类型（例如，蓝图标签或变量）查找对应的配置
-    LocalVariable MyConfig = SceneParams.FindConfigForLightType(Self.LightTypeIdentifier);
+    // 2. 按 LightTypeIdentifier 查找对应的配置，失败时使用默认
+    FLightConfig LightCfg
+    If Not SceneLightingDA.GetConfigByType(LightTypeIdentifier, Out LightCfg)
+        LogWarning("未找到 LightType '%s' 的配置，采用 DefaultConfig", LightTypeIdentifier.ToString())
+        LightCfg = SceneLightingDA.DefaultConfig
+    End If
 
-    If MyConfig Is Valid
-        // 应用配置到灯光组件
-        LightComponent.SetIntensity(MyConfig.DefaultIntensity);
-        LightComponent.SetLightColor(MyConfig.DefaultColor);
-        LightComponent.SetAttenuationRadius(MyConfig.DefaultAttenuationRadius);
-        StaticMeshComponent.SetStaticMesh(MyConfig.LampMesh);
+    // 3. 将配置应用到 LightComponent
+    If IsValid(LightComponent)
+        LightComponent.SetIntensity(LightCfg.Intensity)
+        LightComponent.SetLightColor(LightCfg.Color)
+        LightComponent.SetAttenuationRadius(LightCfg.AttenuationRadius)
+        If LightCfg.IESProfileAsset IsValid
+            LightComponent.SetIESProfile(LightCfg.IESProfileAsset)
+        End If
+    End If
+
+    // 4. 更新灯具外观
+    If IsValid(StaticMeshComponent) And LightCfg.MeshAsset IsValid
+        StaticMeshComponent.SetStaticMesh(LightCfg.MeshAsset)
+        If LightCfg.LampMaterial IsValid
+            StaticMeshComponent.SetMaterial(0, LightCfg.LampMaterial)
+        End If
     End If
 End Event
 ```
 
-### iii. BP_MultipleLights
+
+### 2.3. BP_MultipleLights
 
 *   **功能：** 一个控制器蓝图，用于管理场景中的一组相关的 `BP_BaseLight` 实例。
 *   **设计：**
@@ -108,7 +112,7 @@ End Event
     *   提供对该组灯光进行批量操作的函数，如 `TurnGroupOn()`、`TurnGroupOff()`、`SetGroupIntensity(float NewIntensity)`。这些函数内部会遍历数组，并对每个灯光 Actor 调用其相应的控制函数。
 *   **作用：** 便于对场景中的一组灯光进行统一管理和控制（例如，同时开启或关闭一条街上的所有路灯），减少外部系统需要直接操作大量单个 Actor 的需求。
 
-### iv. LightIdSetter
+### 2.4. LightIdSetter
 
 *   **功能：** 一个放置在场景中的蓝图 Actor 或一个可添加到 Actor 上的 Actor Component，负责在运行时扫描场景并为特定的灯光 Actor 分配唯一的标识符 (ID)。
 *   **设计：**
@@ -123,30 +127,46 @@ End Event
 
 ```cpp
 // 这是一个概念性的蓝图伪代码示例
-Function AssignUniqueIDs
+// Blueprint Pseudo-Code: 为所有基灯 Actor 分配全局唯一 ID
+Function AssignUniqueLightActorIDs()
+    // 1. 获取场景中所有继承自 BP_LightBase 的 Actor
+    Local Variable LightActors = GetAllActorsOfClass(BP_LightBase)
+    If LightActors.IsEmpty()
+        LogWarning("AssignUniqueLightActorIDs：未发现任何 BP_LightBase 实例，跳过 ID 分配")
+        Return
+    End If
 
-LocalVariable LightActors Array<Actor> = GetAllActorsOfClass(BP_BaseLight);
-LocalVariable CurrentID Integer = 0;
+    // 2. 遍历并为每个灯光 Actor 生成并赋予唯一 ID
+    For Index = 0 To LightActors.Num() - 1
+        Local Variable Actor = LightActors[Index]
+        If Not IsValid(Actor)
+            Continue
+        End If
 
-For Each Actor In LightActors
-    // 生成唯一ID，例如 "LightID_" + 当前计数
-    LocalVariable NewIDString = "LightID_" + ToString(CurrentID);
+        // 2.1 生成全局唯一 GUID
+        Local Variable NewGUID = FGuid.NewGuid()
+        Local Variable IDString = "LightID_" + NewGUID.ToString(EGuidFormats.DigitsWithHyphens)
 
-    // 将ID作为标签添加到Actor
-    Actor.AddTag(FName(NewIDString));
+        // 2.2 移除旧的 LightID_ 标签（如有）并添加新标签
+        For Each Tag In Actor.Tags
+            If Tag.ToString().StartsWith("LightID_")
+                Actor.RemoveTag(Tag)
+            End If
+        End For
+        Actor.AddTag(FName(*IDString))
 
-    // 如果 BP_BaseLight 有 LightID 变量，也可以设置它
-    // Cast Actor To BP_Baselight
-    // If Cast Successful
-    //     BP_Baselight_Ref.LightID = NewIDString;
-    // End If
-
-    CurrentID = CurrentID + 1;
-End For Each
+        // 2.3 如果 Actor 包含 LightID 字段，则同步更新
+        Local Variable LightBaseRef = Cast<BP_LightBase>(Actor)
+        If IsValid(LightBaseRef)
+            LightBaseRef.LightID = IDString
+        Else
+            LogError("AssignUniqueLightActorIDs：Actor {0} 无法转换为 BP_LightBase", Actor.GetName())
+        End If
+    End For
 End Function
 ```
 
-### v. SceneLightingParameters 数据资产
+### 2.5. SceneLightingParameters 数据资产
 
 *   **功能**: 这是一个 Data Asset 类型的资产，用于集中存储场景中不同类型灯光的配置参数。
 *   **设计**:
@@ -159,17 +179,14 @@ End Function
 
 本节描述灯光蓝图系统的主要功能及其实现方式。
 
-#### i. 灯光实例化与初始化
 
+#### 3.1. 灯光实例化与初始化
 **实现过程**:
 
-1.  关卡设计师将 `BP_SpecificLight_Type` (如 `BP_Streetlight_Modern`) 的实例直接拖拽到场景中。
-2.  在蓝图实例的详情面板中，关卡设计师可以直接调整该实例的公共变量 (如强度、颜色)，覆盖掉默认值。
-3.  在 `BP_SpecificLight_Type` 的 `Construction Script` 中，代码会设置灯具模型 (`StaticMeshComponent`)。
-4.  在 `BP_SpecificLight_Type` 的 `BeginPlay` 事件中，蓝图可以读取 `SceneLightingParameters` 数据资产，并根据该蓝图自身的类型 (可以通过标签、类名或蓝图中的特定变量标识) 查找对应的配置参数，然后根据这些参数设置灯光组件的初始属性。
+Level designers 只需将如 BP_Streetlight_Modern 等 BP_SpecificLight_Type 实例拖入关卡，然后在 Details 面板中通过公开的变量（强度、色温、衰减半径等）覆盖蓝图默认值；在 Construction Script 中会根据配置自动设置 StaticMeshComponent 以渲染正确的灯具模型；运行时，BeginPlay 事件首先加载 SceneLightingParameters 数据资产，再通过类名、标签或蓝图专用标识查询出对应的 FLightConfig 条目；最后，脚本将该配置中的光强、颜色、IES 曲线等参数应用到 LightComponent，确保全局数据驱动与关卡设计师的个性化调整协同生效。
 
-#### ii. 灯光控制接口
 
+#### 3.2. 灯光控制接口
 *   **功能**: 提供蓝图内部和外部系统控制灯光状态和属性的能力。
 *   **实现过程**:
     1.  在 `BP_BaseLight` 中，实现 `TurnOn`, `TurnOff`, `SetIntensity(float)`, `SetColor(FLinearColor)` 等自定义事件或函数。这些函数直接操作内部的 `LightComponent` 的 `SetVisibility`, `SetIntensity`, `SetLightColor` 等方法。
@@ -179,7 +196,7 @@ End Function
         *   使用 `GetActorsWithTag` 或自定义查找函数，根据 `LightIdSetter` 分配的唯一 ID 找到目标灯光 Actor，然后调用其公共函数。
         *   查找 `BP_MultipleLights` 实例，并调用其批量控制函数。
 
-#### iii. ID 分配机制
+#### 3.3. ID 分配机制
 
 *   **功能**: 为场景中的灯光 Actor 分配唯一的运行时 ID，便于外部系统引用。
 *   **实现过程**:
@@ -190,7 +207,8 @@ End Function
     v. 将生成的 ID 存储在当前灯光 Actor 的 `Tags` 数组中 (使用 `AddTag(FName)`)。例如，将 ID 格式化为 `"LightID_123"` 这样的标签。
     vi. 外部系统可以通过 `GetAllActorsWithTag(FName("LightID_123"))` 查找具有特定 ID 的灯光。
 
-#### iv. 与动态系统的集成
+
+#### 3.4. 与动态系统的集成
 
 *   **功能**: 使灯光系统能够响应昼夜循环和天气变化。
 *   **实现过程**:
@@ -199,7 +217,9 @@ End Function
     iii. 例如，当时间到达黄昏时，Manager 调用所有路灯组 (如由一个 `BP_MultipleLights` 管理的组，或者通过遍历所有带有 `"Streetlight"` 标签的 Actor) 的 `TurnGroupOn()` 函数。
     iv. Manager 也可以根据天气强度 (如雨量、雾密度) 调整灯光的强度，调用 `SetGroupIntensity()` 或单个灯光的 `SetIntensity()` 函数。
 
-### v. 性能优化考虑
+
+### 3.5. 性能优化考虑
+
 
 *   **功能**: 确保场景中大量灯光不会导致性能下降。
 *   **实现过程**:
@@ -212,35 +232,38 @@ End Function
 
 本灯光系统模块的典型使用工作流程如下:
 
-1.  **数据资产配置**: 美术或关卡设计师编辑 `SceneLightingParameters` 数据资产，定义不同类型灯光的默认外观和性能参数。
-2.  **蓝图资产创建与修改**: 蓝图工程师创建或修改 `BP_BaseLight` 及其子类 `BP_SpecificLight_Type` 蓝图，设置灯具模型、组件，实现基础控制函数，并在 `BeginPlay` 中添加数据资产读取参数的逻辑。
-3.  **场景布局**: 关卡设计师在虚幻场景中放置 `BP_SpecificLight_Type` 实例来构建人工照明环境。对于需要成组控制的灯光，将其引用添加到 `BP_MultipleLights` 实例的数组中。
-4.  **ID 分配配置**: 在场景中放置 `LightIdSetter` Actor，确保在游戏开始时能够正确执行 ID 分配逻辑。
+4.1.  **数据资产配置**: 美术或关卡设计师编辑 `SceneLightingParameters` 数据资产，定义不同类型灯光的默认外观和性能参数。
+4.2.  **蓝图资产创建与修改**: 蓝图工程师创建或修改 `BP_BaseLight` 及其子类 `BP_SpecificLight_Type` 蓝图，设置灯具模型、组件，实现基础控制函数，并在 `BeginPlay` 中添加数据资产读取参数的逻辑。
+4.3.  **场景布局**: 关卡设计师在虚幻场景中放置 `BP_SpecificLight_Type` 实例来构建人工照明环境。对于需要成组控制的灯光，将其引用添加到 `BP_MultipleLights` 实例的数组中。
+4.4.  **ID 分配配置**: 在场景中放置 `LightIdSetter` Actor，确保在游戏开始时能够正确执行 ID 分配逻辑。
 
 ### 5. 优化与扩展建议
 
 基于当前的设计，可以考虑以下优化和未来扩展方向:
 
-#### i. 文件格式支持扩展 (不适用)
+
+#### 5.1. 文件格式支持扩展 (不适用)
 
 *   本模块主要处理虚幻引擎内的蓝图资产和运行时 Actor，不涉及外部文件格式的读写，因此此项不适用。
 
-#### ii. 异常处理与日志记录
+#### 5.2. 异常处理与日志记录
 
-*   在蓝图函数中添加更健壮的错误检查，例如检查引用的 Actor 是否有效。
-*   使用虚幻引擎的 Log 系统在系统发生重要事件 (如 ID 分配错误、引用失效) 时输出警告或错误信息，便于调试。
+建议在蓝图与底层 C++ 混合实现中统一引入严谨的校验与日志机制：对所有外部引用（Actor、Component、DataAsset 等）均调用 IsValid() 或 ensure()，一旦发现无效引用立即提前返回或触发断言，避免后续执行空指针操作导致崩溃；同时为灯光子系统定义专属日志分类（例如 DECLARE_LOG_CATEGORY_EXTERN(LogLightSystem, Log, All)），并在关键路径（如 ID 分配失败、数据资产加载异常、引用失效等）使用 UE_LOG(LogLightSystem, Warning, TEXT(“LightID 分配失败：%s 无法转换为 BP_LightBase”), *ActorName) 或 UE_LOG(…, Error, TEXT(“加载 SceneLightingParameters 失败，请检查资产路径”)) 输出带有上下文信息的日志，以便快速定位与追踪问题。
 
-#### iii. 性能优化
+####5.3. 性能优化
+
 
 *   对复杂场景进行 Lightmap Baking (烘焙静态灯光)，只保留动态灯光 (如交通信号灯) 为动态。
 *   进一步优化灯光参数，例如减少不必要的阴影投射、调整光源的移动性和更新频率。
 *   对于非常远距离的灯光，考虑使用简单的发光材质平面来代替实际光源，节省渲染开销。
 
-### iv. 单元测试
+
+#### 5.4. 单元测试
 
 *   虽然蓝图的单元测试框架不如 C++ 成熟，但可以创建专门的测试场景，编写测试蓝图来实例化灯光、调用其函数，并检查属性是否按预期改变。例如，测试 `TurnOn()` 后灯光是否可见、`SetIntensity()` 是否生效。
 
-### v. 更多灯光特性
+#### 5.5. 更多灯光特性
+
 
 *   **IES Profiles**: 支持使用 IES 文件来定义光源的光强分布，提升灯光效果的真实感。
 *   **体积光 (Volumetric Lighting)**: 在有雾或灰尘的场景中，通过体积光效果增加光束的可见性。
@@ -249,5 +272,5 @@ End Function
 
 ### 6. 总结
 
-本灯光系统技术文档描述了车载模拟器虚幻场景中人工光源蓝图的设计、核心组件、关键功能实现以及工作流程。通过采用基于继承的蓝图结构、集中式的数据资产、以及基于 ID 的控制接口，该系统提供了灵活、可控且易于扩展的灯光管理解决方案。它能够支持场景中各种类型人工光源的表现，并能与模拟器的动态环境系统集成，为构建逼真且功能丰富的仿真场景提供了坚实基础。未来的工作可以进一步提升系统的真实感、性能和复杂功能支持。
+本技术文档系统地阐述了基于 Unreal Engine 的车载模拟器人工光源蓝图架构，涵盖框架设计、核心组件、关键功能实现及运行流程。系统以 C++ 与蓝图混合开发为基础，采用继承化组件结构承载各类灯具逻辑，依托集中化 Data Asset 管理光照参数，并通过全局唯一 ID 驱动的控制接口实现运行时统一调度与扩展。方案原生支持路灯、建筑投光、交通信号灯等多种光源类型，并能与昼夜循环、气象系统、交通信号等子系统深度联动，为夜间、黄昏、雨雾等复杂场景下的高保真渲染提供坚实基础。未来可沿着物理渲染精度优化、Lightmass 预计算加速、IES 曲线及体积光效增强等方向持续迭代，以进一步提升系统的性能、真实感和功能复杂度。
 
