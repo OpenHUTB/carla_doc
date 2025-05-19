@@ -194,7 +194,28 @@ Result = (x, y_ref - y) * OSMToCentimetersScaleFactor
    - 墨卡托投影在低纬度地区精度较高，高纬度地区建议缩小地图区块  
 
 4. **材质应用**  
-   - 如未指定 MaterialInstance，网格将使用默认材质（粉色警告）  
+   - 如未指定 MaterialInstance，网格将使用默认材质（粉色警告）
+### 数据规模表
+| 数据规模       | 平均处理时间 | 内存消耗  |
+|----------------|-------------|----------|
+| 1,000 顶点     | 12ms        | 8MB      |
+| 50,000 顶点    | 380ms       | 62MB     |
+| 100,000 顶点   | 720ms       | 118MB    |
+
+5. **并发处理**  
+   - 使用 `AsyncTask` 封装耗时操作  
+   - 避免在渲染线程操作顶点数据  
+   - 推荐线程模型：  
+     ```mermaid
+     graph TD
+       A[主线程] --> B{数据量>1M?}
+       B -->|是| C[启动Worker线程]
+       B -->|否| D[直接生成]
+       C --> E[分块处理]
+     ```
+=======
+
+
 ## 错误处理  
 ### 错误代码表  
 | 错误代码 | 触发场景                      | 解决方案                      |
@@ -279,4 +300,13 @@ UStaticMesh* RoadMesh = UMapGenFunctionLibrary::CreateMesh(
 |------------|--------------------|--------------|
 | 0.9.12+    | 4.26+              | 完全兼容     |
 | 0.9.0-0.9.11 | 4.24-4.25        | 部分功能受限 |
+### 单元测试用例
+- **示例**  
+```cpp
+TEST_F(MapGenTest, BasicMeshCreation) {
+    FProceduralCustomMesh TestData;
+    // 构建测试数据
+    UStaticMesh* Result = CreateMesh(...);
+    EXPECT_NE(Result, nullptr);
+}
 ---

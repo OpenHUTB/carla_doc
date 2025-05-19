@@ -103,6 +103,7 @@ Event BeginPlay
 End Event
 ```
 
+
 ### 2.3. BP_MultipleLights
 
 *   **功能：** 一个控制器蓝图，用于管理场景中的一组相关的 `BP_BaseLight` 实例。
@@ -178,14 +179,14 @@ End Function
 
 本节描述灯光蓝图系统的主要功能及其实现方式。
 
-#### 3.1. 灯光实例化与初始化
 
+#### 3.1. 灯光实例化与初始化
 **实现过程**:
 
 Level designers 只需将如 BP_Streetlight_Modern 等 BP_SpecificLight_Type 实例拖入关卡，然后在 Details 面板中通过公开的变量（强度、色温、衰减半径等）覆盖蓝图默认值；在 Construction Script 中会根据配置自动设置 StaticMeshComponent 以渲染正确的灯具模型；运行时，BeginPlay 事件首先加载 SceneLightingParameters 数据资产，再通过类名、标签或蓝图专用标识查询出对应的 FLightConfig 条目；最后，脚本将该配置中的光强、颜色、IES 曲线等参数应用到 LightComponent，确保全局数据驱动与关卡设计师的个性化调整协同生效。
 
-#### 3.2. 灯光控制接口
 
+#### 3.2. 灯光控制接口
 *   **功能**: 提供蓝图内部和外部系统控制灯光状态和属性的能力。
 *   **实现过程**:
     1.  在 `BP_BaseLight` 中，实现 `TurnOn`, `TurnOff`, `SetIntensity(float)`, `SetColor(FLinearColor)` 等自定义事件或函数。这些函数直接操作内部的 `LightComponent` 的 `SetVisibility`, `SetIntensity`, `SetLightColor` 等方法。
@@ -206,6 +207,7 @@ Level designers 只需将如 BP_Streetlight_Modern 等 BP_SpecificLight_Type 实
     v. 将生成的 ID 存储在当前灯光 Actor 的 `Tags` 数组中 (使用 `AddTag(FName)`)。例如，将 ID 格式化为 `"LightID_123"` 这样的标签。
     vi. 外部系统可以通过 `GetAllActorsWithTag(FName("LightID_123"))` 查找具有特定 ID 的灯光。
 
+
 #### 3.4. 与动态系统的集成
 
 *   **功能**: 使灯光系统能够响应昼夜循环和天气变化。
@@ -215,7 +217,9 @@ Level designers 只需将如 BP_Streetlight_Modern 等 BP_SpecificLight_Type 实
     iii. 例如，当时间到达黄昏时，Manager 调用所有路灯组 (如由一个 `BP_MultipleLights` 管理的组，或者通过遍历所有带有 `"Streetlight"` 标签的 Actor) 的 `TurnGroupOn()` 函数。
     iv. Manager 也可以根据天气强度 (如雨量、雾密度) 调整灯光的强度，调用 `SetGroupIntensity()` 或单个灯光的 `SetIntensity()` 函数。
 
+
 ### 3.5. 性能优化考虑
+
 
 *   **功能**: 确保场景中大量灯光不会导致性能下降。
 *   **实现过程**:
@@ -237,6 +241,7 @@ Level designers 只需将如 BP_Streetlight_Modern 等 BP_SpecificLight_Type 实
 
 基于当前的设计，可以考虑以下优化和未来扩展方向:
 
+
 #### 5.1. 文件格式支持扩展 (不适用)
 
 *   本模块主要处理虚幻引擎内的蓝图资产和运行时 Actor，不涉及外部文件格式的读写，因此此项不适用。
@@ -247,15 +252,18 @@ Level designers 只需将如 BP_Streetlight_Modern 等 BP_SpecificLight_Type 实
 
 ####5.3. 性能优化
 
+
 *   对复杂场景进行 Lightmap Baking (烘焙静态灯光)，只保留动态灯光 (如交通信号灯) 为动态。
 *   进一步优化灯光参数，例如减少不必要的阴影投射、调整光源的移动性和更新频率。
 *   对于非常远距离的灯光，考虑使用简单的发光材质平面来代替实际光源，节省渲染开销。
+
 
 #### 5.4. 单元测试
 
 *   虽然蓝图的单元测试框架不如 C++ 成熟，但可以创建专门的测试场景，编写测试蓝图来实例化灯光、调用其函数，并检查属性是否按预期改变。例如，测试 `TurnOn()` 后灯光是否可见、`SetIntensity()` 是否生效。
 
 #### 5.5. 更多灯光特性
+
 
 *   **IES Profiles**: 支持使用 IES 文件来定义光源的光强分布，提升灯光效果的真实感。
 *   **体积光 (Volumetric Lighting)**: 在有雾或灰尘的场景中，通过体积光效果增加光束的可见性。
