@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>代表调用 - 人车模拟器</title>
+    <title>Python 调用 - 人车模拟器</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "\u4ee3\u8868\u8c03\u7528";
+        var mkdocs_page_name = "Python \u8c03\u7528";
         var mkdocs_page_input_path = "faq/use_faq.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,7 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">代表调用</li>
+      <li class="breadcrumb-item active">Python 调用</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/faq/use_faq.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -68,19 +68,36 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1">代表调用</h1>
+                <h1 id="python">Python 调用</h1>
+<ul>
+<li>运行<code>world.get_blueprint_library()</code>报错：ValueError: role_name: colors must have 3 channels (R,G,B)</li>
+</ul>
+<blockquote>
+<p>服务端和客户端版本不一致，比如服务端是ue4-dev的最新代码，而客户端为0.9.15的代码。</p>
+</blockquote>
+<h1 id="_1">库的问题</h1>
+<ul>
+<li>matplotlib 调用<code>plt.plot()</code>报错：<code>TypeError: int() argument must be a string, a bytes-like object or a number, not 'KeyboardModifier'</code></li>
+</ul>
+<blockquote>
+<p>将您 Python 升级到 3.8 或者更高、Matplotlib 升级到 3.6.2 或更高版本
+</p>
+</blockquote>
+<h1 id="_2">编辑器</h1>
 <ul>
 <li>RuntimeError: internal error: unable to find spectator</li>
 </ul>
 <blockquote>
 <p>运行 UE4 编辑器的模式下，调用 world.get_spectator() 出现这个问题，是因为播放按钮有多种模式，一种是无观察者模式，另一种是有观察者模式。从您发送的截图来看，您运行 UE4 时使用的是 <a href="https://github.com/carla-simulator/carla/discussions/4782">无观察者模式</a> 。请尝试点击“运行”按钮右边的下拉三角形，选择“独立进程游戏”进行运行（使用另一种模式）。</p>
 </blockquote>
-<h1 id="_2">库的问题</h1>
-<ul>
-<li>matplotlib 调用<code>plt.plot()</code>报错：<code>TypeError: int() argument must be a string, a bytes-like object or a number, not 'KeyboardModifier'</code></li>
-</ul>
+<h1 id="_3">崩溃</h1>
+<p>运行CarlaUE4.exe报错：
+<div class="highlight"><pre><span></span><code>The<span class="w"> </span>UE4-CarlaUE4<span class="w"> </span>Game<span class="w"> </span>has<span class="w"> </span>crashed<span class="w"> </span>and<span class="w"> </span>will<span class="w"> </span>close
+LowLevelFatalError<span class="w"> </span><span class="o">[</span>File:Unknown<span class="o">]</span><span class="w"> </span><span class="o">[</span>Line:<span class="w"> </span><span class="m">136</span><span class="o">]</span>Exception<span class="w"> </span>thrown:<span class="w"> </span>bind:<span class="w"> </span>??h????E???????k?<span class="s2">&quot;????h???????-????m? [system 10013 atD:/carla unreal/carla/Build/boost-1.80.0-install/include\boost/asio/detail/win_iocp_socket_service.hpp:244:5 in function &#39;bind&#39;]</span>
+</code></pre></div></p>
 <blockquote>
-<p>将您 Python 升级到 3.8 或者更高、Matplotlib 升级到 3.6.2 或更高版本</p>
+<p>原因：本地端口被其他程序占用。</p>
+<p>解决：重启电脑</p>
 </blockquote>
               
             </div>
