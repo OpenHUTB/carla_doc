@@ -146,11 +146,11 @@ LightComponent->SetLightOn(true);  //启用路灯
 LightComponent->SetLightIntensity(5000.0f);  //设置光照强度
 LightComponent->SetLightColor(FLinearColor(0.9f, 0.9f, 0.8f));  //设置光照颜色
 ```
-- 开关控制（`SetLightOn`）可通过布尔值 true/false 动态开启或关闭路灯，适用于昼夜循环仿真。
-- 光照强度（`SetLightIntensity`）调整光源亮度（如 5000.0f 模拟高亮度路灯），影响场景的明暗表现。
-- 光照颜色（`SetLightColor`）使用 `FLinearColor` 设置 RGB 值（如 (0.9, 0.9, 0.8) 接近自然暖白光），匹配现实世界的光谱特性。
+ - 开关控制（`SetLightOn`）可通过布尔值 true/false 动态开启或关闭路灯，适用于昼夜循环仿真。
+ - 光照强度（`SetLightIntensity`）调整光源亮度（如 5000.0f 模拟高亮度路灯），影响场景的明暗表现。
+ - 光照颜色（`SetLightColor`）使用 `FLinearColor` 设置 RGB 值（如 (0.9, 0.9, 0.8) 接近自然暖白光），匹配现实世界的光谱特性。
 ### 4.2 车辆信号灯同步<a id="42-车辆信号灯同步"></a>
-CARLA 提供了精细化的车辆信号灯控制系统，允许用户通过代码实时调整车灯状态（如刹车灯、转向灯等），以模拟真实车辆的灯光行为。以下是一个典型的 刹车灯状态同步 示例代码，展示如何通过 RPC（远程过程调用）协议 动态更新车灯状态：
+CARLA 提供了精细化的车辆信号灯控制系统，允许用户通过代码实时调整车灯状态（如刹车灯、转向灯等），以模拟真实车辆的灯光行为。以下是一个典型的刹车灯状态同步示例代码，展示如何通过 RPC（远程过程调用）协议动态更新车灯状态：
 ```cpp
 // 同步刹车灯状态到 RPC 协议
 carla::rpc::LightState state = LightComponent->GetLightState();
@@ -158,16 +158,16 @@ state._color = FLinearColor::Red;  // 设置刹车灯颜色为红色
 state._active = bIsBraking;  // 根据刹车状态激活/关闭刹车灯  
 LightComponent->SetLightState(state);  // 应用新的灯光状态 
 ```
-- 灯光状态获取（`GetLightState`）通过`carla::rpc::LightState` 结构体读取当前车灯的颜色、亮度、开关状态等参数。
-- 动态灯光控制（`SetLightState`）可实时修改`_color`（如`FLinearColor::Red` 设为红色）和`_active`（布尔值控制开关）。
-- 与车辆行为同步，示例中的 `bIsBraking` 可绑定到车辆的刹车信号，实现刹车时自动亮红灯。
+ - 灯光状态获取（`GetLightState`）通过`carla::rpc::LightState` 结构体读取当前车灯的颜色、亮度、开关状态等参数。
+ - 动态灯光控制（`SetLightState`）可实时修改`_color`（如`FLinearColor::Red` 设为红色）和`_active`（布尔值控制开关）。
+ - 与车辆行为同步，示例中的 `bIsBraking` 可绑定到车辆的刹车信号，实现刹车时自动亮红灯。
 
 ### 4.3 仿真事件回放<a id="43-仿真事件回放"></a>
 CARLA 提供事件回放（Replay）功能，允许用户记录并复现仿真过程中的关键状态变化，例如车辆运动、信号灯切换、天气变化等。通过调用`RecordLightChange()`，可以精确记录灯光状态（如开关、颜色、强度）的修改时间点，并在回放时按时间轴还原这些变化。
-- **事件回放的特点：**
-- 时间戳记录：自动保存灯光状态变化的触发时间，确保回放时同步。
-- 精准复现：支持快进、暂停、逐帧分析，便于调试和算法验证。
-- 多事件同步：可与车辆轨迹、传感器数据等结合，实现完整场景回放。
+ - **事件回放的特点：**
+   - 时间戳记录：自动保存灯光状态变化的触发时间，确保回放时同步。
+   - 精准复现：支持快进、暂停、逐帧分析，便于调试和算法验证。
+   - 多事件同步：可与车辆轨迹、传感器数据等结合，实现完整场景回放。
 
 
 
