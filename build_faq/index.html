@@ -384,8 +384,14 @@ export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla
 &lt;/Configuration&gt;
 </code></pre></div></p>
 </blockquote>
+<h6 id="_9">编译报错</h6>
+<div class="highlight"><pre><span></span><code>C:\workspace\carla\Unreal\CarlaUE4\Plugins\Carla\CarlaDependencies\include\carla/streaming/detail/tcp/ServerSession.h(70): error C2338: static_assert failed: &#39;This function only accepts arguments of type BufferView.&#39;
+</code></pre></div>
+<blockquote>
+<p>拷贝过来的依赖没有更新</p>
+</blockquote>
 <hr />
-<h2 id="_9">打包</h2>
+<h2 id="_10">打包</h2>
 <h3 id="make-package">make package 时报错</h3>
 <p>出错信息：
 <div class="highlight"><pre><span></span><code>LogWindows:<span class="w"> </span>Error:<span class="w"> </span>begin:<span class="w"> </span>stack<span class="w"> </span><span class="k">for</span><span class="w"> </span>UAT
@@ -425,6 +431,9 @@ BUILD<span class="w"> </span>FAILED
 <span class="w">          </span><span class="o">[</span>ERROR<span class="o">]</span><span class="w"> </span>Please<span class="w"> </span><span class="nb">read</span><span class="w"> </span>the<span class="w"> </span>screen<span class="w"> </span>log<span class="w"> </span><span class="k">for</span><span class="w"> </span>more<span class="w"> </span>information.
 make:<span class="w"> </span>***<span class="w"> </span><span class="o">[</span>package<span class="o">]</span><span class="w"> </span>错误<span class="w"> </span><span class="m">1</span>
 </code></pre></div></p>
+<blockquote>
+<p><a href="../build/make_package/">打包分析过程</a></p>
+</blockquote>
 <hr />
 <h2 id="carla_3">运行 Carla</h2>
 <!-- ======================================================================= -->
@@ -442,14 +451,14 @@ make:<span class="w"> </span>***<span class="w"> </span><span class="o">[</span>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="_10">无法运行脚本。 <span id="cant-run-a-script"></span></h6>
+<h6 id="_11">无法运行脚本。 <span id="cant-run-a-script"></span></h6>
 <blockquote>
 <p>有些脚本有要求。这些列在名为 <strong>Requirements.txt</strong> 的文件中，与脚本本身位于同一路径中。请务必检查这些以便运行脚本。其中大多数可以通过简单的<code>pip</code>命令进行安装。</p>
 <p>有时在 Windows 上，脚本无法仅使用 <code>&gt; script_name.py</code> 运行。尝试添加. Try adding <code>&gt; python3 script_name.py</code>，并确保位于正确的目录中。</p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="_11">在虚幻编辑器中运行时连接到模拟器。 <span id="connect-to-the-simulator-while-running-within-unreal-editor"></span></h6>
+<h6 id="_12">在虚幻编辑器中运行时连接到模拟器。 <span id="connect-to-the-simulator-while-running-within-unreal-editor"></span></h6>
 <blockquote>
 <p>单击“运行”（ <strong>Play</strong> ）并等待场景加载。此时，Python 客户端可以像独立模拟器一样连接到模拟器。</p>
 </blockquote>
@@ -515,7 +524,7 @@ make:<span class="w"> </span>***<span class="w"> </span><span class="o">[</span>
 解决2：如果确认Simulator端和客户端版本一致，但是仍然报两者版本不一致的话，先卸载客户端，然后通过<code>pip install carla</code>安装官方版本，然后再卸载安装编译版本的*.whl文件即可。</p>
 </blockquote>
 <hr />
-<h2 id="_12">其他</h2>
+<h2 id="_13">其他</h2>
 <!-- ======================================================================= -->
 
 <h6 id="fatal-error-versionh-has-been-modified-since-the-precompiled-header">Fatal error: 'version.h' has been modified since the precompiled header. <span id="fatal-error-versionh-has-been-modified-since-the-precompiled-header"></span></h6>

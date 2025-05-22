@@ -81,18 +81,94 @@
 <p>4.创建Carla包</p>
 <p>4.1编辑<code>Unreal/CarlaUE4/CarlaUE4.uproject</code>文件来启用/禁用CarSim插件</p>
 <p>4.2通过<code>Build.bat</code>基于<code>Development</code>、<code>%PACKAGE_CONFIG%</code>配置进行编译</p>
-<p>4.3通过<code>RunUAT.bat</code>（Unreal Automation Tool，虚幻自动化工具）烘焙并打包</p>
+<p>4.3通过 <a href="https://github.com/OpenHUTB/UnrealEngine/blob/OpenHUTB/Engine/Build/BatchFiles/RunUAT.bat"><code>RunUAT.bat</code></a> （Unreal Automation Tool，虚幻自动化工具）烘焙并打包 （报错地方）</p>
 <p>5.给包中添加额外的文件，包括PythonAPI等</p>
 <p>6.压缩项目</p>
 <p>7.移除临时的中间文件</p>
 <p>8.烘焙其他包</p>
-<h2 id="_2">运行报错</h2>
+<h2 id="runuatbat">RunUAT.bat <a href="https://blog.csdn.net/ttod/article/details/135868749">打包命令解析</a></h2>
+<p>查看<code>构建烘焙运行</code>命令<code>BuildCookRun</code>的帮助信息：
+<div class="highlight"><pre><span></span><code>%UE4_ROOT%<span class="se">\E</span>ngine<span class="se">\B</span>uild<span class="se">\B</span>atchFiles<span class="se">\R</span>unUAT.bat<span class="w"> </span>BuildCookRun<span class="w"> </span>-Help
+</code></pre></div>
+所使用到的命令含义：</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-Platform=Win64</code></td>
+<td>目标平台为Windows</td>
+</tr>
+<tr>
+<td><code>-nop4</code></td>
+<td>不使用Perforce版本控制</td>
+</tr>
+<tr>
+<td><code>-project="%ROOT_PATH%Unreal/CarlaUE4/CarlaUE4.uproject"</code></td>
+<td>目标UE项目工程文件</td>
+</tr>
+<tr>
+<td><code>-build -cook -stage -archive -package</code></td>
+<td>表示需要 构建、烘焙、暂存、归档、打包</td>
+</tr>
+<tr>
+<td><code>-archivedirectory="!BUILD_FOLDER!"</code></td>
+<td>归档输出目录</td>
+</tr>
+<tr>
+<td><code>-clientconfig=%PACKAGE_CONFIG%</code></td>
+<td>客户端编译配置，如Debug/Development/Shipping等</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_2">自动化工具</h2>
+<p>自动化工具（Unreal Automation Tool，简称 UAT），自动化工具使用特定的命令 BuildCookRun</p>
+<p>封装流程包含</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>构建（build）</td>
+<td>该阶段将为所选择的平台编译可执行文件</td>
+</tr>
+<tr>
+<td>烘培（cook）</td>
+<td>该阶段通过在特殊模式下执行编辑器来转化内容</td>
+</tr>
+<tr>
+<td>暂存（stage）</td>
+<td>该阶段将可执行文件和内容复制到暂存区，它是开发目录以外的独立目录</td>
+</tr>
+<tr>
+<td>打包（package、archive）</td>
+<td>该该阶段将项目打包成平台原生的分发格式</td>
+</tr>
+<tr>
+<td>部署（deploy）</td>
+<td>该阶段将构建版本部署到目标设备</td>
+</tr>
+<tr>
+<td>运行（run）</td>
+<td>该阶段在目标平台上启动已封装的项目</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_3">运行报错</h2>
 <div class="highlight"><pre><span></span><code>&quot;C:\workspace\UnrealEngine\Engine\Build\BatchFiles\RunUAT.bat&quot;        BuildCookRun        -nocompileeditor        -TargetPlatform=Win64        -Platform=Win64        -installed        -nop4        -project=&quot;C:/workspace/carla/Unreal/CarlaUE4/CarlaUE4.uproject&quot;        -cook        -stage        -build        -archive        -archivedirectory=&quot;C:/workspace/carla/Build/UE4Carla/1.0-5-g3a71d4782-dirty/&quot;        -package        -clientconfig=Shipping
 </code></pre></div>
 <p>实际运行命令：
 <div class="highlight"><pre><span></span><code>Running: C:\workspace\UnrealEngine\Engine\Binaries\DotNET\UnrealBuildTool.exe UnrealPak Win64 Development -Project=C:\workspace\carla\Unreal\CarlaUE4\CarlaUE4.uproject  C:\workspace\carla\Unreal\CarlaUE4\CarlaUE4.uproject -NoUBTMakefiles  -Manifest=C:\workspace\UnrealEngine\Engine\Intermediate\Build\Manifest.xml -NoHotReload -log=&quot;C:\workspace\UnrealEngine\Engine\Programs\AutomationTool\Saved\Logs\UBT-UnrealPak-Win64-Development.txt&quot;
 </code></pre></div></p>
-<h2 id="_3">参考</h2>
+<h2 id="_4">参考</h2>
 <ul>
 <li>打包脚本 <a href="https://github.com/OpenHUTB/carla/blob/OpenHUTB/Util/BuildTools/Package.bat">Package.bat</a></li>
 <li><a href="https://blog.csdn.net/sinat_23135151/article/details/140663928">UE4如何调试BuildCookRun</a></li>

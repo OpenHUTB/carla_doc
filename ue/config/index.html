@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>配置说明 - 人车模拟器</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u914d\u7f6e\u8bf4\u660e";
+        var mkdocs_page_input_path = "ue/config.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 人车模拟器
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">首页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">人车模拟器</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">配置说明</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/ue/config.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">配置说明</h1>
+<p>配置文件位于<code>carla\Unreal\CarlaUE4\Config</code></p>
+<h2 id="_2"><a href="https://blog.csdn.net/u010385624/article/details/89926061">加载原理</a></h2>
+<h2 id="defaultengineini">DefaultEngine.ini</h2>
+<p><div class="highlight"><pre><span></span><code><span class="o">[</span>/Script/EngineSettings.GameMapsSettings<span class="o">]</span>
+<span class="nv">TransitionMap</span><span class="o">=</span>/Game/Carla/Maps/Town03.Town03
+</code></pre></div>
+对于地图切换（也即关卡切换），UE还提供了 <a href="https://blog.csdn.net/ttod/article/details/135868749">无缝切换</a> （Seamless Travel）和非无缝切换（Non-Seamless Travel），无缝切换使用<strong>异步</strong>加载关卡资源，是<strong>非阻塞式</strong>切换，而非无缝切换即为前面介绍的同步加载关卡资源，是阻塞式切换（传送门），在网络联机游戏中，无缝切换不会导致网络断开，而非无缝会导致网络断开后重连，UE推荐在网络联机游戏中使用无缝切换，感兴趣可以看看官方文档（有点晦涩难懂T_T，因此需要深入研究一番）。</p>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>无缝切换和关卡流送都是异步加载关卡资源的，但它们是不同的，关卡流送只是在当前World添加SubLevel，并不会切换World，而无缝切换会销毁之前的World而创建新的World。</p>
+</div>
+<p>至于为什么需要设置<strong>过渡地图</strong>？试想如果没有过渡地图，那么在<strong>当前地图</strong>中加载（<strong>异步加载</strong>的）的<strong>新地图</strong>之后，此时World同时存在新旧两个地图，如果都比较大的话，内存告急！</p>
+<h2 id="defaultgameini">DefaultGame.ini</h2>
+<h2 id="defaultgameusersettingini">DefaultGameUserSetting.ini</h2>
+<div class="highlight"><pre><span></span><code><span class="o">[</span>/Script/Engine.GameUserSettings<span class="o">]</span>
+<span class="nv">FullscreenMode</span><span class="o">=</span><span class="m">1</span><span class="w">  </span><span class="c1"># 全屏，2为默认</span>
+<span class="nv">Version</span><span class="o">=</span><span class="m">5</span>
+</code></pre></div>
+<h2 id="_3">参考</h2>
+<p><a href="https://blog.csdn.net/ttod/article/details/135868749">无缝切换</a></p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
