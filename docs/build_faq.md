@@ -374,6 +374,11 @@ carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Vehicle/CustomTerrainPhysicsCom
 </Configuration>
 ```
 
+###### 编译报错
+```text
+C:\workspace\carla\Unreal\CarlaUE4\Plugins\Carla\CarlaDependencies\include\carla/streaming/detail/tcp/ServerSession.h(70): error C2338: static_assert failed: 'This function only accepts arguments of type BufferView.'
+```
+> 拷贝过来的依赖没有更新
 
 ---
 
@@ -419,6 +424,9 @@ BUILD FAILED
           [ERROR] Please read the screen log for more information.
 make: *** [package] 错误 1
 ```
+
+
+> [打包分析过程](build/make_package.md)
 
 ---
 

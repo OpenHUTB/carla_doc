@@ -21,7 +21,7 @@
 
 4.2通过`Build.bat`基于`Development`、`%PACKAGE_CONFIG%`配置进行编译
 
-4.3通过`RunUAT.bat`（Unreal Automation Tool，虚幻自动化工具）烘焙并打包
+4.3通过 [`RunUAT.bat`](https://github.com/OpenHUTB/UnrealEngine/blob/OpenHUTB/Engine/Build/BatchFiles/RunUAT.bat) （Unreal Automation Tool，虚幻自动化工具）烘焙并打包 （报错地方）
 
 
 5.给包中添加额外的文件，包括PythonAPI等
@@ -31,6 +31,41 @@
 7.移除临时的中间文件
 
 8.烘焙其他包
+
+## RunUAT.bat [打包命令解析](https://blog.csdn.net/ttod/article/details/135868749)
+查看`构建烘焙运行`命令`BuildCookRun`的帮助信息：
+```shell
+%UE4_ROOT%\Engine\Build\BatchFiles\RunUAT.bat BuildCookRun -Help
+```
+所使用到的命令含义：
+
+| 命令                                                        | 描述                  |
+|-----------------------------------------------------------|---------------------|
+| `-Platform=Win64`                                         | 目标平台为Windows        |
+| `-nop4`                                                   | 不使用Perforce版本控制     |
+| `-project="%ROOT_PATH%Unreal/CarlaUE4/CarlaUE4.uproject"` | 目标UE项目工程文件          |
+| `-build -cook -stage -archive -package`                           | 表示需要 构建、烘焙、暂存、归档、打包 |
+| `-archivedirectory="!BUILD_FOLDER!"`                      | 归档输出目录              |
+| `-clientconfig=%PACKAGE_CONFIG%`                      | 客户端编译配置，如Debug/Development/Shipping等              |
+
+
+
+
+## 自动化工具
+自动化工具（Unreal Automation Tool，简称 UAT），自动化工具使用特定的命令 BuildCookRun
+
+封装流程包含
+
+| 命令                  | 描述               |
+|---------------------|------------------|
+| 构建（build）           | 该阶段将为所选择的平台编译可执行文件     |
+| 烘培（cook）            | 该阶段通过在特殊模式下执行编辑器来转化内容     |
+| 暂存（stage）           | 该阶段将可执行文件和内容复制到暂存区，它是开发目录以外的独立目录     |
+| 打包（package、archive） | 该该阶段将项目打包成平台原生的分发格式     |
+| 部署（deploy）          | 该阶段将构建版本部署到目标设备     |
+| 运行（run）             | 该阶段在目标平台上启动已封装的项目     |
+
+
 
 
 ## 运行报错
