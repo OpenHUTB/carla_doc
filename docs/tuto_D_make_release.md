@@ -99,6 +99,20 @@ Unable to find installation of PDBCOPY.EXE
 
 ## 自定义发布
 
+### 发布PythonAPI到PyPi
+
+1. 注册pypi账号，并激活。
+2. 生成可发布的whl文件
+```shell
+make PythonAPI ARGS="--chrono"
+```
+3. 发布到 [PyPi](https://pypi.org/project/hutb/) ：
+```shell
+# 删除文件 carla/PythonAPI/carla/dist/hutb-1.0.0-py3.7-win-amd64.egg
+pip install twine
+twine upload dist/*  # 需要使用PyPi的Token
+```
+
 ### 发布镜像
 
 * [利用GitHub Actions自动构建项目的docker镜像并发布到DockerHub](https://wiki.eryajf.net/pages/5baf0a/#%E5%89%8D%E8%A8%80)
