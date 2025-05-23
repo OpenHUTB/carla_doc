@@ -374,7 +374,7 @@ carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Vehicle/CustomTerrainPhysicsCom
 </Configuration>
 ```
 
-###### 编译报错
+###### 编译时显示只接受BufferView类型的错误
 ```text
 C:\workspace\carla\Unreal\CarlaUE4\Plugins\Carla\CarlaDependencies\include\carla/streaming/detail/tcp/ServerSession.h(70): error C2338: static_assert failed: 'This function only accepts arguments of type BufferView.'
 ```
@@ -386,6 +386,26 @@ C:\workspace\carla\Unreal\CarlaUE4\Plugins\Carla\CarlaDependencies\include\carla
 > 报错信息在前面：`CMake Error: Could not create named generator`
 > 可能没真正执行命令：`python setup.py bdist_egg bdist_wheel`，需要切换到Python虚拟环境，然后进入`PythonAPI/carla`目录中执行该命令。
 
+
+* `make PythonAPI` 报 boost 链接的错
+
+报错信息：
+```text
+libcarla.obj : error LNK2001: 无法解析的外部符号 "void __cdecl boost::python::throw_error_already_set(void)" (?throw_error_already_set@python@boost@@YAXXZ)
+...
+build\lib.win-amd64-cpython-37\carla\libcarla.cp37-win_amd64.pyd : fatal error LNK1120: 78 个无法解析的外部命令
+```
+> 问题：使用了多个版本的Python。
+> 当您第一次构建 CARLA 时，当它设置 boost 文件时，它会安装一个 Python 版本（如果您有多个版本，它会选择一个您不想要的版本），然后在编译 PythonAPI 时，链接器使用另一个版本的 Python，因此它无法链接不同的版本。
+> 
+> 因此，请确保默认情况下始终找到相同版本的 Python，并且它是 64 位的。
+> 
+> 您可以通过查看此处的文件来检查 boost 所使用的 python：
+CARLA\Build\boost-1.72.0-install\lib\libboost_python 37 -vc141-mt-x64-1_72.lib
+其中 ..37.. 是 Python 的版本，在本例中为 3.7
+> 
+> 要重建，只需删除CARLA\Build\boost-1.72.0-install文件夹，然后尝试使用make PythonAPI 再次构建 PythonAPI。
+> 参考[链接](https://github.com/carla-simulator/carla/issues/3621) 。
 
 ---
 
