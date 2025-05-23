@@ -254,6 +254,12 @@
 <h2 id="_3">其他 <span id="other"></span></h2>
 <h3 id="dll">检查所依赖dll库的符号是否加载 <span id="check_dll_loaded"></span></h3>
 <p>下断点，F5调试。然后“调试 - 窗口 - 模块”打开模块窗口。</p>
+<h2 id="visual-studio">使用 Visual Studio 调试引擎代码</h2>
+<p>1、先从VS工具栏中的第一个下拉菜单中选择设置<code>Development Editor</code></p>
+<p>2、在<code>解决方案</code>中右键项目<code>UE4</code>，选择<code>调试(Debug) -&gt; 进入单步执行新实例</code></p>
+<p>3、断点会停在<code>UnrealEngine\Engine\Source\Runtime\Launch\Private\Windows/LaunchWindows.cpp</code>主函数入口：
+<div class="highlight"><pre><span></span><code><span class="n">int32</span><span class="w"> </span><span class="n">WINAPI</span><span class="w"> </span><span class="n">WinMain</span><span class="p">(</span><span class="w"> </span><span class="n">_In_</span><span class="w"> </span><span class="n">HINSTANCE</span><span class="w"> </span><span class="n">hInInstance</span><span class="p">,</span><span class="w"> </span><span class="n">_In_opt_</span><span class="w"> </span><span class="n">HINSTANCE</span><span class="w"> </span><span class="n">hPrevInstance</span><span class="p">,</span><span class="w"> </span><span class="n">_In_</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">_In_</span><span class="w"> </span><span class="n">int32</span><span class="w"> </span><span class="n">nCmdShow</span><span class="w"> </span><span class="p">)</span>
+</code></pre></div></p>
 <h3 id="vs2019-carlaue4-cmake">VS2019 打开 CarlaUE4 的 Cmake 工程 <span id="open_cmake_project"></span></h3>
 <p>windows操作系统下通过vs2019打开并编译carla：</p>
 <ol>

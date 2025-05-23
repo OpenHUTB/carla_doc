@@ -125,7 +125,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="_2">自动化工具</h2>
+<h3 id="_2">附录说明</h3>
 <p>自动化工具（Unreal Automation Tool，简称 UAT），自动化工具使用特定的命令 BuildCookRun</p>
 <p>封装流程包含</p>
 <table>
@@ -162,17 +162,25 @@
 </tr>
 </tbody>
 </table>
-<h2 id="_3">运行报错</h2>
-<div class="highlight"><pre><span></span><code>&quot;C:\workspace\UnrealEngine\Engine\Build\BatchFiles\RunUAT.bat&quot;        BuildCookRun        -nocompileeditor        -TargetPlatform=Win64        -Platform=Win64        -installed        -nop4        -project=&quot;C:/workspace/carla/Unreal/CarlaUE4/CarlaUE4.uproject&quot;        -cook        -stage        -build        -archive        -archivedirectory=&quot;C:/workspace/carla/Build/UE4Carla/1.0-5-g3a71d4782-dirty/&quot;        -package        -clientconfig=Shipping
-</code></pre></div>
-<p>实际运行命令：
-<div class="highlight"><pre><span></span><code>Running: C:\workspace\UnrealEngine\Engine\Binaries\DotNET\UnrealBuildTool.exe UnrealPak Win64 Development -Project=C:\workspace\carla\Unreal\CarlaUE4\CarlaUE4.uproject  C:\workspace\carla\Unreal\CarlaUE4\CarlaUE4.uproject -NoUBTMakefiles  -Manifest=C:\workspace\UnrealEngine\Engine\Intermediate\Build\Manifest.xml -NoHotReload -log=&quot;C:\workspace\UnrealEngine\Engine\Programs\AutomationTool\Saved\Logs\UBT-UnrealPak-Win64-Development.txt&quot;
+<h2 id="_3">调试</h2>
+<p>最终运行的命令为：
+<div class="highlight"><pre><span></span><code><span class="s2">&quot;C:\workspace\UnrealEngine\Engine\Build\BatchFiles\RunUAT.bat&quot;</span><span class="w">        </span>BuildCookRun<span class="w">        </span>-nocompileeditor<span class="w">        </span>-TargetPlatform<span class="o">=</span>Win64<span class="w">        </span>-Platform<span class="o">=</span>Win64<span class="w">        </span>-installed<span class="w">        </span>-nop4<span class="w">        </span>-project<span class="o">=</span><span class="s2">&quot;C:/workspace/carla/Unreal/CarlaUE4/CarlaUE4.uproject&quot;</span><span class="w">        </span>-cook<span class="w">        </span>-stage<span class="w">        </span>-build<span class="w">        </span>-archive<span class="w">        </span>-archivedirectory<span class="o">=</span><span class="s2">&quot;C:/workspace/carla/Build/UE4Carla/1.0-7-gd8d6d49e0/&quot;</span><span class="w">        </span>-package<span class="w">        </span>-clientconfig<span class="o">=</span>Shipping
+</code></pre></div></p>
+<p>实际运行的<strong>构建</strong>命令（成功）：
+<div class="highlight"><pre><span></span><code>Running:<span class="w"> </span>C:<span class="se">\w</span>orkspace<span class="se">\U</span>nrealEngine<span class="se">\E</span>ngine<span class="se">\B</span>inaries<span class="se">\D</span>otNET<span class="se">\U</span>nrealBuildTool.exe<span class="w"> </span>UnrealPak<span class="w"> </span>Win64<span class="w"> </span>Development<span class="w"> </span>-Project<span class="o">=</span>C:<span class="se">\w</span>orkspace<span class="se">\c</span>arla<span class="se">\U</span>nreal<span class="se">\C</span>arlaUE4<span class="se">\C</span>arlaUE4.uproject<span class="w">  </span>C:<span class="se">\w</span>orkspace<span class="se">\c</span>arla<span class="se">\U</span>nreal<span class="se">\C</span>arlaUE4<span class="se">\C</span>arlaUE4.uproject<span class="w"> </span>-NoUBTMakefiles<span class="w">  </span>-Manifest<span class="o">=</span>C:<span class="se">\w</span>orkspace<span class="se">\U</span>nrealEngine<span class="se">\E</span>ngine<span class="se">\I</span>ntermediate<span class="se">\B</span>uild<span class="se">\M</span>anifest.xml<span class="w"> </span>-NoHotReload<span class="w"> </span>-log<span class="o">=</span><span class="s2">&quot;C:\workspace\UnrealEngine\Engine\Programs\AutomationTool\Saved\Logs\UBT-UnrealPak-Win64-Development.txt&quot;</span>
+</code></pre></div></p>
+<p>实际运行的<strong>烘焙</strong>命令（失败）：
+<div class="highlight"><pre><span></span><code>Running:<span class="w"> </span>C:<span class="se">\w</span>orkspace<span class="se">\U</span>nrealEngine<span class="se">\E</span>ngine<span class="se">\B</span>inaries<span class="se">\W</span>in64<span class="se">\U</span>E4Editor-Cmd.exe<span class="w"> </span>C:<span class="se">\w</span>orkspace<span class="se">\c</span>arla<span class="se">\U</span>nreal<span class="se">\C</span>arlaUE4<span class="se">\C</span>arlaUE4.uproject<span class="w"> </span>-run<span class="o">=</span>Cook<span class="w">  </span>-TargetPlatform<span class="o">=</span>WindowsNoEditor<span class="w"> </span>-fileopenlog<span class="w"> </span>-unversioned<span class="w"> </span>-abslog<span class="o">=</span>C:<span class="se">\w</span>orkspace<span class="se">\U</span>nrealEngine<span class="se">\E</span>ngine<span class="se">\P</span>rograms<span class="se">\A</span>utomationTool<span class="se">\S</span>aved<span class="se">\C</span>ook-2025.05.23-14.23.04.txt<span class="w"> </span>-stdout<span class="w"> </span>-CrashForUAT<span class="w"> </span>-unattended<span class="w"> </span>-NoLogTimes
 </code></pre></div></p>
 <h2 id="_4">参考</h2>
 <ul>
 <li>打包脚本 <a href="https://github.com/OpenHUTB/carla/blob/OpenHUTB/Util/BuildTools/Package.bat">Package.bat</a></li>
 <li><a href="https://blog.csdn.net/sinat_23135151/article/details/140663928">UE4如何调试BuildCookRun</a></li>
 <li><a href="https://blog.csdn.net/charon8778/article/details/141339988">编辑器内正常运行但打包出错</a></li>
+<li><a href="https://blog.csdn.net/sinat_23135151/article/details/140663928">调试UAT</a></li>
+<li><a href="https://blog.csdn.net/luofeixiongsix/article/details/81014953">ue4烘焙失败</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/534528937">基于 VS Debug 的 UE4 打包问题调查方案</a> </li>
+<li><a href="https://blog.csdn.net/qq_21919621/article/details/109162074">查cook资源失败</a></li>
 </ul>
               
             </div>
