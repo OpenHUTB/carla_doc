@@ -380,6 +380,13 @@ C:\workspace\carla\Unreal\CarlaUE4\Plugins\Carla\CarlaDependencies\include\carla
 ```
 > 拷贝过来的依赖没有更新
 
+
+* 执行`make PythonAPI`后没有`PythonAPI/carla/dist/`目录
+
+> 报错信息在前面：`CMake Error: Could not create named generator`
+> 可能没真正执行命令：`python setup.py bdist_egg bdist_wheel`，需要切换到Python虚拟环境，然后进入`PythonAPI/carla`目录中执行该命令。
+
+
 ---
 
 ## 打包
