@@ -119,10 +119,15 @@
 </code></pre></div>
 <p><img alt="texture_change" src="../img/tuto_G_texture_streaming/texture_change.gif" /></p>
 <h2 id="api_2">通过 API 查找对象名称</h2>
-<p>要在不依赖虚幻编辑器的情况下查找对象，您还可以使用<code>world.get_names_of_all_objects()</code>查询对象名称。通过使用 Python 的内置<code>filter(...)</code>方法，您可以将目标对象归零。</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Filter world objects for those with &#39;Apartment&#39; in the name</span>
+<p>要在不依赖虚幻编辑器的情况下查找对象，您还可以使用<code>world.get_names_of_all_objects()</code>查询对象名称。通过使用 Python 内置的<code>filter(...)</code>方法，您可以精准地找到目标对象。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 过滤名称中带有“公寓Apartment”的世界对象</span>
 <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">k</span><span class="p">:</span> <span class="s1">&#39;Apartment&#39;</span> <span class="ow">in</span> <span class="n">k</span><span class="p">,</span> <span class="n">world</span><span class="o">.</span><span class="n">get_names_of_all_objects</span><span class="p">()))</span>
 </code></pre></div>
+<h2 id="_5">车辆纹理动态改变</h2>
+<p><div class="highlight"><pre><span></span><code><span class="n">lincoln_vehicle</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">k</span><span class="p">:</span> <span class="s1">&#39;BP_Lincoln&#39;</span> <span class="ow">in</span> <span class="n">k</span><span class="p">,</span> <span class="n">world</span><span class="o">.</span><span class="n">get_names_of_all_objects</span><span class="p">()))</span>
+<span class="n">world</span><span class="o">.</span><span class="n">apply_color_texture_to_object</span><span class="p">(</span><span class="n">lincoln_vehicle</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">carla</span><span class="o">.</span><span class="n">MaterialParameter</span><span class="o">.</span><span class="n">Diffuse</span><span class="p">,</span> <span class="n">texture_1</span><span class="p">)</span>
+</code></pre></div>
+完整代码请参考<a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/demo/tuto_G_texture_streaming.py">链接</a> 。</p>
               
             </div>
           </div><footer>
