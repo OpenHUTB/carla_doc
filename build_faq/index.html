@@ -390,6 +390,13 @@ export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla
 <blockquote>
 <p>拷贝过来的依赖没有更新</p>
 </blockquote>
+<ul>
+<li>执行<code>make PythonAPI</code>后没有<code>PythonAPI/carla/dist/</code>目录</li>
+</ul>
+<blockquote>
+<p>报错信息在前面：<code>CMake Error: Could not create named generator</code>
+可能没真正执行命令：<code>python setup.py bdist_egg bdist_wheel</code>，需要切换到Python虚拟环境，然后进入<code>PythonAPI/carla</code>目录中执行该命令。</p>
+</blockquote>
 <hr />
 <h2 id="_10">打包</h2>
 <h3 id="make-package">make package 时报错</h3>
