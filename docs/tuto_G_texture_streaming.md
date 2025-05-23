@@ -76,10 +76,17 @@ world.apply_color_texture_to_object('BP_Apartment04_v05_Opt_2', carla.MaterialPa
 
 ## 通过 API 查找对象名称
 
-要在不依赖虚幻编辑器的情况下查找对象，您还可以使用`world.get_names_of_all_objects()`查询对象名称。通过使用 Python 的内置`filter(...)`方法，您可以将目标对象归零。
+要在不依赖虚幻编辑器的情况下查找对象，您还可以使用`world.get_names_of_all_objects()`查询对象名称。通过使用 Python 内置的`filter(...)`方法，您可以精准地找到目标对象。
 
 
 ```py
-# Filter world objects for those with 'Apartment' in the name
+# 过滤名称中带有“公寓Apartment”的世界对象
 list(filter(lambda k: 'Apartment' in k, world.get_names_of_all_objects()))
 ```
+
+## 车辆纹理动态改变
+```python
+lincoln_vehicle = list(filter(lambda k: 'BP_Lincoln' in k, world.get_names_of_all_objects()))
+world.apply_color_texture_to_object(lincoln_vehicle[0], carla.MaterialParameter.Diffuse, texture_1)
+```
+完整代码请参考[链接](https://github.com/OpenHUTB/carla_doc/blob/master/src/demo/tuto_G_texture_streaming.py) 。
