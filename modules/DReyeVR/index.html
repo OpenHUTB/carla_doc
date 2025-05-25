@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>虚拟现实 - 人车模拟器</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u865a\u62df\u73b0\u5b9e";
+        var mkdocs_page_input_path = "modules/DReyeVR.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 人车模拟器
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">首页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">人车模拟器</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">虚拟现实</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/modules/DReyeVR.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">虚拟现实</h1>
+<h2 id="1">1. 模块化架构与扩展性</h2>
+<ul>
+<li>
+<p>工厂模式（DReyeVRFactory）</p>
+<p>通过继承ACarlaActorFactory，动态生成自定义车辆（如TeslaM3、Mustang66）和传感器（如EgoSensor）。工厂类根据配置文件中的参数（如车辆类型、蓝图路径）注册Actor定义，支持热加载和灵活扩展新车辆类型。</p>
+</li>
+<li>
+<p>模块分离</p>
+<p>功能被划分为独立模块：</p>
+<ul>
+<li>车辆控制（EgoVehicle）：处理驾驶逻辑、输入映射、物理模拟。</li>
+<li>传感器处理（EgoSensor）：集成眼动追踪、焦点计算、帧捕获。</li>
+<li>用户界面（FlatHUD）：绘制 HUD 元素（文本、纹理、十字准星）。</li>
+<li>游戏模式（DReyeVRGameMode）：管理玩家、输入、重播和音效。</li>
+</ul>
+</li>
+</ul>
+<h2 id="2">2. 配置驱动与灵活性</h2>
+<ul>
+<li>
+<p>配置文件（ConfigFile类）</p>
+<p>使用INI格式存储参数（如车辆属性、声音设置、眼动追踪配置），支持运行时热加载。例如：
+<div class="highlight"><pre><span></span><code><span class="n">GeneralParams</span><span class="p">.</span><span class="n">Get</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;CameraParams&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;VignetteIntensity&quot;</span><span class="p">);</span>
+</code></pre></div>
+通过ConfigFileData比较录制与回放配置，确保一致性。</p>
+</li>
+<li>
+<p>车辆参数动态加载</p>
+<p>车辆蓝图（如BP_TeslaM3）的参数通过配置文件加载，允许快速调整模型属性（如车轮数量、生成代数）。</p>
+</li>
+</ul>
+<h2 id="3">3. 传感器与数据融合</h2>
+<ul>
+<li>
+<p>眼动追踪集成（EgoSensor）</p>
+<p>利用SRanipal插件获取实时眼动数据（注视点、瞳孔直径），计算视锥体汇聚距离（Vergence），用于分析驾驶员注意力或生成调试可视化。</p>
+</li>
+<li>
+<p>多传感器支持</p>
+<p>支持深度着色器（DepthShader）、语义分割（SemanticSegmentationShader）等后处理效果，通过CreatePostProcessingEffect动态组合渲染管线。</p>
+</li>
+</ul>
+<h2 id="4-vr">4. 虚拟现实（VR）与输入系统</h2>
+<ul>
+<li>
+<p>SteamVR集成（ADReyeVRPawn）</p>
+<p>初始化VR设备（如HTC Vive），设置跟踪原点（Eye或Floor），并处理头部旋转与位置同步。</p>
+</li>
+<li>
+<p>多输入设备支持</p>
+<ul>
+<li>
+<p>键盘/手柄：通过SetupPlayerInputComponent绑定输入轴（如油门、转向）。</p>
+</li>
+<li>
+<p>Logitech方向盘：支持力反馈、按钮映射，通过LogitechWheelUpdate处理物理输入。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="5">5. 实时数据处理与可视化</h2>
+<ul>
+<li>
+<p>帧捕获与回放（EgoSensor）</p>
+<p>使用USceneCaptureComponent2D截取高分辨率图像，支持多种后处理效果（如线性Gamma、自定义着色器），并将数据保存至磁盘供后续分析。
+* 调试可视化</p>
+<p>在编辑器中绘制调试信息（如视线射线、碰撞点），通过DrawDebugLine和DrawDebugSphere辅助开发。</p>
+</li>
+</ul>
+<h2 id="6">6. 性能优化与稳定性</h2>
+<ul>
+<li>
+<p>异步线程处理</p>
+<p>眼动追踪数据通过定时器（TickEyeTracker）异步更新，避免阻塞主线程。</p>
+</li>
+<li>
+<p>资源管理</p>
+<p>使用UTexture2D动态生成十字准星、方块纹理，减少内存占用。例如：
+<div class="highlight"><pre><span></span><code>GenerateSquareImage(ReticleSrc, ReticleSize, FColor::Red);
+</code></pre></div></p>
+</li>
+</ul>
+<h2 id="7-carla">7. 与Carla模拟器的深度集成</h2>
+<ul>
+<li>
+<p>Actor生命周期管理</p>
+<p>通过ACarlaEpisode和FindEgoVehicleDefinition确保车辆与传感器的正确生成与销毁。</p>
+</li>
+<li>
+<p>重播系统（CarlaReplayer）</p>
+<p>支持录制和回放驾驶数据，通过ReplayTick同步车辆状态与传感器输入。</p>
+</li>
+</ul>
+<h2 id="_2">总结</h2>
+<p>DReyeVR模块通过模块化设计、配置驱动和插件集成，构建了一个高度可定制的虚拟驾驶环境。其核心优势在于：</p>
+<ul>
+<li>灵活性：通过工厂模式和配置文件快速适配不同车辆与场景。</li>
+<li>沉浸感：集成VR设备和眼动追踪，提升用户体验。</li>
+<li>可扩展性：支持自定义传感器和后处理效果，便于算法研究与原型开发。</li>
+</ul>
+<p>未来改进方向可能包括优化眼动追踪性能、增加更多车辆物理模型，以及完善多平台输入支持。</p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
