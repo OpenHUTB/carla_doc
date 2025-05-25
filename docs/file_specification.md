@@ -43,6 +43,7 @@
 * [车辆](modules/Vehicle.md) [Vehicle](https://openhutb.github.io/carla_cpp/dir_4d620431c9b0dc62fca23e1ed91a49b6.html)
 * [行人](modules/Walker.md) [Walker](https://openhutb.github.io/carla_cpp/dir_7a44753a182d2dd0cd15cfa7be7c0c89.html)
 * [天气](modules/Weather.md) [Weather](https://openhutb.github.io/carla_cpp/dir_b3a8bd261fb98563f858806beb7e2741.html)
+* [虚拟现实](modules/DReyeVR.md) [Source/CarlaUE4/DReyeVR](https://github.com/OpenHUTB/carla/tree/OpenHUTB/Unreal/CarlaUE4/Source/CarlaUE4/DReyeVR)
 
 ## 三、虚幻场景：[carla-content](https://bitbucket.org/carla-simulator/carla-content/src/master/)
 
