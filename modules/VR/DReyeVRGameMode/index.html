@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>游戏模式 - 人车模拟器</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u6e38\u620f\u6a21\u5f0f";
+        var mkdocs_page_input_path = "modules/VR/DReyeVRGameMode.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> 人车模拟器
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">首页</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">人车模拟器</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">游戏模式</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/modules/VR/DReyeVRGameMode.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">游戏模式</h1>
+<h2 id="_2">模块概述</h2>
+<p>DReyeVRGameMode 是 DReyeVR 扩展模块的核心游戏模式类，负责管理游戏的核心逻辑，包括玩家控制、EgoVehicle（主驾驶车辆）、重播系统、音效控制和调试可视化。该模块基于 Unreal Engine 的 ACarlaGameModeBase 扩展，集成 Carla 仿真环境与 DReyeVR 的自定义功能。</p>
+<h2 id="_3">类结构</h2>
+<p>ADReyeVRGameMode
+继承自 ACarlaGameModeBase，负责游戏初始化、输入处理、EgoVehicle 管理及重播控制。</p>
+<table>
+<thead>
+<tr>
+<th>变量名</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Player</td>
+<td>TWeakObjectPtr<APlayerController></td>
+<td>玩家控制器弱引用</td>
+</tr>
+<tr>
+<td>DReyeVR_Pawn</td>
+<td>TWeakObjectPtr<ADReyeVRPawn></td>
+<td>DReyeVR 主视角 Pawn 弱引用</td>
+</tr>
+<tr>
+<td>EgoVehiclePtr</td>
+<td>TWeakObjectPtr<AEgoVehicle></td>
+<td>EgoVehicle 弱引用</td>
+</tr>
+<tr>
+<td>SpectatorPtr</td>
+<td>TWeakObjectPtr<APawn></td>
+<td>观察者视角 Pawn 弱引用</td>
+</tr>
+<tr>
+<td>bDoSpawnEgoVehicleTransform</td>
+<td>bool</td>
+<td>是否使用预设生成点生成 EgoVehicle</td>
+</tr>
+<tr>
+<td>SpawnEgoVehicleTransform</td>
+<td>FTransform</td>
+<td>预设生成点变换</td>
+</tr>
+<tr>
+<td>ReplayTimeFactor</td>
+<td>double</td>
+<td>重播时间缩放因子（1.0x 为实时）</td>
+</tr>
+<tr>
+<td>bReplaySync</td>
+<td>bool</td>
+<td>是否启用同步重播模式</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_4">成员函数</h2>
+<table>
+<thead>
+<tr>
+<th>函数名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BeginPlay()</td>
+<td>初始化玩家、输入组件、DReyeVR Pawn 和 EgoVehicle</td>
+</tr>
+<tr>
+<td>Tick(float DeltaSeconds)</td>
+<td>处理重播控制、调试绘制和输入更新</td>
+</tr>
+<tr>
+<td>SetupPlayerInputComponent()</td>
+<td>绑定玩家输入动作（如切换摄像机、控制 EgoVehicle）</td>
+</tr>
+<tr>
+<td>SetupDReyeVRPawn()</td>
+<td>生成或获取 DReyeVR 主视角 Pawn</td>
+</tr>
+<tr>
+<td>SetupEgoVehicle()</td>
+<td>生成或获取 EgoVehicle 实例</td>
+</tr>
+<tr>
+<td>SetupSpectator()</td>
+<td>初始化观察者视角 Pawn</td>
+</tr>
+<tr>
+<td>ReplayPlayPause()</td>
+<td>切换重播暂停/播放状态</td>
+</tr>
+<tr>
+<td>ReplaySpeedUp()</td>
+<td>增加重播速度</td>
+</tr>
+<tr>
+<td>ReplaySlowDown()</td>
+<td>降低重播速度</td>
+</tr>
+<tr>
+<td>DrawBBoxes()</td>
+<td>绘制场景中所有车辆的调试边界框</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_5">核心功能</h2>
+<ol>
+<li>
+<p>游戏初始化</p>
+<ul>
+<li>玩家与输入绑定</li>
+</ul>
+<p>在 BeginPlay() 中初始化玩家控制器，绑定输入动作（如 PossessEgoVehicle、ReplayPlayPause）。</p>
+<ul>
+<li>DReyeVR Pawn 生成</li>
+</ul>
+<p>通过 SetupDReyeVRPawn() 生成主视角 Pawn，并自动将其分配给玩家控制器。</p>
+<ul>
+<li>EgoVehicle 管理</li>
+</ul>
+<p>根据配置参数 AutomaticallySpawnEgo 决定是否生成 EgoVehicle，默认使用 TeslaM3 配置。</p>
+</li>
+<li>
+<p>输入处理</p>
+</li>
+<li>
+<p>摄像机切换</p>
+</li>
+</ol>
+<p>支持通过按键切换主视角（驾驶员视角、第三人称视角）和观察者视角。</p>
+<ul>
+<li>
+<p>EgoVehicle 控制</p>
+</li>
+<li>
+<p>键盘/手柄输入直接控制车辆（油门、刹车、转向）。</p>
+</li>
+<li>
+<p>支持通过 PossessEgoVehicle 和 PossessSpectator 切换控制权。</p>
+</li>
+<li>
+<p>重播系统</p>
+</li>
+<li>
+<p>重播控制</p>
+<p>通过 ReplayPlayPause()、ReplaySpeedUp() 等函数控制重播进度，支持时间缩放（0.0x 暂停至 4.0x 加速）。</p>
+</li>
+<li>
+<p>同步模式</p>
+<p>同步模式下禁用插值，确保重播与原始录制帧率一致。</p>
+</li>
+<li>
+<p>音效管理</p>
+</li>
+<li>
+<p>动态音量调整</p>
+<p>根据配置参数调整 EgoVehicle、非 Ego 车辆和环境音效的音量，例如：
+<div class="highlight"><pre><span></span><code><span class="n">ACarlaWheeledVehicle</span><span class="o">::</span><span class="n">Volume</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NonEgoVolumePercent</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">100.f</span><span class="p">;</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>调试可视化</p>
+</li>
+<li>
+<p>边界框绘制</p>
+<p>在编辑器模式下绘制所有车辆的调试边界框，便于观察物体位置：
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">ADReyeVRGameMode::DrawBBoxes</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 使用 FDebugDraw 绘制包围盒</span>
+<span class="p">}</span>
+</code></pre></div></p>
+</li>
+</ul>
+<h2 id="_6">配置参数</h2>
+<p>通过 GeneralParams 读取 DReyeVRConfig.ini 配置文件，关键参数包括：
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">[</span><span class="nv">Sound</span><span class="p p-Indicator">]</span>
+<span class="l l-Scalar l-Scalar-Plain">EgoVolumePercent=80</span>
+<span class="l l-Scalar l-Scalar-Plain">NonEgoVolumePercent=50</span>
+
+<span class="l l-Scalar l-Scalar-Plain">[Game]</span>
+<span class="l l-Scalar l-Scalar-Plain">DoSpawnEgoVehicleTransform=true</span>
+<span class="l l-Scalar l-Scalar-Plain">SpawnEgoVehicleTransform=(X=0,Y=0,Z=0)</span>
+
+<span class="l l-Scalar l-Scalar-Plain">[Replayer]</span>
+<span class="l l-Scalar l-Scalar-Plain">UseCarlaSpectator=false</span>
+<span class="l l-Scalar l-Scalar-Plain">ReplayInterpolation=true</span>
+</code></pre></div></p>
+<h2 id="_7">使用示例</h2>
+<div class="highlight"><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">// 在 BeginPlay 中初始化游戏模式</span>
+<span class="l l-Scalar l-Scalar-Plain">void ADReyeVRGameMode::BeginPlay() {</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">Super::BeginPlay();</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">SetupPlayerInputComponent();</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">SetupDReyeVRPawn();</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">if (GeneralParams.Get&lt;bool&gt;(&quot;Game&quot;, &quot;AutomaticallySpawnEgo&quot;)) {</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">SetupEgoVehicle();</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">}</span>
+<span class="l l-Scalar l-Scalar-Plain">}</span>
+
+<span class="l l-Scalar l-Scalar-Plain">// 绑定输入动作</span>
+<span class="l l-Scalar l-Scalar-Plain">void ADReyeVRGameMode::SetupPlayerInputComponent() {</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">InputComponent-&gt;BindAction(&quot;ReplayPlayPause&quot;, IE_Pressed, this, &amp;ADReyeVRGameMode::ReplayPlayPause);</span>
+<span class="l l-Scalar l-Scalar-Plain">}</span>
+</code></pre></div>
+<h2 id="_8">依赖模块</h2>
+<ul>
+<li><strong>Carla Core</strong>：依赖 Carla 的 ACarlaGameModeBase 和重播系统。</li>
+<li><strong>DReyeVR Extensions</strong>：集成 EgoVehicle、传感器和自定义输入处理。</li>
+<li><strong>Unreal Engine</strong>：使用内置的 APlayerController 和 UInputComponent。</li>
+</ul>
+<h2 id="_9">扩展建议</h2>
+<ol>
+<li>
+<p>自定义车辆支持</p>
+<p>在 DReyeVRConfig.ini 中添加新车辆配置，扩展 VehicleTypes 数组。
+2. 重播增强</p>
+<p>添加时间戳同步功能，支持精确跳转到特定时间点。</p>
+</li>
+<li>
+<p>调试工具</p>
+<p>集成 DrawDebugString 显示实时车辆状态（速度、方向）。</p>
+</li>
+</ol>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../../js/umlconvert.js"></script>
+      <script src="../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
