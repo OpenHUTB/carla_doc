@@ -12,7 +12,7 @@
     * 车辆控制（EgoVehicle）：处理驾驶逻辑、输入映射、物理模拟。
     * 传感器处理（EgoSensor）：集成眼动追踪、焦点计算、帧捕获。
     * 用户界面（FlatHUD）：绘制 HUD 元素（文本、纹理、十字准星）。
-    * 游戏模式（DReyeVRGameMode）：管理玩家、输入、重播和音效。
+    * 游戏模式（ [DReyeVRGameMode](VR/DReyeVRGameMode.md) ）：管理玩家、输入、重播和音效。
 
 ## 2. 配置驱动与灵活性
 * 配置文件（ConfigFile类）
@@ -21,7 +21,7 @@
     ```cpp
     GeneralParams.Get<float>("CameraParams", "VignetteIntensity");
     ```
-通过ConfigFileData比较录制与回放配置，确保一致性。
+通过 ConfigFileData 比较记录与回放配置，确保一致性。
 
 * 车辆参数动态加载
 
