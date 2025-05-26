@@ -150,6 +150,34 @@ python3 manual_control.py
 
 ![carlaviz_demo](img/plugins_carlaviz_demo.jpg)
 
+## 编译安装 carlaviz
+
+```shell
+# 安装conan：
+pip install conan -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+
+# 1. clone this repo with submodules
+git clone https://github.com/mjxu96/carlaviz.git
+
+# 2. build backend
+cd backend
+mkdir build && cd build
+# add extra conan registry to retrieve xviz and libcarla
+conan remote add gitlab https://gitlab.com/api/v4/projects/44861904/packages/conan
+conan install -pr gcc11 -s build_type=Debug --build=missing ..
+conan build ..
+
+# 3. build frontend
+cd frontend
+yarn
+```
+> 问题：ERROR: The default build profile 'C:\Users\Administrator\.conan2\profiles\default' doesn't exist
+> 
+> 解决：
+> ```shell
+> conan profile detect
+> ```
+
 ## 像素流
 
 参考 [链接](https://github.com/OpenHUTB/gpt/tree/main/sim) 中的说明和代码进行像素流推送的部署，如果出现启动成功：
