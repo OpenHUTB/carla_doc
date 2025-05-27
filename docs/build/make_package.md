@@ -80,6 +80,12 @@ Running: C:\workspace\UnrealEngine\Engine\Binaries\DotNET\UnrealBuildTool.exe Un
 Running: C:\workspace\UnrealEngine\Engine\Binaries\Win64\UE4Editor-Cmd.exe C:\workspace\carla\Unreal\CarlaUE4\CarlaUE4.uproject -run=Cook  -TargetPlatform=WindowsNoEditor -fileopenlog -unversioned -abslog=C:\workspace\UnrealEngine\Engine\Programs\AutomationTool\Saved\Cook-2025.05.23-14.23.04.txt -stdout -CrashForUAT -unattended -NoLogTimes
 ```
 
+解决：使用Carla配置打包时，移除 [DReyeVR的C++代码](https://github.com/OpenHUTB/carla/commit/a371032d40948ed788aed86252b22325ecac2bde) 可暂时规避，打包成功。
+
+使用VR配置时，需要添加 [DReyeVR的C++代码](https://github.com/OpenHUTB/carla/commit/a371032d40948ed788aed86252b22325ecac2bde) ，可以打包成功，但是环境是黑色的，只有注视点的红色和方向盘的白色。
+
+如果是用VR配置打包还失败，就是先要就编译器中独立程序运行后，然后安装RenderDoc，最后再打包。
+
 
 
 
