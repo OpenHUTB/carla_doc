@@ -474,6 +474,30 @@
 <p><img alt="foliage_tool" src="../img/tuto_content_authoring_maps/select_foliage_tool.gif" /></p>
 <p>将所需的树叶项目拖到标有 <code>+ Drop Foliage Here</code> 的框中。在密度字段中设置适当的密度，然后使用树叶项目绘制到地图上。</p>
 <p><img alt="foliage_paint" src="../img/tuto_content_authoring_maps/foliage_paint.gif" /></p>
+<h2 id="exporting-a-map">Exporting a map</h2>
+<h3 id="exporting-a-map-as-a-separate-package">Exporting a map as a separate package</h3>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;props&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">  </span><span class="nt">&quot;maps&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;YourMapName&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;YourMapPath/InsideCarlaContent&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;use_carla_materials&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>It is important to remember this file's name (<code>mapToPackage.Package.json</code> in this example), as it will be used as the argument for the make package command. The command would look like this:
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>package<span class="w"> </span><span class="nv">ARGS</span><span class="o">=</span><span class="s2">&quot;--packages=mapToPackage&quot;</span>
+</code></pre></div>
+This command will create a package based on the information defined in the <code>mapToPackage.Package.json</code> file, including only the content specified within it.</p>
+<p>The files will be saved in <code>Dist</code> folder on Linux, and <code>/Build/UE4Carla/</code> on Windows.</p>
+<h3 id="exporting-a-map-as-part-of-a-complete-carla-package">Exporting a map as part of a complete CARLA package</h3>
+<p>To export the map as part of a complete CARLA package, such that the map is available on launch of the package, include the following line in the <code>DefaultGame.ini</code> file in <code>CARLA_ROOT/Unreal/CarlaUE4/Config/</code>:</p>
+<div class="highlight"><pre><span></span><code>+MapsToCook=(FilePath=&quot;/Game/Carla/Maps/MyMap&quot;)
+</code></pre></div>
+<p>This line should be added in the <code>[/Script/UnrealEd.ProjectPackagingSettings]</code> section, preferably next to the other <code>MapsToCook(...)</code> entries. Then run <code>make package</code> command to build a package containing your map. The exported CARLA package with your map will be saved in the <code>Dist</code> folder on Linux and the <code>/Build/UE4Carla/</code> folder on Windows.</p>
+<hr />
 <h1 id="_16">下一步 <span id="next_step"></span></h1>
 <p>使用以下工具和指南继续自定义您的地图：</p>
 <ul>

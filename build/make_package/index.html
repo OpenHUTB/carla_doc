@@ -172,6 +172,9 @@
 <p>实际运行的<strong>烘焙</strong>命令（失败）：
 <div class="highlight"><pre><span></span><code>Running:<span class="w"> </span>C:<span class="se">\w</span>orkspace<span class="se">\U</span>nrealEngine<span class="se">\E</span>ngine<span class="se">\B</span>inaries<span class="se">\W</span>in64<span class="se">\U</span>E4Editor-Cmd.exe<span class="w"> </span>C:<span class="se">\w</span>orkspace<span class="se">\c</span>arla<span class="se">\U</span>nreal<span class="se">\C</span>arlaUE4<span class="se">\C</span>arlaUE4.uproject<span class="w"> </span>-run<span class="o">=</span>Cook<span class="w">  </span>-TargetPlatform<span class="o">=</span>WindowsNoEditor<span class="w"> </span>-fileopenlog<span class="w"> </span>-unversioned<span class="w"> </span>-abslog<span class="o">=</span>C:<span class="se">\w</span>orkspace<span class="se">\U</span>nrealEngine<span class="se">\E</span>ngine<span class="se">\P</span>rograms<span class="se">\A</span>utomationTool<span class="se">\S</span>aved<span class="se">\C</span>ook-2025.05.23-14.23.04.txt<span class="w"> </span>-stdout<span class="w"> </span>-CrashForUAT<span class="w"> </span>-unattended<span class="w"> </span>-NoLogTimes
 </code></pre></div></p>
+<p>解决：使用Carla配置打包时，移除 <a href="https://github.com/OpenHUTB/carla/commit/a371032d40948ed788aed86252b22325ecac2bde">DReyeVR的C++代码</a> 可暂时规避，打包成功。</p>
+<p>使用VR配置时，需要添加 <a href="https://github.com/OpenHUTB/carla/commit/a371032d40948ed788aed86252b22325ecac2bde">DReyeVR的C++代码</a> ，可以打包成功，但是环境是黑色的，只有注视点的红色和方向盘的白色。</p>
+<p>如果是用VR配置打包还失败，就是先要就编译器中独立程序运行后，然后安装RenderDoc，最后再打包。</p>
 <h2 id="_4">参考</h2>
 <ul>
 <li>打包脚本 <a href="https://github.com/OpenHUTB/carla/blob/OpenHUTB/Util/BuildTools/Package.bat">Package.bat</a></li>

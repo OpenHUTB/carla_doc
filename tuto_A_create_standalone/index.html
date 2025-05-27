@@ -78,10 +78,27 @@
 <hr />
 <h2 id="carla">在源代码构建的 Carla 中导出包 <span id="export-a-package-from-the-ue4-editor"></span></h2>
 <p>将资产导入虚幻后，用户可以为其生成 <strong>独立的包</strong>。这将用于将内容分发到 Carla 包，例如 0.9.8。</p>
-<p>要导出包，只需运行以下命令即可。</p>
+<p>要导出包，只需运行以下命令即可：
 <div class="highlight"><pre><span></span><code>make<span class="w"> </span>package<span class="w"> </span><span class="nv">ARGS</span><span class="o">=</span><span class="s2">&quot;--packages=Package1,Package2&quot;</span>
+</code></pre></div></p>
+<p>这将为列出的每个包创建一个压缩在 <code>.tar.gz</code> 文件中的独立包。</p>
+<p>要为特定地图创建包，我们首先需要找到该地图在 CARLA 的 <a href="https://bitbucket.org/carla-simulator/carla-content/src/master/">Content 目录</a> 中的存储位置。在地图目录中，会有一个名 <a href="https://bitbucket.org/carla-simulator/carla-content/src/master/Config/"><code>config</code></a> 的文件夹，其中包含一个以地图名称命名的 JSON 文件，例如 <code>mapToPackage.Package.json</code>。</p>
+<p>JSON 文件应该看起来像这样：
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;maps&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;YourMapName&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;YourMapPath/InsideCarlaContent&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;use_carla_materials&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="p">}</span>
 </code></pre></div>
-<p>这将为列出的每个包创建一个压缩在 <code>.tar.gz</code> 文件中的独立包。在 Linux 上文件将保存在 <code>Dist</code>，在 Windows 上文件保存在 <code>/Build/UE4Carla/</code> 文件夹下。</p>
+重要的是不要重命名此文件，因为它将用作 <code>make package</code> 命令的参数。该命令如下所示：
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>package<span class="w"> </span><span class="nv">ARGS</span><span class="o">=</span><span class="s2">&quot;--packages=mapToPackage&quot;</span>
+</code></pre></div></p>
+<p>该命令将根据 <code>mapToPackage.Package.json</code> 文件中定义的信息创建一个包，其中仅包含指定的内容。</p>
+<p>在 Linux 上文件将保存在 <code>Dist</code>，在 Windows 上文件保存在 <code>/Build/UE4Carla/</code> 文件夹下。</p>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>在虚幻编辑器的菜单“编辑-&gt;项目设置-&gt;项目-&gt;打包-&gt;(点下三角打开折叠的选项)打包版本中要包含的地图列表”中可以删除不需要的地图，加入需要打包的自定义地图。</p>

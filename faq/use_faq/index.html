@@ -90,7 +90,14 @@
 <blockquote>
 <p>运行 UE4 编辑器的模式下，调用 world.get_spectator() 出现这个问题，是因为播放按钮有多种模式，一种是无观察者模式，另一种是有观察者模式。从您发送的截图来看，您运行 UE4 时使用的是 <a href="https://github.com/carla-simulator/carla/discussions/4782">无观察者模式</a> 。请尝试点击“运行”按钮右边的下拉三角形，选择“独立进程游戏”进行运行（使用另一种模式）。</p>
 </blockquote>
-<h1 id="_3">崩溃</h1>
+<ul>
+<li>运行场景时弹出<code>Locate main RenderDoc executable...</code>选择程序对话框</li>
+</ul>
+<h1 id="_3">场景</h1>
+<blockquote>
+<p>解决：下载并安装 图形调试工具 <a href="https://renderdoc.org/">renderdoc</a> ，然后在选择程序对话框中选择<code>C:\Program Files\RenderDoc\qrenderdoc.exe</code>。</p>
+</blockquote>
+<h1 id="_4">崩溃</h1>
 <p>运行CarlaUE4.exe报错：
 <div class="highlight"><pre><span></span><code>The<span class="w"> </span>UE4-CarlaUE4<span class="w"> </span>Game<span class="w"> </span>has<span class="w"> </span>crashed<span class="w"> </span>and<span class="w"> </span>will<span class="w"> </span>close
 LowLevelFatalError<span class="w"> </span><span class="o">[</span>File:Unknown<span class="o">]</span><span class="w"> </span><span class="o">[</span>Line:<span class="w"> </span><span class="m">136</span><span class="o">]</span>Exception<span class="w"> </span>thrown:<span class="w"> </span>bind:<span class="w"> </span>??h????E???????k?<span class="s2">&quot;????h???????-????m? [system 10013 atD:/carla unreal/carla/Build/boost-1.80.0-install/include\boost/asio/detail/win_iocp_socket_service.hpp:244:5 in function &#39;bind&#39;]</span>
