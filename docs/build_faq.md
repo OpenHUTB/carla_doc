@@ -233,6 +233,10 @@ D:/work/workspace/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/Fishey
 ## Windows 构建
 <!-- ======================================================================= -->
 
+###### [make PythonAPI error "Failed to find XercesC (missing: XercesC_VERSION)"](https://github.com/carla-simulator/carla/issues/5907)
+
+> xerces-c-3.2.3-install 中的头文件目录和库目录是空格，需要删除文件夹，重新编译
+
 ###### 从 GitHub 下载时不会出现“CarlaUE4.exe”。 <span id="carlaue4exe-does-not-appear-when-downloading-from-github"></span>
 
 > Carla 的源版本中没有`CarlaUE4.exe`可执行文件。按照构建说明从源代码构建 Carla。要直接获取`CarlaUE4.exe`，请按照 [快速入门](start_quickstart.md) 说明进行操作。
