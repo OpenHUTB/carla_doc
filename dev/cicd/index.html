@@ -78,8 +78,26 @@
 <div class="highlight"><pre><span></span><code>用户名：cc
 密码：a5300066
 </code></pre></div>
+<p>重启服务：
+在地址栏中输入：<code>http://172.21.108.56:8080/restart/</code></p>
+<p>配置所使用的节点：<code>http://172.21.108.56:8080/manage/computer/</code></p>
+<p>需要配置jenkins代理，否则会出现各种连接不到github的错误。
+Manager Jenkins -&gt; System Configuration -&gt; System -&gt; 
+Http Proxy Configuration -&gt; 
+<div class="highlight"><pre><span></span><code><span class="c1"># 服务器</span>
+<span class="m">127</span>.0.0.1
+<span class="c1"># 端口</span>
+<span class="m">7890</span>
+</code></pre></div></p>
+<p>缺少资产下载操作</p>
+<h3 id="github">安装github插件</h3>
+<p>在 Dashboard 中选择 “管理 Jenkins” -&gt; ``</p>
 <h2 id="jenkins_1">Jenkins配置</h2>
 <p>这个是因为我使用的本地的git用来测试，所以需要配置一下，在 jenkins安装目录（默认是C:\Program Files\Jenkins）找到 jenkins.xml</p>
+<p>1.在配置页面的<code>流水线</code>下的<code>定义</code>下拉菜单中选择<code>Pipeline script from SCM</code> (Software Configuration Management) 。
+仓库配置为<code>C:\ProgramData\Jenkins\.jenkins\workspace</code>，并制定分支。</p>
+<p>2.开始构建</p>
+<p>默认克隆在<code>C:\ProgramData\Jenkins\.jenkins\workspace</code>目录下。</p>
 <h2 id="_2">参考</h2>
 <ul>
 <li><a href="http://158.109.8.172:8080">社区的持续集成地址</a></li>
