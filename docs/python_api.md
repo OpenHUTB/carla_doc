@@ -3758,7 +3758,7 @@ _</font>
 返回某个时刻的世界快照，包含有关参与者的所有信息。
     - **返回:** _[carla.WorldSnapshot](#carla.WorldSnapshot)_  
 - <a name="carla.World.get_spectator"></a>**<font color="#7fb800">get_spectator</font>**(<font color="#00a6ed">**self**</font>)<button class="SnipetButton" id="carla.World.get_spectator-snipet_button">snippet &rarr;</button>  
-返回观察者参与者。观察者是虚幻引擎创建的一种特殊类型的参与者，通常ID=0，充当摄像机并控制模拟器窗口中的视图。
+返回观察者参与者。观察者是虚幻引擎创建的一种特殊类型的参与者，通常ID=0，充当摄像机并控制模拟器窗口中的视图。注意：如果在编辑器中运行，点击“运行”按钮右边的下拉三角形，选择“独立进程游戏”进行运行，否则会报错：`RuntimeError: internal error: unable to find spectator`。
     - **返回:** _[carla.Actor](#carla.Actor)_  
 - <a name="carla.World.get_traffic_light"></a>**<font color="#7fb800">get_traffic_light</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**landmark**</font>)  
 提供一个地标，返回它描述的交通信号灯对象。 

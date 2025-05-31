@@ -11,13 +11,37 @@
 
 将资产导入虚幻后，用户可以为其生成 __独立的包__。这将用于将内容分发到 Carla 包，例如 0.9.8。
 
-要导出包，只需运行以下命令即可。
-
+要导出包，只需运行以下命令即可：
 ```sh
 make package ARGS="--packages=Package1,Package2"
 ```
 
-这将为列出的每个包创建一个压缩在 `.tar.gz` 文件中的独立包。在 Linux 上文件将保存在 `Dist`，在 Windows 上文件保存在 `/Build/UE4Carla/` 文件夹下。
+这将为列出的每个包创建一个压缩在 `.tar.gz` 文件中的独立包。
+
+
+要为特定地图创建包，我们首先需要找到该地图在 CARLA 的 [Content 目录](https://bitbucket.org/carla-simulator/carla-content/src/master/) 中的存储位置。在地图目录中，会有一个名 [`config`](https://bitbucket.org/carla-simulator/carla-content/src/master/Config/) 的文件夹，其中包含一个以地图名称命名的 JSON 文件，例如 `mapToPackage.Package.json`。
+
+JSON 文件应该看起来像这样：
+```json
+{
+  "maps": [
+    {
+        "name": "YourMapName",
+        "path": "YourMapPath/InsideCarlaContent",
+        "use_carla_materials": true
+      }
+  ],
+}
+```
+重要的是不要重命名此文件，因为它将用作 `make package` 命令的参数。该命令如下所示：
+```sh
+make package ARGS="--packages=mapToPackage"
+```
+
+该命令将根据 `mapToPackage.Package.json` 文件中定义的信息创建一个包，其中仅包含指定的内容。
+
+
+在 Linux 上文件将保存在 `Dist`，在 Windows 上文件保存在 `/Build/UE4Carla/` 文件夹下。
 
 !!! 笔记
     在虚幻编辑器的菜单“编辑->项目设置->项目->打包->(点下三角打开折叠的选项)打包版本中要包含的地图列表”中可以删除不需要的地图，加入需要打包的自定义地图。

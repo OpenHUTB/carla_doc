@@ -1,5 +1,6 @@
 # 参考：https://www.cnblogs.com/qkshhan/p/16202931.html
 # 无限循环播放：https://blog.csdn.net/I_fole_you/article/details/131050549
+# 使用everything搜索大于28MB的文件（cloudflare不能部署大于30M的文件）：size:>28mb D:\work\workspace\carla_doc\docs\img
 from PIL import ImageSequence, Image
 import imageio, os
 
@@ -16,7 +17,7 @@ out_file = os.path.join(location, "output.gif")  # 输出GIF文件名
 
 # 压缩版本，参考： https://developer.aliyun.com/article/1172904
 # 设置压缩尺寸，值越大动图越清晰，文件也越大
-rp = 600
+rp = 800
 
 img_list = []
 
@@ -34,4 +35,4 @@ for i in ImageSequence.Iterator(img):
 # durt = (img.info)['duration'] / 0.5
 
 # 读取img_list合成新的gif
-imageio.mimsave(out_file, img_list, duration=0.5, loop=0)
+imageio.mimsave(out_file, img_list, loop=0)  # duration=0.8

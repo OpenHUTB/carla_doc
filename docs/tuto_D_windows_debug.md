@@ -198,6 +198,20 @@ python setup.py build
 下断点，F5调试。然后“调试 - 窗口 - 模块”打开模块窗口。
 
 
+## 使用 Visual Studio 调试引擎代码
+
+1、先从VS工具栏中的第一个下拉菜单中选择设置`Development Editor`
+
+2、在`解决方案`中右键项目`UE4`，选择`调试(Debug) -> 进入单步执行新实例`
+
+3、断点会停在`UnrealEngine\Engine\Source\Runtime\Launch\Private\Windows/LaunchWindows.cpp`主函数入口：
+```cpp
+int32 WINAPI WinMain( _In_ HINSTANCE hInInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ char*, _In_ int32 nCmdShow )
+```
+
+
+
+
 ### VS2019 打开 CarlaUE4 的 Cmake 工程 <span id="open_cmake_project"></span>
 windows操作系统下通过vs2019打开并编译carla：
 

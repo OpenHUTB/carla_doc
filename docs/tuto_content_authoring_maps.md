@@ -420,6 +420,46 @@ Carla 内容库拥有一套全面的植被蓝图，供您为地图的越野区�
 
 ![foliage_paint](img/tuto_content_authoring_maps/foliage_paint.gif)
 
+
+## Exporting a map
+
+### Exporting a map as a separate package
+
+```json
+{
+  "props": [],
+  "maps": [
+    {
+        "name": "YourMapName",
+        "path": "YourMapPath/InsideCarlaContent",
+        "use_carla_materials": true
+      }
+  ],
+}
+```
+
+It is important to remember this file's name (`mapToPackage.Package.json` in this example), as it will be used as the argument for the make package command. The command would look like this:
+```sh
+make package ARGS="--packages=mapToPackage"
+```
+This command will create a package based on the information defined in the `mapToPackage.Package.json` file, including only the content specified within it.
+
+The files will be saved in `Dist` folder on Linux, and `/Build/UE4Carla/` on Windows.
+
+
+### Exporting a map as part of a complete CARLA package
+
+To export the map as part of a complete CARLA package, such that the map is available on launch of the package, include the following line in the `DefaultGame.ini` file in `CARLA_ROOT/Unreal/CarlaUE4/Config/`:
+
+```
++MapsToCook=(FilePath="/Game/Carla/Maps/MyMap")
+```
+
+This line should be added in the `[/Script/UnrealEd.ProjectPackagingSettings]` section, preferably next to the other `MapsToCook(...)` entries. Then run `make package` command to build a package containing your map. The exported CARLA package with your map will be saved in the `Dist` folder on Linux and the `/Build/UE4Carla/` folder on Windows.
+
+---
+
+
 # 下一步 <span id="next_step"></span>
 
 使用以下工具和指南继续自定义您的地图：

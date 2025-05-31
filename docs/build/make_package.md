@@ -49,9 +49,7 @@
 | `-clientconfig=%PACKAGE_CONFIG%`                      | 客户端编译配置，如Debug/Development/Shipping等              |
 
 
-
-
-## 自动化工具
+### 附录说明
 自动化工具（Unreal Automation Tool，简称 UAT），自动化工具使用特定的命令 BuildCookRun
 
 封装流程包含
@@ -65,18 +63,34 @@
 | 部署（deploy）          | 该阶段将构建版本部署到目标设备     |
 | 运行（run）             | 该阶段在目标平台上启动已封装的项目     |
 
+## 调试
 
-
-
-## 运行报错
-```text
-"C:\workspace\UnrealEngine\Engine\Build\BatchFiles\RunUAT.bat"        BuildCookRun        -nocompileeditor        -TargetPlatform=Win64        -Platform=Win64        -installed        -nop4        -project="C:/workspace/carla/Unreal/CarlaUE4/CarlaUE4.uproject"        -cook        -stage        -build        -archive        -archivedirectory="C:/workspace/carla/Build/UE4Carla/1.0-5-g3a71d4782-dirty/"        -package        -clientconfig=Shipping
+最终运行的命令为：
+```shell
+"C:\workspace\UnrealEngine\Engine\Build\BatchFiles\RunUAT.bat"        BuildCookRun        -nocompileeditor        -TargetPlatform=Win64        -Platform=Win64        -installed        -nop4        -project="C:/workspace/carla/Unreal/CarlaUE4/CarlaUE4.uproject"        -cook        -stage        -build        -archive        -archivedirectory="C:/workspace/carla/Build/UE4Carla/1.0-7-gd8d6d49e0/"        -package        -clientconfig=Shipping
 ```
 
-实际运行命令：
-```text
+实际运行的**构建**命令（成功）：
+```shell
 Running: C:\workspace\UnrealEngine\Engine\Binaries\DotNET\UnrealBuildTool.exe UnrealPak Win64 Development -Project=C:\workspace\carla\Unreal\CarlaUE4\CarlaUE4.uproject  C:\workspace\carla\Unreal\CarlaUE4\CarlaUE4.uproject -NoUBTMakefiles  -Manifest=C:\workspace\UnrealEngine\Engine\Intermediate\Build\Manifest.xml -NoHotReload -log="C:\workspace\UnrealEngine\Engine\Programs\AutomationTool\Saved\Logs\UBT-UnrealPak-Win64-Development.txt"
 ```
+
+实际运行的**烘焙**命令（失败）：
+```shell
+Running: C:\workspace\UnrealEngine\Engine\Binaries\Win64\UE4Editor-Cmd.exe C:\workspace\carla\Unreal\CarlaUE4\CarlaUE4.uproject -run=Cook  -TargetPlatform=WindowsNoEditor -fileopenlog -unversioned -abslog=C:\workspace\UnrealEngine\Engine\Programs\AutomationTool\Saved\Cook-2025.05.23-14.23.04.txt -stdout -CrashForUAT -unattended -NoLogTimes
+```
+
+解决：使用Carla配置打包时，移除 [DReyeVR的C++代码](https://github.com/OpenHUTB/carla/commit/a371032d40948ed788aed86252b22325ecac2bde) 可暂时规避，打包成功。
+
+使用VR配置时，需要添加 [DReyeVR的C++代码](https://github.com/OpenHUTB/carla/commit/a371032d40948ed788aed86252b22325ecac2bde) ，可以打包成功，但是环境是黑色的，只有注视点的红色和方向盘的白色。
+
+如果是用VR配置打包还失败，就是先要就编译器中独立程序运行后，然后安装RenderDoc，最后再打包。
+
+
+
+
+
+
 
 
 
@@ -86,4 +100,8 @@ Running: C:\workspace\UnrealEngine\Engine\Binaries\DotNET\UnrealBuildTool.exe Un
 * 打包脚本 [Package.bat](https://github.com/OpenHUTB/carla/blob/OpenHUTB/Util/BuildTools/Package.bat)
 * [UE4如何调试BuildCookRun](https://blog.csdn.net/sinat_23135151/article/details/140663928)
 * [编辑器内正常运行但打包出错](https://blog.csdn.net/charon8778/article/details/141339988)
+* [调试UAT](https://blog.csdn.net/sinat_23135151/article/details/140663928)
+* [ue4烘焙失败](https://blog.csdn.net/luofeixiongsix/article/details/81014953)
+* [基于 VS Debug 的 UE4 打包问题调查方案](https://zhuanlan.zhihu.com/p/534528937) 
+* [查cook资源失败](https://blog.csdn.net/qq_21919621/article/details/109162074)
 
