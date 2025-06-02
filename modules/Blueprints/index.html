@@ -88,94 +88,146 @@
 <h1 id="1">1. 概述</h1>
 <p>UMapGenFunctionLibrary 是用于 Carla 地图生成的核心工具类，提供网格构建、资源管理、坐标投影等功能。
 主要功能：</p>
+<ul>
+<li>
 <p>将自定义网格数据转换为 Unreal Engine 的 FMeshDescription。</p>
+</li>
+<li>
 <p>创建并保存静态网格资源（UStaticMesh）。</p>
+</li>
+<li>
 <p>执行墨卡托投影转换（地理坐标→引擎坐标）。</p>
+</li>
+<li>
 <p>辅助渲染命令与资源清理。</p>
+</li>
+</ul>
 <h1 id="2">2. 核心函数说明</h1>
 <h2 id="21-buildmeshdescriptionfromdata">2.1 BuildMeshDescriptionFromData</h2>
 <p>功能：将自定义网格数据转换为 FMeshDescription，包含顶点、三角形、法线、UV 等信息。
-参数：</p>
-<p>Data (FProceduralCustomMesh): 输入网格数据（顶点、三角形、UV 等）。</p>
-<p>ParamTangents (TArray<FProcMeshTangent>): 顶点切线数据。</p>
-<p>MaterialInstance (UMaterialInstance*): 材质实例。</p>
-<p>返回值：</p>
-<p>FMeshDescription: 构建的网格描述对象，用于后续生成静态网格。</p>
-<p>注意事项：</p>
+参数：
+<div class="highlight"><pre><span></span><code>Data<span class="w"> </span><span class="o">(</span>FProceduralCustomMesh<span class="o">)</span>:<span class="w"> </span>输入网格数据（顶点、三角形、UV<span class="w"> </span>等）。
+
+ParamTangents<span class="w"> </span><span class="o">(</span>TArray&lt;FProcMeshTangent&gt;<span class="o">)</span>:<span class="w"> </span>顶点切线数据。
+
+MaterialInstance<span class="w"> </span><span class="o">(</span>UMaterialInstance*<span class="o">)</span>:<span class="w"> </span>材质实例。
+</code></pre></div></p>
+<p>返回值：
+<div class="highlight"><pre><span></span><code>FMeshDescription:<span class="w"> </span>构建的网格描述对象，用于后续生成静态网格。
+</code></pre></div></p>
+<div class="admonition 注意事项">
+<p class="admonition-title">注意事项</p>
 <p>若 ParamTangents 数量与顶点数不匹配，切线数据将无法正确设置。</p>
 <p>UV 通道默认填充为 (0,0)，需确保输入 UV 数据正确。</p>
+</div>
 <h2 id="22-createmesh">2.2 CreateMesh</h2>
-<p>功能：基于 FMeshDescription 创建并保存静态网格资源（.uasset）。
-参数：</p>
-<p>Data (FProceduralCustomMesh): 输入网格数据。</p>
-<p>ParamTangents (TArray<FProcMeshTangent>): 顶点切线数据。</p>
-<p>MaterialInstance (UMaterialInstance*): 材质实例。</p>
-<p>MapName (FString): 地图名称，用于资源路径。</p>
-<p>FolderName (FString): 资源存储文件夹。</p>
-<p>MeshName (FName): 网格资源名称。</p>
-<p>返回值：</p>
-<p>UStaticMesh*: 生成的静态网格资源指针，失败返回 nullptr。</p>
+<p>功能：基于 FMeshDescription 创建并保存静态网格资源（.uasset）。</p>
+<p>参数：
+<div class="highlight"><pre><span></span><code>Data<span class="w"> </span><span class="o">(</span>FProceduralCustomMesh<span class="o">)</span>:<span class="w"> </span>输入网格数据。
+
+ParamTangents<span class="w"> </span><span class="o">(</span>TArray&lt;FProcMeshTangent&gt;<span class="o">)</span>:<span class="w"> </span>顶点切线数据。
+
+MaterialInstance<span class="w"> </span><span class="o">(</span>UMaterialInstance*<span class="o">)</span>:<span class="w"> </span>材质实例。
+
+MapName<span class="w"> </span><span class="o">(</span>FString<span class="o">)</span>:<span class="w"> </span>地图名称，用于资源路径。
+
+FolderName<span class="w"> </span><span class="o">(</span>FString<span class="o">)</span>:<span class="w"> </span>资源存储文件夹。
+
+MeshName<span class="w"> </span><span class="o">(</span>FName<span class="o">)</span>:<span class="w"> </span>网格资源名称。
+</code></pre></div></p>
+<p>返回值：
+<div class="highlight"><pre><span></span><code>UStaticMesh*:<span class="w"> </span>生成的静态网格资源指针，失败返回<span class="w"> </span>nullptr。
+</code></pre></div></p>
 <p>关键流程：</p>
+<ul>
+<li>
 <p>构建资源包路径（如 /Game/CustomMaps/MapName/Static/FolderName/MeshName）。</p>
+</li>
+<li>
 <p>调用 BuildMeshDescriptionFromData 生成网格描述。</p>
+</li>
+<li>
 <p>创建 UStaticMesh 对象并设置材质、碰撞体等属性。</p>
+</li>
+<li>
 <p>保存资源并通知资源管理器。</p>
-<p>注意事项：</p>
+</li>
+</ul>
+<div class="admonition 注意事项">
+<p class="admonition-title">注意事项</p>
 <p>目录创建逻辑被注释（PlatformFile.CreateDirectory），需手动启用。</p>
 <p>需确保材质实例有效，否则记录错误日志。</p>
+</div>
 <h2 id="23-gettransversemercprojection">2.3 GetTransversemercProjection</h2>
 <p>功能：将经纬度坐标转换为引擎内的平面墨卡托投影坐标（单位：厘米）。
 示例：
-cpp
-FVector2D Position = UMapGenFunctionLibrary::GetTransversemercProjection(39.9, 116.4, 39.9, 116.4);<br />
-// 输出: (0, 0)（原点坐标）</p>
+<div class="highlight"><pre><span></span><code><span class="n">FVector2D</span><span class="w"> </span><span class="n">Position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UMapGenFunctionLibrary</span><span class="o">::</span><span class="n">GetTransversemercProjection</span><span class="p">(</span><span class="mf">39.9</span><span class="p">,</span><span class="w"> </span><span class="mf">116.4</span><span class="p">,</span><span class="w"> </span><span class="mf">39.9</span><span class="p">,</span><span class="w"> </span><span class="mf">116.4</span><span class="p">);</span><span class="w">  </span>
+<span class="c1">// 输出: (0, 0)（原点坐标）</span>
+</code></pre></div></p>
 <h2 id="24">2.4 辅助函数</h2>
-<p>SetThreadToSleep
-功能：使当前线程休眠指定秒数（需取消注释 FGenericPlatformProcess::Sleep）。</p>
-<p>FlushRenderingCommandsInBlueprint
-功能：强制刷新渲染命令队列，确保图形操作完成。</p>
-<p>CleanupGEngine
-功能：执行垃圾回收并清理编辑器事务（仅编辑器模式下生效）。</p>
+<div class="highlight"><pre><span></span><code>SetThreadToSleep
+功能：使当前线程休眠指定秒数（需取消注释<span class="w"> </span>FGenericPlatformProcess::Sleep）。
+
+FlushRenderingCommandsInBlueprint
+功能：强制刷新渲染命令队列，确保图形操作完成。
+
+CleanupGEngine
+功能：执行垃圾回收并清理编辑器事务（仅编辑器模式下生效）。
+</code></pre></div>
 <h1 id="3">3. 关键数据结构</h1>
 <p>FProceduralCustomMesh
-成员：</p>
-<p>Vertices (TArray<FVector>): 顶点坐标数组。</p>
-<p>Triangles (TArray<int32>): 三角形索引数组。</p>
-<p>Normals / UV0 (TArray<FVector>): 法线与UV数据。</p>
+成员：
+<div class="highlight"><pre><span></span><code>Vertices<span class="w"> </span><span class="o">(</span>TArray&lt;FVector&gt;<span class="o">)</span>:<span class="w"> </span>顶点坐标数组。
+
+Triangles<span class="w"> </span><span class="o">(</span>TArray&lt;int32&gt;<span class="o">)</span>:<span class="w"> </span>三角形索引数组。
+
+Normals<span class="w"> </span>/<span class="w"> </span>UV0<span class="w"> </span><span class="o">(</span>TArray&lt;FVector&gt;<span class="o">)</span>:<span class="w"> </span>法线与UV数据。
+</code></pre></div></p>
 <h1 id="4">4. 使用示例</h1>
 <p>生成静态网格
 cpp
- 1. 准备数据 <br />
-FProceduralCustomMesh Data; <br />
-Data.Vertices = { FVector(0,0,0), FVector(100,0,0), FVector(0,100,0) };<br />
-Data.Triangles = { 0, 1, 2 }; <br />
-Data.Normals = { FVector(0,0,1), FVector(0,0,1), FVector(0,0,1) };   </p>
+ 1. 准备数据
+<div class="highlight"><pre><span></span><code>FProceduralCustomMesh<span class="w"> </span>Data<span class="p">;</span><span class="w">   </span>
+Data.Vertices<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">{</span><span class="w"> </span>FVector<span class="o">(</span><span class="m">0</span>,0,0<span class="o">)</span>,<span class="w"> </span>FVector<span class="o">(</span><span class="m">100</span>,0,0<span class="o">)</span>,<span class="w"> </span>FVector<span class="o">(</span><span class="m">0</span>,100,0<span class="o">)</span><span class="w"> </span><span class="o">}</span><span class="p">;</span><span class="w">  </span>
+Data.Triangles<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="m">0</span>,<span class="w"> </span><span class="m">1</span>,<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">}</span><span class="p">;</span><span class="w">   </span>
+Data.Normals<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">{</span><span class="w"> </span>FVector<span class="o">(</span><span class="m">0</span>,0,1<span class="o">)</span>,<span class="w"> </span>FVector<span class="o">(</span><span class="m">0</span>,0,1<span class="o">)</span>,<span class="w"> </span>FVector<span class="o">(</span><span class="m">0</span>,0,1<span class="o">)</span><span class="w"> </span><span class="o">}</span><span class="p">;</span><span class="w">   </span>
+</code></pre></div></p>
 <ol>
 <li>
 <p>创建材质实例  <br />
-UMaterialInstance* Material = LoadObject<UMaterialInstance>(...);    </p>
+<div class="highlight"><pre><span></span><code>UMaterialInstance*<span class="w"> </span><span class="nv">Material</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>LoadObject&lt;UMaterialInstance&gt;<span class="o">(</span>...<span class="o">)</span><span class="p">;</span><span class="w"> </span>
+</code></pre></div></p>
 </li>
 <li>
-<p>生成网格<br />
-UStaticMesh* Mesh = UMapGenFunctionLibrary::CreateMesh(<br />
-    Data,<br />
-    TArray<FProcMeshTangent>(),<br />
-    Material,<br />
-    "TestMap",<br />
-    "Roads",<br />
-    "RoadMesh"<br />
-);  </p>
+<p>生成网格  </p>
 </li>
 </ol>
+<div class="highlight"><pre><span></span><code>UStaticMesh*<span class="w"> </span><span class="nv">Mesh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>UMapGenFunctionLibrary::CreateMesh<span class="o">(</span><span class="w">  </span>
+<span class="w">    </span>Data,<span class="w">  </span>
+<span class="w">    </span>TArray&lt;FProcMeshTangent&gt;<span class="o">()</span>,<span class="w">  </span>
+<span class="w">    </span>Material,<span class="w">  </span>
+<span class="w">    </span><span class="s2">&quot;TestMap&quot;</span>,<span class="w">  </span>
+<span class="w">    </span><span class="s2">&quot;Roads&quot;</span>,<span class="w">  </span>
+<span class="w">    </span><span class="s2">&quot;RoadMesh&quot;</span><span class="w">  </span>
+<span class="o">)</span><span class="p">;</span>
+</code></pre></div>
 <h1 id="5">5. 注意事项</h1>
-<p>性能优化：</p>
+<ul>
+<li>
+<p>性能优化</p>
 <p>避免频繁调用 CreateMesh，建议批量生成后统一保存。</p>
 <p>启用异步加载（AsyncLoading）减少主线程卡顿。</p>
-<p>错误处理：</p>
+</li>
+<li>
+<p>错误处理</p>
 <p>检查 MaterialInstance 是否有效，否则触发 UE_LOG 错误。</p>
 <p>确保输入数据（如顶点数、三角形索引）合法。</p>
-<p>坐标系统：</p>
+</li>
+<li>
+<p>坐标系统</p>
 <p>引擎使用左手坐标系，Y 轴反向（投影函数中 -(y - y0) 处理）。</p>
+</li>
+</ul>
 <h1 id="6">6. 扩展建议</h1>
 <p>动态LOD：根据视距动态调整网格细节。</p>
 <p>异步生成：将 CreateMesh 移至后台线程，避免阻塞游戏逻辑。 </p>

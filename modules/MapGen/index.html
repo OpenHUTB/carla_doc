@@ -89,76 +89,121 @@
 </code></pre>
 <h2 id="_3">核心方法说明</h2>
 <h3 id="1">1. 构造函数</h3>
-<p>ACityMapMeshHolder::ACityMapMeshHolder(const FObjectInitializer&amp; ObjectInitializer)
-初始化流程
-创建静态场景根组件（Mobility=Static）</p>
-<p>预初始化所有标签类型的静态网格容器</p>
-<p>禁用Actor Tick功能</p>
+<p>ACityMapMeshHolder::ACityMapMeshHolder(const FObjectInitializer&amp; ObjectInitializer)</p>
+<ul>
+<li>
+<p>初始化流程
+<div class="highlight"><pre><span></span><code>创建静态场景根组件（Mobility<span class="o">=</span>Static）
+
+预初始化所有标签类型的静态网格容器
+
+禁用Actor<span class="w"> </span>Tick功能
+</code></pre></div></p>
+</li>
+<li>
 <p>关键参数
-ObjectInitializer：虚幻引擎对象初始化器</p>
-<p>NUMBER_OF_TAGS：通过CityMapMeshTag::GetNumberOfTags()获取标签总数</p>
+<div class="highlight"><pre><span></span><code>ObjectInitializer：虚幻引擎对象初始化器
+
+NUMBER_OF_TAGS：通过CityMapMeshTag::GetNumberOfTags<span class="o">()</span>获取标签总数
+</code></pre></div></p>
+</li>
+</ul>
 <h3 id="2-postinitializecomponents">2. PostInitializeComponents</h3>
 <p>void ACityMapMeshHolder::PostInitializeComponents()
-运行时逻辑
-检查当前关卡有效性</p>
+* 运行时逻辑</p>
+<p>检查当前关卡有效性</p>
 <p>检测附加道路部件是否存在</p>
 <p>自动触发地图生成流程（当无附加部件时）</p>
-<p>错误处理
-输出错误日志：Please regenerate the road in edit mode...</p>
+<ul>
+<li>错误处理</li>
+</ul>
+<p>输出错误日志：Please regenerate the road in edit mode...</p>
 <h3 id="3-addinstance">3. AddInstance 方法组</h3>
-<p>基础版本
-void AddInstance(ECityMapMeshTag Tag, uint32 X, uint32 Y)
-使用默认旋转创建实例</p>
-<p>旋转版本
-void AddInstance(ECityMapMeshTag Tag, uint32 X, uint32 Y, float Angle)
-Z轴旋转角度参数（弧度制）</p>
-<p>高级版本
-void AddInstance(ECityMapMeshTag Tag, FTransform Transform)
+<div class="highlight"><pre><span></span><code>基础版本
+void<span class="w"> </span>AddInstance<span class="o">(</span>ECityMapMeshTag<span class="w"> </span>Tag,<span class="w"> </span>uint32<span class="w"> </span>X,<span class="w"> </span>uint32<span class="w"> </span>Y<span class="o">)</span>
+使用默认旋转创建实例
+
+旋转版本
+void<span class="w"> </span>AddInstance<span class="o">(</span>ECityMapMeshTag<span class="w"> </span>Tag,<span class="w"> </span>uint32<span class="w"> </span>X,<span class="w"> </span>uint32<span class="w"> </span>Y,<span class="w"> </span>float<span class="w"> </span>Angle<span class="o">)</span>
+Z轴旋转角度参数（弧度制）
+
+高级版本
+void<span class="w"> </span>AddInstance<span class="o">(</span>ECityMapMeshTag<span class="w"> </span>Tag,<span class="w"> </span>FTransform<span class="w"> </span>Transform<span class="o">)</span>
 实例生成流程
-配置生成参数：ESpawnActorCollisionHandlingMethod::AlwaysSpawn</p>
-<p>生成AStaticMeshActor</p>
-<p>设置静态属性：Mobility=Static</p>
-<p>附加道路标签：UCarlaSettings::CARLA_ROAD_TAG</p>
+配置生成参数：ESpawnActorCollisionHandlingMethod::AlwaysSpawn
+
+生成AStaticMeshActor
+
+设置静态属性：Mobility<span class="o">=</span>Static
+
+附加道路标签：UCarlaSettings::CARLA_ROAD_TAG
+</code></pre></div>
 <h3 id="4-deletepieces">4. DeletePieces</h3>
-<p>void ACityMapMeshHolder::DeletePieces()
+<div class="highlight"><pre><span></span><code>void<span class="w"> </span>ACityMapMeshHolder::DeletePieces<span class="o">()</span>
 清理操作
-销毁所有UInstancedStaticMeshComponent组件</p>
-<p>遍历并销毁带CARLA_ROAD_TAG标签的附加Actor</p>
+销毁所有UInstancedStaticMeshComponent组件
+
+遍历并销毁带CARLA_ROAD_TAG标签的附加Actor
+</code></pre></div>
 <p>设计特点
-逆向遍历删除确保索引安全
-// 示例1：传统数组遍历
-for(int32 i=0; i<oldcomponents.Num(); i++) {
-    oldcomponents[i]->DestroyComponent();
-}</p>
-<p>// 示例2：逆向遍历删除
-for(int32 i=roadpieces.Num()-1; i&gt;=0; i--) {
-    if(roadpieces[i]-&gt;ActorHasTag(...)) {
-        roadpieces[i]-&gt;Destroy();
-    }
-}
-  ### 存在的问题
-索引管理复杂：需要手动控制索引范围，易出现越界</p>
+<div class="highlight"><pre><span></span><code>逆向遍历删除确保索引安全
+//<span class="w"> </span>示例1：传统数组遍历
+<span class="k">for</span><span class="o">(</span>int32<span class="w"> </span><span class="nv">i</span><span class="o">=</span><span class="m">0</span><span class="p">;</span><span class="w"> </span>i&lt;oldcomponents.Num<span class="o">()</span><span class="p">;</span><span class="w"> </span>i++<span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>oldcomponents<span class="o">[</span>i<span class="o">]</span>-&gt;DestroyComponent<span class="o">()</span><span class="p">;</span>
+<span class="o">}</span>
+
+//<span class="w"> </span>示例2：逆向遍历删除
+<span class="k">for</span><span class="o">(</span>int32<span class="w"> </span><span class="nv">i</span><span class="o">=</span>roadpieces.Num<span class="o">()</span>-1<span class="p">;</span><span class="w"> </span>i&gt;<span class="o">=</span><span class="m">0</span><span class="p">;</span><span class="w"> </span>i--<span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="k">if</span><span class="o">(</span>roadpieces<span class="o">[</span>i<span class="o">]</span>-&gt;ActorHasTag<span class="o">(</span>...<span class="o">))</span><span class="w"> </span><span class="o">{</span>
+<span class="w">        </span>roadpieces<span class="o">[</span>i<span class="o">]</span>-&gt;Destroy<span class="o">()</span><span class="p">;</span>
+<span class="w">    </span><span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></p>
+<h3 id="_4">存在的问题</h3>
+<ul>
+<li>
+<p>索引管理复杂：需要手动控制索引范围，易出现越界</p>
+</li>
+<li>
 <p>逆向遍历不直观：i--方式不符合自然阅读顺序</p>
+</li>
+<li>
 <p>空指针风险：未检查数组元素有效性</p>
+</li>
+<li>
 <p>删除元素后迭代器失效：直接删除元素可能导致后续索引错位</p>
-<p>### 改进方案与分步讲解
-优化目标
-提高代码可读性</p>
+</li>
+</ul>
+<h3 id="_5">改进方案与分步讲解</h3>
+<p>优化目标</p>
+<ul>
+<li>
+<p>提高代码可读性</p>
+</li>
+<li>
 <p>增强空指针安全性</p>
+</li>
+<li>
 <p>避免迭代器失效</p>
+</li>
+<li>
 <p>利用现代C++特性</p>
+</li>
+</ul>
 <h3 id="1for">改进示例1：范围for循环</h3>
-<p>// 原始代码
-for(int32 i=0; i<oldcomponents.Num(); i++) {
-    oldcomponents[i]->DestroyComponent();
-}</p>
-<p>// 改进代码
-for (UInstancedStaticMeshComponent* Component : oldcomponents) {
-    if (IsValid(Component)) {
-        Component-&gt;DestroyComponent();
-    }
-}
-优化点 说明
+<div class="highlight"><pre><span></span><code>//<span class="w"> </span>原始代码
+<span class="k">for</span><span class="o">(</span>int32<span class="w"> </span><span class="nv">i</span><span class="o">=</span><span class="m">0</span><span class="p">;</span><span class="w"> </span>i&lt;oldcomponents.Num<span class="o">()</span><span class="p">;</span><span class="w"> </span>i++<span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>oldcomponents<span class="o">[</span>i<span class="o">]</span>-&gt;DestroyComponent<span class="o">()</span><span class="p">;</span>
+<span class="o">}</span>
+
+//<span class="w"> </span>改进代码
+<span class="k">for</span><span class="w"> </span><span class="o">(</span>UInstancedStaticMeshComponent*<span class="w"> </span>Component<span class="w"> </span>:<span class="w"> </span>oldcomponents<span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">(</span>IsValid<span class="o">(</span>Component<span class="o">))</span><span class="w"> </span><span class="o">{</span>
+<span class="w">        </span>Component-&gt;DestroyComponent<span class="o">()</span><span class="p">;</span>
+<span class="w">    </span><span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>优化点 说明
 消除索引变量  使用范围for循环自动处理迭代
 自动类型推导  使用auto/具体类型避免冗余类型声明
 空指针检查   添加IsValid()安全检查
@@ -232,9 +277,9 @@ FVector GetTileLocation3D(uint32 X, uint32 Y, float Z) {
 }</p>
 <p>//2</p>
 <h1 id="citymapmeshtag">CityMapMeshTag 模块说明文档</h1>
-<h2 id="_4">概述</h2>
+<h2 id="_6">概述</h2>
 <p>本模块为虚幻引擎（Unreal Engine）的Carla项目提供城市道路网格标签处理功能，包含基础标签获取、交叉路口尺寸定义以及枚举标签转字符串功能。所有定义均在 CityMapMeshTag 命名空间下。</p>
-<h2 id="_5">函数说明</h2>
+<h2 id="_7">函数说明</h2>
 <h3 id="1-getbasemeshtag">1. GetBaseMeshTag</h3>
 <p>ECityMapMeshTag CityMapMeshTag::GetBaseMeshTag()
 功能
@@ -270,7 +315,7 @@ Tag (ECityMapMeshTag) - 需要转换的道路网格枚举标签</p>
 调试时输出可读的标签信息</p>
 <p>日志记录时保存枚举类型信息</p>
 <p>可视化界面显示标签类型</p>
-<h2 id="_6">使用示例</h2>
+<h2 id="_8">使用示例</h2>
 <p>// 获取基础道路标签
 ECityMapMeshTag BaseTag = CityMapMeshTag::GetBaseMeshTag();</p>
 <p>// 获取交叉口尺寸参数

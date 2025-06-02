@@ -73,7 +73,7 @@
 <ul>
 <li>
 <p>工厂模式（DReyeVRFactory）</p>
-<p>通过继承ACarlaActorFactory，动态生成自定义车辆（如TeslaM3、Mustang66）和传感器（如EgoSensor）。工厂类根据配置文件中的参数（如车辆类型、蓝图路径）注册Actor定义，支持热加载和灵活扩展新车辆类型。</p>
+<p>通过继承ACarlaActorFactory，动态生成自定义主车（如TeslaM3、Mustang66）和主传感器（如EgoSensor）。工厂类根据配置文件中的参数（如车辆类型、蓝图路径）动态注册车辆类型，支持热加载和灵活扩展新车辆类型。处理键盘、手柄等输入设备的信号，传递给生成的 Actor。</p>
 </li>
 <li>
 <p>模块分离</p>
@@ -85,19 +85,50 @@
 <li>游戏模式（ <a href="../VR/DReyeVRGameMode/">DReyeVRGameMode</a> ）：管理玩家、输入、重播和音效。</li>
 </ul>
 </li>
+<li>
+<p>增加新类型车（默认支持特斯拉Model3、<a href="https://baike.baidu.com/item/%E7%A6%8F%E7%89%B9%E9%87%8E%E9%A9%AC/8441335">福特野马</a> 、吉普、踏板车 <a href="https://baike.baidu.com/item/Vespa/791252">Vespa</a> ）的操作步骤</p>
+<ul>
+<li>
+<p>在<code>DReyeVRFactor.h</code>的<code>VehicleTypes</code>列表中增加新的自定义自车类型；</p>
+</li>
+<li>
+<p>同步新增加车的配置文件（<code>Config/EgoVehicle/XYZ.ini</code>）和蓝图（<code>Content/DReyeVR/EgoVehicles/XYZ/BP_XYZ.uasset</code>）</p>
+</li>
+</ul>
+</li>
 </ul>
 <h2 id="2">2. 配置驱动与灵活性</h2>
 <ul>
 <li>
-<p>配置文件（ConfigFile类）</p>
-<p>使用INI格式存储参数（如车辆属性、声音设置、眼动追踪配置），支持运行时热加载。例如：
+<p>配置文件类（<code>ConfigFile</code>类）</p>
+<p>使用 INI格式 存储参数（如车辆属性、声音设置、眼动追踪配置），支持运行时热加载。例如：
 <div class="highlight"><pre><span></span><code><span class="n">GeneralParams</span><span class="p">.</span><span class="n">Get</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;CameraParams&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;VignetteIntensity&quot;</span><span class="p">);</span>
 </code></pre></div>
 通过 ConfigFileData 比较记录与回放配置，确保一致性。</p>
 </li>
 <li>
+<p><code>DefaultEngine.ini</code> 配置文件
+    VR 模式
+    <div class="highlight"><pre><span></span><code><span class="o">[</span>/Script/EngineSettings.GameMapsSettings<span class="o">]</span>
+<span class="nv">EditorStartupMap</span><span class="o">=</span>/Game/Carla/Maps/Town03.Town03
+<span class="nv">LocalMapOptions</span><span class="o">=</span>
+<span class="nv">TransitionMap</span><span class="o">=</span>/Game/Carla/Maps/Town03.Town03
+<span class="nv">bUseSplitscreen</span><span class="o">=</span>True
+<span class="nv">TwoPlayerSplitscreenLayout</span><span class="o">=</span>Horizontal
+<span class="nv">ThreePlayerSplitscreenLayout</span><span class="o">=</span>FavorTop
+<span class="nv">FourPlayerSplitscreenLayout</span><span class="o">=</span>Grid
+<span class="nv">bOffsetPlayerGamepadIds</span><span class="o">=</span>False
+<span class="nv">GameInstanceClass</span><span class="o">=</span>/Script/Carla.CarlaGameInstance
+<span class="nv">GlobalDefaultGameMode</span><span class="o">=</span>/Script/CarlaUE4.DReyeVRGameMode
+<span class="nv">GlobalDefaultServerGameMode</span><span class="o">=</span>/Script/CarlaUE4.DReyeVRGameMode
+</code></pre></div></p>
+</li>
+<li>
 <p>车辆参数动态加载</p>
-<p>车辆蓝图（如BP_TeslaM3）的参数通过配置文件加载，允许快速调整模型属性（如车轮数量、生成代数）。</p>
+<ul>
+<li>车辆蓝图（如BP_TeslaM3）的参数通过配置文件加载，允许快速调整模型属性（如车轮数量、生成代数）。</li>
+<li>特斯拉M3的配置（<code>Config/EgoVehicle/TeslaM3.ini</code>）：所加载的蓝图路径、相对于车的相机位置和旋转、车辆中引擎（声音）的位置、仪表板（速度里程、转向信号、档位切换）、反光镜（后向镜、左视镜、右视镜。反光镜非常消耗资源，如果想获得更平滑的FPS，可以将 <code>XMirrorEnable</code> 标志设置为<code>False</code>。）</li>
+</ul>
 </li>
 </ul>
 <h2 id="3">3. 传感器与数据融合</h2>

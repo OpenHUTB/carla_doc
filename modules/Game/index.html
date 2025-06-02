@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Game - 人车模拟器</title>
+    <title>CARLA 引擎模块说明 - 人车模拟器</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Game";
+        var mkdocs_page_name = "CARLA \u5f15\u64ce\u6a21\u5757\u8bf4\u660e";
         var mkdocs_page_input_path = "modules/Game.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,7 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Game</li>
+      <li class="breadcrumb-item active">CARLA 引擎模块说明</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/modules/Game.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -68,37 +68,42 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <p>CARLA 引擎模块说明
-简介
+                <h1 id="carla">CARLA 引擎模块说明</h1>
+<p>简介
 环境依赖
 核心功能
 主要函数
 代码结构
-贡献代码
-简介
-CARLA（Car Learning to Act）是一个基于 Unreal Engine 的开源自动驾驶模拟器。本项目的 CarlaEngine.cpp 负责管理 CARLA 的核心引擎功能，如固定时间步长、RPC 服务器线程数等。</p>
-<p>环境依赖
-本模块依赖以下组件： Unreal Engine 、CARLA 源码 、ROS2（可选） 、多 GPU 支持库</p>
-<p>核心功能
-CarlaEngine.cpp 主要提供以下核心功能：</p>
-<p>时间步长控制：允许用户获取和设置固定的物理模拟时间步长。
-多线程支持：提供对 RPC 服务器线程数的管理。
-场景管理：管理 CARLA 场景生命周期，支持多 GPU 计算。
-与 ROS2 交互：通过 carla::ros2::ROS2 进行通信。
-主要函数
-FCarlaEngine_GetFixedDeltaSeconds()
-static TOptional<double> FCarlaEngine_GetFixedDeltaSeconds();
-功能： 获取 CARLA 的固定时间步长。 2. FCarlaEngine_GetNumberOfThreadsForRPCServer()</p>
-<p>static uint32 FCarlaEngine_GetNumberOfThreadsForRPCServer();
-功能： 获取用于 RPC 服务器的线程数量。</p>
-<p>FCarlaEngine_SetFixedDeltaSeconds(TOptional FixedDeltaSeconds)
-static void FCarlaEngine_SetFixedDeltaSeconds(TOptional<double> FixedDeltaSeconds);
-功能：设置固定的物理模拟时间步长。</p>
-<p>if (bIsRunning)
-if (bIsRunning)
-功能：确保引擎正在运行后再执行特定操作。</p>
-<p>代码结构
-本模块的代码结构如下：</p>
+贡献代码</p>
+<h2 id="_1">简介</h2>
+<p>CARLA（Car Learning to Act）是一个基于 Unreal Engine 的开源自动驾驶模拟器。本项目的 CarlaEngine.cpp 负责管理 CARLA 的核心引擎功能，如固定时间步长、RPC 服务器线程数等。</p>
+<h2 id="_2">环境依赖</h2>
+<p>本模块依赖以下组件： Unreal Engine 、CARLA 源码 、ROS2（可选） 、多 GPU 支持库</p>
+<h2 id="_3">核心功能</h2>
+<p>CarlaEngine.cpp 主要提供以下核心功能：</p>
+<p>*　时间步长控制：允许用户获取和设置固定的物理模拟时间步长。
+多线程支持：提供对 RPC 服务器线程数的管理。</p>
+<p>＊　场景管理：管理 CARLA 场景生命周期，支持多 GPU 计算。
+与 ROS2 交互：通过 carla::ros2::ROS2 进行通信。</p>
+<h2 id="_4">主要函数</h2>
+<div class="highlight"><pre><span></span><code>FCarlaEngine_GetFixedDeltaSeconds<span class="o">()</span>
+static<span class="w"> </span>TOptional&lt;double&gt;<span class="w"> </span>FCarlaEngine_GetFixedDeltaSeconds<span class="o">()</span><span class="p">;</span>
+功能：<span class="w"> </span>获取<span class="w"> </span>CARLA<span class="w"> </span>的固定时间步长。<span class="w"> </span><span class="m">2</span>.<span class="w"> </span>FCarlaEngine_GetNumberOfThreadsForRPCServer<span class="o">()</span>
+
+static<span class="w"> </span>uint32<span class="w"> </span>FCarlaEngine_GetNumberOfThreadsForRPCServer<span class="o">()</span><span class="p">;</span>
+功能：<span class="w"> </span>获取用于<span class="w"> </span>RPC<span class="w"> </span>服务器的线程数量。
+
+FCarlaEngine_SetFixedDeltaSeconds<span class="o">(</span>TOptional<span class="w"> </span>FixedDeltaSeconds<span class="o">)</span>
+static<span class="w"> </span>void<span class="w"> </span>FCarlaEngine_SetFixedDeltaSeconds<span class="o">(</span>TOptional&lt;double&gt;<span class="w"> </span>FixedDeltaSeconds<span class="o">)</span><span class="p">;</span>
+功能：设置固定的物理模拟时间步长。
+
+<span class="k">if</span><span class="w"> </span><span class="o">(</span>bIsRunning<span class="o">)</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">(</span>bIsRunning<span class="o">)</span>
+功能：确保引擎正在运行后再执行特定操作。
+</code></pre></div>
+<h2 id="_5">代码结构</h2>
+<p>本模块的代码结构如下：</p>
 <p>CARLA
 ├── Unreal
 │   ├── CarlaUE4
@@ -110,19 +115,10 @@ if (bIsRunning)
 │   │   │   │   │   │   │   ├── CarlaEngine.cpp  # 主要文件
 │   │   │   │   │   │   │   ├── CarlaEngine.h
 │   │   │   │   │   │   │   ├── CarlaEpisode.h
-│   │   │   │   │   │   │   ├── CarlaStatics.h
-贡献代码
-如果你希望为 CarlaEngine.cpp 贡献代码，请按照以下步骤：</p>
-<p>Fork 本项目。</p>
-<p>创建一个新分支并进行修改。</p>
-<p>提交 PR（Pull Request）。</p>
-<p>代码需要通过代码审查和 CI 测试。</p>
-<p>如有任何问题，请提交Issue或联系维护团队。
-许可证：MIT License
-=======</p>
+│   │   │   │   │   │   │   ├── CarlaStatics.h</p>
 <h1 id="game">🚀Game模块技术文档</h1>
 <hr />
-<h2 id="_1">目录</h2>
+<h2 id="_6">目录</h2>
 <ol>
 <li><a href="#📝模块概述">模块概述</a>  </li>
 <li><a href="#📚核心功能详解">核心功能详解</a>  </li>
@@ -132,7 +128,7 @@ if (bIsRunning)
 <li><a href="#❗注意事项">注意事项</a> </li>
 </ol>
 <hr />
-<h2 id="_2">📝模块概述</h2>
+<h2 id="_7">📝模块概述</h2>
 <p><code>Game</code>模块是 CARLA 项目在虚幻引擎（UE4/UE5）中的核心逻辑模块，负责管理自动驾驶仿真场景的完整生命周期。其核心功能包括：
 - <strong>场景管理</strong>：加载 OpenDRIVE 地图、动态设置天气及交通规则；
 - <strong>角色控制</strong>：生成车辆、行人、传感器等实体，并绑定物理行为（如车辆移动组件）；
@@ -142,9 +138,9 @@ if (bIsRunning)
 - <strong>语义分割</strong>：为生成的角色分配语义标签（如<code>CustomDepthStencilValue</code>），支持自动驾驶算法训练与可视化。</p>
 <p>该模块通过 <code>CarlaGameModeBase</code>、<code>CarlaEpisode</code> 等核心类协调虚幻引擎与 CARLA 服务端的交互，是连接游戏逻辑与自动驾驶仿真的关键桥梁。</p>
 <hr />
-<h2 id="_3">📚核心功能详解</h2>
+<h2 id="_8">📚核心功能详解</h2>
 <h3 id="21">2.1 场景管理</h3>
-<h4 id="_4"><strong>地图加载</strong></h4>
+<h4 id="_9"><strong>地图加载</strong></h4>
 <ul>
 <li><strong>OpenDRIVE 解析</strong>：通过 <code>carla::opendrive::OpenDriveParser</code> 解析 <code>.xodr</code> 文件生成道路网络。
   <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">CarlaEpisode::LoadMap</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FString</span><span class="o">&amp;</span><span class="w"> </span><span class="n">MapName</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -164,7 +160,7 @@ if (bIsRunning)
 <span class="p">}</span>
 </code></pre></div></li>
 </ul>
-<h4 id="_5"><strong>交通规则初始化</strong></h4>
+<h4 id="_10"><strong>交通规则初始化</strong></h4>
 <ul>
 <li><strong>信号灯管理</strong>：加载交通信号灯、道路标志等实体。
   <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">CarlaEpisode::InitializeTrafficLights</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
@@ -175,7 +171,7 @@ if (bIsRunning)
 </code></pre></div></li>
 </ul>
 <h3 id="22">2.2 角色控制</h3>
-<h4 id="_6"><strong>实体生成</strong></h4>
+<h4 id="_11"><strong>实体生成</strong></h4>
 <ul>
 <li><strong>Actor 生成逻辑</strong>：通过<code>CarlaGameModeBase</code>的<code>SpawnActor</code>方法生成车辆、行人、传感器。
   <div class="highlight"><pre><span></span><code><span class="n">AActor</span><span class="o">*</span><span class="w"> </span><span class="nf">CarlaGameModeBase::SpawnActor</span><span class="p">(</span><span class="n">TSubclassOf</span><span class="o">&lt;</span><span class="n">AActor</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Class</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -183,7 +179,7 @@ if (bIsRunning)
 <span class="p">}</span>
 </code></pre></div></li>
 </ul>
-<h4 id="_7"><strong>行为管理</strong></h4>
+<h4 id="_12"><strong>行为管理</strong></h4>
 <ul>
 <li><strong>车辆物理模拟</strong>：绑定车辆移动组件（<code>UWheeledVehicleMovementComponent</code>）实现物理模拟。
   <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">ACarlaVehicle::InitializePhysics</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
@@ -193,7 +189,7 @@ if (bIsRunning)
 </code></pre></div></li>
 </ul>
 <h3 id="23">2.3 传感器交互</h3>
-<h4 id="_8"><strong>数据采集</strong></h4>
+<h4 id="_13"><strong>数据采集</strong></h4>
 <ul>
 <li><strong>摄像头传感器</strong>：实时采集图像数据。
   <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">ACarlaCamera::Tick</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">DeltaTime</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -210,7 +206,7 @@ if (bIsRunning)
 <span class="p">}</span>
 </code></pre></div></li>
 </ul>
-<h4 id="_9"><strong>数据处理</strong></h4>
+<h4 id="_14"><strong>数据处理</strong></h4>
 <ul>
 <li><strong>异步数据传输</strong>：通过<code>AsyncDataStreamImpl</code>异步传输传感器数据到服务端。
   <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">AsyncDataStreamImpl::SendSensorData</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">TArray</span><span class="o">&lt;</span><span class="n">uint8</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">Data</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -222,7 +218,7 @@ if (bIsRunning)
 </code></pre></div></li>
 </ul>
 <h3 id="24">2.4 录制与回放</h3>
-<h4 id="_10"><strong>录制功能</strong></h4>
+<h4 id="_15"><strong>录制功能</strong></h4>
 <ul>
 <li><strong>录制逻辑</strong>：通过<code>ACarlaRecorder::StartRecording()</code>记录车辆位置、传感器数据。
   <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">ACarlaRecorder::StartRecording</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
@@ -231,7 +227,7 @@ if (bIsRunning)
 <span class="p">}</span>
 </code></pre></div></li>
 </ul>
-<h4 id="_11"><strong>回放功能</strong></h4>
+<h4 id="_16"><strong>回放功能</strong></h4>
 <ul>
 <li><strong>回放逻辑</strong>：通过<code>CarlaReplayer::PlayBack()</code>按帧回放录制数据。
   <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">CarlaReplayer::PlayBack</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
@@ -243,7 +239,7 @@ if (bIsRunning)
 </code></pre></div></li>
 </ul>
 <h3 id="25-ros2">2.5 ROS2 集成</h3>
-<h4 id="_12"><strong>帧同步</strong></h4>
+<h4 id="_17"><strong>帧同步</strong></h4>
 <ul>
 <li><strong>帧号同步</strong>：通过<code>FCarlaEngine::FrameCounter</code>同步仿真帧与 ROS2 话题时间戳。
   <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">FCarlaEngine::OnTick</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
@@ -254,7 +250,7 @@ if (bIsRunning)
 <span class="p">}</span>
 </code></pre></div></li>
 </ul>
-<h4 id="_13"><strong>消息发布</strong></h4>
+<h4 id="_18"><strong>消息发布</strong></h4>
 <ul>
 <li><strong>传感器数据转换</strong>：将传感器数据转换为 ROS2 消息（如<code>sensor_msgs::Image</code>）。
   <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">ACarlaCamera::PublishToROS2</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
@@ -265,7 +261,7 @@ if (bIsRunning)
 </code></pre></div></li>
 </ul>
 <h3 id="26">2.6 语义分割</h3>
-<h4 id="_14"><strong>标签系统</strong></h4>
+<h4 id="_19"><strong>标签系统</strong></h4>
 <ul>
 <li><strong>语义标签分配</strong>：通过<code>UTaggerDelegate</code>为生成的角色分配语义标签（如<code>CustomDepthStencilValue</code>）。
   <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">UTaggerDelegate::OnActorSpawned</span><span class="p">(</span><span class="n">AActor</span><span class="o">*</span><span class="w"> </span><span class="n">Actor</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -273,7 +269,7 @@ if (bIsRunning)
 <span class="p">}</span>
 </code></pre></div></li>
 </ul>
-<h4 id="_15"><strong>颜色映射</strong></h4>
+<h4 id="_20"><strong>颜色映射</strong></h4>
 <ul>
 <li><strong>HUD 可视化</strong>：在<code>ACarlaHUD</code>中绘制语义分割颜色映射图。
   <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">ACarlaHUD::DrawSemanticSegmentation</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
@@ -283,7 +279,7 @@ if (bIsRunning)
 <span class="p">}</span>
 </code></pre></div></li>
 </ul>
-<h2 id="_16">📑模块间关系</h2>
+<h2 id="_21">📑模块间关系</h2>
 <h3 id="31"><strong>3.1 调用关系图</strong></h3>
 <p align="center">
  <img src="https://raw.githubusercontent.com/Elotkowski/KD-LoRA/refs/heads/main/00.png?token=GHSAT0AAAAAADCITNBNRCKN5E4U2VJ3HKIQ2A3GUJQ"  style="max-width: 100%; height: auto;"/>
@@ -368,7 +364,7 @@ if (bIsRunning)
 </tbody>
 </table>
 <p>详细模块关系参考：<a href="https://openhutb.github.io/carla_cpp/dir_b708e75f0564cefaa95a07ef1c60fa1d.html"> :octocat: </a></p>
-<h2 id="_17">📜类与方法详解</h2>
+<h2 id="_22">📜类与方法详解</h2>
 <h3 id="41-acarlagamemodebase"><strong>4.1 ACarlaGameModeBase</strong></h3>
 <ul>
 <li><strong>功能</strong>：游戏模式基类，负责场景初始化和全局逻辑控制。</li>
@@ -494,7 +490,7 @@ if (bIsRunning)
 </li>
 </ul>
 <hr />
-<h2 id="_18">📝模块调用逻辑</h2>
+<h2 id="_23">📝模块调用逻辑</h2>
 <p>本模块的代码结构如下：</p>
 <pre><code>Game
 ├── LibCarla (51)                # 核心交互
@@ -513,7 +509,7 @@ if (bIsRunning)
 ├── Util (6)                     # 工具函数
 └── Weather (2)                  # 动态天气
 </code></pre>
-<h2 id="_19">❗注意事项</h2>
+<h2 id="_24">❗注意事项</h2>
 <h3 id="61"><strong>6.1 性能优化</strong></h3>
 <ul>
 <li><strong>高频调用函数</strong>：  </li>
