@@ -29,31 +29,42 @@ graph LR
 ## 核心方法说明
 ### 1. 构造函数
 ACityMapMeshHolder::ACityMapMeshHolder(const FObjectInitializer& ObjectInitializer)
-初始化流程
+
+* 初始化流程
+```shell
 创建静态场景根组件（Mobility=Static）
 
 预初始化所有标签类型的静态网格容器
 
 禁用Actor Tick功能
+```
 
-关键参数
+
+* 关键参数
+```shell
 ObjectInitializer：虚幻引擎对象初始化器
 
 NUMBER_OF_TAGS：通过CityMapMeshTag::GetNumberOfTags()获取标签总数
+```
+
 
 ### 2. PostInitializeComponents
+
 void ACityMapMeshHolder::PostInitializeComponents()
-运行时逻辑
+* 运行时逻辑
+
 检查当前关卡有效性
 
 检测附加道路部件是否存在
 
 自动触发地图生成流程（当无附加部件时）
 
-错误处理
+* 错误处理
+
 输出错误日志：Please regenerate the road in edit mode...
 
 ### 3. AddInstance 方法组
+```shell
 基础版本
 void AddInstance(ECityMapMeshTag Tag, uint32 X, uint32 Y)
 使用默认旋转创建实例
@@ -72,15 +83,21 @@ void AddInstance(ECityMapMeshTag Tag, FTransform Transform)
 设置静态属性：Mobility=Static
 
 附加道路标签：UCarlaSettings::CARLA_ROAD_TAG
+```
+
 
 ### 4. DeletePieces
+```shell
 void ACityMapMeshHolder::DeletePieces()
 清理操作
 销毁所有UInstancedStaticMeshComponent组件
 
 遍历并销毁带CARLA_ROAD_TAG标签的附加Actor
+```
+
 
 设计特点
+```shell
 逆向遍历删除确保索引安全
 // 示例1：传统数组遍历
 for(int32 i=0; i<oldcomponents.Num(); i++) {
@@ -93,26 +110,30 @@ for(int32 i=roadpieces.Num()-1; i>=0; i--) {
         roadpieces[i]->Destroy();
     }
 }
-  ### 存在的问题
-索引管理复杂：需要手动控制索引范围，易出现越界
+```
 
-逆向遍历不直观：i--方式不符合自然阅读顺序
+### 存在的问题
+* 索引管理复杂：需要手动控制索引范围，易出现越界
 
-空指针风险：未检查数组元素有效性
+* 逆向遍历不直观：i--方式不符合自然阅读顺序
 
-删除元素后迭代器失效：直接删除元素可能导致后续索引错位
+* 空指针风险：未检查数组元素有效性
 
-  ### 改进方案与分步讲解
+* 删除元素后迭代器失效：直接删除元素可能导致后续索引错位
+
+### 改进方案与分步讲解
 优化目标
-提高代码可读性
 
-增强空指针安全性
+* 提高代码可读性
 
-避免迭代器失效
+* 增强空指针安全性
 
-利用现代C++特性
+* 避免迭代器失效
+
+* 利用现代C++特性
 
 ### 改进示例1：范围for循环
+```shell
 // 原始代码
 for(int32 i=0; i<oldcomponents.Num(); i++) {
     oldcomponents[i]->DestroyComponent();
@@ -124,6 +145,8 @@ for (UInstancedStaticMeshComponent* Component : oldcomponents) {
         Component->DestroyComponent();
     }
 }
+```
+
 优化点	说明
 消除索引变量	使用范围for循环自动处理迭代
 自动类型推导	使用auto/具体类型避免冗余类型声明
