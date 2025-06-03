@@ -92,7 +92,7 @@
 ### 3.2 灯光注册与注销<a id="32-灯光注册与注销"></a>
 
 #### RegisterLight()
-- **作用**：将灯光注册到子系统和天气系统。
+- **作用**：将灯光注册到天气系统，使灯光效果能响应天气变化。预期可以实现在雨天/雾天自动调整灯光强度和散射；根据昼夜循环自动开关路灯；支持天气特效（如雨滴折射）对灯光的影响。
 - **关键逻辑**：
   - 通过 `GetWorld()->GetSubsystem<UCarlaLightSubsystem>()` 获取子系统实例。
   - 调用 `CarlaLightSubsystem->RegisterLight(this)` 完成注册。
@@ -125,15 +125,22 @@
 ### 3.4 辅助功能<a id="34-辅助功能"></a>
 
 #### GetLocation()
-- **作用**：获取灯光全局坐标（支持大型地图场景）。
+- **作用**：获取灯光在全局坐标系中的位置，支持大型地图场景中的坐标转换。
 - **流程**：
-  1. 获取组件所属 Actor 的本地坐标。
-  2. 通过 `ALargeMapManager` 将坐标转换为全局坐标系。
+  1. 获取组件所属 Actor 的本地坐标: `GetOwner()->GetActorLocation()`。
+  2. 通过Carla游戏模式获取大型地图管理器：
+    ```cpp
+    ACarlaGameModeBase* GameMode = UCarlaStatics::GetGameMode(GetWorld());
+    ALargeMapManager* LargeMap = GameMode->GetLMManager();
+  }
+  ```
+  3. 通过 `ALargeMapManager` 将坐标转换为全局坐标系,并返回转换后的全局坐标。
 
 #### RecordLightChange()
-- **作用**：记录灯光状态变化事件（用于仿真回放）。
-- **触发条件**：调用 `SetLightColor()` 或 `SetLightOn()`。
+- **作用**：记录灯光状态变化事件，支持仿真回放和状态同步。。
+- **触发条件**：调用 `SetLightColor()`改变灯光颜色 ， `SetLightOn()`改变灯光开关状态，`SetLightState()`更新灯光的总体状态。
 - **依赖模块**：通过 `UCarlaStatics::GetCurrentEpisode()` 获取记录器实例。
+   - 记录时间包含灯光ID(灯光的唯一标识)、时间戳(由记录器自动添加)、灯光当前位置、当前颜色值、当前强度值、当前开关状态等。
 
 
 ## 4. 使用场景<a id="4-使用场景"></a>
