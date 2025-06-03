@@ -243,86 +243,120 @@ TagMap  内部维护的映射表
 特性
 支持动态更新映射关系</p>
 <p>自动处理空指针情况</p>
-<p>使用示例
-典型工作流
-// 初始化生成器
-ACityMapMeshHolder* Holder = ...;</p>
-<p>// 生成十字路口
-Holder-&gt;AddInstance(RoadIntersection, 5, 5);
-Holder-&gt;AddInstance(RoadTwoLanes, 5, 6, PI/2);
-Holder-&gt;AddInstance(RoadTwoLanes, 5, 4, PI/2);</p>
-<p>// 批量生成道路
-for(int i=0; i&lt;10; ++i) {
-    Holder-&gt;AddInstance(RoadFourLanes, i, 3);
-}</p>
-<p>// 编辑器属性更新后自动触发重建
-性能优化建议
-实例合并：替换为InstancedStaticMeshComponent提升渲染效率</p>
+<p>使用示例</p>
+<p>典型工作流
+<div class="highlight"><pre><span></span><code>//<span class="w"> </span>初始化生成器
+ACityMapMeshHolder*<span class="w"> </span><span class="nv">Holder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>...<span class="p">;</span>
+
+//<span class="w"> </span>生成十字路口
+Holder-&gt;AddInstance<span class="o">(</span>RoadIntersection,<span class="w"> </span><span class="m">5</span>,<span class="w"> </span><span class="m">5</span><span class="o">)</span><span class="p">;</span>
+Holder-&gt;AddInstance<span class="o">(</span>RoadTwoLanes,<span class="w"> </span><span class="m">5</span>,<span class="w"> </span><span class="m">6</span>,<span class="w"> </span>PI/2<span class="o">)</span><span class="p">;</span>
+Holder-&gt;AddInstance<span class="o">(</span>RoadTwoLanes,<span class="w"> </span><span class="m">5</span>,<span class="w"> </span><span class="m">4</span>,<span class="w"> </span>PI/2<span class="o">)</span><span class="p">;</span>
+
+//<span class="w"> </span>批量生成道路
+<span class="k">for</span><span class="o">(</span>int<span class="w"> </span><span class="nv">i</span><span class="o">=</span><span class="m">0</span><span class="p">;</span><span class="w"> </span>i&lt;<span class="m">10</span><span class="p">;</span><span class="w"> </span>++i<span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>Holder-&gt;AddInstance<span class="o">(</span>RoadFourLanes,<span class="w"> </span>i,<span class="w"> </span><span class="m">3</span><span class="o">)</span><span class="p">;</span>
+<span class="o">}</span>
+//<span class="w"> </span>编辑器属性更新后自动触发重建
+</code></pre></div></p>
+<p>性能优化建议</p>
+<p>实例合并：替换为InstancedStaticMeshComponent提升渲染效率</p>
 <p>空间分区：实现基于位置的网格加载/卸载</p>
 <p>异步生成：复杂地图采用分帧生成策略</p>
 <p>资源池：复用已生成的静态网格Actor</p>
 <p>调试技巧
-// 打印当前地图信息
-UE_LOG(LogCarla, Display, TEXT("MapScale: %.2f"), MapScale);</p>
-<p>// 可视化调试
-DrawDebugBox(GetWorld(), GetTileLocation(X,Y), FVector(MapScale/2), FColor::Green);
+<div class="highlight"><pre><span></span><code>//<span class="w"> </span>打印当前地图信息
+UE_LOG<span class="o">(</span>LogCarla,<span class="w"> </span>Display,<span class="w"> </span>TEXT<span class="o">(</span><span class="s2">&quot;MapScale: %.2f&quot;</span><span class="o">)</span>,<span class="w"> </span>MapScale<span class="o">)</span><span class="p">;</span>
+
+//<span class="w"> </span>可视化调试
+DrawDebugBox<span class="o">(</span>GetWorld<span class="o">()</span>,<span class="w"> </span>GetTileLocation<span class="o">(</span>X,Y<span class="o">)</span>,<span class="w"> </span>FVector<span class="o">(</span>MapScale/2<span class="o">)</span>,<span class="w"> </span>FColor::Green<span class="o">)</span><span class="p">;</span>
 自定义标签系统
 继承ECityMapMeshTag扩展新类型
-重写GetNumberOfTags()返回总数
-实现对应的SetStaticMesh配置</p>
-<p>坐标系统扩展
-// 支持Z轴高度
-FVector GetTileLocation3D(uint32 X, uint32 Y, float Z) {
-    return {X<em>MapScale, Y</em>MapScale, Z};
-}</p>
-<p>//2</p>
+重写GetNumberOfTags<span class="o">()</span>返回总数
+实现对应的SetStaticMesh配置
+
+坐标系统扩展
+//<span class="w"> </span>支持Z轴高度
+FVector<span class="w"> </span>GetTileLocation3D<span class="o">(</span>uint32<span class="w"> </span>X,<span class="w"> </span>uint32<span class="w"> </span>Y,<span class="w"> </span>float<span class="w"> </span>Z<span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">{</span>X*MapScale,<span class="w"> </span>Y*MapScale,<span class="w"> </span>Z<span class="o">}</span><span class="p">;</span>
+<span class="o">}</span>
+</code></pre></div></p>
 <h1 id="citymapmeshtag">CityMapMeshTag 模块说明文档</h1>
 <h2 id="_6">概述</h2>
 <p>本模块为虚幻引擎（Unreal Engine）的Carla项目提供城市道路网格标签处理功能，包含基础标签获取、交叉路口尺寸定义以及枚举标签转字符串功能。所有定义均在 CityMapMeshTag 命名空间下。</p>
 <h2 id="_7">函数说明</h2>
 <h3 id="1-getbasemeshtag">1. GetBaseMeshTag</h3>
-<p>ECityMapMeshTag CityMapMeshTag::GetBaseMeshTag()
+<div class="highlight"><pre><span></span><code>ECityMapMeshTag<span class="w"> </span>CityMapMeshTag::GetBaseMeshTag<span class="o">()</span>
 功能
-获取基础道路网格标签类型</p>
-<p>返回值
-ECityMapMeshTag::RoadTwoLanes_LaneLeft - 表示默认的双车道左车道道路类型</p>
+获取基础道路网格标签类型
+
+返回值
+ECityMapMeshTag::RoadTwoLanes_LaneLeft<span class="w"> </span>-<span class="w"> </span>表示默认的双车道左车道道路类型
+</code></pre></div>
 <p>典型用途
 初始化道路生成系统时作为默认道路配置</p>
 <p>道路网络生成的基准参考类型</p>
 <h3 id="2-getroadintersectionsize">2. GetRoadIntersectionSize</h3>
-<p>uint32 CityMapMeshTag::GetRoadIntersectionSize()
+<div class="highlight"><pre><span></span><code>uint32<span class="w"> </span>CityMapMeshTag::GetRoadIntersectionSize<span class="o">()</span>
 功能
-获取道路交叉口的基准尺寸</p>
-<p>返回值
-5u (uint32类型) - 表示交叉口的边长尺寸（单位需根据项目约定，通常为米）</p>
-<p>注意
-该值可能对应交叉路口地面网格的边长参数</p>
+获取道路交叉口的基准尺寸
+
+返回值
+5u<span class="w"> </span><span class="o">(</span>uint32类型<span class="o">)</span><span class="w"> </span>-<span class="w"> </span>表示交叉口的边长尺寸（单位需根据项目约定，通常为米）
+</code></pre></div>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>该值可能对应交叉路口地面网格的边长参数</p>
 <p>用于生成标准十字路口的尺寸计算</p>
+</div>
 <h3 id="3-tostring">3. ToString</h3>
-<p>FString CityMapMeshTag::ToString(ECityMapMeshTag Tag)
+<div class="highlight"><pre><span></span><code>FString<span class="w"> </span>CityMapMeshTag::ToString<span class="o">(</span>ECityMapMeshTag<span class="w"> </span>Tag<span class="o">)</span>
 功能
-将枚举标签转换为可读字符串</p>
-<p>参数
-Tag (ECityMapMeshTag) - 需要转换的道路网格枚举标签</p>
-<p>返回值
-对应枚举值的字符串名称</p>
-<p>若枚举类型未找到则返回 "Invalid"</p>
-<p>实现细节
-使用 FindObject 在内存中查找 ECityMapMeshTag 枚举类型</p>
+将枚举标签转换为可读字符串
+
+参数
+Tag<span class="w"> </span><span class="o">(</span>ECityMapMeshTag<span class="o">)</span><span class="w"> </span>-<span class="w"> </span>需要转换的道路网格枚举标签
+
+返回值
+对应枚举值的字符串名称
+
+若枚举类型未找到则返回<span class="w"> </span><span class="s2">&quot;Invalid&quot;</span>
+</code></pre></div>
+<p>实现细节</p>
+<ul>
+<li>
+<p>使用 FindObject 在内存中查找 ECityMapMeshTag 枚举类型</p>
+</li>
+<li>
 <p>通过虚幻引擎的反射系统获取枚举值的字符串表示</p>
+</li>
+<li>
 <p>包含错误处理机制，确保非法枚举值的容错性</p>
-<p>典型用途
-调试时输出可读的标签信息</p>
+</li>
+</ul>
+<p>典型用途</p>
+<ul>
+<li>
+<p>调试时输出可读的标签信息</p>
+</li>
+<li>
 <p>日志记录时保存枚举类型信息</p>
+</li>
+<li>
 <p>可视化界面显示标签类型</p>
+</li>
+</ul>
 <h2 id="_8">使用示例</h2>
-<p>// 获取基础道路标签
-ECityMapMeshTag BaseTag = CityMapMeshTag::GetBaseMeshTag();</p>
-<p>// 获取交叉口尺寸参数
-uint32 IntersectionSize = CityMapMeshTag::GetRoadIntersectionSize();</p>
-<p>// 枚举值转字符串
-FString TagName = CityMapMeshTag::ToString(ECityMapMeshTag::RoadFourLanes_LaneLeft);
-// 输出结果："RoadFourLanes_LaneLeft"</p>
+<div class="highlight"><pre><span></span><code>//<span class="w"> </span>获取基础道路标签
+ECityMapMeshTag<span class="w"> </span><span class="nv">BaseTag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>CityMapMeshTag::GetBaseMeshTag<span class="o">()</span><span class="p">;</span>
+
+//<span class="w"> </span>获取交叉口尺寸参数
+uint32<span class="w"> </span><span class="nv">IntersectionSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>CityMapMeshTag::GetRoadIntersectionSize<span class="o">()</span><span class="p">;</span>
+
+//<span class="w"> </span>枚举值转字符串
+FString<span class="w"> </span><span class="nv">TagName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>CityMapMeshTag::ToString<span class="o">(</span>ECityMapMeshTag::RoadFourLanes_LaneLeft<span class="o">)</span><span class="p">;</span>
+//<span class="w"> </span>输出结果：<span class="s2">&quot;RoadFourLanes_LaneLeft&quot;</span>
+</code></pre></div>
               
             </div>
           </div><footer>
