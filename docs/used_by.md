@@ -1,6 +1,6 @@
 # [引用了Carla的相关仓库](https://github.com/carla-simulator/carla/network/dependents)
 
-<!-- 更新到最新的仓库： https://github.com/CAVISE/OpenCDA --> 
+<!-- 更新到最新的仓库： https://github.com/mirsaidmiryunusov/My-project- --> 
 
 
 - [__感知__](#perception)
@@ -13,6 +13,7 @@
 - [__规划__](#planning)
     - [强化学习](#rl)
     - [导航](#navigation)
+    - [路径规划](#planning)
     - [预测](#prediction)
     - [决策](#decision)
 - [__控制__](#control)
@@ -84,6 +85,7 @@
 
 [添加合成图像后比较物体检测模型](https://github.com/zaidi007/simulator-generated-data-for-enhanced-model-training)
 
+[标志的检测、定位、分类](https://github.com/KAIR-PRM/AP-Laboratories)
 
 ### 跟踪 <span id="tracking"></span>
 
@@ -286,6 +288,13 @@
 
 [自适应不确定性驱动的强化学习](https://github.com/ju-baer/UDAE)
 
+[基于carla-roach 的RL](https://github.com/keishihara/carla-rl) 
+
+[使用 Ray RLlib 在 CARLA 模拟器中训练强化学习代理的框架](https://github.com/LatentSpaceExplorer/autonomous-driving-in-carla-using-rllib) - 专注于车道居中
+
+[近端策略优化 (PPO) 和软行为者-评论 (SAC)](https://github.com/Anujchobe/Crashless) - 来训练和评估 AI 在导航和避障任务
+
+[端到端深度 Q 学习管道](https://github.com/Jerrychin125/Autonomous-Driving-Car-Simulation-with-CARLA)
 
 ### 建图 <span id="mapping"></span>
 
@@ -317,6 +326,12 @@
 
 [基于计算机视觉的车辆导航框架](https://github.com/stipot/NaviXplore) - 用于在 GPS 信号不稳定的情况下进行导航
 
+### 路径规划 <span id="planning"></span>
+
+[路线算法，可根据交通、行人数据和动态道路状况优化路径](https://github.com/AdityaAdi07/Daa-Lab-El) - 实现 A* 、D*Lite、混合路径规划、强化学习
+
+[自身位置到 CARLA 地图中随机目标点的全局规划](https://github.com/rohankhaire-work/carla_global_planner) - 模拟用户预订前往目的地的行程
+
 
 ### 预测 <span id="prediction"></span>
 
@@ -335,6 +350,8 @@
 [多模态感知分层决策框架](https://github.com/greenday12138/AUTO)
 
 [自动驾驶汽车系统的对抗性闯红灯行为](https://github.com/adhocmaster/carla-jaywalker-experiments)
+
+[用于高效城市车辆编队行驶的集中式决策框架](https://github.com/fzi-forschungszentrum-informatik/EcoLead) - 利用实时车联网 (V2X) 通信，特别是信号相位和时序 (SPaT) 数据，来优化车辆行驶轨迹并最大限度地降低油耗
 
 
 ## 控制 <span id="control"></span>
@@ -388,6 +405,10 @@
 [CARLA 控制和可视化示例](https://github.com/andrey7mel/carla-python-examples)
 
 [自适应巡航控制](https://github.com/sankalp-rajeev/Carla-Autonomous-Vehicle) - [相同内容](https://github.com/kavan-k/AI-Powered-Adaptive-Cruise-Control)
+
+[结合 Pure Pursuit 路径跟踪控制器和强化学习策略实现避障行为切换控制](https://github.com/BAOJIALUN/RL-based-Obstacle-Avoidance)
+
+[模拟和比较CARLA 模拟器中自动驾驶汽车控制的 PID（比例-积分-微分）和 MPC（模型预测控制）控制器](https://github.com/reubenmathew7/PID-vs-MPC) - 重点是评估它们在高速操纵和转弯过程中的性能
 
 
 ## 端到端 <span id="end_2_end"></span>
@@ -456,7 +477,7 @@
 
 [使用大型视觉模型作为 AV 的驱动代理](https://github.com/AdityaNG/DriveLLaVA)
 
-[使用大型语言模型实现闭环端到端驱动](https://github.com/opendilab/LMDrive)
+[使用大型语言模型实现闭环端到端驱动](https://github.com/opendilab/LMDrive) - [其他](https://github.com/srmamt00/lmd)
 
 [扩散驱动](https://github.com/AyexGG/DiffuseDrive_dennisv)
 
@@ -476,6 +497,9 @@
 
 [TLDR：使用大型视觉模型作为 AV 的驱动代理](https://github.com/akodama428/drivellava)
 
+[检索增强生成框架](https://github.com/ReLink-Inc/PropRAG) - 利用上下文丰富的命题和无 LLM 的命题路径集束搜索进行多跳推理
+
+[大模型微调相关代码](https://github.com/sheepone12138/lora) - 微调方法为lora，编写opendrive相关xml文件
 
 ## 交通 <span id="traffic"></span>
 
@@ -630,6 +654,8 @@
 
 [联邦学习自动驾驶](https://github.com/SIAT-INVS/CarlaFLCAV)
 
+[基于对抗多智能体的自动驾驶汽车高级测试框架](https://github.com/alanshuo123/AMACollision)
+
 
 ## 可解释 <span id="explainability"></span>
 
@@ -731,6 +757,9 @@
 
 [为精确评估自动驾驶汽车 (AV) 的安全性能而设计](https://github.com/michigan-traffic-lab/TeraSim) - TeraSim 建立在SUMO的坚实基础之上，凭借先进的交通行为建模和高精度的操控执行能力，显著提升了仿真的逼真度。
 
+[AD的安全关键场景基准](https://github.com/ZGC-Safety-critical-scenario-for-AD/Safety2Drive)
+
+
 ## 测试 <span id="test"></span>
 
 [评估端到端](https://github.com/YangyangFu/fsd-agents-carla)
@@ -815,6 +844,24 @@
 [使用 ROS2-CARLA 将 LiDar 集成到 Carla](https://github.com/invimirage/CSC791Project)
 
 [SEAME 和 Carla 数据集工具](https://github.com/SEAME-pt/Team02-Dataset)
+
+## 前沿 <span id="frontier"></span>
+
+[受量子启发的自动驾驶电动汽车系统](https://github.com/gwelby/Driving)
+
+[CarDreamer 是一个专为开发和评估基于世界模型的自动驾驶而设计的开源平台](https://github.com/kims124/Dynamic_Termination_for_CarDreamer)
+
+## 比赛  <span id="contest"></span>
+
+[东风比赛](https://github.com/donymorph/Dongfeng_competition)
+
+[智能地面车辆竞赛](https://github.com/westpoint-robotics/AY21_IGVC)
+
+[比赛套件](https://github.com/thecountif/CarlaContest)
+
+[壳牌环保马拉松 2022 自主编程比赛 ROS 软件包](https://github.com/KON-Team/shell_simulation)
+
+[GRAIC自动驾驶竞赛](https://github.com/lotlouischoitslab/ECE484_GRAIC_Autonomous_Driving)
 
 ## 工具 <span id="tools"></span>
 
@@ -972,6 +1019,11 @@
 
 [通过 Code Agent 配置多语言 Docker 环境](https://github.com/terryyz/X-Repo2Run)
 
+[基于gym-carla库的 CARLA gym 环境](https://github.com/sjrurdnxia/AIEALab) - 可使用前置、后置和两个侧置摄像头提供观测状态详情，还可以通过激光雷达 (LIDAR) 实现基于点云的自上而下的视图
+
+### V2X
+
+[自适应路径规划、V2X 通信和能量感知 WSN 路由的集成仿真框架](https://github.com/Pushpak1203/V2X-Communication)
 
 ## 杂项 <span id="misc"></span>
 
@@ -991,10 +1043,6 @@
 
 [由多种遮挡事件组成的驾驶模拟基准](https://github.com/opendilab/DOS)
 
-[东风比赛](https://github.com/donymorph/Dongfeng_competition)
-
-[智能地面车辆竞赛](https://github.com/westpoint-robotics/AY21_IGVC)
-
 [CarlaContest2023](https://github.com/niwatNETH/CarlaContest2023)
 
 [NYCU 智能驾驶系统专题 2024 春季](https://github.com/HCIS-Lab/IDS_s24)
@@ -1004,8 +1052,6 @@
 [sdcar](https://github.com/Baebabe/sdcar)
 
 [自动驾驶汽车课程作业](https://github.com/baj31415/self-driving-cars)
-
-[壳牌环保马拉松 2022 自主编程比赛 ROS 软件包](https://github.com/KON-Team/shell_simulation)
 
 [车辆自主模拟应用](https://github.com/lucas-cosson/m2project)
 
@@ -1161,8 +1207,6 @@
 
 [简化和自动化设置 openpilot 开发环境的过程](https://github.com/jeroenlammersma/openpilot-dev)
 
-[比赛套件](https://github.com/thecountif/CarlaContest)
-
 [在 Carla 模拟器中运行的自动驾驶汽车算法](https://github.com/popesculuca00/Self-driving-car)
 
 [从 World on Rails 学习驾驶](https://github.com/MorningClub/master-thesis)
@@ -1235,11 +1279,19 @@
 
 [NavionIQ](https://github.com/mdhasim01/NavionIQ)
 
+[界面正面实时显示车辆状态和 MPPI 干预控制器的响应时间](https://github.com/Mya-Mya/JIGI25)
 
-## 前沿
+[SKKUL_BUS](https://github.com/p0pular131/SKKUL_BUS)
 
-[受量子启发的自动驾驶电动汽车系统](https://github.com/gwelby/Driving)
+[VAD](https://github.com/LIvanoff/VAD)
 
-## 比赛
+[ROSBENCH](https://github.com/mathali/ROSBENCH)
 
-[GRAIC自动驾驶竞赛](https://github.com/lotlouischoitslab/ECE484_GRAIC_Autonomous_Driving)
+[PPGEO-UWA-REV](https://github.com/SossaG/PPGEO-UWA-REV)
+
+[SANDWICH-ICSE](https://github.com/bubu123-dotcom/SANDWICH-ICSE)
+
+[avisense_backend](https://github.com/Spyridonidis98/avisense_backend)
+
+[TFbevplanner](https://github.com/chenzgg/TFbevplanner)
+
