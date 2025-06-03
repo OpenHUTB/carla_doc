@@ -1,6 +1,6 @@
 # [引用了Carla的相关仓库](https://github.com/carla-simulator/carla/network/dependents)
 
-<!-- 更新到最新的仓库： https://github.com/kap2403/carla-facial-gesture-control --> 
+<!-- 更新到最新的仓库： https://github.com/CAVISE/OpenCDA --> 
 
 
 - [__感知__](#perception)
@@ -76,7 +76,14 @@
 
 [使用YOLOv3进行车辆检测](https://github.com/ROBERT-ADDO-ASANTE-DARKO/Autonomous-Vehicle-Object-Detection-and-Trajectory-Planning-using-YOLOv3-and-CARLA-Simulator)
 
+[YOLOv8 交通标志检测和车辆控制](https://github.com/Akhila-ch-40/Maintaining-Sign-Boards)
+
+[CARLA 0.9.11 中的交通信号灯检测和自主控制](https://github.com/RMadhuni/Traffic_sign_dectection)
+
 [使用 LiDAR 进行物体检测（Point Pillars 方法）](https://github.com/paraccoli/PointPillars-LiDAR)
+
+[添加合成图像后比较物体检测模型](https://github.com/zaidi007/simulator-generated-data-for-enhanced-model-training)
+
 
 ### 跟踪 <span id="tracking"></span>
 
@@ -107,6 +114,8 @@
 [端到端自动驾驶的多模态融合Transformer](https://github.com/partha-ghosh/semi-self-driving)
 
 [基于 Transformer 的传感器融合模拟，实现自动驾驶](https://github.com/autonomousvision/transfuser)
+
+[自监督多模态感知 + 自动驾驶强化学习](https://github.com/sushmamareddy/Autonomous-Driving---SSL-RL)
 
 ### 激光雷达 <span id="LiDAR"></span>
 [全面的环境感知](https://github.com/DivitMittal/CARLA-Autonomous-Driving)
@@ -267,6 +276,16 @@
 
 [基于强化学习的自动驾驶训练系统](https://github.com/2Allen/carla-rl-project)
 
+[DQN本科论文](https://github.com/yasminatamerr/BACHELOR)
+
+[轻量级且易于使用的 Gym 兼容接口，专为强化学习 (RL) 应用量身定制](https://github.com/silverwingsbot/EasyCarla-RL)
+
+[进行自动驾驶的模仿学习流程](https://github.com/CreationTheSustainableWorld/imitation-learning-in-carla)
+
+[比较了五种不同的自动驾驶强化学习算法](https://github.com/vieveks/easy_carla)
+
+[自适应不确定性驱动的强化学习](https://github.com/ju-baer/UDAE)
+
 
 ### 建图 <span id="mapping"></span>
 
@@ -293,6 +312,10 @@
 [无碰撞导航的量子深度强化学习](https://github.com/roboak/Nav-Q)
 
 [端到端自动驾驶的导航引导稀疏场景表示](https://github.com/PeidongLi/SSR)
+
+[使用深度学习的自动驾驶汽车导航](https://github.com/varunpratap222/Autonomous-Vehicle-Navigation-Using-Deep-Learning)
+
+[基于计算机视觉的车辆导航框架](https://github.com/stipot/NaviXplore) - 用于在 GPS 信号不稳定的情况下进行导航
 
 
 ### 预测 <span id="prediction"></span>
@@ -363,6 +386,9 @@
 [使用模型预测控制 (MPC) 的自动驾驶汽车控制系统](https://github.com/yusaku-nakano/carla_mpc)
 
 [CARLA 控制和可视化示例](https://github.com/andrey7mel/carla-python-examples)
+
+[自适应巡航控制](https://github.com/sankalp-rajeev/Carla-Autonomous-Vehicle) - [相同内容](https://github.com/kavan-k/AI-Powered-Adaptive-Cruise-Control)
+
 
 ## 端到端 <span id="end_2_end"></span>
 
@@ -435,6 +461,8 @@
 [扩散驱动](https://github.com/AyexGG/DiffuseDrive_dennisv)
 
 [统一视觉语言模型和强化学习框架](https://github.com/zihaosheng/VLM-RL)
+
+[VLM-RL：面向安全自动驾驶的统一视觉语言模型和强化学习框架](https://github.com/Veda0718/VLM-RL)
 
 [端到端自动驾驶的 3D 视觉语言预训练生成规划](https://github.com/Tongji-MIC-Lab/GPVL)
 
@@ -699,6 +727,10 @@
 
 [通过量化逃生路线的变化来表征和减轻风险](https://github.com/zihengjackchen/iPrism)
 
+[InterFuser：使用可解释传感器融合Transformer实现安全增强型自动驾驶](https://github.com/Adamaltwell/InterFuser-Stereo)
+
+[为精确评估自动驾驶汽车 (AV) 的安全性能而设计](https://github.com/michigan-traffic-lab/TeraSim) - TeraSim 建立在SUMO的坚实基础之上，凭借先进的交通行为建模和高精度的操控执行能力，显著提升了仿真的逼真度。
+
 ## 测试 <span id="test"></span>
 
 [评估端到端](https://github.com/YangyangFu/fsd-agents-carla)
@@ -782,6 +814,8 @@
 
 [使用 ROS2-CARLA 将 LiDar 集成到 Carla](https://github.com/invimirage/CSC791Project)
 
+[SEAME 和 Carla 数据集工具](https://github.com/SEAME-pt/Team02-Dataset)
+
 ## 工具 <span id="tools"></span>
 
 [自动驾驶模拟及相关任务的综合框架](https://github.com/femw03/DAI_project) - 集成了车辆控制、计算机视觉、强化学习环境和通过 CARLA 进行模拟的模块。
@@ -831,6 +865,8 @@
 [基于开放联合仿真的研究/工程框架](https://github.com/shivamkumarpanda/OpenCDA-CEE298HW)
 
 [OpenCDA文档](https://github.com/xiaxin2000/OpenCDA-Documents)
+
+[用于在 CARLA+SUMO 下原型化全栈协作驾驶自动化应用程序的通用框架](https://github.com/CAVISE/OpenCDA)
 
 [驾驶辅助系统](https://github.com/commaai/openpilot) 
 
@@ -931,6 +967,10 @@
 [WATonomous 自动驾驶汽车软件管道的 Docker 化 ROS2 设置](https://github.com/WATonomous/wato_monorepo)
 
 [CarlaMCP](https://github.com/shikharvashistha/carla-mcp) - Carla 模型上下文协议集成
+
+[在使用 Linux 系统上的 Logitech 方向盘和踏板组在 CARLA 模拟器中实现手动驾驶以获得逼真的驾驶体验的项目](https://github.com/hosfeldli/carla_stage_manger) - 基于 PyQt5 的图形用户界面
+
+[通过 Code Agent 配置多语言 Docker 环境](https://github.com/terryyz/X-Repo2Run)
 
 
 ## 杂项 <span id="misc"></span>
@@ -1182,3 +1222,24 @@
 [carla-agents](https://github.com/Henrique-hpds/carla-agents)
 
 [ConeRouteNet](https://github.com/cuiao66/ConeRouteNet)
+
+[学生作业studentarbeit-final](https://github.com/rahuldavanam/studentarbeit-final) - 包括数据生成、图像处理、训练、部署、导航
+
+[基于神经网络技术的智能自动驾驶代理的开发](https://github.com/lemul4/MitsuNeuroPilotAPI)
+
+[shell_controller_2025](https://github.com/RobEn-AAST/shell_controller_2025)
+
+[强化学习VLM-RLv2](https://github.com/ShuaiwuDong/VLM-RLv2)
+
+[主动悬架运动规划研究](https://github.com/devprosvn/active-suspension-motion-planning-research-student-research)
+
+[NavionIQ](https://github.com/mdhasim01/NavionIQ)
+
+
+## 前沿
+
+[受量子启发的自动驾驶电动汽车系统](https://github.com/gwelby/Driving)
+
+## 比赛
+
+[GRAIC自动驾驶竞赛](https://github.com/lotlouischoitslab/ECE484_GRAIC_Autonomous_Driving)
