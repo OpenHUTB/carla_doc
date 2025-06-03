@@ -125,7 +125,7 @@ classDiagram
 ```cpp
 static const float OSMToCentimetersScaleFactor = 100.0f;
 ```
-- OSM 单位到厘米的转换系数（1 OSM单位 = 100厘米）  
+- OSM 单位到厘米的转换系数（1 OSM单位 = 100厘米） 
 - 应用于 `GetTransversemercProjection()` 输出坐标  
 
 ---

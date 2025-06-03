@@ -3,7 +3,7 @@
 ## 1. 模块化架构与扩展性
 * 工厂模式（DReyeVRFactory）
 
-    通过继承ACarlaActorFactory，动态生成自定义车辆（如TeslaM3、Mustang66）和传感器（如EgoSensor）。工厂类根据配置文件中的参数（如车辆类型、蓝图路径）注册Actor定义，支持热加载和灵活扩展新车辆类型。
+    通过继承ACarlaActorFactory，动态生成自定义主车（如TeslaM3、Mustang66）和主传感器（如EgoSensor）。工厂类根据配置文件中的参数（如车辆类型、蓝图路径）动态注册车辆类型，支持热加载和灵活扩展新车辆类型。处理键盘、手柄等输入设备的信号，传递给生成的 Actor。
 
 * 模块分离
 
@@ -14,18 +14,46 @@
     * 用户界面（FlatHUD）：绘制 HUD 元素（文本、纹理、十字准星）。
     * 游戏模式（ [DReyeVRGameMode](VR/DReyeVRGameMode.md) ）：管理玩家、输入、重播和音效。
 
-## 2. 配置驱动与灵活性
-* 配置文件（ConfigFile类）
 
-    使用INI格式存储参数（如车辆属性、声音设置、眼动追踪配置），支持运行时热加载。例如：
+* 增加新类型车（默认支持特斯拉Model3、[福特野马](https://baike.baidu.com/item/%E7%A6%8F%E7%89%B9%E9%87%8E%E9%A9%AC/8441335) 、吉普、踏板车 [Vespa](https://baike.baidu.com/item/Vespa/791252) ）的操作步骤
+
+    * 在`DReyeVRFactor.h`的`VehicleTypes`列表中增加新的自定义自车类型；
+
+    * 同步新增加车的配置文件（`Config/EgoVehicle/XYZ.ini`）和蓝图（`Content/DReyeVR/EgoVehicles/XYZ/BP_XYZ.uasset`）
+
+
+## 2. 配置驱动与灵活性
+
+* 配置文件类（`ConfigFile`类）
+
+    使用 INI格式 存储参数（如车辆属性、声音设置、眼动追踪配置），支持运行时热加载。例如：
     ```cpp
     GeneralParams.Get<float>("CameraParams", "VignetteIntensity");
     ```
 通过 ConfigFileData 比较记录与回放配置，确保一致性。
 
+* `DefaultEngine.ini` 配置文件
+    VR 模式
+    ```shell
+    [/Script/EngineSettings.GameMapsSettings]
+    EditorStartupMap=/Game/Carla/Maps/Town03.Town03
+    LocalMapOptions=
+    TransitionMap=/Game/Carla/Maps/Town03.Town03
+    bUseSplitscreen=True
+    TwoPlayerSplitscreenLayout=Horizontal
+    ThreePlayerSplitscreenLayout=FavorTop
+    FourPlayerSplitscreenLayout=Grid
+    bOffsetPlayerGamepadIds=False
+    GameInstanceClass=/Script/Carla.CarlaGameInstance
+    GlobalDefaultGameMode=/Script/CarlaUE4.DReyeVRGameMode
+    GlobalDefaultServerGameMode=/Script/CarlaUE4.DReyeVRGameMode
+    ```
+
 * 车辆参数动态加载
 
-    车辆蓝图（如BP_TeslaM3）的参数通过配置文件加载，允许快速调整模型属性（如车轮数量、生成代数）。
+    * 车辆蓝图（如BP_TeslaM3）的参数通过配置文件加载，允许快速调整模型属性（如车轮数量、生成代数）。
+    * 特斯拉M3的配置（`Config/EgoVehicle/TeslaM3.ini`）：所加载的蓝图路径、相对于车的相机位置和旋转、车辆中引擎（声音）的位置、仪表板（速度里程、转向信号、档位切换）、反光镜（后向镜、左视镜、右视镜。反光镜非常消耗资源，如果想获得更平滑的FPS，可以将 `XMirrorEnable` 标志设置为`False`。）
+
 
 ## 3. 传感器与数据融合
 * 眼动追踪集成（EgoSensor）
