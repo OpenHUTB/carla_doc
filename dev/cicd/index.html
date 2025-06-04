@@ -83,15 +83,28 @@
 <p>配置所使用的节点：<code>http://172.21.108.56:8080/manage/computer/</code></p>
 <p>需要配置jenkins代理，否则会出现各种连接不到github的错误。
 Manager Jenkins -&gt; System Configuration -&gt; System -&gt; 
-Http Proxy Configuration -&gt; 
+Http Proxy Configuration：
 <div class="highlight"><pre><span></span><code><span class="c1"># 服务器</span>
 <span class="m">127</span>.0.0.1
 <span class="c1"># 端口</span>
 <span class="m">7890</span>
 </code></pre></div></p>
-<p>缺少资产下载操作</p>
-<h3 id="github">安装github插件</h3>
-<p>在 Dashboard 中选择 “管理 Jenkins” -&gt; ``</p>
+<p>安装 <a href="https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html">亚马逊云的命令行工具</a> ，
+<a href="https://us-east-1.console.aws.amazon.com/iam/home?region=ap-southeast-2#/security_credentials">创建访问密钥</a> ：
+<div class="highlight"><pre><span></span><code><span class="c1"># 配置ID和访问密钥</span>
+aws<span class="w"> </span>configure
+<span class="c1"># 查看配置（可选）</span>
+aws<span class="w"> </span>configure<span class="w"> </span>list
+<span class="c1"># 下载文件</span>
+aws<span class="w"> </span>s3<span class="w"> </span>cp<span class="w"> </span>s3://hutb/hutb.png<span class="w"> </span>.
+<span class="c1"># 上传文件</span>
+aws<span class="w"> </span>s3<span class="w"> </span>cp<span class="w"> </span>Jenkinsfile<span class="w"> </span>s3://hutb/
+</code></pre></div></p>
+<p>（可能非必需）安装 AWS Credentials 插件，然后在设置中添加AWS Credentials。</p>
+<p>在脚本中直接指定key_id和secret_access_key：
+<div class="highlight"><pre><span></span><code>aws<span class="w"> </span>configure<span class="w"> </span><span class="nb">set</span><span class="w"> </span>aws_access_key_id<span class="w"> </span>XXX
+aws<span class="w"> </span>configure<span class="w"> </span><span class="nb">set</span><span class="w"> </span>aws_secret_access_key<span class="w"> </span>XXX
+</code></pre></div></p>
 <h2 id="jenkins_1">Jenkins配置</h2>
 <p>这个是因为我使用的本地的git用来测试，所以需要配置一下，在 jenkins安装目录（默认是C:\Program Files\Jenkins）找到 jenkins.xml</p>
 <p>1.在配置页面的<code>流水线</code>下的<code>定义</code>下拉菜单中选择<code>Pipeline script from SCM</code> (Software Configuration Management) 。
