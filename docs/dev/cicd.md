@@ -27,7 +27,7 @@ b00acffa035946e18bb20924c6f77181
 
 需要配置jenkins代理，否则会出现各种连接不到github的错误。
 Manager Jenkins -> System Configuration -> System -> 
-Http Proxy Configuration -> 
+Http Proxy Configuration：
 ```shell
 # 服务器
 127.0.0.1
@@ -35,12 +35,26 @@ Http Proxy Configuration ->
 7890
 ```
 
-缺少资产下载操作
+安装 [亚马逊云的命令行工具](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) ，
+[创建访问密钥](https://us-east-1.console.aws.amazon.com/iam/home?region=ap-southeast-2#/security_credentials) ：
+```shell
+# 配置ID和访问密钥
+aws configure
+# 查看配置（可选）
+aws configure list
+# 下载文件
+aws s3 cp s3://hutb/hutb.png .
+# 上传文件
+aws s3 cp Jenkinsfile s3://hutb/
+```
 
+（可能非必需）安装 AWS Credentials 插件，然后在设置中添加AWS Credentials。
 
-### 安装github插件
-
-在 Dashboard 中选择 “管理 Jenkins” -> ``
+在脚本中直接指定key_id和secret_access_key：
+```shell
+aws configure set aws_access_key_id XXX
+aws configure set aws_secret_access_key XXX
+```
 
 
 ## Jenkins配置

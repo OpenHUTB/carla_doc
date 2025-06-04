@@ -174,7 +174,7 @@ title: 主页
 
 [__罗技 G29 方向盘__](tuto_G_G29_windows.md) — 使用罗技方向盘进行车辆控制和模拟对方向盘的反向控制
 
-[__地理空间生态系统__](adv_cesium.md) — 将 3D 地理空间生态系统引入虚幻引擎
+[__Cesium 插件__](adv_cesium.md) — 将 3D 地理空间生态系统引入虚幻引擎
 
 [__Chrono 集成__](tuto_G_chrono.md) — 整合 Chrono 来进行物理模拟
 
