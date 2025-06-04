@@ -125,6 +125,11 @@ Baidunet Disk Download Link: https://pan.baidu.com/s/1hFngmeAvyUulsiI-JlNHuA?pwd
 
 A simulator and scene editor for autonomous driving.
 
+### 发布到gitee
+
+[解决上传出熬过100M大文件的问题]() 。
+
+
 ## 问题
 点击打包后的文件出现错误：
 ```text
