@@ -39,7 +39,7 @@
 6.  将暂存区内容添加到仓库中 
 
     ```bash
-    git commit -m "上传通义灵码大文件"
+    git commit -m "add big file"
     ```
 
 7.  删除`./git/hooks/pre-push`文件
@@ -51,7 +51,9 @@
 8.  上传远程代码并合并
 
     ```bash
-     git push origin master
+    git push origin master
+    # 真正推送大文件
+    git lfs push --all origin
     ```
 
 !!! 注意

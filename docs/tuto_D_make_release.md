@@ -127,7 +127,7 @@ A simulator and scene editor for autonomous driving.
 
 ### 发布到gitee
 
-[解决上传出熬过100M大文件的问题]() 。
+[解决上传出熬过100M大文件的问题](dev/gitee.md) 。
 
 
 ## 问题
