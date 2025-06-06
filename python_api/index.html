@@ -183,10 +183,8 @@
 <li><code>velocity</code> (<em><a href="#carla.Vector3D">carla.Vector3D</a><small> - m/s</small></em>) - 局部空间中的速度向量。  </li>
 </ul>
 </li>
-<li><strong>注意:</strong> <font color="#8E8E8E"><em>只有 <a href="#carla.Vehicle">carla.Vehicle</a> 参与者可以使用此方法。<br />
-</em></font>  </li>
-<li><strong>警告:</strong> <font color="#ED2F2F"><em>为 交通管理器管理的车辆启用恒定速度可能会导致冲突。此方法会覆盖交通管理器对速度的任何更改。<br />
-</em></font>  </li>
+<li><strong>注意:</strong> <font color="#8E8E8E"><em>只有 <a href="#carla.Vehicle">carla.Vehicle</a> 参与者可以使用此方法。</em></font>  </li>
+<li><strong>警告:</strong> <font color="#ED2F2F"><em>为 <a href="../adv_traffic_manager/">交通管理器管理</a> 的车辆启用恒定速度可能会导致冲突。此方法会覆盖交通管理器对速度的任何更改。</em></font>  </li>
 </ul>
 </li>
 </ul>
@@ -1514,9 +1512,9 @@ OpenDRIVE 文件中的地标名称。 </li>
 <li><a name="carla.Landmark.h_offset"></a><strong><font color="#f8805a">h_offset</font></strong> (<em>float<small> - 米</small></em>)<br />
 信号相对于OpenDRIVE中<code>s</code>处<code>road_id</code>定义的方向偏移。 </li>
 <li><a name="carla.Landmark.pitch"></a><strong><font color="#f8805a">pitch</font></strong> (<em>float<small> - 米</small></em>)<br />
-信号的俯仰角 (Y-轴在虚幻引擎坐标系统).  </li>
+信号的俯仰角 (Y-轴在 <a href="./#carlarotation">虚幻引擎坐标系统</a> )。</li>
 <li><a name="carla.Landmark.roll"></a><strong><font color="#f8805a">roll</font></strong> (<em>float</em>)<br />
-信号的翻滚角 (X-轴在虚幻引擎坐标系统).  </li>
+信号的翻滚角 (X-轴在 <a href="./#carlarotation">虚幻引擎坐标系统</a> ) 。  </li>
 <li><a name="carla.Landmark.waypoint"></a><strong><font color="#f8805a">waypoint</font></strong> (<em><a href="#carla.Waypoint">carla.Waypoint</a></em>)<br />
 放置在进行查询的车道和地标 <code>s</code> 处的路径点。这是地标有效的第一个路径点。</li>
 <li><a name="carla.Landmark.transform"></a><strong><font color="#f8805a">transform</font></strong> (<em><a href="#carla.Transform">carla.Transform</a></em>)<br />
@@ -2811,7 +2809,7 @@ X-轴旋转角度。  </li>
 <li><a name="carla.SemanticLidarDetection.object_idx"></a><strong><font color="#f8805a">object_idx</font></strong> (<em>uint</em>)<br />
 被光线击中的参与者的ID。 </li>
 <li><a name="carla.SemanticLidarDetection.object_tag"></a><strong><font color="#f8805a">object_tag</font></strong> (<em>uint</em>)<br />
-被光线击中部件的语义标签。  </li>
+被光线击中部件的 <a href="../ref_sensors/#semantic-segmentation-camera">语义标签</a> 。  </li>
 </ul>
 <h3 id="_159">方法</h3>
 <h5 id="_160">魔术方法</h5>
@@ -3132,7 +3130,7 @@ X-轴旋转角度。  </li>
 </ul>
 </li>
 <li><a name="carla.TrafficLight.is_frozen"></a><strong><font color="#7fb800">is_frozen</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-如果交通信号灯根据上次勾选被冻结，客户端将返回 <b>True</b>。该方法不调用模拟器。<ul>
+如果交通信号灯根据上次节拍信号被冻结，客户端将返回 <b>True</b>。该方法不调用模拟器。<ul>
 <li><strong>返回:</strong> <em>bool</em>  </li>
 </ul>
 </li>
@@ -3525,18 +3523,16 @@ X-轴旋转角度。  </li>
 <li><code>path</code> (<em>list</em>) - 车辆要遵循的路线指令（字符串）列表。</li>
 </ul>
 </li>
-<li><strong>警告:</strong> <font color="#ED2F2F"><em>确保车道拓扑不会妨碍给定路线。
-</em></font>  </li>
+<li><strong>警告:</strong> <font color="#ED2F2F"><em>确保车道拓扑不会妨碍给定路线。</em></font>  </li>
 </ul>
 </li>
 <li><a name="carla.TrafficManager.set_synchronous_mode"></a><strong><font color="#7fb800">set_synchronous_mode</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>mode_switch</strong>=True</font>)<br />
-将交通管理器设置为 <a href="../adv_traffic_manager/#synchronous-mode">同步模式</a> 。在 <a href="../adv_traffic_manager/#multiclient">多客户端情况</a> 下，只有 TM-Server 可以运行。类似地，在多TM 情况下，只有一个TM-Server 必须勾选。在进行世界勾选的客户端中使用此方法，并在将世界设置为同步模式后立即设置同步时哪个 TM 将成为主服务器。<ul>
+将交通管理器设置为 <a href="../adv_traffic_manager/#synchronous-mode">同步模式</a> 。在 <a href="../adv_traffic_manager/#multiclient">多客户端情况</a> 下，只有交通管理服务器（TM-Server）可以发出节拍信号。类似地，在 <a href="../adv_traffic_manager/#multitm">多交通管理器</a> 情况下，只有一个交通管理服务器（TM-Server）必须发出节拍信号。在世界中发出节拍信号的客户端中使用此方法，并在将世界设置为同步模式后立即设置同步时的那个交通管理器将成为主服务器。<ul>
 <li><strong>参数:</strong><ul>
 <li><code>mode_switch</code> (<em>bool</em>) - 如果为 <strong>True</strong> ，则启用交通管理器同步模式。</li>
 </ul>
 </li>
-<li><strong>警告:</strong> <font color="#ED2F2F"><em>如果服务器设置为同步模式，则执行标记的同一客户端中的 TM 也 <b>必须</b> 设置为同步模式。
-</em></font>  </li>
+<li><strong>警告:</strong> <font color="#ED2F2F"><em>如果服务器设置为同步模式，则执行标记的同一客户端中的交通管理器也 <b>必须</b> 设置为同步模式。</em></font> </li>
 </ul>
 </li>
 </ul>
@@ -4797,7 +4793,7 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 </ul>
 </li>
 <li><a name="carla.World.on_tick"></a><strong><font color="#7fb800">on_tick</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>callback</strong></font>)<br />
-此方法用于异步模式。它从客户端定义的<code>callback</code> 函数启动回调，并返回回调的 ID。每当服务器发出时节拍时，就会调用该函数。它需要一个 <a href="#carla.WorldSnapshot">carla.WorldSnapshot</a> 作为参数，这可以从 <strong><font color="#7fb800">wait_for_tick()</font></strong> 获得。使用 <strong><font color="#7fb800">remove_on_tick()</font></strong> 来停止回调。  <ul>
+此方法用于<a href="../adv_synchrony_timestep/"><strong>异步模式</strong></a> 。它从客户端定义的<code>callback</code> 函数启动回调，并返回回调的 ID。每当服务器发出节拍信号时，就会调用该函数。它需要一个 <a href="#carla.WorldSnapshot">carla.WorldSnapshot</a> 作为参数，这可以从 <strong><font color="#7fb800">wait_for_tick()</font></strong> 获得。使用 <strong><font color="#7fb800">remove_on_tick()</font></strong> 来停止回调。  <ul>
 <li><strong>参数：</strong><ul>
 <li><code>callback</code> (<em><a href="#carla.WorldSnapshot">carla.WorldSnapshot</a></em>) - 将快照作为强制参数的函数，当客户端收到节拍时将调用该函数。  </li>
 </ul>
@@ -4839,14 +4835,13 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 </ul>
 </li>
 <li><a name="carla.World.tick"></a><strong><font color="#7fb800">tick</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>seconds</strong>=10.0</font>)<br />
-该方法用于 <strong>同步</strong> 模式，即服务器在计算下一帧之前等待客户端客户端节拍信号。这个方法将发送节拍信号，并让位于服务器。它返回由服务器计算的新帧ID。  <ul>
+该方法用于 <a href="../adv_synchrony_timestep/"><strong>同步模式</strong></a> ，即服务器在计算下一帧之前等待客户端的节拍信号。这个方法将发送节拍信号，并让位于服务器。它返回由服务器计算的新帧ID。  <ul>
 <li><strong>参数：</strong><ul>
 <li><code>seconds</code> (<em>float<small> - 秒</small></em>) - 服务器应该等待节拍信号的最大时间。它默认设置为 <code>10.0</code> 。  </li>
 </ul>
 </li>
 <li><strong>返回：</strong> <em>int</em>  </li>
-<li><strong>注意：</strong> <font color="#8E8E8E"><em>如果在同步模式下没有收到节拍信号，模拟将冻结。此外，如果从不同的客户端接收到许多节拍信号，则可能存在同步问题。请阅读有关 __同步模式__ 的文档以了解更多信息。<br />
-</em></font>  </li>
+<li><strong>注意：</strong> <font color="#8E8E8E"><em>如果在同步模式下没有收到节拍信号，模拟将冻结。此外，如果从不同的客户端接收到许多节拍信号，则可能存在同步问题。请阅读有关 <a href="../adv_synchrony_timestep/"><strong>同步模式</strong></a> 的文档以了解更多信息。</em></font>  </li>
 </ul>
 </li>
 <li><a name="carla.World.try_spawn_actor"></a><strong><font color="#7fb800">try_spawn_actor</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>blueprint</strong></font>, <font color="#00a6ed"><strong>transform</strong></font>, <font color="#00a6ed"><strong>attach_to</strong>=None</font>, <font color="#00a6ed"><strong>attachment</strong>=Rigid</font>)<br />
@@ -4871,7 +4866,7 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 </ul>
 </li>
 <li><a name="carla.World.wait_for_tick"></a><strong><font color="#7fb800">wait_for_tick</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>seconds</strong>=10.0</font>)<br />
-该方法使用异步模式。它使客户端等待服务器节拍信号。当计算下一帧时，服务器将勾选并返回描述世界新状态的快照。<ul>
+该方法使用 <a href="../adv_synchrony_timestep/">异步模式</a> 。它使客户端等待服务器的节拍信号。当计算下一帧时，服务器将发出节拍信号并返回描述世界新状态的快照。<ul>
 <li><strong>参数:</strong><ul>
 <li><code>seconds</code> (<em>float<small> - seconds</small></em>) - 服务器等待滴答的最长时间。默认设置为 <code>10.0</code>。</li>
 </ul>

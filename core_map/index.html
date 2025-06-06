@@ -100,6 +100,8 @@
 <li><a href="../tuto_M_add_map_alternative/">替代方法</a></li>
 </ul>
 </li>
+<li><a href="#left-handed-traffic"><strong>靠左行驶的交通</strong></a></li>
+<li><a href="#additional-maps"><strong>附加地图</strong></a></li>
 </ul>
 <hr />
 <h2 id="_2">地图 <span id="the-map"></span></h2>
@@ -315,6 +317,10 @@ world.enable_environment_objects(objects_to_toggle, True)
 </tr>
 </tbody>
 </table>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>Town06 和 Town07 是附加内容，不包含在标准 CARLA 包中。请参阅 <a href="#additional-maps">附加地图部分</a> ，了解如何导入这些内容。</p>
+</div>
 <h3 id="_12">分层地图 <span id="layered-maps"></span></h3>
 <p>分层地图的布局与非分层地图相同，但可以关闭和打开地图的图层。有一个无法关闭的最小布局，由道路、人行道、交通信号灯和交通标志组成。分层地图可以通过后缀 <code>_Opt</code> 来标识，例如<code>Town01_Opt</code>。使用这些地图，可以通过 Python API <a href="https://carla.readthedocs.io/en/latest/python_api/#carla.World.load_map_layer">加载</a>和<a href="https://carla.readthedocs.io/en/latest/python_api/#carla.World.unload_map_layer">卸载</a>图层：</p>
 <pre><code># 加载 城镇01 的分层地图，带有最小布局加上建筑物和停放的车辆
@@ -340,7 +346,48 @@ world.load_map_layer(carla.MapLayer.Buildings)
 <li><a href="../tuto_M_add_map_source/"><strong>添加地图源</strong></a></li>
 <li><a href="../tuto_M_add_map_alternative/"><strong>替代方法</strong></a></li>
 </ul>
-<h2 id="_14">工具</h2>
+<h2 id="_14">靠左行驶的交通</h2>
+<p>CARLA 支持 OpenDRIVE 文件中定义的<strong>靠左行驶的交通</strong>(left-handed traffic, LHT)规则。要在任何道路上调用靠左行驶交通规则，请像这样在 OpenDRIVE XML 文件中应用左侧通行属性：</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;road</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;Road 0&quot;</span><span class="w"> </span><span class="na">length=</span><span class="s">&quot;1.3310253693587601e+1&quot;</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="na">junction=</span><span class="s">&quot;-1&quot;</span><span class="w"> </span><span class="na">rule=</span><span class="s">&quot;LHT&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;link&gt;</span>
+<span class="w">        </span><span class="nt">&lt;predecessor</span><span class="w"> </span><span class="na">elementType=</span><span class="s">&quot;road&quot;</span><span class="w"> </span><span class="na">elementId=</span><span class="s">&quot;3&quot;</span><span class="w"> </span><span class="na">contactPoint=</span><span class="s">&quot;end&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;successor</span><span class="w"> </span><span class="na">elementType=</span><span class="s">&quot;road&quot;</span><span class="w"> </span><span class="na">elementId=</span><span class="s">&quot;10&quot;</span><span class="w"> </span><span class="na">contactPoint=</span><span class="s">&quot;start&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/link&gt;</span>
+...
+<span class="nt">&lt;/road&gt;</span>
+</code></pre></div>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>靠右行驶交通惯例为默认规则。没有规则<code>rule</code>属性（或包含无法识别的参数）的道路将被视为靠右行驶的道路。您也可以通过添加 <code>rule="RHT"</code> 来明确设置靠右行驶规则。</p>
+</div>
+<p>CARLA 将对每条道路应用靠左行驶的交通惯例，并应用 <code>rule="LHT"</code> 属性。</p>
+<p>请注意，靠左或靠右行驶交通惯例不仅会影响交通行为，还会影响道路的交通标志和信号。因此，如果地图中手动放置了针对靠右行驶的交通惯例的资源（例如道路标志或交通信号灯），则需要进行调整。OpenDRIVE 定义中针对左侧交通定义的交通信号灯将在导入地图后由 CARLA 自动放置在适当的位置。</p>
+<h2 id="_15">附加地图</h2>
+<p>每个发行版都有自己的附加包，其中包含额外的资产和地图。此附加包包含地图 <strong>Town06</strong> 和 <strong>Town07</strong>。为了减小构建文件的大小，这些地图会单独存储，因此只有在安装主包后才能导入。</p>
+<p><strong>1.</strong> <a href="https://github.com/carla-simulator/carla/blob/master/Docs/download.md">下载</a> 适合您所需 CARLA 版本的软件包。 </p>
+<p><strong>2.</strong> 解压包：</p>
+<ul>
+<li>
+<p><strong>在 Linux 上</strong>:</p>
+<ul>
+<li>将包移动到 <em>Import</em> 文件夹并运行以下脚本来提取内容： </li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="w">        </span><span class="nb">cd</span><span class="w"> </span>path/to/carla/root
+
+<span class="w">        </span>./ImportAssets.sh
+</code></pre></div>
+<ul>
+<li>
+<p><strong>在 Windows 上</strong>:</p>
+<ul>
+<li>直接在根文件夹中提取内容。</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="_16">工具</h2>
 <ul>
 <li><a href="https://cloudconvert.com/webp-to-gif">webp转gif</a></li>
 <li><a href="https://gifcompressor.com/zh/">gif压缩</a></li>
