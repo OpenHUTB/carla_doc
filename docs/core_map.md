@@ -10,19 +10,21 @@
     - [路口](#junctions)
     - [环境对象](#environment-objects)
 - [__在 Carla 中导航__](#navigation-in-carla)  
-	- [通过路径点导航](#navigating-through-waypoints)  
-	- [生成地图导航](#generating-a-map-navigation)  
+    - [通过路径点导航](#navigating-through-waypoints)  
+    - [生成地图导航](#generating-a-map-navigation)  
 - [__Carla 地图__](#carla-maps)  
-	- [非分层地图](#non-layered-maps)
-	- [分层地图](#layered-maps)
+    - [非分层地图](#non-layered-maps)
+    - [分层地图](#layered-maps)
 - [__自定义地图__](#custom-maps)
-	- [概述](tuto_M_custom_map_overview.md)
-	- [道路涂装 painting](tuto_M_custom_road_painter.md)
-	- [定制建筑](tuto_M_custom_buildings.md) 
-	- [生成地图](tuto_M_generate_map.md)
-	- [添加地图包](tuto_M_add_map_package.md)
-	- [添加地图源](tuto_M_add_map_source.md)
-	- [替代方法](tuto_M_add_map_alternative.md)
+    - [概述](tuto_M_custom_map_overview.md)
+    - [道路涂装 painting](tuto_M_custom_road_painter.md)
+    - [定制建筑](tuto_M_custom_buildings.md) 
+    - [生成地图](tuto_M_generate_map.md)
+    - [添加地图包](tuto_M_add_map_package.md)
+    - [添加地图源](tuto_M_add_map_source.md)
+    - [替代方法](tuto_M_add_map_alternative.md)
+- [__靠左行驶的交通__](#left-handed-traffic)
+- [__附加地图__](#additional-maps)
 
 
 ---
@@ -265,6 +267,9 @@ Carla 生态系统中有八个城镇，每个城镇都有两种地图，非分�
 | [__湖南工商大学__](https://pan.baidu.com/s/1q96tyOIMJjpCw5KwL0qnsQ?pwd=hutb)  | 基于湖南工商大学道路布局的地图（位于`car/湖南工商大学.zip`，其资产位于 [链接](https://bitbucket.org/hutbcity/openhutbcarla/src/main/) ，[导入方法](tutorial/import_HUTB.md) ）。     |
 | [__中电软件园__](https://pan.baidu.com/s/1q96tyOIMJjpCw5KwL0qnsQ?pwd=hutb) | 基于长沙市中电软件园道路布局的地图（位于`car/中电软件园/WindowsNoEditor.zip`）。                                                                                         |
 
+!!! 注意
+	Town06 和 Town07 是附加内容，不包含在标准 CARLA 包中。请参阅 [附加地图部分](#additional-maps) ，了解如何导入这些内容。
+
 
 ### 分层地图 <span id="layered-maps"></span>
 
@@ -301,6 +306,52 @@ Carla 旨在针对专业应用程序进行可扩展和高度定制。因此，�
 * [__添加地图源__](tuto_M_add_map_source.md)
 * [__替代方法__](tuto_M_add_map_alternative.md)
 
+## 靠左行驶的交通
+
+CARLA 支持 OpenDRIVE 文件中定义的**靠左行驶的交通**(left-handed traffic, LHT)规则。要在任何道路上调用靠左行驶交通规则，请像这样在 OpenDRIVE XML 文件中应用左侧通行属性：
+
+```xml
+<road name="Road 0" length="1.3310253693587601e+1" id="0" junction="-1" rule="LHT">
+    <link>
+        <predecessor elementType="road" elementId="3" contactPoint="end" />
+        <successor elementType="road" elementId="10" contactPoint="start" />
+    </link>
+...
+</road>
+```
+
+!!! 注意
+	靠右行驶交通惯例为默认规则。没有规则`rule`属性（或包含无法识别的参数）的道路将被视为靠右行驶的道路。您也可以通过添加 `rule="RHT"` 来明确设置靠右行驶规则。
+
+CARLA 将对每条道路应用靠左行驶的交通惯例，并应用 `rule="LHT"` 属性。
+
+
+请注意，靠左或靠右行驶交通惯例不仅会影响交通行为，还会影响道路的交通标志和信号。因此，如果地图中手动放置了针对靠右行驶的交通惯例的资源（例如道路标志或交通信号灯），则需要进行调整。OpenDRIVE 定义中针对左侧交通定义的交通信号灯将在导入地图后由 CARLA 自动放置在适当的位置。
+
+
+## 附加地图
+
+每个发行版都有自己的附加包，其中包含额外的资产和地图。此附加包包含地图 __Town06__ 和 __Town07__。为了减小构建文件的大小，这些地图会单独存储，因此只有在安装主包后才能导入。
+
+__1.__ [下载](https://github.com/carla-simulator/carla/blob/master/Docs/download.md) 适合您所需 CARLA 版本的软件包。 
+
+__2.__ 解压包：
+
+- __在 Linux 上__:
+
+    - 将包移动到 _Import_ 文件夹并运行以下脚本来提取内容： 
+
+```sh
+        cd path/to/carla/root
+
+        ./ImportAssets.sh
+```
+
+- __在 Windows 上__:
+
+    - 直接在根文件夹中提取内容。
+
+---
 
 ## 工具
 

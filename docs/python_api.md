@@ -88,10 +88,8 @@ _</font>
 将车辆的速度向量设置为随时间变化的恒定值。所得到的速度将近似于 `velocity` 所设置的速度，与 __<font color="#7fb800">set_target_velocity()</font>__ 一样。  
     - **参数:**
         - `velocity` (_[carla.Vector3D](#carla.Vector3D)<small> - m/s</small>_) - 局部空间中的速度向量。  
-    - **注意:** <font color="#8E8E8E">_只有 [carla.Vehicle](#carla.Vehicle) 参与者可以使用此方法。  
-_</font>  
-    - **警告:** <font color="#ED2F2F">_为 交通管理器管理的车辆启用恒定速度可能会导致冲突。此方法会覆盖交通管理器对速度的任何更改。  
-_</font>  
+    - **注意:** <font color="#8E8E8E">_只有 [carla.Vehicle](#carla.Vehicle) 参与者可以使用此方法。_</font>  
+    - **警告:** <font color="#ED2F2F">_为 [交通管理器管理](adv_traffic_manager.md) 的车辆启用恒定速度可能会导致冲突。此方法会覆盖交通管理器对速度的任何更改。_</font>  
 
 ##### 获取器
 - <a name="carla.Actor.get_acceleration"></a>**<font color="#7fb800">get_acceleration</font>**(<font color="#00a6ed">**self**</font>)  
@@ -1138,9 +1136,9 @@ OpenDRIVE 文件中的地标名称。
 - <a name="carla.Landmark.h_offset"></a>**<font color="#f8805a">h_offset</font>** (_float<small> - 米</small>_)  
 信号相对于OpenDRIVE中`s`处`road_id`定义的方向偏移。 
 - <a name="carla.Landmark.pitch"></a>**<font color="#f8805a">pitch</font>** (_float<small> - 米</small>_)  
-信号的俯仰角 (Y-轴在虚幻引擎坐标系统).  
+信号的俯仰角 (Y-轴在 [虚幻引擎坐标系统](python_api.md#carlarotation) )。
 - <a name="carla.Landmark.roll"></a>**<font color="#f8805a">roll</font>** (_float_)  
-信号的翻滚角 (X-轴在虚幻引擎坐标系统).  
+信号的翻滚角 (X-轴在 [虚幻引擎坐标系统](python_api.md#carlarotation) ) 。  
 - <a name="carla.Landmark.waypoint"></a>**<font color="#f8805a">waypoint</font>** (_[carla.Waypoint](#carla.Waypoint)_)  
 放置在进行查询的车道和地标 `s` 处的路径点。这是地标有效的第一个路径点。
 - <a name="carla.Landmark.transform"></a>**<font color="#f8805a">transform</font>** (_[carla.Transform](#carla.Transform)_)  
@@ -2216,7 +2214,7 @@ X-轴旋转角度。
 - <a name="carla.SemanticLidarDetection.object_idx"></a>**<font color="#f8805a">object_idx</font>** (_uint_)  
 被光线击中的参与者的ID。 
 - <a name="carla.SemanticLidarDetection.object_tag"></a>**<font color="#f8805a">object_tag</font>** (_uint_)  
-被光线击中部件的语义标签。  
+被光线击中部件的 [语义标签](ref_sensors.md#semantic-segmentation-camera) 。  
 
 ### 方法
 
@@ -2469,7 +2467,7 @@ X-轴旋转角度。
     - **参数：**
         - `freeze` (_bool_)  
 - <a name="carla.TrafficLight.is_frozen"></a>**<font color="#7fb800">is_frozen</font>**(<font color="#00a6ed">**self**</font>)  
-如果交通信号灯根据上次勾选被冻结，客户端将返回 <b>True</b>。该方法不调用模拟器。
+如果交通信号灯根据上次节拍信号被冻结，客户端将返回 <b>True</b>。该方法不调用模拟器。
     - **返回:** _bool_  
 - <a name="carla.TrafficLight.reset_group"></a>**<font color="#7fb800">reset_group</font>**(<font color="#00a6ed">**self**</font>)  
 将组的交通信号灯状态重置为模拟开始时的初始状态。
@@ -2706,14 +2704,12 @@ _</font>
     - **参数:**
         - `actor` (_[carla.Actor](#carla.Actor)_) - 必须遵循给定路线指示的参与者。
         - `path` (_list_) - 车辆要遵循的路线指令（字符串）列表。
-    - **警告:** <font color="#ED2F2F">_确保车道拓扑不会妨碍给定路线。
-_</font>  
+    - **警告:** <font color="#ED2F2F">_确保车道拓扑不会妨碍给定路线。_</font>  
 - <a name="carla.TrafficManager.set_synchronous_mode"></a>**<font color="#7fb800">set_synchronous_mode</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**mode_switch**=True</font>)  
-将交通管理器设置为 [同步模式](adv_traffic_manager.md#synchronous-mode) 。在 [多客户端情况](adv_traffic_manager.md#multiclient) 下，只有 TM-Server 可以运行。类似地，在多TM 情况下，只有一个TM-Server 必须勾选。在进行世界勾选的客户端中使用此方法，并在将世界设置为同步模式后立即设置同步时哪个 TM 将成为主服务器。
+将交通管理器设置为 [同步模式](adv_traffic_manager.md#synchronous-mode) 。在 [多客户端情况](adv_traffic_manager.md#multiclient) 下，只有交通管理服务器（TM-Server）可以发出节拍信号。类似地，在 [多交通管理器](adv_traffic_manager.md#multitm) 情况下，只有一个交通管理服务器（TM-Server）必须发出节拍信号。在世界中发出节拍信号的客户端中使用此方法，并在将世界设置为同步模式后立即设置同步时的那个交通管理器将成为主服务器。
     - **参数:**
         - `mode_switch` (_bool_) - 如果为 __True__ ，则启用交通管理器同步模式。
-    - **警告:** <font color="#ED2F2F">_如果服务器设置为同步模式，则执行标记的同一客户端中的 TM 也 <b>必须</b> 设置为同步模式。
-_</font>  
+    - **警告:** <font color="#ED2F2F">_如果服务器设置为同步模式，则执行标记的同一客户端中的交通管理器也 <b>必须</b> 设置为同步模式。_</font> 
 
 ---
 
@@ -3662,7 +3658,7 @@ _</font>
         - `map_layers` (_[carla.MapLayer](#carla.MapLayer)_) - 加载到指定层次的掩膜。 
     - **警告：** <font color="#ED2F2F">_这仅仅影响分层（Opt）地图。最小布局包括道路、人行道、交通信号灯和交通标志。_</font>  
 - <a name="carla.World.on_tick"></a>**<font color="#7fb800">on_tick</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**callback**</font>)  
-此方法用于异步模式。它从客户端定义的`callback` 函数启动回调，并返回回调的 ID。每当服务器发出时节拍时，就会调用该函数。它需要一个 [carla.WorldSnapshot](#carla.WorldSnapshot) 作为参数，这可以从 __<font color="#7fb800">wait_for_tick()</font>__ 获得。使用 __<font color="#7fb800">remove_on_tick()</font>__ 来停止回调。  
+此方法用于[__异步模式__](adv_synchrony_timestep.md) 。它从客户端定义的`callback` 函数启动回调，并返回回调的 ID。每当服务器发出节拍信号时，就会调用该函数。它需要一个 [carla.WorldSnapshot](#carla.WorldSnapshot) 作为参数，这可以从 __<font color="#7fb800">wait_for_tick()</font>__ 获得。使用 __<font color="#7fb800">remove_on_tick()</font>__ 来停止回调。  
     - **参数：**
         - `callback` (_[carla.WorldSnapshot](#carla.WorldSnapshot)_) - 将快照作为强制参数的函数，当客户端收到节拍时将调用该函数。  
     - **返回:** _int_  
@@ -3688,12 +3684,11 @@ _</font>
         - `attachment` (_[carla.AttachmentType](#carla.AttachmentType)_) - 根据其父对象确定位置变化的固定和严密程度。
     - **返回:** _[carla.Actor](#carla.Actor)_  
 - <a name="carla.World.tick"></a>**<font color="#7fb800">tick</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**seconds**=10.0</font>)  
-该方法用于 __同步__ 模式，即服务器在计算下一帧之前等待客户端客户端节拍信号。这个方法将发送节拍信号，并让位于服务器。它返回由服务器计算的新帧ID。  
+该方法用于 [__同步模式__](adv_synchrony_timestep.md) ，即服务器在计算下一帧之前等待客户端的节拍信号。这个方法将发送节拍信号，并让位于服务器。它返回由服务器计算的新帧ID。  
     - **参数：**
         - `seconds` (_float<small> - 秒</small>_) - 服务器应该等待节拍信号的最大时间。它默认设置为 <code>10.0</code> 。  
     - **返回：** _int_  
-    - **注意：** <font color="#8E8E8E">_如果在同步模式下没有收到节拍信号，模拟将冻结。此外，如果从不同的客户端接收到许多节拍信号，则可能存在同步问题。请阅读有关 __同步模式__ 的文档以了解更多信息。  
-_</font>  
+    - **注意：** <font color="#8E8E8E">_如果在同步模式下没有收到节拍信号，模拟将冻结。此外，如果从不同的客户端接收到许多节拍信号，则可能存在同步问题。请阅读有关 [__同步模式__](adv_synchrony_timestep.md) 的文档以了解更多信息。_</font>  
 - <a name="carla.World.try_spawn_actor"></a>**<font color="#7fb800">try_spawn_actor</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**blueprint**</font>, <font color="#00a6ed">**transform**</font>, <font color="#00a6ed">**attach_to**=None</font>, <font color="#00a6ed">**attachment**=Rigid</font>)  
 和 __<font color="#7fb800">spawn_actor()</font>__ 一样，但是单失败时候返回 <b>None</b> 而不是抛出异常。  
     - **参数：**
@@ -3708,7 +3703,7 @@ _</font>
         - `map_layers` (_[carla.MapLayer](#carla.MapLayer)_) - 要卸载图层的掩膜。 
     - **警告:** <font color="#ED2F2F">_这仅仅影响分层（Opt）地图。最小布局包括道路、人行道、交通信号灯和交通标志。_</font>  
 - <a name="carla.World.wait_for_tick"></a>**<font color="#7fb800">wait_for_tick</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**seconds**=10.0</font>)  
-该方法使用异步模式。它使客户端等待服务器节拍信号。当计算下一帧时，服务器将勾选并返回描述世界新状态的快照。
+该方法使用 [异步模式](adv_synchrony_timestep.md) 。它使客户端等待服务器的节拍信号。当计算下一帧时，服务器将发出节拍信号并返回描述世界新状态的快照。
     - **参数:**
         - `seconds` (_float<small> - seconds</small>_) - 服务器等待滴答的最长时间。默认设置为 <code>10.0</code>。
     - **返回:** _[carla.WorldSnapshot](#carla.WorldSnapshot)_  
