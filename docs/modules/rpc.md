@@ -161,7 +161,6 @@ std::string MapLayerToString(MapLayer MapLayerValue) {
 `MaterialParameter.cpp` 定义了一个函数 `MaterialParameterToString`，用于将 `MaterialParameter` 枚举值转换为对应的字符串表示。该功能支持材质参数的序列化、调试和通信，广泛应用于Carla的渲染管道和材质管理。
 
 - **文件路径**：通常位于 `LibCarla/source/carla/rpc/` 目录。
-- **版权信息**：2021年，Computer Vision Center (CVC)，MIT许可证。
 - **主要头文件**：`MaterialParameter.h`（定义了 `MaterialParameter` 枚举类型）。
 
 ### 3.2 功能详解
@@ -238,7 +237,6 @@ std::string MaterialParameterToString(MaterialParameter material_parameter) {
 `WeatherParameters.cpp` 定义了 `WeatherParameters` 类型的静态成员变量，提供了多种天气条件的预定义参数配置。这些参数用于模拟真实世界的天气场景（如晴天、雨天、夜晚、沙尘暴等），并通过RPC接口在客户端与服务器之间传递。
 
 - **文件路径**：通常位于 `LibCarla/source/carla/rpc/` 目录。
-- **版权信息**：2017年，Computer Vision Center (CVC)，MIT许可证。
 - **主要头文件**：`carla/rpc/WeatherParameters.h`（定义了 `WeatherParameters` 结构体）。
 
 ### 4.2 功能详解
