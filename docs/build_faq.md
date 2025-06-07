@@ -233,6 +233,11 @@ D:/work/workspace/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/Fishey
 ## Windows 构建
 <!-- ======================================================================= -->
 
+
+###### [UnrealBuildTool: ERROR: Unable to instantiate module 'Carla': System.IO.IOException](https://github.com/carla-simulator/carla/discussions/4165)
+
+> 打开依赖项文件夹“carla\Unreal\CarlaUE4\Plugins\Carla\CarlaDependencies”，发现“lib”是一个文件而不是文件夹。可以用 7zip 打开它，然后解压到一个名为 lib 的新文件夹中。之后就正常了。
+
 ###### [make PythonAPI error "Failed to find XercesC (missing: XercesC_VERSION)"](https://github.com/carla-simulator/carla/issues/5907)
 
 > xerces-c-3.2.3-install 中的头文件目录和库目录是空格，需要删除文件夹，重新编译

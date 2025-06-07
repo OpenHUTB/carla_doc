@@ -26,3 +26,9 @@ for i in range(200):
 - [OpenSim解析器的C++类文档](https://api.projectchrono.org/classchrono_1_1parsers_1_1_ch_parser_open_sim.html)
 
 - [带肌肉骨骼的强化学习环境](http://osim-rl.kidzinski.com/)
+
+- [chrono中的opensim](https://gitlab.buaanlsde.cn/carla/chrono/-/tree/7.0.2/data/opensim)
+
+- [chrono中的双足机器人模型文档](https://api.projectchrono.org/group__robot__models__robosimian.html)
+
+- [chrono中SolidWorks建模机器人系统PPT](https://www.projectchrono.org/assets/slides_3_0_0/6_OtherModules/5_ChronoRoboticsSupport.pdf)
