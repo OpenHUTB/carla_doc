@@ -267,6 +267,10 @@ export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla
 <h2 id="windows_1">Windows 构建</h2>
 <!-- ======================================================================= -->
 
+<h6 id="unrealbuildtool-error-unable-to-instantiate-module-carla-systemioioexception"><a href="https://github.com/carla-simulator/carla/discussions/4165">UnrealBuildTool: ERROR: Unable to instantiate module 'Carla': System.IO.IOException</a></h6>
+<blockquote>
+<p>打开依赖项文件夹“carla\Unreal\CarlaUE4\Plugins\Carla\CarlaDependencies”，发现“lib”是一个文件而不是文件夹。可以用 7zip 打开它，然后解压到一个名为 lib 的新文件夹中。之后就正常了。</p>
+</blockquote>
 <h6 id="make-pythonapi-error-failed-to-find-xercesc-missing-xercesc_version"><a href="https://github.com/carla-simulator/carla/issues/5907">make PythonAPI error "Failed to find XercesC (missing: XercesC_VERSION)"</a></h6>
 <blockquote>
 <p>xerces-c-3.2.3-install 中的头文件目录和库目录是空格，需要删除文件夹，重新编译</p>
