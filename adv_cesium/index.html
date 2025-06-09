@@ -128,7 +128,18 @@
 <p>1.参考 <a href="https://zhuanlan.zhihu.com/p/552983835">RoadRunner Scenario+CARLA联合仿真</a> 进行地图打包。</p>
 <p>2.将打包后场景的<code>WindowsNoEditor\CarlaUE4\Content\Carla\Maps\OpenDrive\baidutest2test.xodr</code>文件拷贝到<code>WindowsNoEditor\CarlaUE4\Content\RoadRunner\map\OpenDrive\baidutest2test.xodr</code>，否则调用<code>client.get_trafficmanager(args.tm_port)</code>会出现<code>failed to generate map</code>的错误。</p>
 <p>3.报警告<code>WARNING: requested 30 vehicles, but could only find 0 spawn points</code>，重新运行场景即可。</p>
-<h2 id="_5">参考</h2>
+<h3 id="_5">相对路径加载资产</h3>
+<p>1.在“世界大纲视图”中搜索<code>FbxScene_baidutest2test</code>，编辑编辑</p>
+<p>2.事件开始运行</p>
+<p>3.右键加一个“根目录”</p>
+<p>4.右键“附加”（字符串-附件），由2个输入变成3个。其中 A 为:  <code>file:///</code>，B 从根目录连接来，C 为:   <code>ccsp/tileset.json</code></p>
+<p>cesium：  </p>
+<p>5.在左边“我的蓝图”中新建一个变量 Cesium3DTileset（cesium）， 
+右边“细节”中的“变量类型”改变为 <code>Cesium3Dtiles</code></p>
+<p>6.右键 获取 Cesium 3DTileset   （组件 设置）  右边修改“默认值”（浏览）</p>
+<p>7.连接到 <code>SET url</code>（设置 Url）  Ceisium 3DTileset</p>
+<p>问题：不可编辑类默认对象中的此值</p>
+<h2 id="_6">参考</h2>
 <ul>
 <li><a href="https://zhuanlan.zhihu.com/p/365834299">Cesium for Unreal快速入门</a></li>
 <li><a href="https://blog.csdn.net/ChaoChao66666/article/details/131569339">Cesium for Unreal 加载本地倾斜摄影</a></li>
