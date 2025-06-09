@@ -91,6 +91,31 @@
 3.报警告`WARNING: requested 30 vehicles, but could only find 0 spawn points`，重新运行场景即可。
 
 
+### 相对路径加载资产
+
+1.在“世界大纲视图”中搜索`FbxScene_baidutest2test`，编辑编辑
+
+
+2.事件开始运行
+
+3.右键加一个“根目录”
+
+4.右键“附加”（字符串-附件），由2个输入变成3个。其中 A 为:  `file:///`，B 从根目录连接来，C 为:   `ccsp/tileset.json`
+
+cesium：  
+
+5.在左边“我的蓝图”中新建一个变量 Cesium3DTileset（cesium）， 
+右边“细节”中的“变量类型”改变为 `Cesium3Dtiles`
+
+6.右键 获取 Cesium 3DTileset   （组件 设置）  右边修改“默认值”（浏览）
+
+7.连接到 `SET url`（设置 Url）  Ceisium 3DTileset
+
+
+
+问题：不可编辑类默认对象中的此值
+
+
 ## 参考
 - [Cesium for Unreal快速入门](https://zhuanlan.zhihu.com/p/365834299)
 - [Cesium for Unreal 加载本地倾斜摄影](https://blog.csdn.net/ChaoChao66666/article/details/131569339)
