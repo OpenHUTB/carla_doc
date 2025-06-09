@@ -69,7 +69,18 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="carla">倾斜模型导入Carla</h1>
-<p>1.下载并解压 <a href="https://github.com/CesiumGS/cesium-unreal/releases/download/v1.18.0-ue4/CesiumForUnreal-426-v1.18.0-ue4.zip">Cesium for Unreal 插件</a> 到CarlaUE引擎的plugins文件夹下：</p>
+<h2 id="_1">导入道路和红绿灯</h2>
+<p>0.将<code>RoadRunner插件.zip</code>解压到<code>carla\Unreal\CarlaUE4\Plugins</code>，运行<code>make launch</code>重启编辑器。</p>
+<p>1.在<code>carla\Unreal\CarlaUE4\Content\roadrunner</code>中新建<code>static</code>（放资产）和<code>map</code>（放地图）；</p>
+<p>在编辑器中static目录中右键导入baidutest2test.fbx。
+导入选项：
+勾选 纹理中<code>反转法线贴图</code>。</p>
+<p>2.将<code>light.umap</code>拷贝到<code>carla\Unreal\CarlaUE4\Content\roadrunner\map</code>路径下。</p>
+<p>3.在虚幻编辑器中点“文件”菜单中的“关卡另存为”（方便管理，把地图和红绿灯放一块），选择<code>carla\Unreal\CarlaUE4\Content\roadrunner\map</code></p>
+<p>4.将<code>light.umap</code>引入到<code>baidutest2test.umap</code>（虚幻编辑器中点“窗口”菜单中的“关卡”，将<code>carla\Unreal\CarlaUE4\Content\roadrunner\map\light</code>拖入到关卡窗口中-&gt;右键light，修改流送方式-&gt;固定加载）。</p>
+<p>5.将<code>carla\Unreal\CarlaUE4\Content\Carla\Maps\OpenDrive\baidutest2test.xodr</code>拷贝到<code>carla\Unreal\CarlaUE4\Content\roadrunner\map\OpenDrive\baidutest2test.xodr</code></p>
+<h2 id="carla_1">倾斜模型导入Carla</h2>
+<p>1.下载并解压 <a href="https://github.com/CesiumGS/cesium-unreal/releases/download/v1.18.0-ue4/CesiumForUnreal-426-v1.18.0-ue4.zip">Cesium for Unreal 插件</a> 到CarlaUE引擎的plugins/Marketplace文件夹下：</p>
 <p><img alt="" src="../img/cesium/plugins.png" /></p>
 <p>2.如果CesiumForUnreal未启用，则在CarlaUE中添加插件</p>
 <div align=center>![](img/cesium/plugins_menu.png) </div>
@@ -95,23 +106,33 @@
 <p class="admonition-title">注意</p>
 <p>从<a href="https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb">链接</a> 中的<code>map</code>文件夹内下载<code>中电软件园_cesium_model.zip</code>并解压。这里测试用的是本地路径，也可以用静态资源服务。</p>
 </div>
-<p>4.将Trees.umap中放到本地文件夹下，菜单中点击<code>窗口-&gt;关卡</code>，从<code>内容浏览器</code>中将<code>Trees.umap</code>拖进导弹出界面，然后右键<code>Trees</code>关卡，选择<code>修改流送方法-&gt;固定加载</code>。</p>
-<p>5.在<code>世界大纲视图</code>中选中<code>Cesium3DTileset</code>，将<code>Cesium</code>中的<code>Mobility</code>修改为<code>可移动</code>。</p>
-<p>6.添加光源<code>DirectionalLight</code>、<code>ExponentialHeightFog</code>、<code>SkyAtmosphere</code>、<code>SkyLight</code>。</p>
+<p>去掉<code>Keep World Origin Near Camear</code>勾选。</p>
+<p>（4.将Trees.umap中放到本地文件夹下，菜单中点击<code>窗口-&gt;关卡</code>，从<code>内容浏览器</code>中将<code>Trees.umap</code>拖进导弹出界面，然后右键<code>Trees</code>关卡，选择<code>修改流送方法-&gt;固定加载</code>。）</p>
+<p>（5.在<code>世界大纲视图</code>中选中<code>Cesium3DTileset</code>，将<code>Cesium</code>中的<code>Mobility</code>修改为<code>可移动</code>。）</p>
+<p>（6.添加光源<code>DirectionalLight</code>、<code>ExponentialHeightFog</code>、<code>SkyAtmosphere</code>、<code>SkyLight</code>。）</p>
 <p>7.模型在CarlaUE中的场景效果</p>
 <p><img alt="" src="../img/cesium/scene_effect.png" /></p>
-<h2 id="_1">倾斜摄影</h2>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>在编辑器中如果运行时出现倾斜摄影模型部分不加载，则使用独立进程运行可全部加载。</p>
+</div>
+<h2 id="_2">倾斜摄影</h2>
 <p>由倾斜摄影osgb转换成3Dtiles格式（cesium可直接使用）。</p>
-<h2 id="_2">导入中电软件园场景</h2>
+<h2 id="_3">导入中电软件园场景</h2>
 <p>1.<a href="../build_windows/">从源代码编译Carla</a>；</p>
 <p>2.导入插件：roadrunner插件（包括RoadRunnerCarlaContent、RoadRunnerCarlaDatasmith、RoadRunnerCarlaIntegration、RoadRunnerDatasmith、RoadRunnerImporter、RoadRunnerMaterials、RoadRunnerRuntime）、Cesium插件；</p>
 <p>3.导入fbx地图（导入选项都是默认），默认生成的地图是<code>Content/Carla/Maps/roadbuild</code>；</p>
 <p>4.根据<a href="./">倾斜模型导入Carla</a>的步骤添加除了建筑以外的其他资产；</p>
 <p>5.导入自己设计的关卡：虚幻编辑器-&gt;窗口-&gt;关卡，从<code>内容浏览器</code>中将<code>langan.umap</code>、<code>tafficsign.umap</code>、<code>Trees1.umap</code>等关卡拖到弹出的<code>关卡</code>页面，并<code>右键每个关卡-&gt;修改流送方法-&gt;固定加载</code>；</p>
-<h2 id="_3">参考</h2>
+<h2 id="_4">打包地图</h2>
+<p>1.参考 <a href="https://zhuanlan.zhihu.com/p/552983835">RoadRunner Scenario+CARLA联合仿真</a> 进行地图打包。</p>
+<p>2.将打包后场景的<code>WindowsNoEditor\CarlaUE4\Content\Carla\Maps\OpenDrive\baidutest2test.xodr</code>文件拷贝到<code>WindowsNoEditor\CarlaUE4\Content\RoadRunner\map\OpenDrive\baidutest2test.xodr</code>，否则调用<code>client.get_trafficmanager(args.tm_port)</code>会出现<code>failed to generate map</code>的错误。</p>
+<p>3.报警告<code>WARNING: requested 30 vehicles, but could only find 0 spawn points</code>，重新运行场景即可。</p>
+<h2 id="_5">参考</h2>
 <ul>
 <li><a href="https://zhuanlan.zhihu.com/p/365834299">Cesium for Unreal快速入门</a></li>
 <li><a href="https://blog.csdn.net/ChaoChao66666/article/details/131569339">Cesium for Unreal 加载本地倾斜摄影</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/552983835">RoadRunner Scenario+CARLA联合仿真</a></li>
 </ul>
               
             </div>

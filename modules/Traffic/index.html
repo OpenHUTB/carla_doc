@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>CarlaUnreal Traffic Module 技术文档 - 人车模拟器</title>
+    <title>Traffic 模块 - 人车模拟器</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "CarlaUnreal Traffic Module \u6280\u672f\u6587\u6863";
+        var mkdocs_page_name = "Traffic \u6a21\u5757";
         var mkdocs_page_input_path = "modules/Traffic.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,7 +58,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">CarlaUnreal Traffic Module 技术文档</li>
+      <li class="breadcrumb-item active">Traffic 模块</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/modules/Traffic.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -68,7 +68,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="carlaunreal-traffic-module">CarlaUnreal Traffic Module 技术文档</h1>
+                <h1 id="traffic">Traffic 模块</h1>
 <h1 id="_1">目录</h1>
 <ul>
 <li><a href="#概述">概述</a></li>
@@ -129,7 +129,7 @@
 <li><a href="#注意事项">注意事项</a></li>
 </ul>
 <h2 id="_2">概述</h2>
-<p>CarlaUnreal的Traffic模块用于在虚幻引擎中模拟动态城市交通系统，支持：
+<p>CarlaUnreal 的 Traffic 模块用于在虚幻引擎中模拟动态城市交通系统，支持：
 - 自动驾驶仿真中的复杂交通流生成
 - 车辆、行人、交通信号等元素的自动化行为控制
 - 基于规则的交通行为模型配置</p>
@@ -162,20 +162,69 @@
 3. <strong>实时热更新</strong>：支持运行时动态调整<code>SpawnDensity</code>等关键参数  </p>
 <hr />
 <h2 id="_5">核心功能</h2>
+<h3 id="trafficlightbase">交通灯(TrafficLightBase)</h3>
+<p>需要了解 TrafficLightBase 如何与 OpenDRIVE 集成，如何生成触发区域，以及如何与车辆控制器交互。此外，状态管理机制和冻结功能也是关键点。相关的子类如 停车标志( <a href="https://github.com/OpenHUTB/carla/blob/OpenHUTB/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Traffic/StopSignComponent.cpp">StopSignComponent</a> ) 和 让行标志( <a href="https://github.com/OpenHUTB/carla/blob/OpenHUTB/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Traffic/YieldSignComponent.cpp">YieldSignComponent</a> ) ，虽然它们处理不同的信号类型，但共享类似的机制。</p>
+<p>交通灯基类( <a href="https://github.com/OpenHUTB/carla/blob/OpenHUTB/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Traffic/TrafficLightBase.cpp">TrafficLightBase</a> ) <a href="https://github.com/OpenHUTB/carla/blob/a57b1162ab87bd81b42fc2ce7551e4d1f16cce88/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Traffic/TrafficLightBase.h#L20">继承自</a> 交通标志基类( <a href="https://github.com/OpenHUTB/carla/blob/OpenHUTB/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Traffic/TrafficSignBase.cpp">ATrafficSignBase</a> 继承自AActor) ，ATrafficLightBase 的构造函数里创建了 交通灯组件(UTrafficLightComponent) ，并将其附加到根组件上。这表明TrafficLightBase 通过交通灯组件来管理交通灯的状态。</p>
+<p>TrafficLightBase 实现了通知轮式车辆( <a href="https://github.com/OpenHUTB/carla/blob/a57b1162ab87bd81b42fc2ce7551e4d1f16cce88/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Traffic/TrafficLightBase.cpp#L73">NotifyWheeledVehicle</a> )和 取消轮式车辆通知( <a href="https://github.com/OpenHUTB/carla/blob/a57b1162ab87bd81b42fc2ce7551e4d1f16cce88/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Traffic/TrafficLightBase.cpp#L87">UnNotifyWheeledVehicle</a> ) 方法，用来通知交通灯所对应车道上车辆当前的交通灯状态。当车辆进入触发区域时，会调用 NotifyWheeledVehicle ，<a href="https://github.com/OpenHUTB/carla/blob/a57b1162ab87bd81b42fc2ce7551e4d1f16cce88/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Traffic/TrafficLightBase.cpp#L80">将交通灯状态传递给车辆的控制器</a> ，从而让车辆做出反应，比如停车或减速。</p>
+<p>TrafficLightBase中的 <a href="https://github.com/OpenHUTB/carla/blob/a57b1162ab87bd81b42fc2ce7551e4d1f16cce88/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Traffic/TrafficLightBase.cpp#L64">SetTrafficLightState</a> 方法不仅改变自身的状态，还会通过 TrafficLightComponent 的 <a href="https://github.com/OpenHUTB/carla/blob/a57b1162ab87bd81b42fc2ce7551e4d1f16cce88/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Traffic/TrafficLightComponent.cpp#L112">SetLightState</a> 方法更新所有关联的车辆控制器。这确保了交通信号灯通知到所有所影响的车辆。</p>
+<p><a href="https://github.com/OpenHUTB/carla/blob/a57b1162ab87bd81b42fc2ce7551e4d1f16cce88/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Traffic/TrafficLightBase.cpp#L276">LightChangedCompatibility</a> 方法是为了向后兼容旧的系统，确保状态变化能被正确处理。</p>
+<p><a href="https://github.com/OpenHUTB/carla/blob/OpenHUTB/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Traffic/TrafficLightComponent.cpp">TrafficLightComponent</a> 负责处理具体的信号状态，比如红绿黄灯的切换。UTrafficLightComponent 的 <a href="https://github.com/OpenHUTB/carla/blob/a57b1162ab87bd81b42fc2ce7551e4d1f16cce88/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Traffic/TrafficLightComponent.cpp#L27">InitializeSign</a> 方法会根据 <a href="https://github.com/OpenHUTB/carla/blob/a57b1162ab87bd81b42fc2ce7551e4d1f16cce88/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Traffic/TrafficLightComponent.cpp#L31">地图中的信号信息</a> 生成 <a href="https://github.com/OpenHUTB/carla/blob/a57b1162ab87bd81b42fc2ce7551e4d1f16cce88/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Traffic/TrafficLightComponent.cpp#L97C9-L97C32">触发框</a> ，当车辆进入这些区域时，会触发相应的事件，比如改变交通灯状态。</p>
+<h4 id="_6">一、核心功能概述</h4>
+<p>TrafficLightBase是Carla仿真系统中交通信号灯的核心实现类，负责管理交通信号灯的以下核心功能：</p>
+<ul>
+<li><strong>状态管理</strong>：维护红/黄/绿三种信号状态及倒计时逻辑</li>
+<li><strong>车辆交互</strong>：检测进入触发区域的车辆并下发状态指令</li>
+<li><strong>OpenDRIVE集成</strong>：与道路网络信号定义进行动态匹配</li>
+<li><strong>冻结机制</strong>：支持仿真暂停时的状态保持</li>
+</ul>
+<h4 id="_7">二、关键组件架构</h4>
+<ol>
+<li>
+<p>组件构成</p>
+</li>
+<li>
+<p>UTrafficLightComponent（核心控制组件）</p>
+<ul>
+<li>管理信号状态（ETrafficLightState枚举）</li>
+<li>维护关联的车辆控制器列表</li>
+<li>处理与OpenDRIVE信号的映射关系</li>
+</ul>
+</li>
+<li>ATrafficLightGroup（信号组管理）<ul>
+<li>控制同一交叉口的多个信号灯协同工作</li>
+<li>实现信号周期切换逻辑</li>
+</ul>
+</li>
+<li>UTrafficLightController（信号周期控制器）<ul>
+<li>定义信号阶段（FTrafficLightStage）</li>
+<li>管理绿灯/黄灯/红灯的持续时间</li>
+</ul>
+</li>
+</ol>
+<h3 id="trafficsignbase">交通标志(TrafficSignBase)</h3>
+<p><a href="https://github.com/OpenHUTB/carla/blob/a57b1162ab87bd81b42fc2ce7551e4d1f16cce88/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Traffic/TrafficSignBase.h#L50">SetTrafficSignState</a> 方法，将交通灯的状态转换为对应的 <a href="https://github.com/OpenHUTB/carla/blob/a57b1162ab87bd81b42fc2ce7551e4d1f16cce88/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Traffic/TrafficSignBase.h#L50">枚举值</a> ，这样 <a href="https://github.com/OpenHUTB/carla/blob/a57b1162ab87bd81b42fc2ce7551e4d1f16cce88/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Traffic/TrafficSignBase.h#L49">蓝图系统</a> 可以通过接口获取当前状态。</p>
 <h3 id="1">1. 车辆生成系统</h3>
-<h4 id="_6">功能描述</h4>
+<h4 id="_8">功能描述</h4>
 <ul>
 <li><strong>Spawner Actors</strong>：通过路径点网络自动生成车辆</li>
-<li><strong>流量控制</strong>：</li>
+<li>
+<p><strong>流量控制</strong>：</p>
+<ul>
 <li>密度调节（车辆/分钟）</li>
 <li>车型比例配置</li>
 <li>区域限定生成</li>
-<li><strong>行为模式</strong>：</li>
+</ul>
+</li>
+<li>
+<p><strong>行为模式</strong>：</p>
+<ul>
 <li>遵守交通规则</li>
 <li>自适应巡航</li>
 <li>变道逻辑</li>
 </ul>
-<h4 id="_7">参数配置表</h4>
+</li>
+</ul>
+<h4 id="_9">参数配置表</h4>
 <table>
 <thead>
 <tr>
@@ -215,58 +264,22 @@
 <td>0.0-1.0</td>
 <td>变道概率（0=从不，1=频繁）</td>
 </tr>
-<tr>
-<td>#### 模块逻辑</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><pre class="mermaid"><code>graph LR
+</tbody>
+</table>
+<h4 id="_10">模块逻辑</h4>
+<p><pre class="mermaid"><code>graph LR
   A[路径网络加载] --&gt; B[生成策略计算]
   B --&gt; C{密度控制}
   C --&gt;|达标| D[车型选择]
   C --&gt;|超限| E[进入休眠]
   D --&gt; F[行为树注入]
   F --&gt; G[物理实体生成]
-  G --&gt; H[生命周期监控]</code></pre></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><strong>工程应用场景</strong>：</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>自动驾驶压力测试</strong>：通过调节<code>SpawnDensity=200</code>模拟高峰流量，验证感知系统对密集车流的处理能力</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>特殊车辆调度</strong>：设置<code>EmergencyVehicleRatio=0.2</code>模拟紧急救援通道，测试优先通行算法</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- <strong>区域限流测试</strong>：配置<code>SpawnRadius=300</code>聚焦特定路段的交通流建模</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<h4 id="_8">车辆类型配置示例</h4>
+  G --&gt; H[生命周期监控]</code></pre>
+<strong>工程应用场景</strong>：<br />
+- <strong>自动驾驶压力测试</strong>：通过调节<code>SpawnDensity=200</code>模拟高峰流量，验证感知系统对密集车流的处理能力<br />
+- <strong>特殊车辆调度</strong>：设置<code>EmergencyVehicleRatio=0.2</code>模拟紧急救援通道，测试优先通行算法<br />
+- <strong>区域限流测试</strong>：配置<code>SpawnRadius=300</code>聚焦特定路段的交通流建模</p>
+<h4 id="_11">车辆类型配置示例</h4>
 <div class="highlight"><pre><span></span><code><span class="nt">VehicleMix</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Blueprint</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/Game/Carla/Blueprints/Vehicles/Sedan&quot;</span>
 <span class="w">    </span><span class="nt">Weight</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.6</span>
@@ -276,15 +289,21 @@
 </code></pre></div>
 <hr />
 <h3 id="2-ai">2. 行人AI系统</h3>
-<h4 id="_9">功能特性</h4>
+<h4 id="_12">功能特性</h4>
 <ul>
-<li>基于导航网格的路径规划</li>
-<li>群体行为模拟：</li>
+<li>
+<p>基于导航网格的路径规划</p>
+</li>
+<li>
+<p>群体行为模拟：</p>
+<ul>
 <li>行人分组</li>
 <li>避障逻辑</li>
 <li>路口等待行为</li>
 </ul>
-<h4 id="_10">模块逻辑</h4>
+</li>
+</ul>
+<h4 id="_13">模块逻辑</h4>
 <p><pre class="mermaid"><code>flowchart TB
   Start[导航请求] --&gt; PathCheck{路径有效性}
   PathCheck -- 有效 --&gt; BehaviorSelect[行为模式选择]
@@ -303,7 +322,7 @@
 - <strong>紧急疏散模拟</strong>：设置<code>群体跟随系数=0.95</code>测试密集人流下的路径规划性能<br />
 - <strong>商业区建模</strong>：应用<code>时段波动系数+0.3</code>实现白天高峰人流自动调节</p>
 <hr />
-<h4 id="_11">人群密度配置表</h4>
+<h4 id="_14">人群密度配置表</h4>
 <table>
 <thead>
 <tr>
@@ -327,14 +346,14 @@
 </table>
 <hr />
 <h3 id="3">3. 交通信号控制</h3>
-<h4 id="_12">功能组件</h4>
+<h4 id="_15">功能组件</h4>
 <ul>
 <li>可编程信号灯系统：</li>
 <li>相位时间配置</li>
 <li>感应式信号触发</li>
 <li>紧急车辆优先通道</li>
 </ul>
-<h4 id="_13">信号相位时序表</h4>
+<h4 id="_16">信号相位时序表</h4>
 <table>
 <thead>
 <tr>
@@ -356,7 +375,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="_14">交通信号控制流程图</h4>
+<h4 id="_17">交通信号控制流程图</h4>
 <p><pre class="mermaid"><code>stateDiagram-v2
   [*] --&gt; 信号检测
   信号检测 --&gt; 相位决策
@@ -384,19 +403,19 @@
 <li>多线程路径计算</li>
 </ul>
 <hr />
-<h2 id="_15">接口定义</h2>
+<h2 id="_18">接口定义</h2>
 <h3 id="python-api">Python API</h3>
 <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">TrafficManager</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">set_global_speed_limit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">speed</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
 </code></pre></div>
-<h3 id="_16">控制协议</h3>
+<h3 id="_19">控制协议</h3>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;spawn_vehicle&quot;</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;params&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sedan&quot;</span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 <hr />
-<h2 id="_17">常见问题</h2>
+<h2 id="_20">常见问题</h2>
 <p><strong>Q: 车辆无法生成</strong>
 - 检查Waypoint文件路径有效性
 - 验证SpawnRadius是否大于最小阈值（200米）</p>
@@ -407,14 +426,14 @@
 - 降低GlobalDensity参数
 - 启用bEnableDynamicLOD</p>
 <hr />
-<h2 id="_18">配置与依赖</h2>
-<h3 id="_19">必要组件</h3>
+<h2 id="_21">配置与依赖</h2>
+<h3 id="_22">必要组件</h3>
 <ol>
 <li>CarlaUnreal插件（0.9.12+）</li>
 <li>路径网络资源包</li>
 <li>交通信号蓝图库</li>
 </ol>
-<h3 id="_20">安装步骤</h3>
+<h3 id="_23">安装步骤</h3>
 <ol>
 <li>启用插件：
    <div class="highlight"><pre><span></span><code><span class="na">[ProjectName].uproject &gt; Plugins &gt; CarlaUnreal</span>
@@ -427,8 +446,8 @@
 </code></pre></div></li>
 </ol>
 <hr />
-<h2 id="_21">使用示例</h2>
-<h3 id="_22">基础车辆生成</h3>
+<h2 id="_24">使用示例</h2>
+<h3 id="_25">基础车辆生成</h3>
 <ol>
 <li>放置<code>VehicleSpawner</code> Actor</li>
 <li>配置参数：
@@ -441,7 +460,7 @@
 </code></pre></div></li>
 <li>连接路径网络节点</li>
 </ol>
-<h3 id="_23">车辆生成流程图</h3>
+<h3 id="_26">车辆生成流程图</h3>
 <pre class="mermaid"><code>sequenceDiagram
   participant Spawner as 生成器
   participant Graph as 路径网络
@@ -455,8 +474,8 @@
   AI-&gt;&gt;Graph: 实时路径查询
   AI-&gt;&gt;World: 执行移动指令</code></pre>
 <hr />
-<h2 id="_24">高级配置</h2>
-<h3 id="_25">自定义行为模型</h3>
+<h2 id="_27">高级配置</h2>
+<h3 id="_28">自定义行为模型</h3>
 <ol>
 <li>修改<code>BehaviorTree/CarlaTrafficBT</code></li>
 <li>调整决策参数：
@@ -466,7 +485,7 @@
 <span class="p">)</span>
 </code></pre></div></li>
 </ol>
-<h3 id="_26">路径网络调试</h3>
+<h3 id="_29">路径网络调试</h3>
 <ol>
 <li>启用调试视图：
    <div class="highlight"><pre><span></span><code><span class="go">console command: show TrafficPaths</span>
@@ -476,7 +495,7 @@
 </code></pre></div></li>
 </ol>
 <hr />
-<h3 id="_27">路径网络验证流程</h3>
+<h3 id="_30">路径网络验证流程</h3>
 <h2 id="graph-lr-a-b-b-c-c-d-c-e-e-f-f-b-d-g"><pre class="mermaid"><code>graph LR
   A[原始路径数据] --&gt; B[拓扑分析]
   B --&gt; C{闭合验证}
@@ -485,8 +504,8 @@
   E --&gt; F[人工修复]
   F --&gt; B
   D --&gt; G[发布可用网络]</code></pre></h2>
-<h3 id="_28">性能优化</h3>
-<h4 id="_29">硬件配置推荐</h4>
+<h3 id="_31">性能优化</h3>
+<h4 id="_32">硬件配置推荐</h4>
 <table>
 <thead>
 <tr>
@@ -503,13 +522,13 @@
 </tr>
 </tbody>
 </table>
-<h4 id="_30">渲染参数</h4>
+<h4 id="_33">渲染参数</h4>
 <div class="highlight"><pre><span></span><code><span class="na">bEnableLOD</span><span class="o">=</span><span class="s">True</span>
 <span class="na">LODThresholds</span><span class="o">=</span><span class="s">(Distance=5000, ActorCount=50)</span>
 </code></pre></div>
 <hr />
-<h2 id="_31">调试诊断</h2>
-<h3 id="_32">错误代码表</h3>
+<h2 id="_34">调试诊断</h2>
+<h3 id="_35">错误代码表</h3>
 <table>
 <thead>
 <tr>
@@ -531,12 +550,12 @@
 </tr>
 </tbody>
 </table>
-<h3 id="_33">性能监控</h3>
+<h3 id="_36">性能监控</h3>
 <div class="highlight"><pre><span></span><code><span class="n">TrafficMonitor</span><span class="o">.</span><span class="n">GetMetrics</span><span class="p">(</span>
     <span class="n">Metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Vehicles.Alive&quot;</span><span class="p">,</span> <span class="s2">&quot;FPS.Main&quot;</span><span class="p">]</span>
 <span class="p">)</span>
 </code></pre></div>
-<h2 id="_34">注意事项</h2>
+<h2 id="_37">注意事项</h2>
 <ol>
 <li>路径网络需形成闭合回路</li>
 <li>高密度交通时建议启用LOD优化</li>
