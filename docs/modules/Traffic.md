@@ -1,4 +1,4 @@
-# CarlaUnreal Traffic Module 技术文档
+# Traffic 模块
 
 # 目录
 - [概述](#概述)
@@ -45,7 +45,7 @@
 - [注意事项](#注意事项)
 
 ## 概述
-CarlaUnreal的Traffic模块用于在虚幻引擎中模拟动态城市交通系统，支持：
+CarlaUnreal 的 Traffic 模块用于在虚幻引擎中模拟动态城市交通系统，支持：
 - 自动驾驶仿真中的复杂交通流生成
 - 车辆、行人、交通信号等元素的自动化行为控制
 - 基于规则的交通行为模型配置
@@ -83,17 +83,69 @@ graph TD
 ---
 
 ## 核心功能
+
+### 交通灯(TrafficLightBase)
+
+需要了解 TrafficLightBase 如何与 OpenDRIVE 集成，如何生成触发区域，以及如何与车辆控制器交互。此外，状态管理机制和冻结功能也是关键点。相关的子类如 停车标志( [StopSignComponent](https://github.com/OpenHUTB/carla/blob/OpenHUTB/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Traffic/StopSignComponent.cpp) ) 和 让行标志( [YieldSignComponent](https://github.com/OpenHUTB/carla/blob/OpenHUTB/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Traffic/YieldSignComponent.cpp) ) ，虽然它们处理不同的信号类型，但共享类似的机制。
+
+
+交通灯基类( [TrafficLightBase](https://github.com/OpenHUTB/carla/blob/OpenHUTB/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Traffic/TrafficLightBase.cpp) ) [继承自](https://github.com/OpenHUTB/carla/blob/a57b1162ab87bd81b42fc2ce7551e4d1f16cce88/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Traffic/TrafficLightBase.h#L20) 交通标志基类( [ATrafficSignBase](https://github.com/OpenHUTB/carla/blob/OpenHUTB/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Traffic/TrafficSignBase.cpp) 继承自AActor) ，ATrafficLightBase 的构造函数里创建了 交通灯组件(UTrafficLightComponent) ，并将其附加到根组件上。这表明TrafficLightBase 通过交通灯组件来管理交通灯的状态。
+
+
+TrafficLightBase 实现了通知轮式车辆( [NotifyWheeledVehicle](https://github.com/OpenHUTB/carla/blob/a57b1162ab87bd81b42fc2ce7551e4d1f16cce88/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Traffic/TrafficLightBase.cpp#L73) )和 取消轮式车辆通知( [UnNotifyWheeledVehicle](https://github.com/OpenHUTB/carla/blob/a57b1162ab87bd81b42fc2ce7551e4d1f16cce88/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Traffic/TrafficLightBase.cpp#L87) ) 方法，用来通知交通灯所对应车道上车辆当前的交通灯状态。当车辆进入触发区域时，会调用 NotifyWheeledVehicle ，[将交通灯状态传递给车辆的控制器](https://github.com/OpenHUTB/carla/blob/a57b1162ab87bd81b42fc2ce7551e4d1f16cce88/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Traffic/TrafficLightBase.cpp#L80) ，从而让车辆做出反应，比如停车或减速。
+
+TrafficLightBase中的 [SetTrafficLightState](https://github.com/OpenHUTB/carla/blob/a57b1162ab87bd81b42fc2ce7551e4d1f16cce88/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Traffic/TrafficLightBase.cpp#L64) 方法不仅改变自身的状态，还会通过 TrafficLightComponent 的 [SetLightState](https://github.com/OpenHUTB/carla/blob/a57b1162ab87bd81b42fc2ce7551e4d1f16cce88/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Traffic/TrafficLightComponent.cpp#L112) 方法更新所有关联的车辆控制器。这确保了交通信号灯通知到所有所影响的车辆。
+
+[LightChangedCompatibility](https://github.com/OpenHUTB/carla/blob/a57b1162ab87bd81b42fc2ce7551e4d1f16cce88/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Traffic/TrafficLightBase.cpp#L276) 方法是为了向后兼容旧的系统，确保状态变化能被正确处理。
+
+
+[TrafficLightComponent](https://github.com/OpenHUTB/carla/blob/OpenHUTB/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Traffic/TrafficLightComponent.cpp) 负责处理具体的信号状态，比如红绿黄灯的切换。UTrafficLightComponent 的 [InitializeSign](https://github.com/OpenHUTB/carla/blob/a57b1162ab87bd81b42fc2ce7551e4d1f16cce88/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Traffic/TrafficLightComponent.cpp#L27) 方法会根据 [地图中的信号信息](https://github.com/OpenHUTB/carla/blob/a57b1162ab87bd81b42fc2ce7551e4d1f16cce88/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Traffic/TrafficLightComponent.cpp#L31) 生成 [触发框](https://github.com/OpenHUTB/carla/blob/a57b1162ab87bd81b42fc2ce7551e4d1f16cce88/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Traffic/TrafficLightComponent.cpp#L97C9-L97C32) ，当车辆进入这些区域时，会触发相应的事件，比如改变交通灯状态。
+
+
+#### 一、核心功能概述
+
+TrafficLightBase是Carla仿真系统中交通信号灯的核心实现类，负责管理交通信号灯的以下核心功能：
+
+* **状态管理**：维护红/黄/绿三种信号状态及倒计时逻辑
+* **车辆交互**：检测进入触发区域的车辆并下发状态指令
+* **OpenDRIVE集成**：与道路网络信号定义进行动态匹配
+* **冻结机制**：支持仿真暂停时的状态保持
+
+#### 二、关键组件架构
+
+1. 组件构成
+
+* UTrafficLightComponent（核心控制组件）
+    * 管理信号状态（ETrafficLightState枚举）
+    * 维护关联的车辆控制器列表
+    * 处理与OpenDRIVE信号的映射关系
+* ATrafficLightGroup（信号组管理）
+    * 控制同一交叉口的多个信号灯协同工作
+    * 实现信号周期切换逻辑
+* UTrafficLightController（信号周期控制器）
+    * 定义信号阶段（FTrafficLightStage）
+    * 管理绿灯/黄灯/红灯的持续时间
+
+
+### 交通标志(TrafficSignBase)
+
+[SetTrafficSignState](https://github.com/OpenHUTB/carla/blob/a57b1162ab87bd81b42fc2ce7551e4d1f16cce88/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Traffic/TrafficSignBase.h#L50) 方法，将交通灯的状态转换为对应的 [枚举值](https://github.com/OpenHUTB/carla/blob/a57b1162ab87bd81b42fc2ce7551e4d1f16cce88/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Traffic/TrafficSignBase.h#L50) ，这样 [蓝图系统](https://github.com/OpenHUTB/carla/blob/a57b1162ab87bd81b42fc2ce7551e4d1f16cce88/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Traffic/TrafficSignBase.h#L49) 可以通过接口获取当前状态。
+
+
 ### 1. 车辆生成系统
 #### 功能描述
 - **Spawner Actors**：通过路径点网络自动生成车辆
 - **流量控制**：
-  - 密度调节（车辆/分钟）
-  - 车型比例配置
-  - 区域限定生成
+
+    - 密度调节（车辆/分钟）
+    - 车型比例配置
+    - 区域限定生成
+
 - **行为模式**：
-  - 遵守交通规则
-  - 自适应巡航
-  - 变道逻辑
+
+    - 遵守交通规则
+    - 自适应巡航
+    - 变道逻辑
 
 #### 参数配置表
 | 参数项              | 类型    | 默认值 | 范围       | 描述                          |
@@ -102,6 +154,7 @@ graph TD
 | MaxVehicles         | int     | 100    | 0-500      | 场景内最大同时存在车辆数       |
 | SpawnRadius         | meters  | 1500   | 100-5000   | 以玩家为中心的生成半径         |
 | LaneChangeFrequency | float   | 0.3    | 0.0-1.0    | 变道概率（0=从不，1=频繁）     |
+
 #### 模块逻辑
 ```mermaid
 graph LR
@@ -134,10 +187,12 @@ VehicleMix:
 ### 2. 行人AI系统
 #### 功能特性
 - 基于导航网格的路径规划
+
 - 群体行为模拟：
-  - 行人分组
-  - 避障逻辑
-  - 路口等待行为
+
+    - 行人分组
+    - 避障逻辑
+    - 路口等待行为
 
 #### 模块逻辑
 ```mermaid
@@ -170,6 +225,7 @@ flowchart TB
 ---
 
 ### 3. 交通信号控制
+
 #### 功能组件
 - 可编程信号灯系统：
   - 相位时间配置

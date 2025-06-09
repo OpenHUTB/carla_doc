@@ -250,22 +250,22 @@ Carla 生态系统中有八个城镇，每个城镇都有两种地图，非分�
 !!! 笔记
     用户可以使用 [自定义地图](tuto_A_map_customization.md) 甚至创建要在 Carla 中使用的 [新地图](tuto_M_custom_map_overview.md)。
 
-| 城镇                                                                    | 概括                                                                                                                                            |
-|-----------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
-| **[Town01](img/Town01.jpg)**                                          | 由“T 字路口”组成的基本城镇布局。                                                                                                                            |
-| **[Town02](img/Town02.jpg)**                                          | 和 **Town01** 类似，但是更小。                                                                                                                         |
-| **[Town03](img/Town03.jpg)**                                          | 最复杂的城镇，有 5 车道交叉路口、环岛、凹凸不平、隧道等。                                                                                                                |
-| **[Town04](img/Town04.jpg)**                                          | 有高速公路和小镇的无限循环。                                                                                                                                |
-| **[Town05](img/Town05.jpg)**                                          | 方形网格城镇，有十字路口和一座桥梁。每个方向有多个车道。对于执行变道很有用。                                                                                                        |
-| **[Town06](img/Town06.jpg)**                                          | 高速公路长，有许多高速公路入口和出口。它还有一个 [**密歇根左转**](<https://en.wikipedia.org/wiki/Michigan_left>)。                                                          |
-| **[Town07](img/Town07.jpg)**                                          | 乡村环境，道路狭窄，谷仓，几乎没有交通信号灯。                                                                                                                         |
+| 城镇                                                                    | 概括                                                                                                                                           |
+|-----------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
+| **[Town01](img/Town01.jpg)**                                          | 由“T 字路口”组成的基本城镇布局。                                                                                                                           |
+| **[Town02](img/Town02.jpg)**                                          | 和 **Town01** 类似，但是更小。                                                                                                                        |
+| **[Town03](img/Town03.jpg)**                                          | 最复杂的城镇，有 5 车道交叉路口、环岛、凹凸不平、隧道等。                                                                                                               |
+| **[Town04](img/Town04.jpg)**                                          | 有高速公路和小镇的无限循环。                                                                                                                               |
+| **[Town05](img/Town05.jpg)**                                          | 方形网格城镇，有十字路口和一座桥梁。每个方向有多个车道。对于执行变道很有用。                                                                                                       |
+| **[Town06](img/Town06.jpg)**                                          | 高速公路长，有许多高速公路入口和出口。它还有一个 [**密歇根左转**](<https://en.wikipedia.org/wiki/Michigan_left>)。                                                         |
+| **[Town07](img/Town07.jpg)**                                          | 乡村环境，道路狭窄，谷仓，几乎没有交通信号灯。                                                                                                                      |
 | **[Town10](img/Town10.jpg)**                                          | 具有大道或长廊等不同环境的城市环境，以及更真实的纹理（[UE5 Town10](https://pan.baidu.com/s/1q96tyOIMJjpCw5KwL0qnsQ?pwd=hutb) `car/Carla_UE5/Carla_UE5_Windows.exe.zip`）。 |
-| **[Town11](map_town11.md)**                                           | 具有大道或长廊等不同环境的城市环境，以及更真实的纹理。                                                                                                                   |
-| **[Town12](map_town12.md)**                                           | 一张包含许多不同区域的大地图，包括高层建筑、住宅区和乡村环境。                                                                                                               |
-| [__Town13__](map_town13.md)                                           | 一张与 12 号镇规模相似的大地图，但具有鲜明的特色。                                                                                                                   |
-| [__Town15__](map_town15.md)                                           | 基于巴塞罗那自治大学道路布局的地图。                                                                                                                            |
-| [__湖南工商大学__](https://pan.baidu.com/s/1q96tyOIMJjpCw5KwL0qnsQ?pwd=hutb)  | 基于湖南工商大学道路布局的地图（位于`car/湖南工商大学.zip`，其资产位于 [链接](https://bitbucket.org/hutbcity/openhutbcarla/src/main/) ，[导入方法](tutorial/import_HUTB.md) ）。     |
-| [__中电软件园__](https://pan.baidu.com/s/1q96tyOIMJjpCw5KwL0qnsQ?pwd=hutb) | 基于长沙市中电软件园道路布局的地图（位于`car/中电软件园/WindowsNoEditor.zip`）。                                                                                         |
+| **[Town11](map_town11.md)**                                           | 具有大道或长廊等不同环境的城市环境，以及更真实的纹理。                                                                                                                  |
+| **[Town12](map_town12.md)**                                           | 一张包含许多不同区域的大地图，包括高层建筑、住宅区和乡村环境。                                                                                                              |
+| [__Town13__](map_town13.md)                                           | 一张与 12 号镇规模相似的大地图，但具有鲜明的特色。                                                                                                                  |
+| [__Town15__](map_town15.md)                                           | 基于巴塞罗那自治大学道路布局的地图。                                                                                                                           |
+| [__湖南工商大学__](https://pan.baidu.com/s/1q96tyOIMJjpCw5KwL0qnsQ?pwd=hutb)  | 基于湖南工商大学道路布局的地图（位于`car/湖南工商大学.zip`，其资产位于 [链接](https://bitbucket.org/hutbcity/openhutbcarla/src/main/) ，[导入方法](tutorial/import_HUTB.md) ）。    |
+| [__中电软件园__](https://pan.baidu.com/s/1q96tyOIMJjpCw5KwL0qnsQ?pwd=hutb) | 基于长沙市中电软件园（Changsha CEC Software Park, CCSP）道路布局的地图（位于`car/中电软件园/WindowsNoEditor.zip`）。                                                      |
 
 !!! 注意
 	Town06 和 Town07 是附加内容，不包含在标准 CARLA 包中。请参阅 [附加地图部分](#additional-maps) ，了解如何导入这些内容。
