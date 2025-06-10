@@ -92,7 +92,7 @@
 </blockquote>
 <p>3.添加插件对象到场景中，配置参数和模型路径：</p>
 <p><code>CesiumGeoreference</code>设置为：<code>28.235238,  112.877178,  0</code></p>
-<p><code>Source</code>设置为<code>File:///D:/ssd/model/tileset.json</code>。<br></p>
+<p><code>Source</code>设置为<code>File:///D:/model1/model1/tileset.json</code>。<br></p>
 <blockquote>
 <blockquote>
 <blockquote>
@@ -139,7 +139,17 @@
 <p>6.右键 获取 Cesium 3DTileset   （组件 设置）  右边修改“默认值”（浏览）</p>
 <p>7.连接到 <code>SET url</code>（设置 Url）  Ceisium 3DTileset</p>
 <p>问题：不可编辑类默认对象中的此值</p>
-<h2 id="_6">参考</h2>
+<h4 id="_6">源代码分析</h4>
+<p>加载的逻辑位于<code>carla\Unreal\CarlaUE4\Plugins\Marketplace\CesiumForUnreal\Source\CesiumRuntime\Private\Cesium3DTileset.cpp</code>中的：
+<div class="highlight"><pre><span></span><code>this-&gt;_pTileset<span class="w"> </span><span class="o">=</span><span class="w"> </span>MakeUnique&lt;Cesium3DTilesSelection::Tileset&gt;<span class="o">(</span>
+<span class="w">    </span>externals,
+<span class="w">    </span>TCHAR_TO_UTF8<span class="o">(</span>*this-&gt;Url<span class="o">)</span>,
+<span class="w">    </span>options<span class="o">)</span><span class="p">;</span>
+</code></pre></div>
+MakeShared（包括用于TUniquePtr的 <a href="https://zhuanlan.zhihu.com/p/433605801">MakeUnique</a> ）：类似于C++中的 std::make_shared ，比直接用普通指针创建效率更高，因为智能指针内存包含两部分，除了数据本身的内存之外，还有一个控制块内存，普通指针创建时，会分别申请两次内存，而使用 MakedShared 只需要进行一次内存申请，因而效率更高。</p>
+<p>MakeUnique 使用给定的参数分配一个类型 T 的新对象并将其作为 TUniquePtr 返回。</p>
+<p>TCHAR_TO_UTF8(const TCHAR*): unicode到utf8的转换</p>
+<h2 id="_7">参考</h2>
 <ul>
 <li><a href="https://zhuanlan.zhihu.com/p/365834299">Cesium for Unreal快速入门</a></li>
 <li><a href="https://blog.csdn.net/ChaoChao66666/article/details/131569339">Cesium for Unreal 加载本地倾斜摄影</a></li>
