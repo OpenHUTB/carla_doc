@@ -36,7 +36,7 @@
 
 `CesiumGeoreference`设置为：`28.235238,  112.877178,  0`
 
-`Source`设置为`File:///D:/ssd/model/tileset.json`。<br>
+`Source`设置为`File:///D:/model1/model1/tileset.json`。<br>
 
 >>> ![](img/cesium/add_plugin_object.png) 
 
@@ -114,6 +114,21 @@ cesium：
 
 
 问题：不可编辑类默认对象中的此值
+
+#### 源代码分析
+
+加载的逻辑位于`carla\Unreal\CarlaUE4\Plugins\Marketplace\CesiumForUnreal\Source\CesiumRuntime\Private\Cesium3DTileset.cpp`中的：
+```shell
+this->_pTileset = MakeUnique<Cesium3DTilesSelection::Tileset>(
+    externals,
+    TCHAR_TO_UTF8(*this->Url),
+    options);
+```
+MakeShared（包括用于TUniquePtr的 [MakeUnique](https://zhuanlan.zhihu.com/p/433605801) ）：类似于C++中的 std::make_shared ，比直接用普通指针创建效率更高，因为智能指针内存包含两部分，除了数据本身的内存之外，还有一个控制块内存，普通指针创建时，会分别申请两次内存，而使用 MakedShared 只需要进行一次内存申请，因而效率更高。
+
+MakeUnique 使用给定的参数分配一个类型 T 的新对象并将其作为 TUniquePtr 返回。
+
+TCHAR_TO_UTF8(const TCHAR*): unicode到utf8的转换
 
 
 ## 参考
