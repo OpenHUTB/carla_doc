@@ -18,4 +18,8 @@
 
 [TRL驾驶模拟](https://www.trl.co.uk/solutions/driving-simulator) - 包括实车的人类驾驶操作仿真（公司），包含演示的视频 [链接](https://www.nvidia.com/en-us/on-demand/session/gtc24-s62468/) 。 
 
+[__Ansys 实时雷达模型__](ecosys_ansys.md) — 有关 Ansys RTR 网络研讨会的详细信息
+
+[__PTV-Vissim 联合模拟__](adv_ptv.md) — 在 Carla 和 PTV-Vissim 之间运行协同模拟
+
 [使用 CARLA 进行开源自动驾驶汽车仿真](https://www.nvidia.com/en-us/on-demand/session/gtc24-s62468/) - Carla领导者German Ros的报告，包括和Omniverse Cloud集成。
