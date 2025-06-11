@@ -109,11 +109,20 @@ cesium：
 
 6.右键 获取 Cesium 3DTileset   （组件 设置）  右边修改“默认值”（浏览）
 
+
 7.连接到 `SET url`（设置 Url）  Ceisium 3DTileset
 
+问题：不可编辑类默认对象中的此值。
+
+解决：将Cesium3DTileset拖动到不可编辑的地方（保存不了）。
 
 
-问题：不可编辑类默认对象中的此值
+选中交通灯，“细节”中的 BoxTrigger、TotalVolume起作用，调整缩放xy。
+
+调出影响范围的函数
+
+RoutePlanner证明路口和路是断开的
+
 
 #### 源代码分析
 
