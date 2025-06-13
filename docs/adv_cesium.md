@@ -114,7 +114,11 @@ cesium：
 
 问题：不可编辑类默认对象中的此值。
 
-解决：将Cesium3DTileset拖动到不可编辑的地方（保存不了）。
+解决：将 Cesium3DTileset 拖动到不可编辑的地方（保存不了）。
+
+报错：图表被连接到外部映射中的对象。
+
+原因：蓝图中引用了外部的Cesium3DTileset。
 
 
 选中交通灯，“细节”中的 BoxTrigger、TotalVolume起作用，调整缩放xy。

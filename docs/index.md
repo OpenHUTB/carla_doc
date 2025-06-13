@@ -28,9 +28,9 @@ title: 主页
 ---
 
 ## 简介 <span id="introduction"></span>
-1. 下载 [链接](https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb) 中的`software/carla_0.9.15`中的所有文件并解压；
+1. 下载 [链接](https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb) 中的`software/hutb`中的文件并解压；
 2. 运行`WindowsNoEditor`文件夹下的`CarlaUE4.exe`启动场景，进入场景后按`W`、`S`、`A`、`D`移动场景视角；
-3. 使用`Python37/python.exe`（或者安装`WindowsNoEditor/PythonAPI/carla/dist/carla-0.9.15-cp37-cp37m-win_amd64.whl`目录下的Python包）运行脚本 [generate_traffic.py](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/generate_traffic.py) 在场景中生成交通流和运行 [python manual_control.py](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/manual_control.py) 生成一辆键盘控制的车。
+3. 使用`pip install hutb` 安装Python功能包（或者安装`WindowsNoEditor/PythonAPI/carla/dist/hutb-*.whl`），然后运行脚本 [generate_traffic.py](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/generate_traffic.py) 在场景中生成交通流和运行 [python manual_control.py](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/manual_control.py) 生成一辆键盘控制的车。
 
 
 !!! 注意
