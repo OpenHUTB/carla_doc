@@ -413,6 +413,8 @@
 
 ## 端到端 <span id="end_2_end"></span>
 
+[多模态端到端自动驾驶：一种双边模态交互方法](https://github.com/YzMark2r/BiFusion) - 暂时没代码，解读 [链接](https://mp.weixin.qq.com/s/ZPYEOpWZpkLW4spI-78hFg) 
+
 [寻求更好的端到端自动驾驶解决方案](https://github.com/baotram153/E2E-AD)
 
 [视觉感知、状态估计和定位以及运动规划](https://github.com/NikhilKamathB/SDC?tab=readme-ov-file)
