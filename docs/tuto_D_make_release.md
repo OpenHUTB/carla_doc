@@ -129,6 +129,15 @@ A simulator and scene editor for autonomous driving.
 
 [解决上传出熬过100M大文件的问题](dev/gitee.md) 。
 
+### 发布到 huggingface
+```shell
+# 添加远程仓库链接
+git remote add huggingface https://huggingface.co/datasets/OpenHUTB/Content.git
+git push huggingface
+# 配置 Token
+python -m pip install -U "huggingface_hub[cli]"
+huggingface-cli login
+```
 
 ## 问题
 点击打包后的文件出现错误：

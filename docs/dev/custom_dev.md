@@ -17,6 +17,15 @@ git apply 【path/to/xxx.patch】
 如果有冲突则按行进行合并。
 
 
+## 冲突解决
+
+强制打补丁
+```shell
+git apply --reject xxx.patch
+```
+加入这个选项能够将能打上的补丁先打上，冲突的文件生成*.rej文件
+
+
 
 ## 参考
 
