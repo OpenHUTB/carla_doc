@@ -183,6 +183,14 @@ twine<span class="w"> </span>upload<span class="w"> </span>dist/*<span class="w"
 <p>A simulator and scene editor for autonomous driving.</p>
 <h3 id="gitee">发布到gitee</h3>
 <p><a href="../dev/gitee/">解决上传出熬过100M大文件的问题</a> 。</p>
+<h3 id="huggingface">发布到 huggingface</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 添加远程仓库链接</span>
+git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>huggingface<span class="w"> </span>https://huggingface.co/datasets/OpenHUTB/Content.git
+git<span class="w"> </span>push<span class="w"> </span>huggingface
+<span class="c1"># 配置 Token</span>
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span><span class="s2">&quot;huggingface_hub[cli]&quot;</span>
+huggingface-cli<span class="w"> </span>login
+</code></pre></div>
 <h2 id="_8">问题</h2>
 <p>点击打包后的文件出现错误：
 <div class="highlight"><pre><span></span><code>TypeError: expected str, bytes or os.PathLike object, not _io.BytesIO

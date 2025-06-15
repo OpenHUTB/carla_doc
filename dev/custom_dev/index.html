@@ -78,7 +78,12 @@
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>apply<span class="w"> </span>【path/to/xxx.patch】
 </code></pre></div>
 如果有冲突则按行进行合并。</p>
-<h2 id="_2">参考</h2>
+<h2 id="_2">冲突解决</h2>
+<p>强制打补丁
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>apply<span class="w"> </span>--reject<span class="w"> </span>xxx.patch
+</code></pre></div>
+加入这个选项能够将能打上的补丁先打上，冲突的文件生成*.rej文件</p>
+<h2 id="_3">参考</h2>
 <p><a href="https://blog.csdn.net/xiewenhao12/article/details/117923288">git 生成补丁文件及打补丁</a></p>
               
             </div>
