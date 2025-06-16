@@ -1087,7 +1087,7 @@ Y 像素坐标。  </li>
 <li><code>thickness</code> (<em>float<small> - 米</small></em>) - 线的密度。  </li>
 <li><code>arrow_size</code> (<em>float<small> - 米</small></em>) - 箭头尖端的大小。</li>
 <li><code>color</code> (<em><a href="#carla.Color">carla.Color</a></em>) - 用于为对象着色的 RGB 代码。默认为红色。</li>
-<li><code>life_time</code> (<em>float<small> - seconds</small></em>) - 形状的生命周期。默认情况下它只持续一帧。将其设置<code>0</code>为永久形状。 </li>
+<li><code>life_time</code> (<em>float<small> - 秒</small></em>) - 形状的生命周期。默认情况下它只持续一帧。将其设置<code>0</code>为永久形状。 </li>
 </ul>
 </li>
 </ul>
@@ -1170,7 +1170,7 @@ Y 像素坐标。  </li>
 <li><code>location</code> (<em><a href="#carla.Location">carla.Location</a><small> - 米</small></em>) - 在坐标系中点以将对象居中。</li>
 <li><code>size</code> (<em>float<small> - 米</small></em>) - 点的密度。</li>
 <li><code>color</code> (<em><a href="#carla.Color">carla.Color</a></em>) - 用于为对象着色的 RGB 代码。默认为红色。</li>
-<li><code>life_time</code> (<em>float<small> - seconds</small></em>) - 形状的生命周期。默认情况下它只持续一帧。将其设置<code>0</code>为永久形状。</li>
+<li><code>life_time</code> (<em>float<small> - 秒</small></em>) - 形状的生命周期。默认情况下它只持续一帧。将其设置<code>0</code>为永久形状。</li>
 </ul>
 </li>
 </ul>
@@ -1182,7 +1182,7 @@ Y 像素坐标。  </li>
 <li><code>text</code> (<em>str</em>) - 旨在向世界展示的文本。 </li>
 <li><code>draw_shadow</code> (<em>bool</em>) - 为字符串投射阴影，有助于可视化。默认情况下它是禁用的。</li>
 <li><code>color</code> (<em><a href="#carla.Color">carla.Color</a></em>) - 用于为字符串着色的 RGB 代码。默认为红色。</li>
-<li><code>life_time</code> (<em>float<small> - seconds</small></em>) - 形状的生命周期。默认情况下它只持续一帧。将其设置<code>0</code>为永久形状。</li>
+<li><code>life_time</code> (<em>float<small> - 秒</small></em>) - 形状的生命周期。默认情况下它只持续一帧。将其设置<code>0</code>为永久形状。</li>
 </ul>
 </li>
 </ul>
@@ -1268,11 +1268,15 @@ Alpha 通道。</li>
 <li><a name="carla.GBufferTextureID.GBufferC"></a><strong><font color="#f8805a">GBufferC</font></strong><br />
 纹理“GBufferC”包含 RGB 通道中的漫反射颜色，以及 Alpha 通道中的间接辐照度。
 如果不允许静态闪电，Alpha 通道将包含环境光遮挡。</li>
-<li><a name="carla.GBufferTextureID.GBufferD"></a><strong><font color="#f8805a">GBufferD</font></strong><br />
-“GBufferD”的内容根据渲染对象的材质着色模型 (GBufferB) 的不同而有所不同：<br></li>
-<li>MSM_Subsurface (2), MSM_PreintegratedSkin (3), MSM_TwoSidedFoliage (6):<br>
+<li>
+<p><a name="carla.GBufferTextureID.GBufferD"></a><strong><font color="#f8805a">GBufferD</font></strong><br />
+“GBufferD”的内容根据渲染对象的材质着色模型 (GBufferB) 的不同而有所不同：<br></p>
+</li>
+<li>
+<p>MSM_Subsurface (2), MSM_PreintegratedSkin (3), MSM_TwoSidedFoliage (6):<br>
     RGB: 次表面颜色。<br>
-    A: 不透明度。<br></li>
+    A: 不透明度。<br></p>
+</li>
 <li>MSM_ClearCoat (4):<br>
     R: 透明涂层。<br>
     G: 粗糙度。<br></li>
@@ -1284,12 +1288,16 @@ Alpha 通道。</li>
 <li>MSM_Cloth (8):<br>
     RGB: 次表面颜色。<br>
     A: Cloth value.<br></li>
-<li>MSM_Eye (9):<br>
+<li>
+<p>MSM_Eye (9):<br>
     RG: 眼切线。<br>
     B: 虹膜掩模。<br>
-    A: 虹膜距离。</li>
-<li><a name="carla.GBufferTextureID.GBufferE"></a><strong><font color="#f8805a">GBufferE</font></strong><br />
-纹理“GBufferE”包含 RGBA 通道中预先计算的阴影因子。如果选择性输出掩码 (GBufferB) 没有设置其第 4 位，则此纹理不可用。</li>
+    A: 虹膜距离。</p>
+</li>
+<li>
+<p><a name="carla.GBufferTextureID.GBufferE"></a><strong><font color="#f8805a">GBufferE</font></strong><br />
+纹理“GBufferE”包含 RGBA 通道中预先计算的阴影因子。如果选择性输出掩码 (GBufferB) 没有设置其第 4 位，则此纹理不可用。</p>
+</li>
 <li><a name="carla.GBufferTextureID.GBufferF"></a><strong><font color="#f8805a">GBufferF</font></strong><br />
 纹理“GBufferF”包含 RGB 通道中的世界空间切线和 Alpha 通道中的各向异性。如果选择性输出掩码 (GBufferB) 没有设置其第 5 位，则此纹理不可用。</li>
 <li><a name="carla.GBufferTextureID.Velocity"></a><strong><font color="#f8805a">Velocity</font></strong><br />
@@ -3153,12 +3161,12 @@ X-轴旋转角度。  </li>
 </ul>
 </li>
 <li><a name="carla.TrafficLight.get_elapsed_time"></a><strong><font color="#7fb800">get_elapsed_time</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-客户端根据上次滴答信息返回自当前灯光状态开始以来的时间（秒）。该方法不调用模拟器。 <ul>
+客户端根据上次节拍信号返回自当前灯光状态开始以来的时间（秒）。该方法不调用模拟器。 <ul>
 <li><strong>返回:</strong> <em>float<small> - seconds</small></em>  </li>
 </ul>
 </li>
 <li><a name="carla.TrafficLight.get_green_time"></a><strong><font color="#7fb800">get_green_time</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-客户端根据最后一个滴答信息返回为绿灯设置的时间。该方法不调用模拟器。<ul>
+客户端根据最后一个节拍信号返回为绿灯设置的时间。该方法不调用模拟器。<ul>
 <li><strong>返回:</strong> <em>float<small> - seconds</small></em>  </li>
 <li><strong>设置器：</strong> <em><a href="#carla.TrafficLight.set_green_time">carla.TrafficLight.set_green_time</a></em>  </li>
 </ul>
@@ -3186,13 +3194,13 @@ X-轴旋转角度。  </li>
 </ul>
 </li>
 <li><a name="carla.TrafficLight.get_red_time"></a><strong><font color="#7fb800">get_red_time</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-客户端根据最后一个滴答信息返回交通信号灯变红的时间设置。该方法不调用模拟器。<ul>
+客户端根据最后一个节拍信号返回交通信号灯变红的时间设置。该方法不调用模拟器。<ul>
 <li><strong>返回:</strong> <em>float<small> - seconds</small></em>  </li>
 <li><strong>设置器：</strong> <em><a href="#carla.TrafficLight.set_red_time">carla.TrafficLight.set_red_time</a></em>  </li>
 </ul>
 </li>
 <li><a name="carla.TrafficLight.get_state"></a><strong><font color="#7fb800">get_state</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-客户端根据最后一个滴答信息返回交通信号灯的状态。该方法不调用模拟器。<ul>
+客户端根据最后一个节拍信号返回交通信号灯的状态。该方法不调用模拟器。<ul>
 <li><strong>返回:</strong> <em><a href="#carla.TrafficLightState">carla.TrafficLightState</a></em>  </li>
 <li><strong>设置起：</strong> <em><a href="#carla.TrafficLight.set_state">carla.TrafficLight.set_state</a></em>  </li>
 </ul>
@@ -3203,7 +3211,7 @@ X-轴旋转角度。  </li>
 </ul>
 </li>
 <li><a name="carla.TrafficLight.get_yellow_time"></a><strong><font color="#7fb800">get_yellow_time</font></strong>(<font color="#00a6ed"><strong>self</strong></font>)<br />
-客户端根据最后一个滴答信息返回为交通信号灯设置为黄色的时间。该方法不调用模拟器。<ul>
+客户端根据最后一个节拍信号返回为交通信号灯设置为黄色的时间。该方法不调用模拟器。<ul>
 <li><strong>返回:</strong> <em>float<small> - 秒</small></em>  </li>
 <li><strong>设置器：</strong> <em><a href="#carla.TrafficLight.set_yellow_time">carla.TrafficLight.set_yellow_time</a></em>  </li>
 </ul>
@@ -4872,7 +4880,7 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 <li><a name="carla.World.wait_for_tick"></a><strong><font color="#7fb800">wait_for_tick</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>seconds</strong>=10.0</font>)<br />
 该方法使用 <a href="../adv_synchrony_timestep/">异步模式</a> 。它使客户端等待服务器的节拍信号。当计算下一帧时，服务器将发出节拍信号并返回描述世界新状态的快照。<ul>
 <li><strong>参数:</strong><ul>
-<li><code>seconds</code> (<em>float<small> - seconds</small></em>) - 服务器等待滴答的最长时间。默认设置为 <code>10.0</code>。</li>
+<li><code>seconds</code> (<em>float<small> - 秒</small></em>) - 服务器等待节拍信号的最长时间。默认设置为 <code>10.0</code>。</li>
 </ul>
 </li>
 <li><strong>返回:</strong> <em><a href="#carla.WorldSnapshot">carla.WorldSnapshot</a></em>  </li>
@@ -5061,7 +5069,7 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 <h3 id="_248">实例变量</h3>
 <ul>
 <li><a name="carla.WorldSettings.synchronous_mode"></a><strong><font color="#f8805a">synchronous_mode</font></strong> (<em>bool</em>)<br />
-表示客户端和服务器之间的同步。当设置为 true 时，服务器将等待客户端滴答以便继续前进。默认情况下为 false。</li>
+表示客户端和服务器之间的同步。当设置为 true 时，服务器将等待客户端节拍信号以便继续前进。默认情况下为 false。</li>
 <li><a name="carla.WorldSettings.no_rendering_mode"></a><strong><font color="#f8805a">no_rendering_mode</font></strong> (<em>bool</em>)<br />
 启用后，模拟将根本不运行渲染。这主要用于避免繁忙交通模拟期间的开销。默认情况下为 false。</li>
 <li><a name="carla.WorldSettings.fixed_delta_seconds"></a><strong><font color="#f8805a">fixed_delta_seconds</font></strong> (<em>float</em>)<br />
@@ -5600,9 +5608,9 @@ Actor affected by the command.  </li>
 </ul>
 </li>
 <li><a name="command.SpawnActor.then"></a><strong><font color="#7fb800">then</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>command</strong></font>)<br />
-链接一个其他将要立刻执行的命令。它允许ease非常常见的流，比如通过命令生成一组车辆，并使用该方法设置自动驾驶。<ul>
+链接一个其他将要立刻执行的命令。它可以简化一些常见的流程，比如通过命令生成一组车辆，并使用该方法设置自动驾驶。<ul>
 <li><strong>参数：</strong><ul>
-<li><code>command</code> (<em>any carla Command</em>) - 一个 Carla 命令。  </li>
+<li><code>command</code> (<em>任何 carla 命令</em>) - 一个 Carla 命令。  </li>
 </ul>
 </li>
 </ul>

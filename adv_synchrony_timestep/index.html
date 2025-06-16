@@ -231,7 +231,7 @@
 <p>来自基于GPU的传感器（主要是摄像头）的重要数据通常会延迟几帧。在这里，同步是至关重要的。</p>
 </div>
 <p>世界具有异步方法，可以让客户端等待服务器的时间步进，或在收到时执行某些操作。</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># 等待下一个滴答信息并检索该节拍的快照。</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># 等待下一个节拍信息并检索该节拍的快照。</span>
 <span class="n">world_snapshot</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">wait_for_tick</span><span class="p">()</span>
 
 <span class="c1"># 注册一个回调函数，每次接收到新快照时调用它。</span>
