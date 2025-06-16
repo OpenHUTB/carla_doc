@@ -770,7 +770,7 @@ Y 像素坐标。
         - `thickness` (_float<small> - 米</small>_) - 线的密度。  
         - `arrow_size` (_float<small> - 米</small>_) - 箭头尖端的大小。
         - `color` (_[carla.Color](#carla.Color)_) - 用于为对象着色的 RGB 代码。默认为红色。
-        - `life_time` (_float<small> - seconds</small>_) - 形状的生命周期。默认情况下它只持续一帧。将其设置<code>0</code>为永久形状。 
+        - `life_time` (_float<small> - 秒</small>_) - 形状的生命周期。默认情况下它只持续一帧。将其设置<code>0</code>为永久形状。 
 - <a name="carla.DebugHelper.draw_box"></a>**<font color="#7fb800">draw_box</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**box**</font>, <font color="#00a6ed">**rotation**</font>, <font color="#00a6ed">**thickness**=0.1</font>, <font color="#00a6ed">**color**=(255,0,0)</font>, <font color="#00a6ed">**life_time**=-1.0</font>)<button class="SnipetButton" id="carla.DebugHelper.draw_box-snipet_button">snippet &rarr;</button>  
 绘制一个框，通常用于对象碰撞体。  
     - **参数：**
@@ -825,7 +825,7 @@ Y 像素坐标。
         - `location` (_[carla.Location](#carla.Location)<small> - 米</small>_) - 在坐标系中点以将对象居中。
         - `size` (_float<small> - 米</small>_) - 点的密度。
         - `color` (_[carla.Color](#carla.Color)_) - 用于为对象着色的 RGB 代码。默认为红色。
-        - `life_time` (_float<small> - seconds</small>_) - 形状的生命周期。默认情况下它只持续一帧。将其设置<code>0</code>为永久形状。
+        - `life_time` (_float<small> - 秒</small>_) - 形状的生命周期。默认情况下它只持续一帧。将其设置<code>0</code>为永久形状。
 - <a name="carla.DebugHelper.draw_string"></a>**<font color="#7fb800">draw_string</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**location**</font>, <font color="#00a6ed">**text**</font>, <font color="#00a6ed">**draw_shadow**=False</font>, <font color="#00a6ed">**color**=(255,0,0)</font>, <font color="#00a6ed">**life_time**=-1.0</font>)<button class="SnipetButton" id="carla.DebugHelper.draw_string-snipet_button">snippet &rarr;</button>  
 在模拟的给定位置绘制一个字符串，该字符串只能在服务器端看到。
     - **参数：**
@@ -833,7 +833,7 @@ Y 像素坐标。
         - `text` (_str_) - 旨在向世界展示的文本。 
         - `draw_shadow` (_bool_) - 为字符串投射阴影，有助于可视化。默认情况下它是禁用的。
         - `color` (_[carla.Color](#carla.Color)_) - 用于为字符串着色的 RGB 代码。默认为红色。
-        - `life_time` (_float<small> - seconds</small>_) - 形状的生命周期。默认情况下它只持续一帧。将其设置<code>0</code>为永久形状。
+        - `life_time` (_float<small> - 秒</small>_) - 形状的生命周期。默认情况下它只持续一帧。将其设置<code>0</code>为永久形状。
 - <a name="carla.DebugHelper.clear_debug_shape"></a>**<font color="#7fb800">clear_debug_shape</font>**(<font color="#00a6ed">**self**</font></font>) 
 清除模拟器上的所有调试形状。
 - <a name="carla.DebugHelper.clear_debug_string"></a>**<font color="#7fb800">clear_debug_string</font>**(<font color="#00a6ed">**self**</font></font>) 
@@ -913,6 +913,7 @@ Alpha 通道。
 如果不允许静态闪电，Alpha 通道将包含环境光遮挡。
 - <a name="carla.GBufferTextureID.GBufferD"></a>**<font color="#f8805a">GBufferD</font>**  
 “GBufferD”的内容根据渲染对象的材质着色模型 (GBufferB) 的不同而有所不同：<br>
+
   - MSM_Subsurface (2), MSM_PreintegratedSkin (3), MSM_TwoSidedFoliage (6):<br>
     RGB: 次表面颜色。<br>
     A: 不透明度。<br>
@@ -931,6 +932,7 @@ Alpha 通道。
     RG: 眼切线。<br>
     B: 虹膜掩模。<br>
     A: 虹膜距离。
+
 - <a name="carla.GBufferTextureID.GBufferE"></a>**<font color="#f8805a">GBufferE</font>**  
 纹理“GBufferE”包含 RGBA 通道中预先计算的阴影因子。如果选择性输出掩码 (GBufferB) 没有设置其第 4 位，则此纹理不可用。
 - <a name="carla.GBufferTextureID.GBufferF"></a>**<font color="#f8805a">GBufferF</font>**  
@@ -2484,10 +2486,10 @@ _</font>
 返回一个路径点列表，指示交通信号灯产生影响的位置和车道。 
     - **返回:** _list([carla.Waypoint](#carla.Waypoint))_  
 - <a name="carla.TrafficLight.get_elapsed_time"></a>**<font color="#7fb800">get_elapsed_time</font>**(<font color="#00a6ed">**self**</font>)  
-客户端根据上次滴答信息返回自当前灯光状态开始以来的时间（秒）。该方法不调用模拟器。 
+客户端根据上次节拍信号返回自当前灯光状态开始以来的时间（秒）。该方法不调用模拟器。 
     - **返回:** _float<small> - seconds</small>_  
 - <a name="carla.TrafficLight.get_green_time"></a>**<font color="#7fb800">get_green_time</font>**(<font color="#00a6ed">**self**</font>)  
-客户端根据最后一个滴答信息返回为绿灯设置的时间。该方法不调用模拟器。
+客户端根据最后一个节拍信号返回为绿灯设置的时间。该方法不调用模拟器。
     - **返回:** _float<small> - seconds</small>_  
     - **设置器：** _[carla.TrafficLight.set_green_time](#carla.TrafficLight.set_green_time)_  
 - <a name="carla.TrafficLight.get_group_traffic_lights"></a>**<font color="#7fb800">get_group_traffic_lights</font>**(<font color="#00a6ed">**self**</font>)  
@@ -2505,18 +2507,18 @@ _</font>
 返回将其标识为交叉口交通信号灯组一部分的杆的索引。  
     - **返回:** _int_  
 - <a name="carla.TrafficLight.get_red_time"></a>**<font color="#7fb800">get_red_time</font>**(<font color="#00a6ed">**self**</font>)  
-客户端根据最后一个滴答信息返回交通信号灯变红的时间设置。该方法不调用模拟器。
+客户端根据最后一个节拍信号返回交通信号灯变红的时间设置。该方法不调用模拟器。
     - **返回:** _float<small> - seconds</small>_  
     - **设置器：** _[carla.TrafficLight.set_red_time](#carla.TrafficLight.set_red_time)_  
 - <a name="carla.TrafficLight.get_state"></a>**<font color="#7fb800">get_state</font>**(<font color="#00a6ed">**self**</font>)  
-客户端根据最后一个滴答信息返回交通信号灯的状态。该方法不调用模拟器。
+客户端根据最后一个节拍信号返回交通信号灯的状态。该方法不调用模拟器。
     - **返回:** _[carla.TrafficLightState](#carla.TrafficLightState)_  
     - **设置起：** _[carla.TrafficLight.set_state](#carla.TrafficLight.set_state)_  
 - <a name="carla.TrafficLight.get_stop_waypoints"></a>**<font color="#7fb800">get_stop_waypoints</font>**(<font color="#00a6ed">**self**</font>)  
 返回指示交通信号灯停止位置的路点列表。这些路点是根据交通信号灯的触发框计算出来的，这些触发框指示车辆应该停在哪里。
     - **返回:** _list([carla.Waypoint](#carla.Waypoint))_  
 - <a name="carla.TrafficLight.get_yellow_time"></a>**<font color="#7fb800">get_yellow_time</font>**(<font color="#00a6ed">**self**</font>)  
-客户端根据最后一个滴答信息返回为交通信号灯设置为黄色的时间。该方法不调用模拟器。
+客户端根据最后一个节拍信号返回为交通信号灯设置为黄色的时间。该方法不调用模拟器。
     - **返回:** _float<small> - 秒</small>_  
     - **设置器：** _[carla.TrafficLight.set_yellow_time](#carla.TrafficLight.set_yellow_time)_  
 
@@ -3710,7 +3712,7 @@ _</font>
 - <a name="carla.World.wait_for_tick"></a>**<font color="#7fb800">wait_for_tick</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**seconds**=10.0</font>)  
 该方法使用 [异步模式](adv_synchrony_timestep.md) 。它使客户端等待服务器的节拍信号。当计算下一帧时，服务器将发出节拍信号并返回描述世界新状态的快照。
     - **参数:**
-        - `seconds` (_float<small> - seconds</small>_) - 服务器等待滴答的最长时间。默认设置为 <code>10.0</code>。
+        - `seconds` (_float<small> - 秒</small>_) - 服务器等待节拍信号的最长时间。默认设置为 <code>10.0</code>。
     - **返回:** _[carla.WorldSnapshot](#carla.WorldSnapshot)_  
 
 ##### 设置器
@@ -3823,7 +3825,7 @@ _</font>
 
 ### 实例变量
 - <a name="carla.WorldSettings.synchronous_mode"></a>**<font color="#f8805a">synchronous_mode</font>** (_bool_)  
-表示客户端和服务器之间的同步。当设置为 true 时，服务器将等待客户端滴答以便继续前进。默认情况下为 false。
+表示客户端和服务器之间的同步。当设置为 true 时，服务器将等待客户端节拍信号以便继续前进。默认情况下为 false。
 - <a name="carla.WorldSettings.no_rendering_mode"></a>**<font color="#f8805a">no_rendering_mode</font>** (_bool_)  
 启用后，模拟将根本不运行渲染。这主要用于避免繁忙交通模拟期间的开销。默认情况下为 false。
 - <a name="carla.WorldSettings.fixed_delta_seconds"></a>**<font color="#f8805a">fixed_delta_seconds</font>** (_float_)  
@@ -4253,9 +4255,9 @@ Actor affected by the command.
         - `transform` (_[carla.Transform](#carla.Transform)_)  
         - `parent` (_[carla.Actor](#carla.Actor) or int_)  
 - <a name="command.SpawnActor.then"></a>**<font color="#7fb800">then</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**command**</font>)  
-链接一个其他将要立刻执行的命令。它允许ease非常常见的流，比如通过命令生成一组车辆，并使用该方法设置自动驾驶。
+链接一个其他将要立刻执行的命令。它可以简化一些常见的流程，比如通过命令生成一组车辆，并使用该方法设置自动驾驶。
     - **参数：**
-        - `command` (_any carla Command_) - 一个 Carla 命令。  
+        - `command` (_任何 carla 命令_) - 一个 Carla 命令。  
 
 ---
 [comment]: <> (=========================)

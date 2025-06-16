@@ -753,7 +753,7 @@ raw_image.save_to_disk("path/to/save/converted/image",carla.cityScapesPalette)
 | `fov`   | float   | 90\.0   | 水平视野（以度为单位）。                                                            |
 | `image_size_x`            | int     | 800     | 图像宽度（以像素为单位）。                                                           |
 | `image_size_y`            | int     | 600     | 图像高度（以像素为单位）。                                                           |
-| `sensor_tick` | float   | 0\.0    | 传感器捕获之间的模拟秒数（滴答声）。 |
+| `sensor_tick` | float   | 0\.0    | 传感器捕获之间的模拟秒数（节拍信号）。 |
 
 
 
@@ -1041,7 +1041,7 @@ Carla 目前支持模拟简单的广播无线信道和两条应用消息。尚�
 #### 自定义 V2X 消息 <span id="custom-v2x-message"></span>
 
 *   __蓝图：__ sensor.other.v2x_custom
-*   __输出：__ [carla.CustomV2XData](python_api.md#carla.CustomV2XData)，在调用 *send()* 后触发下一个滴答信息
+*   __输出：__ [carla.CustomV2XData](python_api.md#carla.CustomV2XData)，在调用 *send()* 后触发下一个节拍信息
 
 ##### 方法
 - <a name="carla.Sensor.send"></a>**<font color="#7fb800">send</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**callback**</font>)
