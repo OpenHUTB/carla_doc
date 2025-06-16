@@ -834,6 +834,11 @@ Y 像素坐标。
         - `draw_shadow` (_bool_) - 为字符串投射阴影，有助于可视化。默认情况下它是禁用的。
         - `color` (_[carla.Color](#carla.Color)_) - 用于为字符串着色的 RGB 代码。默认为红色。
         - `life_time` (_float<small> - seconds</small>_) - 形状的生命周期。默认情况下它只持续一帧。将其设置<code>0</code>为永久形状。
+- <a name="carla.DebugHelper.clear_debug_shape"></a>**<font color="#7fb800">clear_debug_shape</font>**(<font color="#00a6ed">**self**</font></font>) 
+清除模拟器上的所有调试形状。
+- <a name="carla.DebugHelper.clear_debug_string"></a>**<font color="#7fb800">clear_debug_string</font>**(<font color="#00a6ed">**self**</font></font>) 
+清除模拟器上的所有调试字符串。
+
 
 ---
 
