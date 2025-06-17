@@ -1,4 +1,4 @@
-# <center> 人车模拟 </center>
+# <p align=center> 人车模拟  </p>
 
 <!-- Badges (flat): https://github.com/pudding0503/github-badge-collection -->
 <p align=center>
