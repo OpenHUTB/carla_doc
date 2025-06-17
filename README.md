@@ -1,6 +1,9 @@
-# <center> 人车模拟
+<p align=center style="color:black;font-size:47px;">
+    <b>人车模拟</b>
+</p>
 
-<!-- Badges -->
+
+<!-- Badges (flat): https://github.com/pudding0503/github-badge-collection -->
 <p align=center>
     <a href="https://github.com/OpenHUTB/carla_doc/actions">
         <img src="https://raw.githubusercontent.com/OpenHUTB/carla_doc/refs/heads/master/docs/img/badge.svg" alt="Continuous Integration Badge">
@@ -21,9 +24,14 @@
         <img src="https://img.shields.io/github/contributors/OpenHUTB/carla_doc" alt="ZenHub Badge">
     </a>
     <a href="https://github.com/OpenHUTB/carla_doc">
+        <img src="https://camo.githubusercontent.com/a2746db9952e0d9515498da4e1fb68e9101e40d534de5c644e22afa1e997964a/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4d61726b646f776e2d3030303030303f7374796c653d666c6174266c6f676f3d4d61726b646f776e266c6f676f436f6c6f723d666666666666" alt="ZenHub Badge">
+    </a>
+    <a href="https://github.com/OpenHUTB/carla_doc">
         <img src="https://img.shields.io/github/forks/OpenHUTB/carla_doc" alt="ZenHub Badge">
     </a>
 </p>
+
+该项目是一款能让用户快速测试 [车辆](https://openhutb.github.io/carla_doc/#_4) 和 [行人](https://openhutb.github.io/carla_doc/#_5) 感知、规划、控制算法的模拟器文档。
 
 ---
 
