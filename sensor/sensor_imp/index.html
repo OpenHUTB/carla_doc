@@ -60,7 +60,7 @@
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
       <li class="breadcrumb-item active">传感器实现</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/sensor/sensor_imp.md" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/OpenHUTB/doc/edit/master/docs/sensor/sensor_imp.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -71,7 +71,7 @@
                 <h1 id="_1">传感器实现</h1>
 <h2 id="libcarla">LibCarla模块</h2>
 <p>传感器分两种类型，一种是事件触发来发送数据的，例如压线检测，只有当车轮压到车道线时才会触发；
-一种是连续更新数据的，一般是周期性发送数据。以detector结尾的是事件触发类型的传感器，在代码中对应 <a href="https://github.com/OpenHUTB/carla/tree/ue4-dev/LibCarla/source/carla/sensor/data">LibCarla/source/carla/sensor/data/XXXEvent.h</a> ；其他是连续发送数据类型的传感器，在代码中对应<a href="https://github.com/OpenHUTB/carla/tree/ue4-dev/LibCarla/source/carla/sensor/data">LibCarla/source/carla/sensor/data/XXXMeasurement.h</a> 。按照服务端和客户端来划分，<a href="https://openhutb.github.io/carla_doc/ref_sensors/#lane-invasion-detector">压线检测器</a> 是在客户端实现的，其余传感器在服务端实现。传感器使用 UE 坐标系统左手定则，<script type="math/tex"> x </script>向前，<script type="math/tex"> y </script> 向右，<script type="math/tex"> z </script> 向上。</p>
+一种是连续更新数据的，一般是周期性发送数据。以detector结尾的是事件触发类型的传感器，在代码中对应 <a href="https://github.com/OpenHUTB/carla/tree/ue4-dev/LibCarla/source/carla/sensor/data">LibCarla/source/carla/sensor/data/XXXEvent.h</a> ；其他是连续发送数据类型的传感器，在代码中对应<a href="https://github.com/OpenHUTB/carla/tree/ue4-dev/LibCarla/source/carla/sensor/data">LibCarla/source/carla/sensor/data/XXXMeasurement.h</a> 。按照服务端和客户端来划分，<a href="https://openhutb.github.io/doc/ref_sensors/#lane-invasion-detector">压线检测器</a> 是在客户端实现的，其余传感器在服务端实现。传感器使用 UE 坐标系统左手定则，<script type="math/tex"> x </script>向前，<script type="math/tex"> y </script> 向右，<script type="math/tex"> z </script> 向上。</p>
 <h2 id="carlaue4">CarlaUE4模块</h2>
 <p>从 <a href="https://openhutb.github.io/carla_cpp/d1/da4/classAActor.html">类AActor继承关系图</a> 中可知：所有的Sensor都从AActor继承而来。一个Sensor本质上就是一个Actor。Sensor的实现部分在AXXXSenosr类里面，对应的代码位置在 <a href="https://github.com/OpenHUTB/carla/tree/ue4-dev/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor">Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/</a> 中。</p>
 <h2 id="_2">参考</h2>
@@ -100,7 +100,7 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
         <span>
-          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+          <a href="https://github.com/OpenHUTB/doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
         </span>
     
     

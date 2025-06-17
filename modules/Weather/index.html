@@ -60,7 +60,7 @@
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
       <li class="breadcrumb-item active">目录</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/modules/Weather.md" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/OpenHUTB/doc/edit/master/docs/modules/Weather.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -86,7 +86,7 @@
 </ul>
 <h1 id="_6">天气</h1>
 <h2 id="_7">调用流程</h2>
-<p>1.Python中的 <a href="https://github.com/OpenHUTB/carla_doc/blob/87d6e1d34ea0f6df2a32525a164f6d657b6319fd/src/examples/dynamic_weather.py#L166"><code>World.set_weather()</code></a> 调用 <a href="https://github.com/OpenHUTB/carla_cpp/blob/cd67e7a09f047dc9b0826f94c10f3232fc37bda6/LibCarla/source/carla/client/World.cpp#L90"><code>client/World.cpp</code></a> 中的<code>World::SetWeather()</code>，PythonAPI具体天气参数定义在 <a href="https://github.com/OpenHUTB/carla_cpp/blob/dev/PythonAPI/carla/source/libcarla/Weather.cpp">PythonAPI/carla/source/libcarla/Weather.cpp</a> 。</p>
+<p>1.Python中的 <a href="https://github.com/OpenHUTB/doc/blob/87d6e1d34ea0f6df2a32525a164f6d657b6319fd/src/examples/dynamic_weather.py#L166"><code>World.set_weather()</code></a> 调用 <a href="https://github.com/OpenHUTB/carla_cpp/blob/cd67e7a09f047dc9b0826f94c10f3232fc37bda6/LibCarla/source/carla/client/World.cpp#L90"><code>client/World.cpp</code></a> 中的<code>World::SetWeather()</code>，PythonAPI具体天气参数定义在 <a href="https://github.com/OpenHUTB/carla_cpp/blob/dev/PythonAPI/carla/source/libcarla/Weather.cpp">PythonAPI/carla/source/libcarla/Weather.cpp</a> 。</p>
 <p>2.<a href="https://github.com/OpenHUTB/carla_cpp/blob/dev/LibCarla/source/carla/client/detail/Client.cpp">client/detail/Client.cpp</a> 的 <code>Client::SetWeatherParameters()</code>，调用 <code>_pimpl-&gt;AsyncCall("set_weather_parameters", weather)</code>。
 然后通过<code>class Client::Pimpl</code>类的<code>AsyncCall()</code>方法发起远程异步调用<code>rpc::Client.async_call(function, std::forward&lt;Args&gt;(args) ...)</code>。</p>
 <p>3.通过<a href="https://github.com/OpenHUTB/carla_cpp/blob/cd67e7a09f047dc9b0826f94c10f3232fc37bda6/LibCarla/source/carla/rpc/Client.h#L69">rpc/Client.h</a> 的 <code>async_call()</code>，最后使用<code>rpc::client</code>库中的<code>async_call()</code>进行远程调用服务端。具体天气类别位于 <a href="https://github.com/OpenHUTB/carla_cpp/blob/dev/LibCarla/source/carla/rpc/WeatherParameters.cpp">rpc/WeatherParameter.cpp</a> 。</p>
@@ -442,7 +442,7 @@ AWeather 类在构造函数中直接硬编码了两个后处理材质的路径�
   <span class="rst-current-version" data-toggle="rst-current-version">
     
         <span>
-          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+          <a href="https://github.com/OpenHUTB/doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
         </span>
     
     

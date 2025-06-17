@@ -60,7 +60,7 @@
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
       <li class="breadcrumb-item active">通过 API 更改纹理</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/tuto_G_texture_streaming.md" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/OpenHUTB/doc/edit/master/docs/tuto_G_texture_streaming.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -97,7 +97,7 @@
 </code></pre></div>
 <h2 id="_4">更新纹理</h2>
 <p>加载修改后的图像后，实例化<a href="../python_api/#carla.TextureColor">carla.TextureColor</a>对象并填充加载图像中的像素数据。</p>
-<p>使用 <a href="../python_api/#carla.World">carla.World</a> 对象的 <code>apply_color_texture_to_object(...)</code> 方法来更新纹理。您应该在 UE4 观察者视图中看到纹理更新。<a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/demo/tuto_G_texture_streaming.py">完整代码</a> 。</p>
+<p>使用 <a href="../python_api/#carla.World">carla.World</a> 对象的 <code>apply_color_texture_to_object(...)</code> 方法来更新纹理。您应该在 UE4 观察者视图中看到纹理更新。<a href="https://github.com/OpenHUTB/doc/blob/master/src/demo/tuto_G_texture_streaming.py">完整代码</a> 。</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 加载已修改的纹理</span>
 <span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;BP_Apartment04_v05_modified.tga&#39;</span><span class="p">)</span>
 <span class="n">height</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
@@ -127,7 +127,7 @@
 <p><div class="highlight"><pre><span></span><code><span class="n">lincoln_vehicle</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">k</span><span class="p">:</span> <span class="s1">&#39;BP_Lincoln&#39;</span> <span class="ow">in</span> <span class="n">k</span><span class="p">,</span> <span class="n">world</span><span class="o">.</span><span class="n">get_names_of_all_objects</span><span class="p">()))</span>
 <span class="n">world</span><span class="o">.</span><span class="n">apply_color_texture_to_object</span><span class="p">(</span><span class="n">lincoln_vehicle</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">carla</span><span class="o">.</span><span class="n">MaterialParameter</span><span class="o">.</span><span class="n">Diffuse</span><span class="p">,</span> <span class="n">texture_1</span><span class="p">)</span>
 </code></pre></div>
-完整代码请参考<a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/demo/tuto_G_texture_streaming.py">链接</a> 。</p>
+完整代码请参考<a href="https://github.com/OpenHUTB/doc/blob/master/src/demo/tuto_G_texture_streaming.py">链接</a> 。</p>
               
             </div>
           </div><footer>
@@ -152,7 +152,7 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
         <span>
-          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+          <a href="https://github.com/OpenHUTB/doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
         </span>
     
     

@@ -60,7 +60,7 @@
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
       <li class="breadcrumb-item active">在 Windows 上进行 Carla 的调试</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/OpenHUTB/carla_doc/edit/master/docs/tuto_D_windows_debug.md" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/OpenHUTB/doc/edit/master/docs/tuto_D_windows_debug.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -153,19 +153,19 @@
 <p>当前工程是Debug版本（0），而引用的库文件时Release版本（2）。</p>
 <p>需要将其他的.lib文件编译为debug模式：</p>
 <p>0.打开<code>x64 Native Tools Command for VS 2019</code>，并切换到目录<code>Util/Intallers</code>下。</p>
-<p>1.切换到目录<code>Util/InstallersWin</code>，将<a href="https://github.com/OpenHUTB/carla/blob/ue4-dev/Util/InstallersWin/install_boost.bat"><code>install_boost.bat</code></a> 内的b2运行参数改为<code>variant=debug</code>（根据<code>Util/BuildTools/Setup.bat</code>里的安装Boost命令改编），（或者将 <a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/cmake/install_boost_debug.bat">install_boost_debug.bat</a> 拷贝到<code>Util/InstallerWin</code>目录下），然后运行<a href="https://github.com/OpenHUTB/carla_doc/tree/master/src/cmake/install_boost_debug.bat"><code>install_boost_debug.bat</code></a> ：
+<p>1.切换到目录<code>Util/InstallersWin</code>，将<a href="https://github.com/OpenHUTB/carla/blob/ue4-dev/Util/InstallersWin/install_boost.bat"><code>install_boost.bat</code></a> 内的b2运行参数改为<code>variant=debug</code>（根据<code>Util/BuildTools/Setup.bat</code>里的安装Boost命令改编），（或者将 <a href="https://github.com/OpenHUTB/doc/blob/master/src/cmake/install_boost_debug.bat">install_boost_debug.bat</a> 拷贝到<code>Util/InstallerWin</code>目录下），然后运行<a href="https://github.com/OpenHUTB/doc/tree/master/src/cmake/install_boost_debug.bat"><code>install_boost_debug.bat</code></a> ：
 <div class="highlight"><pre><span></span><code>install_boost_debug.bat<span class="w"> </span>--build-dir<span class="w"> </span>C:<span class="se">\b</span>uf<span class="w"> </span>--toolset<span class="w"> </span>msvc-14.2<span class="w"> </span>--version<span class="w"> </span><span class="m">1</span>.80.0<span class="w"> </span>-j<span class="w"> </span><span class="m">4</span>
 </code></pre></div>
 会自动将boost的库和头文件安装到目录<code>D:\buffer\boost-1.80.0-install</code>里面。</p>
 <p>将<a href="https://github.com/carla-simulator/carla/blob/dev/Util/InstallersWin/install_recast.bat"><code>install_recast.bat</code></a> 中的<code>Relase</code>改为<code>Debug</code>。
-将<code>-DCMAKE_CXX_FLAGS_RELASE="/MD /MP"</code>改为多线程调试DLL<code>-DCMAKE_CXX_FLAGS_DEBUG="/MDd /MP"</code>，（或者将 <a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/cmake/install_recast_debug.bat">install_recast_debug.bat</a> 拷贝到<code>Util/InstallerWin</code>目录下），然后运行<a href="https://github.com/OpenHUTB/carla_doc/tree/master/src/cmake/install_recast_debug.bat"><code>install_recast_debug.bat</code></a> 。
+将<code>-DCMAKE_CXX_FLAGS_RELASE="/MD /MP"</code>改为多线程调试DLL<code>-DCMAKE_CXX_FLAGS_DEBUG="/MDd /MP"</code>，（或者将 <a href="https://github.com/OpenHUTB/doc/blob/master/src/cmake/install_recast_debug.bat">install_recast_debug.bat</a> 拷贝到<code>Util/InstallerWin</code>目录下），然后运行<a href="https://github.com/OpenHUTB/doc/tree/master/src/cmake/install_recast_debug.bat"><code>install_recast_debug.bat</code></a> 。
 <div class="highlight"><pre><span></span><code>install_recast_debug.bat<span class="w"> </span>--build-dir<span class="w"> </span>C:<span class="se">\b</span>uf<span class="w"> </span>--generator<span class="w"> </span><span class="s2">&quot;Visual Studio 16 2019&quot;</span>
 </code></pre></div></p>
-<p>将<a href="https://github.com/carla-simulator/carla/blob/dev/Util/InstallersWin/install_rpclib.bat"><code>install_rpclib.bat</code></a> 中的<code>Relase</code>改为<code>Debug</code>，运行<a href="https://github.com/OpenHUTB/carla_doc/tree/master/src/cmake/install_rpclib.bat"><code>install_rpclib.bat</code></a> 。
-将<code>-DCMAKE_CXX_FLAGS_RELASE="/MD /MP"</code>改为多线程调试DLL<code>-DCMAKE_CXX_FLAGS_DEBUG="/MDd /MP"</code>。或者将<a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/cmake/install_rpclib_debug.bat">install_rpclib_debug.bat</a> 拷贝到<code>Util/InstallerWin</code>目录下），然后运行：
+<p>将<a href="https://github.com/carla-simulator/carla/blob/dev/Util/InstallersWin/install_rpclib.bat"><code>install_rpclib.bat</code></a> 中的<code>Relase</code>改为<code>Debug</code>，运行<a href="https://github.com/OpenHUTB/doc/tree/master/src/cmake/install_rpclib.bat"><code>install_rpclib.bat</code></a> 。
+将<code>-DCMAKE_CXX_FLAGS_RELASE="/MD /MP"</code>改为多线程调试DLL<code>-DCMAKE_CXX_FLAGS_DEBUG="/MDd /MP"</code>。或者将<a href="https://github.com/OpenHUTB/doc/blob/master/src/cmake/install_rpclib_debug.bat">install_rpclib_debug.bat</a> 拷贝到<code>Util/InstallerWin</code>目录下），然后运行：
 <div class="highlight"><pre><span></span><code>install_rpclib_debug.bat<span class="w"> </span>--build-dir<span class="w"> </span>C:<span class="se">\b</span>uf<span class="w"> </span>--generator<span class="w"> </span><span class="s2">&quot;Visual Studio 16 2019&quot;</span>
 </code></pre></div></p>
-<p>2.将第1步生成的安装文件目录配置到<code>Examples\CppClient\CMakeLists.txt</code>中（即将 <a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/cmake/cpp_client_debug.txt">cpp_client_debug.txt</a> 拷贝到<code>Examples/CppClient</code>目录下并重命名为<code>CMakeLists.txt</code> ），对应的头文件和库文件都改为Debug版本（即将<code>C:\buf</code>目录下的<code>boost-1.80.0-install</code>、<code>recast-install</code>、<code>rpclib-install</code>3个文件夹拷贝到<code>Build\debug</code>目录下）；</p>
+<p>2.将第1步生成的安装文件目录配置到<code>Examples\CppClient\CMakeLists.txt</code>中（即将 <a href="https://github.com/OpenHUTB/doc/blob/master/src/cmake/cpp_client_debug.txt">cpp_client_debug.txt</a> 拷贝到<code>Examples/CppClient</code>目录下并重命名为<code>CMakeLists.txt</code> ），对应的头文件和库文件都改为Debug版本（即将<code>C:\buf</code>目录下的<code>boost-1.80.0-install</code>、<code>recast-install</code>、<code>rpclib-install</code>3个文件夹拷贝到<code>Build\debug</code>目录下）；</p>
 <p>3.在<code>main.cpp</code>中增加断点，并开始调试；
 <img alt="" src="../img/tuto_D_windows_debug/set_breakpoint_in_cpp_client.jpg" />
 <div class="highlight"><pre><span></span><code>auto<span class="w"> </span><span class="nv">world</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>client.LoadWorld<span class="o">(</span><span class="s2">&quot;town_name&quot;</span><span class="o">)</span><span class="p">;</span>
@@ -173,7 +173,7 @@
 改为：
 <div class="highlight"><pre><span></span><code>auto<span class="w"> </span><span class="nv">world</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>client.LoadWorld<span class="o">(</span><span class="s2">&quot;Town10HD_Opt&quot;</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
-即将<a href="https://github.com/OpenHUTB/carla_doc/blob/master/src/cmake/main_debug.cpp">main_debug.cpp</a> 拷贝到<code>Examples/CppClient</code>目录下。</p>
+即将<a href="https://github.com/OpenHUTB/doc/blob/master/src/cmake/main_debug.cpp">main_debug.cpp</a> 拷贝到<code>Examples/CppClient</code>目录下。</p>
 <p>4.使用VS2019打开<code>Examples/CppClient/CMakeLists.txt</code>，程序在断点停止后按F10运行下一步，按F11进入LibCarla中的函数实现。
 <img alt="" src="../img/tuto_D_windows_debug/stop_in_LibCarla.jpg" /></p>
 <div class="admonition 注意">
@@ -459,7 +459,7 @@ D:<span class="se">\w</span>ork<span class="se">\w</span>orkspace<span class="se
   <span class="rst-current-version" data-toggle="rst-current-version">
     
         <span>
-          <a href="https://github.com/OpenHUTB/carla_doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+          <a href="https://github.com/OpenHUTB/doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
         </span>
     
     
