@@ -8,7 +8,7 @@
     <a href="https://github.com/OpenHUTB/carla_doc/actions">
         <img src="https://raw.githubusercontent.com/OpenHUTB/carla_doc/refs/heads/master/docs/img/badge.svg" alt="Continuous Integration Badge">
     </a>
-    <a href="https://github.com/opensim-org/opensim-core/releases">
+    <a href="https://github.com/OpenHUTB/carla_doc/releases">
         <img src="https://img.shields.io/github/v/release/OpenHUTB/carla_doc" alt="Releases Badge">
     </a>
     <a href="https://github.com/OpenHUTB/carla_doc/blob/master/LICENSE">
