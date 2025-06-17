@@ -1,24 +1,27 @@
-# <center> [人车模拟](https://openhutb.github.io/carla_doc/)
+# <center> 人车模拟
 
 <!-- Badges -->
 <p align=center>
-    <a href="https://github.com/opensim-org/opensim-core/actions">
-        <img src="https://github.com/opensim-org/opensim-core/workflows/continuous-integration/badge.svg" alt="Continuous Integration Badge">
+    <a href="https://github.com/OpenHUTB/carla_doc/actions">
+        <img src="https://raw.githubusercontent.com/OpenHUTB/carla_doc/refs/heads/master/docs/img/badge.svg" alt="Continuous Integration Badge">
     </a>
     <a href="https://github.com/opensim-org/opensim-core/releases">
         <img src="https://img.shields.io/github/v/release/OpenHUTB/carla_doc" alt="Releases Badge">
     </a>
     <a href="https://github.com/OpenHUTB/carla_doc/blob/master/LICENSE">
-        <img src="https://img.shields.io/hexpm/l/apa" alt="License Badge">
+        <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License Badge">
     </a>
     <a href="https://github.com/OpenHUTB/carla_doc">
         <img src="https://img.shields.io/badge/platform-windows%20%7C%20macos%20%7C%20linux-lightgrey" alt="Supported Platforms Badge">
     </a>
+    <a href="https://zenhub.com">
+        <img src="https://img.shields.io/badge/Shipping%20faster%20with-ZenHub-blueviolet" alt="ZenHub Badge">
+    </a>
     <a href="https://github.com/OpenHUTB/carla_doc/graphs/contributors">
         <img src="https://img.shields.io/github/contributors/OpenHUTB/carla_doc" alt="ZenHub Badge">
     </a>
-    <a href="https://zenhub.com">
-        <img src="https://img.shields.io/badge/Shipping%20faster%20with-ZenHub-blueviolet" alt="ZenHub Badge">
+    <a href="https://github.com/OpenHUTB/carla_doc">
+        <img src="https://img.shields.io/github/forks/OpenHUTB/carla_doc" alt="ZenHub Badge">
     </a>
 </p>
 
@@ -26,7 +29,7 @@
 
 ## 文档部署
 
-1. 安装python 3.11.11（或3.11.7），使用`pip`安装`mkdocs`
+1. 安装 python 3.11，使用`pip`安装`mkdocs`
 ```shell
 pip install mkdocs -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
 pip install pymdown-extensions  # pymdownx
@@ -41,7 +44,7 @@ mkdocs serve
 ```
 然后使用浏览器打开 [http://127.0.0.1:8000](http://127.0.0.1:8000)，查看文档页面能否正常显示。
 
-3. 部署到`github`：
+3. 部署到`github`（可选）：
 ```shell
 mkdocs gh-deploy
 ```
@@ -73,7 +76,7 @@ python -m pip install . -i http://mirrors.aliyun.com/pypi/simple --trusted-host 
 将源代码、文档、软件等进行发布，具体步骤参考 [链接](publish.md) 。
 
 
-## 规范
+## 撰写规范
 
 ### 命名规则
 
@@ -134,35 +137,27 @@ $$
 
 
 
-## 问题
-```text
-ERROR - Config value: ‘plugins‘. Error: The “redirects“ plugin is not installed
-```
-[解决](https://blog.csdn.net/LostSpeed/article/details/127192365) ：
-```shell
-pip install redirects
-```
+## 常见问题
+* 编译文档时报错：`ERROR - Config value: ‘plugins‘. Error: The “redirects“ plugin is not installed`
+
+> [解决](https://blog.csdn.net/LostSpeed/article/details/127192365) ：
+> ```shell
+> pip install redirects
+> ```
 
 
 
-编译出错解决：
-```text
-Config value: 'markdown_extensions'. Error: Failed loading extension "mdx_gh_links".
-```
-[手动安装库](https://github.com/mkdocs/mkdocs/issues/1587) ：
-```shell
-pip install mdx_gh_links
-```
+* 编译文档时报错：`Config value: 'markdown_extensions'. Error: Failed loading extension "mdx_gh_links".`
+> 解决：[手动安装库](https://github.com/mkdocs/mkdocs/issues/1587) ：
+> ```shell
+> pip install mdx_gh_links
+> ```
 
-克隆仓库时报错：
-```text
-fatal: early EOF
-fatal: fetch-pack: invalid index-pack output
-```
-解决：
-```shell
-# 设置下载缓存参数
-git config --global http.postBuffer 2G
-# 确认参数是否正确设置
-git config http.postBuffer
-```
+* 克隆仓库时报错：`fatal: fetch-pack: invalid index-pack output`
+> 解决：
+> ```shell
+> # 设置下载缓存参数
+> git config --global http.postBuffer 2G
+> # 确认参数是否正确设置
+> git config http.postBuffer
+> ```
