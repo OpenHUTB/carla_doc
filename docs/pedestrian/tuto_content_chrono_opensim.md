@@ -1,5 +1,11 @@
 # 行人物理场模拟
 
+## OpenSim
+通过 [conda](https://anaconda.org/opensim-org/opensim) 安装：
+```shell
+conda install opensim-org::opensim
+```
+
 ## 强化学习
 
 ```shell

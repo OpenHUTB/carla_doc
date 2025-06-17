@@ -1,9 +1,31 @@
-# 人车模拟器
+# <center> [人车模拟](https://openhutb.github.io/carla_doc/)
 
-[文档主页](https://openhutb.github.io/carla_doc/) 。
+<!-- Badges -->
+<p align=center>
+    <a href="https://github.com/opensim-org/opensim-core/actions">
+        <img src="https://github.com/opensim-org/opensim-core/workflows/continuous-integration/badge.svg" alt="Continuous Integration Badge">
+    </a>
+    <a href="https://github.com/opensim-org/opensim-core/releases">
+        <img src="https://img.shields.io/github/v/release/OpenHUTB/carla_doc" alt="Releases Badge">
+    </a>
+    <a href="https://github.com/OpenHUTB/carla_doc/blob/master/LICENSE">
+        <img src="https://img.shields.io/hexpm/l/apa" alt="License Badge">
+    </a>
+    <a href="https://github.com/OpenHUTB/carla_doc">
+        <img src="https://img.shields.io/badge/platform-windows%20%7C%20macos%20%7C%20linux-lightgrey" alt="Supported Platforms Badge">
+    </a>
+    <a href="https://github.com/OpenHUTB/carla_doc/graphs/contributors">
+        <img src="https://img.shields.io/github/contributors/OpenHUTB/carla_doc" alt="ZenHub Badge">
+    </a>
+    <a href="https://zenhub.com">
+        <img src="https://img.shields.io/badge/Shipping%20faster%20with-ZenHub-blueviolet" alt="ZenHub Badge">
+    </a>
+</p>
 
-## 文档部署并测试
-在Windows 10 和Windows 11上进行了测试。
+---
+
+## 文档部署
+
 1. 安装python 3.11.11（或3.11.7），使用`pip`安装`mkdocs`
 ```shell
 pip install mkdocs -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
