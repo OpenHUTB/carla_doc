@@ -11,7 +11,7 @@
 ## 调用流程
 
 
-1.Python中的 [`World.set_weather()`](https://github.com/OpenHUTB/carla_doc/blob/87d6e1d34ea0f6df2a32525a164f6d657b6319fd/src/examples/dynamic_weather.py#L166) 调用 [`client/World.cpp`](https://github.com/OpenHUTB/carla_cpp/blob/cd67e7a09f047dc9b0826f94c10f3232fc37bda6/LibCarla/source/carla/client/World.cpp#L90) 中的`World::SetWeather()`，PythonAPI具体天气参数定义在 [PythonAPI/carla/source/libcarla/Weather.cpp](https://github.com/OpenHUTB/carla_cpp/blob/dev/PythonAPI/carla/source/libcarla/Weather.cpp) 。
+1.Python中的 [`World.set_weather()`](https://github.com/OpenHUTB/doc/blob/87d6e1d34ea0f6df2a32525a164f6d657b6319fd/src/examples/dynamic_weather.py#L166) 调用 [`client/World.cpp`](https://github.com/OpenHUTB/carla_cpp/blob/cd67e7a09f047dc9b0826f94c10f3232fc37bda6/LibCarla/source/carla/client/World.cpp#L90) 中的`World::SetWeather()`，PythonAPI具体天气参数定义在 [PythonAPI/carla/source/libcarla/Weather.cpp](https://github.com/OpenHUTB/carla_cpp/blob/dev/PythonAPI/carla/source/libcarla/Weather.cpp) 。
 
 2.[client/detail/Client.cpp](https://github.com/OpenHUTB/carla_cpp/blob/dev/LibCarla/source/carla/client/detail/Client.cpp) 的 `Client::SetWeatherParameters()`，调用 `_pimpl->AsyncCall("set_weather_parameters", weather)`。
 然后通过`class Client::Pimpl`类的`AsyncCall()`方法发起远程异步调用`rpc::Client.async_call(function, std::forward<Args>(args) ...)`。

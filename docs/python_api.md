@@ -124,7 +124,7 @@ _</font>
         - `location` (_[carla.Location](#carla.Location)<small> - 米</small>_)  
     - **获取器：** _[carla.Actor.get_location](#carla.Actor.get_location)_  
 - <a name="carla.Actor.set_simulate_physics"></a>**<font color="#7fb800">set_simulate_physics</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**enabled**=True</font>)  
-启用或禁用此参与者上的物理模拟（参与者是否会被物理影响），用途之一是可以在 [交通管理器混合模式](https://openhutb.github.io/carla_doc/adv_traffic_manager/#hybrid-physics-mode) 中提高大量车辆的模拟性能。
+启用或禁用此参与者上的物理模拟（参与者是否会被物理影响），用途之一是可以在 [交通管理器混合模式](https://openhutb.github.io/doc/adv_traffic_manager/#hybrid-physics-mode) 中提高大量车辆的模拟性能。
     - **参与者：**
         - `enabled` (_bool_)  
 - <a name="carla.Actor.set_target_angular_velocity"></a>**<font color="#7fb800">set_target_angular_velocity</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**angular_velocity**</font>)  
@@ -487,7 +487,7 @@ Carla 为 Actor 提供了一个蓝图库，可以通过 [carla.BlueprintLibrary]
     - **参数：**
         - `commands` (_list_) - 要批量执行的命令列表。每个命令都不同，并且有自己的参数。它们显示在此页面底部列出。
 - <a name="carla.Client.apply_batch_sync"></a>**<font color="#7fb800">apply_batch_sync</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**commands**</font>, <font color="#00a6ed">**due_tick_cue**=False</font>)<button class="SnipetButton" id="carla.Client.apply_batch_sync-snipet_button">snippet &rarr;</button>  
-在单个模拟步上阻塞式地执行命令列表，直到命令链接起来，并返回 <b>command.Response</b> 列表。可用于确定单个命令是否成功的响应。[该链接](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/generate_traffic.py) 是一个用来生成参与者的示例代码。
+在单个模拟步上阻塞式地执行命令列表，直到命令链接起来，并返回 <b>command.Response</b> 列表。可用于确定单个命令是否成功的响应。[该链接](https://github.com/OpenHUTB/doc/blob/master/src/examples/generate_traffic.py) 是一个用来生成参与者的示例代码。
     - **参数：**
         - `commands` (_list_) - 要批量执行的命令列表。可用的命令列在方法 **<font color="#7fb800">apply_batch()</font>** 的正上方。 
         - `due_tick_cue` (_bool_) - 一个布尔参数，用于指定是否执行 Carla。在 __同步模式__ 下应用批处理后进行 [carla.World.tick](#carla.World.tick)（默认情况下为 __False__ ）。
@@ -3474,7 +3474,7 @@ OpenDRIVE当前位置的 <b>s</b> 值 。
 
 ## carla.WeatherParameters<a name="carla.WeatherParameters"></a>
 此类定义了包含光照和天气规范的对象，这些规范稍后可以应用在 [carla.World](#carla.World) 中。到目前为止，这些条件仅影响 [sensor.camera.rgb](ref_sensors.md#rgb-camera)。它们既不影响参与者的物理特性，也不影响其他传感器。
-这些参数中的每一个都独立于其他参数起作用。增加降雨量不会自动形成水坑，也不会改变道路的湿度。这可以实现更好的定制，但也意味着需要编写现实条件的脚本。然而，可以在 [该脚本](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/dynamic_weather.py) 中找到实际运行的动态天气条件的示例。
+这些参数中的每一个都独立于其他参数起作用。增加降雨量不会自动形成水坑，也不会改变道路的湿度。这可以实现更好的定制，但也意味着需要编写现实条件的脚本。然而，可以在 [该脚本](https://github.com/OpenHUTB/doc/blob/master/src/examples/dynamic_weather.py) 中找到实际运行的动态天气条件的示例。
 
 
 ### 实例变量

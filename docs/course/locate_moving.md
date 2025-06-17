@@ -7,14 +7,14 @@
 - **python 3.7.9**
 - **carla 0.9.15**
 - **[湖工商场景](https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb )(WindowsNoEditor)**
-- **[运行 locate_moving.py](https://github.com/OpenHUTB/carla_doc/blob/master/src/course/locate_moving.py)**
+- **[运行 locate_moving.py](https://github.com/OpenHUTB/doc/blob/master/src/course/locate_moving.py)**
 ## CarlaSimulator 类
 
-​	该类主要完成设置相机、处理相机图像、将Pygame坐标转换为CARLA世界坐标。
+	该类主要完成设置相机、处理相机图像、将Pygame坐标转换为CARLA世界坐标。
 
 ### 函数初始化__init__
 
-​	初始化函数，设置模拟器窗口的宽度和高度，连接CARLA服务器，并获取世界和蓝图库。
+	初始化函数，设置模拟器窗口的宽度和高度，连接CARLA服务器，并获取世界和蓝图库。
 
 ```
 def __init__(self, width, height):

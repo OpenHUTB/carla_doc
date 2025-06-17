@@ -249,7 +249,7 @@ client.replay_file("col3.log", 34, 0, 173)
 
 
 
-* 使用 [__start_recording.py__](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/start_recording.py) 开始记录。可以设置记录的持续时间，并且可以在开始时生成参与者。
+* 使用 [__start_recording.py__](https://github.com/OpenHUTB/doc/blob/master/src/examples/start_recording.py) 开始记录。可以设置记录的持续时间，并且可以在开始时生成参与者。
 
 |参数 |说明 |
 | -------------------------------------------------- ------------ | -------------------------------------------------- ------------ |
@@ -259,7 +259,7 @@ client.replay_file("col3.log", 34, 0, 173)
 
 
 
-* 使用 [__start_replaying.py__](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/start_replaying.py) 开始播放记录。可以设置开始时间、持续时间和要跟随的参与者。
+* 使用 [__start_replaying.py__](https://github.com/OpenHUTB/doc/blob/master/src/examples/start_replaying.py) 开始播放记录。可以设置开始时间、持续时间和要跟随的参与者。
 
 
 |参数 |说明 |
@@ -272,7 +272,7 @@ client.replay_file("col3.log", 34, 0, 173)
 
 
 
-* 使用 [__show_recorder_file_info.py__](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/show_recorder_file_info.py) 显示记录文件中的所有信息。默认情况下，它仅显示记录事件的帧。但是，所有这些都可以显示。
+* 使用 [__show_recorder_file_info.py__](https://github.com/OpenHUTB/doc/blob/master/src/examples/show_recorder_file_info.py) 显示记录文件中的所有信息。默认情况下，它仅显示记录事件的帧。但是，所有这些都可以显示。
 
 
 |参数 |说明 |
@@ -282,7 +282,7 @@ client.replay_file("col3.log", 34, 0, 173)
 
 
 
-* [__show_recorder_collisions.py__](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/show_recorder_collisions.py) 显示类型为 __A__ 和 __B__ 的参与者的两个标志之间记录的碰撞。 `-t = vv` 将显示车辆之间的所有碰撞。
+* [__show_recorder_collisions.py__](https://github.com/OpenHUTB/doc/blob/master/src/examples/show_recorder_collisions.py) 显示类型为 __A__ 和 __B__ 的参与者的两个标志之间记录的碰撞。 `-t = vv` 将显示车辆之间的所有碰撞。
 
 
 | 参数   | 说明                                                                                         |
@@ -292,7 +292,7 @@ client.replay_file("col3.log", 34, 0, 173)
 
 
 
-* 使用 [__show_recorder_actors_blocked.py__](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/show_recorder_actors_blocked.py) 中的 [carla.Client.show_recorder_actors_blocked](#python_api.md#carla.Client.show_recorder_actors_blocked) 方法列出被认为被堵塞的车辆。如果在特定时间内没有移动最小距离，则认为参与者被堵塞。
+* 使用 [__show_recorder_actors_blocked.py__](https://github.com/OpenHUTB/doc/blob/master/src/examples/show_recorder_actors_blocked.py) 中的 [carla.Client.show_recorder_actors_blocked](#python_api.md#carla.Client.show_recorder_actors_blocked) 方法列出被认为被堵塞的车辆。如果在特定时间内没有移动最小距离，则认为参与者被堵塞。
 
 
 |参数 |说明 |

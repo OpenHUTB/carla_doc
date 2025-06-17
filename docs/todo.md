@@ -39,7 +39,7 @@
 
 ### 功能改进
 
-- [雨天的激光雷达](https://openhutb.github.io/carla_doc/used_by/#sensor)
+- [雨天的激光雷达](https://openhutb.github.io/doc/used_by/#sensor)
 
 - [在驾驶视图中显示转速表和车速表](https://github.com/carla-simulator/carla/issues/89) ，[驾驶舱效果图](https://s4-frame.ozstatic.by/1000/236/108/20/20108236_2.jpg) 
 
@@ -65,7 +65,7 @@ PID、基于模型的控制。
 通过 `carla.Walker.set_bones()` 对行人骨骼进行变换。
 
 ### 场景
-* 代理、[智能驾驶](https://openhutb.github.io/carla_doc/ecosys_iss/) 等。
+* 代理、[智能驾驶](https://openhutb.github.io/doc/ecosys_iss/) 等。
 
 * 提供数据孪生建筑生成的 Python 接口。
 

@@ -140,7 +140,7 @@ __第 8 步.__ *(在虚幻引擎中)* — 创建连接不同关节的约束并�
 
 <div class="build-buttons">
 <p>
-<a href="https://github.com/OpenHUTB/carla_doc/issues" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
+<a href="https://github.com/OpenHUTB/doc/issues" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
 讨论页面</a>
 </p>
 </div>

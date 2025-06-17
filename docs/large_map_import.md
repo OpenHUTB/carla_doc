@@ -137,7 +137,7 @@ make package ARGS="--packages=<mapPackage>"
 
 ---
 
-如果您对大地图导入打包过程有任何疑问，那么您可以在 [讨论页面](https://github.com/OpenHUTB/carla_doc/issues) 中提问。
+如果您对大地图导入打包过程有任何疑问，那么您可以在 [讨论页面](https://github.com/OpenHUTB/doc/issues) 中提问。
 
 
 

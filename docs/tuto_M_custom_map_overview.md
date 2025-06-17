@@ -70,4 +70,4 @@ __[本指南](tuto_M_generate_map.md) 说明如何使用 RoadRunner 生成地图
 
 ---
 
-如果您对上述过程有任何疑问，请随时在 [讨论页面](https://github.com/OpenHUTB/carla_doc/issues) 中发布。
+如果您对上述过程有任何疑问，请随时在 [讨论页面](https://github.com/OpenHUTB/doc/issues) 中发布。

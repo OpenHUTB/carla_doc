@@ -22,7 +22,7 @@ __用于：__
 
 <div class="build-buttons">
 <p>
-<a href="https://openhutb.github.io/carla_doc/tuto_G_traffic_manager/" target="_blank" class="btn btn-neutral" title="Go to Traffic Manager">
+<a href="https://openhutb.github.io/doc/tuto_G_traffic_manager/" target="_blank" class="btn btn-neutral" title="Go to Traffic Manager">
 转至交通管理器</a>
 </p>
 </div>
@@ -102,7 +102,7 @@ __用于：__
 
 <div class="build-buttons">
 <p>
-<a href="https://github.com/OpenHUTB/carla_doc/issues" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
+<a href="https://github.com/OpenHUTB/doc/issues" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
 讨论页面</a>
 </p>
 </div>

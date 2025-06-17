@@ -1,6 +1,6 @@
 ## 📑 目录（Table of Contents）
 
-### 第一章：[碰撞事件传感器](https://openhutb.github.io/carla_doc/ref_sensors/#collision-detector) （sensor.other.collision）
+### 第一章：[碰撞事件传感器](https://openhutb.github.io/doc/ref_sensors/#collision-detector) （sensor.other.collision）
 
 - [第一章：CARLA 碰撞事件传感器系统（sensor.other.collision）](#第一章carla-碰撞事件传感器系统sensorothercollision)
   - [1 模块概览](#1-模块概览)
@@ -21,7 +21,7 @@
   - [5 Python API 使用示例](#5-python-api-使用示例-1)
   - [6 小结与拓展](#6-小结与拓展-1)
 
-### 第三章：[惯性测量单元传感器](https://openhutb.github.io/carla_doc/ref_sensors/#imu-sensor) （sensor.other.imu）
+### 第三章：[惯性测量单元传感器](https://openhutb.github.io/doc/ref_sensors/#imu-sensor) （sensor.other.imu）
 
 - [第三章：CARLA惯性测量单元传感器系统（sensor.other.imu）](#第三章carla惯性测量单元传感器系统sensorotherimu)
   - [1 模块概览](#1-模块概览-2)
@@ -32,7 +32,7 @@
   - [6 限制与对比分析](#6-限制与对比分析)
   - [7 总结与建议](#7-总结与建议-1)
 
-### 第四章：[全球导航卫星系统传感器](https://openhutb.github.io/carla_doc/ref_sensors/#gnss-sensor) （sensor.other.gnss）
+### 第四章：[全球导航卫星系统传感器](https://openhutb.github.io/doc/ref_sensors/#gnss-sensor) （sensor.other.gnss）
 
 - [第四章：CARLA 全球导航卫星系统传感器（sensor.other.gnss）](#第四章carla-全球导航卫星系统传感器sensorothergnss)
   - [1 模块概览](#1-模块概览-3)
@@ -43,7 +43,7 @@
   - [6 应用拓展与组合使用](#6-应用拓展与组合使用)
   - [7 总结与建议](#7-总结与建议-2)
 
-### 第五章：[车道入侵传感器](https://openhutb.github.io/carla_doc/ref_sensors/#lane-invasion-detector) （sensor.other.lane\_invasion）
+### 第五章：[车道入侵传感器](https://openhutb.github.io/doc/ref_sensors/#lane-invasion-detector) （sensor.other.lane\_invasion）
 
 * [第五章：CARLA 车道入侵传感器系统（sensor.other.lane\_invasion）](#第五章carla-车道入侵传感器系统sensorotherlane_invasion)
 
@@ -55,7 +55,7 @@
   * [6 应用案例与拓展建议](#6-应用案例与拓展建议)
   * [7 小结](#7-小结)
  
-### 第六章：[激光雷达传感器](https://openhutb.github.io/carla_doc/ref_sensors/#lidar-sensor) （sensor.lidar.ray\_cast）
+### 第六章：[激光雷达传感器](https://openhutb.github.io/doc/ref_sensors/#lidar-sensor) （sensor.lidar.ray\_cast）
 
 * [第六章：CARLA 激光雷达传感器系统（sensor.lidar.ray\_cast）](#第六章carla-激光雷达传感器系统sensorlidarray_cast)
 
@@ -67,7 +67,7 @@
   * [6 应用场景与可拓展方向](#6-应用场景与可拓展方向)
   * [7 总结](#7-总结-1)
 
-### 第七章：[障碍物检测传感器](https://openhutb.github.io/carla_doc/ref_sensors/#obstacle-detector) （sensor.other.obstacle）
+### 第七章：[障碍物检测传感器](https://openhutb.github.io/doc/ref_sensors/#obstacle-detector) （sensor.other.obstacle）
 
 * [第七章：CARLA 障碍物检测传感器系统（sensor.other.obstacle）](#第七章carla-障碍物检测传感器系统sensorotherobstacle)
 
@@ -80,7 +80,7 @@
   * [7 小结](#7-小结-1)
 
 
-### 第八章：[RGB 摄像头传感器](https://openhutb.github.io/carla_doc/ref_sensors/#rgb-camera) （sensor.camera.rgb）
+### 第八章：[RGB 摄像头传感器](https://openhutb.github.io/doc/ref_sensors/#rgb-camera) （sensor.camera.rgb）
 
 * [第八章：CARLA RGB 摄像头传感器系统（sensor.camera.rgb）](#第八章carla-rgb-摄像头传感器系统sensorcamerargb)
 
@@ -93,7 +93,7 @@
   * [7 小结](#7-小结-2)
 
 
-### 第九章：[深度相机传感器](https://openhutb.github.io/carla_doc/ref_sensors/#depth-camera) （sensor.camera.depth）
+### 第九章：[深度相机传感器](https://openhutb.github.io/doc/ref_sensors/#depth-camera) （sensor.camera.depth）
 
 * [第九章：CARLA 深度图摄像头传感器系统（sensor.camera.depth）](#第九章carla-深度图摄像头传感器系统sensorcameradepth)
 
@@ -106,7 +106,7 @@
   * [7 小结](#7-小结-3)
 
 
-### 第十章：[语义分割相机传感器](https://openhutb.github.io/carla_doc/ref_sensors/#semantic-segmentation-camera)（sensor.camera.semantic\_segmentation）
+### 第十章：[语义分割相机传感器](https://openhutb.github.io/doc/ref_sensors/#semantic-segmentation-camera)（sensor.camera.semantic\_segmentation）
 
 * [第十章：CARLA 语义分割摄像头传感器系统（sensor.camera.semantic\_segmentation）](#第十章carla-语义分割摄像头传感器系统sensorcamerasemantic_segmentation)
 
@@ -118,7 +118,7 @@
   * [6 应用与扩展方向](#6-应用与扩展方向)
   * [7 小结](#7-小结-4)
 
-### 第十一章：[雷达传感器](https://openhutb.github.io/carla_doc/ref_sensors/#radar-sensor)（sensor.radar.ray\_cast）
+### 第十一章：[雷达传感器](https://openhutb.github.io/doc/ref_sensors/#radar-sensor)（sensor.radar.ray\_cast）
 
 * [第十一章：CARLA 雷达传感器系统（sensor.radar.ray\_cast）](#第十一章carla-雷达传感器系统sensorradarray_cast)
 
@@ -130,7 +130,7 @@
   * [6 应用与对比分析](#6-应用与对比分析)
   * [7 小结](#7-小结-5)
 
-### 第十二章：[责任敏感安全传感器](https://openhutb.github.io/carla_doc/ref_sensors/#rss-sensor)（sensor.other.rss）
+### 第十二章：[责任敏感安全传感器](https://openhutb.github.io/doc/ref_sensors/#rss-sensor)（sensor.other.rss）
 
 * [第十二章：CARLA RSS 责任敏感安全传感器系统（sensor.other.rss）](#第十二章carla-rss-责任敏感安全传感器系统sensorotherrss)
 
@@ -144,7 +144,7 @@
 
 ---
 
-# 第一章：[碰撞事件传感器](https://openhutb.github.io/carla_doc/ref_sensors/#collision-detector)（sensor.other.collision）
+# 第一章：[碰撞事件传感器](https://openhutb.github.io/doc/ref_sensors/#collision-detector)（sensor.other.collision）
 
 ---
 
@@ -253,7 +253,7 @@ protected:
 
 ## 6 Python API 使用示例
 
-参考文件：[`collision_sensor.py`](https://github.com/OpenHUTB/carla_doc/blob/dev/src/examples/collision_sensor.py)
+参考文件：[`collision_sensor.py`](https://github.com/OpenHUTB/doc/blob/dev/src/examples/collision_sensor.py)
 
 ```
 def on_collision(event):
@@ -414,7 +414,7 @@ noop_sensor.listen(on_noop_event)
 
 ---
 
-# 第三章：[惯性测量单元传感器](https://openhutb.github.io/carla_doc/ref_sensors/#imu-sensor) （sensor.other.imu）
+# 第三章：[惯性测量单元传感器](https://openhutb.github.io/doc/ref_sensors/#imu-sensor) （sensor.other.imu）
 
 ---
 
@@ -554,7 +554,7 @@ def on_imu_integration(imu):
 
 ---
 
-# 第四章：[全球导航卫星系统传感器](https://openhutb.github.io/carla_doc/ref_sensors/#gnss-sensor) （sensor.other.gnss）
+# 第四章：[全球导航卫星系统传感器](https://openhutb.github.io/doc/ref_sensors/#gnss-sensor) （sensor.other.gnss）
 
 ---
 
@@ -699,7 +699,7 @@ def on_fused_data(gnss, imu):
 ---
 
 
-# 第五章：[车道入侵传感器系统](https://openhutb.github.io/carla_doc/ref_sensors/#lane-invasion-detector) （sensor.other.lane\_invasion）
+# 第五章：[车道入侵传感器系统](https://openhutb.github.io/doc/ref_sensors/#lane-invasion-detector) （sensor.other.lane\_invasion）
 
 ---
 
@@ -819,7 +819,7 @@ sensor.listen(on_lane_invasion)
 
 ---
 
-# 第六章：[激光雷达传感器系统](https://openhutb.github.io/carla_doc/ref_sensors/#lidar-sensor) （sensor.lidar.ray\_cast）
+# 第六章：[激光雷达传感器系统](https://openhutb.github.io/doc/ref_sensors/#lidar-sensor) （sensor.lidar.ray\_cast）
 
 ---
 
@@ -956,7 +956,7 @@ lidar_sensor.listen(on_lidar)
 ---
 
 
-# 第七章：[障碍物检测传感器系统](https://openhutb.github.io/carla_doc/ref_sensors/#obstacle-detector) （sensor.other.obstacle）
+# 第七章：[障碍物检测传感器系统](https://openhutb.github.io/doc/ref_sensors/#obstacle-detector) （sensor.other.obstacle）
 
 ---
 
@@ -1098,7 +1098,7 @@ sensor.listen(on_obstacle)
 
 ---
 
-# 第八章：[RGB 摄像头传感器系统](https://openhutb.github.io/carla_doc/ref_sensors/#rgb-camera)（sensor.camera.rgb）
+# 第八章：[RGB 摄像头传感器系统](https://openhutb.github.io/doc/ref_sensors/#rgb-camera)（sensor.camera.rgb）
 
 ---
 
@@ -1227,7 +1227,7 @@ def decode_np(image):
 
 ---
 
-# 第九章：[深度相机传感器系统](https://openhutb.github.io/carla_doc/ref_sensors/#depth-camera) （sensor.camera.depth）
+# 第九章：[深度相机传感器系统](https://openhutb.github.io/doc/ref_sensors/#depth-camera) （sensor.camera.depth）
 
 ---
 
@@ -1346,7 +1346,7 @@ camera.listen(lambda image: decode_depth(image))
 
 ---
 
-# 第十章：[语义分割摄像头传感器系统](https://openhutb.github.io/carla_doc/ref_sensors/#semantic-segmentation-camera) （sensor.camera.semantic\_segmentation）
+# 第十章：[语义分割摄像头传感器系统](https://openhutb.github.io/doc/ref_sensors/#semantic-segmentation-camera) （sensor.camera.semantic\_segmentation）
 
 ---
 
@@ -1590,7 +1590,7 @@ radar.listen(lambda data: radar_callback(data))
 
 ---
 
-# 第十二章：[责任敏感安全传感器系统](https://openhutb.github.io/carla_doc/ref_sensors/#rss-sensor)（sensor.other.rss）
+# 第十二章：[责任敏感安全传感器系统](https://openhutb.github.io/doc/ref_sensors/#rss-sensor)（sensor.other.rss）
 
 ---
 

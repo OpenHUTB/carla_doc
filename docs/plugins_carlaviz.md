@@ -70,7 +70,7 @@ __1. 运行 Carla。__
 
 *   __b) 在从源代码构建的包中__ — 转到 Carla 文件夹，使用 `make launch` 运行虚幻编辑器，并按`Play`。
 
-*   __c) 运行示例脚本__ - [carlaviz_exmaple](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/carlaviz_exmaple.py)  。
+*   __c) 运行示例脚本__ - [carlaviz_exmaple](https://github.com/OpenHUTB/doc/blob/master/src/examples/carlaviz_exmaple.py)  。
 
 __2. 运行 carlaviz.__ 根据已下载的 Docker 镜像，在另一个终端中运行以下命令。
 
@@ -197,7 +197,7 @@ yarn
 
 <div class="build-buttons">
 <p>
-<a href="https://github.com/OpenHUTB/carla_doc/issues" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
+<a href="https://github.com/OpenHUTB/doc/issues" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
 讨论页面</a>
 </p>
 </div>

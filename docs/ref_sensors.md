@@ -507,7 +507,7 @@ points = np.reshape(points, (len(radar_data), 4))
 
 责任敏感安全传感器计算车辆的责任敏感安全状态并检索当前的责任敏感安全响应作为传感器数据。[carla.RssRestrictor](python_api.md#carla.RssRestrictor)将使用此数据来调整[carla.VehicleControl](python_api.md#carla.VehicleControl) ，然后再将其应用于车辆。
 
-这些控制器可以通过*自动驾驶*堆栈或用户输入生成。例如，下面有一段来自 [`PythonAPI/examples/rss/manual_control_rss.py`](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/manual_control_rss.py) 的代码片段，其中在必要时使用责任敏感安全修改用户输入。
+这些控制器可以通过*自动驾驶*堆栈或用户输入生成。例如，下面有一段来自 [`PythonAPI/examples/rss/manual_control_rss.py`](https://github.com/OpenHUTB/doc/blob/master/src/examples/manual_control_rss.py) 的代码片段，其中在必要时使用责任敏感安全修改用户输入。
 <br>
 __1.__ 检查 __RssSensor__ 是否生成包含限制的有效响应。<br>
 __2.__ 收集车辆的当前动态和车辆物理特性。<br>
@@ -860,7 +860,7 @@ $$
 
 动态视觉传感器的当前实现在两个连续同步帧之间以统一采样方式工作。因此，为了模拟真实事件相机的高时间分辨率（微秒级），传感器需要以高频率执行（比传统相机的频率高得多）。实际上，Carla 汽车行驶速度越快，事件数量就会增加。因此，传感器频率应随着场景的动态而相应增加。用户应该在时间精度和计算成本之间找到平衡。
 
-提供的脚本 [`manual_control.py`](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/manual_control.py) 使用动态视觉传感器摄像头来展示如何配置传感器、如何获取事件流以及如何以图像格式（通常称为事件框架）描述此类事件。
+提供的脚本 [`manual_control.py`](https://github.com/OpenHUTB/doc/blob/master/src/examples/manual_control.py) 使用动态视觉传感器摄像头来展示如何配置传感器、如何获取事件流以及如何以图像格式（通常称为事件框架）描述此类事件。
 
 [manual_control]: https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/manual_control.py
 

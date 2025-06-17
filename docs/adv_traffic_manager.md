@@ -570,6 +570,6 @@ my_tm.set_boundaries_respawn_dormant_vehicles(25,700)
 
 ---
 
-如果你有任何关于交通管理器的问题，可以在 [讨论页面](https://github.com/OpenHUTB/carla_doc/issues) 上提问。
+如果你有任何关于交通管理器的问题，可以在 [讨论页面](https://github.com/OpenHUTB/doc/issues) 上提问。
 
 

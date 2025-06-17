@@ -104,7 +104,7 @@ python scenario_runner.py --route <path/to/route-file> <path/to/scenario_sample_
 ```
 实例:
 ```
-python scenario_runner.py --route D:/work/workspace/carla_doc/src/scenario_runner/srunner/data/routes_town10.xml  --agent srunner/autoagents/npc_agent.py
+python scenario_runner.py --route D:/work/workspace/doc/src/scenario_runner/srunner/data/routes_town10.xml  --agent srunner/autoagents/npc_agent.py
 ```
 
 如果未提供路由 ID，则将执行给定文件中的所有路线。

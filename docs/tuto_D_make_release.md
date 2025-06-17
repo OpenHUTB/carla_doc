@@ -60,7 +60,7 @@ pip install auto-py-to-exe
 
 6.运行安装软件的构建脚本：（如果没有）安装 [Windows 10 SDK](https://developer.microsoft.com/en-us/windows/downloads/windows-10-sdk) ;
 
-将文件 [`GenerateInstalledBuild.bat`](https://github.com/OpenHUTB/carla_doc/tree/master/src/bat/GenerateInstalledBuild.bat) 拷贝到虚幻引擎源代码的根目录，然后点击运行。
+将文件 [`GenerateInstalledBuild.bat`](https://github.com/OpenHUTB/doc/tree/master/src/bat/GenerateInstalledBuild.bat) 拷贝到虚幻引擎源代码的根目录，然后点击运行。
 
 如果一切顺利，您应该会看到`LocalBuilds`与该文件夹处于同一级别的`Engine`文件夹，并且控制台中没有错误。(还包括一个 InstalledDDC 文件夹：DerivedDataCache)。
 

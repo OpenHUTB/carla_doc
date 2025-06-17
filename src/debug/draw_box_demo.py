@@ -1,4 +1,4 @@
-# 修改自 https://github.com/OpenHUTB/carla_doc/blob/master/src/tutorial/06_trafic_manager.py
+# 修改自 https://github.com/OpenHUTB/doc/blob/master/src/tutorial/06_trafic_manager.py
 import time
 
 import carla

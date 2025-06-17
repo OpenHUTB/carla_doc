@@ -134,11 +134,11 @@ control.bone_transforms = [first_tuple, second_tuple]
 world.player.apply_control(control)
 ```
 
-行人骨架控制代码 [链接](https://github.com/OpenHUTB/carla_doc/blob/master/src/pedestrian/walker_control.py) 。
+行人骨架控制代码 [链接](https://github.com/OpenHUTB/doc/blob/master/src/pedestrian/walker_control.py) 。
 
 
 ## 可视化行人骨架
 
 ![](img/pedestrian/draw_skeleton.png)
 
-可视化骨架代码 [链接](https://github.com/OpenHUTB/carla_doc/blob/master/src/pedestrian/draw_skeleton.py) 。
+可视化骨架代码 [链接](https://github.com/OpenHUTB/doc/blob/master/src/pedestrian/draw_skeleton.py) 。

@@ -99,7 +99,7 @@ unsigned若省略后一个关键字，大多数编译器都会认为是 unsigned
 
 ### 5- 使用示例 <span id="5-usage-example"></span>
 
-  * [`fisheye_demo.py`](https://github.com/OpenHUTB/carla_doc/blob/master/src/sensor/fisheye_demo.py)
+  * [`fisheye_demo.py`](https://github.com/OpenHUTB/doc/blob/master/src/sensor/fisheye_demo.py)
 
 启动后按数字键`2`，则显示鱼眼相机画面：
 ![FisheyeImage](../img/sensor/fisheye_demo.jpg)

@@ -1,8 +1,8 @@
 # 轨迹跟踪  Drive.py
 
-本示例使用  **Carla**  模拟器来执行轨迹跟踪任务， [**Drive.py**](https://github.com/OpenHUTB/carla_doc/tree/master/src/course/trajectory_tracking/Drive.py)  主要功能包括连接CARLA服务器、设置模拟环境、生成车辆、读取和处理路径点数据、控制车辆运动、记录和保存模拟结果下面对于主要函数进行介绍。
+本示例使用  **Carla**  模拟器来执行轨迹跟踪任务， [**Drive.py**](https://github.com/OpenHUTB/doc/tree/master/src/course/trajectory_tracking/Drive.py)  主要功能包括连接CARLA服务器、设置模拟环境、生成车辆、读取和处理路径点数据、控制车辆运动、记录和保存模拟结果下面对于主要函数进行介绍。
 
-  基于 [**湖工商场景**](https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb )**(WindowsNoEditor)**，首先需要运行[generate_traffic.py](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/generate_traffic.py) 。
+  基于 [**湖工商场景**](https://pan.baidu.com/s/15T1hGoWJ70tVmsTX7-zcSw?pwd=hutb )**(WindowsNoEditor)**，首先需要运行[generate_traffic.py](https://github.com/OpenHUTB/doc/blob/master/src/examples/generate_traffic.py) 。
 ## 定义CARLA设置
 
 创建 **Carla** 的世界设置对象，并根据配置设置天气条件

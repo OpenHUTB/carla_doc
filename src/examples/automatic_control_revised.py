@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# 需要提前运行好湖南工商大学的地图：https://openhutb.github.io/carla_doc/core_map/
+# 需要提前运行好湖南工商大学的地图：https://openhutb.github.io/doc/core_map/
 import carla
 import time
 import argparse

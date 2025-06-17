@@ -10,6 +10,6 @@ class MyTestCase(unittest.TestCase):
 
 
 # 在Pycharm中右键点击"Run Python test in..."
-# Launching unittests with arguments python -m unittest D:/work/workspace/carla_doc/src/test/demo/unit_test.py
+# Launching unittests with arguments python -m unittest D:/work/workspace/doc/src/test/demo/unit_test.py
 if __name__ == '__main__':
     unittest.main()

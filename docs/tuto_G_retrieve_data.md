@@ -49,18 +49,18 @@
 本教程为不同步骤提供了多种选项。一直以来，都会提到不同的脚本。并不是所有的都会被使用，这取决于具体的用例。其中大多数已在 Carla 中提供用于通用目的。
 
 * __config.py__ 更改模拟设置、地图、渲染选项、设置固定时间步长等
-	* [`carla/PythonAPI/util/config.py`](https://github.com/OpenHUTB/carla_doc/blob/master/src/util/config.py)
+	* [`carla/PythonAPI/util/config.py`](https://github.com/OpenHUTB/doc/blob/master/src/util/config.py)
 * __dynamic_weather.py__ 创建有趣的天气条件。
-	* [`carla/PythonAPI/examples/dynamic_weather.py`](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/dynamic_weather.py)
+	* [`carla/PythonAPI/examples/dynamic_weather.py`](https://github.com/OpenHUTB/doc/blob/master/src/examples/dynamic_weather.py)
 * __spawn_npc.py__ 生成一些人工智能控制的车辆和行人。
-	* [`carla/PythonAPI/examples/spawn_npc.py`](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/spawn_npc.py)
+	* [`carla/PythonAPI/examples/spawn_npc.py`](https://github.com/OpenHUTB/doc/blob/master/src/examples/spawn_npc.py)
 * __manual_control.py__ 生成一个自主车辆，并提供对其的控制。
-	* [`carla/PythonAPI/examples/manual_control.py`](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/manual_control.py)
+	* [`carla/PythonAPI/examples/manual_control.py`](https://github.com/OpenHUTB/doc/blob/master/src/examples/manual_control.py)
 
 但是，教程中提到的两个脚本在 Carla 中找不到。它们包含引用的代码片段。这有双重目的。首先，鼓励用户构建自己的脚本。充分理解代码的作用非常重要。除此之外，本教程只是一个大纲，可能而且应该根据用户的喜好而有很大的不同。这两个脚本只是一个示例。
 
-* [__tutorial_ego.py__](https://github.com/OpenHUTB/carla_doc/tree/master/src/tutorial/tutorial_ego.py) 生成带有一些基本传感器的自主车辆，并启用自动驾驶仪。观察者被放置在生成位置。记录器从一开始就启动，并在脚本完成时停止。
-* [__tutorial_replay.py__](https://github.com/OpenHUTB/carla_doc/tree/master/src/tutorial/tutorial_replay.py) 重新执行 __tutorial_ego.py__ 记录的模拟。有不同的代码片段可以查询记录、生成一些高级传感器、改变天气条件以及重新执行记录片段。
+* [__tutorial_ego.py__](https://github.com/OpenHUTB/doc/tree/master/src/tutorial/tutorial_ego.py) 生成带有一些基本传感器的自主车辆，并启用自动驾驶仪。观察者被放置在生成位置。记录器从一开始就启动，并在脚本完成时停止。
+* [__tutorial_replay.py__](https://github.com/OpenHUTB/doc/tree/master/src/tutorial/tutorial_replay.py) 重新执行 __tutorial_ego.py__ 记录的模拟。有不同的代码片段可以查询记录、生成一些高级传感器、改变天气条件以及重新执行记录片段。
 
 完整的代码可以在教程的最后部分找到。请记住，这些并不严格，而是可以定制的。在 Carla 中检索数据的功能正如用户所希望的那样强大。
 
@@ -137,7 +137,7 @@ cd /opt/carla/PythonAPI/examples
 python3 dynamic_weather.py --speed 1.0
 ```
 
-* __设置自定义条件__ 使用脚本 [__environment.py__](https://github.com/OpenHUTB/carla_doc/blob/master/src/util/environment.py) 。有很多可能的设置。查看可选参数以及 [carla.WeatherParameters](python_api.md#carla.WeatherParameters) 的文档。
+* __设置自定义条件__ 使用脚本 [__environment.py__](https://github.com/OpenHUTB/doc/blob/master/src/util/environment.py) 。有很多可能的设置。查看可选参数以及 [carla.WeatherParameters](python_api.md#carla.WeatherParameters) 的文档。
 
 ```sh
 cd /opt/carla/PythonAPI/util
@@ -247,7 +247,7 @@ python3 run_synchronization.py examples/Town01.sumocfg --sumo-gui
 ---
 ## 设置自主车辆 <span id="et-the-ego-vehicle"></span>
 
-从现在到记录器停止的那一刻，将会有一些属于 [__tutorial_ego.py__](https://github.com/OpenHUTB/carla_doc/tree/master/src/tutorial/tutorial_ego.py) 的代码片段。该脚本生成自主车辆，可选一些传感器，并记录模拟，直到用户完成脚本。
+从现在到记录器停止的那一刻，将会有一些属于 [__tutorial_ego.py__](https://github.com/OpenHUTB/doc/tree/master/src/tutorial/tutorial_ego.py) 的代码片段。该脚本生成自主车辆，可选一些传感器，并记录模拟，直到用户完成脚本。
 
 ### 生成自主车辆 <span id="spawn-the-ego-vehicle"></span>
 
@@ -406,7 +406,7 @@ ego_obs.listen(lambda obs: obs_callback(obs))
 
 为了获得车辆对象的一般测量值，这两个传感器以车辆对象为中心生成。
 
-这些传感器可用的属性主要设置测量噪声模型中的平均值或标准偏差参数。这对于获得更现实的措施很有用。然而，在 [__tutorial_ego.py__](https://github.com/OpenHUTB/carla_doc/tree/master/src/tutorial/tutorial_ego.py) 中只设置了一个属性。
+这些传感器可用的属性主要设置测量噪声模型中的平均值或标准偏差参数。这对于获得更现实的措施很有用。然而，在 [__tutorial_ego.py__](https://github.com/OpenHUTB/doc/tree/master/src/tutorial/tutorial_ego.py) 中只设置了一个属性。
 
 * __`sensor_tick`__. 由于此测量值在步骤之间不应有显着变化，因此可以经常检索数据。在本例中，设置为每三秒打印一次。 
 
@@ -444,7 +444,7 @@ ego_imu.listen(lambda imu: imu_callback(imu))
 ---
 ## 设置高级传感器 <span id="set-advanced-sensors"></span>
 
-脚本 [__tutorial_replay.py__](https://github.com/OpenHUTB/carla_doc/tree/master/src/tutorial/tutorial_replay.py) 除其他外还包含更多传感器的定义。它们的工作方式与基本的相同，但理解可能有点困难。
+脚本 [__tutorial_replay.py__](https://github.com/OpenHUTB/doc/tree/master/src/tutorial/tutorial_replay.py) 除其他外还包含更多传感器的定义。它们的工作方式与基本的相同，但理解可能有点困难。
 
 ### 深度相机 <span id="深度相机"></span>
 
@@ -628,7 +628,7 @@ rad_ego.listen(lambda radar_data: rad_callback(radar_data))
 
 禁用渲染将为模拟节省大量工作。由于不使用 GPU，服务器可以全速工作。这对于快速模拟复杂的条件很有用。最好的方法是设置固定的时间步长。以固定时间步长运行异步服务器并且不进行渲染，模拟的唯一限制是服务器的内部逻辑。 
 
-相同的 [`config.py`](https://github.com/OpenHUTB/carla_doc/blob/master/src/util/config.py) 用于 [设置地图](#map-setting) 可以禁用渲染，并设置固定的时间步长。
+相同的 [`config.py`](https://github.com/OpenHUTB/doc/blob/master/src/util/config.py) 用于 [设置地图](#map-setting) 可以禁用渲染，并设置固定的时间步长。
 
 ```
 cd /opt/carla/PythonAPI/utils
@@ -640,7 +640,7 @@ python3 config.py --no-rendering --delta-seconds 0.05 # 绝不会大于 0.1 秒
 
 ### 无需渲染的手动控制 <span id="manual-control-without-rendering"></span>
 
-脚本 [`PythonAPI/examples/no_rendering_mode.py`](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/no_rendering_mode.py) 提供了模拟的概述。它使用 Pygame 创建了一个简约的鸟瞰图，它将跟随自主车辆。这可以与 __manual_control.py__ 一起使用来生成一条几乎没有成本的路线，记录它，然后回放并利用它来收集数据。
+脚本 [`PythonAPI/examples/no_rendering_mode.py`](https://github.com/OpenHUTB/doc/blob/master/src/examples/no_rendering_mode.py) 提供了模拟的概述。它使用 Pygame 创建了一个简约的鸟瞰图，它将跟随自主车辆。这可以与 __manual_control.py__ 一起使用来生成一条几乎没有成本的路线，记录它，然后回放并利用它来收集数据。
 
 ```
 cd /opt/carla/PythonAPI/examples
@@ -708,7 +708,7 @@ while True:
     world_snapshot = world.wait_for_tick()
 ```
 
-* __手动控制。__ 在客户端中运行脚本 [`PythonAPI/examples/manual_control.py`](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/manual_control.py) ，在另一个客户端中运行记录器。驾驶自主车辆来创建所需的路线，并在完成后停止记录仪。[__tutorial_ego.py__](https://github.com/OpenHUTB/carla_doc/tree/master/src/tutorial/tutorial_ego.py) 脚本可用于管理记录器，但请确保注释其他代码片段。
+* __手动控制。__ 在客户端中运行脚本 [`PythonAPI/examples/manual_control.py`](https://github.com/OpenHUTB/doc/blob/master/src/examples/manual_control.py) ，在另一个客户端中运行记录器。驾驶自主车辆来创建所需的路线，并在完成后停止记录仪。[__tutorial_ego.py__](https://github.com/OpenHUTB/doc/tree/master/src/tutorial/tutorial_ego.py) 脚本可用于管理记录器，但请确保注释其他代码片段。
 
 ```
 cd /opt/carla/PythonAPI/examples
@@ -732,7 +732,7 @@ client.stop_recorder()
 ---
 ## 利用记录 <span id="exploit-the-recording"></span>
 
-到目前为止，模拟已经被记录下来。现在，是时候检查记录，找到最引人注目的时刻，并利用它们。这些步骤集中在脚本 [__tutorial_replay.py__](https://github.com/OpenHUTB/carla_doc/tree/master/src/tutorial/tutorial_replay.py) 中。该大纲由注释的不同代码段构成。
+到目前为止，模拟已经被记录下来。现在，是时候检查记录，找到最引人注目的时刻，并利用它们。这些步骤集中在脚本 [__tutorial_replay.py__](https://github.com/OpenHUTB/doc/tree/master/src/tutorial/tutorial_replay.py) 中。该大纲由注释的不同代码段构成。
 
 现在是运行新模拟的时候了。
 
@@ -804,7 +804,7 @@ client.replay_file("~/tutorial/recorder/recording01.log",45,10,0)
 
 记录器将在此模拟中重新创建与原始条件完全相同的条件。这确保了不同播放中的数据一致。
 
-收集重要时刻、参与者和事件的列表。需要时添加传感器并回放模拟。该过程与之前完全相同。脚本 [__tutorial_replay.py__](https://github.com/OpenHUTB/carla_doc/tree/master/src/tutorial/tutorial_replay.py) 提供了不同的示例，这些示例已在 [__“设置高级传感器”__](#set-advanced-sensors) 部分中进行了彻底解释。其他已在 [__设置基本传感器__](#set-basic-sensors) 部分中进行了解释。 
+收集重要时刻、参与者和事件的列表。需要时添加传感器并回放模拟。该过程与之前完全相同。脚本 [__tutorial_replay.py__](https://github.com/OpenHUTB/doc/tree/master/src/tutorial/tutorial_replay.py) 提供了不同的示例，这些示例已在 [__“设置高级传感器”__](#set-advanced-sensors) 部分中进行了彻底解释。其他已在 [__设置基本传感器__](#set-basic-sensors) 部分中进行了解释。 
 
 根据需要添加尽可能多的传感器。根据需要多次回放模拟并检索尽可能多的数据。
 
@@ -1342,7 +1342,7 @@ if __name__ == '__main__':
 <div text-align: center>
 <div class="build-buttons">
 <p>
-<a href="https://github.com/OpenHUTB/carla_doc/issues" target="_blank" class="btn btn-neutral" title="CARLA forum">
+<a href="https://github.com/OpenHUTB/doc/issues" target="_blank" class="btn btn-neutral" title="CARLA forum">
 讨论页面</a>
 </p>
 </div>

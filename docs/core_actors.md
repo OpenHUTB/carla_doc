@@ -79,7 +79,7 @@ actor = world.spawn_actor(blueprint, transform)
 ```
 
 !!! 重要
-    Carla 使用 [虚幻引擎坐标系统](https://openhutb.github.io/carla_doc/python_api/#carlarotation) 。记住： [`carla.Rotation`](https://openhutb.github.io/carla_doc/python_api/#carlarotation) 构造函数定义为“俯仰、偏航、翻滚” `(pitch, yaw, roll)`，与虚幻编辑器的“翻滚、俯仰、偏航” `(roll, pitch, yaw)` 不同。
+    Carla 使用 [虚幻引擎坐标系统](https://openhutb.github.io/doc/python_api/#carlarotation) 。记住： [`carla.Rotation`](https://openhutb.github.io/doc/python_api/#carlarotation) 构造函数定义为“俯仰、偏航、翻滚” `(pitch, yaw, roll)`，与虚幻编辑器的“翻滚、俯仰、偏航” `(roll, pitch, yaw)` 不同。
 
 如果在指定位置发生冲突，将不会生成参与者。无论这种情况发生在静态对象还是其他参与者身上。可以尝试避免这些不希望的生成碰撞。
 
@@ -184,7 +184,7 @@ carla.Rotation(pitch=-90)))
 
 ### 交通标志和交通信号灯 <span id="traffic-signs-and-traffic-lights"></span>
 
-到目前为止，Carla 中只有停靠点、让行、交通信号灯被视为参与者。其余的 OpenDRIVE 标志可通过 API 作为地标（[__carla.Landmark__](python_api.md#carla.Landmark)）进行访问，他们的信息可以使用这些实例访问，但他们在模拟中并不作为参与者存在，在接下来的 __[地图和导航](https://openhutb.github.io/carla_doc/core_map/#landmarks)__ 部分中将更详细地解释地标。 
+到目前为止，Carla 中只有停靠点、让行、交通信号灯被视为参与者。其余的 OpenDRIVE 标志可通过 API 作为地标（[__carla.Landmark__](python_api.md#carla.Landmark)）进行访问，他们的信息可以使用这些实例访问，但他们在模拟中并不作为参与者存在，在接下来的 __[地图和导航](https://openhutb.github.io/doc/core_map/#landmarks)__ 部分中将更详细地解释地标。 
 
 
 当模拟开始时，会使用 OpenDRIVE 文件中的信息自动生成停止、让行和交通信号灯。__这些都无法在蓝图库中找到__，因此无法生成。
@@ -314,7 +314,7 @@ ai_controller.stop()
 <div text-align: center>
 <div class="build-buttons">
 <p>
-<a href="https://github.com/OpenHUTB/carla_doc/issues" target="_blank" class="btn btn-neutral" title="CARLA forum">
+<a href="https://github.com/OpenHUTB/doc/issues" target="_blank" class="btn btn-neutral" title="CARLA forum">
 讨论页面</a>
 </p>
 </div>

@@ -69,4 +69,4 @@ Carla 提供了多种工具和指南来帮助自定义地图：
 
 ---
 
-如果您对文档有任何疑问，可以在 [讨论页面](https://github.com/OpenHUTB/carla_doc/issues) 中提问。
+如果您对文档有任何疑问，可以在 [讨论页面](https://github.com/OpenHUTB/doc/issues) 中提问。

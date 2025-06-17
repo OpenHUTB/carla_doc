@@ -25,7 +25,7 @@ Carla 与 CarSim 的集成允许将 Carla 中的车辆控制转发到 CarSim。C
     __对于 Ubuntu__:
 
     1. 在 [这里](https://www.carsim.com/users/unreal_plugin/unreal_plugin_2020_0.php) 下载插件。
-    2. 将文件 `CarSim.Build.cs` 替换为 [此处](https://carla-releases.s3.eu-west-3.amazonaws.com/Backup/CarSim.Build.cs) 找到的文件（或者 [CarSim.Build.cs](https://github.com/OpenHUTB/carla_doc/blob/master/src/vehicle/CarSim.Build.cs) ），以便为 Ubuntu 使用正确的求解器。
+    2. 将文件 `CarSim.Build.cs` 替换为 [此处](https://carla-releases.s3.eu-west-3.amazonaws.com/Backup/CarSim.Build.cs) 找到的文件（或者 [CarSim.Build.cs](https://github.com/OpenHUTB/doc/blob/master/src/vehicle/CarSim.Build.cs) ），以便为 Ubuntu 使用正确的求解器。
 
     3. 如果您使用的是 Carla 的打包版本，则可以跳过此步骤。打包版本已使用此标志编译，但如果您从源代码构建 Carla，则需要使用`--carsim`标志编译服务器。
 

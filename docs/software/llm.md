@@ -32,4 +32,4 @@ docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -v open-
 
 * [全流程安装DeepSeek开源模型](https://blog.csdn.net/AnNanDu/article/details/145462409)
 * [Docker 安装](https://www.runoob.com/docker/windows-docker-install.html)
-* [文档和代码](https://github.com/OpenHUTB/carla_doc)
+* [文档和代码](https://github.com/OpenHUTB/doc)

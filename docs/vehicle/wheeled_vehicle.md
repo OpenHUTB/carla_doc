@@ -96,7 +96,7 @@ CARLA提供了不同的方法对车辆进行控制，如：
 需要补充说明的是，本示例中采用了 Carla 默认的异步变步长模式，仿真运行由 Carla 的服务端Server自行触发，这样的话在客户端获取信息或者进行设置时需要等待触发才能生效，这就是代码中`world.wait_for_tick()`的用处所在。
 
 
-实现代码位于 [wheeled_vehicle_demo.py](https://github.com/OpenHUTB/carla_doc/tree/master/src/vehicle/wheeled_vehicle_demo.py) 。
+实现代码位于 [wheeled_vehicle_demo.py](https://github.com/OpenHUTB/doc/tree/master/src/vehicle/wheeled_vehicle_demo.py) 。
 
 
 # 参考

@@ -67,26 +67,26 @@
 
 0.打开`x64 Native Tools Command for VS 2019`，并切换到目录`Util/Intallers`下。
 
-1.切换到目录`Util/InstallersWin`，将[`install_boost.bat`](https://github.com/OpenHUTB/carla/blob/ue4-dev/Util/InstallersWin/install_boost.bat) 内的b2运行参数改为`variant=debug`（根据`Util/BuildTools/Setup.bat`里的安装Boost命令改编），（或者将 [install_boost_debug.bat](https://github.com/OpenHUTB/carla_doc/blob/master/src/cmake/install_boost_debug.bat) 拷贝到`Util/InstallerWin`目录下），然后运行[`install_boost_debug.bat`](https://github.com/OpenHUTB/carla_doc/tree/master/src/cmake/install_boost_debug.bat) ：
+1.切换到目录`Util/InstallersWin`，将[`install_boost.bat`](https://github.com/OpenHUTB/carla/blob/ue4-dev/Util/InstallersWin/install_boost.bat) 内的b2运行参数改为`variant=debug`（根据`Util/BuildTools/Setup.bat`里的安装Boost命令改编），（或者将 [install_boost_debug.bat](https://github.com/OpenHUTB/doc/blob/master/src/cmake/install_boost_debug.bat) 拷贝到`Util/InstallerWin`目录下），然后运行[`install_boost_debug.bat`](https://github.com/OpenHUTB/doc/tree/master/src/cmake/install_boost_debug.bat) ：
 ```shell
 install_boost_debug.bat --build-dir C:\buf --toolset msvc-14.2 --version 1.80.0 -j 4
 ```
 会自动将boost的库和头文件安装到目录`D:\buffer\boost-1.80.0-install`里面。
 
 将[`install_recast.bat`](https://github.com/carla-simulator/carla/blob/dev/Util/InstallersWin/install_recast.bat) 中的`Relase`改为`Debug`。
-将`-DCMAKE_CXX_FLAGS_RELASE="/MD /MP"`改为多线程调试DLL`-DCMAKE_CXX_FLAGS_DEBUG="/MDd /MP"`，（或者将 [install_recast_debug.bat](https://github.com/OpenHUTB/carla_doc/blob/master/src/cmake/install_recast_debug.bat) 拷贝到`Util/InstallerWin`目录下），然后运行[`install_recast_debug.bat`](https://github.com/OpenHUTB/carla_doc/tree/master/src/cmake/install_recast_debug.bat) 。
+将`-DCMAKE_CXX_FLAGS_RELASE="/MD /MP"`改为多线程调试DLL`-DCMAKE_CXX_FLAGS_DEBUG="/MDd /MP"`，（或者将 [install_recast_debug.bat](https://github.com/OpenHUTB/doc/blob/master/src/cmake/install_recast_debug.bat) 拷贝到`Util/InstallerWin`目录下），然后运行[`install_recast_debug.bat`](https://github.com/OpenHUTB/doc/tree/master/src/cmake/install_recast_debug.bat) 。
 ```shell
 install_recast_debug.bat --build-dir C:\buf --generator "Visual Studio 16 2019"
 ```
 
-将[`install_rpclib.bat`](https://github.com/carla-simulator/carla/blob/dev/Util/InstallersWin/install_rpclib.bat) 中的`Relase`改为`Debug`，运行[`install_rpclib.bat`](https://github.com/OpenHUTB/carla_doc/tree/master/src/cmake/install_rpclib.bat) 。
-将`-DCMAKE_CXX_FLAGS_RELASE="/MD /MP"`改为多线程调试DLL`-DCMAKE_CXX_FLAGS_DEBUG="/MDd /MP"`。或者将[install_rpclib_debug.bat](https://github.com/OpenHUTB/carla_doc/blob/master/src/cmake/install_rpclib_debug.bat) 拷贝到`Util/InstallerWin`目录下），然后运行：
+将[`install_rpclib.bat`](https://github.com/carla-simulator/carla/blob/dev/Util/InstallersWin/install_rpclib.bat) 中的`Relase`改为`Debug`，运行[`install_rpclib.bat`](https://github.com/OpenHUTB/doc/tree/master/src/cmake/install_rpclib.bat) 。
+将`-DCMAKE_CXX_FLAGS_RELASE="/MD /MP"`改为多线程调试DLL`-DCMAKE_CXX_FLAGS_DEBUG="/MDd /MP"`。或者将[install_rpclib_debug.bat](https://github.com/OpenHUTB/doc/blob/master/src/cmake/install_rpclib_debug.bat) 拷贝到`Util/InstallerWin`目录下），然后运行：
 ```shell
 install_rpclib_debug.bat --build-dir C:\buf --generator "Visual Studio 16 2019"
 ```
 
 
-2.将第1步生成的安装文件目录配置到`Examples\CppClient\CMakeLists.txt`中（即将 [cpp_client_debug.txt](https://github.com/OpenHUTB/carla_doc/blob/master/src/cmake/cpp_client_debug.txt) 拷贝到`Examples/CppClient`目录下并重命名为`CMakeLists.txt` ），对应的头文件和库文件都改为Debug版本（即将`C:\buf`目录下的`boost-1.80.0-install`、`recast-install`、`rpclib-install`3个文件夹拷贝到`Build\debug`目录下）；
+2.将第1步生成的安装文件目录配置到`Examples\CppClient\CMakeLists.txt`中（即将 [cpp_client_debug.txt](https://github.com/OpenHUTB/doc/blob/master/src/cmake/cpp_client_debug.txt) 拷贝到`Examples/CppClient`目录下并重命名为`CMakeLists.txt` ），对应的头文件和库文件都改为Debug版本（即将`C:\buf`目录下的`boost-1.80.0-install`、`recast-install`、`rpclib-install`3个文件夹拷贝到`Build\debug`目录下）；
 
 3.在`main.cpp`中增加断点，并开始调试；
 ![](img/tuto_D_windows_debug/set_breakpoint_in_cpp_client.jpg)
@@ -97,7 +97,7 @@ auto world = client.LoadWorld("town_name");
 ```shell
 auto world = client.LoadWorld("Town10HD_Opt");
 ```
-即将[main_debug.cpp](https://github.com/OpenHUTB/carla_doc/blob/master/src/cmake/main_debug.cpp) 拷贝到`Examples/CppClient`目录下。
+即将[main_debug.cpp](https://github.com/OpenHUTB/doc/blob/master/src/cmake/main_debug.cpp) 拷贝到`Examples/CppClient`目录下。
 
 4.使用VS2019打开`Examples/CppClient/CMakeLists.txt`，程序在断点停止后按F10运行下一步，按F11进入LibCarla中的函数实现。
 ![](img/tuto_D_windows_debug/stop_in_LibCarla.jpg)

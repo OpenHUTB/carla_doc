@@ -48,7 +48,7 @@ client.set_timeout(2.0)
 
 加载修改后的图像后，实例化[carla.TextureColor](python_api.md#carla.TextureColor)对象并填充加载图像中的像素数据。
 
-使用 [carla.World](python_api.md#carla.World) 对象的 `apply_color_texture_to_object(...)` 方法来更新纹理。您应该在 UE4 观察者视图中看到纹理更新。[完整代码](https://github.com/OpenHUTB/carla_doc/blob/master/src/demo/tuto_G_texture_streaming.py) 。
+使用 [carla.World](python_api.md#carla.World) 对象的 `apply_color_texture_to_object(...)` 方法来更新纹理。您应该在 UE4 观察者视图中看到纹理更新。[完整代码](https://github.com/OpenHUTB/doc/blob/master/src/demo/tuto_G_texture_streaming.py) 。
 
 
 ```py
@@ -89,4 +89,4 @@ list(filter(lambda k: 'Apartment' in k, world.get_names_of_all_objects()))
 lincoln_vehicle = list(filter(lambda k: 'BP_Lincoln' in k, world.get_names_of_all_objects()))
 world.apply_color_texture_to_object(lincoln_vehicle[0], carla.MaterialParameter.Diffuse, texture_1)
 ```
-完整代码请参考[链接](https://github.com/OpenHUTB/carla_doc/blob/master/src/demo/tuto_G_texture_streaming.py) 。
+完整代码请参考[链接](https://github.com/OpenHUTB/doc/blob/master/src/demo/tuto_G_texture_streaming.py) 。

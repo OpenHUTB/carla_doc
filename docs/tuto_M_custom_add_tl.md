@@ -62,4 +62,4 @@ __3.__ 通过在“细节”面板中选择 _BoxTrigger_ 组件并调整 _Transf
 
 ---
 
-如果您对文档有任何疑问，可以在 [讨论页面](https://github.com/OpenHUTB/carla_doc/issues) 中提问。
+如果您对文档有任何疑问，可以在 [讨论页面](https://github.com/OpenHUTB/doc/issues) 中提问。

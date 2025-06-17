@@ -1,6 +1,6 @@
 # 参考：https://www.cnblogs.com/qkshhan/p/16202931.html
 # 无限循环播放：https://blog.csdn.net/I_fole_you/article/details/131050549
-# 使用everything搜索大于28MB的文件（cloudflare不能部署大于30M的文件）：size:>28mb D:\work\workspace\carla_doc\docs\img
+# 使用everything搜索大于28MB的文件（cloudflare不能部署大于30M的文件）：size:>28mb D:\work\workspace\doc\docs\img
 from PIL import ImageSequence, Image
 import imageio, os
 

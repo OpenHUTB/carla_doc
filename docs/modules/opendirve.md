@@ -226,7 +226,7 @@ carla::opendrive::Map map = carla::opendrive::OpenDriveParser::Load(xodr_content
 ~~~
 carla/opendrive/OpenDriveParser.cpp
 ~~~
-[点击这里访问opendirve](https://openhutb.github.io/carla_doc/modules/opendirve/)
+[点击这里访问opendirve](https://openhutb.github.io/doc/modules/opendirve/)
 
 ---
 
@@ -475,4 +475,4 @@ OpenDriveParser
 - 在地图工具链中进行道路、交叉口、交通信号等解析
 - 用于运行时生成或验证地图网络结构
 ---
-### [点击此处访问CARLA OpenDrive模块说明文档](https://openhutb.github.io/carla_doc/modules/OpenDrive/)
+### [点击此处访问CARLA OpenDrive模块说明文档](https://openhutb.github.io/doc/modules/OpenDrive/)

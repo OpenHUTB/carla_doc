@@ -97,4 +97,4 @@ __3.__ 导出 `.xodr`文件:
 
 ---
 
-如果你对这个过程有任何疑问，那么你可以在 [讨论页面](https://github.com/OpenHUTB/carla_doc/issues) 上提问。
+如果你对这个过程有任何疑问，那么你可以在 [讨论页面](https://github.com/OpenHUTB/doc/issues) 上提问。

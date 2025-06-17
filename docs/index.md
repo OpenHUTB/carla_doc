@@ -4,7 +4,7 @@ title: 主页
 
 欢迎使用人车模拟文档，该页面包含所有内容的索引。运行 [入门](#primary) 示例后可以按自己喜欢的顺序随意阅读（可使用 [DeepSeek大模型](software/llm.md) 来辅助开发）。默认为打开 UE 4.26 的 Carla 文档，支持 UE 5.5 的 Carla 文档请查看 [链接](ue5/index.md) 。
 
-如果对文档中的任何问题可以在 [本文档的源码仓库](https://github.com/OpenHUTB/carla_doc) 中的 [Issues](https://github.com/OpenHUTB/carla_doc/issues) 页面进行提问或者提交 [Pull Request](https://zhuanlan.zhihu.com/p/153381521) 直接修改文档。
+如果对文档中的任何问题可以在 [本文档的源码仓库](https://github.com/OpenHUTB/doc) 中的 [Issues](https://github.com/OpenHUTB/doc/issues) 页面进行提问或者提交 [Pull Request](https://zhuanlan.zhihu.com/p/153381521) 直接修改文档。
 
 * [__简介__](#primary)  
     * [入门](#introduction)
@@ -30,7 +30,7 @@ title: 主页
 ## 简介 <span id="introduction"></span>
 1. 下载 [链接](https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb) 中的`software/hutb`中的文件并解压；
 2. 运行`WindowsNoEditor`文件夹下的`CarlaUE4.exe`启动场景，进入场景后按`W`、`S`、`A`、`D`移动场景视角；
-3. 使用`pip install hutb` 安装Python功能包（或者安装`WindowsNoEditor/PythonAPI/carla/dist/hutb-*.whl`），然后运行脚本 [generate_traffic.py](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/generate_traffic.py) 在场景中生成交通流和运行 [python manual_control.py](https://github.com/OpenHUTB/carla_doc/blob/master/src/examples/manual_control.py) 生成一辆键盘控制的车。
+3. 使用`pip install hutb` 安装Python功能包（或者安装`WindowsNoEditor/PythonAPI/carla/dist/hutb-*.whl`），然后运行脚本 [generate_traffic.py](https://github.com/OpenHUTB/doc/blob/master/src/examples/generate_traffic.py) 在场景中生成交通流和运行 [python manual_control.py](https://github.com/OpenHUTB/doc/blob/master/src/examples/manual_control.py) 生成一辆键盘控制的车。
 
 
 !!! 注意

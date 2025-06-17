@@ -48,7 +48,7 @@ len(roads)
 
 # import some code coming with the sim
 import sys
-sys.path.append('D:/work/workspace/carla_doc/src/')
+sys.path.append('D:/work/workspace/doc/src/')
 from carla_agent.navigation.global_route_planner import GlobalRoutePlanner
 
 

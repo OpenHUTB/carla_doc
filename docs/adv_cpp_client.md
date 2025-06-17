@@ -2,7 +2,7 @@
 
 要构建C++客户端示例，您需要安装`make`。在构建C++客户端之前，您需要构建 Carla，并按照您平台的相关  [构建说明](build_carla.md) 进行操作。
 
-导航到 Carla 存储库中的`Examples/CppClient` 文件夹并打开一个终端。您将在此目录中找到一个 Makefile。要在Linux中构建并运行它，请在命令提示符下执行`make run`。在Windows中，在同一目录中创建一个名为`CMakeLists.txt`的文件，并添加 [此文件](https://github.com/OpenHUTB/carla_doc/tree/master/src/cmake/CMakeLists.txt) 中的内容，然后运行`cmake`。
+导航到 Carla 存储库中的`Examples/CppClient` 文件夹并打开一个终端。您将在此目录中找到一个 Makefile。要在Linux中构建并运行它，请在命令提示符下执行`make run`。在Windows中，在同一目录中创建一个名为`CMakeLists.txt`的文件，并添加 [此文件](https://github.com/OpenHUTB/doc/tree/master/src/cmake/CMakeLists.txt) 中的内容，然后运行`cmake`。
 
 这个C++示例将连接到服务器，生成一辆车，并在销毁和终止车辆之前对其应用命令。
 

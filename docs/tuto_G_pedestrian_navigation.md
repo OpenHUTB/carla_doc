@@ -272,7 +272,7 @@ for frame in range(0,360):
 
 ## 总结 <span id="conclusion"></span>
 
-在本教程中，您学习了如何使用 AI 控制器生成行人，恢复行人骨骼的真实三维坐标，并将这些骨骼投影到相机传感器捕获的二维图像上。您可以使用本教程中学到的技术，使用 Carla 模拟器为人体姿势估计框架设置训练和验证，完整代码[链接](https://github.com/OpenHUTB/carla_doc/blob/master/src/tuto_G_pedestrian_navigation.py)。
+在本教程中，您学习了如何使用 AI 控制器生成行人，恢复行人骨骼的真实三维坐标，并将这些骨骼投影到相机传感器捕获的二维图像上。您可以使用本教程中学到的技术，使用 Carla 模拟器为人体姿势估计框架设置训练和验证，完整代码[链接](https://github.com/OpenHUTB/doc/blob/master/src/tuto_G_pedestrian_navigation.py)。
 
 
 
