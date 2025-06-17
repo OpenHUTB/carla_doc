@@ -233,6 +233,11 @@ D:/work/workspace/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/Fishey
 ## Windows 构建
 <!-- ======================================================================= -->
 
+##### [编译时卡在：`LogInit: Display: Running engine for game: CarlaUE4`](https://github.com/carla-simulator/carla/discussions/4644)
+
+> 原因：UE找不到GPU spec
+> 
+> 解决：重启机器。
 
 ###### [UnrealBuildTool: ERROR: Unable to instantiate module 'Carla': System.IO.IOException](https://github.com/carla-simulator/carla/discussions/4165)
 
