@@ -1,7 +1,4 @@
-<p align=center style="color:black;font-size:47px;">
-    <b>人车模拟</b>
-</p>
-
+# <center> 人车模拟 </center>
 
 <!-- Badges (flat): https://github.com/pudding0503/github-badge-collection -->
 <p align=center>
