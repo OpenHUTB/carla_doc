@@ -30,6 +30,13 @@
 
 该项目是一款能让用户快速测试 [车辆](https://openhutb.github.io/doc/#_4) 和 [行人](https://openhutb.github.io/doc/#_5) 感知、规划、控制算法的模拟器文档。
 
+<!-- 
+<center class="half">
+<img src="doc/img/pedestrian/opensim_running.gif" width=200/>
+<img src="https://github.com/OpenHUTB/opensim-core/blob/main/doc/images/opensim_running.gif" width=200/>
+</center>
+-->
+
 ---
 
 ## 文档部署

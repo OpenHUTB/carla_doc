@@ -91,6 +91,8 @@ title: 主页
 
 [__和 SUMO 协同模拟__](adv_sumo.md) — 在 Carla 和 SUMO 之间运行协同模拟
 
+[__Chrono 集成__](tuto_G_chrono.md) — 整合 Chrono 来进行物理模拟
+
 
 
 ### 行人 <span id="pedestrian"></span>
@@ -151,7 +153,6 @@ title: 主页
 
 [__Cesium 插件__](adv_cesium.md) — 将 3D 地理空间生态系统引入虚幻引擎
 
-[__Chrono 集成__](tuto_G_chrono.md) — 整合 Chrono 来进行物理模拟
 
 
 
