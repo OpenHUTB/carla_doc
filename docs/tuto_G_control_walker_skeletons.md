@@ -4,9 +4,10 @@
 
 *   [__行人骨骼结构__](#walker-skeleton-structure)  
 *   [__手动控制行人骨骼__](#manually-control-walker-bones)  
-	*   [连接到模拟器](#connect-to-the-simulator)  
-	*   [生成行人](#spawn-a-walker)  
-	*   [控制行人骨骼](#control-walker-skeletons)  
+    * [连接到模拟器](#connect-to-the-simulator)  
+    * [生成行人](#spawn-a-walker)  
+    * [控制行人骨骼](#control-walker-skeletons)  
+*   [__可视化行人骨架__](#walker_bones_visualation) 
 
 !!! 笔记
     **本文档假设用户熟悉 Python API。**。 <br>
@@ -137,7 +138,7 @@ world.player.apply_control(control)
 行人骨架控制代码 [链接](https://github.com/OpenHUTB/doc/blob/master/src/pedestrian/walker_control.py) 。
 
 
-## 可视化行人骨架
+## 可视化行人骨架  <span id="walker_bones_visualation"></span>
 
 ![](img/pedestrian/draw_skeleton.png)
 
