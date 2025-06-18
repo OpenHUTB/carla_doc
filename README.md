@@ -32,8 +32,7 @@
 
 
 <center class="half">
-<img href="https://openhutb.github.io/doc/pedestrian/tuto_content_chrono_opensim/" src="docs/img/pedestrian/opensim_running.gif" width=190/>
-<img href="https://openhutb.github.io/doc/tuto_G_chrono/" src="docs/img/chrono/vechile_turnover.gif" width=150/>
+<img href="https://openhutb.github.io/doc/pedestrian/tuto_content_chrono_opensim/" src="docs/img/pedestrian/opensim_running.gif" width=190/> <img href="https://openhutb.github.io/doc/tuto_G_chrono/" src="docs/img/chrono/vechile_turnover.gif" width=250/>
 </center>
 
 
