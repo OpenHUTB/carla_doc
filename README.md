@@ -28,7 +28,7 @@
     </a>
 </p>
 
-该项目是一款能让用户快速测试 [车辆](https://openhutb.github.io/doc/#_4) 和 [行人](https://openhutb.github.io/doc/#_5) 感知、规划、控制算法的模拟器文档。
+该项目是一款能让用户快速测试 [行人](https://openhutb.github.io/doc/#_5) 和 [车辆](https://openhutb.github.io/doc/#_4) 感知、规划、控制算法的模拟器文档。
 
 <p width="100%" display="flex" align="center">
 <a href="https://openhutb.github.io/doc/tuto_G_pedestrian_navigation/#conclusion"><img src="docs/img/pedestrian/opensim_running.gif" width="25%" margin-right="10%"/></a>  <a href="https://openhutb.github.io/doc/tuto_G_chrono/"><img src="docs/img/chrono/vechile_turnover.gif" width="50%"/></a>
