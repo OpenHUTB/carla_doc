@@ -70,10 +70,21 @@
               
                 <h1 id="_1">行人物理场模拟</h1>
 <h2 id="opensim">OpenSim</h2>
+<p><img alt="" src="../../img/pedestrian/opensim_running.gif" /></p>
+<h3 id="_2"><a href="https://zhuanlan.zhihu.com/p/373150100">入门</a></h3>
+<p><strong>1.软件安装</strong></p>
+<p>到OpenSim的 <a href="https://simtk.org/frs/?group_id=91">下载页面</a> 进行软件的下载，安装好双击桌面图片便可看到软件界面。</p>
+<p><strong>2.导入模型</strong></p>
+<p>点击菜单栏中File-&gt;Open Model…，从安装目录中选择Models文件夹，可以看到里面有很多个子文件夹，那些是OpenSim自带的模型。我们点开其中的Gait2392_Simbody 文件夹，选中gait2392_simbody.osim并点击Open,这样我们就导入了一个模型。</p>
+<p>这是一个人体下肢的模型，参照一个身高1.8米、体重75千克的成年人。它共有19块骨骼，92块肌肉（可在左侧Navigator中查看每块骨骼和肌肉）。</p>
+<p><strong>3.加载动作</strong></p>
+<p>要想让模型动起来，首先要加载运动文件。</p>
+<p>点击菜单栏中File-&gt;Load Motion…,选择Gait2392_Simbody文件夹下的Tutorial1子文件夹，选中normal.mot然后点击Load，加载正常步态的运动文件。此时可以在动作控制栏中看到动作名称，并且导航窗口中多了一个Motions分支。</p>
+<h3 id="python">Python</h3>
 <p>通过 <a href="https://anaconda.org/opensim-org/opensim">conda</a> 安装：
 <div class="highlight"><pre><span></span><code>conda<span class="w"> </span>install<span class="w"> </span>opensim-org::opensim
 </code></pre></div></p>
-<h2 id="_2">强化学习</h2>
+<h2 id="_3">强化学习</h2>
 <div class="highlight"><pre><span></span><code>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>opensim-rl<span class="w"> </span>-c<span class="w"> </span>kidzik<span class="w"> </span>opensim<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.6.1
 conda<span class="w"> </span>activate<span class="w"> </span>opensim-rl
 conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>lapack<span class="w"> </span>git
@@ -87,7 +98,7 @@ python
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">200</span><span class="p">):</span>
     <span class="n">o</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">i</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">action_space</span><span class="o">.</span><span class="n">sample</span><span class="p">())</span>
 </code></pre></div></p>
-<h2 id="_3">参考</h2>
+<h2 id="_4">参考</h2>
 <ul>
 <li>
 <p><a href="https://sbel.wiscweb.wisc.edu/wp-content/uploads/sites/569/2018/06/TR-2017-08.pdf">Chrono OpenSim 解析器手册</a></p>
@@ -106,6 +117,9 @@ python
 </li>
 <li>
 <p><a href="https://www.projectchrono.org/assets/slides_3_0_0/6_OtherModules/5_ChronoRoboticsSupport.pdf">chrono中SolidWorks建模机器人系统PPT</a></p>
+</li>
+<li>
+<p><a href="https://zhuanlan.zhihu.com/p/373150100">知乎：OpenSim基础教程（1）：OpenSim 入门</a></p>
 </li>
 </ul>
               
