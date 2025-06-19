@@ -49,7 +49,16 @@ for i in range(200):
     o, r, d, i = env.step(env.action_space.sample())
 ```
 
+## 自定义
+
+[OpenSense - 基于 IMU 数据的运动学](https://opensimconfluence.atlassian.net/wiki/spaces/OpenSim/pages/53084203/OpenSense+-+Kinematics+with+IMU+Data)
+
+
 ## 参考
+
+- [OpenSim 官方示例和教程](https://opensimconfluence.atlassian.net/wiki/spaces/OpenSim/pages/53088695/Examples+and+Tutorials)
+
+- [知乎：Opensim基础教程](https://zhuanlan.zhihu.com/p/673721925)
 
 - [Chrono OpenSim 解析器手册](https://sbel.wiscweb.wisc.edu/wp-content/uploads/sites/569/2018/06/TR-2017-08.pdf)
 
@@ -64,3 +73,6 @@ for i in range(200):
 - [chrono中SolidWorks建模机器人系统PPT](https://www.projectchrono.org/assets/slides_3_0_0/6_OtherModules/5_ChronoRoboticsSupport.pdf)
 
 - [知乎：OpenSim基础教程（1）：OpenSim 入门](https://zhuanlan.zhihu.com/p/373150100)
+
+- [运动生物学（官方）课程](https://biomech.stanford.edu/) - [B站视频](https://www.bilibili.com/video/BV1zx7QzMEPD/?vd_source=98260b8dbf6f69741edcee62e52758ab)
+

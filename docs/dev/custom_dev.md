@@ -26,6 +26,38 @@ git apply --reject xxx.patch
 加入这个选项能够将能打上的补丁先打上，冲突的文件生成*.rej文件
 
 
+注意：如果强行打补丁后，文件内容修改了，但是git没跟踪到修改记录，则需要启用稀疏检出（允许检出仓库中需要的部分内容）：
+```shell
+git config core.sparsecheckout true
+```
+
+## 保存到Gitlab
+```shell
+git remote add xj http://172.20.46.154:8090/traffic/carla.git
+git push xj
+```
+
+报错：`remote: GitLab: LFS objects are missing. Ensure LFS is properly set up or try a manual "git lfs push --all".`
+
+> 原因：GitLab启用了大文件。
+> 
+> 解决：在gitlab项目设置中禁用Git大型文件存储(LFS)。
+> 
+> 设置>通用>可见性、项目特性、权限>展开> Git大型文件存储(LFS)
+
+报错：
+```shell
+Uploading LFS objects:   0% (0/1), 0 B | 0 B/s, done.
+batch response: Repository or object not found: http://172.20.46.154:8090/traffic/carla.git/info/lfs/objects/batch
+Check that it exists and that you have proper access to it
+error: failed to push some refs to 'http://172.20.46.154:8090/traffic/carla.git'
+```
+> 原因：可能其他分支包含大文件
+> 
+> 解决：只推送当前分支
+> ```shell
+> git push xj -u OpenHUTB
+> ```
 
 ## 参考
 

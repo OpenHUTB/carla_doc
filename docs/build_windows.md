@@ -220,8 +220,11 @@ Update.bat
 ```sh
 tar -xvzf <assets_file_name>.tar.gz.tar -C C:\path\to\carla\Unreal\CarlaUE4\Content\Carla
 ```
-下载好后解压到下图这个文件夹（注意是把所有解压的文件放到/Unreal/CARLAUE4/Content/CARLA 下，不是刚刚下载的压缩包解压到当前文件夹）像下面这样格式。否则后面执行 make launch 会失败。
+下载好后解压到下图这个文件夹（注意是把所有解压的文件放到`Unreal/CARLAUE4/Content/CARLA` 下，不是刚刚下载的压缩包解压到当前文件夹）像下面这样格式。否则后面执行 make launch 会失败。
 ![](./img/build/extracted_content.png)
+
+! 笔记
+    湖工商内网使用仓库 [http://172.20.46.154:8090/traffic/Content](http://172.20.46.154:8090/traffic/Content) 进行资产的克隆，已获取最新的资产。
 
 
 ### 构建 Carla <span id="build-carla"></span>

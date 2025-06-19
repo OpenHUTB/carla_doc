@@ -3797,16 +3797,19 @@ _</font>
     - **Setter:** _[carla.World.set_weather](#carla.World.set_weather)_  
 
 ##### 设置器
+- <a name="carla.World.set_annotations_traverse_translucency"></a>**<font color="#7fb800">set_annotations_traverse_translucency</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**enable**</font>)  
+设置语义标注+实例标注和深度标注是否遍历半透明材质的 Carla 行为。要找到最近的障碍物，应将其设置为 false（默认值）。如果您对检测窗户后方物体的标注感兴趣，则应启用此功能。 
+    - **参数：**
+        - `enable` (_bool_) - 启用或禁用语义标注、实例标注和深度标注中的半透明材料的遍历。 __默认为 `False`__。
 - <a name="carla.World.set_pedestrians_cross_factor"></a>**<font color="#7fb800">set_pedestrians_cross_factor</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**percentage**</font>)  
     - **参数:**
-        - `percentage` (_float_) - 设置可以在道路上行走或在道路上的任何点穿越的行人的百分比。值应介于 `0.0` 和之间 `1.0`。例如，值 `0.1` 表示允许 10% 的行人在道路上行走。 __默认为`0.0`__ 。
+        - `percentage` (_float_) - 设置可以在道路上行走或在道路上的任何点穿越的行人的百分比。值应介于 `0.0` 和 `1.0` 之间。例如，值 `0.1` 表示允许 10% 的行人在道路上行走。 __默认为`0.0`__ 。
     - **笔记:** <font color="#8E8E8E">_应在行人生成之前设置。
 _</font>  
 - <a name="carla.World.set_pedestrians_seed"></a>**<font color="#7fb800">set_pedestrians_seed</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**seed**</font>)  
     - **参数:**
         - `seed` (_int_) - 设置用于生成与行人相关的任何随机数的种子。
-    - **笔记:** <font color="#8E8E8E">_应在行人生成之前设置。如果您想为每个行人重复相同的身体（蓝图），请在 Python 代码（随机选择蓝图）和此处使用相同的种子，否则行人将重复相同的路径，但身体会不同。
-_</font>  
+    - **笔记:** <font color="#8E8E8E">_应在行人生成之前设置。如果您想为每个行人重复相同的身体（蓝图），请在 Python 代码（随机选择蓝图）和此处使用相同的种子，否则行人将重复相同的路径，但身体会不同。_</font>  
 - <a name="carla.World.set_weather"></a>**<font color="#7fb800">set_weather</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**weather**</font>)  
 将模拟的天气参数更改为对象中定义的其他参数。
     - **参数:**
