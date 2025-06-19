@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Python api - 人车模拟器</title>
+    <title>Python api - 人车模拟</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -31,7 +31,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href=".." class="icon icon-home"> 人车模拟器
+          <a href=".." class="icon icon-home"> 人车模拟
         </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
       <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
@@ -51,7 +51,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
       <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="..">人车模拟器</a>
+          <a href="..">人车模拟</a>
         
       </nav>
       <div class="wy-nav-content">
@@ -5027,9 +5027,17 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 </ul>
 <h5 id="_246">设置器</h5>
 <ul>
+<li><a name="carla.World.set_annotations_traverse_translucency"></a><strong><font color="#7fb800">set_annotations_traverse_translucency</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>enable</strong></font>)<br />
+设置语义标注+实例标注和深度标注是否遍历半透明材质的 Carla 行为。要找到最近的障碍物，应将其设置为 false（默认值）。如果您对检测窗户后方物体的标注感兴趣，则应启用此功能。 <ul>
+<li><strong>参数：</strong><ul>
+<li><code>enable</code> (<em>bool</em>) - 启用或禁用语义标注、实例标注和深度标注中的半透明材料的遍历。 <strong>默认为 <code>False</code></strong>。</li>
+</ul>
+</li>
+</ul>
+</li>
 <li><a name="carla.World.set_pedestrians_cross_factor"></a><strong><font color="#7fb800">set_pedestrians_cross_factor</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>percentage</strong></font>)  <ul>
 <li><strong>参数:</strong><ul>
-<li><code>percentage</code> (<em>float</em>) - 设置可以在道路上行走或在道路上的任何点穿越的行人的百分比。值应介于 <code>0.0</code> 和之间 <code>1.0</code>。例如，值 <code>0.1</code> 表示允许 10% 的行人在道路上行走。 <strong>默认为<code>0.0</code></strong> 。</li>
+<li><code>percentage</code> (<em>float</em>) - 设置可以在道路上行走或在道路上的任何点穿越的行人的百分比。值应介于 <code>0.0</code> 和 <code>1.0</code> 之间。例如，值 <code>0.1</code> 表示允许 10% 的行人在道路上行走。 <strong>默认为<code>0.0</code></strong> 。</li>
 </ul>
 </li>
 <li><strong>笔记:</strong> <font color="#8E8E8E"><em>应在行人生成之前设置。
@@ -5041,8 +5049,7 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 <li><code>seed</code> (<em>int</em>) - 设置用于生成与行人相关的任何随机数的种子。</li>
 </ul>
 </li>
-<li><strong>笔记:</strong> <font color="#8E8E8E"><em>应在行人生成之前设置。如果您想为每个行人重复相同的身体（蓝图），请在 Python 代码（随机选择蓝图）和此处使用相同的种子，否则行人将重复相同的路径，但身体会不同。
-</em></font>  </li>
+<li><strong>笔记:</strong> <font color="#8E8E8E"><em>应在行人生成之前设置。如果您想为每个行人重复相同的身体（蓝图），请在 Python 代码（随机选择蓝图）和此处使用相同的种子，否则行人将重复相同的路径，但身体会不同。</em></font>  </li>
 </ul>
 </li>
 <li><a name="carla.World.set_weather"></a><strong><font color="#7fb800">set_weather</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>weather</strong></font>)<br />

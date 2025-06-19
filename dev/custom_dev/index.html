@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>自定义开发 - 人车模拟器</title>
+    <title>自定义开发 - 人车模拟</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -31,7 +31,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href="../.." class="icon icon-home"> 人车模拟器
+          <a href="../.." class="icon icon-home"> 人车模拟
         </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
       <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
@@ -51,7 +51,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
       <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../..">人车模拟器</a>
+          <a href="../..">人车模拟</a>
         
       </nav>
       <div class="wy-nav-content">
@@ -83,6 +83,31 @@
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>apply<span class="w"> </span>--reject<span class="w"> </span>xxx.patch
 </code></pre></div>
 加入这个选项能够将能打上的补丁先打上，冲突的文件生成*.rej文件</p>
+<p>注意：如果强行打补丁后，文件内容修改了，但是git没跟踪到修改记录，则需要启用稀疏检出（允许检出仓库中需要的部分内容）：
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>config<span class="w"> </span>core.sparsecheckout<span class="w"> </span><span class="nb">true</span>
+</code></pre></div></p>
+<h2 id="gitlab">保存到Gitlab</h2>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>xj<span class="w"> </span>http://172.20.46.154:8090/traffic/carla.git
+git<span class="w"> </span>push<span class="w"> </span>xj
+</code></pre></div>
+<p>报错：<code>remote: GitLab: LFS objects are missing. Ensure LFS is properly set up or try a manual "git lfs push --all".</code></p>
+<blockquote>
+<p>原因：GitLab启用了大文件。</p>
+<p>解决：在gitlab项目设置中禁用Git大型文件存储(LFS)。</p>
+<p>设置&gt;通用&gt;可见性、项目特性、权限&gt;展开&gt; Git大型文件存储(LFS)</p>
+</blockquote>
+<p>报错：
+<div class="highlight"><pre><span></span><code>Uploading<span class="w"> </span>LFS<span class="w"> </span>objects:<span class="w">   </span><span class="m">0</span>%<span class="w"> </span><span class="o">(</span><span class="m">0</span>/1<span class="o">)</span>,<span class="w"> </span><span class="m">0</span><span class="w"> </span>B<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">0</span><span class="w"> </span>B/s,<span class="w"> </span><span class="k">done</span>.
+batch<span class="w"> </span>response:<span class="w"> </span>Repository<span class="w"> </span>or<span class="w"> </span>object<span class="w"> </span>not<span class="w"> </span>found:<span class="w"> </span>http://172.20.46.154:8090/traffic/carla.git/info/lfs/objects/batch
+Check<span class="w"> </span>that<span class="w"> </span>it<span class="w"> </span>exists<span class="w"> </span>and<span class="w"> </span>that<span class="w"> </span>you<span class="w"> </span>have<span class="w"> </span>proper<span class="w"> </span>access<span class="w"> </span>to<span class="w"> </span>it
+error:<span class="w"> </span>failed<span class="w"> </span>to<span class="w"> </span>push<span class="w"> </span>some<span class="w"> </span>refs<span class="w"> </span>to<span class="w"> </span><span class="s1">&#39;http://172.20.46.154:8090/traffic/carla.git&#39;</span>
+</code></pre></div></p>
+<blockquote>
+<p>原因：可能其他分支包含大文件</p>
+<p>解决：只推送当前分支
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>push<span class="w"> </span>xj<span class="w"> </span>-u<span class="w"> </span>OpenHUTB
+</code></pre></div></p>
+</blockquote>
 <h2 id="_3">参考</h2>
 <p><a href="https://blog.csdn.net/xiewenhao12/article/details/117923288">git 生成补丁文件及打补丁</a></p>
               
