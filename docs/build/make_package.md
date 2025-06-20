@@ -89,19 +89,115 @@ Running: C:\workspace\UnrealEngine\Engine\Binaries\Win64\UE4Editor-Cmd.exe C:\wo
 
 
 
+## 找错过程
+```shell
+# 工作机
+D:\work\workspace\UnrealEngine\Engine\Binaries\Win64\UE4Editor-Cmd.exe D:\work\workspace\carla\Unreal\CarlaUE4\CarlaUE4.uproject -run=Cook  -TargetPlatform=WindowsNoEditor -fileopenlog -unversioned -abslog=D:\work\workspace\UnrealEngine\Engine\Programs\AutomationTool\Saved\Logs\Cook-2025.05.23-14.23.04.txt -stdout -CrashForUAT -unattended -NoLogTimes
+```
+
+报错信息（ [相同报错](https://forums.unrealengine.com/t/ive-been-trying-to-package-my-project-for-more-than-a-weak-i-am-utterly-frustrated-and-i-dont-know-what-to-do/594421) ：说是.ini 的问题）：
+```shell
+LogWindows: Error: === Critical error: ===
+LogWindows: Error:
+LogWindows: Error: Fatal error!
+LogWindows: Error:
+LogWindows: Error: Unhandled Exception: EXCEPTION_ACCESS_VIOLATION reading address 0x0000000000000038
+LogWindows: Error:
+LogWindows: Error: [Callstack] 0x00007ffaedb266c4 UE4Editor-RenderCore.dll!FShaderMapContent::GetOutdatedTypes() [D:\work\workspace\UnrealEngine\Engine\Source\Runtime\RenderCore\Private\ShaderMap.cpp:581]
+LogWindows: Error: [Callstack] 0x00007ff954f8b28a UE4Editor-Engine.dll!FMaterialShaderMap::GetAllOutdatedTypes() [D:\work\workspace\UnrealEngine\Engine\Source\Runtime\Engine\Private\Materials\MaterialShader.cpp:1043]
+LogWindows: Error: [Callstack] 0x00007ff955413b67 UE4Editor-Engine.dll!GetOutdatedShaderTypes() [D:\work\workspace\UnrealEngine\Engine\Source\Runtime\Engine\Private\ShaderCompiler\ShaderCompiler.cpp:4216]
+LogWindows: Error: [Callstack] 0x00007ff955433d03 UE4Editor-Engine.dll!RecompileShadersForRemote() [D:\work\workspace\UnrealEngine\Engine\Source\Runtime\Engine\Private\ShaderCompiler\ShaderCompiler.cpp:5129]
+LogWindows: Error: [Callstack] 0x00007ff94d841c5d UE4Editor-UnrealEd.dll!UCookOnTheFlyServer::SaveGlobalShaderMapFiles() [D:\work\workspace\UnrealEngine\Engine\Source\Editor\UnrealEd\Private\CookOnTheFlyServer.cpp:5511]
+LogWindows: Error: [Callstack] 0x00007ff94d8459dc UE4Editor-UnrealEd.dll!UCookOnTheFlyServer::StartCookByTheBook() [D:\work\workspace\UnrealEngine\Engine\Source\Editor\UnrealEd\Private\CookOnTheFlyServer.cpp:6865]
+LogWindows: Error: [Callstack] 0x00007ff94d6843b9 UE4Editor-UnrealEd.dll!UCookCommandlet::CookByTheBook() [D:\work\workspace\UnrealEngine\Engine\Source\Editor\UnrealEd\Private\Commandlets\CookCommandlet.cpp:919]
+LogWindows: Error: [Callstack] 0x00007ff94d6ae428 UE4Editor-UnrealEd.dll!UCookCommandlet::Main() [D:\work\workspace\UnrealEngine\Engine\Source\Editor\UnrealEd\Private\Commandlets\CookCommandlet.cpp:624]
+LogWindows: Error: [Callstack] 0x00007ff77ab596da UE4Editor-Cmd.exe!FEngineLoop::PreInitPostStartupScreen() [D:\work\workspace\UnrealEngine\Engine\Source\Runtime\Launch\Private\LaunchEngineLoop.cpp:3369]
+LogWindows: Error: [Callstack] 0x00007ff77ab50e6d UE4Editor-Cmd.exe!GuardedMain() [D:\work\workspace\UnrealEngine\Engine\Source\Runtime\Launch\Private\Launch.cpp:127]
+LogWindows: Error: [Callstack] 0x00007ff77ab511ca UE4Editor-Cmd.exe!GuardedMainWrapper() [D:\work\workspace\UnrealEngine\Engine\Source\Runtime\Launch\Private\Windows\LaunchWindows.cpp:137]
+LogWindows: Error: [Callstack] 0x00007ff77ab64e5d UE4Editor-Cmd.exe!WinMain() [D:\work\workspace\UnrealEngine\Engine\Source\Runtime\Launch\Private\Windows\LaunchWindows.cpp:268]
+LogWindows: Error: [Callstack] 0x00007ff77ab66f02 UE4Editor-Cmd.exe!__scrt_common_main_seh() [D:\a\_work\1\s\src\vctools\crt\vcstartup\src\startup\exe_common.inl:288]
+LogWindows: Error: [Callstack] 0x00007ffb52ed7374 KERNEL32.DLL!UnknownFunction []
+LogWindows: Error: [Callstack] 0x00007ffb54edcc91 ntdll.dll!UnknownFunction []
+LogWindows: Error:
+LogWindows: Error: end: stack for UAT
+```
+
+### [调试配置](https://zhuanlan.zhihu.com/p/534528937)
+
+**1.打开项目的 VS 工程**
+
+打开工程下的 sln 文件（carla/Unreal/CarlaUE4/CarlaUE4.sln）以通过 VS 打开工程。
+
+**2.在需要的地方下断点**
+
+根据报错信息，在`UnrealEngine\Engine\Source\Runtime\RenderCore\Private\ShaderMap.cpp:581`打断点（也可以在任何想要调试的地方下断点）。
+
+**3.选择合适的 VS 配置**
+
+确认选择合适的配置（Development Editor）、平台（Win64）和启动工程（CarlaUE4）等。
+
+**4.打开工程的属性配置界面**
+
+在解决方案视图（Solution Explorer）中的工程名字上右键，点击属性（Properties）。
+
+此时会打开对应工程的属性页面（Property Pages）；
+
+点击配置属性（Configuration Properties） 下的调试（Debugging） 标签；
+
+在命令参数（Command Arguments）中输入对应的 Cook 命令，在原有的命令后添加：
+```shell
+-run=Cook  -TargetPlatform=WindowsNoEditor -fileopenlog -unversioned -abslog=D:\work\workspace\UnrealEngine\Engine\Programs\AutomationTool\Saved\Logs\Cook-2025.05.23-14.23.04.txt -stdout -CrashForUAT -unattended -NoLogTimes
+```
+
+附 Cook 命令格式：
+```shell
+-run=cook -targetplatform=<Plat1>+<Plat2> [-cookonthefly] [-iterate] [-map=<Map1>+<Map2>]
+```
+
+点击确定或应用，属性页面会自动关闭。
+
+**5.开始调试**
+
+点击 Debug - Start Debugging ，或直接按 F5 等，启动调试。
+
+通过对堆栈和属性等或其它操作进行正常的分析调试。
+
+注意!!!
+    需要重新运行 make package，不能在vs中只运行之前的烘焙命令，否则不会显示所做修改的日志。
+
+根据最后一个出错的id，加1后获得烘焙出错的资产
+```shell
+LogMaterial: Display: GetAllOutdatedTypes->AllMaterialShaderMaps Index = 219
+```
+
+```shell
+  LogMaterial: Display:  CacheShadersForResources->BaseMat:ProceduralHairCardsShader,Ins:MI_cardsShader_hairEyebrowsLOD1
+  LogMaterial: Display: FMaterialShaderMap->AllMaterialShaderMaps Num: 220
+```
+
+把不兼容的材质全删除。
+
+材质的报错信息为（ [特性关卡ES3_1不支持光照模型MSM_Hair](https://forums.unrealengine.com/t/node-not-supported-in-feature-level-es2/46847/4) ）：
+```shell
+ShadingModel MSM_Hair not supported in feature level ES3_1
+```
+正在使用 [OpenGL ES (Embedded Systems)](https://zh.wikipedia.org/wiki/OpenGL_ES) 3.1 的特性集（编辑器->项目设置->平台->Windows-> [Support OpenGL ES3.1 勾选](https://blog.csdn.net/Tokyo_2024/article/details/102945710) 了，为Android扩展，在Windows平台上运行可以不需要，取消勾选即可）。
 
 
+### [定义自定义引擎](https://forums.unrealengine.com/t/custom-engine-macro/373200)
+
+将 USE_CUSTOM_ENGINE 定义添加到 Engine/Source/Runtime/Core/Public/Misc/Build.h。
 
 
 
 
 ## 参考
 
+* [基于 VS Debug 的 UE4 打包问题调查方案（成功）](https://zhuanlan.zhihu.com/p/534528937) 
 * 打包脚本 [Package.bat](https://github.com/OpenHUTB/carla/blob/OpenHUTB/Util/BuildTools/Package.bat)
 * [UE4如何调试BuildCookRun](https://blog.csdn.net/sinat_23135151/article/details/140663928)
 * [编辑器内正常运行但打包出错](https://blog.csdn.net/charon8778/article/details/141339988)
 * [调试UAT](https://blog.csdn.net/sinat_23135151/article/details/140663928)
 * [ue4烘焙失败](https://blog.csdn.net/luofeixiongsix/article/details/81014953)
-* [基于 VS Debug 的 UE4 打包问题调查方案](https://zhuanlan.zhihu.com/p/534528937) 
 * [查cook资源失败](https://blog.csdn.net/qq_21919621/article/details/109162074)
 
