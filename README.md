@@ -34,7 +34,6 @@
 <a href="https://openhutb.github.io/doc/tuto_G_pedestrian_navigation/#conclusion"><img src="docs/img/pedestrian/opensim_running.gif" width="25%" margin-right="10%"/></a>  <a href="https://openhutb.github.io/doc/tuto_G_chrono/"><img src="docs/img/chrono/vechile_turnover.gif" width="50%"/></a>
 </p>
 
-
 ---
 
 ## 文档部署
@@ -145,8 +144,6 @@ $$
 常见图的绘制请参考[绘图指南](docs/demo/figure.md) 。
 
 
-
-
 ## 常见问题
 * 编译文档时报错：`ERROR - Config value: ‘plugins‘. Error: The “redirects“ plugin is not installed`
 
@@ -154,7 +151,6 @@ $$
 > ```shell
 > pip install redirects
 > ```
-
 
 
 * 编译文档时报错：`Config value: 'markdown_extensions'. Error: Failed loading extension "mdx_gh_links".`
