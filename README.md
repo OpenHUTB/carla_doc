@@ -78,9 +78,6 @@ python -m pip install . -i http://mirrors.aliyun.com/pypi/simple --trusted-host 
 然后使用新的mkdocs执行步骤1-3。
 
 
-5. 文档页面显示支持 [Latex 公式](https://gist.github.com/josemazo/36af7bb9c58b92c684bbd431f6c68ce9) 、[视频播放](https://pypi.org/project/mkdocs-video/)  。
-
-
 ## 软件发布
 将源代码、文档、软件等进行发布，具体步骤参考 [链接](publish.md) 。
 
@@ -140,8 +137,13 @@ a + b = c
 $$
 ```
 
-### 绘图
+### 多媒体展示
+
 常见图的绘制请参考[绘图指南](docs/demo/figure.md) 。
+
+
+文档页面显示支持 [Latex 公式](https://gist.github.com/josemazo/36af7bb9c58b92c684bbd431f6c68ce9) 、[视频播放](https://pypi.org/project/mkdocs-video/)  。
+
 
 
 ## 常见问题
