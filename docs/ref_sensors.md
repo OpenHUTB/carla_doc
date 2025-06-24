@@ -882,6 +882,8 @@ $$
 | `use_log`            | bool    | true    | 是否以对数强度刻度工作。  |
 | `log_eps`            | float   | 0\.001  | 用于将图像转换为对数的 Epsilon 值： `L = log(eps + I / 255.0)`.<br>  其中 `I` 是 RGB 图像的灰度值： <br>`I = 0.2989*R + 0.5870*G + 0.1140*B`. |
 
+对动态视觉传感器（DVS）模块生成的事件数据进行系统性仿真到真实差距 [评估](https://mp.weixin.qq.com/s/WjRkfObSu6cb2S2sQJbXcg) 。
+
 <br>
 
 ---

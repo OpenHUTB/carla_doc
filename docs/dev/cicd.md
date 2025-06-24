@@ -5,7 +5,7 @@
 
 1.安装 [JDK21](https://java.com/java/technologies/downloads/#jdk21-windows)
 
-2.[安装Jenkins](https://blog.csdn.net/qq_36746815/article/details/127393076)
+2.[安装 Jenkins 2.492.3 ](https://blog.csdn.net/qq_36746815/article/details/127393076)
 
 作为本地服务；端口 8080
 
@@ -69,11 +69,31 @@ aws configure set aws_secret_access_key XXX
 
 默认克隆在`C:\ProgramData\Jenkins\.jenkins\workspace`目录下。
 
+## 高级配置
 
+##### [配置构建失败时发送邮件](https://juejin.cn/post/6844904119707123719)
+
+下载两个插件：Email Extension, Email Extension Template， 这两个插件可以帮助我们进行邮件的编写以及格式化。
+
+在Jenkins的“设置->Account”中设置邮件地址，如“123456@qq.com”
+
+在Jenkins的“Manage Jenkins -> System” 中的 `Extended E-mail Notification`：
+
+问题: `org.eclipse.angus.mail.smtp.SMTPSenderFailedException: 501 Mail from address must be same as authorization user.`
+
+> 需要将`Manage Jenkins —> System` 中的 `系统管理员邮件地址` 要和`邮件通知`中的地址一致（`123456@qq.com`）。
+
+问题：`HTTP ERROR 403 No valid crumb was included in the request`
+
+> 将`Manage Jenkins -> Security`中的`跨站请求伪造保护`中的`启用代理兼容`勾选。
+
+其中的`Test e-mail recipient`为接收方邮箱地址（QQ邮箱为发送方）。
 
 
 ## 参考
 
 * [社区的持续集成地址](http://158.109.8.172:8080)
+* [Jenkins之Email配置与任务邮件发送实践与踩坑](https://juejin.cn/post/6844904119707123719)
+* [QQ邮箱：什么是授权码，它又是如何设置？]()
 
 

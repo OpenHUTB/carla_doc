@@ -57,7 +57,19 @@ error: failed to push some refs to 'http://172.20.46.154:8090/traffic/carla.git'
 > 解决：只推送当前分支
 > ```shell
 > git push xj -u OpenHUTB
+> # 推送到github
+> git push origin OpenHUTB:OpenHUTB
 > ```
+
+## 其他
+
+##### 使用旧仓库存放新的提交记录
+> 1.删除所有文件
+> 
+> 2.复制新的仓库文件到旧仓库（包括.git文件夹）
+> 
+> 3.修改.git/config文件，指向旧仓库的地址
+
 
 ## 参考
 
