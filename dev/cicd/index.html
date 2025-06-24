@@ -71,7 +71,7 @@
                 <h1 id="_1">持续集成</h1>
 <h2 id="jenkins"><a href="https://sdpro.top/blog/html/article/1051.html">Jenkins安装</a></h2>
 <p>1.安装 <a href="https://java.com/java/technologies/downloads/#jdk21-windows">JDK21</a></p>
-<p>2.<a href="https://blog.csdn.net/qq_36746815/article/details/127393076">安装Jenkins</a></p>
+<p>2.<a href="https://blog.csdn.net/qq_36746815/article/details/127393076">安装 Jenkins 2.492.3 </a></p>
 <p>作为本地服务；端口 8080</p>
 <p>3.打开 <a href="http://172.21.108.56:8080">http://172.21.108.56:8080</a></p>
 <p>b00acffa035946e18bb20924c6f77181</p>
@@ -111,9 +111,25 @@ aws<span class="w"> </span>configure<span class="w"> </span><span class="nb">set
 仓库配置为<code>C:\ProgramData\Jenkins\.jenkins\workspace</code>，并制定分支。</p>
 <p>2.开始构建</p>
 <p>默认克隆在<code>C:\ProgramData\Jenkins\.jenkins\workspace</code>目录下。</p>
-<h2 id="_2">参考</h2>
+<h2 id="_2">高级配置</h2>
+<h5 id="_3"><a href="https://juejin.cn/post/6844904119707123719">配置构建失败时发送邮件</a></h5>
+<p>下载两个插件：Email Extension, Email Extension Template， 这两个插件可以帮助我们进行邮件的编写以及格式化。</p>
+<p>在Jenkins的“设置-&gt;Account”中设置邮件地址，如“123456@qq.com”</p>
+<p>在Jenkins的“Manage Jenkins -&gt; System” 中的 <code>Extended E-mail Notification</code>：</p>
+<p>问题: <code>org.eclipse.angus.mail.smtp.SMTPSenderFailedException: 501 Mail from address must be same as authorization user.</code></p>
+<blockquote>
+<p>需要将<code>Manage Jenkins —&gt; System</code> 中的 <code>系统管理员邮件地址</code> 要和<code>邮件通知</code>中的地址一致（<code>123456@qq.com</code>）。</p>
+</blockquote>
+<p>问题：<code>HTTP ERROR 403 No valid crumb was included in the request</code></p>
+<blockquote>
+<p>将<code>Manage Jenkins -&gt; Security</code>中的<code>跨站请求伪造保护</code>中的<code>启用代理兼容</code>勾选。</p>
+</blockquote>
+<p>其中的<code>Test e-mail recipient</code>为接收方邮箱地址（QQ邮箱为发送方）。</p>
+<h2 id="_4">参考</h2>
 <ul>
 <li><a href="http://158.109.8.172:8080">社区的持续集成地址</a></li>
+<li><a href="https://juejin.cn/post/6844904119707123719">Jenkins之Email配置与任务邮件发送实践与踩坑</a></li>
+<li><a href="">QQ邮箱：什么是授权码，它又是如何设置？</a></li>
 </ul>
               
             </div>
