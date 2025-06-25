@@ -190,22 +190,30 @@ ShadingModel MSM_Hair not supported in feature level ES3_1
 
 2.下面就材质cook出错，增加一些日志，方便查找问题做简单记录
 
-3.材质cook的一个阶段，是收集MaterialShaderMap,如果在这个阶段收集的信息出错，将会在FShaderMapContent::GetOutdatedTypes函数中，因为Shaders指针指向的内存有问题而出错，通过断点发现，FShaderMapContent这个类对象指针为null，而这个类对象的来源于AllMaterialShaderMaps中，但是通过纯断点调试，发现FMaterialShaderMap::GetAllOutdatedTypes这个函数是多线程运行，所以查看变量的值可能会错乱，所以通过增加日志的方式，永久性解决这一问题
+3.材质cook的一个阶段，是收集MaterialShaderMap,如果在这个阶段收集的信息出错，将会在FShaderMapContent::GetOutdatedTypes函数中，因为Shaders指针指向的内存有问题而出错，通过断点发现，FShaderMapContent这个类对象指针为null，而这个类对象的来源于AllMaterialShaderMaps中，但是通过纯断点调试，发现FMaterialShaderMap::GetAllOutdatedTypes这个函数是多线程运行，所以查看变量的值可能会错乱，所以通过 [增加日志](https://github.com/OpenHUTB/UnrealEngine/blob/08349c14cdd78e358bb92dcef63f20f5fd0c2cf4/Engine/Source/Runtime/Engine/Private/Materials/MaterialInstance.cpp#L2900) 的方式，永久性解决这一问题
+
 4.首先在UMaterialInstance::CacheShadersForResources函数中，添加材质实例母材质名字日志
 
 ![](../img/dev/CacheShadersForResources.png)
 
-5.然后在AllMaterialShaderMaps.Add处，打印AllMaterialShaderMaps的个数，可以通过这个个数判断打印的母材质实例名字这条信息对应的AllMaterialShaderMaps中的索引值
+5.然后在AllMaterialShaderMaps.Add处，[打印AllMaterialShaderMaps的个数](https://github.com/OpenHUTB/UnrealEngine/blob/08349c14cdd78e358bb92dcef63f20f5fd0c2cf4/Engine/Source/Runtime/Engine/Private/Materials/MaterialShader.cpp#L2357) ，可以通过这个个数判断打印的母材质实例名字这条信息对应的AllMaterialShaderMaps中的索引值
 
 ![](../img/dev/AllMaterialShaderMaps.png)
 
-6.最后修改FMaterialShaderMap::GetAllOutdatedTypes中的实现，并打印当前执行的AllMaterialShaderMaps的索引值，当在该函数出错时，将会打印出出错的索引
+6.最后修改FMaterialShaderMap::GetAllOutdatedTypes中的实现，并 [打印当前执行的AllMaterialShaderMaps的索引值](https://github.com/OpenHUTB/UnrealEngine/blob/08349c14cdd78e358bb92dcef63f20f5fd0c2cf4/Engine/Source/Runtime/Engine/Private/Materials/MaterialShader.cpp#L1048) ，当在该函数出错时，将会打印出出错的索引
 
 ![](../img/dev/GetAllOutdatedTypes.png)
 
 7.如何判断：通过出错的索引 + 1，在日志中去找【FMaterialShaderMap->AllMaterialShaderMaps Num：】这条日志;通过该信息，寻找附近【CacheShadersForResources->BaseMat】日志，该日志会定位出错的母材质和材质实例
 
 ![](../img/dev/locate_error.png)
+```shell
+LogMaterial: Warning: [AssetLog] C:\workspace\carla\Unreal\CarlaUE4\Content\Carla\Static\GenericMaterials\Pedestrian_Shaders\Hair_\MI_DHair_MASTER_Inst_v8afro.uasset: Failed to compile Material Instance with Base M_DHair_MASTER for platform PCD3D_ES31, Default Material will be used in game.
+LogMaterial: Display:         ShadingModel MSM_Hair not supported in feature level ES3_1
+
+[2025.06.20-07.22.28:311][  0]LogMaterial: Display: FMaterialShaderMap->AllMaterialShaderMaps Num: 102
+[2025.06.20-07.22.28:319][  0]LogMaterial: Display: Missing cached shader map for material M_CarDetails_Master_Tagged4, compiling. 
+```
 
 !!! 注意
     以上日志的对应关系，是通过断点查变量值，对比变量地址得来的
