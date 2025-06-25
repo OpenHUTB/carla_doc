@@ -184,6 +184,33 @@ ShadingModel MSM_Hair not supported in feature level ES3_1
 正在使用 [OpenGL ES (Embedded Systems)](https://zh.wikipedia.org/wiki/OpenGL_ES) 3.1 的特性集（编辑器->项目设置->平台->Windows-> [Support OpenGL ES3.1 勾选](https://blog.csdn.net/Tokyo_2024/article/details/102945710) 了，为Android扩展，在Windows平台上运行可以不需要，取消勾选即可）。
 
 
+## 增加烘焙提示信息
+
+1.当项目打包时，cook出错，但是从原始引擎提供的信息中，没有提示具体的那个资源出错，要查到出错资源，还是非常麻烦。
+
+2.下面就材质cook出错，增加一些日志，方便查找问题做简单记录
+
+3.材质cook的一个阶段，是收集MaterialShaderMap,如果在这个阶段收集的信息出错，将会在FShaderMapContent::GetOutdatedTypes函数中，因为Shaders指针指向的内存有问题而出错，通过断点发现，FShaderMapContent这个类对象指针为null，而这个类对象的来源于AllMaterialShaderMaps中，但是通过纯断点调试，发现FMaterialShaderMap::GetAllOutdatedTypes这个函数是多线程运行，所以查看变量的值可能会错乱，所以通过增加日志的方式，永久性解决这一问题
+4.首先在UMaterialInstance::CacheShadersForResources函数中，添加材质实例母材质名字日志
+
+![](../img/dev/CacheShadersForResources.png)
+
+5.然后在AllMaterialShaderMaps.Add处，打印AllMaterialShaderMaps的个数，可以通过这个个数判断打印的母材质实例名字这条信息对应的AllMaterialShaderMaps中的索引值
+
+![](../img/dev/AllMaterialShaderMaps.png)
+
+6.最后修改FMaterialShaderMap::GetAllOutdatedTypes中的实现，并打印当前执行的AllMaterialShaderMaps的索引值，当在该函数出错时，将会打印出出错的索引
+
+![](../img/dev/GetAllOutdatedTypes.png)
+
+7.如何判断：通过出错的索引 + 1，在日志中去找【FMaterialShaderMap->AllMaterialShaderMaps Num：】这条日志;通过该信息，寻找附近【CacheShadersForResources->BaseMat】日志，该日志会定位出错的母材质和材质实例
+
+![](../img/dev/locate_error.png)
+
+!!! 注意
+    以上日志的对应关系，是通过断点查变量值，对比变量地址得来的
+
+
 ### [定义自定义引擎](https://forums.unrealengine.com/t/custom-engine-macro/373200)
 
 将 USE_CUSTOM_ENGINE 定义添加到 Engine/Source/Runtime/Core/Public/Misc/Build.h。
@@ -191,13 +218,16 @@ ShadingModel MSM_Hair not supported in feature level ES3_1
 
 
 
+
+
 ## 参考
 
+* [查cook资源失败](https://blog.csdn.net/qq_21919621/article/details/109162074)
 * [基于 VS Debug 的 UE4 打包问题调查方案（成功）](https://zhuanlan.zhihu.com/p/534528937) 
 * 打包脚本 [Package.bat](https://github.com/OpenHUTB/carla/blob/OpenHUTB/Util/BuildTools/Package.bat)
 * [UE4如何调试BuildCookRun](https://blog.csdn.net/sinat_23135151/article/details/140663928)
 * [编辑器内正常运行但打包出错](https://blog.csdn.net/charon8778/article/details/141339988)
 * [调试UAT](https://blog.csdn.net/sinat_23135151/article/details/140663928)
 * [ue4烘焙失败](https://blog.csdn.net/luofeixiongsix/article/details/81014953)
-* [查cook资源失败](https://blog.csdn.net/qq_21919621/article/details/109162074)
+
 
