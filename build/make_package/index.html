@@ -238,17 +238,33 @@ LogWindows:<span class="w"> </span>Error:<span class="w"> </span>end:<span class
 <div class="highlight"><pre><span></span><code>ShadingModel<span class="w"> </span>MSM_Hair<span class="w"> </span>not<span class="w"> </span>supported<span class="w"> </span><span class="k">in</span><span class="w"> </span>feature<span class="w"> </span>level<span class="w"> </span>ES3_1
 </code></pre></div>
 正在使用 <a href="https://zh.wikipedia.org/wiki/OpenGL_ES">OpenGL ES (Embedded Systems)</a> 3.1 的特性集（编辑器-&gt;项目设置-&gt;平台-&gt;Windows-&gt; <a href="https://blog.csdn.net/Tokyo_2024/article/details/102945710">Support OpenGL ES3.1 勾选</a> 了，为Android扩展，在Windows平台上运行可以不需要，取消勾选即可）。</p>
-<h3 id="_6"><a href="https://forums.unrealengine.com/t/custom-engine-macro/373200">定义自定义引擎</a></h3>
+<h2 id="_6">增加烘焙提示信息</h2>
+<p>1.当项目打包时，cook出错，但是从原始引擎提供的信息中，没有提示具体的那个资源出错，要查到出错资源，还是非常麻烦。</p>
+<p>2.下面就材质cook出错，增加一些日志，方便查找问题做简单记录</p>
+<p>3.材质cook的一个阶段，是收集MaterialShaderMap,如果在这个阶段收集的信息出错，将会在FShaderMapContent::GetOutdatedTypes函数中，因为Shaders指针指向的内存有问题而出错，通过断点发现，FShaderMapContent这个类对象指针为null，而这个类对象的来源于AllMaterialShaderMaps中，但是通过纯断点调试，发现FMaterialShaderMap::GetAllOutdatedTypes这个函数是多线程运行，所以查看变量的值可能会错乱，所以通过增加日志的方式，永久性解决这一问题
+4.首先在UMaterialInstance::CacheShadersForResources函数中，添加材质实例母材质名字日志</p>
+<p><img alt="" src="../../img/dev/CacheShadersForResources.png" /></p>
+<p>5.然后在AllMaterialShaderMaps.Add处，打印AllMaterialShaderMaps的个数，可以通过这个个数判断打印的母材质实例名字这条信息对应的AllMaterialShaderMaps中的索引值</p>
+<p><img alt="" src="../../img/dev/AllMaterialShaderMaps.png" /></p>
+<p>6.最后修改FMaterialShaderMap::GetAllOutdatedTypes中的实现，并打印当前执行的AllMaterialShaderMaps的索引值，当在该函数出错时，将会打印出出错的索引</p>
+<p><img alt="" src="../../img/dev/GetAllOutdatedTypes.png" /></p>
+<p>7.如何判断：通过出错的索引 + 1，在日志中去找【FMaterialShaderMap-&gt;AllMaterialShaderMaps Num：】这条日志;通过该信息，寻找附近【CacheShadersForResources-&gt;BaseMat】日志，该日志会定位出错的母材质和材质实例</p>
+<p><img alt="" src="../../img/dev/locate_error.png" /></p>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>以上日志的对应关系，是通过断点查变量值，对比变量地址得来的</p>
+</div>
+<h3 id="_7"><a href="https://forums.unrealengine.com/t/custom-engine-macro/373200">定义自定义引擎</a></h3>
 <p>将 USE_CUSTOM_ENGINE 定义添加到 Engine/Source/Runtime/Core/Public/Misc/Build.h。</p>
-<h2 id="_7">参考</h2>
+<h2 id="_8">参考</h2>
 <ul>
+<li><a href="https://blog.csdn.net/qq_21919621/article/details/109162074">查cook资源失败</a></li>
 <li><a href="https://zhuanlan.zhihu.com/p/534528937">基于 VS Debug 的 UE4 打包问题调查方案（成功）</a> </li>
 <li>打包脚本 <a href="https://github.com/OpenHUTB/carla/blob/OpenHUTB/Util/BuildTools/Package.bat">Package.bat</a></li>
 <li><a href="https://blog.csdn.net/sinat_23135151/article/details/140663928">UE4如何调试BuildCookRun</a></li>
 <li><a href="https://blog.csdn.net/charon8778/article/details/141339988">编辑器内正常运行但打包出错</a></li>
 <li><a href="https://blog.csdn.net/sinat_23135151/article/details/140663928">调试UAT</a></li>
 <li><a href="https://blog.csdn.net/luofeixiongsix/article/details/81014953">ue4烘焙失败</a></li>
-<li><a href="https://blog.csdn.net/qq_21919621/article/details/109162074">查cook资源失败</a></li>
 </ul>
               
             </div>
