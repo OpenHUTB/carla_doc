@@ -89,6 +89,8 @@ Http Proxy Configuration：
 <span class="c1"># 端口</span>
 <span class="m">7890</span>
 </code></pre></div></p>
+<h2 id="_2">亚马逊云配置</h2>
+<p>进入 <a href="https://signin.aws.amazon.com/">登录页面</a> ，使用<code>Sign in using root user email</code>，然后依次输入邮箱和密码。</p>
 <p>安装 <a href="https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html">亚马逊云的命令行工具</a> ，
 <a href="https://us-east-1.console.aws.amazon.com/iam/home?region=ap-southeast-2#/security_credentials">创建访问密钥</a> ：
 <div class="highlight"><pre><span></span><code><span class="c1"># 配置ID和访问密钥</span>
@@ -111,8 +113,8 @@ aws<span class="w"> </span>configure<span class="w"> </span><span class="nb">set
 仓库配置为<code>C:\ProgramData\Jenkins\.jenkins\workspace</code>，并制定分支。</p>
 <p>2.开始构建</p>
 <p>默认克隆在<code>C:\ProgramData\Jenkins\.jenkins\workspace</code>目录下。</p>
-<h2 id="_2">高级配置</h2>
-<h5 id="_3"><a href="https://juejin.cn/post/6844904119707123719">配置构建失败时发送邮件</a></h5>
+<h2 id="_3">高级配置</h2>
+<h5 id="_4"><a href="https://juejin.cn/post/6844904119707123719">配置构建失败时发送邮件</a></h5>
 <p>下载两个插件：Email Extension, Email Extension Template， 这两个插件可以帮助我们进行邮件的编写以及格式化。</p>
 <p>在Jenkins的“设置-&gt;Account”中设置邮件地址，如“123456@qq.com”</p>
 <p>在Jenkins的“Manage Jenkins -&gt; System” 中的 <code>Extended E-mail Notification</code>：</p>
@@ -125,7 +127,7 @@ aws<span class="w"> </span>configure<span class="w"> </span><span class="nb">set
 <p>将<code>Manage Jenkins -&gt; Security</code>中的<code>跨站请求伪造保护</code>中的<code>启用代理兼容</code>勾选。</p>
 </blockquote>
 <p>其中的<code>Test e-mail recipient</code>为接收方邮箱地址（QQ邮箱为发送方）。</p>
-<h2 id="_4">参考</h2>
+<h2 id="_5">参考</h2>
 <ul>
 <li><a href="http://158.109.8.172:8080">社区的持续集成地址</a></li>
 <li><a href="https://juejin.cn/post/6844904119707123719">Jenkins之Email配置与任务邮件发送实践与踩坑</a></li>
