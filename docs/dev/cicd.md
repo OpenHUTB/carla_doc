@@ -35,6 +35,9 @@ Http Proxy Configuration：
 7890
 ```
 
+## 亚马逊云配置
+进入 [登录页面](https://signin.aws.amazon.com/) ，使用`Sign in using root user email`，然后依次输入邮箱和密码。
+
 安装 [亚马逊云的命令行工具](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) ，
 [创建访问密钥](https://us-east-1.console.aws.amazon.com/iam/home?region=ap-southeast-2#/security_credentials) ：
 ```shell

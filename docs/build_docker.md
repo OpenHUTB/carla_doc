@@ -128,3 +128,16 @@ __3. （可选）配置 Docker 标志。__
 Carla 论坛</a>
 </p>
 </div>
+
+
+---
+
+## 开发容器(Devcontainer): 基于镜像的Ubuntu 22.04
+
+_这些说明已在 **Ubuntu 24.04** 中测试过。_
+
+以下文档旨在解释如何构建使用 **Ubuntu 22.04** 编译 Carla 的 Docker 镜像。 
+
+- [CARLA Docker 开发环境 (Ubuntu 22.04)](build/build_docker_ubuntu22.md)
+
+---
