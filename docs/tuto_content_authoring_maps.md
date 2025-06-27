@@ -421,9 +421,9 @@ Carla 内容库拥有一套全面的植被蓝图，供您为地图的越野区�
 ![foliage_paint](img/tuto_content_authoring_maps/foliage_paint.gif)
 
 
-## Exporting a map
+## 导出地图
 
-### Exporting a map as a separate package
+### 将地图导出为单独的包
 
 ```json
 {
@@ -438,24 +438,24 @@ Carla 内容库拥有一套全面的植被蓝图，供您为地图的越野区�
 }
 ```
 
-It is important to remember this file's name (`mapToPackage.Package.json` in this example), as it will be used as the argument for the make package command. The command would look like this:
+记住这个文件的名称（本例中为`mapToPackage.Package.json`）很重要，因为它将用作 `make package` 命令的参数。该命令如下所示：
 ```sh
 make package ARGS="--packages=mapToPackage"
 ```
-This command will create a package based on the information defined in the `mapToPackage.Package.json` file, including only the content specified within it.
+此命令将根据 `mapToPackage.Package.json` 文件中定义的信息创建一个包，其中仅包含指定的内容。
 
-The files will be saved in `Dist` folder on Linux, and `/Build/UE4Carla/` on Windows.
+这些文件将保存在 Linux 上的 `Dist` 文件夹中，以及 Windows 上的 `Build/UE4Carla/` 文件夹中。
 
 
-### Exporting a map as part of a complete CARLA package
+### 将地图导出为完整 CARLA 包的一部分
 
-To export the map as part of a complete CARLA package, such that the map is available on launch of the package, include the following line in the `DefaultGame.ini` file in `CARLA_ROOT/Unreal/CarlaUE4/Config/`:
+要将地图作为完整 CARLA 包的一部分导出，以便在启动包时可以使用该地图，请在 `CARLA_ROOT/Unreal/CarlaUE4/Config/` 中的 `DefaultGame.ini` 文件中包含以下行：
 
 ```
 +MapsToCook=(FilePath="/Game/Carla/Maps/MyMap")
 ```
 
-This line should be added in the `[/Script/UnrealEd.ProjectPackagingSettings]` section, preferably next to the other `MapsToCook(...)` entries. Then run `make package` command to build a package containing your map. The exported CARLA package with your map will be saved in the `Dist` folder on Linux and the `/Build/UE4Carla/` folder on Windows.
+这行代码应添加到 `[/Script/UnrealEd.ProjectPackagingSettings]` 部分，最好位于其他 `MapsToCook(...)` 条目旁边。然后运行 `make package` 命令构建包含地图的包。导出的包含地图的 CARLA 包将保存在 Linux 系统的 `Dist` 文件夹中，以及 Windows 系统的 `Build/UE4Carla/` 文件夹中。
 
 ---
 
