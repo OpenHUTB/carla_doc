@@ -8,11 +8,11 @@
 
 2. **将标记粘贴到 ContentVersions.txt 中。**<br>
    通过将标记粘贴到文件末尾来
-编辑 [Edit ContentVersions.txt][cvlink] ，
+编辑 [ContentVersions.txt][cvlink] ，
    例如 `Latest: 20190617_086f97f` (不包括 `.tar.gz` 部分）。或者下载 [百度网盘链接](https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb) 中的 `software/carla/dep/Content.zip`
 
 3. **打开拉取请求。**<br>
-   提交更改并打开新的拉取请求。
+   提交更改并打开新的拉取请求(Pull Request)。
 
 
 !!! 注意
