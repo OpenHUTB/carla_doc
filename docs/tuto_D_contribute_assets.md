@@ -14,6 +14,11 @@
 3. **打开拉取请求。**<br>
    提交更改并打开新的拉取请求。
 
+
+!!! 注意：
+   如果在安装 Git LFS 前执行了 clone，则拉取下来的仓库中并不包含大文件本体，取而代之的是指向其 LFS 存储对象的文件指针，此种情况下，可通过在本地仓库中执行`git lfs pull`命令来拉取文件指针所指向的完整对象。
+
+
 [contentrepolink]: https://bitbucket.org/carla-simulator/carla-content
 [carlarepolink]: https://github.com/carla-simulator/carla
 [jenkinslink]: http://35.181.165.160:8080/blue/organizations/jenkins/carla-content/activity
