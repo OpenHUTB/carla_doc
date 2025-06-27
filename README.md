@@ -40,6 +40,9 @@
 
 1. 安装 python 3.11，使用`pip`安装`mkdocs`
 ```shell
+# 只克隆主分支
+git clone -b master --single-branch https://github.com/OpenHUTB/doc
+# 安装依赖
 pip install mkdocs -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
 pip install pymdown-extensions  # pymdownx
 pip install -r requirements.txt
@@ -48,12 +51,14 @@ pip install -r requirements.txt
 
 2. 在命令行中进入`doc`目录下，运行：
 ```shell
+# 构建文档（根据Markdown文件生成HTML文件）
 mkdocs build
+# 启动服务
 mkdocs serve
 ```
 然后使用浏览器打开 [http://127.0.0.1:8000](http://127.0.0.1:8000)，查看文档页面能否正常显示。
 
-3. 部署到`github`（可选）：
+3. 部署到`github`（可选，需要仓库的写入权限）：
 ```shell
 mkdocs gh-deploy
 ```

@@ -61,6 +61,18 @@ error: failed to push some refs to 'http://172.20.46.154:8090/traffic/carla.git'
 > git push origin OpenHUTB:OpenHUTB
 > ```
 
+## 同步bitbucket资产
+
+1.打开对应修改的资产
+
+2.打开页面右边`...`中的`Open in Source`
+
+3.在新页面中的`...`中打开`Open raw`
+
+4.下载并覆盖本地的文件
+
+
+
 ## 其他
 
 ##### 使用旧仓库存放新的提交记录
