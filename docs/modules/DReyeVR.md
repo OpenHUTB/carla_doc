@@ -1,5 +1,6 @@
 # 虚拟现实
 
+
 ## 1. 模块化架构与扩展性
 * 工厂模式（DReyeVRFactory）
 
@@ -85,6 +86,7 @@
 
     在编辑器中绘制调试信息（如视线射线、碰撞点），通过DrawDebugLine和DrawDebugSphere辅助开发。
 
+
 ## 6. 性能优化与稳定性
 * 异步线程处理
 
@@ -97,6 +99,7 @@
     GenerateSquareImage(ReticleSrc, ReticleSize, FColor::Red);
     ```
 
+
 ## 7. 与Carla模拟器的深度集成
 * Actor生命周期管理
 
@@ -105,6 +108,7 @@
 * 重播系统（CarlaReplayer）
 
     支持录制和回放驾驶数据，通过ReplayTick同步车辆状态与传感器输入。
+
 
 ## 总结
 DReyeVR模块通过模块化设计、配置驱动和插件集成，构建了一个高度可定制的虚拟驾驶环境。其核心优势在于：
