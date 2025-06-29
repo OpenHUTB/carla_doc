@@ -126,8 +126,8 @@ std::string MapLayerToString(MapLayer MapLayerValue) {
   }
 }
 
-} // namespace rpc
-} // namespace carla
+}
+}
 ```
 
 - **头文件**：`#include "MapLayer.h"` 引入 `MapLayer` 枚举定义。
